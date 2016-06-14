@@ -225,7 +225,6 @@ Referencia de la notación:
 @cindex override (sobreescritura), sintaxis de
 
 @funindex \override
-@funindex override
 
 Ya hemos visto las instrucciones @code{\set} y @code{\with}, que
 se usan para cambiar las propiedades de los @strong{contextos} y
@@ -305,7 +304,6 @@ ejemplo sencillo para cambiar el color de una cabeza:
 @cindex revert, instrucción
 
 @funindex \revert
-@funindex revert
 
 Una vez sobreescrita, la propiedad retiene su nuevo valor hasta
 que se sobreescribe de nuevo o se encuentra una instrucción
@@ -345,7 +343,6 @@ las dos últimas notas:
 @translationof The once prefix
 
 @funindex \once
-@funindex once
 
 @code{\override}, @code{\revert}, @code{\set} y @code{\unset} se
 pueden hacer preceder por @code{\once}.  Esto hace que la
@@ -395,7 +392,6 @@ momento musical:
 @cindex overrideProperty, instrucción
 
 @funindex \overrideProperty
-@funindex overrideProperty
 
 Hay otra forma para la instrucción de sobreescritura,
 @code{\overrideProperty}, que ocasionalmente es necesaria.  La
@@ -411,7 +407,6 @@ más detalles consulte @rextend{Trucos difíciles}.
 @cindex tweak, instrucción
 
 @funindex \tweak
-@funindex tweak
 
 La última instrucción de trucaje que está disponible es
 @code{\tweak}.  Se debe utilizar cuando varios objetos tienen
@@ -853,7 +848,6 @@ omitirlo en este lugar concreto.
 @cindex once override
 
 @funindex \once
-@funindex once
 
 Como puede ver, @emph{todas} las ligaduras son más gruesas en el
 último ejemplo.  Pero ¿y si quisiéramos que solamente la primera
@@ -901,7 +895,6 @@ de la instrucción @code{\set}.
 @cindex predeterminadas, recuperar las propiedades
 
 @funindex \revert
-@funindex revert
 
 Finalmente ¿y si quisiéramos que solamente las dos primeras
 ligaduras fuesen más gruesas?  En fin; podríamos usar dos
@@ -2388,9 +2381,7 @@ algunos de ellos.
 @cindex octava alta y baja, corchete de
 
 @funindex \startTextSpan
-@funindex startTextSpan
 @funindex \stopTextSpan
-@funindex stopTextSpan
 
 @cindex TextSpanner, ejemplo de sobreescritura
 @cindex bound-details, propiedad, ejemplo
@@ -2548,9 +2539,7 @@ instrucción @code{textLengthOn}.
 @cindex notas, espaciar junto al texto
 
 @funindex \textLengthOn
-@funindex textLengthOn
 @funindex \textLengthOff
-@funindex textLengthOff
 
 De forma predeterminada, el texto producido mediante marcado no
 ocupa ningún espacio horizontal en cuanto se refiere a la
@@ -3103,13 +3092,9 @@ voces.
 @cindex colisiones de notas
 @cindex desplazamiento, instrucciones de
 @funindex \shiftOff
-@funindex shiftOff
 @funindex \shiftOn
-@funindex shiftOn
 @funindex \shiftOnn
-@funindex shiftOnn
 @funindex \shiftOnnn
-@funindex shiftOnnn
 
 Dentro de una voz, todas las notas que se producen en el mismo
 moemtno se agrupan en una columna de notas, y se crea un objeto

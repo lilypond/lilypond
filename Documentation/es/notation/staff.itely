@@ -61,7 +61,6 @@ pentagramas y grupos de ellos.
 @cindex tablatura, pauta de
 
 @funindex \drummode
-@funindex drummode
 @funindex DrumStaff
 @funindex RhythmicStaff
 @funindex TabStaff
@@ -424,9 +423,7 @@ terminar los pentagramas, y establecer secciones de ossia.
 @cindex líneas adicionales
 
 @funindex \startStaff
-@funindex startStaff
 @funindex \stopStaff
-@funindex stopStaff
 
 Se pueden usar las instrucciones @code{\stopStaff} y
 @code{\startStaff} para detener y (re)iniciar, respectivamente, la
@@ -609,9 +606,7 @@ Referencia de funcionamiento interno:
 @cindex escalado de pentagramas
 
 @funindex \startStaff
-@funindex startStaff
 @funindex \stopStaff
-@funindex stopStaff
 
 Los pentagramas @notation{Ossia} se pueden preparar mediante la
 creación de un pentagrama simultáneo nuevo en la posición
@@ -769,7 +764,6 @@ Referencia de funcionamiento interno:
 @funindex \RemoveAllEmptyStaves
 @funindex Staff_symbol_engraver
 @funindex \stopStaff
-@funindex stopStaff
 
 Se pueden ocultar las líneas del pentagrama quitando el grabador
 @code{Staff_symbol_engraver} del contexto de @code{Staff}.  Como
@@ -1067,11 +1061,8 @@ Referencia de funcionamiento interno:
 @cindex notas guía
 
 @funindex \addQuote
-@funindex addQuote
 @funindex \quoteDuring
-@funindex quoteDuring
 @funindex \transposition
-@funindex transposition
 
 Es muy frecuente que una voz use las mismas notas que otra voz.
 Por ejemplo, los violines primero y segundo tocando la misma frase
@@ -1275,13 +1266,9 @@ otros puede dar como resultado una notación de pobre calidad.
 
 
 @funindex \cueDuring
-@funindex cueDuring
 @funindex \cueClef
-@funindex cueClef
 @funindex \cueDuringWithClef
-@funindex cueDuringWithClef
 @funindex \quoteDuring
-@funindex quoteDuring
 
 @cindex notas pequeñas
 @cindex pequeñas, notas
@@ -1474,7 +1461,6 @@ bassoonNotes = \relative c {
 @end lilypond
 
 @funindex \transposedCueDuring
-@funindex transposedCueDuring
 
 Como @code{\quoteDuring}, @code{\cueDuring} tiene en cuenta las
 transposiciones instrumentales.  Las notas guía se producen en las
@@ -1517,7 +1503,6 @@ bassClarinetNotes = \relative c' {
 @cindex cue notes, removing
 
 @funindex \killCues
-@funindex killCues
 
 La instrucción @code{\killCues} elimina las notas guía de una
 expresión musical, de forma que la misma expresión musical pueda

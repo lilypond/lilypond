@@ -105,9 +105,7 @@ textuelles et articulations, reportez-vous au chapitre
 @rlearning{Positionnement des objets}.
 
 @funindex \textLengthOn
-@funindex textLengthOn
 @funindex \textLengthOff
-@funindex textLengthOff
 
 @predefined
 @code{\textLengthOn},
@@ -191,11 +189,8 @@ Les détails concernant la syntaxe à utiliser sont expliqués au chapitre
 @ref{Styles de ligne}.
 
 @funindex \textSpannerUp
-@funindex textSpannerUp
 @funindex \textSpannerDown
-@funindex textSpannerDown
 @funindex \textSpannerNeutral
-@funindex textSpannerNeutral
 
 @predefined
 @code{\textSpannerUp},
@@ -238,9 +233,7 @@ LilyPond ne peut traiter qu'un seul extenseur à la fois par voix.
 @cindex barres de mesure, symboles au dessus de
 
 @funindex \mark
-@funindex mark
 @funindex \markup
-@funindex markup
 
 La commande @code{\mark} est tout d'abord conçue pour les
 @ref{Indications de repère}.
@@ -308,9 +301,7 @@ de la ligne suivante.
 @end lilypond
 
 @funindex \markLengthOn
-@funindex markLengthOn
 @funindex \markLengthOff
-@funindex markLengthOff
 
 @predefined
 @code{\markLengthOn},
@@ -352,7 +343,6 @@ Référence des propriétés internes :
 @cindex indépendant, texte
 
 @funindex \markup
-@funindex markup
 
 Un bloc @code{\markup} peut exister en lui-même, indépendamment de tout
 bloc @code{\score}, et venir en préambule par exemple -- voir le
@@ -388,9 +378,7 @@ fonctionnalité, ainsi que la syntaxe appropriée, est abordée plus en
 détail au chapitre @ref{Texte avec sauts de page}.
 
 @funindex \markup
-@funindex markup
 @funindex \markuplist
-@funindex markuplist
 
 @predefined
 @code{\markup},
@@ -443,7 +431,6 @@ forme du texte à l'aide de la syntaxe propre au mode @code{\markup}.
 @cindex annotation
 
 @funindex \markup
-@funindex markup
 
 La commande @code{\markup} permet d'ajouter du texte et dispose de sa
 propre syntaxe que nous appellerons le @qq{mode @emph{markup}}.
@@ -563,11 +550,8 @@ Les erreurs de syntaxe en mode @emph{markup} sont peu explicites.
 @cindex souligné
 
 @funindex \italic
-@funindex italic
 @funindex \bold
-@funindex bold
 @funindex \underline
-@funindex underline
 
 Le mode @emph{markup} autorise des changements élémentaires de la
 fonte :
@@ -589,13 +573,9 @@ fonte :
 
 @funindex \abs-fontsize
 @funindex \fontsize
-@funindex fontsize
 @funindex \smaller
-@funindex smaller
 @funindex \larger
-@funindex larger
 @funindex \magnify
-@funindex magnify
 
 La taille des caractères se modifie, relativement à la taille globale
 des portées, de différentes manières.
@@ -655,11 +635,8 @@ taille des espaces et celle des autres caractères :
 @cindex exposant
 
 @funindex \super
-@funindex super
 @funindex \sub
-@funindex sub
 @funindex \normal-size-super
-@funindex normal-size-super
 
 Vous pouvez imprimer du texte en indice ou en exposant.  Celui-ci sera
 dans une taille plus petite, mais rien ne s'oppose à ce que vous lui
@@ -730,21 +707,13 @@ Pour savoir comment personnaliser des fontes, reportez-vous au chapitre
 @ref{Fontes}.
 
 @funindex \teeny
-@funindex teeny
 @funindex \tiny
-@funindex tiny
 @funindex \small
-@funindex small
 @funindex \normalsize
-@funindex normalsize
 @funindex \large
-@funindex large
 @funindex \huge
-@funindex huge
 @funindex \smaller
-@funindex smaller
 @funindex \larger
-@funindex larger
 
 @predefined
 @code{\teeny},
@@ -801,11 +770,8 @@ utilisant la syntaxe décrite au chapitre
 @cindex alignement horizontal du texte
 
 @funindex \left-align
-@funindex left-align
 @funindex \center-align
-@funindex center-align
 @funindex \right-align
-@funindex right-align
 
 Les objets de type @emph{markup} peuvent s'aligner de différentes
 manières.  Une indication textuelle est par défaut alignée sur son
@@ -825,7 +791,6 @@ entre les deux premiers @emph{markups}.
 @end lilypond
 
 @funindex \halign
-@funindex halign
 
 L'alignement horizontal peut être ajusté à l'aide d'une valeur
 numérique :
@@ -853,11 +818,8 @@ objets @emph{markup}, comme indiqué par exemple au chapitre
 @cindex alignement vertical du texte
 
 @funindex \raise
-@funindex raise
 @funindex \lower
-@funindex lower
 @funindex \null
-@funindex null
 
 @c QUERY Should the function of ``\null'' be clarified? rp
 
@@ -891,11 +853,8 @@ déplacé.
 @end lilypond
 
 @funindex \general-align
-@funindex general-align
 @funindex \translate
-@funindex translate
 @funindex \translate-scaled
-@funindex translate-scaled
 
 Certaines commandes permettent de régler l'alignement des objets
 textuels en mode @emph{markup}, tant au niveau horizontal que vertical.
@@ -930,9 +889,7 @@ d'ancrage.
 @cindex colonnes de texte
 
 @funindex \column
-@funindex column
 @funindex \center-column
-@funindex center-column
 
 Un objet de type @emph{markup} peut contenir plusieurs lignes de texte.
 Dans l'exemple suivant, chaque élément ou expression ira se placer sur
@@ -959,7 +916,6 @@ sa propre ligne, tantôt alignée à gauche, tantôt centrée.
 @cindex markup, centrage sur la page
 
 @funindex \fill-line
-@funindex fill-line
 
 Pareillement, une liste d'éléments ou d'expressions sera répartie sur
 une ligne entière, voire même centrée sur toute la page s'il n'y a qu'un
@@ -991,9 +947,7 @@ texte multiligne ou une autre expression @emph{markup}.
 @cindex markup, texte justifié
 
 @funindex \wordwrap
-@funindex wordwrap
 @funindex \justify
-@funindex justify
 
 Les indications textuelles, lorsqu'elles sont relativement longues,
 peuvent se répartir sur plusieurs lignes en fonction de la largeur de
@@ -1072,15 +1026,10 @@ graphiques à votre partition.
 @cindex markup, encadrement du texte
 
 @funindex \box
-@funindex box
 @funindex \circle
-@funindex circle
 @funindex \rounded-box
-@funindex rounded-box
 @funindex \bracket
-@funindex bracket
 @funindex \hbracket
-@funindex hbracket
 
 Certaines commandes de @emph{markup} permettent d'ornementer des
 éléments textuels avec des graphismes, à l'instar de l'exemple
@@ -1108,13 +1057,9 @@ suivant :
 @cindex markup, rembourrage du texte
 
 @funindex \pad-markup
-@funindex pad-markup
 @funindex \pad-x
-@funindex pad-x
 @funindex \pad-to-box
-@funindex pad-to-box
 @funindex \pad-around
-@funindex pad-around
 
 Certaines directives peuvent nécessiter d'accroître l'espacement autour
 du texte -- voir l'annexe @ref{Align} pour une liste des différentes
@@ -1148,17 +1093,11 @@ Flute quartet keeps very uneven time."
 @cindex notation et graphisme
 
 @funindex \combine
-@funindex combine
 @funindex \draw-circle
-@funindex draw-circle
 @funindex \filled-box
-@funindex filled-box
 @funindex \triangle
-@funindex triangle
 @funindex \draw-line
-@funindex draw-line
 @funindex \arrow-head
-@funindex arrow-head
 
 Vous pouvez imprimer certains graphismes ou symboles sans qu'il n'y
 ait de texte.  Ces objets peuvent même se combiner, à l'instar de
@@ -1186,9 +1125,7 @@ n'importe quelle expression @emph{markup}.
 @cindex postscript
 
 @funindex \epsfile
-@funindex epsfile
 @funindex \postscript
-@funindex postscript
 
 Des fonctionnalités graphiques avancées vous permettent même d'inclure
 dans une partition un fichier image converti au format PostScript
@@ -1387,11 +1324,8 @@ Référence des propriétés internes :
 @cindex plusieurs pages de texte
 
 @funindex \markuplist
-@funindex markuplist
 @funindex \justified-lines
-@funindex justified-lines
 @funindex \wordwrap-lines
-@funindex wordwrap-lines
 
 Alors que @code{\markup} s'utilise pour traiter un bloc de texte
 insécable, @code{\markuplist} permet, employé en tête de partition,

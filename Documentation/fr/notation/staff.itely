@@ -67,7 +67,6 @@ Nous allons voir ici comment créer des portées et comment les regrouper.
 @cindex tablature
 
 @funindex \drummode
-@funindex drummode
 @funindex DrumStaff
 @funindex RhythmicStaff
 @funindex TabStaff
@@ -426,9 +425,7 @@ d'@emph{ossia}.
 @cindex ligne supplémentaire
 
 @funindex \startStaff
-@funindex startStaff
 @funindex \stopStaff
-@funindex stopStaff
 
 Les commandes @code{\stopStaff} et @code{\startStaff} permettent
 respectivement de clôturer et (re)démarrer une portée n'importe où dans
@@ -607,9 +604,7 @@ Référence des propriétés internes :
 @cindex nombre de portées
 
 @funindex \startStaff
-@funindex startStaff
 @funindex \stopStaff
-@funindex stopStaff
 
 Une portée d'@notation{ossia} -- ou de variante -- s'obtient en créant,
 à l'endroit approprié, une nouvelle portée simultanée :
@@ -761,7 +756,6 @@ Référence des propriétés internes :
 @funindex \RemoveAllEmptyStaves
 @funindex Staff_symbol_engraver
 @funindex \stopStaff
-@funindex stopStaff
 
 Désactiver le graveur @code{Staff_symbol_engraver} dans un contexte
 @code{Staff} permet de masquer des lignes.  La commande
@@ -1055,11 +1049,8 @@ Référence des propriétés internes :
 @cindex petites notes
 
 @funindex \addQuote
-@funindex addQuote
 @funindex \quoteDuring
-@funindex quoteDuring
 @funindex \transposition
-@funindex transposition
 
 Il est assez courant qu'une voix soit doublée par une autre.  Par
 exemple, les premiers et seconds violons peuvent jouer les mêmes notes
@@ -1262,13 +1253,9 @@ qualité.
 @cindex CueVoice
 
 @funindex \cueDuring
-@funindex cueDuring
 @funindex \cueClef
-@funindex cueClef
 @funindex \cueDuringWithClef
-@funindex cueDuringWithClef
 @funindex \quoteDuring
-@funindex quoteDuring
 
 Le moyen le plus simple pour mettre en forme des notes provenant d'une
 autre voix consiste à déclarer explicitement un contexte @code{CueVoice}
@@ -1446,7 +1433,6 @@ bassoonNotes = \relative c {
 @end lilypond
 
 @funindex \transposedCueDuring
-@funindex transposedCueDuring
 
 L'instruction @code{\cueDuring}, à l'instar de la commande
 @code{\quoteDuring}, tient compte des instruments transpositeurs.  La
@@ -1490,7 +1476,6 @@ bassClarinetNotes = \relative c' {
 @cindex fin de réplique
 
 @funindex \killCues
-@funindex killCues
 
 La commande @code{killCues} permet de supprimer les notes d'une
 citation.  Ceci est utile lorsque cette citation n'est pas imprimée dans

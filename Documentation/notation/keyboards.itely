@@ -150,7 +150,6 @@ Snippets:
 @cindex beams, cross-staff
 
 @funindex \change
-@funindex change
 
 Voices can be switched between staves manually, using the command
 
@@ -262,7 +261,6 @@ right before a change in staff.  In this case use manual beams.
 @cindex staff changes, automatic
 
 @funindex \autochange
-@funindex autochange
 @funindex PianoStaff
 
 Voices can be made to switch automatically between the top and the
@@ -308,7 +306,6 @@ music = {
 @cindex autochange and relative music
 
 @funindex \relative
-@funindex relative
 
 A @code{\relative} section that is outside of @code{\autochange}
 has no effect on the pitches of the music, so if necessary, put
@@ -381,9 +378,7 @@ staff based on the first note named in the chord construct.
 
 @funindex followVoice
 @funindex \showStaffSwitch
-@funindex showStaffSwitch
 @funindex \hideStaffSwitch
-@funindex hideStaffSwitch
 
 Whenever a voice switches to another staff, a line connecting the
 notes can be printed automatically:
@@ -485,17 +480,11 @@ piano.
 @cindex U.C.
 
 @funindex \sustainOn
-@funindex sustainOn
 @funindex \sustainOff
-@funindex sustainOff
 @funindex \sostenutoOn
-@funindex sostenutoOn
 @funindex \sostenutoOff
-@funindex sostenutoOff
 @funindex \unaCorda
-@funindex unaCorda
 @funindex \treCorde
-@funindex treCorde
 
 Pianos generally have three pedals that alter the way sound is
 produced: @notation{sustain}, @notation{sostenuto}

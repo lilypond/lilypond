@@ -90,7 +90,6 @@ un'ottava; ogni@tie{}@code{,} abbassa l'altezza di un'ottava.
 }
 @end lilypond
 
-@funindex fixed
 @funindex \fixed
 I normali segni di ottava possono essere inseriti una sola volta se si
 imposta un'altezza di riferimento dopo @code{\fixed} e prima della musica.
@@ -132,7 +131,6 @@ Frammenti di codice:
 @cindex ottava relativa
 @cindex relativa, ottava
 
-@funindex relative
 @funindex \relative
 
 L'inserimento delle note con l'ottava assoluta costringe a specificare
@@ -324,11 +322,8 @@ Guida al funzionamento interno:
 @cindex trasposizione e ottava relativa
 
 @funindex \transpose
-@funindex transpose
 @funindex \chordmode
-@funindex chordmode
 @funindex \relative
-@funindex relative
 
 
 
@@ -656,7 +651,6 @@ Questa sezione tratta il modo di modificare le altezze delle note.
 
 @funindex =
 @funindex \octaveCheck
-@funindex octaveCheck
 @funindex controlpitch
 
 In modalità relativa è facile dimenticare un segno di cambiamento d'ottava.
@@ -730,7 +724,6 @@ Guida al funzionamento interno:
 @cindex note, trasposizione delle
 
 @funindex \transpose
-@funindex transpose
 
 Un'espressione musicale può essere trasposta con @code{\transpose}.  La
 sintassi è
@@ -849,11 +842,8 @@ Guida al funzionamento interno:
 @rinternals{TransposedMusic}.
 
 @funindex \transpose
-@funindex transpose
 @funindex \chordmode
-@funindex chordmode
 @funindex \relative
-@funindex relative
 
 @knownissues
 La conversione relativa non avrà effetto sulle sezioni @code{\transpose},
@@ -915,7 +905,6 @@ Guida alla notazione:
 @cindex retrogradazione, trasformazione
 @cindex operazione, retrogradazione
 @funindex \retrograde
-@funindex retrograde
 
 Un'espressione musicale può essere invertita in modo da produrre il proprio
 retrogrado:
@@ -965,7 +954,6 @@ vengono trasformate.}
 @cindex modale, trasposizione
 @cindex operazione, trasposizione
 @funindex \modalTranspose
-@funindex modalTranspose
 
 Un motivo può essere trasposto entro una certa scala con:
 
@@ -1022,7 +1010,6 @@ motif = \relative { c'8 d e f g a b c }
 @cindex modale, inversione
 @cindex operazione, inversione modale
 @funindex \modalInversion
-@funindex modalInversion
 
 Una sequenza di note può essere invertita all'interno di una data scala intorno
 a una determinata nota cardine e quindi trasposto, in un'unica operazione, con:
@@ -1136,7 +1123,6 @@ Questa sezione tratta il modo di modificare l'aspetto delle altezze delle note.
 
 
 @funindex \clef
-@funindex clef
 
 Senza un comando esplicito, la chiave predefinita in LilyPond è la chiave
 di violino (o di @emph{Sol}).
@@ -1312,7 +1298,6 @@ applicato, con un altro @code{\override}, all'oggetto @var{ClefModifier}.
 @cindex armatura di chiave
 
 @funindex \key
-@funindex key
 
 @c duplicated in Key signature and Accidentals
 @warning{I nuovi utenti sono talvolta confusi dalla gestione delle
@@ -1331,23 +1316,14 @@ di chiave può essere modificata:
 @end example
 
 @funindex \major
-@funindex major
 @funindex \minor
-@funindex minor
 @funindex \ionian
-@funindex ionian
 @funindex \locrian
-@funindex locrian
 @funindex \aeolian
-@funindex aeolian
 @funindex \mixolydian
-@funindex mixolydian
 @funindex \lydian
-@funindex lydian
 @funindex \phrygian
-@funindex phrygian
 @funindex \dorian
-@funindex dorian
 
 @cindex modi ecclesiastici
 @cindex modi
@@ -1452,7 +1428,6 @@ Guida al funzionamento interno:
 
 @funindex set-octavation
 @funindex \ottava
-@funindex ottava
 
 I @notation{segni di ottavazione} introducono un'ulteriore trasposizione di
 ottava nel rigo:
@@ -1508,7 +1483,6 @@ Guida al funzionamento interno:
 @cindex trasposizione MIDI
 
 @funindex \transposition
-@funindex transposition
 
 Quando si scrivono partiture che comprendono strumenti traspositori, alcune
 parti possono essere scritte a un'altezza diversa dall'@notation{intonazione reale}.
@@ -3081,9 +3055,7 @@ Guida al funzionamento interno:
 @cindex teste di nota facili da suonare
 
 @funindex \easyHeadsOn
-@funindex easyHeadsOn
 @funindex \easyHeadsOff
-@funindex easyHeadsOff
 
 La nota @q{easy play} inserisce il nome della nota dentro la testa.
 Viene usata nella musica per principianti.  Per rendere le lettere
@@ -3149,15 +3121,10 @@ Guida al funzionamento interno:
 @cindex testa di nota, Walker
 
 @funindex \aikenHeads
-@funindex aikenHeads
 @funindex \sacredHarpHeads
-@funindex sacredHarpHeads
 @funindex \southernHarmonyHeads
-@funindex southernHarmonyHeads
 @funindex \funkHeads
-@funindex funkHeads
 @funindex \walkerHeads
-@funindex walkerHeads
 
 In alcune notazioni, la forma della testa della nota corrisponde
 alla funzione armonica di una nota nella scala.  Questa notazione
@@ -3181,17 +3148,11 @@ Funk (Harmonica Sacra), Walker e Aiken (Christian Harmony):
 @end lilypond
 
 @funindex \key
-@funindex key
 @funindex \aikenHeadsMinor
-@funindex aikenHeadsMinor
 @funindex \sacredHarpHeadsMinor
-@funindex sacredHarpHeadsMinor
 @funindex \southernHarmonyHeadsMinor
-@funindex southernHarmonyHeadsMinor
 @funindex \funkHeadsMinor
-@funindex funkHeadsMinor
 @funindex \walkerHeadsMinor
-@funindex walkerHeadsMinor
 
 Le forme variano in base al grado della scala; la
 scala è determinata dal comando @code{\key}.  Se si scrive in
@@ -3262,9 +3223,7 @@ Guida al funzionamento interno:
 @cindex tagliata, testa di nota
 
 @funindex \improvisationOn
-@funindex improvisationOn
 @funindex \improvisationOff
-@funindex improvisationOff
 
 L'improvvisazione viene talvolta indicata con teste tagliate:
 l'esecutore può scegliere qualsiasi nota ma deve seguire il ritmo

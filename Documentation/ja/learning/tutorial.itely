@@ -224,7 +224,6 @@ LilyPond はいくつかの記譜要素を自動的に追加します。@c
 @cindex relative mode, and accidentals (臨時記号と相対モード)
 
 @funindex \relative
-@funindex relative
 @funindex '
 @funindex ,
 
@@ -409,7 +408,6 @@ A, G, F である場合は B の下に置かれます。
 @cindex time signature (拍子記号)
 
 @funindex \time
-@funindex time
 
 音楽用語集: @rglos{time signature}
 @c 拍子記号 (time signature)
@@ -436,7 +434,6 @@ A, G, F である場合は B の下に置かれます。
 @cindex metronome marks (メトロノーム記号)
 
 @funindex \tempo
-@funindex tempo
 
 音楽用語集: @rglos{tempo indication}, @rglos{metronome}
 
@@ -469,7 +466,6 @@ A, G, F である場合は B の下に置かれます。
 @cindex bass (バス)
 
 @funindex \clef
-@funindex clef
 
 音楽用語集: @rglos{clef}
 @c : 音部記号 (clef)

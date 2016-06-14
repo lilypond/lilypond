@@ -597,7 +597,6 @@ is the standard EADGBE tuning.  Some other predefined tunings are
 @code{banjo-open-g-tuning}.  The predefined string tunings
 are found in @file{ly/string-tunings-init.ly}.
 
-@funindex stringTuning
 @funindex \stringTuning
 @cindex tablature, custom string tunings
 @cindex custom string tunings
@@ -843,7 +842,6 @@ the fret-diagram markup string.
 @cindex fret-diagram markup
 @cindex ukulele
 
-@funindex fret-diagram
 @funindex \fret-diagram
 
 The size of the fret diagram, and the number of frets in the diagram
@@ -934,7 +932,6 @@ markup string.
 
 @cindex fret-diagram-terse markup
 
-@funindex fret-diagram-terse
 @funindex \fret-diagram-terse
 
 The fret-diagram-terse markup string omits string numbers; the string
@@ -1012,7 +1009,6 @@ Other fret diagram properties must be adjusted using
 @cindex fret-diagram-verbose markup
 @cindex capo
 
-@funindex fret-diagram-verbose
 @funindex \fret-diagram-verbose
 
 The fret-diagram-verbose markup string is in the format of a Scheme list.  Each
@@ -1299,7 +1295,6 @@ either as simultaneous music or using chord mode (see
 @cindex fret diagrams with chord names
 
 @funindex ChordNames
-@funindex chordmode
 @funindex \chordmode
 
 It is common that both chord names and fret diagrams are displayed together.
@@ -1443,8 +1438,6 @@ mychords = \chordmode {
 @cindex chord shapes for fretted instruments
 
 @funindex \addChordShape
-@funindex addChordShape
-@funindex storePredefinedDiagram
 @funindex \storePredefinedDiagram
 
 In addition to fret diagrams, LilyPond stores an internal list of chord
@@ -1561,9 +1554,7 @@ calculates strings and frets that can be used to play the notes.
 >>
 @end lilypond
 
-@funindex predefinedFretboardsOff
 @funindex \predefinedFretboardsOff
-@funindex predefinedFretboardsOn
 @funindex \predefinedFretboardsOn
 
 As no predefined diagrams are loaded by default, automatic calculation
@@ -1698,7 +1689,6 @@ with non-monotonic tunings.
 @cindex fingerings, right hand for fretted instruments
 @cindex right hand fingerings for fretted instruments
 
-@funindex rightHandFinger
 @funindex \rightHandFinger
 
 Right-hand fingerings @var{p-i-m-a} must be entered using
@@ -1869,7 +1859,6 @@ Notation Reference:
 @node Indicating power chords
 @unnumberedsubsubsec Indicating power chords
 
-@funindex powerChords
 @funindex \powerChords
 
 @cindex power chords

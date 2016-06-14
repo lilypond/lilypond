@@ -204,7 +204,6 @@ a partir dels seus noms.
 @cindex override (sobreescriptura), sintaxi de
 
 @funindex \override
-@funindex override
 
 Ja hem vist les ordres @code{\set} i @code{\with}, que
 s'usen per canviar les propietats dels @strong{contextos} i per
@@ -283,7 +282,6 @@ hi ha un exemple senzill per canviar el color d'un cap:
 @cindex revert, ordre
 
 @funindex \revert
-@funindex revert
 
 Un cop sobreescrita, la propietat reté el seu nou valor fins que
 es sobreescriu de nou o es troba una ordre
@@ -323,7 +321,6 @@ dues últimes notes:
 @translationof The once prefix
 
 @funindex \once
-@funindex once
 
 Tant l'ordre @code{\override} com @code{\set} es poden
 precedir per @code{\once}.  Això fa que la següent ordre
@@ -377,7 +374,6 @@ efecte.
 @cindex overrideProperty, ordre
 
 @funindex \overrideProperty
-@funindex overrideProperty
 
 Hi ha una altra forma per a l'ordre de sobreescriptura,
 @code{\overrideProperty}, que ocasionalment és necessària.  La
@@ -393,7 +389,6 @@ detalls consulteu
 @cindex tweak, ordre
 
 @funindex \tweak
-@funindex tweak
 
 La última ordre d'ajustament que està disponible és
 @code{\tweak}.  S'ha d'utilitzar quan diversos objectes tenen lloc
@@ -769,7 +764,6 @@ notes, podem ometre'l en aquest lloc concret.
 @cindex once override
 
 @funindex \once
-@funindex once
 
 Com es pot veure, @emph{totes} les lligadures són més gruixudes a
 l'últim exemple.  Però, i si voléssim que sols la primera
@@ -815,7 +809,6 @@ l'ordre @code{\set}.
 @cindex predeterminades, recuperar las propietats
 
 @funindex \revert
-@funindex revert
 
 Finalment, i si volguéssim que sols les dues primeres lligadures
 fossin més gruixudes?  En fi, podríem usar dues ordres, cada
@@ -2279,9 +2272,7 @@ Heus ací un exemple que mostra la situació predeterminada d'alguns d'ells.
 @cindex octava alta i baixa, claudàtor de
 
 @funindex \startTextSpan
-@funindex startTextSpan
 @funindex \stopTextSpan
-@funindex stopTextSpan
 
 @cindex TextSpanner, exemple de sobreesriptura
 @cindex bound-details, propietat, exemple
@@ -2435,9 +2426,7 @@ text.  Això es fa usant l'ordre @code{textLengthOn}.
 @cindex notes, posar més espai al costat del text
 
 @funindex \textLengthOn
-@funindex textLengthOn
 @funindex \textLengthOff
-@funindex textLengthOff
 
 De forma predeterminada, el text produït mitjançant l'etiquetatge
 no ocupa cap espai horitzontal pel que fa a la disposició de la
@@ -2985,13 +2974,9 @@ silencis multicompàs, lligadures d'unió i notes en diferents veus.
 @cindex col·lisions de notes
 @cindex desplaçament, ordres de
 @funindex \shiftOff
-@funindex shiftOff
 @funindex \shiftOn
-@funindex shiftOn
 @funindex \shiftOnn
-@funindex shiftOnn
 @funindex \shiftOnnn
-@funindex shiftOnnn
 
 Dins d'una veu totes les notes que es produeixen al mateix moment
 s'agrupen en una columna de notes, i es crea un objecte

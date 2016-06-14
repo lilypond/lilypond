@@ -206,7 +206,6 @@ Maxima (8 Ganze) gesetzt werden.
 @cindex Triolen
 @cindex Rhythmische Aufteilungen
 
-@funindex times
 @funindex \times
 
 Triolen und andere rhythmische Aufteilungen werden aus einem musikalischen
@@ -380,7 +379,6 @@ beeinflusst werden.  Das ist sinnvoll, wenn man viele Takte
 @cindex Ausdehnen von Noten
 @cindex Dauern skalieren
 
-@funindex scaleDurations
 @funindex \scaleDurations
 
 Längere Notenabschnitte können auf die gleiche Art durch Multiplikation
@@ -486,7 +484,6 @@ geschrieben werden.
 @cindex Volta und Überbindung
 
 @funindex \repeatTie
-@funindex repeatTie
 
 Wenn die zweite Variante einer Wiederholung mit einer übergebundenen
 Note anfängt, muss der Bindebogen wie folgt notiert werden:
@@ -505,7 +502,6 @@ Note anfängt, muss der Bindebogen wie folgt notiert werden:
 @cindex Bögen, laissez vibrer
 @cindex Ausklingen lassen
 
-@funindex laissezVibrer
 @funindex \laissezVibrer
 
 So genannte @notation{laissez vibrer}-Bögen werden verwendet um anzuzeigen, dass
@@ -757,7 +753,6 @@ Maxima (8 Ganze).
 @cindex Platzhalternoten
 
 @funindex \skip
-@funindex skip
 @funindex s
 
 Eine unsichtbare Pause (auch als @qq{skip} oder Überspringung bezeichnet)
@@ -926,7 +921,6 @@ R2.*2 |
 @cindex Mehrtaktpause mit Fermate
 
 @funindex \fermataMarkup
-@funindex fermataMarkup
 @funindex MultiMeasureRestText
 
 Textbeschriftung kann Mehrtaktpausen mit @code{\markup}
@@ -963,15 +957,10 @@ folgt, werden möglicherweise daraus resultierende
 Taktprüfungswarnungen nicht angezeigt.
 
 @funindex \textLengthOn
-@funindex textLengthOn
 @funindex \textLengthOff
-@funindex textLengthOff
 @funindex \fermataMarkup
-@funindex fermataMarkup
 @funindex \compressFullBarRests
-@funindex compressFullBarRests
 @funindex \expandFullBarRests
-@funindex expandFullBarRests
 
 @predefined
 @code{\textLengthOn},
@@ -1059,7 +1048,6 @@ berücksichtigt.
 @cindex Taktangabe
 @cindex Metrum
 
-@funindex time
 @funindex \time
 
 Taktangaben werden wie folgt erstellt.
@@ -1125,7 +1113,6 @@ werden behandelt unter @ref{Mensurale Taktartenbezeichnungen}.
 @cindex Balken, Taktartstandard
 
 @funindex \overrideTimeSignatureSettings
-@funindex overrideTimeSignatureSettings
 
 Zusätzlich zu der gedruckten Taktart werden mit der Definition des
 Befehls @code{\time} auch die Standardwerte fürt die Eigenschaften
@@ -1209,7 +1196,6 @@ Noten in dem Kontext befinen müssen, bevor
 @cindex Zurücksetzen von Taktart-Standardeigenschaften
 
 @funindex \revertTimeSignatureSettings
-@funindex revertTimeSignatureSettings
 
 Veränderte Werte der Taktart-Eigenschaften können wieder auf den
 Standard zurückgesetzt werden:
@@ -1310,7 +1296,6 @@ Referenz der Interna:
 @cindex Tempobezeichnung
 @cindex Aufführungsanweisung: Tempo
 
-@funindex tempo
 @funindex \tempo
 
 Eine Metronomanweisung wird wie folgt erstellt:
@@ -1419,7 +1404,6 @@ Referenz der Interna:
 
 @funindex measurePosition
 @funindex \partial
-@funindex partial
 
 Verkleinerte Takte, wie etwa ein Auftakt, werden mit dem
 Befehl @code{\partial} notiert, dessen Syntax lautet:
@@ -1661,9 +1645,7 @@ ein seltsamer Fehler auftreten kann.
 
 @funindex timeSignatureFraction
 @funindex \scaleDurations
-@funindex scaleDurations
 @funindex \times
-@funindex times
 
 Polymetrische Notation ist direkt unterstützt, oder
 indem man das sichtbare Taktart-Symbol verändert und zusätzlich
@@ -1940,9 +1922,7 @@ Linie.
 
 @funindex Pitch_squash_engraver
 @funindex \improvisationOn
-@funindex improvisationOn
 @funindex \improvisationOff
-@funindex improvisationOff
 
 Akkordnotation für Gitarren bezeichnet auch oft zusätzlich den
 geschlagenen Rhythmus.  Das kann notiert werden unter Verwendung
@@ -2014,9 +1994,7 @@ LilyPond setzt Balken (engl. beam) automatisch.
 @cindex eigene Balkenregeln
 
 @funindex \autoBeamOn
-@funindex autoBeamOn
 @funindex \autoBeamOff
-@funindex autoBeamOff
 
 @lilypond[quote,verbatim]
 \relative c'' {
@@ -2127,9 +2105,7 @@ Balken beginnt.
 @funindex measureLength
 @funindex baseMoment
 @funindex \time
-@funindex time
 @funindex \set
-@funindex set
 
 Wenn die automatischen Balken angeschaltet sind, wird die Platzierung der
 automatischen Balken von drei Kontexteigenschaften bestimmt:
@@ -2542,7 +2518,6 @@ Die Richtung von Balken kann mit den Richtungszeichen verändert werden:
 @end lilypond
 
 @funindex \noBeam
-@funindex noBeam
 
 Einzelne Noten können mit dem Befehl @code{\noBeam} markiert werden,
 damit sie nicht mit einem Balken versehen werden.
@@ -2617,7 +2592,6 @@ Referenz der Interna:
 @cindex Balken, gespreizt
 @cindex gespreizte Balken
 
-@funindex featherDurations
 @funindex \featherDurations
 @funindex grow-direction
 
@@ -2707,7 +2681,6 @@ sind.
 @cindex Wiederholungszeichen
 
 @funindex \bar
-@funindex bar
 
 Taktstriche trennen Takte voneinander, werden aber auch verwendet,
 um Wiederholungen anzuzeigen. Normalerweise werden sie automatisch
@@ -2945,7 +2918,6 @@ Taktstriche sind miteinander verbunden innerhalb einer Gruppe
 @funindex whichBar
 @funindex defaultBarType
 @funindex \bar
-@funindex bar
 @funindex bartype
 
 Der Befehl @code{\bar }@var{Taktart} ist eine Kurzform von:
@@ -3136,7 +3108,6 @@ als Taktüberprüfung zu funktionieren.
 @end lilypond
 
 @funindex \barNumberCheck
-@funindex barNumberCheck
 
 Wenn man größere Musikstücke kopiert, kann es hilfreich sein, wenn
 LilyPond überprüft, ob die Taktnummer, in der Sie gerade kopieren,
@@ -3165,7 +3136,6 @@ Schnipsel:
 @cindex Abschnitte markieren
 @cindex Markieren von Abschnitten
 
-@funindex mark
 @funindex \mark
 
 Übungszeichen können mit dem @code{\mark}-Befehl ausgegeben werden:
@@ -3287,7 +3257,6 @@ hinzufügen:
 @cindex Musikbuchstaben
 
 @funindex \musicglyph
-@funindex musicglyph
 
 Musikbuchstaben (wie etwa das Segno-Zeichen) können mit dem Befehl
 @code{\musicglyph} als ein
@@ -3398,7 +3367,6 @@ System zwei 16-Noten für jede 8-Note des zweiten Systems:
 @end lilypond
 
 @funindex \afterGrace
-@funindex afterGrace
 
 @cindex Verzierung, danach
 @cindex Nachschlag

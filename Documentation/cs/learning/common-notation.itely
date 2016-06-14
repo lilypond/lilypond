@@ -129,11 +129,8 @@ Podívejte se na @ruser{Označení not v jiných jazycích}.
 @cindex Zobrazení a obsah
 
 @funindex \key
-@funindex key
 @funindex \major
-@funindex major
 @funindex \minor
-@funindex minor
 
 Slovníček: @rglos{key signature}, @rglos{major},
 @rglos{minor}.
@@ -365,11 +362,8 @@ jak se mají artikulační znaménka umístit.
 @funindex \mf
 @funindex \pp
 @funindex \<
-@funindex <
 @funindex \>
-@funindex >
 @funindex \!
-@funindex !
 
 Slovníček:
 @rglos{dynamics},
@@ -449,9 +443,7 @@ Doporučení pro notový zápis:
 @funindex [
 @funindex ]
 @funindex \autoBeamOff
-@funindex autoBeamOff
 @funindex \autoBeamOn
-@funindex autoBeamOn
 
 Všechny @notation{trámce} se zapisují automaticky:
 
@@ -499,7 +491,6 @@ Doporučení pro notový zápis:
 
 @cindex Předtaktí
 @funindex \partial
-@funindex partial
 
 @notation{Předtaktí} se zadává příkazem @code{\partial}.
 Potom následuje délka předtaktí: @code{\partial 4}
@@ -520,7 +511,6 @@ znamená jednu čtvrťovou notu předtaktí a @code{\partial 8} jednu osminovou 
 @cindex Rytmická rozdělení
 
 @funindex \times
-@funindex times
 
 Slovníček: @rglos{note value}, @rglos{triplet}.
 
@@ -547,9 +537,7 @@ takže triola má 2/3 jako svůj zlomek:
 @cindex Prodleva
 
 @funindex \grace
-@funindex grace
 @funindex \acciaccatura
-@funindex acciaccatura
 @funindex \appoggiatura
 @funindex acciaccatura
 
@@ -737,10 +725,8 @@ příklad začíná jednou notou:
 @cindex Prostředí notového zápisu
 
 @funindex \new Staff
-@funindex new Staff
 @funindex Staff
 @funindex \new
-@funindex new
 @funindex Score
 @funindex Voice
 @funindex Lyrics
@@ -941,7 +927,6 @@ Doporučení pro notový zápis:
 @cindex Text písně, zápis
 
 @funindex \addlyrics
-@funindex addlyrics
 
 V této kapitole je laskavý čtenář uveden do spojení not s textem
 a je ukázáno, jak se vytváří jednodušší listy s písničkami.
@@ -962,7 +947,6 @@ a je ukázáno, jak se vytváří jednodušší listy s písničkami.
 @cindex Text písně
 
 @funindex \addlyrics
-@funindex addlyrics
 
 Slovníček: @rglos{lyrics}.
 
@@ -1390,7 +1374,6 @@ právě vymezené značky:
 @cindex Úvodní stránka
 
 @funindex \header
-@funindex header
 
 Název, skladatel, číslo opusu a podobné údaje se vkládají
 do prostředí @code{\header}. Toto prostředí se nachází mimo

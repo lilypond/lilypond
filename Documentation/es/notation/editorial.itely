@@ -349,7 +349,6 @@ instrucciones @code{\newSpacingSection}, y/o las instrucciones
 @cindex cambio de dedo
 
 @funindex \finger
-@funindex finger
 
 Las instrucciones de digitación se pueden introducir usando
 @samp{@var{nota}-@var{dígito}}:
@@ -370,7 +369,6 @@ texto o de cadenas de caracteres.
 @cindex thumb-script
 
 @funindex \thumb
-@funindex thumb
 
 Puede usar la articulación de pulgar para indicar que una nota se
 debe tocar con el pulgar (p.ej. en música de violoncello).
@@ -433,9 +431,7 @@ Referencia de funcionamiento interno:
 @cindex notas transparentes
 
 @funindex \hideNotes
-@funindex hideNotes
 @funindex \unHideNotes
-@funindex unHideNotes
 
 Las notas ocultas (o invisibles, o transparentes) pueden ser de
 utilidad en la preparación de ejercicios de teoría o de
@@ -509,7 +505,6 @@ Referencia de funcionamiento interno:
 
 @funindex color
 @funindex \with-color
-@funindex with-color
 @funindex x11-color
 
 Se pueden asignar colores a los objetos individuales.  Los nombres
@@ -625,7 +620,6 @@ Consulte @ref{La instrucción tweak} para ver más detalles.
 @cindex corchetes
 
 @funindex \parenthesize
-@funindex parenthesize
 
 Los objetos se pueden encerrar entre paréntesis anteponiendo
 @code{\parenthesize} al evento musical.  Si se aplica a un acorde,
@@ -679,11 +673,8 @@ grande rodeando al acorde completo.
 @cindex plica neutral
 
 @funindex \stemUp
-@funindex stemUp
 @funindex \stemDown
-@funindex stemDown
 @funindex \stemNeutral
-@funindex stemNeutral
 
 Cuando se encuentra con una nota, se crea automáticamente un
 objeto @code{Stem} (plica).  Para las redondas y los silencios,
@@ -748,9 +739,7 @@ del pentagrama, desde fuera del pentagrama.
 @funindex balloonGrobText
 @funindex balloonText
 @funindex \balloonLengthOn
-@funindex balloonLengthOn
 @funindex \balloonLengthOff
-@funindex balloonLengthOff
 
 Los elementos de notación se pueden marcar y nombrar con la ayuda
 de un cartel o globo de ayuda rectangular.  El propósito principal
@@ -892,9 +881,7 @@ Referencia de funcionamiento interno:
 
 @funindex Horizontal_bracket_engraver
 @funindex \startGroup
-@funindex startGroup
 @funindex \stopGroup
-@funindex stopGroup
 
 Los corchetes se usan en análisis musical para indicar la
 estructura de las piezas musicales.  Están contemplados los

@@ -178,11 +178,8 @@ like German and Dutch.  To use other names for
 @cindex layout vs. content
 
 @funindex \key
-@funindex key
 @funindex \major
-@funindex major
 @funindex \minor
-@funindex minor
 
 Music Glossary: @rglos{key signature}, @rglos{major},
 @rglos{minor}.
@@ -441,11 +438,8 @@ to let LilyPond determine the articulation directions.
 @funindex \mf
 @funindex \pp
 @funindex \<
-@funindex <
 @funindex \>
-@funindex >
 @funindex \!
-@funindex !
 
 Music Glossary: @rglos{dynamics}, @rglos{crescendo},
 @rglos{decrescendo}.
@@ -483,7 +477,6 @@ Notation Reference:
 @cindex markup
 
 @funindex \markup
-@funindex markup
 
 Text may be added to your scores:
 
@@ -520,9 +513,7 @@ Notation Reference:
 @funindex [
 @funindex ]
 @funindex \autoBeamOff
-@funindex autoBeamOff
 @funindex \autoBeamOn
-@funindex autoBeamOn
 
 Music Glossary: @rglos{beam}.
 
@@ -579,7 +570,6 @@ Notation Reference:
 @cindex partial measure
 
 @funindex \partial
-@funindex partial
 
 Music Glossary: @rglos{anacrusis}.
 
@@ -602,7 +592,6 @@ is a quarter note pickup and @code{\partial 8} an eighth note.
 @cindex triplets
 
 @funindex \tuplet
-@funindex tuplet
 
 Music Glossary: @rglos{note value}, @rglos{triplet}.
 
@@ -631,9 +620,7 @@ For triplets, there are three notes instead of two, so
 @cindex appoggiatura
 
 @funindex \grace
-@funindex grace
 @funindex \acciaccatura
-@funindex acciaccatura
 @funindex \appoggiatura
 @funindex acciaccatura
 
@@ -821,10 +808,8 @@ out on a single staff.
 @cindex notation context
 
 @funindex \new Staff
-@funindex new Staff
 @funindex Staff
 @funindex \new
-@funindex new
 @funindex Score
 @funindex Voice
 @funindex Lyrics
@@ -1020,7 +1005,6 @@ This section introduces vocal music and simple song sheets.
 @cindex songs
 
 @funindex \addlyrics
-@funindex addlyrics
 
 Music Glossary: @rglos{lyrics}.
 
@@ -1387,7 +1371,6 @@ places.  The following example uses the above variables:
 @cindex header block
 
 @funindex \header
-@funindex header
 
 The title, composer, opus number, and similar information are
 entered in the @code{\header} block.  This exists outside of the

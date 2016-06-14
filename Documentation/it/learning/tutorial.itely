@@ -210,7 +210,6 @@ casi questi valori sono utili.
 @cindex modo relativo, e alterazioni
 
 @funindex \relative
-@funindex relative
 @funindex '
 @funindex ,
 
@@ -387,7 +386,6 @@ Una @notation{pausa} viene inserita proprio come una nota ma col nome
 @cindex tempo, indicazione di
 
 @funindex \time
-@funindex time
 
 Glossario musicale: @rglosnamed{time signature,indicazione di tempo}.
 
@@ -412,7 +410,6 @@ Il @notation{tempo} si imposta con il comando @code{\time}:
 @cindex indicazioni metronomiche
 
 @funindex \tempo
-@funindex tempo
 
 Glossario musicale: @rglosnamed{tempo indication,indicazione di tempo},
 @rglosnamed{metronome,metronomo}.
@@ -446,7 +443,6 @@ impostano col comando @code{\tempo}:
 @cindex basso
 
 @funindex \clef
-@funindex clef
 
 Glossario musicale: @rglosnamed{clef,chiave}.
 

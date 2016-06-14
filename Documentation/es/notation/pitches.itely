@@ -93,7 +93,6 @@ cada@tie{}@code{,} baja la altura una octava.
 }
 @end lilypond
 
-@funindex fixed
 @funindex \fixed
 Las marcas de octava comunes se pueden escribir una sola vez sobre
 una nota de referencia si se emplea @code{\fixed} antes de la
@@ -139,7 +138,6 @@ Fragmentos de código:
 @cindex relativa, especificación de la octava
 @cindex octava, especificación relativa
 
-@funindex relative
 @funindex \relative
 
 La entrada de octava absoluta requere que se especifique la octava
@@ -333,11 +331,8 @@ Referencia de funcionamiento interno:
 @cindex transposición y modo relativo
 
 @funindex \transpose
-@funindex transpose
 @funindex \chordmode
-@funindex chordmode
 @funindex \relative
-@funindex relative
 
 
 @node Alteraciones accidentales
@@ -669,7 +664,6 @@ Esta sección trata de la manera de modificar las alturas.
 
 @funindex =
 @funindex \octaveCheck
-@funindex octaveCheck
 @funindex controlpitch
 
 En el modo relativo, es fácil olvidar una marca de cambio de
@@ -747,7 +741,6 @@ Referencia de funcionamiento interno:
 @cindex notas, transporte de
 
 @funindex \transpose
-@funindex transpose
 
 Una expresión musical se puede transportar mediante
 @code{\transpose}.  La sintaxis es
@@ -865,11 +858,8 @@ Referencia de funcionamiento interno:
 @rinternals{TransposedMusic}.
 
 @funindex \transpose
-@funindex transpose
 @funindex \chordmode
-@funindex chordmode
 @funindex \relative
-@funindex relative
 
 @knownissues
 La conversión relativa no afecta a las secciones
@@ -932,7 +922,6 @@ Referencia de la notación:
 @cindex transformación de retrogradación
 @cindex operación de retrogradación
 @funindex \retrograde
-@funindex retrograde
 
 Se puede revertir una expresión musical para producir su
 retrogradación:
@@ -986,7 +975,6 @@ sin transformar.}
 @cindex transposición modal
 @cindex operación de transposición
 @funindex \modalTranspose
-@funindex modalTranspose
 
 Se puede transportar un motivo dentro de una escala dada con:
 
@@ -1044,7 +1032,6 @@ motif = \relative { c'8 d e f g a b c }
 @cindex inversión modal
 @cindex operación de inversión modal
 @funindex \modalInversion
-@funindex modalInversion
 
 Se puede invertir un motivo dentro de una escala dada alrededor de
 una nota pivote dada y transportada al mismo tiempo en una única
@@ -1160,7 +1147,6 @@ las notas.
 @cindex clave de contrabajo
 
 @funindex \clef
-@funindex clef
 
 Sin ninugna instrucción explícita, la clave predeterminada en
 LilyPond es la clave @qq{treble} (o clave de @emph{Sol}).
@@ -1348,7 +1334,6 @@ diferente.
 @cindex Armadura de la tonalidad
 
 @funindex \key
-@funindex key
 
 @c duplicated in Key signature and Accidentals
 @warning{Las alteraciones accidentales y las armaduras son una
@@ -1370,23 +1355,14 @@ armadura se hace con la instrucción @code{\key}:
 @end example
 
 @funindex \major
-@funindex major
 @funindex \minor
-@funindex minor
 @funindex \ionian
-@funindex ionian
 @funindex \locrian
-@funindex locrian
 @funindex \aeolian
-@funindex aeolian
 @funindex \mixolydian
-@funindex mixolydian
 @funindex \lydian
-@funindex lydian
 @funindex \phrygian
-@funindex phrygian
 @funindex \dorian
-@funindex dorian
 
 @cindex modos eclesiásticos
 @cindex modos
@@ -1492,7 +1468,6 @@ Referencia de funcionamiento interno:
 
 @funindex set-octavation
 @funindex \ottava
-@funindex ottava
 
 Los @notation{corchetes de Ottava} introducen un trasporte adicional
 de una octava para el pentagrama.
@@ -1548,7 +1523,6 @@ Referencia de funcionamiento interno:
 @cindex MIDI, transposición
 
 @funindex \transposition
-@funindex transposition
 
 Al tipografiar partituras donde participan instrumentos
 transpositores, ciertas partes se pueden tipografiar en un tono
@@ -3144,9 +3118,7 @@ Referencia de funcionamiento interno:
 @cindex simplificada, notación
 
 @funindex \easyHeadsOn
-@funindex easyHeadsOn
 @funindex \easyHeadsOff
-@funindex easyHeadsOff
 
 Las notas con cabeza de @q{notación facilitada} tienen el nombre
 de la nota (en inglés) dentro de la cabeza.  Se usan en la música
@@ -3213,15 +3185,10 @@ Referencia de funcionamiento interno:
 @cindex notas, cabezas de, Walker
 
 @funindex \aikenHeads
-@funindex aikenHeads
 @funindex \sacredHarpHeads
-@funindex sacredHarpHeads
 @funindex \southernHarmonyHeads
-@funindex southernHarmonyHeads
 @funindex \funkHeads
-@funindex funkHeads
 @funindex \walkerHeads
-@funindex walkerHeads
 
 En la notación de cabezas con forma, la forma de la cabeza
 corresponde a la función armónica de una nota dentro de la
@@ -3247,17 +3214,11 @@ Harmony)}:
 @end lilypond
 
 @funindex \key
-@funindex key
 @funindex \aikenHeadsMinor
-@funindex aikenHeadsMinor
 @funindex \sacredHarpHeadsMinor
-@funindex sacredHarpHeadsMinor
 @funindex \southernHarmonyHeadsMinor
-@funindex southernHarmonyHeadsMinor
 @funindex \funkHeadsMinor
-@funindex funkHeadsMinor
 @funindex \walkerHeadsMinor
-@funindex walkerHeadsMinor
 
 Las formas se determinan en función del grado de la escala, donde
 la tónica está determinada por la instrucción @code{\key} Cuando
@@ -3326,9 +3287,7 @@ Referencia de funcionamiento interno:
 @cindex notas, cabezas de, barradas
 
 @funindex \improvisationOn
-@funindex improvisationOn
 @funindex \improvisationOff
-@funindex improvisationOff
 
 La improvisación se denota a veces mediante cabezas de nota en
 forma de barra inclinada, donde el ejecutante puede elegir

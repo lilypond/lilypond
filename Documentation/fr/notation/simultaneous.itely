@@ -369,7 +369,6 @@ rubrique @ref{Résolution des collisions}).
 @cindex cluster
 
 @funindex \makeClusters
-@funindex makeClusters
 
 Un cluster indique un agrégat de sons.  On peut le représenter par une
 plage limitée par un @emph{ambitus} (notes extrêmes).  On obtient une
@@ -437,11 +436,9 @@ portées.
 @cindex paroles assignées à une voix
 
 @funindex \voiceOne
-@funindex voiceOne
 @funindex \voiceOne ... \voiceFour
 @funindex Voice
 @funindex \oneVoice
-@funindex oneVoice
 
 
 @subsubsubheading Instanciation explicite des voix
@@ -716,21 +713,13 @@ Morceaux choisis :
 @cindex silences, décalage automatique
 
 @funindex \shiftOn
-@funindex shiftOn
 @funindex \shiftOnn
-@funindex shiftOnn
 @funindex \shiftOnnn
-@funindex shiftOnnn
 @funindex \shiftOff
-@funindex shiftOff
 @funindex \mergeDifferentlyDottedOn
-@funindex mergeDifferentlyDottedOn
 @funindex \mergeDifferentlyDottedOff
-@funindex mergeDifferentlyDottedOff
 @funindex \mergeDifferentlyHeadedOn
-@funindex mergeDifferentlyHeadedOn
 @funindex \mergeDifferentlyHeadedOff
-@funindex mergeDifferentlyHeadedOff
 
 Les notes de hauteur identique appartenant à des voix différentes, même
 si leur hampe sont opposées, verront leur tête automatiquement
@@ -954,7 +943,6 @@ are at the same time differently dotted are not clear.
 @cindex solo
 
 @funindex \partcombine
-@funindex partcombine
 
 Le regroupement automatique de parties vous permet de fusionner deux
 pupitres sur une seule portée, ceci dans le but de créer des
@@ -1059,17 +1047,11 @@ restera sans effet sur les hauteurs de
 @code{@var{expression_musicale_2}}.
 
 @funindex \partcombineChords
-@funindex partcombineChords
 @funindex \partcombineApart
-@funindex partcombineApart
 @funindex \partcombineUnisono
-@funindex partcombineUnisono
 @funindex \partcombineSoloI
-@funindex partcombineSoloI
 @funindex \partcombineSoloII
-@funindex partcombineSoloII
 @funindex \partcombineAutomatic
-@funindex partcombineAutomatic
 
 En matière d'édition professionnelle, les voix sont souvent maintenues
 séparément et sur une durée conséquente, bien que les notes des
@@ -1209,7 +1191,6 @@ Certaines considérations apparaissent aussi dans les chapitres
 @cindex musique entremêlée
 
 @funindex \parallelMusic
-@funindex parallelMusic
 
 On peut écrire plusieurs voix de façon entremêlée.  La fonction
 @code{\parallelMusic} prend en charge une liste des variables à créer,

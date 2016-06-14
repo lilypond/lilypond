@@ -169,7 +169,6 @@ Referenz der Interna:
 @cindex Balken zwischen Systemen
 
 @funindex \change
-@funindex change
 
 Stimmen können mit dem Befehl
 
@@ -289,7 +288,6 @@ Balken einsetzen.
 @cindex Wechsel des Systems, automatisch
 
 @funindex \autochange
-@funindex autochange
 @funindex PianoStaff
 
 Stimmen können angewiesen werden, automatisch zwischen dem
@@ -320,7 +318,6 @@ wird die Richtung auch über Pausen hinweg im Voraus bestimmt.
 @cindex automatischer Systemwechsel und relativer Modus
 
 @funindex \relative
-@funindex relative
 
 Ein @code{\relative}-Abschnitt, der sich außerhalb des
 @code{\autochange}-Abschnittes befindet, hat keinen Einfluss auf die
@@ -395,9 +392,7 @@ System zugewiesen, auf dem sich ihre erste Note befinden würde.
 
 @funindex followVoice
 @funindex \showStaffSwitch
-@funindex showStaffSwitch
 @funindex \hideStaffSwitch
-@funindex hideStaffSwitch
 
 Immer, wenn eine Stimme von einem Klaviersystem zu dem anderen
 wechselt, kann automatisch eine Linie zur Verdeutlichung des
@@ -494,17 +489,11 @@ Dieser Abschnitt zeigt Eigenheiten der Notation von Klavermusik
 @cindex U.C.
 
 @funindex \sustainOn
-@funindex sustainOn
 @funindex \sustainOff
-@funindex sustainOff
 @funindex \sostenutoOn
-@funindex sostenutoOn
 @funindex \sostenutoOff
-@funindex sostenutoOff
 @funindex \unaCorda
-@funindex unaCorda
 @funindex \treCorde
-@funindex treCorde
 
 Klaviere (teilweise auch Vibraphone und Celesta) besitzen üblicherweise
 drei Pedale, das linke oder Haltepedal, das rechte oder Una-corda-Pedal

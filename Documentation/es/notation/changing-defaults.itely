@@ -1160,17 +1160,11 @@ Referencia de la notación:
 @cindex grabadores, incluir en contextos
 
 @funindex \alias
-@funindex alias
 @funindex \name
-@funindex name
 @funindex \type
-@funindex type
 @funindex \consists
-@funindex consists
 @funindex \accepts
-@funindex accepts
 @funindex \denies
-@funindex denies
 
 Los contextos específicos, como @code{Staff} y @code{Voice}, están
 construidos a partir de bloques sencillos.  Es posible crear

@@ -106,9 +106,7 @@
 @rlearning{オブジェクトの配置} を参照してください。
 
 @funindex \textLengthOn
-@funindex textLengthOn
 @funindex \textLengthOff
-@funindex textLengthOff
 
 @predefined
 @code{\textLengthOn},
@@ -190,11 +188,8 @@
 線スタイルの構文は @ref{Line styles} で記述されています。
 
 @funindex \textSpannerUp
-@funindex textSpannerUp
 @funindex \textSpannerDown
-@funindex textSpannerDown
 @funindex \textSpannerNeutral
-@funindex textSpannerNeutral
 
 
 @predefined
@@ -242,9 +237,7 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 @cindex bar lines, symbols on (小節線上のシンボル)
 
 @funindex \mark
-@funindex mark
 @funindex \markup
-@funindex markup
 
 @ref{リハーサル記号} で記述されている構文を用いて、@c
 さまざまなテキスト要素を楽譜に付け加えることができます:
@@ -305,9 +298,7 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 @end lilypond
 
 @funindex \markLengthOn
-@funindex markLengthOn
 @funindex \markLengthOff
-@funindex markLengthOff
 
 @predefined
 @code{\markLengthOn},
@@ -350,7 +341,6 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 @cindex text, top-level (最上位レベルのテキスト)
 
 @funindex \markup
-@funindex markup
 
 @code{\markup} ブロックはそれ自体で、@c
 すべての @code{\score} ブロックの外側に、@c
@@ -389,9 +379,7 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 
 
 @funindex \markup
-@funindex markup
 @funindex \markuplist
-@funindex markuplist
 
 @predefined
 @code{\markup},
@@ -443,7 +431,6 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 @cindex typeset text (テキストの譜刻)
 
 @funindex \markup
-@funindex markup
 
 @code{\markup} ブロックは @qq{マークアップ モード} と呼ばれる@c
 拡張可能な構文でテキストを譜刻するために用いられます。
@@ -559,11 +546,8 @@ allegro = \markup { \bold \large Allegro }
 @cindex switching fonts (フォントを切り換える)
 
 @funindex \italic
-@funindex italic
 @funindex \bold
-@funindex bold
 @funindex \underline
-@funindex underline
 
 マークアップ モードでは、基本的なフォント切り替えがサポートされています:
 
@@ -584,13 +568,9 @@ allegro = \markup { \bold \large Allegro }
 
 @funindex \abs-fontsize
 @funindex \fontsize
-@funindex fontsize
 @funindex \smaller
-@funindex smaller
 @funindex \larger
-@funindex larger
 @funindex \magnify
-@funindex magnify
 
 フォント サイズをいくつかの方法でグローバル譜サイズとの相対値で変更することができます。
 
@@ -649,11 +629,8 @@ allegro = \markup { \bold \large Allegro }
 @cindex superscript (上付き文字)
 
 @funindex \super
-@funindex super
 @funindex \sub
-@funindex sub
 @funindex \normal-size-super
-@funindex normal-size-super
 
 テキストを下付き文字あるいは上付き文字として譜刻することができます。@c
 デフォルトでは、それらは小さなサイズで譜刻されますが、@c
@@ -723,21 +700,13 @@ allegro = \markup { \bold \large Allegro }
 カスタム フォント セットを定義することも可能です。
 
 @funindex \teeny
-@funindex teeny
 @funindex \tiny
-@funindex tiny
 @funindex \small
-@funindex small
 @funindex \normalsize
-@funindex normalsize
 @funindex \large
-@funindex large
 @funindex \huge
-@funindex huge
 @funindex \smaller
-@funindex smaller
 @funindex \larger
-@funindex larger
 
 @predefined
 @code{\teeny},
@@ -795,11 +764,8 @@ allegro = \markup { \bold \large Allegro }
 @cindex horizontal text alignment (テキストを水平方向に揃える)
 
 @funindex \left-align
-@funindex left-align
 @funindex \center-align
-@funindex center-align
 @funindex \right-align
-@funindex right-align
 
 マークアップ オブジェクトの揃え方はいくつかあります。@c
 デフォルトでは、テキスト指示はそのテキストの左端で揃えられます:
@@ -819,7 +785,6 @@ allegro = \markup { \bold \large Allegro }
 @end lilypond
 
 @funindex \halign
-@funindex halign
 
 水平方向の揃え方は、数値を使って、微調整することができます:
 
@@ -845,11 +810,8 @@ allegro = \markup { \bold \large Allegro }
 @cindex vertical text alignment (テキストを垂直方向に揃える)
 
 @funindex \raise
-@funindex raise
 @funindex \lower
-@funindex lower
 @funindex \null
-@funindex null
 
 @c QUERY Should the function of ``\null'' be clarified? rp
 
@@ -883,11 +845,8 @@ allegro = \markup { \bold \large Allegro }
 @end lilypond
 
 @funindex \general-align
-@funindex general-align
 @funindex \translate
-@funindex translate
 @funindex \translate-scaled
-@funindex translate-scaled
 
 コマンドの中にはマークアップ モードの中にあるテキスト オブジェクトの@c
 水平方向と垂直方向の両方の揃え方に影響を与えることができるものもあります。@c
@@ -922,9 +881,7 @@ allegro = \markup { \bold \large Allegro }
 @cindex columns, text (縦に積み重ねたテキスト)
 
 @funindex \column
-@funindex column
 @funindex \center-column
-@funindex center-column
 
 マークアップ オブジェクトに何行かのテキストが含まれる場合もあります。@c
 以下の例では、それぞれの要素あるいは表記はそれ自体の行に配置され、@c
@@ -951,7 +908,6 @@ allegro = \markup { \bold \large Allegro }
 @cindex markup, centering on the page (マークアップをページの中央に揃える)
 
 @funindex \fill-line
-@funindex fill-line
 
 同様に、要素あるいは表記のリストの広がりが水平の行幅いっぱいを占める@c
 ことがあります (要素が 1 つだけの場合、その要素はページの中央に揃えられます)。@c
@@ -983,9 +939,7 @@ allegro = \markup { \bold \large Allegro }
 @cindex markup text, justified (両端揃えのマークアップ テキスト)
 
 @funindex \wordwrap
-@funindex wordwrap
 @funindex \justify
-@funindex justify
 
 さらに、長いテキスト指示を自動的に行幅に合わせて折り返すことができます。@c
 そのようなテキスト指示は、以下の例で示すように、左揃えされるか両端揃えされます。
@@ -1061,15 +1015,10 @@ allegro = \markup { \bold \large Allegro }
 @cindex markup text, framing (マークアップ テキストにフレームを付ける)
 
 @funindex \box
-@funindex box
 @funindex \circle
-@funindex circle
 @funindex \rounded-box
-@funindex rounded-box
 @funindex \bracket
-@funindex bracket
 @funindex \hbracket
-@funindex hbracket
 
 以下の例で示すように、@c
 マークアップ コマンドの中にはテキスト要素を@c
@@ -1097,13 +1046,9 @@ allegro = \markup { \bold \large Allegro }
 @cindex markup text padding (マークアップ テキスト パディング)
 
 @funindex \pad-markup
-@funindex pad-markup
 @funindex \pad-x
-@funindex pad-x
 @funindex \pad-to-box
-@funindex pad-to-box
 @funindex \pad-around
-@funindex pad-around
 
 コマンドの中にはテキストの周りのパディングを増やすことを必要とするものも@c
 あります。@c
@@ -1138,17 +1083,11 @@ Flute quartet keeps very uneven time."
 @cindex notation, graphic (グラフィック記譜法)
 
 @funindex \combine
-@funindex combine
 @funindex \draw-circle
-@funindex draw-circle
 @funindex \filled-box
-@funindex filled-box
 @funindex \triangle
-@funindex triangle
 @funindex \draw-line
-@funindex draw-line
 @funindex \arrow-head
-@funindex arrow-head
 
 テキストを持たないグラフィック要素やシンボルを譜刻することもできます。@c
 他のマークアップ表記と同様に、@c
@@ -1176,9 +1115,7 @@ Flute quartet keeps very uneven time."
 @cindex postscript
 
 @funindex \epsfile
-@funindex epsfile
 @funindex \postscript
-@funindex postscript
 
 高度なグラフィック機能として、@c
 外部画像ファイルを Encapsulated PostScript フォーマット (@emph{eps})
@@ -1376,11 +1313,8 @@ a'1_\markup {
 @cindex text spread over multiple pages (複数ページに広がるテキスト)
 
 @funindex \markuplist
-@funindex markuplist
 @funindex \justified-lines
-@funindex justified-lines
 @funindex \wordwrap-lines
-@funindex wordwrap-lines
 
 標準のマークアップ オブジェクトは分割することができません。@c
 しかしながら、
@@ -1432,7 +1366,6 @@ a'1_\markup {
 @rinternals{TextScript}
 
 @funindex \markuplist
-@funindex markuplist
 
 @predefined
 @code{\markuplist}

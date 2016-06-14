@@ -140,11 +140,8 @@ other languages}.
 @cindex layout versus invoer
 
 @funindex \key
-@funindex key
 @funindex \major
-@funindex major
 @funindex \minor
-@funindex minor
 
 Terminologie: @rglos{key signature}, @rglos{major},
 @rglos{minor}.
@@ -388,11 +385,8 @@ uitzoeken.
 @funindex \mf
 @funindex \pp
 @funindex \<
-@funindex <
 @funindex \>
-@funindex >
 @funindex \!
-@funindex !
 
 Terminologie: @rglos{dynamics}, @rglos{crescendo},
 @rglos{decrescendo}.
@@ -433,7 +427,6 @@ Notatiehandleiding:
 @cindex markup
 
 @funindex \markup
-@funindex markup
 
 Je kunt tekst aan je muziek toevoegen door:
 
@@ -472,9 +465,7 @@ Notatiehandleiding:
 @funindex [
 @funindex ]
 @funindex \autoBeamOff
-@funindex autoBeamOff
 @funindex \autoBeamOn
-@funindex autoBeamOn
 
 Terminologie: @rglos{beam}.
 
@@ -525,7 +516,6 @@ Notatiehandleiding:
 @cindex onvolledige maat
 
 @funindex \partial
-@funindex partial
 
 Terminologie: @rglos{anacrusis}.
 
@@ -550,7 +540,6 @@ nootlengte: @code{\partial 4} is een opmaat van een kwart en
 @cindex triolen
 
 @funindex \times
-@funindex times
 
 Terminologie: @rglos{note value}, @rglos{triplet}.
 
@@ -579,9 +568,7 @@ maakt dat de noten 2/3 van hun lengte duren, dus een
 @cindex appoggiatura
 
 @funindex \grace
-@funindex grace
 @funindex \acciaccatura
-@funindex acciaccatura
 @funindex \appoggiatura
 @funindex acciaccatura
 
@@ -773,10 +760,8 @@ genoteerd op een enkele notenbalk.
 @cindex notatiecontext
 
 @funindex \new Staff
-@funindex new Staff
 @funindex Staff
 @funindex \new
-@funindex new
 @funindex Score
 @funindex Voice
 @funindex Lyrics
@@ -994,7 +979,6 @@ liedjes.
 @cindex liedjes
 
 @funindex \addlyrics
-@funindex addlyrics
 
 Terminologie: @rglos{lyrics}.
 
@@ -1411,7 +1395,6 @@ gebruik van de bovenstaande variabelen:
 @cindex titelblok
 
 @funindex \header
-@funindex header
 
 De titel, componist, opusnummer, en soortgelijke informatie
 worden ingevoerd in het @code{\header}-blok.  Deze bevindt

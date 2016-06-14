@@ -53,11 +53,8 @@ ligature et de mesure.
 @cindex longueur de note
 
 @funindex \longa
-@funindex longa
 @funindex \breve
-@funindex breve
 @funindex \maxima
-@funindex maxima
 
 Dans les modes de notes, d'accords et de paroles, les durées sont
 écrites avec des chiffres et des points : les durées sont indiquées
@@ -149,11 +146,8 @@ Pour plus de détails à ce sujet et sur les autres réglages propres à
 cette forme de notation, reportez vous à @ref{Notation proportionnelle}.
 
 @funindex \dotsUp
-@funindex dotsUp
 @funindex \dotsDown
-@funindex dotsDown
 @funindex \dotsNeutral
-@funindex dotsNeutral
 
 Les points sont normalement haussés pour éviter les lignes de portée,
 sauf dans certaines polyphonies.  Des commandes prédéfinies permettent
@@ -216,7 +210,6 @@ soupir à la maxime (valant huit pauses).
 @cindex triolets
 
 @funindex \tuplet
-@funindex tuplet
 
 Les n-olets -- triolets, quintolets, etc. -- sont obtenus en multipliant
 la vitesse d'une expression musicale par une fraction.
@@ -255,11 +248,8 @@ formés automatiquement :
 @cindex n-olet, positionnement du crochet
 
 @funindex \tupletUp
-@funindex tupletUp
 @funindex \tupletDown
-@funindex tupletDown
 @funindex \tupletNeutral
-@funindex tupletNeutral
 
 Des commandes prédéfinies permettent de déroger au positionnement
 automatique du crochet en surplomb ou au-dessous des notes :
@@ -387,7 +377,6 @@ tout simplement de sauter plusieurs mesures, comme par exemple un
 @cindex musique échelonnée
 
 @funindex \scaleDurations
-@funindex scaleDurations
 
 Il est tout à fait possible d'échelonner des fragments musicaux plus ou
 moins longs à l'aide d'une simple fraction, comme si chaque note, accord
@@ -511,7 +500,6 @@ accords.
 @cindex liaison de prolongation et reprise avec alternative
 
 @funindex \repeatTie
-@funindex repeatTie
 
 Lorsqu'une mesure « de seconde fois » après une reprise commence sur
 une note liée, la liaison doit être répétée, comme ici :
@@ -532,7 +520,6 @@ une note liée, la liaison doit être répétée, comme ici :
 @cindex liaison, laissez vibrer
 
 @funindex \laissezVibrer
-@funindex laissezVibrer
 
 Les liaisons « Laissez vibrer » (@notation{L.v.}) sont utilisées pour
 le piano, la harpe et certains instruments de percussion.  Elles
@@ -546,11 +533,8 @@ lieu de l'étouffer.  Elles s'indiquent de la manière suivante :
 @cindex liaisons de prolongation, positionnement
 
 @funindex \tieUp
-@funindex tieUp
 @funindex \tieDown
-@funindex tieDown
 @funindex \tieNeutral
-@funindex tieNeutral
 
 Le positionnement vertical des liaisons de prolongation peut être affiné
 -- voir à ce sujet les « commandes prédéfinies » et, pour de plus
@@ -561,11 +545,8 @@ amples détails, @ref{Direction et positionnement}.
 @cindex liaison de prolongation, tirets
 
 @funindex \tieDotted
-@funindex tieDotted
 @funindex \tieDashed
-@funindex tieDashed
 @funindex \tieSolid
-@funindex tieSolid
 
 Les liaisons de prolongation peuvent s'imprimer sous la forme de ligne
 continue, discontinue ou pointillée.
@@ -691,14 +672,10 @@ notes.
 @cindex double pause
 
 @funindex \rest
-@funindex rest
 @funindex r
 @funindex \maxima
-@funindex maxima
 @funindex \longa
-@funindex longa
 @funindex \breve
-@funindex breve
 
 Les silences sont écrits comme des notes avec le nom de note @code{r} --
 premier caractère du mot @emph{rest}.  Les durées supérieures à la pause
@@ -780,7 +757,6 @@ soupir à la maxime (équivalant à huit pauses).
 
 @funindex s
 @funindex \skip
-@funindex skip
 
 Un silence invisible -- que l'on pourrait appeler un @qq{saut} --
 peut être entré comme une note avec le nom de note @code{s} ou avec
@@ -874,7 +850,6 @@ Référence des propriétés internes :
 @cindex silences, mesure entière
 @cindex une pause par mesure
 
-@funindex compressMMRests
 @funindex \compressMMRests
 @funindex R
 
@@ -953,7 +928,6 @@ R2.*2 |
 @cindex silence multimesure et point d'orgue
 
 @funindex \fermataMarkup
-@funindex fermataMarkup
 @funindex MultiMeasureRestText
 
 Vous pouvez aussi ajouter du texte à un silence multimesure en
@@ -989,13 +963,10 @@ Un silence multimesure placé directement après une commande
 numéros de mesure.
 
 @funindex \textLengthOn
-@funindex textLengthOn
 @funindex \textLengthOff
 @funindex textLenthOff
 @funindex \fermataMarkup
-@funindex fermataMarkup
 @funindex \compressMMRests
-@funindex compressMMRests
 
 @predefined
 @code{\textLengthOn},
@@ -1083,7 +1054,6 @@ silences.
 @cindex métrique
 
 @funindex \time
-@funindex time
 
 Le chiffre de mesure indique le mètre d'une pièce : une alternance
 régulière de temps forts et de temps faibles.  Il est indiqué par une
@@ -1121,9 +1091,7 @@ indiqué au chapitre @ref{Visibilité des objets}.
 @cindex styles de métrique
 
 @funindex \numericTimeSignature
-@funindex numericTimeSignature
 @funindex \defaultTimeSignature
-@funindex defaultTimeSignature
 
 Le symbole de métrique utilisé pour les mesures à 2/2 et 4/4 peut être
 changé pour un style numérique :
@@ -1329,7 +1297,6 @@ Références des propriétés internes :
 @cindex métronome, indication
 
 @funindex \tempo
-@funindex tempo
 
 Une indication métronomique s'insère tout simplement comme ceci :
 
@@ -1394,9 +1361,7 @@ parenthèses l'indication numérique :
 @end lilypond
 
 @funindex \markLengthOn
-@funindex markLengthOn
 @funindex \markLengthOff
-@funindex markLengthOff
 
 Dans le cas d'une partie où l'instrumentiste a de longs moments de
 silence, les indications de tempo peuvent être fort rapprochées
@@ -1465,7 +1430,6 @@ Référence des propriétés internes :
 
 @funindex measurePosition
 @funindex \partial
-@funindex partial
 
 Les mesures incomplètes, telles que les anacrouses ou levées, doivent
 être entrées avec la commande @code{\partial}.  La syntaxe de cette
@@ -1557,9 +1521,7 @@ Références des propriétés internes :
 @cindex musique non mesurée
 
 @funindex \cadenzaOn
-@funindex cadenzaOn
 @funindex \cadenzaOff
-@funindex cadenzaOff
 
 En matière de musique mesurée, le positionnement des barres et la
 numérotation sont calculés automatiquement.  Ceci n'est pas souhaitable
@@ -1692,9 +1654,7 @@ des sauts de ligne peuvent prendre place :
 
 @funindex timeSignatureFraction
 @funindex \scaleDurations
-@funindex scaleDurations
 @funindex \tuplet
-@funindex tuplet
 
 LilyPond gère les métriques composites, aussi bien de manière explicite
 que de manière détournée -- modification de l'indicateur de métrique
@@ -1996,9 +1956,7 @@ sont ramenées à la même hauteur, sur une portée d'une seule ligne.
 
 @funindex Pitch_squash_engraver
 @funindex \improvisationOn
-@funindex improvisationOn
 @funindex \improvisationOff
-@funindex improvisationOff
 
 L'utilisation combinée du @code{Pitch_squash_engraver} et de
 @code{\improvisationOn} permet d'afficher la structure rythmique d'une
@@ -2065,9 +2023,7 @@ d'imprimer les ligatures.
 @cindex ligatures, personnalisation
 
 @funindex \autoBeamOn
-@funindex autoBeamOn
 @funindex \autoBeamOff
-@funindex autoBeamOff
 
 @lilypond[quote,verbatim]
 \relative c'' {
@@ -2174,9 +2130,7 @@ terminaison ne sera prise en compte qu'à l'occasion de la
 @funindex beatStructure
 @funindex measureLength
 @funindex \time
-@funindex time
 @funindex \set
-@funindex set
 
 Lorsque la fonction de ligature automatique est active, le
 positionnement des ligatures dépend des trois propriétés
@@ -2596,7 +2550,6 @@ indication attachée à une note :
 @end lilypond
 
 @funindex \noBeam
-@funindex noBeam
 
 Le fait d'affubler une note particulière d'un @code{\noBeam} aura pour
 effet de l'empêcher d'être ligaturée :
@@ -2679,7 +2632,6 @@ Référence des propriétés internes :
 @cindex ligature en soufflet
 
 @funindex \featherDurations
-@funindex featherDurations
 @funindex grow-direction
 
 Les ligatures en soufflet permettent d'indiquer qu'un petit groupe de
@@ -2760,7 +2712,6 @@ courts extraits, avec une faible amplitude.
 @cindex barres de reprise
 
 @funindex \bar
-@funindex bar
 
 Les barres de mesures délimitent les mesures, mais peuvent aussi
 indiquer une reprise.  En principe, elles sont insérées automatiquement
@@ -2971,7 +2922,6 @@ surmontée d'un @emph{segno}, et sait coopérer avec l'instruction
 @cindex définition d'une barre de mesure
 
 @funindex \defineBarLine
-@funindex defineBarLine
 
 L'instruction @code{\defineBarLine} permet de définir ses propres
 types de barre de mesure, en respectant la syntaxe :
@@ -3094,7 +3044,6 @@ les portées d'un @code{StaffGroup}, d'un @code{PianoStaff} ou d'un
 @funindex whichBar
 @funindex defaultBarType
 @funindex \bar
-@funindex bar
 @funindex bartype
 
 La commande @samp{\bar @var{type_de_barre}} sert de raccourci pour
@@ -3293,7 +3242,6 @@ atteinte.
 @end lilypond
 
 @funindex \barNumberCheck
-@funindex barNumberCheck
 
 Lorsque l'on recopie de longues pièces, il peut être utile de vérifier
 que les numéros de mesure de LilyPond correspondent à l'original que
@@ -3319,7 +3267,6 @@ Morceaux choisis :
 @cindex repère, indication de
 
 @funindex \mark
-@funindex mark
 
 Indiquer un repère s'obtient grâce à la commande @code{\mark}.
 
@@ -3431,7 +3378,6 @@ définis.  Un @code{\markup} peut néanmoins s'utiliser en argument.
 @cindex glyphes musicales
 
 @funindex \musicglyph
-@funindex musicglyph
 
 Un @code{\mark} peut contenir un glyphe musical tel que le signe
 @emph{segno}.
@@ -3548,7 +3494,6 @@ pour chaque petite croche.
 @cindex notes d'ornement en fin de note
 
 @funindex \afterGrace
-@funindex afterGrace
 
 La commande @code{\afterGrace} sert à placer une petite note après une
 note réelle -- et non @emph{avant} comme d'ordinaire.  Cette commande

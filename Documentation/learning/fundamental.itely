@@ -68,9 +68,7 @@ There are many variations of this basic pattern, but this
 example serves as a useful starting place.
 
 @funindex \book
-@funindex book
 @funindex \score
-@funindex score
 @cindex book
 @cindex score
 
@@ -154,11 +152,8 @@ things, such as
 @end example
 
 @funindex \header
-@funindex header
 @funindex \layout
-@funindex layout
 @funindex \midi
-@funindex midi
 @cindex header
 @cindex layout
 @cindex midi
@@ -184,7 +179,6 @@ Notation Reference -- @ruser{Score layout}, and
 @cindex book block, implicit
 @cindex implicit book block
 @funindex \book
-@funindex book
 
 You may code multiple @code{\score} blocks.  Each will be
 treated as a separate score, but they will be all combined into
@@ -252,7 +246,6 @@ For a complete definition of the input format, see
 @subsection Score is a (single) compound musical expression
 
 @funindex \score
-@funindex score
 @cindex score
 @cindex contents of a score block
 @cindex score block, contents of
@@ -944,15 +937,10 @@ Notation Reference: @ruser{Multiple voices}.
 @subsection Explicitly instantiating voices
 
 @funindex \voiceOne
-@funindex voiceOne
 @funindex \voiceTwo
-@funindex voiceTwo
 @funindex \voiceThree
-@funindex voiceThree
 @funindex \voiceFour
-@funindex voiceFour
 @funindex \oneVoice
-@funindex oneVoice
 @funindex \new Voice
 @cindex voice contexts, creating
 
@@ -1139,13 +1127,9 @@ as here:
 @cindex collisions, notes
 @cindex shift commands
 @funindex \shiftOff
-@funindex shiftOff
 @funindex \shiftOn
-@funindex shiftOn
 @funindex \shiftOnn
-@funindex shiftOnn
 @funindex \shiftOnnn
-@funindex shiftOnnn
 
 Closely spaced notes in a chord, or notes occurring at the same
 time in different voices, are arranged in two, occasionally more,
@@ -1196,7 +1180,6 @@ expressions -- notes and lyrics.
 
 @funindex \new Lyrics
 @funindex \lyricsto
-@funindex lyricsto
 @funindex Lyrics
 @cindex Lyrics context, creating
 @cindex lyrics, linking to voice
@@ -1232,7 +1215,6 @@ explicitly.
 @cindex lyrics and beaming
 @cindex beaming and lyrics
 @funindex \autoBeamOff
-@funindex autoBeamOff
 
 The automatic beaming which LilyPond uses by default works well
 for instrumental music, but not so well for music with lyrics,
@@ -1243,7 +1225,6 @@ melismata in the lyrics.  In the example above we use the command
 @funindex \new ChoirStaff
 @funindex ChoirStaff
 @funindex \lyricmode
-@funindex lyricmode
 @cindex vocal score structure
 @cindex choir staff
 
@@ -1451,7 +1432,6 @@ Notation Reference: @ruser{Contexts explained}.
 @subsection Creating contexts
 
 @funindex \new
-@funindex new
 @cindex new contexts
 @cindex creating contexts
 @cindex contexts, creating
@@ -1653,9 +1633,7 @@ Internals reference: @rinternals{Engravers and Performers}.
 @cindex context properties, modifying
 @cindex modifying context properties
 @funindex \set
-@funindex set
 @funindex \unset
-@funindex unset
 
 Contexts are responsible for holding the values of a number of
 context @emph{properties}.  Many of them can be changed to
@@ -1849,7 +1827,6 @@ general way by using the very powerful @code{\markup} command.
 @subsubheading Setting context properties with @code{\with}
 
 @funindex \with
-@funindex with
 @cindex context properties, setting with \with
 
 The default value of context properties may be set at the time the
@@ -1898,7 +1875,6 @@ with @code{\set}, this new default value may be restored with the
 
 @cindex context properties, setting with \context
 @funindex \context
-@funindex context
 
 The values of context properties may be set in @emph{all} contexts
 of a particular type, such as all @code{Staff} contexts, with a single
@@ -1977,9 +1953,7 @@ Internals Reference:
 @cindex removing engravers
 
 @funindex \consists
-@funindex consists
 @funindex \remove
-@funindex remove
 
 We have seen that contexts each contain several engravers, each
 of which is responsible for producing a particular part of the
@@ -2075,7 +2049,6 @@ the notes in all the voices on that staff:
 @subsubheading Changing all contexts of the same type
 
 @funindex \layout
-@funindex layout
 
 The examples above show how to remove or add engravers to
 individual contexts.  It is also possible to remove or add

@@ -209,7 +209,6 @@ Guida alla notazione:
 @cindex override, sintassi
 
 @funindex \override
-@funindex override
 
 Abbiamo già incontrato i comandi @code{\set} e @code{\with}, che servono
 a modificare le proprietà dei @strong{contesti} e a togliere o aggiungere
@@ -282,7 +281,6 @@ il colore della testa di nota:
 @cindex ripristino, comando \revert
 
 @funindex \revert
-@funindex revert
 
 Quando viene sovrascritta, la proprietà mantiene il suo nuovo valore finché
 non viene sovrascritta di nuovo o non si incontra un comando @code{\revert}.
@@ -320,7 +318,6 @@ note al valore predefinito:
 @translationof The once prefix
 
 @funindex \once
-@funindex once
 
 I comandi @code{\override}, @code{revert}, @code{\set} e @code{\unset} possono
 essere preceduti da @code{\once}.  Questo fa sì che tale comando sia operativo
@@ -367,7 +364,6 @@ comandi predefiniti per limitare il loro effetto a un momento musicale:
 @cindex overrideProperty, comando
 
 @funindex \overrideProperty
-@funindex overrideProperty
 
 Esiste un'altra forma di comando di sovrascrittura,
 @code{\overrideProperty}, che si rende necessario raramente.
@@ -385,7 +381,6 @@ si veda @rextend{Difficult tweaks}.
 @cindex tweak, comando
 
 @funindex \tweak
-@funindex tweak
 
 L'ultimo comando di modifica a disposizione è @code{\tweak}.  Si usa
 quando vari oggetti compaiono nello stesso momento musicale,
@@ -799,7 +794,6 @@ dal fatto che stiamo inserendo delle note, in questo caso possiamo ometterlo.
 @cindex \once \override
 
 @funindex \once
-@funindex once
 
 Come puoi vedere, @emph{tutte} le legature di portamento sono più spesse nell'ultimo
 esempio.  E se volessimo rendere più spessa solo la prima legatura di portamento?
@@ -845,7 +839,6 @@ Il comando @code{\once} può essere usato anche prima del comando @code{\set}.
 @cindex proprietà predefinite, ripristinare le
 
 @funindex \revert
-@funindex revert
 
 E se volessimo che soltanto le prime due legature di portamento fossero
 più spesse?  Potremmo usare due comandi, ciascuno preceduto da
@@ -2303,9 +2296,7 @@ questi oggetti.
 @cindex segno del cambio d'ottava
 
 @funindex \startTextSpan
-@funindex startTextSpan
 @funindex \stopTextSpan
-@funindex stopTextSpan
 
 @cindex TextSpanner, esempio di sovrascrittura
 @cindex proprietà bound-details, esempio
@@ -2453,9 +2444,7 @@ far posto al testo.  Lo si può ottenere con il comando
 @cindex note, distanziarle insieme al testo
 
 @funindex \textLengthOn
-@funindex textLengthOn
 @funindex \textLengthOff
-@funindex textLengthOff
 
 Per impostazione predefinita, finché si tratta di formattare la musica il
 testo prodotto dal comando @code{\markup} non occupa uno spazio orizzontale.
@@ -2980,13 +2969,9 @@ note in voci diverse.
 @cindex note, collisioni
 @cindex shift, comandi
 @funindex \shiftOff
-@funindex shiftOff
 @funindex \shiftOn
-@funindex shiftOn
 @funindex \shiftOnn
-@funindex shiftOnn
 @funindex \shiftOnnn
-@funindex shiftOnnn
 
 All'interno di una voce, tutte le note che si trovano nello stesso momento
 musicale sono raggruppate in una colonna di note, e viene creato un oggetto

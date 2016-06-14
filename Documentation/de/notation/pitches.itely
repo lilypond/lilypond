@@ -118,7 +118,6 @@ Schnipsel:
 @cindex Noteneingabe: relative Oktavbestimmung
 
 @funindex \relative
-@funindex relative
 
 Wenn Oktaven im absoluten Modus notiert, passiert es
 schnell, eine Note auf der falschen Oktave zu notieren.  Mit
@@ -645,7 +644,6 @@ Dieser Abschnitt zeigt, wie man Tonhöhen beeinflusst.
 
 @funindex =
 @funindex \octaveCheck
-@funindex octaveCheck
 @funindex controlpitch
 
 Im relativen Modus geschieht es recht häufig, dass ein
@@ -724,7 +722,6 @@ Referenz der Interna:
 @cindex Tonhöhen, transponieren
 
 @funindex \transpose
-@funindex transpose
 
 Ein musikalischer Ausdruck kann mit dem Befehl @code{\transpose}
 transponiert werden. Die Syntax lautet:
@@ -871,7 +868,6 @@ Des anstelle von e-dreifach-b).
 @cindex Melodietransformation, Umkehrung
 
 @funindex \inversion
-@funindex inversion
 
 Ein musikalischer Ausdruck kann in seine Umkehrung transformiert und
 gleichzeitig transponiert werden:
@@ -912,7 +908,6 @@ Notationsreferenz:
 @cindex Melodietransformation, Krebs
 
 @funindex \retrograde
-@funindex retrograde
 
 Ein musikalischer Ausdruck kann umgekehrt werden, um im Krebsgang dargestellt
 zu werden:
@@ -963,7 +958,6 @@ nicht transformiert.}
 @cindex Melodietransposition, modal
 
 @funindex \modalTranspose
-@funindex modalTranspose
 
 Ein Motiv kann innerhalb einer Skala transponiert werden:
 
@@ -1022,7 +1016,6 @@ motif = \relative { c'8 d e f g a b c }
 @cindex Melodieumkehrung, modal
 
 @funindex \modalInversion
-@funindex modalInversion
 
 Ein musikalischer Ausdruck kann innerhalb einer definierten Skala um
 eine Referenznote umgekehrt werden und transponiert werden:
@@ -1129,7 +1122,6 @@ verändern werden kann.
 @cindex Schlüssel, F
 
 @funindex \clef
-@funindex clef
 
 Der Schlüssel kann verändert werden. Das eingestrichene
 C wird in jedem Beispiel gezeigt:
@@ -1242,7 +1234,6 @@ Referenz der Interna:
 @cindex Vorzeichen
 
 @funindex \key
-@funindex key
 
 @c duplicated in Key signature and Accidentals
 @warning{Neue Benutzer sind manchmal verwirrt, wie
@@ -1358,7 +1349,6 @@ Referenz der Interna:
 
 @funindex set-octavation
 @funindex \ottava
-@funindex ottava
 
 @notation{Oktavierungsklammern} zeigen eine zusätzliche
 Transposition von einer Oktave an:
@@ -1409,7 +1399,6 @@ Referenz der Interna:
 @cindex MIDI-Transposition
 
 @funindex \transposition
-@funindex transposition
 
 Wenn man Noten setzt, die von transponierenden Instrumenten
 gespielt werden, sind oft einige Stimmen auf einer
@@ -2883,9 +2872,7 @@ Referenz der Interna:
 @cindex Notenköpfe für Anfänger
 
 @funindex \easyHeadsOn
-@funindex easyHeadsOn
 @funindex \easyHeadsOff
-@funindex easyHeadsOff
 
 Die @qq{einfachen Notenköpfe} haben die Bezeichnung der Note
 im Kopf gedruckt.  Das wird eingesetzt, um die Notation beizubringen.
@@ -2956,11 +2943,8 @@ Referenz der Interna:
 @funindex aikenHeads
 @funindex sacredHarpHeads
 @funindex \southernHarmonyHeads
-@funindex southernHarmonyHeads
 @funindex \funkHeads
-@funindex funkHeads
 @funindex \walkerHeads
-@funindex walkerHeads
 
 In dieser Notation haben die Notenköpfe eine Form, die ihrer
 harmonischen Funktion innerhalb der Tonleiter entspricht.  Die
@@ -2985,17 +2969,11 @@ und Aiken (Christian Harmony) benutzt werden:
 @end lilypond
 
 @funindex \key
-@funindex key
 @funindex \aikenHeadsMinor
-@funindex aikenHeadsMinor
 @funindex \sacredHarpHeadsMinor
-@funindex sacredHarpHeadsMinor
 @funindex \southernHarmonyHeadsMinor
-@funindex southernHarmonyHeadsMinor
 @funindex \funkHeadsMinor
-@funindex funkHeadsMinor
 @funindex \walkerHeadsMinor
-@funindex walkerHeadsMinor
 
 Die unterschiedlichen Formen richten sich nach der Stufe in der
 Skala, wobei der Grundton der Skala aus dem @code{\key}-Befehl
@@ -3064,9 +3042,7 @@ Referenz der Interna:
 @cindex Striche: Notenköpfe
 
 @funindex \improvisationOn
-@funindex improvisationOn
 @funindex \improvisationOff
-@funindex improvisationOff
 
 Improvisation wird manchmal angezeigt, indem schräge Notenköpfe
 gesetzt werden, wenn der Spieler eine beliebige Tonhöhe wählen kann

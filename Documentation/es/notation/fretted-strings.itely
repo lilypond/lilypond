@@ -624,7 +624,6 @@ Re-Sol-Re-Sol-Si-Re), @code{mandolin-tuning} (mandolina) y
 afinaciones predefinidas están en
 @file{ly/string-tunings-init.ly}.
 
-@funindex stringTuning
 @funindex \stringTuning
 @cindex tablaturas, afinaciones personalizadas
 @cindex personalizadas, afinaciones de cuerdas
@@ -882,7 +881,6 @@ de la cadena de marcado del diagrama de trastes.
 @cindex fret-diagram, marcado con
 @cindex ukelele
 
-@funindex fret-diagram
 @funindex \fret-diagram
 
 El tamaño del diagrama de trastes y el número de trastes del
@@ -975,7 +973,6 @@ cadena de marcado @code{fret-diagram}.
 
 @cindex fret-diagram-terse, marcado con
 
-@funindex fret-diagram-terse
 @funindex \fret-diagram-terse
 
 La cadena de marcado de diagrama de trastes escueta,
@@ -1058,7 +1055,6 @@ fret-diagram-terse.
 @cindex fret-diagram-verbose, marcado con
 @cindex capo
 
-@funindex fret-diagram-verbose
 @funindex \fret-diagram-verbose
 
 La cadena de marcado prolija @code{fret-diagram-verbose} está en
@@ -1353,7 +1349,6 @@ simultánea o bien usando el modo de acordes (véase
 @cindex trastes, diagramas de, con nombres de acorde
 
 @funindex ChordNames
-@funindex chordmode
 @funindex \chordmode
 
 Es corriente que se impriman juntos los nombres de acorde y los
@@ -1504,8 +1499,6 @@ mychords = \chordmode {
 @cindex acordes, formas de, en instrumentos de trastes
 
 @funindex \addChordShape
-@funindex addChordShape
-@funindex storePredefinedDiagram
 @funindex \storePredefinedDiagram
 
 Además de los diagramas de traste, LilyPond almacena una lista
@@ -1627,9 +1620,7 @@ tocar las notas.
 >>
 @end lilypond
 
-@funindex predefinedFretboardsOff
 @funindex \predefinedFretboardsOff
-@funindex predefinedFretboardsOn
 @funindex \predefinedFretboardsOn
 
 Puesto que de forma predeterminada no se carga ningún diagrama
@@ -1768,7 +1759,6 @@ instrumentos con afinaciones no monótonas.
 @cindex digitaciones de la mano derecha para instrumentos de trastes
 @cindex derecha, mano, digitaciones para instrumentos de traste
 
-@funindex rightHandFinger
 @funindex \rightHandFinger
 
 Las digitaciones de la mano derecha @var{p-i-m-a} se deben introducir
@@ -1949,7 +1939,6 @@ Referencia de la notación:
 @unnumberedsubsubsec Indicación de acordes de potencia o de quinta vacía
 @translationof Indicating power chords
 
-@funindex powerChords
 @funindex \powerChords
 
 @cindex potencia, acordes de

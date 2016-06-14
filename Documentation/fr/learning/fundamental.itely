@@ -76,9 +76,7 @@ Il existe de nombreuses variantes à ce schéma simpliste, mais cet
 exemple est un préambule à notre propos.
 
 @funindex \book
-@funindex book
 @funindex \score
-@funindex score
 
 @cindex book, livre, ouvrage
 @cindex livre
@@ -167,11 +165,8 @@ d'autres informations :
 @end example
 
 @funindex \header
-@funindex header
 @funindex \layout
-@funindex layout
 @funindex \midi
-@funindex midi
 
 @cindex header
 @cindex en-tête
@@ -204,7 +199,6 @@ particulièrement dans le manuel de notation, aux chapitres
 @cindex implicite, bloc book
 
 @funindex \book
-@funindex book
 
 Vous pouvez tout à fait mentionner plusieurs blocs @code{\score}.  Ils
 seront traités comme autant de partitions indépendantes qui seront
@@ -276,7 +270,6 @@ Pour une description complète du format des fichiers d'entrée, voir
 @translationof Score is a (single) compound musical expression
 
 @funindex \score
-@funindex score
 
 @cindex partition
 @cindex bloc score, contenu
@@ -968,15 +961,10 @@ Manuel de notation :
 @translationof Explicitly instantiating voices
 
 @funindex \voiceOne
-@funindex voiceOne
 @funindex \voiceTwo
-@funindex voiceTwo
 @funindex \voiceThree
-@funindex voiceThree
 @funindex \voiceFour
-@funindex voiceFour
 @funindex \oneVoice
-@funindex oneVoice
 @funindex \new Voice
 @cindex Voice, création de contextes
 
@@ -1170,13 +1158,9 @@ voix.
 @cindex décalage, commandes
 
 @funindex \shiftOff
-@funindex shiftOff
 @funindex \shiftOn
-@funindex shiftOn
 @funindex \shiftOnn
-@funindex shiftOnn
 @funindex \shiftOnnn
-@funindex shiftOnnn
 
 Les notes rapprochées d'un accord, ou des notes de différentes voix qui
 tombent ensemble, seront rangées sur deux colonnes, voire plus, pour
@@ -1227,7 +1211,6 @@ deux expressions différentes -- des notes et des paroles.
 
 @funindex \new Lyrics
 @funindex \lyricsto
-@funindex lyricsto
 @funindex Lyrics
 
 @cindex Lyrics, création d'un contexte
@@ -1265,7 +1248,6 @@ et @code{Voice}.
 @cindex ligatures et paroles
 
 @funindex \autoBeamOff
-@funindex autoBeamOff
 
 Si la ligature automatique que LilyPond applique par défaut est
 pleinement adaptée en matière de musique instrumentale, il n'en va pas
@@ -1278,7 +1260,6 @@ afin de désactiver les ligatures automatiques.
 @funindex \new ChoirStaff
 @funindex ChoirStaff
 @funindex \lyricmode
-@funindex lyricmode
 
 @cindex structure d'une partition vocale
 @cindex chœur, partie de
@@ -1492,7 +1473,6 @@ Manuel de notation :
 @translationof Creating contexts
 
 @funindex \new
-@funindex new
 
 @cindex nouveaux contextes
 @cindex contextes, création de
@@ -1704,9 +1684,7 @@ Référence des propriétés internes :
 @cindex modification des propriétés d'un contexte
 
 @funindex \set
-@funindex set
 @funindex \unset
-@funindex unset
 
 Les contextes gèrent les différentes valeurs des nombreuses
 @emph{propriétés} qui leur sont attachées.  Beaucoup d'entre elles
@@ -1910,7 +1888,6 @@ commande @code{\markup} permet aussi de spécifier du texte.
 @translationof Setting context properties with @code{\with}
 
 @funindex \with
-@funindex with
 
 @cindex propriétés d'un contexte, définition avec \with
 
@@ -1964,7 +1941,6 @@ revenir à la nouvelle valeur par défaut.
 @cindex propriétés d'un contexte, définition avec \context
 
 @funindex \context
-@funindex context
 
 Vous pouvez régler les valeurs des propriétés de contexte en une seule
 fois pour tous les contextes d'un même type, par exemple tous les
@@ -2042,9 +2018,7 @@ Référence des propriétés internes :
 @cindex graveurs, suppression
 
 @funindex \consists
-@funindex consists
 @funindex \remove
-@funindex remove
 
 Nous avons vu que chaque contexte met en œuvre plusieurs graveurs, et
 que chacun de ces graveurs est chargé de générer une composante
@@ -2145,7 +2119,6 @@ les notes de toutes les voix de la portée :
 @translationof Changing all contexts of the same type
 
 @funindex \layout
-@funindex layout
 
 Les exemples ci-dessus nous ont montré comment ajouter ou retirer des
 graveurs à des contextes individuels.  Nous pourrions aussi ajouter ou

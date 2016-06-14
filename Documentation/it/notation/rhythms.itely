@@ -52,11 +52,8 @@ travature e le battute.
 @cindex note, lunghezza delle
 
 @funindex \longa
-@funindex longa
 @funindex \breve
-@funindex breve
 @funindex \maxima
-@funindex maxima
 
 Le durate, indicate con numeri e punti, sono indicate con i
 valori corrispondenti.  Per esempio, una nota di un quarto si indica con un
@@ -139,11 +136,8 @@ alla loro durata.  I dettagli relativi a questo argomento e alle impostazioni
 della notazione proporzionale si trovano in @ref{Proportional notation}.
 
 @funindex \dotsUp
-@funindex dotsUp
 @funindex \dotsDown
-@funindex dotsDown
 @funindex \dotsNeutral
-@funindex dotsNeutral
 
 Di norma i punti sono spostati in su per evitare le linee del rigo, fuorché all'interno
 di passaggi polifonici.  I punti possono essere orientati manualmente verso l'alto
@@ -207,7 +201,6 @@ centoventottesimo fino alla maxima (otto volte una semibreve).
 @cindex terzine
 
 @funindex \tuplet
-@funindex tuplet
 
 I gruppi irregolari sono costituiti da un'espressione musicale
 introdotta dal comando @code{\tuplet}, che moltiplica la velocità
@@ -247,11 +240,8 @@ della musica per far sì che i gruppi siano suddivisi automaticamente:
 @cindex gruppo irregolare, posizionamento della parentesi quadra
 
 @funindex \tupletUp
-@funindex tupletUp
 @funindex \tupletDown
-@funindex tupletDown
 @funindex \tupletNeutral
-@funindex tupletNeutral
 
 Le parentesi dei gruppi irregolari si possono posizionare manualmente sopra
 o sotto il rigo:
@@ -384,7 +374,6 @@ esempio @code{s1*23}.
 @cindex espandere la musica
 
 @funindex \scaleDurations
-@funindex scaleDurations
 
 Frammenti musicali più lunghi possono essere compressi secondo la stessa proporzione, come
 moltiplicando ogni nota, accordo o pausa per una medesima frazione.
@@ -501,7 +490,6 @@ legati inserendo la legatura all'interno dell'accordo stesso.
 @cindex legature di valore e parentesi della volta
 
 @funindex \repeatTie
-@funindex repeatTie
 
 Quando la battuta della "seconda volta" di un ritornello inizia con una nota
 legata a quella precedente, occorre indicare la legatura nel modo seguente:
@@ -522,7 +510,6 @@ legata a quella precedente, occorre indicare la legatura nel modo seguente:
 @cindex legatura di valore, laissez vibrer
 
 @funindex \laissezVibrer
-@funindex laissezVibrer
 
 Le legature @notation{L.v.}@: (@notation{laissez vibrer}) indicano che
 le note non devono essere terminate nettamente.  Si usa nella notazione per
@@ -536,11 +523,8 @@ così:
 @cindex legature di valore, posizionamento
 
 @funindex \tieUp
-@funindex tieUp
 @funindex \tieDown
-@funindex tieDown
 @funindex \tieNeutral
-@funindex tieNeutral
 
 Le legature di valore possono essere impostate manualmente  per avere la
 curva in su o in giù, come è spiegato in @ref{Direction and placement}.
@@ -550,11 +534,8 @@ curva in su o in giù, come è spiegato in @ref{Direction and placement}.
 @cindex legature di valore tratteggiate
 
 @funindex \tieDotted
-@funindex tieDotted
 @funindex \tieDashed
-@funindex tieDashed
 @funindex \tieSolid
-@funindex tieSolid
 
 Le legature di valore possono essere tratteggiate, punteggiate, oppure tracciate secondo una
 successione di tratti continui e tratti interrotti.
@@ -679,14 +660,10 @@ Le pause si inseriscono insieme alla musica contenuta nelle espressioni musicali
 @cindex pausa di breve
 
 @funindex \rest
-@funindex rest
 @funindex r
 @funindex \maxima
-@funindex maxima
 @funindex \longa
-@funindex longa
 @funindex \breve
-@funindex breve
 
 Le pause si inseriscono allo stesso modo delle note, ma con il carattere @code{r}.
 Le durate più lunghe di un intero usano i seguenti comandi predefiniti:
@@ -766,7 +743,6 @@ centoventottesimo fino alla maxima (otto volte una semibreve).
 
 @funindex s
 @funindex \skip
-@funindex skip
 
 Una pausa invisibile (chiamata anche @q{pausa spaziatrice}) si inserisce come
 come una nota col nome@tie{}@code{s}:
@@ -854,7 +830,6 @@ Guida al funzionamento interno:
 @cindex pause d'intero
 @cindex pausa intera per una misura intera
 
-@funindex compressMMRests
 @funindex \compressMMRests
 @funindex R
 
@@ -934,7 +909,6 @@ R2.*2 |
 @cindex pausa multipla con testo a margine
 
 @funindex \fermataMarkup
-@funindex fermataMarkup
 @funindex MultiMeasureRestText
 
 Si possono aggiungere delle annotazioni alle pause multiple.  Il comando
@@ -967,13 +941,9 @@ non apparire i relativi avvertimenti del controllo battuta.
 
 
 @funindex \textLengthOn
-@funindex textLengthOn
 @funindex \textLengthOff
-@funindex textLengthOff
 @funindex \fermataMarkup
-@funindex fermataMarkup
 @funindex \compressMMRests
-@funindex compressMMRests
 
 @predefined
 @code{\textLengthOn},
@@ -1060,7 +1030,6 @@ Le pause multiple non considerano le collisioni di pausa.
 @cindex misura
 
 @funindex \time
-@funindex time
 
 L'indicazione di tempo si imposta così:
 
@@ -1095,9 +1064,7 @@ comportamento predefinito, come è spiegato in @ref{Visibility of objects}.
 @cindex tempo, stile
 
 @funindex \numericTimeSignature
-@funindex numericTimeSignature
 @funindex \defaultTimeSignature
-@funindex defaultTimeSignature
 
 Il simbolo di indicazione di tempo usato nei tempi 2/2 e 4/4 può essere
 sostituito da un numero:
@@ -1306,7 +1273,6 @@ Guida al funzionamento interno:
 @cindex indicazione metronomica con testo
 
 @funindex \tempo
-@funindex tempo
 
 Un'indicazione metronomica è semplice da scrivere:
 
@@ -1370,9 +1336,7 @@ includendo una stringa vuota nell'input:
 @end lilypond
 
 @funindex \markLengthOn
-@funindex markLengthOn
 @funindex \markLengthOff
-@funindex markLengthOff
 
 In una parte per uno strumento che ha lunghi periodi pieni di pause,
 le indicazioni di tempo sono talvolta molto ravvicinate.  Il comando
@@ -1438,7 +1402,6 @@ Guida al funzionamento interno:
 
 @funindex measurePosition
 @funindex \partial
-@funindex partial
 
 Le misure parziali, come l'@emph{anacrusi} o la battuta
 in levare, si inseriscono col comando @code{\partial}:
@@ -1536,9 +1499,7 @@ Guida al funzionamento interno:
 @cindex travature, musica in tempo libero
 
 @funindex \cadenzaOn
-@funindex cadenzaOn
 @funindex \cadenzaOff
-@funindex cadenzaOff
 
 Nella musica in un tempo determinato l'inserimento delle stanghette e dei numeri di
 battuta è calcolato automaticamente. Nella musica in tempo libero (per esempio,
@@ -1668,9 +1629,7 @@ di musica in tempo libero è necessario inserire manualmente delle stanghette
 
 @funindex timeSignatureFraction
 @funindex \scaleDurations
-@funindex scaleDurations
 @funindex \tuplet
-@funindex tuplet
 
 La notazione polimetrica è supportata esplicitamente o tramite la modifica
 manuale del simbolo d'indicazione di tempo (e la trasformazione della durata
@@ -1965,9 +1924,7 @@ il rigo stesso ha una sola linea
 
 @funindex Pitch_squash_engraver
 @funindex \improvisationOn
-@funindex improvisationOn
 @funindex \improvisationOff
-@funindex improvisationOff
 
 I diagrammi degli accordi per chitarra di solito mostrano i ritmi di
 accompagnamento.  Si possono visualizzare usando l'incisore
@@ -2035,9 +1992,7 @@ Le travature sono inserite automaticamente:
 @cindex travature, personalizzazione delle regole
 
 @funindex \autoBeamOn
-@funindex autoBeamOn
 @funindex \autoBeamOff
-@funindex autoBeamOff
 
 @lilypond[quote,verbatim]
 \relative c'' {
@@ -2136,14 +2091,11 @@ non inizia la @emph{successiva}, nuova travatura.
 
 @funindex autoBeaming
 @funindex baseMoment
-@funindex beamExceptions
 @funindex \beamExceptions
 @funindex beatStructure
 @funindex measureLength
 @funindex \time
-@funindex time
 @funindex \set
-@funindex set
 
 Quando la disposizione automatica delle travature è abilitata, la disposizione
 delle travature è determinata da tre proprietà di contesto:
@@ -2552,7 +2504,6 @@ gli indicatori di direzione:
 @end lilypond
 
 @funindex \noBeam
-@funindex noBeam
 
 Le note individuali possono essere contrassegnate con @code{\noBeam} per impedire
 che vengano inserite in una travatura:
@@ -2636,7 +2587,6 @@ Guida al funzionamento interno:
 @cindex travature convergenti o divergenti
 
 @funindex \featherDurations
-@funindex featherDurations
 @funindex grow-direction
 
 Le travature a raggiera servono a indicare che un gruppo di note determinato
@@ -2718,7 +2668,6 @@ musica molto brevi e quando i numeri della frazione sono piccoli.
 @cindex battute dei ritornelli
 
 @funindex \bar
-@funindex bar
 
 Le stanghette delimitano le misure e sono usate anche per indicare
 i ritornelli.  Di norma, le stanghette semplici sono inserite
@@ -2921,7 +2870,6 @@ con segno in congiunzione con un'appropriata stanghetta di ripetizione se
 usata con un comando @code{\repeat volta}, vedi @ref{Normal repeats}..
 
 @funindex \defineBarLine
-@funindex defineBarLine
 @cindex stanghette, definire
 @cindex definire le stanghette
 
@@ -3039,7 +2987,6 @@ di un @code{StaffGroup}, @code{PianoStaff} o @code{GrandStaff}.
 @funindex whichBar
 @funindex defaultBarType
 @funindex \bar
-@funindex bar
 @funindex bartype
 
 Il comando @samp{\bar @var{tipo-stanghetta}} è una scorciatoia di
@@ -3244,7 +3191,6 @@ nell'input.
 @end lilypond
 
 @funindex \barNumberCheck
-@funindex barNumberCheck
 
 Quando si copiano brani di una certa ampiezza, può essere d'aiuto verificare che i
 numeri di battuta di LilyPond corrispondano all'originale a partire dal quale
@@ -3271,7 +3217,6 @@ Frammenti di codice:
 @cindex segni di chiamata
 
 @funindex \mark
-@funindex mark
 
 Per creare un segno di chiamata si usa il comando @code{\mark}.
 
@@ -3387,7 +3332,6 @@ stringa.
 @cindex glifi musicali
 
 @funindex \musicglyph
-@funindex musicglyph
 
 I glifi musicali (come il Segno) possono essere posti dentro il
 comando @code{\mark}
@@ -3501,7 +3445,6 @@ abbellimento da un ottavo
 @cindex abbellimenti al termine di una nota
 
 @funindex \afterGrace
-@funindex afterGrace
 
 Se si desidera risolvere una nota su un abbellimento, si usa il
 comando @code{\afterGrace}.  Considera due argomenti: la nota principale e

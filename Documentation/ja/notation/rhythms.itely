@@ -51,11 +51,8 @@
 @cindex note lengths (音符の長さ)
 
 @funindex \longa
-@funindex longa
 @funindex \breve
-@funindex breve
 @funindex \maxima
-@funindex maxima
 
 演奏時間は数とドットで指定されます。@c
 演奏時間はその演奏時間の逆数で入力されます。@c
@@ -131,11 +128,8 @@
 詳細は @ref{Proportional notation} を参照してください。
 
 @funindex \dotsUp
-@funindex dotsUp
 @funindex \dotsDown
-@funindex dotsDown
 @funindex \dotsNeutral
-@funindex dotsNeutral
 
 通常、多声でない限り、ドットは譜線を避けるために上に移動させられます。@c
 ある特定のドットの移動方向を手動で指定するための定義済みコマンドがあります
@@ -203,7 +197,6 @@
 @cindex triplets (3 連符)
 
 @funindex \tuplet
-@funindex tuplet
 
 連符は @code{\tuplet} を使った音楽表記から作られ、@c
 音楽表記の速度に分数を掛け合わせます。
@@ -241,11 +234,8 @@
 @cindex tuplet bracket placement (連符囲みの配置)
 
 @funindex \tupletUp
-@funindex tupletUp
 @funindex \tupletDown
-@funindex tupletDown
 @funindex \tupletNeutral
-@funindex tupletNeutral
 
 連符囲みは手動で譜の上または下に配置することができます:
 
@@ -372,7 +362,6 @@ b16*4 c4
 @cindex expanding music (音楽を伸長する)
 
 @funindex \scaleDurations
-@funindex scaleDurations
 
 同様の方法で分数を使うことで、長く伸びた音楽を圧縮することができます。@c
 それによりそれぞれの音符、和音、休符には@c
@@ -468,7 +457,6 @@ a2 ~ 2
 @cindex ties and volta brackets (タイと volta 囲み)
 
 @funindex \repeatTie
-@funindex repeatTie
 
 繰り返しの 2 回目の差し替え部分はタイで結ばれた音符で始まっています。@c
 そのような繰り返し部分でのタイは以下のように指定する必要があります:
@@ -487,7 +475,6 @@ a2 ~ 2
 @cindex ties, laissez vibrer (レセ ヴィブレのタイ)
 
 @funindex \laissezVibrer
-@funindex laissezVibrer
 
 @notation{L.v.}@: タイ (@notation{レセ ヴィブレ: laissez vibrer}) は@c
 音符を終端で途切れさせないということを示します。@c
@@ -501,11 +488,8 @@ L.v. タイは以下のように入力します:
 @cindex ties, placement (タイの配置)
 
 @funindex \tieUp
-@funindex tieUp
 @funindex \tieDown
-@funindex tieDown
 @funindex \tieNeutral
-@funindex tieNeutral
 
 タイを手動で譜の上または下に配置することができます。
 @ref{Direction and placement} を参照してください。
@@ -517,11 +501,8 @@ L.v. タイは以下のように入力します:
 @cindex dotted ties (点線のタイ)
 
 @funindex \tieDotted
-@funindex tieDotted
 @funindex \tieDashed
-@funindex tieDashed
 @funindex \tieSolid
-@funindex tieSolid
 
 タイを破線、点線、実線と破線の組み合わせにすることができます。
 
@@ -640,14 +621,10 @@ c2 ~ 2
 @cindex breve rest (二全休符)
 
 @funindex \rest
-@funindex rest
 @funindex r
 @funindex \maxima
-@funindex maxima
 @funindex \longa
-@funindex longa
 @funindex \breve
-@funindex breve
 
 休符は音符名 @code{r} を持つ音符として入力されます。@c
 全休符よりも長い演奏時間を持つ休符には以下に示す定義済みコマンドを使用します:
@@ -730,7 +707,6 @@ c2 ~ 2
 
 @funindex s
 @funindex \skip
-@funindex skip
 
 不可視の休符 (@q{空白休符} とも呼ばれます) は音符名@tie{}@code{s} を@c
 持つ音符として入力することができます:
@@ -868,9 +844,7 @@ R1*2 |
 @cindex multi-measure rest, contracting (複数小節にまたがる休符をまとめる)
 
 @funindex \expandFullBarRests
-@funindex expandFullBarRests
 @funindex \compressFullBarRests
-@funindex compressFullBarRests
 
 デフォルトでは、複数小節にまたがる休符は@c
 休みの小節すべてを明示的に示すように譜刻される楽譜に展開されます。@c
@@ -903,7 +877,6 @@ R2.*2 |
 @cindex multi-measure rest with markup (マークアップを持つ複数小節にまたがる休符)
 
 @funindex \fermataMarkup
-@funindex fermataMarkup
 @funindex MultiMeasureRestText
 
 マークアップを複数小節にまたがる休符に付け加えることができます。@c
@@ -941,15 +914,11 @@ R1^"right"
 
 
 @funindex \textLengthOn
-@funindex textLengthOn
 @funindex \textLengthOff
 @funindex textLenthOff
 @funindex \fermataMarkup
-@funindex fermataMarkup
 @funindex \compressFullBarRests
-@funindex compressFullBarRests
 @funindex \expandFullBarRests
-@funindex expandFullBarRests
 
 @predefined
 @code{\textLengthOn},
@@ -1036,7 +1005,6 @@ R1^"right"
 @cindex meter (拍)
 
 @funindex \time
-@funindex time
 
 拍子は以下のようにセットします:
 
@@ -1068,9 +1036,7 @@ R1^"right"
 @cindex meter style (拍スタイル)
 
 @funindex \numericTimeSignature
-@funindex numericTimeSignature
 @funindex \defaultTimeSignature
-@funindex defaultTimeSignature
 
 2/2 や 4/4 で使用される拍子は数字を使用するスタイルに変更することができます:
 
@@ -1282,7 +1248,6 @@ R1^"right"
 @cindex metronome marking with text (テキストを持つメトロノーム記号)
 
 @funindex \tempo
-@funindex tempo
 
 基本的なメトロノーム記号は単純に以下のように記述します:
 
@@ -1391,7 +1356,6 @@ R1^"right"
 
 @funindex measurePosition
 @funindex \partial
-@funindex partial
 
 @emph{弱拍} や @emph{上拍} などのような部分小節またはピックアップ小節は、@c
 @code{\partial} コマンドを使って入力します:@c
@@ -1495,9 +1459,7 @@ r8 e,8 | a4 c8 b[ c b] |
 @cindex beams, unmetered music (無韻律の音楽での連桁)
 
 @funindex \cadenzaOn
-@funindex cadenzaOn
 @funindex \cadenzaOff
-@funindex cadenzaOff
 
 韻律のある音楽では、自動的に小節線が挿入され、小節番号が算出されます。@c
 無韻律の音楽 (例えばカデンツァ) では、これは望ましくなく、コマンド
@@ -1643,9 +1605,7 @@ cis4 d cis! d
 
 @funindex timeSignatureFraction
 @funindex \scaleDurations
-@funindex scaleDurations
 @funindex \times
-@funindex times
 
 多拍子記譜法がサポートされます。
 複合拍子記譜法がサポートされます。@c
@@ -1912,9 +1872,7 @@ cis4 d cis! d
 
 @funindex Pitch_squash_engraver
 @funindex \improvisationOn
-@funindex improvisationOn
 @funindex \improvisationOff
-@funindex improvisationOff
 
 ギター コード表はしばしばつま弾き (ストラム) のリズムを示します。@c
 これは @code{Pitch_squash_engraver} と @code{\improvisationOn} を@c
@@ -1984,9 +1942,7 @@ cis4 d cis! d
 @cindex beams, customizing rules (連桁の規則をカスタマイズする)
 
 @funindex \autoBeamOn
-@funindex autoBeamOn
 @funindex \autoBeamOff
-@funindex autoBeamOff
 
 @lilypond[quote,verbatim]
 \relative c'' {
@@ -2092,9 +2048,7 @@ cis4 d cis! d
 @funindex beatStructure
 @funindex measureLength
 @funindex \time
-@funindex time
 @funindex \set
-@funindex set
 
 たいていの場合、自動連桁は拍の終わりで終了します。@c
 拍の終了点はコンテキスト プロパティ @code{baseMoment} と
@@ -2452,7 +2406,6 @@ c16 c c |
 @end lilypond
 
 @funindex \noBeam
-@funindex noBeam
 
 連桁でつながれないようにするために、個々の音符には
 @code{\noBeam} が記されるかもしれません:
@@ -2535,7 +2488,6 @@ c16 c c |
 @cindex feathered beams (羽状の連桁)
 
 @funindex \featherDurations
-@funindex featherDurations
 @funindex grow-direction
 
 羽状の連桁は、楽曲全体のテンポを変えることなく、音符の小さなグループを@c
@@ -2620,7 +2572,6 @@ MIDI 出力での演奏時間は正確です。
 @cindex repeat bars (繰り返しの小節線)
 
 @funindex \bar
-@funindex bar
 
 小節線は小節を区切り、繰り返しを示すためにも使用されます。@c
 通常、単線の小節線が拍子に基づいて出力に自動的に挿入されます。
@@ -2845,7 +2796,6 @@ to use @code{\divisioMinima} there instead, described in the section
 @funindex whichBar
 @funindex defaultBarType
 @funindex \bar
-@funindex bar
 @funindex bartype
 
 コマンド @code{\bar }@var{bartype} は
@@ -3033,7 +2983,6 @@ c1 | c | c | c
 @end lilypond
 
 @funindex \barNumberCheck
-@funindex barNumberCheck
 
 大きな楽曲をコピーしている場合、LilyPond の小節番号と@c
 コピー元のオリジナルの小節番号の対応をチェックすると役に立ちます。@c
@@ -3061,7 +3010,6 @@ c1 | c | c | c
 @cindex mark, rehearsal (リハーサル記号)
 
 @funindex \mark
-@funindex mark
 
 リハーサル記号を譜刻するには、@code{\mark} コマンドを使用します:
 
@@ -3175,7 +3123,6 @@ c1 | c | c | c
 @cindex glyphs, music (音楽的図柄)
 
 @funindex \musicglyph
-@funindex musicglyph
 
 音楽的図柄 (セーニョ記号など) を @code{\mark} の中に譜刻することができます:
 
@@ -3296,7 +3243,6 @@ Lilypond はさらに 2 つ特殊なタイプの装飾小音符をサポート�
 @cindex grace notes, following (装飾小音符を後ろに配置する)
 
 @funindex \afterGrace
-@funindex afterGrace
 
 装飾小音符で記譜を終えたいのならば、@c
 @code{\afterGrace} コマンドを使用します。@c

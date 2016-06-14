@@ -238,43 +238,24 @@ R1\fermataMarkup
 @cindex dynamics, absolute (絶対強弱記号)
 
 @funindex \ppppp
-@funindex ppppp
 @funindex \pppp
-@funindex pppp
 @funindex \ppp
-@funindex ppp
 @funindex \pp
-@funindex pp
 @funindex \p
-@funindex p
 @funindex \mp
-@funindex mp
 @funindex \mf
-@funindex mf
 @funindex \f
-@funindex f
 @funindex \ff
-@funindex ff
 @funindex \fff
-@funindex fff
 @funindex \ffff
-@funindex ffff
 @funindex \fffff
-@funindex fffff
 @funindex \fp
-@funindex fp
 @funindex \sf
-@funindex sf
 @funindex \sff
-@funindex sff
 @funindex \sp
-@funindex sp
 @funindex \spp
-@funindex spp
 @funindex \sfz
-@funindex sfz
 @funindex \rfz
-@funindex rfz
 
 絶対強弱記号は音符の後にコマンドを用いて
 -- @code{c4\ff} などのように
@@ -305,9 +286,7 @@ R1\fermataMarkup
 @funindex \>
 @funindex \!
 @funindex \cr
-@funindex cr
 @funindex \decr
-@funindex decr
 
 @notation{クレッシェンド} 記号は @code{\<} で始まり、@code{\!}、@c
 絶対強弱記号あるいは追加のクレッシェンド記号またはデクレッシェンド記号で@c
@@ -370,7 +349,6 @@ R1\fermataMarkup
 @cindex espressivo articulation (表現的なアーティキュレーション)
 
 @funindex \espressivo
-@funindex espressivo
 
 @code{\espressivo} コマンドを用いて、同じ音符にクレッシェンドとデクレッシェンドを@c
 付けることができます。@c
@@ -386,11 +364,8 @@ R1\fermataMarkup
 
 
 @funindex \cresc
-@funindex cresc
 @funindex \decresc
-@funindex decresc
 @funindex \dim
-@funindex dim
 テキストのクレッシェンド記号は @code{\cresc} で開始します。@c
 テキストのデクレッシェンド記号は @code{\decresc} または
 @code{\dim} で開始します。@c
@@ -406,17 +381,11 @@ R1\fermataMarkup
 @end lilypond
 
 @funindex \crescTextCresc
-@funindex crescTextCresc
 @funindex \dimTextDecresc
-@funindex dimTextDecresc
 @funindex \dimTextDecr
-@funindex dimTextDecr
 @funindex \dimTextDim
-@funindex dimTextDim
 @funindex \crescHairpin
-@funindex crescHairpin
 @funindex \dimHairpin
-@funindex dimHairpin
 
 強弱のテキスト符号の変更でヘアピンを置換することもできます:
 @lilypond[verbatim,quote]
@@ -447,11 +416,8 @@ R1\fermataMarkup
 強弱記号の垂直方向の位置は
 @rinternals{DynamicLineSpanner} によって処理されます。
 @funindex \dynamicUp
-@funindex dynamicUp
 @funindex \dynamicDown
-@funindex dynamicDown
 @funindex \dynamicNeutral
-@funindex dynamicNeutral
 
 @code{Dynamics} を用いて水平線上に強弱記号を譜刻することができます。@c
 タイミングを示すために空白休符を使用します。@c
@@ -562,9 +528,7 @@ moltoF = \markup { molto \dynamic f }
 @cindex dynamics, parenthesis (括弧の強弱記号)
 @cindex editorial dynamics (注釈の強弱記号)
 @funindex \bracket
-@funindex bracket
 @funindex \dynamic
-@funindex dynamic
 
 マークアップ モードでは、@c
 注釈の強弱記号 (括弧や角括弧で囲まれます) を作成することができます。@c
@@ -709,9 +673,7 @@ LilyPond の拡張:
 @cindex slurs, below notes (音符の下にスラーを配置する)
 @cindex slurs, above notes (音符の上にスラーを配置する)
 @funindex \slurDown
-@funindex slurDown
 @funindex \slurNeutral
-@funindex slurNeutral
 
 スラーを手動で音符の上または下に配置することができます。@c
 @ref{Direction and placement} を参照してください。
@@ -738,11 +700,8 @@ LilyPond の拡張:
 @cindex slur, dashed (破線のスラー)
 @cindex style, slur (スラーのスタイル)
 @funindex \slurDashed
-@funindex slurDashed
 @funindex \slurDotted
-@funindex slurDotted
 @funindex \slurSolid
-@funindex slurSolid
 
 スラーは実線、点線あるいは破線のどれかになります。@c
 実線がスラーのデフォルト スタイルです:
@@ -760,9 +719,7 @@ LilyPond の拡張:
 @end lilypond
 
 @funindex \slurHalfDashed
-@funindex slurHalfDashed
 @funindex \slurHalfSolid
-@funindex slurHalfSolid
 @cindex slur, half dashed and half solid (半分が破線で半分が実線のスラー)
 
 スラーの半分を破線 (前半を破線、後半を実線) にする、あるいは、@c
@@ -781,7 +738,6 @@ LilyPond の拡張:
 @end lilypond
 
 @funindex \slurDashPattern
-@funindex slurDashPattern
 @cindex slur, defining dash patterns (スラーの破線パターンを定義する)
 
 スラーの破線パターンを定義することができます:
@@ -801,7 +757,6 @@ LilyPond の拡張:
 
 
 @funindex \slurUp
-@funindex slurUp
 
 
 @predefined
@@ -868,11 +823,8 @@ LilyPond の拡張:
 @end lilypond
 
 @funindex \phrasingSlurUp
-@funindex phrasingSlurUp
 @funindex \phrasingSlurDown
-@funindex phrasingSlurDown
 @funindex \phrasingSlurNeutral
-@funindex phrasingSlurNeutral
 
 印刷の上では、フレージング スラーは通常のスラーとほとんど同じです。@c
 しかしながら、それぞれ異なるオブジェクトとして取り扱われます。@c
@@ -889,12 +841,9 @@ LilyPond の拡張:
 
 同時進行あるいは重なり合うフレージング スラーは許可されません。
 
-@funindex phrasingSlurDashed
 @funindex \phrasingSlurDashed
 @funindex \phrasingSlurDotted
-@funindex phrasingSlurDotted
 @funindex \phrasingSlurSolid
-@funindex phrasingSlurSolid
 @cindex phrasing slur, dashed (破線のフレージング スラー)
 @cindex dashed phrasing slur (破線のフレージング スラー)
 @cindex phrasing slur, dotted (点線のフレージング スラー)
@@ -917,10 +866,8 @@ LilyPond の拡張:
 }
 @end lilypond
 
-@funindex phrasingSlurHalfDashed
 @funindex \phrasingSlurHalfDashed
 @funindex \phrasingSlurHalfSolid
-@funindex phrasingSlurHalfSolid
 @cindex phrasing slur, half solid and half dashed (半分が実線で半分が破線のフレージング スラー)
 @cindex slur, half solid and half dashed phrasing (半分が実線で半分が破線のフレージング スラー)
 
@@ -940,7 +887,6 @@ LilyPond の拡張:
 @end lilypond
 
 @funindex \phrasingSlurDashPattern
-@funindex phrasingSlurDashPattern
 @cindex phrasing slur, defining dash patterns
 @cindex slur, phrasing, defining dash patterns (フレージング スラーの破線パターンを定義する)
 @cindex slur, defining dash patterns for phrasing (フレージング スラーの破線パターンを定義する)
@@ -998,7 +944,6 @@ LilyPond の拡張:
 @cindex breath marks (ブレス記号)
 @cindex pause mark (休止記号)
 @funindex \breathe
-@funindex breathe
 
 ブレス記号は @code{\breathe} を用いて入力します:
 
@@ -1061,7 +1006,6 @@ divisiones (ディビジョン: 区切り) がサポートされています。@
 @cindex falls (Fall)
 @cindex doits (Doit)
 @funindex \bendAfter
-@funindex bendAfter
 
 @code{\bendAfter} コマンドを用いて、@c
 @notation{Fall} と @notation{Doit} 音符にを付け加えることができます。@c
@@ -1112,7 +1056,6 @@ Fall あるいは Doit の向きはプラスあるいはマイナス (上ある�
 
 @cindex glissando (グリッサンド)
 @funindex \glissando
-@funindex glissando
 
 @notation{グリッサンド} は音符の後に @code{\glissando} を付けることに@c
 よって作成されます:
@@ -1211,13 +1154,9 @@ Fall あるいは Doit の向きはプラスあるいはマイナス (上ある�
 @cindex chord, broken (変則和音)
 
 @funindex \arpeggio
-@funindex arpeggio
 @funindex \arpeggioArrowUp
-@funindex arpeggioArrowUp
 @funindex \arpeggioArrowDown
-@funindex arpeggioArrowDown
 @funindex \arpeggioNormal
-@funindex arpeggioNormal
 
 和音の @notation{アルペジオ} (変則和音とも呼ばれます) は和音構造の後に
 @code{\arpeggio} を付けることによって記述されます:
@@ -1248,11 +1187,8 @@ Fall あるいは Doit の向きはプラスあるいはマイナス (上ある�
 @cindex special arpeggio symbols (特殊なアルペジオ シンボル)
 
 @funindex \arpeggioBracket
-@funindex arpeggioBracket
 @funindex \arpeggioParenthesis
-@funindex arpeggioParenthesis
 @funindex \arpeggioParenthesisDashed
-@funindex arpeggioParenthesisDashed
 
 特殊な @emph{括弧スタイル} のアルペジオ シンボルを作成することができます:
 
@@ -1338,11 +1274,8 @@ Fall あるいは Doit の向きはプラスあるいはマイナス (上ある�
 @cindex trills (トリル)
 
 @funindex \trill
-@funindex trill
 @funindex \startTrillSpan
-@funindex startTrillSpan
 @funindex \stopTrillSpan
-@funindex stopTrillSpan
 
 延長線を持たない短い @notation{トリル} は @code{\trill} で譜刻されます。@c
 @ref{アーティキュレーションと装飾} を参照してください。
@@ -1399,7 +1332,6 @@ Fall あるいは Doit の向きはプラスあるいはマイナス (上ある�
 @cindex pitched trills (ピッチを持つトリル)
 @cindex trills, pitched (ピッチを持つトリル)
 @funindex \pitchedTrill
-@funindex pitchedTrill
 
 明示的なピッチを持つ予備の音符を必要とするトリルは
 @code{\pitchedTrill} コマンドを用いて譜刻することができます。@c

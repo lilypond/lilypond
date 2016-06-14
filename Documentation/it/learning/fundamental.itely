@@ -71,9 +71,7 @@ Ci sono molte varianti a questo modello di base, ma questo esempio
 serve da utile punto di partenza.
 
 @funindex \book
-@funindex book
 @funindex \score
-@funindex score
 @cindex book (libro)
 @cindex score (partitura)
 @cindex libro
@@ -159,11 +157,8 @@ elementi, come ad esempio
 @end example
 
 @funindex \header
-@funindex header
 @funindex \layout
-@funindex layout
 @funindex \midi
-@funindex midi
 @cindex header
 @cindex layout
 @cindex midi
@@ -189,7 +184,6 @@ Guida alla notazione, in @ruser{Formattazione della partitura}, e
 @cindex libro, blocco implicito
 @cindex implicito, blocco del libro
 @funindex \book
-@funindex book
 
 Puoi scrivere molteplici blocchi @code{\score}.  Ciascuno verrà
 trattato come una partitura separata, ma saranno tutti combinati in
@@ -255,7 +249,6 @@ Per una definizione completa del formato di input, si veda
 @translationof Score is a (single) compound musical expression
 
 @funindex \score
-@funindex score
 @cindex partitura
 @cindex score
 @cindex contenuto di un blocco score
@@ -938,15 +931,10 @@ Guida alla notazione: @ruser{Più voci}.
 @translationof Explicitly instantiating voices
 
 @funindex \voiceOne
-@funindex voiceOne
 @funindex \voiceTwo
-@funindex voiceTwo
 @funindex \voiceThree
-@funindex voiceThree
 @funindex \voiceFour
-@funindex voiceFour
 @funindex \oneVoice
-@funindex oneVoice
 @funindex \new Voice
 @cindex contesti della voce, creazione dei
 
@@ -1133,13 +1121,9 @@ come nel seguente esempio:
 @cindex note, collisioni di
 @cindex comandi di spostamento
 @funindex \shiftOff
-@funindex shiftOff
 @funindex \shiftOn
-@funindex shiftOn
 @funindex \shiftOnn
-@funindex shiftOnn
 @funindex \shiftOnnn
-@funindex shiftOnnn
 
 Le note maggiormente ravvicinate all'interno di un accordo o quelle che
 compaiono nello stesso momento in voci diverse sono disposte in due, e
@@ -1189,7 +1173,6 @@ espressioni -- note e testo.
 
 @funindex \new Lyrics
 @funindex \lyricsto
-@funindex lyricsto
 @funindex Lyrics
 @cindex Lyrics, creazione di un contesto
 @cindex testo, creazione di un contesto
@@ -1224,7 +1207,6 @@ necessario creare esplicitamente contesti @code{Staff} e @code{Voice}.
 @cindex testo e travatura
 @cindex travatura e testo
 @funindex \autoBeamOff
-@funindex autoBeamOff
 
 La disposizione automatica delle travature predefinita di LilyPond funziona
 bene per la musica strumentale, ma non altrettanto per la musica con testi,
@@ -1235,7 +1217,6 @@ di melismi nel testo.  Nell'esempio precedente usiamo il comando
 @funindex \new ChoirStaff
 @funindex ChoirStaff
 @funindex \lyricmode
-@funindex lyricmode
 @cindex struttura di una partitura vocale
 @cindex rigo per un coro
 
@@ -1443,7 +1424,6 @@ Guida alla notazione: @ruser{Tutto sui contesti}.
 @translationof Creating contexts
 
 @funindex \new
-@funindex new
 @cindex nuovi contesti
 @cindex creazione di contesti
 @cindex contesti, creazione di
@@ -1659,9 +1639,7 @@ Guida al funzionamento interno: @rinternals{Engravers and Performers}.
 @cindex contesto, proprietà del, modificare
 @cindex modificare le proprietà del contesto
 @funindex \set
-@funindex set
 @funindex \unset
-@funindex unset
 
 I contesti si occupano di tenere i valori di un certo numero di
 @emph{proprietà} del contesto.  Molte di queste possono essere cambiate
@@ -1853,7 +1831,6 @@ modo molto più generale usando il potente comando @code{\markup}.
 @subsubheading Impostare le proprietà di contesto con @code{\with}
 
 @funindex \with
-@funindex with
 @cindex contesto, proprietà del, impostare con \with
 
 Il valore predefinito delle proprietà di contesto possono essere impostate
@@ -1902,7 +1879,6 @@ questo nuovo valore predefinito può essere recuperato col comando
 
 @cindex contesto, proprietà del, impostare con \context
 @funindex \context
-@funindex context
 
 I valori delle proprietà di un contesto possono essere impostate in @emph{tutti}
 i contesti di un particolare tipo, così come in tutti i contesti @code{Staff}, con un
@@ -1982,9 +1958,7 @@ Guida al funzionamento interno:
 @cindex rimuovere gli incisori
 
 @funindex \consists
-@funindex consists
 @funindex \remove
-@funindex remove
 
 Abbiamo visto che ciascuno dei contesti contiene vari incisori, ognuno
 dei quali ha il compito di produrre una parte specifica dell'output,
@@ -2079,7 +2053,6 @@ l'intervallo di tutte le note in tutte le voci di quel pentagramma:
 @subsubheading Modificare tutti i contesti dello stesso tipo
 
 @funindex \layout
-@funindex layout
 
 Gli esempi precedenti mostrano come rimuovere o aggiungere degli incisori
 a contesti individuali.  È anche possibile rimuovere o aggiungere gli

@@ -222,7 +222,6 @@ valores automáticos son adecuados.
 @cindex relativo, modo, alteraciones y
 
 @funindex \relative
-@funindex relative
 @funindex '
 @funindex ,
 
@@ -420,7 +419,6 @@ con el nombre @code{r}@tie{}:
 @cindex compás, indicación de
 
 @funindex \time
-@funindex time
 
 Glosario musical:
 @rglos{time signature}.
@@ -447,7 +445,6 @@ orden @code{\time} :
 @cindex metronómicas, indicaciones
 
 @funindex \tempo
-@funindex tempo
 
 Glosario musical:
 @rglos{tempo indication},
@@ -486,7 +483,6 @@ metronómica} pueden establecerse con la instrucción @code{\tempo}:
 @cindex bajo
 
 @funindex \clef
-@funindex clef
 
 Glosario musical:
 @rglos{clef}.

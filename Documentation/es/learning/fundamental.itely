@@ -75,9 +75,7 @@ Existen muchas variaciones de este esquema básico, pero el
 ejemplo constituye un útil punto de partida.
 
 @funindex \book
-@funindex book
 @funindex \score
-@funindex score
 @cindex book (libro)
 @cindex score (partitura)
 @cindex libro
@@ -168,11 +166,8 @@ otras cosas, tales como
 @end example
 
 @funindex \header
-@funindex header
 @funindex \layout
-@funindex layout
 @funindex \midi
-@funindex midi
 @cindex midi
 @cindex cabecera
 @cindex disposición
@@ -200,7 +195,6 @@ partitura} y en @ruser{Creación de salida MIDI}.
 @cindex book, bloque implícito
 @cindex implícito, bloque book
 @funindex \book
-@funindex book
 
 Podemos escribir varios bloques @code{\score}.  Cada uno de ellos
 recibirá el mismo tratamiento que una partitura independiente,
@@ -283,7 +277,6 @@ entrada, consulte @ruser{Estructura del archivo}.
 @cindex musical, expresión, compuesta
 @cindex expresión musical compuesta
 @funindex \score
-@funindex score
 
 En la sección anterior,
 @ref{Introducción a la estructura de los archivos de LilyPond},
@@ -1010,15 +1003,10 @@ Referencia de la notación:
 
 
 @funindex \voiceOne
-@funindex voiceOne
 @funindex \voiceTwo
-@funindex voiceTwo
 @funindex \voiceThree
-@funindex voiceThree
 @funindex \voiceFour
-@funindex voiceFour
 @funindex \oneVoice
-@funindex oneVoice
 @funindex \new Voice
 @cindex contextos de voz, creación de
 
@@ -1212,13 +1200,9 @@ aquí:
 @cindex notas, colisiones de
 @cindex desplazamiento, instrucciones de
 @funindex \shiftOff
-@funindex shiftOff
 @funindex \shiftOn
-@funindex shiftOn
 @funindex \shiftOnn
-@funindex shiftOnn
 @funindex \shiftOnnn
-@funindex shiftOnnn
 
 Las notas cercanas de un acorde, o las notas que se producen al
 mismo tiempo en distintas voces, se disponen en dos (y
@@ -1276,7 +1260,6 @@ combinar dos expresiones, a saber, las notas y la letra.
 
 @funindex \new Lyrics
 @funindex \lyricsto
-@funindex lyricsto
 @funindex Lyrics
 @cindex Lyrics, creación de un contexto
 @cindex letra, creación de un contexto de
@@ -1312,7 +1295,6 @@ un caso en que es necesario crear contextos de @code{Staff} y de
 @cindex letra y barrado
 @cindex barrado y letra
 @funindex \autoBeamOff
-@funindex autoBeamOff
 
 El barrado automático que LilyPond usa de forma predeterminada
 funciona bien para la música instrumental, pero no tan bien para
@@ -1324,7 +1306,6 @@ letra.  En el ejemplo anterior hemos utilizado la instrucción
 @funindex \new ChoirStaff
 @funindex ChoirStaff
 @funindex \lyricmode
-@funindex lyricmode
 @cindex vocal, estructura de una partitura
 @cindex coro, sistema de
 
@@ -1551,7 +1532,6 @@ Referencia de la notación:
 @translationof Creating contexts
 
 @funindex \new
-@funindex new
 @cindex nuevos contextos
 @cindex creación de contextos
 @cindex contextos, creación de
@@ -1774,9 +1754,7 @@ Referencia de funcionamiento interno:
 @cindex contexto, propiedades de, modificación
 @cindex modificar las propiedades de contexto
 @funindex \set
-@funindex set
 @funindex \unset
-@funindex unset
 
 Los contextos se responsabilizan de mantener los valores de un
 cierto número de @emph{properties} de contexto.  Muchas de ellas
@@ -1984,7 +1962,6 @@ potentísima instrucción @code{markup}.
 @subsubheading Cambiar las propiedades de un contexto con @code{\with}
 
 @funindex \with
-@funindex with
 @cindex contexto, propiedades de, establecimiento con \with
 
 El valor predeterminado de las propiedades de contexto se puede
@@ -2039,7 +2016,6 @@ puede restablecerse con la instrucción @code{\unset fontSize}.
 
 @cindex contextos, establecer propiedades de, con \context
 @funindex \context
-@funindex context
 
 Los valores de propiedad de los contextos se pueden establecer
 para @emph{todos} los contextos de un tipo determinado, como por
@@ -2126,9 +2102,7 @@ Referencia de funcionamiento interno:
 @cindex eliminación de grabadores
 
 @funindex \consists
-@funindex consists
 @funindex \remove
-@funindex remove
 
 Hemos visto que cada uno de los contextos contiene varios
 grabadores, cada uno de los cuales a su vez es responsable de la
@@ -2226,7 +2200,6 @@ voces de ese pentagrama:
 @subsubheading Cambiar todos los contextos del mismo tipo
 
 @funindex \layout
-@funindex layout
 
 Los ejemplos anteriores muestran la manera de eliminar o añadir
 grabadores a los contextos individuales.  También es posible

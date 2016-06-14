@@ -218,7 +218,6 @@ valors automàtics són adequats.
 @cindex relatiu, mode, alteracions i
 
 @funindex \relative
-@funindex relative
 @funindex '
 @funindex ,
 
@@ -404,7 +403,6 @@ el nom @code{r}@tie{}:
 @cindex compàs, indicació de
 
 @funindex \time
-@funindex time
 
 Glossari musical:
 @rglos{time signature}.
@@ -431,7 +429,6 @@ La @notation{indicació de compàs} es pot establir amb l'ordre
 @cindex metrònom, indicacions
 
 @funindex \tempo
-@funindex tempo
 
 Glossari musical:
 @rglos{tempo indication},
@@ -470,7 +467,6 @@ de metrònom} poden establir-se amb l'ordre @code{\tempo}:
 @cindex baix
 
 @funindex \clef
-@funindex clef
 
 Glossari musical:
 @rglos{clef}.

@@ -155,7 +155,6 @@
 @cindex beams, cross-staff  (譜を跨ぐ連桁)
 
 @funindex \change
-@funindex change
 
 以下のコマンドを用いて、ボイスの譜を手動で切り換えることができます:
 
@@ -271,7 +270,6 @@
 @cindex staff changes, automatic (譜の自動変更)
 
 @funindex \autochange
-@funindex autochange
 @funindex PianoStaff
 
 譜の上端と下端の間で、ボイスを自動的に切り換えることができます。@c
@@ -301,7 +299,6 @@
 @cindex autochange and relative music (自動変更と相対モード)
 
 @funindex \relative
-@funindex relative
 
 @code{\autochange} の外側にある @code{\relative} セクションは、@c
 @code{\autochange} の内部にある音符のピッチに影響を与えません。@c
@@ -376,9 +373,7 @@
 
 @funindex followVoice
 @funindex \showStaffSwitch
-@funindex showStaffSwitch
 @funindex \hideStaffSwitch
-@funindex hideStaffSwitch
 
 ボイスが他の譜に切り替わる時に、音符を繋げる線を自動的に譜刻することができます:
 
@@ -478,17 +473,11 @@
 @cindex U.C.
 
 @funindex \sustainOn
-@funindex sustainOn
 @funindex \sustainOff
-@funindex sustainOff
 @funindex \sostenutoOn
-@funindex sostenutoOn
 @funindex \sostenutoOff
-@funindex sostenutoOff
 @funindex \unaCorda
-@funindex unaCorda
 @funindex \treCorde
-@funindex treCorde
 
 一般的に、ピアノは音を変化させるために 3 本のペダルを持ちます:
 @notation{サステイン}, @notation{ソステヌート} (@notation{sos.}),

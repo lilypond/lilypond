@@ -249,9 +249,7 @@ Referenz der Interna:
 @cindex Symbole auf der Taktstrich
 
 @funindex \mark
-@funindex mark
 @funindex \markup
-@funindex markup
 
 Verschiedene Textelemente können der Partitur hinzugefügt werden,
 indem man die Syntax für Zeichen einsetzen, wie beschrieben in
@@ -353,7 +351,6 @@ ausgegeben.
 @cindex oberste Ebene, Text
 
 @funindex \markup
-@funindex markup
 
 Eine @code{\markup}-Umgebung kann auch für sich alleine existieren,
 außerhalb einer @code{\score}-Umgebung, als ein Ausdruck auf der
@@ -447,7 +444,6 @@ Formatierung von Text, wobei der Textbeschriftungsmodus
 @cindex Beschriftung, Text
 @cindex Setzen von Text
 
-@funindex markup
 @funindex \markup
 
 Eine @code{\markup}-Umgebung wird benutzt, um Text mit einer
@@ -648,11 +644,8 @@ der globalen Notensystemgröße:
 @cindex tiefergestellt
 
 @funindex \super
-@funindex super
 @funindex \sub
-@funindex sub
 @funindex \normal-size-super
-@funindex normal-size-super
 
 Text kann auch hoch- bzw. tiefgestellt gesetzt werden.  Die so markierten
 Buchstaben werden automatisch in einer kleineren Schriftgröße gesetzt,
@@ -819,7 +812,6 @@ an der linken Ecke ausgerichtet.
 @end lilypond
 
 @funindex \halign
-@funindex halign
 
 Die horizontale Ausrichtung kann mit einer Zahl auf einen exakten
 Wert festgelegt werden:
@@ -949,7 +941,6 @@ eigenen Zeile gesetzt, entweder linksbündig oder zentriert:
 @cindex Beschriftung, Zentrieren auf der Seite
 
 @funindex \fill-line
-@funindex fill-line
 
 Eine Anzahl an Ausdrücken innerhalb von @code{\markup} kann auch
 gestreckt werden, so dass die gesamte Seitenbreite benutzt wird.  Wenn
@@ -1383,11 +1374,8 @@ Referenz der Interna:
 @cindex mehrseitiger Text
 
 @funindex \markuplist
-@funindex markuplist
 @funindex \justified-lines
-@funindex justified-lines
 @funindex \wordwrap-lines
-@funindex wordwrap-lines
 
 Normale Textbeschriftungsobjekte können nicht getrennt werden, aber mit
 einer spezifischen Umgebung ist es möglich, Text auch über mehrere Seiten
@@ -1438,7 +1426,6 @@ Referenz der Interna:
 @rinternals{TextScript}.
 
 @funindex \markuplist
-@funindex markuplist
 
 @predefined
 @code{\markuplist}.

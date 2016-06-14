@@ -157,7 +157,6 @@ c4.-> d8---3
 @cindex finger change (指を変える)
 
 @funindex \finger
-@funindex finger
 
 運指の指示は @var{音符}-@var{数字} を用いることで挿入することができます:
 
@@ -182,7 +181,6 @@ c4-1 d-2 f-4 e-3
 @cindex thumb-script (サム-スクリプト)
 
 @funindex \thumb
-@funindex thumb
 
 ある音符を親指で演奏するよう指示するために、@c
 サム-スクリプト (thumb-script) を付け加えることができます
@@ -247,9 +245,7 @@ c4-1 d-2 f-4 e-3
 @cindex notes, transparent
 
 @funindex \hideNotes
-@funindex hideNotes
 @funindex \unHideNotes
-@funindex unHideNotes
 
 @c 未訳
 隠された (または不可視、透明の) 音符は、preparing theory や作曲の演習の際に@c
@@ -321,7 +317,6 @@ Notation Reference:
 
 @funindex color
 @funindex \with-color
-@funindex with-color
 @funindex x11-color
 
 個々のオブジェクトに色を割り振ることができます。@c
@@ -437,7 +432,6 @@ Web 向けでは、ノーマル カラーを使用することを推奨します
 @cindex brackets (囲み)
 
 @funindex \parenthesize
-@funindex parenthesize
 
 音楽イベントの前に @code{\parenthesize} を置くことによって、@c
 そのオブジェクトに括弧を付けることができます。@c
@@ -487,11 +481,8 @@ Web 向けでは、ノーマル カラーを使用することを推奨します
 @cindex invisible stem (不可視の符幹)
 
 @funindex \stemUp
-@funindex stemUp
 @funindex \stemDown
-@funindex stemDown
 @funindex \stemNeutral
-@funindex stemNeutral
 @cindex stem, direction (符幹の向き)
 @cindex stem, up (符幹を上向きにする)
 @cindex stem, down (符幹を下向きにする)
@@ -559,9 +550,7 @@ Web 向けでは、ノーマル カラーを使用することを推奨します
 @funindex balloonGrobText
 @funindex balloonText
 @funindex \balloonLengthOn
-@funindex balloonLengthOn
 @funindex \balloonLengthOff
-@funindex balloonLengthOff
 
 記譜要素に四角いバルーンで印を付けて、テキストを付け加えることができます。@c
 この機能の主目的は記譜法を説明することです。
@@ -702,9 +691,7 @@ altered:
 
 @funindex Horizontal_bracket_engraver
 @funindex \startGroup
-@funindex startGroup
 @funindex \stopGroup
-@funindex stopGroup
 
 音楽分析では、囲みを使って楽曲の構造を示します。@c
 シンプルな水平な囲みがサポートされています。

@@ -1106,7 +1106,6 @@ um komplizierte musikalische Funktionen  zu erstellen.
 @cindex Musikausdrücke anzeigen
 @cindex Anzeigen von Musikausdrücken
 
-@funindex displayMusic
 @funindex \displayMusic
 
 Wenn man eine musikalische Funktion erstellt, ist es oft
@@ -1262,7 +1261,6 @@ Die Tonhöhe einer Note kann geändert werden, indem man diese
 @code{'pitch}-Eigenschaft umdefiniert:
 
 @funindex \displayLilyMusic
-@funindex displayLilyMusic
 
 @example
 #(set! (ly:music-property (first (ly:music-property someNote 'elements))

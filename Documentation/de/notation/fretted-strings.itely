@@ -204,7 +204,6 @@ symbols = {
 @end lilypond
 
 @funindex \tabFullNotation
-@funindex tabFullNotation
 
 Wenn alle musikalischen Symbole, die in der traditionellen Notation
 eingesetzt werden, auch in der Tabulatur gedruckt werden sollen, muss
@@ -581,7 +580,6 @@ in der EADGHE-Stimmung.  Andere vordefinierte Stimmung sind:
 @code{banjo-open-g-tuning}.  Die vordefinierten Stimmungen finden
 sich in @file{ly/string-tunings-init.ly}.
 
-@funindex stringTuning
 @funindex \stringTuning
 @cindex Tabulatur, eigene Saitenstimmung
 @cindex Eigene Saitenstimmung, Tabulatur
@@ -794,7 +792,6 @@ Barré kann hinzugefügt werden:
 @cindex fret (Bunddiagramme)
 @cindex Ukulele
 
-@funindex fret-diagram
 @funindex \fret-diagram
 
 Die Größe des Bunddiagrammes und die Anzahl der Bünde im Diagramm
@@ -884,7 +881,6 @@ Die Größe und Position der Punkte kann geändert werden:
 @cindex fret-diagram-terse-Markup
 @cindex Bunddiagramme, knapper Stil
 
-@funindex fret-diagram-terse
 @funindex \fret-diagram-terse
 
 Die Beschriftungsfunktion @code{fret-diagram-terse} (knappe Version)
@@ -965,7 +961,6 @@ mit @code{\override}-Befehlen angegeben werden.
 @cindex Kapo
 @cindex Capo
 
-@funindex fret-diagram-verbose
 @funindex \fret-diagram-verbose
 
 Die Beschriftungsfunktion @code{fret-diagram-verbose}
@@ -1222,7 +1217,6 @@ oder im Akkordmodus notiert werden (siehe auch
 @cindex Bunddiagramme und Akkordbezeichnungen
 
 @funindex ChordNames
-@funindex chordmode
 @funindex \chordmode
 
 Oft wird sowohl eine Akkordbezeichnung als ein Bunddiagramm
@@ -1370,8 +1364,6 @@ mychords = \chordmode {
 @cindex Akkordformen für Bundinstrumente
 
 @funindex \addChordShape
-@funindex addChordShape
-@funindex storePredefinedDiagram
 @funindex \storePredefinedDiagram
 
 Zusätzlich zu Bunddiagrammen speichert LilyPond auch eine interne
@@ -1493,9 +1485,7 @@ um die Noten zu spielen.
 >>
 @end lilypond
 
-@funindex predefinedFretboardsOff
 @funindex \predefinedFretboardsOff
-@funindex predefinedFretboardsOn
 @funindex \predefinedFretboardsOn
 
 Da in den Standardeinstellungen keine vordefinierten Diagramme
@@ -1634,7 +1624,6 @@ cindex Fingersatz der rechten Hand, Bundinstrumente
 @cindex rechte Hand, Fingersatz für bundierte Saiteninstrumente
 @cindex rechte Hand, Fingersatz für Bundinstrumente
 
-@funindex rightHandFinger
 @funindex \rightHandFinger
 
 Fingersatz für die rechte Hand @var{p-i-m-a}
@@ -1820,7 +1809,6 @@ Schnipsel:
 @unnumberedsubsubsec Powerakkorde anzeigen
 @translationof Indicating power chords
 
-@funindex powerChords
 @funindex \powerChords
 
 @cindex Powerakkorde

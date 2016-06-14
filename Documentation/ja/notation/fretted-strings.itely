@@ -572,7 +572,6 @@ LilyPond は、あらかじめ定義されたチューニングに対して、@c
 あらかじめ定義された弦チューニングは @file{ly/string-tunings-init.ly} の中に@c
 あります。
 
-@funindex stringTunings
 @funindex \stringTunings
 @cindex tablature, custom string tunings (カスタム弦チューニングのタブ譜)
 @cindex custom string tunings (カスタム弦チューニング)
@@ -779,7 +778,6 @@ fret-diagram マークアップ文字列のダイアグラムに、@c
 @cindex fret-diagram markup (フレット ダイアグラムのマークアップ)
 @cindex ukulele (ウクレレ)
 
-@funindex fret-diagram
 @funindex \fret-diagram
 
 フレット ダイアグラムのサイズ、それにダイアグラムの中のフレット数を@c
@@ -870,7 +868,6 @@ fret-diagram マークアップ文字列でドットの大きさと位置を制�
 
 @cindex fret-diagram-terse markup (fret-diagram-terse マークアップ)
 
-@funindex fret-diagram-terse
 @funindex \fret-diagram-terse
 
 fret-diagram-terse マークアップ文字列は弦番号を省略します。@c
@@ -950,7 +947,6 @@ fret-diagram-terse マークアップを使っている時、@c
 @cindex fret-diagram-verbose markup (fret-diagram-verbose マークアップ)
 @cindex capo (カポ)
 
-@funindex fret-diagram-verbose
 @funindex \fret-diagram-verbose
 
 fret-diagram-verbose マークアップ文字列のフォーマットは Scheme リストです。@c
@@ -1209,7 +1205,6 @@ myChords = \chordmode { c1 c:m7.5- c:aug }
 @cindex fret diagrams with chord names
 
 @funindex ChordNames
-@funindex chordmode
 @funindex \chordmode
 
 コード ネームとフレット ダイアグラムを一緒に表示させることが@c
@@ -1364,8 +1359,6 @@ mychords = \chordmode {
 @cindex chord shapes for fretted instruments (フレットのある楽器のコード シェイプ)
 
 @funindex \addChordShape
-@funindex addChordShape
-@funindex storePredefinedDiagram
 @funindex \storePredefinedDiagram
 
 @ignore
@@ -1491,9 +1484,7 @@ mychords = \chordmode{
 >>
 @end lilypond
 
-@funindex predefinedFretboardsOff
 @funindex \predefinedFretboardsOff
-@funindex predefinedFretboardsOn
 @funindex \predefinedFretboardsOn
 
 デフォルトではあらかじめ定義されたダイアグラムは読み込まれないため、@c
@@ -1627,7 +1618,6 @@ property.
 @cindex fingerings, right hand for fretted instruments (フレットのある楽器での右手の運指)
 @cindex right hand fingerings for fretted instruments (フレットのある楽器での右手の運指)
 
-@funindex rightHandFinger
 @funindex \rightHandFinger
 
 右手の運指 @var{p-i-m-a} は後に数字が続く @code{\rightHandFinger} を用いて@c
@@ -1801,7 +1791,6 @@ LilyPond は、符頭を三角形に変更することで、@c
 @unnumberedsubsubsec パワー コードの指示
 @translationof Indicating power chords
 
-@funindex powerChords
 @funindex \powerChords
 
 @cindex power chords (パワー コード)

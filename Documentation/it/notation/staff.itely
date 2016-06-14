@@ -65,7 +65,6 @@ Questa sezione presenta i diversi metodi per creare e raggruppare i righi.
 @cindex tablatura
 
 @funindex \drummode
-@funindex drummode
 @funindex DrumStaff
 @funindex RhythmicStaff
 @funindex TabStaff
@@ -421,9 +420,7 @@ le sezioni ossia.
 @cindex tagli addizionali, modificare
 
 @funindex \startStaff
-@funindex startStaff
 @funindex \stopStaff
-@funindex stopStaff
 
 I comandi @code{\stopStaff} e @code{\startStaff} servono a fermare o
 (ri)avviare le linee del rigo, per impedire che appaiano in un punto
@@ -595,9 +592,7 @@ Guida al funzionamento interno:
 @cindex ridimensionamento dei righi
 
 @funindex \startStaff
-@funindex startStaff
 @funindex \stopStaff
-@funindex stopStaff
 
 I righi @notation{ossia} si possono creare aggiungendo un nuovo rigo
 simultaneo nel punto giusto:
@@ -753,7 +748,6 @@ Guida al funzionamento interno:
 @funindex \RemoveAllEmptyStaves
 @funindex Staff_symbol_engraver
 @funindex \stopStaff
-@funindex stopStaff
 
 
 Le linee del rigo si possono nascondere togliendo l'incisore
@@ -1040,11 +1034,8 @@ Guida al funzionamento interno:
 @cindex note in corpo più piccolo
 
 @funindex \addQuote
-@funindex addQuote
 @funindex \quoteDuring
-@funindex quoteDuring
 @funindex \transposition
-@funindex transposition
 
 È molto comune che una voce usi le stesse note di un'altra voce.  Per esempio,
 il primo e il secondo violino che suonano la stessa frase durante un particolare
@@ -1241,13 +1232,9 @@ terzine annidate potrebbe produrre una notazione mediocre.
 
 
 @funindex \cueDuring
-@funindex cueDuring
 @funindex \cueClef
-@funindex cueClef
 @funindex \cueDuringWithClef
-@funindex cueDuringWithClef
 @funindex \quoteDuring
-@funindex quoteDuring
 
 @cindex note più piccole
 @cindex CueVoice
@@ -1430,7 +1417,6 @@ bassoonNotes = \relative c {
 @end lilypond
 
 @funindex \transposedCueDuring
-@funindex transposedCueDuring
 
 Come @code{\quoteDuring}, @code{\cueDuring} prende in considerazione la
 trasposizione degli strumenti.  Le citazioni in corpo più piccolo vengono mostrate nelle altezze
@@ -1471,7 +1457,6 @@ bassClarinetNotes = \relative c' {
 @cindex citazioni in corpo più piccolo, togliere le
 
 @funindex \killCues
-@funindex killCues
 
 Il comando @code{\killCues} toglie le citazioni in corpo più piccolo da un'espressione
 musicale, in modo che la stessa espressione musicale possa essere

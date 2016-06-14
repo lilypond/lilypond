@@ -77,9 +77,7 @@ LilyPond 入力ファイルの基本例は以下のようなものです:
 しかしながら、この例はスタート地点として役に立ちます。
 
 @funindex \book
-@funindex book
 @funindex \score
-@funindex score
 @cindex book
 @cindex score
 
@@ -168,11 +166,8 @@ LilyPond はまるでその音楽表記が上で示されたコマンドで包�
 @end example
 
 @funindex \header
-@funindex header
 @funindex \layout
-@funindex layout
 @funindex \midi
-@funindex midi
 @cindex header (ヘッダ)
 @cindex layout (レイアウト)
 @cindex midi
@@ -199,7 +194,6 @@ MIDI 出力を作り出します。@c
 @cindex book block, implicit (暗黙の book ブロック)
 @cindex implicit book block (暗黙の book ブロック)
 @funindex \book
-@funindex book
 
 あなたは複数の @code{\score} ブロックを記述するかもしれません。@c
 それらはそれぞれ別々の楽譜として扱われますが、それらは結合されて@c
@@ -271,7 +265,6 @@ LilyPond がこのファイルを見ると、@code{melody} の値
 @translationof Score is a (single) compound musical expression
 
 @funindex \score
-@funindex score
 @cindex score
 @cindex contents of a score block (score ブロックの内容)
 @cindex score block, contents of (score ブロックの内容)
@@ -1000,15 +993,10 @@ LilyPond は音符の水平方向の位置を調節するための手段をい�
 @translationof Explicitly instantiating voices
 
 @funindex \voiceOne
-@funindex voiceOne
 @funindex \voiceTwo
-@funindex voiceTwo
 @funindex \voiceThree
-@funindex voiceThree
 @funindex \voiceFour
-@funindex voiceFour
 @funindex \oneVoice
-@funindex oneVoice
 @funindex \new Voice
 @cindex voice contexts, creating (ボイス コンテキストを作成する)
 
@@ -1190,13 +1178,9 @@ LilyPond は音符の水平方向の位置を調節するための手段をい�
 @cindex collisions, notes (音符の衝突)
 @cindex shift commands (シフト コマンド)
 @funindex \shiftOff
-@funindex shiftOff
 @funindex \shiftOn
-@funindex shiftOn
 @funindex \shiftOnn
-@funindex shiftOnn
 @funindex \shiftOnnn
-@funindex shiftOnnn
 
 和音の中で小さな間隔で置かれる音符、@c
 あるいは異なるボイスで同時に発生する音符は、@c
@@ -1244,7 +1228,6 @@ LilyPond は音符の水平方向の位置を調節するための手段をい�
 
 @funindex \new Lyrics
 @funindex \lyricsto
-@funindex lyricsto
 @funindex Lyrics
 @cindex Lyrics context, creating (歌詞コンテキストを作成する)
 @cindex lyrics, linking to voice (歌詞をボイスにリンクさせる)
@@ -1279,7 +1262,6 @@ LilyPond は音符の水平方向の位置を調節するための手段をい�
 @cindex lyrics and beaming (歌詞と連桁)
 @cindex beaming and lyrics (連桁と歌詞)
 @funindex \autoBeamOff
-@funindex autoBeamOff
 
 LilyPond がデフォルトで使用する自動連桁は楽器だけの音楽では@c
 うまく機能しますが、歌詞を持つ音楽ではそれほどうまく機能しません。@c
@@ -1291,7 +1273,6 @@ LilyPond がデフォルトで使用する自動連桁は楽器だけの音楽�
 @funindex \new ChoirStaff
 @funindex ChoirStaff
 @funindex \lyricmode
-@funindex lyricmode
 @cindex vocal score structure (ボーカル譜構造)
 @cindex choir staff
 
@@ -1506,7 +1487,6 @@ LilyPond 内部では、これらの規則と情報ビットは@emph{コンテ�
 @translationof Creating contexts
 
 @funindex \new
-@funindex new
 @cindex new contexts (新しいコンテキスト)
 @cindex creating contexts (コンテキストを作成する)
 @cindex contexts, creating (コンテキストを作成する)
@@ -1720,9 +1700,7 @@ LilyPond によって作成された楽譜上にあるすべての記号は
 @cindex context properties, modifying (コンテキスト プロパティを変更する)
 @cindex modifying context properties (コンテキスト プロパティを変更する)
 @funindex \set
-@funindex set
 @funindex \unset
-@funindex unset
 
 コンテキストにはいくつかのコンテキスト プロパティを保持する責任があります。@c
 それらプロパティの多くは変更可能であり、変更することで入力の構文解釈に影響を@c
@@ -1924,7 +1902,6 @@ LilyPond 入力ファイルに対する特別なサポートを持つ@c
 @c Setting context properties with @code{\with}
 
 @funindex \with
-@funindex with
 @cindex context properties, setting with \with (\with でコンテキスト プロパティを設定する)
 
 コンテキスト プロパティはコンテキストが作成されるときに@c
@@ -1978,7 +1955,6 @@ like this:
 
 @cindex context properties, setting with \context (\context でコンテキスト プロパティを設定する)
 @funindex \context
-@funindex context
 
 コンテキスト プロパティの値は単一のコマンドによってある特定のタイプの@c
 コンテキスト@emph{すべて} -- すべての @code{Staff} コンテキストなどのように
@@ -2062,9 +2038,7 @@ like this:
 @cindex removing engravers (エングラーバを削除する)
 
 @funindex \consists
-@funindex consists
 @funindex \remove
-@funindex remove
 
 これまでに、コンテキストはそれぞれにいくつかのエングラーバを保持し、@c
 それぞれのエングラーバは出力のある特定部分
@@ -2163,7 +2137,6 @@ like this:
 @c Changing all contexts of the same type
 
 @funindex \layout
-@funindex layout
 
 上の例では、個々のコンテキストにエングラーバを追加あるいは削除する方法を@c
 示しました。@c

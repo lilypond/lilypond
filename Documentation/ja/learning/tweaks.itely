@@ -201,7 +201,6 @@ LilyPond が @code{\new Staff} のようなコマンドに遭遇した場合、@
 @cindex override syntax (override 構文)
 
 @funindex \override
-@funindex override
 
 我々はすでに @ref{コンテキスト プロパティを変更する} と
 @ref{エングラーバを追加 / 削除する} で @strong{コンテキスト} のプロパティを@c
@@ -276,7 +275,6 @@ Scheme モードについての更なる情報は @rextend{LilyPond Scheme synta
 @cindex revert command (revert コマンド)
 
 @funindex \revert
-@funindex revert
 
 一旦オーバライドされると、そのプロパティは再度オーバライドされるか
 @code{\revert} コマンドに遭遇するまで新しい値のままでいます。@c
@@ -316,7 +314,6 @@ Scheme モードについての更なる情報は @rextend{LilyPond Scheme synta
 @translationof The \once prefix
 
 @funindex \once
-@funindex once
 
 @code{\override} コマンドと @code{\set} コマンドには両方とも@c
 接頭辞 @code{\once} が付く可能性があります。@c
@@ -364,7 +361,6 @@ b c |
 @cindex overrideProperty command (overrideProperty コマンド)
 
 @funindex \overrideProperty
-@funindex overrideProperty
 
 オーバライド コマンドには @code{\overrideProperty} という@c
 もう 1 つのフォーマットがあり、時々必要となります。@c
@@ -379,7 +375,6 @@ b c |
 @cindex tweak command (tweak コマンド)
 
 @funindex \tweak
-@funindex tweak
 
 利用可能な最後の調整コマンドは @code{\tweak} です。@c
 これは同じ音楽タイミングで発生するいくつかのオブジェクトのうち、@c
@@ -754,7 +749,6 @@ Slur へのリンクを選択すると、Slur のプロパティがリスト ア
 @cindex once override (一度だけオーバライドする)
 
 @funindex \once
-@funindex once
 
 上記の最後の例では @emph{すべて} のスラーが太くなっています。@c
 しかし、最初のスラーだけを太くしたい場合はどうでしょうか？@c
@@ -801,7 +795,6 @@ Slur へのリンクを選択すると、Slur のプロパティがリスト ア
 @cindex default properties, reverting to (デフォルトのプロパティに戻す)
 
 @funindex \revert
-@funindex revert
 
 最後に、最初の 2 つだけのスラーを太くしたい場合はどうでしょうか？@c
 その場合、2 つのコマンド -- それぞれの前に @code{\once} を付けた --
@@ -2235,9 +2228,7 @@ LilyPond はこれらの制約を受け取り、
 @cindex ottava bracket (オッターバ囲み)
 
 @funindex \startTextSpan
-@funindex startTextSpan
 @funindex \stopTextSpan
-@funindex stopTextSpan
 
 @cindex TextSpanner, example of overriding (TextSpanner をオーバライドする例)
 @cindex bound-details property, example (bound-details プロパティの例)
@@ -2393,9 +2384,7 @@ c''2^"Text4" |
 @cindex notes, spreading out with text (テキストに合わせて音符の間隔を広げる)
 
 @funindex \textLengthOn
-@funindex textLengthOn
 @funindex \textLengthOff
-@funindex textLengthOff
 
 デフォルトでは、音楽のレイアウトが考慮されている限り、@c
 マークアップによって作り出されるテキストは水平方向のスペースと関係しません。@c

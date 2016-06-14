@@ -114,7 +114,6 @@
 @cindex relative octave specification (相対オクターブ指定)
 @cindex ocatve specification, relative (相対オクターブ指定)
 
-@funindex relative
 @funindex \relative
 
 絶対オクターブ入力は、一つ一つの音符のオクターブを指定する必要があります。@c
@@ -302,11 +301,8 @@ B の後の F ダブル フラットは B よりも下に配置されます。@c
 @cindex transposition and relative octave entry (移調と相対オクターブ入力)
 
 @funindex \transpose
-@funindex transpose
 @funindex \chordmode
-@funindex chordmode
 @funindex \relative
-@funindex relative
 
 
 @node 臨時記号
@@ -631,7 +627,6 @@ LilyPond ではどちらの形式も認められます。@c
 
 @funindex =
 @funindex \octaveCheck
-@funindex octaveCheck
 @funindex controlpitch
 
 相対モードでは、オクターブ変更記号を付け忘れることが容易に起こり得ます。@c
@@ -710,7 +705,6 @@ LilyPond ではどちらの形式も認められます。@c
 @cindex notes, transposition of (音符の移調)
 
 @funindex \transpose
-@funindex transpose
 
 音楽表記は @code{\transpose} で移調させることができます。@c
 構文は以下の通りです:
@@ -829,11 +823,8 @@ musicInBflat = @{ e4 @dots{} @}
 @rinternals{TransposedMusic}
 
 @funindex \transpose
-@funindex transpose
 @funindex \chordmode
-@funindex chordmode
 @funindex \relative
-@funindex relative
 
 @knownissues
 相対変換コマンドはその引数の中にある @code{\transpose}, @code{\chordmode},
@@ -892,7 +883,6 @@ music = \relative { c' d e f }
 @cindex transformation, retrograde (逆行変換)
 @cindex operation, retrograde (逆行操作)
 @funindex \retrograde
-@funindex retrograde
 
 音楽表記を後ろから前に演奏する逆行を作り出すことができます:
 
@@ -939,7 +929,6 @@ music = \relative { c'8. ees16( fis8. a16 b8.) gis16 f8. d16 }
 @cindex transposition, modal (様式的な移調)
 @cindex operation, transposition (移調操作)
 @funindex \modalTranspose
-@funindex modalTranspose
 
 以下により、与えられた音階でモチーフを移調させることができます:
 
@@ -994,7 +983,6 @@ motif = \relative { c'8 d e f g a b c }
 @cindex inversion, modal (様式的な反転)
 @cindex operation, modal inversion (様式的な反転操作)
 @funindex \modalInversion
-@funindex modalInversion
 
 モチーフを与えられた音階に従って与えられた旋回点 (音符) で反転させて、
 移調させることを 1 つの操作でできます:
@@ -1110,7 +1098,6 @@ motif = \relative { c'8. ees16 fis8. a16 b8. gis16 f8. d16 }
 @cindex clef, subbass (低バス音部記号)
 
 @funindex \clef
-@funindex clef
 
 音部記号を変えることができます。@c
 以下のそれぞれの例の中にある音符はすべてミドル C です。@c
@@ -1254,7 +1241,6 @@ c'2 c'
 @cindex key signature (調号)
 
 @funindex \key
-@funindex key
 
 @c duplicated in Key signature and Accidentals
 @warning{LilyPond を始めたばかりのユーザは@c
@@ -1274,23 +1260,14 @@ LilyPond では、音符名は未加工の入力です。@c
 @end example
 
 @funindex \major
-@funindex major
 @funindex \minor
-@funindex minor
 @funindex \ionian
-@funindex ionian
 @funindex \locrian
-@funindex locrian
 @funindex \aeolian
-@funindex aeolian
 @funindex \mixolydian
-@funindex mixolydian
 @funindex \lydian
-@funindex lydian
 @funindex \phrygian
-@funindex phrygian
 @funindex \dorian
-@funindex dorian
 
 @cindex church modes (チャーチ モード)
 @cindex modes (モード)
@@ -1395,7 +1372,6 @@ freygish = #`((0 . ,NATURAL) (1 . ,FLAT) (2 . ,NATURAL)
 
 @funindex set-octavation
 @funindex \ottava
-@funindex ottava
 
 @notation{オッターバ囲み} は譜をオクターブ単位で移調します:
 
@@ -1444,7 +1420,6 @@ freygish = #`((0 . ,NATURAL) (1 . ,FLAT) (2 . ,NATURAL)
 @cindex MIDI transposition (MIDI の移調)
 
 @funindex \transposition
-@funindex transposition
 
 楽器の移調を含む楽器を譜刻するとき、いくつかのパートは@c
 @notation{コンサート ピッチ} とは異なるピッチで譜刻される可能性があります。@c
@@ -2913,9 +2888,7 @@ forget = #(define-music-function (music) (ly:music?) #{
 @cindex note heads, easy play (演奏を容易にする符頭)
 
 @funindex \easyHeadsOn
-@funindex easyHeadsOn
 @funindex \easyHeadsOff
-@funindex easyHeadsOff
 
 @q{演奏を容易にする} 符頭は、符頭の中に音符名を含みます。@c
 これは、初心者のための楽譜で使用されます。@c
@@ -2982,15 +2955,10 @@ forget = #(define-music-function (music) (ly:music?) #{
 @cindex note heads, Walker
 
 @funindex \aikenHeads
-@funindex aikenHeads
 @funindex \sacredHarpHeads
-@funindex sacredHarpHeads
 @funindex \southernHarmonyHeads
-@funindex southernHarmonyHeads
 @funindex \funkHeads
-@funindex funkHeads
 @funindex \walkerHeads
-@funindex walkerHeads
 
 シェイプ ノート記譜法では、@c
 符頭の形状は音階の中での音符の位置付けに対応します。@c
@@ -3015,17 +2983,11 @@ Funk (Harmonica Sacra)、Walker、それに Aiken (Christian Harmony) スタイ�
 @end lilypond
 
 @funindex \key
-@funindex key
 @funindex \aikenHeadsMinor
-@funindex aikenHeadsMinor
 @funindex \sacredHarpHeadsMinor
-@funindex sacredHarpHeadsMinor
 @funindex \southernHarmonyHeadsMinor
-@funindex southernHarmonyHeadsMinor
 @funindex \funkHeadsMinor
-@funindex funkHeadsMinor
 @funindex \walkerHeadsMinor
-@funindex walkerHeadsMinor
 
 符頭の形状は音階の中での位置に対応し、@c
 音階のベースは @code{\key} コマンドによって決まります。@c
@@ -3094,9 +3056,7 @@ Funk (Harmonica Sacra)、Walker、それに Aiken (Christian Harmony) スタイ�
 @cindex note heads, slashed (スラッシュ形の符頭)
 
 @funindex \improvisationOn
-@funindex improvisationOn
 @funindex \improvisationOff
-@funindex improvisationOff
 
 即興はしばしばスラッシュ形の符頭で記されます。@c
 そのような表記では、演奏者は好みのピッチを選ぶことができますが、@c

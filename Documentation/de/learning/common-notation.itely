@@ -194,11 +194,8 @@ Sprachen zu benutzen, siehe @ruser{Notenbezeichnungen in anderen Sprachen}.
 @cindex Darstellung & Inhalt
 
 @funindex \key
-@funindex key
 @funindex \major
-@funindex major
 @funindex \minor
-@funindex minor
 
 Glossar: @rglos{key signature}, @rglos{major},
 @rglos{minor}.
@@ -481,11 +478,8 @@ Möglichkeit, wie die Artikulationen platziert werden sollen.
 @funindex \mf
 @funindex \pp
 @funindex \<
-@funindex <
 @funindex \>
-@funindex >
 @funindex \!
-@funindex !
 
 Glossar:
 @rglos{dynamics},
@@ -529,7 +523,6 @@ Notationsreferenz:
 @cindex markup
 
 @funindex \markup
-@funindex markup
 
 Text können Sie auf folgende Art in die Partitur einfügen:
 
@@ -566,9 +559,7 @@ Notationsreferenz:
 @funindex [
 @funindex ]
 @funindex \autoBeamOff
-@funindex autoBeamOff
 @funindex \autoBeamOn
-@funindex autoBeamOn
 
 Alle @notation{Balken} werden automatisch gesetzt:
 
@@ -625,7 +616,6 @@ Notationsreferenz:
 @cindex Auftakt
 
 @funindex \partial
-@funindex partial
 
 Ein @notation{Auftakt} wird mit dem Befehl @code{\partial}
 eingegeben. Darauf folgt die Länge des Auftaktes: @code{\partial 4}
@@ -648,7 +638,6 @@ heißt eine Viertelnote Auftakt und @code{\partial 8} eine Achtelnote.
 @cindex Rhythmische Aufteilungen
 
 @funindex \tuplet
-@funindex tuplet
 
 Glossar: @rglos{note value}, @rglos{triplet}.
 
@@ -679,9 +668,7 @@ Für eine Triole wären das drei Noten statt zwei, also bekommen
 @cindex Vorhalt
 
 @funindex \grace
-@funindex grace
 @funindex \acciaccatura
-@funindex acciaccatura
 @funindex \appoggiatura
 @funindex acciaccatura
 
@@ -882,10 +869,8 @@ folgende Beispiel beginnt mit einer Note:
 @cindex Notationskontext
 
 @funindex \new Staff
-@funindex new Staff
 @funindex Staff
 @funindex \new
-@funindex new
 @funindex Score
 @funindex Voice
 @funindex Lyrics
@@ -1112,7 +1097,6 @@ gezeigt.
 @cindex Gesangstext, schreiben
 
 @funindex \addlyrics
-@funindex addlyrics
 
 Glossar: @rglos{lyrics}.
 
@@ -1494,7 +1478,6 @@ Benutzung der eben definierten Bezeichner:
 @cindex Kopf
 
 @funindex \header
-@funindex header
 
 Titel, Komponist, Opusnummern und ähnliche Information werden in
 einer @code{\header}-Umgebung eingefügt. Diese Umgebung befindet sich

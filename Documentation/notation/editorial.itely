@@ -330,7 +330,6 @@ and @code{\revert} commands:
 @cindex finger change
 
 @funindex \finger
-@funindex finger
 
 Fingering instructions can be entered using
 @samp{@var{note}-@var{digit}}:
@@ -350,7 +349,6 @@ Markup texts or strings may be used for finger changes.
 @cindex thumb-script
 
 @funindex \thumb
-@funindex thumb
 
 A thumb-script can be added (e.g. cello music) to indicate
 that a note should be played with the thumb.
@@ -412,9 +410,7 @@ Internals Reference:
 @cindex notes, transparent
 
 @funindex \hideNotes
-@funindex hideNotes
 @funindex \unHideNotes
-@funindex unHideNotes
 
 Hidden (or invisible or transparent) notes can be useful in
 preparing theory or composition exercises.
@@ -484,7 +480,6 @@ Internals Reference:
 
 @funindex color
 @funindex \with-color
-@funindex with-color
 @funindex x11-color
 
 Individual objects may be assigned colors.  Valid color names
@@ -596,7 +591,6 @@ Notes in a chord cannot be separately colored with
 @cindex brackets
 
 @funindex \parenthesize
-@funindex parenthesize
 
 Objects may be parenthesized by prefixing @code{\parenthesize} to
 the music event.  When prefixed to a chord, it parenthesizes every
@@ -643,11 +637,8 @@ chord.
 @cindex invisible stem
 
 @funindex \stemUp
-@funindex stemUp
 @funindex \stemDown
-@funindex stemDown
 @funindex \stemNeutral
-@funindex stemNeutral
 @cindex stem, direction
 @cindex stem, up
 @cindex stem, down
@@ -715,9 +706,7 @@ from outside of the staff.
 @funindex balloonGrobText
 @funindex balloonText
 @funindex \balloonLengthOn
-@funindex balloonLengthOn
 @funindex \balloonLengthOff
-@funindex balloonLengthOff
 
 Elements of notation can be marked and named with the help of a
 square balloon.  The primary purpose of this feature is to explain
@@ -853,9 +842,7 @@ Internals Reference:
 
 @funindex Horizontal_bracket_engraver
 @funindex \startGroup
-@funindex startGroup
 @funindex \stopGroup
-@funindex stopGroup
 
 Brackets are used in musical analysis to indicate structure in musical
 pieces.  Simple horizontal brackets are supported.

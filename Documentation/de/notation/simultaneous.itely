@@ -356,7 +356,6 @@ Resultaten führen. (Siehe auch @ref{Auflösung von Zusammenstößen}.)
 @cindex Notencluster
 
 @funindex \makeClusters
-@funindex makeClusters
 
 Ein Cluster zeigt an, dass alle Tonhöhen in einem Bereich gleichzeitig
 gespielt werden sollen.  Cluster können gedeutet werden als eine
@@ -426,11 +425,9 @@ oder mehreren Systemen.
 @cindex Mehrstimmigkeit
 @cindex Polyphonie
 @funindex \voiceOne
-@funindex voiceOne
 @funindex \voiceOne ... \voiceFour
 @funindex Voice
 @funindex \oneVoice
-@funindex oneVoice
 
 @strong{@i{Stimmen explicit beginnen}}
 
@@ -704,21 +701,13 @@ Schnipsel:
 @cindex Pausen verschieben, automatisch
 @cindex Verschieben von Pausen, automatisch
 @funindex \shiftOn
-@funindex shiftOn
 @funindex \shiftOnn
-@funindex shiftOnn
 @funindex \shiftOnnn
-@funindex shiftOnnn
 @funindex \shiftOff
-@funindex shiftOff
 @funindex \mergeDifferentlyDottedOn
-@funindex mergeDifferentlyDottedOn
 @funindex \mergeDifferentlyDottedOff
-@funindex mergeDifferentlyDottedOff
 @funindex \mergeDifferentlyHeadedOn
-@funindex mergeDifferentlyHeadedOn
 @funindex \mergeDifferentlyHeadedOff
-@funindex mergeDifferentlyHeadedOff
 
 Die Notenköpfe von Noten in unterschiedlichen Stimmen mit derselben
 Tonhöhe, demselben Notenkopf und den Hälsen in entgegengesetzte
@@ -951,7 +940,6 @@ are at the same time differently dotted are not clear.
 @cindex a due-Stellen
 @cindex solo-Stellen
 @funindex \partcombine
-@funindex partcombine
 
 Automatische Kombination von Stimmen wird verwendet, um zwei
 selbständige Stimmen auf einem Notensystem zu setzen.  Es wird vor allem
@@ -1025,17 +1013,11 @@ keinen Einfluss auf
 die Tonhöhen von @code{@var{musikAusdr1}} oder @code{@var{musikAusdr2}}.
 
 @funindex \partcombineChords
-@funindex partcombineChords
 @funindex \partcombineApart
-@funindex partcombineApart
 @funindex \partcombineUnisono
-@funindex partcombineUnisono
 @funindex \partcombineSoloI
-@funindex partcombineSoloI
 @funindex \partcombineSoloII
-@funindex partcombineSoloII
 @funindex \partcombineAutomatic
-@funindex partcombineAutomatic
 
 In professionellen Partituren werden Stimmen oft für lange Strecken auseinander
 gehalten, auch wenn eine oder mehrere Noten tatsälich aufeinander treffen und
@@ -1170,7 +1152,6 @@ wenn Sie @code{\partcombine} in Tabulaturen benutzen
 @cindex Eingabe von Noten parallel
 @cindex Verschachtelte Musik
 @funindex \parallelMusic
-@funindex parallelMusic
 
 Noten für mehrere Stimmen können verschachtelt notiert werden.
 Die Funktion @code{\parallelMusic} akzeptiert eine Liste mit

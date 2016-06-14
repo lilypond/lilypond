@@ -60,7 +60,6 @@ Gruppen von Systemen zu erstellen.
 @cindex neues Notensystem
 
 @funindex \drummode
-@funindex drummode
 @funindex DrumStaff
 @funindex RhythmicStaff
 @funindex TabStaff
@@ -459,9 +458,7 @@ beenden sowie eine Methode, Ossia-Systeme zu erstellen.
 
 
 @funindex \startStaff
-@funindex startStaff
 @funindex \stopStaff
-@funindex stopStaff
 
 Die Befehle @code{\stopStaff} und @code{\startStaff} können
 benutzt werden, um ein Notensystem zu stoppen oder (wieder)
@@ -790,10 +787,8 @@ Referenz der Interna:
 @cindex Verschwinden von leeren Systemen
 
 @funindex \RemoveEmptyStaves
-@funindex RemoveEmptyStaves
 @funindex Staff_symbol_engraver
 @funindex \stopStaff
-@funindex stopStaff
 
 Die Notenlinien können entfernt werden, indem der
 @code{Staff_symbol_engraver} aus dem @code{Staff}-Kontext
@@ -850,7 +845,6 @@ um Ossiaabschnitte zu erstellen.  Zu Einzelheiten, siehe
 @cindex Verstecken von Rhythmus-Systemen
 
 @funindex \RemoveEmptyStaves
-@funindex RemoveEmptyStaves
 
 Der @code{\VaticanaStaff \RemoveEmptyStaves}-Befehl kann
 benutzt werden, um leere Takte in Notation der Alten Musik
@@ -1060,9 +1054,7 @@ und spätere Änderungen nicht berücksichtigt.
 @cindex Wechsel von Instrument
 
 @funindex \addInstrumentDefinition
-@funindex addInstrumentDefinition
 @funindex \instrumentSwitch
-@funindex instrumentSwitch
 
 Wenn das Instrument gewechselt werden soll, kann der Befehl
 @code{\addInstrumentDefinition} in Begleitung von
@@ -1124,11 +1116,8 @@ Referenz der Interna:
 @cindex Stimmen, zitieren
 
 @funindex \addQuote
-@funindex addQuote
 @funindex \quoteDuring
-@funindex quoteDuring
 @funindex \transposition
-@funindex transposition
 
 Es kommt sehr oft vor, dass eine Orchesterstimme die gleichen
 Noten wie eine andere spielt.  So können etwa die ersten und
@@ -1295,13 +1284,9 @@ werden, ist das Notenbild unter Umständen sehr schlecht.
 @cindex Zitieren von anderen Stimmen
 
 @funindex \cueDuring
-@funindex cueDuring
 @funindex \cueClef
-@funindex cueClef
 @funindex \cueDuringWithClef
-@funindex cueDuringWithClef
 @funindex \quoteDuring
-@funindex quoteDuring
 
 @cindex Noten, kleiner
 @cindex kleinere Noten
@@ -1491,7 +1476,6 @@ bassoonNotes = \relative c {
 @end lilypond
 
 @funindex \transposedCueDuring
-@funindex transposedCueDuring
 
 Genauso wie @code{\quoteDuring} berücksichtigt auch @code{\cueDuring}
 Transpositionen.  Stichnoten werden auf den Tonhöhen erstellt, die für
@@ -1533,9 +1517,7 @@ bassClarinetNotes = \relative c' {
 @cindex cue notes, removing
 
 @funindex \killCues
-@funindex killCues
 @funindex \addInstrumentDefinition
-@funindex addInstrumentDefinition
 
 Der @code{\killCues}-Befehl entfernt Stichnoten aus einem
 musikalischen Ausdruck, sodass derselbe musikalische Ausdruck
