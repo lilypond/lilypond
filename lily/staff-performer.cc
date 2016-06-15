@@ -55,7 +55,6 @@ private:
   int get_channel (const string &instrument);
   Audio_staff *get_audio_staff (const string &voice);
   Audio_staff *new_audio_staff (const string &voice);
-  Audio_span_dynamic *get_dynamic (const string &voice);
 
   class Midi_control_initializer : public Midi_control_change_announcer
   {
@@ -79,10 +78,8 @@ private:
   Audio_text *instrument_name_;
   Audio_text *name_;
   Audio_tempo *tempo_;
-  map<string, deque<Audio_note *> > note_map_;
   map<string, Audio_staff *> staff_map_;
   map<string, int> channel_map_;
-  map<string, Audio_span_dynamic *> dynamic_map_;
   // Would prefer to have the following two items be
   // members of the containing class Performance,
   // so they can be reset for each new midi file output.
@@ -178,15 +175,6 @@ Staff_performer::get_audio_staff (const string &voice)
   return new_audio_staff (voice);
 }
 
-Audio_span_dynamic *
-Staff_performer::get_dynamic (const string &voice)
-{
-  map<string, Audio_span_dynamic *>::const_iterator i = dynamic_map_.find (voice);
-  if (i != dynamic_map_.end ())
-    return i->second;
-  return 0;
-}
-
 void
 Staff_performer::process_music ()
 {
@@ -220,21 +208,6 @@ Staff_performer::stop_translation_timestep ()
   tempo_ = 0;
   instrument_name_ = 0;
   instrument_ = 0;
-  // For each voice with a note played in the current translation time step,
-  // check if the voice has a dynamic registered: if yes, apply the dynamic
-  // to every note played in the voice in the current translation time step.
-  for (map<string, deque<Audio_note *> >::iterator vi = note_map_.begin ();
-       vi != note_map_.end (); ++vi)
-    {
-      Audio_span_dynamic *d = get_dynamic (vi->first);
-      if (d)
-        {
-          for (deque<Audio_note *>::iterator ni = vi->second.begin ();
-               ni != vi->second.end (); ++ni)
-            (*ni)->dynamic_ = d;
-        }
-    }
-  note_map_.clear ();
 }
 
 void
@@ -331,18 +304,7 @@ Staff_performer::acknowledge_audio_element (Audio_element_info inf)
   if (Audio_item *ai = dynamic_cast<Audio_item *> (inf.elem_))
     {
       ai->channel_ = channel_;
-      if (Audio_note *n = dynamic_cast<Audio_note *> (inf.elem_))
-        {
-          // Keep track of the notes played in the current voice in this
-          // translation time step (for adjusting their dynamics later in
-          // stop_translation_timestep).
-          note_map_[voice].push_back (n);
-        }
       audio_staff->add_audio_item (ai);
-    }
-  else if (Audio_span_dynamic *d = dynamic_cast<Audio_span_dynamic *> (inf.elem_))
-    {
-      dynamic_map_[voice] = d;
     }
 }
 

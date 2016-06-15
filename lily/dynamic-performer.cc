@@ -30,6 +30,7 @@ class Dynamic_performer : public Performer
 public:
   TRANSLATOR_DECLARATIONS (Dynamic_performer);
 protected:
+  virtual void acknowledge_audio_element (Audio_element_info info);
   virtual void finalize ();
   void stop_translation_timestep ();
   void process_music ();
@@ -111,6 +112,7 @@ private:
   };
 
 private:
+  vector<Audio_note *> notes_;
   Stream_event *script_event_;
   Drul_array<Stream_event *> span_events_;
   Direction next_grow_dir_;
@@ -129,6 +131,16 @@ Dynamic_performer::Dynamic_performer ()
 {
   span_events_[LEFT]
   = span_events_[RIGHT] = 0;
+}
+
+void
+Dynamic_performer::acknowledge_audio_element (Audio_element_info inf)
+{
+  // Keep track of the notes played in this translation time step so that they
+  // can be pointed to the current dynamic in stop_translation_timestep.
+  if (Audio_note *n = dynamic_cast<Audio_note *> (inf.elem_)) {
+    notes_.push_back (n);
+  }
 }
 
 bool
@@ -429,6 +441,19 @@ Dynamic_performer::process_music ()
 void
 Dynamic_performer::stop_translation_timestep ()
 {
+  // link notes to the current dynamic
+  if (!open_span_.dynamic_)
+    programming_error("no current dynamic");
+  else
+    {
+      for (vector<Audio_note *>::const_iterator ni = notes_.begin ();
+           ni != notes_.end (); ++ni)
+        {
+          (*ni)->dynamic_ = open_span_.dynamic_;
+        }
+    }
+  notes_.clear ();
+
   script_event_ = 0;
   span_events_[LEFT]
   = span_events_[RIGHT] = 0;
