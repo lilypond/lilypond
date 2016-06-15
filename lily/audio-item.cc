@@ -21,6 +21,7 @@
 
 #include "midi-item.hh"
 #include "audio-column.hh"
+#include "international.hh"
 
 Audio_instrument::Audio_instrument (string instrument_string)
 {
@@ -101,24 +102,15 @@ Audio_key::Audio_key (int acc, bool major)
   major_ = major;
 }
 
-Audio_dynamic::Audio_dynamic ()
-  : volume_ (-1),
-    silent_ (false)
-{
-}
+const Real Audio_span_dynamic::MINIMUM_VOLUME;
+const Real Audio_span_dynamic::MAXIMUM_VOLUME;
+const Real Audio_span_dynamic::DEFAULT_VOLUME;
 
-Audio_span_dynamic::Audio_span_dynamic (Real min_volume, Real max_volume)
+Audio_span_dynamic::Audio_span_dynamic (Moment mom, Real volume)
+  : start_moment_ (mom),
+    duration_ (0)
 {
-  grow_dir_ = CENTER;
-  min_volume_ = min_volume;
-  max_volume_ = max_volume;
-}
-
-void
-Audio_span_dynamic::add_absolute (Audio_dynamic *d)
-{
-  assert (d);
-  dynamics_.push_back (d);
+  set_volume (volume, volume);
 }
 
 Moment
@@ -140,53 +132,60 @@ moment_to_ticks (Moment m)
   return int (moment_to_real (m) * 384 * 4);
 }
 
-void
-Audio_span_dynamic::render ()
+void Audio_span_dynamic::set_end_moment(Moment mom)
 {
-  if (dynamics_.size () <= 1)
-    return;
-
-  assert (dynamics_[0]->volume_ >= 0);
-
-  while (dynamics_.back ()->volume_ > 0
-         && dynamics_.size () > 1
-         && sign (dynamics_.back ()->volume_ - dynamics_[0]->volume_) != grow_dir_)
+  if (mom < start_moment_)
     {
-      dynamics_.erase (dynamics_.end () - 1);
+      programming_error (_f ("end moment (%s) < start moment (%s)",
+                             mom.to_string ().c_str (),
+                             start_moment_.to_string ().c_str ()));
+      mom = start_moment_;
     }
 
-  if (dynamics_.size () <= 1)
+  duration_ = moment_to_real (mom - start_moment_);
+}
+
+void
+Audio_span_dynamic::set_volume (Real start, Real target)
+{
+  if (!(start >= 0))
     {
-      programming_error ("Impossible or ambiguous (de)crescendo in MIDI.");
-      return;
+      programming_error (_f ("invalid start volume: %f", start));
+      start = DEFAULT_VOLUME;
     }
 
-  Real start_v = dynamics_[0]->volume_;
-  if (dynamics_.back ()->volume_ < 0)
+  if (!(target >= 0))
     {
-      // The dynamic spanner does not end with an explicit dynamic script
-      // event.  Adjust the end volume by at most 1/4 of the available
-      // volume range in this case.
-      dynamics_.back ()->volume_ = max (min (start_v + grow_dir_ * (max_volume_ - min_volume_) * 0.25, max_volume_), min_volume_);
+      programming_error (_f ("invalid target volume: %f", target));
+      target = start;
     }
 
-  Real delta_v = dynamics_.back ()->volume_ - dynamics_[0]->volume_;
+  start_volume_ = start;
+  gain_ = target - start;
+}
 
-  Moment start = dynamics_[0]->get_column ()->when ();
+Real Audio_span_dynamic::get_volume (Moment mom) const
+{
+  const Real when = moment_to_real (mom - start_moment_);
 
-  Real total_t = moment_to_real (dynamics_.back ()->get_column ()->when () - start);
-
-  for (vsize i = 1; i < dynamics_.size (); i++)
+  if (when <= 0)
     {
-      Moment dt_moment = dynamics_[i]->get_column ()->when ()
-                         - start;
-
-      Real dt = moment_to_real (dt_moment);
-
-      Real v = start_v + delta_v * (dt / total_t);
-
-      dynamics_[i]->volume_ = v;
+      if (when < 0)
+        programming_error (_f ("asked to compute volume at %f for dynamic span of duration %f starting at %s",
+                               when, duration_,
+                               start_moment_.to_string ().c_str ()));
+      return start_volume_;
     }
+
+  if (when >= duration_)
+    {
+      programming_error (_f ("asked to compute volume at +%f for dynamic span of duration %f starting at %s",
+                             when, duration_,
+                             start_moment_.to_string ().c_str ()));
+      return start_volume_ + gain_;
+    }
+
+  return start_volume_ + gain_ * (when / duration_);
 }
 
 Audio_tempo::Audio_tempo (int per_minute_4)

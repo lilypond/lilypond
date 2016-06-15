@@ -19,6 +19,7 @@
 
 #include "midi-item.hh"
 
+#include "audio-column.hh"
 #include "duration.hh"
 #include "international.hh"
 #include "libc-extension.hh"
@@ -42,8 +43,6 @@ Midi_item::get_midi (Audio_item *a)
     return i->str_.length () ? new Midi_instrument (i) : 0;
   else if (Audio_note *i = dynamic_cast<Audio_note *> (a))
     return new Midi_note (i);
-  else if (Audio_dynamic *i = dynamic_cast<Audio_dynamic *> (a))
-    return new Midi_dynamic (i);
   else if (Audio_piano_pedal *i = dynamic_cast<Audio_piano_pedal *> (a))
     return new Midi_piano_pedal (i);
   else if (Audio_tempo *i = dynamic_cast<Audio_tempo *> (a))
@@ -193,8 +192,8 @@ Midi_time_signature::to_string () const
 Midi_note::Midi_note (Audio_note *a)
   : Midi_channel_item (a),
     audio_ (a),
-    dynamic_byte_ (min (max (Byte ((a->dynamic_ && a->dynamic_->volume_ >= 0
-                                    ? a->dynamic_->volume_ * 0x7f : 0x5a)
+    dynamic_byte_ (min (max (Byte ((a->dynamic_
+                                    ? a->dynamic_->get_volume (a->audio_column_->when ()) * 0x7f : 0x5a)
                                    + a->extra_velocity_),
                              Byte (0)), Byte (0x7f)))
 {
@@ -272,40 +271,6 @@ Midi_note_off::to_string () const
       str += ::to_string ((char) (PITCH_WHEEL_CENTER >> 7));
     }
 
-  return str;
-}
-
-Midi_dynamic::Midi_dynamic (Audio_dynamic *a)
-  : Midi_channel_item (a),
-    audio_ (a)
-{
-}
-
-string
-Midi_dynamic::to_string () const
-{
-  Byte status_byte = (char) (0xB0 + channel_);
-  string str = ::to_string ((char)status_byte);
-
-  /*
-    Main volume controller (per channel):
-    07 MSB
-    27 LSB
-  */
-  static Real const full_scale = 127;
-
-  int volume = (int) (audio_->volume_ * full_scale);
-  if (volume <= 0)
-    volume = 1;
-  if (volume > full_scale)
-    volume = (int)full_scale;
-
-  int const volume_default = 100;
-  if (audio_->volume_ < 0 || audio_->silent_)
-    volume = volume_default;
-
-  str += ::to_string ((char)0x07);
-  str += ::to_string ((char)volume);
   return str;
 }
 

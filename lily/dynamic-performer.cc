@@ -19,6 +19,7 @@
 
 #include "performer.hh"
 #include "audio-item.hh"
+#include "std-vector.hh"
 #include "stream-event.hh"
 #include "international.hh"
 
@@ -29,6 +30,7 @@ class Dynamic_performer : public Performer
 public:
   TRANSLATOR_DECLARATIONS (Dynamic_performer);
 protected:
+  virtual void finalize ();
   void stop_translation_timestep ();
   void process_music ();
   Real equalize_volume (Real);
@@ -36,25 +38,67 @@ protected:
   void listen_decrescendo (Stream_event *);
   void listen_crescendo (Stream_event *);
   void listen_absolute_dynamic (Stream_event *);
+
+private:
+  // next_vol < 0 means select a target dynamic based on growth direction.
+  // return actual next volume (computed if not provided)
+  Real end_span (Real next_vol = -1.0);
+
 private:
   Stream_event *script_event_;
   Drul_array<Stream_event *> span_events_;
-  Drul_array<Direction> grow_dir_;
-  Real last_volume_;
-  Audio_dynamic *absolute_;
+  Direction next_grow_dir_;
   Audio_span_dynamic *span_dynamic_;
-  Audio_span_dynamic *finished_span_dynamic_;
+  Direction grow_dir_; // of span_dynamic_
 };
 
 Dynamic_performer::Dynamic_performer ()
 {
-  last_volume_ = -1;
   script_event_ = 0;
-  absolute_ = 0;
   span_events_[LEFT]
     = span_events_[RIGHT] = 0;
+  next_grow_dir_ = CENTER;
   span_dynamic_ = 0;
-  finished_span_dynamic_ = 0;
+  grow_dir_ = CENTER;
+}
+
+Real Dynamic_performer::end_span (Real next_vol)
+{
+  if (!span_dynamic_)
+    {
+      programming_error("no dynamic span to end");
+      return next_vol;
+    }
+
+  Real start_vol = span_dynamic_->get_start_volume ();
+  Real target_vol = start_vol;
+
+  if (grow_dir_ != CENTER) {
+    // If the target dynamic is not specified, grow to a reasonable target
+    // in the desired direction.  Do the same for cases like mf < p.
+    //
+    // TODO To improve on this, keep a queue of Audio_span_dynamics and compute
+    // multiple intermediate targets based on the next explicit dynamic.
+    // Consider cases like mf < ... < ff with only mf and ff specified.
+    // Consider growing in proportion to the duration of each (de)crescendo in
+    // the sequence, which may be separated by spans with no change in volume.
+    if ((next_vol < 0) || (sign(next_vol - start_vol) != grow_dir_))
+      {
+        Real min_vol = equalize_volume (0.1);
+        Real max_vol = equalize_volume (Audio_span_dynamic::MAXIMUM_VOLUME);
+        target_vol = max (min (start_vol + grow_dir_ * (max_vol - min_vol) * 0.25, max_vol), min_vol);
+      }
+    else
+      {
+        target_vol = next_vol;
+      }
+  }
+
+  span_dynamic_->set_end_moment (now_mom ());
+  span_dynamic_->set_volume (start_vol, target_vol);
+  span_dynamic_ = 0;
+
+  return (next_vol >= 0) ? next_vol : target_vol;
 }
 
 Real
@@ -67,7 +111,8 @@ Dynamic_performer::equalize_volume (Real volume)
   SCM max = get_property ("midiMaximumVolume");
   if (scm_is_number (min) || scm_is_number (max))
     {
-      Interval iv (0, 1);
+      Interval iv (Audio_span_dynamic::MINIMUM_VOLUME,
+                   Audio_span_dynamic::MAXIMUM_VOLUME);
       if (scm_is_number (min))
         iv[MIN] = scm_to_double (min);
       if (scm_is_number (max))
@@ -97,125 +142,93 @@ Dynamic_performer::equalize_volume (Real volume)
           volume = iv[MIN] + iv.length () * volume;
         }
     }
-  return volume;
+  return std::max (std::min (volume, Audio_span_dynamic::MAXIMUM_VOLUME),
+                   Audio_span_dynamic::MINIMUM_VOLUME);
+}
+
+void
+Dynamic_performer::finalize ()
+{
+  if (span_dynamic_)
+    {
+      end_span ();
+    }
 }
 
 void
 Dynamic_performer::process_music ()
 {
-  if (span_events_[START] || span_events_[STOP] || script_event_)
+  Real volume = -1;
+
+  if (script_event_)
     {
-      // End the previous spanner when a new one begins or at an explicit stop
-      // or absolute dynamic.
-      finished_span_dynamic_ = span_dynamic_;
-      span_dynamic_ = 0;
-    }
+      // Explicit dynamic script event: determine the volume.
+      SCM proc = get_property ("dynamicAbsoluteVolumeFunction");
 
-  if (span_events_[START])
-    {
-      // Start of a dynamic spanner.  Create a new Audio_span_dynamic for
-      // collecting changes in dynamics within this spanner.
-      span_dynamic_ = new Audio_span_dynamic (equalize_volume (0.1), equalize_volume (1.0));
-      announce_element (Audio_element_info (span_dynamic_, span_events_[START]));
-
-      span_dynamic_->grow_dir_ = grow_dir_[START];
-    }
-
-  if (script_event_
-      || span_dynamic_
-      || finished_span_dynamic_)
-    {
-      // New change in dynamics.
-      absolute_ = new Audio_dynamic ();
-
-      if (script_event_)
+      SCM svolume = SCM_EOL;
+      if (ly_is_procedure (proc))
         {
-          // Explicit dynamic script event: determine the volume.
-          SCM proc = get_property ("dynamicAbsoluteVolumeFunction");
-
-          SCM svolume = SCM_EOL;
-          if (ly_is_procedure (proc))
-            {
-              // urg
-              svolume = scm_call_1 (proc, script_event_->get_property ("text"));
-            }
-
-          Real volume = robust_scm2double (svolume, 0.5);
-
-          last_volume_
-            = absolute_->volume_ = equalize_volume (volume);
+          // urg
+          svolume = scm_call_1 (proc, script_event_->get_property ("text"));
         }
 
-      Audio_element_info info (absolute_, script_event_);
-      announce_element (info);
+      volume = equalize_volume (robust_scm2double (svolume, Audio_span_dynamic::DEFAULT_VOLUME));
     }
-
-  if (last_volume_ < 0)
+  else if (!span_dynamic_) // first time through
     {
-      absolute_ = new Audio_dynamic ();
-
-      last_volume_
-	= absolute_->volume_ = equalize_volume (0.71); // Backward compatible
-
-      Audio_element_info info (absolute_, script_event_);
-      announce_element (info);
+      volume = equalize_volume (Audio_span_dynamic::DEFAULT_VOLUME);
     }
 
-  if (span_dynamic_)
-    span_dynamic_->add_absolute (absolute_);
+  // end the current span at relevant points
+  if (span_dynamic_
+      && (span_events_[START] || span_events_[STOP] || script_event_))
+    {
+      volume = end_span (volume);
+    }
 
-  if (finished_span_dynamic_)
-    finished_span_dynamic_->add_absolute (absolute_);
+  // start a new span so that some dynamic is always in effect
+  if (!span_dynamic_)
+    {
+      Stream_event *cause =
+        span_events_[START] ? span_events_[START] :
+        script_event_ ? script_event_ :
+        span_events_[STOP];
+
+      span_dynamic_ = new Audio_span_dynamic (now_mom (), volume);
+      grow_dir_ = next_grow_dir_;
+      announce_element (Audio_element_info (span_dynamic_, cause));
+    }
 }
 
 void
 Dynamic_performer::stop_translation_timestep ()
 {
-  if (finished_span_dynamic_)
-    {
-      finished_span_dynamic_->render ();
-      finished_span_dynamic_ = 0;
-    }
-
-  if (absolute_)
-    {
-      if (absolute_->volume_ < 0)
-        {
-          absolute_->volume_ = last_volume_;
-        }
-      else
-        {
-          last_volume_ = absolute_->volume_;
-        }
-    }
-
-  absolute_ = 0;
   script_event_ = 0;
   span_events_[LEFT]
     = span_events_[RIGHT] = 0;
+  next_grow_dir_ = CENTER;
 }
 
 void
 Dynamic_performer::listen_decrescendo (Stream_event *r)
 {
   Direction d = to_dir (r->get_property ("span-direction"));
-  span_events_[d] = r;
-  grow_dir_[d] = SMALLER;
+  if (ASSIGN_EVENT_ONCE (span_events_[d], r) && (d == START))
+    next_grow_dir_ = SMALLER;
 }
 
 void
 Dynamic_performer::listen_crescendo (Stream_event *r)
 {
   Direction d = to_dir (r->get_property ("span-direction"));
-  span_events_[d] = r;
-  grow_dir_[d] = BIGGER;
+  if (ASSIGN_EVENT_ONCE (span_events_[d], r) && (d == START))
+    next_grow_dir_ = BIGGER;
 }
 
 void
 Dynamic_performer::listen_absolute_dynamic (Stream_event *r)
 {
-  if (!script_event_)
-    script_event_ = r;
+  ASSIGN_EVENT_ONCE (script_event_, r);
 }
 
 void

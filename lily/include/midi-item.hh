@@ -157,17 +157,6 @@ public:
   Audio_text *audio_;
 };
 
-class Midi_dynamic : public Midi_channel_item
-{
-public:
-  Midi_dynamic (Audio_dynamic *);
-  DECLARE_CLASSNAME (Midi_dynamic);
-
-  virtual string to_string () const;
-
-  Audio_dynamic *audio_;
-};
-
 class Midi_piano_pedal : public Midi_channel_item
 {
 public:

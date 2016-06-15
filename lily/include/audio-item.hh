@@ -40,26 +40,30 @@ private:
   Audio_item &operator = (Audio_item const &);
 };
 
-class Audio_dynamic : public Audio_item
-{
-public:
-  Audio_dynamic ();
-
-  Real volume_;
-  bool silent_;
-};
-
+// Audio_span_dynamic is open at the end of the interval, so the volume
+// grows/diminshes toward a target, but whether it reaches it depends on the
+// next Audio_span_dynamic in the performance.  For example, a crescendo
+// notated as mf < p is represented as [mf < x) [p ...) i.e. growth to some
+// volume louder than mf followed by an abrupt change to p.
 class Audio_span_dynamic : public Audio_element
 {
 public:
-  Direction grow_dir_;
-  vector<Audio_dynamic *> dynamics_;
-  Real min_volume_;
-  Real max_volume_;
+  static const Real MINIMUM_VOLUME = 0.0;
+  static const Real MAXIMUM_VOLUME = 1.0;
+  static const Real DEFAULT_VOLUME = 90.0 / 127.0;
 
-  virtual void render ();
-  void add_absolute (Audio_dynamic *);
-  Audio_span_dynamic (Real min_volume, Real max_volume);
+private:
+  Moment start_moment_;
+  Real start_volume_;
+  Real duration_; // = target moment - start moment
+  Real gain_; // = target volume - start volume
+
+public:
+  Real get_start_volume () const { return start_volume_; }
+  void set_end_moment (Moment);
+  void set_volume (Real start, Real target);
+  Real get_volume (Moment) const;
+  Audio_span_dynamic (Moment mom, Real volume);
 };
 
 class Audio_key : public Audio_item
@@ -92,7 +96,7 @@ public:
   Pitch pitch_;
   Moment length_mom_;
   Pitch transposing_;
-  Audio_dynamic *dynamic_;
+  Audio_span_dynamic *dynamic_;
   int extra_velocity_;
 
   Audio_note *tied_;
