@@ -1486,15 +1486,39 @@ context_modification_arg:
 	| MUSIC_IDENTIFIER
 	;
 
-optional_context_mod:
-        /**/ {
-            $$ = SCM_EOL;
-        }
-        | context_modification
+/* A list of single mods collected from a (possibly empty) sequence of
+ * context modifications, usually written as \with ... \with ...
+ */
+
+optional_context_mods:
+	context_modification_mods_list
         {
-              $$ = $1;
+		if (scm_is_pair ($1))
+			$$ = scm_append_x (scm_reverse_x ($1, SCM_EOL));
         }
         ;
+
+/* The worker for optional_context_mods conses a (reversed) list where
+ * each element contains the list of single context mods from one
+ * context modification block.  Context_mod::get_mods creates fresh
+ * copies, so it's okay to use append! on them.
+ */
+
+context_modification_mods_list:
+	/**/ {
+		$$ = SCM_EOL;
+	}
+	| context_modification_mods_list context_modification
+	{
+		if (Context_mod *m = unsmob<Context_mod> ($2))
+			$$ = scm_cons (m->get_mods (), $1);
+	}
+	;
+
+/* A Context_mod is a container for a list of context mods like
+ * \consists ...  \override ... .  context_mod_list produces a
+ * Context_mod from the inside of a \with { ... } statement.
+ */
 
 context_mod_list:
         /**/ {
@@ -1526,36 +1550,20 @@ context_mod_list:
         ;
 
 context_prefix:
-	CONTEXT symbol optional_id optional_context_mod {
-                Context_mod *ctxmod = unsmob<Context_mod> ($4);
-                SCM mods = SCM_EOL;
-                if (ctxmod)
-                        mods = ctxmod->get_mods ();
-		$$ = START_MAKE_SYNTAX (context_specification, $2, $3, mods, SCM_BOOL_F);
+	CONTEXT symbol optional_id optional_context_mods {
+		$$ = START_MAKE_SYNTAX (context_specification, $2, $3, $4, SCM_BOOL_F);
 	}
-	| NEWCONTEXT symbol optional_id optional_context_mod {
-                Context_mod *ctxmod = unsmob<Context_mod> ($4);
-                SCM mods = SCM_EOL;
-                if (ctxmod)
-                        mods = ctxmod->get_mods ();
-		$$ = START_MAKE_SYNTAX (context_specification, $2, $3, mods, SCM_BOOL_T);
+	| NEWCONTEXT symbol optional_id optional_context_mods {
+		$$ = START_MAKE_SYNTAX (context_specification, $2, $3, $4, SCM_BOOL_T);
 	}
 	;
 
 new_lyrics:
-	ADDLYRICS optional_context_mod lyric_mode_music {
-		Context_mod *ctxmod = unsmob<Context_mod> ($2);
-		SCM mods = SCM_EOL;
-		if (ctxmod)
-			mods = ctxmod->get_mods ();
-		$$ = scm_acons ($3, mods, SCM_EOL);
+	ADDLYRICS optional_context_mods lyric_mode_music {
+		$$ = scm_acons ($3, $2, SCM_EOL);
 	}
-	| new_lyrics ADDLYRICS optional_context_mod lyric_mode_music {
-		Context_mod *ctxmod = unsmob<Context_mod> ($3);
-		SCM mods = SCM_EOL;
-		if (ctxmod)
-			mods = ctxmod->get_mods ();
-		$$ = scm_acons ($4, mods, $1);
+	| new_lyrics ADDLYRICS optional_context_mods lyric_mode_music {
+		$$ = scm_acons ($4, $3, $1);
 	}
 	;
 
@@ -2510,12 +2518,8 @@ mode_changed_music:
 		}
 		parser->lexer_->pop_state ();
 	}
-	| mode_changing_head_with_context optional_context_mod grouped_music_list {
-                Context_mod *ctxmod = unsmob<Context_mod> ($2);
-                SCM mods = SCM_EOL;
-                if (ctxmod)
-                        mods = ctxmod->get_mods ();
-		$$ = MAKE_SYNTAX (context_specification, @$, $1, SCM_EOL, mods, SCM_BOOL_T, $3);
+	| mode_changing_head_with_context optional_context_mods grouped_music_list {
+		$$ = MAKE_SYNTAX (context_specification, @$, $1, SCM_EOL, $2, SCM_BOOL_T, $3);
 		if (scm_is_eq ($1, ly_symbol2scm ("ChordNames")))
 		{
 		  $$ = MAKE_SYNTAX (unrelativable_music, @$, $$);
