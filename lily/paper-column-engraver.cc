@@ -229,6 +229,18 @@ Paper_column_engraver::stop_translation_timestep ()
   command_column_->set_property ("when", m);
   musical_column_->set_property ("when", m);
 
+  SCM mpos = get_property ("measurePosition");
+  SCM barnum = get_property ("internalBarNumber");
+  if (unsmob<Moment> (mpos)
+      && scm_is_integer (barnum))
+    {
+      SCM where = scm_cons (barnum,
+                            mpos);
+
+      command_column_->set_property ("rhythmic-location", where);
+      musical_column_->set_property ("rhythmic-location", where);
+    }
+
   for (vsize i = 0; i < items_.size (); i++)
     {
       Item *elem = items_[i];
@@ -274,18 +286,6 @@ Paper_column_engraver::stop_translation_timestep ()
 
   first_ = false;
   label_events_.clear ();
-
-  SCM mpos = get_property ("measurePosition");
-  SCM barnum = get_property ("internalBarNumber");
-  if (unsmob<Moment> (mpos)
-      && scm_is_integer (barnum))
-    {
-      SCM where = scm_cons (barnum,
-                            mpos);
-
-      command_column_->set_property ("rhythmic-location", where);
-      musical_column_->set_property ("rhythmic-location", where);
-    }
 }
 
 void
