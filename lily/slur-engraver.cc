@@ -62,16 +62,16 @@ Slur_engraver::set_melisma (bool m)
 void
 Slur_engraver::boot ()
 {
-  ADD_LISTENER (Slur_proto_engraver, slur);
-  ADD_LISTENER (Slur_proto_engraver, note);
-  ADD_ACKNOWLEDGER (Slur_proto_engraver, inline_accidental);
-  ADD_ACKNOWLEDGER (Slur_proto_engraver, fingering);
-  ADD_ACKNOWLEDGER (Slur_proto_engraver, note_column);
-  ADD_ACKNOWLEDGER (Slur_proto_engraver, script);
-  ADD_ACKNOWLEDGER (Slur_proto_engraver, text_script);
-  ADD_ACKNOWLEDGER (Slur_proto_engraver, dots);
-  ADD_END_ACKNOWLEDGER (Slur_proto_engraver, tie);
-  ADD_ACKNOWLEDGER (Slur_proto_engraver, tuplet_number);
+  ADD_LISTENER (Slur_engraver, slur);
+  ADD_LISTENER (Slur_engraver, note);
+  ADD_ACKNOWLEDGER (Slur_engraver, inline_accidental);
+  ADD_ACKNOWLEDGER (Slur_engraver, fingering);
+  ADD_ACKNOWLEDGER (Slur_engraver, note_column);
+  ADD_ACKNOWLEDGER (Slur_engraver, script);
+  ADD_ACKNOWLEDGER (Slur_engraver, text_script);
+  ADD_ACKNOWLEDGER (Slur_engraver, dots);
+  ADD_END_ACKNOWLEDGER (Slur_engraver, tie);
+  ADD_ACKNOWLEDGER (Slur_engraver, tuplet_number);
 }
 
 ADD_TRANSLATOR (Slur_engraver,

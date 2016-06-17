@@ -30,6 +30,9 @@ protected:
   void stop_translation_timestep ();
   virtual void finalize ();
 
+  void acknowledge_rest (Grob_info);
+  void acknowledge_ligature_head (Grob_info);
+  virtual void listen_ligature (Stream_event *ev);
   void process_music ();
   virtual Spanner *create_ligature_spanner () = 0;
   virtual void typeset_ligature (Spanner *ligature,
@@ -38,9 +41,6 @@ protected:
   SCM brew_ligature_primitive_proc;
 
 public:
-  void acknowledge_rest (Grob_info);
-  void acknowledge_ligature_head (Grob_info);
-  void listen_ligature (Stream_event *ev);
   // no TRANSLATOR_DECLARATIONS (Ligature_engraver) needed since this
   // class is abstract
   DECLARE_TRANSLATOR_CALLBACKS (Ligature_engraver);

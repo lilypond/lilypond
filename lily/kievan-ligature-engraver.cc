@@ -132,9 +132,9 @@ Kievan_ligature_engraver::build_ligature (Spanner *ligature,
 void
 Kievan_ligature_engraver::boot ()
 {
-  ADD_LISTENER (Ligature_engraver, ligature);
-  ADD_ACKNOWLEDGER (Ligature_engraver, rest);
-  ADD_ACKNOWLEDGER (Ligature_engraver, ligature_head);
+  ADD_LISTENER (Kievan_ligature_engraver, ligature);
+  ADD_ACKNOWLEDGER (Kievan_ligature_engraver, rest);
+  ADD_ACKNOWLEDGER (Kievan_ligature_engraver, ligature_head);
 }
 
 ADD_TRANSLATOR (Kievan_ligature_engraver,
