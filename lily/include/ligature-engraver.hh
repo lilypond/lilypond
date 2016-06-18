@@ -32,7 +32,7 @@ protected:
 
   void acknowledge_rest (Grob_info);
   void acknowledge_ligature_head (Grob_info);
-  virtual void listen_ligature (Stream_event *ev);
+  void listen_ligature (Stream_event *ev);
   void process_music ();
   virtual Spanner *create_ligature_spanner () = 0;
   virtual void typeset_ligature (Spanner *ligature,

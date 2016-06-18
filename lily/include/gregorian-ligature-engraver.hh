@@ -34,7 +34,7 @@ public:
 protected:
   Gregorian_ligature_engraver ();
 
-  virtual void listen_pes_or_flexa (Stream_event *ev);
+  void listen_pes_or_flexa (Stream_event *ev);
   virtual void build_ligature (Spanner *ligature,
                                vector<Grob_info> const &primitives);
   virtual void transform_heads (Spanner *ligature,
