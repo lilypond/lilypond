@@ -272,19 +272,29 @@
     (let* ((font (car font-name-filename))
            (name (cadr font-name-filename))
            (file-name (caddr font-name-filename))
+           (font-index (cadddr font-name-filename))
            (bare-file-name (ly:find-file file-name)))
-      (cons name
-            (if (mac-font? bare-file-name)
-                (handle-mac-font name bare-file-name)
-                (cond
-                 ((and font (cff-font? font))
-                  (ps-load-file (ly:find-file
-                                 (format #f "~a.otf" file-name))))
-                 ((string? bare-file-name)
-                  (ps-load-file file-name))
-                 (else
-                  (ly:warning (_ "cannot embed ~S=~S") name file-name)
-                  ""))))))
+      (cond
+       ((and (number? font-index)
+             (!= font-index 0))
+        (ly:warning (_ "Font ~a cannot be loaded via Ghostscript because its font-index (~a) is not zero.")
+                    name font-index)
+        (load-font font-name-filename))
+       ;; TODO: Check OTC fonts.
+       ;; TODO: Check TrueType fonts that do not have glyph names.
+       (else
+        (cons name
+              (if (mac-font? bare-file-name)
+                  (handle-mac-font name bare-file-name)
+                  (cond
+                   ((and font (cff-font? font))
+                    (ps-load-file (ly:find-file
+                                   (format #f "~a.otf" file-name))))
+                   ((string? bare-file-name)
+                    (ps-load-file file-name))
+                   (else
+                    (ly:warning (_ "cannot embed ~S=~S") name file-name)
+                    ""))))))))
 
   (define (dir-join a b)
     (if (equal? a "")
