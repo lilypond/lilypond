@@ -29,10 +29,6 @@ class Phrasing_slur_engraver : public Slur_engraver
   virtual const char* object_name () const;
   virtual void set_melisma (bool);
 
-protected:
-  void listen_phrasing_slur (Stream_event *);
-  void acknowledge_slur (Grob_info);
-
 public:
   TRANSLATOR_DECLARATIONS (Phrasing_slur_engraver);
   TRANSLATOR_INHERIT (Slur_engraver);
@@ -72,32 +68,19 @@ Phrasing_slur_engraver::set_melisma (bool)
 }
 
 void
-Phrasing_slur_engraver::listen_phrasing_slur (Stream_event *ev)
-{
-  Slur_engraver::listen_slur (ev);
-}
-
-void
-Phrasing_slur_engraver::acknowledge_slur (Grob_info info)
-{
-  acknowledge_extra_object (info);
-}
-
-
-void
 Phrasing_slur_engraver::boot ()
 {
-  ADD_LISTENER (Phrasing_slur_engraver, phrasing_slur);
+  ADD_LISTENER_FOR (Phrasing_slur_engraver, slur, phrasing_slur);
   ADD_LISTENER (Phrasing_slur_engraver, note);
-  ADD_ACKNOWLEDGER (Phrasing_slur_engraver, inline_accidental);
-  ADD_ACKNOWLEDGER (Phrasing_slur_engraver, fingering);
+  ADD_ACKNOWLEDGER_FOR (Phrasing_slur_engraver, extra_object, inline_accidental);
+  ADD_ACKNOWLEDGER_FOR (Phrasing_slur_engraver, extra_object, fingering);
   ADD_ACKNOWLEDGER (Phrasing_slur_engraver, note_column);
-  ADD_ACKNOWLEDGER (Phrasing_slur_engraver, slur);
+  ADD_ACKNOWLEDGER_FOR (Phrasing_slur_engraver, extra_object, slur);
   ADD_ACKNOWLEDGER (Phrasing_slur_engraver, script);
-  ADD_ACKNOWLEDGER (Phrasing_slur_engraver, dots);
-  ADD_ACKNOWLEDGER (Phrasing_slur_engraver, text_script);
+  ADD_ACKNOWLEDGER_FOR (Phrasing_slur_engraver, extra_object, dots);
+  ADD_ACKNOWLEDGER_FOR (Phrasing_slur_engraver, extra_object, text_script);
   ADD_END_ACKNOWLEDGER (Phrasing_slur_engraver, tie);
-  ADD_ACKNOWLEDGER (Phrasing_slur_engraver, tuplet_number);
+  ADD_ACKNOWLEDGER_FOR (Phrasing_slur_engraver, extra_object, tuplet_number);
 }
 
 ADD_TRANSLATOR (Phrasing_slur_engraver,

@@ -68,14 +68,14 @@ Slur_engraver::boot ()
 {
   ADD_LISTENER (Slur_engraver, slur);
   ADD_LISTENER (Slur_engraver, note);
-  ADD_ACKNOWLEDGER (Slur_engraver, inline_accidental);
-  ADD_ACKNOWLEDGER (Slur_engraver, fingering);
+  ADD_ACKNOWLEDGER_FOR (Slur_engraver, extra_object, inline_accidental);
+  ADD_ACKNOWLEDGER_FOR (Slur_engraver, extra_object, fingering);
   ADD_ACKNOWLEDGER (Slur_engraver, note_column);
   ADD_ACKNOWLEDGER (Slur_engraver, script);
-  ADD_ACKNOWLEDGER (Slur_engraver, text_script);
-  ADD_ACKNOWLEDGER (Slur_engraver, dots);
+  ADD_ACKNOWLEDGER_FOR (Slur_engraver, extra_object, text_script);
+  ADD_ACKNOWLEDGER_FOR (Slur_engraver, extra_object, dots);
   ADD_END_ACKNOWLEDGER (Slur_engraver, tie);
-  ADD_ACKNOWLEDGER (Slur_engraver, tuplet_number);
+  ADD_ACKNOWLEDGER_FOR (Slur_engraver, extra_object, tuplet_number);
 }
 
 ADD_TRANSLATOR (Slur_engraver,
@@ -171,40 +171,10 @@ Slur_engraver::acknowledge_extra_object (Grob_info info)
 }
 
 void
-Slur_engraver::acknowledge_inline_accidental (Grob_info info)
-{
-  acknowledge_extra_object (info);
-}
-
-void
-Slur_engraver::acknowledge_dots (Grob_info info)
-{
-  acknowledge_extra_object (info);
-}
-
-void
-Slur_engraver::acknowledge_fingering (Grob_info info)
-{
-  acknowledge_extra_object (info);
-}
-
-void
-Slur_engraver::acknowledge_tuplet_number (Grob_info info)
-{
-  acknowledge_extra_object (info);
-}
-
-void
 Slur_engraver::acknowledge_script (Grob_info info)
 {
   if (!info.grob ()->internal_has_interface (ly_symbol2scm ("dynamic-interface")))
     acknowledge_extra_object (info);
-}
-
-void
-Slur_engraver::acknowledge_text_script (Grob_info info)
-{
-  acknowledge_extra_object (info);
 }
 
 void

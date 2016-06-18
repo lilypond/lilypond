@@ -48,14 +48,9 @@ protected:
   virtual SCM grob_symbol () const;
   virtual const char* object_name () const;
 
-  void acknowledge_inline_accidental (Grob_info);
-  void acknowledge_fingering (Grob_info);
   void acknowledge_note_column (Grob_info);
   void acknowledge_script (Grob_info);
-  void acknowledge_dots (Grob_info);
-  void acknowledge_text_script (Grob_info);
   void acknowledge_end_tie (Grob_info);
-  void acknowledge_tuplet_number (Grob_info);
 
   void listen_note (Stream_event *ev);
   // A slur on an in-chord note is not actually announced as an event
