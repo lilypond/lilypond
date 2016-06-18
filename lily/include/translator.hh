@@ -43,6 +43,11 @@
 #define DECLARE_TRANSLATOR_CALLBACKS(NAME)                              \
   template <void (NAME::*mf)()>                                         \
   static SCM method_finder () { return method_find_base<NAME, mf> (); } \
+  template <void (NAME::*mf)(Stream_event *)>                           \
+  static SCM method_finder ()                                           \
+  {                                                                     \
+    return Callback_wrapper::make_smob<trampoline<NAME, mf> > ();       \
+  }                                                                     \
   /* end #define */
 
 /*

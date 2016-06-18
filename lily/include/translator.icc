@@ -113,7 +113,7 @@ void add_acknowledger (SCM ptr,
 #define ADD_LISTENER(cl, m)                                             \
   listener_list_ = scm_acons                                            \
     (event_class_symbol (#m),                                           \
-     Callback_wrapper::make_smob                                        \
-     <trampoline <cl, &cl::listen_ ## m> > (), listener_list_)
+     method_finder<&cl::listen_ ## m> (),                               \
+     listener_list_)
 
 #endif /* TRANSLATOR_ICC */
