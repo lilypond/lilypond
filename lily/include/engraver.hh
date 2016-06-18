@@ -58,9 +58,6 @@ public:
     (t->*callback) (Grob_info (e, g));
     return SCM_UNSPECIFIED;
   }
-  template <class T, void (T::*callback)(Grob_info)>
-  static SCM ack_find_base ()
-  { return Callback2_wrapper::make_smob<ack_trampoline<T, callback> > (); }
 
   /**
      Announce element. Default: pass on to daddy. Utility

@@ -53,7 +53,9 @@
     return Callback_wrapper::make_smob<trampoline<NAME, mf> > ();       \
   }                                                                     \
   template <void (NAME::*callback)(Grob_info)>                          \
-  static SCM ack_finder () { return ack_find_base<NAME, callback> (); } \
+  static SCM ack_finder () {                                            \
+    return Callback2_wrapper::make_smob<ack_trampoline <NAME, callback> > (); \
+  }                                                                     \
   /* end #define */
 
 /*
@@ -163,14 +165,13 @@ protected:                      // should be private.
   static SCM
   method_finder () { return SCM_UNDEFINED; }
 
-  // Overriden in Engraver.
-  template <class T, void (T::*callback)(Grob_info)>
-  static SCM
-  ack_find_base () { return SCM_UNDEFINED; }
+  // Overriden in Engraver.  Don't instantiate.
+  template <class T, void (T::*)(Grob_info)>
+  static SCM ack_trampoline (SCM, SCM, SCM);
 
+  // Overriden in Engraver.  Don't instantiate.
   template <void (Translator::*)(Grob_info)>
-  static SCM
-  ack_finder () { return SCM_UNDEFINED; }
+  static SCM ack_finder ();
 
   virtual void derived_mark () const;
   static SCM event_class_symbol (const char *ev_class);
