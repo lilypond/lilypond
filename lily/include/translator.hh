@@ -43,7 +43,10 @@
 
 #define DECLARE_TRANSLATOR_CALLBACKS(NAME)                              \
   template <void (NAME::*mf)()>                                         \
-  static SCM method_finder () { return method_find_base<NAME, mf> (); } \
+  static SCM method_finder ()                                           \
+  {                                                                     \
+    return Callback0_wrapper::make_smob<NAME, mf> ();                   \
+  }                                                                     \
   template <void (NAME::*mf)(Stream_event *)>                           \
   static SCM method_finder ()                                           \
   {                                                                     \
@@ -153,10 +156,6 @@ protected:                      // should be private.
     (t->*callback) (unsmob<Stream_event> (event));
     return SCM_UNSPECIFIED;
   }
-
-  template <class T, void (T::*mf)()>
-  static SCM
-  method_find_base () { return Callback0_wrapper::make_smob<T, mf> (); }
 
   // Fallback for non-overriden callbacks for which &T::x degrades to
   // &Translator::x
