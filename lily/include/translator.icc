@@ -102,11 +102,15 @@ void add_acknowledger (SCM ptr,
 
 #define ADD_ACKNOWLEDGER(CLASS, NAME) ADD_ACKNOWLEDGER_FOR (CLASS, NAME, NAME)
 
+// ADD_END_ACKNOWLEDGER_FOR requires your NAME to actually be
+// end_whatever if you are utilizing acknowledge_end_whatever as a
+// different end acknowledger.
 #define ADD_END_ACKNOWLEDGER_FOR(CLASS, NAME, GROB)                     \
-  add_acknowledger (method_finder<&CLASS::acknowledge_end_ ## NAME> (), \
+  add_acknowledger (method_finder<&CLASS::acknowledge_ ## NAME> (),     \
                     #GROB, acknowledge_static_array_drul_[STOP])
 
-#define ADD_END_ACKNOWLEDGER(CLASS, NAME) ADD_END_ACKNOWLEDGER_FOR (CLASS, NAME, NAME)
+#define ADD_END_ACKNOWLEDGER(CLASS, NAME)               \
+  ADD_END_ACKNOWLEDGER_FOR (CLASS, end_ ## NAME, NAME)
 
 /*
   Implement the method cl::listen_##m, and make it listen to stream
