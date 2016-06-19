@@ -172,3 +172,49 @@ LY_DEFINE (ly_get_font_format, "ly:get-font-format",
 
   return asscm;
 }
+
+LY_DEFINE (ly_has_glyph_names_p, "ly:has-glyph-names?",
+           1, 1, 0, (SCM font_file_name, SCM idx),
+           "Does the font for @var{font_file_name} have glyph names?"
+           "  The optional @var{idx} argument is useful for"
+           " TrueType Collections (TTC) and"
+           " OpenType/CFF collections (OTC) only;"
+           " it specifies the font index within the TTC/OTC."
+           "  The default value of @var{idx} is@tie{}0.")
+{
+  LY_ASSERT_TYPE (scm_is_string, font_file_name, 1);
+
+  int i = 0;
+  if (!SCM_UNBNDP (idx))
+    {
+      LY_ASSERT_TYPE (scm_is_integer, idx, 2);
+      i = scm_to_int (idx);
+      if (i < 0)
+        {
+          warning (_ ("font index must be non-negative, using index 0"));
+          i = 0;
+        }
+    }
+
+  string file_name = ly_scm2string (font_file_name);
+
+  FT_Face face;
+  /* check whether font index is valid */
+  if (i > 0)
+    {
+      face = open_ft_face (file_name, -1);
+      if (i >= face->num_faces)
+        {
+          warning (_f ("font index %d too large for font `%s', using index 0",
+                       i, file_name.c_str ()));
+          i = 0;
+        }
+      FT_Done_Face (face);
+    }
+
+  face = open_ft_face (file_name, i);
+  bool has_glyph_names = FT_HAS_GLYPH_NAMES(face);
+  FT_Done_Face (face);
+
+  return has_glyph_names ? SCM_BOOL_T : SCM_BOOL_F;
+}
