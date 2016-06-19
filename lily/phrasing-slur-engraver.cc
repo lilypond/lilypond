@@ -79,7 +79,7 @@ Phrasing_slur_engraver::boot ()
   ADD_ACKNOWLEDGER (Phrasing_slur_engraver, script);
   ADD_ACKNOWLEDGER_FOR (Phrasing_slur_engraver, extra_object, dots);
   ADD_ACKNOWLEDGER_FOR (Phrasing_slur_engraver, extra_object, text_script);
-  ADD_END_ACKNOWLEDGER (Phrasing_slur_engraver, tie);
+  ADD_END_ACKNOWLEDGER_FOR (Phrasing_slur_engraver, extra_object, tie);
   ADD_ACKNOWLEDGER_FOR (Phrasing_slur_engraver, extra_object, tuplet_number);
 }
 

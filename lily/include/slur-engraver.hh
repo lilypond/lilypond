@@ -50,7 +50,6 @@ protected:
 
   void acknowledge_note_column (Grob_info);
   void acknowledge_script (Grob_info);
-  void acknowledge_end_tie (Grob_info);
 
   void listen_note (Stream_event *ev);
   // A slur on an in-chord note is not actually announced as an event

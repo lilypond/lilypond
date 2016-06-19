@@ -74,7 +74,7 @@ Slur_engraver::boot ()
   ADD_ACKNOWLEDGER (Slur_engraver, script);
   ADD_ACKNOWLEDGER_FOR (Slur_engraver, extra_object, text_script);
   ADD_ACKNOWLEDGER_FOR (Slur_engraver, extra_object, dots);
-  ADD_END_ACKNOWLEDGER (Slur_engraver, tie);
+  ADD_END_ACKNOWLEDGER_FOR (Slur_engraver, extra_object, tie);
   ADD_ACKNOWLEDGER_FOR (Slur_engraver, extra_object, tuplet_number);
 }
 
@@ -175,12 +175,6 @@ Slur_engraver::acknowledge_script (Grob_info info)
 {
   if (!info.grob ()->internal_has_interface (ly_symbol2scm ("dynamic-interface")))
     acknowledge_extra_object (info);
-}
-
-void
-Slur_engraver::acknowledge_end_tie (Grob_info info)
-{
-  acknowledge_extra_object (info);
 }
 
 void
