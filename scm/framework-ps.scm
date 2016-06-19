@@ -257,6 +257,18 @@
                             (ly:get-option 'datadir)))))
 
   (define (load-font-via-GS font-name-filename)
+    (define (is-collection-font? file-name)
+      (let ((port (open-file file-name "rb")))
+        (if (eq? (read-char port) #\t)
+            (if (eq? (read-char port) #\t)
+                (if (eq? (read-char port) #\c)
+                    (if (eq? (read-char port) #\f)
+                        #t
+                        #f)
+                    #f)
+                #f)
+            #f)))
+
     (define (ps-load-file file-name)
       (if (string? file-name)
           (if (string-contains file-name (ly:get-option 'datadir))
@@ -280,7 +292,12 @@
         (ly:warning (_ "Font ~a cannot be loaded via Ghostscript because its font-index (~a) is not zero.")
                     name font-index)
         (load-font font-name-filename))
-       ;; TODO: Check OTC fonts.
+       ((and (string? bare-file-name)
+             (eq? (ly:get-font-format bare-file-name font-index) 'CFF)
+             (is-collection-font? bare-file-name))
+        (ly:warning (_ "Font ~a cannot be loaded via Ghostscript because it is an OpenType/CFF (OTC) font.")
+                    name)
+        (load-font font-name-filename))
        ;; TODO: Check TrueType fonts that do not have glyph names.
        (else
         (cons name
