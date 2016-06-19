@@ -298,7 +298,12 @@
         (ly:warning (_ "Font ~a cannot be loaded via Ghostscript because it is an OpenType/CFF (OTC) font.")
                     name)
         (load-font font-name-filename))
-       ;; TODO: Check TrueType fonts that do not have glyph names.
+       ((and (string? bare-file-name)
+             (eq? (ly:get-font-format bare-file-name font-index) 'TrueType)
+             (not (ly:has-glyph-names? bare-file-name font-index)))
+        (ly:warning (_ "Font ~a cannot be used via Ghostscript because it is a TrueType font that does not have glyph names.")
+                    name)
+        (load-font font-name-filename))
        (else
         (cons name
               (if (mac-font? bare-file-name)
