@@ -23,26 +23,46 @@
 
 class Phrasing_slur_engraver : public Slur_proto_engraver
 {
+  virtual SCM event_symbol () const;
+  virtual bool double_property () const;
+  virtual SCM grob_symbol () const;
+  virtual const char* object_name () const;
+
 protected:
   void listen_phrasing_slur (Stream_event *);
   void acknowledge_slur (Grob_info);
 
 public:
-  SCM event_symbol ();
   TRANSLATOR_DECLARATIONS (Phrasing_slur_engraver);
   TRANSLATOR_INHERIT (Slur_proto_engraver);
 };
 
-Phrasing_slur_engraver::Phrasing_slur_engraver () :
-  Slur_proto_engraver (0, "PhrasingSlur", "phrasing slur", "phrasing-slur-event")
+SCM
+Phrasing_slur_engraver::event_symbol () const
 {
+  return ly_symbol2scm ("phrasing-slur-event");
+}
+
+bool
+Phrasing_slur_engraver::double_property () const
+{
+  return false;
 }
 
 SCM
-Phrasing_slur_engraver::event_symbol ()
+Phrasing_slur_engraver::grob_symbol () const
 {
-  // Need a string constant for memoization
-  return ly_symbol2scm ("phrasing-slur-event");
+  return ly_symbol2scm ("PhrasingSlur");
+}
+
+const char *
+Phrasing_slur_engraver::object_name () const
+{
+  return "phrasing slur";
+}
+
+Phrasing_slur_engraver::Phrasing_slur_engraver ()
+{
 }
 
 void

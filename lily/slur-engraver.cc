@@ -24,24 +24,43 @@
 
 class Slur_engraver : public Slur_proto_engraver
 {
+  virtual SCM event_symbol () const;
+  virtual bool double_property () const;
+  virtual SCM grob_symbol () const;
+  virtual const char * object_name () const;
   virtual void set_melisma (bool);
 
 public:
-  SCM event_symbol ();
   TRANSLATOR_DECLARATIONS (Slur_engraver);
   TRANSLATOR_INHERIT (Slur_proto_engraver);
 };
 
-Slur_engraver::Slur_engraver () :
-  Slur_proto_engraver ("doubleSlurs", "Slur", "slur", "slur-event")
+SCM
+Slur_engraver::event_symbol () const
 {
+  return ly_symbol2scm ("slur-event");
+}
+
+bool
+Slur_engraver::double_property () const
+{
+  return to_boolean (get_property ("doubleSlurs"));
 }
 
 SCM
-Slur_engraver::event_symbol ()
+Slur_engraver::grob_symbol () const
 {
-  // Need a string constant for memoization
-  return ly_symbol2scm ("slur-event");
+  return ly_symbol2scm ("Slur");
+}
+
+const char *
+Slur_engraver::object_name () const
+{
+  return "slur";
+}
+
+Slur_engraver::Slur_engraver ()
+{
 }
 
 void

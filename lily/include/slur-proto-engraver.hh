@@ -27,12 +27,6 @@
 class Slur_proto_engraver : public Engraver
 {
 protected:
-  Slur_proto_engraver (const char* double_property_name,
-    const char* grob_name, const char* object_name, const char* event_name) :
-      double_property_name_ (double_property_name),
-      grob_name_ (grob_name), object_name_ (object_name),
-      event_name_ (event_name) {}
-
   struct Event_info {
     Stream_event *slur_, *note_;
     Event_info (Stream_event *slur, Stream_event *note)
@@ -48,11 +42,11 @@ protected:
   vector<Grob *> slurs_;
   vector<Grob *> end_slurs_;
   vector<Grob_info> objects_to_acknowledge_;
-  const char* double_property_name_;
-  const char* grob_name_;
-  const char* object_name_;
-  const char* event_name_;
-  virtual SCM event_symbol () = 0;
+
+  virtual SCM event_symbol () const = 0;
+  virtual bool double_property () const = 0;
+  virtual SCM grob_symbol () const = 0;
+  virtual const char* object_name () const = 0;
 
   void acknowledge_inline_accidental (Grob_info);
   void acknowledge_fingering (Grob_info);

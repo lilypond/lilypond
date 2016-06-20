@@ -58,7 +58,8 @@ Slur_proto_engraver::listen_slur (Stream_event *ev, Stream_event *note)
   else if (d == STOP)
     stop_events_.push_back (Event_info (ev, note));
   else ev->origin ()->warning (_f ("direction of %s invalid: %d",
-                                     event_name_, int (d)));
+                                   ev->name ().c_str (),
+                                   int (d)));
 }
 
 void
@@ -156,7 +157,7 @@ Slur_proto_engraver::finalize ()
 {
   for (vsize i = 0; i < slurs_.size (); i++)
     {
-      slurs_[i]->warning (_f ("unterminated %s", object_name_));
+      slurs_[i]->warning (_f ("unterminated %s", object_name ()));
       slurs_[i]->suicide ();
     }
   slurs_.clear ();
@@ -169,7 +170,7 @@ Slur_proto_engraver::create_slur (const string &spanner_id, Event_info evi, Grob
     ? unsmob<Grob> (get_property ("currentCommandColumn"))
     : 0; // efficiency
   SCM cause = evi.slur_ ? evi.slur_->self_scm () : g_cause->self_scm ();
-  Spanner *slur = make_spanner (grob_name_, cause);
+  Spanner *slur = make_spanner (grob_symbol (), cause);
   slur->set_property ("spanner-id", ly_string2scm (spanner_id));
   if (dir)
     set_grob_direction (slur, dir);
@@ -179,11 +180,10 @@ Slur_proto_engraver::create_slur (const string &spanner_id, Event_info evi, Grob
   if (evi.note_)
     note_slurs_[START].insert (Note_slurs::value_type (evi.note_, slur));
 
-  if (double_property_name_
-      && to_boolean (get_property (double_property_name_)))
+  if (double_property ())
   {
     set_grob_direction (slur, DOWN);
-    slur = make_spanner (grob_name_, cause);
+    slur = make_spanner (grob_symbol (), cause);
     slur->set_property ("spanner-id", ly_string2scm (spanner_id));
     set_grob_direction (slur, UP);
     if (left_broken)
@@ -210,7 +210,7 @@ Slur_proto_engraver::can_create_slur (const string &id, vsize old_slurs, vsize *
             {
               // We already have an old slur, so give a warning
               // and completely ignore the new slur.
-              ev->origin ()->warning (_f ("already have %s", object_name_));
+              ev->origin ()->warning (_f ("already have %s", object_name ()));
               if (event_idx)
                 start_events_.erase (start_events_.begin () + (*event_idx));
               return false;
@@ -227,7 +227,7 @@ Slur_proto_engraver::can_create_slur (const string &id, vsize old_slurs, vsize *
 
           if (!c)
             {
-              slur->programming_error (_f ("%s without a cause", object_name_));
+              slur->programming_error (_f ("%s without a cause", object_name ()));
               return true;
             }
 
@@ -294,7 +294,7 @@ Slur_proto_engraver::process_music ()
             }
         }
       else
-        stop_events_[i].slur_->origin ()->warning (_f ("cannot end %s", object_name_));
+        stop_events_[i].slur_->origin ()->warning (_f ("cannot end %s", object_name ()));
     }
 
   vsize old_slurs = slurs_.size ();
