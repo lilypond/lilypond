@@ -2,6 +2,7 @@
   This file is part of LilyPond, the GNU music typesetter.
 
   Copyright (C) 2013--2015 Mike Solomon <mike@mikesolomon.org>
+  Copyright (C) 2016 David Kastrup <dak@gnu.org>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -17,14 +18,13 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef SLUR_PROTO_ENGRAVER_HH
-#define SLUR_PROTO_ENGRAVER_HH
+#ifndef SLUR_ENGRAVER_HH
+#define SLUR_ENGRAVER_HH
 
 #include "engraver.hh"
-#include "moment.hh"
 #include <map>
 
-class Slur_proto_engraver : public Engraver
+class Slur_engraver : public Engraver
 {
 protected:
   struct Event_info {
@@ -43,10 +43,10 @@ protected:
   vector<Grob *> end_slurs_;
   vector<Grob_info> objects_to_acknowledge_;
 
-  virtual SCM event_symbol () const = 0;
-  virtual bool double_property () const = 0;
-  virtual SCM grob_symbol () const = 0;
-  virtual const char* object_name () const = 0;
+  virtual SCM event_symbol () const;
+  virtual bool double_property () const;
+  virtual SCM grob_symbol () const;
+  virtual const char* object_name () const;
 
   void acknowledge_inline_accidental (Grob_info);
   void acknowledge_fingering (Grob_info);
@@ -75,9 +75,7 @@ protected:
   virtual void derived_mark () const;
 
 public:
-  // no TRANSLATOR_DECLARATIONS (Slur_proto_engraver) needed since this
-  // class is abstract
-  DECLARE_TRANSLATOR_CALLBACKS (Slur_proto_engraver);
+  TRANSLATOR_DECLARATIONS (Slur_engraver);
 };
 
-#endif // SLUR_PROTO_ENGRAVER_HH
+#endif // SLUR_ENGRAVER_HH

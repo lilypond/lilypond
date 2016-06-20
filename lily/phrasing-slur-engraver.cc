@@ -17,16 +17,17 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "slur-proto-engraver.hh"
+#include "slur-engraver.hh"
 
 #include "translator.icc"
 
-class Phrasing_slur_engraver : public Slur_proto_engraver
+class Phrasing_slur_engraver : public Slur_engraver
 {
   virtual SCM event_symbol () const;
   virtual bool double_property () const;
   virtual SCM grob_symbol () const;
   virtual const char* object_name () const;
+  virtual void set_melisma (bool);
 
 protected:
   void listen_phrasing_slur (Stream_event *);
@@ -34,7 +35,7 @@ protected:
 
 public:
   TRANSLATOR_DECLARATIONS (Phrasing_slur_engraver);
-  TRANSLATOR_INHERIT (Slur_proto_engraver);
+  TRANSLATOR_INHERIT (Slur_engraver);
 };
 
 SCM
@@ -66,9 +67,14 @@ Phrasing_slur_engraver::Phrasing_slur_engraver ()
 }
 
 void
+Phrasing_slur_engraver::set_melisma (bool)
+{
+}
+
+void
 Phrasing_slur_engraver::listen_phrasing_slur (Stream_event *ev)
 {
-  Slur_proto_engraver::listen_slur (ev);
+  Slur_engraver::listen_slur (ev);
 }
 
 void
