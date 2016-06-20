@@ -33,7 +33,6 @@ LY_DEFINE (ly_engraver_make_grob, "ly:engraver-make-grob",
 
   Grob *g = unsmob<Engraver> (engraver)->
             internal_make_grob (grob_name, cause,
-                                ly_symbol2string (grob_name).c_str (),
                                 "scheme", 0, "scheme");
   return g->self_scm ();
 }
