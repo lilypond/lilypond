@@ -41,7 +41,7 @@ El LilyPond és un sistema de gravat musical @strong{basat en text}.
 Llegiu això primer!
 
 @item
-@ifWebLinks{@manualStableLearningSplitNoName-es,@rlearningnamed{Top,Aprenentatge}}
+@ifWebLinks{@manualStableLearningSplitNoName-ca,@rlearningnamed{Top,Aprenentatge}}
 una introducció al LilyPond amable i @qq{imprescindible}.
 @details{Aprenentatge}
 
@@ -66,12 +66,12 @@ una introducció al LilyPond amable i @qq{imprescindible}.
 @itemize
 
 @item
-@ifWebLinks{@manualStableNotationSplitNoName-es,@rusernamed{Top,Notació}}
+@ifWebLinks{@manualStableNotationSplitNoName-ca,@rusernamed{Top,Notació}}
 referència de la sintaxi.
 @details{Notació}
 
 @item
-@ifWebLinks{@manualStableUsageSplitNoName-es,@rprogramnamed{Top,Utilizació}}
+@ifWebLinks{@manualStableUsageSplitNoName-ca,@rprogramnamed{Top,Utilizació}}
 com executar els programes.
 @details{Utilització}
 
@@ -100,12 +100,12 @@ aquest document.
 @details{Web}
 
 @item
-@ifWebLinks{@manualStableChangesSplitNoName-es,@rchangesnamed{Top,Canvis}}
+@ifWebLinks{@manualStableChangesSplitNoName-ca,@rchangesnamed{Top,Canvis}}
 que hi ha de nou?
 @details{Canvis}
 
 @item
-@ifWebLinks{@manualStableExtendingSplitNoName-es,@rextendnamed{Top,Extensió}}
+@ifWebLinks{@manualStableExtendingSplitNoName-ca,@rextendnamed{Top,Extensió}}
 trucs interessants.
 @details{Extensió}
 
@@ -140,7 +140,7 @@ exemples, consells, i trucs creats pels usuaris.
 @uref{http://benlemon.me/blog/music/lilypond/operation-lilypond/,Video
 Tutorials}: Ben Lemon, usuari del LilyPond, ha creat i publicat un
 cert nombre de tutorials de vídeo al seu blog que són adequats per
-a usuaris nous
+a usuaris nous.
 
 @item
 @ref{Desenvolupament}:

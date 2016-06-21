@@ -130,7 +130,7 @@ Lilypond és programari lliure i forma part del
 
 
 @divClass{align-right}
-¡Podeu llegir la nostra @ref{Introducció}!
+Podeu llegir més a la nostra @ref{Introducció}!
 
 @divEnd
 @divEnd
@@ -249,7 +249,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @c        html; we'll need a bunch of @iftext and stuff in here. -gp
 @c ****************** SPECIAL MACROS FOR WEB MANUAL ************
 @macro docLinks{name,base,refLink,split,big,bigsize,pdf,pdfsize}
-@subheading Léalo
+@subheading Llegiu-lo
 
 
 @docLinksBare{\name\,\base\,\refLink\,\split\,\big\,\bigsize\,\pdf\,\pdfsize\}
@@ -258,11 +258,11 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
 
 @macro docLinkSplit{name,base,webLink}
-  @docLink{\name\ (HTML seccionado),\base\/index.html,\webLink\}
+  @docLink{\name\ (HTML seccionat),\base\/index.html,\webLink\}
 @end macro
 
 @macro docLinkBig{name,base,webLink}
-  @docLink{\name\ (HTML monolítico),\base\-big-page.html,\webLink\}
+  @docLink{\name\ (HTML monolític),\base\-big-page.html,\webLink\}
 @end macro
 
 @macro docLinkPdf{name,base,webLink}
@@ -308,13 +308,12 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @ifhtml
 @macro contactUsAbout{topic}
 
-@divClass{heading-center} @divClass{contactBox} Si teniu
-coneixement de qualssevol altres \topic\ que mereixin aparèixer
-relacionats aquí, us preguem quen ens ho faci saber escrivint un
-missatge a la llista de correu bug-lilypond. Tot i que esteu subscrit
-a la llista, ho podeu fer a la
+@divClass{heading-center} @divClass{contactBox} Si teniu coneixement de qualssevol altres \temes\ que mereixin aparèixer
+relacionats aquí, us preguem que ens ho feu saber escrivint un
+missatge a la llista de correu bug-lilypond. Tot i que tingueu una
+subscripció a la llista, ho podeu fer a la
 @uref{https://lists.gnu.org/mailman/listinfo/bug-lilypond,pàgina informativa}
-de la llista o escrivint directament mitjançant de la
+de la llista o escrivint directament mitjançant la
 @uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs,interfície web de lilypond.bugs a gmane}.
 
 
@@ -327,8 +326,8 @@ de la llista o escrivint directament mitjançant de la
 @ifnothtml
 @macro contactUsAbout{topic}
 @cartouche
-Si teniu coneixement de qualsevol altre \topic\ que podria
-aparèixer aquí, si us plau feu-no-ho saber seguint les instruccions a
+Si teniu coneixement de qualsevol altre \tema\ que podria
+aparèixer aquí, si us plau feu-nos-ho saber seguint les instruccions a
 @ref{Bug reports}.
 
 @end cartouche

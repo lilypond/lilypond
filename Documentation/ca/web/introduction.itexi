@@ -41,13 +41,13 @@ les millors tradicions del gravat musical clàssic.
 @ref{Possibilitats}: ¿Què pot fer el LilyPond?
 
 @item
-@ref{Exemples}: Vull veure música!
+@ref{Exemples}: Vull veure alguna música!
 
 @item
 @ref{Llibertat}: El LilyPond és programari lliure.
 
 @item
-@ref{Rerefons}: Nocions de la nostra estètica computacional.
+@ref{Rerefons}: La nostra estètica computacional.
 
 @end itemize
 @divEnd
@@ -58,7 +58,7 @@ les millors tradicions del gravat musical clàssic.
 @itemize
 
 @item
-@ref{Produccions}: Usos del LilyPond al món real.
+@ref{Produccions}: Usos del LilyPond a la vida real.
 
 @item
 @ref{Ressenyes}: Què diu la gent?
@@ -71,7 +71,7 @@ les millors tradicions del gravat musical clàssic.
 @itemize
 
 @item
-@ref{Entrada de text}: Escriuen música com si fos @emph{text}?!
+@ref{Entrada de text}: Escriviu música com si fos @emph{text}?!
 
 @item
 @ref{Entorns millorats}: Altres formes de treballar amb el LilyPond.
@@ -86,13 +86,13 @@ les millors tradicions del gravat musical clàssic.
 @c menu. -JM
 @divClass{hide}
 @menu
-* Possibilitats::
-* Exemples::
-* Llibertat::                  La llibertat i la GPL.
+* Possibilitats::               Què pot fer el Lilypond?
+* Exemples::                    Vull veure alguna música!
+* Llibertat::                   La llibertat i la GPL.
 * Rerefons::                    Estètica computacional.
-* Produccions::                 Ús del LilyPond al món real.
-* Ressenyes::
-* Entrada de text::
+* Produccions::                 Ús del LilyPond a la vida real.
+* Ressenyes::                   Què diu la gent sobre el Lilypond?
+* Entrada de text::             Escriviu música com si fos @emph{text}?!
 * Entorns millorats::           Altres formes de treballar amb el Lilypond.
 @end menu
 @divEnd
@@ -519,7 +519,7 @@ sobre la nostra @ref{Entrada de text}.
 @translationof Productions
 
 @divClass{column-left-top}
-@subheading Conciertos
+@subheading Concerts
 
 La música tipografiada amb el LilyPond s'ha utilitzat en
 interpretacions i actuacions per tot el mon. Alguns titulars:
