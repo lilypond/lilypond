@@ -26,6 +26,7 @@
 #include "callback.hh"
 #include "input.hh"             // for error reporting
 #include "smobs.hh"
+#include "stream-event.hh"
 #include "std-vector.hh"
 #include "protected-scm.hh"
 

@@ -17,17 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "engraver.hh"
-
 #include "context.hh"
-#include "directional-element-interface.hh"
-#include "international.hh"
-#include "note-column.hh"
-#include "slur.hh"
 #include "slur-proto-engraver.hh"
-#include "spanner.hh"
-#include "stream-event.hh"
-#include "warn.hh"
 
 #include "translator.icc"
 
