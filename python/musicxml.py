@@ -145,11 +145,11 @@ class Music_xml_spanner(Music_xml_node):
 class Measure_element(Music_xml_node):
 
     def get_voice_id(self):
-        voice_id = self.get_maybe_exist_named_child('voice')
-        if voice_id:
-            return voice_id.get_text()
+        voice = self.get_maybe_exist_named_child('voice')
+        if voice:
+            return voice.get_text()
         else:
-            return None
+            return self.voice_id
 
     def is_first(self):
         # Look at all measure elements(previously we had self.__class__, which
@@ -1558,15 +1558,10 @@ class Part(Music_xml_node):
                 continue
 
             if isinstance(n, Direction):
-                staff_id = n.get_maybe_exist_named_child(u'staff')
-                if staff_id:
-                    staff_id = staff_id.get_text()
-                if staff_id:
-                    dir_voices = staff_to_voice_dict.get(staff_id, voices.keys())
+                if (n.voice_id):
+                    voices[n.voice_id].add_element (n)
                 else:
-                    dir_voices = voices.keys()
-                for v in dir_voices:
-                    voices[v].add_element(n)
+                    assign_to_next_note.append (n)
                 continue
 
             if isinstance(n, Harmony) or isinstance(n, FiguredBass):
@@ -1635,7 +1630,7 @@ class Dashes(Music_xml_spanner):
 class DirType(Music_xml_node):
     pass
 
-class Direction(Music_xml_node):
+class Direction(Measure_element):
     pass
 
 class Dot(Music_xml_node):
