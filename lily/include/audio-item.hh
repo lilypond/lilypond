@@ -59,7 +59,9 @@ private:
   Real gain_; // = target volume - start volume
 
 public:
+  Moment get_start_moment () const { return start_moment_; }
   Real get_start_volume () const { return start_volume_; }
+  Real get_duration () const { return duration_; }
   void set_end_moment (Moment);
   void set_volume (Real start, Real target);
   Real get_volume (Moment) const;

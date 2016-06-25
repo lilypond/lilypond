@@ -132,7 +132,7 @@ moment_to_ticks (Moment m)
   return int (moment_to_real (m) * 384 * 4);
 }
 
-void Audio_span_dynamic::set_end_moment(Moment mom)
+void Audio_span_dynamic::set_end_moment (Moment mom)
 {
   if (mom < start_moment_)
     {
