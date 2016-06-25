@@ -30,6 +30,7 @@ class Open_type_font : public Font_metric
 {
   /* handle to face object */
   FT_Face face_;
+  string postscript_name_;
 
   SCM lily_subfonts_;
   SCM lily_character_table_;

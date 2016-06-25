@@ -220,6 +220,8 @@ Open_type_font::Open_type_font (FT_Face face)
   index_to_charcode_map_ = make_index_to_charcode_map (face_);
 
   lily_index_to_bbox_table_ = scm_c_make_hash_table (257);
+
+  postscript_name_ = get_postscript_name (face_);
 }
 
 void
@@ -399,7 +401,7 @@ Open_type_font::get_global_table () const
 string
 Open_type_font::font_name () const
 {
-  return FT_Get_Postscript_Name (face_);
+  return postscript_name_;
 }
 
 SCM
