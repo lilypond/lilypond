@@ -41,6 +41,7 @@
 #include "warn.hh"
 #include "all-font-metrics.hh"
 #include "program-option.hh"
+#include "open-type-font.hh"
 
 #if HAVE_PANGO_FT2
 #include "stencil.hh"
@@ -200,7 +201,7 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item) const
 
   b.scale (scale_);
 
-  char const *ps_name_str0 = FT_Get_Postscript_Name (ftface);
+  const string ps_name_str0 = get_postscript_name (ftface);
   FcPattern *fcpat = fcfont->font_pattern;
 
   FcChar8 *file_name_as_ptr = 0;
@@ -320,11 +321,11 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item) const
   Real size = pango_font_description_get_size (descr)
               / (Real (PANGO_SCALE));
 
-  if (!ps_name_str0)
+  if (ps_name_str0.empty ())
     warning (_f ("no PostScript font name for font `%s'", file_name));
 
   string ps_name;
-  if (!ps_name_str0
+  if (ps_name_str0.empty ()
       && file_name != ""
       && (file_name.find (".otf") != NPOS
           || file_name.find (".cff") != NPOS))
@@ -351,7 +352,7 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item) const
       name = String_convert::to_lower (name);
       ps_name = initial + name;
     }
-  else if (ps_name_str0)
+  else if (!ps_name_str0.empty ())
     ps_name = ps_name_str0;
 
   if (ps_name.length ())
