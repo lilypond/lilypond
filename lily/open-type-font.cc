@@ -20,6 +20,15 @@
 #include "open-type-font.hh"
 #include "freetype.hh"
 
+#ifdef FT_FONT_FORMATS_H
+/* FreeType 2.6+ */
+#include FT_FONT_FORMATS_H
+#else
+/* FreeType 2.5.5 and earlier */
+#include FT_XFREE86_H
+#define FT_Get_Font_Format FT_Get_X11_Font_Format
+#endif
+
 #include <cstdio>
 
 using namespace std;
@@ -118,6 +127,74 @@ open_ft_face (const string &str, FT_Long idx)
                str.c_str (),
                freetype_error_string (error_code).c_str ()));
   return face;
+}
+
+string
+get_postscript_name (FT_Face face)
+{
+  string face_ps_name;
+  const char *psname = FT_Get_Postscript_Name (face);
+  if (psname)
+    face_ps_name = psname;
+  else
+    {
+      warning (_ ("cannot get postscript name"));
+      return "";
+    }
+
+  const char *fmt = FT_Get_Font_Format (face);
+  if (fmt)
+    {
+      if (static_cast<string>(fmt) != "CFF")
+        return face_ps_name;  // For non-CFF font, pass it through.
+    }
+  else
+    {
+      warning (_f ("cannot get font %s format", face_ps_name.c_str ()));
+      return face_ps_name;
+    }
+
+  // For OTF and OTC fonts, we use data from the font's 'CFF' table only
+  // because other tables are not embedded in the output PS file.
+  string cff_table = get_otf_table (face, "CFF ");
+
+  FT_Open_Args args;
+  args.flags = FT_OPEN_MEMORY;
+  args.memory_base = static_cast<const FT_Byte*>
+    (static_cast<const void*>(cff_table.data ()));
+  args.memory_size = cff_table.size ();
+
+  FT_Face cff_face;
+  // According to OpenType Specification ver 1.7,
+  // the CFF (derived from OTF and OTC) has only one name.
+  // So we use zero as the font index.
+  FT_Error error_code = FT_Open_Face (freetype2_library, &args,
+                                      0 /* font index */,
+                                      &cff_face);
+  if (error_code)
+    {
+      warning (_f ("cannot read CFF %s: %s",
+                   face_ps_name,
+                   freetype_error_string (error_code).c_str ()));
+      return face_ps_name;
+    }
+
+  string ret;
+  const char *cffname = FT_Get_Postscript_Name (cff_face);
+  if (cffname)
+    ret = cffname;
+  else
+    {
+      warning (_f ("cannot get font %s CFF name", face_ps_name.c_str ()));
+      ret = face_ps_name;
+    }
+
+  debug_output (_f ("Replace font name from %s to %s.",
+                    face_ps_name.c_str (), ret.c_str ()));
+
+  FT_Done_Face (cff_face);
+
+  return ret;
 }
 
 SCM
