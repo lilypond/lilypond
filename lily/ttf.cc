@@ -67,7 +67,7 @@ print_header (void *out, FT_Face face)
 
   lily_cookie_fprintf (out, "%d dict begin\n", 11);
   lily_cookie_fprintf (out, "/FontName /%s def\n",
-                       FT_Get_Postscript_Name (face));
+                       get_postscript_name (face).c_str ());
 
   lily_cookie_fprintf (out, "/Encoding StandardEncoding def\n");
   lily_cookie_fprintf (out, "/PaintType 0 def\n");
@@ -533,8 +533,7 @@ LY_DEFINE (ly_ttf_ps_name, "ly:ttf-ps-name",
     }
 
   face = open_ft_face (file_name, i);
-  char const *ps_name_str0 = FT_Get_Postscript_Name (face);
-  SCM ps_name = scm_from_locale_string (ps_name_str0 ? ps_name_str0 : "");
+  SCM ps_name = scm_from_locale_string (get_postscript_name (face).c_str ());
   FT_Done_Face (face);
 
   debug_output ("]", false);
