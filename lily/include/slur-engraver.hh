@@ -58,10 +58,10 @@ protected:
   void acknowledge_tuplet_number (Grob_info);
 
   void listen_note (Stream_event *ev);
-  void listen_slur (Stream_event *ev, Stream_event *note);
-  // You'd think the following is the same as defaulting `note' to 0,
-  // but template resolution for trampolines disagrees.  Huh.
-  void listen_slur (Stream_event *ev) { listen_slur (ev, 0); }
+  // A slur on an in-chord note is not actually announced as an event
+  // but rather produced by the note listener.
+  void listen_note_slur (Stream_event *ev, Stream_event *note);
+  void listen_slur (Stream_event *ev) { listen_note_slur (ev, 0); }
   void acknowledge_extra_object (Grob_info);
   void stop_translation_timestep ();
   void process_music ();

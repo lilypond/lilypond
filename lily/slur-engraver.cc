@@ -111,7 +111,7 @@ Slur_engraver::derived_mark () const
 }
 
 void
-Slur_engraver::listen_slur (Stream_event *ev, Stream_event *note)
+Slur_engraver::listen_note_slur (Stream_event *ev, Stream_event *note)
 {
   Direction d = to_dir (ev->get_property ("span-direction"));
   if (d == START)
@@ -131,7 +131,7 @@ Slur_engraver::listen_note (Stream_event *ev)
     {
       Stream_event *art = unsmob<Stream_event> (scm_car (arts));
       if (art->in_event_class (event_symbol ()))
-        listen_slur (art, ev);
+        listen_note_slur (art, ev);
     }
 }
 
