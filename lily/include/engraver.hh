@@ -48,8 +48,9 @@ protected:
   Engraver_group *get_daddy_engraver () const;
 
 public:
+  using Translator::trampoline;
   template <class T, void (T::*callback)(Grob_info)>
-  static SCM ack_trampoline (SCM target, SCM grob, SCM source_engraver)
+  static SCM trampoline (SCM target, SCM grob, SCM source_engraver)
   {
     T *t = LY_ASSERT_SMOB (T, target, 1);
     Grob *g = LY_ASSERT_SMOB (Grob, grob, 2);
