@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 0ea80a5e850c6114d1ba7dc4cfd81d5a45d9604a
+    Translation of GIT committish: e47e01d5b2ed58ed0843751e3ab6a2aa84888afa
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -130,7 +130,7 @@ stato delle traduzioni per i lettori di lingua non inglese.
 esempi, consigli e trucchi creati dagli utenti.
 
 @item
-@uref{http://benlemon.me/blog/music/lilypond/operation-lilypond/,Video Tutorial}:
+@uref{http://bit.ly/LilyPondBeginners,Video Tutorial}:
 Ben Lemon, un utente di LilyPond, ha creato una serie di video tutorial sul
 suo blog rivolti ai nuovi utenti.
 
