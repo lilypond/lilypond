@@ -185,8 +185,53 @@ get_postscript_name (FT_Face face)
     ret = cffname;
   else
     {
-      warning (_f ("cannot get font %s CFF name", face_ps_name.c_str ()));
-      ret = face_ps_name;
+      // FreeType 2.6 and 2.6.1 cannot get PS name from pure-CFF.
+      // (FreeType 2.5.5 and earlier does not have this issue.
+      //  FreeType 2.6.2+ has this bug fixed.)
+      // So we need direct parsing of the 'CFF' table, in this case.
+
+      debug_output (_f ("Directly parsing 'CFF' table of font %s.",
+                        face_ps_name.c_str ()));
+
+      // See Adobe technote '5176.CFF.pdf', sections 2 and 5-7.
+      size_t hdrsize = static_cast<unsigned char>(cff_table.at(2));
+      string::iterator it = cff_table.begin () + hdrsize;
+
+      unsigned int name_index_count;
+      name_index_count = static_cast<unsigned char>(*it++) << 8;
+      name_index_count |= static_cast<unsigned char>(*it++);
+
+      size_t offsize = static_cast<unsigned char>(*it++);
+
+      if (name_index_count && 1 <= offsize && offsize <= 4)
+        {
+          // We get the first name in the CFF's name index
+          // because this CFF (derived from OTF and OTC)
+          // has only one name.
+          size_t off1 = 0, off2 = 0;
+          for (size_t t = 0; t < offsize; t++)
+            off1 = ( off1 << 8 ) | static_cast<unsigned char>(*it++);
+          if (off1)
+            {
+              for (size_t t = 0; t < offsize; t++)
+                off2 = ( off2 << 8 ) | static_cast<unsigned char>(*it++);
+            }
+          if (off1 && off1 < off2)
+            {
+              ret.assign (&cff_table.at(hdrsize + 3
+                                        + offsize * (name_index_count + 1)
+                                        + off1 - 1),
+                          &cff_table.at(hdrsize + 3
+                                        + offsize * (name_index_count + 1)
+                                        + off2 - 1));
+            }
+        }
+
+      if (ret.empty ())
+        {
+          warning (_f ("cannot get font %s CFF name", face_ps_name.c_str ()));
+          ret = face_ps_name;
+        }
     }
 
   debug_output (_f ("Replace font name from %s to %s.",
