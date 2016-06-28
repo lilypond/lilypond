@@ -1173,6 +1173,22 @@ score_items:
 				scm_set_cdr_x ($$, scm_cons ($2, scm_cdr ($$)));
 			else
 				$$ = scm_cons ($2, $$);
+		} else if (ly_is_module ($2)) {
+			SCM module = SCM_UNSPECIFIED;
+			if (score) {
+				module = score->get_header ();
+				if (!ly_is_module (module))
+				{
+					module = ly_make_module (false);
+					score->set_header (module);
+				}
+			} else if (scm_is_pair ($$) && ly_is_module (scm_car ($$)))
+				module = scm_car ($$);
+			else {
+				module = ly_make_module (false);
+				$$ = scm_cons (module, $$);
+			}
+			ly_module_copy (module, $2);
 		} else if (!scm_is_eq ($2, SCM_UNSPECIFIED))
 			parser->parser_error (@2, _("Spurious expression in \\score"));
 	}
