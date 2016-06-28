@@ -245,6 +245,31 @@
                    binary-data
                    footer)))
 
+(define check-conflict-and-embed-cff
+  (let ((font-list '()))
+    (lambda (name file-name font-index)
+      (let* ((name-symbol (string->symbol name))
+             (args-filename-offset
+              (cons file-name (ly:get-cff-offset file-name font-index)))
+             (found-filename-offset (assq name-symbol font-list)))
+        (if found-filename-offset
+            (begin
+              (if (equal? args-filename-offset (cdr found-filename-offset))
+                  (ly:debug
+                   (_ "CFF font `~a' already embedded, skipping.")
+                   name)
+                  (ly:warning
+                   (_ "Different CFF fonts which have the same name `~a' has been detected. The font cannot be embedded.")
+                   name))
+              "")
+            (begin
+              (ly:debug
+               (_ "Embedding CFF font `~a'")
+               name)
+              (set! font-list
+                    (acons name-symbol args-filename-offset font-list))
+              (ps-embed-cff (ly:otf->cff file-name font-index) name 0)))))))
+
 (define (write-preamble paper load-fonts? port)
   (define (internal-font? font-name-filename)
     (let* ((font (car font-name-filename))
@@ -373,7 +398,7 @@
         (ly:ttf->pfa file-name font-index))
        ((eq? font-format 'CFF)
         ;; OpenType/CFF fonts (OTF) and OpenType/CFF Collection (OTC)
-        (ps-embed-cff (ly:otf->cff file-name font-index) name 0))
+        (check-conflict-and-embed-cff name file-name font-index))
        (else
         (ly:warning (_ "do not know how to embed ~S=~S") name file-name)
         ""))))
