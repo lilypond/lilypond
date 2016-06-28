@@ -473,6 +473,12 @@ toplevel_expression:
 				id = ly_symbol2scm ("$defaultlayout");
 
 			parser->lexer_->set_identifier (id, $1);
+		} else if (ly_is_module ($1))
+		{
+			SCM module = get_header (parser);
+			ly_module_copy (module, $1);
+			parser->lexer_->set_identifier
+				(ly_symbol2scm ("$defaultheader"), module);
 		} else if (!scm_is_eq ($1, SCM_UNSPECIFIED))
 			parser->parser_error (@1, _("bad expression type"));
 	}
@@ -973,6 +979,9 @@ book_body:
 				id = ly_symbol2scm ("$defaultlayout");
 
 			parser->lexer_->set_identifier (id, $2);
+		} else if (ly_is_module ($2))
+		{
+			ly_module_copy (unsmob<Book> ($1)->header_, $2);
 		} else if (!scm_is_eq ($2, SCM_UNSPECIFIED))
 			parser->parser_error (@2, _("bad expression type"));
 	}
@@ -1054,6 +1063,11 @@ bookpart_body:
 				id = ly_symbol2scm ("$defaultlayout");
 
 			parser->lexer_->set_identifier (id, $2);
+		} else if (ly_is_module ($2)) {
+			Book *book = unsmob<Book> ($1);
+			if (!ly_is_module (book->header_))
+				book->header_ = ly_make_module (false);
+			ly_module_copy (book->header_, $2);
 		} else if (!scm_is_eq ($2, SCM_UNSPECIFIED))
 			parser->parser_error (@2, _("bad expression type"));
 	}
