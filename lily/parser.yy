@@ -409,10 +409,8 @@ lilypond:	/* empty */ { $$ = SCM_UNSPECIFIED; }
 
 
 toplevel_expression:
-	{
-		parser->lexer_->add_scope (get_header (parser));
-	} lilypond_header {
-		parser->lexer_->set_identifier (ly_symbol2scm ("$defaultheader"), $2);
+	header_block {
+		parser->lexer_->set_identifier (ly_symbol2scm ("$defaultheader"), $1);
 	}
 	| book_block {
 		SCM proc = parser->lexer_->lookup_identifier ("toplevel-book-handler");
@@ -526,6 +524,7 @@ embedded_scm_bare_arg:
 	| partial_markup
 	| full_markup_list
 	| context_modification
+	| header_block
 	| score_block
 	| context_def_spec_block
 	| book_block
@@ -645,6 +644,14 @@ lilypond_header:
 	}
 	;
 
+header_block:
+	{
+		parser->lexer_->add_scope (get_header (parser));
+	} lilypond_header {
+		$$ = $2;
+	}
+	;
+
 /*
 	DECLARATIONS
 */
@@ -706,7 +713,8 @@ identifier_init:
 	;
 
 identifier_init_nonumber:
-	score_block
+	header_block
+	| score_block
 	| book_block
 	| bookpart_block
 	| output_def
