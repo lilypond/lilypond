@@ -639,8 +639,15 @@ lilypond_header_body:
 	| lilypond_header_body assignment  {
 
 	}
-	| lilypond_header_body embedded_scm  {
-
+	| lilypond_header_body SCM_TOKEN {
+		// Evaluate and ignore #xxx, as opposed to \xxx
+		parser->lexer_->eval_scm_token ($2, @2);
+	}
+	| lilypond_header_body embedded_scm_active {
+		if (ly_is_module ($2))
+			ly_module_copy (scm_current_module (), $2);
+		else if (!scm_is_eq ($2, SCM_UNSPECIFIED))
+			parser->parser_error (@2, _("bad expression type"));
 	}
 	;
 
