@@ -62,6 +62,17 @@ which scares away people.
 @end ignore
 
 @item
+Blocks introduced with @code{\header} can be stored in variables
+and used as arguments to music and scheme functions and as the
+body of @code{#@{@dots{}#@}} constructs.  They are represented as
+a Guile module.
+
+While @code{\book}, @code{\bookpart}, @code{\score}, @code{\with},
+@code{\layout}, @code{\midi}, @code{\paper} blocks can be passed
+around in similar manner, they are represented by different data
+types.
+
+@item
 Dot-separated symbol lists like @code{FretBoard.stencil} were
 already supported as of version@tie{}2.18.  They may now also
 contain unsigned integers, and may alternatively be separated by
