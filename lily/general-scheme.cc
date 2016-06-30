@@ -662,8 +662,11 @@ LY_DEFINE (ly_spawn, "ly:spawn",
   // Always get the pointer to the stdout/stderr messages
   int exit_status = ly_run_command (argv, &standard_output, &standard_error);
 
-  // Print out stdout and stderr only in debug mode
-  debug_output (string ("\n") + standard_output + standard_error, true);
+  if (standard_output && standard_error)
+    {
+      // Print out stdout and stderr only in debug mode
+      debug_output (string ("\n") + standard_output + standard_error, true);
+    }
 
   g_free (standard_error);
   g_free (standard_output);
