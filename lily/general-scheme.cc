@@ -620,7 +620,8 @@ ly_run_command (char *argv[], char **standard_output, char **standard_error)
                      standard_output, standard_error,
                      &exit_status, &error))
     {
-      fprintf (stderr, "failed (%d): %s: %s\n", exit_status, argv[0], error->message);
+      warning (_f ("g_spawn_sync failed (%d): %s: %s",
+                   exit_status, argv[0], error->message));
       g_error_free (error);
       if (!exit_status)
         exit_status = -1;
