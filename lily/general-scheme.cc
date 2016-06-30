@@ -664,6 +664,9 @@ LY_DEFINE (ly_spawn, "ly:spawn",
   // Print out stdout and stderr only in debug mode
   debug_output (string ("\n") + standard_output + standard_error, true);
 
+  g_free (standard_error);
+  g_free (standard_output);
+
   for (int i = 0; i < n; i++)
     free (argv[i]);
   delete[] argv;
