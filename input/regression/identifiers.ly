@@ -8,11 +8,11 @@ num = #3
 mus = { c'4 }
 paperId = \paper { line-width = 5.0 \cm }
 layoutId = \layout { ragged-right = ##t }
-scoreHeaderId = \header { piece = "Piece" }
-bookHeaderId = \header { composer = "Composer" title = "Title" }
 perfId = \midi {}
-markupId = \markup { hoi }
+markupId = \markup { hoi \italic polloi }
 stringId = "title"
+scoreHeaderId = \header { piece = \markupId }
+bookHeaderId = \header { composer = "Composer" title = \stringId }
 
 scoreId = \score {
   \scoreHeaderId
