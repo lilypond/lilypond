@@ -346,7 +346,6 @@ If we give names, Bison complains.
 %token BOOK_IDENTIFIER
 %token CHORD_MODIFIER
 %token CHORD_REPETITION
-%token CONTEXT_MOD_IDENTIFIER
 %token DRUM_PITCH
  /* Artificial token for durations in argument lists */
 %token DURATION_ARG
@@ -1494,14 +1493,6 @@ context_modification:
                 parser->lexer_->pop_state ();
                 $$ = $4;
         }
-        | WITH CONTEXT_MOD_IDENTIFIER
-        {
-                $$ = $2;
-        }
-        | CONTEXT_MOD_IDENTIFIER
-        {
-                $$ = $1;
-        }
 	| WITH context_modification_arg
 	{
 		if (unsmob<Music> ($2)) {
@@ -1566,11 +1557,6 @@ context_mod_list:
         | context_mod_list context_mod  {
 		if (!SCM_UNBNDP ($2))
 			unsmob<Context_mod> ($1)->add_context_mod ($2);
-        }
-        | context_mod_list CONTEXT_MOD_IDENTIFIER {
-                 Context_mod *md = unsmob<Context_mod> ($2);
-                 if (md)
-                     unsmob<Context_mod> ($1)->add_context_mods (md->get_mods ());
         }
 	| context_mod_list context_mod_arg {
 		if (unsmob<Music> ($2)) {
@@ -4088,7 +4074,7 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 		return SCM_IDENTIFIER;
         } else if (unsmob<Context_mod> (sid)) {
                 *destination = unsmob<Context_mod> (sid)->smobbed_copy ();
-                return CONTEXT_MOD_IDENTIFIER;
+                return SCM_IDENTIFIER;
 	} else if (Music *mus = unsmob<Music> (sid)) {
 		mus = mus->clone ();
 		*destination = mus->self_scm ();
