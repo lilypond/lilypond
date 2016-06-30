@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.19.46"
 
 \header  {
 texidoc = "Context modifications can be stored into a variable as a
@@ -66,7 +66,7 @@ music = \relative { \key fis \minor c''1 d e }
     \remove "Key_engraver"
   } { \mark \markup { "Also remove clef and key engravers" } \music }
   % Mods can be inserted instead of a \with block (i.e. \with is not required)
-  \new Staff \ctxmod { \mark \markup { "The same mods as staff 2" } \music }
+  \new Staff \with \ctxmod { \mark \markup { "The same mods as staff 2" } \music }
   \new Staff { \mark \markup { "Back to default" } \music }
 >>
 }

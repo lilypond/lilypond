@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.46"
 
 \header {
   texidoc = "@code{\\RemoveEmptyStaves} is defined separately from
@@ -9,7 +9,7 @@ context definitions so it can be used outside of @code{\\layout} blocks."
   ragged-right = ##t
 }
 
-\new Staff \RemoveEmptyStaves {
+\new Staff \with \RemoveEmptyStaves {
   c'1 \break
   r1
 }
