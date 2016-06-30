@@ -1,4 +1,4 @@
-@C -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
 
 @ignore
     Translation of GIT committish: 5ae5c88bdb1a478263ed874cb823ec58dafc93f9
@@ -30,7 +30,7 @@ sortida es poden canviar.
 @end menu
 
 @node Elements d'ajustament
-@sectionElements d'ajustament
+@section Elements d'ajustament
 @translationof Tweaking basics
 
 @menu
@@ -101,7 +101,7 @@ propi conjunt de valors de propietat.
 Certs tipus d'objectes reben noms especials. Els objectes que
 representen elements de notació sobre la sortida impresa com ara
 caps de notes, pliques, lligadures d'expressió i d'unió,
-digitacions, claus, etc., reben el nom de q{Objectes de
+digitacions, claus, etc., reben el nom de @q{Objectes de
 presentació}, sovint coneguts com @q{Objectes gràfics}, o
 abreujadament @q{Grobs}.  Encara són objectes, en el sentit genèric
 que hem mencionat, i també tots ells tenen propietats associades,
@@ -211,6 +211,7 @@ Referencia de la notació:
 * El prefix once::
 * L'ordre overrideProperty::
 * L'ordre tweak::
+* El prefix single::
 @end menu
 
 @node L'ordre override
@@ -1157,7 +1158,7 @@ de la música impresa.
 @menu
 * Visibilitat i color dels objectes::
 * Mida dels objectes::
-* Longitud y gruix dels objectes::
+* Longitud i gruix dels objectes::
 @end menu
 
 @node Visibilitat i color dels objectes
@@ -1187,13 +1188,13 @@ Hem explicat com trobar informació sobre els grobs a
 @ref{Propietats dels objectes de presentació}.  Usant el mateix
 enfocament, anem al RFI per buscar l'objecte de presentació que
 imprimeix les línies divisòries.  Mitjançant l'enllaç
-@emph{Backend} i @emp{All layout objects} trobem que hi ha un
+@emph{Backend} i @emph{All layout objects} trobem que hi ha un
 objecte de presentació anomenat @code{Barline}.  Entre les seves
 propietats es troben dues que controlen la visibilitat:
 @code{break-visibility} i @code{stencil}.  Les línies divisòries
 també contemplen una sèrie d'interfícies, entre ells el
 @code{grob-interface}, on podem trobar les propietats
-@cffode{transparent} i @code{color}.  Totes poden afectar la
+@code{transparent} i @code{color}.  Totes poden afectar la
 visibilitat de les barres de compàs (i, per suposat, per extensió,
 també la de molts altres objectes de presentació).  Considerarem
 cada un d'ells per ordre.
@@ -1384,7 +1385,7 @@ indicació de compàs.  Potser això és el que volem per a un
 exercici on l'alumne hagi d'escriure'l, però en altres
 circumstàncies aquesta separació podria no ser desitjable.  En
 comptes d'això, per treure-la, el stencil o «segell» de la
-indicació de compàs s'ha d'establir al valor @code(#f):
+indicació de compàs s'ha d'establir al valor @code{#f}:
 
 @cindex TimeSignature, exemple de sobreescriptura
 @cindex stencil, propietat, exemple
@@ -1969,7 +1970,7 @@ de la notació.  L'exemple següent mostra aquesta acomodació
 Ja hem vist com les instruccions @code{\voiceXXX} afecten a la
 direcció de les lligadures d'expressió i d'unió, digitacions i
 tots els altres elements que depenen de la direcció de les pliques
-(vegeu @ref{Voces explícitas}).  Quan s'escriu música polifònica,
+(vegeu @ref{Veus explícites}).  Quan s'escriu música polifònica,
 aquestes ordres són essencials perquè puguin distingir-se diverses
 línies melòdiques entrellaçades.  Però ocasionalment pot caldre
 sobreescriure aquest comportament automàtic.  Es pot fer seccions
@@ -1980,7 +1981,7 @@ primer lloc explicarem que fa això, i després introduirem algunes
 instruccions llestes per usar que us evitaran haver de codificar
 sobreescriptures explícites per a les modificacions més comunes.
 
-Algunes objectes de presentació com les lligadures es corben cap
+Alguns objectes de presentació com les lligadures es corben cap
 amunt o cap avall; d'altres com  les pliques  els claudàtors també
 es mouen a la dreta o a l'esquerra quan apunten cap amunt o cap
 avall.  Això es controla automàticament quan està establerta la
@@ -2298,7 +2299,7 @@ valor numèric adequat a cada objecte fora-del-pentagrama quan es
 crea l'objecte.  La taula següent presenta els valors numèrics
 predeterminats per a alguns dels objectes fora-del-pentagrama més comuns.
 
-@cinde objectes d'extensió
+@cindex objectes d'extensió
 
 Observeu els noms una mica inusuals d'alguns dels objectes: els
 objectes d'extensió es creen automàticament per controlar el
@@ -2885,7 +2886,7 @@ del @code{VerticalAxisGroup}.  Per veure més detalls, consulteu
 @rusernamed{Flexible vertical spacing within systems,Espaiat vertical flexible dins dels sistemes}.
 
 
-@node Col·lisions de objectes
+@node Col·lisions d'objectes
 @section Col·lisions d'objectes
 @translationof Col·lisions of objects
 
@@ -3071,7 +3072,7 @@ Dins d'una veu, totes les notes que es produeixen al mateix moment
 s'agrupen a una columna de notes, i es crea un objecte
 @code{NoteColumn} per controlar el posicionament horitzontal
 d'aquest grup de notes (vegeu @qq{Columnes de nota} a @ref{Veus
-explicites}).  Si @emph{i sols si} dos o més columnes de nota dins
+explícites}).  Si @emph{i sols si} dos o més columnes de nota dins
 d'un sol context de pauta, les dues amb pliques en la mateixa
 direcció, apareixen al mateix moment musical, els valors de les
 seves propietats @code{horizontal-shift} s'usen per assignar-los
@@ -3345,8 +3346,8 @@ l'alineament del límit dret amb el punt de referència de la nota
 <a''\2>
 @end lilypond
 
-@node La propietat staff-position (posició en el pentagrama)
-@unnumberedsubsubsec La propietat @code{staff-position} (posició en el pentagrama)
+@node La propietat staff-position (posició al pentagrama)
+@unnumberedsubsubsec La propietat @code{staff-position} (posició al pentagrama)
 @translationof The staff-position property
 
 @cindex objecte, col·lisió dins del pentagrama
@@ -4122,7 +4123,7 @@ lhMusic = \relative {
 
 
 @node Ajustaments addicionals
-@section Ajustaments addicinals
+@section Ajustaments addicionals
 @translationof Further tweaking
 
 @menu

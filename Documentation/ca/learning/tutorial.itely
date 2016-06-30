@@ -514,8 +514,9 @@ a l'hora:
 
 @seealso
 Referència de la notació:
-@ruser{Writing pitches},
-@ruser{Writing rhythms}, @ruser{Writing rests},
+@rusernamed{Writing pitches,Escriptura de les notes},
+@rusernamed{Writing rhythms,Escriptura dels ritmes},
+@rusernamed{Writing rests,Escriptura de silencis},
 @rusernamed{Time signature,Indicació de compàs},
 @rusernamed{Clef,Clau}.
 
