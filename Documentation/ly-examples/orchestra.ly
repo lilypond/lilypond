@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.19.46"
 
 \header {
   tagline = ##f
@@ -85,7 +85,6 @@ offCr = {
   \context {
     \type "Engraver_group"
     \name "MarkLine"
-    \consists "Output_property_engraver"
     \consists "Axis_group_engraver"
     \consists "Mark_engraver"
     \consists "Metronome_mark_engraver"

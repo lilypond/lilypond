@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.19.7"
+\version "2.19.46"
 
 \header {
   lsrtags = "contexts-and-engravers, specific-notation"
@@ -89,8 +89,6 @@ MyStaff = \context {
   \description "Handles clefs, bar lines, keys, accidentals.  It can contain
 @code{Voice} contexts."
 
-  \consists "Output_property_engraver"
-
   \consists "Font_size_engraver"
 
   \consists "Volta_engraver"
@@ -138,7 +136,6 @@ MyVoice = \context {
   \consists "Font_size_engraver"
 
   % must come before all
-  \consists "Output_property_engraver"
   \consists "Arpeggio_engraver"
   \consists "Multi_measure_rest_engraver"
   \consists "Text_spanner_engraver"
