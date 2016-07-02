@@ -573,6 +573,7 @@ automatically when an output definition (a @code{\\score} or
   %% timing translator must come BEFORE bar number engraver
   \consists "Timing_translator"
   \consists "Default_bar_line_engraver"
+  \consists "Output_property_engraver"
   \consists "Tweak_engraver"
   \consists "System_start_delimiter_engraver"
   \consists "Mark_engraver"
