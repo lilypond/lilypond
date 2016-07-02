@@ -37,35 +37,35 @@ procedures}.
 -2- Tutorial
 1314  web/manuals.itexi
 124   learning.tely
-2507  learning/tutorial.itely
-4437  learning/common-notation.itely
-8382  total
+2499  learning/tutorial.itely
+4402  learning/common-notation.itely
+8339  total
 
 -3- Fundamental Concepts, starting of Usage and Community
-11173 learning/fundamental.itely -- Fundamental concepts
+11119 learning/fundamental.itely -- Fundamental concepts
 135   usage.tely
 5440  usage/running.itely
 1866  usage/updating.itely
 3524  web/community.itexi
-22138 total
+22084 total
 
 -4- Rest of Learning manual and Suggestions on writing LilyPond files
-16622 learning/tweaks.itely -- Tweaking output
+16592 learning/tweaks.itely -- Tweaking output
 1236  learning/templates.itely -- Templates
 2793  usage/suggestions.itely -- Suggestions on writing LilyPond files
-20651 total
+20621 total
 
 -5- Notation reference
 326   notation.tely
 91    notation/notation.itely -- Musical notation
-5227  notation/pitches.itely
-6873  notation/rhythms.itely
-1878  notation/expressive.itely
+5169  notation/pitches.itely
+6795  notation/rhythms.itely
+1798  notation/expressive.itely
 1288  notation/repeats.itely
-2955  notation/simultaneous.itely
-2576  notation/staff.itely
-1491  notation/editorial.itely
-2880  notation/text.itely
+2919  notation/simultaneous.itely
+2554  notation/staff.itely
+1477  notation/editorial.itely
+2754  notation/text.itely
 81    notation/specialist.itely -- Specialist notation
 4975  notation/vocal.itely
 1931  notation/chords.itely
@@ -74,15 +74,15 @@ procedures}.
 826   notation/guitar.itely
 66    notation/strings.itely
 242   notation/bagpipes.itely
-5518  notation/ancient.itely
+5516  notation/ancient.itely
 12704 notation/input.itely -- Input syntax
 2164  notation/non-music.itely -- Non-musical notation
 10911 notation/spacing.itely -- Spacing issues
-15610 notation/changing-defaults.itely -- Changing defaults
+15598 notation/changing-defaults.itely -- Changing defaults
 5187  notation/programming-interface.itely -- Interfaces for programmers
 3077  notation/notation-appendices.itely -- Notation manual tables
 252   notation/cheatsheet.itely -- Cheat sheet
-90630 total
+90202 total
 
 -6- Rest of Application Usage
 4211  usage/lilypond-book.itely -- LilyPond-book

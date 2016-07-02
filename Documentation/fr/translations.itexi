@@ -16,19 +16,19 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Sat May  7 13:23:06 UTC 2016
+@emph{Dernière mise à jour Sat Jul  2 15:06:05 UTC 2016
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
 @headitem
 Essai sur la gravure musicale automatisée
-@tab Translators
-@tab Translation checkers
-@tab Translated
-@tab Up to date
-@tab Other info
+@tab Traducteurs
+@tab Relecteurs
+@tab Traduit
+@tab À jour
+@tab Autres informations
 @item
-Section titles
+Titre des chapitres
 @*
 92
 @tab Jean-Charles Malahieude
@@ -37,23 +37,23 @@ Section titles
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 LilyPond --- \TITLE\
 @*
@@ -64,23 +64,23 @@ LilyPond --- \TITLE\
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 1 La gravure musicale
 @*
@@ -95,23 +95,23 @@ Gauvain Pocentek
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 2 Références bibliographiques
 @*
@@ -124,23 +124,23 @@ Valentin Villenave
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially (93 %)</span>
+<span style="background-color: #dfef77">partiellement (93 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially (93 %)
+partiellement (93 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @end multitable
 
 
@@ -148,13 +148,13 @@ yes
 
 @headitem
 GNU LilyPond -- Extension des fonctionnalités
-@tab Translators
-@tab Translation checkers
-@tab Translated
-@tab Up to date
-@tab Other info
+@tab Traducteurs
+@tab Relecteurs
+@tab Traduit
+@tab À jour
+@tab Autres informations
 @item
-Section titles
+Titre des chapitres
 @*
 107
 @tab Jean-Charles Malahieude
@@ -163,23 +163,23 @@ Section titles
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 LilyPond --- \TITLE\
 @*
@@ -190,23 +190,23 @@ LilyPond --- \TITLE\
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 1 Tutoriel Scheme
 @*
@@ -217,23 +217,23 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 2 Interfaces pour programmeurs
 @*
@@ -246,23 +246,23 @@ Jean-Charles Malahieude
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @end multitable
 
 
@@ -270,13 +270,13 @@ yes
 
 @headitem
 GNU LilyPond -- Manuel d'initiation
-@tab Translators
-@tab Translation checkers
-@tab Translated
-@tab Up to date
-@tab Other info
+@tab Traducteurs
+@tab Relecteurs
+@tab Traduit
+@tab À jour
+@tab Autres informations
 @item
-Section titles
+Titre des chapitres
 @*
 124
 @tab John Mandereau
@@ -287,21 +287,21 @@ Jean-Charles Malahieude
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab post-GDP
 @item
@@ -316,27 +316,27 @@ Jean-Charles Malahieude
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 1 Tutoriel
 @*
-2507
+2499
 @tab Nicolas Grandclaude
 @*
 Ludovic Sardain
@@ -351,27 +351,27 @@ John Mandereau
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab post-GDP
 @item
 2 Bases de notation musicale
 @*
-4437
+4402
 @tab Nicolas Grandclaude
 @*
 Ludovic Sardain
@@ -386,27 +386,27 @@ John Mandereau
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab post-GDP
 @item
 3 Concepts fondamentaux
 @*
-11173
+11119
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -415,27 +415,27 @@ Jean-Charles Malahieude
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab post-GDP
 @item
 4 Retouche de partition
 @*
-16622
+16592
 @tab Valentin Villenave
 @*
 Nicolas Klutchnikoff
@@ -448,21 +448,21 @@ John Mandereau
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab post-GDP
 @item
@@ -475,23 +475,23 @@ A Modèles
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @end multitable
 
 
@@ -499,13 +499,13 @@ yes
 
 @headitem
 GNU LilyPond -- Manuel de notation
-@tab Translators
-@tab Translation checkers
-@tab Translated
-@tab Up to date
-@tab Other info
+@tab Traducteurs
+@tab Relecteurs
+@tab Traduit
+@tab À jour
+@tab Autres informations
 @item
-Section titles
+Titre des chapitres
 @*
 326
 @tab John Mandereau
@@ -516,23 +516,23 @@ Jean-Charles Malahieude
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 LilyPond --- \TITLE\
 @*
@@ -545,23 +545,23 @@ Jean-Charles Malahieude
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 1 Notation musicale générale
 @*
@@ -574,27 +574,27 @@ Jean-Charles Malahieude
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 1.1 Hauteurs
 @*
-5227
+5169
 @tab Frédéric Chiasson
 @*
 Jean-Charles Malahieude
@@ -605,27 +605,27 @@ Jean-Charles Malahieude
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 1.2 Rythme
 @*
-6873
+6795
 @tab Frédéric Chiasson
 @*
 Jean-Charles Malahieude
@@ -638,27 +638,27 @@ Xavier Scheuer
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 1.3 Signes d'interprétation
 @*
-1878
+1798
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -669,23 +669,23 @@ John Mandereau
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 1.4 Répétitions et reprises
 @*
@@ -700,27 +700,27 @@ John Mandereau
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 1.5 Notes simultanées
 @*
-2955
+2919
 @tab Frédéric Chiasson
 @*
 Valentin Villenave
@@ -733,27 +733,27 @@ John Mandereau
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 1.6 Notation sur la portée
 @*
-2576
+2554
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -762,54 +762,54 @@ Jean-Charles Malahieude
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 1.7 Annotations éditoriales
 @*
-1491
+1477
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 1.8 Texte
 @*
-2880
+2754
 @tab Jean-Charles Malahieude
 @tab Valentin Villenave
 @*
@@ -818,23 +818,23 @@ John Mandereau
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 2 Notation spécialisée
 @*
@@ -847,23 +847,23 @@ Jean-Charles Malahieude
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 2.1 Musique vocale
 @*
@@ -876,27 +876,27 @@ Jean-Charles Malahieude
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 2.2 Instruments utilisant des portées multiples
 @*
-912
+904
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -907,23 +907,23 @@ John Mandereau
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 2.3 Cordes non frettées
 @*
@@ -938,50 +938,50 @@ John Mandereau
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 2.4 Instruments à cordes frettées
 @*
-2842
+2820
 @tab Matthieu Jacquot
 @tab Jean-Charles Malahieude
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 2.5 Percussions
 @*
@@ -994,23 +994,23 @@ Jean-Charles Malahieude
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 2.6 Instruments à vent
 @*
@@ -1025,23 +1025,23 @@ John Mandereau
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 2.7 Notation des accords
 @*
@@ -1056,23 +1056,23 @@ John Mandereau
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 2.8 Musique contemporaine
 @*
@@ -1083,50 +1083,50 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 2.9 Notations anciennes
 @*
-5518
+5516
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 2.10 Musiques du monde
 @*
@@ -1139,23 +1139,23 @@ Valentin Villenave
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 3 Généralités en matière d'entrée et sortie
 @*
@@ -1168,23 +1168,23 @@ Valentin Villenave
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 4 Gestion de l'espace
 @*
@@ -1197,27 +1197,27 @@ Jean-Charles Malahieude
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 5 Modification des réglages prédéfinis
 @*
-15610
+15598
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -1226,23 +1226,23 @@ Jean-Charles Malahieude
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 A Tables du manuel de notation
 @*
@@ -1255,23 +1255,23 @@ Jean-Charles Malahieude
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 B Aide-mémoire
 @*
@@ -1282,23 +1282,23 @@ B Aide-mémoire
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @end multitable
 
 
@@ -1306,13 +1306,13 @@ yes
 
 @headitem
 GNU LilyPond -- Utilisation des programmes
-@tab Translators
-@tab Translation checkers
-@tab Translated
-@tab Up to date
-@tab Other info
+@tab Traducteurs
+@tab Relecteurs
+@tab Traduit
+@tab À jour
+@tab Autres informations
 @item
-Section titles
+Titre des chapitres
 @*
 135
 @tab John Mandereau
@@ -1323,23 +1323,23 @@ Jean-Charles Malahieude
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 LilyPond --- \TITLE\
 @*
@@ -1352,23 +1352,23 @@ Jean-Charles Malahieude
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 1 Exécution de @command{lilypond}
 @*
@@ -1379,23 +1379,23 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 2 Mise à jour avec @command{convert-ly}
 @*
@@ -1406,23 +1406,23 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 3 Association musique-texte avec @command{lilypond-book}
 @*
@@ -1433,23 +1433,23 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 4 Programmes externes
 @*
@@ -1460,23 +1460,23 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 5 Suggestions pour la saisie de fichiers LilyPond
 @*
@@ -1493,23 +1493,23 @@ John Mandereau
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @end multitable
 
 
@@ -1517,13 +1517,13 @@ yes
 
 @headitem
 LilyPond -- la notation musicale pour tous
-@tab Translators
-@tab Translation checkers
-@tab Translated
-@tab Up to date
-@tab Other info
+@tab Traducteurs
+@tab Relecteurs
+@tab Traduit
+@tab À jour
+@tab Autres informations
 @item
-Section titles
+Titre des chapitres
 @*
 629
 @tab John Mandereau
@@ -1532,23 +1532,23 @@ Section titles
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 LilyPond --- \TITLE\
 @*
@@ -1559,23 +1559,23 @@ LilyPond --- \TITLE\
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 Introduction
 @*
@@ -1590,23 +1590,23 @@ John Mandereau
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 Téléchargement
 @*
@@ -1619,23 +1619,23 @@ John Mandereau
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 Manuels
 @*
@@ -1646,23 +1646,23 @@ Manuels
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @item
 Communauté
 @*
@@ -1675,22 +1675,22 @@ John Mandereau
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+oui
 @end ifnothtml
-@tab pre-GDP
+@tab pré-GDP
 @end multitable
 

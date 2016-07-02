@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Sat May  7 13:23:06 UTC 2016
+@emph{Last updated Sat Jul  2 15:06:05 UTC 2016
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -212,7 +212,7 @@ partially
 @item
 1 Első lecke
 @*
-2507
+2499
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -239,7 +239,7 @@ partially
 @item
 2 Elemi kottaírás
 @*
-4437
+4402
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -256,7 +256,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #dbff38">partially</span>
+<span style="background-color: #e1ff39">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -266,7 +266,7 @@ partially
 @item
 3 Alapfogalmak
 @*
-11173
+11119
 @tab Griechisch Erika
 @*
 Harmath Dénes
@@ -295,7 +295,7 @@ partially
 @item
 4 A kimenet finomhangolása
 @*
-16622
+16592
 @tab Harmath Dénes
 @tab 
 @tab 
