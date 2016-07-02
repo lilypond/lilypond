@@ -72,7 +72,9 @@ Protected_scm::operator = (Protected_scm const &s)
 
 Protected_scm::operator SCM const & () const
 {
-  return SCM_CONSP (object_) ? *SCM_CARLOC (object_) : object_;
+  if (SCM_CONSP (object_))
+    return *SCM_CARLOC (object_);
+  return object_;
 }
 
 Protected_scm::operator SCM & ()

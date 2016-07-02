@@ -17,48 +17,64 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "engraver.hh"
-
-#include "context.hh"
-#include "directional-element-interface.hh"
-#include "international.hh"
-#include "note-column.hh"
-#include "slur.hh"
-#include "slur-proto-engraver.hh"
-#include "spanner.hh"
-#include "stream-event.hh"
-#include "warn.hh"
+#include "slur-engraver.hh"
 
 #include "translator.icc"
 
-class Phrasing_slur_engraver : public Slur_proto_engraver
+class Phrasing_slur_engraver : public Slur_engraver
 {
+  virtual SCM event_symbol () const;
+  virtual bool double_property () const;
+  virtual SCM grob_symbol () const;
+  virtual const char* object_name () const;
+  virtual void set_melisma (bool);
+
 protected:
   void listen_phrasing_slur (Stream_event *);
   void acknowledge_slur (Grob_info);
 
 public:
-  SCM event_symbol ();
   TRANSLATOR_DECLARATIONS (Phrasing_slur_engraver);
-  TRANSLATOR_INHERIT (Slur_proto_engraver);
+  TRANSLATOR_INHERIT (Slur_engraver);
 };
 
-Phrasing_slur_engraver::Phrasing_slur_engraver () :
-  Slur_proto_engraver (0, "PhrasingSlur", "phrasing slur", "phrasing-slur-event")
+SCM
+Phrasing_slur_engraver::event_symbol () const
 {
+  return ly_symbol2scm ("phrasing-slur-event");
+}
+
+bool
+Phrasing_slur_engraver::double_property () const
+{
+  return false;
 }
 
 SCM
-Phrasing_slur_engraver::event_symbol ()
+Phrasing_slur_engraver::grob_symbol () const
 {
-  // Need a string constant for memoization
-  return ly_symbol2scm ("phrasing-slur-event");
+  return ly_symbol2scm ("PhrasingSlur");
+}
+
+const char *
+Phrasing_slur_engraver::object_name () const
+{
+  return "phrasing slur";
+}
+
+Phrasing_slur_engraver::Phrasing_slur_engraver ()
+{
+}
+
+void
+Phrasing_slur_engraver::set_melisma (bool)
+{
 }
 
 void
 Phrasing_slur_engraver::listen_phrasing_slur (Stream_event *ev)
 {
-  Slur_proto_engraver::listen_slur (ev);
+  Slur_engraver::listen_slur (ev);
 }
 
 void
@@ -72,16 +88,16 @@ void
 Phrasing_slur_engraver::boot ()
 {
   ADD_LISTENER (Phrasing_slur_engraver, phrasing_slur);
-  ADD_LISTENER (Slur_proto_engraver, note);
-  ADD_ACKNOWLEDGER (Slur_proto_engraver, inline_accidental);
-  ADD_ACKNOWLEDGER (Slur_proto_engraver, fingering);
-  ADD_ACKNOWLEDGER (Slur_proto_engraver, note_column);
+  ADD_LISTENER (Phrasing_slur_engraver, note);
+  ADD_ACKNOWLEDGER (Phrasing_slur_engraver, inline_accidental);
+  ADD_ACKNOWLEDGER (Phrasing_slur_engraver, fingering);
+  ADD_ACKNOWLEDGER (Phrasing_slur_engraver, note_column);
   ADD_ACKNOWLEDGER (Phrasing_slur_engraver, slur);
-  ADD_ACKNOWLEDGER (Slur_proto_engraver, script);
-  ADD_ACKNOWLEDGER (Slur_proto_engraver, dots);
-  ADD_ACKNOWLEDGER (Slur_proto_engraver, text_script);
-  ADD_END_ACKNOWLEDGER (Slur_proto_engraver, tie);
-  ADD_ACKNOWLEDGER (Slur_proto_engraver, tuplet_number);
+  ADD_ACKNOWLEDGER (Phrasing_slur_engraver, script);
+  ADD_ACKNOWLEDGER (Phrasing_slur_engraver, dots);
+  ADD_ACKNOWLEDGER (Phrasing_slur_engraver, text_script);
+  ADD_END_ACKNOWLEDGER (Phrasing_slur_engraver, tie);
+  ADD_ACKNOWLEDGER (Phrasing_slur_engraver, tuplet_number);
 }
 
 ADD_TRANSLATOR (Phrasing_slur_engraver,

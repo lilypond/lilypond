@@ -187,7 +187,6 @@ the types of objects and properties from their names.
 @cindex override syntax
 
 @funindex \override
-@funindex override
 
 We have already met the commands @code{\set} and @code{\with}, used to
 change the properties of @strong{contexts} and to remove and add
@@ -260,7 +259,6 @@ color of the note head:
 @cindex revert command
 
 @funindex \revert
-@funindex revert
 
 Once overridden, the property retains its new value until it is
 overridden again or a @code{\revert} command is encountered.
@@ -298,7 +296,6 @@ of the note head to the default value for the final two notes:
 @unnumberedsubsubsec The @code{\once} prefix
 
 @funindex \once
-@funindex once
 
 Both the @code{\override} and the @code{\set} commands may be prefixed
 by @code{\once}.  This causes the following @code{\override} or
@@ -328,7 +325,6 @@ b c |
 @cindex overrideProperty command
 
 @funindex \overrideProperty
-@funindex overrideProperty
 
 There is another form of the override command,
 @code{\overrideProperty}, which is occasionally required.
@@ -343,7 +339,6 @@ We mention it here for completeness, but for details see
 @cindex tweak command
 
 @funindex \tweak
-@funindex tweak
 
 The final tweaking command which is available is @code{\tweak}.  This
 should be used when several objects occur at the same musical moment,
@@ -696,7 +691,6 @@ location.
 @cindex once override
 
 @funindex \once
-@funindex once
 
 As you can see, @emph{all} the slurs are thicker in the final example
 above.  But what if we wanted just the first slur to be thicker?  This
@@ -741,7 +735,6 @@ command.
 @cindex default properties, reverting to
 
 @funindex \revert
-@funindex revert
 
 Finally, what if we wanted just the first two slurs to be
 heavier?  Well, we could use two commands, each preceded by
@@ -2123,9 +2116,7 @@ these.
 @cindex ottava bracket
 
 @funindex \startTextSpan
-@funindex startTextSpan
 @funindex \stopTextSpan
-@funindex stopTextSpan
 
 @cindex TextSpanner, example of overriding
 @cindex bound-details property, example
@@ -2273,9 +2264,7 @@ command.
 @cindex notes, spreading out with text
 
 @funindex \textLengthOn
-@funindex textLengthOn
 @funindex \textLengthOff
-@funindex textLengthOff
 
 By default, text produced by markup takes up no horizontal space
 as far as laying out the music is concerned.  The @code{\textLengthOn}

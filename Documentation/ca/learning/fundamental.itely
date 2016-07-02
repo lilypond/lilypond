@@ -74,9 +74,7 @@ Hi ha moltes variacions d'aquest esquema bàsic, però l'exemple
 constitueix un punt de partida útil.
 
 @funindex \book
-@funindex book
 @funindex \score
-@funindex score
 @cindex book (llibre)
 @cindex score (partitura)
 @cindex llibre
@@ -170,11 +168,8 @@ altres coses, com ara
 @end example
 
 @funindex \header
-@funindex header
 @funindex \layout
-@funindex layout
 @funindex \midi
-@funindex midi
 @cindex midi
 @cindex capçalera
 @cindex disposició
@@ -202,7 +197,6 @@ Referència de la notació, a @ruser{Score layout} i a
 @cindex book, bloc implícit
 @cindex implícit, bloc book
 @funindex \book
-@funindex book
 
 Podem escriure diversos blocs @code{\score}.  Cada un d'ells rebrà
 el mateix tractament que una partitura independent, però es
@@ -281,7 +275,6 @@ consulteu @ruser{File structure}
 @cindex musical, expressió, composta
 @cindex expressió musical composta
 @funindex \score
-@funindex score
 
 En la secció anterior, @ref{Introducció a l'estructura dels
 fitxers del LilyPond}, hem pogut veure l'organització general dels
@@ -989,15 +982,10 @@ Referència de la notació:
 
 
 @funindex \voiceOne
-@funindex voiceOne
 @funindex \voiceTwo
-@funindex voiceTwo
 @funindex \voiceThree
-@funindex voiceThree
 @funindex \voiceFour
-@funindex voiceFour
 @funindex \oneVoice
-@funindex oneVoice
 @funindex \new Voice
 @cindex contextos de veu, creació de
 
@@ -1188,13 +1176,9 @@ està en silenci, com per exemple:
 @cindex notes, col·lisions de
 @cindex desplaçament, instruccions de
 @funindex \shiftOff
-@funindex shiftOff
 @funindex \shiftOn
-@funindex shiftOn
 @funindex \shiftOnn
-@funindex shiftOnn
 @funindex \shiftOnnn
-@funindex shiftOnnn
 
 Les notes properes a un acord, o les notes que es produeixen al
 mateix temps en diferents veus, es disposen en dos (i
@@ -1247,7 +1231,6 @@ dues expressions, és a dir, les notes i la lletra.
 
 @funindex \new Lyrics
 @funindex \lyricsto
-@funindex lyricsto
 @funindex Lyrics
 @cindex Lyrics, creació d'un context
 @cindex lletra, creació d'un context de
@@ -1283,7 +1266,6 @@ un cas on és necessari crear contextos de @code{Staff} i de
 @cindex lletra i barrat
 @cindex barrat i lletra
 @funindex \autoBeamOff
-@funindex autoBeamOff
 
 El barrat automàtic que el LilyPond usa de forma predeterminada
 funciona bé per a la música instrumental, però no tan bé per a
@@ -1295,7 +1277,6 @@ per desactivar el barrat automàtic.
 @funindex \new ChoirStaff
 @funindex ChoirStaff
 @funindex \lyricmode
-@funindex lyricmode
 @cindex vocal, estructura d'una partitura
 @cindex cor, sistema de
 
@@ -1513,7 +1494,6 @@ Referencia de la notació:
 @translationof Creating contexts
 
 @funindex \new
-@funindex new
 @cindex nous contextos
 @cindex creació de contextos
 @cindex contextos, creació de
@@ -1728,9 +1708,7 @@ Referència de funcionament intern:
 @cindex context, propietats de, modificació
 @cindex modificar les propietats de context
 @funindex \set
-@funindex set
 @funindex \unset
-@funindex unset
 
 Els contextos es responsabilitzen de mantenir els valors d'un cert
 nombre de @emph{properties} de context.  Moltes d'elles es poden
@@ -1932,7 +1910,6 @@ forma molt més general utilitzant la molt potent instrucció
 @subsubheading Canviar les propietats d'un context amb @code{\with}
 
 @funindex \with
-@funindex with
 @cindex context,  propietats de, establiment amb \with
 
 El valor predeterminat de les propietats de context es pot
@@ -1986,7 +1963,6 @@ restablir-se amb la instrucció @code{\unset fontSize}.
 
 @cindex contextos, establir propietats de, amb \context
 @funindex \context
-@funindex context
 
 Els valors de propietat dels contextos es poden establir per a
 @emph{tots} els contextos d'un tipus determinat, com per exemple
@@ -2070,9 +2046,7 @@ Referència de funcionament intern:
 @cindex eliminació de gravadors
 
 @funindex \consists
-@funindex consists
 @funindex \remove
-@funindex remove
 
 Hem vist que cada un dels contextos conté diversos gravadors, cada
 u dels quals és al seu cop responsable de la producció d'una
@@ -2170,7 +2144,6 @@ pentagrama:
 @subsubheading Canviar tots els contextos del mateix tipus
 
 @funindex \layout
-@funindex layout
 
 Els exemples anteriors mostren la manera d'eliminar o afegir
 gravadors als contextos individuals.  També és possible eliminar o

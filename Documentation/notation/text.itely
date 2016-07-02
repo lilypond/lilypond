@@ -92,9 +92,7 @@ For more information about the relative ordering of text scripts and
 articulations, see @rlearning{Placement of objects}.
 
 @funindex \textLengthOn
-@funindex textLengthOn
 @funindex \textLengthOff
-@funindex textLengthOff
 
 @predefined
 @code{\textLengthOn},
@@ -172,11 +170,8 @@ The line style, as well as the text string, can be defined as an
 object property.  This syntax is described in @ref{Line styles}.
 
 @funindex \textSpannerUp
-@funindex textSpannerUp
 @funindex \textSpannerDown
-@funindex textSpannerDown
 @funindex \textSpannerNeutral
-@funindex textSpannerNeutral
 
 
 @predefined
@@ -223,9 +218,7 @@ Internals Reference:
 @cindex bar lines, symbols on
 
 @funindex \mark
-@funindex mark
 @funindex \markup
-@funindex markup
 
 Various text elements may be added to a score using the syntax described
 in @ref{Rehearsal marks}:
@@ -287,9 +280,7 @@ the next line.
 @end lilypond
 
 @funindex \markLengthOn
-@funindex markLengthOn
 @funindex \markLengthOff
-@funindex markLengthOff
 
 @predefined
 @code{\markLengthOn},
@@ -331,7 +322,6 @@ Internals Reference:
 @cindex text, standalone
 
 @funindex \markup
-@funindex markup
 
 A @code{\markup} block can exist by itself, outside of any
 @code{\score} block, as a @qq{top-level expression}.  This syntax
@@ -367,9 +357,7 @@ requires, are described in @ref{Multi-page markup}.
 
 
 @funindex \markup
-@funindex markup
 @funindex \markuplist
-@funindex markuplist
 
 @predefined
 @code{\markup},
@@ -420,7 +408,6 @@ using the @code{\markup} mode specific syntax.
 @cindex typeset text
 
 @funindex \markup
-@funindex markup
 
 A @code{\markup} block is used to typeset text with an extensible
 syntax called @qq{markup mode}.
@@ -529,11 +516,8 @@ Syntax errors for markup mode can be confusing.
 @cindex switching fonts
 
 @funindex \italic
-@funindex italic
 @funindex \bold
-@funindex bold
 @funindex \underline
-@funindex underline
 
 Basic font switching is supported in markup mode:
 
@@ -554,13 +538,9 @@ Basic font switching is supported in markup mode:
 
 @funindex \abs-fontsize
 @funindex \fontsize
-@funindex fontsize
 @funindex \smaller
-@funindex smaller
 @funindex \larger
-@funindex larger
 @funindex \magnify
-@funindex magnify
 
 The font size can be altered, relative to the global staff size, in a
 number of different ways
@@ -620,11 +600,8 @@ other characters.
 @cindex superscript
 
 @funindex \super
-@funindex super
 @funindex \sub
-@funindex sub
 @funindex \normal-size-super
-@funindex normal-size-super
 
 Text may be printed as subscript or superscript.  By default these are
 printed in a smaller size, but a normal size can be used as well:
@@ -691,21 +668,13 @@ Defining custom font sets is also possible, as explained in
 @ref{Fonts}.
 
 @funindex \teeny
-@funindex teeny
 @funindex \tiny
-@funindex tiny
 @funindex \small
-@funindex small
 @funindex \normalsize
-@funindex normalsize
 @funindex \large
-@funindex large
 @funindex \huge
-@funindex huge
 @funindex \smaller
-@funindex smaller
 @funindex \larger
-@funindex larger
 
 
 @predefined
@@ -763,11 +732,8 @@ objects can also be moved as a whole, using the syntax described in
 @cindex horizontal text alignment
 
 @funindex \left-align
-@funindex left-align
 @funindex \center-align
-@funindex center-align
 @funindex \right-align
-@funindex right-align
 
 Markup objects may be aligned in different ways.  By default, a text
 indication is aligned on its left edge: in the following example,
@@ -786,7 +752,6 @@ there is no difference between the first and the second markup.
 @end lilypond
 
 @funindex \halign
-@funindex halign
 
 Horizontal alignment may be fine-tuned using a numeric value:
 
@@ -812,11 +777,8 @@ markup objects as a whole, as shown for instance in
 @cindex vertical text alignment
 
 @funindex \raise
-@funindex raise
 @funindex \lower
-@funindex lower
 @funindex \null
-@funindex null
 
 @c QUERY Should the function of ``\null'' be clarified? rp
 
@@ -848,11 +810,8 @@ has no anchor point, and therefore is not moved.
 @end lilypond
 
 @funindex \general-align
-@funindex general-align
 @funindex \translate
-@funindex translate
 @funindex \translate-scaled
-@funindex translate-scaled
 
 Some commands can affect both the horizontal and vertical alignment of
 text objects in markup mode.  Any object affected by these commands
@@ -886,9 +845,7 @@ must be preceded with an anchor point:
 @cindex columns, text
 
 @funindex \column
-@funindex column
 @funindex \center-column
-@funindex center-column
 
 A markup object may include several lines of text.  In the following
 example, each element or expression is placed on its own line, either
@@ -915,7 +872,6 @@ left-aligned or centered:
 @cindex markup, centering on the page
 
 @funindex \fill-line
-@funindex fill-line
 
 Similarly, a list of elements or expressions may be spread to fill the
 entire horizontal line width (if there is only one element, it will be
@@ -947,9 +903,7 @@ multi-line text or any other markup expression:
 @cindex markup text, justified
 
 @funindex \wordwrap
-@funindex wordwrap
 @funindex \justify
-@funindex justify
 
 Long text indications can also be automatically wrapped accordingly to
 the given line width.  These will be either left-aligned or justified,
@@ -1026,15 +980,10 @@ commands.
 @cindex markup text, framing
 
 @funindex \box
-@funindex box
 @funindex \circle
-@funindex circle
 @funindex \rounded-box
-@funindex rounded-box
 @funindex \bracket
-@funindex bracket
 @funindex \hbracket
-@funindex hbracket
 
 Some markup commands allow decoration of text elements with graphics,
 as demonstrated in the following example.
@@ -1061,13 +1010,9 @@ as demonstrated in the following example.
 @cindex markup text padding
 
 @funindex \pad-markup
-@funindex pad-markup
 @funindex \pad-x
-@funindex pad-x
 @funindex \pad-to-box
-@funindex pad-to-box
 @funindex \pad-around
-@funindex pad-around
 
 Some commands may require an increase in the padding around the text;
 this is achieved with some markup commands exhaustively described in
@@ -1101,17 +1046,11 @@ Flute quartet keeps very uneven time."
 @cindex notation, graphic
 
 @funindex \combine
-@funindex combine
 @funindex \draw-circle
-@funindex draw-circle
 @funindex \filled-box
-@funindex filled-box
 @funindex \triangle
-@funindex triangle
 @funindex \draw-line
-@funindex draw-line
 @funindex \arrow-head
-@funindex arrow-head
 
 Other graphic elements or symbols may be printed without requiring any
 text.  As with any markup expression, such objects can be combined.
@@ -1138,9 +1077,7 @@ text.  As with any markup expression, such objects can be combined.
 @cindex postscript
 
 @funindex \epsfile
-@funindex epsfile
 @funindex \postscript
-@funindex postscript
 
 Advanced graphic features include the ability to include external
 image files converted to the Encapsulated PostScript format
@@ -1335,11 +1272,8 @@ Internals Reference:
 @cindex text spread over multiple pages
 
 @funindex \markuplist
-@funindex markuplist
 @funindex \justified-lines
-@funindex justified-lines
 @funindex \wordwrap-lines
-@funindex wordwrap-lines
 
 Although standard markup objects are not breakable, a specific syntax
 makes it possible to enter lines of text that can spread over multiple
@@ -1389,7 +1323,6 @@ Internals Reference:
 @rinternals{TextScript}.
 
 @funindex \markuplist
-@funindex markuplist
 
 @predefined
 @code{\markuplist}.

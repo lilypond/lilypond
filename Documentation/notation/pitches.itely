@@ -87,7 +87,6 @@ octave.
 }
 @end lilypond
 
-@funindex fixed
 @funindex \fixed
 Common octave marks can be entered just once on a reference pitch
 after @code{\fixed} placed before the music.  Pitches inside
@@ -129,7 +128,6 @@ Snippets:
 @cindex relative octave specification
 @cindex octave specification, relative
 
-@funindex relative
 @funindex \relative
 
 Absolute octave entry requires specifying the octave for every
@@ -319,11 +317,8 @@ Internals Reference:
 @cindex transposition and relative octave entry
 
 @funindex \transpose
-@funindex transpose
 @funindex \chordmode
-@funindex chordmode
 @funindex \relative
-@funindex relative
 
 
 @node Accidentals
@@ -645,7 +640,6 @@ This section discusses how to modify pitches.
 
 @funindex =
 @funindex \octaveCheck
-@funindex octaveCheck
 @funindex controlpitch
 
 In relative mode, it is easy to forget an octave changing mark.
@@ -720,7 +714,6 @@ Internals Reference:
 @cindex notes, transposition of
 
 @funindex \transpose
-@funindex transpose
 
 A music expression can be transposed with @code{\transpose}.  The
 syntax is
@@ -838,11 +831,8 @@ Internals Reference:
 @rinternals{TransposedMusic}.
 
 @funindex \transpose
-@funindex transpose
 @funindex \chordmode
-@funindex chordmode
 @funindex \relative
-@funindex relative
 
 @knownissues
 The relative conversion will not affect @code{\transpose},
@@ -900,7 +890,6 @@ Notation Reference:
 @cindex transformation, retrograde
 @cindex operation, retrograde
 @funindex \retrograde
-@funindex retrograde
 
 A music expression can be reversed to produce its retrograde:
 
@@ -948,7 +937,6 @@ left untransformed.}
 @cindex transposition, modal
 @cindex operation, transposition
 @funindex \modalTranspose
-@funindex modalTranspose
 
 A motif can be transposed within a given scale with:
 
@@ -1005,7 +993,6 @@ motif = \relative { c'8 d e f g a b c }
 @cindex inversion, modal
 @cindex operation, modal inversion
 @funindex \modalInversion
-@funindex modalInversion
 
 A motif can be inverted within a given scale around a given pivot
 note and transposed in a single operation with:
@@ -1119,7 +1106,6 @@ This section discusses how to alter the output of pitches.
 
 
 @funindex \clef
-@funindex clef
 
 Without any explicit command, the default clef for LilyPond is the
 treble (or @emph{G}) clef.
@@ -1296,7 +1282,6 @@ need to be applied, as a separate @code{\override}, to the
 @cindex key signature
 
 @funindex \key
-@funindex key
 
 @c duplicated in Key signature and Accidentals
 @warning{New users are sometimes confused about accidentals and
@@ -1315,23 +1300,14 @@ at the start of the staff.  The key signature may be altered:
 @end example
 
 @funindex \major
-@funindex major
 @funindex \minor
-@funindex minor
 @funindex \ionian
-@funindex ionian
 @funindex \locrian
-@funindex locrian
 @funindex \aeolian
-@funindex aeolian
 @funindex \mixolydian
-@funindex mixolydian
 @funindex \lydian
-@funindex lydian
 @funindex \phrygian
-@funindex phrygian
 @funindex \dorian
-@funindex dorian
 
 @cindex church modes
 @cindex modes
@@ -1434,7 +1410,6 @@ Internals Reference:
 
 @funindex set-octavation
 @funindex \ottava
-@funindex ottava
 
 @notation{Ottava brackets} introduce an extra transposition of an
 octave for the staff:
@@ -1489,7 +1464,6 @@ Internals Reference:
 @cindex MIDI transposition
 
 @funindex \transposition
-@funindex transposition
 
 When typesetting scores that involve transposing instruments, some
 parts can be typeset in a different pitch than the
@@ -3070,9 +3044,7 @@ Internals Reference:
 @cindex note heads, easy play
 
 @funindex \easyHeadsOn
-@funindex easyHeadsOn
 @funindex \easyHeadsOff
-@funindex easyHeadsOff
 
 The @q{easy play} note head includes a note name inside the head.
 It is used in music for beginners.  To make the letters readable,
@@ -3137,15 +3109,10 @@ Internals Reference:
 @cindex note heads, Walker
 
 @funindex \aikenHeads
-@funindex aikenHeads
 @funindex \sacredHarpHeads
-@funindex sacredHarpHeads
 @funindex \southernHarmonyHeads
-@funindex southernHarmonyHeads
 @funindex \funkHeads
-@funindex funkHeads
 @funindex \walkerHeads
-@funindex walkerHeads
 
 In shape note head notation, the shape of the note head
 corresponds to the harmonic function of a note in the scale.  This
@@ -3169,17 +3136,11 @@ Funk (Harmonica Sacra), Walker, and Aiken (Christian Harmony) styles:
 @end lilypond
 
 @funindex \key
-@funindex key
 @funindex \aikenHeadsMinor
-@funindex aikenHeadsMinor
 @funindex \sacredHarpHeadsMinor
-@funindex sacredHarpHeadsMinor
 @funindex \southernHarmonyHeadsMinor
-@funindex southernHarmonyHeadsMinor
 @funindex \funkHeadsMinor
-@funindex funkHeadsMinor
 @funindex \walkerHeadsMinor
-@funindex walkerHeadsMinor
 
 Shapes are typeset according to the step in the scale, where the base
 of the scale is determined by the @code{\key} command.  When writing
@@ -3249,9 +3210,7 @@ Internals Reference:
 @cindex note heads, slashed
 
 @funindex \improvisationOn
-@funindex improvisationOn
 @funindex \improvisationOff
-@funindex improvisationOff
 
 Improvisation is sometimes denoted with slashed note heads, where
 the performer may choose any pitch but should play the specified

@@ -26,6 +26,7 @@
 #include "callback.hh"
 #include "input.hh"             // for error reporting
 #include "smobs.hh"
+#include "stream-event.hh"
 #include "std-vector.hh"
 #include "protected-scm.hh"
 
@@ -38,11 +39,24 @@
   /* end #define */
 
 #define TRANSLATOR_INHERIT(BASE)                                        \
-  using BASE::method_finder
+  using BASE::method_finder;                                            \
+  using BASE::ack_finder;
 
 #define DECLARE_TRANSLATOR_CALLBACKS(NAME)                              \
   template <void (NAME::*mf)()>                                         \
-  static SCM method_finder () { return method_find_base<NAME, mf> (); } \
+  static SCM method_finder ()                                           \
+  {                                                                     \
+    return Callback0_wrapper::make_smob<NAME, mf> ();                   \
+  }                                                                     \
+  template <void (NAME::*mf)(Stream_event *)>                           \
+  static SCM method_finder ()                                           \
+  {                                                                     \
+    return Callback_wrapper::make_smob<trampoline<NAME, mf> > ();       \
+  }                                                                     \
+  template <void (NAME::*callback)(Grob_info)>                          \
+  static SCM ack_finder () {                                            \
+    return Callback2_wrapper::make_smob<ack_trampoline <NAME, callback> > (); \
+  }                                                                     \
   /* end #define */
 
 /*
@@ -146,15 +160,19 @@ protected:                      // should be private.
     return SCM_UNSPECIFIED;
   }
 
-  template <class T, void (T::*mf)()>
-  static SCM
-  method_find_base () { return Callback0_wrapper::make_smob<T, mf> (); }
-
   // Fallback for non-overriden callbacks for which &T::x degrades to
   // &Translator::x
   template <void (Translator::*)()>
   static SCM
   method_finder () { return SCM_UNDEFINED; }
+
+  // Overriden in Engraver.  Don't instantiate.
+  template <class T, void (T::*)(Grob_info)>
+  static SCM ack_trampoline (SCM, SCM, SCM);
+
+  // Overriden in Engraver.  Don't instantiate.
+  template <void (Translator::*)(Grob_info)>
+  static SCM ack_finder ();
 
   virtual void derived_mark () const;
   static SCM event_class_symbol (const char *ev_class);

@@ -178,11 +178,8 @@ Dieser Abschnitt beinhaltet die Notation von Dudelsackmusik.
 @cindex Sackpfeife
 @cindex Schottischer Dudelsack
 @funindex \taor
-@funindex taor
 @funindex \hideKeySignature
-@funindex hideKeySignature
 @funindex \showKeySignature
-@funindex showKeySignature
 
 LilyPond besitzt spezielle Definitionen, mit der die Musik
 des schottischen Hochland-Dudelsacks notiert wird. Um sie

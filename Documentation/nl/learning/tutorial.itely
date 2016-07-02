@@ -208,7 +208,6 @@ zijn deze automatische waarden heel handig.
 @cindex relatieve modus, en toevallige tekens
 
 @funindex \relative
-@funindex relative
 @funindex '
 @funindex ,
 
@@ -385,7 +384,6 @@ naam @code{r}@tie{}:
 @cindex maatsoort
 
 @funindex \time
-@funindex time
 
 Terminologie: @rglos{time signature}.
 
@@ -408,7 +406,6 @@ De @notation{maatsoort} kun je aangeven met het @code{\time}-commando:
 @cindex metronome marks
 
 @funindex \tempo
-@funindex tempo
 
 Terminologie: @rglos{tempo indication}, @rglos{metronome}.
 
@@ -440,7 +437,6 @@ gezet met het @code{\tempo}-commando:
 @cindex bas
 
 @funindex \clef
-@funindex clef
 
 Terminologie: @rglos{clef}.
 

@@ -216,7 +216,6 @@ jsou automatické hodnoty v zásadě použitelné.
 @cindex Vztažný režim a předznamenání
 
 @funindex \relative
-@funindex relative
 @funindex '
 @funindex ,
 
@@ -397,7 +396,6 @@ označením je @code{r}@tie{}:
 @cindex Druh taktu
 
 @funindex \time
-@funindex time
 
 Slovníček: @rglos{time signature}.
 
@@ -422,7 +420,6 @@ Slovníček: @rglos{time signature}.
 @cindex Údaj metronomu
 
 @funindex \tempo
-@funindex tempo
 
 Slovníček: @rglos{tempo indication}, @rglos{metronome}.
 
@@ -453,7 +450,6 @@ zapsat příkazem @code{\tempo}:
 @cindex Bas
 
 @funindex \clef
-@funindex clef
 
 Slovníček: @rglos{clef}.
 

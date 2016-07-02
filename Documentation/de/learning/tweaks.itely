@@ -220,7 +220,6 @@ den Typ und die Eigenschaften eines Objekts zu erkennen.
 
 @cindex override-Befehl
 @funindex \override
-@funindex override
 
 @strong{Der \override-Befehl}
 
@@ -303,7 +302,6 @@ zur Änderung der Farbe von Notenköpfen:
 @cindex revert-Befehl
 
 @funindex \revert
-@funindex revert
 
 Wenn eine Eigenschaft einmal überschrieben wurde, wird ihr
 neuer Wert so lange bewahrt, bis er noch einmal überschrieben
@@ -345,7 +343,6 @@ wieder auf den Standardwert für die letzten zwei Noten gesetzt.
 @translationof The once prefix
 
 @funindex \once
-@funindex once
 
 Sowohl der @code{\override}-Befehl als auch der @code{\set}-Befehl können mit
 dem Präfix @code{\once} (@emph{einmal}) versehen werden.  Dadurch wird
@@ -401,7 +398,6 @@ ein @code{\once} Präfix hier keine Auswirkungen hat.
 @cindex overrideProperty-Befehl
 
 @funindex \overrideProperty
-@funindex overrideProperty
 
 Es gibt eine andere Form des @code{override}-Befehls,
 @code{\overrideProperty} (überschreibe Eigenschaft),
@@ -418,7 +414,6 @@ in @rextend{Schwierige Korrekturen}.
 @cindex tweak-Befehl
 
 @funindex \tweak
-@funindex tweak
 
 Der letzte Optimierungsbefehl in LilyPond ist @code{\tweak}
 (engl. optimieren).  Er wird eingesetzt um Eigenschaften
@@ -879,7 +874,6 @@ auch weggelassen werden.
 @cindex once override
 
 @funindex \once
-@funindex once
 
 Im Beispiel oben wurden @emph{alle} Legatobögen dicker
 gesetzt. Vielleicht wollen Sie aber nur den ersten Bogen
@@ -927,7 +921,6 @@ eingesetzt werden.
 @cindex Standardeinstellungen, Wiederherstellen
 
 @funindex \revert
-@funindex revert
 
 Eine weitere Möglichkeit: nur die beiden ersten Legatobögen sollen
 dicker gesetzt werden. Gut, wir könnten jetzt zwei Befehle benutzen,
@@ -2599,9 +2592,7 @@ werden.  Das kann erreicht werden mit dem
 @cindex Noten, durch Text gespreizt
 
 @funindex \textLengthOn
-@funindex textLengthOn
 @funindex \textLengthOff
-@funindex textLengthOff
 
 Standardmäßig wird Text, der mit dem Beschriftungsbefehl
 @code{\markup} bzw. Äquivalenten erstellt wird, kein
@@ -3157,13 +3148,9 @@ zu lösen.
 @cindex Kollision, Noten
 @cindex shift Befehl
 @funindex \shiftOff
-@funindex shiftOff
 @funindex \shiftOn
-@funindex shiftOn
 @funindex \shiftOnn
-@funindex shiftOnn
 @funindex \shiftOnnn
-@funindex shiftOnnn
 
 Innerhalb einer Stimme werden alle Noten, die zeitgleich stattfinden,
 zu einer Gruppe zusammen gefasst, einem sog. @code{NoteColumn} Objekt.

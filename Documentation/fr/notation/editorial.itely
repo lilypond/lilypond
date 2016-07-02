@@ -349,7 +349,6 @@ et @code{\revert} :
 @cindex substitution de doigt
 
 @funindex \finger
-@funindex finger
 
 Les doigtés peuvent être indiqués comme suit :
 @var{note}-@var{chiffre_du_doigt}
@@ -370,7 +369,6 @@ textuelle (commande @code{\markup}) de doigté (commande @code{\finger}).
 @cindex pouce, doigté
 
 @funindex \thumb
-@funindex thumb
 
 La commande @code{\thumb} peut être utilisée pour indiquer, par exemple
 dans une partition de violoncelle, si une note doit être jouée avec le
@@ -432,9 +430,7 @@ Référence des propriétés internes :
 @cindex note masquée
 
 @funindex \hideNotes
-@funindex hideNotes
 @funindex \unHideNotes
-@funindex unHideNotes
 
 Les notes masquées -- ou invisibles ou encore transparentes -- sont
 utiles dans le cadre d'exercices de théorie ou de composition.
@@ -504,7 +500,6 @@ Référence des propriétés internes :
 
 @funindex color
 @funindex \with-color
-@funindex with-color
 @funindex x11-color
 
 Des objets peuvent être colorisés individuellement.  Une listes des
@@ -621,7 +616,6 @@ Pour plus de détails, consultez @ref{La commande d'affinage (tweak)}.
 @cindex crochets, notes entre
 
 @funindex \parenthesize
-@funindex parenthesize
 
 Des objets peuvent être mis entre parenthèses en saisissant
 @code{\parenthesize} juste avant l'événement musical.  Si l'instruction
@@ -677,11 +671,8 @@ attendrait une seule paire de parenthèses encadrant tout l'accord.
 @cindex hampe neutre
 
 @funindex \stemUp
-@funindex stemUp
 @funindex \stemDown
-@funindex stemDown
 @funindex \stemNeutral
-@funindex stemNeutral
 
 Dès qu'une note est rencontrée, un objet @code{Stem} se crée
 automatiquement.  Pour les rondes et les silences, ils sont aussi
@@ -745,9 +736,7 @@ la portée par des éléments qui lui seront externes.
 @funindex balloonGrobText
 @funindex balloonText
 @funindex \balloonLengthOn
-@funindex balloonLengthOn
 @funindex \balloonLengthOff
-@funindex balloonLengthOff
 
 Vous pouvez marquer et nommer des éléments de notation à l'aide de
 bulles.  L'objectif premier de cette fonctionnalité est d'expliquer la
@@ -888,9 +877,7 @@ Référence des propriétés internes :
 
 @funindex Horizontal_bracket_engraver
 @funindex \startGroup
-@funindex startGroup
 @funindex \stopGroup
-@funindex stopGroup
 
 On utilise des crochets en analyse musicale, pour indiquer la
 structure d'une pièce.

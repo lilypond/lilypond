@@ -65,7 +65,6 @@
 @cindex tablature  (タブ譜)
 
 @funindex \drummode
-@funindex drummode
 @funindex DrumStaff
 @funindex RhythmicStaff
 @funindex TabStaff
@@ -423,9 +422,7 @@ turned on with a @code{\paper} option.
 @cindex ledger lines, modifying (加線を変更する)
 
 @funindex \startStaff
-@funindex startStaff
 @funindex \stopStaff
-@funindex stopStaff
 
 @code{\stopStaff} コマンドと @code{\startStaff} コマンドを使って、@c
 楽譜内の任意の場所で譜線を停止あるいは (再) 開始させることができます。
@@ -588,9 +585,7 @@ d4 e f g
 @cindex resizing of staves (譜をリサイズする)
 
 @funindex \startStaff
-@funindex startStaff
 @funindex \stopStaff
-@funindex stopStaff
 
 適切な位置で新しく同時進行の譜を作成することによって、@c
 @notation{オッシア} 譜をセットすることができます:
@@ -759,7 +754,6 @@ d4 e f g
 @funindex \RemoveEmptyStaves
 @funindex Staff_symbol_engraver
 @funindex \stopStaff
-@funindex stopStaff
 
 @code{Staff} コンテキストから @code{Staff_symbol_engraver} を@c
 削除することによって、譜線を隠すことができます。@c
@@ -1020,9 +1014,7 @@ d4 e f g
 @cindex switching instruments (楽器を切り換える)
 
 @funindex \addInstrumentDefinition
-@funindex addInstrumentDefinition
 @funindex \instrumentSwitch
-@funindex instrumentSwitch
 
 楽器の @emph{切り替え} が必要な場合、切り替えのために必要とされる@c
 変更の詳細なリストを作成するために、@code{\addInstrumentDefinition} を
@@ -1081,11 +1073,8 @@ d4 e f g
 @cindex cue notes (演奏指示音符)
 
 @funindex \addQuote
-@funindex addQuote
 @funindex \quoteDuring
-@funindex quoteDuring
 @funindex \transposition
-@funindex transposition
 
 あるボイスが他のボイスと同じ音符を演奏することはごく一般的なことです。@c
 例えば、第 1 バイオリンと第2バイオリンがあるパッセージで同じフレーズを@c
@@ -1243,13 +1232,9 @@ LilyPond がクラッシュする可能性さえあります。
 @cindex voices, quoting(ボイスを引用する)
 
 @funindex \cueDuring
-@funindex cueDuring
 @funindex \cueClef
-@funindex cueClef
 @funindex \cueDuringWithClef
-@funindex cueDuringWithClef
 @funindex \quoteDuring
-@funindex quoteDuring
 
 @cindex notes, smaller (小さな音符)
 @cindex smaller notes (小さな音符)
@@ -1448,7 +1433,6 @@ bassoonNotes = \relative c {
 @end lilypond
 
 @funindex \transposedCueDuring
-@funindex transposedCueDuring
 
 @code{\quoteDuring} と同様に、@code{\cueDuring} は楽器の移調を考慮します。@c
 合図音符は合図を受け取る楽器のピッチで作り出され、@c
@@ -1487,9 +1471,7 @@ bassClarinetNotes = \relative c' {
 @cindex cue notes, removing (合図音符を削除する)
 
 @funindex \killCues
-@funindex killCues
 @funindex \addInstrumentDefinition
-@funindex addInstrumentDefinition
 
 @code{\killCues} コマンドは音楽表記から合図音符を削除します。@c
 これにより、同じ音楽表記を使って合図を持つ楽器パートと楽譜を作り出すことが@c

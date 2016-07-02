@@ -341,7 +341,6 @@ collision resolution whatsover and may have other unintended effects
 @cindex note cluster
 
 @funindex \makeClusters
-@funindex makeClusters
 
 A cluster indicates a continuous range of pitches to be played.
 They can be denoted as the envelope of a set of notes.  They are
@@ -404,11 +403,9 @@ multiple staves.
 @cindex lyrics assigned to one voice
 
 @funindex \voiceOne
-@funindex voiceOne
 @funindex \voiceOne ... \voiceFour
 @funindex Voice
 @funindex \oneVoice
-@funindex oneVoice
 
 @subsubsubheading Explicitly instantiating voices
 
@@ -667,21 +664,13 @@ Snippets:
 @cindex voices, multiple
 @cindex shift rest, automatic
 @funindex \shiftOn
-@funindex shiftOn
 @funindex \shiftOnn
-@funindex shiftOnn
 @funindex \shiftOnnn
-@funindex shiftOnnn
 @funindex \shiftOff
-@funindex shiftOff
 @funindex \mergeDifferentlyDottedOn
-@funindex mergeDifferentlyDottedOn
 @funindex \mergeDifferentlyDottedOff
-@funindex mergeDifferentlyDottedOff
 @funindex \mergeDifferentlyHeadedOn
-@funindex mergeDifferentlyHeadedOn
 @funindex \mergeDifferentlyHeadedOff
-@funindex mergeDifferentlyHeadedOff
 
 The note heads of notes in different voices with the same pitch,
 same note head and opposite stem direction are automatically
@@ -907,7 +896,6 @@ are at the same time differently dotted are not clear.
 @cindex a due part
 @cindex solo part
 @funindex \partcombine
-@funindex partcombine
 
 Automatic part combining is used to merge two separate parts of music
 onto a single staff. This can be especially helpful when typesetting
@@ -1010,17 +998,11 @@ effect on the pitches of @code{@var{musicexpr1}} or
 @code{@var{musicexpr2}}.
 
 @funindex \partcombineChords
-@funindex partcombineChords
 @funindex \partcombineApart
-@funindex partcombineApart
 @funindex \partcombineUnisono
-@funindex partcombineUnisono
 @funindex \partcombineSoloI
-@funindex partcombineSoloI
 @funindex \partcombineSoloII
-@funindex partcombineSoloII
 @funindex \partcombineAutomatic
-@funindex partcombineAutomatic
 
 In professional scores, voices are often kept apart from each other for
 long passages of music even if some of the notes are the same in both
@@ -1159,7 +1141,6 @@ Refer also to @emph{Known issues and warnings} when using
 @cindex interleaved music
 @cindex parallel music
 @funindex \parallelMusic
-@funindex parallelMusic
 
 Music for multiple parts can be interleaved in input code.  The
 function @code{\parallelMusic} accepts a list with the names of a

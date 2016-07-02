@@ -106,7 +106,6 @@ LY_DEFINE (ly_set_grob_creation_callback, "ly:set-grob-creation-callback",
 Grob *
 Engraver::internal_make_grob (SCM symbol,
                               SCM cause,
-                              char const * /* name */,
                               char const *file,
                               int line,
                               char const *fun)
@@ -146,26 +145,24 @@ Engraver::internal_make_grob (SCM symbol,
 
 Item *
 Engraver::internal_make_item (SCM x, SCM cause,
-                              char const *name,
                               char const *file, int line, char const *fun)
 {
-  Item *it = dynamic_cast<Item *> (internal_make_grob (x, cause, name, file, line, fun));
+  Item *it = dynamic_cast<Item *> (internal_make_grob (x, cause, file, line, fun));
   assert (it);
   return it;
 }
 
 Paper_column *
-Engraver::internal_make_column (SCM x, char const *name,
-                                char const *file, int line, char const *fun)
+Engraver::internal_make_column (SCM x, char const *file, int line, char const *fun)
 {
-  return dynamic_cast<Paper_column *> (internal_make_grob (x, SCM_EOL, name, file, line, fun));
+  return dynamic_cast<Paper_column *> (internal_make_grob (x, SCM_EOL, file, line, fun));
 }
 
 Spanner *
-Engraver::internal_make_spanner (SCM x, SCM cause, char const *name,
+Engraver::internal_make_spanner (SCM x, SCM cause,
                                  char const *file, int line, char const *fun)
 {
-  Spanner *sp = dynamic_cast<Spanner *> (internal_make_grob (x, cause, name, file, line, fun));
+  Spanner *sp = dynamic_cast<Spanner *> (internal_make_grob (x, cause, file, line, fun));
   assert (sp);
   return sp;
 }

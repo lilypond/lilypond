@@ -174,11 +174,8 @@ accidentals}, vegeu @ruser{Note names in other languages}.
 @cindex presentació en front a contingut
 
 @funindex \key
-@funindex key
 @funindex \major
-@funindex major
 @funindex \minor
-@funindex minor
 
 Glossari musical:
 @rglos{key signature},
@@ -454,11 +451,8 @@ articulacions.
 @funindex \mf
 @funindex \pp
 @funindex \<
-@funindex <
 @funindex \>
-@funindex >
 @funindex \!
-@funindex !
 
 Glossari musical:
 @rglos{dynamics},
@@ -497,7 +491,6 @@ Referència de la notació:
 @cindex marcat
 
 @funindex \markup
-@funindex markup
 
 És possible afegir text a la partitura:
 
@@ -536,9 +529,7 @@ Referència de la notació:
 @funindex [
 @funindex ]
 @funindex \autoBeamOff
-@funindex autoBeamOff
 @funindex \autoBeamOn
-@funindex autoBeamOn
 
 Glossari musical:
 @rglos{beam}.
@@ -596,7 +587,6 @@ Referència de la notació:
 @cindex compàs parcial
 
 @funindex \partial
-@funindex partial
 
 Glossari musical:
 @rglos{anacrusis}.
@@ -620,7 +610,6 @@ una anacrusi de negra i @code{\partial 8} de corxera.
 @cindex tresets
 
 @funindex \tuplet
-@funindex tuplet
 
 Glossari musical:
 @rglosnamed{note value,valor de la nota},
@@ -651,9 +640,7 @@ manera que els @notation{tresets} es fan amb una fracció de 3/2.
 @cindex appoggiatura
 
 @funindex \grace
-@funindex grace
 @funindex \acciaccatura
-@funindex acciaccatura
 @funindex \appoggiatura
 @funindex acciaccatura
 
@@ -852,10 +839,8 @@ disposa sobre un sols pentagrama.
 @cindex notació, context de
 
 @funindex \new Staff
-@funindex new Staff
 @funindex Staff
 @funindex \new
-@funindex new
 @funindex Score
 @funindex Voice
 @funindex Lyrics
@@ -1064,7 +1049,6 @@ senzilles de cançó.
 @cindex cançons
 
 @funindex \addlyrics
-@funindex addlyrics
 
 Glossari musical:
 @rglos{lyrics}.
@@ -1464,7 +1448,6 @@ llocs.  El següent exemple utilitza les variables anteriors:
 @cindex bloc d'encapçalaments
 
 @funindex \header
-@funindex header
 
 La informació sobre el títol, autor, número d'Opus i altres
 elements similars s'escriuen al bloc @code{\header}.  Aquest bloc

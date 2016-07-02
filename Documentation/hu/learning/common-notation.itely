@@ -164,11 +164,8 @@ cis4 ees fisis, aeses
 @cindex lejegyzés és hangzás különbsége
 
 @funindex \key
-@funindex key
 @funindex \major
-@funindex major
 @funindex \minor
-@funindex minor
 
 Fogalomtár: @rglos{key signature}, @rglos{major},
 @rglos{minor}.
@@ -423,11 +420,8 @@ c4_-^1 d^. f^4_2-> e^-_+
 @funindex \mf
 @funindex \pp
 @funindex \<
-@funindex <
 @funindex \>
-@funindex >
 @funindex \!
-@funindex !
 
 Fogalomtár: @rglos{dynamics}, @rglos{crescendo},
 @rglos{decrescendo}.
@@ -463,7 +457,6 @@ A kottaírás kézikönyve:
 @cindex formázott szöveg
 
 @funindex \markup
-@funindex markup
 
 A hangokhoz a következő módon lehet szöveges jelzéseket rendelni:
 
@@ -501,9 +494,7 @@ A kottaírás kézikönyve:
 @funindex [
 @funindex ]
 @funindex \autoBeamOff
-@funindex autoBeamOff
 @funindex \autoBeamOn
-@funindex autoBeamOn
 
 Fogalomtár: @rglos{beam}.
 
@@ -557,7 +548,6 @@ A kottaírás kézikönyve:
 @cindex csonkaütem
 
 @funindex \partial
-@funindex partial
 
 Fogalomtár: @rglos{anacrusis}.
 
@@ -580,7 +570,6 @@ c2 d |
 @cindex n-ola
 
 @funindex \tuplet
-@funindex tuplet
 
 Fogalomtár: @rglos{note value}, @rglos{triplet}.
 
@@ -606,9 +595,7 @@ a @notation{triolák} lejegyzett hosszúságuk 2/3 részéig szólnak, így trio
 @cindex appoggiatura
 
 @funindex \grace
-@funindex grace
 @funindex \acciaccatura
-@funindex acciaccatura
 @funindex \appoggiatura
 @funindex acciaccatura
 
@@ -792,10 +779,8 @@ hoz létre, ha igen, többet.
 @cindex kontextus
 
 @funindex \new Staff
-@funindex new Staff
 @funindex Staff
 @funindex \new
-@funindex new
 @funindex Score
 @funindex Voice
 @funindex Lyrics
@@ -993,7 +978,6 @@ lejegyzésébe nyújt betekintést.
 @cindex dal
 
 @funindex \addlyrics
-@funindex addlyrics
 
 Fogalomtár: @rglos{lyrics}.
 
@@ -1354,7 +1338,6 @@ Az alábbi példa a fenti változókat hasznosítja újra:
 @cindex metaadatok
 
 @funindex \header
-@funindex header
 
 A címet, szerzőt, opus-számot és hasonló adatokat a @code{\header}
 blokkban kell megadni. Ez a fő zenei kifejezésen kívül helyezendő el; a

@@ -94,7 +94,6 @@ chaque @code{,} baisse la note d'une octave.
 }
 @end lilypond
 
-@funindex fixed
 @funindex \fixed
 
 Les indications d'octave communes peuvent ne se mentionner qu'une fois,
@@ -139,7 +138,6 @@ Morceaux choisis :
 @cindex octave relative, indication
 
 @funindex \relative
-@funindex relative
 
 Le mode d'écriture en octave absolue requiert d'indiquer l'octave de
 chaque note.  Pour le mode d'écriture en octave relative, par contre,
@@ -647,7 +645,6 @@ Cette partie traite de la manière de modifier les hauteurs de note.
 
 @funindex =
 @funindex \octaveCheck
-@funindex octaveCheck
 @funindex controlpitch
 
 Les tests d'octave rendent la correction d'erreurs d'octave plus facile
@@ -720,7 +717,6 @@ Référence des propriétés internes :
 @cindex transposition des hauteurs
 
 @funindex \transpose
-@funindex transpose
 
 Une expression musicale peut être transposée avec @code{\transpose}.
 En voici la syntaxe :
@@ -834,11 +830,8 @@ Référence des propriété internes :
 @rinternals{TransposedMusic}.
 
 @funindex \transpose
-@funindex transpose
 @funindex \chordmode
-@funindex chordmode
 @funindex \relative
-@funindex relative
 
 @knownissues
 Si vous voulez utiliser en même temps @code{\transpose} et
@@ -898,7 +891,6 @@ Manuel de notation :
 @cindex transformation rétrograde
 
 @funindex \retrograde
-@funindex retrograde
 
 Une expression musicale peut se renverser et se présenter sous forme
 rétrograde :
@@ -947,7 +939,6 @@ sera pas transformée.}
 @cindex modale, transposition
 
 @funindex \modalTranspose
-@funindex modalTranspose
 
 Un motif peut se transposer selon une gamme donnée :
 
@@ -1005,7 +996,6 @@ motif = \relative { c'8 d e f g a b c }
 @cindex modale, inversion
 
 @funindex \modalInversion
-@funindex modalInversion
 
 Un motif peut s'inverser selon une certaine gamme et à partir d'un pivot
 déterminé, puis transposé, le tout en une seule opération :
@@ -1098,7 +1088,6 @@ hauteurs.
 @cindex anciennes, clefs
 
 @funindex \clef
-@funindex clef
 
 La clef indique quelles lignes de la portée correspondent à quelles
 hauteurs.  En l'absence de commande explicite, LilyPond utilise
@@ -1282,7 +1271,6 @@ l'objet @code{Clef} devra être manuellement répercuté sur l'objet
 @cindex armure
 
 @funindex \key
-@funindex key
 
 @c duplicated in Key signature and in Accidentals
 @warning{Les nouveaux utilisateurs sont parfois déroutés par la gestion
@@ -1305,23 +1293,14 @@ On définit ou modifie l'armure avec la commande @code{\key} :
 @end example
 
 @funindex \major
-@funindex major
 @funindex \minor
-@funindex minor
 @funindex \ionian
-@funindex ionian
 @funindex \locrian
-@funindex locrian
 @funindex \aeolian
-@funindex aeolian
 @funindex \mixolydian
-@funindex mixolydian
 @funindex \lydian
-@funindex lydian
 @funindex \phrygian
-@funindex phrygian
 @funindex \dorian
-@funindex dorian
 
 @cindex modes anciens
 @cindex modes
@@ -1423,7 +1402,6 @@ Référence des propriétés internes :
 
 @funindex set-octavation
 @funindex \ottava
-@funindex ottava
 
 Les marques d'octaviation, @emph{Ottava}, permettent d'introduire une
 transposition spécifique d'une octave pour la portée en cours.  C'est
@@ -1478,7 +1456,6 @@ Référence des propriétés internes :
 @cindex transposition, instrument
 
 @funindex \transposition
-@funindex transposition
 
 Lorsque l'on saisit une partition d'ensemble incluant des instruments
 transpositeurs, certaines parties peuvent être dans une autre tonalité
@@ -3043,9 +3020,7 @@ Référence des propriétés internes :
 @cindex @emph{easy play}, têtes de note
 
 @funindex \easyHeadsOn
-@funindex easyHeadsOn
 @funindex \easyHeadsOff
-@funindex easyHeadsOff
 
 Les notes « easy play » comportent le nom de la note à l'intérieur de
 la tête.  On l'utilise dans des partitions pour débutants.  L'impression
@@ -3106,27 +3081,16 @@ Référence des propriétés internes :
 @cindex tête de note, Walker
 
 @funindex \key
-@funindex key
 @funindex \aikenHeads
-@funindex aikenHeads
 @funindex \aikenHeadsMinor
-@funindex aikenHeadsMinor
 @funindex \sacredHarpHeads
-@funindex sacredHarpHeads
 @funindex \sacredHarpHeadsMinor
-@funindex sacredHarpHeadsMinor
 @funindex \southernHarmonyHeads
-@funindex southernHarmonyHeads
 @funindex \southernHarmonyHeadsMinor
-@funindex southernHarmonyHeadsMinor
 @funindex \funkHeads
-@funindex funkHeads
 @funindex \walkerHeads
-@funindex walkerHeads
 @funindex \funkHeadsMinor
-@funindex funkHeadsMinor
 @funindex \walkerHeadsMinor
-@funindex walkerHeadsMinor
 
 En notation profilée, le profil d'une tête de note correspond à la
 fonction harmonique de cette note dans la gamme.  Ce style de notation
@@ -3212,9 +3176,7 @@ Référence des propriétés internes :
 @cindex tête de note allongée
 
 @funindex \improvisationOn
-@funindex improvisationOn
 @funindex \improvisationOff
-@funindex improvisationOff
 
 L'improvisation peut quelquefois s'indiquer à l'aide de notes de forme
 allongée (@emph{slash}).  L'interprète jouera alors les notes qu'il

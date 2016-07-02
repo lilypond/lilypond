@@ -49,11 +49,8 @@ las barras y los compases.
 @cindex notas, longitud de
 
 @funindex \longa
-@funindex longa
 @funindex \breve
-@funindex breve
 @funindex \maxima
-@funindex maxima
 
 Las duraciones se designan mediante números y puntos. Las
 duraciones se introducen como sus valores recíprocos respecto de
@@ -146,11 +143,8 @@ otros ajustes que controlan la notación proporcional, consulte
 @ref{Notación proporcional}.
 
 @funindex \dotsUp
-@funindex dotsUp
 @funindex \dotsDown
-@funindex dotsDown
 @funindex \dotsNeutral
-@funindex dotsNeutral
 
 Normalmente los puntillos se desplazan hacia arriba para evitar
 las líneas del pentagrama, excepto en situaciones de polifonía. Se
@@ -215,7 +209,6 @@ silencio de garrapatea (128) hasta el de máxima (8 redondas).
 @cindex tresillos
 
 @funindex \tuplet
-@funindex tuplet
 
 Los grupos especiales se obtienen a partir de una expresión
 musical con la instrucción @code{\tuplet}, multiplicando la
@@ -255,11 +248,8 @@ música para que así se agrupen automáticamente:
 @cindex grupos de valoración especial, colocación del corchete
 
 @funindex \tupletUp
-@funindex tupletUp
 @funindex \tupletDown
-@funindex tupletDown
 @funindex \tupletNeutral
-@funindex tupletNeutral
 
 Se pueden colocar manualmente los corchetes de tresillo encima o
 debajo de la pauta:
@@ -389,7 +379,6 @@ muchos compases, como por ejemplo @code{s1*23}.
 @cindex expansión de música
 
 @funindex \scaleDurations
-@funindex scaleDurations
 
 De la misma forma, se pueden comprimir por una fracción trozos de
 música más largos, como si cada nota, acorde o silencio tuviera la
@@ -512,7 +501,6 @@ dentro del acorde.
 @cindex ligaduras de unión y corchetes de primera y segunda vez
 
 @funindex \repeatTie
-@funindex repeatTie
 
 Cuando la segunda vez de una repetición comienza con una nota ligada,
 es necesario especificar la ligadura repetida como sigue:
@@ -533,7 +521,6 @@ es necesario especificar la ligadura repetida como sigue:
 @cindex ligaduras laissez vibrer
 
 @funindex \laissezVibrer
-@funindex laissezVibrer
 
 Las ligaduras @notation{L.v.} (@notation{laissez vibrer}, dejar
 vibrar) indican que las notas no se deben apagar al final.  Se
@@ -547,11 +534,8 @@ cuerda y percusión.  Se pueden introducir de la siguiente manera:
 @cindex ligaduras, colocación
 
 @funindex \tieUp
-@funindex tieUp
 @funindex \tieDown
-@funindex tieDown
 @funindex \tieNeutral
-@funindex tieNeutral
 
 Es posible hacer manualmente que las ligaduras de unión se curven
 hacia arriba o hacia abajo; véase @ref{Dirección y posición}.
@@ -563,11 +547,8 @@ hacia arriba o hacia abajo; véase @ref{Dirección y posición}.
 @cindex puntos, ligaduras de
 
 @funindex \tieDotted
-@funindex tieDotted
 @funindex \tieDashed
-@funindex tieDashed
 @funindex \tieSolid
-@funindex tieSolid
 
 Se puede hacer que las ligaduras de expresión sean discontinuas,
 punteadas o una combinación de continuas y discontinuas.
@@ -697,14 +678,10 @@ expresiones musicales.
 @cindex breve, silencio de
 
 @funindex \rest
-@funindex rest
 @funindex r
 @funindex \maxima
-@funindex maxima
 @funindex \longa
-@funindex longa
 @funindex \breve
-@funindex breve
 
 Los silencios se introducen como notas con el nombre @code{r}.
 Las duraciones mayores que la redonda utilizan las instrucciones
@@ -788,7 +765,6 @@ el número de glifos es limitado: hay silencios desde la garrapatea
 
 @funindex s
 @funindex \skip
-@funindex skip
 
 Un silencio invisible (también conocido como @q{skip} o
 desplazamiento) se puede introducir como una nota con el
@@ -883,7 +859,6 @@ Referencia de funcionamiento interno:
 @cindex redonda, silencios de, para un compás completo
 @cindex silencios de redonda para un compás completo
 
-@funindex compressMMRests
 @funindex \compressMMRests
 @funindex R
 
@@ -966,7 +941,6 @@ R2.*2 |
 @cindex multicompás, silencio, con marcados
 
 @funindex \fermataMarkup
-@funindex fermataMarkup
 @funindex MultiMeasureRestText
 
 Se pueden añadir elementos de marcado a los silencios multicompás.
@@ -1002,13 +976,9 @@ posible que no se emitan las advertencias correspondientes de
 comprobación de compás.
 
 @funindex \textLengthOn
-@funindex textLengthOn
 @funindex \textLengthOff
-@funindex textLengthOff
 @funindex \fermataMarkup
-@funindex fermataMarkup
 @funindex \compressMMRests
-@funindex compressMMRests
 
 @predefined
 @code{\textLengthOn},
@@ -1095,7 +1065,6 @@ silencios.
 @cindex medida
 
 @funindex \time
-@funindex time
 
 La indicación de compás se establece como sigue:
 
@@ -1131,9 +1100,7 @@ predeterminado, véase @ref{Visibilidad de los objetos}.
 @cindex metro, estilo de
 
 @funindex \numericTimeSignature
-@funindex numericTimeSignature
 @funindex \defaultTimeSignature
-@funindex defaultTimeSignature
 
 El símbolo de compás que se usa en 2/2 y 4/4 se puede cambiar a un
 estilo numérico:
@@ -1349,7 +1316,6 @@ Referencia de funcionamiento interno:
 @cindex metrónomo, indicación de, con texto
 
 @funindex \tempo
-@funindex tempo
 
 Es muy sencillo escribir una indicación metronómica básica:
 
@@ -1415,9 +1381,7 @@ entrada:
 @end lilypond
 
 @funindex \markLengthOn
-@funindex markLengthOn
 @funindex \markLengthOff
-@funindex markLengthOff
 
 En una particella de un instrumento con períodos de silencio
 largos, en ocasiones se suceden muy cerca distintas indicaciones
@@ -1486,7 +1450,6 @@ Referencia de funcionamiento interno::
 
 @funindex measurePosition
 @funindex \partial
-@funindex partial
 
 Los compases parciales como las @emph{anacrusas} o partes @emph{al
 alzar} se escriben usando la instrucción @code{\partial}:
@@ -1585,9 +1548,7 @@ Referencia de funcionamiento interno:
 @cindex barras, música sin metro
 
 @funindex \cadenzaOn
-@funindex cadenzaOn
 @funindex \cadenzaOff
-@funindex cadenzaOff
 
 En la música medida se insertan líneas divisorias y se calculan
 los números de compás automáticamente.  En música sin metro (es
@@ -1719,9 +1680,7 @@ de música sin medir para permitir los saltos:
 
 @funindex timeSignatureFraction
 @funindex \scaleDurations
-@funindex scaleDurations
 @funindex \tuplet
-@funindex tuplet
 
 Está contemplada la notación polimétrica, ya sea explícitamente o
 mediante la modificación manual de la indicación visible del
@@ -2021,9 +1980,7 @@ tiene una sola línea:
 
 @funindex Pitch_squash_engraver
 @funindex \improvisationOn
-@funindex improvisationOn
 @funindex \improvisationOff
-@funindex improvisationOff
 
 Las tablas de acordes de guitarra ofrecen a menudo los ritmos de
 rasgueado.  Esto se puede hacer con el grabador
@@ -2092,9 +2049,7 @@ automáticamente:
 @cindex barras, reglas personalizadas
 
 @funindex \autoBeamOn
-@funindex autoBeamOn
 @funindex \autoBeamOff
-@funindex autoBeamOff
 
 @lilypond[quote,verbatim]
 \relative c'' {
@@ -2196,14 +2151,11 @@ se ha completado no tendrá efecto hasta que inicie la
 
 @funindex autoBeaming
 @funindex baseMoment
-@funindex beamExceptions
 @funindex \beamExceptions
 @funindex beatStructure
 @funindex measureLength
 @funindex \time
-@funindex time
 @funindex \set
-@funindex set
 
 Cuando está habilitado el barrado automático, la colocación de las
 barras automáticas viene determinada por tres propiedades de
@@ -2636,7 +2588,6 @@ utilizando indicadores de dirección:
 @end lilypond
 
 @funindex \noBeam
-@funindex noBeam
 
 Se pueden marcar notas individuales con @code{\noBeam} para evitar
 que resulten unidas por una barra:
@@ -2720,7 +2671,6 @@ Referencia de funcionamiento interno:
 @cindex progresivas, barras
 
 @funindex \featherDurations
-@funindex featherDurations
 @funindex grow-direction
 
 Las barras progresivas se usan para indicar que un pequeño grupo
@@ -2808,7 +2758,6 @@ fracción son pequeños.
 @cindex repetición, barras de
 
 @funindex \bar
-@funindex bar
 
 Las líneas divisorias delimitan a los compases pero también se
 pueden usar para indicar las repeticiones.  Normalmente, las
@@ -3030,7 +2979,6 @@ una línea de repetición adecuada si se utiliza con una instrucción
 @code{\repeat volta}, véase @ref{Repeticiones normales}.
 
 @funindex \defineBarLine
-@funindex defineBarLine
 @cindex compás, definir líneas de
 @cindex definir líneas de compás
 
@@ -3153,7 +3101,6 @@ pentagramas de un @code{StaffGroup}, @code{PianoStaff} o
 @funindex whichBar
 @funindex defaultBarType
 @funindex \bar
-@funindex bar
 @funindex bartype
 
 La instrucción @samp{\bar @var{tipo de barra}} es una forma corta
@@ -3367,7 +3314,6 @@ en vez de comprobar el final de un compás.
 @end lilypond
 
 @funindex \barNumberCheck
-@funindex barNumberCheck
 
 Al copiar piezas musicales grandes puede servir de ayuda comprobar
 que el número de compás de LilyPond corresponde al original desde
@@ -3395,7 +3341,6 @@ Fragmentos de código:
 @cindex letras de ensayo
 
 @funindex \mark
-@funindex mark
 
 Para imprimir una letra de ensayo, utilice la orden @code{\mark}.
 
@@ -3520,7 +3465,6 @@ elemento @code{\markup} a la cadena.
 @cindex glifos musicales
 
 @funindex \musicglyph
-@funindex musicglyph
 
 Los glifos musicales (como el segno) se pueden imprimir dentro de
 un elemento @code{\mark}
@@ -3636,7 +3580,6 @@ adorno por cada corchea de adorno:
 @cindex adorno, seguimiento de notas de
 
 @funindex \afterGrace
-@funindex afterGrace
 
 Si queremos terminar una nota con un adorno, usamos la instrucción
 @code{\afterGrace}.  Toma dos argumentos: la nota principal, y las

@@ -353,7 +353,6 @@ risoluzione delle collisioni, e potrebbe comportare altri effetti indesiderati
 @cindex cluster di note
 
 @funindex \makeClusters
-@funindex makeClusters
 
 Un cluster prescrive l'esecuzione simultanea di tutti i suoni compresi in un determinato intervallo.  Può
 essere rappresentato come un involucro che contiene le note che ne fanno parte.  Si
@@ -415,11 +414,9 @@ Questa sezione presenta le note simultanee in più voci o più righi.
 @cindex testo assegnato a una voce
 
 @funindex \voiceOne
-@funindex voiceOne
 @funindex \voiceOne ... \voiceFour
 @funindex Voice
 @funindex \oneVoice
-@funindex oneVoice
 
 @subsubsubheading Istanziare esplicitamente le voci
 
@@ -681,21 +678,13 @@ Frammenti:
 @cindex spostamento automatico della pausa
 @cindex pausa, spostamento automatico
 @funindex \shiftOn
-@funindex shiftOn
 @funindex \shiftOnn
-@funindex shiftOnn
 @funindex \shiftOnnn
-@funindex shiftOnnn
 @funindex \shiftOff
-@funindex shiftOff
 @funindex \mergeDifferentlyDottedOn
-@funindex mergeDifferentlyDottedOn
 @funindex \mergeDifferentlyDottedOff
-@funindex mergeDifferentlyDottedOff
 @funindex \mergeDifferentlyHeadedOn
-@funindex mergeDifferentlyHeadedOn
 @funindex \mergeDifferentlyHeadedOff
-@funindex mergeDifferentlyHeadedOff
 
 Le teste di note che si trovano in voci diverse ma hanno stessa altezza,
 stessa testa e direzione del gambo opposta vengono unite automaticamente;
@@ -923,7 +912,6 @@ are at the same time differently dotted are not clear.
 @cindex parte a due
 @cindex parte solista
 @funindex \partcombine
-@funindex partcombine
 
 La combinazione automatica delle parti si usa per combinare in un unico rigo due
 parti musicali separate.  Ciò è utile soprattutto quando si scrivono partiture
@@ -1029,17 +1017,11 @@ effetto sulle altezze di @code{@var{espressione-musicale1}} e
 @code{@var{espressione-musicale2}}.
 
 @funindex \partcombineChords
-@funindex partcombineChords
 @funindex \partcombineApart
-@funindex partcombineApart
 @funindex \partcombineUnisono
-@funindex partcombineUnisono
 @funindex \partcombineSoloI
-@funindex partcombineSoloI
 @funindex \partcombineSoloII
-@funindex partcombineSoloII
 @funindex \partcombineAutomatic
-@funindex partcombineAutomatic
 
 Nelle partiture professionali, spesso le voci sono tenute separate per
 lunghi passaggi anche se alcune note sono le stesse in entrambe le voci
@@ -1176,7 +1158,6 @@ se si usa @code{\partcombine} con l'intavolatura, e la @emph{Nota} in
 @cindex musica parallela
 @cindex parallela, musica
 @funindex \parallelMusic
-@funindex parallelMusic
 
 La musica che contiene parti diverse può essere messa in parallelo nel codice
 di input.  La funzione @code{\parallelMusic} accetta una lista contenente

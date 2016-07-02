@@ -69,7 +69,6 @@ Questa sezione spiega come aggiungere enfasi agli elementi interni al rigo.
 @funindex tiny
 @funindex teeny
 @funindex \magnifyMusic
-@funindex magnifyMusic
 @funindex magnification->font-size
 
 @warning{@*
@@ -336,7 +335,6 @@ e @code{\revert}:
 @cindex dita, cambio
 
 @funindex \finger
-@funindex finger
 
 Le indicazioni di diteggiatura si inseriscono con
 @samp{@var{nota}-@var{numero}}:
@@ -357,7 +355,6 @@ indicare un cambio di dito.
 @cindex pollice, indicazione
 
 @funindex \thumb
-@funindex thumb
 
 Si può aggiungere il simbolo del pollice  per indicare che una nota deve essere
 suonata col pollice (ad esempio, nella musica per violoncello).
@@ -420,9 +417,7 @@ Guida al funzionamento interno:
 @cindex trasparenti, note
 
 @funindex \hideNotes
-@funindex hideNotes
 @funindex \unHideNotes
-@funindex unHideNotes
 
 Le note nascoste (o invisibili o trasparenti) possono essere utili nella
 preparazione di esercizi di teoria e composizione.
@@ -493,7 +488,6 @@ Guida al funzionamento interno:
 
 @funindex color
 @funindex \with-color
-@funindex with-color
 @funindex x11-color
 
 Si possono assegnare dei colori a ciascun oggetto.  I nomi dei colori validi
@@ -602,7 +596,6 @@ Le note in un accordo non possono essere colorate separatamente con un
 @cindex parentesi quadre
 
 @funindex \parenthesize
-@funindex parenthesize
 
 Gli oggetti possono essere messi tra parentesi se si usa il comando @code{\parenthesize}
 prima dell'evento musicale.  Se precede un accordo, viene messa tra parentesi
@@ -650,11 +643,8 @@ nota dell'accordo invece di una sola grande parentesi per l'intero accordo.
 @cindex invisibile, gambo
 
 @funindex \stemUp
-@funindex stemUp
 @funindex \stemDown
-@funindex stemDown
 @funindex \stemNeutral
-@funindex stemNeutral
 @cindex gambo, direzione
 @cindex gambo, su
 @cindex gambo, giù
@@ -724,9 +714,7 @@ delle note esterne al rigo.
 @funindex balloonGrobText
 @funindex balloonText
 @funindex \balloonLengthOn
-@funindex balloonLengthOn
 @funindex \balloonLengthOff
-@funindex balloonLengthOff
 
 Si possono contrassegnare e nominare gli elementi della notazione tramite
 una nuvoletta quadrata.  La sua funzione principale è spiegare la notazione.
@@ -863,9 +851,7 @@ Guida al funzionamento interno:
 
 @funindex Horizontal_bracket_engraver
 @funindex \startGroup
-@funindex startGroup
 @funindex \stopGroup
-@funindex stopGroup
 
 Nell'analisi musicale si usano le parentesi per indicare la struttura
 dei brani musicali.  Sono  supportate delle semplici parentesi orizzontali.

@@ -59,7 +59,6 @@ grouping staves.
 @cindex tablature
 
 @funindex \drummode
-@funindex drummode
 @funindex DrumStaff
 @funindex RhythmicStaff
 @funindex TabStaff
@@ -409,9 +408,7 @@ sections are also described.
 @cindex ledger lines, modifying
 
 @funindex \startStaff
-@funindex startStaff
 @funindex \stopStaff
-@funindex stopStaff
 
 The @code{\stopStaff} and @code{\startStaff} commands can be used to
 stop or (re)start the staff lines respectively, from being printed at
@@ -582,9 +579,7 @@ Internals Reference:
 @cindex resizing of staves
 
 @funindex \startStaff
-@funindex startStaff
 @funindex \stopStaff
-@funindex stopStaff
 
 @notation{Ossia} staves can be set by creating a new simultaneous
 staff in the appropriate location:
@@ -741,7 +736,6 @@ Internals Reference:
 @funindex \RemoveAllEmptyStaves
 @funindex Staff_symbol_engraver
 @funindex \stopStaff
-@funindex stopStaff
 
 
 Staff lines can be hidden by removing the
@@ -1025,11 +1019,8 @@ Internals Reference:
 @cindex cue notes
 
 @funindex \addQuote
-@funindex addQuote
 @funindex \quoteDuring
-@funindex quoteDuring
 @funindex \transposition
-@funindex transposition
 
 It is very common for one voice to use the same notes as those from
 another voice.  For example, first and second violins playing the same
@@ -1225,13 +1216,9 @@ triplets may result in poor notation.
 
 
 @funindex \cueDuring
-@funindex cueDuring
 @funindex \cueClef
-@funindex cueClef
 @funindex \cueDuringWithClef
-@funindex cueDuringWithClef
 @funindex \quoteDuring
-@funindex quoteDuring
 
 @cindex notes, smaller
 @cindex smaller notes
@@ -1415,7 +1402,6 @@ bassoonNotes = \relative c {
 @end lilypond
 
 @funindex \transposedCueDuring
-@funindex transposedCueDuring
 
 Like @code{\quoteDuring}, @code{\cueDuring} takes instrument
 transpositions into account.  Cue notes are produced at the
@@ -1456,7 +1442,6 @@ bassClarinetNotes = \relative c' {
 @cindex cue notes, removing
 
 @funindex \killCues
-@funindex killCues
 
 The @code{\killCues} command removes cue notes from a music
 expression, so the same music expression can be used to produce

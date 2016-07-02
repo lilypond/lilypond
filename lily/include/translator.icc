@@ -97,14 +97,13 @@ void add_acknowledger (SCM ptr,
                        SCM &ack_hash);
 
 #define ADD_ACKNOWLEDGER(CLASS, NAME)                                   \
-  add_acknowledger (Callback2_wrapper::make_smob                        \
-                    <ack_trampoline<CLASS, &CLASS::acknowledge_ ## NAME> > (), \
+  add_acknowledger (ack_finder<&CLASS::acknowledge_ ## NAME> (),        \
                     #NAME, acknowledge_static_array_drul_[START])
 
 #define ADD_END_ACKNOWLEDGER(CLASS, NAME)                               \
-  add_acknowledger (Callback2_wrapper::make_smob                        \
-                    <ack_trampoline<CLASS, &CLASS::acknowledge_end_ ## NAME> > (), \
+  add_acknowledger (ack_finder<&CLASS::acknowledge_end_ ## NAME> (),    \
                     #NAME, acknowledge_static_array_drul_[STOP])
+
 
 /*
   Implement the method cl::listen_##m, and make it listen to stream
@@ -113,7 +112,7 @@ void add_acknowledger (SCM ptr,
 #define ADD_LISTENER(cl, m)                                             \
   listener_list_ = scm_acons                                            \
     (event_class_symbol (#m),                                           \
-     Callback_wrapper::make_smob                                        \
-     <trampoline <cl, &cl::listen_ ## m> > (), listener_list_)
+     method_finder<&cl::listen_ ## m> (),                               \
+     listener_list_)
 
 #endif /* TRANSLATOR_ICC */

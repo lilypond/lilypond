@@ -401,7 +401,6 @@ am Leben erhält, siehe @ref{Kontexte am Leben halten}.
 
 @cindex \lyricsto
 @funindex \lyricsto
-@funindex lyricsto
 
 Gesangstext kann an einer Melodie automatisch ausgerichtet werdne, indem
 man den beannten @code{Voice}-Kontext mit der Melodie durch den Befehl
@@ -431,7 +430,6 @@ angeordnet.  Für andere Optionen siehe @ref{Gesangstext vertikal verschieben}.
 
 @subheading @code{\addlyrics} benutzen
 
-@funindex addlyrics
 @funindex \addlyrics
 
 Der @code{\addlyrics}-Befehl ist eigentlich nur eine Abkürzung für eine

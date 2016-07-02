@@ -236,7 +236,6 @@ sind die automatischen Werte durchaus brauchbar.
 @cindex relativer Modus und Versetzungszeichen
 
 @funindex \relative
-@funindex relative
 @funindex '
 @funindex ,
 
@@ -432,7 +431,6 @@ Bezeichnung ist @code{r}@tie{}:
 @cindex Taktart
 
 @funindex \time
-@funindex time
 
 Glossar: @rglos{time signature}.
 
@@ -458,7 +456,6 @@ Die @notation{Taktart} wird mit dem
 @cindex Metronom-Angabe
 
 @funindex \tempo
-@funindex tempo
 
 Glossar: @rglos{tempo indication}, @rglos{metronome}.
 
@@ -491,7 +488,6 @@ mit dem @code{\tempo}-Befehl gesetzt:
 @cindex Bass
 
 @funindex \clef
-@funindex clef
 
 Glossar: @rglos{clef}.
 

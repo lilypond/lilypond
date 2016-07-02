@@ -229,43 +229,24 @@ Internals Reference:
 @cindex dynamics, absolute
 
 @funindex \ppppp
-@funindex ppppp
 @funindex \pppp
-@funindex pppp
 @funindex \ppp
-@funindex ppp
 @funindex \pp
-@funindex pp
 @funindex \p
-@funindex p
 @funindex \mp
-@funindex mp
 @funindex \mf
-@funindex mf
 @funindex \f
-@funindex f
 @funindex \ff
-@funindex ff
 @funindex \fff
-@funindex fff
 @funindex \ffff
-@funindex ffff
 @funindex \fffff
-@funindex fffff
 @funindex \fp
-@funindex fp
 @funindex \sf
-@funindex sf
 @funindex \sff
-@funindex sff
 @funindex \sp
-@funindex sp
 @funindex \spp
-@funindex spp
 @funindex \sfz
-@funindex sfz
 @funindex \rfz
-@funindex rfz
 
 Absolute dynamic marks are specified using a command after a note,
 such as @code{c4\ff}.  The available dynamic marks are
@@ -293,9 +274,7 @@ marks may be manually placed above or below the staff; see
 @funindex \>
 @funindex \!
 @funindex \cr
-@funindex cr
 @funindex \decr
-@funindex decr
 
 A @notation{crescendo} mark is started with @code{\<} and
 terminated with @code{\!}, an absolute dynamic, or an additional
@@ -360,7 +339,6 @@ This is particularly useful when adding a @notation{crescendo} and
 @cindex espressivo articulation
 
 @funindex \espressivo
-@funindex espressivo
 
 The @code{\espressivo} command can be used to indicate a crescendo
 and decrescendo on the same note.  However, be warned that this is
@@ -374,11 +352,8 @@ implemented as an articulation, not a dynamic.
 @end lilypond
 
 @funindex \cresc
-@funindex cresc
 @funindex \decresc
-@funindex decresc
 @funindex \dim
-@funindex dim
 Textual crescendo marks begin with @code{\cresc}.
 Textual decrescendos begin with @code{\decresc} or @code{\dim}.
 Extender lines are engraved as required.
@@ -393,17 +368,11 @@ Extender lines are engraved as required.
 @end lilypond
 
 @funindex \crescTextCresc
-@funindex crescTextCresc
 @funindex \dimTextDecresc
-@funindex dimTextDecresc
 @funindex \dimTextDecr
-@funindex dimTextDecr
 @funindex \dimTextDim
-@funindex dimTextDim
 @funindex \crescHairpin
-@funindex crescHairpin
 @funindex \dimHairpin
-@funindex dimHairpin
 
 Textual marks for dynamic changes can also replace hairpins:
 @lilypond[verbatim,quote]
@@ -435,11 +404,8 @@ aligned with dynamics, see @ref{New dynamic marks}.
 Vertical positioning of dynamics is handled by
 @rinternals{DynamicLineSpanner}.
 @funindex \dynamicUp
-@funindex dynamicUp
 @funindex \dynamicDown
-@funindex dynamicDown
 @funindex \dynamicNeutral
-@funindex dynamicNeutral
 
 A @code{Dynamics} context is available to engrave dynamics on
 their own horizontal line.  Use spacer rests to indicate timing.
@@ -559,9 +525,7 @@ moltoF = \markup { molto \dynamic f }
 @cindex dynamics, parenthesis
 @cindex editorial dynamics
 @funindex \bracket
-@funindex bracket
 @funindex \dynamic
-@funindex dynamic
 
 In markup mode, editorial dynamics (within parentheses or square
 brackets) can be created.  The syntax for markup mode is described
@@ -701,9 +665,7 @@ in the same voice it began.}
 @cindex slurs, below notes
 @cindex slurs, above notes
 @funindex \slurDown
-@funindex slurDown
 @funindex \slurNeutral
-@funindex slurNeutral
 
 Slurs may be manually placed above or below the staff; see
 @ref{Direction and placement}.
@@ -738,11 +700,8 @@ them with @code{\=} followed by an identifying number or string.
 @cindex dashed slur
 @cindex style, slur
 @funindex \slurDashed
-@funindex slurDashed
 @funindex \slurDotted
-@funindex slurDotted
 @funindex \slurSolid
-@funindex slurSolid
 
 Slurs can be solid, dotted, or dashed.  Solid is the default slur
 style:
@@ -760,9 +719,7 @@ style:
 @end lilypond
 
 @funindex \slurHalfDashed
-@funindex slurHalfDashed
 @funindex \slurHalfSolid
-@funindex slurHalfSolid
 @cindex slur, half dashed and half solid
 
 Slurs can also be made half-dashed (the first half dashed, the
@@ -782,7 +739,6 @@ half dashed):
 @end lilypond
 
 @funindex \slurDashPattern
-@funindex slurDashPattern
 @cindex slur, defining dash patterns
 
 Custom dash patterns for slurs can be defined:
@@ -802,7 +758,6 @@ Custom dash patterns for slurs can be defined:
 
 
 @funindex \slurUp
-@funindex slurUp
 
 
 @predefined
@@ -869,11 +824,8 @@ musical sentence are written using the commands @code{\(} and
 @end lilypond
 
 @funindex \phrasingSlurUp
-@funindex phrasingSlurUp
 @funindex \phrasingSlurDown
-@funindex phrasingSlurDown
 @funindex \phrasingSlurNeutral
-@funindex phrasingSlurNeutral
 
 Typographically, a phrasing slur behaves almost exactly like a
 normal slur.  However, they are treated as different objects; a
@@ -891,12 +843,9 @@ may be manually placed above or below the staff; see
 Simultaneous or overlapping phrasing slurs are entered using
 @code{\=} as with regular slurs, see @ref{Slurs}.
 
-@funindex phrasingSlurDashed
 @funindex \phrasingSlurDashed
 @funindex \phrasingSlurDotted
-@funindex phrasingSlurDotted
 @funindex \phrasingSlurSolid
-@funindex phrasingSlurSolid
 @cindex phrasing slur, dashed
 @cindex dashed phrasing slur
 @cindex phrasing slur, dotted
@@ -919,10 +868,8 @@ style for phrasing slurs:
 }
 @end lilypond
 
-@funindex phrasingSlurHalfDashed
 @funindex \phrasingSlurHalfDashed
 @funindex \phrasingSlurHalfSolid
-@funindex phrasingSlurHalfSolid
 @cindex phrasing slur, half solid and half dashed
 @cindex slur, half solid and half dashed phrasing
 
@@ -943,7 +890,6 @@ half dashed):
 @end lilypond
 
 @funindex \phrasingSlurDashPattern
-@funindex phrasingSlurDashPattern
 @cindex phrasing slur, defining dash patterns
 @cindex slur, phrasing, defining dash patterns
 @cindex slur, defining dash patterns for phrasing
@@ -999,7 +945,6 @@ Internals Reference:
 @cindex breath marks
 @cindex pause mark
 @funindex \breathe
-@funindex breathe
 
 Breath marks are entered using @code{\breathe}:
 
@@ -1062,7 +1007,6 @@ Internals Reference:
 @cindex falls
 @cindex doits
 @funindex \bendAfter
-@funindex bendAfter
 
 @notation{Falls} and @notation{doits} can be added to notes using
 the @code{\bendAfter} command.  The direction of the fall or doit
@@ -1112,7 +1056,6 @@ follow a linear path: glissandos, arpeggios, and trills.
 
 @cindex glissando
 @funindex \glissando
-@funindex glissando
 
 A @notation{glissando} is created by appending @code{\glissando}
 to a note:
@@ -1211,13 +1154,9 @@ supported.
 @cindex chord, broken
 
 @funindex \arpeggio
-@funindex arpeggio
 @funindex \arpeggioArrowUp
-@funindex arpeggioArrowUp
 @funindex \arpeggioArrowDown
-@funindex arpeggioArrowDown
 @funindex \arpeggioNormal
-@funindex arpeggioNormal
 
 An @notation{arpeggio} on a chord (also known as a broken chord)
 is denoted by appending @code{\arpeggio} to the chord construct:
@@ -1248,11 +1187,8 @@ Different types of arpeggios may be written.
 @cindex special arpeggio symbols
 
 @funindex \arpeggioBracket
-@funindex arpeggioBracket
 @funindex \arpeggioParenthesis
-@funindex arpeggioParenthesis
 @funindex \arpeggioParenthesisDashed
-@funindex arpeggioParenthesisDashed
 
 Special @emph{bracketed} arpeggio symbols can be created:
 
@@ -1339,11 +1275,8 @@ cross-staff arpeggios; see @ref{Cross-staff stems}.
 @cindex trills
 
 @funindex \trill
-@funindex trill
 @funindex \startTrillSpan
-@funindex startTrillSpan
 @funindex \stopTrillSpan
-@funindex stopTrillSpan
 
 Short trills without an extender line are printed with
 @code{\trill}; see @ref{Articulations and ornamentations}.
@@ -1402,7 +1335,6 @@ described in @ref{Grace notes}.
 @cindex pitched trills
 @cindex trills, pitched
 @funindex \pitchedTrill
-@funindex pitchedTrill
 
 Trills that require an auxiliary note with an explicit pitch can
 be typeset with the @code{\pitchedTrill} command.  The first

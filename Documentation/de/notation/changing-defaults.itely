@@ -594,7 +594,6 @@ geschieht, indem man einen neuen Kontext mit @code{\new} oder
 @code{\context} beginnt und ihn dann verändert:
 
 @funindex \with
-@funindex with
 
 @example
 \new @var{context} \with @{
@@ -1027,17 +1026,11 @@ Notationsreferenz:
 @cindex Engraver, in Kontexte einfügen
 
 @funindex \alias
-@funindex alias
 @funindex \name
-@funindex name
 @funindex \type
-@funindex type
 @funindex \consists
-@funindex consists
 @funindex \accepts
-@funindex accepts
 @funindex \denies
-@funindex denies
 
 Bestimme Kontexte, wie @code{Staff} oder @code{Voice}, werden
 erstellt, indem man sie mit einer Musikumgebung aufruft.  Es ist
@@ -1158,7 +1151,6 @@ Alles zusammen haben wir folgende Einstellungen:
 @end example
 
 @funindex \accepts
-@funindex accepts
 
 Kontexte sind hierarchisch.  Wie wollen, dass @code{ImproVoice}
 sich als Unterkontext von @code{Staff} erkennt, wie eine normale
@@ -1173,7 +1165,6 @@ Stimme.  Darum wird die Definition von @code{Staff} mit dem
 @end example
 
 @funindex \denies
-@funindex denies
 
 Das Gegenteil von @code{\accepts} ist @code{\denies} (verbietet), was
 manchmal gebraucht werden kann, wenn schon existierende Kontext-Definitionen
@@ -1801,7 +1792,6 @@ oder einen Absturz des Programms hervorrufen.
 @cindex Verändern von Eigenschaften
 
 @funindex \set
-@funindex set
 
 Jeder Kontext kann unterschiedliche @emph{Eigenschaften} besitzen,
 Variablen, die in diesem Kontext definiert sind.  Sie können
@@ -1874,7 +1864,6 @@ die Änderungen auf alle Stimmen (@code{Voice}), die in diesem
 Kontext enthalten sind.
 
 @funindex \unset
-@funindex unset
 
 Es gibt auch einen @code{\unset}-Befehl:
 
@@ -1913,7 +1902,6 @@ verhalten sich gleich, wenn die gegenwärtige Basis der
 @code{Voice}-Kontext ist.
 
 @funindex \once
-@funindex once
 
 Einstellungen, die nur einmal vorgenommen werden sollen, können
 mit @code{\once} notiert werden, etwa:
@@ -1951,7 +1939,6 @@ Internals Reference:
 @cindex graphische Objekte, Eigenschaften
 
 @funindex \override
-@funindex override
 
 Es gibt eine besondere Art von Kontexteigenschaft: die Grob-Beschreibung.
 Grob-Beschreibungen werden mit @code{GroßGroßbuchstabe} benannt.  Sie
@@ -2012,7 +1999,6 @@ benutzt:
 @cindex \override rückgängig machen
 
 @funindex \revert
-@funindex revert
 
 Die Auswirkungen von @code{\override} können mit @code{\revert} wieder
 rückgängig gemacht werden:
@@ -2050,7 +2036,6 @@ Grobs im entsprechenden Kontext aber der Stelle aus, an der sie gesetzt werden:
 @cindex \override, nur einmal
 
 @funindex \once
-@funindex once
 
 @code{\once} kann zusammen mit @code{\override} benutzt werden,
 um nur den aktuellen Zeitwert zu verändern:
@@ -2081,7 +2066,6 @@ um nur den aktuellen Zeitwert zu verändern:
 @cindex Veränderungen der Einstellungen
 @cindex Einstellungen verändern
 
-@funindex override
 @funindex \override
 
 Viele Eigenschaften können unabhängig von der Art der Daten, die
@@ -2103,7 +2087,6 @@ Referenz der Interna:
 @translationof The tweak command
 
 @funindex \tweak
-@funindex tweak
 
 @cindex Optimieren
 

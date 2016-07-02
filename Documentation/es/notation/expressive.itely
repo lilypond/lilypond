@@ -241,41 +241,23 @@ Referencia de funcionamiento interno:
 @cindex matices
 @cindex absolutos, matices
 @funindex \pppp
-@funindex pppp
 @funindex \ppp
-@funindex ppp
 @funindex \pp
-@funindex pp
 @funindex \p
-@funindex p
 @funindex \mp
-@funindex mp
 @funindex \mf
-@funindex mf
 @funindex \f
-@funindex f
 @funindex \ff
-@funindex ff
 @funindex \fff
-@funindex fff
 @funindex \ffff
-@funindex ffff
 @funindex \fffff
-@funindex fffff
 @funindex \fp
-@funindex fp
 @funindex \sf
-@funindex sf
 @funindex \sff
-@funindex sff
 @funindex \sp
-@funindex sp
 @funindex \spp
-@funindex spp
 @funindex \sfz
-@funindex sfz
 @funindex \rfz
-@funindex rfz
 
 Las marcas dinámicas de matiz absoluto se especifican usando una
 instrucción después de una nota: @code{c4\ff}.  Las marcas
@@ -304,9 +286,7 @@ ver más detalles, consulte @ref{Dirección y posición}.
 @funindex \>
 @funindex \!
 @funindex \cr
-@funindex cr
 @funindex \decr
-@funindex decr
 
 Una indicación de @notation{crescendo} se comienza con @code{\<} y
 se termina con @code{\!}, con un matiz absoluto o con otra
@@ -376,7 +356,6 @@ especialmente para añadir un @notation{crescendo} y un
 @cindex espressivo, articulación
 
 @funindex \espressivo
-@funindex espressivo
 
 Se puede usar la instrucción @code{\espressivo} para indicar un
 crescendo y un decrescendo sobre la misma nota.  Sin embargo,
@@ -391,11 +370,8 @@ articulación, no como una expresión dinámica.
 @end lilypond
 
 @funindex \cresc
-@funindex cresc
 @funindex \decresc
-@funindex decresc
 @funindex \dim
-@funindex dim
 
 Las indicaciones de crescendo textuales se inician con
 @code{\cresc}.  Los decrescendos textuales se inician con
@@ -412,17 +388,11 @@ cuando es necesario.
 @end lilypond
 
 @funindex \crescTextCresc
-@funindex crescTextCresc
 @funindex \dimTextDecresc
-@funindex dimTextDecresc
 @funindex \dimTextDecr
-@funindex dimTextDecr
 @funindex \dimTextDim
-@funindex dimTextDim
 @funindex \crescHairpin
-@funindex crescHairpin
 @funindex \dimHairpin
-@funindex dimHairpin
 
 También pueden sustituirse los reguladores gráficos
 por cambios de dinámica textuales:
@@ -456,11 +426,8 @@ La colocación vertical de las indicaciones de dinámica se maneja
 por parte de @rinternals{DynamicLineSpanner}.
 
 @funindex \dynamicUp
-@funindex dynamicUp
 @funindex \dynamicDown
-@funindex dynamicDown
 @funindex \dynamicNeutral
-@funindex dynamicNeutral
 
 Está disponible un contexto @code{Dynamics} para tipografiar las
 indicaciones de matiz dinámico en su propia línea horizontal.
@@ -583,9 +550,7 @@ moltoF = \markup { molto \dynamic f }
 @cindex dinámicas, indicaciones entre paréntesis
 @cindex editoriales, indicaciones dinámicas
 @funindex \bracket
-@funindex bracket
 @funindex \dynamic
-@funindex dynamic
 
 En el modo de marcado se pueden crear indicaciones dinámicas
 editoriales (entre paréntesis o corchetes).  La sintaxis del modo
@@ -732,9 +697,7 @@ terminar en la misma voz en la que empiezan.}
 @cindex ligaduras de expresión, debajo de las notas
 @cindex ligaduras de expresión, encima de las notas
 @funindex \slurDown
-@funindex slurDown
 @funindex \slurNeutral
-@funindex slurNeutral
 
 Las ligaduras de expresión se pueden colocar manualmente por
 encima o por debajo de las notas; véase
@@ -773,11 +736,8 @@ caracteres que la identifique.
 @cindex estilo de la ligadura
 
 @funindex \slurDashed
-@funindex slurDashed
 @funindex \slurDotted
-@funindex slurDotted
 @funindex \slurSolid
-@funindex slurSolid
 
 Las ligaduras de expresión pueden ser continuas, discontinuas o de
 puntos.  El estilo predeterminado de las ligaduras de expresión es
@@ -798,9 +758,7 @@ el continuo:
 @cindex ligadura de expresión, mitad continua y mitad discontinua
 
 @funindex \slurHalfDashed
-@funindex slurHalfDashed
 @funindex \slurHalfSolid
-@funindex slurHalfSolid
 
 También se puede hacer que las ligaduras de expresión sean
 semi-discontinuas (la primera mitad discontinua y la segunda mitad
@@ -822,7 +780,6 @@ discontinua):
 @cindex ligadura de expresión, definir patrones de discontinuidad
 
 @funindex \slurDashPattern
-@funindex slurDashPattern
 
 Se pueden definir patrones de discontinuidad para las ligaduras de
 expresión:
@@ -841,7 +798,6 @@ expresión:
 
 
 @funindex \slurUp
-@funindex slurUp
 
 
 @predefined
@@ -909,11 +865,8 @@ indican una frase musical se escriben usando las instrucciones
 @end lilypond
 
 @funindex \phrasingSlurUp
-@funindex phrasingSlurUp
 @funindex \phrasingSlurDown
-@funindex phrasingSlurDown
 @funindex \phrasingSlurNeutral
-@funindex phrasingSlurNeutral
 
 Tipográficamente, la ligadura de fraseo se comporta casi
 exactamente igual que una ligadura de expresión normal.  Sin
@@ -940,12 +893,9 @@ normales, véase @ref{Ligaduras de expresión}.
 @cindex ligaduras de fraseo discontinuas
 @cindex ligaduras de fraseo punteadas
 
-@funindex phrasingSlurDashed
 @funindex \phrasingSlurDashed
 @funindex \phrasingSlurDotted
-@funindex phrasingSlurDotted
 @funindex \phrasingSlurSolid
-@funindex phrasingSlurSolid
 
 Las ligaduras de fraseo pueden ser continuas, de puntos o de
 rayas.  El estilo predeterminado para las ligaduras de fraseo es
@@ -966,10 +916,8 @@ el continuo:
 @cindex fraseo, ligadura de, mitad continua y mitad discontinua
 @cindex ligadura de fraseo mitad continua y mitad discontinua
 
-@funindex phrasingSlurHalfDashed
 @funindex \phrasingSlurHalfDashed
 @funindex \phrasingSlurHalfSolid
-@funindex phrasingSlurHalfSolid
 
 Se puede hacer también que las ligaduras de fraseo sean
 semi-discontinuas (la primera mitad discontinua y la segunda mitad
@@ -992,7 +940,6 @@ mitad discontinua):
 @cindex ligadura de fraseo, definir patrones de discontinuidad
 
 @funindex \phrasingSlurDashPattern
-@funindex phrasingSlurDashPattern
 
 Se pueden definir patrones de discontinuidad para las ligaduras de
 fraseo:
@@ -1049,7 +996,6 @@ Referencia de funcionamiento interno:
 @cindex respiraciones
 @cindex pausa, marcas de
 @funindex \breathe
-@funindex breathe
 
 Las respiraciones se introducen utilizando @code{\breathe}:
 
@@ -1118,7 +1064,6 @@ Referencia de funcionamiento interno:
 @cindex caídas de tono (falls)
 @cindex elevaciones de tono (doits)
 @funindex \bendAfter
-@funindex bendAfter
 
 Se pueden expresar @notation{caídas} y @notation{subidas} de tono
 (falls y doits) añadidas a las notas mediante la instrucción
@@ -1172,7 +1117,6 @@ siguen un camino lineal: glissandi, arpegios y trinos.
 
 @cindex glissando
 @funindex \glissando
-@funindex glissando
 
 Se crea un @notation{glissando} añadiendo @code{\glissando}
 después de la nota:
@@ -1271,13 +1215,9 @@ está contemplada.
 @cindex acorde arpegiado
 @cindex quebrado, acorde
 @funindex \arpeggio
-@funindex arpeggio
 @funindex \arpeggioArrowUp
-@funindex arpeggioArrowUp
 @funindex \arpeggioArrowDown
-@funindex arpeggioArrowDown
 @funindex \arpeggioNormal
-@funindex arpeggioNormal
 
 Un signo de @notation{acorde arpegiado} (conocido también como
 acorde quebrado) sobre un acorde, se denota adjuntando
@@ -1309,11 +1249,8 @@ Se pueden escribir distintos tipos de acordes arpegiados.
 @cindex especial, símbolos de arpegio
 
 @funindex \arpeggioBracket
-@funindex arpeggioBracket
 @funindex \arpeggioParenthesis
-@funindex arpeggioParenthesis
 @funindex \arpeggioParenthesisDashed
-@funindex arpeggioParenthesisDashed
 
 Se pueden crear símbolos especiales de arpegio @emph{con corchete}:
 
@@ -1400,11 +1337,8 @@ see @ref{Plicas de pentagrama cruzado}.
 
 @cindex trinos
 @funindex \trill
-@funindex trill
 @funindex \startTrillSpan
-@funindex startTrillSpan
 @funindex \stopTrillSpan
-@funindex stopTrillSpan
 
 Los trinos cortos sin línea extensora se imprimen con
 @code{\trill}; véase @ref{Articulaciones y ornamentos}.
@@ -1465,7 +1399,6 @@ las notas de adorno con precisión están descritos en
 @cindex trinos de nota explícita
 @cindex explícita, trinos de nota
 @funindex \pitchedTrill
-@funindex pitchedTrill
 
 Los trinos que se tienen que ejecutar sobre notas auxiliares
 explícitas se pueden tipografiar con la instrucción

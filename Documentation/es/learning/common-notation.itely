@@ -194,11 +194,8 @@ idiomas}.
 @cindex presentación frente a contenido
 
 @funindex \key
-@funindex key
 @funindex \major
-@funindex major
 @funindex \minor
-@funindex minor
 
 Glosario musical:
 @rglos{key signature},
@@ -492,11 +489,8 @@ articulaciones.
 @funindex \mf
 @funindex \pp
 @funindex \<
-@funindex <
 @funindex \>
-@funindex >
 @funindex \!
-@funindex !
 
 Glosario musical:
 @rglos{dynamics},
@@ -536,7 +530,6 @@ Referencia de la notación:
 @cindex marcado
 
 @funindex \markup
-@funindex markup
 
 Es posible añadir texto a la partitura:
 
@@ -575,9 +568,7 @@ Referencia de la notación:
 @funindex [
 @funindex ]
 @funindex \autoBeamOff
-@funindex autoBeamOff
 @funindex \autoBeamOn
-@funindex autoBeamOn
 
 Glosario musical:
 @rglos{beam}.
@@ -636,7 +627,6 @@ Referencia de la notación:
 @cindex compás parcial
 
 @funindex \partial
-@funindex partial
 
 Glosario musical:
 @rglos{anacrusis}.
@@ -660,7 +650,6 @@ una anacrusa de negra y @code{\partial 8} de corchea.
 @cindex tresillos
 
 @funindex \tuplet
-@funindex tuplet
 
 Glosario musical:
 @rglos{note value},
@@ -691,9 +680,7 @@ de manera que los @notation{tresillos} tienen una fracción de 3/2.
 @cindex appoggiatura
 
 @funindex \grace
-@funindex grace
 @funindex \acciaccatura
-@funindex acciaccatura
 @funindex \appoggiatura
 @funindex acciaccatura
 
@@ -895,10 +882,8 @@ sobre un solo pentagrama.
 @cindex notación, contexto de
 
 @funindex \new Staff
-@funindex new Staff
 @funindex Staff
 @funindex \new
-@funindex new
 @funindex Score
 @funindex Voice
 @funindex Lyrics
@@ -1110,7 +1095,6 @@ canción sencillas.
 @cindex canciones
 
 @funindex \addlyrics
-@funindex addlyrics
 
 Glosario musical:
 @rglos{lyrics}.
@@ -1499,7 +1483,6 @@ anteriores:
 @cindex bloque de encabezamientos
 
 @funindex \header
-@funindex header
 
 La información sobre el título, autor, número de Opus y similares
 se escriben en el bloque @code{\header}.  Éste se encuentra fuera

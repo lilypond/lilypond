@@ -104,9 +104,7 @@ inscripciones de texto y las articulaciones, consulte
 @rlearning{Colocación de los objetos}.
 
 @funindex \textLengthOn
-@funindex textLengthOn
 @funindex \textLengthOff
-@funindex textLengthOff
 
 @predefined
 @code{\textLengthOn},
@@ -190,11 +188,8 @@ definir como una propiedad de objeto.  Esta sintaxis se describe
 en @ref{Estilos de línea}.
 
 @funindex \textSpannerUp
-@funindex textSpannerUp
 @funindex \textSpannerDown
-@funindex textSpannerDown
 @funindex \textSpannerNeutral
-@funindex textSpannerNeutral
 
 
 @predefined
@@ -241,9 +236,7 @@ Referencia de funcionamiento interno:
 @cindex líneas divisorias, símbolos sobre las
 
 @funindex \mark
-@funindex mark
 @funindex \markup
-@funindex markup
 
 Se pueden añadir a la partitura varios elementos de texto con la
 sintaxis que se describe en @ref{Llamadas de ensayo}:
@@ -308,9 +301,7 @@ siguiente.
 @end lilypond
 
 @funindex \markLengthOn
-@funindex markLengthOn
 @funindex \markLengthOff
-@funindex markLengthOff
 
 @predefined
 @code{\markLengthOn},
@@ -353,7 +344,6 @@ Referencia de funcionamiento interno:
 @cindex texto independiente
 
 @funindex \markup
-@funindex markup
 
 Un bloque @code{\markup} puede existir de forma independiente,
 fuera de cualquier bloque @code{\score}, como una @qq{expresión de
@@ -392,9 +382,7 @@ requiere se describen en
 
 
 @funindex \markup
-@funindex markup
 @funindex \markuplist
-@funindex markuplist
 
 @predefined
 @code{\markup},
@@ -446,7 +434,6 @@ usando la sintaxis específica del modo de @code{\markup}.
 @cindex tipografiar texto
 
 @funindex \markup
-@funindex markup
 
 Se usa un bloque @code{\markup} para tipografiar texto con una
 sintaxis ampliable que se denomina @qq{modo de marcado}.
@@ -558,11 +545,8 @@ confusión.
 @cindex cambio de la fuente tipográfica
 
 @funindex \italic
-@funindex italic
 @funindex \bold
-@funindex bold
 @funindex \underline
-@funindex underline
 
 Está contemplado de forma básica el cambio de la fuente
 tipográfica en el modo de marcado:
@@ -584,13 +568,9 @@ tipográfica en el modo de marcado:
 
 @funindex \abs-fontsize
 @funindex \fontsize
-@funindex fontsize
 @funindex \smaller
-@funindex smaller
 @funindex \larger
-@funindex larger
 @funindex \magnify
-@funindex magnify
 
 El tamaño de la fuente tipográfica se puede alterar en relación al
 tamaño global del pentagrama, de una serie de formas como se ve a
@@ -651,11 +631,8 @@ el tamaño de los otros caracteres.
 @cindex superíndice
 
 @funindex \super
-@funindex super
 @funindex \sub
-@funindex sub
 @funindex \normal-size-super
-@funindex normal-size-super
 
 El texto se puede imprimir como subíndice o como superíndice.  De
 forma predeterminada se imprimen en un tamaño menor, pero también
@@ -727,21 +704,13 @@ También es posible definir conjuntos personalizados de fuentes,
 tal y como se explica en @ref{Tipografías}.
 
 @funindex \teeny
-@funindex teeny
 @funindex \tiny
-@funindex tiny
 @funindex \small
-@funindex small
 @funindex \normalsize
-@funindex normalsize
 @funindex \large
-@funindex large
 @funindex \huge
-@funindex huge
 @funindex \smaller
-@funindex smaller
 @funindex \larger
-@funindex larger
 
 
 @predefined
@@ -801,11 +770,8 @@ todo, usando la sintaxis que se describe en
 @cindex horizontal, alineación de texto
 
 @funindex \left-align
-@funindex left-align
 @funindex \center-align
-@funindex center-align
 @funindex \right-align
-@funindex right-align
 
 Los objetos de marcado se pueden alinear de distintas maneras.  De
 forma predeterminada, una indicación de texto se alinea sobre el
@@ -825,7 +791,6 @@ entre los marcados primero y segundo.
 @end lilypond
 
 @funindex \halign
-@funindex halign
 
 Se puede realizar un ajuste fino de la alineación horizontal usando un
 valor numérico:
@@ -852,11 +817,8 @@ todo, como se muestra por ejemplo en @ref{Indicaciones de texto}.
 @cindex vertical, alineación de texto
 
 @funindex \raise
-@funindex raise
 @funindex \lower
-@funindex lower
 @funindex \null
-@funindex null
 
 La alineación vertical es un poco más compleja.  Como se ha dicho
 más arriba, los objetos de marcado se pueden mover como un todo;
@@ -887,11 +849,8 @@ ejemplo no tiene punto de anclaje y por ello no resulta movido.
 @end lilypond
 
 @funindex \general-align
-@funindex general-align
 @funindex \translate
-@funindex translate
 @funindex \translate-scaled
-@funindex translate-scaled
 
 Algunas instrucciones pueden afectar tanto a la alineación
 horizontal como a la vertical de los objetos de texto en el modo
@@ -926,9 +885,7 @@ deben preceder de un punto de anclaje:
 @cindex columnas, texto
 
 @funindex \column
-@funindex column
 @funindex \center-column
-@funindex center-column
 
 Un objeto de marcado puede incluir varias líneas de texto.  En el
 ejemplo siguiente, cada elemento o expresión se sitúa en su propia
@@ -955,7 +912,6 @@ línea, ya sea alineada por la izquierda o centrada:
 @cindex marcado, centrar en la página
 
 @funindex \fill-line
-@funindex fill-line
 
 De forma similar, una lista de elementos o expresiones se puede
 repartir de forma que rellene por completo el ancho de la línea
@@ -989,9 +945,7 @@ cualquier otra expresión de marcado:
 @cindex ajuste de línea, texto con
 
 @funindex \wordwrap
-@funindex wordwrap
 @funindex \justify
-@funindex justify
 
 
 Las indicaciones de texto largas se pueden también ajustar
@@ -1071,15 +1025,10 @@ utilizando instrucciones de marcado.
 @cindex decorar texto
 
 @funindex \box
-@funindex box
 @funindex \circle
-@funindex circle
 @funindex \rounded-box
-@funindex rounded-box
 @funindex \bracket
-@funindex bracket
 @funindex \hbracket
-@funindex hbracket
 
 Ciertas instrucciones de marcado permiten la decoración de
 elementos de texto con gráficos, como se muestra en el ejemplo
@@ -1107,13 +1056,9 @@ siguiente.
 @cindex marcado, relleno de textos de
 
 @funindex \pad-markup
-@funindex pad-markup
 @funindex \pad-x
-@funindex pad-x
 @funindex \pad-to-box
-@funindex pad-to-box
 @funindex \pad-around
-@funindex pad-around
 
 Algunas instrucciones pueden requerir un aumento del relleno
 alrededor del texto: esto se puede conseguir con algunas
@@ -1147,17 +1092,11 @@ Flute quartet keeps very uneven time."
 @cindex notación gráfica
 
 @funindex \combine
-@funindex combine
 @funindex \draw-circle
-@funindex draw-circle
 @funindex \filled-box
-@funindex filled-box
 @funindex \triangle
-@funindex triangle
 @funindex \draw-line
-@funindex draw-line
 @funindex \arrow-head
-@funindex arrow-head
 
 Se pueden imprimir otros símbolos o elementos gráficos sin que se
 requiera ningún otro texto.  De igual manera que en el caso de las
@@ -1185,9 +1124,7 @@ expresiones de marcado, dichos objetos se pueden combinar:
 @cindex PostScript
 
 @funindex \epsfile
-@funindex epsfile
 @funindex \postscript
-@funindex postscript
 
 Entre las funcionalidades gráficas avanzadas se encuentran la
 posibilidad de incluir archivos de imagen externos convertidos al
@@ -1388,11 +1325,8 @@ Referencia de funcionamiento interno:
 @cindex texto que ocupa varias páginas
 
 @funindex \markuplist
-@funindex markuplist
 @funindex \justified-lines
-@funindex justified-lines
 @funindex \wordwrap-lines
-@funindex wordwrap-lines
 
 Aunque los objetos de marcado estándar no se pueden dividir, una
 sintaxis específica hace posible la introducción de líneas de
@@ -1443,7 +1377,6 @@ Referencia de funcionamiento interno:
 @rinternals{TextScript}.
 
 @funindex \markuplist
-@funindex markuplist
 
 @predefined
 @code{\markuplist}.

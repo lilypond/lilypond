@@ -11,7 +11,7 @@
 \new StaffGroup
 \relative <<
   \set StaffGroup.systemStartDelimiterHierarchy
-    = #'(SystemStartSquare (SystemStartBracket a (SystemStartSquare b)) d)
+    = #'(SystemStartSquare (SystemStartBracket a (SystemStartSquare b c)) d)
   \new Staff { c'1 }
   \new Staff { c1 }
   \new Staff { c1 }

@@ -240,7 +240,6 @@ explicitement.
 @cindex mode relatif et altérations
 
 @funindex \relative
-@funindex relative
 @funindex '
 @funindex ,
 
@@ -430,7 +429,6 @@ lettre @code{r} (pour @emph{rest}).
 @cindex chiffre de mesure
 
 @funindex \time
-@funindex time
 
 Glossaire musicologique : @rglosnamed{time signature,métrique}.
 
@@ -459,7 +457,6 @@ peut être définie à l'aide de la commande @code{\time} :
 @cindex indication métronomique
 
 @funindex \tempo
-@funindex tempo
 
 Glossaire musicologique :
 @rglosnamed{tempo indication,indication de tempo},
@@ -494,7 +491,6 @@ que le métronome :
 @cindex fa, clef de
 
 @funindex \clef
-@funindex clef
 
 Glossaire musicologique : @rglos{clef}.
 

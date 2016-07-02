@@ -235,43 +235,24 @@ Référence des propriétés internes :
 @cindex nuances
 
 @funindex \ppppp
-@funindex ppppp
 @funindex \pppp
-@funindex pppp
 @funindex \ppp
-@funindex ppp
 @funindex \pp
-@funindex pp
 @funindex \p
-@funindex p
 @funindex \mp
-@funindex mp
 @funindex \mf
-@funindex mf
 @funindex \f
-@funindex f
 @funindex \ff
-@funindex ff
 @funindex \fff
-@funindex fff
 @funindex \ffff
-@funindex ffff
 @funindex \fffff
-@funindex fffff
 @funindex \fp
-@funindex fp
 @funindex \sf
-@funindex sf
 @funindex \sff
-@funindex sff
 @funindex \sp
-@funindex sp
 @funindex \spp
-@funindex spp
 @funindex \sfz
-@funindex sfz
 @funindex \rfz
-@funindex rfz
 
 À chaque nuance absolue correspond une commande qui peut être indiquée
 après une note : @code{c4\ff} par exemple.  Les commandes de nuance
@@ -299,9 +280,7 @@ d'information, consultez @ref{Direction et positionnement}.
 @funindex \>
 @funindex \!
 @funindex \cr
-@funindex cr
 @funindex \decr
-@funindex decr
 
 Un crescendo est délimité par @code{\<} et @code{\!}, ou peut se
 terminer par une commande de nuance explicite, ou bien un decrescendo ou
@@ -362,7 +341,6 @@ faudra avoir recours à des silences invisibles :
 @cindex espressivo
 
 @funindex \espressivo
-@funindex espressivo
 
 On peut avoir recours à l'indication @code{\espressivo} pour indiquer un
 crescendo suivi d'un decrescendo sur une même note.  Gardez à l'esprit
@@ -376,11 +354,8 @@ qu'il s'agit d'une articulation, et en aucun cas d'une nuance.
 @end lilypond
 
 @funindex \cresc
-@funindex cresc
 @funindex \decresc
-@funindex decresc
 @funindex \dim
-@funindex dim
 
 La commande @code{\cresc} permet d'indiquer textuellement le début d'un
 crescendo.  @code{\decresc} ou @code{\dim} marquent le début d'un
@@ -396,17 +371,11 @@ decrescendo.  Les lignes d'extension sont gérées automatiquement.
 @end lilypond
 
 @funindex \crescTextCresc
-@funindex crescTextCresc
 @funindex \dimTextDecresc
-@funindex dimTextDecresc
 @funindex \dimTextDecr
-@funindex dimTextDecr
 @funindex \dimTextDim
-@funindex dimTextDim
 @funindex \crescHairpin
-@funindex crescHairpin
 @funindex \dimHairpin
-@funindex dimHairpin
 
 Une indication textuelle peut indiquer, au lieu d'un soufflet, un
 changement de nuance :
@@ -440,11 +409,8 @@ Le positionnement vertical des nuances est géré par le
 @rinternals{DynamicLineSpanner}.
 
 @funindex \dynamicUp
-@funindex dynamicUp
 @funindex \dynamicDown
-@funindex dynamicDown
 @funindex \dynamicNeutral
-@funindex dynamicNeutral
 
 L'utilisation d'un contexte @code{Dynamics} permet de graver les nuances
 sur leur propre ligne -- Il suffit de placer des silences invisibles
@@ -565,9 +531,7 @@ moltoF = \markup { molto \dynamic f }
 @cindex nuances suggérées
 
 @funindex \bracket
-@funindex bracket
 @funindex \dynamic
-@funindex dynamic
 
 Vous pouvez créer des indications de nuance éditoriales (entre
 parenthèses ou crochets) grâce aux étiquettes (@emph{mode markup}) ; la
@@ -721,9 +685,7 @@ terminer dans la voix où elle a été entamée.}
 @cindex liaison, au-dessus des notes
 
 @funindex \slurDown
-@funindex slurDown
 @funindex \slurNeutral
-@funindex slurNeutral
 @funindex \=
 
 Vous pouvez décider de l'orientation des liaisons par rapport à la
@@ -759,11 +721,8 @@ contexte @code{Voice}, leurs début et fin doivent être labellisés par un
 @cindex style de trait, liaison
 
 @funindex \slurDashed
-@funindex slurDashed
 @funindex \slurDotted
-@funindex slurDotted
 @funindex \slurSolid
-@funindex slurSolid
 
 Une liaison est par défaut dessinée d'un trait plein.  Il est aussi
 possible de l'imprimer sous la forme de tirets ou en pointillé :
@@ -781,9 +740,7 @@ possible de l'imprimer sous la forme de tirets ou en pointillé :
 @end lilypond
 
 @funindex \slurHalfDashed
-@funindex slurHalfDashed
 @funindex \slurHalfSolid
-@funindex slurHalfSolid
 
 @cindex liaison, tirets et trait continu
 
@@ -804,7 +761,6 @@ s'obtient avec @code{\slurHalfSolid}.
 @end lilypond
 
 @funindex \slurDashPattern
-@funindex slurDashPattern
 
 @cindex liaison, densité des tirets
 
@@ -824,7 +780,6 @@ liaison :
 @end lilypond
 
 @funindex \slurUp
-@funindex slurUp
 
 @predefined
 @code{\slurUp},
@@ -889,11 +844,8 @@ et @code{\)} respectivement.
 @end lilypond
 
 @funindex \phrasingSlurUp
-@funindex phrasingSlurUp
 @funindex \phrasingSlurDown
-@funindex phrasingSlurDown
 @funindex \phrasingSlurNeutral
-@funindex phrasingSlurNeutral
 
 D'un point de vue typographique, rien ne distingue une liaison de phrasé
 d'une liaison d'articulation.  Cependant, LilyPond les considère comme
@@ -920,12 +872,9 @@ qu'elles sont labellisées, comme des liaisons normales -- voir
 @cindex tiret, trait de liaison
 @cindex style de trait, liaison
 
-@funindex phrasingSlurDashed
 @funindex \phrasingSlurDashed
 @funindex \phrasingSlurDotted
-@funindex phrasingSlurDotted
 @funindex \phrasingSlurSolid
-@funindex phrasingSlurSolid
 
 Une liaison est par défaut dessinée d'un trait plein.  Il est aussi
 possible de l'imprimer sous la forme de tirets ou en pointillé :
@@ -944,10 +893,8 @@ possible de l'imprimer sous la forme de tirets ou en pointillé :
 
 @cindex liaison, tirets et trait continu
 
-@funindex phrasingSlurHalfDashed
 @funindex \phrasingSlurHalfDashed
 @funindex \phrasingSlurHalfSolid
-@funindex phrasingSlurHalfSolid
 
 En utilisant @code{\phrasingslurHalfDashed}, la première moitié de la
 liaison aura un trait discontinu et continu pour la seconde.  L'inverse
@@ -966,7 +913,6 @@ s'obtient avec @code{\phrasingslurHalfSolid}.
 @end lilypond
 
 @funindex \phrasingSlurDashPattern
-@funindex phrasingSlurDashPattern
 
 @cindex liaison, densité des tirets
 
@@ -1024,7 +970,6 @@ Référence des propriétés internes :
 @cindex point d'arrêt
 
 @funindex \breathe
-@funindex breathe
 
 Les indications de respiration sont indiquées par la commande
 @code{\breathe}.
@@ -1091,7 +1036,6 @@ Référence des propriétés internes :
 @cindex sauts
 
 @funindex \bendAfter
-@funindex bendAfter
 
 Des indications de désinence peuvent être obtenues au moyen de la
 commande @code{\bendAfter}.  Leur direction s'indique au moyen des
@@ -1146,7 +1090,6 @@ d'aspect linéaire, tels les glissandos, arpèges et trilles.
 @cindex glissando
 
 @funindex \glissando
-@funindex glissando
 
 Un glissando relie une hauteur à une autre en passant par chaque hauteur
 intermédiaire.  On l'obtient en accolant la commande @code{\glissando} à
@@ -1245,13 +1188,9 @@ le long de la ligne de glissando.
 @cindex accord arpégé
 
 @funindex \arpeggio
-@funindex arpeggio
 @funindex \arpeggioArrowUp
-@funindex arpeggioArrowUp
 @funindex \arpeggioArrowDown
-@funindex arpeggioArrowDown
 @funindex \arpeggioNormal
-@funindex arpeggioNormal
 
 On peut indiquer qu'un accord doit être arpégé en lui accolant la
 commande @code{\arpeggio} :
@@ -1281,11 +1220,8 @@ LilyPond dispose de différents graphismes pour indiquer un arpège ;
 @cindex arpège, symboles spéciaux
 
 @funindex \arpeggioBracket
-@funindex arpeggioBracket
 @funindex \arpeggioParenthesis
-@funindex arpeggioParenthesis
 @funindex \arpeggioParenthesisDashed
-@funindex arpeggioParenthesisDashed
 
 Des crochets indiquent que l'accord devra être plaqué et non
 arpégé :
@@ -1372,11 +1308,8 @@ n'est pas opérationnelle pour des arpèges inter-portées ; voir
 @cindex trilles
 
 @funindex \trill
-@funindex trill
 @funindex \startTrillSpan
-@funindex startTrillSpan
 @funindex \stopTrillSpan
-@funindex stopTrillSpan
 
 Les trilles brefs s'indiquent comme n'importe quelle ponctuation, avec
 un simple @code{\trill} ; voir @ref{Articulations et ornements}.
@@ -1435,7 +1368,6 @@ les notes d'ornement avec précision est expliquée au chapitre
 @cindex trilles avec hauteur explicite
 
 @funindex \pitchedTrill
-@funindex pitchedTrill
 
 Les trilles qui font intervenir une hauteur précise peuvent être
 indiqués par la commande @code{pitchedTrill}.  Le premier argument est

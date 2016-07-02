@@ -152,7 +152,6 @@ Referenz der Interna:
 @cindex Fingerwechsel
 @cindex Griff: Fingersatz
 @funindex \finger
-@funindex finger
 
 Fingersatzanweisungen können folgenderweise notiert werden:
 @samp{Note}-@var{Zahl}
@@ -170,7 +169,6 @@ c4-1 d-2 f-4 c^\markup { \finger "2 - 3" }
 @cindex thumb-script
 @cindex Fingersatz: Daumen-Zeichen
 @funindex \thumb
-@funindex thumb
 
 Mit dem Daumen-Befehl (@code{\thumb}) können die Noten bezeichnet
 werden, die mit dem
@@ -238,9 +236,7 @@ Schreibweise @code{@var{Note}-@var{Zahl}} einsetzt.
 @cindex Noten, durchsichtig
 @cindex transparent, Noten
 @funindex \hideNotes
-@funindex hideNotes
 @funindex \unHideNotes
-@funindex unHideNotes
 
 Versteckte (oder unsichtbare oder transparente) Noten können sinnvoll sein,
 wenn man Notation für den Theorieunterricht oder Kompositionsübungen
@@ -308,7 +304,6 @@ Referenz der Interna:
 @cindex with-color
 @funindex color
 @funindex \with-color
-@funindex with-color
 @funindex x11-color
 
 Einzelnen Objekten können einfach eigene Farben zugewiesen werden.
@@ -414,7 +409,6 @@ dazu muss @code{\tweak} benutzt werden. Siehe auch @ref{Der tweak-Befehl}.
 @cindex Klammern um Noten
 @cindex editorische Noten
 @funindex \parenthesize
-@funindex parenthesize
 
 Objekte können in Klammern gesetzt werden, indem vor ihnen der Befehl
 @code{\parenthesize} geschrieben wird.  Wenn ein Akkord in Klammern gesetzt
@@ -687,9 +681,7 @@ Referenz der Interna:
 @cindex Musikanalyse
 @funindex Horizontal_bracket_engraver
 @funindex \startGroup
-@funindex startGroup
 @funindex \stopGroup
-@funindex stopGroup
 
 Klammern über dem System werden in der Musikanalyse benutzt, um
 strukturelle Einheiten der Musik zu markieren.  Einfache

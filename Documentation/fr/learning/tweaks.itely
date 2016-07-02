@@ -230,7 +230,6 @@ Manuel de notation :
 @cindex override, syntaxe
 
 @funindex \override
-@funindex override
 
 Dans @ref{Modification des propriétés d'un contexte} et dans
 @ref{Ajout et suppression de graveurs}, nous avons déjà rencontré les
@@ -307,7 +306,6 @@ ci-dessous change la couleur des têtes de notes :
 @cindex revert, commande
 
 @funindex \revert
-@funindex revert
 
 Une fois qu'elle a été modifiée, la propriété conserve sa nouvelle
 valeur jusqu'à ce qu'elle soit à nouveau modifiée ou qu'elle rencontre
@@ -347,7 +345,6 @@ des deux dernières notes à leur valeur par défaut :
 @translationof The once prefix
 
 @funindex \once
-@funindex once
 
 Les commandes @code{\override}, @code{\revert}, @code{\set} et
 @code{\unset} peuvent supporter le préfixe @code{\once}.  Celui-ci a
@@ -398,7 +395,6 @@ musical :
 @cindex overrideProperty, commande
 
 @funindex \overrideProperty
-@funindex overrideProperty
 
 Il existe une autre forme de commande @code{\override},
 @code{\overrideProperty}, qui est parfois utile.  Nous la mentionnons
@@ -415,7 +411,6 @@ ici par souci d'exhaustivité ; pour le détail, voir
 @cindex tweak, commande
 
 @funindex \tweak
-@funindex tweak
 
 La dernière commande disponible pour les retouches est
 @code{\tweak}.  Elle sert à changer les propriétés d'objets qui
@@ -584,7 +579,6 @@ Manuel de notation :
 @translationof The single prefix
 
 @funindex \single
-@funindex single
 
 @cindex tweak généré par override
 
@@ -836,7 +830,6 @@ en train de saisir des notes, on peut ici ne pas le mentionner.
 @cindex usage unique, dérogation à
 
 @funindex \once
-@funindex once
 
 Dans le dernier exemple ci-dessus, @emph{toutes} les liaisons étaient
 plus épaisses.  Et si on veut épaissir uniquement la première liaison ?
@@ -887,7 +880,6 @@ La commande @code{\once} peut aussi être utilisée devant la commande
 @cindex défaut, retour aux propriétés par
 
 @funindex \revert
-@funindex revert
 
 Et si l'on voulait que les deux premières liaisons soient plus
 épaisses ?  On pourrait bien sûr utiliser deux commandes, chacune
@@ -1261,7 +1253,6 @@ LilyPond dispose d'un raccourci -- @code{\omit} (pour « oublier »)
 -- à cet effet :
 
 @funindex \omit
-@funindex omit
 
 @lilypond[quote,ragged-right,verbatim]
 \relative {
@@ -2360,9 +2351,7 @@ d'entre eux.
 @cindex indication d'octaviation
 
 @funindex \startTextSpan
-@funindex startTextSpan
 @funindex \stopTextSpan
-@funindex stopTextSpan
 
 @cindex TextSpanner, exemple de dérogation
 @cindex bound-details, exemple d'utilisation de la propriété
@@ -2515,9 +2504,7 @@ commande @code{textLengthOn}.
 @cindex notes, répartition selon le texte
 
 @funindex \textLengthOn
-@funindex textLengthOn
 @funindex \textLengthOff
-@funindex textLengthOff
 
 Par défaut, l'espacement horizontal d'un texte produit sous forme de
 @emph{markup} (ou d'étiquette) n'est pas pris en compte, dans la mesure
@@ -3056,13 +3043,9 @@ les liaisons et les notes de différentes voix.
 @cindex collisions de notes
 @cindex shift, commandes
 @funindex \shiftOff
-@funindex shiftOff
 @funindex \shiftOn
-@funindex shiftOn
 @funindex \shiftOnn
-@funindex shiftOnn
 @funindex \shiftOnnn
-@funindex shiftOnnn
 
 Au sein d'une même voix, toutes les notes intervenant au même instant
 musical sont regroupées dans un empilement (une colonne) et est créé un

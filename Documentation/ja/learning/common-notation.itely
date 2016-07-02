@@ -191,11 +191,8 @@ LilyPond の音符名はピッチを示しています。
 @cindex layout vs. content (レイアウト vs. 内容)
 
 @funindex \key
-@funindex key
 @funindex \major
-@funindex major
 @funindex \minor
-@funindex minor
 
 音楽用語集: @rglos{key signature}, @rglos{major}, @rglos{minor}
 
@@ -464,11 +461,8 @@ A フラット メジャーの調では、@code{b} には臨時記号が付き�
 @funindex \mf
 @funindex \pp
 @funindex \<
-@funindex <
 @funindex \>
-@funindex >
 @funindex \!
-@funindex !
 
 音楽用語集: @rglos{dynamics}, @rglos{crescendo}
 @rglos{decrescendo}
@@ -511,7 +505,6 @@ A フラット メジャーの調では、@code{b} には臨時記号が付き�
 @cindex markup (マークアップ)
 
 @funindex \markup
-@funindex markup
 
 テキストをあなたの楽譜に追加することができます:
 
@@ -549,9 +542,7 @@ a'2_\markup {
 @funindex [
 @funindex ]
 @funindex \autoBeamOff
-@funindex autoBeamOff
 @funindex \autoBeamOn
-@funindex autoBeamOn
 
 音楽用語集: @rglos{beam}
 
@@ -609,7 +600,6 @@ a'2_\markup {
 @cindex partial measure (部分小節)
 
 @funindex \partial
-@funindex partial
 
 音楽用語集: @rglos{anacrusis}
 
@@ -636,7 +626,6 @@ a'2_\markup {
 @cindex triplets (3 連符)
 
 @funindex \tuplet
-@funindex tuplet
 
 音楽用語集: @rglos{note value}, @rglos{triplet}
 
@@ -665,9 +654,7 @@ a'2_\markup {
 @cindex appoggiatura (前打音)
 
 @funindex \grace
-@funindex grace
 @funindex \acciaccatura
-@funindex acciaccatura
 @funindex \appoggiatura
 @funindex acciaccatura
 
@@ -861,10 +848,8 @@ LilyPond は最初の音楽表記の始まりを調べます。@c
 @cindex notation context (記譜コンテキスト)
 
 @funindex \new Staff
-@funindex new Staff
 @funindex Staff
 @funindex \new
-@funindex new
 @funindex Score
 @funindex Voice
 @funindex Lyrics
@@ -1067,7 +1052,6 @@ LilyPond での多声音楽はまだ説明していないコンセプトを用�
 @cindex songs (歌)
 
 @funindex \addlyrics
-@funindex addlyrics
 
 音楽用語集: @rglos{lyrics}
 
@@ -1444,7 +1428,6 @@ aFivePaper = \paper @{ paperheight = 21.0 \cm @}
 @cindex header block (ヘッダ ブロック)
 
 @funindex \header
-@funindex header
 
 タイトル、作曲者、作品番号、それに類似の情報は
 @code{\header} ブロックの中に挿入されます。@c

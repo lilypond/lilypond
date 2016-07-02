@@ -1125,17 +1125,11 @@ Notation Reference:
 @cindex engravers, including in contexts
 
 @funindex \alias
-@funindex alias
 @funindex \name
-@funindex name
 @funindex \type
-@funindex type
 @funindex \consists
-@funindex consists
 @funindex \accepts
-@funindex accepts
 @funindex \denies
-@funindex denies
 
 Specific contexts, like @code{Staff} and @code{Voice}, are made from
 simple building blocks.  It is possible to create new types of

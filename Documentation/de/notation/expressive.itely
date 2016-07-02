@@ -237,43 +237,24 @@ Referenz der Interna:
 @cindex absolute Lautstärke
 
 @funindex \ppppp
-@funindex ppppp
 @funindex \pppp
-@funindex pppp
 @funindex \ppp
-@funindex ppp
 @funindex \pp
-@funindex pp
 @funindex \p
-@funindex p
 @funindex \mp
-@funindex mp
 @funindex \mf
-@funindex mf
 @funindex \f
-@funindex f
 @funindex \ff
-@funindex ff
 @funindex \fff
-@funindex fff
 @funindex \ffff
-@funindex ffff
 @funindex \fffff
-@funindex fffff
 @funindex \fp
-@funindex fp
 @funindex \sf
-@funindex sf
 @funindex \sff
-@funindex sff
 @funindex \sp
-@funindex sp
 @funindex \spp
-@funindex spp
 @funindex \sfz
-@funindex sfz
 @funindex \rfz
-@funindex rfz
 
 Absolute Dynamikbezeichnung wird mit Befehlen nach den Noten
 angezeigt, etwa @code{c4\ff}.  Die vordefinierten Befehle lauten:
@@ -302,9 +283,7 @@ platziert werden, siehe @ref{Richtung und Platzierung}.
 @funindex \>
 @funindex \!
 @funindex \cr
-@funindex cr
 @funindex \decr
-@funindex decr
 
 Eine @notation{Crescendo}-Klammer wird mit dem Befehl
 @code{\<} begonnen und mit @code{\!}, einem absoluten Dynamikbefehl oder einer weiteren Crescendo- oder
@@ -359,7 +338,6 @@ und @notation{decrescendo} zu der selben Note hinzufügen will:
 @cindex Espressivo-Artikulation
 
 @funindex \espressivo
-@funindex espressivo
 
 Der @code{\espressivo}-Befehl kann eingesetzt werden, um crescendo
 und decrescendo für die selbe Note anzuzeigen.  Dieser Befehl ist
@@ -373,11 +351,8 @@ jedoch als Artikulation, nicht als Dynamikzeichen implementiert.
 @end lilypond
 
 @funindex \cresc
-@funindex cresc
 @funindex \decresc
-@funindex decresc
 @funindex \dim
-@funindex dim
 Mit Text gesetzte Crescendo-Bezeichnungen beginnen mit @code{\cresc}.
 Mit Text gesetzte Decrescendo-Bezeichnungen beginnen mit @code{\decresc}
 oder @code{\dim}.  Fortsetzungslinien werden gesetzt, wenn sie benötigt werden.
@@ -394,17 +369,11 @@ oder @code{\dim}.  Fortsetzungslinien werden gesetzt, wenn sie benötigt werden.
 
 
 @funindex \crescTextCresc
-@funindex crescTextCresc
 @funindex \dimTextDecresc
-@funindex dimTextDecresc
 @funindex \dimTextDecr
-@funindex dimTextDecr
 @funindex \dimTextDim
-@funindex dimTextDim
 @funindex \crescHairpin
-@funindex crescHairpin
 @funindex \dimHairpin
-@funindex dimHairpin
 
 Als Text gesetzte Dynamik-Bezeichnungen können auch die Crescendo-Klammern
 ersetzen:
@@ -434,11 +403,8 @@ angeordnet wird, zu erstellen, siehe @ref{Neue Lautstärkezeichen}.
 Vertikale Position der Zeichen wird von der Funktion
 @rinternals{DynamicLineSpanner} verwaltet.
 @funindex \dynamicUp
-@funindex dynamicUp
 @funindex \dynamicDown
-@funindex dynamicDown
 @funindex \dynamicNeutral
-@funindex dynamicNeutral
 
 Es gibt einen besonderen @code{Dynamics}-Kontext, um Crescendi und Decrescendi
 auf einer eigenen Zeile zu notieren.  Mit leeren Pausen (@code{s}) werden die
@@ -549,9 +515,7 @@ moltoF = \markup { molto \dynamic f }
 @cindex Dynamikzeichen, Klammer
 @cindex editorische Dynamikzeichen
 @funindex \bracket
-@funindex bracket
 @funindex \dynamic
-@funindex dynamic
 
 Mit einer Textbeschriftung können editorische Dynamikzeichen
 (in runden oder eckigen Klammern) erstellt werden.  Die Syntax
@@ -688,9 +652,7 @@ Stimme beendet werden, in der er begonnen wurde.}
 @cindex Bögen, unter Noten
 @cindex Bögen, über Noten
 @funindex \slurDown
-@funindex slurDown
 @funindex \slurNeutral
-@funindex slurNeutral
 
 
 Legatobögen können manuell ober- oder unterhalb des Notensystems
@@ -719,11 +681,8 @@ können zwei Bögen gleichzeitig ausgegeben werden.  Siehe auch
 @cindex Legatobogen, gestrichelt
 @cindex Stil von Legatobögen
 @funindex \slurDashed
-@funindex slurDashed
 @funindex \slurDotted
-@funindex slurDotted
 @funindex \slurSolid
-@funindex slurSolid
 
 Legatobögen können durchgehend, gepunktet oder gestrichelt dargestellt
 werden.  Standard ist der durchgehende Bogen:
@@ -741,9 +700,7 @@ werden.  Standard ist der durchgehende Bogen:
 @end lilypond
 
 @funindex \slurHalfDashed
-@funindex slurHalfDashed
 @funindex \slurHalfSolid
-@funindex slurHalfSolid
 @cindex Bogen, halb gestrichelt, halb durchgehend
 
 Bögen können auch halb gestrichelt (die erste Hälfte gestrichelt,
@@ -764,7 +721,6 @@ zweite Hälfte gestrichelt:
 @end lilypond
 
 @funindex \slurDashPattern
-@funindex slurDashPattern
 @cindex Bogen, Strichelung definieren
 
 Eigene Muster für die Strichelung können definiert werden:
@@ -782,7 +738,6 @@ Eigene Muster für die Strichelung können definiert werden:
 @end lilypond
 
 @funindex \slurUp
-@funindex slurUp
 
 @predefined
 @code{\slurUp},
@@ -850,11 +805,8 @@ musikalischen Ausdruck anzuzeigen. Er wird mit den Befehlen
 @end lilypond
 
 @funindex \phrasingSlurUp
-@funindex phrasingSlurUp
 @funindex \phrasingSlurDown
-@funindex phrasingSlurDown
 @funindex \phrasingSlurNeutral
-@funindex phrasingSlurNeutral
 
 Im typographischen Sinne verhalten sich Phrasierungsbögen genauso wie
 Legatobögen. Sie werden aber als eigene Objekte behandelt. Ein
@@ -872,12 +824,9 @@ Notensystems gesetzt werden, siehe
 Simultane oder überlappende Phrasierungsbögen sind nicht
 erlaubt.
 
-@funindex phrasingSlurDashed
 @funindex \phrasingSlurDashed
 @funindex \phrasingSlurDotted
-@funindex phrasingSlurDotted
 @funindex \phrasingSlurSolid
-@funindex phrasingSlurSolid
 @cindex Phrasierungsbögen, gestrichelt
 @cindex gestrichelter Phrasierungsbogen
 @cindex Phrasierungsbögen, gepunktet
@@ -901,7 +850,6 @@ werden.  Standard ist der durchgehende Bogen:
 funindex phrasingSlurHalfDashed
 @funindex \phrasingSlurHalfDashed
 @funindex \phrasingSlurHalfSolid
-@funindex phrasingSlurHalfSolid
 
 @cindex Phrasierungsbogen, halb durchgehend, halb gestrichelt
 @cindex Bogen, halb durchgehend, halb gestrichelt
@@ -924,7 +872,6 @@ gestrichelt):
 @end lilypond
 
 @funindex \phrasingSlurDashPattern
-@funindex phrasingSlurDashPattern
 @cindex Phrasierungsbogen, Strichelmuster definieren
 
 Eigene Strichelmuster für Phrasierungsbögen können definiert werden:
@@ -981,7 +928,6 @@ Referenz der Interna:
 @cindex Atemzeichen
 @cindex Pausenzeichen
 @funindex \breathe
-@funindex breathe
 
 Atemzeichen werden mit dem Befehl @code{\breathe} eingegeben.
 
@@ -1039,7 +985,6 @@ Referenz der Interna:
 @cindex Glissando, nach unten
 @cindex Gleiten nach oben/unten
 @funindex \bendAfter
-@funindex bendAfter
 
 
 Gleiten nach oben und unten kann mit dem Befehl @code{\bendAfter}
@@ -1093,7 +1038,6 @@ Triller.
 
 @cindex Glissando
 @funindex \glissando
-@funindex glissando
 
 Ein @notation{Glissando} wird
 mit dem Befehl @code{\glissando} auf eine Note folgend notiert:
@@ -1140,13 +1084,9 @@ supported.
 @cindex Gebrochene Akkorde
 @cindex Akkord, gebrochen
 @funindex \arpeggio
-@funindex arpeggio
 @funindex \arpeggioArrowUp
-@funindex arpeggioArrowUp
 @funindex \arpeggioArrowDown
-@funindex arpeggioArrowDown
 @funindex \arpeggioNormal
-@funindex arpeggioNormal
 
 Ein @notation{Arpeggio} als Zeichen, dass ein Akkord gebrochen gespielt werden soll,
 kann mit dem Befehl @code{\arpeggio} hinter der
@@ -1179,11 +1119,8 @@ her:
 @cindex besondere Arpeggio-Symbole
 
 @funindex \arpeggioBracket
-@funindex arpeggioBracket
 @funindex \arpeggioParenthesis
-@funindex arpeggioParenthesis
 @funindex \arpeggioParenthesisDashed
-@funindex arpeggioParenthesisDashed
 
 Besondere Arpeggios mit Klammern können erstellt werden:
 
@@ -1270,11 +1207,8 @@ mehrere Notensysteme.
 @cindex Triller
 
 @funindex \trill
-@funindex trill
 @funindex \startTrillSpan
-@funindex startTrillSpan
 @funindex \stopTrillSpan
-@funindex stopTrillSpan
 
 Kurze Triller ohne eine Dauer werden mit dem Befehl
 @code{\trill} notiert, siehe auch
@@ -1333,7 +1267,6 @@ präzise zu positionieren, wird gezeigt in @ref{Verzierungen}.
 @cindex Triller mit Tonhöhe
 
 @funindex \pitchedTrill
-@funindex pitchedTrill
 
 Triller, die auf einer bestimmten Note ausgeführt werden sollen, können
 mit dem Befehl @code{pitchedTrill} notiert werden.  Das erste

@@ -235,7 +235,6 @@ notace -- @ruser{Rozvržení notového zápisu} a
 @cindex Prostředí book, skryté
 @cindex Skryté prostředí book
 @funindex \book
-@funindex book
 
 Váš LilyPondovský kód může obsahovat více bloků @code{\score}.
 Každý z nich je vykládán jako samostatný notový zápis, ovšem
@@ -310,7 +309,6 @@ tato omezení popsána v části @ruser{Stavba souboru}.
 @translationof Score is a (single) compound musical expression
 
 @funindex \score
-@funindex score
 @cindex score
 @cindex Notový zápis
 @cindex Hudební kus
@@ -1022,15 +1020,10 @@ Notace: @ruser{Více hlasů}.
 @translationof Explicitly instantiating voices
 
 @funindex \voiceOne
-@funindex voiceOne
 @funindex \voiceTwo
-@funindex voiceTwo
 @funindex \voiceThree
-@funindex voiceThree
 @funindex \voiceFour
-@funindex voiceFour
 @funindex \oneVoice
-@funindex oneVoice
 @funindex \new Voice
 @cindex Vytvoření prostředí hlasu
 @cindex Prostředí hlasu, vytvoření
@@ -1277,7 +1270,6 @@ Pozor: Textu písně se v angličtině říká @qq{lyrics}.
 
 @funindex \new Lyrics
 @funindex \lyricsto
-@funindex lyricsto
 @funindex Lyrics
 @cindex Prostředí text písně, vytvoření
 @cindex Text písně, spojení s notami
@@ -1313,7 +1305,6 @@ a hlasu @code{Voice}, aby všechno fungovalo.
 @cindex Text a trámce
 @cindex Trámce a text
 @funindex \autoBeamOff
-@funindex autoBeamOff
 
 Automatické trámce, jež LilyPond používá ve výchozím nastavení, pracují
 dobře pro instrumentální hudbu, ale ne tak dobře v případě hudby s textem,
@@ -1551,7 +1542,6 @@ Notationreferenz: @ruser{Vysvětlení prostředí}.
 @translationof Creating contexts
 
 @funindex \new
-@funindex new
 @cindex Neue Kontexte
 @cindex Erstellen von Kontexten
 @cindex Kontexte, Erstellen
@@ -1991,7 +1981,6 @@ eingegeben werden kann.
 @subsubheading Kontexteigenschaften mit @code{\with} setzen
 
 @funindex \with
-@funindex with
 @cindex Kontexteigenschaft, setzen mit \with
 
 Die Standardwerte von Kontexteigenschaften können zu dem Zeitpunkt
@@ -2044,7 +2033,6 @@ wird, kann dieser neue Standardwert mit dem Befehl
 @cindex Kontexteigenschaften, mit \context setzen
 @cindex Eigenschaften von Kontexten, mit \context setzen
 @funindex \context
-@funindex context
 
 Die Werte von Kontext-Eigenschaften können in @emph{allen} Kontexten
 eines bestimmten Typs (etwa alle @code{Staff}-Kontexte)

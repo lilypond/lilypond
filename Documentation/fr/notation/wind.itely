@@ -174,11 +174,8 @@ Voici quelques informations spécifiques à la cornemuse.
 @cindex Scottish highland bagpipe
 @cindex petites notes
 @funindex \taor
-@funindex taor
 @funindex \hideKeySignature
-@funindex hideKeySignature
 @funindex \showKeySignature
-@funindex showKeySignature
 
 LilyPond inclut des définitions spécifiques destinées à la notation pour
 cornemuse écossaise ; pour les utiliser, il suffit d'ajouter

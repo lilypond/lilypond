@@ -206,7 +206,6 @@ values are useful.
 @cindex relative mode, and accidentals
 
 @funindex \relative
-@funindex relative
 @funindex '
 @funindex ,
 
@@ -379,7 +378,6 @@ A @notation{rest} is entered just like a note with the name
 @cindex time signature
 
 @funindex \time
-@funindex time
 
 Music Glossary: @rglos{time signature}.
 
@@ -404,7 +402,6 @@ command:
 @cindex metronome marks
 
 @funindex \tempo
-@funindex tempo
 
 Music Glossary: @rglos{tempo indication}, @rglos{metronome}.
 
@@ -436,7 +433,6 @@ set with the @code{\tempo} command:
 @cindex bass
 
 @funindex \clef
-@funindex clef
 
 Music Glossary: @rglos{clef}.
 

@@ -1126,17 +1126,11 @@ Guida alla notazione:
 @cindex incisori, includere nei contesti
 
 @funindex \alias
-@funindex alias
 @funindex \name
-@funindex name
 @funindex \type
-@funindex type
 @funindex \consists
-@funindex consists
 @funindex \accepts
-@funindex accepts
 @funindex \denies
-@funindex denies
 
 Contesti specifici, come @code{Staff} e @code{Voice}, sono creati a partire
 da semplici mattoncini.  È possibile creare nuovi tipi di contesto con

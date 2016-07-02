@@ -1118,17 +1118,11 @@ StaffDefaults = \with {
 @cindex engravers, including in contexts (エングラーバをコンテキストに含める)
 
 @funindex \alias
-@funindex alias
 @funindex \name
-@funindex name
 @funindex \type
-@funindex type
 @funindex \consists
-@funindex consists
 @funindex \accepts
-@funindex accepts
 @funindex \denies
-@funindex denies
 
 @code{Staff} や @code{Voice} のようなコンテキストは、@c
 簡単なブロックの組み合わせで構成されています。

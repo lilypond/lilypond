@@ -175,11 +175,8 @@ Esta sección trata de la notación común para gaita.
 @cindex notas de adorno
 
 @funindex \taor
-@funindex taor
 @funindex \hideKeySignature
-@funindex hideKeySignature
 @funindex \showKeySignature
-@funindex showKeySignature
 
 LilyPond contiene definiciones especiales para la música de gaita
 escocesa de las tierras altas; para usarlas, escriba

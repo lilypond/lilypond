@@ -215,7 +215,6 @@ megfelelő.
 @cindex módosítójelek és relatív mód
 
 @funindex \relative
-@funindex relative
 @funindex '
 @funindex ,
 
@@ -386,7 +385,6 @@ csak a hangmagasság megjelölése helyett @code{r}@tie{} betűt kell írni:
 @cindex ütemmutató
 
 @funindex \time
-@funindex time
 
 Fogalomtár: @rglos{time signature}.
 
@@ -411,7 +409,6 @@ Az @notation{ütemmutató} beállítására a @code{\time} parancs szolgál:
 @cindex metronómjelzés
 
 @funindex \tempo
-@funindex tempo
 
 Fogalomtár: @rglos{tempo indication}, @rglos{metronome}.
 
@@ -445,7 +442,6 @@ a @code{\tempo} parancs segítségével álítható be:
 @cindex basszuskulcs
 
 @funindex \clef
-@funindex clef
 
 Fogalomtár: @rglos{clef}.
 

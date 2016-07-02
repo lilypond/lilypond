@@ -163,7 +163,6 @@ Fragmentos de código:
 @cindex cruzado, pentagrama, barras de
 
 @funindex \change
-@funindex change
 
 Las voces se pueden cambiar de pentagrama manualmente usando la
 instrucción
@@ -283,7 +282,6 @@ un cambio de pauta.  En este caso, utilice barras manuales.
 @cindex pentagrama, cambio automático de
 
 @funindex \autochange
-@funindex autochange
 @funindex PianoStaff
 
 Se puede hacer que las voces cambien automáticamente entre los
@@ -332,7 +330,6 @@ music = {
 @cindex autocambiador y el modo relativo
 
 @funindex \relative
-@funindex relative
 
 Una sección marcada @code{\relative} que se encuentra fuera de
 @code{\autochange} no tiene efecto sobre las notas de la música;
@@ -410,9 +407,7 @@ construcción del acorde.
 
 @funindex followVoice
 @funindex \showStaffSwitch
-@funindex showStaffSwitch
 @funindex \hideStaffSwitch
-@funindex hideStaffSwitch
 
 Cuando una voz cambia a otro pentagrama, se puede imprimir
 automáticamente una línea que conecte las notas:
@@ -523,17 +518,11 @@ relacionados con el piano.
 @cindex U.C.
 
 @funindex \sustainOn
-@funindex sustainOn
 @funindex \sustainOff
-@funindex sustainOff
 @funindex \sostenutoOn
-@funindex sostenutoOn
 @funindex \sostenutoOff
-@funindex sostenutoOff
 @funindex \unaCorda
-@funindex unaCorda
 @funindex \treCorde
-@funindex treCorde
 
 En general, los pianos tienen tres pedales que alteran la forma de
 producir el sonido: el pedal de mantenimiento (pedal

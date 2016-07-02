@@ -167,11 +167,8 @@ nomi per le @notation{alterazioni}, si veda @ruser{Nomi delle note in altre ling
 @cindex layout vs. contenuto
 
 @funindex \key
-@funindex key
 @funindex \major
-@funindex major
 @funindex \minor
-@funindex minor
 
 Glossario musicale: @rglosnamed{key signature,armatura di chiave},
 @rglosnamed{major,maggiore}, @rglosnamed{minor,minore}.
@@ -441,11 +438,8 @@ meglio lasciare che sia LilyPond a determinare le direzioni delle articolazioni.
 @funindex \mf
 @funindex \pp
 @funindex \<
-@funindex <
 @funindex \>
-@funindex >
 @funindex \!
-@funindex !
 
 Glossario musicale: @rglosnamed{dynamics,dinamiche}, @rglos{crescendo},
 @rglos{decrescendo}.
@@ -484,7 +478,6 @@ Guida alla notazione:
 @cindex markup
 
 @funindex \markup
-@funindex markup
 
 Puoi aggiungere del testo nei tuoi spartiti:
 
@@ -521,9 +514,7 @@ Guida alla notazione:
 @funindex [
 @funindex ]
 @funindex \autoBeamOff
-@funindex autoBeamOff
 @funindex \autoBeamOn
-@funindex autoBeamOn
 
 Glossario musicale: @rglosnamed{beam,travatura}.
 
@@ -580,7 +571,6 @@ Guida alla notazione:
 @cindex battuta parziale
 
 @funindex \partial
-@funindex partial
 
 Glossario musicale: @rglos{anacrusis}.
 
@@ -603,7 +593,6 @@ Un' @notation{anacrusi} può essere inserita con la parola chiave
 @cindex terzine
 
 @funindex \tuplet
-@funindex tuplet
 
 Glossario musicale: @rglosnamed{note value,durata},
 @rglosnamed{triplet,gruppo irregolare}.
@@ -633,9 +622,7 @@ due, quindi una @notation{terzina} ha 3/2 come frazione:
 @cindex appoggiatura
 
 @funindex \grace
-@funindex grace
 @funindex \acciaccatura
-@funindex acciaccatura
 @funindex \appoggiatura
 @funindex acciaccatura
 
@@ -824,10 +811,8 @@ su un singolo rigo.
 @cindex contesto della notazione
 
 @funindex \new Staff
-@funindex new Staff
 @funindex Staff
 @funindex \new
-@funindex new
 @funindex Score
 @funindex Voice
 @funindex Lyrics
@@ -1031,7 +1016,6 @@ Questa sezione presenta la musica vocale e gli spartiti di semplici canzoni.
 @cindex canzoni
 
 @funindex \addlyrics
-@funindex addlyrics
 
 Glossario musicale: @rglosnamed{lyrics,testo}.
 
@@ -1404,7 +1388,6 @@ differenti.  L'esempio seguente usa le variabili mostrate sopra:
 @cindex blocco dell'intestazione
 
 @funindex \header
-@funindex header
 
 Titolo, compositore, numero di opus e informazioni simili vengono
 inserite nel blocco @code{\header}.  Questo si trova fuori dalla

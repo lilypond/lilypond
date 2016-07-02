@@ -7,22 +7,35 @@
 #include "main.hh"
 #include "warn.hh"
 
-LY_DEFINE (ly_pfb_2_pfa, "ly:pfb->pfa",
-           1, 0, 0, (SCM pfb_file_name),
+LY_DEFINE (ly_type1_2_pfa, "ly:type1->pfa",
+           1, 0, 0, (SCM type1_file_name),
            "Convert the contents of a Type@tie{}1 font in PFB format"
-           " to PFA format.")
+           " to PFA format.  If the file is already in PFA format,"
+           " pass through it.")
 {
-  LY_ASSERT_TYPE (scm_is_string, pfb_file_name, 1);
+  LY_ASSERT_TYPE (scm_is_string, type1_file_name, 1);
 
-  string file_name = ly_scm2string (pfb_file_name);
+  string file_name = ly_scm2string (type1_file_name);
 
   debug_output ("[" + file_name); // start message on a new line
 
-  vector<char> pfb_string = gulp_file (file_name, 0);
-  char *pfa = pfb2pfa ((Byte *) &pfb_string[0], pfb_string.size ());
+  vector<char> type1_string = gulp_file (file_name, 0);
+  SCM pfa_scm;
 
-  SCM pfa_scm = scm_from_latin1_string (pfa);
-  free (pfa);
+  if ((Byte) type1_string[0] == 0x80)
+    {
+      /* The file is in PFB format. Convert it to PFA format. */
+      char *pfa = pfb2pfa ((Byte *) &type1_string[0],
+                           (int) type1_string.size ());
+      pfa_scm = scm_from_latin1_string (pfa);
+      free (pfa);
+    }
+  else
+    {
+      /* The file is in PFA format. Pass it through. */
+      type1_string.push_back(0);
+      pfa_scm = scm_from_latin1_string (&type1_string[0]);
+    }
 
   debug_output ("]", false);
 

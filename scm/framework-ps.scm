@@ -257,6 +257,18 @@
                             (ly:get-option 'datadir)))))
 
   (define (load-font-via-GS font-name-filename)
+    (define (is-collection-font? file-name)
+      (let ((port (open-file file-name "rb")))
+        (if (eq? (read-char port) #\t)
+            (if (eq? (read-char port) #\t)
+                (if (eq? (read-char port) #\c)
+                    (if (eq? (read-char port) #\f)
+                        #t
+                        #f)
+                    #f)
+                #f)
+            #f)))
+
     (define (ps-load-file file-name)
       (if (string? file-name)
           (if (string-contains file-name (ly:get-option 'datadir))
@@ -272,19 +284,39 @@
     (let* ((font (car font-name-filename))
            (name (cadr font-name-filename))
            (file-name (caddr font-name-filename))
+           (font-index (cadddr font-name-filename))
            (bare-file-name (ly:find-file file-name)))
-      (cons name
-            (if (mac-font? bare-file-name)
-                (handle-mac-font name bare-file-name)
-                (cond
-                 ((and font (cff-font? font))
-                  (ps-load-file (ly:find-file
-                                 (format #f "~a.otf" file-name))))
-                 ((string? bare-file-name)
-                  (ps-load-file file-name))
-                 (else
-                  (ly:warning (_ "cannot embed ~S=~S") name file-name)
-                  ""))))))
+      (cond
+       ((and (number? font-index)
+             (!= font-index 0))
+        (ly:warning (_ "Font ~a cannot be loaded via Ghostscript because its font-index (~a) is not zero.")
+                    name font-index)
+        (load-font font-name-filename))
+       ((and (string? bare-file-name)
+             (eq? (ly:get-font-format bare-file-name font-index) 'CFF)
+             (is-collection-font? bare-file-name))
+        (ly:warning (_ "Font ~a cannot be loaded via Ghostscript because it is an OpenType/CFF (OTC) font.")
+                    name)
+        (load-font font-name-filename))
+       ((and (string? bare-file-name)
+             (eq? (ly:get-font-format bare-file-name font-index) 'TrueType)
+             (not (ly:has-glyph-names? bare-file-name font-index)))
+        (ly:warning (_ "Font ~a cannot be used via Ghostscript because it is a TrueType font that does not have glyph names.")
+                    name)
+        (load-font font-name-filename))
+       (else
+        (cons name
+              (if (mac-font? bare-file-name)
+                  (handle-mac-font name bare-file-name)
+                  (cond
+                   ((and font (cff-font? font))
+                    (ps-load-file (ly:find-file
+                                   (format #f "~a.otf" file-name))))
+                   ((string? bare-file-name)
+                    (ps-load-file file-name))
+                   (else
+                    (ly:warning (_ "cannot embed ~S=~S") name file-name)
+                    ""))))))))
 
   (define (dir-join a b)
     (if (equal? a "")
@@ -331,24 +363,17 @@
       embed))
 
   (define (font-file-as-ps-string name file-name font-index)
-    (let* ((downcase-file-name (string-downcase file-name)))
+    (let ((font-format (ly:get-font-format file-name font-index)))
       (cond
-       ((and file-name (string-endswith downcase-file-name ".pfa"))
-        (embed-document file-name))
-       ((and file-name (string-endswith downcase-file-name ".pfb"))
-        (ly:pfb->pfa file-name))
-       ((and file-name (string-endswith downcase-file-name ".ttf"))
-        (ly:ttf->pfa file-name))
-       ((and file-name (string-endswith downcase-file-name ".ttc"))
-        ;; TODO: distinguish files which have extension `*.ttc'
-        ;; whether TrueType Collection (TTC) fonts
-        ;; or OpenType/CFF Collection (OTC) fonts.
-        (ly:ttf->pfa file-name font-index)) ;; TTC fonts
-       ((and file-name (string-endswith downcase-file-name ".otf"))
-        (ps-embed-cff (ly:otf->cff file-name) name 0))
-       ((and file-name (string-endswith downcase-file-name ".otc"))
-        ;; The files which have the extension `*.otc' are OTC fonts.
-        (ps-embed-cff (ly:otf->cff file-name font-index) name 0)) ;; OTC fonts
+       ((eq? font-format (string->symbol "Type 1"))
+        ;; Type 1 (PFA and PFB) fonts
+        (ly:type1->pfa file-name))
+       ((eq? font-format 'TrueType)
+        ;; TrueType fonts (TTF) and TrueType Collection (TTC)
+        (ly:ttf->pfa file-name font-index))
+       ((eq? font-format 'CFF)
+        ;; OpenType/CFF fonts (OTF) and OpenType/CFF Collection (OTC)
+        (ps-embed-cff (ly:otf->cff file-name font-index) name 0))
        (else
         (ly:warning (_ "do not know how to embed ~S=~S") name file-name)
         ""))))

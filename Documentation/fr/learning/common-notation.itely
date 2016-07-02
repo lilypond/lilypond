@@ -202,11 +202,8 @@ autres langues disponibles, consultez
 @cindex mineur
 
 @funindex \key
-@funindex key
 @funindex \major
-@funindex major
 @funindex \minor
-@funindex minor
 
 Glossaire musicologique :
 @rglosnamed{key signature,armure}, @rglosnamed{major,majeur},
@@ -502,11 +499,8 @@ l'articulation.
 @funindex \mf
 @funindex \pp
 @funindex \<
-@funindex <
 @funindex \>
-@funindex >
 @funindex \!
-@funindex !
 
 Glossaire musicologique :
 @rglosnamed{dynamics,nuances},
@@ -552,7 +546,6 @@ Manuel de notation :
 @cindex étiquette
 
 @funindex \markup
-@funindex markup
 
 On peut ajouter du texte à une partition :
 
@@ -588,9 +581,7 @@ Manuel de notation :
 @funindex [
 @funindex ]
 @funindex \autoBeamOff
-@funindex autoBeamOff
 @funindex \autoBeamOn
-@funindex autoBeamOn
 
 Glossaire musicologique :
 @rglosnamed{beam,ligature}.
@@ -650,7 +641,6 @@ Manuel de notation :
 @cindex mesure incomplète
 
 @funindex \partial
-@funindex partial
 
 Glossaire musicologique : @rglosnamed{anacrusis,anacrouse}.
 
@@ -674,7 +664,6 @@ noire et @code{\partial 8} d'une croche.
 @cindex triolets
 
 @funindex \tuplet
-@funindex tuplet
 
 Glossaire musicologique : @rglosnamed{note value,valeur d'une note},
 @rglosnamed{triplet,triolet}.
@@ -706,9 +695,7 @@ que deux ; un @notation{triolet} portera donc une fraction de 3/2.
 @cindex acciaccature
 
 @funindex \grace
-@funindex grace
 @funindex \acciaccatura
-@funindex acciaccatura
 @funindex \appoggiatura
 @funindex acciaccatura
 
@@ -906,10 +893,8 @@ produite sur une unique portée.
 @cindex notation, contexte
 
 @funindex \new Staff
-@funindex new Staff
 @funindex Staff
 @funindex \new
-@funindex new
 @funindex Score
 @funindex Voice
 @funindex Lyrics
@@ -1119,7 +1104,6 @@ Cette section présente l'écriture vocale et les partitions de variété.
 @cindex chansons
 
 @funindex \addlyrics
-@funindex addlyrics
 
 Glossaire musicologique : @rglos{lyrics}.
 
@@ -1495,7 +1479,6 @@ ci-dessus.
 @cindex bloc d'en-tête
 
 @funindex \header
-@funindex header
 
 On indique les informations bibliographiques -- nom du morceau, du
 compositeur, numéro d'opus@dots{} -- dans un bloc à part, le bloc

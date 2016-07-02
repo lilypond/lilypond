@@ -675,7 +675,7 @@ object.")
 get stems extending to the middle staff line.")
      (non-break-align-symbols ,list? "A list of symbols that determine
 which NON-break-aligned interfaces to align this to.")
-     (non-default ,boolean? "Set for manually specified clefs.")
+     (non-default ,boolean? "Set for manually specified clefs and keys.")
      (non-musical ,boolean? "True if the grob belongs to a
 @code{NonMusicalPaperColumn}.")
      (nonstaff-nonstaff-spacing ,list? "The spacing alist

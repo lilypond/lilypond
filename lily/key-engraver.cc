@@ -117,6 +117,7 @@ Key_engraver::create_key (bool is_default)
     {
       SCM visibility = get_property ("explicitKeySignatureVisibility");
       item_->set_property ("break-visibility", visibility);
+      item_->set_property ("non-default", SCM_BOOL_T);
     }
 }
 

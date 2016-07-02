@@ -2,6 +2,7 @@
   This file is part of LilyPond, the GNU music typesetter.
 
   Copyright (C) 2013--2015 Mike Solomon <mike@mikesolomon.org>
+  Copyright (C) 2016 David Kastrup <dak@gnu.org>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -17,22 +18,15 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef SLUR_PROTO_ENGRAVER_HH
-#define SLUR_PROTO_ENGRAVER_HH
+#ifndef SLUR_ENGRAVER_HH
+#define SLUR_ENGRAVER_HH
 
 #include "engraver.hh"
-#include "moment.hh"
 #include <map>
 
-class Slur_proto_engraver : public Engraver
+class Slur_engraver : public Engraver
 {
 protected:
-  Slur_proto_engraver (const char* double_property_name,
-    const char* grob_name, const char* object_name, const char* event_name) :
-      double_property_name_ (double_property_name),
-      grob_name_ (grob_name), object_name_ (object_name),
-      event_name_ (event_name) {}
-
   struct Event_info {
     Stream_event *slur_, *note_;
     Event_info (Stream_event *slur, Stream_event *note)
@@ -48,12 +42,26 @@ protected:
   vector<Grob *> slurs_;
   vector<Grob *> end_slurs_;
   vector<Grob_info> objects_to_acknowledge_;
-  const char* double_property_name_;
-  const char* grob_name_;
-  const char* object_name_;
-  const char* event_name_;
-  virtual SCM event_symbol () = 0;
 
+  virtual SCM event_symbol () const;
+  virtual bool double_property () const;
+  virtual SCM grob_symbol () const;
+  virtual const char* object_name () const;
+
+  void acknowledge_inline_accidental (Grob_info);
+  void acknowledge_fingering (Grob_info);
+  void acknowledge_note_column (Grob_info);
+  void acknowledge_script (Grob_info);
+  void acknowledge_dots (Grob_info);
+  void acknowledge_text_script (Grob_info);
+  void acknowledge_end_tie (Grob_info);
+  void acknowledge_tuplet_number (Grob_info);
+
+  void listen_note (Stream_event *ev);
+  // A slur on an in-chord note is not actually announced as an event
+  // but rather produced by the note listener.
+  void listen_note_slur (Stream_event *ev, Stream_event *note);
+  void listen_slur (Stream_event *ev) { listen_note_slur (ev, 0); }
   void acknowledge_extra_object (Grob_info);
   void stop_translation_timestep ();
   void process_music ();
@@ -67,22 +75,7 @@ protected:
   virtual void derived_mark () const;
 
 public:
-  void acknowledge_inline_accidental (Grob_info);
-  void acknowledge_fingering (Grob_info);
-  void acknowledge_note_column (Grob_info);
-  void acknowledge_script (Grob_info);
-  void acknowledge_dots (Grob_info);
-  void acknowledge_text_script (Grob_info);
-  void acknowledge_end_tie (Grob_info);
-  void acknowledge_tuplet_number (Grob_info);
-  void listen_note (Stream_event *ev);
-  void listen_slur (Stream_event *ev, Stream_event *note);
-  // You'd think the following is the same as defaulting `note' to 0,
-  // but template resolution for trampolines disagrees.  Huh.
-  void listen_slur (Stream_event *ev) { listen_slur (ev, 0); }
-  // no TRANSLATOR_DECLARATIONS (Slur_proto_engraver) needed since this
-  // class is abstract
-  DECLARE_TRANSLATOR_CALLBACKS (Slur_proto_engraver);
+  TRANSLATOR_DECLARATIONS (Slur_engraver);
 };
 
-#endif // SLUR_PROTO_ENGRAVER_HH
+#endif // SLUR_ENGRAVER_HH

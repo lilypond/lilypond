@@ -176,7 +176,6 @@ Référence des propriétés internes :
 @cindex ligature inter-portée
 
 @funindex \change
-@funindex change
 
 Il est possible de passer d'une portée à l'autre de façon manuelle, au
 moyen de la commande
@@ -292,7 +291,6 @@ de portée, utilisez alors une ligature manuelle.
 @cindex Automatique, changement de portée
 
 @funindex \autochange
-@funindex autochange
 @funindex PianoStaff
 
 Les voix peuvent passer automatiquement d'une portée à l'autre, au moyen
@@ -339,7 +337,6 @@ music = {
 @cindex autochange et mode relatif
 
 @funindex \relative
-@funindex relative
 
 Une section en mode @code{\relative} se situant en dehors de la commande
 @code{\autochange} n'aura pas d'effet sur les hauteurs de l'expression
@@ -412,9 +409,7 @@ construction de cet accord.
 
 @funindex followVoice
 @funindex \showStaffSwitch
-@funindex showStaffSwitch
 @funindex \hideStaffSwitch
-@funindex hideStaffSwitch
 
 Lorsqu'une voix change de portée, il est possible d'imprimer
 automatiquement une ligne reliant les notes, en faisant appel à la
@@ -515,17 +510,11 @@ Ce chapitre traite des aspects de la notation directement liés au piano.
 @cindex U.C.
 
 @funindex \sustainOn
-@funindex sustainOn
 @funindex \sustainOff
-@funindex sustainOff
 @funindex \sostenutoOn
-@funindex sostenutoOn
 @funindex \sostenutoOff
-@funindex sostenutoOff
 @funindex \unaCorda
-@funindex unaCorda
 @funindex \treCorde
-@funindex treCorde
 
 Le piano possède deux pédales, parfois trois, permettant de modifier
 l'émission du son : une pédale de @notation{tenue} (@emph{sustain}), une

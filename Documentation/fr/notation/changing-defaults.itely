@@ -1193,17 +1193,11 @@ Manuel de notation :
 @cindex graveur, affectation à un contexte
 
 @funindex \alias
-@funindex alias
 @funindex \name
-@funindex name
 @funindex \type
-@funindex type
 @funindex \consists
-@funindex consists
 @funindex \accepts
-@funindex accepts
 @funindex \denies
-@funindex denies
 
 Les contextes tels que @code{Staff} ou @code{Voice} sont faits
 de briques de construction empilées.  En combinant divers graveurs,

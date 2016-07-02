@@ -176,9 +176,7 @@ New_fingering_engraver::add_fingering (Grob *head,
 {
   Finger_tuple ft;
 
-  ft.script_ = internal_make_item (grob_sym, event->self_scm (),
-                                   ly_symbol2string (grob_sym).c_str (),
-                                   __FILE__, __LINE__, __FUNCTION__);
+  ft.script_ = make_item (grob_sym, event->self_scm ());
 
   Side_position_interface::add_support (ft.script_, head);
 

@@ -143,11 +143,8 @@ This section discusses notation common bagpipes.
 @cindex Scottish highland bagpipe
 @cindex grace notes
 @funindex \taor
-@funindex taor
 @funindex \hideKeySignature
-@funindex hideKeySignature
 @funindex \showKeySignature
-@funindex showKeySignature
 
 LilyPond contains special definitions for Scottish, Highland Bagpipe
 music; to use them, add

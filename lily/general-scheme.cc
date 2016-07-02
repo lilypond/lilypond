@@ -595,7 +595,9 @@ LY_DEFINE (ly_format, "ly:format",
   char *ptr = result;
   for (vsize i = 0; i < results.size (); i++)
     {
-      strncpy (ptr, results[i].c_str (), results[i].size ());
+      // strcpy and strncpy cannot be used here
+      // because std::string may contain '\0' in its contents.
+      results[i].copy (ptr, results[i].size ());
       ptr += results[i].size ();
     }
   *ptr = '\0';

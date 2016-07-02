@@ -9,6 +9,7 @@
 
 @set txicodequoteundirected
 @set txicodequotebacktick
+@set txiindexbackslashignore
 
 @include cyrillic.itexi
 

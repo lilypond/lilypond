@@ -222,7 +222,6 @@ Referencia de la notació:
 @cindex override (sobreescriptura), sintaxi de
 
 @funindex \override
-@funindex override
 
 Ja hem vist les ordres @code{\set} i @code{\with}, que s'usen per
 canviar les propietats dels @strong{contextos} i per treure i
@@ -301,7 +300,6 @@ per canviar el color d'un cap:
 @cindex revert, instrucción
 
 @funindex \revert
-@funindex revert
 
 Un cop sobreescrita, la propietat reté el seu nou valor fins que
 se sobreescriu de o es troba una ordre @code{\revert}.  L'ordre té
@@ -340,7 +338,6 @@ dues notes:
 @translationof The once prefix
 
 @funindex \once
-@funindex once
 
 @code{\override}, @code{\revert}, @code{\set} i @code{\unset} es
 poden fer precedir per @code{\once}.  Això fa que l'ordre sigui
@@ -389,7 +386,6 @@ predefinides per limitar el seu efecte a un sol moment musical:
 @cindex overrideProperty, ordre
 
 @funindex \overrideProperty
-@funindex overrideProperty
 
 Hi ha una altra forma per a l'ordre de sobreescriptura,
 @code{\overrideProperty}, que ocasionalment és necessària.  La
@@ -405,7 +401,6 @@ detalls consulteu @rextendnamed{Difficult tweaks,Ajustaments difícils}.
 @cindex tweak, ordre
 
 @funindex \tweak
-@funindex tweak
 
 L'última ordre d'ajustament que està disponible és @code{\tweak}.
 S'ha de fer servir quan diversos objectes s'usen en el mateix
@@ -839,7 +834,6 @@ aquest lloc concret.
 @cindex once override
 
 @funindex \once
-@funindex once
 
 Com podeu veure, @emph{totes} les lligadures són més gruixudes a
 l'últim exemple. Però, i si volguéssim que sols la primera
@@ -885,7 +879,6 @@ l'ordre @code{\set}.
 @cindex predeterminades, recuperar las propietats
 
 @funindex \revert
-@funindex revert
 
 Finalment, i si volguéssim que sols les dues primeres lligadures
 fossin més gruixudes?  Per acabar; podríem usar dues ordres,
@@ -2358,9 +2351,7 @@ d'ells.
 @cindex octava alta y baixa, claudàtor de
 
 @funindex \startTextSpan
-@funindex startTextSpan
 @funindex \stopTextSpan
-@funindex stopTextSpan
 
 @cindex TextSpanner, exemple de sobreescriptura
 @cindex bound-details, propietat, exemple
@@ -2514,9 +2505,7 @@ fa usant l'ordre @code{textLengthOn}.
 @cindex notes, espaiar amb el text
 
 @funindex \textLengthOn
-@funindex textLengthOn
 @funindex \textLengthOff
-@funindex textLengthOff
 
 De forma predeterminada, el text produït mitjançant marcatge no
 ocupa cap espai horitzontal en quant es refereix a la disposició
@@ -3060,13 +3049,9 @@ diferents.
 @cindex col·lisions de notes
 @cindex desplaçament, ordres de
 @funindex \shiftOff
-@funindex shiftOff
 @funindex \shiftOn
-@funindex shiftOn
 @funindex \shiftOnn
-@funindex shiftOnn
 @funindex \shiftOnnn
-@funindex shiftOnnn
 
 Dins d'una veu, totes les notes que es produeixen al mateix moment
 s'agrupen a una columna de notes, i es crea un objecte

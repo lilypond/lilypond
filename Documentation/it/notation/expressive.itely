@@ -236,43 +236,24 @@ Guida al funzionamento interno:
 @cindex dinamiche assolute
 
 @funindex \ppppp
-@funindex ppppp
 @funindex \pppp
-@funindex pppp
 @funindex \ppp
-@funindex ppp
 @funindex \pp
-@funindex pp
 @funindex \p
-@funindex p
 @funindex \mp
-@funindex mp
 @funindex \mf
-@funindex mf
 @funindex \f
-@funindex f
 @funindex \ff
-@funindex ff
 @funindex \fff
-@funindex fff
 @funindex \ffff
-@funindex ffff
 @funindex \fffff
-@funindex fffff
 @funindex \fp
-@funindex fp
 @funindex \sf
-@funindex sf
 @funindex \sff
-@funindex sff
 @funindex \sp
-@funindex sp
 @funindex \spp
-@funindex spp
 @funindex \sfz
-@funindex sfz
 @funindex \rfz
-@funindex rfz
 
 Le indicazioni dinamiche assolute si indicano con un comando che segue una
 nota, come ad esempio @code{c4\ff}.  Le indicazioni dinamiche disponibili
@@ -300,9 +281,7 @@ rigo, come è spiegato in dettaglio in @ref{Direction and placement}.
 @funindex \>
 @funindex \!
 @funindex \cr
-@funindex cr
 @funindex \decr
-@funindex decr
 
 Un'indicazione di @notation{crescendo} inizia con @code{\<} e termina
 con @code{\!}, un'indicazione dinamica assoluta o un'ulteriore indicazione
@@ -367,7 +346,6 @@ una nota.  Questo è utile soprattutto quando si aggiunge un
 @cindex articolazione "espressivo"
 
 @funindex \espressivo
-@funindex espressivo
 
 Il comando @code{\espressivo} permette di indicare un crescendo e
 un decrescendo sulla stessa nota.  Tuttavia, si tenga presente che
@@ -381,11 +359,8 @@ viene implementato come articolazione, non come dinamica.
 @end lilypond
 
 @funindex \cresc
-@funindex cresc
 @funindex \decresc
-@funindex decresc
 @funindex \dim
-@funindex dim
 
 Le indicazioni di crescendo testuali iniziano con @code{\cresc}, quelle di
 decrescendo con @code{\decresc} o @code{\dim}.
@@ -401,17 +376,11 @@ Le linee di estensione sono aggiunte automaticamente.
 @end lilypond
 
 @funindex \crescTextCresc
-@funindex crescTextCresc
 @funindex \dimTextDecresc
-@funindex dimTextDecresc
 @funindex \dimTextDecr
-@funindex dimTextDecr
 @funindex \dimTextDim
-@funindex dimTextDim
 @funindex \crescHairpin
-@funindex crescHairpin
 @funindex \dimHairpin
-@funindex dimHairpin
 
 Le indicazioni testuali per i cambi di dinamica possono essere impiegate anche per sostituire le forcelle:
 @lilypond[verbatim,quote]
@@ -443,11 +412,8 @@ Il posizionamento verticale della dinamica è gestito da
 @rinternals{DynamicLineSpanner}.
 
 @funindex \dynamicUp
-@funindex dynamicUp
 @funindex \dynamicDown
-@funindex dynamicDown
 @funindex \dynamicNeutral
-@funindex dynamicNeutral
 
 Esiste un contesto @code{Dynamics} che permette di posizionare le indicazioni
 dinamiche su un'apposita linea orizzontale.  Si usano le pause spaziatrici
@@ -567,9 +533,7 @@ moltoF = \markup { molto \dynamic f }
 @cindex dinamiche, parentesi
 @cindex editoriali, dinamiche
 @funindex \bracket
-@funindex bracket
 @funindex \dynamic
-@funindex dynamic
 
 In modalità markup, si possono creare dinamiche editoriali (racchiuse tra
 parentesi normali o quadrate).  La sintassi della modalità markup è
@@ -711,9 +675,7 @@ terminare nella stessa voce in cui è iniziata.}
 @cindex legature di portamento, sotto le note
 @cindex legature di portamento, sopra le note
 @funindex \slurDown
-@funindex slurDown
 @funindex \slurNeutral
-@funindex slurNeutral
 
 Le legature di portamento possono essere posizionate manualmente sopra o
 sotto il rigo, come è spiegato in @ref{Direction and placement}.
@@ -742,11 +704,8 @@ voce, l'inizio e la fine di ogni legatura devono essere preceduti da un
 @cindex legatura di portamento tratteggiata
 @cindex stile, legatura di portamento
 @funindex \slurDashed
-@funindex slurDashed
 @funindex \slurDotted
-@funindex slurDotted
 @funindex \slurSolid
-@funindex slurSolid
 
 Le legature di portamento possono essere continue, punteggiate o tratteggiate.  Lo
 stile predefinito è quello continuo:
@@ -764,9 +723,7 @@ stile predefinito è quello continuo:
 @end lilypond
 
 @funindex \slurHalfDashed
-@funindex slurHalfDashed
 @funindex \slurHalfSolid
-@funindex slurHalfSolid
 @cindex legatura di portamento, metà tratteggiata e metà continua
 
 Le legature di portamento possono essere anche semitratteggiate (half-dashed),
@@ -786,7 +743,6 @@ ovvero con la prima metà tratteggiata e la seconda continua; oppure semicontinu
 @end lilypond
 
 @funindex \slurDashPattern
-@funindex slurDashPattern
 @cindex legatura di portamento, definizione del modello di tratteggio
 
 Si possono definire modelli di tratteggio personalizzati per le legature di
@@ -807,7 +763,6 @@ portamento:
 
 
 @funindex \slurUp
-@funindex slurUp
 
 
 @predefined
@@ -872,11 +827,8 @@ scrivono con i comandi @code{\(} e @code{\)}:
 @end lilypond
 
 @funindex \phrasingSlurUp
-@funindex phrasingSlurUp
 @funindex \phrasingSlurDown
-@funindex phrasingSlurDown
 @funindex \phrasingSlurNeutral
-@funindex phrasingSlurNeutral
 
 A livello tipografico, una legatura di frase si comporta in modo pressoché
 identico a una normale legatura di portamento.  Sono però trattate
@@ -892,12 +844,9 @@ sopra o sotto il rigo, come è spiegato in @ref{Direction and placement}.
 Per inserire più legature di frase simultanee o sovrapposte si usa @code{\=},
 come per le normali legature di portamento (vedi @ref{Slurs}).
 
-@funindex phrasingSlurDashed
 @funindex \phrasingSlurDashed
 @funindex \phrasingSlurDotted
-@funindex phrasingSlurDotted
 @funindex \phrasingSlurSolid
-@funindex phrasingSlurSolid
 @cindex legatura di frase tratteggiata
 @cindex legatura di frase puntata
 @cindex legatura di portamento, frase tratteggiata
@@ -918,10 +867,8 @@ predefinito è quello continuo:
 }
 @end lilypond
 
-@funindex phrasingSlurHalfDashed
 @funindex \phrasingSlurHalfDashed
 @funindex \phrasingSlurHalfSolid
-@funindex phrasingSlurHalfSolid
 @cindex legatura di frase, metà continua e metà tratteggiata
 @cindex legatura di portamento, tratto metà continuo e metà tratteggiato
 
@@ -942,7 +889,6 @@ continua, la seconda tratteggiata):
 @end lilypond
 
 @funindex \phrasingSlurDashPattern
-@funindex phrasingSlurDashPattern
 @cindex legatura di frase, definizione dei modelli di tratteggio
 @cindex legatura di portamento, fraseggio, definizione dei modelli di tratteggio
 @cindex legatura di portamento, definizione dei modelli di tratteggio  per il fraseggio
@@ -1000,7 +946,6 @@ Guida al funzionamento interno:
 @cindex respiri
 @cindex segno di pausa
 @funindex \breathe
-@funindex breathe
 
 I respiri si inseriscono col comando @code{\breathe}:
 
@@ -1064,7 +1009,6 @@ Guida al funzionamento interno:
 
 @cindex portamenti indeterminati verso il basso (cadute) e verso l'alto
 @funindex \bendAfter
-@funindex bendAfter
 
 I @notation{portamenti indeterminati verso il basso (cadute) e verso l'alto} possono
 essere aggiunti alle note col comando @code{\bendAfter}.  La direzione del
@@ -1114,7 +1058,6 @@ una traiettoria lineare: glissandi, arpeggi e trilli.
 
 @cindex glissando
 @funindex \glissando
-@funindex glissando
 
 Un @notation{glissando} si crea attaccando @code{\glissando}
 a una nota:
@@ -1210,13 +1153,9 @@ Non è supportato il testo lungo la linea del glissando (ad esempio @notation{gl
 @cindex spezzato, arpeggio
 
 @funindex \arpeggio
-@funindex arpeggio
 @funindex \arpeggioArrowUp
-@funindex arpeggioArrowUp
 @funindex \arpeggioArrowDown
-@funindex arpeggioArrowDown
 @funindex \arpeggioNormal
-@funindex arpeggioNormal
 
 Un @notation{arpeggio} su un accordo (detto anche accordo spezzato)
 si ottiene aggiungendo @code{\arpeggio} all'accordo:
@@ -1247,11 +1186,8 @@ Si possono scrivere vari tipi di arpeggio.
 @cindex simboli speciali di arpeggio
 
 @funindex \arpeggioBracket
-@funindex arpeggioBracket
 @funindex \arpeggioParenthesis
-@funindex arpeggioParenthesis
 @funindex \arpeggioParenthesisDashed
-@funindex arpeggioParenthesisDashed
 
 Si possono creare simboli di arpeggio speciali @emph{in forma di parentesi}:
 
@@ -1337,11 +1273,8 @@ descritti in @ref{Cross-staff stems}.
 @cindex trilli
 
 @funindex \trill
-@funindex trill
 @funindex \startTrillSpan
-@funindex startTrillSpan
 @funindex \stopTrillSpan
-@funindex stopTrillSpan
 
 I trilli senza linea di estensione si ottengono col comando
 @code{\trill}; si veda @ref{Articulations and ornamentations}.
@@ -1400,7 +1333,6 @@ sono descritti in @ref{Grace notes}.
 @cindex trilli con altezza
 @cindex trilli con notina
 @funindex \pitchedTrill
-@funindex pitchedTrill
 
 I trilli che richiedono una nota ausiliaria dall'altezza esplicita si
 ottengono col comando @code{\pitchedTrill}.  Il primo argomento è la  nota

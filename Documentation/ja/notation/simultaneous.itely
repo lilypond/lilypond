@@ -353,7 +353,6 @@ warning: ignoring too many clashing note columns
 @cindex note cluster (音符のクラスタ)
 
 @funindex \makeClusters
-@funindex makeClusters
 
 クラスタは演奏すべき連続したピッチの範囲を示します。@c
 クラスタは 1 組の音符の範囲 (envelope) として表されます。@c
@@ -420,11 +419,9 @@ warning: ignoring too many clashing note columns
 @cindex lyrics assigned to one voice (1 つのボイスに代入される歌詞)
 
 @funindex \voiceOne
-@funindex voiceOne
 @funindex \voiceOne ... \voiceFour
 @funindex Voice
 @funindex \oneVoice
-@funindex oneVoice
 
 @subsubsubheading 明示的にボイスをインスタンス化する
 
@@ -684,21 +681,13 @@ etc.
 @cindex voices, multiple (複数のボイス)
 @cindex shift rest, automatic (自動的な休符のシフト)
 @funindex \shiftOn
-@funindex shiftOn
 @funindex \shiftOnn
-@funindex shiftOnn
 @funindex \shiftOnnn
-@funindex shiftOnnn
 @funindex \shiftOff
-@funindex shiftOff
 @funindex \mergeDifferentlyDottedOn
-@funindex mergeDifferentlyDottedOn
 @funindex \mergeDifferentlyDottedOff
-@funindex mergeDifferentlyDottedOff
 @funindex \mergeDifferentlyHeadedOn
-@funindex mergeDifferentlyHeadedOn
 @funindex \mergeDifferentlyHeadedOff
-@funindex mergeDifferentlyHeadedOff
 
 同じピッチ、同じ符頭を持ち、符幹の方向が逆で異なるボイスの中にある符頭は@c
 自動的に 1 つの符頭にまとめられます -- マージされます。@c
@@ -932,7 +921,6 @@ are at the same time differently dotted are not clear.
 @cindex a due part (二重奏パート)
 @cindex solo part (ソロ パート)
 @funindex \partcombine
-@funindex partcombine
 
 自動パート結合は 2 つのパートに分かれた音楽を単一の譜にマージします。@c
 これはオーケストラ譜を譜刻する時に特に有用です。@c
@@ -1007,17 +995,11 @@ instrumentTwo = \relative {
 と @var{musicexpr2} のピッチには影響を与えません。
 
 @funindex \partcombineChords
-@funindex partcombineChords
 @funindex \partcombineApart
-@funindex partcombineApart
 @funindex \partcombineUnisono
-@funindex partcombineUnisono
 @funindex \partcombineSoloI
-@funindex partcombineSoloI
 @funindex \partcombineSoloII
-@funindex partcombineSoloII
 @funindex \partcombineAutomatic
-@funindex partcombineAutomatic
 
 プロの楽譜では長いパッセージで、@c
 2 つのボイスの音符のいくつかが同じでユニゾンとして譜刻できる場合であっても、@c
@@ -1149,7 +1131,6 @@ instrumentTwo = \relative {
 @cindex interleaved music (間奏)
 @cindex parallel music (並列な音楽)
 @funindex \parallelMusic
-@funindex parallelMusic
 
 複数のパートを持つ音楽を入力コードの途中に挿入することができます。@c
 関数 @code{\parallelMusic} は、@c

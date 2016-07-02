@@ -198,7 +198,6 @@ Befehl einsetzen zu können.
 
 @cindex override-Befehl
 @funindex \override
-@funindex override
 
 @strong{Der \override-Befehl}
 
@@ -272,7 +271,6 @@ zu ändern:
 
 @cindex revert-Befehl
 @funindex \revert
-@funindex revert
 
 Wenn eine Eigenschaft einmal überschrieben wurde, wird ihr
 neuer Wert so lange bewahrt, bis er noch einmal überschrieben
@@ -311,7 +309,6 @@ wieder auf den Standardwert für die letzten zwei Noten gesetzt.
 @strong{\once-Präfix}
 
 @funindex \once
-@funindex once
 
 Sowohl der @code{\override}-Befehl als auch der @code{\set}-Befehl können mit
 dem Präfix @code{\once} (@emph{einmal}) versehen werden. Dadurch wird
@@ -339,7 +336,6 @@ g4 a b c |
 @cindex overrideProperty-Befehl
 
 @funindex \overrideProperty
-@funindex overrideProperty
 
 Es gibt eine andere Form des @code{override}-Befehls,
 @code{\overrideProperty} (überschreibe Eigenschaft),
@@ -353,7 +349,6 @@ in @rextend{Schwierige Korrekturen}.
 
 @cindex tweak-Befehl
 @funindex \tweak
-@funindex tweak
 
 Der letzte Optimierungsbefehl in LilyPond ist @code{\tweak}
 (engl. optimieren). Er wird eingesetzt um Eigenschaften
@@ -741,7 +736,6 @@ auch weggelassen werden.
 @cindex Override nur einmal
 @cindex once override
 @funindex \once
-@funindex once
 
 Im Beispiel oben wurden @emph{alle} Legatobögen dicker
 gesetzt. Vielleicht wollen Sie aber nur den ersten Bogen
@@ -789,7 +783,6 @@ eingesetzt werden.
 @cindex Wiederherstellen von Standardeinstellungen
 @cindex Standardeinstellungen, Wiederherstellen
 @funindex \revert
-@funindex revert
 
 Eine weitere Möglichkeit: nur die beiden ersten Legatobögen sollen
 dicker gesetzt werden. Gut, wir könnten jetzt zwei Befehle benutzen,
@@ -2380,9 +2373,7 @@ werden.  Das kann erreicht werden mit dem
 
 @cindex Noten, durch Text gespreizt
 @funindex \textLengthOn
-@funindex textLengthOn
 @funindex \textLengthOff
-@funindex textLengthOff
 
 Standardmäßig wird Text, der mit dem Beschriftungsbefehl
 @code{\markup} bzw. Äquivalenten erstellt wird, kein

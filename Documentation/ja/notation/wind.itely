@@ -153,11 +153,8 @@
 @cindex Scottish highland bagpipe (スコティッシュ ハイランド バグパイプ)
 @cindex grace notes (装飾小音符)
 @funindex \taor
-@funindex taor
 @funindex \hideKeySignature
-@funindex hideKeySignature
 @funindex \showKeySignature
-@funindex showKeySignature
 
 LilyPond はスコティッシュ、ハイランド バグパイプ音楽のための特殊な定義を@c
 保持しています。@c

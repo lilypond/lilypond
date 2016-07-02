@@ -26,7 +26,6 @@ class Gregorian_ligature_engraver : public Coherent_ligature_engraver
   Stream_event *pes_or_flexa_req_;
 
 public:
-  void listen_pes_or_flexa (Stream_event *ev);
   // no TRANSLATOR_DECLARATIONS (Gregorian_ligature_engraver) needed
   // since this class is abstract
 
@@ -35,6 +34,7 @@ public:
 protected:
   Gregorian_ligature_engraver ();
 
+  void listen_pes_or_flexa (Stream_event *ev);
   virtual void build_ligature (Spanner *ligature,
                                vector<Grob_info> const &primitives);
   virtual void transform_heads (Spanner *ligature,

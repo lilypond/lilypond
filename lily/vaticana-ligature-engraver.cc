@@ -728,10 +728,10 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 void
 Vaticana_ligature_engraver::boot ()
 {
-  ADD_LISTENER (Gregorian_ligature_engraver, pes_or_flexa);
-  ADD_LISTENER (Ligature_engraver, ligature);
-  ADD_ACKNOWLEDGER (Ligature_engraver, rest);
-  ADD_ACKNOWLEDGER (Ligature_engraver, ligature_head);
+  ADD_LISTENER (Vaticana_ligature_engraver, pes_or_flexa);
+  ADD_LISTENER (Vaticana_ligature_engraver, ligature);
+  ADD_ACKNOWLEDGER (Vaticana_ligature_engraver, rest);
+  ADD_ACKNOWLEDGER (Vaticana_ligature_engraver, ligature_head);
 }
 
 ADD_TRANSLATOR (Vaticana_ligature_engraver,

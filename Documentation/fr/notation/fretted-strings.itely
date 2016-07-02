@@ -612,7 +612,6 @@ dans le fichier @file{ly/string-tunings-init.ly}.
 
 @cindex accordage personnalisé
 
-@funindex stringTuning
 @funindex \stringTuning
 
 LilyPond vous permet de créer n'importe quel accordage.  L'accordage du
@@ -858,7 +857,6 @@ d'accord dans l'interface standard :
 @cindex markup et fret-diagram
 @cindex ukulele
 
-@funindex fret-diagram
 @funindex \fret-diagram
 
 La taille du diagramme d'accord ainsi que le nombre de cases
@@ -949,7 +947,6 @@ l'interface standard.
 
 @cindex fret-diagram-terse markup
 
-@funindex fret-diagram-terse
 @funindex \fret-diagram-terse
 
 Dans l'interface @code{fret-diagram-terse}, les numéros de corde sont
@@ -1031,7 +1028,6 @@ utilisant la commande @code{\override} dans l'interface
 @cindex fret-diagram-verbose markup
 @cindex capo
 
-@funindex fret-diagram-verbose
 @funindex \fret-diagram-verbose
 
 L'interface @code{fret-diagram-verbose} est au format d'une liste
@@ -1320,7 +1316,6 @@ simultanée qu'en utilisant le mode accord (voir
 @cindex fret, diagrammes avec noms d'accord
 
 @funindex ChordNames
-@funindex chordmode
 @funindex \chordmode
 
 Il est courant d'afficher simultanément le nom des accords et les
@@ -1458,8 +1453,6 @@ mychords = \chordmode {
 @cindex accord, carrures pour cordes frettées
 
 @funindex \addChordShape
-@funindex addChordShape
-@funindex storePredefinedDiagram
 @funindex \storePredefinedDiagram
 
 En plus des  diagrammes d'accord, LilyPond possède une liste interne de
@@ -1579,9 +1572,7 @@ correspondant aux notes seront automatiquement calculées.
 >>
 @end lilypond
 
-@funindex predefinedFretboardsOff
 @funindex \predefinedFretboardsOff
-@funindex predefinedFretboardsOn
 @funindex \predefinedFretboardsOn
 
 Dans la mesure où aucun diagramme prédéfini n'est chargé par défaut, le
@@ -1714,7 +1705,6 @@ hauteurs.
 @cindex doigtés main droite et cordes frettées
 @cindex main droite, doigtés pour cordes frettées
 
-@funindex rightHandFinger
 @funindex \rightHandFinger
 
 Les doigtés de main droite @var{p-i-m-a} doivent être entrés à l'aide de
@@ -1893,7 +1883,6 @@ Morceaux choisis :
 @unnumberedsubsubsec Indication de @emph{power chord}
 @translationof Indicating power chords
 
-@funindex powerChords
 @funindex \powerChords
 
 @cindex power chords

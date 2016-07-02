@@ -136,4 +136,5 @@ ADD_INTERFACE (Key_signature_interface,
                "sharp-positions "
                "padding "
                "padding-pairs "
+               "non-default "
               );
