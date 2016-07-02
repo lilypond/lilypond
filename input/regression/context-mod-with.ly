@@ -41,11 +41,11 @@ music = \relative { \key fis \minor c''1 d e }
     \mark
     \markup { "Remove time sig, add ambitus, set staff to 4 lines" }
     \music }
-  % Some context modifications manually written in a \with block
+  % The same mods as direct value of \with
   \new Staff \with \ctxmod {
     \mark \markup { "The same mods using a variable" } \music
   }
-  % The same mods as direct value of \with
+  % Some context modifications manually written in a \with block
   \new Staff \with { \ctxmod } {
     \mark \markup { "The same mods using a variable and \with" }
     \music
@@ -65,7 +65,7 @@ music = \relative { \key fis \minor c''1 d e }
     \ctxmod
     \remove "Key_engraver"
   } { \mark \markup { "Also remove clef and key engravers" } \music }
-  % Mods can be inserted instead of a \with block (i.e. \with is not required)
+  % Test rendered redundant by issue 4911
   \new Staff \with \ctxmod { \mark \markup { "The same mods as staff 2" } \music }
   \new Staff { \mark \markup { "Back to default" } \music }
 >>
