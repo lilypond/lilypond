@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: feeca25b207bd510705974896d640ea292cd7fc4
+    Translation of GIT committish: 9af671bb61b95c9cb9740e92ddb6cd1a51c1aecf
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -308,13 +308,16 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @ifhtml
 @macro contactUsAbout{topic}
 
-@divClass{heading-center} @divClass{contactBox} Si teniu coneixement de qualssevol altres \temes\ que mereixin aparèixer
-relacionats aquí, us preguem que ens ho feu saber escrivint un
+@divClass{heading-center}
+@divClass{contactBox}
+Si teniu coneixement de qualssevol altres \topic\ que mereixin
+aparèixer relacionats aquí, us preguem que ens ho feu saber escrivint un
 missatge a la llista de correu bug-lilypond. Tot i que tingueu una
 subscripció a la llista, ho podeu fer a la
-@uref{https://lists.gnu.org/mailman/listinfo/bug-lilypond,pàgina informativa}
-de la llista o escrivint directament mitjançant la
-@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs,interfície web de lilypond.bugs a gmane}.
+@uref{https://lists.gnu.org/mailman/listinfo/bug-lilypond,pàgina
+informativa} de la llista o escrivint directament mitjançant la
+@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs,
+interfície web de lilypond.bugs a gmane}.
 
 
 @divEnd
@@ -326,7 +329,7 @@ de la llista o escrivint directament mitjançant la
 @ifnothtml
 @macro contactUsAbout{topic}
 @cartouche
-Si teniu coneixement de qualsevol altre \tema\ que podria
+Si teniu coneixement de qualsevol altre \topic\ que podria
 aparèixer aquí, si us plau feu-nos-ho saber seguint les instruccions a
 @ref{Bug reports}.
 
