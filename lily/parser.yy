@@ -976,16 +976,12 @@ book_body:
 			SCM proc = parser->lexer_->lookup_identifier ("book-score-handler");
 			scm_call_2 (proc, $1, $2);
 		} else if (Output_def *od = unsmob<Output_def> ($2)) {
-			SCM id = SCM_EOL;
-
-			if (to_boolean (od->c_variable ("is-paper")))
-				id = ly_symbol2scm ("$defaultpaper");
-			else if (to_boolean (od->c_variable ("is-midi")))
-				id = ly_symbol2scm ("$defaultmidi");
-			else if (to_boolean (od->c_variable ("is-layout")))
-				id = ly_symbol2scm ("$defaultlayout");
-
-			parser->lexer_->set_identifier (id, $2);
+			if (to_boolean (od->lookup_variable (ly_symbol2scm ("is-paper")))) {
+				unsmob<Book> ($1)->paper_ = od;
+				set_paper (parser, od);
+			} else {
+				parser->parser_error (@2, _ ("need \\paper for paper block"));
+			}
 		} else if (ly_is_module ($2))
 		{
 			ly_module_copy (unsmob<Book> ($1)->header_, $2);
@@ -1060,16 +1056,11 @@ bookpart_body:
 			SCM proc = parser->lexer_->lookup_identifier ("bookpart-score-handler");
 			scm_call_2 (proc, $1, $2);
 		} else if (Output_def *od = unsmob<Output_def> ($2)) {
-			SCM id = SCM_EOL;
-
-			if (to_boolean (od->c_variable ("is-paper")))
-				id = ly_symbol2scm ("$defaultpaper");
-			else if (to_boolean (od->c_variable ("is-midi")))
-				id = ly_symbol2scm ("$defaultmidi");
-			else if (to_boolean (od->c_variable ("is-layout")))
-				id = ly_symbol2scm ("$defaultlayout");
-
-			parser->lexer_->set_identifier (id, $2);
+			if (to_boolean (od->lookup_variable (ly_symbol2scm ("is-paper")))) {
+				unsmob<Book> ($1)->paper_ = od;
+			} else {
+				parser->parser_error (@2, _ ("need \\paper for paper block"));
+			}
 		} else if (ly_is_module ($2)) {
 			Book *book = unsmob<Book> ($1);
 			if (!ly_is_module (book->header_))
