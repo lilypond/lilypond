@@ -1014,13 +1014,10 @@ creation.")
      (if p
          (make-music 'ApplyOutputEvent
                      'context-type (first p)
+                     'symbol (second p)
                      'procedure
                      (lambda (grob orig-context context)
-                       (if (equal?
-                            (cdr (assoc 'name (ly:grob-property grob 'meta)))
-                            (second p))
-                           (ly:grob-set-nested-property!
-                            grob (cddr p) value))))
+                       (ly:grob-set-nested-property! grob (cddr p) value)))
          (make-music 'Music))))
 
 
