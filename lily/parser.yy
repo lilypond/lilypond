@@ -2942,15 +2942,11 @@ event_chord:
 		}
 	} %prec ':'
 	| CHORD_REPETITION optional_notemode_duration post_events {
-		Input i;
-		i.set_location (@1, @3);
-		$$ = MAKE_SYNTAX (repetition_chord, i,
+		$$ = MAKE_SYNTAX (repetition_chord, @$,
 				  $2, scm_reverse_x ($3, SCM_EOL));
 	} %prec ':'
 	| MULTI_MEASURE_REST optional_notemode_duration post_events {
-		Input i;
-		i.set_location (@1, @3);
-		$$ = MAKE_SYNTAX (multi_measure_rest, i, $2,
+		$$ = MAKE_SYNTAX (multi_measure_rest, @$, $2,
 				  scm_reverse_x ($3, SCM_EOL));
 	} %prec ':'
 	| tempo_event
