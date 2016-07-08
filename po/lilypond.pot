@@ -6,13 +6,14 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.19.44\n"
+"Project-Id-Version: lilypond 2.19.45\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2016-06-21 12:56+0100\n"
+"POT-Creation-Date: 2016-07-08 13:56+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -28,6 +29,7 @@ msgid "Output function not implemented"
 msgstr ""
 
 #: book_latex.py:174
+#, python-brace-format
 msgid "cannot find \\begin{document} in LaTeX document"
 msgstr ""
 
@@ -1496,12 +1498,18 @@ msgid ""
 msgstr ""
 
 #: musicxml2ly.py:2751
+#, python-format
 msgid ""
 "Copyright (c) 2005--2016 by\n"
 "    Han-Wen Nienhuys <hanwen@xs4all.nl>,\n"
 "    Jan Nieuwenhuizen <janneke@gnu.org> and\n"
 "    Reinhold Kainhofer <reinhold@kainhofer.com>\n"
 "    Patrick L. Schmidt <pls@philomelos.net>\n"
+"\n"
+"This program is free software.  It is covered by the GNU General Public\n"
+"License and you are welcome to change it and/or distribute copies of it\n"
+"under certain conditions.  Invoke as `%s --warranty' for more\n"
+"information."
 msgstr ""
 
 #: musicxml2ly.py:2778
@@ -1605,8 +1613,8 @@ msgstr ""
 
 #: musicxml2ly.py:2898
 msgid ""
-"deactivate string number stencil with --string-numbers f[alse]. Default is t"
-"[rue]"
+"deactivate string number stencil with --string-numbers f[alse]. Default is "
+"t[rue]"
 msgstr ""
 
 #: musicxml2ly.py:2905
@@ -1933,7 +1941,7 @@ msgid ""
 "defaulting to hairpin."
 msgstr ""
 
-#: dynamic-engraver.cc:231 slur-proto-engraver.cc:159
+#: dynamic-engraver.cc:231 slur-engraver.cc:185
 #, c-format
 msgid "unterminated %s"
 msgstr ""
@@ -2013,6 +2021,11 @@ msgstr ""
 
 #: general-scheme.cc:482 output-ps.scm:48
 msgid "Found infinity or nan in output.  Substituting 0.0"
+msgstr ""
+
+#: general-scheme.cc:623
+#, c-format
+msgid "g_spawn_sync failed (%d): %s: %s"
 msgstr ""
 
 #: glissando-engraver.cc:157
@@ -2550,11 +2563,11 @@ msgstr ""
 msgid "cannot add text scripts to individual note heads"
 msgstr ""
 
-#: new-fingering-engraver.cc:269
+#: new-fingering-engraver.cc:267
 msgid "no placement found for fingerings"
 msgstr ""
 
-#: new-fingering-engraver.cc:270
+#: new-fingering-engraver.cc:268
 msgid "placing below"
 msgstr ""
 
@@ -2575,46 +2588,98 @@ msgstr ""
 msgid "NoteEvent without pitch"
 msgstr ""
 
-#: open-type-font-scheme.cc:148 pfb-scheme.cc:62 ttf.cc:512 ttf.cc:562
+#: open-type-font-scheme.cc:149 open-type-font-scheme.cc:195
+#: open-type-font-scheme.cc:241 pfb-scheme.cc:62 ttf.cc:512 ttf.cc:561
 msgid "font index must be non-negative, using index 0"
 msgstr ""
 
-#: open-type-font-scheme.cc:162 pfb-scheme.cc:77 ttf.cc:480 ttf.cc:528
+#: open-type-font-scheme.cc:163 open-type-font-scheme.cc:209
+#: open-type-font-scheme.cc:289 pfb-scheme.cc:77 ttf.cc:480 ttf.cc:528
 #, c-format
 msgid "font index %d too large for font `%s', using index 0"
 msgstr ""
 
-#: open-type-font.cc:45
+#: open-type-font-scheme.cc:251
 #, c-format
-msgid "cannot allocate %lu bytes"
+msgid "cannot open font filename `%s'"
 msgstr ""
 
-#: open-type-font.cc:49
+#: open-type-font-scheme.cc:261 open-type-font-scheme.cc:277
+#: open-type-font-scheme.cc:300 open-type-font-scheme.cc:320
+#: open-type-font-scheme.cc:338 open-type-font-scheme.cc:354
 #, c-format
-msgid "cannot load font table: %s"
+msgid "cannot read %s of `%s'"
+msgstr ""
+
+#: open-type-font-scheme.cc:376
+#, c-format
+msgid "font `%s' index %d does not have `CFF' table"
 msgstr ""
 
 #: open-type-font.cc:54
 #, c-format
+msgid "cannot allocate %lu bytes"
+msgstr ""
+
+#: open-type-font.cc:58
+#, c-format
+msgid "cannot load font table: %s"
+msgstr ""
+
+#: open-type-font.cc:63
+#, c-format
 msgid "FreeType error: %s"
 msgstr ""
 
-#: open-type-font.cc:115
+#: open-type-font.cc:124
 #, c-format
 msgid "unsupported font format: %s"
 msgstr ""
 
-#: open-type-font.cc:117
+#: open-type-font.cc:126
 #, c-format
 msgid "error reading font file %s: %s"
 msgstr ""
 
-#: open-type-font.cc:192
+#: open-type-font.cc:141
+msgid "cannot get postscript name"
+msgstr ""
+
+#: open-type-font.cc:153
+#, c-format
+msgid "cannot get font %s format"
+msgstr ""
+
+#: open-type-font.cc:176
+#, c-format
+msgid "cannot read CFF %s: %s"
+msgstr ""
+
+#. FreeType 2.6 and 2.6.1 cannot get PS name from pure-CFF.
+#. (FreeType 2.5.5 and earlier does not have this issue.
+#. FreeType 2.6.2+ has this bug fixed.)
+#. So we need direct parsing of the 'CFF' table, in this case.
+#: open-type-font.cc:193
+#, c-format
+msgid "Directly parsing 'CFF' table of font %s."
+msgstr ""
+
+#: open-type-font.cc:232
+#, c-format
+msgid "cannot get font %s CFF name"
+msgstr ""
+
+#: open-type-font.cc:237
+#, c-format
+msgid "Replace font name from %s to %s."
+msgstr ""
+
+#: open-type-font.cc:316
 #, c-format
 msgid "FT_Get_Glyph_Name () Freetype error: %s"
 msgstr ""
 
-#: open-type-font.cc:340 pango-font.cc:258
+#: open-type-font.cc:464 pango-font.cc:259
 #, c-format
 msgid "FT_Get_Glyph_Name () error: %s"
 msgstr ""
@@ -2745,24 +2810,24 @@ msgstr ""
 msgid "\tprevious break: %d"
 msgstr ""
 
-#: pango-font.cc:247
+#: pango-font.cc:248
 #, c-format
 msgid "no glyph for character U+%0X in font `%s'"
 msgstr ""
 
-#: pango-font.cc:274
+#: pango-font.cc:275
 #, c-format
 msgid ""
 "Glyph has no name, but font supports glyph naming.\n"
 "Skipping glyph U+%0X, file %s"
 msgstr ""
 
-#: pango-font.cc:324
+#: pango-font.cc:325
 #, c-format
 msgid "no PostScript font name for font `%s'"
 msgstr ""
 
-#: pango-font.cc:374
+#: pango-font.cc:375
 msgid "FreeType face has no PostScript font name"
 msgstr ""
 
@@ -2776,7 +2841,7 @@ msgstr ""
 msgid "program option -dpreview not supported by backend `%s'"
 msgstr ""
 
-#: paper-column-engraver.cc:261
+#: paper-column-engraver.cc:273
 msgid ""
 "forced break was overridden by some other event, should you be using bar "
 "checks?"
@@ -2978,24 +3043,24 @@ msgstr ""
 msgid "direction must not be CENTER in ly:skyline-pair::skyline"
 msgstr ""
 
-#: slur-proto-engraver.cc:60
+#: slur-engraver.cc:121
 #, c-format
 msgid "direction of %s invalid: %d"
 msgstr ""
 
 #. We already have an old slur, so give a warning
 #. and completely ignore the new slur.
-#: slur-proto-engraver.cc:213
+#: slur-engraver.cc:238
 #, c-format
 msgid "already have %s"
 msgstr ""
 
-#: slur-proto-engraver.cc:230
+#: slur-engraver.cc:255
 #, c-format
 msgid "%s without a cause"
 msgstr ""
 
-#: slur-proto-engraver.cc:297
+#: slur-engraver.cc:322
 #, c-format
 msgid "cannot end %s"
 msgstr ""
@@ -3163,119 +3228,119 @@ msgstr ""
 msgid "giving up"
 msgstr ""
 
-#: parser.yy:479 parser.yy:969 parser.yy:1050 parser.yy:1270
+#: parser.yy:483 parser.yy:650 parser.yy:989 parser.yy:1070 parser.yy:1306
 msgid "bad expression type"
 msgstr ""
 
-#: parser.yy:881 parser.yy:1478 parser.yy:1523
+#: parser.yy:902 parser.yy:1514 parser.yy:1583
 msgid "not a context mod"
 msgstr ""
 
-#: parser.yy:1076
-msgid "Missing music in \\score"
-msgstr ""
-
-#: parser.yy:1113
-msgid "\\paper cannot be used in \\score, use \\layout instead"
-msgstr ""
-
-#: parser.yy:1148
-msgid "Spurious expression in \\score"
-msgstr ""
-
-#: parser.yy:1178
+#: parser.yy:983 parser.yy:1062 parser.yy:1214
 msgid "need \\paper for paper block"
 msgstr ""
 
-#: parser.yy:1352
+#: parser.yy:1096
+msgid "Missing music in \\score"
+msgstr ""
+
+#: parser.yy:1133
+msgid "\\paper cannot be used in \\score, use \\layout instead"
+msgstr ""
+
+#: parser.yy:1184
+msgid "Spurious expression in \\score"
+msgstr ""
+
+#: parser.yy:1388
 msgid "music expected"
 msgstr ""
 
-#: parser.yy:1362 parser.yy:1396
+#: parser.yy:1398 parser.yy:1432
 msgid "unexpected post-event"
 msgstr ""
 
-#: parser.yy:1404
+#: parser.yy:1440
 msgid "Ignoring non-music expression"
 msgstr ""
 
-#: parser.yy:1719 parser.yy:1738
+#: parser.yy:1763 parser.yy:1782
 msgid "not a key"
 msgstr ""
 
-#: parser.yy:2602 parser.yy:2720 parser.yy:2733 parser.yy:2742
+#: parser.yy:2642 parser.yy:2760 parser.yy:2773 parser.yy:2782
 msgid "bad grob property path"
 msgstr ""
 
-#: parser.yy:2700
+#: parser.yy:2740
 msgid "only \\consists and \\remove take non-string argument."
 msgstr ""
 
-#: parser.yy:2761
+#: parser.yy:2801
 msgid "bad context property path"
 msgstr ""
 
-#: parser.yy:2846
+#: parser.yy:2886
 msgid "markup expected"
 msgstr ""
 
-#: parser.yy:2858
+#: parser.yy:2898
 msgid "simple string expected"
 msgstr ""
 
-#: parser.yy:2875
+#: parser.yy:2915
 msgid "symbol expected"
 msgstr ""
 
-#: parser.yy:3019
+#: parser.yy:3059
 msgid "not a rhythmic event"
 msgstr ""
 
-#: parser.yy:3069
+#: parser.yy:3109
 msgid "post-event expected"
 msgstr ""
 
-#: parser.yy:3078 parser.yy:3083
+#: parser.yy:3118 parser.yy:3123
 msgid "have to be in Lyric mode for lyrics"
 msgstr ""
 
-#: parser.yy:3159
+#: parser.yy:3199
 msgid "expecting string or post-event as script definition"
 msgstr ""
 
-#: parser.yy:3263
+#: parser.yy:3303
 msgid "not an articulation"
 msgstr ""
 
-#: parser.yy:3329 parser.yy:3381
+#: parser.yy:3369 parser.yy:3421
 msgid "not a duration"
 msgstr ""
 
-#: parser.yy:3402
+#: parser.yy:3442
 msgid "bass number expected"
 msgstr ""
 
-#: parser.yy:3494
+#: parser.yy:3534
 msgid "have to be in Note mode for notes"
 msgstr ""
 
-#: parser.yy:3533
+#: parser.yy:3573
 msgid "have to be in Chord mode for chords"
 msgstr ""
 
-#: parser.yy:3576
+#: parser.yy:3616
 msgid "markup outside of text script or \\lyricmode"
 msgstr ""
 
-#: parser.yy:3581
+#: parser.yy:3621
 msgid "unrecognized string, not in text script or \\lyricmode"
 msgstr ""
 
-#: parser.yy:3733 parser.yy:3742
+#: parser.yy:3773 parser.yy:3782
 msgid "not an unsigned integer"
 msgstr ""
 
-#: parser.yy:3829
+#: parser.yy:3869
 msgid "not a markup"
 msgstr ""
 
@@ -3576,27 +3641,65 @@ msgstr ""
 msgid "Writing ~a..."
 msgstr ""
 
-#: framework-ps.scm:286
+#: framework-ps.scm:259
 #, scheme-format
-msgid "cannot embed ~S=~S"
+msgid "CFF font `~a' already embedded, skipping."
+msgstr ""
+
+#: framework-ps.scm:262
+#, scheme-format
+msgid ""
+"Different CFF fonts which have the same name `~a' has been detected. The "
+"font cannot be embedded."
+msgstr ""
+
+#: framework-ps.scm:267
+#, scheme-format
+msgid "Embedding CFF font `~a'"
+msgstr ""
+
+#: framework-ps.scm:317
+#, scheme-format
+msgid ""
+"Font ~a cannot be loaded via Ghostscript because its font-index (~a) is not "
+"zero."
+msgstr ""
+
+#: framework-ps.scm:323
+#, scheme-format
+msgid ""
+"Font ~a cannot be loaded via Ghostscript because it is an OpenType/CFF (OTC) "
+"font."
 msgstr ""
 
 #: framework-ps.scm:329
 #, scheme-format
+msgid ""
+"Font ~a cannot be used via Ghostscript because it is a TrueType font that "
+"does not have glyph names."
+msgstr ""
+
+#: framework-ps.scm:343
+#, scheme-format
+msgid "cannot embed ~S=~S"
+msgstr ""
+
+#: framework-ps.scm:386
+#, scheme-format
 msgid "cannot extract file matching ~a from ~a"
 msgstr ""
 
-#: framework-ps.scm:346
+#: framework-ps.scm:403
 #, scheme-format
 msgid "do not know how to embed ~S=~S"
 msgstr ""
 
-#: framework-ps.scm:371
+#: framework-ps.scm:428
 #, scheme-format
 msgid "do not know how to embed font ~s ~s ~s"
 msgstr ""
 
-#: framework-ps.scm:753
+#: framework-ps.scm:810
 msgid ""
 "\n"
 "The PostScript backend does not support the\n"
