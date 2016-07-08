@@ -288,16 +288,19 @@
 
   (define (load-font-via-GS font-name-filename)
     (define (is-collection-font? file-name)
-      (let ((port (open-file file-name "rb")))
-        (if (eq? (read-char port) #\t)
-            (if (eq? (read-char port) #\t)
-                (if (eq? (read-char port) #\c)
-                    (if (eq? (read-char port) #\f)
-                        #t
-                        #f)
-                    #f)
-                #f)
-            #f)))
+      (let* ((port (open-file file-name "rb"))
+             (retval
+              (if (eq? (read-char port) #\t)
+                  (if (eq? (read-char port) #\t)
+                      (if (eq? (read-char port) #\c)
+                          (if (eq? (read-char port) #\f)
+                              #t
+                              #f)
+                          #f)
+                      #f)
+                  #f)))
+        (close-port port)
+        retval))
 
     (define (ps-load-file file-name)
       (if (string? file-name)
