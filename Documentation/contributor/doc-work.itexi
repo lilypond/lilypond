@@ -942,7 +942,8 @@ by doubling them:
 (define (foo x)
   "The @@code@{@bs{}@bs{}foo@} command..."
   ...)
-@end example}
+@end example
+}
 
 @itemize
 @item
