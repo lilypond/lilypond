@@ -1487,7 +1487,7 @@ autres contextes existants.  Le repositionner au-dessus du contexte
 « principal » demande de le définir ainsi :
 
 @example
-@code{\new Staff \with @{ alignAboveContext = #"principal" @} }
+\new Staff \with @{ alignAboveContext = #"principal" @}
 @end example
 
 Il en va de même pour les contextes temporaires de paroles au sein d'un
@@ -2399,7 +2399,7 @@ les objets du contexte.  C'est là le rôle de l'instruction @code{\tweak},
 dont la syntaxe est :
 
 @example
-\tweak [@var{objet-de-rendu}.]@code{objet-propriété} @code{valeur}
+\tweak [@var{objet-de-rendu}.]objet-propriété valeur
 @end example
 
 Mention de l'@var{objet-de-rendu} est optionnel.
@@ -2961,7 +2961,7 @@ comportement en matière d'orientation ou positionnement ; elles
 sont de la forme
 
 @example
-@code{\xxxUp}, @code{\xxxDown} et @code{\xxxNeutral}
+\xxxUp, \xxxDown et \xxxNeutral
 @end example
 
 @noindent
@@ -4560,7 +4560,7 @@ l'aide de @code{\shape} permet d'éviter les collisions.
 L'instruction @code{\shape} obéit à la syntaxe
 
 @example
-[-]@code{\shape} @var{déplacements} @var{élément}
+[-]\shape @var{déplacements} @var{élément}
 @end example
 
 Ceci aura pour effet de repositionner les points de contrôle de
@@ -4771,7 +4771,7 @@ s'appliquera à la propriété du bandeau.
 La commande @code{\alterBroken} répond à la syntaxe :
 
 @example
-[-]@code{\alterBroken} @var{propriété} @var{valeurs} @var{élément}
+[-]\alterBroken @var{propriété} @var{valeurs} @var{élément}
 @end example
 
 L'argument @var{valeurs} est constitué d'une liste de valeurs, une pour

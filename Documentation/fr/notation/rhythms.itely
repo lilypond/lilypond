@@ -1765,7 +1765,7 @@ Une métrique composite se crée à l'aide de la fonction
 @code{\compoundMeter}, en suivant la syntaxe :
 
 @example
-\compoundMeter #'@code{(liste de listes)}
+\compoundMeter #'(liste de listes)
 @end example
 
 La construction la plus simple est constituée d'une seule liste, dans

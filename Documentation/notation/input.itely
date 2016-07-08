@@ -1119,9 +1119,9 @@ markup conditionally to header and footer text defined within the
 @code{\paper} block, using the following syntax:
 
 @example
-@code{variable} = @code{\markup} @{
+variable = \markup @{
   @dots{}
-  @code{\on-the-fly}  \@var{procedure}  @var{markup}
+  \on-the-fly  \@var{procedure}  @var{markup}
   @dots{}
 @}
 @end example
@@ -1185,8 +1185,8 @@ Several @code{\on-the-fly} conditions can be combined with an
 @q{and} operation, for example,
 
 @example
-  @code{\on-the-fly \first-page}
-  @code{\on-the-fly \last-page}
+  \on-the-fly \first-page
+  \on-the-fly \last-page
   @code{@{ \markup @dots{} \fromproperty #'header: @dots{} @}}
 @end example
 
@@ -1212,9 +1212,9 @@ as the @code{properties} of the PDF file).  For example, setting the
 this title to the PDF document.
 
 @example
-  @code{\header@{}
-    @code{title = "Symphony I"}
-  @code{@}}
+  \header@{
+    title = "Symphony I"
+  @}
 @end example
 
 If you want to set the title of the printed output to one value, but have the
@@ -1222,10 +1222,10 @@ title property of the PDF to have a different value, you can use
 @code{pdftitle}, as below.
 
 @example
-  @code{\header@{}
-    @code{title = "Symphony I"}
-    @code{pdftitle = "Symphony I by Beethoven"}
-  @code{@}}
+  \header@{
+    title = "Symphony I"
+    pdftitle = "Symphony I by Beethoven"
+  @}
 @end example
 
 The variables @code{title}, @code{subject}, @code{keywords},

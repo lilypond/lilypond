@@ -1105,9 +1105,9 @@ innerhalb der @code{\paper}-Umgebung hinzuzufügen.  Hierzu wird folgende
 Syntax eingesetzt:
 
 @example
-@code{Variable} = @code{\markup} @{
+Variable = \markup @{
   ...
-  @code{\on-the-fly}  #@var{Prozedur}  @var{Beschriftung}
+  \on-the-fly  #@var{Prozedur}  @var{Beschriftung}
   ...
 @}
 @end example
@@ -1172,9 +1172,9 @@ Verschiedene @code{\on-the-fly}-Bedingungen können mit dem Operator
 @qq{UND} verknüpft werden, beispielsweise bestimmt
 
 @example
-  @code{\on-the-fly #first-page}
-  @code{\on-the-fly #last-page}
-  @code{@{ \markup ... \fromproperty #'header: ... @}}
+  \on-the-fly #first-page
+  \on-the-fly #last-page
+  @{ \markup ... \fromproperty #'header: ... @}
 @end example
 
 @noindent

@@ -1489,7 +1489,7 @@ del contexto que tenga el nombre @qq{principal}, debería definirse
 de esta forma:
 
 @example
-@code{\new Staff \with @{ alignAboveContext = #"principal" @} }
+\new Staff \with @{ alignAboveContext = #"principal" @}
 @end example
 
 Se presenta una situación similar cuando se posiciona un contexto
@@ -2878,7 +2878,7 @@ predefinidas para especificar la dirección.  Todas ellas son de la
 forma:
 
 @example
-@code{\xxxUp}, @code{\xxxDown} o @code{\xxxNeutral}
+\xxxUp, \xxxDown o \xxxNeutral
 @end example
 
 @noindent
@@ -4512,7 +4512,7 @@ instrucción @code{\shape} permite evitar las colisiones.
 La sintaxis de @code{\shape} es:
 
 @example
-[-]@code{\shape} @var{desplazamientos} @var{elemento}
+[-]\shape @var{desplazamientos} @var{elemento}
 @end example
 
 Esta instrucción recoloca los puntos de control de @var{elemento}
@@ -4728,7 +4728,7 @@ objeto de extensión.
 La sintaxis de @code{\alterBroken} es
 
 @example
-[-]@code{\alterBroken} @var{propiedad} @var{valores} @var{elemento}
+[-]\alterBroken @var{propiedad} @var{valores} @var{elemento}
 @end example
 
 El argumento @var{valores} es una lista de valores, uno por cada

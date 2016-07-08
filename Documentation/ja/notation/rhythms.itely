@@ -1712,7 +1712,7 @@ cis4 d cis! d
 構文は以下の通りです:
 
 @example
-\compoundMeter #'@code{(list of lists)}
+\compoundMeter #'(list of lists)
 @end example
 
 最も簡単な構成は単一のリストであり、@c

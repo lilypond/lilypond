@@ -750,9 +750,9 @@ estándar.  Navegue por ellos buscando una propiedad que pudiera
 controlar el grosor de las ligaduras, y encontrará
 
 @example
-@code{thickness} (number)
-     @code{1.2}
-     Line thickness, generally measured in @code{line-thickness}
+thickness (number)
+     1.2
+     Line thickness, generally measured in line-thickness
 @end example
 
 Esto promete ser una buena opción para cambiar el grosor.  Nos
@@ -2209,7 +2209,7 @@ digitaciones mediante la utilización de la instrucción @code{\set
 fingeringOrientations}.  El formato de esta instrucción es:
 
 @example
-@code{\set fingeringOrientations = #'([up] [left/right] [down])}
+\set fingeringOrientations = #'([up] [left/right] [down])
 @end example
 
 @noindent
@@ -4336,11 +4336,11 @@ variables simples. ¿Podríamos, como alternativa, utilizar las
 instrucciones @code{\override} y @code{\revert}?
 
 @example
-@code{\override Lyrics.LyricText.font-shape = #'italic}
-@code{\override Lyrics.LyricText.font-series = #'bold}
+\override Lyrics.LyricText.font-shape = #'italic
+\override Lyrics.LyricText.font-series = #'bold
 
-@code{\revert Lyrics.LyricText.font-shape}
-@code{\revert Lyrics.LyricText.font-series}
+\revert Lyrics.LyricText.font-shape
+\revert Lyrics.LyricText.font-series
 @end example
 
 Estas instrucciones también serían extremadamente tediosas de

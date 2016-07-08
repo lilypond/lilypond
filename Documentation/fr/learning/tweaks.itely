@@ -735,9 +735,9 @@ liste des réglages standard ; vous y trouverez la propriété susceptible
 de contrôler l'épaisseur des traits de liaison.
 
 @example
-@code{thickness} (nombre)
-     @code{1.2}
-     Épaisseur de ligne, généralement mesurée en @code{line-thickness}
+thickness (nombre)
+     1.2
+     Épaisseur de ligne, généralement mesurée en line-thickness
 @end example
 
 Voilà qui semble approprié pour changer l'épaisseur (@emph{thickness} en
@@ -2159,7 +2159,7 @@ chacune des notes d'un accord grâce à la commande
 @code{\set fingeringOrientations}.  La syntaxe de cette commande est :
 
 @example
-@code{\set fingeringOrientations = #'([up] [left/right] [down])}
+\set fingeringOrientations = #'([up] [left/right] [down])
 @end example
 
 @noindent
@@ -4265,11 +4265,11 @@ enchâssées dans un @code{\markup} -- ce qui les rend pénibles à saisir
 @code{\revert} ?
 
 @example
-@code{\override Lyrics.LyricText.font-shape = #'italic}
-@code{\override Lyrics.LyricText.font-series = #'bold}
+\override Lyrics.LyricText.font-shape = #'italic
+\override Lyrics.LyricText.font-series = #'bold
 
-@code{\revert Lyrics.LyricText.font-shape}
-@code{\revert Lyrics.LyricText.font-series}
+\revert Lyrics.LyricText.font-shape
+\revert Lyrics.LyricText.font-series
 @end example
 
 Là encore, ce serait extrêmement pénible à saisir, surtout s'il y avait

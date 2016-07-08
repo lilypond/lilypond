@@ -634,9 +634,9 @@ enthält, mit der die Dicke von Legatobögen kontrolliert werden kann.
 Sie sollten folgendes finden:
 
 @example
-@code{thickness} (number)
-     @code{1.2}
-     Line thickness, generally measured in @code{line-thickness}
+thickness (number)
+     1.2
+     Line thickness, generally measured in line-thickness
 @end example
 
 Das sieht ganz danach aus, als ob damit die Dicke geändert
@@ -2055,7 +2055,7 @@ einzelne Noten in einem Akkord ist mit dem
 lautet:
 
 @example
-@code{\set fingeringOrientations = #'([up] [left/right] [down])}
+\set fingeringOrientations = #'([up] [left/right] [down])
 @end example
 
 @noindent
@@ -3931,11 +3931,11 @@ Alternative versuchen wir, einen Befehl mit
 @code{\override} und @code{\revert} zu konstruieren.
 
 @example
-@code{\override Lyrics.LyricText.font-shape = #'italic}
-@code{\override Lyrics.LyricText.font-series = #'bold}
+\override Lyrics.LyricText.font-shape = #'italic
+\override Lyrics.LyricText.font-series = #'bold
 
-@code{\revert Lyrics.LyricText.font-shape}
-@code{\revert Lyrics.LyricText.font-series}
+\revert Lyrics.LyricText.font-shape
+\revert Lyrics.LyricText.font-series
 @end example
 
 Das wäre natürlich noch viel mühsamer, wenn viele Wörter eine

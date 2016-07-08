@@ -1361,7 +1361,7 @@ squashedPosition = #0
 @qq{main} というコンテキストの上に配置し直すには以下のようにします:
 
 @example
-@code{\new Staff \with @{ alignAboveContext = #"main" @} }
+\new Staff \with @{ alignAboveContext = #"main" @}
 @end example
 
 @code{ChoirStaff} のような複数の譜のレイアウトで一時的な歌詞を配置する場合
@@ -4300,7 +4300,7 @@ Web でベジエ曲線が描かれる様子を示すアニメーションを@c
 @code{\shape} の構文は以下の通りです:
 
 @example
-[-]@code{\shape} @var{displacements} @var{item}
+[-]\shape @var{displacements} @var{item}
 @end example
 
 これは @var{item} の制御ポイントを @var{displacements} だけ移動させます。@c

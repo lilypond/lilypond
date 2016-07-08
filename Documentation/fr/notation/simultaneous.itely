@@ -344,8 +344,8 @@ appliquer.  Ceci ne manque pas de faire apparaître un message
 warning: This voice needs a \voiceXx or \shiftXx setting
 
 @emph{en français :}
-Avertissement : Cette voix requiert un @code{voiceXx} ou un réglage
-@code{\shiftXx}
+Avertissement : Cette voix requiert un voiceXx ou un réglage
+\shiftXx
 @end example
 
 lors de la compilation.  Le déclenchement de cet avertissement peut être

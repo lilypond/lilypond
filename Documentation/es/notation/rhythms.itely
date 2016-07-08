@@ -1782,7 +1782,7 @@ y @code{Default_bar_line_engraver} al contexto de @code{Staff}.
 Se crean usando la función @code{\compoundMeter}.  La sintaxis es:
 
 @example
-\compoundMeter #'@code{(lista de listas)}
+\compoundMeter #'(lista de listas)
 @end example
 
 La construcción más simple es una lista única, en la que el

@@ -1730,7 +1730,7 @@ Si può dare a ogni rigo la sua indicazione di tempo indipendente spostando
 Si creano con la funzione @code{\compoundMeter}.  La sintassi è:
 
 @example
-\compoundMeter #'@code{(lista di liste)}
+\compoundMeter #'(lista di liste)
 @end example
 
 La struttura più semplice è una singola lista, dove l'@emph{ultimo} numero

@@ -1279,7 +1279,7 @@ der neue Kontext unter den existierenden Kontexten angelegt.  Um ihn aber
 sollte er folgenderweise erstellt werden:
 
 @example
-@code{\new Staff \with @{ alignAboveContext = #"Hauptstimme" @} }
+\new Staff \with @{ alignAboveContext = #"Hauptstimme" @}
 @end example
 
 Eine ähnliche Situation entsteht, wenn man einen zeitweiligen Gesangstext
@@ -2097,7 +2097,7 @@ aktuellen Kontextes.  Das kann mit dem @code{\tweak}-Befehl erreicht
 werden, mit dem man Optimierungen vornehmen kann:
 
 @example
-\tweak @var{Layout-Objekt} #'@code{grob-eigenschaft} #@code{Wert}
+\tweak @var{Layout-Objekt} #'grob-eigenschaft #Wert
 @end example
 
 Die Angabe von @var{Layout-Objekt} ist optional.

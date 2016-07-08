@@ -1176,9 +1176,9 @@ au texte des entête et pied de page définis dans le bloc @code{\paper}.
 En voici la syntaxe :
 
 @example
-@code{variable} = @code{\markup} @{
+variable = \markup @{
   @dots{}
-  @code{\on-the-fly} \@var{procédure} @var{markup}
+  \on-the-fly \@var{procédure} @var{markup}
   @dots{}
 @}
 @end example
@@ -1242,8 +1242,8 @@ Plusieurs conditions @code{\on-the-fly} mentionnées l'une à la suite de
 l'autre se cumulent.  Ainsi, par exemple,
 
 @example
-  @code{\on-the-fly \first-page}
-  @code{\on-the-fly \last-page}
+  \on-the-fly \first-page
+  \on-the-fly \last-page
   @code{@{ \markup @dots{} \fromproperty #'header: @dots{} @}}
 @end example
 
@@ -1272,19 +1272,19 @@ Par exemple, affecter « Symphony I » à la propriété @code{title} dans le
 bloc @code{\header} donnera aussi ce titre au document PDF.
 
 @example
-  @code{\header@{}
-    @code{title = "Symphony I"}
-  @code{@}}
+  \header@{
+    title = "Symphony I"
+  @}
 @end example
 
 Lorsque le titre imprimé diffère de celui affiché en tant que propriété
 du PDF, devra être renseignée la propriété @code{pdftitle}.
 
 @example
-  @code{\header@{}
-    @code{title = "Symphony I"}
-    @code{pdftitle = "Symphony I by Beethoven"}
-  @code{@}}
+  \header@{
+    title = "Symphony I"
+    pdftitle = "Symphony I by Beethoven"
+  @}
 @end example
 
 Les variables @code{title}, @code{subject}, @code{keywords},

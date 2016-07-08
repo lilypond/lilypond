@@ -707,9 +707,9 @@ standard.  Scorrile cercando la proprietà che potrebbe controllare lo spessore
 delle legature di portamento; dovresti trovare
 
 @example
-@code{thickness} (number)
-     @code{1.2}
-     Line thickness, generally measured in @code{line-thickness}
+thickness (number)
+     1.2
+     Line thickness, generally measured in line-thickness
 @end example
 
 Sembra che sia quel che stiamo cercando.  Ci dice che il valore
@@ -2110,7 +2110,7 @@ diteggiatura delle singole note di un accordo usando il comando
 @code{\set fingeringOrientations}.  Il formato di questo comando è:
 
 @example
-@code{\set fingeringOrientations = #'([up] [left/right] [down])}
+\set fingeringOrientations = #'([up] [left/right] [down])
 @end example
 
 @noindent
@@ -4169,11 +4169,11 @@ le parole stesse non si possono usare variabili semplici.  Come
 alternativa possiamo usare i comandi @code{\override} e @code{\revert}?
 
 @example
-@code{\override Lyrics.LyricText.font-shape = #'italic}
-@code{\override Lyrics.LyricText.font-series = #'bold}
+\override Lyrics.LyricText.font-shape = #'italic
+\override Lyrics.LyricText.font-series = #'bold
 
-@code{\revert Lyrics.LyricText.font-shape}
-@code{\revert Lyrics.LyricText.font-series}
+\revert Lyrics.LyricText.font-shape
+\revert Lyrics.LyricText.font-series
 @end example
 
 Anche questi sarebbero molto noiosi da inserire se ci fossero

@@ -1150,9 +1150,9 @@ blocco @code{\paper}, solo se certe condizioni sono soddisfatte, tramite la
 seguente sintassi:
 
 @example
-@code{variabile} = @code{\markup} @{
+variabile = \markup @{
   @dots{}
-  @code{\on-the-fly}  \@var{procedura}  @var{testo}
+  \on-the-fly  \@var{procedura}  @var{testo}
   @dots{}
 @}
 @end example
@@ -1216,8 +1216,8 @@ si utilizzasse l'operatore logico @q{AND} e il testo apparirà solo se tutte
 le condizioni sono vere. Per esempio, queste due condizioni
 
 @example
-  @code{\on-the-fly \first-page}
-  @code{\on-the-fly \last-page}
+  \on-the-fly \first-page
+  \on-the-fly \last-page
   @code{@{ \markup @dots{} \fromproperty #'header: @dots{} @}}
 @end example
 
@@ -1244,9 +1244,9 @@ la proprietà @code{title} del blocco @code{header} @q{Sinfonia I} si
 assegnerà questo titolo anche al documento PDF.
 
 @example
-  @code{\header@{}
-    @code{title = "Sinfonia I"}
-  @code{@}}
+  \header@{
+    title = "Sinfonia I"
+  @}
 @end example
 
 Se si desidera impostare il titolo dell'output su un valore e la proprietà
@@ -1254,10 +1254,10 @@ titolo del PDF su un valore diverso, si può usare @code{pdftitle}, nel
 modo seguente:
 
 @example
-  @code{\header@{}
-    @code{title = "Sinfonia I"}
-    @code{pdftitle = "Sinfonia I di Beethoven"}
-  @code{@}}
+  \header@{
+    title = "Sinfonia I"
+    pdftitle = "Sinfonia I di Beethoven"
+  @}
 @end example
 
 Le variabili @code{title}, @code{subject}, @code{keywords},

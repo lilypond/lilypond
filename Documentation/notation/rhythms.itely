@@ -1715,7 +1715,7 @@ These are created using the @code{\compoundMeter} function.  The syntax
 for this is:
 
 @example
-\compoundMeter #'@code{(list of lists)}
+\compoundMeter #'(list of lists)
 @end example
 
 The simplest construction is a single list, where the @emph{last} number

@@ -821,7 +821,7 @@ traLaLa = @{ c'4 d'4 @}
 wird intern in die Scheme-Definition
 
 @example
-(define traLaLa @var{Scheme-Wert von `@code{... }'})
+(define traLaLa @var{Scheme-Wert von `... '})
 @end example
 
 @noindent

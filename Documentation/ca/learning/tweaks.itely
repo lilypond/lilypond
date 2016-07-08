@@ -737,9 +737,9 @@ estàndard.  Navegueu per ells buscant una propietat que pogués
 controlar el gruix de les lligadures, i trobarà
 
 @example
-@code{thickness} (number)
-     @code{1.2}
-     Line thickness, generally measured in @code{line-thickness}
+thickness (number)
+     1.2
+     Line thickness, generally measured in line-thickness
 @end example
 
 Això promet ser una bona opció per canviar el gruix.  Ens diu que
@@ -2180,7 +2180,7 @@ l'ordre @code{\set fingeringOrientations}.  El format d'aquesta
 ordre és:
 
 @example
-@code{\set fingeringOrientations = #'([up] [left/right] [down])}
+\set fingeringOrientations = #'([up] [left/right] [down])
 @end example
 
 @noindent
@@ -4282,11 +4282,11 @@ alternativa, utilitzar les ordres @code{\override} y
 @code{\revert}?
 
 @example
-@code{\override Lyrics.LyricText.font-shape = #'italic}
-@code{\override Lyrics.LyricText.font-series = #'bold}
+\override Lyrics.LyricText.font-shape = #'italic
+\override Lyrics.LyricText.font-series = #'bold
 
-@code{\revert Lyrics.LyricText.font-shape}
-@code{\revert Lyrics.LyricText.font-series}
+\revert Lyrics.LyricText.font-shape
+\revert Lyrics.LyricText.font-series
 @end example
 
 Aquestes ordres també serien extremadament tedioses d'escriure si

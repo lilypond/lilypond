@@ -464,7 +464,7 @@ prepare your upload:
 @example
 git fetch
 git rebase origin/staging dev/cg~0
-gitk HEAD 
+gitk HEAD
 @end example
 
 @warning{Do not skip the @command{gitk} step; a quick 5-second

@@ -1752,7 +1752,7 @@ Taktarten aus mehreren Teilen werden mit der Funktion
 @code{\compoundMeter} erstellt.  Die Syntax ist folgende:
 
 @example
-\compoundMeter #'@code{(Liste aus Listen)}
+\compoundMeter #'(Liste aus Listen)
 @end example
 
 Die einfachste Konstruktion ist eine einzige Liste, wobei die letzte

@@ -364,7 +364,7 @@ If you like using font-lock, you can also add this to your
        c++-font-lock-keywords-3
        '(("\\b\\(a-zA-Z_?+_\\)\\b" 1 font-lock-variable-name-face) ("\\b\\(A-Z?+a-z_?+\\)\\b" 1 font-lock-type-face))
        ))
-@end example 
+@end example
 
 
 @subheading Indenting with vim
@@ -1721,8 +1721,8 @@ code would declare acknowledgers for a @code{NoteHead} grob (via the
 @code{side-position-interface}:
 
 @example
-@code{DECLARE_ACKNOWLEDGER (note_head)}
-@code{DECLARE_ACKNOWLEDGER (side_position)}
+DECLARE_ACKNOWLEDGER (note_head)
+DECLARE_ACKNOWLEDGER (side_position)
 @end example
 
 The @code{DECLARE_END_ACKNOWLEDGER ()} macro sets up a spanner-specific

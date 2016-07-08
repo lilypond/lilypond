@@ -1090,9 +1090,9 @@ scoreTitleMarkup = \markup @{ \column @{
 以下の構文を用います:
 
 @example
-@code{variable} = @code{\markup} @{
+variable = \markup @{
   ...
-  @code{\on-the-fly}  #@var{procedure}  @var{markup}
+  \on-the-fly  #@var{procedure}  @var{markup}
   ...
 @}
 @end example
@@ -1155,9 +1155,9 @@ scoreTitleMarkup = \markup @{ \column @{
 できます。例えば、
 
 @example
-  @code{\on-the-fly #first-page}
-  @code{\on-the-fly #last-page}
-  @code{@{ \markup ... \fromproperty #'header: ... @}}
+  \on-the-fly #first-page
+  \on-the-fly #last-page
+  @{ \markup ... \fromproperty #'header: ... @}
 @end example
 
 これは、出力が単一のページかどうかを判断します。

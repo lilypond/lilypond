@@ -692,9 +692,9 @@ through them looking for a property that might control the heaviness of
 slurs, and you should find
 
 @example
-@code{thickness} (number)
-     @code{1.2}
-     Line thickness, generally measured in @code{line-thickness}
+thickness (number)
+     1.2
+     Line thickness, generally measured in line-thickness
 @end example
 
 This looks a good bet to change the heaviness.  It tells us that
@@ -2054,7 +2054,7 @@ individual notes in a chord is possible by using the
 command is:
 
 @example
-@code{\set fingeringOrientations = #'([up] [left/right] [down])}
+\set fingeringOrientations = #'([up] [left/right] [down])
 @end example
 
 @noindent
@@ -4066,11 +4066,11 @@ themselves prevents their use in simple variables.  As an
 alternative can we use @code{\override} and @code{\revert} commands?
 
 @example
-@code{\override Lyrics.LyricText.font-shape = #'italic}
-@code{\override Lyrics.LyricText.font-series = #'bold}
+\override Lyrics.LyricText.font-shape = #'italic
+\override Lyrics.LyricText.font-series = #'bold
 
-@code{\revert Lyrics.LyricText.font-shape}
-@code{\revert Lyrics.LyricText.font-series}
+\revert Lyrics.LyricText.font-shape
+\revert Lyrics.LyricText.font-series
 @end example
 
 These would also be extremely tedious to enter if there were many

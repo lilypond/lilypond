@@ -652,9 +652,9 @@ Slur へのリンクを選択すると、Slur のプロパティがリスト ア
 させていくと、以下が見つかります:
 
 @example
-@code{thickness} (number)
-     @code{1.2}
-     Line thickness, generally measured in @code{line-thickness}
+thickness (number)
+     1.2
+     Line thickness, generally measured in line-thickness
 @end example
 
 これが太さを変更するプロパティのようです。@c
@@ -2078,7 +2078,7 @@ a4 g c a |
 このコマンドのフォーマットは以下のようなものです:
 
 @example
-@code{\set fingeringOrientations = #'([up] [left/right] [down])}
+\set fingeringOrientations = #'([up] [left/right] [down])
 @end example
 
 @noindent
@@ -3988,11 +3988,11 @@ lhMusic = \relative {
 使うことはできないでしょうか？
 
 @example
-@code{\override Lyrics.LyricText.font-shape = #'italic}
-@code{\override Lyrics.LyricText.font-series = #'bold}
+\override Lyrics.LyricText.font-shape = #'italic
+\override Lyrics.LyricText.font-series = #'bold
 
-@code{\revert Lyrics.LyricText.font-shape}
-@code{\revert Lyrics.LyricText.font-series}
+\revert Lyrics.LyricText.font-shape
+\revert Lyrics.LyricText.font-series
 @end example
 
 これらも、強調する必要のある単語がたくさんある場合、入力するのが@c

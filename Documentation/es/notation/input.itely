@@ -1211,9 +1211,9 @@ encabezamiento y pie de página definido dentro del bloque
 @code{\paper}, usando la sintaxis siguiente:
 
 @example
-@code{variable} = @code{\markup} @{
+variable = \markup @{
   @dots{}
-  @code{\on-the-fly}  \@var{procedimiento}  @var{marcado}
+  \on-the-fly  \@var{procedimiento}  @var{marcado}
   @dots{}
 @}
 @end example
@@ -1280,8 +1280,8 @@ Se pueden combinar varias condiciones de @code{\on-the-fly} con
 un operador @q{and}, por ejemplo:
 
 @example
-  @code{\on-the-fly \first-page}
-  @code{\on-the-fly \last-page}
+  \on-the-fly \first-page
+  \on-the-fly \last-page
   @code{@{ \markup @dots{} \fromproperty #'header: @dots{} @}}
 @end example
 
@@ -1310,9 +1310,9 @@ establece la propiedad @code{title} del bloque @code{header} como
 título.
 
 @example
-  @code{\header@{}
-    @code{title = "Sinfonía núm. 1"}
-  @code{@}}
+  \header@{
+    title = "Sinfonía núm. 1"
+  @}
 @end example
 
 Si quiere fijar el título de la salida impresa con un texto pero
@@ -1321,10 +1321,10 @@ diferente, puede usar @code{pdftitle} como se muestra a
 continuación.
 
 @example
-  @code{\header@{}
-    @code{title = "Sinfonía núm. 1"}
-    @code{pdftitle = "Sinfonía núm. 1 de Beethoven"}
-  @code{@}}
+  \header@{
+    title = "Sinfonía núm. 1"
+    pdftitle = "Sinfonía núm. 1 de Beethoven"
+  @}
 @end example
 
 Todas las variables @code{title}, @code{subject},

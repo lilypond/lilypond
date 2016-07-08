@@ -1432,7 +1432,7 @@ sotto tutti i contesti esistenti.  Per riposizionarlo sopra il contesto
 chiamato @qq{principale}, dovrebbe essere definito in questo modo:
 
 @example
-@code{\new Staff \with @{ alignAboveContext = #"principale" @} }
+\new Staff \with @{ alignAboveContext = #"principale" @}
 @end example
 
 Una situazione simile si pone quando si posiziona un contesto temporaneo
@@ -2555,7 +2555,7 @@ Altrimenti, in molti casi esistono comandi predefiniti per specificare la
 direzione.  Questo hanno la forma
 
 @example
-@code{\xxxUp}, @code{\xxxDown} o @code{\xxxNeutral}
+\xxxUp, \xxxDown o \xxxNeutral
 @end example
 
 @noindent
@@ -4081,7 +4081,7 @@ evitare le collisioni.
 La sintassi di @code{\shape} è
 
 @example
-[-]@code{\shape} @var{spostamenti} @var{elemento}
+[-]\shape @var{spostamenti} @var{elemento}
 @end example
 
 Questo comando riposiziona i punti di controllo di @var{elemento} di quanto
@@ -4284,7 +4284,7 @@ proprietà di un estensore.
 La sintassi di @code{\alterBroken} è:
 
 @example
-[-]@code{\alterBroken} @var{proprietà} @var{valori} @var{elemento}
+[-]\alterBroken @var{proprietà} @var{valori} @var{elemento}
 @end example
 
 L'argomento @var{valori} è una lista di valori, uno per ogni pezzo

@@ -1253,7 +1253,7 @@ Bs) am Beginn jedes Notensystems.
 Die Tonart kann geändert werden:
 
 @example
-@code{\key} @var{Tonhöhe} @var{Modus}
+\key @var{Tonhöhe} @var{Modus}
 @end example
 
 @funindex \minor
