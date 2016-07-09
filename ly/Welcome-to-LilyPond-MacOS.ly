@@ -23,7 +23,7 @@ That's it.  For more information, visit http://lilypond.org .
 
 %}
 
-\version "2.19.44"  % necessary for upgrading to future LilyPond versions.
+\version "2.19.45"  % necessary for upgrading to future LilyPond versions.
 
 \header{
   title = "A scale in LilyPond"
