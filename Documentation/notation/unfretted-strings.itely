@@ -198,10 +198,6 @@ dots are required.
 }
 @end lilypond
 
-@warning{@code{@bs{}harmonic} @strong{must} be placed inside a
-chord construct even if there is only a single note.  Normally
-@code{@bs{}harmonicsOn} would be used in this situation.}
-
 @seealso
 Music Glossary:
 @rglos{harmonics}.
