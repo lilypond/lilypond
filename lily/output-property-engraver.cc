@@ -37,15 +37,12 @@ protected:
   void stop_translation_timestep ();
 };
 
+// We only run this in the Score context, so all events are likely to
+// find a target
 void
 Output_property_engraver::listen_apply_output (Stream_event *ev)
 {
-  /*
-    UGH. Only swallow the output property event in the context
-    it was intended for. This is inelegant but not inefficient.
-  */
-  if (context ()->is_alias (ev->get_property ("context-type")))
-    props_.push_back (ev);
+  props_.push_back (ev);
 }
 
 void
@@ -59,11 +56,16 @@ Output_property_engraver::acknowledge_grob (Grob_info inf)
       if (scm_is_symbol (grob)
           && ly_symbol2string (grob) != inf.grob ()->name ())
         continue;
+      SCM typ = o->get_property ("context-type");
       SCM proc = o->get_property ("procedure");
-      scm_call_3 (proc,
-		  inf.grob ()->self_scm (),
-		  d->self_scm (), 
-		  context ()->self_scm ());
+      for (Context *c = d; c; c = c->get_parent_context ())
+        {
+          if (c->is_alias (typ))
+            scm_call_3 (proc,
+                        inf.grob ()->self_scm (),
+                        d->self_scm (),
+                        c->self_scm ());
+        }
     }
 }
 

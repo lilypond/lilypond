@@ -16,7 +16,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.19.19"
+\version "2.19.46"
 
 \context {
   \name "Global"
@@ -35,7 +35,6 @@
   \description "A context for displaying fret diagrams."
 
   \consists "Fretboard_engraver"
-  \consists "Output_property_engraver"
   \consists "Axis_group_engraver"
   \consists "Separating_line_group_engraver"
   \consists "Font_size_engraver"
@@ -54,7 +53,6 @@
   \type "Engraver_group"
   \name "Staff"
 
-  \consists "Output_property_engraver"
   \consists "Bar_engraver"
   \consists "Pure_from_neighbor_engraver"
   %% Bar_engraver must be first so default bars aren't overwritten
@@ -177,7 +175,6 @@ contained staves are not connected vertically."
   \override Stem.neutral-direction = #UP
   \override Beam.neutral-direction = #UP
 
-  \consists "Output_property_engraver"
   \consists "Font_size_engraver"
   \consists "Separating_line_group_engraver"
   \consists "Dot_column_engraver"
@@ -218,7 +215,6 @@ multiple voices on the same staff."
   \consists "Font_size_engraver"
 
   \consists "Pitched_trill_engraver"
-  \consists "Output_property_engraver"
   \consists "Arpeggio_engraver"
   \consists "Multi_measure_rest_engraver"
   \consists "Text_spanner_engraver"
@@ -371,7 +367,6 @@ together, never separately."
   \override DynamicText.extra-spacing-width = ##f
   \consists "Span_bar_stub_engraver"
   \consists "Span_arpeggio_engraver"
-  \consists "Output_property_engraver"
   systemStartDelimiter = #'SystemStartBracket
   %% explicitly set instrument, so it is not inherited from the parent
   instrumentName = #'()
@@ -433,7 +428,6 @@ it with a different one.  Often used with @code{\\stopStaff} and
   \type "Engraver_group"
   \name "Dynamics"
   \alias "Voice"
-  \consists "Output_property_engraver"
   \consists "Bar_engraver"
   \consists "Piano_pedal_engraver"
   \consists "Script_engraver"
@@ -535,7 +529,6 @@ printing of a single line of lyrics."
 				% \key, \transposition
   \description "Typesets chord names."
 
-  \consists "Output_property_engraver"
   \consists "Separating_line_group_engraver"
   \consists "Chord_name_engraver"
   \consists "Axis_group_engraver"
