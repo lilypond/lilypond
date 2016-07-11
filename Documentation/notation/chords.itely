@@ -848,11 +848,16 @@ In figure mode, a group of bass figures is delimited by
 @end lilypond
 
 
-Accidentals (including naturals) can be added to figures:
+Accidentals (including naturals) may be used for modifying scale steps.
+These are entered by appending @code{+} (for sharps), @code{-} (for flats)
+or @code{!} (for naturals) after the number.  For double accidentals the
+modifier is applied twice.  For the modification of the third step the
+number is often omitted, which can be achieved by using @code{_} instead
+of a number.
 
 @lilypond[verbatim,quote,ragged-right]
 \figures {
-  <7! 6+ 4-> <5++> <3-->
+  <7! 6+ 4-> <5++> <3--> < _+ > < 7 _!>
 }
 @end lilypond
 
@@ -873,11 +878,11 @@ sixth steps) can be created:
 }
 @end lilypond
 
-Vertical spaces and brackets can be included in figures:
+Brackets can be included in figures:
 
 @lilypond[verbatim,quote,ragged-right]
 \figures {
-  <[12 _!] 8 [6  4]>
+  <[12] 8 [6  4]>
 }
 @end lilypond
 
