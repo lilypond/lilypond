@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8cce5dd067a8a2bab508f5abebc3955db8837bbf
+   Translation of GIT committish: db92af51a444062c8edaef3afa36f57375b8feeb
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -861,8 +861,8 @@ Morceaux choisis :
 le mode de chiffrage.  De plus amples informations quant aux différents
 modes sont regroupées à la rubrique @ref{Modes de saisie}.
 
-En mode de saisie, un chiffrage est délimité par @code{<} et
-@code{>}.  La  durée est indiquée après le @code{>} :
+En mode de saisie, un chiffrage est délimité par @code{<} et @code{>}.
+La durée est indiquée après le @code{>} :
 
 @lilypond[verbatim,quote,ragged-right]
 \new FiguredBass {
@@ -872,12 +872,16 @@ En mode de saisie, un chiffrage est délimité par @code{<} et
 }
 @end lilypond
 
-Une altération -- y compris un bécarre -- peut s'attacher à un
-chiffre :
+Une altération -- y compris un bécarre -- permet de modifier l'un des
+degrés, en adjoignant un @code{+} (dièse), un @code{-} (bémol) ou un
+@code{!} (bécarre) au chiffre considéré.  Une altération double
+s'obtient en doublant le modificateur.  Le chiffre est souvent omis
+lorsque la tierce est modifiée, ce qui s'obtient en utilisant un
+@code{_} en lieu et place du chiffre.
 
 @lilypond[verbatim,quote,ragged-right]
 \figures {
-  <7! 6+ 4-> <5++> <3-->
+  <7! 6+ 4-> <5++> <3--> < _+ > < 7 _!>
 }
 @end lilypond
 
@@ -898,7 +902,7 @@ une @qq{petite sixte} :
 }
 @end lilypond
 
-Vous pouvez insérer un espace ou ajouter des crochets :
+Vous pouvez insérer des crochets :
 
 @lilypond[verbatim,quote,ragged-right]
 \figures {
