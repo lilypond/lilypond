@@ -1,0 +1,3300 @@
+c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+@ignore
+    Translation of GIT committish: e45059ae37b240ce52639ad5c49110b510a89481
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.19.22"
+
+
+@node Altures
+@section Altures
+@translationof Pitches
+
+@lilypondfile[quote]{pitches-headword.ly}
+
+A aquesta secció es discuteix com especificar l'altura de les
+notes. Aquest procés es composa de tres fases: entrada,
+modificació i sortida.
+
+@menu
+* Escriptura de notes::
+* Modificació de diverses notes a l'hora::
+* Impressió de les altures::
+* Cap de las notes::
+@end menu
+
+
+@node Escriptura de notes
+@subsection Escriptura de notes
+@translationof Writing pitches
+
+A aquesta secció es descriu la manera d'introduir l'altura de les
+notes.  Hi ha dues formes diferents de col·locar les notes a la
+seva octava corresponent: el mode absolut i el relatiu.  A gairebé
+totes les ocasions, serà més pràctic el mode relatiu.
+
+@menu
+* Escriptura d'octava absoluta::
+* Escriptura d'octava relativa::
+* Alteracions accidentals::
+* Noms de les notes en altres llengües::
+@end menu
+
+
+@node Escriptura d'octava absoluta
+@unnumberedsubsubsec Escriptura d'octava absoluta
+@translationof Absolute octave entry
+
+@cindex noms de les notes
+@cindex altures
+@cindex absoluta
+@cindex absoluta, especificació, de l'octava
+@cindex octava, especificació absoluta
+@cindex absoluta, introducció, de l'octava
+@cindex octava, introducció absoluta
+
+El nom d'una nota s'especifica usant les lletres minúscules de
+l'@code{a} a la @code{g}.  Les notes els noms dels quals van des
+de la @code{c} fins la @code{b} s'imprimeixen a l'octava inferior
+al Do central.
+
+@c don't use c' here.
+@lilypond[verbatim,quote]
+{
+  \clef bass
+  c4 d e f
+  g4 a b c
+  d4 e f g
+}
+@end lilypond
+
+@cindex octava, marca de canvi de
+
+@funindex '
+@funindex ,
+
+Es poden especificar d'altres octaves mitjançant una cometa simple
+quote@tie{}(@code{'}) o una coma@tie{}(@code{,}) .
+Cada@tie{}@code{'} eleva l'altura en una octava;
+cada@tie{}@code{,} baixa l'altura una octava.
+
+@lilypond[verbatim,quote]
+{
+  \clef treble
+  c'4 e' g' c''
+  c'4 g b c'
+  \clef bass
+  c,4 e, g, c
+  c,4 g,, b,, c,
+}
+@end lilypond
+
+@funindex \fixed
+Les marques d'octava comunes es poden escriure una sola vegada
+sobre una nota de referència si es fa servir @code{\fixed} abans
+de la música.  A les notes dins de @code{\fixed} sols els calen
+les marques d'apòstrof @code{'} o de coma @tie{}@code{,} quan
+estan per sobre o per sota de l'octava de la nota de referència.
+
+@lilypond[verbatim,quote]
+{
+  \fixed c' {
+    \clef treble
+    c4 e g c'
+    c4 g, b, c
+  }
+  \clef bass
+  \fixed c, {
+    c4 e g c'
+    c4 g, b, c
+  }
+}
+@end lilypond
+
+L'altura de les notes de l'expressió musical que segueix a
+@code{\fixed} no resulta afectada per un @code{\relative} que
+l'envolta, que s'estudia a continuació.
+
+@seealso
+Glossari musical:
+@rglos{Pitch names}.
+
+Fragments de codi:
+@rlsrnamed{Pitches,Altures}.
+
+
+@node Escriptura d'octava relativa
+@unnumberedsubsubsec Escriptura d'octava relativa
+@translationof Relative octave entry
+
+@cindex relatiu
+@cindex relatives, especificació d'octaves
+@cindex octava, introducció relativa
+@cindex relativa, especificació de l'octava
+@cindex octava, especificació relativa
+
+@funindex \relative
+
+L'entrada d'octava absoluta requereix que s'especifiqui l'octava
+per a totes i cadascuna de les notes.  En contrast amb això, el
+mode d'entrada d'octava relativa especifica cada octava en relació
+amb la nota anterior: si es canvia l'octava d'una nota això
+afectarà a totes les notes següents.
+
+El mode relatiu de notes s'ha d'introduir de forma explícita usant
+l'ordre @code{\relative}:
+
+@example
+\relative @var{altura_inicial} @var{expressió_musical}
+@end example
+
+En el mode relatiu, se suposa que cada nota es troba el més a prop
+possible de la nota anterior.  Això significa que l'octava d'una
+nota que està dins de @code{@var{expresión_musical}} es calcula
+com segueix:
+
+@itemize
+@item
+Si no s'usa cap marca de canvi d'octava en una nota, la seva
+octava es calcula de forma que l'interval que formi amb la nota
+anterior sigui menor d'una quinta.  Aquest interval es determina
+sense considerar les alteracions.
+
+@item
+Es pot afegir una marca de canvi d'octava@tie{}@code{'}
+o@tie{}@code{,} per elevar o baixar l'altura, respectivament, en
+una octava més en relació con l'altura calculada sense aquesta
+marca.
+
+@item
+Es poden usar diverses marques de canvi d'octava.  Per exemple,
+@code{''}@tie{}i @code{,,}@tie{} alteren l'altura en dues octaves.
+
+@item
+L'altura de la primera nota és relativa a
+@code{@var{altura_inicial}}.  @code{@var{altura_inicial}}
+s'especifica en mode d'octava absoluta.  Quines opcions tenen
+sentit?
+
+@table @asis
+@item @code{c} (Do), en qualsevol octava
+La identificació del Do central amb @code{c'} és quelcom força
+bàsica, per la qual cosa sol ser fàcil trobar octaves de
+@code{c}.  Si la nostra música comença amb @code{gis} (un Sol
+sostingut) per sobre de @code{c'''}, hauríem d'escriure quelcom
+com @code{\relative @{ gis''' @dots{}  @}}
+
+@item una nota que està una o dues octaves de la primera nota
+Escriure @code{\relative @{ gis''' @dots{} @}} fa que sigui fàcil
+determinar l'altura absoluta de la primera nota de dins.
+
+@item cap altura d'inici explícita
+La forma @code{\relative @{ gis''' @dots{} @}} serveix com una
+versió més compacta de l'opció anterior: la primera nota de dins
+s'escriu ella mateixa en altura absoluta (això resulta ser
+equivalent a escollir @code{f} (Fa) como l'altura de referència).
+@end table
+
+La documentació sol utilitzar aquesta última opció.
+@end itemize
+
+Aquí podem ver el mode relatiu en acció:
+
+@lilypond[verbatim,quote]
+\relative {
+  \clef bass
+  c d e f
+  g a b c
+  d e f g
+}
+@end lilypond
+
+Les marques de canvi d'octava s'utilitzen per a intervals majors
+de la quarta:
+
+@lilypond[verbatim,quote]
+\relative {
+  c'' g c f,
+  c' a, e'' c
+}
+@end lilypond
+
+Una sèrie de notes sense cap marca d'octava pot, malgrat tot,
+abastar intervals molt grans:
+
+@lilypond[verbatim,quote]
+\relative {
+  c f b e
+  a d g c
+}
+@end lilypond
+
+Quan hi ha uns blocs @code{\relative} niuats dins d'altres, el bloc
+@code{\relative} més intern comença amb la seva pròpia nota de
+referència independentment del @code{\relative} exterior.
+
+@lilypond[verbatim,quote]
+\relative {
+  c' d e f
+  \relative {
+    c'' d e f
+  }
+}
+@end lilypond
+
+@code{\relative} no té efecte sobre els blocs
+@code{\chordmode}.
+
+@lilypond[verbatim,quote]
+\new Staff {
+  \relative c''' {
+    \chordmode { c1 }
+  }
+  \chordmode { c1 }
+}
+@end lilypond
+
+@code{\relative} no es permet dins des bloques
+@code{\chordmode}.
+
+La música que està dins d'un bloc @code{\transpose} és absoluta, a
+no ser que s'inclogui una ordre @code{\relative}.
+
+@lilypond[verbatim,quote]
+\relative {
+  d' e
+  \transpose f g {
+    d e
+    \relative {
+      d' e
+    }
+  }
+}
+@end lilypond
+
+@cindex acords i introduccions relativa de l'octava
+@cindex relativa, introducció de l'octava, i acords
+
+Si l'element anterior és un acord, la primera nota de l'acord
+s'utilitza per determinar la primera nota del següent acord.  Dins
+dels acords, la següent nota sempre està en relació a l'anterior.
+
+@lilypond[verbatim,quote]
+\relative {
+  c'
+  <c e g>
+  <c' e g'>
+  <c, e, g''>
+}
+@end lilypond
+
+Com es va explicar més a dalt, l'octava de les notes es calcula
+solament a partir dels seus noms, sense tenir en compte cap
+alteració.  Per tant, un Mi doble sostingut després d'un Si
+s'escriurà més greu.  En altres paraules, es considera a la quarta
+doble augmentada un interval menor que la quinta doble disminuïda,
+independentment del número de semitons de cada un d'ells.
+
+@lilypond[verbatim,quote]
+\relative {
+  c''2 fis
+  c2 ges
+  b2 eisis
+  b2 feses
+}
+@end lilypond
+
+
+@seealso
+Glossari musical:
+@rglos{fifth},
+@rglos{interval},
+@rglos{Pitch names}.
+
+Referència de la notació:
+@ref{Comprovació d'octava}.
+
+Fragments de codi:
+@rlsr{Pitches}.
+
+Referència de funcionament intern:
+@rinternals{RelativeOctaveMusic}.
+
+@cindex relatiu, mode, transposició i
+@cindex transposició i mode relatiu
+
+@funindex \transpose
+@funindex \chordmode
+@funindex \relative
+
+
+@node Alteracions accidentals
+@unnumberedsubsubsec Alteracions accidentals
+@translationof Accidentals
+
+@cindex accidental
+@cindex key signature
+@cindex clef
+
+@c duplicated in Key signature and Accidentals
+@warning{Les alteracions accidentals i les armadures són una
+freqüent causa de confusió per als nous usuaris.  Al LilyPond, els
+noms de les notes específiques les altures; l'armadura i la clau
+determinen de quin forma es presenten aquestes altures.  Una nota
+sense alteració com@tie{}@code{c} significa @q{Do natural}, i sí que
+l'afecten l'armadura ni la clau.  Per veure més informació, consulteu
+@rlearning{Alteracions accidentals i armadures}.}
+
+@cindex notes, noms holandesos de
+@cindex notes, noms predeterminats
+@cindex predeterminats, noms de nota
+@cindex sostingut
+@cindex bemoll
+@cindex doble sostingut
+@cindex sostingut, doble
+@cindex doble bemoll
+@cindex bemoll, doble
+@cindex becaire
+@cindex natural, nota
+
+S'escriu una nota @notation{sostinguda} afegint @code{is} al
+nom de la nota, i un @notation{bemoll} afegint @code{es}.
+Com és d'esperar, un @notation{doble sostingut} i un
+@notation{doble bemoll} s'obté afegint @code{isis} o
+@code{eses}.  Aquesta sintaxi deriva dels noms de les notes en
+holandès.  Per utilitzar altres noms per a les alteracions,
+consulteu @ref{Noms de les notes en altres llengües}.
+
+@lilypond[verbatim,quote,fragment]
+\relative c'' { ais1 aes aisis aeses }
+@end lilypond
+
+Una nota natural s'introdueix com el nom de la nota, sense més; no
+cal cap sufix.  S'imprimeix un símbol de becaire si cal per
+cancel·lar l'efecte d'una alteració o armadura anterior.
+
+@lilypond[verbatim,quote,fragment]
+\relative c'' { a4 aes a2 }
+@end lilypond
+
+@cindex quarts de to
+@cindex semi-bemolls
+@cindex semi-sostinguts
+
+Es poden escriure mig bemolls i els mig sostinguts; a continuació
+presentem una sèrie de DOs cada com més aguts:
+
+@lilypond[verbatim,quote,fragment]
+\relative c'' { ceseh1 ces ceh c cih cis cisih }
+@end lilypond
+
+@cindex alteració recordatòria
+@cindex alteració de precaució
+@cindex alteració con parèntesi
+@cindex recordatòria, alteració
+@cindex precaució, alteració de
+@cindex parèntesi, alteració amb
+
+@funindex ?
+@funindex !
+
+Normalment les alteracions accidentals s'imprimeixen
+automàticament, però també pot imprimir-les manualment.  Una
+alteració recordatòria es pot forçar afegint un signe de
+admiració@tie{}@code{!}  després de l'altura de la nota.  Es pot
+obtenir una alteració de precaució (o sigui, una alteració entre
+parèntesi) afegint el signe de interrogació@tie{}@code{?} després
+del nom de la nota.
+
+@lilypond[verbatim,quote,fragment]
+\relative c'' { cis cis cis! cis? c c c! c? }
+@end lilypond
+
+@cindex alteració en nota lligada
+@cindex lligadura, alteracions i
+
+Les alteracions sobre notes unides per lligadura sols
+s'imprimeixen al començament d'un sistema:
+
+@lilypond[verbatim,quote,fragment,ragged-right]
+\relative c'' {
+  cis1~ 1~
+  \break
+  cis
+}
+@end lilypond
+
+
+@snippets
+
+@lilypondfile[verbatim,quote,texidoc,doctitle,ragged-right]
+{hiding-accidentals-on-tied-notes-at-the-start-of-a-new-system.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{preventing-extra-naturals-from-being-automatically-added.ly}
+
+@seealso
+Glossari musical:
+@rglos{sharp},
+@rglos{flat},
+@rglos{double sharp},
+@rglos{double flat},
+@rglos{Pitch names},
+@rglos{quarter tone}.
+
+Manual d'aprenentatge:
+@rlearning{Alteracions accidentals i armadures}.
+
+Referència de la notació:
+@ref{Alteracions accidentals automàtiques},
+@rusernamed{Annotational accidentals (musica ficta), Alteracions de anotació (musica ficta)},
+@ref{Noms de les notes en altres llengües}.
+
+Fragments de codi:
+@rlsr{Pitches}.
+
+Referència de funcionament intern:
+@rinternals{Accidental_engraver},
+@rinternals{Accidental},
+@rinternals{AccidentalCautionary},
+@rinternals{accidental-interface}.
+
+@cindex alteració de quarts de to
+@cindex quarts de to, alteracions
+
+@knownissues
+No hi ha estàndards reconeguts àmpliament per denotar els bemolls
+de tres quarts, de manera que els símbols del LilyPond no
+s'ajusten a cap estàndard.
+
+@node Noms de les notes en altres llengües
+@unnumberedsubsubsec Noms de les notes en altes llengües
+@translationof Note names in other languages
+
+@cindex notes, noms de, en altres llengües
+@cindex altures, noms de, altres llengües
+@cindex llengua, noms de nota en altres
+@cindex llengua, altures en altres
+
+Hi ha conjunts predefinits de noms de notes i les seves
+alteracions per a algunes llengües a part de l'anglès.  La
+selecció de la llengua dels noms de les notes se sol fer al
+principi del fitxer: l'exemple següent està escrit utilitzant els
+noms italians de les notes:
+
+@lilypond[quote,verbatim]
+\language "italiano"
+
+\relative {
+  do' re mi sib
+}
+@end lilypond
+
+Les llengües disponibles i els noms de les notes que defineixen
+són els següents:
+
+@quotation
+@multitable {@code{nederlands}} {do re/re mi fa sol la sib si}
+@headitem Llengua
+  @tab Nom de les notes
+@item @code{nederlands}
+  @tab c d e f g a bes b
+@item @code{catalan}
+  @tab do re mi fa sol la sib si
+@item @code{deutsch}
+  @tab c d e f g a b h
+@item @code{english}
+  @tab c d e f g a bf b
+@item @code{espanol} o @code{español}
+  @tab do re mi fa sol la sib si
+@item @code{français}
+  @tab do ré/re mi fa sol la sib si
+@item @code{italiano}
+  @tab do re mi fa sol la sib si
+@item @code{norsk}
+  @tab c d e f g a b h
+@item @code{portugues}
+  @tab do re mi fa sol la sib si
+@item @code{suomi}
+  @tab c d e f g a b h
+@item @code{svenska}
+  @tab c d e f g a b h
+@item @code{vlaams}
+  @tab do re mi fa sol la sib si
+@end multitable
+@end quotation
+
+A més dels noms de les notes, els sufixos de les alteracions
+poden també variar depenent de la llengua:
+
+@quotation
+@multitable {@code{nederlands}} {-@code{s}/-@code{-sharp}} {-@code{ess}/-@code{es}} {-@code{ss}/-@code{x}/-@code{-sharpsharp}} {-@code{essess}/-@code{eses}}
+@headitem Llengua
+  @tab sostingut @tab bemoll @tab doble sostingut @tab doble bemoll
+@item @code{nederlands}
+  @tab -@code{is} @tab -@code{es} @tab -@code{isis} @tab -@code{eses}
+@item @code{catalan}
+  @tab -@code{d}/-@code{s} @tab -@code{b} @tab -@code{dd}/-@code{ss} @tab -@code{bb}
+@item @code{deutsch}
+  @tab -@code{is} @tab -@code{es} @tab -@code{isis} @tab -@code{eses}
+@item @code{english}
+  @tab -@code{s}/-@code{-sharp} @tab -@code{f}/-@code{-flat} @tab -@code{ss}/-@code{x}/-@code{-sharpsharp}
+    @tab -@code{ff}/-@code{-flatflat}
+@item @code{espanol} or @code{español}
+  @tab -@code{s} @tab -@code{b} @tab -@code{ss}/-@code{x} @tab -@code{bb}
+@item @code{français}
+  @tab -@code{d} @tab -@code{b} @tab -@code{dd}/-@code{x} @tab -@code{bb}
+@item @code{italiano}
+  @tab -@code{d} @tab -@code{b} @tab -@code{dd} @tab -@code{bb}
+@item @code{norsk}
+  @tab -@code{iss}/-@code{is} @tab -@code{ess}/-@code{es} @tab -@code{ississ}/-@code{isis}
+    @tab -@code{essess}/-@code{eses}
+@item @code{portugues}
+  @tab -@code{s} @tab -@code{b} @tab -@code{ss} @tab -@code{bb}
+@item @code{suomi}
+  @tab -@code{is} @tab -@code{es} @tab -@code{isis} @tab -@code{eses}
+@item @code{svenska}
+  @tab -@code{iss} @tab -@code{ess} @tab -@code{ississ} @tab -@code{essess}
+@item @code{vlaams}
+  @tab -@code{k} @tab -@code{b} @tab -@code{kk} @tab -@code{bb}
+@end multitable
+@end quotation
+
+A l'holandès, @code{aes} es contrau com @code{as}, però les dues
+formes s'accepten al LilyPond.  De forma semblant, s'accepten tant
+@code{es} com @code{ees}.  Això s'aplica també a
+@code{aeses}@tie{}/@tie{}@code{ases} i a
+@code{eeses}@tie{}/@tie{}@code{eses}.  A vegades es defineixen
+sols aquest noms abreujats als fitxers de llengua corresponents.
+
+@lilypond[verbatim,quote,fragment]
+\relative c'' { a2 as e es a ases e eses }
+@end lilypond
+
+@cindex microtons
+@cindex semi-sostingut
+@cindex semi-bemoll
+@cindex sesqui-sostingut
+@cindex sesqui-bemoll
+
+Algunes músiques utilitzen microtons les alteracions dels quals
+són fraccions d'un sostingut o bemoll @q{normals}.  La taula
+següent relaciona els noms de les notes per a les alteracions d'un
+quart de to en diferents llengües; aquí, els prefixos
+@notation{semi-} i @notation{sesqui-} respectivament signifiquen
+@q{mig} i @q{u i mig}.  Les llengües que no apareixen a aquesta
+taula no aporten encaran noms especials per a les notes.
+
+@quotation
+@multitable {@code{nederlands}} {@b{semi-sostingut}} {@b{semi-bemoll}} {@b{sesqui-sostingut}} {@b{sesqui-bemoll}}
+@headitem Llengua
+  @tab semi-sostingut @tab semi-bemoll @tab sesqui-sostingut @tab sesqui-bemoll
+
+@item @code{nederlands}
+  @tab -ih @tab -eh @tab -isih @tab -eseh
+@item @code{deutsch}
+  @tab -ih @tab -eh @tab -isih @tab -eseh
+@item @code{english}
+  @tab -qs @tab -qf @tab -tqs @tab -tqf
+@item @code{espanol} o @code{español}
+  @tab -cs @tab -cb @tab -tcs @tab -tcb
+@item @code{français}
+  @tab -sd @tab -sb @tab -dsd @tab -bsb
+@item @code{italiano}
+  @tab -sd @tab -sb @tab -dsd @tab -bsb
+@item @code{portugues}
+  @tab -sqt @tab -bqt @tab -stqt @tab -btqt
+@end multitable
+@end quotation
+
+Gairebé totes les llengües presentades aquí estan associades
+comunament amb la música clàssica occidental, també coneguda com
+@notation{Període de la pràctica comuna}.  Malgrat això, també
+estan contemplades les altures i els sistemes d'afinació
+alternatius: vegeu
+@refusernamed{Common notation for non-Western music,Notació comuna per a músiques no occidentals}.
+
+@seealso
+Glossari musical:
+@rglos{Pitch names},
+@rglos{Common Practice Period}.
+
+Referència de la notació:
+@refusernamed{Common notation for non-Western music,Notació comuna per a músiques no occidentals}.
+
+Fitxers instal·lats:
+@file{scm/define-note-names.scm}.
+
+Fragments de codi:
+@rlsr{Pitches}.
+
+
+@node Modificació de diverses notes a l'hora
+@subsection Modificació de diverses notes a l'hora
+@translationof Changing multiple pitches
+
+Aquesta secció tracta de la manera de modificar les altures.
+
+@menu
+* Comprovació d'octava::
+* Transposició::
+* Inversió::
+* Retrogradació:
+* Transformacions modals::
+@end menu
+
+
+@node Comprovació d'octava
+@unnumberedsubsubsec Comprovació d'octava
+@translationof Octave checks
+
+@cindex octava, comprovació de
+@cindex octava, correcció de
+@cindex control, altures de
+
+@funindex =
+@funindex \octaveCheck
+@funindex controlpitch
+
+Al mode relatiu és fàcil oblidar una marca de canvi d'octava.  Les
+comprovacions d'octava fan més fàcil trobar aquests errors,
+mitjançant la presentació d'un advertiment i corregint l'octava si
+la nota es troba a una octava diferent de l'esperat.
+
+Per comprovar l'octava d'una nota, especifiqueu l'octava absoluta
+després del símbol@tie{}@code{=}.  Aquest exemple genera un
+missatge d'advertiment (i corregeix l'altura) perquè la segona
+nota és l'octava absoluta @code{d''} en lloc de @code{d'} com
+indica la correcció d'octava.
+
+@lilypond[verbatim,quote]
+\relative {
+  c''2 d='4 d
+  e2 f
+}
+@end lilypond
+
+L'octava de les notes es pot comprovar també amb l'ordre
+@code{\octaveCheck@tie{}@var{altura_de_control}}.
+@code{@var{altura_de_control}} s'especifica en mode absolut. Això
+comprova que l'interval entre la nota anterior i la
+@code{@var{altura_de_control}} es troba dins d'una quarta (és a
+dir, el càlcul normal per al mode relatiu).  Si aquesta
+comprovació fracassa, s'imprimeix un missatge d'advertiment.  Tot
+i que la nota prèvia no es modifica, les notes posteriors estan en
+relació al valor corregit.
+
+@lilypond[verbatim,quote]
+\relative {
+  c''2 d
+  \octaveCheck c'
+  e2 f
+}
+@end lilypond
+
+Compareu els dos compassos següents.  La primera i tercera
+comprovacions de @code{\octaveCheck} fracassen, però la segona és correcta.
+
+@lilypond[verbatim,quote]
+\relative {
+  c''4 f g f
+
+  c4
+  \octaveCheck c'
+  f
+  \octaveCheck c'
+  g
+  \octaveCheck c'
+  f
+}
+@end lilypond
+
+@seealso
+Fragments de codi:
+@rlsr{Pitches}.
+
+Referència de funcionament interno:
+@rinternals{RelativeOctaveCheck}.
+
+
+@node Transposició
+@unnumberedsubsubsec Transposició
+@translationof Transpose
+
+@cindex transport
+@cindex transposició
+@cindex transposició d'altures
+@cindex transposició de notes
+@cindex altures, transport de
+@cindex notes, transport de
+
+@funindex \transpose
+
+Una expressió musical es pot transportar mitjançant
+@code{\transpose}.  La sintaxi és
+@example
+\transpose @var{nota_origen} @var{nota_destí} @var{expressió_musical}
+@end example
+
+Això significa que la @code{@var{expressió_musical}} es transporta
+l'interval que hi ha entre les notes @code{@var{nota_origen}} i
+@code{@var{nota_destí}}: qualsevol nota amb l'altura de
+@code{@var{nota_origen}} es canvia per @code{@var{nota_destí}} i
+qualsevol altra nota es transporta el mateix interval.  Les dues
+notes s'introdueixen en mode absolut.
+
+@warning{La música que està dins d'un bloc
+@code{@bs{}transpose} és absoluta, a no ser que s'inclogui una introducció
+@code{@bs{}relative} dins del bloc.}
+
+Per exemple, agafem una peça escrita en la tonalitat de Re major.
+Es pot transposar cap amunt a Mi major; observeu que també
+l'armadura de la tonalitat es transporta automàticament.
+
+@lilypond[verbatim,quote]
+\transpose d e {
+  \relative {
+    \key d \major
+    d'4 fis a d
+  }
+}
+@end lilypond
+
+Si una particel·la escrita en Do (@notation{afinació de concert}
+normal) es pot tocar amb un clarinet en La (per al qual un La
+s'escriu com un Do, i que sona una tercera menor per sota del que
+està escrit), la particel·la corresponent es produeix mitjançant:
+
+@lilypond[verbatim,quote]
+\transpose a c' {
+  \relative {
+    \key c \major
+    c'4 d e g
+  }
+}
+@end lilypond
+
+@noindent
+Observeu que especifiquem @code{\key c \major} de forma explícita.
+Si no especifiquem cap tonalitat, les notes es transporten però no
+s'imprimeix l'armadura.
+
+@code{\transpose} distingeix entre notes enarmòniques: tant
+@code{\transpose c cis} com @code{\transpose c des} transporten
+un semitó cap amunt.  La primera versió imprimeix sostinguts i les
+notes no es mouen del seu lloc a l'escala, en canvi la segona
+imprimeix bemolls de la nota següent.
+
+@lilypond[verbatim,quote]
+music = \relative { c' d e f }
+\new Staff {
+  \transpose c cis { \music }
+  \transpose c des { \music }
+}
+@end lilypond
+
+@cindex transpositors, instruments
+@cindex instruments transpositors
+
+@code{\transpose} també es pot usar per introduir notes escrites
+per a un instrument transpositor.  Els exemples interiors mostren
+com escriure altures en Do (o en @notation{afinació de concert}) i
+gravar-les per a un instrument transpositor, però també és
+possible el cas contrari si, per exemple, tenim un conjunt de
+parts instrumentals i voleu fer un guió en Do per al director. Per
+exemple, en introduir música per a trompeta en Si bemoll que
+comença per un Mi a la partitura (Re de concert), es pot escriure:
+
+@example
+musicaEnSiBemol = @{ e4 @dots{} @}
+\transpose c bes, \musicaEnSiBemol
+@end example
+
+@noindent
+Per imprimir aquesta música en Fa (per exemple, en arreglar-la per
+a trompa) podeu envolta la música existent amb un altre
+@code{\transpose}:
+
+@example
+musicaEnSiBemol = @{ e4 @dots{} @}
+\transpose f c' @{ \transpose c bes, \musicaEnSiBemol @}
+@end example
+
+@noindent
+Per veure més informació sobre instruments transpositors, consulteu
+@ref{Transposició dels instruments}.
+
+@snippets
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
+
+@seealso
+Referència de la notació:
+@ref{Transposició dels instruments},
+@ref{Inversió},
+@ref{Transformacions modals},
+@ref{Escriptura d'octava relativa},
+@ref{Retrogradació}.
+
+Fragments de codi:
+@rlsr{Pitches}.
+
+Referència de funcionament intern:
+@rinternals{TransposedMusic}.
+
+@funindex \transpose
+@funindex \chordmode
+@funindex \relative
+
+@knownissues
+La conversió relativa no afecta a les seccions
+@code{\transpose}, @code{\chordmode} ni @code{\relative} dins del
+seu argument.  Per usar el mode relatiu dins de música
+transportada, es pot col·locar un altre @code{\relative} dins de
+@code{\transpose}.
+
+No s'imprimeixen alteracions accidentals triples quan s'usa
+@code{\transpose}.  En lloc d'això, s'usarà una nota
+@q{equivalent enarmònicament} (p.ex., Re bemoll en lloc de Mi
+triple bemoll).
+
+
+@node Inversió
+@unnumberedsubsubsec Inversió
+@translationof Inversion
+
+@cindex inversió
+@cindex operació de inversió
+@funindex \inversion
+
+Una expressió musical es pot invertir i transportar en una sola
+operació amb:
+
+@example
+\inversion @var{nota_pivot} @var{nota_destí} @var{expressió_musical}
+@end example
+
+La @code{@var{expressió_musical}} s'inverteix interval a interval
+al voltant de @code{@var{nota_pivot}}, i després es transport de
+manera que @code{@var{nota_pivot}} es fa correspondre amb
+@code{@var{nota_destí}}.
+
+@lilypond[verbatim,quote]
+music = \relative { c' d e f }
+\new Staff {
+  \music
+  \inversion d' d' \music
+  \inversion d' ees' \music
+}
+@end lilypond
+
+@warning{Els motius a invertir haurien de venir expressats en mode
+absolut o convertir-se prèviament a la forma absoluta
+envoltant-los en un bloc @code{\relative}.}
+
+@seealso
+Referència de la notació:
+@ref{Transformacions modals},
+@ref{Retrogradació},
+@ref{Transposició}.
+
+
+@node Retrogradació
+@unnumberedsubsubsec Retrogradació
+@translationof Retrograde
+
+@cindex retrogradació, transformació de
+@cindex transformació de retrogradació
+@cindex operació de retrogradació
+@funindex \retrograde
+
+Es pot revertir una expressió musical per produir la seva retrogradació:
+
+@lilypond[verbatim,quote]
+music = \relative { c'8. ees16( fis8. a16 b8.) gis16 f8. d16 }
+
+\new Staff {
+  \music
+  \retrograde \music
+}
+@end lilypond
+
+@knownissues
+Les lligadures d'unió manuals dins de @code{\retrograde} es
+trencaran i generaran advertiments.  Es poden generar algunes
+lligadures automàticament activant
+@ref{Divisió automàtica de les notes}.
+
+@seealso
+Referència de la notació:
+@ref{Inversió},
+@ref{Transformacions modals},
+@ref{Transposició}.
+
+
+@node Transformacions modals
+@unnumberedsubsubsec Transformacions modals
+@translationof Modal transformations
+
+@cindex transformacions modals
+@cindex modals, transformacions
+@cindex operacions modals
+
+En una composició musical que està basada en una escala amb
+freqüència es transformen els motius de diverses formes.  Un motiu
+es pot @notation{transportar} perquè comenci en diferents llocs de
+l'escala o pot @notation{invertir-se} al voltant d'una nota pivot
+de l'escala.  També es pot revertir per produir una
+@notation{retrogradació}, vegeu @ref{Retrogradació}.
+
+@warning{Qualsevol nota que no entri a la escala donada, es
+deixarà sense transformar.}
+
+@subsubsubheading Transposició modal
+
+@cindex transport
+@cindex transport modal
+@cindex modal, transposició
+@cindex transposició modal
+@cindex operació de transposició
+@funindex \modalTranspose
+
+Es pot transportar un motiu dins d'una escala donada amb:
+
+@example
+\modalTranspose @var{nota_origen} @var{nota_destí} @var{escala} @var{motiu}
+@end example
+
+Les notes del @var{motiu} es desplacen dins de la @var{escala} el
+nombre de graus de l'escala donats per l'interval entre
+@var{nota_destí} y @var{nota_origen}:
+
+@lilypond[verbatim,quote]
+diatonicScale = \relative { c' d e f g a b }
+motif = \relative { c'8 d e f g a b c }
+
+\new Staff {
+  \motif
+  \modalTranspose c f \diatonicScale \motif
+  \modalTranspose c b, \diatonicScale \motif
+}
+@end lilypond
+
+Es poden especificar escales ascendents de qualsevol longitud i
+amb qualssevol intervals:
+
+@lilypond[verbatim,quote]
+pentatonicScale = \relative { ges aes bes des ees }
+motif = \relative { ees'8 des ges,4 <ges' bes,> <ges bes,> }
+
+\new Staff {
+  \motif
+  \modalTranspose ges ees' \pentatonicScale \motif
+}
+@end lilypond
+
+Quan es fa servir amb una escola cromàtica, @code{\modalTranspose}
+té un efecte semblant a @code{\transpose}, però amb la
+possibilitat d'especificar els noms de les notes que es vulguin usar:
+
+@lilypond[verbatim,quote]
+chromaticScale = \relative { c' cis d dis e f fis g gis a ais b }
+motif = \relative { c'8 d e f g a b c }
+
+\new Staff {
+  \motif
+  \transpose c f \motif
+  \modalTranspose c f \chromaticScale \motif
+}
+@end lilypond
+
+@subsubsubheading Inversió modal
+
+@cindex modal, inversió
+@cindex inversió modal
+@cindex operació d'inversió nmodal
+@funindex \modalInversion
+
+Es pot invertir un motiu dins d'una escala donada al voltant d'una
+nota pivot donada i transportada al mateix temps en una única
+operaćió, amb:
+
+@example
+\modalInversion @var{nota-pivote} @var{nota-destino} @var{escala} @var{motivo}
+@end example
+
+Les notes del @var{motiu} col·loquen al mateix nombre de graus de
+distància de l'escala a partir de la @var{nota_pivot} dins de
+l'@var{escala}, però en la direcció oposada, i el resultat es
+desplaça després dins de l'@var{escala} el nombre de grados de
+l'escala donats per l'interval entre la @var{nota_destí} i la
+@var{nota_pivot}.
+
+Així doncs, per invertir senzillament al voltant d'una nota de
+l'escala, utilitzeu el mateix valor per a @var{nota_pivot} i
+@var{nota_destí}:
+
+@lilypond[verbatim,quote]
+octatonicScale = \relative { ees' f fis gis a b c d }
+motif = \relative { c'8. ees16 fis8. a16 b8. gis16 f8. d16 }
+
+\new Staff {
+  \motif
+  \modalInversion fis' fis' \octatonicScale \motif
+}
+@end lilypond
+
+Per invertir al voltant d'una nota pivot entre dues notes de
+l'escala, invertiu al voltant d'una de les notes i després
+transporteu en un grau de l'escala.  les dues notes especificades
+es poden interpretar com que fan una forquilla entre elles a la
+nota pivot:
+
+@lilypond[verbatim,quote]
+scale = \relative { c' g' }
+motive = \relative { c' c g' c, }
+
+\new Staff {
+  \motive
+  \modalInversion c' g' \scale \motive
+}
+@end lilypond
+
+L'operació combinada d'inversió i retrogradació produeix la
+inversió retrògrada:
+
+@lilypond[verbatim,quote]
+octatonicScale = \relative { ees' f fis gis a b c d }
+motif = \relative { c'8. ees16 fis8. a16 b8. gis16 f8. d16 }
+
+\new Staff {
+  \motif
+  \retrograde \modalInversion c' c' \octatonicScale \motif
+}
+@end lilypond
+
+@seealso
+Referència de la notació:
+@ref{Inversió},
+@ref{Retrogradació},
+@ref{Transposició}.
+
+
+@node Impressió de les altures
+@subsection Impressió de les altures
+@translationof Displaying pitches
+
+Aquesta secció tracta de com alterar la presentació de l'altura de
+les notes.
+
+@menu
+* Clau::
+* Armadura de la tonalitat::
+* Claudàtors d'octava::
+* Transposició dels instruments::
+* Alteracions accidentals automàtiques::
+* Tessitura::
+@end menu
+
+@node Clau
+@unnumberedsubsubsec Clau
+@translationof Clef
+
+@cindex Sol, clau de
+@cindex Do, clau de
+@cindex Fa, clau de
+@cindex violí, clau de
+@cindex alto, clau de
+@cindex tenor, clau de
+@cindex baix, clau de
+@cindex francesa, clau
+@cindex soprano, clau de
+@cindex mezzosoprano, clau de
+@cindex baríton, clau de
+@cindex contrabaix, clau de
+@cindex clau
+@cindex antigues, claus
+@cindex clau antiga
+@cindex clau de Sol
+@cindex clau de Do
+@cindex clau de Fa
+@cindex clau de violí
+@cindex clau de alto
+@cindex clau de tenor
+@cindex clau de baix
+@cindex clau francesa
+@cindex clau de soprano
+@cindex clau de mezzosoprano
+@cindex clau de baríton
+@cindex clau de contrabaix
+
+@funindex \clef
+
+Sense cap ordre explícita, la clau predeterminada al LilyPond és
+la clau @qq{treble} (o clau de @emph{Sol}).
+
+@lilypond[verbatim,quote,fragment,ragged-right]
+c'2 c'
+@end lilypond
+
+Tanmateix, es pot  canviar la clau usant l'ordre
+@code{\clef} i el nom de la clau corresponent.  Als exemples
+següents es mostra la posició del @emph{Do central} en diferents claus.
+
+@lilypond[verbatim,quote,fragment]
+\clef treble
+c'2 c'
+\clef alto
+c'2 c'
+\clef tenor
+c'2 c'
+\clef bass
+c'2 c'
+@end lilypond
+
+Per veure el repertori complet dels possibles noms per a les
+claus, consulteu @ref{Estils de clau}.
+
+Les claus especials, com les utilitzades a la música
+@emph{antiga}, es descriuen a
+@rusernamed{Mensural clefs,Claus de la música mensural} i a
+@rusernamed{Gregorian clefs,Claus del cant gregorià}. La música
+que requereix claus de tabulatura s'estudia a
+@rusernamed{Default tablatures,Tabulatures predeterminades} i a
+@rusernamed{Costum tablatures,Tabulatures personalizadas}.
+
+@cindex Claus de guia
+@cindex Claus amb notes guia
+
+Per fer servir claus a les notes guia, vegeu les ordres
+@code{\cueClef} i @code{\cueDuringWithClef} a
+@rusernamed{Formatting cue notes,Formatació de les notes guia}
+
+@cindex transpositores, claus
+@cindex clau transpositora
+@cindex octava, transposició
+@cindex transposició, de octava, opcional
+@cindex octava, transposició, opcional
+@cindex coral, clau de tenor
+@cindex tenor, clau de, coral
+
+En afegir @code{_8} o @code{^8} al nom de la clau, la clau es
+transposa una octava cap avall o cap amunt, respectivament, i
+@code{_15} i @code{^15} la transposa dos octaves.  Si cal
+es poden usar altres nombres enters.  L'argument
+@var{nome_de_clau} s'ha de envoltar entre cometes si conté
+caràcters no alfabètics:
+
+@lilypond[verbatim,quote,fragment]
+\clef treble
+c'2 c'
+\clef "treble_8"
+c'2 c'
+\clef "bass^15"
+c'2 c'
+\clef "alto_2"
+c'2 c'
+\clef "G_8"
+c'2 c'
+\clef "F^5"
+c'2 c'
+@end lilypond
+
+Es pot obtenir una indicació d'octava opcional envoltant
+l'argument numèric entre parèntesi o claudàtors rectes:
+
+@lilypond[verbatim,quote,fragment]
+\clef "treble_(8)"
+c'2 c'
+\clef "bass^[15]"
+c'2 c'
+@end lilypond
+
+Les altures s'imprimeixen com si l'argument numèric no tingués els
+parèntesis o claudàtors.
+
+De forma predeterminada, un canvi de clau que es produeix en un
+salt de línia provoca que el símbo de clau nou s'imprimeixi al
+final de la línia anterior, com una clau @emph{de cortesia}, així
+com al principi del següent.  Aquesta clau @emph{de cortesia} es
+pot suprimir.
+
+@lilypond[verbatim,quote,fragment]
+\clef treble { c'2 c' } \break
+\clef bass { c'2 c' } \break
+\clef alto
+  \set Staff.explicitClefVisibility = #final-de-línia-invisible
+  { c'2 c' } \break
+  \unset Staff.explicitClefVisibility
+\clef bass { c'2 c' } \break
+@end lilypond
+
+De forma predeterminada, una clau que s'ha imprès prèviament no es
+torna a imprimir si es fa servir un altre cop la mateixa ordre
+@code{\clef}, i s'ignora.  La instrucció @code{\set
+Staff.forceClef = ##t} modifica aquest comportament.
+
+@lilypond[verbatim,quote,fragment]
+  \clef treble
+  c'1
+  \clef treble
+  c'1
+  \set Staff.forceClef = ##t
+  c'1
+  \clef treble
+  c'1
+@end lilypond
+
+Quan hi ha un canvi de clau manual, el glif de la clau modificada
+és més petit del normal.  Es pot sobreescriure aquest comportament.
+
+@lilypond[verbatim,quote,fragment]
+  \clef "treble"
+  c'1
+  \clef "bass"
+  c'1
+  \clef "treble"
+  c'1
+  \override Staff.Clef.full-size-change = ##t
+  \clef "bass"
+  c'1
+  \clef "treble"
+  c'1
+  \revert Staff.Clef.full-size-change
+  \clef "bass"
+  c'1
+  \clef "treble"
+  c'1
+@end lilypond
+
+@snippets
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{tweaking-clef-properties.ly}
+
+@seealso
+Referencia de la notación:
+@rusernamed{Mensural clefs,Claus de la música mensural},
+@rusernamed{Gregorian clefs,Claus del cant gregorià},
+@rusernamed{Default tablatures,Tabulatures predeterminades}
+@rusernamed{Costum tablatures,Tabulatures personalizadas}.
+@rusernamed{Formatting cue notes,Formatació de les notes guia}.
+
+Fitxers instal·lats:
+@file{scm/parser-clef.scm}.
+
+Fragments de codi:
+@rlsr{Pitches}.
+
+Referència de funcionament intern:
+@rinternals{Clef_engraver},
+@rinternals{Clef},
+@rinternals{ClefModifier},
+@rinternals{clef-interface}.
+
+@knownissues
+Els números d'octava adjunts a les claus es tracten com grobs
+diferents.  Així doncs, qualsevol @code{\override}
+(sobreescriptura) efectuada a l'objecte @var{Clef} s'haurà
+d'aplicar també al grob @var{ClefModifier} com un @code{\override}
+diferent.
+
+@lilypond[fragment,quote,verbatim]
+\new Staff \with {
+  \override Clef.color = #blue
+  \override ClefModifier.color = #red
+}
+
+\clef "treble_8" c'4
+@end lilypond
+
+
+@node Armadura de la tonalitat
+@unnumberedsubsubsec Armadura de la tonalitat
+@translationof Key signature
+
+@cindex Armadura de la tonalitat
+
+@funindex \key
+
+@c duplicated in Key signature and Accidentals
+@warning{Les alteracions accidentals i les armadures són una causa
+freqüent de confusió per al nous usuaris.  Al LilyPond, el noms de
+les notes són el codi d'entrada en brut; l'armadura i la clau
+determinen de quina forma es presenta aquest codi en brut.  Una
+nota sense alteració com@tie{}@code{c} significa @q{Do natural},
+sense que l'afectin l'armadura o la clau.  Per veure més
+informació, consulteu @rlearning{Altures y armadures}.}
+
+L'armadura indica la tonalitat en la qual es toca una peça.  Està
+denotada per un conjunt d'alteracions (bemolls o sostinguts) al
+començament del pentagrama.  L'establiment o modificació de
+l'armadura es fa amb l'ordre @code{\key}:
+
+@example
+\key @var{nota} @var{modo}
+@end example
+
+@funindex \major
+@funindex \minor
+@funindex \ionian
+@funindex \locrian
+@funindex \aeolian
+@funindex \mixolydian
+@funindex \lydian
+@funindex \phrygian
+@funindex \dorian
+
+@cindex modes eclesiásticos
+@cindex modes
+@cindex major, mode
+@cindex menor, mode
+@cindex eoni, mode
+@cindex locri, mode
+@cindex eoli, mode
+@cindex mixolidi, mode
+@cindex lidi, mode
+@cindex frigi, mode
+@cindex dòric, mode
+
+@noindent
+Aquí, @code{@var{mode}} ha de ser @code{\major} o @code{\minor}
+per obtenir la tonalitat @code{@var{nota}} major o noms estàndard
+de mode (també coneguts com @notation{modes eclesiàstics}):
+@code{\ionian} (jònic), @code{\dorian} (dòric),
+@code{\phrygian} (frigi), @code{\lydian} (lidi),
+@code{\mixolydian} (mixolidi), @code{\aeolian} (eoli) i
+@code{\locrian} (locri).
+
+@lilypond[verbatim,quote,fragment]
+\relative {
+  \key g \major
+  fis''1
+  f
+  fis
+}
+@end lilypond
+
+Es poden definir modes addicionals, escrivint una llista amb
+l'alteració que porta cada nota de l'escala quan el mode comença
+amb Do.
+
+@lilypond[verbatim,quote]
+freygish = #`((0 . ,NATURAL) (1 . ,FLAT) (2 . ,NATURAL)
+    (3 . ,NATURAL) (4 . ,NATURAL) (5 . ,FLAT) (6 . ,FLAT))
+
+\relative {
+  \key c \freygish c'4 des e f
+  \bar "||" \key d \freygish d es fis g
+}
+@end lilypond
+
+Les alteracions de l'armadura de la tonalitat es poden imprimir en
+una octava diferent que en les seves posicions tradicionals, o en
+més d'una octava, usat les propietats @code{flat-positions} i
+@code{sharp-positions} de @code{KeySignature}.  Les entrades en
+aquestes propietats especifiquen el rang de posicions de
+pentagrama en el qual s'imprimiran les alteracions, les
+alteracions es col·loquen dins de l'octava que acaba en aquesta
+posició del pentagrama.
+
+@lilypond[verbatim, quote,fragment]
+\override Staff.KeySignature.flat-positions = #'((-5 . 5))
+\override Staff.KeyCancellation.flat-positions = #'((-5 . 5))
+\clef bass \key es \major es g bes d'
+\clef treble \bar "||" \key es \major es' g' bes' d''
+
+\override Staff.KeySignature.sharp-positions = #'(2)
+\bar "||" \key b \major b' fis' b'2
+@end lilypond
+
+@snippets
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{non-traditional-key-signatures.ly}
+
+
+@seealso
+Glossari musical:
+@rglos{church mode},
+@rglos{scordatura}.
+
+Manual de aprenentatge:
+@rlearning{Altures i armadures}.
+
+Fragments de codi:
+@rlsr{Pitches}.
+
+Referència de funcionament interno:
+@rinternals{KeyChangeEvent},
+@rinternals{Key_engraver},
+@rinternals{Key_performer},
+@rinternals{KeyCancellation},
+@rinternals{KeySignature},
+@rinternals{key-signature-interface}.
+
+
+@node Claudàtors d'octava
+@unnumberedsubsubsec Claudàtors d'octava
+@translationof Ottava brackets
+
+@cindex ottava
+@cindex 15ma
+@cindex 8va
+@cindex octava
+
+@funindex set-octavation
+@funindex \ottava
+
+Els @notation{claudàtors d'Ottava} introdueixen un transport
+addicional d'una octava per al pentagrama.
+
+@lilypond[verbatim,quote]
+\relative a' {
+  a2 b
+  \ottava #-2
+  a2 b
+  \ottava #-1
+  a2 b
+  \ottava #0
+  a2 b
+  \ottava #1
+  a2 b
+  \ottava #2
+  a2 b
+}
+@end lilypond
+
+@snippets
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{ottava-text.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{adding-an-ottava-marking-to-a-single-voice.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{modifying-the-ottava-spanner-slope.ly}
+
+@seealso
+Glossari musical:
+@rglos{octavation}.
+
+Fragments de codi:
+@rlsr{Pitches}.
+
+Referència de funcionament interno:
+@rinternals{Ottava_spanner_engraver},
+@rinternals{OttavaBracket},
+@rinternals{ottava-bracket-interface}.
+
+
+@node Transposició dels instruments
+@unnumberedsubsubsec Transposició dels instruments
+@translationof Instrument transpositions
+
+@cindex transposició de MIDI
+@cindex transposició instrumental
+@cindex transpositor, instrument
+@cindex MIDI
+@cindex MIDI, transposició
+
+@funindex \transposition
+
+En gravar partitures on participen instruments transpositors,
+certes partes es poden gravar en un to diferent del
+@notation{to de concert}.  En aquests casos s'ha d'especificar la
+tonalitat del @notation{instrumento transpositor}; si no es fa
+així, la sortida MIDI i les notes guia a altres parts produiran
+altures incorrectes.  Per veure més informació sobre parts citades
+com a guia, consulteu @rusernamed{Quoting other voices,Cites d'altres veus}.
+
+@example
+\transposition @var{pitch}
+@end example
+
+El to usat per a @code{\transposition} s'ha de correspondre amb el
+so real que s'escolta quan l'instrument transpositor interpreta un
+Do central @code{c'} escrit al pentagrama.  Aquesta nota s'escriu
+en altura absoluta, per tant un instrument que produeix un so real
+un to més agut que la música impresa (un instrument en Re) ha d'usar
+@code{\transposition d'}.  L'ordre @code{\transposition} s'ha
+d'usar @emph{solament} si les notes @emph{no} s'escriuran en
+afinació de concert.
+
+A continuació es poden veure algunes notes per a violí i per a
+clarinet en Si bemoll, on les parts s'han introduït usant les
+notes i l'armadura tal i com apareixen a la partitura del
+director.  El que toquen els dos instruments està sonant a l'uníson.
+
+@lilypond[verbatim,quote]
+\new GrandStaff <<
+  \new Staff = "violin" {
+    \relative c'' {
+      \set Staff.instrumentName = #"Vln"
+      \set Staff.midiInstrument = #"violin"
+      % no estrictament necessari, però un bon recordatori
+      \transposition c'
+
+      \key c \major
+      g4( c8) r c r c4
+    }
+  }
+  \new Staff = "clarinet" {
+    \relative c'' {
+      \set Staff.instrumentName = \markup { Cl (B\flat) }
+      \set Staff.midiInstrument = #"clarinet"
+      \transposition bes
+
+      \key d \major
+      a4( d8) r d r d4
+    }
+  }
+>>
+@end lilypond
+
+L'ordre @code{\transposition} es pot canviar durant la peça.  Per
+exemple, un clarinetista pot canviar del clarinet en La al
+clarinet en Si bemoll.
+
+@lilypond[verbatim,quote]
+flute = \relative c'' {
+  \key f \major
+  \cueDuring #"clarinet" #DOWN {
+    R1 _\markup\tiny "clarinet"
+    c4 f e d
+    R1 _\markup\tiny "clarinet"
+  }
+}
+clarinet = \relative c'' {
+  \key aes \major
+  \transposition a
+  aes4 bes c des
+  R1^\markup { muta in B\flat }
+  \key g \major
+  \transposition bes
+  d2 g,
+}
+\addQuote "clarinet" \clarinet
+<<
+  \new Staff \with { instrumentName = #"Flute" }
+    \flute
+  \new Staff \with { instrumentName = #"Cl (A)" }
+    \clarinet
+>>
+@end lilypond
+
+@seealso
+Glossari musical:
+@rglos{concert pitch},
+@rglos{transposing instrument}.
+
+Referència de la notació:
+@rusernamed{Quoting other voices,Cites d'altres veus},
+@ref{Transposició}.
+
+Fragments de codi:
+@rlsr{Pitches}.
+
+
+@node Alteracions accidentals automàtiques
+@unnumberedsubsubsec Alteracions accidentals automàtiques
+@translationof Automatic accidentals
+
+@cindex automàtiques, alteracions
+@cindex alteracions automàtiques
+@cindex alteracions accidentals
+@cindex alteracions, estil de las
+@cindex predeterminat, estil de las alteracions
+@cindex alteracions, estilo predeterminat de les
+
+@funindex \accidentalStyle
+@funindex voice
+@funindex default
+
+Hi ha moltes convencions diferents sobre la forma de gravar
+les alteracions. El LilyPond proporciona una funció per
+especificar quin estil d'alteracions usar.  Aquesta funció
+s'invoca de la manera següent:
+
+@example
+\new Staff <<
+  \accidentalStyle voice
+  @{ @dots{} @}
+>>
+@end example
+
+L'estil d'alteracions s'aplica al @code{Staff} en curs de forma
+predeterminada (amb l'excepció dels estils @code{piano} i
+@code{piano-cautionary}, que s'expliquen més
+endavant). Opcionalment, la funció pot agafar un segon argument
+que determina en quin àmbit s'ha de canviar l'estil. Per exemple,
+per usar el mateix estil en tots els pentagrames del
+@code{StaffGroup} en curs, useu
+
+@example
+\accidentalStyle StaffGroup.voice
+@end example
+
+Estan contemplats els següents estils d'alteració.  Per donar una
+mostra de cada u dels estils, utilitzem l'exemple següent:
+
+@lilypond[verbatim,quote]
+musicA = {
+  <<
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>]
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      \accidentalStyle default
+      \musicA
+    }
+    \context Staff = "down" {
+      \accidentalStyle default
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+Observeu que les últimes línies d'aquest exemple es poden
+substituir per les següents, sempre i quan vulguem usar el mateix
+estil als dos pentagrames.
+
+@example
+\new PianoStaff @{
+  <<
+    \context Staff = "up" @{
+      %%% canvieu la línia següent com desitgeu:
+      \accidentalStyle Score.default
+      \musicA
+    @}
+    \context Staff = "down" @{
+      \musicB
+    @}
+  >>
+@}
+@end example
+
+@c don't use verbatim in this table.
+@table @code
+@item default (predeterminado)
+
+@cindex alteracions, estil predeterminat
+
+@funindex default
+
+Es el comportament de gravat predeterminat per a composició.
+Correspon a la pràctica comuna del segle XVIII: les alteracions
+accidentals es recorden fins al final del compàs en el qual
+apareixen i sols en la mateixa octava.  Així, a l'exemple següent,
+no s'imprimeixen becaires abans del Si natural al segon compàs ni
+a l'últim Do:
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>]
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      \accidentalStyle default
+      \musicA
+    }
+    \context Staff = "down" {
+      \accidentalStyle default
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item voice (voz)
+
+@cindex alteració, estil de veu de
+@cindex veu, estil d'alteracions
+@cindex alteracions estil modern
+@cindex modern, estil de alteracions
+@cindex alteracions, estil, modern-precaució
+@cindex modern-precaució, estil d'alteracions
+
+@funindex voice
+
+El comportament normal és recordar les alteracions accidentals al
+nivell de @code{Staff}.  En aquest estil, tanmateix, es graven les
+alteracions individualment per a cada veu.  A part d'això la regla
+és semblant a @code{default}.
+
+Com a resultat, les alteracions d'una veu no es cancel·len a les
+altres veus, el que amb freqüència porta a un resultat no
+desitjat: a l'exemple següent és difícil determinar si el segon La
+s'ha de tocar natural o sostingut.  Per tant, l'opció @code{voice}
+s'ha d'usar sols si les veus es llegiran individualment per músics
+diferents.  Si el pentagrama s'utilitzarà per part d'un sols músic
+(per exemple un director, o a una partitura de piano), aleshores
+s'han d'usar en el seu lloc els estils @code{modern} o
+@code{modern-cautionary}.
+
+
+@lilypond[quote]
+MusicA = {
+  <<
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>]
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      \accidentalStyle voice
+      \musicA
+    }
+    \context Staff = "down" {
+      \accidentalStyle voice
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item modern
+
+@cindex alteracions, estil modern
+@cindex modern, alteracions d'estil
+
+@funindex modern
+
+Aquesta regla correspon a la pràctica comuna del segle XX.  Omet
+alguns becaires addicionals, que tradicionalment s'imprimien
+precedint a un sostingut que segueix a un doble sostingut, o a un
+bemoll que segueix a un doble bemoll.  La regla @code{modern}
+imprimeix les mateix alteracions que l'estil @code{default}, amb
+dos addicions que serveixen per evitar la ambigüitat: després
+d'alteracions temporals s'imprimeixen indicacions de cancel·lació
+també al compàs següent (per a notes a la mateixa octava) i, al
+mateix compàs, per a notes a octaves diferents.  D'aquí els
+becaires abans del Si natural i del Do al segon compàs del
+pentagrama superior:
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>]
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      \accidentalStyle modern
+      \musicA
+    }
+    \context Staff = "down" {
+      \accidentalStyle modern
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item modern-cautionary (modern de precaució)
+
+@cindex alteracions, estil modern de precaució
+@cindex modern, alteracions d'estil
+@cindex modern de precaució, alteracions d'estil
+
+@funindex modern-cautionary
+
+Aquesta regla és semblant a @code{modern}, però les alteracions
+@q{afegides} se imprimeixen como alteracions de precaució (entre
+parèntesis).  També es poden imprimir en una mida diferent
+sobreescrivint la propietat @code{font-size} de l'objecte
+@code{AccidentalCautionary}.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>]
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      \accidentalStyle modern-cautionary
+      \musicA
+    }
+    \context Staff = "down" {
+      \accidentalStyle modern-cautionary
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item modern-voice (modern, per a veus)
+
+@cindex alteracions, en diverses veus
+@cindex alteracions modernes
+@cindex modern, alteracions d'estil
+@cindex veus, alteracions en diverses
+@cindex alteració, estil modern de
+
+@funindex modern-voice
+
+Aquesta regla s'usa perquè puguin llegir les alteracions a
+diverses veus, tant els músics que toquen una veu com els musics
+que toquen totes les veus.  S'imprimeixen les alteracions per a
+cada veu, però @emph{es cancel·len} entre veus dins del mateix
+@code{Staff}.  Per tant, el La a l'últim compàs es cancel·la
+perquè la cancel·lació anterior estava a una veu diferent, i el Re
+al pentagrama inferior es cancel·la a causa de l'alteració a una
+altra veu al compàs previ:
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>]
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      \accidentalStyle modern-voice
+      \musicA
+    }
+    \context Staff = "down" {
+      \accidentalStyle modern-voice
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item modern-voice-cautionary (modern, veu, de precaució)
+
+@cindex alteració, estil de veu de precaució modern
+@cindex alteració de veu de precaució modern, estil de
+@cindex alteració, modern de precaució, veu, estil de
+@funindex modern-voice-cautionary
+
+Aquesta regla és la mateixa que @code{modern-voice}, però amb les
+alteracions afegides (les que l'estilo @code{voice} no imprimeix)
+composades com de precaució.  Fins i tot malgrat que totes les
+alteracions impreses per l'estil @code{default} @emph{són}
+impreses amb aquesta regla, algunes d'elles es graven com de
+precaució.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>]
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      \accidentalStyle modern-voice-cautionary
+      \musicA
+    }
+    \context Staff = "down" {
+      \accidentalStyle modern-voice-cautionary
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item piano
+
+@cindex piano, alteracions de
+@cindex alteracions de piano
+@cindex piano, estil de alteracions de
+
+@funindex piano
+
+Aquesta regla reflexa la pràctica del segle XX per a la notació de
+piano.  El seu comportament és molt semblan a l'estil
+@code{modern}, però aquí les alteracions també es cancel·len entre
+diferents pentagrames del mateix grup @code{GrandStaff} o @code{PianoStaff},
+d'aquí totes les cancel·lacions de les últimes notes.
+
+Aquest estil d'alteració s'aplica de manera predeterminada al grup
+@code{GrandStaff} o @code{PianoStaff} en curs.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>]
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      \accidentalStyle piano
+      \musicA
+    }
+    \context Staff = "down" {
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item piano-cautionary (piano, de precaución)
+
+@cindex alteracions, piano de precaució, estilo de
+@cindex alteracions, piano de precaució
+@cindex precaució, estilo de alteracions, piano
+@cindex precaució, alteracions de piano de
+@cindex piano de precaució, estilo de alteracions
+@cindex piano de precaució, alteracions
+
+@funindex piano-cautionary
+
+Igual que @code{\accidentalStyle piano} però amb les alteracions
+afegides composades com de precaució.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>]
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      \accidentalStyle piano-cautionary
+      \musicA
+    }
+    \context Staff = "down" {
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item neo-modern
+
+@cindex neo-modern, estilo de alteracions
+@cindex alteracions, estilo de, neo-modern
+
+@funindex neo-modern
+
+Aquesta regla reprodueix una pràctica comuna a la música
+contemporània: les alteracions accidentals s'imprimeixen com a
+@code{modern}, però es tornen a imprimir si apareix la mateixa
+nota una altra vegada al mateix compàs (excepte si la nota es
+repeteix immediatament).
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>]
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      \accidentalStyle neo-modern
+      \musicA
+    }
+    \context Staff = "down" {
+      \accidentalStyle neo-modern
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item neo-modern-cautionary
+
+@cindex neo-modern de precaució, estilo de alteracions
+@cindex alteracions, estilo, neo-moderno de precaució
+
+@funindex neo-modern-cautionary
+
+Aquesta regla és sembla a @code{neo-modern}, però les alteracions
+@q{addicionals} s'imprimeixen com alteracions de precaució (amb
+parèntesis).  També es poden imprimir a una mida diferent
+sobreescrivint la propietat @code{font-size} de l'objecte
+@code{AccidentalCautionary}.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>]
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      \accidentalStyle neo-modern-cautionary
+      \musicA
+    }
+    \context Staff = "down" {
+      \accidentalStyle neo-modern-cautionary
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item neo-modern-voice
+
+@cindex neo-modern-voice, estil d'alteració
+@cindex alteracions, estil, neo-modern de veu
+
+@funindex neo-modern-voice
+
+Aquesta regla s'usa per alteracions accidentals sobre diverses
+veus que s'han de llegir per part de músics que toquen una veu,
+així com per músics que toquen totes les veus.  Les alteracions
+s'imprimeixen per a cada veu com amb @code{neo-modern}, però es
+cancel·len per a altres veus que estan al mateix pentagrama
+@code{Staff}.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>]
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      \accidentalStyle neo-modern-voice
+      \musicA
+    }
+    \context Staff = "down" {
+      \accidentalStyle neo-modern-voice
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item neo-modern-voice-cautionary
+
+@cindex neo-modern-voice-cautionary, estil de alteracions
+@cindex alteracions, estil, neo-modern-voice-cautionary
+
+@funindex neo-modern-voice-cautionary
+
+Aquesta regla és semblant a @code{neo-modern-voice}, però les
+alteracions addicionals s'imprimeixen com alteracions de
+precaució.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>]
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      \accidentalStyle neo-modern-voice-cautionary
+      \musicA
+    }
+    \context Staff = "down" {
+      \accidentalStyle neo-modern-voice-cautionary
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item dodecaphonic
+
+@cindex dodecafònic, estil de alteracions
+@cindex alteracions, estil, dodecafònic
+
+@funindex dodecaphonic
+
+Aquesta regla reflexa una pràctica introduïda pels compositors de
+principis del segle XX, en un intent d'abolir la jerarquia
+entre notes naturals i alterades.  Amb aquest estil, @emph{todas}
+les notes porten alteració, fins i tot becaires.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>]
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      \accidentalStyle dodecaphonic
+      \musicA
+    }
+    \context Staff = "down" {
+      \accidentalStyle dodecaphonic
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item dodecaphonic-no-repeat
+
+@cindex estil accidental dodecafònic
+@cindex estil dodecafònic, neo-modern
+
+@funindex dodecaphonic-no-repeat
+
+Com amb l'estil d'alteracions dodecafònic @emph{totes} les notes
+porten una alteració de forma predeterminada, però les alteracions
+se suprimeixen quan hi ha notes repetides immediatament al mateix pentagrama.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>]
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      \accidentalStyle dodecaphonic-no-repeat
+      \musicA
+    }
+    \context Staff = "down" {
+      \accidentalStyle dodecaphonic-no-repeat
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+
+@item dodecaphonic-first
+
+@cindex estil accidental dodecafònic
+@cindex estil dodecafònic, neo-modern
+
+@funindex dodecaphonic-first
+
+Semblant a l'estil d'alteracions dodecafònic, @emph{totes} les
+notes porten una alteració, però sols la primera vegada que es
+troben al compàs.  Les alteracions es recorden sols per a l'octava
+actual però a través de les veus.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>]
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      \accidentalStyle dodecaphonic-first
+      \musicA
+    }
+    \context Staff = "down" {
+      \accidentalStyle dodecaphonic-first
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+
+@item teaching (ensenyament)
+
+@cindex teaching (enseñanza), estilo de alteraciones
+@cindex alteracions, estil teaching (ensenyament)
+
+@funindex teaching
+
+Aquesta regla està pensada per a estudiants, i fa més senzill
+crear automàticament fulls d'escales amb alteracions de
+precaució.  Les alteracions s'imprimeixen com a l'estil
+@code{modern}, però s'afegeixen alteracions de precaució per a
+totes les notes sostingudes o bemolls especificats per l'armadura,
+excepte si la nota es repeteix immediatament.
+
+@lilypond[quote,staffsize=18]
+musicA = {
+  <<
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>]
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      \key fis \minor
+      \accidentalStyle teaching
+      \musicA
+    }
+    \context Staff = "down" {
+      \key fis \minor
+      \accidentalStyle teaching
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item no-reset (sense restabliment)
+
+@cindex alteracions sense restabliment, estil de
+@cindex sense restabliment, estil d'alteracions
+
+@funindex no-reset
+
+És el mateix que @code{default} però amb alteracions que duren
+@q{per sempre} i no sols dins del mateix compàs:
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>]
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      \accidentalStyle no-reset
+      \musicA
+    }
+    \context Staff = "down" {
+      \accidentalStyle no-reset
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item forget (oblit)
+
+@cindex oblit, estil de alteracions
+@cindex alteració, estil de, oblit
+
+@funindex forget
+
+És l'oposat a @code{sense restabliment}: Les alteracions no es
+recorden en absolut: d'aquí que totes les alteracions es gravin en
+relació a l'armadura de la tonalitat, sense que es vegin afectades
+pel que hi ha abans.
+
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>]
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      \accidentalStyle forget
+      \musicA
+    }
+    \context Staff = "down" {
+      \accidentalStyle forget
+      \musicB
+    }
+  >>
+}
+@end lilypond
+@end table
+
+@seealso
+Fragments de codi:
+@rlsr{Pitches}.
+
+Referècia de funcionament interno:
+@rinternals{Accidental},
+@rinternals{Accidental_engraver},
+@rinternals{GrandStaff},
+@rinternals{PianoStaff},
+@rinternals{Staff},
+@rinternals{AccidentalSuggestion},
+@rinternals{AccidentalPlacement},
+@rinternals{accidental-suggestion-interface}.
+
+@cindex alteracions i notes simultànies
+@cindex simultànies, notes i alteracions
+@cindex alteracions en acordes
+@cindex acordes, alteracions dins de
+
+@knownissues
+Les notes simultànies no es tenen en compte per a la determinació
+automàtica de les alteracions accidentals; sols es consideren les
+notes anteriors i l'armadura de la tonalitat.  Pot ser necessari
+forçar les alteracions accidentals amb with@tie{}@code{!}
+o@tie{}@code{?} quan la mateixa nota, amb al mateix nom, aparegui
+simultàniament amb diferents alteracions, com a @samp{<f! fis!>}.
+
+La cancel·lació de precaució d'alteracions es fa mirant el compàs
+previ.  Malgrat això, al bloc @code{\alternative} que segueix a
+una secció de repetició de primera i segona vegada @code{\repeat
+volta N}, s'esperaria que la cancel·lació es calculés utilitzant
+el compàs previ @emph{que s'ha tocat}, no el compàs previ
+@emph{que s'ha imprès}.  A l'exemple següent al Do natural de la
+casella de segona vegada no li cal becaire:
+
+@lilypond[quote]
+{
+  \accidentalStyle modern
+  \time 2/4
+  \repeat volta 2 {
+    c'2
+  }
+  \alternative {
+     cis'
+     c'
+  }
+}
+@end lilypond
+
+Es pot usar la següent solució del problema: definir una funció
+que canviï localment l'estil d'alteracions a @code{forget}:
+
+@lilypond[verbatim,quote]
+forget = #(define-music-function (music) (ly:music?) #{
+  \accidentalStyle forget
+  #music
+  \accidentalStyle modern
+#})
+{
+  \accidentalStyle modern
+  \time 2/4
+  \repeat volta 2 {
+    c'2
+  }
+  \alternative {
+     cis'
+     \forget c'
+  }
+}
+@end lilypond
+
+@node Tesitura
+@unnumberedsubsubsec Tesitura
+@translationof Ambitus
+
+@cindex ambitus
+@cindex rang de altures
+@cindex tessitura
+
+El terme @emph{ambitus} o àmbit denota el rang de notes que abasta
+una veu donada a una part musical.  També pot denotar el marge de
+notes que és capaç de tocar un determinat instrument musical.  Els
+àmbits s'imprimeixen a les parts vocals de tal manera que els
+intèrprets puguin determinar amb facilitat si compleixen amb les
+seves pròpies possibilitats.
+
+Els àmbits es presenten al començament de la peça junt a la clau
+inicial.  El rang s'especifica gràficament mitjançant dos caps de
+nota que representen a les notes inferior i superior.  Sols
+s'imprimeixen alteracions si no formen part de l'armadura de la
+tonalitat.
+
+@lilypond[verbatim,quote]
+\layout {
+  \context {
+    \Voice
+    \consists "Ambitus_engraver"
+  }
+}
+
+\relative {
+  aes' c e2
+  cis,1
+}
+@end lilypond
+
+@snippets
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{adding-ambitus-per-voice.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{ambitus-with-multiple-voices.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{changing-the-ambitus-gap.ly}
+
+@seealso
+Glossri musical:
+@rglos{ambitus}.
+
+Fragments de codi:
+@rlsr{Pitches}.
+
+Referència de funcionament interno:
+@rinternals{Ambitus_engraver},
+@rinternals{Voice},
+@rinternals{Staff},
+@rinternals{Ambitus},
+@rinternals{AmbitusAccidental},
+@rinternals{AmbitusLine},
+@rinternals{AmbitusNoteHead},
+@rinternals{ambitus-interface}.
+
+@knownissues
+No s'efectua un tractament de les possibles col·lisions en cas de
+diverses indicacions d'àmbit simultànies a veus diferents.
+
+@node Cap de les notes
+@subsection Cap de les notes
+@translationof Note heads
+
+Aquesta secció proposa formes d'alterar els caps de les figures.
+
+@menu
+* Caps de nota especials::
+* Caps de notes de Notació Fàcil::
+* Caps de notes amb formes diverses::
+* Improvisació::
+@end menu
+
+@node Caps de nota especials
+@unnumberedsubsubsec Caps de nota especials
+@translationof Special note heads
+
+@cindex figura, cap de la
+@cindex nota, cap especial de
+@cindex nota, cap de, en aspes
+@cindex nota, cap de, en rombe
+@cindex nota, cap de, en parlato
+@cindex nota, cap de, harmònics
+@cindex nota, cap de, guitarra
+@cindex especials, caps de figura
+@cindex aspes, caps de nota
+@cindex rombe, caps de nota
+@cindex parlato, caps de nota
+@cindex harmònics, caps de nota
+@cindex guitarra, caps de nota
+@cindex nota, cap de, estils
+@cindex estils de cap de nota
+
+@funindex cross
+
+Es pot modificar l'aparença del cap de les notes:
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  c4 b
+  \override NoteHead.style = #'cross
+  c4 b
+  \revert NoteHead.style
+  a b
+  \override NoteHead.style = #'harmonic
+  a b
+  \revert NoteHead.style
+  c4 d e f
+}
+@end lilypond
+
+Per veure totes els estils de caps de les notes, consulteu
+@rusernamed{Note head styles,Estils de caps de nota}.
+
+L'estil @code{cross} (aspes) es fa servir per representar una
+àmplia varietat d'intencions musicals.  Les següent ordres
+genèriques predefinides modifiquen la forma del cap de les figures
+tant al context del pentagrama normal com al de tabulatura, i es
+poden fer servir per representar qualsevol significat musical:
+
+@lilypond[verbatim,quote]
+\relative {
+  c''4 b
+  \xNotesOn
+   a b c4 b
+  \xNotesOff
+  c4 d
+}
+@end lilypond
+
+La forma de funció musical d'aquesta ordre predefinida es pot usar
+dins i fora dels acords per generar caps de nota en aspa, tant al
+context de pentagrama normal com al de tabulatura:
+
+@lilypond[verbatim,quote]
+\relative {
+  c''4 b
+  \xNote { e f }
+  c b < g \xNote c f > b
+}
+@end lilypond
+
+Como sinònims de @code{\xNote}, @code{\xNotesOn} i
+@code{\xNotesOff}, se poden usar @code{\deadNote},
+@code{\deadNotesOn} i @code{\deadNotesOff}.  El terme
+@notation{dead note} (nota morta) s'utilitza habitualment per part
+dels guitarristes.
+
+També hi ha una abreviatura semblant per a les formes en rombe:
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  <c f\harmonic>2 <d a'\harmonic>4 <c g'\harmonic> f\harmonic
+}
+@end lilypond
+
+@predefined
+@code{\harmonic},
+@code{\xNotesOn},
+@code{\xNotesOff},
+@code{\xNote}.
+@endpredefined
+
+@seealso
+Fragments de codi:
+@rlsr{Pitches}.
+
+Referència de la notació:
+@rusernamed{Note head styles,Estils de caps de nota},
+@rusernamed{Chorded notes,Notes en acord},
+@rusernamed{Indicating harmonics and dampened notes,Indicació d'harmònics y notes tapades}.
+
+Referència de funcionament interno:
+@rinternals{note-event},
+@rinternals{Note_heads_engraver},
+@rinternals{Ledger_line_engraver},
+@rinternals{NoteHead},
+@rinternals{LedgerLineSpanner},
+@rinternals{note-head-interface},
+@rinternals{ledger-line-spanner-interface}.
+
+
+@node Caps de notes de Notació Fàcil
+@unnumberedsubsubsec Caps de notes de Notació Fàcil
+@translationof Easy notation note heads
+
+@cindex Hal Leonard
+@cindex principiants, música per a
+@cindex fàcil, notació, caps de nota de
+@cindex música para principiants
+@cindex notes, caps de, estudio
+@cindex notes, caps de, notació simplificada
+@cindex notes, caps de, para practicar
+@cindex simplificada, notació
+
+@funindex \easyHeadsOn
+@funindex \easyHeadsOff
+
+Les notes amb cap de @q{notació facilitada} tenen el nom de la
+nota (en angles) dins del cap.  S'usen a la música per a
+principiants.  Perquè que les lletres siguin llegibles, s'han
+d'imprimir en una mida gran de tipus de lletra.  Per imprimir amb
+un tipus de lletra més gran, vegeu
+@rusernamed{Setting the staff size,Establiment de la mida del pentagrama}.
+
+@lilypond[verbatim,quote]
+#(set-global-staff-size 26)
+\relative c' {
+  \easyHeadsOn
+  c2 e4 f
+  g1
+  \easyHeadsOff
+  c,1
+}
+@end lilypond
+
+@predefined
+@code{\easyHeadsOn},
+@code{\easyHeadsOff}.
+@endpredefined
+
+@snippets
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{numbers-as-easy-note-heads.ly}
+
+@seealso
+Referència de la notació:
+@rusernamed{Setting the staff size,Establiment de la mida del pentagrama}.
+
+Fragments de codi:
+@rlsr{Pitches}.
+
+Referència de funcionament interno:
+@rinternals{note-event},
+@rinternals{Note_heads_engraver},
+@rinternals{NoteHead},
+@rinternals{note-head-interface}.
+
+
+@node Caps de notes amb formes diverses
+@unnumberedsubsubsec Caps de notes amb formes diverses
+@translationof Shape note heads
+
+@cindex notes, caps de, con formes
+@cindex formes, notes con
+
+@cindex Aiken, caps de nota amb forma
+@cindex arpa sacra, caps de nota amb forma
+@cindex Southern Harmony, caps de nota amb forma
+@cindex Funk, caps de nota amb forma
+@cindex Harmonica Sacra, caps de nota amb forma
+@cindex Christian Harmony, caps de nota amb forma
+@cindex Walker, caps de nota amb forma
+
+@cindex notes, caps de, Aiken
+@cindex notes, caps de, arpa sacra
+@cindex notes, caps de, Southern Harmony
+@cindex notes, caps de, Funk
+@cindex notes, caps de, Harmonica Sacra
+@cindex notes, caps de, Christian Harmony
+@cindex notes, caps de, Walker
+
+@funindex \aikenHeads
+@funindex \sacredHarpHeads
+@funindex \southernHarmonyHeads
+@funindex \funkHeads
+@funindex \walkerHeads
+
+A la notació de caps amb forma, la forma del cap correspon a la
+funció harmònica d'una nota dins de l'escala.  Aquesta notació es
+va fer popular als llibres americans de cançons durant el segle
+XIX.  Els caps de nota amb formes es poden produir amb els estils
+@q{Arpa Sacra}, @q{Southern Harmony}, Funk (Harmonica Sacra),
+Walker i Aiken @q{(Christian Harmony)}:
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  \aikenHeads
+  c, d e f g2 a b1 c \break
+  \sacredHarpHeads
+  c,4 d e f g2 a b1 c \break
+  \southernHarmonyHeads
+  c,4 d e f g2 a b1 c \break
+  \funkHeads
+  c,4 d e f g2 a b1 c \break
+  \walkerHeads
+  c,4 d e f g2 a b1 c \break
+}
+@end lilypond
+
+@funindex \key
+@funindex \aikenHeadsMinor
+@funindex \sacredHarpHeadsMinor
+@funindex \southernHarmonyHeadsMinor
+@funindex \funkHeadsMinor
+@funindex \walkerHeadsMinor
+
+Les formes es determinen en funció del grau de l'escala, on la
+tònica està determinada per l'ordre @code{\key}. Quan s'escriu en
+un to menor, la nota de l'escala es pot determinar a partir del
+relatiu major:
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  \key a \minor
+  \aikenHeads
+  a b c d e2 f g1 a \break
+  \aikenHeadsMinor
+  a,4 b c d e2 f g1 a \break
+  \sacredHarpHeadsMinor
+  a,2 b c d \break
+  \southernHarmonyHeadsMinor
+  a2 b c d \break
+  \funkHeadsMinor
+  a2 b c d \break
+  \walkerHeadsMinor
+  a2 b c d \break
+}
+@end lilypond
+
+@predefined
+@code{\aikenHeads},
+@code{\aikenHeadsMinor},
+@code{\funkHeads},
+@code{\funkHeadsMinor},
+@code{\sacredHarpHeads},
+@code{\sacredHarpHeadsMinor},
+@code{\southernHarmonyHeads},
+@code{\southernHarmonyHeadsMinor},
+@code{\walkerHeads},
+@code{\walkerHeadsMinor}.
+@endpredefined
+
+@snippets
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
+
+Per veure tots els estils de formes de cap de nota, consulteu
+@rusernamed{Note head styles,Estils de caps de nota},
+
+@seealso
+Fragments de codi:
+@rlsr{Pitches}.
+
+Referència de la notació:
+@rusernamed{Note head styles,Estils de caps de nota},
+
+Referencia de funcionament interno:
+@rinternals{note-event},
+@rinternals{Note_heads_engraver},
+@rinternals{NoteHead},
+@rinternals{note-head-interface}.
+
+
+@node Improvisació
+@unnumberedsubsubsec Improvisació
+@translationof Improvisation
+
+@cindex improvisació
+@cindex barrades, capss de nota
+@cindex notes, caps de, improvisació
+@cindex notes, caps de, barrades
+
+@funindex \improvisationOn
+@funindex \improvisationOff
+
+La improvisació es denota a vegades mitjançant caps de nota en
+forma de barra inclinada, on l'executant pot escollir qualsevol
+nota però amb el ritme especificat.  Aquests cap de nota es creen
+així:
+
+@lilypond[verbatim,quote]
+\new Voice \with {
+  \consists "Pitch_squash_engraver"
+} \relative {
+  e''8 e g a a16( bes) a8 g
+  \improvisationOn
+  e8 ~
+  2 ~ 8 f4 f8 ~
+  2
+  \improvisationOff
+  a16( bes) a8 g e
+}
+@end lilypond
+
+@predefined
+@code{\improvisationOn},
+@code{\improvisationOff}.
+@endpredefined
+
+@seealso
+Fragments de codi:
+@rlsr{Pitches}.
+
+Referència de funcionament interno:
+@rinternals{Pitch_squash_engraver},
+@rinternals{Voice},
+@rinternals{RhythmicStaff}.

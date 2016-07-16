@@ -2882,7 +2882,7 @@ del @code{VerticalAxisGroup}.  Per veure més detalls, consulteu
 @menu
 * Moviment d'objectes::
 * Ajustament de la notació amb superposicions::
-* Exemples reals de música::
+* Exemple real de música::
 @end menu
 
 @node Moviment d'objectes
@@ -3574,8 +3574,8 @@ Presentem a continuació el resultat final:
 @end lilypond
 
 
-@node Exemples reals de música
-@subsection Exemples reals de música
+@node Exemple real de música
+@subsection Exemple real de música
 @translationof Real music example
 
 Finalitzarem aquesta secció sobre els ajustaments mostrant els

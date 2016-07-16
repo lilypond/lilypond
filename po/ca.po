@@ -25,7 +25,7 @@ msgstr ""
 "Project-Id-Version: lilypond-2.19.26\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
 "POT-Creation-Date: 2015-08-27 10:48+0100\n"
-"PO-Revision-Date: 2015-11-11 22:27+0100\n"
+"PO-Revision-Date: 2016-07-04 11:27+0200\n"
 "Last-Translator: Walter Garcia-Fontes <walter.garcia@upf.edu>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
 "Language: ca\n"
@@ -1670,7 +1670,7 @@ msgstr "Altres llengües"
 #: website_post.py:133
 #, python-format
 msgid "About <a href=\"%s\">automatic language selection</a>."
-msgstr "Sobre <a href=\"%s\">selecció automàtica de llengua</a>."
+msgstr "Quant a la <a href=\"%s\">selecció automàtica de llengua</a>."
 
 #: getopt-long.cc:153
 #, c-format

@@ -126,7 +126,7 @@ qualitat més alta possible. Introdueix l'estètica
 de la música gravada de la forma tradicional
 a les partitures impreses mijtançant l'ordinador.
 Lilypond és programari lliure i forma part del
-@uref{http://gnu.org,Projecte GNU}.
+@uref{http://www.gnu.org/home.ca.html,Projecte GNU}.
 
 
 @divClass{align-right}

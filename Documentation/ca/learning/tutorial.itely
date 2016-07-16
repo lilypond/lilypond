@@ -510,11 +510,11 @@ a l'hora:
 
 @seealso
 Referència de la notació:
-@rusernamed{Writing pitches,Escriptura de les notes},
+@ruser{Escriptura de les notes},
 @rusernamed{Writing rhythms,Escriptura dels ritmes},
 @rusernamed{Writing rests,Escriptura de silencis},
 @rusernamed{Time signature,Indicació de compàs},
-@rusernamed{Clef,Clau}.
+@ruser{Clau}.
 
 @node Treball sobre els fitxers d'entrada
 @subsection Treball sobre els fitxers d'entrada
@@ -687,8 +687,7 @@ La solució de problemes al LilyPond pot ser un desafiament per a
 les persones acostumades als interfícies gràfics, perquè és
 possible crear fitxers d'entrada invàlids.  Quan passa això, la
 millor manera d'identificar i resoldre el problema és aplicar un
-enfocament lògic.  A @rprogramnamed{Troubleshooting,
-Solució de problemes} es donen
+enfocament lògic.  A @rprogram{Solució de problemes} es donen
 algunes guies per ajudar-vos a aprendre a fer-lo.
 
 @node Alguns errors comuns
@@ -842,8 +841,7 @@ del manual d'Aprenentatge.
 
 @item
 @strong{Abans d'afrontar un projecte gran}: llegiu la secció
-@rprogramnamed{Suggestions for writing files,Suggeriments per
-escriure fitxers d'entrada del LilyPond} del manual d'utilització
-del programa.
+@rprogram{Suggeriments per escriure fitxers d'entrada}
+del manual d'utilització del programa.
 
 @end itemize

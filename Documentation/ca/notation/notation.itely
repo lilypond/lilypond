@@ -1,0 +1,37 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+@ignore
+    Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.16.0"
+
+@node Notació musical
+@chapter Notació musical
+@translationof Musical notation
+
+Aquest capítol explica com crear notació musical.
+
+@menu
+* Altures::                 Escriptura i presentació de les duracions de les notes.
+* Duracions::               Escriptura i presentació de les duracions de les nots.
+* Expresions::              Addició d'expressió a les notes.
+* Repeticions::             Repeticions de música.
+* Notes simultànees::       Més d'una nota a l'hora.
+* Notació dels pentagrames:: Imprimir pentagrames.
+* Anotacions editorials::   Notació especial per augmentar la llegibilitat.
+* Text::                    Addicció de text a les partitures.
+@end menu
+
+@include notation/pitches.itely
+@include notation/rhythms.itely
+@include notation/expressive.itely
+@include notation/repeats.itely
+@include notation/simultaneous.itely
+@include notation/staff.itely
+@include notation/editorial.itely
+@include notation/text.itely
+

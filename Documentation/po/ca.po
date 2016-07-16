@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: ca\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-04-25 19:39+0200\n"
-"PO-Revision-Date: 2014-06-09 09:09+0200\n"
+"PO-Revision-Date: 2016-07-04 11:28+0200\n"
 "Last-Translator: Walter Garcia-Fontes <walter.garcia@upf.edu>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
 "Language: ca\n"
@@ -42,7 +42,7 @@ msgstr "Altres idiomes: %s."
 #: postprocess_html.py:70
 #, python-format
 msgid "About <a href=\"%s\">automatic language selection</a>."
-msgstr "Quant a <a href=\"%s\">selecció automàtica de l'idioma</a>."
+msgstr "Quant a la <a href=\"%s\">selecció automàtica de la llengua</a>."
 
 #: postprocess_html.py:327
 msgid "stable-branch"

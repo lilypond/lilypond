@@ -74,7 +74,7 @@ versió del LilyPond fèieu servir.
 
 @item @strong{Incloeu comprovacions}:
 @rusernamed{Bar and bar number checks,Comprovació de compàs i de número de compàs},
-@rusernamed{Octave checks,Comprovació d'octava}.
+@ruser{Comprovació d'octava}.
 Si incloeu comprovacions de tant en tant, en cas que cometeu un
 error podreu localitzar-lo molt més ràpidament.  Amb quina
 freqüència és @q{de tant en tant}?  Depèn de la complexitat de la

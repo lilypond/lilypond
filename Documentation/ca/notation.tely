@@ -1,0 +1,122 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+@ignore
+    Translation of GIT committish: 47db9a3883d726ca53e2133a3b2298f78dd6a32e
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@setfilename lilypond.info
+@settitle Referència de la notació del GNU LilyPond
+@documentencoding UTF-8
+@documentlanguage ca
+@afourpaper
+
+@macro manualIntro
+Aquest manual ofereix una referència per a tota la notació musical que
+es pot produir amb el Lilypond versió @version{}.  S'entén que el
+lector està familiaritzat amb el material que hi ha a
+@rlearningnamed{Top, Manual d'aprenentatge}.
+@end macro
+
+@c `Notation Reference' was born 1998-08-14 with this commit:
+@c release: 1.0.2
+@c author: Han-Wen Nienhuys
+@c commit: a3a44f9f3c581b6824b3a65f9039656693e09bbf
+@c   file: Documentation/tex/refman.yo
+
+@macro copyrightDeclare
+Copyright @copyright{} 1999--2015 pels autors.
+@end macro
+
+
+@set FDL
+@include macros.itexi
+
+@c don't remove this comment.
+@ignore
+@omfcreator Han-Wen Nienhuys, Jan Nieuwenhuizen and Graham Percival
+@omfdescription Notation Reference of the LilyPond music engraving system
+@omftype user manual
+@omfcategory Applications|Publishing
+@omflanguage Catalan
+@end ignore
+
+@c Translators: Walter Garcia-Fontes
+
+@lilyTitlePage{Referència de la notació}
+
+
+@ifnottex
+
+@menu
+* Notació musical::                 Notació que es fa servir a
+gairebé tots els projectes.
+* Notació especialitzada::          Notació que sols s'usa per a
+fins específics.* Entrada i sortida generals::     Informació general sobre l'entrada i la sortida del LilyPond.
+* Problemes d'espaiat::             Presentació del resultat en paper.
+* Canvi dels valors per defecte::   Ajust fi del resultat
+
+Annexos
+
+* Taules del manual sobre notació:: Taules i quadres
+* Full de referència ràpida::       Resum de la sintaxi del LilyPond
+* GNU Free Documentation License::  Llicència d'aquest document
+* Índex d'ordres del LilyPond::
+* Índex del LilyPond::
+@end menu
+
+@docMain
+@end ifnottex
+
+@contents
+
+@allowcodebreaks false
+
+@include notation/notation.itely
+@include notation/specialist.itely
+
+@include notation/input.itely
+@include notation/spacing.itely
+
+@include notation/changing-defaults.itely
+
+
+@include notation/notation-appendices.itely
+@include notation/cheatsheet.itely
+
+
+@include fdl.itexi
+
+
+@node Índex d'ordres del LilyPond
+@appendix Índex d'ordres del LilyPond
+@translationof LilyPond command index
+
+Aquest índex fa una relació de totes les ordres i paraules clau
+del Lilypond, amb enllaços a aquelles seccions del manual que
+descriuen o s'ocupen del seu ús.  Cadascú d'aquests enllaços
+consta de dues parts.  La primera part apunta a la situació exacta
+del manual en el qual apareix l'ordre o paraula clau; la segona
+part apunta al començament de la secció corresponent del manual en
+la qual apareix l'ordre o paraula clau.
+
+@printindex ky
+
+@node Índex del LilyPond
+@appendix Índex del LilyPond
+@translationof LilyPond index
+
+A més de totes les ordres i paraules clau del LilyPond, aquest
+índex és una llista de termes musicals i les paraules que tenen
+relació amb cada u d'ells, amb enllaços a aquelles seccions del
+manual que descriuen o s'ocupen d'aquest terme.  Cada un dels
+enllaços consta de dues parts.  La primera part apunta a la
+situació exacta del manual en el qual apareix el terme; la segona
+part apunta al començament de la secció corresponent del manual en
+la qual es discuteix aquest terme.
+
+@printindex cp
+
+@bye

@@ -378,7 +378,7 @@ provar el LilyPond, llegiu primer el que tenim a dir-vos sobre la
 @divClass{column-center-top}
 @subheading Software lliure
 
-@uref{http://www.gnu.org/, GNU} El LilyPond està escrit i
+@uref{http://www.gnu.org/home.ca.html, GNU} El LilyPond està escrit i
 mantingut per una comunitat d'entusiastes. Està publicat sota la
 @ref{GPL, Llicència General Pública de GNU} i la @ref{FDL,
 Llicència de Documentació Lliure de GNU}, donant a tothom la
@@ -1132,7 +1132,7 @@ directa d'una partitura gràfica.  Per veure més informació, consulteu
 @divClass{column-center-bottom}
 @subheading I ara què?
 
-Ja està preparat per @ref{Descàrrega, Descarregar el LilyPond}.
+Ja teniu la preparació per @ref{Descàrrega, Descarregar el LilyPond}.
 Encara no esteu convençut? Llegiu quelcom sobre els entorns
 d'edició a
 @ref{Entorns millorats}.
@@ -1419,9 +1419,9 @@ teclat numèric que produeix notes del LilyPond.
 @divClass{column-center-bottom}
 @subheading I ara què?
 
-Ja esteu preparat per a @ref{Descàrrega, Descarregar el LilyPond}.
+Ja teniu la preparació per @ref{Descàrrega, Descarregar el LilyPond}.
 
-Encara no esteu convençut? Molts compositors, músics i directors
+Encara no us convenç? Molts compositors, músics i directors
 d'orquestra han après a escriure música en el nostre format
 d'entrada.  Els usuaris amb experiència fins i tot que poden
 introduir una partitura completa al LilyPond més ràpid que amb un

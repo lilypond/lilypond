@@ -20,7 +20,7 @@
 
 @divClass{heading-center}
 @ifclear web_version
-@heading Manuals de LilyPond @version
+@heading Manuals del LilyPond @version
 @end ifclear
 @ifset web_version
   @heading Manuals del LilyPond @versionStable
@@ -291,7 +291,7 @@ Aquest llibre explica totes les instruccions del LilyPond que
 produeixen notació musical.
 
 @warning{La Referència de la Notació suposa que el lector coneix
-el material bàsica que apareix al Manual d'Aprenentatge i té
+el material bàsic que apareix al Manual d'Aprenentatge i té
 familiaritat amb els termes musicals anglesos que es presenten al
 Glossari Musical.}
 
@@ -340,7 +340,7 @@ seva lectura abans d'afrontar projectes grans.
 @divClass{column-left-top}
 @subheading Fragments
 
-Aquest manual presenta un conjunt seleccionat de fragmentes de
+Aquest manual presenta un conjunt seleccionat de fragments de
 codi del LilyPond extrets del
 @uref{http://lsr@/.dsi@/.unimi@/.it,Repositori de fragments de
 codi del LilyPond} (LSR).  Tots els fragments es troben al domini
