@@ -1,4 +1,4 @@
-c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
 @ignore
     Translation of GIT committish: e45059ae37b240ce52639ad5c49110b510a89481
 
@@ -24,7 +24,7 @@ modificació i sortida.
 * Escriptura de notes::
 * Modificació de diverses notes a l'hora::
 * Impressió de les altures::
-* Cap de las notes::
+* Cap de les notes::
 @end menu
 
 
@@ -616,7 +616,7 @@ comunament amb la música clàssica occidental, també coneguda com
 @notation{Període de la pràctica comuna}.  Malgrat això, també
 estan contemplades les altures i els sistemes d'afinació
 alternatius: vegeu
-@refusernamed{Common notation for non-Western music,Notació comuna per a músiques no occidentals}.
+@rusernamed{Common notation for non-Western music,Notació comuna per a músiques no occidentals}.
 
 @seealso
 Glossari musical:
@@ -624,7 +624,7 @@ Glossari musical:
 @rglos{Common Practice Period}.
 
 Referència de la notació:
-@refusernamed{Common notation for non-Western music,Notació comuna per a músiques no occidentals}.
+@rusernamed{Common notation for non-Western music,Notació comuna per a músiques no occidentals}.
 
 Fitxers instal·lats:
 @file{scm/define-note-names.scm}.
@@ -643,7 +643,7 @@ Aquesta secció tracta de la manera de modificar les altures.
 * Comprovació d'octava::
 * Transposició::
 * Inversió::
-* Retrogradació:
+* Retrogradació::
 * Transformacions modals::
 @end menu
 
@@ -1227,7 +1227,7 @@ pot suprimir.
 \clef treble { c'2 c' } \break
 \clef bass { c'2 c' } \break
 \clef alto
-  \set Staff.explicitClefVisibility = #final-de-línia-invisible
+  \set Staff.explicitClefVisibility = #end-of-line-invisible
   { c'2 c' } \break
   \unset Staff.explicitClefVisibility
 \clef bass { c'2 c' } \break
@@ -1774,7 +1774,7 @@ musicB = {
 }
 @end lilypond
 
-@item voice (voz)
+@item voice (veu)
 
 @cindex alteració, estil de veu de
 @cindex veu, estil d'alteracions
@@ -1802,7 +1802,7 @@ s'han d'usar en el seu lloc els estils @code{modern} o
 
 
 @lilypond[quote]
-MusicA = {
+musicA = {
   <<
     \relative {
       cis''8 fis, bes4 <a cis>8 f bis4 |
@@ -2894,8 +2894,8 @@ forget = #(define-music-function (music) (ly:music?) #{
 }
 @end lilypond
 
-@node Tesitura
-@unnumberedsubsubsec Tesitura
+@node Tessitura
+@unnumberedsubsubsec Tessitura
 @translationof Ambitus
 
 @cindex ambitus

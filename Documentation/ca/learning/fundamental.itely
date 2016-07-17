@@ -418,7 +418,7 @@ la mateixa posició horitzontal).
 
 @seealso
 Referència de la notació:
-@ruser{Estructura d'una partitura}.
+@rusernamed{Structure of a score,Estructura d'una partitura}.
 
 
 @node Niuat d'expressions musicals
@@ -789,7 +789,7 @@ magenta.  @code{\voiceNeutralStyle} (que tampoc no es fa servir
 aquí) retorna tot a l'estil predeterminat.  Veurem més endavant
 com l'usuari pot crear instruccions com aquestes.  Vegeu
 @ref{Visibilitat i color dels objectes} i
-@ref{Ús de variables per als ajustos de disposició}.
+@ref{Ús de variables per als ajustaments de disposició}.
 
 @cindex polifonia i mode relatiu
 @cindex relatiu, mode, polifonia i
