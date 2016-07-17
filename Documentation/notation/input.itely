@@ -1207,14 +1207,20 @@ Installed Files:
 
 In addition to being shown in the printed output, @code{\header} variables
 are also used to set PDF metadata (the information displayed by PDF readers
-as the @code{properties} of the PDF file).  For example, setting the
-@code{title} property of the @code{header} block @q{Symphony I} will also give
-this title to the PDF document.
+as the @code{properties} of the PDF file).  As metadata are applied per
+output file, only @code{\header} blocks located at top level or within an
+explicit @code{\book} block will be used to generate PDF metadata; while
+@code{\header} variables in a @code{\bookpart} or @code{\score} block
+will be reflected in the printed output of the respective blocks, the
+document-wide PDF metadata will not be affected by headers at that level.
+
+For example, setting the @code{title} property of the @code{header} block
+@q{Symphony I} will also give this title to the PDF document.
 
 @example
-  \header@{
-    title = "Symphony I"
-  @}
+\header@{
+  title = "Symphony I"
+@}
 @end example
 
 If you want to set the title of the printed output to one value, but have the
@@ -1222,10 +1228,10 @@ title property of the PDF to have a different value, you can use
 @code{pdftitle}, as below.
 
 @example
-  \header@{
-    title = "Symphony I"
-    pdftitle = "Symphony I by Beethoven"
-  @}
+\header@{
+  title = "Symphony I"
+  pdftitle = "Symphony I by Beethoven"
+@}
 @end example
 
 The variables @code{title}, @code{subject}, @code{keywords},
