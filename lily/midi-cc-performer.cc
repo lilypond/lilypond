@@ -33,15 +33,15 @@
 #include "translator.icc"
 
 /**
-   MIDI control function performer.  Announces "set property" events on MIDI
+   MIDI control change performer.  Announces "set property" events on MIDI
    context properties.
 */
-class Midi_control_function_performer : public Performer
+class Midi_control_change_performer : public Performer
 {
 public:
-  TRANSLATOR_DECLARATIONS (Midi_control_function_performer);
-  void announce_function_value_change (SCM);
-  ~Midi_control_function_performer ();
+  TRANSLATOR_DECLARATIONS (Midi_control_change_performer);
+  void announce_control_change (SCM);
+  ~Midi_control_change_performer ();
 
   void connect_to_context (Context *c);
   void disconnect_from_context (Context *c);
@@ -50,47 +50,47 @@ private:
   class Control_change_announcer : public Midi_control_change_announcer
   {
   public:
-    Control_change_announcer (Midi_control_function_performer *p,
+    Control_change_announcer (Midi_control_change_performer *p,
                               Stream_event *ev, const string &s);
 
     SCM get_property_value (const char *property_name);
     void do_announce (Audio_control_change *item);
 
   private:
-    Midi_control_function_performer *performer_;
+    Midi_control_change_performer *performer_;
     Stream_event *event_;
     string symbol_;
   };
 };
 
-Midi_control_function_performer::Midi_control_function_performer ()
+Midi_control_change_performer::Midi_control_change_performer ()
 {
 }
 
-Midi_control_function_performer::~Midi_control_function_performer ()
+Midi_control_change_performer::~Midi_control_change_performer ()
 {
 }
 
 void
-Midi_control_function_performer::connect_to_context (Context *c)
+Midi_control_change_performer::connect_to_context (Context *c)
 {
   c->events_below ()->
-  add_listener (GET_LISTENER (Midi_control_function_performer,
-                              announce_function_value_change),
+  add_listener (GET_LISTENER (Midi_control_change_performer,
+                              announce_control_change),
                 ly_symbol2scm ("SetProperty"));
 }
 
 void
-Midi_control_function_performer::disconnect_from_context (Context *c)
+Midi_control_change_performer::disconnect_from_context (Context *c)
 {
   c->events_below ()->
-  remove_listener (GET_LISTENER (Midi_control_function_performer,
-                                 announce_function_value_change),
+  remove_listener (GET_LISTENER (Midi_control_change_performer,
+                                 announce_control_change),
                    ly_symbol2scm ("SetProperty"));
 }
 
 void
-Midi_control_function_performer::announce_function_value_change (SCM sev)
+Midi_control_change_performer::announce_control_change (SCM sev)
 {
   Stream_event *ev = unsmob<Stream_event> (sev);
   SCM sym = ev->get_property ("symbol");
@@ -101,8 +101,8 @@ Midi_control_function_performer::announce_function_value_change (SCM sev)
   a.announce_control_changes ();
 }
 
-Midi_control_function_performer::Control_change_announcer::Control_change_announcer
-(Midi_control_function_performer *p, Stream_event *ev, const string &s)
+Midi_control_change_performer::Control_change_announcer::Control_change_announcer
+(Midi_control_change_performer *p, Stream_event *ev, const string &s)
   : Midi_control_change_announcer (ev->origin ()),
     performer_ (p),
     event_ (ev),
@@ -111,25 +111,25 @@ Midi_control_function_performer::Control_change_announcer::Control_change_announ
 }
 
 SCM
-Midi_control_function_performer::Control_change_announcer::get_property_value
+Midi_control_change_performer::Control_change_announcer::get_property_value
 (const char *property_name)
 {
   return symbol_ == property_name ? event_->get_property ("value") : SCM_EOL;
 }
 
-void Midi_control_function_performer::Control_change_announcer::do_announce
+void Midi_control_change_performer::Control_change_announcer::do_announce
 (Audio_control_change *item)
 {
   performer_->announce_element (Audio_element_info (item, 0));
 }
 
 void
-Midi_control_function_performer::boot ()
+Midi_control_change_performer::boot ()
 {
 
 }
 
-ADD_TRANSLATOR (Midi_control_function_performer,
+ADD_TRANSLATOR (Midi_control_change_performer,
                 /* doc */
                 "This performer listens to SetProperty events on context "
                 "properties for generating MIDI control changes and "

@@ -31,7 +31,7 @@
 
   \consists "Staff_performer"
   \consists "Key_performer"
-  \consists "Midi_control_function_performer"
+  \consists "Midi_control_change_performer"
 }
 
 \context {
