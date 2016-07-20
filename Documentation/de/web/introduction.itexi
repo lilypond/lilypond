@@ -613,7 +613,7 @@ haben, LilyPond auszuprobieren, lesen zuerst über unsere
 @unnumberedsec Produktionen
 @translationof Productions
 
-@divClass{column-left-top}
+@divClass{column-center-top}
 
 @subheading Produktionen die LilyPond verwenden
 
