@@ -387,7 +387,7 @@
 \DeclareUnicodeCharacter{2116}{\textnumero}
 
 
-% Add all Cyrillic character names to \commondummies.
+% Add all Cyrillic character names to \definedummies.
 
 \gdef\cyrdummies{%
   \definedummyword\textnumero
@@ -570,8 +570,8 @@
   \definedummyword\cyrudoubleacute
 }
 
-\toks0 = \expandafter{\commondummies\cyrdummies}
-\xdef\commondummies{\the\toks0}
+\toks0 = \expandafter{\definedummies\cyrdummies}
+\xdef\definedummies{\the\toks0}
 
 
 % Add all Cyrillic character names to \indexnofonts.
