@@ -189,13 +189,14 @@ For LilyPond version @version{}
 @macro predefined
 @noindent
 @subsubheading Predefined commands
+@raggedright
 @end macro
 
 @c Due to a bug in texi2html (texi2html.pl CVS versions <= 1.245)
 @c the next macro must not be empty.
 
 @macro endpredefined
-@c
+@end raggedright
 @end macro
 
 
