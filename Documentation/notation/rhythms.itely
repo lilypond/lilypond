@@ -3432,11 +3432,23 @@ notes following the main note.
 \relative { c''1 \afterGrace d1 { c16[ d] } c1 }
 @end lilypond
 
-This will put the grace notes after a space lasting 3/4 of the
-length of the main note.  The default fraction 3/4 can be changed by
-setting @code{afterGraceFraction}.  The following example shows
-the results from setting the space at the default,  at 15/16, and
-finally at 1/2 of the main note.
+This will place the grace notes @emph{after} the start of the main
+note.  The point of time where the grace notes are placed is a
+given fraction of the main note's duration.  The default setting
+of
+
+@example
+afterGraceFraction = 3/4
+@end example
+
+@noindent
+may be redefined at top level.  Individual @code{\afterGrace}
+commands may have the fraction specified right after the command
+itself instead.
+
+The following example shows the results from setting with the
+default space, setting it at @code{15/16}, and finally at
+@code{1/2} of the main note.
 
 @lilypond[quote,verbatim]
 <<
@@ -3444,19 +3456,17 @@ finally at 1/2 of the main note.
     c''1 \afterGrace d1 { c16[ d] } c1
   }
   \new Staff \relative {
-    #(define afterGraceFraction (cons 15 16))
-    c''1 \afterGrace d1 { c16[ d] } c1
+    c''1 \afterGrace 15/16 d1 { c16[ d] } c1
   }
   \new Staff \relative {
-    #(define afterGraceFraction (cons 1 2))
-    c''1 \afterGrace d1 { c16[ d] } c1
+    c''1 \afterGrace 1/2 d1 { c16[ d] } c1
   }
 >>
 @end lilypond
 
-The space between the main note and the grace note may also be
-specified using spacers.  The following example places the grace
-note after a space lasting 7/8 of the main note.
+The effect of @code{\afterGrace} can also be achieved using
+spacers.  The following example places the grace note after a
+space lasting 7/8 of the main note.
 
 @lilypond[quote,verbatim]
 \new Voice \relative {
