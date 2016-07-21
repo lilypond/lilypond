@@ -56,12 +56,17 @@ addQuote =
    (add-quotable name music))
 
 %% keep these two together
-afterGraceFraction = #(cons 6 8)
+afterGraceFraction = 3/4
 afterGrace =
-#(define-music-function (main grace) (ly:music? ly:music?)
-   (_i "Create @var{grace} note(s) after a @var{main} music expression.")
+#(define-music-function (fraction main grace) ((fraction?) ly:music? ly:music?)
+   (_i "Create @var{grace} note(s) after a @var{main} music expression.
+
+The musical position of the grace expression is after a
+given fraction of the main note's duration has passed.  If
+@var{fraction} is not specified as first argument, it is taken from
+@code{afterGraceFraction} which has a default value of @code{3/4}.")
    (let ((main-length (ly:music-length main))
-         (fraction  (ly:parser-lookup 'afterGraceFraction)))
+         (fraction (or fraction (ly:parser-lookup 'afterGraceFraction))))
      (make-simultaneous-music
       (list
        main
@@ -71,10 +76,8 @@ afterGrace =
          (make-music 'SkipMusic
                      'duration (ly:make-duration
                                 0 0
-                                (* (ly:moment-main-numerator main-length)
-                                   (car fraction))
-                                (* (ly:moment-main-denominator main-length)
-                                   (cdr fraction))))
+                                (* (ly:moment-main main-length)
+                                   (/ (car fraction) (cdr fraction)))))
          (make-music 'GraceMusic
                      'element grace)))))))
 
