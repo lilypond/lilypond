@@ -186,7 +186,7 @@ Internals Reference:
 @c Deliberately duplicated in Durations and Rests.  -gp
 There is no fundamental limit to rest durations (both in terms of
 longest and shortest), but the number of glyphs is limited:
-rests from 128th to maxima (8 x whole) may be printed.
+rests from 128th to maxima (8× whole) may be printed.
 
 
 @node Tuplets
@@ -713,7 +713,7 @@ Internals Reference:
 @c Deliberately duplicated in Durations and Rests.  -gp
 There is no fundamental limit to rest durations (both in terms of
 longest and shortest), but the number of glyphs is limited: there
-are rests from 128th to maxima (8 x whole).
+are rests from 128th to maxima (8× whole).
 
 
 @node Invisible rests
@@ -1864,7 +1864,7 @@ For consistency with previous behavior, notes and rests with
 duration longer than a measure, such as @code{c1*2}, are split into
 notes without any scale factor, @code{@{ c1 c1 @}}.  The property
 @code{completionFactor} controls this behavior, and setting it to
-@code{#f} cause split notes and rest to have the scale factor
+@code{#f} cause split notes and rests to have the scale factor
 of the input durations.
 
 
@@ -2666,7 +2666,7 @@ all notes end before the end of a measure.
 
 @warning{An incorrect duration can cause line breaks to be
 inhibited, leading to a line of highly compressed music or
-music which flows off the page.}
+music that flows off the page.}
 
 @cindex line breaks
 @cindex bar lines, invisible
@@ -2941,7 +2941,7 @@ for defining span bars correctly aligned to the main bar lines:
 @end lilypond
 
 If additional elements are needed, LilyPond provides a simple
-way to define them.  For more informations on modifying or adding
+way to define them.  For more information on modifying or adding
 bar lines, see file @file{scm/bar-line.scm}.
 
 In scores with many staves, a @code{\bar} command in one staff is
@@ -3717,10 +3717,10 @@ The next bar line then falls at 9/8 rather than 5/4.
 @end lilypond
 
 @noindent
-As the example illustrates, @code{ly:make-moment n m} constructs a
+As the example illustrates, @code{ly:make-moment n/m} constructs a
 duration of n/m of a whole note.  For example,
-@code{ly:make-moment 1 8} is an eighth note duration and
-@code{ly:make-moment 7 16} is the duration of seven sixteenths
+@code{ly:make-moment 1/8} is an eighth note duration and
+@code{ly:make-moment 7/16} is the duration of seven sixteenths
 notes.
 
 @seealso
