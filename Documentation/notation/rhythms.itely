@@ -981,7 +981,7 @@ Internals Reference:
 @cindex multi-measure rests and fingerings
 
 @knownissues
-Fingerings over multi-measure rests (e.g. @code{R1*10-4}) may result
+Fingerings over multi-measure rests (e.g., @code{R1*10-4}) may result
 in the fingering numeral colliding with the bar counter
 numeral.
 
@@ -1489,7 +1489,7 @@ Internal Reference:
 @funindex \cadenzaOff
 
 In metered music bar lines are inserted and bar numbers are calculated
-automatically. In unmetered music (i.e. cadenzas), this is not
+automatically. In unmetered music (i.e., cadenzas), this is not
 desirable and can be @q{switched off} using the command
 @code{\cadenzaOn}, then @q{switched back on} at the appropriate place
 using @code{\cadenzaOff}.

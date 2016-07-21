@@ -1123,7 +1123,7 @@ the same @code{Voice} so that if any such spanners start or end in a
 different @code{Voice}, they may not be printed properly or at all.
 
 If the @code{\partcombine} function cannot combine both music
-expressions (i.e. when both voices have different durations), it will
+expressions (i.e., when both voices have different durations), it will
 give the voices, internally, its own custom names: @code{one} and
 @code{two} respectively.  This means if there is any @qq{switch} to a
 differently named @code{Voice} context, the events in that differently

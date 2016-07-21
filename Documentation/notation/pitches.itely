@@ -841,7 +841,7 @@ relative mode within transposed music, an additional @code{\relative}
 must be placed inside @code{\transpose}.
 
 Triple accidentals will not be printed if using @code{\transpose}. An
-@q{enharmonically equivalent} pitch will be used instead (e.g. d-flat
+@q{enharmonically equivalent} pitch will be used instead (e.g., d-flat
 rather than e-triple-flat).
 
 

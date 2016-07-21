@@ -194,7 +194,7 @@ calligraphic tablature clef is added automatically.
 @end lilypond
 
 Default tablatures do not contain any symbols for tone duration nor any
-other musical symbols such as e.g. expressive marks.
+other musical symbols such as expressive marks, for example.
 
 @lilypond[quote,ragged-right,verbatim]
 symbols = {
@@ -668,7 +668,7 @@ one for each string, ordered by string number from 1 to N,
 where string 1 is at the top of the tablature staff and
 string N is at the bottom.  This ordinarily results in ordering
 from highest pitch to lowest pitch, but some instruments
-(e.g. ukulele) do not have strings ordered by pitch.
+(e.g., ukulele) do not have strings ordered by pitch.
 
 A string pitch in a string tuning list is a LilyPond pitch
 object.  Pitch objects are created with the Scheme function

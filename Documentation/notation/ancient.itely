@@ -682,7 +682,7 @@ mensural notation or coloratio sections in white mensural notation.
 Because note head style does not influence flag count, in
 this style a semiminima should be notated as @code{a8*2}, not
 @code{a4}, otherwise it will look like a minima.
-The multiplier can be different if coloratio is used e.g. to notate
+The multiplier can be different if coloratio is used, e.g., to notate
 triplets.
 
 Use @code{semipetrucci} style to draw half-colored
@@ -1471,7 +1471,7 @@ with any of the following commands:
 @funindex \linea
 @code{\linea}.
 
-@item Ligatures, properly speaking (i.e. notes joined together), are
+@item Ligatures, properly speaking (i.e., notes joined together), are
 produced by placing one of the joining commands @code{\pes} or
 @code{\flexa}, for upwards and downwards movement, respectively,
 @emph{between} the notes to be joined.
@@ -1525,7 +1525,7 @@ Liquescent neumes
 
 Another main category of notes in Gregorian chant is the so-called
 liquescent neumes.  They are used under certain circumstances at
-the end of a syllable which ends in a @q{liquescent} letter, i.e.
+the end of a syllable which ends in a @q{liquescent} letter, i.e.,
 the sounding consonants that can hold a tone (the nasals, l, r, v,
 j, and their diphthong equivalents).  Thus, the liquescent neumes
 are never used alone (although some of them can be produced), and
@@ -2637,7 +2637,7 @@ typical scenarios are outlined, with suggestions of solutions.
 These involve:
 
 @itemize
-@item how to make incipits (i.e. prefatory material to indicate
+@item how to make incipits (i.e., prefatory material to indicate
 what the original has looked like) to modern transcriptions of
 mensural music;
 @item how to achieve the @emph{Mensurstriche} layout frequently
@@ -2697,7 +2697,7 @@ produced.  If no instrument name is required then use
 @emph{Mensurstriche} (@q{mensuration lines}) is the accepted term
 for bar lines that are drawn between the staves of a system but
 not through the staves themselves.  It is a common way to preserve
-the rhythmic appearance of the original, i.e. not having to break
+the rhythmic appearance of the original, i.e., not having to break
 syncopated notes at bar lines, while still providing the
 orientation aids that bar lines give.
 
@@ -2835,7 +2835,7 @@ verba = \lyricmode {
 @end lilypond
 
 Another common situation is transcription of neumatic or
-melismatic chants, i.e. chants with a varying number of notes
+melismatic chants, i.e., chants with a varying number of notes
 to each syllable.  In this case, one would want to set the
 syllable groups clearly apart, usually also the subdivisions of a
 longer melisma.  One way to achieve this is to use a fixed

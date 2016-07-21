@@ -859,12 +859,12 @@ darkcyan    darkmagenta    darkyellow
 X color names come several variants:
 
 Any name that is spelled as a single word with capitalization
-(e.g. @q{LightSlateBlue}) can also be spelled as space separated
-words without capitalization (e.g. @q{light slate blue}).
+(e.g., @q{LightSlateBlue}) can also be spelled as space separated
+words without capitalization (e.g., @q{light slate blue}).
 
-The word @q{grey} can always be spelled @q{gray} (e.g. @q{DarkSlateGray}).
+The word @q{grey} can always be spelled @q{gray} (e.g., @q{DarkSlateGray}).
 
-Some names can take a numerical suffix (e.g. @q{LightSalmon4}).
+Some names can take a numerical suffix (e.g., @q{LightSalmon4}).
 
 
 @subsubheading Color Names without a numerical suffix:
@@ -2366,7 +2366,7 @@ An association list or @strong{alist} for short is a Scheme pair
 which associates a value with a key: @w{@code{(key . value)}}.  For
 example, in @file{scm/lily.scm}, the alist
 @w{@qq{type-p-name-alist}} associates certain type predicates
-(e.g.@tie{}@code{ly:music?}) with names (e.g.@tie{}@qq{music}) so
+(e.g., @code{ly:music?}) with names (e.g., @qq{music}) so
 that type-check failures can be reported with a console message that
 includes the name of the expected type predicate.
 
@@ -2392,7 +2392,7 @@ performed.
 In Scheme, a @strong{closure} is created when a function, usually
 a lambda expression, is passed as a variable.  The closure contains
 the function's code plus references to the lexical bindings of the
-function's free variables (i.e. those variables used in the
+function's free variables (i.e., those variables used in the
 expression but defined outside it).  When this function is applied
 to different arguments later, the free variable bindings that were
 captured in the closure are used to obtain the values of the free

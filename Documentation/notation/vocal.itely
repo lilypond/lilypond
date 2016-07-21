@@ -1902,7 +1902,7 @@ are to be ignored.
 @cindex grace notes and lyrics
 @cindex lyrics on grace notes
 
-By default, grace notes (e.g. via @code{\grace}) do not get assigned
+By default, grace notes (e.g., via @code{\grace}) do not get assigned
 syllables when using @code{\lyricsto}, but this behavior can be
 changed:
 

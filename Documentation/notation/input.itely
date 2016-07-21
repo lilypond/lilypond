@@ -365,7 +365,7 @@ A direct scheme expression, such as
 @code{#(ly:set-option 'point-and-click #f)}.
 
 @item
-A @code{\header} block.  This sets the global (i.e. the top of
+A @code{\header} block.  This sets the global (i.e., the top of
 file) header block.  This is the block containing the default
 settings of titling fields like composer, title, etc. for all
 books within the file (see @ref{Titles explained}).
@@ -496,11 +496,11 @@ circumstances to avoid errors:
 
 @item Around every opening and closing curly bracket.
 
-@item After every command or variable, i.e. every item that
+@item After every command or variable, i.e., every item that
 begins with a @code{\} sign.
 
 @item After every item that is to be interpreted as a Scheme
-expression, i.e. every item that begins with a @code{#}@tie{}sign.
+expression, i.e., every item that begins with a @code{#}@tie{}sign.
 
 @item To separate all elements of a Scheme expression.
 
@@ -1128,7 +1128,7 @@ variable = \markup @{
 
 The @var{procedure} is called each time the @code{\markup} command
 in which it appears is evaluated.  The @var{procedure} should test
-for a particular condition and interpret (i.e. print) the
+for a particular condition and interpret (i.e., print) the
 @var{markup} argument if and only if the condition is true.
 
 A number of ready-made procedures for testing various conditions are
@@ -1331,7 +1331,7 @@ left/bottom edge and zero implies the mark is centered on the edge.
 
 @item Context
 is the context in which the grob being footnoted is created.  It
-may be omitted if the grob is in a bottom context, e.g. a
+may be omitted if the grob is in a bottom context, e.g., a
 @code{Voice} context.
 
 @item GrobName
@@ -2212,7 +2212,7 @@ followed by a music expression.  If @emph{and only if} the symbols
 are valid LilyPond identifiers (alphabetic characters only, no
 numbers, underscores, or dashes) which cannot be confused with notes,
 the @code{#'} may be omitted and, as a shorthand, a list of symbols
-can use the dot separator: i.e. @code{\tag #'(violinI violinII)} can
+can use the dot separator: i.e., @code{\tag #'(violinI violinII)} can
 be written @code{\tag violinI.violinII}.  The same applies to
 @code{\keepWithTag} and @code{\removeWithTag}.
 
@@ -2734,7 +2734,7 @@ in your source file.  This will render only the last 5 measures
 (assuming 4/4 time signature) of every @code{\score} in the input
 file.  For longer pieces, rendering only a small part is often an order
 of magnitude quicker than rendering it completely.  When working on the
-beginning of a score you have already typeset (e.g. to add a new part),
+beginning of a score you have already typeset (e.g., to add a new part),
 the @code{showFirstLength} property may be useful as well.
 
 Skipping parts of a score can be controlled in a more fine-grained
@@ -2888,7 +2888,7 @@ following (without taking dots into account).  For example;
 @noindent
 The c will take the value of a crotchet.
 
-@item Ornaments (i.e. mordents, trills and turns et al.)
+@item Ornaments (i.e., mordents, trills and turns et al.)
 @item Rallentando, accelerando, ritardando and a tempo
 @item Slurs, including phrasing slurs
 @item Tenuto
@@ -2913,8 +2913,8 @@ and portato
 @item Glissandi
 @item Falls and doits
 @item Microtonal chords
-@item Rhythms entered as annotations, e.g. swing
-@item Tempo changes without @code{\tempo} (e.g. entered as annotations)
+@item Rhythms entered as annotations, e.g., swing
+@item Tempo changes without @code{\tempo} (e.g., entered as annotations)
 @item Tremolos that @emph{are} entered with a @q{@code{:}[@var{number}]}
 value
 @end itemize
@@ -2936,8 +2936,8 @@ To create a MIDI output file from a LilyPond input file, insert a
 @}
 @end example
 
-@warning{ A @code{@bs{}score} block that, as well as the music, contains
-only a @code{@bs{}midi} block (i.e. @emph{without} the @code{@bs{}layout}
+@warning{A @code{@bs{}score} block that, as well as the music, contains
+only a @code{@bs{}midi} block (i.e., @emph{without} the @code{@bs{}layout}
 block), will only produce MIDI output files.  No notation will be
 printed.}
 
