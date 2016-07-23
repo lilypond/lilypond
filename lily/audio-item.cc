@@ -102,9 +102,9 @@ Audio_key::Audio_key (int acc, bool major)
   major_ = major;
 }
 
-const Real Audio_span_dynamic::MINIMUM_VOLUME;
-const Real Audio_span_dynamic::MAXIMUM_VOLUME;
-const Real Audio_span_dynamic::DEFAULT_VOLUME;
+const Real Audio_span_dynamic::MINIMUM_VOLUME = 0.0;
+const Real Audio_span_dynamic::MAXIMUM_VOLUME = 1.0;
+const Real Audio_span_dynamic::DEFAULT_VOLUME = 90.0 / 127.0;
 
 Audio_span_dynamic::Audio_span_dynamic (Moment mom, Real volume)
   : start_moment_ (mom),

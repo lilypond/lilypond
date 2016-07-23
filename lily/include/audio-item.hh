@@ -48,9 +48,9 @@ private:
 class Audio_span_dynamic : public Audio_element
 {
 public:
-  static const Real MINIMUM_VOLUME = 0.0;
-  static const Real MAXIMUM_VOLUME = 1.0;
-  static const Real DEFAULT_VOLUME = 90.0 / 127.0;
+  static const Real MINIMUM_VOLUME;
+  static const Real MAXIMUM_VOLUME;
+  static const Real DEFAULT_VOLUME;
 
 private:
   Moment start_moment_;
