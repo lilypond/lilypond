@@ -1554,7 +1554,7 @@ with the corresponding modifier, @code{\quilisma},
 Virtually, within the ligature delimiters @code{\[} and @code{\]},
 any number of heads may be accumulated to form a single ligature,
 and head prefixes like @code{\pes}, @code{\flexa}, @code{\virga},
-@code{\inclinatum}, etc. may be mixed in as desired.  The use of
+@code{\inclinatum}, etc., may be mixed in as desired.  The use of
 the set of rules that underlies the construction of the ligatures
 in the above table is accordingly extrapolated.  This way,
 infinitely many different ligatures can be created.

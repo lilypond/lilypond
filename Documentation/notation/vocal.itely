@@ -63,7 +63,7 @@ introduction to this notation is to be found in
 @item
 Vocal music is likely to require the use of @code{markup} mode,
 either for lyrics or for other text elements (characters' names,
-etc.)  This syntax is described in @ref{Text markup introduction}.
+etc.).  This syntax is described in @ref{Text markup introduction}.
 
 @item
 @notation{Ambitus} may be added at the beginning of vocal staves,

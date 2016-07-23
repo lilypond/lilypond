@@ -180,7 +180,7 @@ chord.  The chord repetition symbol is @code{q}:
 @end lilypond
 
 As with regular chords, the chord repetition symbol can be used with
-durations, articulations, markups, slurs, beams, etc. as only the
+durations, articulations, markups, slurs, beams, etc., as only the
 pitches of the previous chord are duplicated.
 
 @lilypond[verbatim,quote]
@@ -559,7 +559,7 @@ upstems, and the even-numbered voices are given downstems:
 >>
 @end lilypond
 
-@warning{Lyrics, spanners (such as slurs, ties, hairpins etc.) cannot be
+@warning{Lyrics, spanners (such as slurs, ties, hairpins, etc.) cannot be
 created @q{across} voices.}
 
 @subsubsubheading Identical rhythms
@@ -1118,7 +1118,7 @@ started when combining notes that have just started in the other
 @code{Voice}.  This can lead to a number of unexpected issues including
 @qq{Solo} or @qq{Unison} marks being printed incorrectly.
 
-@code{\partcombine} keeps all spanners (slurs, ties, hairpins etc.) in
+@code{\partcombine} keeps all spanners (slurs, ties, hairpins, etc.) in
 the same @code{Voice} so that if any such spanners start or end in a
 different @code{Voice}, they may not be printed properly or at all.
 

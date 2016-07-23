@@ -367,7 +367,7 @@ A direct scheme expression, such as
 @item
 A @code{\header} block.  This sets the global (i.e., the top of
 file) header block.  This is the block containing the default
-settings of titling fields like composer, title, etc. for all
+settings of titling fields like composer, title, etc., for all
 books within the file (see @ref{Titles explained}).
 
 @item
@@ -2257,7 +2257,7 @@ music = \relative {
 }
 @end lilypond
 
-Tagged filtering can be applied to articulations, texts, etc. by
+Tagged filtering can be applied to articulations, texts, etc., by
 prepending
 
 @example

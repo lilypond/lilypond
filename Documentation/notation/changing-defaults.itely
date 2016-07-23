@@ -522,8 +522,8 @@ Notation Reference:
 
 Contexts are usually terminated at the first musical moment in
 which they have nothing to do.  So @code{Voice} contexts die as
-soon as they contain no events; @code{Staff} contexts die as soon
-as all the @code{Voice} contexts within them contain no events; etc.
+soon as they contain no events, @code{Staff} contexts die as soon
+as all the @code{Voice} contexts within them contain no events, etc.
 This can cause difficulties if earlier contexts which have died
 have to be referenced, for example, when changing staves with
 @code{\change} commands, associating lyrics with a voice with
@@ -4146,7 +4146,7 @@ The VerticalAlignment and VerticalAxisGroup grobs work together.
 VerticalAxisGroup groups together different grobs like Staff, Lyrics,
 etc.  VerticalAlignment then vertically aligns the different grobs
 grouped together by VerticalAxisGroup.  There is usually only one
-VerticalAlignment per score but every Staff, Lyrics, etc. has its own
+VerticalAlignment per score but every Staff, Lyrics, etc., has its own
 VerticalAxisGroup.
 
 
