@@ -927,7 +927,7 @@ music = \relative { c'8. ees16( fis8. a16 b8.) gis16 f8. d16 }
 Les lligadures d'unió manuals dins de @code{\retrograde} es
 trencaran i generaran advertiments.  Es poden generar algunes
 lligadures automàticament activant
-@ref{Divisió automàtica de les notes}.
+@rusernamed{Autommatic note splitting,Divisió automàtica de les notes}.
 
 @seealso
 Referència de la notació:
@@ -1157,7 +1157,7 @@ c'2 c'
 @end lilypond
 
 Per veure el repertori complet dels possibles noms per a les
-claus, consulteu @ref{Estils de clau}.
+claus, consulteu @rusernamed{Clef styles,Estils de clau}.
 
 Les claus especials, com les utilitzades a la música
 @emph{antiga}, es descriuen a

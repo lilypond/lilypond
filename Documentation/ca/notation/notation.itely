@@ -17,12 +17,12 @@ Aquest capítol explica com crear notació musical.
 
 @menu
 * Altures::                 Escriptura i presentació de les duracions de les notes.
-* Duracions::               Escriptura i presentació de les duracions de les notes.
-* Expressions::             Addició d'expressió a les notes.
-* Repeticions::             Repeticions de música.
-* Notes simultànies::       Més d'una nota a l'hora.
-* Notació dels pentagrames:: Imprimir pentagrames.
-* Anotacions editorials::   Notació especial per augmentar la llegibilitat.
+* Rhythms::                  Escriptura i presentació de les duracions de les notes.
+* Expressive marks::        Addició d'expressió a les notes.
+* Repeats::                 Repeticions de música.
+* Simultaneous notes::      Més d'una nota a l'hora.
+* Staff notation:: Imprimir pentagrames.
+* Editorial annotations::   Notació especial per augmentar la llegibilitat.
 * Text::                    Addicció de text a les partitures.
 @end menu
 
