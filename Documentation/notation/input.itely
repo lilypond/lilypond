@@ -531,7 +531,7 @@ some pieces include a lot more information.
 @menu
 * Creating titles headers and footers::
 * Custom titles headers and footers::
-* Creating PDF metadata::
+* Creating output file metadata::
 * Creating footnotes::
 * Reference to page numbers::
 * Table of contents::
@@ -1200,22 +1200,25 @@ Notation Reference:
 Installed Files:
 @file{../ly/titling-init.ly}.
 
-@node Creating PDF metadata
-@subsection Creating PDF metadata
+@node Creating output file metadata
+@subsection Creating output file metadata
 
 @cindex PDF metadata
+@cindex MIDI metadata
 
 In addition to being shown in the printed output, @code{\header} variables
-are also used to set PDF metadata (the information displayed by PDF readers
-as the @code{properties} of the PDF file).  As metadata are applied per
-output file, only @code{\header} blocks located at top level or within an
-explicit @code{\book} block will be used to generate PDF metadata; while
-@code{\header} variables in a @code{\bookpart} or @code{\score} block
-will be reflected in the printed output of the respective blocks, the
-document-wide PDF metadata will not be affected by headers at that level.
+are also used to set metadata for output files.  For example, with PDF
+files, this metadata could be displayed by PDF readers as the
+@code{properties} of the PDF file.  For each type of output file, only the
+@code{\header} definitions of blocks that define separate files of that
+type, and blocks higher in the block hierarchy, will be consulted.
+Therefore, for PDF files, only the @code{\book} level and the top level
+@code{\header} definitions affect the document-wide PDF metadata, whereas
+for MIDI files, all headers above or at the @code{\score} level are used.
 
 For example, setting the @code{title} property of the @code{header} block
-@q{Symphony I} will also give this title to the PDF document.
+to @q{Symphony I} will also give this title to the PDF document, and use
+it as the sequence name of the MIDI file.
 
 @example
 \header@{
@@ -1244,6 +1247,10 @@ the current LilyPond version, and @code{CreationDate} and @code{ModDate} are
 both set to the current date and time.  @code{ModDate} can be overridden by
 setting the header variable @code{moddate} (or @code{pdfmoddate}) to a
 valid PDF date string.
+
+The @code{title} variable sets also the sequence name for MIDI.  The
+@code{midititle} variable can be used to set the sequence name
+independently of the value used for typeset output.
 
 @node Creating footnotes
 @subsection Creating footnotes
@@ -2958,7 +2965,8 @@ either the @code{\book}, @code{\bookpart} or @code{\score} blocks.  See
 
 @seealso
 Notation Reference:
-@ref{File structure}.
+@ref{File structure},
+@ref{Creating output file metadata}.
 
 Installed Files:
 @file{scm/midi.scm}.
