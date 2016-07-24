@@ -256,11 +256,11 @@ Dynamic_performer::compute_departure_volume (Direction depart_dir,
 
   const Real vol_range = max_vol - min_vol;
 
-  const Real near = minmax (depart_dir, start_vol, end_vol)
+  const Real near_vol = minmax (depart_dir, start_vol, end_vol)
                     + depart_dir * near_padding * vol_range;
-  const Real far = minmax (-depart_dir, start_vol, end_vol)
+  const Real far_vol = minmax (-depart_dir, start_vol, end_vol)
                    + depart_dir * far_padding * vol_range;
-  const Real depart_vol = minmax (depart_dir, near, far);
+  const Real depart_vol = minmax (depart_dir, near_vol, far_vol);
   return max (min (depart_vol, max_vol), min_vol);
 }
 
