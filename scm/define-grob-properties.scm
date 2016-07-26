@@ -992,7 +992,7 @@ override:
 \\override MultiMeasureRest
   #'spacing-pair = #'(staff-bar . staff-bar)
 @end example")
-     (spanner-id ,string? "An identifier to distinguish concurrent spanners.")
+     (spanner-id ,key? "An identifier to distinguish concurrent spanners.")
      (springs-and-rods ,boolean? "Dummy variable for triggering
 spacing routines.")
      (stacking-dir ,ly:dir? "Stack objects in which direction?")

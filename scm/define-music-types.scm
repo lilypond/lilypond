@@ -438,7 +438,6 @@ goes down).")
      . ((description . "Start or end phrasing slur.
 
 Syntax: @var{note}@code{\\(} and @var{note}@code{\\)}")
-        (spanner-id . "")
         (types . (post-event span-event event phrasing-slur-event))
         ))
 
@@ -570,7 +569,6 @@ Syntax: @code{\\skip} @var{duration}")
      . ((description . "Start or end slur.
 
 Syntax: @var{note}@code{(} and @var{note}@code{)}")
-        (spanner-id . "")
         (types . (post-event span-event event slur-event))
         ))
 
