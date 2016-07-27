@@ -267,10 +267,12 @@ class Note:
         elif commas < 0:
             s = s + "," * -commas
 
-        if ((dump_dur
-             and self.duration.compare (reference_note.duration))
-            or global_options.explicit_durations):
+        if (dump_dur
+            and (self.duration.compare (reference_note.duration)
+                 or global_options.explicit_durations)):
             s = s + self.duration.dump ()
+
+        # Chords need to handle their reference duration themselves
 
         reference_note = self
 
