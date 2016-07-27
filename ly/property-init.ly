@@ -8,11 +8,10 @@
 
 %% common definition for all note head styles reverting
 %% (palm mute, harmonics, dead notes, ...)
-defaultNoteHeads =
-#(define-music-function () ()
-  (_i "Revert to the default note head style.")
-  (context-spec-music
-   (revert-head-style '(NoteHead TabNoteHead)) 'Bottom))
+defaultNoteHeads = {
+  \revert NoteHead.style
+  \revert TabNoteHead.style
+}
 
 accidentalStyle =
 #(define-music-function
@@ -748,17 +747,36 @@ allowVoltaHook =
 
 %% x notes
 
-xNotesOn =
-#(define-music-function () ()
-  (_i "Set the default note head style to a cross-shaped style.")
-  (context-spec-music
-   (override-head-style '(TabNoteHead NoteHead) 'cross) 'Bottom))
+#(define (cross-style grob)
+;; Returns the symbol 'cross to set the 'style-property for (Tab-)NoteHead.
+;; If the current text-font doesn't contain the glyph set 'font-name to '()
+;; and 'font-family to 'feta.
+;; If 'feta is replaced by another music-font without cross-style-glyphs
+;; note-head.cc throws a warning and no visual output happens.
+  (let* ((layout (ly:grob-layout grob))
+         (props (ly:grob-alist-chain grob))
+         (font (ly:paper-get-font layout props))
+         (font-unknown? (string=? (ly:font-name font) "unknown")))
+    (if font-unknown?
+        (begin
+          (ly:grob-set-property! grob 'font-name '())
+          (ly:grob-set-property! grob 'font-family 'feta)))
+    'cross))
+
+%% Set the default note head style to a cross-shaped style.
+xNotesOn = {
+  \temporary \override NoteHead.style = #cross-style
+  \temporary \override TabNoteHead.style = #cross-style
+}
+
 xNotesOff = \defaultNoteHeads
+
 xNote =
 #(define-music-function (note) (ly:music?)
-   (_i "Print @var{note} with a cross-shaped note head.")
-   (style-note-heads '(TabNoteHead NoteHead) 'cross note))
-
+  (_i "Print @var{note} with a cross-shaped note head.")
+   (if (eq? (ly:music-property note 'name) 'NoteEvent)
+       #{ \tweak style #cross-style $note #}
+       #{ \xNotesOn $note \xNotesOff #}))
 
 %% dead notes (these need to come after "x notes")
 
