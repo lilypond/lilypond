@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.19.45\n"
+"Project-Id-Version: lilypond 2.19.46\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2016-07-08 13:56+0100\n"
+"POT-Creation-Date: 2016-07-24 11:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1770,6 +1770,33 @@ msgstr ""
 msgid "no heads for arpeggio found?"
 msgstr ""
 
+#: audio-item.cc:139
+#, c-format
+msgid "end moment (%s) < start moment (%s)"
+msgstr ""
+
+#: audio-item.cc:153
+#, c-format
+msgid "invalid start volume: %f"
+msgstr ""
+
+#: audio-item.cc:159
+#, c-format
+msgid "invalid target volume: %f"
+msgstr ""
+
+#: audio-item.cc:174
+#, c-format
+msgid ""
+"asked to compute volume at %f for dynamic span of duration %f starting at %s"
+msgstr ""
+
+#: audio-item.cc:182
+#, c-format
+msgid ""
+"asked to compute volume at +%f for dynamic span of duration %f starting at %s"
+msgstr ""
+
 #: axis-group-engraver.cc:154
 msgid "Axis_group_engraver: vertical group already has a parent"
 msgstr ""
@@ -2080,7 +2107,7 @@ msgstr ""
 msgid "%d: %s"
 msgstr ""
 
-#: grob.cc:486
+#: grob.cc:487
 #, c-format
 msgid "ignored infinite %s-offset"
 msgstr ""
@@ -2522,12 +2549,12 @@ msgstr ""
 msgid "ignoring out-of-range value change for MIDI property `%s'"
 msgstr ""
 
-#: midi-item.cc:93
+#: midi-item.cc:92
 #, c-format
 msgid "no such MIDI instrument: `%s'"
 msgstr ""
 
-#: midi-item.cc:179
+#: midi-item.cc:178
 msgid "Time signature with more than 255 beats.  Truncating"
 msgstr ""
 
@@ -3075,11 +3102,11 @@ msgstr ""
 msgid "expected to read %d characters, got %d"
 msgstr ""
 
-#: staff-performer.cc:307
+#: staff-performer.cc:306
 msgid "MIDI channel wrapped around"
 msgstr ""
 
-#: staff-performer.cc:308
+#: staff-performer.cc:307
 msgid "remapping modulo 16"
 msgstr ""
 
@@ -3228,119 +3255,119 @@ msgstr ""
 msgid "giving up"
 msgstr ""
 
-#: parser.yy:483 parser.yy:650 parser.yy:989 parser.yy:1070 parser.yy:1306
+#: parser.yy:482 parser.yy:649 parser.yy:988 parser.yy:1069 parser.yy:1305
 msgid "bad expression type"
 msgstr ""
 
-#: parser.yy:902 parser.yy:1514 parser.yy:1583
+#: parser.yy:901 parser.yy:1508 parser.yy:1570
 msgid "not a context mod"
 msgstr ""
 
-#: parser.yy:983 parser.yy:1062 parser.yy:1214
+#: parser.yy:982 parser.yy:1061 parser.yy:1213
 msgid "need \\paper for paper block"
 msgstr ""
 
-#: parser.yy:1096
+#: parser.yy:1095
 msgid "Missing music in \\score"
 msgstr ""
 
-#: parser.yy:1133
+#: parser.yy:1132
 msgid "\\paper cannot be used in \\score, use \\layout instead"
 msgstr ""
 
-#: parser.yy:1184
+#: parser.yy:1183
 msgid "Spurious expression in \\score"
 msgstr ""
 
-#: parser.yy:1388
+#: parser.yy:1387
 msgid "music expected"
 msgstr ""
 
-#: parser.yy:1398 parser.yy:1432
+#: parser.yy:1397 parser.yy:1431
 msgid "unexpected post-event"
 msgstr ""
 
-#: parser.yy:1440
+#: parser.yy:1439
 msgid "Ignoring non-music expression"
 msgstr ""
 
-#: parser.yy:1763 parser.yy:1782
+#: parser.yy:1749 parser.yy:1768
 msgid "not a key"
 msgstr ""
 
-#: parser.yy:2642 parser.yy:2760 parser.yy:2773 parser.yy:2782
+#: parser.yy:2628 parser.yy:2746 parser.yy:2759 parser.yy:2768
 msgid "bad grob property path"
 msgstr ""
 
-#: parser.yy:2740
+#: parser.yy:2726
 msgid "only \\consists and \\remove take non-string argument."
 msgstr ""
 
-#: parser.yy:2801
+#: parser.yy:2787
 msgid "bad context property path"
 msgstr ""
 
-#: parser.yy:2886
+#: parser.yy:2872
 msgid "markup expected"
 msgstr ""
 
-#: parser.yy:2898
+#: parser.yy:2884
 msgid "simple string expected"
 msgstr ""
 
-#: parser.yy:2915
+#: parser.yy:2901
 msgid "symbol expected"
 msgstr ""
 
-#: parser.yy:3059
+#: parser.yy:3041
 msgid "not a rhythmic event"
 msgstr ""
 
-#: parser.yy:3109
+#: parser.yy:3091
 msgid "post-event expected"
 msgstr ""
 
-#: parser.yy:3118 parser.yy:3123
+#: parser.yy:3100 parser.yy:3105
 msgid "have to be in Lyric mode for lyrics"
 msgstr ""
 
-#: parser.yy:3199
+#: parser.yy:3181
 msgid "expecting string or post-event as script definition"
 msgstr ""
 
-#: parser.yy:3303
+#: parser.yy:3285
 msgid "not an articulation"
 msgstr ""
 
-#: parser.yy:3369 parser.yy:3421
+#: parser.yy:3351 parser.yy:3403
 msgid "not a duration"
 msgstr ""
 
-#: parser.yy:3442
+#: parser.yy:3424
 msgid "bass number expected"
 msgstr ""
 
-#: parser.yy:3534
+#: parser.yy:3516
 msgid "have to be in Note mode for notes"
 msgstr ""
 
-#: parser.yy:3573
+#: parser.yy:3555
 msgid "have to be in Chord mode for chords"
 msgstr ""
 
-#: parser.yy:3616
+#: parser.yy:3598
 msgid "markup outside of text script or \\lyricmode"
 msgstr ""
 
-#: parser.yy:3621
+#: parser.yy:3603
 msgid "unrecognized string, not in text script or \\lyricmode"
 msgstr ""
 
-#: parser.yy:3773 parser.yy:3782
+#: parser.yy:3755 parser.yy:3764
 msgid "not an unsigned integer"
 msgstr ""
 
-#: parser.yy:3869
+#: parser.yy:3851
 msgid "not a markup"
 msgstr ""
 
@@ -3641,12 +3668,12 @@ msgstr ""
 msgid "Writing ~a..."
 msgstr ""
 
-#: framework-ps.scm:259
+#: framework-ps.scm:260
 #, scheme-format
 msgid "CFF font `~a' already embedded, skipping."
 msgstr ""
 
-#: framework-ps.scm:262
+#: framework-ps.scm:263
 #, scheme-format
 msgid ""
 "Different CFF fonts which have the same name `~a' has been detected. The "
@@ -3655,51 +3682,55 @@ msgstr ""
 
 #: framework-ps.scm:267
 #, scheme-format
-msgid "Embedding CFF font `~a'"
+msgid "Embedding CFF font `~a'."
 msgstr ""
 
-#: framework-ps.scm:317
+#: framework-ps.scm:272
+msgid "Initializing embedded CFF font list."
+msgstr ""
+
+#: framework-ps.scm:325
 #, scheme-format
 msgid ""
 "Font ~a cannot be loaded via Ghostscript because its font-index (~a) is not "
 "zero."
 msgstr ""
 
-#: framework-ps.scm:323
+#: framework-ps.scm:331
 #, scheme-format
 msgid ""
-"Font ~a cannot be loaded via Ghostscript because it is an OpenType/CFF (OTC) "
-"font."
+"Font ~a cannot be loaded via Ghostscript because it is an OpenType/CFF "
+"Collection (OTC) font."
 msgstr ""
 
-#: framework-ps.scm:329
+#: framework-ps.scm:337
 #, scheme-format
 msgid ""
 "Font ~a cannot be used via Ghostscript because it is a TrueType font that "
 "does not have glyph names."
 msgstr ""
 
-#: framework-ps.scm:343
+#: framework-ps.scm:351
 #, scheme-format
 msgid "cannot embed ~S=~S"
 msgstr ""
 
-#: framework-ps.scm:386
+#: framework-ps.scm:394
 #, scheme-format
 msgid "cannot extract file matching ~a from ~a"
 msgstr ""
 
-#: framework-ps.scm:403
+#: framework-ps.scm:411
 #, scheme-format
 msgid "do not know how to embed ~S=~S"
 msgstr ""
 
-#: framework-ps.scm:428
+#: framework-ps.scm:436
 #, scheme-format
 msgid "do not know how to embed font ~s ~s ~s"
 msgstr ""
 
-#: framework-ps.scm:810
+#: framework-ps.scm:820
 msgid ""
 "\n"
 "The PostScript backend does not support the\n"
@@ -4008,12 +4039,12 @@ msgstr ""
 msgid "quoted music `~a' is empty"
 msgstr ""
 
-#: ps-to-png.scm:72 ps-to-png.scm:75
+#: ps-to-png.scm:74 ps-to-png.scm:77
 #, scheme-format
 msgid "Copying `~a' to `~a'..."
 msgstr ""
 
-#: ps-to-png.scm:77 ps-to-png.scm:79
+#: ps-to-png.scm:79 ps-to-png.scm:81
 #, scheme-format
 msgid "Deleting `~a'..."
 msgstr ""
