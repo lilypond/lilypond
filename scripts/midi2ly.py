@@ -655,13 +655,17 @@ def dump_chord (ch):
         s = s + dump (notes[0])
     elif len (notes) > 1:
         global reference_note
+        reference_dur = reference_note.duration
         s = s + '<'
         s = s + notes[0].dump (dump_dur=False)
         r = reference_note
         for i in notes[1:]:
             s = s + i.dump (dump_dur=False)
         s = s + '>'
-        s = s + notes[0].duration.dump () + ' '
+        if (r.duration.compare (reference_dur)
+            or global_options.explicit_durations):
+            s = s + r.duration.dump ()
+        s = s + ' '
         reference_note = r
     return s
 
