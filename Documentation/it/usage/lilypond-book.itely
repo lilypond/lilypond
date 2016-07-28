@@ -142,8 +142,8 @@ tutorial.
 
 @subheading Output
 
-I documenti per \verb+lilypond-book+ possono combinare liberamente musica e testo.
-Ad esempio,
+I documenti per @command{lilypond-book} possono combinare liberamente musica
+e testo.  Ad esempio,
 
 @lilypond
 \relative {
