@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: db92af51a444062c8edaef3afa36f57375b8feeb
+   Translation of GIT committish: 97f856e8c577fdf301ac2a15b336eae8729e53f7
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -561,7 +561,7 @@ d'informations.
 @menu
 * Création de titres et entête ou pied de page::
 * Titrages personnalisés::
-* Création de métadonnées PDF::
+* Création des métadonnées des fichiers de sortie::
 * Notes de bas de page::
 * Référencement des numéros de page::
 * Table des matières::
@@ -1258,33 +1258,45 @@ fichiers d'initialisation :
 @file{../ly/titling-init.ly}.
 
 
-@node Création de métadonnées PDF
-@subsection Création de métadonnées PDF
-@translationof Creating PDF metadata
+@node Création des métadonnées des fichiers de sortie
+@subsection Création des métadonnées des fichiers de sortie
+@translationof Creating output file metadata
 
 @cindex PDF metadata
+@cindex MIDI metadata
 @cindex métadonnées PDF
+@cindex métadonnées MIDI
 
 En plus de s'imprimer sur la partition, les variables du bloc
-@code{\header} permettent de générer les métadonnées PDF (informations
-par les lecteurs de PDF en tant que @code{propriétés} du fichier PDF).
+@code{\header} permettent de générer les métadonnées des fichiers de
+sortie.  Dans le cas d'un fichier PDF, ces métadonnées pourront être
+affichées par le lecteur en tant que propriétés du document.  Quel que
+soit le type de fichier de sortie, seules seront analysées les variables
+déterminées dans le @code{\header} du bloc définissant le fichier à
+générer, ainsi que celles des blocs hiérarchiquement supérieurs. Pour les
+fichiers PDF, seules les définitions du @code{\header} en dehors ou au
+niveau d'un bloc @code{\book} affecteront les métadonnées des documents
+PDF ; pour les fichiers MIDI seront utilisées les définitions jusqu'au
+niveau @code{\score}.
+
 Par exemple, affecter « Symphony I » à la propriété @code{title} dans le
-bloc @code{\header} donnera aussi ce titre au document PDF.
+bloc @code{\header} donnera aussi ce titre au document PDF et à la
+séquence MIDI.
 
 @example
-  \header@{
-    title = "Symphony I"
-  @}
+\header@{
+  title = "Symphony I"
+@}
 @end example
 
 Lorsque le titre imprimé diffère de celui affiché en tant que propriété
 du PDF, devra être renseignée la propriété @code{pdftitle}.
 
 @example
-  \header@{
-    title = "Symphony I"
-    pdftitle = "Symphony I by Beethoven"
-  @}
+\header@{
+  title = "Symphony I"
+  pdftitle = "Symphony I by Beethoven"
+@}
 @end example
 
 Les variables @code{title}, @code{subject}, @code{keywords},
@@ -1299,6 +1311,10 @@ La propriété PDF @code{Creator} prend automatiquement la valeur
 courantes -- @code{ModDate} peut être écrasé par la variable de
 @code{\header} @code{moddate} (ou @code{pdfmoddate}) pour un horodatage
 PDF valide.
+
+La variable @code{title} détermine aussi le nom de la séquence MIDI.
+L'utilisation de la variable @code{midititle} permet d'attribuer à la
+séquence MIDI un nom différent de celui attribué au fichier imprimable.
 
 
 @node Notes de bas de page

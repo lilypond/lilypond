@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: caa4700b4acbc870158d70ee257efaa723c550f0
+   Translation of GIT committish: 97f856e8c577fdf301ac2a15b336eae8729e53f7
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -2379,6 +2379,7 @@ passage polyphonique temporaire, est expliquée à la section
 @code{\oneVoice},
 @code{\voiceOne},
 @code{\voiceTwo}.
+@endpredefined
 
 @seealso
 Manuel d'initiation :
@@ -2475,7 +2476,10 @@ du chœur.
 @end lilypond
 
 @predefined
-@code{\dynamicUp}, @code{\dynamicDown}, @code{\dynamicNeutral}.
+@code{\dynamicUp},
+@code{\dynamicDown},
+@code{\dynamicNeutral}.
+@endpredefined
 
 @seealso
 Manuel de notation :

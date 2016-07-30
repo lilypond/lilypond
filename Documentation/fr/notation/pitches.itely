@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: a1267e20afa61258ce3031f07d916e0e66ac6582
+   Translation of GIT committish: 97f856e8c577fdf301ac2a15b336eae8729e53f7
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -520,7 +520,7 @@ sont les suivants :
 et les suffixes d'altération correspondants :
 
 @quotation
-@multitable {@code{nederlands}} {-@code{s}/-@code{-sharp}} {-@code{ess}/-@code{es}} {-@code{ss}/-@code{x}/-@code{-sharpsharp}} {-@code{essess}/-@code{eses}}
+@multitable {@code{nederlands}} {-@code{s}/-@code{-sharp}} {-@code{f}/-@code{flat}} {-@code{ss}/-@code{x}/-@code{-sharpsharp}} {-@code{essess}/-@code{eses}}
 @headitem Langue
   @tab dièse @tab bémol @tab double dièse @tab double bémol
 @item @code{nederlands}
@@ -1200,6 +1200,14 @@ la commande @code{\set Staff.forceClef = ##t}.
   \clef treble
   c'1
 @end lilypond
+
+@noindent
+Pour être plus précis, la commande @code{\clef} n'a pas pour fonction
+d'imprimer une clef ; elle détermine ou modifie une propriété attachée
+au graveur de clefs (le @code{Clef_engraver}), qui décide de son propre
+chef quand doit être affichée une clef dans la portée en cours.  La
+propriété @code{forceClef} ne vient que forcer la décision de réimprimer
+une fois la clef en un point donné.
 
 Le symbole imprimé lors d'un changement de clef est plus petit que la
 clef initiale.  La taille peut toutefois être ajustée.
