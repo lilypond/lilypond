@@ -328,7 +328,7 @@
        ((and (string? bare-file-name)
              (eq? (ly:get-font-format bare-file-name font-index) 'CFF)
              (is-collection-font? bare-file-name))
-        (ly:warning (_ "Font ~a cannot be loaded via Ghostscript because it is an OpenType/CFF (OTC) font.")
+        (ly:warning (_ "Font ~a cannot be loaded via Ghostscript because it is an OpenType/CFF Collection (OTC) font.")
                     name)
         (load-font font-name-filename))
        ((and (string? bare-file-name)

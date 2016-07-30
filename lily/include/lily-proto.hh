@@ -24,7 +24,7 @@
 
 class All_font_metrics;
 class Audio_column;
-class Audio_control_function_value_change;
+class Audio_control_change;
 class Audio_dynamic;
 class Audio_element;
 class Audio_instrument;
@@ -90,7 +90,8 @@ class Lyric_engraver;
 class Lyric_performer;
 class Mensural_ligature_engraver;
 class Midi_chunk;
-class Midi_control_function_value_change;
+class Midi_control_change;
+class Midi_control_change_announcer;
 class Midi_duration;
 class Midi_dynamic;
 class Midi_event;

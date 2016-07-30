@@ -19,6 +19,7 @@
 
 #include "midi-item.hh"
 
+#include "audio-column.hh"
 #include "duration.hh"
 #include "international.hh"
 #include "libc-extension.hh"
@@ -42,8 +43,6 @@ Midi_item::get_midi (Audio_item *a)
     return i->str_.length () ? new Midi_instrument (i) : 0;
   else if (Audio_note *i = dynamic_cast<Audio_note *> (a))
     return new Midi_note (i);
-  else if (Audio_dynamic *i = dynamic_cast<Audio_dynamic *> (a))
-    return new Midi_dynamic (i);
   else if (Audio_piano_pedal *i = dynamic_cast<Audio_piano_pedal *> (a))
     return new Midi_piano_pedal (i);
   else if (Audio_tempo *i = dynamic_cast<Audio_tempo *> (a))
@@ -52,9 +51,8 @@ Midi_item::get_midi (Audio_item *a)
     return new Midi_time_signature (i);
   else if (Audio_text *i = dynamic_cast<Audio_text *> (a))
     return new Midi_text (i);
-  else if (Audio_control_function_value_change *i
-           = dynamic_cast<Audio_control_function_value_change *> (a))
-    return new Midi_control_function_value_change (i);
+  else if (Audio_control_change *i = dynamic_cast<Audio_control_change *> (a))
+    return new Midi_control_change (i);
   else
     assert (0);
 
@@ -106,9 +104,9 @@ Midi_channel_item::Midi_channel_item (Audio_item *ai)
 {
 }
 
-Midi_control_function_value_change
-::Midi_control_function_value_change (Audio_control_function_value_change *ai)
-  : Midi_channel_item (ai), control_ (ai->control_), value_ (ai->value_)
+Midi_control_change::Midi_control_change (Audio_control_change *ai)
+  : Midi_channel_item (ai),
+    audio_ (ai)
 {
 }
 
@@ -120,7 +118,7 @@ Midi_channel_item::~Midi_channel_item ()
 {
 }
 
-Midi_control_function_value_change::~Midi_control_function_value_change ()
+Midi_control_change::~Midi_control_change ()
 {
 }
 
@@ -193,8 +191,8 @@ Midi_time_signature::to_string () const
 Midi_note::Midi_note (Audio_note *a)
   : Midi_channel_item (a),
     audio_ (a),
-    dynamic_byte_ (min (max (Byte ((a->dynamic_ && a->dynamic_->volume_ >= 0
-                                    ? a->dynamic_->volume_ * 0x7f : 0x5a)
+    dynamic_byte_ (min (max (Byte ((a->dynamic_
+                                    ? a->dynamic_->get_volume (a->audio_column_->when ()) * 0x7f : 0x5a)
                                    + a->extra_velocity_),
                              Byte (0)), Byte (0x7f)))
 {
@@ -275,40 +273,6 @@ Midi_note_off::to_string () const
   return str;
 }
 
-Midi_dynamic::Midi_dynamic (Audio_dynamic *a)
-  : Midi_channel_item (a),
-    audio_ (a)
-{
-}
-
-string
-Midi_dynamic::to_string () const
-{
-  Byte status_byte = (char) (0xB0 + channel_);
-  string str = ::to_string ((char)status_byte);
-
-  /*
-    Main volume controller (per channel):
-    07 MSB
-    27 LSB
-  */
-  static Real const full_scale = 127;
-
-  int volume = (int) (audio_->volume_ * full_scale);
-  if (volume <= 0)
-    volume = 1;
-  if (volume > full_scale)
-    volume = (int)full_scale;
-
-  int const volume_default = 100;
-  if (audio_->volume_ < 0 || audio_->silent_)
-    volume = volume_default;
-
-  str += ::to_string ((char)0x07);
-  str += ::to_string ((char)volume);
-  return str;
-}
-
 Midi_piano_pedal::Midi_piano_pedal (Audio_piano_pedal *a)
   : Midi_channel_item (a),
     audio_ (a)
@@ -363,63 +327,12 @@ Midi_text::to_string () const
 }
 
 string
-Midi_control_function_value_change::to_string () const
+Midi_control_change::to_string () const
 {
-  // MIDI control function information.  A MIDI control function may have one
-  // or two assigned control numbers depending on whether it supports coarse
-  // (7-bit) or fine (14-bit) resolution.  If the control function supports
-  // fine resolution, the first (respectively, second) member of the structure
-  // represents the control number for setting the most (least) significant 7
-  // bits of the control function's value.
-  struct Control_function
-  {
-    int msb_control_number_;
-    int lsb_control_number_;
-  };
-
-  // Mapping from supported control functions (enumeration values defined in
-  // Audio_controller_value_change::Control) to the corresponding MIDI control
-  // numbers.
-  static const Control_function control_functions[] =
-    {
-      // When adding support for new control functions, please note the
-      // following:
-      // - The order of the control number definitions should be kept
-      //   consistent with the order of the enumeration values defined in
-      //   Audio_control_function_value_change::Control.
-      // - If the control function has only coarse resolution, the function's
-      //   control number should be stored in the MSB member of the array
-      //   element, and the LSB member should be set to a negative value.
-
-      {  8, 40 }, // balance
-      { 10, 42 }, // pan position
-      { 11, 43 }, // expression
-      { 91, -1 }, // reverb level (only coarse resolution available)
-      { 93, -1 }  // chorus level (only coarse resolution available)
-    };
-
-  string str;
-  const Control_function *control_function = &control_functions[control_];
-  static const Real full_fine_scale = 0x3FFF;
-  static const Real full_coarse_scale = 0x7F;
-  bool fine_resolution = (control_function->lsb_control_number_ >= 0);
-  // value_ is in range [0.0 .. 1.0].  For directional value ranges,
-  // #CENTER will correspond to 0.5 exactly, and my_round rounds
-  // upwards when in case of doubt.  That means that center position
-  // will round to 0x40 or 0x2000 by a hair's breadth.
-  int value = (int) my_round (value_ * (fine_resolution ?
-                                        full_fine_scale : full_coarse_scale));
   Byte status_byte = (char) (0xB0 + channel_);
-  str += ::to_string ((char)status_byte);
-  str += ::to_string ((char)(control_function->msb_control_number_));
-  str += ::to_string ((char)(fine_resolution ? (value >> 7) : value));
-  if (fine_resolution)
-    {
-      str += ::to_string ((char)0x00);
-      str += ::to_string ((char)status_byte);
-      str += ::to_string ((char)(control_function->lsb_control_number_));
-      str += ::to_string ((char)(value & 0x7F));
-    }
+  string str = ::to_string ((char)status_byte);
+  str += ::to_string ((char) (audio_->control_));
+  str += ::to_string ((char) (audio_->value_));
   return str;
 }
 

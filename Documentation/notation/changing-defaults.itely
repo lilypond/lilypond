@@ -522,8 +522,8 @@ Notation Reference:
 
 Contexts are usually terminated at the first musical moment in
 which they have nothing to do.  So @code{Voice} contexts die as
-soon as they contain no events; @code{Staff} contexts die as soon
-as all the @code{Voice} contexts within them contain no events; etc.
+soon as they contain no events, @code{Staff} contexts die as soon
+as all the @code{Voice} contexts within them contain no events, etc.
 This can cause difficulties if earlier contexts which have died
 have to be referenced, for example, when changing staves with
 @code{\change} commands, associating lyrics with a voice with
@@ -1952,7 +1952,7 @@ the @code{#}@tie{}character.
 
 Contexts properties are usually named in
 @code{studlyCaps}.  They mostly control the translation from
-music to notation, e.g. @code{localAlterations} (for determining
+music to notation, e.g., @code{localAlterations} (for determining
 whether to print accidentals), or @code{measurePosition} (for
 determining when to print a bar line).  Context properties can
 change value over time while interpreting a piece of music;
@@ -2436,7 +2436,7 @@ a context will still show the values of their respective parent's
 context.
 
 The lifetime and value of a context property is dynamic and only
-available when music is being interpreted (i.e. @q{iterated}).  At the
+available when music is being interpreted (i.e., @q{iterated}).  At the
 time of the context's creation, properties are initialized from its
 corresponding definitions (along with any other modifications) of that
 context.  Any subsequent changes are achieved with any
@@ -2467,7 +2467,7 @@ own grob definition.
 
 Grob definitions are accessed with a different set of commands and are
 manipulated using @code{\override} and @code{\revert} and have a name
-starting with a capital letter (e.g. @samp{NoteHead}); whereas normal
+starting with a capital letter (e.g., @samp{NoteHead}); whereas normal
 context properties are manipulated using @code{\set} and @code{\unset}
 and are named starting with a lowercase letter.
 
@@ -2715,7 +2715,7 @@ be desirable to force a particular direction or placement.
 @node Articulation direction indicators
 @unnumberedsubsubsec Articulation direction indicators
 
-By default some directions are always up or always down (e.g.
+By default some directions are always up or always down (e.g.,
 dynamics or fermata), while other things can alternate between
 up or down based on the stem direction (like slurs or accents).
 
@@ -2732,9 +2732,9 @@ but a direction indicator is @strong{always} required before
 @item @code{\tweak} commands
 @item @code{\markup} commands
 @item @code{\tag} commands
-@item string markups, e.g. -"string"
-@item fingering instructions, e.g. @w{@code{-1}}
-@item articulation shortcuts, e.g. @w{@code{-.}}, @w{@code{->}}, @w{@code{--}}
+@item string markups, e.g., -"string"
+@item fingering instructions, e.g., @w{@code{-1}}
+@item articulation shortcuts, e.g., @w{@code{-.}}, @w{@code{->}}, @w{@code{--}}
 @end itemize
 
 Direction indicators affect only the next note:
@@ -3505,7 +3505,7 @@ to print them and @code{all-invisible} to suppress them.
 
 The @code{break-visibility} property controls the visibility of
 key signatures and changes of clef only at the start of lines,
-i.e. after a break.  It has no effect on the visibility of the
+i.e., after a break.  It has no effect on the visibility of the
 key signature or clef following an explicit key change or an
 explicit clef change within or at the end of a line.  In the
 following example the key signature following the explicit change
@@ -4146,7 +4146,7 @@ The VerticalAlignment and VerticalAxisGroup grobs work together.
 VerticalAxisGroup groups together different grobs like Staff, Lyrics,
 etc.  VerticalAlignment then vertically aligns the different grobs
 grouped together by VerticalAxisGroup.  There is usually only one
-VerticalAlignment per score but every Staff, Lyrics, etc. has its own
+VerticalAlignment per score but every Staff, Lyrics, etc., has its own
 VerticalAxisGroup.
 
 
@@ -4567,7 +4567,7 @@ Extending LilyPond:
 
 Unpure-pure containers are useful for overriding @emph{Y-axis} spacing
 calculations - specifically @code{Y-offset} and @code{Y-extent} - with a
-Scheme function instead of a literal (i.e. a number or pair).
+Scheme function instead of a literal (i.e., a number or pair).
 
 For certain grobs, the @code{Y-extent} is based on the @code{stencil}
 property, overriding the stencil property of one of these will

@@ -63,7 +63,7 @@ introduction to this notation is to be found in
 @item
 Vocal music is likely to require the use of @code{markup} mode,
 either for lyrics or for other text elements (characters' names,
-etc.)  This syntax is described in @ref{Text markup introduction}.
+etc.).  This syntax is described in @ref{Text markup introduction}.
 
 @item
 @notation{Ambitus} may be added at the beginning of vocal staves,
@@ -791,11 +791,11 @@ should be included in the melisma:
 
 
 @predefined
-
 @code{\autoBeamOff},
 @code{\autoBeamOn},
 @code{\melisma},
 @code{\melismaEnd}.
+@endpredefined
 
 @seealso
 Musical Glossary:
@@ -1902,7 +1902,7 @@ are to be ignored.
 @cindex grace notes and lyrics
 @cindex lyrics on grace notes
 
-By default, grace notes (e.g. via @code{\grace}) do not get assigned
+By default, grace notes (e.g., via @code{\grace}) do not get assigned
 syllables when using @code{\lyricsto}, but this behavior can be
 changed:
 
@@ -2300,6 +2300,7 @@ When a vocal part temporarily splits, you should use
 @code{\oneVoice},
 @code{\voiceOne},
 @code{\voiceTwo}.
+@endpredefined
 
 @seealso
 Learning Manual:
@@ -2392,7 +2393,10 @@ above their respective staves, as shown here:
 @end lilypond
 
 @predefined
-@code{\dynamicUp}, @code{\dynamicDown}, @code{\dynamicNeutral}.
+@code{\dynamicUp},
+@code{\dynamicDown},
+@code{\dynamicNeutral}.
+@endpredefined
 
 @seealso
 Notation Reference:

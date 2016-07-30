@@ -615,8 +615,8 @@ replace @code{2.15.33-1} with the latest build):
 @uref{http://lilypond.org/downloads/binaries/test-output/lilypond-2.15.33-1.test-output.tar.bz2}
 @end smallexample
 
-Copy the tarball into @file{gub/regtests/}, and tell the build
-system that you have done this:
+Copy the tarball into @file{regtests/}, and tell the build system that
+you have done this:
 
 @example
 touch regtests/ignore

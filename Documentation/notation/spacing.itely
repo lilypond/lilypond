@@ -570,20 +570,20 @@ the distance between two (title or top-level) markups.
 @funindex last-bottom-spacing
 
 the distance from the last system or top-level markup on a page to
-the bottom of the printable area (i.e. the top of the bottom
+the bottom of the printable area (i.e., the top of the bottom
 margin).
 
 @item top-system-spacing
 @funindex top-system-spacing
 
-the distance from the top of the printable area (i.e. the bottom
+the distance from the top of the printable area (i.e., the bottom
 of the top margin) to the first system on a page, when there is no
 (title or top-level) markup between the two.
 
 @item top-markup-spacing
 @funindex top-markup-spacing
 
-the distance from the top of the printable area (i.e. the bottom
+the distance from the top of the printable area (i.e., the bottom
 of the top margin) to the first (title or top-level) markup on a
 page, when there is no system between the two.
 @end table
@@ -927,7 +927,7 @@ scores (if there are two or more scores), or by ending a score on an
 even-numbered page.  The values of the following three variables may
 be increased to make these actions less likely.
 
-The values are penalties, i.e. the higher the value the less likely
+The values are penalties, i.e., the higher the value the less likely
 will be the associated action relative to other choices.
 
 @table @code
@@ -1431,7 +1431,7 @@ issue:
 @end lilypond
 
 A @code{\break} command that occurrs at a bar line will also ignored if
-the previous measure ends in the middle of a note (e.g. when a tuplet
+the previous measure ends in the middle of a note (e.g., when a tuplet
 begins in one measure and ends in another).  In this case remove the
 @code{Forbid_line_break_engraver} from the @code{Voice} context and,
 use a simultaneous music construction inserting the @code{\break} at the
@@ -1943,7 +1943,7 @@ non-staff line if @code{staff-affinity} is @code{UP}.
 
 Each distance is measured between the @emph{reference points} of
 the two items.  The reference point for a staff is the vertical
-center of its @code{StaffSymbol} (i.e. the middle line if
+center of its @code{StaffSymbol} (i.e., the middle line if
 @code{line-count} is odd; the middle space if @code{line-count} is
 even).  The reference points for individual non-staff lines are
 given in the following table:
@@ -2107,7 +2107,7 @@ non-staff line.  Choices are @code{UP}, @code{DOWN}, and
 placed equidistant between the two nearest staves on either side,
 unless collisions or other spacing constraints prevent this.
 Adjacent non-staff lines should have non-increasing
-@code{staff-affinity} from top to bottom, e.g. a non-staff line
+@code{staff-affinity} from top to bottom, e.g., a non-staff line
 set to @code{UP} should not immediately follow one that is set to
 @code{DOWN}.  Non-staff lines at the top of a system should use
 @code{DOWN}; those at the bottom should use @code{UP}.  Setting
@@ -2333,7 +2333,7 @@ Internals Reference:
 
 @emph{Non-staff lines} (such as @code{Lyrics}, @code{ChordNames},
 etc.) are contexts whose layout objects are engraved like staves
-(i.e. in horizontal lines within systems).  Specifically,
+(i.e., in horizontal lines within systems).  Specifically,
 non-staff lines are non-staff contexts that contain the
 @rinternals{Axis_group_engraver}.
 

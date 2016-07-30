@@ -333,7 +333,7 @@ Real
 Grob::relative_coordinate (Grob const *refp, Axis a) const
 {
   /* eaa - hmmm, should we do a programming_error() here? */
-  if ((this == NULL) || (refp == this))
+  if (refp == this)
     return 0.0;
 
   /* We catch PARENT_L_ == nil case with this, but we crash if we did
@@ -342,7 +342,8 @@ Grob::relative_coordinate (Grob const *refp, Axis a) const
   if (refp == dim_cache_[a].parent_)
     return off;
 
-  off += dim_cache_[a].parent_->relative_coordinate (refp, a);
+  if (dim_cache_[a].parent_ != NULL)
+    off += dim_cache_[a].parent_->relative_coordinate (refp, a);
 
   return off;
 }

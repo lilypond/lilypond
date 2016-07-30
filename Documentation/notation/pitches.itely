@@ -456,7 +456,7 @@ Internals Reference:
 
 @knownissues
 There are no generally accepted standards for denoting
-quarter-tone accidentals, so LilyPond's symbol does not conform to
+quarter-tone accidentals, so LilyPond's symbols do not conform to
 any standard.
 
 
@@ -518,7 +518,7 @@ In addition to note names, accidental suffixes may
 also vary depending on the language:
 
 @quotation
-@multitable {@code{nederlands}} {-@code{s}/-@code{-sharp}} {-@code{ess}/-@code{es}} {-@code{ss}/-@code{x}/-@code{-sharpsharp}} {-@code{essess}/-@code{eses}}
+@multitable {@code{nederlands}} {-@code{s}/-@code{-sharp}} {-@code{f}/-@code{-flat}} {-@code{ss}/-@code{x}/-@code{-sharpsharp}} {-@code{ff}/-@code{-flatflat}}
 @headitem Language
   @tab sharp @tab flat @tab double sharp @tab double flat
 @item @code{nederlands}
@@ -841,7 +841,7 @@ relative mode within transposed music, an additional @code{\relative}
 must be placed inside @code{\transpose}.
 
 Triple accidentals will not be printed if using @code{\transpose}. An
-@q{enharmonically equivalent} pitch will be used instead (e.g. d-flat
+@q{enharmonically equivalent} pitch will be used instead (e.g., d-flat
 rather than e-triple-flat).
 
 
@@ -1213,6 +1213,13 @@ will be ignored.  The command
   \clef treble
   c'1
 @end lilypond
+
+@noindent
+To be more precise, it is not the @code{\clef} command itself that
+prints a clef.  Instead, it sets or changes a property of the
+@code{Clef_engraver}, which then decides by its own whether to
+display a clef or not in the current staff.  The @code{forceClef}
+property overrides this decision locally to re-print a clef once.
 
 When there is a manual clef change, the glyph of the changed clef
 will be smaller than normal.  This behaviour can be overridden.

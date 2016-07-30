@@ -1224,7 +1224,7 @@ information, see @ref{Ties}.
 @code{\arpeggioArrowDown},
 @code{\arpeggioNormal},
 @code{\arpeggioBracket},
-@code{\arpeggioParenthesis}
+@code{\arpeggioParenthesis},
 @code{\arpeggioParenthesisDashed}.
 @endpredefined
 

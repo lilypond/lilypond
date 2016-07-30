@@ -365,9 +365,9 @@ A direct scheme expression, such as
 @code{#(ly:set-option 'point-and-click #f)}.
 
 @item
-A @code{\header} block.  This sets the global (i.e. the top of
+A @code{\header} block.  This sets the global (i.e., the top of
 file) header block.  This is the block containing the default
-settings of titling fields like composer, title, etc. for all
+settings of titling fields like composer, title, etc., for all
 books within the file (see @ref{Titles explained}).
 
 @item
@@ -496,11 +496,11 @@ circumstances to avoid errors:
 
 @item Around every opening and closing curly bracket.
 
-@item After every command or variable, i.e. every item that
+@item After every command or variable, i.e., every item that
 begins with a @code{\} sign.
 
 @item After every item that is to be interpreted as a Scheme
-expression, i.e. every item that begins with a @code{#}@tie{}sign.
+expression, i.e., every item that begins with a @code{#}@tie{}sign.
 
 @item To separate all elements of a Scheme expression.
 
@@ -531,7 +531,7 @@ some pieces include a lot more information.
 @menu
 * Creating titles headers and footers::
 * Custom titles headers and footers::
-* Creating PDF metadata::
+* Creating output file metadata::
 * Creating footnotes::
 * Reference to page numbers::
 * Table of contents::
@@ -1128,7 +1128,7 @@ variable = \markup @{
 
 The @var{procedure} is called each time the @code{\markup} command
 in which it appears is evaluated.  The @var{procedure} should test
-for a particular condition and interpret (i.e. print) the
+for a particular condition and interpret (i.e., print) the
 @var{markup} argument if and only if the condition is true.
 
 A number of ready-made procedures for testing various conditions are
@@ -1200,21 +1200,30 @@ Notation Reference:
 Installed Files:
 @file{../ly/titling-init.ly}.
 
-@node Creating PDF metadata
-@subsection Creating PDF metadata
+@node Creating output file metadata
+@subsection Creating output file metadata
 
 @cindex PDF metadata
+@cindex MIDI metadata
 
 In addition to being shown in the printed output, @code{\header} variables
-are also used to set PDF metadata (the information displayed by PDF readers
-as the @code{properties} of the PDF file).  For example, setting the
-@code{title} property of the @code{header} block @q{Symphony I} will also give
-this title to the PDF document.
+are also used to set metadata for output files.  For example, with PDF
+files, this metadata could be displayed by PDF readers as the
+@code{properties} of the PDF file.  For each type of output file, only the
+@code{\header} definitions of blocks that define separate files of that
+type, and blocks higher in the block hierarchy, will be consulted.
+Therefore, for PDF files, only the @code{\book} level and the top level
+@code{\header} definitions affect the document-wide PDF metadata, whereas
+for MIDI files, all headers above or at the @code{\score} level are used.
+
+For example, setting the @code{title} property of the @code{header} block
+to @q{Symphony I} will also give this title to the PDF document, and use
+it as the sequence name of the MIDI file.
 
 @example
-  \header@{
-    title = "Symphony I"
-  @}
+\header@{
+  title = "Symphony I"
+@}
 @end example
 
 If you want to set the title of the printed output to one value, but have the
@@ -1222,10 +1231,10 @@ title property of the PDF to have a different value, you can use
 @code{pdftitle}, as below.
 
 @example
-  \header@{
-    title = "Symphony I"
-    pdftitle = "Symphony I by Beethoven"
-  @}
+\header@{
+  title = "Symphony I"
+  pdftitle = "Symphony I by Beethoven"
+@}
 @end example
 
 The variables @code{title}, @code{subject}, @code{keywords},
@@ -1238,6 +1247,10 @@ the current LilyPond version, and @code{CreationDate} and @code{ModDate} are
 both set to the current date and time.  @code{ModDate} can be overridden by
 setting the header variable @code{moddate} (or @code{pdfmoddate}) to a
 valid PDF date string.
+
+The @code{title} variable sets also the sequence name for MIDI.  The
+@code{midititle} variable can be used to set the sequence name
+independently of the value used for typeset output.
 
 @node Creating footnotes
 @subsection Creating footnotes
@@ -1325,7 +1338,7 @@ left/bottom edge and zero implies the mark is centered on the edge.
 
 @item Context
 is the context in which the grob being footnoted is created.  It
-may be omitted if the grob is in a bottom context, e.g. a
+may be omitted if the grob is in a bottom context, e.g., a
 @code{Voice} context.
 
 @item GrobName
@@ -2206,7 +2219,7 @@ followed by a music expression.  If @emph{and only if} the symbols
 are valid LilyPond identifiers (alphabetic characters only, no
 numbers, underscores, or dashes) which cannot be confused with notes,
 the @code{#'} may be omitted and, as a shorthand, a list of symbols
-can use the dot separator: i.e. @code{\tag #'(violinI violinII)} can
+can use the dot separator: i.e., @code{\tag #'(violinI violinII)} can
 be written @code{\tag violinI.violinII}.  The same applies to
 @code{\keepWithTag} and @code{\removeWithTag}.
 
@@ -2251,7 +2264,7 @@ music = \relative {
 }
 @end lilypond
 
-Tagged filtering can be applied to articulations, texts, etc. by
+Tagged filtering can be applied to articulations, texts, etc., by
 prepending
 
 @example
@@ -2728,7 +2741,7 @@ in your source file.  This will render only the last 5 measures
 (assuming 4/4 time signature) of every @code{\score} in the input
 file.  For longer pieces, rendering only a small part is often an order
 of magnitude quicker than rendering it completely.  When working on the
-beginning of a score you have already typeset (e.g. to add a new part),
+beginning of a score you have already typeset (e.g., to add a new part),
 the @code{showFirstLength} property may be useful as well.
 
 Skipping parts of a score can be controlled in a more fine-grained
@@ -2882,7 +2895,7 @@ following (without taking dots into account).  For example;
 @noindent
 The c will take the value of a crotchet.
 
-@item Ornaments (i.e. mordents, trills and turns et al.)
+@item Ornaments (i.e., mordents, trills and turns et al.)
 @item Rallentando, accelerando, ritardando and a tempo
 @item Slurs, including phrasing slurs
 @item Tenuto
@@ -2907,8 +2920,8 @@ and portato
 @item Glissandi
 @item Falls and doits
 @item Microtonal chords
-@item Rhythms entered as annotations, e.g. swing
-@item Tempo changes without @code{\tempo} (e.g. entered as annotations)
+@item Rhythms entered as annotations, e.g., swing
+@item Tempo changes without @code{\tempo} (e.g., entered as annotations)
 @item Tremolos that @emph{are} entered with a @q{@code{:}[@var{number}]}
 value
 @end itemize
@@ -2930,8 +2943,8 @@ To create a MIDI output file from a LilyPond input file, insert a
 @}
 @end example
 
-@warning{ A @code{@bs{}score} block that, as well as the music, contains
-only a @code{@bs{}midi} block (i.e. @emph{without} the @code{@bs{}layout}
+@warning{A @code{@bs{}score} block that, as well as the music, contains
+only a @code{@bs{}midi} block (i.e., @emph{without} the @code{@bs{}layout}
 block), will only produce MIDI output files.  No notation will be
 printed.}
 
@@ -2952,7 +2965,8 @@ either the @code{\book}, @code{\bookpart} or @code{\score} blocks.  See
 
 @seealso
 Notation Reference:
-@ref{File structure}.
+@ref{File structure},
+@ref{Creating output file metadata}.
 
 Installed Files:
 @file{scm/midi.scm}.

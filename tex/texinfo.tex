@@ -3,7 +3,7 @@
 % Load plain if necessary, i.e., if running under initex.
 \expandafter\ifx\csname fmtname\endcsname\relax\input plain\fi
 %
-\def\texinfoversion{2016-05-26.20}
+\def\texinfoversion{2016-07-20.14}
 %
 % Copyright 1985, 1986, 1988, 1990, 1991, 1992, 1993, 1994, 1995,
 % 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006,
@@ -1192,6 +1192,7 @@ where each line of input produces a line of output.}
   \ifx\pdfescapestring\thisisundefined
     % No primitive available; should we give a warning or log?
     % Many times it won't matter.
+    \xdef#1{#1}%
   \else
     % The expandable \pdfescapestring primitive escapes parentheses,
     % backslashes, and other special chars.
@@ -1311,8 +1312,10 @@ output) for that.)}
     % We have to set dummies so commands such as @code, and characters
     % such as \, aren't expanded when present in a section title.
     \indexnofonts
-    \turnoffactive
     \makevalueexpandable
+    \turnoffactive
+    % Use ASCII approximations in destination names.
+    \passthroughcharsfalse
     \def\pdfdestname{#1}%
     \txiescapepdf\pdfdestname
     \safewhatsit{\pdfdest name{\pdfdestname} xyz}%
@@ -1357,8 +1360,21 @@ output) for that.)}
       \fi
       %
       % Also escape PDF chars in the display string.
-      \edef\pdfoutlinetext{#1}%
-      \txiescapepdf\pdfoutlinetext
+      \bgroup
+        \ifx \declaredencoding \latone
+          % The PDF format can use an extended form of Latin-1 in bookmark
+          % strings.  See Appendix D of the PDF Reference, Sixth Edition, for
+          % the "PDFDocEncoding".
+          \passthroughcharstrue
+        \fi
+        \ifx \declaredencoding \utfeight
+          % TODO: the PDF format can use UTF-16 in bookmark strings, but the
+          % code for this isn't done yet.
+        \fi
+        \globaldefs=1
+        \edef\pdfoutlinetext{#1}%
+        \txiescapepdf\pdfoutlinetext
+      \egroup
       %
       \pdfoutline goto name{\pdfmkpgn{\pdfoutlinedest}}#2{\pdfoutlinetext}%
     }
@@ -1525,11 +1541,21 @@ output) for that.)}
   %
   % XeTeX version check
   %
-  \ifnum\strcmp{\the\XeTeXversion\XeTeXrevision}{0.99995}>-1
+  \ifnum\strcmp{\the\XeTeXversion\XeTeXrevision}{0.99996}>-1
+    % TeX Live 2016 contains XeTeX 0.99996 and xdvipdfmx 20160307.
+    % It can be used `dvipdfmx:config' special (from TeX Live SVN r40941).
+    % For avoiding PDF destination name replacement, we use the special
+    % instead of xdvipdfmx commandline option `-C 0x0010'.
+    \special{dvipdfmx:config C 0x0010}
     % XeTeX 0.99995+ contains xdvipdfmx 20160307+.
     % It can handle Unicode destination name for PDF.
     \txiuseunicodedestnametrue
   \else
+    % XeTeX < 0.99996 (TeX Live < 2016) cannot be used
+    % `dvipdfmx:config' special.
+    % So for avoiding PDF destination name replacement,
+    % xdvipdfmx commandline option `-C 0x0010' is necessary.
+    %
     % XeTeX < 0.99995 can not handle Unicode destination name for PDF
     % because xdvipdfmx 20150315 has UTF-16 convert issue.
     % It fixed by xdvipdfmx 20160106 (TeX Live SVN r39753).
@@ -1540,7 +1566,7 @@ output) for that.)}
   %
   % Emulate the primitive of pdfTeX
   \def\pdfdest name#1 xyz{%
-    \special{pdf:dest (name#1) [@thispage /XYZ @xpos @ypos]}%
+    \special{pdf:dest (name#1) [@thispage /XYZ @xpos @ypos null]}%
   }
   \def\pdfmkdest#1{{%
     % We have to set dummies so commands such as @code, and characters
@@ -3870,7 +3896,7 @@ end
 
 
 \message{tables,}
-% Tables -- @table, @ftable, @vtable, @item(x).
+% Tables -- @table, @ftable, @ktable, @vtable, @item(x).
 
 % default indentation of table text
 \newdimen\tableindent \tableindent=.8in
@@ -3882,7 +3908,7 @@ end
 % used internally for \itemindent minus \itemmargin
 \newdimen\itemmax
 
-% Note @table, @ftable, and @vtable define @item, @itemx, etc., with
+% Note @table, @ftable, @ktable and @vtable define @item, @itemx, etc., with
 % these defs.
 % They also define \itemindex
 % to index the item name in whatever manner is desired (perhaps none).
@@ -3950,7 +3976,7 @@ end
 \def\item{\errmessage{@item while not in a list environment}}
 \def\itemx{\errmessage{@itemx while not in a list environment}}
 
-% @table, @ftable, @vtable.
+% @table, @ftable, @ktable, @vtable.
 \envdef\table{%
   \let\itemindex\gobble
   \tablecheck{table}%
@@ -3958,6 +3984,10 @@ end
 \envdef\ftable{%
   \def\itemindex ##1{\doind {fn}{\code{##1}}}%
   \tablecheck{ftable}%
+}
+\envdef\ktable{%
+  \def\itemindex ##1{\doind {ky}{\code{##1}}}%
+  \tablecheck{ktable}%
 }
 \envdef\vtable{%
   \def\itemindex ##1{\doind {vr}{\code{##1}}}%
@@ -4002,6 +4032,7 @@ end
 }
 \def\Etable{\endgraf\afterenvbreak}
 \let\Eftable\Etable
+\let\Ektable\Etable
 \let\Evtable\Etable
 \let\Eitemize\Etable
 \let\Eenumerate\Etable
@@ -4609,11 +4640,23 @@ end
 % Like \expandablevalue, but completely expandable (the \message in the
 % definition above operates at the execution level of TeX).  Used when
 % writing to auxiliary files, due to the expansion that \write does.
+% If flag is undefined, pass through an unexpanded @value command: maybe it 
+% will be set by the time it is read back in.
 %
 % NB flag names containing - or _ may not work here.
 \def\dummyvalue#1{%
   \expandafter\ifx\csname SET#1\endcsname\relax
-    [No value for ``#1'']%
+    \noexpand\value{#1}%
+  \else
+    \csname SET#1\endcsname
+  \fi
+}
+
+% Used for @value's in index entries to form the sort key: expand the @value
+% if possible, otherwise sort late.
+\def\indexnofontsvalue#1{%
+  \expandafter\ifx\csname SET#1\endcsname\relax
+    ZZZZZZZ
   \else
     \csname SET#1\endcsname
   \fi
@@ -4760,7 +4803,7 @@ end
 
 % Define \doindex, the driver for all index macros.
 % Argument #1 is generated by the calling \fooindex macro,
-% and it the two-letter name of the index.
+% and it is the two-letter name of the index.
 
 \def\doindex#1{\edef\indexname{#1}\parsearg\doindexxxx}
 \def\doindexxxx #1{\doind{\indexname}{#1}}
@@ -4769,6 +4812,7 @@ end
 \def\docodeindex#1{\edef\indexname{#1}\parsearg\docodeindexxxx}
 \def\docodeindexxxx #1{\doind{\indexname}{\code{#1}}}
 
+
 % Used when writing an index entry out to an index file to prevent
 % expansion of Texinfo commands that can appear in an index entry.
 %
@@ -4787,9 +4831,11 @@ end
   \def\}{{\tt\char125}}%
   %
   % Do the redefinitions.
-  \commondummies
+  \definedummies
 }
 
+% Used for the aux and toc files, where @ is the escape character.
+%
 % For the aux and toc files, @ is the escape character.  So we want to
 % redefine everything using @ as the escape character (instead of
 % \realbackslash, still used for index files).  When everything uses @,
@@ -4802,30 +4848,35 @@ end
   \let\} = \rbraceatcmd
   %
   % Do the redefinitions.
-  \commondummies
+  \definedummies
   \otherbackslash
 }
 
-% Called from \indexdummies and \atdummies.
+% \definedummyword defines \#1 as \string\#1\space, thus effectively
+% preventing its expansion.  This is used only for control words,
+% not control letters, because the \space would be incorrect for
+% control characters, but is needed to separate the control word
+% from whatever follows.
 %
-\def\commondummies{%
-  % \definedummyword defines \#1 as \string\#1\space, thus effectively
-  % preventing its expansion.  This is used only for control words,
-  % not control letters, because the \space would be incorrect for
-  % control characters, but is needed to separate the control word
-  % from whatever follows.
+% These can be used both for control words that take an argument and
+% those that do not.  If it is followed by {arg} in the input, then
+% that will dutifully get written to the index (or wherever).
+%
+% For control letters, we have \definedummyletter, which omits the
+% space.
+%
+\def\definedummyword  #1{\def#1{\string#1\space}}%
+\def\definedummyletter#1{\def#1{\string#1}}%
+\let\definedummyaccent\definedummyletter
+
+% Called from \indexdummies and \atdummies, to effectively prevent
+% the expansion of commands.
+%
+\def\definedummies{%
   %
-  % For control letters, we have \definedummyletter, which omits the
-  % space.
-  %
-  % These can be used both for control words that take an argument and
-  % those that do not.  If it is followed by {arg} in the input, then
-  % that will dutifully get written to the index (or wherever).
-  %
-  \def\definedummyword  ##1{\def##1{\string##1\space}}%
-  \def\definedummyletter##1{\def##1{\string##1}}%
-  \let\definedummyaccent\definedummyletter
-  %
+  \let\commondummyword\definedummyword
+  \let\commondummyletter\definedummyletter
+  \let\commondummyaccent\definedummyaccent
   \commondummiesnofonts
   %
   \definedummyletter\_%
@@ -4910,77 +4961,77 @@ end
   \normalturnoffactive
 }
 
-% \commondummiesnofonts: common to \commondummies and \indexnofonts.
-% Define \definedumyletter, \definedummyaccent and \definedummyword before
-% using.
+% \commondummiesnofonts: common to \definedummies and \indexnofonts.
+% Define \commondummyletter, \commondummyaccent and \commondummyword before
+% using.  Used for accents, font commands, and various control letters.
 %
 \def\commondummiesnofonts{%
   % Control letters and accents.
-  \definedummyletter\!%
-  \definedummyaccent\"%
-  \definedummyaccent\'%
-  \definedummyletter\*%
-  \definedummyaccent\,%
-  \definedummyletter\.%
-  \definedummyletter\/%
-  \definedummyletter\:%
-  \definedummyaccent\=%
-  \definedummyletter\?%
-  \definedummyaccent\^%
-  \definedummyaccent\`%
-  \definedummyaccent\~%
-  \definedummyword\u
-  \definedummyword\v
-  \definedummyword\H
-  \definedummyword\dotaccent
-  \definedummyword\ogonek
-  \definedummyword\ringaccent
-  \definedummyword\tieaccent
-  \definedummyword\ubaraccent
-  \definedummyword\udotaccent
-  \definedummyword\dotless
+  \commondummyletter\!%
+  \commondummyaccent\"%
+  \commondummyaccent\'%
+  \commondummyletter\*%
+  \commondummyaccent\,%
+  \commondummyletter\.%
+  \commondummyletter\/%
+  \commondummyletter\:%
+  \commondummyaccent\=%
+  \commondummyletter\?%
+  \commondummyaccent\^%
+  \commondummyaccent\`%
+  \commondummyaccent\~%
+  \commondummyword\u
+  \commondummyword\v
+  \commondummyword\H
+  \commondummyword\dotaccent
+  \commondummyword\ogonek
+  \commondummyword\ringaccent
+  \commondummyword\tieaccent
+  \commondummyword\ubaraccent
+  \commondummyword\udotaccent
+  \commondummyword\dotless
   %
   % Texinfo font commands.
-  \definedummyword\b
-  \definedummyword\i
-  \definedummyword\r
-  \definedummyword\sansserif
-  \definedummyword\sc
-  \definedummyword\slanted
-  \definedummyword\t
+  \commondummyword\b
+  \commondummyword\i
+  \commondummyword\r
+  \commondummyword\sansserif
+  \commondummyword\sc
+  \commondummyword\slanted
+  \commondummyword\t
   %
   % Commands that take arguments.
-  \definedummyword\abbr
-  \definedummyword\acronym
-  \definedummyword\anchor
-  \definedummyword\cite
-  \definedummyword\code
-  \definedummyword\command
-  \definedummyword\dfn
-  \definedummyword\dmn
-  \definedummyword\email
-  \definedummyword\emph
-  \definedummyword\env
-  \definedummyword\file
-  \definedummyword\image
-  \definedummyword\indicateurl
-  \definedummyword\inforef
-  \definedummyword\kbd
-  \definedummyword\key
-  \definedummyword\math
-  \definedummyword\option
-  \definedummyword\pxref
-  \definedummyword\ref
-  \definedummyword\samp
-  \definedummyword\strong
-  \definedummyword\tie
-  \definedummyword\U
-  \definedummyword\uref
-  \definedummyword\url
-  \definedummyword\var
-  \definedummyword\verb
-  \definedummyword\w
-  \definedummyword\xref
+  \commondummyword\abbr
+  \commondummyword\acronym
+  \commondummyword\anchor
+  \commondummyword\cite
+  \commondummyword\code
+  \commondummyword\command
+  \commondummyword\dfn
+  \commondummyword\dmn
+  \commondummyword\email
+  \commondummyword\emph
+  \commondummyword\env
+  \commondummyword\file
+  \commondummyword\image
+  \commondummyword\indicateurl
+  \commondummyword\inforef
+  \commondummyword\kbd
+  \commondummyword\key
+  \commondummyword\math
+  \commondummyword\option
+  \commondummyword\pxref
+  \commondummyword\ref
+  \commondummyword\samp
+  \commondummyword\strong
+  \commondummyword\tie
+  \commondummyword\U
+  \commondummyword\uref
+  \commondummyword\url
+  \commondummyword\var
+  \commondummyword\verb
+  \commondummyword\w
+  \commondummyword\xref
 }
 
 % For testing: output @{ and @} in index sort strings as \{ and \}.
@@ -5036,11 +5087,11 @@ end
 %
 \def\indexnofonts{%
   % Accent commands should become @asis.
-  \def\definedummyaccent##1{\let##1\asis}%
+  \def\commondummyaccent##1{\let##1\asis}%
   % We can just ignore other control letters.
-  \def\definedummyletter##1{\let##1\empty}%
+  \def\commondummyletter##1{\let##1\empty}%
   % All control words become @asis by default; overrides below.
-  \let\definedummyword\definedummyaccent
+  \let\commondummyword\commondummyaccent
   \commondummiesnofonts
   %
   % Don't no-op \tt, since it isn't a user-level command
@@ -5125,7 +5176,10 @@ end
   % goes to end-of-line is not handled.
   %
   \macrolist
+  \let\value\indexnofontsvalue
 }
+
+
 
 
 \let\SETmarginindex=\relax % put index entries in margin (undocumented)?
@@ -5925,18 +5979,32 @@ end
         \global\advance\dimen@ by 1pt
       \repeat
     }%
-    \multiply\dimen@ii by 4
-    \divide\dimen@ii by 5
-    \ifdim\ht3<\dimen@ii
-      % Column heights are too different, so don't make their bottoms
-      % flush with each other.  The glue at the end of the second column
-      % allows a second column to stretch, reducing the difference in
-      % height between the two.
-      \setbox0=\vbox to\dimen@{\unvbox1\vfill}%
-      \setbox2=\vbox to\dimen@{\unvbox3\vskip 0pt plus 0.3\ht0}%
+    \ifdim2\ht1>\vsize
+      % The left column has come out longer than the page itself.  (Note
+      % that we have doubled \vsize for the double columns, so
+      % the actual height of the page is 0.5\vsize).  Just split the last
+      % of the double column material roughly in half.
+      \setbox2=\box0
+      \setbox0 = \vsplit2 to \dimen@ii
+      \setbox0=\vbox to\dimen@ii{\unvbox0}%
+      \setbox2=\vbox to\dimen@ii{\unvbox2}%
     \else
-      \setbox0=\vbox to\dimen@{\unvbox1}%
-      \setbox2=\vbox to\dimen@{\unvbox3}%
+      \multiply\dimen@ii by 5
+      \divide\dimen@ii by 4
+      \global\setbox3 = \copy0
+      \global\setbox1 = \vsplit3 to \dimen@ii
+      \global\setbox\balancedcolumns=\vbox{\pagesofar}%
+      \ifdim\ht3<\dimen@ii
+        % Column heights are too different, so don't make their bottoms
+        % flush with each other.  The glue at the end of the second column
+        % allows a second column to stretch, reducing the difference in
+        % height between the two.
+        \setbox0=\vbox to\dimen@{\unvbox1\vfill}%
+        \setbox2=\vbox to\dimen@{\unvbox3\vskip 0pt plus 0.3\ht0}%
+      \else
+        \setbox0=\vbox to\dimen@{\unvbox1}%
+        \setbox2=\vbox to\dimen@{\unvbox3}%
+      \fi
     \fi
   \fi
   %
@@ -7985,7 +8053,7 @@ end
 \newif\ifrecursive  % Is it recursive?
 
 % List of all defined macros in the form
-%    \definedummyword\macro1\definedummyword\macro2...
+%    \commondummyword\macro1\commondummyword\macro2...
 % Currently is also contains all @aliases; the list can be split
 % if there is a need.
 \def\macrolist{}
@@ -7993,7 +8061,7 @@ end
 % Add the macro to \macrolist
 \def\addtomacrolist#1{\expandafter \addtomacrolistxxx \csname#1\endcsname}
 \def\addtomacrolistxxx#1{%
-     \toks0 = \expandafter{\macrolist\definedummyword#1}%
+     \toks0 = \expandafter{\macrolist\commondummyword#1}%
      \xdef\macrolist{\the\toks0}%
 }
 
@@ -8134,7 +8202,7 @@ end
     % Remove the macro name from \macrolist:
     \begingroup
       \expandafter\let\csname#1\endcsname \relax
-      \let\definedummyword\unmacrodo
+      \let\commondummyword\unmacrodo
       \xdef\macrolist{\macrolist}%
     \endgroup
   \else
@@ -8149,7 +8217,7 @@ end
   \ifx #1\relax
     % remove this
   \else
-    \noexpand\definedummyword \noexpand#1%
+    \noexpand\commondummyword \noexpand#1%
   \fi
 }
 
@@ -8424,8 +8492,7 @@ end
 % its parameters, looking like "\xeatspaces{\hash 1}".
 %    \paramno is the number of parameters
 %    \paramlist is a TeX parameter text, e.g. "#1,#2,#3,"
-% There are eight cases: recursive and nonrecursive macros of zero, one,
-% up to nine, and many arguments.
+% There are four cases: macros of zero, one, up to nine, and many arguments.
 % \xdef is used so that macro definitions will survive the file
 % they're defined in: @include reads the file inside a group.
 %
@@ -8440,91 +8507,48 @@ end
   \else
     \let\xeatspaces\relax % suppress expansion
   \fi
-  \ifrecursive   %%%%%%%%%%%%%% Recursive %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    \ifcase\paramno
-    % 0
+  \ifcase\paramno
+  % 0
+    \expandafter\xdef\csname\the\macname\endcsname{%
+      \noexpand\scanmacro{\macrobody}}%
+  \or % 1
+    \expandafter\xdef\csname\the\macname\endcsname{%
+       \bgroup
+       \noexpand\braceorline
+       \expandafter\noexpand\csname\the\macname @@@\endcsname}%
+    \expandafter\xdef\csname\the\macname @@@\endcsname##1{%
+      \egroup
+      \noexpand\scanmacro{\macrobody}%
+      }%
+  \else % at most 9
+    \ifnum\paramno<10\relax
+      % @MACNAME sets the context for reading the macro argument
+      % @MACNAME@@ gets the argument, processes backslashes and appends a 
+      % comma.
+      % @MACNAME@@@ removes braces surrounding the argument list.
+      % @MACNAME@@@@ scans the macro body with arguments substituted.
       \expandafter\xdef\csname\the\macname\endcsname{%
-        \noexpand\scanmacro{\macrobody}}%
-    \or % 1
-      \expandafter\xdef\csname\the\macname\endcsname{%
-         \bgroup
-         \noexpand\braceorline
-         \expandafter\noexpand\csname\the\macname @@@\endcsname}%
+        \bgroup
+        \noexpand\expandafter  % This \expandafter skip any spaces after the
+        \noexpand\macroargctxt % macro before we change the catcode of space.
+        \noexpand\expandafter
+        \expandafter\noexpand\csname\the\macname @@\endcsname}%
+      \expandafter\xdef\csname\the\macname @@\endcsname##1{%
+          \noexpand\passargtomacro
+          \expandafter\noexpand\csname\the\macname @@@\endcsname{##1,}}%
       \expandafter\xdef\csname\the\macname @@@\endcsname##1{%
-        \egroup
-        \noexpand\scanmacro{\macrobody}%
-        }%
-    \else
-      \ifnum\paramno<10\relax % at most 9
-        % See non-recursive section below for comments
-        \expandafter\xdef\csname\the\macname\endcsname{%
-          \bgroup
-          \noexpand\expandafter
-          \noexpand\macroargctxt
-          \noexpand\expandafter
-          \expandafter\noexpand\csname\the\macname @@\endcsname}%
-        \expandafter\xdef\csname\the\macname @@\endcsname##1{%
-            \noexpand\passargtomacro
-            \expandafter\noexpand\csname\the\macname @@@\endcsname{##1,}}%
-        \expandafter\xdef\csname\the\macname @@@\endcsname##1{%
-            \expandafter\noexpand\csname\the\macname @@@@\endcsname ##1}%
-        \expandafter\expandafter
-        \expandafter\xdef
-        \expandafter\expandafter
-          \csname\the\macname @@@@\endcsname\paramlist{%
-            \egroup\noexpand\scanmacro{\macrobody}}%
-      \else % 10 or more
-        \expandafter\xdef\csname\the\macname\endcsname{%
-          \noexpand\getargvals@{\the\macname}{\argl}%
-        }%    
-        \global\expandafter\let\csname mac.\the\macname .body\endcsname\macrobody
-        \global\expandafter\let\csname mac.\the\macname .recurse\endcsname\gobble
-      \fi
-    \fi
-  \else  %%%%%%%%%%%%%%%%%%%%%% Non-recursive %%%%%%%%%%%%%%%%%%%%%%%%%%
-    \ifcase\paramno
-    % 0
+          \expandafter\noexpand\csname\the\macname @@@@\endcsname ##1}%
+      \expandafter\expandafter
+      \expandafter\xdef
+      \expandafter\expandafter
+        \csname\the\macname @@@@\endcsname\paramlist{%
+          \egroup\noexpand\scanmacro{\macrobody}}%
+    \else % 10 or more:
       \expandafter\xdef\csname\the\macname\endcsname{%
-        \noexpand\scanmacro{\macrobody}}%
-    \or % 1
-      \expandafter\xdef\csname\the\macname\endcsname{%
-         \bgroup
-         \noexpand\braceorline
-         \expandafter\noexpand\csname\the\macname @@@\endcsname}%
-      \expandafter\xdef\csname\the\macname @@@\endcsname##1{%
-        \egroup
-        \noexpand\scanmacro{\macrobody}%
-        }%
-    \else % at most 9
-      \ifnum\paramno<10\relax
-        % @MACNAME sets the context for reading the macro argument
-        % @MACNAME@@ gets the argument, processes backslashes and appends a 
-        % comma.
-        % @MACNAME@@@ removes braces surrounding the argument list.
-        % @MACNAME@@@@ scans the macro body with arguments substituted.
-        \expandafter\xdef\csname\the\macname\endcsname{%
-          \bgroup
-          \noexpand\expandafter  % This \expandafter skip any spaces after the
-          \noexpand\macroargctxt % macro before we change the catcode of space.
-          \noexpand\expandafter
-          \expandafter\noexpand\csname\the\macname @@\endcsname}%
-        \expandafter\xdef\csname\the\macname @@\endcsname##1{%
-            \noexpand\passargtomacro
-            \expandafter\noexpand\csname\the\macname @@@\endcsname{##1,}}%
-        \expandafter\xdef\csname\the\macname @@@\endcsname##1{%
-            \expandafter\noexpand\csname\the\macname @@@@\endcsname ##1}%
-        \expandafter\expandafter
-        \expandafter\xdef
-        \expandafter\expandafter
-          \csname\the\macname @@@@\endcsname\paramlist{%
-            \egroup\noexpand\scanmacro{\macrobody}}%
-      \else % 10 or more:
-        \expandafter\xdef\csname\the\macname\endcsname{%
-          \noexpand\getargvals@{\the\macname}{\argl}%
-        }%
-        \global\expandafter\let\csname mac.\the\macname .body\endcsname\macrobody
-        \global\expandafter\let\csname mac.\the\macname .recurse\endcsname\norecurse
-      \fi
+        \noexpand\getargvals@{\the\macname}{\argl}%
+      }%
+      \global\expandafter\let\csname mac.\the\macname .body\endcsname\macrobody
+      \global\expandafter\let\csname mac.\the\macname .recurse\endcsname\gobble
     \fi
   \fi}
 
@@ -8871,6 +8895,9 @@ end
          % In this case, the replaced destination names of
          % remote PDF cannot be known. In order to avoid replacement,
          % you can use commandline option `-C 0x0010' for xdvipdfmx.
+         % If you use XeTeX 0.99996+ (TeX Live 2016+),
+         % the commandline option is not neccesary
+         % because we can use `dvipdfmx:config' special.
          \special{pdf:bann << /Border [0 0 0] /Type /Annot /Subtype /Link /A
            << /S /GoToR /F (\the\filename.pdf) /D (name\pdfxrefdest) >> >>}%
        \else
@@ -10227,7 +10254,7 @@ directory should work if nowhere else does.}
   \countUTFx = "80
   \countUTFy = "C2
   \def\UTFviiiTmp{%
-    \gdef~{
+    \gdef~{%
         \ifpassthroughchars $\fi}}%
   \UTFviiiLoop
 
@@ -10278,6 +10305,15 @@ directory should work if nowhere else does.}
   \fi
 }
 
+% These macros are used here to construct the name of a control
+% sequence to be defined.
+\def\UTFviiiTwoOctetsName#1#2{%
+  \csname u8:#1\string #2\endcsname}%
+\def\UTFviiiThreeOctetsName#1#2#3{%
+  \csname u8:#1\string #2\string #3\endcsname}%
+\def\UTFviiiFourOctetsName#1#2#3#4{%
+  \csname u8:#1\string #2\string #3\string #4\endcsname}%
+
 % For UTF-8 byte sequence (TeX, e-TeX and pdfTeX)
 % Definition macro to replace the Unicode character
 % Definition macro that is used by @U command
@@ -10294,17 +10330,18 @@ directory should work if nowhere else does.}
     \countUTFz = "#1\relax
     \begingroup
       \parseXMLCharref
+    
+      % Give \u8:... its definition.  The sequence of seven \expandafter's
+      % expands after the \gdef three times, e.g.
       %
-      % Access definitions of characters given UTF-8 sequences
-      \def\UTFviiiTwoOctets##1##2{%
-        \csname u8:##1\string ##2\endcsname}%
-      \def\UTFviiiThreeOctets##1##2##3{%
-        \csname u8:##1\string ##2\string ##3\endcsname}%
-      \def\UTFviiiFourOctets##1##2##3##4{%
-        \csname u8:##1\string ##2\string ##3\string ##4\endcsname}%
-      \expandafter\expandafter\expandafter\expandafter
-       \expandafter\expandafter\expandafter
-       \gdef\UTFviiiTmp{#2}%
+      % 1.  \UTFviiTwoOctetsName B1 B2
+      % 2.  \csname u8:B1 \string B2 \endcsname
+      % 3.  \u8: B1 B2  (a single control sequence token)
+      %
+      \expandafter\expandafter
+      \expandafter\expandafter
+      \expandafter\expandafter
+      \expandafter\gdef       \UTFviiiTmp{#2}%
       % 
       \expandafter\ifx\csname uni:#1\endcsname \relax \else
        \message{Internal error, already defined: #1}%
@@ -10314,37 +10351,53 @@ directory should work if nowhere else does.}
       \expandafter\globallet\csname uni:#1\endcsname \UTFviiiTmp
     \endgroup}
   %
-  % Given the value in \countUTFz as a Unicode code point, set \UTFviiiTmp.
+  % Given the value in \countUTFz as a Unicode code point, set \UTFviiiTmp
+  % to the corresponding UTF-8 sequence.
   \gdef\parseXMLCharref{%
     \ifnum\countUTFz < "A0\relax
       \errhelp = \EMsimple
       \errmessage{Cannot define Unicode char value < 00A0}%
     \else\ifnum\countUTFz < "800\relax
       \parseUTFviiiA,%
-      \parseUTFviiiB C\UTFviiiTwoOctets.,%
+      \parseUTFviiiB C\UTFviiiTwoOctetsName.,%
     \else\ifnum\countUTFz < "10000\relax
       \parseUTFviiiA;%
       \parseUTFviiiA,%
-      \parseUTFviiiB E\UTFviiiThreeOctets.{,;}%
+      \parseUTFviiiB E\UTFviiiThreeOctetsName.{,;}%
     \else
       \parseUTFviiiA;%
       \parseUTFviiiA,%
       \parseUTFviiiA!%
-      \parseUTFviiiB F\UTFviiiFourOctets.{!,;}%
+      \parseUTFviiiB F\UTFviiiFourOctetsName.{!,;}%
     \fi\fi\fi
   }
 
+  % Extract a byte from the end of the UTF-8 representation of \countUTFx.
+  % It must be a non-initial byte in the sequence.
+  % Change \uccode of #1 for it to be used in \parseUTFviiiB as one
+  % of the bytes.
   \gdef\parseUTFviiiA#1{%
     \countUTFx = \countUTFz
     \divide\countUTFz by 64
-    \countUTFy = \countUTFz
+    \countUTFy = \countUTFz  % Save to be the future value of \countUTFz.
     \multiply\countUTFz by 64
+    
+    % \countUTFz is now \countUTFx with the last 5 bits cleared.  Subtract
+    % in order to get the last five bits.
     \advance\countUTFx by -\countUTFz
+
+    % Convert this to the byte in the UTF-8 sequence.
     \advance\countUTFx by 128
     \uccode `#1\countUTFx
     \countUTFz = \countUTFy}
 
-  % Used to set \UTFviiiTmp to a UTF-8 byte sequence
+  % Used to put a UTF-8 byte sequence into \UTFviiiTmp
+  % #1 is the increment for \countUTFz to yield a the first byte of the UTF-8
+  %    sequence.
+  % #2 is one of the \UTFviii*OctetsName macros.
+  % #3 is always a full stop (.)
+  % #4 is a template for the other bytes in the sequence.  The values for these
+  %    bytes is substituted in here with \uppercase using the \uccode's.
   \gdef\parseUTFviiiB#1#2#3#4{%
     \advance\countUTFz by "#10\relax
     \uccode `#3\countUTFz

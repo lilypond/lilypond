@@ -40,26 +40,32 @@ private:
   Audio_item &operator = (Audio_item const &);
 };
 
-class Audio_dynamic : public Audio_item
-{
-public:
-  Audio_dynamic ();
-
-  Real volume_;
-  bool silent_;
-};
-
+// Audio_span_dynamic is open at the end of the interval, so the volume
+// grows/diminshes toward a target, but whether it reaches it depends on the
+// next Audio_span_dynamic in the performance.  For example, a crescendo
+// notated as mf < p is represented as [mf < x) [p ...) i.e. growth to some
+// volume louder than mf followed by an abrupt change to p.
 class Audio_span_dynamic : public Audio_element
 {
 public:
-  Direction grow_dir_;
-  vector<Audio_dynamic *> dynamics_;
-  Real min_volume_;
-  Real max_volume_;
+  static const Real MINIMUM_VOLUME;
+  static const Real MAXIMUM_VOLUME;
+  static const Real DEFAULT_VOLUME;
 
-  virtual void render ();
-  void add_absolute (Audio_dynamic *);
-  Audio_span_dynamic (Real min_volume, Real max_volume);
+private:
+  Moment start_moment_;
+  Real start_volume_;
+  Real duration_; // = target moment - start moment
+  Real gain_; // = target volume - start volume
+
+public:
+  Moment get_start_moment () const { return start_moment_; }
+  Real get_start_volume () const { return start_volume_; }
+  Real get_duration () const { return duration_; }
+  void set_end_moment (Moment);
+  void set_volume (Real start, Real target);
+  Real get_volume (Moment) const;
+  Audio_span_dynamic (Moment mom, Real volume);
 };
 
 class Audio_key : public Audio_item
@@ -92,7 +98,7 @@ public:
   Pitch pitch_;
   Moment length_mom_;
   Pitch transposing_;
-  Audio_dynamic *dynamic_;
+  Audio_span_dynamic *dynamic_;
   int extra_velocity_;
 
   Audio_note *tied_;
@@ -138,36 +144,13 @@ public:
   int one_beat_;
 };
 
-class Audio_control_function_value_change : public Audio_item
+class Audio_control_change : public Audio_item
 {
 public:
-  // Supported control functions.
-  enum Control
-  {
-    BALANCE = 0, PAN_POSITION, EXPRESSION, REVERB_LEVEL, CHORUS_LEVEL,
-    // pseudo value for representing the size of the enum; must be kept last
-    NUM_CONTROLS
-  };
+  Audio_control_change (int control, int value);
 
-  Audio_control_function_value_change (Control control, Real value);
-
-  // Information about a context property corresponding to a control function
-  // (name, the corresponding enumeration value, and the allowed range for the
-  // value of the context property).
-  struct Context_property
-  {
-    const char *name_;
-    Control control_;
-    Real range_min_;
-    Real range_max_;
-  };
-
-  // Mapping from supported control functions to the corresponding context
-  // properties.
-  static const Context_property context_properties_[];
-
-  Control control_;
-  Real value_;
+  int control_;
+  int value_;
 };
 
 int moment_to_ticks (Moment);
