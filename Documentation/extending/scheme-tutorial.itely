@@ -777,17 +777,28 @@ twentyFour = #(* 2 twelve)
 @end example
 
 @noindent
-which would result in the number 24 being stored in the
-LilyPond (and Scheme) variable @code{twentyFour}.
+which would result in the number @emph{24} being stored in the LilyPond
+(and Scheme) variable @code{twentyFour}.
 
-The usual way to refer to LilyPond variables is to call them using a
-backslash, i.e., @code{\twentyFour} (see @ref{LilyPond Scheme syntax}).
-Since this creates a copy of the value for most of LilyPond's internal
-types, in particular music expressions, music functions don't usually
-create copies of material they change.  For this reason, music
-expressions given with @code{#} should usually not contain material that
-is not either created from scratch or explicitly copied rather than
-directly referenced.
+Scheme allows modifying complex expressions in-place and LilyPond makes
+use of this @q{in-place modification} when using music functions.  But
+when music expressions are stored in variables rather than entered
+directly the usual expectation, when passing them to music functions,
+would be that the original value is unmodified.  So when referencing a
+music variable with leading backslash (such as @code{\twentyFour}),
+LilyPond creates a copy of that variable's music value for use in the
+surrounding music expression rather than using the variable's value
+directly.
+
+Therefore, Scheme music expressions written with the @code{#} syntax
+should be used for material that is created @q{from scratch} (or that is
+explicitly copied) rather than being used, instead, to directly
+reference material.
+
+@seealso
+Extending:
+@ref{LilyPond Scheme syntax}.
+
 
 @node Input variables and Scheme
 @subsection Input variables and Scheme
