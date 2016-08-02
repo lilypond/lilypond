@@ -1222,7 +1222,7 @@ achieve this by configuring with
 The executable code of LilyPond must be rebuilt from scratch:
 
 @example
-make -C lily clean && make -C lily
+make clean && make
 @end example
 
 @item Create a graphviz-compatible @file{.ly} file
@@ -1269,7 +1269,7 @@ than normal.  The original configuration can be restored by rerunning
 rebuild LilyPond with
 
 @example
-make -C lily clean && make -C lily
+make clean && make
 @end example
 
 
