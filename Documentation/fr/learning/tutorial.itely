@@ -592,7 +592,7 @@ opérations de mise à jour automatisée au fil de l'évolution de la
 syntaxe de LilyPond.  Ensuite, cela met en évidence le minimum requis
 pour pouvoir compiler votre fichier.
 
-Si vous ne le mentionnez pas, Lilypond vous rappellera à l'ordre durant
+Si vous ne le mentionnez pas, LilyPond vous rappellera à l'ordre durant
 la compilation.
 
 @item

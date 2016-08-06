@@ -2780,7 +2780,7 @@ Tuttavia,dato che questi segni di spunta sono tipicamente usati nella notazione
 gregoriana, è preferibile usare @code{\divisioMinima}, come è descritto
 nella sezione @ref{Divisiones} della parte dedicata al canto gregoriano.
 
-Lilypond supporta la notazione gregoriana russa e fornisce una stanghetta speciale per
+LilyPond supporta la notazione gregoriana russa e fornisce una stanghetta speciale per
 questo tipo di notazione:
 @lilypond[quote,fragment,verbatim]
 f'1 \bar "k"

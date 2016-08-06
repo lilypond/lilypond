@@ -1055,7 +1055,7 @@ lugar.
 @newsEnd
 
 @newsItem
-@subheading ¡Lanzado Lilypond 2.16.0!  @emph{24 de agosto de 2012}
+@subheading ¡Lanzado LilyPond 2.16.0!  @emph{24 de agosto de 2012}
 
 Nos llena de orgullo anunciar el lanzamiento de GNU LilyPond 2.16.0.
 LilyPond es un programa de tipografía musical para editar partituras,
@@ -4387,7 +4387,7 @@ in-depth but hands-on feature article with crisp LilyPond
 graphics.
 @*
 Author Kris Shaffer remarks
-&ldquo;GNU Lilypond generates beautiful graphics that make commercial
+&ldquo;GNU LilyPond generates beautiful graphics that make commercial
 alternatives seem second-rate.&rdquo;
 This article is now available @uref{http://www.linuxjournal.com/article/8583,on-line}.
 @newsEnd
@@ -4995,10 +4995,10 @@ file and download @ref{Descargas antiguas}!
 
 @newsItem
 @subheading February 26, 2005
-The @uref{http://lsr.di.unimi.it/,Lilypond Snippet
-Repository (LSR)} is a searchable database of Lilypond code
+The @uref{http://lsr.di.unimi.it/,LilyPond Snippet
+Repository (LSR)} is a searchable database of LilyPond code
 snippets.  You can add snippets too, so join the LSR project, and
-contribute creative ideas for using Lilypond.
+contribute creative ideas for using LilyPond.
 @newsEnd
 
 
@@ -5219,7 +5219,7 @@ the @uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd
 
 @newsItem
 @subheading October 29, 2004
-2.3.25 is the final release candidate for Lilypond 2.4.
+2.3.25 is the final release candidate for LilyPond 2.4.
 Werner has been overhauling the TeX macros and
 lilypond-book. In addition, this release contains an
 important fix for raggedbottom page-layout.

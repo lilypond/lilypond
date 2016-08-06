@@ -2824,7 +2824,7 @@ vous invitons dans ce cadre particulier à plutôt utiliser
 @code{\divisioMinima}, comme indiqué au paragraphe @ref{Divisions} du
 chapitre consacré au grégorien.
 
-Lilypond prend en charge la notation kiévienne, qui dispose d'une
+LilyPond prend en charge la notation kiévienne, qui dispose d'une
 barre de mesure spécifique :
 
 @lilypond[quote,fragment,verbatim]

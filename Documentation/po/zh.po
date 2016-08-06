@@ -515,7 +515,7 @@ msgstr "面向程序员的界面"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @section in Documentation/extending/programming-interface.itely
-msgid "Lilypond code blocks"
+msgid "LilyPond code blocks"
 msgstr "LilyPond 代码块"
 
 #. @node in Documentation/extending/programming-interface.itely

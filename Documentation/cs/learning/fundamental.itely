@@ -112,7 +112,7 @@ ale tento příklad slouží jako jednoduchý výchozí bod.
 @cindex score
 
 Až dosud ještě žádný z příkladů příkaz @code{\score@{@}}
-nepoužil, neboť Lilypond takové dodatečné příkazy automaticky
+nepoužil, neboť LilyPond takové dodatečné příkazy automaticky
 vkládá v případě potřeby, když má vstupní soubor jednoduchou
 stavbu.
 
@@ -226,7 +226,7 @@ začátku tohoto oddílu.  Pracuje to právě tak dobře.
 
 Dvěma dosud neviděnými příkazy jsou
 @code{\layout @{ @}} a @code{\midi @{@}}.  Když se objeví v nějakém
-souboru, vede to k tomu, že Lilypond vytvoří tisknutelný soubor PDF
+souboru, vede to k tomu, že LilyPond vytvoří tisknutelný soubor PDF
 popřípadě soubor MIDI.  Přesněji jsou popsány v uživatelské příručce -
 notace -- @ruser{Rozvržení notového zápisu} a
 @ruser{Vytváření souborů MIDI}.

@@ -1040,10 +1040,10 @@ retouches, que les musiciens ont utilisé.}
 
 @qq{Merci et encore merci à l'équipe des développeurs pour leur
 admirable travail.  Je n'ai jamais rien vu qui approche le résultat que
-j'obtiens avec Lilypond — je suis absolument convaincu que mes besoins
+j'obtiens avec LilyPond — je suis absolument convaincu que mes besoins
 en terme d'édition musicale seront largement satisfaits par cette
 superbe application.  [@dots{}] une partition de base générée par
-Lilypond [@dots{}] a meilleure mine que la plupart des publications
+LilyPond [@dots{}] a meilleure mine que la plupart des publications
 ❝professionnelles❞ auxquelles je l'ai comparée, aussi bien de chez
 Warner Bros., que même les plus récentes productions des ❝bonnes
 vieilles maisons❞ [@dots{}]}
@@ -1055,7 +1055,7 @@ vieilles maisons❞ [@dots{}]}
 @divClass{testimonial-item}
 @subsubheading Chris Cannam, programmeur en chef du projet @uref{http://www.rosegardenmusic.com/, RoseGarden}
 
-@qq{Lilypond est clairement le ténor brillantissime [de la gravure
+@qq{LilyPond est clairement le ténor brillantissime [de la gravure
 musicale de qualité].}
 @divEnd
 

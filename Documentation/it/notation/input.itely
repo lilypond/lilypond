@@ -237,7 +237,7 @@ Se non è specificato alcun blocco @code{\book} nel file di
 input, LilyPond tratterà implicitamente l'intero file come un
 singolo blocco @code{\book}, come è spiegato in @ref{File structure}.
 
-Nel generare molteplici file da un singolo file sorgente, Lilypond
+Nel generare molteplici file da un singolo file sorgente, LilyPond
 controlla che nessuno dei file di output di alcun blocco
 @code{\book} sovrascriva il file di output prodotto da un blocco
 @code{\book} precedente dello stesso file di input.
@@ -283,10 +283,10 @@ genererà
 @funindex \bookOutputSuffix
 @funindex \bookOutputName
 
-Lilypond permette di decidere quali nomi di file debbano essere
+LilyPond permette di decidere quali nomi di file debbano essere
 usati dai vari backend quando questi generano i file di output.
 
-Nella sezione precedente abbiamo visto come Lilypond prevenga i
+Nella sezione precedente abbiamo visto come LilyPond prevenga i
 conflitti di nome quando genera molti file di output da un singolo
 file sorgente.  È possibile anche specificare un proprio suffisso
 per ogni blocco @code{\book}.  Quindi si possono, per esempio,
@@ -3697,7 +3697,7 @@ lilypond file.ly >display.txt
 @funindex \void
 @c tradotto un po' liberamente, dato che il paragrafo in inglese è poco chiaro:
 @c https://lists.gnu.org/archive/html/lilypond-user/2015-12/msg00141.html
-Nota bene che Lilypond non soltanto mostra in console l'espressione musicale, ma
+Nota bene che LilyPond non soltanto mostra in console l'espressione musicale, ma
 la interpreta anche (infatti l'espressione musicale di @code{\displayLilyMusic}
 appare nell'output oltre a essere mostrata in console).  Basta inserire
 @code{\displayLilyMusic} in file esistenti, senza doverne modificare le

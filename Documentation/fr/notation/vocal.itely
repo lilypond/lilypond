@@ -421,7 +421,7 @@ voir @ref{Positionnement vertical des paroles}.
 @funindex \addlyrics
 
 La commande @code{\addlyrics} n'est en fait qu'une manière plus aisée
-d'écrire de la musique vocale dans une structure Lilypond plus complexe.
+d'écrire de la musique vocale dans une structure LilyPond plus complexe.
 
 @example
 @{ MUSIQUE @}

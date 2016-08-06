@@ -1904,7 +1904,7 @@ music = \relative {
 Otra téctnica de ejecución (utilizada especialmente en la guitarra
 eléctrica) se llama @notation{tapado de palma}.  La cuerda es
 parcialmente tapada por la palma de la mano que pulsa (de ahí el
-nombre).  Lilypond contempla la notación de las notas de estilo de
+nombre).  LilyPond contempla la notación de las notas de estilo de
 tapado de palma mediante el cambio de la forma de la cabeza de
 nota a un triángulo.
 

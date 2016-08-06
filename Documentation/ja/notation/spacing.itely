@@ -3128,7 +3128,7 @@ Essay on automated music engraving:
 @subsection プロポーショナル ノーテーション
 @translationof Proportional notation
 
-Lilypond はプロポーショナル ノーテーションをサポートします。@c
+LilyPond はプロポーショナル ノーテーションをサポートします。@c
 この記譜法では、各音符は演奏時間に相当する水平方向のスペースをとります。@c
 このタイプの水平スペースは、方眼紙上の水平方向スペースと同等です。@c
 20 世紀後半、21 世紀前半の楽譜の中には、@c

@@ -228,7 +228,7 @@ input file, LilyPond will implicitly treat the whole
 file as a single \book block, see
 @ref{File structure}.
 
-When producing multiple files from a single source file, Lilypond
+When producing multiple files from a single source file, LilyPond
 ensures that none of the output files from any @code{\book} block
 overwrites the output file produced by a preceding @code{\book} from
 the same input file.
@@ -273,10 +273,10 @@ will produce
 @funindex \bookOutputSuffix
 @funindex \bookOutputName
 
-Lilypond provides facilities to allow you to control what file names
+LilyPond provides facilities to allow you to control what file names
 are used by the various back-ends when producing output files.
 
-In the previous section, we saw how Lilypond prevents name-clashes when
+In the previous section, we saw how LilyPond prevents name-clashes when
 producing several outputs from a single source file.  You also have the
 ability to specify your own suffixes for each @code{\book} block, so
 for example you can produce files called
@@ -3629,7 +3629,7 @@ lilypond file.ly >display.txt
 @end example
 
 @funindex \void
-Note that Lilypond does not just display the music expression, but
+Note that LilyPond does not just display the music expression, but
 also interprets it (since @code{\displayLilyMusic} returns it in
 addition to displaying it).  Just insert @code{\displayLilyMusic} into
 the existing music in order to get information about it.

@@ -4975,7 +4975,7 @@ debe devolver @code{#t}.
 
 @item @code{@var{@dots{}música@dots{}}}
 @tab código de entrada normal de LilyPond, que utiliza @code{$} (en los
-lugares en que sólo se permiten construcciones de Lilypond) o
+lugares en que sólo se permiten construcciones de LilyPond) o
 @code{#} (para usarlo como un valor de Scheme o un argumento de
 función musical o música dentro de listas de música) para
 referenciar argumentos (p.ej. @samp{#arg1}).

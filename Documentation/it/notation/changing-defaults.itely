@@ -4515,7 +4515,7 @@ deve ritornare @code{#t}.
 
 @item @code{@var{@dots{}musica@dots{}}}
 @tab il normale input LilyPond, usando @code{$} (nei punti in cui sono
-consentiti solo i costrutti Lilypond) o @code{#} (per usarlo come un valore
+consentiti solo i costrutti LilyPond) o @code{#} (per usarlo come un valore
 Scheme o come argomento di una funzione musicale o come musica all'interno
 di liste di musica) per riferirsi agli argomenti (es: @samp{#arg1}).
 @end multitable

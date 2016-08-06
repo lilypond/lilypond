@@ -518,7 +518,7 @@ msgstr ""
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @section in Documentation/extending/programming-interface.itely
-msgid "Lilypond code blocks"
+msgid "LilyPond code blocks"
 msgstr ""
 
 #. @node in Documentation/extending/programming-interface.itely

@@ -1461,10 +1461,10 @@ installation directory structure.
 
 
 It can be useful to have both the stable and the development versions
-of Lilypond available at once.  One way to do this on GNU/Linux is to
+of LilyPond available at once.  One way to do this on GNU/Linux is to
 install the stable version using the precompiled binary, and run the
 development version from the source tree.  After running @command{make
-all} from the top directory of the Lilypond source files, there will
+all} from the top directory of the LilyPond source files, there will
 be a binary called @code{lilypond} in the @code{out} directory:
 
 @example

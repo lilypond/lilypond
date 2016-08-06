@@ -184,7 +184,7 @@ forfiles /s /p "C:\Documents\My Scores" /M *.ly /c "cmd /c lilypond @@file"
 
 
 @node LilyPond の基本的なコマンド ライン オプション
-@unnumberedsubsec Lilypond の基本的なコマンド ライン オプション
+@unnumberedsubsec LilyPond の基本的なコマンド ライン オプション
 @translationof Basic command line options for LilyPond
 
 @cindex Invoking @command{lilypond} (@command{lilypond} を呼び出す)

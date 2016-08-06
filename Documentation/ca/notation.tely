@@ -15,7 +15,7 @@
 
 @macro manualIntro
 Aquest manual ofereix una referència per a tota la notació musical que
-es pot produir amb el Lilypond versió @version{}.  S'entén que el
+es pot produir amb el LilyPond versió @version{}.  S'entén que el
 lector està familiaritzat amb el material que hi ha a
 @rlearningnamed{Top, Manual d'aprenentatge}.
 @end macro
@@ -94,7 +94,7 @@ Annexos
 @translationof LilyPond command index
 
 Aquest índex fa una relació de totes les ordres i paraules clau
-del Lilypond, amb enllaços a aquelles seccions del manual que
+del LilyPond, amb enllaços a aquelles seccions del manual que
 descriuen o s'ocupen del seu ús.  Cadascú d'aquests enllaços
 consta de dues parts.  La primera part apunta a la situació exacta
 del manual en el qual apareix l'ordre o paraula clau; la segona

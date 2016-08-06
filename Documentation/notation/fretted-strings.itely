@@ -1825,7 +1825,7 @@ music = \relative {
 
 Another playing technique (especially used on electric guitars) is
 called @notation{palm mute}.  The string is hereby partly muted by the
-palm of the striking hand (hence the name).  Lilypond supports
+palm of the striking hand (hence the name).  LilyPond supports
 the notation of palm mute-style notes by changing the note head to a
 triangle shape.
 

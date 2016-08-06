@@ -360,7 +360,7 @@ fonction =
 @noindent
 de manière similaire aux @ref{Définition de fonctions Scheme, fonctions
 Scheme}.  La plupart du temps, le @var{corps} sera constitué d'un
-@ref{Blocs de code LilyPond, bloc de code Lilypond}.
+@ref{Blocs de code LilyPond, bloc de code LilyPond}.
 
 Les différents types des prédicat sont recensés à l'annexe
 @ruser{Types de prédicats prédéfinis}.

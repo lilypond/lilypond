@@ -41,7 +41,7 @@ es eine grundlegende Einleitung in LilyPonds
 Codeabschnitte in LilyPond sehen etwa so aus:
 
 @example
-  #@{ @var{Lilypond code} #@}
+  #@{ @var{LilyPond code} #@}
 @end example
 
 Sie können überall eingesetzt werden, wo man Scheme-Code schreiben

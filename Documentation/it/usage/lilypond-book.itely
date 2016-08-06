@@ -1228,7 +1228,7 @@ esempio,
 </p>
 
 <p>
-Ancora un po' di Lilypond, questa volta con delle opzioni:
+Ancora un po' di LilyPond, questa volta con delle opzioni:
 
 <lilypond fragment quote staffsize=26 verbatim>
 a4 b c d

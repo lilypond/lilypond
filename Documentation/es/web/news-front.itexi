@@ -70,7 +70,7 @@ codificados directamente dentro de la partitura de LilyPond.
 
 
 @newsItem
-@subheading Lanzado Lilypond 2.18.0  @emph{29 de diciembre de 2013}
+@subheading Lanzado LilyPond 2.18.0  @emph{29 de diciembre de 2013}
 
 Nos llena de orgullo anunciar el lanzamiento de GNU LilyPond
 2.18.0.  LilyPond es un programa de tipografía musical para editar
@@ -212,7 +212,7 @@ actualicen a esta versión.
 @newsEnd
 
 @newsItem
-@subheading ¡Lanzado Lilypond 2.16.0!  @emph{24 de agosto de 2012}
+@subheading ¡Lanzado LilyPond 2.16.0!  @emph{24 de agosto de 2012}
 
 Nos llena de orgullo anunciar el lanzamiento de GNU LilyPond 2.16.0.
 LilyPond es un programa de tipografía musical para editar partituras,

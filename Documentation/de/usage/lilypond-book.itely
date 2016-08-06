@@ -1017,7 +1017,7 @@ version, the format @code{texi-html} must be used instead.
 @item -F @var{Filter}
 @itemx --filter=@var{Filter}
 Leitet die Musikfragmente durch das Programm @var{filter} anstatt sie
-mit Lilypond zu einer Grafik zu verarbeiten. @option{--filter} und
+mit LilyPond zu einer Grafik zu verarbeiten. @option{--filter} und
 @option{--process} kann nicht gleichzeitig benutzt werden. Beispielaufruf:
 
 @example

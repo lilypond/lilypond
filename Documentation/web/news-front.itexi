@@ -15,13 +15,13 @@ We are happy to announce the release of LilyPond
 2.19.46.  This release includes a number of enhancements, and contains some
 work in progress.  You will have access to the very latest features, but
 some may be incomplete, and you may encounter bugs and crashes.  If you
-require a stable version of Lilypond, we recommend using the 2.18
+require a stable version of LilyPond, we recommend using the 2.18
 version.
 
 @newsEnd
 
 @newsItem
-@subheading Lilypond 2.18.2 released!  @emph{March 23, 2014}
+@subheading LilyPond 2.18.2 released!  @emph{March 23, 2014}
 
 We are proud to announce the release of GNU LilyPond 2.18.2.
 LilyPond is a music engraving program devoted to producing the
@@ -53,7 +53,7 @@ from data encoded directly in the LilyPond score.
 
 
 @newsItem
-@subheading Lilypond 2.18.0 released!  @emph{December 29, 2013}
+@subheading LilyPond 2.18.0 released!  @emph{December 29, 2013}
 
 We are proud to announce the release of GNU LilyPond 2.18.0.
 LilyPond is a music engraving program devoted to producing the

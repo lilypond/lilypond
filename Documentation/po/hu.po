@@ -537,7 +537,7 @@ msgstr ""
 #. @node in Documentation/extending/programming-interface.itely
 #. @section in Documentation/extending/programming-interface.itely
 #, fuzzy
-msgid "Lilypond code blocks"
+msgid "LilyPond code blocks"
 msgstr "lilypond-book sablonok"
 
 #. @node in Documentation/extending/programming-interface.itely

@@ -270,7 +270,7 @@ che usano LilyPond.
 LilyPond gira su tutte le piattaforme più note: GNU/Linux, MacOS X, e
 Windows.  LilyPond include un'ampia documentazione e centinaia di file
 di esempio.  C'è un'attiva comunità di utenti che risponde alle
-domande nella mailing list internazionale dedicata agli utenti Lilypond,
+domande nella mailing list internazionale dedicata agli utenti LilyPond,
 offrendo gentilmente il proprio aiuto.  I tempi di risposta sono solitamente
 molto brevi e spesso vengono suggerite brillanti soluzioni dei problemi
 segnalati.  Grazie alla stretta interazione col team di sviluppo, tali
@@ -308,7 +308,7 @@ già deciso di provare LilyPond, per prima cosa informati sul nostro
 
 @subheading Begli esempi
 
-Lilypond è uno strumento potente e flessibile per scrivere ogni tipo
+LilyPond è uno strumento potente e flessibile per scrivere ogni tipo
 di musica. Dai un'occhiata alla galleria di esempi e lasciati ispirare!
 
 @divEnd
@@ -318,7 +318,7 @@ di musica. Dai un'occhiata alla galleria di esempi e lasciati ispirare!
 @subheading Musica Classica
 
 Questo brano per organo di J.S. Bach rappresenta un tipico esempio di
-progetto Lilypond.
+progetto LilyPond.
 
 @exampleImage{bach-bwv610}
 @divEnd
@@ -337,7 +337,7 @@ mediante tratti spezzati.
 @divClass{column-center-middle-color2}
 @subheading Musica Antica
 
-Lilypond supporta anche vari tipi di notazione antica, come
+LilyPond supporta anche vari tipi di notazione antica, come
 questo passaggio di canto gregoriano.
 
 @exampleImage{ancient-headword}
@@ -346,7 +346,7 @@ questo passaggio di canto gregoriano.
 @divClass{column-center-middle-color2}
 @subheading Musica Moderna
 
-I compositori contemporanei ritengono che Lilypond sia molto adatto a
+I compositori contemporanei ritengono che LilyPond sia molto adatto a
 visualizzare notazioni non convenzionali.  Ecco un estratto dal @emph{Čáry} di
 Trevor Bača, per flauto basso non accompagnato.
 
@@ -374,7 +374,7 @@ completa, riduzione per canto e pianoforte, e parte per violino.
 @divClass{column-center-middle-color2}
 @subheading Intavolatura
 
-Lilypond supporta la notazione per intavolatura, che può essere personalizzata
+LilyPond supporta la notazione per intavolatura, che può essere personalizzata
 per adattarsi a ogni strumento che ne fa uso.  Il rigo
 dell'intavolatura viene generato automaticamente dalle note inserite per
 il pentagramma.
@@ -397,7 +397,7 @@ I colori sono stati aggiunti per migliorare la visibilità.
 @subheading Output personalizzato
 
 Un breve estratto del Klavierstück II di Stockhausen per dimostrare  la
-capacità di Lilypond di fornire output personalizzato.
+capacità di LilyPond di fornire output personalizzato.
 
 @exampleImage{Stockhausen_Klavierstueck2}
 @divEnd
@@ -406,11 +406,11 @@ capacità di Lilypond di fornire output personalizzato.
 @divClass{column-center-middle-color2}
 @subheading Musica Vocale
 
-Lilypond è eccellente per la musica vocale di tutti i generi, dagli inni
+LilyPond è eccellente per la musica vocale di tutti i generi, dagli inni
 sacri all'opera.  Ecco un mottetto medievale con requisiti leggermente
 insoliti.  Il tenor è scritto in un metro diverso dagli altri,
 ma deve essere allineato come se fosse nello stesso tempo.
-Lilypond gestisce questo aspetto in modo molto elegante.  Si notino anche gli
+LilyPond gestisce questo aspetto in modo molto elegante.  Si notino anche gli
 incipit con chiave in stile Vaticana, i gambi barrati a indicare note plicate,
 e le parentesi quadre sulle sezioni legate.
 
@@ -420,7 +420,7 @@ e le parentesi quadre sulle sezioni legate.
 @divClass{column-center-middle-color2}
 @subheading Applicazioni didattiche
 
-Lilypond è molto indicato anche per applicazioni didattiche.
+LilyPond è molto indicato anche per applicazioni didattiche.
 Ecco un esempio di un semplice esercizio di contrappunto.
 
 @exampleImage{theory}
@@ -440,7 +440,7 @@ personalizzati per adattarsi a quasi ogni situazione.
 @divClass{column-center-middle-color2}
 @subheading Grandi Progetti
 
-Lilypond è ottimo anche per progetti ad ampio respiro come opere o lavori per
+LilyPond è ottimo anche per progetti ad ampio respiro come opere o lavori per
 un'orchestra sinfonica al completo.  Inoltre l'input testuale permette
 una maggiore accessibilità -- questo esempio è stato realizzato
 da Hu Haipeng, un compositore cieco.
@@ -612,7 +612,7 @@ che per le partiture pubblicate.
 @divClass{column-left-top}
 @subheading Concerti
 
-Lilypond è stato usato per esecuzioni in tutto il mondo.
+LilyPond è stato usato per esecuzioni in tutto il mondo.
 In evidenza:
 
 @divClass{keep-bullets}
@@ -852,7 +852,7 @@ Dicembre 2005
 intitolato @uref{http://www.linuxjournal.com/article/8364, Crea
 dei fantastici grafici Schenker con GNU LilyPond}.  È un articolo
 approfondito e pratico con attraenti grafici di LilyPond.  L'autore
-Kris Shaffer commenta @qq{GNU Lilypond genera una grafica splendida
+Kris Shaffer commenta @qq{GNU LilyPond genera una grafica splendida
 che fa sembrare le alternative commerciali di second'ordine.}
 
 @item
@@ -951,7 +951,7 @@ quanto riguarda la velocità, la facilità d'uso e la resa grafica!}
 
 @qq{[@dots{}dopo la prima prova d'orchestra] ho ricevuto molti
 complimenti per la qualità degli spartiti.  Ancora più
-importante: sebbene Lilypond fornisca molti trucchi per migliorare
+importante: sebbene LilyPond fornisca molti trucchi per migliorare
 l'aspetto degli spartiti, quello che l'orchestra ha ricevuto da me è
 l'output grezzo e privo di ritocchi.}
 @divEnd
@@ -962,9 +962,9 @@ l'output grezzo e privo di ritocchi.}
 
 @qq{grazie e complimenti al team di sviluppo per il suo incredibile
 lavoro.  Non ho mai visto niente che possa avvicinarsi all'output di
-Lilypond -- sono assolutamente sicuro che le mie necessità nel campo
+LilyPond -- sono assolutamente sicuro che le mie necessità nel campo
 dell'editoria musicale saranno soddisfatte oltre ogni aspettativa usando
-questo fantastico programma.  [@dots{}] l'output predefinito di Lilypond [@dots{}] ha
+questo fantastico programma.  [@dots{}] l'output predefinito di LilyPond [@dots{}] ha
 un aspetto migliore delle recenti pubblicazioni @q{professionali} con cui
 l'ho confrontato (ovvero quasi qualsiasi spartito della Warner Bros, e anche molti
 dei più recenti delle @q{vecchie case editrici}). [@dots{}]}
@@ -976,7 +976,7 @@ dei più recenti delle @q{vecchie case editrici}). [@dots{}]}
 @divClass{testimonial-item}
 @subsubheading Chris Cannam, principale programmatore di @uref{http://www.rosegardenmusic.com/, RoseGarden}
 
-@qq{Lilypond è ovviamente il super gorilla [della
+@qq{LilyPond è ovviamente il super gorilla [della
 grande tipografia musicale].}
 @divEnd
 
@@ -1006,7 +1006,7 @@ farlo.  Sono sicuro che nessun prodotto commerciale può avvicinarsi a questo.}
 @divClass{testimonial-item}
 @subsubheading David Bobroff, trombone basso, Iceland Symphony Orchestra
 
-@qq{Credo che Lilypond sia un grande programma [@dots{}] Più imparo LilyPond
+@qq{Credo che LilyPond sia un grande programma [@dots{}] Più imparo LilyPond
 e più mi piace!}
 @divEnd
 
@@ -1321,7 +1321,7 @@ Emacs è un editor di testo che ha la capacità di comprendere molti
 diversi linguaggi informatici.  Emacs è un editor molto estendibile
 e può essere usato come ambiente di sviluppo integrato (IDE).
 C'è una @q{modalità lilypond} che fornisce le definizioni del
-linguaggio per poter lavorare con i file sorgente di Lilypond.
+linguaggio per poter lavorare con i file sorgente di LilyPond.
 Uno sviluppatore ha scritto
 @uref{https://github.com/nsceaux/lyqi,lyqi}, una
 modalità primaria di Emacs.

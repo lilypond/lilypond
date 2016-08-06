@@ -56,7 +56,7 @@ der Musik konzentrieren.
 @divEnd
 
 @divClass{column-right-top}
-@subheading Lilypond im Einsatz
+@subheading LilyPond im Einsatz
 @itemize
 
 @item
@@ -395,7 +395,7 @@ Die Farben wurden zur Verdeutlichung hinzugefügt.
 @subheading Individuelle Ausgabe
 
 Ein kurzer Auszug aus Stockhausen's Klavierstück II zeigt die
-Fähigkeiten von Lilypond eine individuelle Ausgabe zu erzeugen.
+Fähigkeiten von LilyPond eine individuelle Ausgabe zu erzeugen.
 
 @exampleImage{Stockhausen_Klavierstueck2}
 @divEnd
@@ -878,7 +878,7 @@ Artikel unter dem Titel
 Schenker Graphs with GNU LilyPond}.  Es handelt sich um einen
 tiefgehenden, aber sehr praktischen Artikel mit gestochen
 scharfen LilyPond-Graphiken.  Der Autor Kris Shaffer merkt an:
-»GNU Lilypond erstellt schöne Graphik, die kommerzielle Alternativen
+»GNU LilyPond erstellt schöne Graphik, die kommerzielle Alternativen
 als zweite Wahl erscheinen lassen.«
 
 @item

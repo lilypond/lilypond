@@ -4546,7 +4546,7 @@ layout. Settings chosen for @code{\alterBroken} may be unsuitable
 for a spanner that is no longer broken or is split into more
 segments than before.  Explicit use of @code{\break} can guard
 against this situation.
- 
+
 The @code{\alterBroken} command is ineffective for spanner
 properties accessed before line-breaking such as
 @code{direction}.
@@ -4712,7 +4712,7 @@ must return @code{#t}.
 
 @item @code{@var{@dots{}music@dots{}}}
 @tab normal LilyPond input, using @code{$} (in places where only
-Lilypond constructs are allowed) or @code{#} (to use it as a Scheme
+LilyPond constructs are allowed) or @code{#} (to use it as a Scheme
 value or music function argument or music inside of music lists) to
 reference arguments
 (eg. @samp{#arg1}).
@@ -4743,7 +4743,7 @@ are also allowed.
 Notation Reference:
 @ref{Predefined type predicates}.
 
-Extending Lilypond:
+Extending LilyPond:
 @rextend{Music functions}.
 
 Installed Files:

@@ -56,16 +56,16 @@ Free Documentation License''.
 @c expected to be found in lilypond/ subdirectory.
 @dircategory GNU LilyPond: el gravador de música
 @direntry
-* Manual d'aprenentatge del Lilypond:(lilypond-learning). Comenceu per aquí.
+* Manual d'aprenentatge del LilyPond:(lilypond-learning). Comenceu per aquí.
 * Glosari musical: (music-glossary).                 Per a usuaris de parla no anglesa
-* LilyPond: (lilypond-notation).                      Referència de la notació amb el Lilypond.
+* LilyPond: (lilypond-notation).                      Referència de la notació amb el LilyPond.
 * Fragments de codi del LilyPond: (lilypond-snippets). Consells, trucs i exemples curts.
 * Referència de funcionament intern: (lilypond-internals). Definicions pera a la construcció de trucs.
 * Utilització del prrograma: (lilypond-usage). Instal·lació i execució de les aplicacions
 * Pàgina web: (lilypond-web).    Vista prèvia de la nova pàgina.
-* lilypond: (lilypond-usage)Executar el Lilypond.   Invocar el programa LilyPond.
+* lilypond: (lilypond-usage)Executar el LilyPond.   Invocar el programa LilyPond.
 * abc2ly: (lilypond-usage)Invocació d'abc2ly.      Importació d'ABC.
-* convert-ly: (lilypond-usage)Actualització de fitxers mitjançant convert-ly. Versions antigues del Lilypond.
+* convert-ly: (lilypond-usage)Actualització de fitxers mitjançant convert-ly. Versions antigues del LilyPond.
 * etf2ly: (lilypond-usage)Invocar etf2ly.      Importació del Finale.
 * lilypond-book: (lilypond-usage)LilyPond-book. Intergrar text i música.
 * midi2ly: (lilypond-usage)Invocar midi2ly.    Importació de MIDI.
@@ -119,13 +119,13 @@ Per al LilyPond versió @version{}
 @divId{quickSummary}
 @subheading ¿Què és el LilyPond?
 
-El Lilypond és un programa de gravat musical
+El LilyPond és un programa de gravat musical
 (tipografia musical o edició de partitures),
 consagrat a la producció de partitures de la
 qualitat més alta possible. Introdueix l'estètica
 de la música gravada de la forma tradicional
 a les partitures impreses mijtançant l'ordinador.
-Lilypond és programari lliure i forma part del
+LilyPond és programari lliure i forma part del
 @uref{http://www.gnu.org/home.ca.html,Projecte GNU}.
 
 

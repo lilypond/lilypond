@@ -48,7 +48,7 @@ celém souhrnu zkušeností a zvyklostech klasické notové sazby.
 @divEnd
 
 @divClass{column-right-top}
-@subheading Nasazení Lilypondu
+@subheading Nasazení LilyPondu
 
 @itemize
 
@@ -124,7 +124,7 @@ Více k tomu v našem @ref{Článek,,článku}.
 
 Travte méně času tím, že budete dodatečně měnit notovou
 sazbu: LilyPond upravuje noty správně hned od začátku.
-Rozdělení místa vypočítá sám a rovněž spočítá 
+Rozdělení místa vypočítá sám a rovněž spočítá
 zalomení řádků a stran, aby vytvořil hustý a pravidelný
 obraz not.  Střety mezi textem písně, notami a akordy
 jsou vyřešeny a všechny obloučky jsou automaticky
@@ -584,7 +584,7 @@ přímé stažení tak i k dostání na papíře.
 @uref{http://shadylane.fr/, The Shady Lane
 Publishing},
 @qq{Mikrovydavatelství not}, které si dalo za cíl
-podporu nové ekonomie hudby, které stojí hudebníkům a 
+podporu nové ekonomie hudby, které stojí hudebníkům a
 milovníkům hudby blíže.
 
 @end itemize
@@ -661,7 +661,7 @@ Prosinec 2005
 Schenker Graphs with GNU LilyPond}.  Jedná se o do hloubky jdoucí,
 ale velmi účelný článek s vyrytými ostrými obrázky
 LilyPondu.  Autor Kris Shaffer poznamenává:
-»GNU Lilypond vytváří krásnou grafiku, která se ve vztahu k obchodním nabídkám
+»GNU LilyPond vytváří krásnou grafiku, která se ve vztahu k obchodním nabídkám
 jeví jako druhá volba.«
 
 @item
@@ -750,7 +750,7 @@ překvapit.}
 
 @qq{I když jej [LilyPond] ještě tak dobře neznám, udělal na mě již teď neobyčejný
   dojem. Použil jsem tento program pro zápis not jednoho moteta od Josquina Despreze
-  v menzurálním notovém zápisu. Je mimo veškerou pochybnost, že LilyPond v 
+  v menzurálním notovém zápisu. Je mimo veškerou pochybnost, že LilyPond v
   rychlosti, v jednoduchosti používání a notové sazbě snadno předčí
   jiné notační programy.}
 @divEnd
@@ -795,7 +795,7 @@ překvapit.}
 @subsubheading Chris Snyder, @uref{https://twitter.com/adoromusic, Adoro Music Publishing}
 
 @qq{Způsob, jakým jsou noty v LilyPondu zadávány, mi dovoluje
-myslet hudebně -- byly doby, kdy jsem se LilyPondu marně 
+myslet hudebně -- byly doby, kdy jsem se LilyPondu marně
 pokoušel vysvětlit, jak se má v notách něco vysázet,
 jen abych zjistil, že, i kdybych to dokázal udělat přesně tak,
 jak to chtěl skladatel, noty by přesto byly pro čtení velmi
@@ -843,7 +843,7 @@ tím více jej mám rád!}
   první list s notami, který jsem uviděl, vypadal tak dobře. Popis
   lže, když jde o krásu LilyPondu
   -- je v tomto příliš skromný! [...] protože LilyPond se pořád zlepšuje,
-  a jak se důkladně zabývám tím, jak se věci ve 
+  a jak se důkladně zabývám tím, jak se věci ve
   Scheme dělají, mám mnohem méně pocitů marnosti. Na každý pád
   bych chtěl říci: Děkuji vám za to, že LilyPond nabízíte, je
   skutečně báječný!}
@@ -921,7 +921,7 @@ zpětným (obráceným) lomítkem.
 
 Předznamenání jsou přidávána pomocí různých koncovek: @code{-is}
 za notou sází křížek, @code{-es} zato béčko (-- toto jsou české koncovky,
-koncovky v jiných jazycích jsou možné také). LilyPond sám rozhodne o tom, kde 
+koncovky v jiných jazycích jsou možné také). LilyPond sám rozhodne o tom, kde
 předznamenání umístí.
 
 @imageFloat{text-input-2-annotate,png,center}

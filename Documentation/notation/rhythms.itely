@@ -2758,7 +2758,7 @@ However, as such ticks are typically used in Gregorian chant, it is
 preferable to use @code{\divisioMinima} there instead, described in
 the section @ref{Divisiones} in Gregorian chant.
 
-Lilypond supports kievan notation and provides a special kievan
+LilyPond supports kievan notation and provides a special kievan
 bar line:
 @lilypond[quote,fragment,verbatim]
 f'1 \bar "k"

@@ -435,7 +435,7 @@ cada pàgina de sortida.  Es recomana instal·lar el tipus de lletra
 Century Schoolbook, que està inclòs a la instal·lació del
 LilyPond, per a un renderitzat òptim.  Sota l'UNIX, bastarà amb
 que copieu aquests fitxers de tipus de lletra del directori del
-Lilypond (normalment @file{/usr/share/lilypond/VERSION/fonts/otf/})
+LilyPond (normalment @file{/usr/share/lilypond/VERSION/fonts/otf/})
 al directori @file{~/.fonts/}.  La sortida @code{SVG} hauria de
 ser compatible amb qualsevol editor o client de SVG.  També hi ha
 una opció @code{svg-woff} (vegeu més avall) per usar els fitxers

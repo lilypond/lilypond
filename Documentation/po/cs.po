@@ -528,7 +528,7 @@ msgstr "Rozhraní pro programátory"
 #. @node in Documentation/extending/programming-interface.itely
 #. @section in Documentation/extending/programming-interface.itely
 #, fuzzy
-msgid "Lilypond code blocks"
+msgid "LilyPond code blocks"
 msgstr "Složené proměnné v LilyPondu"
 
 #. @node in Documentation/extending/programming-interface.itely

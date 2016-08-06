@@ -16,7 +16,7 @@
 @chapter Spouštíme @command{lilypond}
 @translationof Running lilypond
 
-Dieses Kapitel behandelt die technischen Details, wie Lilypond ausgeführt werden kann.
+Dieses Kapitel behandelt die technischen Details, wie LilyPond ausgeführt werden kann.
 
 
 @menu
@@ -87,7 +87,7 @@ Standarderweiterung für LilyPond-Dateien benutzt.  Um Daten von
 @code{stdin} einzulesen, benutzen Sie einfach einen Bindestrich (@code{-})
 als @var{Dateiname}.
 
-Wenn Lilypond die Datei @file{Dateiname.ly} verarbeitet, werden daraus
+Wenn LilyPond die Datei @file{Dateiname.ly} verarbeitet, werden daraus
 die Dateien @file{Dateiname.ps} und @file{Dateiname.pdf} erzeugt.
 Es können an @code{lilypond} auch mehrere @file{.ly} Dateien übergeben
 werden, die dann einzeln und voneinander unabhängig abgearbeitet
@@ -99,7 +99,7 @@ Falls @file{Dateiname.ly} mehr als eine @code{\book}-Umgebung enthält,
 werden die weiteren Stücke in durchnummerierte Dateien der Form
 @file{Dateiname-1.pdf} ausgegeben.  Zusätzlich wird der Wert der
 Variable @code{output-suffix} zwischen den ursprünglichen Dateinamen
-und der Zahl eingefügt.  Eine Lilypond-Datei @file{Dateiname.ly} mit dem Inhalt
+und der Zahl eingefügt.  Eine LilyPond-Datei @file{Dateiname.ly} mit dem Inhalt
 
 @example
 #(define output-suffix "Geige")
@@ -437,7 +437,7 @@ Dateien müssen in das Jail-Verzeichnis kopiert werden (mit denselben Pfaden
 wie im tatsächlichen Wurzel-Dateisystem). Die gesamte LilyPond-Installation
 (typischerweise @file{/usr/share/lilypond}) sollte kopiert werden.
 
-Falls Probleme auftreten, ist es am einfachsten, Lilypond mittels
+Falls Probleme auftreten, ist es am einfachsten, LilyPond mittels
 @command{strace} zu starten, wodurch Sie relativ leicht feststellen können,
 welche Dateien im Jail noch fehlen.
 
@@ -478,7 +478,7 @@ Zeigt die Garantiebedingungen an, unter denen GNU LilyPond steht. (Es besteht
 @command{lilypond} erkennt und benützt die folgenden proměnné prostředí:
 @table @code
 @item LILYPOND_DATADIR
-Diese Variable gibt das Verzeichnis an, wo Lilypond seine eigenen Dateien,
+Diese Variable gibt das Verzeichnis an, wo LilyPond seine eigenen Dateien,
 Meldungen und Übersetzungen finden kann.  Dieses Verzeichnis sollte
 Unterverzeichnisse @file{ly/}, @file{ps/}, @file{tex/}, etc. beinhalten.
 
@@ -693,7 +693,7 @@ test.ly:2:19: Fehler: keine gültige Dauer: 5
 
 Diese Stellen sind LilyPonds Vermutung, wo die Warnung oder der Fehler
 aufgetreten ist, allerdings treten Warnungen und Fehler ja gerade in
-unerwarteten Fällen auf.  Manchmal kann Lilypond auch eine fehlerhafte
+unerwarteten Fällen auf.  Manchmal kann LilyPond auch eine fehlerhafte
 Stelle zwar noch problemlos verarbeiten, ein paar Zeilen später wirkt
 sich der Fehler aber dann doch noch aus.  In solchen Fällen, wo Sie in
 der angegebenen Zeile keinen Fehler erkennen, sollten Sie auch die Zeilen

@@ -848,7 +848,7 @@ PDF 1095k})
 
 @item
 Erik Sandberg: @emph{A bemeneti nyelv és a formázó szétválasztása a
-GNU Lilypondban}. Diplomaterv, Uppsalai Egyetem, Információtechnológiai
+GNU LilyPondban}. Diplomaterv, Uppsalai Egyetem, Információtechnológiai
 Tanszék, 2006. március
 (@uref{http://lilypond.org/website/pdf/thesis-erik-sandberg.pdf,
 PDF 750k})
@@ -898,7 +898,7 @@ A Linux Journal közzétesz egy cikket
 @uref{http://www.linuxjournal.com/article/8364,
 Schenker-diagramok készítése GNU LilyPonddal}
 címen. Ez egy gyakorlatias cikk igen szép LilyPond grafikákkal.
-A szerző, Kris Shaffer megjegyzi: @qq{A GNU Lilypond gyönyörű kottaképe után a
+A szerző, Kris Shaffer megjegyzi: @qq{A GNU LilyPond gyönyörű kottaképe után a
 kereskedelmi alternatívák másodosztályúnak tűnnek.}
 A cikk elérhető @uref{http://www.linuxjournal.com/article/8583, online}.
 

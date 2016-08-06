@@ -477,7 +477,7 @@ non si riferisce ad alcuno standard.
 @cindex lingua, nomi delle note in un'altra
 @cindex lingua, nomi delle altezze in un'altra
 
-Lilypond comprende insiemi predefiniti di nomi di note e alterazioni in
+LilyPond comprende insiemi predefiniti di nomi di note e alterazioni in
 altre lingue.  La scelta della lingua si fa solitamente all'inizio del
 file; l'esempio seguente è scritto in notazione italiana:
 

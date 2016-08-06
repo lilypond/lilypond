@@ -270,7 +270,7 @@ mise en forme et l'utilisation de ces commandes, nous nous limiterons à
 n'employer que quelques propriétés et valeurs simples, facilement
 compréhensibles.
 
-Lilypond reconnaît comme expression primaire les éléments musicaux tels
+LilyPond reconnaît comme expression primaire les éléments musicaux tels
 que les notes, durées et annotations (les @emph{markups}).  D'autres
 expressions de base comme les nombres, chaînes de caractères et listes
 sont gérées en « mode Scheme », mode appelé en faisant précéder une

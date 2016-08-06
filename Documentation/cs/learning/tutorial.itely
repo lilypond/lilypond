@@ -56,7 +56,7 @@ aby byl vytvořen výstupní soubor.
 @cindex Malá písmena
 
 @qq{Sestavení} je pojem, který se používá pro
-přeměnu vstupního souboru pro Lilypond programem LilyPond do
+přeměnu vstupního souboru pro LilyPond programem LilyPond do
 notového výstupu.  Výstupními soubory jsou v první řadě soubory
 PDF (pro prohlížení a tisku), MIDI (pro přehrávání)
 a PNG (pro používání na internetových stránkách).  Vstupními soubory

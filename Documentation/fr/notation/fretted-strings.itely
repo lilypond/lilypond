@@ -579,7 +579,7 @@ donnée est calculée automatiquement.  Pour ce faire, l'accordage doit
 
 LilyPond possède des accordages prédéfinis pour le banjo, la mandoline,
 la guitare et la guitare basse ainsi que le ukulele et les cordes
-d'orchestre.  Lilypond calcule automatiquement la transposition
+d'orchestre.  LilyPond calcule automatiquement la transposition
 correspondant à ces accordages.  L'exemple ci-dessous est pour guitare
 basse, il sonnera donc une octave en dessous de ce qui est écrit.
 
@@ -688,7 +688,7 @@ de type @emph{pitch}.  Les objets @emph{pitch} sont créés par la fonction
 La fonction @code{\stringTuning} permet de créer de tels objets à partir
 de la saisie d'un accord.
 
-Lilypond calcule automatiquement le nombre de cordes à représenter dans
+LilyPond calcule automatiquement le nombre de cordes à représenter dans
 la tablature (@code{TabStaff}) ainsi que dans le @code{FretBoard} en
 comptant le nombre d'éléments définis dans le @code{stringTunings}.
 

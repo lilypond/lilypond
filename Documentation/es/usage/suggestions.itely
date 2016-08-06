@@ -338,7 +338,7 @@ define las relaciones de dependencia entre los archivos y qué
 instrucciones necesitamos dar al sistema operativo para producir
 un archivo a partir de otro.  Por ejemplo, el archivo de make
 detallaría cómo obtener @file{balada.pdf} y @file{balada.midi} a
-partir de @file{balada.ly} mediante la ejecución de Lilypond.
+partir de @file{balada.ly} mediante la ejecución de LilyPond.
 
 Existen ocasiones en las que es buena idea crear un
 @code{Makefile} para nuestro proyecto, bien sea por nuestra propia

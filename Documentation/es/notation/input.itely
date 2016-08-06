@@ -247,7 +247,7 @@ archivo como un solo bloque @code{\book}, véase @ref{Estructura
 del archivo}.
 
 Al producir varios archivos a partir de un solo archivo fuente,
-Lilypond se asegura de que ninguno de los archivos de salida de
+LilyPond se asegura de que ninguno de los archivos de salida de
 ningún bloque @code{\book} sobreescribe el archivo de salida
 producido por un @code{\book} anterior del mismo archivo de
 entrada.
@@ -293,11 +293,11 @@ en el archivo fuente @file{eightminiatures.ly}, produce
 @funindex \bookOutputSuffix
 @funindex \bookOutputName
 
-Lilypond le ofrece unos mecanismos que le permiten controlar los
+LilyPond le ofrece unos mecanismos que le permiten controlar los
 nombres de archivo que se utilizan por parte de los diversos
 motores finales al producir los archivos de salida.
 
-En la sección anterior vimos cómo Lilypond evita las
+En la sección anterior vimos cómo LilyPond evita las
 coincidencias de nombres al producir varias salidas a partir de
 un único archivo fuente de entrada.  También podemos especificar
 nuestros propios sufijos para cada bloque @code{\book}, de manera
@@ -3905,7 +3905,7 @@ lilypond archivo.ly >resultado.txt
 @end example
 
 @funindex \void
-Observe que Lilypond no se limita a mostrar la expresión musical,
+Observe que LilyPond no se limita a mostrar la expresión musical,
 sino que también la interpreta (porque @code{\displayLilyMusic}
 la devuelve además de mostrarla).  Simplemente inserte
 @code{\displayLilyMusic} dentro de

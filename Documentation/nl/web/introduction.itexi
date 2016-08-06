@@ -15,7 +15,7 @@
 @node Inleiding
 @unnumbered Inleiding
 @translationof Introduction
- 
+
 @divClass{column-center-top}
 @subheading Ons Doel
 @imageFloat{flat-design,png,right}
@@ -211,9 +211,9 @@ actieve gebruikersgroep die antwoorden geeft op de
 lilypond-user mailinglijst, terwijl het ontwikkelingsteam
 ervoor zorgt dat problemen snel worden opgelost.
 
- 
+
 @subsubheading Verbeterde editors
- 
+
 Verscheidene ontwikkelaars, zelf actieve gebruikers van
 LilyPond, hebben ook gereedschappen geschreven die speciaal
 bedoeld zijn om het invoeren van LilyPond-bestanden sneller
@@ -228,7 +228,7 @@ vinden in @ref{Eenvoudiger bewerken}.
 
 Nog steeds niet overtuigd?  Bekijk dan maar eens enkele
 specifieke @ref{Voorbeelden}.  Heb je al besloten LilyPond
-te gaan proberen, lees dan eerst over onze 
+te gaan proberen, lees dan eerst over onze
 @ref{Tekstinvoer}.
 @divEnd
 
@@ -710,7 +710,7 @@ Association}'s jaarblad, legt de Franse componist en LilyPond-bijdrager
 Valentin Villenave uit waarom Vrije licenties, en in het bijzonder
 LilyPond-gegraveerde partituren, van instrumenteel belang zijn in
 het voor iedereen toegankelijk maken van genoteerde muziek.
- 
+
 @item
 februari 2008
 
@@ -832,7 +832,7 @@ hun gegraveerde versie niet half zo gelikt is als de mijne!}
 @qq{Hoewel ik [LilyPond] nog niet zo goed ken, ben ik
 @strong{erg} onder de indruk.  Ik heb het programma gebruikt
 om een motet van Josquin Desprez in te voeren in mensurale
-notatie.  Lilypond overtreft zonder twijfel en met gemak
+notatie.  LilyPond overtreft zonder twijfel en met gemak
 alle andere muzieknotatieprogramma's voor wat betreft
 snelheid, gebruiksgemak en schoonheid!}
 @divEnd
@@ -843,7 +843,7 @@ snelheid, gebruiksgemak en schoonheid!}
 
 @qq{[..na de eerste orkestrepetitie] kreeg ik heel veel
 complimenten over de kwaliteit van de partituren.  En wat
-nog veel mooier is: terwijl Lilypond allerlei manieren
+nog veel mooier is: terwijl LilyPond allerlei manieren
 biedt om te zorgen dat de partituren er nog mooier uitzien,
 kreeg het orkest van mij slechts de ruwe, ongewijzigde
 LilyPond-output.}
@@ -853,10 +853,10 @@ LilyPond-output.}
 @subsubheading Kieren MacMillan, componist (Toronto, Canada)
 @qq{Dank en lof voor het ontwikkelteam voor hun fantastische
 werk.  Ik heb nog nooit iets gezien wat maar in de buurt
-komt van de output die ik bereik met Lilypond -- Ik ben er
+komt van de output die ik bereik met LilyPond -- Ik ben er
 zeker van dat dit fantastische programma aan al mijn
 muziekpublicatie-wensen kan voldoen en deze zelfs zal
-overtreffen. [..]  hoofdzakelijk pure Lilypond output [..]
+overtreffen. [..]  hoofdzakelijk pure LilyPond output [..]
 ziet er beter uit dan de meeste recente @q{professionele}
 uitgaven waarmee ik het heb vergeleken (q.v., zo ongeveer
 elke Warner Bros. partituur, en zelfs een groot deel van de
@@ -902,7 +902,7 @@ enigszins in de buurt kan komen.}
 @divClass{testimonial-item}
 @subsubheading David Bobroff, bastrombonist, Iceland Symphony Orchestra
 
-@qq{Ik vind Lilypond fantastisch [..]  Hoe beter ik het
+@qq{Ik vind LilyPond fantastisch [..]  Hoe beter ik het
 programma leer kennen, hoe mooier ik het vind!}
 @divEnd
 
@@ -1128,7 +1128,7 @@ zie @ref{Eenvoudiger bewerken}.
 @subheading En nu?
 
 Je bent nu zover om @ref{Download, LilyPond te downloaden}.
-Nog steeds niet overtuigd?  
+Nog steeds niet overtuigd?
 Lees over @ref{Eenvoudiger bewerken}.
 @divEnd
 
@@ -1360,7 +1360,7 @@ constraint-gebaseerde programmeertaal.
 LilyKDE3 voor KDE 3.5 en lilypond-KDE4 voor KDE 4.1.
 
 @item
-@uref{https://sourceforge.net/projects/noteedit.berlios/,NoteEdit}, dat 
+@uref{https://sourceforge.net/projects/noteedit.berlios/,NoteEdit}, dat
 @uref{http://www.musicxml.com/xml.html,MusicXML} importeerde, is geforkt
 in
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
@@ -1393,7 +1393,7 @@ beschreven in @ref{Achtergrond}.
 
 @subheading Legalese
 
-@divClass{legal} 
+@divClass{legal}
 
 All logos and product images are copyright and trademark
 acknowledged.

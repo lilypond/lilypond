@@ -532,7 +532,7 @@ msgstr "Interfícies per a programadors"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @section in Documentation/extending/programming-interface.itely
-msgid "Lilypond code blocks"
+msgid "LilyPond code blocks"
 msgstr "Blocs de codi del LilyPond"
 
 #. @node in Documentation/extending/programming-interface.itely
@@ -6480,7 +6480,7 @@ msgstr "Inserció de la sortida del LilyPond dins d'altres programes"
 #. @node in Documentation/usage/external.itely
 #. @unnumberedsubsec in Documentation/usage/external.itely
 msgid "Inserting LilyPond output into other programs"
-msgstr "Inserció de la sortida del Lilypond dins d'altres programes"
+msgstr "Inserció de la sortida del LilyPond dins d'altres programes"
 
 #. @node in Documentation/usage/external.itely
 msgid "Independent includes"
@@ -11343,7 +11343,7 @@ msgstr "estigui al domini públic i pugui formar part, usar-se i presentar-se di
 
 #. Documentation/snippets/unfretted-headword.ly:37 (comment)
 msgid "the LilyPond Documention Project."
-msgstr "Projecte de Documentació del Lilypond."
+msgstr "Projecte de Documentació del LilyPond."
 
 #. Documentation/snippets/unfretted-headword.ly:39 (comment)
 msgid "Statement Date: Octber the 9th, 2008"

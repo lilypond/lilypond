@@ -296,13 +296,13 @@ Another very useful debugging technique is constructing
 @cindex makefiles
 @cindex make
 
-Pretty well all the platforms Lilypond can run on support a software
+Pretty well all the platforms LilyPond can run on support a software
 facility called @code{make}.  This software reads a special file called a
 @code{Makefile} that defines what files depend on what others and what
 commands you need to give the operating system to produce one file from
 another.  For example the makefile would spell out how to produce
 @file{ballad.pdf} and @file{ballad.midi} from @file{ballad.ly} by
-running Lilypond.
+running LilyPond.
 
 There are times when it is a good idea to create a @code{Makefile}
 for your project, either for your own convenience or

@@ -391,7 +391,7 @@ The colors have been added for better visibility.
 @subheading Customized Output
 
 A short excerpt from Stockhausen's Klavierstück II to demonstrate
-Lilypond's ability to provide customised output.
+LilyPond's ability to provide customised output.
 
 @exampleImage{Stockhausen_Klavierstueck2}
 @divEnd
@@ -612,8 +612,8 @@ Some highlights:
 version of Richard Strauss's @emph{Der Rosenkavalier} for four singers
 and a chamber orchestra of thirteen players.  This has been commissioned
 by the Berlin Philharmonic Orchestra whose members will be the performers on
-@uref{http://www.festspielhaus.de/veranstaltung/der-kleine-rosenkavalier-02-04-2015-1100/,April 2nd and 6th} 
-at the Festspielhaus, Baden-Baden, and on 
+@uref{http://www.festspielhaus.de/veranstaltung/der-kleine-rosenkavalier-02-04-2015-1100/,April 2nd and 6th}
+at the Festspielhaus, Baden-Baden, and on
 @uref{http://www.berliner-philharmoniker.de/konzerte/kalender/details/21070/,April 26th}
 in the @emph{Philharmonie (großer Saal)}, Berlin.  We are pleased to see
 musicians of such reputation playing from LilyPond scores -- and they are

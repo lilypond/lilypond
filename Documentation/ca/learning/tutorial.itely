@@ -16,7 +16,7 @@
 @chapter Tutorial
 @translationof Tutorial
 
-Aquest capítol ofereix una introducció bàsica al treball amb el Lilypond.
+Aquest capítol ofereix una introducció bàsica al treball amb el LilyPond.
 
 @menu
 * Compilació d'un fitxer::
@@ -78,7 +78,7 @@ El resultat té aquest aspecte:
 @end lilypond
 
 @warning{la música i la lletra escrita al codi d'entrada del
-Lilypond ha d'anar sempre entre @w{@strong{@{ claudàtors @}}}.
+LilyPond ha d'anar sempre entre @w{@strong{@{ claudàtors @}}}.
 Els claudàtors haurien també d'estar rodejats per espais a no ser
 que es trobin al principi o al final d'una línia, per evitar
 ambigüitats.  És possible que s'ometen en alguns exemples del
@@ -87,7 +87,7 @@ Per veure més informació sobre la presentació dels exemples del
 manual, consulteu
 @ref{Com llegir els manuals}.}
 
-A més, l'entrada del Lilypond és @strong{sensible a les majúscules}.
+A més, l'entrada del LilyPond és @strong{sensible a les majúscules}.
 @w{@samp{ @{ c d e @}}} és una entrada vàlida; @w{@samp{@{ C D E @}}} produeix
 un missatge d'error.
 

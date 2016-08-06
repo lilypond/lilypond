@@ -78,7 +78,7 @@ són fonamentals per comprendre i construir els ajustaments.
 @cindex objecte de disposició
 
 L'ajustament consisteix en modificar el funcionament i estructure
-interna del programa Lilypond, per la qual cosa en primer lloc
+interna del programa LilyPond, per la qual cosa en primer lloc
 introduirem alguns termes que es fan servir per descriure aquestes
 operacions i estructures internes.
 
@@ -269,7 +269,7 @@ bàsiques com ara números, cadenes de caràcters i llistes, es
 processen al @q{mode de l'Scheme}, que s'invoca mitjançant del
 prefix @samp{#} escrit abans del valor.  Tot i que els valors
 poden tenir a vegades una representació vàlida al mode de música
-del Lilypond, aquest manual utilitza sempre @samp{#} per a
+del LilyPond, aquest manual utilitza sempre @samp{#} per a
 l'escriptura, per coherència.  Per obtenir més informació sobre el
 mode de l'Scheme, consulteu
 @rextendnamed{LilyPond Scheme-Syntax,Sintaxi de l'Scheme del LilyPond}.
@@ -4665,7 +4665,7 @@ fitxers de música amb un @code{\include "../global.ily"}, que conté
 @translationof Other sources of information
 
 La documentació del manual de Referència de Funcionament Intern
-conté muntanyes d'informació sobre el Lilypond, però es pot
+conté muntanyes d'informació sobre el LilyPond, però es pot
 obtenir més informació encara llegint els fitxers interns del
 LilyPond.  Per donar-los una ullada, en primer lloc heu de buscar
 la carpeta corresponent al seu sistema.  La ubicació d'aquesta
@@ -4713,7 +4713,7 @@ compilat a partir de la font
 Dirigiu-vos a @file{@var{PREFIX}/share/lilypond/@var{X.Y.Z}/}, on
 @var{PREFIX} s'ha establert pel vostre administrador de paquets o
 guió @code{configure}, i @var{X.Y.Z} es el número de la versió del
-Lilypond.
+LilyPond.
 
 @smallspace
 
