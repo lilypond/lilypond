@@ -304,7 +304,7 @@ or @notation{decrescendo} mark, it will end at the centre of the note
 that has the next @code{\<} or @code{\>} assigned to it.  The next
 hairpin will then start at the right edge of the same note
 instead of the usual left edge had it been terminated with @code{\!}
-before.
+before.  A hairpin ending on a downbeat will stop at the preceding bar line.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -445,6 +445,8 @@ items such as text scripts, text spanners, and piano pedal marks.
 
 
 @snippets
+
+@cindex hairpins at bar lines
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {setting-hairpin-behavior-at-bar-lines.ly}
