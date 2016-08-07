@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 97f856e8c577fdf301ac2a15b336eae8729e53f7
+   Translation of GIT committish: 8c1840ca28a05b3dad8d595e04d03779ba0a286a
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -3504,11 +3504,21 @@ s'y rattachent.
 \relative { c''1 \afterGrace d1 { c16[ d] } c1 }
 @end lilypond
 
-Les petites notes se placent alors aux trois quarts de la durée de la
-note réelle.  Cette fraction peut être changée en définissant
-@code{afterGraceFraction}.  Dans l'exemple suivant, vous pouvez observer
-la différence entre le comportement par défaut, à 15/16 et enfin à la
-moitié de la durée de base.
+Les petites notes se placent alors @strong{après} la note réelle.  Leur
+positionnement est déterminé par une fraction de la durée de la note
+principale.  Cette fraction, fixée par défaut à
+
+@example
+afterGraceFraction = 3/4
+@end example
+
+@noindent
+peut être changée en début de fichier.  Elle peut aussi se définir à la
+suite de la commande @code{afterGraceFraction}.
+
+Dans l'exemple suivant, vous pouvez observer la différence entre le
+comportement par défaut, à @code{15/16} et enfin à la moitié de la durée
+de base.
 
 @lilypond[quote,verbatim]
 <<
@@ -3516,19 +3526,17 @@ moitié de la durée de base.
     c''1 \afterGrace d1 { c16[ d] } c1
   }
   \new Staff \relative {
-    #(define afterGraceFraction (cons 15 16))
-    c''1 \afterGrace d1 { c16[ d] } c1
+    c''1 \afterGrace 15/16 d1 { c16[ d] } c1
   }
   \new Staff \relative {
-    #(define afterGraceFraction (cons 1 2))
-    c''1 \afterGrace d1 { c16[ d] } c1
+    c''1 \afterGrace 1/2 d1 { c16[ d] } c1
   }
 >>
 @end lilypond
 
-Des silences invisibles permettent d'ajuster l'espace entre les petites
-notes et la note réelle.  Nous pourrions positionner ces petites notes à
-sept huitièmes de la durée de la note de base :
+Les effets d'une commande @code{\afterGrace} peuvent aussi s'obtenir à
+l'aide de silences invisibles.  Nous pourrions positionner ces petites
+notes à sept huitièmes de la durée de la note de base :
 
 @lilypond[quote,verbatim]
 \new Voice \relative {
