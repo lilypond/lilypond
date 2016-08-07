@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Meest recente update Sat Jul  2 15:06:05 UTC 2016
+@emph{Meest recente update Sun Aug  7 13:59:13 UTC 2016
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -57,7 +57,7 @@ gedeeltelijk
 @item
 LilyPond -- \TITLE\
 @*
-1139
+1138
 @tab Jan Nieuwenhuizen
 @tab 
 @tab 
@@ -182,7 +182,7 @@ gedeeltelijk (95 %)
 @ifhtml
 
 @html
-<span style="background-color: #83fe2c">gedeeltelijk</span>
+<span style="background-color: #8aff2d">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -258,7 +258,7 @@ gedeeltelijk
 @item
 LilyPond -- \TITLE\
 @*
-1139
+1138
 @tab Jan Nieuwenhuizen
 @tab Tineke de Munnik
 @tab 

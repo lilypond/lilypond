@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Sat Jul  2 15:06:05 UTC 2016
+@emph{Last updated Sun Aug  7 13:59:13 UTC 2016
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -59,7 +59,7 @@ yes
 @item
 LilyPond --- \TITLE\
 @*
-1139
+1138
 @tab Hegyi Tamás
 @*
 Harmath Dénes
@@ -185,7 +185,7 @@ partially
 @item
 LilyPond --- \TITLE\
 @*
-1139
+1138
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -312,7 +312,7 @@ no
 @ifhtml
 
 @html
-<span style="background-color: #fcff3c">partially</span>
+<span style="background-color: #fffd3d">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -388,7 +388,7 @@ partially
 @item
 LilyPond --- \TITLE\
 @*
-1139
+1138
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -535,7 +535,7 @@ partially
 @item
 LilyPond --- \TITLE\
 @*
-1139
+1138
 @tab Harmath Dénes
 @tab 
 @tab 

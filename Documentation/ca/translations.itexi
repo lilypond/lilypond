@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Actualitzat el Sat Jul  2 15:06:05 UTC 2016
+@emph{Actualitzat el Sun Aug  7 13:59:13 UTC 2016
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -57,7 +57,7 @@ parcialment
 @item
 LilyPond --- \TITLE\
 @*
-1139
+1138
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -222,6 +222,126 @@ parcialment
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
 @headitem
+Referència de la notació del GNU LilyPond
+@tab Traductors
+@tab Revisors
+@tab Traduït
+@tab Actualitzat
+@tab Més inf.
+@item
+Títols de secció
+@*
+326
+@tab Walter Garcia-Fontes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab pre-GDP
+@item
+LilyPond --- \TITLE\
+@*
+1138
+@tab Walter Garcia-Fontes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab pre-GDP
+@item
+1 Notació musical
+@*
+91
+@tab Walter Garcia-Fontes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab pre-GDP
+@item
+1.1 Altures
+@*
+5224
+@tab Walter Garcia-Fontes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #25fe1f">parcialment</span>
+@end html
+@end ifhtml
+@ifnothtml
+parcialment
+@end ifnothtml
+@tab pre-GDP
+@end multitable
+
+
+@multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
+
+@headitem
 LilyPond: manual d'utilització del programa
 @tab Traductors
 @tab Revisors
@@ -258,7 +378,7 @@ parcialment
 @item
 LilyPond --- \TITLE\
 @*
-1139
+1138
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -356,7 +476,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #6fff29">parcialment</span>
+<span style="background-color: #76fe2a">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -395,17 +515,17 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">si</span>
+<span style="background-color: #d587ff">N/D</span>
 @end html
 @end ifhtml
 @ifnothtml
-si
+N/D
 @end ifnothtml
 @tab pre-GDP
 @item
 LilyPond --- \TITLE\
 @*
-1139
+1138
 @tab Walter Garcia-Fontes
 @tab 
 @tab 

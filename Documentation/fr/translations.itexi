@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Dernière mise à jour Sat Jul  2 15:06:05 UTC 2016
+@emph{Dernière mise à jour Sun Aug  7 13:59:13 UTC 2016
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -57,7 +57,7 @@ oui
 @item
 LilyPond --- \TITLE\
 @*
-1139
+1138
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -183,7 +183,7 @@ oui
 @item
 LilyPond --- \TITLE\
 @*
-1139
+1138
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -307,7 +307,7 @@ oui
 @item
 LilyPond --- \TITLE\
 @*
-1139
+1138
 @tab John Mandereau
 @*
 Jean-Charles Malahieude
@@ -536,7 +536,7 @@ oui
 @item
 LilyPond --- \TITLE\
 @*
-1139
+1138
 @tab John Mandereau
 @*
 Jean-Charles Malahieude
@@ -594,7 +594,7 @@ oui
 @item
 1.1 Hauteurs
 @*
-5169
+5224
 @tab Frédéric Chiasson
 @*
 Jean-Charles Malahieude
@@ -625,7 +625,7 @@ oui
 @item
 1.2 Rythme
 @*
-6795
+6822
 @tab Frédéric Chiasson
 @*
 Jean-Charles Malahieude
@@ -867,7 +867,7 @@ oui
 @item
 2.1 Musique vocale
 @*
-4975
+4977
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -927,7 +927,7 @@ oui
 @item
 2.3 Cordes non frettées
 @*
-303
+279
 @tab Valentin Villenave
 @*
 Matthieu Jacquot
@@ -958,7 +958,7 @@ oui
 @item
 2.4 Instruments à cordes frettées
 @*
-2820
+2821
 @tab Matthieu Jacquot
 @tab Jean-Charles Malahieude
 @tab 
@@ -1045,7 +1045,7 @@ oui
 @item
 2.7 Notation des accords
 @*
-1931
+1979
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -1159,7 +1159,7 @@ oui
 @item
 3 Généralités en matière d'entrée et sortie
 @*
-12704
+12824
 @tab Jean-Charles Malahieude
 @*
 Valentin Villenave
@@ -1217,7 +1217,7 @@ oui
 @item
 5 Modification des réglages prédéfinis
 @*
-15598
+15597
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -1246,7 +1246,7 @@ oui
 @item
 A Tables du manuel de notation
 @*
-3077
+3079
 @tab Frédéric Chiasson
 @*
 Jean-Charles Malahieude
@@ -1343,7 +1343,7 @@ oui
 @item
 LilyPond --- \TITLE\
 @*
-1139
+1138
 @tab John Mandereau
 @*
 Jean-Charles Malahieude
@@ -1552,7 +1552,7 @@ oui
 @item
 LilyPond --- \TITLE\
 @*
-1139
+1138
 @tab John Mandereau
 @tab 
 @tab 

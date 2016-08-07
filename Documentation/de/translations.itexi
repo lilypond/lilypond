@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Zuletzt aktualisiert am Sat Jul  2 15:06:05 UTC 2016
+@emph{Zuletzt aktualisiert am Sun Aug  7 13:59:13 UTC 2016
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -57,7 +57,7 @@ teilweise
 @item
 LilyPond -- \TITLE\
 @*
-1139
+1138
 @tab Till Paala
 @tab 
 @tab 
@@ -177,7 +177,7 @@ teilweise
 @item
 LilyPond -- \TITLE\
 @*
-1139
+1138
 @tab Till Paala
 @tab 
 @tab 
@@ -299,7 +299,7 @@ ja
 @item
 LilyPond -- \TITLE\
 @*
-1139
+1138
 @tab Till Paala
 @*
 Michael Gerdau
@@ -516,7 +516,7 @@ teilweise
 @item
 LilyPond -- \TITLE\
 @*
-1139
+1138
 @tab Till Paala
 @tab 
 @tab 
@@ -570,7 +570,7 @@ ja
 @item
 1.1 Tonhöhen
 @*
-5169
+5224
 @tab Till Paala
 @tab 
 @tab 
@@ -587,7 +587,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #a5ff31">teilweise</span>
+<span style="background-color: #acff31">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -597,7 +597,7 @@ teilweise
 @item
 1.2 Rhythmus
 @*
-6795
+6822
 @tab Till Paala
 @tab 
 @tab 
@@ -614,7 +614,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #d4ff37">teilweise</span>
+<span style="background-color: #dbff38">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -695,7 +695,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #97ff2f">teilweise</span>
+<span style="background-color: #9eff30">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -813,7 +813,7 @@ ja
 @item
 2.1 Notation von Gesang
 @*
-4975
+4977
 @tab Till Paala
 @tab 
 @tab 
@@ -867,7 +867,7 @@ teilweise
 @item
 2.3 Bundlose Saiteninstrumente
 @*
-303
+279
 @tab Till Paala
 @tab 
 @tab 
@@ -884,7 +884,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #91ff2e">teilweise</span>
+<span style="background-color: #9eff30">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -894,7 +894,7 @@ teilweise
 @item
 2.4 Saiteninstrumente mit Bünden
 @*
-2820
+2821
 @tab Till Paala
 @tab 
 @tab 
@@ -938,7 +938,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #a5ff31">teilweise</span>
+<span style="background-color: #acff31">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -975,7 +975,7 @@ teilweise
 @item
 2.7 Notation von Akkorden
 @*
-1931
+1979
 @tab Till Paala
 @tab 
 @tab 
@@ -992,7 +992,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #4efe25">teilweise</span>
+<span style="background-color: #54ff26">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1046,7 +1046,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #97ff2f">teilweise</span>
+<span style="background-color: #9eff30">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1083,7 +1083,7 @@ teilweise
 @item
 3 Allgemeine Eingabe und Ausgabe
 @*
-12704
+12824
 @tab Till Paala
 @tab 
 @tab 
@@ -1100,7 +1100,7 @@ teilweise (94 %)
 @ifhtml
 
 @html
-<span style="background-color: #ffdd42">teilweise</span>
+<span style="background-color: #ffda43">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1127,7 +1127,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #e8fe39">teilweise</span>
+<span style="background-color: #efff3a">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1137,7 +1137,7 @@ teilweise
 @item
 5 Standardeinstellungen verändern
 @*
-15598
+15597
 @tab Till Paala
 @tab 
 @tab 
@@ -1164,7 +1164,7 @@ teilweise
 @item
 A Notationsübersicht
 @*
-3077
+3079
 @tab Till Paala
 @tab 
 @tab 
@@ -1181,7 +1181,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #e1ff39">teilweise</span>
+<span style="background-color: #e8fe39">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1257,7 +1257,7 @@ teilweise
 @item
 LilyPond -- \TITLE\
 @*
-1139
+1138
 @tab Till Paala
 @tab 
 @tab 
@@ -1413,7 +1413,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #7dff2b">teilweise</span>
+<span style="background-color: #83fe2c">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1464,7 +1464,7 @@ ja
 @item
 LilyPond -- \TITLE\
 @*
-1139
+1138
 @tab Till Paala
 @*
 Michael Gerdau
@@ -1512,7 +1512,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">teilweise</span>
+<span style="background-color: #33ff21">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml

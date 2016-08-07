@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Sat Jul  2 15:06:05 UTC 2016
+@emph{Last updated Sun Aug  7 13:59:13 UTC 2016
 }
 @multitable @columnfractions  0.333333333333 0.333333333333 0.333333333333
 
@@ -27,7 +27,7 @@ LilyPond Changes
 @item
 Section titles
 @*
-(2393)
+(2449)
 @tab Francisco Vila
 @*
 
@@ -77,7 +77,7 @@ up to date
 @item
 LilyPond --- \TITLE\
 @*
-(1139)
+(1138)
 @tab Francisco Vila
 @*
 
@@ -256,7 +256,7 @@ up to date
 @item
 LilyPond --- \TITLE\
 @*
-(1139)
+(1138)
 @tab Till Paala
 @*
 
@@ -817,7 +817,7 @@ up to date
 @item
 LilyPond --- \TITLE\
 @*
-(1139)
+(1138)
 @tab Till Paala
 @*
 
@@ -1404,7 +1404,7 @@ partially up to date
 @item
 LilyPond --- \TITLE\
 @*
-(1139)
+(1138)
 @tab Walter Garcia-Fontes
 @*
 
@@ -2734,7 +2734,7 @@ not translated
 @ifhtml
 
 @html
-<span style="background-color: #fcff3c">partially up to date</span>
+<span style="background-color: #fffd3d">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -2843,7 +2843,7 @@ partially translated (95 %)
 @ifhtml
 
 @html
-<span style="background-color: #83fe2c">partially up to date</span>
+<span style="background-color: #8aff2d">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -3362,10 +3362,11 @@ up to date
 @end multitable
 
 
-@multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
+@multitable @columnfractions  0.142857142857 0.142857142857 0.142857142857 0.142857142857 0.142857142857 0.142857142857 0.142857142857
 
 @headitem
 LilyPond Notation Reference
+@tab ca
 @tab de
 @tab es
 @tab fr
@@ -3375,6 +3376,29 @@ LilyPond Notation Reference
 Section titles
 @*
 (326)
+@tab Walter Garcia-Fontes
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
+@end ifnothtml
 @tab Till Paala
 @*
 
@@ -3495,7 +3519,30 @@ partially up to date
 @item
 LilyPond --- \TITLE\
 @*
-(1139)
+(1138)
+@tab Walter Garcia-Fontes
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
+@end ifnothtml
 @tab Till Paala
 @*
 
@@ -3617,6 +3664,29 @@ up to date
 1 Musical notation
 @*
 (91)
+@tab Walter Garcia-Fontes
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
+@end ifnothtml
 @tab Till Paala
 @*
 
@@ -3737,7 +3807,30 @@ up to date
 @item
 1.1 Pitches
 @*
-(5169)
+(5224)
+@tab Walter Garcia-Fontes
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #25fe1f">partially up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+partially up to date
+@end ifnothtml
 @tab Till Paala
 @*
 
@@ -3755,7 +3848,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #a5ff31">partially up to date</span>
+<span style="background-color: #acff31">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -3778,11 +3871,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #25fe1f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Frédéric Chiasson
 @*
@@ -3877,11 +3970,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #25fe1f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Yoshiki Sawada
 @*
@@ -3900,7 +3993,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #91ff2e">partially up to date</span>
+<span style="background-color: #97ff2f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -3909,7 +4002,30 @@ partially up to date
 @item
 1.2 Rhythms
 @*
-(6795)
+(6822)
+@tab Walter Garcia-Fontes
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #d0f0f8">not translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+not translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
+@end ifnothtml
 @tab Till Paala
 @*
 
@@ -3927,7 +4043,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #d4ff37">partially up to date</span>
+<span style="background-color: #dbff38">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -3950,11 +4066,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #2cff20">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Frédéric Chiasson
 @*
@@ -4060,11 +4176,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #2cff20">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Yoshiki Sawada
 @*
@@ -4083,7 +4199,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #cdfe36">partially up to date</span>
+<span style="background-color: #dbff38">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -4093,6 +4209,29 @@ partially up to date
 1.3 Expressive marks
 @*
 (1798)
+@tab Walter Garcia-Fontes
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #d0f0f8">not translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+not translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
+@end ifnothtml
 @tab Till Paala
 @*
 
@@ -4265,6 +4404,29 @@ partially up to date
 1.4 Repeats
 @*
 (1288)
+@tab Walter Garcia-Fontes
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #d0f0f8">not translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+not translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
+@end ifnothtml
 @tab Till Paala
 @*
 
@@ -4437,6 +4599,29 @@ partially up to date
 1.5 Simultaneous notes
 @*
 (2919)
+@tab Walter Garcia-Fontes
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #d0f0f8">not translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+not translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
+@end ifnothtml
 @tab Till Paala
 @*
 
@@ -4454,7 +4639,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #97ff2f">partially up to date</span>
+<span style="background-color: #9eff30">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -4477,11 +4662,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #25fe1f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Frédéric Chiasson
 @*
@@ -4578,11 +4763,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #25fe1f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Yoshiki Sawada
 @*
@@ -4601,7 +4786,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #91ff2e">partially up to date</span>
+<span style="background-color: #97ff2f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -4611,6 +4796,29 @@ partially up to date
 1.6 Staff notation
 @*
 (2554)
+@tab Walter Garcia-Fontes
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #d0f0f8">not translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+not translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
+@end ifnothtml
 @tab Till Paala
 @*
 
@@ -4772,6 +4980,29 @@ partially up to date
 1.7 Editorial annotations
 @*
 (1477)
+@tab Walter Garcia-Fontes
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #d0f0f8">not translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+not translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
+@end ifnothtml
 @tab Till Paala
 @*
 
@@ -4911,6 +5142,29 @@ partially up to date
 1.8 Text
 @*
 (2754)
+@tab Walter Garcia-Fontes
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #d0f0f8">not translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+not translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
+@end ifnothtml
 @tab Till Paala
 @*
 
@@ -5083,6 +5337,29 @@ partially up to date
 2 Specialist notation
 @*
 (81)
+@tab Walter Garcia-Fontes
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #dfef77">partially translated (2 %)</span>
+@end html
+@end ifhtml
+@ifnothtml
+partially translated (2 %)
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
+@end ifnothtml
 @tab Till Paala
 @*
 
@@ -5203,7 +5480,30 @@ up to date
 @item
 2.1 Vocal music
 @*
-(4975)
+(4977)
+@tab Walter Garcia-Fontes
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #d0f0f8">not translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+not translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
+@end ifnothtml
 @tab Till Paala
 @*
 
@@ -5365,6 +5665,29 @@ partially up to date
 2.2 Keyboard and other multi-staff instruments
 @*
 (904)
+@tab Walter Garcia-Fontes
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #d0f0f8">not translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+not translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
+@end ifnothtml
 @tab  Till Paala
 @*
 
@@ -5516,7 +5839,30 @@ partially up to date
 @item
 2.3 Unfretted string instruments
 @*
-(303)
+(279)
+@tab Walter Garcia-Fontes
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #d0f0f8">not translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+not translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
+@end ifnothtml
 @tab Till Paala
 @*
 
@@ -5534,7 +5880,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #91ff2e">partially up to date</span>
+<span style="background-color: #9eff30">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -5557,11 +5903,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #25fe1f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Valentin Villenave
 @*
@@ -5659,7 +6005,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #83fe2c">partially up to date</span>
+<span style="background-color: #91ff2e">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -5668,7 +6014,30 @@ partially up to date
 @item
 2.4 Fretted string instruments
 @*
-(2820)
+(2821)
+@tab Walter Garcia-Fontes
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #d0f0f8">not translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+not translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
+@end ifnothtml
 @tab Till Paala
 @*
 
@@ -5808,6 +6177,29 @@ partially up to date
 2.5 Percussion
 @*
 (799)
+@tab Walter Garcia-Fontes
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #d0f0f8">not translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+not translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
+@end ifnothtml
 @tab Till Paala
 @*
 
@@ -5825,7 +6217,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #a5ff31">partially up to date</span>
+<span style="background-color: #acff31">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -5939,7 +6331,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #5bff27">partially up to date</span>
+<span style="background-color: #62ff28">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -5949,6 +6341,29 @@ partially up to date
 2.6 Wind instruments
 @*
 (324)
+@tab Walter Garcia-Fontes
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #d0f0f8">not translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+not translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
+@end ifnothtml
 @tab Till Paala
 @*
 
@@ -6100,7 +6515,30 @@ partially up to date
 @item
 2.7 Chord notation
 @*
-(1931)
+(1979)
+@tab Walter Garcia-Fontes
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #d0f0f8">not translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+not translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
+@end ifnothtml
 @tab Till Paala
 @*
 
@@ -6118,7 +6556,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #4efe25">partially up to date</span>
+<span style="background-color: #54ff26">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -6141,11 +6579,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #25fe1f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Valentin Villenave
 @*
@@ -6243,7 +6681,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #47ff24">partially up to date</span>
+<span style="background-color: #4efe25">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -6253,6 +6691,29 @@ partially up to date
 2.8 Contemporary music
 @*
 (475)
+@tab Walter Garcia-Fontes
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #d0f0f8">not translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+not translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
+@end ifnothtml
 @tab Till Paala
 @*
 
@@ -6392,6 +6853,29 @@ up to date
 2.9 Ancient notation
 @*
 (5516)
+@tab Walter Garcia-Fontes
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #d0f0f8">not translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+not translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
+@end ifnothtml
 @tab Till Paala
 @*
 
@@ -6409,7 +6893,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #97ff2f">partially up to date</span>
+<span style="background-color: #9eff30">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -6511,6 +6995,29 @@ up to date
 2.10 World music
 @*
 (1446)
+@tab Walter Garcia-Fontes
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #d0f0f8">not translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+not translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
+@end ifnothtml
 @tab Till Paala
 @*
 
@@ -6671,7 +7178,30 @@ partially up to date
 @item
 3 General input and output
 @*
-(12704)
+(12824)
+@tab Walter Garcia-Fontes
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #d0f0f8">not translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+not translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
+@end ifnothtml
 @tab Till Paala
 @*
 
@@ -6689,7 +7219,7 @@ partially translated (94 %)
 @ifhtml
 
 @html
-<span style="background-color: #ffdd42">partially up to date</span>
+<span style="background-color: #ffda43">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -6712,11 +7242,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #2cff20">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Jean-Charles Malahieude
 @*
@@ -6780,11 +7310,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #2cff20">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Yoshiki Sawada
 @*
@@ -6792,18 +7322,18 @@ up to date
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially translated (94 %)</span>
+<span style="background-color: #dfef77">partially translated (95 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially translated (94 %)
+partially translated (95 %)
 @end ifnothtml
 @*
 
 @ifhtml
 
 @html
-<span style="background-color: #ffdd42">partially up to date</span>
+<span style="background-color: #ffda43">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -6813,6 +7343,29 @@ partially up to date
 4 Spacing issues
 @*
 (10911)
+@tab Walter Garcia-Fontes
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #d0f0f8">not translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+not translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
+@end ifnothtml
 @tab Till Paala
 @*
 
@@ -6830,7 +7383,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #e8fe39">partially up to date</span>
+<span style="background-color: #efff3a">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -6944,7 +7497,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #e8fe39">partially up to date</span>
+<span style="background-color: #efff3a">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -6953,7 +7506,30 @@ partially up to date
 @item
 5 Changing defaults
 @*
-(15598)
+(15597)
+@tab Walter Garcia-Fontes
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #d0f0f8">not translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+not translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
+@end ifnothtml
 @tab Till Paala
 @*
 
@@ -7105,7 +7681,7 @@ partially translated (94 %)
 @ifhtml
 
 @html
-<span style="background-color: #91ff2e">partially up to date</span>
+<span style="background-color: #97ff2f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -7114,7 +7690,30 @@ partially up to date
 @item
 A Notation manual tables
 @*
-(3077)
+(3079)
+@tab Walter Garcia-Fontes
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #d0f0f8">not translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+not translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
+@end ifnothtml
 @tab Till Paala
 @*
 
@@ -7132,7 +7731,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #e1ff39">partially up to date</span>
+<span style="background-color: #e8fe39">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -7236,6 +7835,29 @@ up to date
 B Cheat sheet
 @*
 (252)
+@tab Walter Garcia-Fontes
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #d0f0f8">not translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+not translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
+@end ifnothtml
 @tab Till Paala
 @*
 
@@ -7375,6 +7997,29 @@ partially up to date
 C GNU Free Documentation License
 @*
 (3724)
+@tab Walter Garcia-Fontes
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #d0f0f8">not translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+not translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
+@end ifnothtml
 @tab Till Paala
 @*
 
@@ -7698,7 +8343,7 @@ up to date
 @item
 LilyPond --- \TITLE\
 @*
-(1139)
+(1138)
 @tab Walter Garcia-Fontes
 @*
 
@@ -8751,7 +9396,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #6fff29">partially up to date</span>
+<span style="background-color: #76fe2a">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -8774,7 +9419,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #7dff2b">partially up to date</span>
+<span style="background-color: #83fe2c">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -8953,7 +9598,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #7dff2b">partially up to date</span>
+<span style="background-color: #83fe2c">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -9186,11 +9831,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #d587ff"></span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+
 @end ifnothtml
 @tab Pavel Fric
 @*
@@ -9450,7 +10095,7 @@ partially up to date
 @item
 LilyPond --- \TITLE\
 @*
-(1139)
+(1138)
 @tab Walter Garcia-Fontes
 @*
 
@@ -9798,7 +10443,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">partially up to date</span>
+<span style="background-color: #33ff21">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml

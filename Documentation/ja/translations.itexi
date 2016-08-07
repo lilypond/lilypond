@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最終更新日 Sat Jul  2 15:06:05 UTC 2016
+@emph{最終更新日 Sun Aug  7 13:59:13 UTC 2016
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -59,7 +59,7 @@ Yoshiki Sawada
 @item
 LilyPond --- \TITLE\
 @*
-1139
+1138
 @tab Masamichi Hosoda
 @*
 Yoshiki Sawada
@@ -266,7 +266,7 @@ partially
 @item
 LilyPond --- \TITLE\
 @*
-1139
+1138
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -320,7 +320,7 @@ LilyPond --- \TITLE\
 @item
 1.1 ピッチ
 @*
-5169
+5224
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -337,7 +337,7 @@ LilyPond --- \TITLE\
 @ifhtml
 
 @html
-<span style="background-color: #91ff2e">partially</span>
+<span style="background-color: #97ff2f">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -347,7 +347,7 @@ partially
 @item
 1.2 リズム
 @*
-6795
+6822
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -364,7 +364,7 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #cdfe36">partially</span>
+<span style="background-color: #dbff38">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -445,7 +445,7 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #91ff2e">partially</span>
+<span style="background-color: #97ff2f">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -565,7 +565,7 @@ partially
 @item
 2.1 声楽
 @*
-4975
+4977
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -619,7 +619,7 @@ partially
 @item
 2.3 フレットの無い弦楽器
 @*
-303
+279
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -636,7 +636,7 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #83fe2c">partially</span>
+<span style="background-color: #91ff2e">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -646,7 +646,7 @@ partially
 @item
 2.4 フレットのある弦楽器
 @*
-2820
+2821
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -690,7 +690,7 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #5bff27">partially</span>
+<span style="background-color: #62ff28">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -727,7 +727,7 @@ partially
 @item
 2.7 和音記譜法
 @*
-1931
+1979
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -744,7 +744,7 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #47ff24">partially</span>
+<span style="background-color: #4efe25">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -808,24 +808,24 @@ partially
 @item
 3 入出力全般
 @*
-12704
+12824
 @tab Yoshiki Sawada
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">一部 (94 %)</span>
+<span style="background-color: #dfef77">一部 (95 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-一部 (94 %)
+一部 (95 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #ffdd42">partially</span>
+<span style="background-color: #ffda43">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -852,7 +852,7 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #e8fe39">partially</span>
+<span style="background-color: #efff3a">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -862,7 +862,7 @@ partially
 @item
 5 デフォルトを変更する
 @*
-15598
+15597
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -879,7 +879,7 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #91ff2e">partially</span>
+<span style="background-color: #97ff2f">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -957,7 +957,7 @@ Yoshiki Sawada
 @item
 LilyPond --- \TITLE\
 @*
-1139
+1138
 @tab Masamichi Hosoda
 @*
 Yoshiki Sawada
@@ -1113,7 +1113,7 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #7dff2b">partially</span>
+<span style="background-color: #83fe2c">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1166,7 +1166,7 @@ Yoshinobu Ishizaki
 @item
 LilyPond --- \TITLE\
 @*
-1139
+1138
 @tab Masamichi Hosoda
 @*
 Yoshiki Sawada
