@@ -62,6 +62,25 @@ which scares away people.
 @end ignore
 
 @item
+Slurs and phrasing slurs may now be started from individual notes
+in a chord.  Several simultanous slurs per @code{Voice} need to be
+distinguished by @code{spanner-id} setting.
+
+@item
+The music and grob property @code{spanner-id} for distinguishing
+simultaneous slurs and phrasing slurs has been changed from a
+string to a @q{key}, a non-negative integer or symbol.
+
+@item
+There is a new command @code{\=} for specifying the
+@code{spanner-id} for simultaneous slurs and phrasing slurs.
+@lilypond[verbatim,quote]
+\fixed c' {
+  <c~ f\=1( g\=2( >2 <c e\=1) a\=2) >
+}
+@end lilypond
+
+@item
 Blocks introduced with @code{\header} can be stored in variables
 and used as arguments to music and scheme functions and as the
 body of @code{#@{@dots{}#@}} constructs.  They are represented as
