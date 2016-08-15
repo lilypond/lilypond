@@ -903,9 +903,14 @@ music = \relative { c'8. ees16( fis8. a16 b8.) gis16 f8. d16 }
 @end lilypond
 
 @knownissues
-Manual ties inside @code{\retrograde} will be broken and
-generate warnings.  Some ties can be generated automatically
-by enabling @ref{Automatic note splitting}.
+@code{\retrograde} is a rather simple tool.  Since many events are
+@q{mirrored} rather than exchanged, tweaks and directional
+modifiers for opening spanners need to be added at the matching
+closing spanners: @code{^(} needs to be ended by @code{^)}, every
+@code{\<} or @code{\cresc} needs to be ended by @code{\!} or
+@code{\endcr}, every @code{\>} or @code{\decr} needs to be ended
+by @code{\enddecr}.  Property-changing commands/overrides with a
+lasting effect will likely cause surprises.
 
 @seealso
 Notation Reference:
