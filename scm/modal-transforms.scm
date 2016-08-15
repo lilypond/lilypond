@@ -185,32 +185,110 @@ Typically used to construct a scale for input to
 
 (define-public (retrograde-music music)
   "Returns @var{music} in retrograde (reversed) order."
-  ;; Copied from LSR #105 and renamed.
   ;; Included here to allow this module to provide a complete set of
   ;; common formal operations on motives, i.e transposition,
   ;; inversion and retrograding.
 
-  (let* ((elements (ly:music-property music 'elements))
-         (arts (ly:music-property music 'articulations))
-         (reversed (reverse elements))
-         (element (ly:music-property music 'element))
-         (span-dir (ly:music-property music 'span-direction)))
+  (define (reverse-span! m)
+    ;; invert direction of two-sided spanners
+    (let ((spd (ly:music-property m 'span-direction)))
+      (if (ly:dir? spd)
+          (begin
+            (set! (ly:music-property m 'span-direction) (- spd))
+            (case (ly:music-property m 'name)
+              ((CrescendoEvent)
+               (make-music 'DecrescendoEvent m))
+              ((DecrescendoEvent)
+               (make-music 'CrescendoEvent m))
+              (else m)))
+          m)))
 
-    (ly:music-set-property! music 'elements reversed)
+  ;; carryover is a possible list of tie events, the loop returns any
+  ;; such trailing list from the given expression
+  (define (loop m carryover)
+    (define (filter-ties! m carryover field)
+      (let ((vals (ly:music-property m field)))
+        (if (pair? vals)
+            (call-with-values
+                (lambda ()
+                  (partition! (music-type-predicate
+                               '(tie-event glissando-event)) vals))
+              (lambda (ties no-ties)
+                (set! (ly:music-property m field)
+                      (append! (map! reverse-span! no-ties) carryover))
+                ties))
+            (begin
+              (if (pair? carryover)
+                  (set! (ly:music-property m field) carryover))
+              '()))))
 
-    (for-each retrograde-music arts)
+    ;; The reversal will let some prefatory material stay in front of
+    ;; the following element.  Most prominently single
+    ;; overrides/reverts/sets/unsets and applyContext.  This does not
+    ;; change the position of a clef (which will generally be useless
+    ;; after retrograding) but it does not jumble the clef change
+    ;; command internals.  Also, stuff like \once\override stays at
+    ;; the affected element.
 
-    (if (ly:music? element)
-        (ly:music-set-property!
-         music 'element
-         (retrograde-music element)))
+    (define (prefatory? m)
+      (or ((music-type-predicate
+            '(apply-context apply-output-event layout-instruction-event)) m)
+          (and
+           (music-is-of-type? m 'music-wrapper-music)
+           (prefatory? (ly:music-property m 'element)))))
 
-    (if (ly:dir? span-dir)
-        (ly:music-set-property! music 'span-direction (- span-dir)))
+    (define (musiclistreverse lst)
+      (let loop ((lst lst) (res '()) (zeros '()))
+        (cond ((null? lst) (reverse! zeros res))
+              ((prefatory? (car lst))
+               (loop (cdr lst) res (cons (car lst) zeros)))
+              (else
+               (loop (cdr lst) (reverse! zeros (cons (car lst) res)) '())))))
 
-    (for-each retrograde-music reversed)
+    (cond ((music-is-of-type? m 'event-chord)
+           (let* ((chord-ties
+                   (append!
+                    (filter-ties! m carryover 'elements)
+                    ;; articulations on an event-chord do not occur
+                    ;; "naturally" but are supported when user-generated
+                    ;; elsewhere, so we treat them properly
+                    (filter-ties! m '() 'articulations)))
+                  ;; in-chord ties are converted to per-chord ties.
+                  ;; This is less than optimal but pretty much the
+                  ;; best we can hope to achieve with this approach.
+                  (element-ties
+                   (append-map!
+                    (lambda (m) (filter-ties! m '() 'articulations))
+                    (ly:music-property m 'elements))))
+             (append! chord-ties element-ties)))
 
-    music))
+          ((music-is-of-type? m 'rhythmic-event)
+           (filter-ties! m carryover 'articulations))
+
+          ;; The following is hardly correct but tieing inside of
+          ;; <<...>> is really beyond our pay grade.
+          ((music-is-of-type? m 'simultaneous-music)
+           (append-map! (lambda (m) (loop m (ly:music-deep-copy carryover)))
+                        (ly:music-property m 'elements)))
+          (else
+           (let ((elt (ly:music-property m 'element))
+                 (elts (ly:music-property m 'elements)))
+             (let ((res
+                    (fold loop
+                          (if (ly:music? elt) (loop elt carryover) carryover)
+                          elts)))
+               (if (ly:music? elt)
+                   (set! (ly:music-property m 'element)
+                         (reverse-span! elt)))
+               (if (pair? elts)
+                   (set! (ly:music-property m 'elements)
+                         (map! reverse-span! (musiclistreverse elts))))
+               (append! res (filter-ties! m '() 'articulations)))))))
+  (let ((dangling (loop music '())))
+    (for-each
+     (lambda (t) (ly:music-warning t (_ "Dangling tie in \\retrograde")))
+     dangling))
+  music)
 
 (define-public (pitch-invert around to music)
   "If @var{music} is a single pitch, inverts it about @var{around}
