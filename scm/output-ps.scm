@@ -35,25 +35,6 @@
              (scm framework-ps)
              (lily))
 
-;;; helper functions, not part of output interface
-;;;
-
-
-;; ice-9 format uses a lot of memory
-;; using simple-format almost halves lilypond cell usage
-
-(define (str4 num)
-  (if (or (nan? num) (inf? num))
-      (begin
-        (ly:warning (_ "Found infinity or nan in output.  Substituting 0.0"))
-        (if (ly:get-option 'strict-infinity-checking)
-            (exit 1))
-        "0.0")
-      (ly:number->string num)))
-
-(define (number-pair->string4 numpair)
-  (ly:format "~4l" numpair))
-
 ;;;
 ;;; Lily output interface, PostScript implementation --- cleanup and docme
 ;;;
