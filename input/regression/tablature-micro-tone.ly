@@ -8,11 +8,17 @@ in @code{Score}-context.
 @code{FretBoards} will print those micro-tones only if they can be found in the
 chosen settings for @code{stringTunings}, otherwise a warning (surpressed here)
 will be printed and an empty @code{FretBoard} returned.  Which should be the
-case here for the first pitch: @code{gih}"
+case for the last four of the examples pitches.
+Micro-tones assigned to strings work nicely."
 }
 
 #(ly:set-option 'warning-as-error #f)
-#(ly:expect-warning (_ "No string for pitch ~a (given frets ~a)") #{ gih #} '())
+#(for-each
+  (lambda (pitch)
+    (ly:expect-warning (_ "No string for pitch "))
+    (ly:expect-warning (_ "Requested string for pitch requires negative fret"))
+    (ly:expect-warning (_ "Ignoring string request and recalculating.")))
+  (iota 4))
 
 \layout {
   \context {
@@ -24,8 +30,7 @@ case here for the first pitch: @code{gih}"
 custom-tuning = \stringTuning <e, a, d ges beh eeh'>
 
 mus = \relative {
-  gih4
-  eeses'
+  eeses'4
   eeseh
   ees
   eeh
@@ -34,6 +39,10 @@ mus = \relative {
   eis
   eisih
   eisis
+  geseh,,\6
+  geh\6
+  gih\6
+  gisih\6
 }
 
 <<
