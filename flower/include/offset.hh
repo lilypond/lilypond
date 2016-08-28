@@ -126,6 +126,7 @@ IMPLEMENT_ARITHMETIC_OPERATOR (Offset, *);
 Offset complex_multiply (Offset, Offset);
 Offset complex_divide (Offset, Offset);
 Offset complex_exp (Offset);
+Offset offset_directed (Real);
 
 inline Offset
 Offset::operator *= (Offset z2)

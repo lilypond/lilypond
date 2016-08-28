@@ -182,3 +182,39 @@ Offset::swapped () const
 {
   return Offset (coordinate_a_[Y_AXIS], coordinate_a_[X_AXIS]);
 }
+
+Offset
+offset_directed (Real angle)
+{
+  if (angle <= -360.0 || angle >= 360.0)
+    angle = fmod (angle, 360.0);
+  // Now |angle| < 360.0, and the absolute size is not larger than
+  // before, so we haven't lost precision.
+  if (angle <= -180.0)
+    angle += 360.0;
+  else if (angle > 180.0)
+    angle -= 360.0;
+  // Now -180.0 < angle <= 180.0 and we still haven't lost precision.
+  // We don't work with angles greater than 45 degrees absolute in
+  // order to minimize how rounding errors of M_PI/180 affect the
+  // result.  That way, at least angles that are a multiple of 90
+  // degree deliver the expected results.
+  //
+  // Sign of the sine is chosen to avoid -0.0 in results.  This
+  // version delivers exactly equal magnitude on x/y for odd multiples
+  // of 45 degrees at the cost of losing some less obvious invariants.
+
+  if (angle > 0)
+    if (angle > 90)
+      return Offset (sin ((90 - angle) * M_PI/180.0),
+                     sin ((180 - angle) * M_PI/180.0));
+    else
+      return Offset (sin ((90 - angle) * M_PI/180.0),
+                     sin (angle * M_PI/180.0));
+  else if (angle < -90)
+    return Offset (sin ((90 + angle) * M_PI/180.0),
+                   sin ((-180 - angle) * M_PI/180.0));
+  else
+    return Offset (sin ((90 + angle) * M_PI/180.0),
+                   sin (angle * M_PI/180.0));
+}
