@@ -79,11 +79,67 @@ Offset::arg () const
   return atan2 (coordinate_a_[Y_AXIS], coordinate_a_[X_AXIS]);
 }
 
+static inline Real
+atan2d (Real y, Real x)
+{
+  return atan2 (y, x) * (180.0 / M_PI);
+}
+
 Real
 Offset::angle_degrees () const
 {
-  return arg () * 180 / M_PI;
+  Real x = coordinate_a_ [X_AXIS];
+  Real y = coordinate_a_ [Y_AXIS];
+
+  // We keep in the vicinity of multiples of 45 degrees here: this is
+  // where straightforward angles for straightforward angular
+  // relations are most expected.  The factors of 2 employed in the
+  // comparison are not really perfect for that: sqrt(2)+1 would be
+  // the factor giving exact windows of 45 degrees rather than what we
+  // have here.  It's just that 2 is likely to generate nicer code
+  // than 2.4 and the exact handover does not really matter.
+  //
+  // Comparisons here are chosen appropriately to let infinities end
+  // up in their "exact" branch.  As opposed to the normal atan2
+  // function behavior, this makes "competing" infinities result in
+  // NAN angles.
+  if (y < 0.0)
+    {
+      if (2*x < -y)
+        if (-x > -2*y)          // x < 0, y < 0, |x| > |2y|
+          return -180 + atan2d (-y, -x);
+        else if (-2*x >= -y)    // x < 0, y < 0, |y| < |2x| <= |4y|
+          return -135 + atan2d (x - y, -y - x);
+        else                    // y < 0, |y| >= |2x|
+          return -90 + atan2d (x, -y);
+      else if (x <= -2*y)       // x > 0, y < 0, |y| <= |2x| < |4y|
+        return -45 + atan2d (x + y, x - y);
+      // Drop through for y < 0, x > |2y|
+    }
+  else if (y > 0.0)
+    {
+      if (2*x < y)
+        if (-x > 2*y)           // x < 0, y >= 0, |x| > |2y|
+          return 180 - atan2d (y, -x);
+        else if (-2*x >= y)     // x < 0, y >= 0, |y| < |2x| <= |4y|
+          return 135 - atan2d (x + y, y - x);
+        else                    // y >= 0, |y| >= |2x|
+          return 90 - atan2d (x, y);
+      else if (x <= 2*y)        // x >= 0, y >= 0, |y| < |2x| < |4y|
+        return 45 - atan2d (x - y, x + y);
+      // Drop through for y > 0, x > |2y|
+    }
+  else
+    // we return 0 for (0,0).  NAN would be an option but is a
+    // nuisance for getting back to rectangular coordinates.  Strictly
+    // speaking, this argument would be just as valid for (+inf.0,
+    // +inf.0), but then infinities are already an indication of a
+    // problem in LilyPond.
+    return (x < 0.0) ? 180 : 0;
+  return atan2d (y, x);
 }
+
+
 /**
    euclidian vector length / complex modulus
 */
