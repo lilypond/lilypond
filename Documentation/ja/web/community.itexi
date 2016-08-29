@@ -1269,7 +1269,7 @@ GSoC 2016)
 
 @node 古いニュース
 @unnumberedsec 古いニュース
-@translationof Old news
+@translationof News
 
 @divClass{heading-center}
 @warning{多くの古いアナウンスと変更履歴が @ref{物置} で見つかります。}

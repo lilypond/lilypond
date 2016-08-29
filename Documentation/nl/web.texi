@@ -140,7 +140,7 @@ Lees meer in onze @ref{Inleiding}!
 @include web/news-front.itexi
 
 @divClass{float-right}
-(@ref{Old news}) @c (@ref{Old news,,,,Oud nieuws})
+(@ref{News}) @c (@ref{News,,,,Oud nieuws})
 @divEnd
 
 @divEnd

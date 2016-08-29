@@ -1,12 +1,12 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
-@c This file is part of lilypond-web.texi and community.itexi
+@c This file is part of community.itexi
 
 @c when you add a new item, consider moving the lowest item(s)
 @c into news.itexi.
 
 @c keep two blank lines between news entries
 
-@c used for news about the upcoming release; see CG 10.2
+@c used for news about the upcoming release; see CG on Release Work
 
 @newsItem
 @subheading LilyPond 2.19.48 released  @emph{September 13, 2016}

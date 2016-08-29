@@ -303,7 +303,7 @@ already decided to try LilyPond, first read about our
 
 @divClass{column-center-top}
 
-@subheading Beautiful examples
+@subheading Beautiful Examples
 
 LilyPond is a powerful and flexible tool for engraving tasks of
 all kinds.  Please browse our gallery of examples and be inspired!
@@ -420,9 +420,9 @@ Here is an example of a simple counterpoint exercise.
 @divEnd
 
 @divClass{column-center-middle-color2}
-@subheading Popular Music
+@subheading Lead Sheets
 
-It is simple to create pop lead sheets with melody, lyrics,
+It is simple to create lead sheets with melody, lyrics,
 chord names, and fretboards.  In this example you see some of the
 predefined fretboard diagrams, but these can be heavily customized
 to suit nearly any situation.

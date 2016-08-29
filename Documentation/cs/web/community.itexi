@@ -848,7 +848,7 @@ příručky se nacházejí na @url{http://lilypond.org}.}
 
 @node Starší novinky
 @unnumberedsec Starší novinky
-@translationof Old news
+@translationof News
 
 @include web/news-front.itexi
 

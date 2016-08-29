@@ -697,7 +697,7 @@ A LilyPond @version{} verziójához
 
 @macro exampleImage{IMAGE-FILE}
 @html
-<div class="float-center">
+<div class="float-center example-image-wrapper">
   <a class="clickable" href="ly-examples/\IMAGE-FILE\.png">
     <img src="ly-examples/\IMAGE-FILE\-small.png" alt="\IMAGE-FILE\">
   </a>

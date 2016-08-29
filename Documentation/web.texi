@@ -133,13 +133,62 @@ Read more in our @ref{Introduction}!
 @divEnd
 
 
-@divId{news}
+@divId{homepage-main}
+
+@divClass{column-center-top}
+
+@subheading Beautiful Sheet Music
+
+@c This example image is the image from the website version of the essay
+@c manual, downloaded to the pictures directory for use on the home page.
+@c Large version is generated manually from ly file in pictures directory.
+@divId{homepage-example-image-wrapper}
+@imageClickable{bwv861-lilypond,png,,bwv861-lilypond-large,png,center}
+@divEnd
+
+@ifclear web_version
+  @c no anchor links, just text
+
+LilyPond is a powerful and flexible tool for engraving tasks of
+all kinds, for example classical music (like the example above by J.S.
+Bach), complex notation, early music, modern music, tablature,
+vocal music, lead sheets, educational materials, large
+orchestral projects, customized output, and even Schenker graphs.
+
+@end ifclear
+@ifset web_version
+  @c anchor links, link to individual examples by their <a> tag
+
+LilyPond is a powerful and flexible tool for engraving tasks of
+all kinds, for example
+@uref{http://lilypond.org/examples.html#Classical-Music, classical music}
+(like the example above by J.S. Bach),
+@uref{examples.html#Complex-Notation, complex notation},
+@uref{examples.html#Early-Music, early music},
+@uref{examples.html#Modern-Music, modern music},
+@uref{examples.html#Tablature, tablature},
+@uref{examples.html#Vocal-Music, vocal music},
+@uref{examples.html#Lead-Sheets, lead sheets},
+@uref{examples.html#Educational-Applications, educational materials},
+@uref{examples.html#Large-Projects, large orchestral projects},
+@uref{examples.html#Customized-Output, customized output},
+and even
+@uref{examples.html#Schenker-Graphs, Schenker graphs}.
+
+@end ifset
+
+Browse our gallery of @ref{Examples} and be inspired!
+
+@divEnd
+
+@divClass{column-center-middle-color2}
+@subheading News
 
 @c TODO: generate this automatically, including RSS feed.
-@include web/news-front.itexi
+@include web/news-headlines.itexi
 
-@divClass{float-right}
-(@ref{Old news})
+@ref{News, More news...}
+
 @divEnd
 
 @divEnd
@@ -150,7 +199,7 @@ Read more in our @ref{Introduction}!
 @end ifclear
 @ifset web_version
   @c make the side bar:
-@divId{homePageSideBar}
+@divId{homepage-sidebar}
 @subheading Stable Release
 
 @c TODO: javascript to detect OS and suggest download?

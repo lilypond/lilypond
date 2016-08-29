@@ -143,7 +143,7 @@ Plus sur LilyPond dans notre @ref{Introduction} !
 @include web/news-front.itexi
 
 @divClass{float-right}
-(@ref{Archives}) @c (@ref{Old news,,,,Actualités passées})
+(@ref{Archives}) @c (@ref{News,,,,Actualités passées})
 @divEnd
 
 @divEnd

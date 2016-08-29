@@ -69,7 +69,7 @@ discussing LilyPond.
 @ref{Publications}: what we wrote, and have had written about us.
 
 @item
-@ref{Old news}: an archive.
+@ref{News}: news from the LilyPond project.
 
 @item
 @ref{Attic}: announcements and changelogs from past versions.
@@ -91,7 +91,7 @@ discussing LilyPond.
 * Authors::
 * Acknowledgements::
 * Publications::
-* Old news::
+* News::
 * Attic::
 @end menu
 @divEnd
@@ -1253,8 +1253,8 @@ GSoC 2016)
 @contactUsAbout{academic papers}
 
 
-@node Old news
-@unnumberedsec Old news
+@node News
+@unnumberedsec News
 
 @divClass{heading-center}
 @warning{Many old announcements and changelogs can be found in

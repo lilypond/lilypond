@@ -138,7 +138,7 @@ Více se dočtete v @ref{Úvod,,úvodu}!
 @include web/news-front.itexi
 
 @divClass{float-right}
-(@ref{Old news,,,,Starší novinky})
+(@ref{News,,,,Starší novinky})
 @divEnd
 
 @divEnd
