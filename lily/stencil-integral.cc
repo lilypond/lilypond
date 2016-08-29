@@ -260,6 +260,7 @@ make_partial_ellipse_boxes (vector<Box> &boxes,
   expr = scm_cdr (expr);
   Real y_rad = robust_scm2double (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
+  Offset rad (x_rad, y_rad);
   Real start = robust_scm2double (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
   Real end = robust_scm2double (scm_car (expr), 0.0);
@@ -270,12 +271,10 @@ make_partial_ellipse_boxes (vector<Box> &boxes,
   expr = scm_cdr (expr);
   bool fill = to_boolean (scm_car (expr));
   //////////////////////
-  start = M_PI * start / 180;
-  end = M_PI * end / 180;
   if (end == start)
-    end += (2 * M_PI);
-  Offset sp (cos (start) * x_rad, sin (start) * y_rad);
-  Offset ep (cos (end) * x_rad, sin (end) * y_rad);
+    end += 360;
+  Offset sp (offset_directed (start).scale (rad));
+  Offset ep (offset_directed (end).scale (rad));
   //////////////////////
   Drul_array<vector<Offset> > points;
   int quantization = max (1, (int) (((x_rad * trans.xx) + (y_rad * trans.yy)) * M_PI / QUANTIZATION_UNIT));
@@ -284,7 +283,7 @@ make_partial_ellipse_boxes (vector<Box> &boxes,
       for (vsize i = 0; i < 1 + (vsize) quantization; i++)
         {
           Real ang = linear_map (start, end, 0, quantization, i);
-          Offset pt (cos (ang) * x_rad, sin (ang) * y_rad);
+          Offset pt (offset_directed (ang).scale (rad));
           Offset inter = pt + d * get_normal ((th/2) * pt.direction ());
           pango_matrix_transform_point (&trans, &inter[X_AXIS], &inter[Y_AXIS]);
           points[d].push_back (inter);
@@ -316,7 +315,7 @@ make_partial_ellipse_boxes (vector<Box> &boxes,
   if (th > 0.0)
     {
       // beg line cap
-      Offset pt (cos (start) * x_rad, sin (start) * y_rad);
+      Offset pt (offset_directed (start).scale (rad));
       create_path_cap (boxes,
                        buildings,
                        trans,
@@ -325,7 +324,7 @@ make_partial_ellipse_boxes (vector<Box> &boxes,
                        -get_normal (pt));
 
       // end line cap
-      pt = Offset (cos (end) * x_rad, sin (end) * y_rad);
+      pt = offset_directed (end).scale (rad);
       create_path_cap (boxes,
                        buildings,
                        trans,
