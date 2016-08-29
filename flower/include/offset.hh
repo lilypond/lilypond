@@ -111,7 +111,6 @@ public:
   Offset direction () const;
   Offset swapped () const;
 
-  Real arg () const;
   Real angle_degrees () const;
   Real length () const;
   bool is_sane () const;
@@ -124,8 +123,6 @@ IMPLEMENT_ARITHMETIC_OPERATOR (Offset, -);
 IMPLEMENT_ARITHMETIC_OPERATOR (Offset, *);
 
 Offset complex_multiply (Offset, Offset);
-Offset complex_divide (Offset, Offset);
-Offset complex_exp (Offset);
 Offset offset_directed (Real);
 
 inline Offset
