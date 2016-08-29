@@ -776,14 +776,8 @@ right (@var{dir}=+1)."
 
 (define-public (polar->rectangular radius angle-in-degrees)
   "Return polar coordinates (@var{radius}, @var{angle-in-degrees})
-as rectangular coordinates @ode{(x-length . y-length)}."
-
-  (let ((complex (make-polar
-                  radius
-                  (degrees->radians angle-in-degrees))))
-    (cons
-     (real-part complex)
-     (imag-part complex))))
+as rectangular coordinates @code{(x-length . y-length)}."
+  (ly:directed angle-in-degrees radius))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; string
