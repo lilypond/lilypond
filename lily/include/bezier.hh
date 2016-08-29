@@ -62,7 +62,7 @@ public:
 };
 
 void scale (vector<Offset> *array, Real xscale, Real yscale);
-void rotate (vector<Offset> *array, Real phi);
+void rotate (vector<Offset> *array, Real deg);
 void translate (vector<Offset> *array, Offset o);
 
 Bezier slur_shape (Real width, Real height_limit,

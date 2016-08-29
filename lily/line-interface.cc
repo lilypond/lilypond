@@ -70,7 +70,7 @@ Line_interface::make_trill_line (Grob *me,
     }
   while (len + elt_len < dz.length ());
 
-  line.rotate (dz.arg (), Offset (LEFT, CENTER));
+  line.rotate (dz.angle_degrees (), Offset (LEFT, CENTER));
   line.translate (from);
 
   return line;

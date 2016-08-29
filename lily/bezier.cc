@@ -38,9 +38,9 @@ scale (vector<Offset> *array, Real x, Real y)
 }
 
 void
-rotate (vector<Offset> *array, Real phi)
+rotate (vector<Offset> *array, Real deg)
 {
-  Offset rot (complex_exp (Offset (0, phi)));
+  Offset rot (offset_directed (deg));
   for (vsize i = 0; i < array->size (); i++)
     (*array)[i] = complex_multiply (rot, (*array)[i]);
 }
@@ -322,9 +322,9 @@ Bezier::scale (Real x, Real y)
 }
 
 void
-Bezier::rotate (Real phi)
+Bezier::rotate (Real deg)
 {
-  Offset rot (complex_exp (Offset (0, phi)));
+  Offset rot (offset_directed (deg));
   for (int i = 0; i < CONTROL_COUNT; i++)
     control_[i] = complex_multiply (rot, control_[i]);
 }

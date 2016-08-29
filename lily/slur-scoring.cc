@@ -740,7 +740,7 @@ Slur_score_state::enumerate_attachments (Drul_array<Real> end_ys) const
                 }
             }
 
-          dz = os[RIGHT] - os[LEFT];
+          dz = (os[RIGHT] - os[LEFT]).direction ();
           for (LEFT_and_RIGHT (d))
             {
               if (extremes_[d].slur_head_
@@ -752,7 +752,7 @@ Slur_score_state::enumerate_attachments (Drul_array<Real> end_ys) const
                      TODO: parameter */
                   os[d][X_AXIS]
                   -= dir_ * extremes_[d].slur_head_x_extent_.length ()
-                     * sin (dz.arg ()) / 3;
+                    * dz[Y_AXIS] / 3;
                 }
             }
 

@@ -80,7 +80,7 @@ Stencil::extent_box () const
 void
 Stencil::rotate (Real a, Offset off)
 {
-  rotate_degrees (a * 180 / M_PI, off);
+  rotate_degrees (a, off);
 }
 
 /*
@@ -121,7 +121,7 @@ Stencil::rotate_degrees_absolute (Real a, Offset absolute_off)
   pts.push_back (Offset (shifted_box.x ().at (RIGHT), shifted_box.y ().at (UP)));
   pts.push_back (Offset (shifted_box.x ().at (LEFT), shifted_box.y ().at (UP)));
 
-  const Offset rot = complex_exp (Offset (0, a * M_PI / 180.0));
+  const Offset rot (offset_directed (a));
   dim_.set_empty ();
   for (vsize i = 0; i < pts.size (); i++)
     dim_.add_point (pts[i] * rot + absolute_off);
