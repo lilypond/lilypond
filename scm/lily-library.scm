@@ -708,29 +708,15 @@ right (@var{dir}=+1)."
   (coord-operation * amount coordinate))
 
 (define-public (coord-rotate coordinate angle-in-radians)
-  ;; getting around (sin PI) not being exactly zero by switching to cos at
-  ;; appropiate angles and/or taking the negative value (vice versa for cos)
-  (let* ((quadrant (inexact->exact (round (/ angle-in-radians (/ PI 2)))))
-         (moved-angle (- angle-in-radians (* quadrant (/ PI 2))))
-         (s (sin moved-angle))
-         (c (cos moved-angle))
-         (x (coord-x coordinate))
-         (y (coord-y coordinate)))
-    (case (modulo quadrant 4)
-      ((0) ;; -45 .. 45
-       (cons (- (* c x) (* s y))
-             (+ (* s x) (* c y))))
-      ((1) ;; 45 .. 135
-       (cons (- (* (- s) x) (* c y))
-             (+ (* c x) (* (- s) y))))
-      ((2) ;; 135 .. 225
-       (cons (- (* (- c) x) (* (- s) y))
-             (+ (* (- s) x) (* (- c) y))))
-      ((3) ;; 225 .. 315
-       (cons (- (* s x) (* (- c) y))
-             (+ (* (- c) x) (* s y))))
-      ;; for other angles (modulo quadrant 4) returns one of the above cases
-       )))
+  (coord-rotated coordinate (/ angle-in-radians PI-OVER-180)))
+
+(define-public (coord-rotated coordinate direction)
+  ;; Same, in degrees or with a given direction
+  (let ((dir (ly:directed direction)))
+    (cons (- (* (car dir) (car coordinate))
+             (* (cdr dir) (cdr coordinate)))
+          (+ (* (car dir) (cdr coordinate))
+             (* (cdr dir) (car coordinate))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; trig
