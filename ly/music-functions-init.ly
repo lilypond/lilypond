@@ -1551,7 +1551,12 @@ retrograde =
 #(define-music-function (music)
     (ly:music?)
     (_i "Return @var{music} in reverse order.")
-    (retrograde-music music))
+    (retrograde-music
+     (expand-repeat-notes!
+      (expand-repeat-chords!
+       (cons 'rhythmic-event
+             (ly:parser-lookup '$chord-repeat-events))
+       music))))
 
 revertTimeSignatureSettings =
 #(define-music-function

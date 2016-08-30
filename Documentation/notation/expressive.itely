@@ -685,7 +685,8 @@ occurences of outer slurs actually indicate phrasing, and phrasing
 slurs may overlap a regular slur, see @ref{Phrasing slurs}.  When
 multiple regular slurs are needed in a single @code{Voice},
 matching slur starts and ends need to be labelled by preceding
-them with @code{\=} followed by an identifying number or string.
+them with @code{\=} followed by an identifying key (a symbol or
+non-negative integer).
 
 @lilypond[verbatim,quote]
 \fixed c' {
