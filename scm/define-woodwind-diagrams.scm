@@ -632,7 +632,7 @@ returns @samp{1/3}."
                   (flatten-list
                    (map (lambda (x)
                           (coord-translate
-                           (coord-rotate x (atan (/ y (* 2 0.25))))
+                           (coord-rotated x (cons y (* 2 0.25)))
                            '(1.0 . 0)))
                         l)))
                 `(((0 . ,y) (,x . ,y) (,x . 0))
@@ -644,7 +644,7 @@ returns @samp{1/3}."
          (map (lambda (l)
                 (flatten-list
                  (map (lambda (x)
-                        (coord-rotate x (atan (/ y (* 2 0.25)))))
+                        (coord-rotated x (cons y (* 2 0.25))))
                       l)))
               `(,(list-tail up-part 1)
                 ,(list-head down-part 1)
@@ -938,16 +938,27 @@ returns @samp{1/3}."
 
 (define saxophone-rh-high-fis-key-stencil
   (standard-path-stencil
-   (append
-    '((0.0 1.0) (0.0 1.4 0.6 1.4 0.6 1.0) (0.6 0.0))
-    (map (lambda (l)
-           (flatten-list
-            (map (lambda (x)
-                   (coord-rotate x (atan (* -1 (/ PI 6)))))
-                 l)))
-         '(((0.6 . -1.0))
-           ((0.6 . -1.4) (0.0 . -1.4) (0.0 . -1.0))
-           ((0.0 . 0.0)))))
+   (let* ((angle -30)
+          (dir2 (ly:directed (* -0.5 angle)))
+          ;; This comparatively awful expression calculates how far
+          ;; along the tangents opened by 'angle' with a radius of 0.6
+          ;; the control points need to move in order to have the
+          ;; middle of the bezier curve exactly on radius.
+          (out (* 0.6 (coord-y dir2) (- 4/3 (* 1/3 (coord-x dir2))))))
+     (append
+      '((0.0 1.0) (0.0 1.4 0.6 1.4 0.6 1.0) (0.6 0.0))
+      `((0.6 ,(- out)
+             ,@(flatten-list (map (lambda (x) (coord-rotated x angle))
+                                  `((0.6 . ,out)
+                                    (0.6 . 0.0))))))
+      (map (lambda (l)
+             (flatten-list
+              (map (lambda (x)
+                     (coord-rotated x angle))
+                   l)))
+           '(((0.6 . -1.0))
+             ((0.6 . -1.4) (0.0 . -1.4) (0.0 . -1.0))
+             ((0.0 . 0.0))))))
    0.75
    0.75))
 
