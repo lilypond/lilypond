@@ -751,21 +751,18 @@ of the white stencil we make between 0 and 2*pi."
       (begin
        (ly:warning "Both angle-increments and radial-increments must be positive numbers.")
        stil)
-      (let* ((2pi 6.283185307)
-             (angle-inc (/ 2pi angle-increments))
+      (let* ((angle-inc (/ 360 angle-increments))
              (radial-inc (/ thickness radial-increments)))
 
         (define (circle-plot ang dec radius original-stil new-stil)
-          ;; ang (angle) and dec (decrement) are in radians, not degrees
+          ;; ang (angle) and dec (decrement) are in degrees, not radians
           (if (<= ang 0)
               new-stil
               (circle-plot (- ang dec) dec radius original-stil
                 (ly:stencil-add
                  new-stil
                  (ly:stencil-translate original-stil
-                   (cons
-                    (* radius (cos ang))
-                    (* radius (sin ang))))))))
+                   (ly:directed ang radius))))))
 
         (define (radial-plot radius original-stil new-stil)
           (if (<= radius 0)
@@ -774,7 +771,7 @@ of the white stencil we make between 0 and 2*pi."
                 (radial-plot
                  (- radius radial-inc)
                  original-stil
-                 (circle-plot 2pi angle-inc
+                 (circle-plot 360 angle-inc
                    radius original-stil empty-stencil)))))
 
         (let ((whiteout-expr
