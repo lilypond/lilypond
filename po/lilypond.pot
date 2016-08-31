@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.19.46\n"
+"Project-Id-Version: lilypond 2.19.47\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2016-07-24 11:09+0100\n"
+"POT-Creation-Date: 2016-08-13 13:37+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -917,7 +917,7 @@ msgstr ""
 msgid "Encountered unprocessed marker %s\n"
 msgstr ""
 
-#: abc2ly.py:1389 convert-ly.py:85 lilypond-book.py:122 midi2ly.py:1046
+#: abc2ly.py:1389 convert-ly.py:85 lilypond-book.py:122 midi2ly.py:1052
 #, python-format
 msgid "%s [OPTION]... FILE"
 msgstr ""
@@ -930,16 +930,16 @@ msgid ""
 msgstr ""
 
 #: abc2ly.py:1398 convert-ly.py:92 etf2ly.py:1208 lilypond-book.py:231
-#: midi2ly.py:1097 musicxml2ly.py:2766 main.cc:184
+#: midi2ly.py:1103 musicxml2ly.py:2766 main.cc:184
 msgid "show version number and exit"
 msgstr ""
 
 #: abc2ly.py:1401 convert-ly.py:96 etf2ly.py:1204 lilypond-book.py:140
-#: midi2ly.py:1064 musicxml2ly.py:2747 main.cc:163
+#: midi2ly.py:1070 musicxml2ly.py:2747 main.cc:163
 msgid "show this help and exit"
 msgstr ""
 
-#: abc2ly.py:1404 etf2ly.py:1209 midi2ly.py:1073
+#: abc2ly.py:1404 etf2ly.py:1209 midi2ly.py:1079
 msgid "write output to FILE"
 msgstr ""
 
@@ -960,7 +960,7 @@ msgstr ""
 #. or if there is a LilyPond users list or forum in your language
 #. "Report bugs in English via %s or in YOUR_LANG via URI"
 #: abc2ly.py:1416 convert-ly.py:157 etf2ly.py:1218 lilypond-book.py:258
-#: midi2ly.py:1109 musicxml2ly.py:2909 main.cc:318
+#: midi2ly.py:1115 musicxml2ly.py:2909 main.cc:318
 #, c-format, python-format
 msgid "Report bugs via %s"
 msgstr ""
@@ -1042,7 +1042,7 @@ msgstr ""
 msgid "make a numbered backup [default: filename.ext~]"
 msgstr ""
 
-#: convert-ly.py:152 etf2ly.py:1212 lilypond-book.py:234 midi2ly.py:1098
+#: convert-ly.py:152 etf2ly.py:1212 lilypond-book.py:234 midi2ly.py:1104
 #: main.cc:186
 msgid "show warranty and copyright"
 msgstr ""
@@ -1101,7 +1101,7 @@ msgid ""
 "file.\n"
 msgstr ""
 
-#: etf2ly.py:1210 midi2ly.py:1069 midi2ly.py:1074 musicxml2ly.py:2859
+#: etf2ly.py:1210 midi2ly.py:1075 midi2ly.py:1080 musicxml2ly.py:2859
 #: main.cc:169 main.cc:181
 msgid "FILE"
 msgstr ""
@@ -1208,7 +1208,7 @@ msgstr ""
 msgid "write snippet output files with the same base name as their source file"
 msgstr ""
 
-#: lilypond-book.py:223 midi2ly.py:1092 musicxml2ly.py:2772
+#: lilypond-book.py:223 midi2ly.py:1098 musicxml2ly.py:2772
 msgid "be verbose"
 msgstr ""
 
@@ -1310,7 +1310,7 @@ msgstr ""
 msgid "warning: "
 msgstr ""
 
-#: midi2ly.py:92 midi2ly.py:1126
+#: midi2ly.py:92 midi2ly.py:1132
 msgid "error: "
 msgstr ""
 
@@ -1318,85 +1318,85 @@ msgstr ""
 msgid "Exiting... "
 msgstr ""
 
-#: midi2ly.py:834
+#: midi2ly.py:840
 msgid "found more than 5 voices on a staff, expect bad output"
 msgstr ""
 
-#: midi2ly.py:1034
+#: midi2ly.py:1040
 #, python-format
 msgid "%s output to `%s'..."
 msgstr ""
 
-#: midi2ly.py:1047
+#: midi2ly.py:1053
 #, python-format
 msgid "Convert %s to LilyPond input.\n"
 msgstr ""
 
-#: midi2ly.py:1052
+#: midi2ly.py:1058
 msgid "print absolute pitches"
 msgstr ""
 
-#: midi2ly.py:1054 midi2ly.py:1082
+#: midi2ly.py:1060 midi2ly.py:1088
 msgid "DUR"
 msgstr ""
 
-#: midi2ly.py:1055
+#: midi2ly.py:1061
 msgid "quantise note durations on DUR"
 msgstr ""
 
-#: midi2ly.py:1058
+#: midi2ly.py:1064
 msgid "debug printing"
 msgstr ""
 
-#: midi2ly.py:1061
+#: midi2ly.py:1067
 msgid "print explicit durations"
 msgstr ""
 
-#: midi2ly.py:1066
+#: midi2ly.py:1072
 msgid "prepend FILE to output"
 msgstr ""
 
-#: midi2ly.py:1070
+#: midi2ly.py:1076
 msgid "set key: ALT=+sharps|-flats; MINOR=1"
 msgstr ""
 
-#: midi2ly.py:1071
+#: midi2ly.py:1077
 msgid "ALT[:MINOR]"
 msgstr ""
 
-#: midi2ly.py:1076
+#: midi2ly.py:1082
 msgid "preview of first 4 bars"
 msgstr ""
 
-#: midi2ly.py:1080
+#: midi2ly.py:1086
 msgid "suppress progress messages and warnings about excess voices"
 msgstr ""
 
-#: midi2ly.py:1081
+#: midi2ly.py:1087
 msgid "quantise note starts on DUR"
 msgstr ""
 
-#: midi2ly.py:1085
+#: midi2ly.py:1091
 msgid "use s instead of r for rests"
 msgstr ""
 
-#: midi2ly.py:1087
+#: midi2ly.py:1093
 msgid "DUR*NUM/DEN"
 msgstr ""
 
-#: midi2ly.py:1090
+#: midi2ly.py:1096
 msgid "allow tuplet durations DUR*NUM/DEN"
 msgstr ""
 
-#: midi2ly.py:1100
+#: midi2ly.py:1106
 msgid "treat every text as a lyric"
 msgstr ""
 
-#: midi2ly.py:1103
+#: midi2ly.py:1109
 msgid "Examples"
 msgstr ""
 
-#: midi2ly.py:1127
+#: midi2ly.py:1133
 msgid "no files specified on command line."
 msgstr ""
 
@@ -2544,17 +2544,17 @@ msgstr ""
 msgid "unexpected case fall-through"
 msgstr ""
 
-#: midi-control-function-performer.cc:107 staff-performer.cc:159
+#: midi-cc-announcer.cc:99
 #, c-format
 msgid "ignoring out-of-range value change for MIDI property `%s'"
 msgstr ""
 
-#: midi-item.cc:92
+#: midi-item.cc:91
 #, c-format
 msgid "no such MIDI instrument: `%s'"
 msgstr ""
 
-#: midi-item.cc:178
+#: midi-item.cc:177
 msgid "Time signature with more than 255 beats.  Truncating"
 msgstr ""
 
@@ -3102,11 +3102,11 @@ msgstr ""
 msgid "expected to read %d characters, got %d"
 msgstr ""
 
-#: staff-performer.cc:306
+#: staff-performer.cc:273
 msgid "MIDI channel wrapped around"
 msgstr ""
 
-#: staff-performer.cc:307
+#: staff-performer.cc:274
 msgid "remapping modulo 16"
 msgstr ""
 
