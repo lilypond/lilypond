@@ -338,14 +338,16 @@ Grob::relative_coordinate (Grob const *refp, Axis a) const
 
   /* We catch PARENT_L_ == nil case with this, but we crash if we did
      not ask for the absolute coordinate (ie. REFP == nil.)  */
-  Real off = get_offset (a);
-  if (refp == dim_cache_[a].parent_)
-    return off;
 
-  if (dim_cache_[a].parent_ != NULL)
-    off += dim_cache_[a].parent_->relative_coordinate (refp, a);
+  return get_offset (a) + parent_relative (refp, a);
+}
 
-  return off;
+Real
+Grob::parent_relative (Grob const *refp, Axis a) const
+{
+  if (Grob *p = get_parent (a))
+    return p->relative_coordinate (refp, a);
+  return 0.0;
 }
 
 Real

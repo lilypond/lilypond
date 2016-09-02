@@ -540,7 +540,7 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
           if (Grob *beam = Stem::get_beam (stems[side]))
             (void) beam->get_property ("quantized-positions");
           poss[side] = stems[side]->extent (stems[side], Y_AXIS)[get_grob_direction (stems[side])]
-                       + stems[side]->get_parent (Y_AXIS)->relative_coordinate (commony, Y_AXIS);
+                       + stems[side]->parent_relative (commony, Y_AXIS);
         }
 
       *dy = poss[RIGHT] - poss[LEFT];
