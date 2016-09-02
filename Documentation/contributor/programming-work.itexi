@@ -1758,11 +1758,29 @@ Acknowledge functions are called in the order engravers are
 @code{\consist}-ed (the only exception is if you set
 @code{must-be-last} to @code{#t}).
 
-If useful things are to be done to the acknowledged grobs, this
-should be deferred until all the acknowledging has finished, i.e.,
-store the acknowledged grobs and process the information in a
-@code{process-acknowledged ()} or @code{stop-translation-timestep ()} 
-function.
+There will always be a call to @code{process-acknowledged ()} whenever
+grobs have been created, and @emph{reading} stuff from grobs should be
+delayed until then since other acknowledgers might @emph{write} stuff
+into a grob even after your acknowledger has been called.  So the basic
+workflow is to use the various acknowledgers to @emph{record} the grobs
+you are interested in and @emph{write} stuff into them (or do read/write
+stuff that more or less is accumulative and/or really unrelated to other
+engravers), and then use the @code{process-acknowledged ()} hook for
+processing (including @emph{reading}) the grobs you had recorded.
+
+You can create new grobs in @code{process-acknowledged ()}.  That will lead
+to a new cycle of @code{acknowledger ()} calls followed by a new cycle of
+@code{process-acknowledged ()} calls.
+
+Only when all those cycles are over is @code{stop-translator-timestep ()}
+called, and then creating grobs is no longer an option.  You can still
+@q{process} parts of the grob there (if that means just reading out
+properties and possibly setting context properties based on them) but
+@code{stop-translation-timestep ()} is a cleanup hook, and other engravers
+might have already cleaned up stuff you might have wanted to use.
+Creating grobs in there is not possible since engravers and other code may
+no longer be in a state where they could process them, possibly causing
+a crash.
 
 
 @node Engraver declaration/documentation
