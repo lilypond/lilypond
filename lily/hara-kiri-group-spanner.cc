@@ -190,9 +190,11 @@ Hara_kiri_group_spanner::add_interesting_item (Grob *me, Grob *n)
 ADD_INTERFACE (Hara_kiri_group_spanner,
                "A group spanner that keeps track of interesting items.  If it"
                " doesn't contain any after line breaking, it removes itself"
-               " and all its children.  Children may be prioritized in layers"
-               " via @code{remove-layer}, in which case only the"
-               " lowest-numbered non-empty layer is retained.",
+               " and all its children.  Greater control can be exercised via"
+               " @code{remove-layer} which can prioritize layers so only the"
+               " lowest-numbered non-empty layer is retained; make the layer"
+               " independent of the group; or make it dependent on any other"
+               " member of the group",
 
                /* properties */
                "items-worth-living "
