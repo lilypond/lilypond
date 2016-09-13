@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.19.47\n"
+"Project-Id-Version: lilypond 2.19.48\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2016-08-13 13:37+0100\n"
+"POT-Creation-Date: 2016-09-13 11:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2046,7 +2046,7 @@ msgstr ""
 msgid "failed redirecting stderr to `%s'"
 msgstr ""
 
-#: general-scheme.cc:482 output-ps.scm:48
+#: general-scheme.cc:482
 msgid "Found infinity or nan in output.  Substituting 0.0"
 msgstr ""
 
@@ -2107,7 +2107,7 @@ msgstr ""
 msgid "%d: %s"
 msgstr ""
 
-#: grob.cc:487
+#: grob.cc:489
 #, c-format
 msgid "ignored infinite %s-offset"
 msgstr ""
@@ -2148,6 +2148,11 @@ msgstr ""
 
 #: input.cc:138 source-file.cc:180 source-file.cc:195
 msgid "position unknown"
+msgstr ""
+
+#: keep-alive-together-engraver.cc:93
+#, c-format
+msgid "unknown remove-layer value `%s'"
 msgstr ""
 
 #: key-engraver.cc:197
@@ -3087,7 +3092,7 @@ msgstr ""
 msgid "%s without a cause"
 msgstr ""
 
-#: slur-engraver.cc:322
+#: slur-engraver.cc:320
 #, c-format
 msgid "cannot end %s"
 msgstr ""
@@ -3594,17 +3599,17 @@ msgstr ""
 msgid "not a valid duration string: ~a - ignoring"
 msgstr ""
 
-#: define-music-types.scm:798
+#: define-music-types.scm:796
 #, scheme-format
 msgid "symbol expected: ~S"
 msgstr ""
 
-#: define-music-types.scm:801
+#: define-music-types.scm:799
 #, scheme-format
 msgid "cannot find music object: ~S"
 msgstr ""
 
-#: define-music-types.scm:821
+#: define-music-types.scm:819
 #, scheme-format
 msgid "bad make-music argument: ~S"
 msgstr ""
@@ -3779,19 +3784,19 @@ msgstr ""
 msgid "Music unsuitable for output-def"
 msgstr ""
 
-#: lily-library.scm:920
+#: lily-library.scm:914
 msgid ""
 "Find the index between @var{start} and @var{end} (an integer)\n"
 "which produces the closest match to @var{target-val} if\n"
 "applied to function @var{getter}."
 msgstr ""
 
-#: lily-library.scm:1014
+#: lily-library.scm:1008
 #, scheme-format
 msgid "unknown unit: ~S"
 msgstr ""
 
-#: lily-library.scm:1039
+#: lily-library.scm:1033
 #, scheme-format
 msgid "no \\version statement found, please add~afor future compatibility"
 msgstr ""
@@ -3901,6 +3906,10 @@ msgstr ""
 msgid "negative replication count; ignoring"
 msgstr ""
 
+#: modal-transforms.scm:289
+msgid "Dangling tie in \\retrograde"
+msgstr ""
+
 #: music-functions.scm:319
 #, scheme-format
 msgid "invalid tremolo repeat count: ~a"
@@ -3976,12 +3985,12 @@ msgstr ""
 msgid "conflicting tag group ~a"
 msgstr ""
 
-#: output-ps.scm:290 output-svg.scm:539
+#: output-ps.scm:271 output-svg.scm:539
 #, scheme-format
 msgid "unknown line-cap-style: ~S"
 msgstr ""
 
-#: output-ps.scm:295 output-svg.scm:545
+#: output-ps.scm:276 output-svg.scm:545
 #, scheme-format
 msgid "unknown line-join-style: ~S"
 msgstr ""
@@ -4069,25 +4078,25 @@ msgstr ""
 msgid "No open string for pitch ~a"
 msgstr ""
 
-#: translation-functions.scm:442 translation-functions.scm:454
+#: translation-functions.scm:450 translation-functions.scm:462
 #, scheme-format
 msgid "Requested string for pitch requires negative fret: string ~a pitch ~a"
 msgstr ""
 
-#: translation-functions.scm:445
+#: translation-functions.scm:453
 msgid "Ignoring string request and recalculating."
 msgstr ""
 
-#: translation-functions.scm:457
+#: translation-functions.scm:465
 msgid "Ignoring note in tablature."
 msgstr ""
 
-#: translation-functions.scm:482
+#: translation-functions.scm:490
 #, scheme-format
 msgid "No string for pitch ~a (given frets ~a)"
 msgstr ""
 
-#: translation-functions.scm:598
+#: translation-functions.scm:606
 #, scheme-format
 msgid ""
 "No label for fret ~a (on string ~a);\n"
