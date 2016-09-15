@@ -82,31 +82,33 @@ First it recurses over the children, then the function is applied to
 (define-public (music-filter pred? music)
   "Filter out music expressions that do not satisfy @var{pred?}."
 
-  (define (inner-music-filter pred? music)
+  (define (inner-music-filter music)
     "Recursive function."
     (let* ((es (ly:music-property music 'elements))
            (e (ly:music-property music 'element))
            (as (ly:music-property music 'articulations))
-           (filtered-as (filter ly:music? (map (lambda (y) (inner-music-filter pred? y)) as)))
+           (filtered-as (filter ly:music? (map inner-music-filter as)))
            (filtered-e (if (ly:music? e)
-                           (inner-music-filter pred? e)
+                           (inner-music-filter e)
                            e))
-           (filtered-es (filter ly:music? (map (lambda (y) (inner-music-filter pred? y)) es))))
+           (filtered-es (filter ly:music? (map inner-music-filter es))))
       (if (not (null? e))
           (set! (ly:music-property music 'element) filtered-e))
       (if (not (null? es))
           (set! (ly:music-property music 'elements) filtered-es))
       (if (not (null? as))
           (set! (ly:music-property music 'articulations) filtered-as))
-      ;; if filtering emptied the expression, we remove it completely.
+      ;; if filtering invalidated 'element, we remove the music unless
+      ;; there are remaining 'elements in which case we just hope and
+      ;; pray.
       (if (or (not (pred? music))
-              (and (eq? filtered-es '()) (not (ly:music? e))
-                   (or (not (eq? es '()))
-                       (ly:music? e))))
+              (and (null? filtered-es)
+                   (not (ly:music? filtered-e))
+                   (ly:music? e)))
           (set! music '()))
       music))
 
-  (set! music (inner-music-filter pred? music))
+  (set! music (inner-music-filter music))
   (if (ly:music? music)
       music
       (make-music 'Music)))       ;must return music.
