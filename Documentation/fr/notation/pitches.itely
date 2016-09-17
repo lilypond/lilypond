@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 97f856e8c577fdf301ac2a15b336eae8729e53f7
+   Translation of GIT committish: 39912f861693f1c24b8833e6e9e6ba82eb3e6746
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -905,10 +905,15 @@ music = \relative { c'8. ees16( fis8. a16 b8.) gis16 f8. d16 }
 @end lilypond
 
 @knownissues
-Une liaison de prolongation à l'intérieur d'un bloc @code{\retrograde}
-sera de fait rompue, ce qui générera un message d'avertissement.
-Des liaisons de prolongation seront toutefois générées automatiquement
-dès lors qu'est activé le @ref{Découpage automatique des notes}.
+La fonction @code{\retrograde} est un outil plutôt simpliste.  Dans la
+mesure où de nombreux événements se reflètent au lieu d'être échangés,
+les ajustements et indicateurs de positionnement à l'entame d'un objet
+étendu devront être répétés à leur terminaison : @code{^(} devra se
+terminer par @code{^)}, tout @code{\<} ou @code{\cresc} devra se
+terminer par un @code{\!} ou un @code{\endecresc} et tout @code{\>} ou
+@code{\decr} devra se terminer par un @code{\enddecr}.  Les dérogations
+ou commandes modifiant les propriétés sur la durée peuvent avoir des
+effets surprenants.
 
 @seealso
 Manuel de notation :

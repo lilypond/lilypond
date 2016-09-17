@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 97f856e8c577fdf301ac2a15b336eae8729e53f7
+   Translation of GIT committish: 39912f861693f1c24b8833e6e9e6ba82eb3e6746
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -306,7 +306,8 @@ la tête de note à laquelle il est attaché.  Dans le cas où il se termine
 par l'intervention d'un autre soufflet (contraire ou non), il prendra
 fin au milieu de la tête de note affublée d'un @code{\<} ou d'un
 @code{\>}, et le nouveau soufflet débutera à l'extrémité droite de cette
-même tête de note.
+même tête de note.  Un soufflet se terminant sur le premier temps d'une
+mesure s'arrêtera à la barre de mesure.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -449,6 +450,8 @@ avec ou sans extenseur, ainsi que les indications de pédale.
 @endpredefined
 
 @snippets
+
+@cindex soufflet et barre de mesure
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {setting-hairpin-behavior-at-bar-lines.ly}
@@ -703,7 +706,7 @@ liaison externe indique un phrasé, et un phrasé peut recouvrir plusieurs
 liaisons d'articulation -- voir @ref{Liaisons de phrasé}.  Dans le cas
 où plusieurs liaisons d'articulation interviennent au sein d'un même
 contexte @code{Voice}, leurs début et fin doivent être labellisés par un
-@code{\=} suivi d'un identifiant (numérique ou chaîne).
+@code{\=} suivi d'un identifiant (symbole ou entier positif).
 
 @lilypond[verbatim,quote]
 \fixed c' {

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 934175b31d43c95e341b098f12c2e833522a5d45
+   Translation of GIT committish: 39912f861693f1c24b8833e6e9e6ba82eb3e6746
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -862,18 +862,28 @@ vingtQuatre = #(* 2 douze)
 @end example
 
 @noindent
-ce qui aurait pour conséquence que le nombre 24 sera stocké dans la
-variable LilyPond (et Scheme) @code{vingtQuatre}.
+ce qui aurait pour conséquence que le nombre @emph{24} sera stocké dans
+la variable LilyPond (et Scheme) @code{vingtQuatre}.
 
-La façon habituelle de faire référence à une variable LilyPond consiste
-à la rappeler à l'aide d'une oblique inverse -- autrement dit saisir
-@code{\vingtQuatre}.  Dans la mesure où ceci, pour la plupart des types
-internes de LilyPond y compris les expressions musicales, aura pour
-effet d'en recopier la valeur, les fonctions musicales n'ont pas pour
-habitude de créer une copie du matériau qu'elles vont modifier.  De
-fait, une expression musicale introduite par @code{#} ne devrait pas
-contenir de matériau inexistant auparavant ou bien littéralement
-recopié, mais plutôt une référence explicite.
+Scheme autorise la modification d'expressions complexes au fil de l'eau,
+ce que réalise LilyPond dans le cadre des fonctions musicales.
+Toutefois, lorsqu'une expression musicale est stockée dans une variable,
+plutôt que saisie au fur et à mesure, on s'attend, alors qu'elle est
+passée à une fonction musicale, à ce que sa valeur originale ne soit en
+rien modifiée.  C'est la raison pour laquelle faire référence à une
+variable à l'aide d'une oblique inverse -- autrement dit saisir
+@code{\vingtQuatre} -- aura pour effet que LilyPond créera une copie de
+la valeur musicale de cette variable aux fins de l'utiliser au sein de
+l'expression musicale au lieu d'utiliser directement la valeur de cette
+variable.
+
+Par voie de conséquence, une expression musicale introduite par @code{#}
+ne devrait pas contenir de matériau inexistant auparavant ou bien
+littéralement recopié, mais plutôt une référence explicite.
+
+@seealso
+Manuel d'extension :
+@ref{Syntaxe Scheme dans LilyPond}.
 
 
 @node Saisie de variables et Scheme
