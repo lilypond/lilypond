@@ -20,7 +20,79 @@
 #include "font-metric.hh"
 #include "libc-extension.hh"
 #include "lookup.hh"
+#include "offset.hh"
 #include "stencil.hh"
+
+/*
+ * A few general helpers in degrees
+ */
+
+LY_DEFINE (ly_angle, "ly:angle",
+           1, 1, 0, (SCM x, SCM y),
+           "Calculates angle in degrees of given vector.  With one argument,"
+           " @var{x} is a number pair indicating the vector.  With two"
+           " arguments, @var{x} and @var{y} specify the respective coordinates.")
+{
+  Offset off;
+  if (SCM_UNBNDP (y)) {
+    LY_ASSERT_TYPE (is_number_pair, x, 1);
+    off = ly_scm2offset (x);
+  } else {
+    LY_ASSERT_TYPE (scm_is_number, x, 1);
+    LY_ASSERT_TYPE (scm_is_number, y, 2);
+    off = Offset (scm_to_double (x), scm_to_double (y));
+  }
+  return scm_from_double (off.angle_degrees ());
+}
+
+LY_DEFINE (ly_length, "ly:length",
+           1, 1, 0, (SCM x, SCM y),
+           "Calculates magnitude of given vector.  With one argument,"
+           " @var{x} is a number pair indicating the vector.  With two"
+           " arguments, @var{x} and @var{y} specify the respective coordinates.")
+{
+  Offset off;
+  if (SCM_UNBNDP (y)) {
+    LY_ASSERT_TYPE (is_number_pair, x, 1);
+    off = ly_scm2offset (x);
+  } else {
+    LY_ASSERT_TYPE (scm_is_number, x, 1);
+    LY_ASSERT_TYPE (scm_is_number, y, 2);
+    off = Offset (scm_to_double (x), scm_to_double (y));
+  }
+  return scm_from_double (off.length ());
+}
+
+LY_DEFINE (ly_directed, "ly:directed",
+           1, 1, 0, (SCM direction, SCM magnitude),
+           "Calculates an @code{(x . y)} pair with optional @var{magnitude}"
+           " (defaulting to @code{1.0}) and @var{direction} specified either"
+           " as an angle in degrees or a coordinate pair giving the direction. "
+           " If @var{magnitude} is a pair, the respective coordinates are"
+           " scaled independently, useful for ellipse drawings.")
+{
+  Offset res;
+  if (scm_is_pair (direction))
+    {
+      LY_ASSERT_TYPE (is_number_pair, direction, 1);
+      res = ly_scm2offset (direction).direction ();
+    }
+  else
+    {
+      LY_ASSERT_TYPE (scm_is_number, direction, 1);
+      res = offset_directed (scm_to_double (direction));
+    }
+  if (SCM_UNBNDP (magnitude))
+    return ly_offset2scm (res);
+  if (scm_is_pair (magnitude))
+    {
+      LY_ASSERT_TYPE (is_number_pair, magnitude, 2);
+      return ly_offset2scm (res.scale (ly_scm2offset (magnitude)));
+    }
+  LY_ASSERT_TYPE (scm_is_number, magnitude, 2);
+  return ly_offset2scm (scm_to_double (magnitude) * res);
+}
+
 
 /*
   TODO: naming add/combine.

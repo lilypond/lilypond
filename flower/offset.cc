@@ -46,44 +46,67 @@ complex_multiply (Offset z1, Offset z2)
   return z;
 }
 
-Offset
-complex_conjugate (Offset o)
+static inline Real
+atan2d (Real y, Real x)
 {
-  o[Y_AXIS] = -o[Y_AXIS];
-  return o;
-}
-
-Offset
-complex_divide (Offset z1, Offset z2)
-{
-  z2 = complex_conjugate (z2);
-  Offset z = complex_multiply (z1, z2);
-  z *= 1 / z2.length ();
-  return z;
-}
-
-Offset
-complex_exp (Offset o)
-{
-  Real s = sin (o[Y_AXIS]);
-  Real c = cos (o[Y_AXIS]);
-
-  Real r = exp (o[X_AXIS]);
-
-  return Offset (r * c, r * s);
-}
-
-Real
-Offset::arg () const
-{
-  return atan2 (coordinate_a_[Y_AXIS], coordinate_a_[X_AXIS]);
+  return atan2 (y, x) * (180.0 / M_PI);
 }
 
 Real
 Offset::angle_degrees () const
 {
-  return arg () * 180 / M_PI;
+  Real x = coordinate_a_ [X_AXIS];
+  Real y = coordinate_a_ [Y_AXIS];
+
+  // We keep in the vicinity of multiples of 45 degrees here: this is
+  // where straightforward angles for straightforward angular
+  // relations are most expected.  The factors of 2 employed in the
+  // comparison are not really perfect for that: sqrt(2)+1 would be
+  // the factor giving exact windows of 45 degrees rather than what we
+  // have here.  It's just that 2 is likely to generate nicer code
+  // than 2.4 and the exact handover does not really matter.
+  //
+  // Comparisons here are chosen appropriately to let infinities end
+  // up in their "exact" branch.  As opposed to the normal atan2
+  // function behavior, this makes "competing" infinities result in
+  // NAN angles.
+  if (y < 0.0)
+    {
+      if (2*x < -y)
+        if (-x > -2*y)          // x < 0, y < 0, |x| > |2y|
+          return -180 + atan2d (-y, -x);
+        else if (-2*x >= -y)    // x < 0, y < 0, |y| < |2x| <= |4y|
+          return -135 + atan2d (x - y, -y - x);
+        else                    // y < 0, |y| >= |2x|
+          return -90 + atan2d (x, -y);
+      else if (x <= -2*y)       // x > 0, y < 0, |y| <= |2x| < |4y|
+        return -45 + atan2d (x + y, x - y);
+      // Drop through for y < 0, x > |2y|
+    }
+  else if (y > 0.0)
+    {
+      if (2*x < y)
+        if (-x > 2*y)           // x < 0, y >= 0, |x| > |2y|
+          return 180 - atan2d (y, -x);
+        else if (-2*x >= y)     // x < 0, y >= 0, |y| < |2x| <= |4y|
+          return 135 - atan2d (x + y, y - x);
+        else                    // y >= 0, |y| >= |2x|
+          return 90 - atan2d (x, y);
+      else if (x <= 2*y)        // x >= 0, y >= 0, |y| < |2x| < |4y|
+        return 45 - atan2d (x - y, x + y);
+      // Drop through for y > 0, x > |2y|
+    }
+  else
+    // we return 0 for (0,0).  NAN would be an option but is a
+    // nuisance for getting back to rectangular coordinates.  Strictly
+    // speaking, this argument would be just as valid for (+inf.0,
+    // +inf.0), but then infinities are already an indication of a
+    // problem in LilyPond.
+    return (x < 0.0) ? 180 : 0;
+  return atan2d (y, x);
 }
+
+
 /**
    euclidian vector length / complex modulus
 */
@@ -125,4 +148,40 @@ Offset
 Offset::swapped () const
 {
   return Offset (coordinate_a_[Y_AXIS], coordinate_a_[X_AXIS]);
+}
+
+Offset
+offset_directed (Real angle)
+{
+  if (angle <= -360.0 || angle >= 360.0)
+    angle = fmod (angle, 360.0);
+  // Now |angle| < 360.0, and the absolute size is not larger than
+  // before, so we haven't lost precision.
+  if (angle <= -180.0)
+    angle += 360.0;
+  else if (angle > 180.0)
+    angle -= 360.0;
+  // Now -180.0 < angle <= 180.0 and we still haven't lost precision.
+  // We don't work with angles greater than 45 degrees absolute in
+  // order to minimize how rounding errors of M_PI/180 affect the
+  // result.  That way, at least angles that are a multiple of 90
+  // degree deliver the expected results.
+  //
+  // Sign of the sine is chosen to avoid -0.0 in results.  This
+  // version delivers exactly equal magnitude on x/y for odd multiples
+  // of 45 degrees at the cost of losing some less obvious invariants.
+
+  if (angle > 0)
+    if (angle > 90)
+      return Offset (sin ((90 - angle) * M_PI/180.0),
+                     sin ((180 - angle) * M_PI/180.0));
+    else
+      return Offset (sin ((90 - angle) * M_PI/180.0),
+                     sin (angle * M_PI/180.0));
+  else if (angle < -90)
+    return Offset (sin ((90 + angle) * M_PI/180.0),
+                   sin ((-180 - angle) * M_PI/180.0));
+  else
+    return Offset (sin ((90 + angle) * M_PI/180.0),
+                   sin (angle * M_PI/180.0));
 }

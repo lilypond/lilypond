@@ -22,6 +22,7 @@
 #include "engraver.hh"
 #include "grob.hh"
 #include "grob-array.hh"
+#include "international.hh"
 
 #include "translator.icc"
 
@@ -64,12 +65,44 @@ Keep_alive_together_engraver::finalize ()
         {
           if (i == j)
             continue;
+
+          if (scm_is_symbol (this_layer))
+            {
+              if (scm_is_eq (this_layer, ly_symbol2scm ("any")))
+                {
+                  // layer is kept alive by any other layer
+                  live->add (group_spanners_[j]);
+                  continue;
+                }
+              else if (scm_is_eq (this_layer, ly_symbol2scm ("above")))
+                {
+                  // layer is kept alive by the layer preceding it
+                  if (i == j + 1)
+                    live->add (group_spanners_[j]);
+                  continue;
+                }
+              else if (scm_is_eq (this_layer, ly_symbol2scm ("below")))
+                {
+                  // layer is kept alive by the layer following it
+                  if (i == j - 1)
+                    live->add (group_spanners_[j]);
+                  continue;
+                }
+              else
+                {
+                  group_spanners_[i]->warning (_f ("unknown remove-layer value `%s'",
+                                                   ly_symbol2string (this_layer).c_str ()));
+                  continue;
+                }
+            }
+
           SCM that_layer = group_spanners_[j]->get_property ("remove-layer");
+
           if (scm_is_false (that_layer))
             continue;
           if (!scm_is_integer (this_layer))
             {
-              // Unspecified layers are kept alive by anything else
+              // unset layers are kept alive by all but ignored layers
               live->add (group_spanners_[j]);
               continue;
             }

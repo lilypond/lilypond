@@ -417,9 +417,9 @@ Lookup::slur (Bezier curve, Real curvethick, Real linethick,
       calculate the offset for the two beziers that make the sandwich
       for the slur
   */
-  Real alpha = (curve.control_[3] - curve.control_[0]).arg ();
+  Offset dir = (curve.control_[3] - curve.control_[0]).direction ();
   Bezier back = curve;
-  Offset perp = curvethick * complex_exp (Offset (0, alpha + M_PI / 2)) * 0.5;
+  Offset perp = 0.5 * curvethick * Offset (-dir[Y_AXIS], dir[X_AXIS]);
   back.control_[1] += perp;
   back.control_[2] += perp;
 

@@ -60,8 +60,8 @@ protected:
   void stop_translation_timestep ();
   void process_music ();
 
-  bool can_create_slur (const string&, vsize, vsize *, Stream_event *);
-  void create_slur (const string &spanner_id, Event_info evi, Grob *g_cause, Direction dir, bool left_broken);
+  bool can_create_slur (SCM, vsize, vsize *, Stream_event *);
+  void create_slur (SCM spanner_id, Event_info evi, Grob *g_cause, Direction dir, bool left_broken);
   bool try_to_end (Event_info evi);
 
   virtual void set_melisma (bool);

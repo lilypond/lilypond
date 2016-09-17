@@ -121,7 +121,7 @@ Internals Reference:
 
 @knownissues
 Checking to make sure that text scripts and lyrics are within the
-margins requires additonal calculations. In cases where slightly faster
+margins requires additional calculations. In cases where slightly faster
 performance is desired, use
 
 @example
@@ -505,7 +505,7 @@ Installed Files:
 @file{scm/markup.scm}.
 
 @knownissues
-Syntax errors for markup mode can be confusing.
+Syntax error messages for markup mode can be confusing.
 
 
 @node Selecting font and font size
@@ -543,9 +543,9 @@ Basic font switching is supported in markup mode:
 @funindex \magnify
 
 The font size can be altered, relative to the global staff size, in a
-number of different ways
+number of different ways.
 
-It can be set to predefined size,
+It can be set to predefined size.
 
 @lilypond[quote,verbatim]
 \relative b' {
@@ -555,7 +555,7 @@ It can be set to predefined size,
 }
 @end lilypond
 
-It can be set relative to its previous value,
+It can be set relative to its previous value.
 
 @lilypond[quote,verbatim]
 \relative b' {
@@ -566,7 +566,7 @@ It can be set relative to its previous value,
 @end lilypond
 
 It can be increased or decreased relative to the value set by the
-global staff size,
+global staff size.
 
 @lilypond[quote,verbatim]
 \relative b' {
@@ -577,7 +577,7 @@ global staff size,
 @end lilypond
 
 It can also be set to a fixed point-size, regardless of the global staff
-size,
+size.
 
 @lilypond[quote,verbatim]
 \relative b' {

@@ -68,7 +68,7 @@ in scheme."
      (SchemeTextSpanEvent
       . ((description . "Used to signal where scheme text spanner brackets
 start and stop.")
-         (types . (scheme-text-span-event span-event event))
+         (types . (post-event scheme-text-span-event span-event event))
          ))
      ))
 

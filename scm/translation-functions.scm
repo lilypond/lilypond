@@ -427,13 +427,21 @@ the current tuning?"
                          (ly:warning (_ "No open string for pitch ~a")
                                      pitch)))
                    ;; here we handle assigned strings
-                   (let ((this-fret
-                          (calc-fret pitch string tuning))
-                         (handle-negative
-                          (ly:context-property context
-                                               'handleNegativeFrets
-                                               'recalculate)))
-                     (cond ((or (and (>= this-fret 0) (integer? this-fret))
+                   (let* ((this-fret
+                           (calc-fret pitch string tuning))
+                          (possible-fret?
+                           (and (>= this-fret 0)
+                                (if (and
+                                      (ly:context-property
+                                        context 'supportNonIntegerFret #f)
+                                      (null? rest))
+                                    (integer? (truncate this-fret))
+                                    (integer? this-fret))))
+                          (handle-negative
+                           (ly:context-property context
+                                                'handleNegativeFrets
+                                                'recalculate)))
+                     (cond ((or possible-fret?
                                 (eq? handle-negative 'include))
                             (set-fret! pitch-entry string finger))
                            ((eq? handle-negative 'recalculate)

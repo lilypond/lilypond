@@ -229,7 +229,7 @@ static Music *make_music_with_input (SCM name, Input where);
 SCM check_scheme_arg (Lily_parser *parser, Input loc,
 		      SCM arg, SCM args, SCM pred, SCM disp = SCM_UNDEFINED);
 SCM make_music_from_simple (Lily_parser *parser, Input loc, SCM pitch);
-SCM loc_on_music (Lily_parser *parser, Input loc, SCM arg);
+SCM loc_on_copy (Lily_parser *parser, Input loc, SCM arg);
 SCM make_chord_elements (Input loc, SCM pitch, SCM dur, SCM modification_list);
 SCM make_chord_step (SCM step, Rational alter);
 SCM make_simple_markup (SCM a);
@@ -500,8 +500,8 @@ lookup:
 	LOOKUP_IDENTIFIER
 	| LOOKUP_IDENTIFIER '.' symbol_list_rev
 	{
-		$$ = loc_on_music (parser, @$,
-				   nested_property ($1, scm_reverse_x ($3, SCM_EOL)));
+		$$ = loc_on_copy (parser, @$,
+				  nested_property ($1, scm_reverse_x ($3, SCM_EOL)));
 	}
 	;
 
@@ -1992,7 +1992,7 @@ function_arglist_backup:
 				$$ = scm_cons ($$, $3);
 			else
 			{
-				$$ = scm_cons (loc_on_music (parser, @3, $1), $3);
+				$$ = scm_cons (loc_on_copy (parser, @3, $1), $3);
 				MYBACKUP (SCM_ARG, $4, @4);
 			}
 		}
@@ -2003,7 +2003,7 @@ function_arglist_backup:
 		{
 			$$ = scm_cons ($4, $3);
 		} else {
-			$$ = scm_cons (loc_on_music (parser, @3, $1), $3);
+			$$ = scm_cons (loc_on_copy (parser, @3, $1), $3);
 			MYBACKUP (EVENT_IDENTIFIER, $4, @4);
 		}
 	}
@@ -2019,7 +2019,7 @@ function_arglist_backup:
 		} else if (scm_is_true (scm_call_1 ($2, $4)))
 			$$ = scm_cons ($4, $3);
 		else {
-			$$ = scm_cons (loc_on_music (parser, @3, $1), $3);
+			$$ = scm_cons (loc_on_copy (parser, @3, $1), $3);
 			MYBACKUP (PITCH_IDENTIFIER, $4, @4);
 		}
 	}
@@ -2035,7 +2035,7 @@ function_arglist_backup:
 		} else if (scm_is_true (scm_call_1 ($2, $4)))
 			$$ = scm_cons ($4, $3);
 		else {
-			$$ = scm_cons (loc_on_music (parser, @3, $1), $3);
+			$$ = scm_cons (loc_on_copy (parser, @3, $1), $3);
 			MYBACKUP (TONICNAME_PITCH, $4, @4);
 		}
 	}
@@ -2044,7 +2044,7 @@ function_arglist_backup:
 		if (scm_is_true (scm_call_1 ($2, $4)))
 			$$ = scm_cons ($4, $3);
 		else {
-			$$ = scm_cons (loc_on_music (parser, @3, $1), $3);
+			$$ = scm_cons (loc_on_copy (parser, @3, $1), $3);
 			MYBACKUP (SCM_IDENTIFIER, $4, @4);
 		}
 	}
@@ -2066,11 +2066,11 @@ function_arglist_backup:
 					  ($2, make_music_from_simple (parser, @4, d))))
 					MYREPARSE (@4, $2, DURATION_ARG, d);
 				else {
-					$$ = scm_cons (loc_on_music (parser, @3, $1), $3);
+					$$ = scm_cons (loc_on_copy (parser, @3, $1), $3);
 					MYBACKUP (UNSIGNED, $4, @4);
 				}
 			} else {
-				$$ = scm_cons (loc_on_music (parser, @3, $1), $3);
+				$$ = scm_cons (loc_on_copy (parser, @3, $1), $3);
 				MYBACKUP (UNSIGNED, $4, @4);
 			}
 		}
@@ -2082,7 +2082,7 @@ function_arglist_backup:
 			$$ = $3;
 			MYREPARSE (@4, $2, REAL, $4);
 		} else {
-			$$ = scm_cons (loc_on_music (parser, @3, $1), $3);
+			$$ = scm_cons (loc_on_copy (parser, @3, $1), $3);
 			MYBACKUP (REAL, $4, @4);
 		}
 	}
@@ -2092,7 +2092,7 @@ function_arglist_backup:
 		{
 			$$ = scm_cons ($4, $3);
 		} else {
-			$$ = scm_cons (loc_on_music (parser, @3, $1), $3);
+			$$ = scm_cons (loc_on_copy (parser, @3, $1), $3);
 			MYBACKUP (NUMBER_IDENTIFIER, $4, @4);
 		}
 	}
@@ -2109,7 +2109,7 @@ function_arglist_backup:
 			if (scm_is_true (scm_call_1 ($2, $$)))
 				$$ = scm_cons ($$, $3);
 			else {
-				$$ = scm_cons (loc_on_music (parser, @3, $1), $3);
+				$$ = scm_cons (loc_on_copy (parser, @3, $1), $3);
 				MYBACKUP (UNSIGNED, $5, @5);
 				parser->lexer_->push_extra_token (@4, '-');
 			}
@@ -2122,7 +2122,7 @@ function_arglist_backup:
 			MYREPARSE (@5, $2, REAL, n);
 			$$ = $3;
 		} else {
-			$$ = scm_cons (loc_on_music (parser, @3, $1), $3);
+			$$ = scm_cons (loc_on_copy (parser, @3, $1), $3);
 			MYBACKUP (REAL, n, @5);
 		}
 	}
@@ -2132,7 +2132,7 @@ function_arglist_backup:
 		if (scm_is_true (scm_call_1 ($2, n))) {
 			$$ = scm_cons (n, $3);
 		} else {
-			$$ = scm_cons (loc_on_music (parser, @3, $1), $3);
+			$$ = scm_cons (loc_on_copy (parser, @3, $1), $3);
 			MYBACKUP (NUMBER_IDENTIFIER, n, @5);
 		}
 	}
@@ -2146,7 +2146,7 @@ function_arglist_backup:
 			  ($2, make_music_from_simple (parser, @4, $4))))
 			MYREPARSE (@4, $2, DURATION_ARG, $4);
 		else {
-			$$ = scm_cons (loc_on_music (parser, @3, $1), $3);
+			$$ = scm_cons (loc_on_copy (parser, @3, $1), $3);
 			MYBACKUP (DURATION_IDENTIFIER, $4, @4);
 		}
 	}
@@ -2161,7 +2161,7 @@ function_arglist_backup:
 			else
 				$$ = scm_cons (res, $3);
 		else {
-			$$ = scm_cons (loc_on_music (parser, @3, $1), $3);
+			$$ = scm_cons (loc_on_copy (parser, @3, $1), $3);
 			MYBACKUP (SCM_IDENTIFIER, $4, @4);
 		}
 	}
@@ -2176,7 +2176,7 @@ function_arglist_backup:
 			else
 				$$ = scm_cons (res, $3);
 		else {
-			$$ = scm_cons (loc_on_music (parser, @3, $1), $3);
+			$$ = scm_cons (loc_on_copy (parser, @3, $1), $3);
 			MYBACKUP (STRING, $4, @4);
 		}
 	}
@@ -2215,7 +2215,7 @@ function_arglist:
 	function_arglist_nonbackup
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_skip_nonbackup DEFAULT
 	{
-		$$ = scm_cons (loc_on_music (parser, @4, $1), $3);
+		$$ = scm_cons (loc_on_copy (parser, @4, $1), $3);
 	}
 	;
 
@@ -2223,7 +2223,7 @@ function_arglist_skip_nonbackup:
 	function_arglist_nonbackup
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_skip_nonbackup
 	{
-		$$ = scm_cons (loc_on_music (parser, @3, $1), $3);
+		$$ = scm_cons (loc_on_copy (parser, @3, $1), $3);
 	}
 	;
 
@@ -2483,7 +2483,7 @@ function_arglist_optional:
 	function_arglist_backup
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_skip_backup DEFAULT
 	{
-		$$ = scm_cons (loc_on_music (parser, @4, $1), $3);
+		$$ = scm_cons (loc_on_copy (parser, @4, $1), $3);
 	}
 	| function_arglist_skip_backup BACKUP
 	;
@@ -2492,7 +2492,7 @@ function_arglist_skip_backup:
 	function_arglist_backup
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_skip_backup
 	{
-		$$ = scm_cons (loc_on_music (parser, @3, $1), $3);
+		$$ = scm_cons (loc_on_copy (parser, @3, $1), $3);
 	}
 	;
 
@@ -4146,13 +4146,41 @@ SCM check_scheme_arg (Lily_parser *parser, Input loc,
 	return args;
 }
 
-SCM loc_on_music (Lily_parser *parser, Input loc, SCM arg)
+SCM loc_on_copy (Lily_parser *parser, Input loc, SCM arg)
 {
 	if (Music *m = unsmob<Music> (arg))
 	{
 		m = m->clone ();
 		m->set_spot (parser->lexer_->override_input (loc));
 		return m->unprotect ();
+	}
+	if (Book *b = unsmob<Book> (arg))
+	{
+		b = b->clone ();
+		b->origin ()->set_spot (parser->lexer_->override_input (loc));
+		return b->unprotect ();
+	}
+	if (Context_def *cd = unsmob<Context_def> (arg))
+	{
+		cd = cd->clone ();
+		cd->origin ()->set_spot (parser->lexer_->override_input (loc));
+		return cd->unprotect ();
+	}
+	if (Output_def *od = unsmob<Output_def> (arg))
+	{
+		od = od->clone ();
+		od->input_origin_ = parser->lexer_->override_input (loc);
+		return od->unprotect ();
+	}
+	if (Score *s = unsmob<Score> (arg))
+	{
+		s = s->clone ();
+		s->origin ()->set_spot (parser->lexer_->override_input (loc));
+		return s->unprotect ();
+	}
+	if (Context_mod *cm = unsmob<Context_mod> (arg))
+	{
+		return cm->smobbed_copy ();
 	}
 	return arg;
 }

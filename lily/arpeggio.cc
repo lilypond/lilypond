@@ -215,7 +215,7 @@ Arpeggio::brew_chord_slur (SCM smob)
   Real height_limit = 1.5;
   Real ratio = .33;
   Bezier curve = slur_shape (dy, height_limit, ratio);
-  curve.rotate (M_PI / 2);
+  curve.rotate (90.0);
 
   Stencil mol (Lookup::slur (curve, lt, lt, dash_definition));
   mol.translate_axis (heads[LEFT], Y_AXIS);

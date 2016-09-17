@@ -1280,7 +1280,7 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
 
   Real offset = robust_scm2double (prev_offset, 0.0);
   Interval rest_extent = rest->extent (rest, Y_AXIS);
-  rest_extent.translate (offset + rest->get_parent (Y_AXIS)->relative_coordinate (common_y, Y_AXIS));
+  rest_extent.translate (offset + rest->parent_relative (common_y, Y_AXIS));
 
   Real rest_dim = rest_extent[d];
   Real minimum_distance

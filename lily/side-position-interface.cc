@@ -220,7 +220,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
       // skyline will likely be of infinite width anyway
       // and we don't want to prematurely trigger H spacing
       Real xc = a == X_AXIS || (pure && dynamic_cast<Spanner *> (me))
-                ? me->get_parent (X_AXIS)->relative_coordinate (common[X_AXIS], X_AXIS)
+                ? me->parent_relative (common[X_AXIS], X_AXIS)
                 : me->relative_coordinate (common[X_AXIS], X_AXIS);
       // same here, for X_AXIS spacing, if it's happening, it should only be
       // before line breaking.  because there is no thing as "pure" x spacing,
@@ -274,7 +274,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
            if (unsmob<Skyline_pair> (sp))
              {
                Real xc = pure && dynamic_cast<Spanner *> (e)
-                         ? e->get_parent (X_AXIS)->relative_coordinate (common[X_AXIS], X_AXIS)
+                         ? e->parent_relative (common[X_AXIS], X_AXIS)
                          : e->relative_coordinate (common[X_AXIS], X_AXIS);
                // same logic as above
                // we assume horizontal spacing is always pure

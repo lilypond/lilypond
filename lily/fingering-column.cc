@@ -99,8 +99,7 @@ Fingering_column::do_y_positioning (Grob *me)
         {
           Interval x_ext = fingerings[i]->extent(common[X_AXIS], X_AXIS);
           Interval y_ext = fingerings[i]->extent(fingerings[i], Y_AXIS);
-          Real parent_y = fingerings[i]->get_parent(Y_AXIS)
-                         ->relative_coordinate(common[Y_AXIS], Y_AXIS);
+          Real parent_y = fingerings[i]->parent_relative (common[Y_AXIS], Y_AXIS);
 
           // Checking only between sequential neighbors, seems good enough
           if (!intersection(x_ext, prev_x_ext).is_empty())

@@ -90,7 +90,7 @@ fit_factor (Offset dz_unit, Offset dz_perp, Real close_to_edge_length,
   Real fit_factor = 0.0;
   Offset x0 = curve.control_[0];
   curve.translate (-x0);
-  curve.rotate (-dz_unit.arg ());
+  curve.rotate (-dz_unit.angle_degrees ());
   curve.scale (1, d);
 
   Interval curve_xext;

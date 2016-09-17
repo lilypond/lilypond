@@ -270,7 +270,7 @@ The following shorthand commands are also available:
 Font size changes are achieved by scaling the design size that is
 closest to the desired size.  The standard font size (for
 @w{@code{font-size = 0}}) depends on the standard staff height.
-For a 20pt staff, a 11pt font is selected.
+For a 20pt staff, an 11pt font is selected.
 
 
 @predefined

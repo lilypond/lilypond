@@ -809,12 +809,16 @@ number, the quicker the slur attains its @code{height-limit}.")
 interesting items.")
      (remove-first ,boolean? "Remove the first staff of an orchestral
 score?")
-     (remove-layer ,integer? "The @code{Keep_alive_together_engraver}
-removes all @code{VerticalAxisGroup} grobs with a @code{remove-layer}
-larger than the smallest retained @code{remove-layer}.  Set to
-@code{#f} to make a layer invisible to the
-@code{Keep_alive_together_engraver}, set to @code{'()} to have it not
-participate in the layering decisions.")
+     (remove-layer ,key? "When set as a positive integer, the
+@code{Keep_alive_together_engraver} removes all
+@code{VerticalAxisGroup} grobs with a @code{remove-layer} larger than
+the smallest retained @code{remove-layer}. Set to @code{#f} to make a
+layer independent of the @code{Keep_alive_together_engraver}. Set to
+@code{'()}, the layer does not participate in the layering decisions.
+The property can also be set as a symbol for common behaviors:
+@code{#'any} to keep the layer alive with any other layer in the
+group; @code{#'above} or @code{#'below} to keep the layer alive with
+the context immediately before or after it, respectively.")
      (replacement-alist ,list? "Alist of strings.
 The key is a string of the pattern to be replaced.  The value is a
 string of what should be displayed.  Useful for ligatures.")
@@ -992,7 +996,7 @@ override:
 \\override MultiMeasureRest
   #'spacing-pair = #'(staff-bar . staff-bar)
 @end example")
-     (spanner-id ,string? "An identifier to distinguish concurrent spanners.")
+     (spanner-id ,key? "An identifier to distinguish concurrent spanners.")
      (springs-and-rods ,boolean? "Dummy variable for triggering
 spacing routines.")
      (stacking-dir ,ly:dir? "Stack objects in which direction?")

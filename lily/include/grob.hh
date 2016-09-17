@@ -141,6 +141,7 @@ public:
   /* offsets */
   void translate_axis (Real, Axis);
   Real relative_coordinate (Grob const *refp, Axis) const;
+  Real parent_relative (Grob const *refp, Axis) const;
   Real pure_relative_y_coordinate (Grob const *refp, int start, int end);
   Real maybe_pure_coordinate (Grob const *refp, Axis a, bool pure, int start, int end);
 

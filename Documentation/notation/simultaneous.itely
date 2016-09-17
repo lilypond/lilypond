@@ -559,8 +559,8 @@ upstems, and the even-numbered voices are given downstems:
 >>
 @end lilypond
 
-@warning{Lyrics, spanners (such as slurs, ties, hairpins, etc.) cannot be
-created @q{across} voices.}
+@warning{Lyrics and spanners (such as slurs, ties, hairpins, etc.) cannot
+be created @q{across} voices.}
 
 @subsubsubheading Identical rhythms
 

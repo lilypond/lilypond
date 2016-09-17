@@ -367,40 +367,35 @@ If you like using font-lock, you can also add this to your
 @end example
 
 
-@subheading Indenting with vim
+@subsubheading Indenting with vim
 
-Although emacs indentation is the GNU standard, acceptable
-indentation can usually be accomplished with vim.  Some hints for
-vim are as follows:
-
-A workable .vimrc:
+Although emacs indentation is the GNU standard, correct
+indentation for C++ files can be achieved by using the settings
+recommended in the
+@url{https://gcc.gnu.org/wiki/FormattingCodeForGCC, GNU GCC Wiki}.
+Save the following in @file{~/.vim/after/ftplugin/cpp.vim}:
 
 @example
-set cindent
-set smartindent
-set autoindent
-set expandtab
-set softtabstop=2
-set shiftwidth=2
-filetype plugin indent on
-set incsearch
-set ignorecase smartcase
-set hlsearch
-set confirm
-set statusline=%F%m%r%h%w\ %@{&ff@}\ %Y\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ %04l,%04v\ %p%%\ [LEN=%L]
-set laststatus=2
-set number
-" Remove trailing whitespace on write
+setlocal cindent
+setlocal cinoptions=>4,n-2,@{2,^-2,:2,=2,g0,h2,p5,t0,+2,(0,u0,w1,m1
+setlocal shiftwidth=2
+setlocal softtabstop=2
+setlocal textwidth=79
+setlocal fo-=ro fo+=cql
+" use spaces instead of tabs
+setlocal expandtab
+" remove trailing whitespace on write
 autocmd BufWritePre * :%s/\s\+$//e
 @end example
 
-With this @file{.vimrc}, files can be reindented automatically by
+With these settings, files can be reindented automatically by
 highlighting the lines to be indented in visual mode (use V to
-enter visual mode) and pressing @code{=}.
+enter visual mode) and pressing @code{=}, or a single line
+correctly indented in normal mode by pressing @code{==}.
 
-A @file{scheme.vim} file will help improve the indentation.  This
-one was suggested by Patrick McCarty.  It should be saved in
-@file{~/.vim/after/syntax/scheme.vim}.
+A @file{scheme.vim} file will help improve the indentation of
+Scheme code.  This one was suggested by Patrick McCarty.  It
+should be saved in @file{~/.vim/after/syntax/scheme.vim}.
 
 @example
 " Additional Guile-specific 'forms'
@@ -417,24 +412,45 @@ syn keyword schemeSyntax define-safe-public define-music-function
 syn keyword schemeSyntax def-grace-function
 
 " All of the above should influence indenting too
-set lw+=define-public,define*-public
-set lw+=define*,lambda*,let-keywords*
-set lw+=defmacro,defmacro*,define-macro
-set lw+=defmacro-public,defmacro*-public
-set lw+=use-modules,define-module
-set lw+=define-method,define-class
-set lw+=define-markup-command,define-markup-list-command
-set lw+=define-safe-public,define-music-function
-set lw+=def-grace-function
+setlocal lw+=define-public,define*-public
+setlocal lw+=define*,lambda*,let-keywords*
+setlocal lw+=defmacro,defmacro*,define-macro
+setlocal lw+=defmacro-public,defmacro*-public
+setlocal lw+=use-modules,define-module
+setlocal lw+=define-method,define-class
+setlocal lw+=define-markup-command,define-markup-list-command
+setlocal lw+=define-safe-public,define-music-function
+setlocal lw+=def-grace-function
 
 " These forms should not influence indenting
-set lw-=if
-set lw-=set!
+setlocal lw-=if
+setlocal lw-=set!
 
 " Try to highlight all ly: procedures
 syn match schemeFunc "ly:[^) ]\+"
 @end example
 
+For documentation work on texinfo files, identify the file
+extensions used as texinfo files in your @file{.vim/filetype.vim}:
+
+@example
+if exists("did_load_filetypes")
+  finish
+endif
+augroup filetypedetect
+  au! BufRead,BufNewFile *.itely setfiletype texinfo
+  au! BufRead,BufNewFile *.itexi setfiletype texinfo
+  au! BufRead,BufNewFile *.tely  setfiletype texinfo
+augroup END
+@end example
+
+and add these settings in @file{.vim/after/ftplugin/texinfo.vim}:
+
+@example
+setlocal expandtab
+setlocal shiftwidth=2
+setlocal textwidth=66
+@end example
 
 @node Naming conventions
 @subsection Naming Conventions
@@ -1742,11 +1758,29 @@ Acknowledge functions are called in the order engravers are
 @code{\consist}-ed (the only exception is if you set
 @code{must-be-last} to @code{#t}).
 
-If useful things are to be done to the acknowledged grobs, this
-should be deferred until all the acknowledging has finished, i.e.,
-store the acknowledged grobs and process the information in a
-@code{process-acknowledged ()} or @code{stop-translation-timestep ()} 
-function.
+There will always be a call to @code{process-acknowledged ()} whenever
+grobs have been created, and @emph{reading} stuff from grobs should be
+delayed until then since other acknowledgers might @emph{write} stuff
+into a grob even after your acknowledger has been called.  So the basic
+workflow is to use the various acknowledgers to @emph{record} the grobs
+you are interested in and @emph{write} stuff into them (or do read/write
+stuff that more or less is accumulative and/or really unrelated to other
+engravers), and then use the @code{process-acknowledged ()} hook for
+processing (including @emph{reading}) the grobs you had recorded.
+
+You can create new grobs in @code{process-acknowledged ()}.  That will lead
+to a new cycle of @code{acknowledger ()} calls followed by a new cycle of
+@code{process-acknowledged ()} calls.
+
+Only when all those cycles are over is @code{stop-translator-timestep ()}
+called, and then creating grobs is no longer an option.  You can still
+@q{process} parts of the grob there (if that means just reading out
+properties and possibly setting context properties based on them) but
+@code{stop-translation-timestep ()} is a cleanup hook, and other engravers
+might have already cleaned up stuff you might have wanted to use.
+Creating grobs in there is not possible since engravers and other code may
+no longer be in a state where they could process them, possibly causing
+a crash.
 
 
 @node Engraver declaration/documentation
