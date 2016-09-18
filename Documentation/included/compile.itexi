@@ -214,7 +214,7 @@ it is recommended that you also need to install @code{git}.
 sudo dnf install git
 @end example
 
-Also see @ruser{Starting with Git}.
+Also see @rcontrib{Starting with Git}.
 
 @item
 To use the @code{lily-git.tcl} GUI;
@@ -223,7 +223,7 @@ To use the @code{lily-git.tcl} GUI;
 sudo dnf install tk
 @end example
 
-See @ruser{lily-git}.
+See @rcontrib{lily-git}.
 
 @end itemize
 
@@ -297,7 +297,7 @@ it is recommended that you also need to install @code{git}.
 sudo apt-get install git
 @end example
 
-Also see @ruser{Starting with Git}.
+Also see @rcontrib{Starting with Git}.
 
 @item
 To use the @code{lily-git.tcl} GUI;
@@ -306,7 +306,7 @@ To use the @code{lily-git.tcl} GUI;
 sudo apt-get install tk
 @end example
 
-Also see @ruser{lily-git}.
+Also see @rcontrib{lily-git}.
 
 @end itemize
 
@@ -365,7 +365,7 @@ it is recommended that you also need to install @code{git}.
 sudo zypper install git
 @end example
 
-Also see @ruser{Starting with Git}.
+Also see @rcontrib{Starting with Git}.
 
 @item
 To use the @code{lily-git.tcl} GUI;
@@ -374,7 +374,7 @@ To use the @code{lily-git.tcl} GUI;
 sudo zypper install tk
 @end example
 
-Also see @ruser{lily-git}.
+Also see @rcontrib{lily-git}.
 
 @end itemize
 
@@ -424,7 +424,7 @@ it is recommended that you also need to install @code{git}.
 sudo apt-get install git
 @end example
 
-Also see @ruser{Starting with Git}.
+Also see @rcontrib{Starting with Git}.
 
 @item
 To use the @code{lily-git.tcl} GUI;
@@ -433,7 +433,7 @@ To use the @code{lily-git.tcl} GUI;
 sudo apt-get install tk
 @end example
 
-Also see @ruser{lily-git}.
+Also see @rcontrib{lily-git}.
 
 @end itemize
 
