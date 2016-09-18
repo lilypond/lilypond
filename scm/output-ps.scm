@@ -52,10 +52,10 @@
        "false")
    radius thick))
 
-(define (start-enclosing-id-node s)
+(define (start-group-node attributes)
   "")
 
-(define (end-enclosing-id-node)
+(define (end-group-node)
   "")
 
 (define (dashed-line thick on off dx dy phase)
