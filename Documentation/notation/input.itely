@@ -1143,10 +1143,11 @@ provided:
 @item create-page-number-stencil    @tab  print-page-numbers true?
 @item print-all-headers             @tab  print-all-headers true?
 @item first-page                    @tab  first page in the book?
+@item not-first-page                @tab  not first page in the book?
 @item (on-page nmbr)                @tab  page number = nmbr?
 @item last-page                     @tab  last page in the book?
-@item not-first-page                @tab  not first page in the book?
 @item part-first-page               @tab  first page in the book part?
+@item not-part-first-page           @tab  not first page in the book part?
 @item part-last-page                @tab  last page in the book part?
 @item not-single-page               @tab  pages in book part > 1?
 
