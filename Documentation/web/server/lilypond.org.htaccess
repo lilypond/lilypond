@@ -43,8 +43,6 @@ RedirectMatch ^/bugs	/bug-reports
 #RedirectMatch ^/bugs	http://code.google.com/p/lilypond/issues/list
 # the new website already has an /authors
 #RedirectMatch ^/authors /doc/Documentation/topdocs/AUTHORS
-# the new website has news on the main page
-RedirectMatch ^/news    /
 RedirectMatch ^/stable    /doc/stable
 # the new website has a dedicated page for development.
 #RedirectMatch ^/development    /doc/development
