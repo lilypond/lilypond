@@ -374,8 +374,9 @@ books within the file (see @ref{Titles explained}).
 A @code{\score} block.  This score will be collected with other
 toplevel scores, and combined as a single @code{\book}.
 This behavior can be changed by setting the variable
-@code{toplevel-score-handler} at toplevel.  The default handler is
-defined in the init file @file{../scm/lily.scm}.
+@code{toplevel-score-handler} at toplevel.  (The default handler is
+defined in the file @file{../scm/lily-library.scm} and set in the file
+@file{../ly/declarations-init.ly}.)
 
 @item
 A @code{\book} block logically combines multiple movements
