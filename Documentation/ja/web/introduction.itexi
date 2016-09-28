@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: 7215236a0a49dd112348d2620fa132f7e5f12aff
+    Translation of GIT committish: 36e230cf09bf2755528d2252ee256f88f330e66d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -341,7 +341,7 @@ LilyPond を試してみる決心がついたのなら、@c
 @divClass{column-center-top}
 
 @subheading 美しい例
-@c Beautiful examples
+@c Beautiful Examples
 
 LilyPond は、いかなる種類の譜刻にも対応できる、@c
 強力で、自由度の高いツールです。@c
@@ -470,11 +470,11 @@ LilyPond は教育を目的とした使用にも適しています。@c
 @divEnd
 
 @divClass{column-center-middle-color2}
-@subheading ポピュラー音楽
-@c Popular Music
+@subheading リード譜
+@c Lead Sheets
 
 メロディー、歌詞、コード名、フレットボードを持つ@c
-ポピュラー音楽のリード譜を簡単に作れます。@c
+リード譜を簡単に作れます。@c
 以下の例ではあらかじめ定義されているフレットボード ダイアグラムを@c
 使用していますが、@c
 状況に合わせて様々なカスタマイズを行うことができます。

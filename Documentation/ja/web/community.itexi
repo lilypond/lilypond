@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: 7215236a0a49dd112348d2620fa132f7e5f12aff
+    Translation of GIT committish: 36e230cf09bf2755528d2252ee256f88f330e66d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -72,7 +72,7 @@
 @ref{出版物}: 我々が書いたもの、我々についてかかれたもの。
 
 @item
-@ref{古いニュース}: アーカイブ。
+@ref{ニュース}: LilyPond プロジェクトからのニュース。
 
 @item
 @ref{物置}: アナウンスと過去のバージョンからの変更ログ。
@@ -94,7 +94,7 @@
 * 著者::
 * 謝辞::
 * 出版物::
-* 古いニュース::
+* ニュース::
 * 物置::
 @end menu
 @divEnd
@@ -1267,8 +1267,8 @@ GSoC 2016)
 @contactUsAbout{academic papers}
 
 
-@node 古いニュース
-@unnumberedsec 古いニュース
+@node ニュース
+@unnumberedsec ニュース
 @translationof News
 
 @divClass{heading-center}

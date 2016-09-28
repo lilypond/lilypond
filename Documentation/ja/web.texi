@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: 7215236a0a49dd112348d2620fa132f7e5f12aff
+    Translation of GIT committish: 36e230cf09bf2755528d2252ee256f88f330e66d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -139,13 +139,65 @@ LilyPond はフリーソフトウェアであり、@uref{http://gnu.org,GNU プ�
 @divEnd
 
 
-@divId{news}
+@divId{homepage-main}
+
+@divClass{column-center-top}
+
+@subheading 美しい楽譜
+
+@c This example image is the image from the website version of the essay
+@c manual, downloaded to the pictures directory for use on the home page.
+@c Large version is generated manually from ly file in pictures directory.
+@divId{homepage-example-image-wrapper}
+@imageClickable{bwv861-lilypond,png,,bwv861-lilypond-large,png,center}
+@divEnd
+
+@ifclear web_version
+  @c no anchor links, just text
+
+LilyPond は、いかなる種類の譜刻にも対応できる、@c
+強力で、自由度の高いツールです。@c
+例えば、クラシック音楽（J. S. Bach 作の上の例のように）、@c
+複雑な楽譜、古楽、現代音楽、タブ譜、声楽、リード譜、教材、@c
+大きなオーケストラプロジェクト、カスタマイズされた出力、@c
+さらに Schenker graphs にも使えます。
+
+@end ifclear
+@ifset web_version
+  @c anchor links, link to individual examples by their <a> tag
+
+LilyPond は、いかなる種類の譜刻にも対応できる、@c
+強力で、自由度の高いツールです。@c
+例えば、
+@uref{http://lilypond.org/examples.ja.html#g_t_30af_30e9_30b7_30c3_30af_97f3_697d, クラシック音楽}
+（J. S. Bach 作の上の例のように）、
+@uref{examples.ja.html#g_t_8907_96d1_306a_697d_8b5c, 複雑な楽譜}、
+@uref{examples.ja.html#g_t_53e4_697d, 古楽}、
+@uref{examples.ja.html#g_t_73fe_4ee3_97f3_697d, 現代音楽}、
+@uref{examples.ja.html#g_t_30bf_30d6_8b5c, タブ譜}、
+@uref{examples.ja.html#g_t_58f0_697d, 声楽}、
+@uref{examples.ja.html#g_t_30ea_30fc_30c9_8b5c, リード譜}、
+@uref{examples.ja.html#g_t_6559_80b2, 教材}、
+@uref{examples.ja.html#g_t_5927_304d_306a_30d7_30ed_30b8_30a7_30af_30c8, 大きなオーケストラプロジェクト}、
+@uref{examples.ja.html#g_t_30ab_30b9_30bf_30de_30a4_30ba, カスタマイズされた出力}、
+さらに
+@uref{examples.ja.html#Schenker-Graphs, Schenker graphs}
+にも使えます。
+
+@end ifset
+
+楽譜の @ref{例} を見て、刺激を受けてください！
+
+@divEnd
+
+@divClass{column-center-middle-color2}
+@subheading ニュース
 
 @c TODO: generate this automatically, including RSS feed.
-@include web/news-front.itexi
+@include web/news-headlines.itexi
 
-@divClass{float-right}
-(@ref{古いニュース})
+@ref{News, その他のニュース...}
+
 @divEnd
 
 @divEnd
@@ -156,7 +208,7 @@ LilyPond はフリーソフトウェアであり、@uref{http://gnu.org,GNU プ�
 @end ifclear
 @ifset web_version
   @c make the side bar:
-@divId{homePageSideBar}
+@divId{homepage-sidebar}
 @subheading 安定版
 
 @c TODO: javascript to detect OS and suggest download?
