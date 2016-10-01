@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 9dca368f5d0b7b0e0f28656f29de4fd24de7d934
+    Translation of GIT committish: 0628cc44250b21d422b21890a7f266cd4b5ca584
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -137,14 +137,63 @@ Plus sur LilyPond dans notre @ref{Introduction} !
 @divEnd
 
 
-@divId{news}
+@divId{homepage-main}
+
+@divClass{column-center-top}
+
+@subheading La beauté par l'exemple
+
+@c This example image is the image from the website version of the essay
+@c manual, downloaded to the pictures directory for use on the home page.
+@c Large version is generated manually from ly file in pictures directory.
+@divId{homepage-example-image-wrapper}
+@imageClickable{bwv861-lilypond,png,,bwv861-lilypond-large,png,center}
+@divEnd
+
+@ifclear web_version
+  @c no anchor links, just text
+
+LilyPond est un outil à la fois puissant et flexible qui se charge de
+graver toutes sortes de partitions, qu'il s'agisse de musique classique
+(comme cet exemple de by J.S. Bach), notation complexe, musique
+ancienne, musique moderne, tablature, musique vocale, feuille de chant,
+applications pédagogiques, grands projets, sortie personnalisée ainsi
+que des diagrammes de Schenker.
+
+@end ifclear
+@ifset web_version
+  @c anchor links, link to individual examples by their <a> tag
+
+LilyPond est un outil à la fois puissant et flexible qui se charge de
+graver toutes sortes de partitions, qu'il s'agisse de
+@uref{http://lilypond.org/examples.html#Classical-Music, musique classique}
+(comme cet exemple de by J.S. Bach),
+@uref{examples.html#Complex-Notation, notation complexe},
+@uref{examples.html#Early-Music, musique ancienne},
+@uref{examples.html#Modern-Music, musique moderne},
+@uref{examples.html#Tablature, tablature},
+@uref{examples.html#Vocal-Music, musique vocale},
+@uref{examples.html#Lead-Sheets, feuille de chant},
+@uref{examples.html#Educational-Applications, applications pédagogiques},
+@uref{examples.html#Large-Projects, grands projets},
+@uref{examples.html#Customized-Output, sortie personnalisée},
+ainsi que des
+@uref{examples.html#Schenker-Graphs, diagrammes de Schenker}.
+
+@end ifset
+
+Venez puiser l'inspiration dans notre galerie
+@ref{Exemples,d'exemples !}
+
+@divEnd
+
+@divClass{column-center-middle-color2}
+@subheading Actualités
 
 @c TODO: generate this automatically, including RSS feed.
-@include web/news-front.itexi
+@include web/news-headlines.itexi
 
-@divClass{float-right}
-(@ref{Archives}) @c (@ref{News,,,,Actualités passées})
-@divEnd
+@ref{Actualités, Actualités suivantes…}
 
 @divEnd
 
@@ -154,7 +203,7 @@ Plus sur LilyPond dans notre @ref{Introduction} !
 @end ifclear
 @ifset web_version
   @c make the sidebar:
-@divId{homePageSideBar}
+@divId{homepage-sidebar}
 
 @subheading Branche stable
 

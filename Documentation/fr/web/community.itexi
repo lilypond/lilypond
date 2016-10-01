@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: 8c1840ca28a05b3dad8d595e04d03779ba0a286a
+   Translation of GIT committish: 0628cc44250b21d422b21890a7f266cd4b5ca584
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -81,7 +81,7 @@ aujourd'hui.
 nous.
 
 @item
-@ref{Archives} : archives des dépêches.
+@ref{Actualités} : archives des dépêches.
 
 @item
 @ref{Grenier} : annonces et recensement des modifications intervenues
@@ -104,7 +104,7 @@ aux cours des versions précédentes.
 * Auteurs::
 * Remerciements::
 * Publications::
-* Archives::
+* Actualités::
 * Grenier::
 @end menu
 @divEnd
@@ -1346,8 +1346,8 @@ indisponibles pour le GSoc 2016)
 @contactUsAbout{publications universitaires}
 
 
-@node Archives
-@unnumberedsec Archives
+@node Actualités
+@unnumberedsec Actualités
 @translationof News
 
 @divClass{heading-center}
