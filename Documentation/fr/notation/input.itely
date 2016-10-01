@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 39912f861693f1c24b8833e6e9e6ba82eb3e6746
+   Translation of GIT committish: 3f80e0ae5eb8cea0a7a6a72fac289ea5d71d63c8
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -395,7 +395,8 @@ avec les autres partitions se trouvant au même niveau pour composer le
 @code{\book}.  Vous pouvez modifier ce comportement à l'aide de la
 variable @code{toplevel-score-handler} placée en tête.  Le gestionnaire
 par défaut est défini dans le fichier d'initialisation
-@file{../scm/lily.scm}.
+@file{../scm/lily.scm}, et les réglages par défaut dans le fichier
+@file{../ly/declarations-init.ly}.
 
 @item
 Un bloc @code{\book} permet de regrouper naturellement plusieurs
@@ -1200,10 +1201,12 @@ LilyPond dispose d'ores et déjà d'un certain nombre de procédures :
 @item create-page-number-stencil    @tab  print-page-numbers est vrai.
 @item print-all-headers             @tab  print-all-headers est vrai.
 @item first-page                    @tab  c'est la première page du @emph{book}.
+@item not-first-page                @tab  ce n'est pas la première page du @emph{book}.
 @item (on-page nombre)              @tab  numéro de page = nombre
 @item last-page                     @tab  c'est la dernière page du @emph{book}.
 @item not-first-page                @tab  ce n'est la première page du @emph{book}.
 @item part-first-page               @tab  c'est la première page de la partie.
+@item not-part-first-page           @tab  ce n'est pas la première page de la partie.
 @item part-last-page                @tab  c'est la dernière page de la partie.
 @item not-single-page               @tab  cette partie fait plus d'une page.
 
