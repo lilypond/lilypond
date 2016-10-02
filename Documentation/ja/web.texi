@@ -171,17 +171,17 @@ LilyPond は、いかなる種類の譜刻にも対応できる、@c
 例えば、
 @uref{http://lilypond.org/examples.ja.html#g_t_30af_30e9_30b7_30c3_30af_97f3_697d, クラシック音楽}
 （J. S. Bach 作の上の例のように）、
-@uref{examples.ja.html#g_t_8907_96d1_306a_697d_8b5c, 複雑な楽譜}、
-@uref{examples.ja.html#g_t_53e4_697d, 古楽}、
-@uref{examples.ja.html#g_t_73fe_4ee3_97f3_697d, 現代音楽}、
-@uref{examples.ja.html#g_t_30bf_30d6_8b5c, タブ譜}、
-@uref{examples.ja.html#g_t_58f0_697d, 声楽}、
-@uref{examples.ja.html#g_t_30ea_30fc_30c9_8b5c, リード譜}、
-@uref{examples.ja.html#g_t_6559_80b2, 教材}、
-@uref{examples.ja.html#g_t_5927_304d_306a_30d7_30ed_30b8_30a7_30af_30c8, 大きなオーケストラプロジェクト}、
-@uref{examples.ja.html#g_t_30ab_30b9_30bf_30de_30a4_30ba, カスタマイズされた出力}、
+@uref{examples.html#g_t_8907_96d1_306a_697d_8b5c, 複雑な楽譜}、
+@uref{examples.html#g_t_53e4_697d, 古楽}、
+@uref{examples.html#g_t_73fe_4ee3_97f3_697d, 現代音楽}、
+@uref{examples.html#g_t_30bf_30d6_8b5c, タブ譜}、
+@uref{examples.html#g_t_58f0_697d, 声楽}、
+@uref{examples.html#g_t_30ea_30fc_30c9_8b5c, リード譜}、
+@uref{examples.html#g_t_6559_80b2, 教材}、
+@uref{examples.html#g_t_5927_304d_306a_30d7_30ed_30b8_30a7_30af_30c8, 大きなオーケストラプロジェクト}、
+@uref{examples.html#g_t_30ab_30b9_30bf_30de_30a4_30ba, カスタマイズされた出力}、
 さらに
-@uref{examples.ja.html#Schenker-Graphs, Schenker graphs}
+@uref{examples.html#Schenker-Graphs, Schenker graphs}
 にも使えます。
 
 @end ifset
