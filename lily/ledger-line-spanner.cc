@@ -161,7 +161,9 @@ struct Ledger_request
   Interval max_head_extent_;
   int max_position_;
   vector <Head_data> heads_;
-  map <Real, Interval> ledger_extents_;
+  // The map's keys are vertical ledger line positions. The values are
+  // vectors of the x-extents of ledger lines.
+  map <Real, vector <Interval> > ledger_extents_;
   Ledger_request ()
   {
     max_ledger_extent_.set_empty ();
@@ -294,9 +296,7 @@ Ledger_line_spanner::print (SCM smob)
 
   // Iterate through ledger requests and the data they have about each
   // note head to generate the final extents for all ledger lines.
-  // Note heads that are different widths produce different ledger
-  // extents and these are merged so the widest extent prevails
-  // (the union of the intervals) for each ledger line.
+  // Note heads of different widths produce different ledger extents.
   for (Ledger_requests::iterator i (reqs.begin ());
        i != reqs.end (); i++)
     {
@@ -337,10 +337,25 @@ Ledger_line_spanner::print (SCM smob)
                         natural + downstem.
                       */
                     }
+                  // When the extents of two ledgers at the same
+                  // vertical position overlap horizontally, we merge
+                  // them together to produce a single stencil.  In rare
+                  // cases they do not overlap and we do not merge them.
+
                   if (lr.ledger_extents_.find (lpos) == lr.ledger_extents_.end ())
-                    lr.ledger_extents_[lpos] = x_extent;
+                    // Found nothing for this lpos.
+                    lr.ledger_extents_[lpos].push_back(x_extent);
                   else
-                    lr.ledger_extents_[lpos].unite (x_extent);
+                    {
+                      vector<Interval> &extents = lr.ledger_extents_.find (lpos)->second;
+                      for (vsize e = 0; e < extents.size (); e++)
+                        {
+                          if (intersection (extents[e], x_extent).is_empty ())
+                            extents.push_back (x_extent);
+                          else
+                            extents[e].unite (x_extent);
+                        }
+                    }
                 }
             }
         }
@@ -349,36 +364,34 @@ Ledger_line_spanner::print (SCM smob)
   // Create the stencil for the ledger line spanner by iterating
   // through the ledger requests and their data on ledger extents.
   Stencil ledgers;
-  Real ledgerlinethickness
-    = Staff_symbol::get_ledger_line_thickness (staff);
+  Real thickness = Staff_symbol::get_ledger_line_thickness (staff);
+  Real half_thickness = thickness * 0.5;
+  Interval y_extent = Interval (-half_thickness, half_thickness);
 
-  for (Ledger_requests::iterator i (reqs.begin ());
-       i != reqs.end (); i++)
+  for (Ledger_requests::iterator i (reqs.begin ()); i != reqs.end (); i++)
     {
       for (DOWN_and_UP (d))
         {
-          map<Real, Interval> &lex = i->second[d].ledger_extents_;
-          for (map<Real, Interval>::iterator k = lex.begin ();
+          map<Real, vector<Interval> > &lex = i->second[d].ledger_extents_;
+          for (map<Real, vector<Interval> >::iterator k = lex.begin ();
                k != lex.end (); k++)
             {
-              Real blotdiameter = ledgerlinethickness;
               Real lpos = k->first;
-              Interval x_extent = k->second;
-              Interval y_extent
-                = Interval (-0.5 * (ledgerlinethickness),
-                            +0.5 * (ledgerlinethickness));
-              Stencil ledger_line
-                = Lookup::round_filled_box (Box (x_extent, y_extent), blotdiameter);
+              vector<Interval> &x_extents = k->second;
 
-              ledger_line.translate_axis ( lpos * halfspace, Y_AXIS);
-              ledgers.add_stencil (ledger_line);
+              for (vsize n = 0; n < x_extents.size (); n++)
+                {
+                  // thickness (ledger line thickness) is the blot diameter
+                  Stencil line = Lookup::round_filled_box (Box (x_extents[n], y_extent),
+                                                           thickness);
+
+                  line.translate_axis (lpos * halfspace, Y_AXIS);
+                  ledgers.add_stencil (line);
+                }
             }
         }
     }
-
-  ledgers.translate_axis (-me->relative_coordinate (common_x, X_AXIS),
-                          X_AXIS);
-
+  ledgers.translate_axis (-me->relative_coordinate (common_x, X_AXIS), X_AXIS);
   return ledgers.smobbed_copy ();
 }
 
