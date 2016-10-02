@@ -2,7 +2,6 @@
 @unnumbered MIDI
 @nodeprefix MIDI
 
-@ruser{MIDI output}
+@ruser{Creating MIDI output}
 
 @lysnippets
-
