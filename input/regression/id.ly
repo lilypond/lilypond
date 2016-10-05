@@ -6,4 +6,4 @@ no effect.
 "
 }
 
-{ \override NoteHead.output-attributes.id = #"foo" c }
+{ \override NoteHead.id = #"foo" c }
