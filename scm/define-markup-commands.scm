@@ -4745,10 +4745,10 @@ Overriding @code{baseline-skip} to increase rows vertical distance.
     #'(0 1 0 -1)
     {
       \\underline { center-aligned right-aligned center-aligned left-aligned }
-      one \number 1 thousandth \number 0.001
-      eleven \number 11 hundredth \number 0.01
-      twenty \number 20 tenth \number 0.1
-      thousand \number 1000 one \number 1.0
+      one \\number 1 thousandth \\number 0.001
+      eleven \\number 11 hundredth \\number 0.01
+      twenty \\number 20 tenth \\number 0.1
+      thousand \\number 1000 one \\number 1.0
     }
 }
 @end lilypond
