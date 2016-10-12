@@ -1,0 +1,1793 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
+
+@ignore
+    Translation of GIT committish: 791d125bd2f98f1be6b7742bfedd981b5895c0c1
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.19.24"
+
+@node Incisione musicale
+@chapter Incisione musicale
+@translationof Music engraving
+
+In questo saggio spieghiamo le ragioni per cui LilyPond è stato creato e
+come fa a produrre spartiti così belli.
+
+@c TODO:
+@c remove 3mm eps bounding box left padding for Sarabande (This will
+@c     require adding a new snippet option to lilypond-book.py
+@c check formatting of HTML output
+
+@menu
+* Storia di LilyPond::
+* Incisione in dettaglio::
+* Incisione automatizzata::
+* Costruzione del software::
+* Mettere LilyPond al lavoro::
+* Esempi di incisione (BWV 861)::
+@end menu
+
+@node Storia di LilyPond
+@section Storia di LilyPond
+@translationof The LilyPond story
+
+Molto tempo prima che LilyPond venisse adoperato per incidere gradevoli
+spartiti da leggere nelle esecuzioni, prima che ci si potessero creare
+dispense per i corsi universitari o perfino semplici melodie, prima ancora che
+esistessero una comunità di utenti sparsa in tutto il mondo o addirittura
+un saggio sull'incisione musicale, LilyPond ha preso vita con una domanda:
+
+@quotation
+Perché la maggior parte degli spartiti generati da un software non riesce a
+raggiungere la bellezza e l'equilibrio di uno spartito inciso a mano?
+@end quotation
+
+@noindent
+Possiamo trovare alcune risposte esaminando i due spartiti
+@ifnottex
+qui sotto.
+@end ifnottex
+@iftex
+nelle pagine seguenti.
+@end iftex
+Il primo è un bellissimo spartito inciso a mano nel 1950; il secondo è
+un'edizione moderna realizzata al computer.
+
+@ifnottex
+@quotation
+@noindent
+Bärenreiter BA 320, @copyright{}1950:
+
+@sourceimage{baer-suite1-fullpage,,,png}
+@end quotation
+
+@quotation
+@noindent
+Henle no. 666, @copyright{}2000:
+
+@sourceimage{henle-suite1-fullpage,,,png}
+@end quotation
+@end ifnottex
+
+Le note, prese dalla prima Suite di Bach per violoncello solo,
+sono identiche, ma il loro aspetto sulla pagina è diverso, specialmente
+se le stampate e le guardate da lontano.
+@ifnottex
+(La versione in PDF di questo manuale contiene immagini ad alta
+risoluzione adatte alla stampa.)
+@end ifnottex
+Provate a leggerle o a suonarle da entrambe le edizioni e vi accorgerete che quella
+incisa a mano è più piacevole da usare.  Possiede linee fluide e un
+certo movimento, e trasmette la sensazione di essere una musica viva e dotata
+di respiro, mentre la versione più recente appare fredda e meccanica.
+
+È difficile accorgersi immediatamente di che cosa rende il secondo
+spartito diverso dal primo.  Tutto sembra pulito e ordinato, forse anche
+@qq{migliore} perché più computerizzato e uniforme.  In verità, la cosa
+ci ha lasciati perplessi per un bel po'.  Volevamo migliorare la
+notazione prodotta al computer, ma prima di tutto dovevamo capire
+che cosa c'era di sbagliato.
+
+La risposta sta nell'uniformità perfetta, quasi matematica,
+dell'edizione moderna.  Trovate le stanghette di battuta a metà di
+ciascun rigo: nello spartito inciso a mano la loro posizione varia
+naturalmente, mentre in quello più nuovo sono incolonnate quasi
+perfettamente.  Lo mostriamo in questi schemi di impaginazione
+semplificati, ricavati dall'incisione tradizionale (a sinistra) e
+dall'edizione recente (a destra):
+
+@quotation
+@iftex
+@sourceimage{pdf/page-layout-comparison,,,}
+@end iftex
+@ifnottex
+@sourceimage{page-layout-comparison,,,png}
+@end ifnottex
+@end quotation
+@noindent
+
+Nella seconda sono incolonnate anche le singole teste delle note,
+il che annulla il contorno della melodia, facendolo
+scomparire in una rigida griglia di simboli musicali.
+
+Ci sono anche altre differenze: nell'edizione incisa a mano le linee
+verticali sono tutte più spesse, le legature si trovano più vicine alle
+teste delle note e si osserva una maggiore varietà nella pendenza delle travature.
+Anche se dettagli come questi possono sembrare pignoli, il risultato è
+una pagina di musica più facile da leggere.  Nello spartito generato dal
+software, invece, i righi sono quasi identici, e se il musicista
+distoglie lo sguardo dalla pagina per un istante, si perderà.
+
+LilyPond è stato progettato per risolvere i problemi che abbiamo
+riscontrato nei programmi in circolazione e per creare musica bella da
+vedere che imiti i migliori spartiti incisi a mano.
+
+@iftex
+@page
+@noindent
+Bärenreiter BA 320, @copyright{}1950:
+
+@sourceimage{baer-suite1-fullpage-hires,16cm,,}
+@page
+@noindent
+Henle no. 666, @copyright{}2000:
+@sp 3
+@sourceimage{henle-suite1-fullpage-hires,16cm,,}
+@page
+@end iftex
+
+@node Incisione in dettaglio
+@section Incisione in dettaglio
+@translationof Engraving details
+
+@cindex incisione
+@cindex tipografia, musica
+@cindex tipografia musicale
+@cindex incisione di lastre
+@cindex incisione musicale
+
+L'arte della tipografia musicale è chiamata
+@emph{incisione (su lastra)}, un termine che deriva dalla pratica
+della stampa musicale a mano.@footnote{I primi stampatori europei
+esplorarono diversi procedimenti, tra cui blocchi di legno intagliati
+a mano, caratteri mobili e sottili lastre metalliche incise.
+La tipocomposizione presentava il vantaggio di poter essere corretta
+più facilmente e di semplificare l'inserimento di testo e parole, ma solo
+l'incisione permetteva di impaginare la musica senza
+ostacoli e di inserire notazioni impreviste.  Alla fine, gli spartiti
+incisi a mano divennero lo standard per tutta la musica stampata,
+con l'eccezione di alcuni inni e canzonieri per i quali la
+tipocomposizione era giustificata per il fatto di essere più semplice ed economica,
+anche nel XX secolo.}  Solo pochi decenni fa, gli spartiti erano
+realizzati incidendo e punzonando la musica in modo speculare su una
+lastra di zinco o peltro.  La lastra, poi, veniva inchiostrata e le
+depressioni prodotte da incisioni e punzonature trattenevano
+l'inchiostro.  Imprimendo la carta sulla lastra, si produceva l'immagine
+della pagina.  Punzonature e incisioni erano realizzate completamente
+a mano e correggere un errore era piuttosto laborioso, perciò
+l'incisione doveva essere praticamente perfetta al primo colpo.  Saper
+incidere le lastre era una competenza che richiedeva un alto grado di
+specializzazione; un artigiano doveva sostenere quasi cinque anni di
+formazione prima di acquisire il titolo di maestro incisore, e per
+diventare veramente abile servivano altri cinque anni di esperienza.
+
+@quotation
+@iftex
+@sourceimage{hader-slaan,,7cm,}
+@end iftex
+@ifnottex
+@sourceimage{hader-slaan,,,jpg}
+@end ifnottex
+@end quotation
+
+LilyPond si ispira alle incisioni manuali tradizionali pubblicate
+per tutta la prima metà del XX secolo dalle principali case editrici
+musicali europee, tra cui Bärenreiter, Duhem, Durand, Hofmeister, Peters
+e Schott.  Quei nomi e quel periodo storico sono talvolta considerati il
+culmine della pratica dell'incisione musicale artigianale.
+Avendo studiato queste edizioni, abbiamo imparato molto su come stanno
+le cose in uno spartito ben inciso e ne abbiamo individuato gli elementi
+da imitare con LilyPond.
+
+@c Oggi tutta la musica di nuova pubblicazione è prodotta con il
+@c computer, il che presenta vantaggi piuttosto ovvi: le stampe sono
+@c più economiche da realizzare, il lavoro editoriale può essere
+@c recapitato per email e si possono archiviare i dati originali con
+@c facilità.  Sfortunatamente, gli spartiti realizzati in questo modo
+@c raramente eguagliano la qualità di quelli incisi a mano:
+@c appaiono blandi, meccanici, il che li rende sgradevoli da usare.
+
+@menu
+* Font musicali::
+* Spaziatura ottica::
+* Tagli addizionali::
+* Dimensionamento ottico::
+* Perché lavorare così duramente?::
+@end menu
+
+@node Font musicali
+@unnumberedsubsec Font musicali
+@translationof Music fonts
+
+Le immagini qui sotto mostrano alcune differenze tra un'incisione
+tradizionale e un tipico spartito prodotto dal computer.  L'immagine a
+sinistra riproduce un bemolle preso da un'edizione
+Bärenreiter incisa a mano; quella a destra raffigura lo stesso
+segno ma preso da un'edizione della stessa musica pubblicata nel 2000.
+Nonostante che le due immagini siano stampate con la stessa tonalità
+d'inchiostro, la versione Bärenreiter sembra più scura: le linee del
+rigo sono più grosse e il bemolle appare audacemente arrotondato,
+quasi voluttuoso.  Nell'immagine a destra, invece, le linee sono più
+sottili e il segno è piuttosto diritto e con spigoli vivi.
+
+@multitable @columnfractions .25 .25 .25 .25
+@item @tab
+@ifnotinfo
+@iftex
+@sourceimage{baer-flat-gray,,4cm,}
+@end iftex
+@ifnottex
+@sourceimage{baer-flat-gray,,,png}
+@end ifnottex
+
+@tab
+@iftex
+@sourceimage{henle-flat-gray,,4cm,}
+@end iftex
+@ifnottex
+@sourceimage{henle-flat-gray,,,png}
+@end ifnottex
+
+@end ifnotinfo
+@ifinfo
+@sourceimage{henle-flat-bw,,,png}
+@sourceimage{baer-flat-bw,,,png}
+@sourceimage{lily-flat-bw,,,png}
+@end ifinfo
+
+
+@item @tab
+Bärenreiter (1950)
+@tab
+Henle (2000)
+
+@end multitable
+
+@cindex simboli musicali
+@cindex caratteri musicali
+@cindex nerezza
+@cindex bilanciamento
+
+Quando abbiamo deciso di scrivere un programma per creare la tipografia
+musicale, non esistevano caratteri liberamente disponibili che
+corrispondessero all'eleganza delle nostre edizioni preferite.  Per nulla
+scoraggiati, imperterriti abbiamo creato una collezione di simboli musicali basandoci
+sulle belle stampe degli spartiti incisi a mano.  L'esperienza, poi, ha
+contribuito a sviluppare un certo gusto tipografico e ci ha permesso di
+apprezzare anche i sottili dettagli del design.  Senza quest'esperienza, non
+avremmo potuto renderci conto di quanto brutti fossero i caratteri che
+avevamo ammirato all'inizio.
+
+Di seguito ne esemplifichiamo due: la serie
+superiore è nel font predefinito del programma Sibelius
+(l'@emph{Opus}); la serie inferiore, in quello di LilyPond.
+
+@quotation
+@iftex
+@sourceimage{pdf/OpusAndFeta,,,}
+@end iftex
+@ifnottex
+@sourceimage{OpusAndFeta,,,png}
+@end ifnottex
+@end quotation
+
+I simboli di LilyPond sono più grossi e il loro peso è più coerente, il
+che li rende più facili da leggere.  I tratti terminali sottili, come
+quelli alle due estremità della pausa di un quarto, non dovrebbero
+finire con punte taglienti, ma piuttosto con forme arrotondate,
+perché gli spigoli vivi delle matrici dei punzoni sono fragili e a forza
+di battere sul metallo si usurano rapidamente.  Considerati insieme, nerezza
+del carattere, spessore delle linee, delle travature e delle legature
+devono essere ben amalgamati insieme per restituire un'impressione generale
+forte ma equilibrata.
+
+Inoltre, notate che la testa della nostra semiminima non è ellittica, ma
+leggermente sagomata a diamante.  Il gambo verticale del segno di
+bemolle è lievemente rastremato, allargandosi verso l'alto.  I segni di
+diesis e bequadro si distinguono meglio da lontano perché le loro linee
+angolate presentano una pendenza diversa e i tratti verticali sono più
+grossi.
+
+@node Spaziatura ottica
+@unnumberedsubsec Spaziatura ottica
+@translationof Optical spacing
+
+Nella spaziatura della musica, la distribuzione dello spazio dovrebbe
+rispecchiare le durate fra le note.  Tuttavia, come abbiamo visto prima nella
+suite di Bach, molti spartiti moderni aderiscono alle durate con
+precisione matematica, con scarsi risultati.  Nel prossimo
+esempio, lo stesso motivo viene stampato due volte: la prima, usando
+l'esatta spaziatura matematica; la seconda, con le correzioni.  Quale
+preferite?
+
+@cindex spaziatura ottica
+
+@lilypond
+\paper {
+  ragged-right = ##t
+  indent = #0.0
+}
+
+music = {
+   c'4 e''4 e'4 b'4
+   \stemDown
+   b'8[ e'' a' e'']
+   \stemNeutral
+   e'8[ e'8 e'8 e'8]
+}
+\score
+{
+  \music
+  \layout {
+    \context {
+      \Staff
+      \override NoteSpacing.stem-spacing-correction = #0.0
+      \override NoteSpacing.same-direction-correction = #0.0
+      \override StaffSpacing.stem-spacing-correction = #0.0
+    }
+  }
+}
+@end lilypond
+
+@lilypond
+\paper {
+  ragged-right = ##t
+  indent = #0.0
+}
+
+music = {
+   c'4 e''4 e'4 b'4 |
+   \stemDown
+   b'8[ e'' a' e'']
+   \stemNeutral
+   e'8[ e'8 e'8 e'8]
+}
+
+\score
+{
+  \music
+  \layout {
+    \context {
+      \Staff
+      \override NoteSpacing.stem-spacing-correction = #0.6
+    }
+  }
+}
+@end lilypond
+
+@cindex ritmi regolari
+@cindex spaziatura regolare
+@cindex spaziatura, regolare
+
+Ciascuna misura contiene unicamente note da suonare in un ritmo
+costante, e gli spazi interposti dovrebbero riflettere questa situazione.
+Purtroppo, però, l'occhio ci inganna un po': non solo esso rileva la distanza
+tra le teste delle note, ma tiene conto anche di quella tra
+gambi consecutivi. Di conseguenza, le note di una combinazione
+gambo in su/@/gambo in giù dovrebbero essere più distanti tra loro e
+quelle di una combinazione gambo in giù/@/gambo in su più vicine, il
+tutto a seconda di come si combinano le posizioni verticali delle note.
+Le due misure inferiori sono stampate con questa correzione; quelle
+superiori, tuttavia, contengono ammassi di note
+gambo in giù/@/gambo in su.  Un maestro incisore avrebbe aggiustato la
+spaziatura come richiesto per compiacere l'occhio.
+
+Gli algoritmi di spaziatura di LilyPond prendono in considerazione anche
+le stanghette.  Perciò, l'ultimo gambo in su nell'esempio
+correttamente spaziato è stato allontanato ulteriormente dalla
+stanghetta finale per evitare troppe linee verticali vicine nella parte finale della
+misura.  Un gambo in giù, invece, non avrebbe richiesto quest'accortezza.
+
+@node Tagli addizionali
+@unnumberedsubsec Tagli addizionali
+@translationof Ledger lines
+
+@cindex tagli addizionali
+@cindex collisioni
+
+I tagli addizionali presentano una sfida tipografica: rendono più
+difficile inserire il corretto spazio tra simboli musicali vicini e
+debbono essere abbastanza nitidi da permettere di identificare l'altezza
+della nota a colpo d'occhio.  Nell'esempio qui sotto, vediamo come i tagli
+addizionali dovrebbero essere più spessi di una normale linea del rigo e che un
+incisore esperto li accorcerà per permettere di avvicinare le
+alterazioni alla testa della nota.  Nell'incisione con LilyPond abbiamo
+incluso anche questa funzionalità.
+
+@multitable @columnfractions .25 .25 .25 .25
+@item @tab
+
+@iftex
+@sourceimage{baer-ledger,3cm,,}
+@end iftex
+@ifnottex
+@sourceimage{baer-ledger,,,png}
+@end ifnottex
+
+@tab
+
+@iftex
+@sourceimage{lily-ledger,3cm,,}
+@end iftex
+@ifnottex
+@sourceimage{lily-ledger,,,png}
+@end ifnottex
+
+@end multitable
+
+
+@node Dimensionamento ottico
+@unnumberedsubsec Dimensionamento ottico
+@translationof Optical sizing
+
+Potrebbe essere necessario stampare la musica in una varietà di
+formati diversi.  All'inizio, questo si poteva ottenere creando punzoni
+in ciascuno dei corpi richiesti, il che significa che ogni
+punzone era disegnato per dare il meglio di sé in quel particolare
+corpo.  Con l'avvento dei font digitali, invece, una singola struttura
+può essere rimpicciolita o ingrandita in scala a piacimento, il che è
+molto comodo, ma nei corpi più piccoli i caratteri appariranno molto
+‘leggeri’.
+
+In LilyPond, abbiamo creato font in una serie di pesi corrispondenti a
+una gamma di corpi per la musica.  La prossima è un'incisione di
+LilyPond in corpo 26:
+
+@quotation
+@iftex
+@sourceimage{pdf/size26,,23mm,}
+@end iftex
+@ifnottex
+@sourceimage{size26,,,png}
+@end ifnottex
+@end quotation
+
+@noindent
+e questa è la stessa incisione in corpo 11, poi ingrandita del 236% per
+riportarla alle stesse dimensioni dell'esempio precedente:
+
+@quotation
+@iftex
+@sourceimage{pdf/size11,,23mm,}
+@end iftex
+@ifnottex
+@sourceimage{size11,,,png}
+@end ifnottex
+@end quotation
+
+@noindent
+Nei corpi piccoli, LilyPond usa linee proporzionalmente più grosse in
+modo che la musica sia ancora ben leggibile.
+
+Ciò permette anche che righi in corpi diversi coesistano pacificamente
+se usati insieme sulla stessa pagina:
+
+@c E. Grieg, Sonata per violino Op. 45
+@lilypond[indent=1.5\cm]
+global = {
+  \time 6/8
+  \key c \minor
+}
+
+\score {
+  <<
+    \new Staff \with {
+      \magnifyStaff #2/3
+    }
+    \relative {
+      \global
+      \set Staff.instrumentName = #"Violino"
+      c'8.(\f^> b16 c d) ees8.(^> d16 c b)
+      g8.(^> b16 c ees) g8-.^> r r
+      R2.
+    }
+    \new PianoStaff <<
+      \set PianoStaff.instrumentName = #"Piano"
+      \new Staff \relative {
+        \global
+        s2.
+        s4. s8 r8 r16 <c' f aes c>
+        <c f aes c>4.^> <c ees g>8 r r
+      }
+      \new Staff \relative {
+        \global
+        \clef "bass"
+        <<
+        {
+          \once \override DynamicText.X-offset = #-3
+          <ees g c>2.~->^\f
+          <ees g c>4.~ <ees g c>8
+        } \\ {
+          <c g c,>2.~
+          <c g c,>4.~ <c g c,>8
+        }
+        >>
+        r8 r16 <f, c' aes'>16
+        <f c' aes'>4.-> <c' g'>8 r r
+      }
+    >>
+  >>
+}
+@end lilypond
+
+
+@node Perché lavorare così duramente?
+@unnumberedsubsec Perché lavorare così duramente?
+@translationof Why work so hard?
+
+Di solito, i musicisti sono presi più dall'eseguire la musica
+che dall'esaminarla così come appare sulla pagina, perciò i dettagli
+tipografici troppo cavillosi rischiano di passare per accademia.  Ma non è
+così.  Gli spartiti sono materiale da utilizzare praticamente: ogni cosa
+viene fatta per aiutare il musicista a migliorare il proprio rendimento, e
+tutto ciò che si rivela poco chiaro o poco piacevole da leggere diventa
+un ostacolo.
+
+La musica incisa nel modo tradizionale impiega simboli neri su un rigo
+‘pesante’ per creare un aspetto forte, ben bilanciato, chiaramente
+distinguibile quando è molto distante da chi deve leggerla: se messa su
+un leggio, per esempio.  Un'attenta distribuzione degli
+spazi bianchi permette di disporre le note in modo molto serrato
+senza però affollare i simboli sul rigo.  Il risultato riduce al minimo il
+numero delle voltate, con grande vantaggio per l'esecutore.
+
+Questa è una caratteristica tipica della tipografia.  L'aspetto della pagina
+dovrebbe essere bello, e non di per sé, ma soprattutto perché aiuta il
+lettore nel proprio compito.  Per la musica stampata ciò è doppiamente
+importante, perché i musicisti reggono un carico di  attenzione
+limitato: meno ne debbono impiegare per leggere la musica, più ne possono
+concentrare nell'eseguirla. In altre parole: migliore è la tipografia,
+migliori saranno le esecuzioni.
+
+Questi esempi dimostrano che la tipografia musicale è un'arte raffinata e
+complessa, la cui messa in pratica richiede notevoli competenze di solito
+non possedute dai musicisti.  LilyPond costituisce il nostro sforzo per
+importare l'eccellenza grafica della musica incisa a mano nell'era
+informatica e renderla disponibile a qualunque musicista.  Abbiamo
+sintonizzato i nostri algoritmi, i disegni dei font e le
+impostazioni del programma per produrre stampe corrispondenti alla
+qualità delle vecchie edizioni che amiamo osservare e suonare.
+
+@node Incisione automatizzata
+@section Incisione automatizzata
+@translationof Automated engraving
+
+@cindex incisione, automatizzata
+@cindex incisione automatizzata
+
+Qui descriviamo ciò che serve per creare un software in grado di
+simulare l'aspetto degli spartiti incisi: un metodo di descrizione della
+buona formattazione al computer e numerosi confronti dettagliati con
+incisioni effettivamente esistenti.
+
+@menu
+* Concorsi di bellezza::
+* Miglioramento per analisi comparativa::
+* Mettere le cose a posto::
+@end menu
+
+@node Concorsi di bellezza
+@unnumberedsubsec Concorsi di bellezza
+@translationof Beauty contests
+
+In che modo noi decidiamo veramente sulla formattazione?  In
+altre parole: quale delle tre configurazioni seguenti dovremmo
+scegliere per avere la legatura migliore?
+
+@lilypond
+\relative {
+  \clef bass
+  \once \override Slur.positions = #'(1.5 . 1)
+  e8[( f] g[ a b d,)] r4
+  \once \override Slur.positions = #'(2 . 3)
+  e8[( f] g[ a b d,)] r4
+  e8[( f] g[ a b d,)] r4
+}
+@end lilypond
+
+Esistono pochi libri sull'arte di incidere la musica, i quali, purtroppo,
+si limitano a fornire alcune semplici regole generali e qualche esempio.
+Da esse si può imparare qualcosa, ma sempre troppo poco per mettere a
+punto un algoritmo implementabile senza troppa fatica in un computer:
+seguendole, le eccezioni da codificare a mano sarebbero ancora troppe.
+Analizzare tutti questi casi è un lavoro enorme, e spesso nemmeno tutti
+vengono contemplati:
+
+@quotation
+@iftex
+@sourceimage{ross-beam-scan,7cm,,}
+@end iftex
+@ifnottex
+@sourceimage{ross-beam-scan,,,.jpg}
+@end ifnottex
+@end quotation
+
+(Fonte: Ted Ross, @emph{The Art of Music Engraving})
+
+Anziché cercare di scrivere regole di formattazione dettagliate
+per ogni situazione possibile, dobbiamo solo descrivere gli
+obiettivi in modo sufficientemente completo da permettere a LilyPond di
+giudicare da solo l'attrattiva delle diverse possibilità.  Poi, per ogni
+configurazione calcoliamo un punteggio di  bruttezza e scegliamo quella
+meno brutta.
+
+Per esempio, qui sotto mostriamo tre possibilità per una legatura,
+a ciascuna delle quali LilyPond ha assegnato un punteggio in @q{punti di
+bruttezza}.  Il primo esempio ottiene 15,39 punti perché la legatura
+attraversa una delle teste delle note:
+
+@lilypond
+\relative {
+  \clef bass
+  \once \override Slur.positions = #'(1.5 . 1)
+  e8[(_"15.39" f] g[ a b d,)] r4
+}
+@end lilypond
+
+Il secondo è più bello, ma la legatura non comincia o finisce sulle
+teste delle note. Ottiene 1,71 punti a sinistra e 9,37 punti a destra,
+più altri 2 punti a causa del fatto che la legatura ascende mentre la
+melodia discende, per un totale di 13,08 punti di bruttezza:
+
+@lilypond
+\relative {
+  \clef bass
+  \once \override Slur.positions = #'(2 . 3)
+  e8[(_"13.08" f] g[ a b d,)] r4
+}
+@end lilypond
+
+La legatura finale ottiene 10,04 punti per il vuoto a destra e 2 punti
+per la pendenza verso l'alto, ma è la più attraente delle tre
+configurazioni, e così LilyPond sceglie questa:
+
+@lilypond
+\relative {
+  \clef bass
+  e8[(_"12.04" f] g[ a b d,)] r4
+}
+@end lilypond
+
+Questa tecnica è del tutto generale e viene adoperata per prendere
+decisioni ottimali in merito alla configurazione dei gambi delle note,
+delle legature di valore e dei punti negli accordi, nelle interruzioni
+di rigo e di pagina.  Si può giudicare la bontà di queste decisioni
+confrontandole con incisioni effettivamente esistenti.
+
+@node Miglioramento per analisi comparativa
+@unnumberedsubsec Miglioramento per analisi comparativa
+@translationof Improvement by benchmarking
+
+Gli spartiti generati da LilyPond sono migliorati gradualmente nel tempo e
+continuano a migliorare grazie al confronto con quelli incisi a mano.
+
+Per esempio, qui sotto si vede una riga di un brano di riferimento preso
+da un'edizione incisa (Bärenreiter BA320):
+
+@iftex
+@sourceimage{baer-sarabande-hires,16cm,,}
+@end iftex
+@ifnottex
+@sourceimage{baer-sarabande,,,png}
+@end ifnottex
+
+@noindent
+e qui la stessa citazione realizzata con una vecchissima versione di LilyPond
+(versione 1.4, maggio 2001):
+
+@iftex
+@sourceimage{pdf/lily14-sarabande,16cm,,}
+@end iftex
+@ifnottex
+@sourceimage{lily14-sarabande,,,png}
+@end ifnottex
+
+@noindent La musica prodotta da LilyPond 1.4 è senza dubbio leggibile, ma un
+confronto serrato con lo spartito precedente ha mostrato numerosi
+errori nei dettagli di formattazione:
+
+@iftex
+@sourceimage{lily14-sarabande-annotated-hires,16cm,,}
+@end iftex
+@ifnottex
+@sourceimage{lily14-sarabande-annotated,,,png}
+@end ifnottex
+
+@itemize @bullet
+@item c'è troppo spazio prima dell'indicazione di tempo
+@item i gambi delle note con travature sono troppo lunghi
+@item la seconda e la quarta misura sono troppo strette
+@item la legatura ha un aspetto imbarazzante
+@item le indicazioni di trillo sono troppo grandi
+@item i gambi sono troppo sottili
+@end itemize
+
+@noindent
+(Mancavano anche due teste di note, alcune indicazioni editoriali e
+c'era un'altezza errata!)
+
+Aggiustando le regole di formattazione e il disegno del font, lo
+spartito è notevolmente migliorato.  Confrontate lo stesso spartito di
+riferimento e quello prodotto con la versione corrente di LilyPond
+(@version{}):
+
+@iftex
+@sourceimage{baer-sarabande-hires,16cm,,}
+@end iftex
+@ifnottex
+@sourceimage{baer-sarabande,,,png}
+@end ifnottex
+
+@lilypond[staffsize=17.5,line-width=15.9\cm]
+\relative c {
+  \clef "bass"
+  \key d \minor
+  \time 3/4
+  \mergeDifferentlyDottedOn
+  <<
+    { \slurDashed d8.-\flageolet( e16) e4.-\trill( d16 e) }
+     \\
+    { d4_2 a2 }
+  >>
+  \slurDashed
+  <f' a, d,>4. e8( d c)
+  \slurSolid
+  bes8 g' f e16( f g_1 a_2 bes_3 d,_2)
+  \slurDashed
+  cis4.-\trill b8_3( a g)
+  <<
+    { \slurDashed d'8.( e16) e4.-\trill( d16 e) }
+     \\
+    { <f, a>4 a2 }
+  >>
+}
+@end lilypond
+
+@noindent
+Non è certo un clone dell'edizione di riferimento, ma è comunque molto
+più vicino a una qualità editoriale rispetto alla versione precedente.
+
+@node Mettere le cose a posto
+@unnumberedsubsec Mettere le cose a posto
+@translationof Getting things right
+
+Siamo in grado di misurare l'abilità di LilyPond nel prendere decisioni
+sull'incisione della musica anche confrontando il suo prodotto con
+quello di un software commerciale.  In questo caso abbiamo
+scelto Finale 2008, uno dei programmi di notazione musicale
+a pagamento più diffusi, in particolare nel Nord America.  Sibelius è il
+suo più acerrimo rivale e sembra andare particolarmente bene nel mercato
+europeo.
+
+Per il nostro confronto, abbiamo selezionato la Fuga in sol minore dal
+Libro I del @emph{Clavicembalo ben temperato} BWV 861 di Bach, il cui
+soggetto d'apertura è
+
+@lilypond
+\relative {
+  \key g \minor
+  \clef "treble_8"
+  r8 d' ees g, fis4 g
+  r8 a16 bes c8 bes16 a bes8
+}
+@end lilypond
+
+@noindent
+Abbiamo inciso le ultime sette misure del brano (n. 28--34) con Finale e
+con LilyPond.  In questo punto della composizione, il soggetto ritorna
+in uno stretto a tre parti e conduce alla sezione finale.  Abbiamo
+resistito alla tentazione di apportare qualunque modifica al prodotto
+predefinito di Finale, perché stiamo cercando di mostrare che cosa
+ciascun software riesce a fare da solo, senza interventi umani.  Le
+uniche modifiche di rilievo introdotte sono state aggiustare le
+dimensioni della pagina per adattarla a quelle di questo saggio e
+forzare la musica in due soli sistemi per rendere più agevole il
+confronto. Per impostazione predefinita, invece, Finale avrebbe inciso
+due sistemi di tre misure ciascuno e un terzo sistema contenente la sola
+misura finale larga tutta la riga.
+
+Molte delle differenze tra le due versioni si concentrano nelle misure
+28--29, come mostriamo qui di seguito (Finale sta sopra):
+
+@iftex
+@sourceimage{pdf/bwv861mm28-29,14cm,,}
+@end iftex
+@ifnottex
+@sourceimage{bwv861mm28-29,,,png}
+@end ifnottex
+
+@lilypond[staffsize=19.5,line-width=14\cm]
+global = { \key g \minor }
+
+partI = \relative {
+  \voiceOne
+  fis'8 d' ees g, fis4 g
+  r8 a16 bes c8 bes16 a d8 r r4
+}
+
+partII = \relative {
+  \voiceTwo
+  d'4 r4 r8 d'16 c bes8 c16 d
+  ees8 d c ees a, r r4
+}
+
+partIII = \relative {
+  \voiceOne
+  r2 r8 d' ees g, fis4 g r8 a16 bes c8 bes16 a
+}
+
+partIV = \relative {
+  \voiceTwo
+  d4 r r2
+  r8 d ees g, fis4 a
+}
+
+\score {
+  <<
+    % \set Score.barNumberVisibility = #all-bar-numbers-visible
+    % required in 2.13
+    \set Score.currentBarNumber = #28
+    \bar ""
+    \new PianoStaff <<
+      \new Staff = "RH" <<
+        \global
+        \new Voice = "voiceI" { \partI }
+        \new Voice = "voiceII" { \partII }
+      >>
+      \new Staff = "LH"
+      <<
+        \clef "bass"
+        \global
+        \new Voice = "voiceIII" { \partIII }
+        \new Voice = "voiceIV" { \partIV }
+      >>
+    >>
+  >>
+  \layout {
+    \context {
+      \Staff
+      \remove "Time_signature_engraver"
+    }
+    \context {
+      \PianoStaff
+      \override StaffGrouper.staff-staff-spacing.padding = #1
+    }
+  }
+}
+@end lilypond
+
+Tra le carenze nell'output non modificato di Finale segnaliamo quanto segue.
+@itemize @bullet
+@item La maggior parte delle travature è troppo lontana dal rigo.  Una
+travatura che punta verso il centro del rigo dovrebbe essere lunga circa
+un'ottava, ma gli incisori la abbreviano quando nella musica a più voci
+punta in senso contrario.  Il sistema di travature di
+Finale può essere facilmente migliorato con il suo plug-in Patterson
+Beam, ma qui abbiamo scelto di omettere questa funzionalità.
+@item Finale non regola le posizioni delle teste delle note quando queste
+vengono a trovarsi troppo vicine, il che rende la musica estremamente
+difficile da leggere se voce superiore e inferiore invertono
+temporaneamente la posizione:
+
+@lilypond
+collide = \once \override NoteColumn.force-hshift = #0
+
+\score {
+  <<
+    \new Voice = "sample" \relative c''{
+      \key g \minor
+      <<
+        { \voiceOne g4 \collide g4 }
+        \new Voice { \voiceTwo bes \collide bes }
+      >>
+    }
+    \new Lyrics \lyricsto "sample" { "good " " bad" }
+  >>
+}
+@end lilypond
+
+@item Finale ha messo tutte le pause alla stessa altezza sul rigo.
+L'utente è libero di regolarle secondo la propria necessità, ma in
+nessun modo il programma tenta di prendere in considerazione il contenuto
+dell'altra voce.  Il caso ha voluto che in quest'esempio non si verificassero
+vere e proprie collisioni tra note e pause, ma la cosa ha a che fare
+più con la posizione delle note che con quella delle pause.  In altre
+parole, Bach merita più considerazione per evitare una collisione
+completa di quanta non gliene riservi Finale.
+@end itemize
+
+Con il confronto appena operato non intendiamo affatto suggerire che
+Finale non possa essere adoperato per produrre spartiti di qualità
+editoriale.  Tutto il contrario: nelle mani di un utente esperto può farlo e
+in effetti lo fa, ma richiede abilità e tempo.  Una delle differenze
+fondamentali tra LilyPond e i programmi di notazione musicale
+commerciali è che il primo spera di ridurre gli interventi umani al
+minimo, mentre gli altri puntano a fornire un'interfaccia attraente in
+cui operare questo tipo di modifiche.
+
+Particolarmente eclatante è l'omissione da parte di Finale di un un bemolle
+a misura 33:
+
+@quotation
+@iftex
+@sourceimage{pdf/bwv861mm33-34-annotate,7.93cm,,}
+@end iftex
+@ifnottex
+@sourceimage{bwv861mm33-34-annotate,,,png}
+@end ifnottex
+@end quotation
+
+@noindent
+Il bemolle è richiesto per annullare il bequadro presente poco prima
+nella stessa misura, ma Finale l'ha tralasciato perché appartenente a
+un'altra voce. Così, oltre ad attivare il plug-in per le travature e a
+controllare la spaziatura delle teste delle note e delle pause, l'utente
+deve controllare anche gli accidenti nelle voci che si incrociano per
+scongiurare che errori di questo tipo facciano interrompere una prova.
+
+Se vi interessa esaminare questi esempi più nel dettaglio, alla fine del
+saggio potete trovare l'estratto completo di sette misure insieme ad
+altre quattro incisioni pubblicate.  Un attento esame dei
+frammenti rivela che tra le incisioni manuali esiste una certo
+intervallo di variazione tollerabile, ma anche che LilyPond regge il
+confronto abbastanza bene.  L'output di LilyPond non è ancora privo
+di difetti, per esempio appare un po' troppo aggressivo
+nell'accorciare i gambi, il che permette ancora un certo margine di
+manovra per sviluppi e messe a punto successive.
+
+Naturalmente, la tipografia si basa sul giudizio di una forma da parte
+dell'uomo, il che rende le persone ancora insostituibili.  Tuttavia si
+può automatizzare gran parte del lavoro noioso, e se LilyPond
+riesce a risolvere correttamente la maggior parte delle situazioni
+frequenti, il miglioramento rispetto al software in circolazione sarà
+enorme.  Via via che gli anni passano, il programma può essere
+perfezionato per eseguire automaticamente un numero sempre più elevato
+di operazioni, così da rendere le sovrascritture manuali sempre meno
+indispensabili.  Dove queste si rivelassero indispensabili, la struttura di
+LilyPond è stata progettata avendo in mente la flessibilità.
+
+@node Costruzione del software
+@section Costruzione del software
+@translationof Building software
+
+Questa sezione descrive alcune decisioni di programmazione prese
+durante la progettazione di LilyPond.
+
+@menu
+* Rappresentazione della musica::
+* Quali simboli incidere?::
+* Architettura flessibile::
+@end menu
+
+
+@node Rappresentazione della musica
+@unnumberedsubsec Rappresentazione della musica
+@translationof Music representation
+
+@cindex sintassi
+@cindex strutture ricorsive
+
+Idealmente, il formato di input per qualsiasi sistema di formattazione ad
+alto livello consiste in una descrizione astratta del contenuto da formattare,
+che nel nostro caso è la musica stessa.  La questione solleva un problema
+formidabile: in che modo possiamo definire che cos'è davvero la musica?
+Anziché tentare di trovare una risposta, abbiamo rovesciato la domanda.
+Scriviamo un programma in grado di produrre spartiti e rendiamone il
+formato il più snello possibile: quando non potremo ridurlo
+ulteriormente, ci ritroveremo per definizione
+con il contenuto in sé.  Il nostro programma, dunque, serve a definire
+la forma di un contenuto musicale.
+
+Anche la sintassi è un aspetto dell'interfaccia utente di LilyPond, quindi è semplice
+da scrivere:
+
+@example
+@{
+  c'4 d'8
+@}
+@end example
+
+@noindent
+crea un do centrale da un quarto (C1) e un re da un'ottavo
+immediatamente sopra il do centrale (D1).
+
+@lilypond[quote]
+{
+  c'4 d'8
+}
+@end lilypond
+
+A scala microscopica, una sintassi simile si adopera facilmente.  A una
+scala più larga, però, anche la sintassi ha bisogno di una struttura.  In
+quale altro modo, altrimenti, sarebbe possibile scrivere brani complessi come
+sinfonie e opere liriche?  La struttura è formata dal concetto di
+espressioni musicali: combinando minuscoli frammenti di musica in
+frammenti più consistenti, possiamo esprimere musica più complessa.  Per
+esempio
+
+@lilypond[quote,verbatim,fragment]
+f'4
+@end lilypond
+
+@noindent
+Possiamo costruire note simultanee racchiudendole tra
+@code{<<} e @code{>>}:
+
+@example
+<<c4 d4 e4>>
+@end example
+
+@lilypond[quote,fragment,relative=1]
+\new Voice { <<c4 d4 e>> }
+@end lilypond
+
+@noindent
+Possiamo mettere in sequenza queste due espressioni racchiudendole tra
+parentesi graffe @code{@{@tie{}@dots{}@tie{}@}}:
+
+@example
+@{ f4 <<c4 d4 e4>> @}
+@end example
+
+@lilypond[quote,relative=1,fragment]
+{ f4 <<c d e4>> }
+@end lilypond
+
+@noindent
+Anche quella qui sopra è un'espressione, perciò può essere ulteriormente
+combinata con un'altra espressione simultanea (una minima, in questo
+caso):
+@code{<<}, @code{\\}, e @code{>>}:
+
+@example
+<< g2 \\ @{ f4 <<c4 d4 e4>> @} >>
+@end example
+
+@lilypond[quote,fragment,relative=2]
+\new Voice { << g2 \\ { f4 <<c d e>> } >> }
+@end lilypond
+
+Strutture ricorsive come quelle appena esaminate possono essere
+specificate in modo pulito e formale in una grammatica indipendente dal
+contesto, la quale genera anche il codice di analisi.  In altre parole, la
+sintassi di LilyPond è definita in modo chiaro e privo di ambiguità
+
+Interfacce utente e sintassi sono gli elementi immediatamente visibili
+agli utenti e quelli con cui essi hanno più a che fare.  Un po' sono una
+questione di gusto, un po' l'argomento di molte discussioni: non troppo
+produttive, però, nonostante qualche pregio ce l'abbiano.  Nel quadro più
+ampio di LilyPond, la sintassi di input non è molto importante:
+inventare una sintassi pulita è facile; molto più difficile, invece, è
+scrivere un codice di formattazione decente.  Contiamo le righe di
+codice destinate ai due componenti e troveremo la conferma di quanto abbiamo
+appena affermato: analisi e rappresentazione occupano meno del 10% del
+codice sorgente.
+
+Nel progettare le strutture usate in LilyPond, abbiamo preso decisioni
+diverse da quelle che appaiono in altri programmi.  Considerate la
+natura gerarchica della notazione musicale:
+
+@lilypond[quote,fragment]
+<<
+  \new Staff \relative {
+    \key g \major
+    \time 3/4
+    d''4 g,8 a b c d4 g, g
+  }
+  \new Staff \relative {
+    \clef "bass"
+    \key g \major
+    <g b d>2 a4 b2.
+  }
+>>
+@end lilypond
+
+In questo caso, abbiamo altezze raggruppate in accordi che appartengono
+alle misure, le quali appartengono ai righi.  La cosa assomiglia a
+una struttura ordinata di scatole annidate:
+
+@quotation
+@iftex
+@sourceimage{pdf/nestedboxes,,4cm,}
+@end iftex
+@ifnottex
+@sourceimage{nestedboxes,,,png}
+@end ifnottex
+@end quotation
+
+Purtroppo, la struttura è ordinata perché si basa su alcuni presupposti
+troppo restrittivi, il che diventa evidente considerando un esempio
+musicale più complesso:
+
+@lilypond[quote]
+\layout {
+  \context {
+    \Score
+    \remove "Timing_translator"
+    \remove "Default_bar_line_engraver"
+  }
+  \context {
+    \Staff
+    \consists "Timing_translator"
+    \consists "Default_bar_line_engraver"
+  }
+}
+
+\new PianoStaff <<
+  \new Staff = "RH" <<
+    \new Voice = "I" \relative {
+      \time 3/4
+      \voiceOne
+      \tuplet 7/6 { g''8 g g g g g g }
+      \oneVoice
+      r4 <b,, fis' g bes> r4\fermata
+    }
+    \new Voice = "II" \relative {
+      \voiceTwo
+      c'4
+      \tuplet 5/4 {
+        <c ees>8 f g
+        \change Staff = "LH" \oneVoice
+        \stemUp g,( c}
+      r4
+      \override Stem.cross-staff = ##t
+      \override Stem.length = #12
+      <fis, b>) r\fermata
+    }
+  >>
+  \new Staff = "LH" <<
+    \new Voice = "III" \relative {
+      \time 2/4
+      \clef "bass"
+      g4 \stopStaff s
+      \startStaff s2*2
+    }
+  >>
+>>
+@end lilypond
+
+In quest'esempio, i righi si interrompono arbitrariamente, le voci
+saltano dall'uno all'altro e su ciascun pentagramma c'è un'indicazione
+di tempo diversa.  Molti programmi avrebbero del filo da torcere per
+riprodurlo, proprio perché costruiti con una struttura a scatole
+annidate.  Con LilyPond, d'altronde, abbiamo cercato di mantenere
+formato di input e struttura il più possibile flessibili.
+
+@node Quali simboli incidere?
+@unnumberedsubsec Quali simboli incidere?
+@translationof What symbols to engrave?
+
+@cindex incisione
+@cindex tipografia
+@cindex incisore
+@cindex plug-in
+
+Il processo di formattazione decide dove mettere i simboli, tuttavia
+ciò può essere fatto solo dopo aver deciso @emph{quali} simboli vanno
+stampati: in altre parole, dopo aver deciso quale notazione adoperare.
+
+La comune notazione musicale è un sistema di registrazione della musica
+evolutosi nel corso degli ultimi mille anni.  La forma normalmente
+adoperata oggi risale agli inizi del Rinascimento, e anche se nei
+princìpi di base è rimasta praticamente immutata (cioè testa delle note su
+un pentagramma di cinque linee), continua a modificarsi nei dettagli per
+permettere di esprimere le innovazioni introdotte dalla notazione
+contemporanea. Dunque, la comune notazione musicale comprende circa
+cinque secoli di musica, con applicazioni che spaziano dalle melodie
+monofoniche ai mostruosi contrappunti di una grande orchestra.
+
+In che modo possiamo noi imbrigliare un simile mostro a sette teste e
+costringerlo entro i limiti di un programma per computer?  La nostra
+soluzione è stata quella di spezzare il problema della notazione (al
+contrario dell'incisione, che riguarda la tipografia) in ‘bocconi’
+digeribili e programmabili: ciascun tipo di simbolo è gestito da un modulo
+a sé, un cosiddetto plug-in, completamente modulare e
+indipendente, così da poter essere sviluppato e migliorato
+separatamente.  Tali plug-in sono chiamati @emph{incisori} per analogia con
+l'artigiano che traduce le idee musicali in simboli grafici.
+
+Nell'esempio seguente, cominciamo con il plug-in per le teste delle
+note, il @code{Note_heads_engraver}.
+
+@lilypond[quote,ragged-right]
+\include "engraver-example.ily"
+
+\score {
+  \topVoice
+  \layout {
+    \context {
+      \Voice
+      \remove "Stem_engraver"
+      \remove "Phrasing_slur_engraver"
+      \remove "Slur_engraver"
+      \remove "Script_engraver"
+      \remove "New_fingering_engraver"
+      \remove "Beam_engraver"
+      \remove "Auto_beam_engraver"
+    }
+    \context {
+      \Staff
+      \remove "Accidental_engraver"
+      \remove "Key_engraver"
+      \remove "Clef_engraver"
+      \remove "Bar_engraver"
+      \remove "Time_signature_engraver"
+      \remove "Staff_symbol_engraver"
+      \consists "Pitch_squash_engraver"
+    }
+  }
+}
+@end lilypond
+
+@noindent
+Poi il @code{Staff_symbol_engraver} aggiunge il rigo,
+
+@lilypond[quote,ragged-right]
+\include "engraver-example.ily"
+
+\score {
+  \topVoice
+  \layout {
+    \context {
+      \Voice
+      \remove "Stem_engraver"
+      \remove "Phrasing_slur_engraver"
+      \remove "Slur_engraver"
+      \remove "Script_engraver"
+      \remove "New_fingering_engraver"
+      \remove "Beam_engraver"
+      \remove "Auto_beam_engraver"
+    }
+    \context {
+      \Staff
+      \remove "Accidental_engraver"
+      \remove "Key_engraver"
+      \remove "Clef_engraver"
+      \remove "Bar_engraver"
+      \consists "Pitch_squash_engraver"
+      \remove "Time_signature_engraver"
+    }
+  }
+}
+@end lilypond
+
+@noindent
+il @code{Clef_engraver} definisce un punto di riferimento per il rigo,
+
+@lilypond[quote,ragged-right]
+\include "engraver-example.ily"
+
+\score {
+  \topVoice
+  \layout {
+    \context {
+      \Voice
+      \remove "Stem_engraver"
+      \remove "Phrasing_slur_engraver"
+      \remove "Slur_engraver"
+      \remove "Script_engraver"
+      \remove "New_fingering_engraver"
+      \remove "Beam_engraver"
+      \remove "Auto_beam_engraver"
+    }
+    \context {
+      \Staff
+      \remove "Accidental_engraver"
+      \remove "Key_engraver"
+      \remove "Bar_engraver"
+      \remove "Time_signature_engraver"
+    }
+  }
+}
+@end lilypond
+
+@noindent
+e lo @code{Stem_engraver} aggiunge i gambi.
+
+@lilypond[quote,ragged-right]
+\include "engraver-example.ily"
+
+\score {
+  \topVoice
+  \layout {
+    \context {
+      \Voice
+      \remove "Phrasing_slur_engraver"
+      \remove "Slur_engraver"
+      \remove "Script_engraver"
+      \remove "New_fingering_engraver"
+      \remove "Beam_engraver"
+      \remove "Auto_beam_engraver"
+    }
+    \context {
+      \Staff
+      \remove "Accidental_engraver"
+      \remove "Key_engraver"
+      \remove "Bar_engraver"
+      \remove "Time_signature_engraver"
+    }
+  }
+}
+@end lilypond
+
+@noindent
+Ogni volta che il programma incontra una testa di nota (o più d'una, se
+si tratta di un accordo) leggendo il file sorgente, avvisa lo
+@code{Stem_engraver}, il quale crea un gambo e glielo
+unisce. Aggiungendo gli incisori per travature, legature, accenti,
+accidenti, stanghette di battuta, indicazioni di tempo e armature di
+chiave, otteniamo la notazione completa.
+
+@lilypond[quote,ragged-right]
+\include "engraver-example.ily"
+\score { \topVoice }
+@end lilypond
+
+@cindex polifonia
+@cindex incisione di voci multiple
+@cindex contesti
+
+Questo sistema funziona bene per la musica monofonica, ma che succede
+con la polifonia?  Nella notazione polifonica, voci diverse possono
+condividere lo stesso rigo:
+
+@lilypond[quote,ragged-right]
+\include "engraver-example.ily"
+\new Staff << \topVoice \\ \botVoice >>
+@end lilypond
+
+Nell'esempio qui sopra, armatura di chiave e rigo sono condivisi, ma gambi,
+legature, travature, eccetera, appartengono in modo esclusivo a ciascuna
+voce, perciò gli incisori devono essere raggruppati.  Quelli per teste
+delle note, gambi, legature, eccetera, vanno in un gruppo chiamato
+@q{contesto Voice}, mentre quelli per chiave, accidenti, misure,
+eccetera, in un gruppo chiamato @q{contesto Staff}.  Nel caso della
+polifonia, un singolo contesto Staff contiene più di un contesto Voice.
+Analogamente, contesti Staff multipli possono essere messi in un singolo
+contesto Score.  Il contesto Score rappresenta il contesto notazionale di
+livello massimo.
+
+@lilypond[quote,ragged-right]
+\include "engraver-example.ily"
+\score {
+   <<
+      \new Staff << \topVoice \\ \botVoice >>
+      \new Staff << \pah \\ \hoom >>
+   >>
+}
+@end lilypond
+
+@seealso
+Internals Reference: @rinternals{Contesti}.
+
+@node Architettura flessibile
+@unnumberedsubsec Architettura flessibile
+@translationof Flexible architecture
+
+Quando abbiamo cominciato, abbiamo scritto LilyPond
+interamente nel linguaggio di programmazione C++, scolpendo nella pietra
+le sue funzionalità.  Per una serie di ragioni, però, la cosa si è
+rivelata insoddisfacente.
+
+@itemize
+
+@item Quando LilyPond commette degli errori, gli utenti devono
+sovrascrivere le decisioni di formattazione, il che significa, in altre
+parole, che devono poter accedere al motore di formattazione.  Quindi, regole
+e impostazioni non possono essere stabilite da noi durante la
+composizione, ma devono essere accessibili agli utenti durante
+l'esecuzione del programma.
+
+@item La bontà di un'incisione viene giudicata dagli occhi, e in ultima
+analisi è questione di gusto.  Per quanto esperti noi siamo, gli utenti
+possono essere in disaccordo con le nostre decisioni personali, perciò devono
+poter accedere anche alle definizioni dello stile tipografico.
+
+@item Infine, gli algoritmi di formattazione vengono rifiniti
+incessantemente da noi, il che ci richiede di dover contare su un approccio
+alle regole flessibile, e il modo con cui C++ impone di raggrupparle
+non può essere applicato facilmente alla formattazione della notazione
+musicale.
+
+@end itemize
+
+@cindex linguaggio di programmazione Scheme
+
+Abbiamo affrontato questi problemi integrando in LilyPond un interprete del
+linguaggio di programmazione Scheme e riscrivendoci parti del programma.
+Ora l'architettura di formattazione è costruita intorno
+alla nozione di oggetti grafici, descritti dalle variabili e dalle
+funzioni di Scheme, e comprende regole di formattazione, stile
+tipografico e decisioni di formattazione individuali.  L'utente può
+accedere direttamente alla maggior parte di questi controlli.
+
+Le variabili di Scheme controllano le decisioni in merito all'aspetto della
+pagina.  Per esempio, molti oggetti grafici possidono una variabile di
+direzione che codifica la scelta tra su e giù (o tra destra e sinistra).
+Qui sotto vedete due accordi con accenti e arpeggi.  Nel primo, tutti gli
+oggetti grafici hanno direzione giù (o sinistra), nel secondo, hanno
+direzione su (destra).
+
+@lilypond[quote,ragged-right]
+\score {
+  \relative {
+    \stemDown <e' g b>4_>-\arpeggio
+    \override Arpeggio.direction = #RIGHT
+    \stemUp <e g b>4^>-\arpeggio
+  }
+  \layout {
+    \context {
+      \Score
+      \override SpacingSpanner.spacing-increment = #3
+      \hide TimeSignature
+    }
+  }
+}
+@end lilypond
+
+@cindex formattare uno spartito
+@cindex formattazione di uno spartito
+@cindex regole di formattazione
+
+@noindent
+Il processo di formattazione di uno spartito consiste nel leggere e
+scrivere le variabili degli oggetti grafici, alcune delle quali hanno un
+valore predefinito.  Per esempio, lo spessore di molte linee -- una
+caratteristica dello stile tipografico -- è una di queste.  Siete liberi
+di modificare questo valore, donando al vostro spartito un'impressione
+tipografica diversa.
+
+@lilypond[quote,ragged-right]
+fragment = {
+   \clef bass f8 as8
+   c'4-~ c'16 as g f e16 g bes c' des'4
+}
+<<
+   \new Staff \fragment
+   \new Staff \with {
+      \override Beam.beam-thickness = #0.3
+      \override Stem.thickness = #0.5
+      \override Bar.thickness = #3.6
+      \override Tie.thickness = #2.2
+      \override StaffSymbol.thickness = #3.0
+      \override Tie.extra-offset = #'(0 .  0.3)
+      }
+      \fragment
+>>
+@end lilypond
+
+Anche le regole di formattazione sono variabili preimpostate: ogni
+oggetto possiede variabili contenenti procedure.  Sono queste ultime a
+eseguire la formattazione vera e propria, e sostituendone di diverse,
+possiamo modificare l'aspetto degli oggetti.  Nell'esempio seguente, la
+regola che governa quali oggetti sono adoperati per produrre il
+simbolo della testa di nota è cambiata nel corso del frammento.
+
+@lilypond[quote,ragged-right]
+#(set-global-staff-size 30)
+
+#(define (mc-squared grob orig current)
+  (let* ((interfaces (ly:grob-interfaces grob))
+         (pos (ly:grob-property grob 'staff-position)))
+    (if (memq 'note-head-interface interfaces)
+        (begin
+          (ly:grob-set-property! grob 'stencil
+            (grob-interpret-markup grob
+              (make-lower-markup 0.5
+                (case pos
+                  ((-5) "m")
+                  ((-3) "c ")
+                  ((-2) (make-smaller-markup (make-bold-markup "2")))
+                  (else "bla")))))))))
+
+\new Voice \relative {
+  \stemUp
+  \set autoBeaming = ##f
+  \time 2/4
+  <d' f g>4
+  \once \override NoteHead.stencil = #note-head::brew-ez-stencil
+  \once \override NoteHead.font-size = #-7
+  \once \override NoteHead.font-family = #'sans
+  \once \override NoteHead.font-series = #'bold
+  <d f g>4
+  \once \override NoteHead.style = #'cross
+  <d f g>4
+  \applyOutput Voice #mc-squared
+  <d f g>4
+  <<
+    { d8[ es-( fis^^ g] fis2-) }
+    \repeat unfold 5 { \applyOutput Voice #mc-squared s8 }
+  >>
+}
+@end lilypond
+
+@node Mettere LilyPond al lavoro
+@section Mettere LilyPond al lavoro
+@translationof Putting LilyPond to work
+
+@cindex esempi semplici
+@cindex esempi, semplice
+
+Abbiamo scritto LilyPond per sperimentare come sia possibile condensare
+l'arte dell'incisione musicale in un programma per computer.  Grazie a
+tutto questo duro lavoro, ora il programma può essere adoperato per
+eseguire compiti utili.  La sua applicazione più semplice è la stampa
+delle note.
+
+@lilypond[quote,relative=1]
+{
+  \time 2/4
+  c4 c g'4 g a4 a g2
+}
+@end lilypond
+
+@noindent
+Aggiungendo i nomi degli accordi e le parole, otteniamo una notazione
+da canzoniere.
+
+@lilypond[quote,ragged-right]
+<<
+   \chords { c2 c f2 c }
+   \new Staff
+   \relative {
+     \time 2/4
+     c'4 c g' g a a g2
+   }
+   \addlyrics { twin -- kle twin -- kle lit -- tle star }
+>>
+@end lilypond
+
+Possiamo stampare anche notazione polifonica e musica per pianoforte.
+L'esempio seguente combina alcune costruzioni più esotiche.
+
+@lilypond[quote,line-width=15.9\cm]
+\header {
+  title = "Screech and boink"
+  subtitle = "Random complex notation"
+  composer = "Han-Wen Nienhuys"
+}
+
+\score {
+  \context PianoStaff <<
+    \new Staff = "up" {
+      \time 4/8
+      \key c \minor
+      << {
+        \revert Stem.direction
+        \change Staff = down
+        \set subdivideBeams = ##t
+        g16.[
+          \change Staff = up
+          c'''32
+          \change Staff = down
+          g32
+          \change Staff = up
+          c'''32
+          \change Staff = down
+          g16]
+        \change Staff = up
+        \stemUp
+        \set followVoice = ##t
+        c'''32([ b''16 a''16 gis''16 g''32)]
+      } \\ {
+        s4 \tuplet 3/2 { d'16[ f' g'] } as'32[ b''32 e'' d'']
+      } \\ {
+        s4 \autoBeamOff d''8.. f''32
+      } \\ {
+        s4 es''4
+      } >>
+    }
+
+    \new Staff = "down" {
+      \clef bass
+      \key c \minor
+      \set subdivideBeams = ##f
+      \override Stem.french-beaming = ##t
+      \override Beam.beam-thickness = #0.3
+      \override Stem.thickness = #4.0
+      g'16[ b16 fis16 g16]
+      << \makeClusters {
+        as16 <as b>
+        <g b>
+        <g cis>
+      } \\ {
+        \override Staff.Arpeggio.arpeggio-direction =#down
+        <cis, e, gis, b, cis>4\arpeggio
+      }
+    >> }
+  >>
+  \midi {
+    \tempo 8 = 60
+  }
+  \layout {
+    \context {
+      \Staff
+      \consists "Horizontal_bracket_engraver"
+    }
+  }
+}
+@end lilypond
+
+Tutti i frammenti mostrati sopra sono stati scritti a mano, ma ciò non è
+indispensabile.  Dato che il motore di formattazione è in gran parte
+automatico, può servire per generare output per altri
+programmi che gestiscono musica.  Per esempio, può essere adoperato
+anche per convertire database di frammenti musicali in immagini da
+utilizzare in siti Web e presentazioni multimediali.
+
+Anche questo documento ne mostra un'applicazione: il formato
+di input è testuale, perciò può essere facilmente integrato in altri
+formati basati sul testo come @LaTeX{}, HTML o, nel caso di questo
+manuale, Texinfo.  Mediante il programma @command{lilypond-book},
+compreso in LilyPond, nei file di output PDF o HTML risultanti i
+frammenti di input possono essere sostituiti dalle corrispondenti
+immagini a contenuto musicale.  Un altro esempio è l'estensione di
+terze parti OOoLilyPond per OpenOffice.org o LibreOffice, che rende
+estremamente semplice includere frammenti musicali nei documenti.
+
+Per ulteriori esempi di LilyPond all'opera, per la documentazione
+completa e per il programma in sé, visitate il nostro sito Internet
+ufficiale: www.lilypond.org.
+
+@page
+@node Esempi di incisione (BWV 861)
+@section Esempi di incisione (BWV 861)
+@translationof Engraved examples (BWV 861)
+
+Questa sezione contiene quattro incisioni di riferimento e due versioni
+generate al computer delle ultime sette misure della Fuga in Sol minore
+dal @emph{Clavicembalo ben temperato}, Libro I, BWV 861, di J.S. Bach.
+
+@noindent
+Bärenreiter BA5070 (Neue Ausgabe Sämtlicher Werke, Serie V, Band 6.1,
+1989):
+
+@iftex
+@sourceimage{bwv861-baer,16cm,,}
+@end iftex
+@ifnottex
+@sourceimage{bwv861-baer-small,,,png}
+@end ifnottex
+
+@noindent
+Bärenreiter BA5070 (Neue Ausgabe Sämtlicher Werke, Serie V, Band 6.1,
+1989), fonte musicale alternativa.  Differenze testuali a parte, questo
+esempio mostra leggere variazioni d'incisione anche nella stessa
+edizione della medesima casa editrice:
+
+@iftex
+@sourceimage{bwv861-baer-alt,16cm,,}
+@end iftex
+@ifnottex
+@sourceimage{bwv861-baer-alt-small,,,png}
+@end ifnottex
+
+@noindent
+Breitkopf & Härtel, edited by Ferruccio Busoni (Wiesbaden, 1894),
+disponibile anche nella Petrucci Music Library (IMSLP #22081).  Le
+indicazioni editoriali (diteggiature, articolazioni, eccetera) qui sono
+state rimosse per permettere un confronto più agevole con le altre edizioni:
+
+@iftex
+@sourceimage{bwv861-breitkopf,16cm,,}
+@end iftex
+@ifnottex
+@sourceimage{bwv861-breitkopf-small,,,png}
+@end ifnottex
+
+@noindent
+Bach-Gesellschaft edition (Leipzig, 1866), disponibile nella Petrucci
+Music Library (IMSPL #02221):
+
+@iftex
+@sourceimage{bwv861-gessellschaft,16cm,,}
+@end iftex
+@ifnottex
+@sourceimage{bwv861-gessellschaft-small,,,png}
+@end ifnottex
+
+@noindent
+Finale 2008:
+
+@iftex
+@sourceimage{pdf/bwv861-finale2008a,,,}
+@end iftex
+@ifnottex
+@sourceimage{bwv861-finale2008a,,,png}
+@end ifnottex
+
+@sp 4
+@noindent
+LilyPond, versione @version{}:
+
+@lilypond[staffsize=14.3,line-width=15.9\cm]
+global = {\key g \minor}
+
+partI = \relative {
+  \voiceOne
+  fis'8 d' ees g, fis4 g
+  r8 a16 bes c8 bes16 a d8 r r4
+  r2 r8 d16 ees f8 ees16 d
+  ees4 ~ 16 d c bes a4 r8 ees'16 d
+  c8 d16 ees d8 e16 fis g8 fis16 g a4 ~
+  8 d, g f ees d c bes
+  a2 g\fermata \bar "|."
+}
+
+partII = \relative {
+  \voiceTwo
+  d'4 r4 r8 d'16 c bes8 c16 d
+  ees8 d c ees a, r r4
+  r8 fis16 g a8 g16 fis g2 ~
+  2 r8 d' ees g,
+  fis4 g r8 a16 bes c8 bes16 a
+  bes4. <g b>8 <a c> r <d, g> r
+  <ees g>4 <d fis> d2
+}
+partIII = \relative {
+  \voiceOne
+  r2 r8 d' ees g, fis4 g r8 a16 bes c8 bes16 a
+  bes2 ~ 8 b16 a g8 a16 b
+  c4 r r2
+  R1
+  r8 d ees g, fis4 g
+  r8 a16 bes c8 bes16 a b2
+}
+partIV = \relative {
+  \voiceTwo
+  d4 r r2
+  r8 d ees g, fis4 a
+  d,8 d'16 c bes8 c16 d ees2 ~
+  8 ees16 d c8 d16 ees fis,8 a16 g fis8 g16 a
+  d,8 d'16 c bes8 c16 d ees8 c a fis'
+  g f ees d c bes a g
+  c a d d, g2\fermata
+}
+
+\score {
+  <<
+    % \set Score.barNumberVisibility = #all-bar-numbers-visible
+    % required in 2.13
+    \set Score.currentBarNumber = #28
+    \bar ""
+    \new PianoStaff <<
+      \new Staff = "RH" <<
+        \global
+        \new Voice = "voiceI" { \partI }
+        \new Voice = "voiceII" { \partII }
+      >>
+
+      \new Staff = "LH" <<
+        \clef "bass"
+        \global
+        \new Voice = "voiceIII" { \partIII }
+        \new Voice = "voiceIV" { \partIV }
+      >>
+    >>
+  >>
+  \layout {
+    \context {
+      \Staff
+      \remove "Time_signature_engraver"
+    }
+    \context {
+      \PianoStaff
+      \override StaffGrouper.staff-staff-spacing.padding = #1
+    }
+  }
+}
+@end lilypond
