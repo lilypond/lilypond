@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: d4756c74976a991bd80cf757f774e5525d0830cb
+    Translation of GIT committish: 136e94ea422fc94ef2587c588d516a03e01275e1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -418,18 +418,18 @@ e le parentesi quadre sulle sezioni legate.
 @divEnd
 
 @divClass{column-center-middle-color2}
-@subheading Applicazioni didattiche
+@subheading Materiali didattici
 
-LilyPond è molto indicato anche per applicazioni didattiche.
+LilyPond è molto indicato anche per creare materiali didattici.
 Ecco un esempio di un semplice esercizio di contrappunto.
 
 @exampleImage{theory}
 @divEnd
 
 @divClass{column-center-middle-color2}
-@subheading Musica Popolare
+@subheading Spartiti semplificati
 
-È semplice creare spartiti semplificati pop con melodia, testo,
+È semplice creare spartiti semplificati con melodia, testo,
 nomi degli accordi, e tastiere.  In questo esempio puoi vedere alcuni
 dei diagrammi di tastiera predefiniti, ma questi possono essere ampiamente
 personalizzati per adattarsi a quasi ogni situazione.

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 58d22c26c9ed6f1845ebb5a7f36bdba8edf1b03b
+    Translation of GIT committish: 136e94ea422fc94ef2587c588d516a03e01275e1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -70,7 +70,7 @@ quando si discute di LilyPond.
 @ref{Pubblicazioni}: cosa abbiamo scritto, e cosa è stato scritto su di noi.
 
 @item
-@ref{Notizie vecchie}: un archivio.
+@ref{Notizie}: notizie sul progetto LilyPond.
 
 @item
 @ref{Attic}: annunci e changelog delle versioni precedenti.
@@ -92,7 +92,7 @@ quando si discute di LilyPond.
 * Autori::
 * Riconoscimenti::
 * Pubblicazioni::
-* Notizie vecchie::
+* Notizie::
 * Soffitta::
 @end menu
 @divEnd
@@ -1272,8 +1272,8 @@ per GSoC 2016)
 
 @contactUsAbout{articoli accademici}
 
-@node Notizie vecchie
-@unnumberedsec Notizie vecchie
+@node Notizie
+@unnumberedsec Notizie
 @translationof News
 
 @divClass{heading-center}

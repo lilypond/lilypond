@@ -1,0 +1,46 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
+@c This file is used in the web.texi file.
+
+@ignore
+    Translation of GIT committish: 36e230cf09bf2755528d2252ee256f88f330e66d
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c when you add a new item, consider removing the lowest item(s)
+
+@c used for news about the upcoming release; see CG on Release Work
+
+@c We use @uref for the actual website to link to individual news items
+@c by their <a> tags.  We use @ref for other output formats.
+
+@ifclear web_version
+  @c no anchor links, just link to News page
+
+@ref{News, Rilasciato LilyPond 2.19.48 - @emph{13 Settembre 2016}}
+
+@ref{News, Due progetti LilyPond nel Google Summer of Code 2016 - @emph{23 Aprile 2016}}
+
+@ref{News, Rilasciato LilyPond 2.18.2 - @emph{23 Marzo 2014}}
+
+@ref{News, Rilasciato LilyPond 2.18.0 - @emph{29 Dicembre 2013}}
+
+@end ifclear
+@ifset web_version
+  @c anchor links, link to individual news items by their <a> tag
+
+@uref{news.it.html#LilyPond-2_002e19_002e48-released-September-13_002c-2016,
+  Rilasciato LilyPond 2.19.48 - @emph{13 Settembre 2016}}
+
+@uref{news.it.html#Two-LilyPond-projects-in-Google-Summer-of-Code-2016-April-23_002c-2016,
+  Two LilyPond projects in Google Summer of Code 2016 - @emph{23 Aprile 2016}}
+
+@uref{news.it.html#LilyPond-2_002e18_002e2-released_0021-March-23_002c-2014,
+  Rilasciato LilyPond 2.18.2 - @emph{23 Marzo 2014}}
+
+@uref{news.it.html#LilyPond-2_002e18_002e0-released_0021-December-29_002c-2013,
+  Rilasciato LilyPond 2.18.0 - @emph{29 Dicembre 2013}}
+
+@end ifset
