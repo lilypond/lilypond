@@ -158,10 +158,13 @@ orchestral projects, customized output, and even Schenker graphs.
 @end ifclear
 @ifset web_version
   @c anchor links, link to individual examples by their <a> tag
+  @c Translators should use the localized anchor name
+  @c (e.g. examples.html#Musica-Antica)
+  @c to be found in out-www/web/examples.LL.html
 
 LilyPond is a powerful and flexible tool for engraving tasks of
 all kinds, for example
-@uref{http://lilypond.org/examples.html#Classical-Music, classical music}
+@uref{examples.html#Classical-Music, classical music}
 (like the example above by J.S. Bach),
 @uref{examples.html#Complex-Notation, complex notation},
 @uref{examples.html#Early-Music, early music},
