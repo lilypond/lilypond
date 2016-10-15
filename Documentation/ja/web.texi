@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: 36e230cf09bf2755528d2252ee256f88f330e66d
+    Translation of GIT committish: 472ecfdd548d8f700d71ec1a403b7a5bdce7d5ba
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -169,7 +169,7 @@ LilyPond は、いかなる種類の譜刻にも対応できる、@c
 LilyPond は、いかなる種類の譜刻にも対応できる、@c
 強力で、自由度の高いツールです。@c
 例えば、
-@uref{http://lilypond.org/examples.ja.html#g_t_30af_30e9_30b7_30c3_30af_97f3_697d, クラシック音楽}
+@uref{examples.html#g_t_30af_30e9_30b7_30c3_30af_97f3_697d, クラシック音楽}
 （J. S. Bach 作の上の例のように）、
 @uref{examples.html#g_t_8907_96d1_306a_697d_8b5c, 複雑な楽譜}、
 @uref{examples.html#g_t_53e4_697d, 古楽}、

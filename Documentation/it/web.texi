@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 136e94ea422fc94ef2587c588d516a03e01275e1
+    Translation of GIT committish: 472ecfdd548d8f700d71ec1a403b7a5bdce7d5ba
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -131,19 +131,19 @@ progetti orchestrali, output personalizzato e perfino grafici Schenker.
 
 LilyPond è uno strumento potente e flessibile, adatto a ogni genere di
 spartito, per esempio
-@uref{examples.it.html#Musica-Classica, musica classica}
+@uref{examples.html#Musica-Classica, musica classica}
 (come nell'esempio precedente di J.S. Bach),
-@uref{examples.it.html#Notazione-Complessa, notazione complessa},
-@uref{examples.it.html#Musica-Antica, musica antica},
-@uref{examples.it.html#Musica-Moderna, musica moderna},
-@uref{examples.it.html#Intavolatura, tablatura},
-@uref{examples.it.html#Musica-Vocale, musica vocale},
-@uref{examples.it.html#Spartiti-Semplificati, spartiti semplificati},
-@uref{examples.it.html#Materiali-didattici, materiali didattici},
-@uref{examples.it.html#Grandi-Progetti, grandi progetti orhestrali},
-@uref{examples.it.html#Output-personalizzato, output personalizzato},
+@uref{examples.html#Notazione-Complessa, notazione complessa},
+@uref{examples.html#Musica-Antica, musica antica},
+@uref{examples.html#Musica-Moderna, musica moderna},
+@uref{examples.html#Intavolatura, tablatura},
+@uref{examples.html#Musica-Vocale, musica vocale},
+@uref{examples.html#Spartiti-Semplificati, spartiti semplificati},
+@uref{examples.html#Materiali-didattici, materiali didattici},
+@uref{examples.html#Grandi-Progetti, grandi progetti orhestrali},
+@uref{examples.html#Output-personalizzato, output personalizzato},
 e perfino
-@uref{examples.it.html#Grafici-Schenker, grafici Schenker}.
+@uref{examples.html#Grafici-Schenker, grafici Schenker}.
 
 @end ifset
 
