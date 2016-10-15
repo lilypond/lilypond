@@ -78,13 +78,14 @@ interpret_stencil_expression (SCM expr,
 
           return;
         }
-      else if (scm_is_eq (head, ly_symbol2scm ("id")))
+      else if (scm_is_eq (head, ly_symbol2scm ("output-attributes")))
         {
-          SCM id = scm_cadr (expr);
+          SCM attributes = scm_cadr (expr);
 
-          (*func) (func_arg, scm_list_2 (ly_symbol2scm ("start-enclosing-id-node"), id));
+          (*func) (func_arg, scm_list_2 (ly_symbol2scm ("start-group-node"),
+                                         ly_quote_scm (attributes)));
           interpret_stencil_expression (scm_caddr (expr), func, func_arg, o);
-          (*func) (func_arg, scm_list_1 (ly_symbol2scm ("end-enclosing-id-node")));
+          (*func) (func_arg, scm_list_1 (ly_symbol2scm ("end-group-node")));
 
           return;
         }

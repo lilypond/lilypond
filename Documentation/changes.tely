@@ -62,6 +62,14 @@ which scares away people.
 @end ignore
 
 @item
+A new @code{output-attributes} grob property is now used for svg output
+instead of the @code{id} grob property.  It allows multiple attributes
+to be defined as an association list.  For example, @code{#'((id . 123)
+(class . foo) (data-whatever . @qq{bar}))} will produce the following
+group tag in an SVG file: @code{<g id=@qq{123} class=@qq{foo}
+data-whatever=@qq{bar}> @dots{} </g>}.
+
+@item
 Slurs and phrasing slurs may now be started from individual notes
 in a chord.  Several simultanous slurs per @code{Voice} need to be
 distinguished by @code{spanner-id} setting.

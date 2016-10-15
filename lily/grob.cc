@@ -189,11 +189,11 @@ Grob::get_print_stencil () const
           retval = Stencil (retval.extent_box (), expr);
         }
 
-      SCM id = get_property ("id");
-      if (scm_is_string (id))
+      SCM attributes = get_property ("output-attributes");
+      if (scm_is_pair (attributes))
         {
-          SCM expr = scm_list_3 (ly_symbol2scm ("id"),
-                                 id,
+          SCM expr = scm_list_3 (ly_symbol2scm ("output-attributes"),
+                                 attributes,
                                  retval.expr ());
 
           retval = Stencil (retval.extent_box (), expr);
@@ -816,16 +816,17 @@ ADD_INTERFACE (Grob,
                "cause "
                "color "
                "cross-staff "
-               "id "
                "extra-offset "
                "footnote-music "
                "forced-spacing "
                "horizontal-skylines "
+               "id "
                "interfaces "
                "layer "
                "meta "
                "minimum-X-extent "
                "minimum-Y-extent "
+               "output-attributes "
                "parenthesis-friends "
                "pure-Y-offset-in-progress "
                "rotation "

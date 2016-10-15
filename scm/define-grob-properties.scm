@@ -524,13 +524,7 @@ left and one to the right of this grob.")
 ;;;
 ;;; i
 ;;;
-     (id ,string? "An id string for the grob.  Depending on the typestting
-backend being used, this id will be assigned to a group containing all of
-the stencils that comprise a given grob.  For example, in the svg backend,
-the string will be assigned to the @code{id} attribute of a group (<g>)
-that encloses the stencils that comprise the grob.  In the Postscript
-backend, as there is no way to group items, the setting of the id property
-will have no effect.")
+     (id ,string? "An id string for the grob.")
      (ignore-ambitus ,boolean? "If set, don't consider this notehead
 for ambitus calculation.")
      (ignore-collision ,boolean? "If set, don't do note collision
@@ -720,6 +714,14 @@ different voices. Default value@tie{}1.")
 ;;;
 ;;; o
 ;;;
+     (output-attributes ,list? "An alist of attributes for the grob, to
+be included in output files.  When the SVG typesetting backend is used,
+the attributes are assigned to a group (<g>) containing all of the
+stencils that comprise a given grob.  For example,
+@code{'((id . 123) (class . foo) (data-whatever . @qq{bar}))} will produce
+@code{<g id=@qq{123} class=@qq{foo} data-whatever=@qq{bar}> @dots{} </g>}.
+In the Postscript backend, where there is no way to group items, the
+setting of the output-attributes property will have no effect.")
      (outside-staff-horizontal-padding ,number? "By default, an
 outside-staff-object can be placed so that is it very close to another
 grob horizontally.  If this property is set, the outside-staff-object

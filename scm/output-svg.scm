@@ -61,10 +61,15 @@
   "c = close"
   (format #f "</~S>\n" entity))
 
-(define (start-enclosing-id-node s)
-  (string-append "<g id=\"" s "\">\n"))
+(define (start-group-node attributes)
+  (define attributes-string
+    (string-concatenate
+     (map (lambda (item)
+            (ly:format " ~a=\"~a\"" (car item) (cdr item)))
+       attributes)))
+  (string-append "<g" attributes-string ">\n"))
 
-(define (end-enclosing-id-node)
+(define (end-group-node)
   "</g>\n")
 
 (define-public (comment s)

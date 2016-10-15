@@ -3903,6 +3903,29 @@ def conv (str):
                   '', str)
     return str
 
+@rule ((2, 19, 49), r"""id -> output-attributes.id or output-attributes
+for \tweak, \override, \overrideProperty, and \revert""")
+def conv (str):
+    # path cannot start with '-' or '_' and matches zero or more path
+    # units that each end in a dot
+    path = r"(?:[a-zA-Z\200-\377](?:[-_]?[a-zA-Z\200-\377])*(?:\s*\.\s*))*"
+
+    # Manual editing is needed when id is set to #(...) or \xxx
+    manual_edits = r"(\\(?:tweak|override|overrideProperty)\s+" + path + r")id(\s*=?\s*(?:\\|#\s*\())"
+    automatic = r"(\\(?:tweak|override|overrideProperty|revert)\s+" + path + r")id"
+    if re.search (manual_edits, str):
+        stderr_write (NOT_SMART % "\"output-attributes\"")
+        stderr_write (_ ("Previously the \"id\" grob property (string) was used for SVG output.") + "\n")
+        stderr_write (_ ("Now \"output-attributes\" (association list) is used instead.") + "\n")
+        stderr_write (UPDATE_MANUALLY)
+
+    # First, for manual editing cases we convert 'id' to 'output-attributes'
+    # because Grob.output-attributes.id = #(lambda ... ) will not work.
+    # Then for the rest we convert 'id' to 'output-attributes.id'
+    str = re.sub (manual_edits, r"\1output-attributes\2", str)
+    str = re.sub (automatic, r"\1output-attributes.id", str)
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,
