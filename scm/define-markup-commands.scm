@@ -383,7 +383,7 @@ Its appearance may be customized by overrides for @code{thickness},
     ;; The final stencil: lined-up bows
     (apply ly:stencil-add
       (map
-        (lambda (stil pt) (ly:stencil-translate stil pt))
+        ly:stencil-translate
         (circular-list init-bow-up init-bow-down)
         list-of-starts))))
 

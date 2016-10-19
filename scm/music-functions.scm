@@ -2313,9 +2313,7 @@ list or if there is a type-mismatch, @var{arg} will be returned."
               (number-pair? offsets)))
      (coord-translate arg offsets))
     ((and (number-pair-list? arg) (number-pair-list? offsets))
-     (map
-       (lambda (x y) (coord-translate x y))
-       arg offsets))
+     (map coord-translate arg offsets))
     (else arg)))
 
 (define-public (grob-transformer property func)

@@ -1130,7 +1130,7 @@ grestore
          ((eq? head 'rotate-stencil) (interpret (caddr expr)))
          ((eq? head 'translate-stencil) (interpret (caddr expr)))
          ((eq? head 'combine-stencil)
-          (for-each (lambda (e) (interpret e))  (cdr expr)))
+          (for-each interpret  (cdr expr)))
          (else
           (collect (fold-false-pairs (strip-floats expr))))
 

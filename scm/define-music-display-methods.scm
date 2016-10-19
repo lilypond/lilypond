@@ -628,7 +628,7 @@ Otherwise, return #f."
                       (format #f "~s" string)
                       string))
                 (markup->lily-string text)))
-          (map-in-order (lambda (m) (music->lily-string m))
+          (map-in-order music->lily-string
                         (ly:music-property lyric 'articulations))))
 
 (define-display-method BreathingEvent (event)

@@ -142,9 +142,7 @@ Typically used to construct a scale for input to
       (list pitch))
 
      ((pair? elements)
-      (append-map
-       (lambda (x) (make-scale x))
-       elements))
+      (append-map make-scale elements))
 
      ((ly:music? element)
       (make-scale element)))))
