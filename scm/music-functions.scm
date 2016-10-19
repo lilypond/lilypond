@@ -2323,7 +2323,7 @@ list or if there is a type-mismatch, @var{arg} will be returned."
 pure or unpure values.  @var{func} is called with the respective grob
 as first argument and the default value (after resolving all callbacks)
 as the second."
-  (define (worker self container-part grob . rest)
+  (define (worker self caller grob . rest)
     (let* ((immutable (ly:grob-basic-properties grob))
            ;; We need to search the basic-properties alist for our
            ;; property to obtain values to offset.  Our search is
@@ -2336,29 +2336,16 @@ as the second."
            (target (find-value-to-offset property self immutable))
            ;; if target is a procedure, we need to apply it to our
            ;; grob to calculate values to offset.
-           (vals (cond ((procedure? target) (target grob))
-                       ;; Argument lists for a pure procedure pulled
-                       ;; from an unpure-pure-container may be
-                       ;; different from a normal procedure, so we
-                       ;; need a different code path and calling
-                       ;; convention for procedures pulled from an
-                       ;; container as opposed to from the property
-                       ((ly:unpure-pure-container? target)
-                        (let ((part (container-part target)))
-                          (if (procedure? part)
-                              (apply part grob rest)
-                              part)))
-                       (else target))))
+           (vals (apply caller target grob rest)))
       (func grob vals)))
   ;; return the container named `self'.  The container self-reference
   ;; seems like chasing its own tail but gets dissolved by
   ;; define/lambda separating binding and referencing of "self".
   (define self (ly:make-unpure-pure-container
                 (lambda (grob)
-                  (worker self ly:unpure-pure-container-unpure-part grob))
+                  (worker self ly:unpure-call grob))
                 (lambda (grob . rest)
-                  (apply worker self ly:unpure-pure-container-pure-part
-                         grob rest))))
+                  (apply worker self ly:pure-call grob rest))))
   self)
 
 (define-public (offsetter property offsets)
