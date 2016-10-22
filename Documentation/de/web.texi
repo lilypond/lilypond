@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 5b6ddab894b3065c35c72ef8048b8c6edbe684ac
+    Translation of GIT committish: 901f7ff2acbb996f1e726607f3f8e921c5e1ddd3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -135,13 +135,66 @@ Lesen Sie mehr in der @ref{Einleitung}!
 @divEnd
 
 
-@divId{news}
+@divId{homepage-main}
+
+@divClass{column-center-top}
+
+@subheading Schöner Notensatz
+
+@c This example image is the image from the website version of the essay
+@c manual, downloaded to the pictures directory for use on the home page.
+@c Large version is generated manually from ly file in pictures directory.
+@divId{homepage-example-image-wrapper}
+@imageClickable{bwv861-lilypond,png,,bwv861-lilypond-large,png,center}
+@divEnd
+
+@ifclear web_version
+  @c no anchor links, just text
+
+LilyPond ist ein sehr mächtiges und flexibles Werkzeug, das Notensatz
+unterschiedlichster Art handhaben kann: zum Beispiel klassische Musik
+(wie in diesem Beispiel von J. S. Bach), komplexe Notation, Alte Musik,
+moderne Musik, Tabulatur, Vokalmusik, Popmusik, Unterrichtsmaterialien,
+große Orchesterpartituren, individuelle Lösungen und sogar
+Schenker-Graphen.
+
+@end ifclear
+@ifset web_version
+  @c anchor links, link to individual examples by their <a> tag
+  @c Translators should use the localized anchor name
+  @c (e.g. examples.html#Musica-Antica)
+  @c to be found in out-www/web/examples.LL.html
+
+LilyPond ist ein sehr mächtiges und flexibles Werkzeug, das Notensatz
+unterschiedlichster Art handhaben kann: zum Beispiel
+@uref{examples.html#Klassische-Musik, klassische Musik}
+(wie in diesem Beispiel von J. S. Bach),
+@uref{examples.html#Komplexe-Notation, komplexe Notation},
+@uref{examples.html#Alte-Musik, Alte Musik},
+@uref{examples.html#Moderne-Musik, moderne Musik},
+@uref{examples.html#Tabulatur, Tabulatur},
+@uref{examples.html#Vokalmusik, Vokalmusik},
+@uref{examples.html#Popmusik, Popmusik},
+@uref{examples.html#Anwendung-in-der-Musikerziehung, Unterrichtsmaterialien},
+@uref{examples.html#Grosse-Projekte, große Orchesterpartituren},
+@uref{examples.html#Individuelle-Ausgabe, individuelle Lösungen},
+und sogar
+@uref{examples.html#Schenker-Graphen, Schenker-Graphen}.
+
+@end ifset
+
+Sehen Sie sich unsere @ref{Beispiele} an und lassen sich inspirieren!
+
+@divEnd
+
+@divClass{column-center-middle-color2}
+@subheading Neuigkeiten
 
 @c TODO: generate this automatically, including RSS feed.
-@include web/news-front.itexi
+@include web/news-headlines.itexi
 
-@divClass{float-right}
-(@ref{Ältere Neuigkeiten})
+@ref{News, Weitere Neuigkeiten...}
+
 @divEnd
 
 @divEnd
@@ -152,7 +205,7 @@ Lesen Sie mehr in der @ref{Einleitung}!
 @end ifclear
 @ifset web_version
   @c make the side bar:
-@divId{homePageSideBar}
+@divId{homepage-sidebar}
 @subheading Stabile Version
 
 @c TODO: javascript to detect OS and suggest download?

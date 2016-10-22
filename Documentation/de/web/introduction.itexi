@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish:  5b6ddab894b3065c35c72ef8048b8c6edbe684ac
+    Translation of GIT committish: 901f7ff2acbb996f1e726607f3f8e921c5e1ddd3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -308,8 +308,9 @@ LilyPond auszuprobieren, lesen Sie zuerst über unsere
 
 @subheading Beautiful examples
 
-LilyPond ist ist ein sehr mächtiges und flexibles Werkzeug, dass Notensatz
-der unterschiedlichsten Art handhaben kann.  Sehen Sie sich unsere Beispiele an und lassen Sie sich inspirieren!
+LilyPond ist ein sehr mächtiges und flexibles Werkzeug, das Notensatz
+unterschiedlichster Art handhaben kann.  Sehen Sie sich unsere
+Beispiele an und lassen Sie sich inspirieren!
 
 @divEnd
 
@@ -382,7 +383,7 @@ die man für das fünflinige Notensystem notiert hat.
 @divEnd
 
 @divClass{column-center-middle-color2}
-@subheading Schenker Graphen
+@subheading Schenker-Graphen
 
 Das Standardnotenbild kann sehr stark verändert werden.  Hier eine eindrucksvolle Schenker-Analyse, von Kris Schaffer mit LilyPond erstellt
 für einen Artikel im @uref{http://www.linuxjournal.com/article/8364 , Linux Journal}.
@@ -438,7 +439,7 @@ angepasst werden, um fast jeder Situation gerecht zu werden.
 @divEnd
 
 @divClass{column-center-middle-color2}
-@subsubheading Große Projekte
+@subheading Große Projekte
 
 LilyPond eignet sich großartig für große Projekte wie Opern oder Werke für großes Symphonieorchester.  Zusätzlich ermöglicht die
 texbasierte Eingabe größere Barrierefreiheit -- das folgende
