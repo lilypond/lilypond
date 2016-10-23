@@ -243,6 +243,7 @@ if test "$PDFLATEX" = "xelatex"; then
     if test "$PDFTEX" = "xetex"; then
         # For avoiding PDF destination name replacement.
         PDFTEX=$ugh_ugh_autoconf250_builddir/scripts/build/out$CONFIGSUFFIX/xetex-with-options
+        PDFLATEX=$ugh_ugh_autoconf250_builddir/scripts/build/out$CONFIGSUFFIX/xelatex-with-options
     fi
 else
     STEPMAKE_PROGS(PDFTEX, pdfetex pdftex etex, $DOCUMENTATION_REQUIRED)
