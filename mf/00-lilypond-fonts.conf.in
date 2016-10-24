@@ -11,10 +11,21 @@
   <alias binding="strong">
     <family>LilyPond Serif</family>
     <prefer>
+      <!-- Main serif font:
+	   Latin glyphs only. -->
       <family>TeX Gyre Schola</family>
+      <!-- Ghostscript (URW) font:
+	   gs 9.20+ includes Greek and Cyrillic glyphs. -->
+      <family>C059</family>                   <!-- gs 9.20 -->
+      <family>Century SchoolBook URW</family> <!-- gs 9.16 -->
+      <family>Century Schoolbook L</family>   <!-- gs 9.15, 9.18, 9.19 -->
+      <!-- Substitute font:
+           Most Unicode glyphs except CJK are included. -->
       <family>DejaVu Serif</family>
     </prefer>
     <default>
+      <!-- Fontconfig default serif font alias:
+           For CJK glyphs etc. -->
       <family>serif</family>
     </default>
   </alias>
@@ -22,10 +33,20 @@
   <alias binding="strong">
     <family>LilyPond Sans Serif</family>
     <prefer>
+      <!-- Main sans-serif font:
+	   Latin glyphs only. -->
       <family>TeX Gyre Heros</family>
+      <!-- Ghostscript (URW) font:
+	   gs 9.16+ includes Greek and Cyrillic glyphs. -->
+      <family>Nimbus Sans</family>    <!-- gs 9.20, 9.16 -->
+      <family>Nimbus Sans L</family>  <!-- gs 9.15, 9.18, 9.19 -->
+      <!-- Substitute font:
+           Most Unicode glyphs except CJK are included. -->
       <family>DejaVu Sans</family>
     </prefer>
     <default>
+      <!-- Fontconfig default san-serif font alias:
+           For CJK glyphs etc. -->
       <family>sans-serif</family>
     </default>
   </alias>
@@ -33,10 +54,21 @@
   <alias binding="strong">
     <family>LilyPond Monospace</family>
     <prefer>
+      <!-- Main monospace font:
+	   Latin glyphs only. -->
       <family>TeX Gyre Cursor</family>
+      <!-- Ghostscript (URW) font:
+	   gs 9.16+ includes Greek and Cyrillic glyphs. -->
+      <family>Nimbus Mono PS</family>   <!-- gs 9.20 -->
+      <family>Nimbus Mono</family>      <!-- gs 9.16, 9.18, 9.19 -->
+      <family>Nimbus Mono L</family>    <!-- gs 9.15 -->
+      <!-- Substitute font:
+           Most Unicode glyphs except CJK are included. -->
       <family>DejaVu Sans Mono</family>
     </prefer>
     <default>
+      <!-- Fontconfig default monospace font alias:
+           For CJK glyphs etc. -->
       <family>monospace</family>
     </default>
   </alias>
