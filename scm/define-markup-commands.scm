@@ -3701,17 +3701,18 @@ mensural-flags.  Both are supplied for convenience.
            (raw-length (if stem-up upflag-length downflag-length))
            (angle (if stem-up upflag-angle downflag-angle))
            (flag-length (+ (* raw-length factor) half-stem-thickness))
-           (flag-end (if (= angle 0)
-                         (cons flag-length (* half-stem-thickness dir))
-                         (polar->rectangular flag-length angle)))
+           (flag-end (polar->rectangular flag-length angle))
            (thickness (* flag-thickness factor))
            (thickness-offset (cons 0 (* -1 thickness dir)))
            (spacing (* -1 flag-spacing factor dir))
            (start (cons (- half-stem-thickness) (* half-stem-thickness dir)))
-           (points (list start
-                         flag-end
-                         (offset-add flag-end thickness-offset)
-                         (offset-add start thickness-offset)))
+           (raw-points
+             (list
+               '(0 . 0)
+               flag-end
+               (offset-add flag-end thickness-offset)
+               thickness-offset))
+           (points (map (lambda (coord) (offset-add coord start)) raw-points))
            (stencil (ly:round-filled-polygon points half-stem-thickness))
            ;; Log for 1/8 is 3, so we need to subtract 3
            (flag-stencil (buildflags stencil (- log 3) stencil spacing)))

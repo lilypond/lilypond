@@ -108,6 +108,7 @@ mus =
     \context {
       \Score
       \override MetronomeMark.style = #'mensural
+      \override MetronomeMark.flag-style = #'mensural
     }
   }
 }
