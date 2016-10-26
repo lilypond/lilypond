@@ -33,8 +33,8 @@ LY_DEFINE (ly_type1_2_pfa, "ly:type1->pfa",
   else
     {
       /* The file is in PFA format. Pass it through. */
-      type1_string.push_back(0);
-      pfa_scm = scm_from_latin1_string (&type1_string[0]);
+      pfa_scm = scm_from_latin1_stringn (&type1_string[0],
+                                         type1_string.size ());
     }
 
   debug_output ("]", false);
