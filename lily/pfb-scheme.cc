@@ -25,10 +25,8 @@ LY_DEFINE (ly_type1_2_pfa, "ly:type1->pfa",
   if ((Byte) type1_string[0] == 0x80)
     {
       /* The file is in PFB format. Convert it to PFA format. */
-      char *pfa = pfb2pfa ((Byte *) &type1_string[0],
-                           (int) type1_string.size ());
-      pfa_scm = scm_from_latin1_string (pfa);
-      free (pfa);
+      vector<char> pfa = pfb2pfa (type1_string);
+      pfa_scm = scm_from_latin1_stringn (&pfa[0], pfa.size ());
     }
   else
     {

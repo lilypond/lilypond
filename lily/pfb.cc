@@ -20,6 +20,8 @@
 #include <cstdlib>
 #include <cstdio>
 #include <cstring>
+#include <iomanip>
+#include <sstream>
 using namespace std;
 
 #include "program-option.hh"
@@ -29,55 +31,48 @@ using namespace std;
 #include "main.hh"
 #include "warn.hh"
 
-char *
-pfb2pfa (Byte const *pfb, int length)
+vector<char>
+pfb2pfa (const vector<char> &pfb)
 {
-  char *out = (char *) malloc (sizeof (char));
-  long olen = 0;
+  vector<char> out;
 
-  Byte const *p = pfb;
-  while (p < pfb + length)
+  vector<char>::const_iterator p = pfb.begin ();
+  while (p < pfb.end ())
     {
-      if (*p++ != 128)
+      if (static_cast<Byte>(*p++) != 128)
         break;
 
-      Byte type = *p++;
+      Byte type = static_cast<Byte>(*p++);
       if (type == 3)
         break;
 
-      unsigned seglen
-        = p[0] | (p[1] << 8)
-          | (p[2] << 16) | (p[3] << 24);
+      size_t seglen = static_cast<Byte>(*p++);
+      seglen |= (static_cast<Byte>(*p++) << 8);
+      seglen |= (static_cast<Byte>(*p++) << 16);
+      seglen |= (static_cast<Byte>(*p++) << 24);
 
-      p += 4;
       if (type == 1)
         {
-          out = (char *)realloc (out, olen + seglen + 1);
-          char *outp = out + olen;
-          memcpy (outp, p, seglen);
-          olen += seglen;
+          copy (p, p + seglen, back_inserter (out));
           p += seglen;
         }
       else if (type == 2)
         {
-          unsigned outlength = (seglen * 2) + (seglen / 32) + 2;
+          stringstream ss;
 
-          out = (char *)realloc (out, olen + outlength + 1);
+          ss << hex << setfill ('0');
 
-          char *outp = out + olen;
-          for (int i = seglen; i--;)
+          for (size_t i = seglen; i > 0; --i)
             {
-              sprintf (outp, "%02x", *p++);
-              outp += 2;
+              ss << setw (2) << static_cast<int>(static_cast<Byte>(*p++));
               if (! (i % 32))
-                *outp++ = '\n';
+                ss << '\n';
             }
 
-          olen = outp - out;
+          string str = ss.str ();
+          copy (str.begin (), str.end (), back_inserter (out));
         }
     }
-  out[olen] = 0;
 
   return out;
 }
-

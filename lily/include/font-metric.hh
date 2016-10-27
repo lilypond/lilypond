@@ -72,6 +72,6 @@ protected:
 };
 
 
-char *pfb2pfa (Byte const *pfb, int length);
+vector<char> pfb2pfa (const vector<char> &pfb);
 
 #endif /* FONT_METRIC_HH */
