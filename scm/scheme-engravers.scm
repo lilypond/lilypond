@@ -36,22 +36,22 @@ receive a count with @code{\\startMeasureCount} and
 
     (make-engraver
      (listeners
-       ((measure-counter-event engraver event)
-        (cond
-          ((and (= START (ly:event-property event 'span-direction))
-                go?)
-           (set! stop? #t)
-           (ly:input-warning
-             (ly:event-property event 'origin)
-             "count not ended before another begun"))
-          ((= START (ly:event-property event 'span-direction))
-           (set! go? #t)
-           ;; initialize one less so first measure receives a count spanner
-           (set! last-measure-seen
-                 (1- (ly:context-property context 'currentBarNumber))))
-          ((= STOP (ly:event-property event 'span-direction))
-           (set! stop? #t)
-           (set! go? #f)))))
+      ((measure-counter-event engraver event)
+       (cond
+        ((and (= START (ly:event-property event 'span-direction))
+              go?)
+         (set! stop? #t)
+         (ly:input-warning
+          (ly:event-property event 'origin)
+          "count not ended before another begun"))
+        ((= START (ly:event-property event 'span-direction))
+         (set! go? #t)
+         ;; initialize one less so first measure receives a count spanner
+         (set! last-measure-seen
+               (1- (ly:context-property context 'currentBarNumber))))
+        ((= STOP (ly:event-property event 'span-direction))
+         (set! stop? #t)
+         (set! go? #f)))))
 
      ((process-music trans)
       (let ((col (ly:context-property context 'currentCommandColumn))
@@ -85,7 +85,7 @@ receive a count with @code{\\startMeasureCount} and
                     (set! (ly:grob-property c 'count-from) (+ counter elapsed))
                     (set! count-spanner c)
                     (set! elapsed (1+ elapsed))))))
-                    (set! last-measure-seen current-bar)))
+        (set! last-measure-seen current-bar)))
 
      ((finalize trans)
       (if go?
