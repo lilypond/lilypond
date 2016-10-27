@@ -24,6 +24,7 @@
 #include <sstream>
 using namespace std;
 
+#include "international.hh"
 #include "program-option.hh"
 #include "source-file.hh"
 #include "memory-stream.hh"
@@ -40,7 +41,10 @@ pfb2pfa (const vector<char> &pfb)
   while (p < pfb.end ())
     {
       if (static_cast<Byte>(*p++) != 128)
-        break;
+        {
+          error (_ ("Segment header of the Type 1 (PFB) font is broken."));
+          break;
+        }
 
       Byte type = static_cast<Byte>(*p++);
       if (type == 3)
@@ -50,6 +54,11 @@ pfb2pfa (const vector<char> &pfb)
       seglen |= (static_cast<Byte>(*p++) << 8);
       seglen |= (static_cast<Byte>(*p++) << 16);
       seglen |= (static_cast<Byte>(*p++) << 24);
+      if ((p + seglen) > pfb.end ())
+        {
+          error (_ ("Segment length of the Type 1 (PFB) font is too long."));
+          break;
+        }
 
       if (type == 1)
         {
@@ -71,6 +80,11 @@ pfb2pfa (const vector<char> &pfb)
 
           string str = ss.str ();
           copy (str.begin (), str.end (), back_inserter (out));
+        }
+      else
+        {
+          error (_ ("Segment type of the Type 1 (PFB) font is unknown."));
+          break;
         }
     }
 
