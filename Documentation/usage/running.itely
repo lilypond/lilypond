@@ -597,6 +597,10 @@ compilation.
 @tab @code{#f}
 @tab Load only the LilyPond fonts via Ghostscript.
 
+@item @code{gs-never-embed-fonts}
+@tab @code{#f}
+@tab Make Ghostscript embed only TrueType fonts and no other font format.
+
 @item @code{gui}
 @tab @code{#f}
 @tab Runs silently and redirect all output to a log file.
