@@ -243,9 +243,12 @@
          (footer "\n%%EndData
 %%EndResource
 %%EndResource\n"))
-    (string-append header
-                   binary-data
-                   footer)))
+    (begin
+      (set! never-embed-font-list
+            (append never-embed-font-list (list font-set-name)))
+      (string-append header
+                     binary-data
+                     footer))))
 
 (define check-conflict-and-embed-cff
   (let ((font-list '()))
