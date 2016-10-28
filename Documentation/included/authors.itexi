@@ -87,6 +87,9 @@ Core developer
 @item Francisco Vila:
 Translation Meister
 
+@item Valentin Villenave:
+Core developer
+
 @item Janek Warchoł:
 @email{janek.lilypond@@gmail.com},
 Core developer
@@ -157,9 +160,6 @@ Bug meister
 @item Nicolas Sceaux:
 Core developer, Schemer extraordinaire
 
-@item Valentin Villenave:
-LSR editor and Bug squad member
-
 @end itemize
 @end macro
 
@@ -170,16 +170,22 @@ LSR editor and Bug squad member
 
 @c use commas not colons
 
+Guido Aulisi,
 Federico Bruni,
+Nathan Chou,
 Dan Eble,
+John Gourlay,
 Marc Hohl,
 Masamichi Hosoda,
+Mark Knoop,
+Tobias Kretschmar,
 James Lowe,
 Thomas Morley,
 Paul Morris,
 David Nalesnik,
 Keith OHara,
 Benkő Pál,
+Knut Petersen,
 Julien Rioux,
 Devon Schudy,
 Heikki Tauriainen
@@ -215,7 +221,9 @@ Urs Liska,
 James Lowe,
 Thomas Morley,
 Jean-Charles Malahieude,
+Patrick Schmidt,
 Pierre Perol-Schneider,
+Greg Swinford,
 Martin Tarenskeen
 
 @c no comma for last entry
@@ -275,9 +283,13 @@ Luca Rossetto Casel,
 Felipe Castro,
 Pavel Fric,
 Walter Garcia-Fontes,
+Tommaso Gordini,
+Erika Griechisch,
+Denes Harmath,
 Jean-Charles Malahieude,
 Till Paala,
-Yoshiki Sawada
+Yoshiki Sawada,
+Paco Tomillo
 
 @c no comma for last entry
 
