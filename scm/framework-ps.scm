@@ -343,18 +343,26 @@
                     name)
         (load-font font-name-filename))
        (else
-        (cons name
-              (if (mac-font? bare-file-name)
-                  (handle-mac-font name bare-file-name)
-                  (cond
-                   ((and font (cff-font? font))
-                    (ps-load-file (ly:find-file
-                                   (format #f "~a.otf" file-name))))
-                   ((string? bare-file-name)
-                    (ps-load-file file-name))
-                   (else
-                    (ly:warning (_ "cannot embed ~S=~S") name file-name)
-                    ""))))))))
+        (begin
+          (if (or (and font (cff-font? font))
+                  (and (string? bare-file-name)
+                       (not (eq? (ly:get-font-format
+                                  bare-file-name
+                                  font-index) 'TrueType))))
+              (set! never-embed-font-list
+                    (append never-embed-font-list (list name))))
+          (cons name
+                (if (mac-font? bare-file-name)
+                    (handle-mac-font name bare-file-name)
+                    (cond
+                     ((and font (cff-font? font))
+                      (ps-load-file (ly:find-file
+                                     (format #f "~a.otf" file-name))))
+                     ((string? bare-file-name)
+                      (ps-load-file file-name))
+                     (else
+                      (ly:warning (_ "cannot embed ~S=~S") name file-name)
+                      "")))))))))
 
   (define (dir-join a b)
     (if (equal? a "")
