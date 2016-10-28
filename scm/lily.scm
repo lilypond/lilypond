@@ -282,6 +282,9 @@ given amount (in mm).")
     (gs-load-lily-fonts
      #f
      "Load only LilyPond fonts via Ghostscript.")
+    (gs-never-embed-fonts
+     #f
+     "Make Ghostscript embed only TrueType fonts and no other font format.")
     (gui
      #f
      "Run LilyPond from a GUI and redirect stderr to
