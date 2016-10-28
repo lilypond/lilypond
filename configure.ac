@@ -38,6 +38,12 @@ AC_ARG_WITH(texgyre-dir,
     [TEXGYRE_DIR=$withval],
     [TEXGYRE_DIR=""])
 
+AC_ARG_WITH(urwotf-dir,
+    [AS_HELP_STRING([--with-urwotf-dir=DIR],
+		    [location of URW++ OTF fonts.])],
+    [URWOTF_DIR=$withval],
+    [URWOTF_DIR=""])
+
 reloc_b=no
 AC_ARG_ENABLE(relocation,
     [AS_HELP_STRING([--enable-relocation],
@@ -99,6 +105,48 @@ if test "$TEXGYRE_DIR" = "" -o "$MISSING_TEXGYRE_FILES" != ""; then
     fi
   else
     STEPMAKE_ADD_ENTRY(REQUIRED,'(these files are missing: $MISSING_TEXGYRE_FILES)')
+  fi
+else
+  AC_MSG_RESULT(yes)
+fi
+AC_MSG_CHECKING([for URW++ OTF files])
+AC_SUBST(URWOTF_DIR)
+AC_SUBST(URWOTF_FILES)
+if test "$URWOTF_DIR" = ""; then
+  if test "$FCLIST" != ""; then
+    URWOTF_FILE=`$FCLIST "C059:fontformat=CFF" file | head -n 1`
+    if test "$URWOTF_FILE" != ""; then
+      URWOTF_FILE=`echo $URWOTF_FILE | sed 's/\(:.*\)$//g'`
+      URWOTF_FILE=`$PYTHON "$srcdir/scripts/auxiliar/readlink.py" $URWOTF_FILE`
+      URWOTF_DIR=`AS_DIRNAME($URWOTF_FILE)`
+    fi
+  fi
+fi
+if test "$URWOTF_DIR" != "" ;  then
+  for f in C059-BdIta.otf C059-Bold.otf \
+           C059-Italic.otf C059-Roman.otf \
+           NimbusMonoPS-Bold.otf NimbusMonoPS-BoldItalic.otf \
+           NimbusMonoPS-Italic.otf NimbusMonoPS-Regular.otf \
+           NimbusSans-Bold.otf NimbusSans-BoldOblique.otf \
+           NimbusSans-Oblique.otf NimbusSans-Regular.otf; do
+    if test ! -f "$URWOTF_DIR/$f"; then
+      MISSING_URWOTF_FILES="$MISSING_URWOTF_FILES $f"
+    else
+      URWOTF_FILES="$URWOTF_FILES $f"
+    fi
+  done
+fi
+if test "$URWOTF_DIR" = "" -o "$MISSING_URWOTF_FILES" != ""; then
+  AC_MSG_RESULT(no)
+  STEPMAKE_ADD_ENTRY(OPTIONAL,URW++ OTF fonts)
+  if test "$URWOTF_DIR" = ""; then
+    if test "$FCLIST" = ""; then
+      STEPMAKE_ADD_ENTRY(OPTIONAL,'(install the fc-list utility from FontConfig, or use --with-urwotf-dir)')
+    else
+      STEPMAKE_ADD_ENTRY(OPTIONAL,"(download OTF files from 'http://git.ghostscript.com/?p=urw-core35-fonts.git;a=commit;h=79bcdfb34fbce12b592cce389fa7a19da6b5b018' and put them under '~/.local/share/fonts' etc., or use --with-urwotf-dir)")
+    fi
+  else
+    STEPMAKE_ADD_ENTRY(OPTIONAL,'(these files are missing: $MISSING_URWOTF_FILES)')
   fi
 else
   AC_MSG_RESULT(yes)

@@ -36,6 +36,7 @@ SVG_FILES = $(OTF_FILES:%.otf=%.svg)
 WOFF_FILES = $(OTF_FILES:%.otf=%.woff)
 
 TEXGYRE_OTFS = $(addprefix $(TEXGYRE_DIR)/,$(TEXGYRE_FILES))
+URWOTF_OTFS = $(addprefix $(URWOTF_DIR)/,$(URWOTF_FILES))
 
 LILYPOND_FONTS_CONF = $(outdir)/00-lilypond-fonts.conf \
 		      $(outdir)/99-lilypond-fonts.conf
@@ -87,7 +88,8 @@ INSTALLATION_OUT_SUFFIXES = 1 2 3
 
 INSTALLATION_OUT_DIR1 = $(local_lilypond_datadir)/fonts/otf
 INSTALLATION_OUT_FILES1 = $(OTF_FILES) \
-			  $(TEXGYRE_OTFS)
+			  $(TEXGYRE_OTFS) \
+			  $(URWOTF_OTFS)
 
 INSTALLATION_OUT_DIR2 = $(local_lilypond_datadir)/fonts/svg
 INSTALLATION_OUT_FILES2 = $(SVG_FILES) $(WOFF_FILES)

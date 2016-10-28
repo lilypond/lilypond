@@ -260,6 +260,8 @@ $(tree-share-prefix)/mf-link-tree: $(tree-share-prefix)/lilypond-force
 		cd $(tree-share-prefix)/fonts/otf && \
 		ln -s ../../../../../../mf/$(outconfbase)/*.otf . && \
 		$(foreach i,$(addprefix $(TEXGYRE_DIR)/,$(TEXGYRE_FILES)), \
+			ln -s $i . && ) true && \
+		$(foreach i,$(addprefix $(URWOTF_DIR)/,$(URWOTF_FILES)), \
 			ln -s $i . && ) true
 	-cd $(tree-share-prefix)/fonts && \
 		ln -s ../../../../../mf/$(outconfbase)/fonts.conf . && \

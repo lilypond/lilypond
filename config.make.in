@@ -92,6 +92,8 @@ vimdir = $(lilypond_datadir)/vim
 
 TEXGYRE_DIR = @TEXGYRE_DIR@
 TEXGYRE_FILES = @TEXGYRE_FILES@
+URWOTF_DIR = @URWOTF_DIR@
+URWOTF_FILES = @URWOTF_FILES@
 
 ################################################################
 ## PROGRAMS
