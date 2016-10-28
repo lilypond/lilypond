@@ -402,7 +402,9 @@
       (cond
        ((eq? font-format (string->symbol "Type 1"))
         ;; Type 1 (PFA and PFB) fonts
-        (ly:type1->pfa file-name))
+        (begin (set! never-embed-font-list
+                     (append never-embed-font-list (list name)))
+               (ly:type1->pfa file-name)))
        ((eq? font-format 'TrueType)
         ;; TrueType fonts (TTF) and TrueType Collection (TTC)
         (ly:ttf->pfa file-name font-index))
