@@ -214,6 +214,8 @@
    (define-fonts paper ps-define-font ps-define-pango-pf)
    (output-variables paper)))
 
+(define never-embed-font-list (list))
+
 (define (cff-font? font)
   (let* ((cff-string (ly:otf-font-table-data font "CFF ")))
     (> (string-length cff-string) 0)))
@@ -485,12 +487,23 @@
    port
    "/lilypond-datadir where {pop} {userdict /lilypond-datadir (~a) put } ifelse"
    (ly:get-option 'datadir))
+  (set! never-embed-font-list (list))
   (if load-fonts?
       (for-each (lambda (f)
                   (format port "\n%%BeginFont: ~a\n" (car f))
                   (display (cdr f) port)
                   (display "%%EndFont\n" port))
                 (load-fonts paper)))
+  (if (ly:get-option 'gs-never-embed-fonts)
+      (begin
+        (display "\nsystemdict /DEVICE known\n" port)
+        (display " { systemdict /DEVICE get (pdfwrite) eq {\n" port)
+        (display ".setpdfwrite << /NeverEmbed [" port)
+        (display (string-concatenate
+                  (map (lambda (f) (string-append " /" f))
+                       never-embed-font-list)) port)
+        (display " ] >> setdistillerparams\n" port)
+        (display " } if } if\n" port)))
   (if (ly:bigpdfs)
       (display (procset "encodingdefs.ps") port))
   (display (setup-variables paper) port)
