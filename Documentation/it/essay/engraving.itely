@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 791d125bd2f98f1be6b7742bfedd981b5895c0c1
+    Translation of GIT committish: c72179ccf41124936a43bb7279d92c6cb6266b7b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -9,6 +9,9 @@
 @end ignore
 
 @c \version "2.19.24"
+
+@c Translators: Tommaso Gordini
+@c Translation checkers: Federico Bruni
 
 @node Incisione musicale
 @chapter Incisione musicale
@@ -1372,7 +1375,8 @@ livello massimo.
 @end lilypond
 
 @seealso
-Internals Reference: @rinternals{Contesti}.
+Internals Reference:
+@rinternalsnamed{Contexts, Contesti}.
 
 @node Architettura flessibile
 @unnumberedsubsec Architettura flessibile

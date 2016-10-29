@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: d2a84c5798a7568cd3c73ca4f4a23bca704c8608
+    Translation of GIT committish: c72179ccf41124936a43bb7279d92c6cb6266b7b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -9,6 +9,9 @@
 @end ignore
 
 @c \version "2.16.0"
+
+@c Translators: Tommaso Gordini
+@c Translation checkers: Federico Bruni
 
 @node Bibliografia
 @chapter Bibliografia
@@ -107,4 +110,3 @@ notazionali tradizionali esistenti.
 @subheading Engraving bibliography
 
 @include engravingbib.itexi
-
