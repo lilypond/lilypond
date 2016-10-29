@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 958e95822083954cad00e0a598eb9f12ceba67b9
+%% Translation of GIT committish: e99c4c0a94c76341135e7bf5cd1a8c21b892ddf0
   texidocfr = "
 Cet exemple, grâce à un peu de code Scheme, donne la priorité aux
 enharmoniques afin de limiter le nombre d'altérations supplémentaires.
