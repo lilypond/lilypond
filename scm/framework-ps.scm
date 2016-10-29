@@ -536,6 +536,15 @@
    "/lilypond-datadir where {pop} {userdict /lilypond-datadir (~a) put } ifelse"
    (ly:get-option 'datadir))
   (set! never-embed-font-list (list))
+  (if (ly:get-option 'font-export-dir)
+      (let ((dirname (format #f "~a" (ly:get-option 'font-export-dir))))
+        (if (file-exists? dirname)
+            (ly:debug
+             (_ "Font export directory `~a' already exists.") dirname)
+            (begin
+              (ly:debug
+               (_ "Making font export directory `~a'.") dirname)
+              (mkdir dirname)))))
   (if load-fonts?
       (for-each (lambda (f)
                   (format port "\n%%BeginFont: ~a\n" (car f))
