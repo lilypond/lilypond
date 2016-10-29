@@ -494,6 +494,40 @@
            (pfas (map font-loader font-names)))
       pfas))
 
+  (define (font-export name body)
+    (let* ((filename (format #f "~a/~a.font.ps"
+                             (ly:get-option 'font-export-dir)
+                             name))
+           (port-excl
+            (catch
+             'system-error
+             (lambda ()
+               ;; Exclusive file create:
+               ;; When the file already exists, it raises system-error.
+               (open filename (logior O_WRONLY O_CREAT O_EXCL)))
+             (lambda stuff
+               ;; Catch the system-error
+               (let ((errno (system-error-errno stuff)))
+                 (cond
+                  ;; If the file already exists, return #f.
+                  ((= errno EEXIST)
+                   (begin
+                     (ly:debug
+                       (_ "Font file `~a' already exists, skipping.")
+                       filename)
+                     #f))
+                  ;; If the cause is something else, re-throw the error.
+                  (#t
+                   (throw 'system-error (cdr stuff)))))))))
+      (if port-excl
+          ;; MinGW hack: need to have "b"inary for fonts
+          (let ((port (open-file filename "wb")))
+            (close port-excl)
+            (ly:debug (_ "Exporting font file `~a'.") filename)
+            (format port "%%BeginFont: ~a\n" name)
+            (display body port)
+            (display "%%EndFont\n" port)
+            (close-port port)))))
 
   (display "%%BeginProlog\n" port)
   (format
@@ -505,7 +539,9 @@
       (for-each (lambda (f)
                   (format port "\n%%BeginFont: ~a\n" (car f))
                   (display (cdr f) port)
-                  (display "%%EndFont\n" port))
+                  (display "%%EndFont\n" port)
+                  (if (ly:get-option 'font-export-dir)
+                      (font-export (car f) (cdr f))))
                 (load-fonts paper)))
   (if (ly:get-option 'gs-never-embed-fonts)
       (begin
