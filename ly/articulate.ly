@@ -425,7 +425,7 @@
    (map (lambda (y) (ac:setduration y hemisemidur))
     (ly:music-property music 'elements))
    (set! uppernote (ly:music-deep-copy music))
-   (map (lambda (y) (ac:up y))
+   (map ac:up
     (filter
      (lambda (z) (eq? 'NoteEvent (ly:music-property z 'name)))
      (ly:music-property uppernote 'elements)))
@@ -764,11 +764,11 @@
           (ly:music-property abovenote 'elements))
          (map (lambda (y) (ac:setduration y gracedur))
           (ly:music-property abovenoteTwo 'elements))
-         (map (lambda (y) (ac:up y))
+         (map ac:up
           (filter
            (lambda (z) (eq? 'NoteEvent (ly:music-property z 'name)))
            (ly:music-property abovenote 'elements)))
-         (map (lambda (y) (ac:up y))
+         (map ac:up
           (filter
            (lambda (z) (eq? 'NoteEvent (ly:music-property z 'name)))
            (ly:music-property abovenoteTwo 'elements)))
@@ -788,7 +788,7 @@
           (ly:music-property gracenote 'elements))
          (map (lambda (y) (ac:setduration y gracedur))
                (ly:music-property belownote 'elements))
-         (map (lambda (y) (ac:down y))
+         (map ac:down
           (filter
            (lambda (z) (eq? 'NoteEvent (ly:music-property z 'name)))
            (ly:music-property belownote 'elements)))
@@ -812,11 +812,11 @@
                  (below (ly:music-deep-copy music))
                  (newmusic (make-sequential-music (list above music below music))))
            (begin
-            (map (lambda (y) (ac:down y))
+            (map ac:down
              (filter
               (lambda (z) (eq? 'NoteEvent (ly:music-property z 'name)))
               (ly:music-property below 'elements)))
-            (map (lambda (y) (ac:up y))
+            (map ac:up
              (filter
               (lambda (z) (eq? 'NoteEvent (ly:music-property z 'name)))
               (ly:music-property above 'elements)))

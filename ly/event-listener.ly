@@ -40,7 +40,7 @@
    "Constructs a filename in the form
 @file{@var{original_filename}-@var{staff_instrument_name}.notes} if the
 staff has an instrument name.  If the staff has no instrument
-name, it uses "unnamed-staff" for that part of the filename."
+name, it uses \"unnamed-staff\" for that part of the filename."
    (let* ((inst-name (ly:context-property context 'instrumentName)))
      (string-concatenate (list
                           (substring (object->string (command-line))

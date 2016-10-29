@@ -62,7 +62,7 @@ In this manner, the most natural enharmonic notes are chosen.
      (if (pair? es)
          (ly:music-set-property!
           music 'elements
-          (map (lambda (x) (naturalize x)) es)))
+          (map naturalize es)))
      (if (ly:music? e)
          (ly:music-set-property!
           music 'element

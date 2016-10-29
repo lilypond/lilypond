@@ -51,8 +51,7 @@
     "\n\n"
     (if (pair? (node-children node))
         (texi-menu
-         (map (lambda (x) (menu-entry x))
-              (node-children node)))
+         (map menu-entry (node-children node)))
         ""))
    port)
   (for-each (lambda (x) (dump-node x port (+ 1 level)))

@@ -1651,9 +1651,7 @@ appropriate tweak applied.")
        (define (offset-control-points offsets)
          (if (null? offsets)
              coords
-             (map
-               (lambda (x y) (coord-translate x y))
-               coords offsets)))
+             (map coord-translate coords offsets)))
 
        (define (helper sibs offs)
          (if (pair? offs)

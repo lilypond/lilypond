@@ -1512,7 +1512,8 @@ parent or the parent has no setting."
 the extents of @code{BreakAlignment} grobs associated with the left and
 right bounds of a @code{MeasureCounter} spanner.  Broken measures are
 numbered in parentheses."
-  (let* ((num (markup (number->string (ly:grob-property grob 'count-from))))
+  (let* ((num (make-simple-markup
+               (number->string (ly:grob-property grob 'count-from))))
          (orig (ly:grob-original grob))
          (siblings (ly:spanner-broken-into orig)) ; have we been split?
          (num

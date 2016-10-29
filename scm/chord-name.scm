@@ -169,4 +169,4 @@ FOOBAR-MARKUP) if OMIT-ROOT is given and non-false.
 
   (let* ((elts (filter is-event-chord? (ly:music-property seq 'elements)))
          (alist (map chord-to-exception-entry elts)))
-    (filter (lambda (x) (cdr x)) alist)))
+    (filter cdr alist)))
