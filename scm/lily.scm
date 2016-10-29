@@ -276,6 +276,9 @@ regression testing.")
      #f
      "Pad left edge of the output EPS bounding box by
 given amount (in mm).")
+    (font-export-dir
+     #f
+     "Directory for exporting fonts as PostScript files.")
     (gs-load-fonts
      #f
      "Load fonts via Ghostscript.")
