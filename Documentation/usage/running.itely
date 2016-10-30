@@ -589,6 +589,10 @@ compilation.
 @tab Pad left edge of the output EPS bounding box by the given amount
 (in mm).
 
+@item @code{font-export-dir}
+@tab @code{#f [dir]}
+@tab Directory for exporting fonts as PostScript files.
+
 @item @code{gs-load-fonts}
 @tab @code{#f}
 @tab Load fonts via Ghostscript.
