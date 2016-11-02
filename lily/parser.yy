@@ -1614,7 +1614,7 @@ basic_music:
 	}
 	| LYRICSTO symbol '=' simple_string lyric_mode_music
 	{
-		$$ = MAKE_SYNTAX (lyric_combine, @$, $3, $2, $4);
+		$$ = MAKE_SYNTAX (lyric_combine, @$, $4, $2, $5);
 	}
 	;
 
