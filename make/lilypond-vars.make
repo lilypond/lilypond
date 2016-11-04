@@ -48,6 +48,12 @@ $(LANG_TEXIDOC_FLAGS) \
 -ddump-signatures \
 -danti-alias-factor=$(ANTI_ALIAS_FACTOR)
 
+ifeq ($(USE_EXTRACTPDFMARK),yes)
+LILYPOND_BOOK_LILYPOND_FLAGS+= \
+-dfont-export-dir=$(top-build-dir)/out-fonts \
+-dgs-never-embed-fonts
+endif
+
 ifdef QUIET_BUILD
 LILYPOND_BOOK_WARN = --loglevel=NONE
 else
