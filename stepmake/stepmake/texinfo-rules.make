@@ -72,6 +72,12 @@ ifeq ($(WEB_VERSION),yes)
 else
 	PDFTEX=$(PDFTEX) PDFLATEX=$(PDFLATEX) $(buildscript-dir)/run-and-check "cd $(outdir); texi2pdf $(TEXI2PDF_FLAGS) -I $(abs-src-dir) $(TEXINFO_PAPERSIZE_OPTION) $(<F) < /dev/null" "$*.texi2pdf.log"
 endif
+ifeq ($(USE_EXTRACTPDFMARK),yes)
+	$(EXTRACTPDFMARK) -o $(outdir)/$*.pdfmark $@
+	$(GS920) -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -sOutputFile=$(outdir)/$*.final.pdf -c "30000000 setvmthreshold" -f $(top-build-dir)/out-fonts/*.font.ps $(outdir)/$*.pdfmark $@
+	rm $@
+	mv $(outdir)/$*.final.pdf $@
+endif
 
 $(outdir)/%.txt: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/weblinks.itexi | $(OUT_TEXINFO_MANUALS)
 	$(buildscript-dir)/run-and-check "$(MAKEINFO) -I$(src-dir) -I$(outdir) --no-split --no-headers --output $@ $<"  "$*.makeinfotxt.log"
