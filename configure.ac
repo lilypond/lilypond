@@ -281,6 +281,30 @@ fi
 
 STEPMAKE_PATH_PROG(GHOSTSCRIPT, gs, $DOCUMENTATION_REQUIRED, 8.60)
 
+AC_SUBST(GS920)
+AC_SUBST(EXTRACTPDFMARK)
+AC_SUBST(USE_EXTRACTPDFMARK)
+STEPMAKE_PROGS(GS920, gs, OPTIONAL, 9.20)
+STEPMAKE_PROGS(EXTRACTPDFMARK, extractpdfmark, OPTIONAL)
+req=`STEPMAKE_NUMERIC_VERSION(9.20)`
+USE_EXTRACTPDFMARK=yes
+if test "$GS920_VERSION" -lt "$req"; then
+    GS920=
+    USE_EXTRACTPDFMARK=no
+fi
+if test "$EXTRACTPDFMARK" != "extractpdfmark"; then
+    EXTRACTPDFMARK=
+    USE_EXTRACTPDFMARK=no
+fi
+if test "$USE_EXTRACTPDFMARK" != "yes"; then
+    STEPMAKE_ADD_ENTRY(OPTIONAL,
+        ["(Optionally using Ghostscript >= 9.20 together with"])
+    STEPMAKE_ADD_ENTRY(OPTIONAL,
+        [" Extract PDFmark can significantly reduce the disk space required"])
+    STEPMAKE_ADD_ENTRY(OPTIONAL,
+        [" for building the documentation and the final PDF files.)"])
+fi
+
 STEPMAKE_PROGS(MAKEINFO, makeinfo, REQUIRED, 4.11)
 STEPMAKE_PROGS(TEXI2HTML, texi2html, $DOCUMENTATION_REQUIRED, 1.82)
 STEPMAKE_PROGS(DBLATEX, dblatex, $DOCUMENTATION_REQUIRED, 0.1.4)
