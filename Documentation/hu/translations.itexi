@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Sun Aug  7 13:59:13 UTC 2016
+@emph{Last updated Sun Nov  6 09:35:15 UTC 2016
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -59,7 +59,7 @@ yes
 @item
 LilyPond --- \TITLE\
 @*
-1138
+1139
 @tab Hegyi Tamás
 @*
 Harmath Dénes
@@ -78,7 +78,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">partially</span>
+<span style="background-color: #40fe23">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -185,7 +185,7 @@ partially
 @item
 LilyPond --- \TITLE\
 @*
-1138
+1139
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -202,7 +202,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">partially</span>
+<span style="background-color: #40fe23">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -388,7 +388,7 @@ partially
 @item
 LilyPond --- \TITLE\
 @*
-1138
+1139
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -405,7 +405,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">partially</span>
+<span style="background-color: #40fe23">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -508,7 +508,7 @@ LilyPond -- kottaszedés mindenkinek
 @item
 Section titles
 @*
-629
+760
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -525,7 +525,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #7dff2b">partially</span>
+<span style="background-color: #c0ff34">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -535,7 +535,7 @@ partially
 @item
 LilyPond --- \TITLE\
 @*
-1138
+1139
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -552,7 +552,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">partially</span>
+<span style="background-color: #40fe23">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -562,7 +562,7 @@ partially
 @item
 Bevezetés
 @*
-5815
+5814
 @tab Harmath Dénes
 @tab 
 @tab 

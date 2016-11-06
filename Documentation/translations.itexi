@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Sun Aug  7 13:59:13 UTC 2016
+@emph{Last updated Sun Nov  6 09:35:15 UTC 2016
 }
 @multitable @columnfractions  0.333333333333 0.333333333333 0.333333333333
 
@@ -27,7 +27,7 @@ LilyPond Changes
 @item
 Section titles
 @*
-(2449)
+(2577)
 @tab Francisco Vila
 @*
 
@@ -45,11 +45,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #2cff20">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Federico Bruni
 @*
@@ -68,16 +68,16 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #2cff20">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @item
 LilyPond --- \TITLE\
 @*
-(1138)
+(1139)
 @tab Francisco Vila
 @*
 
@@ -127,7 +127,7 @@ up to date
 @end multitable
 
 
-@multitable @columnfractions  0.2 0.2 0.2 0.2 0.2
+@multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
 @headitem
 Essay on automated music engraving
@@ -135,6 +135,7 @@ Essay on automated music engraving
 @tab es
 @tab fr
 @tab hu
+@tab it
 @item
 Section titles
 @*
@@ -253,10 +254,53 @@ translated
 @ifnothtml
 up to date
 @end ifnothtml
+@tab Tommaso Gordini
+@*
+
+@ifhtml
+
+@html
+<small>Federico Bruni</small>
+@end html
+@end ifhtml
+@ifnothtml
+Federico Bruni
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<small></small>
+@end html
+@end ifhtml
+@ifnothtml
+
+@end ifnothtml
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
+@end ifnothtml
 @item
 LilyPond --- \TITLE\
 @*
-(1138)
+(1139)
 @tab Till Paala
 @*
 
@@ -365,11 +409,54 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">partially up to date</span>
+<span style="background-color: #40fe23">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
 partially up to date
+@end ifnothtml
+@tab Tommaso Gordini
+@*
+
+@ifhtml
+
+@html
+<small>Federico Bruni</small>
+@end html
+@end ifhtml
+@ifnothtml
+Federico Bruni
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<small></small>
+@end html
+@end ifhtml
+@ifnothtml
+
+@end ifnothtml
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
 @end ifnothtml
 @item
 1 Music engraving
@@ -493,6 +580,49 @@ translated
 @ifnothtml
 partially up to date
 @end ifnothtml
+@tab Tommaso Gordini
+@*
+
+@ifhtml
+
+@html
+<small>Federico Bruni</small>
+@end html
+@end ifhtml
+@ifnothtml
+Federico Bruni
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<small></small>
+@end html
+@end ifhtml
+@ifnothtml
+
+@end ifnothtml
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
+@end ifnothtml
 @item
 2 Literature list
 @*
@@ -593,6 +723,49 @@ up to date
 Harmath Dénes
 @*
 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
+@end ifnothtml
+@tab Tommaso Gordini
+@*
+
+@ifhtml
+
+@html
+<small>Federico Bruni</small>
+@end html
+@end ifhtml
+@ifnothtml
+Federico Bruni
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<small></small>
+@end html
+@end ifhtml
+@ifnothtml
+
+@end ifnothtml
 @ifhtml
 
 @html
@@ -731,6 +904,49 @@ not translated
 @ifnothtml
 up to date
 @end ifnothtml
+@tab Tommaso Gordini
+@*
+
+@ifhtml
+
+@html
+<small>Federico Bruni</small>
+@end html
+@end ifhtml
+@ifnothtml
+Federico Bruni
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<small></small>
+@end html
+@end ifhtml
+@ifnothtml
+
+@end ifnothtml
+@ifhtml
+
+@html
+<span style="background-color: #d0f0f8">not translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+not translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
+@end ifnothtml
 @end multitable
 
 
@@ -817,7 +1033,7 @@ up to date
 @item
 LilyPond --- \TITLE\
 @*
-(1138)
+(1139)
 @tab Till Paala
 @*
 
@@ -890,25 +1106,25 @@ up to date
 @item
 1 Scheme tutorial
 @*
-(6359)
+(6403)
 @tab Till Paala
 @*
 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially translated (53 %)</span>
+<span style="background-color: #dfef77">partially translated (54 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially translated (53 %)
+partially translated (54 %)
 @end ifnothtml
 @*
 
 @ifhtml
 
 @html
-<span style="background-color: #62ff28">partially up to date</span>
+<span style="background-color: #6fff29">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -931,11 +1147,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #25fe1f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Jean-Charles Malahieude
 @*
@@ -1404,7 +1620,7 @@ partially up to date
 @item
 LilyPond --- \TITLE\
 @*
-(1138)
+(1139)
 @tab Walter Garcia-Fontes
 @*
 
@@ -1445,7 +1661,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially up to date</span>
+<span style="background-color: #2cff20">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1541,7 +1757,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">partially up to date</span>
+<span style="background-color: #40fe23">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -3519,7 +3735,7 @@ partially up to date
 @item
 LilyPond --- \TITLE\
 @*
-(1138)
+(1139)
 @tab Walter Garcia-Fontes
 @*
 
@@ -3807,7 +4023,7 @@ up to date
 @item
 1.1 Pitches
 @*
-(5224)
+(5272)
 @tab Walter Garcia-Fontes
 @*
 
@@ -4208,7 +4424,7 @@ partially up to date
 @item
 1.3 Expressive marks
 @*
-(1798)
+(1819)
 @tab Walter Garcia-Fontes
 @*
 
@@ -4598,7 +4814,7 @@ partially up to date
 @item
 1.5 Simultaneous notes
 @*
-(2919)
+(2920)
 @tab Walter Garcia-Fontes
 @*
 
@@ -5043,11 +5259,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #25fe1f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Jean-Charles Malahieude
 @*
@@ -5109,11 +5325,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #25fe1f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Yoshiki Sawada
 @*
@@ -5141,7 +5357,7 @@ partially up to date
 @item
 1.8 Text
 @*
-(2754)
+(2755)
 @tab Walter Garcia-Fontes
 @*
 
@@ -5182,7 +5398,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #91ff2e">partially up to date</span>
+<span style="background-color: #97ff2f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -5205,7 +5421,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially up to date</span>
+<span style="background-color: #2cff20">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -5302,7 +5518,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially up to date</span>
+<span style="background-color: #2cff20">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -5327,7 +5543,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially up to date</span>
+<span style="background-color: #2cff20">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -7178,7 +7394,7 @@ partially up to date
 @item
 3 General input and output
 @*
-(12824)
+(12839)
 @tab Walter Garcia-Fontes
 @*
 
@@ -8343,7 +8559,7 @@ up to date
 @item
 LilyPond --- \TITLE\
 @*
-(1138)
+(1139)
 @tab Walter Garcia-Fontes
 @*
 
@@ -8455,7 +8671,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">partially up to date</span>
+<span style="background-color: #40fe23">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -9813,7 +10029,7 @@ LilyPond -- Music notation for everyone
 @item
 Section titles
 @*
-(629)
+(760)
 @tab Walter Garcia-Fontes
 @*
 
@@ -9854,7 +10070,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #a5ff31">partially up to date</span>
+<span style="background-color: #e1ff39">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -9902,11 +10118,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #62ff28">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab John Mandereau
 @*
@@ -9948,7 +10164,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #7dff2b">partially up to date</span>
+<span style="background-color: #c0ff34">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -10061,7 +10277,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #68ff28">partially up to date</span>
+<span style="background-color: #a5ff31">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -10086,7 +10302,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #68ff28">partially up to date</span>
+<span style="background-color: #a5ff31">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -10095,7 +10311,7 @@ partially up to date
 @item
 LilyPond --- \TITLE\
 @*
-(1138)
+(1139)
 @tab Walter Garcia-Fontes
 @*
 
@@ -10136,7 +10352,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially up to date</span>
+<span style="background-color: #2cff20">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -10230,7 +10446,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">partially up to date</span>
+<span style="background-color: #40fe23">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -10377,7 +10593,7 @@ up to date
 @item
 Introduction
 @*
-(5815)
+(5814)
 @tab Walter Garcia-Fontes
 @*
 
@@ -10443,11 +10659,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -10649,7 +10865,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #e1ff39">partially up to date</span>
+<span style="background-color: #e8fe39">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -11639,7 +11855,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #b9ff33">partially up to date</span>
+<span style="background-color: #c0ff34">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -11914,7 +12130,7 @@ partially translated (97 %)
 @ifhtml
 
 @html
-<span style="background-color: #c7ff35">partially up to date</span>
+<span style="background-color: #cdfe36">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml

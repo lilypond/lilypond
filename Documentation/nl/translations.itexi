@@ -16,19 +16,19 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Meest recente update Sun Aug  7 13:59:13 UTC 2016
+@emph{Last updated Sun Nov  6 09:35:15 UTC 2016
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
 @headitem
 LilyPond beginnershandleiding
-@tab Vertalers
-@tab Revisie vertaling
-@tab Vertaald
-@tab Actueel
-@tab Andere informatie
+@tab Translators
+@tab Translation checkers
+@tab Translated
+@tab Up to date
+@tab Other info
 @item
-Paragraaftitels
+Section titles
 @*
 124
 @tab Jan Nieuwenhuizen
@@ -37,50 +37,50 @@ Paragraaftitels
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+yes
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #5bff27">gedeeltelijk</span>
+<span style="background-color: #5bff27">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-gedeeltelijk
+partially
 @end ifnothtml
-@tab na-GDP
+@tab post-GDP
 @item
 LilyPond -- \TITLE\
 @*
-1138
+1139
 @tab Jan Nieuwenhuizen
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+yes
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+yes
 @end ifnothtml
-@tab voor-GDP
+@tab pre-GDP
 @item
 1 Leerboek
 @*
@@ -91,23 +91,23 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">gedeeltelijk (50 %)</span>
+<span style="background-color: #dfef77">partially (50 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-gedeeltelijk (50 %)
+partially (50 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #62ff28">gedeeltelijk</span>
+<span style="background-color: #62ff28">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-gedeeltelijk
+partially
 @end ifnothtml
-@tab voor-GDP
+@tab pre-GDP
 @item
 2 Algemene muzieknotatie
 @*
@@ -118,23 +118,23 @@ gedeeltelijk
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">gedeeltelijk (37 %)</span>
+<span style="background-color: #dfef77">partially (37 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-gedeeltelijk (37 %)
+partially (37 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #c7ff35">gedeeltelijk</span>
+<span style="background-color: #c7ff35">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-gedeeltelijk
+partially
 @end ifnothtml
-@tab voor-GDP
+@tab pre-GDP
 @item
 3 Fundamentele concepten
 @*
@@ -145,23 +145,23 @@ gedeeltelijk
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+yes
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #62ff28">gedeeltelijk</span>
+<span style="background-color: #62ff28">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-gedeeltelijk
+partially
 @end ifnothtml
-@tab voor-GDP
+@tab pre-GDP
 @item
 4 Tweaking output
 @*
@@ -172,23 +172,23 @@ gedeeltelijk
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">gedeeltelijk (95 %)</span>
+<span style="background-color: #dfef77">partially (95 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-gedeeltelijk (95 %)
+partially (95 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #8aff2d">gedeeltelijk</span>
+<span style="background-color: #8aff2d">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-gedeeltelijk
+partially
 @end ifnothtml
-@tab voor-GDP
+@tab pre-GDP
 @item
 A Templates
 @*
@@ -199,23 +199,23 @@ A Templates
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">gedeeltelijk (97 %)</span>
+<span style="background-color: #dfef77">partially (97 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-gedeeltelijk (97 %)
+partially (97 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #ffdd42">gedeeltelijk</span>
+<span style="background-color: #ffdd42">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-gedeeltelijk
+partially
 @end ifnothtml
-@tab voor-GDP
+@tab pre-GDP
 @end multitable
 
 
@@ -223,92 +223,92 @@ gedeeltelijk
 
 @headitem
 LilyPond -- Muzieknotatie voor iedereen
-@tab Vertalers
-@tab Revisie vertaling
-@tab Vertaald
-@tab Actueel
-@tab Andere informatie
+@tab Translators
+@tab Translation checkers
+@tab Translated
+@tab Up to date
+@tab Other info
 @item
-Paragraaftitels
+Section titles
 @*
-629
+760
 @tab Jan Nieuwenhuizen
 @tab Tineke de Munnik
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+yes
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #68ff28">gedeeltelijk</span>
+<span style="background-color: #a5ff31">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-gedeeltelijk
+partially
 @end ifnothtml
-@tab na-GDP
+@tab post-GDP
 @item
 LilyPond -- \TITLE\
 @*
-1138
+1139
 @tab Jan Nieuwenhuizen
 @tab Tineke de Munnik
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+yes
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+yes
 @end ifnothtml
-@tab voor-GDP
+@tab pre-GDP
 @item
 Inleiding
 @*
-5815
+5814
 @tab Jan Nieuwenhuizen
 @tab Tineke de Munnik
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+yes
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #e1ff39">gedeeltelijk</span>
+<span style="background-color: #e8fe39">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-gedeeltelijk
+partially
 @end ifnothtml
-@tab voor-GDP
+@tab pre-GDP
 @item
 Download
 @*
@@ -319,23 +319,23 @@ Download
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+yes
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #68ff28">gedeeltelijk</span>
+<span style="background-color: #68ff28">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-gedeeltelijk
+partially
 @end ifnothtml
-@tab voor-GDP
+@tab pre-GDP
 @item
 Handleidingen
 @*
@@ -346,22 +346,22 @@ Handleidingen
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+yes
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #5bff27">gedeeltelijk</span>
+<span style="background-color: #5bff27">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-gedeeltelijk
+partially
 @end ifnothtml
-@tab voor-GDP
+@tab pre-GDP
 @end multitable
 
