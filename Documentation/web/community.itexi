@@ -893,8 +893,8 @@ new contributors to LilyPond and enables students who are already
 involved to become more involved.  LilyPond participates in GSoC as part
 of the @uref{http://www.gnu.org/, GNU project}.
 
-We have had GSoC participants in 2012 and 2015 and encourage students to
-apply for future summers.
+We have had GSoC participants in 2012, 2015 and 2016 and encourage students
+to apply for future summers.
 
 If you have questions or would like to apply, send us an email on our
 developer mailing list (see @ref{Contact}).
@@ -905,7 +905,7 @@ developer mailing list (see @ref{Contact}).
 @subheading Project Ideas List
 
 Below is a list of suggested projects for GSoC or for anyone who is
-interested in helping to improve LilyPond. (Last updated: February 2016)
+interested in helping to improve LilyPond. (Last updated: November 2016)
 
 Mentor availability varies from project to project and from year to year.
 Send us an email on our developer mailing list (see @ref{Contact}), and
@@ -939,32 +939,6 @@ be improved.
 easily learned
 @strong{Recommended:} Chord theory and naming
 @strong{Mentor:} Carl Sorensen
-
-@divEnd
-
-@divClass{column-center-middle-color3}
-@subheading ScholarLY
-
-ScholarLY is a library in
-@uref{https://openlilylib.org, openLilyLib} that provides functionality
-for annotating scores, making it possible to manage scholarly workflows
-completely in the context of the score document.  So far it is possible
-to enter annotations of different types, produce clickable messages in
-the console output and export to text and LaTeX files.
-
-There are numerous feature requests to turn this library into an
-even more powerful and comprehensive tool.  Some examples: Inserting
-music examples, producing footnotes, automatically applying styles
-to the annotated item (e.g. dash a slur, parenthesize an accidental),
-creating reports with point-and-click entries.  For a full description
-of this project suggestion please visit
-@uref{https://github.com/openlilylib/scholarly/wiki/GSoC, this Wiki page}.
-
-@strong{Difficulty:} medium
-@strong{Requirements:} Scheme, possibly LaTeX, (optionally Python)
-@strong{Recommended:} Experience with or interest in scholarly
-edition and collaborative workflows.
-@strong{Mentor:} Urs Liska
 
 @divEnd
 
@@ -1025,36 +999,6 @@ this book}).  If possible also reduce beaming-computation time.
 @strong{Potential Mentors:} Mike Solomon (not available for GSoC 2016),
 Carl Sorensen
 
-@divEnd
-
-@divClass{column-center-middle-color3}
-@subheading Allow spanners to cross voices
-
-Currently all sorts of spanners (ties, slurs, dynamics, text spanners,
-trills etc.) have to be ended in the context they were started.  However,
-this doesn't reflect the reality of notation in most polyphonic settings.
-Awkward workarounds with hidden voices are currently necessary to achieve
-cross-voice spanners.
-
-New ways of addressing this issue should be explored, for example by
-
-@divClass{keep-bullets}
-@itemize
-
-@item specifying a “target context” where the end of the spanner is
-expected
-
-@item explicitly specifying the ending object with an ID
-
-@end itemize
-@divEnd
-
-This feature would solve many problems that are commonly faced with
-piano music and combined parts. 
-
-@strong{Difficulty:} medium (?)
-@strong{Requirements:} C++, Scheme
-@strong{Potential Mentor:} Urs Liska
 @divEnd
 
 @divClass{column-center-middle-color3}
