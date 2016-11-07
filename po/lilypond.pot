@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.19.49\n"
+"Project-Id-Version: lilypond 2.19.50\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2016-10-16 11:55+0100\n"
+"POT-Creation-Date: 2016-11-06 11:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2629,12 +2629,12 @@ msgid "NoteEvent without pitch"
 msgstr ""
 
 #: open-type-font-scheme.cc:149 open-type-font-scheme.cc:195
-#: open-type-font-scheme.cc:241 pfb-scheme.cc:62 ttf.cc:512 ttf.cc:561
+#: open-type-font-scheme.cc:241 pfb-scheme.cc:60 ttf.cc:512 ttf.cc:561
 msgid "font index must be non-negative, using index 0"
 msgstr ""
 
 #: open-type-font-scheme.cc:163 open-type-font-scheme.cc:209
-#: open-type-font-scheme.cc:289 pfb-scheme.cc:77 ttf.cc:480 ttf.cc:528
+#: open-type-font-scheme.cc:289 pfb-scheme.cc:75 ttf.cc:480 ttf.cc:528
 #, c-format
 msgid "font index %d too large for font `%s', using index 0"
 msgstr ""
@@ -2921,6 +2921,18 @@ msgstr ""
 #: performance.cc:126
 #, c-format
 msgid "MIDI output to `%s'..."
+msgstr ""
+
+#: pfb.cc:45
+msgid "Segment header of the Type 1 (PFB) font is broken."
+msgstr ""
+
+#: pfb.cc:59
+msgid "Segment length of the Type 1 (PFB) font is too long."
+msgstr ""
+
+#: pfb.cc:86
+msgid "Segment type of the Type 1 (PFB) font is unknown."
 msgstr ""
 
 #: piano-pedal-engraver.cc:276
@@ -3597,12 +3609,12 @@ msgstr ""
 msgid "defaulting to ~S pt"
 msgstr ""
 
-#: define-markup-commands.scm:3857
+#: define-markup-commands.scm:3858
 #, scheme-format
 msgid "not a valid duration string: ~a"
 msgstr ""
 
-#: define-markup-commands.scm:4070
+#: define-markup-commands.scm:4071
 #, scheme-format
 msgid "not a valid duration string: ~a - ignoring"
 msgstr ""
@@ -3651,27 +3663,27 @@ msgstr ""
 msgid "unknown Grob interface: ~S"
 msgstr ""
 
-#: documentation-lib.scm:62
+#: documentation-lib.scm:61
 #, scheme-format
 msgid "Processing ~S..."
 msgstr ""
 
-#: documentation-lib.scm:178
+#: documentation-lib.scm:177
 #, scheme-format
 msgid "Writing ~S..."
 msgstr ""
 
-#: documentation-lib.scm:190
+#: documentation-lib.scm:189
 #, scheme-format
 msgid "cannot find description for property `~S' (~S)"
 msgstr ""
 
-#: documentation-lib.scm:211
+#: documentation-lib.scm:210
 #, scheme-format
 msgid "cannot find description for property ~S (~S)"
 msgstr ""
 
-#: flag-styles.scm:155
+#: flag-styles.scm:154
 #, scheme-format
 msgid "flag stroke `~a' or `~a' not found"
 msgstr ""
@@ -3914,7 +3926,7 @@ msgstr ""
 msgid "negative replication count; ignoring"
 msgstr ""
 
-#: modal-transforms.scm:289
+#: modal-transforms.scm:287
 msgid "Dangling tie in \\retrograde"
 msgstr ""
 
@@ -3983,12 +3995,12 @@ msgstr ""
 msgid "Missing duration"
 msgstr ""
 
-#: music-functions.scm:2635
+#: music-functions.scm:2620
 #, scheme-format
 msgid "not a symbol list: ~a"
 msgstr ""
 
-#: music-functions.scm:2638
+#: music-functions.scm:2623
 #, scheme-format
 msgid "conflicting tag group ~a"
 msgstr ""
