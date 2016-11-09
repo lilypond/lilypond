@@ -1,7 +1,7 @@
 \version "2.19.13"
 #(ly:set-option 'warning-as-error #f)
 #(ly:expect-warning (ly:translate-cpp-warning-scheme "Markup depth exceeds maximal value of %d; Markup: %s") 1024 'cycle-markup)
-#(ly:expect-warning (ly:translate-cpp-warning-scheme "Markup depth exceeds maximal value of %d; Markup: %s") 1024 'cycleI-markup)
+#(ly:expect-warning (ly:translate-cpp-warning-scheme "Markup depth exceeds maximal value of %d; Markup: %s") 1024 'cycleII-markup)
 
 \header {
   texidoc = "Cyclic markup definitions should cause a warning, but

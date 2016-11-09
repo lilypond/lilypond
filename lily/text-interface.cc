@@ -134,6 +134,7 @@ Text_interface::interpret_markup (SCM layout_smob, SCM props, SCM markup)
       scm_dynwind_unwind_handler (markup_down_depth, 0, SCM_F_WIND_EXPLICITLY);
       if (markup_depth > max_depth)
         {
+          scm_dynwind_end ();
           string name = ly_symbol2string (scm_procedure_name (func));
           // TODO: Also print the arguments of the markup!
           non_fatal_error (_f ("Markup depth exceeds maximal value of %d; "
