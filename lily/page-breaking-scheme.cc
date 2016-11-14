@@ -21,6 +21,7 @@
 #include "page-turn-page-breaking.hh"
 #include "one-line-page-breaking.hh"
 #include "one-line-auto-height-breaking.hh"
+#include "one-page-breaking.hh"
 #include "optimal-page-breaking.hh"
 #include "minimal-page-breaking.hh"
 
@@ -51,6 +52,16 @@ LY_DEFINE (ly_minimal_breaking, "ly:minimal-breaking",
            " a page before moving to the next one.")
 {
   Minimal_page_breaking b (unsmob<Paper_book> (pb));
+  return b.solve ();
+}
+
+LY_DEFINE (ly_one_page_breaking, "ly:one-page-breaking",
+           1, 0, 0, (SCM pb),
+           "Put each score on a single page.  The paper-height settings"
+           " are modified so each score fits on one page, and the"
+           " height of the page matches the height of the full score.")
+{
+  One_page_breaking b (unsmob<Paper_book> (pb));
   return b.solve ();
 }
 
