@@ -892,8 +892,9 @@ Default values not listed here are defined in
 
 The page-breaking algorithm to use.  Choices are
 @code{ly:minimal-breaking}, @code{ly:page-turn-breaking},
-@code{ly:one-line-breaking}, @code{ly:one-line-auto-height-breaking},
-and @code{ly:optimal-breaking} (the default).
+@code{ly:one-page-breaking}, @code{ly:one-line-breaking},
+@code{ly:one-line-auto-height-breaking}, and @code{ly:optimal-breaking}
+(the default).
 
 @item page-breaking-system-system-spacing
 @funindex page-breaking-system-system-spacing
@@ -968,7 +969,9 @@ Notation Reference:
 @ref{Optimal page breaking},
 @ref{Optimal page turning},
 @ref{Minimal page breaking},
-@ref{One-line page breaking}.
+@ref{One-page page breaking},
+@ref{One-line page breaking},
+@ref{One-line-auto-height page breaking}.
 
 Installed Files:
 @file{ly/paper-defaults-init.ly}.
@@ -1560,6 +1563,7 @@ how to modify them.
 * Manual page breaking::
 * Optimal page breaking::
 * Minimal page breaking::
+* One-page page breaking::
 * One-line page breaking::
 * One-line-auto-height page breaking::
 * Optimal page turning::
@@ -1704,6 +1708,26 @@ a lot of texts.  It is enabled using:
 @seealso
 Snippets:
 @rlsr{Spacing}.
+
+
+@node One-page page breaking
+@unnumberedsubsubsec One-page page breaking
+
+@funindex ly:one-page-breaking
+
+The @code{ly:one-page-breaking} function is a special-purpose
+page breaking algorithm that automatically adjusts the page height to
+fit the music, so that everything fits on a single page.  The
+@code{paper-height} variable in the paper block is ignored, but other
+settings work as usual.  In particular, the spacing between the last
+system (or top level markup) and the footer can be customized with
+@code{last-bottom-spacing} in the paper block.  The width of the page
+is left unmodified by default but can be set with @code{paper-width}
+in the paper block.
+
+@knownissues
+@code{ly:one-page-breaking} is not currently compatible with
+@code{\bookpart}.
 
 
 @node One-line page breaking

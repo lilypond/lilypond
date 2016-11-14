@@ -209,11 +209,12 @@ dimensions from a markup object, given as first argument.
 @end lilypond
 
 @item
-A new page breaking function @code{ly:one-line-auto-height-breaking}
-places a whole score on a single line and changes the page width
-to match, just like @code{ly:one-line-breaking}.  The difference is that
-it also automatically modifies the height of the page to fit the height
-of the music.
+There are two new page breaking functions.  @code{ly:one-page-breaking}
+automatically adjusts the height of the page to fit the music, so that
+everything fits on one page.  @code{ly:one-line-auto-height-breaking}
+is like @code{ly:one-line-breaking}, placing the music on a single
+line and adjusting the page width accordingly, however it also
+automatically adjusts the page height to fit the music.
 
 @item
 Markup-command @code{\draw-squiggle-line} is now available.
