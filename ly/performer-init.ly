@@ -246,7 +246,6 @@
   \accepts Lyrics
   \accepts MensuralStaff
   \accepts NoteNames
-  \accepts NullVoice
   \accepts OneStaff
   \accepts PetrucciStaff
   \accepts PianoStaff
@@ -311,6 +310,7 @@
   \accepts ChordNames
   \accepts FiguredBass
   \accepts DrumStaff
+  \accepts Dynamics
   \accepts GrandStaff
   \accepts Lyrics
   \accepts OneStaff
