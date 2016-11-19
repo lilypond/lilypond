@@ -84,14 +84,16 @@ LY_DEFINE (ly_encode_string_for_pdf, "ly:encode-string-for-pdf",
   free (p);
 
   /* Convert back to SCM object and return it */
-  /* FIXME guile-2.0: With guile 2.0 the internal representation of a string
-   *                  has changed (char vector rather than binary bytes in
-   *                  UTF-8). However, with guile 2.0, ly:encode-string-for-pdf
-   *                  is no longer needed and can be replaced by the new
-   *                  (string->utf16 str 'big)
-   */
   if (g)
-    return scm_take_str (g, bytes_written); // scm_take_str eventually frees g!
+    {
+      /*
+       * Return the raw byte representation of the UTF-16BE encoded string,
+       * in a locale independent way.
+       */
+      SCM string = scm_from_latin1_stringn (g, bytes_written);
+      free(g);
+      return string;
+    }
   else
     return str;
 }
