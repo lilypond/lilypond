@@ -9,7 +9,8 @@
 #(if (guile-v2)
   (begin
    (use-modules (ice-9 curried-definitions))
-   (setlocale LC_ALL "")))
+   (setlocale LC_ALL "")
+   (setlocale LC_NUMERIC "C")))
 
 #(session-initialize
   (lambda ()
