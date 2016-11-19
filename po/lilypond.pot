@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.19.50\n"
+"Project-Id-Version: lilypond 2.19.51\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2016-11-06 11:23+0000\n"
+"POT-Creation-Date: 2016-11-19 13:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2594,7 +2594,7 @@ msgid ""
 "usable-duration-logs must be a non-empty list.  Falling back to whole rests."
 msgstr ""
 
-#: music.cc:150
+#: music.cc:154
 #, c-format
 msgid "octave check failed; expected \"%s\", found: \"%s\""
 msgstr ""
@@ -2714,12 +2714,12 @@ msgstr ""
 msgid "Replace font name from %s to %s."
 msgstr ""
 
-#: open-type-font.cc:316
+#: open-type-font.cc:321
 #, c-format
 msgid "FT_Get_Glyph_Name () Freetype error: %s"
 msgstr ""
 
-#: open-type-font.cc:464 pango-font.cc:259
+#: open-type-font.cc:469 pango-font.cc:261
 #, c-format
 msgid "FT_Get_Glyph_Name () error: %s"
 msgstr ""
@@ -2850,24 +2850,24 @@ msgstr ""
 msgid "\tprevious break: %d"
 msgstr ""
 
-#: pango-font.cc:248
+#: pango-font.cc:250
 #, c-format
 msgid "no glyph for character U+%0X in font `%s'"
 msgstr ""
 
-#: pango-font.cc:275
+#: pango-font.cc:277
 #, c-format
 msgid ""
 "Glyph has no name, but font supports glyph naming.\n"
 "Skipping glyph U+%0X, file %s"
 msgstr ""
 
-#: pango-font.cc:325
+#: pango-font.cc:327
 #, c-format
 msgid "no PostScript font name for font `%s'"
 msgstr ""
 
-#: pango-font.cc:375
+#: pango-font.cc:377
 msgid "FreeType face has no PostScript font name"
 msgstr ""
 
@@ -3163,7 +3163,7 @@ msgid "Grob count %d"
 msgstr ""
 
 #. TODO: Also print the arguments of the markup!
-#: text-interface.cc:139
+#: text-interface.cc:140
 #, c-format
 msgid "Markup depth exceeds maximal value of %d; Markup: %s"
 msgstr ""
@@ -3693,69 +3693,89 @@ msgstr ""
 msgid "Writing ~a..."
 msgstr ""
 
-#: framework-ps.scm:260
+#: framework-ps.scm:265
 #, scheme-format
 msgid "CFF font `~a' already embedded, skipping."
 msgstr ""
 
-#: framework-ps.scm:263
+#: framework-ps.scm:268
 #, scheme-format
 msgid ""
 "Different CFF fonts which have the same name `~a' has been detected. The "
 "font cannot be embedded."
 msgstr ""
 
-#: framework-ps.scm:267
+#: framework-ps.scm:272
 #, scheme-format
 msgid "Embedding CFF font `~a'."
 msgstr ""
 
-#: framework-ps.scm:272
+#: framework-ps.scm:277
 msgid "Initializing embedded CFF font list."
 msgstr ""
 
-#: framework-ps.scm:325
+#: framework-ps.scm:331
 #, scheme-format
 msgid ""
 "Font ~a cannot be loaded via Ghostscript because its font-index (~a) is not "
 "zero."
 msgstr ""
 
-#: framework-ps.scm:331
+#: framework-ps.scm:337
 #, scheme-format
 msgid ""
 "Font ~a cannot be loaded via Ghostscript because it is an OpenType/CFF "
 "Collection (OTC) font."
 msgstr ""
 
-#: framework-ps.scm:337
+#: framework-ps.scm:343
 #, scheme-format
 msgid ""
 "Font ~a cannot be used via Ghostscript because it is a TrueType font that "
 "does not have glyph names."
 msgstr ""
 
-#: framework-ps.scm:351
+#: framework-ps.scm:365
 #, scheme-format
 msgid "cannot embed ~S=~S"
 msgstr ""
 
-#: framework-ps.scm:394
+#: framework-ps.scm:408
 #, scheme-format
 msgid "cannot extract file matching ~a from ~a"
 msgstr ""
 
-#: framework-ps.scm:411
+#: framework-ps.scm:427
 #, scheme-format
 msgid "do not know how to embed ~S=~S"
 msgstr ""
 
-#: framework-ps.scm:436
+#: framework-ps.scm:452
 #, scheme-format
 msgid "do not know how to embed font ~s ~s ~s"
 msgstr ""
 
-#: framework-ps.scm:820
+#: framework-ps.scm:517
+#, scheme-format
+msgid "Font file `~a' already exists, skipping."
+msgstr ""
+
+#: framework-ps.scm:527
+#, scheme-format
+msgid "Exporting font file `~a'."
+msgstr ""
+
+#: framework-ps.scm:543
+#, scheme-format
+msgid "Font export directory `~a' already exists."
+msgstr ""
+
+#: framework-ps.scm:546
+#, scheme-format
+msgid "Making font export directory `~a'."
+msgstr ""
+
+#: framework-ps.scm:892
 msgid ""
 "\n"
 "The PostScript backend does not support the\n"
@@ -3829,50 +3849,50 @@ msgstr ""
 msgid "define-session used after session start"
 msgstr ""
 
-#: lily.scm:444
+#: lily.scm:450
 msgid "Using (ice-9 curried-definitions) module\n"
 msgstr ""
 
-#: lily.scm:447
+#: lily.scm:453
 msgid "Guile 1.8\n"
 msgstr ""
 
-#: lily.scm:504
+#: lily.scm:510
 #, scheme-format
 msgid "cannot find: ~A"
 msgstr ""
 
-#: lily.scm:934
+#: lily.scm:940
 msgid "Success: compilation successfully completed"
 msgstr ""
 
-#: lily.scm:935
+#: lily.scm:941
 msgid "Compilation completed with warnings or errors"
 msgstr ""
 
-#: lily.scm:996
+#: lily.scm:1002
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr ""
 
-#: lily.scm:999
+#: lily.scm:1005
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
 "~a"
 msgstr ""
 
-#: lily.scm:1021 lily.scm:1110
+#: lily.scm:1027 lily.scm:1116
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:1101
+#: lily.scm:1107
 #, scheme-format
 msgid "Redirecting output to ~a..."
 msgstr ""
 
-#: lily.scm:1120
+#: lily.scm:1126
 #, scheme-format
 msgid "Invoking `~a'...\n"
 msgstr ""
