@@ -124,12 +124,13 @@ ly_scm2string (SCM str)
 {
   assert (scm_is_string (str));
   string result;
-  size_t len = scm_c_string_length (str);
+  size_t len;
+  char *c_string = scm_to_locale_stringn (str, &len);
   if (len)
     {
-      result.resize (len);
-      scm_to_locale_stringbuf (str, &result.at (0), len);
+      result.assign (c_string, len);
     }
+  free (c_string);
   return result;
 }
 
