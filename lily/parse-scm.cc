@@ -53,7 +53,14 @@ internal_ly_parse_scm (Parse_start *ps)
   if (multiple)
     (void) scm_read_char (port);
 
+#if GUILEV2
+  SCM current_encoding = scm_port_encoding (port);
+  scm_set_port_encoding_x (port, ly_string2scm("UTF-8"));
   SCM form = scm_read (port);
+  scm_set_port_encoding_x (port, current_encoding);
+#else
+  SCM form = scm_read (port);
+#endif
   SCM to = scm_ftell (port);
 
   hi.set (hi.get_source_file (),
