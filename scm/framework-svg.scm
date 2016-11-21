@@ -117,7 +117,11 @@ src: url('~a');
   (define-fonts paper svg-define-font svg-define-font))
 
 (define (dump-page paper filename page page-number page-count)
-  (let* ((outputter (ly:make-paper-outputter (open-file filename "wb") 'svg))
+  (let* ((outputter (ly:make-paper-outputter
+                     (if (guile-v2)
+                         (open-output-file filename #:encoding "UTF-8")
+                         (open-file filename "wb"))
+                     'svg))
          (dump (lambda (str) (display str (ly:outputter-port outputter))))
          (lookup (lambda (x) (ly:output-def-lookup paper x)))
          (unit-length (lookup 'output-scale))
@@ -145,7 +149,11 @@ src: url('~a');
     (ly:outputter-close outputter)))
 
 (define (dump-preview paper stencil filename)
-  (let* ((outputter (ly:make-paper-outputter (open-file filename "wb") 'svg))
+  (let* ((outputter (ly:make-paper-outputter
+                     (if (guile-v2)
+                         (open-output-file filename #:encoding "UTF-8")
+                         (open-file filename "wb"))
+                     'svg))
          (dump (lambda (str) (display str (ly:outputter-port outputter))))
          (lookup (lambda (x) (ly:output-def-lookup paper x)))
          (unit-length (lookup 'output-scale))
