@@ -87,7 +87,7 @@ Manuel de notation :
 
 
 @node Formes de notation ancienne prises en charge
-@unnumberedsubsubsec Formes de notation ancienne prises en charge
+@subsection Formes de notation ancienne prises en charge
 @translationof Overview of the supported styles
 
 En matière de chant grégorien, LilyPond dispose de trois différents
