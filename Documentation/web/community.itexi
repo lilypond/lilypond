@@ -597,10 +597,9 @@ active and experienced developers are.  Statistics up to version
 
 Interested developers:
 @table @asis
-@item @email{dak@@gnu.org, David Kastrup}
-Donations are required to let me continue my current fulltime work on
-LilyPond.  I focus on user and programmer interface design, coherence,
-implementation, simplification, documentation, and debugging.
+@item @email{lilypond-devel@@gnu.org, LilyPond developer list}
+Since no developer currently is listed for commercial development,
+your best bet is asking on the developer list.
 
 @c Format
 @c @item @email{name@@adress.domain, Name}
