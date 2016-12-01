@@ -1078,9 +1078,9 @@ oboeNotes = \relative {
 }
 @end lilypond
 
-If an @code{\unfoldRepeat} command in a music expression is required to
+If an @code{\unfoldRepeats} command in a music expression is required to
 be printed when using @code{\quoteDuring}, then it too must also contain
-its own @code{\unfoldRepeat} command;
+its own @code{\unfoldRepeats} command;
 
 @lilypond[verbatim,quote]
 fluteNotes = \relative {

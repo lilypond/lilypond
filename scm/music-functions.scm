@@ -390,19 +390,36 @@ beats to be distinguished."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; repeats.
 
-(define-public (unfold-repeats music)
-  "Replace all repeats with unfolded repeats."
-  (let ((es (ly:music-property music 'elements))
-        (e (ly:music-property music 'element)))
-    (if (music-is-of-type? music 'repeated-music)
-        (set! music (make-music 'UnfoldedRepeatedMusic music)))
-    (if (pair? es)
-        (set! (ly:music-property music 'elements)
-              (map unfold-repeats es)))
-    (if (ly:music? e)
-        (set! (ly:music-property music 'element)
-              (unfold-repeats e)))
-    music))
+(define-public (unfold-repeats types music)
+  "Replace repeats of the types given by @var{types} with unfolded repeats.
+If @var{types} is an empty list, @code{repeated-music} is taken, unfolding all."
+  (let* ((types-list
+           (if (or (null? types) (not (list? types)))
+               (list types)
+               types))
+         (repeat-types-alist
+           '((volta . volta-repeated-music)
+             (percent . percent-repeated-music)
+             (tremolo . tremolo-repeated-music)
+             (() . repeated-music)))
+         (repeat-types-hash (alist->hash-table repeat-types-alist)))
+  (for-each
+    (lambda (type)
+      (let ((repeat-type (hashq-ref repeat-types-hash type)))
+        (if repeat-type
+            (let ((es (ly:music-property music 'elements))
+                  (e (ly:music-property music 'element)))
+              (if (music-is-of-type? music repeat-type)
+                  (set! music (make-music 'UnfoldedRepeatedMusic music)))
+              (if (pair? es)
+                  (set! (ly:music-property music 'elements)
+                        (map (lambda (x) (unfold-repeats types x)) es)))
+              (if (ly:music? e)
+                  (set! (ly:music-property music 'element)
+                        (unfold-repeats types e))))
+            (ly:warning "unknown repeat-type ~a, ignoring." type))))
+    types-list)
+  music))
 
 (define-public (unfold-repeats-fully music)
   "Unfolds repeats and expands the resulting @code{unfolded-repeated-music}."
@@ -411,7 +428,7 @@ beats to be distinguished."
      (and (music-is-of-type? m 'unfolded-repeated-music)
           (make-sequential-music
            (ly:music-deep-copy (make-unfolded-set m)))))
-   (unfold-repeats music)))
+   (unfold-repeats '() music)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; property setting music objs.
