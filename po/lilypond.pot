@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.19.51\n"
+"Project-Id-Version: lilypond 2.19.52\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2016-11-19 13:46+0000\n"
+"POT-Creation-Date: 2016-12-03 12:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2581,7 +2581,8 @@ msgstr ""
 msgid "cannot write to file: `%s'"
 msgstr ""
 
-#: minimal-page-breaking.cc:40 paper-score.cc:116
+#. LINE BREAKING
+#: minimal-page-breaking.cc:40 one-page-breaking.cc:72 paper-score.cc:116
 msgid "Calculating line breaks..."
 msgstr ""
 
@@ -2626,6 +2627,11 @@ msgstr ""
 
 #: note-heads-engraver.cc:75
 msgid "NoteEvent without pitch"
+msgstr ""
+
+#. PAGE BREAKING
+#: one-page-breaking.cc:78 optimal-page-breaking.cc:114
+msgid "Fitting music on 1 page..."
 msgstr ""
 
 #: open-type-font-scheme.cc:149 open-type-font-scheme.cc:195
@@ -2733,10 +2739,6 @@ msgstr ""
 msgid ""
 "could not satisfy systems-per-page and page-count at the same time, ignoring "
 "systems-per-page"
-msgstr ""
-
-#: optimal-page-breaking.cc:114
-msgid "Fitting music on 1 page..."
 msgstr ""
 
 #: optimal-page-breaking.cc:116
