@@ -2127,6 +2127,9 @@ def extract_lyrics(voice, lyric_key, lyrics_dict):
     def is_rest(elem):
         return elem.get_typed_children(musicxml.Rest)
 
+    def is_chord(elem):
+        return elem.get_typed_children(musicxml.Chord)
+
     def is_note_and_not_rest(elem):
         return is_note(elem) and not is_rest(elem)
 
@@ -2153,6 +2156,11 @@ def extract_lyrics(voice, lyric_key, lyrics_dict):
              not note_has_lyric_belonging_to_lyric_part:
             result.append('\skip1 ')
         # Note does not have any lyric attached to it.
+        elif is_chord(elem):
+            # note without lyrics part of a chord. MusicXML format is
+            # unclear if a chord element could contain a lyric, lets
+            # asume that we do not want to put a skip here.
+            continue
         elif is_note_and_not_rest(elem):
             result.append('\skip1 ')
 
