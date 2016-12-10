@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 136e94ea422fc94ef2587c588d516a03e01275e1
+    Translation of GIT committish: 6b8cabe379e8b4b945797a4e55759c56117223d4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -598,11 +598,10 @@ Un buon modo per sapere quali sono gli sviluppatori più attivi e preparati
 
 Sviluppatori interessati:
 @table @asis
-@item @email{dak@@gnu.org, David Kastrup}
-Le donazioni mi permettono di continuare il mio lavoro a tempo
-pieno su LilyPond.  Mi occupo in particolare di progettazione, coerenza,
-implementazione, semplificazione, documentazione e debug dell'interfaccia
-utente e programmatore.
+@item @email{lilypond-devel@@gnu.org, mailing list degli sviluppatori di LilyPond}
+In questo momento nessuno programmatore si è proposto per fornire miglioramenti
+di LilyPond a pagamento, ma è comunque possibile provare a chiedere nella
+mailing list degli sviluppatori.
 
 @c Format
 @c @item @email{name@@adress.domain, Name}
@@ -891,8 +890,8 @@ vantaggio.  Attrae nuovi collaboratori e stimola gli studenti che già
 partecipano allo sviluppo di LilyPond ad impegnarsi di più in esso.  LilyPond
 partecipa a GSoC sotto l'egida del @uref{http://www.gnu.org/, progetto GNU}.
 
-Abbiamo avuto partecipanti al GSoC nel 2012 e nel 2015 e invitiamo gli studenti
-a fare domanda per le prossime estati.
+Abbiamo avuto partecipanti al GSoC nel 2012, 2015 e 2016 e invitiamo gli
+studenti a fare domanda per le prossime estati.
 
 Se hai dubbi o desideri presentare domanda, invia un'email alla nostra
 mailing list degli sviluppatori (vedi @ref{Contact}).
@@ -903,7 +902,7 @@ mailing list degli sviluppatori (vedi @ref{Contact}).
 @subheading Elenco di idee di progetti
 
 Ecco un elenco di progetti suggeriti per il GSoC o per chiunque sia interessato
-a aiutare a migliorare LilyPond. (Ultimo aggiornamento: Febbraio 2016)
+a aiutare a migliorare LilyPond. (Ultimo aggiornamento: Novembre 2016)
 
 La disponibilità di mentori varia da progetto a progetto e di anno in anno.
 Invia un'email alla nostra mailing list degli sviluppatori (vedi @ref{Contact})
@@ -937,34 +936,6 @@ migliorare la formattazione dei nomi degli accordi.
 facilmente imparato
 @strong{Consigliato:} Teoria e nomenclatura degli accordi
 @strong{Mentore:} Carl Sorensen
-
-@divEnd
-
-@divClass{column-center-middle-color3}
-@subheading ScholarLY
-
-ScholarLY è una libreria di
-@uref{https://openlilylib.org, openLilyLib} che fornisce delle funzionalità
-per aggiungere annotazioni alle partiture, rendendo possibile la gestione
-dei flussi di lavoro accademici nel contesto del documento della partitura.
-Finora è possibile inserire delle annotazioni di diverso tipo, produrre
-messaggi cliccabili nell'output della console e esportare su file di testo
-o LaTeX.
-
-Ci sono numerose richieste di nuove funzionalità per trasformare questa
-libreria in uno strumento ancora più potente e completo.  Alcuni esempi:
-inserimento di esempi musicali, creazione di note a piè di pagina, applicazione
-automatica di stili all'elemento annotato (per esempio, usare il trattino per
-la legatura di portamento, mettere un'alterazione tra parentesi), creazione
-di resoconti con voci punta-e-clicca.  Una descrizione completa di questo
-progetto si trova in
-@uref{https://github.com/openlilylib/scholarly/wiki/GSoC, questa pagina Wiki}.
-
-@strong{Difficoltà:} media
-@strong{Requisiti:} Scheme, possibilmente LaTeX, (opzionalmente Python)
-@strong{Consigliato:} Esperienza o interesse nelle edizioni accademiche e
-nei progetti collaborativi.
-@strong{Mentore:} Urs Liska
 
 @divEnd
 
@@ -1027,40 +998,6 @@ disposizione delle travature.
 @strong{Conoscenze consigliate:} senso estetico
 @strong{Mentori potenziali:} Mike Solomon (non disponibile per GSoC 2016), Carl Sorensen
 
-@divEnd
-
-
-@divClass{column-center-middle-color3}
-@subheading Permettere agli estensori di attraversare le voci
-
-Attualmente gli estensori di ogni tipo (legature di valore e di portamento,
-dinamiche, estensori del testo, trilli, etc.) devono essere terminati nel
-contesto in cui sono iniziati.  Tuttavia, questo limite non riflette la
-realtà della notazione nella maggior parte delle impostazioni polifoniche.
-Attualmente sono necessari degli scomodi espedienti che fanno uso di voci
-nascoste per ottenere degli estensori che attraversino le voci.
-
-Dovrebbero essere esplorati nuovi modi di affrontare questo problema, per
-esempio
-
-@divClass{keep-bullets}
-@itemize
-
-@item specificando un @qq{contesto obiettivo} dove è prevista la terminazione
-dell'estensore
-
-@item specificando esplicitamente l'oggetto su cui terminare l'estensore
-tramite un ID
-
-@end itemize
-@divEnd
-
-Questa funzionalità risolverebbe molti problemi che si riscontrano comunemente
-nella musica per pianoforte e nelle parti combinate.
-
-@strong{Difficoltà:} media (?)
-@strong{Requisiti:} C++, Scheme
-@strong{Mentore potenziale:} Urs Liska
 @divEnd
 
 
