@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 2034ca4fcbed9253b5a85e9360e47d3fe3ff1d09
+   Translation of GIT committish: 6b8cabe379e8b4b945797a4e55759c56117223d4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -626,6 +626,11 @@ est utilisée pour les tests de régression.
 @tab Décale le bord gauche du typon EPS d'une valeur donnée en
 millimètres.
 
+@item @code{font-export-dir}
+@tab @code{#f [répertoire]}
+@tab Répertoire dans lequel exporter les fontes en tant que fichiers
+PostScript.
+
 @item @code{gs-load-fonts}
 @tab @code{#f}
 @tab Charge les fontes grâce à Ghostscript.
@@ -634,6 +639,11 @@ millimètres.
 @tab @code{#f}
 @tab Limite les fontes chargées par Ghostscript aux seules fontes
 LilyPond.
+
+@item @code{gs-never-embed-fonts}
+@tab @code{#f}
+@tab Intime à Ghostscript d'embarquer les fontes uniquement au format
+TrueType, sans exception.
 
 @item @code{gui}
 @tab @code{#f}

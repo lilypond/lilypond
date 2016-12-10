@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: 0628cc44250b21d422b21890a7f266cd4b5ca584
+   Translation of GIT committish: 6b8cabe379e8b4b945797a4e55759c56117223d4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -643,11 +643,9 @@ statistiques s'arrêtent à la version @versionDevel{}.
 
 Développeurs intéressés :
 @table @asis
-@item @email{dak@@gnu.org, David Kastrup (le contacter en anglais)}
-Vos contributions me permettront de continuer mon activité à temps plein
-sur LilyPond.  Je me concentre sur la modélisation des interfaces entre
-l'utilisateur et le programme -- cohérence, implémentation,
-simplification, documentation et débogage.
+@item @email{lilypond-devel@@gnu.org, Liste des développeurs de LilyPond}
+Dans la mesure où aucun développeur ne s'est actuellement déclaré,
+veuillez vous adresser directement à la liste de diffusion des développeurs.
 
 @c Format
 @c @item @email{name@@adress.domain, Name}
@@ -959,7 +957,7 @@ qui y participent déjà d'y être encore plus impliqués.  LilyPond
 participe à ce programme sous l'égide du
 @uref{http://www.gnu.org/, projet GNU}.
 
-Nous avons eu des participants aux sessions de 2012 et 2015, et
+Nous avons eu des participants aux sessions de 2012, 2015 et 2016, et
 encourageons les étudiants à candidater pour les sessions à venir.
 
 Si vous avez des questions à ce sujet ou avez envie d'y participer,
@@ -973,7 +971,7 @@ contactez-nous sur la liste des développeurs (voir @ref{Contact}).
 
 Voici une liste de projets que nous avons proposés aux étudiants du GSoC
 et à quiconque aurait envie d'améliorer LilyPond.@*
-Dernière mise à jour : février 2016.
+Dernière mise à jour : novembre 2016.
 
 La disponibilité de tuteurs diffère selon les projets et les années.
 Contactez-nous sur la liste des développeurs -- voir @ref{Contact} -- et
@@ -1009,34 +1007,6 @@ des accords nommés.
 s'acquérir aisément.
 @strong{Connaissances appréciées :} Théorie des accords et de leur nommage
 @strong{Mentor :} Carl Sorensen
-@divEnd
-
-
-@divClass{column-center-middle-color3}
-@subheading ScholarLY
-
-ScholarLY est une bibliothèque hébergée sur
-@uref{https://openlilylib.org, openLilyLib} et qui fournit des
-fonctionnalités permettant, grâce à des annotations, de gérer
-directement dans le contexte de la partition le flux de travail d'une
-« édition savante ».  Il est à ce jour possible de saisir différents
-types d'annotations, produire des messages cliquables en console et
-exporter du texte dans des fichiers @LaTeX{}.
-
-Un certain nombre de demandes d'extension permettraient de transformer
-cette bibliothèque en un outil encore plus puissant et complet, par
-exemple par l'insertion d'exemples musicaux, la production de notes de
-bas de page ou l'application de styles particuliers -- mise en pointillé
-d'une liaison, mise entre parenthèses d'un altération, etc. -- ou la
-création de rapports avec des liens inter-documents.  Pour une
-description complète des suggestions autour de ce projet, visitez
-@uref{https://github.com/openlilylib/scholarly/wiki/GSoC, ce Wiki}.
-
-@strong{Difficulté :} moyenne
-@strong{Préalables :} Scheme, peut-être @LaTeX{}, (Python optionnel)
-@strong{Connaissances appréciées :} Expérience ou intérêt dans l'édition
-critique et les flux collaboratifs.
-@strong{Mentor :} Urs Liska
 @divEnd
 
 
@@ -1101,41 +1071,6 @@ le temps de calcul nécessaire à la génération des ligatures.
 @strong{Connaissance appréciée :} sens de l'esthétique
 @strong{Mentors potentiels :} Mike Solomon (indisponible pour le GSoc
 2016), Carl Sorensen
-@divEnd
-
-
-@divClass{column-center-middle-color3}
-@subheading Permettre aux bandeaux ou extensions de naviguer entre les voix
-@c VO Allow spanners to cross voices
-
-Jusqu'à présent, les différents bandeaux ou extenseurs, qu'il s'agisse de
-liaison de tenue ou non, de nuances, de prolongateurs de texte, de
-trilles, etc. doivent se terminer dans le contexte même où ils ont été
-entamés.  Ceci néanmoins ne reflète pas la réalité de la notation dans
-la plupart des situations polyphoniques.  La seule échappatoire, pour
-l'instant, consiste à recourir à des voix masquées.
-
-De nouveaux moyens de faire face à cette situation pourraient être
-envisagés, comme
-
-@divClass{keep-bullets}
-@itemize
-
-@item la spécification du « contexte cible » où la terminaison de
-l'extension est attendue,
-
-@item l'affectation d'un ID à l'objet où intervient la terminaison.
-
-@end itemize
-@divEnd
-
-Cette fonctionnalité permettrait de résoudre nombre de problèmes
-courants en matière de partition pianistique ou lors de combinaisons de
-parties.
-
-@strong{Difficulté :} moyenne (?)
-@strong{Préalables :} C++, Scheme
-@strong{Mentor potentiel :} Urs Liska
 @divEnd
 
 

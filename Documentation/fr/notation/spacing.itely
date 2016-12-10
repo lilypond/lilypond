@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 137af1bb9546d8845cbd7f9ecc0936fb4a0914e3
+   Translation of GIT committish: 6b8cabe379e8b4b945797a4e55759c56117223d4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -971,8 +971,9 @@ Les valeurs par défaut sont définies dans le fichier
 
 L'algorithme de calcul des sauts de page à utiliser.  Vous avez le choix
 entre @code{ly:minimal-breaking}, @code{ly:page-turn-breaking},
-@code{ly:one-line-breaking}, @code{ly:one-line-auto-height-breaking} et
-@code{ly:optimal-breaking} (activé par défaut).
+@code{ly:one-page-breaking}, @code{ly:one-line-breaking},
+@code{ly:one-line-auto-height-breaking}, et @code{ly:optimal-breaking}
+(activé par défaut).
 
 @item page-breaking-system-system-spacing
 @funindex page-breaking-system-system-spacing
@@ -1053,6 +1054,8 @@ Manuel de notation :
 @ref{Minimisation des sauts de page},
 @ref{Optimisation des sauts de page},
 @ref{Optimisation des tournes},
+@ref{Présentation en ligne continue},
+@ref{Présentation en page continue},
 @ref{Présentation en rouleau},
 @ref{Sauts de page}.
 
@@ -1688,6 +1691,7 @@ page, ainsi que les moyens de les modifier.
 * Saut de page manuel::
 * Optimisation des sauts de page::
 * Minimisation des sauts de page::
+* Présentation en page continue::
 * Présentation en ligne continue::
 * Présentation en rouleau::
 * Optimisation des tournes::
@@ -1846,6 +1850,29 @@ Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
 
+@node Présentation en page continue
+@unnumberedsubsubsec Présentation en page continue
+@translationof One-page page breaking
+
+@funindex ly:one-page-breaking
+
+La fonction @code{ly:one-page-breaking} constitue un algorithme de
+calcul des sauts de page particulier en ceci que la hauteur de page sera
+automatiquement ajustée à la longueur de la partition, de telle sorte
+que toute la musique tienne sur une seule page.  La variable
+@code{paper-height} du bloc @code{\paper} est ignorée, mais les autres
+réglages restent disponibles.  En particulier, l'espacement entre le
+dernier système (ou un @emph{markup} de premier niveau) et le pied de
+page est réglable à l'aide de la variable @code{last-bottom-spacing}
+du bloc @code{\paper}.  La largeur de page n'est, par défaut, pas
+modifiée ; ceci peut s'ajuster à l'aide de la variable
+@code{paper-width} du bloc @code{\paper}.
+
+@knownissues
+@code{ly:one-page-breaking} est à ce jour incompatible avec
+l'utilisation de @code{\bookpart}.
+
+
 @node Présentation en ligne continue
 @unnumberedsubsubsec Présentation en ligne continue
 @translationof One-line page breaking
@@ -1853,7 +1880,7 @@ Morceaux choisis :
 @funindex ly:one-line-breaking
 
 La fonction @code{ly:one-line-breaking} constitue un algorithme de
-calcul des sauts de pages particulier en ceci que chaque partition fait
+calcul des sauts de page particulier en ceci que chaque partition fait
 l'objet d'une page unique, d'une seule ligne.  Cette fonctionnalité
 s'affranchit de l'impression des titres et marges ; seule la partition
 est affichée.
