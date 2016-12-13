@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: d4756c74976a991bd80cf757f774e5525d0830cb
+    Translation of GIT committish: 136e94ea422fc94ef2587c588d516a03e01275e1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -451,7 +451,7 @@ He aquí un ejemplo de un sencillo ejercicio de contrapunto.
 @divClass{column-center-middle-color2}
 @subheading Música pop
 
-Es sencillo crear hojas guía de acordes en cifrado americano para
+Es sencillo crear hojas guía de acordes (leadsheets) en cifrado americano para
 música pop con melodía, letra, nombres de acordes y diagramas de
 posiciones de acorde.  En este ejemplo vemos algunos de los
 diagramas de posiciones predefinidas, pero se pueden personalizar
