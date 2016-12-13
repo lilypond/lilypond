@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.22"
+@c \version "2.19.53"
 
 
 @node Pitches
@@ -2187,6 +2187,129 @@ musicB = {
   <<
     \context Staff = "up" {
       \accidentalStyle piano-cautionary
+      \musicA
+    }
+    \context Staff = "down" {
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+
+@item choral
+
+@cindex accidental style, choral
+@cindex accidentals, choral
+@cindex choral accidental style
+@cindex choral accidentals
+
+@funindex choral
+
+This rule is a combination of the @code{modern-voice} and the @code{piano}
+style. It is intended for editions that are used both by singers that only
+follow their own voice, as well as others that read an entire
+@code{ChoirStaff} simultaneously.
+
+This accidental style applies to the current @code{ChoirStaff} by default.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>]
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new ChoirStaff {
+  <<
+    \context Staff = "up" {
+      \accidentalStyle choral
+      \musicA
+    }
+    \context Staff = "down" {
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item choral-cautionary
+
+@cindex accidentals, choral cautionary
+@cindex cautionary accidentals, choral
+@cindex choral cautionary accidentals
+@cindex accidental style, choral cautionary
+@cindex cautionary accidental style, choral
+@cindex choral cautionary accidental style
+
+@funindex choral-cautionary
+
+This is the same as @code{choral} but with the extra accidentals
+typeset as cautionaries.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>]
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new ChoirStaff {
+  <<
+    \context Staff = "up" {
+      \accidentalStyle choral-cautionary
       \musicA
     }
     \context Staff = "down" {

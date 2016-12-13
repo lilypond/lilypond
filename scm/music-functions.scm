@@ -1842,6 +1842,32 @@ on the same staff line."
                               ,(make-accidental-rule 'same-octave 1))
                        GrandStaff)
 
+     ;; Accidentals on a choir staff for simultaneous reading of the
+     ;; own voice and the surrounding choir. Similar to piano, except
+     ;; that the first alteration within a voice (as opposed to on the
+     ;; same staff) is always printed.
+     (choral #f
+             (Voice ,(make-accidental-rule 'same-octave 0)
+                    Staff
+                    ,(make-accidental-rule 'same-octave 1)
+                    ,(make-accidental-rule 'any-octave 0)
+                    ,(make-accidental-rule 'same-octave 1)
+                    ChoirStaff
+                    ,(make-accidental-rule 'any-octave 0)
+                    ,(make-accidental-rule 'same-octave 1))
+             ()
+             ChoirStaff)
+     (choral-cautionary #f
+                        (Voice ,(make-accidental-rule 'same-octave 0)
+                               Staff
+                               ,(make-accidental-rule 'same-octave 0))
+                        (Staff ,(make-accidental-rule 'any-octave 0)
+                               ,(make-accidental-rule 'same-octave 1)
+                               ChoirStaff
+                               ,(make-accidental-rule 'any-octave 0)
+                               ,(make-accidental-rule 'same-octave 1))
+                        ChoirStaff)
+
      ;; same as modern, but cautionary accidentals are printed for all
      ;; non-natural tones specified by the key signature.
      (teaching #f
