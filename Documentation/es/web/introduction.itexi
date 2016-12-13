@@ -324,7 +324,7 @@ infórmese de nuestra @ref{Entrada de texto}.
 
 @divClass{column-center-top}
 
-@subheading Beautiful examples
+@subheading Bellos ejemplos
 
 LilyPond es una herramienta potente y flexible para tareas de
 grabado musical de todo tipo.  Explore libremente nuestra galería
@@ -414,7 +414,7 @@ Se han añadido algunos colores para mejorar la visibilidad.
 @divEnd
 
 @divClass{column-center-middle-color2}
-@subheading Customized Output
+@subheading Salida personalizada
 
 Un pequeño fragmento de la @emph{Klavierstück II} de Stockhausen,
 para demostrar la capacidad de LilyPond de ofrecer una salida

@@ -138,13 +138,67 @@ LilyPond es software libre y forma parte del
 @divEnd
 
 
-@divId{news}
+@divId{homepage-main}
+
+@divClass{column-center-top}
+
+@subheading La belleza de las partituras
+
+@c This example image is the image from the website version of the essay
+@c manual, downloaded to the pictures directory for use on the home page.
+@c Large version is generated manually from ly file in pictures directory.
+@divId{homepage-example-image-wrapper}
+@imageClickable{bwv861-lilypond,png,,bwv861-lilypond-large,png,center}
+@divEnd
+
+@ifclear web_version
+  @c no anchor links, just text
+
+LilyPond es una poderosa y flexible herramienta
+para la edición de toda clase de partituras,
+ya sean clásicas (como el ejemplo de J.S. Bach que aparece arriba) o
+notación compleja, música antigua, música moderna,
+tablaturas, música vocal, hojas-guía de acordes (lead sheets),
+materiales didácticos, grandes proyectos orquestales,
+salida personalizada e incluso gráficos de Schenker.
+
+@end ifclear
+@ifset web_version
+  @c anchor links, link to individual examples by their <a> tag
+  @c Translators should use the localized anchor name
+  @c (e.g. examples.html#Musica-Antica)
+  @c to be found in out-www/web/examples.LL.html
+
+LilyPond es una poderosa y flexible herramienta para la edición
+de toda clase de partituras, ya sean
+@uref{examples.html#Musica-Clasica, clásicas}
+(como el ejemplo de J.S. Bach que aparece arriba),
+@uref{examples.html#Notacion-compleja, notación compleja},
+@uref{examples.html#Musica-antigua, música antigua},
+@uref{examples.html#Musica-moderna, música moderna},
+@uref{examples.html#Tablatura, tablaturas},
+@uref{examples.html#Musica-vocal, música vocal},
+@uref{examples.html#Musica-pop, hojas-guía de acordes (lead sheets)},
+@uref{examples.html#Aplicaciones-para-la-educacion, materiales didácticos},
+@uref{examples.html#Proyectos-grandes, grandes proyectos orquestales},
+@uref{examples.html#Salida-personalizada, salida personalizada},
+e incluso
+@uref{examples.html#Schenker-Graphs, gráficos de Schenker}.
+
+@end ifset
+
+¡Admire nuestra galería de @ref{Examples} e inspírese!
+
+@divEnd
+
+@divClass{column-center-middle-color2}
+@subheading Noticias
 
 @c TODO: generate this automatically, including RSS feed.
-@include web/news-front.itexi
+@include web/news-headlines.itexi
 
-@divClass{float-right}
-(@ref{Noticias antiguas})
+@ref{News, More news...}
+
 @divEnd
 
 @divEnd
@@ -155,7 +209,7 @@ LilyPond es software libre y forma parte del
 @end ifclear
 @ifset web_version
   @c make the side bar:
-@divId{homePageSideBar}
+@divId{homepage-sidebar}
 @subheading Versión estable
 
 @c TODO: javascript to detect OS and suggest download?
@@ -322,8 +376,10 @@ de la lista o escribiendo directamente a través del
 @ifnothtml
 @macro contactUsAbout{topic}
 @cartouche
-If you are aware of any other \topic\ which could be listed here,
-please let us know by following the instructions on
+Si tiene conocimiento de cualesquiera otros \topic\ que merezcan
+aparecer relacionados aquí,
+le rogamos que nos lo haga saber según se explica
+en las instrucciones que aparecen en la sección
 @ref{Bug reports}.
 
 @end cartouche
