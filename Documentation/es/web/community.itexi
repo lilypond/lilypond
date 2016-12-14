@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 7f4a65db65f3a8eba89cc9d78101f3f7fd71a5e9
+    Translation of GIT committish: 6b8cabe379e8b4b945797a4e55759c56117223d4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -74,7 +74,7 @@ LilyPond
 nosotros.
 
 @item
-@ref{Noticias antiguas}: el archivo.
+@ref{Noticias}: noticias procedentes del proyecto LilyPond.
 
 @item
 @ref{Desván}: anuncios y registros de cambios en versiones
@@ -97,7 +97,7 @@ antiguas.
 * Autores::
 * Reconocimientos::
 * Publicaciones::
-* Noticias antiguas::
+* Noticias::
 * Desván::
 @end menu
 @divEnd
@@ -619,11 +619,10 @@ la versión @versionDevel{}:
 
 Desarrolladores interesados:
 @table @asis
-@item @email{dak@@gnu.org, David Kastrup}
-Se necesitan donaciones para que yo pueda continuar mi actual
-trabajo a tiempo completo sobre LilyPond.  Me concentro en diseño
-de interfaces de usuario y del programador, coherencia,
-implementación, simplificación, documentación y depuración.
+@item @email{lilypond-devel@@gnu.org, Lista de desarrolladores de LilyPond}
+Puesto que no hay ningún desarrollador en la lista de interesados para el
+desarrollo comercial, lo mejor que puede hacer es preguntar en la lista
+de desarrolladores.
 
 @c Format
 @c @item @email{name@@adress.domain, Name}
@@ -921,7 +920,7 @@ en el desarrollo de LilyPond a que se impliquen aún más.  LilyPond
 participa en el GSoC como parte del @uref{http://www.gnu.org/,
 proyecto GNU}.
 
-Hemos tenido participantes en el GSoC en 2012 y 2015 y animamos a
+Hemos tenido participantes en el GSoC en 2012, 2015 y 2016 y animamos a
 los estudiantes a que envíen la solicitud para las futuras
 ediciones.
 
@@ -936,7 +935,7 @@ envíenos un correo a la lista de desarrolladores (véase
 
 Más abajo aparece una lista de los proyectos sugeridos para el
 GSoC o para cualquier persona interesada en ayudar a mejorar
-LilyPond. (Última actualización: febrero de 2016)
+LilyPond. (Última actualización: noviembre de 2016)
 
 La disponibilidad de los mentores varía de proyecto en proyecto y
 de un año a otro.  Envíenos un correo electrónico sobre nuestra
@@ -974,37 +973,6 @@ los nombres de acorde puede mejorarse.
 aprenderse fácilmente
 @strong{Conocimientos recomendados:} Teoría y nomenclatura de los acordes
 @strong{Mentor:} Carl Sorensen
-
-@divEnd
-
-@divClass{column-center-middle-color3}
-@subheading ScholarLY
-
-ScholarLY es una biblioteca dentro de
-@uref{https://openlilylib.org, openLilyLib} que provee
-funcionalidades para la anotación de partituras, haciendo posible
-gestionar flujos de trabajo académicos completamente en el
-contexto del documento de la partitura.  Hasta ahora es posible
-introducir anotaciones de distintos tipos, producir mensajes que
-se comportan como enlaces sobre la salida de consola y exportar a
-texto y a archivos de LaTeX.
-
-Hay muchas solicitudes de funcionalidad para la conversión de esta
-biblioteca en una herramienta mmás potente y completa aún.  Por
-ejemplo: inserción de ejemplos musicales, producción de notas al
-pie de página, aplicación automárica de estilos al elemento
-anotado (p. ej. trazar una ligadura en línea discontinua, poner
-una alteración entre paréntesis), creando informes con elementos
-sobre los que se puede apuntar y pulsar.  Para ver una descripción
-completa de esta sugerencia de proyecto, visite
-@uref{https://github.com/openlilylib/scholarly/wiki/GSoC, esta página Wiki}.
-
-@strong{Dificultad:} media
-@strong{Requisitos:} Scheme, posiblemente LaTeX, (opcionalmente
-Python)
-@strong{Conocimientos recomendados:} Experiencia con, o interés
-en, la edición académica y flujos de trabajo colaborativos.
-@strong{Mentor:} Urs Liska
 
 @divEnd
 
@@ -1068,38 +1036,6 @@ barrado.
 @strong{Conocimientos recomendados:} sentido estético
 @strong{Mentores potenciales:} Mike Solomon (not available for GSoC 2016), Carl Sorensen
 
-@divEnd
-
-@divClass{column-center-middle-color3}
-@subheading Permitir objetos extensos entre voces distintas
-
-Actualmente, toda clase de objetos extensos (ligaduras de unión y
-de expresión, matices dinámicos, textos extensos, trinos, etc.)
-tienen que terminar en el mismo contexto en que empezaron.  Sin
-embargo, esto no refleja la realidad de la notación de la mayoría
-de las configuraciones polifónicas.  En la actualidad son
-necesarios extraños rodeos con voces ocultas para conseguir
-objetos de extensión entre voces distintas.
-
-Deberían explorarse nuevas formas de abordar este problema, por
-ejemplo por medio de
-
-@divClass{keep-bullets}
-@itemize
-
-@item la especificación de un "contexto de destino" en el que se espera que termine el objeto
-
-@item la especificación explícita del objeto que termina con un identificador
-
-@end itemize
-@divEnd
-
-Esta funcionalidad resolvería muchos problemas presentes de manera
-habitual con la música para piano y partes combinadas.
-
-@strong{Dificultad:} media (?)
-@strong{Requisitos:} C++, Scheme
-@strong{Mentor potencial:} Urs Liska
 @divEnd
 
 @divClass{column-center-middle-color3}
@@ -1310,8 +1246,8 @@ ellos disponible para el GSoC 2016)
 @contactUsAbout{artículos académicos}
 
 
-@node Noticias antiguas
-@unnumberedsec Noticias antiguas
+@node Noticias
+@unnumberedsec Noticias
 @translationof News
 
 @divClass{heading-center}
