@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 934175b31d43c95e341b098f12c2e833522a5d45
+    Translation of GIT committish: 3025442087de8dd3f88736290887ced86e360c25
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -857,20 +857,30 @@ veintiCuatro = (* 2 doce)
 @end example
 
 @noindent
-lo que daría lugar a que el número 24 se almacenase dentro de la
-variable @code{veintiCuatro} de LilyPond (y de Scheme).
+lo que daría lugar a que el número @emph{24} se almacenase dentro
+de la variable @code{veintiCuatro} de LilyPond (y de Scheme).
 
-La forma usual de referirse a las variables de LilyPond, es
-llamarlas usando una barra invertida, es decir
-@code{\veintiCuatro} (véase
-@ref{Sintaxis del Scheme de LilyPond}).  Dado que esto crea una
-copia para la mayor parte de los tipos internos de LilyPond,
-concretamente las expresiones musicales, las funciones musicales
-no sueln crear copias del material que ellas mismas modifican.
-Por este motivo, las expresiones musicales dadas con @code{#} no
-deberían, por lo general, contener material que no se haya creado
-partiendo de cero o copiado explícitamente en lugar de estar
-referenciado directamente.
+El lenguaje Scheme permite la modificación de expresiones
+complejas in situ y LilyPond hace uso de esta @q{modificación in
+situ} al usar funciones musicales.  Pero cuando las expresiones
+musicales se almacenan dentro de variables en lugar de ser
+introducidas directamente, lo que habitualmente se espera cuando
+se pasan a funciones musicales sería que el valor original quedase
+intacto.  Así pues, cuando se referencia una variable musical con
+la barra invertida (como @code{\veintiCuatro}), LilyPond crea una
+copia del valor musical de tal variable para utilizarla dentro de
+la expresión musical circundante, en lugar de usar el valor de la
+variable directamente.
+
+Por ello, las expresiones musicales de Scheme escritas con la
+sintasis de almohadilla @code{#} deberían utilizarse para
+cualquier material creado @q{partiendo de cero} (o que se ha
+copiado explícitamente) en lugar de utilizarse para referenciar
+música directamente.
+
+@seealso
+Manual de extensión:
+@ref{Sintaxis del Scheme de LilyPond}.
 
 @node Variables de entrada y Scheme
 @subsection Variables de entrada y Scheme
