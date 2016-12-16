@@ -11,6 +11,5 @@ if test `cat $CHECKSUM_FILE`"" = "$AUTOGEN_INPUT_CHECKSUM"; then
   exit 0
 fi
 
-set -e
-${srcdir}/autogen.sh "$@"
+( set +ux; echo Invoking autogen.sh...; ${srcdir}/autogen.sh "$@" ) || exit 1
 printf "%s" $AUTOGEN_INPUT_CHECKSUM > $CHECKSUM_FILE

@@ -14,7 +14,6 @@ if test `cat $CONFIGURE_CHECKSUM_FILE` = "$CONFIGURE_CHECKSUM" ; then
   exit 0
 fi
 
-set -e
-$srcdir/configure "$@"
+( set +ux; echo Invoking configure...; $srcdir/configure "$@" ) || exit 1
 printf "%s" $CONFIGURE_CHECKSUM > $CONFIGURE_CHECKSUM_FILE
 
