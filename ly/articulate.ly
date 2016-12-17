@@ -131,7 +131,9 @@
 %    how to do lookahead in scheme.
 %  * Also ignore explicit line breaks.
 %  * Add Mordents (reported by Patrick Karl)
-%
+%  * Thomas Morley: extend unfold-repeats to reflect the possibility to
+%    customize its effect to user-settable repeat-types. Here the most general
+%    setting is hard-coded, resulting in unchanged behaviour.
 
 \version "2.19.22"
 
@@ -538,7 +540,7 @@
         (make-music 'BarCheck))))
      (else
       m)))
-   (unfold-repeats music)))
+   (unfold-repeats '() music)))
 
 % If there's an articulation, use it.
 % If in a slur, use (1 . 1) instead (unless the note is marked staccato,

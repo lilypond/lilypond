@@ -1976,11 +1976,16 @@ unsets already in @var{music} cause a warning.  Non-property-related music is ig
         (else (make-sequential-music lst))))))
 
 unfoldRepeats =
-#(define-music-function (music) (ly:music?)
-   (_i "Force any @code{\\repeat volta}, @code{\\repeat tremolo} or
+#(define-music-function (types music)
+   ((symbol-list-or-symbol? '()) ly:music?)
+   (_i "Force @code{\\repeat volta}, @code{\\repeat tremolo} or
 @code{\\repeat percent} commands in @var{music} to be interpreted
-as @code{\\repeat unfold}.")
-   (unfold-repeats music))
+as @code{\\repeat unfold}, if specified in the optional symbol-list @var{types}.
+The default for @var{types} is an empty list, which will force any of those
+commands in @var{music} to be interpreted as @code{\\repeat unfold}.  Possible
+entries are @code{volta}, @code{tremolo} or @code{percent}.  Multiple entries
+are possible.")
+   (unfold-repeats types music))
 
 void =
 #(define-void-function (arg) (scheme?)

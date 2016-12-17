@@ -62,6 +62,14 @@ which scares away people.
 @end ignore
 
 @item
+The music function @code{\\unfoldRepeats} can now take an
+optional argument-list specifying which type(s) of repeated music
+should be unfolded.  Possible entries are @code{percent}, @code{tremolo},
+@code{volta}.
+If the optional argument-list is unspecified, @code{repeated-music} will be
+used, unfolding all.
+
+@item
 A new @code{output-attributes} grob property is now used for svg output
 instead of the @code{id} grob property.  It allows multiple attributes
 to be defined as an association list.  For example, @code{#'((id . 123)
