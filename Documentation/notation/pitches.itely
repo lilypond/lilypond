@@ -2207,9 +2207,9 @@ musicB = {
 @funindex choral
 
 This rule is a combination of the @code{modern-voice} and the @code{piano}
-style. It is intended for editions that are used both by singers that only
-follow their own voice, as well as others that read an entire
-@code{ChoirStaff} simultaneously.
+style. It shows all accidentals required for singers that only follow their
+own voice, as well as additional accidentals for readers that follow all
+voices of an entire @code{ChoirStaff} simultaneously.
 
 This accidental style applies to the current @code{ChoirStaff} by default.
 

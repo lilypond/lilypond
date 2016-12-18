@@ -1844,8 +1844,7 @@ on the same staff line."
 
      ;; Accidentals on a choir staff for simultaneous reading of the
      ;; own voice and the surrounding choir. Similar to piano, except
-     ;; that the first alteration within a voice (as opposed to on the
-     ;; same staff) is always printed.
+     ;; that the first alteration within a voice is always printed.
      (choral #f
              (Voice ,(make-accidental-rule 'same-octave 0)
                     Staff
