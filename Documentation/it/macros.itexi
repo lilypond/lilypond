@@ -99,12 +99,11 @@ translations should be in macros.itexi.
 
 @macro docMain
 @cartouche
-Per maggiori informazioni su come questo manuale si integra col resto
-della documentazione, o per leggere questo manuale in altri formati, si veda
-@rweb{Manuali}.
+Questo manuale è disponibile in altri formati ed è integrato col resto
+della documentazione.  Maggiori informazioni in @rweb{Manuali}.
 
-Se ti manca qualche manuale, puoi trovare la completa documentazione
-all'indirizzo @w{@uref{http://@/www@/.lilypond@/.org/}}.
+La documentazione completa si trova all'indirizzo
+@w{@uref{http://@/lilypond@/.org/}}.
 @end cartouche
 @end macro
 
@@ -121,7 +120,7 @@ all'indirizzo @w{@uref{http://@/www@/.lilypond@/.org/}}.
 @copyrightDeclare
 
 @emph{La traduzione della seguente nota di copyright è gentilmente
-offerta per le persone che non parlano inglese, ma solo
+offerta alle persone che non parlano inglese, ma solo
 la nota in inglese ha valore legale.}
 
 @emph{The translation of the following copyright notice is provided
@@ -129,12 +128,12 @@ for courtesy to non-English speakers, but only the notice in English
 legally counts.}
 
 @quotation
-E' garantito il permesso di copiare, distribuire e/o modificare questo
-documento seguendo i termini della Licenza per Documentazione
-Libera GNU, Versione 1.1 o ogni versione successiva pubblicata dalla
+È garantito il permesso di copiare, distribuire e/o modificare questo
+documento seguendo i termini della GNU Free Documentation License,
+versione 1.1 o ogni versione successiva pubblicata dalla
 Free Software Foundation; senza alcuna sezione non modificabile.
-Una copia della licenza è acclusa nella sezione intitolata ''Licenza
-per Documentazione Libera GNU''.
+Una copia della licenza si trova nella sezione intitolata
+"GNU Free Documentation License".
 @end quotation
 
 @quotation
