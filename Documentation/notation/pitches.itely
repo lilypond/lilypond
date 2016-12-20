@@ -297,6 +297,24 @@ that each interval contains.
 }
 @end lilypond
 
+In complex situations, it is sometimes useful to get back to a
+certain pitch regardless of what happened before. This can be
+done using @code{\resetRelativeOctave}:
+
+@lilypond[verbatim,quote]
+\relative {
+  <<
+    { c''2 d }
+    \\
+    { e,,2 f }
+  >>
+  \resetRelativeOctave c''
+  c2
+}
+@end lilypond
+
+@funindex \resetRelativeOctave
+
 
 @seealso
 Music Glossary:
