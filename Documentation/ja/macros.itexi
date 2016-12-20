@@ -102,7 +102,7 @@ translations should be in macros.itexi.
 このマニュアルと他のドキュメントの関係について、あるいは、このマニュアルを他の形式で読む方法についての情報は、@rwebnamed{マニュアル,マニュアル}
 を参照してください。
 
-マニュアルのいずれかを見失ってしまった場合、@w{@uref{http://@/www@/.lilypond@/.org/}} にマニュアルがすべて揃っています。
+マニュアルのいずれかを見失ってしまった場合、@w{@uref{http://@/lilypond@/.org/}} にマニュアルがすべて揃っています。
 @end cartouche
 @end macro
 

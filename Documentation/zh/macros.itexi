@@ -103,7 +103,7 @@ For more information about how this manual fits with the other
 documentation, or to read this manual in other formats, see
 @rweb{Manuals}.
 
-如果你需要任何手册，完整的文档可以在 @w{@uref{http://@/www@/.lilypond@/.org/}} 找到。
+如果你需要任何手册，完整的文档可以在 @w{@uref{http://@/lilypond@/.org/}} 找到。
 @end cartouche
 @end macro
 

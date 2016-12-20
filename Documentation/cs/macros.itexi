@@ -64,7 +64,7 @@ příručkami, nebo kvůli čtení této příručky v jiném formátu,
 navštivte, prosím, @rweb{Manuals}.
 
 Pokud vám příručky chybí, naleznete celou dokumentaci
-pod @w{@uref{http://@/www@/.lilypond@/.org/}}.
+pod @w{@uref{http://@/lilypond@/.org/}}.
 @end cartouche
 @end macro
 
