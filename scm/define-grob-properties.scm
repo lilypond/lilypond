@@ -617,6 +617,8 @@ visual output is influenced by changes to
 to beams from this stem.  Further beams are typeset as beamlets.")
      (maximum-gap ,number? "Maximum value allowed for @code{gap}
 property.")
+     (max-symbol-separation ,number? "The maximum distance between
+symbols making up a church rest.")
      (measure-count ,integer? "The number of measures for a
 multi-measure rest.")
      (measure-length ,ly:moment? "Length of a measure.  Used in some

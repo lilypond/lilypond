@@ -1509,6 +1509,7 @@
         (hair-thickness . 2.0)
         (round-up-exceptions . ())
         (bound-padding . 0.5)
+        (max-symbol-separation . 8.0)
         (space-increment . 2.0)
         (spacing-pair . (break-alignment . break-alignment))
         (springs-and-rods . ,ly:multi-measure-rest::set-spacing-rods)

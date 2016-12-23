@@ -317,19 +317,30 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measure_cou
       symbol_count++;
     }
 
-  /* Make outer padding this much bigger.  */
+  /*
+    When symbols spread to fullest extent, outer padding is this much
+    bigger.
+  */
   Real outer_padding_factor = 1.5;
+  /* Widest gap between symbols; to be limited by max-symbol-separation */
   Real inner_padding = (space - symbols_width)
                        / (2 * outer_padding_factor + (symbol_count - 1));
   if (inner_padding < 0)
     inner_padding = 1.0;
+
+  Real max_separation = max (robust_scm2double (me->get_property ("max-symbol-separation"), 8.0),
+                             1.0);
+
+  inner_padding = min (inner_padding, max_separation);
+  Real left_offset = (space - symbols_width - (inner_padding * (symbol_count - 1)))
+                     / 2;
 
   Stencil mol;
   for (SCM s = mols; scm_is_pair (s); s = scm_cdr (s))
     mol.add_at_edge (X_AXIS, LEFT, *unsmob<Stencil> (scm_car (s)),
                      inner_padding);
   mol.align_to (X_AXIS, LEFT);
-  mol.translate_axis (outer_padding_factor * inner_padding, X_AXIS);
+  mol.translate_axis (left_offset, X_AXIS);
 
   return mol;
 }
@@ -432,6 +443,7 @@ ADD_INTERFACE (Multi_measure_rest,
                "bound-padding "
                "expand-limit "
                "hair-thickness "
+               "max-symbol-separation "
                "measure-count "
                "minimum-length "
                "round-up-exceptions "
