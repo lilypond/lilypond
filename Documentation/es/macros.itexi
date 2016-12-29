@@ -104,7 +104,7 @@ con el resto de la documentación, o para leer este manual en otros
 formatos, consulte @rweb{Manuales}.
 
 Si le falta algún manual, encontrará toda la documentación en
-@w{@uref{http://@/www@/.lilypond@/.org/}}.
+@w{@uref{http://@/lilypond@/.org/}}.
 @end cartouche
 @end macro
 

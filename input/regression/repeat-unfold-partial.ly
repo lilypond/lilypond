@@ -1,3 +1,5 @@
+\version "2.19.52"
+
 \header {
   texidoc = "The music function @code{\\unfoldRepeats} can take an
 optional argument-list specifying which type(s) of repeated music has

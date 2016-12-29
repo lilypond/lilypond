@@ -132,6 +132,7 @@
   \name "ChoirStaff"
   \consists "Vertical_align_engraver"
   topLevelAlignment = ##f
+  localAlterations = #'()
 
   \consists "Instrument_name_engraver"
   \consists "System_start_delimiter_engraver"

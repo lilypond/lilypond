@@ -71,7 +71,7 @@ translations should be in macros.itexi.
 
 @macro docMain
 @cartouche
-A teljes dokumentáció a @w{@uref{http://@/www@/.lilypond@/.org/}} honlapon
+A teljes dokumentáció a @w{@uref{http://@/lilypond@/.org/}} honlapon
 található.
 @end cartouche
 @end macro

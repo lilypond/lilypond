@@ -120,7 +120,7 @@ Pour connaître la place qu'occupe ce manuel dans la
 documentation, consultez la page @rweb{Manuels}.
 
 Si vous ne disposez pas de certains manuels, la documentation complète
-se trouve sur @w{@uref{http://@/www@/.lilypond@/.org/}}.
+se trouve sur @w{@uref{http://@/lilypond@/.org/}}.
 @end cartouche
 @end macro
 

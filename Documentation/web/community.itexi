@@ -494,9 +494,10 @@ days, as we have a limited number of volunteers for this task.
 
 Once a bug has been added to the tracker, you can comment it to add
 more information about it.
-You may also mark the bug so that you automatically receive emails when
-any activity on the bug occurs.  This requires you have a google account
-login.
+In order to be automatically notified about any activity on the
+tracker issue, you may subscribe by clicking the envelope
+symbol next to the issue title.
+Commenting and subscribing require being logged in with a sourceforge account.
 @divEnd
 
 @divClass{column-center-bottom}
