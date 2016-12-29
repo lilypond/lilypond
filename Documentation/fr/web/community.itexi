@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: 6b8cabe379e8b4b945797a4e55759c56117223d4
+   Translation of GIT committish: 6a4f1fed7b1be26f0ae29bc500eed7d29bd7659a
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -540,9 +540,11 @@ l'équipe est réduite, merci de leur laisser quelques jours avant
 qu'ils ne vous transmettent le numéro de référence de votre signalement
 une fois qu'il aura été ajouté à la base.
 
-Vous pourrez alors, après l'avoir « marqué », y apporter vos
-commentaires et être automatiquement notifié du traitement apporté à ce
-bogue, dès lors que vous avez un identifiant reconnu par google.
+Vous pourrez alors, après l'avoir indiqué en cliquant le symbole
+« enveloppe » apparaissant en regard du titre du rapport, être
+automatiquement notifié du traitement apporté à ce bogue.  L'ajout de
+commentaire et la souscription requièrent d'avoir un identifiant reconnu
+par sourceforge.
 @divEnd
 
 @divClass{column-center-bottom}

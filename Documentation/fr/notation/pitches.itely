@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 39912f861693f1c24b8833e6e9e6ba82eb3e6746
+   Translation of GIT committish: 6a4f1fed7b1be26f0ae29bc500eed7d29bd7659a
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -308,6 +308,24 @@ et la quinte diminuée de seulement six demi-tons.
   b2 feses
 }
 @end lilypond
+
+Dans certaines situation complexes, il peut être souhaitable de revenir
+à une hauteur déterminée sans tenir compte de ce qui se passait
+auparavant, à l'aide d'un @code{\resetRelativeOctave} :
+
+@lilypond[verbatim,quote]
+\relative {
+  <<
+    { c''2 d }
+    \\
+    { e,,2 f }
+  >>
+  \resetRelativeOctave c''
+  c2
+}
+@end lilypond
+
+@funindex \resetRelativeOctave
 
 @seealso
 Glossaire musicologique :
@@ -2170,6 +2188,125 @@ musicB = {
   <<
     \context Staff = "up" {
       \accidentalStyle piano-cautionary
+      \musicA
+    }
+    \context Staff = "down" {
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item choral
+
+@cindex altérations style @emph{choral}
+@cindex @emph{choral}, style d'altérations
+@cindex chorale et altérations
+
+@funindex choral
+
+Cette règle est une combinaison des styles @code{modern-voice} et
+@code{piano}.  Les altérations accidentelles sont indiquées aussi bien
+pour un chanteur qui suit seulement sa voix, que pour un lecteur suivant
+toutes les voix d'un @code{ChoirStaff}.
+
+Ce style d'altération s'applique, par défaut, au @code{ChoirStaff} en
+cours.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>]
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new ChoirStaff {
+  <<
+    \context Staff = "up" {
+      \accidentalStyle choral
+      \musicA
+    }
+    \context Staff = "down" {
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item choral-cautionary
+
+@cindex @emph{choral cautionary}, style d'altérations
+@cindex altérations style @emph{choral cautionary}
+@cindex chorale et altérations
+
+@funindex choral-cautionary
+
+Identique au style @code{choral}, mais les altérations de précaution sont
+imprimées différemment.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>]
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new ChoirStaff {
+  <<
+    \context Staff = "up" {
+      \accidentalStyle choral-cautionary
       \musicA
     }
     \context Staff = "down" {
