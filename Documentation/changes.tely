@@ -62,6 +62,32 @@ which scares away people.
 @end ignore
 
 @item
+In fret-diagrams the distance between frets and the distance between strings is
+now independently adjustable.  Available are @code{fret-distance} and
+@code{string-distance} as subproperties of @code{fret-diagram-details}.
+@lilypond[verbatim,quote]
+fretMrkp = \markup { \fret-diagram-terse #"x;x;o;2;3;2;" }
+
+\markuplist
+\override #'(padding . 2)
+\table #'(0 -1) {
+  "default"
+
+  \fretMrkp
+
+  "fret-distance"
+
+  \override #'(fret-diagram-details . ((fret-distance . 2)))
+  \fretMrkp
+
+  "string-distance"
+
+  \override #'(fret-diagram-details . ((string-distance . 2)))
+  \fretMrkp
+}
+@end lilypond
+
+@item
 Accidental rules can now be defined across @code{ChoirStaff} contexts.
 Two new rules @code{choral} and @code{choral-cautionary} are available
 that combine the characteristics of @code{modern-voice} and @code{piano}

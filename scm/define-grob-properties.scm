@@ -372,6 +372,9 @@ Default @code{none} for markup fret diagrams, @code{below-string} for
 @item
 @code{fret-count} -- The number of frets.  Default@tie{}4.
 @item
+@code{fret-distance} -- Multiplier to adjust the distance between frets.
+Default@tie{}1.0.
+@item
 @code{fret-label-custom-format} -- The format string to be used label
 the lowest fret number, when @code{number-type} equals to
 @code{custom}.  Default@tie{}\"~a\".
@@ -411,6 +414,9 @@ string.  Default @code{\"o\"}.
 Default @code{normal}.
 @item
 @code{string-count} -- The number of strings.  Default@tie{}6.
+@item
+@code{string-distance} -- Multiplier to adjust the distance between strings.
+Default@tie{}1.0.
 @item
 @code{string-label-font-mag} -- The magnification of the font used to
 label fingerings at the string, rather than in the dot.  Default value
