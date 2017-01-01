@@ -33,16 +33,20 @@ public:
   Direction start_end () const { return start_end_; }
 };
 
-class Engraver_group : public Preinit<Engraver_group>, public Translator_group
+struct Preinit_Engraver_group
+{
+  Drul_array<SCM> acknowledge_hash_table_drul_;
+  Preinit_Engraver_group ();
+};
+
+class Engraver_group : Preinit_Engraver_group, public Translator_group
 {
 protected:
   vector<Announce_grob_info> announce_infos_;
-  Drul_array<SCM> acknowledge_hash_table_drul_;
   void override (SCM);
   void revert (SCM);
 public:
   DECLARE_CLASSNAME (Engraver_group);
-  void pre_init ();
   Engraver_group ();
   virtual void derived_mark () const;
   void do_announces ();

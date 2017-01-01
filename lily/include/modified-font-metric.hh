@@ -22,8 +22,14 @@
 
 #include "font-metric.hh"
 
+struct Preinit_Modified_font_metric
+{
+  Font_metric *orig_;
+  Preinit_Modified_font_metric ();
+};
+
 /* Perhaps junk this, and move this to layout_def as interface? */
-struct Modified_font_metric : public Preinit<Modified_font_metric>,
+class Modified_font_metric : Preinit_Modified_font_metric,
                               public Font_metric
 {
 public:
@@ -37,10 +43,8 @@ public:
   size_t name_to_index (string) const;
   size_t index_to_charcode (size_t) const;
   Font_metric *original_font () const;
-  void pre_init ();
 
 protected:
-  Font_metric *orig_;
   Real magnification_;
 
   Modified_font_metric (Font_metric *fm, Real magnification);

@@ -224,13 +224,8 @@ Spanner::set_bound (Direction d, Grob *s)
     Pointer_group_interface::add_grob (i, ly_symbol2scm ("bounded-by-me"), this);
 }
 
-void
-Spanner::pre_init ()
+Preinit_Spanner::Preinit_Spanner ()
 {
-  break_index_ = (vsize)-1;
-  // This is stupid, but derived_mark may be run before broken_into_
-  // has run its constructor and has a recognizable array size.
-  // So we use break_index_ == -1 as a sentinel.
   spanned_drul_.set (0, 0);
   pure_property_cache_ = SCM_UNDEFINED;
 }

@@ -26,7 +26,7 @@ using namespace std;
 #include "main.hh"
 #include "program-option.hh"
 
-void Modified_font_metric::pre_init ()
+Preinit_Modified_font_metric::Preinit_Modified_font_metric ()
 {
   orig_ = 0;
 }

@@ -27,10 +27,15 @@
 
 #define is_mus_type(x) internal_is_music_type (ly_symbol2scm (x))
 
-class Music : public Preinit<Music>, public Prob
+struct Preinit_Music {
+  SCM length_callback_;
+  SCM start_callback_;
+  Preinit_Music ();
+};
+
+class Music : Preinit_Music, public Prob
 {
 public:
-  void pre_init ();
   Music (SCM init);
   Music (Music const &m);
   VIRTUAL_COPY_CONSTRUCTOR (Music, Music);
@@ -62,8 +67,6 @@ protected:
   virtual void type_check_assignment (SCM, SCM) const;
   virtual void derived_mark () const;
 protected:
-  SCM length_callback_;
-  SCM start_callback_;
   friend SCM ly_extended_make_music (SCM, SCM);
 };
 

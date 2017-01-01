@@ -24,11 +24,23 @@
 
 #include "engraver.hh"
 
-class Scheme_engraver : public Preinit<Scheme_engraver>, public Engraver
+struct Preinit_Scheme_engraver {
+  SCM initialize_function_;
+  SCM finalize_function_;
+  SCM precomputable_methods_ [TRANSLATOR_METHOD_PRECOMPUTE_COUNT];
+
+  // hashq table of interface-symbol -> scheme-function
+  Drul_array<SCM> interface_acknowledger_hash_;
+
+  // Alist of listened-symbol . scheme-function
+  SCM per_instance_listeners_;
+  Preinit_Scheme_engraver ();
+};
+
+class Scheme_engraver : Preinit_Scheme_engraver, public Engraver
 {
 public:
   TRANSLATOR_FAMILY_DECLARATIONS (Scheme_engraver);
-  void pre_init ();
   Scheme_engraver (SCM definition);
 
 protected:
@@ -53,16 +65,6 @@ private:
   SCM translator_description () const { return SCM_EOL; }
 
   bool must_be_last_;
-
-  SCM initialize_function_;
-  SCM finalize_function_;
-  SCM precomputable_methods_ [TRANSLATOR_METHOD_PRECOMPUTE_COUNT];
-
-  // hashq table of interface-symbol -> scheme-function
-  Drul_array<SCM> interface_acknowledger_hash_;
-
-  // Alist of listened-symbol . scheme-function
-  SCM per_instance_listeners_;
 };
 
 #endif /* SCHEME_ENGRAVER_HH */

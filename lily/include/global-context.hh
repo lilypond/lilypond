@@ -23,17 +23,21 @@
 #include "context.hh"
 #include "pqueue.hh"
 
-class Global_context : public Preinit<Global_context>, public Context
+struct Preinit_Global_context
+{
+  Output_def *output_def_;
+  Preinit_Global_context ();
+};
+
+class Global_context : Preinit_Global_context, public Context
 {
   PQueue<Moment> extra_mom_pq_;
-  Output_def *output_def_;
   virtual void derived_mark () const;
 
   DECLARE_CLASSNAME (Global_context);
 
   friend class Output_def;
 public:
-  void pre_init ();
   Global_context (Output_def *);
   int get_moments_left () const;
   Moment sneaky_insert_extra_moment (Moment);
