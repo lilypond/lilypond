@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-   Translation of GIT committish: e45059ae37b240ce52639ad5c49110b510a89481
+   Translation of GIT committish: 6a4f1fed7b1be26f0ae29bc500eed7d29bd7659a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -303,6 +303,24 @@ in ogni intervallo.
 }
 @end lilypond
 
+In situazioni complesse, può essere utile cambiare l'altezza di riferimento senza
+tener conto di ciò che è successo prima, usando @code{\resetRelativeOctave}:
+
+@lilypond[verbatim,quote]
+\relative {
+  <<
+    { c''2 d }
+    \\
+    { e,,2 f }
+  >>
+  \resetRelativeOctave c''
+  c2
+}
+@end lilypond
+
+@funindex \resetRelativeOctave
+
+
 @seealso
 Glossario musicale:
 @rglosnamed{fifth,quinta},
@@ -464,8 +482,8 @@ Guida al funzionamento interno:
 
 @knownissues
 Poiché non esistono standard universalmente accettati per indicare
-le alterazioni di quarto di tono, il simbolo impiegato da LilyPond
-non si riferisce ad alcuno standard.
+le alterazioni di quarto di tono, i simboli impiegati da LilyPond
+non si riferiscono ad alcuno standard.
 
 
 @node Nomi delle note in altre lingue
@@ -526,7 +544,7 @@ Oltre ai nomi delle note, anche i suffissi per le alterazioni
 possono variare a seconda della lingua adottata:
 
 @quotation
-@multitable {@code{nederlands}} {-@code{s}/-@code{-sharp}} {-@code{ess}/-@code{es}} {-@code{ss}/-@code{x}/-@code{-sharpsharp}} {-@code{essess}/-@code{eses}}
+@multitable {@code{nederlands}} {-@code{s}/-@code{-sharp}} {-@code{f}/-@code{-flat}} {-@code{ss}/-@code{x}/-@code{-sharpsharp}} {-@code{ff}/-@code{-flatflat}}
 @headitem Lingua
   @tab diesis @tab bemolle @tab doppio diesis @tab doppio bemolle
 @item @code{nederlands}
@@ -919,9 +937,14 @@ music = \relative { c'8. ees16( fis8. a16 b8.) gis16 f8. d16 }
 @end lilypond
 
 @knownissues
-Le legature di valore manuali in @code{\retrograde} saranno spezzate e
-genereranno degli avvisi.  Alcune legature di valore possono essere
-generate automaticamente abilitando @ref{Automatic note splitting}.
+@code{\retrograde} è uno strumento piuttosto semplice.  Dato che molti eventi
+sono @q{riflessi} (come in uno specchio) invece che scambiati, le modifiche
+manuali e i modificatori direzionali per gli estensori di apertura devono essere
+aggiunti ai corrispondenti estensori di chiusura: @code{^(} deve essere terminato
+da @code{^)}, ogni @code{\<} o @code{\cresc} deve essere terminato da @code{\!}
+o @code{\endcr}, ogni @code{\>} o @code{\decr} deve essere terminato da
+@code{\enddecr}.  Comandi e modifiche che cambiano le proprietà con un effetto
+duraturo causeranno facilmente delle sorprese.
 
 @seealso
 Guida alla notazione:
@@ -1229,8 +1252,15 @@ Si può cambiare tale comportamento predefinito col comando
   c'1
 @end lilypond
 
-When there is a manual clef change, the glyph of the changed clef
-will be smaller than normal.  This behaviour can be overridden.
+@noindent
+Per essere più precisi, non è proprio il comando @code{\clef} a stampare
+la chiave.  Questo comando imposta o cambia una proprietà dell'incisore
+@code{Clef_engraver}, cui spetta la decisione se stampare o meno una chiave
+nel rigo attuale.  La proprietà @code{forceClef} scavalca questa decisione
+localmente in modo da ristampare la chiave una volta.
+
+Quando c'è un cambio di chiave manuale, il glifo della chiave cambiata sarà
+più piccolo del normale.  Tale comportamento può essere modificato.
 
 @lilypond[verbatim,quote,fragment]
   \clef "treble"
@@ -2179,6 +2209,130 @@ musicB = {
   <<
     \context Staff = "up" {
       \accidentalStyle piano-cautionary
+      \musicA
+    }
+    \context Staff = "down" {
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+
+@item choral
+
+@cindex stile delle alterazioni choral
+@cindex alterazioni, choral
+@cindex choral, stile delle alterazioni
+@cindex choral, alterazioni
+
+@funindex choral
+
+Questa regola è una combinazione degli stili @code{modern-voice} e @code{piano}.
+Mostra tutte le alterazioni richieste dai cantanti che seguono solo la propria
+voce, e mostra anche le ulteriori alterazioni per tutti i lettori che seguono
+tutte le voci di un intero @code{ChoirStaff} contemporaneamente.
+
+Questo stile di alterazioni si applica al @code{ChoirStaff} corrente per
+impostazione predefinita.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>]
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new ChoirStaff {
+  <<
+    \context Staff = "up" {
+      \accidentalStyle choral
+      \musicA
+    }
+    \context Staff = "down" {
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+
+@item choral-cautionary
+
+@cindex alterazioni, choral cautionary
+@cindex alterazioni di cortesia, choral
+@cindex choral cautionary, alterazioni
+@cindex stile delle alterazioni, choral cautionary
+@cindex cortesia, stile delle alterazioni di, choral
+
+@funindex choral-cautionary
+
+Questo stile è identico a @code{choral} ma con le alterazioni extra
+in forma di alterazioni di cortesia.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>]
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new ChoirStaff {
+  <<
+    \context Staff = "up" {
+      \accidentalStyle choral-cautionary
       \musicA
     }
     \context Staff = "down" {

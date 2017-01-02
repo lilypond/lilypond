@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: bfc3420ada8810d57156e9fc871560188f044a64
+    Translation of GIT committish: 6a925e8d2013714a25abcb73c76a4c6306138d33
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -511,7 +511,8 @@ File installati:
 @file{scm/markup.scm}.
 
 @knownissues
-Gli errori di sintassi relativi alla modalità markup possono essere poco chiari.
+I messaggi di errore di sintassi relativi alla modalità markup possono
+essere poco chiari.
 
 
 @node Scelta del tipo di carattere e della dimensione
@@ -554,7 +555,7 @@ La modalità markup permette di cambiare il tipo di carattere:
 Si può modificare la dimensione del tipo di carattere, rispetto alla
 dimensione globale del rigo, in vari modi.
 
-Si può impostare su una dimensione predefinita,
+Si può impostare su una dimensione predefinita.
 
 @lilypond[quote,verbatim]
 \relative b' {
@@ -564,7 +565,7 @@ Si può impostare su una dimensione predefinita,
 }
 @end lilypond
 
-oppure in modo proporzionale rispetto al valore precedente,
+oppure in modo proporzionale rispetto al valore precedente.
 
 @lilypond[quote,verbatim]
 \relative b' {
@@ -575,7 +576,7 @@ oppure in modo proporzionale rispetto al valore precedente,
 @end lilypond
 
 Può essere aumentata o diminuita rispetto al valore impostato per la
-dimensione globale del rigo:
+dimensione globale del rigo.
 
 @lilypond[quote,verbatim]
 \relative b' {
@@ -586,7 +587,7 @@ dimensione globale del rigo:
 @end lilypond
 
 Si può impostare anche su una dimensione fissa (in punti), indipendentemente
-dalla dimensione globale del rigo:
+dalla dimensione globale del rigo.
 
 @lilypond[quote,verbatim]
 \relative b' {

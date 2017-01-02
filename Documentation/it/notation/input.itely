@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 4c31c117565b1c7dd78e606fceb7cba354f2859a
+    Translation of GIT committish: 71fa1bbb755d3ba14eea93394af88fa4a1092222
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -390,7 +390,8 @@ di livello superiore saranno combinate insieme in un singolo blocco
 @code{\book}.  Tale comportamento può essere modificato impostando la
 variabile @code{toplevel-score-handler} nel livello superiore.  Il
 gestore (in inglese @emph{handler}) predefinito è definito nel file
-di inizializzazione @file{../scm/lily.scm}.
+@file{../scm/lily-library.scm} e viene impostato nel file
+@file{../ly/declarations-init.ly}.
 
 @item
 Un blocco @code{\book} combina logicamente molteplici movimenti
@@ -551,7 +552,7 @@ alcuni brani comprendono molte altre informazioni.
 @menu
 * Creazione di titoli intestazioni e piè di pagina::
 * Titoli intestazioni e piè di pagina personalizzati::
-* Creazione di metadati PDF::
+* Creazione di metadati per i file di output::
 * Creazione di note a piè di pagina::
 * Riferimento ai numeri di pagina::
 * Indice::
@@ -1173,10 +1174,11 @@ Sono disponibili varie procedure pronte per verificare varie condizioni:
 @item create-page-number-stencil    @tab  print-page-numbers è vero?
 @item print-all-headers             @tab  print-all-headers è vero?
 @item first-page                    @tab  prima pagina del libro?
+@item not-first-page                @tab  non la prima pagina del libro?
 @item (on-page nmbr)                @tab  numero pagina = nmbr?
 @item last-page                     @tab  ultima pagina del libero?
-@item not-first-page                @tab  non la prima pagina del libro?
 @item part-first-page               @tab  prima pagina della parte?
+@item not-part-first-page           @tab  non la prima pagine della parte?
 @item part-last-page                @tab  ultima pagina della parte?
 @item not-single-page               @tab  pagine della parte > 1?
 
@@ -1231,17 +1233,30 @@ Guida alla notazione:
 File installati:
 @file{../ly/titling-init.ly}.
 
-@node Creazione di metadati PDF
-@subsection Creazione di metadati PDF
-@translationof Creating PDF metadata
+@node Creazione di metadati per i file di output
+@subsection Creazione di metadati per i file di output
+@translationof Creating output file metadata
 
-@cindex PDF metadata
+@cindex metadati PDF
+@cindex metadati MIDI
+@cindex MIDI, metadati
+@cindex PDF, metadati
 
 Oltre ad apparire nell'output, le variabili di @code{\header} vengono
-usate anche per impostare i metadati PDF (le informazioni mostrate dai
-lettori PDF come @code{proprietà} del file PDF).  Per esempio, impostando
-la proprietà @code{title} del blocco @code{header} @q{Sinfonia I} si
-assegnerà questo titolo anche al documento PDF.
+usate anche per impostare i metadati per i file di output.  Per esempio,
+con i file PDF, questi metadati possono essere mostrati dai lettori PDF
+come @code{proprietà} del file PDF.  Per ciascun tipo di file di output,
+verranno considerate solo le definizioni @code{\header} dei blocchi
+specifici per quel tipo e dei blocchi che si trovano al livello superiore
+della gerarchia.  Dunque per i file PDF solo le definizioni @code{\header}
+del livello @code{\book} e del livello superiore vengono utilizzate per
+i metadati PDF del documento, mentre  per i file MIDI vengono usate le
+definizioni che si trovano in un livello inferiore o in un
+blocco @code{\score}.
+
+Per esempio, impostando la proprietà @code{title} del blocco @code{header}
+su @q{Sinfonia I}, questo nome verrà usato come titolo del documento PDF e
+come nome della sequenza del file MIDI.
 
 @example
   \header@{
@@ -1272,6 +1287,11 @@ la versione di LilyPond utilizzata, e @code{CreationDate} (data di creazione) e
 correnti.  @code{ModDate} può essere sovrascritta impostando nel blocco
 @code{header} la variabile @code{moddate} (o @code{pdfmoddate}) su una
 valida data per il PDF.
+
+La variabile @code{title} imposta anche il nome della sequenza dei file
+MIDI.  La variabile @code{midititle} serve a impostare il nome della
+sequenza in modo indipendente dal valore usato per l'output.
+
 
 @node Creazione di note a piè di pagina
 @subsection Creazione di note a piè di pagina
@@ -3021,7 +3041,8 @@ dei blocchi @code{\book}, @code{\bookpart} o @code{\score}.  Vedi
 
 @seealso
 Guida alla notazione:
-@ref{File structure}.
+@ref{File structure},
+@ref{Creating output file metadata}.
 
 File installati:
 @file{scm/midi.scm}.

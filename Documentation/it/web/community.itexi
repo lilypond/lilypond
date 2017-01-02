@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 6b8cabe379e8b4b945797a4e55759c56117223d4
+    Translation of GIT committish: f986fc07ef9a2a1af05f84684fbc5c76d9b65ea4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -494,9 +494,10 @@ quando la segnalazione viene aggiunta al bug tracker.  Una risposta può richied
 fino a 4 giorni, perché abbiamo un numero limitato di volontari per questo compito.
 
 Una volta che un bug è stato aggiunto al tracker, puoi commentarlo per aggiungere
-informazioni a riguardo.  Puoi anche contrassegnare il bug in modo da ricevere
-automaticamente delle email ogni volta capiti un'attività relativa al bug.  Per
-fare questo occorre avere un account google.
+informazioni a riguardo.  Per ricevere automaticamente delle notifiche su
+qualsiasi attività relativa al bug, puoi iscriverti cliccando sul simbolo
+della busta vicino al titolo del bug.  Per commentare e iscriversi occorre un
+account sourceforge.
 @divEnd
 
 @divClass{column-center-bottom}

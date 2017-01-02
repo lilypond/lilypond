@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: UTF-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 32839fc7052761649d3ba3512ca29373acbe880c
+    Translation of GIT committish: 8d8a54f9903e27263581f684b0a22dc2aca5d24c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -50,6 +50,58 @@ Vedi il manuale utente, \NAME\
 @allowcodebreaks false
 
 @itemize
+
+@item
+Le regole delle alterazioni possono essere definite nei contesti @code{ChoirStaff}.
+Sono disponibili due nuove regole, @code{choral} e @code{choral-cautionary}, che
+combinano le caratteristiche di @code{modern-voice} e @code{piano}
+o i loro equivalenti per le alterazioni di cortesia.
+
+@item
+La funzione musicale @code{\\unfoldRepeats} può ora prendere una lista di
+argomenti (facoltativa) che specifica quali tipi di musica ripetuta debbano
+essere ricopiati.  Le opzioni possibili sono @code{percent}, @code{tremolo} e
+@code{volta}.
+Se la lista facoltativa non viene specificata, verrà usato @code{repeated-music},
+che ricopia tutto.
+
+@item
+Per l'output SVG viene ora utilizzata la nuova proprietà grob @code{output-attributes}
+al posto della proprietà @code{id}.  Permette di definire molteplici attributi
+come una lista associativa.  Per esempio, @code{#'((id . 123)
+(class . foo) (data-whatever . @qq{bar}))} produrrà il seguente elemento
+gruppo (g) in un file SVG: @code{<g id=@qq{123} class=@qq{foo}
+data-whatever=@qq{bar}> @dots{} </g>}.
+
+@item
+Le legature di portamento e di frase possono ora iniziare da note individuali
+di un accordo.  Varie legature di portamento simultanee per ogni voce devono
+essere distinte con l'impostazione @code{spanner-id}.
+
+@item
+La proprietà musicale e dei grob @code{spanner-id}, usata per distinguere
+legature di portamento simultanee e legature di frase, è stata modificata:
+non è più una stringa, bensì una @q{key}, ovvero un numero intero non negativo
+o un simbolo.
+
+@item
+È stato aggiunto il nuovo comando @code{\=} per specificare l'identificativo
+degli estensori, @code{spanner-id}, per le legature di portamento e di frase
+simultanee.
+@lilypond[verbatim,quote]
+\fixed c' {
+  <c~ f\=1( g\=2( >2 <c e\=1) a\=2) >
+}
+@end lilypond
+
+@item
+I blocchi introdotti con @code{\header} possono essere salvati in variabili
+e usati come argomenti di funzioni musicali e funzioni scheme e come parte
+dei costrutti @code{#@{@dots{}#@}}.  Sono rappresentati come un modulo Guile.
+
+Sebbene i blocchi @code{\book}, @code{\bookpart}, @code{\score}, @code{\with},
+@code{\layout}, @code{\midi}, @code{\paper} possano essere trasferiti in un
+modo simile, sono tuttavia rappresentati da tipi di dati diversi.
 
 @item
 Le liste di simboli separate da punti come @code{FretBoard.stencil} sono
@@ -162,11 +214,13 @@ oggetto di markup, indicato come primo argomento.
 @end lilypond
 
 @item
-Una nuova funzione di interruzione della pagina, @code{ly:one-line-auto-height-breaking},
-posiziona l'intera partitura su una sola linea e cambia la larghezza della
-pagina per contenerla, proprio come @code{ly:one-line-breaking}.  Con la
-differenza che modifica automaticamente anche l'altezza della pagina per
-contenere tutta la musica in altezza.
+Ci sono due nuove funzioni di interruzione della pagina.
+@code{ly:one-page-breaking} modifica automaticamente l'altezza della
+pagina per far entrare la musica, in modo che stia tutta in una pagina.
+@code{ly:one-line-auto-height-breaking} è simile a @code{ly:one-line-breaking},
+perché posiziona la musica su una sola linea regolando la larghezza della
+pagina, tuttavia modifica automaticamente anche l'altezza della pagina per
+farci entrare la musica.
 
 @item
 È ora disponibile il comando markup @code{\draw-squiggle-line}.

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: d36171e34d236d890f5dc511b895037188c6c7cb
+    Translation of GIT committish: 8c1840ca28a05b3dad8d595e04d03779ba0a286a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -298,13 +298,13 @@ Un'altra tecnica di debug molto utile consiste nel creare
 @cindex makefile
 @cindex make
 
-Tutte le piattaforme su cui Lilypond può essere installato supportano un
+Tutte le piattaforme su cui LilyPond può essere installato supportano un
 software chiamato @code{make}.  Questo software legge un file speciale chiamato
 @code{Makefile} che definisce quali file dipendono da quali altri e quali
 comandi occorra dare al sistema operativo per produrre un file da un
 altro.  Ad esempio Makefile può spiegare come generare
 @file{ballad.pdf} e @file{ballad.midi} da @file{ballad.ly} eseguendo
-Lilypond.
+LilyPond.
 
 In alcune situazioni, è una buona idea creare un @code{Makefile}
 per il proprio progetto, per proprio comodo o come cortesia

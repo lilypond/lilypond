@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 88cfc9ee61dece9cffff98ab7f10318633698c39
+    Translation of GIT committish: b680788cd1c671d52819d69e9e130ff45361a590
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -806,11 +806,11 @@ per ogni nota che debba essere inclusa nel melisma:
 
 
 @predefined
-
 @code{\autoBeamOff},
 @code{\autoBeamOn},
 @code{\melisma},
 @code{\melismaEnd}.
+@endpredefined
 
 @seealso
 Glossario musicale:
@@ -2331,6 +2331,7 @@ Quando una parte vocale si divide temporaneamente, si devono usare i
 @code{\oneVoice},
 @code{\voiceOne},
 @code{\voiceTwo}.
+@endpredefined
 
 @seealso
 Manuale di apprendimento:
@@ -2425,6 +2426,7 @@ partitura sopra i loro rispettivi righi, come mostrato in questo esempio:
 
 @predefined
 @code{\dynamicUp}, @code{\dynamicDown}, @code{\dynamicNeutral}.
+@endpredefined
 
 @seealso
 Guida alla notazione:

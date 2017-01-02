@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 3ecc98aa5db8a47adcf9defc4ec9fc018c5cc47d
+    Translation of GIT committish: 8c1840ca28a05b3dad8d595e04d03779ba0a286a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -3454,11 +3454,22 @@ gli abbellimenti che la seguono.
 \relative { c''1 \afterGrace d1 { c16[ d] } c1 }
 @end lilypond
 
-In questo modo, gli abbellimenti sono collocati dopo uno spazio corrispondente a
-3/4 della durata della nota principale.  La frazione predefinita 3/4 può essere
-modificata attraverso @code{afterGraceFraction}.  L'esempio seguente mostra
-le diverse spaziature che si ottengono con la frazione predefinita, con 15/16
-e infine con 1/2 della nota principale.
+In questo modo, gli abbellimenti sono collocati @emph{dopo} l'inizio della nota
+principale.  Il momento temporale in cui sono posti gli abbellimenti è una
+certa frazione della durata della nota principale.  L'impostazione predefinita
+di
+
+@example
+afterGraceFraction = 3/4
+@end example
+
+@noindent
+può essere ridefinita nel livello superiore.  Ma è anche possibile specificare
+la frazione per ogni singolo comando @code{\afterGrace}.
+
+L'esempio seguente mostra le diverse spaziature che si ottengono con la frazione
+predefinita, impostandola a @code{15/16} e infine a @code{1/2} della nota
+principale.
 
 @lilypond[quote,verbatim]
 <<
@@ -3466,12 +3477,10 @@ e infine con 1/2 della nota principale.
     c''1 \afterGrace d1 { c16[ d] } c1
   }
   \new Staff \relative {
-    #(define afterGraceFraction (cons 15 16))
-    c''1 \afterGrace d1 { c16[ d] } c1
+    c''1 \afterGrace 15/16 d1 { c16[ d] } c1
   }
   \new Staff \relative {
-    #(define afterGraceFraction (cons 1 2))
-    c''1 \afterGrace d1 { c16[ d] } c1
+    c''1 \afterGrace 1/2 d1 { c16[ d] } c1
   }
 >>
 @end lilypond
@@ -3740,9 +3749,9 @@ Quindi la stanghetta successiva si troverà a 9/8 invece che a 5/4.
 @end lilypond
 
 @noindent
-Come mostra l'esempio, @code{ly:make-moment n m} definisce una durata
-di n/m della nota intera.  Ad esempio, @code{ly:make-moment 1 8} corrisponde
-alla durata di un ottavo mentre @code{ly:make-moment 7 16} a quella di sette
+Come mostra l'esempio, @code{ly:make-moment n/m} definisce una durata
+di n/m della nota intera.  Ad esempio, @code{ly:make-moment 1/8} corrisponde
+alla durata di un ottavo mentre @code{ly:make-moment 7/16} a quella di sette
 sedicesimi.
 
 @seealso

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 19d0e8e1a9cee3444ec4915b1d2d116e67f5b3f7
+    Translation of GIT committish: ece789bf5f661cb8f16b50f87a248dedd6e1d8d5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1093,9 +1093,9 @@ oboeNotes = \relative {
 @end lilypond
 
 @c Frase non chiara, traduco letteralmente. - fb
-Se un comando @code{\unfoldRepeat} in un'espressione musicale deve essere
+Se un comando @code{\unfoldRepeats} in un'espressione musicale deve essere
 stampato quando si usa @code{\quoteDuring}, allora anch'esso deve contenere
-il suo comando @code{\unfoldRepeat};
+il suo comando @code{\unfoldRepeats};
 
 @lilypond[verbatim,quote]
 fluteNotes = \relative {

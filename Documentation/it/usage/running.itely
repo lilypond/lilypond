@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 0fa6f042cccacb643d46781dde23617c71a9753e
+    Translation of GIT committish: cd1ac38996d3de35770ea31f819b392fe686bf39
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -592,6 +592,10 @@ la compilazione.
 @tab Sposta il margine sinistro della cornice EPS dell'output della quantità
 specificata (in mm).
 
+@item @code{font-export-dir}
+@tab @code{#f [dir]}
+@tab Directory per esportare i font come file PostScript.
+
 @item @code{gs-load-fonts}
 @tab @code{#f}
 @tab Carica i font attraverso Ghostscript.
@@ -599,6 +603,11 @@ specificata (in mm).
 @item @code{gs-load-lily-fonts}
 @tab @code{#f}
 @tab Carica solo i font LilyPond attraverso Ghostscript.
+
+@item @code{gs-never-embed-fonts}
+@tab @code{#f}
+@tab Fa sì che Ghostscript incorpori solo i font TrueType e nessun altro
+formato per font.
 
 @item @code{gui}
 @tab @code{#f}

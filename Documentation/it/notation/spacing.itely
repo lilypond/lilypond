@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 1e339d5efe13a725a4f0c2d8dfc3d40390446b89
+    Translation of GIT committish: 4934b315013ccdda3ab42271fa8bed6e45587844
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -926,7 +926,8 @@ I valori predefiniti non elencati qui sono visibili in
 
 L'algoritmo di interruzione di pagina da usare.  Le opzioni sono
 @code{ly:minimal-breaking}, @code{ly:page-turn-breaking},
-@code{ly:one-line-breaking}, @code{ly:one-line-auto-height-breaking} e
+@code{ly:one-page-breaking}, @code{ly:one-line-breaking},
+@code{ly:one-line-auto-height-breaking} e
 @code{ly:optimal-breaking} (predefinito).
 
 @item page-breaking-system-system-spacing
@@ -1007,7 +1008,9 @@ Guida alla notazione:
 @ref{Optimal page breaking},
 @ref{Optimal page turning},
 @ref{Minimal page breaking},
-@ref{One-line page breaking}.
+@ref{One-page page breaking},
+@ref{One-line page breaking},
+@ref{One-line-auto-height page breaking}.
 
 File installati:
 @file{ly/paper-defaults-init.ly}.
@@ -1610,6 +1613,7 @@ spiega come modificarli.
 * Interruzione di pagina manuale::
 * Interruzione di pagina ottimale::
 * Interruzione di pagina minimale::
+* Interruzione di pagina di una pagina::
 * Interruzione di pagina su una linea::
 * Interruzione di pagina su una linea con altezza automatica::
 * Voltata di pagina ottimale::
@@ -1764,6 +1768,27 @@ memoria, o con molto testo.  Si abilita con:
 @seealso
 Frammenti:
 @rlsr{Spacing}.
+
+
+@node Interruzione di pagina di una pagina
+@unnumberedsubsubsec Interruzione di pagina di una pagina
+@translationof One-page page breaking
+
+@funindex ly:one-page-breaking
+
+La funzione @code{ly:one-page-breaking} è un algoritmo di interruzione di
+pagina per casi speciali che regola automaticamente l'altezza della pagina
+per farci entrare la musica, in modo che stia tutto in una sola pagina.
+La variabile @code{paper-height} del blocco paper viene ignorata, ma le
+altre impostazioni funzionano normalmente.  In particolare, la spaziatura
+tra l'ultimo sistema (o il testo markup di livello superiore) e il piè di pagina
+può essere personalizzata grazie a @code{last-bottom-spacing} nel blocco paper.
+La larghezza della pagina non viene modificata ma può essere impostata con
+@code{paper-width} nel blocco paper.
+
+@knownissues
+@code{ly:one-page-breaking} non è attualmente compatibile con
+@code{\bookpart}.
 
 
 @node Interruzione di pagina su una linea
