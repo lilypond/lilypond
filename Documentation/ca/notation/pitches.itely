@@ -927,7 +927,7 @@ music = \relative { c'8. ees16( fis8. a16 b8.) gis16 f8. d16 }
 Les lligadures d'unió manuals dins de @code{\retrograde} es
 trencaran i generaran advertiments.  Es poden generar algunes
 lligadures automàticament activant
-@rusernamed{Autommatic note splitting,Divisió automàtica de les notes}.
+@ruser{Divisió automàtica de les notes}.
 
 @seealso
 Referència de la notació:
@@ -1328,7 +1328,7 @@ les notes són el codi d'entrada en brut; l'armadura i la clau
 determinen de quina forma es presenta aquest codi en brut.  Una
 nota sense alteració com@tie{}@code{c} significa @q{Do natural},
 sense que l'afectin l'armadura o la clau.  Per veure més
-informació, consulteu @rlearning{Altures y armadures}.}
+informació, consulteu @rlearning{Altures i armadures}.}
 
 L'armadura indica la tonalitat en la qual es toca una peça.  Està
 denotada per un conjunt d'alteracions (bemolls o sostinguts) al

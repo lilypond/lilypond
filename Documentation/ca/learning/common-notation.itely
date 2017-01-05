@@ -76,7 +76,7 @@ música, per la qual cosa no s'han d'afegir de forma manual.
 Altres tipus de barres de compàs s'afegeixen usant @code{\bar}, per
 exemple @code{\bar "||"} per a una doble barra, o @code{\bar "|."}
 per a la doble barra final.  Per veure una llista completa de les
-línies divisòries, consulteu @rusernamed{Bar lines,Línies divisòries}.
+línies divisòries, consulteu @ruser{Barres de compàs}.
 
 @lilypond[verbatim,quote]
 \relative { g'1 e1 \bar "||" c2. c'4 \bar "|." }
@@ -102,7 +102,7 @@ g1 | e1 | c2. c'4 | g4 c g e | c4 r r2 |
 
 @seealso
 Referència de la notació:
-@rusernamed{Bar and bar number checks, Comprovacions de compàs i de número de compàs}.
+@ruser{Comprovació de compàs i de número de compàs}.
 
 @node Alteracions accidentals i armadures
 @subsection Alteracions accidentals i armadures
@@ -369,7 +369,7 @@ altres.
 
 @seealso
 Referència de la notació:
-@rusernamed{Ties,Lligadures d'unió},
+@ruser{Lligadures d'unió},
 @rusernamed{Slurs,Lligadures d'expressió},
 @rusernamed{Phrasing slurs,Lligadures de fraseig}.
 
@@ -565,8 +565,8 @@ cop.
 
 @seealso
 Referència de la notació:
-@rusernamed{Automatic beams,Barrat automàtic},
-@rusernamed{Manual beams,Barrat manual}.
+@ruser{Barres automàtiques},
+@ruser{Barres manuals}.
 
 @node Instruccions rítmiques avançades
 @subsection Instruccions rítmiques avançades
@@ -664,9 +664,9 @@ expressió musical amb la paraula clau @code{\appoggiatura} o
 
 @seealso
 Referència de la notació:
-@rusernamed{Grace notes,Notes d'adorn},
-@rusernamed{Tuplets,Grups especials},
-@rusernamed{Upbeats,Anacrusis}.
+@ruser{Notes d'adorn},
+@ruser{Grups especials},
+@ruser{Anacrusis}.
 
 @node Diverses notes a la vegada
 @section Diverses notes a la vegada

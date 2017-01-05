@@ -33,7 +33,7 @@ les millors tradicions del gravat musical clàssic.
 @divClass{link-headings}
 
 @divClass{column-left-top}
-@subheading Què fa el LilyPond
+@subheading Què fa el Lilypond
 
 @itemize
 
@@ -86,14 +86,14 @@ les millors tradicions del gravat musical clàssic.
 @c menu. -JM
 @divClass{hide}
 @menu
-* Possibilitats::               Què pot fer el LilyPond?
+* Possibilitats::               Què pot fer el Lilypond?
 * Exemples::                    Vull veure alguna música!
 * Llibertat::                   La llibertat i la GPL.
 * Rerefons::                    Estètica computacional.
 * Produccions::                 Ús del LilyPond a la vida real.
-* Ressenyes::                   Què diu la gent sobre el LilyPond?
+* Ressenyes::                   Què diu la gent sobre el Lilypond?
 * Entrada de text::             Escriviu música com si fos @emph{text}?!
-* Entorns millorats::           Altres formes de treballar amb el LilyPond.
+* Entorns millorats::           Altres formes de treballar amb el Lilypond.
 @end menu
 @divEnd
 
@@ -116,7 +116,7 @@ empleat milers d'hores a desenvolupar un programa de gravat
 musical que produeix com a resultat música impresa de forma
 bella. Tots els ajustos d'estil del LilyPond, el disseny dels
 tipus de lletra i els algoritmes s'han inspirat en la millor
-música gravada a mà. La sortida del LilyPond té el mateix aspecte
+música gravada a mà. La sortida del Lilypond té el mateix aspecte
 robust, equilibrat i elegant que les partitures clàssiques millor
 gravades. Tot això s'explica amb detall a la nostra @ressaynamed{Essay,Monografia}.
 
@@ -163,7 +163,7 @@ amb alguna dificultat manual que no poden teclejar o usar un ratolí
 d'ordinador, poden usar programari de reconeixement de veu per
 editar els fitxers del LilyPond. Fins i tot les persones totalment
 cegues poden usar lectors de pantalla per escriure els fitxers del
-LilyPond (una tasca impossible als programes d'edició de
+Lilypond (una tasca impossible als programes d'edició de
 partitures basats en gràfics).
 
 @subsubheading Disseny ampliable
@@ -207,7 +207,7 @@ que els problemes es resolen amb rapidesa.
 @subsubheading Editors millorats
 
 Diversos desenvolupadors que són a l'hora usuaris actius del
-LilyPond han escrit eines orientades específicament a fer més
+Lilypond han escrit eines orientades específicament a fer més
 fàcil i efectiu el procés d'editar fitxers del LilyPond. Per veure
 alguns exemples, consulteu @ref{Entorns millorats}.
 
@@ -483,8 +483,8 @@ trobar feina a empreses o a universitats.
 @subheading I ara què?
 
 Encara no us convenç el LilyPond? Llegiu el nostre estens assaig
-sobre la nostra filosofia del gravar a @ref{Rerefons}. Si ja voleu
-provar el LilyPond, en primer lloca llegiu el que hem escrit sobre
+sobre la nostra filosofia de gravar a @ref{Rerefons}. Si ja voleu
+provar el LilyPond, en primer lloc llegiu el que hem escrit sobre
 la @ref{Entrada de text}.
 @divEnd
 
@@ -639,7 +639,7 @@ Montpellier}, a França.
 El @uref{http://www.mutopiaproject.org/index.html, Projecte Mutopia}
 inclou més de 1500 partitures de música clàssica per a la seva
 descàrrega lliure, i és el principal aparador de partitures del
-LilyPond.
+Lilypond.
 
 @c don't make this "Mutopia" a link, since that looks silly.
 @item
@@ -802,7 +802,7 @@ partitures produïdes pel LilyPond son excepcionalment boniques
 Juliol/agost de 2004
 
 Dave Phillips va escriure un article introductori per a Linux
-Journal At the Sounding edge: LilyPond,
+Journal At the Sounding edge: Lilypond,
 @uref{http://www.linuxjournal.com/article/7657, primera} i
 @uref{http://www.linuxjournal.com/article/7719, segona} part.
 
@@ -820,7 +820,7 @@ Febrer de 2004
 
 El cantant de jazz Gail Selkirk escriu sobre
 @uref{http://www.songbirdofswing.com/editorial_page/lilypond/,
-Submergir-se a l'estany dels nenúfars (LilyPond)}.
+Submergir-se a l'estany dels nenúfars (Lily Pond)}.
 @qq{@dots{} pot fer fulls guia d'acords o parts orquestrals
 completes, i el resultat pot ser increïble.}
 @uref{http://www.computermusic.co.uk/, Computer Music Special}, número
@@ -950,7 +950,7 @@ bellesa. Això és massa modèstia!
 (@dots{}) a mesura que el LilyPond millora contínuament i observo
 com es fan les coses amb el Scheme, tinc cada cop menys
 frustracions. De totes maneres el que vull dir és: gràcies per
-donar-nos el LilyPond, és realment bo.}
+donar-nos el Lilypond, és realment bo.}
 @divEnd
 
 

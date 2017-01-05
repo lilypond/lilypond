@@ -435,7 +435,7 @@ cada pàgina de sortida.  Es recomana instal·lar el tipus de lletra
 Century Schoolbook, que està inclòs a la instal·lació del
 LilyPond, per a un renderitzat òptim.  Sota l'UNIX, bastarà amb
 que copieu aquests fitxers de tipus de lletra del directori del
-LilyPond (normalment @file{/usr/share/lilypond/VERSION/fonts/otf/})
+Lilypond (normalment @file{/usr/share/lilypond/VERSION/fonts/otf/})
 al directori @file{~/.fonts/}.  La sortida @code{SVG} hauria de
 ser compatible amb qualsevol editor o client de SVG.  També hi ha
 una opció @code{svg-woff} (vegeu més avall) per usar els fitxers
@@ -1037,12 +1037,12 @@ comprimida o que se surti de la pàgina.}
 
 La duració incorrecta es pot trobar fàcilment si s'utilitzen
 comprovacions de compàs, vegeu
-@rusernamed{Bar and bar number checks,Comprovació de compàs i de número de compàs}.
+@ruser{Comprovació de compàs i de número de compàs}.
 
 Si realment volem tenir una sèrie d'aquests compassos amb notes
 solapades, hem d'inserir una línia divisòria invisible on volem
 el salt de línia.  Per veure més detalls, consulteu
-@rusernamed{Bar lines,Barres de compàs}.
+@ruser{Barres de compàs}.
 
 
 @node Apareix un pentagrama de més

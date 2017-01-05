@@ -73,7 +73,7 @@ fa uns anys.  @code{convert-ly} requereix que declareu quina
 versió del LilyPond fèieu servir.
 
 @item @strong{Incloeu comprovacions}:
-@rusernamed{Bar and bar number checks,Comprovació de compàs i de número de compàs},
+@ruser{Comprovació de compàs i de número de compàs},
 @ruser{Comprovació d'octava}.
 Si incloeu comprovacions de tant en tant, en cas que cometeu un
 error podreu localitzar-lo molt més ràpidament.  Amb quina
