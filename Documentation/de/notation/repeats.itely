@@ -158,14 +158,15 @@ Mehrfache Wiederholungen mit mehr als einer Alternative:
 }
 @end lilypond
 
-@warning{Wenn es zwei oder mehr Alternativen gibt, darf nicht zwischen
+@warning{Wenn es zwei oder mehr Alternativen gibt, darf nichts zwischen
 der schließenden Klammer der einen und der öffnenden Klammer der anderen
 Wiederholung stehen, weil sonst nicht die erwartete Anzahl von Endungen
 produziert wird.}
 
 @warning{Wenn man @code{@bs{}relative} innerhalb von @code{@bs{}repeat}
 notiert, ohne den @code{Voice}-Kontext explizit zu beginnen, erscheinen
-zusätzliche (ungewollte) Systeme.  Sie auch @rprogram{Ein zusätzliches System erscheint}.}
+zusätzliche (ungewollte) Systeme.
+Siehe auch @rprogram{Ein zusätzliches System erscheint}.}
 
 
 @cindex Wiederholung mit Auftakt
@@ -610,7 +611,8 @@ wiederholt werden.  Siehe @ref{Akkord-Wiederholungen}.
 
 @warning{Wenn man @code{@bs{}relative} innerhalb von @code{@bs{}repeat}
 notiert, ohne den @code{Voice}-Kontext explizit zu beginnen, erscheinen
-zusätzliche (ungewollte) Systeme.  Sie auch @rprogram{Ein zusätzliches System erscheint}.}
+zusätzliche (ungewollte) Systeme.
+Siehe auch @rprogram{Ein zusätzliches System erscheint}.}
 
 @seealso
 Notationsreferenz:

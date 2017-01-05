@@ -857,7 +857,7 @@ mit einem Semikolon (@code{;}).
 
 Diese Fehlermeldung erscheint in der Kommandozeilenausgabe, wenn die
 Datei ein Zeichen enthält, das nicht zu ASCII gehört und die Datei
-nicht in UTF-8-Kodierung gespeichert wurd.  Sie auch @ruser{Zeichenkodierung}.
+nicht in UTF-8-Kodierung gespeichert wurd.  Siehe auch @ruser{Zeichenkodierung}.
 
 
 @node Varování: staff affinities by měly jen klesat
