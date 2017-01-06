@@ -454,6 +454,9 @@ items such as text scripts, text spanners, and piano pedal marks.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {setting-the-minimum-length-of-hairpins.ly}
 
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{moving-the-ends-of-hairpins.ly}
+
 @cindex al niente
 @cindex niente, al
 
