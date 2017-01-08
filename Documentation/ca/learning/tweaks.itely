@@ -272,7 +272,7 @@ poden tenir a vegades una representació vàlida al mode de música
 del LilyPond, aquest manual utilitza sempre @samp{#} per a
 l'escriptura, per coherència.  Per obtenir més informació sobre el
 mode de l'Scheme, consulteu
-@rextendnamed{LilyPond Scheme-Syntax,Sintaxi de l'Scheme del LilyPond}.
+@rextendnamed{LilyPond Scheme syntax,Sintaxi de l'Scheme del LilyPond}.
 
 @code{\override} és l'ordre d'ús més comú dins de l'ajustament, i
 durant la major part de la resta d'aquest capítol presentarem

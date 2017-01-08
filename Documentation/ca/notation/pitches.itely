@@ -1165,7 +1165,7 @@ Les claus especials, com les utilitzades a la música
 @rusernamed{Gregorian clefs,Claus del cant gregorià}. La música
 que requereix claus de tabulatura s'estudia a
 @rusernamed{Default tablatures,Tabulatures predeterminades} i a
-@rusernamed{Costum tablatures,Tabulatures personalizadas}.
+@rusernamed{Custom tablatures,Tabulatures personalizadas}.
 
 @cindex Claus de guia
 @cindex Claus amb notes guia
@@ -1281,7 +1281,7 @@ Referencia de la notación:
 @rusernamed{Mensural clefs,Claus de la música mensural},
 @rusernamed{Gregorian clefs,Claus del cant gregorià},
 @rusernamed{Default tablatures,Tabulatures predeterminades}
-@rusernamed{Costum tablatures,Tabulatures personalizadas}.
+@rusernamed{Custom tablatures,Tabulatures personalizadas}.
 @rusernamed{Formatting cue notes,Formatació de les notes guia}.
 
 Fitxers instal·lats:
@@ -1328,7 +1328,7 @@ les notes són el codi d'entrada en brut; l'armadura i la clau
 determinen de quina forma es presenta aquest codi en brut.  Una
 nota sense alteració com@tie{}@code{c} significa @q{Do natural},
 sense que l'afectin l'armadura o la clau.  Per veure més
-informació, consulteu @rlearning{Altures i armadures}.}
+informació, consulteu @rlearning{Alteracions accidentals i armadures}.}
 
 L'armadura indica la tonalitat en la qual es toca una peça.  Està
 denotada per un conjunt d'alteracions (bemolls o sostinguts) al
@@ -1427,7 +1427,7 @@ Glossari musical:
 @rglos{scordatura}.
 
 Manual de aprenentatge:
-@rlearning{Altures i armadures}.
+@rlearning{Alteracions accidentals i armadures}.
 
 Fragments de codi:
 @rlsr{Pitches}.

@@ -631,4 +631,4 @@ copy sortida\elmeuprojecte.pdf ElMeuProjecte.pdf
 @seealso
 Manual d'utilització del programa:
 @rprogram{Utilització des de la línia d'ordres},
-@rprogram{LilyPond-book}
+@rprogram{lilypond-book}

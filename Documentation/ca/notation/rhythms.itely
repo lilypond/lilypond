@@ -3093,7 +3093,7 @@ en qualsevol moment amb @samp{\set Timing.defaultBarType
 Referència de la notació:
 @rusernamed{Line breaking,Salts de línia},
 @rusernamed{Repeats,Repeticions},
-@rusernamed{Groupig staves,Agrupament de pentagrames}.
+@rusernamed{Grouping staves,Agrupament de pentagrames}.
 
 Fitxers instal·lats:
 @file{scm/bar-line.scm}.
