@@ -620,10 +620,10 @@ mailing list degli sviluppatori.
 
 @divClass{heading-center}
 @ifclear web_version
-  @heading Development for LilyPond @version
+  @heading Sviluppo di LilyPond @version
 @end ifclear
 @ifset web_version
-  @heading Development for LilyPond @versionDevel
+  @heading Sviluppo di LilyPond @versionDevel
 @end ifset
 
 @c we normally don't allow named references, but in this case
@@ -783,43 +783,43 @@ manuali sono reperibili su @url{http://lilypond.org}}
 @headitem Introduzione
 
 @item
-@docLinkSplit{Learning,learning,@manualDevelLearningSplit-it}
+@docLinkSplit{Apprendimento,learning,@manualDevelLearningSplit-it}
 @tab
-@docLinkBig{Learning,learning,@manualDevelLearningBig-it}
+@docLinkBig{Apprendimento,learning,@manualDevelLearningBig-it}
 @tab
-@docLinkPdf{Learning,learning,@manualDevelLearningPdf-it}
+@docLinkPdf{Apprendimento,learning,@manualDevelLearningPdf-it}
 
 @item
-@docLinkSplit{Glossary,music-glossary,@manualDevelGlossarySplit}
+@docLinkSplit{Glossario,music-glossary,@manualDevelGlossarySplit}
 @tab
-@docLinkBig{Glossary,music-glossary,@manualDevelGlossaryBig}
+@docLinkBig{Glossario,music-glossary,@manualDevelGlossaryBig}
 @tab
-@docLinkPdf{Glossary,music-glossary,@manualDevelGlossaryPdf}
+@docLinkPdf{Glossario,music-glossary,@manualDevelGlossaryPdf}
 
 @item
-@docLinkSplit{Essay,essay,@manualDevelEssaySplit-it}
+@docLinkSplit{Saggio,essay,@manualDevelEssaySplit-it}
 @tab
-@docLinkBig{Essay,essay,@manualDevelEssayBig-it}
+@docLinkBig{Saggio,essay,@manualDevelEssayBig-it}
 @tab
-@docLinkPdf{Essay,essay,@manualDevelEssayPdf-it}
+@docLinkPdf{Saggio,essay,@manualDevelEssayPdf-it}
 @end multitable
 
 @multitable @columnfractions .3 .3 .3
 @headitem Regolare
 
 @item
-@docLinkSplit{Notation,notation,@manualDevelNotationSplit-it}
+@docLinkSplit{Notazione,notation,@manualDevelNotationSplit-it}
 @tab
-@docLinkBig{Notation,notation,@manualDevelNotationBig-it}
+@docLinkBig{Notazione,notation,@manualDevelNotationBig-it}
 @tab
-@docLinkPdf{Notation,notation,@manualDevelNotationPdf-it}
+@docLinkPdf{Notazione,notation,@manualDevelNotationPdf-it}
 
 @item
-@docLinkSplit{Usage,usage,@manualDevelUsageSplit-it}
+@docLinkSplit{Utilizzo,usage,@manualDevelUsageSplit-it}
 @tab
-@docLinkBig{Usage,usage,@manualDevelUsageBig-it}
+@docLinkBig{Utilizzo,usage,@manualDevelUsageBig-it}
 @tab
-@docLinkPdf{Usage,usage,@manualDevelUsagePdf-it}
+@docLinkPdf{Utilizzo,usage,@manualDevelUsagePdf-it}
 
 @item
 @docLinkSplit{Snippets,snippets,@manualDevelSnippetsSplit}
@@ -840,11 +840,11 @@ manuali sono reperibili su @url{http://lilypond.org}}
 @docLinkPdf{Web,web,@manualDevelWebPdf-it}
 
 @item
-@docLinkSplit{Changes,changes,@manualDevelChangesSplit}
+@docLinkSplit{Cambiamenti,changes,@manualDevelChangesSplit-it}
 @tab
-@docLinkBig{Changes,changes,@manualDevelChangesBig}
+@docLinkBig{Cambiamenti,changes,@manualDevelChangesBig-it}
 @tab
-@docLinkPdf{Changes,changes,@manualDevelChangesPdf}
+@docLinkPdf{Cambiamenti,changes,@manualDevelChangesPdf-it}
 
 @item
 @docLinkSplit{Extending,extending,@manualDevelExtendingSplit}

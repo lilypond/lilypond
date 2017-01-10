@@ -446,9 +446,9 @@ funzionalità di LilyPond rispetto alla versione stabile precedente.
 
 @docLinks{Cambiamenti, changes,
   @rchangesnamed{Top,Cambiamenti},
-  @manualStableChangesSplit,
-  @manualStableChangesBig, 90 KB,
-  @manualStableChangesPdf, 80 KB}
+  @manualStableChangesSplit-it,
+  @manualStableChangesBig-it, 90 KB,
+  @manualStableChangesPdf-it, 80 KB}
 
 @divEnd
 
