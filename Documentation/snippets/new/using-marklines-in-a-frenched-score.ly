@@ -2,7 +2,7 @@
 \header {
   lsrtags = "contexts-and-engravers, staff-notation"
   texidoc = "
-Using @{MarkLine} contexts (such as in
+Using @code{MarkLine} contexts (such as in
 @uref{http://lsr.di.unimi.it/LSR/Item?id=1010, LSR1010}) in a
 Frenched score can be problematic if all the staves between two
 @code{MarkLine}s are removed in one system. The
