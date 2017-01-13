@@ -382,7 +382,9 @@ class Text:
         'INSTRUMENT_NAME',
         'LYRIC',
         'MARKER',
-        'CUE_POINT',)
+        'CUE_POINT',
+        'PROGRAM_NAME',
+        'DEVICE_NAME', )
 
     def __init__ (self, type, text):
         self.clocks = 0
