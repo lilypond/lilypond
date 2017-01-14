@@ -118,17 +118,17 @@ ayuda.
 
 @quotation
 @uref{http://lists.gnu.org/mailman/listinfo/lilypond-user,
-suscripción e información sobre lilypond-user}
+Suscripción e información sobre lilypond-user}
 
 @uref{http://lists.gnu.org/archive/html/lilypond-user/,
-archivo 1 de la lista de usuarios}
+Archivo 1 de la lista de usuarios}
 @uref{http://www.mail-archive.com/lilypond-user@@gnu.org/,
-archivo 2}
+Archivo 2}
 @uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.general,
-archivo 3}
+Archivo 3}
 
 @uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.general,
-escribir a la lista lilypond-user a través de gmane}
+Escribir a la lista lilypond-user a través de gmane}
 @end quotation
 
 @warning{Al formular preguntas, por favor, ¡utilice
@@ -164,7 +164,7 @@ preferentemente enviarse a una de las listas de correo.
 <form action="http://webchat.freenode.net"
       method="get"
       name="f_lily_irc"
-  <label>nombre de IRC:
+  <label>Nombre de IRC:
     <input name="nick" type="text" size="15" value="">
   </label>
   <input name="channels" type="hidden" value="lilypond">
@@ -187,16 +187,16 @@ preferentemente enviarse a una de las listas de correo.
 
 @quotation
 @uref{http://lists.gnu.org/mailman/listinfo/lilypond-es,
-lista de correo en español}
+Lista de correo en español}
 
 @uref{http://www.lilypondforum.de/,
-foro alemán}
+Foro alemán}
 
 @uref{http://groups.google.com/group/lilypond-brasil,
-grupo de portugués}
+Grupo de portugués}
 
 @uref{http://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
-lista de correo en francés}
+Lista de correo en francés}
 @end quotation
 @divEnd
 
@@ -217,14 +217,14 @@ bajo tráfico, que envía notificaciones de los últimos lanzamientos.
 
 @quotation
 @uref{http://lists.gnu.org/mailman/listinfo/info-lilypond,
-suscripción e información sobre info-lilypond}
+Suscripción e información sobre info-lilypond}
 
 @uref{http://lists.gnu.org/archive/html/info-lilypond/,
-archivo 1 de la lista info}
+Archivo 1 de la lista info}
 @uref{http://www.mail-archive.com/info-lilypond@@gnu.org/,
-archivo 2}
+Archivo 2}
 @uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.announce,
-archivo 3}
+Archivo 3}
 
 @c don't include gmane posting here.  -gp
 @end quotation
@@ -243,17 +243,17 @@ parches se pueden también enviar aquí.
 
 @quotation
 @uref{http://lists.gnu.org/mailman/listinfo/lilypond-devel,
-subscripción e información sobre lilypond-devel}
+Suscripción e información sobre lilypond-devel}
 
 @uref{http://lists.gnu.org/archive/html/lilypond-devel/,
-archivo 1 de la lista devel}
+Archivo 1 de la lista devel}
 @uref{http://www.mail-archive.com/lilypond-devel@@gnu.org/,
-archivo 2}
+Archivo 2}
 @uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.devel,
-archivo 3}
+Archivo 3}
 
 @uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.devel,
-escribir a la lista lilypond-devel a través de gmane}
+Escribir a la lista lilypond-devel a través de gmane}
 @end quotation
 
 
@@ -264,14 +264,14 @@ aquí.  No envíe parches a esta lista.
 
 @quotation
 @uref{http://lists.gnu.org/mailman/listinfo/bug-lilypond,
-subscripción e información sobre bug-lilypond}
+Suscripción e información sobre bug-lilypond}
 
 @uref{http://lists.gnu.org/archive/html/bug-lilypond/,
-archivo 1 de la lista bug}
+Archivo 1 de la lista bug}
 @uref{http://www.mail-archive.com/bug-lilypond@@gnu.org/,
-archivo 2}
+Archivo 2}
 @uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.bugs,
-archivo 3}
+Archivo 3}
 
 @c don't include gmane posting here.  -gp
 @end quotation
