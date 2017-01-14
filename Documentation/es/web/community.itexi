@@ -867,9 +867,9 @@ más recientes están en @url{http://lilypond.org}}
 @docLinkPdf{Web,web,@manualDevelWebPdf}
 
 @item
-@docLinkSplit{Cambios,changes,@manualDevelChangesSplit}
+@docLinkSplit{Cambios,changes,@manualDevelChangesSplit-es}
 @tab
-@docLinkBig{Cambios,changes,@manualDevelChangesBig}
+@docLinkBig{Cambios,changes,@manualDevelChangesBig-es}
 @tab
 @docLinkPdf{Cambios,changes,@manualDevelChangesPdf-es}
 
