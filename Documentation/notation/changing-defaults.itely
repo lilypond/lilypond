@@ -1005,8 +1005,26 @@ command:
 @}
 @end example
 
-Since such a @q{context modification} is specified inside of
-music, it will affect @emph{all} outputs (typesetting @emph{and}
+Alternatively, if the music is being entered using the short form of the
+input mode-specifying commands, e.g. @code{\chords} rather than
+@code{\chordmode}, the @code{\with} command must be placed immediately
+after the mode-specifying command:
+
+@example
+\chords \with @{ [context settings for this (implicit) context instance only] @}
+@{
+  @dots{}
+@}
+@end example
+
+@noindent
+as it is the implicit context created by these short forms which should
+be modified.  The same consideration applies to the other input
+mode-specifying short forms (@code{\drums}, @code{\figures}), see
+@ref{Input modes}.
+
+Since context modifications specified in @code{\with} blocks are inside
+music, they will affect @emph{all} outputs (typesetting @emph{and}
 Midi) as opposed to changes within an output definition.
 
 The following types of settings may be specified:
@@ -1081,6 +1099,10 @@ A predefined command such as @code{\dynamicUp}
 @end lilypond
 
 @end itemize
+
+@seealso
+Notation Reference:
+@ref{Input modes}
 
 @node Order of precedence
 @unnumberedsubsubsec Order of precedence
