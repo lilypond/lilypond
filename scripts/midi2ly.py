@@ -386,10 +386,17 @@ class Text:
         'PROGRAM_NAME',
         'DEVICE_NAME', )
 
+    @staticmethod
+    def _text_only(chr):
+        if ((' ' <= chr <= '~') or chr in ['\n','\r']):
+            return chr
+        else: 
+            return '~'
+
     def __init__ (self, type, text):
         self.clocks = 0
         self.type = type
-        self.text = text
+        self.text =''.join(map(self._text_only, text))
 
     def dump (self):
         # urg, we should be sure that we're in a lyrics staff
