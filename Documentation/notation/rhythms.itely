@@ -1929,6 +1929,22 @@ be done with the @code{Pitch_squash_engraver} and
 >>
 @end lilypond
 
+Music containing chords can also be used as input to @code{RhythmicStaff}
+and for use with the @code{Pitch_squash_engraver} if the chords are first
+reduced to single notes with the @code{\reduceChords} music function:
+
+@lilypond[quote,verbatim]
+\new RhythmicStaff {
+  \time 4/4
+  \reduceChords {
+    <c>2
+    <e>2
+    <c e g>2
+    <c e g>4
+    <c e g>4
+  }
+}
+@end lilypond
 
 @predefined
 @code{\improvisationOn},
