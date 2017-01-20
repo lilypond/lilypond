@@ -370,8 +370,8 @@ altres.
 @seealso
 Referència de la notació:
 @ruser{Lligadures d'unió},
-@rusernamed{Slurs,Lligadures d'expressió},
-@rusernamed{Phrasing slurs,Lligadures de fraseig}.
+@ruser{Lligadures d'expressió},
+@ruser{Lligadures de fraseig}.
 
 @node Articulacions i matisos dinàmics
 @subsection Articulacions i matisos dinàmics

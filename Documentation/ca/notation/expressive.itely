@@ -1,0 +1,1462 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+@ignore
+    Translation of GIT committish: 21be03e4b893ec2bbea745a713360310931337b9
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.19.21"
+
+@node Expressions
+@section Expressions
+@translationof Expressive marks
+
+@lilypondfile[quote]{expressive-headword.ly}
+
+Aquesta secció relaciona diverses marques d'expressió que es poden
+crear a una partitura.
+
+@menu
+* Expressions annexades a les notes::
+* Marques expressives en forma corba::
+* Marques expressives en forma de línies::
+@end menu
+
+
+@node Expressions annexades a les notes
+@subsection Expressions annexades a les notes
+@translationof Expressive marks attached to notes
+
+Aquesta secció explica com crear marques expressives que estan
+aplicades a notes: articulacions, ornaments i matisos. També es
+tracten els mètodes per crear les marques dinàmiques.
+
+@menu
+* Articulacions i ornaments::
+* Matisos dinàmics::
+* Indicacions dinàmiques contemporànies::
+@end menu
+
+
+@node Articulacions i ornaments
+@unnumberedsubsubsec Articulacions i ornaments
+@translationof Articulations and ornamentations
+
+@cindex articulacions
+@cindex ornamentació
+@cindex guions
+@cindex ornaments
+@cindex espressiu
+@cindex calderó
+@cindex arc a dalt
+@cindex arc a sota
+@cindex indicacions de pedal
+@cindex indicacions de pedaler d'orgue
+@cindex pedal d'orgue
+@cindex grupet
+@cindex mordent circular
+@cindex nota oberta
+@cindex nota tapada
+@cindex flageolet
+@cindex mordent circular, invers
+@cindex refilet
+@cindex semirefilet
+@cindex mordent
+@cindex prallprall
+@cindex prallmordent
+@cindex semirefilet ascendent
+@cindex semirefilet descendent
+@cindex mordent ascendent
+@cindex mordente descendent
+@cindex indicació de polze
+@cindex segno
+@cindex coda
+@cindex varcoda
+
+@funindex \accent
+@funindex \marcato
+@funindex \staccatissimo
+@funindex \espressivo
+@funindex \staccato
+@funindex \tenuto
+@funindex \portato
+@funindex \upbow
+@funindex \downbow
+@funindex \flageolet
+@funindex \thumb
+@funindex \lheel
+@funindex \rheel
+@funindex \ltoe
+@funindex \rtoe
+@funindex \open
+@funindex \halfopen
+@funindex \stopped
+@funindex \snappizzicato
+@funindex \turn
+@funindex \reverseturn
+@funindex \trill
+@funindex \prall
+@funindex \mordent
+@funindex \prallprall
+@funindex \prallmordent
+@funindex \upprall
+@funindex \downprall
+@funindex \upmordent
+@funindex \downmordent
+@funindex \pralldown
+@funindex \prallup
+@funindex \lineprall
+@funindex \signumcongruentiae
+@funindex \shortfermata
+@funindex \fermata
+@funindex \longfermata
+@funindex \verylongfermata
+@funindex \fermataMarkup
+@funindex \segno
+@funindex \coda
+@funindex \varcoda
+
+
+@funindex -
+
+Es poden annexar a les notes un ample ventall de símbols per
+denotar articulacions, adorns i altres indicacions d'execució,
+utilitzant la sintaxi següent:
+
+@example
+@var{nota}\@var{nom}
+@end example
+
+La llista de possibles valors de @code{@var{nom}} està a
+@rusernamed{List of articulations,Llista d'articulacions}.  Per exemple
+
+@lilypond[verbatim,quote]
+\relative {
+  c''4\staccato c\mordent b2\turn
+  c1\fermata
+}
+@end lilypond
+
+@cindex marcato
+@cindex tenuto
+@cindex staccatissimo
+@cindex acent
+@cindex picat
+@cindex staccato
+@cindex portato
+
+Algunes d'aquestes articulacions tenen abreviatures que faciliten
+la seva escriptura.  Les abreviatures s'escriuen a darrere del nom
+de la nota, i la seva sintaxi consisteix en un guió @code{-}
+seguit d'un símbol que especifica l'articulació.  Existeixen
+abreviatures prededefinides per al @notation{marcato},
+@notation{stopped} (nota apagada), @notation{tenuto}, @notation{staccatissimo},
+@notation{accent} (acent), @notation{staccato} (picat), i
+@notation{portato}.  La sortida corresponent a aquestes
+articulacions apareix de la manera següent:
+
+@lilypond[verbatim,quote]
+\relative {
+  c''4-^ c-+ c-- c-!
+  c4-> c-. c2-_
+}
+@end lilypond
+
+Les regles per a la col·locació predeterminada de les
+articulacions es troben definides al fitxer @file{scm/script.scm}.
+Les articulacions i ornaments es poden col·locar manualment per
+sobre o per sota del pentagrama; vegeu
+@rusernamed{Direction and placement,Direcció i posició}.
+
+Les articulacions són objectes @code{Script}.  Les seves
+propietats es descriuen de forma més completa a @rinternals{Script}.
+
+Les articulacions es poden adjuntar als silencis així com a les
+notes, pero no es poden ajuntar a silencis multicompàs. Hi ha
+disponible una ordre predefinida especial, @code{\fermataMarkup},
+per annexar un calderó a un silenci multicompàs (i sols a un
+silenci multicompàs).  L'ordre crea un objecte @code{MultiMeasureRestText}.
+
+@lilypond[verbatim,quote,fragment]
+\override Script.color = #red
+\override MultiMeasureRestText.color = #blue
+a'2\fermata r\fermata
+R1\fermataMarkup
+@end lilypond
+
+A més d'articulacions, es poden adjuntar textos i elements de
+marcatge de les notes. Vegeu @rusernamed{Text scripts,Scripts de text}.
+
+Per veure més informació quant a l'ordenació dels elements Script
+i TextScript que s'annexen a les notes, consulteu
+@rlearning{Col·locació dels objectes}.
+
+@snippets
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{modifying-default-values-for-articulation-shorthand-notation.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{controlling-the-vertical-ordering-of-scripts.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{creating-a-delayed-turn.ly}
+
+@seealso
+Glossari musical:
+@rglos{tenuto},
+@rglos{accent},
+@rglos{staccato},
+@rglos{portato}.
+
+Manual d'aprenentatge:
+@rlearning{Col·locació dels objectes}.
+
+Referència de la notació:
+@rusernamed{Text scripts,Scripts de text},
+@rusernamed{Direction and placement,Direcció i posició},
+@rusernamed{List of articulations,Llista d'articulacions},
+@ref{Refilets}.
+
+Fitxers instal·lats:
+@file{scm/script.scm}.
+
+Fragments de codi:
+@rlsr{Expressive marks}.
+
+Referència de funcionament intern:
+@rinternals{Script},
+@rinternals{TextScript}.
+
+
+@node Matisos dinàmics
+@unnumberedsubsubsec Matisos dinàmics
+@translationof Dynamics
+
+@cindex dinàmica
+@cindex matisos absoluts
+@cindex matisos
+@cindex absoluts, matisos
+@funindex \pppp
+@funindex \ppp
+@funindex \pp
+@funindex \p
+@funindex \mp
+@funindex \mf
+@funindex \f
+@funindex \ff
+@funindex \fff
+@funindex \ffff
+@funindex \fffff
+@funindex \fp
+@funindex \sf
+@funindex \sff
+@funindex \sp
+@funindex \spp
+@funindex \sfz
+@funindex \rfz
+
+Les marques dinàmiques de matís absolut s'especifiquen usant una
+ordre després d'una nota: @code{c4\ff}.  Les marques dinàmiques
+disponibles són @code{\ppppp}, @code{\pppp},
+@code{\ppp}, @code{\pp}, @code{\p}, @code{\mp}, @code{\mf},
+@code{\f}, @code{\ff}, @code{\fff}, @code{\ffff}, @code{\fffff},
+@code{\fp}, @code{\sf}, @code{\sff}, @code{\sp}, @code{\spp},
+@code{\sfz} i @code{\rfz}.  Les indicaciones dinàmiques es poden
+col·locar manulament per sobre o per sota del pentagrama; per veure
+més detalls, consulteu
+@rusernamed{Direction and placement,Direcció i posició}.
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  c2\ppp c\mp
+  c2\rfz c^\mf
+  c2_\spp c^\ff
+}
+@end lilypond
+
+@cindex regulador
+@cindex crescendo
+@cindex decrescendo
+@cindex diminuendo
+
+@funindex \<
+@funindex \>
+@funindex \!
+@funindex \cr
+@funindex \decr
+
+Una indicació de @notation{crescendo} s'inicia amb @code{\<} i
+s'acaba amb @code{\!}, amb un matís absolut o amb una altra
+indicació de crescendo o de descrescendo.  Una indicació de
+@notation{decrescendo} comença amb @code{\>} i acaba també amb
+@code{\!}, amb un matís dinàmic absolut o amb una altra indicació
+de crescendo o de decrescendo.  Es poden usar @code{\cr} i
+@code{\decr} en lloc de @code{\<} i @code{\>}.  De forma
+predeterminada, es graven reguladors en angle quan es fa servir
+aquesta notació.
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  c2\< c\!
+  d2\< d\f
+  e2\< e\>
+  f2\> f\!
+  e2\> e\mp
+  d2\> d\>
+  c1\!
+}
+@end lilypond
+
+Un regulador acabat mitjançant @code{\!} finalitza a la vora dreta
+de la nota que porta el @code{\!} annexat.  En el cas en el qual
+estigui acabat amb el començament d'una altra indicació
+@notation{crescendo} o @notation{decrescendo}, acabarà al centre
+de la nota que té annexada la següent indicació
+@code{\<} o @code{\>}.  El regulador següent començarà aleshores a
+la vora dreta de la mateixa nota en comptes de la vora esquerra,
+com seria normal si hagués acabaat amb @code{\!} prèviament.
+
+@lilypond[verbatim,quote]
+\relative {
+  c''1\< | c4 a c\< a | c4 a c\! a\< | c4 a c a\!
+}
+@end lilypond
+
+Els reguladors que acaben amb indicacions dinàmiques absolutes en
+lloc d'amb @code{\!} també es graven de manera semblant.
+Tanmateix, la longitud de la pròpia indicació dinàmica pot alterar
+el punt en el qual finalitza el regulador anterior.
+
+@lilypond[verbatim,quote]
+\relative {
+  c''1\< | c4 a c\mf a | c1\< | c4 a c\ffff a
+}
+@end lilypond
+
+@cindex diversos matisos sobre una nota
+@cindex matisos, diversos sobre una nota
+@cindex dinàmica, diverses indicacions sobre una nota
+
+Es requereixen silencis espaiadors per tipografiar diverses
+indicacions dinàmiques sobre una sola nota.  Això és útil
+especialment per afegir un @notation{crescendo} i un
+@notation{decrescendo} a la mateixa nota:
+
+@lilypond[verbatim,quote]
+\relative {
+  c''4\< c\! d\> e\!
+  << f1 { s4 s4\< s4\> s4\! } >>
+}
+@end lilypond
+
+@cindex espressivo, articulació
+
+@funindex \espressivo
+
+Es pot fer servir l'ordre @code{\espressivo} per indicar un
+crescendo o un decrescendo sobra la mateixa nota.  Tanmateix,
+noteu que aquesta indicació està implementada com una articulació,
+no com una expressió dinàmica.
+
+@lilypond[verbatim,quote]
+\relative {
+  c''2 b4 a
+  g1\espressivo
+}
+@end lilypond
+
+@funindex \cresc
+@funindex \decresc
+@funindex \dim
+
+Les indicacions de crescendo textuals s'inicien amb
+@code{\cresc}.  Els decrescendos textuals s'inicien amb
+@code{\decresc} o amb @code{\dim}.  Es tracen líniies extensores
+quan cal.
+
+@lilypond[verbatim,quote]
+\relative {
+  g'8\cresc a b c b c d e\mf |
+  f8\decresc e d c e\> d c b |
+  a1\dim ~ |
+  a2. r4\! |
+}
+@end lilypond
+
+@funindex \crescTextCresc
+@funindex \dimTextDecresc
+@funindex \dimTextDecr
+@funindex \dimTextDim
+@funindex \crescHairpin
+@funindex \dimHairpin
+
+També poden substituir-se els reguladors gràfics per canvis de
+dinàmica textuals:
+@lilypond[verbatim,quote]
+\relative c'' {
+  \crescTextCresc
+  c4\< d e f\! |
+  \dimTextDecresc
+  g4\> e d c\! |
+  \dimTextDecr
+  e4\> d c b\! |
+  \dimTextDim
+  d4\> c b a\! |
+  \crescHairpin
+  \dimHairpin
+  c4\< d\! e\> d\! |
+}
+@end lilypond
+
+
+Per crear noves indicacions de matís absolut o de text que s'han
+d'alinear amb els matisos; vegeu
+@ref{Indicacions dinàmiques contemporànies}.
+
+@cindex matisos, posició vertical
+@cindex dinàmica, posició vertical
+@cindex vertical, posició, de les indicacions dinàmiques
+@funindex DynamicLineSpanner
+
+La col·locació vertical de les indicacions de dinàmica es gestiona
+per part de @rinternals{DynamicLineSpanner}.
+
+@funindex \dynamicUp
+@funindex \dynamicDown
+@funindex \dynamicNeutral
+
+Hi ha disponible un context @code{Dynamics} per gravar les
+indicacions de matís dinàmic en la seva pròpia línia
+horitzontal.  Useu silencis de separació per indicar els temps
+(les notes que estan dins d'un context @code{Dynamics} també
+ocupen temps musical, però no s'imprimeixen).  El context
+@code{Dynamics} pot contenir altres elements com inscripcions
+textuals, objectes extensors de text i indicacions de pedal de
+piano.
+
+@lilypond[verbatim,quote]
+<<
+  \new Staff \relative {
+    c'2 d4 e |
+    c4 e e,2 |
+    g'4 a g a |
+    c1 |
+  }
+  \new Dynamics {
+    s1\< |
+    s1\f |
+    s2\dim s2-"rit." |
+    s1\p |
+  }
+>>
+@end lilypond
+
+@predefined
+@code{\dynamicUp},
+@code{\dynamicDown},
+@code{\dynamicNeutral},
+@code{\crescTextCresc},
+@code{\dimTextDim},
+@code{\dimTextDecr},
+@code{\dimTextDecresc},
+@code{\crescHairpin},
+@code{\dimHairpin}.
+@endpredefined
+
+
+@snippets
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{setting-hairpin-behavior-at-bar-lines.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{setting-the-minimum-length-of-hairpins.ly}
+
+@cindex al niente
+@cindex niente, al
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{printing-hairpins-using-al-niente-notation.ly}
+
+@cindex Ferneyhough, reguladors de
+@cindex reguladors de Ferneyhough
+@cindex reguladors acampanats
+@cindex acampanats, reguladors
+@cindex reguladors de tipus constant
+@cindex constant, reguladors de tipus
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{printing-hairpins-in-various-styles.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{vertically-aligned-dynamics-and-textscripts.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{hiding-the-extender-line-for-text-dynamics.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{changing-text-and-spanner-styles-for-text-dynamics.ly}
+
+@seealso
+Glossari musical:
+@rglos{al niente},
+@rglos{crescendo},
+@rglos{decrescendo},
+@rglos{hairpin}.
+
+Manual d'aprenentatge:
+@rlearning{Articulacions i matisos dinàmics}.
+
+Referència de la notació:
+@rusernamed{Direction and placement,Direcció i posició},
+@ref{Indicacions dinàmiques contemporànies},
+@rusernamed{Enhacing MIDI output,Enriquiment de la sortida MIDI},
+@rusernamed{Controlling MIDI dynamics,Control de las dinàmiques del MIDI}.
+
+Fragments de codi:
+@rlsr{Expressive marks}.
+
+Referència de funcionament intern:
+@rinternals{DynamicText},
+@rinternals{Hairpin},
+@rinternals{DynamicLineSpanner},
+@rinternals{Dynamics}.
+
+
+@node Indicacions dinàmiques contemporànies
+@unnumberedsubsubsec Indicacions dinàmiques contemporànies
+@translationof New dynamic marks
+
+@cindex indicacions dinàmiques noves
+@cindex dinàmiques, indicacions, noves
+
+La menara més fàcil de crear indicacions dinàmiques és usar
+objectes de marcatge (@code{\markup}).
+
+@lilypond[verbatim,quote]
+moltoF = \markup { molto \dynamic f }
+
+\relative {
+  <d' e>16_\moltoF <d e>
+  <d e>2..
+}
+@end lilypond
+
+@cindex dinàmiques indicacions editorials
+@cindex dinàmiques, indicacions entre parèntesis
+@cindex editorials, indicacions dinàmiques
+@funindex \bracket
+@funindex \dynamic
+
+En el mode de marcatge es poden crear indicacions dinàmiques
+editorials (entre parèntesis o claudàtors).  La sintaxi del mode
+de marcatge es descriu a
+@rusernamed{Formatting text,Format del text}.
+
+@lilypond[verbatim,quote]
+roundF = \markup {
+    \center-align \concat { \bold { \italic ( }
+           \dynamic f \bold { \italic ) } } }
+boxF = \markup { \bracket { \dynamic f } }
+\relative {
+  c'1_\roundF
+  c1_\boxF
+}
+@end lilypond
+
+@cindex make-dynamic-script
+@funindex make-dynamic-script
+
+Les indicacions dinàmiques senzilles i centrades es creen
+fàcilment amb la funció @code{make-dynamic-script}.
+
+@lilypond[verbatim,quote]
+sfzp = #(make-dynamic-script "sfzp")
+\relative {
+  c'4 c c\sfzp c
+}
+@end lilypond
+
+En general @code{make-dynamic-script} agafa qualsevol objecte de
+marcatge com a argument.  El tipus de lletra de matisos sols conté
+els caràcters @code{f, m, p, r, s} y @code{z}, per la qual cosa si
+desitgeu obtenir una indicació dinàmica que inclogui text normal o
+signes de puntuació, cal fer servir ordres de marcatge que
+retornin els ajustaments de la família de tipus de lletra i la
+seva codificació a las del text normal, per exemple
+@code{\normal-text}.  L'interès de la utilització de
+@code{make-dynamic-script} en lloc d'un element de marcatge
+corrent radica en assegurar l'alineació vertical dels objectes de
+marcatge i reguladors que s'apliquen al mateix cap de nota.
+
+@lilypond[verbatim,quote]
+roundF = \markup { \center-align \concat {
+           \normal-text { \bold { \italic ( } }
+           \dynamic f
+           \normal-text { \bold { \italic ) } } } }
+boxF = \markup { \bracket { \dynamic f } }
+mfEspress = \markup { \center-align \line {
+              \hspace #3.7 mf \normal-text \italic espress. } }
+roundFdynamic = #(make-dynamic-script roundF)
+boxFdynamic = #(make-dynamic-script boxF)
+mfEspressDynamic = #(make-dynamic-script mfEspress)
+\relative {
+  c'4_\roundFdynamic\< d e f
+  g,1~_\boxFdynamic\>
+  g1
+  g'1~\mfEspressDynamic
+  g1
+}
+@end lilypond
+
+Es pot utilitzar en el seu lloc la forma Scheme del mode de
+marcatge.  La seva sintaxi s'explica a
+
+Se puede utilizar en su lugar la forma Scheme del modo de marcado.
+Su sintaxis se explica en
+@rextendnamed{Markup construction in Scheme,Construcció de marcatge en Scheme}.
+
+@lilypond[verbatim,quote]
+moltoF = #(make-dynamic-script
+            (markup #:normal-text "molto"
+                    #:dynamic "f"))
+\relative {
+  <d' e>16 <d e>
+  <d e>2..\moltoF
+}
+@end lilypond
+
+Per alinear el text del matís dinàmic a l'esquerra en lloc de
+centrar-lo sobre una nota, utilitzeu un @code{\tweak}:
+
+@lilypond[verbatim,quote]
+moltoF = \tweak DynamicText.self-alignment-X #LEFT
+         #(make-dynamic-script
+            (markup #:normal-text "molto"
+                    #:dynamic "f"))
+\relative {
+  <d' e>16 <d e>
+  <d e>2..\moltoF <d e>1
+}
+@end lilypond
+
+Els ajustos per als tipus de lletra en mode de marcatge es
+descriuen a
+@rusernamed{Selecting font and font size,Selecció del tipus de lletra i la seva mida}.
+
+@seealso
+Referència de la notació:
+@rusernamed{Formatting text,Format del text},
+@rusernamed{Selecting font and font size,Selecció del tipus de lletra i la seva mida},
+@rusernamed{Enhacing MIDI output,Enriquiment de la sortida MIDI},
+@rusernamed{Controlling MIDI dynamics,Control de las dinàmiques del MIDI}.
+
+Extensió del LilyPond:
+@rextendnamed{Markup construction in Scheme,Construcció de marcatge en Scheme}.
+
+Fragments de codi:
+@rlsr{Expressive marks}.
+
+
+@node Marques expressives en forma corba
+@subsection Marques expressives en forma corba
+@translationof Expressive marks as curves
+
+Aquesta secció explica com crear diverses marques expressives amb
+forma corba: lligagures d'expressió i de fraseig, respiracions,
+caigudes i elevacions de to.
+
+@menu
+* Lligadures d'expressió::
+* Lligadures de fraseig::
+* Marques de respiració::
+* Caigudes i elevacions::
+@end menu
+
+
+@node Lligadures d'expressió
+@unnumberedsubsubsec Lligadures d'expressió
+@translationof Slurs
+
+@cindex lligadures d'expressió
+
+Les @notation{lligadures d'expressió} s'introdueixen utilitzant
+parèntesis:
+
+@warning{A la  música polifònica, les lligadures d'expressió han
+d'acabar a la mateixa veu en la qual comencen.}
+
+@lilypond[verbatim,quote]
+\relative {
+  f''4( g a) a8 b(
+  a4 g2 f4)
+  <c e>2( <b d>2)
+}
+@end lilypond
+
+@cindex lligadures d'expressió, posicionament manual
+@cindex lligadures d'expressió, a sota de les notes
+@cindex lligadures d'expressió, a sobre de les notes
+@funindex \slurDown
+@funindex \slurNeutral
+
+Les lligadures d'expressió es poden col·locar manualment per sobre
+o per sota de les notes; vegeu
+@rusernamed{Direction and placement,Direcció i posició}.
+
+@cindex fraseig, lligadura de
+@cindex diverses lligadures d'expressió
+@cindex simultànies, lligadures d'expressió
+@cindex lligadura de fraseig
+@cindex lligadures d'expressió, diverses
+@cindex lligadures d'expressió, simultànies
+
+S'ha de tenir cura amb les lligadures d'expressió simultànies o
+superposades.  En gairebé tots els casos, les lligadures
+d'expressió externes indiquen, certament, fraseig, i les
+lligadures de fraseig poden superposar-se amb les lligadures
+d'expressió normals, vegeu @ref{Lligadures de fraseig}.  Quan
+calen diverses lligadures d'expressió normals dins d'una sola
+veu, els començament i els finals corresponents de les lligadures
+s'han d'etiquetar precedint-los per @code{\=} seguit d'un número o
+cadena de caràcters que la identifiqui.
+
+@lilypond[verbatim,quote]
+\fixed c' {
+  <c~ f\=1( g\=2( >2 <c e\=1) a\=2) >
+}
+@end lilypond
+
+@cindex lligadura d'expressió, estil
+@cindex lligadura contínua
+@cindex lligadura de punts
+@cindex lligadura discontínua
+@cindex continua, lligadura
+@cindex discontínua, lligadura
+@cindex punts, lligadura de
+@cindex estil de la lligadura
+
+@funindex \slurDashed
+@funindex \slurDotted
+@funindex \slurSolid
+
+Les lligadures d'expressió poden ser contínues, discontínues o de
+punts.  L'estil predeterminat de les lligadures d'expressió és el
+continu:
+
+@lilypond[verbatim,quote]
+\relative {
+  c'4( e g2)
+  \slurDashed
+  g4( e c2)
+  \slurDotted
+  c4( e g2)
+  \slurSolid
+  g4( e c2)
+}
+@end lilypond
+
+@cindex lligadura d'expressió, meitat contínua i meitat discontínua
+
+@funindex \slurHalfDashed
+@funindex \slurHalfSolid
+
+També es pot fer que les lligadures d'expressió siguin
+semi-discontínues (la primera meitat discontínua i la segona
+meitat contínua) o semi-contínues (la primera meitat contínua i la
+segona discontínua):
+
+@lilypond[verbatim,quote]
+\relative {
+  c'4( e g2)
+  \slurHalfDashed
+  g4( e c2)
+  \slurHalfSolid
+  c4( e g2)
+  \slurSolid
+  g4( e c2)
+}
+@end lilypond
+
+@cindex lligadura d'expressió, definició de patrons de discontinuïtat
+
+@funindex \slurDashPattern
+
+Es poden definir patrons de discontinuïtat per a les lligadures d'expressió:
+
+@lilypond[verbatim,quote]
+\relative {
+  c'4( e g2)
+  \slurDashPattern #0.7 #0.75
+  g4( e c2)
+  \slurDashPattern #0.5 #2.0
+  c4( e g2)
+  \slurSolid
+  g4( e c2)
+}
+@end lilypond
+
+
+@funindex \slurUp
+
+
+@predefined
+@code{\slurUp},
+@code{\slurDown},
+@code{\slurNeutral},
+@code{\slurDashed},
+@code{\slurDotted},
+@code{\slurHalfDashed},
+@code{\slurHalfSolid},
+@code{\slurDashPattern},
+@code{\slurSolid}.
+@endpredefined
+
+
+@snippets
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{using-double-slurs-for-legato-chords.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{positioning-text-markups-inside-slurs.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{making-slurs-with-complex-dash-structure.ly}
+
+@seealso
+Glossari musical:
+@rglos{slur}.
+
+Manual d'aprenentatge:
+@rlearning{Quant a la impossibilitat de niuar claudàtors i lligadures}
+
+Referència de la notació:
+@rusernamed{Direction and placement,Direcció i posició},
+@ref{Lligadures de fraseig}.
+
+Fragments de codi:
+@rlsr{Expressive marks}.
+
+Referència de funcionament interno:
+@rinternals{Slur}.
+
+
+@node Lligadures de fraseig
+@unnumberedsubsubsec Lligadures de fraseig
+@translationof Phrasing slurs
+
+@cindex lligadures de fraseig
+@cindex marques de fraseig
+@cindex fraseig, lligadures de
+@cindex fraseig, marques de
+@funindex \(
+@funindex \)
+
+Les @notation{lligadures de fraseig} (o marques de fraseig) que
+indiquen una frase musical s'escriuen usant les ordres
+@code{\(} i @code{\)} respectivament:
+
+@lilypond[verbatim,quote]
+\relative {
+  c''4\( d( e) f(
+  e2) d\)
+}
+@end lilypond
+
+@funindex \phrasingSlurUp
+@funindex \phrasingSlurDown
+@funindex \phrasingSlurNeutral
+
+Tipogràficament, la lligadura de fraseig es comporta gairebé
+exactament igual que una lligadura d'expressió normal.  Tanmateix,
+es tracten com a objectes diferents.  Una @code{\slurUp} no tindrà
+cap efecte sobre una lligadura de fraseig.  El fraseig es pot
+col·locar manualment per sobre o per sota de les notes; vegeu
+@rusernamed{Direction and placement,Direcció i posició}.
+
+@cindex simultànies, lligadures de fraseig
+@cindex diverses lligadures de fraseig
+@cindex lligadures de fraseig simultànies
+@cindex lligadures de fraseig, diverses
+@cindex fraseig, lligadures de, simultànies
+@cindex fraseig, lligadures de, diverses
+
+Les lligadures de fraseig simultànies o superposades
+s'introdueixen usant @code{\=} igual que es fa amb les lligadures
+d'expressió normals, vegeu @ref{Lligadures d'expressió}.
+
+@cindex fraseig, lligadures de, discontínues
+@cindex discontínues, lligadures de fraseig
+@cindex fraseig, lligadures de, puntejades
+@cindex puntejades, lligadures de fraseig
+@cindex lligadures de fraseig discontínues
+@cindex lligadures de fraseig puntejades
+
+@funindex \phrasingSlurDashed
+@funindex \phrasingSlurDotted
+@funindex \phrasingSlurSolid
+
+Les lligadures de fraseig poden ser contínues, de punts o de
+ratlles.  L'estil predeterminat per a les lligadures de fraseig és
+el continu:
+
+@lilypond[verbatim,quote]
+\relative {
+  c'4\( e g2\)
+  \phrasingSlurDashed
+  g4\( e c2\)
+  \phrasingSlurDotted
+  c4\( e g2\)
+  \phrasingSlurSolid
+  g4\( e c2\)
+}
+@end lilypond
+
+@cindex fraseig, lligadura de, meitat contínua i meitat discontínua
+@cindex lligadura de fraseig meitat contínua i meitat discontínua
+
+@funindex \phrasingSlurHalfDashed
+@funindex \phrasingSlurHalfSolid
+
+Es pot fer també que les lligadures de fraseig siguin
+semi-dicontínues (la primera meitat discontínua i la segona meitat
+contínua) o semi-continues (la primera meitat contínua i la segona
+meitat discontínua):
+
+@lilypond[verbatim,quote]
+\relative {
+  c'4\( e g2\)
+  \phrasingSlurHalfDashed
+  g4\( e c2\)
+  \phrasingSlurHalfSolid
+  c4\( e g2\)
+  \phrasingSlurSolid
+  g4\( e c2\)
+}
+@end lilypond
+
+@cindex fraseig, lligadura de, definir patrons de discontinuïtat
+@cindex lligadura de fraseig, definir patrons de discontinuïtat
+
+@funindex \phrasingSlurDashPattern
+
+Es poden definir patrons de discontinuïtat per a les lligadures de
+fraseig:
+
+@lilypond[verbatim,quote]
+\relative {
+  c'4\( e g2\)
+  \phrasingSlurDashPattern #0.7 #0.75
+  g4\( e c2\)
+  \phrasingSlurDashPattern #0.5 #2.0
+  c4\( e g2\)
+  \phrasingSlurSolid
+  g4\( e c2\)
+}
+@end lilypond
+
+Les definicions de patrons de discontinuïtat tenen la mateixa
+estructura que les definicions de patrons de discontinuïtat de les
+lligadures d'expressió.  Per veure més informació sobre els
+patrons de discontinuïtat complexos, consulteu els fragments de
+codi sota @ref{Lligadures d'expressió}.
+
+@predefined
+@code{\phrasingSlurUp},
+@code{\phrasingSlurDown},
+@code{\phrasingSlurNeutral},
+@code{\phrasingSlurDashed},
+@code{\phrasingSlurDotted},
+@code{\phrasingSlurHalfDashed},
+@code{\phrasingSlurHalfSolid},
+@code{\phrasingSlurDashPattern},
+@code{\phrasingSlurSolid}.
+@endpredefined
+
+@seealso
+Manual de aprenentatge:
+@rlearning{Quant a la impossibilitat de niuar claudàtors i lligadures}
+
+Referència de la notació:
+@rusernamed{Direction and placement,Direcció i posició},
+@ref{Lligadures d'expressió}.
+
+Fragments de codi:
+@rlsr{Expressive marks}.
+
+Referència de funcionament intern:
+@rinternals{PhrasingSlur}.
+
+
+@node Marques de respiració
+@unnumberedsubsubsec Marques de respiració
+@translationof Breath marks
+
+@cindex respiracions
+@cindex pausa, marques de
+@funindex \breathe
+
+Les respiracions s'introdueixen utilitzant @code{\breathe}:
+
+@lilypond[verbatim,quote]
+{ c''2. \breathe d''4 }
+@end lilypond
+
+A diferència d'altres marques d'expressió, els símbols de
+respiració no estan associats amb la nota anterior, sinó que són
+esdeveniments independents.  Per això, totes les marques
+d'expressió que estan annexades a la nota anterior, qualsevol
+claudàtor recte que indiqui barrat manual i qualsevol parèntesi
+que indiqui lligadures d'expressió i de fraseig, s'han d'escriure
+abans de @code{\breathe}.
+
+Les marques de respiració donen per acabades les barres
+automàtiques; per anul·lar aquest comportament, consulteu
+@ref{Barres manuals}.
+
+@lilypond[verbatim,quote]
+\relative { c''8 \breathe d e f g2 }
+@end lilypond
+
+A la notació antiga, es contemplen els indicadors musicals per a
+les marques  de respiració, o divisiones. Per veure més detalls,
+consulteu @rusernamed{Divisiones,Divisiones}.
+
+@snippets
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{changing-the-breath-mark-symbol.ly}
+
+@cindex marca de pols
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{using-a-tick-as-the-breath-mark-symbol.ly}
+
+@cindex caesura
+@cindex cesura
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{inserting-a-caesura.ly}
+
+@seealso
+Glossari musical:
+@rglos{caesura}.
+
+Referència de la notació:
+@rusernamed{Divisiones,Divisiones}.
+
+Fragments de codi:
+@rlsr{Expressive marks}.
+
+Referència de funcionament intern:
+@rinternals{BreathingEvent},
+@rinternals{BreathingSign},
+@rinternals{Breathing_sign_engraver}.
+
+
+@node Caigudes i elevacions
+@unnumberedsubsubsec Caigudes i elevacions
+@translationof Falls and doits
+
+@cindex falls (caigudess de to)
+@cindex doits (elevacions de to)
+@cindex caigudes de to (falls)
+@cindex elevacions de to (doits)
+@funindex \bendAfter
+
+Es poden expressar @notation{caigudes} y @notation{elevacions} de
+to (falls i doits) afegides a les notes mitjançant l'ordre
+@code{\bendAfter}.  La direcció de la caiguda i elevació s'indica
+amb un signe de més o menys (a dalt o a sota).  El número indica
+l'interval d'alçades sobre el qual s'estén la caiguda o elevació
+@emph{partint de} la nota principal.
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  c2\bendAfter #+4
+  c2\bendAfter #-4
+  c2\bendAfter #+6.5
+  c2\bendAfter #-6.5
+  c2\bendAfter #+8
+  c2\bendAfter #-8
+}
+@end lilypond
+
+@snippets
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{adjusting-the-shape-of-falls-and-doits.ly}
+
+@seealso
+Glossari musical:
+@rglos{fall},
+@rglos{doit}.
+
+Fragments de codi
+@rlsr{Expressive marks}.
+
+
+@node Marques expressives en forma de línies
+@subsection Marques expressives en forma de línies
+@translationof Expressive marks as lines
+
+Aquesta secció explica com crear diverses marques d'expressió  que
+segueixen un camí lineal: glissandi, arpegis i refilets.
+
+@menu
+* Glissando::
+* Arpegi::
+* Refilets::
+@end menu
+
+
+@node Glissando
+@unnumberedsubsubsec Glissando
+@translationof Glissando
+
+@cindex glissando
+@funindex \glissando
+
+Es crea un @notation{glissando} afegint @code{\glissando}
+després de la nota:
+
+@lilypond[verbatim,quote]
+\relative {
+  g'2\glissando g'
+  c2\glissando c,
+  \afterGrace f,1\glissando f'16
+}
+@end lilypond
+
+Un glissando pot connectar notes d'un pentagrama a un altre:
+
+@lilypond[verbatim,quote]
+\new PianoStaff <<
+  \new Staff = "right" {
+    e'''2\glissando
+    \change Staff = "left"
+    a,,4\glissando
+    \change Staff = "right"
+    b''8 r |
+  }
+  \new Staff = "left" {
+    \clef bass
+    s1
+  }
+>>
+@end lilypond
+
+Un glissando pot connectar les notes dins d'un acord.  Si cal fer
+quelcom que no sigui una connexió d'una nota amb una altra entre
+els dos acords, les connexions entre les notes venen definides per
+mitjà de @code{\glissandoMap}, on les notes d'un acord se suposen
+numerades, començant de zero, en l'ordre en el qual apareixen en
+el codi d'entrada del fitxer @file{.ly}.
+
+@lilypond[verbatim,quote]
+\relative {
+  <c' e>1\glissando g' |
+  <c, e>1\glissando |
+  <g' b> |
+  \break
+  \set glissandoMap = #'((0 . 1) (1 . 0))
+  <c, g'>1\glissando |
+  <d a'> |
+  \set glissandoMap = #'((0 . 0) (0 . 1) (0 . 2))
+  c1\glissando |
+  <d f a> |
+  \set glissandoMap = #'((2 . 0) (1 . 0) (0 . 1))
+  <f d a'>1\glissando |
+  <c c'> |
+}
+@end lilypond
+
+Es poden crear diversos tipus de glissando.  Per veure més
+detalls, consulteu @rusernamed{Line styles,Estils de línia}.
+
+@snippets
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{contemporary-glissando.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{adding-timing-marks-to-long-glissandi.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{making-glissandi-breakable.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{extending-glissandi-across-repeats.ly}
+
+@seealso
+Glossari musical:
+@rglos{glissando}.
+
+Referència de la notació:
+@rusernamed{Line styles,Estils de línia}.
+
+Fragments de codi:
+@rlsr{Expressive marks}.
+
+Referència de funcionament interno:
+@rinternals{Glissando}.
+
+@knownissues
+La impressió de text sobre la línia (com a @notation{gliss.}), no
+està contemplada.
+
+@node Arpegi
+@unnumberedsubsubsec Arpegi
+@translationof Arpeggio
+
+@cindex arpegi
+@cindex acord trencat
+@cindex acord arpegiat
+@cindex trencat, acord
+@funindex \arpeggio
+@funindex \arpeggioArrowUp
+@funindex \arpeggioArrowDown
+@funindex \arpeggioNormal
+
+Un signe de @notation{acord arpegiat} (conegut també com acord
+trencat) sobre un acord, es denota annexant @code{\arpeggio} a
+l'acord:
+
+@lilypond[verbatim,quote]
+\relative { <c' e g c>1\arpeggio }
+@end lilypond
+
+Es poden escriure diversos tipus d'acords arpegiats.
+@code{\arpeggioNormal} produeix la volta a l'arpegi normal:
+
+@lilypond[verbatim,quote]
+\relative {
+  <c' e g c>2\arpeggio
+
+  \arpeggioArrowUp
+  <c e g c>2\arpeggio
+
+  \arpeggioArrowDown
+  <c e g c>2\arpeggio
+
+  \arpeggioNormal
+  <c e g c>2\arpeggio
+}
+@end lilypond
+
+@cindex arpegiat, acord, símbols especials
+@cindex especial, símbols d'arpegi
+
+@funindex \arpeggioBracket
+@funindex \arpeggioParenthesis
+@funindex \arpeggioParenthesisDashed
+
+Es poden crear símbols especials d'arpegi @emph{amb claudàtor}:
+
+@lilypond[verbatim,quote]
+\relative {
+  <c' e g c>2
+
+  \arpeggioBracket
+  <c e g c>2\arpeggio
+
+  \arpeggioParenthesis
+  <c e g c>2\arpeggio
+
+  \arpeggioParenthesisDashed
+  <c e g c>2\arpeggio
+
+  \arpeggioNormal
+  <c e g c>2\arpeggio
+}
+@end lilypond
+
+Les propietats de discontinuïtat del parèntesi de l'arpegi es
+controlen mitjançant la propietat @code{'dash-definition}, que es
+descriu a @ref{Lligadures d'expressió}.
+
+Els acords arpegiats es poden desenvolupar explícitament
+utilitzant @notation{lligadures d'unió}.  Vegeu
+@ref{Lligadures d'unió}.
+
+@predefined
+@code{\arpeggio},
+@code{\arpeggioArrowUp},
+@code{\arpeggioArrowDown},
+@code{\arpeggioNormal},
+@code{\arpeggioBracket},
+@code{\arpeggioParenthesis}
+@code{\arpeggioParenthesisDashed}.
+@endpredefined
+
+
+@snippets
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{creating-cross-staff-arpeggios-in-a-piano-staff.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{creating-cross-staff-arpeggios-in-other-contexts.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{creating-arpeggios-across-notes-in-different-voices.ly}
+
+@seealso
+Glossari musical:
+@rglos{arpeggio}.
+
+Referència de la notació:
+@ref{Lligadures d'expressió},
+@ref{Lligadures d'unió}.
+
+Fragments de codi:
+@rlsr{Expressive marks}.
+
+Referència de funcionament intern:
+@rinternals{Arpeggio},
+@rinternals{Slur},
+@rinternals{PianoStaff}.
+
+@knownissues
+@cindex pentagrama creuat, arpegis amb parèntesis
+@cindex arpegi de pentagrama creuat amb parèntesis
+@cindex arpegi con parèntesis de pentagrama creuat
+
+No és possible barrejat arpegis connectats i no connectat a un
+@code{PianoStaff} al mateix moment de temps.
+
+La forma senzilla d'especificar el claudàtor als arpegis de
+parèntesis no funciona per als arpegis de pentagrama creuat;
+vegeu @rusernamed{Cross-staff stems,Pliques de pentagrama creuat}.
+
+
+@node Refilets
+@unnumberedsubsubsec Refilets
+@translationof Trills
+
+@cindex refilets
+@funindex \trill
+@funindex \startTrillSpan
+@funindex \stopTrillSpan
+
+Els refilets curts sense línia extensora es graven amb
+@code{\trill}; vegeu @ref{Articulacions i ornaments}.
+
+Els @notation{refilets} llargs mantinguts, amb línia d'extensió,
+es fan amb @code{\startTrillSpan} i @code{\stopTrillSpan}:
+
+@lilypond[verbatim,quote]
+\relative {
+  d''1\startTrillSpan
+  d1
+  c2\stopTrillSpan
+  r2
+}
+@end lilypond
+
+Un refilet estès que travessa un salt de línia recomença
+exactament a sobre de la primera nota de la línia nova.
+
+@lilypond[ragged-right,verbatim,quote]
+\relative {
+  d''1\startTrillSpan
+  \break
+  d1
+  c2\stopTrillSpan
+  r2
+}
+@end lilypond
+
+Els refilets estesos consecutius funcionen sense necessitat
+d'ordres @code{\stopTrillSpan} explícites, perquè cada refilet es
+convertirà automàticament a la vora dreta del refilet anterior.
+
+@lilypond[verbatim,quote]
+\relative {
+  d''1\startTrillSpan
+  d1
+  b1\startTrillSpan
+  d2\stopTrillSpan
+  r2
+}
+@end lilypond
+
+També es poden combinar els refilets amb notes d'adorn. La sintaxi
+d'aquesta construcció i el mètode per col·locar les notes d'adorn
+amb precisió es descriuien a
+@ref{Notes d'adorn}.
+
+@lilypond[verbatim,quote]
+\relative {
+  d''1~\afterGrace
+  d1\startTrillSpan { c32[ d]\stopTrillSpan }
+  c2 r2
+}
+@end lilypond
+
+@cindex refilets de nota explícita
+@cindex explícita, refilets de nota
+@funindex \pitchedTrill
+
+Els refilets que s'han d'executar sobre notes auxiliars explícites
+es poden gravar amb l'ordre @code{pitchedTrill}.  El primer
+argument és la nota principal, i el segon és la nota
+@emph{refilada}, que es grava com un cap de nota, sense plica i
+entre parèntesis.
+
+@lilypond[verbatim,quote]
+\relative {
+  \pitchedTrill
+  d''2\startTrillSpan fis
+  d2
+  c2\stopTrillSpan
+  r2
+}
+@end lilypond
+
+@cindex refilet amb nota i alteració
+@cindex alteració, refilet amb
+
+Cal afegir manualment les alteracions subsegüents de la mateixa
+nota dins del mateix compàs.  Sols s'imprimeix l'alteració del
+primer refilet amb nota, dins d'un compàs.
+
+@lilypond[verbatim,quote]
+\relative {
+  \pitchedTrill
+  eis''4\startTrillSpan fis
+  eis4\stopTrillSpan
+  \pitchedTrill
+  eis4\startTrillSpan cis
+  eis4\stopTrillSpan
+  \pitchedTrill
+  eis4\startTrillSpan fis
+  eis4\stopTrillSpan
+  \pitchedTrill
+  eis4\startTrillSpan fis!
+  eis4\stopTrillSpan
+}
+@end lilypond
+
+
+@predefined
+@code{\startTrillSpan},
+@code{\stopTrillSpan}.
+@endpredefined
+
+@seealso
+Glossari musical:
+@rglos{trill}.
+
+Referècia de la notació:
+@ref{Articulacions i ornaments},
+@ref{Notes d'adorn}.
+
+Fragments de codi:
+@rlsr{Expressive marks}.
+
+Referència de funcionament intern:
+@rinternals{TrillSpanner}.

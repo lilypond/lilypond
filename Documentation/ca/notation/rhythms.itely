@@ -586,7 +586,7 @@ Les definicions de patrons de discontinuïtat per a les lligadures
 d'unió tenen la mateixa estructura que les definicions de patrons
 de discontinuïtat per a les lligadures d'expressió.  Per veure més
 informació sobre els patrons de discontinuïtat complexos,
-consulteu els fragments de codi sota @rusernamed{Slurs,Lligadures d'expressió}.
+consulteu els fragments de codi sota @ref{Lligadures d'expressió}.
 
 Sobreescriviu les propietats de disposició @var{whiteout} i
 @var{layer} dels objectes que poden causar una discontinuïtat en
@@ -632,7 +632,7 @@ Glossari musical:
 @rglos{laissez vibrer}.
 
 Referència de la notació:
-@rusernamed{Slurs,Lligadures d'expressió},
+@ref{Lligadures d'expressió},
 @ref{Divisió automàtica de les notes}.
 
 Fragments de codi:
