@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8c1840ca28a05b3dad8d595e04d03779ba0a286a
+   Translation of GIT committish: f2c5cd5aba42472996a33b463ed39abe23353484
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -99,7 +99,7 @@ de la notation ancienne.  Pour plus de détails, voir
 
 Si la durée d'une note n'est pas précisée, elle est alors assimilée à la
 durée de la note précédente.  La valeur par défaut pour la première note
-est la noire (@code{4}).
+est la noire (@code{4}).
 
 @lilypond[quote,verbatim]
 \relative { a' a a2 a a4 a a1 a }
@@ -134,7 +134,7 @@ la même façon.
 @end lilypond
 
 Certaines durées ne peuvent s'obtenir à partir de chiffres et de points,
-mais uniquement en @qq{liant} deux ou plusieurs notes entre elles.  Voir
+mais uniquement en « liant » deux ou plusieurs notes entre elles.  Voir
 @ref{Liaisons de prolongation} à ce sujet.
 
 Quant à la manière de spécifier la durée des syllabes ou bien d'aligner
@@ -151,7 +151,7 @@ cette forme de notation, reportez vous à @ref{Notation proportionnelle}.
 
 Les points sont normalement haussés pour éviter les lignes de portée,
 sauf dans certaines polyphonies.  Des commandes prédéfinies permettent
-de manuellement forcer une orientation particulière, comme indiqué au
+de manuellement forcer un positionnemenet particulièr, comme indiqué au
 chapitre @ref{Direction et positionnement}.
 
 @predefined
@@ -466,7 +466,7 @@ longues doivent s'aligner sur les subdivisions de la mesure, comme ici :
 @c KEEP LY
 @lilypond[verbatim,quote]
 \relative {
-  r8^"oui" c'8~ 2 r4 |
+  r8 c'4.~ 4 r4 |
   r8^"non" c2~ 8 r4
 }
 @end lilypond

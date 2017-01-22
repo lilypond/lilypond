@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 39912f861693f1c24b8833e6e9e6ba82eb3e6746
+   Translation of GIT committish: f2c5cd5aba42472996a33b463ed39abe23353484
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -458,6 +458,9 @@ avec ou sans extenseur, ainsi que les indications de pédale.
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {setting-the-minimum-length-of-hairpins.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{moving-the-ends-of-hairpins.ly}
 
 @cindex al niente
 @cindex niente, al
