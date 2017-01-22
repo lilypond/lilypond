@@ -44,10 +44,10 @@ procedures}.
 -3- Fundamental Concepts, starting of Usage and Community
 11119 learning/fundamental.itely -- Fundamental concepts
 135   usage.tely
-5440  usage/running.itely
+5469  usage/running.itely
 1866  usage/updating.itely
-3524  web/community.itexi
-22084 total
+3272  web/community.itexi
+21861 total
 
 -4- Rest of Learning manual and Suggestions on writing LilyPond files
 16592 learning/tweaks.itely -- Tweaking output
@@ -58,7 +58,7 @@ procedures}.
 -5- Notation reference
 326   notation.tely
 91    notation/notation.itely -- Musical notation
-5272  notation/pitches.itely
+5413  notation/pitches.itely
 6822  notation/rhythms.itely
 1819  notation/expressive.itely
 1288  notation/repeats.itely
@@ -77,12 +77,12 @@ procedures}.
 5516  notation/ancient.itely
 12839 notation/input.itely -- Input syntax
 2164  notation/non-music.itely -- Non-musical notation
-10911 notation/spacing.itely -- Spacing issues
+10918 notation/spacing.itely -- Spacing issues
 15597 notation/changing-defaults.itely -- Changing defaults
 5187  notation/programming-interface.itely -- Interfaces for programmers
 3079  notation/notation-appendices.itely -- Notation manual tables
 252   notation/cheatsheet.itely -- Cheat sheet
-90541 total
+90689 total
 
 -6- Rest of Application Usage
 4211  usage/lilypond-book.itely -- LilyPond-book
