@@ -78,10 +78,8 @@ which creates the correct context and entry mode for percussion:
 This is shorthand for:
 
 @lilypond[quote,verbatim]
-\new DrumStaff {
-  \drummode {
-    hihat4 hh bassdrum bd
-  }
+\new DrumStaff \drummode {
+  hihat4 hh bassdrum bd
 }
 @end lilypond
 

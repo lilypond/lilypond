@@ -2636,43 +2636,56 @@ modified by completely re-defining them as alists.}
 @subsection Input modes
 
 The way in which the notation contained within an input file is
-interpreted is determined by the current input mode.
+interpreted is determined by the current input mode.  In general,
+there are two ways of specifying the mode: a long form, e.g.
+@code{\chordmode}, and a short form, e.g. @code{\chords}.  The long
+form is typically used when supplying input to a variable or when
+entering input directly into an explicitly created context.  The short
+form implicitly creates a context of the correct type for the input and
+passes the input directly to it.  It is useful in simple situations
+when there is no requirement to explicitly create the receiving context.
 
 @subsubsubheading Chord mode
 
 This is activated with the @code{\chordmode} command, and causes
 input to be interpreted with the syntax of chord notation, see
-@ref{Chord notation}.  Chords are rendered as notes on a staff.
+@ref{Chord notation}.  Music in chord mode is rendered as chords on a staff
+when entered into a @code{Staff} context, as chord names when entered
+into a @code{ChordNames} context or as fret boards when entered into
+a @code{FretBoards} context.
 
-Chord mode is also activated with the @code{\chords} command.
-This also creates a new @code{ChordNames} context and
-causes the following input to be interpreted with the syntax of
-chord notation and rendered as chord names in the @code{ChordNames}
-context, see @ref{Printing chord names}.
+Chord mode is also activated with the @code{\chords} command.  This
+also causes the following input to be interpreted with the syntax of
+chord notation but in addition it implicitly creates a new
+@code{ChordNames} context and renders the input into it as chord names,
+see @ref{Printing chord names}.
 
 @subsubsubheading Drum mode
 
 This is activated with the @code{\drummode} command, and causes
 input to be interpreted with the syntax of drum notation, see
-@ref{Basic percussion notation}.
+@ref{Basic percussion notation}.  Music in drum mode is rendered as
+percussion notes when entered into a @code{DrumStaff} context.
 
-Drum mode is also activated with the @code{\drums} command.
-This also creates a new @code{DrumStaff} context and causes the
-following input to be interpreted with the syntax of drum notation
-and rendered as drum symbols on a drum staff, see
-@ref{Basic percussion notation}.
+Drum mode is also activated with the @code{\drums} command.  This
+also causes the following input to be interpreted with the syntax of
+drum notation but in addition it implicitly creates a new
+@code{DrumStaff} context and renders the input into it as percussion
+notes, see @ref{Basic percussion notation}.
 
 @subsubsubheading Figure mode
 
 This is activated with the @code{\figuremode} command, and causes
 input to be interpreted with the syntax of figured bass, see
-@ref{Entering figured bass}.
+@ref{Entering figured bass}.  Music in figure mode is rendered as
+figured bass when entered into a @code{FiguredBass} context or a
+@code{Staff} context.
 
 Figure mode is also activated with the @code{\figures} command.
-This also creates a new @code{FiguredBass} context and causes the
-following input to be interpreted with the figured bass syntax
-and rendered as figured bass symbols in the @code{FiguredBass}
-context, see @ref{Introduction to figured bass}.
+This also causes the following input to be interpreted with the
+figured bass syntax but in addition it implicitly creates a new
+@code{FiguredBass} context and renders the input into it as figured
+bass, see @ref{Introduction to figured bass}.
 
 @subsubsubheading Fret and tab modes
 
@@ -2682,22 +2695,29 @@ To create tab diagrams, enter notes or chords in note mode and
 render them in a @code{TabStaff} context, see
 @ref{Default tablatures}.
 
-To create fret diagrams above a staff, you have two choices.
-You can either use the @code{FretBoards} context (see
-@ref{Automatic fret diagrams}) or you can enter them as a markup
-above the notes using the @code{\fret-diagram} command (see
-@ref{Fret diagram markups}).
+To create fret diagrams above a staff, enter notes or chords in either
+note mode or chord mode and render them in a @code{FretBoards} context,
+see @ref{Automatic fret diagrams}.  Alternatively, fret diagrams can be
+entered as markup above the notes using the @code{\fret-diagram}
+command, see @ref{Fret diagram markups}.
 
 @subsubsubheading Lyrics mode
 
 This is activated with the @code{\lyricmode} command, and causes
 input to be interpreted as lyric syllables with optional durations
-and associated lyric modifiers, see @ref{Vocal music}.
+and associated lyric modifiers, see @ref{Vocal music}.  Input in
+lyric mode is rendered as lyric syllables when entered into a
+@code{Lyrics} context.
 
-Lyric mode is also activated with the @code{\addlyrics} command.
-This also creates a new @code{Lyrics} context and an implicit
-@code{\lyricsto} command which associates the following lyrics
-with the preceding music.
+Lyric mode is also activated with the @code{\lyrics} command.  This
+also causes the following input to be interpreted as lyric syllables
+but in addition it implicitly creates a new @code{Lyrics} context and
+renders the input into it as lyric syllables.
+
+Lyric mode is also activated with the @code{\addlyrics} command.  This
+also implicitly creates a new @code{Lyrics} context and in addition it
+adds an implicit @code{\lyricsto} command which associates the following
+lyrics with the preceding music, see @ref{Automatic syllable durations}.
 
 @subsubsubheading Markup mode
 
