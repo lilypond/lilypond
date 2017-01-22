@@ -1,7 +1,8 @@
-\version "2.16.0"
+\version "2.19.46"
 
 \header{ texidoc = "Muted notes (also called dead notes) are supported
-                    within normal staves and tablature."
+                    within normal staves and tablature.  They are printed
+                    correctly, even if another font for TabNoteHead is used. "
        }
 
 mynotes = \relative c,, {
@@ -15,25 +16,49 @@ mynotes = \relative c,, {
    \bar "|."
 }
 
-\context StaffGroup <<
-  \context Staff {
-    \context Voice {  % Warning: explicit voice instantiation is required
-                      %   to have deadNotesOff work properly
-                      %   when deadNotesOn comes at the beginning
-                      %   of the piece
-      \clef "bass_8"
-      \mynotes
+\score {
+  \new StaffGroup <<
+    \new Staff {
+      \new Voice {  % Warning: explicit voice instantiation is required
+                    %   to have deadNotesOff work properly
+                    %   when deadNotesOn comes at the beginning
+                    %   of the piece
+        \clef "bass_8"
+        \mynotes
+      }
+    }
+    \new TabStaff
+      \with {
+        instrumentName = \markup \tiny "default-font"
+      }{
+      \new TabVoice {  % Warning:  explicit voice instantiation is
+                       %   required to have deadNotesOff work properly
+                       %   when deadNotesOn comes at the beginning
+                       %   of the piece
+        \mynotes
+      }
+    }
+    \new TabStaff
+      \with {
+        \override TabNoteHead.font-name = #"Luxi Mono"
+        instrumentName =
+          \markup \tiny \center-column { "TabNoteHead-" "font:" "Luxi Mono" }
+      }{
+      \new TabVoice {  % Warning:  explicit voice instantiation is
+                       %   required to have deadNotesOff work properly
+                       %   when deadNotesOn comes at the beginning
+                       %   of the piece
+        \mynotes
+      }
+    }
+  >>
+  \layout {
+    indent = 20
+    \context {
+      \TabStaff
+      stringTunings = #bass-tuning
     }
   }
-  \context TabStaff {
-    \context TabVoice {  % Warning:  explicit voice instantiation is
-                         %   required to have deadNotesOff work properly
-                         %   when deadNotesOn comes at the beginning
-                         %   of the piece
-      \set TabStaff.stringTunings = #bass-tuning
-      \mynotes
-    }
-  }
->>
+}
 
 

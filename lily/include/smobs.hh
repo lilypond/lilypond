@@ -95,6 +95,30 @@
 
   Complex smobs are created by deriving from Smob<Classname>.
 
+  However, this is not sufficient when classes with their own
+  protectable elements are derived from the Complex base class.  This
+  is because initialization order is a tricky thing: once a base class
+  calls smobify_self () in its constructor, further allocations during
+  construction of base class and derived classes might lead to
+  mark_smob calls on the object under construction.  When those call a
+  virtual function like derived_mark, the virtual function
+  corresponding to the incompletely initialized object of derived
+  class type is likely to be called.
+
+  The order of initialization of an object consists in calling the
+  constructors of virtual base classes, then of non-virtual base
+  classes, then initializing all data members.
+
+  As a result, the constructor of a derived class comes too late for
+  initialization of data members that may be accessed in the
+  derived_mark kind of functions.
+
+  Such data members are consequently moved into Preinit_* classes
+  which come before the smobifying base class in derivation order and
+  construct the contained data members in a state suitable for
+  derived_mark calls.
+
+
   CALLING INTERFACE
 
   Common global functions for accessing C++ smob objects:
@@ -317,32 +341,6 @@ public:
     SCM s = self_scm_;
     unprotect_smob (s, &protection_cons_);
     return s;
-  }
-};
-
-// This is a tricky thing: once a base class calls smobify_self () in
-// its constructor, further allocations during construction of base
-// class and derived classes might lead to mark_smob calls on the
-// object under construction.  When those call a virtual function like
-// derived_mark, the virtual function corresponding to the
-// incompletely initialized object is likely to be called.
-//
-// The order of initialization of an object consists in calling the
-// constructors of virtual base classes, then of non-virtual base
-// classes, then initializing all data members.
-//
-// As a result, the derived constructor comes too late for
-// initialization.  That's where the Preinit template class comes in.
-// Derive from it _before_ deriving from the smobifying base class
-// providing derived_mark, and it will call its Base class' pre_init
-// function (which must not rely on the instantiation being complete).
-
-template <class Base>
-class Preinit {
-protected:
-  Preinit ()
-  {
-    (static_cast <Base *> (this)) -> pre_init ();
   }
 };
 

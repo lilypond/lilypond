@@ -302,6 +302,10 @@ with magnification @var{mag} of the string @var{text}."
          ;;TODO -- get string-count directly from length of stringTunings;
          ;;         from FretBoard engraver, but not from markup call
          (details (merge-details 'fret-diagram-details props '()))
+         (fret-distance
+          (assoc-get 'fret-distance details 1.0))
+         (string-distance
+          (assoc-get 'string-distance details 1.0))
          (string-count
           (assoc-get 'string-count details 6)) ;; needed for everything
          (my-fret-count
@@ -445,11 +449,13 @@ Line thickness is given by @var{th}, fret & string spacing by
              (start-coordinates
               (stencil-coordinates
                (- fret-half-thickness)
-               (- (* size string-coordinate) half-string)))
+               (- (* size string-distance string-coordinate) half-string)))
              (end-coordinates
               (stencil-coordinates
-               (+ fret-half-thickness (* size (1+ (fret-count fret-range))))
-               (+ half-string (* size string-coordinate)))))
+               (+ fret-half-thickness
+                  (* size fret-distance (1+ (fret-count fret-range))))
+               (+ half-string
+                  (* size string-distance string-coordinate)))))
         (ly:round-filled-box
          (string-x-extent start-coordinates end-coordinates)
          (string-y-extent start-coordinates end-coordinates)
@@ -481,12 +487,12 @@ fret-diagram overall parameters."
              (fret-half-thickness (* 0.5 size th))
              (start-coordinates
               (stencil-coordinates
-               (* size fret)
+               (* fret-distance size fret)
                (- fret-half-thickness low-string-half-thickness)))
              (end-coordinates
               (stencil-coordinates
-               (* size fret)
-               (* size (1- string-count)))))
+               (* fret-distance size fret)
+               (* size string-distance (1- string-count)))))
         (make-line-stencil
          (* size th)
          (car start-coordinates) (cdr start-coordinates)
@@ -538,12 +544,12 @@ fret-diagram overall parameters."
       "Create a straight barre stencil."
       (let ((start-point
              (stencil-coordinates
-              (* size fret-coordinate)
-              (* size start-string-coordinate)))
+              (* size fret-distance fret-coordinate)
+              (* size string-distance start-string-coordinate)))
             (end-point
              (stencil-coordinates
-              (* size fret-coordinate)
-              (* size end-string-coordinate))))
+              (* size fret-distance fret-coordinate)
+              (* size string-distance end-string-coordinate))))
         (make-line-stencil
          half-thickness
          (car start-point)
@@ -561,9 +567,9 @@ fret-diagram overall parameters."
              (bezier-height 0.5)
              (bezier-list
               (make-bezier-sandwich-list
-               (* size start-string-coordinate)
-               (* size end-string-coordinate)
-               (* size fret-coordinate)
+               (* size string-distance start-string-coordinate)
+               (* size string-distance end-string-coordinate)
+               (* size fret-distance fret-coordinate)
                (* size bezier-height)
                (* size bezier-thick))))
         (make-bezier-sandwich-stencil
@@ -592,8 +598,10 @@ fret-diagram overall parameters."
               (restlist (cdr dot-list))
               (string (car mypair))
               (fret (cadr mypair))
-              (fret-coordinate (* size (+ (1- fret) dot-position)))
-              (string-coordinate (* size (- string-count string)))
+              (fret-coordinate
+               (* size fret-distance (+ (1- fret) dot-position)))
+              (string-coordinate
+               (* size string-distance (- string-count string)))
               (dot-coordinates
                (stencil-coordinates fret-coordinate string-coordinate))
               (extent (cons (- scale-dot-radius) scale-dot-radius))
@@ -721,8 +729,19 @@ fret-diagram overall parameters."
                          (stencil-fretboard-offset
                           label-stencil 'fret orientation))
                         (label-fret-coordinate
-                         (+ (* size
-                               (+ 1 my-fret-count finger-label-padding))
+                         ;; (1) Move the below-string-finger-codes to the bottom
+                         ;;     edge of the string, i.e.
+                         ;;       (* (1+  my-fret-count) fret-distance)
+                         ;; (2) add `finger-label-padding' (a hardcoded
+                         ;;     correction-value to get a bit default padding).
+                         ;;     TODO: make it a property?
+                         ;; (3) scale this with `size'
+                         ;; (4) add `label-fret-offset', to get the final
+                         ;;     padding
+                         (+
+                            (* size
+                               (+ (* (1+  my-fret-count) fret-distance)
+                                  finger-label-padding))
                             label-fret-offset))
                         (label-string-coordinate string-coordinate)
                         (label-translation
@@ -750,7 +769,8 @@ fret-diagram overall parameters."
              (top-fret-thick
               (* sth (assoc-get 'top-fret-thickness details 3.0)))
              (start-string-coordinate (- half-lowest-string-thickness))
-             (end-string-coordinate (+ (* size (1- string-count)) half-thick))
+             (end-string-coordinate
+                 (+ (* size string-distance (1- string-count)) half-thick))
              (start-fret-coordinate half-thick)
              (end-fret-coordinate (- half-thick top-fret-thick))
              (lower-left
@@ -779,7 +799,8 @@ fret-diagram overall parameters."
              (glyph-string (if (eq? (car mypair) 'mute)
                                (assoc-get 'mute-string details "X")
                                (assoc-get 'open-string details "O")))
-             (glyph-string-coordinate (* (- string-count (cadr mypair)) size))
+             (glyph-string-coordinate
+              (* (- string-count (cadr mypair)) string-distance size))
              (glyph-stencil
               (centered-stencil
                (sans-serif-stencil
@@ -804,14 +825,14 @@ at @var{fret}."
              (half-thick (* capo-thick 0.5))
              (last-string-position 0)
              (first-string-position (* size (- string-count 1)))
-             (fret-position ( * size (1- (+ dot-position fret))))
+             (fret-position (* size (1- (+ dot-position fret))))
              (start-point
               (stencil-coordinates
-               fret-position
-               first-string-position))
+               (* fret-distance fret-position)
+               (* string-distance first-string-position)))
              (end-point
               (stencil-coordinates
-               fret-position
+               (* fret-distance fret-position)
                last-string-position)))
         (make-line-stencil
          capo-thick
@@ -850,10 +871,11 @@ at @var{fret}."
         (ly:stencil-translate
          label-stencil
          (stencil-coordinates
-          (* size (+ 1.0 label-vertical-offset))
+          (* size fret-distance (1+ label-vertical-offset))
           (if (eq? label-dir LEFT)
               (- label-outside-diagram)
-              (+ (* size (1- string-count)) label-outside-diagram))))))
+              (+ (* size string-distance (1- string-count))
+                 label-outside-diagram))))))
 
     ;; Here is the body of make-fret-diagram
 

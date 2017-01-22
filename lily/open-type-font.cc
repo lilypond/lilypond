@@ -251,8 +251,7 @@ Open_type_font::make_otf (const string &str)
   return otf->self_scm ();
 }
 
-void
-Open_type_font::pre_init ()
+Preinit_Open_type_font::Preinit_Open_type_font ()
 {
   lily_character_table_ = SCM_EOL;
   lily_global_table_ = SCM_EOL;

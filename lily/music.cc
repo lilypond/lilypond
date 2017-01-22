@@ -45,8 +45,7 @@ Music::internal_is_music_type (SCM k) const
   return scm_is_true (scm_c_memq (k, ifs));
 }
 
-void
-Music::pre_init ()
+Preinit_Music::Preinit_Music ()
 {
   length_callback_ = SCM_EOL;
   start_callback_ = SCM_EOL;

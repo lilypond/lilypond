@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.19.53\n"
+"Project-Id-Version: lilypond 2.19.54\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2016-12-17 13:40+0000\n"
+"POT-Creation-Date: 2017-01-03 14:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4008,21 +4008,21 @@ msgstr ""
 msgid "Defaulting to 'any-octave."
 msgstr ""
 
-#: music-functions.scm:1891
+#: music-functions.scm:1916
 #, scheme-format
 msgid "unknown accidental style: ~S"
 msgstr ""
 
-#: music-functions.scm:2116
+#: music-functions.scm:2141
 msgid "Missing duration"
 msgstr ""
 
-#: music-functions.scm:2637
+#: music-functions.scm:2662
 #, scheme-format
 msgid "not a symbol list: ~a"
 msgstr ""
 
-#: music-functions.scm:2640
+#: music-functions.scm:2665
 #, scheme-format
 msgid "conflicting tag group ~a"
 msgstr ""

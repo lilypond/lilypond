@@ -29,19 +29,22 @@
 
 #include "font-metric.hh"
 
-class Pango_font : public Preinit<Pango_font>, public Font_metric
+struct Preinit_Pango_font {
+  SCM physical_font_tab_;
+  Preinit_Pango_font ();
+};
+
+class Pango_font : Preinit_Pango_font, public Font_metric
 {
   PangoContext *context_;
   PangoFontDescription *pango_description_;
   PangoAttrList *attribute_list_;
   Real scale_;
   Real output_scale_;
-  SCM physical_font_tab_;
   Direction text_direction_;
 
 public:
   SCM physical_font_tab () const;
-  void pre_init ();
   Pango_font (PangoFT2FontMap *,
               PangoFontDescription const *,
               Real);

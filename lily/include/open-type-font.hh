@@ -26,23 +26,25 @@ Index_to_charcode_map make_index_to_charcode_map (FT_Face face);
 void get_unicode_name (char *s, FT_ULong code);
 void get_glyph_index_name (char *s, FT_ULong code);
 
-class Open_type_font : public Preinit<Open_type_font>, public Font_metric
-{
-  /* handle to face object */
-  FT_Face face_;
-  string postscript_name_;
-
+struct Preinit_Open_type_font {
   SCM lily_subfonts_;
   SCM lily_character_table_;
   SCM lily_global_table_;
   SCM lily_index_to_bbox_table_;
+  Preinit_Open_type_font ();
+};
+
+class Open_type_font : Preinit_Open_type_font, public Font_metric
+{
+  /* handle to face object */
+  FT_Face face_;
+  string postscript_name_;
 
   Index_to_charcode_map index_to_charcode_map_;
   Open_type_font (FT_Face);
 
   DECLARE_CLASSNAME (Open_type_font);
 public:
-  void pre_init ();
   Real get_units_per_EM () const;
   SCM get_subfonts () const;
   SCM get_global_table () const;

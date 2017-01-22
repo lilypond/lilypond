@@ -62,6 +62,46 @@ which scares away people.
 @end ignore
 
 @item
+The ends of hairpins may now be fine-tuned using the @code{shorten-pair}
+grob property, which previously only affected text-spanners like
+@code{TupletBracket} and @code{OttavaBracket}.  Positive values offset
+to the right, negative to the left.
+@lilypond[quote,verbatim]
+{ \once \override Hairpin.shorten-pair = #'(2 . 2)
+  c'1~\<
+  c'2~ c'\!
+  \once \override Hairpin.shorten-pair = #'(-2 . -2)
+  c'1~\<
+  c'2~ c'\! }
+@end lilypond
+
+@item
+In fret-diagrams the distance between frets and the distance between strings is
+now independently adjustable.  Available are @code{fret-distance} and
+@code{string-distance} as subproperties of @code{fret-diagram-details}.
+@lilypond[verbatim,quote]
+fretMrkp = \markup { \fret-diagram-terse #"x;x;o;2;3;2;" }
+
+\markuplist
+\override #'(padding . 2)
+\table #'(0 -1) {
+  "default"
+
+  \fretMrkp
+
+  "fret-distance"
+
+  \override #'(fret-diagram-details . ((fret-distance . 2)))
+  \fretMrkp
+
+  "string-distance"
+
+  \override #'(fret-diagram-details . ((string-distance . 2)))
+  \fretMrkp
+}
+@end lilypond
+
+@item
 Accidental rules can now be defined across @code{ChoirStaff} contexts.
 Two new rules @code{choral} and @code{choral-cautionary} are available
 that combine the characteristics of @code{modern-voice} and @code{piano}

@@ -46,8 +46,7 @@
 #if HAVE_PANGO_FT2
 #include "stencil.hh"
 
-void
-Pango_font::pre_init ()
+Preinit_Pango_font::Preinit_Pango_font ()
 {
   physical_font_tab_ = SCM_EOL;
 }

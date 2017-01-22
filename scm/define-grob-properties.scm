@@ -372,6 +372,9 @@ Default @code{none} for markup fret diagrams, @code{below-string} for
 @item
 @code{fret-count} -- The number of frets.  Default@tie{}4.
 @item
+@code{fret-distance} -- Multiplier to adjust the distance between frets.
+Default@tie{}1.0.
+@item
 @code{fret-label-custom-format} -- The format string to be used label
 the lowest fret number, when @code{number-type} equals to
 @code{custom}.  Default@tie{}\"~a\".
@@ -411,6 +414,9 @@ string.  Default @code{\"o\"}.
 Default @code{normal}.
 @item
 @code{string-count} -- The number of strings.  Default@tie{}6.
+@item
+@code{string-distance} -- Multiplier to adjust the distance between strings.
+Default@tie{}1.0.
 @item
 @code{string-label-font-mag} -- The magnification of the font used to
 label fingerings at the string, rather than in the dot.  Default value
@@ -611,6 +617,8 @@ visual output is influenced by changes to
 to beams from this stem.  Further beams are typeset as beamlets.")
      (maximum-gap ,number? "Maximum value allowed for @code{gap}
 property.")
+     (max-symbol-separation ,number? "The maximum distance between
+symbols making up a church rest.")
      (measure-count ,integer? "The number of measures for a
 multi-measure rest.")
      (measure-length ,ly:moment? "Length of a measure.  Used in some
@@ -875,9 +883,10 @@ of the staff-position at which each clef places C:
 If the list contains a single element it applies for all clefs.
 A single number in place of a pair sets accidentals within the octave
 ending at that staff-position.")
-     (shorten-pair ,number-pair? "The lengths to shorten a
-text-spanner on both sides, for example a pedal bracket.  Positive
-values shorten the text-spanner, while negative values lengthen it.")
+     (shorten-pair ,number-pair? "The lengths to shorten on both sides
+a hairpin or text-spanner such as a pedal bracket.  Positive values
+shorten the hairpin or text-spanner, while negative values lengthen
+it.")
      (shortest-duration-space ,number? "Start with this multiple of
 @code{spacing-increment} space for the shortest duration.  See also
 @rinternals{spacing-spanner-interface}.")

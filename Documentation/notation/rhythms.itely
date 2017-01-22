@@ -443,7 +443,7 @@ used when note values cross larger subdivisions of the measure:
 
 @lilypond[verbatim,quote]
 \relative {
-  r8 c'~ 2 r4 |
+  r8 c'4.~ 4 r4 |
   r8^"not" c2~ 8 r4
 }
 @end lilypond

@@ -27,6 +27,18 @@ NOTE:
 @end ignore
 
 @newsItem
+@subheading LilyPond 2.19.53 released  @emph{December 17, 2016}
+
+We are happy to announce the release of LilyPond
+2.19.53.  This release includes a number of enhancements, and contains some
+work in progress.  You will have access to the very latest features, but
+some may be incomplete, and you may encounter bugs and crashes.  If you
+require a stable version of LilyPond, we recommend using the 2.18
+version.
+
+@newsEnd
+
+@newsItem
 @subheading LilyPond 2.19.52 released  @emph{December 4, 2016}
 
 We are happy to announce the release of LilyPond
@@ -703,9 +715,9 @@ a potential final beta release for the upcoming stable release@tie{}2.18.  The
 developers believe this to be feature-complete, the
 documentation to be accurate, and no important issues to be
 overlooked.  For upgrading the syntax of your input files to the
-latest version, see @uref{http://www.lilypond.org/doc/v2.17/Documentation/usage/updating-files-with-convert_002dly, Updating files with convert-ly}.
+latest version, see @uref{http://lilypond.org/doc/v2.17/Documentation/usage/updating-files-with-convert_002dly, Updating files with convert-ly}.
 Please test this release and report back any problems, see
-@uref{http://www.lilypond.org/website/bug-reports.html, Bug reports}.
+@uref{http://lilypond.org/website/bug-reports.html, Bug reports}.
 
 @newsEnd
 
@@ -717,9 +729,9 @@ a further beta release for the upcoming stable release@tie{}2.18.  The
 developers believe the release to be feature-complete, the
 documentation to be accurate, and no important issues to be
 overlooked.  For upgrading the syntax of your input files to the
-latest version, see @uref{http://www.lilypond.org/doc/v2.17/Documentation/usage/updating-files-with-convert_002dly, Updating files with convert-ly}.
+latest version, see @uref{http://lilypond.org/doc/v2.17/Documentation/usage/updating-files-with-convert_002dly, Updating files with convert-ly}.
 Please test this release and report back any problems, see
-@uref{http://www.lilypond.org/website/bug-reports.html, Bug reports}.
+@uref{http://lilypond.org/website/bug-reports.html, Bug reports}.
 
 @newsEnd
 

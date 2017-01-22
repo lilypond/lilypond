@@ -157,6 +157,8 @@ Hairpin::print (SCM smob)
   if (circled_tip)
     thick = robust_scm2double (me->get_property ("thickness"), 1.0)
             * Staff_symbol_referencer::line_thickness (me);
+  Drul_array<Real> shorten = robust_scm2interval (me->get_property ("shorten-pair"),
+                                                  Interval (0, 0));
 
   for (LEFT_and_RIGHT (d))
     {
@@ -220,7 +222,10 @@ Hairpin::print (SCM smob)
                         Handle back-to-back hairpins with a circle in the middle
                       */
                       if (circled_tip && (grow_dir != d))
-                        x_points[d] = e.center () + d * (rad - thick / 2.0);
+                        {
+                          x_points[d] = e.center () + d * (rad - thick / 2.0);
+                          shorten[d] = 0.0;
+                        }
                       /*
                         If we're hung on a paper column, that means we're not
                         adjacent to a text-dynamic, and we may move closer. We
@@ -248,6 +253,8 @@ Hairpin::print (SCM smob)
                 }
             }
         }
+
+        x_points[d] -= shorten[d] * d;
     }
 
   Real width = x_points[RIGHT] - x_points[LEFT];
@@ -336,4 +343,5 @@ ADD_INTERFACE (Hairpin,
                "bound-padding "
                "grow-direction "
                "height "
+               "shorten-pair "
               );
