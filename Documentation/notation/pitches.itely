@@ -1523,26 +1523,24 @@ playing in unison.
 
 @lilypond[verbatim,quote]
 \new GrandStaff <<
-  \new Staff = "violin" {
-    \relative c'' {
-      \set Staff.instrumentName = #"Vln"
-      \set Staff.midiInstrument = #"violin"
-      % not strictly necessary, but a good reminder
-      \transposition c'
-
-      \key c \major
-      g4( c8) r c r c4
-    }
+  \new Staff = "violin" \with {
+    instrumentName = #"Vln"
+    midiInstrument = #"violin"
   }
-  \new Staff = "clarinet" {
-    \relative c'' {
-      \set Staff.instrumentName = \markup { Cl (B\flat) }
-      \set Staff.midiInstrument = #"clarinet"
-      \transposition bes
-
-      \key d \major
-      a4( d8) r d r d4
-    }
+  \relative c'' {
+    % not strictly necessary, but a good reminder
+    \transposition c'
+    \key c \major
+    g4( c8) r c r c4
+  }
+  \new Staff = "clarinet" \with {
+    instrumentName = \markup { Cl (B\flat) }
+    midiInstrument = #"clarinet"
+  }
+  \relative c'' {
+    \transposition bes
+    \key d \major
+    a4( d8) r d r d4
   }
 >>
 @end lilypond
