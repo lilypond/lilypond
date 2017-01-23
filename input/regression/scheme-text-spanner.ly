@@ -97,7 +97,7 @@ start and stop.")
        (ly:spanner-set-bound! spanner RIGHT item)))
 
 #(define (axis-offset-symbol axis)
-   (if (eq? axis X) 'X-offset 'Y-offset))
+   (if (eqv? axis X) 'X-offset 'Y-offset))
 
 #(define (set-axis! grob axis)
   (if (not (number? (ly:grob-property grob 'side-axis)))
@@ -105,7 +105,7 @@ start and stop.")
         (set! (ly:grob-property grob 'side-axis) axis)
         (ly:grob-chain-callback
          grob
-         (if (eq? axis X)
+         (if (eqv? axis X)
              ly:side-position-interface::x-aligned-side
              side-position-interface::y-aligned-side)
          (axis-offset-symbol axis)))))

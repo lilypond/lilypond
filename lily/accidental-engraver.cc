@@ -314,7 +314,7 @@ Accidental_engraver::make_standard_accidental (Stream_event * /* note */,
   */
   for (vsize i = 0; i < left_objects_.size (); i++)
     {
-      if (scm_is_eq (left_objects_[i]->get_property ("side-axis"), scm_from_int (X_AXIS)))
+      if (ly_is_equal (left_objects_[i]->get_property ("side-axis"), scm_from_int (X_AXIS)))
         Side_position_interface::add_support (left_objects_[i], a);
     }
 

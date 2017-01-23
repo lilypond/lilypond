@@ -145,7 +145,7 @@ Multi_measure_rest_engraver::initialize_grobs ()
           Grob *last = 0;
           for (vsize i = 0; i < text_.size (); i++)
             {
-              if (scm_is_eq (dir, text_[i]->get_property ("direction")))
+              if (ly_is_equal (dir, text_[i]->get_property ("direction")))
                 {
                   if (last)
                     Side_position_interface::add_support (text_[i], last);

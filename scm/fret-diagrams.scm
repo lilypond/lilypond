@@ -872,7 +872,7 @@ at @var{fret}."
          label-stencil
          (stencil-coordinates
           (* size fret-distance (1+ label-vertical-offset))
-          (if (eq? label-dir LEFT)
+          (if (eqv? label-dir LEFT)
               (- label-outside-diagram)
               (+ (* size string-distance (1- string-count))
                  label-outside-diagram))))))

@@ -1205,7 +1205,7 @@ and draws the stencil based on its coordinates.
   ;; outer let to trigger suicide
   (let ((sten (ly:hairpin::print grob)))
     (if (grob::is-live? grob)
-        (let* ((decresc? (eq? (ly:grob-property grob 'grow-direction) LEFT))
+        (let* ((decresc? (eqv? (ly:grob-property grob 'grow-direction) LEFT))
                (thick (ly:grob-property grob 'thickness 0.1))
                (thick (* thick (layout-line-thickness grob)))
                (xex (ly:stencil-extent sten X))

@@ -946,7 +946,7 @@ Axis_group_interface::skyline_spacing (Grob *me)
       vector<Grob *> current_elts;
       current_elts.push_back (elements[i]);
       while (i + 1 < elements.size ()
-             && scm_is_eq (elements[i + 1]->get_property ("outside-staff-priority"), priority))
+             && ly_is_equal (elements[i + 1]->get_property ("outside-staff-priority"), priority))
         {
           if (!to_boolean (elements[i + 1]->get_property ("cross-staff")))
             current_elts.push_back (elements[i + 1]);
