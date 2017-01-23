@@ -104,7 +104,8 @@ a starting spanner event, or a symbol list in the form
 form of a spanner event, @var{property} may also have the form
 @samp{Grob.property} for specifying a directed tweak.")
   (if (ly:music? item)
-      (if (eq? (ly:music-property item 'span-direction) START)
+      (if (or (eqv? (ly:music-property item 'span-direction) START)
+              (music-is-of-type? item 'tie-event))
           (tweak property (value-for-spanner-piece arg) item)
           (begin
             (ly:music-warning item (_ "not a spanner"))
