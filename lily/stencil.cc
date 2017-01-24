@@ -415,3 +415,13 @@ Stencil::translated (Offset z) const
   s.translate (z);
   return s;
 }
+
+Stencil
+Stencil::with_outline (Stencil const &ol) const
+{
+  Stencil new_stencil (ol.extent_box (),
+                       scm_list_3 (ly_symbol2scm ("with-outline"),
+                                   ol.expr (),
+                                   expr ()));
+  return new_stencil;
+}

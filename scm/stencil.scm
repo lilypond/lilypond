@@ -1129,6 +1129,9 @@ grestore
          ((eq? head 'color) (interpret (caddr expr)))
          ((eq? head 'rotate-stencil) (interpret (caddr expr)))
          ((eq? head 'translate-stencil) (interpret (caddr expr)))
+         ;; for signatures, we indeed want the _outline_ rather than
+         ;; the expression interpreted.  Right?
+         ((eq? head 'with-outline) (interpret (cadr expr)))
          ((eq? head 'combine-stencil)
           (for-each interpret  (cdr expr)))
          (else

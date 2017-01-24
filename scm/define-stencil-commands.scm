@@ -68,6 +68,7 @@ are used internally in @file{lily/@/stencil-interpret.cc}."
     scale-stencil
     translate-stencil
     transparent-stencil
+    with-outline
     ))
 
 (for-each ly:register-stencil-expression

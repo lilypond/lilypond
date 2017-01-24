@@ -121,6 +121,10 @@ interpret_stencil_expression (SCM expr,
 
           return;
         }
+      else if (scm_is_eq (head, ly_symbol2scm ("with-outline")))
+        {
+          expr = scm_caddr (expr);
+        }
       else
         {
           (*func) (func_arg,

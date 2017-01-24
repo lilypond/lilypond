@@ -945,6 +945,8 @@ stencil_traverser (PangoMatrix trans, SCM expr)
     return stencil_traverser (trans, scm_cadr (expr));
   else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("output-attributes")))
     return stencil_traverser (trans, scm_caddr (expr));
+  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("with-outline")))
+    return stencil_traverser (trans, scm_cadr (expr));
   else
     {
       vector<Transform_matrix_and_expression> out;
