@@ -238,10 +238,7 @@ the more angular the shape of the parenthesis."
 
 (define-public (make-transparent-box-stencil xext yext)
   "Make a transparent box."
-  (ly:make-stencil
-   (list 'transparent-stencil
-         (ly:stencil-expr (make-filled-box-stencil xext yext)))
-   xext yext))
+  (ly:stencil-outline empty-stencil (make-filled-box-stencil xext yext)))
 
 (define-public (make-filled-box-stencil xext yext)
   "Make a filled box."

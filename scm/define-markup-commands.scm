@@ -2333,10 +2333,7 @@ Add padding @var{amount} around @var{arg} in the X@tie{}direction.
   }
 }
 @end lilypond"
-  (let* ((m (interpret-markup layout props arg))
-         (x (ly:stencil-extent m X))
-         (y (ly:stencil-extent m Y)))
-    (ly:make-stencil (list 'transparent-stencil (ly:stencil-expr m)) x y)))
+  (ly:stencil-outline empty-stencil (interpret-markup layout props arg)))
 
 (define-markup-command (pad-to-box layout props x-ext y-ext arg)
   (number-pair? number-pair? markup?)
