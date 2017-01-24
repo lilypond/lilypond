@@ -2251,6 +2251,14 @@ Set the dimensions of @var{arg} to @var{x} and@tie{}@var{y}."
       `(delay-stencil-evaluation ,(delay expr))
       x y))))
 
+(define-markup-command (with-outline layout props outline arg)
+  (markup? markup?)
+  #:category other
+  "
+Print @var{arg} with the outline and dimensions of @var{outline}."
+  (ly:stencil-outline (interpret-markup layout props arg)
+                      (interpret-markup layout props outline)))
+
 (define-markup-command (with-dimensions-from layout props arg1 arg2)
   (markup? markup?)
   #:category other
