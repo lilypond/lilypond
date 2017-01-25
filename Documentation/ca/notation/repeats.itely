@@ -1,0 +1,906 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+@ignore
+    Translation of GIT committish: c4a960d0461ee5ecd87cd46692ec11682b8969b0
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.19.21"
+
+@node Repeticions
+@section Repeticions
+@translationof Repeats
+
+@lilypondfile[quote]{repeats-headword.ly}
+
+La repetició és un concepte fonamental a la música, i hi ha
+diversos tipus de notació per a les repeticions.  El LilyPond dóna
+suport als següents tipus de repetició:
+
+@table @code
+@item volta (primera i segona vegada)
+La repetició de la músic no s'imprimeix de forma desenvolupada,
+sinó que s'indica envoltant-la entre barres de repetició.  Si el
+salt de la repetició es troba al començament de la peça, la barra
+de repetició sols s'imprimeix al final del fragment.
+S'imprimeixen una sèrie de finals alternatius (volta) d'esquerra a
+dreta indicats mitjançant claus.  Aquesta és la notació
+estàndard per a les repeticions amb finals alternatius.
+
+@item unfold (desplegada)
+La música repetida s'escriu i s'interpreta completament tantes
+vegades com especifiqueu el valor
+@code{@var{nombre_de_repeticions}}.  És útil quan s'està escrivint
+música repetitiva.
+
+@item percent (percentatge)
+Fer repeticions de compassos o part d'ells.  Tenen un aspecte
+semblant a un signe de percentatge.  Les repeticions de
+percentatge s'han  de declarar dins d'un context @code{Voice}.
+
+@item tremolo (trèmol)
+Fer barres de trèmol.
+
+@end table
+
+
+@menu
+* Repeticions llargues::
+* Repeticions curtes::
+@end menu
+
+@node Repeticions llargues
+@subsection Repeticions llargues
+@translationof Long repeats
+
+Aquesta secció tracta sobre la forma d'introduir repeticions
+llargues, normalment de diversos compassos.  Les repeticions
+adopten dues formes: repeticions envoltades entre signes de
+repetició, o repeticions explícites, que s'usen per escriure
+música repetitiva.  També es poden controlar manualment els signes
+de repetició.
+
+@menu
+* Repeticions normals::
+* Marques de repetició manual::
+* Repeticions explícites::
+@end menu
+
+@cindex repeticions normals
+@cindex repetició amb finals alternatius
+@cindex finals alternatius
+@cindex volta
+@cindex prima volta
+@cindex primera i segona vegada
+@cindex seconda volta
+@cindex volta, prima
+@cindex volta, seconda
+@funindex \repeat
+@funindex \alternative
+@funindex \partial
+
+@node Repeticions normals
+@unnumberedsubsubsec Repeticions normals
+@translationof Normal repeats
+
+La sintaxi d'una repetició normal és
+
+@example
+\repeat volta @var{nombre_de_repeticions} @var{expressió_musical}
+@end example
+
+@noindent
+on @code{@var{expressió_musical}} és una expressió musical.
+
+Una repetició simple sense finals alternatius:
+
+@lilypond[verbatim,quote]
+\relative {
+  \repeat volta 2 { c''4 d e f }
+  c2 d
+  \repeat volta 2 { d4 e f g }
+}
+@end lilypond
+
+De forma predeterminada no s'imprimeixen les dobles barres
+d'obertura de repetició al primer compàs complet.  Malgrat això és
+possible imprimir-les usant @code{\bar ".|:"} abans de la primera nota.
+
+@lilypond[verbatim,fragment,quote]
+\relative {
+  \repeat volta 2 { \bar ".|:" c''4 d e f }
+  c2 d
+  \repeat volta 2 { d4 e f g }
+}
+@end lilypond
+
+Els finals alternatius (celes de primera i segona vegada) es
+poden generar utilitzant @code{\alternative}.  Cada grup
+d'alternatives ha d'estar envoltat pel seu compte entre claus.
+
+@example
+\repeat volta @var{nombre_de_repeticions} @var{expressió_musical}
+\alternative @{
+  @{ @var{expressió_musical} @}
+@}
+@end example
+
+@noindent
+on @code{@var{expressió_musical}} és una expressió musical.
+
+Si hi ha més repeticions que finals alternatius, s'assigna el
+primer final alternatiu a les repeticions més antigues.
+
+Repetició única amb primera i segona vegada:
+
+@lilypond[verbatim,quote]
+\relative {
+  \repeat volta 2 { c''4 d e f | }
+  \alternative {
+    { c2 e | }
+    { f2 g | }
+  }
+  c1
+}
+@end lilypond
+
+Diverses repeticions amb primera i segona vegada:
+
+@lilypond[verbatim,quote]
+\relative {
+  \repeat volta 4 { c''4 d e f | }
+  \alternative {
+    { c2 e | }
+    { f2 g | }
+  }
+  c1
+}
+@end lilypond
+
+Més d'una repetició amb més d'un final alternatiu:
+
+@lilypond[verbatim,quote]
+\relative {
+  \repeat volta 3 { c''4 d e f | }
+  \alternative {
+    { c2 e | }
+    { f2 g | }
+    { a2 g | }
+  }
+  c1
+}
+@end lilypond
+
+@warning{Si hi ha dos o més alternatives, no ha d'aparèixer res
+entre la clau de tancament d'una i la d'obertura de l'altra
+dins d'un bloc @code{@bs{}alternative}, atès que en cas contrari
+no obtindrem el nombre de finals esperat.}
+
+@warning{Si incloem @code{@bs{}relative} dins d'un
+@code{@bs{}repeat} sense instancia el context @code{Voice}
+explícitament, apareixeran pentagrames addicionals no desitjats.
+Vegeu @rprogram{Apareix un pentagrama de més}.}
+
+@cindex repetició con anacrusa
+@cindex anacrusa en repeticions
+@funindex \partial
+@cindex comprovació de compàs amb repeticions
+@cindex repetició amb comprovacions de compàs
+
+Si una repetició sense celes de primera i segona vegada comença
+en mig d'un compàs, normalment acaba en el lloc corresponent a
+meitat d'un altre compàs posterior (de tal forma que els dos sumen
+un compàs complet).  En aquest cas, els símbols de repetició no
+són @q{veritables} línies divisòries, per la qual cosa no s'han
+d'escriure en aquest lloc comprovacions de compàs ni ordres
+@code{\partial}:
+
+@lilypond[verbatim,quote,relative=1]
+c'4 e g
+\repeat volta 4 {
+  e4 |
+  c2 e |
+  g4 g g
+}
+  g4 |
+  a2 a |
+  g1 |
+@end lilypond
+
+Si una repetició que no té celes de primera i segona vegada
+comença amb un compàs parcial, aleshores s'aplica el mateix
+principi, excepte que es requereix una ordre @code{\partial}
+al començament del compàs:
+
+@lilypond[verbatim,quote,relative=1]
+\partial 4
+\repeat volta 4 {
+  e'4 |
+  c2 e |
+  g4 g g
+}
+  g4 |
+  a2 a |
+  g1 |
+@end lilypond
+
+@cindex repeticions, amb lligadures
+@cindex primera i segona vegada, amb lligadures
+@cindex lligadures, a repeticions
+@cindex lligadures, a primera i segona vegada
+@funindex \repeatTie
+
+Es poden afegir lligadures d'unió al segon final:
+
+@lilypond[verbatim,quote]
+\relative {
+  c''1
+  \repeat volta 2 { c4 d e f~ }
+  \alternative {
+    { f2 d }
+    { f2\repeatTie f, }
+  }
+}
+@end lilypond
+
+@funindex \inStaffSegno
+@cindex repeticions, amb segno
+@cindex segno, amb repeticions
+
+L'ordre @code{\inStaffSegno} es pot utilitzar per generar una
+barra de compàs combinada que incorpora el símbol del segno junt
+amb la barra de repetició, quan s'usa amb la instrucció
+@code{\repeat volta}.  Se selecciona automàticament el tipus
+correcte de línia divisòria de repetició, ja sigui de començament
+o fi de repetició, o de doble repetició.  Observeu que la
+indicació @qq{D.S.} corresponent s'ha d'afegir manualment.
+
+Sortida d'una repetició:
+
+@lilypond[verbatim,quote]
+\relative {
+  e'1
+  \inStaffSegno
+  f2 g a b
+  c1_"D.S." \bar "|."
+}
+@end lilypond
+
+Al començament d'una repetició:
+
+@lilypond[verbatim,quote]
+\relative {
+  e'1
+  \repeat volta 2 {
+    \inStaffSegno  % inicia repetició
+    f2 g a b
+  }
+  c1_"D.S." \bar "|."
+}
+@end lilypond
+
+Al final de una repetición:
+
+@lilypond[verbatim,quote]
+\relative {
+  e'1
+  \repeat volta 2 {
+    f2 g a b
+    \inStaffSegno  % finalitza repetició
+  }
+  f2 g a b
+  c1_"D.S." \bar "|."
+}
+@end lilypond
+
+Entre dues repeticions:
+
+@lilypond[verbatim,quote]
+\relative {
+  e'1
+  \repeat volta 2 {
+    f2 g a b
+  }
+  \inStaffSegno  % doble repetició
+  \repeat volta 2 {
+    f2 g a b
+  }
+  c1_"D.S." \bar "|."
+}
+@end lilypond
+
+Es poden obtenir símbols de línia divisòria alternatius mitjançant
+l'establiment (en el context Score) de les propietats
+@code{segnoType}, @code{startRepeatSegnoType},
+@code{endRepeatSegnoType} o @code{doubleRepeatSegnoType} al tipus
+de línia requerit.  Els tipus de línia divisòria alternatius s'han
+de seleccionar a partir dels tipus predefinits o de tipus definits
+anteriorment amb la instrucció @code{\defineBarLine}
+(vegeu @ref{Barres de compàs}).
+
+@lilypond[verbatim,quote]
+\defineBarLine ":|.S[" #'(":|." "S[" "")
+\defineBarLine "]" #'("]" "" "")
+\relative {
+  e'1
+  \repeat volta 2 {
+    f2 g a b
+    \once \set Score.endRepeatSegnoType = ":|.S["
+    \inStaffSegno
+  }
+  f2 g \bar "]" a b
+  c1_"D.S." \bar "|."
+}
+@end lilypond
+
+@snippets
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{shortening-volta-brackets.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{adding-volta-brackets-to-additional-staves.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{setting-the-double-repeat-default-for-volte.ly}
+
+@cindex repeticions, lletres i números de compàs
+@cindex repeticions, números de compàs de primer i segona vegada
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{alternative-bar-numbering.ly}
+
+@seealso
+Glossari musical:
+@rglos{repeat},
+@rglos{volta}.
+
+Referència de la notació:
+@ref{Barres de compàs},
+@refusernamed{Modifying context plug-ins,Modificació dels complements (plug-ins) de context},
+@refusernamed{Modifying ties and slurs,Modificació de lligadures d'unió i d'expressió},
+@ref{Gestió del temps}.
+
+Fitxers instal·lats:
+@file{ly/engraver-init.ly}.
+
+Fragments de codi:
+@rlsr{Repeats}.
+
+Referència de funcionament intern:
+@rinternals{VoltaBracket},
+@rinternals{RepeatedMusic},
+@rinternals{VoltaRepeatedMusic},
+@rinternals{UnfoldedRepeatedMusic}.
+
+@knownissues
+@cindex repetició ambigua
+@cindex niuada, repetició
+@cindex repetició niuada
+@cindex repetició, comptador de temps de la
+@cindex repetició i números de compàs
+@cindex números de compàs i repeticions
+@cindex temps, repeticions i comptador de
+@cindex compàs, repeticions i números de
+@cindex repeticions i lligadura d'expressió
+@cindex lligadures d'expressió i repeticions
+@cindex glissandi i repeticions
+@cindex repeticions i glissandi
+
+Les lligadures d'expressió que abasten des d'un bloc
+@code{\repeat} fins un bloc @code{\alternative} sols funcionen
+per a la cela de primera vegada.  L'aparença visual d'una
+lligadura d'expressió que es continua introduint a d'altres
+celes de repetició pot simular-se amb @code{\repeatTie} si la
+lligadura s'estén fins una sola nota dins de la cela de
+repetició, tot i que aquest mètode no funciona a @code{TabStaff}.
+D'altres mètodes que poden servir per indicar lligadures que es
+continuen per sobre de diverses notes a les celes de repetició,
+i que també funcionen en contextos de tabulatura @code{TabStaff},
+s'expliquen a
+@refusernamed{Modifying ties and slurs,Modificació de lligadures d'unió i d'expressió}.
+
+Així mateix, no és possible fer que les lligadures d'expressió es
+repleguin des del final d'una alternativa fins el començament de
+la repetició.
+
+Els glissandos que s'estenen des d'un bloc @code{\repeat} fins un bloc
+@code{\alternative} sols funcionen per a la cela de primera
+vegada.  Es pot indicar l'aparença visual d'un glissando que es
+continua fin l'interior d'altres celes de repetició mitjançant
+la codificació d'un glissando que comença a una nota d'adorn
+oculta.  Per veure un exemple, consulteu
+@qq{Extensió dels glissandos sobre les repeticions} sota l'epígraf
+Fragments de codi seleccionats, a @ref{Glissando}.
+
+Si una repetició que comença amb un compàs incomplet té un bloc
+@code{\alternative} que conté modificacions a la propietat
+@code{measureLength}, la utilització de @code{\unfoldRepeats}
+donarà lloc a línies divisòries erròniament col·locades i
+advertiments de comprovació de compàs.
+
+Una repetició niuada com
+
+@example
+\repeat @dots{}
+\repeat @dots{}
+\alternative
+@end example
+
+@noindent
+és ambigua perquè no està clar a quin @code{\repeat} pertany la
+@code{\alternative}.  Aquesta ambigüitat es resol fent que la
+@code{\alternative} pertanyi sempre a la @code{\repeat} més
+interna.  Per més claredat, es recomana usar claus en aquestes
+situacions.
+
+@node Marques de repetició manual
+@unnumberedsubsubsec Marques de repetició manual
+@translationof Manual repeat marks
+
+
+@cindex manual, marca de repetició
+@cindex repetició manual
+@cindex començament de repetició
+@cindex repetició, començament de
+@cindex final de repetició
+@cindex repetició, final de
+@cindex repetició, canviar número de
+@cindex repetició, canviar finals alternatius
+@cindex clau de primera i segona vegada
+@funindex repeatCommands
+@funindex start-repeat
+
+@warning{Aquests mètodes sols s'utilitzen per realitzar
+construccions de repetició poc usuals.  A gairebé totes les
+situacions s'han de crear les repeticions utilitzant l'ordre
+estàndard @code{@bs{}repeat} o imprimint les barres de compàs
+corresponents.  Per veure més informació, consulteu
+@ref{Barres de compàs}.}
+
+Es pot usar la propietat @code{repeatCommands} per controlar la
+disposició de les repeticions.  El seu valor és una llista de
+l'Scheme d'ordres de repetició.
+
+@table @code
+@item start-repeat
+Impressió d'una barra de compàs @code{.|:}
+
+@lilypond[verbatim,quote]
+\relative {
+  c''1
+  \set Score.repeatCommands = #'(start-repeat)
+  d4 e f g
+  c1
+}
+@end lilypond
+
+A la pràctica habitual del gravat no s'imprimeixen signes de
+repetició al principi de la peça.
+
+@item @code{end-repeat}
+Impressió d'una barra de compàs @code{:|.}
+
+@lilypond[verbatim,quote]
+\relative {
+  c''1
+  d4 e f g
+  \set Score.repeatCommands = #'(end-repeat)
+  c1
+}
+@end lilypond
+
+@item (volta @var{number}) @dots{} (volta #f)
+Creació d'una nova cela de repetició amb el número que
+s'especifica.  El parèntesi de vegada s'ha de finalitzar de forma
+explícita, en cas contrari no s'imprimeix.
+
+@lilypond[verbatim,quote]
+\relative {
+  f''4 g a b
+  \set Score.repeatCommands = #'((volta "2"))
+  g4 a g a
+  \set Score.repeatCommands = #'((volta #f))
+  c1
+}
+@end lilypond
+
+@end table
+
+Es poden produir diverses ordres de repetició amb el mateix punt:
+
+@lilypond[verbatim,quote]
+\relative {
+  f''4 g a b
+  \set Score.repeatCommands = #'((volta "2, 5") end-repeat)
+  g4 a g a
+  c1
+  \set Score.repeatCommands = #'((volta #f) (volta "95") end-repeat)
+  b1
+  \set Score.repeatCommands = #'((volta #f))
+}
+@end lilypond
+
+@cindex parèntesi de cela de repetició de text
+@cindex text a cela de repetició
+
+Es pot incloure text dins de la cela de primera i segona vegada.
+El text pot ser un número o números, o un element de marcatge,
+vegeu @refusernamed{Formatting text,Format del text}.  La forma
+més fàcil d'usar text de marcatge és definir el marcatge
+prèviament, i després incloure'l dins d'una llista de l'Scheme.
+
+@lilypond[verbatim,quote]
+voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
+\relative {
+  c''1
+  \set Score.repeatCommands =
+    #(list(list 'volta voltaAdLib) 'start-repeat)
+  c4 b d e
+  \set Score.repeatCommands = #'((volta #f) (volta "4.") end-repeat)
+  f1
+  \set Score.repeatCommands = #'((volta #f))
+}
+@end lilypond
+
+
+@seealso
+Referència de la notació:
+@ref{Barres de compàs},
+@refusernamed{Formatting text,Format del text}.
+
+Fragments de codi:
+@rlsr{Repeats}.
+
+Referència de funcionament intern:
+@rinternals{VoltaBracket},
+@rinternals{RepeatedMusic},
+@rinternals{VoltaRepeatedMusic}.
+
+
+@node Repeticions explícites
+@unnumberedsubsubsec Repeticions explícites
+@translationof Written-out repeats
+
+@cindex explícites, repeticions
+@cindex repeticions explícites
+@cindex repeticions desplegades
+@cindex repeticions alternatives
+@cindex primera i segona vegada, repeticions
+@cindex repeticions amb primera i segona vegada
+@cindex desplegar repetició
+@cindex repeticions desplegades amb finals alternatius
+@cindex música desplegada amb finals alternatius
+@cindex alternatius, finals, a repeticions explícites
+@funindex unfold
+
+Mitjançant la utilització de l'ordre @code{unfold} es poden usar
+les repeticions per simplificar l'escriptura desplegada de música
+repetitiva.  La sintaxi és:
+
+@example
+\repeat unfold @var{número_de_repeticions} @var{expressió_musical}
+@end example
+
+@noindent
+donde @code{@var{expressió_musical}} és una musical i
+@code{@var{nombre_de_repeticions}} és el nombre de vegades que
+@code{@var{expressió_musical}} es repeteix.
+
+@lilypond[verbatim,quote]
+\relative {
+  \repeat unfold 2 { c''4 d e f }
+  c1
+}
+@end lilypond
+
+En certs casos, especialment dins d'un context
+@code{\relative}, la funció @code{\repeat unfold} no és
+exactament igual que escriure l'expressió musical diverses
+vegades.  Per exemple:
+
+@example
+\repeat unfold 2 @{ a'4 b c @}
+@end example
+
+no equival a
+
+@example
+a'4 b c | a'4 b c
+@end example
+
+Es poden fer repeticions desplegades amb finals alternatius.
+
+@lilypond[verbatim,quote]
+\relative {
+  \repeat unfold 2 { c''4 d e f }
+  \alternative {
+    { c2 g' }
+    { c,2 b }
+  }
+  c1
+}
+@end lilypond
+
+Si hi ha repeticions amb finals alternatius, el primer final
+alternatiu s'aplica les vegades que calguin fins que les
+alternatives restants completen el nombre total de repeticions.
+
+@lilypond[verbatim,quote]
+\relative {
+  \repeat unfold 4 { c''4 d e f }
+  \alternative {
+    { c2 g' }
+    { c,2 b }
+    { e2 d }
+   }
+  c1
+}
+@end lilypond
+
+Si hi ha més finals alternatius que repeticions, s'apliquen sols
+els primers finals alternatius.  Les alternatives restants
+s'ignoren i no s'imprimeixen.
+
+@lilypond[verbatim,quote]
+\relative {
+  \repeat unfold 2 { c''4 d e f }
+  \alternative {
+    { c2 g' }
+    { c,2 b }
+    { e2 d }
+  }
+  c1
+}
+@end lilypond
+
+És possible també niuar diverses funcions @code{unfold} (amb
+finals alternatius o sense ells).
+
+@lilypond[verbatim,quote]
+\relative {
+  \repeat unfold 2 {
+    \repeat unfold 2 { c''4 d e f }
+    \alternative {
+      { c2 g' }
+      { c,2 b }
+    }
+  }
+  c1
+}
+@end lilypond
+
+Les construccions d'acord es poden repetir mitjançant el símbol de
+repetició d'acords @code{q}.  Vegeu
+@rusernamed{Chord repetition,Repetició d'acords}.
+
+@warning{Si poseu @code{@bs{}relative} dins d'un bloc
+@code{@bs{}repeat} sense instanciar explícitament el context
+@code{Voice}, apareixeran pentagrames no desitjats.  Vegeu
+@rprogram{Apareix un pentagrama de més}.}
+
+@seealso
+Referència de la notació:
+@rusernamed{Chord repetition,Repetició d'acords}.
+
+Fragments de codi:
+@rlsr{Repeats}.
+
+Referència de funcionament intern:
+@rinternals{RepeatedMusic},
+@rinternals{UnfoldedRepeatedMusic}.
+
+
+@node Repeticions curtes
+@subsection Repeticions curtes
+@translationof Short repeats
+
+Aquesta secció tracta de com introduir repeticions curtes.  Les
+repeticions curtes poden adoptar dues formes: barres inclinades o
+signes de percentatge si estem representant repeticions d'una sola
+nota, un compàs o dos compassos, i trèmols en cas contrari.
+
+@menu
+* Repeticions de compàs o part d'ells::
+* Repeticions de trèmol::
+@end menu
+
+@node Repeticions de compàs o part d'ells
+@unnumberedsubsubsec Repeticions de compàs o part d'ells
+@translationof Percent repeats
+
+@cindex percentatge, repetició de
+@cindex compàs, repetició de
+@cindex repetició de percentatge
+@cindex repetició de compàs
+@cindex repetició curta
+@funindex \repeat percent
+@funindex percent
+
+Els patrons curts que es repeteixen s'imprimeixen d'un sol cop, i
+el patró repetit se substitueix per un símbol especial.
+
+La sintaxi és:
+
+@example
+\repeat percent @var{número} @var{expressió_musical}
+@end example
+
+@noindent
+on @code{@var{expressió_musical}} és una expressió musical.
+
+Els patrons més curts que un compàs se substitueixen per barres
+inclinades.
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  \repeat percent 4 { c128 d e f }
+  \repeat percent 4 { c64 d e f }
+  \repeat percent 5 { c32 d e f }
+  \repeat percent 4 { c16 d e f }
+  \repeat percent 4 { c8 d }
+  \repeat percent 4 { c4 }
+  \repeat percent 2 { c2 }
+}
+@end lilypond
+
+Els patrons de repetició d'un o dos compassos se substitueixen per
+signes semblants al símbol de percentatge.
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  \repeat percent 2 { c4 d e f }
+  \repeat percent 2 { c2 d }
+  \repeat percent 2 { c1 }
+}
+@end lilypond
+
+@lilypond[verbatim,quote]
+\relative {
+  \repeat percent 3 { c''4 d e f | c2 g' }
+}
+@end lilypond
+
+Els patrons més curts que un compàs però que contenen duracions
+barrejades utilitzen un símbol de percentatge doble.
+
+@lilypond[verbatim,quote]
+\relative {
+  \repeat percent 4 { c''8. <d f>16 }
+  \repeat percent 2 { \tuplet 3/2 { r8 c d } e4 }
+}
+@end lilypond
+
+@snippets
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{percent-repeat-counter.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{percent-repeat-count-visibility.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{isolated-percent-repeats.ly}
+
+@seealso
+Glossari musical:
+@rglos{percent repeat},
+@rglos{simile}.
+
+Fragments de codi:
+@rlsr{Repeats}.
+
+Referència de funcionament intern:
+@rinternals{RepeatSlash},
+@rinternals{RepeatSlashEvent},
+@rinternals{DoubleRepeatSlash},
+@rinternals{PercentRepeat},
+@rinternals{PercentRepeatCounter},
+@rinternals{PercentRepeatedMusic},
+@rinternals{Percent_repeat_engraver},
+@rinternals{DoublePercentEvent},
+@rinternals{DoublePercentRepeat},
+@rinternals{DoublePercentRepeatCounter},
+@rinternals{Double_percent_repeat_engraver},
+@rinternals{Slash_repeat_engraver}.
+
+@knownissues
+Les repeticions de percentatge no contenen res més a part del
+propi signe de percentatge; especialment, els canvis d'indicació
+de compàs no es repeteixen.
+
+@lilypond[quote,verbatim,relative=2]
+\repeat percent 3 { \time 5/4 c2. 2 \time 4/4 2 2 }
+@end lilypond
+
+@noindent
+Qualsevol canvi de compàs o ordre @code{\partial} s'ha de produir
+en passatges paral·lels @emph{fora} de la repetició de
+percentatge, per exemple en una pista especial per a la gestió del
+compàs.
+
+@lilypond[quote,verbatim,relative=2]
+<<
+  \repeat percent 3 { c2. 2 2 2 }
+  \repeat unfold 3 { \time 5/4 s4*5 \time 4/4 s1 }
+>>
+@end lilypond
+
+
+@node Repeticions de trèmol
+@unnumberedsubsubsec Repeticions de trèmol
+@translationof Tremolo repeats
+
+@cindex trèmol
+@cindex barres de trèmol
+@cindex repetició de trèmol
+@funindex \repeat tremolo
+@funindex tremolo
+
+Els trèmols poden adoptar dues formes: alternança entre dos
+acords o dues notes, i repetició ràpida d'una sola nota o acord.
+Els trèmols que consisteixen en una alternança s'indiquen per
+mitjà de l'addició de barres entres les notes o acords que
+s'alternen, mentre que els trèmols que consisteixen en la
+repetició ràpida d'una sola nota s'indiquen mitjançant l'addició
+de barres creuades a una nota única.
+
+Per col·locar marques de trèmol entre les notes, useu
+@code{\repeat} amb l'estil @code{tremolo} (trèmol):
+
+@lilypond[quote,verbatim]
+\relative c'' {
+  \repeat tremolo 8 { c16 d }
+  \repeat tremolo 6 { c16 d }
+  \repeat tremolo 2 { c16 d }
+}
+@end lilypond
+
+La sintaxi de @code{\repeat tremolo} espera que s'escriguin
+exactament dues notes dins de les claus, i el nombre de
+repeticions s'ha de correspondre amb un valor que es pugui
+expressar amb figures normals o amb puntet.  Així, @code{\repeat
+tremolo 7} és vàlida i produeix una nota amb doble puntet, però
+@code{\repeat tremolo 9} no és vàlid.
+
+La duració del trèmol és igual a la duració de l'expressió entre
+claus, multiplicada pel número de repeticions:
+@code{\repeat tremolo 8 @{ c16 d16 @}} dóna com a resultat un
+trèmol de rodona, escrit com dues rodones unides per barres de trèmol.
+
+Hi ha dues maneres de col·locar marques de trèmol sobre una única
+nota.  Fins i tot aquí es pot utilitzar la sintaxi @code{\repeat
+tremolo}, i en aquest cas la nota no ha d'anar envoltada entre claus:
+
+@lilypond[quote,verbatim,ragged-right]
+\repeat tremolo 4 c'16
+@end lilypond
+
+@cindex trèmol, indicacions de
+@funindex :
+
+El mateix resultat es pot obtenir escrivint @code{:@var{N}}
+després d'una nota, on @code{@var{N}} indica la duració de la
+subdivisió (ha de ser 8 com a mínim).  Si @code{@var{N}} és 8,
+s'afegeix una barra de corxera a la plica de la nota.  Si
+@code{@var{N}} s'omet, s'utilitza l'últim valor:
+
+@lilypond[quote,verbatim]
+\relative {
+  c''2:8 c:32
+  c: c:
+}
+@end lilypond
+
+@snippets
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{cross-staff-tremolos.ly}
+
+@seealso
+Fragments de codi:
+@rlsr{Repeats}.
+
+@cindex trèmols de pentagrama creuat
+@cindex pentagrama creuat, trèmol de

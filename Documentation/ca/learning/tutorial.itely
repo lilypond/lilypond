@@ -78,10 +78,10 @@ El resultat té aquest aspecte:
 @end lilypond
 
 @warning{la música i la lletra escrita al codi d'entrada del
-Lilypond ha d'anar sempre entre @w{@strong{@{ claudàtors @}}}.
-Els claudàtors haurien també d'estar rodejats per espais a no ser
+Lilypond ha d'anar sempre entre @w{@strong{@{ claus @}}}.
+Les claus haurien també d'estar rodejades d'espais a no ser
 que es trobin al principi o al final d'una línia, per evitar
-ambigüitats.  És possible que s'ometen en alguns exemples del
+ambigüitats.  És possible que s'ometin en alguns exemples del
 manual actual, però eviteu d'ometre-les a la vostra pròpia música!
 Per veure més informació sobre la presentació dels exemples del
 manual, consulteu
@@ -520,7 +520,7 @@ Referència de la notació:
 @subsection Treball sobre els fitxers d'entrada
 @translationof Working on input files
 
-@cindex claudàtors
+@cindex claus
 @cindex comentaris
 @cindex línia, comentari de
 @cindex comentari de línia
@@ -541,7 +541,7 @@ Referència de la notació:
 Els fitxers d'entrada del LilyPond són com els fitxers font de
 molts llenguatges de programació corrents.  Contenen un enunciat
 de versió, són sensibles a les majúscules i generalment els espais
-s'ignoren.  Les expressions es formen amb claudàtors
+s'ignoren.  Les expressions es formen amb claus
 @w{@code{@{ @}}} i els comentaris es denoten per un signe de
 percentatge (@code{%}) o per @w{@code{%@{ @dots{} %@}}}@tie{}.
 
@@ -606,19 +606,19 @@ elements sintàctics els uns dels altres.  En altres paraules, els
 espais es poden sempre @emph{afegir}, però no sempre @emph{eliminar}.
 Degut a què la manca d'espais pot donar lloc a errors estranys,
 recomanem inserir espais sempre abans i després de qualsevol
-element sintàctic, per exemple, abans i després dels claudàtors.
+element sintàctic, per exemple, abans i després de les claus.
 
 @item
 @strong{Expressions:} Tot fragment de codi d'entrada per al
-LilyPond ha de portar @strong{@{@tie{}claudàtors@tie{}@}} abans i
-després de l'entrada. Aquests claudàtors li diuen al LilyPond que
+LilyPond ha de portar @strong{@{@tie{}claus@tie{}@}} abans i
+després de l'entrada. Aquestes claus li diuen al LilyPond que
 l'entrada és una expressió musical unitària, igual que els
-parèntesis @samp{()} de les matemàtiques.  Els claudàtors han
-d'anar rodejats d'un espai a no ser que es trobin al començament o
+parèntesis @samp{()} de les matemàtiques.  Les claus han
+d'anar rodejades d'un espai a no ser que es trobin al començament o
 al final d'una línia, per evitar qualsevol ambigüitat.
 
 Una instrucció del LilyPond seguida d'una expressió simple entre
-claudàtors (com per exemple
+claus (com per exemple
 @q{@w{@code{@bs{}relative c' @{@dots{} @}}}})
 també és una expressió musical unitària.
 
@@ -732,11 +732,11 @@ versió en línia.
 @cindex fitxers, consells per construir
 
 Com ja hem vist a @ref{Treball sobre els fitxers d'entrada}
-codi d'entrada del LilyPond ha d'estar rodejat de claudàtors
+codi d'entrada del LilyPond ha d'estar rodejat de claus
 @code{@{ @}} o de
 @q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}}.  Durant la resta
-del manual actual, la major part dels exemple ometran els
-claudàtors. Per a reproduir els exemples, haureu de copiar i
+del manual actual, la major part dels exemple ometran les
+claus. Per a reproduir els exemples, haureu de copiar i
 enganxar l'entrada que es mostra, però @strong{haureu} d'escriure
 el @q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}}, de la forma següent:
 
@@ -746,7 +746,7 @@ el @q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}}, de la forma següent:
 @}
 @end example
 
-Perquè ometre els claudàtors? Gairebé tots els exemples del manual
+Perquè ometre les claus? Gairebé tots els exemples del manual
 actual es poden inserir al mig d'un fragment més gran de
 música. Per a aquests exemple no té cap sentit afegir
 @q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}}

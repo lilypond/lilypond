@@ -1094,7 +1094,7 @@ les notes.
 @menu
 * Clau::
 * Armadura de la tonalitat::
-* Claudàtors d'octava::
+* Indicadors d'octava::
 * Transposició dels instruments::
 * Alteracions accidentals automàtiques::
 * Tessitura::
@@ -1205,7 +1205,7 @@ c'2 c'
 @end lilypond
 
 Es pot obtenir una indicació d'octava opcional envoltant
-l'argument numèric entre parèntesi o claudàtors rectes:
+l'argument numèric entre parèntesis o claudàtors:
 
 @lilypond[verbatim,quote,fragment]
 \clef "treble_(8)"
@@ -1218,7 +1218,7 @@ Les altures s'imprimeixen com si l'argument numèric no tingués els
 parèntesis o claudàtors.
 
 De forma predeterminada, un canvi de clau que es produeix en un
-salt de línia provoca que el símbo de clau nou s'imprimeixi al
+salt de línia provoca que el símbol de clau nou s'imprimeixi al
 final de la línia anterior, com una clau @emph{de cortesia}, així
 com al principi del següent.  Aquesta clau @emph{de cortesia} es
 pot suprimir.
@@ -1441,8 +1441,8 @@ Referència de funcionament interno:
 @rinternals{key-signature-interface}.
 
 
-@node Claudàtors d'octava
-@unnumberedsubsubsec Claudàtors d'octava
+@node Indicadors d'octava
+@unnumberedsubsubsec Indicadors d'octava
 @translationof Ottava brackets
 
 @cindex ottava
@@ -1453,7 +1453,7 @@ Referència de funcionament interno:
 @funindex set-octavation
 @funindex \ottava
 
-Els @notation{claudàtors d'Ottava} introdueixen un transport
+Els @notation{indicadors d'octava} introdueixen un transport
 addicional d'una octava per al pentagrama.
 
 @lilypond[verbatim,quote]

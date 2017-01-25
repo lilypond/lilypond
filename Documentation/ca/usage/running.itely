@@ -1157,7 +1157,7 @@ Un bloc @code{\score} ha de contenir una @emph{única} expressió
 musical.  Si en comptes d'això conté diverses instruccions
 @code{\new Staff}, @code{\new StaffGroup} o contextos semblants
 introduïts amb @code{\new} sense que s'hagin tancat entre
-claudàtors corbs, @code{@{ @dots{} @}}, o dobles parèntesis en
+claus, @code{@{ @dots{} @}}, o dobles parèntesis en
 angle, @code{<< @dots{}  >>}, així:
 
 @example
@@ -1172,9 +1172,9 @@ angle, @code{<< @dots{}  >>}, així:
 aleshores es produirà un missatge d'error.
 
 Per evitar l'error, tanqueu totes les instruccions @code{\new}
-dins dels claudàtors corbs o dobles parèntesis d'angle.
+dins de les claus o dobles parèntesis d'angle.
 
-L'ús de claudàtors corbs introdueix les instruccions @code{\new}
+L'ús de claus introdueix les instruccions @code{\new}
 de forma seqüencial:
 
 @lilypond[quote,verbatim]

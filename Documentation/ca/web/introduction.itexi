@@ -321,7 +321,7 @@ tenor està escrita en un compàs diferent a les altres però s'ha
 d'alinear com si estigués al mateix compàs. El LilyPond tracta
 aquesta situació amb molta elegància. Observeu també els incípit
 amb les claus a l'estil de l'edició vaticana, les vírgules
-barrades que indiquen notes repetides, i els claudàtors de
+barrades que indiquen notes repetides, i els parèntesis de
 lligadura per sobre de certs grups de notes.
 
 @exampleImage{aucun-snippet}

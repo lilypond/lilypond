@@ -45,7 +45,7 @@ veure una descripció més completa del format d'entrada, consulteu
 * Introducció a l'estructura dels fitxers del LilyPond::
 * La partitura és una (única) expressió musical composta::
 * Niuat d'expressions musicals::
-* Quant a la impossibilitat de niuar claudàtors i lligadures::
+* Quant a la impossibilitat de niuar claus i lligadures::
 @end menu
 
 @node Introducció a l'estructura dels fitxers del LilyPond
@@ -300,7 +300,7 @@ petites peces (començàvem amb notes, després acords, etc.).  Ara
 partirem d'una gran expressió musical i recorrerem el camí invers
 cap avall.  Per simplicitat, farem sols un cantant i un piano.
 No necessitem un @code{StaffGroup} (que simplement agrupa un cert
-nombre de pautes amb un claudàtor a l'esquerra) per a aquest
+nombre de pautes amb una clau a l'esquerra) per a aquest
 conjunt, i aleshores el retirem. Tot i així, @emph{sí} necessitem
 pentagrames per a un cantant i un piano.
 
@@ -361,7 +361,7 @@ superior (mà dreta) i un pentagrama inferior (mà esquerra), tot i
 que el pentagrama inferior encara no té la clau de Fa.
 
 En aquest moment podríem començar a ficar les notes.  Dins dels
-claudàtors que segueixen a @code{\new Voice = "vocal"}, podríem
+claus que segueixen a @code{\new Voice = "vocal"}, podríem
 començar escrivint
 
 @example
@@ -491,19 +491,19 @@ indicació de compàs, i generalment amb una lletra més petita.  Per
 fer això caldrien més ordres que encara no s'han vist.  Vegeu
 @ref{Mida dels objectes} i @rusernamed{Ossia staves,Pentagrames d'Ossia}.
 
-@node Quant a la impossibilitat de niuar claudàtors i lligadures
-@subsection Quant a la impossibilitat de niuar claudàtors i lligadures
+@node Quant a la impossibilitat de niuar claus i lligadures
+@subsection Quant a la impossibilitat de niuar claus i lligadures
 @translationof On the un-nestedness of brackets and ties
 
-@cindex claudàtors i parèntesis, niuat de
-@cindex claudàtors i parèntesis, tipus de
-@cindex claudàtors i parèntesis, tancar en front a marcar
+@cindex claus i parèntesis, niuat de
+@cindex claus i parèntesis, tipus de
+@cindex claus i parèntesis, tancar en front a marcar
 
 A l'escriptura del fitxer d'entrada del LilyPond hem pogut veure
-alguns tipus de parèntesis, claudàtors i angles de diversos
+alguns tipus de parèntesis, claus i claudàtors de diversos
 tipus. Obeeixen a diverses regles que el principi poden semblar
 confuses.  Abans d'explicar aquestes regles, fem un repàs a les
-diverses classes de claudàtors, claus i parèntesis.
+diverses classes de parèntesis, claus i claudàtors.
 
 @c attempt to force this onto a new page
 @need 50
@@ -519,19 +519,19 @@ diverses classes de claudàtors, claus i parèntesis.
 @item @code{( @dots{} )}
   @tab Marca el començament i el final d'una lligadura d'expressió
 @item @code{\( @dots{} \)}
-  @tab Marca el començament d'una lligadura de frasseig
+  @tab Marca el començament d'una lligadura de fraseig
 @item @code{[ @dots{} ]}
   @tab Marca el començament i el final d'un barrat manual
 @end multitable
 
 A les anteriors hem d'afegir d'altres construccions que generen
-línies entre o a través de ls notes: les lligadures d'unió
+línies entre o a través de les notes: les lligadures d'unió
 (marcades amb un accent corb, @code{~}), els grups especials que
 s'escriuen amb @code{\tuplet x/y @{ @dots{} @}}, i les notes
 d'adorn, que s'escriuen amb @code{\grace @{ @dots{} @}}.
 
 Fora del LilyPond, l'ús convencional dels parèntesis i d'altres
-claudàtors requereix que els diversos tipus es trobin niuats
+claus requereix que els diversos tipus es trobin niuats
 correctament, com a: @code{<< [ @{ ( @dots{} ) @} ] >>}, de manera
 que els parèntesis que es tanquen han de trobar-se a l'ordre
 exactament oposat als dels parèntesis que s'obren.  Això
@@ -554,7 +554,7 @@ possible):
 \relative { g'8\( a b[ c b\) a] g4 }
 @end lilypond
 
-En general, els diversos tipus de claudàtors, i els que es fan
+En general, els diversos tipus de parèntesis, i els que es fan
 servir per grups especials, lligadures d'unió i notes d'adorn, es
 poden barrejar amb total llibertat.  Aquest exemple mostra una
 barra que s'estén cap a l'interior d'un grup de valoració especial
@@ -701,8 +701,8 @@ dividir-lo en dues veus separades de la següent manera:
 @end lilypond
 
 @cindex veus, nomenament de
-@cindex veus que creuen claudàtors
-@cindex lligadures que creuen claudàtors
+@cindex veus que creuen claus
+@cindex lligadures que creuen claus
 
 Aquest exemple té sols dues veus, però la mateixa construcció es
 pot usar per codificar tres o més veus mitjançant l'addició de més
@@ -1567,10 +1567,10 @@ pràctica, heus aquí un exemple anotat de música real:
 }  % fi de l'expressió única de música composta
 @end lilypond
 
-(Observeu com totes les instruccions que obren un bloc amb un
-claudàtor corb, @code{@{}, o amb angles dobles, @code{<<}, estan
+(Observeu com totes les instruccions que obren un bloc amb una
+clau, @code{@{}, o amb angles dobles, @code{<<}, estan
 sagnades (tenen un marge addicional) amb dos espais addicionals,
-i el claudàtor de tancament corresponent té un marge exactament
+i la clau de tancament corresponent té un marge exactament
 igual. Tot i no ser necessari, observar aquesta pràctica reduirà
 considerablement el nombre d'errors de @q{parèntesis
 descompensats}, i es recomana especialment.  Permet apreciar d'una
@@ -1578,7 +1578,7 @@ sola ullada l'estructura de la música, i qualsevol parèntesis
 descompensat apareixerà molt clarament.  Observeu també com el
 pentagrama de la mà esquerra es crea usant dobles angles perquè
 requereix dues veus, mentre que el pentagrama de la mà dreta es
-crea amb una expressió musical única tancada entre claudàtors
+crea amb una expressió musical única tancada entre claus
 perquè sols requereix una veu.)
 
 @cindex contextos, nomenament
@@ -2871,12 +2871,12 @@ No és necessari utilitzar la construcció simultània @code{<<
 òrgan de pedal, atès que contenen una única expressió, però no fa
 mal, i és un bon costum utilitzar sempre dobles angles després de
 @code{\new Staff} quan hi diverses veus.  El contrari és cert per
-a les veus: normalment han d'anar seguides de claudàtors @code{@{
+a les veus: normalment han d'anar seguides de claus @code{@{
 @dots{} @}} en cas que tinguem música codificada com a variables
 diferents que s'han de situar consecutivament.
 
 Afegim aquesta estructura al bloc de partitura, i ajustem el
-sagnat dels marges.  També escrivim els claudàtors
+sagnat dels marges.  També escrivim les claus
 corresponents, ens assegurem que les pliques i lligadures d'unió
 i expressió en cada una de les veus del pentagrama superior
 apunten en la direcció adequada amb @code{\voiceOne} i

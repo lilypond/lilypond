@@ -552,7 +552,7 @@ moltoF = \markup { molto \dynamic f }
 @funindex \dynamic
 
 En el mode de marcatge es poden crear indicacions dinàmiques
-editorials (entre parèntesis o claudàtors).  La sintaxi del mode
+editorials (entre parèntesis o claus).  La sintaxi del mode
 de marcatge es descriu a
 @rusernamed{Formatting text,Format del text}.
 
@@ -832,7 +832,7 @@ Glossari musical:
 @rglos{slur}.
 
 Manual d'aprenentatge:
-@rlearning{Quant a la impossibilitat de niuar claudàtors i lligadures}
+@rlearning{Quant a la impossibilitat de niuar claus i lligadures}
 
 Referència de la notació:
 @rusernamed{Direction and placement,Direcció i posició},
@@ -979,7 +979,7 @@ codi sota @ref{Lligadures d'expressió}.
 
 @seealso
 Manual de aprenentatge:
-@rlearning{Quant a la impossibilitat de niuar claudàtors i lligadures}
+@rlearning{Quant a la impossibilitat de niuar claus i lligadures}
 
 Referència de la notació:
 @rusernamed{Direction and placement,Direcció i posició},
@@ -1010,7 +1010,7 @@ A diferència d'altres marques d'expressió, els símbols de
 respiració no estan associats amb la nota anterior, sinó que són
 esdeveniments independents.  Per això, totes les marques
 d'expressió que estan annexades a la nota anterior, qualsevol
-claudàtor recte que indiqui barrat manual i qualsevol parèntesi
+claudàtor que indiqui barrat manual i qualsevol parèntesi
 que indiqui lligadures d'expressió i de fraseig, s'han d'escriure
 abans de @code{\breathe}.
 
@@ -1254,7 +1254,7 @@ Es poden escriure diversos tipus d'acords arpegiats.
 @funindex \arpeggioParenthesis
 @funindex \arpeggioParenthesisDashed
 
-Es poden crear símbols especials d'arpegi @emph{amb claudàtor}:
+Es poden crear símbols especials d'arpegi @emph{amb parèntesis}:
 
 @lilypond[verbatim,quote]
 \relative {
@@ -1328,7 +1328,7 @@ Referència de funcionament intern:
 No és possible barrejat arpegis connectats i no connectat a un
 @code{PianoStaff} al mateix moment de temps.
 
-La forma senzilla d'especificar el claudàtor als arpegis de
+La forma senzilla d'especificar el parèntesis als arpegis de
 parèntesis no funciona per als arpegis de pentagrama creuat;
 vegeu @rusernamed{Cross-staff stems,Pliques de pentagrama creuat}.
 

@@ -713,7 +713,7 @@ expressió musical:
 a'4
 @end lilypond
 
-En tancar un grup de notes dins de claudàtors creem una
+En tancar un grup de notes dins de claus creem una
 @emph{expressió musical composta}. Aquí hem creat una expressió
 musical composta amb dues notes:
 
@@ -722,7 +722,7 @@ musical composta amb dues notes:
 @end lilypond
 
 Si col·loquem un grup d'expressions musicals (per exemple: notes)
-dins de claudàtors, això significa que es troben en seqüència (és
+dins de claus, això significa que es troben en seqüència (és
 a dir, cada una segueix a l'anterior).  El resultat és una altra
 expressió musical:
 
@@ -917,7 +917,7 @@ Glossari musical:
 @rglos{system}.
 
 La música per a piano es composa tipogràficament en forma de dos
-pentagrames units mitjançant un @notation{claudàtor}. L'aspecte
+pentagrames units mitjançant una @notation{clau}. L'aspecte
 imprès d'aquest sistema de pentagrames se sembla a l'exemple
 polifònic que apareix a @ref{Diversos pentagrames}, però en aquest
 cas l'expressió completa es col·loca dins d'un @code{PianoStaff}:
@@ -942,7 +942,7 @@ Altres grups de pentagrames es declaren mitjançant @code{\new
 GrandStaff}, que és apropiat per a partitures orquestrals, i
 @code{\new ChoirStaff}, que és apropiat per a partitures
 vocals. Cadascú d'aquests grups de pautes forma un tipus de
-context diferent, que produeix el claudàtor a l'esquerra i que
+context diferent, que produeix la clau a l'esquerra i que
 també controla l'abast de les línies divisòries.
 
 @seealso
@@ -1250,7 +1250,7 @@ Alguns textos (especialment els que estan en italià o català)
 requereixen el contrari: col·locar més d'una síl·laba a una única
 nota. Això s'aconsegueix enllaçant les síl·labes entre sí
 mitjançant un guió baix simple @code{_} (sense cap espai), o bé
-envoltant-les entre claudàtors.  Aquí apareix un exemple procedent
+envoltant-les entre claus.  Aquí apareix un exemple procedent
 del @notation{Barber de Sevilla} de Rossini, on la síl·laba
 @notation{al} es canta sobre la mateixa nota que la síl·laba
 @notation{go} de la paraula @q{Largo} a l'ària de Fígaro

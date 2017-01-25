@@ -98,7 +98,7 @@ i també si li passeu la font a un amic, serà tot un desafiament
 determinar les seves intencions o de quina menara estava
 estructurat el fitxer si no li heu afegit els comentaris.
 
-@item @strong{Apliqueu marges als claudàtors}.  Molts problemes
+@item @strong{Apliqueu marges a les claus}.  Molts problemes
 estan casat per una falta d'equilibri en el nombre de @code{@{} i
 @code{@}}.
 

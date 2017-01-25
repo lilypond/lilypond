@@ -508,23 +508,23 @@ Aquesta forma extensa de l'ordre @code{\tweak} es pot descriure com
 
 @cindex grups especials niuats
 @cindex tresets niuats
-@cindex claudàtor de grup especial
-@cindex claudàtor de treset
-@cindex grup especial, claudàtor de
-@cindex treset, claudàtor de
+@cindex clau de grup especial
+@cindex clau de treset
+@cindex grup especial, claur de
+@cindex treset, claur de
 
 @funindex TupletBracket
 
 L'ordre @code{\tweak} també s'ha d'usar per canviar l'aparença
 d'un sol d'un conjunt de grups especials niuats que comencin al
-mateix instant musical.  A l'exemple següent, el claudàtor de
-treset llarg i el primer dels tres claudàtors curts comencen al
+mateix instant musical.  A l'exemple següent, la clau de
+treset llarg i el primer de les tres claus curtes comencen al
 mateix moment musical, i per això qualsevol ordre @code{\override}
 s'aplicaria als dos.  A l'exemple s'usa @code{\tweak} per
 distingir entre ells.  La primera ordre @code{\tweak} especifica
-que el claudàtor del treset llarg s'ha de col·locar per sobre de
+que la clau del treset llarg s'ha de col·locar per sobre de
 les notes i el segon especifica que el nombre del treset s'ha
-d'imprimir en vermell sobre el claudàtor del primer treset curt.
+d'imprimir en vermell sobre la clau del primer treset curt.
 
 @cindex @code{\tweak}, exemple
 @cindex direction, propietat, exemple
@@ -1057,7 +1057,7 @@ d'aquesta forma:
 i tota la lletra s'escriu en cursiva.
 
 @warning{Dins de la lletra, deixeu sempre espais entre la síl·laba
-final i el claudàtor de tancament.}
+final i la clau de tancament.}
 
 @seealso
 Manual de Extensió:
@@ -1073,7 +1073,7 @@ Manual de Extensió:
 Fins aquí hem vis dos tipus de propietats: @code{número} i
 @code{símbol}.  Perquè sigui vàlid, el valor que es dóna a una
 propietat ha de ser del tipus correcte i obeir les regles d'aquest
-tipus.  El tipus de la propietat es mostra sempre entre parèntesis
+tipus.  El tipus de la propietat es mostra sempre entre claus
 després del nom de la propietat al RFI.  Vet aquí una llista dels
 tipus que us podrà caldre, junt amb les regles d'aquest tipus, i
 alguns exemples. Heu d'escriure sempre un símbol d'encoixinat,
@@ -1103,8 +1103,8 @@ a constants; si voleu calcular un valor usant l'Scheme, consulteu
   @tab @code{3}, @code{-1}
 @item Llista
   @tab Una seqüència de constants o símbols separats per espais,
-  envoltat per parèntesis
-  i precedit per un apòstrof o cometa simple
+  envoltada per claus
+  i precedida per un apòstrof o cometa simple
   @tab @code{'(left-edge staff-bar)}, @code{'(1)}, @code{'()},
        @code{'(1.0 0.25 0.5)}
 @item Marcatge
@@ -1300,7 +1300,7 @@ les barres de compàs es suprimeixin, per la qual cosa el valor que
 ens cal és @code{#(#f #f #f)} (disponible també sota el nom
 @code{all-invisible}, totes invisibles).  Anem a provar-lo,
 recordant incloure el context de @code{Staff}.  Observeu també en
-escriure aquest valor tenim @code{##} abans del parèntesis
+escriure aquest valor tenim @code{##} abans de la clau
 d'obertura.  Cal un @code{#} com a part de la sintaxi de les
 constants vectorials, i el primer símbol
 d'encoixinat@tie{}@code{#} cal, com sempre, per precedir el valor
@@ -1756,7 +1756,7 @@ Ho provarem al nostre exemple de l'ossia:
         alignAboveContext = #"main"
         \omit Clef
         \omit TimeSignature
-        % Reduce all font sizes by ~24%
+        % Redueix totes les mides de tipus de lletra per ~24%
         fontSize = #-2
       }
       { f8 f c }
@@ -1766,7 +1766,7 @@ Ho provarem al nostre exemple de l'ossia:
 }
 @end lilypond
 
-Encara no està massa bé.  Els caps i els claudàtors de les notes
+Encara no està massa bé.  Els caps i les pliques de les notes
 són més petits, però les pliques són massa llargues en proporció,
 i les línies del pentagrama estan massa separades entre sí.  S'ha
 de reduir la seva escala en proporció a la reducció del tipus de
@@ -1975,7 +1975,7 @@ instruccions llestes per usar que us evitaran haver de codificar
 sobreescriptures explícites per a les modificacions més comunes.
 
 Alguns objectes de presentació com les lligadures es corben cap
-amunt o cap avall; d'altres com  les pliques  els claudàtors també
+amunt o cap avall; d'altres com  les barres i les pliques també
 es mouen a la dreta o a l'esquerra quan apunten cap amunt o cap
 avall.  Això es controla automàticament quan està establerta la
 propietat @code{direction}.
@@ -2329,7 +2329,7 @@ reguladors o matisos dinàmics encadenats.
   @tab Text sobre silencis de compàs complet
 @item @code{OttavaBracket}
   @tab @code{400}
-  @tab Claudàtors d'octava alta i baixa
+  @tab Indicadors d'octava alta i baixa
 @item @code{TextSpanner}
   @tab @code{350}
   @tab Objectes d'extensió de text
@@ -2348,7 +2348,7 @@ Vet aquí un exemple que mostra la situació predeterminada d'alguns
 d'ells.
 
 @cindex text, extensions de
-@cindex octava alta y baixa, claudàtor de
+@cindex octava alta y baixa, clau de
 
 @funindex \startTextSpan
 @funindex \stopTextSpan
@@ -2362,7 +2362,7 @@ d'ells.
     = \markup { \small \bold Slower }
 % Col·loca la indicació dinàmica a sobre del pentagrama
 \dynamicUp
-% Inicia el claudàtor d'octava
+% Inicia l'indicador d'octava
 \ottava #1
 c''4 \startTextSpan
 % Afegeix el text de la indicació dinàmica i el símbol
@@ -2373,7 +2373,7 @@ c''4^Text |
 c''4 c''
 % Afegeix el text de la dinàmica i finalitza el símbol
 c''4\ff c'' \stopTextSpan |
-% Stop Ottava Bracket
+% Atura l'indicador d'octava
 \ottava #0
 c'4 c' c' c' |
 @end lilypond
@@ -2385,7 +2385,7 @@ fins l'ordre @code{\stopTextSpan}, i el format del text es
 defineix per mitjà de l'ordre @code{\override TextSpanner}.  Per
 veure més detalls, consulteu@rusernamed{Text spanners,Extensions de text}.
 
-També mostra la manera de crear claudàtors d'octava alta i baixa.
+També mostra la manera de crear indicadors d'octava alta i baixa.
 
 @cindex ajustar la ubicació dels números de compàs
 @cindex números de compàs, ajustar posició
@@ -2397,7 +2397,7 @@ També mostra la manera de crear claudàtors d'octava alta i baixa.
 Si els valors predeterminats de @code{outside-staff-priority} no
 us ofereixen les col·locacions desitjades es pot sobreescriure la
 prioritat de qualssevol dels objectes.  Suposeu que volguéssim que
-el claudàtor d'octava estigués situat per sota de l'element
+l'indicador d'octava estigués situat per sota de l'element
 extensor de text a l'exemple de dalt.  Tot el que hem de fer és
 localitzar la prioritat de @code{OttavaBracket} al RFI o en les
 taules anteriors, i reduir-lo a un valor inferior al de
@@ -2413,9 +2413,9 @@ dins del context @code{Staff}:
     = \markup { \small \bold Slower }
 % Ubica els indicadors de dinàmica a sobre del pentagrama
 \dynamicUp
-% Posa els següent claudàtor d'octava a sota dels Text Spanners
+% Posa els següent indicador d'octava a sota dels Text Spanners
 \once \override Staff.OttavaBracket.outside-staff-priority = #340
-% Start Ottava Bracket
+% Inicia l'indicador d'octava
 \ottava #1
 c''4 \startTextSpan
 % Afegeix el text de la dinàmica
@@ -2427,7 +2427,7 @@ c''4^Text |
 c''4 c''
 % Afegeix el text de la dinàmica
 c''4\ff c'' \stopTextSpan |
-% Atura el claudàtor d'octava
+% Atura l'indicador d'octava
 \ottava #0
 c'4 c' c' c' |
 @end lilypond
@@ -3131,7 +3131,7 @@ tornat a posicionar a qualsevol lloc sense afectar cap altra cosa.
 
 Aquesta propietat és de la major utilitat per ajustar manualment
 la inclinació i l'alçada de les barres de corxera, lligadures
-d'expressió i claudàtors de grups de valoració especial.  Agafa
+d'expressió i claus de grups de valoració especial.  Agafa
 una parella de números que donen la posició dels extrems esquerre
 i dret de la barra, lligadura, etc. amb relació a la tercera línia
 del pentagrama.  Les unitats són espais de pentagrama.  Observeu,
@@ -4148,7 +4148,7 @@ d'elles:
 @end lilypond
 
 @noindent
-i esborrant la primera plica (amb el seu claudàtor) cap amunt a
+i esborrant la primera barra (amb la seva plica) cap amunt a
 aquesta veu, dóna la impressió que la lligadura es creua entres
 les veus:
 

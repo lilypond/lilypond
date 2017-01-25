@@ -221,7 +221,7 @@ l'expressió musical per una fracció:
 
 @noindent
 El numerador de la fracció s'imprimeix a sobre o a sota de les
-notes, opcionalment amb un claudàtor.  El grup especial més comú
+notes, opcionalment amb una clau.  El grup especial més comú
 és el treset, en el qual 3@tie{}notes tenen el valor que
 normalment tenen@tie{}2:
 
@@ -246,13 +246,13 @@ perquè així s'agrupin automàticament:
 }
 @end lilypond
 
-@cindex grups de valoració especial, col·locació del claudàtor
+@cindex grups de valoració especial, col·locació de la clau
 
 @funindex \tupletUp
 @funindex \tupletDown
 @funindex \tupletNeutral
 
-Es poden col·locar manualment els claudàtors de treset a sobre o a
+Es poden col·locar manualment les claus de treset a sobre o a
 sota de la pauta:
 
 @lilypond[quote,verbatim]
@@ -276,7 +276,7 @@ Els grups poden niuar-se uns a dins dels altres:
 La modificació dels grups especials niuats que comencen al mateix
 instant musical s'han de fer amb @code{\tweak}.
 
-Per modificar la duració de les notes sense imprimir un claudàtor
+Per modificar la duració de les notes sense imprimir una
 de grup especial, vegeu
 
 @predefined
@@ -355,7 +355,7 @@ la duració per omissió que s'agafa de la nota anterior inclourà
 qualsevol factor d'escala que s'hagi aplicat.
 
 Al següent exemple les tres primeres notes duren exactament dues
-parts, però no s'imprimeix cap claudàtor de treset.
+parts, però no s'imprimeix cap clau de treset.
 
 @lilypond[quote,verbatim]
 \relative {
@@ -497,8 +497,8 @@ de l'acord.
 
 @cindex repetició, lligadures d'unió en
 @cindex lligadures d'unió, repeticions i
-@cindex primera i segona vegada, claudàtors i lligadures en
-@cindex lligadures d'unió i claudàtors de primera i segona vegada
+@cindex primera i segona vegada, claus i lligadures en
+@cindex lligadures d'unió i claus de primera i segona vegada
 
 @funindex \repeatTie
 
@@ -2670,7 +2670,7 @@ expressió musical delimitada per claus i precedida d'una ordre
 @code{featheredDurations} que especifica la raó
 entre les duracions de la primera i l'última notes dins del grup.
 
-Els claudàtors rectes mostren l'àmbit de la barra i els claudàtors
+Els claudàtors rectes mostren l'àmbit de la barra i les claus
 mostren quines notes han de modificar les seves duracions.
 Normalment delimitarien el mateix grup de notes, però no és un
 requisit: les dues ordres són independents.
@@ -2899,7 +2899,7 @@ Tot i que es poden inserir manualment barres de compàs amb
 significat de repeticions, no es reconeixen com repeticions per
 part del LilyPond.  Les seccions repetides s'introdueixen millor
 utilitzant les diverses ordres de repetició (vegeu
-@rusernamed{Repeats,Repeticions}), que imprimeixen automàticament
+@ref{Repeticions}), que imprimeixen automàticament
 les barres corresponents.
 
 A més es pot especificar @code{".|:-||"}, que equival a
@@ -2953,7 +2953,7 @@ sis variants diferents:
 A més, hi ha una ordre @code{\inStaffSegno} que crea una barra de
 compàs amb símbol de segno, situada en conjunció amb una línia de
 repetició adequada si s'utilitza amb una ordre @code{\repeat
-volta}, vegeu @rusernamed{Normal repeats,Repeticions normals}.
+volta}, vegeu @ref{Repeticions normals}.
 
 @funindex \defineBarLine
 @cindex compàs, definir línies de
@@ -3092,7 +3092,7 @@ en qualsevol moment amb @samp{\set Timing.defaultBarType
 @seealso
 Referència de la notació:
 @rusernamed{Line breaking,Salts de línia},
-@rusernamed{Repeats,Repeticions},
+@ref{Repeticions},
 @rusernamed{Grouping staves,Agrupament de pentagrames}.
 
 Fitxers instal·lats:
@@ -3177,7 +3177,7 @@ números de compàs en tots els llocs possibles:
 {printing-bar-numbers-inside-boxes-or-circles.ly}
 
 @cindex compàs, número, amb lletres
-@cindex compàs, número, con repeticions
+@cindex compàs, número, amb repeticions
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {alternative-bar-numbering.ly}
@@ -3202,7 +3202,7 @@ Referència de funcionament intern:
 @cindex col·lisió del número de compàs
 
 @knownissues
-Els números de compàs poden col·lisionar amb el claudàtor
+Els números de compàs poden col·lisionar amb la clau
 @code{StaffGroup}, si hi ha un a la part de dalt.  Per
 solucionar-lo es pot usar la propietat de farciment @code{padding}
 de @code{BarNumber} per col·locar el número correctament.
@@ -3518,8 +3518,8 @@ addicional al compàs.
 
 Hi ha tres tipus possibles de notes d'adorn; la
 @emph{acciaccatura} o mordent d'una nota (una nota d'adorn sense
-mesura que s'indica mitjançant una nota lligada i amb el claudàtor
-ratllat) i la @emph{appoggiatura}, que agafa una fracció fixa de
+mesura que s'indica mitjançant una nota lligada i amb la clau
+ratllada) i la @emph{appoggiatura}, que agafa una fracció fixa de
 la nota principal a la que s'adjunta, i que s'imprimeix sense
 ratllar.  És possible escriure una nota d'adorn amb la plica
 ratllada, com la @emph{acciaccatura} però sense la lligadura, com
