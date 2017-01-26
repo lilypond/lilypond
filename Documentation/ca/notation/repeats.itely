@@ -358,8 +358,8 @@ Glossari musical:
 
 Referència de la notació:
 @ref{Barres de compàs},
-@refusernamed{Modifying context plug-ins,Modificació dels complements (plug-ins) de context},
-@refusernamed{Modifying ties and slurs,Modificació de lligadures d'unió i d'expressió},
+@rusernamed{Modifying context plug-ins,Modificació dels complements (plug-ins) de context},
+@rusernamed{Modifying ties and slurs,Modificació de lligadures d'unió i d'expressió},
 @ref{Gestió del temps}.
 
 Fitxers instal·lats:
@@ -399,7 +399,7 @@ D'altres mètodes que poden servir per indicar lligadures que es
 continuen per sobre de diverses notes a les celes de repetició,
 i que també funcionen en contextos de tabulatura @code{TabStaff},
 s'expliquen a
-@refusernamed{Modifying ties and slurs,Modificació de lligadures d'unió i d'expressió}.
+@rusernamed{Modifying ties and slurs,Modificació de lligadures d'unió i d'expressió}.
 
 Així mateix, no és possible fer que les lligadures d'expressió es
 repleguin des del final d'una alternativa fins el començament de
@@ -527,7 +527,7 @@ Es poden produir diverses ordres de repetició amb el mateix punt:
 
 Es pot incloure text dins de la cela de primera i segona vegada.
 El text pot ser un número o números, o un element de marcatge,
-vegeu @refusernamed{Formatting text,Format del text}.  La forma
+vegeu @rusernamed{Formatting text,Format del text}.  La forma
 més fàcil d'usar text de marcatge és definir el marcatge
 prèviament, i després incloure'l dins d'una llista de l'Scheme.
 
@@ -548,7 +548,7 @@ voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 @seealso
 Referència de la notació:
 @ref{Barres de compàs},
-@refusernamed{Formatting text,Format del text}.
+@rusernamed{Formatting text,Format del text}.
 
 Fragments de codi:
 @rlsr{Repeats}.
