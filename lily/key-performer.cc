@@ -42,7 +42,8 @@ private:
   Audio_key *audio_;
 };
 
-Key_performer::Key_performer ()
+Key_performer::Key_performer (Context *c)
+  : Performer (c)
 {
   key_ev_ = 0;
   audio_ = 0;

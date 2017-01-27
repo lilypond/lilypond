@@ -51,7 +51,8 @@ protected:
   void process_music ();
 };
 
-Hyphen_engraver::Hyphen_engraver ()
+Hyphen_engraver::Hyphen_engraver (Context *c)
+  : Engraver (c)
 {
   hyphen_ = 0;
   finished_hyphen_ = 0;

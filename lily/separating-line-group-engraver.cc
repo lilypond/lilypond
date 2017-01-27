@@ -69,7 +69,8 @@ public:
   TRANSLATOR_DECLARATIONS (Separating_line_group_engraver);
 };
 
-Separating_line_group_engraver::Separating_line_group_engraver ()
+Separating_line_group_engraver::Separating_line_group_engraver (Context *c)
+  : Engraver (c)
 {
 }
 

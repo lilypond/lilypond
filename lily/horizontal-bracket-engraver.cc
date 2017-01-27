@@ -43,7 +43,8 @@ public:
   void listen_note_grouping (Stream_event *);
 };
 
-Horizontal_bracket_engraver::Horizontal_bracket_engraver ()
+Horizontal_bracket_engraver::Horizontal_bracket_engraver (Context *c)
+  : Engraver (c)
 {
   pop_count_ = 0;
   push_count_ = 0;

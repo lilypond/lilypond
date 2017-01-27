@@ -44,7 +44,8 @@ protected:
   void stop_translation_timestep ();
 };
 
-Ledger_line_engraver::Ledger_line_engraver ()
+Ledger_line_engraver::Ledger_line_engraver (Context *c)
+  : Engraver (c)
 {
   span_ = 0;
 }

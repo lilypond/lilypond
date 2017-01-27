@@ -52,7 +52,8 @@ Chord_name_engraver::finalize ()
 {
 }
 
-Chord_name_engraver::Chord_name_engraver ()
+Chord_name_engraver::Chord_name_engraver (Context *c)
+  : Engraver (c)
 {
   rest_event_ = 0;
 }

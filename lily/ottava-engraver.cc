@@ -52,7 +52,8 @@ Ottava_spanner_engraver::derived_mark () const
   scm_gc_mark (last_ottavation_);
 }
 
-Ottava_spanner_engraver::Ottava_spanner_engraver ()
+Ottava_spanner_engraver::Ottava_spanner_engraver (Context *c)
+  : Engraver (c)
 {
   finished_ = 0;
   span_ = 0;

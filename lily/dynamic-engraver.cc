@@ -58,7 +58,8 @@ private:
   bool end_new_spanner_;
 };
 
-Dynamic_engraver::Dynamic_engraver ()
+Dynamic_engraver::Dynamic_engraver (Context *c)
+  : Engraver (c)
 {
   script_event_ = 0;
   current_span_event_ = 0;

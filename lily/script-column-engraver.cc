@@ -40,7 +40,8 @@ protected:
   void stop_translation_timestep ();
 };
 
-Script_column_engraver::Script_column_engraver ()
+Script_column_engraver::Script_column_engraver (Context *c)
+  : Engraver (c)
 {
   script_column_ = 0;
 }

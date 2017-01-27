@@ -80,7 +80,7 @@ public:
   */
   DECLARE_CLASSNAME (Engraver);
   DECLARE_TRANSLATOR_CALLBACKS (Engraver);
-  Engraver ();
+  Engraver (Context *);
 };
 
 #define make_item(x, cause) internal_make_item (ly_symbol2scm (x), cause, __FILE__, __LINE__, __FUNCTION__)

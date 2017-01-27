@@ -57,7 +57,8 @@ protected:
   void stop_translation_timestep ();
 };
 
-Tab_note_heads_engraver::Tab_note_heads_engraver ()
+Tab_note_heads_engraver::Tab_note_heads_engraver (Context *c)
+  : Engraver (c)
 {
 }
 

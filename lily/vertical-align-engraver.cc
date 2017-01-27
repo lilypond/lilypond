@@ -71,7 +71,8 @@ ADD_TRANSLATOR (Vertical_align_engraver,
                 ""
                );
 
-Vertical_align_engraver::Vertical_align_engraver ()
+Vertical_align_engraver::Vertical_align_engraver (Context *c)
+  : Engraver (c)
 {
   valign_ = 0;
   id_to_group_hashtab_ = SCM_EOL;

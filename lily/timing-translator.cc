@@ -145,7 +145,8 @@ Timing_translator::measure_length () const
     return Rational (1);
 }
 
-Timing_translator::Timing_translator ()
+Timing_translator::Timing_translator (Context *c)
+  : Translator (c)
 {
 }
 

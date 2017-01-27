@@ -45,7 +45,8 @@ public:
   TRANSLATOR_DECLARATIONS (Rest_collision_engraver);
 };
 
-Rest_collision_engraver::Rest_collision_engraver ()
+Rest_collision_engraver::Rest_collision_engraver (Context *c)
+  : Engraver (c)
 {
   rest_collision_ = 0;
 }

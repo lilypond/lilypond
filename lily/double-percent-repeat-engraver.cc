@@ -43,7 +43,8 @@ protected:
   void process_music ();
 };
 
-Double_percent_repeat_engraver::Double_percent_repeat_engraver ()
+Double_percent_repeat_engraver::Double_percent_repeat_engraver (Context *c)
+  : Engraver (c)
 {
   percent_event_ = 0;
 }

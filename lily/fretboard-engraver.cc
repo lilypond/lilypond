@@ -62,7 +62,8 @@ Fretboard_engraver::derived_mark () const
   scm_gc_mark (last_placements_);
 }
 
-Fretboard_engraver::Fretboard_engraver ()
+Fretboard_engraver::Fretboard_engraver (Context *c)
+  : Engraver (c)
 {
   fret_board_ = 0;
   last_placements_ = SCM_BOOL_F;

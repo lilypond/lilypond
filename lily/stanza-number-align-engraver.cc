@@ -40,7 +40,8 @@ protected:
   void stop_translation_timestep ();
 };
 
-Stanza_number_align_engraver::Stanza_number_align_engraver ()
+Stanza_number_align_engraver::Stanza_number_align_engraver (Context *c)
+  : Engraver (c)
 {
 }
 

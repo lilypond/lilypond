@@ -66,7 +66,8 @@ Cue_clef_engraver::derived_mark () const
   scm_gc_mark (prev_glyph_);
 }
 
-Cue_clef_engraver::Cue_clef_engraver ()
+Cue_clef_engraver::Cue_clef_engraver (Context *c)
+  : Engraver (c)
 {
   clef_ = 0;
   modifier_ = 0;

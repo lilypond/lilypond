@@ -65,8 +65,9 @@ private:
   bool first_time_;
 };
 
-Multi_measure_rest_engraver::Multi_measure_rest_engraver ()
-  : rest_ev_ (0),
+Multi_measure_rest_engraver::Multi_measure_rest_engraver (Context *c)
+  : Engraver (c),
+    rest_ev_ (0),
     mmrest_ (0),
     start_measure_ (0),
     last_command_item_ (0),

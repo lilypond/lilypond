@@ -45,7 +45,8 @@ public:
 /*
   Should merge with Note_head_engraver
 */
-Rest_engraver::Rest_engraver ()
+Rest_engraver::Rest_engraver (Context *c)
+  : Engraver (c)
 {
   rest_event_ = 0;
   rest_ = 0;

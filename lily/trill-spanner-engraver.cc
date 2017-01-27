@@ -55,7 +55,8 @@ private:
   void typeset_all ();
 };
 
-Trill_spanner_engraver::Trill_spanner_engraver ()
+Trill_spanner_engraver::Trill_spanner_engraver (Context *c)
+  : Engraver (c)
 {
   finished_ = 0;
   current_event_ = 0;

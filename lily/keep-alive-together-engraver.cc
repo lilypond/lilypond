@@ -37,7 +37,8 @@ public:
   virtual void finalize ();
 };
 
-Keep_alive_together_engraver::Keep_alive_together_engraver ()
+Keep_alive_together_engraver::Keep_alive_together_engraver (Context *c)
+  : Engraver (c)
 {
 }
 

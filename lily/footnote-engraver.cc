@@ -49,7 +49,8 @@ Footnote_engraver::finalize ()
   annotated_spanners_.clear ();
 }
 
-Footnote_engraver::Footnote_engraver ()
+Footnote_engraver::Footnote_engraver (Context *c)
+  : Engraver (c)
 {
 }
 

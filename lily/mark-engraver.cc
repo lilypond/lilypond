@@ -58,7 +58,8 @@ protected:
   void acknowledge_break_alignment (Grob_info);
 };
 
-Mark_engraver::Mark_engraver ()
+Mark_engraver::Mark_engraver (Context *c)
+  : Engraver (c)
 {
   text_ = 0;
   final_text_ = 0;

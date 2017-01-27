@@ -41,7 +41,8 @@ protected:
   void finalize ();
 };
 
-Pure_from_neighbor_engraver::Pure_from_neighbor_engraver ()
+Pure_from_neighbor_engraver::Pure_from_neighbor_engraver (Context *c)
+  : Engraver (c)
 {
 }
 

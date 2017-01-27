@@ -36,7 +36,7 @@
   static void _ ## T ## _adder ()                                       \
   {                                                                     \
     T::boot ();                                                         \
-    T *t = new T;                                                       \
+    T *t = new T(0);                                                    \
     T::static_description_ =                                            \
       scm_permanent_object (t->static_translator_description ());       \
     add_translator (t);                                                 \

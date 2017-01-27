@@ -147,7 +147,8 @@ Auto_beam_engraver::process_music ()
     }
 }
 
-Auto_beam_engraver::Auto_beam_engraver ()
+Auto_beam_engraver::Auto_beam_engraver (Context *c)
+  : Engraver (c)
 {
   forbid_ = 0;
   process_acknowledged_count_ = 0;
@@ -589,7 +590,8 @@ private:
   virtual bool test_moment (Direction, Moment, Moment);
 };
 
-Grace_auto_beam_engraver::Grace_auto_beam_engraver ()
+Grace_auto_beam_engraver::Grace_auto_beam_engraver (Context *c)
+  : Auto_beam_engraver (c)
 {
   last_grace_start_.main_part_.set_infinite (-1);
   // grace_part_ is zero -> test_moment is false, last_grace_position_

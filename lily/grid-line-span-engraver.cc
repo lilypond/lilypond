@@ -35,7 +35,8 @@ protected:
   void stop_translation_timestep ();
 };
 
-Grid_line_span_engraver::Grid_line_span_engraver ()
+Grid_line_span_engraver::Grid_line_span_engraver (Context *c)
+  : Engraver (c)
 {
   spanline_ = 0;
 }

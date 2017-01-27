@@ -31,7 +31,8 @@ protected:
 private:
 };
 
-Font_size_engraver::Font_size_engraver ()
+Font_size_engraver::Font_size_engraver (Context *c)
+  : Engraver (c)
 {
   size = 0.0;
 }

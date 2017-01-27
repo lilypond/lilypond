@@ -56,7 +56,8 @@ public:
   TRANSLATOR_DECLARATIONS (Tie_performer);
 };
 
-Tie_performer::Tie_performer ()
+Tie_performer::Tie_performer (Context *c)
+  : Performer (c)
 {
   event_ = 0;
 }

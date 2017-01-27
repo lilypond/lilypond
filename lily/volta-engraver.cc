@@ -62,7 +62,8 @@ Volta_engraver::derived_mark () const
   scm_gc_mark (start_string_);
 }
 
-Volta_engraver::Volta_engraver ()
+Volta_engraver::Volta_engraver (Context *c)
+  : Engraver (c)
 {
   start_string_ = SCM_EOL;
   volta_bracket_ = 0;

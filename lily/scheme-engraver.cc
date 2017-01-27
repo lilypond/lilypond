@@ -65,6 +65,7 @@ Scheme_engraver::fetch_precomputable_methods (SCM ptrs[])
 }
 
 Scheme_engraver::Scheme_engraver (SCM definition)
+  : Engraver (0)
 {
   precomputable_methods_[START_TRANSLATION_TIMESTEP]
     = callable (ly_symbol2scm ("start-translation-timestep"), definition);

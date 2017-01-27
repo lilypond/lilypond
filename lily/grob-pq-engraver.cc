@@ -50,7 +50,8 @@ protected:
   vector<Grob_pq_entry> started_now_;
 };
 
-Grob_pq_engraver::Grob_pq_engraver ()
+Grob_pq_engraver::Grob_pq_engraver (Context *c)
+  : Engraver (c)
 {
 }
 

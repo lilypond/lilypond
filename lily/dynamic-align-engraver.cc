@@ -57,7 +57,8 @@ private:
   set<Spanner *> running_;
 };
 
-Dynamic_align_engraver::Dynamic_align_engraver ()
+Dynamic_align_engraver::Dynamic_align_engraver (Context *c)
+  : Engraver (c)
 {
   line_ = 0;
   ended_line_ = 0;

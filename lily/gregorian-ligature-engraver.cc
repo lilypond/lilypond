@@ -42,7 +42,8 @@
  * engravers for Gregorian chant will be added in the future, such as
  * Medicaea_ligature_engraver or Hufnagel_ligature_engraver.
  */
-Gregorian_ligature_engraver::Gregorian_ligature_engraver ()
+Gregorian_ligature_engraver::Gregorian_ligature_engraver (Context *c)
+  : Coherent_ligature_engraver (c)
 {
   pes_or_flexa_req_ = 0;
 }

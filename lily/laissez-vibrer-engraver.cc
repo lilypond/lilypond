@@ -39,7 +39,8 @@ public:
   TRANSLATOR_DECLARATIONS (Laissez_vibrer_engraver);
 };
 
-Laissez_vibrer_engraver::Laissez_vibrer_engraver ()
+Laissez_vibrer_engraver::Laissez_vibrer_engraver (Context *c)
+  : Engraver (c)
 {
   event_ = 0;
   lv_column_ = 0;

@@ -33,6 +33,9 @@ public:
   DECLARE_CLASSNAME (Performer);
   friend class Performer_group;
   Performer_group *get_daddy_performer () const;
+  Performer (Context *c)
+    : Translator (c)
+  { }
 
 protected:
   virtual void announce_element (Audio_element_info);

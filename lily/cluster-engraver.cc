@@ -48,7 +48,8 @@ private:
   Spanner *finished_spanner_;
 };
 
-Cluster_spanner_engraver::Cluster_spanner_engraver ()
+Cluster_spanner_engraver::Cluster_spanner_engraver (Context *c)
+  : Engraver (c)
 {
   spanner_ = 0;
   finished_spanner_ = 0;

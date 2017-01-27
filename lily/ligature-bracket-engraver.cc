@@ -53,7 +53,8 @@ Ligature_bracket_engraver::listen_ligature (Stream_event *ev)
   ASSIGN_EVENT_ONCE (events_drul_[d], ev);
 }
 
-Ligature_bracket_engraver::Ligature_bracket_engraver ()
+Ligature_bracket_engraver::Ligature_bracket_engraver (Context *c)
+  : Engraver (c)
 {
   ligature_ = 0;
   finished_ligature_ = 0;

@@ -82,7 +82,8 @@
  * would require to have a single, complicated Ligature_engraver that
  * consists of all the code...  This needs further thoughts.
  */
-Ligature_engraver::Ligature_engraver ()
+Ligature_engraver::Ligature_engraver (Context *c)
+  : Engraver (c)
 {
   ligature_ = 0;
   finished_ligature_ = 0;

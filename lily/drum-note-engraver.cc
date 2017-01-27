@@ -49,7 +49,8 @@ protected:
   void stop_translation_timestep ();
 };
 
-Drum_notes_engraver::Drum_notes_engraver ()
+Drum_notes_engraver::Drum_notes_engraver (Context *c)
+  : Engraver (c)
 {
 }
 

@@ -33,7 +33,8 @@ public:
   void start_translation_timestep ();
 };
 
-Forbid_line_break_engraver::Forbid_line_break_engraver ()
+Forbid_line_break_engraver::Forbid_line_break_engraver (Context *c)
+  : Engraver (c)
 {
 }
 

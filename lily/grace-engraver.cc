@@ -41,7 +41,8 @@ protected:
   void grace_change (SCM);
 };
 
-Grace_engraver::Grace_engraver ()
+Grace_engraver::Grace_engraver (Context *c)
+  : Engraver (c)
 {
   grace_settings_ = SCM_EOL;
   last_moment_ = Moment (Rational (-1, 1));

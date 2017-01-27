@@ -63,7 +63,8 @@ private:
   };
 };
 
-Midi_control_change_performer::Midi_control_change_performer ()
+Midi_control_change_performer::Midi_control_change_performer (Context *c)
+  : Performer (c)
 {
 }
 

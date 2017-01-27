@@ -62,7 +62,8 @@ protected:
   virtual void derived_mark () const;
 };
 
-Span_bar_stub_engraver::Span_bar_stub_engraver ()
+Span_bar_stub_engraver::Span_bar_stub_engraver (Context *c)
+  : Engraver (c)
 {
   axis_groups_ = SCM_EOL;
 }

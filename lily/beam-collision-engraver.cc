@@ -49,7 +49,9 @@ public:
   TRANSLATOR_DECLARATIONS (Beam_collision_engraver);
 };
 
-Beam_collision_engraver::Beam_collision_engraver () {}
+Beam_collision_engraver::Beam_collision_engraver (Context *c)
+  : Engraver (c)
+{}
 
 bool
 Beam_collision_engraver::covered_grob_has_interface (Grob *covered_grob, Grob *beam)

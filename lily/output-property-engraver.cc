@@ -75,7 +75,8 @@ Output_property_engraver::stop_translation_timestep ()
   props_.clear ();
 }
 
-Output_property_engraver::Output_property_engraver ()
+Output_property_engraver::Output_property_engraver (Context *c)
+  : Engraver (c)
 {
 }
 

@@ -55,7 +55,8 @@ public:
 };
 
 
-Axis_group_engraver::Axis_group_engraver ()
+Axis_group_engraver::Axis_group_engraver (Context *c)
+  : Engraver (c)
 {
   staffline_ = 0;
   interesting_ = SCM_EOL;

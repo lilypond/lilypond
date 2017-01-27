@@ -46,7 +46,8 @@ private:
   vector<Grob *> hairpins_hanging_out_;
 };
 
-Concurrent_hairpin_engraver::Concurrent_hairpin_engraver ()
+Concurrent_hairpin_engraver::Concurrent_hairpin_engraver (Context *c)
+  : Engraver (c)
 {
 }
 

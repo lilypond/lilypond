@@ -55,7 +55,8 @@ private:
   void make_trill (Stream_event *);
 };
 
-Pitched_trill_engraver::Pitched_trill_engraver ()
+Pitched_trill_engraver::Pitched_trill_engraver (Context *c)
+  : Engraver (c)
 {
   trill_head_ = 0;
   trill_group_ = 0;

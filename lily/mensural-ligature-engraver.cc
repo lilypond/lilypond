@@ -73,7 +73,8 @@ private:
                            Real &min_length);
 };
 
-Mensural_ligature_engraver::Mensural_ligature_engraver ()
+Mensural_ligature_engraver::Mensural_ligature_engraver (Context *c)
+  : Coherent_ligature_engraver (c)
 {
   brew_ligature_primitive_proc
     = Mensural_ligature::brew_ligature_primitive_proc;

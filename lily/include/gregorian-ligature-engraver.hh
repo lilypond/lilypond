@@ -32,7 +32,7 @@ public:
   TRANSLATOR_INHERIT(Coherent_ligature_engraver);
   DECLARE_TRANSLATOR_CALLBACKS (Gregorian_ligature_engraver);
 protected:
-  Gregorian_ligature_engraver ();
+  Gregorian_ligature_engraver (Context *);
 
   void listen_pes_or_flexa (Stream_event *ev);
   virtual void build_ligature (Spanner *ligature,

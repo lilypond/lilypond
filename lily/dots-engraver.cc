@@ -31,7 +31,8 @@ class Dots_engraver : public Engraver
   TRANSLATOR_DECLARATIONS (Dots_engraver);
 };
 
-Dots_engraver::Dots_engraver ()
+Dots_engraver::Dots_engraver (Context *c)
+  : Engraver (c)
 {
 }
 

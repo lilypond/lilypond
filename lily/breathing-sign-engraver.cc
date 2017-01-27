@@ -45,7 +45,8 @@ private:
   Grob *breathing_sign_;
 };
 
-Breathing_sign_engraver::Breathing_sign_engraver ()
+Breathing_sign_engraver::Breathing_sign_engraver (Context *c)
+  : Engraver (c)
 {
   breathing_sign_ = 0;
   breathing_sign_event_ = 0;

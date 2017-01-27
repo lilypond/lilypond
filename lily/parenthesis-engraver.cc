@@ -35,7 +35,8 @@ protected:
   void acknowledge_grob (Grob_info);
 };
 
-Parenthesis_engraver::Parenthesis_engraver ()
+Parenthesis_engraver::Parenthesis_engraver (Context *c)
+  : Engraver (c)
 {
 }
 

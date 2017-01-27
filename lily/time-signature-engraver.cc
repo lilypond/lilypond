@@ -53,7 +53,8 @@ Time_signature_engraver::derived_mark () const
   scm_gc_mark (time_cause_);
 }
 
-Time_signature_engraver::Time_signature_engraver ()
+Time_signature_engraver::Time_signature_engraver (Context *c)
+  : Engraver (c)
 {
   time_signature_ = 0;
   time_cause_ = SCM_EOL;

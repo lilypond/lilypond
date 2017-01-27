@@ -51,7 +51,8 @@ Repeat_acknowledge_engraver::initialize ()
   context ()->set_property ("repeatCommands", SCM_EOL);
 }
 
-Repeat_acknowledge_engraver::Repeat_acknowledge_engraver ()
+Repeat_acknowledge_engraver::Repeat_acknowledge_engraver (Context *c)
+  : Engraver (c)
 {
 }
 

@@ -77,7 +77,7 @@
     return static_get_acknowledger (sym, start_end);                    \
   }                                                                     \
 public:                                                                 \
-  NAME ();                                                              \
+  NAME (Context *);                                                     \
   static void boot ();                                                  \
   virtual SCM static_translator_description () const;                   \
   virtual SCM translator_description () const;                          \
@@ -106,13 +106,10 @@ public:
   SCM mark_smob () const;
   static const char * const type_p_name_;
   virtual ~Translator ();
-private:
-  void init ();
 
-public:
   Context *context () const { return daddy_context_; }
 
-  Translator ();
+  Translator (Context *);
   Translator (Translator const &);
 
   SCM internal_get_property (SCM symbol) const;

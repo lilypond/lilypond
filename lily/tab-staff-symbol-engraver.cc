@@ -36,7 +36,8 @@ Tab_staff_symbol_engraver::acknowledge_staff_symbol (Grob_info gi)
     gi.grob ()->set_property ("line-count", scm_from_int (k));
 }
 
-Tab_staff_symbol_engraver::Tab_staff_symbol_engraver ()
+Tab_staff_symbol_engraver::Tab_staff_symbol_engraver (Context *c)
+  : Engraver (c)
 {
 }
 

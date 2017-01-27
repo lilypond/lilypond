@@ -93,7 +93,8 @@ protected:
   void stop_spanner ();
 };
 
-Spacing_engraver::Spacing_engraver ()
+Spacing_engraver::Spacing_engraver (Context *c)
+  : Engraver (c)
 {
   spacing_ = 0;
   start_section_ = 0;

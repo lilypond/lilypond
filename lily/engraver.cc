@@ -81,7 +81,8 @@ Engraver::announce_end_grob (Grob *e, SCM cause)
   announce_end_grob (make_grob_info (e, cause));
 }
 
-Engraver::Engraver ()
+Engraver::Engraver (Context *c)
+  : Translator (c)
 {
 }
 

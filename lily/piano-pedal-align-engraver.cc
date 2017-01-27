@@ -100,7 +100,8 @@ private:
   Spanner *make_line_spanner (Pedal_type t, SCM);
 };
 
-Piano_pedal_align_engraver::Piano_pedal_align_engraver ()
+Piano_pedal_align_engraver::Piano_pedal_align_engraver (Context *c)
+  : Engraver (c)
 {
 }
 

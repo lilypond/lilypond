@@ -103,7 +103,8 @@ public:
   in grobs should always store ly_deep_copy ()s of those.
 */
 
-Accidental_engraver::Accidental_engraver ()
+Accidental_engraver::Accidental_engraver (Context *c)
+  : Engraver (c)
 {
   accidental_placement_ = 0;
   last_keysig_ = SCM_EOL;

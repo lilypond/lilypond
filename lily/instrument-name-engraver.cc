@@ -59,7 +59,8 @@ Instrument_name_engraver::derived_mark () const
   scm_gc_mark (short_text_);
 }
 
-Instrument_name_engraver::Instrument_name_engraver ()
+Instrument_name_engraver::Instrument_name_engraver (Context *c)
+  : Engraver (c)
 {
   text_spanner_ = 0;
 

@@ -196,6 +196,7 @@ ADD_TRANSLATOR (Note_performer,
                 ""
                );
 
-Note_performer::Note_performer ()
+Note_performer::Note_performer (Context *c)
+  : Performer (c)
 {
 }

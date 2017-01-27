@@ -56,7 +56,8 @@ Key_engraver::finalize ()
 {
 }
 
-Key_engraver::Key_engraver ()
+Key_engraver::Key_engraver (Context *c)
+  : Engraver (c)
 {
   key_event_ = 0;
   item_ = 0;

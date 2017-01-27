@@ -38,7 +38,8 @@ private:
   vector<Stream_event *> note_evs_;
 };
 
-Drum_note_performer::Drum_note_performer ()
+Drum_note_performer::Drum_note_performer (Context *c)
+  : Performer (c)
 {
 }
 

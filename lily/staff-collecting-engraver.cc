@@ -30,7 +30,8 @@ public:
   void acknowledge_end_staff_symbol (Grob_info);
 };
 
-Staff_collecting_engraver::Staff_collecting_engraver ()
+Staff_collecting_engraver::Staff_collecting_engraver (Context *c)
+  : Engraver (c)
 {
 }
 

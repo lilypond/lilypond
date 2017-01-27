@@ -48,7 +48,8 @@ private:
   void typeset_all ();
 };
 
-Episema_engraver::Episema_engraver ()
+Episema_engraver::Episema_engraver (Context *c)
+  : Engraver (c)
 {
   finished_ = 0;
   current_event_ = 0;

@@ -47,7 +47,8 @@ private:
   vector<Spanner *> spanners_;
 };
 
-Bar_engraver::Bar_engraver ()
+Bar_engraver::Bar_engraver (Context *c)
+  : Engraver (c)
 {
   bar_ = 0;
 }

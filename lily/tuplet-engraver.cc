@@ -267,7 +267,8 @@ Tuplet_engraver::finalize ()
       }
 }
 
-Tuplet_engraver::Tuplet_engraver ()
+Tuplet_engraver::Tuplet_engraver (Context *c)
+  : Engraver (c)
 {
 }
 

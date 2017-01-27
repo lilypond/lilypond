@@ -107,7 +107,8 @@ public:
   void finalize ();
 };
 
-Page_turn_engraver::Page_turn_engraver ()
+Page_turn_engraver::Page_turn_engraver (Context *c)
+  : Engraver (c)
 {
   repeat_begin_ = Moment (-1);
   repeat_begin_rest_length_ = 0;

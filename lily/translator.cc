@@ -33,13 +33,6 @@ Translator::~Translator ()
 }
 
 void
-Translator::init ()
-{
-  daddy_context_ = 0;
-  smobify_self ();
-}
-
-void
 Translator::process_music ()
 {
 }
@@ -49,15 +42,16 @@ Translator::process_acknowledged ()
 {
 }
 
-Translator::Translator ()
+Translator::Translator (Context *c)
+  : daddy_context_ (c)
 {
-  init ();
+  smobify_self ();
 }
 
 Translator::Translator (Translator const &)
   : Smob<Translator> ()
 {
-  init ();
+  smobify_self ();
 }
 
 Moment

@@ -52,7 +52,8 @@ private:
   vector<Pitch> pitches_;
 };
 
-Custos_engraver::Custos_engraver ()
+Custos_engraver::Custos_engraver (Context *c)
+  : Engraver (c)
 {
   custos_permitted_ = false;
 }

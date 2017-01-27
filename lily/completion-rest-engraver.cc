@@ -253,7 +253,8 @@ Completion_rest_engraver::start_translation_timestep ()
                             ly_bool2scm (rest_events_.size ()));
 }
 
-Completion_rest_engraver::Completion_rest_engraver ()
+Completion_rest_engraver::Completion_rest_engraver (Context *c)
+  : Engraver (c)
 {
 }
 

@@ -47,7 +47,8 @@ Stanza_number_engraver::derived_mark () const
   all aligned.
 */
 
-Stanza_number_engraver::Stanza_number_engraver ()
+Stanza_number_engraver::Stanza_number_engraver (Context *c)
+  : Engraver (c)
 {
   text_ = 0;
   last_stanza_ = SCM_EOL;
