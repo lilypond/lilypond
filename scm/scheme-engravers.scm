@@ -94,3 +94,26 @@ receive a count with @code{\\startMeasureCount} and
             (ly:grob-suicide! count-spanner)
             (set! count-spanner '())
             (ly:warning "measure count left unfinished")))))))
+
+(ly:register-translator
+ Measure_counter_engraver 'Measure_counter_engraver
+ '((grobs-created . (MeasureCounter))
+   (events-accepted . (measure-counter-event))
+   (properties-read . (currentCommandColumn
+                       measurePosition
+                       currentBarNumber))
+   (properties-written . ())
+   (description . "\
+This engraver numbers ranges of measures, which is useful in parts as an
+aid for counting repeated measures.  There is no requirement that the
+affected measures be repeated, however.  The user delimits the area to
+receive a count with @code{\\startMeasureCount} and
+@code{\\stopMeasureCount}.")))
+
+(ly:register-translator
+ Span_stem_engraver 'Span_stem_engraver
+ '((grobs-created . (Stem))
+   (events-accepted . ())
+   (properties-read . ())
+   (properties-written . ())
+   (description . "Connect cross-staff stems to the stems above in the system")))
