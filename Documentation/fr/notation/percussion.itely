@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 97f856e8c577fdf301ac2a15b336eae8729e53f7
+    Translation of GIT committish: 553410afdd9496f7d9f1498e755ea18de8e70596
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -91,11 +91,9 @@ contexte spécifique :
 Il s'agit en fait d'un raccourci pour
 
 @lilypond[quote,verbatim]
-\new DrumStaff {
-  \drummode {
-    hihat4 hh bassdrum bd
+\new DrumStaff \drummode {
+  hihat4 hh bassdrum bd
   }
-}
 @end lilypond
 
 Chaque instrument de percussion peut avoir, dans le fichier LilyPond, un

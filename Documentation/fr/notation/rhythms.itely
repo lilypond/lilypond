@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: f2c5cd5aba42472996a33b463ed39abe23353484
+   Translation of GIT committish: 553410afdd9496f7d9f1498e755ea18de8e70596
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1979,6 +1979,24 @@ grille d'accords :
     c4 c8 c c4 c8 c
   }
 >>
+@end lilypond
+
+Une musique comportant des accords peut s'utiliser dans un
+@code{RhythmicStaff}, et avec le@code{Pitch_squash_engraver}, dès
+lors que les accords sont auparavant réduits en notes uniques à
+l'aide de la fonction musicale @code{\reduceChords} :
+
+@lilypond[quote,verbatim]
+\new RhythmicStaff {
+  \time 4/4
+  \reduceChords {
+    <c>2
+    <e>2
+    <c e g>2
+    <c e g>4
+    <c e g>4
+  }
+}
 @end lilypond
 
 @predefined

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8c1840ca28a05b3dad8d595e04d03779ba0a286a
+   Translation of GIT committish: 553410afdd9496f7d9f1498e755ea18de8e70596
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1065,6 +1065,24 @@ la commande @code{\new} @var{type-de-contexte}.
 @}
 @end example
 
+De la même manière, si la musique est saisie à la suite d'une commande
+abrégée, telle que @code{\chords} au lieu de @code{\chordmode},
+l'instruction @code{\with} viendra se placer juste après la commande
+spécifiant le mode :
+
+@example
+\chords \with @{ [réglages pour ce contexte (implicite) pris individuellement] @}
+@{
+  @dots{}
+@}
+@end example
+
+@noindent
+puisque c'est le contexte implicite alors créé qui devra être modifié.
+Cette manière de procéder s'applique à toutes les autres formes abrégées
+de spécification du mode de saisie (@code{\drums}, @code{\figures}) --
+voir @ref{Modes de saisie}.
+
 Dans la mesure où une telle « modification de contexte » est spécifiée
 au sein même de la musique, ses effets toucheront @b{toutes} les sorties
 (imprimable @b{et} Midi), contrairement à ce qui se passe lorsque les
@@ -1145,6 +1163,10 @@ en définissant directement une propriété de contexte :
 @end lilypond
 
 @end itemize
+
+@seealso
+Manuel de notation :
+@ref{Modes de saisie}.
 
 
 @node Ordre de préséance
@@ -2790,45 +2812,69 @@ qu'au travers d'une complète redéfinition de leur liste associative.}
 @translationof Input modes
 
 La manière dont sera interprétée la notation contenue dans un fichier
-source dépend du mode affecté à la saisie.
+source dépend du mode affecté à la saisie.  Il existe, en règle
+générale, deux façons de spécifier le mode : une forme développée -- par
+exemple @code{\chordmode} -- et une forme abrégée -- par exemple
+@code{\chords}.  La forme développée s'utilise particulièrement lorsque
+la saisie fait l'objet d'une variable ou se trouve dans un contexte
+explicitement créé.  La forme abrégée crée implicitement un contexte du
+type adéquate à la saisie et la lui transmet directement.  Cette forme
+abrégée est tout à fait indiquée aux situations simples pour lesquelles
+nul n'est besoin de créer explicitement le contexte qui prendra en
+charge la saisie.
+
 
 @subsubsubheading Mode accords
 @c VO Chord mode
 
 Ce mode, activé par la commande @code{\chordmode}, permet d'interpréter
 les saisies comme étant des accords, qui seront imprimés sous forme de
-notes sur une portée -- voir @ref{Notation des accords}.
+notes sur une portée -- voir @ref{Notation des accords}.  La musique
+entrée en mode accords est rendue soit sous forme d'accords sur une
+portée pour un contexte @code{Staff}, soit sous forme de noms d'accord
+pour un contexte @code{ChordNames} ou sous forme de diagrammes pour un
+contexte @code{FretBoards}.
 
 Le mode accords s'active aussi par la commande @code{\chords}, qui
-créera un contexte @code{ChordNames}.  Les saisies, interprétées comme
-étant des accords, seront alors rendues sous forme nominale dans ce
+créera implicitement un nouveau contexte @code{ChordNames}.  Le code
+saisi selon la syntaxe dévolue aux accords, sera interprété comme étant
+des accords nommés et sera alors rendu sous forme nominale dans ce
 contexte @code{ChordNames} -- voir @ref{Impression des noms d'accord}.
+
 
 @subsubsubheading Mode percussions
 @c VO Drum mode
 
 Ce mode, activé par la commande @code{\drummode}, permet d'interpréter
 les saisies comme étant de la notation pour percussions -- voir
-@ref{Notation de base pour percussions}.
+-@ref{Notation de base pour percussions}.  Lorsqu'elle est entrée en
+mode percussions, la musique est rendue dans un contexte
+@code{DrumStaff}.
 
 Le mode percussions s'active aussi par la commande @code{\drums}, qui
-créera un contexte @code{DrumStaff}.  Les saisies, interprétées comme
-étant de la notation pour percussions, seront alors rendues sous forme
+créera implicitement un nouveau contexte @code{DrumStaff}.  Le code
+saisi selon la syntaxe dévolue aux percussions, sera interprété comme
+étant de la notation pour percussions et alors rendu sous forme
 symbolique sur une portée de percussions -- voir
 @ref{Notation de base pour percussions}.
+
 
 @subsubsubheading Mode figures
 @c VO Figure mode
 
 Ce mode, activé par la commande @code{\figuremode}, permet d'interpréter
 les saisies comme étant de la basse chiffrée (ou figurée) -- voir
-@ref{Saisie de la basse chiffrée}.
+@ref{Saisie de la basse chiffrée}.  Lorsqu'elle est entrée en mode
+figures, la musique est rendue sous forme de basse figurée dans un
+contexte @code{FiguredBass} ou dans un contexte @code{Staff}.
 
 Le mode figures s'active aussi par la commande @code{\figures}, qui
-créera un contexte @code{FiguredBass}.  Les saisies interprétées comme
-étant de la basse chiffrée, seront alors rendues sous forme symbolique
-dans le contexte @code{FiguredBass} -- voir
+créera implicitement un nouveau contexte @code{FiguredBass}.  Le code,
+saisi selon la syntaxe dévolue à la basse chiffrée, sera interprété
+comme étant des indication de basse chiffrée et sera alors rendu sous
+forme symbolique dans le contexte @code{FiguredBass} -- voir
 @ref{Introduction à la basse chiffrée}.
+
 
 @subsubsubheading Mode frets et tablatures
 @c VO Fret and tab modes
@@ -2840,11 +2886,13 @@ Notes ou accords saisis en mode note puis affectés à un contexte
 @code{TabStaff} seront rendus sous forme de diagramme de tablature --
 voir @ref{Tablatures par défaut}.
 
-Deux options différentes permettent d'obtenir des diagrammes de fret en
-surplomb d'une portée : directement à l'aide d'un contexte
-@code{FretBoards} -- voir @ref{Tablatures automatiques} -- ou en
-attachant aux notes des @emph{markups} créés par la commande
-@code{\fret-diagram} -- voir @ref{Tablatures sous forme d'étiquette}.
+Des diagrammes de fret viendront se positionner en surplomb d'une portée
+dès lors que les notes ou accords auront été saisis en mode note ou
+accord puis rendus dans un contexte @code{FretBoards} -- voir
+@ref{Tablatures automatiques}.  Ils peuvent aussi se gérer sous forme de
+@emph{markups} créés par la commande @code{\fret-diagram} -- voir
+@ref{Tablatures sous forme d'étiquette}.
+
 
 @subsubsubheading Mode paroles
 @c VO Lyrics mode
@@ -2852,11 +2900,19 @@ attachant aux notes des @emph{markups} créés par la commande
 Ce mode, activé par la commande @code{\lyricmode}, permet d'interpréter
 les saisies comme étant des syllabes, ayant éventuellement une durée, et
 des indications habituelles aux paroles -- voir @ref{Musique vocale}.
+Lorsqu'il est entré en mode paroles, le texte est rendu sous forme de
+syllabes dans un contexte @code{Lyrics}.
+
+Le mode paroles s'active aussi par la commande @code{\lyrics}, qui
+créera implicitement un nouveau contexte @code{Lyrics}.  Le code saisi
+sera interprété comme étant des paroles et sera alors rendu sous forme
+de syllabes dans le contexte @code{Lyrics}.
 
 Le mode paroles s'active aussi par la commande @code{\addlyrics}, qui
 créera un contexte @code{Lyrics} et ajoutera implicitement une commande
 @code{\lyricsto} afin d'associer les paroles qui suivent à la musique
-précédemment saisie.
+précédemment saisie -- voir @ref{Durée automatique des syllabes}.
+
 
 @subsubsubheading Mode @emph{markup}
 @c VO Markup mode
