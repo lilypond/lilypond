@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: 6a4f1fed7b1be26f0ae29bc500eed7d29bd7659a
+   Translation of GIT committish: d24ac70e175d1538aa053fa765ba4181511ce541
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1009,6 +1009,39 @@ des accords nommés.
 s'acquérir aisément.
 @strong{Connaissances appréciées :} Théorie des accords et de leur nommage
 @strong{Mentor :} Carl Sorensen
+@divEnd
+
+
+@divClass{column-center-middle-color3}
++@subheading Adoption du standard SMuFL d'encodage de fontes musicales
+@c VO Adopt the SMuFL music font encoding standard
+
+Depuis quelques années émerge un nouveau standard en matière de fontes
+musicales : @uref{http://www.smufl.org/, SMuFL}, qui fait aussi l'objet
+de discussions aux fins d'intégration dans un futur standard du W3C pour
+l'encodage de la musique.  En tant que logiciel libre et @emph{open
+source}, LilyPond se doit d'adhérer à un tel standard ouvert plutôt que
+de reposer sur une solution isolée comme à l'heure actuelle.  L'adoption
+de SMuFL aidera à l'intégration de LilyPond dans le monde des logiciels
+de notation musicale et procurera par là même à ses utilisateurs accès à
+une sélection de fontes musicales plus étendue.
+
+Rendre LilyPond compatible avec SMuFL inclut une refonte de la
+cartographie des glyphes construits à partir des sources METAFONT, un
+ajustement des métriques de glyphe aux spécifications de SMuFL et enfin
+l'adaptation de la manière dont LilyPond recherche et positionne les
+glyphes.  En complément à ce projet, il pourrait être souhaitable de
+modifier les mécanismes de chargement des fontes dans LilyPond, de telle
+sorte qu'ils ne se cantonnent pas uniquement à l'installation de
+LilyPond.
+
+@strong{Difficulté :} moyennement facile
+@strong{Préalables :} C++ et la volonté de se familiariser avec les
+composantes internes de LilyPond
+@strong{Connaissances appréciées :} intérêt et expérience dans le
+maniement des fichiers de fonte ; des notions de METAFONT.
+@strong{Mentors :} Werner Lemberg, Abraham Lee
+
 @divEnd
 
 
