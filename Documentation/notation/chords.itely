@@ -458,7 +458,7 @@ Rests passed to a @code{ChordNames} context will cause the
 @funindex{\chords}
 
 @code{\chords @{ @dots{} @}} is a shortcut notation for
-@code{\new ChordNames @{ \chordmode @{ @dots{} @} @}}.
+@code{\new ChordNames \chordmode @{ @dots{} @}}.
 
 @lilypond[verbatim,quote,ragged-right]
 \chords {
@@ -806,7 +806,7 @@ entry of bass figures, and there is a context named
 in @code{Staff} contexts.
 
 @code{\figures@{ @dots{} @}} is a shortcut notation for
-@code{\new FiguredBass @{ \figuremode @{ @dots{} @} @}}.
+@code{\new FiguredBass \figuremode @{ @dots{} @}}.
 
 
 Although the support for figured bass may superficially resemble chord

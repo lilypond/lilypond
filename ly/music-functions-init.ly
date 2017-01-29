@@ -1506,6 +1506,12 @@ usually contains spacers or multi-measure rests.")
                'element main-music
                'quoted-music-name what))
 
+reduceChords =
+#(define-music-function (music) (ly:music?)
+   (_i "Reduce chords contained in @var{music} to single notes,
+intended mainly for reusing music in RhythmicStaff.  Does not
+reduce parallel music.")
+   (event-chord-reduce music))
 
 relative =
 #(define-music-function (pitch music)

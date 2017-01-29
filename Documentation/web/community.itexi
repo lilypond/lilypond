@@ -943,6 +943,33 @@ easily learned
 @divEnd
 
 @divClass{column-center-middle-color3}
+@subheading Adopt the SMuFL music font encoding standard
+
+For several years now a new standard for music fonts has been around:
+@uref{http://www.smufl.org/, SMuFL}, which is also discussed as becoming part of
+a future W3C standard for music encoding.  As a FLOSS tool LilyPond should
+adhere to such an open standard instead of using an isolated solution like it
+does today.  Adopting SMuFL will help integrating LilyPond with the world of
+music notation software and eventually give LilyPond users access to a wider
+selection of notation fonts.
+
+Making LilyPond compliant to SMuFL includes remapping of the glyphs that are
+built from METAFONT sources, adjusting the glyphs' metrics to SMuFL's
+specifications, and finally updating the way LilyPond looks up and positions the
+glyphs.  As an optional part of this project LilyPond's font loading mechanism
+could be modified to use notation fonts installed as system fonts instead of
+inside the LilyPond installation.
+
+@strong{Difficulty:} Easy/medium
+@strong{Requirements:} C++ and willingness to get familiar with LilyPond
+internals.
+@strong{Recommended:} Interest and experience in working with font files.
+A little bit of METAFONT.
+@strong{Mentors:} Werner Lemberg, Abraham Lee
+
+@divEnd
+
+@divClass{column-center-middle-color3}
 @subheading Adding variants of font glyphs
 
 @divClass{keep-bullets}
