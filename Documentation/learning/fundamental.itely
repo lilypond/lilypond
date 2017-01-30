@@ -1705,27 +1705,28 @@ in which context they operate.  Sometimes this is obvious,
 but occasionally it can be tricky.  If the wrong context
 is specified, no error message is produced, but the expected
 action will not take place.  For example, the
-@code{instrumentName} clearly lives in the @code{Staff} context, since
-it is the staff that is to be named.
-In this example the first staff is labeled, but not the second,
-because we omitted the context name.
+@code{clefGlyph} clearly lives in the @code{Staff} context, since
+it is the staff's clef glyph that is to be changed.
+In this example the first staff's clef is printed correctly, but not the
+second -- which prints the default treble clef instead of the
+expected bass (or F) clef -- because we omitted the context name.
 
 @lilypond[quote,verbatim,ragged-right]
 <<
   \new Staff \relative {
-    \set Staff.instrumentName = #"Soprano"
+    \set Staff.clefGlyph = "clefs.C"
     c''2 c
   }
   \new Staff \relative {
-    \set instrumentName = #"Alto"  % Wrong!
+    \set clefGlyph = "clefs.F"  % Wrong!
     d'2 d
   }
 >>
 @end lilypond
 
 Remember the default context name is @code{Voice}, so the second
-@code{\set} command set the property @code{instrumentName} in the
-@code{Voice} context to @qq{Alto}, but as LilyPond does not look
+@code{\set} command set the property @code{clefGlyph} in the
+@code{Voice} context to @code{clefs.F}, but as LilyPond does not look
 for any such property in the @code{Voice} context, no
 further action took place.  This is not an error, and no error
 message is logged in the log file.
@@ -1743,7 +1744,7 @@ such features, it is recommended to check the property name in the
 Internals Reference: see @rinternals{Tunable context properties}, or
 @rinternals{Contexts}.
 
-The @code{instrumentName} property will take effect only
+The @code{clefGlyph} property will take effect only
 if it is set in the @code{Staff} context, but
 some properties can be set in more than one context.
 For example, the property @code{extraNatural} is by
@@ -2377,8 +2378,9 @@ lower = \relative {
 \score {
   <<  % combine ChoirStaff and PianoStaff in parallel
     \new ChoirStaff <<
-      \new Staff = "sopranos" <<
-        \set Staff.instrumentName = #"Soprano"
+      \new Staff = "sopranos"
+      \with { instrumentName = #"Soprano" }
+      <<
         \new Voice = "sopranos" {
           \global
           \sopranoMusic
@@ -2387,24 +2389,31 @@ lower = \relative {
       \new Lyrics \lyricsto "sopranos" {
         \sopranoWords
       }
-      \new Staff = "altos" <<
-        \set Staff.instrumentName = #"Alto"
+      \new Staff = "altos"
+      \with { instrumentName = #"Alto" }
+      <<
         \new Voice = "altos" {
           \global
           \altoMusic
         }
       >>
-      \new Lyrics \lyricsto "altos" { \altoWords }
-      \new Staff = "tenors" <<
-        \set Staff.instrumentName = #"Tenor"
+      \new Lyrics \lyricsto "altos" {
+        \altoWords
+      }
+      \new Staff = "tenors"
+      \with { instrumentName = #"Tenor" }
+      <<
         \new Voice = "tenors" {
           \global
           \tenorMusic
         }
       >>
-      \new Lyrics \lyricsto "tenors" { \tenorWords }
-      \new Staff = "basses" <<
-        \set Staff.instrumentName = #"Bass"
+      \new Lyrics \lyricsto "tenors" {
+        \tenorWords
+      }
+      \new Staff = "basses"
+      \with { instrumentName = #"Bass" }
+      <<
         \new Voice = "basses" {
           \global
           \bassMusic
@@ -2414,8 +2423,8 @@ lower = \relative {
         \bassWords
       }
     >>  % end ChoirStaff
-    \new PianoStaff <<
-      \set PianoStaff.instrumentName = #"Piano"
+    \new PianoStaff \with { instrumentName = #"Piano" }
+    <<
       \new Staff = "upper" \upper
       \new Staff = "lower" \lower
     >>
@@ -2453,8 +2462,9 @@ Doing this gives for our ChoirStaff:
 
 @example
 \new ChoirStaff <<
-  \new Staff = "sopranos" <<
-    \set Staff.instrumentName = #"Soprano"
+  \new Staff = "sopranos"
+  \with @{ instrumentName = #"Soprano" @}
+  <<
     \new Voice = "sopranos" @{
       \global
       \sopranoMusic
@@ -2463,8 +2473,9 @@ Doing this gives for our ChoirStaff:
   \new Lyrics \lyricsto "sopranos" @{
     \sopranoWords
   @}
-  \new Staff = "altos" <<
-    \set Staff.instrumentName = #"Alto"
+  \new Staff = "altos"
+  \with @{ instrumentName = #"Alto" @}
+  <<
     \new Voice = "altos" @{
       \global
       \altoMusic
@@ -2473,8 +2484,9 @@ Doing this gives for our ChoirStaff:
   \new Lyrics \lyricsto "altos" @{
     \altoWords
   @}
-  \new Staff = "tenors" <<
-    \set Staff.instrumentName = #"Tenor"
+  \new Staff = "tenors"
+  \with @{ instrumentName = #"Tenor" @}
+  <<
     \new Voice = "tenors" @{
       \global
       \tenorMusic
@@ -2483,8 +2495,9 @@ Doing this gives for our ChoirStaff:
   \new Lyrics \lyricsto "tenors" @{
     \tenorWords
   @}
-  \new Staff = "basses" <<
-    \set Staff.instrumentName = #"Bass"
+  \new Staff = "basses"
+  \with @{ instrumentName = #"Bass" @}
+  <<
     \new Voice = "basses" @{
       \global
       \bassMusic
@@ -2501,8 +2514,8 @@ easy - we just pull out the piano part from the
 @q{Solo piano} template:
 
 @example
-\new PianoStaff <<
-  \set PianoStaff.instrumentName = #"Piano  "
+\new PianoStaff \with @{ instrumentName = #"Piano  " @}
+<<
   \new Staff = "upper" \upper
   \new Staff = "lower" \lower
 >>
@@ -2558,8 +2571,8 @@ stacked one above the other:
     @}
   >>  % end ChoirStaff
 
-  \new PianoStaff <<
-    \set PianoStaff.instrumentName = #"Piano"
+  \new PianoStaff \with @{ instrumentName = #"Piano" @}
+  <<
     \new Staff = "upper" \upper
     \new Staff = "lower" \lower
   >>
@@ -2611,8 +2624,9 @@ lower = \relative {
 \score {
   <<  % combine ChoirStaff and PianoStaff in parallel
     \new ChoirStaff <<
-      \new Staff = "sopranos" <<
-        \set Staff.instrumentName = #"Soprano"
+      \new Staff = "sopranos"
+      \with { instrumentName = #"Soprano" }
+      <<
         \new Voice = "sopranos" {
           \global
           \sopranoMusic
@@ -2621,8 +2635,9 @@ lower = \relative {
       \new Lyrics \lyricsto "sopranos" {
         \sopranoWords
       }
-      \new Staff = "altos" <<
-        \set Staff.instrumentName = #"Alto"
+      \new Staff = "altos"
+      \with { instrumentName = #"Alto" }
+      <<
         \new Voice = "altos" {
           \global
           \altoMusic
@@ -2631,8 +2646,9 @@ lower = \relative {
       \new Lyrics \lyricsto "altos" {
         \altoWords
       }
-      \new Staff = "tenors" <<
-        \set Staff.instrumentName = #"Tenor"
+      \new Staff = "tenors"
+      \with { instrumentName = #"Tenor" }
+      <<
         \new Voice = "tenors" {
           \global
           \tenorMusic
@@ -2641,8 +2657,9 @@ lower = \relative {
       \new Lyrics \lyricsto "tenors" {
         \tenorWords
       }
-      \new Staff = "basses" <<
-        \set Staff.instrumentName = #"Bass"
+      \new Staff = "basses"
+      \with { instrumentName = #"Bass" }
+      <<
         \new Voice = "basses" {
           \global
           \bassMusic
@@ -2653,8 +2670,9 @@ lower = \relative {
       }
     >>  % end ChoirStaff
 
-    \new PianoStaff <<
-      \set PianoStaff.instrumentName = #"Piano  "
+    \new PianoStaff
+    \with { instrumentName = #"Piano  " }
+    <<
       \new Staff = "upper" \upper
       \new Staff = "lower" \lower
     >>
