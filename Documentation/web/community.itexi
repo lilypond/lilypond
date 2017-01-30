@@ -884,38 +884,44 @@ manuals can be found at @url{http://lilypond.org}}
 @divClass{column-center-top}
 @subheading What is Google Summer of Code?
 
-@uref{https://developers.google.com/open-source/gsoc/, GSoC} is a global
-program that offers students stipends to write code for free software
-and open source projects during the summer.  It is an excellent
+@uref{https://summerofcode.withgoogle.com/, GSoC} is a global program
+that offers students stipends to write code for free software and open
+source projects during the summer.  For three months students work to
+complete a given task as part of the project's community and under the
+guidance of experienced mentors.  The program is an excellent
 opportunity for students to gain experience with real-world software
 development and make a contribution that benefits everyone.  It brings
 new contributors to LilyPond and enables students who are already
 involved to become more involved.  LilyPond participates in GSoC as part
 of the @uref{http://www.gnu.org/, GNU project}.
 
-We have had GSoC participants in 2012, 2015 and 2016 and encourage students
-to apply for future summers.
+@strong{Note:} The accepted mentoring organizations will be announced on
+February 27, so only then we will officially know that we can
+participate in this year's program.
 
-If you have questions or would like to apply, send us an email on our
-developer mailing list (see @ref{Contact}).
+We have had GSoC participants in 2012, 2015 and 2016 and encourage
+students to apply for future summers.
+
+If you are interested to apply for the program with LilyPond as a
+project, please read the information below and don't hesitate to write
+us on our developer mailing list (see @ref{Contact}).  The student
+application window is March 20 to April 3, 2017, but we strongly
+encourage you to get in touch with our community ahead of that.
 
 @divEnd
 
 @divClass{column-center-middle-color2}
 @subheading Project Ideas List
 
-Below is a list of suggested projects for GSoC or for anyone who is
-interested in helping to improve LilyPond. (Last updated: November 2016)
-
-Mentor availability varies from project to project and from year to year.
-Send us an email on our developer mailing list (see @ref{Contact}), and
-we will help you find a mentor for a project that fits your interests
-and skills.
-
-If you have ideas for a GSoC project that is not listed below you can
-send us an email as well.  There are a number of areas where LilyPond
-could be improved, and our development team is always willing to help
-those who would like to tackle a project like those listed below.
+Below is a list of GSoC project ideas (last update: January 2017), but
+if you have other ideas for a project you may complete within the three
+months of the program you're welcome to make a suggestion on our
+developer mailing list (see @ref{Contact}).  There are a number of areas
+where LilyPond could be improved, and our development team is always
+willing to help those who would like to tackle a project similar to
+those listed below.  As mentor availability varies from project to
+project and from year to year it is wise to get in touch with us as
+early as possible.
 
 A full list of all the current open issues can be found
 @uref{http://sourceforge.net/p/testlilyissues/issues/, here}.
@@ -1147,6 +1153,75 @@ GSoC 2016)
 
 @divEnd
 
+@divClass{column-center-middle-color2}
+@subheading Information for Applicants/Participants
+
+In order to have a satisfying experience with GSoC applicants are
+strongly advised to thoroughly read the following recommendations.  Some
+of these are relevant for the application process, others for the time
+within the project.
+
+@itemize
+
+@item
+Read all applicable information on the program's website, particularly
+the
+@uref{https://developers.google.com/open-source/gsoc/resources/manual,
+students' manual}.  Make sure you fulfil all of Google's prerequisites
+and are willing to join the program as a full-time commitment over the
+coding period of three months.
+
+@item
+Please get in touch with us as soon as possible if you are interested in
+applying with a project.  Mentor availability may change without notice,
+project proposals may need fine-tuning, and many other reasons might
+require us to reject or ignore an application that hasn't been discussed
+before.
+
+@item
+We do not know in advance how many “slots” we will have available for
+projects, so please be aware that you may find yourself in competition
+with other applicants or not.  Interested or even enthusiastic response
+from our mentors is no guarantee of eventually being accepted, and
+@emph{not} being accepted does not necessarily indicate a negative
+evaluation of your application.  If we have to decide between different
+applicants there may be various aspects to consider.
+
+@item
+Integration in the LilyPond community is a fundamental part of GSoC, and
+we expect our students to make substantial efforts to become community
+members.  Within the @emph{bonding period} we expect you to write a blog
+post about your project (either on @uref{http://lilypondblog.org, Scores
+of Beauty} or on any other blog) and to be active on our mailing lists,
+introducing yourself but also communicating about unrelated tasks.  This
+goes beyond the mere setting up of a working environment and
+familiarizing yourself with the relevant code, but we think it is
+crucial for the GSoC project to be mutually satisfying.
+
+@item
+If you are accepted to the program you will have one mentor explicitly
+assigned to your project.  With this mentor you will have to agree upon
+a communication strategy, be it emails, chatrooms, issue trackers or
+voice/video chats.  Regular communication is absolutely crucial for the
+success of a GSoC project so you are stricly required to keep talking to
+your mentor.  But keep in mind that your mentor has explicitly taken
+over the responsibility for your project, and while unlike you he isn't
+paid for this activity you are still entitled to get regular attention
+from him.
+
+@item
+In order to get support from your mentor you have to give him a chance
+to follow your progress and efforts.  Therefore it is important to
+regularly commit your changes to the versioning repository you are
+working on.  Don't hesitate making unfinished code available because you
+are afraid of criticism, and don't suppress questions because you think
+they might be considered stupid.  But ideally your code should at any
+time be accompanied by compatible testing code.  Your mentor may not be
+able to properly assess your code by only @emph{reading} it without the
+opportunity to apply it in a real example.
+
+@end itemize
+@divEnd
 
 @node Authors
 @unnumberedsec Authors
