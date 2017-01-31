@@ -1070,7 +1070,7 @@ such a SPA @emph{can} be part of the GSoC project, but is optional.
 @strong{Requirements:} Python or Scheme, static website generator(s) or
 (Node.js based) dynamic web application technology. Continuous
 Integration (can be learned during the bonding period)
-@strong{Mentor:} Urs Liska
+@strong{Mentors:} Urs Liska, Matteo Ceccarello
 
 @divEnd
 
