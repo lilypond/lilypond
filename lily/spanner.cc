@@ -455,11 +455,8 @@ Spanner::calc_normalized_endpoints (SCM smob)
       Real total_width = 0.0;
       vector<Real> span_data;
 
-      if (!orig->is_broken ())
-        span_data.push_back (orig->spanner_length ());
-      else
-        for (vsize i = 0; i < orig->broken_intos_.size (); i++)
-          span_data.push_back (orig->broken_intos_[i]->spanner_length ());
+      for (vsize i = 0; i < orig->broken_intos_.size (); i++)
+        span_data.push_back (orig->broken_intos_[i]->spanner_length ());
 
       vector<Interval> unnormalized_endpoints;
 
