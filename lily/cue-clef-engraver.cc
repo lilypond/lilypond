@@ -198,12 +198,13 @@ Cue_clef_engraver::stop_translation_timestep ()
 {
   if (clef_)
     {
-      SCM vis = 0;
       if (to_boolean (clef_->get_property ("non-default")))
-        vis = get_property ("explicitCueClefVisibility");
+        {
+          SCM vis = get_property ("explicitCueClefVisibility");
 
-      if (vis)
-        clef_->set_property ("break-visibility", vis);
+          if (scm_is_vector (vis))
+            clef_->set_property ("break-visibility", vis);
+        }
 
       clef_ = 0;
       modifier_ = 0;
