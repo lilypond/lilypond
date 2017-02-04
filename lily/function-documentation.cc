@@ -33,11 +33,12 @@ using namespace std;
 #include "music-function.hh"
 #include "paper-score.hh"
 #include "performance.hh"
+#include "protected-scm.hh"
 #include "spanner.hh"
 #include "stream-event.hh"
 #include "unpure-pure-container.hh"
 
-static SCM doc_hash_table;
+static Protected_scm doc_hash_table;
 
 void
 ly_check_name (const string &cxx, const string &scm_name)
@@ -58,8 +59,8 @@ ly_add_function_documentation (SCM func,
   if (doc == "")
     return;
 
-  if (!doc_hash_table)
-    doc_hash_table = scm_permanent_object (scm_c_make_hash_table (59));
+  if (!doc_hash_table.is_bound ())
+    doc_hash_table = scm_c_make_hash_table (59);
 
   string s = string (" - ") + "LilyPond procedure: " + fname + " " + varlist
              + "\n" + doc;
