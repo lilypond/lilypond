@@ -86,3 +86,11 @@ Protected_scm::operator SCM & ()
 
   return *SCM_CARLOC (object_);
 }
+
+bool
+Protected_scm::is_bound () const
+{
+  if (SCM_CONSP (object_))
+    return !SCM_UNBNDP (SCM_CAR (object_));
+  return !SCM_UNBNDP (object_);
+}
