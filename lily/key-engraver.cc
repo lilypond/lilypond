@@ -148,7 +148,8 @@ void
 Key_engraver::process_music ()
 {
   if (key_event_
-      || get_property ("lastKeyAlterations") != get_property ("keyAlterations"))
+      || !scm_is_eq (get_property ("lastKeyAlterations"),
+                     get_property ("keyAlterations")))
     create_key (false);
 }
 

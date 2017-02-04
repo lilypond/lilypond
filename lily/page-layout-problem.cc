@@ -449,7 +449,7 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
 
   for (SCM s = systems; scm_is_pair (s); s = scm_cdr (s))
     {
-      bool first = (s == systems);
+      bool first = scm_is_eq (s, systems);
 
       if (Grob *g = unsmob<Grob> (scm_car (s)))
         {

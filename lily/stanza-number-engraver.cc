@@ -60,7 +60,7 @@ Stanza_number_engraver::process_music ()
   SCM stanza = get_property ("stanza");
 
   if (Text_interface::is_markup (stanza)
-      && stanza != last_stanza_)
+      && !scm_is_eq (stanza, last_stanza_))
     {
       last_stanza_ = stanza;
 

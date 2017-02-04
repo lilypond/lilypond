@@ -514,7 +514,7 @@ Paper_book::get_system_specs ()
               SCM footnotes = get_footnotes (unsmob<Stencil> (t)->expr ());
               ps->set_property ("footnotes", footnotes);
               ps->set_property ("is-title", SCM_BOOL_T);
-              if (list == texts)
+              if (scm_is_eq (list, texts))
                 first = ps;
               else
                 {

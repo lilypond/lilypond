@@ -64,7 +64,7 @@ void
 Ottava_spanner_engraver::process_music ()
 {
   SCM ott = get_property ("ottavation");
-  if (ott != last_ottavation_)
+  if (!scm_is_eq (ott, last_ottavation_))
     {
       finished_ = span_;
       span_ = 0;

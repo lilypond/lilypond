@@ -145,7 +145,7 @@ Grob_pq_engraver::start_translation_timestep ()
       busy = scm_cdr (busy);
     }
 
-  if (start_busy != busy)
+  if (!scm_is_eq (start_busy, busy))
     context ()->set_property ("busyGrobs", busy);
 }
 

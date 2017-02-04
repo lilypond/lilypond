@@ -651,7 +651,7 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
       SCM lines = scm_caar (s);
       SCM config = scm_cdar (s);
 
-      bool bookpart_last_page = (s == systems_configs_fncounts);
+      bool bookpart_last_page = scm_is_eq (s, systems_configs_fncounts);
       SCM page = draw_page (lines, config, page_num, bookpart_last_page);
       /* collect labels */
       SCM page_num_scm = scm_from_int (page_num);
@@ -760,7 +760,7 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break, Prob_break_pred
 
               bool last = (j == cols.size () - 1);
               bool break_point = is_break && is_break (cols[j]);
-              bool chunk_end = cols[j]->get_property ("page-break-permission") == force_sym;
+              bool chunk_end = scm_is_eq (cols[j]->get_property ("page-break-permission"), force_sym);
               Break_position cur_pos = Break_position (i,
                                                        line_breaker_columns.size (),
                                                        cols[j],

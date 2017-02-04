@@ -508,7 +508,7 @@ void
 Accidental_engraver::process_music ()
 {
   SCM sig = get_property ("keyAlterations");
-  if (last_keysig_ != sig)
+  if (!scm_is_eq (last_keysig_, sig))
     update_local_key_signature (sig);
 }
 
