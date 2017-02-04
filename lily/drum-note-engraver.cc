@@ -63,12 +63,12 @@ Drum_notes_engraver::listen_note (Stream_event *ev)
 void
 Drum_notes_engraver::process_music ()
 {
-  SCM tab = 0;
+  if (events_.empty ())
+    return;
+
+  SCM tab = get_property ("drumStyleTable");
   for (vsize i = 0; i < events_.size (); i++)
     {
-      if (!tab)
-        tab = get_property ("drumStyleTable");
-
       Stream_event *ev = events_[i];
       Item *note = make_item ("NoteHead", ev->self_scm ());
 
