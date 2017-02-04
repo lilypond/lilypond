@@ -18,12 +18,11 @@
 */
 
 #include "profile.hh"
+#include "protected-scm.hh"
 
-void note_property_access (SCM *table, SCM sym);
-
-SCM context_property_lookup_table;
-SCM grob_property_lookup_table;
-SCM prob_property_lookup_table;
+Protected_scm context_property_lookup_table;
+Protected_scm grob_property_lookup_table;
+Protected_scm prob_property_lookup_table;
 
 LY_DEFINE (ly_property_lookup_stats, "ly:property-lookup-stats",
            1, 0, 0, (SCM sym),
@@ -31,26 +30,26 @@ LY_DEFINE (ly_property_lookup_stats, "ly:property-lookup-stats",
            " @var{sym}.  Choices are @code{prob}, @code{grob}, and"
            " @code{context}.")
 {
-  if (scm_is_eq (sym, ly_symbol2scm ("context")))
-    return context_property_lookup_table ? context_property_lookup_table
-           : scm_c_make_hash_table (1);
-  if (scm_is_eq (sym, ly_symbol2scm ("prob")))
-    return prob_property_lookup_table ? prob_property_lookup_table
-           : scm_c_make_hash_table (1);
-  if (scm_is_eq (sym, ly_symbol2scm ("grob")))
-    return grob_property_lookup_table ? grob_property_lookup_table
-           : scm_c_make_hash_table (1);
+  if (context_property_lookup_table.is_bound ()
+      && scm_is_eq (sym, ly_symbol2scm ("context")))
+    return context_property_lookup_table;
+  if (prob_property_lookup_table.is_bound ()
+      && scm_is_eq (sym, ly_symbol2scm ("prob")))
+    return prob_property_lookup_table;
+  if (grob_property_lookup_table.is_bound ()
+      && scm_is_eq (sym, ly_symbol2scm ("grob")))
+    return grob_property_lookup_table;
   return scm_c_make_hash_table (1);
 }
 
 void
-note_property_access (SCM *table, SCM sym)
+note_property_access (Protected_scm *table, SCM sym)
 {
   /*
     Statistics: which properties are looked up?
   */
-  if (!*table)
-    *table = scm_permanent_object (scm_c_make_hash_table (259));
+  if (!table->is_bound ())
+    *table = scm_c_make_hash_table (259);
 
   SCM hashhandle = scm_hashq_get_handle (*table, sym);
   if (scm_is_false (hashhandle))
