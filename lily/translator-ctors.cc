@@ -67,8 +67,9 @@ LY_DEFINE (ly_translator_name, "ly:translator-name",
            "Return the type name of the translator definition @var{creator}."
            "  The name is a symbol.")
 {
-  SCM res = SCM_UNBNDP (SCM (global_translator_dict_rev)) ? SCM_BOOL_F
-    : scm_hashq_ref (global_translator_dict_rev, creator, SCM_BOOL_F);
+  SCM res = global_translator_dict_rev.is_bound ()
+    ? scm_hashq_ref (global_translator_dict_rev, creator, SCM_BOOL_F)
+    : SCM_BOOL_F;
   SCM_ASSERT_TYPE (scm_is_pair (res),
                    creator, SCM_ARG1, __FUNCTION__, "translator definition");
   return scm_car (res);
@@ -78,8 +79,9 @@ LY_DEFINE (ly_translator_description, "ly:translator-description",
            1, 0, 0, (SCM creator),
            "Return an alist of properties of translator definition @var{creator}.")
 {
-  SCM res = SCM_UNBNDP (SCM (global_translator_dict_rev)) ? SCM_BOOL_F
-    : scm_hashq_ref (global_translator_dict_rev, creator, SCM_BOOL_F);
+  SCM res = global_translator_dict_rev.is_bound ()
+    ? scm_hashq_ref (global_translator_dict_rev, creator, SCM_BOOL_F)
+    : SCM_BOOL_F;
   SCM_ASSERT_TYPE (scm_is_pair (res),
                    creator, SCM_ARG1, __FUNCTION__, "translator definition");
   return scm_cdr (res);
