@@ -168,7 +168,7 @@ Translator_group::create_child_translator (SCM sev)
         trans = get_translator_creator (trans);
       if (ly_is_procedure (trans))
         trans = scm_call_1 (trans, cs);
-      if (scm_is_pair (trans))
+      if (ly_cheap_is_list (trans))
         trans = (new Scheme_engraver (trans, new_context))->unprotect ();
       Translator *instance = unsmob<Translator> (trans);
       if (!instance)
