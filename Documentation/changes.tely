@@ -62,6 +62,24 @@ which scares away people.
 @end ignore
 
 @item
+It is now possible to add text to analysis brackets through the
+@code{HorizontalBracketText} object.
+@lilypond[quote,verbatim]
+\layout {
+  \context {
+    \Voice
+    \consists "Horizontal_bracket_engraver"
+  }
+}
+
+{
+  \once \override HorizontalBracketText.text = "a"
+  c''\startGroup d''\stopGroup
+  e''-\tweak text "a'" \startGroup d''\stopGroup
+}
+@end lilypond
+
+@item
 The ends of hairpins may now be fine-tuned using the @code{shorten-pair}
 grob property, which previously only affected text-spanners like
 @code{TupletBracket} and @code{OttavaBracket}.  Positive values offset

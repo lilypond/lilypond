@@ -150,6 +150,11 @@ or 15 (two octaves), but LilyPond allows any integer here."
    common-shortest-duration))
 
 (ly:add-interface
+ 'horizontal-bracket-text-interface
+ "Label for an analysis bracket."
+ '(bracket columns))
+
+(ly:add-interface
  'inline-accidental-interface
  "An inlined accidental (i.e. normal accidentals, cautionary
 accidentals)."

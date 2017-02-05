@@ -1548,6 +1548,33 @@ numbered in parentheses."
              X)))
     num))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; HorizontalBracketText
+
+(define-public (ly:horizontal-bracket-text::print grob)
+  (let ((text (ly:grob-property grob 'text)))
+    (if (or (null? text)
+            (equal? text "")
+            (equal? text empty-markup))
+        (begin
+          (ly:grob-suicide! grob)
+          '())
+        (let* ((orig (ly:grob-original grob))
+               (siblings (ly:spanner-broken-into orig))
+               (text
+                 (if (or (null? siblings)
+                         (eq? grob (car siblings)))
+                     text
+                     (if (string? text)
+                         (string-append "(" text ")")
+                         (make-parenthesize-markup text)))))
+          (grob-interpret-markup grob text)))))
+
+(define-public (ly:horizontal-bracket-text::calc-direction grob)
+  (let* ((bracket (ly:grob-object grob 'bracket))
+         (bracket-dir (ly:grob-property bracket 'direction DOWN)))
+    bracket-dir))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; make-engraver helper macro
 

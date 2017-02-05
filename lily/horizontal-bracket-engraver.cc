@@ -33,6 +33,7 @@ class Horizontal_bracket_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Horizontal_bracket_engraver);
   vector<Spanner *> bracket_stack_;
+  vector<Spanner *> text_stack_;
   vector<Stream_event *> events_;
   vsize pop_count_;
   vsize push_count_;
@@ -81,6 +82,8 @@ Horizontal_bracket_engraver::acknowledge_note_column (Grob_info gi)
                                          ly_symbol2scm ("columns"), gi.grob ());
       add_bound_item (bracket_stack_[i],
                       gi.grob ());
+      add_bound_item (text_stack_[i],
+                      gi.grob ());
     }
 }
 
@@ -91,10 +94,25 @@ Horizontal_bracket_engraver::process_music ()
     {
       Spanner *sp = make_spanner ("HorizontalBracket", events_[k]->self_scm ());
 
+      Spanner *hbt = make_spanner ("HorizontalBracketText", events_[k]->self_scm ());
+
+      sp->set_object ("bracket-text", hbt->self_scm ());
+
+      Side_position_interface::add_support (hbt, sp);
+
+      hbt->set_parent (sp, X_AXIS);
+      hbt->set_parent (sp, Y_AXIS);
+      hbt->set_object ("bracket", sp->self_scm ());
+
       for (vsize i = 0; i < bracket_stack_.size (); i++)
         /* sp is the smallest, it should be added to the bigger brackets.  */
-        Side_position_interface::add_support (bracket_stack_[i], sp);
+        {
+          Side_position_interface::add_support (bracket_stack_[i], sp);
+          Side_position_interface::add_support (bracket_stack_[i], hbt);
+        }
+
       bracket_stack_.push_back (sp);
+      text_stack_.push_back (hbt);
     }
 }
 
@@ -102,8 +120,12 @@ void
 Horizontal_bracket_engraver::stop_translation_timestep ()
 {
   for (vsize i = pop_count_; i--;)
-    if (bracket_stack_.size ())
-      bracket_stack_.pop_back ();
+    {
+      if (bracket_stack_.size ())
+        bracket_stack_.pop_back ();
+      if (text_stack_.size ())
+        text_stack_.pop_back ();
+    }
   pop_count_ = 0;
   push_count_ = 0;
   events_.clear ();
@@ -122,7 +144,8 @@ ADD_TRANSLATOR (Horizontal_bracket_engraver,
                 " purposes.",
 
                 /* create */
-                "HorizontalBracket ",
+                "HorizontalBracket "
+                "HorizontalBracketText ",
 
                 /* read */
                 "",
