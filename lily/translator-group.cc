@@ -173,7 +173,7 @@ Translator_group::create_child_translator (SCM sev)
       Translator *instance = unsmob<Translator> (trans);
       if (!instance)
         {
-          warning (_f ("cannot find: `%s'", ly_symbol2string (scm_car (s)).c_str ()));
+          warning (_f ("cannot find: `%s'", ly_scm_write_string (trans).c_str ()));
           continue;
         }
 
