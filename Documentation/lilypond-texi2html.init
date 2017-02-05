@@ -1369,7 +1369,7 @@ sub lilypond_css_lines ($$)
     my $reldir = "";
     $reldir = "../" unless $bigpage;
     if ($have_index_entries) {
-      $Texi2HTML::THISDOC{'CSS_LINES'} .= "<script language=\"JavaScript\" src=\"${reldir}lily_search.js\"></script>\n";
+      $Texi2HTML::THISDOC{'CSS_LINES'} .= "<script language=\"JavaScript\" type=\"text/javascript\" src=\"${reldir}lily_search.js\"></script>\n";
     }
   }
 
