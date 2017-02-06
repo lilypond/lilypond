@@ -1001,40 +1001,6 @@ it.
 @divEnd
 
 @divClass{column-center-middle-color3}
-@subheading Grace notes
-
-Fix problems with synchronization of grace notes.  Grace notes can
-interfere with LilyPond's timing and cause odd effects, especially when
-multiple staffs are used where some have grace notes and others don't.
-This is one of the longest-standing and one of the more embarrassing
-@uref{https://sourceforge.net/p/testlilyissues/issues/34/,bugs} in
-LilyPond.
-
-@strong{Difficulty:} medium
-@strong{Requirements:} C++, MIDI
-@strong{Recommended:} familiarity with LilyPond internals
-@strong{Potential Mentors:} Mike Solomon (not available for GSoC 2016),
-Carl Sorensen
-
-@divEnd
-
-@divClass{column-center-middle-color3}
-@subheading Improve default beam positioning
-
-For regular, cross-staff, broken and kneed beams.  Beaming should depend
-on context and neighbor notes (see section 2.2 of
-@uref{http://imslp.org/wiki/Repository_of_Music-Notation_Mistakes_%28Coulon%2C_Jean-Pierre%29,
-this book}).  If possible also reduce beaming-computation time.
-
-@strong{Difficulty:} medium
-@strong{Requirements:} C++, experience with writing heuristics
-@strong{Recommended knowledge:} aesthetic sense
-@strong{Potential Mentors:} Mike Solomon (not available for GSoC 2016),
-Carl Sorensen
-
-@divEnd
-
-@divClass{column-center-middle-color3}
 @subheading Automated testing and documentation for openLilyLib
 
 @uref{https://github.com/openlilylib, openLilyLib} is an extension
@@ -1081,21 +1047,6 @@ Integration (can be learned during the bonding period)
 @divEnd
 
 @divClass{column-center-middle-color3}
-@subheading Help improve compilation behavior
-
-Automatic code analysis tools, like valgrind memory leak detection or
-callgrind code profilers, provide valuable information about possible
-flaws in our C++ code.  Cleaning up warnings would allow us to automate
-the rejection of any patch which introduced extra warnings.
-
-@strong{Difficulty:} medium
-@strong{Requirements:} C++
-@strong{Potential Mentors:} Reinhold Kainhofer (not available for GSoC
-2016), Joe Neeman
-
-@divEnd
-
-@divClass{column-center-middle-color3}
 @subheading MusicXML
 
 Improving MusicXML import and export functions:
@@ -1134,22 +1085,6 @@ the MusicXML export project from GSoC 2015.
 @strong{Mentor:} Jan-Peter Voigt
 
 
-
-@divEnd
-
-@divClass{column-center-middle-color3}
-@subheading Improve slurs and ties
-
-The engraving quality of slurs and ties is often unsatisfactory. Ties
-@q{broken} by clef or staff changes are not handled well.  The project
-could include collecting and sorting examples of bad output, deciding on
-the intended output and writing code to improve them.
-
-@strong{Difficulty:} hard
-@strong{Requirements:} C++, experience with writing heuristics
-@strong{Recommended knowledge:} LilyPond knowledge, aesthetic sense
-@strong{Potential Mentors:} Mike Solomon, Janek Warchoł (both not available for
-GSoC 2016)
 
 @divEnd
 
@@ -1221,6 +1156,11 @@ able to properly assess your code by only @emph{reading} it without the
 opportunity to apply it in a real example.
 
 @end itemize
+
+There is a list of inactive projects in the @ref{Attic}.  We list
+projects there that are still considered valuable but for which there
+are currently no mentors available.
+
 @divEnd
 
 @node Authors
@@ -1428,5 +1368,72 @@ Developers' changelogs by version:
 @miscLink{CHANGES-1.0,v1.0},
 @miscLink{CHANGES-0.1,v0.1},
 @miscLink{CHANGES-0.0,v0.0}
+
+@divEnd
+
+@divClass{column-center-middle-color2}
+@subheading Unused Google Summer of Code project suggestions
+
+The following list describes GSoC projects that had been proposed
+in recent years and which are still considered valuable but for
+which we currently don't have mentors available.
+
+@divEnd
+
+@divClass{column-center-middle-color3}
+@subheading Improve slurs and ties
+
+The engraving quality of slurs and ties is often unsatisfactory. Ties
+@q{broken} by clef or staff changes are not handled well.  The project
+could include collecting and sorting examples of bad output, deciding on
+the intended output and writing code to improve them.
+
+@strong{Difficulty:} hard
+@strong{Requirements:} C++, experience with writing heuristics
+@strong{Recommended knowledge:} LilyPond knowledge, aesthetic sense
+
+
+@divEnd
+
+@divClass{column-center-middle-color3}
+@subheading Grace notes
+
+Fix problems with synchronization of grace notes.  Grace notes can
+interfere with LilyPond's timing and cause odd effects, especially when
+multiple staffs are used where some have grace notes and others don't.
+This is one of the longest-standing and one of the more embarrassing
+@uref{https://sourceforge.net/p/testlilyissues/issues/34/,bugs} in
+LilyPond.
+
+@strong{Difficulty:} medium
+@strong{Requirements:} C++, MIDI
+@strong{Recommended:} familiarity with LilyPond internals
+
+@divEnd
+
+@divClass{column-center-middle-color3}
+@subheading Improve default beam positioning
+
+For regular, cross-staff, broken and kneed beams.  Beaming should depend
+on context and neighbor notes (see section 2.2 of
+@uref{http://imslp.org/wiki/Repository_of_Music-Notation_Mistakes_%28Coulon%2C_Jean-Pierre%29,
+this book}).  If possible also reduce beaming-computation time.
+
+@strong{Difficulty:} medium
+@strong{Requirements:} C++, experience with writing heuristics
+@strong{Recommended knowledge:} aesthetic sense
+
+@divEnd
+
+@divClass{column-center-middle-color3}
+@subheading Help improve compilation behavior
+
+Automatic code analysis tools, like valgrind memory leak detection or
+callgrind code profilers, provide valuable information about possible
+flaws in our C++ code.  Cleaning up warnings would allow us to automate
+the rejection of any patch which introduced extra warnings.
+
+@strong{Difficulty:} medium
+@strong{Requirements:} C++
 
 @divEnd
