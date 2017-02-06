@@ -1001,6 +1001,31 @@ it.
 @divEnd
 
 @divClass{column-center-middle-color3}
+@subheading Contemporary Notation
+
+LilyPond is very good at creating non-standard notation.  Having to
+@emph{code} every graphical element instead of simply @emph{drawing}
+it may seem cumbersome but is in fact a strong asset.  New notational
+functionality can be provided with consistent appearance, automatic
+layout and a natural syntactic interface.
+
+Within the @uref{https://github.com/openlilylib/oll-core, openLilyLib}
+library system the student will create a fundamental infrastructure
+and building blocks to make creating contemporary notation easier.
+Additionally (at least) @emph{one} concrete package is developed to
+cover specific contemporary notation, such as for example the style
+of a given composer, extended playing techniques for a specific
+instrument or a certain category of effects.
+
+@strong{Difficulty:} medium
+@strong{Requirements:} Scheme (interaction with LilyPond internals),
+contemporary notation techniques
+@strong{Recommended:} sense of building hierarchical frameworks
+@strong{Mentors:} @strong{NN,} Urs Liska
+
+@divEnd
+
+@divClass{column-center-middle-color3}
 @subheading Automated testing and documentation for openLilyLib
 
 @uref{https://github.com/openlilylib, openLilyLib} is an extension
