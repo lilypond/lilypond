@@ -1130,10 +1130,10 @@ the MusicXML export project from GSoC 2015.
 
 @strong{Difficulty:} medium
 @strong{Requirements:} MusicXML, Python, Scheme, basic LilyPond knowledge
-@strong{Potential Mentors:} Reinhold Kainhofer, Mike Solomon (both not
-available for GSoC 2016)
+@strong{Recommended:} Familiarity with other scorewriters (for cross-testing)
+@strong{Mentor:} Jan-Peter Voigt
 
-Familiarity with other scorewriters (for cross-testing) would also help.
+
 
 @divEnd
 
