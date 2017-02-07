@@ -1026,6 +1026,32 @@ contemporary notation techniques
 @divEnd
 
 @divClass{column-center-middle-color3}
+@subheading Rewrite LibreOffice LilyPond Extension with Python
+
+The @uref{http://ooolilypond.sourceforge.net/, OOoLilyPond} extension
+made it possible to conveniently include LilyPond score snippets in
+OpenOffice.org/LibreOffice Writer, Draw and Impress documents while
+keeping source and image together.  After many years without development
+an initial effort has started to make the extension compatible again
+with current versions of LibreOffice and LilyPond.
+
+However, as the LibreOffice ecosystem has changed substantially it is
+now possible to rewrite the extension with Python and PyQt.  This will
+not only be more powerful in general but will allow the integration of
+functionality from @uref{http://frescobaldi.org, Frescobaldi}, such as
+for example syntax highlighting, entry helpers, score wizards or musical
+transformations.
+
+@strong{Difficulty:} easy/medium
+@strong{Requirements:} Python, PyQt, LilyPond basics, LibreOffice
+extension basics
+@strong{Recommended knowledge:} Familiarity with Frescobaldi code based
+or willingness to learn during bonding period
+@strong{Mentor(s):} Urs Liska, (Thorsten Behrens/LibreOffice)
+
+@divEnd
+
+@divClass{column-center-middle-color3}
 @subheading Automated testing and documentation for openLilyLib
 
 @uref{https://github.com/openlilylib, openLilyLib} is an extension
