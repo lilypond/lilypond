@@ -1141,6 +1141,8 @@ direction and it is associated with a @code{ScriptColumn} object.
 @code{0.0} means centered on the note head (the default position of
 most scripts); @code{1.0} means centered on the stem.  Interpolated
 values are possible.")
+     (tuplet-slur ,boolean? "Draw a slur instead of a bracket for
+tuplets.")
      (transparent ,boolean? "This makes the grob invisible.")
 
 
