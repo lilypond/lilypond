@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: d24ac70e175d1538aa053fa765ba4181511ce541
+   Translation of GIT committish: a9bf7727fb66d7a17abe31b9004c846fc781fcf9
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -904,11 +904,11 @@ dernière mouture est consultable sur @url{http://lilypond.org}}
 @docLinkPdf{Web,web,@manualDevelWebPdf-fr}
 
 @item
-@docLinkSplit{Nouveautés,changes,@manualDevelChangesSplit}
+@docLinkSplit{Nouveautés,changes,@manualDevelChangesSplit-fr}
 @tab
-@docLinkBig{Nouveautés,changes,@manualDevelChangesBig}
+@docLinkBig{Nouveautés,changes,@manualDevelChangesBig-fr}
 @tab
-@docLinkPdf{Nouveautés,changes,@manualDevelChangesPdf}
+@docLinkPdf{Nouveautés,changes,@manualDevelChangesPdf-fr}
 
 @item
 @docLinkSplit{Extension,extending,@manualDevelExtendingSplit-fr}
