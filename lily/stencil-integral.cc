@@ -894,9 +894,8 @@ stencil_dispatcher (vector<Box> &boxes,
 vector<Transform_matrix_and_expression>
 stencil_traverser (PangoMatrix trans, SCM expr)
 {
-  if (scm_is_null (expr))
-    return vector<Transform_matrix_and_expression> ();
-  else if (scm_is_eq (expr, ly_string2scm ("")))
+  if (scm_is_null (expr)
+      || (scm_is_string (expr) && scm_is_true (scm_string_null_p (expr))))
     return vector<Transform_matrix_and_expression> ();
   else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("combine-stencil")))
     {
@@ -946,6 +945,8 @@ stencil_traverser (PangoMatrix trans, SCM expr)
     return stencil_traverser (trans, scm_cadr (expr));
   else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("output-attributes")))
     return stencil_traverser (trans, scm_caddr (expr));
+  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("with-outline")))
+    return stencil_traverser (trans, scm_cadr (expr));
   else
     {
       vector<Transform_matrix_and_expression> out;

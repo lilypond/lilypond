@@ -181,7 +181,8 @@ init_pedal_types ()
 
 ADD_SCM_INIT_FUNC (Piano_pedal_engraver_init_pedal_types_, init_pedal_types);
 
-Piano_pedal_engraver::Piano_pedal_engraver ()
+Piano_pedal_engraver::Piano_pedal_engraver (Context *c)
+  : Engraver (c)
 {
 }
 

@@ -42,7 +42,8 @@ protected:
   void stop_translation_timestep ();
 };
 
-Fingering_column_engraver::Fingering_column_engraver ()
+Fingering_column_engraver::Fingering_column_engraver (Context *c)
+  : Engraver (c)
 {
   for (LEFT_and_RIGHT (d))
     fingering_columns_[d] = 0;

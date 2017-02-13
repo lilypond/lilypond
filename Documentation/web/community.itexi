@@ -884,38 +884,44 @@ manuals can be found at @url{http://lilypond.org}}
 @divClass{column-center-top}
 @subheading What is Google Summer of Code?
 
-@uref{https://developers.google.com/open-source/gsoc/, GSoC} is a global
-program that offers students stipends to write code for free software
-and open source projects during the summer.  It is an excellent
+@uref{https://summerofcode.withgoogle.com/, GSoC} is a global program
+that offers students stipends to write code for free software and open
+source projects during the summer.  For three months students work to
+complete a given task as part of the project's community and under the
+guidance of experienced mentors.  The program is an excellent
 opportunity for students to gain experience with real-world software
 development and make a contribution that benefits everyone.  It brings
 new contributors to LilyPond and enables students who are already
 involved to become more involved.  LilyPond participates in GSoC as part
 of the @uref{http://www.gnu.org/, GNU project}.
 
-We have had GSoC participants in 2012, 2015 and 2016 and encourage students
-to apply for future summers.
+@strong{Note:} The accepted mentoring organizations will be announced on
+February 27, so only then we will officially know that we can
+participate in this year's program.
 
-If you have questions or would like to apply, send us an email on our
-developer mailing list (see @ref{Contact}).
+We have had GSoC participants in 2012, 2015 and 2016 and encourage
+students to apply for future summers.
+
+If you are interested to apply for the program with LilyPond as a
+project, please read the information below and don't hesitate to write
+us on our developer mailing list (see @ref{Contact}).  The student
+application window is March 20 to April 3, 2017, but we strongly
+encourage you to get in touch with our community ahead of that.
 
 @divEnd
 
 @divClass{column-center-middle-color2}
 @subheading Project Ideas List
 
-Below is a list of suggested projects for GSoC or for anyone who is
-interested in helping to improve LilyPond. (Last updated: November 2016)
-
-Mentor availability varies from project to project and from year to year.
-Send us an email on our developer mailing list (see @ref{Contact}), and
-we will help you find a mentor for a project that fits your interests
-and skills.
-
-If you have ideas for a GSoC project that is not listed below you can
-send us an email as well.  There are a number of areas where LilyPond
-could be improved, and our development team is always willing to help
-those who would like to tackle a project like those listed below.
+Below is a list of GSoC project ideas (last update: January 2017), but
+if you have other ideas for a project you may complete within the three
+months of the program you're welcome to make a suggestion on our
+developer mailing list (see @ref{Contact}).  There are a number of areas
+where LilyPond could be improved, and our development team is always
+willing to help those who would like to tackle a project similar to
+those listed below.  As mentor availability varies from project to
+project and from year to year it is wise to get in touch with us as
+early as possible.
 
 A full list of all the current open issues can be found
 @uref{http://sourceforge.net/p/testlilyissues/issues/, here}.
@@ -995,51 +1001,73 @@ it.
 @divEnd
 
 @divClass{column-center-middle-color3}
-@subheading Grace notes
+@subheading Contemporary Notation
 
-Fix problems with synchronization of grace notes.  Grace notes can
-interfere with LilyPond's timing and cause odd effects, especially when
-multiple staffs are used where some have grace notes and others don't.
-This is one of the longest-standing and one of the more embarrassing
-@uref{https://sourceforge.net/p/testlilyissues/issues/34/,bugs} in
-LilyPond.
+LilyPond is very good at creating non-standard notation.  Having to
+@emph{code} every graphical element instead of simply @emph{drawing}
+it may seem cumbersome but is in fact a strong asset.  New notational
+functionality can be provided with consistent appearance, automatic
+layout and a natural syntactic interface.
+
+Within the @uref{https://github.com/openlilylib/oll-core, openLilyLib}
+library system the student will create a fundamental infrastructure
+and building blocks to make creating contemporary notation easier.
+Additionally (at least) @emph{one} concrete package is developed to
+cover specific contemporary notation, such as for example the style
+of a given composer, extended playing techniques for a specific
+instrument or a certain category of effects.
 
 @strong{Difficulty:} medium
-@strong{Requirements:} C++, MIDI
-@strong{Recommended:} familiarity with LilyPond internals
-@strong{Potential Mentors:} Mike Solomon (not available for GSoC 2016),
-Carl Sorensen
+@strong{Requirements:} Scheme (interaction with LilyPond internals),
+contemporary notation techniques
+@strong{Recommended:} sense of building hierarchical frameworks
+@strong{Mentors:} @strong{NN,} Urs Liska
 
 @divEnd
 
 @divClass{column-center-middle-color3}
-@subheading Improve default beam positioning
+@subheading Automated testing and documentation for openLilyLib
 
-For regular, cross-staff, broken and kneed beams.  Beaming should depend
-on context and neighbor notes (see section 2.2 of
-@uref{http://imslp.org/wiki/Repository_of_Music-Notation_Mistakes_%28Coulon%2C_Jean-Pierre%29,
-this book}).  If possible also reduce beaming-computation time.
+@uref{https://github.com/openlilylib, openLilyLib} is an extension
+framework for LilyPond code providing a “snippets” repository and a
+suite of integrated packages such as for example page layout tools or
+scholarly annotations.  It is very powerful and promising, but to really
+get off the ground two features are missing: automated testing and
+documentation generation.
+
+Automated testing is necessary to ensure modifications to functionality
+don't break other functions within the library.  There is already some
+Automated Testing of the “snippets” repository with Github's Travis
+server, but this has to be reconsidered and extended to cover the
+standalone packages too.
+
+In order to be usable for a wider range of LilyPond users on a “consumer
+level” openLilyLib needs proper documentation.  This documentation has
+to be generated from the sources, so a system is needed that requires
+package authors to document the input files and provide additional usage
+examples, from which documentation is generated.  Ideally but not
+necessarily this is implemented as a Git hook, i.e. automatically upon
+each update to the repository.  We don't prescribe the tools and
+approaches to be used, but the most widely used language in the LilyPond
+domain is Python, so there would be some bias towards that.
+Alternatively a Scheme solution could be fine so generating the
+documentation would actually be triggered by “compiling” a certain
+LilyPond input file.  In general it is advisable to make use of proven
+concepts and tools from other languages.
+
+The eventual output of the documentation should be a static HTML site
+that can be viewed locally and/or uploaded to a website.  But it would
+be beneficial if the tool would first generate an intermediate
+representation (e.g. a JSON file with additional media files) from which
+a Single Page Application could retrieve content for display on
+openLilyLib's @uref{https://openlilylib.org, website}.  Development of
+such a SPA @emph{can} be part of the GSoC project, but is optional.
 
 @strong{Difficulty:} medium
-@strong{Requirements:} C++, experience with writing heuristics
-@strong{Recommended knowledge:} aesthetic sense
-@strong{Potential Mentors:} Mike Solomon (not available for GSoC 2016),
-Carl Sorensen
-
-@divEnd
-
-@divClass{column-center-middle-color3}
-@subheading Help improve compilation behavior
-
-Automatic code analysis tools, like valgrind memory leak detection or
-callgrind code profilers, provide valuable information about possible
-flaws in our C++ code.  Cleaning up warnings would allow us to automate
-the rejection of any patch which introduced extra warnings.
-
-@strong{Difficulty:} medium
-@strong{Requirements:} C++
-@strong{Potential Mentors:} Reinhold Kainhofer (not available for GSoC
-2016), Joe Neeman
+@strong{Requirements:} Python or Scheme, static website generator(s) or
+(Node.js based) dynamic web application technology. Continuous
+Integration (can be learned during the bonding period)
+@strong{Mentors:} Urs Liska, Matteo Ceccarello
 
 @divEnd
 
@@ -1078,29 +1106,87 @@ the MusicXML export project from GSoC 2015.
 
 @strong{Difficulty:} medium
 @strong{Requirements:} MusicXML, Python, Scheme, basic LilyPond knowledge
-@strong{Potential Mentors:} Reinhold Kainhofer, Mike Solomon (both not
-available for GSoC 2016)
+@strong{Recommended:} Familiarity with other scorewriters (for cross-testing)
+@strong{Mentor:} Jan-Peter Voigt
 
-Familiarity with other scorewriters (for cross-testing) would also help.
 
-@divEnd
-
-@divClass{column-center-middle-color3}
-@subheading Improve slurs and ties
-
-The engraving quality of slurs and ties is often unsatisfactory. Ties
-@q{broken} by clef or staff changes are not handled well.  The project
-could include collecting and sorting examples of bad output, deciding on
-the intended output and writing code to improve them.
-
-@strong{Difficulty:} hard
-@strong{Requirements:} C++, experience with writing heuristics
-@strong{Recommended knowledge:} LilyPond knowledge, aesthetic sense
-@strong{Potential Mentors:} Mike Solomon, Janek Warchoł (both not available for
-GSoC 2016)
 
 @divEnd
 
+@divClass{column-center-middle-color2}
+@subheading Information for Applicants/Participants
+
+In order to have a satisfying experience with GSoC applicants are
+strongly advised to thoroughly read the following recommendations.  Some
+of these are relevant for the application process, others for the time
+within the project.
+
+@itemize
+
+@item
+Read all applicable information on the program's website, particularly
+the
+@uref{https://developers.google.com/open-source/gsoc/resources/manual,
+students' manual}.  Make sure you fulfil all of Google's prerequisites
+and are willing to join the program as a full-time commitment over the
+coding period of three months.
+
+@item
+Please get in touch with us as soon as possible if you are interested in
+applying with a project.  Mentor availability may change without notice,
+project proposals may need fine-tuning, and many other reasons might
+require us to reject or ignore an application that hasn't been discussed
+before.
+
+@item
+We do not know in advance how many “slots” we will have available for
+projects, so please be aware that you may find yourself in competition
+with other applicants or not.  Interested or even enthusiastic response
+from our mentors is no guarantee of eventually being accepted, and
+@emph{not} being accepted does not necessarily indicate a negative
+evaluation of your application.  If we have to decide between different
+applicants there may be various aspects to consider.
+
+@item
+Integration in the LilyPond community is a fundamental part of GSoC, and
+we expect our students to make substantial efforts to become community
+members.  Within the @emph{bonding period} we expect you to write a blog
+post about your project (either on @uref{http://lilypondblog.org, Scores
+of Beauty} or on any other blog) and to be active on our mailing lists,
+introducing yourself but also communicating about unrelated tasks.  This
+goes beyond the mere setting up of a working environment and
+familiarizing yourself with the relevant code, but we think it is
+crucial for the GSoC project to be mutually satisfying.
+
+@item
+If you are accepted to the program you will have one mentor explicitly
+assigned to your project.  With this mentor you will have to agree upon
+a communication strategy, be it emails, chatrooms, issue trackers or
+voice/video chats.  Regular communication is absolutely crucial for the
+success of a GSoC project so you are stricly required to keep talking to
+your mentor.  But keep in mind that your mentor has explicitly taken
+over the responsibility for your project, and while unlike you he isn't
+paid for this activity you are still entitled to get regular attention
+from him.
+
+@item
+In order to get support from your mentor you have to give him a chance
+to follow your progress and efforts.  Therefore it is important to
+regularly commit your changes to the versioning repository you are
+working on.  Don't hesitate making unfinished code available because you
+are afraid of criticism, and don't suppress questions because you think
+they might be considered stupid.  But ideally your code should at any
+time be accompanied by compatible testing code.  Your mentor may not be
+able to properly assess your code by only @emph{reading} it without the
+opportunity to apply it in a real example.
+
+@end itemize
+
+There is a list of inactive projects in the @ref{Attic}.  We list
+projects there that are still considered valuable but for which there
+are currently no mentors available.
+
+@divEnd
 
 @node Authors
 @unnumberedsec Authors
@@ -1307,5 +1393,72 @@ Developers' changelogs by version:
 @miscLink{CHANGES-1.0,v1.0},
 @miscLink{CHANGES-0.1,v0.1},
 @miscLink{CHANGES-0.0,v0.0}
+
+@divEnd
+
+@divClass{column-center-middle-color2}
+@subheading Unused Google Summer of Code project suggestions
+
+The following list describes GSoC projects that had been proposed
+in recent years and which are still considered valuable but for
+which we currently don't have mentors available.
+
+@divEnd
+
+@divClass{column-center-middle-color3}
+@subheading Improve slurs and ties
+
+The engraving quality of slurs and ties is often unsatisfactory. Ties
+@q{broken} by clef or staff changes are not handled well.  The project
+could include collecting and sorting examples of bad output, deciding on
+the intended output and writing code to improve them.
+
+@strong{Difficulty:} hard
+@strong{Requirements:} C++, experience with writing heuristics
+@strong{Recommended knowledge:} LilyPond knowledge, aesthetic sense
+
+
+@divEnd
+
+@divClass{column-center-middle-color3}
+@subheading Grace notes
+
+Fix problems with synchronization of grace notes.  Grace notes can
+interfere with LilyPond's timing and cause odd effects, especially when
+multiple staffs are used where some have grace notes and others don't.
+This is one of the longest-standing and one of the more embarrassing
+@uref{https://sourceforge.net/p/testlilyissues/issues/34/,bugs} in
+LilyPond.
+
+@strong{Difficulty:} medium
+@strong{Requirements:} C++, MIDI
+@strong{Recommended:} familiarity with LilyPond internals
+
+@divEnd
+
+@divClass{column-center-middle-color3}
+@subheading Improve default beam positioning
+
+For regular, cross-staff, broken and kneed beams.  Beaming should depend
+on context and neighbor notes (see section 2.2 of
+@uref{http://imslp.org/wiki/Repository_of_Music-Notation_Mistakes_%28Coulon%2C_Jean-Pierre%29,
+this book}).  If possible also reduce beaming-computation time.
+
+@strong{Difficulty:} medium
+@strong{Requirements:} C++, experience with writing heuristics
+@strong{Recommended knowledge:} aesthetic sense
+
+@divEnd
+
+@divClass{column-center-middle-color3}
+@subheading Help improve compilation behavior
+
+Automatic code analysis tools, like valgrind memory leak detection or
+callgrind code profilers, provide valuable information about possible
+flaws in our C++ code.  Cleaning up warnings would allow us to automate
+the rejection of any patch which introduced extra warnings.
+
+@strong{Difficulty:} medium
+@strong{Requirements:} C++
 
 @divEnd

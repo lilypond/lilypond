@@ -17,18 +17,22 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "context.hh"
 #include "translator.hh"
-
+#include "lily-imports.hh"
 #include "international.hh"
 #include "scm-hash.hh"
 #include "warn.hh"
 #include "protected-scm.hh"
 
-/*
-  should delete these after exit.
-*/
+SCM
+Translator_creator::call (SCM ctx)
+{
+  return (allocate_ (LY_ASSERT_SMOB (Context, ctx, 1)))->unprotect ();
+}
 
 Protected_scm global_translator_dict;
+Protected_scm global_translator_dict_rev;
 
 LY_DEFINE (get_all_translators, "ly:get-all-translators", 0, 0, 0, (),
            "Return a list of all translator objects that may be"
@@ -44,21 +48,65 @@ LY_DEFINE (get_all_translators, "ly:get-all-translators", 0, 0, 0, (),
 }
 
 void
-add_translator (Translator *t)
+add_translator_creator (SCM creator, SCM name, SCM description)
 {
   Scheme_hash_table *dict = unsmob<Scheme_hash_table> (global_translator_dict);
   if (!dict)
     {
       global_translator_dict = Scheme_hash_table::make_smob ();
+      global_translator_dict_rev =
+        scm_make_weak_key_hash_table (scm_from_int (119));
       dict = unsmob<Scheme_hash_table> (global_translator_dict);
     }
-
-  SCM k = ly_symbol2scm (t->class_name ());
-  dict->set (k, t->unprotect ());
+  dict->set (name, creator);
+  scm_hashq_set_x (global_translator_dict_rev, creator, scm_cons (name, description));
 }
 
-Translator *
-get_translator (SCM sym)
+LY_DEFINE (ly_translator_name, "ly:translator-name",
+           1, 0, 0, (SCM creator),
+           "Return the type name of the translator definition @var{creator}."
+           "  The name is a symbol.")
+{
+  SCM res = global_translator_dict_rev.is_bound ()
+    ? scm_hashq_ref (global_translator_dict_rev, creator, SCM_BOOL_F)
+    : SCM_BOOL_F;
+  SCM_ASSERT_TYPE (scm_is_pair (res),
+                   creator, SCM_ARG1, __FUNCTION__, "translator definition");
+  return scm_car (res);
+}
+
+LY_DEFINE (ly_translator_description, "ly:translator-description",
+           1, 0, 0, (SCM creator),
+           "Return an alist of properties of translator definition @var{creator}.")
+{
+  SCM res = global_translator_dict_rev.is_bound ()
+    ? scm_hashq_ref (global_translator_dict_rev, creator, SCM_BOOL_F)
+    : SCM_BOOL_F;
+  SCM_ASSERT_TYPE (scm_is_pair (res),
+                   creator, SCM_ARG1, __FUNCTION__, "translator definition");
+  return scm_cdr (res);
+}
+
+LY_DEFINE (ly_register_translator, "ly:register-translator",
+           2, 1, 0, (SCM creator, SCM name, SCM description),
+           "Register a translator @var{creator} (usually a descriptive"
+           " alist or a function/closure returning one when given a"
+           " context argument) with the given symbol @var{name} and"
+           " the given @var{description} alist.")
+{
+  SCM_ASSERT_TYPE (ly_is_procedure (creator) || scm_is_pair (creator),
+                   creator, SCM_ARG1, __FUNCTION__, "translator creator");
+  LY_ASSERT_TYPE (ly_is_symbol, name, 2);
+  if (SCM_UNBNDP (description))
+    description = SCM_EOL;
+  else
+    LY_ASSERT_TYPE (ly_is_list, description, 3);
+  add_translator_creator (creator, name, description);
+  return SCM_UNSPECIFIED;
+}
+
+SCM
+get_translator_creator (SCM sym)
 {
   SCM v = SCM_BOOL_F;
   Scheme_hash_table *dict = unsmob<Scheme_hash_table> (global_translator_dict);
@@ -68,8 +116,7 @@ get_translator (SCM sym)
   if (scm_is_false (v))
     {
       warning (_f ("unknown translator: `%s'", ly_symbol2string (sym).c_str ()));
-      return 0;
     }
 
-  return unsmob<Translator> (v);
+  return v;
 }

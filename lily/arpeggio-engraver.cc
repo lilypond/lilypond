@@ -49,7 +49,8 @@ private:
   Stream_event *arpeggio_event_;
 };
 
-Arpeggio_engraver::Arpeggio_engraver ()
+Arpeggio_engraver::Arpeggio_engraver (Context *c)
+  : Engraver (c)
 {
   arpeggio_ = 0;
   arpeggio_event_ = 0;

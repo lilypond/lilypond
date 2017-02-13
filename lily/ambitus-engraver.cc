@@ -88,7 +88,8 @@ Ambitus_engraver::create_ambitus ()
   is_typeset_ = false;
 }
 
-Ambitus_engraver::Ambitus_engraver ()
+Ambitus_engraver::Ambitus_engraver (Context *c)
+  : Engraver (c)
 {
   ambitus_ = 0;
   heads_.set (0, 0);

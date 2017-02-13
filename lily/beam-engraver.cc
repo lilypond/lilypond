@@ -100,7 +100,8 @@ Beam_engraver::valid_end_point ()
   return valid_start_point ();
 }
 
-Beam_engraver::Beam_engraver ()
+Beam_engraver::Beam_engraver (Context *c)
+  : Engraver (c)
 {
   beam_ = 0;
   finished_beam_ = 0;
@@ -349,7 +350,8 @@ protected:
   virtual bool valid_end_point ();
 };
 
-Grace_beam_engraver::Grace_beam_engraver ()
+Grace_beam_engraver::Grace_beam_engraver (Context *c)
+  : Beam_engraver (c)
 {
 }
 

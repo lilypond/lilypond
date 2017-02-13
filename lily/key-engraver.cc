@@ -56,7 +56,8 @@ Key_engraver::finalize ()
 {
 }
 
-Key_engraver::Key_engraver ()
+Key_engraver::Key_engraver (Context *c)
+  : Engraver (c)
 {
   key_event_ = 0;
   item_ = 0;
@@ -147,7 +148,8 @@ void
 Key_engraver::process_music ()
 {
   if (key_event_
-      || get_property ("lastKeyAlterations") != get_property ("keyAlterations"))
+      || !scm_is_eq (get_property ("lastKeyAlterations"),
+                     get_property ("keyAlterations")))
     create_key (false);
 }
 

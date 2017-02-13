@@ -171,6 +171,7 @@ class Time_scaled_music_iterator;
 class Time_signature_performer;
 class Timing_translator;
 class Translator;
+class Translator_creator;
 class Translator_group;
 
 #endif /* LILY_PROTO_HH */

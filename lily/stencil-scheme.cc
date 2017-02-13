@@ -555,3 +555,14 @@ LY_DEFINE (ly_stencil_scale, "ly:stencil-scale",
   q->scale (scm_to_double (x), scm_to_double (y));
   return new_s;
 }
+
+LY_DEFINE (ly_stencil_outline, "ly:stencil-outline",
+           2, 0, 0, (SCM stil, SCM outline),
+           "Return a stencil with the stencil expression (inking)"
+           " of stencil @var{stil} but with outline and dimensions"
+           " from stencil @var{outline}.")
+{
+  Stencil s = *LY_ASSERT_SMOB (Stencil, stil, 1);
+  Stencil o = *LY_ASSERT_SMOB (Stencil, outline, 2);
+  return s.with_outline (o).smobbed_copy ();
+}

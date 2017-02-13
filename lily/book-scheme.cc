@@ -152,7 +152,7 @@ LY_DEFINE (ly_book_header, "ly:book-header",
 {
   LY_ASSERT_SMOB (Book, book, 1);
   Book *b = unsmob<Book> (book);
-  return b->header_ ? b->header_ : SCM_BOOL_F;
+  return ly_is_module (b->header_) ? b->header_ : SCM_BOOL_F;
 }
 
 LY_DEFINE (ly_book_set_header_x, "ly:book-set-header!",

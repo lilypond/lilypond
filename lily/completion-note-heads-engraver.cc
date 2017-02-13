@@ -301,7 +301,8 @@ Completion_heads_engraver::start_translation_timestep ()
                             ly_bool2scm (note_events_.size ()));
 }
 
-Completion_heads_engraver::Completion_heads_engraver ()
+Completion_heads_engraver::Completion_heads_engraver (Context *c)
+  : Engraver (c)
 {
   tie_column_ = 0;
 }

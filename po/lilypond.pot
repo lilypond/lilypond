@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.19.54\n"
+"Project-Id-Version: lilypond 2.19.55\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2017-01-03 14:31+0000\n"
+"POT-Creation-Date: 2017-02-12 12:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -925,7 +925,7 @@ msgstr ""
 msgid "Encountered unprocessed marker %s\n"
 msgstr ""
 
-#: abc2ly.py:1389 convert-ly.py:85 lilypond-book.py:122 midi2ly.py:1052
+#: abc2ly.py:1389 convert-ly.py:85 lilypond-book.py:122 midi2ly.py:1061
 #, python-format
 msgid "%s [OPTION]... FILE"
 msgstr ""
@@ -938,16 +938,16 @@ msgid ""
 msgstr ""
 
 #: abc2ly.py:1398 convert-ly.py:92 etf2ly.py:1208 lilypond-book.py:231
-#: midi2ly.py:1103 musicxml2ly.py:2774 main.cc:184
+#: midi2ly.py:1112 musicxml2ly.py:2774 main.cc:184
 msgid "show version number and exit"
 msgstr ""
 
 #: abc2ly.py:1401 convert-ly.py:96 etf2ly.py:1204 lilypond-book.py:140
-#: midi2ly.py:1070 musicxml2ly.py:2755 main.cc:163
+#: midi2ly.py:1079 musicxml2ly.py:2755 main.cc:163
 msgid "show this help and exit"
 msgstr ""
 
-#: abc2ly.py:1404 etf2ly.py:1209 midi2ly.py:1079
+#: abc2ly.py:1404 etf2ly.py:1209 midi2ly.py:1088
 msgid "write output to FILE"
 msgstr ""
 
@@ -968,7 +968,7 @@ msgstr ""
 #. or if there is a LilyPond users list or forum in your language
 #. "Report bugs in English via %s or in YOUR_LANG via URI"
 #: abc2ly.py:1416 convert-ly.py:157 etf2ly.py:1218 lilypond-book.py:258
-#: midi2ly.py:1115 musicxml2ly.py:2917 main.cc:318
+#: midi2ly.py:1124 musicxml2ly.py:2917 main.cc:318
 #, c-format, python-format
 msgid "Report bugs via %s"
 msgstr ""
@@ -1050,7 +1050,7 @@ msgstr ""
 msgid "make a numbered backup [default: filename.ext~]"
 msgstr ""
 
-#: convert-ly.py:152 etf2ly.py:1212 lilypond-book.py:234 midi2ly.py:1104
+#: convert-ly.py:152 etf2ly.py:1212 lilypond-book.py:234 midi2ly.py:1113
 #: main.cc:186
 msgid "show warranty and copyright"
 msgstr ""
@@ -1109,7 +1109,7 @@ msgid ""
 "file.\n"
 msgstr ""
 
-#: etf2ly.py:1210 midi2ly.py:1075 midi2ly.py:1080 musicxml2ly.py:2867
+#: etf2ly.py:1210 midi2ly.py:1084 midi2ly.py:1089 musicxml2ly.py:2867
 #: main.cc:169 main.cc:181
 msgid "FILE"
 msgstr ""
@@ -1216,7 +1216,7 @@ msgstr ""
 msgid "write snippet output files with the same base name as their source file"
 msgstr ""
 
-#: lilypond-book.py:223 midi2ly.py:1098 musicxml2ly.py:2780
+#: lilypond-book.py:223 midi2ly.py:1107 musicxml2ly.py:2780
 msgid "be verbose"
 msgstr ""
 
@@ -1318,7 +1318,7 @@ msgstr ""
 msgid "warning: "
 msgstr ""
 
-#: midi2ly.py:92 midi2ly.py:1132
+#: midi2ly.py:92 midi2ly.py:1141
 msgid "error: "
 msgstr ""
 
@@ -1326,85 +1326,85 @@ msgstr ""
 msgid "Exiting... "
 msgstr ""
 
-#: midi2ly.py:840
+#: midi2ly.py:849
 msgid "found more than 5 voices on a staff, expect bad output"
 msgstr ""
 
-#: midi2ly.py:1040
+#: midi2ly.py:1049
 #, python-format
 msgid "%s output to `%s'..."
 msgstr ""
 
-#: midi2ly.py:1053
+#: midi2ly.py:1062
 #, python-format
 msgid "Convert %s to LilyPond input.\n"
 msgstr ""
 
-#: midi2ly.py:1058
+#: midi2ly.py:1067
 msgid "print absolute pitches"
 msgstr ""
 
-#: midi2ly.py:1060 midi2ly.py:1088
+#: midi2ly.py:1069 midi2ly.py:1097
 msgid "DUR"
 msgstr ""
 
-#: midi2ly.py:1061
+#: midi2ly.py:1070
 msgid "quantise note durations on DUR"
 msgstr ""
 
-#: midi2ly.py:1064
+#: midi2ly.py:1073
 msgid "debug printing"
 msgstr ""
 
-#: midi2ly.py:1067
+#: midi2ly.py:1076
 msgid "print explicit durations"
 msgstr ""
 
-#: midi2ly.py:1072
+#: midi2ly.py:1081
 msgid "prepend FILE to output"
 msgstr ""
 
-#: midi2ly.py:1076
+#: midi2ly.py:1085
 msgid "set key: ALT=+sharps|-flats; MINOR=1"
 msgstr ""
 
-#: midi2ly.py:1077
+#: midi2ly.py:1086
 msgid "ALT[:MINOR]"
 msgstr ""
 
-#: midi2ly.py:1082
+#: midi2ly.py:1091
 msgid "preview of first 4 bars"
 msgstr ""
 
-#: midi2ly.py:1086
+#: midi2ly.py:1095
 msgid "suppress progress messages and warnings about excess voices"
 msgstr ""
 
-#: midi2ly.py:1087
+#: midi2ly.py:1096
 msgid "quantise note starts on DUR"
 msgstr ""
 
-#: midi2ly.py:1091
+#: midi2ly.py:1100
 msgid "use s instead of r for rests"
 msgstr ""
 
-#: midi2ly.py:1093
+#: midi2ly.py:1102
 msgid "DUR*NUM/DEN"
 msgstr ""
 
-#: midi2ly.py:1096
+#: midi2ly.py:1105
 msgid "allow tuplet durations DUR*NUM/DEN"
 msgstr ""
 
-#: midi2ly.py:1106
+#: midi2ly.py:1115
 msgid "treat every text as a lyric"
 msgstr ""
 
-#: midi2ly.py:1109
+#: midi2ly.py:1118
 msgid "Examples"
 msgstr ""
 
-#: midi2ly.py:1133
+#: midi2ly.py:1142
 msgid "no files specified on command line."
 msgstr ""
 
@@ -1746,12 +1746,12 @@ msgstr ""
 msgid "suppressed warning: %s"
 msgstr ""
 
-#: accidental-engraver.cc:180
+#: accidental-engraver.cc:181
 #, c-format
 msgid "accidental typesetting list must begin with context-name: %s"
 msgstr ""
 
-#: accidental-engraver.cc:207
+#: accidental-engraver.cc:208
 #, c-format
 msgid "procedure or context-name expected for accidental rule, found %s"
 msgstr ""
@@ -1805,15 +1805,15 @@ msgid ""
 "asked to compute volume at +%f for dynamic span of duration %f starting at %s"
 msgstr ""
 
-#: axis-group-engraver.cc:154
+#: axis-group-engraver.cc:155
 msgid "Axis_group_engraver: vertical group already has a parent"
 msgstr ""
 
-#: axis-group-engraver.cc:155
+#: axis-group-engraver.cc:156
 msgid "are there two Axis_group_engravers?"
 msgstr ""
 
-#: axis-group-engraver.cc:156
+#: axis-group-engraver.cc:157
 msgid "removing this vertical group"
 msgstr ""
 
@@ -1831,23 +1831,23 @@ msgstr ""
 msgid "barcheck failed at: %s"
 msgstr ""
 
-#: beam-engraver.cc:147
+#: beam-engraver.cc:148
 msgid "already have a beam"
 msgstr ""
 
-#: beam-engraver.cc:234
+#: beam-engraver.cc:235
 msgid "unterminated beam"
 msgstr ""
 
-#: beam-engraver.cc:281 chord-tremolo-engraver.cc:148
+#: beam-engraver.cc:282 chord-tremolo-engraver.cc:149
 msgid "stem must have Rhythmic structure"
 msgstr ""
 
-#: beam-engraver.cc:292
+#: beam-engraver.cc:293
 msgid "stem does not fit in beam"
 msgstr ""
 
-#: beam-engraver.cc:293
+#: beam-engraver.cc:294
 msgid "beam was started here"
 msgstr ""
 
@@ -1887,11 +1887,11 @@ msgstr ""
 msgid "none of these in my family"
 msgstr ""
 
-#: chord-tremolo-engraver.cc:87
+#: chord-tremolo-engraver.cc:88
 msgid "No tremolo to end"
 msgstr ""
 
-#: chord-tremolo-engraver.cc:108
+#: chord-tremolo-engraver.cc:109
 msgid "unterminated chord tremolo"
 msgstr ""
 
@@ -1969,31 +1969,31 @@ msgstr ""
 msgid "dot `%s' not found"
 msgstr ""
 
-#: dynamic-engraver.cc:166
+#: dynamic-engraver.cc:167
 #, c-format
 msgid ""
 "unknown crescendo style: %s\n"
 "defaulting to hairpin."
 msgstr ""
 
-#: dynamic-engraver.cc:231 slur-engraver.cc:185
+#: dynamic-engraver.cc:232 slur-engraver.cc:186
 #, c-format
 msgid "unterminated %s"
 msgstr ""
 
-#: episema-engraver.cc:74
+#: episema-engraver.cc:75
 msgid "already have an episema"
 msgstr ""
 
-#: episema-engraver.cc:87
+#: episema-engraver.cc:88
 msgid "cannot find start of episema"
 msgstr ""
 
-#: episema-engraver.cc:136
+#: episema-engraver.cc:137
 msgid "unterminated episema"
 msgstr ""
 
-#: extender-engraver.cc:167 extender-engraver.cc:176
+#: extender-engraver.cc:168 extender-engraver.cc:177
 msgid "unterminated extender"
 msgstr ""
 
@@ -2045,7 +2045,7 @@ msgstr ""
 msgid "Building font database..."
 msgstr ""
 
-#: footnote-engraver.cc:87
+#: footnote-engraver.cc:88
 msgid "Must be footnote-event."
 msgstr ""
 
@@ -2063,7 +2063,7 @@ msgstr ""
 msgid "g_spawn_sync failed (%d): %s: %s"
 msgstr ""
 
-#: glissando-engraver.cc:157
+#: glissando-engraver.cc:158
 msgid "unterminated glissando"
 msgstr ""
 
@@ -2080,23 +2080,23 @@ msgstr ""
 msgid "elapsed time: %.2f seconds"
 msgstr ""
 
-#: gregorian-ligature-engraver.cc:70
+#: gregorian-ligature-engraver.cc:71
 #, c-format
 msgid "\\%s ignored"
 msgstr ""
 
-#: gregorian-ligature-engraver.cc:75
+#: gregorian-ligature-engraver.cc:76
 #, c-format
 msgid "implied \\%s added"
 msgstr ""
 
 #. ligature may not start with 2nd head of pes or flexa
-#: gregorian-ligature-engraver.cc:224
+#: gregorian-ligature-engraver.cc:225
 msgid "cannot apply `\\~' on first head of ligature"
 msgstr ""
 
 #. (pitch == prev_pitch)
-#: gregorian-ligature-engraver.cc:236
+#: gregorian-ligature-engraver.cc:237
 msgid "cannot apply `\\~' on heads with identical pitch"
 msgstr ""
 
@@ -2124,23 +2124,23 @@ msgstr ""
 msgid "Asking for broken bound padding at a non-broken bound."
 msgstr ""
 
-#: hairpin.cc:257
+#: hairpin.cc:264
 msgid "decrescendo too small"
 msgstr ""
 
-#: horizontal-bracket-engraver.cc:61
+#: horizontal-bracket-engraver.cc:62
 msgid "do not have that many brackets"
 msgstr ""
 
-#: horizontal-bracket-engraver.cc:70
+#: horizontal-bracket-engraver.cc:71
 msgid "conflicting note group events"
 msgstr ""
 
-#: hyphen-engraver.cc:103
+#: hyphen-engraver.cc:104
 msgid "removing unterminated hyphen"
 msgstr ""
 
-#: hyphen-engraver.cc:117
+#: hyphen-engraver.cc:118
 msgid "unterminated hyphen; removing"
 msgstr ""
 
@@ -2158,12 +2158,12 @@ msgstr ""
 msgid "position unknown"
 msgstr ""
 
-#: keep-alive-together-engraver.cc:93
+#: keep-alive-together-engraver.cc:94
 #, c-format
 msgid "unknown remove-layer value `%s'"
 msgstr ""
 
-#: key-engraver.cc:197
+#: key-engraver.cc:199
 msgid "Incomplete keyAlterationOrder for key signature"
 msgstr ""
 
@@ -2176,31 +2176,31 @@ msgstr ""
 msgid "alteration not found"
 msgstr ""
 
-#: ligature-bracket-engraver.cc:71 ligature-engraver.cc:109
+#: ligature-bracket-engraver.cc:72 ligature-engraver.cc:110
 msgid "cannot find start of ligature"
 msgstr ""
 
-#: ligature-bracket-engraver.cc:84 ligature-engraver.cc:136
+#: ligature-bracket-engraver.cc:85 ligature-engraver.cc:137
 msgid "already have a ligature"
 msgstr ""
 
-#: ligature-engraver.cc:114
+#: ligature-engraver.cc:115
 msgid "no right bound"
 msgstr ""
 
-#: ligature-engraver.cc:145
+#: ligature-engraver.cc:146
 msgid "no left bound"
 msgstr ""
 
-#: ligature-engraver.cc:189
+#: ligature-engraver.cc:190
 msgid "unterminated ligature"
 msgstr ""
 
-#: ligature-engraver.cc:216
+#: ligature-engraver.cc:217
 msgid "ignoring rest: ligature may not contain rest"
 msgstr ""
 
-#: ligature-engraver.cc:217
+#: ligature-engraver.cc:218
 msgid "ligature was started here"
 msgstr ""
 
@@ -2507,45 +2507,45 @@ msgid "exception caught: %s"
 msgstr ""
 
 #. FIXME: constant error message.
-#: mark-engraver.cc:149
+#: mark-engraver.cc:150
 msgid "rehearsalMark must have integer value"
 msgstr ""
 
-#: mark-engraver.cc:155
+#: mark-engraver.cc:156
 msgid "mark label must be a markup object"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:93
+#: mensural-ligature-engraver.cc:94
 msgid "ligature with less than 2 heads -> skipping"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:120
+#: mensural-ligature-engraver.cc:121
 msgid "cannot determine pitch of ligature primitive -> skipping"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:134
+#: mensural-ligature-engraver.cc:135
 msgid "single note ligature - skipping"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:145
+#: mensural-ligature-engraver.cc:146
 msgid "prime interval within ligature -> skipping"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:156
+#: mensural-ligature-engraver.cc:157
 msgid "mensural ligature: duration none of Mx, L, B, S -> skipping"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:199
+#: mensural-ligature-engraver.cc:200
 msgid "semibrevis must be followed by another one -> skipping"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:209
+#: mensural-ligature-engraver.cc:210
 msgid ""
 "semibreves can only appear at the beginning of a ligature,\n"
 "and there may be only zero or two of them"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:229
+#: mensural-ligature-engraver.cc:230
 msgid ""
 "invalid ligatura ending:\n"
 "when the last note is a descending brevis,\n"
@@ -2553,7 +2553,7 @@ msgid ""
 "or the ligatura must be LB or SSB"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:389
+#: mensural-ligature-engraver.cc:390
 msgid "unexpected case fall-through"
 msgstr ""
 
@@ -2595,7 +2595,7 @@ msgid ""
 "usable-duration-logs must be a non-empty list.  Falling back to whole rests."
 msgstr ""
 
-#: music.cc:154
+#: music.cc:153
 #, c-format
 msgid "octave check failed; expected \"%s\", found: \"%s\""
 msgstr ""
@@ -2625,7 +2625,7 @@ msgstr ""
 msgid "none of note heads `%s' or `%s' found"
 msgstr ""
 
-#: note-heads-engraver.cc:75
+#: note-heads-engraver.cc:76
 msgid "NoteEvent without pitch"
 msgstr ""
 
@@ -2720,12 +2720,12 @@ msgstr ""
 msgid "Replace font name from %s to %s."
 msgstr ""
 
-#: open-type-font.cc:321
+#: open-type-font.cc:320
 #, c-format
 msgid "FT_Get_Glyph_Name () Freetype error: %s"
 msgstr ""
 
-#: open-type-font.cc:469 pango-font.cc:261
+#: open-type-font.cc:468 pango-font.cc:260
 #, c-format
 msgid "FT_Get_Glyph_Name () error: %s"
 msgstr ""
@@ -2852,24 +2852,24 @@ msgstr ""
 msgid "\tprevious break: %d"
 msgstr ""
 
-#: pango-font.cc:250
+#: pango-font.cc:249
 #, c-format
 msgid "no glyph for character U+%0X in font `%s'"
 msgstr ""
 
-#: pango-font.cc:277
+#: pango-font.cc:276
 #, c-format
 msgid ""
 "Glyph has no name, but font supports glyph naming.\n"
 "Skipping glyph U+%0X, file %s"
 msgstr ""
 
-#: pango-font.cc:327
+#: pango-font.cc:326
 #, c-format
 msgid "no PostScript font name for font `%s'"
 msgstr ""
 
-#: pango-font.cc:377
+#: pango-font.cc:376
 msgid "FreeType face has no PostScript font name"
 msgstr ""
 
@@ -2883,7 +2883,7 @@ msgstr ""
 msgid "program option -dpreview not supported by backend `%s'"
 msgstr ""
 
-#: paper-column-engraver.cc:273
+#: paper-column-engraver.cc:274
 msgid ""
 "forced break was overridden by some other event, should you be using bar "
 "checks?"
@@ -2912,7 +2912,7 @@ msgstr ""
 msgid "Conversion of string `%s' to UTF-16be failed: %s"
 msgstr ""
 
-#: percent-repeat-engraver.cc:147
+#: percent-repeat-engraver.cc:148
 msgid "unterminated percent repeat"
 msgstr ""
 
@@ -2937,23 +2937,23 @@ msgstr ""
 msgid "Segment type of the Type 1 (PFB) font is unknown."
 msgstr ""
 
-#: piano-pedal-engraver.cc:276
+#: piano-pedal-engraver.cc:277
 #, c-format
 msgid "expect 3 strings for piano pedals, found: %ld"
 msgstr ""
 
-#: piano-pedal-engraver.cc:291 piano-pedal-engraver.cc:302
-#: piano-pedal-performer.cc:104
+#: piano-pedal-engraver.cc:292 piano-pedal-engraver.cc:303
+#: piano-pedal-performer.cc:105
 #, c-format
 msgid "cannot find start of piano pedal: `%s'"
 msgstr ""
 
-#: piano-pedal-engraver.cc:337
+#: piano-pedal-engraver.cc:338
 #, c-format
 msgid "cannot find start of piano pedal bracket: `%s'"
 msgstr ""
 
-#: program-option-scheme.cc:223
+#: program-option-scheme.cc:224
 #, c-format
 msgid "no such internal option: %s"
 msgstr ""
@@ -3085,11 +3085,11 @@ msgid "errors found, ignoring music expression"
 msgstr ""
 
 #. FIXME:
-#: script-engraver.cc:114
+#: script-engraver.cc:115
 msgid "do not know how to interpret articulation:"
 msgstr ""
 
-#: script-engraver.cc:115
+#: script-engraver.cc:116
 msgid " scheme encoding: "
 msgstr ""
 
@@ -3097,24 +3097,24 @@ msgstr ""
 msgid "direction must not be CENTER in ly:skyline-pair::skyline"
 msgstr ""
 
-#: slur-engraver.cc:121
+#: slur-engraver.cc:122
 #, c-format
 msgid "direction of %s invalid: %d"
 msgstr ""
 
 #. We already have an old slur, so give a warning
 #. and completely ignore the new slur.
-#: slur-engraver.cc:238
+#: slur-engraver.cc:239
 #, c-format
 msgid "already have %s"
 msgstr ""
 
-#: slur-engraver.cc:255
+#: slur-engraver.cc:256
 #, c-format
 msgid "%s without a cause"
 msgstr ""
 
-#: slur-engraver.cc:320
+#: slur-engraver.cc:321
 #, c-format
 msgid "cannot end %s"
 msgstr ""
@@ -3129,24 +3129,24 @@ msgstr ""
 msgid "expected to read %d characters, got %d"
 msgstr ""
 
-#: staff-performer.cc:273
+#: staff-performer.cc:274
 msgid "MIDI channel wrapped around"
 msgstr ""
 
-#: staff-performer.cc:274
+#: staff-performer.cc:275
 msgid "remapping modulo 16"
 msgstr ""
 
-#: stem-engraver.cc:100
+#: stem-engraver.cc:101
 msgid "tremolo duration is too long"
 msgstr ""
 
-#: stem-engraver.cc:152
+#: stem-engraver.cc:153
 #, c-format
 msgid "adding note head to incompatible stem (type = %d/%d)"
 msgstr ""
 
-#: stem-engraver.cc:155
+#: stem-engraver.cc:156
 msgid "maybe input should specify polyphonic voices"
 msgstr ""
 
@@ -3170,23 +3170,23 @@ msgstr ""
 msgid "Markup depth exceeds maximal value of %d; Markup: %s"
 msgstr ""
 
-#: text-spanner-engraver.cc:71
+#: text-spanner-engraver.cc:72
 msgid "cannot find start of text spanner"
 msgstr ""
 
-#: text-spanner-engraver.cc:84
+#: text-spanner-engraver.cc:85
 msgid "already have a text spanner"
 msgstr ""
 
-#: text-spanner-engraver.cc:131
+#: text-spanner-engraver.cc:132
 msgid "unterminated text spanner"
 msgstr ""
 
-#: tie-engraver.cc:120
+#: tie-engraver.cc:121
 msgid "unterminated tie"
 msgstr ""
 
-#: tie-engraver.cc:376
+#: tie-engraver.cc:377
 msgid "lonely tie"
 msgstr ""
 
@@ -3200,7 +3200,7 @@ msgstr ""
 msgid "strange time signature found: %d/%d"
 msgstr ""
 
-#: translator-ctors.cc:70
+#: translator-ctors.cc:118
 #, c-format
 msgid "unknown translator: `%s'"
 msgstr ""
@@ -3210,17 +3210,17 @@ msgstr ""
 msgid "fatal error.  Couldn't find type: %s"
 msgstr ""
 
-#: translator-group.cc:185
+#: translator-group.cc:176
 #, c-format
 msgid "cannot find: `%s'"
 msgstr ""
 
-#: translator.cc:305
+#: translator.cc:293
 #, c-format
 msgid "Two simultaneous %s events, junking this one"
 msgstr ""
 
-#: translator.cc:306
+#: translator.cc:294
 #, c-format
 msgid "Previous %s event here"
 msgstr ""
@@ -3229,26 +3229,26 @@ msgstr ""
 msgid "No tuplet to end"
 msgstr ""
 
-#: vaticana-ligature-engraver.cc:384
+#: vaticana-ligature-engraver.cc:385
 #, c-format
 msgid ""
 "ignored prefix(es) `%s' of this head according to restrictions of the "
 "selected ligature style"
 msgstr ""
 
-#: vaticana-ligature-engraver.cc:450
+#: vaticana-ligature-engraver.cc:451
 msgid ""
 "Ambiguous use of dots in ligature: there are multiple dotted notes with the "
 "same pitch.  The ligature should be split."
 msgstr ""
 
-#: vaticana-ligature-engraver.cc:508
+#: vaticana-ligature-engraver.cc:509
 msgid ""
 "This ligature has a dotted head followed by a non-dotted head.  The ligature "
 "should be split after the last dotted head before this head."
 msgstr ""
 
-#: vaticana-ligature-engraver.cc:720
+#: vaticana-ligature-engraver.cc:721
 #, c-format
 msgid "Vaticana_ligature_engraver: setting `spacing-increment = %f': ptr =%ul"
 msgstr ""
@@ -3261,24 +3261,24 @@ msgstr ""
 msgid "ascending vaticana style flexa"
 msgstr ""
 
-#: vertical-align-engraver.cc:100
+#: vertical-align-engraver.cc:101
 msgid "Ignoring Vertical_align_engraver in VerticalAxisGroup"
 msgstr ""
 
 #. fixme: be more verbose.
-#: volta-engraver.cc:110
+#: volta-engraver.cc:111
 msgid "cannot end volta spanner"
 msgstr ""
 
-#: volta-engraver.cc:120
+#: volta-engraver.cc:121
 msgid "already have a volta spanner, ending that one prematurely"
 msgstr ""
 
-#: volta-engraver.cc:124
+#: volta-engraver.cc:125
 msgid "also already have an ended spanner"
 msgstr ""
 
-#: volta-engraver.cc:125
+#: volta-engraver.cc:126
 msgid "giving up"
 msgstr ""
 
@@ -3596,27 +3596,27 @@ msgstr ""
 msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr ""
 
-#: define-markup-commands.scm:3122
+#: define-markup-commands.scm:3127
 #, scheme-format
 msgid "Cannot find glyph ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3598
+#: define-markup-commands.scm:3603
 #, scheme-format
 msgid "no brace found for point size ~S "
 msgstr ""
 
-#: define-markup-commands.scm:3599
+#: define-markup-commands.scm:3604
 #, scheme-format
 msgid "defaulting to ~S pt"
 msgstr ""
 
-#: define-markup-commands.scm:3858
+#: define-markup-commands.scm:3863
 #, scheme-format
 msgid "not a valid duration string: ~a"
 msgstr ""
 
-#: define-markup-commands.scm:4071
+#: define-markup-commands.scm:4076
 #, scheme-format
 msgid "not a valid duration string: ~a - ignoring"
 msgstr ""
@@ -3685,7 +3685,7 @@ msgstr ""
 msgid "cannot find description for property ~S (~S)"
 msgstr ""
 
-#: flag-styles.scm:154
+#: flag-styles.scm:156
 #, scheme-format
 msgid "flag stroke `~a' or `~a' not found"
 msgstr ""

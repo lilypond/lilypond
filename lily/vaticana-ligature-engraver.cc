@@ -84,7 +84,8 @@ protected:
                                 vector<Grob_info> const &primitives);
 };
 
-Vaticana_ligature_engraver::Vaticana_ligature_engraver ()
+Vaticana_ligature_engraver::Vaticana_ligature_engraver (Context *c)
+  : Gregorian_ligature_engraver (c)
 {
   brew_ligature_primitive_proc
     = Vaticana_ligature::brew_ligature_primitive_proc;

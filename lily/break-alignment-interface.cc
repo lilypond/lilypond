@@ -73,7 +73,7 @@ Break_alignment_interface::ordered_elements (Grob *grob)
       for (vsize i = writable_elts.size (); i--;)
         {
           Grob *g = writable_elts[i];
-          if (g && sym == g->get_property ("break-align-symbol"))
+          if (g && scm_is_eq (sym, g->get_property ("break-align-symbol")))
             {
               new_elts.push_back (g);
               writable_elts.erase (writable_elts.begin () + i);
@@ -277,9 +277,10 @@ Break_alignable_interface::self_align_callback (SCM grob)
       SCM sym = scm_car (symbol_list);
       for (vsize i = 0; i < elements.size (); i++)
         {
-          if (elements[i]->get_property ("break-align-symbol") == sym)
+          if (scm_is_eq (sym, elements[i]->get_property ("break-align-symbol")))
             {
               if (Item::break_visible (elements[i])
+                  // TODO SCM: simplify syntax?
                   && !elements[i]->extent (elements[i], X_AXIS).is_empty ())
                 {
                   break_aligned_grob = i;

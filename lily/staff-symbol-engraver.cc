@@ -68,7 +68,8 @@ Staff_symbol_engraver::~Staff_symbol_engraver ()
     }
 }
 
-Staff_symbol_engraver::Staff_symbol_engraver ()
+Staff_symbol_engraver::Staff_symbol_engraver (Context *c)
+  : Engraver (c)
 {
   finished_span_ = 0;
   first_start_ = true;

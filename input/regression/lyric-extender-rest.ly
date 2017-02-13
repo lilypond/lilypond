@@ -15,11 +15,17 @@ is not terminated upon encountering a rest. "
 <<
   \new Voice = "one" \relative {
     c''4\melisma 
-    c4 r c\melismaEnd c
+    c4 r c\melismaEnd c1
+    c4 \melisma
+    c4 r c\melismaEnd c1
+    c4 \melisma
+    c4 r c\melismaEnd c1
   }
   \new Lyrics \lyricsto "one" {
+    Test __ "default"
     \set extendersOverRests = ##t 
-
-    Test __ end
+    test __ \markup \typewriter "#t"
+    \set extendersOverRests = ##f
+    test __ \markup \typewriter "#f"
   }
 >>

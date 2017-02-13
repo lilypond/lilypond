@@ -237,7 +237,7 @@ Prob::transpose (Pitch delta)
                && scm_is_pair (val))
         new_val = ly_transpose_key_alist (val, delta.smobbed_copy ());
 
-      if (val != new_val)
+      if (!scm_is_eq (val, new_val))
         scm_set_cdr_x (entry, new_val);
     }
 }

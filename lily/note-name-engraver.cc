@@ -69,7 +69,8 @@ Note_name_engraver::stop_translation_timestep ()
   events_.clear ();
 }
 
-Note_name_engraver::Note_name_engraver ()
+Note_name_engraver::Note_name_engraver (Context *c)
+  : Engraver (c)
 {
 }
 

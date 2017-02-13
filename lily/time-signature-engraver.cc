@@ -53,7 +53,8 @@ Time_signature_engraver::derived_mark () const
   scm_gc_mark (time_cause_);
 }
 
-Time_signature_engraver::Time_signature_engraver ()
+Time_signature_engraver::Time_signature_engraver (Context *c)
+  : Engraver (c)
 {
   time_signature_ = 0;
   time_cause_ = SCM_EOL;
@@ -73,8 +74,7 @@ Time_signature_engraver::process_music ()
     return;
 
   SCM fr = get_property ("timeSignatureFraction");
-  if (last_time_fraction_ != fr
-      && scm_is_pair (fr))
+  if (!scm_is_eq (last_time_fraction_, fr) && scm_is_pair (fr))
     {
       time_signature_ = make_item ("TimeSignature", time_cause_);
       time_signature_->set_property ("fraction", fr);

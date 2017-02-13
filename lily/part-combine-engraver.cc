@@ -66,7 +66,8 @@ Part_combine_engraver::listen_note (Stream_event *)
   note_found_ = true;
 }
 
-Part_combine_engraver::Part_combine_engraver ()
+Part_combine_engraver::Part_combine_engraver (Context *c)
+  : Engraver (c)
 {
   text_ = 0;
   new_event_ = 0;

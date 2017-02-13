@@ -54,6 +54,7 @@ public:
   Protected_scm &operator = (Protected_scm const &);
   operator const SCM & () const;
   operator SCM & ();
+  bool is_bound () const;  // SCM_UNBNDP balks at Protected_scm
 };
 
 #endif /* PROTECTED_SCM_HH */

@@ -46,7 +46,8 @@ protected:
   void process_acknowledged ();
 };
 
-Span_bar_engraver::Span_bar_engraver ()
+Span_bar_engraver::Span_bar_engraver (Context *c)
+  : Engraver (c)
 {
   spanbar_ = 0;
   make_spanbar_ = false;

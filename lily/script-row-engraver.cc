@@ -45,7 +45,8 @@ protected:
   void stop_translation_timestep ();
 };
 
-Script_row_engraver::Script_row_engraver ()
+Script_row_engraver::Script_row_engraver (Context *c)
+  : Engraver (c)
 {
   script_row_ = 0;
 }

@@ -53,7 +53,8 @@ protected:
   void process_music ();
 };
 
-Extender_engraver::Extender_engraver ()
+Extender_engraver::Extender_engraver (Context *c)
+  : Engraver (c)
 {
   extender_ = 0;
   pending_extender_ = 0;
@@ -129,7 +130,7 @@ Extender_engraver::stop_translation_timestep ()
       else
         {
           if (pending_extender_
-              && !get_property ("extendersOverRests"))
+              && !to_boolean (get_property ("extendersOverRests")))
             {
               completize_extender (pending_extender_);
               pending_extender_ = 0;

@@ -105,7 +105,8 @@ Text_engraver::stop_translation_timestep ()
   scripts_.clear ();
 }
 
-Text_engraver::Text_engraver ()
+Text_engraver::Text_engraver (Context *c)
+  : Engraver (c)
 {
 }
 

@@ -47,7 +47,8 @@ private:
   void typeset_all ();
 };
 
-Text_spanner_engraver::Text_spanner_engraver ()
+Text_spanner_engraver::Text_spanner_engraver (Context *c)
+  : Engraver (c)
 {
   finished_ = 0;
   current_event_ = 0;

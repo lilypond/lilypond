@@ -176,7 +176,8 @@ protected:
   virtual void finalize ();
 };
 
-System_start_delimiter_engraver::System_start_delimiter_engraver ()
+System_start_delimiter_engraver::System_start_delimiter_engraver (Context *c)
+  : Engraver (c)
 {
   nesting_ = 0;
 }

@@ -62,7 +62,8 @@ Spanner_break_forbid_engraver::acknowledge_unbreakable_spanner (Grob_info gi)
     running_spanners_.push_back (gi.spanner ());
 }
 
-Spanner_break_forbid_engraver::Spanner_break_forbid_engraver ()
+Spanner_break_forbid_engraver::Spanner_break_forbid_engraver (Context *c)
+  : Engraver (c)
 {
 }
 

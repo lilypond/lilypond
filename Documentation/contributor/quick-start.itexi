@@ -508,28 +508,38 @@ This will download and update you to the lastest version of git-cl.
 @node Configuring git-cl
 @unnumberedsubsec Configuring @code{git-cl}
 
-@subsubheading Set up login accounts
-
 Because @code{git-cl} updates two separate websites (Google's Rietveld
 Code Review Tool and LilyPond's issue tracker) you @emph{must} have a
 valid user account (login and password) for both sites.
 
-@noindent
-For the Rietveld Code Review Tool you will need a Google account.  Note
-that a Google account does not require that you have or use a @q{Google}
-email address.  You can use @emph{any} email address for your Google
-account.  Just select the option @qq{I prefer to use my current email
-address} when you sign up.
-
-@warning{In order for @code{git-cl} to work, your Google Account
-Settings must have the @q{Access for less secure apps} set to
-@q{Allowed}.  This is normally the default setting.}
+@subsubheading Set up a login account for Rietveld Code Review Tool
 
 @noindent
-For the LilyPond issue tracker, please request a user account by sending
-an email to the LilyPond Developer's mailing list
-(@code{lilypond-devel@@gnu.org}), preferably using the same email
-address that you want to use for your user login.
+For the Rietveld Code Review Tool you will need a Google account but
+this does @emph{not} require @q{Google} email address; i.e. @emph{any}
+email address for your Google account can be used.  Just select the
+option @qq{I prefer to use my current email address} when you sign up
+with Google.
+
+@warning{In order for @code{git-cl} to work correctly with this Google
+account, your Google Account Settings must have the
+@q{Access for less secure apps} set to @q{Allowed} -- this is normally
+the default setting.}
+
+@subsubheading Set up a login account for LilyPond's Issue Tracker
+
+@noindent
+Please register a user account at
+@code{https://sourceforge.net/user/registration} preferably using the
+same email address that you want to use LilyPond Developer mailing list
+login.
+
+@noindent
+Once you have created this Sourceforge user account, send an email to
+the LilyPond Developer's mailing list (@code{lilypond-devel@@gnu.org})
+asking for write access to the issue tracker along with your Sourceforce
+@emph{Username} (not email address) and someone will then be able to set
+this up for you.
 
 @subsubheading Authorizing git-cl for the LilyPond issue tracker
 

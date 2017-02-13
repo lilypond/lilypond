@@ -26,7 +26,7 @@
 class Ligature_engraver : public Engraver
 {
 protected:
-  Ligature_engraver ();
+  Ligature_engraver (Context *c);
   void stop_translation_timestep ();
   virtual void finalize ();
 

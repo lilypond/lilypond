@@ -49,7 +49,8 @@ private:
   Context *get_voice_context ();
 };
 
-Lyric_engraver::Lyric_engraver ()
+Lyric_engraver::Lyric_engraver (Context *c)
+  : Engraver (c)
 {
   text_ = 0;
   last_text_ = 0;

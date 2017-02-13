@@ -49,7 +49,8 @@ protected:
   void stop_translation_timestep ();
 };
 
-Figured_bass_position_engraver::Figured_bass_position_engraver ()
+Figured_bass_position_engraver::Figured_bass_position_engraver (Context *c)
+  : Engraver (c)
 {
   positioner_ = 0;
   bass_figure_alignment_ = 0;

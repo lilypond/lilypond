@@ -21,7 +21,8 @@ protected:
   virtual void acknowledge_audio_element (Audio_element_info info);
 };
 
-Control_track_performer::Control_track_performer ()
+Control_track_performer::Control_track_performer (Context *c)
+  : Performer (c)
 {
   control_track_ = 0;
 }

@@ -209,7 +209,8 @@ Paper_column::break_align_width (Grob *me, SCM align_syms)
           extract_grob_set (me, "elements", elts);
           for (vsize i = 0; i < elts.size (); i++)
             {
-              if (elts[i]->get_property ("break-align-symbol") == align_sym
+              if (scm_is_eq (align_sym, elts[i]->get_property ("break-align-symbol"))
+                  // TODO SCM: there must be a simpler way to put this.
                   && !elts[i]->extent (elts[i], X_AXIS).is_empty ())
                 {
                   align = elts[i];

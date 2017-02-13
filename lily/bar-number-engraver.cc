@@ -135,7 +135,8 @@ Bar_number_engraver::process_music ()
     }
 }
 
-Bar_number_engraver::Bar_number_engraver ()
+Bar_number_engraver::Bar_number_engraver (Context *c)
+  : Engraver (c)
 {
   text_ = 0;
   alternative_starting_bar_number_ = 0;

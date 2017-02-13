@@ -37,7 +37,8 @@ protected:
   void process_music ();
 };
 
-Melody_engraver::Melody_engraver ()
+Melody_engraver::Melody_engraver (Context *c)
+  : Engraver (c)
 {
   stem_ = 0;
   melody_item_ = 0;

@@ -123,8 +123,9 @@ private:
   State state_;
 };
 
-Dynamic_performer::Dynamic_performer ()
-  : script_event_ (0),
+Dynamic_performer::Dynamic_performer (Context *c)
+  : Performer (c),
+    script_event_ (0),
     next_grow_dir_ (CENTER),
     depart_dir_ (CENTER),
     state_ (STATE_INITIAL)

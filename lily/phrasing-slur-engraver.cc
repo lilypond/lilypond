@@ -58,7 +58,8 @@ Phrasing_slur_engraver::object_name () const
   return "phrasing slur";
 }
 
-Phrasing_slur_engraver::Phrasing_slur_engraver ()
+Phrasing_slur_engraver::Phrasing_slur_engraver (Context *c)
+  : Slur_engraver (c)
 {
 }
 

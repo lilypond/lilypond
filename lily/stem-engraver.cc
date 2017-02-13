@@ -56,7 +56,8 @@ protected:
   void kill_unused_flags ();
 };
 
-Stem_engraver::Stem_engraver ()
+Stem_engraver::Stem_engraver (Context *c)
+  : Engraver (c)
 {
   tremolo_ev_ = 0;
   stem_ = 0;

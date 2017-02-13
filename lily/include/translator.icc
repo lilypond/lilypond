@@ -32,24 +32,19 @@
    A macro to automate administration of translators.
 */
 #define ADD_THIS_TRANSLATOR(T)                                          \
-  SCM T::static_description_ = SCM_EOL;                                 \
   static void _ ## T ## _adder ()                                       \
   {                                                                     \
     T::boot ();                                                         \
-    T *t = new T;                                                       \
-    T::static_description_ =                                            \
-      scm_permanent_object (t->static_translator_description ());       \
-    add_translator (t);                                                 \
-  }                                                                     \
-  SCM T::translator_description () const                                \
-  {                                                                     \
-    return static_description_;                                         \
+    add_translator_creator (Translator_creator::alloc<T>()->unprotect (), \
+                            scm_from_ascii_symbol (#T),                 \
+                            T::static_translator_description ());       \
   }                                                                     \
   ADD_GLOBAL_CTOR (_ ## T ## _adder);                                   \
   /* end define */
 
-#define DEFINE_TRANSLATOR_LISTENER_LIST(T) \
-  Protected_scm T::listener_list_ (SCM_EOL)
+#define DEFINE_TRANSLATOR_LISTENER_LIST(T)                              \
+  Protected_scm T::listener_list_ (SCM_EOL);                            \
+  /* end define */
 
 #define DEFINE_ACKNOWLEDGERS(classname) \
   Drul_array<Protected_scm> classname::acknowledge_static_array_drul_;  \
@@ -61,9 +56,9 @@
   }                                                                     \
   /* end define */
 
-#define DEFINE_TRANSLATOR_DOC(classname, desc, grobs, read, write)              \
+#define DEFINE_TRANSLATOR_DOC(classname, desc, grobs, read, write)      \
   SCM                                                                   \
-  classname::static_translator_description () const                     \
+  classname::static_translator_description ()                           \
   {                                                                     \
     return Translator::static_translator_description (grobs, desc, listener_list_, read, write); \
   }
@@ -81,14 +76,14 @@
   {                                                                     \
     ptrs[START_TRANSLATION_TIMESTEP] =                                  \
       method_finder <&T::start_translation_timestep> ();                \
-									\
-    ptrs[STOP_TRANSLATION_TIMESTEP] =					\
+                                                                        \
+    ptrs[STOP_TRANSLATION_TIMESTEP] =                                   \
       method_finder <&T::stop_translation_timestep> ();                 \
                                                                         \
-    ptrs[PROCESS_MUSIC] =						\
+    ptrs[PROCESS_MUSIC] =                                               \
       method_finder <&T::process_music> ();                             \
-									\
-    ptrs[PROCESS_ACKNOWLEDGED] =					\
+                                                                        \
+    ptrs[PROCESS_ACKNOWLEDGED] =                                        \
       method_finder <&T::process_acknowledged> ();                      \
   }
 
@@ -115,6 +110,11 @@ void add_acknowledger (SCM ptr,
 /*
   Implement the method cl::listen_##m, and make it listen to stream
   events of class m.
+
+  At macro call time, neither creator instances (which are anonymous
+  and only accessible via the translator registry) nor translator
+  instances exist, so the only named place where we can store it is in
+  a static member of the translator class.
  */
 #define ADD_LISTENER_FOR(cl, m, ev)                                     \
   listener_list_ = scm_acons                                            \

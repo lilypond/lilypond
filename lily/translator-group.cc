@@ -162,48 +162,32 @@ Translator_group::create_child_translator (SCM sev)
 
   for (SCM s = trans_names; scm_is_pair (s); s = scm_cdr (s))
     {
-      SCM definition = scm_car (s);
-      bool is_scheme = false;
+      SCM trans = scm_car (s);
 
-      Translator *type = 0;
-      if (ly_is_symbol (definition))
-        type = get_translator (definition);
-      else if (ly_is_pair (definition))
+      if (ly_is_symbol (trans))
+        trans = get_translator_creator (trans);
+      if (ly_is_procedure (trans))
+        trans = scm_call_1 (trans, cs);
+      if (ly_cheap_is_list (trans))
+        trans = (new Scheme_engraver (trans, new_context))->unprotect ();
+      Translator *instance = unsmob<Translator> (trans);
+      if (!instance)
         {
-          is_scheme = true;
-        }
-      else if (ly_is_procedure (definition))
-        {
-          // `definition' is a procedure, which takes the context as
-          // an argument and evaluates to an a-list scheme engraver
-          // definition.
-          definition = scm_call_1 (definition, cs);
-          is_scheme = true;
+          warning (_f ("cannot find: `%s'", ly_scm_write_string (trans).c_str ()));
+          continue;
         }
 
-      if (!is_scheme && !type)
-        warning (_f ("cannot find: `%s'", ly_symbol2string (scm_car (s)).c_str ()));
-      else
+      if (instance->must_be_last ())
         {
-          Translator *instance = is_scheme ? new Scheme_engraver (definition)
-            : type->clone ();
-
-          SCM str = instance->self_scm ();
-
-          if (instance->must_be_last ())
-            {
-              SCM cons = scm_cons (str, SCM_EOL);
-              if (scm_is_pair (trans_list))
-                scm_set_cdr_x (scm_last_pair (trans_list), cons);
-              else
-                trans_list = cons;
-            }
+          SCM cons = scm_cons (trans, SCM_EOL);
+          if (scm_is_pair (trans_list))
+            scm_set_cdr_x (scm_last_pair (trans_list), cons);
           else
-            trans_list = scm_cons (str, trans_list);
-
-          instance->daddy_context_ = new_context;
-          instance->unprotect ();
+            trans_list = cons;
         }
+      else
+        trans_list = scm_cons (trans, trans_list);
+
     }
 
   /* Filter unwanted translator types. Required to make

@@ -68,7 +68,8 @@ protected:
   void stop_translation_timestep ();
 };
 
-Rhythmic_column_engraver::Rhythmic_column_engraver ()
+Rhythmic_column_engraver::Rhythmic_column_engraver (Context *c)
+  : Engraver (c)
 {
 
   stem_ = 0;

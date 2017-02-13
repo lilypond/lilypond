@@ -53,7 +53,8 @@ protected:
   void listen_tempo_change (Stream_event *);
 };
 
-Metronome_mark_engraver::Metronome_mark_engraver ()
+Metronome_mark_engraver::Metronome_mark_engraver (Context *c)
+  : Engraver (c)
 {
   text_ = 0;
   support_ = 0;

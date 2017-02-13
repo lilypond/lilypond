@@ -53,7 +53,8 @@ private:
   vector<vsize> note_column_2;
 };
 
-Glissando_engraver::Glissando_engraver ()
+Glissando_engraver::Glissando_engraver (Context *c)
+  : Engraver (c)
 {
   event_ = 0;
   start_glissandi_ = false;

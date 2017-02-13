@@ -56,7 +56,8 @@ private:
   Pedal_info info_alist_[NUM_PEDAL_TYPES];
 };
 
-Piano_pedal_performer::Piano_pedal_performer ()
+Piano_pedal_performer::Piano_pedal_performer (Context *c)
+  : Performer (c)
 {
 }
 

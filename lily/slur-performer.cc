@@ -47,7 +47,8 @@ private:
   bool slur_;
 };
 
-Slur_performer::Slur_performer ()
+Slur_performer::Slur_performer (Context *c)
+  : Performer (c)
 {
   slur_ = false;
   start_ev_ = 0;

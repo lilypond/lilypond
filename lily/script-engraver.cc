@@ -67,7 +67,8 @@ public:
   TRANSLATOR_DECLARATIONS (Script_engraver);
 };
 
-Script_engraver::Script_engraver ()
+Script_engraver::Script_engraver (Context *c)
+  : Engraver (c)
 {
 }
 

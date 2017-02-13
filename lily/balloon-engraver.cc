@@ -49,7 +49,8 @@ Balloon_engraver::stop_translation_timestep ()
   events_.clear ();
 }
 
-Balloon_engraver::Balloon_engraver ()
+Balloon_engraver::Balloon_engraver (Context *c)
+  : Engraver (c)
 {
 }
 

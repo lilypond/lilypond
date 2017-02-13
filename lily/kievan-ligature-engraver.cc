@@ -45,7 +45,8 @@ private:
   void fold_up_primitives (vector<Grob_info> const &primitives, Real padding, Real &min_length);
 };
 
-Kievan_ligature_engraver::Kievan_ligature_engraver ()
+Kievan_ligature_engraver::Kievan_ligature_engraver (Context *c)
+  : Coherent_ligature_engraver (c)
 {
 
 }

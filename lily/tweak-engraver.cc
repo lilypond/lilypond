@@ -32,7 +32,8 @@ protected:
   void acknowledge_grob (Grob_info);
 };
 
-Tweak_engraver::Tweak_engraver ()
+Tweak_engraver::Tweak_engraver (Context *c)
+  : Engraver (c)
 {
 }
 

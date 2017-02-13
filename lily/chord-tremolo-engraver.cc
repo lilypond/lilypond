@@ -66,7 +66,8 @@ protected:
   void acknowledge_stem (Grob_info);
 };
 
-Chord_tremolo_engraver::Chord_tremolo_engraver ()
+Chord_tremolo_engraver::Chord_tremolo_engraver (Context *c)
+  : Engraver (c)
 {
   beam_ = 0;
   repeat_ = 0;

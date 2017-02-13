@@ -136,7 +136,8 @@ Fingering_engraver::stop_translation_timestep ()
   events_.clear ();
 }
 
-Fingering_engraver::Fingering_engraver ()
+Fingering_engraver::Fingering_engraver (Context *c)
+  : Engraver (c)
 {
 }
 

@@ -47,7 +47,8 @@ Stanza_number_engraver::derived_mark () const
   all aligned.
 */
 
-Stanza_number_engraver::Stanza_number_engraver ()
+Stanza_number_engraver::Stanza_number_engraver (Context *c)
+  : Engraver (c)
 {
   text_ = 0;
   last_stanza_ = SCM_EOL;
@@ -59,7 +60,7 @@ Stanza_number_engraver::process_music ()
   SCM stanza = get_property ("stanza");
 
   if (Text_interface::is_markup (stanza)
-      && stanza != last_stanza_)
+      && !scm_is_eq (stanza, last_stanza_))
     {
       last_stanza_ = stanza;
 

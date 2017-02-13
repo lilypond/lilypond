@@ -132,7 +132,8 @@ protected:
   void process_music ();
 };
 
-Figured_bass_engraver::Figured_bass_engraver ()
+Figured_bass_engraver::Figured_bass_engraver (Context *c)
+  : Engraver (c)
 {
   alignment_ = 0;
   continuation_ = false;

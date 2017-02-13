@@ -65,7 +65,8 @@ ADD_TRANSLATOR (Default_bar_line_engraver,
                 ""
                );
 
-Default_bar_line_engraver::Default_bar_line_engraver ()
+Default_bar_line_engraver::Default_bar_line_engraver (Context *c)
+  : Engraver (c)
 {
   last_moment_.main_part_ = Rational (-1);
 }

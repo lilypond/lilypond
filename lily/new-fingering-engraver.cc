@@ -364,7 +364,8 @@ New_fingering_engraver::position_all ()
   articulations_.clear ();
 }
 
-New_fingering_engraver::New_fingering_engraver ()
+New_fingering_engraver::New_fingering_engraver (Context *c)
+  : Engraver (c)
 {
   stem_ = 0;
 }

@@ -38,7 +38,8 @@ protected:
   void stop_translation_timestep ();
 };
 
-Grace_spacing_engraver::Grace_spacing_engraver ()
+Grace_spacing_engraver::Grace_spacing_engraver (Context *c)
+  : Engraver (c)
 {
   grace_spacing_ = 0;
 }

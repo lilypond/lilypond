@@ -94,7 +94,8 @@ public:
   TRANSLATOR_DECLARATIONS (Tie_engraver);
 };
 
-Tie_engraver::Tie_engraver ()
+Tie_engraver::Tie_engraver (Context *c)
+  : Engraver (c)
 {
   event_ = 0;
   tie_column_ = 0;

@@ -2251,6 +2251,14 @@ Set the dimensions of @var{arg} to @var{x} and@tie{}@var{y}."
       `(delay-stencil-evaluation ,(delay expr))
       x y))))
 
+(define-markup-command (with-outline layout props outline arg)
+  (markup? markup?)
+  #:category other
+  "
+Print @var{arg} with the outline and dimensions of @var{outline}."
+  (ly:stencil-outline (interpret-markup layout props arg)
+                      (interpret-markup layout props outline)))
+
 (define-markup-command (with-dimensions-from layout props arg1 arg2)
   (markup? markup?)
   #:category other
@@ -2333,10 +2341,7 @@ Add padding @var{amount} around @var{arg} in the X@tie{}direction.
   }
 }
 @end lilypond"
-  (let* ((m (interpret-markup layout props arg))
-         (x (ly:stencil-extent m X))
-         (y (ly:stencil-extent m Y)))
-    (ly:make-stencil (list 'transparent-stencil (ly:stencil-expr m)) x y)))
+  (ly:stencil-outline empty-stencil (interpret-markup layout props arg)))
 
 (define-markup-command (pad-to-box layout props x-ext y-ext arg)
   (number-pair? number-pair? markup?)

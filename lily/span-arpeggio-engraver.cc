@@ -50,7 +50,8 @@ private:
   vector<Grob *> note_columns_;
 };
 
-Span_arpeggio_engraver::Span_arpeggio_engraver ()
+Span_arpeggio_engraver::Span_arpeggio_engraver (Context *c)
+  : Engraver (c)
 {
   span_arpeggio_ = 0;
 }

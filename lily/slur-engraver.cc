@@ -53,7 +53,8 @@ Slur_engraver::object_name () const
   return "slur";
 }
 
-Slur_engraver::Slur_engraver ()
+Slur_engraver::Slur_engraver (Context *c)
+  : Engraver (c)
 {
 }
 

@@ -36,7 +36,8 @@ private:
   Audio_text *audio_;
 };
 
-Lyric_performer::Lyric_performer ()
+Lyric_performer::Lyric_performer (Context *c)
+  : Performer (c)
 {
   audio_ = 0;
 }

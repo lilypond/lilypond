@@ -507,12 +507,13 @@ If @code{x11-color} cannot make sense of the parameter then the
 color returned defaults to black.
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  \override Staff.StaffSymbol.color = #(x11-color 'SlateBlue2)
-  \set Staff.instrumentName = \markup {
-    \with-color #(x11-color 'navy) "Clarinet"
+\new Staff \with {
+  instrumentName = \markup {
+    \with-color #(x11-color 'red) "Clarinet"
+    }
   }
-
+  \relative c'' {
+  \override Staff.StaffSymbol.color = #(x11-color 'SlateBlue2)
   gis8 a
   \override Beam.color = #(x11-color "medium turquoise")
   gis a
@@ -536,12 +537,13 @@ Exact RGB colors can be specified using the Scheme function
 @code{rgb-color}.
 
 @lilypond[verbatim,quote]
+\new Staff \with {
+  instrumentName = \markup {
+    \with-color #(x11-color 'red) "Clarinet"
+    }
+  }
 \relative c'' {
   \override Staff.StaffSymbol.color = #(x11-color 'SlateBlue2)
-  \set Staff.instrumentName = \markup {
-    \with-color #(x11-color 'navy) "Clarinet"
-  }
-
   \override Stem.color = #(rgb-color 0 0 0)
   gis8 a
   \override Stem.color = #(rgb-color 1 1 1)

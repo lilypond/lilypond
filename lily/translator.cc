@@ -33,13 +33,6 @@ Translator::~Translator ()
 }
 
 void
-Translator::init ()
-{
-  daddy_context_ = 0;
-  smobify_self ();
-}
-
-void
 Translator::process_music ()
 {
 }
@@ -49,15 +42,10 @@ Translator::process_acknowledged ()
 {
 }
 
-Translator::Translator ()
+Translator::Translator (Context *c)
+  : daddy_context_ (c)
 {
-  init ();
-}
-
-Translator::Translator (Translator const &)
-  : Smob<Translator> ()
-{
-  init ();
+  smobify_self ();
 }
 
 Moment
@@ -160,7 +148,7 @@ Translator::static_translator_description (const char *grobs,
                                            const char *desc,
                                            SCM listener_list,
                                            const char *read,
-                                           const char *write) const
+                                           const char *write)
 {
   SCM static_properties = SCM_EOL;
 

@@ -51,7 +51,8 @@ protected:
   void stop_translation_timestep ();
 };
 
-Tab_tie_follow_engraver::Tab_tie_follow_engraver ()
+Tab_tie_follow_engraver::Tab_tie_follow_engraver (Context *c)
+  : Engraver (c)
 {
 }
 

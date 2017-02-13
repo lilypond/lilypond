@@ -512,7 +512,7 @@ opening bracket will be drawn, for @code{RIGHT} we get the closing bracket."
                                               (interval-start extent)
                                               Y))))
 
-    (if (eq? dir LEFT)
+    (if (eqv? dir LEFT)
         stencil
         (ly:stencil-scale stencil -1 1))))
 

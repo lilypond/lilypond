@@ -107,7 +107,8 @@ Bend_engraver::acknowledge_note_head (Grob_info info)
                                                 now_mom ());
 }
 
-Bend_engraver::Bend_engraver ()
+Bend_engraver::Bend_engraver (Context *c)
+  : Engraver (c)
 {
   fall_ = 0;
   last_fall_ = 0;

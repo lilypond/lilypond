@@ -55,7 +55,8 @@ Note_spacing_engraver::derived_mark () const
     scm_gc_mark (i->first->self_scm ());
 }
 
-Note_spacing_engraver::Note_spacing_engraver ()
+Note_spacing_engraver::Note_spacing_engraver (Context *c)
+  : Engraver (c)
 {
   spacing_ = 0;
   last_spacing_ = 0;

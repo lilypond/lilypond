@@ -39,7 +39,8 @@ protected:
   void process_music ();
 };
 
-Slash_repeat_engraver::Slash_repeat_engraver ()
+Slash_repeat_engraver::Slash_repeat_engraver (Context *c)
+  : Engraver (c)
 {
   slash_ = 0;
 }

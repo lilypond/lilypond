@@ -26,7 +26,8 @@
 SCM
 Spring::equal_p (SCM a, SCM b)
 {
-  return a == b ? SCM_BOOL_T : SCM_BOOL_F;
+  // TODO SCM: This could be made simpler.
+  return scm_is_eq (a, b) ? SCM_BOOL_T : SCM_BOOL_F;
 }
 
 LY_DEFINE (ly_make_spring, "ly:make-spring",

@@ -2719,8 +2719,8 @@ context_mod:
 	| context_def_mod embedded_scm
 	{
 		if (!scm_is_string ($2)
-		    && ly_symbol2scm ("consists") != $1
-		    && ly_symbol2scm ("remove") != $1)
+		    && !scm_is_eq ($1, ly_symbol2scm ("consists"))
+		    && !scm_is_eq ($1, ly_symbol2scm ("remove")))
 		{
 			$$ = SCM_EOL;
 			parser->parser_error (@1, _ ("only \\consists and \\remove take non-string argument."));

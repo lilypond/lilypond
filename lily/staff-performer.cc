@@ -112,8 +112,9 @@ ADD_TRANSLATOR (Staff_performer,
                 /* write */
                 "");
 
-Staff_performer::Staff_performer ()
-  : channel_ (-1),
+Staff_performer::Staff_performer (Context *c)
+  : Performer (c),
+    channel_ (-1),
     instrument_ (0),
     instrument_name_ (0),
     name_ (0),

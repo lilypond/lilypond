@@ -470,7 +470,7 @@ get_line_forces (vector<Grob *> const &columns,
                 force[b * breaks.size () + c] = infinity_f;
               break;
             }
-          if (end < cols.size () && cols[end].break_permission_ == force_break)
+          if (end < cols.size () && scm_is_eq (cols[end].break_permission_, force_break))
             break;
         }
     }

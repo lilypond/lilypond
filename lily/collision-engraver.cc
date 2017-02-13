@@ -73,7 +73,8 @@ Collision_engraver::stop_translation_timestep ()
   note_columns_.clear ();
 }
 
-Collision_engraver::Collision_engraver ()
+Collision_engraver::Collision_engraver (Context *c)
+  : Engraver (c)
 {
   col_ = 0;
 }

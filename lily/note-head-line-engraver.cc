@@ -51,7 +51,8 @@ private:
   Grob *last_head_;
 };
 
-Note_head_line_engraver::Note_head_line_engraver ()
+Note_head_line_engraver::Note_head_line_engraver (Context *c)
+  : Engraver (c)
 {
   line_ = 0;
   follow_ = false;

@@ -1825,6 +1825,7 @@ LilyPond-specific?
 * The override command::
 * The tweak command::
 * set versus override::
+* The offset command::
 * Modifying alists::
 @end menu
 
@@ -2502,6 +2503,317 @@ properties by bypassing all context properties completely and, instead,
 catch grobs as they are being created, setting properties on them for
 a music event (@code{\tweak}) or, in the case of
 @code{\overrideProperty} for a specific override.
+
+
+@node The offset command
+@subsection The @code{\offset} command
+
+@funindex \offset
+@cindex offsetting
+@cindex defaults, offsetting
+
+While it is possible to set grob properties to new values with the
+@code{\override}, @code{\tweak}, and @code{\overrideProperty} commands,
+it is often more convenient to modify such properties relative to a
+default value.  The @code{\offset} command is available for this
+purpose.
+
+The syntax for @code{\offset} is
+
+@example
+[-]\offset @var{property} @var{offsets} @var{item}
+@end example
+
+The command works by adding the contents of @var{offsets} to the
+default setting of the property @var{property} of the grob indicated by
+@var{item}.
+
+Depending on the formulation of the command, @code{\offset} may act
+as either a @code{\tweak} or @code{\override}.  The variations in
+usage are discussed after consideration is given to grob properties
+that may be used with @code{\offset}.
+
+@subsubsubheading{Properties which may be offset}
+
+Many, but not all, grob properties may be offset.  If @var{property}
+cannot be offset, the object will remain unchanged and a warning will
+be issued.  In such cases, @code{\override} or @code{\tweak} should be
+used to modify the object instead.
+
+One can work by trial and error and let the warnings be the guide to
+what may or may not be offset.  A more systematic approach is possible,
+however.
+
+The following criteria determine whether a property can be modified with
+@code{\offset}:
+
+@itemize
+
+@item
+The property has a @q{default setting} in the grob's description.  Such
+properties are listed for each grob in @rinternals{All layout objects}.
+(They are also found in @file{scm/define-grobs.scm}.)
+
+@item
+The property takes a numerical value.  Numerical values include
+@code{number}, list of @code{number}s, @code{number-pair}, and
+@code{number-pair-list}.  The pages at @rinternals{All layout objects}
+list the type of data characteristic to each property.  It is immaterial
+whether the default setting is a function.
+
+@item
+The property cannot be a @q{subproperty}---a property residing within
+another property.
+
+@item
+Properties set to infinite values cannot be offset.  There is no
+sensible way to offset positive and negative infinity.
+@end itemize
+
+The following examples consider several grob properties against the
+criteria outlined above.
+
+@itemize
+
+@item Properties that may be offset
+
+@table @asis
+
+@item @code{Hairpin.height}
+
+This property is not a subproperty, and it is listed at
+@rinternals{Hairpin}.  For a value, it takes @q{dimension, in staff
+space} set to @code{0.6666}---clearly a non-infinite @code{number}.
+
+@item @code{Arpeggio.positions}
+
+The page @rinternals{Arpeggio} lists a @code{positions} property which
+accepts a @q{pair of numbers}.  It defaults to
+@code{ly:arpeggio::positions}---a callback which will be evaluated
+during the typesetting phase to yield a pair of numbers for any given
+@code{Arpeggio} object.
+
+@end table
+
+@item Properties that may not be offset
+
+@table @asis
+
+@item @code{Hairpin.color}
+
+There is no listing for @code{color} at @rinternals{Hairpin}.
+
+@item @code{Hairpin.circled-tip}
+
+The listing for @code{Hairpin.circled-tip} at @rinternals{Hairpin} shows
+that it takes a @code{boolean} value.  Booleans are non-numerical.
+
+@item @code{Stem.details.lengths}
+
+Though listed at @rinternals{Stem} and defaulting to a list of
+@code{number}s, this is a @q{subproperty}.  There is currently no
+support for @q{nested properties}.
+
+@end table
+
+@end itemize
+
+@subsubsubheading{@bs{}offset as an override}
+
+If @var{item} is a grob name like @code{Arpeggio} or
+@code{Staff.OttavaBracket}, the result is an @code{\override} of the
+specified grob-type.
+
+@example
+\offset @var{property} @var{offsets} [@var{context}.]@var{GrobName}
+@end example
+
+Note that the leading hyphen is @emph{never} used with the @q{override}
+form, just as it is never used with the @code{\override} command itself.
+
+The following example uses the @q{override} form to lengthen the
+default arpeggios shown in the first measure to cover the extent of
+the chords more fully.  The arpeggios are stretched by a half
+staff-space to top and bottom.  Also shown is the same operation done on
+the first chord with an ordinary override of the @code{positions}
+property.  This method is not at all expressive of the task of
+@q{stretching by a half staff-space}, as the endpoints must be specified
+with absolute rather than relative coordinates.  Furthermore, individual
+overrides would be needed for the other chords, as they vary in size and
+position.
+
+@lilypond[quote,verbatim]
+arpeggioMusic = {
+  <c' e' g'>\arpeggio <a' c'' e''>\arpeggio
+  <d' f' a' c''>\arpeggio <c' e' g' b' d'' f'' a''>\arpeggio
+}
+
+{
+  \arpeggioMusic
+  \bar "||"
+  \offset positions #'(-0.5 . 0.5) Arpeggio
+  \arpeggioMusic
+  \bar "||"
+  \once \override Arpeggio.positions = #'(-3.5 . -0.5)
+  <c' e' g'>1\arpeggio
+  \bar "||"
+}
+@end lilypond
+
+In its @q{override} usage, @code{\offset} may be prefaced with
+@code{\once} or @code{\temporary} and reverted using @code{\revert} with
+@var{property}.  This follows from the fact that @code{\offset} actually
+creates an @code{\override} of @var{property}.
+
+@lilypond[quote,verbatim]
+music = { c'8\< d' e' f'\! }
+
+{
+  \music
+  \offset height 1 Hairpin
+  \music
+  \music
+  \revert Hairpin.height
+  \music
+  \bar "||"
+  \once \offset height 1 Hairpin
+  \music \music
+  \bar "||"
+  \override Hairpin.height = 0.2
+  \music
+  \temporary \offset height 2 Hairpin
+  \music
+  \music
+  \revert Hairpin.height
+  \music
+  \bar "||"
+}
+@end lilypond
+
+Also like @code{\override}, the @q{override} form of @code{\offset} may
+be used with @code{\undo} and @code{\single}.
+
+@lilypond[quote,verbatim]
+longStem = \offset length 6 Stem
+
+{
+ \longStem c'4 c''' c' c''
+ \bar "||"
+ \undo \longStem c'4 c''' c' c''
+ \bar "||"
+ \single \longStem c'4 c''' c' c''
+ \bar "||"
+}
+@end lilypond
+
+@subsubsubheading{@bs{}offset as a tweak}
+
+If @var{item} is a music expression such as @code{(} or
+@code{\arpeggio}, the result is the same music expression with a tweak
+applied.
+
+@example
+[-]\offset [@var{GrobName}.]@var{property} @var{offsets} @var{music-expression}
+@end example
+
+The syntax of @code{\offset} in its @q{tweak} form is analogous to the
+@code{\tweak} command itself, both in ordering and in the presence or
+absence of the leading hyphen.
+
+The following example uses the @q{tweak} form to adjust the vertical
+position of the @code{BreathingSign} object.  Compare this with the
+ordinary @code{\tweak} command also demonstrated.  The syntax is
+equivalent; however, the output of @code{\tweak} is less intuitive,
+since @code{BreathingSign.Y-offset} is calculated from the middle
+staff-line.  It is not necessary to know how @code{Y-offset} is
+calculated when using @code{\offset}.
+
+@lilypond[quote,verbatim]
+{
+  c''4
+  \breathe
+  c''4
+  \offset Y-offset 2 \breathe
+  c''2
+  \tweak Y-offset 3 \breathe
+}
+@end lilypond
+
+In the previous example, the tweaked objects were created directly from
+the user input: the @code{\breathe} command was an explicit instruction
+to return a @code{BreathingSign} object.  Since the focus of the command
+was unambiguous, there was no need to specify the object's name.  When
+an object is @emph{indirectly} created, however, it is necessary to
+include the grob's name.  This is the same as for the @code{\tweak}
+command.
+
+In the following example, the @code{Beam} object is lowered two
+staff-spaces by applying @code{\offset} to the @code{positions}
+property.
+
+The first application of @code{\offset} requires that the grob's name
+be included, because nothing in the input explicitly creates the
+beam.  In the second application, the beam is created manually with the
+music expression @code{[}; therefore, the grob's name is not needed.
+(Also illustrated is a shorthand: a single @code{number} will be applied
+to both members of a @code{number-pair}.)
+
+@lilypond[quote,verbatim]
+{
+  c''8 g'' e'' d''
+  \offset Beam.positions #'(-2 . -2)
+  c''8 g'' e'' d''
+  c''8 g'' e'' d''
+  c''8-\offset positions #-2 [ g'' e'' d'']
+}
+@end lilypond
+
+@subsubsubheading{@bs{}offset with broken spanners}
+
+Independently modifying segments of a spanner extending over a line
+break or breaks is also possible.  In this case, @var{offsets}
+takes a list of values of the property's required data type.
+
+The @code{\offset} command used in this manner is similar to the
+@code{\alterBroken} command.  (See @ref{Modifying broken spanners}.)
+In contrast with @code{\alterBroken}, however, the values given to
+@code{\offset} are relative, not absolute.
+
+The following example displaces the @q{broken} @code{OttavaBracket}
+object through its @code{staff-padding} property.  Since the property
+takes a @code{number}, @var{offsets} is provided with a list of
+@code{number}s to account for the two segments created by the line
+break.  The slur piece on the first line is effectively untouched since
+@code{0} is added to its default value.  The segment on the second
+line is raised two staff-spaces from its default height.  The default
+height happens to be @code{2}, though it is not necesssary to know this.
+
+@lilypond[quote,verbatim]
+{
+  \offset staff-padding #'(0 3) Staff.OttavaBracket
+  \ottava #1
+  c'''2 c'''
+  \break
+  c'''2 c'''
+}
+@end lilypond
+
+The following example mimics the effect of the @code{\shape} command by
+offsetting the @code{control-points} property of the @code{Slur} object.
+Here, @var{offsets} is a list of @code{number-pair-list}s, one for each
+slur segment.  This example achieves a result identical to the
+corresponding illustration at @ref{Modifying shapes}.
+
+@lilypond[quote,verbatim]
+{
+  c'4-\offset control-points #'(
+               ((0 . 0) (0 . 0) (0 . 0) (0 . 1))
+               ((0.5 . 1.5) (1 . 0) (0 . 0) (0 . -1.5))
+              ) ( f'4 g' c''
+  \break
+  d'4 c'' f' c')
+}
+@end lilypond
 
 
 @node Modifying alists

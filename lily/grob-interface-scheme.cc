@@ -19,18 +19,15 @@
 
 #include "lily-guile.hh"
 #include "std-string.hh"
+#include "protected-scm.hh"
 
-static SCM all_ifaces;
+static Protected_scm all_ifaces;
 
 void
 internal_add_interface (SCM a, SCM b, SCM c)
 {
-  if (!all_ifaces)
-    {
-      SCM tab = scm_c_make_hash_table (59);
-      all_ifaces = tab;
-      scm_permanent_object (tab);
-    }
+  if (!all_ifaces.is_bound ())
+    all_ifaces = scm_c_make_hash_table (59);
 
   SCM entry = scm_list_3 (a, b, c);
 

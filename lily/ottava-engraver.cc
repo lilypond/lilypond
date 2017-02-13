@@ -52,7 +52,8 @@ Ottava_spanner_engraver::derived_mark () const
   scm_gc_mark (last_ottavation_);
 }
 
-Ottava_spanner_engraver::Ottava_spanner_engraver ()
+Ottava_spanner_engraver::Ottava_spanner_engraver (Context *c)
+  : Engraver (c)
 {
   finished_ = 0;
   span_ = 0;
@@ -63,7 +64,7 @@ void
 Ottava_spanner_engraver::process_music ()
 {
   SCM ott = get_property ("ottavation");
-  if (ott != last_ottavation_)
+  if (!scm_is_eq (ott, last_ottavation_))
     {
       finished_ = span_;
       span_ = 0;

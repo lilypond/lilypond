@@ -287,10 +287,10 @@
 #(define (ac:up note)
   (let* ((pitch (ly:music-property note 'pitch))
          (notename (ly:pitch-notename pitch))
-         (new-notename (if (eq? notename 6) 0 (+ 1 notename)))
+         (new-notename (if (eqv? notename 6) 0 (+ 1 notename)))
          (alterations (ly:music-property ac:current-key 'pitch-alist))
          (new-alteration (cdr (assq new-notename alterations)))
-         (new-octave (if (eq? new-notename 0) (+ 1 (ly:pitch-octave pitch))
+         (new-octave (if (eqv? new-notename 0) (+ 1 (ly:pitch-octave pitch))
                       (ly:pitch-octave pitch)))
        )
    (set! (ly:music-property note 'pitch)(ly:make-pitch new-octave new-notename new-alteration))))
@@ -300,10 +300,10 @@
 #(define (ac:down note)
   (begin  (let* ((pitch (ly:music-property note 'pitch))
          (notename (ly:pitch-notename pitch))
-         (new-notename (if (eq? notename 0) 6 (- notename 1)))
+         (new-notename (if (eqv? notename 0) 6 (- notename 1)))
          (alterations (ly:music-property ac:current-key 'pitch-alist))
          (new-alteration (cdr (assq new-notename alterations)))
-         (new-octave (if (eq? new-notename 6) (- (ly:pitch-octave pitch) 1)
+         (new-octave (if (eqv? new-notename 6) (- (ly:pitch-octave pitch) 1)
                       (ly:pitch-octave pitch)))
        )
    (set! (ly:music-property note 'pitch)(ly:make-pitch new-octave new-notename new-alteration))))
@@ -647,20 +647,20 @@
 
        ((SlurEvent)
         (let ((direction (ly:music-property e 'span-direction)))
-         (set! ac:inSlur (eq? direction -1))
-         (set! at-end-of-slur (eq? direction 1))
+         (set! ac:inSlur (eqv? direction -1))
+         (set! at-end-of-slur (eqv? direction 1))
          (loop factor newelements tail actions)))
 
        ((TrillSpanEvent)
         (let ((direction (ly:music-property e 'span-direction)))
-         (set! ac:inTrill (eq? direction -1))
+         (set! ac:inTrill (eqv? direction -1))
          (if ac:inTrill
           (loop factor newelements tail (cons 'trill actions))
           (loop factor (cons e newelements) tail actions))))
 
        ((PhrasingSlurEvent)
         (let ((direction (ly:music-property e 'span-direction)))
-         (set! ac:inPhrasingSlur (eq? direction -1))
+         (set! ac:inPhrasingSlur (eqv? direction -1))
          (loop factor newelements tail actions)))
 
        (else (loop factor (cons e newelements) tail actions))))))))
@@ -692,7 +692,7 @@
           (len (ly:duration-log ac:currentDuration))
           (dots (ly:duration-dot-count ac:currentDuration)))
 
-         (if (not (eq? num denom))
+         (if (not (eqv? num denom))
           (make-sequential-music
            (list (ac:to128 music)
            (make-music 'EventChord 'elements
@@ -1013,7 +1013,7 @@ articulate = #(define-music-function (music)
          (grace-orig-len (ly:music-length grace))
          (main-orig-len (ly:music-length main))
          (numerator (ly:moment-main-numerator maindur))
-         (factor (if (eq? (remainder numerator 3) 0)
+         (factor (if (eqv? (remainder numerator 3) 0)
                   (ly:make-moment 1/3) (ly:make-moment 1/2))))
    (ly:music-compress grace
     (ly:moment-mul factor (ly:moment-div main-orig-len grace-orig-len)))

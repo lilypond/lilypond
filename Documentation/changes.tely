@@ -108,7 +108,7 @@ that combine the characteristics of @code{modern-voice} and @code{piano}
 or their equivalents with cautionary accidentals.
 
 @item
-The music function @code{\\unfoldRepeats} can now take an
+The music function @code{\unfoldRepeats} can now take an
 optional argument-list specifying which type(s) of repeated music
 should be unfolded.  Possible entries are @code{percent}, @code{tremolo},
 @code{volta}.

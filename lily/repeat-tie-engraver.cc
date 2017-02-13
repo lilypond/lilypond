@@ -39,7 +39,8 @@ public:
   TRANSLATOR_DECLARATIONS (Repeat_tie_engraver);
 };
 
-Repeat_tie_engraver::Repeat_tie_engraver ()
+Repeat_tie_engraver::Repeat_tie_engraver (Context *c)
+  : Engraver (c)
 {
   event_ = 0;
   semi_tie_column_ = 0;

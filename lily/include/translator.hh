@@ -30,9 +30,50 @@
 #include "std-vector.hh"
 #include "protected-scm.hh"
 
+// The Translator_creator class is only for translators defined in C.
+// Its elements are callable entities taking a context argument and
+// returning a corresponding translator.
+//
+// Other translator-creating entities may be alists and functions returning
+// such alists.  Information for those, such as created grobs/properties
+// is attached via object properties.
+
+// Smob rather than Simple_smob since we want an entity for
+// property lookup.
+
+class Translator_creator : public Smob<Translator_creator>
+{
+  Translator_creator (Translator_creator const &); // don't define
+  Translator * (*allocate_)(Context *);
+  template <class T>
+  static Translator *allocate (Context *ctx);
+
+  Translator_creator (Translator * (*allocate)(Context *))
+    : allocate_(allocate)
+  {
+    smobify_self ();
+  }
+public:
+  // This is stupid, but constructors cannot have explicit template
+  // argument lists.
+  template <class T>
+  static Translator_creator *alloc()
+  {
+    return new Translator_creator(&allocate<T>);
+  }
+  SCM call (SCM ctx);
+  LY_DECLARE_SMOB_PROC (&Translator_creator::call, 1, 0, 0);
+};
+
+template <class T> Translator *
+Translator_creator::allocate (Context *ctx)
+{
+  return new T(ctx);
+}
+
 #define TRANSLATOR_FAMILY_DECLARATIONS(NAME)                            \
   public:                                                               \
-  VIRTUAL_COPY_CONSTRUCTOR (Translator, NAME);                          \
+  DECLARE_CLASSNAME (NAME);                                             \
   virtual void fetch_precomputable_methods (SCM methods[]);             \
   DECLARE_TRANSLATOR_CALLBACKS (NAME);                                  \
   TRANSLATOR_INHERIT (Translator);                                      \
@@ -69,7 +110,6 @@
   public:                                                               \
   TRANSLATOR_FAMILY_DECLARATIONS (NAME);                                \
   static Drul_array<Protected_scm> acknowledge_static_array_drul_;      \
-  static SCM static_description_;                                       \
   static Protected_scm listener_list_;                                  \
   static SCM static_get_acknowledger (SCM sym, Direction start_end);    \
   virtual SCM get_acknowledger (SCM sym, Direction start_end)           \
@@ -77,10 +117,9 @@
     return static_get_acknowledger (sym, start_end);                    \
   }                                                                     \
 public:                                                                 \
-  NAME ();                                                              \
+  NAME (Context *);                                                     \
   static void boot ();                                                  \
-  virtual SCM static_translator_description () const;                   \
-  virtual SCM translator_description () const;                          \
+  static SCM static_translator_description ();                          \
   virtual SCM get_listener_list () const                                \
   {                                                                     \
     return listener_list_;                                              \
@@ -106,14 +145,14 @@ public:
   SCM mark_smob () const;
   static const char * const type_p_name_;
   virtual ~Translator ();
-private:
-  void init ();
 
-public:
   Context *context () const { return daddy_context_; }
 
-  Translator ();
-  Translator (Translator const &);
+protected:
+  Translator (Context *);
+private:
+  Translator (Translator const &); // not copyable
+public:
 
   SCM internal_get_property (SCM symbol) const;
 
@@ -137,10 +176,9 @@ public:
   Global_context *get_global_context () const;
 
   DECLARE_CLASSNAME (Translator);
-  virtual Translator *clone () const = 0;
+
   virtual void fetch_precomputable_methods (SCM methods[]) = 0;
   virtual SCM get_listener_list () const = 0;
-  virtual SCM translator_description () const = 0;
   virtual SCM get_acknowledger (SCM sym, Direction start_end) = 0;
 
 protected:                      // should be private.
@@ -167,22 +205,22 @@ protected:                      // should be private.
 
   virtual void derived_mark () const;
   static SCM event_class_symbol (const char *ev_class);
-  SCM static_translator_description (const char *grobs,
-                                     const char *desc,
-                                     SCM listener_list,
-                                     const char *read,
-                                     const char *write) const;
+  static SCM
+  static_translator_description (const char *grobs,
+                                 const char *desc,
+                                 SCM listener_list,
+                                 const char *read,
+                                 const char *write);
 
   friend class Translator_group;
 };
 
-void add_translator (Translator *trans);
-
-Translator *get_translator (SCM s);
-
 SCM
 generic_get_acknowledger (SCM sym, SCM ack_hash);
 
+void add_translator_creator (SCM creator, SCM name, SCM description);
+
+SCM get_translator_creator (SCM s);
 Moment get_event_length (Stream_event *s, Moment now);
 Moment get_event_length (Stream_event *s);
 

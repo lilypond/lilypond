@@ -37,7 +37,8 @@ protected:
   void stop_translation_timestep ();
 };
 
-Dot_column_engraver::Dot_column_engraver ()
+Dot_column_engraver::Dot_column_engraver (Context *c)
+  : Engraver (c)
 {
   dotcol_ = 0;
 }

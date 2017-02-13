@@ -42,7 +42,8 @@ private:
   bool beam_;
 };
 
-Beam_performer::Beam_performer ()
+Beam_performer::Beam_performer (Context *c)
+  : Performer (c)
 {
   beam_ = false;
   start_ev_ = 0;

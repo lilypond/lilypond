@@ -44,7 +44,8 @@ Grid_point_engraver::process_music ()
     }
 }
 
-Grid_point_engraver::Grid_point_engraver ()
+Grid_point_engraver::Grid_point_engraver (Context *c)
+  : Engraver (c)
 {
 }
 
