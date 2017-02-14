@@ -94,7 +94,7 @@ One_page_breaking::solve ()
     {
       SCM this_pos = scm_car (c);
       line_posns.push_back (scm_to_double (this_pos));
-      if (scm_gr_p (this_pos, lowest_line_pos))
+      if (scm_is_true (scm_gr_p (this_pos, lowest_line_pos)))
         lowest_line_pos = this_pos;
     }
 
