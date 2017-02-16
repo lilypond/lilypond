@@ -302,13 +302,13 @@ already decided to try LilyPond, first read about our
 @unnumberedsec Examples
 
 @divClass{column-center-top}
-
 @subheading Beautiful Examples
 
 LilyPond is a powerful and flexible tool for engraving tasks of
 all kinds.  Please browse our gallery of examples and be inspired!
 
 @divEnd
+
 
 @divClass{column-center-middle-color2}
 @subheading Classical Music
@@ -318,6 +318,7 @@ in LilyPond.
 
 @exampleImage{bach-bwv610}
 @divEnd
+
 
 @divClass{column-center-middle-color2}
 @subheading Complex Notation
@@ -329,6 +330,7 @@ beams, cross-staff stems, and voice-follow lines.
 @exampleImage{granados}
 @divEnd
 
+
 @divClass{column-center-middle-color2}
 @subheading Early Music
 
@@ -337,6 +339,7 @@ as this passage of Gregorian chant.
 
 @exampleImage{ancient-headword}
 @divEnd
+
 
 @divClass{column-center-middle-color2}
 @subheading Modern Music
@@ -365,6 +368,7 @@ full score, piano-vocal reduction, and a violin part.
 
 @divEnd
 
+
 @divClass{column-center-middle-color2}
 @subheading Tablature
 
@@ -376,25 +380,6 @@ staff.
 @exampleImage{tab-example}
 @divEnd
 
-@divClass{column-center-middle-color2}
-@subheading Schenker Graphs
-
-Standard output can be modified heavily.  Here is an impressive
-Schenkerian analysis, created by Kris Schaffer, for an article
-in @uref{http://www.linuxjournal.com/article/8364 , Linux Journal}.
-The colors have been added for better visibility.
-
-@exampleImage{bach-schenker}
-@divEnd
-
-@divClass{column-center-middle-color2}
-@subheading Customized Output
-
-A short excerpt from Stockhausen's Klavierstück II to demonstrate
-LilyPond's ability to provide customised output.
-
-@exampleImage{Stockhausen_Klavierstueck2}
-@divEnd
 
 @divClass{column-center-middle-color2}
 @subheading Vocal Music
@@ -410,14 +395,6 @@ and the ligature braces above certain groups of notes.
 @exampleImage{aucun-snippet}
 @divEnd
 
-@divClass{column-center-middle-color2}
-@subheading Educational Applications
-
-LilyPond is perfectly suited for educational purposes as well.
-Here is an example of a simple counterpoint exercise.
-
-@exampleImage{theory}
-@divEnd
 
 @divClass{column-center-middle-color2}
 @subheading Lead Sheets
@@ -430,6 +407,17 @@ to suit nearly any situation.
 @exampleImage{chart}
 @divEnd
 
+
+@divClass{column-center-middle-color2}
+@subheading Educational Applications
+
+LilyPond is perfectly suited for educational purposes as well.
+Here is an example of a simple counterpoint exercise.
+
+@exampleImage{theory}
+@divEnd
+
+
 @divClass{column-center-middle-color2}
 @subheading Large Projects
 
@@ -440,6 +428,29 @@ contributed by Hu Haipeng, a blind composer.
 
 @exampleImage{orchestra}
 @divEnd
+
+
+@divClass{column-center-middle-color2}
+@subheading Customized Output
+
+A short excerpt from Stockhausen's Klavierstück II to demonstrate
+LilyPond's ability to provide customised output.
+
+@exampleImage{Stockhausen_Klavierstueck2}
+@divEnd
+
+
+@divClass{column-center-middle-color2}
+@subheading Schenker Graphs
+
+Standard output can be modified heavily.  Here is an impressive
+Schenkerian analysis, created by Kris Schaffer, for an article
+in @uref{http://www.linuxjournal.com/article/8364 , Linux Journal}.
+The colors have been added for better visibility.
+
+@exampleImage{bach-schenker}
+@divEnd
+
 
 @divClass{column-center-bottom}
 @subheading Where now?
