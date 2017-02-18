@@ -907,7 +907,7 @@ encourage you to get in touch with our community ahead of that.
 
 @divEnd
 
-@divClass{column-center-middle-color2}
+@divClass{column-center-middle-color2 bigger-subsubheadings}
 @subheading Project Ideas List
 
 Below is a list of GSoC project ideas (last update: January 2017), but
@@ -923,10 +923,8 @@ early as possible.
 A full list of all the current open issues can be found
 @uref{http://sourceforge.net/p/testlilyissues/issues/, here}.
 
-@divEnd
 
-@divClass{column-center-middle-color3}
-@subheading Improve internal chord structure
+@subsubheading Improve internal chord structure
 
 The internal representation of LilyPond chords is not powerful enough
 to capture the nomenclature of jazz chords.  Currently the chord has
@@ -937,16 +935,17 @@ complex chords must be developed.  As a bonus, once the internal
 representation is developed, the output formatting of chord names can
 be improved.
 
-@strong{Difficulty:} Easy/medium
-@strong{Requirements:} Scheme (Guile), but the level necessary can be
+@emph{Difficulty:} Easy/medium
+
+@emph{Requirements:} Scheme (Guile), but the level necessary can be
 easily learned
-@strong{Recommended:} Chord theory and naming
-@strong{Mentor:} Carl Sorensen
 
-@divEnd
+@emph{Recommended:} Chord theory and naming
 
-@divClass{column-center-middle-color3}
-@subheading Adopt the SMuFL music font encoding standard
+@emph{Mentor:} Carl Sorensen
+
+
+@subsubheading Adopt the SMuFL music font encoding standard
 
 For several years now a new standard for music fonts has been around:
 @uref{http://www.smufl.org/, SMuFL}, which is also discussed as becoming part of
@@ -963,17 +962,18 @@ glyphs.  As an optional part of this project LilyPond's font loading mechanism
 could be modified to use notation fonts installed as system fonts instead of
 inside the LilyPond installation.
 
-@strong{Difficulty:} Easy/medium
-@strong{Requirements:} C++ and willingness to get familiar with LilyPond
+@emph{Difficulty}: Easy/medium
+
+@emph{Requirements}: C++ and willingness to get familiar with LilyPond
 internals.
-@strong{Recommended:} Interest and experience in working with font files.
+
+@emph{Recommended}: Interest and experience in working with font files.
 A little bit of METAFONT.
-@strong{Mentors:} Werner Lemberg, Abraham Lee
 
-@divEnd
+@emph{Mentors}: Werner Lemberg, Abraham Lee
 
-@divClass{column-center-middle-color3}
-@subheading Adding variants of font glyphs
+
+@subsubheading Adding variants of font glyphs
 
 @divClass{keep-bullets}
 @itemize
@@ -990,15 +990,16 @@ it.
 @end itemize
 @divEnd
 
-@strong{Difficulty:} easy
-@strong{Requirements:} MetaFont, C++, good eye for details
-@strong{Recommended knowledge:} basic LilyPond knowledge
-@strong{Mentor:} Werner Lemberg
+@emph{Difficulty:} easy
 
-@divEnd
+@emph{Requirements:} MetaFont, C++, good eye for details
 
-@divClass{column-center-middle-color3}
-@subheading Contemporary Notation
+@emph{Recommended knowledge:} basic LilyPond knowledge
+
+@emph{Mentor:} Werner Lemberg
+
+
+@subsubheading Contemporary Notation
 
 LilyPond is very good at creating non-standard notation.  Having to
 @emph{code} every graphical element instead of simply @emph{drawing}
@@ -1014,16 +1015,17 @@ cover specific contemporary notation, such as for example the style
 of a given composer, extended playing techniques for a specific
 instrument or a certain category of effects.
 
-@strong{Difficulty:} medium
-@strong{Requirements:} Scheme (interaction with LilyPond internals),
+@emph{Difficulty:} medium
+
+@emph{Requirements:} Scheme (interaction with LilyPond internals),
 contemporary notation techniques
-@strong{Recommended:} sense of building hierarchical frameworks
-@strong{Mentors:} @strong{NN,} Urs Liska
 
-@divEnd
+@emph{Recommended:} sense of building hierarchical frameworks
 
-@divClass{column-center-middle-color3}
-@subheading Rewrite LibreOffice LilyPond Extension with Python
+@emph{Mentors:} @emph{NN,} Urs Liska
+
+
+@subsubheading Rewrite LibreOffice LilyPond Extension with Python
 
 The @uref{http://ooolilypond.sourceforge.net/, OOoLilyPond} extension
 made it possible to conveniently include LilyPond score snippets in
@@ -1039,17 +1041,18 @@ functionality from @uref{http://frescobaldi.org, Frescobaldi}, such as
 for example syntax highlighting, entry helpers, score wizards or musical
 transformations.
 
-@strong{Difficulty:} easy/medium
-@strong{Requirements:} Python, PyQt, LilyPond basics, LibreOffice
+@emph{Difficulty:} easy/medium
+
+@emph{Requirements:} Python, PyQt, LilyPond basics, LibreOffice
 extension basics
-@strong{Recommended knowledge:} Familiarity with Frescobaldi code based
+
+@emph{Recommended knowledge:} Familiarity with Frescobaldi code based
 or willingness to learn during bonding period
-@strong{Mentor(s):} Joram Berger, Urs Liska, (Thorsten Behrens/LibreOffice)
 
-@divEnd
+@emph{Mentor(s):} Joram Berger, Urs Liska, (Thorsten Behrens/LibreOffice)
 
-@divClass{column-center-middle-color3}
-@subheading Automated testing and documentation for openLilyLib
+
+@subsubheading Automated testing and documentation for openLilyLib
 
 @uref{https://github.com/openlilylib, openLilyLib} is an extension
 framework for LilyPond code providing a “snippets” repository and a
@@ -1086,16 +1089,16 @@ a Single Page Application could retrieve content for display on
 openLilyLib's @uref{https://openlilylib.org, website}.  Development of
 such a SPA @emph{can} be part of the GSoC project, but is optional.
 
-@strong{Difficulty:} medium
-@strong{Requirements:} Python or Scheme, static website generator(s) or
+@emph{Difficulty:} medium
+
+@emph{Requirements:} Python or Scheme, static website generator(s) or
 (Node.js based) dynamic web application technology. Continuous
 Integration (can be learned during the bonding period)
-@strong{Mentors:} Urs Liska, Matteo Ceccarello
 
-@divEnd
+@emph{Mentors:} Urs Liska, Matteo Ceccarello
 
-@divClass{column-center-middle-color3}
-@subheading MusicXML
+
+@subsubheading MusicXML
 
 Improving MusicXML import and export functions:
 
@@ -1118,12 +1121,16 @@ by David Garfinkle.  It should be checked if it is possible to use
 another XML library than the one provided by guile-2 in order to have
 this feature available in current LilyPond (which is based on guile-1.8).
 
-@strong{Difficulty:} medium
-@strong{Requirements:} MusicXML, Python, Scheme, basic LilyPond knowledge
-@strong{Recommended:} Familiarity with other scorewriters (for cross-testing)
-@strong{Mentor:} Jan-Peter Voigt
+@emph{Difficulty:} medium
+
+@emph{Requirements:} MusicXML, Python, Scheme, basic LilyPond knowledge
+
+@emph{Recommended:} Familiarity with other scorewriters (for cross-testing)
+
+@emph{Mentor:} Jan-Peter Voigt
 
 @divEnd
+
 
 @divClass{column-center-middle-color2}
 @subheading Information for Applicants/Participants
@@ -1406,32 +1413,29 @@ Developers' changelogs by version:
 
 @divEnd
 
-@divClass{column-center-middle-color2}
-@subheading Unused Google Summer of Code project suggestions
+@divClass{column-center-middle-color2 bigger-subsubheadings}
+@subheading Inactive Google Summer of Code project suggestions
 
 The following list describes GSoC projects that had been proposed
 in recent years and which are still considered valuable but for
 which we currently don't have mentors available.
 
-@divEnd
 
-@divClass{column-center-middle-color3}
-@subheading Improve slurs and ties
+@subsubheading Improve slurs and ties
 
 The engraving quality of slurs and ties is often unsatisfactory. Ties
 @q{broken} by clef or staff changes are not handled well.  The project
 could include collecting and sorting examples of bad output, deciding on
 the intended output and writing code to improve them.
 
-@strong{Difficulty:} hard
-@strong{Requirements:} C++, experience with writing heuristics
-@strong{Recommended knowledge:} LilyPond knowledge, aesthetic sense
+@emph{Difficulty:} hard
+
+@emph{Requirements:} C++, experience with writing heuristics
+
+@emph{Recommended knowledge:} LilyPond knowledge, aesthetic sense
 
 
-@divEnd
-
-@divClass{column-center-middle-color3}
-@subheading Grace notes
+@subsubheading Grace notes
 
 Fix problems with synchronization of grace notes.  Grace notes can
 interfere with LilyPond's timing and cause odd effects, especially when
@@ -1440,36 +1444,37 @@ This is one of the longest-standing and one of the more embarrassing
 @uref{https://sourceforge.net/p/testlilyissues/issues/34/,bugs} in
 LilyPond.
 
-@strong{Difficulty:} medium
-@strong{Requirements:} C++, MIDI
-@strong{Recommended:} familiarity with LilyPond internals
+@emph{Difficulty:} medium
 
-@divEnd
+@emph{Requirements:} C++, MIDI
 
-@divClass{column-center-middle-color3}
-@subheading Improve default beam positioning
+@emph{Recommended:} familiarity with LilyPond internals
+
+
+@subsubheading Improve default beam positioning
 
 For regular, cross-staff, broken and kneed beams.  Beaming should depend
 on context and neighbor notes (see section 2.2 of
 @uref{http://imslp.org/wiki/Repository_of_Music-Notation_Mistakes_%28Coulon%2C_Jean-Pierre%29,
 this book}).  If possible also reduce beaming-computation time.
 
-@strong{Difficulty:} medium
-@strong{Requirements:} C++, experience with writing heuristics
-@strong{Recommended knowledge:} aesthetic sense
+@emph{Difficulty:} medium
 
-@divEnd
+@emph{Requirements:} C++, experience with writing heuristics
 
-@divClass{column-center-middle-color3}
-@subheading Help improve compilation behavior
+@emph{Recommended knowledge:} aesthetic sense
+
+
+@subsubheading Help improve compilation behavior
 
 Automatic code analysis tools, like valgrind memory leak detection or
 callgrind code profilers, provide valuable information about possible
 flaws in our C++ code.  Cleaning up warnings would allow us to automate
 the rejection of any patch which introduced extra warnings.
 
-@strong{Difficulty:} medium
-@strong{Requirements:} C++
+@emph{Difficulty:} medium
+
+@emph{Requirements:} C++
 
 @divEnd
 
