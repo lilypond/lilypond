@@ -4,9 +4,9 @@
 % and then run scripts/auxiliar/makelsr.py
 %
 % This file is in the public domain.
-%% Note: this file works from version 2.19.20
+%% Note: this file works from version 2.19.56
 
-\version "2.19.20"
+\version "2.19.56"
 
 \header {
   lsrtags = "headword"
@@ -27,8 +27,8 @@ Wind headword
 % Nutcracker Suite, VII Dance of the Merlitons
 \score {
   \new StaffGroup <<
-    \new Staff \relative c'' {
-      \set Staff.instrumentName = "Flauto I,II"
+    \new Staff \with { instrumentName = "Flauto I,II" }
+    \relative c'' {
       \once \override Score.RehearsalMark.self-alignment-X = #-1
       \once \override Score.RehearsalMark.break-align-symbols = #'(time-signature)
       \once \override Score.TimeSignature.break-align-anchor-alignment = #LEFT
@@ -40,11 +40,11 @@ Wind headword
       <d a>16-.\p <cis g>-. <d a>-. <cis g>-. <d a>8-. <cis g>-.
       <e a,>-.\< <d a>32( <fis d> <a fis> <d a> <fis d>4--)\mf
       <g d>16-. <fis cis>-. <g d>-. <fis cis>-.
-        <e b>(\> <d a>) <a fis>-. <fis d>-.\!
+      <e b>(\> <d a>) <a fis>-. <fis d>-.\!
       <d bes>4--\sf \acciaccatura {<d' bes>8} <cis a>4--\mf
     }
-    \new Staff \relative c' {
-      \set Staff.instrumentName = "Flauto III"
+    \new Staff \with { instrumentName = "Flauto III" }
+    \relative c' {
       \key d \major
       \time 2/4
       \compressMMRests R2*2_\markup{Gr.Fl.}

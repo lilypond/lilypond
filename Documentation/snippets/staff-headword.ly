@@ -4,8 +4,8 @@
 % and then run scripts/auxiliar/makelsr.py
 %
 % This file is in the public domain.
-%% Note: this file works from version 2.19.0
-\version "2.19.0"
+%% Note: this file works from version 2.19.55
+\version "2.19.55"
 \include "catalan.ly"
 
 \header {
@@ -77,38 +77,39 @@ lower = \relative do {
 
 \score {
   <<
-    \context Staff = "trumpet" <<
-      \set Staff.instrumentName = \markup { "Trumpet" \concat{ B \teeny \raise #0.4 \flat } }
+    \context Staff = "trumpet"
+    \with { instrumentName = \markup { "Trumpet" \concat{ B \teeny \raise #0.4 \flat } } }
+    <<
       \transpose sib do'
       \trompette
     >>
-    \context RhythmicStaff = "tambourin" <<
-      \set Staff.instrumentName = "Tambourine"
+    \context RhythmicStaff = "tambourin"
+    \with { instrumentName = "Tambourine" }
+    <<
       \tambourin
     >>
-    \context PianoStaff = "prima" <<
-      \set PianoStaff.instrumentName = "Piano  "
+    \context PianoStaff = "prima"
+    \with { instrumentName = "Piano" }
+    <<
       \context Staff = "uppera" \upper
       \context Staff = "lowera" \lower
     >>
   >>
   \layout { }
 }
+
 \score {
   <<
-    \context Staff = "trumpet" {
-      \set Staff.midiInstrument = "trumpet"
-      \trompette
-    }
+    \context Staff = "trumpet" \with { midiInstrument = "trumpet" }
+    \trompette
     \context DrumStaff = "tambourin" {
       \tambourin
     }
-    \context Staff = "piano" <<
+    \context Staff = "piano"
+    <<
       \upper
       \lower
     >>
   >>
-  \midi {
-    \tempo 4 = 72
-  }
+  \midi { \tempo 4 = 72 }
 }
