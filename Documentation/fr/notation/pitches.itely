@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 6a4f1fed7b1be26f0ae29bc500eed7d29bd7659a
+   Translation of GIT committish: 64c8064154e24ff2a07e553ecdbda409f1726487
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1516,26 +1516,24 @@ conducteur.  Les deux instruments sont à l'unisson.
 
 @lilypond[verbatim,quote]
 \new GrandStaff <<
-  \new Staff = "violin" {
-    \relative c'' {
-      \set Staff.instrumentName = #"Vln"
-      \set Staff.midiInstrument = #"violin"
-      % not strictly necessary, but a good reminder
-      \transposition c'
-
-      \key c \major
-      g4( c8) r c r c4
-    }
+  \new Staff = "violin" \with {
+    instrumentName = #"Vln"
+    midiInstrument = #"violin"
+   }
+  \relative c'' {
+    % not strictly necessary, but a good reminder
+    \transposition c'
+    \key c \major
+    g4( c8) r c r c4
   }
-  \new Staff = "clarinet" {
-    \relative c'' {
-      \set Staff.instrumentName = \markup { Cl (B\flat) }
-      \set Staff.midiInstrument = #"clarinet"
-      \transposition bes
-
-      \key d \major
-      a4( d8) r d r d4
-    }
+  \new Staff = "clarinet" \with {
+    instrumentName = \markup { Cl (B\flat) }
+    midiInstrument = #"clarinet"
+  }
+  \relative c'' {
+    \transposition bes
+    \key d \major
+    a4( d8) r d r d4
   }
 >>
 @end lilypond

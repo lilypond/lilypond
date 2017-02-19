@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 39912f861693f1c24b8833e6e9e6ba82eb3e6746
+   Translation of GIT committish: 64c8064154e24ff2a07e553ecdbda409f1726487
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -528,12 +528,14 @@ elle revient à la couleur par défaut, le noir.  Le problème ressort de
 façon évidente au vu de la partition finale.
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  \override Staff.StaffSymbol.color = #(x11-color 'SlateBlue2)
-  \set Staff.instrumentName = \markup {
-    \with-color #(x11-color 'navy) "Clarinet"
+\new Staff \with {
+  instrumentName = \markup {
+    \with-color #(x11-color 'red) "Clarinet"
+    }
   }
 
+  \relative c'' {
+  \override Staff.StaffSymbol.color = #(x11-color 'SlateBlue2)
   gis8 a
   \override Beam.color = #(x11-color "medium turquoise")
   gis a
@@ -561,12 +563,12 @@ les composantes de la couleur exacte au format rouge-vert-bleu
 l'exemple suivant correspond à 128).
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  \override Staff.StaffSymbol.color = #(x11-color 'SlateBlue2)
-  \set Staff.instrumentName = \markup {
-    \with-color #(x11-color 'navy) "Clarinet"
+\new Staff \with {
+  instrumentName = \markup {
+    \with-color #(x11-color 'red) "Clarinet"
+    }
   }
-
+  \relative c'' {
   \override Stem.color = #(rgb-color 0 0 0)
   gis8 a
   \override Stem.color = #(rgb-color 1 1 1)

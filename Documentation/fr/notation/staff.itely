@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: ece789bf5f661cb8f16b50f87a248dedd6e1d8d5
+   Translation of GIT committish: 64c8064154e24ff2a07e553ecdbda409f1726487
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -231,8 +231,8 @@ qu'il gère automatiquement l'affichage du nom d'instrument -- voir
 @ref{Noms d'instrument} pour plus de détails.
 
 @lilypond[verbatim,quote]
-\new PianoStaff <<
-  \set PianoStaff.instrumentName = #"Piano"
+\new PianoStaff \with { instrumentName = #"Piano" }
+  <<
   \new Staff \relative { c''1 c }
   \new Staff \relative { \clef bass c1 c }
 >>
@@ -992,20 +992,14 @@ nouvel instrument.  Notez cependant que la valeur de
 @lilypond[verbatim,quote,ragged-right]
 prepPiccolo = <>^\markup \italic { muta in Piccolo }
 
+prepFlute = <>^\markup \italic { muta in Flauto }
+
 setPiccolo = {
-  \set Staff.instrumentName = #"Piccolo"
-  \set Staff.shortInstrumentName = #"Picc."
-  \set Staff.midiInstrument = #"piccolo"
   <>^\markup \bold { Piccolo }
   \transposition c''
 }
 
-prepFlute = <>^\markup \italic { muta in Flauto }
-
 setFlute = {
-  \set Staff.instrumentName = #"Flute"
-  \set Staff.shortInstrumentName = #"Flt."
-  \set Staff.midiInstrument = #"flute"
   <>^\markup \bold { Flute }
   \transposition c'
 }
@@ -1013,14 +1007,17 @@ setFlute = {
 \new Staff \with {
   instrumentName = #"Flute"
   shortInstrumentName = #"Flt."
-  midiInstrument = #"flute"
 }
 \relative {
   g'1 g g g \break
   g1 g \prepPiccolo R R \break
+  \set Staff.instrumentName = #"Piccolo"
+  \set Staff.shortInstrumentName = #"Picc."
   \setPiccolo
   g1 g g g \break
   g1 g \prepFlute R R \break
+  \set Staff.instrumentName = #"Flute"
+  \set Staff.shortInstrumentName = #"Flt."
   \setFlute
   g1 g g g
 }
