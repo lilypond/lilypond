@@ -180,7 +180,7 @@ Global_context::run_iterator_on_me (Music_iterator *iter)
       if (iter->ok ())
         iter->process (w);
 
-      send_stream_event (this, "OneTimeStep", 0, 0);
+      send_stream_event (this, "OneTimeStep", 0);
       apply_finalizations ();
       check_removal ();
     }

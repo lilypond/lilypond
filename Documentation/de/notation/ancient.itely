@@ -528,12 +528,11 @@ Beispiel den Schlüssel auf der zweiten Linie)
 Mensuraler F-Schlüssel im Petrucci-Stil, kann auf verschiedenen
 Notenlinien benutzt werden (im Beispiel auf der dritten Linie)
 @tab
-@code{petrucci-c1}, @code{petrucci-c2},@*
-@code{petrucci-c3}, @code{petrucci-c4},@*
-@code{petrucci-c5}
+@code{petrucci-f3}, @code{petrucci-f4},@*
+@code{petrucci-f5}
 @tab
 @lilypond[relative=1,notime]
-  \clef "petrucci-c2"
+  \clef "petrucci-f3"
   \override NoteHead.style = #'mensural
   c
 @end lilypond

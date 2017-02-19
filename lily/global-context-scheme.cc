@@ -120,7 +120,7 @@ LY_DEFINE (ly_interpret_music_expression, "ly:interpret-music-expression",
   iter->quit ();
   scm_remember_upto_here_1 (protected_iter);
 
-  send_stream_event (g, "Finish", 0, 0);
+  send_stream_event (g, "Finish", 0);
 
   debug_output (_f ("elapsed time: %.2f seconds", timer.read ()));
 

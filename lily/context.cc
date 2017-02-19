@@ -56,7 +56,7 @@ Context::check_removal ()
              Callback0_wrapper::make_smob
              <Translator_group, &Translator_group::finalize> (),
              UP);
-          send_stream_event (ctx, "RemoveContext", 0, 0);
+          send_stream_event (ctx, "RemoveContext", 0);
         }
     }
 }
@@ -526,18 +526,62 @@ Context::internal_get_property (SCM sym) const
 }
 
 /*
-Called by the send_stream_event macro. props is a 0-terminated array of
-properties and corresponding values, interleaved. This method should not
-be called from any other place than the send_stream_event macro.
+These methods should not be called from any other place than the
+send_stream_event macro.
 */
+
 void
-Context::internal_send_stream_event (SCM type, Input *origin, SCM props[])
+Context::internal_send_stream_event (SCM type, Input *origin)
 {
   Stream_event *e = new Stream_event (Lily::ly_make_event_class (type), origin);
-  for (int i = 0; props[i]; i += 2)
-    {
-      e->set_property (props[i], props[i + 1]);
-    }
+  event_source_->broadcast (e);
+  e->unprotect ();
+}
+
+void
+Context::internal_send_stream_event (SCM type, Input *origin,
+                                     SCM prop, SCM val)
+{
+  Stream_event *e = new Stream_event (Lily::ly_make_event_class (type), origin);
+  e->set_property (prop, val);
+  event_source_->broadcast (e);
+  e->unprotect ();
+}
+
+void
+Context::internal_send_stream_event (SCM type, Input *origin,
+                                     SCM prop, SCM val, SCM prop2, SCM val2)
+{
+  Stream_event *e = new Stream_event (Lily::ly_make_event_class (type), origin);
+  e->set_property (prop, val);
+  e->set_property (prop2, val2);
+  event_source_->broadcast (e);
+  e->unprotect ();
+}
+
+void
+Context::internal_send_stream_event (SCM type, Input *origin,
+                                     SCM prop, SCM val, SCM prop2, SCM val2,
+                                     SCM prop3, SCM val3)
+{
+  Stream_event *e = new Stream_event (Lily::ly_make_event_class (type), origin);
+  e->set_property (prop, val);
+  e->set_property (prop2, val2);
+  e->set_property (prop3, val3);
+  event_source_->broadcast (e);
+  e->unprotect ();
+}
+
+void
+Context::internal_send_stream_event (SCM type, Input *origin,
+                                     SCM prop, SCM val, SCM prop2, SCM val2,
+                                     SCM prop3, SCM val3, SCM prop4, SCM val4)
+{
+  Stream_event *e = new Stream_event (Lily::ly_make_event_class (type), origin);
+  e->set_property (prop, val);
+  e->set_property (prop2, val2);
+  e->set_property (prop3, val3);
+  e->set_property (prop4, val4);
   event_source_->broadcast (e);
   e->unprotect ();
 }

@@ -90,8 +90,17 @@ public:
 
   Dispatcher *event_source () const { return event_source_; }
   Dispatcher *events_below () const { return events_below_; }
-  void internal_send_stream_event (SCM type, Input *origin, SCM props[]);
-
+  void internal_send_stream_event (SCM type, Input *origin);
+  void internal_send_stream_event (SCM type, Input *origin,
+                                   SCM prop, SCM val);
+  void internal_send_stream_event (SCM type, Input *origin,
+                                   SCM prop, SCM val, SCM prop2, SCM val2);
+  void internal_send_stream_event (SCM type, Input *origin,
+                                   SCM prop, SCM val, SCM prop2, SCM val2,
+                                   SCM prop3, SCM val3);
+  void internal_send_stream_event (SCM type, Input *origin,
+                                   SCM prop, SCM val, SCM prop2, SCM val2,
+                                   SCM prop3, SCM val3, SCM prop4, SCM val4);
   SCM get_definition () const { return definition_; }
   SCM get_definition_mods () const { return definition_mods_; }
 
@@ -188,10 +197,7 @@ void set_context_property_on_children (Context *trans, SCM sym, SCM val);
 
 /* Shorthand for creating and broadcasting stream events. */
 #define send_stream_event(ctx, type, origin, ...)                       \
-  do {                                                                  \
-    SCM props[] = { __VA_ARGS__, 0 };                                   \
-    ctx->internal_send_stream_event (ly_symbol2scm (type), origin, props); \
-  } while (0)
+  ctx->internal_send_stream_event (ly_symbol2scm (type), origin, ##__VA_ARGS__)
 
 SCM nested_property_alist (SCM alist, SCM prop_path, SCM value);
 SCM nested_property (SCM alist, SCM prop_path, SCM fallback = SCM_EOL);
