@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 553410afdd9496f7d9f1498e755ea18de8e70596
+   Translation of GIT committish: 04597b1cc93b4f1bf365506dc5badc08f34b84e8
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1948,6 +1948,7 @@ qu'est-ce qui est propre à LilyPond ?
 * La commande de dérogation (override)::
 * La commande d'affinage (tweak)::
 * set ou override::
+* La commande de décalage (offset)::
 * Modification de listes associatives::
 @end menu
 
@@ -2663,9 +2664,343 @@ ordinaires -- elles commencent par une minuscule -- se manipulent avec
 Les instructions spéciales @code{\tweak} et @code{\overrideProperty}
 modifient les propriétés de @emph{grob} en court-circuitant totalement
 les propriétés de contexte.  En fait, elles capturent les @emph{grobs}
-au moment de leur création pour y injecter directement des propriétés soit
-émanant d'un événement musical retouché par un @code{\tweak}, soit
+au moment de leur création pour y injecter directement des propriétés
+soit émanant d'un événement musical retouché par un @code{\tweak}, soit
 lorsqu'ils sont d'une qualité particulière (un @code{\overrideProperty}).
+
+
+@node La commande de décalage (offset)
+@subsection La commande de décalage @code{\offset}
+@translationof The offset command
+
+@funindex \offset
+@cindex décalage
+@cindex offset (décalage)
+
+Bien qu'il soit possible d'affecter de nouvelles valeurs aux propriétés
+d'un objet graphique à l'aide des commandes @code{\override},
+@code{\tweak} ou @code{\overrideProperty}, il est souvent plus pratique
+de modifier de telles propriétés par rapport à une valeur par défaut.
+Ceci est la raison d'être de la commande @code{\offset}.
+
+La commande @code{\offset} répond à la syntaxe suivante :
+
+@example
+[-]\offset @var{propriété} @var{décalages} @var{élément}
+@end example
+
+La commande @code{\offset} agit par addition du contenu de
+@var{décalage} au réglage par défaut de la propriété @var{propriété} de
+l'objet graphique indiqué par @var{élément}.
+
+Selon la manière dont la commande est formulée, @code{\offset} agira
+tantôt comme un @code{\tweak}, tantôt comme un @code{\override}.  Les
+différences entre ces utilisations seront abordées après avoir recensé
+les propriétés qui peuvent être soumises à un @code{\offset}.
+
+@subsubsubheading Propriétés acceptant des décalages
+@c VO Properties which may be offset
+
+Bon nombre de propriétés d'objet graphique, mais pas toutes, peuvent
+faire l'objet d'un décalage. Si d'aventure @var{propriété} ne peut être
+affectée, l'objet restera inchangé et sera émis un message
+d'avertissement.  En pareil cas, l'objet doit être modifié par un
+@code{\override} ou un @code{\tweak}.
+
+Il est toujours possible de procéder à tâtons et laisser les
+avertissement indiquer si tel objet peut ou ne peut pas être soumis à
+@code{\offset}.  Néanmoins, une approche plus systématique est possible.
+
+Les critères énoncés ci-après déterminent l'égibilité d'une propriété à
+être modifiée par la commande @code{\offset}.
+
+@itemize
+
+@item
+La propriété possède un « réglage par défaut » au niveau de la
+définition de l'objet graphique.  Les propriétés en question sont
+listées, pour chacun des @emph{grobs}, dans
+@rinternalsnamed{All layout objects, Tous les objets de rendu} -- on les
+trouvera aussi dans le fichier @file{scm/define-grobs.scm}.
+
+@item
+La propriété prend une valeur numérique.  Les valeurs numériques
+comprennent @code{number}, liste de @code{number}s, @code{number-pair}
+et @code{number-pair-list}. Les pages de
+@rinternalsnamed{All layout objects, Tous les objets de rendu}
+répertorient le type de donnée propre à chaque propriété.  Peu importe
+que le réglage par défaut soit une fonction.
+
+@item
+La propriété ne saurait constituer une « sous-propriété » -- une
+propriété résidant au sein d'une autre propriété.
+
+@item
+Les propriétés réglées sur des valeurs infinies ne peuvent faire l'objet
+d'un décalage.  Il n'y a aucun moyen d'influencer l'infini, qu'il soit
+positif ou négatif.
+@end itemize
+
+Les exemples qui suivent s'arrêtent sur plusieurs propriétés d'objet
+graphique au regard des critères énoncés ci-dessus.
+
+@itemize
+
+@item Propriétés qui peuvent être décalées
+
+@table @asis
+
+@item @code{Hairpin.height}
+Cette propriété n'est pas une sous-propriété, et est référencée à
+@rinternalsnamed{Hairpin, Soufflet}.  En tant que valeur, elle prend une
+« dimension, exprimée en espace de portée » réglée à @code{0.6666} --
+clairement une valeur @code{number} non infini.
+
+@item @code{Arpeggio.positions}
+La page @rinternalsnamed{Arpeggio, Arpeggio} référence une propriété
+@code{positions} qui accepte une « paire de nombres ». Sa valeur par
+défaut est @code{ly:arpeggio::positions} -- une fonction de rappel qui
+sera évaluée au cours de la phase de typographie pour donner une paire
+de nombres pour tout objet @code{Arpeggio}.
+
+@end table
+
+@item Propriétés qui ne peuvent être décalées
+
+@table @asis
+
+@item @code{Hairpin.color}
+Aucune référence à @code{color} n'est mentionnée dans
+@rinternalsnamed{Hairpin, Soufflet}.
+
+@item @code{Hairpin.circled-tip}
+La référence à @code{Hairpin.circled-tip} dans
+@rinternalsnamed{Hairpin, Soufflet} indique que cette propriété prend une
+valeur @code{boolean}. Les boléens ne sont pas des nombres.
+
+@item @code{Stem.details.lengths}
+Bien que mentionnée dans @rinternalsnamed{Stem, Hampe} et ayant par
+défaut une liste de @code{number}s, il s'agit d'une « sous-propriété ».
+Il n'existe à ce jour aucune prise en charge des « propriétés
+imbriquées ».
+
+@end table
+
+@end itemize
+
+
+@subsubsubheading @code{\offset} en tant que dérogation
+@c VO \offset as an override
+
+Lorsque @var{élément} est un nom d'objet graphique comme @code{Arpeggio}
+ou @code{Staff.OttavaBracket}, le comportement de la commande
+@code{\offset} est assimilable à un @code{\override} sur le type d'objet
+spécifié.
+
+@example
+\offset @var{propriété} @var{décalages} [@var{contexte}.]@var{NomGrob}
+@end example
+
+Notez bien qu'il n'y a jamais de tiret avant un comportement
+« dérogatoire », tout comme il n'y en a jamais avec la commande
+@code{\override} elle-même.
+
+L'exemple suivant utilise la forme « dérogation » pour allonger les
+arpeggios affichés dans la première mesure, jusqu'à couvrir l'accord
+dans son intégralité.  Les arpeggios sont étirés d'un demi espace de
+portée à leur sommet ainsi qu'à leur base.  Est aussi indiquée la même
+opération sur le premier accord à l'aide d'une simple dérogation
+appliquée à la propriété @code{positions}.  Cette méthode n'est pas la
+plus illustrative pour « étirer d'un demi espace de portée » dans la
+mesure où les extrémités doivent être spécifiées en coordonnées absolues
+plutôt que relatives.  De plus, des dérogations individuelles seraient
+nécessaires pour les autres accords en raison de leurs différentes
+amplitude et position.
+
+@lilypond[quote,verbatim]
+arpeggioMusic = {
+  <c' e' g'>\arpeggio <a' c'' e''>\arpeggio
+  <d' f' a' c''>\arpeggio <c' e' g' b' d'' f'' a''>\arpeggio
+}
+
+{
+  \arpeggioMusic
+  \bar "||"
+  \offset positions #'(-0.5 . 0.5) Arpeggio
+  \arpeggioMusic
+  \bar "||"
+  \once \override Arpeggio.positions = #'(-3.5 . -0.5)
+  <c' e' g'>1\arpeggio
+  \bar "||"
+}
+@end lilypond
+
+Dans cette utilisation d'@emph{override}, @code{\offset} peut se
+préfixer de @code{\once} ou @code{\temporary} et être annulé à l'aide
+d'un @code{\revert} suivi de @var{propriété}.  Ceci tient au fait que
+@code{\offset} crée effectivement un @code{\override} de
+@var{propriété}.
+
+@lilypond[quote,verbatim]
+music = { c'8\< d' e' f'\! }
+
+{
+  \music
+  \offset height 1 Hairpin
+  \music
+  \music
+  \revert Hairpin.height
+  \music
+  \bar "||"
+  \once \offset height 1 Hairpin
+  \music \music
+  \bar "||"
+  \override Hairpin.height = 0.2
+  \music
+  \temporary \offset height 2 Hairpin
+  \music
+  \music
+  \revert Hairpin.height
+  \music
+  \bar "||"
+}
+@end lilypond
+
+Tout comme @code{\override}, la forme « dérogation » de @code{\offset}
+peut s'utiliser avec @code{\undo} et @code{\single}.
+
+@lilypond[quote,verbatim]
+longStem = \offset length 6 Stem
+
+{
+ \longStem c'4 c''' c' c''
+ \bar "||"
+ \undo \longStem c'4 c''' c' c''
+ \bar "||"
+ \single \longStem c'4 c''' c' c''
+ \bar "||"
+}
+@end lilypond
+
+@subsubsubheading @code{\offset} en tant qu'affinage
+@c VO offset as a tweak
+
+Lorsque @var{élément} est une expression musicale, comme @code{(} ou
+@code{\arpeggio}, le résultat sera la même expression musicale à
+laquelle aura été appliqué un affinage.
+@c closing )
+
+@example
+[-]\offset [@var{NomGrob}.]@var{propriété} @var{décalages} @var{expression-musicale}
+@end example
+
+La syntaxe de @code{\offset} dans sa forme « affinage » est en tout
+point analogue à la commande @code{\tweak}, autant dans l'ordre des
+arguments que dans la présence ou non du tiret l'introduisant.
+
+L'exemple suivant utilise la forme « affinage » pour ajuster le
+positionnement vertical de l'objet @code{BreathingSign}.  Les effets de
+la simple commande @code{\tweak} sont présent à titre de comparaison.
+Leur syntaxe est équivalente.  Néanmoins, le résultat de @code{\tweak}
+est moins intuitif dans la mesure où @code{BreathingSign.Y-offset} est
+calculé en référence à la ligne médiane.  Il n'est pas nécessaire de
+savoir comment se calcule @code{Y-offset} dans le cas d'un
+@code{\offset}.
+
+@lilypond[quote,verbatim]
+{
+  c''4
+  \breathe
+  c''4
+  \offset Y-offset 2 \breathe
+  c''2
+  \tweak Y-offset 3 \breathe
+}
+@end lilypond
+
+Dans cet exemple, les objets affinés étaient créés directement à partir
+du code saisi : la commande @code{\breathe} était une instruction
+explicite pour renvoyer un objet @code{BreathingSign}.  Puisque la cible
+de la commande était sans ambiguïté, point n'était besoin de spécifier
+le nom de l'objet.  Cependant, lorsqu'un objet est créé
+@emph{indirectement}, mention du nom de l'objet devient requise.  Il en
+va de même pour la commende @code{\tweak}.
+
+Dans l'exemple qui suit, l'objet @code{Beam} est abaissé de deux espaces
+de portée par application de @code{\offset} à la propriété
+@code{positions}.
+
+La première application de @code{\offset} requiert mention du nom de
+l'objet puisque rien dans le code ne crée explicitement de ligature.
+Dans la seconde application, la ligature est explicitement créée par
+l'expression musicale @code{[}, ce qui dispense de mentionner le nom de
+l'objet.  Cette deuxième application comporte par ailleurs un
+raccourci : un unique @code{number} s'appliquera aux deux membres d'un
+@code{number-pair}.
+@c close ]
+
+@lilypond[quote,verbatim]
+{
+  c''8 g'' e'' d''
+  \offset Beam.positions #'(-2 . -2)
+  c''8 g'' e'' d''
+  c''8 g'' e'' d''
+  c''8-\offset positions #-2 [ g'' e'' d'']
+}
+@end lilypond
+
+@subsubsubheading @code{\offset} et les bandeaux avec rupture
+@c VO offset with broken spanners
+
+Il est aussi possible de modifier indépendamment les segments d'un objet
+étendu rencontrant des sauts de ligne.  Dans ce cas, @var{décalages} est
+consitué d'une liste de valeurs pour le type de donnée requis par la
+propriété.
+
+Utilisée de telle manière, la commande @code{\offset} est similaire à la
+commande @code{\alterBroken} -- voir
+@ref{Modification de bandeaux avec rupture}.  Cependant, et
+contrairement à la commande @code{\alterBroken}, les valeurs fournies à
+@code{\offset} sont relatives.
+
+Dans l'exemple suivant est déplacé l'objet « segmenté »
+@code{OttavaBracket} au travers de sa propriété @code{staff-padding}.
+Puisque cette propriété est affectée d'un @code{number}, @var{décalages}
+est alimenté d'une liste de @code{number}s afin de prendre en compte les
+deux segments créés par le saut de ligne.  La portion de liaison de la
+première ligne n'est en fait pas touchée puisque @code{0} est ajouté à
+sa valeur par défaut.  Le segment de la deuxième ligne est haussé de
+deux espaces de portée par rapport à sa hauteur par défaut.  La hauteur
+par défaut est de @code{2}, bien que ce ne soit pas nécessaire de le
+savoir.
+
+@lilypond[quote,verbatim]
+{
+ \offset staff-padding #'(0 3) Staff.OttavaBracket
+  \ottava #1
+  c'''2 c'''
+  \break
+  c'''2 c'''
+}
+@end lilypond
+
+L'exemple ci-dessous reproduit les effets de la commande @code{\shape}
+en décalant la propriété @code{control-points} de l'objet @code{Slur}.
+Ici, @var{décalages} est constitué d'une liste de
+@code{number-pair-list}s, une pour chaque segment de la liaison.  Cet
+exemple produit un résultat identique à ce qui est illustré dans
+@ref{Modification de l'allure des éléments}.
+
+@lilypond[quote,verbatim]
+{
+  c'4-\offset control-points #'(
+               ((0 . 0) (0 . 0) (0 . 0) (0 . 1))
+               ((0.5 . 1.5) (1 . 0) (0 . 0) (0 . -1.5))
+              ) ( f'4 g' c''
+  \break
+  d'4 c'' f' c')
+}
+@end lilypond
 
 
 @node Modification de listes associatives
