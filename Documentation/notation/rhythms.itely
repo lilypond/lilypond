@@ -3295,9 +3295,9 @@ produces a boxed number.
 @end lilypond
 
 The file @file{scm/translation-functions.scm} contains the
-definitions of @code{format-mark-numbers} (the default format),
-@code{format-mark-box-numbers}, @code{format-mark-letters} and
-@code{format-mark-box-letters}.  These can be used as inspiration
+definitions of @code{format-mark-letters} (the default format),
+@code{format-mark-box-letters}, @code{format-mark-numbers} and
+@code{format-mark-box-numbers}.  These can be used as inspiration
 for other formatting functions.
 
 You may use @code{format-mark-barnumbers},
