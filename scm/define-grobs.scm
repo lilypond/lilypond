@@ -1164,6 +1164,24 @@
                                 side-position-interface
                                 spanner-interface))))))
 
+    (HorizontalBracketText
+     . (
+        (direction . ,ly:horizontal-bracket-text::calc-direction)
+        (font-size . -1)
+        (padding . 0.5)
+        (parent-alignment-X . ,CENTER)
+        (self-alignment-X . ,CENTER)
+        (side-axis . ,Y)
+        (stencil . ,ly:horizontal-bracket-text::print)
+        (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
+        (Y-offset . ,side-position-interface::y-aligned-side)
+        (meta . ((class . Spanner)
+                 (interfaces . (font-interface
+                                horizontal-bracket-text-interface
+                                outside-staff-interface
+                                self-alignment-interface
+                                side-position-interface
+                                text-interface))))))
 
     (InstrumentName
      . (

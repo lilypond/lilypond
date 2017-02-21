@@ -92,11 +92,6 @@ Horizontal_bracket::make_enclosing_bracket (Grob *me, Grob *refpoint,
     }
 }
 
-/*
-  TODO:
-
-  Support texts on the brackets?
-*/
 MAKE_SCHEME_CALLBACK (Horizontal_bracket, print, 1);
 SCM
 Horizontal_bracket::print (SCM smob)
@@ -127,6 +122,7 @@ ADD_INTERFACE (Horizontal_bracket,
 
                /* properties */
                "bracket-flare "
+               "bracket-text "
                "columns "
                "edge-height "
                "shorten-pair "

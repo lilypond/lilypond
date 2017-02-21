@@ -77,7 +77,7 @@ Scm_module::boot (void (*init) ())
   for (Variable_record *p = variables_; p; )
     {
       Variable_record *next = p->next_;
-      if (SCM_UNBNDP (*p->var_))
+      if (SCM_UNBNDP (SCM (*p->var_)))
         error (_f ("Uninitialized variable `%s' in module (%s)", p->name_, name_));
       delete p;
       p = next;

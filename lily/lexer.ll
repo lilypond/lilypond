@@ -689,9 +689,9 @@ BOM_UTF8	\357\273\277
 		for (; scm_is_pair(s); s = scm_cdr(s)) {
 		  SCM predicate = scm_car(s);
 
-		  if (predicate == Lily::markup_list_p)
+		  if (scm_is_eq (predicate, SCM (Lily::markup_list_p)))
 		    push_extra_token (here_input (), EXPECT_MARKUP_LIST);
-		  else if (predicate == Lily::markup_p)
+		  else if (scm_is_eq (predicate, SCM (Lily::markup_p)))
 		    push_extra_token (here_input (), EXPECT_MARKUP);
 		  else
 		    push_extra_token (here_input (), EXPECT_SCM, predicate);
@@ -967,9 +967,9 @@ Lily_lexer::scan_scm_id (SCM sid)
 			cs = SCM_CAR (cs);
 		}
 
-		if (scm_is_eq (cs, Lily::ly_music_p))
+		if (scm_is_eq (cs, SCM (Lily::ly_music_p)))
 			funtype = MUSIC_FUNCTION;
-		else if (scm_is_eq (cs, Lily::ly_event_p))
+		else if (scm_is_eq (cs, SCM (Lily::ly_event_p)))
 			funtype = EVENT_FUNCTION;
 		else if (ly_is_procedure (cs))
 			funtype = SCM_FUNCTION;
