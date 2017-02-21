@@ -888,6 +888,29 @@ and will be applied to NUM."
     (fancy-format #f (car custom-format) num))
    (else (fancy-format #f "~(~@r~)" num))))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; lilypond version
+
+(define (lexicographic-list-compare? op a b)
+  "Lexicographically compare two lists @var{a} and @var{b} using
+   the operator @var{op}. The types of the list elements have to
+   be comparable with @var{op}. If the lists are of different length
+   the trailing elements of the longer list are ignored."
+  (let* ((ca (car a))
+         (iseql (op ca ca)))
+    (let loop ((ca ca) (cb (car b)) (a (cdr a)) (b (cdr b)))
+      (let ((axb (op ca cb)))
+        (if (and (pair? a) (pair? b)
+                 (eq? axb iseql (op cb ca)))
+            (loop (car a) (car b) (cdr a) (cdr b))
+            axb)))))
+
+(define (ly:version? op ver)
+  "Using the operator @var{op} compare the currently executed LilyPond
+   version with a given version @var{ver} which is passed as a list of 
+   numbers."
+  (lexicographic-list-compare? op (ly:version) ver))
+
 ;;;;;;;;;;;;;;;;
 ;; other
 
