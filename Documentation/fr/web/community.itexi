@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: a9bf7727fb66d7a17abe31b9004c846fc781fcf9
+   Translation of GIT committish: 941523560c6b37ac820836ba94bbfc898a2f01de
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -118,6 +118,7 @@ aux cours des versions précédentes.
 @divClass{column-left-bottom}
 @subheading Discuter entre utilisateurs et demander de l'aide
 @c VO User Discussions and Help
+
 @subsubheading Liste de diffusion des utilisateurs : @code{lilypond-user@@gnu.org}
 
 Cette liste de diffusion @strong{anglophone} est le lieu privilégié des
@@ -316,13 +317,15 @@ Translation mailing list archive}
 
 @divClass{column-center-top}
 @subheading Exemple minimaliste@dots{} mais qu'est-ce donc que cela ?
+@c VO What are @qq{Tiny examples}?
 
 Un exemple minimaliste est un bout de code duquel @strong{plus rien} ne
 peut être retiré.
 @divEnd
 
 @divClass{column-left-bottom}
-@subheading Pourquoi être minimaliste ?
+@subheading Pourquoi être minimaliste@tie{}?
+@c VO Why create them?
 
 @divClass{keep-bullets}
 @itemize
@@ -353,6 +356,7 @@ réellement d'un « bogue ».
 
 @divClass{column-right-bottom}
 @subheading Comment être minimaliste@tie{}?
+@c VO How to create them?
 
 @divClass{keep-bullets}
 @itemize
@@ -392,6 +396,7 @@ Le cas échéant, joignez une image de ce à quoi vous voulez arriver.
 
 @divClass{column-center-bottom}
 @subheading Jusqu'où pousser le minimalisme@tie{}?
+@c VO How tiny should they be?
 
 En voici un exemple :
 
@@ -485,6 +490,7 @@ Voici ce à quoi devrait ressembler tout signalement de bogue :
 
 @divEnd
 
+
 @divClass{column-right-bottom}
 @subheading Étape 3 : Transmission d'un signalement de bogue
 
@@ -530,6 +536,7 @@ liste francophone} ; nous nous chargerons de transmettre un rapport
 @divEnd
 @divEnd
 
+
 @divClass{column-center-bottom}
 @subheading Étape 4: Notification de prise en compte
 
@@ -546,6 +553,7 @@ automatiquement notifié du traitement apporté à ce bogue.  L'ajout de
 commentaire et la souscription requièrent d'avoir un identifiant reconnu
 par sourceforge.
 @divEnd
+
 
 @divClass{column-center-bottom}
 @subheading Information complémentaire : indication du comportement escompté
@@ -948,22 +956,32 @@ dernière mouture est consultable sur @url{http://lilypond.org}}
 @subheading Le Google Summer of Code
 @c VO What is Google Summer of Code?
 
-Le @uref{https://developers.google.com/open-source/gsoc/, GSoC} est un
+Le @uref{https://summerofcode.withgoogle.com/, GSoC} est un
 programme global, mis en place par Google, qui rémunère des étudiants
 durant la période estivale pour travailler au profit de projets
-@emph{open source}.  Il s'agit là d'une excellente opportunité pour des
-étudiants de vivre une expérience réelle dans le développement de
-logiciels et contribuer ainsi au bien de tous.  Ceci permet aussi de
-recruter de nouveaux contributeurs à LilyPond et motiver des étudiants
-qui y participent déjà d'y être encore plus impliqués.  LilyPond
-participe à ce programme sous l'égide du
+@emph{open source}.  Les étudiants s'attachent durant trois mois et
+sous la direction de mentors expérimentés, à compléter une tâche
+particulière au sein d'un projet communautaire.  Il s'agit là d'une
+excellente opportunité pour des étudiants de vivre une expérience réelle
+dans le développement de logiciels et contribuer ainsi au bien de tous.
+Ceci permet aussi de recruter de nouveaux contributeurs à LilyPond et
+motiver des étudiants qui y participent déjà d'y être encore plus
+impliqués.  LilyPond participe à ce programme sous l'égide du
 @uref{http://www.gnu.org/, projet GNU}.
+
+@strong{Note :} Les organisations retenues seront notifiées le 27
+février, aussi nous ne saurons pas officiellement avant si nous pourrons
+participer au programme de cette année.
 
 Nous avons eu des participants aux sessions de 2012, 2015 et 2016, et
 encourageons les étudiants à candidater pour les sessions à venir.
 
-Si vous avez des questions à ce sujet ou avez envie d'y participer,
-contactez-nous sur la liste des développeurs (voir @ref{Contact}).
+Si vous avez envie de participer à ce programme dans le cadre du projet
+LilyPond, lisez ce qui suit et n'hésitez pas à nous contacter sur la
+liste des développeurs (voir @ref{Contact}).  Les candidatures devront
+être déposées entre le 20 mars et le 3 avril 2017, mais nous vous
+encourageons à d'ores et déjà prendre contact avec notre communauté.
+
 @divEnd
 
 
@@ -973,17 +991,15 @@ contactez-nous sur la liste des développeurs (voir @ref{Contact}).
 
 Voici une liste de projets que nous avons proposés aux étudiants du GSoC
 et à quiconque aurait envie d'améliorer LilyPond.@*
-Dernière mise à jour : novembre 2016.
+Dernière mise à jour : juanvier 2017.
 
-La disponibilité de tuteurs diffère selon les projets et les années.
-Contactez-nous sur la liste des développeurs -- voir @ref{Contact} -- et
-nous vous aiderons à trouver un mentor pour le projet qui correspond à
-vos envies et aptitudes.
-
-Si vous avez d'autres idées de projet dans le cadre du GSoC, n'hésitez
-pas à nous en faire part.  Il y a bien d'autres choses à améliorer dans
-LilyPond et les membres de l'équipe de développement aideront volontiers
-ceux qui aimeraient s'y atteler.
+Si vous avez d'autres idées de projet réalisable sur une période de
+trois mois, n'hésitez pas à nous en faire part sur la liste des
+développeurs (voir @ref{Contact}).  Il y a bien d'autres choses à
+améliorer dans LilyPond et les membres de l'équipe de développement
+aideront volontiers ceux qui aimeraient s'atteler à de tesl projets.
+Dans la mesure où la disponibilité de tuteurs diffère selon les projets
+et les années, nous vous conseilllns de nous contacter au plus tôt.
 
 Une liste exhaustive des problèmes est disponible
 @uref{http://sourceforge.net/p/lilypond/issues/list, ici}.
@@ -995,25 +1011,26 @@ Une liste exhaustive des problèmes est disponible
 @c VO Improve internal chord structure
 
 La structure interne des accords dans LilyPond n'est pas suffisamment
-puissante pour tenir compte de la nomneclature des accords de jazz.
+puissante pour tenir compte de la nomenclature des accords de jazz.
 Pour l'instant, un accord comporte une fondamentale, une basse et un
 renversement.  Il serait souhaitable d'arriver à gérer les amalgames ou
-polyaccords, qu'ils soient majeur ou mineur, etc.  Seule le
+polyaccords, qu'ils soient majeur ou mineur, etc.  Seul le
 développement d'une représentation interne capable de capturer l'essence
 d'accords complexes permettra d'y parvenir.  Cette représentation
 interne une fois développée permettra par ailleurs d'améliorer le rendu
 des accords nommés.
 
-@strong{Difficulté :} moyennement facile
-@strong{Préalables :} Scheme (Guile), mais le niveau nécessaire peut
-s'acquérir aisément.
-@strong{Connaissances appréciées :} Théorie des accords et de leur nommage
-@strong{Mentor :} Carl Sorensen
+@strong{Difficulté :} moyennement facile.@*
+@strong{Préalables :} Scheme (Guile), mais le niveau nécessaire peut
+s'acquérir aisément@*
+@strong{Connaissances appréciées :} Théorie des accords et de leur nommage@*
+@strong{Mentor :} Carl Sorensen.
+
 @divEnd
 
 
 @divClass{column-center-middle-color3}
-+@subheading Adoption du standard SMuFL d'encodage de fontes musicales
+@subheading Adoption du standard SMuFL d'encodage de fontes musicales
 @c VO Adopt the SMuFL music font encoding standard
 
 Depuis quelques années émerge un nouveau standard en matière de fontes
@@ -1035,11 +1052,11 @@ modifier les mécanismes de chargement des fontes dans LilyPond, de telle
 sorte qu'ils ne se cantonnent pas uniquement à l'installation de
 LilyPond.
 
-@strong{Difficulté :} moyennement facile
+@strong{Difficulté :} moyennement facile@*
 @strong{Préalables :} C++ et la volonté de se familiariser avec les
-composantes internes de LilyPond
+composantes internes de LilyPond@*
 @strong{Connaissances appréciées :} intérêt et expérience dans le
-maniement des fichiers de fonte ; des notions de METAFONT.
+maniement des fichiers de fonte ; des notions de METAFONT@*
 @strong{Mentors :} Werner Lemberg, Abraham Lee
 
 @divEnd
@@ -1064,65 +1081,123 @@ important que l'autre.
 @end itemize
 @divEnd
 
-@strong{Difficulté :} facile
-@strong{Préalables :} MetaFont, C++, une bonne vue pour les détails
-@strong{Connaissances appréciées :} les bases de LilyPond
-@strong{Mentor potentiel :} Werner Lemberg
+@strong{Difficulté :} facile@*
+@strong{Préalables :} MetaFont, C++, une bonne vue pour les détails@*
+@strong{Connaissances appréciées :} les bases de LilyPond@*
+@strong{Mentor :} Werner Lemberg
+
 @divEnd
 
 
 @divClass{column-center-middle-color3}
-@subheading Notes d'ornement @emph{(grace notes)}
+@subheading Notation contemporaine
+@c VO Contemporary Notation
 
-Résolution des problèmes de synchronisation des notes d'ornement.  Les
-notes d'ornement peuvent venir perturber LilyPond dans sa gestion du
-temps et entraîner des effets indésirables tout particulièrement
-lorsqu'elles interviennent dans une portée seulement.
-Il s'agit @uref{https://sourceforge.net/p/testlilyissues/issues/34/, là}
-de l'un des bogues les plus vieux et embarrassants pour LilyPond.
+LilyPond excelle dans la création de notation non standard.  La
+nécessité de @emph{coder} chaque élément graphique plutôt que de
+simplement les @emph{dessiner} peut paraître fastidieuse mais se révèle
+être un investissement solide.  De nouvelles fonctionnalités en matière
+de notation ainsi fournies permettront une apparence uniforme, un tracé
+automatisé et une interface syntaxique naturelle.
 
-@strong{Difficulté :} moyenne
-@strong{Préalables :} C++, MIDI
-@strong{Connaissances appréciées :} familiarité avec les arcanes de
-LilyPond
-@strong{Mentors potentiels :} Mike Solomon (indisponible pour le GSoc
-2016), Carl Sorensen
+Au sein du système de bibliothèque
+@uref{https://github.com/openlilylib/oll-core, openLilyLib}, l'étudiant
+créera une infrastructure de base et construira des blocs aux fins de
+faciliter la création de notation contemporaine.  Accessoirement se
+développe @emph{un} paquet couvrant certains aspect de la notation
+contemporaine comme, par exemple, le style d'un compositeur donné, des
+techniques étendues d'exécution pour un instrument particulier ou une
+certaine catégorie d'effets.
+
+@strong{Difficulté :} moyenne@*
+@strong{Préalables :} Scheme (interaction avec les arcanes de LilyPond),
+techniques de notation contemporaine@*
+@strong{Connaissances appréciées :} sens de la construction d'ossatures
+hiérarchisées@*
+@strong{Mentors :} @strong{NN,} Urs Liska
+
+@divEnd
+
+@divClass{column-center-middle-color3}
+@subheading Réécriture en Python de l'extension LilyPond pour LibreOffice
+@c VO Rewrite LibreOffice LilyPond Extension with Python
+
+L'extension @uref{http://ooolilypond.sourceforge.net/, OOoLilyPond}
+a permis d'inclure de façon agréable des extraits de partition LilyPond
+dans les documents OpenOffice.org/LibreOffice Writer, Draw et Impress
+tout en conservant ensemble le code et l'image.  Après plusieurs années
+de suspension dans son développement, un effort a vu le jour pour
+rendre cette extension à nouveau compatible avec les nouvelles versions
+de LibreOffice et LilyPond.
+
+Toutefois, l'écosystème de LibreOffice s'est modifié substanciellement,
+et il est désormais possible de récrire cette extension avec Python et
+PyQt.  Ceci sera non seulement plus puissant de manière générale, mais
+permettra aussi l'intégration de fonctionnalités de
+@uref{http://frescobaldi.org, Frescobaldi} comme, par exemple, la
+coloration syntaxique, des aides à la saisie, des assistants à la
+creation de partition ou des transformations de musique.
+
+@strong{Difficulté :} moyennement facile@*
+@strong{Préalables :} Python, PyQt, les base de LilyPond, les base des
+extensions de LibreOffice@*
+@strong{Connaissances appréciées :} familiarité avec les bases du code
+de Frescobaldi ou l'envie de l'apprendre sur la période@*
+@strong{Mentors :} Urs Liska, (Thorsten Behrens/LibreOffice)
+
 @divEnd
 
 
 @divClass{column-center-middle-color3}
-@subheading Amélioration du positionnement par défaut des ligatures
-@c VO Improve default beam positioning
+@subheading Automatisation des tests et documentation d'openLilyLib
+@c VO Automated testing and documentation for openLilyLib
 
-Une ligature, qu'elle soit rectiligne, passe d'une portée à l'autre,
-discontinue ou coudée, devrait dépendre du contexte et des notes
-adjacentes (voir
-@uref{http://imslp.org/wiki/Repository_of_Music-Notation_Mistakes_%28Coulon%2C_Jean-Pierre%29,
-la section 2.2 de cet article}).  Dans la mesure du possible, raccourcir
-le temps de calcul nécessaire à la génération des ligatures.
+@uref{https://github.com/openlilylib, openLilyLib} constitue une
+infrastructure d'extension au code de LilyPond en fournissant un dépôt
+de courts extraits ainsi qu'une collection de paquets intégrés tels que,
+par exemple, des outils de mise en page ou un système d'annotations pour
+édition critique.  Cette bibliothèque est très puissante et prometteuse,
+mais souffre de deux lacunes pour pouvoir réellement décoller : des
+tests automatisés et la génération d'une documentation.
 
-@strong{Difficulté :} moyenne
-@strong{Préalables :} C++, expérience dans l'écriture d'heuristiques
-@strong{Connaissance appréciée :} sens de l'esthétique
-@strong{Mentors potentiels :} Mike Solomon (indisponible pour le GSoc
-2016), Carl Sorensen
-@divEnd
+L'automatisation des tests est une nécéssité si l'on veut s'assurer que
+des modifications fonctionnelles ne cassent pas d'autres fonctions au
+sein de la bibliothèque.  Certains tests automatiques sont en place au
+niveau des extraits sur le serveur Github de Travis, mais ils demandent
+à être revus et étendus pour couvrir aussi les paquetages indépendants.
 
+Afin d'être couramment exploitable par une majorité d'utilisateurs de
+LilyPond, openLilyLib a besoin de sa propre documentation.  Cette
+documentation, qui doit être générée directement à partir des sources,
+nécessite un système qui requiert des auteurs de paquetage qu'ils
+documentent leurs sources et fournissent des exemples concrets à partir
+desquels la documentation sera générée.  Dans l'idéal, bien que pas
+nécessairement, il devra être implémenté en connexion directe à Git,
+autrement dit s'exécuter à chaque mise à jour du dépôt.  Aucun outil ni
+approche ne sont arrêtés, mais il faut savoir que le langage le plus
+répendu dans l'univers LilyPond est Python, ce qui pourrait être un
+parti pris.  Une solution à base de Scheme pourrait tout aussi bien
+générer la documentation en étant déclanchée par la « compilation » d'un
+fichier LilyPond particulier.  Il est généralement conseillé de se
+reposer sur des concepts et des outils qui ont fait leurs preuves
+lorsqu'ils sont issus d'autres langages.
 
-@divClass{column-center-middle-color3}
-@subheading Aide à l'amélioration du comportement lors de la compilation
-@c VO Help improve compilation behavior
+Le résultat de la documentation devrait se présenter sous la forme d'un
+site HTML statique, consultable en local ou disponible sur un site web.
+Il serait toutefois souhaitable que cet outil génère une représenttation
+intermédiaire -- tel un fichier JSON et ses fichiers associés par
+exemple -- à partir de laquelle une application génératrice de page
+unique saurait retrouver le contenu pour affichage sur le site
+d'@uref{https://openlilylib.org, openLilyLib}.  Le développement d'un
+tel générateur de page unique @emph{peut} éventuellement s'intégrer au
+projet GSoC.
 
-Les outils d'analyse comme @emph{valgrind} pour la détection de fuites
-de mémoire ou @emph{callgrind} pour le profilage du code, fournissent
-des informations précieuses quant à d'éventuelles faiblesses du
-code C++.  Faire le ménage dans tous ces messages nous permettrait de
-rejeter tout patch qui introduirait des messages superflus.
+@strong{Difficulté :} moyenne@*
+@strong{Préalables :} Python ou Scheme, générateur(s) de site statique
+ou technologie d'application web dynamique (basée sur Node.js) ;
+intégration continue (peut s'acquérir sur la période)@*
+@strong{Mentors :} Urs Liska, Matteo Ceccarello
 
-@strong{Difficulté :} moyenne
-@strong{Préalable :} C++
-@strong{Mentors potentiels :} Joe Neeman, Reinhold Kainhofer
-(indisponible pour le GSoc 2016)
 @divEnd
 
 
@@ -1160,33 +1235,97 @@ de mise en forme pour tout objet de rendu dans les  balises XML.
 @end itemize
 @divEnd
 
-@strong{Difficulté :} moyenne
-@strong{Préalables :} MusicXML, Python, Scheme, les bases de LilyPond
-@strong{Mentors potentiels :} Reinhold Kainhofer, Mike Solomon (tous
-deux indisponibles pour le GSoc 2016)
-
-La connaissance d'autres éditeurs de partition, dans un but de tests
-comparatifs, constituerait une aide.
+@strong{Difficulté :} moyenne@*
+@strong{Préalables :} MusicXML, Python, Scheme, les bases de LilyPond@*
+@strong{Connaissances appréciées :} connaissance d'autres éditeurs de
+partition, dans un but de tests comparatifs@*
+@strong{Mentor :} Jan-Peter Voigt
 
 @divEnd
 
 
 @divClass{column-center-middle-color3}
-@subheading Amélioration des liaisons
+@subheading Information à l'attention des candidats et participants
+@c VO Information for Applicants/Participants
 
-Le galbe par défaut des liaisons n'est souvent pas pleinement
-satisfaisant.  La « coupure » d'une liaison par un changement de clef ou
-de ligne n'est pas totalement fonctionnelle.  Ce projet comporte entre
-autres un recensement d'exemples de résultats défectueux, l'appréciation
-du résultat optimal et l'écriture du code approprié.
+Afin que l'expérience du GSoC se révèle satisfaisante et enrichissante,
+les candidats sont fortements encouragés à porter toute leur attention
+aux recommandations qui suivent.  Certaines d'entre elles concernent la
+procédure de candidature, d'autres la période du stage au sein du projet.
 
-@strong{Difficulté :} difficile
-@strong{Préalables :} C++, expérience dans l'écriture d'heuristiques
-@strong{Connaissances appréciées :} LilyPond, sens de l'esthétique
-@strong{Mentor potentiel :} Mike Solomon, Janek Warchoł (tous deux
-indisponibles pour le GSoc 2016)
+@divClass{keep-bullets}
+@itemize
+
+@item
+Lisez toute information appropriée sur le site du programme, et tout
+particulièrement le
+@uref{https://developers.google.com/open-source/gsoc/resources/manual,
+students' manual}.  Assurez-vous de répondre à toutes les conditions
+d'éligibilité de Google, et de votre volonté de rejoindre le programme
+par un recrutement à plein temps sur les trois mois que dure la période
+de codage.
+
+@item
+Prenez contact avec nous dès que possible si vous avez envie de vous
+porter candidat à un projet.  La disponibilité de tuteur peut changer
+sans préavis, les projets proposés peuvent nécessiter d'être affinés, et
+de nombreuses autres raisons peuvent nous conduire à rejeter ou ignorer
+toute candidature qui n'aurait pas été auparavant discutée.
+
+@item
+Nous ne savons pas à l'avance combien de « ressources » nous seront
+alloués pour des projets ; soyez conscient que vous pourriez vous
+retrouver en compétition avec d'autres stagiaires.  Une réponse
+intéressée, voire même enthousiaste de la part de l'un de nos tuteurs ne
+saurait en aucun cas être garantie d'une candidature retenue.  Ne pas
+être accepté ne signifie pas l'évaluation négative d'une candidature et,
+si nous avions à choisir entre plusieurs stagiaires, de nombreux
+critères pourraient entrer en ligne de compte.
+
+@item
+L'intégration dans la communauté LilyPond est une composante
+fondamentale du GSoC et nous engageons tous nos étudiants à s'investir
+dans notre communauté.  Nous vous engageons aussi à rédiger durant la
+« période de boursier » un billet de @emph{blog} autour de votre projet,
+que ce soit sur @uref{http://lilypondblog.org, Scores of Beauty} ou
+ailleurs, et à être actif sur nos listes de diffusion, non seulement
+pour vous présenter mais aussi pour communiquer sur d'autres sujets.
+Ceci va bien au-delà de la simple mise en place d'un environnement de
+travail et la familiarisation avec le code concerné, mais nous croyons
+indispensable que le projet GSoC soit bénéfique à tous.
+
+@item
+Dès lors que vous aurez été retenu pour le programme, un tuteur sera
+explicitement assigé à votre projet.  Vous devrez vous entendre avec ce
+tuteur quant à une stratégie de communication, que ce soit par courriel,
+salons de clavardage, outil de suivi de problèmes, communication audio
+ou vidéo.  Une communication régulière est une composante primordiale
+pour le succès d'un projet GSoC, aussi nous vous enjoignons à toujours
+rester en contact avec votre tuteur.  Gardez cependant à l'esprit que le
+tuteur qui a explicitement endossé la responsabilité d'encadrer votre
+projet le fait, lui, à titre purement gracieux et qu'il portera toute
+son attention à vos travaux.
+
+@item
+Votre mentor ne pourra vous aider et vous assister que si vous lui
+procurez l'occasion de suivre vos efforts et votre progression.  Il est
+donc très important de valider régulièrement vos modifications sur le
+dépôt de versionnage avec lequel vous travaillez.  N'hésirez pas à
+divulguer du code non abouti par peur des critiques et ne gardez pas
+pour vous un questionnement, considérant qu'il serait qualifié de
+stupide.  Dans tous les cas, votre code devrait toujours être accompagné
+d'un test compatible.  Votre tuteur ne saura pas forcément évaluer
+correctement votre code à sa @emph{simple lecture} si vous ne lui
+procurez pas un exemple concret de son efficacité.
+
+@end itemize
 @divEnd
 
+Une liste des projets inactifs est disponible au @rwebnamed{Grenier,
+grenier}.  Y sont recensés des projets toujours considérés comme
+d'actualité mais pour lesquels aucun mentor n'est à ce jour disponible.
+
+@divEnd
 
 
 @node Auteurs
