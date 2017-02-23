@@ -673,7 +673,7 @@ finals alternatius o sense ells).
 
 Les construccions d'acord es poden repetir mitjançant el símbol de
 repetició d'acords @code{q}.  Vegeu
-@rusernamed{Chord repetition,Repetició d'acords}.
+@ref{Repetició d'acords}.
 
 @warning{Si poseu @code{@bs{}relative} dins d'un bloc
 @code{@bs{}repeat} sense instanciar explícitament el context
@@ -682,7 +682,7 @@ repetició d'acords @code{q}.  Vegeu
 
 @seealso
 Referència de la notació:
-@rusernamed{Chord repetition,Repetició d'acords}.
+@ref{Repetició d'acords}.
 
 Fragments de codi:
 @rlsr{Repeats}.

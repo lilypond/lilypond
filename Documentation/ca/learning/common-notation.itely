@@ -34,7 +34,7 @@ està al @ref{Tutorial}.
 
 @menu
 * Notació en un sol pentagrama::
-* Diverses notes a la vegada::
+* Diverses notes a l'hora::
 * Cançons::
 * Retocs finals::
 @end menu
@@ -668,8 +668,8 @@ Referència de la notació:
 @ruser{Grups especials},
 @ruser{Anacrusis}.
 
-@node Diverses notes a la vegada
-@section Diverses notes a la vegada
+@node Diverses notes a l'hora
+@section Diverses notes a l'hora
 @translationof Multiple notes at once
 
 Aquesta secció és una introducció a les notes simultànies:

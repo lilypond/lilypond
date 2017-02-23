@@ -1,0 +1,1302 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+@ignore
+    Translation of GIT committish: 16661f7f6a78f04d056228d11bdc9e17a7cdf760
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.19.29"
+
+@c Translation status: post-GDP
+
+@node Notes simultànies
+@section Notes simultànies
+@translationof Simultaneous notes
+
+@lilypondfile[quote,ragged-right,line-width=16\cm]{simultaneous-headword.ly}
+
+La paraula @q{polifonia} en música fa referència a tenir més d'una
+veu en una peça qualsevol de música.  Al LilyPond la polifonia fa
+referència a tenir més d'una veu al mateix pentagrama.
+
+@menu
+* Una veu única::
+* Veus múltiples::
+@end menu
+
+
+@node Una veu única
+@subsection Una veu única
+@translationof Single voice
+
+Aquesta secció tracta de les notes simultànies dins de la mateixa veu.
+
+@menu
+* Notes a un acord::
+* Repetició d'acords::
+* Expressions simultànies::
+* Clústers::
+@end menu
+
+
+@node Notes a un acord
+@unnumberedsubsubsec Notes a un acord
+@translationof Chorded notes
+
+@cindex acords
+@cindex parèntesis en angle
+
+@funindex <
+@funindex >
+@funindex <...>
+
+Un acord es forma envoltant un conjunt de notes entre @code{<} i
+@code{>}.  Un acord pot anar seguit d'una duració, com si fos una
+nota simple.
+
+@lilypond[verbatim,quote]
+\relative {
+  <a' c e>1 <a c e>2 <f a c e>4 <a c>8. <g c e>16
+}
+@end lilypond
+
+Els acords també poden anar seguit d'articulacions, com si fos una
+nota simple.
+
+@lilypond[verbatim,quote]
+\relative {
+  <a' c e>1\fermata <a c e>2-> <f a c e>4\prall <a c>8.^! <g c e>16-.
+}
+@end lilypond
+
+Les notes dins del propi acord amb poden anar seguides
+d'articulacions i ornaments.
+
+@lilypond[verbatim,quote]
+\relative {
+  <a' c\prall e>1 <a-> c-^ e>2 <f-. a c-. e-.>4
+  <a-+ c-->8. <g\fermata c e\turn>16
+}
+@end lilypond
+
+Tanmateix alguns elements de notació com ara les expressions de
+matisos dinàmics i els reguladors han d'annexar-se a l'acord i no
+a les notes que l'integren, atès que en cas contrari no
+s'imprimiran.  Altres elements de notació com les digitacions i
+les lligadures d'expressió es posicionen de forma molt diferent
+quan s'adjunten a les notes d'un acord en lloc de fer-lo a rodones
+i notes aïllades.
+
+@lilypond[verbatim,quote]
+\relative {
+  <a'\f c( e>1 <a c) e>\f <a\< c e>( <a\! c e>)
+  <a c e>\< <a c e> <a c e>\!
+}
+@end lilypond
+
+@cindex acords buits
+@cindex esdeveniments contenidors
+
+Un acord funciona com un simple contenidor per a les notes que ho
+composen, a més de les seves articulacions i altres elements
+adjunts.  Com a conseqüència, un acord sense cap nota al seu
+interior no té realment cap duració.  Qualsevol articulació annexa
+es produirà en el mateix moment musical que la nota o acord
+següent i es pot combinar amb ells (per veure possibilitats més
+complexes de combinacions d'aquests elements, consulteu
+@ref{Expressions simultànies}):
+
+@lilypond[verbatim,quote]
+\relative {
+  \grace { g'8( a b }
+  <> ) \p \< -. -\markup \italic "sempre staccato"
+  \repeat unfold 4 { c4 e }  c1\f
+}
+@end lilypond
+
+@cindex relatiu, acords en alçada
+@cindex acords i alçada relativa
+
+Es pot usar el mode relatiu per a l'alçada de les notes dels
+acords.  La primera nota de l'acord sempre és relativa a la
+primera nota de l'acord anterior, o en cas que l'element precedent
+no sigui un acord, l'alçada de l'última nota que va vindre abans
+de l'acord.  La resta de les notes de l'acord són relatives a la
+nota anterior @emph{dins del mateix acord}.
+
+@lilypond[verbatim,quote]
+\relative {
+  <a' c e>1 <f a c> <a c e> <f' a c> <b, e b,>
+}
+@end lilypond
+
+Per veure més informació sobre els acords, consulteu
+@rusernamed{Chord notation,Notació d'acords}.
+
+@seealso
+Glossari musical:
+@rglos{chord}.
+
+Manual d'aprenentatge:
+@rlearning{Combinar notes per formar acords}.
+
+Referència de la notació:
+@rusernamed{Chord notation,Notació d'acords},
+@ref{Articulacions i ornaments},
+@ref{Escriptura d'octava relativa},
+@ref{Veus múltiples}.
+
+Fragments de codi:
+@rlsr{Simultaneous notes}.
+
+@knownissues
+Els acords que contenen més de dues alçades al mateix espai de
+pentagrama, com ara @samp{<e f! fis!>}, creen notes els caps de
+les quals se superposen.  Depenent de la situació, un
+representació millor pot requerir:
+
+@itemize
+
+@item
+l'ús temporal de diverses veus, vegeu @ref{Veus múltiples},
+@samp{<< f! \\ <e fis!> >>},
+
+@item
+la transcripció enharmònica d'una o més notes,
+@samp{<e f ges>}, o
+
+@item
+Clústers; vegeu @ref{Clústers}.
+
+@end itemize
+
+
+@node Repetició d'acords
+@unnumberedsubsubsec Repetició d'acords
+@translationof Chord repetition
+
+@cindex acords, repetició de
+@cindex repetició, amb @code{q}
+@cindex @code{q}, repetició d'acords
+
+Per reduir l'entrada d'acords, es pot usar una abreviatura de
+repetició de l'acord anterior.  El símbol de repetició d'acords és
+@code{q}:
+
+@lilypond[verbatim,quote]
+\relative {
+  <a' c e>1 q <f a c>2 q
+}
+@end lilypond
+
+Com als acords normals, el símbol de repetició d'acords pot
+usar-se amb duracions, articulacions, elements de marcatge,
+lligadures d'expressió, barres, etc., atès que sols es dupliquen
+les notes de l'acord precedent.
+
+@lilypond[verbatim,quote]
+\relative {
+  <a' c e>1\p^"text" q2\<( q8)[-! q8.]\! q16-1-2-3 q8\prall
+}
+@end lilypond
+
+El símbol de repetició d'acords sempre recorda l'última aparició
+d'un acord, per la qual cosa és possible repetir l'acord més
+recent fins i tot si s'han escrit en mig d'altres notes que no
+estiguin a l'acord, o silencis.
+
+@lilypond[verbatim,quote]
+\relative {
+  <a' c e>1 c'4 q2 r8 q8 |
+  q2 c, |
+}
+@end lilypond
+
+Tanmateix, el símbol de repetició d'acords no reté els matisos
+dinàmics, les articulacions ni els ornaments que conté o que
+estan annexats a l'acord anterior.
+
+@lilypond[verbatim,quote]
+\relative {
+  <a'-. c\prall e>1\sfz c'4 q2 r8 q8 |
+  q2 c, |
+}
+@end lilypond
+
+Per poder retenir alguns d'ells, es poden cridar explícitament a
+la funció @code{\chordRepeats} amb un argument addicional que
+especifiqui una llista de @var{tipus d'esdeveniment} a conservar,
+a no ser que els esdeveniments d'aquest tipus ja estiguin presents
+al propi acord @code{q}.
+
+@lilypond[verbatim,quote]
+\relative {
+  \chordRepeats #'(articulation-event)
+  { <a'-. c\prall e>1\sfz c'4 q2 r8 q8-. } |
+  q2 c, |
+}
+@end lilypond
+
+Aquí, l'ús de @code{\chordRepeats} dins d'una construcció
+@code{\relative} produeix un resultat inesperat: un cop s'han
+expandit els esdeveniments d'acord, no poden distingir-se dels que
+es van introduir com acords normals, fent que @code{\relative}
+assigni una octava basada en el context original.
+
+Atès que les instàncies niuades de @code{\relative} no s'afecten
+mútuament, es pot usar una altra ordre @code{\relative} dins de
+@code{\chordRepeats} per establir les relacions d'octava abans
+d'expandir els acords repetits.  En aquest cas, tot el contingut
+de l'ordre @code{\relative} interior no afecta a l'exterior;
+d'aquí l'escriptura diferent d'octava a l'última nota d'aquest
+exemple.
+
+@lilypond[verbatim,quote]
+\relative {
+  \chordRepeats #'(articulation-event)
+  \relative
+  { <a'-. c\prall e>1\sfz c'4 q2 r8 q8-. } |
+  q2 c'' |
+}
+@end lilypond
+
+Les interaccions amb @code{\relative} es produeixen sols amb les
+crides explícites de @code{\chordRepeats}: l'expansió implícita al
+començament del procés de gravat es fa en un moment en el
+qual totes les instàncies de @code{\relative} ja s'han processat.
+
+@seealso
+Referència de la notació:
+@rusernamed{Chord notation,Notació d'acords},
+@ref{Articulacions i ornaments}.
+
+Fitxers d'inici:
+@file{ly/chord-repetition-init.ly}.
+
+
+@node Expressions simultànies
+@unnumberedsubsubsec Expressions simultànies
+@translationof Simultaneous expressions
+
+Una o més expressions musicals envoltades entre angles dobles
+s'entenen com a simultànies.  Si la primera expressió comença amb
+una sola nota o si tota l'expressió simultània apareix
+explícitament dins d'una sola veu, l'expressió completa se situa
+sobre un sol pentagrama; en cas contrari els elements de
+l'expressió simultània se situen en pentagrames diferents.
+
+Els exemples següents mostren expressions simultànies sobre un sol
+pentagrama:
+
+@lilypond[quote,verbatim]
+\new Voice {  % veu única explícita
+  << \relative { a'4 b g2 }
+     \relative { d'4 g c,2 } >>
+}
+@end lilypond
+
+@lilypond[quote,verbatim]
+\relative {
+  % single first note
+  a' << \relative { a'4 b g }
+       \relative { d'4 g c, } >>
+}
+@end lilypond
+
+Això pot ser d'utilitat si les seccions simultànies tenen
+duracions idèntiques, però es produiran errors si s'intenten posar
+notes de diferent duració sobre la mateixa plica.  Les notes,
+articulacions i canvis de propietats que esta dins de
+@emph{un sol} context @samp{Voice} es recol·lecten i representen a
+l'ordre musical:
+
+@lilypond[quote,verbatim]
+\relative {
+  <a' c>4-.  <>-. << c a >>  << { c-. <c a> } { a s-. } >>
+}
+@end lilypond
+
+Intentar posar més d'una pica o barra de corxera, o diferents
+duracions o propietats al mateix moment musical, requereix l'ús de
+més d'una veu.
+
+L'exemple següent mostra com les expressions simultànies poden
+generar diversos pentagrames de forma implícita:
+
+@lilypond[quote,verbatim]
+% no single first note
+<< \relative { a'4 b g2 }
+   \relative { d'4 g2 c,4 } >>
+@end lilypond
+
+Aquí no hi ha problema en tenir tenir diferents duracions perquè
+s'interpreten en veus diferents.
+
+@cindex col·lisions, ignorar
+
+@knownissues
+Si hi ha notes que procedeixen de dues o més veus, sense
+especificar cap desplaçament horitzontal, i tenen les pliques en
+la mateixa direcció, apareix el missatge
+
+@example
+Advertiment: aquesta veu requereix un ajust de \voiceXx o \shiftXx
+@end example
+
+durant la compilació.  Aquest missatge es pot suprimir mitjançant
+
+@example
+\override NoteColumn.ignore-collision = ##t
+@end example
+
+Tanmateix, això no sols suprimeix l'advertiment sinó que pot
+evitar qualsevol resolució de col·lisions i pot tenir altres
+efectes no desitjats (consulteu també
+@emph{Problemes coneguts} a @ref{Resolució de les col·lisions}).
+
+
+@node Clústers
+@unnumberedsubsubsec Clústers
+@translationof Clusters
+
+@cindex clúster
+@cindex raïm (clúster)
+
+@funindex \makeClusters
+
+Un «clúster» indica que s'han de tocar simultàniament un conjunt
+de notes consecutives.  S'escriuen aplicant la funció
+@code{\makeClusters} a una seqüència d'acords, per exemple:
+
+@lilypond[quote,verbatim]
+\relative \makeClusters { <g' b>2 <c g'> }
+@end lilypond
+
+Es poden barrejar al mateix pentagrama notes normals i
+clústers, fins i tot al mateix temps.  En aquest cas, no es fa cap
+intent d'evitar automàticament les col·lisions entre clústers i
+notes normals.
+
+@seealso
+Glossari musical:
+@rglos{cluster}.
+
+Fragments de codi:
+@rlsr{Simultaneous notes}.
+
+Referència de funcionament intern:
+@rinternals{ClusterSpanner},
+@rinternals{ClusterSpannerBeacon},
+@rinternals{Cluster_spanner_engraver}.
+
+@knownissues
+Els clústers sols tenen un bon aspecte quan abasten un mínim de
+dos acords.  En cas contrari apareixeran excessivament prims.
+
+Els clústers no porten plica i per si mateixos no poden indicar
+les duracions, però la longitud del clúster que s'imprimeix ve
+determinada per la duració dels acords que el defineixen.  Als
+clústers separats els calen silencis de separació entre ells.
+
+Els clústers no produeixen cap sortida MIDI.
+
+@node Veus múltiples
+@subsection Veus múltiples
+@translationof Multiple voices
+
+Aquesta secció tracta de les notes simultànies en diverses veus o
+diversos pentagrames.
+
+@menu
+* Polifonia en un sol pentagrama::
+* Estils de veu::
+* Resolució de les col·lisions::
+* Combinació automàtica de les parts::
+* Escriptura de música en paral·lel::
+@end menu
+
+
+@node Polifonia en un sol pentagrama
+@unnumberedsubsubsec Polifonia en un sol pentagrama
+@translationof Single-staff polyphony
+
+@cindex pentagrama únic, polifonia de
+@cindex polifonia en un sol pentagrama
+@cindex veu
+@cindex lletra assignada a una veu
+
+@funindex \voiceOne
+@funindex \voiceOne ... \voiceFour
+@funindex Voice
+@funindex \oneVoice
+
+@subsubsubheading Instanciar les veus explícitament
+
+L'estructura bàsica necessària per obtenir diverses veus
+independents a un mateix pentagrama s'il·lustra a l'exemple següent:
+
+@lilypond[quote,verbatim]
+\new Staff <<
+  \new Voice = "primera"
+    \relative { \voiceOne r8 r16 g'' e8. f16 g8[ c,] f e16 d }
+  \new Voice= "segona"
+    \relative { \voiceTwo d''16 c d8~ 16 b c8~ 16 b c8~ 16 b8. }
+>>
+@end lilypond
+
+@noindent
+Aquí es creen explícitament instàncies de veus, cadascuna de les
+quals rep un nom.  Les instruccions @code{\voiceOne}
+@dots{} @code{\voiceFour} (veu una fins a veu quatre) preparen les
+veus de manera que la primera i la segona veus porten les pliques
+cap amunt, les veus segona i quarta porten les pliques cap avall,
+els caps de les notes en les veus tercera i quarta es desplacen
+horitzontalment, i els silencis de les veus respectives es
+desplacen també automàticament per evitar les col·lisions.
+L'ordre @code{\oneVoice} (una veu) retorna tots els ajustaments de
+les veus a l'estat neutre predeterminat.
+
+@subsubsubheading Passatges polifònics temporals
+
+Es pot crear un passatge polifònic temporal amb la construcció següent:
+
+@example
+<< @{ \voiceOne @dots{} @}
+  \new Voice @{ \voiceTwo @dots{} @}
+>> \oneVoice
+@end example
+
+@noindent
+Aquí, la primera expressió dins d'un passatge polifònic temporal
+es col·loca al context @code{Voice} que estava en ús immediatament
+abans del passatge polifònic, i aquest mateix context
+@code{Voice} continua després de la secció temporal.  Altres
+expressions dins dels angles s'assignen a diferents veus
+temporals.  Això permet assignar la lletra de forma contínua a una
+veu abans, durant i després de la secció polifònica:
+
+@lilypond[quote,verbatim]
+\relative <<
+  \new Voice = "melodia" {
+    a'4
+    <<
+      {
+        \voiceOne
+        g f
+      }
+      \new Voice {
+        \voiceTwo
+        d2
+      }
+    >>
+    \oneVoice
+    e4
+  }
+  \new Lyrics \lyricsto "melodia" {
+  This is my song.
+  }
+>>
+@end lilypond
+
+@noindent
+Aquí, les instruccions @code{\voiceOne} i @code{\voiceTwo} calen
+per definir els ajustaments de cada veu.
+
+@subsubsubheading La construcció de la doble barra invertida
+
+La construcció @code{<< @{@dots{}@} \\ @{@dots{}@} >>}, en la qual
+dues expressions (o més) estan separades per doble barra
+invertida, es comporta de manera diferent a la construcció
+semblant sense les doble barres invertides: @emph{totes} les
+expressions dins d'aquesta construcció s'assignen a contextos
+@code{Voice} nous.  Aquests contextos @code{Voice} nous es creen
+implícitament i reben els noms fixos @code{"1"}, @code{"2"}, etc.
+
+El primer exemple podria haver-se escrit de la manera següent:
+
+@lilypond[quote,verbatim]
+<<
+  \relative { r8 r16 g'' e8. f16 g8[ c,] f e16 d }
+  \\
+  \relative { d''16 c d8~ 16 b c8~ 16 b c8~ 16 b8. }
+>>
+@end lilypond
+
+Aquesta sintaxi es pot usar sempre que no ens importi que es creïn
+noves veus temporals que després seran descartades.  Aquestes veus
+creades implícitament reben ajustos equivalents a l'efecte de les
+ordres @code{\voiceOne}@dots{}@code{\voiceFour}, a l'ordre que
+apareixen al codi.
+
+Al següent exemple, la veu intermèdia porta les pliques cap amunt,
+de manera que la introduïm en tercer lloc perquè passi a ser la
+veu tres, que té les pliques cap amunt tal i com volem.  S'usen
+silencis de separació per evitar l'aparició de silencis duplicats.
+
+@lilypond[quote,verbatim]
+<<
+  \relative { r8 g'' g  g g f16 ees f8 d }
+  \\
+  \relative { ees'8 r ees r d r d r }
+  \\
+  \relative { d''8 s c s bes s a s }
+>>
+@end lilypond
+
+A totes les partitures excepte les més simples, es recomana crear
+contextos @code{Voice} explícits com apareix explicat a
+@rlearning{Contextos i gravadors} i a  @rlearning{Veus explícites}.
+
+@subsubsubheading Ordre de les veus
+
+En escriure diverses veus al fitxer d'entrada, useu l'ordre següent:
+
+@example
+Veu 1: la més aguda
+Veu 2: la més greu
+Veu 3: la segona més aguda
+Veu 4: la segona més greu
+Veu 5: la tercera més aguda
+Veu 6: la tercera més greu
+etc.
+@end example
+
+Malgrat que això pot semblar contrari a la intuïció, simplifica el
+procés de disposició automàtica de les figures.  Observeu que les
+veus de numeració imparell reben pliques cap amunt, i les de
+numeració parell reben pliques cap avall:
+
+@lilypond[quote,verbatim]
+\new Staff <<
+  \time 2/4
+  { f''2 }  % 1: més alta
+  \\
+  { c'2  }  % 2: més baixa
+  \\
+  { d''2 }  % 3: segona més alta
+  \\
+  { e'2  }  % 4: segona més baixa
+  \\
+  { b'2  }  % 5: tercera més alta
+  \\
+  { g'2  }  % 6: tercera més baixa
+>>
+@end lilypond
+
+@warning{No es poden crear lletres ni elements d'extensió (com
+lligadures, reguladors, etc.) que es creuen d'una veu a una altra.}
+
+@subsubsubheading Duracions idèntiques
+
+Al cas especial en el qual volem gravar fragments de música que
+s'executa en paral·lel i amb les mateixes duracions, es poden
+combinar en un sol context de veu, formant d'aquesta manera
+acords.  Per aconseguir-lo, les incorporem dins d'una construcció
+de música simultània, dins d'una veu creada explícitament.
+
+@lilypond[quote,verbatim]
+\new Voice <<
+  \relative { e''4 f8 d e16 f g8 d4 }
+  \relative { c''4 d8 b c16 d e8 b4 }
+>>
+@end lilypond
+
+Aquest mètode condueix a barrats estranys i advertiments si els
+fragments de música no tenen les mateixes duracions exactes.
+
+@predefined
+@code{\voiceOne},
+@code{\voiceTwo},
+@code{\voiceThree},
+@code{\voiceFour},
+@code{\oneVoice}.
+@endpredefined
+
+@seealso
+Manual d'aprenentatge:
+@rlearning{Les veus contenen música},
+@rlearning{Veus explícites}.
+
+Referència de la notació:
+@rusernamed{Percussion staves,Pautes de percussió},
+@ref{Silencis invisibles},
+@rusernamed{Stems,Pliques}.
+
+Fragments de codi:
+@rlsr{Simultaneous notes}.
+
+
+@node Estils de veu
+@unnumberedsubsubsec Estils de veu
+@translationof Voice styles
+
+@cindex estils de veu
+@cindex estils, veu
+@cindex color de veus
+@funindex \voiceOneStyle
+@funindex \voiceTwoStyle
+@funindex \voiceThreeStyle
+@funindex \voiceFourStyle
+@funindex \voiceNeutralStyle
+
+Es poden aplicar colors i formes diferents a les veus per
+permetre identificar-les fàcilment:
+
+@lilypond[quote,verbatim]
+<<
+  \relative { \voiceOneStyle d''4 c2 b4 }
+  \\
+  \relative { \voiceTwoStyle e'2 e }
+  \\
+  \relative { \voiceThreeStyle b2. c4 }
+  \\
+  \relative { \voiceFourStyle g'2 g }
+>>
+@end lilypond
+
+Per recuperar la presentació normal s'utilitza l'ordre
+@code{\voiceNeutralStyle}.
+
+@predefined
+@code{\voiceOneStyle},
+@code{\voiceTwoStyle},
+@code{\voiceThreeStyle},
+@code{\voiceFourStyle},
+@code{\voiceNeutralStyle}.
+@endpredefined
+
+@seealso
+Manual d'aprenentatge
+@rlearning{Sento veus},
+@rlearning{Altres fonts d'informació}
+
+Fragments de codi:
+@rlsr{Simultaneous notes}.
+
+
+@node Resolució de les col·lisions
+@unnumberedsubsubsec Resolució de les col·lisions
+@translationof Collision resolution
+
+@cindex barrejar notes
+@cindex notes, col·lisions de
+@cindex col·lisions
+@cindex desplaçament de notes
+@cindex diverses veus
+@cindex veus, diverses
+@cindex polifònica, música
+@cindex desplaçament de veus
+@cindex desplaçament, silenci automàtic de
+@cindex desplaçament de silencis, automàtic
+@funindex \shiftOn
+@funindex \shiftOnn
+@funindex \shiftOnnn
+@funindex \shiftOff
+@funindex \mergeDifferentlyDottedOn
+@funindex \mergeDifferentlyDottedOff
+@funindex \mergeDifferentlyHeadedOn
+@funindex \mergeDifferentlyHeadedOff
+
+Els caps de notes que estan a diferents veus i tenen la mateixa
+alçada, la mateixa forma de cap, i direcció oposada a la plica, es
+combinen automàticament, però els que tenen caps diferents o la
+mateixa direcció de plica no es combinen.  Els silencis que es
+troben al costat oposat d'una plica a una altra veu es desplacen
+verticalment.  L'exemple següent mostra tres circumstàncies
+diferents, sobre la pulsació 1 i 3 al primer compàs i sobre la
+pulsació 1 del segon compàs, on la combinació automàtica falla.
+
+@lilypond[quote,verbatim]
+<<
+  \relative {
+    c''8 d e d c d c4
+    g'2 fis
+  } \\
+  \relative {
+    c''2 c8. b16 c4
+    e,2 r
+  } \\
+  \relative {
+    \oneVoice
+    s1
+    e'8 a b c d2
+  }
+>>
+@end lilypond
+
+Els caps de notes diferents es poden com binar com es mostra més
+a sota.  A aquest exemple els caps de la pulsació 1 del primer
+compàs sí que es combinen:
+
+@lilypond[quote,verbatim]
+<<
+  \relative {
+    \mergeDifferentlyHeadedOn
+    c''8 d e d c d c4
+    g'2 fis
+  } \\
+  \relative {
+    c''2 c8. b16 c4
+    e,2 r
+  } \\
+  \relative {
+    \oneVoice
+    s1
+    e'8 a b c d2
+  }
+>>
+@end lilypond
+
+Les figures negres i blanques no es combinen d'aquesta manera,
+atès que fora difícil distingir-les.
+
+També es poden combinar caps amb puntets diferents, com es mostra
+a la tercera pulsació del primer compàs:
+
+@lilypond[quote,verbatim]
+<<
+  \relative {
+    \mergeDifferentlyHeadedOn
+    \mergeDifferentlyDottedOn
+    c''8 d e d c d c4
+    g'2 fis
+  } \\
+  \relative {
+    c''2 c8. b16 c4
+    e,2 r
+  } \\
+  \relative {
+    \oneVoice
+    s1
+    e'8 a b c d2
+  }
+>>
+@end lilypond
+
+La blanca i la corxera al començament del segon compàs no estan
+correctament combinades perquè la combinació automàtica no és
+capaç de completar-se satisfactòriament quan es troben tres o més
+notes alineades a la mateixa columna de notes, i en aquest cas el
+cap combinat és incorrecte.  Per aconseguir que la combinació
+seleccioni el cap correcte, s'ha d'aplicar un @code{\shift} o
+desplaçament a la nota que no es pot combinar. Aquí s'aplica
+@code{\shiftOn} per moure el sol agut fora de la columna, i
+aleshores @code{\mergeDifferentlyHeadedOn} fa el seu treball
+correctament.
+
+@lilypond[quote,verbatim]
+<<
+  \relative {
+    \mergeDifferentlyHeadedOn
+    \mergeDifferentlyDottedOn
+    c''8 d e d c d c4
+    \shiftOn
+    g'2 fis
+  } \\
+  \relative {
+    c''2 c8. b16 c4
+    e,2 r
+  } \\
+  \relative {
+    \oneVoice
+    s1
+    e'8 a b c d2
+  }
+>>
+@end lilypond
+
+L'ordre @code{\shiftOn} permet (tot i que obliga a) que les notes
+d'una veu es puguin desplaçar.  Quan @code{\shiftOn} s'aplica a
+una veu, una nota o acord d'aquesta veu es desplaça solament si la
+seva plica xoqués en cas contrari amb una plica d'una altra veu, i
+sols si les pliques que xoquen apunten cap a la mateixa
+direcció. L'ordre @code{\shiftOff} evita la possibilitat d'aquest
+tipus de desplaçament.
+
+De forma predeterminada, les veus externes (normalment les veus u
+i dos) tenen @code{\shiftOff} especificat (desplaçament
+desactivat), mentre que les veus interiors (tres i següents) tenen
+especificat @code{\shiftOn} (desplaçament activat).  Quan s'aplica
+un desplaçament, les veus amb pliques cap amunt (veus de numeració
+imparell) es desplacen cap a la dreta, i les veus amb les pliques
+cap avall (veus amb numeració parell) es desplacen cap a l'esquerra.
+
+Aquí es pot veure un exemple que us ajudarà a visualitzar la forma
+en la qual s'expandirà internament una expressió polifònica.
+
+@warning{Observeu que amb tres o més veus, l'ordre vertical de les
+veus dins del seu fitxer d'entrada no seria el mateix que l'ordre
+vertical de les veus al pentagrama.}
+
+@lilypond[quote,verbatim]
+\new Staff \relative {
+  %% abbreviated entry
+  <<
+    { f''2  }  % 1: highest
+    \\
+    { g,2 }  % 2: lowest
+    \\
+    { d'2 }  % 3: upper middle
+    \\
+    { b2  }  % 4: lower middle
+  >>
+  %% internal expansion of the above
+  <<
+    \new Voice = "1" { \voiceOne   \shiftOff f'2 }
+    \new Voice = "2" { \voiceTwo   \shiftOff g,2 }
+    \new Voice = "3" { \voiceThree \shiftOn  d'2 } % shifts right
+    \new Voice = "4" { \voiceFour  \shiftOn  b2  } % shifts left
+  >>
+}
+@end lilypond
+
+Dues ordres addicionals, @code{\shiftOnn} i
+@code{\shiftOnnn}, ofereixen nivells de desplaçament majors que es
+poden especificar temporalment per resoldre col·lisions en
+situacions complexes; vegeu @rlearning{Exemple real de música}.
+
+Sols es combinen les notes si tenen les pliques en direccions
+oposades (com la tenen, per exemple, a les veus u i dos de forma
+predeterminada o quan les pliques s'estableixen explícitament en
+direccions oposades).
+
+@predefined
+@code{\mergeDifferentlyDottedOn},
+@code{\mergeDifferentlyDottedOff},
+@code{\mergeDifferentlyHeadedOn},
+@code{\mergeDifferentlyHeadedOff}.
+
+@code{\shiftOn},
+@code{\shiftOnn},
+@code{\shiftOnnn},
+@code{\shiftOff}.
+@endpredefined
+
+@snippets
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{additional-voices-to-avoid-collisions.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{forcing-horizontal-shift-of-notes.ly}
+
+@seealso
+Glossari musical:
+@rglos{polyphony}.
+
+Manual d'aprenentatge:
+@rlearning{Diverses notes a l'hora},
+@rlearning{Les veus contenen música}.
+@rlearning{Exemple real de música}.
+
+Fragments de codi:
+@rlsr{Simultaneous notes}.
+
+Referència de funcionament intern:
+@rinternals{NoteColumn},
+@rinternals{NoteCollision},
+@rinternals{RestCollision}.
+
+@cindex col·lisions, ignorar
+
+@knownissues
+L'ús de @code{\override NoteColumn.ignore-collision = ##t} fa
+que les notes de cap diferent a veus diferents es barregin incorrectament.
+
+@lilypond[quote,verbatim,fragment]
+\mergeDifferentlyHeadedOn
+<< \relative { c'16 a' b a } \\ \relative { c'2 } >>
+\override NoteColumn.ignore-collision = ##t
+<< \relative { c'16 a' b a } \\ \relative { c'2 } >>
+@end lilypond
+
+@ignore
+@knownissues
+@c TODO investigate! Sometimes it works, sometimes not. --FV
+No estan clars els requisits per combinar amb èxit caps de nota
+diferents que tenen també diferent puntet.
+@end ignore
+
+
+@node Combinació automàtica de les parts
+@unnumberedsubsubsec Combinació automàtica de les parts
+@translationof Automatic part combining
+
+@cindex automàtica, combinació de parts
+@cindex parts, combinació automàtica
+@cindex parts, combinador de
+@cindex a due, parts
+@cindex solo, parts
+@funindex \partcombine
+
+La combinació automàtica de particel·les s'usa per barrejar dues
+parts musicals diferents sobre un pentagrama.  Això pot ser de
+gran ajuda especialment en gravar partitures orquestrals.
+S'imprimeix una sola veu quan la música de les dues veus és la
+mateixa, però en aquells llocs on difereixen, s'imprimeix una
+segona veu.  Les direccions de les pliques s'estableixen cap amunt
+o cap avall segons procedeixi, a l'hora que s'identifiquen i
+queden marcades les parts de solista i de duo.
+
+La sintaxi per a la combinació automàtica de les parts és:
+
+@example
+\partcombine @var{expressió_musical_1} @var{expressió_musical_2}
+@end example
+
+L'exemple següent exemplifica la funcionalitat bàsica, posant les
+parts en un sol pentagrama en forma polifònica, i establint les
+direccions de les pliques de forma adequada.  S'utilitzen les
+mateixes variables per a les parts independents i el pentagrama
+combinat.
+
+@lilypond[quote,verbatim]
+instrumentOne = \relative {
+  c'4 d e f |
+  R1 |
+  d'4 c b a |
+  b4 g2 f4 |
+  e1 |
+}
+
+instrumentTwo = \relative {
+  R1 |
+  g'4 a b c |
+  d4 c b a |
+  g4 f( e) d |
+  e1 |
+}
+
+<<
+  \new Staff \instrumentOne
+  \new Staff \instrumentTwo
+  \new Staff \partcombine \instrumentOne \instrumentTwo
+>>
+@end lilypond
+
+Les dues parts tenen notes idèntiques al tercer compàs, per la
+qual cosa apareixen sols un cop.  Les direccions de les pliques i
+lligadures s'estableixen de forma automàtica, segons es tracti
+d'un sol o d'un uníson.  Quan cal en situacions de polifonia, la
+primera part (que rep el nom de context @code{one}) rep les
+pliques cap amunt, mentre que la segona part (anomenada
+@code{two}) sempre rep les pliques cap avall.  Als fragments de
+solo, les parts es marquen amb @qq{Solo} i @qq{Solo II},
+respectivament.  Les parts en uníson (@notation{a due}) es marquen
+amb el text @qq{a2}.
+
+De forma predeterminada, el combinador de parts barreja dues notes
+de la mateixa alçada com una nota @notation{a due}, combina les
+notes que tinguin la mateixa duració i estiguin a menys d'una
+novena distància com acords, i disposa en veus separades les notes
+que estiguin a més d'una novena de distància (o quan hi ha
+creuament de veus).  Aquest comportament es pot sobreescriure amb
+un argument opcional que consisteix en una parella de números
+després de l'ordre @code{\partcombine}: el primer especifica
+l'interval on les notes comencen a estar combinades (el valor
+predeterminat és zero) i el segon on les notes es divideixen en
+veus distintes.  L'ajust del segon argument al valor zero
+significa que el combinador de parts separa les notes que estiguin
+dins d'un interval de segona o més, establir-lo al valor u separa
+les notes d'una tercera o més, i així successivament.
+
+@lilypond[quote,verbatim]
+instrumentOne = \relative {
+  a4 b c d |
+  e f g a |
+  b c d e |
+}
+
+instrumentTwo = \relative {
+  c'4 c c c |
+  c c c c |
+  c c c c |
+}
+
+<<
+  \new Staff \partcombine \instrumentOne \instrumentTwo
+  \new Staff \partcombine #'(2 . 3) \instrumentOne \instrumentTwo
+>>
+@end lilypond
+
+Els dos arguments de @code{\partcombine} s'interpreten com
+contextos de @rinternals{Voice} separats, per la qual cosa si la
+música està escrita en mode relatiu, aleshores @emph{las dues}
+parts han d'incloure la funció @code{\relative}, és a dir:
+
+@example
+\partcombine
+  \relative @dots{} @var{expresión_musical_1}
+  \relative @dots{} @var{expresión_musical_2}
+@end example
+
+@noindent
+Una secció @code{\relative} que es troba fora de
+@code{\partcombine} no té cap efecte sobre les notes de
+@code{@var{expresión_musical_1}} i
+@code{@var{expresión_musical_2}}.
+
+@funindex \partcombineChords
+@funindex \partcombineApart
+@funindex \partcombineUnisono
+@funindex \partcombineSoloI
+@funindex \partcombineSoloII
+@funindex \partcombineAutomatic
+
+A les partitures professionals, sovint les veus es mantenen
+separades entre sí durant passatges llargs fins i tot si algunes
+notes coincideixen entre ambdues, i podrien escriure's fàcilment
+com un uníson.  Per això, la combinació de les notes en un acord,
+o la visualització d'una veu com un solo, no són solucions ideals
+perquè la funció @code{\partcombine} considera cada nota de forma
+individual.  En aquest cas, el resultat de la funció
+@code{\partcombine} es pot alterar o corregir amb una de les
+ordres següents.  Totes les ordres es poden antecedir per
+@code{\once} perquè s'apliquin sols a la nota següent dins de
+l'expressió musical.
+
+@itemize
+@item
+@code{\partcombineApart} manté les notes com dues veus separades
+fins i tot si es poden combinar en un acord o uníson.
+
+@item
+@code{\partcombineChords} combina les notes d'un acord.
+
+@item
+@code{\partcombineUnisono} combina les dues veus com uníson i
+marca el resultat com @qq{unison}.
+
+@item
+@code{\partcombineSoloI} mostra sols la veu u i la marca com
+@qq{Solo}.
+
+@item
+@code{\partcombineSoloII} imprimeix sols la veu dos i la marca com
+@qq{Solo}.
+
+@item
+@code{\partcombineAutomatic} finalitza l'efecte de les ordres
+anteriors i retorna a la funcionalitat estàndard de
+@code{\partcombine}.
+
+@end itemize
+
+@lilypond[quote,verbatim]
+instrumentOne = \relative c' {
+  \partcombineApart c2^"apart" e |
+  \partcombineAutomatic e2^"auto" e |
+  \partcombineChords e'2^"chord" e |
+  \partcombineAutomatic c2^"auto" c |
+  \partcombineApart c2^"apart" \once \partcombineChords e^"chord once" |
+  c2 c |
+}
+instrumentTwo = \relative {
+  c'2 c |
+  e2 e |
+  a,2 c |
+  c2 c' |
+  c2 c |
+  c2 c |
+}
+
+<<
+  \new Staff { \instrumentOne }
+  \new Staff { \instrumentTwo }
+  \new Staff { \partcombine \instrumentOne \instrumentTwo }
+>>
+@end lilypond
+
+
+@subsubsubheading Ús de \partcombine amb lletra
+
+@cindex \partcombine i lletra
+
+L'ordre @code{\partcombine} no està dissenyada per funcionar amb
+la lletra de les cançons; si una de les veus rep un nom explícit
+per poder adjuntar una lletra, el combinador de parts no
+funciona.  Tanmateix, es pot aconseguir aquest efecte usant un
+context @code{NullVoice}.  Vegeu
+@rusernamed{Poliphony with shared lyrics,Polifonia amb lletres compartides}.
+
+@snippets
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{combining-two-parts-on-the-same-staff.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{changing-partcombine-texts.ly}
+
+@seealso
+Glossari musical:
+@rglos{a due},
+@rglos{part}.
+
+Referència de la notació:
+@rusernamed{Writing parts,Escriptura de les particel·les}.
+
+Fragments de codi:
+@rlsr{Simultaneous notes}.
+
+Referència de funcionament intern:
+@rinternals{PartCombineMusic},
+@rinternals{Voice}.
+
+@knownissues
+Totes les funcions @code{\partcombine@dots{}} admeten
+exclusivament dues veus.
+
+Les funcions @code{\partcombine@dots{}} no es poden escriure dins
+dels blocs @code{\tuplet} ni @code{\relative}.
+
+Si @code{printPartCombineTexts} està establert i les dues veus
+executen i acaben les mateixes notes al mateix compàs, el
+combinador de parts pot gravar @code{a2} més d'un cop en aquest
+compàs.
+
+@code{\partcombine} sols té en compte el moment d'inici de les
+notes dins d'una veu @code{Voice}; per exemple, no pot recordar si
+una nota dins d'una veu ja ha començat quan les notes que es
+combinen s'han iniciat just ara a l'altra veu.  Això pot conduir a
+cert nombre de problemes inesperats entre els que s'inclou la
+impressió incorrecta de marques de @qq{Solo} o de @qq{Unison}.
+
+@code{\partcombine} conserva tots els elements extensos
+(lligadures, reguladors, etc.) dins del mateix context
+@code{Voice} de forma que si qualsevol d'aquests elements extensos
+inicia o acaba a un context @code{Voice} diferent, pot no
+imprimir-se o fer-lo incorrectament.
+
+Si la funció @code{\partcombine} no pot combinar les dues
+expressions musicals (és a dir, quan les dues veus tenen duracions
+diferents), atorgarà internament els seus propis noms a les veus:
+@code{one} i @code{two} respectivament.  Això significa que si es
+produeix un canvi a un context @code{Voice} que tingui un nom
+diferent, s'ignoraran els esdeveniments dins del context
+@code{Voice} que té el nom diferent.
+
+Consulteu també l'apartat
+@emph{Advertiments i problemes coneguts} a la sessió
+@rusernamed{Default tablatures,Tabulatures predeterminades}
+en utilitzar@code{\partcombine} amb tabulatures, i la @emph{Nota}
+de @ref{Barres automàtiques} en utilitzar el barrat automàtic.
+
+@node Escriptura de música en paral·lel
+@unnumberedsubsubsec Escriptura de música en paral·lel
+@translationof Writing music in parallel
+
+@cindex escriptura de música en paral·lel
+@cindex música intercalada
+@cindex paral·lel, música en
+@funindex \parallelMusic
+
+La música per diverses parts es pot intercalar dins del codi
+d'entrada.  La funció @code{\parallelMusic} admet una llista que
+conté els noms de les variables que es crearan, i una expressió
+musical.  El contingut dels compassos alternatius estrets de
+l'expressió es converteixen en el valor de les variables
+respectives, de manera que podem utilitzar-les més tard per
+imprimir la música.
+
+@warning{És obligatori utilitzar comprovacions de compàs
+@code{|}, y els compassos han de tenir la mateixa longitud.}
+
+@lilypond[quote,verbatim]
+\parallelMusic #'(voiceA voiceB voiceC) {
+  % Bar 1
+  r8 g'16 c'' e'' g' c'' e'' r8 g'16 c'' e'' g' c'' e'' |
+  r16 e'8.~   4              r16 e'8.~   4              |
+  c'2                        c'2                        |
+
+  % Bar 2
+  r8 a'16 d'' f'' a' d'' f'' r8 a'16 d'' f'' a' d'' f'' |
+  r16 d'8.~   4              r16 d'8.~   4              |
+  c'2                        c'2                        |
+
+}
+\new StaffGroup <<
+  \new Staff << \voiceA \\ \voiceB >>
+  \new Staff { \clef bass \voiceC }
+>>
+@end lilypond
+
+Es pot fer servir el mode relatiu.  Observeu que l'ordre
+@code{\relative} no s'utilitza dins del propi bloc
+@code{\parallelMusic}.  Les notes mantenen la relació amb la nota
+anterior de la mateixa veu, no amb la nota anterior dins del codi
+d'entrada (dit d'una altra manera, les notes relatives de
+@code{voiceA} ignoren les notes que hi ha a @code{voiceB}.
+
+@lilypond[quote,verbatim]
+\parallelMusic #'(voiceA voiceB voiceC) {
+  % Bar 1
+  r8 g16 c e g, c e r8 g,16 c e g, c e  |
+  r16 e8.~ 4        r16 e8.~  4         |
+  c2                c                   |
+
+  % Bar 2
+  r8 a,16 d f a, d f r8 a,16 d f a, d f |
+  r16 d8.~  4        r16 d8.~  4        |
+  c2                 c                  |
+
+ }
+\new StaffGroup <<
+  \new Staff << \relative c'' \voiceA \\ \relative c' \voiceB >>
+  \new Staff \relative c' { \clef bass \voiceC }
+>>
+@end lilypond
+
+Això funciona acceptablement bé per a música de piano.  L'exemple
+següent assigna cada quatre compassos consecutius a quatre variables:
+
+@lilypond[quote,verbatim]
+global = {
+  \key g \major
+  \time 2/4
+}
+
+\parallelMusic #'(voiceA voiceB voiceC voiceD) {
+  % Compàs 1
+  a8    b     c   d     |
+  d4          e         |
+  c16 d e fis d e fis g |
+  a4          a         |
+
+  % Compàs 2
+  e8      fis  g     a   |
+  fis4         g         |
+  e16 fis g  a fis g a b |
+  a4           a         |
+
+  % Compàs 3 ...
+}
+
+\score {
+  \new PianoStaff <<
+     \new Staff {
+       \global
+       <<
+         \relative c'' \voiceA
+         \\
+         \relative c'  \voiceB
+       >>
+     }
+     \new Staff {
+       \global \clef bass
+       <<
+         \relative c \voiceC
+         \\
+         \relative c \voiceD
+       >>
+     }
+  >>
+}
+@end lilypond
+
+@seealso
+Manual d'aprenentatge:
+@rlearning{Organitzar les peces mitjançant variables}
+
+Fragments de codi:
+@rlsr{Simultaneous notes}.

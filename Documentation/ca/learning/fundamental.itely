@@ -191,7 +191,7 @@ i @code{\midi @{ @}}.  Si apareixen tal i com es mostren aquí, fan
 que el LilyPond produeixi una sortida impresa i una sortida MIDI,
 respectivament.  Es descriuen amb tot detall al manual de
 Referència de la notació, a @rusernamed{Score layout,Disposició de la partitura}
-i a  @ruser{Creating MIDI output,Creació de sortida MIDI}.
+i a  @rusernamed{Creating MIDI output,Creació de sortida MIDI}.
 
 @cindex partitures, diverses
 @cindex book, bloc implícit
@@ -262,7 +262,7 @@ limitacions exactes que afecten els noms de variable es detallen a
 
 @seealso
 Per veure una definició completa del format del codi d'entrada,
-consulteu @ruser{File structure}
+consulteu @rusernamed{File structure,Estructura dels fitxers}
 
 @node La partitura és una (única) expressió musical composta
 @subsection La partitura és una (única) expressió musical composta
@@ -380,7 +380,7 @@ s'interpreta com a lletra, el precedim amb @code{\lyricmode}.
 Igual que @code{\addlyrics}, això activa el mode d'entrada de
 lletra.  Sense això, el LilyPond intentaria interpretar el
 contingut com a notes, cosa que generaria errors (Hi ha d'altres
-modes, vegeu @ruser{Input modes}).
+modes, vegeu @rusernamed{Input modes,Modes d'entrada}).
 
 Així doncs, tot escrivint algunes notes, i una clau de Fa per a la
 mà esquerra, ara tenim un fragment musical de debò:
@@ -970,7 +970,7 @@ propietat @code{force-hshift} a
 
 @seealso
 Referència de la notació:
-@ruser{Multiple voices,Veus mútiples}.
+@ruser{Veus mútliples}.
 
 
 @node Veus explícites
@@ -1216,7 +1216,7 @@ Manual d'aprenentatge:
 @ref{Moviment d'objectes}.
 
 Referència de la notació:
-@rusernamed{Multiple voices,Veus múltiples}.
+@ruser{Veus múltiples}.
 
 
 @node Veus i música vocal
