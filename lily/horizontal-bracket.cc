@@ -19,78 +19,12 @@
 
 #include "horizontal-bracket.hh"
 
-#include "lookup.hh"
-#include "side-position-interface.hh"
+#include "bracket.hh"
+#include "stencil.hh"
 #include "pointer-group-interface.hh"
 #include "directional-element-interface.hh"
-#include "output-def.hh"
-#include "staff-symbol-referencer.hh"
-#include "tuplet-bracket.hh"
-#include "axis-group-interface.hh"
 #include "spanner.hh"
 #include "item.hh"
-
-Stencil
-Horizontal_bracket::make_bracket (Grob *me,
-                                  Real length,
-                                  Axis a, Direction dir)
-{
-  Drul_array<Real> edge_height = robust_scm2interval (me->get_property ("edge-height"),
-                                                      Interval (1.0, 1.0));
-  Drul_array<Real> flare = robust_scm2interval (me->get_property ("bracket-flare"),
-                                                Interval (0, 0));
-  Drul_array<Real> shorten = robust_scm2interval (me->get_property ("shorten-pair"),
-                                                  Interval (0, 0));
-
-  // Make sure that it points in the correct direction:
-  scale_drul (&edge_height, Real (-dir));
-
-  Interval empty;
-  Offset start;
-  start[a] = length;
-
-  Drul_array<bool> connect_to_other
-    = robust_scm2booldrul (me->get_property ("connect-to-neighbor"),
-                           Drul_array<bool> (false, false));
-
-  for (LEFT_and_RIGHT (d))
-    {
-      if (connect_to_other[d])
-        {
-          edge_height[d] = 0.0;
-          flare[d] = 0.0;
-          shorten[d] = 0.0;
-        }
-    }
-
-  /*
-    ugh, Tuplet_bracket should use Horizontal_bracket, not the other way around.
-  */
-  return Tuplet_bracket::make_bracket (me, other_axis (a), start,
-                                       edge_height, empty, flare, shorten);
-}
-
-Stencil
-Horizontal_bracket::make_enclosing_bracket (Grob *me, Grob *refpoint,
-                                            vector<Grob *> grobs,
-                                            Axis a, Direction dir)
-{
-  Grob *common = common_refpoint_of_array (grobs, refpoint, a);
-  Interval ext = Axis_group_interface::relative_group_extent (grobs, common, a);
-
-  if (ext.is_empty ())
-    {
-      me->programming_error ("Can't enclose empty extents with bracket");
-      return Stencil ();
-    }
-  else
-    {
-      Stencil b = make_bracket (me, ext.length (), a, dir);
-      b.translate_axis (ext[LEFT] - refpoint->relative_coordinate (common, a), a);
-
-      return b;
-    }
-}
 
 MAKE_SCHEME_CALLBACK (Horizontal_bracket, print, 1);
 SCM
@@ -113,7 +47,8 @@ Horizontal_bracket::print (SCM smob)
         enclosed.push_back (b);
     }
 
-  Stencil b = make_enclosing_bracket (me, me, enclosed, X_AXIS, get_grob_direction (me));
+  Stencil b = Bracket::make_enclosing_bracket (me, me, enclosed, X_AXIS,
+                                               get_grob_direction (me));
   return b.smobbed_copy ();
 }
 

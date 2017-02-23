@@ -28,7 +28,7 @@
 #include "staff-symbol-referencer.hh"
 #include "note-column.hh"
 #include "directional-element-interface.hh"
-#include "tuplet-bracket.hh"
+#include "bracket.hh"
 #include "rhythmic-head.hh"
 #include "pointer-group-interface.hh"
 
@@ -151,12 +151,11 @@ Ottava_bracket::print (SCM smob)
 
   Stencil b;
   Interval empty;
+
   if (!bracket_span_points.is_empty () && bracket_span_points.length () > 0.001)
-    b = Tuplet_bracket::make_bracket (me,
-                                      Y_AXIS, Offset (bracket_span_points.length (), 0),
-                                      edge_height,
-                                      empty,
-                                      flare, Drul_array<Real> (0, 0));
+    b = Bracket::make_bracket (
+      me, Y_AXIS, Offset (bracket_span_points.length (), 0),
+      edge_height, empty, flare, Drul_array<Real> (0, 0));
 
   /*
    * The vertical lines should not take space, for the following scenario:

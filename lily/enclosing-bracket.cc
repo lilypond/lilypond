@@ -19,7 +19,7 @@
 */
 
 #include "stencil.hh"
-#include "horizontal-bracket.hh"
+#include "bracket.hh"
 #include "grob.hh"
 #include "axis-group-interface.hh"
 #include "pointer-group-interface.hh"
@@ -64,8 +64,10 @@ Enclosing_bracket::width (SCM grob)
   Grob *common_x = common_refpoint_of_array (elements, me, X_AXIS);
   Interval xext = Axis_group_interface::relative_group_extent (elements, common_x, X_AXIS);
 
-  Stencil left_br = Horizontal_bracket::make_bracket (me, 10.0, Y_AXIS, LEFT);
-  Stencil right_br = Horizontal_bracket::make_bracket (me, 10.0, Y_AXIS, LEFT);
+  Stencil left_br =
+    Bracket::make_axis_constrained_bracket (me, 10.0, Y_AXIS, LEFT);
+  Stencil right_br =
+    Bracket::make_axis_constrained_bracket (me, 10.0, Y_AXIS, LEFT);
 
   xext.widen (robust_scm2double (me->get_property ("padding"), 0.25));
   left_br.translate_axis (xext[LEFT], X_AXIS);
@@ -97,10 +99,10 @@ Enclosing_bracket::print (SCM grob)
       xext = Interval (0, 0);
     }
 
-  Stencil left_br = Horizontal_bracket::make_enclosing_bracket (me, me, elements,
-                    Y_AXIS, LEFT);
-  Stencil right_br = Horizontal_bracket::make_enclosing_bracket (me, me, elements,
-                     Y_AXIS, RIGHT);
+  Stencil left_br =
+    Bracket::make_enclosing_bracket (me, me, elements, Y_AXIS, LEFT);
+  Stencil right_br =
+    Bracket::make_enclosing_bracket (me, me, elements, Y_AXIS, RIGHT);
 
   xext.widen (robust_scm2double (me->get_property ("padding"), 0.25));
   left_br.translate_axis (xext[LEFT], X_AXIS);

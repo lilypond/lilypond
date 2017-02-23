@@ -31,7 +31,7 @@ using namespace std;
 #include "side-position-interface.hh"
 #include "directional-element-interface.hh"
 #include "lookup.hh"
-#include "tuplet-bracket.hh"
+#include "bracket.hh"
 #include "lily-imports.hh"
 
 /*
@@ -94,12 +94,9 @@ Volta_bracket_interface::print (SCM smob)
   Offset start;
   start[X_AXIS] = me->spanner_length () - left;
 
-  /*
-    ugh, Tuplet_bracket should use Horizontal_bracket, not the other way around.
-  */
   Stencil total
-    = Tuplet_bracket::make_bracket (me, Y_AXIS, start,
-                                    edge_height, empty, flare, shorten);
+    = Bracket::make_bracket (me, Y_AXIS, start, edge_height, empty,
+                             flare, shorten);
 
   if (!orig_span || broken_first_bracket)
     {

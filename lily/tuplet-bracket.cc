@@ -41,6 +41,8 @@
 */
 
 #include "tuplet-bracket.hh"
+
+#include "bracket.hh"
 #include "axis-group-interface.hh"
 #include "line-interface.hh"
 #include "beam.hh"
@@ -373,15 +375,15 @@ Tuplet_bracket::print (SCM smob)
             }
         }
 
-      Stencil brack = make_bracket (me, Y_AXIS,
-                                    points[RIGHT] - points[LEFT],
-                                    height,
-                                    /*
-                                      0.1 = more space at right due to italics
-                                      TODO: use italic correction of font.
-                                    */
-                                    Interval (-0.5, 0.5) * gap + 0.1,
-                                    flare, shorten);
+      Stencil brack =
+        Bracket::make_bracket (
+          me, Y_AXIS, points[RIGHT] - points[LEFT], height,
+          /*
+            0.1 = more space at right due to italics
+            TODO: use italic correction of font.
+          */
+          Interval (-0.5, 0.5) * gap + 0.1,
+          flare, shorten);
 
       for (LEFT_and_RIGHT (d))
         {
@@ -394,64 +396,6 @@ Tuplet_bracket::print (SCM smob)
 
   mol.translate (points[LEFT]);
   return mol.smobbed_copy ();
-}
-
-/*
-  should move to lookup?
-
-  TODO: this will fail for very short (shorter than the flare)
-  brackets.
-*/
-Stencil
-Tuplet_bracket::make_bracket (Grob *me, // for line properties.
-                              Axis protrusion_axis,
-                              Offset dz,
-                              Drul_array<Real> height,
-                              Interval gap,
-                              Drul_array<Real> flare,
-                              Drul_array<Real> shorten)
-{
-  Drul_array<Offset> corners (Offset (0, 0), dz);
-
-  Real length = dz.length ();
-  Drul_array<Offset> gap_corners;
-
-  Axis bracket_axis = other_axis (protrusion_axis);
-
-  Drul_array<Offset> straight_corners = corners;
-
-  for (LEFT_and_RIGHT (d))
-    straight_corners[d] += -d * shorten[d] / length * dz;
-
-  if (!gap.is_empty ())
-    {
-      for (LEFT_and_RIGHT (d))
-        gap_corners[d] = (dz * 0.5) + gap[d] / length * dz;
-    }
-
-  Drul_array<Offset> flare_corners = straight_corners;
-  for (LEFT_and_RIGHT (d))
-    {
-      flare_corners[d][bracket_axis] = straight_corners[d][bracket_axis];
-      flare_corners[d][protrusion_axis] += height[d];
-      straight_corners[d][bracket_axis] += -d * flare[d];
-    }
-
-  Stencil m;
-  if (!gap.is_empty ())
-    for (LEFT_and_RIGHT (d))
-      m.add_stencil (Line_interface::line (me, straight_corners[d],
-                                           gap_corners[d]));
-  else
-    m.add_stencil (Line_interface::line (me, straight_corners[LEFT],
-                                         straight_corners[RIGHT]));
-
-  if (scm_is_number (me->get_property ("dash-fraction")))
-    me->set_property ("dash-fraction", scm_from_double (1.0));
-  for (LEFT_and_RIGHT (d))
-    m.add_stencil (Line_interface::line (me, straight_corners[d],
-                                         flare_corners[d]));
-  return m;
 }
 
 void

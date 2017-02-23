@@ -43,10 +43,6 @@ public:
   static Grob *parallel_beam (Grob *me, vector<Grob *> const &cols,
                               bool *equally_long);
   static void calc_position_and_height (Grob *, Real *, Real *dy);
-  static Stencil make_bracket (Grob *me, Axis protrusion_axis,
-                               Offset dz, Drul_array<Real> height,
-                               Interval gap, Drul_array<Real> widen,
-                               Drul_array<Real> shorten);
   static Direction get_default_dir (Grob *);
 };
 

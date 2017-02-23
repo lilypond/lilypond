@@ -21,16 +21,11 @@
 #define HORIZONTAL_BRACKET_HH
 
 #include "lily-proto.hh"
-#include "std-vector.hh"
 #include "grob-interface.hh"
 
 struct Horizontal_bracket
 {
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  static Stencil make_bracket (Grob *, Real, Axis, Direction);
-  static Stencil make_enclosing_bracket (Grob *me, Grob *refpoint,
-                                         vector<Grob *> grobs,
-                                         Axis a, Direction dir);
 };
 
 #endif /* HORIZONTAL_BRACKET_HH */
