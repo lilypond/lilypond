@@ -31,6 +31,7 @@ upgrade these older input files to use the newer syntax.
 * Command line options for convert-ly::
 * Problems running convert-ly::
 * Manual conversions::
+* Writing code to support multiple versions::
 @end menu
 
 
@@ -369,4 +370,41 @@ converted.
  (particularly \header{}) must come after the music.
 @end verbatim
 
+@node Writing code to support multiple versions
+@section Writing code to support multiple versions
 
+In some cases, especially when writing @emph{library} code it is desirable
+to support multiple LilyPond versions across breaking syntax changes.  To
+do this alternative portions of code can be wrapped into conditional
+expressions depending on the currently executed LilyPond version.  The
+Scheme function @code{ly:version?} expects a comparison operator @var{op}
+and a reference version @var{ver} passed as a list of integers with up to
+three elements.  Missing elements are ignored so @code{'(2 20)} is
+equivalent to @emph{any} version of the 2.20 line of versions.
+Constructs like the following are possible:
+
+@verbatim
+#(cond
+  ((ly:version? > '(2 20))
+   (ly:message "This is code to run for LilyPond after 2.20"))
+  ((ly:version? = '(2 19 57))
+   (ly:message "This will only be executed with LilyPond 2.19.57"))
+  (else (ly:message "This will be executed in any other version")))
+@end verbatim
+
+Usually this will be integrated in library functions to allow alternative
+syntax to be used, but it is also possible to use the comparison directly
+within the music like in the following example:
+
+@verbatim
+{
+  c' d' e' f'
+  #(if (ly:version? = '(2 21))
+       #{ \override NoteHead.color = #red #}
+       #{ \override NoteHead.color = #blue #})
+  g' a' b' c''
+}
+@end verbatim
+
+@strong{Note:} This function has been introduced in LilyPond 2.19.57, so
+it is not possible to compare with versions earlier than that.
