@@ -67,19 +67,20 @@ given fraction of the main note's duration has passed.  If
 @code{afterGraceFraction} which has a default value of @code{3/4}.")
    (let ((main-length (ly:music-length main))
          (fraction (or fraction (ly:parser-lookup 'afterGraceFraction))))
-     (make-simultaneous-music
-      (list
-       main
-       (make-sequential-music
-        (list
-
-         (make-music 'SkipMusic
-                     'duration (ly:make-duration
-                                0 0
-                                (* (ly:moment-main main-length)
-                                   (/ (car fraction) (cdr fraction)))))
-         (make-music 'GraceMusic
-                     'element grace)))))))
+     (descend-to-context
+      (make-simultaneous-music
+       (list
+        main
+        (make-sequential-music
+         (list
+          (make-music 'SkipMusic
+                      'duration (ly:make-duration
+                                 0 0
+                                 (* (ly:moment-main main-length)
+                                    (/ (car fraction) (cdr fraction)))))
+          (make-music 'GraceMusic
+                      'element grace)))))
+      'Bottom)))
 
 
 %% music identifiers not allowed at top-level,

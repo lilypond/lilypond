@@ -385,20 +385,6 @@ expression."
                                         (music->lily-string music))
                                       (ly:music-property sim 'elements)))))
 
-(define-extra-display-method SimultaneousMusic (expr)
-  "If `sim' is an \afterGrace expression, return \"\\afterGrace ...\".
-Otherwise, return #f."
-  ;; TODO: do something with afterGraceFraction?
-  (with-music-match (expr (music 'SimultaneousMusic
-                                 elements (?before-grace
-                                           (music 'SequentialMusic
-                                                  elements ((music 'SkipMusic)
-                                                            (music 'GraceMusic
-                                                                   element ?grace))))))
-                    (format #f "\\afterGrace ~a ~a"
-                            (music->lily-string ?before-grace)
-                            (music->lily-string ?grace))))
-
 ;;;
 ;;; Chords
 ;;;
@@ -738,6 +724,26 @@ Otherwise, return #f."
                         (*indent*)))
             (parameterize ((*current-context* ctype))
                           (music->lily-string music)))))
+
+;; \afterGrace
+(define-extra-display-method ContextSpeccedMusic (expr)
+  "If `sim' is an \afterGrace expression, return \"\\afterGrace ...\".
+Otherwise, return #f."
+  ;; TODO: do something with afterGraceFraction?
+  (with-music-match
+   (expr (music 'ContextSpeccedMusic
+                context-type 'Bottom
+                element
+                (music 'SimultaneousMusic
+                       elements (?before-grace
+                                 (music 'SequentialMusic
+                                        elements ((music 'SkipMusic)
+                                                  (music 'GraceMusic
+                                                         element ?grace)))))))
+   (format #f "\\afterGrace ~a ~a"
+           (music->lily-string ?before-grace)
+            (music->lily-string ?grace))))
+
 
 ;; special cases: \figures \lyrics \drums
 (define-extra-display-method ContextSpeccedMusic (expr)
