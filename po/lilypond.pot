@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.19.55\n"
+"Project-Id-Version: lilypond 2.19.56\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2017-02-12 12:08+0000\n"
+"POT-Creation-Date: 2017-02-26 12:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2128,11 +2128,11 @@ msgstr ""
 msgid "decrescendo too small"
 msgstr ""
 
-#: horizontal-bracket-engraver.cc:62
+#: horizontal-bracket-engraver.cc:63
 msgid "do not have that many brackets"
 msgstr ""
 
-#: horizontal-bracket-engraver.cc:71
+#: horizontal-bracket-engraver.cc:72
 msgid "conflicting note group events"
 msgstr ""
 
