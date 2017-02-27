@@ -3,7 +3,7 @@
 % Load plain if necessary, i.e., if running under initex.
 \expandafter\ifx\csname fmtname\endcsname\relax\input plain\fi
 %
-\def\texinfoversion{2016-09-17.16}
+\def\texinfoversion{2017-01-14.15}
 %
 % Copyright 1985, 1986, 1988, 1990, 1991, 1992, 1993, 1994, 1995,
 % 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006,
@@ -164,6 +164,9 @@
 
 % Give the space character the catcode for a space.
 \def\spaceisspace{\catcode`\ =10\relax}
+
+% Likewise for ^^M, the end of line character.
+\def\endlineisspace{\catcode13=10\relax}
 
 \chardef\dashChar  = `\-
 \chardef\slashChar = `\/
@@ -950,21 +953,14 @@ where each line of input produces a line of output.}
 % @comment ...line which is ignored...
 % @c is the same as @comment
 % @ignore ... @end ignore  is another way to write a comment
-%
-\def\comment{\begingroup \catcode`\^^M=\active%
-\catcode`\@=\other \catcode`\{=\other \catcode`\}=\other\commentxxx}%
 
-{\catcode`\^^M=\active%
-\gdef\commentxxx#1^^M{\endgroup%
-\futurelet\nexttoken\commentxxxx}%
-\gdef\commentxxxx{\ifx\nexttoken\aftermacro\expandafter\comment\fi}%
-}
 
 \def\c{\begingroup \catcode`\^^M=\active%
 \catcode`\@=\other \catcode`\{=\other \catcode`\}=\other%
 \cxxx}
 {\catcode`\^^M=\active \gdef\cxxx#1^^M{\endgroup}}
-% See comment in \scanmacro about why the definitions of @c and @comment differ
+%
+\let\comment\c
 
 % @paragraphindent NCHARS
 % We'll use ems for NCHARS, close enough.
@@ -2209,7 +2205,7 @@ end
 \setfont\defsl\slshape{10}{\magstep1}{OT1TT}
 \setfont\defttsl\ttslshape{10}{\magstep1}{OT1TT}
 \def\df{\let\ttfont=\deftt \let\bffont = \defbf
-\let\ttfontsl=\defttsl \let\slfont=\defsl \bf}
+\let\ttslfont=\defttsl \let\slfont=\defsl \bf}
 
 % Fonts for indices, footnotes, small examples (9pt).
 \def\smallnominalsize{9pt}
@@ -2296,7 +2292,7 @@ end
 \font\ssecsy=cmsy10 scaled 1315
 \def\ssececsize{1200}
 
-% Reduced fonts for @acro in text (10pt).
+% Reduced fonts for @acronym in text (10pt).
 \def\reducednominalsize{10pt}
 \setfont\reducedrm\rmshape{10}{1000}{OT1}
 \setfont\reducedtt\ttshape{10}{1000}{OT1TT}
@@ -2343,7 +2339,7 @@ end
 \setfont\defsl\slshape{10}{\magstephalf}{OT1TT}
 \setfont\defttsl\ttslshape{10}{\magstephalf}{OT1TT}
 \def\df{\let\ttfont=\deftt \let\bffont = \defbf
-\let\slfont=\defsl \let\ttfontsl=\defttsl \bf}
+\let\slfont=\defsl \let\ttslfont=\defttsl \bf}
 
 % Fonts for indices, footnotes, small examples (9pt).
 \def\smallnominalsize{9pt}
@@ -2429,7 +2425,7 @@ end
 \font\ssecsy=cmsy10
 \def\ssececsize{1000}
 
-% Reduced fonts for @acro in text (9pt).
+% Reduced fonts for @acronym in text (9pt).
 \def\reducednominalsize{9pt}
 \setfont\reducedrm\rmshape{9}{1000}{OT1}
 \setfont\reducedtt\ttshape{9}{1000}{OT1TT}
@@ -2497,10 +2493,6 @@ end
 \def\bf{\fam=\bffam \setfontstyle{bf}}\def\bfstylename{bf}
 \def\tt{\fam=\ttfam \setfontstyle{tt}}
 
-% Unfortunately, we have to override this for titles and the like, since
-% in those cases "rm" is bold.  Sigh.
-\def\rmisbold{\rm\def\curfontstyle{bf}}
-
 % Texinfo sort of supports the sans serif font style, which plain TeX does not.
 % So we set up a \sf.
 \newfam\sffam
@@ -2520,16 +2512,12 @@ end
   \textfont\ttfam=\ttfont \textfont\sffam=\sffont
 }
 
-% Select #1 fonts with the current style.  Used to change font size
-% in, e.g., the LaTeX logo and acronyms.
 %
-\def\selectfonts#1{\csname #1fonts\endcsname \csname\curfontstyle\endcsname}
 
-% The font-changing commands (all called \...fonts) redefine the meanings of 
-% \STYLEfont, instead
-% of just \STYLE.  We do this because \STYLE needs to also set the
-% current \fam for math mode.  Our \STYLE (e.g., \rm) commands hardwire
-% \STYLEfont to set the current font.
+% The font-changing commands (all called \...fonts) redefine the meanings
+% of \STYLEfont, instead of just \STYLE.  We do this because \STYLE needs
+% to also set the current \fam for math mode.  Our \STYLE (e.g., \rm)
+% commands hardwire \STYLEfont to set the current font.
 %
 % Each font-changing command also sets the names \lsize (one size lower)
 % and \lllsize (three sizes lower).  These relative commands are used
@@ -2537,72 +2525,63 @@ end
 %
 % This all needs generalizing, badly.
 %
-\def\textfonts{%
-  \let\rmfont=\textrm \let\itfont=\textit \let\slfont=\textsl
-  \let\bffont=\textbf \let\ttfont=\texttt \let\smallcaps=\textsc
-  \let\sffont=\textsf \let\ifont=\texti \let\syfont=\textsy
-  \let\ttfontsl=\textttsl
-  \def\curfontsize{text}%
-  \def\lsize{reduced}\def\lllsize{smaller}%
-  \resetmathfonts \setleading{\textleading}}
-\def\titlefonts{%
-  \let\rmfont=\titlerm \let\itfont=\titleit \let\slfont=\titlesl
-  \let\bffont=\titlebf \let\ttfont=\titlett \let\smallcaps=\titlesc
-  \let\sffont=\titlesf \let\ifont=\titlei \let\syfont=\titlesy
-  \let\ttfontsl=\titlettsl
-  \def\curfontsize{title}%
-  \def\lsize{chap}\def\lllsize{subsec}%
-  \resetmathfonts \setleading{27pt}}
-\def\titlefont#1{{\titlefonts\rmisbold #1}}
-\def\chapfonts{%
-  \let\rmfont=\chaprm \let\itfont=\chapit \let\slfont=\chapsl
-  \let\bffont=\chapbf \let\ttfont=\chaptt \let\smallcaps=\chapsc
-  \let\sffont=\chapsf \let\ifont=\chapi \let\syfont=\chapsy
-  \let\ttfontsl=\chapttsl
-  \def\curfontsize{chap}%
-  \def\lsize{sec}\def\lllsize{text}%
-  \resetmathfonts \setleading{19pt}}
-\def\secfonts{%
-  \let\rmfont=\secrm \let\itfont=\secit \let\slfont=\secsl
-  \let\bffont=\secbf \let\ttfont=\sectt \let\smallcaps=\secsc
-  \let\sffont=\secsf \let\ifont=\seci \let\syfont=\secsy
-  \let\ttfontsl=\secttsl
-  \def\curfontsize{sec}%
-  \def\lsize{subsec}\def\lllsize{reduced}%
-  \resetmathfonts \setleading{17pt}}
-\def\subsecfonts{%
-  \let\rmfont=\ssecrm \let\itfont=\ssecit \let\slfont=\ssecsl
-  \let\bffont=\ssecbf \let\ttfont=\ssectt \let\smallcaps=\ssecsc
-  \let\sffont=\ssecsf \let\ifont=\sseci \let\syfont=\ssecsy
-  \let\ttfontsl=\ssecttsl
-  \def\curfontsize{ssec}%
-  \def\lsize{text}\def\lllsize{small}%
-  \resetmathfonts \setleading{15pt}}
-\let\subsubsecfonts = \subsecfonts
-\def\reducedfonts{%
-  \let\rmfont=\reducedrm \let\itfont=\reducedit \let\slfont=\reducedsl
-  \let\bffont=\reducedbf \let\ttfont=\reducedtt \let\reducedcaps=\reducedsc
-  \let\sffont=\reducedsf \let\ifont=\reducedi \let\syfont=\reducedsy
-  \let\ttfontsl=\reducedttsl
-  \def\curfontsize{reduced}%
-  \def\lsize{small}\def\lllsize{smaller}%
-  \resetmathfonts \setleading{10.5pt}}
-\def\smallfonts{%
-  \let\rmfont=\smallrm \let\itfont=\smallit \let\slfont=\smallsl
-  \let\bffont=\smallbf \let\ttfont=\smalltt \let\smallcaps=\smallsc
-  \let\sffont=\smallsf \let\ifont=\smalli \let\syfont=\smallsy
-  \let\ttfontsl=\smallttsl
-  \def\curfontsize{small}%
-  \def\lsize{smaller}\def\lllsize{smaller}%
-  \resetmathfonts \setleading{10.5pt}}
-\def\smallerfonts{%
-  \let\rmfont=\smallerrm \let\itfont=\smallerit \let\slfont=\smallersl
-  \let\bffont=\smallerbf \let\ttfont=\smallertt \let\smallcaps=\smallersc
-  \let\sffont=\smallersf \let\ifont=\smalleri \let\syfont=\smallersy
-  \let\ttfontsl=\smallerttsl
-  \def\curfontsize{smaller}%
-  \def\lsize{smaller}\def\lllsize{smaller}%
-  \resetmathfonts \setleading{9.5pt}}
+
+\def\assignfonts#1{%
+  \expandafter\let\expandafter\rmfont\csname #1rm\endcsname
+  \expandafter\let\expandafter\itfont\csname #1it\endcsname
+  \expandafter\let\expandafter\slfont\csname #1sl\endcsname
+  \expandafter\let\expandafter\bffont\csname #1bf\endcsname
+  \expandafter\let\expandafter\ttfont\csname #1tt\endcsname
+  \expandafter\let\expandafter\smallcaps\csname #1sc\endcsname
+  \expandafter\let\expandafter\sffont  \csname #1sf\endcsname
+  \expandafter\let\expandafter\ifont   \csname #1i\endcsname
+  \expandafter\let\expandafter\syfont  \csname #1sy\endcsname
+  \expandafter\let\expandafter\ttslfont\csname #1ttsl\endcsname
+}
+
+\newif\ifrmisbold
+
+% Select smaller font size with the current style.  Used to change font size
+% in, e.g., the LaTeX logo and acronyms.  If we are using bold fonts for
+% normal roman text, also use bold fonts for roman text in the smaller size.
+\def\switchtolllsize{%
+   \expandafter\assignfonts\expandafter{\lllsize}%
+   \ifrmisbold
+     \let\rmfont\bffont
+   \fi
+   \csname\curfontstyle\endcsname
+}%
+
+\def\switchtolsize{%
+   \expandafter\assignfonts\expandafter{\lsize}%
+   \ifrmisbold
+     \let\rmfont\bffont
+   \fi
+   \csname\curfontstyle\endcsname
+}%
+
+\def\definefontsetatsize#1#2#3#4#5{%
+\expandafter\def\csname #1fonts\endcsname{%
+  \def\curfontsize{#1}%
+  \def\lsize{#2}\def\lllsize{#3}%
+  \csname rmisbold#5\endcsname
+  \assignfonts{#1}%
+  \resetmathfonts
+  \setleading{#4}%
+}}
+
+\definefontsetatsize{text}   {reduced}{smaller}{\textleading}{false}
+\definefontsetatsize{title}  {chap}   {subsec} {27pt}  {true}
+\definefontsetatsize{chap}   {sec}    {text}   {19pt}  {true}
+\definefontsetatsize{sec}    {subsec} {reduced}{17pt}  {true}
+\definefontsetatsize{ssec}   {text}   {small}  {15pt}  {true}
+\definefontsetatsize{reduced}{small}  {smaller}{10.5pt}{false}
+\definefontsetatsize{small}  {smaller}{smaller}{10.5pt}{false}
+\definefontsetatsize{smaller}{smaller}{smaller}{9.5pt} {false}
+
+\def\titlefont#1{{\titlefonts\rm #1}}
+\let\subsecfonts = \ssecfonts
+\let\subsubsecfonts = \ssecfonts
 
 % Define these just so they can be easily changed for other fonts.
 \def\angleleft{$\langle$}
@@ -3227,7 +3206,7 @@ end
 %
 \def\acronym#1{\doacronym #1,,\finish}
 \def\doacronym#1,#2,#3\finish{%
-  {\selectfonts\lsize #1}%
+  {\switchtolsize #1}%
   \def\temp{#2}%
   \ifx\temp\empty \else
     \space ({\unsepspaces \ignorespaces \temp \unskip})%
@@ -3320,10 +3299,10 @@ end
 % fix it (significant additions to font machinery) until someone notices.
 %
 \def\sub{\ifmmode \expandafter\sb \else \expandafter\finishsub\fi}
-\def\finishsub#1{$\sb{\hbox{\selectfonts\lllsize #1}}$}%
+\def\finishsub#1{$\sb{\hbox{\switchtolllsize #1}}$}%
 %
 \def\sup{\ifmmode \expandafter\ptexsp \else \expandafter\finishsup\fi}
-\def\finishsup#1{$\ptexsp{\hbox{\selectfonts\lllsize #1}}$}%
+\def\finishsup#1{$\ptexsp{\hbox{\switchtolllsize #1}}$}%
 
 % @inlinefmt{FMTNAME,PROCESSED-TEXT} and @inlineraw{FMTNAME,RAW-TEXT}.
 % Ignore unless FMTNAME == tex; then it is like @iftex and @tex,
@@ -3408,8 +3387,8 @@ end
 % Plain TeX defines: @AA @AE @O @OE @L (plus lowercase versions) @ss.
 \def\questiondown{?`}
 \def\exclamdown{!`}
-\def\ordf{\leavevmode\raise1ex\hbox{\selectfonts\lllsize \underbar{a}}}
-\def\ordm{\leavevmode\raise1ex\hbox{\selectfonts\lllsize \underbar{o}}}
+\def\ordf{\leavevmode\raise1ex\hbox{\switchtolllsize \underbar{a}}}
+\def\ordm{\leavevmode\raise1ex\hbox{\switchtolllsize \underbar{o}}}
 
 % Dotless i and dotless j, used for accents.
 \def\imacro{i}
@@ -3438,12 +3417,12 @@ end
   {\setbox0=\hbox{T}%
    \vbox to \ht0{\hbox{%
      \ifx\textnominalsize\xwordpt
-       % for 10pt running text, \lllsize (8pt) is too small for the A in LaTeX.
+       % for 10pt running text, lllsize (8pt) is too small for the A in LaTeX.
        % Revert to plain's \scriptsize, which is 7pt.
        \count255=\the\fam $\fam\count255 \scriptstyle A$%
      \else
        % For 11pt, we can use our lllsize.
-       \selectfonts\lllsize A%
+       \switchtolllsize A%
      \fi
      }%
      \vss
@@ -3660,7 +3639,7 @@ end
 % Adapted from the plain.tex definition of \copyright.
 %
 \def\registeredsymbol{%
-  $^{{\ooalign{\hfil\raise.07ex\hbox{\selectfonts\lllsize R}%
+  $^{{\ooalign{\hfil\raise.07ex\hbox{\switchtolllsize R}%
                \hfil\crcr\Orb}}%
     }$%
 }
@@ -3754,12 +3733,11 @@ end
 
 % Settings used for typesetting titles: no hyphenation, no indentation,
 % don't worry much about spacing, ragged right.  This should be used
-% inside a \vbox, and fonts need to be set appropriately first.  Because
-% it is always used for titles, nothing else, we call \rmisbold.  \par
-% should be specified before the end of the \vbox, since a vbox is a group.
+% inside a \vbox, and fonts need to be set appropriately first. \par should
+% be specified before the end of the \vbox, since a vbox is a group.
 % 
 \def\raggedtitlesettings{%
-  \rmisbold
+  \rm
   \hyphenpenalty=10000
   \parindent=0pt
   \tolerance=5000
@@ -3794,7 +3772,7 @@ end
   \else
     \checkenv\titlepage
     \ifseenauthor\else \vskip 0pt plus 1filll \seenauthortrue \fi
-    {\secfonts\rmisbold \leftline{#1}}%
+    {\secfonts\rm \leftline{#1}}%
   \fi
 }
 
@@ -6069,7 +6047,7 @@ end
   \null
   \vskip.3\vsize  % move it down on the page a bit
   \begingroup
-    \noindent \titlefonts\rmisbold #1\par % the text
+    \noindent \titlefonts\rm #1\par % the text
     \let\lastnode=\empty      % no node to associate with
     \writetocentry{part}{#1}{}% but put it in the toc
     \headingsoff              % no headline or footline on the part page
@@ -6555,7 +6533,7 @@ end
   \domark
   %
   {%
-    \chapfonts \rmisbold
+    \chapfonts \rm
     \let\footnote=\errfootnoteheading % give better error message
     %
     % Have to define \lastsection before calling \donoderef, because the
@@ -6647,7 +6625,7 @@ end
     \let\footnote=\errfootnoteheading
     %
     % Switch to the right set of fonts.
-    \csname #2fonts\endcsname \rmisbold
+    \csname #2fonts\endcsname \rm
     %
     % Insert first mark before the heading break (see notes for \domark).
     \let\prevsectiondefs=\lastsectiondefs
@@ -8049,9 +8027,6 @@ end
   }
 \fi
 
-\let\aftermacroxxx\relax
-\def\aftermacro{\aftermacroxxx}
-
 % alias because \c means cedilla in @tex or @math
 \let\texinfoc=\c
 
@@ -8073,18 +8048,13 @@ end
   \catcode`\\=\active
   %
   % Process the macro body under the current catcode regime.
-  \scantokens{#1@texinfoc}\aftermacro%
+  \scantokens{#1@texinfoc}%
   %
   \catcode`\@=\savedcatcodeone
   \catcode`\\=\savedcatcodetwo
   %
   % The \texinfoc is to remove the \newlinechar added by \scantokens, and
   % can be noticed by \parsearg.
-  %   The \aftermacro allows a \comment at the end of the macro definition
-  % to duplicate itself past the final \newlinechar added by \scantokens:
-  % this is used in the definition of \group to comment out a newline.  We
-  % don't do the same for \c to support Texinfo files with macros that ended
-  % with a @c, which should no longer be necessary.
   %   We avoid surrounding the call to \scantokens with \bgroup and \egroup
   % to allow macros to open or close groups themselves.
 }
@@ -8556,6 +8526,13 @@ end
   \ifcase\paramno
   % 0
     \expandafter\xdef\csname\the\macname\endcsname{%
+      \bgroup
+        \noexpand\spaceisspace
+        \noexpand\endlineisspace
+        \noexpand\expandafter % skip any whitespace after the macro name.
+        \expandafter\noexpand\csname\the\macname @@@\endcsname}%
+    \expandafter\xdef\csname\the\macname @@@\endcsname{%
+      \egroup
       \noexpand\scanmacro{\macrobody}}%
   \or % 1
     \expandafter\xdef\csname\the\macname\endcsname{%
