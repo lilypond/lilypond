@@ -1047,7 +1047,8 @@ Otherwise, return #f."
                                          (music 'ContextSpeccedMusic
                                                 context-id "null"
                                                 context-type 'NullVoice)
-                                         ?pc-music))))
+                                         ?pc-music
+                                         ?pc-marks))))
    (with-music-match
     (?pc-music (music 'PartCombineMusic))
     (format #f "~a" (music->lily-string ?pc-music)))))
