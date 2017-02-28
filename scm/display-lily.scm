@@ -190,20 +190,18 @@ match thoses described in `pattern'."
       ;; build the test conditions for each element found in a (property . (e1 e2 ...)) pair.
       ;; this requires accessing to an element of a list, hence the index.
       ;; (typically, property will be 'elements)
-      ,@(map (lambda (prop-elements)
-               (let ((ges (gensym))
-                     (index -1))
-                 `(and ,@(map (lambda (e)
-                                (set! index (1+ index))
-                                (if (music? e)
-                                    (gen-condition `(and (> (length (ly:music-property ,expr ',(car prop-elements)))
-                                                            ,index)
-                                                         (list-ref (ly:music-property ,expr ',(car prop-elements))
-                                                                   ,index))
-                                                   e)
-                                    #t))
-                              (cdr prop-elements)))))
-             elements-list))))
+      ,@(map
+         (lambda (prop-elements)
+           (let ((ges (gensym))
+                 (len (length (cdr prop-elements))))
+             `(let ((,ges (ly:music-property ,expr ',(car prop-elements))))
+                (and (eqv? (length+ ,ges) ,len)
+                     ,@(filter-map
+                        (lambda (e index)
+                          (and (music? e)
+                               (gen-condition `(list-ref ,ges ,index) e)))
+                        (cdr prop-elements) (iota len))))))
+         elements-list))))
 
 (define (gen-bindings expr pattern)
   "Helper function for `with-music-match'.
@@ -269,10 +267,9 @@ inside body."
         (pattern (second music-expr+pattern))
         (expr-sym (gensym)))
     `(let ((,expr-sym ,music-expr))
-       (if ,(gen-condition expr-sym pattern)
-           (let ,(gen-bindings expr-sym pattern)
-             ,@body)
-           #f))))
+       (and ,(gen-condition expr-sym pattern)
+            (let ,(gen-bindings expr-sym pattern)
+              ,@body)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
