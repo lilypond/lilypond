@@ -137,9 +137,27 @@ Volta_repeat_iterator::next_element (bool side_effect)
 
                   if (to_boolean (get_outlet ()->get_property ("timing")))
                     {
+                      SCM mps = ly_symbol2scm ("measurePosition");
                       for (SCM p = alt_restores_; scm_is_pair (p); p = scm_cdr (p))
-                        scm_apply_0 (Lily::ly_context_set_property_x,
-                                     scm_car (p));
+                        {
+                          SCM ls = scm_car (p);
+                          if (scm_is_eq (scm_cadr (ls), mps))
+                            // Repeats may have different grace timing, so
+                            // we need to adjust the measurePosition grace
+                            // timing to that of the current alternative
+                            // rather than that of the first.  The
+                            // Timing_translator does this already but is
+                            // too late to avoid bad side-effects
+                            {
+                              Moment mp (unsmob<Moment> (scm_caddr (ls))->main_part_,
+                                         get_outlet ()->now_mom ().grace_part_);
+                              Lily::ly_context_set_property_x (scm_car (ls),
+                                                               mps,
+                                                               mp.smobbed_copy ());
+                            }
+                          else
+                            scm_apply_0 (Lily::ly_context_set_property_x, ls);
+                        }
                     }
                 }
             }
