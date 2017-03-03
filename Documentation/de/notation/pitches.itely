@@ -852,7 +852,7 @@ Der relative Modus wirkt nicht in @code{\transpose},
 @code{\chordmode} oder @code{\relative}.
 Um auch im relativen Modus transponieren
 zu können, muss ein @code{\relative} innerhalb des
-@code{\tranpose} zusätzlich gesetzt werden.
+@code{\transpose} zusätzlich gesetzt werden.
 
 Dreifache Versetzungszeichen werden nicht ausgegeben, wenn
 @code{\transpose} benutzt wird.  Eine enharmonisch

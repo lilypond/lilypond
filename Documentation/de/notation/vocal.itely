@@ -177,8 +177,8 @@ sondern
 @end example
 
 Punkte, Gesangstext mit Akzenten, verschiedene lateinische und nicht-lateinische
-Zeichen sowie auch etwa Sonderzeichen (wie ein Herz-Symbol) könn direkt in
-die Notationsdatei geschrieben werden.  Es muss dabei sichergestell werden, dass
+Zeichen sowie auch etwa Sonderzeichen (wie ein Herz-Symbol) können direkt in
+die Notationsdatei geschrieben werden.  Es muss dabei sichergestellt werden, dass
 die Datei in der UTF-8-Kodierung gespeichert wird.  Zu mehr Information siehe
 @ref{Sonderzeichen}.
 
