@@ -1167,11 +1167,15 @@ one below this grob.")
 printed over a white background to white-out underlying material, if
 the grob is visible.  A number indicates how far the white background
 extends beyond the bounding box of the grob as a multiple of the
-staff-line thickness.  The shape of the background is determined by
-@code{whiteout-style}.  Usually @code{#f} by default.")
+staff-line thickness.  The @code{LyricHyphen} grob uses a special
+implementation of whiteout:  A positive number indicates how far the
+white background extends beyond the bounding box in multiples of
+@code{line-thickness}.  The shape of the background is determined by
+@code{whiteout-style}.  Usually @code{#f} by default. ")
      (whiteout-style ,symbol? "Determines the shape of the
 @code{whiteout} background.  Available are @code{'outline},
-@code{'rounded-box}, and the default @code{'box}.")
+@code{'rounded-box}, and the default @code{'box}.  There is one
+exception: Use @code{'special} for @code{LyricHyphen}.")
      (width ,ly:dimension? "The width of a grob measured in staff
 space.")
      (word-space ,ly:dimension? "Space to insert between words in

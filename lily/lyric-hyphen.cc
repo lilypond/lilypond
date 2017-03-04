@@ -67,6 +67,7 @@ Lyric_hyphen::print (SCM smob)
   Real dash_period = robust_scm2double (me->get_property ("dash-period"), 1.0);
   Real dash_length = robust_scm2double (me->get_property ("length"), .5);
   Real padding = robust_scm2double (me->get_property ("padding"), 0.1);
+  Real whiteout = robust_scm2double (me->get_property ("whiteout"), -1);
 
   if (dash_period < dash_length)
     dash_period = 1.5 * dash_length;
@@ -103,8 +104,20 @@ Lyric_hyphen::print (SCM smob)
   for (int i = 0; i < n; i++)
     {
       Stencil m (dash_mol);
-      m.translate_axis (span_points[LEFT] + i * dash_period + space_left / 2, X_AXIS);
+      m = m.in_color (0.0, 0.0, 0.0);
+      m.translate_axis (span_points[LEFT] + i * dash_period +
+                        space_left / 2, X_AXIS);
       total.add_stencil (m);
+      if (whiteout > 0.0 )
+        {
+          Box c (Interval (0, dash_length + 2 * whiteout * lt),
+                 Interval (h - whiteout * lt, h + th + whiteout * lt));
+          Stencil w (Lookup::round_filled_box (c, 0.8 * lt));
+          w = w.in_color (1.0, 1.0, 1.0);
+          w.translate_axis (span_points[LEFT] + i * dash_period +
+                            space_left / 2 - whiteout * lt, X_AXIS);
+          total.add_stencil (w);
+        }
     }
 
   total.translate_axis (-me->relative_coordinate (common, X_AXIS), X_AXIS);
@@ -148,4 +161,3 @@ ADD_INTERFACE (Lyric_hyphen,
                "padding "
                "thickness "
               );
-

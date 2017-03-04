@@ -814,6 +814,7 @@ based on @var{style}."
                       ((eq? style 'rounded-box) 3)
                       (else 0))))))
     (cond
+     ((eq? style 'special) stil)
      ((eq? style 'outline) (stencil-whiteout-outline stil thick))
      ((eq? style 'rounded-box) (stencil-whiteout-box stil thick (* 2 thick)))
      (else (stencil-whiteout-box stil thick)))))
