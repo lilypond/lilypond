@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 553410afdd9496f7d9f1498e755ea18de8e70596
+   Translation of GIT committish: 3e251ec33b325f3af4adb31df9752422eb2b9f4c
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -3366,9 +3366,9 @@ est modifié pour imprimer un repère encadré.
 @end lilypond
 
 Le fichier @file{scm/translation-functions.scm} comporte les
-définitions de @code{format-mark-numbers} (comportement par défaut),
-@code{format-mark-box-numbers}, @code{format-mark-letters} et
-@code{format-mark-box-letters}.  Vous pouvez vous en inspirer pour
+définitions de @code{format-mark-letters} (comportement par défaut),
+@code{format-mark-box-letters}, @code{format-mark-numbers} et
+@code{format-mark-box-numbers}.  Vous pouvez vous en inspirer pour
 d'autres fonctions de formatage.
 
 @code{format-mark-barnumbers}, @code{format-mark-box-barnumbers} et
