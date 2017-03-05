@@ -2535,7 +2535,7 @@ Music Glossary:
 Notation Reference:
 @ref{Accidentals},
 @ref{Automatic accidentals},
-@ref{The Feta font}
+@ref{The Emmentaler font}
 
 @node Kievan bar line
 @unnumberedsubsubsec Kievan bar line
@@ -2551,8 +2551,10 @@ It can be invoked as @code{\bar "k"}.
 @end lilypond
 
 @seealso
+Notation Reference:
 @ref{Bars},
-@ref{The Feta font}
+@ref{The Emmentaler font}
+
 
 @node Kievan melismata
 @unnumberedsubsubsec Kievan melismata

@@ -21,7 +21,7 @@
 * Predefined paper sizes::
 * MIDI instruments::
 * List of colors::
-* The Feta font::
+* The Emmentaler font::
 * Note head styles::
 * Clef styles::
 * Text markup commands::
@@ -937,18 +937,37 @@ greyN
 Where N is in the range 0-100.
 
 
-@node The Feta font
-@appendixsec The Feta font
+@node The Emmentaler font
+@appendixsec The Emmentaler font
 
+
+@cindex Emmentaler font
+@cindex Font, Emmentaler
 @cindex Feta font
 @cindex Font, Feta
+@cindex Parmesan font
+@cindex Font, Parmesan
 
-The following symbols are available in the Emmentaler font and may be
-accessed directly using text markup with the name of the glyph
-as shown in the tables below,
-such as @code{g^\markup @{\musicglyph #"scripts.segno" @}} or
-@code{\markup @{\musicglyph #"five"@}}.  For more information,
-see @ref{Formatting text}.
+The Emmentaler font consists of two @emph{sub-sets} of glyphs.
+@qq{Feta}, used for clasical notation and @qq{Parmesan}, sed for Ancient
+notation.
+
+Any glyph within the Emmentaler font can be accessed directly by using
+text markup along with the name of the glyph (as shown in the tables
+below).  For example;
+
+@example
+g^\markup @{\musicglyph #"scripts.segno" @}
+@end example
+
+@noindent
+or
+
+@example
+\markup @{\musicglyph #"five"@}.
+@end example
+
+For more information see @ref{Formatting text}.
 
 
 @menu

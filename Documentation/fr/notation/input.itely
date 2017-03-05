@@ -2949,8 +2949,8 @@ commande avec l'option @i{ad hoc} -- voir
 @subsection Changement des fontes musicales
 @translationof Replacing the notation font
 
-Gonville est une alternative à la fonte Feta que LilyPond utilise par
-défaut.  Vous pouvez la télécharger à partir de
+Gonville est une alternative à la fonte Emmentaler que LilyPond utilise
+par défaut.  Vous pouvez la télécharger à partir de
 @example
 @uref{http://www.chiark.greenend.org.uk/~sgtatham/gonville/ ,http://www.chiark.greenend.org.uk/~sgtatham/gonville/}
 @end example
@@ -2974,7 +2974,8 @@ Téléchargez puis décompressez l'archive zip.  Recopiez le répertoire
 @rlearning{Autres sources de documentation} à ce sujet.  Renommez le
 répertoire @code{fonts} qui s'y trouve en @code{fonts_orig}, puis le
 répertoire @code{lilyfonts} en @code{fonts}.  Il vous suffira, pour
-retrouver la fonte Feta, de renommer @code{fonts_orig} en @code{fonts}.
+retrouver la fonte Emmentaler, de renommer @code{fonts_orig} en
+@code{fonts}.
 
 @seealso
 Manuel d'initiation :

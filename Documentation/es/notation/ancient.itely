@@ -2620,7 +2620,7 @@ Glosario musical:
 Referencia de la notación:
 @ref{Alteraciones accidentales},
 @ref{Alteraciones accidentales automáticas},
-@ref{La tipografía Feta}.
+@ref{La tipografía Emmentaler}.
 
 @node Líneas divisorias del canto kievano
 @unnumberedsubsubsec Líneas divisorias del canto kievano
@@ -2638,7 +2638,7 @@ del canto kievano».  Se puede invocar como @code{\bar "k"}.
 
 @seealso
 @ref{Barras de compás},
-@ref{La tipografía Feta}.
+@ref{La tipografía Emmentaler}.
 
 @node Melismas del canto kievano
 @unnumberedsubsubsec Melismas del canto kievano

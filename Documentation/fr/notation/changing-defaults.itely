@@ -4856,9 +4856,9 @@ XinO = {
 }
 @end lilypond
 
-Tous les glyphes de la fonte Feta sont accessibles à l'aide de la
+Tous les glyphes de la fonte Emmentaler sont accessibles à l'aide de la
 commande de @emph{markup} @code{\musicglyph} -- voir
-@ref{La fonte Feta}.
+@ref{La fonte Emmentaler}.
 
 L'insertion de fichier @file{EPS} ou d'instructions Postscript sont
 accessibles par les commandes de @emph{markup} @code{\epsfile} et
@@ -4870,7 +4870,7 @@ Manuel de notation :
 @ref{Commandes pour markup},
 @ref{Éléments graphiques dans du texte formaté},
 @rusernamed{Graphic, Graphisme},
-@ref{La fonte Feta},
+@ref{La fonte Emmentaler},
 @ref{Mise en forme du texte}.
 
 

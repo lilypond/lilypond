@@ -24,7 +24,7 @@
 * Vordefinierte Papierformate::
 * MIDI-Instrumente::
 * Liste der Farben::
-* Die Feta-Schriftart::
+* Die Emmentaler-Schriftart::
 * Notenkopfstile::
 * Textbeschriftungsbefehle::
 * Textbeschriftungslistenbefehle::
@@ -868,18 +868,34 @@ greyN
 erstellt werden, wobei N eine Zahl von 0--100 darstellt.
 
 
-@node Die Feta-Schriftart
-@appendixsec Die Feta-Schriftart
-@translationof The Feta font
+@node Die Emmentaler-Schriftart
+@appendixsec Die Emmentaler-Schriftart
+@translationof The Emmentaler font
 
+@cindex Emmentaler font
+@cindex Font, Emmentaler
 @cindex Feta font
 @cindex Font, Feta
+@cindex Parmesan font
+@cindex Font, Parmesan
 
 Die folgenden Symbole sind als Emmentaler-Schriftart verfügbar; auf sie
 kann direkt zugegriffen werden, indem man die übliche Textbeschriftung
 benutzt. @code{\musicglyph} greift direkt auf die Notationsschriftart
-zu (bspw. @code{g^\markup @{
-\musicglyph #"scripts.segno" @}}). Siehe auch @ref{Text formatieren}.
+zu
+
+@example
+g^\markup @{\musicglyph #"scripts.segno" @}
+@end example
+
+@noindent
+or
+
+@example
+\markup @{\musicglyph #"five"@}.
+@end example
+
+Siehe auch @ref{Text formatieren}.
 
 @menu
 * Notenschlüssel-Glyphen::
@@ -1273,7 +1289,7 @@ Lesbarkeit eingefügt.
 @cindex Semicirculus
 @cindex signum congruentiae
 
-Die Skripte unten sind in der Feta-Schriftart definiert und können
+Die Skripte unten sind in der Feta-Glyphe definiert und können
 an Noten angehängt werden (etwa @samp{c\accent}).
 
 @menu

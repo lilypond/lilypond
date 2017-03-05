@@ -308,7 +308,7 @@ Guida alla notazione:
 @ref{Rehearsal marks},
 @ref{Formatting text},
 @ref{Music notation inside markup},
-@ref{The Feta font}.
+@ref{The Emmentaler font}.
 
 Frammenti:
 @rlsr{Text}.
@@ -1192,7 +1192,7 @@ modalità markup:
 Più in generale, qualsiasi simbolo musicale disponibile può essere incluso
 separatamente in un oggetto markup, come è illustrato sotto.  Una lista
 completa di questi simboli e dei loro nomi si trova in
-@ref{The Feta font}.
+@ref{The Emmentaler font}.
 
 @lilypond[quote,verbatim]
 \relative {
@@ -1261,7 +1261,7 @@ in @ref{Music}.
 @seealso
 Guida alla notazione:
 @ref{Music},
-@ref{The Feta font},
+@ref{The Emmentaler font},
 @ref{Fonts explained}.
 
 File installati:
@@ -1464,7 +1464,7 @@ possibile usare altri tipi, come viene spiegato nelle sezioni successive:
 
 @seealso
 Guida alla notazione:
-@ref{The Feta font},
+@ref{The Emmentaler font},
 @ref{Music notation inside markup},
 @ref{Rotating objects},
 @ref{Selecting font and font size},

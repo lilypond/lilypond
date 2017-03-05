@@ -4060,16 +4060,16 @@ XinO = {
 }
 @end lilypond
 
-Alle Schriftzeichen in der feta-Schriftart können
+Alle Schriftzeichen in der Feta-Glyphe können
 mit dem @code{\musicglyph}-Befehl erreicht werden.
-Siehe auch @ref{Die Feta-Schriftart}.
+Siehe auch @ref{Die Emmentaler-Schriftart}.
 
 @seealso
 Notationsreferenz:
 @ref{Graphische Notation innerhalb einer Textbeschriftung},
 @ref{Text formatieren},
 @ref{Textbeschriftungsbefehle},
-@ref{Die Feta-Schriftart}.
+@ref{Die Emmentaler-Schriftart}.
 
 
 

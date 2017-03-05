@@ -1,9 +1,9 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
-@node Modifying the feta font
-@chapter Modifying the feta font
+@node Modifying the Emmentaler font
+@chapter Modifying the Emmentaler font
 
 @menu
-* Overview of the feta font::
+* Overview of the Emmentaler font::
 * Font creation tools::
 * Adding a new font section::
 * Adding a new glyph::
@@ -11,33 +11,35 @@
 * METAFONT formatting rules::
 @end menu
 
-@node Overview of the feta font
-@section Overview of the feta font
+@node Overview of the Emmentaler font
+@section Overview of the Emmentaler font
 
-The feta font is a font that was created specifically for use in
-LilyPond.  The sources for the font are found in mf/*.mf.
+Emmentaler was created specifically for use in LilyPond.  The font
+consists of two @emph{sub-sets} of glyphs. @qq{Feta}, used for clasical
+notation and @qq{Parmesan}, used for Ancient notation.  The sources of
+which are all found in mf/*.mf.
 
-The feta font is merged from a number of subfonts.  Each subfont
-can contain at most 224 glyphs.  This is because each subfont is
-limited to a one-byte address space (256 glyphs maximum) and we
-avoid the first 32 points in that address space, since they are
-non-printing control characters in ASCII.
+The ont is merged from a number of subfonts.  Each subfont can contain
+at most 224 glyphs.  This is because each subfont is limited to a
+one-byte address space (256 glyphs maximum) and we avoid the first 32
+points in that address space, since they are non-printing control
+characters in ASCII.
 
-In LilyPond, glyphs are accessed by glyph name, rather than by code point.
-Therefore, the naming of glyphs is significant.
+In LilyPond, glyphs are accessed by a @q{glyph name}, rather than by
+code point.  Therefore, the name of a glyph is significant.
 
 Information about correctly creating glyphs is found in @file{mf/README}.
 Please make sure you read and understand this file.
 
-TODO -- we should get mf/README automatically generated from texinfo source
-and include it here.
+TODO -- we should get mf/README automatically generated from texinfo
+source and include it here.
 
 
 @node Font creation tools
 @section Font creation tools
 
-The sources for the feta font are written in metafont.  The definitive
-reference for metafont is "The METAFONT book".  Source for the book is
+The sources for Emmentaler are written in metafont.  The definitive
+reference for metafont is "The METAFONT book" -- the source of which is
 available at CTAN.
 
 mf2pt1 is used to create type 1 fonts from the metafont sources.
@@ -45,6 +47,7 @@ mf2pt1 is used to create type 1 fonts from the metafont sources.
 FontForge is used to postprocess the output of mf2pt1 and clean up
 details of the font.  It can also be used by a developer to
 display the resulting glyph shapes.
+
 
 @node Adding a new font section
 @section Adding a new font section
@@ -74,6 +77,7 @@ An entry in @file{scripts/build/gen-emmentaler-scripts.py}
 
 See the examples in @code{mf/} for more information.
 
+
 @node Adding a new glyph
 @section Adding a new glyph
 
@@ -101,6 +105,7 @@ entry.  The glyph is finished with:
 fet_endchar;
 @end example
 
+
 @node Building the changed font
 @section Building the changed font
 
@@ -112,6 +117,7 @@ is to do:
 rm mf/out/*
 make
 @end example
+
 
 @node METAFONT formatting rules
 @section METAFONT formatting rules
@@ -137,4 +143,3 @@ def draw_something (test) =
 ------->fi;
 enddef;
 @end example
-

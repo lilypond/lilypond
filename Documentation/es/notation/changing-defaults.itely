@@ -4411,9 +4411,9 @@ XinO = {
 }
 @end lilypond
 
-Cualquiera de los glifos de la fuente tipográfica Feta se puede
+Cualquiera de los glifos de la fuente tipográfica Emmentaler se puede
 pasar a la instrucción de marcado @code{\musicglyph}: véase
-@ref{La tipografía Feta}.
+@ref{La tipografía Emmentaler}.
 
 Se pueden insertar en línea tanto imágenes en formato @file{EPS}
 como instrucciones de Postscript usando las instrucciones de
@@ -4426,7 +4426,7 @@ Referencia de la notación:
 @ref{Notación gráfica dentro de elementos de marcado},
 @ref{Formatear el texto},
 @ref{Text markup commands},
-@ref{La tipografía Feta},
+@ref{La tipografía Emmentaler},
 @ref{Graphic}.
 
 

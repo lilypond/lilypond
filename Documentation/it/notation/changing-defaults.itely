@@ -3989,7 +3989,7 @@ XinO = {
 @end lilypond
 
 Qualsiasi glifo del tipo di carattere Feta può essere passato al comando
-markup @code{\musicglyph} -- vedi @ref{The Feta font}.
+markup @code{\musicglyph} -- vedi @ref{The Emmentaler font}.
 
 I file @file{EPS} e i comandi Postscript possono essere inseriti entrambi nel
 @c traduzione libera di "inline"
@@ -4002,7 +4002,7 @@ Guida alla notazione:
 @ref{Graphic notation inside markup},
 @ref{Formatting text},
 @ref{Text markup commands},
-@ref{The Feta font},
+@ref{The Emmentaler font},
 @ref{Graphic}.
 
 

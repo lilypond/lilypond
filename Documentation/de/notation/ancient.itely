@@ -2663,7 +2663,7 @@ Glossar:
 Notationsreferenz:
 @ref{Versetzungszeichen},
 @ref{Automatische Versetzungszeichen},
-@ref{Die Feta-Schriftart}
+@ref{Die Emmentaler-Schriftart}.
 
 @node Kiever Taktstriche
 @unnumberedsubsubsec Kiever Taktstriche
@@ -2681,7 +2681,7 @@ Schlussstrich bezeichnen kann.  Es wird gesetzt mit @code{\bar "k"}.
 
 @seealso
 @ref{Takte},
-@ref{Die Feta-Schriftart}
+@ref{Die Emmentaler-Schriftart}
 
 @c Working with ancient music: scenarios and solutions::  {{{1
 @node Musiksatz Alter Musik in der Praxis -- Szenarien und Lösungen

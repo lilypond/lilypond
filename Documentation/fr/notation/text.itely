@@ -318,7 +318,7 @@ de la ligne suivante.
 @seealso
 Manuel de notation :
 @ref{Indications de repère},
-@ref{La fonte Feta},
+@ref{La fonte Emmentaler},
 @ref{Mise en forme du texte},
 @ref{Notation musicale dans du texte formaté}.
 
@@ -1229,7 +1229,7 @@ notation :
 
 En règle générale, tout symbole musical peut être inclus dans un
 @emph{markup}, comme le montre l'exemple qui suit.  Ces différents
-symboles sont répertoriés dans l'annexe @ref{La fonte Feta}.
+symboles sont répertoriés dans l'annexe @ref{La fonte Emmentaler}.
 
 @lilypond[quote,verbatim]
 \relative {
@@ -1299,7 +1299,7 @@ sont répertoriées à l'annexe @ref{Music}.
 
 @seealso
 Manuel de notation :
-@ref{La fonte Feta},
+@ref{La fonte Emmentaler},
 @rusernamed{Music,Musique},
 @ref{Tout savoir sur les fontes}.
 
@@ -1419,7 +1419,7 @@ particulièrement de leur rendu.
 Les fontes musicales peuvent se décrire comme un jeu de glyphes
 spécifiques regroupés dans plusieurs familles.  L'exemple qui suit
 montre la syntaxe à utiliser pour accéder, en mode @emph{markup}, aux
-différentes fontes @code{feta} non textuelles de LilyPond.
+différentes glyphes @code{feta} non textuelles de LilyPond.
 
 @lilypond[quote,verbatim,fragment]
 a'1^\markup {
@@ -1515,7 +1515,7 @@ et @ref{Choix des fontes par défaut}.
 
 @seealso
 Manuel de notation :
-@ref{La fonte Feta},
+@ref{La fonte Emmentaler},
 @ref{Notation musicale dans du texte formaté},
 @ref{Rotation des objets},
 @ref{Sélection de la fonte et de la taille},

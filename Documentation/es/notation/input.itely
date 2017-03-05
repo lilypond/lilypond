@@ -2992,7 +2992,7 @@ también están disponibles a través de opciones de la línea de
 @subsection Sustituir la tipografía de la notación
 @translationof Replacing the notation font
 
-Gonville es una alternativa a la tipografía Feta que se utiliza
+Gonville es una alternativa a la tipografía Emmentaler que se utiliza
 en LilyPond y se puede descargar de:
 @example
 @uref{http://www.chiark.greenend.org.uk/~sgtatham/gonville/ ,http://www.chiark.greenend.org.uk/~sgtatham/gonville/}
@@ -3005,7 +3005,7 @@ fuente Gonville:
 @c       for the font comparison.  -gp
 @sourceimage{Gonville_after,15cm,,}
 
-Aquí hay unos compases de muestra tipografiados en la fuente Feta
+Aquí hay unos compases de muestra tipografiados en el glifos Feta
 de LilyPond:
 
 @sourceimage{Gonville_before,15cm,,}
@@ -3017,7 +3017,7 @@ Descargue y extraiga el archivo zip. Copie la carpeta
 más información, consulte @rlearning{Otras fuentes de
 información}.  Renombre la carpeta @code{fonts} existente a
 @code{fonts_orig} y la carpeta @code{lilyfonts} a @code{fonts}.
-Para volver a la fuente Feta, invierta el proceso.
+Para volver a la fuente Emmentaler, invierta el proceso.
 
 @seealso
 Manual de aprendizaje:

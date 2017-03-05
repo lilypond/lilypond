@@ -323,7 +323,7 @@ Notationsreferenz:
 @ref{Übungszeichen},
 @ref{Text formatieren},
 @ref{Musikalische Notation innerhalb einer Textbeschriftung},
-@ref{Die Feta-Schriftart}.
+@ref{Die Emmentaler-Schriftart}.
 
 Schnipsel:
 @rlsr{Text}.
@@ -1275,7 +1275,7 @@ d-\markup {
 Allgemeiner gesagt kann jedes verfügbare Notationssymbol unabhängig
 von der Notation als ein Textbeschriftungsobjekt eingefügt werden, wie
 unten gezeigt.  Eine vollständige Liste der verfügbaren Symbole findet
-sich in @ref{Die Feta-Schriftart}.
+sich in @ref{Die Emmentaler-Schriftart}.
 
 @lilypond[quote,verbatim]
 \relative {
@@ -1348,7 +1348,7 @@ Eine vollständige Liste der Musiksymbol-Befehle findet sich in @ref{Music}.
 @seealso
 Notationsreferenz:
 @ref{Music},
-@ref{Die Feta-Schriftart},
+@ref{Die Emmentaler-Schriftart},
 @ref{Was sind Schriftarten}.
 
 Installierte Dateien:
@@ -1465,7 +1465,7 @@ Notationsschriftarten können als eine Ansammlung von besonderen Zeichen
 erklärt werden, wobei die Sonderzeichen in verschiedene Familien
 klassifiziert werden.  Die Syntax des folgenden Beispiels ermöglicht es,
 direkt auf verschiedene nicht textuelle Sonderzeichen der
-@code{feta}-Schriftart zuzugreifen.  Das ist die Standardschriftart
+@code{feta}-Glyphe zuzugreifen.  Das ist die Standardschriftart
 für Notationselemente in LilyPond.
 
 @lilypond[quote,verbatim,fragment]
@@ -1559,7 +1559,7 @@ in folgenden Abschnitten: @ref{Schriftarten für einen Eintrag} und
 
 @seealso
 Notationsreferenz:
-@ref{Die Feta-Schriftart},
+@ref{Die Emmentaler-Schriftart},
 @ref{Drehen von Objekten},
 @ref{Musikalische Notation innerhalb einer Textbeschriftung},
 @ref{Überblick über die wichtigsten Textbeschriftungsbefehle},

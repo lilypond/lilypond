@@ -4214,8 +4214,8 @@ XinO = {
 @end lilypond
 
 @code{\musicglyph} マークアップ コマンドには、@c
-Feta フォントに含まれる任意の図柄を提供することができます。@c
-@ref{The Feta font} を参照してください。
+Emmentaler フォントに含まれる任意の図柄を提供することができます。@c
+@ref{The Emmentaler font} を参照してください。
 
 @c TODO Add inserting eps files or ref to later
 
@@ -4226,7 +4226,7 @@ Feta フォントに含まれる任意の図柄を提供することができま
 @ref{マークアップ内部でのグラフィック記譜法},
 @ref{テキストをフォーマットする},
 @ref{Text markup commands},
-@ref{The Feta font}
+@ref{The Emmentaler font}.
 
 
 @node 形状を変更する

@@ -3453,8 +3453,9 @@ element @code{\mark}
 @end lilypond
 
 @noindent
-Consulteu @rusernamed{The Feta font,El tipus de lletra Feta} per veure
-una llista dels símbols que es poden imprimir amb @code{\musicglyph}.
+Consulteu @rusernamed{The Emmentaler font,El tipus de lletra Emmentaler}
+per veure una llista dels símbols que es poden imprimir amb
+@code{\musicglyph}.
 
 Per veure formes comuns d'ajustar la col·locació de les lletres
 d'assaig, consulteu @rusernamed{Formatting text,Donar format al
@@ -3469,7 +3470,7 @@ per escriure altres funcions per donar format.
 
 @seealso
 Referència de la notació:
-@rusernamed{The Feta font,El tipus de lletra Feta},
+@rusernamed{The Emmentaler font,El tipus de lletra Emmentaler},
 @rusernamed{Formatting text,Donar format al text},
 @rusernamed{Aligning objects,Alineació d'objectes}.
 

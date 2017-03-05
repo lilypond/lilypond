@@ -4544,8 +4544,9 @@ XinO = {
 }
 @end lilypond
 
-Any of the glyphs in the Feta Font can be supplied to the
-@code{\musicglyph} markup command -- see @ref{The Feta font}.
+Any of the @emph{Feta} glyphs used in the Emmentaler font can be
+supplied to the @code{\musicglyph} markup command -- see
+@ref{The Emmentaler font}.
 
 @file{EPS} files and Postscript commands can both be inserted inline
 using the @code{\epsfile} and @code{\postscript} markup commands
@@ -4557,7 +4558,7 @@ Notation Reference:
 @ref{Graphic notation inside markup},
 @ref{Formatting text},
 @ref{Text markup commands},
-@ref{The Feta font},
+@ref{The Emmentaler font},
 @ref{Graphic}.
 
 

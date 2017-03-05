@@ -300,7 +300,7 @@ Notation Reference:
 @ref{Rehearsal marks},
 @ref{Formatting text},
 @ref{Music notation inside markup},
-@ref{The Feta font}.
+@ref{The Emmentaler font}.
 
 Snippets:
 @rlsr{Text}.
@@ -1178,7 +1178,7 @@ in markup mode:
 More generally, any available musical symbol may be included
 separately in a markup object, as demonstrated below; an exhaustive
 list of these symbols and their names can be found in
-@ref{The Feta font}.
+@ref{The Emmentaler font}.
 
 @lilypond[quote,verbatim]
 \relative {
@@ -1248,7 +1248,7 @@ An exhaustive list of music notation related commands can be found in
 @seealso
 Notation Reference:
 @ref{Music},
-@ref{The Feta font},
+@ref{The Emmentaler font},
 @ref{Fonts explained}.
 
 Installed Files:
@@ -1357,9 +1357,8 @@ detect available fonts on the system; the selected fonts are rendered
 using Pango.
 
 Music notation fonts can be described as a set of specific glyphs,
-ordered in several families.  The following syntax allows various
-LilyPond @code{feta} non-text fonts to be used directly in markup
-mode:
+ordered in several families.  The following syntax allows LilyPond's
+various @emph{Feta} glyphs to be used directly in markup mode:
 
 @lilypond[quote,verbatim,fragment]
 a'1^\markup {
@@ -1448,7 +1447,7 @@ possible to use other fonts, as explained in the following sections:
 
 @seealso
 Notation Reference:
-@ref{The Feta font},
+@ref{The Emmentaler font},
 @ref{Music notation inside markup},
 @ref{Rotating objects},
 @ref{Selecting font and font size},

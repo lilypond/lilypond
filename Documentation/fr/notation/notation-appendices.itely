@@ -24,7 +24,7 @@
 * Formats de papier prédéfinis::
 * Instruments MIDI::
 * Liste des couleurs::
-* La fonte Feta::
+* La fonte Emmentaler::
 * Styles de tête de note::
 * Styles de clef::
 * Commandes pour markup::
@@ -962,12 +962,16 @@ greyN
 où @var{N} est compris entre 0 et 100.
 
 
-@node La fonte Feta
-@appendixsec La fonte Feta
-@translationof The Feta font
+@node La fonte Emmentaler
+@appendixsec La fonte Emmentaler
+@translationof The Emmentaler font
 
-@cindex Feta, fonte
-@cindex fonte Feta
+@cindex Emmentaler fonte
+@cindex Fonte, Emmentaler
+@cindex Feta fonte
+@cindex Fonte, Feta
+@cindex Parmesan font
+@cindex Fonte, Parmesan
 
 Voici, regroupés par type, les différents symboles de la fonte
 Emmentaler qui peuvent s'inclure directement dans un objet
@@ -1569,8 +1573,8 @@ décoller de l'encadrement.
 @appendixsec Liste des signes d'articulation
 @translationof List of articulations
 
-Les listes qui suivent recensent les symboles prédéfinis dans la
-fonte Feta que vous pouvez attacher à une note (par ex. @code{f\accent}
+Les listes qui suivent recensent les symboles prédéfinis dans le
+glyphe Feta que vous pouvez attacher à une note (par ex. @code{f\accent}
 ou @code{f->}).  Chaque exemple illustre les trois positionnements : en
 surplomb (@emph{up}), en dessous (@emph{down}) et à l'appréciation de
 LilyPond (@emph{neutral}).

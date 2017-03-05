@@ -1353,10 +1353,11 @@ reducing the thickness of the staff lines.
 
 @subheading Automatic font weight at different sizes
 
-The Feta font provides musical symbols at eight different
-sizes.  Each font is tuned for a different staff size: at a smaller size
-the font becomes heavier, to match the relatively heavier staff lines.
-The recommended font sizes are listed in the following table:
+The Emmentaler font provides the set of @emph{Feta} musical glyphs in
+eight different sizes; each one tuned for a different staff size.  The
+smaller the glyph size, the @qq{heavier} it becomes, so as to match the
+relatively thicker staff lines.  Recommended glyphs sizes are listed in
+the following table:
 
 @multitable @columnfractions .15 .2 .22 .2
 @item @b{font name} @tab @b{staff height (pt)} @tab @b{staff height (mm)} @tab @b{use}
@@ -1372,7 +1373,8 @@ The recommended font sizes are listed in the following table:
 
 @seealso
 Notation Reference:
-@ref{Selecting notation font size}.
+@ref{Selecting notation font size},
+@ref{The Emmentaler font}.
 
 Snippets:
 @rlsr{Spacing}.

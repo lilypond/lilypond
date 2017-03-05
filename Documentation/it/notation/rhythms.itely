@@ -3347,7 +3347,7 @@ comando @code{\mark}
 
 @noindent
 L'elenco dei simboli che possono essere prodotti con @code{\musicglyph} si
-trova in @ref{The Feta font}.
+trova in @ref{The Emmentaler font}.
 
 Per le più comuni modifiche relative al posizionamento dei segni di chiamata, si
 veda @ref{Formatting text}.  Per ottenere un controllo più preciso si consiglia
@@ -3361,7 +3361,7 @@ ispirazione per creare altre funzioni di formattazione.
 
 @seealso
 Guida alla notazione:
-@ref{The Feta font},
+@ref{The Emmentaler font},
 @ref{Formatting text},
 @ref{Aligning objects}.
 

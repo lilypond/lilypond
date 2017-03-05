@@ -22,7 +22,7 @@
 * Formati carta predefiniti::
 * Strumenti MIDI::
 * Elenco dei colori::
-* Il tipo di carattere Feta::
+* Il tipo di carattere Emmentaler::
 * Stili delle teste di nota::
 * Stili della chiave::
 * Comandi per markup::
@@ -950,19 +950,36 @@ greyN
 dove N è un numero compreso tra 0 e 100.
 
 
-@node Il tipo di carattere Feta
-@appendixsec Il tipo di carattere Feta
-@translationof The Feta font
+@node Il tipo di carattere Emmentaler
+@appendixsec Il tipo di carattere Emmentaler
+@translationof The Emmentaler font
+
+@cindex Emmentaler tipo di carattere
+@cindex tipo di carattere, Emmentaler
+@cindex Feta tipo di carattere
+@cindex tipo di carattere, Feta
+@cindex Parmesan tipo di carattere
+@cindex tipo di carattere, Parmesan
 
 @cindex tipo di carattere Feta
 @cindex Feta, tipo di carattere
 
 I simboli seguenti sono disponibili nel tipo di carattere Emmentaler e
 si possono utilizzare all'interno di un comando @code{\markup} specificando
-il nome del glifo, come mostrato nelle seguenti tabelle, per esempio
-@code{g^\markup @{\musicglyph #"scripts.segno" @}} o
-@code{\markup @{\musicglyph #"five"@}}.  Maggiori informazioni in
-@ref{Formatting text}.
+il nome del glifo, come mostrato nelle seguenti tabelle, per esempio;
+
+@example
+g^\markup @{\musicglyph #"scripts.segno" @}
+@end example
+
+@noindent
+or
+
+@example
+\markup @{\musicglyph #"five"@}.
+@end example
+
+Maggiori informazioni in @ref{Formatting text}.
 
 
 @menu

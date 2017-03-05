@@ -321,7 +321,7 @@ Referencia de la notación:
 @ref{Llamadas de ensayo},
 @ref{Formatear el texto},
 @ref{Notación musical dentro de elementos de marcado},
-@ref{La tipografía Feta}.
+@ref{La tipografía Emmentaler}.
 
 Fragmentos de código:
 @rlsr{Text}.
@@ -1229,7 +1229,7 @@ marcado:
 De forma más general, cualquier símbolo musical disponible se
 puede incluir por separado dentro de un objeto de marcado, como se
 ejemplifica a continuación; hay una lista exhaustiva de estos
-símbolos y sus nombres en @ref{La tipografía Feta}.
+símbolos y sus nombres en @ref{La tipografía Emmentaler}.
 
 @lilypond[quote,verbatim]
 \relative {
@@ -1300,7 +1300,7 @@ notación musical en @ref{Music}.
 @seealso
 Referencia de la notación:
 @ref{Music},
-@ref{La tipografía Feta},
+@ref{La tipografía Emmentaler},
 @ref{Explicación de las fuentes tipográficas}.
 
 Archivos de inicio:
@@ -1517,7 +1517,7 @@ explica en las siguientes secciones:
 
 @seealso
 Referencia de la notación:
-@ref{La tipografía Feta},
+@ref{La tipografía Emmentaler},
 @ref{Notación musical dentro de elementos de marcado},
 @ref{Rotación de objetos},
 @ref{Seleccionar la tipografía y su tamaño},

@@ -1485,7 +1485,7 @@ evitar reducir el grosor de las líneas del pentagrama.
 
 @subheading Peso automático de la tipografía a distintos tamaños
 
-La fuente tipográfica Feta ofrece símbolos musicales a ocho
+La fuente tipográfica Emmentaler ofrece símbolos musicales a ocho
 tamaños distintos.  Cada fuente tipográfica está afinada para un
 tamaño de pentagrama distinto: a un tamaño menor la tipografía se
 vuelve más pesada, para que coincida con las líneas de pentagrama
@@ -1507,7 +1507,8 @@ están relacionados en la tabla siguiente:
 
 @seealso
 Referencia de la notación:
-@ref{Seleccionar el tamaño de la tipografía para la notación}.
+@ref{Seleccionar el tamaño de la tipografía para la notación},
+@ref{La tipografía Emmentaler}.
 
 Fragmentos de código:
 @rlsr{Spacing}.

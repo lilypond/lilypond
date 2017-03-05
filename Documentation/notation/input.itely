@@ -2786,8 +2786,10 @@ see @rprogram{Basic command line options for LilyPond}.
 @node Replacing the notation font
 @subsection Replacing the notation font
 
-Gonville is an alternative to the Feta font used in LilyPond and can
-be downloaded from:
+Gonville is an alternative set of glyphs to @emph{Feta}
+-- part of the Emmentaler font -- and used in LilyPond.  They can be
+downloaded from:
+
 @example
 @uref{http://www.chiark.greenend.org.uk/~sgtatham/gonville/ ,http://www.chiark.greenend.org.uk/~sgtatham/gonville/}
 @end example
@@ -2798,7 +2800,7 @@ Here are a few sample bars of music set in Gonville:
 @c       for the font comparison.  -gp
 @sourceimage{Gonville_after,15cm,,}
 
-Here are a few sample bars of music set in LilyPond's Feta font:
+Here are a few sample bars of music set in LilyPond's Feta glyphs:
 
 @sourceimage{Gonville_before,15cm,,}
 
@@ -2814,6 +2816,10 @@ reverse the process.
 @seealso
 Learning Manual:
 @rlearning{Other sources of information}.
+
+@seealso
+Notation Reference:
+@ref{The Emmentaler font}.
 
 @knownissues
 Gonville cannot be used to typeset @q{Ancient Music} notation and it is

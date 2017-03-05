@@ -2594,7 +2594,7 @@ Glossaire musicologique :
 Manuel de notation :
 @ref{Altérations},
 @ref{Altérations accidentelles automatiques},
-@ref{La fonte Feta}
+@ref{La fonte Emmentaler}.
 
 
 @node Barre de mesure kiévienne
@@ -2612,8 +2612,9 @@ d'un @code{\bar "k"}.
 @end lilypond
 
 @seealso
+Manuel de notation :
 @ref{Barres de mesure},
-@ref{La fonte Feta}
+@ref{La fonte Emmentaler}.
 
 @node Mélismes kiéviens
 @unnumberedsubsubsec Mélismes kiéviens

@@ -3342,7 +3342,7 @@ Music glyphs (such as the segno sign) may be printed inside a
 @end lilypond
 
 @noindent
-See @ref{The Feta font}, for a list of symbols which may be
+See @ref{The Emmentaler font}, for a list of symbols which may be
 printed with @code{\musicglyph}.
 
 For common tweaks to the positioning of rehearsal marks, see
@@ -3356,7 +3356,7 @@ other formatting functions.
 
 @seealso
 Notation Reference:
-@ref{The Feta font},
+@ref{The Emmentaler font},
 @ref{Formatting text},
 @ref{Aligning objects}.
 

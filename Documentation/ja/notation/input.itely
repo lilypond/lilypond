@@ -2486,7 +2486,7 @@ Portable Network Graphics (PNG) 出力フォーマットが利用可能です。
 @subsection 記譜フォントを置換する
 @translationof Replacing the notation font
 
-LilyPond で使用される Feta フォントの代わりに Gonville に使うことができます。@c
+LilyPond で使用される Emmentaler フォントの代わりに Gonville に使うことができます。@c
 Gonville は以下からダウンロードできます:
 @example
 @uref{http://www.chiark.greenend.org.uk/~sgtatham/gonville/ ,http://www.chiark.greenend.org.uk/~sgtatham/gonville/}
@@ -2498,7 +2498,7 @@ Gonville のサンプル小節です:
 @c       for the font comparison.  -gp
 @sourceimage{Gonville_after,,,}
 
-LilyPond の Feta フォントのサンプル小節です:
+LilyPond の Emmentaler フォントのサンプル小節です:
 
 @sourceimage{Gonville_before,,,}
 
@@ -2510,11 +2510,14 @@ ZIP ファイルをダウンロードして、伸張します。@c
 -- 更なる情報は、@rlearning{Other sources of information} を参照してください。@c
 既存の @code{fonts} ディレクトリを @code{fonts_orig} にリネームして、@c
 @code{lilyfonts} ディレクトリを @code{fonts} にリネームします。@c
-Feta フォントに戻すには、@code{fonts_orig} を @code{fonts} に戻します。
+Emmentaler フォントに戻すには、@code{fonts_orig} を @code{fonts} に戻します。
 
 @seealso
 学習マニュアル:
 @rlearning{Other sources of information}
+
+記譜法リファレンス:
+@ref{The Emmentaler font}.
 
 @knownissues
 Gonville では @q{古代の音楽} を記譜することはできません。@c

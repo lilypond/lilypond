@@ -1467,7 +1467,7 @@ traditionnelle.
 @subheading Relation automatique entre fonte et taille
 @c VO Automatic font weight at different sizes
 
-La fonte Feta fournit les symboles musicaux dans huit tailles
+Le glyphe Feta fournit les symboles musicaux dans huit tailles
 différentes.  Chaque fonte correspond à une hauteur particulière de
 portée ; les petites tailles comportent des symboles plus épais
 pour être cohérent avec l'épaisseur relativement plus importante des
@@ -1490,7 +1490,8 @@ tailles de police.
 
 @seealso
 Manuel de notation :
-@ref{Indication de la taille de fonte musicale}.
+@ref{Indication de la taille de fonte musicale},
+@ref{La fonte Emmentaler}.
 
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.

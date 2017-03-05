@@ -2858,8 +2858,8 @@ vedi @rprogram{Opzioni di base della linea di comando per LilyPond}.
 @subsection Cambiare il tipo di carattere della notazione
 @translationof Replacing the notation font
 
-Gonville è un'alternativa al tipo di carattere Feta usato da LilyPond e può
-essere scaricato da:
+Gonville è un'alternativa al tipo di carattere Emmentaler usato da
+LilyPond e può essere scaricato da:
 @example
 @uref{http://www.chiark.greenend.org.uk/~sgtatham/gonville/ ,http://www.chiark.greenend.org.uk/~sgtatham/gonville/}
 @end example

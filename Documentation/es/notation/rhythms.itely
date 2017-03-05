@@ -3479,7 +3479,7 @@ un elemento @code{\mark}
 @end lilypond
 
 @noindent
-Consulte @ref{La tipografía Feta} para ver una lista de los
+Consulte @ref{La tipografía Emmentaler} para ver una lista de los
 símbolos que se pueden imprimir con @code{\musicglyph}.
 
 Para ver formas comunes de trucar la colocación de las letras de
@@ -3494,7 +3494,7 @@ para escribir otras funciones de formateo.
 
 @seealso
 Referencia de la notación:
-@ref{La tipografía Feta},
+@ref{La tipografía Emmentaler},
 @ref{Formatear el texto},
 @ref{Alineación de objetos}.
 

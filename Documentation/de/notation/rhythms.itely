@@ -3272,7 +3272,7 @@ Musikbuchstaben (wie etwa das Segno-Zeichen) können mit dem Befehl
 @end lilypond
 
 @noindent
-Siehe @ref{Die Feta-Schriftart}, wo alle Symbole gezeigt sind, die
+Siehe @ref{Die Emmentaler-Schriftart}, wo alle Symbole gezeigt sind, die
 mit dem Befehl @code{\musicglyph} ausgegeben werden können.
 
 Übliche Veränderungen der Positionierung von Übungszeichen finden
@@ -3285,7 +3285,7 @@ können als Anregung für andere Formatierungsfunktionen genommen werden.
 
 @seealso
 Notationsreferenz:
-@ref{Die Feta-Schriftart},
+@ref{Die Emmentaler-Schriftart},
 @ref{Text formatieren},
 @ref{Objekte ausrichten}.
 

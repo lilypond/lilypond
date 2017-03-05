@@ -3137,7 +3137,7 @@ c1 | c | c | c
 
 @noindent
 @code{\musicglyph} を使用して譜刻できる記号のリストは、@c
-@ref{The Feta font} を参照してください。
+@ref{The Emmentaler font} を参照してください。
 
 リハーサル記号の配置の一般的な調整については、@c
 @ref{Formatting text} を参照してください。@c
@@ -3151,7 +3151,7 @@ c1 | c | c | c
 
 @seealso
 記譜法リファレンス:
-@ref{The Feta font},
+@ref{The Emmentaler font},
 @ref{Formatting text},
 @ref{Aligning objects}
 

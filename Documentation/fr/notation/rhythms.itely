@@ -3411,7 +3411,7 @@ Un @code{\mark} peut contenir un glyphe musical tel que le signe
 
 @noindent
 Pour connaître les différents symboles accessibles par
-@code{\musicglyph}, consultez @ref{La fonte Feta}.
+@code{\musicglyph}, consultez @ref{La fonte Emmentaler}.
 
 Pour affiner le positionnement des repères, veuillez vous référer à
 @ref{Mise en forme du texte}, et tout particulièrement ce qui concerne
@@ -3426,7 +3426,7 @@ formatage.
 @seealso
 Manuel de notation :
 @ref{Alignement des objets},
-@ref{La fonte Feta},
+@ref{La fonte Emmentaler},
 @ref{Mise en forme du texte}.
 
 Fichiers d'initialisation :

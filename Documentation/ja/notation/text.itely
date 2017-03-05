@@ -318,7 +318,7 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 @ref{リハーサル記号},
 @ref{テキストをフォーマットする},
 @ref{マークアップ内部での音楽記譜法},
-@ref{The Feta font}
+@ref{The Emmentaler font}.
 
 コード断片集:
 @rlsr{Text}
@@ -1217,7 +1217,7 @@ a'1_\markup {
 より一般的には、以下で示すように、@c
 使用可能な音楽シンボルはすべてマークアップ オブジェクトに@c
 含めることができます。@c
-@ref{The Feta font} に、@c
+@ref{The Emmentaler font} に、@c
 音楽シンボルと音楽シンボル名の徹底したリストがあります。
 
 @lilypond[quote,verbatim]
@@ -1288,7 +1288,7 @@ a'1_\markup {
 @seealso
 記譜法リファレンス:
 @ref{Music},
-@ref{The Feta font},
+@ref{The Emmentaler font},
 @ref{フォントの説明}
 
 インストールされているファイル:
@@ -1497,7 +1497,7 @@ c''4^smaller
 
 @seealso
 記譜法リファレンス:
-@ref{The Feta font},
+@ref{The Emmentaler font},
 @ref{マークアップ内部での音楽記譜法},
 @ref{Rotating objects},
 @ref{フォントとフォント サイズを選択する},

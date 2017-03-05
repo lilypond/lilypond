@@ -2473,8 +2473,8 @@ Kommandozeile.  Siehe @rprogram{Grundlegende Optionen auf der Kommandozeile für
 @subsection Die Notationsschriftart verändern
 @translationof Replacing the notation font
 
-Gonville ist eine Alternative zu der Feta-Schriftart, die in LilyPond
-eingesetzt wird und kann unter der Adresse
+Gonville ist eine Alternative zu der Emmentaler-Schriftart, die in
+LilyPond eingesetzt wird und kann unter der Adresse
 @example
 @uref{http://www.chiark.greenend.org.uk/~sgtatham/gonville/ ,http://www.chiark.greenend.org.uk/~sgtatham/gonville/}
 @end example
@@ -2486,7 +2486,7 @@ heruntergeladen werden.  Hier einige Takte Noten mit der Gonville-Schriftart:
 @c       for the font comparison.  -gp
 @sourceimage{Gonville_after,,,}
 
-Und hier einige Beispieltakte in der Feta-Schriftart:
+Und hier einige Beispieltakte in der Feta-Glyphe:
 
 @sourceimage{Gonville_before,,,}
 

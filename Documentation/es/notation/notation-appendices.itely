@@ -22,7 +22,7 @@
 * Tamaños de página predefinidos::
 * Instrumentos MIDI::
 * Lista de colores::
-* La tipografía Feta::
+* La tipografía Emmentaler::
 * Estilos de cabezas de nota::
 * Estilos de clave::
 * Instrucciones de marcado de texto::
@@ -952,20 +952,34 @@ greyN
 donde N es un número entre 0 y 100.
 
 
-@node La tipografía Feta
-@appendixsec La tipografía Feta
-@translationof The Feta font
+@node La tipografía Emmentaler
+@appendixsec La tipografía Emmentaler
+@translationof The Emmentaler font
 
-@cindex Feta, tipografía
-@cindex tipografía Feta
+@cindex Emmentaler tipografía
+@cindex tipografía, Emmentaler
+@cindex Feta tipografía
+@cindex tipografía, Feta
+@cindex Parmesan tipografía
+@cindex tipografía, Parmesan
 
 Los símbolos siguientes están disponibles en la tipografía
 Emmentaler y es posible acceder a ellos directamente utilizando
 elementos de marcado textual con el nombre del glifo tal y como se
-muestra en las tablas de abajo, por ejemplo @code{g^\markup
-@{\musicglyph #"scripts.segno" @}} ó @code{\markup @{\musicglyph
-#"five"@}}.  Para ver más información, consulte @ref{Formatear el
-texto}.
+muestra en las tablas de abajo, por ejemplo;
+
+@example
+g^\markup @{\musicglyph #"scripts.segno" @}
+@end example
+
+@noindent
+or
+
+@example
+\markup @{\musicglyph #"five"@}.
+@end example
+
+Para ver más información, consulte @ref{Formatear el texto}.
 
 @menu
 * Glifos de clave::
@@ -1561,7 +1575,7 @@ legibilidad.
 
 
 Las listas siguientes relacionan todos los símbolos de la
-tipografía Feta que se pueden adjuntar a las notas
+tipografía Emmentaler que se pueden adjuntar a las notas
 (p. ej. @samp{f\accent} o @samp{f->}).  Cada ejemplo muestra el
 símbolo en las posiciones @emph{superior}, @emph{inferior} y
 @emph{neutra}, respectivamente.
