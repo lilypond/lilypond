@@ -1,4 +1,4 @@
-\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+\input texinfo-ja @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
     Translation of GIT committish: 2429e825c154f15cda52cf8a44f12e23d9f6a1e6
 
