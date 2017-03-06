@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Actualitzat el Sun Jan 22 16:44:14 UTC 2017
+@emph{Actualitzat el Mon Mar  6 18:51:02 UTC 2017
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -32,6 +32,8 @@ Títols de secció
 @*
 124
 @tab Walter Garcia-Fontes
+@*
+Walter Garcia-Fontes
 @tab 
 @tab 
 @ifhtml
@@ -138,7 +140,7 @@ parcialment
 @item
 3 Conceptes fonamentals
 @*
-11119
+11151
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -155,7 +157,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #54ff26">parcialment</span>
+<span style="background-color: #62ff28">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -233,6 +235,8 @@ Títols de secció
 @*
 326
 @tab Walter Garcia-Fontes
+@*
+Walter Garcia-Fontes
 @tab 
 @tab 
 @ifhtml
@@ -339,7 +343,7 @@ parcialment
 @item
 1.2 Duracions
 @*
-6822
+6853
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -390,6 +394,60 @@ si
 parcialment
 @end ifnothtml
 @tab pre-GDP
+@item
+1.4 Repeticions
+@*
+1288
+@tab Walter Garcia-Fontes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab pre-GDP
+@item
+1.5 Notes simultànies
+@*
+2920
+@tab Walter Garcia-Fontes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #25fe1f">parcialment</span>
+@end html
+@end ifhtml
+@ifnothtml
+parcialment
+@end ifnothtml
+@tab post-GDP
 @end multitable
 
 
@@ -486,24 +544,24 @@ parcialment
 @item
 2 Actualització de fitxers amb @command{convert-ly}
 @*
-1866
+2097
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">si</span>
+<span style="background-color: #dfef77">parcialment (89 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-si
+parcialment (89 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #ffe241">parcialment</span>
+<span style="background-color: #ffda43">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -623,7 +681,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #7dff2b">parcialment</span>
+<span style="background-color: #83fe2c">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -687,7 +745,7 @@ parcialment
 @item
 Comunitat
 @*
-3272
+4662
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -704,7 +762,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #b2fe32">parcialment</span>
+<span style="background-color: #fcff3c">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml

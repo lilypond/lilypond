@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Sun Jan 22 16:44:14 UTC 2017
+@emph{Last updated Mon Mar  6 18:51:02 UTC 2017
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -266,7 +266,7 @@ partially
 @item
 3 Alapfogalmak
 @*
-11119
+11151
 @tab Griechisch Erika
 @*
 Harmath Dénes
@@ -285,7 +285,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #c7ff35">partially</span>
+<span style="background-color: #cdfe36">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -442,24 +442,24 @@ partially
 @item
 2 A @command{convert-ly} használata
 @*
-1866
+2097
 @tab Harmath Dénes
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #dfef77">partially (89 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+partially (89 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #ffcf44">partially</span>
+<span style="background-color: #ffc746">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -579,7 +579,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #fcff3c">partially</span>
+<span style="background-color: #fffd3d">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -643,24 +643,24 @@ partially
 @item
 Közösség
 @*
-3272
+4662
 @tab Harmath Dénes
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially (95 %)</span>
+<span style="background-color: #dfef77">partially (91 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially (95 %)
+partially (91 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #fffd3d">partially</span>
+<span style="background-color: #ffe241">partially</span>
 @end html
 @end ifhtml
 @ifnothtml

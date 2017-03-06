@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最近更新 Sun Jan 22 16:44:14 UTC 2017
+@emph{最近更新 Mon Mar  6 18:51:02 UTC 2017
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -107,7 +107,7 @@ Anthony Fok
 @ifhtml
 
 @html
-<span style="background-color: #e8fe39">部分</span>
+<span style="background-color: #efff3a">部分</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -173,7 +173,7 @@ Anthony Fok
 @item
 社区
 @*
-3272
+4662
 @tab Ben Luo
 @*
 Anthony Fok
@@ -182,17 +182,17 @@ Anthony Fok
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">部分 (97 %)</span>
+<span style="background-color: #dfef77">部分 (92 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-部分 (97 %)
+部分 (92 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #c0ff34">部分</span>
+<span style="background-color: #fffa3d">部分</span>
 @end html
 @end ifhtml
 @ifnothtml

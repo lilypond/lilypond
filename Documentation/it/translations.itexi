@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Ultimo aggiornamento Sun Jan 22 16:44:14 UTC 2017
+@emph{Ultimo aggiornamento Mon Mar  6 18:51:02 UTC 2017
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -30,7 +30,7 @@ Cambiamenti in LilyPond
 @item
 Section titles
 @*
-2716
+2731
 @tab Federico Bruni
 @tab 
 @tab 
@@ -47,7 +47,7 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">parzialmente</span>
+<span style="background-color: #2cff20">parzialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -324,7 +324,7 @@ sì
 @item
 3 Concetti fondamentali
 @*
-11119
+11151
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -341,11 +341,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #25fe1f">parzialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+parzialmente
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -525,7 +525,7 @@ sì
 @item
 1.2 Ritmi
 @*
-6822
+6853
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -660,7 +660,7 @@ sì
 @item
 1.7 Note editoriali
 @*
-1477
+1481
 @tab Federico Bruni
 @tab 
 @tab 
@@ -677,11 +677,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #25fe1f">parzialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+parzialmente
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -849,28 +849,28 @@ sì
 @item
 5 Modifica delle impostazioni predefinite
 @*
-15597
+17041
 @tab Federico Bruni
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #dfef77">parzialmente (99 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+parzialmente (99 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #39ff22">parzialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+parzialmente
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1023,28 +1023,28 @@ sì
 @item
 2 Aggiornare i file con @command{convert-ly}
 @*
-1866
+2097
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #dfef77">parzialmente (89 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+parzialmente (89 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #40fe23">parzialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+parzialmente
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1214,11 +1214,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #25fe1f">parzialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+parzialmente
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1278,7 +1278,7 @@ sì
 @item
 Comunità
 @*
-3272
+4662
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -1295,11 +1295,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #b2fe32">parzialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+parzialmente
 @end ifnothtml
 @tab pre-GDP
 @end multitable

@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最終更新日 Sun Jan 22 16:44:14 UTC 2017
+@emph{最終更新日 Mon Mar  6 18:51:02 UTC 2017
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -146,7 +146,7 @@ Yoshiki Sawada
 @item
 3 基礎となるコンセプト
 @*
-11119
+11151
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -163,7 +163,7 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #62ff28">partially</span>
+<span style="background-color: #68ff28">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -347,7 +347,7 @@ partially
 @item
 1.2 リズム
 @*
-6822
+6853
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -482,7 +482,7 @@ partially
 @item
 1.7 編集者の注釈
 @*
-1477
+1481
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -499,7 +499,7 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #fffa3d">partially</span>
+<span style="background-color: #fff73e">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -690,7 +690,7 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #62ff28">partially</span>
+<span style="background-color: #91ff2e">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -727,7 +727,7 @@ partially
 @item
 2.7 和音記譜法
 @*
-1979
+1975
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -862,24 +862,24 @@ partially
 @item
 5 デフォルトを変更する
 @*
-15597
+17041
 @tab Yoshiki Sawada
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">一部 (94 %)</span>
+<span style="background-color: #dfef77">一部 (92 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-一部 (94 %)
+一部 (92 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #97ff2f">partially</span>
+<span style="background-color: #b2fe32">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1015,24 +1015,24 @@ partially
 @item
 2 @command{convert-ly} を使ってファイルを更新する
 @*
-1866
+2097
 @tab Yoshiki Sawada
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #dfef77">一部 (89 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+一部 (89 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #ffda43">partially</span>
+<span style="background-color: #ffd244">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1218,11 +1218,11 @@ Yoshinobu Ishizaki
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #25fe1f">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+partially
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1286,7 +1286,7 @@ Yoshiki Sawada
 @item
 コミュニティ
 @*
-3272
+4662
 @tab Masamichi Hosoda
 @*
 Yoshiki Sawada
@@ -1305,7 +1305,7 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">partially</span>
+<span style="background-color: #c7ff35">partially</span>
 @end html
 @end ifhtml
 @ifnothtml

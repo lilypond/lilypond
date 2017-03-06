@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Zuletzt aktualisiert am Sun Jan 22 16:44:14 UTC 2017
+@emph{Zuletzt aktualisiert am Mon Mar  6 18:51:02 UTC 2017
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -388,7 +388,7 @@ ja
 @item
 3 Grundbegriffe
 @*
-11119
+11151
 @tab Till Paala
 @*
 Reinhold Kainhofer
@@ -409,11 +409,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #2cff20">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+teilweise
 @end ifnothtml
 @tab vor-GDP
 @item
@@ -587,7 +587,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #b2fe32">teilweise</span>
+<span style="background-color: #b9ff33">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -597,7 +597,7 @@ teilweise
 @item
 1.2 Rhythmus
 @*
-6822
+6853
 @tab Till Paala
 @tab 
 @tab 
@@ -732,7 +732,7 @@ teilweise
 @item
 1.7 Anmerkungen
 @*
-1477
+1481
 @tab Till Paala
 @tab 
 @tab 
@@ -749,7 +749,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #fff73e">teilweise</span>
+<span style="background-color: #fff53e">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -938,7 +938,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #acff31">teilweise</span>
+<span style="background-color: #d4ff37">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -975,7 +975,7 @@ teilweise
 @item
 2.7 Notation von Akkorden
 @*
-1979
+1975
 @tab Till Paala
 @tab 
 @tab 
@@ -1137,7 +1137,7 @@ teilweise
 @item
 5 Standardeinstellungen verändern
 @*
-15597
+17041
 @tab Till Paala
 @tab 
 @tab 
@@ -1154,7 +1154,7 @@ teilweise (85 %)
 @ifhtml
 
 @html
-<span style="background-color: #cdfe36">teilweise</span>
+<span style="background-color: #e8fe39">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1313,24 +1313,24 @@ teilweise
 @item
 2 Dateien mit @command{convert-ly} aktualisieren
 @*
-1866
+2097
 @tab Till Paala
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #dfef77">teilweise (89 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+teilweise (89 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #ffcf44">teilweise</span>
+<span style="background-color: #ffc746">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1512,11 +1512,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #25fe1f">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+teilweise
 @end ifnothtml
 @tab vor-GDP
 @item
@@ -1580,7 +1580,7 @@ ja
 @item
 Gemeinschaft
 @*
-3272
+4662
 @tab Till Paala
 @*
 Michael Gerdau
@@ -1599,7 +1599,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #7dff2b">teilweise</span>
+<span style="background-color: #d4ff37">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml

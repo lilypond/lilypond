@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Meest recente update Sun Jan 22 16:44:14 UTC 2017
+@emph{Meest recente update Mon Mar  6 18:51:02 UTC 2017
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -138,7 +138,7 @@ gedeeltelijk
 @item
 3 Fundamentele concepten
 @*
-11119
+11151
 @tab Jan Nieuwenhuizen
 @tab 
 @tab 
@@ -155,7 +155,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #62ff28">gedeeltelijk</span>
+<span style="background-color: #68ff28">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml

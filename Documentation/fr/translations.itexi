@@ -16,8 +16,74 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Dernière mise à jour Sun Jan 22 16:44:14 UTC 2017
+@emph{Dernière mise à jour Mon Mar  6 18:51:02 UTC 2017
 }
+@multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
+
+@headitem
+LilyPond Changes
+@tab Traducteurs
+@tab Relecteurs
+@tab Traduit
+@tab À jour
+@tab Autres informations
+@item
+Titre des chapitres
+@*
+2731
+@tab Jean-Charles Malahieude
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">oui</span>
+@end html
+@end ifhtml
+@ifnothtml
+oui
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">oui</span>
+@end html
+@end ifhtml
+@ifnothtml
+oui
+@end ifnothtml
+@tab pré-GDP
+@item
+LilyPond --- \TITLE\
+@*
+1139
+@tab Jean-Charles Malahieude
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">oui</span>
+@end html
+@end ifhtml
+@ifnothtml
+oui
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">oui</span>
+@end html
+@end ifhtml
+@ifnothtml
+oui
+@end ifnothtml
+@tab pré-GDP
+@end multitable
+
+
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
 @headitem
@@ -406,7 +472,7 @@ oui
 @item
 3 Concepts fondamentaux
 @*
-11119
+11151
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -625,7 +691,7 @@ oui
 @item
 1.2 Rythme
 @*
-6822
+6853
 @tab Frédéric Chiasson
 @*
 Jean-Charles Malahieude
@@ -782,7 +848,7 @@ oui
 @item
 1.7 Annotations éditoriales
 @*
-1477
+1481
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -1045,7 +1111,7 @@ oui
 @item
 2.7 Notation des accords
 @*
-1979
+1975
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -1217,7 +1283,7 @@ oui
 @item
 5 Modification des réglages prédéfinis
 @*
-15597
+17041
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -1399,7 +1465,7 @@ oui
 @item
 2 Mise à jour avec @command{convert-ly}
 @*
-1866
+2097
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -1666,7 +1732,7 @@ oui
 @item
 Communauté
 @*
-3272
+4662
 @tab Jean-Charles Malahieude
 @*
 John Mandereau
