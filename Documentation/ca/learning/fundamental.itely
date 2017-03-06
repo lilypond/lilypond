@@ -10,6 +10,10 @@
 
 @c \version "2.19.22"
 
+@c Translators: Walter Garcia-Fontes
+@c Translation checkers:
+
+
 @node Conceptes fonamentals
 @chapter Conceptes fonamentals
 @translationof Fundamental concepts
@@ -970,7 +974,7 @@ propietat @code{force-hshift} a
 
 @seealso
 Referència de la notació:
-@ruser{Veus mútliples}.
+@ruser{Veus múltiples}.
 
 
 @node Veus explícites

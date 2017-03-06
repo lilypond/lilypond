@@ -6,6 +6,10 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c Translators: Walter Garcia-Fontes
+@c Translation checkers:
+
+
 @include included/generating-output.itexi
 
 @macro warningTextBased

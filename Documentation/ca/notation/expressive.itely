@@ -9,6 +9,10 @@
 
 @c \version "2.19.21"
 
+@c Translators: Walter Garcia-Fontes
+@c Translation checkers:
+
+
 @node Expressions
 @section Expressions
 @translationof Expressive marks
@@ -513,7 +517,7 @@ Manual d'aprenentatge:
 Referència de la notació:
 @rusernamed{Direction and placement,Direcció i posició},
 @ref{Indicacions dinàmiques contemporànies},
-@rusernamed{Enhacing MIDI output,Enriquiment de la sortida MIDI},
+@rusernamed{Enhancing MIDI output,Enriquiment de la sortida MIDI},
 @rusernamed{Controlling MIDI dynamics,Control de las dinàmiques del MIDI}.
 
 Fragments de codi:
@@ -651,7 +655,7 @@ descriuen a
 Referència de la notació:
 @rusernamed{Formatting text,Format del text},
 @rusernamed{Selecting font and font size,Selecció del tipus de lletra i la seva mida},
-@rusernamed{Enhacing MIDI output,Enriquiment de la sortida MIDI},
+@rusernamed{Enhancing MIDI output,Enriquiment de la sortida MIDI},
 @rusernamed{Controlling MIDI dynamics,Control de las dinàmiques del MIDI}.
 
 Extensió del LilyPond:

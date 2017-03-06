@@ -7,6 +7,10 @@
     Guide, node Updating translation committishes..
 @end ignore
 
+@c Translators: Walter Garcia-Fontes
+@c Translation checkers:
+
+
 @include included/acknowledge.itexi
 @include included/authors.itexi
 @include included/helpus.itexi

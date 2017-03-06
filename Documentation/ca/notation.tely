@@ -7,6 +7,10 @@
     Guide, node Updating translation committishes..
 @end ignore
 
+@c Translators: Walter Garcia-Fontes
+@c Translation checkers:
+
+
 @setfilename lilypond.info
 @settitle Referència de la notació del GNU LilyPond
 @documentencoding UTF-8

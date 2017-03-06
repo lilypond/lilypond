@@ -10,6 +10,9 @@
 
 @c \version "2.16.0"
 
+@c Translators: Walter Garcia-Fontes
+@c Translation checkers:
+
 
 @node Actualització de fitxers amb convert-ly
 @chapter Actualització de fitxers amb @command{convert-ly}
