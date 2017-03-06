@@ -1099,33 +1099,24 @@ Integration (can be learned during the bonding period)
 
 Improving MusicXML import and export functions:
 
-@divClass{keep-bullets}
-@itemize
+File interchange between LilyPond and other applications using MusicXML is still
+a difficult matter. To import MusicXML it has to be converted manually by
+mysicxml2ly. Export is only available as midi file or as a rudimentary feature
+inside Frescobaldi. In order to provide natural interchange between LilyPond
+and MusicXML-based applications there's need of an import functionality
+and an export backend.
 
-@item
-Handle basic musical content export like the MIDI export (i.e. using
-dedicated exporter classes, derived from the translator class).
+Importing XML shall provide file, line and column to add origin-attributes to
+generated objects. That way point and click can be made available in Frescobaldi
+or other supported IDEs.
 
-@item
-Build the XML tree of the basic musical content, add a connection from
-music event to XML tag.
+Exporting XML shall be realized with an exporter class like the Midi export.
+This may be based on the work already done in
+@uref{https://github.com/DavidGarfinkle/Lilypond_MusicXMLexport, GSoC 2015}
+by David Garfinkle. It should be checked, if it is suitable to use another
+XML-library than the one provided by guile-2, so that this feature is
+available in current LilyPond - based on guile-1.8.
 
-@item
-Let all LilyPond engravers do their job.
-
-@item
-Link each output object (i.e. each stencil or group of stencils) to the
-music cause (and thus to the XML tag in the XML tree).
-
-@item
-Add an XML output backend, which can then add layout information for
-each output object to the XML tags.
-
-@end itemize
-@divEnd
-
-There are several possibilities for this project, including building upon
-the MusicXML export project from GSoC 2015.
 
 @strong{Difficulty:} medium
 @strong{Requirements:} MusicXML, Python, Scheme, basic LilyPond knowledge
