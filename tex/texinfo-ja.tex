@@ -1,0 +1,84 @@
+% texinfo-ja.tex -- Japanese texinfo.tex loader
+% Some CJK packages are necessary to load before texinfo.tex.
+%
+% Copyright 2016, 2017 Free Software Foundation, Inc.
+%
+% This program is free software; you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation; either version 3 of the license, or (at
+% your option) any later version.
+%
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with this program.  If not, see <http://www.gnu.org/licenses/>.
+%
+% Written by Masamichi Hosoda, 6 May 2016, <trueroad@trueroad.jp>
+
+%
+% For LuaTeX
+%
+\ifx\luatexversion\thisisundefined
+\else
+  % LuaTeX 0.95+ is required.
+  \ifnum\luatexversion<95
+    \errmessage{LuaTeX 0.95+ is required}
+  \fi
+  % LuaTeX-ja: Typeset Japanese with Lua(La)TeX
+  % http://www.ctan.org/tex-archive/macros/luatex/generic/luatexja
+  \openin 1 luatexja.sty \ifeof 1
+    \errmessage{LuaTeX-ja is not found.
+    It is required for Japanese Texinfo files with LuaTeX.
+    http://www.ctan.org/tex-archive/macros/luatex/generic/luatexja
+    It might be contained in texlive-lang-japanese package}
+  \else
+    \input luatexja.sty
+    \def\txijapackage{LaTeX-ja}
+  \fi
+\fi
+
+%
+% For XeTeX
+%
+\ifx\XeTeXrevision\thisisundefined
+\else
+  % XeTeX 0.9998+ is required.
+  \ifnum\strcmp{\the\XeTeXversion\XeTeXrevision}{0.9998}<0
+    \errmessage{XeTeX 0.9998+ is required}
+  \fi
+  % zhspacing: Spacing for mixed CJK-English documents in XeTeX
+  % http://www.ctan.org/tex-archive/macros/xetex/generic/zhspacing
+  %
+  % This package is originally for Chinese,
+  % but can also used in Japanese.
+  %
+  \openin 1 zhspacing.sty \ifeof 1
+    \errmessage{zhspacing is not found.
+    It is required for Japanese Texinfo files with XeTeX.
+    http://www.ctan.org/tex-archive/macros/xetex/generic/zhspacing
+    It might be contained in texlive-lang-chinese.
+    (This package is for Chinese, but can also used in Japanese)}
+  \else
+    \def\zhfont{dummy} % Cancel the request of SimSun font
+    \def\zhpunctfont{dummy} % Cancel the request of SimSun font
+    \input zhspacing.sty
+    \zhspacing
+    \def\txijapackage{zhspacing}
+  \fi
+\fi
+
+%
+% For others
+%
+\ifx\luatexversion\thisisundefined
+  \ifx\XeTeXrevision\thisisundefined
+    \errmessage{The TeX engine is not LuaTeX / XeTeX.
+    LuaTeX / XeTeX is required for Japanese Texinfo files}
+  \fi
+\fi
+
+% Original texinfo.tex
+\input texinfo.tex
