@@ -135,7 +135,7 @@ Více se dočtete v @ref{Úvod,,úvodu}!
 @divId{news}
 
 @c TODO: generate this automatically, including RSS feed.
-@include web/news-front.itexi
+@include web/news-headlines.itexi
 
 @divClass{float-right}
 (@ref{News,,,,Starší novinky})

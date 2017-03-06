@@ -144,7 +144,7 @@ Podeu llegir més a la nostra @ref{Introducció}!
 @divId{news}
 
 @c TODO: generate this automatically, including RSS feed.
-@include web/news-front.itexi
+@include web/news-headlines.itexi
 
 @divClass{float-right}
 (@ref{Notícies antigues})

@@ -1159,9 +1159,7 @@ any patch which introduced extra warnings.
 the @ref{Attic}}
 @divEnd
 
-@include web/news-front.itexi
-
-@include web/news.itexi
+@include web/news-new.itexi
 
 
 @node Attic
@@ -1218,3 +1216,5 @@ Developers' changelogs by version:
 @miscLink{CHANGES-0.0,v0.0}
 
 @divEnd
+
+@include web/news-old.itexi

@@ -1210,9 +1210,7 @@ automatisiert Patches, die zusätzliche Warnungen erzeugen, abzulehnen.
 @ref{Abstellkammer}}
 @divEnd
 
-@include web/news-front.itexi
-
-@include web/news.itexi
+@include web/news-new.itexi
 
 
 
@@ -1289,3 +1287,5 @@ Thanks to developers, contributors, bug hunters and suggestions for
 @miscLink{CHANGES-0.0,v0.0}
 
 @divEnd
+
+@include web/news-old.itexi

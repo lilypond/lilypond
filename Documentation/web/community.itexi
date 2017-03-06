@@ -72,7 +72,8 @@ discussing LilyPond.
 @ref{News}: news from the LilyPond project.
 
 @item
-@ref{Attic}: announcements and changelogs from past versions.
+@ref{Attic}: announcements and changelogs from past versions,
+old news, etc.
 
 @end itemize
 @divEnd
@@ -1335,15 +1336,13 @@ are currently no mentors available.
 @node News
 @unnumberedsec News
 
-@divClass{heading-center}
-@warning{Many old announcements and changelogs can be found in
-the @ref{Attic}}
+@include web/news-new.itexi
+
+@divClass{column-center-bottom}
+@subheading Old News
+Older news can be found in the @ref{Attic}, along with older
+announcements and changelogs
 @divEnd
-
-@include web/news-front.itexi
-
-@include web/news.itexi
-
 
 @node Attic
 @unnumberedsec Attic
@@ -1382,7 +1381,7 @@ Descriptive list of changes by version:
 
 @divEnd
 
-@divClass{column-center-bottom}
+@divClass{column-center-middle-color3}
 @subheading Thanks
 
 Thanks to developers, contributors, bug hunters and suggestions for
@@ -1399,7 +1398,7 @@ Thanks to developers, contributors, bug hunters and suggestions for
 
 @divEnd
 
-@divClass{column-center-bottom}
+@divClass{column-center-middle-color3}
 @subheading Changelogs
 
 Developers' changelogs by version:
@@ -1484,3 +1483,12 @@ the rejection of any patch which introduced extra warnings.
 @strong{Requirements:} C++
 
 @divEnd
+
+@divClass{column-center-middle-color2}
+@subheading Old News
+
+Older news items dating back to July 2003.  Newer news can be found on
+the @ref{News} page.
+@divEnd
+
+@include web/news-old.itexi

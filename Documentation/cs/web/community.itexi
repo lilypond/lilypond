@@ -850,6 +850,6 @@ příručky se nacházejí na @url{http://lilypond.org}.}
 @unnumberedsec Starší novinky
 @translationof News
 
-@include web/news-front.itexi
+@include web/news-new.itexi
 
-@include web/news.itexi
+@include web/news-old.itexi

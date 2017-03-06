@@ -1207,9 +1207,7 @@ que introduís més advertiments dels que hi ha actualment.
 @ref{Golfes}}
 @divEnd
 
-@include web/news-front.itexi
-
-@include web/news.itexi
+@include web/news-new.itexi
 
 
 @node Golfes
@@ -1286,3 +1284,5 @@ Registres de canvis dels desenvolupadors, per versió:
 @miscLink{CHANGES-0.0,v0.0}
 
 @divEnd
+
+@include web/news-old.itexi

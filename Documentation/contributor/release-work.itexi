@@ -131,7 +131,7 @@ git checkout release/unstable
 git merge origin/master
 make -C $LILYPOND_BUILD_DIR po-replace
 mv $LILYPOND_BUILD_DIR/po/lilypond.pot po/
-gedit Documentation/web/news-front.itexi Documentation/web/news.itexi
+gedit Documentation/web/news-new.itexi Documentation/web/news-old.itexi
 gedit Documentation/web/news-headlines.itexi
 gedit VERSION
 gedit ly/Wel*.ly
@@ -738,7 +738,7 @@ pulls git master to the web server, and the other makes the
 website with the standard @code{make website} command.  They run
 hourly, 30 minutes apart.  So - to update the front page of the
 website, it's necessary to update @code{VERSION} and
-@code{news-front.itexi} in master and then wait for the cron
+@code{news-headlines.itexi} in master and then wait for the cron
 jobs to run.  (N.B. - this is done by pushing the changes to
 staging and letting patchy do its checks before it pushes to
 master).

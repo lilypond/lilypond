@@ -1255,9 +1255,7 @@ ellos disponible para el GSoC 2016)
 @ref{Desván}}
 @divEnd
 
-@include web/news-front.itexi
-
-@include web/news.itexi
+@include web/news-new.itexi
 
 
 @node Desván
@@ -1334,3 +1332,5 @@ Registros de cambios de los desarrolladores, por versión:
 @miscLink{CHANGES-0.0,v0.0}
 
 @divEnd
+
+@include web/news-old.itexi

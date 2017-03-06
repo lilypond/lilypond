@@ -138,7 +138,7 @@ Ha többet akarsz róla megtudni, olvasd el a @ref{Bevezetés}t!
 @divId{news}
 
 @c TODO: generate this automatically, including RSS feed.
-@include web/news-front.itexi
+@include web/news-headlines.itexi
 
 @divClass{float-right}
 (@ref{Hírarchívum})

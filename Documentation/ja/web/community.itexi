@@ -1275,9 +1275,7 @@ GSoC 2016)
 @warning{多くの古いアナウンスと変更履歴が @ref{物置} で見つかります。}
 @divEnd
 
-@include web/news-front.itexi
-
-@include web/news.itexi
+@include web/news-new.itexi
 
 
 @node 物置
@@ -1353,3 +1351,5 @@ GSoC 2016)
 @miscLink{CHANGES-0.0,v0.0}
 
 @divEnd
+
+@include web/news-old.itexi

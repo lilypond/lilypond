@@ -1464,9 +1464,7 @@ d'actualité mais pour lesquels aucun mentor n'est à ce jour disponible.
 @rwebnamed{Grenier,grenier}.}
 @divEnd
 
-@include web/news-front.itexi
-
-@include web/news.itexi
+@include web/news-new.itexi
 
 
 @node Grenier
@@ -1543,3 +1541,5 @@ Notes des développeurs, par version :
 @miscLink{CHANGES-0.0,v0.0}
 
 @divEnd
+
+@include web/news-old.itexi

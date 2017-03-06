@@ -141,7 +141,7 @@ UNTRANSLATED NODE: IGNORE ME
 
 @ifset web
 
-@c make link to bugfixes for news.itexi
+@c make link to bugfixes for news-old.itexi
 @c use underscores for version: @bugfixes{2_13_13,}
 @c use specifier arg when listing multiple versions
 @c (see September 20, 2007 post for an example)

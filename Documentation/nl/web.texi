@@ -137,7 +137,7 @@ Lees meer in onze @ref{Inleiding}!
 @divId{news}
 
 @c TODO: generate this automatically, including RSS feed.
-@include web/news-front.itexi
+@include web/news-headlines.itexi
 
 @divClass{float-right}
 (@ref{News}) @c (@ref{News,,,,Oud nieuws})

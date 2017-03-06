@@ -1219,9 +1219,7 @@ per GSoC 2016)
 in @ref{Soffitta}}
 @divEnd
 
-@include web/news-front.itexi
-
-@include web/news.itexi
+@include web/news-new.itexi
 
 
 @node Soffitta
@@ -1297,3 +1295,5 @@ Lista dei cambiamenti apportati da ciascun sviluppatore in ogni versione:
 @miscLink{CHANGES-0.0,v0.0}
 
 @divEnd
+
+@include web/news-old.itexi
