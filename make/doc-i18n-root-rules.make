@@ -23,11 +23,15 @@ $(top-build-dir)/Documentation/$(outdir)/%.$(ISOLANG).pdf: $(outdir)/%.pdf
 $(outdir)/%.png: $(top-build-dir)/Documentation/$(outdir)/%.png
 	ln -f $< $@
 
-$(MASTER_TEXI_FILES): $(ITELY_FILES) $(ITEXI_FILES) $(outdir)/pictures
+$(MASTER_TEXI_FILES): $(ITELY_FILES) $(ITEXI_FILES) $(outdir)/pictures $(outdir)/ly-examples
 
 $(outdir)/pictures:
 	$(MAKE) -C $(top-build-dir)/Documentation/pictures out=www WWW-1
 	ln -sf $(top-build-dir)/Documentation/pictures/$(outdir) $@
+
+$(outdir)/ly-examples:
+	$(MAKE) -C $(top-build-dir)/Documentation/ly-examples out=www WWW-1
+	ln -sf $(top-build-dir)/Documentation/ly-examples/$(outdir) $@
 
 $(TRANSLATION_LILY_IMAGES): $(MASTER_TEXI_FILES)
 	find $(outdir) \( -name 'lily-*.png' -o -name 'lily-*.ly' \) | sed 's!$(outdir)/!!g' | xargs $(buildscript-dir)/mass-link hard $(outdir) $(top-build-dir)/Documentation/$(outdir)
