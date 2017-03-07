@@ -689,6 +689,7 @@ automatically when an output definition (a @code{\\score} or
   stringNumberOrientations = #'(up down)
   strokeFingerOrientations = #'(right)
 
+  extendersOverRests = ##t
   lyricMelismaAlignment = #LEFT
   markFormatter = #format-mark-letters
   rehearsalMark = #1
