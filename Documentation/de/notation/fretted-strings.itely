@@ -239,7 +239,7 @@ bevorzugt.  Wenn man eine bestimmte Tonhöhe auf einer bestimmten Saite
 gespielt haben will, kann man eine Saitennummeranweisung zur
 Tonhöhe hinzufügen.  Wenn man die Saitenzahlanweisung nicht in der traditionellen
 Notation sehen will, kann man den entsprechenden Stencil mit @code{\override}
-verändernt.  Es ist jedoch sehr viel bequemer, die Spielposition unter
+verändern.  Es ist jedoch sehr viel bequemer, die Spielposition unter
 Benutzung von @code{minimumFret} zu definieren.  Der Standardwert von
 @code{minimumFret} beträgt 0.
 
@@ -1271,7 +1271,7 @@ mychordlist = {
 Die Tabelle der vordefinierten Bunddiagramme für Gitarre enthält
 acht Akkorde (Dur, Moll, übermäßig, vermindert, Dominantseptakkord,
 große Septime, kleine Septime und Dominantnonenakkord) für alle 17
-Tonarten.  Die Tabelle der vortdefinierten Bunddiagramme für
+Tonarten.  Die Tabelle der vordefinierten Bunddiagramme für
 Ukulele enthält neben diesen Akkorden noch zusätzlich drei
 weitere (große Sext, Sekundakkord und Quartakkort).  Eine
 vollständige Liste der vordefinierten Bunddiagramme findet sich
