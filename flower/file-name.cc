@@ -77,9 +77,16 @@ dir_name (const string &file_name)
 string
 get_working_directory ()
 {
+#ifdef _GNU_SOURCE
+  char *cwd = get_current_dir_name();
+  string scwd(cwd);
+  free(cwd);
+  return scwd;
+#else
   char cwd[PATH_MAX];
   // getcwd returns NULL upon a failure, contents of cwd would be undefined!
   return string (getcwd (cwd, PATH_MAX));
+#endif
 }
 
 /* Join components to full file_name. */

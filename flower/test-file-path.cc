@@ -1,4 +1,5 @@
 #include "file-path.hh"
+#include "file-name.hh"
 
 #include <limits.h>
 #include <unistd.h>
@@ -10,8 +11,7 @@ TEST (File_path, Find)
 {
   char const *extensions[] = {"ly", "", 0};
   string file = "init";
-  char cwd[PATH_MAX];
-  if (!getcwd (cwd, PATH_MAX))
+  if (get_working_directory().empty())
     {
       cerr << "Could not get current work directory\n";
       exit (1);
