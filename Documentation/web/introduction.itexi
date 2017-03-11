@@ -1281,13 +1281,6 @@ the text view when printed from there.
 A web-based LilyPond editor where you can typeset your scores directly
 online without needing to install LilyPond.
 
-@subsubheading Tunefl
-@uref{http://www.tunefl.com}
-
-With tunefl, you can typeset your mini-scores directly online without
-needing to install LilyPond locally. It allows trying out all the
-program's features using a convenient web interface.
-
 @divEnd
 
 @divClass{column-center-top}
@@ -1300,12 +1293,10 @@ program's features using a convenient web interface.
 @sourceimage{logo-macosx,,,}
 @sourceimage{logo-windows,,,}
 
-@uref{http://elysium.thsoft.hu}
+@uref{https://github.com/thSoft/elysium}
 
-Elysium is a LilyPond IDE for Eclipse with an integrated, side-by-side
-view for source and score.  It includes rapid visual & auditive feedback
-without having to switch contexts, and comes with many wizard-driven
-templates.
+A complete environment for editing scores with LilyPond in Eclipse,
+offering a rich toolkit for conveniently managing LilyPond.
 
 @divEnd
 
@@ -1345,7 +1336,7 @@ More information on setting up Vim can be found in
 
 @sourceimage{logo-macosx,,,}
 @subsubheading TeXShop
-@uref{http://www.uoregon.edu/~koch/texshop}
+@uref{http://pages.uoregon.edu/koch/texshop/}
 
 The TeXShop editor for MacOS@tie{}X can be extended to run LilyPond,
 @command{lilypond-book} and @command{convert-ly} from within the editor,
@@ -1423,8 +1414,7 @@ interpreters.  A C++ port is also available.
 @item
 @uref{http://strasheela.sourceforge.net/strasheela/doc/index.html,Strasheela},
 an environment built on top of the
-@uref{http://www.mozart-oz.org/, Mozart/Oz} constraint programming
-language.
+@uref{http://mozart.github.io/, The Mozart Programming System}.
 
 @end itemize
 @divEnd
@@ -1458,7 +1448,7 @@ available for download at
 
 @item
 @uref{https://sourceforge.net/projects/noteedit.berlios/,NoteEdit}, which imported
-@uref{http://www.makemusic.com/musicxml,MusicXML}, has been forked into
+@uref{http://www.musicxml.com/,MusicXML}, has been forked into
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
 and @uref{http://canorus.org,Canorus}.
 
@@ -1471,6 +1461,12 @@ developed, it appears to still work with version 4.
 @item
 @uref{https://launchpad.net/rumor/,Rumor}, a realtime monophonic
 MIDI-to-LilyPond converter.
+
+@item
+@uref{https://github.com/tiredpixel/tunefl,tunefl}
+Typeset your mini-scores directly online without needing to install
+LilyPond locally.  It allows trying out all the program's features using
+a convenient web interface.
 
 @item
 @uref{http://sourceforge.net/projects/tuxguitar/,TuxGuitar}, a
