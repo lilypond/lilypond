@@ -1472,6 +1472,27 @@
                                 side-position-interface
                                 text-interface))))))
 
+    (MeasureSpanner
+     . (
+        (connect-to-neighbor . ,ly:measure-spanner::calc-connect-to-neighbors)
+        (direction . ,UP)
+        (edge-height . (0.7 . 0.7))
+        (outside-staff-priority . 750)
+        (self-alignment-X . ,CENTER)
+        (side-axis . ,Y)
+        (spacing-pair . (staff-bar . staff-bar))
+        (staff-padding . 0.5)
+        (stencil . ,ly:measure-spanner::print)
+        (Y-offset . ,side-position-interface::y-aligned-side)
+        (meta . ((class . Spanner)
+                 (interfaces . (font-interface
+                                measure-spanner-interface
+                                line-interface
+                                outside-staff-interface
+                                self-alignment-interface
+                                side-position-interface
+                                text-interface))))))
+
     (MeasureGrouping
      . (
         (direction . ,UP)

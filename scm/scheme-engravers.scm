@@ -95,6 +95,57 @@ receive a count with @code{\\startMeasureCount} and
             (set! count-spanner '())
             (ly:warning "measure count left unfinished")))))))
 
+(define-public (Measure_spanner_engraver context)
+  (let ((span '())
+        (finished '())
+        (event-start '())
+        (event-stop '()))
+    (make-engraver
+     (listeners ((measure-spanner-event engraver event)
+                 (if (= START (ly:event-property event 'span-direction))
+                     (set! event-start event)
+                     (set! event-stop event))))
+     ((process-music trans)
+      (if (ly:stream-event? event-stop)
+          (if (null? span)
+              (ly:warning "cannot find start of measure spanner")
+              (begin
+               (set! finished span)
+               (ly:engraver-announce-end-grob trans finished event-start)
+               (set! span '())
+               (set! event-stop '()))))
+      (if (ly:stream-event? event-start)
+          (begin
+           (set! span (ly:engraver-make-grob trans 'MeasureSpanner event-start))
+           (set! event-start '()))))
+     ((stop-translation-timestep trans)
+      (if (and (ly:spanner? span)
+               (null? (ly:spanner-bound span LEFT))
+               (moment<=? (ly:context-property context 'measurePosition) ZERO-MOMENT))
+          (ly:spanner-set-bound! span LEFT
+            (ly:context-property context 'currentCommandColumn)))
+      (if (and (ly:spanner? finished)
+               (moment<=? (ly:context-property context 'measurePosition) ZERO-MOMENT))
+          (begin
+           (if (null? (ly:spanner-bound finished RIGHT))
+               (ly:spanner-set-bound! finished RIGHT
+                 (ly:context-property context 'currentCommandColumn)))
+           (set! finished '())
+           (set! event-start '())
+           (set! event-stop '()))))
+     ((finalize trans)
+      (if (ly:spanner? finished)
+          (begin
+           (if (null? (ly:spanner-bound finished RIGHT))
+               (set! (ly:spanner-bound finished RIGHT)
+                     (ly:context-property context 'currentCommandColumn)))
+           (set! finished '())))
+      (if (ly:spanner? span)
+          (begin
+           (ly:warning "unterminated measure spanner")
+           (ly:grob-suicide! span)
+           (set! span '())))))))
+
 (ly:register-translator
  Measure_counter_engraver 'Measure_counter_engraver
  '((grobs-created . (MeasureCounter))
@@ -109,6 +160,18 @@ aid for counting repeated measures.  There is no requirement that the
 affected measures be repeated, however.  The user delimits the area to
 receive a count with @code{\\startMeasureCount} and
 @code{\\stopMeasureCount}.")))
+
+(ly:register-translator
+ Measure_spanner_engraver 'Measure_spanner_engraver
+ '((grobs-created . (MeasureSpanner))
+   (events-accepted . (measure-spanner-event))
+   (properties-read . (measurePosition
+                       currentCommandColumn))
+   (properties-written . ())
+   (description . "\
+This engraver creates spanners bounded by the columns that start and
+end measures in response to @code{\\startMeasureSpanner} and
+@code{\\stopMeasureSpanner}.")))
 
 (ly:register-translator
  Span_stem_engraver 'Span_stem_engraver

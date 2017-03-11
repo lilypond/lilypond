@@ -87,11 +87,12 @@ Bracket::make_bracket (Grob *me, // for line properties.
 }
 
 /*
-  Return an ungapped bracket along either the X- or Y-axis.
+  Return a bracket oriented along either the X- or Y-axis.  Passing
+  Interval () for gap creates an unbroken bracket.
 */
 Stencil
 Bracket::make_axis_constrained_bracket (Grob *me, Real length, Axis a,
-                                        Direction dir)
+                                        Direction dir, Interval gap)
 {
   Drul_array<Real> edge_height = robust_scm2interval (me->get_property ("edge-height"),
                                                       Interval (1.0, 1.0));
@@ -121,7 +122,7 @@ Bracket::make_axis_constrained_bracket (Grob *me, Real length, Axis a,
     }
 
   return make_bracket (me, other_axis (a), start, edge_height,
-                       Interval (), flare, shorten);
+                       gap, flare, shorten);
 }
 
 /*
@@ -144,9 +145,8 @@ Bracket::make_enclosing_bracket (Grob *me, Grob *refpoint,
     }
   else
     {
-      Stencil b = make_axis_constrained_bracket (me, ext.length (), a, dir);
+      Stencil b = make_axis_constrained_bracket (me, ext.length (), a, dir, Interval ());
       b.translate_axis (ext[LEFT] - refpoint->relative_coordinate (common, a), a);
-
       return b;
     }
 }

@@ -308,6 +308,12 @@ Example: @code{\\mark \"A\"}")
         (types . (mark-event event))
         ))
 
+    (MeasureSpannerEvent
+     . ((description . "Used to signal the start and end of a measure
+spanner.")
+       (types . (measure-spanner-event span-event event))
+        ))
+
     (MeasureCounterEvent
      . ((description . "Used to signal the start and end of a measure count.")
         (types . (measure-counter-event span-event event))

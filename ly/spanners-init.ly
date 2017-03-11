@@ -22,6 +22,10 @@ enddecr = #(make-span-event 'DecrescendoEvent STOP)
 endcr = #(make-span-event 'CrescendoEvent STOP)
 
 
+startMeasureSpanner = #(make-span-event 'MeasureSpannerEvent START)
+stopMeasureSpanner = #(make-span-event 'MeasureSpannerEvent STOP)
+
+
 startMeasureCount = #(make-span-event 'MeasureCounterEvent START)
 stopMeasureCount = #(make-span-event 'MeasureCounterEvent STOP)
 

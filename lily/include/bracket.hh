@@ -31,7 +31,8 @@ struct Bracket
                                Interval gap, Drul_array<Real> flare,
                                Drul_array<Real> shorten);
   static Stencil make_axis_constrained_bracket (Grob *me, Real length,
-                                                Axis a, Direction dir);
+                                                Axis a, Direction dir,
+                                                Interval gap);
   static Stencil make_enclosing_bracket (Grob *me, Grob *refpoint,
                                          vector<Grob *> grobs,
                                          Axis a, Direction dir);
