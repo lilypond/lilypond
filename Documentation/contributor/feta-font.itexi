@@ -19,7 +19,7 @@ consists of two @emph{sub-sets} of glyphs. @qq{Feta}, used for clasical
 notation and @qq{Parmesan}, used for Ancient notation.  The sources of
 which are all found in mf/*.mf.
 
-The ont is merged from a number of subfonts.  Each subfont can contain
+The font is merged from a number of subfonts.  Each subfont can contain
 at most 224 glyphs.  This is because each subfont is limited to a
 one-byte address space (256 glyphs maximum) and we avoid the first 32
 points in that address space, since they are non-printing control

@@ -949,8 +949,8 @@ Where N is in the range 0-100.
 @cindex Font, Parmesan
 
 The Emmentaler font consists of two @emph{sub-sets} of glyphs.
-@qq{Feta}, used for clasical notation and @qq{Parmesan}, sed for Ancient
-notation.
+@qq{Feta}, used for classical notation and @qq{Parmesan}, used for
+Ancient notation.
 
 Any glyph within the Emmentaler font can be accessed directly by using
 text markup along with the name of the glyph (as shown in the tables
@@ -964,7 +964,7 @@ g^\markup @{\musicglyph #"scripts.segno" @}
 or
 
 @example
-\markup @{\musicglyph #"five"@}.
+\markup @{\musicglyph #"five"@}
 @end example
 
 For more information see @ref{Formatting text}.
@@ -2710,4 +2710,3 @@ within a @code{\layout} or @code{\with} block.
 @appendixsec Scheme functions
 
 @include scheme-functions.tely
-
