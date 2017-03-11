@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 6b8cabe379e8b4b945797a4e55759c56117223d4
+   Translation of GIT committish: 1e5c6b0f54079eb3285dcc4c7e53f17d8bb03933
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1467,12 +1467,12 @@ traditionnelle.
 @subheading Relation automatique entre fonte et taille
 @c VO Automatic font weight at different sizes
 
-Le glyphe Feta fournit les symboles musicaux dans huit tailles
-différentes.  Chaque fonte correspond à une hauteur particulière de
-portée ; les petites tailles comportent des symboles plus épais
-pour être cohérent avec l'épaisseur relativement plus importante des
-lignes de la portée.  Le tableau suivant répertorie les différentes
-tailles de police.
+La fonte Ementaler fournit le jeu de symboles musicaux @emph{Feta} dans
+huit tailles différentes.  Chaque fonte correspond à une hauteur
+particulière de portée ; les petites tailles comportent des symboles
+plus épais pour être cohérent avec l'épaisseur relativement plus
+importante des lignes de la portée.  Le tableau suivant répertorie les
+différentes tailles de police.
 
 @multitable @columnfractions .15 .2 .22 .2
 

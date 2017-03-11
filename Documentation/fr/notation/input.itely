@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 181db07b2627d98fb77564c45fad23a96e7ee54c
+   Translation of GIT committish: 1e5c6b0f54079eb3285dcc4c7e53f17d8bb03933
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -2949,8 +2949,9 @@ commande avec l'option @i{ad hoc} -- voir
 @subsection Changement des fontes musicales
 @translationof Replacing the notation font
 
-Gonville est une alternative à la fonte Emmentaler que LilyPond utilise
-par défaut.  Vous pouvez la télécharger à partir de
+Gonville est une alternative au jeu de glyphes @emph{Feta} inclus dans
+la fonte Emmentaler que LilyPond utilise par défaut.  Vous pouvez la
+télécharger à partir de
 @example
 @uref{http://www.chiark.greenend.org.uk/~sgtatham/gonville/ ,http://www.chiark.greenend.org.uk/~sgtatham/gonville/}
 @end example
@@ -2961,7 +2962,7 @@ Voici quelques mesures utilisant la police Gonville :
 @c       for the font comparison.  -gp
 @sourceimage{Gonville_after,15cm,,}
 
-Et ces même mesures avec la police de LilyPond, Feta :
+Et ces même mesures avec les glyphes @emph{Feta} de LilyPond :
 
 @sourceimage{Gonville_before,15cm,,}
 
@@ -2980,6 +2981,9 @@ retrouver la fonte Emmentaler, de renommer @code{fonts_orig} en
 @seealso
 Manuel d'initiation :
 @rlearning{Autres sources de documentation}.
+
+Manuel de notation :
+@ref{La fonte Emmentaler}.
 
 @knownissues
 Gonville ne permet pas de générer de la notation ancienne, et certains

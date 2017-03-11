@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 39912f861693f1c24b8833e6e9e6ba82eb3e6746
+   Translation of GIT committish: 1e5c6b0f54079eb3285dcc4c7e53f17d8bb03933
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1413,13 +1413,13 @@ partition.
 
 La gestion des fontes est assurée par plusieurs bibliothèques :
 FontConfig se charge de répertorier les différentes fontes installées
-sur votre système ; quant à Pango, elle se charge plus
-particulièrement de leur rendu.
+sur votre système ; quant à Pango, elle se charge plus particulièrement
+de leur rendu.
 
 Les fontes musicales peuvent se décrire comme un jeu de glyphes
 spécifiques regroupés dans plusieurs familles.  L'exemple qui suit
 montre la syntaxe à utiliser pour accéder, en mode @emph{markup}, aux
-différentes glyphes @code{feta} non textuelles de LilyPond.
+différents glyphes @code{Feta} non textuels de LilyPond.
 
 @lilypond[quote,verbatim,fragment]
 a'1^\markup {
@@ -1440,16 +1440,16 @@ Tous ces glyphes, à l'exception des accolades qui sont regroupées dans
 @ref{Notation musicale dans du texte formaté}.
 
 Une remarque s'impose au sujet des glyphes contenus dans
-@code{fetaBraces} : chacun d'eux est formé du mot @emph{brace}
-auquel est accolé un numéro d'ordre.  Lorsque vous désirez imprimer une
+@code{fetaBraces} : chacun d'eux est formé du mot @emph{brace} auquel
+est accolé un numéro d'ordre.  Lorsque vous désirez imprimer une
 accolade, vous devez la @qq{chercher} par son numéro d'ordre -- d'où la
 fonction @code{\lookup} de l'exemple ci-dessus --, tout en sachant qu'il
 est compris entre @code{0} (la plus petite) et @code{575} (la plus
 grande).  Vous serez souvent amené à procéder par tâtonnement pour
-arriver au résultat optimal.  Par ailleurs, @code{fetaBraces} ne
-comporte que des accolades ouvrantes.  Pour obtenir une accolade
-fermante, il suffit d'appliquer une rotation au glyphe sélectionné,
-comme indiqué à la rubrique @ref{Rotation des objets}.
+arriver au résultat optimal. Par ailleurs, @code{fetaBraces} ne comporte
+que des accolades ouvrantes.  Pour obtenir une accolade fermante, il
+suffit d'appliquer une rotation au glyphe sélectionné, comme indiqué à
+la rubrique @ref{Rotation des objets}.
 
 Vous disposez de trois familles de fontes textuelles :
 @itemize

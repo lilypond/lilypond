@@ -1,11 +1,11 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 97f856e8c577fdf301ac2a15b336eae8729e53f7
+  Translation of GIT committish: 1e5c6b0f54079eb3285dcc4c7e53f17d8bb03933
 
-    When revising a translation, copy the HEAD committish of the
-    version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+  When revising a translation, copy the HEAD committish of the
+  version that you are working on.  For details, see the Contributors'
+  Guide, node Updating translation committishes..
 @end ignore
 
 @c \version "2.19.28"
@@ -968,17 +968,33 @@ où @var{N} est compris entre 0 et 100.
 
 @cindex Emmentaler fonte
 @cindex Fonte, Emmentaler
-@cindex Feta fonte
-@cindex Fonte, Feta
-@cindex Parmesan font
-@cindex Fonte, Parmesan
+@cindex Feta, glyphes
+@cindex Glyphes Feta
+@cindex Parmesan, glyphes
+@cindex Glyphes Parmesan
 
-Voici, regroupés par type, les différents symboles de la fonte
-Emmentaler qui peuvent s'inclure directement dans un objet
-@emph{markup}.  Pour ce faire, il suffit d'employer le nom du glyphe,
-comme dans @code{g^\markup @{\musicglyph #"scripts.segno" @}} ou
-@code{\markup @{\musicglyph #"five"@}}.  Pour de plus amples
-informations, reportez-vous au chapitre @ref{Mise en forme du texte}.
+La fonte Emmentaler est constituée de deux @emph{jeux} de glyphes :
+« Feta » est utilisé pour la notation classique, et « Parmesan » pour la
+notation ancienne.
+
+
+Les différents symboles -- ou glyphes -- de la fonte Emmentaler peuvent
+s'inclure directement dans un objet @emph{markup}.  Pour ce faire, il
+suffit d'employer le nom du glyphe (voir les tables ci-après) comme ceci :
+
+@example
+g^\markup @{ \musicglyph #"scripts.segno" @}
+@end example
+
+@noindent
+ou
+
+@example
+\markup @{ \musicglyph #"five" @}
+@end example
+
+Pour de plus amples informations, reportez-vous au chapitre
+@ref{Mise en forme du texte}.
 
 @menu
 * Glyphes de clef::

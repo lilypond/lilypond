@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 04597b1cc93b4f1bf365506dc5badc08f34b84e8
+   Translation of GIT committish: 1e5c6b0f54079eb3285dcc4c7e53f17d8bb03933
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -4856,9 +4856,9 @@ XinO = {
 }
 @end lilypond
 
-Tous les glyphes de la fonte Emmentaler sont accessibles à l'aide de la
-commande de @emph{markup} @code{\musicglyph} -- voir
-@ref{La fonte Emmentaler}.
+Tous les glyphes @code{Feta} de la fonte Emmentaler sont
+accessibles à l'aide de la commande de @emph{markup} @code{\musicglyph}
+-- voir @ref{La fonte Emmentaler}.
 
 L'insertion de fichier @file{EPS} ou d'instructions Postscript sont
 accessibles par les commandes de @emph{markup} @code{\epsfile} et
