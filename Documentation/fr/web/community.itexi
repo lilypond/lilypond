@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: 941523560c6b37ac820836ba94bbfc898a2f01de
+   Translation of GIT committish: 45d5c47caba98ccd97dadbc44234c8de1f3570ab
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -85,7 +85,7 @@ nous.
 
 @item
 @ref{Grenier} : annonces et recensement des modifications intervenues
-aux cours des versions précédentes.
+aux cours des versions précédentes, actualités passée, etc.
 
 @end itemize
 @divEnd
@@ -956,25 +956,21 @@ dernière mouture est consultable sur @url{http://lilypond.org}}
 @subheading Le Google Summer of Code
 @c VO What is Google Summer of Code?
 
-Le @uref{https://summerofcode.withgoogle.com/, GSoC} est un
-programme global, mis en place par Google, qui rémunère des étudiants
-durant la période estivale pour travailler au profit de projets
-@emph{open source}.  Les étudiants s'attachent durant trois mois et
-sous la direction de mentors expérimentés, à compléter une tâche
-particulière au sein d'un projet communautaire.  Il s'agit là d'une
-excellente opportunité pour des étudiants de vivre une expérience réelle
-dans le développement de logiciels et contribuer ainsi au bien de tous.
-Ceci permet aussi de recruter de nouveaux contributeurs à LilyPond et
-motiver des étudiants qui y participent déjà d'y être encore plus
-impliqués.  LilyPond participe à ce programme sous l'égide du
+Le @uref{https://summerofcode.withgoogle.com/, GSoC} est un programme
+global, mis en place par Google, qui rémunère des étudiants durant la
+période estivale pour travailler au profit de projets @emph{open
+source}. Les étudiants s'attachent durant trois mois et sous la
+direction de mentors expérimentés, à compléter une tâche particulière au
+sein d'un projet communautaire. Il s'agit là d'une excellente
+opportunité pour des étudiants de vivre une expérience réelle dans le
+développement de logiciels et contribuer ainsi au bien de tous. Ceci
+permet aussi de recruter de nouveaux contributeurs à LilyPond et motiver
+des étudiants qui y participent déjà d'y être encore plus impliqués.
+LilyPond participe à ce programme sous l'égide du
 @uref{http://www.gnu.org/, projet GNU}.
 
-@strong{Note :} Les organisations retenues seront notifiées le 27
-février, aussi nous ne saurons pas officiellement avant si nous pourrons
-participer au programme de cette année.
-
 Nous avons eu des participants aux sessions de 2012, 2015 et 2016, et
-encourageons les étudiants à candidater pour les sessions à venir.
+encourageons les étudiants à candidater pour la session 2017.
 
 Si vous avez envie de participer à ce programme dans le cadre du projet
 LilyPond, lisez ce qui suit et n'hésitez pas à nous contacter sur la
@@ -1011,14 +1007,14 @@ Une liste exhaustive des problèmes est disponible
 @c VO Improve internal chord structure
 
 La structure interne des accords dans LilyPond n'est pas suffisamment
-puissante pour tenir compte de la nomenclature des accords de jazz.
-Pour l'instant, un accord comporte une fondamentale, une basse et un
-renversement.  Il serait souhaitable d'arriver à gérer les amalgames ou
-polyaccords, qu'ils soient majeur ou mineur, etc.  Seul le
-développement d'une représentation interne capable de capturer l'essence
-d'accords complexes permettra d'y parvenir.  Cette représentation
-interne une fois développée permettra par ailleurs d'améliorer le rendu
-des accords nommés.
+puissante pour tenir compte de la nomenclature des accords de jazz. Pour
+l'instant, un accord comporte une fondamentale, une basse et un
+renversement. Il serait souhaitable d'arriver à gérer les amalgames ou
+polyaccords, qu'ils soient majeur ou mineur, etc. Seul le développement
+d'une représentation interne capable de capturer l'essence d'accords
+complexes permettra d'y parvenir. Cette représentation interne une fois
+développée permettra par ailleurs d'améliorer le rendu des accords
+nommés.
 
 @strong{Difficulté :} moyennement facile.@*
 @strong{Préalables :} Scheme (Guile), mais le niveau nécessaire peut
@@ -1093,17 +1089,17 @@ important que l'autre.
 @subheading Notation contemporaine
 @c VO Contemporary Notation
 
-LilyPond excelle dans la création de notation non standard.  La
-nécessité de @emph{coder} chaque élément graphique plutôt que de
-simplement les @emph{dessiner} peut paraître fastidieuse mais se révèle
-être un investissement solide.  De nouvelles fonctionnalités en matière
-de notation ainsi fournies permettront une apparence uniforme, un tracé
+LilyPond excelle dans la création de notation non standard. La nécessité
+de @emph{coder} chaque élément graphique plutôt que de simplement les
+@emph{dessiner} peut paraître fastidieuse mais se révèle être un
+investissement solide. De nouvelles fonctionnalités en matière de
+notation ainsi fournies permettront une apparence uniforme, un tracé
 automatisé et une interface syntaxique naturelle.
 
 Au sein du système de bibliothèque
 @uref{https://github.com/openlilylib/oll-core, openLilyLib}, l'étudiant
 créera une infrastructure de base et construira des blocs aux fins de
-faciliter la création de notation contemporaine.  Accessoirement se
+faciliter la création de notation contemporaine. Accessoirement se
 développe @emph{un} paquet couvrant certains aspect de la notation
 contemporaine comme, par exemple, le style d'un compositeur donné, des
 techniques étendues d'exécution pour un instrument particulier ou une
@@ -1122,17 +1118,17 @@ hiérarchisées@*
 @subheading Réécriture en Python de l'extension LilyPond pour LibreOffice
 @c VO Rewrite LibreOffice LilyPond Extension with Python
 
-L'extension @uref{http://ooolilypond.sourceforge.net/, OOoLilyPond}
-a permis d'inclure de façon agréable des extraits de partition LilyPond
+L'extension @uref{http://ooolilypond.sourceforge.net/, OOoLilyPond} a
+permis d'inclure de façon agréable des extraits de partition LilyPond
 dans les documents OpenOffice.org/LibreOffice Writer, Draw et Impress
-tout en conservant ensemble le code et l'image.  Après plusieurs années
-de suspension dans son développement, un effort a vu le jour pour
-rendre cette extension à nouveau compatible avec les nouvelles versions
-de LibreOffice et LilyPond.
+tout en conservant ensemble le code et l'image. Après plusieurs années
+de suspension dans son développement, un effort a vu le jour pour rendre
+cette extension à nouveau compatible avec les nouvelles versions de
+LibreOffice et LilyPond.
 
 Toutefois, l'écosystème de LibreOffice s'est modifié substanciellement,
 et il est désormais possible de récrire cette extension avec Python et
-PyQt.  Ceci sera non seulement plus puissant de manière générale, mais
+PyQt. Ceci sera non seulement plus puissant de manière générale, mais
 permettra aussi l'intégration de fonctionnalités de
 @uref{http://frescobaldi.org, Frescobaldi} comme, par exemple, la
 coloration syntaxique, des aides à la saisie, des assistants à la
@@ -1275,9 +1271,9 @@ toute candidature qui n'aurait pas été auparavant discutée.
 @item
 Nous ne savons pas à l'avance combien de « ressources » nous seront
 alloués pour des projets ; soyez conscient que vous pourriez vous
-retrouver en compétition avec d'autres stagiaires.  Une réponse
+retrouver en compétition avec d'autres stagiaires. Une réponse
 intéressée, voire même enthousiaste de la part de l'un de nos tuteurs ne
-saurait en aucun cas être garantie d'une candidature retenue.  Ne pas
+saurait en aucun cas être garantie d'une candidature retenue. Ne pas
 être accepté ne signifie pas l'évaluation négative d'une candidature et,
 si nous avions à choisir entre plusieurs stagiaires, de nombreux
 critères pourraient entrer en ligne de compte.
@@ -1459,12 +1455,15 @@ d'actualité mais pour lesquels aucun mentor n'est à ce jour disponible.
 @unnumberedsec Actualités
 @translationof News
 
-@divClass{heading-center}
-@warning{Les vieilles annonces et informations de version sont rangées au
-@rwebnamed{Grenier,grenier}.}
-@divEnd
-
 @include web/news-new.itexi
+
+@divClass{column-center-bottom}
+@subheading Actualités passées
+
+Les vieilles annonces et informations de version sont rangées au
+@rwebnamed{Grenier,grenier}.
+
+@divEnd
 
 
 @node Grenier
@@ -1505,7 +1504,7 @@ Liste descriptive des évolutions, par version :
 
 @divEnd
 
-@divClass{column-center-bottom}
+@divClass{column-center-middle-color3}
 @subheading Remerciements
 
 Tous nos remerciements aux développeurs, contributeurs, chasseurs
@@ -1523,7 +1522,7 @@ de bogue et à ceux qui nous ont fait part de leurs suggestions pour
 
 @divEnd
 
-@divClass{column-center-bottom}
+@divClass{column-center-middle-color3}
 @subheading Journal des modifications
 
 Notes des développeurs, par version :
@@ -1539,6 +1538,93 @@ Notes des développeurs, par version :
 @miscLink{CHANGES-1.0,v1.0},
 @miscLink{CHANGES-0.1,v0.1},
 @miscLink{CHANGES-0.0,v0.0}
+
+@divEnd
+
+
+@divClass{column-center-middle-color2}
+@subheading Suggestions en suspend pour le Google Summer of Code
+@c VO Unused Google Summer of Code project suggestions
+
+La liste suivante recense les projets proposés au GSoC précédents et qui
+sont toujours d'actualité, mais pour lesquels aucun mentor n'est
+actuellement disponible.
+
+@divEnd
+
+@divClass{column-center-middle-color3}
+@subheading Amélioration des liaisons
+@c VO Improve slurs and ties
+
+Le galbe par défaut des liaisons n'est souvent pas pleinement
+satisfaisant. La « coupure » d'une liaison par un changement de clef ou
+de ligne n'est pas totalement fonctionnelle. Ce projet comporte entre
+autres un recensement d'exemples de résultats défectueux, l'appréciation
+du résultat optimal et l'écriture du code approprié.
+
+@strong{Difficulté :} difficile@*
+@strong{Préalables :} C++, expérience dans l'écriture d'heuristiques@*
+@strong{Connaissances appréciées :} LilyPond, sens de l'esthétique
+
+@divEnd
+
+@divClass{column-center-middle-color3}
+@subheading Notes d'ornement @emph{(grace notes)}
+@c VO Grace notes
+
+Résolution des problèmes de synchronisation des notes d'ornement. Les
+notes d'ornement peuvent venir perturber LilyPond dans sa gestion du
+temps et entraîner des effets indésirables tout particulièrement
+lorsqu'elles interviennent dans une portée seulement. Il s'agit
+@uref{https://sourceforge.net/p/testlilyissues/issues/34/, là} de l'un
+des bogues les plus vieux et embarrassants pour LilyPond.
+
+@strong{Difficulté :} moyenne@*
+@strong{Préalables :} C++, MIDI@*
+@strong{Connaissances appréciées :} familiarité avec les arcanes de
+LilyPond
+
+@divEnd
+
+@divClass{column-center-middle-color3}
+@subheading Amélioration du positionnement par défaut des ligatures
+@c VO Improve default beam positioning
+
+Une ligature, qu'elle soit rectiligne, passe d'une portée à l'autre,
+discontinue ou coudée, devrait dépendre du contexte et des notes
+adjacentes (voir
+@uref{http://imslp.org/wiki/Repository_of_Music-Notation_Mistakes_%28Coulon%2C_Jean-Pierre%29,
+la section 2.2 de cet article}).  Dans la mesure du possible, raccourcir
+le temps de calcul nécessaire à la génération des ligatures.
+
+@strong{Difficulté :} moyenne@*
+@strong{Préalables :} C++, expérience dans l'écriture d'heuristiques@*
+@strong{Connaissance appréciée :} sens de l'esthétique
+
+@divEnd
+
+@divClass{column-center-middle-color3}
+@subheading Aide à l'amélioration du comportement lors de la compilation
+@c VO Help improve compilation behavior
+
+Les outils d'analyse comme @emph{valgrind} pour la détection de fuites
+de mémoire ou @emph{callgrind} pour le profilage du code, fournissent
+des informations précieuses quant à d'éventuelles faiblesses du
+code C++.  Faire le ménage dans tous ces messages nous permettrait de
+rejeter tout patch qui introduirait des messages superflus.
+
+@strong{Difficulté :} moyenne@*
+@strong{Préalable :} C++
+
+@divEnd
+
+
+@divClass{column-center-middle-color2}
+@subheading Actualités passées
+@c VO Old News
+
+Actualités jusqu'à juillet 2003. Les actualités plus récentes se
+trouvent à la page @ref{Actualités}.
 
 @divEnd
 
