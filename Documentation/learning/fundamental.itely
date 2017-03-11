@@ -1436,11 +1436,12 @@ Notation Reference: @ruser{Contexts explained}.
 @cindex creating contexts
 @cindex contexts, creating
 
-In an input file a score block, introduced with a @code{\score}
-command, contains a single music expression and an associated
-output definition (either a @code{\layout} or a @code{\midi} block).
-The @code{Score} context is usually left to be created automatically
-when the interpretation of that music expression starts.
+In an input file, a score block (introduced with a @code{\score}
+command) contains a single music expression; but it can also contain
+associated output definitions too -- either a @code{\layout} block, a
+@code{\midi} block or both.  The @code{Score} context is usually left to
+be created automatically when the interpretation of that music
+expression starts.
 
 For scores with only one voice and one staff, the @code{Voice} and
 @code{Staff} contexts may also be left to be created automatically,
