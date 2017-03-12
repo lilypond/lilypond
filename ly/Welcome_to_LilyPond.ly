@@ -32,7 +32,7 @@ Good luck with LilyPond!  Happy engraving.
 
 %}
 
-\version "2.19.56"  % necessary for upgrading to future LilyPond versions.
+\version "2.19.57"  % necessary for upgrading to future LilyPond versions.
 
 \header{
   title = "A scale in LilyPond"
