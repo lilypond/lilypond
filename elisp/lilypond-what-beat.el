@@ -80,15 +80,15 @@
 (defun parse-duration (duration)
   "Returns a duration string parsed as '(numerator denominator)"
   (string-match duration-regex duration)
-  (let ((result (list 1 (string-to-int (extract-match duration 2))))
+  (let ((result (list 1 (string-to-number (extract-match duration 2))))
 	(dots (extract-match duration 4))
 	(numerator (or (extract-match duration 6) "1"))
 	(denominator (or (extract-match duration 8) "1")))
     (if (and (not (null dots)) (< 0 (string-width dots)))
 	(dotimes (dummy (string-width dots))
 	  (setq result (list (1+ (* 2 (car result))) (* 2 (cadr result))))))
-    (list (* (string-to-int numerator) (car result))
-	  (* (string-to-int denominator) (cadr result)))
+    (list (* (string-to-number numerator) (car result))
+	  (* (string-to-number denominator) (cadr result)))
 ))
 
 (defun walk-note-duration ()
@@ -211,8 +211,8 @@ If next note has no duration, returns t"
 
 					; handle \times/\tuplet specially
 		    (let* ((times-p (match-beginning 1))
-			   (numerator (string-to-int (match-string (if times-p 2 3))))
-			   (denominator (string-to-int (match-string (if times-p 3 2)))))
+			   (numerator (string-to-number (match-string (if times-p 2 3))))
+			   (denominator (string-to-number (match-string (if times-p 3 2)))))
 		      (goto-char (match-end 0))
 		      (goto-note-begin)
 		      (while (and (not (looking-at "}"))
