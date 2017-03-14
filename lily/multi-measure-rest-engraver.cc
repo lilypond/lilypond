@@ -120,7 +120,7 @@ Multi_measure_rest_engraver::initialize_grobs ()
 {
   mmrest_ = make_spanner ("MultiMeasureRest", rest_ev_->self_scm ());
   text_.push_back (make_spanner ("MultiMeasureRestNumber",
-                                 rest_ev_->self_scm ()));
+                                 mmrest_->self_scm ()));
 
   if (text_events_.size ())
     {
