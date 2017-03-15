@@ -49,6 +49,7 @@ ADD_INTERFACE (Semi_tie,
                "head-direction "
                "note-head "
                "thickness "
+               "line-thickness "
               );
 
 MAKE_SCHEME_CALLBACK (Semi_tie, calc_control_points, 1)
