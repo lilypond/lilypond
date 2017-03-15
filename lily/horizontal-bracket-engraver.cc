@@ -94,7 +94,7 @@ Horizontal_bracket_engraver::process_music ()
     {
       Spanner *sp = make_spanner ("HorizontalBracket", events_[k]->self_scm ());
 
-      Spanner *hbt = make_spanner ("HorizontalBracketText", events_[k]->self_scm ());
+      Spanner *hbt = make_spanner ("HorizontalBracketText", sp->self_scm ());
 
       sp->set_object ("bracket-text", hbt->self_scm ());
 

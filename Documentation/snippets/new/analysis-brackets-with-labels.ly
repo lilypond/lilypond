@@ -27,12 +27,12 @@ Bracket text will be parenthesized after a line break.
   \once\override HorizontalBracketText.text = "a'"
   e''\startGroup d''\stopGroup
   c''
-  -\tweak text \markup \bold \huge "b" \startGroup
-  -\tweak text "a" \startGroup
+  -\tweak HorizontalBracketText.text \markup \bold \huge "b" \startGroup
+  -\tweak HorizontalBracketText.text "a" \startGroup
   d''\stopGroup
-  e''-\tweak text "a'" \startGroup
+  e''-\tweak HorizontalBracketText.text "a'" \startGroup
   d''\stopGroup\stopGroup
-  c''-\tweak text foo \startGroup d'' e'' f''
+  c''-\tweak HorizontalBracketText.text foo \startGroup d'' e'' f''
   \break
   g'' a'' b'' c'''\stopGroup
 }

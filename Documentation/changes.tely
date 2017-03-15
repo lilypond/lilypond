@@ -75,7 +75,7 @@ It is now possible to add text to analysis brackets through the
 {
   \once \override HorizontalBracketText.text = "a"
   c''\startGroup d''\stopGroup
-  e''-\tweak text "a'" \startGroup d''\stopGroup
+  e''-\tweak HorizontalBracketText.text "a'" \startGroup d''\stopGroup
 }
 @end lilypond
 

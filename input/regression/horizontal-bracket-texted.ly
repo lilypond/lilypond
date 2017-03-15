@@ -21,8 +21,8 @@ usual nesting order of brackets.
   \time 3/4
   \key f \major
   c4
-  -\tweak text "contrasting period" \startGroup
-  -\tweak text "a" \startGroup
+  -\tweak HorizontalBracketText.text "contrasting period" \startGroup
+  -\tweak HorizontalBracketText.text "a" \startGroup
   a8( bes c f)
   f4( e d)
   c d8( c bes c)

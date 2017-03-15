@@ -15,11 +15,12 @@ breaks.
 
 {
   c''
-  -\tweak text \markup \draw-circle #1 #0.5 ##f \startGroup
-  -\tweak text "a" \startGroup
+  -\tweak HorizontalBracketText.text \markup \draw-circle #1 #0.5 ##f
+  \startGroup
+  -\tweak HorizontalBracketText.text "a" \startGroup
   d'' e'' f''
   g'' a'' b'' c'''\stopGroup
-  c'''-\tweak text "a'" \startGroup b'' a'' g''
+  c'''-\tweak HorizontalBracketText.text "a'" \startGroup b'' a'' g''
   \break
   f'' e'' d'' c''\stopGroup\stopGroup
 }
