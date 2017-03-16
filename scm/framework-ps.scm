@@ -538,13 +538,22 @@
   (set! never-embed-font-list (list))
   (if (ly:get-option 'font-export-dir)
       (let ((dirname (format #f "~a" (ly:get-option 'font-export-dir))))
-        (if (file-exists? dirname)
-            (ly:debug
-             (_ "Font export directory `~a' already exists.") dirname)
-            (begin
-              (ly:debug
-               (_ "Making font export directory `~a'.") dirname)
-              (mkdir dirname)))))
+        (ly:debug
+         (_ "Making font export directory `~a'.") dirname)
+        (catch
+         'system-error
+         (lambda ()
+           ;; mkdir:
+           ;; When the directory already exists, it raises system-error.
+           (mkdir dirname))
+         (lambda stuff
+           ;; Catch the system-error
+           (if (= EEXIST (system-error-errno stuff))
+               ;; If the directory already exists, avoid error.
+               (ly:debug
+                (_ "Font export directory `~a' already exists.") dirname)
+               ;; If the cause is something else, re-throw the error.
+               (throw 'system-error (cdr stuff)))))))
   (if load-fonts?
       (for-each (lambda (f)
                   (format port "\n%%BeginFont: ~a\n" (car f))
