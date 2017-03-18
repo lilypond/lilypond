@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 64c8064154e24ff2a07e553ecdbda409f1726487
+   Translation of GIT committish: 4690bfaa07a15e38ebfd1299fa209968603f3630
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1481,8 +1481,9 @@ Il en va des contextes comme de toute hiérarchie : il faut un sommet --
 le contexte @code{Score} en l'occurrence.  La commande @code{\score} est
 chargée de le créer, mais pour des partitions simples, il le sera
 automatiquement.  Le bloc @code{\score} contient donc une expression
-musicale unique ainsi que la définition des supports à produire --
-@code{\layout} pour du visuel ou @code{\midi} pour de l'acoustique.
+musicale unique ainsi que, éventuellement, la définition des supports à
+produire -- @code{\layout} pour du visuel, @code{\midi} pour de
+l'acoustique, ou bien les deux.
 
 Lorsqu'une partition ne comporte qu'une voix et une seule portée, vous
 pouvez laisser LilyPond créer automatiquement les contextes @code{Voice}

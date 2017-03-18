@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: 45d5c47caba98ccd97dadbc44234c8de1f3570ab
+   Translation of GIT committish: 4690bfaa07a15e38ebfd1299fa209968603f3630
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1139,7 +1139,7 @@ creation de partition ou des transformations de musique.
 extensions de LibreOffice@*
 @strong{Connaissances appréciées :} familiarité avec les bases du code
 de Frescobaldi ou l'envie de l'apprendre sur la période@*
-@strong{Mentors :} Urs Liska, (Thorsten Behrens/LibreOffice)
+@strong{Mentors :} Joram Berger, Urs Liska, (Thorsten Behrens/LibreOffice)
 
 @divEnd
 
@@ -1202,34 +1202,28 @@ intégration continue (peut s'acquérir sur la période)@*
 
 Amélioration des fonctionnalités d'import et d'export :
 
-@divClass{keep-bullets}
-@itemize
+L'interopérabilité entre LilyPond et les autres applications utilisant
+MusicXML reste quelque chose de difficile. L'import de MusicXML est
+réalisé par conversion « manuelle » à l'aide du script
+@code{musicxml2ly}. L'export @emph{en} MusicXML n'est disponible qu'au
+travers d'une fonctionnalité rudimentaire de Frescobaldi.
+L'interopérabilité naturelle entre LilyPond et les applications basées
+sur MusicXML requiert une véritable fonction d'import ainsi qu'un moteur
+de traitement dédié à l'export.
 
-@item
-L'exportation d'un minimum d'informations musicales tel que cela se
-pratique déjà au niveau du MIDI, autrement dit à l'aide de classes
-d'exportateurs dérivées de la classe @emph{translator} ;
+L'importation de XML doit fournir les fichier, ligne et colonne afin
+d'ajouter les attributs d'origine des objets. La fonctionnalité de
+cliquer-pointer sera alors disponible tant pour Frescobaldi que pour les
+autres EDI.
 
-@item
-Construction de l'arborescence XML d'après le contenu musical de base, et
-connexion des éléments musicaux à des balises XML ;
-
-@item
-Faire en sorte que tous les graveurs LilyPond restent pleinement
-opérationnels ;
-
-@item
-Ajout d'une capacité de lier tout objet de rendu -- autrement dit chaque
-stencil ou groupe de stencils -- à l'élément musical qui en est la
-cause et, par voie de conséquence, à la balise correspondante dans
-l'arborescence XML ;
-
-@item
-Ajout d'un moteur de rendu XML qui pourrait alors inclure l'information
-de mise en forme pour tout objet de rendu dans les  balises XML.
-
-@end itemize
-@divEnd
+L'exportation en XML devra se faire avec une classe d'exportateur tel
+que cela se pratique déjà au niveau du MIDI. Ceci pourrait se réaliser à
+partir du travail déjà effectué par David Garfinkle lors du
+@uref{https://github.com/DavidGarfinkle/Lilypond_MusicXMLexport,
+GSoC 2015}. Devrait être vérifiée la possibilité d'utiliser une
+bibliothèque XML autre que celle fournie par Guile-2 afin de rendre
+cette fonctionnalité opérationnelle avec la version actuelle de
+LilyPond, basée quant à elle sur Guile-1.8.
 
 @strong{Difficulté :} moyenne@*
 @strong{Préalables :} MusicXML, Python, Scheme, les bases de LilyPond@*

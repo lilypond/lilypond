@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: 3e251ec33b325f3af4adb31df9752422eb2b9f4c
+   Translation of GIT committish: 4690bfaa07a15e38ebfd1299fa209968603f3630
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1383,15 +1383,6 @@ la vue graphique et toute erreur de syntaxe dans votre code sera mise en
 LilyBin vous permet de saisir en ligne vos partitions sans avoir
 préalablement installé LilyPond sur votre oridnateur.
 
-
-@subsubheading Tunefl
-
-@uref{http://www.tunefl.com}
-
-tunefl vous permet de saisir en ligne vos mini-partitions sans avoir
-préalablement installé LilyPond sur votre oridnateur.  Vous pouvez ainsi
-tester toutes les fonctionnalités du programme dans une interface web.
-
 @divEnd
 
 @divClass{column-center-top}
@@ -1405,12 +1396,11 @@ tester toutes les fonctionnalités du programme dans une interface web.
 @sourceimage{logo-macosx,,,}
 @sourceimage{logo-windows,,,}
 
-@uref{http://elysium.thsoft.hu}
+@uref{https://github.com/thSoft/elysium}
 
-Elysium est un environnement de développement intégré pour Eclipse, qui
-dispose d'une vue en parallèle de la source et de la partition.  Il
-propose un rendu visuel et auditif sans changer de contexte et dispose
-de nombreux canevas.
+Elysium est un environnement qui permet d'éditer des fichiers LilyPond
+dans Eclipse. Il dispose d'une variété d'outils qui permet de gérer
+commodément LilyPond.
 
 @divEnd
 
@@ -1454,7 +1444,7 @@ chapitre @rprogram{LilyPond et les éditeurs de texte}.
 
 @sourceimage{logo-macosx,,,}
 @subsubheading TeXShop
-@uref{http://www.uoregon.edu/~koch/texshop}
+@uref{http://pages.uoregon.edu/koch/texshop/}
 
 L'éditeur TexShop pour MacOS X peut être muni d'une extension pour
 lancer LilyPond, @command{lilypond-book} et @command{convert-ly},
@@ -1540,8 +1530,8 @@ d'interpréteurs, et dispose d'un portage en C++.
 
 @item
 @uref{http://strasheela.sourceforge.net/strasheela/doc/index.html,Strasheela}
-est un système de composition musicale basé sur le projet
-@uref{http://www.mozart-oz.org/, Mozart/Oz}.
+est un système de composition musicale basé sur le
+@uref{http://mozart.github.io/, Le système de progammation Mozart}.
 
 @end itemize
 @divEnd
@@ -1576,7 +1566,7 @@ exporte dans une certaine mesure au format LilyPond.
 @item
 @uref{https://sourceforge.net/projects/noteedit.berlios/,NoteEdit},
 qui importait
-@uref{http://www.makemusic.com/musicxml, MusicXML}, s'est scindé en
+@uref{http://www.musicxml.com/, MusicXML}, s'est scindé en
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
 et @uref{http://canorus.org,Canorus}.
 
@@ -1590,6 +1580,13 @@ la version 4.
 @item
 @uref{http://launchpad.net/rumor/,Rumor}, un convertisseur monophonique
 temps-réel MIDI vers LilyPond.
+
+@item
+
+@uref{http://www.tunefl.com, tunefl} vous permet de saisir en ligne vos
+mini-partitions sans avoir préalablement installé LilyPond sur votre
+oridnateur. Vous pouvez ainsi tester toutes les fonctionnalités du
+programme dans une interface web.
 
 @item
 @uref{http://www.tuxguitar.com.ar/,TuxGuitar} est un éditeur de
