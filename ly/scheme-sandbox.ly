@@ -13,4 +13,8 @@
 % requirements may be different.
 
 #(newline)
-#(scm-style-repl)
+#(if (guile-v2)
+     (begin
+       (use-modules (system repl repl))
+       (start-repl))
+     (scm-style-repl))
