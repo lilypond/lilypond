@@ -77,6 +77,7 @@ WEB_BIBS=$(PYTHON) $(script-dir)/bib2texi.py
 EXAMPLES=$(LILYPOND_WEB_MEDIA_GIT)/ly-examples
 PICTURES=$(LILYPOND_WEB_MEDIA_GIT)/pictures
 PDFS=$(LILYPOND_WEB_MEDIA_GIT)/pdf
+BIB_ITEXI=$(LILYPOND_WEB_MEDIA_GIT)/bib-itexi
 
 SERVER_FILES=$(top-src-dir)/Documentation/web/server
 
@@ -133,7 +134,8 @@ DO_TEXI_DEP = ( mkdir -p $(dir $@) && echo ./$@: $(call scan-texi,$<) > $@.dep )
 ###################
 ### Generated files
 
-bib-files = $(OUT)/others-did.itexi $(OUT)/we-wrote.itexi
+bib-itexi-src-files := $(notdir $(wildcard $(BIB_ITEXI)/*.itexi))
+bib-itexi-files = $(bib-itexi-src-files:%=$(OUT)/%)
 
 css-src-files := $(notdir $(wildcard $(top-src-dir)/Documentation/css/*.css))
 css-files = $(css-src-files:%=$(OUT)/website/css/%)
@@ -180,7 +182,7 @@ endif
 
 website: check-setup website-post website-examples website-pictures website-css website-misc website-pdf
 
-website-bibs: website-version $(OUT) $(bib-files)
+website-bibs: website-version $(OUT) $(bib-itexi-files)
 
 website-css: $(OUT)/website/css $(css-files)
 
@@ -220,14 +222,6 @@ $(OUT)/version.itexi: $(top-src-dir)/VERSION
 
 $(OUT)/weblinks.itexi: $(top-src-dir)/VERSION
 	$(CREATE_WEBLINKS) $(top-src-dir) > $(OUT)/weblinks.itexi
-
-$(bib-files): $(OUT)/%.itexi: $(top-src-dir)/Documentation/web/%.bib
-	BSTINPUTS=$(top-src-dir)/Documentation/web \
-		$(WEB_BIBS) -s web \
-		-s $(top-src-dir)/Documentation/lily-bib \
-		-o $@ \
-		$(quiet-flag) \
-		$<
 
 # Get xrefs for English tely manuals
 $(MANUALS_TELY:%.tely=$(OUT)/%.xref-map): $(OUT)/%.xref-map: $(top-src-dir)/Documentation/%.tely
@@ -269,6 +263,9 @@ $(OUT)/website/index.html: $(wildcard $(OUT)/*.html)
 	$(WEB_POST) $(OUT)/website
 
 # Simple copy
+$(bib-itexi-files): $(OUT)/%: $(BIB_ITEXI)/%
+	cp $< $@
+
 $(css-files): $(OUT)/website/css/%: $(top-src-dir)/Documentation/css/%
 	cp $< $@
 
