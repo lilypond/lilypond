@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 0fa6f042cccacb643d46781dde23617c71a9753e
+    Translation of GIT committish: cd1ac38996d3de35770ea31f819b392fe686bf39
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -636,6 +636,10 @@ dentro del documento PDF generado.
 @tab Rellenar el borde izquierdo de la caja contenedora del EPS de salida
 en la cantidad dada (en mm).
 
+@item @code{font-export-dir}
+@tab @code{#f [dir]}
+@tab Directorio para exportar las fuentes como archivos de Postscript.
+
 @item @code{gs-load-fonts}
 @tab @code{#f}
 @tab Cargar las fuentes tipográficas a través de Ghostscript.
@@ -643,6 +647,10 @@ en la cantidad dada (en mm).
 @item @code{gs-load-lily-fonts}
 @tab @code{#f}
 @tab Cargar sólo las fuentes de LilyPond por medio de Ghostscript.
+
+@item @code{gs-never-embed-fonts}
+@tab @code{#f}
+@tab Hacer que Ghostscript incruste solo las fuentes TrueType y no cualquier otro formato de fuente.
 
 @item @code{gui}
 @tab @code{#f}
