@@ -157,6 +157,9 @@ stderr of this run."
 
 %% Marks
 \test ##[ \mark \default #]			% MarkEvent
+\test ##[ \mark #3 #]
+\test ##[ \mark "Z" #]
+\test ##[ \mark \markup \italic "X" #]
 \test ##[ \mark "Allegro" #]
 \test ##[ \tempo 4 = 120 #]			% MetronomeChangeEvent
 \test ##[ \tempo 4 = 108 - 116 #]
