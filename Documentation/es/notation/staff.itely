@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 19d0e8e1a9cee3444ec4915b1d2d116e67f5b3f7
+    Translation of GIT committish: 041cb33a404a829a8cdeeaebce17e45f613f10d8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -226,8 +226,8 @@ del nombre del instrumento.  Para ver más detalles, consulte
 @ref{Nombres de instrumentos}.
 
 @lilypond[verbatim,quote]
-\new PianoStaff <<
-  \set PianoStaff.instrumentName = #"Piano"
+\new PianoStaff \with { instrumentName = #"Piano" }
+<<
   \new Staff \relative { c''1 c }
   \new Staff \relative { \clef bass c1 c }
 >>
@@ -1002,20 +1002,14 @@ ignoran:
 @lilypond[verbatim,quote,ragged-right]
 prepPiccolo = <>^\markup \italic { muta in Piccolo }
 
+prepFlute = <>^\markup \italic { muta in Flauto }
+
 setPiccolo = {
-  \set Staff.instrumentName = #"Piccolo"
-  \set Staff.shortInstrumentName = #"Picc."
-  \set Staff.midiInstrument = #"piccolo"
   <>^\markup \bold { Piccolo }
   \transposition c''
 }
 
-prepFlute = <>^\markup \italic { muta in Flauto }
-
 setFlute = {
-  \set Staff.instrumentName = #"Flute"
-  \set Staff.shortInstrumentName = #"Flt."
-  \set Staff.midiInstrument = #"flute"
   <>^\markup \bold { Flute }
   \transposition c'
 }
@@ -1023,14 +1017,17 @@ setFlute = {
 \new Staff \with {
   instrumentName = #"Flute"
   shortInstrumentName = #"Flt."
-  midiInstrument = #"flute"
 }
 \relative {
   g'1 g g g \break
   g1 g \prepPiccolo R R \break
+  \set Staff.instrumentName = #"Piccolo"
+  \set Staff.shortInstrumentName = #"Picc."
   \setPiccolo
   g1 g g g \break
   g1 g \prepFlute R R \break
+  \set Staff.instrumentName = #"Flute"
+  \set Staff.shortInstrumentName = #"Flt."
   \setFlute
   g1 g g g
 }
@@ -1122,9 +1119,9 @@ oboeNotes = \relative {
 }
 @end lilypond
 
-Si una instrucción @code{\unfoldRepeat} dentro de una expresión
+Si una instrucción @code{\unfoldRepeats} dentro de una expresión
 musical se necesita imprimir al usar @code{\quoteDuring}, entonces
-debe contener también su propia instrucción @code{\unfoldRepeat};
+debe contener también su propia instrucción @code{\unfoldRepeats};
 
 @lilypond[verbatim,quote]
 fluteNotes = \relative {
