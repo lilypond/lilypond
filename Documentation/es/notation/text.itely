@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: bfc3420ada8810d57156e9fc871560188f044a64
+    Translation of GIT committish: 18d03fa6a724b0102ccc47d194209802cea02f2e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -533,7 +533,7 @@ Archivos de inicio:
 @file{scm/markup.scm}.
 
 @knownissues
-Los errores de sintaxis para el modo de marcado a menudo producen
+Los mensajes de error de sintaxis para el modo de marcado a menudo producen
 confusión.
 
 
@@ -576,7 +576,7 @@ El tamaño de la fuente tipográfica se puede alterar en relación al
 tamaño global del pentagrama, de una serie de formas como se ve a
 continuación.
 
-Se puede fijar a un tamaño predefinido,
+Se puede fijar a un tamaño predefinido:
 
 @lilypond[quote,verbatim]
 \relative b' {
@@ -586,7 +586,7 @@ Se puede fijar a un tamaño predefinido,
 }
 @end lilypond
 
-Se puede establecer a un tamaño relativo al valor anterior,
+Se puede establecer a un tamaño relativo al valor anterior:
 
 @lilypond[quote,verbatim]
 \relative b' {
@@ -597,7 +597,7 @@ Se puede establecer a un tamaño relativo al valor anterior,
 @end lilypond
 
 Se puede aumentar o disminuir de forma relativa al valor fijado
-por el tamaño global del pentagrama,
+por el tamaño global del pentagrama:
 
 @lilypond[quote,verbatim]
 \relative b' {
@@ -608,7 +608,7 @@ por el tamaño global del pentagrama,
 @end lilypond
 
 También se puede establecer a un tamaño de puntos fijo,
-independientemente del tamaño global del pentagrama,
+independientemente del tamaño global del pentagrama:
 
 @lilypond[quote,verbatim]
 \relative b' {
@@ -1418,8 +1418,8 @@ utilizando Pango.
 
 Las tipografías de notación musical se pueden describir como un
 conjunto de glifos específicos, ordenados en varias familias.  La
-siguiente sintaxis permite usar directamente varias tipografías
-@code{feta} de LilyPond distintas a las de texto en el modo de
+siguiente sintaxis permite usar directamente varios glifos de la tipografía
+@code{Feta} de LilyPond distintas a las de texto en el modo de
 marcado:
 
 @lilypond[quote,verbatim,fragment]
