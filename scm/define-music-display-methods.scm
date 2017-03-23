@@ -537,10 +537,9 @@ expression."
   (music->lily-string (ly:music-property chord 'element)))
 
 (define-display-method MarkEvent (mark)
-  (let ((label (ly:music-property mark 'label)))
-    (if (null? label)
-        "\\mark \\default"
-        (format #f "\\mark ~a" (markup->lily-string label)))))
+  (let ((label (ly:music-property mark 'label #f)))
+    (string-append "\\mark "
+                   (if label (value->lily-string label) "\\default"))))
 
 (define-display-method KeyChangeEvent (key)
   (let ((pitch-alist (ly:music-property key 'pitch-alist))
