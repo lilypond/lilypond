@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 32839fc7052761649d3ba3512ca29373acbe880c
+    Translation of GIT committish: dbc2dd143e50e000a39883fc8217b4ec60e08657
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -69,6 +69,127 @@ which scares away people.
 * only show user-visible changes.
 
 @end ignore
+
+@item
+Ahora se puede añadir texto sobre los corchetes de análisis
+mediante el objeto @code{HorizontalBracketText}.
+@lilypond[quote,verbatim]
+\layout {
+  \context {
+    \Voice
+    \consists "Horizontal_bracket_engraver"
+  }
+}
+
+{
+  \once \override HorizontalBracketText.text = "a"
+  c''\startGroup d''\stopGroup
+  e''-\tweak text "a'" \startGroup d''\stopGroup
+}
+@end lilypond
+
+@item
+Se puede hacer ahora un ajuste fino de los extremos de los
+reguladores usando la propiedad de grob @code{shorten-pair}, que
+anteriormente afectaba solo a los objetos extensos de texto como
+@code{TupletBracket} y @code{OttavaBracket}.  Los valores
+positivos producen un desplazamiento a la derecha, los negativos a
+la izquierda.
+@lilypond[quote,verbatim]
+{ \once \override Hairpin.shorten-pair = #'(2 . 2)
+  c'1~\<
+  c'2~ c'\!
+  \once \override Hairpin.shorten-pair = #'(-2 . -2)
+  c'1~\<
+  c'2~ c'\! }
+@end lilypond
+
+@item
+En los diagramas de posiciones de acorde, la distancia entre los
+trastes y entre las cuerdas se puede ajustar de forma
+independiente.  Eestán disponibles @code{fret-distance} y
+@code{string-distance} como subpropiedades de
+@code{fret-diagram-details}.
+@lilypond[verbatim,quote]
+fretMrkp = \markup { \fret-diagram-terse #"x;x;o;2;3;2;" }
+
+\markuplist
+\override #'(padding . 2)
+\table #'(0 -1) {
+  "default"
+
+  \fretMrkp
+
+  "fret-distance"
+
+  \override #'(fret-diagram-details . ((fret-distance . 2)))
+  \fretMrkp
+
+  "string-distance"
+
+  \override #'(fret-diagram-details . ((string-distance . 2)))
+  \fretMrkp
+}
+@end lilypond
+
+@item
+Las reglas de alteraciones accidentales se pueden definir ahora
+para todo un contexto de @code{ChoirStaff}.  Se encuentran
+disponibles dos nuevas reglas, @code{choral} y
+@code{choral-cautionary}, que combinan las características de
+@code{modern-voice} y de @code{piano} o sus equivalentes con
+alteraciones de precaución.
+
+@item
+La función musical @code{\unfoldRepeats} ahora puede tomar unla
+lista de argumentos opcional que especifica qué tipo de música (o
+músicas) repetida(s) se debe(n) desplegar.  Los valores posibles
+son @code{percent} (para repeticiones de compás o parte de ellos),
+@code{tremolo} y @code{volta} (para casillas de primera y segunda
+vez).  Si no se especifica la lista opcional de argumentos, se usa
+@code{repeated-music}, que lo despliega todo.
+
+@item
+Ahora se usa una nueva propiedad de grob,
+@code{output-attributes}, para la salida de SVG en lugar de la
+propiedad de grob @code{id}.  Permite que más de un atributo se
+pueda definir como una lista de asociación.  Por ejemplo,
+@code{#'((id . 123) (class . fulano) (data-loquesea
+. @qq{mengano}))} produce la siguiente etiqueta de grupo en el
+archivo SVG de salida: @code{<g id=@qq{123} class=@qq{fulano}
+data-loquesea=@qq{mengano}> @dots{} </g>}.
+
+@item
+Las ligaduras de expresión y de fraseo pueden comenzar ahora a
+partir de las notas individuales de un acorde.  Las diferentes
+ligaduras simultáneas por cada contexto @code{Voice} se deben
+distinguir especificando su @code{spanner-id}.
+
+@item
+La propiedad musical y de grob @code{spanner-id} para distinguir
+ligaduras simultáneas de expresión y de fraseo ha cambiado de ser
+una cadena a ser una @q{key}, un entero no negativo o un símbolo.
+
+@item
+Existe una instrucción nueva @code{\=} para especificar el
+identificador de objeto extenso @code{spanner-id} para ligaduras
+simultáneas de expresión o de fraseo.
+@lilypond[verbatim,quote]
+\fixed c' {
+  <c~ f\=1( g\=2( >2 <c e\=1) a\=2) >
+}
+@end lilypond
+
+@item
+Los bloques @code{\header} se pueden almacenar dentro de variables
+y usados como argumentos para las funciones musicales y de Scheme,
+y como cuerpo de construcciones del tipo @code{#@{@dots{}#@}}.  Se
+representan como un módulo de Guile.
+
+Si bien los bloques @code{\book}, @code{\bookpart}, @code{\score},
+@code{\with}, @code{\layout}, @code{\midi} y @code{\paper} se
+pueden pasar de manera similar, están representados por distintos
+tipos de datos.
 
 @item
 Las listas de elementos separados por puntos como
