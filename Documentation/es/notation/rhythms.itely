@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 3ecc98aa5db8a47adcf9defc4ec9fc018c5cc47d
+    Translation of GIT committish: 18d03fa6a724b0102ccc47d194209802cea02f2e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -467,7 +467,7 @@ subdivisiones del compás de mayor duración:
 @c KEEP LY
 @lilypond[verbatim,quote]
 \relative {
-  r8^"sí" c'~ 2 r4 |
+  r8^"sí" c'4.~ 4 r4 |
   r8^"no" c2~ 8 r4
 }
 @end lilypond
@@ -2005,6 +2005,22 @@ rasgueado.  Esto se puede hacer con el grabador
 >>
 @end lilypond
 
+También se puede usar música que contenga acordes como entrada para @code{RhythmicStaff} y para usarla con el grabador @code{Pitch_squash_engraver} si los
+acordes se reducen primero a notas individuales con la función musical
+@code{\reduceChords}:
+
+@lilypond[quote,verbatim]
+\new RhythmicStaff {
+  \time 4/4
+  \reduceChords {
+    <c>2
+    <e>2
+    <c e g>2
+    <c e g>4
+    <c e g>4
+  }
+}
+@end lilypond
 
 @predefined
 @code{\improvisationOn},
@@ -3430,9 +3446,9 @@ de una función que produce un número encerrado en una caja.
 @end lilypond
 
 El archivo @file{scm/translation-functions.scm} contiene las
-definiciones de @code{format-mark-numbers} (el formato por
-omisión), @code{format-mark-box-numbers},
-@code{format-mark-letters} y @code{format-mark-box-letters}.  Se
+definiciones de @code{format-mark-letters} (el formato por
+omisión), @code{format-mark-box-letters},
+@code{format-mark-numbers} y @code{format-mark-box-numbers}.  Se
 pueden usar éstos como inspiración para otras funciones de
 formateo.
 
@@ -3589,12 +3605,24 @@ notas de adorno que siguen a la nota principal.
 \relative { c''1 \afterGrace d1 { c16[ d] } c1 }
 @end lilypond
 
-Esto pone las notas de adorno después de un espacio que dura 3/4
-de la longitud de la nota principal.  La fracción predeterminada
-de 3/4 se puede cambiar estableciendo @code{afterGraceFraction}.
-El ejemplo siguiente muestra el resultado de establecer el espacio
-en su valor predeterminado, en 15/16, y por último en 1/2 de la
-nota principal.
+Esto sitúa las notas de adorno @emph{después} del comienzo de la
+nota principal.  El instante temporal en que se colocan las notas
+de adorno es una fracción dada de la duración de la nota principal.
+El ajuste predeterminado de
+
+@example
+afterGraceFraction = 3/4
+@end example
+
+@noindent
+se puede redefinir en el nivel jerárquico superior.
+Las instrucciones @code{\afterGrace} individuales
+pueden, en vez de esto, llevar especificada la fracción directamente,
+después de la propia instrucción.
+
+El siguiente ejemplo muestra el resultado de establecer el espacio a su valor
+predeterminado, establecerlo a @code{15/16}, y finalmente a @code{1/2}
+de la nota principal.
 
 @lilypond[quote,verbatim]
 <<
@@ -3602,18 +3630,16 @@ nota principal.
     c''1 \afterGrace d1 { c16[ d] } c1
   }
   \new Staff \relative {
-    #(define afterGraceFraction (cons 15 16))
-    c''1 \afterGrace d1 { c16[ d] } c1
+    c''1 \afterGrace 15/16 d1 { c16[ d] } c1
   }
   \new Staff \relative {
-    #(define afterGraceFraction (cons 1 2))
-    c''1 \afterGrace d1 { c16[ d] } c1
+    c''1 \afterGrace 1/2 d1 { c16[ d] } c1
   }
 >>
 @end lilypond
 
-El espacio entre la nota principal y la de adorno también se puede
-especificar usando espaciadores.  El ejemplo siguiente sitúa la
+El efecto de @code{\afterGrace} también se puede obtener usando
+espaciadores.  El ejemplo siguiente sitúa la
 nota de adorno después de un espacio que dura 7/8 de la nota
 principal.
 
@@ -3881,10 +3907,10 @@ la siguiente línea divisoria cae en 9/8 en vez de hacerlo en 5/4.
 @end lilypond
 
 @noindent
-Como lo ilustra el ejemplo, @code{ly:make-moment n m} construye
+Como lo ilustra el ejemplo, @code{ly:make-moment n/m} construye
 una duración de la fracción n/m de una redonda.  Por ejemplo,
-@code{ly:make-moment 1 8} es una duración de una corchea y
-@code{ly:make-moment 7 16} es la duración de siete semicorcheas.
+@code{ly:make-moment 1/8} es una duración de una corchea y
+@code{ly:make-moment 7/16} es la duración de siete semicorcheas.
 
 @seealso
 Referencia de la notación:
