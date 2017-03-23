@@ -146,14 +146,16 @@ Mark_engraver::process_music ()
               m = scm_call_2 (proc, m, context ()->self_scm ());
             }
           else
-            /* FIXME: constant error message.  */
-            warning (_ ("rehearsalMark must have integer value"));
+            /* Score.rehearsalMark is initialized to #1 so we
+               never should see this case without user error */
+            mark_ev_->origin ()->warning
+              (_ ("rehearsalMark must have integer value"));
         }
 
       if (Text_interface::is_markup (m))
         text_->set_property ("text", m);
       else
-        warning (_ ("mark label must be a markup object"));
+        mark_ev_->origin ()->warning (_ ("mark label must be a markup object"));
     }
 }
 
