@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 21be03e4b893ec2bbea745a713360310931337b9
+    Translation of GIT committish: c473929f7e9d1219a1fbe60ae0922d17c26fdefe
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -318,6 +318,8 @@ centro de la nota que tiene adosada la siguiente indicación
 @code{\<} ó @code{\>}.  El regulador siguiente empezará entonces
 en el borde derecho de la misma nota en lugar del borde izquierdo,
 como sería usual si hubiese terminado con @code{\!}  previamente.
+Si un regulador termina en el inicio de un compás, finalizará
+sobre la línea divisoria precedente.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -470,11 +472,16 @@ piano.
 
 @snippets
 
+@cindex reguladores sobre líneas divisorias
+
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {setting-hairpin-behavior-at-bar-lines.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {setting-the-minimum-length-of-hairpins.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{moving-the-ends-of-hairpins.ly}
 
 @cindex al niente
 @cindex niente, al
@@ -717,8 +724,8 @@ pueden superponerse a las ligaduras de expresión normales, véase
 @ref{Ligaduras de fraseo}.  Cuando se necesitan varias ligaduras
 de expresión normales dentro de una sola voz, los comienzos y
 finales correspondientes de las ligaduras deben etiquetarse
-precediéndolos por @code{\=} seguido de un número o cadena de
-caracteres que la identifique.
+precediéndolos por @code{\=} seguido de una clave identificativa
+(un símbolo o un entero no negativo).
 
 @lilypond[verbatim,quote]
 \fixed c' {
@@ -1286,7 +1293,7 @@ utilizando @notation{ligaduras de unión}.  Véase
 @code{\arpeggioArrowDown},
 @code{\arpeggioNormal},
 @code{\arpeggioBracket},
-@code{\arpeggioParenthesis}
+@code{\arpeggioParenthesis},
 @code{\arpeggioParenthesisDashed}.
 @endpredefined
 
