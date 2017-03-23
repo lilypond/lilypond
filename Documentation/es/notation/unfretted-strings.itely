@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 38876d5851add12a153f8e7adb375a8c1c84f376
+    Translation of GIT committish: 47b45b556c729d13e71782e52d378e1c2a0f2b4d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -218,10 +218,6 @@ presentan los puntillos.  La propiedad de contexto
   <e a\harmonic>2.  <c g'\harmonic>4
 }
 @end lilypond
-
-@warning{@code{@bs{}harmonic} @strong{se debe} colocar dentro de
-una construcción de acorde incluso si solamente hay una nota.
-Normalmente se usaría @code{@bs{}harmonicsOn} en esta situación.}
 
 @seealso
 Glosario musical:
