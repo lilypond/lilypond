@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: e45059ae37b240ce52639ad5c49110b510a89481
+    Translation of GIT committish: 041cb33a404a829a8cdeeaebce17e45f613f10d8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.22"
+@c \version "2.19.53"
 
 
 @node Alturas
@@ -311,6 +311,24 @@ independientemente del número de semitonos de cada uno de ellos.
 }
 @end lilypond
 
+En situaciones complejas puede ser útil recuperar una determinada
+altura, independientemente de lo que hubiera ocurrido con anterioridad.
+Esto se puede hacer utilizando @code{\resetRelativeOctave}:
+
+@lilypond[verbatim,quote]
+\relative {
+  <<
+    { c''2 d }
+    \\
+    { e,,2 f }
+  >>
+  \resetRelativeOctave c''
+  c2
+}
+@end lilypond
+
+@funindex \resetRelativeOctave
+
 
 @seealso
 Glosario musical:
@@ -537,7 +555,7 @@ Además de los nombres de las notas, los sufijos de las
 alteraciones pueden también variar dependiendo del idioma:
 
 @quotation
-@multitable {@code{nederlands}} {-@code{s}/-@code{-sharp}} {-@code{ess}/-@code{es}} {-@code{ss}/-@code{x}/-@code{-sharpsharp}} {-@code{essess}/-@code{eses}}
+@multitable {@code{nederlands}} {-@code{s}/-@code{-sharp}} {-@code{f}/-@code{-flat}} {-@code{ss}/-@code{x}/-@code{-sharpsharp}} {-@code{ff}/-@code{-flatflat}}
 @headitem Idioma
   @tab sostenido @tab bemol @tab doble sostenido @tab doble bemol
 @item @code{nederlands}
@@ -936,10 +954,15 @@ music = \relative { c'8. ees16( fis8. a16 b8.) gis16 f8. d16 }
 @end lilypond
 
 @knownissues
-Las ligaduras de unión manuales dentro de @code{\retrograde} se
-reomperán y generarán advertencias.  Se pueden generar algunas
-ligaduras automáticamente activando
-@ref{División automática de las notas}.
+@code{\retrograde} es una herramienta más bien sencilla.
+Puesto que muchos eventos se invierten como en un espejo
+en lugar de intercambiarse, los trucajes y los modificadores direccionales
+tienen que añadirse en los elementos de cierre correspondientes:
+@code{^(} debe terminar con @code{^)}, todos y cada uno de los
+@code{\<} o @code{\cresc} han de terminar en @code{\!} o en
+@code{\endcr}, y todo @code{\>} o @code{\decr} debe terminar en
+@code{\enddecr}.  Las instrucciones o sobreescrituras que cambien propiedades
+y que tengan un efecto duradero, probablemente produzcan sorpresas.
 
 @seealso
 Referencia de la notación:
@@ -1262,6 +1285,14 @@ Staff.forceClef = ##t} modifica este comportamiento.
   c'1
 @end lilypond
 
+@noindent
+Para ser más exactos, no es la propia instrucción
+@code{\clef} la que imprime una clave.  Más bien, fija o cambia
+una propiedad del grabador de clave @code{Clef_engraver}, que a continuación
+decide por sí mismo si imprimir o no una clave en el pentagrama actual.
+La propiedad @code{forceClef} sobreescribe esta decisión localmente
+para reimprimir la clave una vez más.
+
 Cuando hay un cambio de clave manual, el glifo de la clave
 modificada es pás pequeño de lo normal.  Se puede sobreescribir
 este comportamiento.
@@ -1554,26 +1585,24 @@ unísono.
 
 @lilypond[verbatim,quote]
 \new GrandStaff <<
-  \new Staff = "violin" {
-    \relative c'' {
-      \set Staff.instrumentName = #"Vln"
-      \set Staff.midiInstrument = #"violin"
-      % not strictly necessary, but a good reminder
-      \transposition c'
-
-      \key c \major
-      g4( c8) r c r c4
-    }
+  \new Staff = "violin" \with {
+    instrumentName = #"Vln"
+    midiInstrument = #"violin"
   }
-  \new Staff = "clarinet" {
-    \relative c'' {
-      \set Staff.instrumentName = \markup { Cl (B\flat) }
-      \set Staff.midiInstrument = #"clarinet"
-      \transposition bes
-
-      \key d \major
-      a4( d8) r d r d4
-    }
+  \relative c'' {
+    % not strictly necessary, but a good reminder
+    \transposition c'
+    \key c \major
+    g4( c8) r c r c4
+  }
+  \new Staff = "clarinet" \with {
+    instrumentName = \markup { Cl (B\flat) }
+    midiInstrument = #"clarinet"
+  }
+  \relative c'' {
+    \transposition bes
+    \key d \major
+    a4( d8) r d r d4
   }
 >>
 @end lilypond
@@ -2242,6 +2271,131 @@ musicB = {
   >>
 }
 @end lilypond
+
+
+@item choral
+
+@cindex alteraciones, estilo coral
+@cindex coral, alteraciones
+@cindex coral, estilo de alteraciones accidentales
+@cindex corales, alteraciones
+
+@funindex choral
+
+Esta regla es una combinación de los estilos @code{modern-voice} y @code{piano}.
+Muestra todas las alteraciones accidentales requeridas para los cantantes que siguen
+solo su propia voz, así como las alteraciones adicionales necesarias para los lectores que siguen simultáneamente todas las voces de un @code{ChoirStaff} completo.
+
+Este estilo de alteraciones se aplica de forma predeterminada al contexto
+@code{ChoirStaff} actual.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>]
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new ChoirStaff {
+  <<
+    \context Staff = "up" {
+      \accidentalStyle choral
+      \musicA
+    }
+    \context Staff = "down" {
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item choral-cautionary
+
+@cindex alteraciones, coral con precaución
+@cindex precaución, alteraciones, coral
+@cindex coral, alteraciones de precaución
+@cindex cortesía, alteraciones de
+@cindex alteraciones, estilo de,  coral con precaución
+@cindex precaución, estilo de alteraciones, coral
+@cindex coral, estilo de alteraciones con precaución
+
+@funindex choral-cautionary
+
+Es lo mismo que @code{choral} pero con las alteraciones adicionales
+impresas como de precaución (o cortesía).
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>]
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new ChoirStaff {
+  <<
+    \context Staff = "up" {
+      \accidentalStyle choral-cautionary
+      \musicA
+    }
+    \context Staff = "down" {
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
 
 @item neo-modern
 
