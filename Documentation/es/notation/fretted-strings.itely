@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: a9fa9784c0b21fe7de2738befc0a3bcc5f89ee4f
+    Translation of GIT committish: 8c1840ca28a05b3dad8d595e04d03779ba0a286a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2113,7 +2113,7 @@ LilyPond contempla las tablaturas para laúd.
 Para obtener las cuerdas graves adicionales, utilice
 @code{additionalBassStrings}, donde se determinan las notas
 correspondientes a dichas cuerdas.  Se imprimen por debajo de la
-línea inferior como: a, /a, //a, ///a, 4, 5 etc.
+línea inferior como: a, /a, //a, ///a, 4, 5, etc.
 
 Se debe usar el valor @code{fret-letter-tablature-format} para la
 propiedad de contexto @code{tablatureFormat} y probablemente
