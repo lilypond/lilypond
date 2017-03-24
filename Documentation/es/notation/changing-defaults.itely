@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: 4299c96f609f79426a181ffed107d17fa6e1fdbd
+Translation of GIT committish: 18d03fa6a724b0102ccc47d194209802cea02f2e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -520,16 +520,17 @@ Referencia de la notación:
 @cindex contextos, mantener vivos
 @cindex contextos, tiempo de vida
 
-Normalmente los contextos finalizan en el primer momento musical en
-que no tienen nada que hacer.  Así, los contextos de @code{Voice}
-mueren tan pronto como ya no contienen ningún evento; los contextos de
-@code{Staff} mueren tan pronto como todos los contextos de
-@code{Voice} que contenían ya no contengan ningún evento; etc.  Esto
-puede ocasionar dificultades si se tiene que hacer referencia a
-contextos anteriores que ya han muerto, por ejemplo, al cambiar de
-pentagramas con instrucciones @code{\change}, asociar letra con una
-voz mediante instrucciones @code{\lyricsto}, o cuando se añaden
-eventos musicales adicionales a un contexto anterior.
+Normalmente los contextos finalizan en el primer momento musical
+en que no tienen nada que hacer.  Así, los contextos de
+@code{Voice} mueren tan pronto como ya no contienen ningún evento,
+los contextos de @code{Staff} mueren tan pronto como todos los
+contextos de @code{Voice} que contenían ya no contengan ningún
+evento, etc.  Esto puede ocasionar dificultades si se tiene que
+hacer referencia a contextos anteriores que ya han muerto, por
+ejemplo, al cambiar de pentagramas con instrucciones
+@code{\change}, asociar letra con una voz mediante instrucciones
+@code{\lyricsto}, o cuando se añaden eventos musicales adicionales
+a un contexto anterior.
 
 Existe una excepción a esta regla general: dentro de una
 construcción @code{@{@dots{}@}} (música secuencial), la noción que
@@ -1034,10 +1035,29 @@ inmediatamente después de las instrucciones @code{\new}
 @}
 @end example
 
-Dado que dicha @q{modificación de contexto} está especificada
-dentro de la música, afectará a @emph{todas} las salidas
-(tipografía @emph{y también} el MIDI), a diferencia de los cambios
-que se hacen dentro de una definición de salida.
+De forma alternativa, si la música se escribe usando la forma
+corta de las instrucciones de especificación de modo, como por
+ejemplo @code{\chords} en lugar de @code{\chordmode}, la
+instrucción @code{\with} se debe colocar inmediatamente después de
+la instrucción que especifica el modo:
+
+@example
+\chords \with @{ [ajustes de contexto para esta instancia de contexto (implícita) solamente] @}
+@{
+  @dots{}
+@}
+@end example
+
+@noindent
+dado que es el contexto implícito creado por estas formas breves
+el que se quiere modificar.  Se aplica la misma consideración a
+las otras formas cortas de especificar el modo de entrada
+(@code{\drums}, @code{\figures}), véase @ref{Modos de entrada}.
+
+Dado las modificaciones de contexto especificadas en bloques
+@code{\with} están dentro de la música, afectarán a @emph{todas}
+las salidas (tipografía @emph{y también} el MIDI), a diferencia de
+los cambios que se hacen dentro de una definición de salida.
 
 Se pueden especificar los siguientes tipos de ajustes:
 
@@ -1112,6 +1132,10 @@ Una instrucción predefinida tal como @code{\dynamicUp}
 @end lilypond
 
 @end itemize
+
+@seealso
+Referencia de la notación:
+@ref{Modos de entrada}
 
 @node Orden de precedencia
 @unnumberedsubsubsec Orden de precedencia
@@ -2558,6 +2582,342 @@ con @code{\tweak} cuando se originan a partir de un evento musical
 o, en el caso de @code{\overrideProperty}, para una sobreescritura
 específica.
 
+@node La instrucción offset
+@subsection La instrucción @code{\offset}
+@translationof The offset command
+
+@funindex \offset
+@cindex desplazamiento
+@cindex valores predeterminados, desplazar
+
+Aunque es posible fijar propiedades de grob a valores nuevos con
+las instrucciones @code{\override}, @code{\tweak} y
+@code{\overrideProperty}, muchas veces conviene más modificar
+dichas propiedades en una cantidad relativa al valor
+predeterminado.  La instrucción @code{\offset} se encuentra
+disponible para este fin.
+
+La sintaxis de @code{\offset} es
+
+@example
+[-]\offset @var{propiedad} @var{incrementos} @var{elemento}
+@end example
+
+La instrucción funciona añadiendo el contenido de
+@var{incrementos} al ajuste predeterminado de la @var{propiedad}
+del grob indicado por @var{elemento}.
+
+Dependiendo de la formulación de la instrucción, @code{\offset}
+puede actuar como un @code{\tweak} (trucaje) o como un
+@code{\override} (sobreescritura).  Las variaciones en su uso se
+explicarán después de haber examinado las propiedades de grob que
+se pueden usar con @code{\offset}.
+
+@subsubsubheading{Propiedades que admiten el desplazamiento}
+
+Muchas, pero no todas, las propiedades de grob admiten la
+aplicación de un desplazamiento.  Si @var{propiedad} no se puede
+desplazar, el objeto permanece sin cambios y se emite una
+advertencia.  En estos casos se deben usar en su lugar
+@code{\override} o @code{\tweak} para modificar el objeto.
+
+Se puede trabajar por ensayo y error y dejar que las advertencias
+nos sirvan de guía para saber lo que puede o no puede ser
+desplazado.  Sin embargo, es posible un enfoque más sistemático.
+
+Los criterios siguientes determinan si una propiedad se puede
+modificar con @code{\offset}:
+
+@itemize
+
+@item
+La propiedad tiene un @q{ajuste predeterminado} en la descripción
+del grob.  Tales propiedades aparecen listadas para cada grob en
+@rinternals{All layout objects} (y también están en
+@file{scm/define-grobs.scm}).
+
+@item
+La propiedad admite un valor numérico.  Entre los valores
+numéricos se encuentran @code{number}, una lista de
+@code{number}s, @code{number-pair}, y @code{number-pair-list}.
+Las páginas de @rinternals{All layout objects} contienen una lista
+de los tipos de datos característicos de cada propiedad.  No
+importa si el ajuste predeterminado es una función.
+
+@item
+La propiedad no puede ser una @q{subpropiedad} (una propiedad que
+reside dentro de otra propiedad).
+
+@item
+Las propiedades establecidas a valores infinitos no se pueden
+desplazar. No hay ninguna forma sensata de incrementar los valores
+infinitos positivos o negativos.
+@end itemize
+
+Los ejemplos siguientes tratan diversas propiedades de grob frente
+a los criterios que se han expuesto.
+
+@itemize
+
+@item Propiedades que se pueden desplazar
+
+@table @asis
+
+@item @code{Hairpin.height}
+
+Esta propiedad no es una subpropiedad, y está en la lista que
+aparece en @rinternals{Hairpin}.  En cuanto a su valor, admite
+@q{dimension, in staff space} (dimensión, en espacios de
+pentagrama) fijado a @code{0.6666} (que claramente es un
+@code{number} no infinito).
+
+@item @code{Arpeggio.positions}
+
+En la lista de la página que describe @rinternals{Arpeggio}
+aparece una propiedad @code{positions} que admite una @q{pareja de
+números}.  Su valor predeterminado es
+@code{ly:arpeggio::positions}, que es un @q{callback} que se
+evalúa durante la fase de tipografiado para dar como resultado una
+pareja de números para cualguier objeto @code{Arpeggio} dado.
+
+@end table
+
+@item Propiedades que no admiten el desplazamiento
+
+@table @asis
+
+@item @code{Hairpin.color}
+
+No hay un listado para @code{color} en @rinternals{Hairpin}.
+
+@item @code{Hairpin.circled-tip}
+
+La lista de @code{Hairpin.circled-tip} en la página de
+@rinternals{Hairpin} muestra que admite un valor @code{boolean}.
+Los valores booleanos so no numéricos.
+
+@item @code{Stem.details.lengths}
+
+Aunque está listado en @rinternals{Stem} y su valor por omisión es
+una lista de @code{number}s, es una @q{subpropiedad}.  Por el
+momento no se contemplan las @q{propiedades anidadas}.
+
+@end table
+
+@end itemize
+
+@subsubsubheading{@bs{}offset como sobreescritura}
+
+Si @var{elemento} es un nombre de grob como @code{Arpeggio} o
+@code{Staff.OttavaBracket}, el resultado es un @code{\override} o
+sobreescritura de el tipo de grob especificado.
+
+@example
+\offset @var{propiedad} @var{incremento} [@var{contexto}.]@var{NombreDeGrob}
+@end example
+
+Observe que el guión precedente @emph{nunca} se utiliza con la
+forma @q{override}, de igual manera que nunca se usa con la propia
+instrucción @code{\override}.
+
+El ejemplo siguiente usa la forma @q{override}, de sobreescritura,
+para alargar los arpegios predeterminados que aparecen en el
+primer compás para que cubran todo el tamaño de los acordes.  Los
+arpegios se amplían en medio espacio de pentagrama hacia arriba y
+hacia abajo.  También se muestra la misma operación efectuada
+sobre el primer acorde con una sobreescritura normal de la
+propiedad the @code{positions}.  Este método no es en absoluto
+expresivo de la acción de @q{ampliar en medio espacio de
+pentagrama}, porque los extremos se tienen que especificar
+mediante coordenadas absolutas, no relativas.  Además, se
+necesitarían sobreescrituras individuales para los otros acordes,
+ya que varían en tamaño y posición.
+
+@lilypond[quote,verbatim]
+arpeggioMusic = {
+  <c' e' g'>\arpeggio <a' c'' e''>\arpeggio
+  <d' f' a' c''>\arpeggio <c' e' g' b' d'' f'' a''>\arpeggio
+}
+
+{
+  \arpeggioMusic
+  \bar "||"
+  \offset positions #'(-0.5 . 0.5) Arpeggio
+  \arpeggioMusic
+  \bar "||"
+  \once \override Arpeggio.positions = #'(-3.5 . -0.5)
+  <c' e' g'>1\arpeggio
+  \bar "||"
+}
+@end lilypond
+
+En su uso como @q{override}, @code{\offset} se puede hacer
+preceder por @code{\once} o por @code{\temporary} y revertirse
+mediante @code{\revert} con la @var{propiedad}.  Esto se sigue a
+partir del hecho de que @code{\offset} en realidad crea un
+@code{\override} para la @var{propiedad}.
+
+@lilypond[quote,verbatim]
+music = { c'8\< d' e' f'\! }
+
+{
+  \music
+  \offset height 1 Hairpin
+  \music
+  \music
+  \revert Hairpin.height
+  \music
+  \bar "||"
+  \once \offset height 1 Hairpin
+  \music \music
+  \bar "||"
+  \override Hairpin.height = 0.2
+  \music
+  \temporary \offset height 2 Hairpin
+  \music
+  \music
+  \revert Hairpin.height
+  \music
+  \bar "||"
+}
+@end lilypond
+
+Así como @code{\override}, la forma @q{override} de @code{\offset}
+se puede usar con @code{\undo} y con @code{\single}.
+
+@lilypond[quote,verbatim]
+longStem = \offset length 6 Stem
+
+{
+ \longStem c'4 c''' c' c''
+ \bar "||"
+ \undo \longStem c'4 c''' c' c''
+ \bar "||"
+ \single \longStem c'4 c''' c' c''
+ \bar "||"
+}
+@end lilypond
+
+@subsubsubheading{@bs{}offset como trucaje}
+
+Si @var{elemento} es una expresión musical como @code{(} o
+@code{\arpeggio}, el resultado es la misma expresión musical con
+un trucaje aplicado.
+
+@example
+[-]\offset [@var{NombreDeGrob}.]@var{propiedad} @var{incrementos} @var{expresión-musical}
+@end example
+
+La sintaxis de @code{\offset} en forma de @q{tweak} es análoga a
+la propia instrucción @code{\tweak}, tanto en orden como en cuanto
+a la presencia o ausencia del guión inicial.
+
+El ejemplo siguiente usa la forma @q{tweak} para ajustar la
+posición vertical del objeto @code{BreathingSign}.  Compárelo con
+la instrucción @code{\tweak} normal que también aparece.  La
+sintaxis es equivalente; sin embargo, la salida de @code{\tweak}
+es menos intuitiva, ya que @code{BreathingSign.Y-offset} se
+calcula a partir de la tercera línea del pentagrama.  No es
+necesario saber cómo se calcula @code{Y-offset}, al usar
+@code{\offset}.
+
+@lilypond[quote,verbatim]
+{
+  c''4
+  \breathe
+  c''4
+  \offset Y-offset 2 \breathe
+  c''2
+  \tweak Y-offset 3 \breathe
+}
+@end lilypond
+
+En el ejemplo anterior, los objetos trucados se crearon
+directamente a partir de la entrada del usuario: la instrucción
+@code{\breathe} era una instrucción explícita para devolver un
+objeto @code{BreathingSign}.  Dado que el objeto de la instrucción
+no es ambiguo, no había necesidad de especificar el nombre del
+objeto.  Sin embargo, cuando un objeto se crea
+@emph{indirectamente}, es necesario incluir el nombre del grob.
+Es lo mismo que para la instrucción @code{\tweak}.
+
+En el ejemplo siguiente, el objeto @code{Beam} se baja en dos
+espacios de pentagrama aplicando @code{\offset} a la propiedad
+@code{positions}.
+
+La primera aplicación de @code{\offset} exige que se incluya el
+nombre del grob, porque nada en el código de entrada crea
+explícitamente la barra.  En la segunda aplicación, la barra se
+crea manualmente con la expresión musical @code{[}; por tanto, el
+nombre del grob no es necesario (también aparece en la ilustración
+una abreviatura: un solo número se aplica a los dos miembros de
+una pareja).
+
+@lilypond[quote,verbatim]
+{
+  c''8 g'' e'' d''
+  \offset Beam.positions #'(-2 . -2)
+  c''8 g'' e'' d''
+  c''8 g'' e'' d''
+  c''8-\offset positions #-2 [ g'' e'' d'']
+}
+@end lilypond
+
+@subsubsubheading{@bs{}offset con objetos extensos divididos}
+
+También es posible modificar segmentos de un objeto que se
+extiende sobre un salto o saltos de línea.  En este caso,
+@var{offsets} admite una lista de valores del tipo de datos
+requerido por la propiedad.
+
+La instrucción @code{\offset} usada de esta forma es similar a la
+instrucción @code{\alterBroken}
+(véase @ref{Modificación de objetos de extensión divididos}).  Sin
+embargo, a diferencia de @code{\alterBroken}, los valores que se
+le dan a @code{\offset} son relativos, no absolutos.
+
+El ejemplo siguiente desplaza el objeto @q{dividido}
+@code{OttavaBracket} a través de su propiedad
+@code{staff-padding}.  Dado que la propiedad toma un
+@code{number}, se le proporciona a @var{incrementos} una lista de
+números para aplicarlos a los dos segmentos creados por el salto
+de línea.  La parte de ligadura de la primera línea queda, en
+realidad, inalterada, ya que se añade @code{0} a su valor por
+omisión.  El segmento que está en la segunda línea se eleva dos
+espacios de pentagrama a partir de su altura por omisión.  La
+altura predeterminada resulta ser @code{2}, aunque no es necesario
+saberlo.
+
+@lilypond[quote,verbatim]
+{
+  \offset staff-padding #'(0 3) Staff.OttavaBracket
+  \ottava #1
+  c'''2 c'''
+  \break
+  c'''2 c'''
+}
+@end lilypond
+
+El ejemplo siguiente copia el efecto de la instrucción
+@code{\shape} mediante el incremento de la propiedad
+@code{control-points} del objeto @code{Slur}.  Aquí,
+@var{incrementos} es una lista de parejas de números, una por cada
+segmento de la ligadura.  Este ejemplo produce un resultado
+idéntico a la ilustración correspondiente que aparece en
+@ref{Modificación de las formas}.
+
+@lilypond[quote,verbatim]
+{
+  c'4-\offset control-points #'(
+               ((0 . 0) (0 . 0) (0 . 0) (0 . 1))
+               ((0.5 . 1.5) (1 . 0) (0 . 0) (0 . -1.5))
+              ) ( f'4 g' c''
+  \break
+  d'4 c'' f' c')
+}
+@end lilypond
+
+
 @node Modificación de las listas-A
 @subsection Modificación de las listas-A
 @translationof Modifying alists
@@ -2707,46 +3067,57 @@ como listas-A.}
 
 La forma en que se interpreta la notación contenida dentro de un
 archivo de entrada, está determinada por el modo de entrada en
-curso.
+curso.  In general,
+there are two ways of specifying the mode: a long form, e.g.
+@code{\chordmode}, and a short form, e.g. @code{\chords}.  The long
+form is typically used when supplying input to a variable or when
+entering input directly into an explicitly created context.  The short
+form implicitly creates a context of the correct type for the input and
+passes the input directly to it.  It is useful in simple situations
+when there is no requirement to explicitly create the receiving context.
 
 @subsubsubheading Modo de acordes
 
 Se activa con la instrucción @code{\chordmode} y produce que la
 entrada se interprete con al sintaxis de la notación de acordes,
-véase @ref{Notación de acordes}.  Los acordes se imprimen como
-notas sobre un pentagrama.
+véase @ref{Notación de acordes}.  Music in chord mode is rendered as chords on a staff
+when entered into a @code{Staff} context, as chord names when entered
+into a @code{ChordNames} context or as fret boards when entered into
+a @code{FretBoards} context.
 
 El modo de acordes se activa también con la instrucción
-@code{\chords}.  Esto crea también un contexto @code{ChordNames}
-nuevo y produce que el código que sigue se interprete con la
-sintaxis de la notación de acordes y se imprima como nombres de
-acorde dentro del contexto @code{ChordNames}, véase @ref{Impresión
-de los nombres de acorde}.
+@code{\chords}.  Esto también produce que el código que sigue se interprete con la
+sintaxis de la notación de acordes but in addition it implicitly creates a new
+@code{ChordNames} context and renders the input into it as chord names, véase @ref{Impresión de los nombres de acorde}.
 
 @subsubsubheading Modo de percusión
 
 Se activa con la instrucción @code{\drummode} y produce que el
 código de entrada se interprete con la sintaxis de la notación de
-percusión, véase @ref{Notación básica de percusión}.
+percusión, véase @ref{Notación básica de percusión}.  Music in drum mode is rendered as
+percussion notes when entered into a @code{DrumStaff} context.
 
 El modo de percusión también se activa con la instrucción
-@code{\drums}.  También crea un contexto @code{DrumStaff} nuevo y
+@code{\drums}.  También 
 hace que el código que sigue se interprete con la sintaxis de la
-notación de percusión y se imprima como símbolos de percusión
-sobre un pentagrama de percusión, véase @ref{Notación básica de
+notación de percusión but in addition it implicitly creates a new
+@code{DrumStaff} context and renders the input into it as percussion
+notes, véase @ref{Notación básica de
 percusión}.
 
 @subsubsubheading Modo de cifras
 
 Se activa con la instrucción @code{\figuremode} y hace que el código
 de entrada se interprete con la sintaxis del bajo cifrado, véase
-@ref{Introducir el bajo cifrado}.
+@ref{Introducir el bajo cifrado}.  Music in figure mode is rendered as
+figured bass when entered into a @code{FiguredBass} context or a
+@code{Staff} context.
 
 El modo de cifras también se activa con la instrucción
-@code{\figures}.  También crea un contexto de @code{FiguredBass}
-nuevo y hace que el código que viene a continuación se interprete
-con la sintaxis del bajo cifrado y se imprima como símbolos de
-bajo cifrado dentro del contexto @code{FiguredBass}, véase
+@code{\figures}.  También hace que el código que viene a continuación se interprete
+con la sintaxis del bajo cifrado but in addition it implicitly creates a new
+@code{FiguredBass} context and renders the input into it as figured
+bass, véase
 @ref{Introducción al bajo cifrado}.
 
 @subsubsubheading Modos de traste y tablatura
@@ -2758,10 +3129,8 @@ Para crear diagramas de trastes, escriba las notas o acordes en el
 modo de notas e imprímalos dentro de un contexto @code{TabStaff},
 véase @ref{Tablaturas predeterminadas}.
 
-Para crear diagramas de trastes encima de un pentagrama, podemos
-elegir entre dos posibilidades.  Se puede usar el contexto
-@code{FretBoards} (véase @ref{Diagramas de traste automáticos}) o
-se pueden introducir como elementos de marcado encima de las notas
+Para crear diagramas de trastes encima de un pentagrama, enter notes or chords in either
+note mode or chord mode and render them in a @code{FretBoards} context, véase @ref{Diagramas de traste automáticos}.  Alternatively, los diagramas de trastes  se pueden introducir como elementos de marcado encima de las notas
 utilizando la instrucción @code{\fret-diagram}, véase
 @ref{Marcas de diagramas de trastes}.
 
@@ -2770,12 +3139,19 @@ utilizando la instrucción @code{\fret-diagram}, véase
 Se activa con la instrucción @code{\lyricmode}, y hace que la
 entrada se interprete como sílabas de la letra de la canción con
 duraciones opcionales y modificadores de letra asociados, véase
-@ref{Música vocal}.
+@ref{Música vocal}.  Input in
+lyric mode is rendered as lyric syllables when entered into a
+@code{Lyrics} context.
 
 El modo de letra también se habilita con la instrucción
-@code{\addlyrics}.  Esto también crea un contexto @code{Lyrics}
-nuevo y una instrucción @code{\lyricsto} implícita que asocia la
-letra que viene a continuación con la música precedente.
+@code{\addlyrics}.  This
+also causes the following input to be interpreted as lyric syllables
+but in addition it implicitly creates a new @code{Lyrics} context and
+renders the input into it as lyric syllables.
+
+Lyric mode is also activated with the @code{\addlyrics} command.  Esto también crea un contexto @code{Lyrics}
+nuevo y además añade una instrucción @code{\lyricsto} implícita que asocia la
+letra que viene a continuación con la música precedente, véase @ref{Automatic syllable durations}.
 
 @subsubsubheading Modo de marcado
 
@@ -2878,7 +3254,7 @@ predefinidas para especificar la dirección.  Todas ellas son de la
 forma:
 
 @example
-\xxxUp, \xxxDown o \xxxNeutral
+\xxxUp, \xxxDown or \xxxNeutral
 @end example
 
 @noindent
@@ -4411,7 +4787,7 @@ XinO = {
 }
 @end lilypond
 
-Cualquiera de los glifos de la fuente tipográfica Emmentaler se puede
+Cualquiera de los glifos de  @emph{Feta} usados en  la fuente tipográfica Emmentaler se puede
 pasar a la instrucción de marcado @code{\musicglyph}: véase
 @ref{La tipografía Emmentaler}.
 
