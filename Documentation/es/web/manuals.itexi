@@ -136,10 +136,10 @@ estado del proceso de traducción para los lectores no anglófonos.
 ejemplos, consejos y trucos creados por los usuarios.
 
 @item
-@uref{http://benlemon.me/blog/music/lilypond/operation-lilypond/,Video
-Tutorials}: Ben Lemon, usuario de LilyPond, ha creado y publicado
-cierto número de tutoriales de vídeo en su blog que están
-indicados para nuevos usuarios.
+@uref{http://bit.ly/LilyPondBeginners,Tutoriales de vídeo}:
+Ben Lemon, usuario de LilyPond, ha creado y publicado cierto
+número de tutoriales de vídeo en su blog que están indicados para
+nuevos usuarios.
 
 @item
 @ref{Desarrollo}:
