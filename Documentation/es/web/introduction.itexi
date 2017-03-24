@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 136e94ea422fc94ef2587c588d516a03e01275e1
+    Translation of GIT committish: d1c9544af1b810d0eb4075106f9576347224a1b4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -323,7 +323,6 @@ infórmese de nuestra @ref{Entrada de texto}.
 @translationof Examples
 
 @divClass{column-center-top}
-
 @subheading Bellos ejemplos
 
 LilyPond es una herramienta potente y flexible para tareas de
@@ -331,6 +330,7 @@ grabado musical de todo tipo.  Explore libremente nuestra galería
 de ejemplos e ¡inspírese!
 
 @divEnd
+
 
 @divClass{column-center-middle-color2}
 @subheading Música Clásica
@@ -340,6 +340,7 @@ de grabado con LilyPond.
 
 @exampleImage{bach-bwv610}
 @divEnd
+
 
 @divClass{column-center-middle-color2}
 @subheading Notación compleja
@@ -352,6 +353,7 @@ pentagrama cruzado y líneas de seguimiento de voces.
 @exampleImage{granados}
 @divEnd
 
+
 @divClass{column-center-middle-color2}
 @subheading Música antigua
 
@@ -360,6 +362,7 @@ como este pasaje de canto gregoriano.
 
 @exampleImage{ancient-headword}
 @divEnd
+
 
 @divClass{column-center-middle-color2}
 @subheading Música moderna
@@ -390,6 +393,7 @@ para piano y voz, y una particella de violín.
 
 @divEnd
 
+
 @divClass{column-center-middle-color2}
 @subheading Tablatura
 
@@ -401,27 +405,6 @@ partir de las notas que se escriben para el pentagrama normal.
 @exampleImage{tab-example}
 @divEnd
 
-@divClass{column-center-middle-color2}
-@subheading  Gráficos de Schenker
-
-La salida estándar se puede modificar de forma muy profunda.  He
-aquí un impresionante análisis schenkeriano creado por Kris
-Schaffer, para un artículo de la revista
-@uref{http://www.linuxjournal.com/article/8364 , Linux Journal}.
-Se han añadido algunos colores para mejorar la visibilidad.
-
-@exampleImage{bach-schenker}
-@divEnd
-
-@divClass{column-center-middle-color2}
-@subheading Salida personalizada
-
-Un pequeño fragmento de la @emph{Klavierstück II} de Stockhausen,
-para demostrar la capacidad de LilyPond de ofrecer una salida
-personalizada.
-
-@exampleImage{Stockhausen_Klavierstueck2}
-@divEnd
 
 @divClass{column-center-middle-color2}
 @subheading Música vocal
@@ -439,14 +422,6 @@ por encima de ciertos grupos de notas.
 @exampleImage{aucun-snippet}
 @divEnd
 
-@divClass{column-center-middle-color2}
-@subheading Aplicaciones para la educación
-
-LilyPond está muy indicado también para aplicaciones educativas.
-He aquí un ejemplo de un sencillo ejercicio de contrapunto.
-
-@exampleImage{theory}
-@divEnd
 
 @divClass{column-center-middle-color2}
 @subheading Música pop
@@ -460,6 +435,17 @@ profundamente para cumplir con casi cualquier situación.
 @exampleImage{chart}
 @divEnd
 
+
+@divClass{column-center-middle-color2}
+@subheading Aplicaciones para la educación
+
+LilyPond está muy indicado también para aplicaciones educativas.
+He aquí un ejemplo de un sencillo ejercicio de contrapunto.
+
+@exampleImage{theory}
+@divEnd
+
+
 @divClass{column-center-middle-color2}
 @subheading Proyectos grandes
 
@@ -470,6 +456,31 @@ aportado por Hu Haipeng, un compositor ciego).
 
 @exampleImage{orchestra}
 @divEnd
+
+
+@divClass{column-center-middle-color2}
+@subheading Salida personalizada
+
+Un pequeño fragmento de la @emph{Klavierstück II} de Stockhausen,
+para demostrar la capacidad de LilyPond de ofrecer una salida
+personalizada.
+
+@exampleImage{Stockhausen_Klavierstueck2}
+@divEnd
+
+
+@divClass{column-center-middle-color2}
+@subheading  Gráficos de Schenker
+
+La salida estándar se puede modificar de forma muy profunda.  He
+aquí un impresionante análisis schenkeriano creado por Kris
+Schaffer, para un artículo de la revista
+@uref{http://www.linuxjournal.com/article/8364 , Linux Journal}.
+Se han añadido algunos colores para mejorar la visibilidad.
+
+@exampleImage{bach-schenker}
+@divEnd
+
 
 @divClass{column-center-bottom}
 @subheading ¿Ahora qué?
@@ -1363,13 +1374,6 @@ desde el programa.
 Un editor de LilyPond basado en web, donde uno puede crear sus
 partituras directamente online sin necesidad de instalar LilyPond.
 
-@subsubheading Tunefl
-@uref{http://www.tunefl.com}
-
-Con tunefl, puede componer tipográficamente sus minipartituras sin
-tener que instalar LilyPond localmente.  Permite probar todas las
-funcionalidades del programa usando una práctica interfaz web.
-
 @divEnd
 
 @divClass{column-center-top}
@@ -1382,13 +1386,11 @@ funcionalidades del programa usando una práctica interfaz web.
 @sourceimage{logo-macosx,,,}
 @sourceimage{logo-windows,,,}
 
-@uref{http://elysium.thsoft.hu}
+@uref{https://github.com/thSoft/elysium}
 
-Elysium es un entorno integrado de desarrollo para Ecplipse, con
-una vista integrada frente a frente para la fuente y la partitura.
-Include realimentación visual rápida e intuitiva sin tener que
-alternar entre contextos, y trae muchas plantillas conducidas por
-asistentes.
+Un completo entorno para la edición de partituras con LilyPond
+dentro de Eclipse, que ofrece un rico conjunto de herramientas
+para una práctica gestión del trabajo con LilyPond.
 
 @divEnd
 
@@ -1431,7 +1433,7 @@ Hay más información sobre la configuración de Vim en
 
 @sourceimage{logo-macosx,,,}
 @subsubheading TeXShop
-@uref{http://www.uoregon.edu/~koch/texshop}
+@uref{http://pages.uoregon.edu/koch/texshop/}
 
 El editor TeXShop para MacOS@tie{}X se puede extender para que
 ejecute LilyPond, @command{lilypond-book} y @command{convert-ly}
@@ -1519,8 +1521,8 @@ trasladada al lenguaje C++.
 
 @item
 @uref{http://strasheela.sourceforge.net/strasheela/doc/index.html,Strasheela},
-un entorno construido sobre el lenguaje de restricciones
-@uref{http://www.mozart-oz.org/, Mozart/Oz}.
+un entorno construido sobre
+@uref{http://mozart.github.io/, el sistema de programación Mozart}.
 
 
 @end itemize
@@ -1556,7 +1558,7 @@ para su descarga en
 
 @item
 @uref{https://sourceforge.net/projects/noteedit.berlios/,NoteEdit},
-que importaba @uref{http://www.makemusic.com/musicxml,MusicXML},
+que importaba @uref{http://www.musicxml.com/,MusicXML},
 se ha ramificado en la forma de
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
 y @uref{http://canorus.org,Canorus}.
@@ -1572,6 +1574,12 @@ still work with.
 @item
 @uref{https://launchpad.net/rumor/,Rumor}, un convertidor
 monofónico de MIDI a LilyPond en tiempo real.
+
+@item
+@uref{https://github.com/tiredpixel/tunefl,tunefl} compone
+tipográficamente sus minipartituras directamente en línea sin
+tener que instalar LilyPond localmente.  Permite probar todas las
+funcionalidades del programa usando una práctica interfaz web.
 
 @item
 @uref{http://sourceforge.net/projects/tuxguitar/,TuxGuitar}, un
