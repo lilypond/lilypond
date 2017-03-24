@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 0b22ae65f4614b93ba9d604d3a164816b2baac42
+    Translation of GIT committish: 1e5c6b0f54079eb3285dcc4c7e53f17d8bb03933
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -956,17 +956,22 @@ donde N es un número entre 0 y 100.
 @appendixsec La tipografía Emmentaler
 @translationof The Emmentaler font
 
-@cindex Emmentaler tipografía
+@cindex Emmentaler, tipografía
 @cindex tipografía, Emmentaler
-@cindex Feta tipografía
+@cindex Feta, tipografía
 @cindex tipografía, Feta
-@cindex Parmesan tipografía
-@cindex tipografía, Parmesan
+@cindex Parmesan, tipografía
+@cindex tipografía Parmesan
 
-Los símbolos siguientes están disponibles en la tipografía
-Emmentaler y es posible acceder a ellos directamente utilizando
-elementos de marcado textual con el nombre del glifo tal y como se
-muestra en las tablas de abajo, por ejemplo;
+La fuente tipográfica Emmentaler consiste en dos
+@emph{subconjuntos} de glifos.  @qq{Feta}, utilizado para la
+notación clásica, y @qq{Parmesan}, usado para la notación de la
+música antigua.
+
+Cualquier glifo que esté comprendido dentro de la tipografía
+Emmentaler se puede acceder directamente usando elementos de
+marcado de texto junto con el nombre del glifo (según se muestra
+en las tablas, más adelante).  Por ejemplo:
 
 @example
 g^\markup @{\musicglyph #"scripts.segno" @}
@@ -976,7 +981,7 @@ g^\markup @{\musicglyph #"scripts.segno" @}
 or
 
 @example
-\markup @{\musicglyph #"five"@}.
+\markup @{\musicglyph #"five"@}
 @end example
 
 Para ver más información, consulte @ref{Formatear el texto}.
@@ -2444,8 +2449,8 @@ Una lista asociativa o abreviadamente una @strong{lista-A} (alist
 en inglés) es una pareja de Scheme que asocia un valor con una
 clave: @w{@code{(clave . valor)}}.  Por ejemplo, en
 @file{scm/lily.scm}, la lista-A @w{@qq{type-p-name-alist}} asocia
-ciertos predicadps de tipo (p.ej.@tie{}@code{ly:music?})  con
-nombres (p.ej.@tie{}@qq{music}) de forma que se pueda informar de
+ciertos predicadps de tipo (p.ej. @code{ly:music?})  con
+nombres (p.ej. @qq{music}) de forma que se pueda informar de
 los fallos de comprobación de tipo con un mensaje de consola que
 incluye el nombre del predicado de tipo esperado.
 
