@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 88cfc9ee61dece9cffff98ab7f10318633698c39
+    Translation of GIT committish: b680788cd1c671d52819d69e9e130ff45361a590
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -837,11 +837,11 @@ debe incluir dentro del melisma:
 
 
 @predefined
-
 @code{\autoBeamOff},
 @code{\autoBeamOn},
 @code{\melisma},
 @code{\melismaEnd}.
+@endpredefined
 
 @seealso
 Glosario musical:
@@ -2412,6 +2412,7 @@ Cuando una parte vocal se divide temporalmente, debemos usar
 @code{\oneVoice},
 @code{\voiceOne},
 @code{\voiceTwo}.
+@endpredefined
 
 @seealso
 Manual de aprendizaje:
@@ -2509,7 +2510,10 @@ aquí:
 @end lilypond
 
 @predefined
-@code{\dynamicUp}, @code{\dynamicDown}, @code{\dynamicNeutral}.
+@code{\dynamicUp},
+@code{\dynamicDown},
+@code{\dynamicNeutral}.
+@endpredefined
 
 @seealso
 Referencia de la notación:
