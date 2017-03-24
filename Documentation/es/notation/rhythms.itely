@@ -2005,9 +2005,10 @@ rasgueado.  Esto se puede hacer con el grabador
 >>
 @end lilypond
 
-También se puede usar música que contenga acordes como entrada para @code{RhythmicStaff} y para usarla con el grabador @code{Pitch_squash_engraver} si los
-acordes se reducen primero a notas individuales con la función musical
-@code{\reduceChords}:
+También se puede usar música que contenga acordes como entrada
+para @code{RhythmicStaff} y para usarla con el grabador
+@code{Pitch_squash_engraver} si los acordes se reducen primero a
+notas individuales con la función musical @code{\reduceChords}:
 
 @lilypond[quote,verbatim]
 \new RhythmicStaff {

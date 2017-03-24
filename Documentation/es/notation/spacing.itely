@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 1e339d5efe13a725a4f0c2d8dfc3d40390446b89
+    Translation of GIT committish: 18d03fa6a724b0102ccc47d194209802cea02f2e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -986,8 +986,8 @@ definen en el archivo @file{ly/paper-defaults-init.ly}
 
 Algoritmo de saltos de página que utilizar.  Se puede elegir entre
 @code{ly:minimal-breaking}, @code{ly:page-turn-breaking},
-@code{ly:one-line-breaking},
-@code{ly:one-line-auto-height-breaking}, y
+@code{ly:one-page-breaking}, @code{ly:one-line-breaking},
+@code{ly:one-line-auto-height-breaking} y
 @code{ly:optimal-breaking} (predeterminado).
 
 @item page-breaking-system-system-spacing
@@ -1074,7 +1074,9 @@ Referencia de la notación:
 @ref{Saltos de página óptimos},
 @ref{Paso de página óptimo},
 @ref{Saltos de página mínimos},
-@ref{Saltos de página del tipo una-línea}.
+@ref{Saltos de página del tipo página única},
+@ref{Saltos de página del tipo una-línea}
+@ref{Saltos de página del tipo una-línea-altura-automática}.
 
 Archivos de inicio:
 @file{ly/paper-defaults-init.ly}.
@@ -1485,12 +1487,13 @@ evitar reducir el grosor de las líneas del pentagrama.
 
 @subheading Peso automático de la tipografía a distintos tamaños
 
-La fuente tipográfica Emmentaler ofrece símbolos musicales a ocho
-tamaños distintos.  Cada fuente tipográfica está afinada para un
-tamaño de pentagrama distinto: a un tamaño menor la tipografía se
-vuelve más pesada, para que coincida con las líneas de pentagrama
-relativamente más gruesas.  Los tamaños de tipografía recomendados
-están relacionados en la tabla siguiente:
+La tipografía Emmentaler ofrece el conjunto de glifos musicales
+@emph{Feta} en ocho tamaños distintos, cada uno de ellos ajustado
+a un tamaño de pentagrama.  Cuanto más pequeño es el tamaño de los
+glifos, más @qq{pesados} se vuelven, de manera que armonicen con
+las líneas del pentagrama, que son también relativamente más
+gruesas.  Los tamaños de glifo recomendados se relacionan en la
+tabla siguiente:
 
 @multitable @columnfractions .15 .2 .22 .2
 
@@ -1713,6 +1716,7 @@ página, y cómo modificarlos.
 * Saltos de página manuales::
 * Saltos de página óptimos::
 * Saltos de página mínimos::
+* Saltos de página del tipo página única::
 * Saltos de página del tipo una-línea::
 * Saltos de página del tipo una-línea-altura-automática::
 * Paso de página óptimo::
@@ -1874,6 +1878,29 @@ cantidad de textos.  Se habilita utilizando:
 @seealso
 Snippets:
 @rlsr{Spacing}.
+
+
+@node Saltos de página del tipo página única
+@unnumberedsubsubsec Saltos de página del tipo página única
+@translationof One-page page breaking
+
+@funindex ly:one-page-breaking
+
+La función @code{ly:one-page-breaking} (saltos de página única) es
+un algoritmo de saltos de página de proósito especial que ajusta
+automáticamente la altura de la página para que quepa toda la
+música en una sola página.  La variable @code{paper-height} del
+bloque @code{paper} se ignora, pero los otros ajustes funcionan de
+la manera acostumbrada.  Concretamente, el espaciado entre el
+último sistema (o elemento de marcado de nivel superior) y el pie
+de página se puede personalizar con @code{last-bottom-spacing}
+dentro del bloque @code{paper}. La anchura de la página se queda
+sin alterar por omisión, pero se puede fijar con la variable
+@code{paper-width} del bloque @code{paper}.
+
+@knownissues
+@code{ly:one-page-breaking} no es compatible, de momento, con
+@code{\bookpart}.
 
 
 @node Saltos de página del tipo una-línea

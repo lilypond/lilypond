@@ -2282,12 +2282,15 @@ musicB = {
 
 @funindex choral
 
-Esta regla es una combinación de los estilos @code{modern-voice} y @code{piano}.
-Muestra todas las alteraciones accidentales requeridas para los cantantes que siguen
-solo su propia voz, así como las alteraciones adicionales necesarias para los lectores que siguen simultáneamente todas las voces de un @code{ChoirStaff} completo.
+Esta regla es una combinación de los estilos @code{modern-voice} y
+@code{piano}.  Muestra todas las alteraciones accidentales
+requeridas para los cantantes que siguen solo su propia voz, así
+como las alteraciones adicionales necesarias para los lectores que
+siguen simultáneamente todas las voces de un @code{ChoirStaff}
+completo.
 
-Este estilo de alteraciones se aplica de forma predeterminada al contexto
-@code{ChoirStaff} actual.
+Este estilo de alteraciones se aplica de forma predeterminada al
+contexto @code{ChoirStaff} actual.
 
 @lilypond[quote]
 musicA = {
