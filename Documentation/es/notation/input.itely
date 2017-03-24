@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 4c31c117565b1c7dd78e606fceb7cba354f2859a
+    Translation of GIT committish: 1e5c6b0f54079eb3285dcc4c7e53f17d8bb03933
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -404,9 +404,10 @@ Un bloque @code{\score}.  Esta partitura se reúne con otras
 partituras del nivel superior, y se combina con ellas formando un
 @code{\book} (libro) único.  Este comportamiento se puede cambiar
 estableciendo el valor de la variable
-@code{toplevel-score-handler} en el nivel superior.  El
-@emph{handler} predeterminado se define en el archivo de inicio
-@file{../scm/lily.scm}.
+@code{toplevel-score-handler} en el nivel superior (el
+@emph{handler} predeterminado se define en el archivo
+@file{../scm/lily-library.scm} y su valor se establece en el archivo
+@file{../ly/declarations-init.ly}.)
 
 @item
 Un bloque @code{\book} combina lógicamente varios movimientos (es
@@ -574,7 +575,7 @@ compositor; ciertas piezas tienen mucha más información.
 @menu
 * Crear títulos encabezamientos y pies de página::
 * Títulos encabezamientos y pies de página personalizados::
-* Creación de metadatos de PDF::
+* Crear metadatos en los archivos de salida::
 * Crear notas al pie::
 * Referencia a números de página::
 * Índice general::
@@ -1232,14 +1233,15 @@ comprobación de diversas condiciones:
 
 @headitem  Nombre del procedimiento @tab  Condición que se comprueba
 
-@item print-page-number-check-first @tab  ¿debería imprimirse esta página?
+@item print-page-number-check-first @tab  ¿debería imprimirse este número de página?
 @item create-page-number-stencil    @tab  ¿es print-page-numbers verdadero?
 @item print-all-headers             @tab  ¿es print-all-headers verdadero?
 @item first-page                    @tab  ¿es la primera página del libro?
+@item not-first-page                @tab  ¿no es la primera página del libro?
 @item (on-page nmbr)                @tab  ¿es el número de página = nmbr?
 @item last-page                     @tab  ¿es la última página del libro?
-@item not-first-page                @tab  ¿no es la primera página del libro?
 @item part-first-page               @tab  ¿es la primera página de la parte de libro?
+@item not-part-first-page           @tab  ¿no es la primera página de la parte de libro?
 @item part-last-page                @tab  ¿es la última página de la parte de libro?
 @item not-single-page               @tab  ¿es el núm. de páginas en la parte de libro > 1?
 
@@ -1295,24 +1297,36 @@ Referencia de la notación:
 Archivos instalados:
 @file{../ly/titling-init.ly}.
 
-@node Creación de metadatos de PDF
-@subsection Creación de metadatos de PDF
-@translationof Creating PDF metadata
+@node Crear metadatos en los archivos de salida
+@subsection Crear metadatos en los archivos de salida
+@translationof Creating output file metadata
 
 @cindex metadatos de PDF
+@cindex metadatos de MIDI
 
 Además de mostrarse en la salida impresa, las variables de
 encabezamiento de @code{\header} se usan para establecer los
-metadatos de PDF (la información que muestran los lectores de PDF
-como @code{propiedades} del archivo).  Por ejemplo, si se
+metadatos para los archivos de salida.  Por ejemplo, con los
+archivos PDF, estos metadatos pueden mostrarse por parte de los
+lectores de documentos como @code{propiedades} del PDF.  Para cada
+tipo de archivo de salida, solamente se consultan las definiciones
+de @code{\header} de los bloques que definen archivos separados de
+ese tipo, y los bloques más altos en la jerarquía de bloques.  Por
+tanto, para los archivos PDF, solo afectan a los metadatos de PDF
+de cada documento las definiciones de @code{\header} de los
+niveles de @code{\book} y de nivel superior, mientras que para
+archivos MIDI, se usan todas las cabeceras que están por encima o
+al nivel de @code{\score}.
+
+Por ejemplo, si se
 establece la propiedad @code{title} del bloque @code{header} como
 @q{Sinfonía núm. 1}, el documento PDF llevará también este
-título.
+título, y lo usará como el nombre de la secuencia del archivo MIDI.
 
 @example
-  \header@{
-    title = "Sinfonía núm. 1"
-  @}
+\header@{
+  title = "Sinfonía núm. 1"
+@}
 @end example
 
 Si quiere fijar el título de la salida impresa con un texto pero
@@ -1321,10 +1335,10 @@ diferente, puede usar @code{pdftitle} como se muestra a
 continuación.
 
 @example
-  \header@{
-    title = "Sinfonía núm. 1"
-    pdftitle = "Sinfonía núm. 1 de Beethoven"
-  @}
+\header@{
+  title = "Sinfonía núm. 1"
+  pdftitle = "Sinfonía núm. 1 de Beethoven"
+@}
 @end example
 
 Todas las variables @code{title}, @code{subject},
@@ -1341,6 +1355,11 @@ actuales.  Se puede sobreescribir @code{ModDate} mediante el
 establecimiento de un valor para la variable de cabecera
 @code{moddate} (o @code{pdfmoddate}) a una cadena de fecha de PDF
 válida.
+
+La variable @code{title} establece también el nombre de la
+secuencia para el archivo MIDI.  Se puede usar la variable
+@code{midititle} para fijar el nombre de la secuencia
+independientemente del valor usado para la salida impresa.
 
 @node Crear notas al pie
 @subsection Crear notas al pie
@@ -2483,12 +2502,11 @@ music = \relative c'' {
 
 El uso de dos o más filtros @code{\keepWithTag} sobre una sola
 expresión musical produce la eliminación de @emph{todas} las
-secciones etiquetadas.  El primer filtro quita todas excepto
-la que se nombra, y cualquier filtro posterior
-elimina el resto.
-Usando una sola instrucción @code{\keepWithTag} con una
-lista de varias etiquetas se suprimirán solamente
-las secciones etiquetadas que no aparezcan especificadas en la lista.
+secciones etiquetadas.  El primer filtro quita todas excepto la
+que se nombra, y cualquier filtro posterior elimina el resto.
+Usando una sola instrucción @code{\keepWithTag} con una lista de
+varias etiquetas se suprimirán solamente las secciones etiquetadas
+que no aparezcan especificadas en la lista.
 
 @lilypond[verbatim,quote]
 music = \relative c'' {
@@ -2513,8 +2531,8 @@ will print @code{\tag}s @var{violinI} and @var{violinII} but not
 Aunque @code{\keepWithTag} es útil para el manejo de @emph{un
 solo} conjunto de alternativas, la eliminación de música
 etiquetada con otras etiquetas @emph{no relacionadas} es
-problemática si se utilizan para más de un propósito.
-En ese caso pueden declararse @q{grupos de etiquetas}:
+problemática si se utilizan para más de un propósito.  En ese caso
+pueden declararse @q{grupos de etiquetas}:
 
 @example
 \tagGroup #'(violinI violinII viola cello)
@@ -2992,8 +3010,10 @@ también están disponibles a través de opciones de la línea de
 @subsection Sustituir la tipografía de la notación
 @translationof Replacing the notation font
 
-Gonville es una alternativa a la tipografía Emmentaler que se utiliza
-en LilyPond y se puede descargar de:
+Gonville es un conjunto de glifos alternativo a la tipografía Feta
+(que es parte de la tipografía Emmentaler que se usa en LilyPond).
+Se puede descargar de:
+
 @example
 @uref{http://www.chiark.greenend.org.uk/~sgtatham/gonville/ ,http://www.chiark.greenend.org.uk/~sgtatham/gonville/}
 @end example
@@ -3005,7 +3025,7 @@ fuente Gonville:
 @c       for the font comparison.  -gp
 @sourceimage{Gonville_after,15cm,,}
 
-Aquí hay unos compases de muestra tipografiados en el glifos Feta
+Aquí hay unos compases de muestra tipografiados con los glifos Feta
 de LilyPond:
 
 @sourceimage{Gonville_before,15cm,,}
@@ -3022,6 +3042,9 @@ Para volver a la fuente Emmentaler, invierta el proceso.
 @seealso
 Manual de aprendizaje:
 @rlearning{Otras fuentes de información}.
+
+Referencia de la notación:
+@ref{La tipografía Emmentaler}.
 
 @knownissues
 Gonville no se puede usar para tipografiar notación de @q{Música
@@ -3158,7 +3181,7 @@ estar vacío, dentro del bloque @code{\score}:
 @}
 @end example
 
-@warning{ Un bloque @code{@bs{}score} que, además de la música,
+@warning{Un bloque @code{@bs{}score} que, además de la música,
 contiene solamente un bloque @code{@bs{}midi} (o sea, @emph{sin}
 el bloque @code{@bs{}layout}), solo produce archivos de salida
 MIDI; no se imprime ninguna notación musical.}
@@ -3181,7 +3204,8 @@ antes del comienzo de uno de los bloques @code{\book},
 
 @seealso
 Referencia de la notación:
-@ref{Estructura del archivo}.
+@ref{Estructura del archivo},
+@ref{Crear metadatos en los archivos de salida}.
 
 Archivos instalados:
 @file{scm/midi.scm}.
