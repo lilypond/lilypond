@@ -784,8 +784,6 @@ Otherwise, return #f."
 (define-public (value->lily-string arg)
   (cond ((ly:music? arg)
          (music->lily-string arg))
-        ((string? arg)
-         (format #f "#~s" arg))
         ((markup? arg)
          (markup->lily-string arg))
         ((ly:duration? arg)
