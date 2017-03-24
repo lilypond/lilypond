@@ -803,9 +803,9 @@ Otherwise, return #f."
             (if (and (not (null? once)))
                 "\\once "
                 "")
-            (if (eqv? (*current-context*) 'Bottom)
+            (if (eq? (*current-context*) 'Bottom)
                 ""
-                (format #f "~a . " (*current-context*)))
+                (format #f "~a." (*current-context*)))
             property
             (value->lily-string value)
             (new-line->lily-string))))
@@ -813,9 +813,9 @@ Otherwise, return #f."
 (define-display-method PropertyUnset (expr)
   (format #f "~a\\unset ~a~a~a"
           (if (ly:music-property expr 'once #f) "\\once " "")
-          (if (eqv? (*current-context*) 'Bottom)
+          (if (eq? (*current-context*) 'Bottom)
               ""
-              (format #f "~a . " (*current-context*)))
+              (format #f "~a." (*current-context*)))
           (ly:music-property expr 'symbol)
           (new-line->lily-string)))
 
