@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 8cea88f78f766476cbb82cb7e53b1f6223159cb2
+    Translation of GIT committish: 5da0af52c0f2f6f00347981549a0e54feff6d056
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -938,7 +938,7 @@ antelación.
 
 @divEnd
 
-@divClass{column-center-bottom}
+@divClass{column-center-middle-color2 bigger-subsubheadings}
 @subheading Lista de ideas del proyecto
 
 Más abajo aparece una lista de GSoC project ideas (última
@@ -956,10 +956,8 @@ es ponerse en contacto con nosotros lo antes posible.
 Hay una lista completa de todas las incidencias abiertas
 @uref{http://sourceforge.net/p/testlilyissues/issues/, aquí}.
 
-@divEnd
 
-@divClass{column-center-middle-color3}
-@subheading Mejora de la estructura interna de acordes
+@subsubheading Mejora de la estructura interna de acordes
 
 La representación interna de los acordes de LilyPond no es lo
 bastante potente como para captar la nomenclatura de los acordes
@@ -971,16 +969,17 @@ de los acordes más complejos.  Además, una vez que se haya
 desarrollado la representación interna, el formato de salida de
 los nombres de acorde puede mejorarse.
 
-@strong{Dificultad:} Fácil/intermedia
-@strong{Requisitos:} Scheme (Guile), pero el nivel necesario puede
+@emph{Dificultad:} Fácil/intermedia
+
+@emph{Requisitos:} Scheme (Guile), pero el nivel necesario puede
 aprenderse fácilmente
-@strong{Conocimientos recomendados:} Teoría y nomenclatura de los acordes
-@strong{Mentor:} Carl Sorensen
 
-@divEnd
+@emph{Conocimientos recomendados:} Teoría y nomenclatura de los acordes
 
-@divClass{column-center-middle-color3}
-@subheading Adoptar el estándar SMuFL de codificación de tipografías
+@emph{Mentor:} Carl Sorensen
+
+
+@subsubheading Adoptar el estándar SMuFL de codificación de tipografías
 
 Desde hace varios años circula un nuevo estándar para las fuentes
 tipográficas de música: @uref{http://www.smufl.org/, SMuFL}, que
@@ -1002,15 +1001,16 @@ carga de las fuentes por parte de LilyPond para que usara las
 fuentes de notación instaladas como fuentes del sistema en lugar
 de hacerlo dentro de la instalación de LilyPond.
 
-@strong{Dificultad:} Baja/media
-@strong{Requisitos:} C++ y disposición para familiarizarse con el funcionamiento interno de LilyPond.
-@strong{Conocimientos recomendados:} Interés y experiencia en el trabajo con archivos de fuentes tipográficas.  Un poco de  METAFONT.
-@strong{Mentores:} Werner Lemberg, Abraham Lee
+@emph{Dificultad:} Baja/media
 
-@divEnd
+@emph{Requisitos:} C++ y disposición para familiarizarse con el funcionamiento interno de LilyPond.
 
-@divClass{column-center-middle-color3}
-@subheading Añadir una variante especial de los glifos de fuente tipográfica
+@emph{Conocimientos recomendados:} Interés y experiencia en el trabajo con archivos de fuentes tipográficas.  Un poco de  METAFONT.
+
+@emph{Mentores:} Werner Lemberg, Abraham Lee
+
+
+@subsubheading Añadir una variante especial de los glifos de fuente tipográfica
 
 @divClass{keep-bullets}
 @itemize
@@ -1027,15 +1027,16 @@ con un hueco pequeño dentro, y otra con un hueco grande.
 @end itemize
 @divEnd
 
-@strong{Dificultad:} fácil
-@strong{Requisitos:} MetaFont, C++, buen ojo para los detalles
-@strong{Conocimientos recomendados:} conocimientos básicos de LilyPond
-@strong{Mentor potencial:} Werner Lemberg
+@emph{Dificultad:} fácil
 
-@divEnd
+@emph{Requisitos:} MetaFont, C++, buen ojo para los detalles
 
-@divClass{column-center-middle-color3}
-@subheading Notación contemporánea
+@emph{Conocimientos recomendados:} conocimientos básicos de LilyPond
+
+@emph{Mentor potencial:} Werner Lemberg
+
+
+@subsubheading Notación contemporánea
 
 LilyPond es muy bueno creando notación no estándar.  Tener que
 @emph{codificar} cada uno de los elementos gráficos en lugar de
@@ -1054,16 +1055,17 @@ como por ejemplo el estilo de algún compositor dado, técnicas de
 ejecución extendidas para un instrumento específico o una cierta
 categoría de efectos.
 
-@strong{Dificultad:} media
-@strong{Requisitos:} Scheme (interacción con las interioridades de LilyPond),
+@emph{Dificultad:} media
+
+@emph{Requisitos:} Scheme (interacción con las interioridades de LilyPond),
 técnicas de notación contemporánea
-@strong{Conocimientos recomendados:} habilidad para la elaboración de marcos de funcionamiento jerárquicos
-@strong{Mentores:} @strong{NN,} Urs Liska
 
-@divEnd
+@emph{Conocimientos recomendados:} habilidad para la elaboración de marcos de funcionamiento jerárquicos
 
-@divClass{column-center-middle-color3}
-@subheading Reescritura de la extensión de LilyPond para LibreOffice con Python
+@emph{Mentores:} @strong{NN,} Urs Liska
+
+
+@subsubheading Reescritura de la extensión de LilyPond para LibreOffice con Python
 
 La extensión @uref{http://ooolilypond.sourceforge.net/,
 OOoLilyPond} hace posible incluir de forma muy práctica fragmentos
@@ -1082,18 +1084,19 @@ permitirá la integración de funcionalidades de
 resaltado de sintaxis, facilidades durante la escritura,
 asistentes de partitura o transformaciones musicales.
 
-@strong{Dificultad:} baja/media
-@strong{Requisitos:} Python, PyQt, conceptos básicos de LilyPond y
+@emph{Dificultad:} baja/media
+
+@emph{Requisitos:} Python, PyQt, conceptos básicos de LilyPond y
 de extensiones de LibreOffice
-@strong{Conocimientos recomendados:} Familiaridad con la base de
+
+@emph{Conocimientos recomendados:} Familiaridad con la base de
 código de Frescobaldi o disposición para aprenderla durante el
 período fijado
-@strong{Mentor(es):} Joram Berger, Urs Liska, (Thorsten Behrens/LibreOffice)
 
-@divEnd
+@emph{Mentor(es):} Joram Berger, Urs Liska, (Thorsten Behrens/LibreOffice)
 
-@divClass{column-center-middle-color3}
-@subheading Pruebas y documentación automatizadas para openLilyLib
+
+@subsubheading Pruebas y documentación automatizadas para openLilyLib
 
 @uref{https://github.com/openlilylib, openLilyLib} is an extension
 framework for LilyPond code providing a “snippets” repository and
@@ -1132,16 +1135,16 @@ content for display on openLilyLib's
 @uref{https://openlilylib.org, website}.  Development of such a
 SPA @emph{can} be part of the GSoC project, but is optional.
 
-@strong{Dificultad:} media
-@strong{Requisitos:} Python or Scheme, static website generator(s) or
+@emph{Dificultad:} media
+
+@emph{Requisitos:} Python or Scheme, static website generator(s) or
 (Node.js based) dynamic web application technology. Continuous
 Integration (can be learned during the bonding period)
-@strong{Mentores:} Urs Liska, Matteo Ceccarello
 
-@divEnd
+@emph{Mentores:} Urs Liska, Matteo Ceccarello
 
-@divClass{column-center-middle-color3}
-@subheading MusicXML
+
+@subsubheading MusicXML
 
 Mejora de las funciones de importación y exportación de MusicXML:
 
@@ -1165,12 +1168,16 @@ another XML library than the one provided by guile-2 in order to
 have this feature available in current LilyPond (which is based on
 guile-1.8).
 
-@strong{Dificultad:} media
-@strong{Requisitos:} MusicXML, Python, Scheme, basic LilyPond knowledge
-@strong{Conocimientos recomendados:} Familiarity with other scorewriters (for cross-testing)
-@strong{Mentor:} Jan-Peter Voigt
+@emph{Dificultad:} media
+
+@emph{Requisitos:} MusicXML, Python, Scheme, basic LilyPond knowledge
+
+@emph{Conocimientos recomendados:} Familiarity with other scorewriters (for cross-testing)
+
+@emph{Mentor:} Jan-Peter Voigt
 
 @divEnd
+
 
 @divClass{column-center-middle-color2}
 @subheading Información para los solicitantes o participantes
@@ -1463,17 +1470,15 @@ Registros de cambios de los desarrolladores, por versión:
 
 @divEnd
 
-@divClass{column-center-middle-color2}
-@subheading Sugerencias no utilizadas para el proyecto Google Summer of Code
+@divClass{column-center-middle-color2 bigger-subsubheadings}
+@subheading Sugerencias desactivadas para el proyecto Google Summer of Code
 
 La siguiente lista describe los proyectos de GSoC que han sido
 propuestos en años recientes y que aún se consideran valiosos pero
 para los cuales no disponemos de mentores libres.
 
-@divEnd
 
-@divClass{column-center-middle-color3}
-@subheading Mejora de las ligaduras de unión y de expresión
+@subsubheading Mejora de las ligaduras de unión y de expresión
 
 Con frecuencia, las calidad gráfica de las ligaduras de unión y de
 expresión no es satisfactoria.  No se manejan bien las ligaduras
@@ -1482,14 +1487,13 @@ proyecto podría incluir y organizar ejemplos de mala salida,
 decidir sobre la salida perseguida y escibir código para
 mejorarla.
 
-@strong{Dificultad:} alta
-@strong{Requisitos:} C++, experiencia con heurística de la escritura
-@strong{Conocimientos recomendados:} LilyPond, sentido estético
+@emph{Dificultad:} alta
+
+@emph{Requisitos:} C++, experiencia con heurística de la escritura
+
+@emph{Conocimientos recomendados:} LilyPond, sentido estético
 
 
-@divEnd
-
-@divClass{column-center-middle-color3}
 @subheading Notas de adorno
 
 Arreglar problemas con la sincronización de las notas de adorno.
@@ -1500,16 +1504,15 @@ otros no.  Este es uno de los más antiguos y emarazosos
 @uref{https://sourceforge.net/p/testlilyissues/issues/34/,bugs} de
 LilyPond.
 
-@strong{Dificultad:} media
-@strong{Requisitos:} C++, MIDI
-@strong{Conocimientos recomendados:} familiaridad con el
+@emph{Dificultad:} media
+
+@emph{Requisitos:} C++, MIDI
+
+@emph{Conocimientos recomendados:} familiaridad con el
 funcionamiento interno de LilyPond
 
 
-@divEnd
-
-@divClass{column-center-middle-color3}
-@subheading Mejora del posicionamiento de las barras de corchea (y figuras menores)
+@subsubheading Mejora del posicionamiento de las barras de corchea (y figuras menores)
 
 Para barras de corchea normales, de pentagrama cruzado,
 interrumpidas y en ángulo.  El barrado debería depender del
@@ -1518,14 +1521,14 @@ contexto y de las notas vecinas (véase la sección 2.2 de
 este libro}).  Si es posible, reducir el tiempo de cálculo del
 barrado.
 
-@strong{Dificultad:} media
-@strong{Requisitos:} C++, experiencia con heurística de la escritura
-@strong{Conocimientos recomendados:} sentido estético
+@emph{Dificultad:} media
 
-@divEnd
+@emph{Requisitos:} C++, experiencia con heurística de la escritura
 
-@divClass{column-center-middle-color3}
-@subheading Ayudar a mejorar el comportamiento de la compilación
+@emph{Conocimientos recomendados:} sentido estético
+
+
+@subsubheading Ayudar a mejorar el comportamiento de la compilación
 
 Las herramientas de análisis automático del código, como la
 detección de filtraciones de memoria de Valgrind o el perfilador
@@ -1535,8 +1538,9 @@ advertencias nos permitiría rechazar automáticamente cualquier
 parche que introdujese más advertencias de las que hay
 actualmente.
 
-@strong{Dificultad:} media
-@strong{Requisitos:} C++
+@emph{Dificultad:} media
+
+@emph{Requisitos:} C++
 
 @divEnd
 
