@@ -941,7 +941,7 @@ antelación.
 @divClass{column-center-middle-color2 bigger-subsubheadings}
 @subheading Lista de ideas del proyecto
 
-Más abajo aparece una lista de GSoC project ideas (última
+Más abajo aparece una lista de ideas para el proyecto GSoC (última
 actualización: enero de 2017), pero si tiene otras ideas para un
 proyecto que pueda completar en el plazo de tres meses del
 programa, se le invita a formular la sugerencia sobre nuestra
@@ -1098,48 +1098,57 @@ período fijado
 
 @subsubheading Pruebas y documentación automatizadas para openLilyLib
 
-@uref{https://github.com/openlilylib, openLilyLib} is an extension
-framework for LilyPond code providing a “snippets” repository and
-a suite of integrated packages such as for example page layout
-tools or scholarly annotations.  It is very powerful and
-promising, but to really get off the ground two features are
-missing: automated testing and documentation generation.
+@uref{https://github.com/openlilylib, openLilyLib} es un marco
+para extensiones de código de LilyPond que ofrece un repositorio
+de fragmentos de código o @qq{snipets} y una colección de paquetes
+integrados, tales como herramientas para la disposición de páginas
+o las anotaciones académicas.  Es muy potente y prometedora, pero
+para que despegue realmente hacen falta dos funcionalidades:
+pruebas automatizadas y generación de la documentación.
 
-Automated testing is necessary to ensure modifications to
-functionality don't break other functions within the library.
-There is already some Automated Testing of the “snippets”
-repository with Github's Travis server, but this has to be
-reconsidered and extended to cover the standalone packages too.
+Las pruebas automatizadas son necesarias para asegurarse de que
+las modificaciones en una funcionalidad no quiebran el
+funcionamiento de otras partes de la biblioteca.  Ya existe una
+cierta cantidad de pruebas automatizadas del repositorio de
+fragmentos de código, con el servidor Travis de Github, pero es
+necesario reconsiderarlo y extenderlo para que cubra también los
+paquetes sueltos.
 
-In order to be usable for a wider range of LilyPond users on a
-“consumer level” openLilyLib needs proper documentation.  This
-documentation has to be generated from the sources, so a system is
-needed that requires package authors to document the input files
-and provide additional usage examples, from which documentation is
-generated.  Ideally but not necessarily this is implemented as a
-Git hook, i.e. automatically upon each update to the repository.
-We don't prescribe the tools and approaches to be used, but the
-most widely used language in the LilyPond domain is Python, so
-there would be some bias towards that.  Alternatively a Scheme
-solution could be fine so generating the documentation would
-actually be triggered by “compiling” a certain LilyPond input
-file.  In general it is advisable to make use of proven concepts
-and tools from other languages.
+Para que sea utilizable por un más amplio abanico de usuarios de
+LilyPond al nivel del @qq{consumidor}, openLilyLib requiere una
+adecuada documentación.  Esta documentación se debe generar a
+partir de las fuentes, por lo que se necesita un sistema que
+demande de los autores de los paquetes que documenten los archivos
+de entrada y que provean ejemplos de uso adicionales, desde los
+cuales se genera la documentación.  Idealmente, pero no
+obligatoriamente, estaría implementado como un @{hook} de Git, es
+decir, que funcione automáticamente al producirse cada una de las
+actualizaciones realizadas sobre el repositorio.  No prescribimos
+ninguna de las herramientas o enfoques que se deben usar, pero el
+lenguare de más amplio uso en el dominio de LilyPond es Python,
+por lo que habría cierta inclinación hacia esa opción.  Como
+alternativa, estaría bien una solución en Scheme, de forma que la
+generación de documentación fuese, en efecto, disparada por la
+compilación de un determinado archivo de entrada de LilyPond.  En
+general se recomienda hacer uso de conceptos y herramientas de
+otros lenguajes de eficacia probada.
 
-The eventual output of the documentation should be a static HTML
-site that can be viewed locally and/or uploaded to a website.  But
-it would be beneficial if the tool would first generate an
-intermediate representation (e.g. a JSON file with additional
-media files) from which a Single Page Application could retrieve
-content for display on openLilyLib's
-@uref{https://openlilylib.org, website}.  Development of such a
-SPA @emph{can} be part of the GSoC project, but is optional.
+La salida final de la documentación debería ser una página HTML
+estática que se pueda ver localmente y/o subida a un sitio web.
+Pero sería beneficioso que la herramienta generase primero una
+representación intermedia (p.ej. un archivo JSON con archivos de
+medios adicionales) a partir de la cual una aplicación de página
+única pudiese recuperar el contenido para su presentación en la
+@uref{https://openlilylib.org, página web de openLilyLib}.  El
+desarrollo de esta Aplicación de Página Única @emph{puede} formar
+parte del proyecto GSoC, pero es opcional.
 
 @emph{Dificultad:} media
 
-@emph{Requisitos:} Python or Scheme, static website generator(s) or
-(Node.js based) dynamic web application technology. Continuous
-Integration (can be learned during the bonding period)
+@emph{Requisitos:} Python o Scheme, generadores de web estáticos o
+tecnologías de aplicaciones web dinámicas (basadas en
+Node.js). Integración continua (se puede aprender mientras dura el
+período de vinculación)
 
 @emph{Mentores:} Urs Liska, Matteo Ceccarello
 
