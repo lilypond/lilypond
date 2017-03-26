@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
+%% Translation of GIT committish: 1010f574a85b40fb70e0b31136e7eb788e4946be
   texidoces = "
 Cuando se produce un cambio de clave, el símbolo de clave se imprime a
 un tamaño menor que la clave inicial.  Esto se puede ajustar con

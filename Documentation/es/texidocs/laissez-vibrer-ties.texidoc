@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
   texidoces = "
 Las ligaduras @qq{Laissez vibrer} (dejar vibrar) tienen un tamaño fijo.
 Se puede ajustar su formato usando @code{'tie-configuration}.

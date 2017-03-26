@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
+%% Translation of GIT committish: 942f957aae58fdc7252d6bc2b548a28e9fadc666
   texidoces = "
 LilyPond puede alterar la dirección de la plica de las notas que van
 en la tercera línea de un pentagrama de forma que siga la melodía,

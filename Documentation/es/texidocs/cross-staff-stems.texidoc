@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 5c42908f1c8d0a5c1d88851a2d793ca55476612c
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
   texidoces = "
 Este fragmento de código muestra el uso del grabador
 @code{Span_stem_engraver} y de @code{\crossStaff} para conectar

@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 45dd19546e9b75b3e1e977732f0962f35dd3290e
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
   texidoces = "
 El texto que ocupa más de una página se puede introducir con la
 instrucción @code{\\markuplines}.

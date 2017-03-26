@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 5c42908f1c8d0a5c1d88851a2d793ca55476612c
+%% Translation of GIT committish: 3ecc98aa5db8a47adcf9defc4ec9fc018c5cc47d
   texidoces = "
 La agrupación de pulsos dentro de un compás está controlada por la
 propiedad de contexto @code{beatStructure}.  Hay establecidos valores
