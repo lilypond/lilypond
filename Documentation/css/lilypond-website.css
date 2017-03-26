@@ -708,6 +708,12 @@ div.float-center a.clickable {
   margin: 0 0 0.5em 0;
 }
 
+/* Used for google summer of code project ideas, for example. */
+.bigger-subsubheadings h4 {
+  font-size: 1.17em;
+  margin: 1.5em 0 0.5em 0;
+}
+
 .column-center-top ul,
 .column-center-middle-color2 ul,
 .column-center-middle-color3 ul,

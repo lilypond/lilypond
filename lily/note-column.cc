@@ -251,4 +251,5 @@ ADD_INTERFACE (Note_column,
                "rest "
                "rest-collision "
                "stem "
+               "glissando-skip "
               );

@@ -3600,7 +3600,7 @@ lyric_element:
 	}
 	| STRING {
 		if (!parser->lexer_->is_lyric_state ())
-			parser->parser_error (@1, _ ("unrecognized string, not in text script or \\lyricmode"));
+			parser->parser_error (@1, _f ("not a note name: %s", ly_scm2string ($1)));
 		$$ = $1;
 	}
 	| LYRIC_ELEMENT
