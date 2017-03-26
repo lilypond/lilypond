@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: 4690bfaa07a15e38ebfd1299fa209968603f3630
+   Translation of GIT committish: e187116454ed48e95a22936dc38dcf70f7ac984a
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -193,6 +193,7 @@ intéresser d'autres utilisateurs.
   document.forms["f_lily_irc"].nick.value = username;
 </script>
 @end html
+
 
 @subsubheading Autres langues
 
@@ -532,8 +533,8 @@ liste francophone} ; nous nous chargerons de transmettre un rapport
 à la liste anglophone et assurerons le suivi.
 
 @end itemize
-
 @divEnd
+
 @divEnd
 
 
@@ -631,6 +632,7 @@ ou ambiguïté à ce sujet, avant même que les travaux soient entamés.
 
 @divEnd
 
+
 @divClass{column-center-bottom}
 @subheading Développeurs intéressés
 @c VO Interested developers
@@ -689,6 +691,7 @@ LilyPond, nous vous enjoignons à utiliser le
 lecture des @ref{Manuels, manuels pour la version stable}.}
 
 @divEnd
+
 
 @divClass{column-center-top}
 @subheading Numérotation des versions
@@ -981,13 +984,13 @@ encourageons à d'ores et déjà prendre contact avec notre communauté.
 @divEnd
 
 
-@divClass{column-center-middle-color2}
+@divClass{column-center-middle-color2 bigger-subsubheadings}
 @subheading Recensement de nos idées
 @c VO Project Ideas List
 
 Voici une liste de projets que nous avons proposés aux étudiants du GSoC
 et à quiconque aurait envie d'améliorer LilyPond.@*
-Dernière mise à jour : juanvier 2017.
+Dernière mise à jour : janvier 2017.
 
 Si vous avez d'autres idées de projet réalisable sur une période de
 trois mois, n'hésitez pas à nous en faire part sur la liste des
@@ -999,11 +1002,9 @@ et les années, nous vous conseilllns de nous contacter au plus tôt.
 
 Une liste exhaustive des problèmes est disponible
 @uref{http://sourceforge.net/p/lilypond/issues/list, ici}.
-@divEnd
 
 
-@divClass{column-center-middle-color3}
-@subheading Amélioration de la structure interne des accords
+@subsubheading Amélioration de la structure interne des accords
 @c VO Improve internal chord structure
 
 La structure interne des accords dans LilyPond n'est pas suffisamment
@@ -1016,17 +1017,14 @@ complexes permettra d'y parvenir. Cette représentation interne une fois
 développée permettra par ailleurs d'améliorer le rendu des accords
 nommés.
 
-@strong{Difficulté :} moyennement facile.@*
-@strong{Préalables :} Scheme (Guile), mais le niveau nécessaire peut
+@emph{Difficulté :} moyennement facile.@*
+@emph{Préalables :} Scheme (Guile), mais le niveau nécessaire peut
 s'acquérir aisément@*
-@strong{Connaissances appréciées :} Théorie des accords et de leur nommage@*
-@strong{Mentor :} Carl Sorensen.
-
-@divEnd
+@emph{Connaissances appréciées :} Théorie des accords et de leur nommage@*
+@emph{Mentor :} Carl Sorensen.
 
 
-@divClass{column-center-middle-color3}
-@subheading Adoption du standard SMuFL d'encodage de fontes musicales
+@subsubheading Adoption du standard SMuFL d'encodage de fontes musicales
 @c VO Adopt the SMuFL music font encoding standard
 
 Depuis quelques années émerge un nouveau standard en matière de fontes
@@ -1048,18 +1046,15 @@ modifier les mécanismes de chargement des fontes dans LilyPond, de telle
 sorte qu'ils ne se cantonnent pas uniquement à l'installation de
 LilyPond.
 
-@strong{Difficulté :} moyennement facile@*
-@strong{Préalables :} C++ et la volonté de se familiariser avec les
+@emph{Difficulté :} moyennement facile@*
+@emph{Préalables :} C++ et la volonté de se familiariser avec les
 composantes internes de LilyPond@*
-@strong{Connaissances appréciées :} intérêt et expérience dans le
+@emph{Connaissances appréciées :} intérêt et expérience dans le
 maniement des fichiers de fonte ; des notions de METAFONT@*
-@strong{Mentors :} Werner Lemberg, Abraham Lee
-
-@divEnd
+@emph{Mentors :} Werner Lemberg, Abraham Lee
 
 
-@divClass{column-center-middle-color3}
-@subheading Ajout de variantes pour certains glyphes
+@subsubheading Ajout de variantes pour certains glyphes
 @c VO Adding variants of font glyphs
 
 @divClass{keep-bullets}
@@ -1077,16 +1072,13 @@ important que l'autre.
 @end itemize
 @divEnd
 
-@strong{Difficulté :} facile@*
-@strong{Préalables :} MetaFont, C++, une bonne vue pour les détails@*
-@strong{Connaissances appréciées :} les bases de LilyPond@*
-@strong{Mentor :} Werner Lemberg
-
-@divEnd
+@emph{Difficulté :} facile@*
+@emph{Préalables :} MetaFont, C++, une bonne vue pour les détails@*
+@emph{Connaissances appréciées :} les bases de LilyPond@*
+@emph{Mentor :} Werner Lemberg
 
 
-@divClass{column-center-middle-color3}
-@subheading Notation contemporaine
+@subsubheading Notation contemporaine
 @c VO Contemporary Notation
 
 LilyPond excelle dans la création de notation non standard. La nécessité
@@ -1105,17 +1097,15 @@ contemporaine comme, par exemple, le style d'un compositeur donné, des
 techniques étendues d'exécution pour un instrument particulier ou une
 certaine catégorie d'effets.
 
-@strong{Difficulté :} moyenne@*
-@strong{Préalables :} Scheme (interaction avec les arcanes de LilyPond),
+@emph{Difficulté :} moyenne@*
+@emph{Préalables :} Scheme (interaction avec les arcanes de LilyPond),
 techniques de notation contemporaine@*
-@strong{Connaissances appréciées :} sens de la construction d'ossatures
+@emph{Connaissances appréciées :} sens de la construction d'ossatures
 hiérarchisées@*
-@strong{Mentors :} @strong{NN,} Urs Liska
+@emph{Mentors :} @emph{NN,} Urs Liska
 
-@divEnd
 
-@divClass{column-center-middle-color3}
-@subheading Réécriture en Python de l'extension LilyPond pour LibreOffice
+@subsubheading Réécriture en Python de l'extension LilyPond pour LibreOffice
 @c VO Rewrite LibreOffice LilyPond Extension with Python
 
 L'extension @uref{http://ooolilypond.sourceforge.net/, OOoLilyPond} a
@@ -1134,18 +1124,15 @@ permettra aussi l'intégration de fonctionnalités de
 coloration syntaxique, des aides à la saisie, des assistants à la
 creation de partition ou des transformations de musique.
 
-@strong{Difficulté :} moyennement facile@*
-@strong{Préalables :} Python, PyQt, les base de LilyPond, les base des
+@emph{Difficulté :} moyennement facile@*
+@emph{Préalables :} Python, PyQt, les base de LilyPond, les base des
 extensions de LibreOffice@*
-@strong{Connaissances appréciées :} familiarité avec les bases du code
+@emph{Connaissances appréciées :} familiarité avec les bases du code
 de Frescobaldi ou l'envie de l'apprendre sur la période@*
-@strong{Mentors :} Joram Berger, Urs Liska, (Thorsten Behrens/LibreOffice)
-
-@divEnd
+@emph{Mentors :} Joram Berger, Urs Liska, (Thorsten Behrens/LibreOffice)
 
 
-@divClass{column-center-middle-color3}
-@subheading Automatisation des tests et documentation d'openLilyLib
+@subsubheading Automatisation des tests et documentation d'openLilyLib
 @c VO Automated testing and documentation for openLilyLib
 
 @uref{https://github.com/openlilylib, openLilyLib} constitue une
@@ -1188,24 +1175,21 @@ d'@uref{https://openlilylib.org, openLilyLib}.  Le développement d'un
 tel générateur de page unique @emph{peut} éventuellement s'intégrer au
 projet GSoC.
 
-@strong{Difficulté :} moyenne@*
-@strong{Préalables :} Python ou Scheme, générateur(s) de site statique
+@emph{Difficulté :} moyenne@*
+@emph{Préalables :} Python ou Scheme, générateur(s) de site statique
 ou technologie d'application web dynamique (basée sur Node.js) ;
 intégration continue (peut s'acquérir sur la période)@*
-@strong{Mentors :} Urs Liska, Matteo Ceccarello
-
-@divEnd
+@emph{Mentors :} Urs Liska, Matteo Ceccarello
 
 
-@divClass{column-center-middle-color3}
-@subheading MusicXML
+@subsubheading MusicXML
 
 Amélioration des fonctionnalités d'import et d'export :
 
 L'interopérabilité entre LilyPond et les autres applications utilisant
 MusicXML reste quelque chose de difficile. L'import de MusicXML est
 réalisé par conversion « manuelle » à l'aide du script
-@code{musicxml2ly}. L'export @emph{en} MusicXML n'est disponible qu'au
+@code{musicxml2ly}. L'export @emph{vers} MusicXML n'est disponible qu'au
 travers d'une fonctionnalité rudimentaire de Frescobaldi.
 L'interopérabilité naturelle entre LilyPond et les applications basées
 sur MusicXML requiert une véritable fonction d'import ainsi qu'un moteur
@@ -1225,16 +1209,16 @@ bibliothèque XML autre que celle fournie par Guile-2 afin de rendre
 cette fonctionnalité opérationnelle avec la version actuelle de
 LilyPond, basée quant à elle sur Guile-1.8.
 
-@strong{Difficulté :} moyenne@*
-@strong{Préalables :} MusicXML, Python, Scheme, les bases de LilyPond@*
-@strong{Connaissances appréciées :} connaissance d'autres éditeurs de
+@emph{Difficulté :} moyenne@*
+@emph{Préalables :} MusicXML, Python, Scheme, les bases de LilyPond@*
+@emph{Connaissances appréciées :} connaissance d'autres éditeurs de
 partition, dans un but de tests comparatifs@*
-@strong{Mentor :} Jan-Peter Voigt
+@emph{Mentor :} Jan-Peter Voigt
 
 @divEnd
 
 
-@divClass{column-center-middle-color3}
+@divClass{column-center-middle-color2}
 @subheading Information à l'attention des candidats et participants
 @c VO Information for Applicants/Participants
 
@@ -1243,7 +1227,6 @@ les candidats sont fortements encouragés à porter toute leur attention
 aux recommandations qui suivent.  Certaines d'entre elles concernent la
 procédure de candidature, d'autres la période du stage au sein du projet.
 
-@divClass{keep-bullets}
 @itemize
 
 @item
@@ -1309,7 +1292,7 @@ correctement votre code à sa @emph{simple lecture} si vous ne lui
 procurez pas un exemple concret de son efficacité.
 
 @end itemize
-@divEnd
+
 
 Une liste des projets inactifs est disponible au @rwebnamed{Grenier,
 grenier}.  Y sont recensés des projets toujours considérés comme
@@ -1402,7 +1385,6 @@ d'actualité mais pour lesquels aucun mentor n'est à ce jour disponible.
 
 @divEnd
 @divEnd
-
 
 
 @node Remerciements
@@ -1536,18 +1518,16 @@ Notes des développeurs, par version :
 @divEnd
 
 
-@divClass{column-center-middle-color2}
+@divClass{column-center-middle-color2 bigger-subsubheadings}
 @subheading Suggestions en suspend pour le Google Summer of Code
-@c VO Unused Google Summer of Code project suggestions
+@c VO Inactive Google Summer of Code project suggestions
 
-La liste suivante recense les projets proposés au GSoC précédents et qui
-sont toujours d'actualité, mais pour lesquels aucun mentor n'est
+La liste suivante recense les projets proposés aux GSoC précédents et
+qui sont toujours d'actualité, mais pour lesquels aucun mentor n'est
 actuellement disponible.
 
-@divEnd
 
-@divClass{column-center-middle-color3}
-@subheading Amélioration des liaisons
+@subsubheading Amélioration des liaisons
 @c VO Improve slurs and ties
 
 Le galbe par défaut des liaisons n'est souvent pas pleinement
@@ -1556,14 +1536,12 @@ de ligne n'est pas totalement fonctionnelle. Ce projet comporte entre
 autres un recensement d'exemples de résultats défectueux, l'appréciation
 du résultat optimal et l'écriture du code approprié.
 
-@strong{Difficulté :} difficile@*
-@strong{Préalables :} C++, expérience dans l'écriture d'heuristiques@*
-@strong{Connaissances appréciées :} LilyPond, sens de l'esthétique
+@emph{Difficulté :} difficile@*
+@emph{Préalables :} C++, expérience dans l'écriture d'heuristiques@*
+@emph{Connaissances appréciées :} LilyPond, sens de l'esthétique
 
-@divEnd
 
-@divClass{column-center-middle-color3}
-@subheading Notes d'ornement @emph{(grace notes)}
+@subsubheading Notes d'ornement @emph{(grace notes)}
 @c VO Grace notes
 
 Résolution des problèmes de synchronisation des notes d'ornement. Les
@@ -1573,15 +1551,13 @@ lorsqu'elles interviennent dans une portée seulement. Il s'agit
 @uref{https://sourceforge.net/p/testlilyissues/issues/34/, là} de l'un
 des bogues les plus vieux et embarrassants pour LilyPond.
 
-@strong{Difficulté :} moyenne@*
-@strong{Préalables :} C++, MIDI@*
-@strong{Connaissances appréciées :} familiarité avec les arcanes de
+@emph{Difficulté :} moyenne@*
+@emph{Préalables :} C++, MIDI@*
+@emph{Connaissances appréciées :} familiarité avec les arcanes de
 LilyPond
 
-@divEnd
 
-@divClass{column-center-middle-color3}
-@subheading Amélioration du positionnement par défaut des ligatures
+@subsubheading Amélioration du positionnement par défaut des ligatures
 @c VO Improve default beam positioning
 
 Une ligature, qu'elle soit rectiligne, passe d'une portée à l'autre,
@@ -1591,14 +1567,12 @@ adjacentes (voir
 la section 2.2 de cet article}).  Dans la mesure du possible, raccourcir
 le temps de calcul nécessaire à la génération des ligatures.
 
-@strong{Difficulté :} moyenne@*
-@strong{Préalables :} C++, expérience dans l'écriture d'heuristiques@*
-@strong{Connaissance appréciée :} sens de l'esthétique
+@emph{Difficulté :} moyenne@*
+@emph{Préalables :} C++, expérience dans l'écriture d'heuristiques@*
+@emph{Connaissance appréciée :} sens de l'esthétique
 
-@divEnd
 
-@divClass{column-center-middle-color3}
-@subheading Aide à l'amélioration du comportement lors de la compilation
+@subsubheading Aide à l'amélioration du comportement lors de la compilation
 @c VO Help improve compilation behavior
 
 Les outils d'analyse comme @emph{valgrind} pour la détection de fuites
@@ -1607,8 +1581,8 @@ des informations précieuses quant à d'éventuelles faiblesses du
 code C++.  Faire le ménage dans tous ces messages nous permettrait de
 rejeter tout patch qui introduirait des messages superflus.
 
-@strong{Difficulté :} moyenne@*
-@strong{Préalable :} C++
+@emph{Difficulté :} moyenne@*
+@emph{Préalable :} C++
 
 @divEnd
 
