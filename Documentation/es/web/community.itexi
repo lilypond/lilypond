@@ -1121,7 +1121,7 @@ partir de las fuentes, por lo que se necesita un sistema que
 demande de los autores de los paquetes que documenten los archivos
 de entrada y que provean ejemplos de uso adicionales, desde los
 cuales se genera la documentación.  Idealmente, pero no
-obligatoriamente, estaría implementado como un @{hook} de Git, es
+obligatoriamente, estaría implementado como un @code{hook} de Git, es
 decir, que funcione automáticamente al producirse cada una de las
 actualizaciones realizadas sobre el repositorio.  No prescribimos
 ninguna de las herramientas o enfoques que se deben usar, pero el
