@@ -2,7 +2,8 @@
   texidoces = "
 Para hacer invisibles partes de un regulador de crescendo, se usa el
 método de dibujar un rectángulo blanco encima de la parte respectiva
-del regulador, tapándola.
+del regulador, tapándola.  El rectángulo se define como código de
+postscript dentro de un elemento de marcado de texto.
 
 La instrucción de marcado @code{with-dimensions} indica a LilyPond que
 considere solamente el extremo inferior del rectángulo cuando realice
@@ -10,7 +11,7 @@ el espaciado de éste frente al regulador.  La propiedad
 @code{staff-padding} evita que el rectángulo quepa entre el regulador
 y el pentagrama.
 
-Asegúrse de poner el regulador en una capa más baja que el
+Asegúrse de que el regulador está en una capa más baja que el
 elemento de marcado de texto para trazar el rectángulo encima del
 regulador.
 

@@ -1,11 +1,11 @@
 %% Translation of GIT committish: 5db593aa3737cf8c60f9c4c4fcbe317c2d832766
   texidoces = "
 Algunas expresiones de matiz dinámico llevan texto adicional, como
-@qq{sempre pp}.  Dado que los matices suelen ir centrados bajo la
+\"sempre pp\".  Dado que los matices suelen ir centrados bajo la
 nota, el \\pp se imprimiría mucho después de la nota a la que se
 aplica el matiz.
 
-Para alinear correctamente el @qq{sempre pp} en sentido horizontal, de
+Para alinear correctamente el \"sempre pp\" en sentido horizontal, de
 manera que se alinee como si estuviese solamente el \\pp, hay varios
 enfoques:
 
@@ -21,9 +21,12 @@ Inconveniente: el relleno realmente ocupa ese espacio y no permite que
 se imprima ningún otro elemento de marcado o matiz dinámico en esa
 posición.
 
+* Desplazar la inscripción dinámica @code{\\once\\override ... .X-offset = ..}.
+Inconveniente: ¡se necesita @code{\\once\\override} para cada una de las invocaciones!
+
 * Fijar las dimensiones del texto adicional a cero (usando
 @code{#:with-dimensions '(0 . 0) '(0 . 0)}).  Inconveniente: para
-LilyPond @qq{sempre} no tiene dimensiones, por lo que podría imprimir
+LilyPond \"sempre\" no tiene dimensiones, por lo que podría imprimir
 otros elementos en su mismo lugar y producir colisiones (que no serían
 advertidas por el mecanismo de detección de colisiones).  Asimismo,
 aparentemente hay algún espacio, y por tanto no es exactamente la
@@ -35,7 +38,7 @@ de Scheme que produce el elemento dynamic-script.
 * Fijar una alineación explícita dentro del dynamic-script.  De forma
 predeterminada, esto no tendría ningún efecto, a no ser que fijásemos
 un valor para X-offset.  Inconveniente: tenemos que dar un valor a
-@code{DynamicText #'X-offset} ¡que se aplicaría a todos los textos de
+@code{DynamicText.X-offset} ¡que se aplicaría a todos los textos de
 dinámica!.  Asimismo, se alinea con el extremo derecho del texto
 adicional, no con el centro del pp.
 

@@ -1,10 +1,10 @@
 %% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
   texidoces = "
-Se puede acceder @qq{lateralmente} a algunos grobs desde dentro de la
+Se puede acceder \"lateralmente\" a algunos grobs desde dentro de la
 función de callback de otro grob.  Éstos se encuentran relacionados
-normalmente como @qq{layout objects} (objetos de presentación) en la
-sección @qq{Internal properties} (propiedades internas) de un
-interface de grob.  Se usa la función @code{ly:grob-object} para
+normalmente como \"layout objects\" (objetos de presentación) en la
+sección \"Internal properties\" (propiedades internas) de un
+interface de grob.  Se usa la función ly:grob-object para
 acceder a estos grobs.
 
 

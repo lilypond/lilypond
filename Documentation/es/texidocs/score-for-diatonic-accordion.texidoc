@@ -43,8 +43,5 @@ las partes de cerrar y cuáles las de abrir.
 3. Para cada una de las partes de abrir o cerrar, transcriba las notas
 del piano a la representación de tablatura correspondiente.
 
-Este fragmento de código incluye un útil macro opcional para el editor
-de texto jEdit.
-
 "
   doctitlees = "Partitura para acordeón diatónico"

@@ -1,8 +1,8 @@
 %% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
   texidoces = "
 Al trabajar con los callbacks de un grob, puede ser de mucha ayuda
-entender el @qq{árbol genealógico} de un grob.  La mayor parte de los
-grobs tienen @qq{padres} que influyen en el posicionamiento del grob.
+entender el árbol genealógico de un grob.  La mayor parte de los
+grobs tienen padres que influyen en el posicionamiento del grob.
 los padres X e Y influyen en las posiciones horizontal y vertical del
 grob, respectivamente.  Además, cada pade puede tener padres a su vez.
 
@@ -11,19 +11,15 @@ Por desgracia, existen varios aspectos de la genealogía de un grob que
 pueden llevar a confusión:
 
 
-@itemize
-
-@item Los tipos de padre que tiene un grob pueden depender del
+* Los tipos de padre que tiene un grob pueden depender del
 contexto.
 
-@item Para ciertos grobs, los padres X e Y son el mismo.
+* Para ciertos grobs, los padres X e Y son el mismo.
 
-@item Un @qq{ancestro} concreto puede estar relacionado con un grob de
-mas de una manera.
+* Un \"ancestro\" concreto puede estar relacionado con un grob de
+más de una manera.
 
-@item El concepto de @qq{generaciones} es engañoso.
-
-@end itemize
+* El concepto de \"generaciones\" es engañoso.
 
 
 Por ejemplo, el grob @code{System} puede ser tanto un padre (sobre el
@@ -35,33 +31,24 @@ Este macro imprime, en la consola, una representación textual de la
 genealogía de un grob.
 
 
-Cuando se llama de esta forma
+Cuando se llama de esta forma:
 
-@example
-@{
-   \\once \\override NoteHead #'before-line-breaking = #display-ancestry
-   c4
-@}
-@end example
-
+@code{@{ \\once \\override NoteHead.before-line-breaking =
+#display-ancestry c @}}
 
 Se genera la siguiente salida:
 
 
-@example
-------------------------------------
-
-NoteHead X,Y: NoteColumn
-    X: PaperColumn
-       X,Y: System
-    Y: VerticalAxisGroup
-       X: NonMusicalPaperColumn
-          X,Y: System
-       Y: VerticalAlignment
-          X: NonMusicalPaperColumn
-             X,Y: System
-          Y: System
-@end example
+@code{NoteHead X,Y: NoteColumn
+     X: PaperColumn
+        X,Y: System
+     Y: VerticalAxisGroup
+        X: NonMusicalPaperColumn
+           X,Y: System
+        Y: VerticalAlignment
+           X: NonMusicalPaperColumn
+              X,Y: System
+           Y: System}
 
 "
   doctitlees = "Imprimir el árbol genealógico de un grob"

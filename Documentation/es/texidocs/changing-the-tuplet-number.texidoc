@@ -2,7 +2,10 @@
   doctitlees = "Cambiar el número del grupo especial"
   texidoces = "
 De forma predeterminada sólo se imprime sobre el corchete de grupo el
-numerador del grupo especial. De forma alternativa, se puede imprimr
+numerador del grupo especial, o sea, el numerador del argumento de la instrucción
+@code{\\tuplet}.
+
+De forma alternativa, se puede imprimr
 un quebrado en la forma numerador:denominador del número del grupo, o
 eliminar el número.
 

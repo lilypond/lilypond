@@ -1,7 +1,0 @@
-%% Translation of GIT committish: bc4b56a8dee39a1fa3f40ac329ab0754d46fc56f
-  texidoces = "
-Se puede imprimir una línea divisoria de la forma @code{.|:} al
-principio de la pieza, sobreescribiendo la propiedad correspondiente:
-
-"
-  doctitlees = "Imprimir puntos de repetición al prinicpio de la pieza"
