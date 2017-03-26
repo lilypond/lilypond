@@ -1125,7 +1125,7 @@ obligatoriamente, estaría implementado como un @{hook} de Git, es
 decir, que funcione automáticamente al producirse cada una de las
 actualizaciones realizadas sobre el repositorio.  No prescribimos
 ninguna de las herramientas o enfoques que se deben usar, pero el
-lenguare de más amplio uso en el dominio de LilyPond es Python,
+lenguaje de más amplio uso en el dominio de LilyPond es Python,
 por lo que habría cierta inclinación hacia esa opción.  Como
 alternativa, estaría bien una solución en Scheme, de forma que la
 generación de documentación fuese, en efecto, disparada por la
