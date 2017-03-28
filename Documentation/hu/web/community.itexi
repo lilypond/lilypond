@@ -61,6 +61,9 @@ LilyPond mára azzá legyen, ami.
 @ref{Publikációk}: Írások, amiket mi írtunk, vagy rólunk írtak.
 
 @item
+@ref{Hírek}: Hírek a LilyPond háza tájáról.
+
+@item
 @ref{Hírarchívum}: A régebbi hírek archívuma.
 
 @end itemize
@@ -76,6 +79,7 @@ LilyPond mára azzá legyen, ami.
 * Fejlesztés::
 * Készítők::
 * Publikációk::
+* Hírek::
 * Hírarchívum::
 @end menu
 @divEnd
@@ -1008,7 +1012,7 @@ Lásd még @ref{Hírarchívum}
 
 @divEnd
 
-@subheading Köszönöm
+@subheading Köszönetnyilvánítás
 
 @miscLink{THANKS-2.16,v2.16},
 @miscLink{THANKS-2.14,v2.14},
