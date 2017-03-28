@@ -818,11 +818,11 @@ más recientes están en @url{http://lilypond.org}}
 @docLinkPdf{Aprendizaje,learning,@manualDevelLearningPdf-es}
 
 @item
-@docLinkSplit{Glosario,music-glossary,@manualDevelGlossarySplit-es}
+@docLinkSplit{Glosario,music-glossary,@manualDevelGlossarySplit}
 @tab
-@docLinkBig{Glosario,music-glossary,@manualDevelGlossaryBig-es}
+@docLinkBig{Glosario,music-glossary,@manualDevelGlossaryBig}
 @tab
-@docLinkPdf{Glosario,music-glossary,@manualDevelGlossaryPdf-es}
+@docLinkPdf{Glosario,music-glossary,@manualDevelGlossaryPdf}
 
 @item
 @docLinkSplit{Ensayo,essay,@manualDevelEssaySplit-es}
@@ -850,11 +850,11 @@ más recientes están en @url{http://lilypond.org}}
 @docLinkPdf{Utilización,usage,@manualDevelUsagePdf-es}
 
 @item
-@docLinkSplit{Fragmentos,snippets,@manualDevelSnippetsSplit-es}
+@docLinkSplit{Fragmentos,snippets,@manualDevelSnippetsSplit}
 @tab
-@docLinkBig{Fragmentos,snippets,@manualDevelSnippetsBig-es}
+@docLinkBig{Fragmentos,snippets,@manualDevelSnippetsBig}
 @tab
-@docLinkPdf{Fragmentos,snippets,@manualDevelSnippetsPdf-es}
+@docLinkPdf{Fragmentos,snippets,@manualDevelSnippetsPdf}
 @end multitable
 
 @multitable @columnfractions .3 .3 .3
@@ -882,11 +882,11 @@ más recientes están en @url{http://lilypond.org}}
 @docLinkPdf{Extensiones,extending,@manualDevelExtendingPdf-es}
 
 @item
-@docLinkSplit{Funcionamiento interno,internals,@manualDevelInternalsSplit-es}
+@docLinkSplit{Funcionamiento interno,internals,@manualDevelInternalsSplit}
 @tab
-@docLinkBig{Funcionamiento interno,internals,@manualDevelInternalsBig-es}
+@docLinkBig{Funcionamiento interno,internals,@manualDevelInternalsBig}
 @tab
-@docLinkPdf{Funcionamiento interno,internals,@manualDevelInternalsPdf-es}
+@docLinkPdf{Funcionamiento interno,internals,@manualDevelInternalsPdf}
 @end multitable
 
 @ifset web_version
