@@ -1455,6 +1455,7 @@
         (side-axis . ,Y)
         (staff-padding . 0.5)
         (stencil . ,measure-counter-stencil)
+        (Y-offset . ,side-position-interface::y-aligned-side)
         (meta . ((class . Spanner)
                  (interfaces . (font-interface
                                 measure-counter-interface
