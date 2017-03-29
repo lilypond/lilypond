@@ -14,7 +14,6 @@
 @node Sablonok
 @appendix Sablonok
 @translationof Templates
-@translationof Templates
 
 @untranslated
 
@@ -33,7 +32,6 @@
 @node Egy kottasor
 @appendixsec Egy kottasor
 @translationof Single staff
-@translationof Single staff
 
 @untranslated
 
@@ -44,7 +42,6 @@
 
 @node Zongorasablonok
 @appendixsec Zongorasablonok
-@translationof Piano templates
 @translationof Piano templates
 
 @untranslated
@@ -57,7 +54,6 @@
 @node Vonósnégyes
 @appendixsec Vonósnégyes
 @translationof String quartet
-@translationof String quartet
 
 @untranslated
 
@@ -66,7 +62,6 @@
 
 @node Kórus
 @appendixsec Kórus
-@translationof Vocal ensembles
 @translationof Vocal ensembles
 
 @untranslated
@@ -78,7 +73,6 @@
 @node Zenekari sablonok
 @appendixsec Zenekari sablonok
 @translationof Orchestral templates
-@translationof Orchestral templates
 
 @untranslated
 
@@ -88,7 +82,6 @@
 @node Sablonok régizenéhez
 @appendixsec Sablonok régizenéhez
 @translationof Ancient notation templates
-@translationof Ancient notation templates
 
 @untranslated
 
@@ -97,7 +90,6 @@
 
 @node Egyéb sablonok
 @appendixsec Egyéb sablonok
-@translationof Other templates
 @translationof Other templates
 
 @untranslated

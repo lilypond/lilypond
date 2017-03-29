@@ -14,7 +14,6 @@
 @node A kimenet finomhangolása
 @chapter A kimenet finomhangolása
 @translationof Tweaking output
-@translationof Tweaking output
 
 @untranslated
 
@@ -31,7 +30,6 @@
 @node A finomhangolás alapjai
 @section A finomhangolás alapjai
 @translationof Tweaking basics
-@translationof Tweaking basics
 
 @untranslated
 
@@ -46,7 +44,6 @@
 @node Bevezetés a finomhangolásba
 @subsection Bevezetés a finomhangolásba
 @translationof Introduction to tweaks
-@translationof Introduction to tweaks
 
 @untranslated
 
@@ -54,7 +51,6 @@
 @ref{Kontextusok és ábrázolók}, as Contexts, Engravers, and the
 @node Objektumok és interfészek
 @subsection Objektumok és interfészek
-@translationof Objects and interfaces
 @translationof Objects and interfaces
 
 @untranslated
@@ -73,7 +69,6 @@
 @node Objektumok és tulajdonságok elnevezési konvenciói
 @subsection Objektumok és tulajdonságok elnevezési konvenciói
 @translationof Naming conventions of objects and properties
-@translationof Naming conventions of objects and properties
 
 @untranslated
 
@@ -85,7 +80,6 @@
 @ref{Kontextusok és ábrázolók}.  Here for reference is a list
 @node Finomhangolási módszerek
 @subsection Finomhangolási módszerek
-@translationof Tweaking methods
 @translationof Tweaking methods
 
 @untranslated
@@ -136,7 +130,6 @@
 @node A belső működés referenciája
 @section A belső működés referenciája
 @translationof The Internals Reference manual
-@translationof The Internals Reference manual
 
 @untranslated
 
@@ -150,7 +143,6 @@
 
 @node Elrendezési objektumok tulajdonságai
 @subsection Elrendezési objektumok tulajdonságai
-@translationof Properties of layout objects
 @translationof Properties of layout objects
 
 @untranslated
@@ -189,7 +181,6 @@
 @node Interfészek tulajdonságai
 @subsection Interfészek tulajdonságai
 @translationof Properties found in interfaces
-@translationof Properties found in interfaces
 
 @untranslated
 
@@ -214,7 +205,6 @@
 @node Tulajdonságok típusai
 @subsection Tulajdonságok típusai
 @translationof Types of properties
-@translationof Types of properties
 
 @untranslated
 
@@ -224,7 +214,6 @@
 @c ode{\override} command.
 @node Objektumok megjelenése
 @section Objektumok megjelenése
-@translationof Appearance of objects
 @translationof Appearance of objects
 
 @untranslated
@@ -238,7 +227,6 @@
 
 @node Objektumok láthatósága és színe
 @subsection Objektumok láthatósága és színe
-@translationof Visibility and color of objects
 @translationof Visibility and color of objects
 
 @untranslated
@@ -292,7 +280,6 @@
 @node Objektumok mérete
 @subsection Objektumok mérete
 @translationof Size of objects
-@translationof Size of objects
 
 @untranslated
 
@@ -323,7 +310,6 @@
 @node Objektumok hossza és vastagsága
 @subsection Objektumok hossza és vastagsága
 @translationof Length and thickness of objects
-@translationof Length and thickness of objects
 
 @untranslated
 
@@ -351,7 +337,6 @@
 @node Objektumok elhelyezése
 @section Objektumok elhelyezése
 @translationof Placement of objects
-@translationof Placement of objects
 
 @untranslated
 
@@ -364,7 +349,6 @@
 
 @node Automatikus viselkedés
 @subsection Automatikus viselkedés
-@translationof Automatic behavior
 @translationof Automatic behavior
 
 @untranslated
@@ -381,7 +365,6 @@
 @c index markup example
 @node Vonalrendszeren belüli objektumok
 @subsection Vonalrendszeren belüli objektumok
-@translationof Within-staff objects
 @translationof Within-staff objects
 
 @untranslated
@@ -416,7 +399,6 @@
 @c ode{Fingering} object in the IR to be @code{-5}, so let's
 @node Vonalrendszeren kívüli objektumok
 @subsection Vonalrendszeren kívüli objektumok
-@translationof Outside-staff objects
 @translationof Outside-staff objects
 
 @untranslated
@@ -473,7 +455,6 @@
 @node Objektumok ütközése
 @section Objektumok ütközése
 @translationof Collisions of objects
-@translationof Collisions of objects
 
 @untranslated
 
@@ -486,7 +467,6 @@
 
 @node Objektumok mozgatása
 @subsection Objektumok mozgatása
-@translationof Moving objects
 @translationof Moving objects
 
 @untranslated
@@ -528,7 +508,6 @@
 @c index positions property
 @node Egymást átfedő jelek javítása
 @subsection Egymást átfedő jelek javítása
-@translationof Fixing overlapping notation
 @translationof Fixing overlapping notation
 
 @untranslated
@@ -594,7 +573,6 @@
 @node Valós zenei példa
 @subsection Valós zenei példa
 @translationof Real music example
-@translationof Real music example
 
 @untranslated
 
@@ -619,7 +597,6 @@
 @node További finomhangolás
 @section További finomhangolás
 @translationof Further tweaking
-@translationof Further tweaking
 
 @untranslated
 
@@ -635,7 +612,6 @@
 
 @node A finomhangolás más felhasználási módjai
 @subsection A finomhangolás más felhasználási módjai
-@translationof Other uses for tweaks
 @translationof Other uses for tweaks
 
 @untranslated
@@ -664,7 +640,6 @@
 @node Változók felhasználása a finomhangoláshoz
 @subsection Változók felhasználása a finomhangoláshoz
 @translationof Using variables for tweaks
-@translationof Using variables for tweaks
 
 @untranslated
 
@@ -682,7 +657,6 @@
 @node Stíluslapok
 @subsection Stíluslapok
 @translationof Style sheets
-@translationof Style sheets
 
 @untranslated
 
@@ -696,7 +670,6 @@
 @node További információforrások
 @subsection További információforrások
 @translationof Other sources of information
-@translationof Other sources of information
 
 @untranslated
 
@@ -704,14 +677,12 @@
 @node A lassabban feldolgozható finomhangolások elkerülése
 @subsection A lassabban feldolgozható finomhangolások elkerülése
 @translationof Avoiding tweaks with slower processing
-@translationof Avoiding tweaks with slower processing
 
 @untranslated
 
 
 @node Haladó finomhangolás Scheme-mel
 @subsection Haladó finomhangolás Scheme-mel
-@translationof Advanced tweaks with Scheme
 @translationof Advanced tweaks with Scheme
 
 @untranslated
