@@ -204,7 +204,8 @@ accidentals)."
  'measure-counter-interface
  "A counter for numbering measures."
  '(columns
-   count-from))
+   count-from
+   spacing-pair))
 
 (ly:add-interface
  'metronome-mark-interface

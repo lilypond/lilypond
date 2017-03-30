@@ -226,6 +226,22 @@ Paper_column::break_align_width (Grob *me, SCM align_syms)
   return align->extent (p, X_AXIS);
 }
 
+LY_DEFINE (ly_paper_column__break_align_width, "ly:paper-column::break-align-width",
+           2, 0, 0, (SCM col, SCM align_syms),
+           "Determine the extent along the X-axis of a grob used for"
+           " break-alignment organized by column @var{col}. The grob is"
+           " specified by @var{align-syms}, which contains either a"
+           " single @code{break-align-symbol} or a list of such"
+           " symbols.")
+{
+  LY_ASSERT_SMOB (Grob, col, 1);
+  SCM_ASSERT_TYPE (scm_is_symbol (align_syms) || ly_is_list (align_syms),
+                   align_syms, SCM_ARG2, __FUNCTION__, "symbol or list");
+
+  Interval ext = Paper_column::break_align_width (unsmob<Grob> (col), align_syms);
+  return ly_interval2scm (ext);
+}
+
 /*
   Loop through elements of a PaperColumn, find all grobs implementing specified
   interface and return their combined extent.

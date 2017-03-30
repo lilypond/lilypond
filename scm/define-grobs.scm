@@ -1453,6 +1453,7 @@
         (outside-staff-priority . 750)
         (self-alignment-X . ,CENTER)
         (side-axis . ,Y)
+        (spacing-pair . (break-alignment . break-alignment))
         (staff-padding . 0.5)
         (stencil . ,measure-counter-stencil)
         (Y-offset . ,side-position-interface::y-aligned-side)
