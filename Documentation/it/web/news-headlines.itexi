@@ -2,7 +2,7 @@
 @c This file is used in the web.texi file.
 
 @ignore
-    Translation of GIT committish: 84fb52147eda042dd16567a7dbad37d2ba96621d
+    Translation of GIT committish: 2f048e40f3c6bb1fda769caf537741c57d15d4ee
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -19,28 +19,28 @@
 @ifclear web_version
   @c no anchor links, just link to News page
 
-@ref{News, Rilasciato LilyPond 2.19.53 - @emph{17 Dicembre 2016}}
+@ref{News, Rilasciato LilyPond 2.19.57 - @emph{12 marzo 2016}}
 
-@ref{News, Due progetti LilyPond nel Google Summer of Code 2016 - @emph{23 Aprile 2016}}
+@ref{News, Due progetti LilyPond nel Google Summer of Code 2016 - @emph{23 aprile 2016}}
 
-@ref{News, Rilasciato LilyPond 2.18.2 - @emph{23 Marzo 2014}}
+@ref{News, Rilasciato LilyPond 2.18.2 - @emph{23 marzo 2014}}
 
-@ref{News, Rilasciato LilyPond 2.18.0 - @emph{29 Dicembre 2013}}
+@ref{News, Rilasciato LilyPond 2.18.0 - @emph{29 dicembre 2013}}
 
 @end ifclear
 @ifset web_version
   @c anchor links, link to individual news items by their <a> tag
 
-@uref{news.html#LilyPond-2_002e19_002e53-released-December-17_002c-2016,
-  Rilasciato LilyPond 2.19.53 - @emph{17 Dicembre 2016}}
+@uref{news.html#LilyPond-2_002e19_002e57-released-March-12_002c-2017,
+  Rilasciato LilyPond 2.19.57 - @emph{12 marzo 2016}}
 
 @uref{news.html#Two-LilyPond-projects-in-Google-Summer-of-Code-2016-April-23_002c-2016,
-  Due progetti LilyPond nel Google Summer of Code 2016 - @emph{23 Aprile 2016}}
+  Due progetti LilyPond nel Google Summer of Code 2016 - @emph{23 aprile 2016}}
 
 @uref{news.html#LilyPond-2_002e18_002e2-released_0021-March-23_002c-2014,
-  Rilasciato LilyPond 2.18.2 - @emph{23 Marzo 2014}}
+  Rilasciato LilyPond 2.18.2 - @emph{23 marzo 2014}}
 
 @uref{news.html#LilyPond-2_002e18_002e0-released_0021-December-29_002c-2013,
-  Rilasciato LilyPond 2.18.0 - @emph{29 Dicembre 2013}}
+  Rilasciato LilyPond 2.18.0 - @emph{29 dicembre 2013}}
 
 @end ifset

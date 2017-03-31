@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 136e94ea422fc94ef2587c588d516a03e01275e1
+    Translation of GIT committish: d1c9544af1b810d0eb4075106f9576347224a1b4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -382,26 +382,6 @@ il pentagramma.
 @exampleImage{tab-example}
 @divEnd
 
-@divClass{column-center-middle-color2}
-@subheading Grafici Schenker
-
-L'output di default può essere ampiamente modificato.  Ecco un'analisi
-Schenkeriana di grande effetto, creata da Kris Schaffer,  per un articolo
-su @uref{http://www.linuxjournal.com/article/8364 , Linux Journal}.
-I colori sono stati aggiunti per migliorare la visibilità.
-
-@exampleImage{bach-schenker}
-@divEnd
-
-@divClass{column-center-middle-color2}
-@subheading Output personalizzato
-
-Un breve estratto del Klavierstück II di Stockhausen per dimostrare  la
-capacità di LilyPond di fornire output personalizzato.
-
-@exampleImage{Stockhausen_Klavierstueck2}
-@divEnd
-
 
 @divClass{column-center-middle-color2}
 @subheading Musica Vocale
@@ -417,14 +397,6 @@ e le parentesi quadre sulle sezioni legate.
 @exampleImage{aucun-snippet}
 @divEnd
 
-@divClass{column-center-middle-color2}
-@subheading Materiali didattici
-
-LilyPond è molto indicato anche per creare materiali didattici.
-Ecco un esempio di un semplice esercizio di contrappunto.
-
-@exampleImage{theory}
-@divEnd
 
 @divClass{column-center-middle-color2}
 @subheading Spartiti semplificati
@@ -437,6 +409,17 @@ personalizzati per adattarsi a quasi ogni situazione.
 @exampleImage{chart}
 @divEnd
 
+
+@divClass{column-center-middle-color2}
+@subheading Materiali didattici
+
+LilyPond è molto indicato anche per creare materiali didattici.
+Ecco un esempio di un semplice esercizio di contrappunto.
+
+@exampleImage{theory}
+@divEnd
+
+
 @divClass{column-center-middle-color2}
 @subheading Grandi Progetti
 
@@ -448,6 +431,29 @@ da Hu Haipeng, un compositore cieco.
 @exampleImage{orchestra}
 
 @divEnd
+
+
+@divClass{column-center-middle-color2}
+@subheading Output personalizzato
+
+Un breve estratto del Klavierstück II di Stockhausen per dimostrare  la
+capacità di LilyPond di fornire output personalizzato.
+
+@exampleImage{Stockhausen_Klavierstueck2}
+@divEnd
+
+
+@divClass{column-center-middle-color2}
+@subheading Grafici Schenker
+
+L'output di default può essere ampiamente modificato.  Ecco un'analisi
+Schenkeriana di grande effetto, creata da Kris Schaffer,  per un articolo
+su @uref{http://www.linuxjournal.com/article/8364 , Linux Journal}.
+I colori sono stati aggiunti per migliorare la visibilità.
+
+@exampleImage{bach-schenker}
+@divEnd
+
 
 @divClass{column-center-bottom}
 @subheading E ora?
@@ -1278,14 +1284,6 @@ Un editor LilyPond che si usa nel browser e permette di scrivere una
 partitura direttamente senza dover installare LilyPond, purché si sia
 connessi a Internet.
 
-@subsubheading Tunefl
-@uref{http://www.tunefl.com}
-
-Con tunefl è possibile scrivere le partiture direttamente online,
-senza bisogno di installare LilyPond sul proprio computer. Consente di
-sperimentare tutte le funzionalità del programma usando una comoda
-interfaccia web.
-
 @divEnd
 
 
@@ -1298,11 +1296,12 @@ interfaccia web.
 @sourceimage{logo-macosx,,,}
 @sourceimage{logo-windows,,,}
 
-Elysium è un ambiente di sviluppo integrato (IDE) per LilyPond ed è
-un'estensione dell'editor Eclipse.  Ha una vista che affianca
-sorgente e spartito e permette un rapido feedback visivo e sonoro
-senza bisogno di cambiare i contesti.  Include molti modelli con
-configurazione assistita.
+@uref{https://github.com/thSoft/elysium}
+
+È un ambiente completo per creare e modificare partiture con LilyPond
+nell'editor Eclipse.  Offre un ricco set di strumenti per gestire
+facilmente LilyPond.
+
 @divEnd
 
 
@@ -1349,7 +1348,7 @@ Puoi trovare maggiori informazioni sulla configurazione di Emacs e Vim in
 @sourceimage{logo-macosx,,,}
 
 @subsubheading TeXShop
-@uref{http://www.uoregon.edu/~koch/texshop}
+@uref{http://pages.uoregon.edu/koch/texshop/}
 
 L'editor TeXShop per MacOS@tie{}X può essere potenziato per eseguire LilyPond,
 @command{lilypond-book} e @command{convert-ly} all'interno dell'editor,
@@ -1439,8 +1438,8 @@ anche un port in C++.
 
 @item
 @uref{http://strasheela.sourceforge.net/strasheela/doc/index.html,Strasheela}, un
-ambiente costruito sul linguaggio di programmazione a vincoli
-@uref{http://www.mozart-oz.org/, Mozart/Oz}.
+ambiente costruito sul
+@uref{http://mozart.github.io/, Mozart Programming System}.
 @end itemize
 
 @divEnd
@@ -1473,7 +1472,7 @@ sono ancora disponibili e scaricabili le versioni precedenti su
 
 @item
 @uref{https://sourceforge.net/projects/noteedit.berlios/,NoteEdit}, che importava
-@uref{http://www.makemusic.com/musicxml,MusicXML}, è stato "forkato"
+@uref{http://www.musicxml.com/,MusicXML}, è stato "forkato"
 in
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
 e @uref{http://canorus.org,Canorus}.
@@ -1481,6 +1480,13 @@ e @uref{http://canorus.org,Canorus}.
 @item
 @uref{https://launchpad.net/rumor/,Rumor}, un convertitore
 realtime monofonico da MIDI a LilyPond.
+
+@item
+@uref{https://github.com/tiredpixel/tunefl,tunefl}
+Con tunefl è possibile scrivere le partiture direttamente online,
+senza bisogno di installare LilyPond sul proprio computer. Consente di
+sperimentare tutte le funzionalità del programma usando una comoda
+interfaccia web.
 
 @item
 @uref{http://www.tuxguitar.com.ar/,TuxGuitar}, un editor e riproduttore

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: f986fc07ef9a2a1af05f84684fbc5c76d9b65ea4
+    Translation of GIT committish: 5da0af52c0f2f6f00347981549a0e54feff6d056
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -882,9 +882,11 @@ manuali sono reperibili su @url{http://lilypond.org}}
 @divClass{column-center-top}
 @subheading Che cos'è il Google Summer of Code?
 
-@uref{https://developers.google.com/open-source/gsoc/, GSoC} è un programma
+@uref{https://summerofcode.withgoogle.com/, GSoC} è un programma
 internazionale che offre agli studenti degli stipendi per scrivere codice per
-progetti di software libero e open source durante l'estate.  È un'ottima
+progetti di software libero e open source durante l'estate.  Per tre mesi gli
+studenti lavorano per completare un certo compito entrando a far parte della
+comunità del progetto e sotto la guida di tutor esperti.  Il programma è un'ottima
 opportunità per gli studenti per fare esperienza con lo sviluppo software
 in un progetto vero e per dare un contributo da cui tutti potranno trarre
 vantaggio.  Attrae nuovi collaboratori e stimola gli studenti che già
@@ -892,192 +894,13 @@ partecipano allo sviluppo di LilyPond ad impegnarsi di più in esso.  LilyPond
 partecipa a GSoC sotto l'egida del @uref{http://www.gnu.org/, progetto GNU}.
 
 Abbiamo avuto partecipanti al GSoC nel 2012, 2015 e 2016 e invitiamo gli
-studenti a fare domanda per le prossime estati.
+studenti a fare domanda per il programma del 2017.
 
 Se hai dubbi o desideri presentare domanda, invia un'email alla nostra
 mailing list degli sviluppatori (vedi @ref{Contact}).
 
-@divEnd
-
-@divClass{column-center-middle-color2}
-@subheading Elenco di idee di progetti
-
-Ecco un elenco di progetti suggeriti per il GSoC o per chiunque sia interessato
-a aiutare a migliorare LilyPond. (Ultimo aggiornamento: Novembre 2016)
-
-La disponibilità di mentori varia da progetto a progetto e di anno in anno.
-Invia un'email alla nostra mailing list degli sviluppatori (vedi @ref{Contact})
-e ti aiuteremo a trovare un mentore per un progetto che sia adatto ai tuoi
-interessi e capacità.
-
-Se hai idee per un progetto GSoC che non è elencato qui sotto, puoi inviarci
-un'email per discuterne.  Ci sono molte aree in cui LilyPond può essere
-migliorato e il nostro team di sviluppo è sempre disponibile a aiutare
-coloro che desiderino affrontare un progetto come quelli di seguito elencati.
-
-Una lista completa di tutti i problemi da risolvere si trova
-@uref{http://sourceforge.net/p/testlilyissues/issues/, qui}.
-
-@divEnd
-
-@divClass{column-center-middle-color3}
-@subheading Migliorare la struttura interna degli accordi
-
-La rappresentazione interna degli accordi in LilyPond non è abbastanza potente
-da comprendere la nomenclatura degli accordi jazz.  Attualmente l'accordo ha
-una radice, un basso e un'inversione.  Sarebbe auspicabile poter gestire
-accordi @qq{impilati} o bicordi, minori/maggiori, etc.  Per poter far questo,
-deve essere sviluppata una rappresentazione interna capace di catturare
-l'essenza di accordi complessi.  Una volta che questa rappresentazione
-interna viene sviluppata, c'è un'ulteriore vantaggio: sarà più semplice
-migliorare la formattazione dei nomi degli accordi.
-
-@strong{Difficoltà:} Facile/media
-@strong{Requisiti:} Scheme (Guile), ma il livello necessario può essere
-facilmente imparato
-@strong{Consigliato:} Teoria e nomenclatura degli accordi
-@strong{Mentore:} Carl Sorensen
-
-@divEnd
-
-@divClass{column-center-middle-color3}
-@subheading Aggiungere varianti dei glifi dei tipi di carattere
-
-@divClass{keep-bullets}
-@itemize
-
-@item
-Aggiungere varianti @q{sulla} linea del rigo e @q{tra} le linee dei righi.
-
-@item
-Varianti più corte e più strette di alcuni glifi, come ad esempio le
-alterazioni.  Un altro esempio più specifico è la testa della nota
-breve nella notazione antica che ha due varianti, con un @q{buco} più
-piccolo o più grande.
-
-@end itemize
-@divEnd
-
-@strong{Difficoltà:} facile
-@strong{Requisiti:} MetaFont, C++, buon occhio per il dettaglio
-@strong{Conoscenze consigliate:} conoscenza di base di LilyPond
-@strong{Mentore/i:} Werner Lemberg
-
-@divEnd
-
-@divClass{column-center-middle-color3}
-@subheading Abbellimenti
-
-Correggere i problemi di sincronizzazione degli abbellimenti.
-Gli abbellimenti possono interferire col modo in cui LilyPond
-gestisce il tempo e causare strani effetti, specialmente quando si
-usano più righi e alcuni di questi hanno degli abbellimenti mentre
-altri non ce li hanno.  Questo è uno dei
-@uref{https://sourceforge.net/p/testlilyissues/issues/34/,bug}  più
-imbarazzanti e di vecchia data in LilyPond.
-
-@strong{Difficoltà:} media
-@strong{Requisiti:} C++, MIDI
-@strong{Consigliato:} familiarità col funzionamento interno di LilyPond
-@strong{Mentori potenziali:} Mike Solomon (non disponibile per GSoC 2016), Carl Sorensen
-
-@divEnd
-
-
-@divClass{column-center-middle-color3}
-@subheading Migliorare la disposizione predefinita delle travature
-
-Per le travature normali, tra i righi, spezzate e angolari.  La disposizione
-delle travature deve dipendere dal contesto e dalle note vicine (si veda la
-sezione 2.2 di
-@uref{http://imslp.org/wiki/Repository_of_Music-Notation_Mistakes_%28Coulon%2C_Jean-Pierre%29,
-questo libro}).  Se possibile, ridurre anche il tempo di elaborazione della
-disposizione delle travature.
-
-@strong{Difficoltà:} media
-@strong{Requisiti:} C++, esperienza con la scrittura di euristiche
-@strong{Conoscenze consigliate:} senso estetico
-@strong{Mentori potenziali:} Mike Solomon (non disponibile per GSoC 2016), Carl Sorensen
-
-@divEnd
-
-
-@divClass{column-center-middle-color3}
-@subheading Migliorare il comportamento durante la compilazione
-
-Strumenti di analisi automatica del codice, come il rilevamento di
-perdite di memoria di valgrind e i profilatori di codice di callgrind,
-forniscono informazioni utili per individuare possibili errori nel
-nostro codice C++.  Pulire gli avvisi ci permetterebbe di automatizzare
-il rifiuto di qualsiasi patch che introduca avvisi ulteriori.
-
-@strong{Difficoltà:} media
-@strong{Requisiti:} C++
-@strong{Mentori potenziali:} Reinhold Kainhofer (non disponibile per GSoC 2016),
-Joe Neeman
-
-@divEnd
-
-
-@divClass{column-center-middle-color3}
-@subheading MusicXML
-
-Migliorare le funzioni di importazione e esportazione di MusicXML:
-
-@divClass{keep-bullets}
-@itemize
-
-@item
-Gestire l'esportazione del contenuto musicale principale come l'esportazione
-MIDI (ovvero usando classi dedicate dell'esportatore, derivate dalla classe
-del traduttore).
-
-@item
-Costruire l'albero XML del contenuto musicale di base,
-aggiungere un collegamento dall'evento musicale al tag XML.
-
-@item
-Far sì che tutti gli incisori di LilyPond facciano il loro lavoro.
-
-@item
-Aggiungere la capacità di collegare ogni oggetto dell'output
-(ovvero ogni stampo (stencil) / gruppo di stampi) alla sua causa musicale
-(e quindi al tag XML nell'albero XML).
-
-@item
-Creare un backend di output XML, che possa aggiungere le informazioni di
-formattazione per ogni oggetto di output ai tag XML.
-
-@end itemize
-@divEnd
-
-Ci sono varie direzioni possibili per questo progetto, inclusa quella di
-proseguire l'esportazione in formato MusicXML iniziata nel progetto GSoC 2015.
-
-@strong{Difficoltà:} media
-@strong{Requisiti:} MusicXML, Python, Scheme, conoscenza di base di LilyPond
-@strong{Mentori potenziali:} Reinhold Kainhofer, Mike Solomon (entrambi non
-disponibili per GSoC 2016)
-
-È utile avere una certa familiarità con altri software di notazione musicale (a
-fine comparativo).
-
-@divEnd
-
-@divClass{column-center-middle-color3}
-@subheading Migliorare le legature di portamento e di valore
-
-La qualità tipografica delle legature di portamento e di valore è spesso
-non soddisfacente.  Le legature di valore @qq{spezzate} da una chiave o da
-un cambio di rigo non sono gestite al meglio.  Il progetto potrebbe
-includere la raccolta e la classificazione di esempi di output scadente, la
-decisione sull'output desiderato e la scrittura del codice per migliorarlo.
-
-@strong{Difficoltà:} difficile
-@strong{Requisiti:} C++, esperienza con la scrittura di euristica
-@strong{Conoscenze consigliate:} conoscenza di LilyPond, senso estetico
-@strong{Mentori:} Mike Solomon, Janek Warchol (entrambi non disponibili
-per GSoC 2016)
+@c Non voglio mantenere la traduzione delle informazioni su GSoC. - fb
+Maggiori dettagli nella versione inglese di questa pagina.
 
 @divEnd
 
@@ -1221,6 +1044,12 @@ in @ref{Soffitta}}
 
 @include web/news-new.itexi
 
+@divClass{column-center-bottom}
+@subheading Vecchie notizie
+Le vecchie notizie si trovano in @ref{Attic}, insieme a vecchi annunci
+e registri di modifiche (changelog).
+@divEnd
+
 
 @node Soffitta
 @unnumberedsec Soffitta
@@ -1260,6 +1089,7 @@ Elenco descrittivo dei cambiamenti per ogni versione:
 
 @divEnd
 
+@divClass{column-center-middle-color3}
 @subheading Grazie
 
 Grazie a sviluppatori, collaboratori, cacciatori di bug e a chi ci ha dato
@@ -1277,7 +1107,7 @@ preziosi suggerimenti
 
 @divEnd
 
-@divClass{column-center-bottom}
+@divClass{column-center-middle-color3}
 @subheading Lista dei cambiamenti
 
 Lista dei cambiamenti apportati da ciascun sviluppatore in ogni versione:
@@ -1294,6 +1124,22 @@ Lista dei cambiamenti apportati da ciascun sviluppatore in ogni versione:
 @miscLink{CHANGES-0.1,v0.1},
 @miscLink{CHANGES-0.0,v0.0}
 
+@divEnd
+
+@c Non voglio mantenere la traduzione delle informazioni su GSoC. - fb
+@divClass{column-center-middle-color2 bigger-subsubheadings}
+@subheading Idee di progetti per il Google Summer of Code
+
+Visitare la versione inglese di questa pagina per vedere la lista di progetti
+GSoC che sono stati proposti negli ultimi anni e che sono ancora considerati
+interessanti ma per i quali non abbiamo al momento dei tutor disponibili.
+@divEnd
+
+@divClass{column-center-middle-color2}
+@subheading Vecchie notizie
+
+Le vecchie notizie che risalgono fino al luglio 2003.  Le notizie più recenti
+si trovano alla pagina @ref{News}.
 @divEnd
 
 @include web/news-old.itexi
