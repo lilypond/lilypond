@@ -1004,16 +1004,15 @@ Lily_lexer::scan_scm_id (SCM sid)
 }
 
 int
-Lily_lexer::scan_bare_word (const string &str)
+Lily_lexer::scan_word (SCM & output, SCM sym)
 {
-	SCM sym = ly_symbol2scm (str.c_str ());
 	if ((YYSTATE == notes) || (YYSTATE == chords)) {
 		SCM handle = SCM_BOOL_F;
 		if (scm_is_pair (pitchname_tab_stack_))
 			handle = scm_hashq_get_handle (scm_cdar (pitchname_tab_stack_), sym);
 
 		if (scm_is_pair (handle)) {
-			yylval = scm_cdr (handle);
+			output = scm_cdr (handle);
 			if (unsmob<Pitch> (yylval))
 	                    return (YYSTATE == notes) ? NOTENAME_PITCH : TONICNAME_PITCH;
 			else if (scm_is_symbol (yylval))
@@ -1022,9 +1021,21 @@ Lily_lexer::scan_bare_word (const string &str)
 		else if ((YYSTATE == chords)
 			&& scm_is_true (handle = scm_hashq_get_handle (chordmodifier_tab_, sym)))
 		{
-		    yylval = scm_cdr (handle);
+		    output = scm_cdr (handle);
 		    return CHORD_MODIFIER;
 		}
+	}
+	output = SCM_UNDEFINED;
+	return -1;
+}
+
+int
+Lily_lexer::scan_bare_word (const string &str)
+{
+	int state = scan_word (yylval, ly_symbol2scm (str.c_str ()));
+	if (state >= 0)
+	{
+		return state;
 	}
 	yylval = ly_string2scm (str);
 	return STRING;

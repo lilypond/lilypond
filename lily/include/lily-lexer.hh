@@ -38,6 +38,7 @@ public:
   SCM mark_smob () const;
   static const char * const type_p_name_;
   virtual ~Lily_lexer ();
+  int scan_word (SCM & output, SCM sym);
 private:
   int lookup_keyword (const string&);
   int scan_bare_word (const string&);

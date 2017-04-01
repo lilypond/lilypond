@@ -4262,13 +4262,29 @@ make_music_from_simple (Lily_parser *parser, Input loc, SCM simple)
 {
 	if (unsmob<Music> (simple))
 		return simple;
-	if (parser->lexer_->is_note_state ()) {
-		if (scm_is_symbol (simple)) {
+
+	if (scm_is_symbol (simple))
+	{
+		SCM out = SCM_UNDEFINED;
+		switch (parser->lexer_->scan_word (out, simple))
+		{
+		case DRUM_PITCH:
+		{
 			Music *n = MY_MAKE_MUSIC ("NoteEvent", loc);
 			n->set_property ("duration", parser->default_duration_.smobbed_copy ());
-			n->set_property ("drum-type", simple);
+			n->set_property ("drum-type", out);
 			return n->unprotect ();
 		}
+		case NOTENAME_PITCH:
+		case TONICNAME_PITCH:
+			// Take the parsed pitch
+			simple = out;
+			break;
+		// Don't scan CHORD_MODIFIER etc.
+		}
+	}
+
+	if (parser->lexer_->is_note_state ()) {
 		if (unsmob<Pitch> (simple)) {
 			Music *n = MY_MAKE_MUSIC ("NoteEvent", loc);
 			n->set_property ("duration", parser->default_duration_.smobbed_copy ());
