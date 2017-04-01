@@ -537,10 +537,9 @@ expression."
   (music->lily-string (ly:music-property chord 'element)))
 
 (define-display-method MarkEvent (mark)
-  (let ((label (ly:music-property mark 'label)))
-    (if (null? label)
-        "\\mark \\default"
-        (format #f "\\mark ~a" (markup->lily-string label)))))
+  (let ((label (ly:music-property mark 'label #f)))
+    (string-append "\\mark "
+                   (if label (value->lily-string label) "\\default"))))
 
 (define-display-method KeyChangeEvent (key)
   (let ((pitch-alist (ly:music-property key 'pitch-alist))
@@ -785,8 +784,6 @@ Otherwise, return #f."
 (define-public (value->lily-string arg)
   (cond ((ly:music? arg)
          (music->lily-string arg))
-        ((string? arg)
-         (format #f "#~s" arg))
         ((markup? arg)
          (markup->lily-string arg))
         ((ly:duration? arg)
@@ -806,9 +803,9 @@ Otherwise, return #f."
             (if (and (not (null? once)))
                 "\\once "
                 "")
-            (if (eqv? (*current-context*) 'Bottom)
+            (if (eq? (*current-context*) 'Bottom)
                 ""
-                (format #f "~a . " (*current-context*)))
+                (format #f "~a." (*current-context*)))
             property
             (value->lily-string value)
             (new-line->lily-string))))
@@ -816,9 +813,9 @@ Otherwise, return #f."
 (define-display-method PropertyUnset (expr)
   (format #f "~a\\unset ~a~a~a"
           (if (ly:music-property expr 'once #f) "\\once " "")
-          (if (eqv? (*current-context*) 'Bottom)
+          (if (eq? (*current-context*) 'Bottom)
               ""
-              (format #f "~a . " (*current-context*)))
+              (format #f "~a." (*current-context*)))
           (ly:music-property expr 'symbol)
           (new-line->lily-string)))
 

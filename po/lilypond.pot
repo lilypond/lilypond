@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.19.57\n"
+"Project-Id-Version: lilypond 2.19.58\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2017-03-12 11:24+0000\n"
+"POT-Creation-Date: 2017-03-26 11:21+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3387,7 +3387,8 @@ msgid "markup outside of text script or \\lyricmode"
 msgstr ""
 
 #: parser.yy:3603
-msgid "unrecognized string, not in text script or \\lyricmode"
+#, c-format
+msgid "not a note name: %s"
 msgstr ""
 
 #: parser.yy:3755 parser.yy:3764
@@ -3767,17 +3768,17 @@ msgstr ""
 msgid "Exporting font file `~a'."
 msgstr ""
 
-#: framework-ps.scm:543
-#, scheme-format
-msgid "Font export directory `~a' already exists."
-msgstr ""
-
-#: framework-ps.scm:546
+#: framework-ps.scm:542
 #, scheme-format
 msgid "Making font export directory `~a'."
 msgstr ""
 
-#: framework-ps.scm:892
+#: framework-ps.scm:554
+#, scheme-format
+msgid "Font export directory `~a' already exists."
+msgstr ""
+
+#: framework-ps.scm:901
 msgid ""
 "\n"
 "The PostScript backend does not support the\n"

@@ -157,6 +157,9 @@ stderr of this run."
 
 %% Marks
 \test ##[ \mark \default #]			% MarkEvent
+\test ##[ \mark #3 #]
+\test ##[ \mark "Z" #]
+\test ##[ \mark \markup \italic "X" #]
 \test ##[ \mark "Allegro" #]
 \test ##[ \tempo 4 = 120 #]			% MetronomeChangeEvent
 \test ##[ \tempo 4 = 108 - 116 #]
@@ -212,12 +215,12 @@ stderr of this run."
   \remove "Clef_engraver"
 } { c4 d4 } #]
 %% Context properties
-\test ##[ \once \set Score . skipBars = ##t #]		% PropertySet
+\test ##[ \once \set Score.skipBars = ##t #]		% PropertySet
 \test ##[ \set autoBeaming = ##f #]
-\test ##[ \unset Score . skipBars #]		% PropertyUnset
+\test ##[ \unset Score.skipBars #]			% PropertyUnset
 \test ##[ \unset autoBeaming #]
 %% Layout properties
-\test ##[ \override Staff.Stem.thickness = #4.0 #]		% OverrideProperty
+\test ##[ \override Staff.Stem.thickness = #4.0 #]	% OverrideProperty
 \test ##[ \once \override Beam.beam-thickness = #0.6 #]
 \test ##[ \revert Staff.Stem.thickness #]		% RevertProperty
 \test ##[ \revert Beam.beam-thickness #]

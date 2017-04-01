@@ -830,20 +830,11 @@ transpose from @var{around} to @var{to}.")
    (music-invert around to music))
 
 mark =
-#(define-music-function
-   (label) ((number-or-markup?))
-  "Make the music for the \\mark command."
-  (let* ((set (and (integer? label)
-                   (context-spec-music (make-property-set 'rehearsalMark label)
-                                      'Score)))
-         (ev (make-music 'MarkEvent
-                         'origin (*location*))))
-
-    (if set
-        (make-sequential-music (list set ev))
-        (begin
-          (if label (set! (ly:music-property ev 'label) label))
-          ev))))
+#(define-music-function (label) ((number-or-markup?))
+   "Make the music for the \\mark command."
+   (if label
+       (make-music 'MarkEvent 'label label)
+       (make-music 'MarkEvent)))
 
 markupMap =
 #(define-music-function (path markupfun music)
