@@ -1986,6 +1986,28 @@ entries are @code{volta}, @code{tremolo} or @code{percent}.  Multiple entries
 are possible.")
    (unfold-repeats types music))
 
+voices =
+#(define-music-function (ids music) (key-list? ly:music?)
+   (_i "Take the given key list of numbers (indicating the use of
+@samp{\\voiceOne}@dots{}) or symbols (indicating voice names,
+typically converted from strings by argument list processing)
+and assign the following @code{\\\\}-separated music to
+contexts according to that list.  Named rather than numbered
+contexts can be used for continuing one voice (for the sake of
+spanners and lyrics), usually requiring a @code{\\voiceOne}-style
+override at the beginning of the passage and a @code{\\oneVoice}
+override at its end.
+
+The default
+@example
+<< @dots{} \\\\ @dots{} \\\\ @dots{} >>
+@end example
+construct would correspond to
+@example
+\\voices 1,2,3 << @dots{} \\\\ @dots{} \\\\ @dots{} >>
+@end example")
+   (voicify-music music ids))
+
 void =
 #(define-void-function (arg) (scheme?)
    (_i "Accept a scheme argument, return a void expression.
