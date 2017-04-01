@@ -936,45 +936,77 @@ from the predecessor note/chord if available."
      music)))
 
 ;;; splitting chords into voices.
-(define (voicify-list lst number)
+(define (voicify-list locs lst id)
   "Make a list of Musics.
 
-voicify-list :: [ [Music ] ] -> number -> [Music]
+voicify-list :: [ [Music ] ] -> id -> [Music]
 LST is a list music-lists.
 
-NUMBER is 0-base, i.e., Voice=1 (upstems) has number 0.
-"
-  (if (null? lst)
-      '()
-      (cons (context-spec-music
-             (make-sequential-music
-              (list (make-voice-props-set number)
-                    (make-simultaneous-music (car lst))))
-             'Bottom  (number->string (1+ number)))
-            (voicify-list (cdr lst) (1+ number)))))
+id is 1-based, i.e., Voice=1 (upstems) has number 1.
 
-(define (voicify-chord ch)
+id may be a symbol or string giving a specific voice id: in this
+case, no \voiceXXX style is selected, merely the context given.
+
+locs is a list of music expressions suitable for giving
+error locations (enclosing expression for the first element,
+preceding \\\\ separator for the others)
+"
+  (define (voicify-sublist loc sublist id)
+    (cond ((string? id)
+           (context-spec-music
+            (make-simultaneous-music sublist)
+            'Bottom id))
+          ((symbol? id)
+           (voicify-sublist loc sublist (symbol->string id)))
+          ((and (integer? id) (exact? id) (positive? id))
+           (context-spec-music
+            (make-sequential-music
+             (list (make-voice-props-set (1- id))
+                   (make-simultaneous-music sublist)))
+            'Bottom (number->string id)))
+          (else
+           (ly:music-warning loc (_ "Bad voice id: ~a") id)
+           (context-spec-music (make-simultaneous-music sublist) 'Bottom))))
+
+  (cond ((null? lst) '())
+        ((number? id)
+         (cons (voicify-sublist (car locs) (car lst) id)
+               (voicify-list (cdr locs) (cdr lst) (1+ id))))
+        ((pair? id)
+         (cons (voicify-sublist (car locs) (car lst) (car id))
+               (voicify-list (cdr locs) (cdr lst) (cdr id))))
+        ((null? id)
+         (ly:music-warning (car locs) (_ "\\voices needs more ids"))
+         (voicify-list locs lst 1))))
+
+(define (voicify-chord ch id)
   "Split the parts of a chord into different Voices using separator"
   (let ((es (ly:music-property ch 'elements)))
     (set! (ly:music-property  ch 'elements)
-          (voicify-list (split-list-by-separator es music-separator?) 0))
+          (voicify-list (cons ch (filter music-separator? es))
+                        (split-list-by-separator es music-separator?)
+                        id))
     ch))
 
-(define-public (voicify-music m)
-  "Recursively split chords that are separated with @code{\\\\}."
-  (if (not (ly:music? m))
-      (ly:error (_ "music expected: ~S") m))
-  (let ((es (ly:music-property m 'elements))
-        (e (ly:music-property m 'element)))
+(define*-public (voicify-music m #:optional (id 1))
+  "Recursively split chords that are separated with @code{\\\\}.
+Optional @var{id} can be a list of context ids to use.  If numeric,
+they also indicate a voice type override.  If @var{id} is just a single
+number, that's where numbering starts."
+  (let loop ((m m))
+    (if (not (ly:music? m))
+        (ly:error (_ "music expected: ~S") m))
+    (let ((es (ly:music-property m 'elements))
+          (e (ly:music-property m 'element)))
 
-    (if (pair? es)
-        (set! (ly:music-property m 'elements) (map voicify-music es)))
-    (if (ly:music? e)
-        (set! (ly:music-property m 'element)  (voicify-music e)))
-    (if (and (equal? (ly:music-property m 'name) 'SimultaneousMusic)
-             (any music-separator? es))
-        (set! m (context-spec-music (voicify-chord m) 'Staff)))
-    m))
+      (if (pair? es)
+          (set! (ly:music-property m 'elements) (map loop es)))
+      (if (ly:music? e)
+          (set! (ly:music-property m 'element) (loop e)))
+      (if (and (equal? (ly:music-property m 'name) 'SimultaneousMusic)
+               (any music-separator? es))
+          (context-spec-music (voicify-chord m id) 'Staff)
+          m))))
 
 (define-public (empty-music)
   (make-music 'Music))
