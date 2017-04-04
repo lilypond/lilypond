@@ -660,9 +660,13 @@ AC_DEFUN(STEPMAKE_GUILE_DEVEL, [
     found="no"
     for r in $GUILE_CONFIG \
       $target_guile_config $host_guile_config $build_guile_config \
-      guile-config guile-2.2-config guile2.2-config guile2-config \
-      guile2.0-config guile-2.0-config guile1-config guile1.9-config \
-      guile1.8-config guile-1-config guile-1.9-config guile-1.8-config; \
+      guile-config \
+      guile2-config   guile-2-config   guile-config-2   \
+      guile2.2-config guile-2.2-config guile-config-2.2 \
+      guile2.0-config guile-2.0-config guile-config-2.0 \
+      guile1-config   guile-1-config   guile-config-1   \
+      guile1.9-config guile-1.9-config guile-config-1.9 \
+      guile1.8-config guile-1.8-config guile-config-1.8; \
       do
 	exe=`STEPMAKE_GET_EXECUTABLE($r)`
 	if ! $exe --version > /dev/null 2>&1 ; then
