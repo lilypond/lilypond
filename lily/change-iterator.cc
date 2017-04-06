@@ -68,13 +68,9 @@ Change_iterator::change_to (Music_iterator &it,
     }
   else if (it.get_outlet ()->is_alias (to_type))
     {
-      // No enclosing context was found because the iterator's immediate
-      // context is the kind that was sought.
-      /* We could change the current translator's id, but that would make
-         errors hard to catch.
+      // No enclosing context of the right kind was found
+      // and the iterator's immediate context is the kind that was sought.
 
-         last->translator_id_string () = get_change
-         ()->change_to_id_string (); */
       result = _f ("not changing to same context type: %s", ly_symbol2string (to_type).c_str ());
     }
   else

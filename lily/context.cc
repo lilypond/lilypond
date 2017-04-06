@@ -674,11 +674,12 @@ find_context_above (Context *where, SCM type)
 Context *
 find_context_above_by_parent_type (Context *where, SCM parent_type)
 {
-  for (Context *child = 0; where;
-       child = where, where = where->get_parent_context ())
-    if (where->is_alias (parent_type))
-      return child;
-
+  while (Context *parent = where->get_parent_context ())
+    {
+      if (parent->is_alias (parent_type))
+        return where;
+      where = parent;
+    }
   return 0;
 }
 
