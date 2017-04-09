@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.19.58\n"
+"Project-Id-Version: lilypond 2.19.59\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2017-03-26 11:21+0100\n"
+"POT-Creation-Date: 2017-04-09 11:00+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2506,12 +2506,11 @@ msgstr ""
 msgid "exception caught: %s"
 msgstr ""
 
-#. FIXME: constant error message.
-#: mark-engraver.cc:150
+#: mark-engraver.cc:152
 msgid "rehearsalMark must have integer value"
 msgstr ""
 
-#: mark-engraver.cc:156
+#: mark-engraver.cc:158
 msgid "mark label must be a markup object"
 msgstr ""
 
@@ -3873,29 +3872,29 @@ msgstr ""
 msgid "Compilation completed with warnings or errors"
 msgstr ""
 
-#: lily.scm:1002
+#: lily.scm:1006
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr ""
 
-#: lily.scm:1005
+#: lily.scm:1009
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
 "~a"
 msgstr ""
 
-#: lily.scm:1027 lily.scm:1116
+#: lily.scm:1031 lily.scm:1120
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:1107
+#: lily.scm:1111
 #, scheme-format
 msgid "Redirecting output to ~a..."
 msgstr ""
 
-#: lily.scm:1126
+#: lily.scm:1130
 #, scheme-format
 msgid "Invoking `~a'...\n"
 msgstr ""
