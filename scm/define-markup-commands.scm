@@ -3726,6 +3726,10 @@ mensural-flags.  Both are supplied for convenience.
   (let* ((font (ly:paper-get-font layout (cons '((font-encoding . fetaMusic)
                                                  (font-name . #f))
                                                props)))
+         ;; default for text-font-size is 11
+         ;; hence we use (/ text-font-size 11) later, to ensure proper scaling
+         ;; of stem-length and thickness
+         (text-font-size (ly:output-def-lookup layout 'text-font-size 11))
          (size-factor (magstep font-size))
          (blot (ly:output-def-lookup layout 'blot-diameter))
          (head-glyph-name
@@ -3749,8 +3753,9 @@ mensural-flags.  Both are supplied for convenience.
          (attach-indices (ly:note-head::stem-attachment font head-glyph-name))
          (stem-length (* size-factor (max 3 (- log 1))))
          ;; With ancient-flags we want a tighter stem
-         (stem-thickness (* size-factor (if ancient-flags? 0.1 0.13)))
-         (stemy (* dir stem-length))
+         (stem-thickness
+           (* size-factor (/ text-font-size 11) (if ancient-flags? 0.1 0.13)))
+         (stemy (* dir (/ text-font-size 11) stem-length))
          (attach-off (cons (interval-index
                             (ly:stencil-extent head-glyph X)
                             (* (sign dir) (car attach-indices)))
@@ -3818,7 +3823,6 @@ mensural-flags.  Both are supplied for convenience.
                                     stem-thickness
                                     0))
                              (+ stemy flag-style-Y-corr))))))
-
     ;; If there is a flag on an upstem and the stem is short, move the dots
     ;; to avoid the flag.  16th notes get a special case because their flags
     ;; hang lower than any other flags.
