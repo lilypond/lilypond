@@ -117,7 +117,7 @@ spartiti di ottima qualità.  Tutte le impostazioni di stile, i font e gli
 algoritmi di LilyPond sono ispirati alla migliore musica incisa a mano.
 L'output di LilyPond ha lo stesso aspetto netto, equilibrato ed elegante
 delle migliori partiture classiche.  Questo è stato approfondito nel nostro
-@ref{Essay}.
+@ref{Saggio}.
 
 @divEnd
 
@@ -133,7 +133,7 @@ da un altro essere umano così come da un altro programma.  Non ci
 sono oscure impostazioni nascoste dietro le voci di un menù né
 salvataggi in file binari.
 
-Questo concetto è approfondito in @ref{Text input}.
+Questo concetto è approfondito in @ref{Input testuale}.
 
 
 @subsubheading Le modifiche manuali sono robuste e tracciabili
@@ -199,7 +199,7 @@ riconoscimento vocale per modificare i file LilyPond. Anche gli utenti
 totalmente privi di vista possono usare un software di lettura dello schermo per
 scrivere file LilyPond – un'operazione impossibile nei programmi di scrittura
 musicale basati su interfaccia grafica. Puoi vedere una partitura spettacolare
-in @ref{Examples}.
+in @ref{Esempi}.
 
 @subsubheading Diversità degli editor
 
@@ -209,7 +209,7 @@ di modifica dei file LilyPond; non sei quindi legato a una singola interfaccia
 utente ma puoi usare strumenti diversi per compiti diversi.  Puoi perfino
 usare un editor LilyPond ricco di funzionalità a casa e l'app blocco note
 del telefonino per modificare i file quando sei in movimento.  Alcuni esempi
-sono elencati in @ref{Easier editing}.
+sono elencati in @ref{Editing facilitato}.
 
 
 @divEnd
@@ -275,7 +275,7 @@ offrendo gentilmente il proprio aiuto.  I tempi di risposta sono solitamente
 molto brevi e spesso vengono suggerite brillanti soluzioni dei problemi
 segnalati.  Grazie alla stretta interazione col team di sviluppo, tali
 soluzioni sono spesso incluse in LilyPond stesso.  Maggiori informazioni
-in @ref{Community}.
+in @ref{Comunità}.
 
 @subsubheading Software libero
 
@@ -286,7 +286,7 @@ dalla pagina di download.
 permesso di modificarlo e copiarlo.  Sei infastidito da un
 malfunzionamento, o desideri una nuova funzionalità? Puoi aggiungerla tu
 stesso, o pagare qualcun altro per farlo.
-Maggiori informazioni in @ref{Freedom}.
+Maggiori informazioni in @ref{Libertà}.
 
 
 @divEnd
@@ -588,7 +588,7 @@ l'arte di creare la bellezza con un computer.
 Si tratta di una lettura interessante se ti incuriosisce una discussione
 approfondita delle nostre idee principali.  A causa del suo volume, il
 saggio è presentato come "manunale".  Se vuoi leggerlo ora, passa a
-@ref{Essay}.  Tuttavia, se vuoi solo una rapida introduzione a LilyPond,
+@ref{Saggio}.  Tuttavia, se vuoi solo una rapida introduzione a LilyPond,
 per ora puoi saltarlo.
 @divEnd
 

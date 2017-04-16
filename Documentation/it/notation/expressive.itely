@@ -166,7 +166,7 @@ L'output corrispondente è:
 Le regole per il posizionamento predefinito delle articolazioni sono
 definite in @file{scm/script.scm}.  Articolazioni e ornamenti possono
 essere posizionati manualmente sopra o sotto il rigo; si veda
-@ref{Direction and placement}.
+@ref{Direzione e posizionamento}.
 
 Le articolazioni sono oggetti @code{Script}.  Le loro proprietà sono
 descritte in dettaglio in @rinternals{Script}.
@@ -213,7 +213,7 @@ Manuale di apprendimento:
 
 Guida alla notazione:
 @ref{Text scripts},
-@ref{Direction and placement},
+@ref{Direzione e posizionamento},
 @ref{List of articulations},
 @ref{Trills}.
 
@@ -262,7 +262,7 @@ sono @code{\ppppp}, @code{\pppp}, @code{\ppp}, @code{\pp}, @code{\p},
 @code{\ffff}, @code{\fffff}, @code{\fp}, @code{\sf}, @code{\sff},
 @code{\sp}, @code{\spp}, @code{\sfz} e @code{\rfz}.  Le indicazioni
 dinamiche possono essere posizionate manualmente sopra o sotto il
-rigo, come è spiegato in dettaglio in @ref{Direction and placement}.
+rigo, come è spiegato in dettaglio in @ref{Direzione e posizionamento}.
 
 @lilypond[verbatim,quote]
 \relative c'' {
@@ -499,10 +499,10 @@ Manuale di apprendimento:
 @rlearning{Articolazione e dinamiche}.
 
 Guida alla notazione:
-@ref{Direction and placement},
+@ref{Direzione e posizionamento},
 @ref{New dynamic marks},
-@ref{Enhancing MIDI output},
-@ref{Controlling MIDI dynamics}.
+@ref{Miglioramento dell'output MIDI},
+@ref{Gestione delle dinamiche nel MIDI}.
 
 Frammenti:
 @rlsr{Expressive marks}.
@@ -631,8 +631,8 @@ Le impostazioni dei tipi di carattere in modalità markup sono descritti in
 Guida alla notazione:
 @ref{Formatting text},
 @ref{Selecting font and font size},
-@ref{Enhancing MIDI output},
-@ref{Controlling MIDI dynamics}.
+@ref{Miglioramento dell'output MIDI},
+@ref{Gestione delle dinamiche nel MIDI}.
 
 Extending LilyPond:
 @rextend{Markup construction in Scheme}.
@@ -682,7 +682,7 @@ terminare nella stessa voce in cui è iniziata.}
 @funindex \slurNeutral
 
 Le legature di portamento possono essere posizionate manualmente sopra o
-sotto il rigo, come è spiegato in @ref{Direction and placement}.
+sotto il rigo, come è spiegato in @ref{Direzione e posizionamento}.
 
 @cindex legatura di frase
 @cindex legature di portamento multiple
@@ -802,7 +802,7 @@ Manuale di apprendimento:
 @rlearning{Sul non annidamento di parentesi e legature di valore}.
 
 Guida alla notazione:
-@ref{Direction and placement},
+@ref{Direzione e posizionamento},
 @ref{Phrasing slurs}.
 
 Frammenti:
@@ -839,7 +839,7 @@ A livello tipografico, una legatura di frase si comporta in modo pressoché
 identico a una normale legatura di portamento.  Sono però trattate
 come oggetti diversi; ad esempio, @code{\slurUp} non ha effetto su una
 legatura di frase.  Le legature di frase possono essere posizionate
-sopra o sotto il rigo, come è spiegato in @ref{Direction and placement}.
+sopra o sotto il rigo, come è spiegato in @ref{Direzione e posizionamento}.
 
 @cindex legature di frase simultanee
 @cindex legature di frase multiple
@@ -934,7 +934,7 @@ Manuale di apprendimento:
 @rlearning{Sul non annidamento di parentesi e legature di valore}.
 
 Guida alla notazione:
-@ref{Direction and placement},
+@ref{Direzione e posizionamento},
 @ref{Slurs}.
 
 Frammenti:
@@ -1282,7 +1282,7 @@ descritti in @ref{Cross-staff stems}.
 @funindex \stopTrillSpan
 
 I trilli senza linea di estensione si ottengono col comando
-@code{\trill}; si veda @ref{Articulations and ornamentations}.
+@code{\trill}; si veda @ref{Articolazioni e abbellimenti}.
 
 I trilli con linea di estensione si ottengono con
 @code{\startTrillSpan} e @code{\stopTrillSpan}:
@@ -1388,7 +1388,7 @@ Glossario Musicale:
 @rglosnamed{trill,trillo}.
 
 Guida alla notazione:
-@ref{Articulations and ornamentations},
+@ref{Articolazioni e abbellimenti},
 @ref{Grace notes}.
 
 Frammenti:

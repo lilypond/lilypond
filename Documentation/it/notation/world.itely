@@ -63,7 +63,7 @@ alterazioni di altezza sono determinate in base al contesto.
 Vengono usati solitamente i nomi italiani delle note, mentre il
 file di inizializzazione @file{arabic.ly} fornisce un comodo
 insieme di macro e definizioni che estendono la notazione standard.
-Maggiori dettagli in @ref{Arabic music}.
+Maggiori dettagli in @ref{Musica araba}.
 
 @cindex accordatura non occidentale
 
@@ -96,7 +96,7 @@ Manuale di apprendimento:
 Guida alla notazione:
 @ref{Writing pitches},
 @ref{Note names in other languages},
-@ref{Arabic music},
+@ref{Musica araba},
 @ref{Turkish classical music}.
 
 
@@ -386,9 +386,9 @@ Glossario musicale:
 
 Guida alla notazione:
 @ref{Manual beams},
-@ref{Automatic beams},
+@ref{Travature automatiche},
 @ref{Unmetered music},
-@ref{Automatic accidentals},
+@ref{Alterazioni automatiche},
 @ref{Setting automatic beam behavior},
 @ref{Time signature}.
 

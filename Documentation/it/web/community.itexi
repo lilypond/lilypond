@@ -73,7 +73,7 @@ quando si discute di LilyPond.
 @ref{Notizie}: notizie sul progetto LilyPond.
 
 @item
-@ref{Attic}: annunci e changelog delle versioni precedenti.
+@ref{Soffitta}: annunci e changelog delle versioni precedenti.
 
 @end itemize
 @divEnd
@@ -140,7 +140,7 @@ e aggiungi i tuoi esempi!
 @end example
 
 Esempi particolarmente istruttivi provenienti dal LSR sono inclusi nella
-nostra documentazione ufficiale, in @ref{Snippets}.
+nostra documentazione ufficiale, in @ref{Frammenti}.
 
 @subsubheading IRC
 
@@ -897,7 +897,7 @@ Abbiamo avuto partecipanti al GSoC nel 2012, 2015 e 2016 e invitiamo gli
 studenti a fare domanda per il programma del 2017.
 
 Se hai dubbi o desideri presentare domanda, invia un'email alla nostra
-mailing list degli sviluppatori (vedi @ref{Contact}).
+mailing list degli sviluppatori (vedi @ref{Contatti}).
 
 @c Non voglio mantenere la traduzione delle informazioni su GSoC. - fb
 Maggiori dettagli nella versione inglese di questa pagina.
@@ -1046,7 +1046,7 @@ in @ref{Soffitta}}
 
 @divClass{column-center-bottom}
 @subheading Vecchie notizie
-Le vecchie notizie si trovano in @ref{Attic}, insieme a vecchi annunci
+Le vecchie notizie si trovano in @ref{Soffitta}, insieme a vecchi annunci
 e registri di modifiche (changelog).
 @divEnd
 
@@ -1139,7 +1139,7 @@ interessanti ma per i quali non abbiamo al momento dei tutor disponibili.
 @subheading Vecchie notizie
 
 Le vecchie notizie che risalgono fino al luglio 2003.  Le notizie più recenti
-si trovano alla pagina @ref{News}.
+si trovano alla pagina @ref{Notizie}.
 @divEnd
 
 @include web/news-old.itexi

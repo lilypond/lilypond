@@ -14,6 +14,7 @@
 
 @node Tutorial
 @chapter Tutorial
+@translationof Tutorial
 
 Questo capitolo fornisce un'introduzione di base all'uso di LilyPond.
 
@@ -78,7 +79,7 @@ parentesi dovrebbero essere delimitate da degli spazi, a meno che non si
 trovino all'inizio o alla fine di una linea.  Può darsi che in alcuni esempi
 di questo manuale le parentesi verranno omesse, ma non dimenticarle
 nella tua musica! Per maggiori informazioni sull'aspetto degli esempi
-nel manuale, si veda @ref{How to read the manuals}.}
+nel manuale, si veda @ref{Come leggere i manuali}.}
 
 Inoltre, l'input di LilyPond è @strong{sensibile alle maiuscole}.
 @w{@samp{@{ c d e @}}} è un input valido; @w{@samp{@{ C D E @}}} invece
@@ -109,12 +110,12 @@ programmi che usi.
 @ref{Windows, Microsoft Windows} (grafico)
 
 @item
-@ref{Command-line, @sourceimage{logo-linux,,,}
+@ref{Linea di comando, @sourceimage{logo-linux,,,}
 @sourceimage{logo-freebsd,,,}
 @sourceimage{logo-macosx,,,}
 @sourceimage{logo-windows,,,}
 }
-@ref{Command-line, Tutti i sistemi operativi} (linea di comando)
+@ref{Linea di comando, Tutti i sistemi operativi} (linea di comando)
 
 @end itemize
 
@@ -698,7 +699,7 @@ nella versione online della documentazione.
 
 L'input di LilyPond deve essere compreso dai segni @code{@{ @}} o da
 @q{@w{@code{@bs{}relative @{ @dots{} @}}}}, come abbiamo visto in
-@ref{Working on input files}.  Nel resto di questo manuale alcuni
+@ref{Lavorare sui file di input}.  Nel resto di questo manuale alcuni
 esempi brevi ometteranno questi segni.  Per replicare questi esempi, puoi
 copiare l'input mostrato e incollarlo tra @code{@{} e @code{@}} nel tuo
 file di input:
@@ -768,17 +769,17 @@ comprendere le sezioni successive.}
 
 @item
 @strong{Prima di fare @emph{qualsiasi} tentativo}: leggi il @ref{Tutorial}
-e la @ref{Common notation} del Manuale di apprendimento.  Se
+e la @ref{Notazione comunemente utilizzata} del Manuale di apprendimento.  Se
 ti imbatti in termini musicali che non conosci, cercali nel @rglosnamed{Top, Glossario}.
 
 @item
 @strong{Prima di tentare di scrivere un pezzo musicale completo}: leggi
-i @ref{Fundamental concepts} del Manuale di apprendimento.  Dopo puoi dare
+i @ref{Concetti fondamentali} del Manuale di apprendimento.  Dopo puoi dare
 un'occhiata alle sezioni rilevanti della @rusernamed{Top, Guida alla notazione}.
 
 @item
 @strong{Prima di cercare di cambiare l'output predefinito}: leggi
-@ref{Tweaking output} del Manuale di apprendimento.
+@ref{Modifica dell'output} del Manuale di apprendimento.
 
 @item
 @strong{Prima di iniziare un grande progetto}: leggi il documento

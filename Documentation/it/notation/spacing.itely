@@ -142,7 +142,7 @@ sezione, @ref{Paper size and automatic scaling}.  Le variabili
 @code{\paper} che si occupano della formattazione della pagina sono
 trattate in sezioni successive.  Le definizioni di markup relative a
 intestazioni, piè di pagina e titoli sono trattate in
-@ref{Custom titles headers and footers}.
+@ref{Titoli intestazioni e piè di pagina personalizzati}.
 
 La maggior parte delle variabili @code{\paper} funzionano soltanto in
 un blocco @code{\paper}.  Le poche che funzionano anche in un blocco
@@ -189,7 +189,7 @@ L'equivalente Scheme dell'esempio precedente è:
 @seealso
 Guida alla notazione:
 @ref{Paper size and automatic scaling},
-@ref{Custom titles headers and footers},
+@ref{Titoli intestazioni e piè di pagina personalizzati},
 @ref{The layout block,,Il blocco @code{@bs{}layout}}.
 
 File installati:
@@ -252,7 +252,7 @@ a tutte le pagine.  Se il blocco @code{\paper} si trova dentro un blocco
 
 Quando si usa la funzione @code{set-paper-size}, questa deve essere
 posta @emph{prima} di qualsiasi altra funzione usata nello stesso blocco
-@code{\paper}.  Vedi @ref{Automatic scaling to paper size}.
+@code{\paper}.  Vedi @ref{Ridimensionamento automatico al formato carta}.
 
 I formati carta sono definiti in @file{scm/paper.scm}, e sebbene sia
 possibile aggiungere formati personalizzati in questo file, tali aggiunte
@@ -303,7 +303,7 @@ usato per la formattazione.
 
 @seealso
 Guida alla notazione:
-@ref{Automatic scaling to paper size},
+@ref{Ridimensionamento automatico al formato carta},
 @ref{Predefined paper sizes}.
 
 File installati:
@@ -359,7 +359,7 @@ File installati:
 @warning{Alcune dimensioni definite nel blocco @code{@bs{}paper} sono
 ridimensionate automaticamente in base al formato carta, portando a
 possibili risultati imprevisti. Vedi
-@ref{Automatic scaling to paper size}.}
+@ref{Ridimensionamento automatico al formato carta}.}
 
 I valori predefiniti (prima del ridimensionamento) sono definiti in
 @file{ly/paper-defaults-init.ly}.
@@ -403,7 +403,7 @@ giustificate verticalmente come nelle pagine precedenti.
 
 @seealso
 Guida alla notazione:
-@ref{Automatic scaling to paper size}.
+@ref{Ridimensionamento automatico al formato carta}.
 
 File installati:
 @file{ly/paper-defaults-init.ly}.
@@ -630,7 +630,7 @@ Frammenti:
 
 @warning{Alcune dimensioni in @code{@bs{}paper} sono ridimensionate
 automaticamente in base al formato carta, producendo talvolta un
-risultato inatteso. Vedi @ref{Automatic scaling to paper size}.}
+risultato inatteso. Vedi @ref{Ridimensionamento automatico al formato carta}.}
 
 @menu
 * Variabili paper per larghezze e margini::
@@ -745,7 +745,7 @@ Questa variabile può essere impostata anche in un blocco @code{\layout}.
 
 @seealso
 Guida alla notazione:
-@ref{Automatic scaling to paper size}.
+@ref{Ridimensionamento automatico al formato carta}.
 
 File installati:
 @file{ly/paper-defaults-init.ly}.
@@ -803,7 +803,7 @@ Funziona soltanto con @code{two-sided} impostato su vero.
 
 @seealso
 Guida alla notazione:
-@ref{Automatic scaling to paper size}.
+@ref{Ridimensionamento automatico al formato carta}.
 
 File installati:
 @file{ly/paper-defaults-init.ly}.
@@ -850,7 +850,7 @@ anche in blocchi @code{\layout} per impostare le brevi indentazioni brano per br
 
 @seealso
 Guida alla notazione:
-@ref{Automatic scaling to paper size}.
+@ref{Ridimensionamento automatico al formato carta}.
 
 File installati:
 @file{ly/paper-defaults-init.ly}.
@@ -1170,7 +1170,7 @@ musica.  Le impostazioni che possono apparire in un blocco
 La funzione @code{layout-set-staff-size} è spiegata nella prossima
 sezione, @ref{Setting the staff size}.  Le modifiche di contesto sono
 trattate in un capitolo separato; vedi @ref{Modifying context plug-ins} e
-@ref{Changing context default settings}.
+@ref{Modifica delle impostazioni predefinite di un contesto}.
 
 Le variabili @code{\paper} che possono apparire in un blocco @code{\layout},
 con valori predefiniti presi dal blocco @code{\paper}, sono:
@@ -1307,7 +1307,7 @@ per ripristinare la configurazione di @code{\layout} a uno stato conosciuto.
 
 @seealso
 Guida alla notazione:
-@ref{Changing context default settings}.
+@ref{Modifica delle impostazioni predefinite di un contesto}.
 
 Frammenti:
 @rlsr{Spacing}.
@@ -2590,7 +2590,7 @@ vedendo un esempio che non contiene alcuna modifica.
 Questa partitura isola l'informazione sulle interruzioni di linea e di pagina
 in una voce apposita.  Questa tecnica di creare una voce per le interruzioni
 permette di tenere la formattazione separata dalla musica via via che il
-nostro esempio diventa più complicato.  Vedi anche @ref{Breaks}.
+nostro esempio diventa più complicato.  Vedi anche @ref{Interruzioni}.
 
 Usando comandi @code{\break} espliciti, la musica viene divisa proporzionalmente
 in cinque misure per linea.  La spaziatura verticale è quella predefinita di
@@ -3504,7 +3504,7 @@ se c'è molto spazio nelle pagine precedenti.
 Quando si studiano i problemi di formattazione, uno strumento irrinunciabile
 è @code{annotate-spacing}, un comando che mostra i valori delle diverse
 variabili di spaziatura.  Maggiori dettagli nella prossima sezione,
-@ref{Displaying spacing}.
+@ref{Visualizzare la spaziatura}.
 
 @menu
 * Visualizzare la spaziatura::
@@ -3635,7 +3635,7 @@ rigo:
 
 @item
 Modificare la spaziatura orizzontale tramite @code{SpacingSpanner}.  Maggiori
-informazioni in @ref{Changing horizontal spacing}.  L'esempio seguente mostra
+informazioni in @ref{Modifica della spaziatura orizzontale}.  L'esempio seguente mostra
 la spaziatura predefinita:
 
 @lilypond[verbatim,quote]
@@ -3685,7 +3685,7 @@ così che sia applicata all'intera partitura.
 @seealso
 Guida alla notazione:
 @ref{Page layout},
-@ref{Changing horizontal spacing}.
+@ref{Modifica della spaziatura orizzontale}.
 
 Frammenti:
 @rlsr{Spacing}.

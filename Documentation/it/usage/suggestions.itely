@@ -61,7 +61,7 @@ problemi più comuni in fase di scrittura:
 @item @strong{Includere sempre il numero di @code{\version} in ogni file di input},
 non importa quanto piccolo possa essere il file.  Ciò impedisce di dover
 ricordare con quale versione di LilyPond è stato creato il file ed è
-importante soprattutto per @ref{Updating files with convert-ly} (che ha
+importante soprattutto per @ref{Aggiornare i file con convert-ly} (che ha
 bisogno della dichiarazione @code{\version}); o quando si inviano i file
 di input a altri utenti (per esempio, quando si chiede aiuto nelle mailing
 list).  Nota che tutti i modelli contengono l'informazione su @code{\version}.

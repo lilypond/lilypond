@@ -120,7 +120,7 @@ semplici questo metodo funziona bene, ma per quelli più complessi, soprattutto
 quando vengono usati ulteriori comandi, la creazione implicita dei contesti
 può dare risultati inattesi, ad esempio creando dei righi non voluti.
 Il modo per creare i contesti esplicitamente è spiegato in
-@ref{Contexts and engravers}.
+@ref{Contesti e incisori}.
 
 @warning{Quando si inseriscono più di poche linee di musica, si consiglia
 di creare sempre esplicitamente i righi e le voci.}
@@ -216,7 +216,7 @@ Per maggiori dettagli si veda @ruser{Molteplici partiture in un libro}.
 @cindex variabili
 
 Un'altra grande scorciatoia è la possibilità di definire variabili, come è
-spiegato in @ref{Organizing pieces with variables}).  Tutti
+spiegato in @ref{Organizzare i brani con le variabili}).  Tutti
 i modelli usano questa forma
 
 @example
@@ -257,7 +257,7 @@ Per una definizione completa del formato di input, si veda
 @cindex composta, espressione musicale
 
 Abbiamo visto l'organizzazione generale dei file di input di LilyPond nella
-sezione precedente, @ref{Introduction to the LilyPond file structure}.
+sezione precedente, @ref{Introduzione alla struttura di un file di LilyPond}.
 Ma sembra che abbiamo saltato la parte più importante: cosa dobbiamo
 scrivere dopo @code{\score}?
 
@@ -270,7 +270,7 @@ semplicemente, che @emph{non c'è} alcun mistero.  La seguente frase spiega tutt
 
 @noindent
 Per capire cosa si intende per espressione musicale, potrebbe esserti utile
-ripassare il tutorial, @ref{Music expressions explained}.  In quella sezione, abbiamo
+ripassare il tutorial, @ref{Espressioni musicali}.  In quella sezione, abbiamo
 visto come costruire grandi espressioni musicali a partire da piccoli brani --
 abbiamo iniziato con le note, poi gli accordi, etc.  Adesso inizieremo da una
 grande espressione musicale e proseguiremo poi a spiegarne i dettagli. Per
@@ -306,7 +306,7 @@ simultanee, ad esempio due voci simultanee, o una voce con del testo.  Vogliamo
 avere una voce con del testo, dunque ci servono le parentesi ad angolo.  Aggiungeremo
 la musica vera e propria in seguito; per adesso mettiamo soltanto delle semplici
 note e del testo.  Se hai dimenticato come aggiungere del testo, potresti voler
-ripassare @code{\addlyrics} in @ref{Setting simple songs}.
+ripassare @code{\addlyrics} in @ref{Impostare canzoni semplici}.
 
 @lilypond[verbatim,quote,ragged-right]
 \score {
@@ -456,7 +456,7 @@ predefinita, che è in basso.
 @seealso
 Gli ossia vengono spesso scritti senza armatura di chiave e senza
 tempo, e solitamente hanno un font più piccolo.  Richiedono ulteriori
-comandi che non sono stati ancora presentati.  Si veda @ref{Size of objects},
+comandi che non sono stati ancora presentati.  Si veda @ref{Dimensione degli oggetti},
 e @ruser{Righi ossia}.
 
 
@@ -748,8 +748,8 @@ la voce tre su cerchi barrati verdi, e la voce quattro (non impiegata
 nell'esempio) su croci magenta;  @code{\voiceNeutralStyle} (anch'esso
 non usato qui) riporta lo stile all'impostazione predefinita.
 Vedremo in seguito come l'utente possa creare comandi simili.
-Si veda @ref{Visibility and color of objects} e
-@ref{Using variables for layout adjustments}.
+Si veda @ref{Visibilità e colore degli oggetti} e
+@ref{Uso delle variabili per modificare la formattazione}.
 
 @cindex polifonia e modo relativo
 @cindex modo relativo e polifonia
@@ -917,7 +917,7 @@ a evitare le collisioni.  LilyPond fornisce molti modi per aggiustare la colloca
 orizzontale delle note.  Per ora, non siamo ancora pronti a cercare di
 correggere questo problema, dunque dovremo aspettare fino a una
 prossima sezione -- si veda la proprietà @code{force-hshift} in
-@ref{Fixing overlapping notation}.
+@ref{Correggere la sovrapposizione di elementi della notazione}.
 
 @warning{Il testo e gli @emph{spanner} (come le legature di portamento e di valore, le
 forcelle, etc.) non possono essere create @q{attraverso} le voci.}
@@ -1146,7 +1146,7 @@ le voci una e tre vengono spostate a destra e le voci due e quattro a sinistra.
 
 @code{\shiftOnn} e @code{\shiftOnnn} definiscono ulteriori livelli di
 scarto che possono essere temporaneamente specificati per risolvere
-le collisioni in situazioni complesse -- si veda @ref{Real music example}.
+le collisioni in situazioni complesse -- si veda @ref{Esempio musicale}.
 
 Una colonna di note può contenere soltanto una nota (o accordo) di una
 voce con gambi in su e una nota (o accordo) di una voce con gambi in
@@ -1159,7 +1159,7 @@ produrrà il messaggio di errore
 
 @seealso
 Manuale di apprendimento:
-@ref{Moving objects}.
+@ref{Spostare gli oggetti}.
 
 Guida alla notazione: @ruser{Più voci}.
 
@@ -1458,14 +1458,14 @@ esplicitamente con @code{\new Score} è di inserire un blocco
 di contesto, predefiniti per tutto lo spartito..  Le informazioni su come
 usare i blocchi @code{\with} si trovano sotto il titolo
 @qq{Setting context properties with @code{\\with} } in
-@ref{Modifying context properties}.)
+@ref{Modificare le proprietà di contesto}.)
 
 @warning{@bs{}@code{new Score} non dovrebbe essere usato perché il fondamentale
 contesto di livello superiore @code{Score} viene creato automaticamente quando
 l'espressione musicale all'interno del blocco @bs{}@code{score} viene
 interpretata.  I valori predefiniti delle proprietà di contesto validi per tutta
 la partitura possono essere modificati nel blocco @bs{}@code{layout}.  Vedi
-@ref{Modifying context properties}}
+@ref{Modificare le proprietà di contesto}}
 
 Nelle sezioni precedenti hai già visto molti esempi pratici della creazione
 di nuovi contesti @code{Staff} e @code{Voice}, ma per ricordarti
@@ -1539,7 +1539,7 @@ anche numeri e spazi, ma in questo caso deve essere compreso tra virgolette,
 ovvero @code{\new Staff = "MioPentagramma 1" @var{espressione-musicale}}.
 Il nome identificativo viene utilizzato per riportare a quel
 particolare esempio di un contesto.  Abbiamo visto questo utilizzo
-nella sezione sul testo, si veda @ref{Voices and vocals}.
+nella sezione sul testo, si veda @ref{Voci e musica vocale}.
 
 
 @seealso
@@ -2119,7 +2119,7 @@ nemmeno i gambi né le travature.
 Hai letto il tutorial, sai come scrivere la musica, comprendi
 i concetti fondamentali.  Ma come puoi ottenere i
 pentagrammi che desideri?  Puoi trovare molti
-modelli (vedi @ref{Templates}) da cui partire.
+modelli (vedi @ref{Modelli}) da cui partire.
 Ma se ti serve qualcosa che non è presente lì?  Continua a leggere.
 
 @menu
@@ -2319,7 +2319,7 @@ musicaVioloncello = \relative {
 
 @seealso
 I modelli da cui partire si trovano nell'appendice @q{Modelli},
-si veda @ref{Single staff templates}.
+si veda @ref{Modelli per rigo singolo}.
 
 
 @node Partitura vocale a quattro parti SATB
@@ -2432,7 +2432,7 @@ lower = \relative {
 @end lilypond
 
 @warning{Questa struttura può essere ottenuta facilmente usando il modello
-integrato @code{satb.ly}, descritto in @ref{Built-in templates}.  Ma per
+integrato @code{satb.ly}, descritto in @ref{Modelli integrati}.  Ma per
 facilità d'uso tale modello nasconde deliberatamente la necessaria struttura
 dei contesti, dato che la fornisce automaticamente.  Dunque a scopo di
 apprendimento vediamo come costruire questa struttura da zero.  Potresti
@@ -2440,7 +2440,7 @@ aver bisogno di far ciò se il modello integrato non soddisfa le tue
 necessità.}
 
 Il modello @qq{copia e modifica} più simile a questa struttura
-è @ref{SATB vocal score and automatic piano reduction}, ma
+è @ref{Partitura vocale SATB e automatica riduzione per pianoforte}, ma
 abbiamo bisogno di modificare l'assetto e aggiungere
 un accompagnamento per pianoforte che non sia derivato automaticamente dalle
 parti vocali.  Le variabili che si riferiscono alla musica e alle parole per
@@ -3078,7 +3078,7 @@ L'uso di variabili è anche un buon modo per ridurre il lavoro quando
 la sintassi di input di LilyPond cambia (vedi
 @rprogram{Aggiornare i file con convert-ly}).  Se si ha un'unica
 definizione (come @code{\dolce}) per tutti i file di input
-(vedi @ref{Style sheets}), allora se la sintassi cambia bisogna
+(vedi @ref{Fogli di stile}), allora se la sintassi cambia bisogna
 aggiornare soltanto la singola definizione @code{\dolce},
 invece di dover modificare tutti i file @file{.ly}.
 
@@ -3208,7 +3208,7 @@ ovvero
 
 @seealso
 Manuale di apprendimento:
-@ref{Organizing pieces with variables}.
+@ref{Organizzare i brani con le variabili}.
 
 Guida alla notazione:
 @ruser{Trasposizione},

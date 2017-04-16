@@ -62,7 +62,7 @@ in @ref{Text encoding}.}
 Si possono aggiungere a una partitura delle semplici indicazioni con
 del @qq{testo tra virgolette}, come mostrato nell'esempio seguente.
 Tali indicazioni possono essere posizionate sopra o sotto il rigo,
-usando la sintassi descritta in @ref{Direction and placement}.
+usando la sintassi descritta in @ref{Direzione e posizionamento}.
 
 @lilypond[quote,verbatim]
 \relative { a'8^"pizz." g f e a4-"scherz." f }
@@ -92,7 +92,7 @@ mentre la seconda sì.
 @end lilypond
 
 Oltre alle scritte, si possono attaccare alle note anche le
-articolazioni.  Ulteriori informazioni in @ref{Articulations and ornamentations}.
+articolazioni.  Ulteriori informazioni in @ref{Articolazioni e abbellimenti}.
 
 Per maggiori informazioni sull'ordinamento relativo delle scritte e delle
 articolazioni si veda @rlearning{Posizionamento degli oggetti}.
@@ -111,8 +111,8 @@ Manuale d'apprendimento:
 
 Guida alla notazione:
 @ref{Formatting text},
-@ref{Direction and placement},
-@ref{Articulations and ornamentations}.
+@ref{Direzione e posizionamento},
+@ref{Articolazioni e abbellimenti}.
 
 Frammenti:
 @rlsr{Text}.
@@ -201,7 +201,7 @@ LilyPond è capace di gestire un solo estensore del testo per ogni voce.
 @seealso
 Guida alla notazione:
 @ref{Line styles},
-@ref{Dynamics},
+@ref{Dinamiche},
 @ref{Formatting text}.
 
 Frammenti:
@@ -1124,8 +1124,8 @@ Una lista completa dei comandi specifici per la grafica si trova in
 @seealso
 Guida alla notazione:
 @ref{Align},
-@ref{Dimensions},
-@ref{Editorial annotations},
+@ref{Dimensioni},
+@ref{Note editoriali},
 @ref{Graphic}.
 
 File installati:
@@ -1460,7 +1460,7 @@ caso è preferibile usare la sintassi più semplice spiegata in
 
 Sebbene sia semplice passare a un tipo di carattere preconfigurato, è anche
 possibile usare altri tipi, come viene spiegato nelle sezioni successive:
-@ref{Single entry fonts} e @ref{Entire document fonts}.
+@ref{Single entry fonts} e @ref{Tipi di carattere per l'intero documento}.
 
 @seealso
 Guida alla notazione:
@@ -1512,7 +1512,7 @@ lilypond -dshow-available-fonts x
 @seealso
 Guida alla notazione:
 @ref{Fonts explained},
-@ref{Entire document fonts}.
+@ref{Tipi di carattere per l'intero documento}.
 
 Frammenti:
 @rlsr{Text}.

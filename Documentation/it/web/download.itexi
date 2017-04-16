@@ -150,7 +150,7 @@ pacchetti sono spesso @emph{molto} più vecchi della versione
 stabile corrente.  Anche se questi pacchetti più vecchi sono più facili
 da installare, consigliamo @emph{caldamente} di usare i nostri pacchetti
 generici.  In questo caso, controlla che il tuo editor LilyPond stia usando
-la versione corretta.  Vedi @ref{Easier editing}.
+la versione corretta.  Vedi @ref{Editing facilitato}.
 
 @divEnd
 

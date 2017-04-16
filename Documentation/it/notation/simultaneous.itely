@@ -141,7 +141,7 @@ Manuale d'apprendimento:
 
 Guida alla notazione:
 @ref{Chord notation},
-@ref{Articulations and ornamentations},
+@ref{Articolazioni e abbellimenti},
 @ref{Relative octave entry},
 @ref{Multiple voices}.
 
@@ -164,7 +164,7 @@ la trascrizione enarmonica di una o più altezze,
 @samp{<e f ges>}, oppure
 
 @item
-i @ref{Clusters}.
+i @ref{Cluster}.
 
 @end itemize
 
@@ -263,7 +263,7 @@ stati già elaborati.
 @seealso
 Guida alla notazione:
 @ref{Chord notation},
-@ref{Articulations and ornamentations}.
+@ref{Articolazioni e abbellimenti}.
 
 File installati:
 @file{ly/chord-repetition-init.ly}.
@@ -342,7 +342,7 @@ apparirà durante la compilazione del file.  Si può evitare con:
 
 Tuttavia, questo comando non si limita a eliminare l'avvertimento, ma impedisce qualsiasi
 risoluzione delle collisioni, e potrebbe comportare altri effetti indesiderati
-(vedi anche i @emph{Problemi noti} in @ref{Collision resolution}).
+(vedi anche i @emph{Problemi noti} in @ref{Risoluzione delle collisioni}).
 
 
 @node Cluster
@@ -1147,7 +1147,7 @@ ignorati.
 
 Consultare i @emph{Problemi noti e avvertimenti} in @ref{Default tablatures}
 se si usa @code{\partcombine} con l'intavolatura, e la @emph{Nota} in
-@ref{Automatic beams} se si usa la disposizione automatica delle travature.
+@ref{Travature automatiche} se si usa la disposizione automatica delle travature.
 
 
 @node Scrivere la musica in parallelo

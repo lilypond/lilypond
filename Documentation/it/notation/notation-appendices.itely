@@ -853,7 +853,7 @@ cello                     lead 6 (voice)
 
 @subsubheading Colori normali
 
-La sintassi è descritta in @ref{Coloring objects}.
+La sintassi è descritta in @ref{Colorare gli oggetti}.
 
 @cindex elenco dei colori
 @cindex colori, elenco dei
@@ -1559,7 +1559,7 @@ Tutti i comandi seguenti possono essere usati all'interno di @code{\markuplist}:
 @translationof List of special characters
 
 Si possono usare i seguenti riferimenti per i caratteri speciali;
-maggiori informazioni in @ref{ASCII aliases}.
+maggiori informazioni in @ref{Alias ASCII}.
 
 Si usa la sintassi HTML. Di questi riferimenti molti sono
 identici a quelli HTML, alcuni sono ispirati a @LaTeX{}.

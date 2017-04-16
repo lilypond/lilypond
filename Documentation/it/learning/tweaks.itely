@@ -58,7 +58,7 @@ costruire questi comandi così da rendere possibile imparare a scrivere
 le proprie modifiche personali.
 
 Prima di iniziare questo capitolo si consiglia di rileggere la sezione
-@ref{Contexts and engravers}, perché i contesti, gli incisori e le proprietà
+@ref{Contesti e incisori}, perché i contesti, gli incisori e le proprietà
 contenute al loro interno sono fondamentali per comprendere e
 costruire le modifiche.
 
@@ -144,7 +144,7 @@ in questo capitolo.
 @cindex oggetti, convenzioni per i nomi di
 @cindex proprietà, convenzioni per i nomi di
 
-Abbiamo già visto, in @ref{Contexts and engravers}, le convenzioni per i
+Abbiamo già visto, in @ref{Contesti e incisori}, le convenzioni per i
 nomi di oggetti.  Ecco una lista dei più comuni tipi di oggetti e
 proprietà insieme alle convenzioni usate per nominarli e alcuni
 esempi di nomi reali.  Abbiamo usato @q{A} per indicare un
@@ -212,8 +212,8 @@ Guida alla notazione:
 
 Abbiamo già incontrato i comandi @code{\set} e @code{\with}, che servono
 a modificare le proprietà dei @strong{contesti} e a togliere o aggiungere
-gli @strong{incisori}, nei paragrafi @ref{Modifying context properties} e
-@ref{Adding and removing engravers}.  Ora dobbiamo introdurre alcuni
+gli @strong{incisori}, nei paragrafi @ref{Modificare le proprietà di contesto} e
+@ref{Aggiungere e togliere gli incisori}.  Ora dobbiamo introdurre alcuni
 comandi più importanti.
 
 Il comando che cambia le proprietà degli @strong{oggetti di formattazione} è
@@ -242,7 +242,7 @@ bassi dei contesti, come ad esempio @code{Voice}, @code{ChordNames} o
 poi quando deve essere specificato.
 
 Le sezioni successive tratteranno in modo dettagliato le proprietà e
-i loro valori, si veda @ref{Types of properties}; in questa sezione, invece,
+i loro valori, si veda @ref{Tipi di proprietà}; in questa sezione, invece,
 useremo soltanto alcune proprietà e valori di facile comprensione,
 in modo da spiegare il formato e l'uso di questo comando.
 
@@ -575,7 +575,7 @@ emphNoteHead = {
 Il prefisso @code{\once} funziona bene se si desidera enfatizzare note
 singole o interi accordi, ma non permette di enfatizzare una singola
 nota @emph{dentro} un accordo.  Prima abbiamo visto come si possa usare
-@code{\tweak} per fare ciò, vedi @ref{The tweak command}.
+@code{\tweak} per fare ciò, vedi @ref{Il comando di ritocco tweak}.
 Ma non è possibile usare @code{\tweak} in una funzione; è in questo caso che
 torna utile il comando @code{\single}:
 
@@ -604,8 +604,8 @@ proprietà di @code{\tweak}.
 
 @seealso
 Manuale di apprendimento:
-@ref{The tweak command},
-@ref{Using variables for layout adjustments}.
+@ref{Il comando di ritocco tweak},
+@ref{Uso delle variabili per modificare la formattazione}.
 
 
 @node Manuale del Funzionamento interno
@@ -1116,9 +1116,9 @@ di un brano.  Ma di norma le stanghette sono inserite
 automaticamente: come lo possiamo impedire?
 
 Prima di iniziare, occorre ricordare che le proprietà degli oggetti sono
-raggruppate nelle cosiddette @emph{interfacce} -- si veda @ref{Properties
-found in interfaces}.  Queste servono semplicemente a raggruppare quelle
-proprietà che possono essere usate insieme per modificare un oggetto
+raggruppate nelle cosiddette @emph{interfacce} -- si veda
+@ref{Proprietà presenti nelle interfacce}.  Queste servono semplicemente a raggruppare
+quelle proprietà che possono essere usate insieme per modificare un oggetto
 grafico -- se una di queste è ammessa per un oggetto, lo sono anche le
 altre.  Alcuni oggetti usano le proprietà di alcune interfacce, altri
 quelle di altre interfacce.  Le interfacce che contengono le proprietà
@@ -1126,7 +1126,7 @@ usate da un particolare grob (oggetto grafico) sono elencate nella guida al
 Funzionamento interno in fondo alla pagina che descrive il grob; queste
 proprietà possono essere individuate consultando quelle interfacce.
 
-In @ref{Properties of layout objects} abbiamo spiegato come trovare le
+In @ref{Proprietà degli oggetti di formattazione} abbiamo spiegato come trovare le
 informazioni sui grob.  Usando lo stesso approccio, andiamo nella guida
 al Funzionamento interno per trovare l'oggetto grafico relativo alla
 stanghetta (@emph{bar line}).  Passando da @emph{Backend} e @emph{All layout objects}
@@ -1498,7 +1498,7 @@ appartenga di norma l'incisore.
 @cindex oggetti, modificare la dimensione degli
 
 Iniziamo rivedendo l'esempio precedente (vedi
-@ref{Nesting music expressions}) che mostrava come
+@ref{Annidare le espressioni musicali}) che mostrava come
 inserire un nuovo rigo temporaneo, come in un @rglos{ossia}.
 
 @cindex proprietà alignAboveContext, esempio
@@ -1800,7 +1800,7 @@ varie linee disegnate (come stanghette, travature, forcine, legature di
 portamento, etc.).  Se si deve aggiustare lo spessore di un
 particolare oggetto di formattazione, è meglio sovrascrivere la sua
 proprietà @code{thickness}.  Un esempio di come modificare lo spessore
-delle legature di portamento è stato mostrato prima in @ref{Properties of layout objects}.
+delle legature di portamento è stato mostrato prima in @ref{Proprietà degli oggetti di formattazione}.
 Lo spessore di tutti gli oggetti disegnati (ovvero quelli non prodotti
 da un tipo di carattere) può essere cambiato nello stesso modo.
 
@@ -1898,7 +1898,7 @@ seguente mostra questo @q{annidamento} delle note su righi adiacenti:
 Abbiamo già visto come i comandi @code{\voiceXXX} influenzino
 la direzione di legature di portamento e di valore, delle diteggiature e
 di qualsiasi altro elemento che dipenda dalla direzione dei gambi (vedi
-@ref{Explicitly instantiating voices}).
+@ref{Definire esplicitamente le voci}).
 Questi comandi sono fondamentali quando si scrive musica polifonica,
 perché permettono di distinguere le linee melodiche che si intrecciano.
 Talvolta, però, capita di voler modificare questo comportamento
@@ -2412,7 +2412,7 @@ Attraverso la proprietà @code{outside-staff-priority} si può
 regolare anche la disposizone verticale di singoli oggetti;
 i risultati potrebbero tuttavia risultare non sempre ottimali.  Supponiamo
 di voler posizionare @qq{Testo3} sopra @qq{Testo4} nell'esempio
-precedente (si veda @ref{Automatic behavior}).
+precedente (si veda @ref{Comportamento automatico}).
 Basta andare a cercare la priorità di @code{TextScript} nella
 guida al Funzionamento interno o nelle tabelle precedenti e
 aumentare la priorità di @qq{Testo3} assegnando un valore più alto:
@@ -2604,7 +2604,7 @@ L'aspetto è migliore, ma sarebbe preferibile avere i segni di dinamica
 allineati alla stessa linea di base invece di spostarsi su e giù seguendo
 la posizione delle note.  La proprietà che permette di ottenere tale
 risultato è @code{staff-padding} ed è trattata nella sezione relativa
-alle collisioni (vedi @ref{Collisions of objects}).
+alle collisioni (vedi @ref{Collisioni tra oggetti}).
 
 
 @node Spaziatura verticale
@@ -2834,7 +2834,7 @@ degli elementi della notazione.  Vediamoli nel seguente ordine:
 @item
 Si può cambiare la @strong{direzione} di uno degli oggetti che si
 sovrappongono usando i comandi predefiniti elencati prima, in riferimento agli
-oggetti interni al rigo (vedi @ref{Within-staff objects}).
+oggetti interni al rigo (vedi @ref{Oggetti interni al rigo}).
 In questo modo si possono riposizionare facilmente gambi, legature di
 portamento e di valore, travature, segni di dinamica, testo e gruppi
 irregolari.  La limitazione è che si tratta di una scelta circoscritta a due sole
@@ -2854,7 +2854,7 @@ di oggetti dello stesso tipo.  Tali proprietà sono:
 @code{direction}
 
 Questa è già stata trattata in dettaglio (vedi
-@ref{Within-staff objects}).
+@ref{Oggetti interni al rigo}).
 
 @item
 @code{padding}, @code{right-padding}, @code{staff-padding}
@@ -2976,7 +2976,7 @@ note in voci diverse.
 All'interno di una voce, tutte le note che si trovano nello stesso momento
 musicale sono raggruppate in una colonna di note, e viene creato un oggetto
 @code{NoteColumn} per controllare il posizionamento orizzontale di quel
-gruppo di note (vedi @qq{Colonne di note} in @ref{Explicitly instantiating voices}).  Se
+gruppo di note (vedi @qq{Colonne di note} in @ref{Definire esplicitamente le voci}).  Se
 @emph{e solo se} due o più colonne di note in un solo contesto Staff, entrambe
 con i gambi nella stessa direzione, si trovano sullo stesso momento musicale,
 i valori delle loro proprietà @code{horizontal-shift} sono usati per attribuire
@@ -3005,7 +3005,7 @@ note sono sovrapposte.  Non ha effetto su colonne di note non sovrapposte.
 Viene specificata in unità appropriate per una colonna di note,  ovvero la
 larghezza della testa della nota nella prima voce.  Si usa
 in situazioni complesse in cui i normali comandi @code{\shiftOn} (vedi
-@ref{Explicitly instantiating voices}) non risolvono adeguatamente le collisioni tra le
+@ref{Definire esplicitamente le voci}) non risolvono adeguatamente le collisioni tra le
 note.  Per questo scopo, è preferibile alla proprietà @code{extra-offset}
 perché non c'è bisogno di trovare la giusta distanza in spazi di rigo e
 lo spostamento delle note dentro o fuori da una @code{NoteColumn}
@@ -3423,7 +3423,7 @@ deve essere ripristinato, come si vede.
 @translationof The force-hshift property
 
 Possiamo vedere ora come applicare le correzioni finali all'esempio di Chopin
-introdotto alla fine del paragrafo @ref{I'm hearing Voices}, che avevamo
+introdotto alla fine del paragrafo @ref{Sento le Voci}, che avevamo
 lasciato così:
 
 @lilypond[quote,verbatim,fragment,ragged-right]
@@ -3571,8 +3571,8 @@ Re, e la semiminima puntata del Fa diesis, anch'essa unita
 alla croma della stessa altezza.  Tutto il resto è su una
 voce singola, quindi il sistema più semplice è introdurre queste
 ulteriori voci temporaneamente, quando sono richieste.  Se ti
-sei dimenticato come fare, rileggi i paragrafi @ref{I'm hearing Voices} e
-@ref{Explicitly instantiating voices}.  In questo caso scegliamo di
+sei dimenticato come fare, rileggi i paragrafi @ref{Sento le Voci} e
+@ref{Definire esplicitamente le voci}.  In questo caso scegliamo di
 usare per il passaggio polifonico le voci definite esplicitamente, dato
 che LilyPond riesce a evitare meglio le collisioni se tutte le voci
 sono definite esplicitamente in questo modo.
@@ -3698,7 +3698,7 @@ viene prodotto posponendo @code{\arpeggio} a un accordo e che la stanghetta
 doppia si ottiene col comando @code{\bar "||"}.  Questo è stato facile.  Ora
 dobbiamo correggere la collisione della legatura di valore con l'indicazione di tempo.
 Il modo migliore è spostare la legatura verso l'alto.  Lo spostamento degli oggetti
-è stato trattato prima in @ref{Moving objects}, dove si dice che gli oggetti
+è stato trattato prima in @ref{Spostare gli oggetti}, dove si dice che gli oggetti
 posizionati relativamente al rigo possono essere spostati verticalmente
 sovrascrivendo la proprietà @code{staff-position}, specificata in metà spazi-rigo
 rispetto alla linea centrale del rigo.  Dunque la seguente sovrascrittura
@@ -4065,8 +4065,8 @@ attraversare le voci:
 
 @seealso
 Manuale di apprendimento:
-@ref{The once prefix,,Il prefisso @code{@bs{}once}},
-@ref{The stencil property}.
+@ref{Il prefisso once,,Il prefisso @code{@bs{}once}},
+@ref{La proprietà stencil}.
 
 
 @node Simulare una corona nel MIDI
@@ -4252,14 +4252,14 @@ VerseFour = \lyricmode {
 @translationof Style sheets
 
 L'output prodotto da LilyPond può essere ampiamente modificato, come
-abbiamo visto nel capitolo @ref{Tweaking output}.  Ma se avessi molti
+abbiamo visto nel capitolo @ref{Modifica dell'output}.  Ma se avessi molti
 file di input a cui voler applicare delle modifiche?  O se volessi
 semplicemente separare le modifiche dalla musica vera e propria?
 È molto semplice.
 
 Prendiamo un esempio.  Non ti preoccupare se non capisci le
 parti che hanno @code{#()}; verranno spiegate nel capitolo
-@ref{Advanced tweaks with Scheme}.
+@ref{Modifiche avanzate con Scheme}.
 
 @lilypond[quote,verbatim,ragged-right]
 mpdolce =

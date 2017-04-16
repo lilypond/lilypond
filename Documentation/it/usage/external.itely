@@ -410,7 +410,7 @@ esempio i sequencer ad interfaccia grafica e i convertitori XML.  Per maggiori
 dettagli consulta il @uref{http://@/lilypond@/.org,sito web}.
 
 Si tratta di programmi separati da @command{lilypond}  e sono eseguiti
-dalla linea di comando; si veda @ref{Command-line usage} per maggiori
+dalla linea di comando; si veda @ref{Uso da linea di comando} per maggiori
 informazioni.  Se usi MacOS 10.3 o 10.4 e hai problemi a
 eseguire alcuni di questi script, ad esempio @code{convert-ly}, vedi
 @rweb{MacOS X}.
@@ -466,7 +466,7 @@ midi2ly [@var{opzione}]@dots{} @var{file-midi}
 @end example
 
 Attenzione: per @q{linea di comando} si intende la linea di comando
-del sistema operativo.  Si veda @ref{Converting from other formats} per
+del sistema operativo.  Si veda @ref{Conversione da altri formati} per
 maggiori informazioni su questo argomento.
 
 @command{midi2ly} accetta le seguenti opzioni.
@@ -538,7 +538,7 @@ musicxml2ly [@var{opzione}]@dots{} @var{file-xml}
 @end example
 
 Attenzione: per @q{linea di comando} si intende la linea di comando
-del sistema operativo.  Si veda @ref{Converting from other formats} per
+del sistema operativo.  Si veda @ref{Conversione da altri formati} per
 maggiori informazioni su questo argomento.
 
 Se il nome del file è @file{-}, @command{musicxml2ly} legge l'input
@@ -688,7 +688,7 @@ etf2ly [@var{opzione}]@dots{} @var{file-etf}
 @end example
 
 Attenzione: per @q{linea di comando} si intende la linea di comando
-del sistema operativo.  Si veda @ref{Converting from other formats} per
+del sistema operativo.  Si veda @ref{Conversione da altri formati} per
 maggiori informazioni su questo argomento.
 
 @command{etf2ly} accetta le seguenti opzioni:

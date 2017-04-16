@@ -377,7 +377,7 @@ accordo specificandola dopo ciascuna altezza.
 @end lilypond
 
 Le indicazioni di diteggiatura possono essere poste sopra o sotto il
-rigo, come è spiegato in @ref{Direction and placement}.
+rigo, come è spiegato in @ref{Direzione e posizionamento}.
 
 @snippets
 
@@ -392,7 +392,7 @@ rigo, come è spiegato in @ref{Direction and placement}.
 
 @seealso
 Guida alla notazione:
-@ref{Direction and placement}.
+@ref{Direzione e posizionamento}.
 
 Frammenti:
 @rlsr{Editorial annotations}.
@@ -655,7 +655,7 @@ Vale anche per le semibrevi e le pause, anche se i loro gambi sono resi
 invisibili.
 
 I gambi si possono posizionare sopra o sotto, vedi
-@ref{Direction and placement}.
+@ref{Direzione e posizionamento}.
 
 
 @predefined
@@ -675,7 +675,7 @@ I gambi si possono posizionare sopra o sotto, vedi
 
 @seealso
 Guida alla notazione:
-@ref{Direction and placement}.
+@ref{Direzione e posizionamento}.
 
 Frammenti:
 @rlsr{Editorial annotations}.

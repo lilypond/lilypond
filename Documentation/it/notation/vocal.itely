@@ -138,7 +138,7 @@ si può lasciare che il testo sia allineato automaticamente a
 una melodia o a un'altra voce del brano, usando @code{\addlyrics} o
 @code{\lyricsto}.  Il primo metodo è descritto sotto in
 @ref{Manual syllable durations}; il secondo in
-@ref{Automatic syllable durations}.
+@ref{Durate automatiche delle sillabe}.
 
 Una parola o sillaba del testo inizia con un carattere alfabetico
 (seguito da altri caratteri, vedi dopo) ed è terminata da uno
@@ -209,7 +209,7 @@ Manuale di apprendimento:
 @rlearning{Canzoni}.
 
 Guida alla notazione:
-@ref{Automatic syllable durations},
+@ref{Durate automatiche delle sillabe},
 @ref{Fonts},
 @ref{Formatting text},
 @ref{Input modes},
@@ -234,7 +234,7 @@ Frammenti:
 @funindex \lyricsto
 
 Il testo vocale viene interpretato in @code{\lyricmode} e stampato in un
-contesto @code{Lyrics}, vedi @ref{Contexts explained}.
+contesto @code{Lyrics}, vedi @ref{Tutto sui contesti}.
 
 @example
 \new Lyrics \lyricmode @{ @dots{} @}
@@ -247,7 +247,7 @@ del contesto della voce con cui deve essere sincronizzato, creando
 implicitamente un contesto Lyrics.  Il più versatile @code{\lyricsto}
 richiede sia di specificare il contesto della voce associata con un
 nome sia di creare esplicitamente un contesto Lyrics che contenga il
-testo.  Maggiori dettagli in @ref{Automatic syllable durations}.
+testo.  Maggiori dettagli in @ref{Durate automatiche delle sillabe}.
 
 Ci sono due modi per allineare il testo a una melodia:
 
@@ -259,7 +259,7 @@ durate delle sillabe siano prese da un'altra voce o (in
 circostanze speciali) da una melodia associata, usando
 @code{\addlyrics}, @code{\lyricsto} o impostando la proprietà
 @code{associatedVoice}.  Ulteriori informazioni in
-@ref{Automatic syllable durations}.
+@ref{Durate automatiche delle sillabe}.
 
 @lilypond[quote,ragged-right,verbatim]
 <<
@@ -332,7 +332,7 @@ parole di strofe diverse si distribuiscono lungo le note in modo differente
 e le durate necessarie non sono disponibili in un contesto musicale.
 Ulteriori dettagli in @ref{Manual syllable durations}.  Questa tecnica
 è utile anche quando si imposta un dialogo sopra una musica, come
-si può vedere negli esempi in @ref{Dialogue over music}.
+si può vedere negli esempi in @ref{Dialogo sopra la musica}.
 
 @end itemize
 
@@ -341,11 +341,11 @@ Manuale di apprendimento:
 @rlearning{Allineare il testo alla melodia}.
 
 Guida alla notazione:
-@ref{Contexts explained},
-@ref{Automatic syllable durations},
+@ref{Tutto sui contesti},
+@ref{Durate automatiche delle sillabe},
 @ref{Stanzas},
 @ref{Manual syllable durations},
-@ref{Dialogue over music},
+@ref{Dialogo sopra la musica},
 @ref{Manual syllable durations}.
 
 Guida al funzionamento interno:
@@ -571,7 +571,7 @@ Ecco due esempi:
 @end lilypond
 
 Questa tecnica è utile quando si scrivono dialoghi , vedi
-@ref{Dialogue over music}.
+@ref{Dialogo sopra la musica}.
 
 Per cambiare l'allineamento delle sillabe, basta impostare la
 proprietà @code{self-alignment-X}:
@@ -592,7 +592,7 @@ proprietà @code{self-alignment-X}:
 
 @seealso
 Guida alla notazione:
-@ref{Dialogue over music}.
+@ref{Dialogo sopra la musica}.
 
 Guida al funzionamento interno:
 @rinternals{Lyrics},
@@ -820,8 +820,8 @@ Manuale di apprendimento:
 @rlearning{Allineare il testo alla melodia}.
 
 Guida alla notazione:
-@ref{Aligning lyrics to a melody},
-@ref{Automatic syllable durations},
+@ref{Allineamento del testo alla melodia},
+@ref{Durate automatiche delle sillabe},
 @ref{Setting automatic beam behavior},
 @ref{Stanzas with different rhythms}.
 
@@ -1099,8 +1099,8 @@ Manuale di apprendimento:
 @rlearning{Modelli per gruppi vocali}.
 
 Guida alla notazione:
-@ref{Context layout order},
-@ref{Creating and referencing contexts}.
+@ref{Ordine di disposizione dei contesti},
+@ref{Creazione e citazione di un contesto}.
 
 
 @node Posizionamento orizzontale delle sillabe
@@ -1737,7 +1737,7 @@ a contesti @code{Voice} e non può essere usata con @code{NullVoice}.
 
 @noindent
 La funzione @code{\partcombine} è descritta in
-@ref{Automatic part combining}.
+@ref{Combinazione automatica delle parti}.
 
 Infine, si può usare questo metodo anche quando le voci si trovano su
 righi diversi e non è limitata a due sole voci:
@@ -2198,7 +2198,7 @@ descritti dettagliatamente in altre parti della documentazione:
 @itemize
 
 @item
-Per costruire la struttura del rigo: @ref{Displaying staves}.
+Per costruire la struttura del rigo: @ref{Aspetto del rigo}.
 
 @item
 Per scrivere la musica per pianoforte:
@@ -2206,7 +2206,7 @@ Per scrivere la musica per pianoforte:
 
 @item
 Per scrivere il testo da associare a una linea melodica:
-@ref{Common notation for vocal music}.
+@ref{Notazione comune per la musica vocale}.
 
 @item
 Per posizionare il testo: @ref{Placing lyrics vertically}.
@@ -2229,9 +2229,9 @@ Manuale di apprendimento:
 @rlearning{Canzoni}.
 
 Guida alla notazione:
-@ref{Common notation for vocal music},
+@ref{Notazione comune per la musica vocale},
 @ref{Displaying chords},
-@ref{Displaying staves},
+@ref{Aspetto del rigo},
 @ref{Keyboard and other multi-staff instruments},
 @ref{Placing lyrics vertically},
 @ref{Stanzas}.
@@ -2339,7 +2339,7 @@ Manuale di apprendimento:
 @rlearning{Modelli per gruppi vocali}.
 
 Guida alla notazione:
-@ref{Context layout order},
+@ref{Ordine di disposizione dei contesti},
 @ref{Grouping staves},
 @ref{Shape note heads},
 @ref{Single-staff polyphony}.
@@ -2430,14 +2430,14 @@ partitura sopra i loro rispettivi righi, come mostrato in questo esempio:
 
 @seealso
 Guida alla notazione:
-@ref{Changing spacing},
-@ref{Displaying spacing},
+@ref{Modificare la spaziatura},
+@ref{Visualizzare la spaziatura},
 @ref{Fitting music onto fewer pages},
 @ref{Page layout},
 @ref{Score layout},
 @ref{Separating systems},
 @ref{Setting the staff size},
-@ref{Breaks},
+@ref{Interruzioni},
 @ref{Vertical spacing}.
 
 Guida al funzionamento interno:
@@ -2456,7 +2456,7 @@ Guida al funzionamento interno:
 
 @seealso
 Guida alla notazione:
-@ref{Expressive marks as lines}.
+@ref{Indicazioni espressive lineari}.
 
 
 @node Opera e musical
@@ -2546,7 +2546,7 @@ leggere @ref{Page layout}.
 
 @item
 Si possono inserire suggerimenti di dialogo, didascalie e note a pié di
-pagina, vedi @ref{Creating footnotes} e @ref{Text}.  Didascalie estese
+pagina, vedi @ref{Creazione di note a piè di pagina} e @ref{Text}.  Didascalie estese
 possono essere aggiunte anche con una sezione di markup indipendenti
 tra i due blocchi @code{\score}, vedi @ref{Separate text}.
 
@@ -2559,7 +2559,7 @@ Glossario musicale:
 @rglosnamed{transposing instrument,Strumento traspositore}.
 
 Guida alla notazione:
-@ref{Creating footnotes},
+@ref{Creazione di note a piè di pagina},
 @ref{Grouping staves},
 @ref{Hiding staves},
 @ref{Instrument transpositions},
@@ -2773,8 +2773,8 @@ Glossario musicale:
 @rglosnamed{cue-notes,Notine o Citazioni in corpo più piccolo}.
 
 Guida alla notazione:
-@ref{Aligning objects},
-@ref{Direction and placement},
+@ref{Allineamento degli oggetti},
+@ref{Direzione e posizionamento},
 @ref{Formatting cue notes},
 @ref{Quoting other voices},
 @ref{Using music functions}.
@@ -3217,7 +3217,7 @@ Manuale di apprendimento:
 
 Guida alla notazione:
 @ref{Ancient notation},
-@ref{Bar lines},
+@ref{Stanghette},
 @ref{Modifying context plug-ins},
 @ref{Typesetting Gregorian chant},
 @ref{Unmetered music},

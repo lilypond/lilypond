@@ -73,7 +73,7 @@ Questa sezione presenta i diversi metodi per creare e raggruppare i righi.
 @funindex GregorianTranscriptionStaff
 
 Il @notation{rigo musicale} si crea con i comandi @code{\new} o
-@code{\context}.  Ulteriori dettagli in @ref{Creating and referencing contexts}.
+@code{\context}.  Ulteriori dettagli in @ref{Creazione e citazione di un contesto}.
 
 Il contesto di base del rigo è @code{Staff}:
 
@@ -121,14 +121,14 @@ il canto gregoriano moderno.  Non mostra le stanghette delle battute.
 @end lilypond
 
 Si possono creare nuovi contesti per un singolo rigo, come è spiegato
-dettagliatamente in @ref{Defining new contexts}.
+dettagliatamente in @ref{Definizione di nuovi contesti}.
 
 @seealso
 Glossario musicale:
 @rglosnamed{staff,rigo},
 
 Guida alla notazione:
-@ref{Creating and referencing contexts},
+@ref{Creazione e citazione di un contesto},
 @ref{Percussion staves},
 @ref{Showing melody rhythms},
 @ref{Default tablatures},
@@ -136,7 +136,7 @@ Guida alla notazione:
 @ref{Staff symbol},
 @ref{Gregorian chant contexts},
 @ref{Mensural contexts},
-@ref{Defining new contexts}.
+@ref{Definizione di nuovi contesti}.
 
 Frammenti:
 @rlsr{Staff notation}.
@@ -234,7 +234,7 @@ Ogni contesto per il gruppo di righi imposta la proprietà
 @code{SystemStartSquare}, ma deve essere indicato esplicitamente.
 
 Si possono definire nuovi contesti di gruppi di rigo.  I dettagli sono
-spiegati in @ref{Defining new contexts}.
+spiegati in @ref{Definizione di nuovi contesti}.
 
 
 @snippets
@@ -263,7 +263,7 @@ Glossario musicale:
 
 Guida alla notazione:
 @ref{Instrument names},
-@ref{Defining new contexts}.
+@ref{Definizione di nuovi contesti}.
 
 Frammenti:
 @rlsr{Staff notation}.
@@ -312,7 +312,7 @@ accanto alla parentesi del gruppo superiore.
 @end lilypond
 
 Si possono definire nuovi gruppi di righi annidati.  Ulteriori dettagli
-in @ref{Defining new contexts}.
+in @ref{Definizione di nuovi contesti}.
 
 
 @snippets
@@ -324,7 +324,7 @@ in @ref{Defining new contexts}.
 Guida alla notazione:
 @ref{Grouping staves},
 @ref{Instrument names},
-@ref{Defining new contexts}.
+@ref{Definizione di nuovi contesti}.
 
 Frammenti:
 @rlsr{Staff notation}.
@@ -481,7 +481,7 @@ rigo i gambi puntano in su, mentre in quella superiore sono rivolti in giù),
 occorre allineare la linea centrale (o lo spazio) del rigo personalizzato
 alla posizione della linea centrale normale (0).  Potrà essere necessario
 regolare la posizione della chiave e del Do@tie{}centrale per adattarsi
-alle nuove linee.  Si veda @ref{Clef}.
+alle nuove linee.  Si veda @ref{Chiave}.
 
 Si può modificare lo spessore della linea del rigo.  Per impostazione predefinita,
 questa modifica ha effetto anche sui tagli addizionali e sui gambi.
@@ -572,7 +572,7 @@ Glossario musicale:
 @rglosnamed{staff,rigo (o pentagramma)}.
 
 Guida alla notazione:
-@ref{Clef}.
+@ref{Chiave}.
 
 Frammenti:
 @rlsr{Staff notation}.
@@ -815,7 +815,7 @@ Manuale d'apprendimento:
 @rlearning{Visibilità e colore degli oggetti}.
 
 Guida alla notazione:
-@ref{Changing context default settings},
+@ref{Modifica delle impostazioni predefinite di un contesto},
 @ref{Staff symbol},
 @ref{Ossia staves},
 @ref{Hidden notes},
@@ -846,7 +846,7 @@ conviene usare i seguenti comandi invece di togliere l'incisore:
 
 Per i problemi noti e gli avvertimenti relativi a
 @code{\Staff \RemoveEmptyStaves} si veda
-@ref{Changing context default settings}.
+@ref{Modifica delle impostazioni predefinite di un contesto}.
 
 
 @node Scrittura delle parti
@@ -1509,7 +1509,7 @@ Guida alla notazione:
 @ref{Quoting other voices},
 @ref{Instrument transpositions},
 @ref{Instrument names},
-@ref{Clef},
+@ref{Chiave},
 @ref{Musical cues},
 @ref{Using tags}.
 

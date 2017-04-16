@@ -314,7 +314,7 @@ contesto Score le proprietà @code{segnoType}, @code{startRepeatSegnoType},
 @code{endRepeatSegnoType} o @code{doubleRepeatSegnoType} per il tipo di
 stanghetta richiesto.  I tipi di stanghetta alternativi devono essere
 selezionati dai tipi predefiniti o dai tipi precedentemente definiti col
-comando @code{\defineBarLine} (vedi @ref{Bar lines}).
+comando @code{\defineBarLine} (vedi @ref{Stanghette}).
 
 @lilypond[verbatim,quote]
 \defineBarLine ":|.S[" #'(":|." "S[" "")
@@ -353,7 +353,7 @@ Glossario Musicale:
 @rglos{volta}.
 
 Guida alla notazione:
-@ref{Bar lines},
+@ref{Stanghette},
 @ref{Modifying context plug-ins},
 @ref{Modifying ties and slurs},
 @ref{Time administration}.
@@ -448,7 +448,7 @@ situazioni.
 inusuali, e potrebbero causare un comportamento inaspettato.  Nella
 maggior parte dei casi, le ripetizioni devono essere create col
 comando standard @code{@bs{}repeat} oppure stampando le stanghette
-opportune.  Maggiori informazioni in @ref{Bar lines}.}
+opportune.  Maggiori informazioni in @ref{Stanghette}.}
 
 La proprietà @code{repeatCommands} permette di controllare la formattazione
 delle ripetizioni.  Il suo valore è una lista Scheme dei comandi di ripetizione.
@@ -535,7 +535,7 @@ voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 
 @seealso
 Guida alla notazione:
-@ref{Bar lines},
+@ref{Stanghette},
 @ref{Formatting text}.
 
 Frammenti:
@@ -656,7 +656,7 @@ senza finali alternativi).
 @end lilypond
 
 Gli accordi si ripetono col simbolo di ripetizione dell'accordo
-@code{q}.  Vedi @ref{Chord repetition}.
+@code{q}.  Vedi @ref{Ripetizione di un accordo}.
 
 @warning{Se si usa @code{@bs{}relative} dentro a un blocco @code{@bs{}repeat}
 senza istanziare esplicitamente il contesto @code{Voice}, appare un rigo
@@ -664,7 +664,7 @@ in  più (non desiderato).  Vedi @rprogram{Appare un rigo in più}.}
 
 @seealso
 Guida alla notazione:
-@ref{Chord repetition}.
+@ref{Ripetizione di un accordo}.
 
 Frammenti:
 @rlsr{Repeats}.

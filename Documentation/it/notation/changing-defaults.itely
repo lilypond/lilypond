@@ -152,7 +152,7 @@ crea l'output grafico si specifica con @code{\layout}.
 Una definizione di output molto più semplice, usata per produrre l'output
 Midi, si specifica con @code{\midi}.  Molte altre definizioni di output
 sono usate da LilyPond internamente, come quando si usa la combinazione
-automatica delle parti (@ref{Automatic part combining}) o si creano citazioni
+automatica delle parti (@ref{Combinazione automatica delle parti}) o si creano citazioni
 musicali (@ref{Quoting other voices}).
 
 Le definizioni di output definiscono la relazione tra i contesti e le loro
@@ -164,7 +164,7 @@ al Midi avranno effetto solo se inserite in un blocco @code{\midi}.
 Alcune impostazioni interessano vari tipi di output: per esempio, se
 @code{autoBeaming} è disattivato in qualche contesto, le travature contano
 come melismi al fine di abbinare musica e testo vocale, come descritto
-in @ref{Automatic syllable durations}.  Questo abbinamento viene fatto
+in @ref{Durate automatiche delle sillabe}.  Questo abbinamento viene fatto
 sia per l'output grafico che per il Midi.  Se le modifiche fatte a
 @code{autoBeaming} in una definizione di contesto di un blocco @code{\layout}
 non sono ripetute nel corrispondente blocco @code{\midi}, il testo e la
@@ -494,22 +494,22 @@ esempio quando il testo vocale è associato alla musica:
 
 @noindent
 Maggiori informazioni sull'associazione del testo vocale alla musica in
-@ref{Automatic syllable durations}.
+@ref{Durate automatiche delle sillabe}.
 
 Le proprietà di tutti i contesti di un certo tipo possono essere modificate
 in un blocco @code{\layout} (con una sintassi diversa), vedi
 @ref{Changing all contexts of the same type}.  Questo costrutto fornisce anche
 un mezzo per mantenere le istruzioni di formattazione separate dal contenuto
 musicale.  Se occorre modificare un solo contesto, bisogna usare un blocco
-@code{\with}, vedi @ref{Changing just one specific context}.
+@code{\with}, vedi @ref{Modifica di un solo contesto specifico}.
 
 @seealso
 Manuale di apprendimento:
 @rlearning{Organizzare i brani con le variabili}.
 
 Guida alla notazione:
-@ref{Changing just one specific context},
-@ref{Automatic syllable durations}.
+@ref{Modifica di un solo contesto specifico},
+@ref{Durate automatiche delle sillabe}.
 
 
 @node Conservazione di un contesto
@@ -932,7 +932,7 @@ musicale come @code{\accidentalStyle dodecaphonic}
 @item
 Una variabile definita dall'utente contenente un blocco @code{\with}; il blocco
 @code{\with} è spiegato approfonditamente in
-@ref{Changing just one specific context}.
+@ref{Modifica di un solo contesto specifico}.
 
 @lilypond[quote,verbatim]
 StaffDefaults = \with {
@@ -962,7 +962,7 @@ I comandi che impostano una proprietà possono essere posti in un blocco
 facendo si ottiene lo stesso risultato che si otterrebbe se si includessero
 gli stessi comandi all'inizio di ogni contesto del tipo specificato.  Se non
 è specificato alcun contesto, avranno effetto su @emph{qualsiasi} contesto
-di basso livello, vedi @ref{Bottom-level contexts - voices}.  La sintassi di
+di basso livello, vedi @ref{Contesti del livello inferiore - voci}.  La sintassi di
 un comando di impostazione della proprietà in un blocco @code{\layout} è
 identico a quello che si userebbe in mezzo alle note.
 
@@ -1111,8 +1111,8 @@ Manuale di apprendimento:
 @rlearning{Modificare le proprietà di contesto}.
 
 Guida alla notazione:
-@ref{Contexts explained},
-@ref{Bottom-level contexts - voices},
+@ref{Tutto sui contesti},
+@ref{Contesti del livello inferiore - voci},
 @ref{The set command},
 @ref{The override command},
 @ref{The layout block,,Il blocco @code{@bs{}layout}}.
@@ -2688,7 +2688,7 @@ oggetti in unità di spazi rigo.
 
 @seealso
 Guida alla notazione:
-@ref{Distances and measurements}.
+@ref{Distanze e misurazioni}.
 
 
 @node Proprietà del simbolo del rigo
@@ -3578,7 +3578,7 @@ Manuale di apprendimento:
 @rlearning{Altre fonti di informazione}.
 
 Guida alla notazione:
-@ref{Explaining the Internals Reference},
+@ref{Come funziona la Guida al funzionamento interno},
 @ref{Modifying properties}.
 
 Estendere LilyPond:

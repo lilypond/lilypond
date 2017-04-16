@@ -464,7 +464,7 @@ Manuale di apprendimento:
 @rlearning{Altezze e armature di chiave}.
 
 Guida alla notazione:
-@ref{Automatic accidentals},
+@ref{Alterazioni automatiche},
 @ref{Annotational accidentals (musica ficta)},
 @ref{Note names in other languages}.
 
@@ -1168,7 +1168,7 @@ c'2 c'
 c'2 c'
 @end lilypond
 
-L'elenco completo di tutti i nomi di chiave possibili si trova in @ref{Clef styles}.
+L'elenco completo di tutti i nomi di chiave possibili si trova in @ref{Stili della chiave}.
 Chiavi speciali, come quelle usate nella musica @emph{antica}, sono descritte
 in @ref{Mensural clefs} e @ref{Gregorian clefs}.  La musica che utilizza le
 chiavi dell'intavolatura è discussa in @ref{Default tablatures} e
@@ -3184,7 +3184,7 @@ Frammenti di codice:
 
 Guida alla notazione:
 @ref{Note head styles},
-@ref{Chorded notes},
+@ref{Note in un accordo},
 @ref{Indicating harmonics and dampened notes}.
 
 Guida al funzionamento interno:

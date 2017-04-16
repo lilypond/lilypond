@@ -213,7 +213,7 @@ pdfsizeopt.py --use-multivalent=no gsout.pdf final.pdf
 @end example
 
 @item -d, --define-default=@var{variabile}=@var{valore}
-Si veda @ref{Advanced command line options for LilyPond}.
+Si veda @ref{Opzioni avanzate della linea di comando per LilyPond}.
 
 @cindex Scheme, valutazione dell'espressione
 @cindex valutazione dell'espressione, Scheme
@@ -253,7 +253,7 @@ Esempio: @code{lilypond -fpng @var{file}.ly}
 
 @noindent
 Per i formati @code{svg} e @code{eps} usare l'opzione @code{-dbackend}.
-Vedi @ref{Advanced command line options for LilyPond}.
+Vedi @ref{Opzioni avanzate della linea di comando per LilyPond}.
 
 @item -h, --help
 Mostra una sintesi dell'utilizzo.
@@ -282,7 +282,7 @@ Esegue @command{lilypond} in una gabbia chroot.
 L'opzione @option{--jail} fornisce un'alternativa più flessibile a
 @option{--safe} quando la formattazione di LilyPond è messa a disposizione attraverso
 un server web o quando LilyPond esegue sorgenti provenienti dall'esterno
-(si veda @ref{Advanced command line options for LilyPond}).
+(si veda @ref{Opzioni avanzate della linea di comando per LilyPond}).
 
 L'opzione @option{--jail} modifica la radice di @command{lilypond} in
 @var{gabbia} appena prima di iniziare il vero processo di compilazione.  L'utente
@@ -332,7 +332,7 @@ con privilegi di superutente (che ovviamente perderà immediatamente),
 possibilmente con l'uso di @command{sudo}.  È una buona idea limitare il
 numero di secondi di tempo della CPU che LilyPond può usare (ad esempio con
 @command{ulimit -t}), e, se il sistema operativo lo permette, la quantità di
-memoria che può essere allocata.  Si veda anche @ref{LilyPond in chroot jail}.
+memoria che può essere allocata.  Si veda anche @ref{LilyPond in una gabbia chroot}.
 @end table
 
 @cindex loglevel
@@ -676,7 +676,7 @@ essere compresa tra virgolette precedute dal segno di escape.
 @item @code{point-and-click}
 @tab @code{#t}
 @tab Aggiunge i collegamenti @q{punta e clicca} all'output PDF e SVG. Si veda
-@ref{Point and click}.
+@ref{Punta e clicca}.
 
 @item @code{preview}
 @tab @code{#f}
@@ -766,7 +766,7 @@ La modalità sicura bloccherà la compilazione di molti utili frammenti di codic
 LilyPond.
 
 L'opzione @option{--jail} è un'alternativa più sicura, ma richiede più lavoro
-per configurarla.  Si veda @ref{Basic command line options for LilyPond}.
+per configurarla.  Si veda @ref{Opzioni di base della linea di comando per LilyPond}.
 
 @multitable @columnfractions .33 .16 .51
 @item @code{separate-log-files}
@@ -1062,7 +1062,7 @@ contesti, potrebbe apparire lo stesso messaggio molteplici volte.  Anche
 la diagnosi eseguita in uno degli @q{ultimi} passaggi (es: controlli di
 battuta) può apparire varie volte.
 
-Maggiori informazioni sugli errori si trovano in @ref{Common errors}.
+Maggiori informazioni sugli errori si trovano in @ref{Errori comuni}.
 
 
 @node Errori comuni

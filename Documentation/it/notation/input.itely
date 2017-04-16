@@ -584,7 +584,7 @@ brano (@emph{score}).
 I valori dei campi dei titoli come @code{title} (titolo) e @code{composer}
 (compositore) sono definiti nei blocchi @code{\header} (la sintassi dei
 blocchi @code{\header} e un elenco completo dei campi disponibili si
-trovano in @ref{Default layout of bookpart and score titles}).  I titoli
+trovano in @ref{Formattazione predefinita dei titoli delle parti e dei brani}).  I titoli
 del libro, delle parti e dei brani possono avere tutti gli stessi campi,
 sebbene per impostazione predefinita i campi dei titoli del brano siano
 limitati a @code{piece} e @code{opus}.
@@ -744,8 +744,8 @@ di tutti i brani, magari sovrascrivendo alcuni campi e sopprimendone altri:
 @seealso
 Guida alla notazione:
 @ref{File structure},
-@ref{Default layout of bookpart and score titles},
-@ref{Custom layout for titles}.
+@ref{Formattazione predefinita dei titoli delle parti e dei brani},
+@ref{Formattazione personalizzata dei titoli}.
 
 
 @node Formattazione predefinita dei titoli delle parti e dei brani
@@ -824,7 +824,7 @@ Le impostazioni predefinite per @code{scoreTitleMarkup} posizionano i campi
 
 @end itemize
 
-Per cambiare la formattazione predefinita leggere @ref{Custom layout for titles}.
+Per cambiare la formattazione predefinita leggere @ref{Formattazione personalizzata dei titoli}.
 
 @cindex breakbefore
 
@@ -863,7 +863,7 @@ Manuale di apprendimento:
 @rlearning{Come funzionano i file di input di LilyPond},
 
 Guida alla notazione:
-@ref{Custom layout for titles},
+@ref{Formattazione personalizzata dei titoli},
 @ref{File structure}.
 
 File installati:
@@ -985,7 +985,7 @@ testuali, cambiare una o entrambe le seguenti variabili @code{\paper}:
 
 Il posizionamento dei titoli secondo i valori predefiniti di queste variabili
 @code{\markup} è mostrato negli esempi in
-@ref{Default layout of bookpart and score titles}.
+@ref{Formattazione predefinita dei titoli delle parti e dei brani}.
 
 Le impostazioni predefinite di @code{scoreTitleMarkup}, definite in
 @file{ly/titling-init.ly}, sono:
@@ -1228,7 +1228,7 @@ verificano se l'output è una pagina singola.
 @seealso
 Guida alla notazione:
 @ref{Titles explained},
-@ref{Default layout of bookpart and score titles}.
+@ref{Formattazione predefinita dei titoli delle parti e dei brani}.
 
 File installati:
 @file{../ly/titling-init.ly}.
@@ -1677,7 +1677,7 @@ piè di pagina, preceduto dal @var{segno}.
 
 Qualsiasi carattere facile da scrivere, come * o +, può essere usato come+
 segno, come è spiegato in @ref{Footnotes in music expressions}.  Altrimenti,
-si possono usare gli alias ASCII (vedi @ref{ASCII aliases}):
+si possono usare gli alias ASCII (vedi @ref{Alias ASCII}):
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
@@ -1726,8 +1726,8 @@ Manuale di apprendimento:
 @rlearning{Oggetti e interfacce}.
 
 Guida alla notazione:
-@ref{ASCII aliases},
-@ref{Balloon help},
+@ref{Alias ASCII},
+@ref{Nuvoletta di aiuto},
 @ref{List of special characters},
 @ref{Text marks},
 @ref{Text scripts},
@@ -2029,7 +2029,7 @@ strumenti. Di norma il file incluso definisce una serie di variabili
 che poi diventano disponibili nel file della partitura completa. Le
 sezioni contrassegnate con delle etichette nei file inclusi possono
 essere usate in varie parti di una partitura, vedi
-@ref{Different editions from one source}.
+@ref{Edizioni diverse da un unico sorgente}.
 
 I file nella directory di lavoro corrente possono essere citati indicando
 semplicemente il nome del file dopo il comando @code{\include}. I file in altre
@@ -2192,7 +2192,7 @@ partitura vocale @notation{a cappella} spesso comprende, ai fini delle
 prove, una riduzione per pianoforte delle parti, identiche alla musica
 vocale, dunque la musica deve essere inserita una volta sola. La musica
 definita in due variabili può essere combinata in un rigo, come è
-spiegato in @ref{Automatic part combining}. Ecco un esempio:
+spiegato in @ref{Combinazione automatica delle parti}. Ecco un esempio:
 
 @lilypond[verbatim,quote]
 sopranoMusic = \relative { a'4 b c b8( a) }
@@ -2483,7 +2483,7 @@ Manuale di apprendimento:
 @rlearning{Organizzare i brani con le variabili}.
 
 Guida alla notazione:
-@ref{Automatic part combining},
+@ref{Combinazione automatica delle parti},
 @ref{Including LilyPond files}.
 
 @knownissues
@@ -2952,7 +2952,7 @@ e portato
 
 Alcuni effetti, come panning, bilanciamento, espressione, riverbero e chorus, si
 gestiscono impostando le proprietà di contesto, vedi
-@ref{Context properties for MIDI effects}.
+@ref{Proprietà di contesto per gli effetti MIDI}.
 
 Se si usa lo script @file{articulate}, anche i seguenti elementi della
 notazione musicale saranno presenti nell'output MIDI:
@@ -2975,7 +2975,7 @@ Il c avrà il valore di una semiminima.
 @end itemize
 
 @noindent
-Vedi @ref{Enhancing MIDI output}.
+Vedi @ref{Miglioramento dell'output MIDI}.
 
 @cindex MIDI, notazione non supportata
 
@@ -3042,7 +3042,7 @@ dei blocchi @code{\book}, @code{\bookpart} o @code{\score}.  Vedi
 @seealso
 Guida alla notazione:
 @ref{File structure},
-@ref{Creating output file metadata}.
+@ref{Creazione di metadati per i file di output}.
 
 File installati:
 @file{scm/midi.scm}.
@@ -3265,7 +3265,7 @@ Manuale di apprendimento:
 @rlearning{Altre fonti di informazione}.
 
 Guida alla notazione:
-@ref{Expressive marks},
+@ref{Segni di espressione},
 @ref{Score layout}.
 
 File installati:

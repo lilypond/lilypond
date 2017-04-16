@@ -26,9 +26,10 @@ ottenute.  Le definizioni relative alla larghezza del rigo e alle dimensioni
 dei caratteri vengono regolate per adeguarsi alla formattazione del documento.
 
 Si tratta di un programma separato da @command{lilypond} e viene lanciato
-dalla linea di comando; per maggiori informazioni, si veda @ref{Command-line
-usage}.  In caso di problemi nell'eseguire @code{lilypond-book} da linea di
-comando su Windows o Mac OS X, si veda @rweb{Windows} o @rweb{MacOS X}.
+dalla linea di comando; per maggiori informazioni, si veda
+@ref{Uso da linea di comando}.  In caso di problemi nell'eseguire
+@code{lilypond-book} da linea di comando su Windows o Mac OS X, si veda
+@rweb{Windows} o @rweb{MacOS X}.
 
 Questo procedimento può essere applicato ai documenti @LaTeX{}, HTML, Texinfo
 o DocBook.
@@ -407,7 +408,7 @@ e poi specificando prima di ogni frammento la quantità di sistemi desiderata,
 @seealso
 Esistono opzioni specifiche da linea di comando per @command{lilypond-book} e
 altri dettagli da conoscere quando si elaborano documenti @LaTeX{}; si veda
-@ref{Invoking lilypond-book}.
+@ref{Utilizzo di lilypond-book}.
 
 
 @node Texinfo
@@ -575,7 +576,7 @@ Per includere file separati, si usa
 si riferisce a un file MusicXML invece che a un file LilyPond.
 
 Per una lista di opzioni da usare con gli elementi @code{lilypond} e
-@code{lilypondfile}, si veda @ref{Music fragment options}.
+@code{lilypondfile}, si veda @ref{Opzioni dei frammenti musicali}.
 
 Inoltre, @code{<lilypondversion/>} mostra la versione di
 lilypond impiegata.
@@ -966,8 +967,8 @@ le normali procedure usate con Texinfo; ovvero, si lancia @command{texi2pdf} o
 @command{texi2dvi} o @command{makeinfo}, a seconda del formato di output
 che si vuole creare.
 @ifinfo
-@xref{Format with texi2dvi, , , texinfo, GNU Texinfo}, e @ref{Creating
-an Info File, , , texinfo, GNU Texinfo}.
+@xref{Format with texi2dvi, , , texinfo, GNU Texinfo}, e
+@ref{Creating an Info File, , , texinfo, GNU Texinfo}.
 @end ifinfo
 @ifnotinfo
 Si veda la documentazione di Texinfo per ulteriori dettagli.
@@ -984,7 +985,7 @@ Si veda la documentazione di Texinfo per ulteriori dettagli.
 Specifica il tipo di documento da elaborare: @code{html}, @code{latex},
 @code{texi} (il formato predefinito) o @code{docbook}.  Se manca questa opzione,
 @command{lilypond-book} cerca di rilevare il formato automaticamente, si veda
-@ref{Filename extensions}.  Attualmente, @code{texi} è equivalente a
+@ref{Estensioni dei nomi di file}.  Attualmente, @code{texi} è equivalente a
 @code{texi-html}.
 
 @c This complicated detail is not implemented, comment it out -jm
@@ -1121,7 +1122,7 @@ Solo il primo @code{\score} di un blocco LilyPond viene elaborato.
 Si può usare qualsiasi estensione per il file di input, ma se non si usa
 l'estensione raccomandata per uno specifico formato potrebbe essere
 necessario specificare a mano il formato di output; per i dettagli si veda
-@ref{Invoking lilypond-book}.  Altrimenti, @command{lilypond-book} sceglie
+@ref{Utilizzo di lilypond-book}.  Altrimenti, @command{lilypond-book} sceglie
 automaticamente il formato di output in base all'estensione del file di input.
 
 @quotation
@@ -1409,4 +1410,4 @@ dove @code{\includescore} viene definito in questo modo:
 
 Altri modi per combinare testo e musica (senza usare
 @command{lilypond-book}) sono trattati in
-@ref{LilyPond output in other programs}.
+@ref{Inclusione di partiture LilyPond in altri programmi}.

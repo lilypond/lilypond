@@ -186,7 +186,7 @@ Si possono cambiare anche i nomi estesi o abbreviati degli strumenti:
 @end lilypond
 
 anche se, piuttosto che far così, sarebbe più facile usare il modello
-@code{ssaattbb.ly}, vedi @ref{SSAATTBB template}.
+@code{ssaattbb.ly}, vedi @ref{Modello SSAATTBB}.
 
 Si può aggiungere un discanto definendo dei valori per la variabile
 @code{DescantMusic} e il testo di discanto definendo i valori della
@@ -206,14 +206,14 @@ Layout = \layout @{ ... @}
 @end example
 
 L'insieme completo di variabili modificabili è visibile esaminando il
-file @file{ly/satb.ly}, vedi @ref{Other sources of information}.
+file @file{ly/satb.ly}, vedi @ref{Altre fonti di informazione}.
 
 @seealso
 Manuale di apprendimento:
-@ref{Organizing pieces with variables},
-@ref{Vocal ensembles templates},
-@ref{Extending the templates},
-@ref{Other sources of information}.
+@ref{Organizzare i brani con le variabili},
+@ref{Modelli per gruppi vocali},
+@ref{Estendere i modelli},
+@ref{Altre fonti di informazione}.
 
 @knownissues
 L'impostazione della variabile @code{TwoVoicesPerStaff} è attiva per
@@ -323,14 +323,14 @@ AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
 
 L'insieme completo di variabili che possono essere modificate può essere
 visto esaminando il file @file{ly/ssaattbb.ly}, vedi
-@ref{Other sources of information}.
+@ref{Altre fonti di informazione}.
 
 @seealso
 Manuale di apprendimento:
-@ref{Organizing pieces with variables},
-@ref{Vocal ensembles templates},
-@ref{Extending the templates},
-@ref{Other sources of information}.
+@ref{Organizzare i brani con le variabili},
+@ref{Modelli per gruppi vocali},
+@ref{Estendere i modelli},
+@ref{Altre fonti di informazione}.
 
 @knownissues
 L'impostazione delle variabili @code{...TwoVoicesPerStaff} è attiva per
@@ -444,7 +444,7 @@ con questo semplice modello integrato.
 I modelli seguenti devono essere copiati nella tua partitura e modificati
 lì.  Se la disposizione della tua partitura SATB è relativamente semplice,
 potresti preferire i modelli integrati, che possono essere semplicemente
-inclusi con @code{include}, come è spiegato in @ref{Built-in templates}.
+inclusi con @code{include}, come è spiegato in @ref{Modelli integrati}.
 
 @menu
 * Partitura vocale SATB::

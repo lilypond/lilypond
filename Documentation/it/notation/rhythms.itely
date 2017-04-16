@@ -141,7 +141,7 @@ della notazione proporzionale si trovano in @ref{Proportional notation}.
 
 Di norma i punti sono spostati in su per evitare le linee del rigo, fuorché all'interno
 di passaggi polifonici.  I punti possono essere orientati manualmente verso l'alto
-o verso il basso; si veda @ref{Direction and placement}.
+o verso il basso; si veda @ref{Direzione e posizionamento}.
 
 
 @predefined
@@ -170,7 +170,7 @@ Glossario musicale:
 @rglosnamed{Duration names notes and rests,Nomi di durata delle note e delle pause}.
 
 Guida alla notazione:
-@ref{Automatic beams},
+@ref{Travature automatiche},
 @ref{Ties},
 @ref{Stems},
 @ref{Writing rhythms},
@@ -317,7 +317,7 @@ Manuale di apprendimento:
 @rlearning{Metodi di modifica}.
 
 Guida alla notazione:
-@ref{Direction and placement},
+@ref{Direzione e posizionamento},
 @ref{Time administration},
 @ref{Scaling durations},
 @ref{The tweak command},
@@ -527,7 +527,7 @@ così:
 @funindex \tieNeutral
 
 Le legature di valore possono essere impostate manualmente  per avere la
-curva in su o in giù, come è spiegato in @ref{Direction and placement}.
+curva in su o in giù, come è spiegato in @ref{Direzione e posizionamento}.
 
 @cindex legature di valore, aspetto
 @cindex legature di valore punteggiate
@@ -975,7 +975,7 @@ Glossario musicale:
 @rglosnamed{multi-measure rest,pausa multipla}.
 
 Guida alla notazione:
-@ref{Durations},
+@ref{Durata},
 @ref{Text},
 @ref{Formatting text},
 @ref{Text scripts}.
@@ -1382,7 +1382,7 @@ Glossario musicale:
 
 Guida alla notazione:
 @ref{Formatting text},
-@ref{Creating MIDI output}.
+@ref{Creazione dell'output MIDI}.
 
 Frammenti di codice:
 @rlsr{Staff notation}.
@@ -1539,7 +1539,7 @@ alterazione, che di solito si considera sempre attiva fino alla fine della
 misura, sarà ancora valida dopo la stanghetta stampata da @code{\bar}.  Se si
 desidera che le alterazioni successive appaiano, si dovranno inserire
 manualmente delle alterazioni forzate o di precauzione, come è spiegato
-in @ref{Accidentals}.
+in @ref{Alterazioni}.
 
 @lilypond[verbatim,quote]
 \relative c'' {
@@ -1588,7 +1588,7 @@ Guida alla notazione:
 @ref{Visibility of objects},
 @ref{Polymetric notation},
 @ref{Manual beams},
-@ref{Accidentals}.
+@ref{Alterazioni}.
 
 Frammenti di codice:
 @rlsr{Rhythms}.
@@ -1767,7 +1767,7 @@ Glossario musicale:
 @rglosnamed{meter,tempo}.
 
 Guida alla notazione:
-@ref{Automatic beams},
+@ref{Travature automatiche},
 @ref{Manual beams},
 @ref{Time signature},
 @ref{Scaling durations}.
@@ -2565,7 +2565,7 @@ all'interno dell'intero raggruppamento.
 
 @seealso
 Guida alla notazione:
-@ref{Direction and placement},
+@ref{Direzione e posizionamento},
 @ref{Grace notes}.
 
 Frammenti di codice:
@@ -3352,7 +3352,7 @@ trova in @ref{The Emmentaler font}.
 Per le più comuni modifiche relative al posizionamento dei segni di chiamata, si
 veda @ref{Formatting text}.  Per ottenere un controllo più preciso si consiglia
 di studiare il funzionamento della proprietà @code{break-alignable-interface}
-descritta in @ref{Aligning objects}.
+descritta in @ref{Allineamento degli oggetti}.
 
 Il file @file{scm/translation-functions.scm} contiene le
 definizioni di @code{format-mark-numbers} e
@@ -3363,7 +3363,7 @@ ispirazione per creare altre funzioni di formattazione.
 Guida alla notazione:
 @ref{The Emmentaler font},
 @ref{Formatting text},
-@ref{Aligning objects}.
+@ref{Allineamento degli oggetti}.
 
 File installati:
 @file{scm/translation-functions.scm}.
@@ -3708,7 +3708,7 @@ del tempo in una partitura.
 @table @code
 @item currentBarNumber
 Il numero di battuta corrente.  Un esempio che mostra l'uso di
-questa proprietà si trova in @ref{Bar numbers}.
+questa proprietà si trova in @ref{Numeri di battuta}.
 
 @item measureLength
 La durata delle misure nel tempo corrente.  Per un tempo di
@@ -3756,7 +3756,7 @@ sedicesimi.
 
 @seealso
 Guida alla notazione:
-@ref{Bar numbers},
+@ref{Numeri di battuta},
 @ref{Unmetered music}.
 
 Frammenti di codice:
