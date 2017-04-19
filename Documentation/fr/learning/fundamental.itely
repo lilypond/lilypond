@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 4690bfaa07a15e38ebfd1299fa209968603f3630
+   Translation of GIT committish: 93be41a1622bc33a01719d1d75af3dca40d75354
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -708,9 +708,27 @@ automatiquement.
 \new Staff \relative {
   % Main voice
   c'16 d e f
-  %    Voice = "1"   Voice = "2"              Voice = "3"
+  %  Voice = "1"   Voice = "2"             Voice = "3"
   << { g4 f e } \\ { r8 e4 d c8~ } >> |
   << { d2 e }   \\ { c8 b16 a b8 g~ 2 } \\ { s4 b c2 } >> |
+}
+@end lilypond
+
+@funindex \voices
+Les voix peuvent se saisir dans un ordre différent, comme par exemple du
+haut vers le bas, auquel cas leurs numéros respectifs seront spécifiés
+dès avant la construction @code{<< @dots{} >>} à l'aide de la commande
+@code{\voices} comme ici :
+
+@lilypond[quote,verbatim]
+\new Staff \relative {
+  % Main voice
+  c'16 d e f
+  %  Voice = "1"   Voice = "2"
+  << { g4 f e } \\ { r8 e4 d c8~ } >> |
+  \voices 1,3,2
+  %  Voice = "1"   Voice = "3"    Voice = "2"
+  << { d2 e }   \\ { s4 b c2 } \\ { c8 b16 a b8 g~ 2 } >> |
 }
 @end lilypond
 
@@ -822,6 +840,7 @@ les voix -- ce qui est plus compliqué sera décortiqué plus tard.
 @lilypond[quote,ragged-right]
 \new Staff \relative {
   \key aes \major
+  \voices 1,2,4    % No voice three
   <<  % Voice one
     { c''2 aes4. bes8 }
   \\  % Voice two
@@ -832,7 +851,6 @@ les voix -- ce qui est plus compliqué sera décortiqué plus tard.
       \once \override NoteColumn.force-hshift = #0.5
       des2
     }
-  \\  % No voice three
   \\  % Voice four
     {
       \override NoteColumn.force-hshift = #0
@@ -867,6 +885,7 @@ que vous ne comprendriez pas.
 @lilypond[quote,ragged-right]
 \new Staff \relative {
   \key aes \major
+  \voices 1,2,4  % No Voice three (we want stems down)
   <<
     {  % Voice one
       \voiceOneStyle
@@ -880,7 +899,6 @@ que vous ne comprendriez pas.
       \once \override NoteColumn.force-hshift = #0.5
       des2
     }
-  \\  % No Voice three (we want stems down)
   \\  % Voice four
     { \voiceThreeStyle
       \override NoteColumn.force-hshift = #0
@@ -918,16 +936,19 @@ impaires portent des hampes vers le haut, les voix paires des hampes
 vers le bas.  Les hampes des voix 1 et 2 sont orientées comme il faut
 mais celles de la voix 3 devraient, dans le cas qui nous occupe, aller
 vers le bas.  Nous pouvons corriger cela en sautant la voix 3 et en
-plaçant la musique dans la voix 4 grâce à un @code{\\} supplémentaire :
+plaçant la musique dans la voix 4.  Ceci pourrait s'obtenir à l'aide
+d'un @code{\\} supplémentaire, mais nous utiliserons plutôt la commande
+@code{\voices} qui, par ailleurs, nous permettrait de saisir les voix
+dans un autre ordre selon notre convenance :
 
 @lilypond[quote,verbatim,ragged-right]
 \new Staff \relative {
   \key aes \major
+  \voices 1,2,4   % Omit Voice three
   <<  % Voice one
     { c''2 aes4. bes8 }
   \\  % Voice two
     { <ees, c>2 des }
-  \\  % Omit Voice three
   \\  % Voice four
     { aes'2 f4 fes }
   >> |
@@ -1049,7 +1070,7 @@ annotations, liaisons de prolongation ou de phrasé, et sur les nuances.
 }
 @end lilypond
 
-Voyons à présent trois différentes façons d'exprimer un passage
+Voyons à présent quatre différentes façons d'exprimer un passage
 polyphonique, à partir d'un exemple de la section précédente.  Chacune
 d'elles aura ses avantages selon les circonstances.
 
@@ -1084,6 +1105,36 @@ liaison de phrasé à l'ensemble.
       s2. | s4 b c2 |
     }
   >>
+}
+@end lilypond
+
+@cindex voix, continuation
+@funindex \voices
+
+La commande @code{\voices} peut aussi servir à maintenir une voix
+principale dans une construction simultanée :
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff \relative {
+  \new Voice = "main" {
+    \voiceOneStyle
+    % This section is homophonic
+    c'16^( d e f
+    % Start simultaneous section of three voices
+    \voices "main",2,3
+    <<
+      % Continue the main voice in parallel
+      { g4 f e | d2 e) | }
+      % Initiate second voice
+    \\
+      % Set stems, etc., down
+      { r8 e4 d c8~ | 8 b16 a b8 g~ 2 | }
+    \\
+      % Initiate third voice
+      % Set stems, etc, up
+      { s2. | s4 b c2 | }
+    >>
+  }
 }
 @end lilypond
 
