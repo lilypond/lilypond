@@ -38,7 +38,7 @@ $(outdir)/%.jpg: %.jpg
 	ln -f $< $@
 
 $(outdir)/%.png: %.eps
-	gs -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -q -sOutputFile=$@ -sDEVICE=png16m -dEPSCrop -dNOPAUSE -f $< -c quit
+	gs -dAutoRotatePages=/None -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -q -sOutputFile=$@ -sDEVICE=png16m -dEPSCrop -dNOPAUSE -f $< -c quit
 
 $(outdir)/%.pdf: %.eps
 	gs -dAutoRotatePages=/None -q -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -sOutputFile=$@ -dEPSCrop -c .setpdfwrite -f $<

@@ -23,6 +23,7 @@ $(outdir)/%.pdf: $(outdir)/%.dvi
 			-dNOPAUSE\
 			-dBATCH\
 			-sDEVICE=pdfwrite\
+			-dAutoRotatePages=/None\
 			-sOutputFile=$(@F)\
 			-dCompatibilityLevel=1.2\
 			-sPAPERSIZE=a4\
