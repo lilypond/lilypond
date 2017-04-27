@@ -227,7 +227,7 @@
                                                        system-separator-markup)
                                      #f))
 
-       (page-stencil (ly:make-stencil '()))
+       (page-stencil empty-stencil)
 
        (last-system #f)
        (last-y 0.0)
@@ -243,12 +243,14 @@
        (add-system
         (lambda (system)
           (let* ((stencil (paper-system-stencil system))
-                 (y (ly:prob-property system 'Y-offset 0))
+                 (extra-offset (ly:prob-property system 'extra-offset '(0 . 0)))
+                 (x (+ (ly:prob-property system 'X-offset 0.0)
+                       (car extra-offset)))
+                 (y (+ (ly:prob-property system 'Y-offset 0.0)
+                       (cdr extra-offset)))
                  (is-title (paper-system-title?
                             system)))
-            (add-to-page stencil
-                         (ly:prob-property system 'X-offset 0.0)
-                         y)
+            (add-to-page stencil x y)
             (if (and (ly:stencil? system-separator-stencil)
                      last-system
                      (not (paper-system-title? system))
