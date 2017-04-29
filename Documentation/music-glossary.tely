@@ -535,7 +535,7 @@ No cross-references.
 
 ES: mordente de una nota,
 I: acciaccatura,
-F: acciaccatura, appoggiature brève,
+F: acciaccature, appoggiature brève,
 D: Zusammenschlag,
 NL: samenslag,
 DK: ?,
@@ -1079,7 +1079,7 @@ FI: ylinouseva intervalli.
 
 ES: manuscrito,
 I: autografo,
-F: manuscrit, autographe
+F: manuscrit, autographe,
 D: Autograph, Handschrift,
 NL: manuscript,
 DK: håndskrift, autograf,
@@ -1266,7 +1266,7 @@ g64-"1/64"[ s32 g64 s32 g64 s32 g64] s32
 
 ES: tiempo, parte (de compás)
 I: tempi,
-F: temps,
+F: temps, battue
 D: Takt, Taktschlag, Zeit (im Takt),
 NL: tel,
 DK: (takt)slag,
@@ -2006,7 +2006,7 @@ Another name for @ref{common time}.
 
 ES: ?,
 I: Periodo di pratica comune,
-F: ?,
+F: musique classique moderne,
 D: Kunstmusik,
 NL: ?,
 DK: ?,
@@ -2226,7 +2226,7 @@ g4 g g a | b2 a | g4 b a a | g1 \bar "||"
 
 ES: consonancia,
 I: consonanza,
-F: consonance,
+F: consonance, consonnance,
 D: Konsonanz,
 NL: consonant,
 DK: konsonans,
@@ -2374,7 +2374,7 @@ g4\< a b c | d1\! \bar "|."
 
 ES: notas guía,
 I: notine,
-F: petites notes précédant l'entrée d'un instrument, réplique, @q{à défaut},
+F: petites notes précédant l'entrée d'un instrument, réplique, « à défaut »,
 D: Stichnoten,
 NL: stichnoten,
 DK: stiknoder,
@@ -2804,7 +2804,7 @@ This is a stub for diminution (@emph{wrt} mensural notation).
 
 ES: directo,
 I: ?,
-F: ?,
+F: direct,
 D: Weiser, Zeiger,
 NL: ?,
 DK: ?,
@@ -2873,7 +2873,7 @@ FI: dissonanssi, dissonoiva intervalli, riitasointi.
 
 ES: división,
 I: divisio,
-F: ?,
+F: division,
 D: Divisio,
 NL: ?,
 DK: ?,
@@ -3107,7 +3107,7 @@ FI: kaksoisylennysmerkki.
 
 ES: compás polimétrico,
 I: indicazione di tempo doppia/polimetrica,
-F: ?,
+F: mesure composée, métrique composée,
 D: zusammengesetzte Taktart,
 NL: ?,
 DK: ?,
@@ -3802,7 +3802,7 @@ FI: kvartti.
 
 ES: partitura a la francesa,
 I: partitura senza i righi vuoti,
-F: ?,
+F: partition à la française,
 D: Orchesterpartitur ohne leere Systeme,
 NL: ?,
 DK: ?,
@@ -3827,7 +3827,7 @@ you may wish to procure a copy of their style manual.
 
 ES: pentagrama a la francesa,
 I: rigo temporaneo,
-F: ?,
+F: portée à la française,
 D: zeitweiliges Notensystem,
 NL: ?,
 DK: ?,
@@ -4299,7 +4299,7 @@ and is therefore a polymeter (second definition) of considerable antiquity.
 
 ES: ?,
 I: ?,
-F: ?,
+F: clef de basse haute,
 D: hoher Bassschlüssel,
 NL: ?,
 DK: ?,
@@ -4314,9 +4314,9 @@ higher -- octavation indicators on clefs appeared at the beginning of
 the 20th Century.
 
 In LilyPond, the most straightforward way to make a high bass clef is to
-print the modern version @code{\clef "baas^8"} but without the @code{8};
+print the modern version @code{\clef "bass^8"} but without the @code{8};
 
-@lilypond[quote,verbatim,relative=1]
+@lilypond[quote,verbatim]
 <<
   \new Staff {
     \clef treble { g4 b d' g' }
@@ -4403,7 +4403,7 @@ No cross-references.
 
 ES: ?,
 I: accordo di settima dominante incompleto,
-F: ?,
+F: accord de septième de dominante incomplet,
 D: verkürzter Dominantseptakkord,
 NL: ?,
 DK: ?,
@@ -4819,7 +4819,7 @@ FI: viiva, nuottiviiva.
 
 ES: en su lugar,
 I: loco,
-F: ?,
+F: loco,
 D: loco,
 NL: ?,
 DK: ?,
@@ -5046,7 +5046,7 @@ mediant (variant tonic).
 
 ES: melisma,
 I: melisma,
-F: mélisme, tenue,
+F: mélisme, vocalise,
 D: Melisma,
 NL: melisma,
 DK: ?,
@@ -5516,7 +5516,7 @@ The female voice between soprano and contralto.
 
 ES: do central,
 I: do centrale,
-F: do central, do 3
+F: do central, do 3,
 D: eingestrichenes@w{ }c,
 NL: centrale@w{ }c,
 DK: enstreget@w{ }c,
@@ -6383,7 +6383,7 @@ simultaneously or in alternation.
 
 ES: indicación de compás polimétrico,
 I: tempo polimetrico,
-F: ?,
+F: métrique polymétrique,
 D: zusammengesetzte Taktart,
 NL: ?,
 DK: ?,
@@ -6607,7 +6607,7 @@ FI: kvartoli.
 
 ES: variante [de acorde o intervalo],
 I: qualità (?),
-F: qualité (?),
+F: qualité [d'accord ou d'intervalle],
 D: Modus (Dur oder Moll),
 NL: ?,
 DK: ?,
@@ -6982,7 +6982,7 @@ No cross-references.
 
 ES: partitura,
 I: partitura,
-F: partition, conducteur (full score),
+F: partition, conducteur @emph{(full score)},
 D: Partitur (full score), Klavierauszug (vocal score),
 NL: partituur,
 DK: partitur,
@@ -7133,7 +7133,7 @@ FI: korotusmerkki.
 
 ES: simile, similar,
 I: simile,
-F: simile,
+F: simile, de façon identique,
 D: simile, gleichartig,
 NL: ?,
 DK: ?,
@@ -7585,7 +7585,7 @@ The seventh @ref{scale degree}.
 
 ES: sobre la cuerda de Sol,
 I: sul Sol,
-F: sur la G,
+F: sur la corde de sol,
 D: auf G, auf der G-Saite,
 NL: ?,
 DK: ?,
