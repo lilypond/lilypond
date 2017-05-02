@@ -727,10 +727,12 @@ box, remains the same."
     replaced-stil))
 
 (define-public (stencil-with-color stencil color)
-  (ly:make-stencil
-   (list 'color color (ly:stencil-expr stencil))
-   (ly:stencil-extent stencil X)
-   (ly:stencil-extent stencil Y)))
+  (if (color? color)
+      (ly:make-stencil
+       (list 'color color (ly:stencil-expr stencil))
+       (ly:stencil-extent stencil X)
+       (ly:stencil-extent stencil Y))
+      stencil))
 
 (define*-public (stencil-whiteout-outline
                  stil #:optional (thickness 0.3) (color white)
