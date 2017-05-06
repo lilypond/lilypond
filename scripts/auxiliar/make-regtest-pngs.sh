@@ -70,6 +70,7 @@ while getopts "j:oncr:gpd:" opts; do
 	    {
 		$1 gs -sDEVICE=${gsdevice:-pngmono} -q -dNOPAUSE \
 		    -r${resolution:-300} -dNOPLATFONTS \
+		    -dAutoRotatePages=/None \
 		    -dTextAlphaBits=1 -dGraphicsAlphaBits=1 \
 		    -sOutputFile="${2%.pdf}-%d.png" "$2" -c quit
 	    };;

@@ -145,6 +145,7 @@
                     "-dNOPAUSE"
                     "-dBATCH"
                     (ly:format "-sDEVICE=~a" pixmap-format)
+                    "-dAutoRotatePages=/None"
                     (string-append "-sOutputFile=" output-file)
                     (ly:format "-r~a" (* anti-alias-factor resolution))
                     (string-append "-f" tmp-name))))

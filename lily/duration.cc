@@ -152,8 +152,8 @@ Duration::print_smob (SCM port, scm_print_state *) const
 SCM
 Duration::equal_p (SCM a, SCM b)
 {
-  Duration *p = (Duration *) SCM_CELL_WORD_1 (a);
-  Duration *q = (Duration *) SCM_CELL_WORD_1 (b);
+  Duration *p = unsmob<Duration> (a);
+  Duration *q = unsmob<Duration> (b);
 
   bool eq = p->dots_ == q->dots_
             && p->durlog_ == q->durlog_

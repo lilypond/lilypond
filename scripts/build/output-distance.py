@@ -642,6 +642,7 @@ class SignatureFileLink (FileLink):
                 cmd = ('gs -sDEVICE=png16m -dGraphicsAlphaBits=4 -dTextAlphaBits=4 '
                        ' %(data_option)s '
                        ' -r101 '
+                       ' -dAutoRotatePages=/None '
                        ' -sOutputFile=%(outfile)s -dNOSAFER -dEPSCrop -q -dNOPAUSE '
                        ' %(infile)s  -c quit ') % locals ()
 

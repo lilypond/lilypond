@@ -98,6 +98,7 @@
                    "-r1200"
                    (if (ly:bigpdfs) "-dSubsetFonts=false")
                    "-sDEVICE=pdfwrite"
+                   "-dAutoRotatePages=/None"
                    (string-append "-sOutputFile="
                                   (string-join
                                    (string-split pdf-name #\%)
