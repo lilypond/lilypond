@@ -157,8 +157,8 @@ A		[a-zA-Z\200-\377]
 AA		{A}|_
 N		[0-9]
 ANY_CHAR	(.|\n)
-WORD		{A}([-_]{A}|{A})*
-COMMAND		\\{WORD}
+SYMBOL		{A}([-_]{A}|{A})*
+COMMAND		\\{SYMBOL}
 /* SPECIAL category is for every letter that needs to get passed to
  * the parser rather than being redefinable by the user */
 SPECIAL		[-+*/=<>{}!?_^'',.:]
@@ -362,7 +362,7 @@ BOM_UTF8	\357\273\277
 
     /* Flex picks the longest matching pattern including trailing
      * contexts.  Without the backup pattern, r-. does not trigger the
-     * {RESTNAME} rule but rather the {WORD}/[-_] rule coming later,
+     * {RESTNAME} rule but rather the {SYMBOL}/[-_] rule coming later,
      * needed for avoiding backup states.
      */
 
@@ -476,8 +476,8 @@ BOM_UTF8	\357\273\277
 }
 
 <notes,figures>{
-	{WORD}/[-_]	| // backup rule
-	{WORD}	{
+	{SYMBOL}/[-_]	| // backup rule
+	{SYMBOL}	{
 		return scan_bare_word (YYText_utf8 ());
 	}
 	\\\"	{
@@ -583,7 +583,7 @@ BOM_UTF8	\357\273\277
 		s = lyric_fudge (s);
 		yylval = ly_string2scm (s);
 
-		return WORD;
+		return SYMBOL;
 	}
 	/* This should really just cover {} */
 	[{}] {
@@ -592,8 +592,8 @@ BOM_UTF8	\357\273\277
 	}
 }
 <chords>{
-	{WORD}/[-_]	| // backup rule
-	{WORD}	{
+	{SYMBOL}/[-_]	| // backup rule
+	{SYMBOL}	{
 		return scan_bare_word (YYText_utf8 ());
 	}
 	\\\"	{
@@ -702,7 +702,7 @@ BOM_UTF8	\357\273\277
 		string s (YYText_utf8 ()); 
 
 		yylval = ly_string2scm (s);
-		return WORD;
+		return SYMBOL;
 	}
 	[{}]  {
                 yylval = SCM_UNSPECIFIED;
@@ -756,8 +756,8 @@ BOM_UTF8	\357\273\277
 }
 
 <INITIAL>{
-	{WORD}/[-_]	| // backup rule
-	{WORD}	{
+	{SYMBOL}/[-_]	| // backup rule
+	{SYMBOL}	{
 		return scan_bare_word (YYText_utf8 ());
 	}
 	\\\"	{
@@ -927,7 +927,7 @@ Lily_lexer::scan_escaped_word (const string &str)
 
 	yylval = ly_string2scm (str);
 
-	return STRING; // WORD would cause additional processing
+	return STRING; // SYMBOL would cause additional processing
 }
 
 int
@@ -1038,7 +1038,7 @@ Lily_lexer::scan_bare_word (const string &str)
 		return state;
 	}
 	yylval = ly_string2scm (str);
-	return WORD;
+	return SYMBOL;
 }
 
 int
