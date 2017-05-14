@@ -25,7 +25,7 @@ Aquest capítol explica com crear notació musical.
 * Expressions::             Addició d'expressió a les notes.
 * Repeticions::             Repeticions de música.
 * Notes simultànies::       Més d'una nota a l'hora.
-* Staff notation:: Imprimir pentagrames.
+* Notació dels pentagrames:: Impressió dels pentagrames.
 * Editorial annotations::   Notació especial per augmentar la llegibilitat.
 * Text::                    Addicció de text a les partitures.
 @end menu

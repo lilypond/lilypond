@@ -1136,7 +1136,7 @@ Glossari musical:
 @rglos{part}.
 
 Referència de la notació:
-@rusernamed{Writing parts,Escriptura de les particel·les}.
+@ref{Escriptura de les particel·les}.
 
 Fragments de codi:
 @rlsr{Simultaneous notes}.

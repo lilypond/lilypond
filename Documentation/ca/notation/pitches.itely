@@ -128,7 +128,7 @@ Glossari musical:
 @rglos{Pitch names}.
 
 Fragments de codi:
-@rlsrnamed{Pitches,Altures}.
+@rlsr{Pitches}.
 
 
 @node Escriptura d'octava relativa
@@ -1176,7 +1176,7 @@ que requereix claus de tabulatura s'estudia a
 
 Per fer servir claus a les notes guia, vegeu les ordres
 @code{\cueClef} i @code{\cueDuringWithClef} a
-@rusernamed{Formatting cue notes,Formatació de les notes guia}
+@ref{Format de les notes guia}.
 
 @cindex transpositores, claus
 @cindex clau transpositora
@@ -1286,7 +1286,7 @@ Referencia de la notación:
 @rusernamed{Gregorian clefs,Claus del cant gregorià},
 @rusernamed{Default tablatures,Tabulatures predeterminades}
 @rusernamed{Custom tablatures,Tabulatures personalizadas}.
-@rusernamed{Formatting cue notes,Formatació de les notes guia}.
+@ref{Format de les notes guia}.
 
 Fitxers instal·lats:
 @file{scm/parser-clef.scm}.
@@ -1518,7 +1518,7 @@ certes partes es poden gravar en un to diferent del
 tonalitat del @notation{instrumento transpositor}; si no es fa
 així, la sortida MIDI i les notes guia a altres parts produiran
 altures incorrectes.  Per veure més informació sobre parts citades
-com a guia, consulteu @rusernamed{Quoting other voices,Cites d'altres veus}.
+com a guia, consulteu @ref{Cites a altres veus}.
 
 @example
 \transposition @var{pitch}
@@ -1601,7 +1601,7 @@ Glossari musical:
 @rglos{transposing instrument}.
 
 Referència de la notació:
-@rusernamed{Quoting other voices,Cites d'altres veus},
+@ref{Cites a altres veus},
 @ref{Transposició}.
 
 Fragments de codi:

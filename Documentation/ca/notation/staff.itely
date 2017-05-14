@@ -1,0 +1,1577 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+@ignore
+    Translation of GIT committish: 19d0e8e1a9cee3444ec4915b1d2d116e67f5b3f7
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.19.21"
+
+@c Translators: Walter Garcia-Fontes
+@c Translation checkers:
+
+@node Notació dels pentagrames
+@section Notació dels pentagrames
+@translationof Staff notation
+
+@c The line width is a bit of a hack to allow space for the
+@c  instrument names.
+@lilypondfile[quote,ragged-right,line-width=14.5\cm,staffsize=16]{staff-headword.ly}
+
+Aquesta secció explica com infliur sobre l'aparença dels
+pentagrames, com imprimir partitures amb més d'un pentagrama i com
+afegir indicacions de temps i notes guia als pentagrames.
+
+@menu
+* Visualització dels pentagrames::
+* Modificació de pentagrames separats::
+* Escriptura de les particel·les::
+@end menu
+
+
+@node Visualització dels pentagrames
+@subsection Visualització dels pentagrames
+@translationof Displaying staves
+
+Aquesta secció descriu els diferents mètodes de creació de
+pentagrames i grups de pentagrames.
+
+@menu
+* Creació d'instàncies de pentagrames nous::
+* Agrupament de pentagrames::
+* Grups de pentagrames niuats::
+* Separació de sistemes::
+@end menu
+
+
+@node Creació d'instàncies de pentagrames nous
+@unnumberedsubsubsec Creació d'instàncies de pentagrames nous
+@translationof Instantiating new staves
+
+@cindex nou pentagrama
+@cindex pauta
+@cindex pentagrama, iniciar
+@cindex pentagrama, instanciar
+@cindex pentagrama, nou
+@cindex pentagrama de percussió
+@cindex pentagrama únic
+@cindex percussió, pauta de
+@cindex gregorià, cant, pauta de transcripció de
+@cindex rítmica, pauta
+@cindex tabulatura, pauta de
+
+@funindex \drummode
+@funindex DrumStaff
+@funindex RhythmicStaff
+@funindex TabStaff
+@funindex MensuralStaff
+@funindex VaticanaStaff
+@funindex GregorianTranscriptionStaff
+
+Les @notation{pautes} i els @notation{pentagrames} o pautes de
+cinc línies es creen amb les ordres @code{\new} o
+@code{\context}.  Per veure més detalls, consulteu
+@rusernamed{Creating and referencing contexts,Creació i referència de contextos}.
+
+El context bàsic de pentagrama és @code{Staff}:
+
+@lilypond[verbatim,quote]
+\new Staff \relative { c''4 d e f }
+@end lilypond
+
+El context @code{DrumStaff} crea una pauta de cinc línies
+preparada per a un conjunt de bateria típic.  Cada instrument es
+presenta amb un símbol diferent.  Els instruments s'escriuen en el
+mode de percussió que segueix a una ordre @code{\drummode}, amb
+cada instrument identificat per un nom.  Per veure més detalls,
+consulteu @rusernamed{Percussion staves,Pautes de percussió}.
+
+@lilypond[verbatim,quote]
+\new DrumStaff {
+  \drummode { cymc hh ss tomh }
+}
+@end lilypond
+
+@code{RhythmicStaff} crea una pauta d'una sola línia que sols
+mostra les duracions de l'entrada.  Es preserven les duracions
+reals.  Per veure més detalls, consulteu
+@ref{Mostrar els ritmes de la melodia}.
+
+@lilypond[verbatim,quote]
+\new RhythmicStaff { c4 d e f }
+@end lilypond
+
+@code{TabStaff} crea una tabulatura amb sis cordes en l'afinació
+estàndard de la guitarra.  Per veure més detalls, consulteu
+@rusernamed{Default tablatures,Tabulatures predeterminades}.
+
+@lilypond[verbatim,quote]
+\new TabStaff \relative { c''4 d e f }
+@end lilypond
+
+Hi ha dos contextos de pauta específics per a la notació de música
+antiga: @code{MensuralStaff} i @code{VaticanaStaff}.  es descriuen
+a @rusernamed{Pre-defined contexts,Contextos predefinits}.
+
+@code{GregorianTranscriptionStaff} crea una pauta per a la notació
+moderna de cant gregorià.  No mostra línies divisòries.
+@lilypond[verbatim,quote]
+\new GregorianTranscriptionStaff \relative { c''4 d e f e d }
+@end lilypond
+
+Es poden definir contextos nous de pentagrama únic.  Per veure més
+detalls, consulteu @rusernamed{Defining new contexts,Definició de nous contextos}.
+
+@seealso
+Glossari musical:
+@rglos{staff},
+@rglos{staves}.
+
+Referència de la notació:
+@rusernamed{Creating and referencing contexts,Creació i referència de contextos},
+@rusernamed{Percussion staves,Pautes de percussió},
+@ref{Mostrar els ritmes de la melodia},
+@rusernamed{Default tablatures,Tabulatures predeterminades},
+@rusernamed{Pre-defined contexts,Contextos predefinits},
+@ref{El símbol del pentagrama},
+@rusernamed{Gregorian chant contexts,Contextos del cant gregorià},
+@rusernamed{Mensural contexts,Contextos de la música mensural},
+@rusernamed{Defining new contexts,Definició de nous contextos}.
+
+Fragments de codi:
+@rlsr{Staff notation}.
+
+Referència de funcionament intern:
+@rinternals{Staff},
+@rinternals{DrumStaff},
+@rinternals{GregorianTranscriptionStaff},
+@rinternals{RhythmicStaff},
+@rinternals{TabStaff},
+@rinternals{MensuralStaff},
+@rinternals{VaticanaStaff},
+@rinternals{StaffSymbol}.
+
+
+@node Agrupament de pentagrames
+@unnumberedsubsubsec Agrupament de pentagrames
+@translationof Grouping staves
+
+@cindex començament del sistema
+@cindex pentagrames, diversos
+@cindex claudàtor vertical
+@cindex clau vertical
+@cindex pentagrames de piano
+@cindex pentagrames, grup de
+@cindex pauta de cor
+@cindex sistema, delimitador de començament
+@cindex cor, sistema de
+@cindex piano, sistema de
+@cindex piano, pentagrames de
+@cindex sistema de piano
+@cindex sistema de cor
+@cindex sistema
+
+Hi ha diversos contextos per agrupar pentagrames individuals
+formant sistemes.  Cada context d'agrupament estableix l'estil del
+delimitador de començament del sistema i el comportament de les
+barres de compàs.
+
+Si no s'especifica cap context, s'usen les propietats
+predeterminades: el grup comença amb una línia vertical i les
+barres de compàs no estan connectades.
+
+@lilypond[verbatim,quote]
+<<
+  \new Staff \relative { c''1 c }
+  \new Staff \relative { c''1 c }
+>>
+@end lilypond
+
+Al context @code{StaffGroup}, el grup s'inicia amb una clau i les
+barres de compàs es dibuixen travessant tots els pentagrames.
+
+@lilypond[verbatim,quote]
+\new StaffGroup <<
+  \new Staff \relative { c''1 c }
+  \new Staff \relative { c''1 c }
+>>
+@end lilypond
+
+A un @code{ChoirStaff} (sistema de cor), el grup s'inicia amb una
+clau, però les barres de compàs no estan connectades.
+
+@lilypond[verbatim,quote]
+\new ChoirStaff <<
+  \new Staff \relative { c''1 c }
+  \new Staff \relative { c''1 c }
+>>
+@end lilypond
+
+A un @code{GrandStaff} (sistema de piano), el grup s'inicia amb
+una clau i les barres de compàs es connecten entre els pentagrames.
+
+@lilypond[verbatim,quote]
+\new GrandStaff <<
+  \new Staff \relative { c''1 c }
+  \new Staff \relative { c''1 c }
+>>
+@end lilypond
+
+El @code{PianoStaff} (sistema de piano) es idèntic a
+@code{GrandStaff}, excepte que contempla directament la impressió
+del nom de l'instrument.  Per veure més detalls, consulteu
+@ref{Noms d'instruments}.
+
+@lilypond[verbatim,quote]
+\new PianoStaff <<
+  \set PianoStaff.instrumentName = #"Piano"
+  \new Staff \relative { c''1 c }
+  \new Staff \relative { \clef bass c1 c }
+>>
+@end lilypond
+
+Cada context de grup de pentagrames fixa la propietat del
+delimitador d'inici @code{systemStartDelimiter} a un dels valors
+següents: @code{SystemStartBar} (línia),
+@code{SystemStartBrace} (clau) o @code{SystemStartBracket}
+(claudàtor).  També està disponible un quart delimitador,
+@code{SystemStartSquare} (clau amb angles rectes), però s'ha
+d'especificar explícitament.
+
+Es poden definir contextos nous de grup de pentagrames.  Per veure
+més detalls, consulteu
+@rusernamed{Defining new contexts,Definició de nous contextos}.
+
+@snippets
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{use-square-bracket-at-the-start-of-a-staff-group.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{display-bracket-with-only-one-staff-in-a-system.ly}
+
+@cindex disseny «mensurstriche»
+@cindex mensurstriche, disseny
+@cindex renaixement, música del
+@cindex transcripció de música mensural
+@cindex mensural, música, transcripció de
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{mensurstriche-layout-bar-lines-between-the-staves.ly}
+
+@seealso
+Glossari musical:
+@rglos{brace},
+@rglos{bracket},
+@rglos{grand staff}.
+
+Referència de la notació:
+@ref{Noms d'instruments},
+@rusernamed{Defining new contexts,Definició de nous contextos}.
+
+Fragments de codi:
+@rlsr{Staff notation}.
+
+Referència de funcionament intern:
+@rinternals{Staff},
+@rinternals{StaffGroup},
+@rinternals{ChoirStaff},
+@rinternals{GrandStaff},
+@rinternals{PianoStaff},
+@rinternals{SystemStartBar},
+@rinternals{SystemStartBrace},
+@rinternals{SystemStartBracket},
+@rinternals{SystemStartSquare}.
+
+
+@node Grups de pentagrames niuats
+@unnumberedsubsubsec Grups de pentagrames niuats
+@translationof Nested staff groups
+
+@cindex pentagrames niuats
+@cindex niuat de pentagrames
+@cindex sistema, delimitadors d'inici niuats
+@cindex niuats, claus de pentagrama
+@cindex claus niuades
+@cindex claus, niuat de
+
+Els contextos de grups de pentagrames es poden niuar fins a una
+profunditat arbitrària.  En aquest cas, cada contest descendent
+crea una clau nova adjacent a la clau del seu grup pare.
+
+@lilypond[verbatim,quote]
+\new StaffGroup <<
+  \new Staff \relative { c''2 c | c2 c }
+  \new StaffGroup <<
+    \new Staff \relative { g'2 g | g2 g }
+    \new StaffGroup \with {
+      systemStartDelimiter = #'SystemStartSquare
+    }
+    <<
+      \new Staff \relative { e'2 e | e2 e }
+      \new Staff \relative { c'2 c | c2 c }
+    >>
+  >>
+>>
+@end lilypond
+
+Es poden definir nous contextos de grups de pentagrames niuats.
+Per veure més detalls, consulteu
+@rusernamed{Defining new contexts,Definició de nous contextos}.
+
+@snippets
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{nesting-staves.ly}
+
+@seealso
+Referència de la notació:
+@ref{Agrupament de pentagrames},
+@ref{Noms d'instruments},
+@rusernamed{Defining new contexts,Definició de nous contextos}.
+
+Fragmentos de código:
+@rlsr{Staff notation}.
+
+Referència de funcionament intern:
+@rinternals{StaffGroup},
+@rinternals{ChoirStaff},
+@rinternals{SystemStartBar},
+@rinternals{SystemStartBrace},
+@rinternals{SystemStartBracket},
+@rinternals{SystemStartSquare}.
+
+
+@node Separació de sistemes
+@unnumberedsubsubsec Separació de sistemes
+@translationof Separating systems
+
+@cindex separació de sistemes, marca de
+
+Si el nombre de sistemes per pàgina varia d'una pàgina a una
+altra, s'acostuma a separar els sistemes col·locant una marca
+separadora entre ells.  De forma predeterminada, el separador de
+sistemes està inhabilitat, però es pot activar amb una opció de
+@code{\paper}.
+
+@c \book is required here to display the system separator
+@c ragged-right is required as there are two systems
+@lilypond[verbatim,quote,ragged-right]
+\book {
+  \score {
+    \new StaffGroup <<
+      \new Staff {
+        \relative {
+          c''4 c c c
+          \break
+          c4 c c c
+        }
+      }
+      \new Staff {
+        \relative {
+          c''4 c c c
+          \break
+          c4 c c c
+        }
+      }
+    >>
+  }
+  \paper {
+    system-separator-markup = \slashSeparator
+    % les ordres següents sols calen per al format d'aquesta documentació
+    paper-width = 100\mm
+    paper-height = 100\mm
+    tagline = ##f
+  }
+}
+@end lilypond
+
+@seealso
+Referència de la notació:
+@rusernamed{Page layout,Disposició de la pàgina}.
+
+Fragments de codi:
+@rlsr{Staff notation}.
+
+@node Modificació de pentagrames separats
+@subsection Modificació de pentagrames separats
+@translationof Modifying single staves
+
+Aquesta secció explica com canviar els atributs específics d'un
+pentagrama: per exemple, canviar el nombre de línies o la mida de
+la pauta.  També es descriuen els mètodes per començar i acabar
+els pentagrames, i establir seccions d'ossia.
+
+@menu
+* El símbol del pentagrama::
+* Pentagrames d'Ossia::
+* Ocultament de pentagrames::
+@end menu
+
+
+@node El símbol del pentagrama
+@unnumberedsubsubsec El símbol del pentagrama
+@translationof Staff symbol
+
+@cindex pentagrama, símbol del
+@cindex pentagrama, aturar i iniciar línies del
+@cindex pentagrama, modificar les línies del
+@cindex addicionals, línies
+@cindex addicionals internes, línies
+@cindex addicionals, modificar línies
+@cindex línies del pentagrama
+@cindex línies addicionals
+
+@funindex \startStaff
+@funindex \stopStaff
+
+Es poden usar les ordres @code{\stopStaff} i
+@code{\startStaff} per aturar i (re)iniciar, respectivament, la
+impressió de les línies de la pauta a qualsevol punt de la partitura.
+
+@lilypond[verbatim,quote]
+\relative {
+  \stopStaff f''4 d \startStaff g, e
+  f'4 d \stopStaff g, e
+  f'4 d \startStaff g, e
+}
+@end lilypond
+
+@predefined
+@code{\startStaff},
+@code{\stopStaff}.
+@endpredefined
+
+Les línies de la pauta pertanyen al grob @code{StaffSymbol}
+(incloses les línies addicionals) i es poden modificar usant es
+propietats de @code{StaffSymbol}, però aquestes modificacions
+s'han de fer abans que el pentagrama es (re)iniciï.
+
+Es pot canviar el nombre línies de la pauta:
+
+@lilypond[verbatim,quote]
+\relative {
+  f''4 d \stopStaff
+  \override Staff.StaffSymbol.line-count = #2
+  \startStaff g, e |
+
+  f'4 d \stopStaff
+  \revert Staff.StaffSymbol.line-count
+  \startStaff g, e |
+}
+@end lilypond
+
+La posició de cada una de les línies de la pauta també poden
+canviar-se.  Una llista de números fixa la posició de cada línia.
+@code{0}@tie{}correspon a la línia central normal, i les posicions
+normals de les línies són
+@code{(-4@tie{}-2@tie{}0@tie{}2@tie{}4)}.  S'imprimeix una sola
+línia de pauta per cada valor que s'introdueix, de manera que el
+nombre de línies així com la seva posició a la pauta poden
+canviar-se amb una sola operació de sobreescriptura.
+
+@lilypond[verbatim,quote]
+\relative {
+  f''4 d \stopStaff
+  \override Staff.StaffSymbol.line-positions = #'(1 3 5 -1 -3)
+  \startStaff g, e |
+  f'4 d \stopStaff
+  \override Staff.StaffSymbol.line-positions = #'(8 6.5 -6 -8 -0.5)
+  \startStaff g, e |
+}
+@end lilypond
+
+Per preservar les direccions típiques de les pliques (cap amunt
+per a la meitat inferior del pentagrama i cap avall per a la
+meitat superior), ham d'alinear la línia (o espai) central de la
+pauta personalitzada amb la posició de la línia central normal
+(0).  Pot caldre un ajust de la posició de la clau i del
+Do@tie{}central perquè es corresponguin a les línies noves.
+Vegeu @ref{Clau}.
+
+Pot canviar-se el gruix de les línies de la pauta.  També resulten
+afectades, de forma predeterminada, les línies addicionals i no la
+plica de les figures.
+
+@lilypond[verbatim,quote]
+\new Staff \with {
+  \override StaffSymbol.thickness = #3
+} \relative {
+  f''4 d g, e
+}
+@end lilypond
+
+També és possible fixar el gruix de les línies addicionals de
+forma independent del de les línies de la pauta.
+
+@lilypond[verbatim,quote]
+\new Staff \with {
+  \override StaffSymbol.thickness = #2
+  \override StaffSymbol.ledger-line-thickness = #'(0.5 . 0.4)
+} \relative {
+  f'''4 a, a,, f
+}
+@end lilypond
+
+@noindent
+El primer valor es multiplica pel gruix de les línies del
+pentagrama, el segon per l'amplada d'un espai del pentagrama, i
+després els dos valors se sumen per obtenir el gruix de les línies
+addicionals.
+
+Es poden alterar les posicions de les línies addicionals:
+
+@lilypond[verbatim,quote]
+\new Staff \with {
+  \override StaffSymbol.ledger-positions = #'(-3 -2 -1 2 5 6)
+} \relative {
+  f'''4 a, a,, f
+}
+@end lilypond
+
+Pot aconseguir-se que les línies addicionals afegides apareguin
+per sobre o per sota del cap de les figures, depenent de la
+posició actual relativa a d'altres caps de figura que tenen també
+les seves pròpies línies addicionals.
+
+@lilypond[verbatim,quote]
+\new Staff \with {
+  \override StaffSymbol.ledger-extra = #4
+} \relative {
+  f'''4 a, d, f,
+}
+@end lilypond
+
+També es pot fer que les línies addicionals apareguin dins del
+pentagrama al lloc on es requereixin línies de pauta
+personalitzades.  L'exemple mostra la posició predeterminada de
+les línies addicionals quan el valor de posició explícit
+@code{ledger-position} se ha fixat o no.  L'ordre
+@code{\stopStaff} cal a l'exemple per revertir l'ordre de
+sobreescriptura @code{\override} per a tot el
+@code{StaffSymbol} (el símbol de pauta).
+
+@lilypond[verbatim,quote]
+\relative d' {
+  \override Staff.StaffSymbol.line-positions = #'(-8 0 2 4)
+  d4 e f g
+  \stopStaff
+  \startStaff
+  \override Staff.StaffSymbol.ledger-positions = #'(-8 -6 (-4 -2) 0)
+  d4 e f g
+}
+@end lilypond
+
+Pot alterar-se la distància entre línies de pauta.  Això afecta
+també l'espaiat de les línies addicionals.
+
+@lilypond[verbatim,quote]
+\new Staff \with {
+  \override StaffSymbol.staff-space = #1.5
+} \relative {
+  f'''4 d, g, e,
+}
+@end lilypond
+
+@snippets
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{making-some-staff-lines-thicker-than-the-others.ly}
+
+@seealso
+Glossari musical:
+@rglos{line},
+@rglos{ledger line},
+@rglos{staff}.
+
+Referència de la notació:
+@ref{Clau}.
+
+Fragments de codi:
+@rlsr{Staff notation}.
+
+Referència de funcionament intern:
+@rinternals{StaffSymbol},
+@rinternals{staff-symbol-interface}.
+
+
+@node Pentagrames d'Ossia
+@unnumberedsubsubsec Pentagrames d'Ossia
+@translationof Ossia staves
+
+@cindex pentagrama a la francesa
+@cindex ossia
+@cindex francesa, pentagrames a la
+@cindex pauta, escalat de
+@cindex escalat de pentagrames
+
+@funindex \startStaff
+@funindex \stopStaff
+
+Els pentagrames @notation{Ossia} es poden preparar mitjançant la
+creació d'un pentagrama simultani nou a la posició adequada:
+
+@lilypond[verbatim,quote]
+\new Staff \relative {
+  c''4 b d c
+  <<
+    { c4 b d c }
+    \new Staff { e4 d f e }
+  >>
+  c4 b c2
+}
+@end lilypond
+
+@noindent
+Tanmateix, l'exemple anterior no es el que normalment es desitja.
+Per crear pentagrames d'ossia que estiguin per sobre el pentagrama
+original, que no tinguin ni compàs ni clau, i que tinguin una mida
+menor de tipus de lletra, es poden fer servir diversos
+ajustaments.  El Manual d'Aprenentatge descriu una tècnica
+específica per assolir aquest objectiu, començant per
+@rlearning{Niuat d'expressions musicals}.
+
+L'exemple següent fa servir la propietat @code{alignAboveContext}
+per alinear el pentagrama d'ossia.  Aquest mètode és molt
+convenient quan calen sols alguns pentagrames d'ossia.
+
+@lilypond[verbatim,quote]
+\new Staff = "main" \relative {
+  c''4 b d c
+  <<
+    { c4 b d c }
+
+    \new Staff \with {
+      \remove "Time_signature_engraver"
+      alignAboveContext = #"main"
+      \magnifyStaff #2/3
+      firstClef = ##f
+    }
+    { e4 d f e }
+  >>
+  c4 b c2
+}
+@end lilypond
+
+Si es requereixen molts pentagrames d'ossia aïllats, pot ser més
+convenient la creació d'un context @code{Staff} buit amb
+un @emph{identificador de context} específic; després es poden
+crear els pentagrames d'ossia @emph{cridant} a aquest context i
+usant @code{\startStaff} i @code{\stopStaff} als punts desitjats.
+Els avantatges d'aquest mètode són més patents si la peça és més
+llarga com a l'exemple següent.
+
+@lilypond[verbatim,quote,ragged-right]
+<<
+  \new Staff = "ossia" \with {
+    \remove "Time_signature_engraver"
+    \hide Clef
+    \magnifyStaff #2/3
+  }
+  { \stopStaff s1*6 }
+
+  \new Staff \relative {
+    c'4 b c2
+    <<
+      { e4 f e2 }
+      \context Staff = "ossia" {
+        \startStaff e4 g8 f e2 \stopStaff
+      }
+    >>
+    g4 a g2 \break
+    c4 b c2
+    <<
+      { g4 a g2 }
+      \context Staff = "ossia" {
+        \startStaff g4 e8 f g2 \stopStaff
+      }
+    >>
+    e4 d c2
+  }
+>>
+@end lilypond
+
+Com a alternativa, es pot usar l'ordre
+@code{\RemoveAllEmptyStaves} per crear pentagrames d'ossia. Aquest
+mètode és molt convenient quan els pentagrames d'ossia apareixen
+immediatament després d'un salt de línia.  Per veure més
+informació sobre @code{\RemoveAllEmptyStaves}, consulteu
+@ref{Ocultament de pentagrames}.
+
+@lilypond[verbatim,quote,ragged-right]
+<<
+  \new Staff = "ossia" \with {
+    \remove "Time_signature_engraver"
+    \hide Clef
+    \magnifyStaff #2/3
+    \RemoveAllEmptyStaves
+  } \relative {
+    R1*3
+    c''4 e8 d c2
+  }
+  \new Staff \relative {
+    c'4 b c2
+    e4 f e2
+    g4 a g2 \break
+    c4 b c2
+    g4 a g2
+    e4 d c2
+  }
+>>
+@end lilypond
+
+
+@snippets
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{vertically-aligning-ossias-and-lyrics.ly}
+
+@seealso
+Glossari musical:
+@rglos{ossia},
+@rglos{staff},
+@rglos{Frenched staff}.
+
+Manual d'aprenentatge:
+@rlearning{Niuat d'expressions musicals},
+@rlearning{Mida dels objectes},
+@rlearning{Longitud i gruix dels objectes}.
+
+Referència de la notació:
+@ref{Ocultament de pentagrames}.
+
+Fragments de codi:
+@rlsr{Staff notation}.
+
+Referència de funcionament intern:
+@rinternals{StaffSymbol}.
+
+
+@node Ocultament de pentagrames
+@unnumberedsubsubsec Ocultament de pentagrames
+@translationof Hiding staves
+
+@cindex francesa, partitures a la
+@cindex ocultament de pentagrames
+@cindex francesa, pentagrama a la
+@cindex pentagrama, ocultament de
+@cindex pentagrama buit
+@cindex ocultar pentagrames
+@cindex buit, pentagrama
+
+@funindex \RemoveEmptyStaves
+@funindex \RemoveAllEmptyStaves
+@funindex Staff_symbol_engraver
+@funindex \stopStaff
+
+Es poden ocultar les línies del pentagrama traient el gravador
+@code{Staff_symbol_engraver} del context de @code{Staff}.  Com a
+alternativa es pot utilitzar l'ordre @code{\stopStaff}.
+
+@lilypond[verbatim,quote]
+\new Staff \with {
+  \remove "Staff_symbol_engraver"
+}
+\relative { a''8 f e16 d c b a2 }
+@end lilypond
+
+
+Es poden ocultar els pentagrames buits (per fer el que es coneix
+com a @q{partitura a la francesa}) aplicant l'ordre
+@code{\RemoveEmptyStaves} sobre un context, cosa que es pot fer
+globalment (dins del bloc @code{\layout}) així com per a pautes
+específiques sols (dins d'un bloc @code{\with}). Aquest ordre
+elimina totes les pautes buides de la partitura excepte les del
+primer sistema.  Si volem ocultar també les del primer sistema,
+usem @code{\RemoveAllEmptyStaves}.  Els contextos que estan
+contemplats són @code{Staff},
+@code{RhythmicStaff} i @code{VaticanaStaff}.
+
+@warning{Un pentagrama es considera buit quan conté sols silencis,
+silencis multicompàs, desplaçaments, silencis de separació o una
+combinació d'aquests elements.}
+
+@lilypond[verbatim,quote,ragged-right]
+\layout {
+  \context {
+    \Staff
+    \RemoveEmptyStaves
+  }
+}
+
+\relative <<
+  \new Staff {
+    e'4 f g a \break
+    b1 \break
+    a4 b c2
+  }
+  \new Staff {
+    c,4 d e f \break
+    R1 \break
+    f4 g c,2
+  }
+>>
+@end lilypond
+
+@cindex ossia
+
+@noindent
+També es pot fer ser servir @code{\RemoveAllEmptyStaves} per crear
+seccions d'ossia per a un pentagrama.  Per veure més detalls, consulteu
+@ref{Pentagrames d'Ossia}.
+
+
+@predefined
+@code{\RemoveEmptyStaves},
+@code{\RemoveAllEmptyStaves}.
+@endpredefined
+
+@seealso
+Glossari musical:
+@rglos{Frenched staff}.
+
+Manual d'aprenentatge:
+@rlearning{Visibilitat i color dels objectes}.
+
+Referència de la notació:
+@rusernamed{Changing context default settings,Canvi dels valores per defecte dels contextos},
+@ref{El símbol del pentagrama},
+@ref{Pentagrames d'Ossia},
+@rusernamed{Hidden notes,Notes ocultes},
+@ref{Silencis invisibles},
+@rusernamed{Visibility of objects,Visibilitat dels objectes}.
+
+Fragments de codi:
+@rlsr{Staff notation}.
+
+Referència de funcionament intern:
+@rinternals{ChordNames},
+@rinternals{FiguredBass},
+@rinternals{Lyrics},
+@rinternals{Staff},
+@rinternals{VerticalAxisGroup},
+@rinternals{Staff_symbol_engraver}.
+
+@knownissues
+L'eliminació del gravador @code{Staff_symbol_engraver} també
+oculta les barres de compàs.  Si es força la visibilitat de la
+barra de compàs, poden ocórrer errors de format visual.  En aquest
+cas, utilitzeu les següents sobreescriptures de valors en comptes
+de treure el gravador:
+
+@example
+\omit StaffSymbol
+\override NoteHead.no-ledgers = ##t
+@end example
+
+Per veure els errors i problemes coneguts, així com els
+advertiments associats amb @code{\RemoveEmptyStaves}, consulteu
+@rusernamed{Changing context default settings,Canvi dels valores per defecte dels contextos}.
+
+@node Escriptura de les particel·les
+@subsection Escriptura de les particel·les
+@translationof Writing parts
+
+Aquesta secció explica com inserir indicacions de temps i noms
+d'instruments a una partitura.  També es descriuen mètodes per
+citar altres veus i donar format a les notes guia.
+
+@menu
+* Noms d'instruments::
+* Cites a altres veus::
+* Format de les notes guia::
+@end menu
+
+
+@node Noms d'instruments
+@unnumberedsubsubsec Noms d'instruments
+@translationof Instrument names
+
+@cindex instrument, nom del
+@cindex instrument, nom abreujat
+
+Es poden imprimir els noms dels instruments al costat esquerre
+dels pentagrames dins dels contextos @code{Staff},
+@code{PianoStaff}, @code{StaffGroup}, @code{GrandStaff} i
+@code{ChoirStaff}.  El valor de @code{instrumentName} s'usa per al
+primer pentagrama, i el valor de @code{shortInstrumentName}
+s'usa per a tots los pentagrames següents..
+
+@lilypond[verbatim,quote,ragged-right]
+\new Staff \with {
+  instrumentName = #"Violin "
+  shortInstrumentName = #"Vln. "
+} \relative {
+  c'4.. g'16 c4.. g'16 \break | c1 |
+}
+@end lilypond
+
+@cindex instruments, noms complexos de
+
+També podem fer servir @code{\markup} per construir noms
+d'instrument més complicats:
+
+@lilypond[verbatim,quote]
+\new Staff \with {
+  instrumentName = \markup {
+    \column { "Clarinetti"
+      \line { "in B" \smaller \flat }
+    }
+  }
+} \relative {
+  c''4 c,16 d e f g2
+}
+@end lilypond
+
+@cindex noms d'instruments, centrat
+
+Quan s'agrupen dos o més contextos de pentagrama, els noms
+d'instrument i els noms curts apareixen centrats de forma
+predeterminada.  Per centrar noms d'instrument de diverses línies,
+s'ha d'utilitzar @code{\center-column}:
+
+@lilypond[verbatim,quote,indent=1.5\cm]
+<<
+  \new Staff \with {
+    instrumentName = #"Flute"
+  } \relative {
+    f''2 g4 f
+}
+  \new Staff \with {
+    instrumentName = \markup {
+      \center-column { "Clarinet"
+        \line { "in B" \smaller \flat }
+      }
+    }
+  } \relative { c''4 b c2 }
+>>
+@end lilypond
+
+@funindex indent
+@funindex short-indent
+
+Malgrat això, si els noms d'instrument són més llargs, no se
+centren per a un grup de pentagrames a no ser que s'augmentin els
+valors del sagnat, @code{indent}, i del sagnat curt,
+@code{short-indent}.  Per veure més detalls sobre aquests
+ajustaments, consulteu
+@rusernamed{paper variables for shifts and indents,Variables de
+paper per a desplaçaments i sagnats}.
+@c Quan es tradueixi fer servir
+@c @ref{Variables de paper per a desplaçaments i sagnats,,Variables de @code{@bs{}paper} per a desplaçaments i sagnats}.
+
+@lilypond[verbatim,quote,ragged-right]
+<<
+  \new Staff \with {
+    instrumentName = #"Alto Flute in G"
+    shortInstrumentName = #"Flt."
+  } \relative {
+    f''2 g4 f \break
+    g4 f g2
+  }
+  \new Staff \with {
+    instrumentName = #"Clarinet"
+    shortInstrumentName = #"Clar."
+  } \relative {
+    c''4 b c2 \break
+    c2 b4 c
+  }
+>>
+
+\layout {
+  indent = 3.0\cm
+  short-indent = 1.5\cm
+}
+@end lilypond
+
+@cindex noms de instrument, afegir a d'altres contextos
+
+Per afegir noms d'instrument a d'altres contextos (com ara
+@code{ChordNames} o @code{FiguredBass}), hem d'afegir el gravador
+@code{Instrument_name_engraver} a aquest context.  Per veure més
+detalls, consulteu
+@rusernamed{Modifying context plugins,Modificació dels connectors de context}.
+
+
+@cindex noms d'instrument, canviar
+
+El nom d'instrument curt @code{shortInstrumentName} es pot canviar
+a la meitat d'una peça, igual que d'altres ajustaments que poden
+caldre per al nou instrument; tanmateix, sols el primer
+@code{instrumentName} s'imprimeix i la resta d'ells s'ignoren:
+
+@lilypond[verbatim,quote,ragged-right]
+prepPiccolo = <>^\markup \italic { muta in Piccolo }
+
+setPiccolo = {
+  \set Staff.instrumentName = #"Piccolo"
+  \set Staff.shortInstrumentName = #"Picc."
+  \set Staff.midiInstrument = #"piccolo"
+  <>^\markup \bold { Piccolo }
+  \transposition c''
+}
+
+prepFlute = <>^\markup \italic { muta in Flauto }
+
+setFlute = {
+  \set Staff.instrumentName = #"Flute"
+  \set Staff.shortInstrumentName = #"Flt."
+  \set Staff.midiInstrument = #"flute"
+  <>^\markup \bold { Flute }
+  \transposition c'
+}
+
+\new Staff \with {
+  instrumentName = #"Flute"
+  shortInstrumentName = #"Flt."
+  midiInstrument = #"flute"
+}
+\relative {
+  g'1 g g g \break
+  g1 g \prepPiccolo R R \break
+  \setPiccolo
+  g1 g g g \break
+  g1 g \prepFlute R R \break
+  \setFlute
+  g1 g g g
+}
+@end lilypond
+
+
+@seealso
+Referència de la notació:
+@rusernamed{paper variables for shifts and indents,Variables de
+paper per a desplaçaments i sagnats},
+@rusernamed{Modifying context plugins,Modificació dels connectors de context}.
+@c Quan es tradueixi fer servir
+@c @ref{Variables de paper per a desplaçaments i sagnats,,Variables de @code{@bs{}paper} per a desplaçaments i sagnats}.
+
+Fragments de codi:
+@rlsr{Staff notation}.
+
+Referència de funcionament intern:
+@rinternals{InstrumentName},
+@rinternals{PianoStaff},
+@rinternals{Staff}.
+
+
+@node Cites a altres veus
+@unnumberedsubsubsec Cites a altres veus
+@translationof Quoting other voices
+
+@cindex guia, veus
+@cindex citar altres veus
+@cindex fragments, citar
+@cindex notes guia
+
+@funindex \addQuote
+@funindex \quoteDuring
+@funindex \transposition
+
+És molt freqüent que una veu usi les mateixes notes que una altra
+veu.  Per exemple, els violins primer i segon tocant la mateixa
+frase durant un determinat passatge musical.  Això es fa deixant
+que una veu@emph{citi} a l'altra, sense que s'hagi de tornar a
+introduir la música per segon cop.
+
+L'ordre @code{\addQuote}, utilitzada a l'àmbit del nivell
+sintàctic superior, defineix un flux de música des del qual és
+possible citar fragments.
+
+L'ordre @code{\quoteDuring} s'usa per indicar el punt en el qual
+comença la cita.  Va seguida per dos arguments: el nom de la veu
+citada, tal i com es va definir amb @code{\addQuote}, i una
+expressió musical que indica la duració de la cita.
+
+@lilypond[verbatim,quote]
+fluteNotes = \relative {
+  a'4 gis g gis | b4^"quoted" r8 ais\p a4( f)
+}
+
+oboeNotes = \relative {
+  c''4 cis c b \quoteDuring #"flute" { s1 }
+}
+
+\addQuote "flute" { \fluteNotes }
+
+\score {
+  <<
+    \new Staff \with { instrumentName = "Flute" } \fluteNotes
+    \new Staff \with { instrumentName = "Oboe" } \oboeNotes
+  >>
+}
+@end lilypond
+
+Si l'expressió musical que s'usa per @code{\quoteDuring} conté
+qualsevol cosa que no sigui un silenci de separació o un silenci
+multicompàs, es produeix una situació de polifonia, cosa que no és
+habitualment desitjable:
+
+@lilypond[verbatim,quote]
+fluteNotes = \relative {
+  a'4 gis g gis | b4^"quoted" r8 ais\p a4( f)
+}
+
+oboeNotes = \relative {
+  c''4 cis c b \quoteDuring #"flute" { e4 r8 ais b4 a }
+}
+
+\addQuote "flute" { \fluteNotes }
+
+\score {
+  <<
+    \new Staff \with { instrumentName = "Flute" } \fluteNotes
+    \new Staff \with { instrumentName = "Oboe" } \oboeNotes
+  >>
+}
+@end lilypond
+
+Si cal imprimir una ordre @code{\unfoldRepeat} dins d'una
+expressió musical en usar @code{\quoteDuring}, aleshores ha de
+contenir també la seva pròpia ordre @code{\unfoldRepeat}:
+
+@lilypond[verbatim,quote]
+fluteNotes = \relative {
+  \repeat volta 2 { a'4 gis g gis }
+}
+
+oboeNotesDW = \relative {
+  \repeat volta 2 \quoteDuring #"incorrecte" { s1 }
+}
+
+oboeNotesW = \relative {
+  \repeat volta 2 \quoteDuring #"correcte" { s1 }
+}
+
+
+\addQuote "incorrecte" { \fluteNotes }
+
+\addQuote "correcte" { \unfoldRepeats \fluteNotes }
+
+\score {
+  \unfoldRepeats
+  <<
+    \new Staff \with { instrumentName = "Flute" }
+    \fluteNotes
+    \new Staff \with { instrumentName = "Oboe (incorrecte)" }
+    \oboeNotesDW
+    \new Staff \with { instrumentName = "Oboe (correcte)" }
+    \oboeNotesW
+  >>
+}
+@end lilypond
+
+L'ordre @code{\quoteDuring} usa els ajustament de
+@code{\transposition} tant de la part citada com de la que cita,
+per produir notes que tenen la mateixa alçada de so a la part que
+cita i en les de la part citada.
+
+@lilypond[verbatim,quote]
+clarinetNotes = \relative c'' {
+  \transposition bes
+  \key d \major
+  b4 ais a ais | cis4^"citat" r8 bis\p b4( f)
+}
+
+oboeNotes = \relative {
+  c''4 cis c b \quoteDuring #"clarinet" { s1 }
+}
+
+\addQuote "clarinet" { \clarinetNotes }
+
+
+\score {
+  <<
+    \new Staff \with { instrumentName = "Clarinet" } \clarinetNotes
+    \new Staff \with { instrumentName = "Oboe" } \oboeNotes
+  >>
+}
+@end lilypond
+
+@cindex note-event
+@cindex articulation-event
+@cindex dynamic-event
+@cindex rest-event
+@cindex slur-event
+@cindex crescendo-event
+
+@funindex quotedEventTypes
+@funindex quotedCueEventTypes
+
+De forma predeterminada, la música citada inclou totes les
+articulacions, matisos dinàmics, elements de marcatge, etc., de
+l'expressió citada.  És possible escollir quins d'aquests
+objectes de la música que se cita s'imprimeixen, mitjançant la
+propietat de context @code{quotedEventTypes}.
+
+@lilypond[verbatim,quote]
+fluteNotes = \relative {
+  a'2 g2 |
+  b4\<^"quoted" r8 ais a4\f( c->)
+ }
+
+oboeNotes = \relative {
+  c''2. b4 |
+  \quoteDuring #"flute" { s1 }
+}
+
+\addQuote "flute" { \fluteNotes }
+
+\score {
+  <<
+    \set Score.quotedEventTypes = #'(note-event articulation-event
+                                     crescendo-event rest-event
+                                     slur-event dynamic-event)
+    \new Staff \with { instrumentName = "Flute" } \fluteNotes
+    \new Staff \with { instrumentName = "Oboe" } \oboeNotes
+  >>
+ }
+@end lilypond
+
+Las cites també es poden etiquetar, vegeu
+@rusernamed{Using tags,Us de etiquetes}.
+
+@seealso
+Referència de la notació:
+@ref{Transposició dels instruments},
+@rusernamed{Using tags,Ús de etiquetes}.
+
+Fitxers d'inici:
+@file{scm/define-event-classes.scm}.
+
+Fragments de codio:
+@rlsr{Staff notation}.
+
+Referència de funcionament intern:
+@rinternals{Music classes},
+@rinternals{QuoteMusic},
+@rinternals{Voice}.
+
+@knownissues
+Sols el contingut de la primera veu d'una ordre
+@code{\addQuote} s'ha de tenir en compte per a la cita, de manera
+que si l'expressió musical conté enunciats @code{\new} o
+@code{\context Voice}, els seus continguts no seran citats.  La
+cita de notes d'adorn no està contemplada i pot fer que el
+LilyPond acabi de forma abrupta; la cita d'uns tresets dins d'uns
+altres pot donar com a resultat una notació de qualitat pobre.
+
+@node Format de les notes guia
+@unnumberedsubsubsec Format de les notes guia
+@translationof Formatting cue notes
+
+@cindex guia, format de les notes
+@cindex notes guia
+@cindex guia, notes
+@cindex guia, notes, format de
+@cindex fragments
+@cindex citar altres veus
+@cindex veus, citar
+
+
+@funindex \cueDuring
+@funindex \cueClef
+@funindex \cueDuringWithClef
+@funindex \quoteDuring
+
+@cindex notes petites
+@cindex petites, notes
+@cindex CueVoice
+
+La manera més senzilla de donar format a les notes guia és crear
+explícitament un context @code{CueVoice} dins de la part.
+
+@lilypond[verbatim]
+\relative {
+  R1
+  <<
+    { e'2\rest r4. e8 }
+    \new CueVoice {
+      \stemUp d'8^"flute" c d e fis2
+    }
+  >>
+  d,4 r a r
+}
+@end lilypond
+
+L'ordre @code{\cueClef} pot usar-se també amb un context
+@code{CueVoice} explícit si es requereix un canvi de clau, i
+imprimeix una clau de la mida adequada per a les notes guia.
+Després pot utilitzar-se l'ordre @code{\cueClefUnset} per tornar a
+la clau original, de nou amb un signe de clau de la mida adequada.
+
+@lilypond[verbatim,noragged-right]
+\relative {
+  \clef "bass"
+  R1
+  <<
+    { e'2\rest r4. \cueClefUnset e,8 }
+    \new CueVoice {
+      \cueClef "treble" \stemUp d''8^"flute" c d e fis2
+    }
+  >>
+  d,,4 r a r
+}
+@end lilypond
+
+Les instruccions @code{\cueClef} i @code{\cueClefUnset} es poden
+usar també sense un @code{CueVoice} si cal.
+
+@lilypond[verbatim,noragged-right]
+\relative {
+  \clef "bass"
+  R1
+  \cueClef "treble"
+  d''8^"flute" c d e fis2
+  \cueClefUnset
+  d,,4 r a r
+}
+@end lilypond
+
+En casos de col·locació més complexa de notes guia, per exemple
+amb transposició o inserint notes guia, per més d'una font, poden
+usar-se les ordres @code{\cueDuring} o @code{\cueDuringWithClef}.
+Són una forma més especialitzada de @code{\quoteDuring},
+vegeu @ref{Cites a altres veus} a la secció anterior.
+
+La sintaxi és:
+
+@example
+\cueDuring #@var{nom_de_la_cita} #@var{direcció} #@var{música}
+@end example
+
+i
+
+@example
+\cueDuringWithClef #@var{nom_de_la_cita} #@var{direcció} #@var{clau} #@var{música}
+@end example
+
+La música procedent dels compassos corresponents de l'element
+@code{@var{nom_de_la_cita}} s' afegeix com un context
+@code{CueVoice} y apareix simultàniament amb la
+@code{@var{música}}, cosa que produeix una situació polifònica.  La
+@code{@var{direcció}} agafa un argument @code{UP} (amunt) o
+@code{DOWN} (avall), i correspon amb les veus primera i segona,
+respectivament, determinant com s'imprimeixen les notes guia en
+relació a l'altra veu.
+
+@lilypond[verbatim,quote]
+fluteNotes = \relative {
+  r2. c''4 | d8 c d e fis2 | g2 d |
+}
+
+oboeNotes = \relative c'' {
+  R1
+  <>^\markup \tiny { flute }
+  \cueDuring #"flute" #UP { R1 }
+  g2 c,
+}
+
+\addQuote "flute" { \fluteNotes }
+
+\new Staff {
+  \oboeNotes
+}
+@end lilypond
+
+@noindent
+
+És possible ajustar quins aspectes de la música se citen amb
+@code{\cueDuring} establint el valor de la propietat
+@code{quotedCueEventTypes}.  El seu valor per defecte és
+@code{'(note-event rest-event tie-event beam-event
+tuplet-span-event)}, cosa que significa que sols les notes,
+silencis, lligadures d'unió, barres i grups especials se citen,
+però no les articulacions, maques dinàmiques, elements de
+marcatge, etc.
+
+@warning{Quan un context @code{Voice} comença amb
+@code{\cueDuring}, com a l'exemple següent, el context
+@code{Voice} s'ha de declarar explícitament, ja que en cas
+contrari tota l'expressió musical pertanyeria al context
+@code{CueVoice}.}
+
+@lilypond[verbatim,quote]
+oboeNotes = \relative {
+  r2 r8 d''16(\f f e g f a)
+  g8 g16 g g2.
+}
+\addQuote "oboe" { \oboeNotes }
+
+\new Voice \relative c'' {
+  \set Score.quotedCueEventTypes = #'(note-event rest-event tie-event
+                                      beam-event tuplet-span-event
+                                      dynamic-event slur-event)
+  \cueDuring #"oboe" #UP { R1 }
+  g2 c,
+}
+@end lilypond
+
+Es poden usar elements de marcatge per mostrar el nom de
+l'instrument citat.  Si les notes guia requereixen un canvi de
+clau, pot fer-se manualment però la clau original s'ha de
+restaurar al final de les notes guia.
+
+@lilypond[verbatim,quote]
+fluteNotes = \relative {
+  r2. c''4 d8 c d e fis2 g2 d2
+}
+
+bassoonNotes = \relative c {
+  \clef bass
+  R1
+  \clef treble
+  <>^\markup \tiny { flute }
+  \cueDuring #"flute" #UP { R1 }
+  \clef bass
+  g4. b8 d2
+}
+
+\addQuote "flute" { \fluteNotes }
+
+\new Staff {
+  \bassoonNotes
+}
+@end lilypond
+
+De forma alternativa, pot usar-se la funció
+@code{\cueDuringWithClef} en el seu lloc.  Aquesta ordre admet un
+argument addicional per especificar el canvi de clau que cal
+imprimir per a les notes guia, però després imprimeix
+automàticament la clau original un cop que ha finalitzat la sèrie
+de notes guia.
+
+@lilypond[verbatim,quote]
+fluteNotes = \relative {
+  r2. c''4 d8 c d e fis2 g2 d2
+}
+
+bassoonNotes = \relative c {
+  \clef bass
+  R1
+  <>^\markup { \tiny "flute" }
+  \cueDuringWithClef #"flute" #UP #"treble" { R1 }
+  g4. b8 d2
+}
+
+\addQuote "flute" { \fluteNotes }
+
+\new Staff {
+  \bassoonNotes
+}
+@end lilypond
+
+@funindex \transposedCueDuring
+
+Com @code{\quoteDuring}, @code{\cueDuring} té en compte les
+transposicions instrumentals.  Les notes guia es produeixen en les
+alçades en les quals s'escriurien per a l'instrument que rep la
+cita, per produir així les alçades de so de l'instrument original.
+
+Per transportar les notes guia de forma diferent, useu
+@code{\transposedCueDuring}.  Aquesta ordre accepta un argument
+addicional per especificar el so d'un Do central de concert.  Això
+és útil per agafar cites d'un instrument que està a un registre
+completament diferent.
+
+@lilypond[verbatim,quote]
+piccoloNotes = \relative {
+  \clef "treble^8"
+  R1
+  c'''8 c c e g2
+  c4 g g2
+}
+
+bassClarinetNotes = \relative c' {
+  \key d \major
+  \transposition bes,
+  d4 r a r
+  \transposedCueDuring #"piccolo" #UP d { R1 }
+  d4 r a r
+}
+
+\addQuote "piccolo" { \piccoloNotes }
+
+<<
+  \new Staff \piccoloNotes
+  \new Staff \bassClarinetNotes
+>>
+@end lilypond
+
+@cindex removing cue notes
+@cindex cue notes, removing
+
+@funindex \killCues
+
+L'ordre @code{\killCues} elimina les notes guia d'una expressió
+musical, de forma que la mateixa expressió musical pugui
+utilitzar-se per produir la particel·la instrumental (amb notes
+guia) i la partitura de conjunt.  L'ordre @code{\killCues} elimina
+solament les notes i esdeveniments que s'han citat mitjançant
+@code{\cueDuring}.  Altres elements de marcatge associats amb les
+guies, com els canvis de clau o una etiqueta identificativa de
+l'instrument font, poden marcar-se per a la seva inclusió
+selectiva dins de la partitura, vegeu
+@rusernamed{Using tags,Ús de etiquetes}.
+
+@lilypond[verbatim,quote]
+fluteNotes = \relative {
+  r2. c''4 d8 c d e fis2 g2 d2
+}
+
+bassoonNotes = \relative c {
+  \clef bass
+  R1
+  \tag #'part {
+    \clef treble
+    <>^\markup \tiny { flute }
+  }
+  \cueDuring #"flute" #UP { R1 }
+  \tag #'part \clef bass
+  g4. b8 d2
+}
+
+\addQuote "flute" { \fluteNotes }
+
+\new Staff {
+  \bassoonNotes
+}
+
+\new StaffGroup <<
+  \new Staff {
+    \fluteNotes
+  }
+  \new Staff {
+    \removeWithTag #'part { \killCues { \bassoonNotes } }
+  }
+>>
+@end lilypond
+
+Com a alternativa, els canvis de clau i les etiquetes d'instrument
+es poden recol·lectar dins d'una definició d'instrument per al seu
+ús repetit, utilitzant
+@code{\addInstrumentDefinition} que es descriu a
+@ref{Noms d'instruments}.
+
+@seealso
+Referència de la notació:
+@ref{Cites a altres veus},
+@ref{Transposició dels instruments},
+@ref{Noms d'instruments},
+@ref{Clau},
+@ref{Musical cues,Pistes musicals},
+@rusernamed{Using tags,Ús de etiquetes}.
+
+
+Fragments de codi:
+@rlsr{Staff notation}.
+
+Referència de funcionament intern:
+@rinternals{CueVoice},
+@rinternals{Voice}.
+
+@knownissues
+Poden ocórrer col·lisions amb els silencis si s'usa
+@code{\cueDuring}, entre els contextos de @code{Voice} i de
+@code{CueVoice}.  En usar @code{\cueDuringWithClef} o
+@code{\transposedCueDuring} l'argument addicional requerit per a
+cada cas ha d'anar després de la cita i de la direcció.

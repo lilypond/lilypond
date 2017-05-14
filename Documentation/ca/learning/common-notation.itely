@@ -950,7 +950,7 @@ també controla l'abast de les línies divisòries.
 @seealso
 Referència de la notació:
 @rusernamed{Keyboard and other multi-staff instruments,Teclat i altres instruments de pentagrama múltiple},
-@rusernamed{Displaying staves,Visualització dels pentagrames}.
+@ruser{Visualització dels pentagrames}.
 
 @node Combinar notes per formar acords
 @subsection Combinar notes per formar acords

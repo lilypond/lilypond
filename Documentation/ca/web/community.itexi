@@ -746,7 +746,7 @@ Les proves de l'abc2ly d'aquesta versió.
 
 @item
 @uref{../../input/regression/lilypond-book/collated-files.html, proves de lilypond-book}:
-Les proves del lilpond-book d'aquesta versió.
+Les proves del lilypond-book d'aquesta versió.
 (@uref{../../input/regression/lilypond-book/collated-files.pdf, versió en PDF})
 @end itemize
 
@@ -756,9 +756,9 @@ Les proves del lilpond-book d'aquesta versió.
 @subsubheading Versió de desenvolupament
 
 @itemize
-@item @regtestDevel-es (@regtestDevelPdf-ca{})
+@item @regtestDevel-ca (@regtestDevelPdf-ca{})
 
-@item @regtestDevelXml-es (@regtestDevelXmlPdf-ca{})
+@item @regtestDevelXml-ca (@regtestDevelXmlPdf-ca{})
 
 @item @regtestDevelAbc (@regtestDevelAbcPdf{})
 
