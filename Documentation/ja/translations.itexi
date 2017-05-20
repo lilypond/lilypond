@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最終更新日 Mon Mar  6 18:51:02 UTC 2017
+@emph{最終更新日 Sat May 20 12:04:21 UTC 2017
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -117,7 +117,7 @@ Yoshiki Sawada
 @item
 2 一般的な記譜法
 @*
-4402
+4421
 @tab Masamichi Hosoda
 @*
 Yoshiki Sawada
@@ -136,17 +136,17 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #25fe1f">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+partially
 @end ifnothtml
 @tab post-GDP
 @item
 3 基礎となるコンセプト
 @*
-11151
+11240
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -163,7 +163,7 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #68ff28">partially</span>
+<span style="background-color: #76fe2a">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -428,7 +428,7 @@ partially
 @item
 1.5 同時進行する音符
 @*
-2920
+2936
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -445,7 +445,7 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #97ff2f">partially</span>
+<span style="background-color: #9eff30">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -509,7 +509,7 @@ partially
 @item
 1.8 テキスト
 @*
-2755
+2754
 @tab Masamichi Hosoda
 @*
 Yoshiki Sawada
@@ -528,7 +528,7 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">partially</span>
+<span style="background-color: #33ff21">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -808,7 +808,7 @@ partially
 @item
 3 入出力全般
 @*
-12839
+12853
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -835,7 +835,7 @@ partially
 @item
 4 スペースの問題
 @*
-10918
+10982
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -852,7 +852,7 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #efff3a">partially</span>
+<span style="background-color: #f6fe3b">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -862,7 +862,7 @@ partially
 @item
 5 デフォルトを変更する
 @*
-17041
+17043
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -1197,7 +1197,7 @@ Yoshinobu Ishizaki
 @item
 導入部
 @*
-5814
+5793
 @tab Masamichi Hosoda
 @*
 Yoshiki Sawada
@@ -1218,7 +1218,7 @@ Yoshinobu Ishizaki
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially</span>
+<span style="background-color: #2cff20">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1286,7 +1286,7 @@ Yoshiki Sawada
 @item
 コミュニティ
 @*
-4662
+2449
 @tab Masamichi Hosoda
 @*
 Yoshiki Sawada
@@ -1305,7 +1305,7 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #c7ff35">partially</span>
+<span style="background-color: #8aff2d">partially</span>
 @end html
 @end ifhtml
 @ifnothtml

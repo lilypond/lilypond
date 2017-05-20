@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Dernière mise à jour Mon Mar  6 18:51:02 UTC 2017
+@emph{Dernière mise à jour Sat May 20 12:04:21 UTC 2017
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -30,7 +30,7 @@ LilyPond Changes
 @item
 Titre des chapitres
 @*
-2731
+2784
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -437,7 +437,7 @@ oui
 @item
 2 Bases de notation musicale
 @*
-4402
+4421
 @tab Nicolas Grandclaude
 @*
 Ludovic Sardain
@@ -472,7 +472,7 @@ oui
 @item
 3 Concepts fondamentaux
 @*
-11151
+11240
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -786,7 +786,7 @@ oui
 @item
 1.5 Notes simultanées
 @*
-2920
+2936
 @tab Frédéric Chiasson
 @*
 Valentin Villenave
@@ -875,7 +875,7 @@ oui
 @item
 1.8 Texte
 @*
-2755
+2754
 @tab Jean-Charles Malahieude
 @tab Valentin Villenave
 @*
@@ -1169,7 +1169,7 @@ oui
 @item
 2.9 Notations anciennes
 @*
-5516
+5518
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -1225,7 +1225,7 @@ oui
 @item
 3 Généralités en matière d'entrée et sortie
 @*
-12839
+12853
 @tab Jean-Charles Malahieude
 @*
 Valentin Villenave
@@ -1254,7 +1254,7 @@ oui
 @item
 4 Gestion de l'espace
 @*
-10918
+10982
 @tab Frédéric Chiasson
 @*
 Jean-Charles Malahieude
@@ -1283,7 +1283,7 @@ oui
 @item
 5 Modification des réglages prédéfinis
 @*
-17041
+17043
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -1645,7 +1645,7 @@ oui
 @item
 Introduction
 @*
-5814
+5793
 @tab Gauvain Pocentek
 @*
 Jean-Charles Malahieude
@@ -1732,7 +1732,7 @@ oui
 @item
 Communauté
 @*
-4662
+2449
 @tab Jean-Charles Malahieude
 @*
 John Mandereau

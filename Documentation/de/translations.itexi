@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Zuletzt aktualisiert am Mon Mar  6 18:51:02 UTC 2017
+@emph{Zuletzt aktualisiert am Sat May 20 12:04:21 UTC 2017
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -359,7 +359,7 @@ ja
 @item
 2 Übliche Notation
 @*
-4402
+4421
 @tab ???
 @*
 Michael Gerdau
@@ -378,17 +378,17 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #25fe1f">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+teilweise
 @end ifnothtml
 @tab vor-GDP
 @item
 3 Grundbegriffe
 @*
-11151
+11240
 @tab Till Paala
 @*
 Reinhold Kainhofer
@@ -409,7 +409,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">teilweise</span>
+<span style="background-color: #33ff21">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -678,7 +678,7 @@ teilweise
 @item
 1.5 Gleichzeitig erscheinende Noten
 @*
-2920
+2936
 @tab Till Paala
 @tab 
 @tab 
@@ -695,7 +695,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #9eff30">teilweise</span>
+<span style="background-color: #a5ff31">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -759,7 +759,7 @@ teilweise
 @item
 1.8 Text
 @*
-2755
+2754
 @tab Till Paala
 @tab 
 @tab 
@@ -776,7 +776,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #97ff2f">teilweise</span>
+<span style="background-color: #9eff30">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1029,7 +1029,7 @@ ja
 @item
 2.9 Notation von alter Musik
 @*
-5516
+5518
 @tab Till Paala
 @tab 
 @tab 
@@ -1083,7 +1083,7 @@ teilweise
 @item
 3 Allgemeine Eingabe und Ausgabe
 @*
-12839
+12853
 @tab Till Paala
 @tab 
 @tab 
@@ -1110,7 +1110,7 @@ teilweise
 @item
 4 Abstände
 @*
-10918
+10982
 @tab Till Paala
 @tab 
 @tab 
@@ -1127,7 +1127,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #efff3a">teilweise</span>
+<span style="background-color: #f6fe3b">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1137,7 +1137,7 @@ teilweise
 @item
 5 Standardeinstellungen verändern
 @*
-17041
+17043
 @tab Till Paala
 @tab 
 @tab 
@@ -1181,7 +1181,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #e8fe39">teilweise</span>
+<span style="background-color: #efff3a">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1493,7 +1493,7 @@ ja
 @item
 Einleitung
 @*
-5814
+5793
 @tab Till Paala
 @*
 Michael Gerdau
@@ -1512,7 +1512,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">teilweise</span>
+<span style="background-color: #2cff20">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1580,7 +1580,7 @@ ja
 @item
 Gemeinschaft
 @*
-4662
+2449
 @tab Till Paala
 @*
 Michael Gerdau
@@ -1599,7 +1599,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #d4ff37">teilweise</span>
+<span style="background-color: #6fff29">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml

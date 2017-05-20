@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Meest recente update Mon Mar  6 18:51:02 UTC 2017
+@emph{Meest recente update Sat May 20 12:04:21 UTC 2017
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -111,7 +111,7 @@ gedeeltelijk
 @item
 2 Algemene muzieknotatie
 @*
-4402
+4421
 @tab Jan Nieuwenhuizen
 @tab 
 @tab 
@@ -138,7 +138,7 @@ gedeeltelijk
 @item
 3 Fundamentele concepten
 @*
-11151
+11240
 @tab Jan Nieuwenhuizen
 @tab 
 @tab 
@@ -155,7 +155,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #68ff28">gedeeltelijk</span>
+<span style="background-color: #76fe2a">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -285,7 +285,7 @@ ja
 @item
 Inleiding
 @*
-5814
+5793
 @tab Jan Nieuwenhuizen
 @tab Tineke de Munnik
 @tab 
@@ -302,7 +302,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #e8fe39">gedeeltelijk</span>
+<span style="background-color: #efff3a">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml

@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Actualitzat el Mon Mar  6 18:51:02 UTC 2017
+@emph{Actualitzat el Sat May 20 12:04:21 UTC 2017
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -113,7 +113,7 @@ parcialment
 @item
 2 Notació corrent
 @*
-4402
+4421
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -140,7 +140,7 @@ parcialment
 @item
 3 Conceptes fonamentals
 @*
-11151
+11240
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -157,7 +157,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #62ff28">parcialment</span>
+<span style="background-color: #68ff28">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -424,7 +424,34 @@ si
 @item
 1.5 Notes simultànies
 @*
-2920
+2936
+@tab Walter Garcia-Fontes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #2cff20">parcialment</span>
+@end html
+@end ifhtml
+@ifnothtml
+parcialment
+@end ifnothtml
+@tab post-GDP
+@item
+1.6 Notació dels pentagrames
+@*
+2554
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -447,7 +474,7 @@ si
 @ifnothtml
 parcialment
 @end ifnothtml
-@tab post-GDP
+@tab pre-GDP
 @end multitable
 
 
@@ -627,11 +654,11 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/D</span>
+<span style="background-color: #1fff1f">si</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/D
+si
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -664,7 +691,7 @@ si
 @item
 Introducció
 @*
-5814
+5793
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -681,7 +708,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #83fe2c">parcialment</span>
+<span style="background-color: #2cff20">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -745,7 +772,7 @@ parcialment
 @item
 Comunitat
 @*
-4662
+2449
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -762,7 +789,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #fcff3c">parcialment</span>
+<span style="background-color: #8aff2d">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
