@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 1e5c6b0f54079eb3285dcc4c7e53f17d8bb03933
+   Translation of GIT committish: f00c5e65a2b77ac1cc54fe221aaa845eedafd3d8
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -2603,11 +2603,12 @@ Une autre approche de l'espacement vertical est le recours à
 positionnement vertical absolu sur la page.
 
 @code{NonMusicalPaperColumn.line-break-system-details} prend en charge
-une liste associative de trois mises au point :
+une liste associative de quatre mises au point :
 
 @itemize
 @item @code{X-offset}
 @item @code{Y-offset}
+@item @code{extra-offset}
 @item @code{alignment-distances}
 @end itemize
 
@@ -2723,6 +2724,41 @@ comporter un certain nombre.  Vous aurez aussi noté que la propriété
 @code{Y-offset} détermine ici le point de départ de chacun des systèmes
 de la page.
 
+Contrairement au positionnement absolu accessible par @code{Y-offset} et
+@code{X-offset}, il est possible d'opter pour un positionnement relatif
+à l'aide de la propriété @code{extra-offset} des
+@code{line-break-system-details}. Le placement sera relatif à la mise en
+forme par défaut ou au positionnement absolu géré par @code{X-offset} et
+@code{Y-offset}. La propriété @code{extra-offset} prend en argument une
+@code{paire} constituée des déplacements sur les axes horizontal et
+vertical.
+
+@lilypond[verbatim,quote,staffsize=16]
+\header { tagline = ##f }
+\paper { left-margin = 0\mm }
+\book {
+  \score {
+    <<
+      \new Staff <<
+        \new Voice {
+          s1*5 \break
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((extra-offset . (0 . 10)))
+          s1*5 \break
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((extra-offset . (0 . 10)))
+          s1*5 \break
+        }
+        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+      >>
+      \new Staff {
+        \repeat unfold 15 { d'4 d' d' d' }
+      }
+    >>
+  }
+}
+@end lilypond
+
 Maintenant que chaque système est explicitement positionné, nous pouvons
 jouer sur la distance séparant les portées de chacun des systèmes, grâce
 à la sous-propriété @code{alignment-distances} de
@@ -2809,10 +2845,11 @@ Lorsque vous utilisez @code{alignment-distances}, les paroles et
 autres lignes de non-portée ne comptent pas pour une portée.
 
 @item
-Les nombres fournis à @code{X-offset}, @code{Y-offset} et
-@code{alignment-distances} sont considérés comme des multiples de la
-distance entre des portées adjacentes.  Des valeurs positives remontent
-les portées et paroles, des valeurs négatives les descendent.
+Les nombres fournis à @code{X-offset}, @code{Y-offset},
+@code{extra-offset} et @code{alignment-distances} sont considérés comme
+des multiples de la distance entre des portées adjacentes. Des valeurs
+positives remontent les portées et paroles, des valeurs négatives les
+descendent.
 
 @item
 Dans la mesure où @code{NonMusicalPaperColumn.line-break-system-details}

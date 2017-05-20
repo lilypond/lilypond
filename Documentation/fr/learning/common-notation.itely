@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: a1267e20afa61258ce3031f07d916e0e66ac6582
+   Translation of GIT committish: f00c5e65a2b77ac1cc54fe221aaa845eedafd3d8
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1449,9 +1449,9 @@ barA = { \tripletA \tripletA \tripletA \tripletA }
 Il est possible d'utiliser des variables de types variés.  Par exemple,
 
 @example
-largeur = 4.5\cm
-nom = "Wendy"
-aFivePaper = \paper @{ paperheight = 21.0 \cm @}
+maLargeur = 60   % un nombre transmis à une variable \paper (unité = millimètre)
+monNom = "Wendy" % une chaîne transmise à un markup
+aCinqPapier = \paper @{ #(set-paper-size "a5") @}
 @end example
 
 En fonction de son contenu, un identificateur peut être utilisé à
@@ -1461,11 +1461,11 @@ ci-dessus.
 @example
 \paper @{
   \aFivePaper
-  line-width = \largeur
+  line-width = \maLargeur
 @}
 
 @{
-  c4^\nom
+  c4^\monNom
 @}
 @end example
 
