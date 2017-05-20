@@ -22,21 +22,15 @@ new contributors to LilyPond and enables students who are already
 involved to become more involved.  LilyPond participates in GSoC as part
 of the @uref{http://www.gnu.org/, GNU project}.
 
-We have had GSoC participants in 2012, 2015 and 2016 and encourage
-students to apply for the 2017 program.
-
-If you are interested to apply for the program with LilyPond as a
-project, please read the information below and don't hesitate to write
-us on our developer mailing list (see @ref{Contact}).  The student
-application window is March 20 to April 3, 2017, but we strongly
-encourage you to get in touch with our community ahead of that.
+We have had GSoC participants in 2012, 2015, 2016 and 2017.  This site
+will be updated in time before the 2018 season will start.
 
 @divEnd
 
 @divClass{column-center-middle-color2 bigger-subsubheadings}
 @subheading Project Ideas List
 
-Below is a list of GSoC project ideas (last update: January 2017), but
+Below is a list of GSoC project ideas (last update: May 2017), but
 if you have other ideas for a project you may complete within the three
 months of the program you're welcome to make a suggestion on our
 developer mailing list (see @ref{Contact}).  There are a number of areas
@@ -48,27 +42,6 @@ early as possible.
 
 A full list of all the current open issues can be found
 @uref{http://sourceforge.net/p/testlilyissues/issues/, here}.
-
-
-@subsubheading Improve internal chord structure
-
-The internal representation of LilyPond chords is not powerful enough
-to capture the nomenclature of jazz chords.  Currently the chord has
-a root, a bass and an inversion.  It would be nice to be able to handle
-stacked or polychords, minor/major, etc.  In order to do this, an
-internal representation with the ability to capture the essence of
-complex chords must be developed.  As a bonus, once the internal
-representation is developed, the output formatting of chord names can
-be improved.
-
-@emph{Difficulty:} Easy/medium
-
-@emph{Requirements:} Scheme (Guile), but the level necessary can be
-easily learned
-
-@emph{Recommended:} Chord theory and naming
-
-@emph{Mentor:} Carl Sorensen
 
 
 @subsubheading Adopt the SMuFL music font encoding standard

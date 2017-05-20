@@ -2440,11 +2440,12 @@ padding, @code{NonMusicalPaperColumn.line-break-system-details}
 can specify exact vertical positions on the page.
 
 @code{NonMusicalPaperColumn.line-break-system-details} accepts
-an associative list of three different settings:
+an associative list of four different settings:
 
 @itemize
 @item @code{X-offset}
 @item @code{Y-offset}
+@item @code{extra-offset}
 @item @code{alignment-distances}
 @end itemize
 
@@ -2557,6 +2558,41 @@ potentially many values, but that we set only one value here.  Note,
 too, that the @code{Y-offset} property here determines the exact vertical
 position on the page at which each new system will render.
 
+In contrast to the absolute positioning available through
+@code{Y-offset} and @code{X-offset}, relative positioning is possible
+with the @code{extra-offset} property of
+@code{line-break-system-details}.  Placement is relative to the
+default layout or to the absolute positioning created by setting
+@code{X-offset} and @code{Y-offset}.  The property @code{extra-offset}
+accepts a @code{pair} consisting of displacements along the X-axis and
+Y-axis.
+
+@lilypond[verbatim,quote,staffsize=16]
+\header { tagline = ##f }
+\paper { left-margin = 0\mm }
+\book {
+  \score {
+    <<
+      \new Staff <<
+        \new Voice {
+          s1*5 \break
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((extra-offset . (0 . 10)))
+          s1*5 \break
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((extra-offset . (0 . 10)))
+          s1*5 \break
+        }
+        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+      >>
+      \new Staff {
+        \repeat unfold 15 { d'4 d' d' d' }
+      }
+    >>
+  }
+}
+@end lilypond
+
 Now that we have set the vertical startpoint of each system
 explicitly, we can also set the vertical distances between staves
 within each system manually.  We do this using the @code{alignment-distances}
@@ -2642,9 +2678,10 @@ Some points to consider:
 do not count as a staff.
 
 @item The units of the numbers passed to @code{X-offset},
-@code{Y-offset} and @code{alignment-distances} are interpreted as multiples
-of the distance between adjacent staff lines.  Positive values move staves
-and lyrics up, negative values move staves and lyrics down.
+@code{Y-offset}, @code{extra-offset} and @code{alignment-distances} are
+interpreted as multiples of the distance between adjacent staff lines.
+Positive values move staves and lyrics up, negative values move staves
+and lyrics down.
 
 @item Because the @code{NonMusicalPaperColumn.line-break-system-details}
 settings given here allow the positioning of staves and systems anywhere

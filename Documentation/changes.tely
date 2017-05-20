@@ -62,6 +62,15 @@ which scares away people.
 @end ignore
 
 @item
+It is now possible to move systems with reference to their current
+position using the @code{extra-offset} subproperty of
+@code{NonMusicalPaperColumn.line-break-system-details}.  Both vertical
+and horizontal changes are possible.  This feature is especially useful
+for making slight adjustments to the default vertical position of
+individual systems. See @ruser{Explicit staff and system positioning} for
+more information.
+
+@item
 It is now possible to add text to analysis brackets through the
 @code{HorizontalBracketText} object.
 @lilypond[quote,verbatim]

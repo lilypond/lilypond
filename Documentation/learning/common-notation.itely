@@ -1343,9 +1343,9 @@ Variables may be used for many other types of objects in
 the input.  For example,
 
 @example
-width = 4.5\cm
-name = "Wendy"
-aFivePaper = \paper @{ paperheight = 21.0 \cm @}
+myWidth = 60      % a number to pass to a \paper variable (the unit is millimeter)
+myName = "Wendy"  % a string to pass to a markup
+aFivePaper = \paper @{ #(set-paper-size "a5") @}
 @end example
 
 Depending on its contents, the variable can be used in different
@@ -1354,11 +1354,11 @@ places.  The following example uses the above variables:
 @example
 \paper @{
   \aFivePaper
-  line-width = \width
+  line-width = \myWidth
 @}
 
 @{
-  c4^\name
+  c4^\myName
 @}
 @end example
 

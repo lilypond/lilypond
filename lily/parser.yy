@@ -375,7 +375,7 @@ If we give names, Bison complains.
 %token STRING
 %token SYMBOL_LIST
 %token TONICNAME_PITCH
-%token WORD
+%token SYMBOL
 
 %left '-' '+'
 
@@ -672,7 +672,7 @@ header_block:
 */
 assignment_id:
 	STRING
-	| WORD
+	| SYMBOL
 	;
 
 assignment:
@@ -1768,7 +1768,7 @@ symbol_list_element:
 
 
 symbol_list_part_bare:
-	WORD
+	SYMBOL
 	{
 		$$ = try_word_variants (Lily::key_list_p, $1);
 		if (SCM_UNBNDP ($$)) {
@@ -1934,7 +1934,7 @@ function_arglist_nonbackup_reparse:
 		else
 			MYREPARSE (@4, $2, SCM_ARG, $4);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup WORD
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup SYMBOL
 	{
 		$$ = $3;
 		SCM res = try_word_variants ($2, $4);
@@ -2204,7 +2204,7 @@ function_arglist_backup:
 			MYBACKUP (STRING, $4, @4);
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup WORD
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup SYMBOL
 	{
 		SCM res = try_word_variants ($2, $4);
 		if (!SCM_UNBNDP (res))
@@ -2445,7 +2445,7 @@ function_arglist_common_reparse:
 			// know the predicate to be false.
 			MYREPARSE (@3, $1, SCM_ARG, $3);
 	}
-	| EXPECT_SCM function_arglist_optional WORD
+	| EXPECT_SCM function_arglist_optional SYMBOL
 	{
 		$$ = $2;
 		SCM res = try_word_variants ($1, $3);
@@ -2773,7 +2773,7 @@ context_mod:
 	| context_def_mod STRING {
 		$$ = scm_list_2 ($1, $2);
 	}
-	| context_def_mod WORD {
+	| context_def_mod SYMBOL {
 		$$ = scm_list_2 ($1, $2);
 	}
 	| context_def_mod embedded_scm
@@ -2918,13 +2918,13 @@ music_property_def:
 
 string:
 	STRING
-	| WORD
+	| SYMBOL
 	| full_markup
 	;
 
 text:
 	STRING
-	| WORD
+	| SYMBOL
 	| full_markup
 	| embedded_scm_bare
 	{
@@ -2938,7 +2938,7 @@ text:
 	;
 
 simple_string: STRING
-	| WORD
+	| SYMBOL
 	| embedded_scm_bare
 	{
 		if (scm_is_string ($1)) {
@@ -2954,7 +2954,7 @@ symbol:
 	STRING {
 		$$ = scm_string_to_symbol ($1);
 	}
-	| WORD
+	| SYMBOL
 	{
 		if (!is_regular_identifier ($1, false))
 			parser->parser_error (@1, (_ ("symbol expected")));
@@ -3341,7 +3341,7 @@ gen_text_def:
 			make_simple_markup ($1));
 		$$ = t->unprotect ();
 	}
-	| WORD {
+	| SYMBOL {
 		// Flag a warning? could be unintentional
 		Music *t = MY_MAKE_MUSIC ("TextScriptEvent", @$);
 		t->set_property ("text",
@@ -3488,7 +3488,7 @@ tremolo_type:
 bass_number:
 	UNSIGNED
 	| STRING
-	| WORD
+	| SYMBOL
 	| full_markup
 	| embedded_scm_bare
 	{
@@ -3675,7 +3675,7 @@ lyric_element:
 			parser->parser_error (@1, _ ("markup outside of text script or \\lyricmode"));
 		$$ = $1;
 	}
-	| WORD {
+	| SYMBOL {
 		if (!parser->lexer_->is_lyric_state ())
 			parser->parser_error (@1, _f ("not a note name: %s", ly_scm2string ($1)));
 		$$ = $1;
@@ -4068,7 +4068,7 @@ simple_markup:
 	STRING {
 		$$ = make_simple_markup ($1);
 	}
-	| WORD {
+	| SYMBOL {
 		$$ = make_simple_markup ($1);
 	}
 	| SCORE {
