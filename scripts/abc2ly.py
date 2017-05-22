@@ -761,8 +761,12 @@ def try_parse_header_line (ln, state):
             lyrics_append(a)
         if g == 'w':        # vocals
             slyrics_append (a)
-        if g == 'Q':    #tempo
+        if g == 'Q':        # tempo
             try_parse_q (a)
+        if g == 'R':        # Rhythm (e.g. jig, reel, hornpipe)
+            header['meter'] = a
+        if g == 'Z':        # Transcription (e.g. Steve Mansfield 1/2/2000)
+            header['transcription'] = a
         return ''
     return ln
 
