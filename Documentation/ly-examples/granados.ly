@@ -103,7 +103,8 @@ lowerVoiceTwo = \relative {
   \csh
   \once \override Beam.damping = #+inf.0
   <bes'' es g>8 \csl \slurUp
-  %\once\override Slur.extra-offset = #'(0 . 4)
+  % Fix problem with -dpreview cropping beams
+  \once \override TextScript.padding = #10 <> _\markup { " " }
   es,,64 bes' es g s32.
     c64
     s4 <bes des>
