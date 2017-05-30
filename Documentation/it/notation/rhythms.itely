@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 8c1840ca28a05b3dad8d595e04d03779ba0a286a
+    Translation of GIT committish: 18d03fa6a724b0102ccc47d194209802cea02f2e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -320,7 +320,7 @@ Guida alla notazione:
 @ref{Direzione e posizionamento},
 @ref{Time administration},
 @ref{Scaling durations},
-@ref{The tweak command},
+@ref{Il comando tweak},
 @ref{Polymetric notation}.
 
 Frammenti di codice:
@@ -458,7 +458,7 @@ unire note dalle durate superiori all'unità di suddivisione della misura:
 
 @lilypond[verbatim,quote]
 \relative {
-  r8 c'~ 2 r4 |
+  r8 c'4.~ 4 r4 |
   r8^"non" c2~ 8 r4
 }
 @end lilypond
@@ -977,7 +977,7 @@ Glossario musicale:
 Guida alla notazione:
 @ref{Durata},
 @ref{Text},
-@ref{Formatting text},
+@ref{Formattazione del testo},
 @ref{Text scripts}.
 
 Frammenti di codice:
@@ -1372,7 +1372,7 @@ orizzontale.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {creating-metronome-marks-in-markup-mode.ly}
 
-I dettagli si trovano in @ref{Formatting text}.
+I dettagli si trovano in @ref{Formattazione del testo}.
 
 @seealso
 Glossario musicale:
@@ -1381,7 +1381,7 @@ Glossario musicale:
 @rglosnamed{metronome mark,indicazione metronomica}.
 
 Guida alla notazione:
-@ref{Formatting text},
+@ref{Formattazione del testo},
 @ref{Creazione dell'output MIDI}.
 
 Frammenti di codice:
@@ -1950,6 +1950,23 @@ accompagnamento.  Si possono visualizzare usando l'incisore
 >>
 @end lilypond
 
+La musica contenente accordi può essere usata anche come input per
+@code{RhythmicStaff} e per essere usata con l'incisore
+@code{Pitch_squash_engraver} se gli accordi vengono prima ridotti
+a note singole con la funzione musicale @code{\reduceChords}:
+
+@lilypond[quote,verbatim]
+\new RhythmicStaff {
+  \time 4/4
+  \reduceChords {
+    <c>2
+    <e>2
+    <c e g>2
+    <c e g>4
+    <c e g>4
+  }
+}
+@end lilypond
 
 @predefined
 @code{\improvisationOn},
@@ -3300,9 +3317,9 @@ numero racchiuso in un quadrato.
 @end lilypond
 
 Il file @file{scm/translation-functions.scm} contiene le
-definizioni di @code{format-mark-numbers} (il formato predefinito),
-@code{format-mark-box-numbers}, @code{format-mark-letters} e
-@code{format-mark-box-letters}.  Possono essere usate come fonte
+definizioni di @code{format-mark-letters} (il formato predefinito),
+@code{format-mark-box-letters}, @code{format-mark-numbers} e
+@code{format-mark-box-numbers}.  Possono essere usate come fonte
 di ispirazione per creare altre funzioni di formattazione.
 
 Si possono usare @code{format-mark-barnumbers},
@@ -3347,10 +3364,10 @@ comando @code{\mark}
 
 @noindent
 L'elenco dei simboli che possono essere prodotti con @code{\musicglyph} si
-trova in @ref{The Emmentaler font}.
+trova in @ref{Il font Emmentaler}.
 
 Per le più comuni modifiche relative al posizionamento dei segni di chiamata, si
-veda @ref{Formatting text}.  Per ottenere un controllo più preciso si consiglia
+veda @ref{Formattazione del testo}.  Per ottenere un controllo più preciso si consiglia
 di studiare il funzionamento della proprietà @code{break-alignable-interface}
 descritta in @ref{Allineamento degli oggetti}.
 
@@ -3361,8 +3378,8 @@ ispirazione per creare altre funzioni di formattazione.
 
 @seealso
 Guida alla notazione:
-@ref{The Emmentaler font},
-@ref{Formatting text},
+@ref{Il font Emmentaler},
+@ref{Formattazione del testo},
 @ref{Allineamento degli oggetti}.
 
 File installati:

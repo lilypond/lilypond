@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 5da0af52c0f2f6f00347981549a0e54feff6d056
+    Translation of GIT committish: 3f5d679ade0f797d5f907569656223d09b09d5db
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -9,6 +9,7 @@
 
 @include included/acknowledge.itexi
 @include included/authors.itexi
+@include included/gsoc.itexi
 @include included/helpus.itexi
 
 @node Comunità
@@ -879,30 +880,7 @@ manuali sono reperibili su @url{http://lilypond.org}}
 @unnumberedsec Google Summer of Code
 @translationof Google Summer of Code
 
-@divClass{column-center-top}
-@subheading Che cos'è il Google Summer of Code?
-
-@uref{https://summerofcode.withgoogle.com/, GSoC} è un programma
-internazionale che offre agli studenti degli stipendi per scrivere codice per
-progetti di software libero e open source durante l'estate.  Per tre mesi gli
-studenti lavorano per completare un certo compito entrando a far parte della
-comunità del progetto e sotto la guida di tutor esperti.  Il programma è un'ottima
-opportunità per gli studenti per fare esperienza con lo sviluppo software
-in un progetto vero e per dare un contributo da cui tutti potranno trarre
-vantaggio.  Attrae nuovi collaboratori e stimola gli studenti che già
-partecipano allo sviluppo di LilyPond ad impegnarsi di più in esso.  LilyPond
-partecipa a GSoC sotto l'egida del @uref{http://www.gnu.org/, progetto GNU}.
-
-Abbiamo avuto partecipanti al GSoC nel 2012, 2015 e 2016 e invitiamo gli
-studenti a fare domanda per il programma del 2017.
-
-Se hai dubbi o desideri presentare domanda, invia un'email alla nostra
-mailing list degli sviluppatori (vedi @ref{Contatti}).
-
-@c Non voglio mantenere la traduzione delle informazioni su GSoC. - fb
-Maggiori dettagli nella versione inglese di questa pagina.
-
-@divEnd
+@gsocCurrent
 
 
 
@@ -1126,13 +1104,8 @@ Lista dei cambiamenti apportati da ciascun sviluppatore in ogni versione:
 
 @divEnd
 
-@c Non voglio mantenere la traduzione delle informazioni su GSoC. - fb
 @divClass{column-center-middle-color2 bigger-subsubheadings}
-@subheading Idee di progetti per il Google Summer of Code
-
-Visitare la versione inglese di questa pagina per vedere la lista di progetti
-GSoC che sono stati proposti negli ultimi anni e che sono ancora considerati
-interessanti ma per i quali non abbiamo al momento dei tutor disponibili.
+@gsocInactive
 @divEnd
 
 @divClass{column-center-middle-color2}

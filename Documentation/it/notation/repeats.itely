@@ -515,7 +515,7 @@ Comandi di ripetizione multipli possono trovarsi nello stesso punto:
 @cindex testo nella parentesi della volta
 
 Si può includere del testo nella parentesi della volta.  Il testo può consistere di
-un numero, di più numeri o di un'indicazione testuale, si veda @ref{Formatting text}.  Il
+un numero, di più numeri o di un'indicazione testuale, si veda @ref{Formattazione del testo}.  Il
 modo più  semplice per usare del testo è definirlo prima e poi includerlo
 nella lista Scheme,
 
@@ -536,7 +536,7 @@ voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 @seealso
 Guida alla notazione:
 @ref{Stanghette},
-@ref{Formatting text}.
+@ref{Formattazione del testo}.
 
 Frammenti:
 @rlsr{Repeats}.

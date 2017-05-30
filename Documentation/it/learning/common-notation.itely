@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 09ef86c87175cc6c1071eedb022ed1d01a93bcaf
+    Translation of GIT committish: 250f1bf95f84616b68932324d6b5026833080cc4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1360,9 +1360,9 @@ Le variabili possono essere utilizzate per molti tipi di oggetto
 nell'input.  Ad esempio,
 
 @example
-width = 4.5\cm
-name = "Wendy"
-aFivePaper = \paper @{ paperheight = 21.0 \cm @}
+larghezza = 60  % un numero da passare a una variabile di \paper (l'unità di misura è il millimetro)
+nome = "Wendy"  % una stringa da passare a un markup
+foglioA5 = \paper @{ #(set-paper-size "a5") @}
 @end example
 
 A seconda dei suoi contesti, la variabile può essere usata in punti
@@ -1370,11 +1370,11 @@ differenti.  L'esempio seguente usa le variabili mostrate sopra:
 
 @example
 \paper @{
-  \aFivePaper
-  line-width = \width
+  \foglioA5
+  line-width = \larghezza
 @}
 @{
-  c4^\name
+  c4^\nome
 @}
 @end example
 

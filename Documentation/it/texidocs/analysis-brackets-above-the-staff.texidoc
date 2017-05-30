@@ -1,0 +1,8 @@
+%% Translation of GIT committish: e0808cc5f4890c5f8f03ed1be48fc911627afea4
+  texidocit = "
+Delle semplici parentesi analitiche orizzontali vengono aggiunte, per impostazione
+predefinita, sotto il rigo. L'esempio seguente mostra un modo per posizionarle
+sopra il rigo.
+
+"
+  doctitleit = "Parentesi analitiche sopra il rigo"
