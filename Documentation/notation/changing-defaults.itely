@@ -2783,10 +2783,11 @@ The following example displaces the @q{broken} @code{OttavaBracket}
 object through its @code{staff-padding} property.  Since the property
 takes a @code{number}, @var{offsets} is provided with a list of
 @code{number}s to account for the two segments created by the line
-break.  The slur piece on the first line is effectively untouched since
-@code{0} is added to its default value.  The segment on the second
-line is raised two staff-spaces from its default height.  The default
-height happens to be @code{2}, though it is not necesssary to know this.
+break.  The bracket piece on the first line is effectively untouched
+since @code{0} is added to its default value of @code{staff-padding}.
+The segment on the second line is raised three staff-spaces from its
+default height.  The default height happens to be @code{2}, though it is
+not necessary to know this to achieve the desired positioning.
 
 @lilypond[quote,verbatim]
 {
