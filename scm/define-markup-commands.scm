@@ -1595,16 +1595,11 @@ equivalent to @code{\"fi\"}.
                         (cons arg result-list))))
                 '()
                 arg-list))
-
-  (interpret-markup layout
-                    (prepend-alist-chain 'word-space 0 props)
-                    (make-line-markup
-                     (make-override-lines-markup-list
-                      (cons 'word-space
-                            (chain-assoc-get 'word-space props))
-                      (if (markup-command-list? args)
-                          args
-                          (concat-string-args args))))))
+  (stack-stencil-line 0
+                      (interpret-markup-list layout props
+                                             (if (markup-command-list? args)
+                                                 args
+                                                 (concat-string-args args)))))
 
 (define (wordwrap-stencils stencils
                            justify base-space line-width text-dir)
