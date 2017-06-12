@@ -417,6 +417,20 @@ BOM_UTF8	\357\273\277
 
 	sval = eval_scm (sval, hi, '$');
 
+	if (YYSTATE == markup && ly_is_procedure (sval))
+	{
+		SCM sig = Lily::markup_command_signature (sval);
+		if (scm_is_true (sig))
+		{
+			yylval = sval;
+			int token = MARKUP_FUNCTION;
+			if (scm_is_true (scm_object_property
+					 (sval, ly_symbol2scm ("markup-list-command"))))
+				token = MARKUP_LIST_FUNCTION;
+			push_markup_predicates (sig);
+			return token;
+		}
+	}
 	int token = scan_scm_id (sval);
 	if (!scm_is_eq (yylval, SCM_UNSPECIFIED))
 		return token;
