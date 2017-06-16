@@ -36,13 +36,14 @@ tocItemWithDotsMarkup = \markup \fill-with-pattern #1 #RIGHT .
   \fromproperty #'toc:text \fromproperty #'toc:page
 
 #(define-markup-list-command (table-of-contents layout props) ()
+  #:properties ((baseline-skip))
   ( _i "Outputs the table of contents, using the paper variable
 @code{tocTitleMarkup} for its title, then the list of lines
 built using the @code{tocItem} music function
 Usage: @code{\\markuplist \\table-of-contents}" )
   (cons (interpret-markup layout props
                           (ly:output-def-lookup layout 'tocTitleMarkup))
-        (space-lines (chain-assoc-get 'baseline-skip props)
+        (space-lines baseline-skip
                     (map (lambda (toc-item)
                            (let ((label (car toc-item))
                                  (toc-markup (cadr toc-item))

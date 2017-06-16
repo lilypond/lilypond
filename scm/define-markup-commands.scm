@@ -2637,6 +2637,7 @@ may be any property supported by @rinternals{font-interface},
 
 (define-markup-command (abs-fontsize layout props size arg)
   (number? markup?)
+  #:properties ((word-space 0.6) (baseline-skip 3))
   #:category font
   "Use @var{size} as the absolute font size (in points) to display @var{arg}.
 Adjusts @code{baseline-skip} and @code{word-space} accordingly.
@@ -2652,14 +2653,12 @@ Adjusts @code{baseline-skip} and @code{word-space} accordingly.
 @end lilypond"
   (let* ((ref-size (ly:output-def-lookup layout 'text-font-size 12))
          (text-props (list (ly:output-def-lookup layout 'text-font-defaults)))
-         (ref-word-space (chain-assoc-get 'word-space text-props 0.6))
-         (ref-baseline (chain-assoc-get 'baseline-skip text-props 3))
          (magnification (/ size ref-size)))
     (interpret-markup
      layout
      (cons
-      `((baseline-skip . ,(* magnification ref-baseline))
-        (word-space . ,(* magnification ref-word-space))
+      `((baseline-skip . ,(* magnification baseline-skip))
+        (word-space . ,(* magnification word-space))
         (font-size . ,(magnification->font-size magnification)))
       props)
      arg)))
@@ -4452,6 +4451,7 @@ Draw vertical brackets around @var{arg}.
                 (padding)
                 (size 1)
                 (thickness 1)
+                (line-thickness 0.1)
                 (width 0.25))
   "
 @cindex placing parentheses around text
@@ -4482,12 +4482,11 @@ a column containing several lines of text.
   (let* ((m (interpret-markup layout props arg))
          (scaled-width (* size width))
          (scaled-thickness
-          (* (chain-assoc-get 'line-thickness props 0.1)
-             thickness))
+          (* line-thickness thickness))
          (half-thickness
           (min (* size 0.5 scaled-thickness)
                (* (/ 4 3.0) scaled-width)))
-         (padding (chain-assoc-get 'padding props half-thickness)))
+         (padding (or padding half-thickness)))
     (parenthesize-stencil
      m half-thickness scaled-width angularity padding)))
 
