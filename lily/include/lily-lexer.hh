@@ -46,6 +46,7 @@ private:
   int scan_shorthand (const string&);
   int scan_scm_id (SCM);
   int identifier_type (SCM);
+  void push_markup_predicates (SCM sig);
   char escaped_char (char) const;
   const char *YYText_utf8 ();
 

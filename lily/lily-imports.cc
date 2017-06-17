@@ -80,6 +80,7 @@ namespace Lily {
   Variable make_safe_lilypond_module ("make-safe-lilypond-module");
   Variable make_span_event ("make-span-event");
   Variable markup_p ("markup?");
+  Variable markup_command_signature ("markup-command-signature");
   Variable markup_list_p ("markup-list?");
   Variable midi_program ("midi-program");
 #if !GUILEV2

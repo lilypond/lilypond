@@ -417,6 +417,20 @@ BOM_UTF8	\357\273\277
 
 	sval = eval_scm (sval, hi, '$');
 
+	if (YYSTATE == markup && ly_is_procedure (sval))
+	{
+		SCM sig = Lily::markup_command_signature (sval);
+		if (scm_is_true (sig))
+		{
+			yylval = sval;
+			int token = MARKUP_FUNCTION;
+			if (scm_is_true (scm_object_property
+					 (sval, ly_symbol2scm ("markup-list-command"))))
+				token = MARKUP_LIST_FUNCTION;
+			push_markup_predicates (sig);
+			return token;
+		}
+	}
 	int token = scan_scm_id (sval);
 	if (!scm_is_eq (yylval, SCM_UNSPECIFIED))
 		return token;
@@ -684,18 +698,8 @@ BOM_UTF8	\357\273\277
 		// value (for token type MARKUP_FUNCTION or
 		// MARKUP_LIST_FUNCTION).
 
-		push_extra_token (here_input (), EXPECT_NO_MORE_ARGS);
-		s = scm_cdr(s);
-		for (; scm_is_pair(s); s = scm_cdr(s)) {
-		  SCM predicate = scm_car(s);
+		push_markup_predicates (scm_cdr (s));
 
-		  if (scm_is_eq (predicate, SCM (Lily::markup_list_p)))
-		    push_extra_token (here_input (), EXPECT_MARKUP_LIST);
-		  else if (scm_is_eq (predicate, SCM (Lily::markup_p)))
-		    push_extra_token (here_input (), EXPECT_MARKUP);
-		  else
-		    push_extra_token (here_input (), EXPECT_SCM, predicate);
-		}
 		return token_type;
 	}
 	[^$#{}\"\\ \t\n\r\f]+ {
@@ -891,6 +895,23 @@ Lily_lexer::pop_state ()
 		yy_pop_state ();
 
 }
+
+void
+Lily_lexer::push_markup_predicates (SCM sig)
+{
+	push_extra_token (here_input (), EXPECT_NO_MORE_ARGS);
+	for (SCM s = sig; scm_is_pair(s); s = scm_cdr(s)) {
+		SCM predicate = scm_car(s);
+
+		if (scm_is_eq (predicate, SCM (Lily::markup_list_p)))
+			push_extra_token (here_input (), EXPECT_MARKUP_LIST);
+		else if (scm_is_eq (predicate, SCM (Lily::markup_p)))
+			push_extra_token (here_input (), EXPECT_MARKUP);
+		else
+			push_extra_token (here_input (), EXPECT_SCM, predicate);
+	}
+}
+
 
 int
 Lily_lexer::identifier_type (SCM sid)
