@@ -323,6 +323,10 @@ div#tocframe h4 {
   font-size: 1em;
 }
 
+#tocframe .contents > ul.toc > li {
+  margin-top: 0.5em;
+}
+
 #tocframe ul.toc li li {
   padding-left: 1em;
 }
