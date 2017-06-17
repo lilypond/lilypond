@@ -499,3 +499,17 @@ div#search p, div#search form {
   border-radius: 5px;
   margin: 0.5em 0.5em 2em 3em;
 }
+
+/***********************************************************/
+/*               RESPONSIVE DESIGN                         */
+/***********************************************************/
+
+@media (min-width: 1280px) {
+  div#main {
+    left: 346px
+  }
+  div#tocframe {
+    width: 346px;
+    right: 0;
+  }
+}
