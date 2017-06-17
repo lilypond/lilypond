@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 6a925e8d2013714a25abcb73c76a4c6306138d33
+    Translation of GIT committish: 4244c3a9fbf1f3ff2e20e665f92516d35b61de53
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -568,6 +568,28 @@ gambi in giù:
   { g'2  }  % 6: terza più bassa
 >>
 @end lilypond
+
+@funindex \voices
+Quando si desidera inserire le voci in un ordine diverso, conviene usare
+il comando @code{\voices}:
+
+@lilypond[quote,verbatim]
+\new Staff \voices 1,3,5,6,4,2 <<
+  \time 2/4
+  { f''2 }  % 1: la più alta
+  \\
+  { d''2 }  % 3: seconda più alta
+  \\
+  { b'2  }  % 5: terza più alta
+  \\
+  { g'2  }  % 6: terza più bassa
+  \\
+  { e'2  }  % 4: seconda più bassa
+  \\
+  { c'2  }  % 2: la più bassa
+>>
+@end lilypond
+
 
 @warning{Il testo e gli estensori (come le legature di portamento e di valore,
 le forcelle, etc.) non possono @q{attraversare} le voci.}

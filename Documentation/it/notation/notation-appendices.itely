@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 8a1b303e7930b596753b075e4341a297211d6a0a
+    Translation of GIT committish: 1e5c6b0f54079eb3285dcc4c7e53f17d8bb03933
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -22,7 +22,7 @@
 * Formati carta predefiniti::
 * Strumenti MIDI::
 * Elenco dei colori::
-* Il tipo di carattere Emmentaler::
+* Il font Emmentaler::
 * Stili delle teste di nota::
 * Stili della chiave::
 * Comandi per markup::
@@ -950,36 +950,38 @@ greyN
 dove N è un numero compreso tra 0 e 100.
 
 
-@node Il tipo di carattere Emmentaler
-@appendixsec Il tipo di carattere Emmentaler
+@node Il font Emmentaler
+@appendixsec Il font Emmentaler
 @translationof The Emmentaler font
 
-@cindex Emmentaler tipo di carattere
-@cindex tipo di carattere, Emmentaler
-@cindex Feta tipo di carattere
-@cindex tipo di carattere, Feta
-@cindex Parmesan tipo di carattere
-@cindex tipo di carattere, Parmesan
+@cindex Emmentaler, font
+@cindex font Emmentaler
+@cindex Feta, font
+@cindex font Feta
+@cindex Parmesan, font
+@cindex font Parmesan
+@cindex tipi di carattere
 
-@cindex tipo di carattere Feta
-@cindex Feta, tipo di carattere
+Il font Emmentaler è composto da due @emph{sottoinsiemi} di glifi.
+@qq{Feta}, usato nella notazione classica e @qq{Parmesan}, usato
+nella notazione antica.
 
-I simboli seguenti sono disponibili nel tipo di carattere Emmentaler e
-si possono utilizzare all'interno di un comando @code{\markup} specificando
-il nome del glifo, come mostrato nelle seguenti tabelle, per esempio;
+A qualsiasi glifo del font Emmentaler si può accedere direttamente usando
+del testo insieme al nome del glifo (come è mostrato nelle tabelle
+seguenti).  Per esempio:
 
 @example
 g^\markup @{\musicglyph #"scripts.segno" @}
 @end example
 
 @noindent
-or
+oppure
 
 @example
 \markup @{\musicglyph #"five"@}.
 @end example
 
-Maggiori informazioni in @ref{Formatting text}.
+Maggiori informazioni in @ref{Formattazione del testo}.
 
 
 @menu

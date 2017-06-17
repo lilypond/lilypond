@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: UTF-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 8d8a54f9903e27263581f684b0a22dc2aca5d24c
+    Translation of GIT committish: 24dd6365d3d05f13b9259f547be9b2517851a5d1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -52,13 +52,82 @@ Vedi il manuale utente, \NAME\
 @itemize
 
 @item
+È ora possibile spostare i sistemi rispetto alla loro posizione corrente
+tramite @code{extra-offset}, sottoproprietà di
+@code{NonMusicalPaperColumn.line-break-system-details}.  Sono consentite
+modifiche sia verticali che orizzontali.  Questa funzionalità è utile in
+particolare per fare piccoli aggiustamenti della posizione verticale
+predefinita dei singoli sistemi.  Maggiori informazioni in
+@ruser{Posizionamento esplicito di righi e sistemi}.
+
+@item
+È ora possibile aggiungere del testo alle parentesi per l'analisi musicale
+tramite l'oggetto @code{HorizontalBracketText}.
+@lilypond[quote,verbatim]
+\layout {
+  \context {
+    \Voice
+    \consists "Horizontal_bracket_engraver"
+  }
+}
+
+{
+  \once \override HorizontalBracketText.text = "a"
+  c''\startGroup d''\stopGroup
+  e''-\tweak HorizontalBracketText.text "a'" \startGroup d''\stopGroup
+}
+@end lilypond
+
+@item
+Le estremità delle forcelle possono ora essere aggiustate precisamente
+tramite la proprietà @code{shorten-pair}, che precedentemente agiva
+soltanto sugli estensori del testo, come @code{TupletBracket} e
+@code{OttavaBracket}.  Valori positivi spostano a destra, quelli negativi
+a sinistra.
+@lilypond[quote,verbatim]
+{ \once \override Hairpin.shorten-pair = #'(2 . 2)
+  c'1~\<
+  c'2~ c'\!
+  \once \override Hairpin.shorten-pair = #'(-2 . -2)
+  c'1~\<
+  c'2~ c'\! }
+@end lilypond
+
+@item
+Nei diagrammi dei tasti la distanza tra i tasti e quella tra le corde sono
+ora regolabili in modo indipendente.  Sono disponibili @code{fret-distance} e
+@code{string-distance} come sottoproprietà di @code{fret-diagram-details}.
+@lilypond[verbatim,quote]
+fretMrkp = \markup { \fret-diagram-terse #"x;x;o;2;3;2;" }
+
+\markuplist
+\override #'(padding . 2)
+\table #'(0 -1) {
+  "predefinito"
+
+  \fretMrkp
+
+  "fret-distance"
+
+  \override #'(fret-diagram-details . ((fret-distance . 2)))
+  \fretMrkp
+
+  "string-distance"
+
+  \override #'(fret-diagram-details . ((string-distance . 2)))
+  \fretMrkp
+}
+@end lilypond
+
+
+@item
 Le regole delle alterazioni possono essere definite nei contesti @code{ChoirStaff}.
 Sono disponibili due nuove regole, @code{choral} e @code{choral-cautionary}, che
 combinano le caratteristiche di @code{modern-voice} e @code{piano}
 o i loro equivalenti per le alterazioni di cortesia.
 
 @item
-La funzione musicale @code{\\unfoldRepeats} può ora prendere una lista di
+La funzione musicale @code{\unfoldRepeats} può ora prendere una lista di
 argomenti (facoltativa) che specifica quali tipi di musica ripetuta debbano
 essere ricopiati.  Le opzioni possibili sono @code{percent}, @code{tremolo} e
 @code{volta}.

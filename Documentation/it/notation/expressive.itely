@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 12b68a3172f040e768b7d229aa14fb4838e75742
+    Translation of GIT committish: c473929f7e9d1219a1fbe60ae0922d17c26fdefe
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -464,6 +464,9 @@ indicazioni testuali, estensori del testo e indicazioni di pedalizzazione del pi
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {setting-the-minimum-length-of-hairpins.ly}
 
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{moving-the-ends-of-hairpins.ly}
+
 @cindex al niente
 @cindex niente, al
 
@@ -541,7 +544,7 @@ moltoF = \markup { molto \dynamic f }
 
 In modalità markup, si possono creare dinamiche editoriali (racchiuse tra
 parentesi normali o quadrate).  La sintassi della modalità markup è
-descritta in @ref{Formatting text}.
+descritta in @ref{Formattazione del testo}.
 
 @lilypond[verbatim,quote]
 roundF = \markup {
@@ -629,7 +632,7 @@ Le impostazioni dei tipi di carattere in modalità markup sono descritti in
 
 @seealso
 Guida alla notazione:
-@ref{Formatting text},
+@ref{Formattazione del testo},
 @ref{Selecting font and font size},
 @ref{Miglioramento dell'output MIDI},
 @ref{Gestione delle dinamiche nel MIDI}.

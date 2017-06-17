@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 71fa1bbb755d3ba14eea93394af88fa4a1092222
+    Translation of GIT committish: 1e5c6b0f54079eb3285dcc4c7e53f17d8bb03933
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -961,7 +961,7 @@ intestazione, piè di pagina e titolo di un blocco @code{\header}.
 
 @seealso
 Guida alla notazione:
-@ref{Formatting text}.
+@ref{Formattazione del testo}.
 
 
 @node Formattazione personalizzata dei titoli
@@ -2858,8 +2858,8 @@ vedi @rprogram{Opzioni di base della linea di comando per LilyPond}.
 @subsection Cambiare il tipo di carattere della notazione
 @translationof Replacing the notation font
 
-Gonville è un'alternativa al tipo di carattere Emmentaler usato da
-LilyPond e può essere scaricato da:
+Gonville è un insieme di glifi alternativo a @emph{Feta}, parte del font
+Emmentaler, e può essere usato in LilyPond.  Può essere scaricato da:
 @example
 @uref{http://www.chiark.greenend.org.uk/~sgtatham/gonville/ ,http://www.chiark.greenend.org.uk/~sgtatham/gonville/}
 @end example
@@ -2868,7 +2868,7 @@ Ecco alcune battute di musica che usa Gonville:
 
 @sourceimage{Gonville_after,15cm,,}
 
-E alcune battute di musica che usa Feta (il tipo di carattere predefinito di LilyPond):
+E alcune battute di musica che usa i glifi Feta di LilyPond:
 
 @sourceimage{Gonville_before,15cm,,}
 
@@ -2883,6 +2883,9 @@ directory esistente @code{fonts} come @code{fonts_orig} e la directory
 @seealso
 Manuale di apprendimento:
 @rlearning{Altre fonti di informazione}.
+
+Guida alla notazione:
+@ref{Il font Emmentaler}.
 
 @knownissues
 Gonville non può essere usato per scrivere notazione in @q{musica antica}

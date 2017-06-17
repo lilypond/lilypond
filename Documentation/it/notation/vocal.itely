@@ -196,7 +196,7 @@ seguita da @code{`}, @code{'}, @code{"} o @code{^}.
 
 Per avere un maggior controllo sull'aspetto del testo si può usare
 @code{\markup} all'interno del testo. Per una spiegazione delle
-molte opzioni disponibili leggere @ref{Formatting text}.
+molte opzioni disponibili leggere @ref{Formattazione del testo}.
 
 @snippets
 
@@ -211,7 +211,7 @@ Manuale di apprendimento:
 Guida alla notazione:
 @ref{Durate automatiche delle sillabe},
 @ref{Fonts},
-@ref{Formatting text},
+@ref{Formattazione del testo},
 @ref{Input modes},
 @ref{Manual syllable durations},
 @ref{Special characters}.
@@ -3371,7 +3371,7 @@ tick = \markup {
 @end lilypond
 
 L'uso di @code{\markup} per centrare il testo e disporre le linee in
-colonne è descritto in @ref{Formatting text}.
+colonne è descritto in @ref{Formattazione del testo}.
 
 La maggior parte di questi elementi sono mostrati in uno dei due versi
 del modello @rlearning{Salmi}.
@@ -3383,7 +3383,7 @@ Manuale di apprendimento:
 
 Guida alla notazione:
 @ref{Fonts},
-@ref{Formatting text}.
+@ref{Formattazione del testo}.
 
 
 @node Misure parziali nei motivi degli inni

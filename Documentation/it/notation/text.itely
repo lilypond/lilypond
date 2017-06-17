@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 6a925e8d2013714a25abcb73c76a4c6306138d33
+    Translation of GIT committish: 18d03fa6a724b0102ccc47d194209802cea02f2e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -70,7 +70,7 @@ usando la sintassi descritta in @ref{Direzione e posizionamento}.
 
 In realtà questa sintassi è una scorciatoia; si può specificare una formattazione
 del testo più complessa usando in modo esplicito un blocco @code{\markup}, come
-è spiegato in @ref{Formatting text}.
+è spiegato in @ref{Formattazione del testo}.
 
 @lilypond[quote,verbatim]
 \relative {
@@ -110,7 +110,7 @@ Manuale d'apprendimento:
 @rlearning{Posizionamento degli oggetti}.
 
 Guida alla notazione:
-@ref{Formatting text},
+@ref{Formattazione del testo},
 @ref{Direzione e posizionamento},
 @ref{Articolazioni e abbellimenti}.
 
@@ -162,7 +162,7 @@ con la seguente sintassi:
 La stringa testuale da stampare viene impostata attraverso le proprietà
 dell'oggetto.  Per impostazione predefinita, appare in corsivo, ma si
 può ottenere una formattazione diversa tramite i blocchi @code{\markup}, come
-è spiegato in @ref{Formatting text}.
+è spiegato in @ref{Formattazione del testo}.
 
 @lilypond[quote,verbatim]
 \relative {
@@ -202,7 +202,7 @@ LilyPond è capace di gestire un solo estensore del testo per ogni voce.
 Guida alla notazione:
 @ref{Line styles},
 @ref{Dinamiche},
-@ref{Formatting text}.
+@ref{Formattazione del testo}.
 
 Frammenti:
 @rlsr{Text},
@@ -247,7 +247,7 @@ sintassi descritta in @ref{Rehearsal marks}:
 
 Questa sintassi permette di porre del testo sopra una stanghetta;
 una formattazione del testo più complessa è possibile grazie al
-blocco @code{\markup}, come è spiegato in @ref{Formatting text}:
+blocco @code{\markup}, come è spiegato in @ref{Formattazione del testo}:
 
 @lilypond[quote,verbatim]
 \relative {
@@ -306,9 +306,9 @@ successiva.
 @seealso
 Guida alla notazione:
 @ref{Rehearsal marks},
-@ref{Formatting text},
+@ref{Formattazione del testo},
 @ref{Music notation inside markup},
-@ref{The Emmentaler font}.
+@ref{Il font Emmentaler}.
 
 Frammenti:
 @rlsr{Text}.
@@ -377,7 +377,7 @@ in @ref{Multi-page markup}.
 
 @seealso
 Guida alla notazione:
-@ref{Formatting text},
+@ref{Formattazione del testo},
 @ref{File structure},
 @ref{Multiple scores in a book},
 @ref{Multi-page markup}.
@@ -1192,7 +1192,7 @@ modalità markup:
 Più in generale, qualsiasi simbolo musicale disponibile può essere incluso
 separatamente in un oggetto markup, come è illustrato sotto.  Una lista
 completa di questi simboli e dei loro nomi si trova in
-@ref{The Emmentaler font}.
+@ref{Il font Emmentaler}.
 
 @lilypond[quote,verbatim]
 \relative {
@@ -1261,7 +1261,7 @@ in @ref{Music}.
 @seealso
 Guida alla notazione:
 @ref{Music},
-@ref{The Emmentaler font},
+@ref{Il font Emmentaler},
 @ref{Fonts explained}.
 
 File installati:
@@ -1374,8 +1374,8 @@ sono riprodotti con Pango.
 
 I tipi di carattere della notazione musicale possono essere descritti
 come un insieme di glifi specifici, ordinati in varie famiglie.  La
-seguente sintassi permette di usare vari caratteri @code{feta} di LilyPond
-(non testuali) direttamente nella modalità markup:
+seguente sintassi permette di usare vari glifi @emph{Feta} di LilyPond
+direttamente nella modalità markup:
 
 @lilypond[quote,verbatim,fragment]
 a'1^\markup {
@@ -1464,7 +1464,7 @@ possibile usare altri tipi, come viene spiegato nelle sezioni successive:
 
 @seealso
 Guida alla notazione:
-@ref{The Emmentaler font},
+@ref{Il font Emmentaler},
 @ref{Music notation inside markup},
 @ref{Rotating objects},
 @ref{Selecting font and font size},

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 4934b315013ccdda3ab42271fa8bed6e45587844
+    Translation of GIT committish: 24dd6365d3d05f13b9259f547be9b2517851a5d1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1398,12 +1398,11 @@ evitare di ridurre lo spessore delle linee del rigo.
 
 @subheading Corpo automatico dei tipi di carattere a dimensioni diverse
 
-Il tipo di carattere Feta fornisce simboli musicali in otto dimensioni
-diverse.  Ogni tipo di carattere è calibrato per una specifica dimensione
-del rigo: via via che la dimensione del rigo diventa più piccola, il corpo
-del carattere diventa più grosso, per abbinarsi alle linee del rigo più
-spesse.  Le dimensioni del carattere consigliate sono elencate nella
-seguente tabella:
+Il font Emmentaler fornisce l'insieme di glifi musicali @emph{Feta} in otto
+dimensioni diverse, ciascuna calibrata per una specifica dimensione
+del rigo.  Più piccola è la dimensione del glifo, più @qq{grosso} diventa,
+per abbinarsi alle linee del rigo più spesse.  Le dimensioni dei glifi
+consigliate sono elencate nella seguente tabella:
 
 @multitable @columnfractions .15 .2 .22 .2
 @item @b{nome del tipo di carattere} @tab @b{altezza del rigo (pt)} @tab @b{altezza del rigo (mm)} @tab @b{uso}
@@ -1419,8 +1418,8 @@ seguente tabella:
 
 @seealso
 Guida alla notazione:
-@ref{Selecting notation font size},
-@ref{The Emmentaler font}.
+@ref{Impostare la dimensione del rigo},
+@ref{Il font Emmentaler}.
 
 Frammenti:
 @rlsr{Spacing}.
@@ -2513,11 +2512,12 @@ il padding verticale, @code{NonMusicalPaperColumn.line-break-system-details}
 indica precisamente le posizioni verticali esatte sulla pagina.
 
 @code{NonMusicalPaperColumn.line-break-system-details} accetta una
-lista associativa di tre diverse impostazioni:
+lista associativa di quattro diverse impostazioni:
 
 @itemize
 @item @code{X-offset}
 @item @code{Y-offset}
+@item @code{extra-offset}
 @item @code{alignment-distances}
 @end itemize
 
@@ -2631,6 +2631,41 @@ molti valori, ma ne abbiamo impostato solo uno in questo esempio.  Nota
 anche che la proprietà @code{Y-offset} qui determina la posizione verticale
 esatta sulla pagina in cui ogni nuovo sistema verrà visualizzato.
 
+Oltre al posizionamento assoluto che si ottiene con @code{Y-offset} e
+@code{X-offset}, è possibile anche il posizionamento relativo tramite
+la proprietà @code{extra-offset} di @code{line-break-system-details}.
+Il posizionamento è relativo alla formattazione predefinita o al posizionamento
+assoluto determinato dall'uso di @code{X-offset} e @code{Y-offset}.  La
+proprietà @code{extra-offset} accetta una @code{coppia} di numeri che
+determinano lo spostamento lungo gli assi X e Y.
+
+@lilypond[verbatim,quote,staffsize=16]
+\header { tagline = ##f }
+\paper { left-margin = 0\mm }
+\book {
+  \score {
+    <<
+      \new Staff <<
+        \new Voice {
+          s1*5 \break
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((extra-offset . (0 . 10)))
+          s1*5 \break
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((extra-offset . (0 . 10)))
+          s1*5 \break
+        }
+        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+      >>
+      \new Staff {
+        \repeat unfold 15 { d'4 d' d' d' }
+      }
+    >>
+  }
+}
+@end lilypond
+
+
 Ora che abbiamo impostato esplicitamente il punto di inizio verticale di
 ogni sistema, possiamo impostare manualmente anche le distanze verticali
 tra i righi.  Per farlo usiamo la sottoproprietà @code{alignment-distances}
@@ -2716,8 +2751,8 @@ Alcuni punti da considerare:
 che non sono righi non contano come rigo.
 
 @item Le unità dei numeri assegnati a @code{X-offset},
-@code{Y-offset} e @code{alignment-distances} sono interpretati come
-multipli della distanza tra linee del rigo adiacenti.  Valori positivi
+@code{Y-offset}, @code{extra-offset} e @code{alignment-distances} sono interpretati
+come multipli della distanza tra linee del rigo adiacenti.  Valori positivi
 spostano in su righi e testo, valori negativi li spostano in giù.
 
 @item Dato che le impostazioni di @code{NonMusicalPaperColumn.line-break-system-details}

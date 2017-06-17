@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 1e5c6b0f54079eb3285dcc4c7e53f17d8bb03933
+   Translation of GIT committish: c377d85f06e524599d20e9edf102ae186ede5e77
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -2967,12 +2967,12 @@ Dans l'exemple suivant est déplacé l'objet « segmenté »
 @code{OttavaBracket} au travers de sa propriété @code{staff-padding}.
 Puisque cette propriété est affectée d'un @code{number}, @var{décalages}
 est alimenté d'une liste de @code{number}s afin de prendre en compte les
-deux segments créés par le saut de ligne.  La portion de liaison de la
+deux segments créés par le saut de ligne.  La portion de crochet de la
 première ligne n'est en fait pas touchée puisque @code{0} est ajouté à
-sa valeur par défaut.  Le segment de la deuxième ligne est haussé de
-deux espaces de portée par rapport à sa hauteur par défaut.  La hauteur
-par défaut est de @code{2}, bien que ce ne soit pas nécessaire de le
-savoir.
+la valeur par défaut de @code{staff-padding}.  Le segment de la deuxième
+ligne est haussé de trois espaces de portée par rapport à sa hauteur par
+défaut.  La hauteur par défaut est de @code{2}, bien qu'il ne soit pas
+nécessaire de le savoir.
 
 @lilypond[quote,verbatim]
 {

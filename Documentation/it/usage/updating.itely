@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: bd8e8f0193000854fef9d3de3cc0a9f667ea8fb1
+    Translation of GIT committish: 094be7d770e887169f70249804e1e96e04a44ca5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -32,6 +32,7 @@ aggiornare questi file di input più vecchi alla nuova sintassi.
 * Opzioni da linea di comando per convert-ly::
 * Problemi nell'eseguire convert-ly::
 * Conversioni manuali::
+* Scrivere codice che funzioni su molteplici versioni::
 @end menu
 
 
@@ -374,3 +375,44 @@ converted.
  \score{} must now begin with a music expression.  Anything else
  (particularly \header{}) must come after the music.
 @end verbatim
+
+@node Scrivere codice che funzioni su molteplici versioni
+@section Scrivere codice che funzioni su molteplici versioni
+@translationof Writing code to support multiple versions
+
+In alcuni casi, in particolare quando si scrive codice destinato a funzionare
+come @emph{libreria}, è opportuno far sì che supporti molteplici versioni di
+LilyPond nonostante le modifiche della sintassi.  Per farlo si possono
+avvolgere porzioni alternative di codice in espressioni condizionali che
+dipendono dalla versione di LilyPond attualmente eseguita.  La funzione
+Scheme @code{ly:version?} prevede un operatore di confronto @var{op}
+e una versione di riferimento @var{ver} passata come elenco di interi di
+massimo tre elementi.  Gli elementi mancanti vengono ignorati, quindi
+@code{'(2 20)} equivale a @emph{qualsiasi} versione della serie di versioni
+2.20.  Sono possibili costrutti come il seguente:
+
+@verbatim
+#(cond
+  ((ly:version? > '(2 20))
+   (ly:message "Questo è il codice da eseguire per LilyPond 2.20 o successivi"))
+  ((ly:version? = '(2 19 57))
+   (ly:message "Questo verrà eseguito soltanto con LilyPond 2.19.57"))
+  (else (ly:message "Questo verrà eseguito con qualsiasi altra versione")))
+@end verbatim
+
+Solitamente questa funzione viene integrata nelle funzioni di una libreria,
+per consentire l'uso di sintassi alternativa, ma è anche possibile usare il
+confronto direttamente nell'input musicale, come nell'esempio seguente:
+
+@verbatim
+{
+  c' d' e' f'
+  #(if (ly:version? = '(2 21))
+       #{ \override NoteHead.color = #red #}
+       #{ \override NoteHead.color = #blue #})
+  g' a' b' c''
+}
+@end verbatim
+
+@strong{Nota:} Questa funzione è stata introdotta in LilyPond 2.19.57, dunque
+non è possibile fare confronti usando versioni precedenti.
