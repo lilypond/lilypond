@@ -913,8 +913,9 @@ más recientes están en @url{http://lilypond.org}}
 @gsocCurrent
 
 
-@node Authors
-@unnumberedsec Authors
+@node Autores
+@unnumberedsec Autores
+@translationof Authors
 
 @divClass{column-left-top}
 @subheading Equipo de desarrollo actual
