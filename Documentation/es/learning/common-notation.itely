@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 09ef86c87175cc6c1071eedb022ed1d01a93bcaf
+    Translation of GIT committish: 250f1bf95f84616b68932324d6b5026833080cc4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1453,9 +1453,9 @@ Las variables se pueden usar para otros muchos tipos de objetos dentro
 del código de entrada.  Por ejemplo,
 
 @example
-ancho = 4.5\cm
-nombre = "Wendy"
-papelAcinco = \paper @{ paperheight = 21.0 \cm @}
+miAncho = 4.5\cm     % número pasado a una variable de \paper (unidades: milímetros)
+miNombre = "Wendy"   % cadena pasada a un elemento de marcado
+papelAcinco = \paper @{ #(set-paper-size "a5") @}
 @end example
 
 Dependiendo de su contenido, la variable se puede usar en
@@ -1465,11 +1465,11 @@ anteriores:
 @example
 \paper @{
   \papelAcinco
-  line-width = \ancho
+  line-width = \miAncho
 @}
 
 @{
-  c4^\nombre
+  c4^\miNombre
 @}
 @end example
 

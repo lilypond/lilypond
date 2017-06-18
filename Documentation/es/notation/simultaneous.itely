@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 6a925e8d2013714a25abcb73c76a4c6306138d33
+    Translation of GIT committish: 4244c3a9fbf1f3ff2e20e665f92516d35b61de53
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -594,6 +594,28 @@ arriba, y las de numeración par reciben plicas hacia abajo:
   { g'2  }  % 6: third-lowest
 >>
 @end lilypond
+
+@funindex \voices
+Si se desea introducir las voces en un orden distinto, puede ser de
+utilidad la instrucción @code{\voices}:
+
+@lilypond[quote,verbatim]
+\new Staff \voices 1,3,5,6,4,2 <<
+  \time 2/4
+  { f''2 }  % 1: highest
+  \\
+  { d''2 }  % 3: second-highest
+  \\
+  { b'2  }  % 5: third-highest
+  \\
+  { g'2  }  % 6: third-lowest
+  \\
+  { e'2  }  % 4: second-lowest
+  \\
+  { c'2  }  % 2: lowest
+>>
+@end lilypond
+
 
 @warning{No se pueden crear letras ni elementos de extensión (como
 ligaduras, reguladores, etc.) que se crucen de una voz a otra.}

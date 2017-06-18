@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 18d03fa6a724b0102ccc47d194209802cea02f2e
+    Translation of GIT committish: 24dd6365d3d05f13b9259f547be9b2517851a5d1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2663,11 +2663,12 @@ especifican relleno vertical,
 especificar posiciones verticales exactas sobre la página.
 
 @code{NonMusicalPaperColumn.line-break-system-details} acepta una
-lista asociativa de tres ajustes diferentes:
+lista asociativa de cuatro ajustes diferentes:
 
 @itemize
 @item @code{X-offset} (desplazamiento en X)
 @item @code{Y-offset} (desplazamiento en Y)
+@item @code{extra-offset} (desplazamiento adicional)
 @item @code{alignment-distances} (distancias de alineación)
 @end itemize
 
@@ -2787,6 +2788,42 @@ aquí sólo fijamos un valor.  Observe también que aquí la propiedad
 @code{Y-offset} determina la posición vertical exacta sobre la
 página en la que se trazará cada uno de los nuevos sistemas.
 
+En contraste con el posicionado absoluto que está disponible a
+través de @code{Y-offset} y de @code{X-offset}, es posible un
+posicionamiento relativo con la propiedad @code{extra-offset} de
+@code{line-break-system-details}.  La colocación es relativa a la
+disposición predeterminada o al posicionamiento absoluto creado
+mediante el establecimiento de los valores de @code{X-offset} y de
+@code{Y-offset}.  La propiedad @code{extra-offset} acepta una
+pareja de números (un @code{pair}) que consiste en desplazamientos
+a lo largo de los ejes X e Y.
+
+@lilypond[verbatim,quote,staffsize=16]
+\header { tagline = ##f }
+\paper { left-margin = 0\mm }
+\book {
+  \score {
+    <<
+      \new Staff <<
+        \new Voice {
+          s1*5 \break
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((extra-offset . (0 . 10)))
+          s1*5 \break
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((extra-offset . (0 . 10)))
+          s1*5 \break
+        }
+        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+      >>
+      \new Staff {
+        \repeat unfold 15 { d'4 d' d' d' }
+      }
+    >>
+  }
+}
+@end lilypond
+
 Ahora que hemos establecido explícitamente el punto de origen
 vertical de cada sistema, podemos también establecer manualmente
 las distancias verticales entre los pentagramas dentro de cada
@@ -2875,11 +2912,11 @@ Algunos puntos que tener en cuenta:
 son pautas, no cuentan como un pentagrama.
 
 @item Las unidades de los números que se pasan a @code{X-offset},
-@code{Y-offset} y @code{alignment-distances} se interpretan como
-múltiplos de la distancia entre líneas de pentagrama adyacentes.
-Los valores positivos mueven a los pentagramas y a la letra hacia
-arriba, los valores negativos mueven los pentagramas y la letra
-hacia abajo.
+@code{Y-offset}, @code{extra-offset} y @code{alignment-distances}
+se interpretan como múltiplos de la distancia entre líneas de
+pentagrama adyacentes.  Los valores positivos mueven a los
+pentagramas y a la letra hacia arriba, los valores negativos
+mueven los pentagramas y la letra hacia abajo.
 
 @item A causa de que los ajustes a
 @code{NonMusicalPaperColumn.line-break-system-details} dados aquí

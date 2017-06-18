@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: 18d03fa6a724b0102ccc47d194209802cea02f2e
+Translation of GIT committish: c377d85f06e524599d20e9edf102ae186ede5e77
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2881,12 +2881,13 @@ El ejemplo siguiente desplaza el objeto @q{dividido}
 @code{staff-padding}.  Dado que la propiedad toma un
 @code{number}, se le proporciona a @var{incrementos} una lista de
 números para aplicarlos a los dos segmentos creados por el salto
-de línea.  La parte de ligadura de la primera línea queda, en
+de línea.  La parte de corchete de la primera línea queda, en
 realidad, inalterada, ya que se añade @code{0} a su valor por
-omisión.  El segmento que está en la segunda línea se eleva dos
-espacios de pentagrama a partir de su altura por omisión.  La
-altura predeterminada resulta ser @code{2}, aunque no es necesario
-saberlo.
+omisión de @code{staff-padding}.  El segmento que está en la
+segunda línea se eleva tres espacios de pentagrama a partir de su
+altura por omisión.  La altura predeterminada resulta ser
+@code{2}, aunque no es necesario saberlo para conseguir la
+posición deseada.
 
 @lilypond[quote,verbatim]
 {
