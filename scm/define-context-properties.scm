@@ -673,6 +673,8 @@ Example:
 @noindent
 This will create a start-repeat bar in this staff only.  Valid values
 are described in @file{scm/bar-line.scm}.")
+     (suspendRestMerging ,boolean? "When using the Merge_rest_engraver do not
+                         merge rests when this is set to true.")
      )))
 
 
