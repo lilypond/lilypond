@@ -407,8 +407,8 @@ Pango_font::text_stencil (Output_def * /* state */,
       pango_layout_set_attributes(layout, list);
       pango_attr_list_unref(list);
 #else
-      warning (_f ("OpenType font feature `%s' cannot be used "
-                   "since this binary is configured without the feature.",
+      warning (_f ("OpenType font feature `%s' cannot be used"
+                   " since this binary is configured without feature support.",
                    features_str.c_str ()));
 #endif
     }
