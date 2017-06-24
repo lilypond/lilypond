@@ -33,7 +33,7 @@ class Modified_font_metric : Preinit_Modified_font_metric,
                               public Font_metric
 {
 public:
-  Stencil text_stencil (Output_def *output_state, const string&, bool) const;
+  Stencil text_stencil (Output_def *output_state, const string&, bool, const string&) const;
   Real get_magnification () const;
 
   static SCM make_scaled_font_metric (Font_metric *fm, Real magnification);

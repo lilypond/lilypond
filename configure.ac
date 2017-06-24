@@ -260,7 +260,10 @@ AC_MSG_RESULT($rpath_b)
 HOST_ARCH=`$CC -dumpmachine`
 AC_SUBST(HOST_ARCH)
 
-STEPMAKE_PANGO_FT2(pangoft2, REQUIRED, 1.6.0)
+STEPMAKE_PANGO_FT2_WITH_OTF_FEATURE(pangoft2, OPTIONAL, 1.38.0)
+if test "$have_pangoft2_with_otf_feature" != yes ; then
+    STEPMAKE_PANGO_FT2(pangoft2, REQUIRED, 1.6.0)
+fi
 STEPMAKE_FONTCONFIG(fontconfig, REQUIRED, 2.4.0)
 STEPMAKE_FREETYPE2(freetype2, REQUIRED, 2.1.10)
 

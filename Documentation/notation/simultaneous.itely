@@ -389,6 +389,7 @@ multiple staves.
 * Single-staff polyphony::
 * Voice styles::
 * Collision resolution::
+* Merging rests::
 * Automatic part combining::
 * Writing music in parallel::
 @end menu
@@ -908,6 +909,39 @@ The requirements for successfully merging different note heads that
 are at the same time differently dotted are not clear.
 @end ignore
 
+
+@node Merging rests
+@unnumberedsubsubsec Merging rests
+
+When using multiple voices it is common to merge rests which occur in both
+parts. This can be accomplished using @code{Merge_rests_engraver}.
+
+@lilypond[quote,verbatim]
+voiceA = \relative { d''4 r d2 | R1 | }
+voiceB = \relative { fis'4 r g2 | R1 | }
+\score {
+  <<
+    \new Staff \with {
+      instrumentName = "unmerged"
+    }
+    <<
+      \new Voice { \voiceOne \voiceA }
+      \new Voice { \voiceTwo \voiceB }
+    >>
+    \new Staff \with {
+      instrumentName = "merged"
+      \consists #Merge_rests_engraver
+    }
+    <<
+      \new Voice { \voiceOne \voiceA }
+      \new Voice { \voiceTwo \voiceB }
+    >>
+  >>
+}
+@end lilypond
+
+Setting the context property @code{suspendRestMerging} to @code{##t} allows for
+turning off rest merging temporarily.
 
 @node Automatic part combining
 @unnumberedsubsubsec Automatic part combining

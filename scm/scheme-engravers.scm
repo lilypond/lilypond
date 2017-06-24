@@ -117,3 +117,87 @@ receive a count with @code{\\startMeasureCount} and
    (properties-read . ())
    (properties-written . ())
    (description . "Connect cross-staff stems to the stems above in the system")))
+
+(define-public (Merge_rests_engraver context)
+"Engraver to merge rests in multiple voices on the same staff.
+
+This works by gathering all rests at a time step. If they are all of the same
+length and there are at least two they are moved to the correct location as
+if there were one voice."
+
+  (define (is-single-bar-rest? mmrest)
+    (eqv? (ly:grob-property mmrest 'measure-count) 1))
+
+  (define (is-whole-rest? rest)
+    (eqv? (ly:grob-property rest 'duration-log) 0))
+
+  (define (mmrest-offset mmrest)
+  "For single measures they should hang from the second line from the top
+  (offset of 1). For longer multimeasure rests they should be centered on the
+  middle line (offset of 0).
+  NOTE: For one-line staves full single measure rests should be positioned at
+  0, but I don't anticipate this engraver's use in that case. No errors are
+  given in this case."
+    (if (is-single-bar-rest? mmrest) 1 0))
+
+  (define (rest-offset rest)
+    (if (is-whole-rest? rest) 1 0))
+
+  (define (rest-eqv rest-len-prop)
+    "Compare rests according the given property"
+    (define (rest-len rest) (ly:grob-property rest rest-len-prop))
+    (lambda (rest-a rest-b)
+      (eqv? (rest-len rest-a) (rest-len rest-b))))
+
+  (define (rests-all-unpitched rests)
+    "Returns true when all rests do not override the staff-position grob
+    property. When a rest has a position set we do not want to merge rests at
+    that position."
+    (every (lambda (rest) (null? (ly:grob-property rest 'staff-position))) rests))
+
+  (define (merge-mmrests rests)
+  "Move all multimeasure rests to the single voice location."
+    (if (all-equal rests (rest-eqv 'measure-count))
+      (merge-rests rests mmrest-offset)))
+
+  (define (merge-rests rests offset-function)
+    (let ((y-offset (offset-function (car rests))))
+      (for-each
+        (lambda (rest) (ly:grob-set-property! rest 'Y-offset y-offset))
+        rests))
+    (for-each
+      (lambda (rest) (ly:grob-set-property! rest 'transparent #t))
+      (cdr rests)))
+
+  (define has-one-or-less (lambda (lst) (or (null? lst) (null? (cdr lst)))))
+  (define has-at-least-two (lambda (lst) (not (has-one-or-less lst))))
+  (define (all-equal lst pred)
+    (or (has-one-or-less lst)
+        (and (pred (car lst) (cadr lst)) (all-equal (cdr lst) pred))))
+
+  (let ((curr-mmrests '())
+        (mmrests '())
+        (rests '()))
+    (make-engraver
+      ((start-translation-timestep translator)
+        (set! rests '())
+        (set! curr-mmrests '()))
+      (acknowledgers
+        ((rest-interface engraver grob source-engraver)
+          (cond
+            ((ly:context-property context 'suspendRestMerging #f)
+              #f)
+            ((grob::has-interface grob 'multi-measure-rest-interface)
+              (set! curr-mmrests (cons grob curr-mmrests)))
+            (else
+              (set! rests (cons grob rests))))))
+      ((stop-translation-timestep translator)
+        (if (and
+              (has-at-least-two rests)
+              (all-equal rests (rest-eqv 'duration-log))
+              (rests-all-unpitched rests))
+          (merge-rests rests rest-offset))
+        (if (has-at-least-two curr-mmrests)
+          (set! mmrests (cons curr-mmrests mmrests))))
+      ((finalize translator)
+        (for-each merge-mmrests mmrests)))))

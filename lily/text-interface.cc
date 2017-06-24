@@ -92,8 +92,44 @@ Text_interface::interpret_string (SCM layout_smob,
                                      SCM_BOOL_F);
   SCM music_encodings = Lily::all_music_font_encodings;
 
+  SCM features = ly_chain_assoc_get (ly_symbol2scm ("font-features"),
+                                     props,
+                                     SCM_BOOL_F);
+
+  // The font-features value is stored in a scheme list. This joins the entries
+  // with commas for processing with pango.
+  string features_str = string ();
+  if (scm_is_pair (features))
+    {
+      bool first = true;
+      for (SCM s = features; scm_is_pair (s); s = scm_cdr (s))
+        {
+          SCM feature = scm_car (s);
+          if (scm_is_string (feature))
+            {
+              if (first)
+                {
+                  first = false;
+                }
+              else
+                {
+                  features_str += ",";
+                }
+              features_str += ly_scm2string (feature);
+            }
+          else
+            {
+              scm_misc_error (__FUNCTION__, "Found non-string in font-features list", SCM_EOL);
+            }
+        }
+    }
+  else if (!scm_is_false (features))
+    {
+      scm_misc_error (__FUNCTION__, "Expecting a list for font-features value", SCM_EOL);
+    }
+
   bool is_music = scm_is_true (scm_memq (encoding, music_encodings));
-  return fm->text_stencil (layout, str, is_music).smobbed_copy ();
+  return fm->text_stencil (layout, str, is_music, features_str).smobbed_copy ();
 }
 
 static size_t markup_depth = 0;

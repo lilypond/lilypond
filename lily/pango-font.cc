@@ -387,7 +387,9 @@ extern bool music_strings_to_paths;
 
 Stencil
 Pango_font::text_stencil (Output_def * /* state */,
-                          const string &str, bool music_string) const
+                          const string &str,
+                          bool music_string,
+                          const string &features_str) const
 {
   /*
     The text assigned to a PangoLayout is automatically divided
@@ -395,6 +397,22 @@ Pango_font::text_stencil (Output_def * /* state */,
     Bidirectional Algorithm, if necessary.
   */
   PangoLayout *layout = pango_layout_new (context_);
+
+  if (!features_str.empty())
+    {
+#if HAVE_PANGO_FT2_WITH_OTF_FEATURE
+      PangoAttrList *list = pango_attr_list_new();
+      PangoAttribute *features_attr = pango_attr_font_features_new(features_str.c_str());
+      pango_attr_list_insert(list, features_attr);
+      pango_layout_set_attributes(layout, list);
+      pango_attr_list_unref(list);
+#else
+      warning (_f ("OpenType font feature `%s' cannot be used"
+                   " since this binary is configured without feature support.",
+                   features_str.c_str ()));
+#endif
+    }
+
   pango_layout_set_text (layout, str.c_str (), -1);
   GSList *lines = pango_layout_get_lines (layout);
 

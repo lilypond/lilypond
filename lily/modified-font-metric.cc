@@ -113,12 +113,14 @@ Modified_font_metric::derived_mark () const
 
 Stencil
 Modified_font_metric::text_stencil (Output_def *state,
-                                    const string &text, bool feta) const
+                                    const string &text,
+                                    bool feta,
+                                    const string &features_str) const
 {
   Box b;
   if (Pango_font *pf = dynamic_cast<Pango_font *> (orig_))
     {
-      Stencil stc = pf->text_stencil (state, text, feta);
+      Stencil stc = pf->text_stencil (state, text, feta, features_str);
 
       Box b = stc.extent_box ();
 
@@ -127,7 +129,7 @@ Modified_font_metric::text_stencil (Output_def *state,
       return scaled;
     }
 
-  return Font_metric::text_stencil (state, text, feta);
+  return Font_metric::text_stencil (state, text, feta, features_str);
 }
 
 Font_metric *

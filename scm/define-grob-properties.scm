@@ -327,6 +327,7 @@ approximately 12% larger; 6@tie{}steps are exactly a factor@tie{}2
 larger.  If the context property @code{fontSize} is set, its value is
 added to this before the glyph is printed.  Fractional values are
 allowed.")
+     (font-features ,list? "Opentype features.")
      (footnote ,boolean? "Should this be a footnote or in-note?")
      (footnote-music ,ly:music? "Music creating a footnote.")
      (footnote-text ,markup? "A footnote for the grob.")

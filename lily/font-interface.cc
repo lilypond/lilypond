@@ -72,4 +72,5 @@ ADD_INTERFACE (Font_interface,
                "font-series "
                "font-shape "
                "font-size "
+               "font-features "
               );
