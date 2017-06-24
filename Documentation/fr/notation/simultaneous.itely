@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-   Translation of GIT committish: db449e3935bc8b765979e1d4a4ab3018908cbbd8
+   Translation of GIT committish: be622e24546dff283da6810c798bb4155c95242a
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -421,6 +421,7 @@ portées.
 * Polyphonie sur une portée::
 * Styles de voix::
 * Résolution des collisions::
+* Fusion de silences::
 * Regroupement automatique de parties::
 * Saisie de musique en parallèle::
 @end menu
@@ -950,6 +951,43 @@ de voix différentes.
 The requirements for successfully merging different note heads that
 are at the same time differently dotted are not clear.
 @end ignore
+
+
+@node Fusion de silences
+@unnumberedsubsubsec Fusion de silences
+@translationof Merging rests
+
+Il est d'usage, lorsque plusieurs voix cohabitent, de fusionner les
+silences qui apparaissent simultanément dans différentes parties.  Ceci
+peut s'obtenir à l'aide du @code{Merge_rests_engraver}.
+
+@lilypond[quote,verbatim]
+voiceA = \relative { d''4 r d2 | R1 | }
+voiceB = \relative { fis'4 r g2 | R1 | }
+\score {
+  <<
+    \new Staff \with {
+      instrumentName = "unmerged"
+    }
+    <<
+      \new Voice { \voiceOne \voiceA }
+      \new Voice { \voiceTwo \voiceB }
+    >>
+    \new Staff \with {
+      instrumentName = "merged"
+      \consists #Merge_rests_engraver
+    }
+    <<
+      \new Voice { \voiceOne \voiceA }
+      \new Voice { \voiceTwo \voiceB }
+    >>
+  >>
+}
+@end lilypond
+
+La propriété de contexte @code{suspendRestMerging}, lorsque activée par
+un @code{##t}, permet de suspendre temporairement la fusion des
+silences.
 
 
 @node Regroupement automatique de parties
