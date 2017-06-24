@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Ultimo aggiornamento Sat May 20 12:04:21 UTC 2017
+@emph{Ultimo aggiornamento Sat Jun 24 12:50:41 UTC 2017
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -47,11 +47,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">parzialmente</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+sì
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -341,11 +341,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">parzialmente</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+sì
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -606,7 +606,7 @@ sì
 @item
 1.5 Note simultanee
 @*
-2936
+2979
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -623,11 +623,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #25fe1f">parzialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+parzialmente
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -677,11 +677,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">parzialmente</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+sì
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -839,38 +839,38 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">parzialmente</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+sì
 @end ifnothtml
 @tab pre-GDP
 @item
 5 Modifica delle impostazioni predefinite
 @*
-17043
+17050
 @tab Federico Bruni
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">parzialmente (99 %)</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente (99 %)
+sì
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">parzialmente</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+sì
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1030,21 +1030,21 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">parzialmente (89 %)</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente (89 %)
+sì
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">parzialmente</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+sì
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1295,11 +1295,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #b9ff33">parzialmente</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+sì
 @end ifnothtml
 @tab pre-GDP
 @end multitable

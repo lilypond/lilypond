@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Zuletzt aktualisiert am Sat May 20 12:04:21 UTC 2017
+@emph{Zuletzt aktualisiert am Sat Jun 24 12:50:41 UTC 2017
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -678,7 +678,7 @@ teilweise
 @item
 1.5 Gleichzeitig erscheinende Noten
 @*
-2936
+2979
 @tab Till Paala
 @tab 
 @tab 
@@ -695,7 +695,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #a5ff31">teilweise</span>
+<span style="background-color: #acff31">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1137,7 +1137,7 @@ teilweise
 @item
 5 Standardeinstellungen verändern
 @*
-17043
+17050
 @tab Till Paala
 @tab 
 @tab 

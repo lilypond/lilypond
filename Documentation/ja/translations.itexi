@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最終更新日 Sat May 20 12:04:21 UTC 2017
+@emph{最終更新日 Sat Jun 24 12:50:41 UTC 2017
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -428,7 +428,7 @@ partially
 @item
 1.5 同時進行する音符
 @*
-2936
+2979
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -445,7 +445,7 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #9eff30">partially</span>
+<span style="background-color: #a5ff31">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -862,7 +862,7 @@ partially
 @item
 5 デフォルトを変更する
 @*
-17043
+17050
 @tab Yoshiki Sawada
 @tab 
 @tab 
