@@ -1252,6 +1252,11 @@ website should use @qq{Web:@tie{}} for English, and
 @qq{Web-@var{**}:@tie{}} for other languages.
 
 @item
+CSS: Commits that change CSS files should use @qq{Web:@tie{}CSS:@tie{}}
+or @qq{Doc:@tie{}CSS:@tie{}} depending on whether they affect the
+website or the documentation/manuals.
+
+@item
 Changes to a single file are often prefixed with the name of the file
 involved.
 @end itemize
