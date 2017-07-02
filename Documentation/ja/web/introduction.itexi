@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: 36e230cf09bf2755528d2252ee256f88f330e66d
+    Translation of GIT committish: 9bb7fa99aa8bc7c14a45a42224545c726bb6c592
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c Translators: Masamichi Hosoda, Yoshiki Sawada, Yoshinobu Ishizaki
+@c Translators: Tomohiro Tatejima, Masamichi Hosoda, Yoshiki Sawada, Yoshinobu Ishizaki
 
 @node 導入部
 @unnumbered 導入部
@@ -349,6 +349,7 @@ LilyPond は、いかなる種類の譜刻にも対応できる、@c
 
 @divEnd
 
+
 @divClass{column-center-middle-color2}
 @subheading クラシック音楽
 @c Classical Music
@@ -358,6 +359,7 @@ LilyPond の象徴的な例です。
 
 @exampleImage{bach-bwv610}
 @divEnd
+
 
 @divClass{column-center-middle-color2}
 @subheading 複雑な楽譜
@@ -371,6 +373,7 @@ LilyPond の象徴的な例です。
 @exampleImage{granados}
 @divEnd
 
+
 @divClass{column-center-middle-color2}
 @subheading 古楽
 @c Early Music
@@ -380,6 +383,7 @@ LilyPond は、以下のグレゴリオ聖歌のパッセージのような、@c
 
 @exampleImage{ancient-headword}
 @divEnd
+
 
 @divClass{column-center-middle-color2}
 @subheading 現代音楽
@@ -410,6 +414,7 @@ Handel の @emph{Giulio Cesare} を譜刻したものの抜粋から、@c
 
 @divEnd
 
+
 @divClass{column-center-middle-color2}
 @subheading タブ譜
 @c Tablature
@@ -421,27 +426,6 @@ LilyPond はタブ譜をサポートします。@c
 @exampleImage{tab-example}
 @divEnd
 
-@divClass{column-center-middle-color2}
-@subheading Schenker Graphs
-
-標準出力に様々な変更を加えることができます。@c
-@uref{http://www.linuxjournal.com/article/8364 , Linux Journal}
-に掲載された Kris Schaffer が作成したみごとな Schenkerian 分析を@c
-示します。@c
-見やすくするために色を追加しました。
-
-@exampleImage{bach-schenker}
-@divEnd
-
-@divClass{column-center-middle-color2}
-@subheading カスタマイズ
-@c Customized Output
-
-LilyPond のカスタマイズ能力を示すため、
-Stockhausen の Klavierstück II からの短い抜粋です。
-
-@exampleImage{Stockhausen_Klavierstueck2}
-@divEnd
 
 @divClass{column-center-middle-color2}
 @subheading 声楽
@@ -459,15 +443,6 @@ LilyPond はこれをすっきりと処理します
 @exampleImage{aucun-snippet}
 @divEnd
 
-@divClass{column-center-middle-color2}
-@subheading 教育
-@c Educational Applications
-
-LilyPond は教育を目的とした使用にも適しています。@c
-ちょっとした対位法の問題例を挙げます。
-
-@exampleImage{theory}
-@divEnd
 
 @divClass{column-center-middle-color2}
 @subheading リード譜
@@ -482,6 +457,18 @@ LilyPond は教育を目的とした使用にも適しています。@c
 @exampleImage{chart}
 @divEnd
 
+
+@divClass{column-center-middle-color2}
+@subheading 教育
+@c Educational Applications
+
+LilyPond は教育を目的とした使用にも適しています。@c
+ちょっとした対位法の問題例を挙げます。
+
+@exampleImage{theory}
+@divEnd
+
+
 @divClass{column-center-middle-color2}
 @subheading 大きなプロジェクト
 @c Large Projects
@@ -492,6 +479,30 @@ LilyPond はオペラや交響楽団のような大きなプロジェクトに�
 
 @exampleImage{orchestra}
 @divEnd
+
+
+@divClass{column-center-middle-color2}
+@subheading カスタマイズ
+@c Customized Output
+
+LilyPond のカスタマイズ能力を示すため、
+Stockhausen の Klavierstück II からの短い抜粋です。
+
+@exampleImage{Stockhausen_Klavierstueck2}
+@divEnd
+
+@divClass{column-center-middle-color2}
+@subheading Schenker Graphs
+
+標準出力に様々な変更を加えることができます。@c
+@uref{http://www.linuxjournal.com/article/8364 , Linux Journal}
+に掲載された Kris Schaffer が作成したみごとな Schenkerian 分析を@c
+示します。@c
+見やすくするために色を追加しました。
+
+@exampleImage{bach-schenker}
+@divEnd
+
 
 @divClass{column-center-bottom}
 @subheading どうですか？
@@ -1006,7 +1017,7 @@ Shirmer に出版を掛け合おうとしていますが、そこで印刷され
 
 @divClass{testimonial-item}
 @imageFloat{orm-finnendahl,jpg, left}
-@subsubheading @uref{http://icem-www.folkwang-hochschule.de/~finnendahl/, Orm Finnendahl}, フライブルク音楽大学作曲科教授
+@subsubheading @uref{http://icem-www.folkwang-hochschule.de/~finnendahl/, Orm Finnendahl}, フランクフルト音楽・舞台芸術大学作曲科教授
 
 @qq{まだ [LilyPond] について詳しく知りませんが、@strong{とても}感銘を受けています。@c
 定量記譜法で Josquin Desprez のモテットを入力するのに LilyPond を使いましたが、@c
@@ -1358,14 +1369,6 @@ LilyPond をインストールすることなく、@c
 直接オンラインで楽譜を組版することができる、@c
 Web ベースの LilyPond エディタです。
 
-@subsubheading Tunefl
-@uref{http://www.tunefl.com}
-
-Tunefl を使うと、LilyPond をインストールすることなく、@c
-直接オンラインでミニスコアを組版することができます。@c
-これは、便利な Web インタフェースを使用して、@c
-すべてのプログラムの機能を試すことができます。
-
 @divEnd
 
 @divClass{column-center-top}
@@ -1379,12 +1382,10 @@ Tunefl を使うと、LilyPond をインストールすることなく、@c
 @sourceimage{logo-macosx,,,}
 @sourceimage{logo-windows,,,}
 
-@uref{http://elysium.thsoft.hu}
+@uref{https://github.com/thSoft/elysium}
 
-Elysium はソースとスコアをサイド・バイ・サイドで表示、統合した、@c
-Eclipse 向け LilyPond 統合開発環境です。@c
-これは、切り替え不要で素早く視覚、聴覚フィードバックができ、@c
-たくさんのウィザード方式のテンプレートが付属します。
+EclipseでLilyPondスコアを編集するフル機能の環境です。@c
+LilyPondを便利に扱うための豊富なツールキットを提供します。
 
 @divEnd
 
@@ -1428,7 +1429,7 @@ Vim をセットアップするための更なる情報が
 
 @sourceimage{logo-macosx,,,}
 @subsubheading TeXShop
-@uref{http://www.uoregon.edu/~koch/texshop}
+@uref{http://pages.uoregon.edu/koch/texshop/}
 
 MacOS@tie{}X 用のエディタ TexShop を拡張して、
 エディタから LilyPond, @command{lilypond-book} それに
@@ -1512,8 +1513,7 @@ interpreters.  A C++ port is also available.
 @item
 @uref{http://strasheela.sourceforge.net/strasheela/doc/index.html,Strasheela},
 an environment built on top of the
-@uref{http://www.mozart-oz.org/, Mozart/Oz} constraint programming
-language.
+@uref{http://mozart.github.io/, The Mozart Programming System}.
 
 @end itemize
 @divEnd
@@ -1548,7 +1548,7 @@ notes.
 
 @item
 @uref{https://sourceforge.net/projects/noteedit.berlios/,NoteEdit}, which imported
-@uref{http://www.makemusic.com/musicxml,MusicXML}, has been forked into
+@uref{http://www.musicxml.com/,MusicXML}, has been forked into
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
 and @uref{http://canorus.org,Canorus}.
 
@@ -1561,6 +1561,14 @@ OpenOffice.org の拡張機能で、OpenOffice.org ドキュメント中@c
 @item
 @uref{https://launchpad.net/rumor/,Rumor}:
 リアルタイムに単声の MIDI を LilyPond に変換します。
+
+@item
+@uref{https://github.com/tiredpixel/tunefl,tunefl}
+
+LilyPond をインストールすることなく、@c
+直接オンラインでミニスコアを組版することができます。@c
+これは、便利な Web インタフェースを使用して、@c
+すべてのプログラムの機能を試すことができます。
 
 @item
 @uref{http://sourceforge.net/projects/tuxguitar/,TuxGuitar}:
