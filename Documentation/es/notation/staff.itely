@@ -1432,7 +1432,7 @@ bassoonNotes = \relative c {
 
 De forma alternativa, puede usarse la función
 @code{\cueDuringWithClef} en su lugar.  Esta instrucción admite un
-argumento adicional para especificar el cambio de clabe que se
+argumento adicional para especificar el cambio de clave que se
 necesita imprimir para las notas guía, pero después imprime
 automáticamente la clave original una vez que ha finalizado la
 serie de notas guía.
