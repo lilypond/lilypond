@@ -1469,7 +1469,7 @@ Para transportar las notas guía de forma diferente, use
 @code{\transposedCueDuring}.  Esta instrucción acepta un argumento
 adicional para especificar (en modo absoluto) la altura impresa
 con que queremos representar el sonido de un Do central de
-concierto.  Esto es útil para toma citas de un instrumento que
+concierto.  Esto es útil para extraer citas de un instrumento que
 está en un registro completamente diferente.
 
 @lilypond[verbatim,quote]
