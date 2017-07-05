@@ -685,106 +685,100 @@ LilyPond で生成された楽譜は、世界中の演奏で使用されてい�
 @itemize
 
 @item
-@uref{http://www.aurelienbello.com/,Aurélien Bello} has arranged a
-version of Richard Strauss's @emph{Der Rosenkavalier} for four singers
-and a chamber orchestra of thirteen players.  This has been commissioned
-by the Berlin Philharmonic Orchestra whose members will be the performers on
-@uref{http://www.festspielhaus.de/veranstaltung/der-kleine-rosenkavalier-02-04-2015-1100/,April 2nd and 6th}
-at the Festspielhaus, Baden-Baden, and on
-@uref{http://www.berliner-philharmoniker.de/konzerte/kalender/details/21070/,April 26th}
-in the @emph{Philharmonie (großer Saal)}, Berlin.  We are pleased to see
-musicians of such reputation playing from LilyPond scores -- and they are
-reportedly very happy with them.
+@uref{http://www.aurelienbello.com/,Aurélien Bello} は Richard Strauss の
+@emph{Der Rosenkavalier} を4人の歌手と13人の室内オーケストラ用に編曲しました。@c
+これは Berlin Philharmonic Orchestra によって委嘱され、@c
+@uref{http://www.festspielhaus.de/veranstaltung/der-kleine-rosenkavalier-02-04-2015-1100/,
+4月2日と6日}にバーデンバーデンの祝祭劇場で、@c
+@uref{http://www.berliner-philharmoniker.de/konzerte/kalender/details/21070/,
+4月26日に}ベルリンの @emph{Philharmonie (großer Saal)} で演奏されました。@c
+このような名高い音楽家が LilyPond の楽譜で演奏し、そして曰くそれらに@c
+非常に満足しているということで我々は嬉しく思います。
 
-Aurélien has also re-orchestrated @emph{Der Ring des Nibelungen} by Richard
-Wagner to a
-@uref{http://www.rsb-online.de/content/concerts/new-season-1516/family-concerts-age-7-and-above/index_eng.html,100-minute version for children}.
-Written for a standard symphony orchestra, but with a reduced cast of
-singers, it was performed by the
+Aurélien も Richard Wagner の @emph{Der Ring des Nibelungen} を@c
+@uref{http://www.rsb-online.de/content/concerts/new-season-1516/family-concerts-age-7-and-above/index_eng.html,
+子どものための100分間の版}に編曲しました。@c
+通常の交響楽団のために編曲されましたが、歌手の数を減らして、@c
+2014年4月にベルリンの Atze Musiktheater で
 @uref{http://www.rsb-online.de/,@emph{Radio-Sinfonieorchester Berlin}}
-in April 2014 at the Atze Musiktheater, Berlin.  The Conductor was Heiko
-Matthias Förster.
+によって演奏されました。指揮者は Heiko Matthias Förster でした。
 
 @item
-Joe Smeets created sheet music for the children's book @emph{Zing Mee}
-(@emph{Sing along}) by Annie M.G. published by
+Joe Smeets は子どものための本 @emph{Zing Mee}
+（@emph{一緒に歌おう}）の楽譜を作成しました。出版社
 @uref{http://www.queridokinderenjeugdboeken.nl/, Querido}
--- ISBN 9789045106205;
-choir rehearsal scores for the Dutch translation of Benjamin Britten's
-@emph{Saint Nicolas} performed by @emph{Muziektheater Hollands Diep} in
-2011;
-@uref{http://www.muziektheaterhollandsdiep.nl/nl/voorstellingen/sint_nicolaas_leeft, www.muziektheaterhollandsdiep.nl}.
-He has also worked on the score and parts for an arrangement of
-Moussurgsky’s @emph{Boris Godounov} for wind quartet, piano and
-percussion which was performed in 2014, again by
-@emph{Muziektheater Hollands Diep}.
+-- ISBN 9789045106205 。@c
+また Benjamin Britten の @emph{Saint Nicolas} オランダ語版、@c
+合唱のリハーサル譜を作成し、2011年 @emph{Muziektheater Hollands Diep} で@c
+演奏されました:
+@uref{http://www.muziektheaterhollandsdiep.nl/nl/voorstellingen/sint_nicolaas_leeft,
+www.muziektheaterhollandsdiep.nl} 。彼はさらに Moussurgsky の
+@emph{Boris Godounov} を管楽四重奏・ピアノ・打楽器の編成に編曲し、@c
+2014年にまた @emph{Muziektheater Hollands Diep} で演奏されました。
 
 @item
-A critical edition of Tommaso Traetta's @emph{Enea nel Lazio (1760)},
-opera series with libretto by Vittorio Amedeo Cigna-Santi, in four
-parts:
-@uref{http://www.academia.edu/1987651/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_1_4_, Part One}
-@uref{http://www.academia.edu/1994533/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_2_4_, Part Two}
-@uref{http://www.academia.edu/1994558/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_3_4_, Part Three}
-@uref{http://www.academia.edu/1996242/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_4_4_, Part Four}
-Created by
+Vittorio Amedeo Cigna-Santi によって歌詞が付けられた Tommaso Traetta のオペラ
+@emph{Enea nel Lazio (1760)} の校訂版が、
 @uref{http://unito.academia.edu/LucaRossettoCasel, Luca Rossetto Casel}
-for his Ph.D. Thesis.
+の博士論文として作られました。
+@uref{http://www.academia.edu/1987651/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_1_4_, パート 1}
+@uref{http://www.academia.edu/1994533/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_2_4_, パート 2}
+@uref{http://www.academia.edu/1994558/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_3_4_, パート 3}
+@uref{http://www.academia.edu/1996242/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_4_4_, パート 4}
 
 @item
-Mussorgsky's @emph{Pictures at an exhibition}, was re-orchestrated and
-conducted by @uref{http://www.aurelienbello.com/,Aurélien Bello} with
-the @uref{https://junge-philharmonie-brandenburg.de/,
-Junge Philharmonie Brandenburg} in October 2011 and April 2012.
+Mussorgsky の @emph{Pictures at an exhibition} が
+@uref{http://www.aurelienbello.com/,Aurélien Bello} によってオーケストラ用に@c
+再編曲され、また彼は指揮者として
+@uref{https://junge-philharmonie-brandenburg.de/,
+Junge Philharmonie Brandenburg} で2011年10月と2012年4月に演奏しました。
 
 @item
-@uref{http://kierenmacmillan.info/, Kieren MacMillan}, composer and
-musical director.  His many, recent works include; @emph{Go Thy Way},
-performed by the @uref{http://www.saltlakechoralartists.org/,
-Salt Lake Choral Artists} in March 2012; The
-@emph{Just Out of Reach Suite} performed
-by the
+作曲家・音楽監督の @uref{http://kierenmacmillan.info/, Kieren MacMillan} 。@c
+彼の多くの作品から一部を紹介します：
+@emph{Go Thy Way} は2012年3月に @uref{http://www.saltlakechoralartists.org/,
+Salt Lake Choral Artists} で演奏されました。
+@emph{Just Out of Reach Suite} は
 @uref{http://www.herald-dispatch.com/news/marshall/x1883873762/Music-duo-Chrysalis-to-perform-at-Marshall-University-on-Jan-19,
-Chrysalis Duo} ; @emph{thrafsmata} performed in July 2011 by the
-@uref{http://www.pnme.org/, Pittsburgh
-New Music Ensemble}.
+Chrysalis Duo} によって演奏されました。
+@emph{thrafsmata} は2011年7月に @uref{http://www.pnme.org/, Pittsburgh
+New Music Ensemble} によって演奏されました。
 
 @item
-@emph{Anonymous Student Compliment or Complaint}, by
-@uref{http://www.mikesolomon.org, Mike Solomon}, winner chosen from among
-172 entries from 22 countries of the
-@uref{http://www.leftcoastensemble.org, 2011 Left Coast Composition Contest}.
-Other works include, Norman (age 1) for clarinet solo, performed at the
-@uref{http://arts.ufl.edu/academics/music/, University of Florida}'s
-Electroacoustic Music Festival (FEMF), October 2010.
+@uref{http://www.mikesolomon.org, Mike Solomon} は、
+@emph{Anonymous Student Compliment or Complaint} という題の作品を作曲し、
+@uref{http://www.leftcoastensemble.org, 2011 Left Coast Composition Contest}
+で22カ国172の作品から最優秀作品に選ばれました。@c
+彼の他の作品の一つ、クラリネットソロのための Norman (age 1) は、2010年10月、@c
+@uref{http://arts.ufl.edu/academics/music/, フロリダ大学}の
+Electroacoustic Music Festival (FEMF) で演奏されました。
 
 @item
-A modern edition of the @emph{Serenata Erminia} by Alessandro Scarlatti,
-edited by Thomas Griffin, Musicologist (Rome, Italy).  Performed on 22
-October 2010 in the Galleria of the Palazzo Zevallos Stigliano, Naples,
-Italy.  @uref{http://www.ascarlatti2010.net, Alessandro Scarlatti 2010},
-in celebration of the composer's 350th birthday.
+Alessandro Scarlatti の @emph{Serenata Erminia} の現代版が Thomas Griffin
+（音楽学者、イタリア・ローマ）によって編集されました。2010年10月22日、@c
+イタリア・ナポリの Galleria of the Palazzo Zevallos Stigliano で演奏され、
+@uref{http://www.ascarlatti2010.net, Alessandro Scarlatti 2010} として@c
+作曲家の生誕350年が祝われました。
 
 @item
-@uref{http://www.mercuryhouston.org/, Mercury Baroque}'s performance of
-Lully's @emph{Armide}, May 15-16, 2009, in Houston, Texas (engraving by
-@uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}).
+@uref{http://www.mercuryhouston.org/, Mercury Baroque} による
+Lully の @emph{Armide} の演奏が、2009年5月15日-16日にテキサス、ヒューストンで@c
+行われました。（譜刻は
+@uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux} によってされました。）
 
 @item
-Instrumental excerpts from Rameau's @emph{Hippolyte et Aricie} at
-St. James's Church in Manhattan, May 8, 2009, by Frederick Renz
-and his ensemble @uref{http://www.earlymusicny.org/, Early Music
-New York} (engraving by
-@uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}).
+2009年5月8日、 Rameau の @emph{Hippolyte et Aricie} の器楽演奏がマンハッタンの
+St. James's Church で、 Frederick Renz と彼の楽団
+@uref{http://www.earlymusicny.org/, Early Music New York} によって@c
+行われました。（譜刻は
+@uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}によってされました。）
 
 @item
-@emph{Affaire étrangère}, an opera by
-@uref{http://valentin.villenave.net/,Valentin Villenave}
-to a French libretto by
-@uref{https://en.wikipedia.org/wiki/Lewis_Trondheim, Lewis
-Trondheim}, premiered February 1, 2009 at
-@uref{http://www.orchestre-montpellier.com/, L'Opéra National de
-Montpellier}, France.
+@uref{https://en.wikipedia.org/wiki/Lewis_Trondheim, Lewis Trondheim}
+によるフランス語歌詞で @uref{http://valentin.villenave.net/,Valentin Villenave}
+のオペラ @emph{Affaire étrangère} が、2009年2月1日にフランスの
+@uref{http://www.orchestre-montpellier.com/, L'Opéra National de Montpellier}
+で初演されました。
 
 @end itemize
 @divEnd
@@ -806,22 +800,20 @@ LilyPond で生成された楽譜の主要なショーケースです。
 
 @c don't make this "Mutopia" a link, since that looks silly.
 @item
-@uref{http://etudeapp.com, Etude}, @qq{sheet music on steroids} is
-an iPhone app which displays piano music engraved with LilyPond,
-including many pieces from Mutopia.  The app includes a virtual
-piano keyboard showing which keys to press to help beginners learn
-how to read sheet music.
+@uref{http://etudeapp.com, Etude}, @qq{sheet music on steroids} は
+Mutopia の作品を含む、 LilyPond で譜刻されたピアノ曲を表示する iPhone
+アプリです。画面上に鍵盤が表示され、初心者の読譜を手助けします。
 
 @item
-@uref{https://twitter.com/adoromusic, Adoro Music Publishing},
-high-quality scores of sacred music, available for immediate
-download or in traditional paper format.
+@uref{https://twitter.com/adoromusic, Adoro Music Publishing}
+では高品質な聖楽の楽譜をその場でダウンロード、@c
+あるいは伝統的な紙の形式で入手できます。
 
 @item
-@uref{http://matthieujacquot.com/, The Shady Lane Publishing},
-a @qq{micro musical publishing house} whose goal is to promote a
-new form of musical economy closer to the musicians and music
-lovers.
+@uref{http://matthieujacquot.com/, The Shady Lane Publishing}
+@qq{micro musical publishing house} は、音楽家や音楽愛好家にとってより身近な@c
+音楽の使用形態を推進することを目指しています。
+
 
 @end itemize
 
@@ -863,136 +855,132 @@ LilyPond を試してみる決心がついたのなら、@c
 @itemize
 
 @item
-April 2011
+2011年4月
 
-@uref{http://www.linux-magazine.com,Linux Magazine} publishes an
-article titled
+@uref{http://www.linux-magazine.com,Linux Magazine} は
 @uref{http://www.linux-magazine.com/content/download/61706/482546/version/1/file/088-090_projects.pdf,
-Projects on the Move}.  It is an introductory article on MuseScore,
-LilyPond and Chordii.  Author Carla Schroder states @qq{LilyPond is
-driven from the command line, but don’t let the lack of a GUI scare
-you away; LilyPond is user-friendly and easy to learn}, and provides
-a hands-on example.
+Projects on the Move} という題の記事を出版しました。@c
+これは MuseScore, LilyPond, Chordii の紹介記事であり、@c
+著者 Carla Schroder は、 @qq{LilyPond はコマンドラインで動作しますが、@c
+GUI が無いことはあなたを怖がらせ追い払うものではありません。
+LilyPond はユーザーフレンドリーで学習が簡単です。} と述べ、
+ハンズオンの例が掲載されています。
 
 @item
-May 2010
+2010年5月
 
-Peter Kirn, on the Create Digital Music website, publishes a
+ウェブサイト Create Digital Music において Peter Kirn は、
 @uref{http://createdigitalmusic.com/2010/05/14/lilypond-free-beautiful-music-notation-engraving-for-anyone/,LilyPond
-review}.  He takes a balanced view on usage, praises LilyPond's
-high-quality notation and suggests to try it out.
+review} を投稿しました。使用法についての記述はバランスが取れており、
+LilyPond の高品質な記譜を賞賛し、試用することを提案しています。
 
 @item
-September 2009
+2009年9月
 
-The German LinuxUser magazine wrote an
+ドイツの雑誌 LinuxUser で
 @uref{http://www.linux-community.de/Internal/Artikel/Print-Artikel/LinuxUser/2009/10/Digitaler-Notenschluessel,
-article about LilyPond}.
+LilyPond に関する記事} が掲載されました。
 
 @item
-August 2009
+2009年8月
 
-Ann Drinan, on the
-@uref{http://www.polyphonic.org/article.php?id=188, Polyphonic.org}
-website, presents comments by two orchestra librarians who
-talk about using software to maintain their libraries.
-
-@item
-June 2009
-
-In an @uref{http://web.archive.org/web/20110325004849/http://news.lilynet.net/Free-Music-Now, article}
-published in the French @emph{National Conservatory Parent
-Association}'s yearly magazine, French composer and LilyPond
-contributor Valentin Villenave explains how Free licenses, and
-specifically LilyPond-engraved scores, are instrumental in
-making written music accessible to all.
+ウェブサイト @uref{http://www.polyphonic.org/article.php?id=188, Polyphonic.org}
+において Ann Drinan は、楽譜を管理するのにソフトウェアを用いている二人の@c
+オーケストラ・ライブラリアンのコメントを掲載しました。
 
 @item
-February 2008
+2009年6月
 
-In @uref{http://www.musicbyandrew.ca/finale-lilypond-1.html,
-articles on his personal site}, Andrew Hawryluk compares Finale
-and LilyPond in general terms, and evaluates engraving
-capabilities of both pieces of software in detail.  The second
-article is an instructive analysis of engraving issues in
-Rachmaninoff's Piano Prelude No. 6, including comparisons with a
-hand-engraved reference edition.
-
-@item
-June 2006
-
-@uref{http://distrowatch.com,DistroWatch} awards LilyPond and
-@uref{http://distrowatch.com/weekly.php?issue=20060605,writes}
-@qq{Ladies and Gentleman, we are pleased to announce that, based
-on readers' requests, the DistroWatch May 2006 donation has been
-awarded to LilyPond (@euro{}190.00) and Lua (US$250.00).}
+フランス @emph{National Conservatory Parent Association} の@c
+年刊で出版される雑誌の
+@uref{http://web.archive.org/web/20110325004849/http://news.lilynet.net/Free-Music-Now, 記事}
+において、フランス人作曲家であり LilyPond の貢献者でもある Valentin Villenave
+は、フリーなライセンスや、特に LilyPond による楽譜は、記譜された音楽を@c
+皆にアクセス可能にする手段であることを述べました。
 
 @item
-December 2005
+2008年2月
 
-@uref{http://linuxjournal.com,Linux Journal} publishes an article
-titled @uref{http://www.linuxjournal.com/article/8364, Make
-Stunning Schenker Graphs with GNU LilyPond}.  It is an in-depth
-but hands-on feature article with crisp LilyPond graphics.  Author
-Kris Shaffer remarks @qq{GNU LilyPond generates beautiful graphics
-that make commercial alternatives seem second-rate.}
+@uref{http://www.musicbyandrew.ca/finale-lilypond-1.html, 個人サイトの記事で}、
+Andrew Hawryluk は Finale と LilyPond を総括的に比較し、@c
+両ソフトの譜刻能力を詳しく評価しました。2 つ目の記事では@c
+ラフマニノフの Piano Prelude No. 6 の譜刻における問題を、手作業で譜刻された@c
+版と比較しながら有益な分析を行っています。
 
 @item
-August 20, 2005
+2006年6月
+@uref{http://distrowatch.com,DistroWatch} は LilyPond に寄付金を授与しました。
+@uref{http://distrowatch.com/weekly.php?issue=20060605,記事では}
+@qq{皆様、読者のリクエストに応え、 DistroWatch の 2006年5月の寄付金を
+LilyPond (@euro{}190.00) と Lua (US$250.00) に授与したことをお知らせできて@c
+嬉しく思います。} と書かれています。
 
-The Belgian newspaper De Standaard investigates what drives Free
-Software authors in an article titled
+@item
+2005年12月
+
+@uref{http://linuxjournal.com,Linux Journal} は
+@uref{http://www.linuxjournal.com/article/8364, Make
+Stunning Schenker Graphs with GNU LilyPond} という題の記事を出版しました。
+詳細でありつつも実践的な機能について、新鮮な LilyPond の画像と共に@c
+記述されています。著者の Kris Shaffer は @qq{GNU LilyPond の生成する画像は@c
+商用ソフトが二流であるように見える。} と述べています。
+
+@item
+2005年8月20日
+
+ベルギーの新聞 De Standaard は @q{DS2 bijlage} 内で
 @uref{http://www.standaard.be/Artikel/Detail.aspx?artikelId=G42H5GD6,
-Delen van KENNIS zonder WINSTBEJAG} (Non-profit sharing of
-knowlegde) in its @q{DS2 bijlage}.  LilyPond is used as an example
-and the article is interspersed with quotes from an email
-interview with Jan Nieuwenhuizen.  This marks LilyPond's first
-appearance in mainstream printed press.
+Delen van KENNIS zonder WINSTBEJAG} （非営利の知識共有）という題で@c
+何がフリーソフトウェアの作者を駆り立てるかという調査をしました。
+LilyPond は例として使われ、記事内の至る所に Jan Nieuwenhuizen との
+E メールインタビューが引用されています。主流な印刷出版物に LilyPond が@c
+取り上げられたのはこの記事が初めてです。
 
 @item
-June 2005
+2005年6月
 
-A French article on the LilyPond 2.6 release appeared on
-@uref{http://linuxfr.org/2005/06/27/19210.html, linuxfr.org}.
-
-@item
-October 2004
-
-The editors of Computer!Totaal, a Dutch computer magazine,
-@uref{http://lilypond.org/website/pdf/computer-totaal.jpeg,
-describe LilyPond} in the October 2004 issue as: @qq{Wonderful
-free (open source) software [@dots{}] The sheet music produced by
-LilyPond is exceptionally pretty [@dots{}] a very powerful system that
-can do almost anything.}
+LilyPond 2.6 のリリースがフランスのウェブサイト
+@uref{http://linuxfr.org/2005/06/27/19210.html, linuxfr.org}
+に掲載されました。
 
 @item
-July, August 2004
+2004年10月
 
-Dave Phillips wrote an introductory article for
-@uref{http://linuxjournal.com,Linux Journal}: At
-the sounding edge: LilyPond, parts
-@uref{http://www.linuxjournal.com/article/7657, one} and
-@uref{http://www.linuxjournal.com/article/7719, two}.
-
-@item
-March 2004
-
-Chris Cannam
-@uref{http://www.all-day-breakfast.com/cannam/linux-musician/lilypond.html,interviewed}
-Han-Wen Nienhuys and Jan Nieuwenhuizen on linuxmusician.com
-(original site defunct).  This interview was also reviewed in a
-@uref{http://slashdot.org/article.pl?sid=04/03/13/2054227&tid=,
-slashdot story}.
+オランダのコンピューター雑誌 Computer!Totaal の編集者は 2004年10月の@c
+刊行において @uref{http://lilypond.org/website/pdf/computer-totaal.jpeg,
+LilyPond をこのような文面で紹介} しました。
+@qq{素晴らしいフリーの（オープンソースの）ソフトウェア [@dots{}]
+LilyPond で生成された楽譜は並外れて綺麗で [@dots{}] ほとんど何でもすることが@c
+出来る非常にパワフルなシステムです。}
 
 @item
-February 2004
+2004年7月, 8月
 
-Jazz singer Gail Selkirk writes about
+Dave Phillips は @uref{http://linuxjournal.com,Linux Journal} で
+At the sounding edge: LilyPond という紹介記事を書きました。
+@uref{http://www.linuxjournal.com/article/7657, パート 1}、@c
+@uref{http://www.linuxjournal.com/article/7719, パート 2}。
+
+@item
+2004年3月
+
+Chris Cannam は linuxmusician.com で（元サイトは現存せず）
+Han-Wen Nienhuys と Jan Nieuwenhuizen に
+@uref{http://www.all-day-breakfast.com/cannam/linux-musician/lilypond.html,
+インタビュー} しました。このインタビューは
+@uref{http://slashdot.org/article.pl?sid=04/03/13/2054227&tid=, slashdot} で@c
+レビューされています。
+
+@item
+2004年2月
+
+ジャズ歌手 Gail Selkirk は
 @uref{http://www.songbirdofswing.com/editorial_page/lilypond/,
-Diving into LilyPond}.  @qq{@dots{} you can make lead sheets or full
-orchestral parts, and the results can be stunning.}
-@uref{http://www.computermusic.co.uk/, Computer Music Special},
-issue CMS06.
+LilyPond にハマった} ことについて書きました。
+@qq{@dots{} リード譜やフルオーケストラ譜を作ることができ、@c
+そして出力は素敵です。}
+@uref{http://www.computermusic.co.uk/, Computer Music Special}, CMS06 の@c
+発刊において。
 
 @end itemize
 
@@ -1464,14 +1452,14 @@ MacOS@tie{}X 用のエディタ TexShop を拡張して、
 テスターを歓迎しています。
 
 @item
-@uref{http://enc2ly.sourceforge.net/en/,Enc2ly} is a GNU/Linux program
-which converts an Encore music score into a LilyPond one.
+@uref{http://enc2ly.sourceforge.net/en/,Enc2ly} は Encore のファイルを
+LilyPondに変換する GNU/Linux プログラムです。
 
 @item
-@uref{https://github.com/hanwen/go-enc2ly,go-enc2ly} is a Go tool that
-converts Encore files to LilyPond.  It was created using Felipe Castro's
-research and reverse engineering by tweaking existing .enc files and
-loading them using the 4.55 demo version.
+@uref{https://github.com/hanwen/go-enc2ly,go-enc2ly} は Go 言語のツールで
+Encode のファイルを LilyPond に変換します。
+Felipe Castro によるバージョン 4.55 体験版の .enc ファイルの研究や@c
+リバースエンジニアリングを基に作られました。
 
 @item
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd},
@@ -1499,21 +1487,20 @@ loading them using the 4.55 demo version.
 @itemize
 
 @item
-@uref{http://www.projectabjad.org/,Abjad}, a
-@uref{http://www.python.org/,Python} API for Formalized Score Control
-designed to help composers build up complex pieces of LilyPond notation
-in an iterative and incremental way.
+@uref{http://www.projectabjad.org/,Abjad} は@c
+形式化された楽譜の制御 (Formalized Score Control) をする
+@uref{http://www.python.org/,Python} API で、@c
+LilyPond による複雑な音楽を、反復型開発の手法で作成することができます。
 
 @item
-@uref{http://common-lisp.net/project/fomus/,FOMUS}, (FOrmat MUSic) is a
-music notation tool for computer music composers.  It is written in the
-Lisp programming language, and has been tested in a variety of
-interpreters.  A C++ port is also available.
+@uref{http://common-lisp.net/project/fomus/,FOMUS} (FOrmat MUSic) は@c
+アルゴリズム生成された音楽を記譜するためのツールです。@c
+Lisp言語で書かれており、多くのインタプリタで動作します。C++に移植されたものも@c
+あります。
 
 @item
-@uref{http://strasheela.sourceforge.net/strasheela/doc/index.html,Strasheela},
-an environment built on top of the
-@uref{http://mozart.github.io/, The Mozart Programming System}.
+@uref{http://strasheela.sourceforge.net/strasheela/doc/index.html,Strasheela}
+は @uref{http://mozart.github.io/, The Mozart Programming System} 上の環境です。
 
 @end itemize
 @divEnd
@@ -1535,9 +1522,8 @@ an environment built on top of the
 KDE 3.5 用の LilyKDE3 と KDE 4.1 用の lilypond-KDE4 だけが存在します。
 
 @item
-@uref{http://lilycomp.sourceforge.net, LilyComp} is a graphical note
-entry program, acting much like a number-pad which produces LilyPond
-notes.
+@uref{http://lilycomp.sourceforge.net, LilyComp} はグラフィカルに音符を入力@c
+できるプログラムで、LilyPond 版のテンキーのようなものです。
 
 @item
 @uref{http://www.musescore.org,MuseScore}:
@@ -1547,10 +1533,10 @@ notes.
 でダウンロードできます。
 
 @item
-@uref{https://sourceforge.net/projects/noteedit.berlios/,NoteEdit}, which imported
-@uref{http://www.musicxml.com/,MusicXML}, has been forked into
+@uref{https://sourceforge.net/projects/noteedit.berlios/,NoteEdit} は@c
+@uref{http://www.musicxml.com/,MusicXML} をインポートできましたが、@c
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
-and @uref{http://canorus.org,Canorus}.
+と @uref{http://canorus.org,Canorus} にフォークされました。
 
 @item
 @uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilypond},
