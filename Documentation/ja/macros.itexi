@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 211937747d4adbae18d6ce41f88dffbb3ca04a5f
+    Translation of GIT committish: 9bb7fa99aa8bc7c14a45a42224545c726bb6c592
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -179,16 +179,20 @@ LilyPond バージョン @version{} 用
 @c it doesn't matter, but a future implementation will probably
 @c add some code which needs this restriction.
 
+@c @raggedright can be enabled as soon as texinfo 5.x or larger
+@c is in use for Gub and LilyDev 3.
+
 @macro predefined
 @noindent
 @subsubheading 定義済みコマンド
+@c @raggedright
 @end macro
 
 @c Due to a bug in texi2html (texi2html.pl CVS versions <= 1.245)
 @c the next macro must not be empty.
 
 @macro endpredefined
-@c
+@c @end @raggedright
 @end macro
 
 
