@@ -1,17 +1,17 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: fabcd22c8f88ea9a87241597f1e48c0a9adbfc6e
+    Translation of GIT committish: 9bb7fa99aa8bc7c14a45a42224545c726bb6c592
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.19.25"
 
 
-@c Translators: Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Yoshiki Sawada
 @c Translation status: post-GDP
 
 
@@ -24,6 +24,7 @@
 あとは美しく譜刻された楽譜をお楽しみください！
 
 @menu
+* 組み込まれているテンプレート::
 * 単一譜テンプレート::
 * ピアノ テンプレート::
 * 弦楽四重奏テンプレート::
@@ -32,6 +33,303 @@
 * 古代の記譜法テンプレート::
 * その他のテンプレート::
 @end menu
+
+
+@node 組み込まれているテンプレート
+@appendixsec 組み込まれているテンプレート
+@translationof Built-in templates
+
+いくつかの、合唱音楽に適したテンプレートが LilyPond に組み込まれています。@c
+これらは 2 段、4 段、8 段の単純な合唱譜を作るのに使うことができ、@c
+ピアノ伴奏の有無も指定できます。他のテンプレートと異なり、これらは@c
+@q{組み込み}のテンプレートであるため、コピーして編集するという手順を踏む@c
+必要がありません。代わりに @code{@bs{}include} を入力するだけで使用できます。
+
+@warning {多くのインクルードファイルとは異なり、組み込みのテンプレートは@c
+入力ファイルの@emph{最後に} @code{@bs{}include} する必要があります。}
+
+必要な音楽表記は特定の変数に代入することで入力します。これらの代入文は
+@code{@bs{}include} の前に入力されていなければなりません。
+
+@menu
+* SATB テンプレート::
+* SSAATTBB テンプレート::
+@end menu
+
+@node SATB テンプレート
+@appendixsubsec SATB テンプレート
+@translationof SATB template
+
+1 つの譜表にボイスを 1 つ含むか 2 つ含むかは、@c
+それぞれ @code{TwoVoicesPerStaff} を @code{##f} か @code{##t} にすることで@c
+設定できます。
+
+これが各パートに歌詞が付く 4 パート SATB 譜とピアノ伴奏譜を持つ@c
+完全な入力ファイルです:
+
+@lilypond[verbatim, quote]
+  SopranoMusic = \relative { a'4\f a8 a a4 a }
+  SopranoLyrics = \lyricmode { Sop -- ra -- no ly -- rics }
+  AltoMusic = \relative { d'4\f d d d }
+  AltoLyrics = \lyricmode { Al -- to ly -- rics }
+  TenorMusic = \relative { a4\p a a a }
+  TenorLyrics = \lyricmode { Te -- nor ly -- rics }
+  BassMusic = \relative { c2\p c4 c }
+  BassLyrics = \lyricmode { Bass ly -- rics }
+  PianoRHMusic = \relative { c' e g c }
+  PianoDynamics = { s2\mp s4 s4 }
+  PianoLHMusic = \relative { c e g c }
+  \include "satb.ly"
+@end lilypond
+
+1 つの譜表にボイスを 2 つにする場合も同じ入力で良く、単に@c
+@code{TwoVoicesPerStaff} を @code{##t} にセットするだけです。@c
+同様に、各パートに歌詞が付きます。
+
+
+@lilypond[verbatim, quote]
+  SopranoMusic = \relative { a'4\f a8 a a4 a }
+  SopranoLyrics = \lyricmode { Sop -- ra -- no ly -- rics }
+  AltoMusic = \relative { d'4\f d d d }
+  AltoLyrics = \lyricmode { Al -- to ly -- rics }
+  TenorMusic = \relative { a4\p a a a }
+  TenorLyrics = \lyricmode { Te -- nor ly -- rics }
+  BassMusic = \relative { c2\p c4 c }
+  BassLyrics = \lyricmode { Bass ly -- rics }
+  PianoRHMusic = \relative { c' e g c }
+  PianoDynamics = { s2\mp s4 s4 }
+  PianoLHMusic = \relative { c e g c }
+  TwoVoicesPerStaff = ##t
+  \include "satb.ly"
+@end lilypond
+
+@code{TwoVoicesPerStaff} が @code{##f} にセットされている@c
+（あるいはデフォルトの）時、変数宣言を省略することで、声部の数を減らす@c
+ことができます。例えば、ソプラノとバスのデュエットはこのように入力します:
+
+@lilypond[verbatim,quote]
+  SopranoMusic = \relative { c'' c c c }
+  SopranoLyrics = \lyricmode { High voice ly -- rics }
+  BassMusic = \relative { a a a a }
+  BassLyrics = \lyricmode { Low voice ly -- rics }
+  \include "satb.ly"
+@end lilypond
+
+2 番の歌詞や代わりの歌詞を各パートに追加することができます:
+
+@lilypond[verbatim, quote]
+  SopranoMusic = \relative { a'4 a a a }
+  SopranoLyricsOne = \lyricmode {
+    \set stanza = "1."
+    Words to verse one
+  }
+  SopranoLyricsTwo = \lyricmode {
+    \set stanza = "2."
+    Words to verse two
+  }
+  \include "satb.ly"
+@end lilypond
+
+歌詞とリズムが全てのパートで同じである場合、2 つの譜表を用いると良いでしょう。@c
+この時、歌詞は 9 番まで入力できます。これが伴奏無しで、3 番まで入力した例です:
+
+@lilypond[verbatim, quote]
+  SopranoMusic = \relative { a' a a a }
+  AltoMusic = \relative { f' f f f }
+  VerseOne = \lyricmode {
+    \set stanza = "1."
+    Words to verse one
+  }
+  VerseTwo = \lyricmode {
+    \set stanza = "2."
+    Words to verse two
+  }
+  VerseThree = \lyricmode {
+    \set stanza = "3."
+    Words to verse three
+  }
+  TenorMusic = \relative { a a a a }
+  BassMusic = \relative { f f f f }
+  TwoVoicesPerStaff = ##t
+  \include "satb.ly"
+@end lilypond
+
+値を与えることができる変数が他にもあります。@c
+調号と拍子記号はこのように変更します:
+
+@lilypond[verbatim, quote]
+  Key = \key a \major
+  Time = {
+    \time 5/4
+    \tempo "Allegro" 4 = 144
+  }
+  SopranoMusic = \relative { gis' gis gis gis gis }
+  AltoMusic = \relative { cis' cis cis cis cis }
+  VerseOne = \lyricmode { Words to this du -- et }
+  TwoVoicesPerStaff = ##t
+  \include "satb.ly"
+@end lilypond
+
+楽器名と短い楽器名も変更することができます:
+
+@lilypond[verbatim,quote]
+  SopranoMusic = \relative { c'' c c c }
+  SopranoLyrics = \lyricmode { High voice ly -- rics }
+  SopranoInstrumentName = "Soprano 1"
+  SopranoShortInstrumentName = "S1"
+  AltoMusic = \relative { a' a a a }
+  AltoLyrics = \lyricmode { Low voice ly -- rics }
+  AltoInstrumentName = "Soprano 2"
+  AltoShortInstrumentName = "S2"
+  \include "satb.ly"
+@end lilypond
+
+この例では、このようにするより @code{ssaattbb.ly} のテンプレートを用いる方が@c
+簡単でしょう。 @ref{SSAATTBB テンプレート} を参照してください。
+
+デスカントは変数 @code{DescantMusic} を定義することで追加でき、@c
+デスカントの歌詞は @code{DescantLyrics} を定義することで追加できます。@c
+同じように、ソロパートは @code{SoloMusic} と @code{SoloLyrics} を@c
+定義することで、グループ化された合唱譜の上に追加することができます。
+
+@code{\header} ブロックや @code{\paper} ブロックは通常のように追加できます。
+@code{\layout} ブロックも通常のようにトップレベルに追加でき、内容は@c
+テンプレートにデフォルトで定義されている設定と組み合わせられます@c
+（上書きは行いません）。その代わり、テンプレートの全てのデフォルト設定は
+@emph{全ての}必要な設定を含んだ @code{Layout} 変数を定義することで破棄できます。
+
+@example
+Layout = \layout @{ ... @}
+@end example
+
+変更することのできる全ての変数の一覧は @file{ly/satb.ly} から@c
+見ることができます。 @ref{その他の情報源} を参照してください。
+
+
+@seealso
+学習マニュアル:
+@ref{変数を用いて楽曲を編成する},
+@ref{合唱テンプレート},
+@ref{テンプレートを拡張する},
+@ref{その他の情報源}
+
+@knownissues
+@code{TwoVoicesPerStaff} の設定は楽譜全体に適用されます。途中で他の値を@c
+設定することはできません。
+
+さらに複雑な SATB 合唱譜はこの単純なテンプレートでは作ることができません。
+
+
+@node SSAATTBB テンプレート
+@appendixsubsec SSAATTBB テンプレート
+@translationof SSAATTBB template
+
+@code{VerseXxx} を除く全ての SATB テンプレートに定義された変数は、
+SSAATTBB テンプレートでも使用できます。
+@ref{SATB template} を参照してください。@c
+さらに、4 パートすべてについて、1 つ目のボイスと 2 つ目のボイスを@c
+指定することができます。音符は @code{SopranoOneMusic} と @code{SopranoTwoMusic}
+などのように、歌詞は @code{SopranoOneLyrics} と @code{SopranoTwoLyrics}
+などのように入力します。全てのボイスについて、
+@code{SopranoOneLyricsOne} などのようにすることで、@c
+4 番までの歌詞を入力できます。
+
+@code{TwoVoicesPerStaff} を @code{##t} にセットすると、@emph{全ての}ボイスが@c
+ディヴィージ ボイスとして 1 つの譜に配置されます。
+@code{TwoVoicesPerStaff} がデフォルトのまま、または @code{##f} にセットされた@c
+場合、各ボイスは @code{SopranoTwoVoicesPerStaff} や
+@code{MenTwoVoicesPerStaff} などの設定に基づいて、1 つか 2 つの譜に配置されます。
+
+例として、ソプラノとアルトの全てのボイスがユニゾンで始まり、@c
+ソプラノとアルトの 2 つのパートに分かれ、最終的に 4 パートとなるものを考えて@c
+みましょう。このようになります:
+
+@lilypond[verbatim,quote]
+Time = { s1 \break s1 \break }
+WomenMusic = \relative { a'4 a a a }
+WomenLyrics = \lyricmode { Wo -- men ly -- rics }
+SopranoMusic = \relative { s1 | c''4 c c c8 c }
+SopranoLyrics = \lyricmode{ So -- pra -- no ly -- rics }
+AltoMusic = \relative { s1 | g'4 g g g }
+AltoLyrics = \lyricmode { Al -- to ly -- rics }
+SopranoOneMusic = \relative { s1 | s1 |e''4 e e e }
+SopranoOneLyrics = \lyricmode { Sop One ly -- rics }
+SopranoTwoMusic = \relative { s1 | s1 | c''4 c c c }
+SopranoTwoLyrics = \lyricmode { Sop Two ly -- rics }
+AltoOneMusic = \relative { s1 | s1 | g'4 g g g8 g }
+AltoOneLyrics = \lyricmode { Al -- to One ly -- rics }
+AltoTwoMusic = \relative { s1 | s1 | e'4 e e e8 e }
+AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
+\layout { ragged-right = ##t }
+\include "ssaattbb.ly"
+@end lilypond
+
+男声も同じように追加することができます。
+
+ディヴィージのソプラノ ボイスが同じ譜を共有するようにレイアウトを@c
+変更するには、単純に @code{SopranoTwoVoicesPerStaff} を @code{##t} に@c
+セットするだけで良く、他の変数を変更する必要はありません。このようになります:
+
+@lilypond[verbatim,quote]
+SopranoTwoVoicesPerStaff = ##t
+Time = { s1 \break s1 \break }
+WomenMusic = \relative { a'4 a a a }
+WomenLyrics = \lyricmode { Wo -- men ly -- rics }
+SopranoMusic = \relative { s1 | c''4 c c c8 c }
+SopranoLyrics = \lyricmode{ So -- pra -- no ly -- rics }
+AltoMusic = \relative { s1 | g'4 g g g }
+AltoLyrics = \lyricmode { Al -- to ly -- rics }
+SopranoOneMusic = \relative { s1 | s1 |e''4 e e e }
+SopranoOneLyrics = \lyricmode { Sop One ly -- rics }
+SopranoTwoMusic = \relative { s1 | s1 | c''4 c c c }
+SopranoTwoLyrics = \lyricmode { Sop Two ly -- rics }
+AltoOneMusic = \relative { s1 | s1 | g'4 g g g8 g }
+AltoOneLyrics = \lyricmode { Al -- to One ly -- rics }
+AltoTwoMusic = \relative { s1 | s1 | e'4 e e e8 e }
+AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
+\layout { ragged-right = ##t }
+\include "ssaattbb.ly"
+@end lilypond
+
+あるいは、全ての組になるボイスが 1 つの譜を共有するようにするには、
+@code{TwoVoicesPerStaff} を @code{##t} にセットします:
+
+@lilypond[verbatim,quote]
+TwoVoicesPerStaff = ##t
+Time = { s1 \break s1 \break }
+WomenMusic = \relative { a'4 a a a }
+WomenLyrics = \lyricmode { Wo -- men ly -- rics }
+SopranoMusic = \relative { s1 | c''4 c c c8 c }
+SopranoLyrics = \lyricmode{ So -- pra -- no ly -- rics }
+AltoMusic = \relative { s1 | g'4 g g g }
+AltoLyrics = \lyricmode { Al -- to ly -- rics }
+SopranoOneMusic = \relative { s1 | s1 |e''4 e e e }
+SopranoOneLyrics = \lyricmode { Sop One ly -- rics }
+SopranoTwoMusic = \relative { s1 | s1 | c''4 c c c }
+SopranoTwoLyrics = \lyricmode { Sop Two ly -- rics }
+AltoOneMusic = \relative { s1 | s1 | g'4 g g g8 g }
+AltoOneLyrics = \lyricmode { Al -- to One ly -- rics }
+AltoTwoMusic = \relative { s1 | s1 | e'4 e e e8 e }
+AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
+\layout { ragged-right = ##t }
+\include "ssaattbb.ly"
+@end lilypond
+
+変更することのできる全ての変数の一覧は @file{ly/ssaattbb.ly} から@c
+見ることができます。 @ref{その他の情報源} を参照してください。
+
+@seealso
+学習マニュアル:
+@ref{変数を用いて楽曲を編成する},
+@ref{合唱テンプレート},
+@ref{テンプレートを拡張する},
+@ref{その他の情報源}
+
+@knownissues
+@code{TwoVoicesPerStaff} などの設定は楽譜全体に適用されます。途中で他の値を@c
+設定することはできません。
+
+さらに複雑な 8 パート合唱譜はこの単純なテンプレートでは作ることができません。
 
 
 @node 単一譜テンプレート
@@ -49,14 +347,14 @@
 @appendixsubsec 音符のみ
 @translationof Notes only
 
-@lilypondfile[verbatim,quote,ragged-right,texidoc,addversion]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {single-staff-template-with-only-notes.ly}
 
 @node 音符と歌詞
 @appendixsubsec 音符と歌詞
 @translationof Notes and lyrics
 
-@lilypondfile[verbatim,quote,ragged-right,texidoc,addversion]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {single-staff-template-with-notes-and-lyrics.ly}
 
 @node 音符とコード
@@ -133,6 +431,11 @@
 @node 合唱テンプレート
 @appendixsec 合唱テンプレート
 @translationof Vocal ensembles templates
+
+以下のテンプレートは入力ファイルにコピーされてそこで編集されるべきです。@c
+比較的単純な SATB 譜の場合、単純に @code{\include} を挿入するだけで利用できる@c
+組み込みのテンプレートを使う方が好まれるかもしれません。@c
+@ref{組み込まれているテンプレート} を参照してください。
 
 @menu
 * SATB ボーカル譜::
@@ -215,18 +518,20 @@
 @translationof Ancient notation templates
 
 @menu
-* Transcription of mensural music::
-* Gregorian transcription template::
+* 計量記譜法のテンプレート::
+* グレゴリア聖歌のテンプレート::
 @end menu
 
-@node Transcription of mensural music
-@appendixsubsec Transcription of mensural music
+@node 計量記譜法のテンプレート
+@appendixsubsec 計量記譜法のテンプレート
+@translationof Transcription of mensural music
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {incipit.ly}
 
-@node Gregorian transcription template
-@appendixsubsec Gregorian transcription template
+@node グレゴリア聖歌のテンプレート
+@appendixsubsec グレゴリア聖歌のテンプレート
+@translationof Gregorian transcription template
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {ancient-notation-template----modern-transcription-of-gregorian-music.ly}
@@ -267,7 +572,7 @@ violin concerto as TchaikovskyPI, whereas perhaps you wish to print
 
 @ The `line-width' is for \header.
 @li lypond[quote,verbatim,ragged-right,line-width]
-\version "2.16.0"
+\version "2.19.25"
 \header {
   dedication = "dedication"
   title = "Title"
