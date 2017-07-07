@@ -68,7 +68,7 @@ spacing after the divider).
          (details (begin (harp-pedal-check pedal-list) harp-pedal-details))
          (dy (* size (assoc-get 'box-offset details 0.8))) ; offset of the box center from the line
          (line-width (* (ly:output-def-lookup layout 'line-thickness)
-                        (chain-assoc-get 'thickness props 0.5)))
+                        thickness))
          (box-width (* size (assoc-get 'box-width details 0.4)))
          (box-hheight (* size (/ (assoc-get 'box-height details 1.0) 2))) ; half the box-height, saves some divisions by 2
          (spacebeforedivider (* size (assoc-get 'space-before-divider details 0.8))) ; full space between boxes before the first divider

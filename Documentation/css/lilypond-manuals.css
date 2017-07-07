@@ -257,7 +257,7 @@ div#tocframe {
 
 body.learning    #tocframe { background-color: #407f40; }
 body.notation    #tocframe { background-color: #40657f; }
-body.usage       #tocframe { background-color: #7d765a; }
+body.usage       #tocframe { background-color: #81613e; }
 body.extending   #tocframe { background-color: #7f4040; }
 body.internals   #tocframe { background-color: #6a407f; }
 body.contributor #tocframe { background-color: #333333; }
@@ -321,6 +321,10 @@ div#tocframe h4 {
 
 #tocframe ul.toc > li {
   font-size: 1em;
+}
+
+#tocframe .contents > ul.toc > li {
+  margin-top: 0.5em;
 }
 
 #tocframe ul.toc li li {
@@ -494,4 +498,18 @@ div#search p, div#search form {
   border: 1px solid #c8c8c8;
   border-radius: 5px;
   margin: 0.5em 0.5em 2em 3em;
+}
+
+/***********************************************************/
+/*               RESPONSIVE DESIGN                         */
+/***********************************************************/
+
+@media (min-width: 1280px) {
+  div#main {
+    left: 346px
+  }
+  div#tocframe {
+    width: 346px;
+    right: 0;
+  }
 }
