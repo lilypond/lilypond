@@ -168,10 +168,11 @@ offset_directed (Real angle)
   else if (angle > 180.0)
     angle -= 360.0;
   // Now -180.0 < angle <= 180.0 and we still haven't lost precision.
-  // We don't work with angles greater than 45 degrees absolute in
+  // We don't work with angles greater than 90 degrees absolute in
   // order to minimize how rounding errors of M_PI/180 affect the
-  // result.  That way, at least angles that are a multiple of 90
-  // degree deliver the expected results.
+  // result.  The "handover" between one sine expression to the next
+  // happens at angles of ±90 degrees where sin(pi/2+eps) is about
+  // (1-eps²/2) which should be numerically 1 pretty safely.
   //
   // Sign of the sine is chosen to avoid -0.0 in results.  This
   // version delivers exactly equal magnitude on x/y for odd multiples
