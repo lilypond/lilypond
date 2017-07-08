@@ -1,4 +1,4 @@
-%% Translation of GIT committish: b7fff49e6e45ba9d3e3b48df76fe36d60dab518c
+%% Translation of GIT committish: 77267b700c377fd170abcbf4863728937038eb5e
   texidocfr = "
 Du texte peut venir s'ajouter aux crochets d'analyse grâce à la
 propriété @code{texte} de l'objet graphique
