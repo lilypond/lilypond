@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: 4690bfaa07a15e38ebfd1299fa209968603f3630
+   Translation of GIT committish: 721cbad0a8fa77d545bde7237dfc9aff3e5c6e2c
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1023,7 +1023,7 @@ Schirmer en vue de les publier.  J'en mettrais ma main à couper que leur
 
 @divClass{testimonial-item}
 @imageFloat{orm-finnendahl,jpg, left}
-@subsubheading @uref{http://icem-www.folkwang-hochschule.de/~finnendahl/, Orm Finnendahl},  professeur de composition, Musikhochschule Freiburg
+@subsubheading @uref{http://icem-www.folkwang-hochschule.de/~finnendahl/, Orm Finnendahl}, professeur de composition, Hochschule für Musik und Darstellende Kunst, Francfort sur le Main
 
 @qq{Bien que ma maîtrise [de LilyPond] soit pour l'instant imparfaite,
 je suis néanmoins @emph{très} impressionné.  J'ai utilisé ce programme
