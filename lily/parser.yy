@@ -4041,15 +4041,35 @@ markup_command_list:
 	}
 	;
 
+markup_command_embedded_lilypond:
+	'{' {
+		parser->lexer_->push_note_state (Lily::pitchnames);
+	} embedded_lilypond '}' {
+		parser->lexer_->pop_state ();
+                $$ = $3;
+	}
+	;
+
+
 markup_command_basic_arguments:
 	EXPECT_MARKUP_LIST markup_command_list_arguments markup_list {
-	  $$ = scm_cons ($3, $2);
+		$$ = scm_cons ($3, $2);
 	}
 	| EXPECT_SCM markup_command_list_arguments embedded_scm {
-	  $$ = check_scheme_arg (parser, @3, $3, $2, $1);
+		$$ = check_scheme_arg (parser, @3, $3, $2, $1);
+	}
+	| EXPECT_SCM markup_command_list_arguments markup_command_embedded_lilypond
+	{
+		$$ = check_scheme_arg (parser, @3, $3, $2, $1);
+	}
+	| EXPECT_SCM markup_command_list_arguments mode_changed_music {
+		$$ = check_scheme_arg (parser, @3, $3, $2, $1);
+	}
+	| EXPECT_SCM markup_command_list_arguments MUSIC_IDENTIFIER {
+		$$ = check_scheme_arg (parser, @3, $3, $2, $1);
 	}
 	| EXPECT_NO_MORE_ARGS {
-	  $$ = SCM_EOL;
+		$$ = SCM_EOL;
 	}
 	;
 
