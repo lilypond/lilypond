@@ -11,7 +11,7 @@
 @ifclear web_version
   @c no anchor links, just link to News page
 
-@ref{News, LilyPond 2.19.63 released - @emph{June 28, 2017}}
+@ref{News, LilyPond 2.19.64 released - @emph{July 15, 2017}}
 
 @ref{News, Two LilyPond projects in Google Summer of Code 2016 - @emph{April 23, 2016}}
 
@@ -23,8 +23,8 @@
 @ifset web_version
   @c anchor links, link to individual news items by their <a> tag
 
-@uref{news.html#LilyPond-2_002e19_002e63-released-June-28_002c-2017,
-  LilyPond 2.19.63 released - @emph{June 28, 2017}}
+@uref{news.html#LilyPond-2_002e19_002e64-released-July-15_002c-2017,
+  LilyPond 2.19.64 released - @emph{July 15, 2017}}
 
 @uref{news.html#Two-LilyPond-projects-in-Google-Summer-of-Code-2016-April-23_002c-2016,
   Two LilyPond projects in Google Summer of Code 2016 - @emph{April 23, 2016}}
