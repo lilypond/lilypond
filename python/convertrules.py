@@ -3303,10 +3303,11 @@ matcharg = (r"\s+(?:[$#]['`]?\s*(?:[a-zA-Z][^ \t\n()\\]*|" + matchstring
             + r"-?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)|"
             + r"#(?:[tf]|\\.|@?\{" + brace_matcher (10) + r"#@?\}))|"
             + matchstring + r"|\\[a-z_A-Z]+|[0-9]+(?:/[0-9]+)?|-[0-9]+)")
-matchmarkup = (r'(?:\\markup\s*(?:@?\{' + brace_matcher (20) +r'\}|' +
-               matchstring + r'|(?:\\[a-z_A-Z][a-z_A-Z-]*(?:' + matcharg +
-               r')*?\s*)*(?:' + matchstring + r"|@?\{" + brace_matcher (20) +
-               r"\}))|" + matchstring + ")")
+matchfullmarkup = (r'\\markup\s*(?:@?\{' + brace_matcher (20) +r'\}|' +
+                   matchstring + r'|(?:\\[a-z_A-Z][a-z_A-Z-]*(?:' + matcharg +
+                   r')*?\s*)*(?:' + matchstring + r"|@?\{" + brace_matcher (20) +
+                   r"\}))")
+matchmarkup = "(?:" + matchstring + "|" + matchfullmarkup + ")"
 
 @rule((2, 15, 25), r"\(auto)?Footnote(Grob)? -> \footnote")
 def conv (str):
@@ -3358,7 +3359,7 @@ def conv (str):
                 return m.group (0)
             return m.expand (s)
         return match_fun
-    str = re.sub ("(" + matchmarkup + ")|"
+    str = re.sub ("(" + matchfullmarkup + ")|"
                   + r"(\\footnote(?:\s*"
                   + matchmarkup + ")?" + matcharg + "(?:" + matcharg
                   + ")?\s+" + matchmarkup + ")",
@@ -3377,7 +3378,7 @@ def conv (str):
     str = re.sub (r"(\\set\s+)stringTuning", r"\1Staff.stringTuning", str)
     return str
 
-wordsyntax = r"[a-zA-Z\200-\377](?:[-_]?[a-zA-Z\200-\377])*"
+wordsyntax = r"[a-zA-Z\200-\377]+(?:[-_][a-zA-Z\200-\377]+)*"
 
 @rule ((2, 15, 43), r'"custom-tuning" = -> custom-tuning =')
 def conv (str):
@@ -3427,15 +3428,22 @@ def conv(str):
     str = re.sub (barstring + r'"empty"', '\\1\\2"-"', str)
     return str
 
-symbol_list = (r"#'(?:" + wordsyntax + r"|\(\s*(?:" + wordsyntax + r"\s+)*"
-               + wordsyntax + r"\s*\))")
+symbol_list = (r"#'(?:" + wordsyntax + r"|\(\s*" + wordsyntax
+               + r"(?:\s+" + wordsyntax + r")*\s*\))")
 
-grob_path = r"(?:" + symbol_list + r"\s+)*" + symbol_list
+grob_path = symbol_list + r"(?:\s+" + symbol_list + r")*"
 
 grob_spec = wordsyntax + r"(?:\s*\.\s*" + wordsyntax + r")?"
 
 def path_replace (m):
     return m.group (1) + string.join (re.findall (wordsyntax, m.group (2)), ".")
+
+# The following regexp appears to be unusually expensive to compile,
+# so we do it only once instead of for every file
+footnotec = re.compile ("(" + matchfullmarkup + ")|"
+                        + r"(\\footnote(?:\s*"
+                        + matchmarkup + ")?" + matcharg + ")(" + matcharg
+                        + r")?(\s+" + matchmarkup + r")(\s+\\default)?")
 
 @rule ((2, 17, 6), r"""\accidentalStyle #'Context "style" -> \accidentalStyle Context.style
 \alterBroken "Context.grob" -> \alterBroken Context.grob
@@ -3472,11 +3480,7 @@ def conv (str):
                   r"\1\2.\3", str)
     str = re.sub (r'''(\\tweak\s+)#'([a-zX-Z][-A-Za-z]*)''',
                   r"\1\2", str)
-    str = re.sub ("(" + matchmarkup + ")|"
-                  + r"(\\footnote(?:\s*"
-                  + matchmarkup + ")?" + matcharg + ")(" + matcharg
-                  + r")?(\s+" + matchmarkup + r")(\s+\\default)?",
-                  patrep, str)
+    str = footnotec.sub (patrep, str)
     str = re.sub (r'''(\\alterBroken)(\s+[A-Za-z.]+)(''' + matcharg
                   + matcharg + ")", r"\1\3\2", str)
     str = re.sub (r"(\\overrideProperty\s+)(" + grob_spec + r"\s+" + grob_path + ")",
@@ -3955,7 +3959,7 @@ def conv (str):
         return re.sub (r'(#:note\s+)"(1|2|4|8|16|32|64|128|256'
                        r'|breve|longa|maxima)\s*(\.*)"',
                        repl1scm, m.group (0))
-    str = re.sub (matchmarkup, replly, str)
+    str = re.sub (matchfullmarkup, replly, str)
     str = re.sub (r"\(tuplet-number::(?:fraction-with-notes|non-default-fraction-with-notes|append-note-wrapper)\s" +
                   paren_matcher (20) + r"\)", replscm, str)
     str = re.sub (r'\(markup\s' + paren_matcher (20) + r'\)',
