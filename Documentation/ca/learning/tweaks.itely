@@ -2387,7 +2387,8 @@ Spanners): textos amb línies extensores per sobre d'una secció de
 música.  L'extensor abasta des de l'ordre@code{\startTextSpan}
 fins l'ordre @code{\stopTextSpan}, i el format del text es
 defineix per mitjà de l'ordre @code{\override TextSpanner}.  Per
-veure més detalls, consulteu@rusernamed{Text spanners,Extensions de text}.
+veure més detalls, consulteu
+@ruser{Extensions de text}.
 
 També mostra la manera de crear indicadors d'octava alta i baixa.
 

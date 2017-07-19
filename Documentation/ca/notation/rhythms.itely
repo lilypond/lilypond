@@ -185,7 +185,7 @@ Glossari musical:
 Referència de la notació:
 @ref{Barres automàtiques},
 @ref{Lligadures d'unió},
-@rusernamed{Stems,Pliques},
+@ref{Pliques},
 @ref{Escriptura de les duracions (valors rítmics)},
 @ref{Escriptura dels silencis},
 @rusernamed{Vocal music,Música vocal},
@@ -838,7 +838,7 @@ Manual de aprenentatge:
 @rlearning{Visibilitat i color dels objectes}.
 
 Referència de la notació:
-@rusernamed{Hidden notes,Notes ocultes},
+@ref{Notes ocultes},
 @rusernamed{Visibility of objects,Visibilitat dels objectes}.
 
 Fragments de codi:
@@ -1009,9 +1009,9 @@ Glossari musical:
 
 Referència de la notació:
 @ref{Duracions},
-@rusernamed{Text,Text},
-@rusernamed{Formatting text,Donar format al text},
-@rusernamed{Text scripts,Scripts de text}.
+@ref{Text},
+@ref{Donar format al text},
+@ref{Scripts de text}.
 
 Fragments de codi:
 @rlsr{Rhythms}.
@@ -1410,7 +1410,7 @@ d'ignorar les indicacions de tempo per a l'espaiat horitzontal.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {creating-metronome-marks-in-markup-mode.ly}
 
-Para veure més detalls, consulteu @rusernamed{Formatting text,Donar format al text}.
+Para veure més detalls, consulteu @ref{Donar format al text}.
 
 @seealso
 Glossari musical:
@@ -1420,7 +1420,7 @@ Glossari musical:
 @rglos{metronome mark}.
 
 Referència de la notació:
-@rusernamed{Formatting text,Donar format al text},
+@ref{Donar format al text},
 @rusernamed{Creating MIDI output,Creació de sortida MIDI}.
 
 Fragments de codi:
@@ -3458,8 +3458,8 @@ per veure una llista dels símbols que es poden imprimir amb
 @code{\musicglyph}.
 
 Per veure formes comuns d'ajustar la col·locació de les lletres
-d'assaig, consulteu @rusernamed{Formatting text,Donar format al
-text}.  Per a un control més precís, consulteu
+d'assaig, consulteu @ref{Donar format al text}.
+Per a un control més precís, consulteu
 @code{break-alignable-interface} a la secció
 @rusernamed{Aligning objects,Alineació d'objectes}.
 
@@ -3471,7 +3471,7 @@ per escriure altres funcions per donar format.
 @seealso
 Referència de la notació:
 @rusernamed{The Emmentaler font,El tipus de lletra Emmentaler},
-@rusernamed{Formatting text,Donar format al text},
+@ref{Donar format al text},
 @rusernamed{Aligning objects,Alineació d'objectes}.
 
 Fitxers d'inici:

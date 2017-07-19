@@ -546,8 +546,7 @@ forma legal per a la seva còpia, modificacions i distribució.
 @c @divClass{column-right-top}
 @divClass{color3}
 @divClass{keep-bullets}
-@subheading Perquè @@{regalen} els desenvolupadors del LilyPond la
-seva feina sense demanar res a canvi?
+@subheading Perquè @qq{regalen} els desenvolupadors del LilyPond la seva feina sense demanar res a canvi?
 
 Gairebé tots nosaltres veiem el desenvolupament del LilyPond com un
 hobby o un treball voluntari. Això doncs, la pregunta és realment
