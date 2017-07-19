@@ -191,7 +191,7 @@ R1\fermataMarkup
 @end lilypond
 
 A més d'articulacions, es poden adjuntar textos i elements de
-marcatge de les notes. Vegeu @rusernamed{Text scripts,Scripts de text}.
+marcatge de les notes. Vegeu @ref{Scripts de text}.
 
 Per veure més informació quant a l'ordenació dels elements Script
 i TextScript que s'annexen a les notes, consulteu
@@ -219,7 +219,7 @@ Manual d'aprenentatge:
 @rlearning{Col·locació dels objectes}.
 
 Referència de la notació:
-@rusernamed{Text scripts,Scripts de text},
+@ref{Scripts de text},
 @rusernamed{Direction and placement,Direcció i posició},
 @rusernamed{List of articulations,Llista d'articulacions},
 @ref{Refilets}.
@@ -558,7 +558,7 @@ moltoF = \markup { molto \dynamic f }
 En el mode de marcatge es poden crear indicacions dinàmiques
 editorials (entre parèntesis o claus).  La sintaxi del mode
 de marcatge es descriu a
-@rusernamed{Formatting text,Format del text}.
+@ref{Donar format al text}.
 
 @lilypond[verbatim,quote]
 roundF = \markup {
@@ -649,12 +649,12 @@ moltoF = \tweak DynamicText.self-alignment-X #LEFT
 
 Els ajustos per als tipus de lletra en mode de marcatge es
 descriuen a
-@rusernamed{Selecting font and font size,Selecció del tipus de lletra i la seva mida}.
+@ref{Selecció del tipus de lletra i la seva mida}.
 
 @seealso
 Referència de la notació:
-@rusernamed{Formatting text,Format del text},
-@rusernamed{Selecting font and font size,Selecció del tipus de lletra i la seva mida},
+@ref{Donar format al text},
+@ref{Selecció del tipus de lletra i la seva mida},
 @rusernamed{Enhancing MIDI output,Enriquiment de la sortida MIDI},
 @rusernamed{Controlling MIDI dynamics,Control de las dinàmiques del MIDI}.
 

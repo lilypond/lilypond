@@ -531,7 +531,7 @@ Es poden produir diverses ordres de repetició amb el mateix punt:
 
 Es pot incloure text dins de la cela de primera i segona vegada.
 El text pot ser un número o números, o un element de marcatge,
-vegeu @rusernamed{Formatting text,Format del text}.  La forma
+vegeu @ref{Donar format al text}.  La forma
 més fàcil d'usar text de marcatge és definir el marcatge
 prèviament, i després incloure'l dins d'una llista de l'Scheme.
 
@@ -552,7 +552,7 @@ voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 @seealso
 Referència de la notació:
 @ref{Barres de compàs},
-@rusernamed{Formatting text,Format del text}.
+@ref{Donar format al text}.
 
 Fragments de codi:
 @rlsr{Repeats}.
