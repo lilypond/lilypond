@@ -209,12 +209,24 @@ git config --global core.editor @var{nano}
 @end example
 
 Finally, and in some ways most importantly, let's make sure that
-we know what branch we're on.  If you're not using LilyDev, add
-this to your @file{~/.bashrc}:
+we can easily see the state of our working copy, without the need
+of typing @code{git status} repeatedly.  If you're not using
+LilyDev, add the following lines to your @file{~/.bashrc}:
 
 @verbatim
 export PS1="\u@\h \w\$(__git_ps1)$ "
+export GIT_PS1_SHOWDIRTYSTATE=true
+export GIT_PS1_SHOWUNTRACKEDFILES=true
+export GIT_PS1_SHOWUPSTREAM=auto
 @end verbatim
+
+The first line will show the branch we're on.  The other lines
+will use some symbols next to the branch name to indicate some
+kind of state. @qq{*} means that there are unstaged changes,
+@qq{+} indicates staged changes; if there are untracked files,
+a @qq{%} will appear.  Finally, we can also see if our HEAD is
+behind (@qq{<}) or ahead (@qq{>}) of its upstream, and if they
+have diverged (@qq{<>}) or they are synced (@qq{=}).
 
 You may need to install the additional @code{bash-completion}
 package, but it is definitely worth it.  After installation
