@@ -171,6 +171,7 @@ Core developer, Schemer extraordinaire
 @c use commas not colons
 
 Guido Aulisi,
+Joe Austin,
 Federico Bruni,
 Nathan Chou,
 Dan Eble,
@@ -179,6 +180,7 @@ Marc Hohl,
 Masamichi Hosoda,
 Mark Knoop,
 Tobias Kretschmar,
+Vincent Le Ligeour,
 James Lowe,
 Thomas Morley,
 Paul Morris,
@@ -187,6 +189,7 @@ Keith OHara,
 Benkő Pál,
 Knut Petersen,
 Julien Rioux,
+Ben Rudiak-Gould,
 Devon Schudy,
 Heikki Tauriainen
 
@@ -200,6 +203,7 @@ Heikki Tauriainen
 
 @c use commas not colons
 
+Jay Anderson,
 Masamichi Hosoda,
 Abraham Lee
 
@@ -214,6 +218,7 @@ Abraham Lee
 
 @c use commas not colons
 
+Simon Albrecht,
 Frédéric Bron,
 Federico Bruni,
 Colin Campbell,
@@ -286,9 +291,11 @@ Walter Garcia-Fontes,
 Tommaso Gordini,
 Erika Griechisch,
 Denes Harmath,
+Masamichi Hosoda,
 Jean-Charles Malahieude,
 Till Paala,
 Yoshiki Sawada,
+Tomohiro Tatejima,
 Paco Tomillo
 
 @c no comma for last entry
