@@ -47,12 +47,10 @@ The command is now available in markup mode, e.g.
 ;;; markup definer utilities
 
 ;; For documentation purposes
-;; category -> markup functions
-(define-public markup-functions-by-category (make-hash-table 150))
+;; markup function -> categories
+(define-public markup-function-category (make-object-property))
 ;; markup function -> used properties
-(define-public markup-functions-properties (make-weak-key-hash-table 151))
-;; List of markup list functions
-(define-public markup-list-functions (make-weak-key-hash-table 151))
+(define-public markup-function-properties (make-object-property))
 
 (use-modules (ice-9 optargs))
 
@@ -64,9 +62,9 @@ The command is now available in markup mode, e.g.
 * Define a COMMAND-markup function after command-and-args and body,
 register COMMAND-markup and its signature,
 
-* add COMMAND-markup to markup-functions-by-category,
+* add categories to markup-function-category,
 
-* sets COMMAND-markup markup-signature object property,
+* sets the markup-signature object property,
 
 * define a make-COMMAND-markup function.
 
@@ -94,7 +92,7 @@ After `argument-types', you may also specify
                                  [ #:category category ]
 where:
   `category' is either a symbol or a symbol list specifying the
-             category for this markup command in the docs.
+             categories for this markup command in the docs.
 
 As an element of the `properties' list, you may directly use a
 COMMANDx-markup symbol instead of a `(prop value)' list to indicate
@@ -129,28 +127,17 @@ command.  There is no protection against circular definitions.
                ,@real-body)))
        (set! (markup-command-signature ,command-name) (list ,@signature))
        ;; Register the new function, for markup documentation
-       ,@(map (lambda (category)
-                `(hashq-set!
-                  (or (hashq-ref markup-functions-by-category ',category)
-                      (let ((hash (make-weak-key-hash-table 151)))
-                        (hashq-set! markup-functions-by-category ',category
-                                    hash)
-                        hash))
-                  ,command-name #t))
-              (if (list? category) category (list category)))
+       (set! (markup-function-category ,command-name) ',category)
        ;; Used properties, for markup documentation
-       (hashq-set! markup-functions-properties
-                   ,command-name
-                   (list ,@(map (lambda (prop-spec)
-                                  (cond ((symbol? prop-spec)
-                                         prop-spec)
-                                        ((not (null? (cdr prop-spec)))
-                                         `(list ',(car prop-spec) ,(cadr prop-spec)))
-                                        (else
-                                         `(list ',(car prop-spec)))))
-                                (if (pair? args)
-                                    properties
-                                    (list)))))
+       (set! (markup-function-properties ,command-name)
+             (list ,@(map (lambda (prop-spec)
+                            (cond ((symbol? prop-spec)
+                                   prop-spec)
+                                  ((not (null? (cdr prop-spec)))
+                                   `(list ',(car prop-spec) ,(cadr prop-spec)))
+                                  (else
+                                   `(list ',(car prop-spec)))))
+                          properties)))
        ;; define the make-COMMAND-markup function
        (define-public (,make-markup-name . args)
          (let ((sig (list ,@signature)))
@@ -186,23 +173,18 @@ interpreted, returns a list of stencils instead of a single one"
                         (filter pair? properties))
                ,@real-body)))
        (set! (markup-command-signature ,command-name) (list ,@signature))
-       ;; add the command to markup-list-function-list, for markup documentation
-       (hashq-set! markup-list-functions ,command-name #t)
        ;; Used properties, for markup documentation
-       (hashq-set! markup-functions-properties
-                   ,command-name
-                   (list ,@(map (lambda (prop-spec)
-                                  (cond ((symbol? prop-spec)
-                                         prop-spec)
-                                        ((not (null? (cdr prop-spec)))
-                                         `(list ',(car prop-spec) ,(cadr prop-spec)))
-                                        (else
-                                         `(list ',(car prop-spec)))))
-                                (if (pair? args)
-                                    properties
-                                    (list)))))
+       (set! (markup-function-properties ,command-name)
+             (list ,@(map (lambda (prop-spec)
+                            (cond ((symbol? prop-spec)
+                                   prop-spec)
+                                  ((not (null? (cdr prop-spec)))
+                                   `(list ',(car prop-spec) ,(cadr prop-spec)))
+                                  (else
+                                   `(list ',(car prop-spec)))))
+                          properties)))
        ;; it's a markup-list command:
-       (set-object-property! ,command-name 'markup-list-command #t)
+       (set! (markup-list-function? ,command-name) #t)
        ;; define the make-COMMAND-markup-list function
        (define-public (,make-markup-name . args)
          (let ((sig (list ,@signature)))
@@ -220,29 +202,16 @@ interpreted, returns a list of stencils instead of a single one"
 ;;; ==> (#<primitive-procedure number?> #<procedure markup? (obj)>)
 ;;;
 
-(define-public (markup-command-signature-ref markup-command)
-  "Return markup-command's signature (the 'markup-signature object property)"
-  (object-property markup-command 'markup-signature))
-
-(define-public (markup-command-signature-set! markup-command signature)
-  "Set markup-command's signature (as object property)"
-  (set-object-property! markup-command 'markup-signature signature)
-  signature)
-
-(define-public markup-command-signature
-  (make-procedure-with-setter markup-command-signature-ref
-                              markup-command-signature-set!))
+(define-public markup-command-signature (make-object-property))
 
 ;;;;;;;;;;;;;;;;;;;;;;
 ;;; markup type predicates
 
 (define-public (markup-function? x)
   (and (markup-command-signature x)
-       (not (object-property x 'markup-list-command))))
+       (not (markup-list-function? x))))
 
-(define-public (markup-list-function? x)
-  (and (markup-command-signature x)
-       (object-property x 'markup-list-command)))
+(define-public markup-list-function? (make-object-property))
 
 (define-public (markup-command-list? x)
   "Determine if `x' is a markup command list, ie. a list composed of

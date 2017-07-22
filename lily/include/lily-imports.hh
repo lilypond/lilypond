@@ -87,6 +87,7 @@ namespace Lily {
   extern Variable make_span_event;
   extern Variable markup_p;
   extern Variable markup_command_signature;
+  extern Variable markup_list_function_p;
   extern Variable markup_list_p;
   extern Variable midi_program;
 #if !GUILEV2
