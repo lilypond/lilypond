@@ -104,7 +104,6 @@ Lyric_hyphen::print (SCM smob)
   for (int i = 0; i < n; i++)
     {
       Stencil m (dash_mol);
-      m = m.in_color (0.0, 0.0, 0.0);
       m.translate_axis (span_points[LEFT] + i * dash_period +
                         space_left / 2, X_AXIS);
       total.add_stencil (m);
