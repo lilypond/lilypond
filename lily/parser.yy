@@ -672,7 +672,13 @@ header_block:
 */
 assignment_id:
 	STRING
+	{
+		$$ = scm_string_to_symbol ($1);
+	}
 	| SYMBOL
+	{
+		$$ = scm_string_to_symbol ($1);
+	}
 	;
 
 assignment:
@@ -681,12 +687,12 @@ assignment:
                 $$ = SCM_UNSPECIFIED;
 	}
 	| assignment_id '.' property_path '=' identifier_init {
-		SCM path = scm_cons (scm_string_to_symbol ($1), $3);
+		SCM path = scm_cons ($1, $3);
 		parser->lexer_->set_identifier (path, $5);
                 $$ = SCM_UNSPECIFIED;
 	}
 	| assignment_id ',' property_path '=' identifier_init {
-		SCM path = scm_cons (scm_string_to_symbol ($1), $3);
+		SCM path = scm_cons ($1, $3);
 		parser->lexer_->set_identifier (path, $5);
                 $$ = SCM_UNSPECIFIED;
 	}
