@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: d1c9544af1b810d0eb4075106f9576347224a1b4
+    Translation of GIT committish: f0887364f183175facfde169447845a2390a6ed2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1006,7 +1006,7 @@ de bueno que el mío!}
 
 @divClass{testimonial-item}
 @imageFloat{orm-finnendahl,jpg, left}
-@subsubheading @uref{http://icem-www.folkwang-hochschule.de/~finnendahl/, Orm Finnendahl}, profesor de composición, Conservatorio Superior de Friburgo
+@subsubheading @uref{http://icem-www.folkwang-hochschule.de/~finnendahl/, Orm Finnendahl}, profesor de composición, Hochschule für Musik und Darstellende Kunst Frankfurt am Main
 
 @qq{Aún cuando no domino [LilyPond] todavía, estoy @strong{muy}
 impresionado.  Usé el programa para digitalizar un motete de
