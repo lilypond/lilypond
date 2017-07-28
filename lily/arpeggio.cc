@@ -189,12 +189,14 @@ Arpeggio::brew_chord_bracket (SCM smob)
                                         Interval ())
                    * Staff_symbol_referencer::staff_space (me);
 
-  Real lt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
+  Real th
+    = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"))
+      * robust_scm2double (me->get_property ("thickness"), 1);
   Real sp = 1.5 * Staff_symbol_referencer::staff_space (me);
   Real dy = heads.length () + sp;
   Real x = robust_scm2double (me->get_property ("protrusion"), 0.4);
 
-  Stencil mol (Lookup::bracket (Y_AXIS, Interval (0, dy), lt, x, lt));
+  Stencil mol (Lookup::bracket (Y_AXIS, Interval (0, dy), th, x, th));
   mol.translate_axis (heads[LEFT] - sp / 2.0, Y_AXIS);
   return mol.smobbed_copy ();
 }
@@ -209,7 +211,12 @@ Arpeggio::brew_chord_slur (SCM smob)
                                         Interval ())
                    * Staff_symbol_referencer::staff_space (me);
 
-  Real lt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
+  Real lt
+    = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"))
+      * robust_scm2double (me->get_property ("line-thickness"), 1.0);
+  Real th
+    = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"))
+      * robust_scm2double (me->get_property ("thickness"), 1.0);
   Real dy = heads.length ();
 
   Real height_limit = 1.5;
@@ -217,7 +224,7 @@ Arpeggio::brew_chord_slur (SCM smob)
   Bezier curve = slur_shape (dy, height_limit, ratio);
   curve.rotate (90.0);
 
-  Stencil mol (Lookup::slur (curve, lt, lt, dash_definition));
+  Stencil mol (Lookup::slur (curve, th, lt, dash_definition));
   mol.translate_axis (heads[LEFT], Y_AXIS);
   return mol.smobbed_copy ();
 }
@@ -251,9 +258,11 @@ ADD_INTERFACE (Arpeggio,
                /* properties */
                "arpeggio-direction "
                "dash-definition " // TODO: make apply to non-slur arpeggios
+               "line-thickness "
                "positions "
                "protrusion "
                "script-priority " // TODO: make around-note-interface
                "stems "
+               "thickness "
               );
 

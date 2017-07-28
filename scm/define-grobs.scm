@@ -172,6 +172,7 @@
      . (
         (cross-staff . ,ly:arpeggio::calc-cross-staff)
         (direction . ,LEFT)
+        (line-thickness . 1)
         (padding . 0.5)
         (positions . ,ly:arpeggio::calc-positions)
         (protrusion . 0.4)
@@ -179,6 +180,7 @@
         (side-axis . ,X)
         (staff-position . 0.0)
         (stencil . ,ly:arpeggio::print)
+        (thickness . 1)
         (X-extent . ,ly:arpeggio::width)
         (Y-extent . ,(grob::unpure-Y-extent-from-stencil ly:arpeggio::pure-height))
         (X-offset . ,ly:side-position-interface::x-aligned-side)
