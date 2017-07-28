@@ -140,8 +140,7 @@ command.  There is no protection against circular definitions.
                           properties)))
        ;; define the make-COMMAND-markup function
        (define-public (,make-markup-name . args)
-         (let ((sig (list ,@signature)))
-           (make-markup ,command-name ,(symbol->string make-markup-name) sig args))))))
+         (,make-markup ,command-name ,(symbol->string make-markup-name) args)))))
 
 (defmacro*-public define-markup-list-command
   (command-and-args signature #:key (properties '()) #:rest body)
@@ -187,9 +186,8 @@ interpreted, returns a list of stencils instead of a single one"
        (set! (markup-list-function? ,command-name) #t)
        ;; define the make-COMMAND-markup-list function
        (define-public (,make-markup-name . args)
-         (let ((sig (list ,@signature)))
-           (list (make-markup ,command-name
-                              ,(symbol->string make-markup-name) sig args)))))))
+         (list (,make-markup ,command-name
+                             ,(symbol->string make-markup-name) args))))))
 
 ;;;;;;;;;;;;;;;
 ;;; Utilities for storing and accessing markup commands signature
@@ -286,11 +284,14 @@ Uncovered - cheap-markup? is used."
 ;;
 (define-public markup? cheap-markup?)
 
-(define-public (make-markup markup-function make-name signature args)
+(define (make-markup markup-function make-name args)
   " Construct a markup object from MARKUP-FUNCTION and ARGS. Typecheck
-against SIGNATURE, reporting MAKE-NAME as the user-invoked function.
+against signature, reporting MAKE-NAME as the user-invoked function.
 "
   (let* ((arglen (length args))
+         (signature (or (markup-command-signature markup-function)
+                        (ly:error (_ "~S: Not a markup (list) function: ~S")
+                                  make-name markup-function)))
          (siglen (length signature))
          (error-msg (if (and (> siglen 0) (> arglen 0))
                         (markup-argument-list-error signature args 1)
