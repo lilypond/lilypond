@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: fabcd22c8f88ea9a87241597f1e48c0a9adbfc6e
+    Translation of GIT committish: 5fb3f8cf17ce7b57d22584429d736f188e4827d7
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -10,7 +10,7 @@
 
 @c \version "2.19.21"
 
-@c Translators: Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Yoshiki Sawada
 @c Translation status: post-GDP
 
 
@@ -32,44 +32,31 @@ LilyPond は様々な方法で他のプログラムと連携することがで�
 @section ポイント＆クリック
 @translationof Point and click
 
-ポイント＆クリックは PDF ドキュメントに音楽要素へのリンクを追加します。
-
-@menu
-* ポイント＆クリックを有効にする::
-* 選択的なポイント＆クリック::
-@end menu
-
-@node ポイント＆クリックを有効にする
-@unnumberedsubsec ポイント＆クリックを有効にする
-@translationof Enabling point and click
-
 @cindex point and click (ポイント＆クリック)
 
 ポイント＆クリックは PDF ビューアの中で表記をクリックすることで@c
 入力の中の表記を見つけ出すことを可能にします。@c
-これは楽譜の中でエラーを引き起こす入力を見つけ出すことより容易にします。
+これは楽譜の中でエラーを引き起こす入力を見つけ出すことをより容易にします。
+
+@menu
+* ポイント＆クリックのためにシステムを設定する::
+* ポイント＆クリックを有効にする::
+* 選択的なポイント＆クリック::
+@end menu
+
+
+@node ポイント＆クリックのためにシステムを設定する
+@subsection システムを設定する
+@translationof Configuring the system for point and click
 
 この機能がアクティブな場合、@c
-LilyPond は PDF ファイルにハイパーリンクを付け加えます。@c
-これらのハイパーリンクは Web ブラウザに送られ、@c
-Web ブラウザはカーソルを持つテキスト エディタを適切な位置に開きます。
+LilyPond は PDF ファイルや SVG ファイルにハイパーリンクを付け加えます。@c
+これらのハイパーリンクは @q{URI ヘルパー}や Web ブラウザに送られ、@c
+テキスト エディタを開きカーソルを適切な位置に置きます。
 
 この一連の動作を有効にするには、@c
 PDF ビューアが LilyPond で提供される @file{lilypond-invoke-editor}
 スクリプトを使ってハイパーリンクを追うように設定変更する必要があります。
-
-UNIX の Xpdf では、@c
-@file{xpdfrc}@footnote{UNIXでは、このファイルは @file{/etc/xpdfrc} か@c
-ホーム ディレクトリの中の @file{.xpdfrc} としてのどちらかです。}
-の中に以下の記述が必要です:
-
-以下の記述が @file{xpdfrc} の中に存在している必要があります。
-UNIX において、このファイルは @file{/etc/xpdfrc} の中または
-@file{$HOME/.xpdfrc} として存在します。
-
-@example
-urlCommand     "lilypond-invoke-editor %s"
-@end example
 
 プログラム @file{lilypond-invoke-editor} は小さな支援プログラムです。@c
 これは特別な @code{textedit} URI に対してエディタを呼び出し、@c
@@ -88,6 +75,7 @@ emacsclient --no-wait +@var{line}:@var{column} @var{file}
 @example
 gvim --remote +:@var{line}:norm@var{column} @var{file}
 @end example
+
 @item nedit
   このプログラムは以下を呼び出します
 @example
@@ -105,11 +93,145 @@ gvim --remote +:@var{line}:norm@var{column} @var{file}
 emacsclient --no-wait +%(line)s:%(column)s %(file)s
 @end example
 
+@menu
+* ポイント＆クリックに Xpdf を使用する::
+* ポイント＆クリックに GNOME 2 を使用する::
+* ポイント＆クリックに GNOME 3 を使用する::
+* Evince のための追加の設定::
+@end menu
+
+
+@node ポイント＆クリックに Xpdf を使用する
+@unnumberedsubsubsec Xpdf を使用する
+@translationof Using Xpdf for point and click
+
+@cindex Xpdf
+
+UNIX で Xpdf を使用するには、@file{xpdfrc} に以下の記述が存在している必要が@c
+あります。UNIX では、このファイルは @file{/etc/xpdfrc} あるいは
+@file{$HOME/.xpdfrc} として存在します。
+
+@example
+urlCommand     "lilypond-invoke-editor %s"
+@end example
+
+Ubuntu を使用している場合、システムにインストールされている Xpdf は全ての
+PDF ファイルでクラッシュを引き起こすかもしれません: この状態は数年間@c
+続いており、ライブラリの不一致が原因です。代わりに、Debian から現在の@c
+バージョンの @samp{xpdf} と対応する @samp{libpoppler} パッケージを@c
+インストールすると良いでしょう。これで動作が確認できたら、@c
+Ubuntu がクラッシュするパッケージの@q{アップデート}で上書きしないように、
+
+@example
+sudo apt-mark hold xpdf
+@end example
+
+@noindent
+を実行すると良いかもしれません。
+
+
+@node ポイント＆クリックに GNOME 2 を使用する
+@unnumberedsubsubsec GNOME 2 を使用する
+@translationof Using GNOME 2 for point and click
+
+(PDF ビューアが統合されている) GNOME 2 を使用するには、@samp{textedit:} URI
+をシステムに登録するために、以下のコマンドを実行します:
+
+@smallexample
+gconftool-2 -t string -s /desktop/gnome/url-handlers/textedit/command "lilypond-invoke-editor %s"
+gconftool-2 -s /desktop/gnome/url-handlers/textedit/needs_terminal false -t bool
+gconftool-2 -t bool -s /desktop/gnome/url-handlers/textedit/enabled true
+@end smallexample
+
+そうしたら、
+
+@example
+gnome-open textedit:///etc/issue:1:0:0
+@end example
+
+@noindent
+とすることで、ファイルを開くために @file{lilypond-invoke-editor} が実行される@c
+はずです。
+
+
+@node ポイント＆クリックに GNOME 3 を使用する
+@unnumberedsubsubsec GNOME 3 を使用する
+@translationof Using GNOME 3 for point and click
+
+GNOME 3 では、URI は @q{gconf} ではなく @q{gvfs} レイヤによって処理されます。
+@file{/tmp} などのローカル ディレクトリに、@file{lilypond-invoke-editor.desktop}
+という名前で、以下の内容を持つファイルを作成してください:
+
+@example
+[Desktop Entry]
+Version=1.0
+Name=lilypond-invoke-editor
+GenericName=Textedit URI handler
+Comment=URI handler for textedit:
+Exec=lilypond-invoke-editor %u
+Terminal=false
+Type=Application
+MimeType=x-scheme-handler/textedit;
+Categories=Editor
+NoDisplay=true
+@end example
+そして以下のコマンドを実行してください:
+@example
+xdg-desktop-menu install ./lilypond-invoke-editor.desktop
+xdg-mime default lilypond-invoke-editor.desktop x-scheme-handler/textedit
+@end example
+
+そうしたら、
+
+@example
+gnome-open textedit:///etc/issue:1:0:0
+@end example
+@noindent
+とすることで、ファイルを開くために @file{lilypond-invoke-editor} が実行される@c
+はずです。
+
+
+@node Evince のための追加の設定
+@unnumberedsubsubsec Evince のための追加の設定
+@translationof Extra configuration for Evince
+
+@cindex Evince
+
+@code{gnome-open} は動作するが、Evince が権限が無いという理由で@c
+ポイント＆クリックを拒否する場合、Evince が実行できるアクションを規定する
+Apparmor プロファイルを変更する必要があるかもしれません。
+
+Ubuntu を使用している場合、@file{/etc/apparmor.d/local/usr.bin.evince}
+を編集し、以下の行を追加します:
+
+@example
+# For Textedit links
+/usr/local/bin/lilypond-invoke-editor Cx -> sanitized_helper,
+@end example
+@noindent
+
+これらを追加したら、
+
+@example
+sudo apparmor_parser -r -T -W /etc/apparmor.d/usr.bin.evince
+@end example
+
+@noindent
+を実行することで、Evince がポイント＆クリックのリンクを開くことができるように@c
+なるはずです。他のビューアでも同じような設定が有効であるかもしれません。
+
+
+@node ポイント＆クリックを有効にする
+@unnumberedsubsec ポイント＆クリックを有効にする
+@translationof Enabling point and click
 
 @cindex file size, output (出力のファイル サイズ)
 
+ポイント＆クリックの機能は PDF あるいは SVG ファイルを生成する時に@c
+デフォルトで有効化されています。
+
 ポイント＆クリックのリンクは出力ファイルを肥大化させます。@c
-PDF ファイルと PS ファイルのサイズを小さくするには、@c
+これらのファイル (と PS ファイル) のサイズを小さくするには、@c
 @file{.ly} ファイルの中に以下を記述してポイント＆クリックを OFF にします:
 
 @example
@@ -131,13 +253,13 @@ lilypond -dno-point-and-click file.ly
 @end example
 
 @warning{配布する LilyPond ファイルでは常にポイント＆クリックを OFF にして、@c
-.pdf ファイルにあなたのコンピュータの Path 情報が含まれないようにすべきです。@c
+PDF ファイルにあなたのコンピュータの Path 情報が含まれないようにすべきです。@c
 配布する .pdf ファイルに Path 情報が含まれていると@c
 セキュリティ リスクとなります。}
 
-@c ここから L47
 @node 選択的なポイント＆クリック
 @unnumberedsubsec 選択的なポイント＆クリック
+@translationof Selective point-and-click
 
 インタラクティブなアプリケーションでは、@c
 ある特定のポイント＆クリック要素だけを含むことが望ましい場合もあります。@c
@@ -273,6 +395,7 @@ LilyPond 用のファイルタイプ プラグイン、インデント モード
 filetype off
 set runtimepath+=/usr/local/share/lilypond/current/vim/
 filetype on
+syntax on
 @end example
 
 @noindent
@@ -309,7 +432,6 @@ LilyPond 入力を作り出すツールは他にもあります。@c
 あなたが MacOS 10.3 や 10.4 を使っていて、@c
 これらのスクリプト (例えば @code{convert-ly}) を実行する際に問題が@c
 発生した場合は、@rweb{MacOS X} を参照してください。
-
 
 @knownissues
 残念なことに我々にはこれらのプログラムを維持していくだけの余力はありません。@c
@@ -356,8 +478,8 @@ MIDI を作り出せるほど正確ではありません。@c
 このため、人間の演奏で生成された MIDI ファイルを @command{midi2ly} で@c
 変換することはお勧めできません。
 
-
 @command{midi2ly} は以下のようにコマンド ラインから呼び出します:
+
 @example
 midi2ly [@var{option}]@dots{} @var{midi-file}
 @end example
@@ -410,9 +532,7 @@ Verbose モード (ログ等が詳細) で実行します。
 すべてのテキストを歌詞として扱います。
 @end table
 
-
 @knownissues
-
 アルペジオでの音符のオーバラップは正しく変換されません。@c
 最初の音符は読み込まれますが、他の音符は無視されます。@c
 すべての音符を同時に開始させ、同じ演奏にして、@c
@@ -431,8 +551,8 @@ XML の派生語です。
 @command{musicxml2ly} は Part-wise (時間軸優先ではなくパート優先の) MusicXML
 から、音符、アーティキュレーション、楽譜構造、歌詞等を抽出し、@c
 それらを @file{.ly} ファイルに記述します。@c
-
 このプログラムはコマンド ラインから以下のように呼び出します:
+
 @example
 musicxml2ly [@var{option}]@dots{} @var{xml-file}
 @end example
@@ -470,7 +590,7 @@ XML 解析に lxml.etree Python パッケージを使用します。@c
 @item -m, --midi
 MIDI ブロックを有効にします。
 
-@item -nd --no-articulation-directions
+@item -nd, --no-articulation-directions
 アーティキュレーションや強弱等の指示 (@code{^}, @code{_} あるいは @code{-})
 を変換しません。
 
@@ -500,7 +620,7 @@ Verbose モード (ログ等が詳細) で実行します。
 @subsection @code{abc2ly} を呼び出す
 @translationof Invoking @code{abc2ly}
 
-@warning{このプログラムはサポートされていません。@c
+@warning{このプログラムは現在サポートされていません。@c
 LilyPond 将来のバージョンからは削除される可能性があります。}
 
 @cindex ABC
@@ -540,7 +660,7 @@ be strict about success
 @end table
 
 LilyPond コードを ABC ソース ファイルに付け加えるための簡単な機能があります。@c
-以下のように記述した場合:
+例えば以下のように記述した場合:
 
 @example
 %%LY voices \set autoBeaming = ##f
@@ -558,9 +678,7 @@ LilyPond 出力ファイルのカレントのボイスに挿入されます。
 これは、キーワード @q{slyrics} の後に続くテキストを@c
 歌詞のカレント行に挿入します。
 
-
 @knownissues
-
 ABC の標準はあくまでも @q{標準} でしかありません。@c
 機能拡張 (例えば、多声音楽) のために、異なる書式があります。
 
@@ -579,42 +697,41 @@ ABC は行の先頭で単語と音符との同期をとりますが、@c
 @warning{このプログラムはサポートされていません。@c
 LilyPond 将来のバージョンからは削除される可能性があります。}
 
-@c not yet
+@cindex Enigma Transport Format
 @cindex ETF
 @cindex enigma
 @cindex Finale
 @cindex Coda Technology
 
-ETF (Enigma Transport Format) is a format used by Coda Music
-Technology's Finale product.  @command{etf2ly} will convert part of an ETF
-file to a ready-to-use LilyPond file.
+ETF (Enigma Transport Format) は Coda Music Technology の Finale 製品に@c
+用いられるフォーマットです。@command{etf2ly} は ETF ファイルの一部を
+使用可能な LilyPond ファイルに変換します。
 
-It is invoked from the command-line as follows.
+コマンド ラインからは以下のように呼び出します:
 
 @example
 etf2ly [@var{option}]@dots{} @var{etf-file}
 @end example
 
-Note that by @q{command-line}, we mean the command line of the
-operating system.  See @ref{Converting from other formats}, for
-more information about this.
+@q{コマンド ライン} とは、OS のコマンド ラインを意味しているということに@c
+注意してください。@c
+このことについての更なる情報は @ref{他のフォーマットから変換する}
+を参照してください。
 
-The following options are supported by @command{etf2ly}:
+@command{etf2ly} には以下のオプションがあります。
 
 @table @code
 @item -h, --help
-this help
+このヘルプを表示します。
 @item -o, --output=@var{FILE}
-set output filename to @var{FILE}
+出力先のファイル名を @var{FILE} にします。
 @item --version
-version information
+バージョン情報を表示します。
 @end table
 
-
 @knownissues
-
-The list of articulation scripts is incomplete.  Empty measures
-confuse @command{etf2ly}.  Sequences of grace notes are ended improperly.
+アーティキュレーションの一覧は未完成です。空の小節は @command{etf2ly} を@c
+混乱させます。連続する装飾音符は正しく終了しません。
 
 
 @node その他のフォーマット
@@ -636,42 +753,51 @@ LilyPond 自体は他のフォーマットを一切サポートしませんが�
 テキストと楽譜を統合する手法を示します。
 
 @menu
-* 大きな楽譜から多くの引用を行う::
-* LilyPond 出力を OpenOffice.org に挿入する::
-* LilyPond 出力を他のプログラムに挿入する::
+* LuaTex::
+* OpenOffice と LibreOffice::
+* 他のプログラム::
 @end menu
 
-@node 大きな楽譜から多くの引用を行う
-@unnumberedsubsec 大きな楽譜から多くの引用を行う
-@translationof Many quotes from a large score
 
-大きな楽譜から多くの断片を引用する必要がある場合、@c
-システムをクリップする機能を使うことができます。@c
-@c @ruser{音楽の断片を抽出する}
-@ruser{Extracting fragments of music} を参照してください。
+@node LuaTex
+@subsection LuaTex
+@translationof LuaTex
 
-@node LilyPond 出力を OpenOffice.org に挿入する
-@unnumberedsubsec LilyPond 出力を OpenOffice.org に挿入する
-@translationof Inserting LilyPond output into OpenOffice.org
+@cindex LuaTex
+@cindex lyluatex
+
+@code{lilypond-book} でも LilyPond 出力を組み込むことができますが、
+LuaTex を使用する場合、@c
+@uref{https://github.com/jperon/lyluatex/blob/master/README.en.md,lyluatex}
+と呼ばれる代替プログラムがあります。
+
+
+@node OpenOffice と LibreOffice
+@subsection OpenOffice と LibreOffice
+@translationof OpenOffice and LibreOffice
 
 @cindex OpenOffice.org
+@cindex LibreOffice.org
+@cindex OOoLilyPond
 
 @uref{http://@/ooolilypond@/.sourceforge@/.net@/,OOoLilyPond} を用いて
-LilyPond 記譜を OpenOffice.org に付け加えることができます。
+LilyPond 出力を OpenOffice.org と LibreOffice に付け加えることができます。@c
+これは OpenOffice.org のドキュメント内で LilyPond のファイルを画像に変換する
+OpenOffice.org の拡張機能です。現在は開発されていませんが、バージョン 4
+でも動作するようです。
 
 
-@node LilyPond 出力を他のプログラムに挿入する
-@unnumberedsubsec LilyPond 出力を他のプログラムに挿入する
-@translationof Inserting LilyPond output into other programs
+@node 他のプログラム
+@subsection 他のプログラム
+@translationof Other programs
 
-LilyPond 出力を他のプログラムに挿入するには、@c
+@file{PNG}, @file{EPS}, @file{PDF} を扱うことができる他のプログラムでは、@c
 @code{lilypond-book} ではなく、@code{lilypond} を使用します。@c
-それぞれの例を個々に作成してドキュメントに付け加えます。@c
-大抵のプログラムに @file{PNG}, @file{EPS}, あるいは @file{PDF} フォーマットの
-LilyPond 出力を挿入することができます。
+LilyPond 出力ファイルを 1 つずつ作成し挿入する必要があります。
+他のソースからファイルを挿入する方法について、それぞれのプログラムの@c
+ドキュメントを参照してください。
 
 LilyPond 楽譜の周りの空白を減らすには、以下のオプションを使用します:
-the following options
 
 @example
 \paper@{
@@ -683,36 +809,45 @@ the following options
   scoreTitleMarkup = ##f
 @}
 
-@{ c1 @}
+@var{ @dots{} music @dots{} }
 @end example
 
-有用な画像ファイルを作り出すには、以下のようにします:
+@noindent
+@file{EPS} ファイルを生成するには:
 
 @example
-EPS
-
 lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts myfile.ly
-
-PNG
-
-lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png myfile.ly
-
-透過 PNG
-
-lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts \
-  -dpixmap-format=pngalpha --png myfile.ly
 @end example
+
+@noindent
+@file{PNG} ファイルを生成するには:
+
+@example
+lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png myfile.ly
+@end example
+
+@noindent
+透過 @file{PNG} ファイルを生成するには:
+
+@smallexample
+lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts -dpixmap-format=pngalpha --png myfile.ly
+@end smallexample
+
+@cindex fragments, music (楽曲の断片)
+@cindex quoting, music fragments (楽曲の断片を引用する)
+@cindex music fragments, quoting (楽曲の断片を引用する)
+
+大きなスコアから多くの断片を引用したい場合、クリップ機能を用いることが@c
+できます。@ruser{音楽の断片を抽出する} を参照してください。
 
 
 @node 独立した include
 @section 独立した @code{include}
 @translationof Independent @code{include}s
 
-共有可能な大きな (そして有用な！) コードを記述している人がいます。@c
-これらのコードは独自のやり方で LilyPond を include してい場合があります。@c
-include が行われない場合、include されるファイルをダウンロードして@c
-手動でそれらを include する必要があります。
-
+出力にある効果を生み出すために、LilyPond に @code{\include} することのできる@c
+ファイルを作っているユーザがいます。以下にあるものは LilyPond に@c
+付属しているものです。@ruser{入力ファイルに取り組む} も参照してください。
 
 @menu
 * MIDI アーティキュレーション::
@@ -723,25 +858,11 @@ include が行われない場合、include されるファイルをダウンロ�
 @subsection MIDI アーティキュレーション
 @translationof MIDI articulation
 
-LilyPond は @qq{校閲} のために MIDI 出力を作り出すことができます。@c
-しかしながら MIDI に出力されるのは、強弱記号、明示的なテンポ記号、@c
-音符と演奏時間だけです。
+@cindex MIDI
+@cindex Articulate project (Articulate プロジェクト)
 
-@emph{アーティキュレーション} プロジェクトは、@c
-楽譜の情報をより多く MIDI に組み込もうとしている試みの 1 つです。@c
-音符に @q{アーティキュレーション} を加えるため、@c
-スラーの付いていない音符を縮めます。@c
-縮める長さは音符に付いているアーティキュレーション記号に基づいてが決まります:
-例えば、スタッカートは音価を半分にし、@c
-テヌートは音符を演奏時間いっぱい鳴らします。@c
-さらに、このスクリプトはトリルとターンを理解し、@c
-モルデントなど他の装飾を理解するよう拡張することができます。
-
-@example
-@uref{http://@/www@/.nicta@/.com@/.au/@/people/@/chubbp/@/articulate}
-@end example
-
-@knownissues
-
-この機能は理解できるものにしか効果を持ちません:
-(音符のプロパティの代わりの) テキスト マークアップは無視されます。
+@uref{http://www.nicta.com.au/articulate,Articulate} プロジェクトは
+LilyPond の MIDI 出力を改善しようとするものです。これは (スラーの中に無い)
+音符の長さを、アーティキュレーションに合わせて調整することによって@c
+実現されています。例えば、@q{スタッカート}は音長を半分にし、@q{テヌート}は@c
+音符いっぱいの音長にします。@ruser{Enhancing MIDI output} を参照してください。
