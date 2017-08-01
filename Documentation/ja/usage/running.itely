@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: 2429e825c154f15cda52cf8a44f12e23d9f6a1e6
+    Translation of GIT committish: 5fb3f8cf17ce7b57d22584429d736f188e4827d7
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -10,7 +10,7 @@
 
 @c \version "2.19.21"
 
-@c Translators: Masamichi Hosoda, Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Masamichi Hosoda, Yoshiki Sawada
 @c Translation status: post-GDP
 
 @node lilypond を実行する
@@ -225,7 +225,7 @@ pdfsizeopt.py --use-multivalent=no gsout.pdf final.pdf
 
 
 @item -d, --define-default=@var{var}=@var{val}
-@ref{Advanced command line options for LilyPond} を参照してください。
+@ref{LilyPond の高度なコマンド ライン オプション} を参照してください。
 
 @cindex Scheme, expression evaluation (Scheme 表記の評価)
 @cindex expression evaluation, Scheme (Scheme 表記の評価)
@@ -261,6 +261,11 @@ lilypond -e '(define-public a 42)'
 
 例: @code{lilypond -fpng @var{filename}.ly}
 
+@noindent
+@code{svg} フォーマットや @code{eps} フォーマットを出力するには
+@code{-dbackend} オプションを用います。
+@ref{LilyPond の高度なコマンド ライン オプション} を参照してください。
+
 @item -h, --help
 使用方法の要約を表示します。
 
@@ -291,7 +296,7 @@ init ファイルとして @var{file} をセットします (デフォルト: @f
 Web サーバ経由で LilyPond 譜刻を提供する時や
 LilyPond が外部ソースから送られてきたコマンドを実行する時に、@c
 @code{--dsafe} よりも自由度の高い代替手段を提供します。
-（@ref{Advanced command line options for LilyPond} を参照してください。）
+（@ref{LilyPond の高度なコマンド ライン オプション} を参照してください。）
 
 @code{--jail} オプションはコンパイル プロセスの開始直前に
 @command{lilypond} のルート ディレクトリを @var{jail} に変更します。@c
@@ -514,22 +519,22 @@ GNU LilyPond の保証責任を表示します。@c
 @item
 @tab @code{svg}
 @tab ページ毎の SVG ファイルが全ページ分作られます。@c
-LilyPond 自身の音楽グリフを除き、フォントは埋め込まれません。@c
+音楽グリフはベクタ画像に変換されますが、文字フォントは SVG ファイルには@c
+@emph{埋め込まれません}。
 そのため、テキストや歌詞の最適な描画を得るためには、@c
-SVG ビュアーにフォントが必要となります。@c
+SVG ビュアーに関連するテキストフォントが必要となります。@c
 SVG ビュアーが対応していないことがあるので、@c
-@q{フォントエイリアス} や @q{フォントリスト} を使用しないことをお勧めします。@c
+@q{フォントリスト} や @q{フォントエイリアス} を使用しないことをお勧めします。@c
 @emph{Web Open Font Format} (WOFF) ファイルを使うときには、@c
 追加の @code{svg-woff} スイッチが必要となります。
 @end multitable
 
 @noindent
 @strong{SVG バッグエンド出力の注意:}
-LilyPond のデフォルトフォント（@code{LilyPond Serif},
-@code{LilyPond Sans Serif} と @code{LilyPond Monospace}）は、@c
-まさに @emph{ローカル} フォントエイリアスです。@c
+デフォルトでは、SVG 出力には一般的な @code{font-family} の値
+@code{serif}, @code{sans-serif}, @code{monospace} が用いられます。@c
 そのため、@code{svg} バックエンドを使う場合は、@c
-ソースファイルで明示的にデフォルトフォントを設定する必要があります;
+ソースファイルで明示的に特定のデフォルトフォントを設定する必要があります;
 
 @quotation
 @verbatim
@@ -546,51 +551,51 @@ LilyPond のデフォルトフォント（@code{LilyPond Serif},
 @ruser{ドキュメント全体のフォント} も参照してください。
 
 @multitable @columnfractions .33 .16 .51
-@c 未訳
 @item @code{check-internal-types}
 @tab @code{#f}
-@tab Check every property assignment for types.
+@tab 全てのプロパティ代入について型チェックを行います。
 
 @item @code{clip-systems}
 @tab @code{#f}
-@tab Extract music fragments out of a score.  This requires that the
-@code{clip-regions} function has been defined within the @code{\layout}
-block.  See @ruser{Extracting fragments of music}.  No fragments are
-extracted though if used with the @option{-dno-print-pages} option.
+@tab 楽譜から断片を取り出します。これを使用するには、
+@code{\layout} ブロックに @code{clip-regions} 関数が定義されている必要が@c
+あります。@ruser{音楽の断片を抽出する}を参照してください。
+@option{-dno-print-pages} と一緒に用いられた場合、断片は全く出力されません。
 
 @item @code{datadir}
 @tab
-@tab Prefix for data files (read-only).
+@tab データファイル パスの接頭辞です (読み取り専用)。
 
 @item @code{debug-gc}
 @tab @code{#f}
-@tab Dump memory debugging statistics.
+@tab メモリに関するデバッグ用の統計を吐き出します。
 
 @item @code{debug-gc-assert-parsed-dead}
 @tab @code{#f}
-@tab For memory debugging: Ensure that all references to parsed objects
-are dead. This is an internal option, and is switched on automatically
-for @code{`-ddebug-gc'}.
+@tab メモリに関するデバッグ用: パースされたオブジェクトへの全ての参照が@c
+無くなっていることを保証します。これは内部オプションであり、@c
+@code{`-ddebug-gc'} によって自動的にオンになります。
 
 @item @code{debug-lexer}
 @tab @code{#f}
-@tab Debug the flex lexer.
+@tab Flex 文法解析ソフトウェアをデバッグします。
 
 @item @code{debug-page-breaking-scoring}
 @tab @code{#f}
-@tab Dump scores for many different page breaking configurations.
+@tab 多くの改ページ設定に関するスコアを吐き出します。
 
 @item @code{debug-parser}
 @tab @code{#f}
-@tab Debug the bison parser.
+@tab Bison パーサをデバッグします。
 
 @item @code{debug-property-callbacks}
 @tab @code{#f}
-@tab Debug cyclic callback chains.
+@tab コールバック循環をデバッグします。
 
 @item @code{debug-skylines}
 @tab @code{#f}
-@tab Debug skylines.
+@tab スカイライン (訳注: 行ごとのオブジェクトの最高位置と最低位置を線で@c
+表示するもの) を表示します。
 
 @item @code{delete-intermediate-files}
 @tab @code{#t}
@@ -605,15 +610,23 @@ for @code{`-ddebug-gc'}.
 @tab @code{#f}
 @tab 各ファイルのメモリと CPU 時間情報を吐き出します。
 
-@c 未訳
 @item @code{dump-signatures}
 @tab @code{#f}
-@tab Dump output signatures of each system. Used for regression testing.
+@tab システムごとに出力情報を吐き出します。回帰テストに用いられます。
+
+@item @code{embed-source-code}
+@tab @code{#f}
+@tab 出力される PDF ドキュメントに LilyPond ソースファイルを埋め込みます。
 
 @item @code{eps-box-padding}
 @tab @code{#f}
 @tab 出力される EPS の左端に与えられた数の余白を追加します
 (単位は mm です)。
+
+@item @code{font-export-dir}
+@tab @code{#f [dir]}
+@tab PostScript ファイルとしてフォントをエクスポートするディレクトリを@c
+指定します。
 
 @item @code{gs-load-fonts}
 @tab @code{#f}
@@ -622,6 +635,11 @@ for @code{`-ddebug-gc'}.
 @item @code{gs-load-lily-fonts}
 @tab @code{#f}
 @tab LilyPond のフォントだけを Ghostscript 経由で読み込みます。
+
+@item @code{gs-never-embed-fonts}
+@tab @code{#f}
+@tab Ghostscript が TrueType フォントのみを埋め込むようになり、@c
+他のフォーマットのフォントは埋め込まれません。
 
 @item @code{gui}
 @tab @code{#f}
@@ -674,10 +692,9 @@ for @code{`-ddebug-gc'}.
 @tab MIDI 出力ファイルのデフォルトのファイル拡張子を与えられた文字列に@c
 設定します。
 
-@c 未訳
 @item @code{music-strings-to-paths}
 @tab @code{#f}
-@tab Convert text strings to paths when glyphs belong to a music font.
+@tab 記譜フォントを用いるテキストをパスに変換します。
 
 @item @code{paper-size}
 @tab @code{\"a4\"}
@@ -808,16 +825,15 @@ CPU とメモリ使用を制限すべきです。
 @tab 出力ファイル名を構築する時に入力ファイルのディレクトリを使用@c
 しません。
 
-@c 未訳
 @item @code{strokeadjust}
 @tab @code{#f}
-@tab Force PostScript stroke adjustment.  This option is mostly
-relevant when a PDF is generated from PostScript output (stroke
-adjustment is usually enabled automatically for low-resolution bitmap
-devices).  Without this option, PDF previewers tend to produce widely
-inconsistent stem widths at resolutions typical for screen display.  The
-option does not noticeably affect print quality and causes large file
-size increases in PDF files.
+@tab PostScript に線幅補正 (stroke adjustment) を強制します。このオプションは@c
+普通、PDF ファイルが PostScript 出力から生成されている場合に意味があります
+(線幅補正は、低解像度のビットマップ デバイスに対して自動的に有効になります)。@c
+このオプションを指定しない場合、PDF ビューアは典型的な解像度の@c
+スクリーンにおいて、一貫性の無い符幹の幅を出力しようとします。@c
+このオプションは印刷結果の品質には目立って影響せず、PDF のファイル サイズを@c
+大きく増加させます。
 
 @item @code{svg-woff}
 @tab @code{#f}
@@ -1111,9 +1127,9 @@ test.ly:2:19: error: not a duration: 5
 * 余計な譜が表示される::
 * エラー メッセージ Unbound variable %::
 * エラー メッセージ FT_Get_Glyph_Name::
-* 警告 -- Warning staff affinities should only decrease::
-* Error message unexpected new::
-* Warning this voice needs a voiceXx or shiftXx setting::
+* 警告 staff affinities should only decrease::
+* エラー メッセージ unexpected new::
+* 警告 this voice needs a voiceXx or shiftXx setting::
 @end menu
 
 @node 楽譜がページからはみ出る
@@ -1201,12 +1217,11 @@ Scheme 形式のコメントはセミコロン (@code{;}) で始まります。
 UTF-8 エンコードで保存されていない場合、@c
 このエラー メッセージがコンソール出力やログ ファイルに表示されます。@c
 詳細は、
-@c @ruser{テキスト エンコーディング}
-@ruser{Text encoding} を参照してください。
+@ruser{テキスト エンコーディング} を参照してください。
 
 
-@node 警告 -- Warning staff affinities should only decrease
-@unnumberedsubsec 警告 -- Warning staff affinities should only decrease
+@node 警告 staff affinities should only decrease
+@unnumberedsubsec 警告 staff affinities should only decrease
 @translationof Warning staff affinities should only decrease
 
 この警告は、譜刻された出力の中に譜が無い場合に表示されます。@c
@@ -1224,15 +1239,15 @@ UTF-8 エンコードで保存されていない場合、@c
 @qq{譜ではない行のスペース} を参照してください。
 
 
-@node Error message unexpected new
-@unnumberedsubsec Error message unexpected @code{@bs{}new}
+@node エラー メッセージ unexpected new
+@unnumberedsubsec エラー メッセージ unexpected @code{@bs{}new}
+@translationof Error message unexpected new
 
-A @code{\score} block must contain a @emph{single} music expression.
-If instead it contains several @code{\new Staff},
-@code{\new StaffGroup} or similar contexts introduced with @code{\new}
-without them being enclosed in either curly brackets,
-@code{@{ @dots{} @}}, or double angle brackets, @code{<< @dots{} >>},
-like this:
+@code{\score} ブロックは @emph{1 つの} 音楽表記を含む必要があります。
+@code{\new Staff} や @code{\new StaffGroup}、その他 @code{\new} で生成される@c
+同様のコンテキストが波括弧 @code{@{ @dots{} @}} や@c
+二重の山括弧 @code{<< @dots{} >>} で囲まれずに複数存在する場合に、@c
+エラー メッセージが出力されます。以下のようにです:
 
 @example
 \score @{
@@ -1242,14 +1257,10 @@ like this:
 @}
 @end example
 
-@noindent
-the error message will be produced.
+エラーを避けるためには、全ての @code{\new} 文を波括弧あるいは二重の山括弧で@c
+囲んでください。
 
-To avoid the error, enclose all the @code{\new} statements in
-curly or double angle brackets.
-
-Using curly brackets will introduce the @code{\new} statements
-sequentially:
+波括弧は連続的に @code{\new} 文を導入します:
 
 @lilypond[quote,verbatim]
 \score {
@@ -1261,8 +1272,8 @@ sequentially:
 @end lilypond
 
 @noindent
-but more likely you should be using double angle brackets so the new
-staves are introduced in parallel, i.e. simultaneously:
+しかし、二重の山括弧を用いるべき場面の方が多いでしょう。@c
+譜は並行に (つまり、同時に) 導入されます:
 
 @lilypond[quote,verbatim]
 \score {
@@ -1273,37 +1284,34 @@ staves are introduced in parallel, i.e. simultaneously:
 }
 @end lilypond
 
-@node Warning this voice needs a voiceXx or shiftXx setting
-@unnumberedsubsec Warning this voice needs a @code{@bs{}voiceXx}
- or @code{@bs{}shiftXx} setting
+@node 警告 this voice needs a voiceXx or shiftXx setting
+@unnumberedsubsec 警告 this voice needs a @code{@bs{}voiceXx} or @code{@bs{}shiftXx} setting
+@translationof Warning this voice needs a voiceXx or shiftXx setting
 
-If notes from two different voices with stems in the same direction
-occur at the same musical moment, but the voices have no
-voice-specific shifts specified, the warning message
-@samp{warning: this voice needs a \voiceXx or \shiftXx setting} will appear
-when compiling the LilyPond file.  This warning will appear even when
-the notes have no visible stems, e.g. whole notes, if the stems for
-shorter notes at the same pitch would be in the same direction.
+2 つの異なるボイスが同じ向きの符幹を持ち、それらが同じタイミングで出現する@c
+時、ボイスにシフトが指定されていない場合に
+@samp{warning: this voice needs a \voiceXx or \shiftXx setting}
+という警告メッセージが LilyPond ファイルをコンパイルする際に出力されます。@c
+この警告は符幹が見えない場合 (例えば、全音符) にも、@c
+同じピッチにある短い方の音符の符幹が同じ向きにある場合、出力されます。
 
-Remember that the stem direction depends on the position of the
-note on the staff unless the stem direction is specified, for example
-by using @code{\voiceOne}, etc.  In this case the warning will appear
-only when the stems happen to be in the same direction, i.e. when the
-notes are in the same half of the staff.
+符幹の向きは、@code{\voiceOne} などによって指定されない限り、@c
+譜の中での音符の位置に依存します。このとき、警告は@c
+符幹が同じ向きになってしまった場合 -- つまり、複数のボイスが譜の上半分または@c
+下半分に固まってしまった場合 -- にのみ出力されます。
 
-By placing the notes in voices with stem directions and shifts
-specified, for example by using @code{\voiceOne}, etc., these warnings
-may be avoided.
+@code{\voiceOne} などを用いることによって、符幹の向きとシフトを@c
+指定したボイスで音符を配置した場合、これらの警告を回避することができます。
 
-Notes in higher numbered voices, @code{\voiceThree} etc., are
-automatically shifted to avoid clashing note columns.  This causes a
-visible shift for notes with stems, but whole notes are not visibly
-shifted unless an actual clash of the note heads occurs, or when the
-voices cross over from their natural order (when @code{\voiceThree}
-is higher than @code{\voiceOne}, etc.)
+より大きいボイス番号を持つ音符 (例えば @code{\voiceThree} など) は、@c
+音符列の衝突を避けるために自動的に移動します。符幹のある音符に対しては@c
+移動が目に見えますが、全音符は実際に符頭が衝突しない限り、あるいは@c
+ボイスが自然な順番に配置されていない場合 (例えば @code{\voiceThree} が
+@code{\voiceOne} よりも高い位置にある場合) ではない限り、@c
+移動しているように見えません。
 
 @seealso
-@rlearning{Explicitly instantiating voices},
-@rlearning{Real music example},
-@ruser{Single-staff polyphony},
-@ruser{Collision resolution}.
+@rlearning{ボイスを明示的にインスタンス化する},
+@rlearning{実際の音楽からの例},
+@ruser{単一譜の多声},
+@ruser{衝突の解決}

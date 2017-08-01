@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: c1b0482f63f881bd3f67845e5f76a3e04675ef2a
+    Translation of GIT committish: 5fb3f8cf17ce7b57d22584429d736f188e4827d7
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -10,7 +10,7 @@
 
 @c \version "2.19.22"
 
-@c Translators: Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Yoshiki Sawada
 
 @c Note: keep this node named so that `info lilypond-book' brings you here.
 @node lilypond-book
@@ -127,11 +127,11 @@ Windows や Mac OS X のコマンド ラインを用いて @code{lilypond-book} 
 lilypond-book --output=out --pdf lilybook.lytex
 @emph{lilypond-book (GNU LilyPond) @version{} }
 @emph{Reading lilybook.lytex...}
-@emph{..lots of stuff deleted..}
+@emph{@dots{}lots of stuff deleted@dots{}}
 @emph{Compiling lilybook.tex...}
 cd out
 pdflatex lilybook
-@emph{..lots of stuff deleted..}
+@emph{@dots{}lots of stuff deleted@dots{}}
 xpdf lilybook
 @emph{(@command{xpdf} をお好みの PDF ビューアに置き換えてください)}
 @end example
@@ -221,19 +221,19 @@ LilyPond をさまざまな出力フォーマットと統合する方法を説�
 @itemize
 
 @item
-@code{\lilypond@{...@}} コマンド: ここに直接短い lilypond コードを入力する@c
+@code{\lilypond@{@dots{}@}} コマンド: ここに直接短い lilypond コードを入力する@c
 ことができます
 
 @item
-@code{\begin@{lilypond@}...\end@{lilypond@}} 環境: ここに長い lilypond
+@code{\begin@{lilypond@}@dots{}\end@{lilypond@}} 環境: ここに長い lilypond
 コードを入力することができます
 
 @item
-@code{\lilypondfile@{...@}} コマンド: このコマンドで lilypond ファイルを@c
+@code{\lilypondfile@{@dots{}@}} コマンド: このコマンドで lilypond ファイルを@c
 挿入することができます
 
 @item
-@code{\musicxmlfile@{...@}} コマンド: このコマンドで MusicXML ファイルを@c
+@code{\musicxmlfile@{@dots{}@}} コマンド: このコマンドで MusicXML ファイルを@c
 挿入することができます。@c
 挿入されたファイルは @code{musicxml2ly} と @code{lilypond} で処理されます
 
@@ -355,11 +355,8 @@ kpsewhich feta20.tex
 
 @snippets
 
-@c 未訳
-@c 楽譜要素 (タイやスラー等) を～～かのように
-@c 表示することが有用な場合があります。@c
-Sometimes it is useful to display music elements (such as ties and slurs)
-as if they continued after the end of the fragment.
+楽譜要素 (タイやスラー等) を断片の後に続くかのように@c
+表示することが有用な場合があります。@c
 これは譜を改行して、残りの LilyPond 出力を抑制することで実現できます。
 
 @LaTeX{} の中で @code{\betweenLilyPondSystem} を定義して、必要な楽譜段数@c
@@ -415,9 +412,9 @@ as if they continued after the end of the fragment.
 
 @example
 \onlyFirstNSystems@{3@}
-\begin@{lilypond@}...\end@{lilypond@}
+\begin@{lilypond@}@dots{}\end@{lilypond@}
 \onlyFirstNSystems@{1@}
-\begin@{lilypond@}...\end@{lilypond@}
+\begin@{lilypond@}@dots{}\end@{lilypond@}
 @end example
 
 
@@ -442,19 +439,19 @@ Texinfo ドキュメントの例の 1 つはこのマニュアルです。@c
 @itemize
 
 @item
-@code{@@lilypond@{...@}} コマンド: ここに直接短い lilypond コードを@c
+@code{@@lilypond@{@dots{}@}} コマンド: ここに直接短い lilypond コードを@c
 入力することができます
 
 @item
-@code{@@lilypond...@@end lilypond} 環境: ここに長い lilypond
+@code{@@lilypond@dots{}@@end lilypond} 環境: ここに長い lilypond
 コードを入力することができます
 
 @item
-@code{@@lilypondfile@{...@}} コマンド: このコマンドで lilypond
+@code{@@lilypondfile@{@dots{}@}} コマンド: このコマンドで lilypond
 ファイルを挿入することができます
 
 @item
-@code{@@musicxmlfile@{...@}} コマンド: このコマンドで MusicXML ファイルを@c
+@code{@@musicxmlfile@{@dots{}@}} コマンド: このコマンドで MusicXML ファイルを@c
 挿入することができます。@c
 挿入されたファイルは @code{musicxml2ly} と @code{lilypond} で処理されます
 
@@ -508,7 +505,7 @@ c' d' e' f' g'2 g'
 
 @lilypond[fragment,staffsize=11]{<c' e' g'>}
 
-@LaTeX{} とは対照的に、@code{@@lilypond@{...@}} はインライン画像を@c
+@LaTeX{} とは対照的に、@code{@@lilypond@{@dots{}@}} はインライン画像を@c
 生成しません。@c
 生成される画像は常に 1 つの段落を構成します。
 
@@ -523,19 +520,19 @@ c' d' e' f' g'2 g'
 @itemize
 
 @item
-@code{<lilypond ... />} コマンド: ここに直接短い lilypond コードを入力する@c
+@code{<lilypond @dots{} />} コマンド: ここに直接短い lilypond コードを入力する@c
 ことができます
 
 @item
-@code{<lilyond>...</lilypond>} 環境: ここに長い lilypond
+@code{<lilyond>@dots{}</lilypond>} 環境: ここに長い lilypond
 コードを入力することができます
 
 @item
-@code{<lilypondfile>...</lilypondfile>} コマンド: このコマンドで
+@code{<lilypondfile>@dots{}</lilypondfile>} コマンド: このコマンドで
 lilypond ファイルを挿入することができます
 
 @item
-@code{<musicxmlfile>...</musicxmlfile>} コマンド: このコマンドで
+@code{<musicxmlfile>@dots{}</musicxmlfile>} コマンド: このコマンドで
 MusicXML ファイルを挿入することができます。@c
 挿入されたファイルは @code{musicxml2ly} と @code{lilypond} で処理されます
 
@@ -570,7 +567,7 @@ MusicXML ファイルを挿入することができます。@c
 \key c \minor c4 es g2
 @end lilypond
 
-インライン画像を得るには、@code{<lilypond ... />} を使います。@c
+インライン画像を得るには、@code{<lilypond @dots{} />} を使います。@c
 以下のように、コロン @code{:} でオプションと楽譜コードを区切ります:
 
 @example
@@ -581,7 +578,7 @@ HTML ファイルとは別に記述した lilypond ファイルを組み込む�
 以下のようにします:
 
 @example
-<lilypondfile @var{option1} @var{option2} ...>@var{filename}</lilypondfile>
+<lilypondfile @var{option1} @var{option2} @dots{}>@var{filename}</lilypondfile>
 @end example
 
 @code{<musicxmlfile>} は @code{<lilypondfile>} と同じ構文を使い、@c
@@ -947,6 +944,20 @@ ps2pdf yourfile.ps
 @command{latex} を 2 列モードで実行するのであれば、忘れずに
 @command{dvips} のオプションに @option{-t landscape} を付け加えてください。
 
+以下のような環境:
+
+@example
+\begin@{lilypond@} @dots{} \end@{lilypond@}
+@end example
+
+@noindent
+は @LaTeX{} では解釈されません。代わりに、@code{lilypond-book} がこれらの@c
+@q{環境}を専用ファイルに抽出し、LilyPond を呼び出します。そして出力結果の@c
+画像を用いて @code{\begin@{lilypond@}}@dots{}@code{\end@{lilypond@}} マクロが@c
+@q{画像のインクルード}コマンドに置き換えられた @file{.tex} ファイルを@c
+生成します。@LaTeX{} はこの時に実行します (@code{\linewidth} などの計算を@c
+行うために @LaTeX{} はその前に@q{空の}ドキュメントで実行されているのですが)。
+
 @knownissues
 @code{\pageBreak} コマンドは @code{\begin@{lilypond@} @dots{}
 \end@{lilypond@}} 環境の中では機能しません。
@@ -1042,24 +1053,24 @@ lilypond-book --filter='convert-ly --from=2.0.0 -' my-book.tely
 @example
 lilypond-book --output=out yourfile.lytex
 cd out
-...
+@dots{}
 @end example
 
-@itemx --skip-lily-check
+@item --skip-lily-check
 lilypond 出力が見つからなくても処理を終了しません。@c
 画像を持たない LilyPond Info ドキュメントを作成するために使います。
 
-@itemx --skip-png-check
+@item --skip-png-check
 EPS ファイルを作成するための PNG 画像が見つからなくても処理を終了しません。@c
 画像を持たない LilyPond Info ドキュメントを作成するために使います。
 
-@itemx --lily-output-dir=@var{dir}
+@item --lily-output-dir=@var{dir}
 lily-XXX ファイルをディレクトリ @var{dir} に書き出し、@option{--output}
 ディレクトリにリンクさせます。@c
 このオプションは別々のディレクトリの中にあり、多くの楽譜断片を共有する@c
 ドキュメントをビルドする時間を節約するために使います。
 
-@itemx --lily-loglevel=@var{loglevel}
+@item --lily-loglevel=@var{loglevel}
 呼び出された @command{lilypond} の出力の饒舌さを @var{loglevel} にセット@c
 します。@c
 取り得る値は @code{NONE}, @code{ERROR}, @code{WARNING},
@@ -1068,15 +1079,16 @@ lily-XXX ファイルをディレクトリ @var{dir} に書き出し、@option{-
 このオプションを使わなかった場合、環境変数 @code{LILYPOND_LOGLEVEL}
 がセットされ、その値が loglevel として使われます。
 
-@itemx --info-images-dir=@var{dir}
+
+@item --info-images-dir=@var{dir}
 Texinfo 出力をフォーマットして、Info が @var{dir} の中にある楽譜画像を@c
 探すようにします。
 
-@itemx --latex-program=@var{prog}
+@item --latex-program=@var{prog}
 @command{latex} の代わりに実行可能な @command{prog} を実行します。@c
 これは、例えばドキュメントを @command{xelatex} で処理する場合に有用です。
 
-@itemx --left-padding=@var{amount}
+@item --left-padding=@var{amount}
 EPS ボックスのパディングを指定します。@c
 @var{amount} の単位はミリメートルで、デフォルト値は 3.0 です。@c
 このオプションは楽譜が右マージンに食い込む場合に使います。
