@@ -1226,7 +1226,7 @@ LilyPond がクラッシュする可能性さえあります。
 @translationof Formatting cue notes
 
 @cindex cue notes (合図音符)
-@cindex fragments (楽譜の一部分)
+@cindex fragments (楽曲の断片)
 @cindex cue notes, formatting (合図音符をフォーマットする)
 @cindex formatting, cue notes (合図音符をフォーマットする)
 @cindex voices, quoting(ボイスを引用する)
