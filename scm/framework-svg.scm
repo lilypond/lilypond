@@ -197,3 +197,11 @@ src: url('~a');
                                   (map paper-system-stencil
                                        (reverse to-dump-systems)))
                   (format #f "~a.preview.svg" basename))))
+
+(define (output-crop-framework basename book scopes fields)
+  (let* ((paper (ly:paper-book-paper book))
+         (systems (relevant-book-systems book))
+         (page-stencils (stack-stencils Y DOWN 0.0
+                                        (map paper-system-stencil
+                                             (reverse (reverse systems))))))
+    (dump-preview paper page-stencils (format #f "~a.cropped.svg" basename))))

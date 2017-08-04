@@ -866,6 +866,22 @@ mark {ly~a_stream} /CLOSE pdfmark
                         #t
                         )))
 
+(define-public (output-crop-framework basename book scopes fields)
+  (let* ((paper (ly:paper-book-paper book))
+         (systems (relevant-book-systems book)))
+    (dump-stencil-as-EPS paper
+                         (stack-stencils Y DOWN 0.0
+                                         (map paper-system-stencil
+                                              (reverse (reverse systems))))
+                         (format #f "~a.cropped" basename)
+                         #t)
+    (postprocess-output book framework-ps-module
+                        (cons "png" (ly:output-formats))
+                        (format #f "~a.cropped" basename)
+                        (format #f "~a.cropped.eps" basename)
+                        #t
+                        )))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define (output-width-height defs)
