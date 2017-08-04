@@ -62,6 +62,10 @@ which scares away people.
 @end ignore
 
 @item
+An argument, @code{-dcrop}, has been added, formatting @code{SVG} and
+@code{PDF} output without margins or page-breaks.
+
+@item
 It is now possible to move systems with reference to their current
 position using the @code{extra-offset} subproperty of
 @code{NonMusicalPaperColumn.line-break-system-details}.  Both vertical

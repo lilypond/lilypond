@@ -505,6 +505,10 @@ in case an SVG viewer is unable to handle them.  When using
 block.  See @ruser{Extracting fragments of music}.  No fragments are
 extracted though if used with the @option{-dno-print-pages} option.
 
+@item @code{crop}
+@tab @code{#f}
+@tab Match the size of the normal output to the typeset image.
+
 @item @code{datadir}
 @tab
 @tab Prefix for data files (read-only).
@@ -672,7 +676,7 @@ To suppress the usual output, use the @option{-dprint-pages} or
 @item @code{print-pages}
 @tab @code{#t}
 @tab Generate full pages, the default.  @option{-dno-print-pages} is
-useful in combination with @option{-dpreview}.
+useful in combination with @option{-dpreview} or @option{-dcrop}.
 
 @item @code{profile-property-accesses}
 @tab @code{#f}
