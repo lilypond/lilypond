@@ -122,12 +122,18 @@ as an engraver for convenience."
 
 #(define (format-note engraver event)
    (let* ((origin (ly:input-file-line-char-column
-                   (ly:event-property event 'origin))))
+                   (ly:event-property event 'origin)))
+          (drum-type (ly:event-property event 'drum-type))
+          (pitch (ly:event-property event 'pitch)))
      (print-line engraver
-                 "note"
-                 ;; get a MIDI pitch value.
-                 (+ 60 (ly:pitch-semitones
-                        (ly:event-property event 'pitch)))
+                 (if (ly:pitch? pitch)
+                     "note"
+                     "type")
+                 (if (ly:pitch? pitch)
+                     ;; get a MIDI pitch value.
+                     (+ 60 (ly:pitch-semitones
+                            (ly:event-property event 'pitch)))
+                     drum-type)
                  (ly:duration->string
                   (ly:event-property event 'duration))
                  (format-moment (ly:duration-length
@@ -206,23 +212,30 @@ as an engraver for convenience."
 %%%% are notified about all notes and rests. We don't create any grobs or
 %%%% change any settings.
 
+#(define event-listener-engraver
+  (make-engraver
+    (listeners
+     (tempo-change-event . format-tempo)
+     (rest-event . format-rest)
+     (note-event . format-note) ;; works for notes and drum notes
+     (articulation-event . format-articulation)
+     (text-script-event . format-text)
+     (slur-event . format-slur)
+     (breathing-event . format-breathe)
+     (dynamic-event . format-dynamic)
+     (crescendo-event . format-cresc)
+     (decrescendo-event . format-decresc)
+     (text-span-event . format-textspan)
+     (glissando-event . format-glissando)
+     (tie-event . format-tie))))
+
 \layout {
   \context {
-  \Voice
-  \consists #(make-engraver
-              (listeners
-               (tempo-change-event . format-tempo)
-               (rest-event . format-rest)
-               (note-event . format-note)
-               (articulation-event . format-articulation)
-               (text-script-event . format-text)
-               (slur-event . format-slur)
-               (breathing-event . format-breathe)
-               (dynamic-event . format-dynamic)
-               (crescendo-event . format-cresc)
-               (decrescendo-event . format-decresc)
-               (text-span-event . format-textspan)
-               (glissando-event . format-glissando)
-               (tie-event . format-tie)))
+    \Voice
+    \consists #event-listener-engraver
+  }
+  \context {
+    \DrumVoice
+    \consists #event-listener-engraver
   }
 }
