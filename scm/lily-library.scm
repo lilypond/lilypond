@@ -47,6 +47,10 @@
 (define-safe-public THREE-Q-SHARP 3/4)
 (define-safe-public DOUBLE-SHARP 1)
 (define-safe-public SEMI-TONE 1/2)
+(define-safe-public FIVE-HALF-FLAT -5/2)
+(define-safe-public SEVEN-HALF-FLAT -7/2)
+(define-safe-public FIVE-HALF-SHARP 5/2)
+(define-safe-public SEVEN-HALF-SHARP 7/2)
 
 (define-safe-public INFINITY-INT 1000000)
 
