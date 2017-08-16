@@ -149,7 +149,7 @@ if test "$URWOTF_DIR" = "" -o "$MISSING_URWOTF_FILES" != ""; then
     if test "$FCLIST" = ""; then
       STEPMAKE_ADD_ENTRY(OPTIONAL,'(install the fc-list utility from FontConfig, or use --with-urwotf-dir)')
     else
-      STEPMAKE_ADD_ENTRY(OPTIONAL,"(download OTF files from 'http://git.ghostscript.com/?p=urw-core35-fonts.git;a=tree;hb=1f28a6fcd2176256a995db907d9ffe6e1b9b83e9' and put them under '~/.local/share/fonts' etc., or use --with-urwotf-dir)")
+      STEPMAKE_ADD_ENTRY(OPTIONAL,"(download OTF files from 'http://git.ghostscript.com/?p=urw-core35-fonts.git;a=tree;hb=91edd6ece36e84a1c6d63a1cf63a1a6d84bd443a' and put them under '~/.local/share/fonts' etc., or use --with-urwotf-dir)")
     fi
   else
     STEPMAKE_ADD_ENTRY(OPTIONAL,'(these files are missing: $MISSING_URWOTF_FILES)')
