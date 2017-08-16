@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: 76ee88f5adfc7bcd8eff487543e3605e43a93d80
+    Translation of GIT committish: 9bb7fa99aa8bc7c14a45a42224545c726bb6c592
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -25,7 +25,7 @@ Tutorial guidelines:  (different from policy.txt!)
 @end ignore
 
 
-@c Translators: Masamichi Hosoda, Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Masamichi Hosoda, Yoshiki Sawada
 @c Translation status: post-GDP
 
 
@@ -1379,8 +1379,7 @@ cello = \new Staff {
 @end lilypond
 
 @noindent
-変数の名前に使えるのはアルファベットだけであり、数字、アンダスコア、ダッシュを@c
-使うことはできません。
+慣習的に、変数の名前にはアルファベットのみを用います。
 
 変数はメインの音楽表記の @emph{前} に定義されていなければなりません。@c
 しかしながら定義後は必要とされる場所で何度でも使用できます。@c
@@ -1398,10 +1397,11 @@ barA = { \tripletA \tripletA \tripletA \tripletA }
 使用できます。
 例えば以下のようにです:
 
+@c KEEP LY
 @example
-width = 4.5\cm
-name = "Wendy"
-aFivePaper = \paper @{ paperheight = 21.0 \cm @}
+myWidth = 60      % \paper 変数に渡す数字 (単位は mm)
+myName = "Wendy"  % マークアップに渡す文字列
+aFivePaper = \paper @{ #(set-paper-size "a5") @}
 @end example
 
 変数の内容次第では、変数は他の場所で使用することができます。@c
@@ -1410,11 +1410,11 @@ aFivePaper = \paper @{ paperheight = 21.0 \cm @}
 @example
 \paper @{
   \aFivePaper
-  line-width = \width
+  line-width = \myWidth
 @}
 
 @{
-  c4^\name
+  c4^\myName
 @}
 @end example
 

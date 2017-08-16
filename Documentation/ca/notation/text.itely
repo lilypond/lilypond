@@ -1,0 +1,1622 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+@ignore
+    Translation of GIT committish: 18d03fa6a724b0102ccc47d194209802cea02f2e
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.19.21"
+
+@c Translators: Walter Garcia-Fontes
+@c Translation checkers:
+
+@node Text
+@section Text
+@translationof Text
+
+@lilypondfile[quote]{text-headword.ly}
+
+Aquesta secció explica com incloure text (amb diversos estils de
+format) a les partitures.
+
+@noindent
+Certs elements de text dels que no ens ocupem aquí es presenten a
+d'altres secciones específiques:
+@rusernamed{Vocal music,Música vocal},
+@rusernamed{Titles and headers,Títols i encapçalaments}.
+
+@menu
+* Escriptura del text::
+* Donar format al text::
+* Tipus de lletra::
+@end menu
+
+@node Escriptura del text
+@subsection Escriptura del text
+@translationof Writing text
+
+Aquesta secció presenta les diferents formes d'afegir text a una
+partitura.
+
+@cindex text, en altres llengües
+@warning{Per escriure text amb caràcters accentuats i especials
+(com a les llengües diferents a l'anglès), senzillament inseriu
+els caràcters directament al fitxer del LilyPond.  El fitxer s'ha
+de desar com a UTF-8.  Per veure més informació, consulteu
+@rusernamed{Text encoding,Codificació del text}.}
+
+@menu
+* Scripts de text::
+* Extensions de text::
+* Indicacions de text::
+* Text separat::
+@end menu
+
+
+@node Scripts de text
+@unnumberedsubsubsec Scripts de text
+@translationof Text scripts
+
+@cindex text, inscripcions de
+@cindex text, elements no buits de
+@cindex no buits, textos
+@cindex text destacat
+
+És possible afegir indicacions de @qq{text entre cometes} a una
+partitura, com es mostra a l'exemple següent.  Aquestes
+indicacions es poden col·locar manualment per sobre o per sota del
+pentagrama, utilitzant la sintaxi que es descriu a
+@rusernamed{Direction and placement,Direcció i posició}.
+
+@lilypond[quote,verbatim]
+\relative { a'8^"pizz." g f e a4-"scherz." f }
+@end lilypond
+
+Aquesta sintaxi és en realitat una abreviatura; es pot afegir
+explícitament a una nota un format de text més complex utilitzant
+un bloc @code{\markup}, como es descriu a
+@ref{Donar format al text}.
+
+@lilypond[quote,verbatim]
+\relative {
+  a'8^\markup { \italic pizz. } g f e
+  a4_\markup { \tiny scherz. \bold molto } f }
+@end lilypond
+
+De format predeterminada, les indicacions de text no afecten a
+l'espaiat de les notes.  Malgrat això, la seva amplada es podria
+tenir en compte: a l'exemple següent, la primera cadena de text no
+afecta l'espaiat, però la segon sí afecta.
+
+@lilypond[quote,verbatim]
+\relative {
+  a'8^"pizz." g f e
+  \textLengthOn
+  a4_"scherzando" f
+}
+@end lilypond
+
+Es poden adjuntar articulacions a les notes, a més d'inscripcions
+de text.  Per veure més informació, consulteu
+@ref{Articulacions i ornaments}.
+
+Per veure més informació sobre l'ordre relatiu de les inscripcions
+de text i les articulacions, consulteu
+@rlearning{Col·locació dels objectes}.
+
+@funindex \textLengthOn
+@funindex \textLengthOff
+
+@predefined
+@code{\textLengthOn},
+@code{\textLengthOff}.
+@endpredefined
+
+@seealso
+Manual de aprenentatge:
+@rlearning{Col·locació dels objectes}.
+
+Referència de la notació:
+@ref{Donar format al text},
+@rusernamed{Direction and placement,Direcció i posició},
+@ref{Articulacions i ornaments}.
+
+Fragments de codi:
+@rlsr{Text}.
+
+Referència de funcionament intern:
+@rinternals{TextScript}.
+
+
+@cindex text fora del marge
+@cindex marge, text fora del
+@cindex text, mantenir dins del marge
+@cindex lletra, mantenir dins del marge
+
+@knownissues
+La comprovació necessària per assegurar que les inscripcions de
+text i la lletra de les cançons es mantenen dins dels marges,
+requereix de càlculs addicionals.  En cas que desitgeu un procés
+lleugerament més ràpid, podeu utilitzar
+
+@example
+\override Score.PaperColumn.keep-inside-line = ##f
+@end example
+
+
+@node Extensions de text
+@unnumberedsubsubsec Extensions de text
+@translationof Text spanners
+
+@cindex text, elements d'extensió
+
+Certes indicacions d'execució, per exemple @i{rallentando} o
+@i{accelerando}, s'escriuen com a text i s'estenen sobre molts
+compassos mitjançant línies de punts. Aquests objectes, que reben
+el nom de @q{spanners} o objectes d'extensió, es poden crear des
+d'una nota fins una altra usant la sintaxi següent:
+
+@lilypond[verbatim,quote]
+\relative {
+  \override TextSpanner.bound-details.left.text = "rit."
+  b'1\startTextSpan
+  e,\stopTextSpan
+}
+@end lilypond
+
+@cindex text, format dels elements d'extensió
+@cindex format dels elements d'extensió de text
+
+@noindent
+La cadena de text que imprimeix s'estableix a través de propietats
+d'objecte.  De forma predeterminada s'imprimeix en estil cursiva,
+però es poden aconseguir diferents efectes de format utilitzant blocs
+@code{\markup}, com es descriue a
+@ref{Donar format al text}.
+
+@lilypond[quote,verbatim]
+\relative {
+  \override TextSpanner.bound-details.left.text =
+    \markup { \upright "rit." }
+  b'1\startTextSpan c
+  e,\stopTextSpan
+}
+@end lilypond
+
+L'estil de la línia, així com la cadena de text, es definir com
+una propietat d'objecte.  Aquest sintaxi es descriu a
+@rusernamed{Line styles,Estils de línia}.
+
+@funindex \textSpannerUp
+@funindex \textSpannerDown
+@funindex \textSpannerNeutral
+
+
+@predefined
+@code{\textSpannerUp},
+@code{\textSpannerDown},
+@code{\textSpannerNeutral}.
+@endpredefined
+
+@knownissues
+El LilyPond sols pot utilitzar un objecte d'extensió de text per
+cada veu.
+
+@snippets
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{dynamics-text-spanner-postfix.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{dynamics-custom-text-spanner-postfix.ly}
+
+@seealso
+Referència de la notació:
+@rusernamed{Line styles,Estils de línia},
+@ref{Matisos dinàmics},
+@ref{Donar format al text}.
+
+Fragments de codi:
+@rlsr{Text},
+@rlsr{Expressive marks}.
+
+Referència de funcionament interno:
+@rinternals{TextSpanner}.
+
+
+@node Indicacions de text
+@unnumberedsubsubsec Indicacions de text
+@translationof Text marks
+
+@cindex text, indicacions de
+@cindex indicacions de text
+@cindex text sobre la barra de compàs
+@cindex coda sobre la línia divisòria
+@cindex segno sobre la línia divisòria
+@cindex calderó sobre la línia divisòria
+@cindex línies divisòries, símbols sobre les
+
+@funindex \mark
+@funindex \markup
+
+Es poden afegir a la partitura diversos elements de text amb la
+sintaxi que es descriue a @ref{Marques d'assaig}.
+
+@c \mark needs to be placed on a separate line (it's not
+@c attached to an object like \markup is). -vv
+
+@lilypond[verbatim,quote]
+\relative {
+  \mark "Verse"
+  c'2 g'
+  \bar "||"
+  \mark "Chorus"
+  g2 c,
+  \bar "|."
+}
+@end lilypond
+
+Aquesta sintaxi possibilitat col·locar qualsevol text sobre la
+línia divisòria; es poden incorporar formats complexos per al text
+usant un bloc @code{\markup}, como està explicat a
+@ref{Donar format al text}:
+
+@lilypond[quote,verbatim]
+\relative {
+  <c' e>1
+  \mark \markup { \italic { colla parte } }
+  <d f>2 <e g>
+  <c f aes>1
+}
+@end lilypond
+
+@noindent
+Aquest sintaxi també permet imprimir símbols especials com crides,
+segno o calderons, especificant el nom del símbol corresponent com
+s'explica a
+@ref{Notació musical dins d'elements de marcatge}:
+
+@lilypond[quote,verbatim]
+\relative {
+  <bes' f>2 <aes d>
+  \mark \markup { \musicglyph #"scripts.ufermata" }
+  <e g>1
+}
+@end lilypond
+
+@noindent
+Aquests objectes es graven sols sobre el pentagrama superior de la
+partitura; depenent de si estan especificats al final o al mig
+d'un compàs, es col·locaran sobre la línia divisòria o entre les
+notes.  Si s'especifiquen a un salt de línia, les crides
+s'imprimeixen al principi de la línia següent.
+
+@lilypond[quote,verbatim,ragged-right]
+\relative c'' {
+  \mark "Allegro"
+  c1 c
+  \mark "assai" \break
+  c  c
+}
+@end lilypond
+
+@funindex \markLengthOn
+@funindex \markLengthOff
+
+@predefined
+@code{\markLengthOn},
+@code{\markLengthOff}.
+@endpredefined
+
+@snippets
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{printing-marks-at-the-end-of-a-line.ly}
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{printing-marks-on-every-staff.ly}
+
+@seealso
+Referència de la notació:
+@ref{Marques d'assaig},
+@ref{Donar format al text},
+@ref{Notació musical dins d'elements de marcatge},
+@ref{The Emmentaler font,El tipus de lletra Emmentaler}.
+
+Fragments de codi:
+@rlsr{Text}.
+
+Referència de funcionament intern:
+@rinternals{MarkEvent},
+@rinternals{Mark_engraver},
+@rinternals{RehearsalMark}.
+
+
+@node Text separat
+@unnumberedsubsubsec Text separat
+@translationof Separate text
+
+@cindex separat, text
+@cindex text separat
+@cindex independent, text
+@cindex nivell superior, text del
+@cindex text del nivell superior
+@cindex text independent
+
+@funindex \markup
+
+Un bloc @code{\markup} pot existir de forma independent, fora de
+qualsevol bloc @code{\score}, como una @qq{expressió de nivell
+superior}.  Aquesta sintaxi es descriu a
+@rusernamed{File structure,Estructura del fitxer}.
+
+@lilypond[verbatim,quote]
+\markup {
+  Tomorrow, and tomorrow, and tomorrow...
+}
+@end lilypond
+
+@noindent
+Això fa possible imprimir text separat de la música, cosa que és
+especialment útil quan el fitxer d'entrada conté diverses peces,
+tal i com es descriu a
+@rusernamed{Multiple scores in a book,Diverses partitures en un llibre}.
+
+@lilypond[quote,verbatim]
+\score {
+  c'1
+}
+\markup {
+  Tomorrow, and tomorrow, and tomorrow...
+}
+\score {
+  c'1
+}
+@end lilypond
+
+Els blocs de text independent poden abastar diverses pàgines,
+possibilitat la impressió de document o text o llibres íntegrament
+des del LilyPond.  Aquesta funcionalitat i la sintaxi que
+requereix es descriuen a
+@ref{Elements de marcatge de diverses pàgines}.
+
+
+@funindex \markup
+@funindex \markuplist
+
+@predefined
+@code{\markup},
+@code{\markuplist}.
+@endpredefined
+
+
+@snippets
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{stand-alone-two-column-markup.ly}
+
+@seealso
+Referència de la notació:
+@ref{Donar format al text},
+@rusernamed{File structure,Estructura del fitxer},
+@rusernamed{Multiple scores in a book,Diverses partitures en un llibre},
+@ref{Elements de marcatge de diverses pàgines}.
+
+Fragments de codi:
+@rlsr{Text}.
+
+Referència de funcionament intern:
+@rinternals{TextScript}.
+
+
+@node Donar format al text
+@subsection Donar format al text
+@translationof Formatting text
+
+Aquesta secció presenta els formats bàsics i avançats de text,
+usant la sintaxi específica del modo de @code{\markup}.
+
+@menu
+* Introducció al marcatge de text::
+* Selecció del tipus de lletra i la seva mida::
+* Alineació de text::
+* Notació gràfica dins d'elements de marcatge::
+* Notació musical dins d'elements de marcatge::
+* Elements de marcatge de diverses pàgines::
+@end menu
+
+@node Introducció al marcatge de text
+@unnumberedsubsubsec Introducció al marcatge de text
+@translationof Text markup introduction
+
+@cindex marcatge
+@cindex text, marcatge de
+@cindex marcatge de text
+@cindex gravació de text
+
+@funindex \markup
+
+S'usa un bloc @code{\markup} per gravar text amb una sintaxi
+ampliable que es denomina @qq{modo de marcatge}.
+
+@cindex marcatge, expressions de
+@cindex expressions de marcatge
+@cindex marcatge, sintaxi
+@cindex sintaxi del marcatge
+
+La sintaxi del marcatge és semblant a la sintaxi usual del
+LilyPond: una expressió @code{\markup} s'envolta entre claus
+@code{@{ @dots{} @}}.  Una sola paraula es considera com una
+expressió mínima, i per tant no li cal estar envoltada entre
+claus.
+
+A diferència de les indicacions de @qq{text entre cometes}
+simples, els blocs @code{\markup} poden contenir expressions
+niuades o ordres de marcatge, que s'introdueixen utilitzant el
+caràcter de barra invertida @code{\} . Aquestes ordres sols
+afecten a l'expressió que segueix immediatament.
+
+@lilypond[quote,verbatim]
+\relative {
+  a'1-\markup intenso
+  a2^\markup { poco \italic più forte  }
+  c e1
+  d2_\markup { \italic "string. assai" }
+  e
+  b1^\markup { \bold { molto \italic  agitato } }
+  c
+}
+@end lilypond
+
+@cindex caràcters especials en mode de marcatge
+@cindex marcatge, caràcters especials en mode de
+@cindex reservats, impressió de caràcters
+@cindex impressió de caràcters especials
+@cindex text entre cometes en mode de marcatge
+
+Un bloc @code{\markup} pot contenir també cadenes de text entre
+cometes.  Aquestes cadenes es tracten com a expressions de text
+mínimes, i per tant qualsevol ordre de marcatge o caràcter
+especial (com @code{\} i@tie{}@code{#}) s'imprimeixen literalment
+sense afectar el fomat del text.  Es poden fer que s'imprimeixin
+les pròpies cometes si se les anteposa una barra invertida.
+
+@lilypond[quote,verbatim]
+\relative {
+  a'1^"\italic markup..."
+  a_\markup { \italic "... imprimeix lletres \"cursives\" !" }
+  a a
+}
+@end lilypond
+
+Perquè es tractin com a una expressió diferent, cal que les
+llistes de paraules estiguin envoltades entre cometes o precedides
+d'una ordre.  La forma en la qual estan definides les expressions
+de marcatge afecta com es sobreposen, se centren i s'alineen
+aquestes expressions; a l'exemple següent, la segona expressió
+@code{\markup} es tracta igual que la primera:
+
+@lilypond[quote,verbatim]
+\relative c'' {
+  c1^\markup { \center-column { a bbb c } }
+  c1^\markup { \center-column { a { bbb c } } }
+  c1^\markup { \center-column { a \line { bbb c } } }
+  c1^\markup { \center-column { a "bbb c" } }
+}
+@end lilypond
+
+Els marcatges es poden emmagatzemar dins de variables.  Aquests
+variables es poden adjuntar directament a les notes:
+
+@lilypond[quote,verbatim]
+allegro = \markup { \bold \large Allegro }
+
+{
+  d''8.^\allegro
+  d'16 d'4 r2
+}
+@end lilypond
+
+
+@noindent
+Es pot trobar una llista exhaustiva de les ordres específiques
+@code{\markup} a @rusernamed{Text markup commands,Ordres de marcatge de text}.
+
+@seealso
+Referència de la notació:
+@rusernamed{Text markup commands,Ordres de marcatge de text}.
+
+Fragments de codi:
+@rlsr{Text}.
+
+Fitxers d'inici:
+@file{scm/markup.scm}.
+
+@knownissues
+Els missatges d'error de sintaxi per al mode de marcatge sovint
+produeixen confusió.
+
+@node Selecció del tipus de lletra i la seva mida
+@unnumberedsubsubsec Selecció del tipus de lletra i la seva mida
+@translationof Selecting font and font size
+
+@cindex tipus de lletra, canviar
+@cindex canvi del tipus de lletra
+
+@funindex \italic
+@funindex \bold
+@funindex \underline
+
+Es pot canviar de forma bàsica el tipus de lletra al mode de marcatge:
+
+@lilypond[quote,verbatim]
+\relative {
+  d''1^\markup {
+    \bold { Più mosso }
+    \italic { non troppo \underline Vivo }
+  }
+  r2 r4 r8
+  d,_\markup { \italic quasi \smallCaps Tromba }
+  f1 d2 r
+}
+@end lilypond
+
+@cindex tipus de lletra, mida de
+@cindex text, mida de
+
+@funindex \abs-fontsize
+@funindex \fontsize
+@funindex \smaller
+@funindex \larger
+@funindex \magnify
+
+La mida del tipus de lletra es pot alterar en relació a la mida
+global del pentagrama de diverses maneres, com es veu a continuació.
+
+Es pot fixar a una mida predefinida:
+
+@lilypond[quote,verbatim]
+\relative b' {
+  b1_\markup { \huge Sinfonia }
+  b1^\markup { \teeny da }
+  b1-\markup { \normalsize camera }
+}
+@end lilypond
+
+Es pot establir a un amida relativa a la mida anterior:
+
+@lilypond[quote,verbatim]
+\relative b' {
+  b1_\markup { \larger Sinfonia }
+  b1^\markup { \smaller da }
+  b1-\markup { \magnify #0.6  camera }
+}
+@end lilypond
+
+Es pot augmentar o disminuir de forma relativa al valor fixat per
+la mida global del pentagrama:
+
+@lilypond[quote,verbatim]
+\relative b' {
+  b1_\markup { \fontsize #-2 Sinfonia }
+  b1^\markup { \fontsize #1 da }
+  b1-\markup { \fontsize #3 camera }
+}
+@end lilypond
+
+També es pot establir a una mida de punts fix, independentment de
+la mida global del pentagrama:
+
+@lilypond[quote,verbatim]
+\relative b' {
+  b1_\markup { \abs-fontsize #20 Sinfonia }
+  b1^\markup { \abs-fontsize #8 da }
+  b1-\markup { \abs-fontsize #14 camera }
+}
+@end lilypond
+
+Si el text inclou espais, és millor escriure tot entre cometes, de
+forma que la mida de cada espai sigui correcte per a la mida dels
+altres caràcters.
+
+@lilypond[quote,verbatim]
+\markup \fontsize #6 \bold { Sinfonia da camera }
+\markup \fontsize #6 \bold { "Sinfonia da camera" }
+@end lilypond
+
+@cindex subíndex
+@cindex superíndex
+
+@funindex \super
+@funindex \sub
+@funindex \normal-size-super
+
+El text es pot imprimir com subíndex o com superíndex.  De forma
+predeterminada s'imprimeix en una mida menor, però també es pot
+usar una mida normal:
+
+@lilypond[quote,verbatim]
+\markup {
+  \column {
+    \line { 1 \super st movement }
+    \line { 1 \normal-size-super st movement
+      \sub { (part two) }  }
+  }
+}
+@end lilypond
+
+@cindex tipus de lletra, famílies de
+
+El mode de marcatge ofereix una manera fàcil d'escollir famílies
+de tipus de lletra alternatives.  A no ser que s'especifiqui d'un
+altre mode, se selecciona automàticament el tipus de lletra
+predeterminada amb serifa, de tipus romà: en l'última línia de
+l'exemple següent, no hi ha diferència entre la primera i la
+segona paraula.
+
+@lilypond[quote,verbatim]
+\markup {
+  \column {
+    \line { Act \number 1 }
+    \line { \sans { Scene I. } }
+    \line { \typewriter { Verona. An open place. } }
+    \line { Enter \roman Valentine and Proteus. }
+  }
+}
+@end lilypond
+
+@noindent
+Algunes d'aquestes famílies, usades per elements específics com
+números o matisos, no ofereixen tots els caràcters, com s'explica a
+@ref{Indicacions dinàmiques contemporànies} i
+@ref{Marques de repetició manual}.
+
+@c \concat is actually documented in Align (it is not
+@c a font-switching command).  But we need it here. -vv
+
+Si s'usen dins d'una paraula, algunes instruccions de canvi de
+tipus de lletra o de format poden produir un espai buit no
+desitjat. Això es pot solucionar concatenant a un de sol els
+diferents elements de text:
+
+@lilypond[quote,verbatim]
+\markup {
+  \column {
+    \line {
+      \concat { 1 \super st }
+      movement
+    }
+    \line {
+      \concat { \dynamic p , }
+      \italic { con dolce espressione }
+    }
+  }
+}
+@end lilypond
+
+Es pot trobar una llista exhaustiva d'ordres de canvi i
+utilització personalitzada dels tipus de lletres a
+@ref{Tipus de lletra}.
+
+També es possible definir conjunts personalitzats de tipus de
+lletra, tal i com s'explica a @ref{Explicació dels tipus de lletra}.
+
+@funindex \teeny
+@funindex \tiny
+@funindex \small
+@funindex \normalsize
+@funindex \large
+@funindex \huge
+@funindex \smaller
+@funindex \larger
+
+
+@predefined
+@code{\teeny},
+@code{\tiny},
+@code{\small},
+@code{\normalsize},
+@code{\large},
+@code{\huge},
+@code{\smaller},
+@code{\larger}.
+@endpredefined
+
+@seealso
+Referència de la notació:
+@ref{Tipus de lletra},
+@ref{Indicacions dinàmiques contemporànies},
+@ref{Marques de repetició manual},
+@ref{Tipus de lletra}.
+
+Fitxers d'inici:
+@file{scm/define-markup-commands.scm}.
+
+Fragments de codi:
+@rlsr{Text}.
+
+Referència de funcionament intern:
+@rinternals{TextScript}.
+
+@knownissues
+La utilització de les ordres de mida de text
+@code{\teeny}, @code{\tiny}, @code{\small}, @code{\normalsize},
+@code{\large} i @code{\huge} condueixen a un espaiat de les línies
+inconsistent comparat amb l'ús de  @code{\fontsize}.
+
+@node Alineació de text
+@unnumberedsubsubsec Alineació de text
+@translationof Text alignment
+
+@cindex text, alineació de
+@cindex alinear text
+@cindex alinear text de marcatge
+@cindex alinear elements de marcatge
+@cindex marcatge, elements, alinear
+@cindex marcatge, text, alinear
+
+Aquesta subsecció tracta sobre com col·locar text al mode de
+marcatge.  Els objecte de marcatge també es poden moure com un
+tot, usant la sintaxi que es descriu a
+@rlearning{Moviment d'objectes}.
+
+@c Padding commands should be mentioned on this page, but
+@c most of these require \box to be more clearly illustrated. -vv
+
+@cindex text, alineació horitzontal
+@cindex horitzontal, alineació de text
+
+@funindex \left-align
+@funindex \center-align
+@funindex \right-align
+
+Els objectes de marcatge es poden alinear de diferents maneres.
+De forma predeterminada, una indicació de text s'alinea sobre la
+vora esquerra: a l'exemple següent, no hi ha diferència entre els
+marcatges primer i segon.
+
+@lilypond[quote,verbatim]
+\relative {
+  d''1-\markup { poco }
+  f
+  d-\markup { \left-align poco }
+  f
+  d-\markup { \center-align { poco } }
+  f
+  d-\markup { \right-align poco }
+}
+@end lilypond
+
+@funindex \halign
+
+Es pot realitzar un ajust fi de l'alineació horitzontal usant un
+valor numèric:
+
+@lilypond[quote,verbatim]
+\relative {
+  a'1-\markup { \halign #-1 poco }
+  e'
+  a,-\markup { \halign #0 poco }
+  e'
+  a,-\markup { \halign #0.5 poco }
+  e'
+  a,-\markup { \halign #2 poco }
+}
+@end lilypond
+
+@noindent
+Certs objectes poden posseir els seus propis procediments
+d'alineació, i per tant no resulten afectats per aquestes ordres.
+És possible moure aquests objectes de marcatge com un tot, com es
+mostra per exemple a @ref{Indicacions de text}.
+
+@cindex text, alineació vertical
+@cindex vertical, alineació de text
+
+@funindex \raise
+@funindex \lower
+@funindex \null
+
+L'alineació vertical és una mica més complexa.  Com s'ha dit més a
+dalt, els objectes de marcatge es poden moure com un tot;
+tanmateix, també és possible moure element específics dins d'un
+bloc de marcatge.  En aquest cas, l'element a moure s'ha de
+precedir d'un @emph{punt d'ancoratge}, que pot ser un altre
+element de marcatge o un objecte invisible.  L'exemple següent
+exemplifica aquestes dues possibilitats; l'últim marcatge en
+aquest exemple no té punt d'ancoratge i per això no resulta
+mogut.
+
+@lilypond[quote,verbatim]
+\relative {
+  d'2^\markup {
+    Acte I
+    \raise #2 { Scène 1 }
+  }
+  a'
+  g_\markup {
+    \null
+    \lower #4 \bold { Très modéré }
+  }
+  a
+  d,^\markup {
+    \raise #4 \italic { Une forêt. }
+  }
+  a'4 a g2 a
+}
+@end lilypond
+
+@funindex \general-align
+@funindex \translate
+@funindex \translate-scaled
+
+Algunes ordres poden afectar tant a l'alineació horitzontal com a
+la vertical dels objectes de text en el mode de marcatge.
+Qualsevol objecte afectat per aquestes instruccions s'han de
+precedir d'un punt d'ancoratge:
+
+@lilypond[quote,verbatim]
+\relative {
+  d'2^\markup {
+    Acte I
+    \translate #'(-1 . 2) "Scène 1"
+  }
+  a'
+  g_\markup {
+    \null
+    \general-align #Y #3.2 \bold "Très modéré"
+  }
+  a
+  d,^\markup {
+    \null
+    \translate-scaled #'(-1 . 2) \teeny "Une forêt."
+  }
+  a'4 a g2 a
+}
+@end lilypond
+
+@cindex diverses línies, marcatge
+@cindex marcatge de diverses línies
+@cindex diverses línies, text
+@cindex text de diverses línies
+@cindex text en columnes
+@cindex columnes, text
+
+@funindex \column
+@funindex \center-column
+
+Un objecte de marcatge pot incloure diverses línies de text.  A
+l'exemple següent, cada element o expressió se situa a la seva
+pròpia línia, ja sigui alineada per l'esquerra o centrada:
+
+@lilypond[quote,verbatim]
+\markup {
+  \column {
+    a
+    "b c"
+    \line { d e f }
+  }
+  \hspace #10
+  \center-column {
+    a
+    "b c"
+    \line { d e f }
+  }
+}
+@end lilypond
+
+@cindex centrar el text a la pàgina
+@cindex text, centrar a la pàgina
+@cindex marcatge, centrar a la pàgina
+
+@funindex \fill-line
+
+De forma semblant, una llesta d'elements o expressions es pot
+repartir de forma que ompli per complet l'amplada de la línia
+horitzontal (si hi ha un sol element, se centra al paper).  Al seu
+cop, aquestes expressions poden incloure text de diverses línies o
+qualsevol altre expressió de marcatge:
+
+@lilypond[quote,verbatim]
+\markup {
+  \fill-line {
+    \line { William S. Gilbert }
+    \center-column {
+      \huge \smallCaps "The Mikado"
+      or
+      \smallCaps "The Town of Titipu"
+    }
+    \line { Sir Arthur Sullivan }
+  }
+}
+\markup {
+  \fill-line { 1885 }
+}
+@end lilypond
+
+@cindex text ajustat a paraules
+@cindex text justificat
+@cindex justificat, text
+@cindex ajustat a paraules, text
+@cindex marcatge, text, ajustat a paraules
+@cindex text de marcatge ajustat a paraules
+@cindex ajust de línia, text amb
+
+@funindex \wordwrap
+@funindex \justify
+
+Les indicacions de text llargues es poden també ajustar
+automàticament segons una amplada de línia donada.  Estaran
+alineades per l'esquerra o justificades, com es mostra a l'exemple
+següent:
+
+@lilypond[quote,verbatim]
+\markup {
+  \column {
+    \line  \smallCaps { La vida breve }
+    \line \bold { Acto I }
+    \wordwrap \italic {
+      (La escena representa el corral de una casa de
+      gitanos en el Albaicín de Granada.  Al fondo una
+      puerta por la que se ve el negro interior de
+      una Fragua, iluminado por los rojos resplandores
+      del fuego.)
+    }
+    \hspace #0
+
+    \line \bold { Acto II }
+    \override #'(line-width . 50)
+    \justify \italic {
+      (Calle de Granada.  Fachada de la casa de Carmela
+      y su hermano Manuel con grandes ventanas abiertas
+      a través de las que se ve el patio
+      donde se celebra una alegre fiesta)
+    }
+  }
+}
+@end lilypond
+
+@cindex text, instruccions de alineació
+@cindex marcatge, text, instruccions de alineació
+@cindex alineació, instruccions de text
+
+Hi ha una llista exhaustiva d'ordres d'alineació de text a
+@ref{Align}.
+
+@seealso
+Manual d'aprenentage:
+@rlearning{Moviment d'objectes}.
+
+Referència de la notació:
+@ref{Align},
+@ref{Indicacions de text}.
+
+Fitxers d'inici:
+@file{scm/define-markup-commands.scm}.
+
+Fragments de codi:
+@rlsr{Text}.
+
+Referència de funcionament intern:
+@rinternals{TextScript}.
+
+
+@node Notació gràfica dins d'elements de marcatge
+@unnumberedsubsubsec Notació gràfica dins d'elements de marcatge
+@translationof Graphic notation inside markup
+
+@cindex gràfics, inserir
+@cindex dibuixar objectes gràfics
+@cindex gràfics, dibuixar objectes
+@cindex inserir objectes gràfics
+@cindex gràfics, inserir objectes
+
+Es poden afegir diversos objectes gràfics a una partitura,
+utilitzant ordres de marcatge.
+
+@cindex emmarcar text
+@cindex text, emmarcar
+@cindex text, decorar
+@cindex marcatge, text, decorar
+@cindex marcatge, text, emmarcar
+@cindex decorar text
+
+@funindex \box
+@funindex \circle
+@funindex \rounded-box
+@funindex \bracket
+@funindex \hbracket
+
+Certes ordres de marcatge permeten la decoració d'elements de text
+amb gràfics, com es mostra a l'exemple següent.
+
+@lilypond[quote,verbatim]
+\markup \fill-line {
+  \center-column {
+    \circle Jack
+    \box "in the box"
+    \null
+    \line {
+      Erik Satie
+      \hspace #3
+      \bracket "1866 - 1925"
+    }
+    \null
+    \rounded-box \bold Prelude
+  }
+}
+@end lilypond
+
+@cindex farciment al voltant de text
+@cindex text, farciment de
+@cindex marcatge, farciment de textos de
+
+@funindex \pad-markup
+@funindex \pad-x
+@funindex \pad-to-box
+@funindex \pad-around
+
+Algunes poden requerir un augment del farciment al voltant del
+text: això es pot aconseguir amb algunes instruccions de marcatge
+descrites exhaustivament a @ref{Align}.
+
+@lilypond[quote,verbatim]
+\markup \fill-line {
+  \center-column {
+    \box "Charles Ives (1874 - 1954)"
+    \null
+    \box \pad-markup #2 "THE UNANSWERED QUESTION"
+    \box \pad-x #8 "A Cosmic Landscape"
+    \null
+  }
+}
+\markup \column {
+  \line {
+    \hspace #10
+    \box \pad-to-box #'(-5 . 20) #'(0 . 5)
+      \bold "Largo to Presto"
+  }
+  \pad-around #3
+      "String quartet keeps very even time,
+Flute quartet keeps very uneven time."
+}
+@end lilypond
+
+@cindex gràfica, notació
+@cindex símbols no musicals
+@cindex no musicals, símbols
+@cindex notació gràfica
+
+@funindex \combine
+@funindex \draw-circle
+@funindex \filled-box
+@funindex \triangle
+@funindex \draw-line
+@funindex \arrow-head
+
+Es poden imprimir altres símbols o elements gràfics sense que es
+requereixi cap altre text.  De igual manera que al cas de les
+expressions de marcatge, aquests objectes es poden combinar:
+
+@lilypond[quote,verbatim]
+\markup {
+  \combine
+    \draw-circle #4 #0.4 ##f
+    \filled-box #'(-4 . 4) #'(-0.5 . 0.5) #1
+  \hspace #5
+
+  \center-column {
+    \triangle ##t
+    \combine
+      \draw-line #'(0 . 4)
+      \arrow-head #Y #DOWN ##f
+  }
+}
+@end lilypond
+
+@cindex inserir gràfics
+@cindex imatges, inserir
+@cindex gràfics, inserir
+@cindex PostScript
+
+@funindex \epsfile
+@funindex \postscript
+
+Entre les funcionalitats gràfiques avançades es troben la
+possibilitat d'incloure fitxers d'imatge externs convertits als
+format PosScript Encapsulat (@emph{eps}), i la inclusió directa de
+gràfics dins del fitxer d'entrada, usant codi PostScript nadiu.
+En tal cas pot ser d'utilitat l'especificació explícita de la mida
+del dibuix, com s'exemplifica a continuació:
+
+@lilypond[quote,verbatim,fragment]
+c'1^\markup {
+  \combine
+    \epsfile #X #10 #"./context-example.eps"
+    \with-dimensions #'(0 . 6) #'(0 . 10)
+    \postscript #"
+      -2 3 translate
+      2.7 2 scale
+      newpath
+      2 -1 moveto
+      4 -2 4 1 1 arct
+      4 2 3 3 1 arct
+      0 4 0 3 1 arct
+      0 0 1 -1 1 arct
+      closepath
+      stroke"
+  }
+c'
+@end lilypond
+
+Hi una llista exhaustiva d'ordres específiques de gràfics a
+@ref{Graphic}.
+
+@seealso
+Referència de la notació:
+@ref{Align},
+@ref{Dimensions},
+@ref{Anotacions editorials},
+@ref{Graphic}.
+
+Fitxers d'inici:
+@file{scm/define-markup-commands.scm},
+@file{scm/stencil.scm}.
+
+Fragments de codi:
+@rlsr{Text}.
+
+Referència de funcionament intern:
+@rinternals{TextScript}.
+
+
+@node Notació musical dins d'elements de marcatge
+@unnumberedsubsubsec Notació musical dins d'elements de marcatge
+@translationof Music notation inside markup
+
+@cindex notació dins de marcatge
+@cindex música dins de marcatge
+@cindex marcatge, notació musical dins de
+
+Es poden afegir a la partitura diversos elements de notació
+musical, dins d'una objecte de marcatge.
+
+Les notes i les alteracions es poden escriure utilitzant ordres de
+marcatge:
+
+@lilypond[quote,verbatim,fragment]
+a'2 a'^\markup {
+  \note #"4" #1
+  =
+  \note-by-number #1 #1 #1.5
+}
+b'1_\markup {
+  \natural \semiflat \flat
+  \sesquiflat \doubleflat
+}
+\glissando
+a'1_\markup {
+  \natural \semisharp \sharp
+  \sesquisharp \doublesharp
+}
+\glissando b'
+@end lilypond
+
+Altres objectes de notació es poden també imprimir al mode de marcatge:
+
+@lilypond[quote,verbatim]
+\relative {
+  g1 bes
+  ees\finger \markup \tied-lyric #"4~1"
+  fis_\markup { \dynamic rf }
+  bes^\markup {
+    \beam #8 #0.1 #0.5
+  }
+  cis
+  d-\markup {
+    \markalphabet #8
+    \markletter #8
+  }
+}
+@end lilypond
+
+De forma més general, qualsevol símbol musical disponible es pot
+incloure per separat dins d'un objecte de marcatge, com
+s'exemplifica a continuació; hi ha una llista exhaustiva d'aquests
+símbols i els seus noms a
+@rusernamed{The Emmentaler font,El tipus de lletra Emmentaler}.
+
+@lilypond[quote,verbatim]
+\relative {
+  c''2
+  c'^\markup { \musicglyph #"eight" }
+  c,4
+  c,8._\markup { \musicglyph #"clefs.G_change" }
+  c16
+  c2^\markup { \musicglyph #"timesig.neomensural94" }
+}
+@end lilypond
+
+Una altra forma d'imprimir glifs que no són de text es troba
+descrita a @ref{Explicació dels tipus de lletra}.  Serveix per
+imprimir claus de diferents mides.
+
+El mode de marcatge també contempla diagrames per a instruments
+específics:
+
+@lilypond[quote,verbatim]
+\relative {
+  c''1^\markup {
+    \fret-diagram-terse #"x;x;o;2;3;2;"
+  }
+  c^\markup {
+    \harp-pedal #"^-v|--ov^"
+  }
+  c
+  c^\markup {
+    \combine
+      \musicglyph #"accordion.discant"
+      \combine
+	\raise #0.5 \musicglyph #"accordion.dot"
+	\raise #1.5 \musicglyph #"accordion.dot"
+  }
+}
+@end lilypond
+
+@c The accordion diagram is actually taken from a snippet.
+
+@noindent
+Aquests diagrames es troben documentats a
+@ref{Instrument Specific Markup}.
+
+
+@cindex partitura, a dins de marcatge
+@cindex marcatge, partitura dins de
+
+Es pot incloure fins i tot una partitura completa dins d'un
+objecte de marcatge.  En tal cas, el bloc niuat @code{\score} ha
+de contenir un bloc @code{\layout}, com es mostra aquí:
+
+@lilypond[quote,verbatim]
+\relative {
+  c'4 d^\markup {
+    \score {
+      \relative { c'4 d e f }
+      \layout { }
+    }
+  }
+  e f |
+  c d e f
+}
+@end lilypond
+
+Hi ha una llista exhaustiva d'ordres relacionades amb la notació
+musical a @ref{Music}.
+
+@seealso
+Referència de la notació:
+@ref{Music},
+@rusernamed{The Emmentaler font,El tipus de lletra Emmentaler},
+@ref{Explicació dels tipus de lletra}.
+
+Fitxers d'inici:
+@file{scm/define-markup-commands.scm},
+@file{scm/fret-diagrams.scm},
+@file{scm/harp-pedals.scm}.
+
+Fragments de codi:
+@rlsr{Text}.
+
+Referència de funcionament intern:
+@rinternals{TextScript}.
+
+
+@node Elements de marcatge de diverses pàgines
+@unnumberedsubsubsec Elements de marcatge de diverses pàgines
+@translationof Multi-page markup
+
+@cindex pàgines, marcatge de diverses
+@cindex marcatge de diverses pàgines
+@cindex marcatge, text de, diverses pàgines
+@cindex text que ocupa diverses pàgines
+
+@funindex \markuplist
+@funindex \justified-lines
+@funindex \wordwrap-lines
+
+Tot i que els objectes de marcatge estàndard no es poden dividir,
+una sintaxi específica fa possible la introducció de línies de
+text que poden abastar diverses pàgines:
+
+@c KEEP LY
+@lilypond[quote,verbatim]
+\markuplist {
+  \justified-lines {
+    Un text molt llarg de línies justificades.
+    ...
+  }
+  \wordwrap-lines {
+    Un altre paràgraf molt llarg.
+    ...
+  }
+  ...
+}
+@end lilypond
+
+Aquesta sintaxi accepta una llista d'elements de marcatge, que
+poden ser
+@itemize
+@item
+el resultat d'una ordre de llista de marcatge,
+@item
+una llista de marcatges,
+@item
+o una llista de llistes de marcatge.
+@end itemize
+
+Hi una llista exhaustiva de les ordres de llista de marcage a
+@rusernamed{Text markup list commands,Ordres de llistes de marcatge de text}.
+
+@seealso
+Referència de la notació:
+@rusernamed{Text markup list commands,Ordres de llistes de marcatge de text}.
+
+Fitxers d'inici:
+@file{scm/define-markup-commands.scm}.
+
+Manual de extensió:
+@rextendnamed{New markup list command definition,Definició de noves ordres de llista de marcatge}.
+
+Fragments de codi:
+@rlsr{Text}.
+
+Referència de funcionament intern:
+@rinternals{TextScript}.
+
+@funindex \markuplist
+
+@predefined
+@code{\markuplist}.
+@endpredefined
+
+
+@node Tipus de lletra
+@subsection Tipus de lletra
+@translationof Fonts
+
+Aquesta secció presenta la forma en la qual es gestionen els
+tipus de lletra, i com es poden canviar a les partitures.
+
+@menu
+* Explicació dels tipus de lletra::
+* Tipus de lletra d'un sol element::
+* Tipus de lletra del document complet::
+@end menu
+
+
+@node Explicació dels tipus de lletra
+@unnumberedsubsubsec Explicació dels tipus de lletra
+@translationof Fonts explained
+
+@cindex Pango
+@cindex tipus de lletra, explicació
+@cindex claus de diverses mides
+@cindex tipus de lletra, explicació
+@cindex claus de diverses mides
+@cindex tipus de lletra de símbols en marcatge
+@cindex símbols, tipus de lletra al marcatge
+
+@funindex font-interface
+
+Els tipus de lletra es gestionen mitjançant diverses
+biblioteques.  FontConfig s'utilitza per detectar els tipus de
+lletra disponibles al sistema; els tipus de lletra seleccionats es
+dibuixen fent servir Pango.
+
+Els tipus de lletra de notació musical es poden descriure com un
+conjunt de glifs específics, ordenats en diverses famílies.  La
+sintaxi següent permet usar directament diversos glifs del tipus
+de lletra @code{Feta} del LilyPond diferents a les de text en el
+mode de marcatge:
+
+@lilypond[quote,verbatim,fragment]
+a'1^\markup {
+  \vcenter {
+    \override #'(font-encoding . fetaBraces)
+    \lookup #"brace120"
+    \override #'(font-encoding . fetaText)
+    \column { 1 3 sf }
+    \override #'(font-encoding . fetaMusic)
+    \lookup #"noteheads.s0petrucci"
+  }
+}
+@end lilypond
+
+@noindent
+Tanmateix, tots aquests glifs excepte les claus de diverses mides
+que estan contingudes al tipus de lletra @code{fetaBraces} estan
+disponibles utilitzant la sintaxi més senzilla que es descriu a
+@ref{Notació musical dins d'elements de marcatge}.
+
+Quan s'usen els glifs del tipus de lletra de claus
+@code{fetaBraces}, la mida de la clau s'especifica per la part
+numèrica del nom del glif, en unitats arbitràries.  Es pot
+especificar qualsevol enter de @code{0} a @code{575} inclusiu,
+sent @code{0} el que produeix la clau més petita.  El valor òptim
+s'ha de determinar per prova i error.  Tots aquests glifs són
+claus esquerra; les claus dreta es poden obtenir mitjançant
+rotació, vegeu
+@rusernamed{Rotating objects,Rotació d'objectes}.
+
+Estan disponibles tres famílies de tipus de lletra per al text:
+@itemize
+@item
+El tipus de lletra @emph{roman} (serif), que de forma
+predeterminada és LilyPond Serif (un àlies de TeX Gyre Schola).
+@item
+El tipus de lletra @emph{sans}, que de formam predeterminada és
+LilyPond Sans Serif (un àlies de TeX Gyre Heros).
+@item
+El tipus de lletra @emph{typewriter} mecanogràfica (monoespaiada),
+que de forma predeterminada és LilyPond Monospace (un àlies de TeX
+Gyre Cursor).
+@end itemize
+
+Cada família pot incloure diferents formes i sèries.  El següent
+exemple mostra la possibilitat de seleccionar famílies, formes,
+sèries i mides alternatius.  El valor que es dóna a
+@code{font-size} és el canvi requerit a partir de la mida
+predeterminada.
+
+@lilypond[quote,verbatim,fragment]
+\override Score.RehearsalMark.font-family = #'typewriter
+\mark \markup "Ouverture"
+\override Voice.TextScript.font-shape = #'italic
+\override Voice.TextScript.font-series = #'bold
+d''2.^\markup "Allegro"
+\override Voice.TextScript.font-size = #-3
+c''4^smaller
+@end lilypond
+
+@noindent
+Es pot usar una sintaxi semblant el mode de marcatge, tot i que en
+aquest cas és preferible usar la sintaxi senzilla que s'explica a
+@ref{Selecció del tipus de lletra i la seva mida}.
+
+@lilypond[quote,verbatim]
+\markup {
+  \column {
+    \line {
+      \override #'(font-shape . italic)
+      \override #'(font-size . 4)
+      Idomeneo,
+    }
+    \line {
+      \override #'(font-family . typewriter)
+      {
+        \override #'(font-series . bold)
+        re
+        di
+      }
+      \override #'(font-family . sans)
+      Creta
+    }
+  }
+}
+@end lilypond
+
+Tot i que és fàcil canviar entre els tipus de lletra
+preconfigurats, també és possible usar altres tipus de lletra, com
+s'explica a les seccions següents:
+@ref{Tipus de lletra d'un sol element} i
+@ref{Tipus de lletra del document complet}.
+
+@seealso
+Referència de la notació:
+@rusernamed{The Emmentaler font,El tipus de lletra Emmentaler},
+@ref{Notació musical dins d'elements de marcatge},
+@rusernamed{Rotating objects,Rotació d'objectes},
+@ref{Selecció del tipus de lletra i la seva mida},
+@ref{Font}.
+
+
+@node Tipus de lletra d'un sol element
+@unnumberedsubsubsec Tipus de lletra d'un sol element
+@translationof Single entry fonts
+
+Es pot usar a una partitura qualsevol tipus de lletra que estigui
+instal·lada al sistema operatiu i reconeguda per part de
+FontConfig, usant la sintaxi següent:
+
+@lilypond[quote,verbatim,fragment]
+\override Staff.TimeSignature.font-name = #"Bitstream Charter"
+\override Staff.TimeSignature.font-size = #2
+\time 3/4
+
+a'1_\markup {
+  \override #'(font-name . "Bitstream Vera Sans,sans-serif, Oblique Bold")
+    { Vera Oblique Bold }
+}
+@end lilypond
+
+@cindex tipus de lletra, buscar, disponibles
+@cindex buscar tipus de lletra disponibles
+@cindex fer una llista de tipus de lletra disponibles
+@cindex disponibles, fer una llista de tipus de lletra
+
+Es pot descriure @var{font-name} usant una llista de
+@q{tipus de lletra} separats per comes i una llista de @q{estils}
+separats per espais.  Sempre que el @q{tipus de lletra} de la
+llista estigui instal·lat i contingui el glif sol·licitat,
+s'usarà.  En cas contrari, s'usarà com a substitució el tipus de
+lletra @emph{següent} de la llista.
+
+@funindex show-available-fonts
+
+L'execució del LilyPond amb l'opció següent presenta una llista de
+tots els tipus de lletra disponibles al sistema operatiu:
+
+@example
+lilypond -dshow-available-fonts x
+@end example
+
+@seealso
+Referència de la notació:
+@ref{Explicació dels tipus de lletra},
+@ref{Tipus de lletra del document complet}.
+
+Fragments de codi:
+@rlsr{Text}.
+
+@c A source file gets never installed...
+@c Installed files:
+@c @file{lily/font-config-scheme.cc}.
+
+
+@node Tipus de lletra del document complet
+@unnumberedsubsubsec Tipus de lletra del document complet
+@translationof Entire document fonts
+
+Es poden canviar els tipus de lletra que s'usen com tipus de
+lletra predeterminats a les famílies @emph{romana},
+@emph{sans-serif} i @emph{monoespaiada}, especificant-los en
+aquest ordre com es veu a l'exemple de sota, que escala els tipus
+de lletra automàticament amb el valor fixat per a la mida global
+del pentagrama.  De forma semblant a
+@ref{Tipus de lletra d'un sol element}, Es pot descriure usant una
+llista de @q{Tipus de lletra} separats per comes.  Tanmateix, els
+@q{estils} de tipus de lletra no es poden descriure.  Per llegir
+més explicacions sobre els tipus de lletra, consulteu
+@ref{Explicació dels tipus de lletra}.
+
+@cindex tipus de lletra, establir la família de
+@cindex tipus de lletra, canviar per a tot el document
+
+@funindex make-pango-font-tree
+
+@lilypond[verbatim,quote]
+\paper  {
+  #(define fonts
+    (make-pango-font-tree "Times New Roman"
+                          "Nimbus Sans,Nimbus Sans L"
+                          "Luxi Mono"
+                          (/ staff-height pt 20)))
+}
+
+\relative c'{
+  c1-\markup {
+    roman,
+    \sans sans,
+    \typewriter typewriter. }
+}
+@end lilypond
+
+@c we don't do Helvetica / Courier, since GS incorrectly loads
+@c Apple TTF fonts
+
+@seealso
+Referència de la notació:
+@ref{Explicació dels tipus de lletra},
+@ref{Tipus de lletra d'un sol element},
+@ref{Selecció del tipus de lletra i la seva mida},
+@ref{Font}.
