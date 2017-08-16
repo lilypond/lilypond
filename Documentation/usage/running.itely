@@ -493,31 +493,7 @@ lyrics.  It is recommended to not use font @q{lists} or @q{aliases}
 in case an SVG viewer is unable to handle them.  When using
 @emph{Web Open Font Format} (WOFF) files the additional
 @code{--svg-woff} switch is required.
-@end multitable
 
-@noindent
-@strong{Note for backend svg output:}
-By default in svg output LilyPond will use the generic
-@code{font-family} values of @code{serif}, @code{sans-serif}, or
-@code{monospace}.  Therefore, when using the backend @code{svg} command
-you should explicitly define particular default fonts in your source
-file;
-
-@quotation
-@verbatim
-\paper  {
-  #(define fonts
-    (make-pango-font-tree "TeX Gyre Schola"
-                          "TeX Gyre Heros"
-                          "TeX Gyre Cursor"
-                          (/ staff-height pt 20)))
-}
-@end verbatim
-@end quotation
-
-Also see @ruser{Entire document fonts}.
-
-@multitable @columnfractions .33 .16 .51
 @item @code{check-internal-types}
 @tab @code{#f}
 @tab Check every property assignment for types.

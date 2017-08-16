@@ -1495,6 +1495,12 @@ c1
 @node Text markup commands
 @appendixsec Text markup commands
 
+@ignore
+All the .tely files included in this appendix are automatically
+generated from source files during the build.
+For translators: you cannot translate the content of these files.
+@end ignore
+
 @include markup-commands.tely
 
 

@@ -127,14 +127,20 @@ if test "$URWOTF_DIR" != "" ;  then
            C059-Italic.otf C059-Roman.otf \
            NimbusMonoPS-Bold.otf NimbusMonoPS-BoldItalic.otf \
            NimbusMonoPS-Italic.otf NimbusMonoPS-Regular.otf \
-           NimbusSans-Bold.otf NimbusSans-BoldOblique.otf \
-           NimbusSans-Oblique.otf NimbusSans-Regular.otf; do
+           NimbusSans-Bold.otf NimbusSans-BoldItalic.otf \
+           NimbusSans-Italic.otf NimbusSans-Regular.otf; do
     if test ! -f "$URWOTF_DIR/$f"; then
       MISSING_URWOTF_FILES="$MISSING_URWOTF_FILES $f"
     else
       URWOTF_FILES="$URWOTF_FILES $f"
     fi
   done
+fi
+if test "$MISSING_URWOTF_FILES"="NimbusSans-BoldItalic.otf NimbusSans-Italic.otf" && \
+   test -f "$URWOTF_DIR/NimbusSans-BoldOblique.otf" && \
+   test -f "$URWOTF_DIR/NimbusSans-Oblique.otf"; then
+  MISSING_URWOTF_FILES=""
+  URWOTF_FILES="$URWOTF_FILES NimbusSans-BoldOblique.otf NimbusSans-Oblique.otf"
 fi
 if test "$URWOTF_DIR" = "" -o "$MISSING_URWOTF_FILES" != ""; then
   AC_MSG_RESULT(no)
@@ -143,7 +149,7 @@ if test "$URWOTF_DIR" = "" -o "$MISSING_URWOTF_FILES" != ""; then
     if test "$FCLIST" = ""; then
       STEPMAKE_ADD_ENTRY(OPTIONAL,'(install the fc-list utility from FontConfig, or use --with-urwotf-dir)')
     else
-      STEPMAKE_ADD_ENTRY(OPTIONAL,"(download OTF files from 'http://git.ghostscript.com/?p=urw-core35-fonts.git;a=commit;h=79bcdfb34fbce12b592cce389fa7a19da6b5b018' and put them under '~/.local/share/fonts' etc., or use --with-urwotf-dir)")
+      STEPMAKE_ADD_ENTRY(OPTIONAL,"(download OTF files from 'http://git.ghostscript.com/?p=urw-core35-fonts.git;a=tree;hb=1f28a6fcd2176256a995db907d9ffe6e1b9b83e9' and put them under '~/.local/share/fonts' etc., or use --with-urwotf-dir)")
     fi
   else
     STEPMAKE_ADD_ENTRY(OPTIONAL,'(these files are missing: $MISSING_URWOTF_FILES)')

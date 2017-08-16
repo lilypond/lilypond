@@ -1387,17 +1387,53 @@ left braces; right braces may be obtained by rotation, see
 @ref{Rotating objects}.
 
 Three families of text fonts are made available:
-@itemize
-@item
-The @emph{roman} (serif) font,
-which defaults to LilyPond Serif (an alias of TeX Gyre Schola).
-@item
-The @emph{sans} font,
-which defaults to LilyPond Sans Serif (an alias of TeX Gyre Heros).
-@item
-The @emph{typewriter} (monospaced) font,
-which defaults to LilyPond Monospace (an alias of TeX Gyre Cursor).
-@end itemize
+the @emph{roman} (serif) font,
+the @emph{sans} font, and the @emph{typewriter} font.
+
+For @code{svg} backend:
+@multitable @columnfractions .15 .30
+@headitem Family @tab Default font
+@item @emph{roman} @tab @code{serif}
+@item @emph{sans} @tab @code{sans-serif}
+@item @emph{typewriter} @tab @code{monospace}
+@end multitable
+
+@code{serif}, @code{sans-serif}, and @code{monospace} are
+@code{generic-family} in SVG and CSS specifications.
+
+For other backends:
+@multitable @columnfractions .15 .30 .55
+@headitem Family @tab Default font (alias) @tab Alias definition lists
+@item @emph{roman}
+@tab @code{LilyPond Serif}
+@tab
+TeX Gyre Schola,
+C059, Century SchoolBook URW, Century Schoolbook L,
+DejaVu Serif,
+..., serif
+@item @emph{sans}
+@tab @code{LilyPond Sans Serif}
+@tab
+TeX Gyre Heros,
+Nimbus Sans, Nimbus Sans L, DejaVu Sans,
+..., sans-serif
+@item @emph{typewriter}
+@tab @code{LilyPond Monospace}
+@tab
+TeX Gyre Cursor,
+Nimbus Mono PS, Nimbus Mono, Nimbus Mono L,
+DejaVu Sans Mono,
+..., monospace
+@end multitable
+
+@code{LilyPond Serif}, @code{LilyPond Sans Serif},
+and @code{LilyPond Monospace} are font aliases defined
+in the LilyPond dedicated FontConfig configuration file
+@code{00-lilypond-fonts.conf}.
+Where a character dosen't exist in the first font listed,
+the next font listed will be used instead for that character.
+For details of alias definitions, please see
+to @code{00-lilypond-fonts.conf} under the installed directory.
 
 Each family may include different shapes and series.  The following
 example demonstrates the ability to select alternate families, shapes,
@@ -1440,6 +1476,42 @@ is preferable to use the simpler syntax explained in
   }
 }
 @end lilypond
+
+@noindent
+When using OpenType fonts, font features can be used.
+OpenType font scripts and languages can not be specified.
+Note: Not all OpenType fonts have all functions.
+If you request a feature that doesn't exist in the chosen font,
+then the feature is simply ignored.
+
+@lilypond[quote,verbatim]
+% True small caps
+\markup { Normal Style: Hello HELLO }
+\markup { \caps { Small Caps: Hello } }
+\markup { \override #'(font-features . ("smcp"))
+          { True Small Caps: Hello } }
+
+% Number styles
+\markup { Normal Number Style: 0123456789 }
+\markup { \override #'(font-features . ("onum"))
+          { Old Number Style: 0123456789 } }
+
+% Stylistic Alternates
+\markup { \override #'(font-features . ("salt 0"))
+          { Stylistic Alternates 0: εφπρθ } }
+\markup { \override #'(font-features . ("salt 1"))
+          { Stylistic Alternates 1: εφπρθ } }
+
+% Multiple features
+\markup { \override #'(font-features . ("onum" "smcp" "salt 1"))
+          { Multiple features: Hello 0123456789 εφπρθ } }
+@end lilypond
+
+@noindent For the full OpenType font feature list please see:
+@uref{https://www.microsoft.com/typography/otspec/featurelist.htm}
+
+@noindent For identifying features of OpenType fonts please see:
+@uref{http://lists.gnu.org/archive/html/lilypond-devel/2017-08/msg00004.html}
 
 Although it is easy to switch between preconfigured fonts, it is also
 possible to use other fonts, as explained in the following sections:

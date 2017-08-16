@@ -424,8 +424,7 @@ BOM_UTF8	\357\273\277
 		{
 			yylval = sval;
 			int token = MARKUP_FUNCTION;
-			if (scm_is_true (scm_object_property
-					 (sval, ly_symbol2scm ("markup-list-command"))))
+			if (scm_is_true (Lily::markup_list_function_p (sval)))
 				token = MARKUP_LIST_FUNCTION;
 			push_markup_predicates (sig);
 			return token;

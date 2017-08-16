@@ -672,7 +672,13 @@ header_block:
 */
 assignment_id:
 	STRING
+	{
+		$$ = scm_string_to_symbol ($1);
+	}
 	| SYMBOL
+	{
+		$$ = scm_string_to_symbol ($1);
+	}
 	;
 
 assignment:
@@ -681,14 +687,28 @@ assignment:
                 $$ = SCM_UNSPECIFIED;
 	}
 	| assignment_id '.' property_path '=' identifier_init {
-		SCM path = scm_cons (scm_string_to_symbol ($1), $3);
+		SCM path = scm_cons ($1, $3);
 		parser->lexer_->set_identifier (path, $5);
                 $$ = SCM_UNSPECIFIED;
 	}
 	| assignment_id ',' property_path '=' identifier_init {
-		SCM path = scm_cons (scm_string_to_symbol ($1), $3);
+		SCM path = scm_cons ($1, $3);
 		parser->lexer_->set_identifier (path, $5);
                 $$ = SCM_UNSPECIFIED;
+	}
+	| markup_mode_word '=' identifier_init
+	{
+		if (scm_is_false (Lily::markup_function_p ($3)))
+		{
+			parser->parser_error (@3, _ ("Not a markup function"));
+		} else {
+			scm_primitive_eval
+				(scm_list_3
+				 (Lily::define_markup_command,
+				  scm_string_to_symbol ($1),
+				  ly_quote_scm ($3)));
+		}
+		$$ = SCM_UNSPECIFIED;
 	}
 	;
 
@@ -3893,10 +3913,32 @@ markup_mode:
 	}
 	;
 
+// Sort-of ugly: We need this as markup of its own as well as in
+// markup function assignments, without triggering lookahead or the
+// '=' for assignments will be parsed in markup mode and not
+// recognized.  Worse: the next token following something like
+// \markup "string" would be parsed in markup mode as well.
+//
+// So we make a single production here that's used either in markup or
+// in assignment.
+
+markup_mode_word:
+	markup_mode markup_word
+	{
+		$$ = $2;
+		parser->lexer_->pop_state ();
+	}
+	;
+
+
 full_markup:
 	markup_mode markup_top {
 		$$ = $2;
 		parser->lexer_->pop_state ();
+	}
+	| markup_mode_word
+	{
+		$$ = make_simple_markup ($1);
 	}
 	;
 
@@ -3917,7 +3959,7 @@ markup_top:
 		$$ = scm_car (MAKE_SYNTAX (composed_markup_list,
 					   @2, $1, scm_list_1 ($2)));
 	}
-	| simple_markup	{
+	| simple_markup_noword {
 		$$ = $1;
 	}
 	;
@@ -4064,14 +4106,21 @@ markup_head_1_list:
 	}
 	;
 
+markup_word:
+	STRING
+	| SYMBOL
+	;
+
 simple_markup:
-	STRING {
+	markup_word
+	{
 		$$ = make_simple_markup ($1);
 	}
-	| SYMBOL {
-		$$ = make_simple_markup ($1);
-	}
-	| SCORE {
+	| simple_markup_noword
+	;
+
+simple_markup_noword:
+	SCORE {
 		parser->lexer_->push_note_state (Lily::pitchnames);
 	} '{' score_body '}' {
 		Score *sc = unsmob<Score> ($4);
