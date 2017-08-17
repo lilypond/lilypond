@@ -2804,21 +2804,62 @@ Here are a few sample bars of music set in LilyPond's Feta glyphs:
 
 @sourceimage{Gonville_before,15cm,,}
 
-@subsubheading Installation Instructions for MacOS
+@subsubheading Installation Instructions
 
-Download and extract the zip file.  Copy the @code{lilyfonts}
-directory to @file{@var{SHARE_DIR}/lilypond/current}; for more
-information, see @rlearning{Other sources of information}.  Rename the
-existing @code{fonts} directory to @code{fonts_orig} and the
-@code{lilyfonts} directory to @code{fonts}.  To revert back to Feta,
-reverse the process.
+Download and extract the font files.
+Copy the
+@file{gonville-11.otf},
+@file{gonville-13.otf},
+@file{gonville-14.otf},
+@file{gonville-16.otf},
+@file{gonville-18.otf},
+@file{gonville-20.otf},
+@file{gonville-23.otf},
+@file{gonville-26.otf}, and @file{gonville-brace.otf}
+files to @file{@dots{}/share/lilypond/current/fonts/otf} or
+@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/otf}.
+If you have @file{gonville-*.svg} and @file{gonville-*.woff} files,
+copy them to @file{@dots{}/share/lilypond/current/fonts/svg} or
+@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/svg}.
+For more information, see @rlearning{Other sources of information}.
+
+Note: @file{gonville-*.otf} files are
+for @code{ps} and @code{eps} backend (for PDF and PostScript outputs).
+@file{gonville-*.svg} files are
+for @code{svg} backend without @code{svg-woff} option.
+@file{gonville-*.woff} files are
+for @code{svg} backend with @code{svg-woff} option.
+For more information, see @rprogram{Advanced command line options for LilyPond}.
+
+The following syntax changes the notation font (general and brace)
+to the Gonville font.
+
+@example
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     #:music "gonville"
+     #:brace "gonville"
+   ))
+@}
+@end example
+
+Note: Each call to @code{set-global-fonts} completely resets both the main
+notation and text fonts. If any category is left unspecified, then the default
+font will be used for that category.
+Each call to @code{set-global-fonts} changes the fonts for each @code{\book}
+that follows it, whether created explicitly or implicitly. This means that each
+@code{\book} can have its own set of main fonts by calling
+@code{set-global-fonts} before it.
+For more information, see @ref{Entire document fonts}.
 
 @seealso
 Learning Manual:
 @rlearning{Other sources of information}.
 
 Notation Reference:
-@ref{The Emmentaler font}.
+@ref{The Emmentaler font},
+@ref{Entire document fonts}.
 
 @knownissues
 Gonville cannot be used to typeset @q{Ancient Music} notation and it is
@@ -2827,6 +2868,43 @@ Gonville font family.  Please refer to the author's website for more
 information on these and other specifics, including licensing of
 Gonville.
 
+@subsubheading Other notation fonts
+
+If you have other notation fonts like @file{@var{fontname}-*.otf},
+@file{@var{fontname}-*.svg}, and @file{@var{fontname}-*.woff},
+you can use them in the same way as Gonville.
+
+That is, copy the
+@file{@var{fontname}-*.otf}
+files to @file{@dots{}/share/lilypond/current/fonts/otf} or
+@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/otf}.
+If you have @file{@var{fontname}-*.svg} and @file{@var{fontname}-*.woff} files,
+copy them to @file{@dots{}/share/lilypond/current/fonts/svg} or
+@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/svg}.
+
+Note: At the moment, LilyPond expects the font file names to have the following
+suffixes, all of which must be present in the above installation folder(s) to
+work properly:
+@file{-11}, @file{-13}, @file{-14}, @file{-16},
+@file{-18}, @file{-20}, @file{-23}, @file{-26}, @file{-brace}.
+For example, @file{emmentaler-11.otf}, @file{emmentaler-20.svg},
+and @file{emmentaler-brace.woff} etc.
+
+The following syntax changes the notation font (general and brace)
+to the @var{fontname} font.
+
+@example
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     #:music "@var{fontname}" ; font filename without suffix and extension
+     #:brace "@var{fontname}" ; font filename without suffix and extension
+   ))
+@}
+@end example
+
+Note: For @code{music} and @code{brace} categories,
+specify the font filename without the suffix and extension.
 
 @node Creating MIDI output
 @section Creating MIDI output
