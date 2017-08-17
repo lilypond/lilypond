@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.0"
 
 \header {
   lsrtags = "rhythms"
@@ -21,9 +21,9 @@ change the tempo in MIDI output.
   \tempo \markup {
     \concat {
       (
-      \smaller \general-align #Y #DOWN \note #"16." #1
+      \smaller \general-align #Y #DOWN \note {16.} #1
       " = "
-      \smaller \general-align #Y #DOWN \note #"8" #1
+      \smaller \general-align #Y #DOWN \note {8} #1
       )
     }
   }
