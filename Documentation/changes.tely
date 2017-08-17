@@ -594,7 +594,7 @@ This can be used to alter the perceived volume of even sustained notes
 @item
 Support for making it easier to use alternative @q{music} fonts other
 than the default Emmentaler in LilyPond has been added.  See
-@uref{http://fonts.openlilylib.org/} for more information.
+@ruser{Replacing the notation font} for more information.
 
 @item
 Grobs and their parents can now be aligned separately allowing
