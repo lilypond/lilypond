@@ -1609,13 +1609,90 @@ described. For an explanation of fonts, see @ref{Fonts explained}.
 }
 @end lilypond
 
+Note: @code{make-pango-font-tree} resets the notation fonts to default of
+Emmentaler.
+
 @c we don't do Helvetica / Courier, since GS incorrectly loads
 @c Apple TTF fonts
+
+The following syntax allows you to change the specific fonts,
+leaving others to the default values.
+The following example has the same effect
+as the above @code{make-pango-font-tree} example.
+The same as  @code{make-pango-font-tree},
+you can specify a comma-separated list of @q{fonts} for @code{roman},
+@code{sans}, and @code{typewriter} categories.
+If you don't change the staff size from the default of 20 pt,
+@code{#:factor (/ staff-height pt 20)} is unnecessary.
+
+@funindex set-global-fonts
+
+@example
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     #:roman "Times New Roman"
+     #:sans "Nimbus Sans,Nimbus Sans L"
+     #:typewriter "Luxi Mono"
+     #:factor (/ staff-height pt 20) ; unnecessary if the staff size is default
+    ))
+@}
+@end example
+
+It also can specify the notation fonts.
+The following example also has the same effect as the above examples,
+because it sets the notation fonts as the default.
+For more information, see @ref{Replacing the notation font}.
+
+@example
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     #:music "emmentaler"            ; default
+     #:brace "emmentaler"            ; default
+     #:roman "Times New Roman"
+     #:sans "Nimbus Sans,Nimbus Sans L"
+     #:typewriter "Luxi Mono"
+     #:factor (/ staff-height pt 20) ; unnecessary if the staff size is default
+    ))
+@}
+@end example
+
+Note: Each call to @code{set-global-fonts} completely resets both the main
+notation and text fonts. If any category is left unspecified, then the default
+font will be used for that category.
+Each call of @code{set-global-fonts} affects each @code{\book} blocks that
+follow it.
+If there are multiple @code{\book} blocks and you want to use different fonts
+for each, simply call @code{set-global-fonts} again, like this:
+
+@example
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     @dots{}
+    ))
+@}
+\book @{
+  @dots{}
+@}
+
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     @dots{}
+    ))
+@}
+\book @{
+  @dots{}
+@}
+@end example
 
 @seealso
 Notation Reference:
 @ref{Fonts explained},
 @ref{Single entry fonts},
 @ref{Selecting font and font size},
-@ref{Font}.
+@ref{Font},
+@ref{Replacing the notation font}.
 
