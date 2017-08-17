@@ -37,6 +37,7 @@
  (scm page)
  (scm paper-system)
  (scm output-svg)
+ (scm clip-region)
  (srfi srfi-1)
  (srfi srfi-2)
  (srfi srfi-13)
@@ -170,6 +171,103 @@ src: url('~a');
     (dump (svg-end))
     (ly:outputter-close outputter)))
 
+(define (dump-preview-bbox paper stencil filename bbox)
+  (let* ((outputter (ly:make-paper-outputter (open-file filename "wb") 'svg))
+         (dump (lambda (str) (display str (ly:outputter-port outputter))))
+         (lookup (lambda (x) (ly:output-def-lookup paper x)))
+         (unit-length (lookup 'output-scale))
+         (output-scale (* lily-unit->mm-factor unit-length))
+         (left-x (list-ref bbox 0))
+         (top-y (list-ref bbox 1))
+         (device-width (list-ref bbox 2))
+         (device-height (list-ref bbox 3))
+         ;BUG: Height calculation is off - optional & disabled
+         ;(svg-width (* output-scale device-width))
+         ;(svg-height (* output-scale device-height))
+        )
+
+    (if (ly:get-option 'svg-woff)
+        (module-define! (ly:outputter-module outputter) 'paper paper))
+    (dump (svg-begin "" ""
+                     left-x (- top-y) device-width device-height))
+    (if (ly:get-option 'svg-woff)
+        (module-remove! (ly:outputter-module outputter) 'paper))
+    (if (ly:get-option 'svg-woff)
+        (dump (woff-header paper (dirname filename))))
+    (ly:outputter-output-scheme outputter
+                                `(begin (set! lily-unit-length ,unit-length)
+                                        ""))
+    (ly:outputter-dump-stencil outputter stencil)
+    (dump (svg-end))
+    (ly:outputter-close outputter)))
+
+(define (clip-systems-to-region basename paper systems region)
+  (let* ((extents-system-pairs
+          (filtered-map (lambda (paper-system)
+                          (let* ((x-ext (system-clipped-x-extent
+                                         (paper-system-system-grob paper-system)
+                                         region)))
+                            (if x-ext
+                                (cons x-ext paper-system)
+                                #f)))
+                        systems))
+         (count 0))
+    (for-each
+     (lambda (ext-system-pair)
+       (let* ((xext (car ext-system-pair))
+              (paper-system (cdr ext-system-pair))
+              (yext (paper-system-extent paper-system Y))
+              (bbox (list (car xext) (car yext)
+                          (cdr xext) (cdr yext)))
+              (paper-system (cdr ext-system-pair))
+              (filename (if (< 0 count)
+                            (format #f "~a-~a.svg" basename count)
+                            (string-append basename ".svg"))))
+         (set! count (1+ count))
+         (dump-preview-bbox paper
+                       (paper-system-stencil paper-system)
+                       filename bbox)))
+     extents-system-pairs)))
+
+(define (clip-system-SVG basename paper-book)
+  (define (clip-score-systems basename systems)
+    (let* ((layout (ly:grob-layout (paper-system-system-grob (car systems))))
+           (regions (ly:output-def-lookup layout 'clip-regions)))
+      (for-each
+       (lambda (region)
+         (clip-systems-to-region
+          (format #f "~a-from-~a-to-~a-clip"
+                  basename
+                  (rhythmic-location->file-string (car region))
+                  (rhythmic-location->file-string (cdr region)))
+          layout systems region))
+       regions)))
+
+  ;; partition in system lists sharing their layout blocks
+  (let* ((systems (ly:paper-book-systems paper-book))
+         (count 0)
+         (score-system-list '()))
+    (fold
+     (lambda (system last-system)
+       (if (not (and last-system
+                     (equal? (paper-system-layout last-system)
+                             (paper-system-layout system))))
+           (set! score-system-list (cons '() score-system-list)))
+       (if (paper-system-layout system)
+           (set-car! score-system-list (cons system (car score-system-list))))
+       ;; pass value.
+       system)
+     #f
+     systems)
+    (for-each (lambda (system-list)
+                ;; filter out headers and top-level markup
+                (if (pair? system-list)
+                    (clip-score-systems
+                     (if (> count 0)
+                         (format #f "~a-~a" basename count)
+                         basename)
+                     system-list)))
+              score-system-list)))
 
 (define (output-framework basename book scopes fields)
   (let* ((paper (ly:paper-book-paper book))
@@ -178,7 +276,26 @@ src: url('~a');
          (page-count (length page-stencils))
          (filename "")
          (file-suffix (lambda (num)
-                        (if (= page-count 1) "" (format #f "-page-~a" num)))))
+                        (if (= page-count 1) "" (format #f "-~a" num)))))
+    (if (ly:get-option 'clip-systems) (clip-system-SVG basename book))
+    (for-each
+     (lambda (page)
+       (set! page-number (1+ page-number))
+       (set! filename (format #f "~a~a.svg"
+                              basename
+                              (file-suffix page-number)))
+       (dump-page paper filename page page-number page-count))
+     page-stencils)))
+
+(define-public (output-classic-framework basename book scopes fields)
+  (let* ((paper (ly:paper-book-paper book))
+         (page-stencils (map paper-system-stencil (ly:paper-book-systems book)))
+         (page-number (1- (ly:output-def-lookup paper 'first-page-number)))
+         (page-count (length page-stencils))
+         (filename "")
+         (file-suffix (lambda (num)
+                        (if (= page-count 1) "" (format #f "-~a" num)))))
+    (if (ly:get-option 'clip-systems) (clip-system-SVG basename book))
     (for-each
      (lambda (page)
        (set! page-number (1+ page-number))
@@ -204,4 +321,5 @@ src: url('~a');
          (page-stencils (stack-stencils Y DOWN 0.0
                                         (map paper-system-stencil
                                              (reverse (reverse systems))))))
+    (if (ly:get-option 'clip-systems) (clip-system-SVG basename book))
     (dump-preview paper page-stencils (format #f "~a.cropped.svg" basename))))
