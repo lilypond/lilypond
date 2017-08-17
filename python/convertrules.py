@@ -3926,6 +3926,42 @@ def conv (str):
     str = re.sub (automatic, r"\1output-attributes.id", str)
     return str
 
+matchscmarg = (r'(?:[a-zA-Z_][-a-zA-Z_0-9]*|"(?:[^\\"]|\\.)*"|[-+]?[0-9.]+|\('
+               + paren_matcher (10) + r"\))")
+
+@rule ((2, 21, 0), r"""\note #"4." -> \note {4.}""")
+def conv (str):
+    def repl1ly (m):
+        if m.group (2)[0] in "blm":
+            return m.group(1) + "{\\" + m.group(2) + "}"
+        return m.group (1) + "{" + m.group (2) + "}"
+    def repl1scm (m):
+        return ("%s(ly:make-duration %d %d)" %
+                (m.group (1),
+                 {"1": 0, "2": 1, "4": 2, "8": 3, "16": 4,
+                  "32": 5, "64": 6, "128": 7, "256": 8,
+                  "breve": -1, "longa": -2, "maxima": -4}[m.group (2)],
+                 m.end (3) - m.start (3)))
+    def replly (m):
+        return re.sub (r'(\\note\s*)#?"((?:1|2|4|8|16|32|64|128|256'
+                       r'|breve|longa|maxima)\s*\.*)"',
+                       repl1ly, m.group (0))
+    def replscm (m):
+        return re.sub (r'"()(1|2|4|8|16|32|64|128|256'
+                       r'|breve|longa|maxima)\s*(\.*)"',
+                       repl1scm, m.group (0))
+    def replmarkup (m):
+        return re.sub (r'(#:note\s+)"(1|2|4|8|16|32|64|128|256'
+                       r'|breve|longa|maxima)\s*(\.*)"',
+                       repl1scm, m.group (0))
+    str = re.sub (matchmarkup, replly, str)
+    str = re.sub (r"\(tuplet-number::(?:fraction-with-notes|non-default-fraction-with-notes|append-note-wrapper)\s" +
+                  paren_matcher (20) + r"\)", replscm, str)
+    str = re.sub (r'\(markup\s' + paren_matcher (20) + r'\)',
+                  replmarkup, str)
+    return str
+
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

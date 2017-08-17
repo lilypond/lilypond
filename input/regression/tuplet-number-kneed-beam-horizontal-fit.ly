@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.21.0"
 
 \header {
   texidoc = "Tuplet numbers are placed next to the beam unless there is
@@ -26,7 +26,7 @@ below the noteheads."
         #tuplet-number::calc-fraction-text
       c'16 c'' c,, c'' c,, c''
       \once \override TupletNumber.text =
-        #(tuplet-number::fraction-with-notes "16" "16")
+        #(tuplet-number::fraction-with-notes (ly:make-duration 4 0) (ly:make-duration 4 0))
       c,,16 c'' c,, c'' c,, c''
     }
   }

@@ -621,9 +621,8 @@ class TimeScaledMusic (MusicWrapper):
 
 
         if self.display_type == "actual" and self.normal_type:
-            # Obtain the note duration in scheme-mode, i.e. \longa as \\longa
-            base_duration = self.normal_type.ly_expression (None, True)
-            func ("\\once \\override TupletNumber.text = #(tuplet-number::append-note-wrapper %s \"%s\")" %
+            base_duration = self.normal_type.lisp_expression ()
+            func ("\\once \\override TupletNumber.text = #(tuplet-number::append-note-wrapper %s %s)" %
                 (base_number_function, base_duration))
             func.newline ()
         elif self.display_type == "both": # TODO: Implement this using actual_type and normal_type!
@@ -631,19 +630,19 @@ class TimeScaledMusic (MusicWrapper):
                 func ("\\once \\omit TupletNumber")
                 func.newline ()
             elif self.display_number == "both":
-                den_duration = self.normal_type.ly_expression (None, True)
+                den_duration = self.normal_type.lisp_expression ()
                 # If we don't have an actual type set, use the normal duration!
                 if self.actual_type:
-                    num_duration = self.actual_type.ly_expression (None, True)
+                    num_duration = self.actual_type.lisp_expression ()
                 else:
                     num_duration = den_duration
                 if (self.display_denominator or self.display_numerator):
-                    func ("\\once \\override TupletNumber.text = #(tuplet-number::non-default-fraction-with-notes %s \"%s\" %s \"%s\")" %
+                    func ("\\once \\override TupletNumber.text = #(tuplet-number::non-default-fraction-with-notes %s %s %s %s)" %
                                 (self.display_denominator, den_duration,
                                  self.display_numerator, num_duration))
                     func.newline ()
                 else:
-                    func ("\\once \\override TupletNumber.text = #(tuplet-number::fraction-with-notes \"%s\" \"%s\")" %
+                    func ("\\once \\override TupletNumber.text = #(tuplet-number::fraction-with-notes %s %s)" %
                                 (den_duration, num_duration))
                     func.newline ()
         else:
@@ -1995,9 +1994,8 @@ class TempoMark (Music):
         return False
     def duration_to_markup (self, dur):
         if dur:
-            # Generate the markup to print the note, use scheme mode for
-            # ly_expression to get longa and not \longa (which causes an error)
-            return "\\general-align #Y #DOWN \\smaller \\note #\"%s\" #UP" % dur.ly_expression(None, True)
+            # Generate the markup to print the note
+            return "\\general-align #Y #DOWN \\smaller \\note {%s} #UP" % dur.ly_expression ()
         else:
             return ''
     def tempo_markup_template (self):

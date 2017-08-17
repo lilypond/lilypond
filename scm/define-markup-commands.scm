@@ -3861,28 +3861,30 @@ and return a (log dots) list."
         (ly:error (_ "not a valid duration string: ~a") duration-string))))
 
 (define-markup-command (note layout props duration dir)
-  (string? number?)
+  (ly:duration? number?)
   #:category music
   #:properties (note-by-number-markup)
   "
-@cindex notes within text by string
+@cindex notes within text by duration
 
 This produces a note with a stem pointing in @var{dir} direction, with
 the @var{duration} for the note head type and augmentation dots.  For
-example, @code{\\note #\"4.\" #-0.75} creates a dotted quarter note, with
+example, @code{\\note @{4.@} #-0.75} creates a dotted quarter note, with
 a shortened down stem.
 
 @lilypond[verbatim,quote]
 \\markup {
   \\override #'(style . cross) {
-    \\note #\"4..\" #UP
+    \\note {4..} #UP
   }
   \\hspace #2
-  \\note #\"breve\" #0
+  \\note {\\breve} #0
 }
 @end lilypond"
-  (let ((parsed (parse-simple-duration duration)))
-    (note-by-number-markup layout props (car parsed) (cadr parsed) dir)))
+  (note-by-number-markup layout props
+                         (ly:duration-log duration)
+                         (ly:duration-dot-count duration)
+                         dir))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; the rest command.
@@ -4436,7 +4438,7 @@ Draw vertical brackets around @var{arg}.
 @lilypond[verbatim,quote]
 \\markup {
   \\bracket {
-    \\note #\"2.\" #UP
+    \\note {2.} #UP
   }
 }
 @end lilypond"
