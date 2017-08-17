@@ -62,6 +62,10 @@ which scares away people.
 @end ignore
 
 @item
+The @code{output-classic-framework} procedure and the @code{-dclip-systems}
+are now available with the @code{SVG} backend.
+
+@item
 An argument, @code{-dcrop}, has been added, formatting @code{SVG} and
 @code{PDF} output without margins or page-breaks.
 
