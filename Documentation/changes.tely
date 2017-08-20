@@ -1058,7 +1058,7 @@ DejaVu Sans Mono,
 and @code{LilyPond Monospace} are font aliases defined
 in the LilyPond dedicated FontConfig configuration file
 @code{00-lilypond-fonts.conf}.
-Where a character dosen't exist in the first font listed,
+Where a character doesn't exist in the first font listed,
 the next font listed will be used instead for that character.
 For details of alias definitions, please see
 to @code{00-lilypond-fonts.conf} under the installed directory.
