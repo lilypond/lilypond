@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-  Translation of GIT committish: 1e5c6b0f54079eb3285dcc4c7e53f17d8bb03933
+  Translation of GIT committish: 87fb7f0387225886cff0c3bf332e1ab1b60afabb
 
   When revising a translation, copy the HEAD committish of the
   version that you are working on.  For details, see the Contributors'
@@ -1548,6 +1548,12 @@ c1
 @node Commandes pour markup
 @appendixsec Commandes pour @emph{markup}
 @translationof Text markup commands
+
+@ignore
+All the .tely files included in this appendix are automatically
+generated from source files during the build.
+For translators: you cannot translate the content of these files.
+@end ignore
 
 Les commandes suivantes peuvent être utilisées dans un bloc
 @code{\markup @{ @}}.

@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 8e2eaf4959bec63a1128a444591a540f4f1e2937
+    Translation of GIT committish: 87fb7f0387225886cff0c3bf332e1ab1b60afabb
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1023,6 +1023,82 @@ de l'option @samp{-dstrokeadjust}.  En ce qui concerne la génération de
 fichiers @code{PDF}, ceci améliorera nettement la prévisualisation, au
 détriment cependant de la taille du fichier.  La qualité d'impression à
 haute résolution n'est pas affectée.
+
+@item
+Les fontes textuelles par défaut -- @code{Century Schoolbook L},
+@code{sans-serif} et @code{monospace} -- ont été modifiées.
+
+Pour le moteur @code{svg} :
+@multitable @columnfractions .15 .30
+@headitem Famille @tab Fonte par défaut
+@item @emph{roman} @tab @code{serif}
+@item @emph{sans} @tab @code{sans-serif}
+@item @emph{typewriter} @tab @code{monospace}
+@end multitable
+
+@code{serif}, @code{sans-serif} et @code{monospace} sont des
+@code{generic-family} au titre des spécifications SVG et CSS.
+
+Pour les autres moteurs :
+@multitable @columnfractions .15 .30 .55
+@headitem Famille @tab Fonte par défaut (alias) @tab Listes de définition des alias
+@item @emph{roman}
+@tab @code{LilyPond Serif}
+@tab
+TeX Gyre Schola,
+C059, Century SchoolBook URW, Century Schoolbook L,
+DejaVu Serif,
+..., serif
+@item @emph{sans}
+@tab @code{LilyPond Sans Serif}
+@tab
+TeX Gyre Heros,
+Nimbus Sans, Nimbus Sans L, DejaVu Sans,
+..., sans-serif
+@item @emph{typewriter}
+@tab @code{LilyPond Monospace}
+@tab
+TeX Gyre Cursor,
+Nimbus Mono PS, Nimbus Mono, Nimbus Mono L,
+DejaVu Sans Mono,
+..., monospace
+@end multitable
+
+@code{LilyPond Serif}, @code{LilyPond Sans Serif} et @code{LilyPond
+Monospace} sont des alias de fonte définis dans le fichier de
+configuration de FontConfig spécifique à LilyPond
+@code{00-lilypond-fonts.conf}.  Lorsqu'un caractère est absent de la
+première fonte listée, il sera remplacé par celui de la fonte suivante.
+Pour plus de détails sur les définitions des alias, consultez le fichier
+@code{00-lilypond-fonts.conf} dans le répertoire d'installation.
+
+@item
+Le recours aux fontes OpenType permet d'utiliser certaines
+fonctionnalités de ces fontes.  Toutefois, les fontes OpenType ne
+disposent pas toutes de l'intégralité de ces fonctions.
+
+@lilypond[quote,verbatim]
+% Vraies petites capitales
+\markup { Style normal : Hello HELLO }
+\markup { \caps { Petites capitales : Hello } }
+\markup { \override #'(font-features . ("smcp"))
+          { Vraies petites capitales : Hello } }
+
+% Styles numériques
+\markup { Style numérique normal : 0123456789 }
+\markup { \override #'(font-features . ("onum"))
+          { Style numérique ancien : 0123456789 } }
+
+% Alternatives stylistiques
+\markup { \override #'(font-features . ("salt 0"))
+          { Alternative stylistique 0 : εφπρθ } }
+\markup { \override #'(font-features . ("salt 1"))
+          { Alternative stylistique 1 : εφπρθ } }
+
+% Fonctionnalités multiples
+\markup { \override #'(font-features . ("onum" "smcp" "salt 1"))
+          { Fonctionnalités multiples : Hello 0123456789 εφπρθ } }
+@end lilypond
 
 @end itemize
 
