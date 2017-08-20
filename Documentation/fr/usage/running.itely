@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 6b8cabe379e8b4b945797a4e55759c56117223d4
+   Translation of GIT committish: 87fb7f0387225886cff0c3bf332e1ab1b60afabb
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -527,30 +527,7 @@ ni aux listes de fontes si la visionneuse de fichier SVG ne peut le
 traîter correctement.  L'option supplémentaire @code{--svg-woff} -- voir
 ci-après -- permet d'utiliser les fontes WOFF (@emph{Web Open Font
 Format}) avec le moteur SVG.
-@end multitable
 
-@noindent
-@strong{Note à propos des sorties SVG :}
-Par défaut, LilyPond utilise des valeurs de @code{font-family}
-génériques -- @code{Serif}, @code{Sans Serif} et @code{Monospace}.  Le
-recours au moteur @code{svg} requiert donc que ces polices par défaut
-soient explicitement définies dans le fichier source :
-
-@quotation
-@verbatim
-\paper  {
-  #(define fonts
-    (make-pango-font-tree "TeX Gyre Schola"
-                          "TeX Gyre Heros"
-                          "TeX Gyre Cursor"
-                          (/ staff-height pt 20)))
-}
-@end verbatim
-@end quotation
-
-Voir aussi @ruser{Choix des fontes par défaut}.
-
-@multitable @columnfractions .33 .16 .51
 @item @code{check-internal-types}
 @tab @code{#f}
 @tab Vérifie qu'à chaque propriété est bien affecté un type.

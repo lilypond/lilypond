@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 1e5c6b0f54079eb3285dcc4c7e53f17d8bb03933
+   Translation of GIT committish: 87fb7f0387225886cff0c3bf332e1ab1b60afabb
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1451,18 +1451,54 @@ que des accolades ouvrantes.  Pour obtenir une accolade fermante, il
 suffit d'appliquer une rotation au glyphe sélectionné, comme indiqué à
 la rubrique @ref{Rotation des objets}.
 
-Vous disposez de trois familles de fontes textuelles :
-@itemize
-@item
-@emph{roman} pour la police sérif ou avec empattement -- fixée par
-défaut à LilyPond Serif (alias de TeX Gyre Schola),
-@item
-une police sans empattement (@emph{sans} sérif) -- fixée par défaut à
-LilyPond Sans Serif (alias de TeX Gyre Heros) et
-@item
-une police à chasse fixe (monospace ou @emph{typewriter}) -- fixée par
-défaut à LilyPond Monospace (alias de TeX Gyre Cursor).
-@end itemize
+Vous disposez de trois familles de fontes textuelles : @emph{roman} pour
+la police sérif ou avec empattement, une police sans empattement
+(@emph{sans} sérif) et une police à chasse fixe (monospace ou
+@emph{typewriter}).
+
+Pour le moteur @code{svg} :
+@multitable @columnfractions .15 .30
+@headitem Famille @tab Fonte par défaut
+@item @emph{roman} @tab @code{serif}
+@item @emph{sans} @tab @code{sans-serif}
+@item @emph{typewriter} @tab @code{monospace}
+@end multitable
+
+@code{serif}, @code{sans-serif} et @code{monospace} sont des
+@code{generic-family} au titre des spécifications SVG et CSS.
+
+Pour les autres moteurs :
+@multitable @columnfractions .15 .30 .55
+@headitem Famille @tab Fonte par défaut (alias) @tab Listes de définition des alias
+@item @emph{roman}
+@tab @code{LilyPond Serif}
+@tab
+TeX Gyre Schola,
+C059, Century SchoolBook URW, Century Schoolbook L,
+DejaVu Serif,
+..., serif
+@item @emph{sans}
+@tab @code{LilyPond Sans Serif}
+@tab
+TeX Gyre Heros,
+Nimbus Sans, Nimbus Sans L, DejaVu Sans,
+..., sans-serif
+@item @emph{typewriter}
+@tab @code{LilyPond Monospace}
+@tab
+TeX Gyre Cursor,
+Nimbus Mono PS, Nimbus Mono, Nimbus Mono L,
+DejaVu Sans Mono,
+..., monospace
+@end multitable
+
+@code{LilyPond Serif}, @code{LilyPond Sans Serif} et @code{LilyPond
+Monospace} sont des alias de fonte définis dans le fichier de
+configuration de FontConfig spécifique à LilyPond
+@code{00-lilypond-fonts.conf}.  Lorsqu'un caractère est absent de la
+première fonte listée, il sera remplacé par celui de la fonte suivante.
+Pour plus de détails sur les définitions des alias, consultez le fichier
+@code{00-lilypond-fonts.conf} dans le répertoire d'installation.
 
 Chaque famille dispose en principe de différents styles et niveaux de
 gras.  L'exemple qui suit illustre la manière de changer la famille, le
@@ -1506,6 +1542,44 @@ dispose d'une syntaxe allégée comme nous l'avons vu dans
   }
 }
 @end lilypond
+
+@noindent
+Le recours aux fontes OpenType permet d'utiliser certaines
+fonctionnalités de ces fontes.  Toutefois, les fontes OpenType ne
+disposent pas toutes de l'intégralité de ces fonctions.  Dans le cas où
+la fonctionnalité demandée n'est pas disponible dans la fonte choisie,
+cette fonctionnalité est tout bonnement ignorée.
+
+@lilypond[quote,verbatim]
+% Vraies petites capitales
+\markup { Style normal : Hello HELLO }
+\markup { \caps { Petites capitales : Hello } }
+\markup { \override #'(font-features . ("smcp"))
+          { Vraies petites capitales : Hello } }
+
+% Styles numériques
+\markup { Style numérique normal : 0123456789 }
+\markup { \override #'(font-features . ("onum"))
+          { Style numérique ancien : 0123456789 } }
+
+% Alternatives stylistiques
+\markup { \override #'(font-features . ("salt 0"))
+          { Alternative stylistique 0 : εφπρθ } }
+\markup { \override #'(font-features . ("salt 1"))
+          { Alternative stylistique 1 : εφπρθ } }
+
+% Fonctionnalités multiples
+\markup { \override #'(font-features . ("onum" "smcp" "salt 1"))
+          { Fonctionnalités multiples : Hello 0123456789 εφπρθ } }
+@end lilypond
+
+@noindent Une liste exhaustive des fonctionnalités des fontes OpenType
+est disponible à l'adresse
+@uref{https://www.microsoft.com/typography/otspec/featurelist.htm}
+
+@noindent Les différents types de fonctionnalité des fontes OpenType
+sont recensées dans le message
+@uref{http://lists.gnu.org/archive/html/lilypond-devel/2017-08/msg00004.html}
 
 En plus de pouvoir jongler entre les différentes fontes prédéfinies,
 LilyPond vous permet d'en utiliser d'autres, ce qui fait l'objet des
