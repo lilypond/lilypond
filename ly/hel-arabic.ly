@@ -14,10 +14,10 @@
 %%  You should have received a copy of the GNU General Public License
 %%  along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\language "hel_arabic_makam"
+\language "arabic"
 
 %% set pitch names.
-makamGlyphs = #'(
+HelmakamGlyphs = #'(
   (1 . "accidentals.doublesharp")
   (1/4 . "accidentals.sharp.slashslash.stem")
   (3/4 . "accidentals.sharp.slashslashslash.stem")
@@ -36,11 +36,11 @@ makamGlyphs = #'(
 \layout {
   \context {
     \Score
-    \override KeySignature #'glyph-name-alist = \makamGlyphs
-    \override Accidental #'glyph-name-alist = \makamGlyphs
-    \override AccidentalCautionary #'glyph-name-alist = \makamGlyphs
-    \override TrillPitchAccidental #'glyph-name-alist = \makamGlyphs
-    \override AmbitusAccidental #'glyph-name-alist = \makamGlyphs
+    \override KeySignature #'glyph-name-alist = \HelmakamGlyphs
+    \override Accidental #'glyph-name-alist = \HelmakamGlyphs
+    \override AccidentalCautionary #'glyph-name-alist = \HelmakamGlyphs
+    \override TrillPitchAccidental #'glyph-name-alist = \HelmakamGlyphs
+    \override AmbitusAccidental #'glyph-name-alist = \HelmakamGlyphs
   }
 }
 
