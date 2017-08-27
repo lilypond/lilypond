@@ -3086,7 +3086,9 @@ note_chord_element:
 chord_body:
 	ANGLE_OPEN chord_body_elements ANGLE_CLOSE
 	{
-		$$ = MAKE_SYNTAX (event_chord, @$, scm_reverse_x ($2, SCM_EOL));
+		$$ = MAKE_SYNTAX (event_chord, @$,
+				  reverse_music_list (parser, @$,
+						      $2, false, false));
 	}
 	| FIGURE_OPEN figure_list FIGURE_CLOSE
 	{
@@ -3097,13 +3099,13 @@ chord_body:
 chord_body_elements:
 	/* empty */ 		{ $$ = SCM_EOL; }
 	| chord_body_elements chord_body_element {
-		if (!SCM_UNBNDP ($2))
+		if (unsmob<Music> ($2))
 			$$ = scm_cons ($2, $1);
 	}
 	;
 
 chord_body_element:
-	pitch_or_tonic_pitch exclamations questions octave_check post_events
+	pitch_or_tonic_pitch exclamations questions octave_check post_events %prec ':'
 	{
 		bool q = to_boolean ($3);
 		bool ex = to_boolean ($2);
@@ -3129,7 +3131,7 @@ chord_body_element:
 
 		$$ = n->unprotect ();
 	}
-	| DRUM_PITCH post_events {
+	| DRUM_PITCH post_events %prec ':' {
 		Music *n = MY_MAKE_MUSIC ("NoteEvent", @$);
 		n->set_property ("drum-type", $1);
 
@@ -3143,16 +3145,19 @@ chord_body_element:
 	{
 		Music *m = unsmob<Music> ($1);
 
-		while (m && m->is_mus_type ("music-wrapper-music")) {
-			$$ = m->get_property ("element");
-			m = unsmob<Music> ($$);
-		}
+		if (m && !m->is_mus_type ("post-event")) {
+			while (m && m->is_mus_type ("music-wrapper-music")) {
+				$$ = m->get_property ("element");
+				m = unsmob<Music> ($$);
+			}
 
-		if (!(m && m->is_mus_type ("rhythmic-event"))) {
-			parser->parser_error (@$, _ ("not a rhythmic event"));
-			$$ = SCM_UNDEFINED;
+			if (!(m && m->is_mus_type ("rhythmic-event"))) {
+				parser->parser_error (@$, _ ("not a rhythmic event"));
+				$$ = SCM_UNSPECIFIED;
+			}
 		}
 	}
+	| post_event
 	;
 
 music_function_chord_body:
