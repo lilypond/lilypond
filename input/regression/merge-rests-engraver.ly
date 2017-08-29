@@ -1,4 +1,4 @@
-\version "2.20.0"
+\version "2.21.0"
 
 \header {
   texidoc = "Test for merging rests in different voices."
@@ -46,6 +46,14 @@ voiceA = \relative {
 
   % Don't merge pitched rests
   c4\rest d\rest e\rest f\rest |
+
+  % Merged dotted rests get only one dot, don't kill dots if merging rests is
+  % suspended
+  r4. r8
+  \set Staff.suspendRestMerging = ##t
+  r4. r8 |
+  \set Staff.suspendRestMerging = ##f
+  r4 r4 r4 r4
 }
 
 voiceB = \relative {
@@ -60,11 +68,16 @@ voiceB = \relative {
   r1 r1 |
   r4 r8 r r2 |
   r4 r r r |
+  r4. r8 r4. r8 |
+  r4. r8 r4. r8 |
 }
 
 voiceC = \relative {
   s1*2 |
   r2 r4 r8 r16 r32 r64 r128 r | % Combines rests from more than 2 voices
+  s1*11
+  r4. r8 r4. r8 |
+  r4. r8 r4. r8 |
 }
 
 \score {
