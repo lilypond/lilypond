@@ -1,4 +1,4 @@
-\version "2.19.80"
+\version "2.19.82"
 
 \header {
   texidoc = "Test for merging rests in different voices."
