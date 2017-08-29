@@ -226,6 +226,8 @@ SCM get_next_unique_lyrics_context_id ();
 
 
 static Music *make_music_with_input (SCM name, Input where);
+bool add_post_events (Music *music, SCM events);
+SCM reverse_music_list (Lily_parser *parser, Input loc, SCM lst, bool preserve, bool compress);
 SCM check_scheme_arg (Lily_parser *parser, Input loc,
 		      SCM arg, SCM args, SCM pred, SCM disp = SCM_UNDEFINED);
 SCM make_music_from_simple (Lily_parser *parser, Input loc, SCM pitch);
@@ -4592,6 +4594,108 @@ make_chord_elements (Input loc, SCM pitch, SCM dur, SCM modification_list)
 	}
 	return res;
 }
+
+// Return true if there are post events unaccounted for
+bool
+add_post_events (Music *m, SCM events)
+{
+	if (!scm_is_pair (events))
+		return false;	// successfully added -- nothing
+
+	while (m) {
+		if (m->is_mus_type ("music-wrapper-music")) {
+			m = unsmob<Music> (m->get_property ("element"));
+			continue;
+		}
+		if (m->is_mus_type ("sequential-music")) {
+			SCM lp = scm_last_pair (m->get_property ("elements"));
+			if (scm_is_pair (lp)) {
+				m = unsmob<Music> (scm_car (lp));
+				continue;
+			}
+			return true;
+		}
+		if (m->is_mus_type ("rhythmic-event")) {
+			m->set_property
+				("articulations",
+				 scm_append_x (scm_list_2
+					       (m->get_property ("articulations"),
+						events)));
+			return false;
+		}
+		if (m->is_mus_type ("event-chord")) {
+			m->set_property
+				("elements",
+				 scm_append_x (scm_list_2
+					       (m->get_property ("elements"),
+						events)));
+			return false;
+		}
+		break;
+	}
+	return true;
+}
+
+// Returns either a list or a post-event
+//
+// If PRESERVE is true, unattachable post-events are not thrown away
+// but rather added attached to empty chords.  If COMPRESS is true, a
+// sequence consisting only of post-events may be returned as a single
+// post-event.
+SCM reverse_music_list (Lily_parser *parser, Input loc, SCM lst, bool preserve, bool compress)
+{
+	SCM res = SCM_EOL;	// Resulting reversed list
+	SCM bad = SCM_EOL;	// Bad post events
+	SCM post = SCM_EOL;	// current unattached events
+	for (; scm_is_pair (lst); lst = scm_cdr (lst)) {
+		SCM elt = scm_car (lst);
+		Music *m = unsmob<Music> (elt);
+		assert (m);
+		if (m->is_mus_type ("post-event")) {
+			post = scm_cons (elt, post);
+			continue;
+		}
+		if (add_post_events (m, post)) {
+			bad = scm_cons (scm_car (post), bad);
+			if (preserve) {
+				Music *p = unsmob<Music> (scm_car (post));
+				res = scm_cons (MAKE_SYNTAX (event_chord,
+							     *p->origin (),
+							     post),
+						res);
+			}
+		}
+		post = SCM_EOL;
+		res = scm_cons (elt, res);
+	}
+	if (scm_is_pair (post)) {
+		if (scm_is_null (res) && compress) { // pure postevent list
+			if (scm_is_null (scm_cdr (post)))
+				return scm_car (post);
+			Music *m = MY_MAKE_MUSIC ("PostEvents", loc);
+			m->set_property ("elements", post);
+			return m->unprotect ();
+		}
+		bad = scm_cons (scm_car (post), bad);
+		if (preserve) {
+			Music *p = unsmob<Music> (scm_car (post));
+			res = scm_cons (MAKE_SYNTAX (event_chord,
+						     *p->origin (),
+						     post),
+					res);
+		}
+	}
+	for (; scm_is_pair (bad); bad = scm_cdr (bad))
+	{
+		Input *where = unsmob<Music> (scm_car (bad))->origin ();
+		if (preserve)
+			where->warning (_ ("Adding <> for attaching loose post-event"));
+		else
+			where->warning (_ ("Dropping loose post-event"));
+	}
+	return res;
+}
+
 
 int
 yylex (YYSTYPE *s, YYLTYPE *loc, Lily_parser *parser)
