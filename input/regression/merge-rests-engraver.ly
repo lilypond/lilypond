@@ -1,4 +1,4 @@
-\version "2.19.60"
+\version "2.20.0"
 
 \header {
   texidoc = "Test for merging rests in different voices."
@@ -69,7 +69,7 @@ voiceC = \relative {
 
 \score {
   \new Staff \with {
-      \consists #Merge_rests_engraver
+      \consists "Merge_rests_engraver"
   } <<
     \compressFullBarRests
     \new Voice { \voiceOne \voiceA }

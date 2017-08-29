@@ -201,3 +201,15 @@ if there were one voice."
           (set! mmrests (cons curr-mmrests mmrests))))
       ((finalize translator)
         (for-each merge-mmrests mmrests)))))
+
+(ly:register-translator
+ Merge_rests_engraver 'Merge_rests_engraver
+ '((grobs-created . ())
+   (events-accepted . ())
+   (properties-read . (suspendRestMerging))
+   (properties-written . ())
+   (description . "\
+Engraver to merge rests in multiple voices on the same staff.  This works by
+gathering all rests at a time step.  If they are all of the same length and
+there are at least two they are moved to the correct location as if there were
+one voice.")))
