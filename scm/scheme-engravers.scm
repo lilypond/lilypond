@@ -174,15 +174,25 @@ if there were one voice."
   (define (all-equal lst pred)
     (or (has-one-or-less lst)
         (and (pred (car lst) (cadr lst)) (all-equal (cdr lst) pred))))
+  (define moment=?
+    (lambda (a b) (not (or (ly:moment<? a b) (ly:moment<? b a)))))
 
   (let ((curr-mmrests '())
         (mmrests '())
-        (rests '()))
+        (rests '())
+        (dots '()))
     (make-engraver
       ((start-translation-timestep translator)
         (set! rests '())
-        (set! curr-mmrests '()))
+        (set! curr-mmrests '())
+        (set! dots '()))
       (acknowledgers
+        ((dot-column-interface engraver grob source-engraver)
+         (if (not (ly:context-property context 'suspendRestMerging #f))
+             (set!
+               dots
+               (append (ly:grob-array->list (ly:grob-object grob 'dots))
+                       dots))))
         ((rest-interface engraver grob source-engraver)
           (cond
             ((ly:context-property context 'suspendRestMerging #f)
@@ -192,13 +202,26 @@ if there were one voice."
             (else
               (set! rests (cons grob rests))))))
       ((stop-translation-timestep translator)
-        (if (and
-              (has-at-least-two rests)
-              (all-equal rests (rest-eqv 'duration-log))
-              (rests-all-unpitched rests))
-          (merge-rests rests rest-offset))
-        (if (has-at-least-two curr-mmrests)
-          (set! mmrests (cons curr-mmrests mmrests))))
+        (let (;; get a list of the rests 'duration-lengths, 'duration-log does
+              ;; not take dots into account
+              (durs
+                (map
+                  (lambda (g)
+                    (ly:duration-length
+                      (ly:prob-property
+                        (ly:grob-property g 'cause)
+                        'duration)))
+                  rests)))
+          (if (and
+                (has-at-least-two rests)
+                (all-equal durs moment=?)
+                (rests-all-unpitched rests))
+              (begin
+                (merge-rests rests rest-offset)
+                ;; ly:grob-suicide! works nicely for dots, as opposed to rests.
+                (if (pair? dots) (for-each ly:grob-suicide! (cdr dots)))))
+          (if (has-at-least-two curr-mmrests)
+              (set! mmrests (cons curr-mmrests mmrests)))))
       ((finalize translator)
         (for-each merge-mmrests mmrests)))))
 
