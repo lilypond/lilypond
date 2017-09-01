@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: UTF-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 24dd6365d3d05f13b9259f547be9b2517851a5d1
+    Translation of GIT committish: 640edfbe2c332ccd7ddedc819106d001eed51c76
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -435,7 +435,7 @@ ora possono essere definite semplicemente scrivendo l'espressione
 seguita da @code{\etc}.
 
 @lilypond[verbatim,quote]
-bold-red-markup = \markup \bold \with-color #red \etc
+\markup bold-red = \markup \bold \with-color #red \etc
 highlight = \tweak font-size 3 \tweak color #red \etc
 
 \markup \bold-red "text"
@@ -1034,6 +1034,85 @@ Quando si generano file @code{PDF}, di solito ciò produce anteprime
 @code{PDF} notevolmente migliori ma anche file di dimensioni maggiori.
 La qualità della stampa ad alte risoluzioni non è interessata da questa
 modifica.
+
+@item
+Il font predefinito del testo è cambiato da
+@code{Century Schoolbook L}, @code{sans-serif}, e @code{monospace}.
+
+Per il backend @code{svg}:
+@multitable @columnfractions .15 .30
+@headitem Famiglia @tab Font predefinito
+@item @emph{roman} @tab @code{serif}
+@item @emph{sans} @tab @code{sans-serif}
+@item @emph{typewriter} @tab @code{monospace}
+@end multitable
+
+@code{serif}, @code{sans-serif}, e @code{monospace} sono
+@code{generic-family} (famiglie generiche) nelle specifiche
+SVG e CSS.
+
+Per gli altri backend:
+@multitable @columnfractions .15 .30 .55
+@headitem Famiglia @tab Font predefinito (alias) @tab Elenchi di definizione di alias
+@item @emph{roman}
+@tab @code{LilyPond Serif}
+@tab
+TeX Gyre Schola,
+C059, Century SchoolBook URW, Century Schoolbook L,
+DejaVu Serif,
+..., serif
+@item @emph{sans}
+@tab @code{LilyPond Sans Serif}
+@tab
+TeX Gyre Heros,
+Nimbus Sans, Nimbus Sans L, DejaVu Sans,
+..., sans-serif
+@item @emph{typewriter}
+@tab @code{LilyPond Monospace}
+@tab
+TeX Gyre Cursor,
+Nimbus Mono PS, Nimbus Mono, Nimbus Mono L,
+DejaVu Sans Mono,
+..., monospace
+@end multitable
+
+@code{LilyPond Serif}, @code{LilyPond Sans Serif},
+e @code{LilyPond Monospace} sono font alias definiti
+nel file di configurazione FontConfig specifico per LilyPond
+@code{00-lilypond-fonts.conf}.
+Se un carattere non esiste nel primo font elencato, il font successivo
+dell'elenco verrà  usato al suo posto per quel carattere.
+I dettagli delle definizioni degli alias si trovano nel file
+@code{00-lilypond-fonts.conf} all'interno della directory
+di installazione.
+
+@item
+Quando si usano i font OpenType, sono disponibili le funzionalità
+dei font.
+Nota: non tutti i font OpenType hanno tutte le funzioni.
+
+@lilypond[quote,verbatim]
+% Maiuscoletto vero
+\markup { Stile normale: Hello HELLO }
+\markup { \caps { Maiuscoletto: Hello } }
+\markup { \override #'(font-features . ("smcp"))
+          { Maiuscoletto vero: Hello } }
+
+% Stili numerici
+\markup { Stile numerico normale: 0123456789 }
+\markup { \override #'(font-features . ("onum"))
+          { Stile numerico vecchio: 0123456789 } }
+
+% Alternative stilistiche
+\markup { \override #'(font-features . ("salt 0"))
+          { Alternative stilistiche 0: εφπρθ } }
+\markup { \override #'(font-features . ("salt 1"))
+          { Alternative stilistiche 1: εφπρθ } }
+
+% Funzionalità multiple
+\markup { \override #'(font-features . ("onum" "smcp" "salt 1"))
+          { Funzionalità multiple: Hello 0123456789 εφπρθ } }
+@end lilypond
 
 @end itemize
 

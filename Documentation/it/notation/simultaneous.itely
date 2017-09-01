@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 4244c3a9fbf1f3ff2e20e665f92516d35b61de53
+    Translation of GIT committish: 212ca268e813cd72eca8c07e714e1b6669cba747
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -400,6 +400,7 @@ Questa sezione presenta le note simultanee in più voci o più righi.
 * Polifonia su un solo rigo::
 * Stili di voce::
 * Risoluzione delle collisioni::
+* Accorpare le pause::
 * Combinazione automatica delle parti::
 * Scrivere la musica in parallelo::
 @end menu
@@ -922,6 +923,41 @@ diverse saranno unite in modo non corretto.
 The requirements for successfully merging different note heads that
 are at the same time differently dotted are not clear.
 @end ignore
+
+
+@node Accorpare le pause
+@unnumberedsubsubsec Accorpare le pause
+@translationof Merging rests
+
+In caso di voci multiple, di solito si accorpano le pause che capitano in
+entrambe. Per farlo si usa l'incisore @code{Merge_rests_engraver}.
+
+@lilypond[quote,verbatim]
+voiceA = \relative { d''4 r d2 | R1 | }
+voiceB = \relative { fis'4 r g2 | R1 | }
+\score {
+  <<
+    \new Staff \with {
+      instrumentName = "non accorpato"
+    }
+    <<
+      \new Voice { \voiceOne \voiceA }
+      \new Voice { \voiceTwo \voiceB }
+    >>
+    \new Staff \with {
+      instrumentName = "accorpato"
+      \consists #Merge_rests_engraver
+    }
+    <<
+      \new Voice { \voiceOne \voiceA }
+      \new Voice { \voiceTwo \voiceB }
+    >>
+  >>
+}
+@end lilypond
+
+Impostando la proprietà di contesto @code{suspendRestMerging} su @code{##t} è
+possibile disattivare temporaneamente l'accorpamento delle pause.
 
 
 @node Combinazione automatica delle parti

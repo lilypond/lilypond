@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 1e5c6b0f54079eb3285dcc4c7e53f17d8bb03933
+    Translation of GIT committish: 2dcca6dacd9f419922a7d056389b152f195d6e4c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1540,10 +1540,14 @@ c1
 @appendixsec Comandi per @emph{markup}
 @translationof Text markup commands
 
+@ignore
+Tutti i file .tely inclusi in questa appendice sono generati automaticamente
+dai file sorgente durante la compilazione.  Non è possibile tradurre il
+contenuto di questi file.
+@end ignore
+
 Tutti i comandi seguenti possono essere usati all'interno di @code{\markup}.
 
-@c Le descrizioni di questi comandi sono estratti dal codice sorgente
-@c al momento della compilazione e pertanto non sono traducibili. - fb
 @include markup-commands.tely
 
 

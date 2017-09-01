@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: d1c9544af1b810d0eb4075106f9576347224a1b4
+    Translation of GIT committish: f0887364f183175facfde169447845a2390a6ed2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -941,7 +941,7 @@ nemmeno la metà della mia!}
 
 @divClass{testimonial-item}
 @imageFloat{orm-finnendahl,jpg, left}
-@subsubheading @uref{http://icem-www.folkwang-hochschule.de/~finnendahl/, Orm Finnendahl}, professore di Composizione, Musikhochschule Freiburg
+@subsubheading @uref{http://icem-www.folkwang-hochschule.de/~finnendahl/, Orm Finnendahl}, professore di Composizione, Hochschule für Musik und Darstellende Kunst Frankfurt am Main
 
 @qq{Anche se non conosco [LilyPond] molto bene ancora, sono
 @strong{molto} colpito.  Ho usato il programma per scrivere un mottetto di
