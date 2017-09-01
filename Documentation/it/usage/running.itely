@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: cd1ac38996d3de35770ea31f819b392fe686bf39
+    Translation of GIT committish: 97956152eba4292886a47c74b45bc6be5a0349e8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -495,30 +495,6 @@ rendere in modo adeguato il testo.  Si raccomanda di non usare
 @q{liste} o @q{alias} dei tipi di carattere se il lettore SVG non è
 in grado di gestirli.  Se si usano i file @emph{Web Open Font Format} (WOFF),
 è richiesta anche l'opzione @code{svg-woff}.
-@end multitable
-
-@noindent
-@strong{Nota per l'output del backend svg:}
-Nell'output svg LilyPond usa i valori generici @code{serif}, @code{sans-serif} o
-@code{monospace} di @code{font-family}.  Dunque quando si usa il backend
-@code{svg} è obbligatorio definire esplicitamente specifici tipi di carattere
-predefiniti nel proprio file di input:
-
-@quotation
-@verbatim
-\paper  {
-  #(define fonts
-    (make-pango-font-tree "TeX Gyre Schola"
-                          "TeX Gyre Heros"
-                          "TeX Gyre Cursor"
-                          (/ staff-height pt 20)))
-}
-@end verbatim
-@end quotation
-
-Leggere anche @ruser{Tipi di carattere per l'intero documento}.
-
-@multitable @columnfractions .33 .16 .51
 
 @item @code{check-internal-types}
 @tab @code{#f}
@@ -1271,4 +1247,3 @@ naturale (quando le note di @code{\voiceThree} sono più alte di quelle di
 @rlearning{Esempio musicale},
 @ruser{Polifonia su un solo rigo},
 @ruser{Risoluzione delle collisioni}.
-

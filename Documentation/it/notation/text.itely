@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 18d03fa6a724b0102ccc47d194209802cea02f2e
+    Translation of GIT committish: 640edfbe2c332ccd7ddedc819106d001eed51c76
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1403,18 +1403,55 @@ più piccola.  Il valore ottimale deve essere determinato per tentativi.
 Questi glifi sono tutte graffe sinistre; le graffe destre si possono
 ottenere con la rotazione, vedi @ref{Rotating objects}.
 
-Sono disponibili tre famiglie di tipi di carattere:
-@itemize
-@item
-Il tipo @emph{roman} (con grazie), il cui valore predefinito è LilyPond Serif
-(un alias di TeX Gyre Schola).
-@item
-Il tipo @emph{sans} (senza grazie), il cui valore predefinito è LilyPond Sans
-Serif (un alias di TeX Gyre Heros).
-@item
-Il tipo monospaziato @emph{typewriter}, il cui valore predefinito è LilyPond
-Monospace (un alias di TeX Gyre Cursor).
-@end itemize
+Sono disponibili tre famiglie di font: il font @emph{roman} (con grazie), il
+font @emph{sans} (senza grazie) e il font monospaziato @emph{typewriter}.
+
+Per il backend @code{svg}:
+@multitable @columnfractions .15 .30
+@headitem Famiglia @tab Font predefinito
+@item @emph{roman} @tab @code{serif}
+@item @emph{sans} @tab @code{sans-serif}
+@item @emph{typewriter} @tab @code{monospace}
+@end multitable
+
+@code{serif}, @code{sans-serif}, e @code{monospace} sono
+@code{generic-family} (famiglie generiche) nelle specifiche
+SVG e CSS.
+
+Per gli altri backend:
+@multitable @columnfractions .15 .30 .55
+@headitem Famiglia @tab Font predefinito (alias) @tab Elenchi di definizione di alias
+@item @emph{roman}
+@tab @code{LilyPond Serif}
+@tab
+TeX Gyre Schola,
+C059, Century SchoolBook URW, Century Schoolbook L,
+DejaVu Serif,
+..., serif
+@item @emph{sans}
+@tab @code{LilyPond Sans Serif}
+@tab
+TeX Gyre Heros,
+Nimbus Sans, Nimbus Sans L, DejaVu Sans,
+..., sans-serif
+@item @emph{typewriter}
+@tab @code{LilyPond Monospace}
+@tab
+TeX Gyre Cursor,
+Nimbus Mono PS, Nimbus Mono, Nimbus Mono L,
+DejaVu Sans Mono,
+..., monospace
+@end multitable
+
+@code{LilyPond Serif}, @code{LilyPond Sans Serif},
+e @code{LilyPond Monospace} sono font alias definiti
+nel file di configurazione FontConfig specifico per LilyPond
+@code{00-lilypond-fonts.conf}.
+Se un carattere non esiste nel primo font elencato, il font successivo
+dell'elenco verrà  usato al suo posto per quel carattere.
+I dettagli delle definizioni degli alias si trovano nel file
+@code{00-lilypond-fonts.conf} all'interno della directory
+di installazione.
 
 Ogni famiglia può avere forme e serie differenti.  L'esempio seguente
 illustra la possibilità di scegliere  famiglie, forme, serie e
@@ -1457,6 +1494,43 @@ caso è preferibile usare la sintassi più semplice spiegata in
   }
 }
 @end lilypond
+
+@noindent
+Quando si usano i font OpenType, sono disponibili le funzionalità
+dei font.
+Nota bene: non tutti i font OpenType hanno a disposizione tutte le funzioni.
+Se si richiede una funzionalità che non esiste nel font scelto, tale
+funzionalità viene semplicemente ignorata.
+
+@lilypond[quote,verbatim]
+% Maiuscoletto vero
+\markup { Stile normale: Hello HELLO }
+\markup { \caps { Maiuscoletto: Hello } }
+\markup { \override #'(font-features . ("smcp"))
+          { Maiuscoletto vero: Hello } }
+
+% Stili numerici
+\markup { Stile numerico normale: 0123456789 }
+\markup { \override #'(font-features . ("onum"))
+          { Stile numerico vecchio: 0123456789 } }
+
+% Alternative stilistiche
+\markup { \override #'(font-features . ("salt 0"))
+          { Alternative stilistiche 0: εφπρθ } }
+\markup { \override #'(font-features . ("salt 1"))
+          { Alternative stilistiche 1: εφπρθ } }
+
+% Funzionalità multiple
+\markup { \override #'(font-features . ("onum" "smcp" "salt 1"))
+          { Funzionalità multiple: Hello 0123456789 εφπρθ } }
+@end lilypond
+
+@noindent L'elenco completo delle funzionalità del font OpenType è
+consultabile qui:
+@uref{https://www.microsoft.com/typography/otspec/featurelist.htm}
+
+@noindent Per identificare le funzionalità dei font OpenType leggere qui:
+@uref{http://lists.gnu.org/archive/html/lilypond-devel/2017-08/msg00004.html}
 
 Sebbene sia semplice passare a un tipo di carattere preconfigurato, è anche
 possibile usare altri tipi, come viene spiegato nelle sezioni successive:

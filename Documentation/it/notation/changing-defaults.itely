@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 18d03fa6a724b0102ccc47d194209802cea02f2e
+    Translation of GIT committish: c377d85f06e524599d20e9edf102ae186ede5e77
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2562,9 +2562,10 @@ prende un @code{numero}, a @var{offset} viene fornita una lista di
 @code{numeri} per rendere conto dei due segmenti creati dall'interruzione
 di linea.
 Il pezzo di parentesi dell'ottava sulla prima linea non viene modificato
-perché viene aggiunto @code{0} al suo valore predefinito.  Il segmento sulla
-seconda linea viene alzato di tre spazi rigo dalla sua altezza predefinita.
-L'altezza predefinita è @code{2}, anche se non è necessario saperlo.
+perché viene aggiunto @code{0} al suo valore predefinito di @code{staff-padding}.
+Il segmento sulla seconda linea viene alzato di tre spazi rigo dalla sua
+altezza predefinita.  L'altezza predefinita è @code{2}, anche se non è
+necessario saperlo per ottenere la posizione desiderata.
 
 @lilypond[quote,verbatim]
 {
@@ -5009,4 +5010,3 @@ tempoPadded =
 @end lilypond
 
 @c TODO: add appropriate @@ref's here.
-
