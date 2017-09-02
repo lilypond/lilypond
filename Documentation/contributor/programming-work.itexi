@@ -146,6 +146,15 @@ website.
 Python documentation is available at @uref{http://www.python.org/doc/,
 python.org}.
 
+@subsection Scalable Vector Graphics (SVG)
+
+Scalable Vector Graphics (SVG) is an XML-based markup language used to generate
+graphical output.  A brief SVG tutorial is
+@uref{https://www.w3schools.com/graphics/svg_intro.asp, available online} through
+W3 Schools.  The World Wide Web Consortium's
+@uref{https://www.w3.org/TR/SVG/REC-SVG11-20110816.pdf, SVG 1.2 Recommendation}
+is available online in PDF format.
+
 @node Programming without compiling
 @section Programming without compiling
 
@@ -755,7 +764,7 @@ option.
 @unnumberedsubsec Functions for debug and log output
 
 LilyPond has two different types of error and log functions:
-@itemize 
+@itemize
 
 @item
 If a warning or error is caused by an identified position in the input file,
@@ -765,8 +774,8 @@ in addition to the message.
 
 @item
 If a message can not be associated with a particular position in an input file,
-e.g. the output file cannot be written, then the functions in the 
-@code{flower/include/warn.hh} file will provide logging functionality that 
+e.g. the output file cannot be written, then the functions in the
+@code{flower/include/warn.hh} file will provide logging functionality that
 only prints out the message, but no location.
 
 @end itemize
@@ -775,7 +784,7 @@ There are also Scheme functions to access all of these logging functions from
 scheme.  In addition, the Grob class contains some convenience wrappers for
 even easier access to these functions.
 
-The message and debug functions in @code{warn.hh} also have an optional 
+The message and debug functions in @code{warn.hh} also have an optional
 argument @code{newline}, which specifies whether the message should always
 start on a new line or continue a previous message.
 By default, @code{progress_indication} does NOT start on a new line, but rather
