@@ -596,36 +596,40 @@ embedded_lilypond:
 	}
 	| identifier_init_nonumber
 	| embedded_lilypond_number
-	| post_event post_events
+	| post_event
 	{
-		$$ = scm_reverse_x ($2, SCM_EOL);
-		if (Music *m = unsmob<Music> ($1))
-		{
-			if (m->is_mus_type ("post-event-wrapper"))
-				$$ = scm_append
-					(scm_list_2 (m->get_property ("elements"),
-						     $$));
-			else
-				$$ = scm_cons ($1, $$);
-		}
-		if (scm_is_pair ($$)
-		    && scm_is_null (scm_cdr ($$)))
-			$$ = scm_car ($$);
-		else
-		{
-			Music * m = MY_MAKE_MUSIC ("PostEvents", @$);
-			m->set_property ("elements", $$);
-			$$ = m->unprotect ();
+		if (!unsmob<Music> ($1))
+			$$ = MY_MAKE_MUSIC ("PostEvents", @$)->unprotect ();
+	}
+	| multiplied_duration post_events %prec ':'
+	{
+		if (scm_is_pair ($2)) {
+			Music *n = MY_MAKE_MUSIC ("NoteEvent", @$);
+
+			parser->default_duration_ = *unsmob<Duration> ($1);
+			n->set_property ("duration", $1);
+			n->set_property ("articulations",
+					 scm_reverse_x ($2, SCM_EOL));
+			$$ = n->unprotect ();
 		}
 	}
-	| multiplied_duration
 	| music_embedded music_embedded music_list {
-		$3 = scm_reverse_x ($3, SCM_EOL);
-		if (unsmob<Music> ($2))
-			$3 = scm_cons ($2, $3);
+		SCM tail = SCM_EOL;
 		if (unsmob<Music> ($1))
-			$3 = scm_cons ($1, $3);
-		$$ = MAKE_SYNTAX (sequential_music, @$, $3);
+			tail = scm_cons ($1, tail);
+		if (unsmob<Music> ($2))
+			tail = scm_cons ($2, tail);
+		$$ = reverse_music_list (parser, @$,
+					 scm_append_x (scm_list_2 ($3, tail)),
+					 true, true);
+		if (scm_is_pair ($$)) // unpackaged list
+			if (scm_is_null (scm_cdr ($$)))
+				$$ = scm_car ($$); // single expression
+			else
+				$$ = MAKE_SYNTAX (sequential_music, @$, $$);
+		else if (scm_is_null ($$))
+			$$ = MAKE_SYNTAX (void_music, @$);
+		// else already packaged post-event
 	}
 	| error {
 		parser->error_level_ = 1;
@@ -1395,7 +1399,7 @@ music_list:
 braced_music_list:
 	'{' music_list '}'
 	{
-		$$ = scm_reverse_x ($2, SCM_EOL);
+		$$ = reverse_music_list (parser, @$, $2, true, false);
 	}
 	;
 
@@ -1418,12 +1422,7 @@ pitch_as_music:
 
 music_embedded:
 	music
-	{
-		if (unsmob<Music> ($1)->is_mus_type ("post-event")) {
-			parser->parser_error (@1, _ ("unexpected post-event"));
-			$$ = SCM_UNSPECIFIED;
-		}
-	}
+	| post_event
 	| music_embedded_backup
 	{
 		$$ = $1;
@@ -1432,7 +1431,7 @@ music_embedded:
 	{
 		$$ = $3;
 	}
-	| multiplied_duration post_events
+	| multiplied_duration post_events %prec ':'
 	{
 		Music *n = MY_MAKE_MUSIC ("NoteEvent", @$);
 
@@ -1449,21 +1448,15 @@ music_embedded:
 music_embedded_backup:
 	embedded_scm
 	{
-		if (scm_is_eq ($1, SCM_UNSPECIFIED))
+		if (scm_is_eq ($1, SCM_UNSPECIFIED)
+		    || unsmob<Music> ($1))
 			$$ = $1;
-		else if (Music *m = unsmob<Music> ($1)) {
-			if (m->is_mus_type ("post-event")) {
-				parser->parser_error
-					(@1, _ ("unexpected post-event"));
-				$$ = SCM_UNSPECIFIED;
-			} else
-				$$ = $1;
-		} else if (parser->lexer_->is_lyric_state ()
+		else if (parser->lexer_->is_lyric_state ()
 			   && Text_interface::is_markup ($1))
 			MYBACKUP (LYRIC_ELEMENT, $1, @1);
 		else {
 			@$.warning (_ ("Ignoring non-music expression"));
-			$$ = $1;
+			$$ = SCM_UNSPECIFIED;
 		}
 	}
 	;
@@ -1500,7 +1493,9 @@ simultaneous_music:
 		$$ = MAKE_SYNTAX (simultaneous_music, @$, $2);
 	}
 	| DOUBLE_ANGLE_OPEN music_list DOUBLE_ANGLE_CLOSE	{
-		$$ = MAKE_SYNTAX (simultaneous_music, @$, scm_reverse_x ($2, SCM_EOL));
+		$$ = MAKE_SYNTAX (simultaneous_music, @$,
+				  reverse_music_list (parser, @$, $2,
+						      true, false));
 	}
 	;
 
