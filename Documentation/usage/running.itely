@@ -196,8 +196,12 @@ lilypond -b myfile
 Then run @code{ghostscript};
 
 @example
-gs -q -sDEVICE=pdfwrite -o gsout.pdf myfile.pdf
+gs -q -sDEVICE=pdfwrite -dPDFDontUseFontObjectNum -o gsout.pdf myfile.pdf
 @end example
+
+Note: For Ghostscript versions 9.17 and above, the
+@code{-dPDFDontUseFontObjectNum} option is required to remove any
+duplicate font data.
 
 @code{pdfsizeopt.py} can then be used to further optimize the size
 of file;
