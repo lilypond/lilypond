@@ -355,7 +355,7 @@ Paper_column::print (SCM p)
       id_stencil.add_stencil (arrowhead.translated (p2));
       id_stencil.add_stencil (number_stc->translated (num_off));
       // use a lighter shade of blue so it will remain legible on black background.
-      id_stencil = id_stencil.in_color (0.2, 0.4, 1);
+      id_stencil = id_stencil.in_color (0.2, 0.4, 1.0);
       l.add_stencil (id_stencil);
     }
 
@@ -400,7 +400,7 @@ Paper_column::print (SCM p)
       id_stencil.add_stencil (arrowhead.translated (p2));
       id_stencil.add_stencil (number_stc->translated (num_off));
       // use a lighter shade of red so it will remain legible on black background.
-      id_stencil = id_stencil.in_color (1, 0.25, 0.25);
+      id_stencil = id_stencil.in_color (1.0, 0.25, 0.25);
       l.add_stencil (id_stencil);
     }
   t.add_stencil (l);
@@ -493,4 +493,3 @@ ADD_INTERFACE (Paper_column,
                "spacing "
                "used "
                "when ");
-

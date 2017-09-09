@@ -281,7 +281,7 @@ Tie::print (SCM smob)
                                      annotation));
       tm.translate (Offset (b.control_[3][X_AXIS] + 0.5,
                             b.control_[0][Y_AXIS] * 2));
-      tm = tm.in_color (1, 0, 0);
+      tm = tm.in_color (1.0, 0.0, 0.0);
 
       /*
         It would be nice if we could put this in a different layer,
