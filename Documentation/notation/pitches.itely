@@ -3334,6 +3334,9 @@ major:
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
+{aiken-head-thin-variant-noteheads.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
 
 To see all note head styles, see @ref{Note head styles}.
