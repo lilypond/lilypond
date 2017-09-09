@@ -988,9 +988,9 @@ Axis_group_interface::print (SCM smob)
   if (Skyline_pair *s = unsmob<Skyline_pair> (me->get_property ("vertical-skylines")))
     {
       ret.add_stencil (Lookup::points_to_line_stencil (0.1, (*s)[UP].to_points (X_AXIS))
-                       .in_color (255, 0, 255));
+                       .in_color (1.0, 0.0, 1.0));
       ret.add_stencil (Lookup::points_to_line_stencil (0.1, (*s)[DOWN].to_points (X_AXIS))
-                       .in_color (0, 255, 255));
+                       .in_color (0.0, 1.0, 1.0));
     }
   return ret.smobbed_copy ();
 }
