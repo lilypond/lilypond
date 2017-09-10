@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Actualitzat el Sat Jun 24 12:50:41 UTC 2017
+@emph{Actualitzat el Sun Sep 10 17:19:23 UTC 2017
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -475,6 +475,60 @@ si
 parcialment
 @end ifnothtml
 @tab pre-GDP
+@item
+1.7 Anotacions editorials
+@*
+1481
+@tab Walter Garcia-Fontes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab pre-GDP
+@item
+1.8 Text
+@*
+2952
+@tab Walter Garcia-Fontes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #39ff22">parcialment</span>
+@end html
+@end ifhtml
+@ifnothtml
+parcialment
+@end ifnothtml
+@tab pre-GDP
 @end multitable
 
 
@@ -544,7 +598,7 @@ si
 @item
 1 Execució del LilyPond
 @*
-5469
+5391
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -561,7 +615,7 @@ parcialment (95 %)
 @ifhtml
 
 @html
-<span style="background-color: #8aff2d">parcialment</span>
+<span style="background-color: #83fe2c">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -691,7 +745,7 @@ si
 @item
 Introducció
 @*
-5793
+5800
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -708,7 +762,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">parcialment</span>
+<span style="background-color: #33ff21">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
