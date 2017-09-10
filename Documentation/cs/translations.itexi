@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Naposledy obnoveno Sat Jun 24 12:50:41 UTC 2017
+@emph{Naposledy obnoveno Sun Sep 10 17:19:23 UTC 2017
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -285,7 +285,7 @@ ano
 @item
 Úvod
 @*
-5793
+5800
 @tab Pavel Fric
 @tab 
 @tab 

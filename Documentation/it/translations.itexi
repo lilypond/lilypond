@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Ultimo aggiornamento Sat Jun 24 12:50:41 UTC 2017
+@emph{Ultimo aggiornamento Sun Sep 10 17:19:23 UTC 2017
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -30,7 +30,7 @@ Cambiamenti in LilyPond
 @item
 Section titles
 @*
-2784
+2988
 @tab Federico Bruni
 @tab 
 @tab 
@@ -623,11 +623,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">parzialmente</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+sì
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -687,7 +687,7 @@ sì
 @item
 1.8 Testo
 @*
-2754
+2952
 @tab Federico Bruni
 @tab 
 @tab 
@@ -996,7 +996,7 @@ sì
 @item
 1 Eseguire @command{lilypond}
 @*
-5469
+5391
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -1197,7 +1197,7 @@ sì
 @item
 Introduzione
 @*
-5793
+5800
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 

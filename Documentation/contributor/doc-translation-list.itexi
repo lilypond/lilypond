@@ -26,13 +26,13 @@ procedures}.
 @example
 -1- Web site
 760   web.texi
-5793  web/introduction.itexi
+5800  web/introduction.itexi
 1158  web/download.itexi
 1139  macros.itexi
 9     po/lilypond-doc.pot (translate to po/@var{MY_LANGUAGE}.po)
 0     search-box.ihtml
 ---   lilypond-texi2html.init (section TRANSLATIONS)
-8859  total
+8866  total
 
 -2- Tutorial
 1314  web/manuals.itexi
@@ -44,10 +44,10 @@ procedures}.
 -3- Fundamental Concepts, starting of Usage and Community
 11240 learning/fundamental.itely -- Fundamental concepts
 135   usage.tely
-5469  usage/running.itely
+5391  usage/running.itely
 2097  usage/updating.itely
 2449  web/community.itexi
-21390 total
+21312 total
 
 -4- Rest of Learning manual and Suggestions on writing LilyPond files
 16592 learning/tweaks.itely -- Tweaking output
@@ -65,7 +65,7 @@ procedures}.
 2979  notation/simultaneous.itely
 2554  notation/staff.itely
 1481  notation/editorial.itely
-2754  notation/text.itely
+2952  notation/text.itely
 81    notation/specialist.itely -- Specialist notation
 4977  notation/vocal.itely
 1975  notation/chords.itely
@@ -82,7 +82,7 @@ procedures}.
 5187  notation/programming-interface.itely -- Interfaces for programmers
 3079  notation/notation-appendices.itely -- Notation manual tables
 252   notation/cheatsheet.itely -- Cheat sheet
-92311 total
+92509 total
 
 -6- Rest of Application Usage
 4211  usage/lilypond-book.itely -- LilyPond-book

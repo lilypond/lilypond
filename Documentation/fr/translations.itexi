@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Dernière mise à jour Sat Jun 24 12:50:41 UTC 2017
+@emph{Dernière mise à jour Sun Sep 10 17:19:23 UTC 2017
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -30,7 +30,7 @@ LilyPond Changes
 @item
 Titre des chapitres
 @*
-2784
+2988
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -875,7 +875,7 @@ oui
 @item
 1.8 Texte
 @*
-2754
+2952
 @tab Jean-Charles Malahieude
 @tab Valentin Villenave
 @*
@@ -1438,7 +1438,7 @@ oui
 @item
 1 Exécution de @command{lilypond}
 @*
-5469
+5391
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -1645,7 +1645,7 @@ oui
 @item
 Introduction
 @*
-5793
+5800
 @tab Gauvain Pocentek
 @*
 Jean-Charles Malahieude

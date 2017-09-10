@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Zuletzt aktualisiert am Sat Jun 24 12:50:41 UTC 2017
+@emph{Zuletzt aktualisiert am Sun Sep 10 17:19:23 UTC 2017
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -759,7 +759,7 @@ teilweise
 @item
 1.8 Text
 @*
-2754
+2952
 @tab Till Paala
 @tab 
 @tab 
@@ -776,7 +776,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #9eff30">teilweise</span>
+<span style="background-color: #acff31">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1284,7 +1284,7 @@ ja
 @item
 1 @command{lilypond} starten
 @*
-5469
+5391
 @tab Reinhold Kainhofer
 @*
 Till Paala
@@ -1493,7 +1493,7 @@ ja
 @item
 Einleitung
 @*
-5793
+5800
 @tab Till Paala
 @*
 Michael Gerdau
@@ -1512,7 +1512,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">teilweise</span>
+<span style="background-color: #33ff21">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
