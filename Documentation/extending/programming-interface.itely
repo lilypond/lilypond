@@ -1374,6 +1374,18 @@ can by found in the Internals Reference or the file 'define-grobs.scm':
 @}
 @end example
 
+It is also possible to get the value of the existing default by
+employing the function @code{grob-transformer}:
+
+@lilypond[verbatim,quote]
+\relative {
+  \override Flag.X-offset = #(grob-transformer 'X-offset
+    (lambda (flag default) (* default 4.0)))
+  c''4. d8 a4. g8
+}
+@end lilypond
+
+
 From within a callback, the easiest method for evaluating a markup is
 to use grob-interpret-markup.  For example:
 
