@@ -1368,28 +1368,16 @@ doubleSlur = #(define-music-function (note) (ly:music?)
 @node Adding articulation to notes (example)
 @subsection Adding articulation to notes (example)
 
-The easy way to add articulation to notes is to merge two music
-expressions into one context.
+The easy way to add articulation to notes is to juxtapose two music
+expressions.
 However, suppose that we want to write a music function that does this.
-This will have the additional advantage that we can use that music
-function to add an articulation (like a fingering instruction) to a
-single note inside of a chord which is not possible if we just merge
-independent music.
 
 A @code{$variable} inside the @code{#@{@dots{}#@}} notation is like
 a regular @code{\variable} in classical LilyPond notation.  We
-know that
+could write
 
 @example
 @{ \music -. -> @}
-@end example
-
-@noindent
-will not work in LilyPond.  We could avoid this problem by attaching
-the articulation to an empty chord,
-
-@example
-@{ << \music <> -. -> >> @}
 @end example
 
 @noindent
@@ -1423,7 +1411,7 @@ Scheme.  We begin by examining our input and desired output.
   (ly:make-pitch -1 0 0))
 @end example
 
-We see that a note (@code{c4}) is represented as an @code{NoteEvent}
+We see that a note (@code{c4}) is represented as a @code{NoteEvent}
 expression.  To add an accent articulation, an @code{ArticulationEvent}
 expression must be added to the @code{articulations} property of the
 @code{NoteEvent} expression.
@@ -1484,7 +1472,7 @@ if it still needs the unchanged argument itself.  If you take a look at
 LilyPond's own functions like @code{music-map}, you'll find that they
 stick with the same principles.
 
-Where were we?  Now we have a @code{note-event} we may modify, not
+Where were we?  We now have a @code{note-event} we may modify, not
 because of using @code{ly:music-deep-copy} but because of a long-winded
 explanation.  We add the accent to its @code{'articulations} list
 property.
@@ -1527,8 +1515,7 @@ matter of some syntactic sugar and a declaration of the type of its
 argument).
 
 @example
-addAccent = #(define-music-function (note-event)
-                                     (ly:music?)
+addAccent = #(define-music-function (note-event) (ly:music?)
   "Add an accent ArticulationEvent to the articulations of `note-event',
   which is supposed to be a NoteEvent expression."
   (set! (ly:music-property note-event 'articulations)
