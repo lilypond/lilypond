@@ -4676,7 +4676,7 @@ SCM reverse_music_list (Lily_parser *parser, Input loc, SCM lst, bool preserve, 
 			m->set_property ("elements", post);
 			return m->unprotect ();
 		}
-		bad = scm_cons (scm_car (post), bad);
+		bad = ly_append2 (post, bad);
 		if (preserve) {
 			Music *p = unsmob<Music> (scm_car (post));
 			res = scm_cons (MAKE_SYNTAX (event_chord,
@@ -4687,11 +4687,13 @@ SCM reverse_music_list (Lily_parser *parser, Input loc, SCM lst, bool preserve, 
 	}
 	for (; scm_is_pair (bad); bad = scm_cdr (bad))
 	{
-		Input *where = unsmob<Music> (scm_car (bad))->origin ();
+		Music *what = unsmob<Music> (scm_car (bad));
 		if (preserve)
-			where->warning (_ ("Adding <> for attaching loose post-event"));
+			what->origin ()->warning (_f ("Unattached %s",
+						      what->name ()));
 		else
-			where->warning (_ ("Dropping loose post-event"));
+			what->origin ()->warning (_f ("Dropping unattachable %s",
+						      what->name ()));
 	}
 	return res;
 }
