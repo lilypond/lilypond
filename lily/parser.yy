@@ -3195,10 +3195,11 @@ post_event_nofinger:
 		$$ = MY_MAKE_MUSIC ("ExtenderEvent", @$)->unprotect ();
 	}
 	| script_dir direction_reqd_event {
-		if (!SCM_UNBNDP ($1))
-		{
-			Music *m = unsmob<Music> ($2);
-			m->set_property ("direction", $1);
+		if (Music *m = unsmob<Music> ($2)) {
+			if (!SCM_UNBNDP ($1))
+			{
+				m->set_property ("direction", $1);
+			}
 		}
 		$$ = $2;
 	}
@@ -3268,7 +3269,7 @@ direction_reqd_event:
 				$$ = a->unprotect ();
 			} else {
 				parser->parser_error (@1, _ ("expecting string or post-event as script definition"));
-				$$ = MY_MAKE_MUSIC ("PostEvents", @$)->unprotect ();
+				$$ = SCM_UNSPECIFIED;
 			}
 		}
 	}
@@ -3377,8 +3378,10 @@ gen_text_def:
 			Music *t = MY_MAKE_MUSIC ("TextScriptEvent", @$);
 			t->set_property ("text", $1);
 			$$ = t->unprotect ();
-		} else
+		} else {
 			parser->parser_error (@1, _ ("not an articulation"));
+			$$ = SCM_UNSPECIFIED;
+		}
 	}
 	;
 
