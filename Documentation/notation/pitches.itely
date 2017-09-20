@@ -3260,6 +3260,7 @@ Internals Reference:
 @cindex note heads, Walker
 
 @funindex \aikenHeads
+@funindex \aikenThinHeads
 @funindex \sacredHarpHeads
 @funindex \southernHarmonyHeads
 @funindex \funkHeads
@@ -3275,6 +3276,8 @@ Funk (Harmonica Sacra), Walker, and Aiken (Christian Harmony) styles:
 \relative c'' {
   \aikenHeads
   c, d e f g2 a b1 c \break
+  \aikenThinHeads
+  c,4 d e f g2 a b1 c \break
   \sacredHarpHeads
   c,4 d e f g2 a b1 c \break
   \southernHarmonyHeads
@@ -3288,6 +3291,7 @@ Funk (Harmonica Sacra), Walker, and Aiken (Christian Harmony) styles:
 
 @funindex \key
 @funindex \aikenHeadsMinor
+@funindex \aikenThinHeadsMinor
 @funindex \sacredHarpHeadsMinor
 @funindex \southernHarmonyHeadsMinor
 @funindex \funkHeadsMinor
@@ -3305,6 +3309,8 @@ major:
   a b c d e2 f g1 a \break
   \aikenHeadsMinor
   a,4 b c d e2 f g1 a \break
+  \aikenThinHeadsMinor
+  a,4 b c d e2 f g1 a \break
   \sacredHarpHeadsMinor
   a,2 b c d \break
   \southernHarmonyHeadsMinor
@@ -3320,6 +3326,8 @@ major:
 @predefined
 @code{\aikenHeads},
 @code{\aikenHeadsMinor},
+@code{\aikenThinHeads},
+@code{\aikenThinHeadsMinor},
 @code{\funkHeads},
 @code{\funkHeadsMinor},
 @code{\sacredHarpHeads},
