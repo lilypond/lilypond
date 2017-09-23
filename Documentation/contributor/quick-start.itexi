@@ -261,7 +261,7 @@ the software directly. See @ref{Manually installing lily-git.tcl}.
 
 @item
 lily-git is part of the LilyPond source code and is located in
-@file{$LILYPOND_GIT/scripts/auxillar/lily-git.tcl}.
+@file{$LILYPOND_GIT/scripts/auxiliar/lily-git.tcl}.
 
 @end itemize
 
