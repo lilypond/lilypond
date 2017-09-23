@@ -23,9 +23,6 @@
 
 #(read-hash-extend #\[ parse-lily-and-compute-lily-string) %{ ] %}
 
-#(define (lily-string->markup str)
-   (make-column-markup (string-split str #\NewLine)))
-
 test =
 #(define-void-function (harmless strings)
   ((string?) pair?)
