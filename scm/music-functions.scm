@@ -1087,6 +1087,10 @@ actually fully cloned."
         (apply ly:input-warning ip msg rest)
         (apply ly:warning msg rest))))
 
+(define-public (ly:music-error music msg . rest)
+  (ly:parser-error (apply format #f msg rest)
+                   (ly:music-property music 'origin)))
+
 (define-public (ly:event-warning event msg . rest)
   (let ((ip (ly:event-property event 'origin)))
     (if (ly:input-location? ip)
