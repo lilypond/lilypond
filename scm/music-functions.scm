@@ -2174,12 +2174,10 @@ retaining only the chord articulations.  Returns the modified music."
                                'duration dur
                                'articulations full-arts))
                   (else
-                   (ly:music-error m (_ "Missing duration"))
-                   (make-music 'NoteEvent
-                               'duration (ly:make-duration 2 0 0)
-                               'articulations full-arts))))))
+                   ;; This is an empty chord.  Ugh.  We cannot really
+                   ;; reduce this in any manner, so we just keep it.
+                   m)))))
    music))
-
 
 (defmacro-public make-relative (variables reference music)
   "The list of pitch or music variables in @var{variables} is used as
