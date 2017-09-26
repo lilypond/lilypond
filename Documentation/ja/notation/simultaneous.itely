@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: c1b0482f63f881bd3f67845e5f76a3e04675ef2a
+    Translation of GIT committish: eb38c33a95cbe6adf9f176dfbb794373ec062605
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -9,7 +9,7 @@
 @c \version "2.19.29"
 
 
-@c Translators: Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Yoshiki Sawada
 @c Translation status: post-GDP
 
 
@@ -81,9 +81,11 @@ LilyPond の中で多声部は同じ譜にある複数のボイスを参照し�
 @end lilypond
 
 しかしながら、いくつかの記譜要素
--- 強弱記号、ヘアピン、それにスラーなど --
+-- 強弱記号、ヘアピンなど --
 は和音の中の音符ではなく、和音に付ける必要があります。@c
-そうしなければ、譜刻されません。
+そうしなければ、譜刻されません。@c
+運指やスラーなどの他の記譜要素が和音の中の音符に付けられた場合、@c
+和音全体や単音に付けた場合と比べて配置が明らかに変化します。
 
 @lilypond[verbatim,quote]
 \relative {
@@ -92,9 +94,8 @@ LilyPond の中で多声部は同じ譜にある複数のボイスを参照し�
 }
 @end lilypond
 
-@c ここから L2100
 @cindex chords, empty (空の和音)
-@cindex placeholder events ()
+@cindex placeholder events (プレースホルダー イベント)
 
 和音は和音に含まれる音符、アーティキュレーション、それに他の付属要素の@c
 コンテナにすぎません。@c
@@ -168,8 +169,9 @@ LilyPond の中で多声部は同じ譜にある複数のボイスを参照し�
 @unnumberedsubsubsec 和音の繰り返し
 @translationof Chord repetition
 
-@cindex Chord, repetition (和音の繰り返し)
+@cindex chord, repetition (和音の繰り返し)
 @cindex repetition, using @code{q} (@code{q} を用いた繰り返し)
+@cindex @code{q}, chord repetition (@code{q} を用いた和音の繰り返し)
 
 入力の手間を省くために、前の和音を繰り返すための短縮記法があります。@c
 和音を繰り返すためのシンボルは @code{q} です:
@@ -227,26 +229,24 @@ LilyPond の中で多声部は同じ譜にある複数のボイスを参照し�
 ことで予期しない結果になっています:
 @code{\chordRepeats} の和音イベントが展開されると、@c
 通常どおりに入力された和音と区別が付かず、@c
-@code{\relative} はカレントのコンテキストに基づいて音程を割り当てます。
+@code{\relative} は現在の状態に基づいてオクターブを割り当てます。
 
 ネストされた @code{\relative} のインスタンスは内外のインスタンスに@c
 影響を与えないので、@c
 @code{\chordRepeats} の内側に @code{\relative} を配置することで@c
-@code{\chordRepeats} の和音を展開する前に音程を確定させることができます。@c
-今回のケースでは、内側にある @code{\relative} の内容は@c
+@code{\chordRepeats} の和音を展開する前にオクターブを確定させることが@c
+できます。今回のケースでは、内側にある @code{\relative} の内容は@c
 外側にある @code{\relative} の影響を受けないので、@c
 繰り返しの和音は前の和音の音程を維持しています。@c
 また、内側の @code{\relative} は外側の @code{\relative} に影響を与えないので、@c
 最後の音符のオクターブ入力が変化します。
 
-@c Without \new Voice, implicit voice creation does the dumbest thing.
 @lilypond[verbatim,quote]
-\new Voice
-\relative c'' {
+\relative {
   \chordRepeats #'(articulation-event)
   \relative
   { <a'-. c\prall e>1\sfz c'4 q2 r8 q8-. } |
-  q2 c |
+  q2 c'' |
 }
 @end lilypond
 
@@ -284,6 +284,7 @@ LilyPond の中で多声部は同じ譜にある複数のボイスを参照し�
 }
 @end lilypond
 
+@c KEEP LY
 @lilypond[quote,verbatim]
 \relative {
   % 単一の音符で始まります
@@ -320,7 +321,6 @@ LilyPond の中で多声部は同じ譜にある複数のボイスを参照し�
 ここでは、リズムが異なっていても問題ありません。@c
 異なるボイスだと解釈されるからです。
 
-@cindex collisions, clashing note columns (音符列の衝突)
 @cindex collisions, ignoring (衝突を無視する)
 
 @knownissues
@@ -329,7 +329,7 @@ LilyPond の中で多声部は同じ譜にある複数のボイスを参照し�
 コンパイル中に以下のメッセージが表示されます:
 
 @example
-warning: ignoring too many clashing note columns
+warning: This voice needs a \voiceXx or \shiftXx setting
 @end example
 
 
@@ -404,6 +404,7 @@ warning: ignoring too many clashing note columns
 * 単一譜の多声::
 * ボイス スタイル::
 * 衝突の解決::
+* 休符のマージ::
 * 自動パート結合::
 * 音楽を並列に記述する::
 @end menu
@@ -447,13 +448,13 @@ warning: ignoring too many clashing note columns
 向きに戻します。
 
 @c passage: 楽節
-@subsubsubheading 一時的に多声となる楽節 (passage)
+@subsubsubheading 一時的に多声となる楽節 (パッセージ)
 
 一時的に多声となる楽節は以下のような構成で作成することができます:
 
 @example
-<< @{ \voiceOne ... @}
-  \new Voice @{ \voiceTwo ... @}
+<< @{ \voiceOne @dots{} @}
+  \new Voice @{ \voiceTwo @dots{} @}
 >> \oneVoice
 @end example
 
@@ -494,7 +495,7 @@ warning: ignoring too many clashing note columns
 
 @subsubsubheading 2 重バックスラッシュ構造
 
-@code{<< @{...@} \\ @{...@} >>} 構造
+@code{<< @{@dots{}@} \\ @{@dots{}@} >>} 構造
 -- この中では 2 つ (あるいはそれ以上) の表記が
 2 重バックスラッシュで区切られています --
 は、同じような構造だが 2 重バックスラッシュを持たない構造とは@c
@@ -569,11 +570,33 @@ etc.
   \\
   { e'2  }  % 4: 下から 2 番
   \\
-  { b'2  }  % 5: 上から 2 番
+  { b'2  }  % 5: 上から 3 番
   \\
   { g'2  }  % 6: 下から 3 番
 >>
 @end lilypond
+
+@funindex \voices
+ボイスの入力順序を変更したい場合、@code{\voices} コマンドが役に立ちます:
+
+@c KEEP LY
+@lilypond[quote,verbatim]
+\new Staff \voices 1,3,5,6,4,2 <<
+  \time 2/4
+  { f''2 }  % 1: 最上段
+  \\
+  { d''2 }  % 3: 上から 2 番
+  \\
+  { b'2  }  % 5: 上から 3 番
+  \\
+  { g'2  }  % 6: 下から 3 番
+  \\
+  { e'2  }  % 4: 下から 2 番
+  \\
+  { c'2  }  % 2: 最下段
+>>
+@end lilypond
+
 
 @warning{歌詞、スパナ (スラー、タイ、強弱のヘアピン等) はボイスを @q{跨ぐ}
 ことはできません。}
@@ -674,7 +697,7 @@ etc.
 @cindex note collisions (音符の衝突)
 @cindex collisions (衝突)
 @cindex shift note (音符のシフト)
-@cindex multiple voices
+@cindex multiple voices (複数のボイス)
 @cindex voices, multiple (複数のボイス)
 @cindex polyphonic music (多声の音楽)
 @cindex shifting voices (ボイスをずらす)
@@ -715,9 +738,8 @@ etc.
 >>
 @end lilypond
 
-以下に示すように、異なる符頭を持つ音符をマージすることができます
--- 例外として、半音符と 4 分音符のマージはできません。@c
-第 1 小節の 1 拍目の符頭がマージされました:
+以下に示すように、異なる符頭を持つ音符をマージすることができます。@c
+この例では、第 1 小節の 1 拍目の符頭がマージされました:
 
 @lilypond[quote,verbatim]
 <<
@@ -737,6 +759,9 @@ etc.
   }
 >>
 @end lilypond
+
+四分音符と二分音符はこの方法ではマージされません。@c
+なぜなら区別が難しくなるからです。
 
 第 1 小節の 3 拍目のように異なる付点を持つ符頭もマージすることができます:
 
@@ -894,22 +919,45 @@ etc.
 
 @ignore
 @knownissues
-上向きの符幹を持つ 8 分音符やそれよりも短い音符と下向きの符幹を持つ@c
-半音符に対して @code{\mergeDifferentlyHeadedOn} を使用した場合、@c
-8 分音符の符幹のオフセットはわずかに正しくなりません。@c
-なぜなら、半音符の符頭シンボルと幅が異なるからです。
-
 @c TODO investigate! Sometimes it works, sometimes not. --FV
 The requirements for successfully merging different note heads that
 are at the same time differently dotted are not clear.
-
-同じ和音の中で同じ音符が異なる臨時記号を持つ場合、その和音の衝突回避は@c
-サポートされません。@c
-そのような場合、異名同音 (エンハーモニック) に書き換えるか、@c
-クラスタという特殊な記譜法 (@ref{クラスタ} を参照してください)
-を用いることを推奨します。
 @end ignore
 
+
+@node 休符のマージ
+@unnumberedsubsubsec 休符のマージ
+@translationof Merging rests
+
+複数のボイスを用いる場合、両方のパートに出現する休符はマージされるのが@c
+一般的です。これは @code{Merge_rests_engraver} を用いることで達成できます。
+
+@lilypond[quote,verbatim]
+voiceA = \relative { d''4 r d2 | R1 | }
+voiceB = \relative { fis'4 r g2 | R1 | }
+\score {
+  <<
+    \new Staff \with {
+      instrumentName = "unmerged"
+    }
+    <<
+      \new Voice { \voiceOne \voiceA }
+      \new Voice { \voiceTwo \voiceB }
+    >>
+    \new Staff \with {
+      instrumentName = "merged"
+      \consists #Merge_rests_engraver
+    }
+    <<
+      \new Voice { \voiceOne \voiceA }
+      \new Voice { \voiceTwo \voiceB }
+    >>
+  >>
+}
+@end lilypond
+
+@code{suspendRestMerging} コンテキスト プロパティを @code{##t} に@c
+セットすることで、休符のマージを一時的に無効にすることができます。
 
 @node 自動パート結合
 @unnumberedsubsubsec 自動パート結合
@@ -978,6 +1026,35 @@ instrumentTwo = \relative {
 斉奏 (@notation{二重奏}) パートには、デフォルトで、テキスト @qq{a2} という@c
 マークが付けられます。
 
+デフォルトでは、@code{\partcombine} は同じピッチの音符を @notation{二重奏} の@c
+音符としてマージします。また、同じリズムで音程が 9 度以下の音符は和音として@c
+結合し、9 度より大きい (あるいは、ボイスが交差している) 場合は別々のボイスに@c
+なります。この挙動は @code{\partcombine} コマンドの後に、省略可能な@c
+数字のペアの引数を与えることでオーバライドすることができます:
+1 つ目が、結合が始まる音程 (デフォルトは 0) で、@c
+2 つ目が別々のボイスとなる音程です。@c
+2 つ目の引数を 0 にすることで、2 度以上の音符を分割し、@c
+1 にすることで 3 度以上の音符を分割するというようになります。
+
+@lilypond[quote,verbatim]
+instrumentOne = \relative {
+  a4 b c d |
+  e f g a |
+  b c d e |
+}
+
+instrumentTwo = \relative {
+  c'4 c c c |
+  c c c c |
+  c c c c |
+}
+
+<<
+  \new Staff \partcombine \instrumentOne \instrumentTwo
+  \new Staff \partcombine #'(2 . 3) \instrumentOne \instrumentTwo
+>>
+@end lilypond
+
 @code{\partcombine} の 2 つの引数は別個の @code{Voice} コンテキストとして@c
 解釈されます。@c
 そのため、相対オクターブを用いる場合、両方のパートで @code{\relative} を@c
@@ -1007,35 +1084,34 @@ instrumentTwo = \relative {
 ですから、音符を和音に組み合わせることと、1 つのボイスをソロとして表示すること@c
 は等価ではありません。@c
 なぜなら、@code{\partcombine} 関数は各音符を個々に考慮するからです。
-このような場合、@code{\partcombine} 関数を以下のコマンドで@c
-オーバライドすることができます:
-
-@code{...Once} で終わるコマンドは、コマンドの次に来る音符だけに適用されます。
+このような場合、@code{\partcombine} 関数を以下のコマンドのいずれかで@c
+オーバライドすることができます。全てのコマンドは音楽表記の中で@c
+次の音符だけに適用されるように @code{\once} 接頭辞を付けることができます。
 
 @itemize
 @item
-@code{\partcombineApart} と @code{\once \partcombineApart} は@c
+@code{\partcombineApart} は@c
 音符を 2 つの別個のボイスとして譜刻します
 -- たとえ和音やユニゾンにできる場合であっても分けて譜刻します。
 
 @item
-@code{\partcombineChords} と @code{\once \partcombineChords} は@c
+@code{\partcombineChords} は@c
 音符を組み合わせて、和音として譜刻します。
 
 @item
-@code{\partcombineUnisono} と @code{\once \partcombineUnisono} は@c
+@code{\partcombineUnisono} は@c
 音符を組み合わせて、@qq{ユニゾン} として譜刻します。
 
 @item
-@code{\partcombineSoloI} と @code{\once \partcombineSoloI} は@c
+@code{\partcombineSoloI} は@c
 ボイス 1 だけを譜刻して、@qq{Solo} のマークを付けます。
 
 @item
-@code{\partcombineSoloII} と @code{\once \partcombineSoloII} は@c
+@code{\partcombineSoloII} は@c
 ボイス 2 だけを譜刻して、@qq{Solo} のマークを付けます。
 
 @item
-@code{\partcombineAutomatic} と @code{\once \partcombineAutomatic}は@c
+@code{\partcombineAutomatic} は@c
 上記のコマンドの効果を終わらせ、標準の @code{\partcombine} に戻します。
 @end itemize
 
@@ -1064,6 +1140,18 @@ instrumentTwo = \relative {
 >>
 @end lilypond
 
+
+@subsubsubheading \partcombine を歌詞と同時に使う
+
+@cindex \partcombine and lyrics (\partcombine と歌詞)
+
+@code{\partcombine} は歌詞と同時に動作するように設計されていません。@c
+歌詞を付けるために、ボイスの片方に名前が明示されていた場合、パート結合は@c
+動作を停止します。しかし、@code{NullVoice} コンテキストを用いることで@c
+効果を得ることができます。@ref{Polyphony with shared lyrics} を@c
+参照してください。
+
+
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -1088,11 +1176,9 @@ instrumentTwo = \relative {
 @rinternals{Voice}
 
 @knownissues
-すべての @code{\partcombine...} はボイスを 2 つだけ受け取ることができ、@c
-歌詞を処理するようには設計されていません。@c
-ボイスに歌詞が付けられている場合、パート結合は処理を停止します。
+すべての @code{\partcombine@dots{}} はボイスを 2 つだけ受け取ることができます。
 
-@code{\partcombine...} 関数を @code{\tuplet} ブロックや @code{\relative}
+@code{\partcombine@dots{}} 関数を @code{\tuplet} ブロックや @code{\relative}
 ブロックの中に置くことはできません。
 
 @code{printPartCombineTexts} がセットされていて、ある小節で 2 つのボイスの@c

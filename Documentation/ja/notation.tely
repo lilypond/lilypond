@@ -1,6 +1,7 @@
 \input texinfo-ja @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: fabcd22c8f88ea9a87241597f1e48c0a9adbfc6e
+    Translation of GIT committish: eb38c33a95cbe6adf9f176dfbb794373ec062605
+
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -19,9 +20,14 @@
 扱っている題材に慣れ親しんでいることを前提としています。
 @end macro
 
-@c `Notation Reference' was born 1999-10-11 with git commit 940dda0...
+@c `Notation Reference' was born 1998-08-14 with this commit:
+@c release: 1.0.2
+@c author: Han-Wen Nienhuys
+@c commit: a3a44f9f3c581b6824b3a65f9039656693e09bbf
+@c   file: Documentation/tex/refman.yo
+
 @macro copyrightDeclare
-Copyright @copyright{} 1999--2015 by 著作者一同
+Copyright @copyright{} 1998--2015 by 著作者一同
 @end macro
 
 

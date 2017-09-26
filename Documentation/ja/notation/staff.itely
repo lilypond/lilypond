@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: fabcd22c8f88ea9a87241597f1e48c0a9adbfc6e
+    Translation of GIT committish: eb38c33a95cbe6adf9f176dfbb794373ec062605
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -9,7 +9,7 @@
 @c \version "2.19.21"
 
 
-@c Translators: Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Yoshiki Sawada
 @c Translation status: post-GDP
 
 
@@ -42,7 +42,7 @@
 * 新たに譜をインスタンス化する::
 * 譜をグループ化する::
 * ネストされた譜グループ::
-* Separating systems::
+* システムを分割する::
 @end menu
 
 
@@ -222,8 +222,8 @@
 詳細は @ref{Instrument names} を参照してください。
 
 @lilypond[verbatim,quote]
-\new PianoStaff <<
-  \set PianoStaff.instrumentName = #"Piano"
+\new PianoStaff \with { instrumentName = #"Piano" }
+<<
   \new Staff \relative { c''1 c }
   \new Staff \relative { \clef bass c1 c }
 >>
@@ -248,11 +248,10 @@
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {display-bracket-with-only-one-staff-in-a-system.ly}
 
-@c 未訳
-@cindex mensurstriche layout
-@cindex renaissance music)
-@cindex transcription of mensural music
-@cindex mensural music, transcription of
+@cindex mensurstriche layout (計量音楽風のレイアウト)
+@cindex renaissance music (ルネサンス音楽)
+@cindex transcription of mensural music (計量音楽の編曲)
+@cindex mensural music, transcription of (計量音楽の編曲)
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {mensurstriche-layout-bar-lines-between-the-staves.ly}
@@ -281,9 +280,6 @@
 @rinternals{SystemStartBracket},
 @rinternals{SystemStartSquare}
 
-@knownissues
-デフォルトでは @code{PianoStaff} は @code{ChordNames} を受け付けません。
-
 
 @node ネストされた譜グループ
 @unnumberedsubsubsec ネストされた譜グループ
@@ -301,17 +297,17 @@
 そうした場合、それぞれの子コンテキストは、@c
 親グループの角括弧に隣接して新しい角括弧を作成します。
 
-@lilypond[verbatim,quote,relative=2]@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new StaffGroup <<
-  \new Staff { c2 c | c2 c }
+  \new Staff \relative { c''2 c | c2 c }
   \new StaffGroup <<
-    \new Staff { g2 g | g2 g }
+    \new Staff \relative { g'2 g | g2 g }
     \new StaffGroup \with {
       systemStartDelimiter = #'SystemStartSquare
     }
     <<
-      \new Staff { e2 e | e2 e }
-      \new Staff { c2 c | c2 c }
+      \new Staff \relative { e'2 e | e2 e }
+      \new Staff \relative { c'2 c | c2 c }
     >>
   >>
 >>
@@ -344,19 +340,20 @@
 @rinternals{SystemStartSquare}
 
 
-@c 未訳
-@node Separating systems
-@unnumberedsubsubsec Separating systems
+@node システムを分割する
+@unnumberedsubsubsec システムを分割する
+@translationof Separating systems
 
-@cindex system separator mark
+@cindex system separator mark (システム分割記号)
 
-If the number of systems per page changes from page to page it is
-customary to separate the systems by placing a system separator mark
-between them.  By default the system separator is blank, but can be
-turned on with a @code{\paper} option.
+1 ページあたりのシステムの数がページによって異なる場合、@c
+システム分割記号を間に置くことでシステムを分割するという慣習があります。@c
+デフォルトでは、システム分割記号は空になっていますが、
+@code{\paper} オプションで有効にすることができます。
 
 @c \book is required here to display the system separator
 @c ragged-right is required as there are two systems
+@c KEEP LY
 @lilypond[verbatim,quote,ragged-right]
 \book {
   \score {
@@ -379,7 +376,7 @@ turned on with a @code{\paper} option.
   }
   \paper {
     system-separator-markup = \slashSeparator
-    % following commands are needed only to format this documentation
+    % 以下のコマンドはこのドキュメントでの体裁を整えるためだけのものです
     paper-width = 100\mm
     paper-height = 100\mm
     tagline = ##f
@@ -392,7 +389,7 @@ turned on with a @code{\paper} option.
 @ref{Page layout}
 
 コード断片集:
-@rlsr{Staff notation}.
+@rlsr{Staff notation}
 
 
 @node 個々の譜を変更する
@@ -440,7 +437,7 @@ turned on with a @code{\paper} option.
 @code{\stopStaff}
 @endpredefined
 
-@code{StaffSymbol} グラフィカル オブジェクト (加線を含む) に属する譜の線は@c
+譜の線 (加線を含む) は @code{StaffSymbol} グラフィカル オブジェクトに属し、
 @code{StaffSymbol} プロパティを用いて変更することができます。@c
 しかしながら、変更は譜が (再) 開始する前に行う必要があります。
 
@@ -459,8 +456,9 @@ turned on with a @code{\paper} option.
 @end lilypond
 
 各譜線の位置を変更することもできます。@c
-値の単位は譜線の間隔の @emph{半分} で、@c
-新しい位置は通常の中央線からの相対位置です。@c
+数字のリストでそれぞれの譜線の位置を指定します。@c
+@code{0}@tie{}は通常の譜における中央の線で、@c
+通常の譜の譜線の位置は @code{(-4@tie{}-2@tie{}0@tie{}2@tie{}4)} となります。
 1 つの値に対して 1 本の譜線が譜刻されるので、@c
 1 つのオーバライドで譜線の位置と本数を変更することができます。
 
@@ -475,8 +473,11 @@ turned on with a @code{\paper} option.
 }
 @end lilypond
 
+符幹の向きが通常通り (譜の下半分では上向き、上半分では下向き) になるように、@c
+カスタマイズした譜では中央の線 (あるいは「間」) を通常の中央の位置 (0) に@c
+配置するようにしてください。
 新しい譜線に対応して、@c
-音部記号とミドル C の位置を調節する必要があるかもしれません。@c
+音部記号とミドル@tie{}C の位置を調節する必要があるかもしれません。@c
 @ref{Clef} を参照してください。
 
 譜線の太さを変えることができます。@c
@@ -491,9 +492,7 @@ turned on with a @code{\paper} option.
 }
 @end lilypond
 
-しかしながら、加線の太さを譜線の太さから独立して設定することができます。@c
-2 つの値は譜線の太さと譜線の間隔に掛け算され、@c
-それらを加算した値が加線の太さになります。
+加線の太さを譜線の太さから独立して設定することもできます。
 
 @lilypond[verbatim,quote]
 \new Staff \with {
@@ -503,6 +502,10 @@ turned on with a @code{\paper} option.
   f'''4 a, a,, f
 }
 @end lilypond
+
+@noindent
+1 つ目の値は譜線の太さに、2 つ目は譜線の間隔に掛け算され、@c
+それら 2 つの値を加算した値が加線の太さになります。
 
 加線の垂直方向の位置を変更することができます:
 
@@ -532,13 +535,15 @@ turned on with a @code{\paper} option.
 以下の例で、@code{StaffSymbol} 全体に対する @code{\override} を元に戻すには@c
 @code{\stopStaff} を行う必要があります。
 
-@lilypond[fragment,quote,relative=1]
-\override Staff.StaffSymbol.line-positions =   #'(-8 0 2 4)
-d4 e f g
-\stopStaff
-\startStaff
-\override Staff.StaffSymbol.ledger-positions = #'(-8 -6 (-4 -2) 0)
-d4 e f g
+@lilypond[verbatim,quote]
+\relative d' {
+  \override Staff.StaffSymbol.line-positions = #'(-8 0 2 4)
+  d4 e f g
+  \stopStaff
+  \startStaff
+  \override Staff.StaffSymbol.ledger-positions = #'(-8 -6 (-4 -2) 0)
+  d4 e f g
+}
 @end lilypond
 
 譜線の間隔を変えることができます。この設定は加線の間隔にも影響を与えます。
@@ -576,11 +581,9 @@ d4 e f g
 @unnumberedsubsubsec オッシア譜
 @translationof Ossia staves
 
-@c 未訳
-@cindex staff, Frenched
+@cindex staff, Frenched (隠された譜)
 @cindex ossia (オッシア)
-@c 未訳
-@cindex Frenched staves
+@cindex Frenched staves (隠された譜)
 @cindex staff, resizing of (譜をリサイズする)
 @cindex resizing of staves (譜をリサイズする)
 
@@ -614,7 +617,7 @@ d4 e f g
 最も適切な方法です。
 
 @lilypond[verbatim,quote]
-\new Staff = main \relative {
+\new Staff = "main" \relative {
   c''4 b d c
   <<
     { c4 b d c }
@@ -622,9 +625,7 @@ d4 e f g
     \new Staff \with {
       \remove "Time_signature_engraver"
       alignAboveContext = #"main"
-      fontSize = #-3
-      \override StaffSymbol.staff-space = #(magstep -3)
-      \override StaffSymbol.thickness = #(magstep -3)
+      \magnifyStaff #2/3
       firstClef = ##f
     }
     { e4 d f e }
@@ -643,12 +644,10 @@ d4 e f g
 
 @lilypond[verbatim,quote,ragged-right]
 <<
-  \new Staff = ossia \with {
+  \new Staff = "ossia" \with {
     \remove "Time_signature_engraver"
     \hide Clef
-    fontSize = #-3
-    \override StaffSymbol.staff-space = #(magstep -3)
-    \override StaffSymbol.thickness = #(magstep -3)
+    \magnifyStaff #2/3
   }
   { \stopStaff s1*6 }
 
@@ -656,7 +655,7 @@ d4 e f g
     c'4 b c2
     <<
       { e4 f e2 }
-      \context Staff = ossia {
+      \context Staff = "ossia" {
         \startStaff e4 g8 f e2 \stopStaff
       }
     >>
@@ -664,7 +663,7 @@ d4 e f g
     c4 b c2
     <<
       { g4 a g2 }
-      \context Staff = ossia {
+      \context Staff = "ossia" {
         \startStaff g4 e8 f g2 \stopStaff
       }
     >>
@@ -674,21 +673,20 @@ d4 e f g
 @end lilypond
 
 オッシア譜を作成するための代替手段として、@c
-@code{\RemoveEmptyStaffContext} コマンドが用いられるかもしれません。@c
+@code{\RemoveAllEmptyStaves} コマンドが用いられるかもしれません。@c
 この手法は、オッシア譜が改行の直後に発生する場合、最も便利な手法です。@c
 @c そのようなケースでは、空白休符を使用する必要はまったくありません:
 @c @code{\startStaff} と @code{\stopStaff} が必要であるだけです。@c
-@code{\RemoveEmptyStaffContext} についての更なる情報は、@c
+@code{\RemoveAllEmptyStaves} についての更なる情報は、@c
 @ref{Hiding staves} を参照してください。
 
 @lilypond[verbatim,quote,ragged-right]
 <<
-  \new Staff = ossia \with {
+  \new Staff = "ossia" \with {
     \remove "Time_signature_engraver"
     \hide Clef
-    fontSize = #-3
-    \override StaffSymbol.staff-space = #(magstep -3)
-    \override StaffSymbol.thickness = #(magstep -3)
+    \magnifyStaff #2/3
+    \RemoveAllEmptyStaves
   } \relative {
     R1*3
     c''4 e8 d c2
@@ -702,13 +700,6 @@ d4 e f g
     e4 d c2
   }
 >>
-
-\layout {
-  \context {
-    \Staff \RemoveEmptyStaves
-    \override VerticalAxisGroup.remove-first = ##t
-  }
-}
 @end lilypond
 
 
@@ -742,16 +733,18 @@ d4 e f g
 @unnumberedsubsubsec 譜を隠す
 @translationof Hiding staves
 
-@c 未訳
-@cindex Frenched score
-@c 未訳
-@cindex Frenched staff
+@cindex Frenched score (譜が隠された楽譜)
+@cindex Frenched staff (隠された譜)
 @cindex staff, hiding (譜を隠す)
 @cindex staff, empty (空の譜)
-@cindex hiding of staves (譜を隠す)
+@cindex hiding staves (譜を隠す)
+@cindex hiding ancient staves (古代譜を隠す)
+@cindex hiding rhythmic staves (リズム譜を隠す)
+@cindex hiding vaticana staves (バチカン譜を隠す)
 @cindex empty staves (空の譜)
 
 @funindex \RemoveEmptyStaves
+@funindex \RemoveAllEmptyStaves
 @funindex Staff_symbol_engraver
 @funindex \stopStaff
 
@@ -766,14 +759,17 @@ d4 e f g
 \relative { a''8 f e16 d c b a2 }
 @end lilypond
 
-@c 未訳: Frenched Score
-@code{\layout} ブロックの中で
-@code{\RemoveEmptyStaffContext} コマンドをセットすることによって、@c
-空の譜を隠すことができます。@c
-オーケストラ譜では、@c
-このようなスタイルの譜は @q{Frenched Score} として知られています。@c
-デフォルトでは、このコマンドは@c
-最初のシステム以外のところにあるすべての空の譜を隠して、削除します。
+@c Frenched Score
+@c 適当な訳語が見つからないため、原文のままとし、
+@c index中では「隠された譜」などとした
+空の譜は隠すことができます (いわゆる @q{Frenched Score} にするため)。@c
+これは、コンテキスト中で @code{\RemoveEmptyStaves} を適用することで@c
+実現できます。(@code{\layout} ブロック内に適用することによって) 楽譜全体に@c
+設定することも、(@code{\with} ブロック内に適用することによって) 特定の譜に@c
+限定することもできます。このコマンドは、最初のシステムを除いて、@c
+楽譜内にある全ての空の譜を削除します。最初のシステムにある譜も隠したい場合は、@c
+@code{\RemoveAllEmptyStaves} を使ってください。サポートしているコンテキストは
+@code{Staff}, @code{RhythmicStaff}, @code{VaticanaStaff} です。
 
 @warning{譜が空であると見なされるのは、@c
 それが複数小節にわたる休符、休符、スキップ、空白休符、@c
@@ -782,7 +778,8 @@ d4 e f g
 @lilypond[verbatim,quote,ragged-right]
 \layout {
   \context {
-    \Staff \RemoveEmptyStaves
+    \Staff
+    \RemoveEmptyStaves
   }
 }
 
@@ -804,31 +801,13 @@ d4 e f g
 
 @noindent
 譜に対してオッシア セクションを作成するために、@c
-@code{\RemoveEmptyStaffContext} を用いることもできます。@c
+@code{\RemoveAllEmptyStaves} を用いることもできます。@c
 詳細は @ref{Ossia staves} を参照してください。
 
-@cindex hiding ancient staves (古代譜を隠す)
-@cindex hiding rhythmic staves (リズム譜を隠す)
-
-@funindex \RemoveEmptyStaves
-
-古代音楽コンテキストの中にある空の譜を隠すために、@c
-@code{\VaticanaStaff \RemoveEmptyStaves} コマンドが用いられることがあります。@c
-同様に、空の @code{RhythmicStaff} コンテキストを隠すために、@c
-@code{\RhythmicStaff \RemoveEmptyStaves} が用いられることがあります。
-
-
 @predefined
-@code{\Staff \RemoveEmptyStaves},
-@code{\VaticanaStaff \RemoveEmptyStaves},
-@code{\RhythmicStaff \RemoveEmptyStaves}
+@code{\RemoveEmptyStaves},
+@code{\RemoveAllEmptyStaves}
 @endpredefined
-
-
-@snippets
-
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{removing-the-first-empty-line.ly}
 
 @seealso
 音楽用語集:
@@ -991,60 +970,42 @@ d4 e f g
 @cindex instrument names, changing (楽器名を変更する)
 @cindex changing instrument names (楽器名を変更する)
 
-楽曲の途中で @code{shortInstrumentName} を変更することもできます。@c
+楽曲の途中で @code{shortInstrumentName} や、新しい楽器に必要なその他の設定を@c
+変更することもできます。@c
 しかしながら、@code{instrumentName} は最初のインスタンスが譜刻され、@c
 楽曲の途中での変更は無視されます:
 
-@lilypond[verbatim,quote,ragged-right,relative=1]
+@lilypond[verbatim,quote,ragged-right]
+prepPiccolo = <>^\markup \italic { muta in Piccolo }
+
+prepFlute = <>^\markup \italic { muta in Flauto }
+
+setPiccolo = {
+  <>^\markup \bold { Piccolo }
+  \transposition c''
+}
+
+setFlute = {
+  <>^\markup \bold { Flute }
+  \transposition c'
+}
+
 \new Staff \with {
   instrumentName = #"Flute"
   shortInstrumentName = #"Flt."
 }
-{
-  c1 c c c \break
-  c1 c c c \break
-  \set Staff.instrumentName = #"Clarinet"
-  \set Staff.shortInstrumentName = #"Clt."
-  c1 c c c \break
-  c1 c c c \break
-}
-@end lilypond
-
-@cindex instrument switch (楽器を切り換える)
-@cindex switching instruments (楽器を切り換える)
-
-@funindex \addInstrumentDefinition
-@funindex \instrumentSwitch
-
-楽器の @emph{切り替え} が必要な場合、切り替えのために必要とされる@c
-変更の詳細なリストを作成するために、@code{\addInstrumentDefinition} を
-@code{\instrumentSwitch} と組み合わせて使用することがあります。@c
-@code{\addInstrumentDefinition} コマンドは 2 つの引数をとります:
-識別文字列と、楽器で使用されるコンテキスト プロパティと値の連想リストです。@c
-このコマンドは最上位のスコープに配置する必要があります。@c
-@code{\instrumentSwitch} は音楽表記の中で使用され、楽器の切り替えを宣言します:
-
-@lilypond[verbatim,quote,ragged-right]
-\addInstrumentDefinition #"contrabassoon"
-  #`((instrumentTransposition . ,(ly:make-pitch -1 0 0))
-     (shortInstrumentName . "Cbsn.")
-     (clefGlyph . "clefs.F")
-     (middleCPosition . 6)
-     (clefPosition . 2)
-     (instrumentCueName . ,(make-bold-markup "cbsn."))
-     (midiInstrument . "bassoon"))
-
-\new Staff \with {
-  instrumentName = #"Bassoon"
-}
-\relative c' {
-  \clef tenor
-  \compressFullBarRests
-  c2 g'
-  R1*16
-  \instrumentSwitch "contrabassoon"
-  c,,2 g \break
-  c,1 ~ | 1
+\relative {
+  g'1 g g g \break
+  g1 g \prepPiccolo R R \break
+  \set Staff.instrumentName = #"Piccolo"
+  \set Staff.shortInstrumentName = #"Picc."
+  \setPiccolo
+  g1 g g g \break
+  g1 g \prepFlute R R \break
+  \set Staff.instrumentName = #"Flute"
+  \set Staff.shortInstrumentName = #"Flt."
+  \setFlute
+  g1 g g g
 }
 @end lilypond
 
@@ -1132,6 +1093,40 @@ oboeNotes = \relative {
 }
 @end lilypond
 
+@code{\unfoldRepeats} コマンドを @code{\quoteDuring} と一緒に使う場合、@c
+引用の中でも @code{\unfoldRepeats} コマンドを使わなければなりません:
+
+@lilypond[verbatim,quote]
+fluteNotes = \relative {
+  \repeat volta 2 { a'4 gis g gis }
+}
+
+oboeNotesDW = \relative {
+  \repeat volta 2 \quoteDuring #"incorrect" { s1 }
+}
+
+oboeNotesW = \relative {
+  \repeat volta 2 \quoteDuring #"correct" { s1 }
+}
+
+
+\addQuote "incorrect" { \fluteNotes }
+
+\addQuote "correct" { \unfoldRepeats \fluteNotes }
+
+\score {
+  \unfoldRepeats
+  <<
+    \new Staff \with { instrumentName = "Flute" }
+    \fluteNotes
+    \new Staff \with { instrumentName = "Oboe (incorrect)" }
+    \oboeNotesDW
+    \new Staff \with { instrumentName = "Oboe (correct)" }
+    \oboeNotesW
+  >>
+}
+@end lilypond
+
 @code{\quoteDuring} コマンドは引用されるパートと引用するパート両方の
 @code{\transposition} を使用して、@c
 引用されるパートと同じ響きのピッチに変換して、@c
@@ -1163,6 +1158,8 @@ oboeNotes = \relative {
 @cindex articulation-event
 @cindex dynamic-event
 @cindex rest-event
+@cindex slur-event
+@cindex crescendo-event
 
 @funindex quotedEventTypes
 @funindex quotedCueEventTypes
@@ -1203,6 +1200,9 @@ oboeNotes = \relative {
 記譜法リファレンス:
 @ref{Instrument transpositions},
 @ref{Using tags}
+
+インストールされているファイル:
+@file{scm/define-event-classes.scm}.
 
 コード断片集:
 @rlsr{Staff notation}
@@ -1315,17 +1315,9 @@ LilyPond がクラッシュする可能性さえあります。
 @code{CueVoice} コンテキストとして追加されて
 @code{@var{music}} と同時進行して、@c
 多声になります。@c
-@code{@var{direction}} は引数 @code{UP} または @code{DOWN} を取り、@c
-それぞれ第 1 及び第 2 ボイスと調和して、@c
+@code{@var{direction}} は引数 @code{UP} または @code{DOWN} を取り
+-- それぞれ第 1 ボイス及び第 2 ボイスと対応します --
 合図音符が他のボイスに対してどのように譜刻されるかを決定します。
-
-このコマンドは @code{@var{partname}} の該当する小節から音符と休符だけを
-@code{CueVoice} にコピーします。@c
-@code{CueVoice} は暗黙的に作成されて @code{@var{music}} と同時進行し、@c
-結果として多声になります。@c
-引数 @code{@var{voice}} は合図音符を第 1 ボイスとして記譜すべきか、@c
-第 2 ボイスとして記譜すべきかを決定します。@c
-@code{UP} は第 1 ボイスに相当し、@code{DOWN} は第 2 ボイスに相当します。
 
 @lilypond[verbatim,quote]
 fluteNotes = \relative {
@@ -1334,7 +1326,7 @@ fluteNotes = \relative {
 
 oboeNotes = \relative c'' {
   R1
-  \new CueVoice { \set instrumentCueName = "flute" }
+  <>^\markup \tiny { flute }
   \cueDuring #"flute" #UP { R1 }
   g2 c,
 }
@@ -1346,10 +1338,11 @@ oboeNotes = \relative c'' {
 }
 @end lilypond
 
+
 @noindent
 
 @code{instrumentCueName} プロパティを設定することによって、@c
-@code{\cueDuring} で音楽のどの側面を引用するか調節することができます。@c
+@code{\cueDuring} で音楽のどの部分を引用するか調節することができます。@c
 このプロパティのデフォルト値は @code{'(note-event rest-event
 tie-event beam-event tuplet-span-event)} であり、音符、休符、タイ、連桁、@c
 それに連符だけが引用され、アーティキュレーション、強弱記号、マークアップ等は@c
@@ -1375,13 +1368,7 @@ oboeNotes = \relative {
 }
 @end lilypond
 
-@c ここから L2334
-一時的な @code{CueVoice} コンテキストの中の @code{instrumentCueName}
-プロパティを設定することで、合図を演奏する楽器の名前を表示させることが@c
-できます。@c
-@code{instrumentCueName} の位置とスタイルは @code{\instrumentSwitch}
-オブジェクトによって制御されます -- @ref{Instrument names} を参照して@c
-ください。@c
+引用される楽器の名前を表示するために、マークアップを用いることができます。@c
 合図音符が音符記号の変更を必要とする場合、手動で変更することができますが、@c
 合図音符が終わったところで手動で元の音部記号に戻す必要がありｍす。
 
@@ -1394,7 +1381,7 @@ bassoonNotes = \relative c {
   \clef bass
   R1
   \clef treble
-  \new CueVoice { \set instrumentCueName = "flute" }
+  <>^\markup \tiny { flute }
   \cueDuring #"flute" #UP { R1 }
   \clef bass
   g4. b8 d2
@@ -1420,7 +1407,7 @@ fluteNotes = \relative {
 bassoonNotes = \relative c {
   \clef bass
   R1
-  \new CueVoice { \set instrumentCueName = "flute" }
+  <>^\markup { \tiny "flute" }
   \cueDuringWithClef #"flute" #UP #"treble" { R1 }
   g4. b8 d2
 }
@@ -1471,7 +1458,6 @@ bassClarinetNotes = \relative c' {
 @cindex cue notes, removing (合図音符を削除する)
 
 @funindex \killCues
-@funindex \addInstrumentDefinition
 
 @code{\killCues} コマンドは音楽表記から合図音符を削除します。@c
 これにより、同じ音楽表記を使って合図を持つ楽器パートと楽譜を作り出すことが@c
@@ -1493,7 +1479,7 @@ bassoonNotes = \relative c {
   R1
   \tag #'part {
     \clef treble
-  \new CueVoice { \set instrumentCueName = "flute" }
+    <>^\markup \tiny { flute }
   }
   \cueDuring #"flute" #UP { R1 }
   \tag #'part \clef bass

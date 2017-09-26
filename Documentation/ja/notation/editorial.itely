@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: c1b0482f63f881bd3f67845e5f76a3e04675ef2a
+    Translation of GIT committish: eb38c33a95cbe6adf9f176dfbb794373ec062605
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -10,7 +10,7 @@
 @c \version "2.19.21"
 
 
-@c Translators: Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Yoshiki Sawada
 @c Translation status: post-GDP
 
 
@@ -56,62 +56,212 @@
 
 @funindex fontSize
 @funindex font-size
+@funindex magnification->font-size
 @funindex magstep
-@funindex \huge
-@funindex \large
+@funindex magnifyMusic
+@funindex teeny
+@funindex tiny
+@funindex small
+@funindex normalsize
+@funindex large
+@funindex huge
+@funindex \magnifyMusic
+@funindex \teeny
+@funindex \tiny
 @funindex \normalsize
 @funindex \small
-@funindex \tiny
-@funindex \teeny
-@funindex huge
-@funindex large
-@funindex normalsize
-@funindex small
-@funindex tiny
-@funindex teeny
+@funindex \large
+@funindex \huge
 
-記譜要素のフォント サイズを変更することができます。@c
-これは連桁やスラーなどの可変シンボルのサイズは変更しません。
+@warning{@*
+テキストのフォント サイズに関しては、@c
+@ref{フォントとフォント サイズを選択する}を参照してください。@*
+譜のサイズに関しては、@ref{譜サイズを設定する}を参照してください。@*
+合図音符に関しては、@ref{合図音符をフォーマットする}を参照してください。@*
+オッシア譜に関しては、@ref{オッシア譜}を参照してください。}
 
-@warning{テキストのフォント サイズを変更する方法については
-@ref{Selecting font and font size} を参照してください。}
+譜のサイズを変えずに記譜のサイズを変更するには、@code{\magnifyMusic}
+コマンドに拡大縮小の割合を指定します:
 
-@lilypond[verbatim,quote,relative=2]
-\huge
-c4.-> d8---3
-\large
-c4.-> d8---3
-\normalsize
-c4.-> d8---3
-\small
-c4.-> d8---3
-\tiny
-c4.-> d8---3
-\teeny
-c4.-> d8---3
+@c Grieg Piano Concerto (mvt.1 cadenza)
+@lilypond[verbatim,quote]
+\new Staff <<
+  \new Voice \relative {
+    \voiceOne
+    <e' e'>4 <f f'>8. <g g'>16 <f f'>8 <e e'>4 r8
+  }
+  \new Voice \relative {
+    \voiceTwo
+    \magnifyMusic 0.63 {
+      \override Score.SpacingSpanner.spacing-increment = #(* 1.2 0.63)
+      r32 c'' a c a c a c r c a c a c a c
+      r c a c a c a c a c a c a c a c
+    }
+  }
+>>
 @end lilypond
 
-内部的には、これは @code{fontSize} プロパティを設定します。@c
-この設定により @code{font-size} プロパティが@c
-すべてのレイアウト オブジェクトにセットされます。@c
-@code{font-size} の値は、カレントの譜の高さでの標準フォント サイズからの@c
-相対値を表している数字です。@c
-1 段階上がる毎にフォント サイズは約 12% 増加します。@c
-6 段階でちょうど 2 倍になります。@c
-Scheme 関数 @code{magstep} は @code{font-size} 数をスケーリング ファクタに@c
-変換します。@c
-@code{font-size} プロパティを直接設定することも可能です。@c
-そうした場合、特定のレイアウト オブジェクトだけが影響を受けます。
+上の例にある @code{\override} は、不具合の一時的な回避措置です。@c
+このセクションの最後にある@qq{既知の問題と警告}を参照してください。
 
-@lilypond[verbatim,quote,relative=2]
-\set fontSize = #3
-c4.-> d8---3
-\override NoteHead.font-size = #-4
-c4.-> d8---3
-\override Script.font-size = #2
-c4.-> d8---3
-\override Stem.font-size = #-5
-c4.-> d8---3
+通常のサイズの音符が小さい音符とマージされる際には、符幹や臨時記号が正しく@c
+揃うように、小さい音符のサイズを@c
+(@w{@samp{\once@tie{}\normalsize}} によって) リセットする必要があります:
+
+@c Chopin Prelude op.28 no.8
+@lilypond[verbatim,quote]
+\new Staff <<
+  \key fis \minor
+  \mergeDifferentlyDottedOn
+  \new Voice \relative {
+    \voiceOne
+    \magnifyMusic 0.63 {
+      \override Score.SpacingSpanner.spacing-increment = #(* 1.2 0.63)
+      \once \normalsize cis'32( cis' gis b a fis \once \normalsize d d'
+      \once \normalsize cis, cis' gis b a gis \once \normalsize fis fis'
+      \once \normalsize fis, fis' ais, cis b gis \once \normalsize eis eis'
+      \once \normalsize a, a' bis, d cis b \once \normalsize gis gis')
+    }
+  }
+  \new Voice \relative {
+    \voiceTwo
+    cis'8. d16 cis8. fis16 fis8. eis16 a8. gis16
+  }
+>>
+@end lilypond
+
+@code{\magnifyMusic} コマンドは合図音符、装飾音符、オッシア譜を作るための@c
+ものとしては想定されていません -- これらには、より適切な作成方法があります。@c
+代わりに、このコマンドは以下のような場合に適しています:
+単一の譜にある、単一の楽器について、記譜サイズが変化し、@c
+しかし装飾音符を用いるのは適切ではない場合 -- 例えばカデンツァのような@c
+パッセージや上の例にあるような場合です。
+@code{\magnifyMusic} の値を 0.63 にセットすることで、@code{CueVoice} と同じ@c
+大きさになります。
+
+@warning{@code{@bs{}magnifyMusic} コマンドは譜のサイズを変更する時にも@c
+使うべきでは@i{ありません。}@ref{譜サイズを設定する}を参照してください。}
+
+
+@subsubsubheading 個々のレイアウト オブジェクトのサイズを変更する
+
+個々のレイアウト オブジェクトは @code{\tweak} や @code{\override} コマンドを@c
+使って、@code{font-size} プロパティを調整することでサイズを変更できます:
+
+@c KEEP LY
+@lilypond[quote,verbatim]
+\relative {
+  % 符頭のサイズを変更します
+  <f' \tweak font-size -4 b e>-5
+  % 運指記号のサイズを変更します
+  bes-\tweak font-size 0 -3
+  % 臨時記号のサイズを変更します
+  \once \override Accidental.font-size = -4 bes!-^
+  % アーティキュレーションのサイズを変更します
+  \once \override Script.font-size = 4 bes!-^
+}
+@end lilypond
+
+それぞれのレイアウト オブジェクトの @code{font-size} のデフォルト値は、@c
+内部リファレンスにリストアップされています。@code{font-size} プロパティは@c
+@code{font-interface} をサポートしているレイアウト オブジェクトにのみ@c
+設定できます。@code{font-size} がオブジェクトの @q{Standard@tie{}settings} に@c
+存在していない場合は、デフォルト値は 0 です。@c
+@rinternals{All layout objects} を参照してください。
+
+
+@subsubsubheading @code{fontSize} プロパティを理解する
+
+@code{fontSize} コンテキスト プロパティは、コンテキストに属する@c
+グリフ ベースの (訳注: フォントの文字として定義されている、詳しくは後述)
+記譜要素全ての相対サイズを調整します:
+
+@lilypond[verbatim,quote]
+\relative {
+  \time 3/4
+  d''4---5 c8( b a g) |
+  \set fontSize = -6
+  e'4-- c!8-4( b a g) |
+  \set fontSize = 0
+  fis4---3 e8( d) fis4 |
+  g2.
+}
+@end lilypond
+
+@code{fontSize} の値は、現在の譜の高さに応じた通常のサイズからの@c
+相対値を示しています。デフォルトの @code{fontSize} は 0 です。@c
+@code{fontSize} に 6 を加えることで大きさが 2 倍になり、@c
+6 を減じることで半分になります。1 が約 12% の増減になります。
+
+@code{font-size} プロパティの対数的な単位は常に直観的とは限りません。@c
+Scheme 関数 @code{magnification->font-size} はこれに対応する便利な関数です。@c
+例えば、記譜の大きさをデフォルトの 75% にしたい場合は、以下のようにします:
+
+@example
+\set fontSize = #(magnification->font-size 0.75)
+@end example
+
+Scheme 関数 @code{magstep} は逆のことをします: @code{font-size} の値を@c
+拡大縮小率に変換します。
+
+@code{fontSize} プロパティはグリフとして描かれている記譜要素のみに作用します
+-- 例えば、符頭、臨時記号、文字などです。譜のサイズそのものや、@c
+符幹、連桁のサイズ、水平方向のスペースなどは変化しません。@c
+(譜のサイズを変更せずに) 符幹、連桁のサイズや、水平方向のスペースを@c
+変更するには、上記の @code{\magnifyMusic} を使用してください。@c
+譜のサイズを含めて、全てのサイズを変更する場合は、@c
+@ref{譜サイズを設定する}を参照してください。
+
+@code{fontSize} @i{コンテキスト プロパティ} が設定されると、@c
+個々のレイアウト オブジェクトのグリフが出力される前に、@c
+@code{fontSize} の値と、@c
+@code{font-size} @i{グラフィカル オブジェクト プロパティ}の値が@c
+足し合わされます。これは、@code{fontSize} が既に設定されていて、@c
+個々の @code{font-size} プロパティを更に設定する場合に混乱するかもしれません:
+
+@c KEEP LY
+@lilypond[verbatim,quote,fragment]
+% NoteHead のデフォルトの font-size は 0 です
+% Fingering のデフォルトの font-size は -5 です
+c''4-3
+
+\set fontSize = -3
+% NoteHead のフォント サイズの最終的な値は -3 になります
+% Fingering のフォント サイズの最終的な値は -8 になります
+c''4-3
+
+\override Fingering.font-size = 0
+% Fingering のフォント サイズの最終的な値は -3 になります
+c''4-3
+@end lilypond
+
+以下のような短縮記法コマンドも存在します:
+
+@multitable @columnfractions .2 .4 .4
+@item @b{コマンド} @tab @b{同等なコマンド} @tab @b{相対サイズ}
+@item @code{\teeny}      @tab @code{\set fontSize = -3} @tab 71%
+@item @code{\tiny}       @tab @code{\set fontSize = -2} @tab 79%
+@item @code{\small}      @tab @code{\set fontSize = -1} @tab 89%
+@item @code{\normalsize} @tab @code{\set fontSize = 0} @tab 100%
+@item @code{\large}      @tab @code{\set fontSize = 1} @tab 112%
+@item @code{\huge}       @tab @code{\set fontSize = 2} @tab 126%
+@end multitable
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  \teeny
+  c4.-> d8---3
+  \tiny
+  c4.-> d8---3
+  \small
+  c4.-> d8---3
+  \normalsize
+  c4.-> d8---3
+  \large
+  c4.-> d8---3
+  \huge
+  c4.-> d8---3
+}
 @end lilypond
 
 @cindex standard font size (notation) (標準フォント サイズ (記譜法))
@@ -121,18 +271,14 @@ c4.-> d8---3
 @funindex font-size
 
 フォント サイズの変更は、ひな形のサイズが望みのサイズに最も近くなるよう
-(一定の割合で) 増減することによって、達成されます@c
-標準フォント サイズ (@w{@code{font-size = #0}} のフォント サイズ) は@c
+(一定の割合で) 増減することによって、達成されます。@c
+標準フォント サイズ (@w{@code{font-size = 0}} のフォント サイズ) は@c
 標準の譜の高さに基づきます。@c
 20pt の譜では、11pt のフォントが選択されます。
 
-@code{font-size} プロパティはフォントを使用するレイアウト オブジェクトだけに@c
-セットすることができます@c
-そのようなオブジェクトは @code{font-interface} レイアウト インタフェイスを@c
-サポートします。
-
 
 @predefined
+@code{\magnifyMusic},
 @code{\teeny},
 @code{\tiny},
 @code{\small},
@@ -142,12 +288,43 @@ c4.-> d8---3
 @endpredefined
 
 @seealso
+記譜法リファレンス:
+@ref{Selecting font and font size},
+@ref{Setting the staff size},
+@ref{Formatting cue notes},
+@ref{Ossia staves}
+
+インストールされているファイル:
+@file{ly/music-functions-init.ly},
+@file{ly/property-init.ly}
+
 コード断片集:
 @rlsr{Editorial annotations}
 
 内部リファレンス:
 @rinternals{font-interface}
 
+@c The two issues mentioned below:
+@c http://code.google.com/p/lilypond/issues/detail?id=3987
+@c http://code.google.com/p/lilypond/issues/detail?id=3990
+@knownissues
+@code{\magnifyMusic} を使用する際に、水平方向のスペースが不適切になる
+2 つの不具合があります。これを解決する方法が 1 つだけありますが、@c
+全ての場合にうまくいくとは限りません。次の例で、@var{mag} 変数を@c
+好きな値に置き換えてください。@c
+@code{\newSpacingSection} コマンドの片方や両方、あるいは
+@code{\override} や @code{\revert} コマンドを取り除いてみることができます:
+
+
+@example
+\magnifyMusic @var{mag} @{
+  \newSpacingSection
+  \override Score.SpacingSpanner.spacing-increment = #(* 1.2 @var{mag})
+  [@var{music}]
+  \newSpacingSection
+  \revert Score.SpacingSpanner.spacing-increment
+@}
+@end example
 
 @node 運指の指示
 @unnumberedsubsubsec 運指の指示
@@ -160,17 +337,11 @@ c4.-> d8---3
 
 運指の指示は @var{音符}-@var{数字} を用いることで挿入することができます:
 
-@lilypond[verbatim,quote,relative=2]
-c4-1 d-2 f-4 e-3
-@end lilypond
-
-指の変更のためにマークアップ テキストや文字列が使用されることもあります。
-
 @lilypond[verbatim,quote]
 \relative { c''4-1 d-2 f-4 e-3 }
 @end lilypond
 
-指の入れ替えのためにマークアップ テキストを使うこともできます。
+指の入れ替えのためにマークアップ テキストや文字列を使うこともできます。
 
 @lilypond[verbatim,quote]
 \relative {
@@ -237,18 +408,17 @@ c4-1 d-2 f-4 e-3
 @unnumberedsubsubsec 隠された音符
 @translationof Hidden notes
 
-@cindex hidden notes
-@cindex invisible notes
-@cindex transparent notes
-@cindex notes, hidden
-@cindex notes, invisible
-@cindex notes, transparent
+@cindex hidden notes (隠された音符)
+@cindex invisible notes (不可視の音符)
+@cindex transparent notes (透明な音符)
+@cindex notes, hidden (隠された音符)
+@cindex notes, invisible (不可視の音符)
+@cindex notes, transparent (透明な音符)
 
 @funindex \hideNotes
 @funindex \unHideNotes
 
-@c 未訳
-隠された (または不可視、透明の) 音符は、preparing theory や作曲の演習の際に@c
+隠された (または不可視、透明の) 音符は、音楽理論や作曲の演習の際に@c
 有用です。
 
 @lilypond[verbatim,quote]
@@ -346,12 +516,13 @@ X11 のために定義された色の全範囲にアクセスすることがで�
 
 @c KEEP LY
 @lilypond[verbatim,quote]
-\relative c'' {
-  \override Staff.StaffSymbol.color = #(x11-color 'SlateBlue2)
-  \set Staff.instrumentName = \markup {
-    \with-color #(x11-color 'navy) "Clarinet"
+\new Staff \with {
+  instrumentName = \markup {
+    \with-color #(x11-color 'red) "Clarinet"
+    }
   }
-
+  \relative c'' {
+  \override Staff.StaffSymbol.color = #(x11-color 'SlateBlue2)
   gis8 a
   \override Beam.color = #(x11-color "medium turquoise")
   gis a
@@ -375,12 +546,13 @@ Scheme 関数 @code{rgb-color} を用いることによって、@c
 厳密な RGB カラーを指定することができます。
 
 @lilypond[verbatim,quote]
+\new Staff \with {
+  instrumentName = \markup {
+    \with-color #(x11-color 'red) "Clarinet"
+    }
+  }
 \relative c'' {
   \override Staff.StaffSymbol.color = #(x11-color 'SlateBlue2)
-  \set Staff.instrumentName = \markup {
-    \with-color #(x11-color 'navy) "Clarinet"
-  }
-
   \override Stem.color = #(rgb-color 0 0 0)
   gis8 a
   \override Stem.color = #(rgb-color 1 1 1)
@@ -415,8 +587,9 @@ X11 カラーは必ずしも同様の名前を持つノーマル カラーと@c
 Web 向けでは、ノーマル カラーを使用することを推奨します
 (つまり、@code{blue}, @code{green}, @code{red})。
 
-和音の中にある音符には @code{\override} で色を付けることはできません。@c
-@code{\override} の代わりに @code{\tweak} を使用してください
+和音の中にある音符に別々に色を付けるのに @code{\override} を使うことは@c
+できません。代わりにそれぞれの音符の前に @code{\tweak} や、それと同等な@c
+@code{\single\override} を使用してください
 -- @ref{The tweak command} を参照してください。
 
 
@@ -424,9 +597,8 @@ Web 向けでは、ノーマル カラーを使用することを推奨します
 @unnumberedsubsubsec 括弧
 @translationof Parentheses
 
-@c 保留: ghost notes
-@cindex ghost notes (ゴースト音符)
-@cindex notes, ghost (ゴースト音符)
+@cindex ghost notes (ゴースト ノート)
+@cindex notes, ghost (ゴースト ノート)
 @cindex notes, parenthesized (括弧で囲まれた音符)
 @cindex parentheses (括弧)
 @cindex brackets (囲み)
@@ -509,6 +681,9 @@ Web 向けでは、ノーマル カラーを使用することを推奨します
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {default-direction-of-stems-on-the-center-line-of-the-staff.ly}
 
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{automatically-changing-the-stem-direction-of-the-middle-note-based-on-the-melody.ly}
+
 @seealso
 記譜法リファレンス:
 @ref{Direction and placement}
@@ -574,16 +749,12 @@ Web 向けでは、ノーマル カラーを使用することを推奨します
 後者はたいてい和音の中で @code{\tweak} のように使用され、@c
 個々の音符にテキストを付加します。
 
-通常、バルーン ヘルプのテキストは音符の間隔に影響を与えますが、@c
-影響を与えないよう変更することもできます:
+バルーン ヘルプのテキストは音符の間隔に影響を与えませんが、@c
+影響を与えるように変更することもできます:
 
-Balloon text normally influences note spacing, but this can be
-altered:
-
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new Voice \with { \consists "Balloon_engraver" }
-{
-  \balloonLengthOff
+\relative c'' {
   \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
   a8
   \balloonGrobText #'Rest #'(-4 . -4) \markup { "I'm a rest" }
@@ -681,10 +852,10 @@ altered:
 @translationof Analysis brackets
 
 @cindex brackets (囲み、角括弧)
-@cindex bracket, phrasing (プレージングの囲み)
-@cindex phrasing bracket (プレージングの囲み)
+@cindex bracket, phrasing (フレーズの囲み)
+@cindex phrasing bracket (フレーズの囲み)
 @cindex musicological analysis (音楽学的分析)
-@cindex analysis, musicologica (音楽学的分析)l
+@cindex analysis, musicological (音楽学的分析)
 @cindex note grouping bracket (音符グループ化囲み)
 @cindex horizontal bracket (水平の囲み)
 @cindex bracket, horizontal (水平の囲み)
@@ -709,7 +880,7 @@ altered:
 }
 @end lilypond
 
-Analysis brackets may be nested.
+分析の囲みはネストすることができます。
 
 @lilypond[verbatim,quote]
 \layout {
@@ -726,12 +897,19 @@ Analysis brackets may be nested.
 }
 @end lilypond
 
-@seealso
-コード断片集:
-@rlsr{Editorial annotations}
+@snippets
 
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{analysis-brackets-above-the-staff.ly}
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{analysis-brackets-with-labels.ly}
+
+@seealso
 内部リファレンス:
 @rinternals{Horizontal_bracket_engraver},
 @rinternals{HorizontalBracket},
 @rinternals{horizontal-bracket-interface},
+@rinternals{HorizontalBracketText},
+@rinternals{horizontal-bracket-text-interface},
 @rinternals{Staff}
