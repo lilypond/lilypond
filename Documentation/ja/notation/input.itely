@@ -10,7 +10,7 @@
 @c \version "2.19.22"
 
 
-@c Translators: Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Yoshiki Sawada
 @c Translation status: post-GDP
 
 
@@ -26,7 +26,7 @@ LilyPond の一般的な入出力の問題について扱います。
 * タイトルとヘッダ::
 * 入力ファイルに取り組む::
 * 出力を制御する::
-* MIDI 出力::
+* MIDI 出力を作り出す::
 * 音楽情報を抽出する::
 @end menu
 
@@ -2527,9 +2527,11 @@ Gonville フォント ファミリーでは、@c
 製作者の Web サイトを参照してください。
 
 
-@node MIDI 出力
-@section MIDI 出力
-@translationof MIDI output
+@c 2017/9/22 ノード名とその翻訳のみ変更
+@c 第1章のxrefを正しく動作させるため。
+@node MIDI 出力を作り出す
+@section MIDI 出力を作り出す
+@translationof Creating MIDI output
 
 @cindex Sound (サウンド)
 @cindex MIDI
@@ -2561,7 +2563,7 @@ MIDI 出力は譜毎に 1 つのチャンネルを割り当て、@c
 * MIDI での繰り返し::
 * MIDI での音の強弱を制御する::
 * MIDI での打楽器::
-* 奏法スクリプト::
+* MIDI 出力をより良くする::
 @end menu
 
 @node MIDI ファイルを作り出す
@@ -3185,44 +3187,73 @@ MIDI 最小/最大ボリューム プロパティが設定されていない場�
 一般の MIDI 標準はリム ショットを含まないため、@c
 代わりにサイドスティックを用います。
 
+@c 2017-9-22 このノードと、続く奏法スクリプトのノードのみ先に翻訳
+@c 第1章のxrefを正しく動作させるため。
+@c 元の奏法スクリプトのノードは移動（実質削除）しました。
+@node MIDI 出力をより良くする
+@subsection MIDI 出力をより良くする
+@translationof Enhancing MIDI output
+
+@menu
+* 奏法スクリプト::
+@end menu
+
+デフォルトの MIDI 出力は必要最低限のものですが、@c
+MIDI の楽器を指定したり、@code{\midi} ブロックのプロパティを設定したり、@c
+奏法 (@file{articulate}) スクリプトを用いたりすることで@c
+より良くすることができます。
+
+@cindex instrument names (楽器名)
+@cindex MIDI, instruments (MIDI での楽器)
+@cindex articulate script (奏法スクリプト)
+@cindex articulate.ly
+@funindex Staff.midiInstrument
+
+
 @node 奏法スクリプト
-@subsection 奏法スクリプト
+@unnumberedsubsubsec 奏法スクリプト
 @translationof The Articulate script
 
-奏法スクリプトを用いることにより、よりリアルな MIDI 出力を得ることができます。@c
-奏法スクリプトは、音符を適切な時間比率の音符とスキップで置き換えることにより、@c
-アーティキュレーション (スラー、スタッカート等) を考慮に入れようとします。@c
-さらに、トリルやターンを展開しようとし、@c
-さらにラレンタンドとアッチェレランドを考慮に入れようとします。
-
-奏法スクリプトを使うには、@c
-入力ファイルの先頭で以下をインクルードする必要があります。
+奏法スクリプトを使うには、入力ファイルの最初にこのような
+@code{\include} コマンドを追加します:
 
 @example
 \include "articulate.ly"
 @end example
 
-さらに、@code{\score} セクションで以下のようにします。
+このスクリプトは、アーティキュレーションやテンポ表示を反映させるために、@c
+MIDI 出力の音符を正しく@q{タイム スケール}します。@c
+しかし、譜刻された出力も MIDI 出力の結果と対応して変化してしまいます。
 
 @example
-\unfoldRepeats \articulate <<
-	all the rest of the score...
->>
+\score @{
+  \articulate <<
+    @var{@dots{} music @dots{}}
+  >>
+  \midi @{ @}
+@}
 @end example
 
-この方法で入力ファイルを変更すると、@c
-出力される楽譜の見た目は著しく変わってしまいますが、@c
-標準の @code{\midi} ブロックはより良い MIDI ファイルを作り出します。
+@code{\articulate} コマンドは、省略記号 (トリルやターンなど) を解釈できます。@c
+対応している記号の一覧は、スクリプト内に記載してあります。@c
+@file{ly/articulate.ly} を参照してください。
 
-奏法スクリプトを機能させるための必須事項ではありませんが、@c
-上記の例のように @code{\unfoldRepeats} コマンドを挿入することにより、@c
-@notation{トリル} などの短縮記譜の演奏が可能になります。
+@seealso
+学習マニュアル:
+@rlearning{その他の情報源}
 
-@knownissues
+記譜法リファレンス:
+@ref{楽譜レイアウト}
 
-@c 未訳
-Articulate shortens chords といくつかの音楽 (特にオルガン音楽) の演奏は@c
-うまくいかないことがあります。
+インストールされているファイル:
+@file{ly/articulate.ly}
+
+@warning{奏法スクリプトは和音の長さを短くすることがあります。@c
+これはオルガン音楽などには適さないかもしれません。@c
+また、アーティキュレーションが全く付いていない音符も長さが短くなります。@c
+@code{\articulate} 関数を使う場所を一部分に限定するか、@c
+奏法スクリプトに定義された変数を書き換えることによって、@c
+長さが短くなる挙動を抑えることができます。}
 
 
 @node 音楽情報を抽出する

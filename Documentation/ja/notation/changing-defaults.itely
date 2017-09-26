@@ -10,7 +10,7 @@
 
 @c \version "2.19.22"
 
-@c Translators: Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Yoshiki Sawada
 @c Translation status: post-GDP
 
 @node デフォルトを変更する
@@ -203,8 +203,8 @@ Score コンテキストは、@code{\score @{@dots{}@}} や @code{\layout @{@dot
 
 @strong{@emph{MensuralStaff}}
 
-@code{Staff} と同じでが、@c
-定量形式の楽曲を譜刻するためにデザインされている点が異なります。
+@code{Staff} と同じですが、@c
+計量形式の楽曲を譜刻するためにデザインされている点が異なります。
 
 @node 下位コンテキスト - ボイス
 @unnumberedsubsubsec 下位コンテキスト - ボイス
@@ -2579,6 +2579,7 @@ property (modified with @code{\set}) was created.
 * 入力モード::
 * 向きと配置::
 * 距離と距離の単位::
+* 寸法::
 * 譜記号プロパティ::
 * スパナ::
 * オブジェクトの可視性::
@@ -2881,6 +2882,36 @@ Scheme 関数 @code{magstep} を使用することができます。@c
 記譜法リファレンス:
 @ref{Page layout},
 @ref{譜サイズを設定する}
+
+
+@c 2017-9-22 このノードのみ先に翻訳
+@c 第1章のxrefを正しく動作させるため。
+@node 寸法
+@subsection 寸法
+@translationof Dimensions
+
+@cindex dimensions (寸法)
+@cindex bounding box (バウンディング ボックス)
+
+グラフィカル オブジェクトの寸法 (大きさ) は、オブジェクトの@c
+バウンディング ボックスの左右端の位置、上下端の位置を指定します。@c
+これらはオブジェクトの参照ポイントからの距離で指定し、単位は譜スペースです。@c
+これらの位置は通常 2 つの Scheme ペアで表現します。@c
+例えば、テキスト マークアップ コマンド @code{\with-dimensions} は
+3 つの引数を取り、最初の 2 つが左右端の位置と上下端の位置を示す
+Scheme ペアです:
+
+@example
+\with-dimensions #'(-5 . 10) #'(-3 . 15) @var{arg}
+@end example
+
+これは @var{arg} のバウンディング ボックスの@c
+左端を -5, 右端を 10, 下端を -3, 上端を 15 に指定しています。@c
+全てオブジェクトの参照ポイントから、譜スペースの単位で計測されています。
+
+@seealso
+記譜法リファレンス:
+@ref{距離と距離の単位}
 
 
 @node 譜記号プロパティ
