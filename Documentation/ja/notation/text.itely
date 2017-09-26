@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: 76ee88f5adfc7bcd8eff487543e3605e43a93d80
+    Translation of GIT committish: eb38c33a95cbe6adf9f176dfbb794373ec062605
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -11,7 +11,7 @@
 @c \version "2.19.21"
 
 
-@c Translators: Masamichi Hosoda, Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Masamichi Hosoda, Yoshiki Sawada
 @c Translation status: post-GDP
 
 
@@ -247,9 +247,12 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 
 @lilypond[verbatim,quote]
 \relative {
-  c''4
-  \mark "Allegro"
-  c c c
+  \mark "Verse"
+  c'2 g'
+  \bar "||"
+  \mark "Chorus"
+  g2 c,
+  \bar "|."
 }
 @end lilypond
 
@@ -534,7 +537,7 @@ allegro = \markup { \bold \large Allegro }
 @rlsr{Text}
 
 @knownissues
-マークアップ モードの構文エラーは混乱しやすいです。
+マークアップ モードの構文エラー メッセージは混乱しやすいです。
 
 
 @node フォントとフォント サイズを選択する
@@ -572,7 +575,7 @@ allegro = \markup { \bold \large Allegro }
 @funindex \larger
 @funindex \magnify
 
-フォント サイズをいくつかの方法でグローバル譜サイズとの相対値で変更することができます。
+フォント サイズをグローバル譜サイズとの相対値で変更する方法はいくつかあります。
 
 フォント サイズをあらかじめ定義されているサイズに設定することができます:
 
@@ -594,8 +597,8 @@ allegro = \markup { \bold \large Allegro }
 }
 @end lilypond
 
-フォント サイズをグローバル譜サイズによって設定されている値で拡大あるいは縮小させる@c
-ことができます:
+フォント サイズをグローバル譜サイズによって設定されている値で拡大あるいは@c
+縮小させることができます:
 
 @lilypond[quote,verbatim]
 \relative b' {
@@ -605,8 +608,8 @@ allegro = \markup { \bold \large Allegro }
 }
 @end lilypond
 
-さらに、フォント サイズをグローバル譜サイズとは無関係に、固定ポイント サイズに設定する@c
-ことができます:
+さらに、フォント サイズをグローバル譜サイズとは無関係に、固定ポイント サイズに@c
+設定することができます:
 
 @lilypond[quote,verbatim]
 \relative b' {
@@ -801,7 +804,7 @@ allegro = \markup { \bold \large Allegro }
 @end lilypond
 
 @noindent
-オブジェクトの中には揃えるためのプロシージャをそれ自身で持っているものがあり、@c
+オブジェクトの中には揃えるための機能をそれ自身で持っているものがあり、@c
 それらは上記のコマンドでは影響を受けません。@c
 @ref{テキスト マーク} の中の例で示されているように、@c
 そのようなマークアップ オブジェクト全体を移動させることが可能です。
@@ -1150,7 +1153,7 @@ c'
 @seealso
 記譜法リファレンス:
 @ref{Align},
-Dimensions,
+@ref{Dimensions},
 @ref{編集者の注釈},
 @ref{Graphic}
 
@@ -1356,11 +1359,11 @@ a'1_\markup {
 拡張:
 @rextend{New markup list command definition}
 
-インストールされているファイル:
-@file{scm/define-markup-commands.scm}
-
 コード断片集:
 @rlsr{Text}
+
+インストールされているファイル:
+@file{scm/define-markup-commands.scm}
 
 内部リファレンス:
 @rinternals{TextScript}
@@ -1403,7 +1406,7 @@ FontConfig はシステムで利用可能なフォントを検出するために
 音楽記譜フォントはいくつかのファミリに分類された特殊な図柄のセットと@c
 言うことができます。@c
 以下の構文により、@c
-さまざまな LilyPond @code{feta} 非テキスト フォントを@c
+LilyPond のさまざまな @code{Feta} グリフを@c
 マークアップ モードの中で直接使用することが可能になります:
 
 @lilypond[quote,verbatim,fragment]

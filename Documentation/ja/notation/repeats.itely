@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: c1b0482f63f881bd3f67845e5f76a3e04675ef2a
+    Translation of GIT committish: eb38c33a95cbe6adf9f176dfbb794373ec062605
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -10,7 +10,7 @@
 @c \version "2.19.21"
 
 
-@c Translators: Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Yoshiki Sawada
 @c Translation status: post-GDP
 
 
@@ -30,7 +30,9 @@ LilyPond は以下の種類の繰り返しをサポートします:
 繰り返される音楽は描き出されませんが、繰り返しの小節線で囲まれます。@c
 繰り返しが楽曲の先頭にある場合、繰り返しの小節線は繰り返しの終端にのみ@c
 譜刻されます。@c
-繰り返し時に入れ替えて演奏される部分 (volte) は囲みの右側に譜刻されます。@c
+@c 注: 原文では複数形 volte が使われているが、
+@c 　　日本語話者には混乱をきたすと思われるため単数形 volta を使うことにした。
+繰り返し時に入れ替えて演奏される部分 (volta) は囲みの右側に譜刻されます。@c
 これは入れ替えがある繰り返しの標準的な記譜法です。
 
 @item unfold
@@ -69,16 +71,15 @@ LilyPond は以下の種類の繰り返しをサポートします:
 * 繰り返しを描き出す::
 @end menu
 
-@c 未訳
 @cindex volta
-@cindex prima volta
-@cindex seconda volta
-@cindex volta, prima
-@cindex volta, seconda
-@cindex repeat, normal
-@cindex normal repeat
-@cindex repeat with alternate endings
-@cindex alternate endings
+@cindex prima volta (1 つ目の volta)
+@cindex seconda volta (2 つ目の volta)
+@cindex volta, prima (1 つ目の volta)
+@cindex volta, seconda (2 つ目の volta)
+@cindex repeat, normal (通常の繰り返し)
+@cindex normal repeat (通常の繰り返し)
+@cindex repeat with alternate endings (入れ替え部分を持つ繰り返し)
+@cindex alternate endings (繰り返しの入れ替え部分)
 @funindex \repeat
 @funindex \alternative
 @funindex \partial
@@ -101,6 +102,18 @@ LilyPond は以下の種類の繰り返しをサポートします:
 @lilypond[verbatim,quote]
 \relative {
   \repeat volta 2 { c''4 d e f }
+  c2 d
+  \repeat volta 2 { d4 e f g }
+}
+@end lilypond
+
+繰り返しの@q{開始}記号は、デフォルトでは最初の小節には表示されません。@c
+しかし、最初の音符の前に @code{\bar ".|:"} を用いることで表示させることが@c
+できます。
+
+@lilypond[verbatim,fragment,quote]
+\relative {
+  \repeat volta 2 { \bar ".|:" c''4 d e f }
   c2 d
   \repeat volta 2 { d4 e f g }
 }
@@ -136,8 +149,8 @@ LilyPond は以下の種類の繰り返しをサポートします:
 }
 @end lilypond
 
-複数の入れ替え部分を 1 回ずつ演奏する繰り返しは以下のようになります:
-
+繰り返しが複数回あり、最後に入れ替え部分を演奏する繰り返しは@c
+以下のようになります:
 
 @lilypond[verbatim,quote]
 \relative {
@@ -150,7 +163,7 @@ LilyPond は以下の種類の繰り返しをサポートします:
 }
 @end lilypond
 
-繰り返し部分を複数回繰り返す場合は以下のようになります:
+繰り返しが複数回あり、入れ替えも 2 つ以上ある繰り返しは以下のようになります:
 
 @lilypond[verbatim,quote]
 \relative {
@@ -180,98 +193,72 @@ LilyPond は以下の種類の繰り返しをサポートします:
 @cindex repeat with pickup (ピックアップを持つ繰り返し)
 @cindex pickup in a repeat (繰り返しの中にあるピックアップ)
 @funindex \partial
+@cindex bar checks with repeats (小節チェックと繰り返し)
+@cindex repeats with bar checks (繰り返しと小節チェック)
 
-繰り返しが小節の途中から始まり、入れ替え部分が無い場合、@c
-風通は繰り返しの終わりも小節の途中になります。@c
-そのため、1 つ小節に 2 つの終わりが加えられます。@c
-そのような場合、繰り返し記号は本来の小節線とは異なります。@c
-繰り返し記号を譜刻する場所で @code{\partila} コマンドや小節チェックを@c
-使わないで下さい:
+入れ替えの無い繰り返しが小節の途中で始まる場合、通常は後の小節の対応する@c
+中間部分で終了します (開始部分と終了部分で 1 つの完全な小節が作られます)。@c
+このような場合、繰り返し記号は@q{本当の}小節線ではないため、@c
+小節チェックや @code{\partial} コマンドをそこに置くべきではありません:
 
-@c KEEP LY
-@lilypond[verbatim,quote]
-\relative {
-  % ここで \partial を使わないで下さい
-  c'4 e g  % ここで小節チェックを行わないで下さい
-  % ここで \partial を使わないで下さい
-  \repeat volta 4 {
-    e4 |
-    c2 e |
-    % ここで \partial を使わないで下さい
-    g4 g g  % ここで小節チェックを行わないで下さい
-  }
-  % ここで \partial を使わないで下さい
+@lilypond[verbatim,quote,relative=1]
+c'4 e g
+\repeat volta 4 {
+  e4 |
+  c2 e |
+  g4 g g
+}
   g4 |
   a2 a |
   g1 |
-}
 @end lilypond
 
-同様に、繰り返しが楽譜の先頭の部分小節から始まり、入れ替え部分を持たない場合、@c
-楽譜の先頭で @code{\partial} コマンドを配置する必要があることを除いて、@c
-上の例と同じ条件が適用されます:
+入れ替えの無い繰り返しが部分小節で始まる場合は、@c
+@code{\partial} コマンドが小節の最初に必要であることを除けば、@c
+同じ原則が適用されます:
 
-@c KEEP LY
-@lilypond[verbatim,quote]
-\relative {
-  \partial 4  % \partial が必要です
-  \repeat volta 4 {
-    e'4 |
-    c2 e |
-    % ここで \partial を使わないで下さい
-    g4 g g  % ここで小節チェックを行わないで下さい
-  }
-  % ここで \partial を使わないで下さい
+@lilypond[verbatim,quote,relative=1]
+\partial 4
+\repeat volta 4 {
+  e'4 |
+  c2 e |
+  g4 g g
+}
   g4 |
   a2 a |
   g1 |
-}
 @end lilypond
 
-完全な長さを持たない小節で始まる小節に入れ替え部分を付け加える場合、@c
-以下の場所で @code{Timing.measureLength} コンテキスト プロパティを@c
-手動で設定する必要があります:
+@cindex repeats, with ties (タイを持つ繰り返し)
+@cindex alternative endings, with ties (タイを持つ繰り返しの入れ替え部分)
+@cindex ties, in repeats (繰り返しの中にあるタイ)
+@cindex ties, alternative endings (タイと繰り返しの入れ替え部分)
+@funindex \repeatTie
 
-@itemize
-@item
-@code{\alternative} ブロック内の不完全な小節の開始点。@c
-通常、これは (たいていの場合は) 最後の入れ替え部分を除く、@c
-各入れ替え部分の最後の小節になります。
-
-@item
-最初の入れ替え部分を除く、各入れ替え部分の開始点。
-@end itemize
+タイを 2 つ目の終了部に追加することができます:
 
 @lilypond[verbatim,quote]
 \relative {
-  \partial 4
-  \repeat volta 2 { e'4 | c2 e | }
+  c''1
+  \repeat volta 2 { c4 d e f~ }
   \alternative {
-    {
-      f2 d |
-      \set Timing.measureLength = #(ly:make-moment 3/4)
-      g4 g g  % optional bar check is allowed here
-    }
-    {
-      \set Timing.measureLength = #(ly:make-moment 4/4)
-      a2 a |
-    }
+    { f2 d }
+    { f2\repeatTie f, }
   }
-  g1 |
 }
 @end lilypond
-
-@code{measureLength} プロパティについての説明は @ref{Time administration}
-にあります。
 
 @funindex \inStaffSegno
+@cindex repeats, with segno (セーニョを持つ繰り返し)
+@cindex segno, with repeats (繰り返しを持つセーニョ)
 
-@code{\inStaffSegno} コマンドを用いて、セーニョ記号を配置して
-@code{\repeat volta} コマンドと連携させることができます。@c
-差し替えの小節線記号は Score コンテキストの中でプロパティ @code{segnoType},
-@code{startRepeatSegnoType}, @code{endRepeatSegnoType} あるいは
-@code{doubleRepeatSegnoType} を必要に応じてオーバライドすることにより@c
-設定することができます。
+@code{\inStaffSegno} コマンドは、@code{\repeat volta} コマンドと一緒に@c
+用いられた際に、繰り返しの小節線とセーニョ記号を合体させた小節線を@c
+作り出します。どの繰り返し記号が使われるか (すなわち、開始記号か、終了記号か、@c
+両者を合わせた記号か) は、自動的に選択されます。対応する @qq{D.S.} 記号は@c
+手動で入力しなければいけないことに注意してください。
+
+繰り返しを使わない:
 
 @lilypond[verbatim,quote]
 \relative {
@@ -282,22 +269,67 @@ LilyPond は以下の種類の繰り返しをサポートします:
 }
 @end lilypond
 
-@cindex repeats, with ties (タイを持つ繰り返し)
-@cindex alternative endings, with ties (タイを持つ繰り返しの入れ替え部分)
-@cindex ties, in repeats (繰り返しの中にあるタイ)
-@cindex ties, alternative endings (繰り返しの入れ替え部分でのタイ)
-@funindex \repeatTie
-
-繰り返しの 2 回目の部分にタイを付け加えることもできます:
+繰り返しの始まりに:
 
 @lilypond[verbatim,quote]
 \relative {
-  c''1
-  \repeat volta 2 { c4 d e f~ }
-  \alternative {
-    { f2 d }
-    { f2\repeatTie f, }
+  e'1
+  \repeat volta 2 {
+    \inStaffSegno  % start repeat
+    f2 g a b
   }
+  c1_"D.S." \bar "|."
+}
+@end lilypond
+
+繰り返しの終わりに:
+
+@lilypond[verbatim,quote]
+\relative {
+  e'1
+  \repeat volta 2 {
+    f2 g a b
+    \inStaffSegno  % end repeat
+  }
+  f2 g a b
+  c1_"D.S." \bar "|."
+}
+@end lilypond
+
+2 つの繰り返しの間に:
+
+@lilypond[verbatim,quote]
+\relative {
+  e'1
+  \repeat volta 2 {
+    f2 g a b
+  }
+  \inStaffSegno  % double repeat
+  \repeat volta 2 {
+    f2 g a b
+  }
+  c1_"D.S." \bar "|."
+}
+@end lilypond
+
+他の小節線記号を用いる場合、 (Score コンテキストに) プロパティ
+@code{segnoType}, @code{startRepeatSegnoType}, @code{endRepeatSegnoType},
+@code{doubleRepeatSegnoType} を好みの値を設定します。小節線の種類は@c
+あらかじめ定義されているものか、前に @code{\defineBarLine} コマンドで定義@c
+されているものから選択する必要があります (@ref{小節線}を参照してください)。
+
+@lilypond[verbatim,quote]
+\defineBarLine ":|.S[" #'(":|." "S[" "")
+\defineBarLine "]" #'("]" "" "")
+\relative {
+  e'1
+  \repeat volta 2 {
+    f2 g a b
+    \once \set Score.endRepeatSegnoType = ":|.S["
+    \inStaffSegno
+  }
+  f2 g \bar "]" a b
+  c1_"D.S." \bar "|."
 }
 @end lilypond
 
@@ -328,6 +360,9 @@ LilyPond は以下の種類の繰り返しをサポートします:
 @ref{Modifying context plug-ins},
 @ref{Modifying ties and slurs},
 @ref{Time administration}
+
+インストールされているファイル:
+@file{ly/engraver-init.ly}
 
 コード断片集:
 @rlsr{Repeats}
@@ -421,7 +456,7 @@ LilyPond は以下の種類の繰り返しをサポートします:
 
 @table @code
 @item start-repeat
-@code{|:} 小節線を譜刻します。
+@code{.|:} 小節線を譜刻します。
 
 @lilypond[verbatim,quote]
 \relative {
@@ -446,7 +481,7 @@ LilyPond は以下の種類の繰り返しをサポートします:
 }
 @end lilypond
 
-@item (volta @var{number}) ... (volta #f)
+@item (volta @var{number}) @dots{} (volta #f)
 指定された番号を持つ新しい volta を作成します。@c
 Volta 囲みは明示的に終了させる必要があります。@c
 さもなければ、譜刻されません。
@@ -751,6 +786,26 @@ a'4 b c | a'4 b c
 @rinternals{Double_percent_repeat_engraver},
 @rinternals{Slash_repeat_engraver}
 
+@knownissues
+パーセント記号の繰り返しは、パーセント記号以外に何も含むことができません。@c
+特に、拍子の変更は繰り返されません。
+
+@lilypond[quote,verbatim,relative=2]
+\repeat percent 3 { \time 5/4 c2. 2 \time 4/4 2 2 }
+@end lilypond
+
+@noindent
+拍子の変更や @code{\partial} コマンドは、パーセント記号の繰り返しの@c
+@emph{外側に}ある並列部分で行われる必要があります (例えば、独立した@c
+タイミング トラック)。
+
+@lilypond[quote,verbatim,relative=2]
+<<
+  \repeat percent 3 { c2. 2 2 2 }
+  \repeat unfold 3 { \time 5/4 s4*5 \time 4/4 s1 }
+>>
+@end lilypond
+
 
 @node トレモロの繰り返し
 @unnumberedsubsubsec トレモロの繰り返し
@@ -802,7 +857,6 @@ a'4 b c | a'4 b c
 @end lilypond
 
 @cindex tremolo marks (トレモロ記号)
-@funindex tremoloFlags
 @funindex :
 
 音符の後に @code{:@var{N}} を付け加えることによって@c
@@ -810,7 +864,7 @@ a'4 b c | a'4 b c
 @code{@var{N}} は細部の演奏時間を表し、8 以上である必要があります。@c
 @code{@var{N}} が 8 である場合、音符の符幹に 1 本の連桁が付け加えられます。@c
 @code{@var{N}} が省略された場合、
-最後の値 (@code{tremoloFlags} に保存されています) が使用されます:
+最後の値が使用されます:
 
 @lilypond[quote,verbatim]
 \relative {

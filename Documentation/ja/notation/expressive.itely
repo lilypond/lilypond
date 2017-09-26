@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: fabcd22c8f88ea9a87241597f1e48c0a9adbfc6e
+    Translation of GIT committish: eb38c33a95cbe6adf9f176dfbb794373ec062605
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -10,7 +10,7 @@
 @c \version "2.19.21"
 
 
-@c Translators: Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Yoshiki Sawada
 @c Translation status: post-GDP
 
 
@@ -54,7 +54,7 @@
 @cindex ornamentation (装飾)
 @cindex scripts (スクリプト)
 @cindex ornaments (装飾)
-@cindex espressivo (表現的な)
+@cindex espressivo (エスプレッシーヴォ)
 @cindex fermata (フェルマータ)
 @cindex upbow (アップボー、上弓)
 @cindex downbow (ダウンボー、下弓)
@@ -63,8 +63,7 @@
 @cindex pedal marks, organ (オルガン ペダル記号)
 @cindex turn (ターン)
 @cindex open (オープン)
-@c 未訳
-@cindex stopped
+@cindex stopped (ストップ、ミュート)
 @c フラジョレット: 六孔の縦笛
 @cindex flageolet (フラジョレット)
 @cindex reverseturn (逆ターン)
@@ -75,11 +74,12 @@
 @cindex prallmordent (プラルモルデント)
 @cindex prall, up (アップ プラル)
 @cindex prall, down (ダウン プラル)
-@cindex thumb marking
+@cindex mordent, up (アップ モルデント)
+@cindex mordent, down (ダウン モルデント)
+@cindex thumb marking (親指記号)
 @cindex segno (セーニョ)
 @cindex coda (コーダ)
-@c 未訳
-@cindex varcoda
+@cindex varcoda (変格コーダ)
 
 @funindex \accent
 @funindex \marcato
@@ -163,13 +163,15 @@
 それに @notation{portato}。@c
 これらの出力は以下のように表示されます:
 
-@lilypond[verbatim,quote,relative=2]
-c4-^  c-+  c--  c-!
-c4->  c-.  c2-_
+@lilypond[verbatim,quote]
+\relative {
+  c''4-^ c-+ c-- c-!
+  c4-> c-. c2-_
+}
 @end lilypond
 
 アーティキュレーションのデフォルトの配置規則は@c
-ファイル @file{scm/@/script@/.scm} で定義されています。@c
+ファイル @file{scm/script.scm} で定義されています。@c
 アーティキュレーションと装飾は手動で譜の上または下に配置されることもあります
 -- @ref{Direction and placement} を参照してください。
 
@@ -213,13 +215,17 @@ R1\fermataMarkup
 @rglos{staccato},
 @rglos{portato}
 
+学習マニュアル:
+@rlearning{Placement of objects}
+
 記譜法リファレンス:
+@ref{Text scripts},
 @ref{Direction and placement},
 @ref{List of articulations},
 @ref{トリル}
 
 インストールされているファイル:
-@file{scm/@/script@/.scm}
+@file{scm/script.scm}
 
 コード断片集:
 @rlsrnamed{Expressive marks,発想記号}
@@ -276,7 +282,6 @@ R1\fermataMarkup
 }
 @end lilypond
 
-@c 保留
 @cindex hairpin (ヘアピン)
 @cindex crescendo (クレッシェンド)
 @cindex decrescendo (デクレッシェンド)
@@ -316,7 +321,8 @@ R1\fermataMarkup
 開始によってヘアピンが終了する場合、@c
 そのヘアピンは次の @code{\<} または @code{\>} が割り当てられた@c
 音符の中央で終了します。@c
-次のへアピンは、通常通りに音符の左端で始まる代わりに、右端から始まります。
+次のへアピンは、通常通りに音符の左端で始まる代わりに、右端から始まります。@c
+1 拍目で終わるヘアピンは、前の小節線のところで終了します。
 
 @lilypond[verbatim,quote]
 \relative {
@@ -324,7 +330,7 @@ R1\fermataMarkup
 }
 @end lilypond
 
-@code{\!} の代わりに絶対強弱記号で終了するヘアピも同じように譜刻されます。@c
+@code{\!} の代わりに絶対強弱記号で終了するヘアピンも同じように譜刻されます。@c
 しかしながら、絶対強弱記号の幅によってヘアピンの終了点は変わります。
 
 @lilypond[verbatim,quote]
@@ -346,7 +352,7 @@ R1\fermataMarkup
 }
 @end lilypond
 
-@cindex espressivo articulation (表現的なアーティキュレーション)
+@cindex espressivo articulation (エスプレッシーヴォ アーティキュレーション)
 
 @funindex \espressivo
 
@@ -458,17 +464,32 @@ R1\fermataMarkup
 
 @snippets
 
+@cindex hairpins at bar lines (小節線で終わるヘアピン)
+
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {setting-hairpin-behavior-at-bar-lines.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {setting-the-minimum-length-of-hairpins.ly}
 
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{moving-the-ends-of-hairpins.ly}
+
 @cindex al niente (アル ニエンテ)
 @cindex niente, al (アル ニエンテ)
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {printing-hairpins-using-al-niente-notation.ly}
+
+@cindex Ferneyhough hairpins (ファーニホウのヘアピン)
+@cindex hairpins, Ferneyhough (ファーニホウのヘアピン)
+@cindex flared hairpins (裾の広いヘアピン)
+@cindex hairpins, flared (裾の広いヘアピン)
+@cindex constante hairpins (広がらないヘアピン)
+@cindex hairpins, constante (広がらないヘアピン)
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{printing-hairpins-in-various-styles.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {vertically-aligned-dynamics-and-textscripts.ly}
@@ -492,7 +513,7 @@ R1\fermataMarkup
 記譜法リファレンス:
 @ref{Direction and placement},
 @ref{新たな強弱記号},
-@ref{What goes into the MIDI output?},
+@ref{Enhancing MIDI output},
 @ref{Controlling MIDI dynamics}
 
 コード断片集:
@@ -624,10 +645,10 @@ moltoF = \tweak DynamicText.self-alignment-X #LEFT
 記譜法リファレンス:
 @ref{Formatting text},
 @ref{Selecting font and font size},
-@ref{What goes into the MIDI output?},
+@ref{Enhancing MIDI output},
 @ref{Controlling MIDI dynamics}
 
-LilyPond の拡張:
+拡張:
 @rextend{Markup construction in Scheme}
 
 コード断片集:
@@ -638,7 +659,6 @@ LilyPond の拡張:
 @subsection 曲線の発想記号
 @translationof Expressive marks as curves
 
-@c 未訳
 このセクションでは曲線を持つさまざまな発想記号
 -- 通常のスラー、フレージング スラー、ブレス記号、Fall それに Doit --
 を作成する方法について説明します。
@@ -684,20 +704,28 @@ LilyPond の拡張:
 @cindex slur, phrasing (フレージング スラー)
 @cindex slurs, multiple (多重スラー)
 @cindex slurs, simultaneous (同時進行のスラー)
+@funindex \=
 
-同時進行または重なり合うスラーは許可されません。@c
-しかしながら、フレージング スラーはスラーと重なり合うことができます。@c
-これにより、2 つのスラーを同時に譜刻することができます。@c
-詳細は @ref{フレージング スラー} を参照してください。
+同時進行する、あるいは重なるスラーは特別な注意を必要とします。@c
+通常、外側のスラーはフレージングを表し、フレージング スラーは通常のスラーと@c
+重複します。@ref{フレージング スラー}を参照してください。@c
+一つの @code{Voice} に通常のスラーが複数必要な場合、スラーの前に
+@code{\=} と識別子 (シンボルか非負の整数) を入力することによって、@c
+対応するスラーの始点と終点にラベルを付ける必要があります。
+
+@lilypond[verbatim,quote]
+\fixed c' {
+  <c~ f\=1( g\=2( >2 <c e\=1) a\=2) >
+}
+@end lilypond
 
 @cindex slur style (スラーのスタイル)
-@cindex solid slur (実線のスラー)
-@cindex dotted slur (点線のスラー)
-@cindex dashed slur (破線のスラー)
-@cindex sytle, slur (スラーのスタイル)
 @cindex slur, solid (実線のスラー)
 @cindex slur, dotted (点線のスラー)
 @cindex slur, dashed (破線のスラー)
+@cindex solid slur (実線のスラー)
+@cindex dotted slur (点線のスラー)
+@cindex dashed slur (破線のスラー)
 @cindex style, slur (スラーのスタイル)
 @funindex \slurDashed
 @funindex \slurDotted
@@ -839,7 +867,9 @@ LilyPond の拡張:
 @cindex phrasing slurs, simultaneous (同時進行のフレージング スラー)
 @cindex phrasing slurs, multiple (多重フレージング スラー)
 
-同時進行あるいは重なり合うフレージング スラーは許可されません。
+同時進行あるいは重なり合うフレージング スラーは、@c
+通常のスラーと同様に @code{\=} を用いて入力する必要があります。@c
+@ref{スラー} を参照してください。
 
 @funindex \phrasingSlurDashed
 @funindex \phrasingSlurDotted
@@ -951,6 +981,11 @@ LilyPond の拡張:
 { c''2. \breathe d''4 }
 @end lilypond
 
+ブレス記号は他の発想記号と異なり、前の音符と関連したものではなく、独立した@c
+音楽イベントです。そのため、前の音符に付加する発想記号や、手動連桁を示す@c
+角括弧、スラーやフレージング スラーを示す括弧は @code{\breathe} の前に@c
+配置されなければなりません。
+
 ブレス記号は自動連桁を終わらせます。@c
 この振る舞いをオーバライドする方法は、@ref{手動連桁} を参照してください。
 
@@ -958,9 +993,8 @@ LilyPond の拡張:
 \relative { c''8 \breathe d e f g2 }
 @end lilypond
 
-@c 保留
 古代記譜法でのブレス記号の音楽指示子 --
-divisiones (ディビジョン: 区切り) がサポートされています。@c
+divisio (ディビジオー: 区切り記号) がサポートされています。@c
 詳細は @ref{Divisiones} を参照してください。
 
 
@@ -969,17 +1003,14 @@ divisiones (ディビジョン: 区切り) がサポートされています。@
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-breath-mark-symbol.ly}
 
-@c 未訳
-@cindex tick mark
+@cindex tick mark (チェック マーク)
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {using-a-tick-as-the-breath-mark-symbol.ly}
 
-@c 未訳
-@cindex caesura
-@cindex railroad tracks
+@cindex caesura (カエスーラ)
+@cindex railroad tracks (線路記号、カエスーラ)
 
-@c 未訳
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {inserting-a-caesura.ly}
 
@@ -1141,7 +1172,7 @@ Fall あるいは Doit の向きはプラスあるいはマイナス (上ある�
 @rinternals{Glissando}
 
 @knownissues
-線の上にテキストを譜刻する (@notation{グリッサンド} など) ことは@c
+線の上にテキストを譜刻する (@notation{gliss.} など) ことは@c
 サポートされていません。
 
 
@@ -1224,7 +1255,7 @@ Fall あるいは Doit の向きはプラスあるいはマイナス (上ある�
 @code{\arpeggioArrowDown},
 @code{\arpeggioNormal},
 @code{\arpeggioBracket},
-@code{\arpeggioParenthesis}
+@code{\arpeggioParenthesis},
 @code{\arpeggioParenthesisDashed}
 @endpredefined
 
@@ -1264,7 +1295,8 @@ Fall あるいは Doit の向きはプラスあるいはマイナス (上ある�
 ある @code{PianoStaff} の中の同時点で譜を跨ぐアルペジオと跨がないアルペジオを@c
 混在させることはできません。
 
-譜を跨ぐアルペジオに括弧スタイルのアルペジオを適用することはできません。
+譜を跨ぐアルペジオに括弧スタイルのアルペジオを適用することは単純な方法では@c
+できません。@ref{譜を跨ぐ符幹}を参照してください。
 
 
 @node トリル
@@ -1348,7 +1380,6 @@ Fall あるいは Doit の向きはプラスあるいはマイナス (上ある�
 }
 @end lilypond
 
-@c 未訳
 @cindex pitched trill with forced accidental (ピッチを持つトリルに強制的に臨時記号を付ける)
 @cindex trill, pitched with forced accidental (ピッチを持つトリルに強制的に臨時記号を付ける)
 @cindex accidental, forced for pitched trill (ピッチを持つトリルに強制的に臨時記号を付ける)
@@ -1357,22 +1388,21 @@ Fall あるいは Doit の向きはプラスあるいはマイナス (上ある�
 手動で譜刻を指定する必要があります。@c
 最初の小節では、最初のピッチを持つトリルだけに臨時記号が譜刻されています。
 
-@lilypond[verbatim,quote,relative=2]
-\pitchedTrill
-eis4\startTrillSpan fis
-eis4\stopTrillSpan
-
-\pitchedTrill
-eis4\startTrillSpan fis
-eis4\stopTrillSpan
-
-\pitchedTrill
-eis4\startTrillSpan fis
-eis4\stopTrillSpan
-
-\pitchedTrill
-eis4\startTrillSpan fis!
-eis4\stopTrillSpan
+@lilypond[verbatim,quote]
+\relative {
+  \pitchedTrill
+  eis''4\startTrillSpan fis
+  eis4\stopTrillSpan
+  \pitchedTrill
+  eis4\startTrillSpan cis
+  eis4\stopTrillSpan
+  \pitchedTrill
+  eis4\startTrillSpan fis
+  eis4\stopTrillSpan
+  \pitchedTrill
+  eis4\startTrillSpan fis!
+  eis4\stopTrillSpan
+}
 @end lilypond
 
 @predefined
