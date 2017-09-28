@@ -153,7 +153,7 @@ the bass specified.
     ;; if sus has been given neither 2 or 4, we add 4.
     (if (and (eq? lead-mod sus-modifier)
              (not explicit-2/4))
-        (set! complete-chord (cons (ly:make-pitch 0 4 0) complete-chord)))
+        (set! complete-chord (cons (ly:make-pitch 0 3 0) complete-chord)))
     (set! complete-chord (sort complete-chord ly:pitch<?))
     ;; If natural 11 + natural 3 is present, but not given explicitly,
     ;; we remove the 11.
