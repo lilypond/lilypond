@@ -425,26 +425,26 @@ vermeiden.
 @code{EPS}-Backend.
 
 @item @code{backend}
-@tab @code{'ps}
+@tab @code{ps}
 @tab Auswahl des Backend.  Poststscript-Dateien (Standart) enthalten
 @code{TTF}, @code{Type1} und @code{OTF}-Schriftarten.  Ihr Zeichenvorrat
 wird nicht reduziert (Subsetting).  Die Benutzung von östlichen
 Schriftarten kann zu sehr großen Dateien führen.
 
 @item
-@tab @code{'eps}
+@tab @code{eps}
 @tab Encapsulated PostScript.  Hiermit wird jede Seite (System) als eine
 eigene @file{EPS}-Datei gespeichert, ohne Schriftarten, sowie als eine
 kombinierte @file{EPS}-Datei mit allen Seiten (Systemen) inclusive
 Schriftarten.  Wird als Standard von @command{lilypond-book} benützt.
 
 @item
-@tab @code{'null}
+@tab @code{null}
 @tab Keine graphische Partitur ausgeben; hat den gleichen Effekt wie
 @code{-dno-print-pages}.
 
 @item
-@tab @code{'svg}
+@tab @code{svg}
 @tab Scalable Vector Graphics.  Hiermit wird eine einzelne @code{SVG}-Datei
 für jede Seite der Ausgabe erstellt, ohne Schriftarten.  Es wird
 empfohlen, die Century Schoolbook-Schriftarten zu installieren, welche
@@ -456,7 +456,7 @@ oder -Editoren kompatibel sein.  Es gibt auch die Option @code{svg-woff}
 (siehe unten) um woff-Schriftarten im SVG-Backend zu benützen.
 
 @item
-@tab @code{'scm}
+@tab @code{scm}
 @tab Ausgabe der rohen internen Scheme-basierten Zeichnungsbefehle.
 
 @item @code{check-internal-types}
