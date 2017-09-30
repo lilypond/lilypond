@@ -64,60 +64,186 @@ which scares away people.
 @itemize
 
 @item
-Accidental rules can now be defined across @code{ChoirStaff} contexts.
+Pitches that have a sharp or flat in their name now need to be
+hyphenated;
 
-@item
-Two new rules @code{choral} and @code{choral-cautionary} are available
-that combine the characteristics of @code{modern-voice} and @code{piano}
-or their equivalents with cautionary accidentals.
-
-@item
-In the "english" notename language, the long notenames for pitches
-with accidentals now contain a hyphen for better readability.  You
-now have to write
 @example
 \key a-flat \major
 @end example
-instead of the previous
+
+@noindent
+instead of; 
+
 @example
 \key aflat \major
 @end example
 
-Double accidentals do not get another hyphen, so the Dutch
-@code{cisis} has the long English notename @code{c-sharpsharp}.
+@noindent
+Pitches that contain @emph{double} sharps or flats in their name, 
+however, do not need a second hyphen. For example using the Dutch 
+notation @code{cisis};
+
+@example
+\key c-sharpsharp \major
+@end example
 
 @item
-Four new Clef glyphs have been added @emph{Double G}, @emph{Tenor G},
-@emph{Varpercussion} and @emph{varC} and their related tessitura.
-@lilypond[verbatim,quote,fragment]
-  \override Staff.Clef.full-size-change = ##t
+Accidental rules can now be defined @emph{across} @code{ChoirStaff} 
+contexts.
 
-  \clef "GG" c c c c
-  \clef "tenorG" c c c c
-  \clef "varC" c c c c
-  \clef "altovarC" c c c c
-  \clef "tenorvarC" c c c c
-  \clef "baritonevarC" c c c c
-  \clef "varpercussion" c c c c
+@item
+Two new accidental rules have been added.  Both combine the
+characteristics of @code{modern-voice}, @code{piano} and their
+equivalents;
+@code{choral}
 
-  \break
-  \override Staff.Clef.full-size-change = ##f
+@lilypond[quote]
+musicA = {
+  <<
+    \relative { cis''8 fis, bes4 <a cis>8 f bis4 | cis2. <c, g'>4 | }
+    \\
+    \relative { ais'2 cis, | fis8 b a4 cis2 | }
+  >>
+}
 
-  \clef "GG" c c c c
-  \clef "tenorG" c c c c
-  \clef "varC" c c c c
-  \clef "altovarC" c c c c
-  \clef "tenorvarC" c c c c
-  \clef "baritonevarC" c c c c
-  \clef "varpercussion" c c c c
+musicB = { \clef bass \new Voice { \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis> \change Staff = up
+      cis' cis \change Staff = down
+      <fis, a> <fis a>] \showStaffSwitch \change Staff = up
+      dis'4 | \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new ChoirStaff { << \context Staff = "up" {
+  \accidentalStyle choral \musicA }
+  \context Staff = "down" { \musicB } >>
+}
+@end lilypond
+
+@noindent
+This is the now the default accidental style for @code{ChoirStaff}.
+
+@code{choral-cautionary}
+
+@lilypond[quote]
+musicA = {
+  <<
+  \relative { cis''8 fis, bes4 <a cis>8 f bis4 |
+  cis2. <c, g'>4 | }
+  \\
+  \relative { ais'2 cis, | fis8 b a4 cis2 | }
+  >>
+}
+
+musicB = { \clef bass \new Voice { \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis> \change Staff = up
+      cis' cis \change Staff = down
+      <fis, a> <fis a>] \showStaffSwitch \change Staff = up
+      dis'4 | \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new ChoirStaff { << \context Staff = "up" {
+  \accidentalStyle choral-cautionary \musicA }
+  \context Staff = "down" { \musicB } >>
+}
+@end lilypond
+
+@noindent
+The same as @code{choral} but with the extra accidentals typeset as
+cautionaries instead.
+
+@noindent
+Also see @ruser{Automatic accidentals}.
+
+@item
+Four new clef glyphs are now available; @q{GG} (double-G), 
+@q{Tenor G}, @q{varC} plus related tessitura and 
+@q{Varpercussion}.
+
+@multitable @columnfractions .30 .2 .30 .2
+
+@headitem
+Example
+@tab
+Output
+@tab
+Example
+@tab
+Output
+
+@item
+@code{\clef GG}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef GG c1
+@end lilypond
+@tab
+@code{\clef tenorG}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef tenorG c1
 @end lilypond
 
 @item
-French note names are now defined specifically instead of
-being aliased to Italian note names: in addition to the
-generic Italian-derived syntax, the @var{d} pitch may be
-entered as @code{ré}.  Double sharps may also be
-entered using the @code{-x} suffix.
+@code{\clef varC}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef varC c1
+@end lilypond
+@tab
+@code{\clef altovarC}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef altovarC c1
+@end lilypond
+
+@item
+@code{\clef tenorvarC}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef tenorvarC c1
+@end lilypond
+@tab
+@code{\clef baritonevarC}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef baritonevarC c1
+@end lilypond
+
+@item
+@code{\clef varpercussion}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef varpercussion c1
+@end lilypond
+
+@end multitable
+
+@noindent
+Also see @emph{Clef styles}.
+
+@item
+French note names are now explicitly defined -- previously they were  
+aliased to Italian note names.  The @var{d} pitch may be entered as 
+either  @code{re} or @code{ré}.
+
+@lilypond[fragment,verbatim,quote,ragged-right,relative=1]
+\language "français"
+do ré mi fa | sol la si do | ré1
+@end lilypond
+
+@noindent
+Double sharps are entered using an @code{x} suffix.
+
+@lilypond[fragment,verbatim,quote,ragged-right,relative=2]
+\language "français"
+dob, rebb misb fabsb | sold ladd six dosd | rédsd1
+@end lilypond
 
 @end itemize
 
@@ -128,33 +254,43 @@ entered using the @code{-x} suffix.
 
 @item
 Multi-measure rests have length according to their total duration,
-under the control of @code{MultiMeasureRest.space-increment}.
-@lilypond[quote]
-{ \compressFullBarRests
-  \override Staff.MultiMeasureRest.space-increment = 3.0
-  R1*2 R1*12 R1*64 }
+under the control of @code{MultiMeasureRest.space-increment}.  Note the 
+default value is @code{2.0}.
+
+@lilypond[fragment,verbatim,quote]
+\compressFullBarRests
+R1*2 R1*4 R1*64 R1*16
+@end lilypond
+
+@lilypond[fragment,verbatim,quote]
+\compressFullBarRests
+\override Staff.MultiMeasureRest.space-increment = 2.5
+R1*2 R1*4 R1*64 R1*16
 @end lilypond
 
 @item
-Improvements to the @code{\partial} command have been made to
-avoid problems when using multiple, parallel contexts.
+Improvements to the @code{\partial} command have been made when used 
+with parallel music and/or multiple contexts.
 
 @item
-It is now possible to use @code{\time} and @code{\partial}
-together to change the time signature in mid measure.
+It is now possible to change the time signature mid-measure by using 
+both the @code{\time} and @code{\partial} commands together.
 
 @lilypond[verbatim,quote,relative=1]
-\override Score.BarNumber.break-visibility = #end-of-line-invisible
-\partial 4 \time 3/4 f4 | 2 4 | 2 \bar "||"
-\time 9/8 \partial 4. f8 8 8 | 2. 8 8 8 |
+f f f f | f2. \bar "||"
+\time 3/4 \partial 4 
+f8 8 | f2 f8 f |
 @end lilypond
 
 @item
-Isolated durations in music sequences now stand for unpitched
-notes.  This may be useful for specifying rhythms to music or
-scheme functions.  When encountered in the final score, the
-pitches are provided by the preceding note or chord.  Here are two
-examples where this makes for readable input:
+Isolated durations in music now stand for unpitched notes.  Pitches are 
+taken from the preceding note or chord.  This is especially convenient 
+for specifying rhythms in both music and scheme functions and can help 
+improve the readability of LilyPond source files.
+
+@lilypond[verbatim,quote,fragment,relative=2]
+c64[ 64] 32 16 8^- <g b d>4~ 2 | 1 
+@end lilypond
 
 @lilypond[verbatim,quote]
 \new DrumStaff \with { \override StaffSymbol.line-count = 1 }
@@ -165,27 +301,10 @@ examples where this makes for readable input:
 }
 @end lilypond
 
-@lilypond[verbatim,quote]
-\new Staff { r16 c'16 ~ 8 ~ 4 ~ 2 | }
-@end lilypond
-
 @item
-Beaming exceptions can now be constructed using the
-@code{\beamExceptions} scheme function.  One can now write
-
-@lilypond[verbatim,quote,relative=1]
-\time #'(2 1) 3/16
-\set Timing.beamExceptions =
-  \beamExceptions { 32[ 32] 32[ 32] 32[ 32] }
-c16 c c |
-\repeat unfold 6 { c32 } |
-@end lilypond
-
-@noindent
-with multiple exceptions separated with @code{|} bar checks
-(writing the exception pattern without pitches is convenient but
-not mandatory).  Previously, setting the beam exceptions would
-have required writing
+Beaming exceptions can now be constructed using the simpler
+@code{\beamExceptions} scheme function. Previously, this would have 
+required writing;
 
 @example
 \set Timing.beamExceptions =
@@ -194,46 +313,104 @@ have required writing
     (                       ;start of alist of end points
      ((1 . 32) . (2 2 2))   ;rule for 1/32 beams -- end each 1/16
     )))
+
+\time #'(2 1) 3/16
+c16 c c 
+\repeat unfold 6 @{ c32 @} 
 @end example
 
-@item
-The positioning of tuplet numbers for kneed beams has been significantly
-improved.  Previously, tuplet numbers were placed according to the
-position of the tuplet bracket, even if it was not printed.  This could
-lead to stranded tuplet numbers.  Now they are now positioned
-closer to the kneed-beam when an appropriate beam segment exists for its
-placement and when the bracket is not drawn.
+@noindent
+With the new @code{\beamExceptions} scheme function, this becomes;
 
-Collision detection is also added, offsetting horizontally if too close
-to an adjoining note column but preserving the number's vertical
-distance from the kneed beam.  If the number itself is too large to
-fit in the available space the original, bracket-based, positioning
-system is used instead; and in the event of a collision (e.g. with an
-accidental) the tuplet number is moved vertically away instead.
+@lilypond[verbatim,quote,relative=1]
+\set Timing.beamExceptions =
+  \beamExceptions { 32[ 32] 32[ 32] 32[ 32] }
 
-@lilypond[verbatim,fragment,quote,relative=1]
-\time 3/4
-\override Beam.auto-knee-gap = 3
-\tuplet 3/2 4 {
-  g8 c'' e,
-  c'8 g,, e''
-  g,,8 e''' c,,
-}
+\time #'(2 1) 3/16
+c16 c c |
+\repeat unfold 6 { c32 } |
 @end lilypond
 
 @noindent
-The original kneed-beam tuplet behavior is still available through an
-@code{\override} via a new, @code{knee-to-beam} property.
+with multiple exceptions separated by bar checks.  Note that writing the 
+exception pattern without pitches is convenient but not mandatory (also 
+see the previous documented rhythm improvement -- 
+@ruser{Isolated durations in music now stand for unpitched notes}. 
 
-@lilypond[verbatim,fragment,quote,relative=1]
+@item
+The positioning of tuplet numbers for kneed beams has been improved.  
+Previously, tuplet numbers were placed according to the position of the 
+tuplet bracket, even if the bracket was not printed.  This could lead to 
+tuplet numbers being @q{stranded}.
+
+@noindent
+Previously;
+
+@lilypond[fragment,quote,relative=1]
+% This is a contrived example to simulate the previous behaviour
 \time 3/4
 \override Beam.auto-knee-gap = 3
 \override TupletNumber.knee-to-beam = ##f
-\tuplet 3/2 4 {
-  g8 c'' e,
-  c'8 g,, e''
-  g,,8 e''' c,,
-}
+\once \override TupletBracket.bracket-visibility = ##t
+\tuplet 3/2 4 { g8 c'' e, }
+\tuplet 3/2 4 { g,,8 c'' e, }
+\once \override TupletBracket.bracket-visibility = ##t
+\tuplet 3/2 4 { c'8 g,, e'' }
+\tuplet 3/2 4 { c'8 g,, e'' }
+\once \override TupletBracket.bracket-visibility = ##t
+\tuplet 2/2 4 { g,8[ e''] }
+\tuplet 2/2 4 { g,,8[ e''] }
+@end lilypond
+
+@noindent
+Now, when the bracket is not drawn, tuplet numbers are positioned 
+closer.
+
+@lilypond[fragment,quote,relative=1]
+% This is a contrived example to simulate the previous behaviour
+\time 3/4
+\override Beam.auto-knee-gap = 3
+\override TupletBracket.bracket-visibility = ##t
+\tuplet 3/2 4 { g8 c'' e, }
+\once \override TupletBracket.bracket-visibility = ##f
+\tuplet 3/2 4 { g,,8 c'' e, }
+\tuplet 3/2 4 { c'8 g,, e'' }
+\once \override TupletBracket.bracket-visibility = ##f
+\tuplet 3/2 4 { c'8 g,, e'' }
+\tuplet 2/2 4 { g,8[ e''] }
+\once \override TupletBracket.bracket-visibility = ##f
+\tuplet 2/2 4 { g,,8[ e''] }
+@end lilypond
+
+@item
+Collision detection for the kneed beam tuplet numbers has also been
+added, shifting the offset horizontally if the number is too close to 
+an adjoining note column (but still preserving the number's vertical
+distance).  In the event of a collision -- for example with an
+accidental -- the tuplet number will be shifted vertically instead.  If
+the tuplet number is itself too large to fit within the available space,
+the original, @q{bracket-based}, positioning system will be used
+instead.
+
+@lilypond[fragment,quote,relative=1]
+\time 2/4
+\override Beam.auto-knee-gap = 3
+\tuplet 3/2 4 { g8 c'' e, c'8 g,, e'' }
+\tuplet 3/2 4 { g,,8 e''' g,, g,8 e''' ges,, }
+@end lilypond
+
+@noindent
+The original kneed-beam tuplet behavior is still available with a new, 
+@code{knee-to-beam} property for the @code{TupletNumber} layout object.
+
+@lilypond[verbatim,fragment,quote,relative=1]
+\time 2/4
+\override Beam.auto-knee-gap = 3
+\override TupletNumber.knee-to-beam = ##f
+\override TupletBracket.bracket-visibility = ##t
+\tuplet 3/2 4 { g8 c'' e, }
+\once \override TupletBracket.bracket-visibility = ##f
+\tuplet 3/2 4 { g,,8 c'' e, }
 @end lilypond
 
 @end itemize
@@ -245,36 +422,53 @@ The original kneed-beam tuplet behavior is still available through an
 
 @item
 The ends of hairpins may now be fine-tuned using the @code{shorten-pair}
-grob property, which previously only affected text-spanners like
-@code{TupletBracket} and @code{OttavaBracket}.  Positive values offset
-to the right, negative to the left.
-@lilypond[quote,verbatim]
-{ \once \override Hairpin.shorten-pair = #'(2 . 2)
-  c'1~\<
-  c'2~ c'\!
-  \once \override Hairpin.shorten-pair = #'(-2 . -2)
-  c'1~\<
-  c'2~ c'\! }
+grob property.  This previously only affected text-spanners (e.g.
+@code{TupletBracket} and @code{OttavaBracket}).
+
+@noindent
+Positive and negative values offset right and left respectively.
+
+@lilypond[quote,verbatim,relative=2]
+\once \override Hairpin.shorten-pair = #'(0 . 2)
+a1\< | a2 a\! 
+
+\once \override Hairpin.shorten-pair = #'(2 . 0)
+\once \override Hairpin.stencil = #constante-hairpin
+a1\< | a2 a\!
+
+\once \override Hairpin.shorten-pair = #'(-1 . -1)
+\once \override Hairpin.stencil = #flared-hairpin
+a1\< | a2 a\!
 @end lilypond
 
 @item
-Slurs and phrasing slurs may now be started from individual notes
-in a chord.  Several simultanous slurs per @code{Voice} need to be
-distinguished by @code{spanner-id} setting.
+Individual slurs and phrasing slurs may now be started from an explicit 
+note within a chord.
 
-@item
-The music and grob property @code{spanner-id} for distinguishing
-simultaneous slurs and phrasing slurs has been changed from a
-string to a @q{key}, a non-negative integer or symbol.
-
-@item
-There is a new command @code{\=} for specifying the
-@code{spanner-id} for simultaneous slurs and phrasing slurs.
-@lilypond[verbatim,quote]
-\fixed c' {
-  <c~ f\=1( g\=2( >2 <c e\=1) a\=2) >
-}
+@lilypond[quote,verbatim,relative=1]
+<f a( c>1 | <c') e g(> | <a c) e>
 @end lilypond
+
+@lilypond[quote,verbatim,relative=1]
+<f( a\( c>1 | <c'\) e\( g> | <a c e\)>
+@end lilypond
+
+@item
+A new command @code{\=X} has been added -- where @q{X} can be any 
+non-negative integer or symbol -- so that a specific @q{id} can be 
+assigned to the start and end of slurs and phrasing slurs.
+
+@noindent
+This is useful when simultaneous slurs are required or if one slur 
+overlaps another or when nesting short slurs within a longer one.
+
+@lilypond[quote,verbatim,relative=2]
+<a c e\=7\(>1 | <g b d\=£(> | 
+<f\=A( a c\="foo"(> | <c'\="foo")\=A) e\=£) g\=7\)> |
+@end lilypond
+
+@noindent
+Also see @ruser{Expressive marks as curves}.
 
 @end itemize
 
@@ -1077,6 +1271,13 @@ one-time settings.
 @subheading New for Internal interfaces and functions
 
 @itemize
+
+@item
+The music and grob property @code{spanner-id}, used for distinguishing
+simultaneous slurs and phrasing slurs, has been changed from a string to 
+a @emph{key} which can be either a non-negative integer or symbol (also 
+see the previous documented expressive mark improvement -- 
+@emph{A new command \=X has been added}).
 
 @item
 Context properties named in the @samp{alternativeRestores} property are
