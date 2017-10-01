@@ -2907,8 +2907,8 @@ sola biscroma (1/32) a un brano che usa solo crome e semicrome, la
 spaziatura orizzontale dell'intero brano sarebbe troppo larga.  Infatti
 la nota più breve non è più una semicroma ma una biscroma, aggiungendo
 quindi 1 LTN a ogni nota.  Per impedire ciò, la durata più breve per
-la spaziatura non è la nota più breve, bensì la che ricorre più
-frequentemente nel brano.
+la spaziatura non deriva dalla nota più breve, bensì dalla nota che
+ricorre più frequentemente nel brano.
 
 La durata più breve più comune viene individuata nel modo seguente.  In ogni
 misura viene determinata la durata più breve e quella più frequente viene
