@@ -329,6 +329,9 @@ file to given string.")
      #f
      "Convert text strings to paths when glyphs belong
 to a music font.")
+    (music-font-encodings
+     #f
+     "Use font encodings and the ps show operator with music fonts.")
     (point-and-click
      #t
      "Add point & click links to PDF and SVG output.")

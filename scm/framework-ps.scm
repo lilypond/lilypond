@@ -52,7 +52,7 @@
   "")
 
 (define (ps-define-font font font-name scaling)
-  (if (ly:bigpdfs)
+  (if (ly:get-option 'music-font-encodings)
       (string-append
        "/" (ps-font-command font) "-N"
        " { /" font-name "-N"
@@ -65,14 +65,7 @@
        "/" (ps-font-command font) "-O"
        " { /" font-name "-O"
        " " (ly:number->string scaling) " output-scale div selectfont }"
-       " bind def\n"
-       "/help" font-name " {\n  gsave\n  1 setgray\n  /"
-       font-name "-N"
-       " 0.001 selectfont 0 0 moveto <01> show\n  /"
-       font-name "-S"
-       " 0.001 selectfont 0 0 moveto <01> show\n  /"
-       font-name "-O"
-       " 0.001 selectfont 0 0 moveto <01> show\n  grestore\n} def\n")
+       " bind def\n")
       (string-append
        "/" (ps-font-command font)
        " { /" font-name
@@ -120,16 +113,7 @@
         "")
     "%%EndPageSetup\n"
     "\n"
-    "gsave 0 paper-height translate set-ps-scale-to-lily-scale\n"
-    "/helpEmmentaler-Brace where {pop helpEmmentaler-Brace} if\n"
-    "/helpEmmentaler-11 where {pop helpEmmentaler-11} if\n"
-    "/helpEmmentaler-13 where {pop helpEmmentaler-13} if\n"
-    "/helpEmmentaler-14 where {pop helpEmmentaler-14} if\n"
-    "/helpEmmentaler-16 where {pop helpEmmentaler-16} if\n"
-    "/helpEmmentaler-18 where {pop helpEmmentaler-18} if\n"
-    "/helpEmmentaler-20 where {pop helpEmmentaler-20} if\n"
-    "/helpEmmentaler-23 where {pop helpEmmentaler-23} if\n"
-    "/helpEmmentaler-26 where {pop helpEmmentaler-26} if\n"))
+    "gsave 0 paper-height translate set-ps-scale-to-lily-scale\n"))
   (ly:outputter-dump-stencil outputter page)
   (ly:outputter-dump-string outputter "stroke grestore\nshowpage\n"))
 
@@ -572,7 +556,7 @@
                        never-embed-font-list)) port)
         (display " ] >> setdistillerparams\n" port)
         (display " } if } if\n" port)))
-  (if (ly:bigpdfs)
+  (if (ly:get-option 'music-font-encodings)
       (display (procset "encodingdefs.ps") port))
   (display (setup-variables paper) port)
 
@@ -756,15 +740,6 @@ mark {ly~a_stream} /CLOSE pdfmark
     (write-preamble paper load-fonts port)
     (display "/mark_page_link { pop pop pop pop pop } bind def\n" port)
     (display "gsave set-ps-scale-to-lily-scale\n" port)
-    (display "/helpEmmentaler-Brace where {pop helpEmmentaler-Brace} if\n" port)
-    (display "/helpEmmentaler-11 where {pop helpEmmentaler-11} if\n" port)
-    (display "/helpEmmentaler-13 where {pop helpEmmentaler-13} if\n" port)
-    (display "/helpEmmentaler-14 where {pop helpEmmentaler-14} if\n" port)
-    (display "/helpEmmentaler-16 where {pop helpEmmentaler-16} if\n" port)
-    (display "/helpEmmentaler-18 where {pop helpEmmentaler-18} if\n" port)
-    (display "/helpEmmentaler-20 where {pop helpEmmentaler-20} if\n" port)
-    (display "/helpEmmentaler-23 where {pop helpEmmentaler-23} if\n" port)
-    (display "/helpEmmentaler-26 where {pop helpEmmentaler-26} if\n" port)
     (ly:outputter-dump-stencil outputter dump-me)
     (display "stroke grestore\n%%Trailer\n%%EOF\n" port)
     (ly:outputter-close outputter)))

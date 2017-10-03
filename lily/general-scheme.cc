@@ -302,14 +302,6 @@ LY_DEFINE (ly_output_formats, "ly:output-formats",
   return lst;
 }
 
-LY_DEFINE (ly_bigpdfs, "ly:bigpdfs",
-           0, 0, 0, (),
-           "Return true if the command line includes the @option{--bigpdf} parameter."
-)
-{
-  return bigpdfs ? SCM_BOOL_T : SCM_BOOL_F;
-}
-
 LY_DEFINE (ly_wide_char_2_utf_8, "ly:wide-char->utf-8",
            1, 0, 0, (SCM wc),
            "Encode the Unicode codepoint @var{wc}, an integer, as UTF-8.")
