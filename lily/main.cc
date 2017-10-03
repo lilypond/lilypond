@@ -146,6 +146,13 @@ static Getopt_long *option_parser = 0;
 static Long_option_init options_static[]
 =
 {
+  {_i ("FORMATs"), "formats", 'f', _i ("dump FORMAT,...  Also as separate options:")},
+  {0, "pdf", 0, _i ("generate PDF files (default)")},
+  {0, "png", 0, _i ("generate PNG files ")},
+  {0, "ps", 0, _i ("generate PostScript files")},
+  {0, "eps", 'E', _i ("generate Encapsulated PostScript files")},
+  {_i ("KEY"), "pspdfopt", 'O', _i ("set ps/pdf optimization to KEY (default: size)\n"
+         "KEY is either 'size', 'TeX' or 'TeX-GS'")},
   {
     _i ("SYM[=VAL]"), "define-default", 'd',
     _i ("set Scheme option SYM to VAL (default: #t).\n"
@@ -155,11 +162,6 @@ static Long_option_init options_static[]
   {_i ("EXPR"), "evaluate", 'e', _i ("evaluate scheme code")},
   /* Bug in option parser: --output =foe is taken as an abbreviation
      for --output-format.  */
-  {_i ("FORMATs"), "formats", 'f', _i ("dump FORMAT,...  Also as separate options:")},
-  {0, "pdf", 0, _i ("generate PDF (default)")},
-  {0, "png", 0, _i ("generate PNG")},
-  {0, "ps", 0, _i ("generate PostScript")},
-  {0, "bigpdfs", 'b', _i("generate big PDF files")},
   {0, "help", 'h', _i ("show this help and exit")},
   {
     _i ("FIELD"), "header", 'H', _i ("dump header field FIELD to file\n"
@@ -315,8 +317,8 @@ LY_DEFINE (ly_usage, "ly:usage",
      "Report bugs in English via %s",
      or if there is a LilyPond users list or forum in your language
      "Report bugs in English via %s or in YOUR_LANG via URI"  */
-  printf ("%s", (_f ("Report bugs via %s",
-                     "http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs"
+  printf ("%s", (_f ("You found a bug? Please read %s",
+                     "http://lilypond.org/bug-reports.html"
                     ).c_str ()));
   printf ("\n");
   printf ("\n");
@@ -606,6 +608,15 @@ parse_argv (int argc, char **argv)
     {
       switch (opt->shortname_char_)
         {
+        case 'f':
+          {
+            vector<string> components
+              = string_split (option_parser->optional_argument_str0_, ',');
+            for (vsize i = 0; i < components.size (); i++)
+              add_output_format (components[i]);
+          }
+          break;
+
         case 0:
           if (string (opt->longname_str0_) == "pdf"
               || string (opt->longname_str0_) == "png"
@@ -615,8 +626,30 @@ parse_argv (int argc, char **argv)
             relocate_binary = true;
           break;
 
-        case 'b':
-          bigpdfs = true;
+        case 'E':
+          add_output_format ("ps");
+          init_scheme_variables_global +=
+            "(cons \'backend 'eps)\n(cons \'aux-files '#f)\n";
+        break;
+
+        case 'O':
+          {
+            string arg (option_parser->optional_argument_str0_);
+            if (arg == "speed")
+              init_scheme_variables_global +=
+                "(cons \'music-font-encodings '#f)\n"
+                "(cons \'gs-never-embed-fonts '#f)\n";
+            else if (arg == "TeX-GS")
+              init_scheme_variables_global +=
+                "(cons \'music-font-encodings '#t)\n"
+                "(cons \'gs-never-embed-fonts '#t)\n";
+            else if (arg == "TeX")
+              init_scheme_variables_global +=
+                "(cons \'music-font-encodings '#t)\n"
+                "(cons \'gs-never-embed-fonts '#f)\n";
+            else
+              programming_error ("Ignoring unknown optimization key");
+          }
           break;
 
         case 'd':
@@ -660,15 +693,6 @@ parse_argv (int argc, char **argv)
         case 'w':
           warranty ();
           exit (0);
-          break;
-
-        case 'f':
-          {
-            vector<string> components
-              = string_split (option_parser->optional_argument_str0_, ',');
-            for (vsize i = 0; i < components.size (); i++)
-              add_output_format (components[i]);
-          }
           break;
 
         case 'H':

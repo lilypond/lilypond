@@ -112,7 +112,7 @@
        (string-join (map (lambda (x) (apply glyph-spec x))
                          (reverse w-x-y-named-glyphs)) "\n")
        (length w-x-y-named-glyphs))
-      (if (and (ly:bigpdfs) (string-startswith postscript-font-name "Emmentaler"))
+      (if (and (ly:get-option 'music-font-encodings) (string-startswith postscript-font-name "Emmentaler"))
           (ly:format "/~a-O ~a output-scale div selectfont\n~a"
                      postscript-font-name size
                      (string-join (map (lambda (x) (apply emglyph-spec x))
@@ -166,7 +166,7 @@
       ""))
 
 (define (named-glyph font glyph)
-  (if (and (ly:bigpdfs) (string-startswith (ly:font-file-name font) "emmentaler"))
+  (if (and (ly:get-option 'music-font-encodings) (string-startswith (ly:font-file-name font) "emmentaler"))
       (if (string-endswith (ly:font-file-name font)"-brace")
           (if (or (string-startswith glyph "brace1") (string-startswith glyph "brace2"))
               (ly:format "~a ~a" (string-append (ps-font-command font) "-N" ) glyph)

@@ -154,38 +154,6 @@ Die folgenden Kommandozeilenoptionen werden von @command{lilypond} unterstützt:
 
 @table @code
 
-@item -b, --bigpdfs
-@cindex bigpdfs
-
-Mit dieser Option generierte PDF-Dateien sind deutlich größer als normal,
-weil keine oder nur minimale Zeichensatz-Optimierung erfolgt.  Werden
-jedoch zwei oder mehr solcher PDF-Dateien in @w{@code{pdftex}-},
-@w{@code{xetex}-} oder @w{@code{luatex}}-Dokumente eingebunden und
-anschließend mit ghostscript nachbearbeitet, entstehen deutlich
-kleinere PDF-Dokumente, da ghostscript die Zeichensatzdaten auf
-diesem Weg viel besser komprimieren kann.
-
-Nach
-
-@example
-lilypond -b myfile
-@end example
-
-@noindent
-sollte @code{ghostscript} wie folgt ausgeführt werden.
-
-@example
-gs -q -sDEVICE=pdfwrite -o gsout.pdf myfile.pdf
-@end example
-
-Mit Hilfe von
-@uref{https://code.google.com/p/pdfsizeopt/,@code{pdfsizeopt.py}}
-kann die Ausgabedatei noch mehr verkleinert werden.
-
-@example
-pdfsizeopt.py --use-multivalent=no gsout.pdf final.pdf
-@end example
-
 @item -d, --define-default=@var{Variable}=@var{Wert}
 Siehe @ref{Fortgeschrittene Optionen auf der Kommandozeile für LilyPond}.
 
@@ -217,6 +185,9 @@ Am Beginn der @file{.ly}-Datei muss dann das @code{guile-user} Modul noch gelade
 Anführungsstriche einsetzen.}
 
 @cindex Ausgabeformat
+
+@item -E. --eps
+Erzeugt EPS-Dateien.
 
 @item -f, --format=@var{Format}
 Bestimmt das Ausgabeformat. Mögliche Werte von @var{Format} sind
@@ -357,6 +328,20 @@ Schreibt das Ergebnis der Verarbeitung mit LilyPond in die Ausgabedatei
 in dieses Verzeichnis gespeichert, wobei der Dateiname der Eingabedatei
 benutzt wird.  Die entsprechende Dateinamenserweiterung wird angehängt (z.B.
 @code{.pdf} für pdf).
+
+@item -O, --pspdfopt
+@cindex pspdfopt
+
+Wird diese Option nicht oder mit dem Parameter @w{@code{size}} verwendet,
+wird eine Art der Erzeugung von Postscript- EPS- bzw. PDF-Dateien gewählt,
+die möglichst kleine Dateien erzeugt.
+
+Der Parameter @w{@code{TeX}} führt zu Dateien, die besonders gut zur
+Einbindung in  PdfTeX, LuaTeX oder XeTeX geeignet sind.
+
+Sollen mehrere mit LilyPond erzeugt Dokumente in ein TeX-Dokument
+eingebunden werden, so bietet es sich an, @w{@code{TeX-GS}} zu verwenden
+und das von TeX erzeugte PDF noch einmal mit Ghostscript zu bearbeiten.
 
 @cindex PostScript-Ausgabe
 

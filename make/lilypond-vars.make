@@ -50,8 +50,7 @@ $(LANG_TEXIDOC_FLAGS) \
 
 ifeq ($(USE_EXTRACTPDFMARK),yes)
 LILYPOND_BOOK_LILYPOND_FLAGS+= \
--dfont-export-dir=$(top-build-dir)/out-fonts \
--dgs-never-embed-fonts
+-dfont-export-dir=$(top-build-dir)/out-fonts -O TeX-GS
 endif
 
 ifdef QUIET_BUILD
