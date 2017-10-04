@@ -125,57 +125,41 @@ This works by gathering all rests at a time step. If they are all of the same
 length and there are at least two they are moved to the correct location as
 if there were one voice."
 
-  (define (is-single-bar-rest? mmrest)
-    (eqv? (ly:grob-property mmrest 'measure-count) 1))
+  (define (measure-count-eqv? a b)
+    (eqv?
+      (ly:grob-property a 'measure-count)
+      (ly:grob-property b 'measure-count)))
 
-  (define (is-whole-rest? rest)
-    (eqv? (ly:grob-property rest 'duration-log) 0))
-
-  (define (mmrest-offset mmrest)
-  "For single measures they should hang from the second line from the top
-  (offset of 1). For longer multimeasure rests they should be centered on the
-  middle line (offset of 0).
-  NOTE: For one-line staves full single measure rests should be positioned at
-  0, but I don't anticipate this engraver's use in that case. No errors are
-  given in this case."
-    (if (is-single-bar-rest? mmrest) 1 0))
-
-  (define (rest-offset rest)
-    (if (is-whole-rest? rest) 1 0))
-
-  (define (rest-eqv rest-len-prop)
-    "Compare rests according the given property"
-    (define (rest-len rest) (ly:grob-property rest rest-len-prop))
-    (lambda (rest-a rest-b)
-      (eqv? (rest-len rest-a) (rest-len rest-b))))
-
-  (define (rests-all-unpitched rests)
+  (define (rests-all-unpitched? rests)
     "Returns true when all rests do not override the staff-position grob
     property. When a rest has a position set we do not want to merge rests at
     that position."
     (every (lambda (rest) (null? (ly:grob-property rest 'staff-position))) rests))
 
-  (define (merge-mmrests rests)
-  "Move all multimeasure rests to the single voice location."
-    (if (all-equal rests (rest-eqv 'measure-count))
-      (merge-rests rests mmrest-offset)))
+  (define (merge-mmrests mmrests)
+    "Move all multimeasure rests to the single voice location."
+    (if (all-equal? mmrests measure-count-eqv?)
+      (begin
+        (for-each
+          (lambda (rest) (ly:grob-set-property! rest 'direction CENTER))
+          mmrests)
+        (for-each
+          (lambda (rest) (ly:grob-set-property! rest 'transparent #t))
+          (cdr mmrests)))))
 
-  (define (merge-rests rests offset-function)
-    (let ((y-offset (offset-function (car rests))))
-      (for-each
-        (lambda (rest) (ly:grob-set-property! rest 'Y-offset y-offset))
-        rests))
+  (define (merge-rests rests)
+    (for-each
+      (lambda (rest) (ly:grob-set-property! rest 'staff-position 0))
+      rests)
     (for-each
       (lambda (rest) (ly:grob-set-property! rest 'transparent #t))
       (cdr rests)))
 
-  (define has-one-or-less (lambda (lst) (or (null? lst) (null? (cdr lst)))))
-  (define has-at-least-two (lambda (lst) (not (has-one-or-less lst))))
-  (define (all-equal lst pred)
-    (or (has-one-or-less lst)
-        (and (pred (car lst) (cadr lst)) (all-equal (cdr lst) pred))))
-  (define moment=?
-    (lambda (a b) (not (or (ly:moment<? a b) (ly:moment<? b a)))))
+  (define (has-one-or-less? lst) (or (null? lst) (null? (cdr lst))))
+  (define (has-at-least-two? lst) (not (has-one-or-less? lst)))
+  (define (all-equal? lst pred)
+    (or (has-one-or-less? lst)
+        (and (pred (car lst) (cadr lst)) (all-equal? (cdr lst) pred))))
 
   (let ((curr-mmrests '())
         (mmrests '())
@@ -213,14 +197,14 @@ if there were one voice."
                         'duration)))
                   rests)))
           (if (and
-                (has-at-least-two rests)
-                (all-equal durs moment=?)
-                (rests-all-unpitched rests))
+                (has-at-least-two? rests)
+                (all-equal? durs equal?)
+                (rests-all-unpitched? rests))
               (begin
-                (merge-rests rests rest-offset)
+                (merge-rests rests)
                 ;; ly:grob-suicide! works nicely for dots, as opposed to rests.
                 (if (pair? dots) (for-each ly:grob-suicide! (cdr dots)))))
-          (if (has-at-least-two curr-mmrests)
+          (if (has-at-least-two? curr-mmrests)
               (set! mmrests (cons curr-mmrests mmrests)))))
       ((finalize translator)
         (for-each merge-mmrests mmrests)))))
