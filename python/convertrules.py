@@ -3929,7 +3929,8 @@ def conv (str):
 matchscmarg = (r'(?:[a-zA-Z_][-a-zA-Z_0-9]*|"(?:[^\\"]|\\.)*"|[-+]?[0-9.]+|\('
                + paren_matcher (10) + r"\))")
 
-@rule ((2, 21, 0), r"""\note #"4." -> \note {4.}""")
+@rule ((2, 21, 0), r"""\note #"4." -> \note {4.}
+\markup-command #" -> \markup-command " """)
 def conv (str):
     def repl1ly (m):
         if m.group (2)[0] in "blm":
@@ -3959,6 +3960,12 @@ def conv (str):
                   paren_matcher (20) + r"\)", replscm, str)
     str = re.sub (r'\(markup\s' + paren_matcher (20) + r'\)',
                   replmarkup, str)
+    str = re.sub (r'(\\(?:fret-diagram(?:-terse)?|harp-pedal|justify-string'
+                  r'|lookup|musicglyph|postscript|simple|tied-lyric|verbatim-file'
+                  r'|with-url|wordwrap-string'
+                  r'|discant|freeBass|stdBass|stdBassIV|stdBassV|stdBassVI'
+                  r')\s*)[#$](\\?")',
+                  r'\1\2', str)
     return str
 
 
