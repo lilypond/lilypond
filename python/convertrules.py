@@ -3926,6 +3926,17 @@ def conv (str):
     str = re.sub (automatic, r"\1output-attributes.id", str)
     return str
 
+@rule ((2, 19, 80), r"""\markup-command #" -> \markup-command " """)
+def conv (str):
+    str = re.sub (r'(\\(?:fret-diagram(?:-terse)?|harp-pedal|justify-string'
+                  r'|lookup|musicglyph|postscript|simple|tied-lyric|verbatim-file'
+                  r'|with-url|wordwrap-string'
+                  r'|discant|freeBass|stdBass|stdBassIV|stdBassV|stdBassVI'
+                  r')\s*)[#$](\\?")',
+                  r'\1\2', str)
+    return str
+
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,
