@@ -4058,6 +4058,9 @@ markup_command_basic_arguments:
 	| EXPECT_SCM markup_command_list_arguments embedded_scm {
 	  $$ = check_scheme_arg (parser, @3, $3, $2, $1);
 	}
+	| EXPECT_SCM markup_command_list_arguments STRING {
+		$$ = check_scheme_arg (parser, @3, $3, $2, $1);
+	}
 	| EXPECT_NO_MORE_ARGS {
 	  $$ = SCM_EOL;
 	}
