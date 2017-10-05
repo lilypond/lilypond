@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.40"
+@c \version "2.21.0"
 
 @node Rhythms
 @section Rhythms
@@ -3334,9 +3334,9 @@ Music glyphs (such as the segno sign) may be printed inside a
 
 @lilypond[quote,verbatim]
 \relative c' {
-  c1 \mark \markup { \musicglyph #"scripts.segno" }
-  c1 \mark \markup { \musicglyph #"scripts.coda" }
-  c1 \mark \markup { \musicglyph #"scripts.ufermata" }
+  c1 \mark \markup { \musicglyph "scripts.segno" }
+  c1 \mark \markup { \musicglyph "scripts.coda" }
+  c1 \mark \markup { \musicglyph "scripts.ufermata" }
   c1
 }
 @end lilypond

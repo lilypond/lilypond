@@ -8,7 +8,7 @@
   Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.28"
+@c \version "2.21.0"
 
 @c Translators: Frédéric Chiasson, Jean-Charles Malahieude
 
@@ -983,14 +983,14 @@ s'inclure directement dans un objet @emph{markup}.  Pour ce faire, il
 suffit d'employer le nom du glyphe (voir les tables ci-après) comme ceci :
 
 @example
-g^\markup @{ \musicglyph #"scripts.segno" @}
+g^\markup @{ \musicglyph "scripts.segno" @}
 @end example
 
 @noindent
 ou
 
 @example
-\markup @{ \musicglyph #"five" @}
+\markup @{ \musicglyph "five" @}
 @end example
 
 Pour de plus amples informations, reportez-vous au chapitre

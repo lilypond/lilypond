@@ -4,8 +4,8 @@
 % and then run scripts/auxiliar/makelsr.py
 %
 % This file is in the public domain.
-%% Note: this file works from version 2.19.2
-\version "2.19.2"
+%% Note: this file works from version 2.21.0
+\version "2.21.0"
 
 \header {
   lsrtags = "headword"
@@ -44,13 +44,13 @@ Unfretted headword
 %%% Abbreviations
 %%%
 
-db         = \markup { \musicglyph #"scripts.downbow" }
-dub        = \markup { \line { \musicglyph #"scripts.downbow" " " \musicglyph #"scripts.upbow" } }
-dubetc     = \markup { \line { \musicglyph #"scripts.downbow" " " \musicglyph #"scripts.upbow" "..." } }
+db         = \markup { \musicglyph "scripts.downbow" }
+dub        = \markup { \line { \musicglyph "scripts.downbow" " " \musicglyph "scripts.upbow" } }
+dubetc     = \markup { \line { \musicglyph "scripts.downbow" " " \musicglyph "scripts.upbow" "..." } }
 
-ub         = \markup { \musicglyph #"scripts.upbow" }
-udb        = \markup { \line { \musicglyph #"scripts.upbow" " " \musicglyph #"scripts.downbow" } }
-udbetc     = \markup { \line { \musicglyph #"scripts.upbow" " " \musicglyph #"scripts.downbow" "..." } }
+ub         = \markup { \musicglyph "scripts.upbow" }
+udb        = \markup { \line { \musicglyph "scripts.upbow" " " \musicglyph "scripts.downbow" } }
+udbetc     = \markup { \line { \musicglyph "scripts.upbow" " " \musicglyph "scripts.downbow" "..." } }
 
 accel   = \markup \tiny \italic \bold "accel..."
 ritar   = \markup \tiny \italic \bold "ritar..."

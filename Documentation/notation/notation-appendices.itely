@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.28"
+@c \version "2.21.0"
 
 @node Notation manual tables
 @appendix Notation manual tables
@@ -957,14 +957,14 @@ text markup along with the name of the glyph (as shown in the tables
 below).  For example;
 
 @example
-g^\markup @{\musicglyph #"scripts.segno" @}
+g^\markup @{\musicglyph "scripts.segno" @}
 @end example
 
 @noindent
 or
 
 @example
-\markup @{\musicglyph #"five"@}
+\markup @{\musicglyph "five"@}
 @end example
 
 For more information see @ref{Formatting text}.

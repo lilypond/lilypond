@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.21.0"
 
 
 @node Ancient notation
@@ -317,19 +317,19 @@ supported are @code{vaticana}, @code{medicaea}, @code{hufnagel}, and
 \new Lyrics \lyricmode {
   \markup { \column {
     \typewriter "vaticana "
-    \line { " " \musicglyph #"custodes.vaticana.u0" }
+    \line { " " \musicglyph "custodes.vaticana.u0" }
   } }
   \markup { \column {
     \typewriter "medicaea "
-    \line { " " \musicglyph #"custodes.medicaea.u0" }
+    \line { " " \musicglyph "custodes.medicaea.u0" }
   }}
   \markup { \column {
     \typewriter "hufnagel "
-    \line { " " \musicglyph #"custodes.hufnagel.u0" }
+    \line { " " \musicglyph "custodes.hufnagel.u0" }
   }}
   \markup { \column {
     \typewriter "mensural "
-    \line { " " \musicglyph #"custodes.mensural.u0" }
+    \line { " " \musicglyph "custodes.mensural.u0" }
   }}
 }
 @end lilypond
@@ -499,34 +499,34 @@ to particular time fractions.  In other words, to get a particular mensuration s
   \set Score.barAlways = ##t
   \textLengthOn
   s^\markup { "\\time 4/4" }_\markup { "       " \musicglyph
-#"timesig.neomensural44" }
+"timesig.neomensural44" }
   s
   s^\markup { "\\time 2/2" }_\markup { "       " \musicglyph
-#"timesig.neomensural22" }
+"timesig.neomensural22" }
   s
   s^\markup { "\\time 6/4" }_\markup { "       " \musicglyph
-#"timesig.neomensural64" }
+"timesig.neomensural64" }
   s
   s^\markup { "\\time 6/8" }_\markup { "       " \musicglyph
-#"timesig.neomensural68" }
+"timesig.neomensural68" }
   \break
   s^\markup { "\\time 3/2" }_\markup { "       " \musicglyph
-#"timesig.neomensural32" }
+"timesig.neomensural32" }
   s
   s^\markup { "\\time 3/4" }_\markup { "       " \musicglyph
-#"timesig.neomensural34" }
+"timesig.neomensural34" }
   s
   s^\markup { "\\time 9/4" }_\markup { "       " \musicglyph
-#"timesig.neomensural94" }
+"timesig.neomensural94" }
   s
   s^\markup { "\\time 9/8" }_\markup { "       " \musicglyph
-#"timesig.neomensural98" }
+"timesig.neomensural98" }
   \break
   s^\markup { "\\time 4/8" }_\markup { "       " \musicglyph
-#"timesig.neomensural48" }
+"timesig.neomensural48" }
   s
   s^\markup { "\\time 2/4" }_\markup { "       " \musicglyph
-#"timesig.neomensural24" }
+"timesig.neomensural24" }
 }
 @end lilypond
 
@@ -587,7 +587,7 @@ This sets @code{breveTP} to 3/2 times 2 = 3 times a whole note.
 
 The @code{mensural68alt} and @code{neomensural68alt} symbols
 (alternate symbols for 6/8) are not addressable with @code{\time}.
-Use @code{\markup @{\musicglyph #"timesig.mensural68alt" @}} instead.
+Use @code{\markup @{\musicglyph "timesig.mensural68alt" @}} instead.
 
 
 @node Mensural note heads
@@ -755,8 +755,8 @@ style.
 \markup {
   \column {
     "mensural"
-    \line { " " \musicglyph #"accidentals.mensural-1"
-      " " \musicglyph #"accidentals.mensural1" }
+    \line { " " \musicglyph "accidentals.mensural-1"
+      " " \musicglyph "accidentals.mensural1" }
   }
 }
 @end lilypond
@@ -1152,16 +1152,16 @@ Accidentals for the three different Gregorian styles are available:
 \markup {
   \column {
     "vaticana"
-    \line { " " \musicglyph #"accidentals.vaticana-1"
-      " " \musicglyph #"accidentals.vaticana0" }
+    \line { " " \musicglyph "accidentals.vaticana-1"
+      " " \musicglyph "accidentals.vaticana0" }
   }
   \column {
     "medicaea"
-    \line { " " \musicglyph #"accidentals.medicaea-1" }
+    \line { " " \musicglyph "accidentals.medicaea-1" }
   }
   \column {
     "hufnagel"
-    \line { " " \musicglyph #"accidentals.hufnagel-1" }
+    \line { " " \musicglyph "accidentals.hufnagel-1" }
   }
 }
 @end lilypond
