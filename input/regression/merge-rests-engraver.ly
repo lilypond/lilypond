@@ -24,7 +24,13 @@ voiceA = \relative {
   % compressed multi-measure rests are combined
   R1*3 |
 
+  % multi-measure rests longer than semi-breve
+  % are merged at the correct vertical position
+  \time 4/2
+  R\breve
+
   % combining between beams, slurs
+  \time 4/4
   c8[( r c]) r c16[( r c] r c[ r c]) r |
 
   % combining in tuplets
@@ -62,6 +68,7 @@ voiceB = \relative {
   r2_"Down" r4 r8 r16 r32 r64 r128 r |
   R1_"Lower text" |
   R1*3 |
+  R\breve |
   c8[( r c]) r c16[( r c] r c[ r c]) r |
   \tuplet 3/2 { c8 r r } r4 \tuplet 3/2 { c4 r r } |
   r4-> r-. r r |
@@ -75,7 +82,7 @@ voiceB = \relative {
 voiceC = \relative {
   s1*2 |
   r2 r4 r8 r16 r32 r64 r128 r | % Combines rests from more than 2 voices
-  s1*11
+  s1*13
   r4. r8 r4. r8 |
   r4. r8 r4. r8 |
 }
