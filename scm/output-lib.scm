@@ -476,8 +476,11 @@ and duration-log @var{log}."
                                 (ly:grob-property stem 'thickness)
                                 1.3)
                             line-thickness))
-         (radius (/ (+ staff-space line-thickness) 2))
-         (letter (make-center-align-markup (make-vcenter-markup pitch-string)))
+         (font-size (ly:grob-property grob 'font-size 0))
+         (radius (* (magstep font-size) (/ (+ staff-space line-thickness) 2)))
+         (letter (make-fontsize-markup
+                  -8
+                  (make-center-align-markup (make-vcenter-markup pitch-string))))
          (filled-circle (make-draw-circle-markup radius 0 #t)))
 
     (ly:stencil-translate-axis

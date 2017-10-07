@@ -184,13 +184,11 @@ dynamicNeutral = {
 
 easyHeadsOn = {
   \override NoteHead.stencil = #note-head::brew-ez-stencil
-  \override NoteHead.font-size = #-8
   \override NoteHead.font-family = #'sans
   \override NoteHead.font-series = #'bold
 }
 easyHeadsOff = {
   \revert NoteHead.stencil
-  \revert NoteHead.font-size
   \revert NoteHead.font-family
   \revert NoteHead.font-series
 }
