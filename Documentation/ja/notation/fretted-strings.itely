@@ -1057,28 +1057,19 @@ and color of dots.
     \fret-diagram "6-x;5-x;4-o;3-2;2-3;1-2;"
   }
   d4 d d
-  fis^\markup {
-    \override #'(size . 0.75) {
-      \override #'(finger-code . below-string) {
-        \fret-diagram-verbose #'((place-fret 6 2 1) (barre 6 1 2)
-                                 (place-fret 5 4 3)
-                                 (place-fret 4 4 4)
-                                 (place-fret 3 3 2)
-                                 (place-fret 2 2 1)
-                                 (place-fret 1 2 1))
-      }
-    }
-  }
+  fis^\markup
+    \override #'((size . 0.75) (finger-code . below-string))
+    \fret-diagram-verbose #'((place-fret 6 2 1) (barre 6 1 2)
+                             (place-fret 5 4 3)
+                             (place-fret 4 4 4)
+                             (place-fret 3 3 2)
+                             (place-fret 2 2 1)
+                             (place-fret 1 2 1))
   fis4 fis fis
-  c^\markup {
-    \override #'(dot-radius . 0.35) {
-      \override #'(finger-code . in-dot) {
-        \override #'(dot-color . white) {
-          \fret-diagram-terse "x;3-1-(;5-2;5-3;5-4;3-1-);"
-        }
-      }
-    }
-  }
+  c^\markup
+    \override #'((dot-radius . 0.35) (finger-code . in-dot)
+                 (dot-color . white))
+    \fret-diagram-terse "x;3-1-(;5-2;5-3;5-4;3-1-);"
   c4 c c
 }
 @end lilypond

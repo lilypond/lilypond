@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.21.0"
 
 \header {
 
@@ -26,8 +26,7 @@ without size specification."
   R1*21^"Rest in Luxi Mono"
 
   c'1_\markup {
-    \override #'(font-name . "Bitstream Vera Sans, Bold")
-      \override #'(font-size . 4)
+    \override #'((font-name . "Bitstream Vera Sans, Bold") (font-size . 4))
         { This text is in large Vera Bold }
   }
 }

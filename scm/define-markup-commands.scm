@@ -187,8 +187,7 @@ Manual settings for @code{on},@code{off} and @code{phase} are possible.
 @lilypond[verbatim,quote]
 \\markup {
   \\draw-dashed-line #'(5.1 . 2.3)
-  \\override #'(on . 0.3)
-  \\override #'(off . 0.5)
+  \\override #'((on . 0.3) (off . 0.5))
   \\draw-dashed-line #'(5.1 . 2.3)
 }
 @end lilypond"
@@ -293,8 +292,7 @@ line-length.
 @lilypond[verbatim,quote]
 \\markup {
   \\draw-dotted-line #'(5.1 . 2.3)
-  \\override #'(thickness . 2)
-  \\override #'(off . 0.2)
+  \\override #'((thickness . 2) (off . 0.2))
   \\draw-dotted-line #'(5.1 . 2.3)
 }
 @end lilypond"
@@ -679,11 +677,9 @@ thickness, and @code{offset} to determine line y-offset.
 @lilypond[verbatim,quote]
 \\markup \\fill-line {
   \\underline \"underlined\"
-  \\override #'(offset . 5)
-  \\override #'(thickness . 1)
+  \\override #'((offset . 5) (thickness . 1))
   \\underline \"underlined\"
-  \\override #'(offset . 1)
-  \\override #'(thickness . 5)
+  \\override #'((offset . 1) (thickness . 5))
   \\underline \"underlined\"
 }
 @end lilypond"
@@ -751,11 +747,9 @@ of @var{arg}.  Looks at @code{thickness} to determine line thickness, and
 @lilypond[verbatim,quote]
 \\markup \\line {
   \\undertie \"undertied\"
-  \\override #'(offset . 5)
-  \\override #'(thickness . 1)
+  \\override #'((offset . 5) (thickness . 1))
   \\undertie \"undertied\"
-  \\override #'(offset . 1)
-  \\override #'(thickness . 5)
+  \\override #'((offset . 1) (thickness . 5))
   \\undertie \"undertied\"
 }
 @end lilypond"
@@ -774,11 +768,9 @@ Overtie @var{arg}.
 @lilypond[verbatim,quote]
 \\markup \\line {
   \\overtie \"overtied\"
-  \\override #'(offset . 5)
-  \\override #'(thickness . 1)
+  \\override #'((offset . 5) (thickness . 1))
   \\overtie \"overtied\"
-  \\override #'(offset . 1)
-  \\override #'(thickness . 5)
+  \\override #'((offset . 1) (thickness . 5))
   \\overtie \"overtied\"
 }
 @end lilypond"
@@ -913,15 +905,13 @@ outline of the markup.
 \\markup {
   \\combine
     \\filled-box #'(-1 . 24) #'(-3 . 4) #1
-    \\override #'(style . rounded-box)
-    \\override #'(thickness . 3)
+    \\override #'((style . rounded-box) (thickness . 3))
     \\whiteout whiteout-rounded-box
 }
 \\markup {
   \\combine
     \\filled-box #'(-1 . 18) #'(-3 . 4) #1
-    \\override #'(style . outline)
-    \\override #'(thickness . 3)
+    \\override #'((style . outline) (thickness . 3))
     \\whiteout whiteout-outline
 }
 @end lilypond"
@@ -1982,20 +1972,18 @@ setting of the @code{direction} layout property.
 
 @lilypond[verbatim,quote]
 \\markup {
-  \\override #`(direction . ,UP) {
-    \\dir-column {
-      going up
-    }
+  \\override #`(direction . ,UP)
+  \\dir-column {
+    going up
   }
   \\hspace #1
   \\dir-column {
     going down
   }
   \\hspace #1
-  \\override #'(direction . 1) {
-    \\dir-column {
-      going up
-    }
+  \\override #'(direction . 1)
+  \\dir-column {
+    going up
   }
 }
 @end lilypond"
@@ -3872,9 +3860,8 @@ a shortened down stem.
 
 @lilypond[verbatim,quote]
 \\markup {
-  \\override #'(style . cross) {
-    \\note {4..} #UP
-  }
+  \\override #'(style . cross)
+  \\note {4..} #UP
   \\hspace #2
   \\note {\\breve} #0
 }
@@ -4029,7 +4016,7 @@ Could be disabled with @code{\\override #'(multi-measure-rest-number . #f)}
   \\hspace #2
   \\rest #\"breve\"
   \\hspace #2
-  \\override #'(multi-measure-rest . #t)
+  \\override-lines #'(multi-measure-rest . #t)
   {
   \\rest #\"7\"
   \\hspace #2
@@ -4461,21 +4448,16 @@ a column containing several lines of text.
 
 @lilypond[verbatim,quote]
 \\markup {
-  \\line {
-    \\parenthesize {
-      \\column {
-        foo
-        bar
-      }
-    }
-    \\override #'(angularity . 2) {
-      \\parenthesize {
-        \\column {
-          bah
-          baz
-        }
-      }
-    }
+  \\parenthesize
+  \\column {
+    foo
+    bar
+  }
+  \\override #'(angularity . 2)
+  \\parenthesize
+  \\column {
+    bah
+    baz
   }
 }
 @end lilypond"

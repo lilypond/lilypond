@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.21.0"
 
 \header{
 
@@ -17,15 +17,10 @@ The angularity of the parentheses can be adjusted.
       \column { "A" "B" "C" }
     }
   } c c c
-  c^\markup {
-    \override #'(angularity . 2) {
-      \override #'(width . 0.5) {
-        \parenthesize {
-          \column { "A" "B" "C" }
-        }
-      }
-    }
-  } c c c
+  c^\markup
+    \override #'((angularity . 2) (width . 0.5))
+    \parenthesize
+    \column { "A" "B" "C" }
+  c c c
   }
 }
-

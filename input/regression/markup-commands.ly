@@ -5,7 +5,7 @@
 
 }
 \paper { ragged-right = ##T }
-\version "2.17.6"
+\version "2.21.0"
 
 \score{
   {
@@ -18,12 +18,11 @@
           Small-Caps \smallCaps 	Small-Caps
         }
 
-        \override #'(line-width . 50)
-        \override #'(bla . "This is a field containing text. Blah blah
+        \override #'((line-width . 50) (bla . "This is a field containing text. Blah blah
   blah.  This is a field containing text. Blah blah blah.  This is a
   field containing text. Blah blah blah.  This is a field containing
   text. Blah blah blah. This is a field containing text. Blah blah
-  blah.")
+  blah."))
         \column  {
           justify:
           \justify-field #'bla

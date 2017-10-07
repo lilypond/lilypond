@@ -7,7 +7,7 @@ a rounded rectangle.  @code{outline} approximates the outline of the
 markup."
 
 }
-\version "2.19.32"
+\version "2.21.0"
 
 \paper
 {
@@ -25,14 +25,12 @@ markup."
   }
   c
   c-\markup {
-    \override #'(thickness . 3)
-    \override #'(style . rounded-box)
+    \override #'((thickness . 3) (style . rounded-box))
     \whiteout foo
   }
   c
   c-\markup {
-    \override #'(thickness . 3)
-    \override #'(style . outline)
+    \override #'((thickness . 3) (style . outline))
     \whiteout foo
   }
   c

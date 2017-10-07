@@ -1031,13 +1031,12 @@ scoreTitleMarkup = \markup @{ \column @{
     scoreTitleMarkup = \markup {
       \fill-line {
         \null
-        \override #`(direction . ,UP) {
-          \dir-column {
-            \center-align \fontsize #-1 \bold
-              \fromproperty #'header:mycustomtext %% User-defined field
-            \center-align \fontsize #4 \bold
-              \fromproperty #'header:piece
-          }
+        \override #`(direction . ,UP)
+        \dir-column {
+          \center-align \fontsize #-1 \bold
+            \fromproperty #'header:mycustomtext %% User-defined field
+          \center-align \fontsize #4 \bold
+            \fromproperty #'header:piece
         }
         \fromproperty #'header:opus
       }
