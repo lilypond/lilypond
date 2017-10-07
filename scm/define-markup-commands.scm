@@ -2536,24 +2536,22 @@ may be any property supported by @rinternals{font-interface},
 @rinternals{text-interface} and
 @rinternals{instrument-specific-markup-interface}.
 
+@var{new-prop} may be either a single alist pair, or non-empty alist
+of its own.
+
 @lilypond[verbatim,quote]
 \\markup {
-  \\line {
-    \\column {
-      default
-      baseline-skip
-    }
-    \\hspace #2
-    \\override #'(baseline-skip . 4) {
-      \\column {
-        increased
-        baseline-skip
-      }
-    }
-  }
+  \\undertie \"undertied\"
+  \\override #'(offset . 15)
+  \\undertie \"offset undertied\"
+  \\override #'((offset . 15)(thickness . 3))
+  \\undertie \"offset thick undertied\"
 }
 @end lilypond"
-  (interpret-markup layout (cons (list new-prop) props) arg))
+  (interpret-markup layout
+                    (cons (if (pair? (car new-prop)) new-prop (list new-prop))
+                          props)
+                    arg))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; files
@@ -4727,7 +4725,10 @@ where @var{X} is the number of staff spaces."
 (define-markup-list-command (override-lines layout props new-prop args)
   (pair? markup-list?)
   "Like @code{\\override}, for markup lists."
-  (interpret-markup-list layout (cons (list new-prop) props) args))
+  (interpret-markup-list layout
+                    (cons (if (pair? (car new-prop)) new-prop (list new-prop))
+                          props)
+                    args))
 
 (define-markup-list-command (table layout props column-align lst)
   (number-list? markup-list?)
