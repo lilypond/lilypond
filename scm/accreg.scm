@@ -101,18 +101,18 @@ Some examples are
 #(use-modules (scm accreg))
 \\markup {
   \\center-column {
-     \\discant #\"1\"
-     \"\\\\discant #\\\"1\\\"\"
+     \\discant \"1\"
+     \"\\\\discant \\\"1\\\"\"
      \\vspace #1
-     \\discant #\"120\"
-     \"\\\\discant #\\\"120\\\"\"
+     \\discant \"120\"
+     \"\\\\discant \\\"120\\\"\"
   } \\hspace #3
   \\center-column {
-     \\discant #\"1+0\"
-     \"\\\\discant #\\\"1+0\\\"\"
+     \\discant \"1+0\"
+     \"\\\\discant \\\"1+0\\\"\"
      \\vspace #1
-     \\discant #\"131\"
-     \"\\\\discant #\\\"131\\\"\"
+     \\discant \"131\"
+     \"\\\\discant \\\"131\\\"\"
   }
 }
 @end lilypond
@@ -202,27 +202,27 @@ Available registrations are
 #(use-modules (scm accreg))
 \\markup {
   \\center-column {
-     \\stdBass #\"Soprano\"
-     \"\\\\stdBass #\\\"Soprano\\\"\"
+     \\stdBass \"Soprano\"
+     \"\\\\stdBass \\\"Soprano\\\"\"
      \\vspace #1
-     \\stdBass #\"Alto\"
-     \"\\\\stdBass #\\\"Alto\\\"\"
+     \\stdBass \"Alto\"
+     \"\\\\stdBass \\\"Alto\\\"\"
      \\vspace #1
-     \\stdBass #\"Tenor\"
-     \"\\\\stdBass #\\\"Tenor\\\"\"
+     \\stdBass \"Tenor\"
+     \"\\\\stdBass \\\"Tenor\\\"\"
      \\vspace #1
-     \\stdBass #\"Master\"
-     \"\\\\stdBass #\\\"Master\\\"\"
+     \\stdBass \"Master\"
+     \"\\\\stdBass \\\"Master\\\"\"
   } \\hspace #3
   \\center-column {
-     \\stdBass #\"Soft Bass\"
-     \"\\\\stdBass #\\\"Soft Bass\\\"\"
+     \\stdBass \"Soft Bass\"
+     \"\\\\stdBass \\\"Soft Bass\\\"\"
      \\vspace #1
-     \\stdBass #\"Soft Tenor\"
-     \"\\\\stdBass #\\\"Soft Tenor\\\"\"
+     \\stdBass \"Soft Tenor\"
+     \"\\\\stdBass \\\"Soft Tenor\\\"\"
      \\vspace #1
-     \\stdBass #\"Bass/Alto\"
-     \"\\\\stdBass #\\\"Bass/Alto\\\"\"
+     \\stdBass \"Bass/Alto\"
+     \"\\\\stdBass \\\"Bass/Alto\\\"\"
   }
 }
 @end lilypond
@@ -285,30 +285,30 @@ Available registrations are
 #(use-modules (scm accreg))
 \\markup {
   \\center-column {
-     \\stdBassIV #\"Soprano\"
-     \"\\\\stdBassIV #\\\"Soprano\\\"\"
+     \\stdBassIV \"Soprano\"
+     \"\\\\stdBassIV \\\"Soprano\\\"\"
      \\vspace #1
-     \\stdBassIV #\"Alto\"
-     \"\\\\stdBassIV #\\\"Alto\\\"\"
+     \\stdBassIV \"Alto\"
+     \"\\\\stdBassIV \\\"Alto\\\"\"
      \\vspace #1
-     \\stdBassIV #\"Tenor\"
-     \"\\\\stdBassIV #\\\"Tenor\\\"\"
+     \\stdBassIV \"Tenor\"
+     \"\\\\stdBassIV \\\"Tenor\\\"\"
      \\vspace #1
-     \\stdBassIV #\"Master\"
-     \"\\\\stdBassIV #\\\"Master\\\"\"
+     \\stdBassIV \"Master\"
+     \"\\\\stdBassIV \\\"Master\\\"\"
   } \\hspace #3
   \\center-column {
-     \\stdBassIV #\"Soft Bass\"
-     \"\\\\stdBassIV #\\\"Soft Bass\\\"\"
+     \\stdBassIV \"Soft Bass\"
+     \"\\\\stdBassIV \\\"Soft Bass\\\"\"
      \\vspace #1
-     \\stdBassIV #\"Bass/Alto\"
-     \"\\\\stdBassIV #\\\"Bass/Alto\\\"\"
+     \\stdBassIV \"Bass/Alto\"
+     \"\\\\stdBassIV \\\"Bass/Alto\\\"\"
      \\vspace #1
-     \\stdBassIV #\"Soft Bass/Alto\"
-     \"\\\\stdBassIV #\\\"Soft Bass/Alto\\\"\"
+     \\stdBassIV \"Soft Bass/Alto\"
+     \"\\\\stdBassIV \\\"Soft Bass/Alto\\\"\"
      \\vspace #1
-     \\stdBassIV #\"Soft Tenor\"
-     \"\\\\stdBassIV #\\\"Soft Tenor\\\"\"
+     \\stdBassIV \"Soft Tenor\"
+     \"\\\\stdBassIV \\\"Soft Tenor\\\"\"
   }
 }
 @end lilypond
@@ -375,36 +375,36 @@ Available registrations are
 #(use-modules (scm accreg))
 \\markuplist \\justified-lines {
   \\center-column {
-     \\stdBassV #\"Bass/Alto\"
-     \"\\\\stdBassV #\\\"Bass/Alto\\\"\"
+     \\stdBassV \"Bass/Alto\"
+     \"\\\\stdBassV \\\"Bass/Alto\\\"\"
      \\vspace #1
-     \\stdBassV #\"Soft Bass/Alto\"
-     \"\\\\stdBassV #\\\"Soft Bass/Alto\\\"\"
+     \\stdBassV \"Soft Bass/Alto\"
+     \"\\\\stdBassV \\\"Soft Bass/Alto\\\"\"
      \\vspace #1
-     \\stdBassV #\"Alto\"
-     \"\\\\stdBassV #\\\"Alto\\\"\"
+     \\stdBassV \"Alto\"
+     \"\\\\stdBassV \\\"Alto\\\"\"
      \\vspace #1
-     \\stdBassV #\"Tenor\"
-     \"\\\\stdBassV #\\\"Tenor\\\"\"
+     \\stdBassV \"Tenor\"
+     \"\\\\stdBassV \\\"Tenor\\\"\"
      \\vspace #1
-     \\stdBassV #\"Master\"
-     \"\\\\stdBassV #\\\"Master\\\"\"
+     \\stdBassV \"Master\"
+     \"\\\\stdBassV \\\"Master\\\"\"
  } \\hspace #3
   \\center-column {
-     \\stdBassV #\"Soft Bass\"
-     \"\\\\stdBassV #\\\"Soft Bass\\\"\"
+     \\stdBassV \"Soft Bass\"
+     \"\\\\stdBassV \\\"Soft Bass\\\"\"
      \\vspace #1
-     \\stdBassV #\"Soft Tenor\"
-     \"\\\\stdBassV #\\\"Soft Tenor\\\"\"
+     \\stdBassV \"Soft Tenor\"
+     \"\\\\stdBassV \\\"Soft Tenor\\\"\"
      \\vspace #1
-     \\stdBassV #\"Soprano\"
-     \"\\\\stdBassV #\\\"Soprano\\\"\"
+     \\stdBassV \"Soprano\"
+     \"\\\\stdBassV \\\"Soprano\\\"\"
      \\vspace #1
-     \\stdBassV #\"Sopranos\"
-     \"\\\\stdBassV #\\\"Sopranos\\\"\"
+     \\stdBassV \"Sopranos\"
+     \"\\\\stdBassV \\\"Sopranos\\\"\"
      \\vspace #1
-     \\stdBassV #\"Solo Bass\"
-     \"\\\\stdBassV #\\\"Solo Bass\\\"\"
+     \\stdBassV \"Solo Bass\"
+     \"\\\\stdBassV \\\"Solo Bass\\\"\"
   }
 }
 @end lilypond
@@ -467,27 +467,27 @@ Available registrations are
 #(use-modules (scm accreg))
 \\markup {
   \\center-column {
-     \\stdBassVI #\"Soprano\"
-     \"\\\\stdBassVI #\\\"Soprano\\\"\"
+     \\stdBassVI \"Soprano\"
+     \"\\\\stdBassVI \\\"Soprano\\\"\"
      \\vspace #1
-     \\stdBassVI #\"Alto\"
-     \"\\\\stdBassVI #\\\"Alto\\\"\"
+     \\stdBassVI \"Alto\"
+     \"\\\\stdBassVI \\\"Alto\\\"\"
      \\vspace #1
-     \\stdBassVI #\"Soft Tenor\"
-     \"\\\\stdBassVI #\\\"Soft Tenor\\\"\"
+     \\stdBassVI \"Soft Tenor\"
+     \"\\\\stdBassVI \\\"Soft Tenor\\\"\"
      \\vspace #1
-     \\stdBassVI #\"Master\"
-     \"\\\\stdBassVI #\\\"Master\\\"\"
+     \\stdBassVI \"Master\"
+     \"\\\\stdBassVI \\\"Master\\\"\"
   } \\hspace #3
   \\center-column {
-     \\stdBassVI #\"Alto/Soprano\"
-     \"\\\\stdBassVI #\\\"Alto/Soprano\\\"\"
+     \\stdBassVI \"Alto/Soprano\"
+     \"\\\\stdBassVI \\\"Alto/Soprano\\\"\"
      \\vspace #1
-     \\stdBassVI #\"Bass/Alto\"
-     \"\\\\stdBassVI #\\\"Bass/Alto\\\"\"
+     \\stdBassVI \"Bass/Alto\"
+     \"\\\\stdBassVI \\\"Bass/Alto\\\"\"
      \\vspace #1
-     \\stdBassVI #\"Soft Bass\"
-     \"\\\\stdBassVI #\\\"Soft Bass\\\"\"
+     \\stdBassVI \"Soft Bass\"
+     \"\\\\stdBassVI \\\"Soft Bass\\\"\"
   }
 }
 @end lilypond
@@ -528,15 +528,15 @@ Available registrations are
 #(use-modules (scm accreg))
 \\markup {
   \\center-column {
-     \\freeBass #\"1\"
-     \"\\\\freeBass #\\\"1\\\"\"
+     \\freeBass \"1\"
+     \"\\\\freeBass \\\"1\\\"\"
      \\vspace #1
-     \\freeBass #\"10\"
-     \"\\\\freeBass #\\\"10\\\"\"
+     \\freeBass \"10\"
+     \"\\\\freeBass \\\"10\\\"\"
   } \\hspace #3
   \\center-column {
-     \\freeBass #\"11\"
-     \"\\\\freeBass #\\\"11\\\"\"
+     \\freeBass \"11\"
+     \"\\\\freeBass \\\"11\\\"\"
   }
 }
 @end lilypond
