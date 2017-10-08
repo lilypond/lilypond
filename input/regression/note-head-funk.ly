@@ -1,6 +1,6 @@
 \header {
 
-  texidoc = "Notes can be set in the Funk (Harmonica Sacra) style."
+  texidoc = "Notes can be set in the Funk (Harmonia Sacra) style."
 
 }
 \version "2.16.0"
