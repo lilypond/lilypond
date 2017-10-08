@@ -72,29 +72,29 @@ hyphenated;
 @end example
 
 @noindent
-instead of; 
+instead of:
 
 @example
 \key aflat \major
 @end example
 
 @noindent
-Pitches that contain @emph{double} sharps or flats in their name, 
-however, do not need a second hyphen. For example using the Dutch 
-notation @code{cisis};
+Pitches that contain @emph{double} sharps or flats in their name,
+however, do not need a second hyphen. For example using the Dutch
+notation @code{cisis}:
 
 @example
 \key c-sharpsharp \major
 @end example
 
 @item
-Accidental rules can now be defined @emph{across} @code{ChoirStaff} 
+Accidental rules can now be defined @emph{across} @code{ChoirStaff}
 contexts.
 
 @item
 Two new accidental rules have been added.  Both combine the
 characteristics of @code{modern-voice}, @code{piano} and their
-equivalents;
+equivalents:
 @code{choral}
 
 @lilypond[quote]
@@ -161,9 +161,9 @@ cautionaries instead.
 Also see @ruser{Automatic accidentals}.
 
 @item
-Four new clef glyphs are now available; @q{GG} (double-G), 
-@q{Tenor G}, @q{varC} plus related tessitura and 
-@q{Varpercussion}.
+Four new clef glyphs are now available; @q{GG} (double-G),
+@q{Tenor G}, @q{varC} plus related tessitura and
+@q{Varpercussion}:
 
 @multitable @columnfractions .30 .2 .30 .2
 
@@ -228,8 +228,8 @@ Output
 Also see @emph{Clef styles}.
 
 @item
-French note names are now explicitly defined -- previously they were  
-aliased to Italian note names.  The @var{d} pitch may be entered as 
+French note names are now explicitly defined -- previously they were
+aliased to Italian note names.  The @var{d} pitch may be entered as
 either  @code{re} or @code{ré}.
 
 @lilypond[fragment,verbatim,quote,ragged-right,relative=1]
@@ -254,7 +254,7 @@ dob, rebb misb fabsb | sold ladd six dosd | rédsd1
 
 @item
 Multi-measure rests have length according to their total duration,
-under the control of @code{MultiMeasureRest.space-increment}.  Note the 
+under the control of @code{MultiMeasureRest.space-increment}.  Note the
 default value is @code{2.0}.
 
 @lilypond[fragment,verbatim,quote]
@@ -269,27 +269,27 @@ R1*2 R1*4 R1*64 R1*16
 @end lilypond
 
 @item
-Improvements to the @code{\partial} command have been made when used 
+Improvements to the @code{\partial} command have been made when used
 with parallel music and/or multiple contexts.
 
 @item
-It is now possible to change the time signature mid-measure by using 
+It is now possible to change the time signature mid-measure by using
 both the @code{\time} and @code{\partial} commands together.
 
 @lilypond[verbatim,quote,relative=1]
 f f f f | f2. \bar "||"
-\time 3/4 \partial 4 
+\time 3/4 \partial 4
 f8 8 | f2 f8 f |
 @end lilypond
 
 @item
-Isolated durations in music now stand for unpitched notes.  Pitches are 
-taken from the preceding note or chord.  This is especially convenient 
-for specifying rhythms in both music and scheme functions and can help 
+Isolated durations in music now stand for unpitched notes.  Pitches are
+taken from the preceding note or chord.  This is especially convenient
+for specifying rhythms in both music and scheme functions and can help
 improve the readability of LilyPond source files.
 
 @lilypond[verbatim,quote,fragment,relative=2]
-c64[ 64] 32 16 8^- <g b d>4~ 2 | 1 
+c64[ 64] 32 16 8^- <g b d>4~ 2 | 1
 @end lilypond
 
 @lilypond[verbatim,quote]
@@ -303,8 +303,8 @@ c64[ 64] 32 16 8^- <g b d>4~ 2 | 1
 
 @item
 Beaming exceptions can now be constructed using the simpler
-@code{\beamExceptions} scheme function. Previously, this would have 
-required writing;
+@code{\beamExceptions} scheme function. Previously, this would have
+required writing:
 
 @example
 \set Timing.beamExceptions =
@@ -315,12 +315,12 @@ required writing;
     )))
 
 \time #'(2 1) 3/16
-c16 c c 
-\repeat unfold 6 @{ c32 @} 
+c16 c c
+\repeat unfold 6 @{ c32 @}
 @end example
 
 @noindent
-With the new @code{\beamExceptions} scheme function, this becomes;
+With the new @code{\beamExceptions} scheme function, this becomes:
 
 @lilypond[verbatim,quote,relative=1]
 \set Timing.beamExceptions =
@@ -332,19 +332,19 @@ c16 c c |
 @end lilypond
 
 @noindent
-with multiple exceptions separated by bar checks.  Note that writing the 
-exception pattern without pitches is convenient but not mandatory (also 
-see the previous documented rhythm improvement -- 
-@ruser{Isolated durations in music now stand for unpitched notes}. 
+with multiple exceptions separated by bar checks.  Note that writing the
+exception pattern without pitches is convenient but not mandatory (also
+see the previous documented rhythm improvement --
+@ruser{Isolated durations in music now stand for unpitched notes}.
 
 @item
-The positioning of tuplet numbers for kneed beams has been improved.  
-Previously, tuplet numbers were placed according to the position of the 
-tuplet bracket, even if the bracket was not printed.  This could lead to 
+The positioning of tuplet numbers for kneed beams has been improved.
+Previously, tuplet numbers were placed according to the position of the
+tuplet bracket, even if the bracket was not printed.  This could lead to
 tuplet numbers being @q{stranded}.
 
 @noindent
-Previously;
+Previously:
 
 @lilypond[fragment,quote,relative=1]
 % This is a contrived example to simulate the previous behaviour
@@ -363,7 +363,7 @@ Previously;
 @end lilypond
 
 @noindent
-Now, when the bracket is not drawn, tuplet numbers are positioned 
+Now, when the bracket is not drawn, tuplet numbers are positioned
 closer.
 
 @lilypond[fragment,quote,relative=1]
@@ -384,7 +384,7 @@ closer.
 
 @item
 Collision detection for the kneed beam tuplet numbers has also been
-added, shifting the offset horizontally if the number is too close to 
+added, shifting the offset horizontally if the number is too close to
 an adjoining note column (but still preserving the number's vertical
 distance).  In the event of a collision -- for example with an
 accidental -- the tuplet number will be shifted vertically instead.  If
@@ -400,7 +400,7 @@ instead.
 @end lilypond
 
 @noindent
-The original kneed-beam tuplet behavior is still available with a new, 
+The original kneed-beam tuplet behavior is still available with a new,
 @code{knee-to-beam} property for the @code{TupletNumber} layout object.
 
 @lilypond[verbatim,fragment,quote,relative=1]
@@ -430,7 +430,7 @@ Positive and negative values offset right and left respectively.
 
 @lilypond[quote,verbatim,relative=2]
 \once \override Hairpin.shorten-pair = #'(0 . 2)
-a1\< | a2 a\! 
+a1\< | a2 a\!
 
 \once \override Hairpin.shorten-pair = #'(2 . 0)
 \once \override Hairpin.stencil = #constante-hairpin
@@ -442,7 +442,7 @@ a1\< | a2 a\!
 @end lilypond
 
 @item
-Individual slurs and phrasing slurs may now be started from an explicit 
+Individual slurs and phrasing slurs may now be started from an explicit
 note within a chord.
 
 @lilypond[quote,verbatim,relative=1]
@@ -454,16 +454,16 @@ note within a chord.
 @end lilypond
 
 @item
-A new command @code{\=X} has been added -- where @q{X} can be any 
-non-negative integer or symbol -- so that a specific @q{id} can be 
+A new command @code{\=X} has been added -- where @q{X} can be any
+non-negative integer or symbol -- so that a specific @q{id} can be
 assigned to the start and end of slurs and phrasing slurs.
 
 @noindent
-This is useful when simultaneous slurs are required or if one slur 
+This is useful when simultaneous slurs are required or if one slur
 overlaps another or when nesting short slurs within a longer one.
 
 @lilypond[quote,verbatim,relative=2]
-<a c e\=7\(>1 | <g b d\=£(> | 
+<a c e\=7\(>1 | <g b d\=£(> |
 <f\=A( a c\="foo"(> | <c'\="foo")\=A) e\=£) g\=7\)> |
 @end lilypond
 
@@ -805,7 +805,7 @@ that @code{\lyricsto} in general is applied last (i.e. like
 @itemize
 
 @item
-A new note head style for Tabulature has been added;
+A new note head style for Tabulature has been added --
 @code{TabNoteHead.style = #'slash}.
 
 @item
@@ -1274,9 +1274,9 @@ one-time settings.
 
 @item
 The music and grob property @code{spanner-id}, used for distinguishing
-simultaneous slurs and phrasing slurs, has been changed from a string to 
-a @emph{key} which can be either a non-negative integer or symbol (also 
-see the previous documented expressive mark improvement -- 
+simultaneous slurs and phrasing slurs, has been changed from a string to
+a @emph{key} which can be either a non-negative integer or symbol (also
+see the previous documented expressive mark improvement --
 @emph{A new command \=X has been added}).
 
 @item
@@ -1284,7 +1284,7 @@ Context properties named in the @samp{alternativeRestores} property are
 restored to their value at the start of the @emph{first} alternative in
 all subsequent alternatives.
 
-Currently the default set restores @q{current meter};
+Currently the default set restores @q{current meter}:
 
 @lilypond[verbatim,fragment,quote,relative=2]
 \time 3/4
@@ -1297,7 +1297,7 @@ g2. |
 @end lilypond
 
 @noindent
-@q{measure position};
+@q{measure position}:
 
 @lilypond[verbatim,fragment,quote,relative=2]
 \time 3/4
@@ -1312,7 +1312,7 @@ g2. |
 @end lilypond
 
 @noindent
-and @q{chord changes};
+and @q{chord changes}:
 
 @lilypond[verbatim,fragment,quote]
 <<
