@@ -3287,8 +3287,8 @@ forget = #(define-music-function (music) (ly:music?) #{
 @cindex Southern Harmony note heads (Southern Harmony の符頭)
 @cindex Funk shape note heads (Funk のシェイプ ノートの符頭)
 @cindex note heads, Funk (Funk の符頭)
-@cindex note heads, Harmonica Sacra (Harmonica Sacra の符頭)
-@cindex Harmonica Sacra note heads (Harmonica Sacra の符頭)
+@cindex note heads, Harmonia Sacra (Harmonia Sacra の符頭)
+@cindex Harmonia Sacra note heads (Harmonia Sacra の符頭)
 @cindex Christian Harmony note heads (Christian Harmony の符頭)
 @cindex note heads, Christian Harmony (Christian Harmony の符頭)
 @cindex Walker shape note heads (Walker のシェイプ ノートの符頭)
@@ -3304,7 +3304,7 @@ forget = #(define-music-function (music) (ly:music?) #{
 符頭の形状は音階の中での音符の位置付けに対応します。@c
 この表記は 19 世紀のアメリカの歌集で一般的なものです。@c
 シェイプ ノートの符頭は Sacred Harp、Harmony、@c
-Funk (Harmonica Sacra)、Walker、それに Aiken (Christian Harmony) スタイルで@c
+Funk (Harmonia Sacra)、Walker、それに Aiken (Christian Harmony) スタイルで@c
 使用されます:
 
 @lilypond[verbatim,quote]

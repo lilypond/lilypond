@@ -3154,7 +3154,7 @@ Referència de funcionament interno:
 @cindex arpa sacra, caps de nota amb forma
 @cindex Southern Harmony, caps de nota amb forma
 @cindex Funk, caps de nota amb forma
-@cindex Harmonica Sacra, caps de nota amb forma
+@cindex Harmonia Sacra, caps de nota amb forma
 @cindex Christian Harmony, caps de nota amb forma
 @cindex Walker, caps de nota amb forma
 
@@ -3162,7 +3162,7 @@ Referència de funcionament interno:
 @cindex notes, caps de, arpa sacra
 @cindex notes, caps de, Southern Harmony
 @cindex notes, caps de, Funk
-@cindex notes, caps de, Harmonica Sacra
+@cindex notes, caps de, Harmonia Sacra
 @cindex notes, caps de, Christian Harmony
 @cindex notes, caps de, Walker
 
@@ -3176,7 +3176,7 @@ A la notació de caps amb forma, la forma del cap correspon a la
 funció harmònica d'una nota dins de l'escala.  Aquesta notació es
 va fer popular als llibres americans de cançons durant el segle
 XIX.  Els caps de nota amb formes es poden produir amb els estils
-@q{Arpa Sacra}, @q{Southern Harmony}, Funk (Harmonica Sacra),
+@q{Arpa Sacra}, @q{Southern Harmony}, Funk (Harmonia Sacra),
 Walker i Aiken @q{(Christian Harmony)}:
 
 @lilypond[verbatim,quote]

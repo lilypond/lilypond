@@ -3265,8 +3265,8 @@ Guida al funzionamento interno:
 @cindex Southern Harmony, testa di nota
 @cindex Funk, testa di nota
 @cindex testa di nota, Funk
-@cindex testa di nota, Harmonica Sacra
-@cindex Harmonica Sacra, testa di nota
+@cindex testa di nota, Harmonia Sacra
+@cindex Harmonia Sacra, testa di nota
 @cindex Christian Harmony, testa di nota
 @cindex testa di nota, Christian Harmony
 @cindex Walker, testa di nota
@@ -3282,7 +3282,7 @@ In alcune notazioni, la forma della testa della nota corrisponde
 alla funzione armonica di una nota nella scala.  Questa notazione
 era comune nei canzonieri americani del diciannovesimo secolo.
 Gli stili possibili sono Sacred Harp, Southern Harmony,
-Funk (Harmonica Sacra), Walker e Aiken (Christian Harmony):
+Funk (Harmonia Sacra), Walker e Aiken (Christian Harmony):
 
 @lilypond[verbatim,quote]
 \relative c'' {

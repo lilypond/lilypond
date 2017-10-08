@@ -3252,8 +3252,8 @@ Internals Reference:
 @cindex Southern Harmony note heads
 @cindex Funk shape note heads
 @cindex note heads, Funk
-@cindex note heads, Harmonica Sacra
-@cindex Harmonica Sacra note heads
+@cindex note heads, Harmonia Sacra
+@cindex Harmonia Sacra note heads
 @cindex Christian Harmony note heads
 @cindex note heads, Christian Harmony
 @cindex Walker shape note heads
@@ -3269,7 +3269,7 @@ In shape note head notation, the shape of the note head
 corresponds to the harmonic function of a note in the scale.  This
 notation was popular in nineteenth-century American song books.
 Shape note heads can be produced in Sacred Harp, Southern Harmony,
-Funk (Harmonica Sacra), Walker, and Aiken (Christian Harmony) styles:
+Funk (Harmonia Sacra), Walker, and Aiken (Christian Harmony) styles:
 
 @lilypond[verbatim,quote]
 \relative c'' {
