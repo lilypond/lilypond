@@ -3329,7 +3329,7 @@ Referencia de funcionamiento interno:
 @cindex arpa sacra, cabezas de nota con forma
 @cindex Southern Harmony, cabezas de nota con forma
 @cindex Funk, cabezas de nota con forma
-@cindex Harmonica Sacra, cabezas de nota con forma
+@cindex Harmonia Sacra, cabezas de nota con forma
 @cindex Christian Harmony, cabezas de nota con forma
 @cindex Walker, cabezas de nota con forma
 
@@ -3337,7 +3337,7 @@ Referencia de funcionamiento interno:
 @cindex notas, cabezas de, arpa sacra
 @cindex notas, cabezas de, Southern Harmony
 @cindex notas, cabezas de, Funk
-@cindex notas, cabezas de, Harmonica Sacra
+@cindex notas, cabezas de, Harmonia Sacra
 @cindex notas, cabezas de, Christian Harmony
 @cindex notas, cabezas de, Walker
 
@@ -3352,7 +3352,7 @@ corresponde a la función armónica de una nota dentro de la
 escala. Esta notación se hizo popular en los libros americanos de
 canciones durante el s.XIX.  Las cabezas de nota con formas se
 pueden producir en los estilos @q{Sacred Harp}, @q{Southern
-Harmony}, Funk (Harmonica Sacra), Walker y Aiken @q{(Christian
+Harmony}, Funk (Harmonia Sacra), Walker y Aiken @q{(Christian
 Harmony)}:
 
 @lilypond[verbatim,quote]

@@ -2931,8 +2931,8 @@ Referenz der Interna:
 @cindex Southern-Harmony-Notenköpfe
 @cindex Funk-Formnotenköpfe
 @cindex Notenköpfe, Funk
-@cindex Notenköpfe, Harmonica Sacra
-@cindex Harmonica Sacra-Notenköpfe
+@cindex Notenköpfe, Harmonia Sacra
+@cindex Harmonia Sacra-Notenköpfe
 @cindex Christian Harmony-Notenköpfe
 @cindex Notenköpfe, Christian Harmony
 @cindex Walker-Formnotenköpfe
@@ -2950,7 +2950,7 @@ In dieser Notation haben die Notenköpfe eine Form, die ihrer
 harmonischen Funktion innerhalb der Tonleiter entspricht.  Die
 Notation war sehr beliebt in amerikanischen Liederbüchern des
 19. Jahrhunderts.  Auf diese Weise können die Formen
-Sacred Harp, Southern Harmony, Funk (Harmonica Sacra), Walker
+Sacred Harp, Southern Harmony, Funk (Harmonia Sacra), Walker
 und Aiken (Christian Harmony) benutzt werden:
 
 @lilypond[verbatim,quote]
