@@ -122,11 +122,6 @@ subscripció i informació sobre lilypond-user}
 arxiu 1 de la llista de usuaris}
 @uref{http://www.mail-archive.com/lilypond-user@@gnu.org/,
 arxiu 2}
-@uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.general,
-arxiu 3}
-
-@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.general,
-escriure a la llista lilypond-user mitjançant el gmane}
 @end quotation
 
 @warning{En formular preguntes, si us plau, utilitzeu @ref{Exemples mínims}!}
@@ -227,10 +222,6 @@ subscripció i informació sobre info-lilypond}
 arxiu 1 de la llista info}
 @uref{http://www.mail-archive.com/info-lilypond@@gnu.org/,
 arxiu 2}
-@uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.announce,
-arxiu 3}
-
-@c don't include gmane posting here.  -gp
 @end quotation
 
 
@@ -253,11 +244,6 @@ subscripció i informació sobre lilypond-devel}
 arxiu 1 de la llista devel}
 @uref{http://www.mail-archive.com/lilypond-devel@@gnu.org/,
 arxiu 2}
-@uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.devel,
-arxiu 3}
-
-@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.devel,
-escriure a la llista lilypond-devel a través del gmane}
 @end quotation
 
 
@@ -273,10 +259,6 @@ subscripció i informació sobre bug-lilypond}
 arxiu 1 de la llista bug}
 @uref{http://www.mail-archive.com/bug-lilypond@@gnu.org/,
 arxiu 2}
-@uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.bugs,
-arxiu 3}
-
-@c don't include gmane posting here.  -gp
 @end quotation
 
 @warning{Abans d'enviar un missatge a la llista de fallades,

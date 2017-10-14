@@ -120,11 +120,6 @@ lilypond-user への登録と情報}
 アーカイブ 1}
 @uref{http://www.mail-archive.com/lilypond-user@@gnu.org/,
 アーカイブ 2}
-@uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.general,
-アーカイブ 3}
-
-@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.general,
-gmane で lilypond-user にメールを送る}
 @end quotation
 
 @warning{質問がある場合、@ref{最小化例} を使ってください！}
@@ -218,10 +213,6 @@ info-lilypond への登録と情報}
 アーカイブ 1}
 @uref{http://www.mail-archive.com/info-lilypond@@gnu.org/,
 アーカイブ 2}
-@uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.announce,
-アーカイブ 3}
-
-@c don't include gmane posting here.  -gp
 @end quotation
 
 
@@ -244,11 +235,6 @@ lilypond-devel への登録と情報}
 アーカイブ 1}
 @uref{http://www.mail-archive.com/lilypond-devel@@gnu.org/,
 アーカイブ 2}
-@uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.devel,
-アーカイブ 3}
-
-@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.devel,
-gmane で lilypond-devel にメールを送る}
 @end quotation
 
 
@@ -265,10 +251,6 @@ bug-lilypond への登録と情報}
 アーカイブ 1}
 @uref{http://www.mail-archive.com/bug-lilypond@@gnu.org/,
 アーカイブ 2}
-@uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.bugs,
-アーカイブ 3}
-
-@c don't include gmane posting here.  -gp
 @end quotation
 
 @warning{バグ リストにメールを送る前に @ref{バグ報告} の@c
@@ -1061,7 +1043,7 @@ expected
 @divEnd
 
 This feature would solve many problems that are commonly faced with
-piano music and combined parts. 
+piano music and combined parts.
 
 @strong{Difficulty:} medium (?)
 @strong{Requirements:} C++, Scheme
