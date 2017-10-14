@@ -60,7 +60,7 @@ footer_report_links = _doc ('We welcome your aid; please <a href="%(help_us_url)
 sidebar_version = _doc (' v%(package_version)s (%(branch_str)s).')
 
 
-mail_address = 'http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs'
+mail_address = 'https://lists.gnu.org/mailman/listinfo/bug-lilypond'
 help_us_url = 'http://lilypond.org/help-us.html'
 
 header_tag = '<!-- header_tag -->'
@@ -131,7 +131,7 @@ def hack_urls (s, prefix, target, is_development_branch):
     # we also need to replace in the lsr, which is already processed above!
     if 'input/' in prefix or 'Documentation/topdocs' in prefix or \
             'Documentation/contributor' in prefix:
-        # fix the link from the regtest, lsr and topdoc pages to the doc index 
+        # fix the link from the regtest, lsr and topdoc pages to the doc index
         # (rewrite prefix to obtain the relative path of the doc index page)
         rel_link = re.sub (r'out-www/.*$', '', prefix)
         rel_link = re.sub (r'[^/]*/', '../', rel_link)
