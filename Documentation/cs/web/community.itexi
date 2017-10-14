@@ -108,11 +108,6 @@ lilypond-user odběr a informace}
 user Archiv1}
 @uref{http://www.mail-archive.com/lilypond-user@@gnu.org/,
 Archiv2}
-@uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.general,
-Archiv3}
-
-@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.general,
-poslat s gmane na lilypond-user}
 @end quotation
 
 @warning{Když kladete dotazy (vždy v angličtině), používejte,
@@ -215,10 +210,6 @@ info-lilypond odběr a informace}
 info Archiv1}
 @uref{http://www.mail-archive.com/info-lilypond@@gnu.org/,
 Archiv2}
-@uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.announce,
-Archiv3}
-
-@c don't include gmane posting here.  -gp
 @end quotation
 
 
@@ -241,11 +232,6 @@ lilypond-devel odběr a informace}
 devel Archiv1}
 @uref{http://www.mail-archive.com/lilypond-devel@@gnu.org/,
 Archiv2}
-@uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.devel,
-Archiv3}
-
-@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.devel,
-poslat s gmane na lilypond-devel}
 @end quotation
 
 
@@ -261,10 +247,6 @@ bug-lilypond odběr a informace}
 bug Archiv1}
 @uref{http://www.mail-archive.com/bug-lilypond@@gnu.org/,
 Archiv2}
-@uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.bugs,
-Archiv3}
-
-@c don't include gmane posting here.  -gp
 @end quotation
 
 @warning{Předtím než napíšete nějakou zprávu na seznam pro hlášení chyb,
