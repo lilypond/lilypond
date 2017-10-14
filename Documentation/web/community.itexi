@@ -119,11 +119,6 @@ lilypond-user subscribe and info}
 user archive1}
 @uref{http://www.mail-archive.com/lilypond-user@@gnu.org/,
 archive2}
-@uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.general,
-archive3}
-
-@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.general,
-send to lilypond-user with gmane}
 @end quotation
 
 @warning{When asking questions, please use @ref{Tiny examples}!}
@@ -217,10 +212,6 @@ info-lilypond subscribe and info}
 info archive1}
 @uref{http://www.mail-archive.com/info-lilypond@@gnu.org/,
 archive2}
-@uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.announce,
-archive3}
-
-@c don't include gmane posting here.  -gp
 @end quotation
 
 
@@ -243,11 +234,6 @@ lilypond-devel subscribe and info}
 devel archive1}
 @uref{http://www.mail-archive.com/lilypond-devel@@gnu.org/,
 archive2}
-@uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.devel,
-archive3}
-
-@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.devel,
-send to lilypond-devel with gmane}
 @end quotation
 
 
@@ -264,10 +250,6 @@ bug-lilypond subscribe and info}
 bug archive1}
 @uref{http://www.mail-archive.com/bug-lilypond@@gnu.org/,
 archive2}
-@uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.bugs,
-archive3}
-
-@c don't include gmane posting here.  -gp
 @end quotation
 
 @warning{Before sending a message to the bug list, please read our

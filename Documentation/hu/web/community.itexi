@@ -105,11 +105,6 @@ feliratkozás és információ}
 1. archívum}
 @uref{http://www.mail-archive.com/lilypond-user@@gnu.org/,
 2. archívum}
-@uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.general,
-3. archívum}
-
-@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.general,
-webes hozzászólás}
 @end quotation
 
 @warning{Amikor kérdéseket teszel föl, @ref{Minimális példák}at használj!}
@@ -195,10 +190,6 @@ feliratkozás és információ}
 1. archívum}
 @uref{http://www.mail-archive.com/info-lilypond@@gnu.org/,
 2. archívum}
-@uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.announce,
-3. archívum}
-
-@c don't include gmane posting here.  -gp
 @end quotation
 
 
@@ -221,11 +212,6 @@ feliratkozás és információ}
 1. archívum}
 @uref{http://www.mail-archive.com/lilypond-devel@@gnu.org/,
 2. archívum}
-@uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.devel,
-3. archívum}
-
-@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.devel,
-webes hozzászólás}
 @end quotation
 
 
@@ -241,10 +227,6 @@ feliratkozás és információ}
 1. archívum}
 @uref{http://www.mail-archive.com/bug-lilypond@@gnu.org/,
 2. archívum}
-@uref{http://dir.gmane.org/gmane.comp.gnu.lilypond.bugs,
-3. archívum}
-
-@c don't include gmane posting here.  -gp
 @end quotation
 
 @warning{Mielőtt bejelentenél egy hibát, olvasd el a tudnivalókat a
