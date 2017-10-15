@@ -23,6 +23,7 @@
 #include "note-column.hh"
 #include "paper-column.hh"
 #include "pointer-group-interface.hh"
+#include "stencil.hh"
 #include "warn.hh"
 
 MAKE_SCHEME_CALLBACK (Self_alignment_interface, y_aligned_on_self, 1);
@@ -59,8 +60,12 @@ Self_alignment_interface::aligned_on_self (Grob *me, Axis a, bool pure, int star
       // However, empty extent and non-empty stencil would be suspicious.
       if (!ext.is_empty ())
         return scm_from_double (- ext.linear_combination (scm_to_double (align)));
-      else if (me->get_stencil ())
-        warning (me->name () + " has empty extent and non-empty stencil.");
+      else
+        {
+          Stencil *st = me->get_stencil ();
+          if (st && !st->is_empty ())
+            warning (me->name () + " has empty extent and non-empty stencil.");
+        }
     }
   return scm_from_double (0.0);
 }
@@ -141,8 +146,12 @@ Self_alignment_interface::aligned_on_parent (Grob *me, Axis a)
       // However, empty extent and non-empty stencil would be suspicious.
       if (!ext.is_empty ())
         x -= ext.linear_combination (scm_to_double (self_align));
-      else if (me->get_stencil ())
-        warning (me->name () + " has empty extent and non-empty stencil.");
+      else
+        {
+          Stencil *st = me->get_stencil ();
+          if (st && !st->is_empty ())
+            warning (me->name () + " has empty extent and non-empty stencil.");
+        }
     }
 
   if (scm_is_number (par_align))
@@ -150,8 +159,12 @@ Self_alignment_interface::aligned_on_parent (Grob *me, Axis a)
       // See comment above.
       if (!he.is_empty ())
         x += he.linear_combination (scm_to_double (par_align));
-      else if (him->get_stencil ())
-        warning (him->name () + " has empty extent and non-empty stencil.");
+      else
+        {
+          Stencil *st = him->get_stencil ();
+          if (st && !st->is_empty ())
+            warning (him->name () + " has empty extent and non-empty stencil.");
+        }
     }
 
   return scm_from_double (x);

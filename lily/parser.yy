@@ -3175,13 +3175,15 @@ post_event_nofinger:
 		$$ = $1;
 	}
 	| script_dir music_function_call {
-		$$ = $2;
-		if (!unsmob<Music> ($2)->is_mus_type ("post-event")) {
+		Music *m = unsmob<Music> ($2);
+		if (!m->is_mus_type ("post-event")) {
 			parser->parser_error (@2, _ ("post-event expected"));
 			$$ = SCM_UNSPECIFIED;
-		} else if (!SCM_UNBNDP ($1))
-		{
-			unsmob<Music> ($$)->set_property ("direction", $1);
+		} else {
+			m->set_spot (parser->lexer_->override_input (@$));
+			if (!SCM_UNBNDP ($1))
+				m->set_property ("direction", $1);
+			$$ = $2;
 		}
 	}
 	| HYPHEN {
@@ -3195,36 +3197,42 @@ post_event_nofinger:
 		$$ = MY_MAKE_MUSIC ("ExtenderEvent", @$)->unprotect ();
 	}
 	| script_dir direction_reqd_event {
-		if (!SCM_UNBNDP ($1))
-		{
-			Music *m = unsmob<Music> ($2);
-			m->set_property ("direction", $1);
+		if (Music *m = unsmob<Music> ($2)) {
+			m->set_spot (parser->lexer_->override_input (@$));
+			if (!SCM_UNBNDP ($1))
+			{
+				m->set_property ("direction", $1);
+			}
 		}
 		$$ = $2;
 	}
 	| script_dir direction_less_event {
+		Music *m = unsmob<Music> ($2);
+		m->set_spot (parser->lexer_->override_input (@$));
 		if (!SCM_UNBNDP ($1))
-		{
-			Music *m = unsmob<Music> ($2);
 			m->set_property ("direction", $1);
-		}
 		$$ = $2;
 	}
 	| '^' fingering
 	{
+		Music *m = unsmob<Music> ($2);
+		m->set_spot (parser->lexer_->override_input (@$));
+		m->set_property ("direction", scm_from_int (UP));
 		$$ = $2;
-		unsmob<Music> ($$)->set_property ("direction", scm_from_int (UP));
 	}
 	| '_' fingering
 	{
+		Music *m = unsmob<Music> ($2);
+		m->set_spot (parser->lexer_->override_input (@$));
+		m->set_property ("direction", scm_from_int (DOWN));
 		$$ = $2;
-		unsmob<Music> ($$)->set_property ("direction", scm_from_int (DOWN));
 	}
 	;
 
 post_event:
 	post_event_nofinger
 	| '-' fingering {
+		unsmob<Music> ($2)->set_spot (parser->lexer_->override_input (@$));
 		$$ = $2;
 	}
 	;
@@ -3264,11 +3272,11 @@ direction_reqd_event:
 			Music *original = unsmob<Music> (s);
 			if (original && original->is_mus_type ("post-event")) {
 				Music *a = original->clone ();
-				a->set_spot (parser->lexer_->override_input (@$));
+				// origin will be set by post_event_nofinger
 				$$ = a->unprotect ();
 			} else {
 				parser->parser_error (@1, _ ("expecting string or post-event as script definition"));
-				$$ = MY_MAKE_MUSIC ("PostEvents", @$)->unprotect ();
+				$$ = SCM_UNSPECIFIED;
 			}
 		}
 	}
@@ -3377,8 +3385,10 @@ gen_text_def:
 			Music *t = MY_MAKE_MUSIC ("TextScriptEvent", @$);
 			t->set_property ("text", $1);
 			$$ = t->unprotect ();
-		} else
+		} else {
 			parser->parser_error (@1, _ ("not an articulation"));
+			$$ = SCM_UNSPECIFIED;
+		}
 	}
 	;
 

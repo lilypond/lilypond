@@ -70,7 +70,8 @@ storePredefinedDiagram =
                     (car (extract-named-music chord 'EventChord))))
          (hash-key (cons tuning pitches))
          (verbose-definition (if (string? diagram-definition)
-                                 (parse-terse-string diagram-definition)
+                                 (parse-terse-string
+                                   (remove-whitespace diagram-definition))
                                  diagram-definition)))
   (hash-set! fretboard-table
              hash-key

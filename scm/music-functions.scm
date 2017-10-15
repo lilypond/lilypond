@@ -1087,6 +1087,10 @@ actually fully cloned."
         (apply ly:input-warning ip msg rest)
         (apply ly:warning msg rest))))
 
+(define-public (ly:music-error music msg . rest)
+  (ly:parser-error (apply format #f msg rest)
+                   (ly:music-property music 'origin)))
+
 (define-public (ly:event-warning event msg . rest)
   (let ((ip (ly:event-property event 'origin)))
     (if (ly:input-location? ip)
@@ -2170,12 +2174,10 @@ retaining only the chord articulations.  Returns the modified music."
                                'duration dur
                                'articulations full-arts))
                   (else
-                   (ly:music-error m (_ "Missing duration"))
-                   (make-music 'NoteEvent
-                               'duration (ly:make-duration 2 0 0)
-                               'articulations full-arts))))))
+                   ;; This is an empty chord.  Ugh.  We cannot really
+                   ;; reduce this in any manner, so we just keep it.
+                   m)))))
    music))
-
 
 (defmacro-public make-relative (variables reference music)
   "The list of pitch or music variables in @var{variables} is used as
