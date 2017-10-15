@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8c1840ca28a05b3dad8d595e04d03779ba0a286a
+   Translation of GIT committish: f9d8763d2e83aa653582123d79731e029aea83d9
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1501,6 +1501,17 @@ valeur usuelle de la propriété :
   c''4. d8 a4. g8
 @}
 @end example
+
+La valeur par défaut est aussi accessible à l'aide de la fonction
+@code{grob-transformer} :
+
+@lilypond[verbatim,quote]
+\relative {
+  \override Flag.X-offset = #(grob-transformer 'X-offset
+    (lambda (flag default) (* default 4.0)))
+  c''4. d8 a4. g8
+}
+@end lilypond
 
 Au sein d'un @emph{callback}, le meilleur moyen d'évaluer un
 @emph{markup} consiste à utiliser la fonction

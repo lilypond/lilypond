@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 1e5c6b0f54079eb3285dcc4c7e53f17d8bb03933
+   Translation of GIT committish: f9d8763d2e83aa653582123d79731e029aea83d9
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -2967,22 +2967,66 @@ Et ces même mesures avec les glyphes @emph{Feta} de LilyPond :
 @sourceimage{Gonville_before,15cm,,}
 
 
-@subsubheading Instructions d'installation pour MacOS
-@translationof Installation Instructions for MacOS
+@subsubheading Instructions d'installation
+@translationof Installation Instructions
 
-Téléchargez puis décompressez l'archive zip.  Recopiez le répertoire
-@code{lilyfonts} dans  @file{@var{SHARE_DIR}/lilypond/current} -- voir
-@rlearning{Autres sources de documentation} à ce sujet.  Renommez le
-répertoire @code{fonts} qui s'y trouve en @code{fonts_orig}, puis le
-répertoire @code{lilyfonts} en @code{fonts}.  Il vous suffira, pour
-retrouver la fonte Emmentaler, de renommer @code{fonts_orig} en
-@code{fonts}.
+Téléchargez puis extrayez les fichiers de fonte.
+Copiez les fichiers
+@file{gonville-11.otf},
+@file{gonville-13.otf},
+@file{gonville-14.otf},
+@file{gonville-16.otf},
+@file{gonville-18.otf},
+@file{gonville-20.otf},
+@file{gonville-23.otf},
+@file{gonville-26.otf} et @file{gonville-brace.otf} dans
+@file{@dots{}/share/lilypond/current/fonts/otf} ou
+@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/otf}.
+Si vous disposez des fichiers @file{gonville-*.svg} et
+@file{gonville-*.woff}, copiez les dans
+@file{@dots{}/share/lilypond/current/fonts/svg} ou
+@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/svg}.
+Pour de plus amples informations, reportez-vous à
+@rlearning{Autres sources de documentation}.
+
+Il est à noter que les fichiers @file{gonville-*.otf} sont destinés au
+moteurs @code{ps} et @code{eps} (pour obtenir des fichiers PDF ou
+PostScript) ; les fichiers @file{gonville-*.svg} sont destinés au moteur
+@code{svg} sans l'option @code{svg-woff} ; les fichiers
+@file{gonville-*.woff} sont destinés au moteur @code{svg} avec l'option
+@code{svg-woff}. Pour de plus amles informations, consultez
+@rprogram{Options avancées de lilypond}.
+
+La syntaxe suivante substitue aux fontes musicales (générale et
+accolades) les fontes Gonville.
+
+@example
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     #:music "gonville"
+     #:brace "gonville"
+   ))
+@}
+@end example
+
+En tout état de cause, tout appel à @code{set-global-fonts} réinitialise
+aussi bien les fontes musicales que les fontes textuelles. Dès lors que
+l'une de ces catégories n'est pas mentionnée sera utilisée la fonte par
+défaut y afférente.@*
+Par ailleurs, chaque appel à @code{set-global-fonts} modifie les fontes
+du @code{\book} qui le suit, qu'il ait été créé explicitement ou non.
+Par voie de conséquence, chaque @code{\book} peut disposer de son propre
+jeu de fontes principales s'il est précédé d'un appel à
+@code{set-global-fonts}. Pour plus d'informations, voir
+@ref{Choix des fontes par défaut}.
 
 @seealso
 Manuel d'initiation :
 @rlearning{Autres sources de documentation}.
 
 Manuel de notation :
+@ref{Choix des fontes par défaut},
 @ref{La fonte Emmentaler}.
 
 @knownissues
@@ -2990,6 +3034,46 @@ Gonville ne permet pas de générer de la notation ancienne, et certains
 glyphes ajoutés depuis lors aux jeux de caractères en soient absent.
 Consultez le site de l'auteur pour de plus amples informations ainsi
 qu'à propos des conditions d'utilisation.
+
+
+@subsubheading Autres fontes musicales
+@translationof Other notation fonts
+
+Si vous disposez d'autres fontes musicales telles que
+@file{@var{nomfonte}-*.otf}, @file{@var{nomfonte}-*.svg} et
+@file{@var{nomfonte}-*.woff}, vous pouvez les utiliser de façon
+comparable à Gonville.
+
+Autrement dit, copiez les fichiers @file{@var{nomfonte}-*.otf} dans
+@file{@dots{}/share/lilypond/current/fonts/otf} ou
+@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/otf}.
+Si vous disposez de fichiers @file{@var{nomfonte}-*.svg} et
+@file{@var{nomfonte}-*.woff}, copiez les dans
+@file{@dots{}/share/lilypond/current/fonts/svg} ou
+@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/svg}.
+
+Note∕ à ce jour, et pour fonctionner correctement, LilyPond requiert la
+présence des suffixes suivants dans les dossiers d'instalation :
+@file{-11}, @file{-13}, @file{-14}, @file{-16}, @file{-18}, @file{-20},
+@file{-23}, @file{-26}, @file{-brace}. Par exemple,
+@file{emmentaler-11.otf}, @file{emmentaler-20.svg},
+@file{emmentaler-brace.woff}, etc.
+
+La syntaxe suivante substitue aux fontes musicales (générale et
+accolades) les fontes @var{nomfonte}.
+
+@example
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     #:music "@var{nomfonte}" ; fichier de fonte sans suffixe ni extension
+     #:brace "@var{nomfonte}" ; fichier de fonte sans suffixe ni extension
+   ))
+@}
+@end example
+
+Note : pour les catégories @code{music} et @code{brace}, le nom du
+fichier de fonte se spécifie sans suffixe ni extension.
 
 
 @node Génération de fichiers MIDI

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 87fb7f0387225886cff0c3bf332e1ab1b60afabb
+   Translation of GIT committish: f9d8763d2e83aa653582123d79731e029aea83d9
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1684,12 +1684,91 @@ d'explications sur les fontes, relisez @ref{Tout savoir sur les fontes}.
 }
 @end lilypond
 
+Note : @code{make-pango-font-tree} réinitialise les fontes musicales à
+leur valeur par défaut, à savoir Emmentaler.
+
 @c we don't do Helvetica / Courier, since GS incorrectly loads
 @c Apple TTF fonts
+
+La syntaxe suivante permet de substituer une fonte particulière tout en
+laissant les autres à leur valeur par défaut. L'exemple ci-dessous
+produit les mêmes effets que celui utilisant
+@code{make-pango-font-tree}. De même qu'avec
+@code{make-pango-font-tree}, il est possible de fournir une liste de
+fontes séparées par une virgule pour les catégories @code{roman},
+@code{sans} et @code{typewriter}. Dès lors que la taille de portée reste
+à sa valeur par défaut de 20 pt, l'instruction
+@code{#:factor (/ staff-height pt 20)} n'est pas nécessaire.
+
+@funindex set-global-fonts
+
+@example
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     #:roman "Times New Roman"
+     #:sans "Nimbus Sans,Nimbus Sans L"
+     #:typewriter "Luxi Mono"
+     #:factor (/ staff-height pt 20) ; inutile si taille de portée par défaut
+    ))
+@}
+@end example
+
+Il est aussi posible de substituer les fontes musicales. L'exemple
+ci-dessous produit les mêmes effets que ceux qui précèdent dans la
+mesure où les fontes musicales sont fixées à leur valeur par défaut.
+Pour de plus amples informations, voir
+@ref{Changement des fontes musicales}.
+
+@example
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     #:music "emmentaler"            ; défaut
+     #:brace "emmentaler"            ; défaut
+     #:roman "Times New Roman"
+     #:sans "Nimbus Sans,Nimbus Sans L"
+     #:typewriter "Luxi Mono"
+     #:factor (/ staff-height pt 20) ; inutile si taille de portée par défaut
+    ))
+@}
+@end example
+
+En tout état de cause, tout appel à @code{set-global-fonts} réinitialise
+aussi bien les fontes musicales que les fontes textuelles. Dès lors que
+l'une de ces catégories n'est pas mentionnée sera utilisée la fonte par
+défaut y afférente.@*
+Par ailleurs, chaque appel à @code{set-global-fonts} affecte les fontes
+du bloc @code{\book} qui le suit ; chaque bloc @code{\book} consécutif
+peut donc disposer de son propre jeu de fontes grâce à un simple appel à
+@code{set-global-fonts}, comme ici :
+
+@example
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     @dots{}
+    ))
+@}
+\book @{
+  @dots{}
+@}
+
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     @dots{}
+    ))
+@}
+\book @{
+  @dots{}
+@}
+@end example
 
 @seealso
 Manuel de notation :
 @ref{Attribution d'une fonte en particulier},
 @rusernamed{Font,Fonte},
+@ref{Changement des fontes musicales},
 @ref{Sélection de la fonte et de la taille},
 @ref{Tout savoir sur les fontes}.
