@@ -1,15 +1,15 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: fabcd22c8f88ea9a87241597f1e48c0a9adbfc6e
+    Translation of GIT committish: 3c51d1bc78aa3dddaf83fc67b4da6cfbeda75d0d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.17.30"
 
-@c Translators: Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Yoshiki Sawada
 @c Translation status: post-GDP
 
 @node 打楽器
@@ -50,7 +50,7 @@
 説明しています。
 
 @item MIDI 出力については、別のセクションで説明します。@c
-@ref{Percussion in MIDI} を参照してください。
+@ref{MIDI instruments} を参照してください。
 
 @end itemize
 
@@ -58,7 +58,7 @@
 記譜法リファレンス:
 @ref{Showing melody rhythms},
 @ref{Instantiating new staves},
-@ref{Percussion in MIDI}
+@ref{MIDI instruments}
 
 コード断片集:
 @rlsr{Percussion}
@@ -86,10 +86,8 @@
 上記の例は、下記を短縮したものです:
 
 @lilypond[quote,verbatim]
-\new DrumStaff {
-  \drummode {
-    hihat4 hh bassdrum bd
-  }
+\new DrumStaff \drummode {
+  hihat4 hh bassdrum bd
 }
 @end lilypond
 
@@ -109,20 +107,20 @@
 @lilypond[quote,ragged-right,verbatim]
 \drums {
   \clef percussion
-  bd4 bd bd bd
+  bd4 4 4 4
   \clef treble
-  hh4 hh hh hh
+  hh4 4 4 4
 }
 @end lilypond
 
 
 打楽器のための MIDI サポートにはいくつか考慮すべき問題があります。@c
-@ref{Percussion in MIDI} を参照してください。
+@ref{MIDI instruments} を参照してください。
 
 @seealso
 記譜法リファレンス:
-@ref{Percussion in MIDI},
-@ref{Percussion notes}.
+@ref{MIDI instruments},
+@ref{Percussion notes}
 
 インストールされているファイル:
 @file{ly/drumpitch-init.ly}
@@ -146,10 +144,10 @@
 @lilypond[quote,verbatim]
 \drums {
   \time 2/4
-  sn16 sn8 sn16 sn8 sn8:32 ~
-  sn8 sn8 sn4:32 ~
-  sn4 sn8 sn16 sn16
-  sn4 r4
+  sn16 8 16 8 8:32 ~
+  8 8 4:32 ~
+  4 8 16 16
+  4 r4
 }
 @end lilypond
 
@@ -163,9 +161,9 @@
 @lilypond[quote,verbatim]
 \drums {
   \repeat unfold 2 {
-    sn16^"L" sn^"R" sn^"L" sn^"L" sn^"R" sn^"L" sn^"R" sn^"R"
+    sn16^"L" 16^"R" 16^"L" 16^"L" 16^"R" 16^"L" 16^"R" 16^"R"
     \stemUp
-    sn16_"L" sn_"R" sn_"L" sn_"L" sn_"R" sn_"L" sn_"R" sn_"R"
+    sn16_"L" 16_"R" 16_"L" 16_"L" 16_"R" 16_"L" 16_"R" 16_"R"
   }
 }
 @end lilypond
@@ -187,11 +185,8 @@
 通常の譜については、このマニュアルの他のセクションでカバーしています。
 
 @seealso
-@c TODO: possibly link to an alternate section of NR 3.5, if
-@c "percussion in MIDI" gets a separate subsubsection for
-@c pitched percussion sounds.  -gp
 記譜法リファレンス:
-@ref{Percussion in MIDI}
+@ref{MIDI instruments}
 
 コード断片集:
 @rlsr{Percussion}
@@ -283,6 +278,37 @@ mus = \drummode {
 タムの種類が少ない場合は、望みの結果となるタムを選択してください。@c
 例えば、タムを五線譜の中間の 3 本の線に配置するのであれば、@c
 @code{tommh}, @code{tomml}, それに @code{tomfh} を使います。
+
+@item agostini-drums-style
+1965 年にフランス人のパーカッション奏者である Dante Agostini によって@c
+作られました。フランスではよく使われますが、他の国でも使われることがあります。
+
+@lilypond[quote,line-width=10.0\cm]
+nam = \lyricmode {
+  cymc cyms cymr hh hhc hho hhho hhp
+  cb hc bd sn ss tomh tommh tomml toml tomfh tomfl }
+mus = \drummode {
+  cymc cyms cymr hh hhc hho hhho hhp \break
+  cb hc bd sn ss tomh tommh tomml toml tomfh tomfl s16 }
+\score {
+  << \new DrumStaff \with {
+       \remove "Bar_engraver"
+       \remove "Time_signature_engraver"
+       \hide Stem
+       \override Stem.Y-extent = ##f
+       drumStyleTable = #agostini-drums-style
+     } \mus
+     \new Lyrics \nam
+  >>
+  \layout {
+    \context {
+      \Score
+      \override LyricText.font-family = #'typewriter
+      \override BarNumber.transparent =##T
+    }
+  }
+}
+@end lilypond
 
 @item timbales-style
 これは二線譜上にティンバレスを譜刻します:
@@ -445,8 +471,8 @@ woodstaff = {
 
   \drummode {
     \time 2/4
-    wbl8 wbl16 wbl wbh8-> wbl |
-    wbl8 wbl16 wbh-> ~ wbh wbl16 r8 |
+    wbl8 16 16 8-> 8 |
+    wbl8 16 16-> ~ 16 16 r8 |
   }
 }
 @end lilypond
@@ -460,27 +486,22 @@ woodstaff = {
 
 タンバリンを @q{tamb} で入力します:
 
-@lilypond[quote,verbatim]
+@lilypond[verbatim,quote]
 #(define mydrums '((tambourine default #t 0)))
 
-tambustaff = {
+\new DrumStaff \with { instrumentName = #"Tambourine" }
+
+\drummode {
+  \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
   \override Staff.StaffSymbol.line-positions = #'( 0 )
   \override Staff.BarLine.bar-extent = #'(-1.5 . 1.5)
-  \set DrumStaff.instrumentName = #"Tambourine"
-}
 
-\new DrumStaff {
-  \tambustaff
-  \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
-
-  \drummode {
-    \time 6/8
-    tamb8. tamb16 tamb8 tamb tamb tamb |
-    tamb4. tamb8 tamb tamb |
-    % トリルを正しい位置で終了させるために、演奏時間を伸縮して
-    % 短い空白休符を配置するトリックが必要です！
-    tamb2.*5/6 \startTrillSpan s8 \stopTrillSpan |
-  }
+  \time 6/8
+  tamb8. 16 8 8 8 8 |
+  tamb4. 8 8 8 |
+  % the trick with the scaled duration and the shorter rest
+  % is neccessary for the correct ending of the trill-span!
+  tamb2.*5/6 \startTrillSpan s8 \stopTrillSpan |
 }
 @end lilypond
 
@@ -489,19 +510,14 @@ tambustaff = {
 @lilypond[quote,verbatim]
 #(define mydrums '((tamtam default #t 0)))
 
-tamtamstaff = {
-  \override Staff.StaffSymbol.line-positions = #'( 0 )
-  \override Staff.BarLine.bar-extent = #'(-1.5 . 1.5)
-  \set DrumStaff.instrumentName = #"Tamtam"
-}
+\new DrumStaff \with { instrumentName = #"Tamtam" }
 
-\new DrumStaff {
-  \tamtamstaff
-  \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
+\drummode {
+\set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
+\override Staff.StaffSymbol.line-positions = #'( 0 )
+\override Staff.BarLine.bar-extent = #'(-1.5 . 1.5)
 
-  \drummode {
-    tt 1 \pp \laissezVibrer
-  }
+  tt 1 \pp \laissezVibrer
 }
 @end lilypond
 
@@ -511,20 +527,16 @@ tamtamstaff = {
 #(define mydrums '((ridebell default #t  3)
                    (cowbell  default #t -2)))
 
-bellstaff = {
-  \override DrumStaff.StaffSymbol.line-positions = #'(-2 3)
-  \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
-  \override Staff.BarLine.bar-extent = #'(-1.5 . 1.5)
-  \set DrumStaff.instrumentName = #"Different Bells"
-}
+\new DrumStaff \with { instrumentName = #"Different Bells" }
 
-\new DrumStaff {
-  \bellstaff
-  \drummode {
-    \time 2/4
-    rb8 rb cb cb16 rb-> ~ |
-    16 rb8 rb16 cb8 cb |
-  }
+\drummode {
+  \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
+  \override DrumStaff.StaffSymbol.line-positions = #'(-2 3)
+  \override Staff.BarLine.bar-extent = #'(-1.5 . 1.5)
+
+  \time 2/4
+  rb8 8 cb8 16 rb16-> ~ |
+  16 8 16 cb8 8 |
 }
 @end lilypond
 
@@ -569,22 +581,22 @@ drumsB = {
 
 \score {
   \new StaffGroup <<
-    \new DrumStaff {
-      \set DrumStaff.instrumentName = \markup {
+    \new DrumStaff \with {
+      instrumentName = \markup {
         \column {
           "Tambourine"
           "et"
           "caisse claire s. timbre"
         }
       }
-      \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
-      \drumsA
-    }
-
-   \new DrumStaff {
-     \set DrumStaff.instrumentName = #"Grosse Caisse"
-     \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
-     \drumsB }
+    drumStyleTable = #(alist->hash-table mydrums)
+  }
+  \drumsA
+  \new DrumStaff \with {
+    instrumentName = #"Grosse Caisse"
+    drumStyleTable = #(alist->hash-table mydrums)
+  }
+  \drumsB
   >>
 }
 @end lilypond
@@ -606,34 +618,26 @@ drumsB = {
 ドラムと打楽器のゴースト ノートは @code{\parenthesize} コマンドを用いて@c
 作ることができます。@c
 詳細は @ref{括弧} を参照してください。@c
-しかしながら、デフォルトの @code{drummode} は括弧を記譜する
-@code{Parenthesis_engraver} プラグインを含みません。
 
 @lilypond[quote,ragged-right,verbatim]
-\new DrumStaff \with {
-  \consists "Parenthesis_engraver"
-}
+\new DrumStaff
 <<
   \context DrumVoice  = "1" { s1 }
   \context DrumVoice  = "2" { s1 }
   \drummode {
     <<
       {
-        hh8[ hh] <hh sn> hh16
-        < \parenthesize sn > hh
-        < \parenthesize sn > hh8 <hh sn> hh
+        hh8[ 8] <hh sn> hh16
+        \parenthesize sn  hh
+        \parenthesize sn  hh8 <hh sn> hh
       } \\
       {
-        bd4 r4 bd8 bd r8 bd
+        bd4 r4 bd8 8 r8 bd
       }
     >>
   }
 >>
 @end lilypond
-
-@noindent
-また、各 @code{\parenthesize} 表現を和音構造 (@code{< >}) で@c
-囲む必要があるということに注意してください。
 
 @seealso
 コード断片集:

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: fabcd22c8f88ea9a87241597f1e48c0a9adbfc6e
+    Translation of GIT committish: 3c51d1bc78aa3dddaf83fc67b4da6cfbeda75d0d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -9,7 +9,7 @@
 
 @c \version "2.19.28"
 
-@c Translators: Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Yoshiki Sawada
 @c Translation status: post-GDP
 
 @node 和音記譜法
@@ -100,24 +100,6 @@
 和音モードで使うことはできません。@c
 @ref{アーティキュレーションと装飾} を参照してください。
 
-一連の音楽の中で和音モードと音符モードが混じっていて、@c
-和音モードから始まる場合、@c
-音符モードは新たに @code{Staff} コンテキストを作成します:
-
-@lilypond[verbatim,quote,ragged-right,relative=1]
-\chordmode { c2 f }
-<c e g>2 <g' b d>
-@end lilypond
-
-@noindent
-これを避けるには、@code{staff} コンテキストを明示的に作成します:
-
-@lilypond[verbatim,quote,ragged-right,relative=1]
-\new Staff {
-  \chordmode { c2 f }
-  <c e g>2  <g' b d>
-}
-@end lilypond
 
 @node 一般的な和音
 @unnumberedsubsubsec 一般的な和音
@@ -270,11 +252,11 @@ maj, maj7
 和音の音を上げ / 下げしたり、低音を付け加えたり、@c
 転回を作り出したりすることができます。
 
-@code{:} のすぐ後にくる数字は和音の拡張となります。@c
+@code{:} のすぐ後にくる最初の数字は和音の広がりを表します。@c
 和音は、根音から指定された数に達するまで 3 度毎に音を@c
 付け加えることによって構成されます。@c
-和音の拡張として付け加えられる第 7 音は短 7 度またはフラットの 7 度@c
-であることに注意してください。@c
+和音の拡張として付け加えられる第 7 音は、長 7 度ではなく短 7 度
+(フラットの 7 度) であることに注意してください。@c
 拡張で指定された音が 3 度毎の音ではない場合 (例えば 6)、@c
 拡張を超えない範囲で 3 度毎に音が付け加えられ、@c
 最後に拡張の音が付け加えられます。@c
@@ -291,8 +273,8 @@ maj, maj7
 @end lilypond
 
 @noindent
-@code{c:5} と @code{c} はどちらも
-C の長三和音を作り出すということに注意してください。
+特殊な例外として、@code{c:5} は根音と第 5 音のみを含む@c
+@q{パワー コード}になります。
 
 第 11 音が第 13 音と組み合わされると響きが良くないため、@c
 @code{:13} 和音から第 11 音は削除されます
@@ -360,12 +342,12 @@ C の長三和音を作り出すということに注意してください。
 これは和音から第 3 音を削除します。@c
 さらに @code{sus} の後に @code{2} または @code{4} を付け加えると、@c
 和音に第 2 音または第 4 音が追加されます。@c
-@code{sus} は @code{^3} と等価であり、@c
-@code{sus4} は @code{.4^3} と等価です。
+@code{sus} の後に 2 度や 4 度が続く場合、これは @code{^3} と等価であり、@c
+そうでない場合は @code{sus4} つまり @code{5.4} と等価です。
 
 @lilypond[quote,ragged-right,verbatim]
 \chordmode {
-  c1:5 c:sus2 c:sus4 c:5.4
+  c1:sus c:sus2 c:sus4 c:5.4
 }
 @end lilypond
 
@@ -378,7 +360,7 @@ C の長三和音を作り出すということに注意してください。
 
 @lilypond[quote,ragged-right,verbatim]
 \chordmode {
-  c1 c/g c/f
+  c'1 c'/e c'/f
 }
 @end lilypond
 
@@ -389,7 +371,7 @@ C の長三和音を作り出すということに注意してください。
 
 @lilypond[quote,ragged-right,verbatim]
 \chordmode {
-  c1 c/g c/+g
+  c'1 c'/g c'/+e
 }
 @end lilypond
 
@@ -404,7 +386,7 @@ C の長三和音を作り出すということに注意してください。
 @rlsr{Chords}
 
 @knownissues
-和音で各音を 1 度だけ使うことができます。@c
+和音内では同じ度数の音を使えるのは 1 度のみです。@c
 以下の例では、最後の @code{5+} が解釈されるため、@c
 増和音が作り出されます。
 
@@ -412,15 +394,6 @@ C の長三和音を作り出すということに注意してください。
 \chordmode { c1:3.5.5-.5+ }
 @end lilypond
 
-第二転回和音を作り出すには、低音を追加するしかありません。@c
-最初の転回 (2 つ目の和音) を第二転回和音にするには、@c
-和音の根音を変える必要があります。
-
-@lilypond[quote,ragged-right,verbatim]
-\chordmode {
-  c'1: c':/g e:6-3-^5 e:m6-^5
-}
-@end lilypond
 
 @node 和音を表示する
 @subsection 和音を表示する
@@ -457,21 +430,20 @@ C の長三和音を作り出すということに注意してください。
 転回や低音の追加が無い限り入力モードに関係なく、@c
 和音と同じコード ネームが表示されます:
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote]
+chordmusic = \relative {
+  <c' e g>2 <f bes c>
+  <f c' e g>1
+  \chordmode {
+    c2 f:sus4 c1:/f
+  }
+}
 <<
   \new ChordNames {
-    <c e g>2  <f bes c>
-    <f c' e g>1
-    \chordmode {
-      c2 f:sus4 c1:/f
-    }
+    \chordmusic
   }
   {
-    <c e g>2  <f bes c>
-    <f, c' e g>1
-    \chordmode {
-      c2 f:sus4 c1:/f
-    }
+    \chordmusic
   }
 >>
 @end lilypond
@@ -502,7 +474,7 @@ C の長三和音を作り出すということに注意してください。
 
 @funindex{\chords}
 
-@code{\chords @{ ... @}} は @code{\new ChordNames @{ \chordmode @{ ... @} @}}
+@code{\chords @{ @dots{} @}} は @code{\new ChordNames \chordmode @{ @dots{} @}}
 の短縮形です。
 
 @lilypond[verbatim,quote,ragged-right]
@@ -822,10 +794,10 @@ myChords = \relative c' {
 @unnumberedsubsubsec 通奏低音の導入部
 @translationof Introduction to figured bass
 
-@cindex Basso continuo
-@cindex Thorough bass
+@cindex Basso continuo (通奏低音)
+@cindex Thorough bass (通奏低音)
 @cindex Figured bass (通奏低音)
-@cindex Bass, thorough
+@cindex Bass, thorough (通奏低音)
 @cindex Bass, figured (通奏低音)
 
 @c TODO: musicological blurb about FB
@@ -899,11 +871,16 @@ example, the vertical spacing of the figures may be set with
 }
 @end lilypond
 
-通奏低音にナチュラル記号を含む臨時記号を付け加えることができます:
+通奏低音の各音程を変化させるために、ナチュラル記号を含む臨時記号を@c
+付け加えることができます。臨時記号は数字の後に
+@code{+} (シャープ)、@code{-} (フラット)、@code{!} (ナチュラル) を@c
+付け加えることで入力します。ダブルシャープやダブルフラットは記号を 2 重に@c
+入力します。第 3 度の音を変化させるときに、数字が省略されることがありますが、@c
+数字の代わりに @code{_} を入力することで実現できます。
 
 @lilypond[verbatim,quote,ragged-right]
 \figures {
-  <7! 6+ 4-> <5++> <3-->
+  <7! 6+ 4-> <5++> <3--> < _+ > < 7 _!>
 }
 @end lilypond
 
@@ -916,7 +893,7 @@ example, the vertical spacing of the figures may be set with
 @end lilypond
 
 通奏低音にバックスラッシュを付けることができます
-( 通常、6 度上げるのに用いられます):
+( 通常、6 度の音を上げるのに用いられます):
 
 @lilypond[verbatim,quote,ragged-right]
 \figures {
@@ -924,11 +901,11 @@ example, the vertical spacing of the figures may be set with
 }
 @end lilypond
 
-通奏低音に垂直方向のスペースや囲みを含ませることができます:
+通奏低音に囲みを含ませることができます:
 
 @lilypond[verbatim,quote,ragged-right]
 \figures {
-  <[12 _!] 8 [6  4]>
+  <[12] 8 [6  4]>
 }
 @end lilypond
 
@@ -1102,13 +1079,13 @@ example, the vertical spacing of the figures may be set with
 
 @lilypond[verbatim,ragged-right,quote]
 <<
-  \new Staff = myStaff
+  \new Staff = "myStaff"
   \figuremode {
     <4>4 <10 6>8 s8
     <6 4>4 <6 4>
   }
   %% Put notes on same Staff as figures
-  \context Staff = myStaff
+  \context Staff = "myStaff"
   {
     \clef bass
     c4 c'8 r8 c4 c'
@@ -1122,14 +1099,14 @@ example, the vertical spacing of the figures may be set with
 
 @lilypond[verbatim,ragged-right,quote]
 <<
-  \new Staff = myStaff
+  \new Staff = "myStaff"
   \figuremode {
     <4>4 <10 6>8 s8
     \bassFigureStaffAlignmentDown
     <6 4>4 <6 4>
   }
   %% Put notes on same Staff as figures
-  \context Staff = myStaff
+  \context Staff = "myStaff"
   {
     \clef bass
     c4 c'8 r8 c4 c'

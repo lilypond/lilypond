@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: fabcd22c8f88ea9a87241597f1e48c0a9adbfc6e
+    Translation of GIT committish: 3c51d1bc78aa3dddaf83fc67b4da6cfbeda75d0d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -9,7 +9,7 @@
 
 @c \version "2.18.0"
 
-@c Translators: Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Yoshiki Sawada
 @c Translation status: post-GDP
 
 @node フレットの無い弦楽器
@@ -27,7 +27,6 @@
 このセクションではフレットの無い弦楽器
 -- 主にオーケストラで使用される弦楽器 --
 のための楽譜を記述する際に有用な情報とリファレンスを提供します。
-orchestral strings.
 
 @menu
 * フレットの無い弦楽器で共通の記譜法::
@@ -96,12 +95,14 @@ orchestral strings.
 @funindex \upbow
 @funindex \downbow
 @funindex \open
+@funindex \romanStringNumbers
 
 @cindex bowing indications (ボーイング指示)
 @cindex up bow indication (アップ ボー指示)
 @cindex down bow indication (ダウン ボー指示)
 @cindex open string indication (開放弦の指示)
 @cindex string, indicating open (開放弦の指示)
+@cindex, string numbers (弦番号)
 
 ボーイング指示はアーティキュレーションとして作成します。@c
 アーティキュレーションについては、@c
@@ -116,24 +117,32 @@ orchestral strings.
 @end lilypond
 
 @noindent
-以下の例は、バイオリンで A の開放弦を表す 3 つの方法を示しています:
 
-@lilypond[verbatim,quote,relative=2]
-a4 \open
-a^\markup { \teeny "II" }
-a2^\markup { \small "sul A" }
+弦番号として、(デフォルトの丸囲みアラビア数字ではなく) ローマ数字を@c
+追加することができます。@ref{String number indications} を参照してください。
+
+他にも、弦の指示はマークアップ コマンドを用いて表示することができます。@c
+アーティキュレーションで開放弦を指示することもできます。
+
+@lilypond[verbatim,quote,fragment]
+a'4 \open
+\romanStringNumbers
+a'\2
+a'2^\markup { \small "sul A" }
 @end lilypond
 
 
 @predefined
 @code{\downbow},
 @code{\upbow},
-@code{\open}
+@code{\open},
+@code{\romanStringNumbers}
 @endpredefined
 
 @seealso
 記譜法リファレンス:
 @ref{Articulations and ornamentations},
+@ref{String number indications},
 @ref{Slurs}
 
 
@@ -199,10 +208,6 @@ d''2^\flageolet d''_\flageolet
   <e a\harmonic>2.  <c g'\harmonic>4
 }
 @end lilypond
-
-@warning{@code{@bs{}harmonic} は、単一の音符しかない場合であっても、@c
-和音構造の中に配置する @strong{必要があります}。@c
-通常、単一の音符のハーモニクスには @code{@bs{}harmonicsOn} を使います。}
 
 @seealso
 音楽用語集:
