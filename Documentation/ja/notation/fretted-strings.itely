@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: c1b0482f63f881bd3f67845e5f76a3e04675ef2a
+    Translation of GIT committish: 3c51d1bc78aa3dddaf83fc67b4da6cfbeda75d0d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -9,7 +9,7 @@
 
 @c \version "2.19.28"
 
-@c Translators: Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Yoshiki Sawada
 @c Translation status: post-GDP
 
 @node フレットのある弦楽器
@@ -31,6 +31,7 @@
 * フレットのある弦楽器で共通の記譜法::
 * ギター::
 * バンジョー::
+* リュート::
 @end menu
 
 @node フレットのある弦楽器で共通の記譜法
@@ -122,6 +123,21 @@ g-0\3
 <g-0\3>
 @end lilypond
 
+弦番号も、フレットの無い弦楽器の慣習のように@c
+ロマン数字で表示したり、譜の上ではなく下に配置することができます。
+
+@lilypond[verbatim,quote,fragment]
+\clef "treble_8"
+c'2\2
+a\3
+\romanStringNumbers
+c'\2
+\set stringNumberOrientations = #'(down)
+a\3
+\arabicStringNumbers
+g1\4
+@end lilypond
+
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -129,6 +145,11 @@ g-0\3
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {allowing-fingerings-to-be-printed-inside-the-staff.ly}
+
+@predefined
+@code{\arabicStringNumbers},
+@code{\romanStringNumbers}.
+@endpredefined
 
 @seealso
 記譜法リファレンス:
@@ -264,8 +285,9 @@ symbols = {
 
 @funindex \tabChordRepeats
 @funindex \chordRepeats
-@cindex Chord, repetition (和音の繰り返し)
+@cindex chord, repetition (和音の繰り返し)
 @cindex repetition, using @code{q} (@code{q} を用いた繰り返し)
+@cindex @code{q}, chord repetition (@code{q} を用いた和音の繰り返し)
 
 和音繰り返し記号 @code{q} を使って和音構造を繰り返すことができます。@c
 この機能をタブ譜で用いる場合、弦の削除や運指番号等のイベントがやっかいです。@c
@@ -315,11 +337,11 @@ ties = \relative {
 \score {
   <<
     \new StaffGroup  <<
-      \context Staff {
+      \new Staff {
         \clef "treble_8"
         \ties
       }
-      \context TabStaff {
+      \new TabStaff {
         \ties
       }
     >>
@@ -354,11 +376,11 @@ ties = \relative {
 \score {
   <<
     \new StaffGroup  <<
-      \context Staff {
+      \new Staff {
         \clef "treble_8"
         \ties
       }
-      \context TabStaff {
+      \new TabStaff {
       \hideSplitTiedTabNotes
         \ties
       }
@@ -469,6 +491,18 @@ ratioHarmonics = {
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {chord-glissando-in-tablature.ly}
 
+@cindex hammer on (ハンマリング オン)
+@cindex pull off (プリング オフ)
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{hammer-on-and-pull-off.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{hammer-on-and-pull-off-using-voices.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{hammer-on-and-pull-off-using-chords.ly}
+
 @seealso
 記譜法リファレンス:
 @ref{Chord repetition},
@@ -572,7 +606,7 @@ LilyPond は、あらかじめ定義されたチューニングに対して、@c
 あらかじめ定義された弦チューニングは @file{ly/string-tunings-init.ly} の中に@c
 あります。
 
-@funindex \stringTunings
+@funindex \stringTuning
 @cindex tablature, custom string tunings (カスタム弦チューニングのタブ譜)
 @cindex custom string tunings (カスタム弦チューニング)
 
@@ -687,6 +721,45 @@ LilyPond は、@code{TabStaff} の行数と自動的に算出される @code{Fre
 
 現代タブ譜の音部記号は、4 から 7 弦までのタブ譜をサポートします。
 
+@cindex micro-tones, tab (タブ譜での微分音)
+@cindex quarter-tones, tab (タブ譜での 4 分音)
+@cindex tab micro-tones (タブ譜での微分音)
+@cindex tab quarter-tones (タブ譜での 4 分音)
+
+@code{TabStaff} は 4 分音のような微分音に対応しています。このような音は@c
+ベンディングを使って演奏されます。
+@code{supportNonIntegerFret = ##t} が Score コンテキストにセットされている@c
+必要があります。しかしながら、微分音は @code{FretBoards} では@c
+サポートされていません。
+
+@lilypond[quote,ragged-right,verbatim]
+\layout {
+  \context {
+    \Score
+    supportNonIntegerFret = ##t
+  }
+}
+
+custom-tuning = \stringTuning <e, a, d ges beh eeh'>
+
+mus = \relative {
+  eeses'4
+  eeseh
+  ees
+  eeh
+  e
+  eih
+  eis
+  eisih
+  eisis
+}
+
+<<
+  \new Staff << \clef "G_8" \mus >>
+  \new TabStaff \with { stringTunings = \custom-tuning } \mus
+>>
+@end lilypond
+
 @seealso
 記譜法リファレンス:
 @ref{Absolute octave entry},
@@ -734,12 +807,12 @@ fret-diagram マークアップ インターフェイスは 3 種類あります
 
 @lilypond[quote, verbatim]
 <<
-  \context ChordNames {
+  \new ChordNames {
     \chordmode {
       c1 d:m
     }
   }
-  \context Staff {
+  \new Staff {
     \clef "treble_8"
     <c e g c' e'>1^\markup {
       \fret-diagram #"6-x;5-3;4-2;3-o;2-1;1-o;"
@@ -758,12 +831,12 @@ fret-diagram マークアップ文字列のダイアグラムに、@c
 
 @lilypond[quote, verbatim]
 <<
-  \context ChordNames {
+  \new ChordNames {
      \chordmode {
        f1 g
      }
   }
-  \context Staff {
+  \new Staff {
     \clef "treble_8"
     <f, c f a c' f'>1^\markup {
       \fret-diagram #"c:6-1-1;6-1;5-3;4-3;3-2;2-1;1-1;"
@@ -785,12 +858,12 @@ fret-diagram マークアップ文字列の中で変更することができま�
 
 @lilypond[quote, verbatim]
 <<
-  \context ChordNames {
+  \new ChordNames {
      \chordmode {
        f1 g
      }
   }
-  \context Staff {
+  \new Staff {
     \clef "treble_8"
     <f, c f a c' f'>1^\markup {
       \fret-diagram #"s:1.5;c:6-1-1;6-1;5-3;4-3;3-2;2-1;1-1;"
@@ -809,12 +882,12 @@ fret-diagram マークアップ文字列で@c
 @c KEEP LY
 @lilypond[quote, verbatim]
 <<
-  \context ChordNames {
+  \new ChordNames {
     \chordmode {
       a1
     }
   }
-  \context Staff {
+  \new Staff {
     % ウクレレの 'A' コード
     a'1^\markup {
       \fret-diagram #"w:4;4-2-2;3-1-1;2-o;1-o;"
@@ -828,12 +901,12 @@ fret-diagram マークアップ文字列で運指の指示を追加して、@c
 
 @lilypond[quote, verbatim]
 <<
-  \context ChordNames {
+  \new ChordNames {
     \chordmode {
       c1 d:m
     }
   }
-  \context Staff {
+  \new Staff {
     \clef "treble_8"
     <c e g c' e'>1^\markup {
       \fret-diagram #"f:1;6-x;5-3-3;4-2-2;3-o;2-1-1;1-o;"
@@ -849,12 +922,12 @@ fret-diagram マークアップ文字列でドットの大きさと位置を制�
 
 @lilypond[quote, verbatim]
 <<
-  \context ChordNames {
+  \new ChordNames {
     \chordmode {
       c1 d:m
     }
   }
-  \context Staff {
+  \new Staff {
     \clef "treble_8"
     <c e g c' e'>1^\markup {
       \fret-diagram #"d:0.35;6-x;5-3;4-2;3-o;2-1;1-o;"
@@ -879,12 +952,12 @@ fret-diagram-terse マークアップ文字列は弦番号を省略します。@
 
 @lilypond[quote, verbatim]
 <<
-  \context ChordNames {
+  \new ChordNames {
     \chordmode {
       c1 d:m
     }
   }
-  \context Staff {
+  \new Staff {
     \clef "treble_8"
     <c e g c' e'>1^\markup {
       \fret-diagram-terse #"x;3;2;o;1;o;"
@@ -900,12 +973,12 @@ fret-diagram-terse マークアップ文字列にバレー指示を含めるこ�
 
 @lilypond[quote, verbatim]
 <<
-  \context ChordNames {
+  \new ChordNames {
     \chordmode {
       f1 g
     }
   }
-  \context Staff {
+  \new Staff {
     \clef "treble_8"
     <f, c f a c' f'>1^\markup {
       \fret-diagram-terse #"1-(;3;3;2;1;1-);"
@@ -922,12 +995,12 @@ fret-diagram-terse マークアップ文字列に運指の指示を含めるこ�
 @c Need to use override to enable fingerings to show this -- can we do so?
 @lilypond[quote, verbatim]
 <<
-  \context ChordNames {
+  \new ChordNames {
     \chordmode {
       c1 d:m
     }
   }
-  \context Staff {
+  \new Staff {
     \override Voice.TextScript.fret-diagram-details.finger-code = #'below-string
     \clef "treble_8"
     <c e g c' e'>1^\markup {
@@ -954,12 +1027,12 @@ fret-diagram-verbose マークアップ文字列のフォーマットは Scheme 
 
 @lilypond[quote, verbatim]
 <<
-    \context ChordNames {
+    \new ChordNames {
       \chordmode {
         c1 d:m
       }
     }
-  \context Staff {
+  \new Staff {
     \clef "treble_8"
     <c e g c' e'>1^\markup {
       \fret-diagram-verbose #'(
@@ -992,15 +1065,20 @@ fret-diagram-verbose インターフェイスに特有なこととして、
 カポ指示はすべての弦に重なる太い線です。@c
 カポを持つフレットは、フレット ダイアグラムの中の最も低いフレットです。
 
+運指の指示を含むドットは、括弧付きのものも含めて色を付けることができます。@c
+括弧の色も独立に変更することができます。
+
+マークアップはドットの中にも配置することができます。
+
 @c \override is necessary to make fingering visible
 @lilypond[quote, verbatim]
 <<
-    \context ChordNames {
+    \new ChordNames {
       \chordmode {
-        f1 g c
+        f1 g c c b
       }
     }
-  \context Staff {
+  \new Staff {
     \clef "treble_8"
     \override Voice.TextScript.fret-diagram-details.finger-code = #'below-string
     <f, c f a c' f'>1^\markup {
@@ -1031,6 +1109,35 @@ fret-diagram-verbose インターフェイスに特有なこととして、
         (place-fret 4 5 1)
         (place-fret 3 5 2)
         (place-fret 2 5 3)
+      )
+    }
+    \override Voice.TextScript.size = 1.4
+    <c g c' e' g'>1^\markup {
+      \fret-diagram-verbose #'(
+        (place-fret 6 3 1 red parenthesized default-paren-color)
+        (place-fret 5 3 1 inverted)
+        (place-fret 4 5 2 blue parenthesized)
+        (place-fret 3 5 3 blue)
+        (place-fret 2 5 4 blue)
+        (place-fret 1 3 1 inverted)
+      )
+    }
+    \override Voice.TextScript.size = 1.5
+    <b, fis b dis' fis'>1^\markup {
+      \override #'(fret-diagram-details . ((finger-code . in-dot)))
+      \fret-diagram-verbose #`(
+        (place-fret 5 2 1)
+        (place-fret 4 4 "fis" red)
+        (place-fret 3 4 "b" red)
+        (place-fret
+          2 4
+          ,#{ \markup
+                \concat {
+                  \vcenter "d"
+                  \fontsize #-5
+                  \musicglyph #"accidentals.sharp"} #}
+          red)
+        (place-fret 1 2 1)
       )
     }
   }
@@ -1131,11 +1238,11 @@ and color of dots.
 フレット ダイアグラムを @code{FretBoards} コンテキストを用いて表示させる@c
 ことができます。@c
 デフォルトでは、 @code{FretBoards} コンテキストは@c
-参照テーブルに保存されいているフレット ダイアグラムを表示します:
+参照テーブルに保存されているフレット ダイアグラムを表示します:
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
-\context FretBoards {
+\new FretBoards {
   \chordmode {
     c1 d
   }
@@ -1195,7 +1302,7 @@ myChords = \chordmode { c1 c:m7.5- c:aug }
 
 @lilypond[verbatim, ragged-right,quote]
 \include "predefined-guitar-fretboards.ly"
-\context FretBoards {
+\new FretBoards {
   \chordmode { c1 }
   <c' e' g'>1
 }
@@ -1221,10 +1328,10 @@ mychords = \chordmode{
 }
 
 <<
-  \context ChordNames {
+  \new ChordNames {
     \mychords
   }
-  \context FretBoards {
+  \new FretBoards {
     \mychords
   }
 >>
@@ -1249,10 +1356,10 @@ mychordlist = {
   \transpose c e { \mychords }
 }
 <<
-  \context ChordNames {
+  \new ChordNames {
     \mychordlist
   }
-  \context FretBoards {
+  \new FretBoards {
     \mychordlist
   }
 >>
@@ -1281,10 +1388,10 @@ mychords = \chordmode{
 }
 
 <<
-  \context ChordNames {
+  \new ChordNames {
     \mychords
   }
-  \context FretBoards {
+  \new FretBoards {
     \mychords
   }
 >>
@@ -1316,10 +1423,10 @@ mychords = \chordmode {
 }
 
 <<
-  \context ChordNames {
+  \new ChordNames {
     \mychords
   }
-  \context FretBoards {
+  \new FretBoards {
     \mychords
   }
 >>
@@ -1346,10 +1453,10 @@ mychords = \chordmode {
 }
 
 <<
-  \context ChordNames {
+  \new ChordNames {
     \mychords
   }
-  \context FretBoards {
+  \new FretBoards {
     \mychords
   }
 >>
@@ -1361,30 +1468,27 @@ mychords = \chordmode {
 @funindex \addChordShape
 @funindex \storePredefinedDiagram
 
-@ignore
 LilyPond はフレット ダイアグラムに加えて、@c
 コード シェイプの内部リストを保存します。@c
-@end ignore
+コード シェイプとは、押さえるフレットをネック上の別の位置にシフトすることで@c
+別のコードを演奏できるようなフレット ダイアグラムです
+(訳注: 日本ではよくハイコードと呼ばれます)。@c
+コード シェイプを内部リストに追加することができ、@c
+フレット ダイアグラムを定義するために使うことができます。@c
+コード シェイプはネック上の様々な位置に移動することができるため、@c
+通常は開放弦を持ちません。フレット ダイアグラムと同様に、
+コード シェイプは fret-diagram-terse 文字列でも fret-diagram-verbose
+リストでも入力することができます。
 
-@c 未訳
-In addition to fret diagrams, LilyPond stores an internal list of chord
-shapes.  The chord shapes are fret diagrams that can be shifted along
-the neck to different positions to provide different chords.  Chord
-shapes can be added to the internal list and then used to define
-predefined fret diagrams.  Because they can be moved to various
-positions on the neck, chord shapes will normally not contain
-any open strings.  Like fret diagrams, chord shapes can be
-entered as either fret-diagram-terse strings or fret-diagram-verbose
-marking lists.
-
+@c KEEP LY
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
 
-% Add a new chord shape
+% 新しいコード シェイプを追加します
 
 \addChordShape #'powerf #guitar-tuning #"1-1;3-3;3-4;x;x;x;"
 
-% add some new chords based on the power chord shape
+% パワー コード シェイプを基にして、新しいコードをいくつか追加します
 
 \storePredefinedDiagram #default-fret-table
                         \chordmode { f'' }
@@ -1400,10 +1504,10 @@ mychords = \chordmode{
 }
 
 <<
-  \context ChordNames {
+  \new ChordNames {
     \mychords
   }
-  \context FretBoards {
+  \new FretBoards {
     \mychords
   }
 >>
@@ -1424,7 +1528,7 @@ mychords = \chordmode{
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {defining-predefined-fretboards-for-other-instruments.ly}
 
-@lilypondfile[verbatim,quote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle,ragged-right]
 {chordchanges-for-fretboards.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -1467,16 +1571,16 @@ mychords = \chordmode{
 
 @lilypond[quote,ragged-right,verbatim]
 <<
-  \context ChordNames {
+  \new ChordNames {
     \chordmode {
       f1 g
     }
   }
-  \context FretBoards {
+  \new FretBoards {
     <f, c f a c' f'>1
     <g,\6 b, d g b g'>1
   }
-  \context Staff {
+  \new Staff {
     \clef "treble_8"
     <f, c f a c' f'>1
     <g, b, d g b' g'>1
@@ -1499,19 +1603,19 @@ mychords = \chordmode{
                         #guitar-tuning
                         #"x;3-1-(;5-2;5-3;5-4;3-1-1-);"
 <<
-  \context ChordNames {
+  \new ChordNames {
     \chordmode {
       c1 c c
     }
   }
-  \context FretBoards {
+  \new FretBoards {
     <c e g c' e'>1
     \predefinedFretboardsOff
     <c e g c' e'>1
     \predefinedFretboardsOn
     <c e g c' e'>1
   }
-  \context Staff {
+  \new Staff {
     \clef "treble_8"
     <c e g c' e'>1
     <c e g c' e'>1
@@ -1534,16 +1638,16 @@ mychords = \chordmode{
 
 @lilypond[quote, verbatim]
 <<
-  \context ChordNames {
+  \new ChordNames {
     \chordmode {
       c1 d:m
     }
   }
-  \context FretBoards {
+  \new FretBoards {
     <c-3 e-2 g c'-1 e'>1
     <d a-2 d'-3 f'-1>1
   }
-  \context Staff {
+  \new Staff {
     \clef "treble_8"
     <c e g c' e'>1
     <d a d' f'>1
@@ -1559,17 +1663,17 @@ property.
 
 @lilypond[quote, verbatim]
 <<
-  \context ChordNames {
+  \new ChordNames {
     \chordmode {
       d1:m d:m
     }
   }
-  \context FretBoards {
+  \new FretBoards {
     <d a d' f'>1
     \set FretBoards.minimumFret = #5
     <d a d' f'>1
   }
-  \context Staff {
+  \new Staff {
     \clef "treble_8"
     <d a d' f'>1
     <d a d' f'>1
@@ -1891,15 +1995,20 @@ LilyPond は 5 弦バンジョーの基本的なサポートを提供します�
 @c due to crazy intervals of banjo music, absolute pitch is recommended
 
 @lilypond[quote,ragged-right,verbatim]
-\new TabStaff <<
-  \set TabStaff.tablatureFormat = #fret-number-tablature-format-banjo
-  \set TabStaff.stringTunings = #banjo-open-g-tuning
-  {
-    \stemDown
-    g8 d' g'\5 a b g e d' |
-    g4 d''8\5 b' a'\2 g'\5 e'\2 d' |
-    g4
+music = {
+  g8 d' g'\5 a b g e d' |
+  g4 d''8\5 b' a'\2 g'\5 e'\2 d' |
+  g4
+}
+
+<<
+  \new Staff \with { \omit StringNumber }
+  { \clef "treble_8"  \music }
+  \new TabStaff \with {
+    tablatureFormat = #fret-number-tablature-format-banjo
+    stringTunings = #banjo-open-g-tuning
   }
+  { \music }
 >>
 @end lilypond
 
@@ -1930,3 +2039,58 @@ LilyPond は 5 弦バンジョーの基本的なサポートを提供します�
 
 コード断片集:
 @rlsr{Fretted strings}
+
+
+@node リュート
+@subsection リュート
+@translationof Lute
+
+@menu
+* リュートのタブ譜::
+@end menu
+
+@node リュートのタブ譜
+@unnumberedsubsubsec リュートのタブ譜
+@translationof Lute tablatures
+
+@cindex lute tablatures (リュートのタブ譜)
+@cindex tablature, lute (リュートのタブ譜)
+
+LilyPond はリュートのタブ譜をサポートします。
+
+低音弦を追加するには、@code{additionalBassString} にピッチをセットします。@c
+一番下の線より下に、a, /a, //a, ///a, 4, 5 などのように表示されます。
+
+
+@code{tablatureFormat} には @code{fret-letter-tablature-format} を@c
+使用するべきです。更なるカスタマイズには @code{fretLabels} を使います。
+
+@lilypond[quote,ragged-right,verbatim]
+m = { f'4 d' a f d a, g, fis, e, d, c,  \bar "|." }
+
+\score {
+  <<
+    \new Staff { \clef bass \cadenzaOn  \m }
+    \new TabStaff \m
+  >>
+  \layout {
+    \context {
+      \Score
+      tablatureFormat = #fret-letter-tablature-format
+    }
+    \context {
+      \TabStaff
+      stringTunings = \stringTuning <a, d f a d' f'>
+      additionalBassStrings = \stringTuning <c, d, e, fis, g,>
+      fretLabels = #'("a" "b" "r" "d" "e" "f" "g" "h" "i" "k")
+    }
+  }
+}
+@end lilypond
+
+@cindex lute tunings (リュートのチューニング)
+@cindex tunings, lute (リュートのチューニング)
+
+@knownissues
+@code{FretBoards} を @code{additionalBassStrings} と同時に使うことは@c
+サポートしておらず、期待に沿わない結果となります。

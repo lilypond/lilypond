@@ -1,15 +1,15 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: fabcd22c8f88ea9a87241597f1e48c0a9adbfc6e
+    Translation of GIT committish: 3c51d1bc78aa3dddaf83fc67b4da6cfbeda75d0d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.25"
 
-@c Translators: Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Yoshiki Sawada
 @c Translation status: post-GDP
 
 
@@ -210,7 +210,7 @@
   \new Staff = "up" {
     \voiceOne
     % 譜を跨ぐボイスの中にある運指記号のためのスペースを作ります
-    \once\override DynamicLineSpanner.staff-padding = #3.4
+    \once\override DynamicLineSpanner.staff-padding = #4
     e''2\p\< d''\>
     c''1\!
   }
@@ -295,6 +295,21 @@
 }
 @end lilypond
 
+@noindent
+切り替えポイントを他のピッチにすることができます。@c
+譜を明示的に生成しない場合も、他の音部記号を用いることができます。
+
+@lilypond[quote,verbatim]
+music = {
+  g8 b a c' b8 d' c'8 e'
+  d'8 r f' g' a'2
+}
+
+\autochange d' \music
+\autochange b \with { \clef soprano } \music
+\autochange d' \with { \clef alto } \with { \clef tenor } \music
+@end lilypond
+
 @cindex relative music and autochange (相対モードと自動変更)
 @cindex autochange and relative music (自動変更と相対モード)
 
@@ -346,7 +361,7 @@
 
 
 @knownissues
-@cindex chords, splitting across staves with \autochange
+@cindex chords, splitting across staves with \autochange (\autochange で譜を跨ぐ和音)
 
 譜の切り換えが最適な場所で行われない場合もあります。@c
 高品位の出力を得るには、譜の切り換えを手動で指定する必要があります。
@@ -421,6 +436,7 @@
 @cindex cross-staff chords (譜を跨ぐ和音)
 @cindex cross staff chords (譜を跨ぐ和音)
 
+@funindex Stem
 @funindex \crossStaff
 @funindex \autoBeamOff
 @funindex Span_stem_engraver
@@ -587,7 +603,7 @@
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{accordion-discant-symbols.ly}
+{accordion-register-symbols.ly}
 
 @seealso
 コード断片集:

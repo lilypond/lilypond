@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: fabcd22c8f88ea9a87241597f1e48c0a9adbfc6e
+    Translation of GIT committish: 3c51d1bc78aa3dddaf83fc67b4da6cfbeda75d0d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -10,7 +10,7 @@
 @c \version "2.19.21"
 
 
-@c Translators: Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Yoshiki Sawada
 @c Translation status: post-GDP
 
 
@@ -341,7 +341,7 @@ nawa は以下のように示すことができます:
 @ref{Key signature}
 
 学習マニュアル:
-@rlearning{臨時記号と調号}
+@rlearning{ピッチと調号}
 
 内部リファレンス:
 @rinternals{KeySignature}

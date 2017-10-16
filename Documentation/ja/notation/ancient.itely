@@ -1,0 +1,2936 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+@ignore
+    Translation of GIT committish: 3c51d1bc78aa3dddaf83fc67b4da6cfbeda75d0d
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.19.21"
+
+@c Translators: Tomohiro Tatejima
+@c Translation status: post-GDP
+
+
+@node 古代の記譜法
+@section 古代の記譜法
+@translationof Ancient notation
+
+@lilypondfile[quote]{ancient-headword.ly}
+
+@cindex Vaticana, Editio
+@cindex Medicaea, Editio
+@cindex hufnagel
+@cindex Petrucci
+@cindex mensural (計量記譜法)
+
+
+@menu
+* サポートされているスタイルの概要::
+* 古代音楽で共通の記譜法::
+* 計量音楽の記譜::
+* グレゴリオ聖歌の記譜::
+* キエフ記譜法で譜刻する::
+* 古代音楽に取り組む---事例とその解決法::
+@end menu
+
+
+古代の記譜法のサポートには、計量記譜法、グレゴリオ聖歌の記譜法、@c
+キエフ記譜法が含まれています。これらは、符頭や休符といった@c
+グラフィカル オブジェクトのスタイル プロパティを変更するか、@c
+これらのスタイルが適用された定義済みのコンテキストを使うことで@c
+使用することができます。
+
+符頭、符尾、臨時記号、拍子記号、休符といった多くのグラフィカル
+オブジェクトは @code{style} プロパティを提供しており、@c
+古代の記譜法の様々なスタイルを模倣するために変更することができます。@c
+以下を参照してください:
+
+@itemize
+@item @ref{Mensural note heads},
+@item @ref{Mensural accidentals and key signatures},
+@item @ref{Mensural rests},
+@item @ref{Mensural clefs},
+@item @ref{Gregorian clefs},
+@item @ref{Mensural flags},
+@item @ref{Mensural time signatures}
+@end itemize
+
+古代の記譜法に特有なコンセプトについては、以下を参照してください:
+
+@itemize
+@item @ref{Custodes},
+@item @ref{Divisiones},
+@item @ref{Ligatures}
+@end itemize
+
+@seealso
+音楽用語集:
+@rglos{custos},
+@rglos{ligature},
+@rglos{mensural notation}
+
+記譜法リファレンス:
+@ref{Mensural note heads},
+@ref{Mensural accidentals and key signatures},
+@ref{Mensural rests},
+@ref{Gregorian clefs},
+@ref{Mensural flags},
+@ref{Mensural time signatures},
+@ref{Custodes},
+@ref{Divisiones},
+@ref{Ligatures}
+
+
+@node サポートされているスタイルの概要
+@subsection サポートされているスタイルの概要
+@translationof Overview of the supported styles
+
+グレゴリオ聖歌を譜刻するのに適したスタイルが 3 つあります:
+
+@itemize
+@item @emph{Editio Vaticana} はグレゴリオ聖歌のスタイルとしては@c
+完全なものです。Solesmes 版に続くものであり、1904 年からのバチカン公式の@c
+聖歌本です。LilyPond はリガトゥーラ、@emph{クストス}、quilisma や oriscus
+などの特殊記号を含めた全ての譜刻記号に対応しています。
+
+@cindex Solesmes
+@cindex Vaticana, Editio
+
+@item @emph{Editio Medicaea} スタイルは、Solesmes 版より以前に使われた、@c
+Medicaea (あるいは Ratisbona) 版に用いられるいくつかの記号に対応しています。@c
+Vaticana スタイルとの大きな違いは音部記号と符頭であり、@c
+音部記号は右下がりに、符頭は四角形で通常の大きさになっています。
+
+@cindex Ratisbona, Editio
+@cindex Medicaea, Editio
+
+@item @emph{Hufnagel} (@qq{蹄鉄の釘}) あるいは@emph{ゴシック}スタイルは、@c
+中世のドイツや中央ヨーロッパで用いられた写本のスタイルを模倣します。@c
+この名前は、基本的な符頭 (@emph{ヴィルガ}) が小さな釘のように@c
+見えることから付けられました。
+@cindex hufnagel
+@end itemize
+
+中世後期やルネサンス期に用いられる、計量音楽の写本や印刷本の見た目を模倣する@c
+スタイルが 3 つあります:
+
+@itemize
+@item @emph{Mensural} スタイルは中世後期やルネサンス初期の写本に使われる@c
+スタイルに最も近いです。このスタイルは、小さくて幅の狭いダイアモンド型の@c
+符頭や、手書きスタイルの休符を含みます。
+
+@cindex mensural (計量記譜法)
+
+@item @emph{Neomensural} スタイルは、昔のスタイルをより現代化し様式化した@c
+ものです。符頭はより広がり、休符は直線からなります。@c
+このスタイルは計量音楽の転写におけるインキピットなどに特に適しています。
+
+@cindex neomensural (新しい計量記譜法)
+
+@item @emph{Petrucci} スタイルは、@c
+初めて活字を用いて音楽を印刷した (@emph{Harmonice musices odhecaton}, 1501)
+Ottaviano Petrucci (1466-1539) にちなんで@c
+名付けられました。他の計量記譜法のスタイルよりも大きな符頭を持ちます。
+
+@cindex Petrucci
+
+@end itemize
+
+@emph{Baroque} と @emph{Classical} は完全なスタイルではありません。@c
+デフォルトのスタイルとわずかな点が異なるだけです。
+いくつかの符頭 (Baroque) と四分休符 (Classical) です。
+
+全ての記譜記号について置き換えが存在するのは、計量音楽のスタイルのみです。@c
+休符や符尾は単旋律聖歌の記譜に用いられないため Gregorian スタイルに存在せず、@c
+Petrucci スタイルには符尾や臨時記号がありません。
+
+それぞれの記譜要素は他とは独立して変更することができます。@c
+つまり、1 曲の中で Mensural スタイルの符尾を使いながら、Petrucci
+スタイルの符頭と、Classical スタイルの休符、Vaticana スタイルの音部記号を@c
+使うことができます。
+
+@seealso
+音楽用語集:
+@rglos{mensural notation},
+@rglos{flag}
+
+
+@node 古代音楽で共通の記譜法
+@subsection 古代音楽で共通の記譜法
+@translationof Ancient notation---common features
+
+@menu
+* 定義されているコンテキスト::
+* リガトゥーラ::
+* クストス::
+@end menu
+
+
+@node 定義されているコンテキスト
+@unnumberedsubsubsec 定義されているコンテキスト
+@translationof Pre-defined contexts
+
+グレゴリオ聖歌や計量音楽の記譜では、デフォルトで専用の
+Voice および Staff コンテキストが定義されています。これらのコンテキストは@c
+記譜要素の設定をそれぞれの音楽に適したものにセットします。@c
+これらのデフォルト設定で十分であるなら、@c
+詳細やコンテキストをカスタマイズする方法について気にせずに@c
+音符を入力していくことができます。@c
+これらの専用のコンテキストについては、@c
+@code{VaticanaVoice}, @code{VaticanaStaff}, @code{MensuralVoice},
+@code{MensuralStaff} を参照してください。@c
+更なる情報は、
+
+@itemize
+@item @ref{Gregorian chant contexts},
+@item @ref{Mensural contexts}
+@end itemize
+
+@noindent
+にあります。
+
+@seealso
+音楽用語集:
+@rglos{mensural notation}
+
+記譜法リファレンス:
+@ref{Gregorian chant contexts},
+@ref{Mensural contexts}
+
+
+@node リガトゥーラ
+@unnumberedsubsubsec リガトゥーラ
+@translationof Ligatures
+
+@cindex Ligatures (リガトゥーラ)
+
+@c TODO: Should double check if I recalled things correctly when I wrote
+@c down the following paragraph by heart.
+
+リガトゥーラは、2 つ以上の異なる音符を表します。
+リガトゥーラが最初に用いられたのはグレゴリオ聖歌の写本で、@c
+同じ音節を上昇音型あるいは下降音型で歌う場合の表記でした。@c
+これらは計量記譜法でも用いられています。
+
+リガトゥーラは @code{\[} と @code{\]} で音符を@emph{囲む}ことによって@c
+入力します。いくつかのリガトゥーラのスタイルにおいては、それぞれに特有な入力を@c
+しなければならない場合があります。デフォルトでは、@code{LigatureBracket} の@c
+エングラーバがリガトゥーラの上に角型の囲みを表示します。
+
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  \[ g' c, a' f d' \]
+  a g f
+  \[ e f a g \]
+}
+@end lilypond
+
+さらに 2 つのリガトゥーラのスタイルがあります。グレゴリオ聖歌のための
+Vaticana スタイルと、計量音楽のための Mensural スタイルです
+(白色記譜法のリガトゥーラのみがサポートされており、いくつかの制限があります)。
+これらのスタイルを使うには、Voice コンテキストでデフォルトの
+@code{Ligature_bracket_engraver} を置き換える必要があります。@c
+@ref{White mensural ligatures} や @ref{Gregorian square neume ligatures} で
+説明されています。
+
+@seealso
+音楽用語集
+@rglos{ligature}
+
+記譜法リファレンス:
+@ref{White mensural ligatures},
+@ref{Gregorian square neume ligatures}
+
+@knownissues
+リガトゥーラは特別なスペーシング作業を必要とし、それはまだ実装されていません。@c
+ほとんどの場合において、リガトゥーラの間のスペースは必要以上に大きく、
+また改行がうまくいきません。歌詞はリガトゥーラと正しく揃いません。
+
+リガトゥーラの中には臨時記号が表示されません。代わりに、リガトゥーラの前に全ての@c
+臨時記号が集められて表示される必要があります。
+
+この構文は非推奨となった囲みのスタイル (@code{\[ music expr \]}) を@c
+用いています。一貫性を保つため、これらは将来後置のスタイル
+(@code{note\[ @dots{} note\]}) に置き換えられるでしょう。
+
+@c Alternatively, the file
+@c @file{gregorian-init.ly} can be included; it provides a scheme
+@c function
+@c @example
+@c \ligature @var{music expr}
+@c @end example
+@c with the same effect and is believed to be stable.
+
+@c TODO: this does not seem to work at the moment.
+@c -- eo
+
+
+@node クストス
+@unnumberedsubsubsec クストス
+@translationof Custodes
+
+@cindex custos (クストス)
+@cindex custodes (クストス)
+
+
+@emph{クストス} (custos, 複数形 custodes) はラテン語で@qq{見張り}の意味で、@c
+譜の最後に出現する記号です。@c
+これは次の行の最初の音を予め示すもので、これにより@c
+演奏中の読譜を手助けします。
+
+クストスは 17 世紀までは頻繁に用いられた記譜記号でした。@c
+現在では、@emph{Editio Vaticana} のようなグレゴリオ聖歌の現代版などにしか@c
+残っていません。記譜のスタイルによって、クストスの形は異なります。
+
+クストスを記譜するには、@code{\layout} ブロック内で、@c
+@code{Staff} コンテキストに @code{Custos_engraver} を追加します。
+そして、必要ならば下の例のように
+@code{\override} を用いてクストスのスタイルを変更します:
+
+@lilypond[quote,ragged-right]
+\score {
+  \relative {
+    a'1
+    \break
+    g
+  }
+  \layout {
+    \context {
+      \Staff
+      \consists "Custos_engraver"
+      \override Custos.style = #'mensural
+    }
+  }
+}
+@end lilypond
+
+クストスの形は @code{style} プロパティで選択します。サポートされている@c
+スタイルは
+@code{vaticana}, @code{medicaea}, @code{hufnagel}, @code{mensural} です。@c
+これらのスタイルを以下に示します:
+
+@lilypond[quote,ragged-right,fragment]
+\new Lyrics \lyricmode {
+  \markup { \column {
+    \typewriter "vaticana "
+    \line { " " \musicglyph #"custodes.vaticana.u0" }
+  } }
+  \markup { \column {
+    \typewriter "medicaea "
+    \line { " " \musicglyph #"custodes.medicaea.u0" }
+  }}
+  \markup { \column {
+    \typewriter "hufnagel "
+    \line { " " \musicglyph #"custodes.hufnagel.u0" }
+  }}
+  \markup { \column {
+    \typewriter "mensural "
+    \line { " " \musicglyph #"custodes.mensural.u0" }
+  }}
+}
+@end lilypond
+
+@seealso
+音楽用語集:
+@rglos{custos}
+
+コード断片集:
+@rlsr{Ancient notation}
+
+内部リファレンス:
+@rinternals{Custos}
+
+@node 計量音楽の記譜
+@subsection 計量音楽の記譜
+@translationof Typesetting mensural music
+
+@menu
+* 計量記譜法のコンテキスト::
+* 計量記譜法の音部記号::
+* 計量記譜法の拍子記号::
+* 計量記譜法の符頭::
+* 計量記譜法の符尾::
+* 計量記譜法の休符::
+* 計量記譜法の臨時記号と調号::
+* 注釈的な臨時記号 (ムジカ・フィクタ)::
+* 白色計量記譜法のリガトゥーラ::
+@end menu
+
+
+@node 計量記譜法のコンテキスト
+@unnumberedsubsubsec 計量記譜法のコンテキスト
+@translationof Mensural contexts
+
+@cindex MensuralVoice
+@cindex MensuralStaff
+
+定義されている @code{MensuralVoice} と @code{MensuralStaff} コンテキストは@c
+計量音楽スタイルの記譜をする場合に用いることができます。@c
+これらのコンテキストは、関連するコンテキスト プロパティや@c
+グラフィカル オブジェクト プロパティを正しい値にセットします。@c
+そのため、すぐに音楽を入力することができます。@c
+以下の抜粋で例を示します:
+
+@lilypond[quote,ragged-right,verbatim]
+\score {
+  <<
+    \new MensuralVoice = "discantus" \relative {
+      \hide Score.BarNumber {
+        c''1\melisma bes a g\melismaEnd
+        f\breve
+        \[ f1\melisma a c\breve d\melismaEnd \]
+        c\longa
+        c\breve\melisma a1 g1\melismaEnd
+        fis\longa^\signumcongruentiae
+      }
+    }
+    \new Lyrics \lyricsto "discantus" {
+      San -- ctus, San -- ctus, San -- ctus
+    }
+  >>
+}
+@end lilypond
+
+@seealso
+音楽用語集:
+@rglos{mensural notation}
+
+
+@node 計量記譜法の音部記号
+@unnumberedsubsubsec 計量記譜法の音部記号
+@translationof Mensural clefs
+
+@cindex clefs (音部記号)
+
+次の表は、@code{\clef} コマンドでサポートしている全ての計量記譜法の音部記号を@c
+示しています。いくつかの音部記号は同じ形をしていますが、どの線に合わせて@c
+表示されるかのみが異なります。このような音部記号は、
+最後に来る数字がどの線に表示されるかに対応しています。小さいものが下で、@c
+大きいものが上です。@c
+音部記号がどの線に表示されるかを強制的に変更することもできます
+(@ref{Clef} に説明があります)。例の中で、音部記号の右に表示されている音符は、@c
+@code{c'} がどの位置に対応するかを示したものです。
+
+Petrucci では、表示される位置によって左端の線のバランスが異なります。
+
+@multitable @columnfractions .4 .4 .2
+@item
+@b{説明}
+@tab
+@b{サポートされている音部記号}
+@tab
+@b{例}
+
+@item
+計量記譜法のハ音記号
+@tab
+@code{mensural-c1}, @code{mensural-c2},@*
+@code{mensural-c3}, @code{mensural-c4},@*
+@code{mensural-c5}
+@tab
+@lilypond[fragment,notime]
+  \clef "mensural-c2"
+  \override NoteHead.style = #'mensural
+  c'1
+@end lilypond
+
+@item
+計量記譜法のヘ音記号
+@tab
+@code{mensural-f}
+@tab
+@lilypond[fragment,notime]
+  \clef "mensural-f"
+  \override NoteHead.style = #'mensural
+  c'1
+@end lilypond
+
+@item
+計量記譜法のト音記号
+@tab
+@code{mensural-g}
+@tab
+@lilypond[fragment,notime]
+  \clef "mensural-g"
+  \override NoteHead.style = #'mensural
+  c'1
+@end lilypond
+
+@item
+計量記譜法のハ音記号 (黒塗り)
+@tab
+@code{blackmensural-c1}, @code{blackmensural-c2},@*
+@code{blackmensural-c3}, @code{blackmensural-c4},@*
+@code{blackmensural-c5}
+@tab
+@lilypond[fragment,notime]
+  \clef "blackmensural-c2"
+  \override NoteHead.style = #'mensural
+  c'1
+@end lilypond
+
+@item
+計量記譜法のハ音記号 (新しい)
+@tab
+@code{neomensural-c1}, @code{neomensural-c2},@*
+@code{neomensural-c3}, @code{neomensural-c4}
+@tab
+@lilypond[fragment,notime]
+  \clef "neomensural-c2" c'1
+@end lilypond
+
+@item
+Petrucci スタイルのハ音記号、別の譜線に表示可能
+(例は第 2 線に配置)
+@tab
+@code{petrucci-c1}, @code{petrucci-c2},@*
+@code{petrucci-c3}, @code{petrucci-c4},@*
+@code{petrucci-c5}
+@tab
+@lilypond[fragment,notime]
+  \clef "petrucci-c2"
+  \override NoteHead.style = #'mensural
+  c'1
+@end lilypond
+
+@item
+Petrucci スタイルのヘ音記号、別の譜線に表示可能
+(例は第 3 線に配置)
+@tab
+@code{petrucci-f3}, @code{petrucci-f4},@*
+@code{petrucci-f5}
+@tab
+@lilypond[fragment,notime]
+  \clef "petrucci-f3"
+  \override NoteHead.style = #'mensural
+  c'1
+@end lilypond
+
+@item
+Petrucci スタイルのト音記号
+@tab
+@code{petrucci-g}
+@tab
+@lilypond[fragment,notime]
+  \clef "petrucci-g"
+  \override NoteHead.style = #'mensural
+  c'1
+@end lilypond
+@end multitable
+
+@seealso
+音楽用語集:
+@rglos{mensural notation},
+@rglos{clef}
+
+記譜法リファレンス:
+@ref{Clef}
+
+@knownissues
+@code{mensural-g} は @code{petrucci-g} にマッピングされています。
+
+
+@node 計量記譜法の拍子記号
+@unnumberedsubsubsec 計量記譜法の拍子記号
+@translationof Mensural time signatures
+
+@cindex mensuration sign (メンスーラ記号)
+@cindex time signature, mensural (計量記譜法の拍子記号)
+@cindex time signature style (拍子スタイル)
+
+メンスーラ記号 (拍子記号と似ていますが、完全に同一ではありません) の@c
+サポートは限定的です。@c
+それぞれの記号は特定の拍子記号の分数と結びついています。@c
+つまり、あるメンスーラ記号を @code{\time n/m} を用いて表示させたい場合、@c
+@code{n} と @code{m} を次の表に沿って設定しなければならないということです:
+
+@lilypond[quote,ragged-right]
+\layout {
+  indent = 0.0
+  \context {
+    \Staff
+    \remove "Staff_symbol_engraver"
+    \remove "Clef_engraver"
+    \remove "Time_signature_engraver"
+  }
+}
+{
+  \set Score.timing = ##f
+  \set Score.barAlways = ##t
+  \textLengthOn
+  s^\markup { "\\time 4/4" }_\markup { "       " \musicglyph
+#"timesig.neomensural44" }
+  s
+  s^\markup { "\\time 2/2" }_\markup { "       " \musicglyph
+#"timesig.neomensural22" }
+  s
+  s^\markup { "\\time 6/4" }_\markup { "       " \musicglyph
+#"timesig.neomensural64" }
+  s
+  s^\markup { "\\time 6/8" }_\markup { "       " \musicglyph
+#"timesig.neomensural68" }
+  \break
+  s^\markup { "\\time 3/2" }_\markup { "       " \musicglyph
+#"timesig.neomensural32" }
+  s
+  s^\markup { "\\time 3/4" }_\markup { "       " \musicglyph
+#"timesig.neomensural34" }
+  s
+  s^\markup { "\\time 9/4" }_\markup { "       " \musicglyph
+#"timesig.neomensural94" }
+  s
+  s^\markup { "\\time 9/8" }_\markup { "       " \musicglyph
+#"timesig.neomensural98" }
+  \break
+  s^\markup { "\\time 4/8" }_\markup { "       " \musicglyph
+#"timesig.neomensural48" }
+  s
+  s^\markup { "\\time 2/4" }_\markup { "       " \musicglyph
+#"timesig.neomensural24" }
+}
+@end lilypond
+
+古代の拍子記号を選択するには、グラフィカル オブジェクト @code{TimeSignature} の
+@code{style} プロパティを設定してください。サポートしているスタイルは
+@code{neomensural} と @code{mensural} です。上の表では @code{neomensural}
+スタイルを用いています。次の例ではスタイルごとの違いを示しています:
+
+@lilypond[ragged-right,quote]
+\relative c' {
+  \textLengthOn
+
+  \time 2/2
+  c1^\markup { \hspace #-2.0 \typewriter default }
+
+  \override Staff.TimeSignature.style = #'numbered
+  \time 2/2
+  c1^\markup { \hspace #-2.0 \typewriter numbered }
+
+  \override Staff.TimeSignature.style = #'mensural
+  \time 2/2
+  c1^\markup { \hspace #-2.0 \typewriter mensural }
+
+  \override Staff.TimeSignature.style = #'neomensural
+  \time 2/2
+  c1^\markup { \hspace #-2.0 \typewriter neomensural }
+  \override Staff.TimeSignature.style = #'single-digit
+  \time 2/2
+  c1^\markup { \hspace #-2.0 \typewriter single-digit }
+}
+@end lilypond
+
+@ref{Time signature} では、拍子記号に関する一般的な説明があります。
+
+@seealso
+音楽用語集:
+@rglos{mensural notation}
+
+記譜法リファレンス:
+@ref{Time signature}
+
+@knownissues
+音長の比は一定ではないため、拍子記号を設定するだけでは変更されません。@c
+例えば、1@tie{}ブレヴィス = 3@tie{}セミブレヴィス
+(@emph{tempus perfectum}) のような比は手で入力します:
+
+@example
+breveTP = #(ly:make-duration -1 0 3/2)
+@dots{}
+@{ c\breveTP f1 @}
+@end example
+
+@noindent
+これは、@code{breveTP} を全音符の 3/2 × 2 = 3 倍に設定します。
+
+@code{mensural68alt} と @code{neomensural68alt} シンボル
+(6/8 を表すもう一つのシンボル) は @code{\time} では表示させることが@c
+できません。代わりに @code{\markup @{\musicglyph #"timesig.mensural68alt" @}}
+を使ってください。
+
+
+@node 計量記譜法の符頭
+@unnumberedsubsubsec 計量記譜法の符頭
+@translationof Mensural note heads
+
+@cindex note heads, ancient (古代の符頭)
+
+古代の記譜法では、@code{default} 以外の符頭スタイルを用いることができます。@c
+これは @code{NoteHead} オブジェクトの @code{style} プロパティをセットする@c
+ことで実現できます。設定可能な値は
+@code{baroque}, @code{neomensural}, @code{mensural},
+@code{petrucci}, @code{blackpetrucci}, @code{semipetrucci} です。
+
+@code{baroque} スタイルが @code{default} スタイルと異なる点は以下の通りです:
+
+@itemize
+@item @code{maxima} 符頭があること
+@item @code{\breve} 符頭が四角形であること
+@end itemize
+
+@code{neomensural}, @code{mensural}, @code{petrucci} スタイルが
+@code{baroque} スタイルと異なる点は以下の通りです:
+
+@itemize
+@item セミブレヴィスと、それより短い音符の符頭が菱形であること
+@item 符頭の中央から符幹が伸びていること
+@end itemize
+
+@code{blackpetrucci} スタイルは黒色計量記譜法や、@c
+白色計量記譜法におけるコロレーション (coloratio) 部において有用な@c
+符頭を描きます。@c
+この時、符頭のスタイルが符尾の数に影響を与えないため
+(訳注: 符尾の数は音符のすぐ後に入力される数字に依存するため)、@c
+セミミニマは @code{a4} ではなく @code{a8*2} として記述されるべきです。@c
+そうしなければ、ミニマのように見えてしまいます。@c
+3 連符を記譜するなどの目的でコロレーションが使われている時には、別の数が@c
+掛けられるでしょう。
+
+@code{semipetrucci} スタイルでは、半分塗りつぶされた符頭が描かれます
+(ブレヴィス、ロンガ、マキシマ)。
+
+
+以下は @code{petrucci} スタイルの例です:
+
+@c Renaissance music doesn't use bar lines ...  but they do help to
+@c separate the notes for easier identification.
+
+@lilypond[quote,fragment,ragged-right,verbatim]
+\set Score.skipBars = ##t
+\autoBeamOff
+\override NoteHead.style = #'petrucci
+a'\maxima a'\longa a'\breve a'1 a'2 a'4 a'8 a'16 a'
+\override NoteHead.style = #'semipetrucci
+a'\breve*5/6
+\override NoteHead.style = #'blackpetrucci
+a'8*4/3 a'
+\override NoteHead.style = #'petrucci
+a'\longa
+@end lilypond
+
+
+@ref{Note head styles} では使用可能な全ての符頭スタイルが一覧となっています。
+
+tseealso
+音楽用語集:
+@rglos{mensural notation},
+@rglos{note head}
+
+記譜法リファレンス:
+@ref{Note head styles}
+
+
+@node 計量記譜法の符尾
+@unnumberedsubsubsec 計量記譜法の符尾
+@translationof Mensural flags
+
+@cindex flags (符尾)
+
+@code{Stem} グラフィカル オブジェクトの @code{flag-style} プロパティで@c
+古代の符尾を選択できます。@code{default} スタイル以外では、@c
+@code{mensural} スタイルのみがサポートされています。
+
+@lilypond[quote,fragment,ragged-right,verbatim]
+\relative c' {
+  \override Flag.style = #'mensural
+  \override Stem.thickness = #1.0
+  \override NoteHead.style = #'mensural
+  \autoBeamOff
+  c8 d e f c16 d e f c32 d e f s8
+  c'8 d e f c16 d e f c32 d e f
+}
+@end lilypond
+
+それぞれの符尾において、一番内側の膨らみが譜線と垂直方向に揃っていることに@c
+注意してください。
+@c 原文は以下:
+@c Note that the innermost flare of each mensural flag is
+@c vertically aligned with a staff line.
+
+neo-mensural や Petrucci スタイル専用の符尾はありません。@c
+グレゴリオ聖歌の記譜では符尾は用いません。
+
+@seealso
+音楽用語集:
+@rglos{mensural notation},
+@rglos{flag}
+
+@knownissues
+符尾を譜線と垂直方向に揃える動作は、符幹の端がちょうど譜線の位置にあるか、@c
+ちょうど 2 つの譜線の間にあることを前提としています。@c
+クラシック音楽の記譜における高度なレイアウト機能を用いると@c
+必ずしもそうはならない場合があります (しかしながら、通常は計量記譜法において@c
+用いるものではありません)。
+
+
+@node 計量記譜法の休符
+@unnumberedsubsubsec 計量記譜法の休符
+@translationof Mensural rests
+
+@cindex rests, ancient (古代の休符)
+
+@code{Rest} グラフィカル オブジェクトの @code{style} プロパティで@c
+古代の休符を選択します。サポートしている古代のスタイルは
+@code{neomensural} と @code{mensural} です。
+
+次に示すのはこれらのスタイルの例です:
+
+@lilypond[quote,fragment,ragged-right,verbatim]
+\set Score.skipBars = ##t
+\override Rest.style = #'mensural
+r\longa^"mensural" r\breve r1 r2 r4 r8 r16 s \break
+\override Rest.style = #'neomensural
+r\longa^"neomensural" r\breve r1 r2 r4 r8 r16
+@end lilypond
+
+mensural や neo-mensural スタイルには 32 分や 64 分の休符がありません。@c
+通常のスタイルの休符が使用されます。
+
+@seealso
+音楽用語集
+@rglos{mensural notation}
+
+記譜法リファレンス:
+@ref{Rests}
+
+Snippets:
+コード断片集
+@rlsr{Ancient notation}
+
+@knownissues
+mensural スタイルにおけるマキシマ休符の形は、実際には完全な
+(ブレヴィス 3 つ分の) ロンガ休符を表しています。@c
+そのため、実際にマキシマ休符を表示する時は@c
+ロンガ休符を 2 つ (あるいは 3 つ) 並べてください。@c
+ロンガ休符は自動でグループ化されないため、@c
+ピッチ付きの休符を使って手動で配置する必要があります。
+
+
+@node 計量記譜法の臨時記号と調号
+@unnumberedsubsubsec 計量記譜法の臨時記号と調号
+@translationof Mensural accidentals and key signatures
+
+@cindex accidentals (臨時記号)
+@cindex key signature (調号)
+
+@code{mensural} スタイルは、デフォルトのスタイルとは異なる@c
+シャープとフラット記号を提供します。計量記譜法ではほとんどナチュラル記号を@c
+使いません。代わりに、シャープやフラットを使います。@c
+例えば、ヘ長調における B ナチュラルはシャープを使って表示されます。@c
+しかしながら、必要な場合にはナチュラル記号は @code{vaticana} スタイルのものを@c
+使用します。
+
+@lilypond[quote,ragged-right,staffsize=26]
+\markup {
+  \column {
+    "mensural"
+    \line { " " \musicglyph #"accidentals.mensural-1"
+      " " \musicglyph #"accidentals.mensural1" }
+  }
+}
+@end lilypond
+
+臨時記号や調号のスタイルはそれぞれ、グラフィカル オブジェクト @code{Accidental} と
+@code{KeySignature} の @code{glyph-name-alist} プロパティでコントロール@c
+されます。例えば:
+
+@example
+\override Staff.Accidental.glyph-name-alist =
+  #alteration-mensural-glyph-name-alist
+@end example
+
+@seealso
+音楽用語集:
+@rglos{mensural notation},
+@rglos{Pitch names},
+@rglos{accidental},
+@rglos{key signature}
+
+記譜法リファレンス:
+@ref{Pitches},
+@ref{Accidentals},
+@ref{Automatic accidentals},
+@ref{Key signature}
+
+内部リファレンス:
+@rinternals{KeySignature}
+
+
+@node 注釈的な臨時記号 (ムジカ・フィクタ)
+@unnumberedsubsubsec 注釈的な臨時記号 (@emph{ムジカ・フィクタ})
+@translationof Annotational accidentals (musica ficta)
+
+1600 年ごろより前のヨーロッパ音楽では、歌唱者は一定のルールに従って@c
+自分の判断で音程を変化させることが求められました。これがムジカ・フィクタ
+(@notation{musica ficta}) です。現代譜に写す場合には、これらの臨時記号は@c
+通常、音符の上に配置されます。
+
+@cindex Accidental, musica ficta (ムジカ・フィクタ 臨時記号)
+@cindex Musica ficta (ムジカ・フィクタ)
+
+LilyPond ではこのような臨時記号をサポートしています。@c
+@code{suggestAccidentals} を @code{##t} にセットすることで表示することが@c
+できます。
+
+@funindex suggestAccidentals
+
+@lilypond[verbatim]
+\relative {
+  fis' gis
+  \set suggestAccidentals = ##t
+  ais bis
+}
+@end lilypond
+
+これは、@code{\set suggestAccidentals = ##f} によって無効化されるまで、@c
+後に続く全ての臨時記号を@emph{ムジカ・フィクタ}にします。@c
+より実用的な方法は、@code{\once \set suggestAccidentals = ##t} を用いる@c
+ことです。略記を定義することもできます:
+
+@lilypond[quote,verbatim]
+ficta = { \once \set suggestAccidentals = ##t }
+\score { \relative
+  \new MensuralVoice  {
+    \once \set suggestAccidentals = ##t
+    bes'4 a2 g2 \ficta fis8 \ficta e! fis2 g1
+  }
+}
+@end lilypond
+
+@seealso
+内部リファレンス:
+@rinternals{Accidental_engraver},
+@rinternals{AccidentalSuggestion}
+
+
+@node 白色計量記譜法のリガトゥーラ
+@unnumberedsubsubsec 白色計量記譜法のリガトゥーラ
+@translationof White mensural ligatures
+
+@cindex Mensural ligatures (計量記譜法のリガトゥーラ)
+@cindex White mensural ligatures (白色計量記譜法のリガトゥーラ)
+
+白色計量記譜法のリガトゥーラのサポートは限定的です。
+
+白色計量記譜法のリガトゥーラを譜刻するには、@code{layout} ブロック内で、@c
+@code{Voice} コンテキストの
+@code{Ligature_bracket_engraver} を
+@code{Mensural_ligature_engraver} に置き換えます:
+
+@example
+\layout @{
+  \context @{
+    \Voice
+    \remove "Ligature_bracket_engraver"
+    \consists "Mensural_ligature_engraver"
+  @}
+@}
+@end example
+
+白色計量記譜法のリガトゥーラの形を記述するための追加の記法はありません。@c
+形は、周囲の音符のピッチや長さから独立に決定されます。@c
+これは、新しいユーザが慣れるまでには時間がかかるかもしれませんが、@c
+内部ではリガトゥーラの音楽的な情報が全て分かっているということを意味します。@c
+これは正しい MIDI 出力において必要であるだけでなく、@c
+リガトゥーラの自動変換も可能にします。
+
+ある位置で、2 つの連続した音符は 2 つの四角形か、あるいは斜めの平行四辺形
+(フレクサ型) として表示することができます。@c
+このような場合、デフォルトは 2 つの四角形で表示されますが、平行四辺形を表示@c
+させたい場合は、@emph{2 つ目}の符頭の @code{ligature-flexa} プロパティを@c
+@code{##t} にセットします。平行四辺形の長さは @code{flexa-width} で@c
+セットすることができます。
+
+例えば:
+
+@lilypond[quote,ragged-right,verbatim]
+\score {
+  \relative {
+    \set Score.timing = ##f
+    \set Score.defaultBarType = "-"
+    \override NoteHead.style = #'petrucci
+    \override Staff.TimeSignature.style = #'mensural
+    \clef "petrucci-g"
+    \[ c''\maxima g \]
+    \[ d'\longa
+       \override NoteHead.ligature-flexa = ##t
+       \once \override NoteHead.flexa-width = #3.2
+       c\breve f e d \]
+    \[ c\maxima d\longa \]
+    \[ e1 a, g\breve \]
+  }
+  \layout {
+    \context {
+      \Voice
+      \remove "Ligature_bracket_engraver"
+      \consists "Mensural_ligature_engraver"
+    }
+  }
+}
+@end lilypond
+
+@code{Ligature_bracket_engraver} を @code{Mensural_ligature_engraver} に@c
+置き換えない場合、上の音楽は以下のようになります:
+
+@lilypond[quote,ragged-right]
+\relative {
+  \set Score.timing = ##f
+  \set Score.defaultBarType = "-"
+  \override NoteHead.style = #'petrucci
+  \override Staff.TimeSignature.style = #'mensural
+  \clef "petrucci-g"
+  \[ c''\maxima g \]
+  \[ d'\longa
+     \override NoteHead.ligature-flexa = ##t
+     \once \override NoteHead.flexa-width = #3.2
+     c\breve f e d \]
+  \[ c\maxima d\longa \]
+  \[ e1 a, g\breve \]
+}
+@end lilypond
+
+@seealso
+音楽用語集:
+@rglos{ligature}
+
+記譜法リファレンス:
+@ref{Gregorian square neume ligatures},
+@ref{Ligatures}
+
+@knownissues
+リガトゥーラの水平方向のスペースは非常に良くないです。@c
+臨時記号は前の音符と衝突するかもしれません。
+
+
+@node グレゴリオ聖歌の記譜
+@subsection グレゴリオ聖歌の記譜
+@translationof Typesetting Gregorian chant
+
+@menu
+* グレゴリオ聖歌のコンテキスト::
+* グレゴリオ聖歌の音部記号::
+* グレゴリオ聖歌の臨時記号と調号::
+* ディビジオ::
+* グレゴリオ聖歌のアーティキュレーション::
+* 付点 (モラ)::
+* グレゴリオ聖歌の四角形ネウマのリガトゥーラ::
+@end menu
+
+グレゴリオ聖歌の楽譜を記譜する時、@c
+@code{Vaticana_ligature_engraver} が適切な符頭を選択するため、@c
+符頭のスタイルについては明示的に指定する必要はありません。@c
+しかし、例えばパンクトゥム ネウマを表示するために、@c
+スタイルを @code{vaticana_punctum} にすることができます。@c
+同じように、@code{Mensural_ligature_engraver} が自動的に@c
+計量記譜法のリガトゥーラを作り出します。
+
+@seealso
+音楽用語集:
+@rglos{ligature}
+
+記譜法リファレンス:
+@ref{White mensural ligatures},
+@ref{Ligatures}
+
+
+@node グレゴリオ聖歌のコンテキスト
+@unnumberedsubsubsec グレゴリオ聖歌のコンテキスト
+@translationof Gregorian chant contexts
+
+@cindex VaticanaVoice
+@cindex VaticanaStaff
+
+予め定義された @code{VaticanaVoice} と @code{VaticanaStaff} は、@c
+Editio Vaticana のスタイルでグレゴリオ聖歌の楽譜を記譜するのに使うことが@c
+できます。これらのコンテキストは、関係する全てのコンテキスト プロパティや@c
+グラフィカル オブジェクト プロパティを適切な値に変更するため、@c
+すぐに音楽の内容を入力し始めることができます。以下の抜粋は一例です:
+
+@lilypond[quote,ragged-right,verbatim]
+\include "gregorian.ly"
+\score {
+  <<
+    \new VaticanaVoice = "cantus" {
+      \[ c'\melisma c' \flexa a \]
+      \[ a \flexa \deminutum g\melismaEnd \]
+      f \divisioMinima
+      \[ f\melisma \pes a c' c' \pes d'\melismaEnd \]
+      c' \divisioMinima \break
+      \[ c'\melisma c' \flexa a \]
+      \[ a \flexa \deminutum g\melismaEnd \] f \divisioMinima
+    }
+    \new Lyrics \lyricsto "cantus" {
+      San- ctus, San- ctus, San- ctus
+    }
+  >>
+}
+@end lilypond
+
+
+@c @seealso
+@c TODO: nothing here yet ...
+
+
+@node グレゴリオ聖歌の音部記号
+@unnumberedsubsubsec グレゴリオ聖歌の音部記号
+@translationof Gregorian clefs
+
+@cindex clefs (音部記号)
+
+次の表は、@code{\clef} コマンドでサポートしているグレゴリオ聖歌の音部記号を@c
+全て表示しています。いくつかの音部記号は同じ形をしていますが、どの線に合わせて@c
+表示されるかのみが異なります。このような音部記号は、@c
+最後に来る数字がどの線に表示されるかに対応しています。小さいものが下で、@c
+大きいものが上です。@c
+音部記号がどの線に表示されるかを強制的に変更することもできます
+(@ref{Clef} に説明があります)。例の中で、音部記号の右に表示されている音符は、@c
+@code{c'} がどの位置に対応するかを示したものです。
+
+@multitable @columnfractions .4 .4 .2
+@item
+@b{説明}
+@tab
+@b{サポートされている音部記号}
+@tab
+@b{例}
+
+@item
+Editio Vaticana スタイルのハ音記号
+@tab
+@code{vaticana-do1}, @code{vaticana-do2},@*
+@code{vaticana-do3}
+@tab
+@lilypond[fragment,notime]
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \override Staff.LedgerLineSpanner.color = #red
+  \hide Voice.Stem
+  \override NoteHead.style = #'vaticana.punctum
+  \clef "vaticana-do2"
+  c'
+@end lilypond
+
+@item
+Editio Vaticana スタイルのヘ音記号
+@tab
+@code{vaticana-fa1}, @code{vaticana-fa2}
+@tab
+@lilypond[fragment,notime]
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \override Staff.LedgerLineSpanner.color = #red
+  \hide Voice.Stem
+  \override NoteHead.style = #'vaticana.punctum
+  \clef "vaticana-fa2"
+  c'
+@end lilypond
+
+@item
+Editio Medicaea スタイルのハ音記号
+@tab
+@code{medicaea-do1}, @code{medicaea-do2},@*
+@code{medicaea-do3}
+@tab
+@lilypond[fragment,notime]
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \override Staff.LedgerLineSpanner.color = #red
+  \hide Voice.Stem
+  \override NoteHead.style = #'medicaea.punctum
+  \clef "medicaea-do2"
+  c'
+@end lilypond
+
+@item
+Editio Medicaea スタイルのヘ音記号
+@tab
+@code{medicaea-fa1}, @code{medicaea-fa2}
+@tab
+@lilypond[fragment,notime]
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \override Staff.LedgerLineSpanner.color = #red
+  \hide Voice.Stem
+  \override NoteHead.style = #'medicaea.punctum
+  \clef "medicaea-fa2"
+  c'
+@end lilypond
+
+@item
+hufnagel スタイルのハ音記号
+@tab
+@code{hufnagel-do1}, @code{hufnagel-do2},@*
+@code{hufnagel-do3}
+@tab
+@lilypond[fragment,notime]
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \override Staff.LedgerLineSpanner.color = #red
+  \hide Voice.Stem
+  \override NoteHead.style = #'hufnagel.punctum
+  \clef "hufnagel-do2"
+  c'
+@end lilypond
+
+@item
+hufnagel スタイルのヘ音記号
+@tab
+@code{hufnagel-fa1}, @code{hufnagel-fa2}
+@tab
+@lilypond[fragment,notime]
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \override Staff.LedgerLineSpanner.color = #red
+  \hide Voice.Stem
+  \override NoteHead.style = #'hufnagel.punctum
+  \clef "hufnagel-fa2"
+  c'
+@end lilypond
+
+@item
+hufnagel style のハ音記号とヘ音記号を組み合わせたもの
+@tab
+@code{hufnagel-do-fa}
+@tab
+@lilypond[fragment,notime]
+  \override Staff.StaffSymbol.color = #red
+  \override Staff.LedgerLineSpanner.color = #red
+  \hide Voice.Stem
+  \override NoteHead.style = #'hufnagel.punctum
+  \clef "hufnagel-do-fa"
+  c'
+@end lilypond
+@end multitable
+
+@seealso
+音楽用語集:
+@rglos{clef}
+
+記譜法リファレンス:
+@ref{Clef}
+
+
+@node グレゴリオ聖歌の臨時記号と調号
+@unnumberedsubsubsec グレゴリオ聖歌の臨時記号と調号
+@translationof Gregorian accidentals and key signatures
+
+@cindex accidentals (臨時記号)
+@cindex key signature (調号)
+
+3 種類の臨時記号スタイルが利用可能です:
+
+@lilypond[quote,ragged-right,staffsize=26]
+\markup {
+  \column {
+    "vaticana"
+    \line { " " \musicglyph #"accidentals.vaticana-1"
+      " " \musicglyph #"accidentals.vaticana0" }
+  }
+  \column {
+    "medicaea"
+    \line { " " \musicglyph #"accidentals.medicaea-1" }
+  }
+  \column {
+    "hufnagel"
+    \line { " " \musicglyph #"accidentals.hufnagel-1" }
+  }
+}
+@end lilypond
+
+上で示したように、全ての臨時記号がサポートされているわけではありません。@c
+サポートされていない臨時記号にアクセスした場合、LilyPond は別のスタイルに@c
+変更します。
+
+@c @lilypondfile[verbatim,quote,texidoc,doctitle]
+@c {ancient-accidentals.ly}
+
+臨時記号や調号のスタイルはそれぞれ、グラフィカル オブジェクト @code{Accidental} と
+@code{KeySignature} の @code{glyph-name-alist} プロパティでコントロール@c
+されます。例えば:
+
+@example
+\override Staff.Accidental.glyph-name-alist =
+  #alteration-mensural-glyph-name-alist
+@end example
+
+@seealso
+音楽用語集:
+@rglos{accidental},
+@rglos{key signature}
+
+記譜法リファレンス:
+@ref{Pitches},
+@ref{Accidentals},
+@ref{Automatic accidentals},
+@ref{Key signature}
+
+内部リファレンス:
+@rinternals{KeySignature}
+
+
+@node ディビジオ
+@unnumberedsubsubsec ディビジオ
+@translationof Divisiones
+
+@cindex divisio (ディビジオ)
+@cindex divisiones (ディビジオ)
+@cindex finalis (フィナリス)
+
+グレゴリオ聖歌の記譜法には休符がありません。@c
+代わりに、ディビジオ (@ref{Divisiones}) を使います。
+
+ディビジオ (divisio, 複数形 @emph{divisiones}, ラテン語で@q{区切り})
+は、グレゴリオ聖歌においてフレーズや節を表すために使われた記号です。
+@emph{ディビジオ ミニマ}、@emph{ディビジオ マヨル}、@c
+@emph{ディビジオ マキシマ} はそれぞれ音楽的には、短い、中ぐらいの、長い@c
+休止を表します。これは @ref{Breath marks} にあるブレス記号に似ています。@c
+@emph{フィナリス}記号は歌の終わりを表すだけでなく、@c
+アンティフォナ (交唱聖歌) において、節の終わりを意味するのによく使われます。
+
+ディビジオを使用するには、ファイル @file{gregorian.ly} をインクルードして@c
+ください。これには定義が含まれており、必要な場所に
+@code{\divisioMinima}, @code{\divisioMaior}, @code{\divisioMaxima},
+@code{\finalis} を入力することができます。@c
+いくつかの版では@c
+ディビジオ ミニマの代わりに @emph{virgula} や @emph{caesura} が用いられる@c
+ことがあります。そのため、@file{gregorian.ly} には @code{\virgula} と
+@code{\caesura} も定義されています。
+
+@lilypond[quote,ragged-right]
+\include "gregorian.ly"
+\score {
+  <<
+    \context VaticanaVoice {
+      \override TextScript.padding = #3
+      g a g
+      s^\markup { "divisio minima" }
+      \divisioMinima
+      g a g
+      s^\markup { "divisio maior" }
+      \divisioMaior
+      g a g
+      s^\markup { "divisio maxima" }
+      \divisioMaxima
+      \break
+      g a g
+      s^\markup { "finalis" }
+      \finalis
+      g a g
+      s^\markup { "virgula" }
+      \virgula
+      g a g
+      s^\markup { "caesura" }
+      \caesura
+      g a g
+    }
+  >>
+}
+@end lilypond
+
+
+@predefined
+@funindex \virgula
+@code{\virgula},
+@funindex \caesura
+@code{\caesura},
+@funindex \divisioMinima
+@code{\divisioMinima},
+@funindex \divisioMaior
+@code{\divisioMaior},
+@funindex \divisioMaxima
+@code{\divisioMaxima},
+@funindex \finalis
+@code{\finalis}.
+@endpredefined
+
+@seealso
+音楽用語集:
+@rglos{caesura},
+@rglos{divisio}
+
+記譜法リファレンス:
+@ref{Breath marks}
+
+インストールされているファイル:
+@file{ly/gregorian.ly}
+
+
+@node グレゴリオ聖歌のアーティキュレーション
+@unnumberedsubsubsec グレゴリオ聖歌のアーティキュレーション
+@translationof Gregorian articulation signs
+
+@cindex articulations (アーティキュレーション)
+
+@ref{Articulations and ornamentations} に挙げられている通常の@c
+アーティキュレーションの他に、グレゴリオ聖歌で用いるための@c
+アーティキュレーションが @emph{Editio Vaticana} スタイルで提供されています。
+
+@lilypond[quote,ragged-right,verbatim]
+\include "gregorian.ly"
+\score {
+  \new VaticanaVoice {
+    \override TextScript.font-family = #'typewriter
+    \override TextScript.font-shape = #'upright
+    \override Script.padding = #-0.1
+    a\ictus_"ictus " \bar "" \break
+    a\circulus_"circulus " \bar "" \break
+    a\semicirculus_"semicirculus " \bar "" \break
+    a\accentus_"accentus " \bar "" \break
+    \[ a_"episema" \episemInitium \pes b \flexa a b \episemFinis \flexa a \]
+  }
+}
+@end lilypond
+
+@seealso
+記譜法リファレンス:
+@ref{Articulations and ornamentations}
+
+コード断片集:
+@rlsr{Ancient notation}
+
+内部リファレンス:
+@rinternals{Episema},
+@rinternals{EpisemaEvent},
+@rinternals{Episema_engraver},
+@rinternals{Script},
+@rinternals{ScriptEvent},
+@rinternals{Script_engraver}
+
+@knownissues
+いくつかのアーティキュレーションは、符頭と縦方向に近づきすぎます。
+
+
+@node 付点 (モラ)
+@unnumberedsubsubsec 付点 (@emph{モラ})
+@translationof Augmentum dots (morae)
+
+@emph{モラ}は @code{\augmentum} 音楽関数で追加します。@c
+@code{\augmentum} は変数を 1 つだけ取る音楽関数として定義されており、@c
+すぐ後に続く音楽表記にのみ作用するということに注意してください。つまり、@c
+@code{\augmentum \virga c} は効果が無く、代わりに
+@code{\virga \augmentum c} か @code{\augmentum @{\virga c@}} と記述します。@c
+また、@code{\augmentum @{a g@}} は @code{\augmentum a \augmentum g} の@c
+略記となります。
+
+@lilypond[quote,ragged-right,verbatim]
+\include "gregorian.ly"
+\score {
+  \new VaticanaVoice {
+    \[ \augmentum a \flexa \augmentum g \]
+    \augmentum g
+  }
+}
+@end lilypond
+
+@seealso
+記譜法リファレンス:
+@ref{Breath marks}
+
+内部リファレンス:
+@rinternals{BreathingSign}
+
+コード断片集:
+@rlsr{Ancient notation}
+
+
+@node グレゴリオ聖歌の四角形ネウマのリガトゥーラ
+@unnumberedsubsubsec グレゴリオ聖歌の四角形ネウマのリガトゥーラ
+@translationof Gregorian square neume ligatures
+
+@cindex Square neumes ligatures (四角形ネウマのリガトゥーラ)
+@cindex Gregorian square neumes ligatures (グレゴリオ聖歌の四角形ネウマのリガトゥーラ)
+
+四角形ネウマ記法 (Editio Vaticana スタイルを踏襲しています) のサポートは@c
+限定的です。基本的なリガトゥーラは入力できますが、本格的に記譜する場合の、
+複数のリガトゥーラの水平配置、歌詞の配置、臨時記号の正しい取り扱いといった@c
+必要な機能がサポートされていません。
+
+グレゴリオ聖歌のネウマは、ファイルの先頭に @file{gregorian.ly} を
+@code{\include} することで有効にできます。単旋律聖歌の@c
+ネウマを生成するいくつかのコマンドが追加で使用できるようになります。
+
+
+
+符頭は@emph{変更}されたり、@emph{結合}されたりします。
+
+@itemize
+@item 符頭の形を変更するには、音名の@emph{前}に以下のコマンドの@c
+いずれかを入力します:
+@funindex \virga
+@code{\virga},
+@funindex \stropha
+@code{\stropha},
+@funindex \inclinatum
+@code{\inclinatum},
+@funindex \auctum
+@code{\auctum},
+@funindex \descendens
+@code{\descendens},
+@funindex \ascendens
+@code{\ascendens},
+@funindex \oriscus
+@code{\oriscus},
+@funindex \quilisma
+@code{\quilisma},
+@funindex \deminutum
+@code{\deminutum},
+@funindex \cavum
+@code{\cavum},
+@funindex \linea
+@code{\linea}
+
+@item リガトゥーラは、結合する音符の@emph{間}に @code{\pes} や @code{\flexa}
+のコマンドを入力することで生成します。それぞれ、上向きと下向きの動きに@c
+対応します。
+@end itemize
+
+何も指定しない場合は、@emph{プンクトゥム}が作られます。@c
+@emph{ヴィルガ} のような単音のネウマを含む、他の全てのネウマは@c
+原則、リガトゥーラとして解釈されるため、
+@code{\[ @dots{} \]} の間に配置されるべきです。
+@c Regarding the @emph{punctum}, @code{b} and @code{\[ b \]} are
+@c equivalent.
+
+@noindent
+単音のネウマについて:
+
+@itemize
+@item @emph{プンクトゥム}が基本的な音符の形です
+(@emph{Vaticana} スタイルでは、正方形がタイポグラフィの策略により@c
+少し曲がったものです)。通常の @emph{プンクトゥム}に加え、斜体の@c
+@emph{プンクトゥム インクリナトゥム}があり、これは @code{\inclinatum} を@c
+前置することで表示します。通常の@emph{プンクトゥム}は @code{\cavum} で変化@c
+させることができ、白抜きの音符を作り出すことができます。@c
+また、@code{\linea} では、音符の両側に縦線を表示します。
+
+@item @emph{ヴィルガ} は右側に下向きの符幹を持ちます。@code{\virga} で@c
+表示します。
+@end itemize
+
+@noindent
+リガトゥーラについて:
+
+他のネウマ譜入力システムとは異なり、リガトゥーラの見た目は@c
+コマンドの入力から指定されるわけではなく、音楽の意味に依存したいくつかの@c
+規則によって決まります。@c
+例えば、@code{\[ a \pes b \flexa g \]} のような低-高-低の音型を持つ
+3 音のリガトゥーラは、3 つのプンクトゥム符頭を持つトルクルスを作ります。@c
+@code{\[ a \flexa g \pes b \]} のような高-低-高の音型では、@c
+曲がった平行四辺形と 1 のプンクトゥムから成るポレクトゥスを作ります。@c
+曲がった平行四辺形を表示させるための明示的なコマンドは無く、@c
+いつこの形を表示するかは入力された音楽によります。@c
+このアプローチは、入力の音楽的な側面と、出力のスタイルを分離していると@c
+いうことです。このようにすることで、同じ音楽を異なった@c
+グレゴリオ聖歌のスタイルで作り出すことができます。
+
+@noindent
+液化ネウマについて:
+
+グレゴリオ聖歌の音符におけるもう一つの主なグループが、いわゆる液化した@c
+ネウマです。これは液化する音 --
+つまり、音程を持てる有声子音 (鼻音, l, r, v, j, それらの二重音)
+-- で終わる音節の最後に使われることがあります。@c
+そのため、液化ネウマは単独で使われることはなく
+(しかしながら、単独で出力できるものもあります)、@c
+常にリガトゥーラの最後に出現します。
+
+液化ネウマの表現方法は 2 つあり、見た目が異なりますが、通常互換性があります。@c
+1 つ目は、通常のように @code{\pes} や @code{\flexa} を使い、後者の音符の形を@c
+変化させる方法です: @code{\[ a \pes \deminutum b \]} 。@c
+2 つ目は、@code{\auctum} を使った 1 音符のネウマに、方向を指示する
+@code{\descendens} か @code{\ascendens} を付け加える方法です:
+@code{ \[ \auctum \descendens a \] }。
+
+@noindent
+特殊な記号:
+記号の 3 つ目のグループは、特殊な意味を持ついくつかの記号からなります
+(ちなみにそれらは、ほとんどがあまり分かっていないものです)。@c
+@emph{クイリスマ}、@emph{オリスクス}、@emph{ストロファ}がそうです。
+これらは全て、音名の前に対応する修飾子を前置することで作られます:
+@code{\quilisma}, @code{\oriscus}, @code{\stropha}。
+
+リガトゥーラの括弧内 (@code{\[ @dots{} \]}) では実質、@c
+いくらでも符頭を組み合わせて 1 つのリガトゥーラを作ることができ、@c
+@code{\pes}, @code{\flexa}, @code{\virga}, @code{\inclinatum} などを@c
+前置することで自由に組み合わせることができます。@c
+上に示したリガトゥーラ形成のルールも、同じように組み合わせて応用することが@c
+できます。@c
+このようにして、無限の組み合わせのリガトゥーラを作ることができます。
+
+これらの記号は音楽の中で一定のルールに従って配置されますが、それらは
+LilyPond ではチェックされないということに注意してください。
+例えば、@emph{クイリスマ}は常に上昇音型のリガトゥーラの中間にあり、@c
+通常は半音で動く場所に付きます。@c
+しかし、LilyPond では 1 音符のクイリスマを作ることができてしまいます。
+
+音符の記号に加えて、@file{gregorian.ly} では
+@code{\versus}, @code{\responsum}, @code{\ij},
+@code{\iij}, @code{\IJ}, and @code{\IIJ} といったコマンドを定義しています。@c
+これらはそれぞれ、歌詞や節のマーカー記号などに使うことのできる文字を@c
+作り出します。これらのコマンドは特殊な Unicode 文字を使用しており、@c
+正しく動作させるためには、フォントが文字をサポートしている必要があります。
+
+
+@c neume table
+
+次の表は限定的ではありますが、代表的なグレゴリオ聖歌で使われるリガトゥーラの@c
+一覧です。それぞれのリガトゥーラには、それを作り出すためのコード断片も同時に@c
+示されています。この表は、Solesmes の修道士によって 1983 年に出版された、@c
+Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されている、@c
+大きなネウマの一覧表を基にしています。@c
+1 列目がリガトゥーラの名前を表しています。主要な形は太字で、@c
+液化ネウマは斜体で表示しています。3 列目がこのリガトゥーラを作り出す@c
+コード断片を @code{g}, @code{a}, @code{b} を例のピッチとして示しています。
+
+
+@b{単音のネウマ}
+
+@multitable @columnfractions .4 .2 .4
+
+@item
+@b{主要な}/@emph{液化した} 形
+@tab
+@b{出力}
+@tab
+@b{LilyPond@*
+コード}
+
+@c TODO: \layout block is identical in all of the below examples.
+@c Therefore, it should somehow be included rather than duplicated all
+@c the time.  --jr
+
+@c why not make variables in ly/engraver-init.ly? --hwn
+
+@c Because it's just used to typeset plain notes without
+@c a staff for demonstration purposes rather than something
+@c special of Gregorian chant notation.  --jr
+
+
+@item
+@b{プンクトゥム} (Punctum)
+@tab
+@lilypond[staffsize=26,line-width=1.5\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Punctum
+    \[ b' \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ b \]}
+
+@item
+@tab
+@lilypond[staffsize=26,line-width=1.5\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Punctum
+    \[ \cavum b' \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ \cavum b \]}
+
+@item
+@tab
+@lilypond[staffsize=26,line-width=1.5\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Punctum
+    \[ \linea b' \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ \linea b \]}
+
+@item
+@emph{Punctum Auctum Ascendens}
+@tab
+@lilypond[staffsize=26,line-width=2.5\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Punctum Auctum Ascendens
+    \[ \auctum \ascendens b' \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ \auctum \ascendens b \]}
+
+@item
+@emph{Punctum Auctum Descendens}
+@tab
+@lilypond[staffsize=26,line-width=2.5\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Punctum Auctum Descendens
+    \[ \auctum \descendens b' \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ \auctum \descendens b \]}
+
+@item
+@b{プンクトゥム インクリナトゥム} (Punctum inclinatum)
+@tab
+@lilypond[staffsize=26,line-width=1.5\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Punctum Inclinatum
+    \[ \inclinatum b' \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ \inclinatum b \]}
+
+@item
+@emph{Punctum Inclinatum Auctum}
+@tab
+@lilypond[staffsize=26,line-width=2.5\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Punctum Inclinatum Auctum
+    \[ \inclinatum \auctum b' \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ \inclinatum \auctum b \]}
+
+@item
+@emph{Punctum Inclinatum Parvum}
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Punctum Inclinatum Parvum
+    \[ \inclinatum \deminutum b' \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ \inclinatum \deminutum b \]}
+
+@item
+@b{ヴィルガ} (Virga)
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Virga
+    \[ \virga b' \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+
+@end multitable
+
+@noindent
+@b{2 音のリガトゥーラ}
+
+@multitable @columnfractions .4 .2 .4
+
+@item
+@b{クリヴィス/フレクサ} (Clivis vel Flexa)
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Clivis vel Flexa
+    \[ b' \flexa g \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ b \flexa g \]}
+
+
+@item
+@emph{Clivis Aucta Descendens}
+@tab
+@lilypond[staffsize=26,line-width=2.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Clivis Aucta Descendens
+    \[ b' \flexa \auctum \descendens g \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ b \flexa \auctum \descendens g \]}
+
+@item
+@emph{Clivis Aucta Ascendens}
+@tab
+@lilypond[staffsize=26,line-width=2.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Clivis Aucta Ascendens
+    \[ b' \flexa \auctum \ascendens g \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ b \flexa \auctum \ascendens g \]}
+
+@item
+@emph{Cephalicus}
+@tab
+@lilypond[staffsize=26,line-width=2.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Cephalicus
+    \[ b' \flexa \deminutum g \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ b \flexa \deminutum g \]}
+
+@item
+@b{ポダトゥス/ペス} Podatus vel Pes
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Podatus vel Pes
+    \[ g' \pes b \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ g \pes b \]}
+
+@item
+@emph{Pes Auctus Descendens}
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Pes Auctus Descendens
+    \[ g' \pes \auctum \descendens b \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ g \pes \auctum \descendens b \]}
+
+@item
+@emph{Pes Auctus Ascendens}
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Pes Auctus Ascendens
+    \[ g' \pes \auctum \ascendens b \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ g \pes \auctum \ascendens b \]}
+
+@item
+@emph{Epiphonus}
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Epiphonus
+    \[ g' \pes \deminutum b \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ g \pes \deminutum b \]}
+
+@item
+@emph{Pes Initio Debilis}
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Pes Initio Debilis
+    \[ \deminutum g' \pes b \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ \deminutum g \pes b \]}
+
+@item
+@emph{Pes Auctus Descendens Initio Debilis}
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Pes Auctus Descendens Initio Debilis
+    \[ \deminutum g' \pes \auctum \descendens b \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ \deminutum g \pes \auctum \descendens b \]}
+
+@end multitable
+
+@noindent
+@b{複数音のリガトゥーラ}
+
+@multitable @columnfractions .4 .2 .4
+
+@item
+@b{トルクルス} (Torculus)
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Torculus
+    \[ a' \pes b \flexa g \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ a \pes b \flexa g \]}
+
+@item
+@emph{Torculus Auctus Descendens}
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Torculus Auctus Descendens
+    \[ a' \pes b \flexa \auctum \descendens g \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ a \pes b \flexa \auctum \descendens g \]}
+
+@item
+@emph{Torculus Deminutus}
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Torculus Deminutus
+    \[ a' \pes b \flexa \deminutum g \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ a \pes b \flexa \deminutum g \]}
+
+@item
+@emph{Torculus Initio Debilis}
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Torculus Initio Debilis
+    \[ \deminutum a' \pes b \flexa g \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ \deminutum a \pes b \flexa g \]}
+
+@item
+@emph{Torculus Auctus Descendens Initio Debilis}
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Torculus Auctus Descendens Initio Debilis
+    \[ \deminutum a' \pes b \flexa \auctum \descendens g \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ \deminutum a \pes b \flexa \auctum \descendens g \]}
+
+@item
+@emph{Torculus Deminutus Initio Debilis}
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Torculus Deminutus Initio Debilis
+    \[ \deminutum a' \pes b \flexa \deminutum g \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ \deminutum a \pes b \flexa \deminutum g \]}
+
+@item
+@b{ポレクトゥス} (Porrectus)
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Porrectus
+    \[ a' \flexa g \pes b \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ a \flexa g \pes b \]}
+
+@item
+@emph{Porrectus Auctus Descendens}
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Porrectus Auctus Descendens
+    \[ a' \flexa g \pes \auctum \descendens b \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ a \flexa g \pes \auctum \descendens b \]}
+
+@item
+@emph{Porrectus Deminutus}
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Porrectus Deminutus
+    \[ a' \flexa g \pes \deminutum b \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ a \flexa g \pes \deminutum b \]}
+
+@item
+@b{クリマクス} (Climacus)
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Climacus
+    \[ \virga b' \inclinatum a \inclinatum g \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ \virga b \inclinatum a \inclinatum g \]}
+
+@item
+@emph{Climacus Auctus}
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Climacus Auctus
+    \[ \virga b' \inclinatum a \inclinatum \auctum g \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ \virga b \inclinatum a \inclinatum \auctum g \]}
+
+@item
+@emph{Climacus Deminutus}
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Climacus Deminutus
+    \[ \virga b' \inclinatum a \inclinatum \deminutum g \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ \virga b \inclinatum a \inclinatum \deminutum g \]}
+
+@item
+@b{スカンディクス} (Scandicus)
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Scandicus
+    \[ g' \pes a \virga b \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ g \pes a \virga b \]}
+
+@item
+@emph{Scandicus Auctus Descendens}
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Scandicus Auctus Descendens
+    \[ g' \pes a \pes \auctum \descendens b \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ g \pes a \pes \auctum \descendens b \]}
+
+@item
+@emph{Scandicus Deminutus}
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Scandicus Deminutus
+    \[ g' \pes a \pes \deminutum b \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ g \pes a \pes \deminutum b \]}
+
+@end multitable
+
+@noindent
+@b{特殊な記号}
+
+@multitable @columnfractions .4 .2 .4
+
+@item
+@b{クイリスマ} (Quilisma)
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Quilisma
+    \[ g' \pes \quilisma a \pes b \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ g \pes \quilisma a \pes b \]}
+
+@item
+@emph{Quilisma Pes Auctus Descendens}
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Quilisma Pes Auctus Descendens
+    \[ g' \quilisma a \pes \auctum \descendens b \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ \quilisma g \pes \auctum \descendens b \]}
+
+@item
+@b{オリスクス} (Oriscus)
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Oriscus
+    \[ \oriscus b' \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ \oriscus b \]}
+
+@item
+@emph{Pes Quassus}
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Pes Quassus
+    \[ \oriscus g' \pes \virga b \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ \oriscus g \pes \virga b \]}
+
+@item
+@emph{Pes Quassus Auctus Descendens}
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Pes Quassus Auctus Descendens
+    \[ \oriscus g' \pes \auctum \descendens b \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ \oriscus g \pes \auctum \descendens b \]}
+
+@item
+@b{サリクス} (Salicus)
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Salicus
+    \[ g' \oriscus a \pes \virga b \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ g \oriscus a \pes \virga b \]}
+
+@item
+@emph{Salicus Auctus Descendens}
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Salicus Auctus Descendens
+    \[ g' \oriscus a \pes \auctum \descendens b \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ g \oriscus a \pes \auctum \descendens b \]}
+
+@item
+@b{(アポ)ストロファ} ((Apo)stropha)
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Stropha
+    \[ \stropha b' \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ \stropha b \]}
+
+@item
+@emph{Stropha Aucta}
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Stropha Aucta
+    \[ \stropha \auctum b' \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ \stropha \auctum b \]}
+
+@item
+@b{ビストロファ} (Bistropha)
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Bistropha
+    \[ \stropha b' \stropha b \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ \stropha b \stropha b \]}
+
+@item
+@b{トリストロファ} (Tristropha)
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Tristropha
+    \[ \stropha b' \stropha b \stropha b \]
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@code{\[ \stropha b \stropha b \stropha b \]}
+
+@item
+@emph{Trigonus}
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian.ly"
+\score {
+  \relative {
+    % Trigonus
+    \[ \stropha b' \stropha b \stropha a \]
+  }
+  \layout { \neumeDemoLayout }
+}
+@end lilypond
+@tab
+@code{\[ \stropha b \stropha b \stropha a \]}
+
+@end multitable
+
+
+@predefined
+サポートされている符頭を変化させる前置コマンドは以下です:
+@funindex \virga
+@code{\virga},
+@funindex \stropha
+@code{\stropha},
+@funindex \inclinatum
+@code{\inclinatum},
+@funindex \auctum
+@code{\auctum},
+@funindex \descendens
+@code{\descendens},
+@funindex \ascendens
+@code{\ascendens},
+@funindex \oriscus
+@code{\oriscus},
+@funindex \quilisma
+@code{\quilisma},
+@funindex \deminutum
+@code{\deminutum},
+@funindex \cavum
+@code{\cavum},
+@funindex \linea
+@code{\linea}
+@endpredefined
+
+これらのコマンドは組み合わせることができますが、制約があります。@c
+例えば、@code{\descendens} や @code{\ascendens} はどちらも符頭に付け加える@c
+ことのできるコマンドですが、同じ符頭に両方を付けることはできません。
+
+@funindex \pes
+@funindex \flexa
+
+隣り合う符頭は、@code{\pes} や @code{\flexa} 中置コマンドで結合することが@c
+できます。それぞれ音型の上昇と下降を意味します。
+
+@funindex \augmentum
+
+付点 (モラ) を追加するには 1 引数のコマンド @code{\augmentum} を使ってください。
+
+@seealso
+音楽用語集:
+@rglos{ligature}
+
+記譜法リファレンス:
+@ref{Gregorian square neume ligatures},
+@ref{White mensural ligatures},
+@ref{Ligatures}
+
+@knownissues
+@code{\augmentum} が最後の譜のリガトゥーラ内に出現した場合、@c
+縦方向の付点の位置がおかしくなることがあります。@c
+対処方法は、譜の最後にスキップ音符 (例えば @code{s8}) を追加することです。
+
+@code{\augmentum} は 1 引数の音楽関数ではなく、前置コマンドとして@c
+実装されるべきです。そうすることで、@code{\augmentum} を他の前置コマンドと@c
+任意の順番で混合させることができます。
+
+@node キエフ記譜法で譜刻する
+@subsection キエフ記譜法で譜刻する
+@translationof Typesetting Kievan square notation
+
+(訳注: キエフ記譜法 (Kievan square notation) は、ロシア正教会を中心に@c
+使われている聖歌の記譜法です。符頭が四角形 (square) であることが特徴です。)
+
+@menu
+* キエフ記譜法のコンテキスト::
+* キエフ記譜法の音部記号::
+* キエフ記譜法の音符::
+* キエフ記譜法の臨時記号::
+* キエフ記譜法の小節線::
+* キエフ記譜法のメリスマ::
+@end menu
+
+@node キエフ記譜法のコンテキスト
+@unnumberedsubsubsec キエフ記譜法のコンテキスト
+@translationof Kievan contexts
+
+@cindex KievanVoice
+@cindex KievanStaff
+
+計量記譜法やグレゴリオ聖歌の記譜法と同様に、@code{KievanVoice} と
+@code{KievanStaff} コンテキストが予め定義されており、Kievan 記譜法で@c
+音楽を譜刻する際に使うことができます。@c
+これらのコンテキストは、関連するコンテキスト プロパティや@c
+グラフィカル オブジェクト プロパティを正しい値にセットします。@c
+そのため、すぐに音楽を入力することができます:
+
+@lilypond[quote,ragged-right,verbatim]
+% Font settings for Cyrillic
+\paper {
+  #(define fonts
+    (set-global-fonts
+     #:roman "Linux Libertine O,serif"
+   ))
+}
+
+\score {
+  <<
+    \new KievanVoice = "melody" \relative c' {
+      \cadenzaOn
+        c4 c c c c2 b\longa
+        \bar "k"
+    }
+    \new Lyrics \lyricsto "melody" {
+      Го -- спо -- ди по -- ми -- луй.
+    }
+  >>
+}
+@end lilypond
+
+@seealso
+音楽用語集:
+@rglos{kievan notation}
+
+@knownissues
+LilyPond は Synodal スタイルのキエフ記譜法をサポートしています。@c
+これは、Russian Holy Synod で 1910 年に作られた聖歌集で使われたもので、@c
+最近では Moscow Patriarchate Publishing House が再販しました。@c
+LilyPond はガリツィアでルシン語の単旋律聖歌に使われた、@c
+古い (より一般的でない) スタイルのキエフ記譜法をサポートしていません。
+
+@node キエフ記譜法の音部記号
+@unnumberedsubsubsec キエフ記譜法の音部記号
+@translationof Kievan clefs
+
+@cindex clefs (音部記号)
+
+キエフ記譜法では、1 つの音部記号しか使いません (Tse-fa-ut 音部記号)。
+これは、@code{c} の位置を表すのに使います:
+
+@lilypond[quote,fragment,notime,verbatim]
+  \clef "kievan-do"
+  \kievanOn
+  c'
+@end lilypond
+
+@seealso
+音楽用語集:
+@rglos{kievan notation},
+@rglos{clef}
+
+記譜法リファレンス:
+@ref{Clef}
+
+@node キエフ記譜法の音符
+@unnumberedsubsubsec キエフ記譜法の音符
+@translationof Kievan notes
+
+@cindex note heads, ancient (古代の符頭)
+
+キエフ記譜法では、適切なスタイルの符頭が選択され、符尾と符幹を@c
+表示しないようにする必要があります。@c
+これらは符頭、符幹、符尾のプロパティを適切な値にセットする
+@code{\kievanOn} 関数によって行うことができます。@c
+キエフ記譜法の音符が必要なくなったら、@code{\kievanOff} 関数で@c
+元に戻すことができます。
+
+キエフ記譜法における最終音符は、長さを @code{\longa} にすることで@c
+選ぶことができます。朗唱を表す音符は、1 つの音符でいくつかの音節を歌うことを@c
+示すために使用されますが、@code{\breve} で選ぶことができます。次の例では、@c
+いくつかの種類の符頭を例示しています:
+
+@lilypond[quote,fragment,ragged-right,verbatim]
+\autoBeamOff
+\cadenzaOn
+\kievanOn
+b'1 b'2 b'4 b'8 b'\breve b'\longa
+\kievanOff
+b'2
+@end lilypond
+
+@seealso
+音楽用語集:
+@rglos{kievan notation},
+@rglos{note head}
+
+記譜法リファレンス:
+@ref{Note head styles}
+
+@knownissues
+LilyPond は音符を描画する際に、符幹の向きが上か下かを自動的に決定します。@c
+しかしながら、聖歌をキエフ記譜法で譜刻する場合、同じメリスマ内の音符は@c
+符幹を同じ向きにすることが慣習となっています。これは
+@code{Stem} オブジェクトの @code{direction} プロパティを手動でセットすることで@c
+行うことができます。
+
+@node キエフ記譜法の臨時記号
+@unnumberedsubsubsec キエフ記譜法の臨時記号
+@translationof Kievan accidentals
+
+@cindex accidentals (臨時記号)
+
+@code{Accidental} グラフィカル オブジェクトの @code{glyph-name-alist}
+プロパティに @code{kievan} スタイルを選択することができます。@c
+@code{kievan} スタイルは、デフォルトと異なるシャープ記号やフラット記号を@c
+提供します。キエフ記譜法にはナチュラル記号は存在しません。@c
+Synodal スタイルの音楽ではシャープ記号は使われませんが、@c
+昔の写本に使われていることがあります。この記号が含まれているのは@c
+主に互換性の理由からです。
+
+@lilypond[quote,fragment,notime,verbatim]
+\clef "kievan-do"
+\override Accidental.glyph-name-alist =
+ #alteration-kievan-glyph-name-alist
+bes' dis'
+@end lilypond
+
+@seealso
+音楽用語集:
+@rglos{kievan notation},
+@rglos{accidental}
+
+記譜法リファレンス:
+@ref{Accidentals},
+@ref{Automatic accidentals},
+@ref{The Emmentaler font}
+
+@node キエフ記譜法の小節線
+@unnumberedsubsubsec キエフ記譜法の小節線
+@translationof Kievan bar line
+
+キエフ記譜法では、曲の終わりに装飾的な記号が置かれるのが一般的です。@c
+これは最終小節線と呼ばれることがあります。@c
+@code{\bar "k"} で表示することができます。
+
+@lilypond[quote,fragment,notime,verbatim]
+  \kievanOn
+  \clef "kievan-do"
+  c' \bar "k"
+@end lilypond
+
+@seealso
+記譜法リファレンス:
+@ref{Bars},
+@ref{The Emmentaler font}
+
+
+@node キエフ記譜法のメリスマ
+@unnumberedsubsubsec キエフ記譜法のメリスマ
+@translationof Kievan melismata
+
+@cindex Ligatures (リガトゥーラ)
+
+キエフ記譜法では、1 つのメリスマに属する音符は互いに近くに配置され、@c
+メリスマ同士は空白で区切られます。これによりズナメニ聖歌の歌唱者は、@c
+メロディの構造を素早く識別することができます。@c
+LilyPond では、メリスマはリガトゥーラとして扱われ、@c
+メリスマ間のスペースは @code{Kievan_ligature_engraver} によって実装@c
+されています。
+
+@code{KievanVoice} と @code{KievanStaff} コンテキストが使用されている時は、@c
+@code{Kievan_ligature_engraver} はデフォルトで有効化されています。@c
+他のコンテキストでは、@code{\layout} ブロックで、@c
+@code{Ligature_bracket_engraver} を @code{Kievan_ligature_engraver} に@c
+置き換えます。
+
+@example
+\layout @{
+  \context @{
+    \Voice
+    \remove "Ligature_bracket_engraver"
+    \consists "Kievan_ligature_engraver"
+  @}
+@}
+@end example
+
+メリスマ間の空白は、@code{KievanLigature} の @code{padding} プロパティを@c
+セットすることで変更することができます。
+
+次の例では、リガトゥーラを使用しています:
+
+@lilypond[quote,ragged-right,verbatim]
+% Font settings for Cyrillic
+\paper {
+  #(define fonts
+    (set-global-fonts
+     #:roman "Linux Libertine O,serif"
+   ))
+}
+
+\score {
+  <<
+    \new KievanVoice = "melody" \relative c' {
+      \cadenzaOn
+        e2 \[ e4( d4 ) \] \[ c4( d e  d ) \] e1 \bar "k"
+    }
+    \new Lyrics \lyricsto "melody" {
+      Га -- врі -- и -- лу
+    }
+  >>
+}
+@end lilypond
+
+@seealso
+音楽用語集:
+@rglos{ligature}
+
+記譜法リファレンス:
+@ref{White mensural ligatures},
+@ref{Gregorian square neume ligatures},
+@ref{Ligatures}
+
+@knownissues
+リガトゥーラの水平方向のスペーシングは非常に悪いです。
+
+@node 古代音楽に取り組む---事例とその解決法
+@subsection 古代音楽に取り組む---事例とその解決法
+@translationof Working with ancient music---scenarios and solutions
+
+@menu
+* インキピット::
+* Mensurstriche レイアウト::
+* グレゴリオ聖歌を転写する::
+* 1 つのソースから古代譜と現代譜の両方を生成する::
+* 編集上のマーク::
+@end menu
+
+古代音楽の譜刻に取り組む場合、LilyPond の主なターゲットである@c
+現代の記譜法とはかなり異なる作業を強いられることが多くあります。@c
+このセクションの残りでは、いくつかの事例を取り上げ、その解決法の 1 つを@c
+示します。取り上げる事例は以下の通りです:
+
+@itemize
+@item 計量音楽の現代転写譜で、インキピット
+(オリジナルの楽譜がどのようであったかを楽譜の先頭に示すもの) をどのように作るか
+@item ポリフォニー音楽の現代転写譜で頻繁に使われる、@emph{Mensurstriche}
+レイアウトをどのように作るか
+@item グレゴリオ聖歌を現代譜にどのように転写するか
+@item 同じソースから古代と現代の記譜法の両方の楽譜をどのように生成するか
+@end itemize
+
+
+@node インキピット
+@unnumberedsubsubsec インキピット
+@translationof Incipits
+@funindex \incipit
+@cindex incipits, adding (インキピットを追加する)
+
+計量音楽を現代記譜法に転写するとき、@c
+オリジナルの楽譜の最初にある休符や音符がどのようであったかを、@c
+音部記号と共に示すことが習慣となっています。@c
+これが@emph{インキピット} (incipit) と呼ばれるものです。@c
+@code{\incipit} コマンドは、@c
+メインの譜の @code{indent} を、インキピットによって占有される部分の幅として、@c
+また、@code{incipit-width} を、インキピットの譜の幅として使用します。
+
+@lilypond[verbatim,quote,ragged-right]
+\score {
+  \new Staff <<
+    \new Voice = Tenor {
+      \set Staff.instrumentName = #"Tenor"
+      \override Staff.InstrumentName.self-alignment-X = #RIGHT
+      \incipit { \clef "mensural-c4" \key f \major r\breve r1 c'1 }
+      \clef "treble_8"
+      \key f \major
+      R1 r2 c'2 |
+      a4. c'8
+    }
+    \new Lyrics \lyricsto Tenor { Cyn -- thia your }
+  >>
+  \layout
+  {
+    indent = 5\cm
+    incipit-width = 3\cm
+  }
+}
+@end lilypond
+
+@knownissues
+インキピットを生成するためには、@code{instrumentName} がセットされている@c
+必要があります。楽器名が必要ない場合には、
+@code{\set Staff.instrumentName = #""} としてください。
+
+@c @seealso
+@c ... and reference to other sections ...
+
+
+@node Mensurstriche レイアウト
+@unnumberedsubsubsec Mensurstriche レイアウト
+@translationof Mensurstriche layout
+
+@emph{Mensurstriche} (@q{計量 (記譜法の) 線}) は一般に受け入れられた用語で、@c
+同じシステム (段) 内にある譜と譜の間には引かれ、譜自体には引かれない@
+小節線のことです。このようにして、小節線の持つ位置決めの機能を保ちつつ、
+オリジナルのリズムの表示を失わないように
+(シンコペーションされた音符が小節線によって区切られてしまわないように)
+することが通例となっています。
+
+
+@lilypondfile[verbatim,quote,texidoc]
+{mensurstriche-layout-bar-lines-between-the-staves.ly}
+
+@c This simple setup will take care of the
+@c TODO Add text about lyrics to the lowest line, to be placed
+@c outside the StaffGroup.
+@c from lsr and -user
+@c TBC
+
+@c @seealso
+@c ... and reference to other sections ...
+
+
+@node グレゴリオ聖歌を転写する
+@unnumberedsubsubsec グレゴリオ聖歌を転写する
+@translationof Transcribing Gregorian chant
+
+グレゴリオ聖歌は、いくつかのシンプルな調整によって@c
+現代譜に転写することができます。
+
+@b{符幹}: @code{Voice} コンテキストの @code{Stem_engraver} を @code{\remove}
+によって削除することで、符幹を完全に作らないようにできます:
+
+@example
+\layout @{
+  @dots{}
+  \context @{
+    \Voice
+      \remove "Stem_engraver"
+  @}
+@}
+@end example
+
+@b{タイミング}: 拍子の無い曲では、いくつかの手段があります:
+
+@code{Time_signature_engraver} を @code{Staff} コンテキストから@c
+問題なく削除することができます。そうせずに、拍子記号を透明にすると、@c
+拍子記号はスペースを確保したままであるため、楽譜には何もないスペースが@c
+残ってしまいます。
+
+多くの場合では、@code{\set Score.timing = ##f} が良い結果をもたらします。@c
+他には、@code{\cadenzaOn} と @code{\cadenzaOff} を使う方法があります。
+
+小節線を削除するには、基本的には @code{Staff} コンテキストの
+@code{Bar_engraver} を @code{\remove} によって削除します。@c
+小節線が必要な部分がある場合、@code{\hide BarLine} を代わりに使うことが@c
+できます。
+
+朗唱部分は、繰り返される音符が 1 つのブレーヴェで示されます。朗唱の@c
+テキストを配置する方法は 2 つあります。@c
+1 つ目は、左揃えの 1 音節として配置する方法です:
+
+@lilypond[verbatim,ragged-right]
+\include "gregorian.ly"
+chant = \relative {
+  \clef "G_8"
+  c'\breve c4 b4 a c2 c4  \divisioMaior
+  c\breve c4 c f, f \finalis
+}
+
+verba = \lyricmode {
+  \once \override LyricText.self-alignment-X = #-1
+  "Noctem quietam et" fi -- nem per -- fec -- tum
+  \once \override LyricText.self-alignment-X = #-1
+  "concedat nobis Dominus" om -- ni -- po -- tens.
+}
+\score {
+  \new Staff <<
+  \new Voice = "melody" \chant
+  \new Lyrics = "one" \lyricsto melody \verba
+  >>
+  \layout {
+    \context {
+      \Staff
+      \remove "Time_signature_engraver"
+      \remove "Bar_engraver"
+    }
+    \context {
+      \Voice
+      \remove "Stem_engraver"
+    }
+  }
+}
+@end lilypond
+
+これで基本的に問題はありませんが、テキストが改行しないという問題があります。@c
+改行が必要な場合は、以下のように、楽譜に不可視の音符を付け加えます。
+
+一部の転写のスタイルでは、例えば朗唱部分からメロディ部分へと以降することを@c
+示すために、符幹が用いられることがあります。このような場合、@c
+@code{Stem_engraver} を @code{\remove} する代わりに、@c
+@code{\hide Stem} あるいは @code{\override Stem.length = #0} を使い、
+符幹が必要な場面で @code{\undo \hide Stem}
+(訳注: あるいは @code{\revert Stem.length}) を使って元に戻すことができます。
+
+@lilypond[verbatim,ragged-right]
+\include "gregorian.ly"
+chant = \relative {
+  \clef "G_8"
+  \set Score.timing = ##f
+  \hide Stem
+  c'\breve \hide NoteHead  c c c c c
+  \undo \hide NoteHead
+  \undo \hide Stem \stemUp c4 b4 a
+  \hide Stem c2 c4  \divisioMaior
+  c\breve \hide NoteHead c c c c c c c
+  \undo \hide NoteHead c4 c f, f \finalis
+}
+
+verba = \lyricmode {
+  No -- ctem qui -- e -- tam et fi -- nem per -- fec -- tum
+  con -- ce -- dat no -- bis Do -- mi -- nus om -- ni -- po -- tens.
+}
+
+\score {
+  \new Staff <<
+    \new Voice = "melody" \chant
+    \new Lyrics \lyricsto "melody" \verba
+  >>
+  \layout {
+    \context {
+      \Staff
+      \remove "Time_signature_engraver"
+      \hide BarLine
+    }
+  }
+}
+@end lilypond
+
+ネウマ譜あるいはメリスマ式の聖歌
+(それぞれの音節に様々な数の音符が割り当てられているもの)
+を転写することも一般的です。このとき、音節ごとに間を開けて、@c
+長いメリスマにおいては、更に細かいグループに分けて表示したい場合があります。@c
+これを行う方法の 1 つは、@code{\time} を 1/4 などに固定し、@c
+連符や短い音符を使って、それぞれの音節やグループで 1 小節を作るという@c
+ものです。小節線や他のリズムに関する表示が透明になっていて、@c
+小節線の周りのスペースが増やされているなら、現代譜で上手く@c
+オリジナルを表現することができます。
+
+異なる長さの音節 (@qq{-ri} と @qq{-rum} など) によって@c
+音符のグループが不均一な間隔で分かれてしまうなら、@c
+@code{LyricText} オブジェクトの @code{X-extent} プロパティを@c
+固定値にセットすることで対処できます。@c
+または、より厄介ではありますが、音節を @code{\markup} 要素にするという@c
+方法があります。更に調整が必要なら、@code{s} @q{音符}で簡単に@c
+行うことができます。
+
+@lilypond[verbatim,quote]
+spiritus = \relative {
+  \time 1/4
+  \override Lyrics.LyricText.X-extent  = #'(0 . 3)
+  d'4 \tuplet 3/2 { f8 a g } g a a4 g f8 e
+  d4 f8 g g8 d f g a g f4 g8 a a4  s
+  \tuplet 3/2 { g8 f d } e f g a g4
+}
+
+spirLyr = \lyricmode {
+  Spi -- ri -- _ _ tus  _ Do -- mi -- ni  _ re -- ple -- _ vit _
+  or -- _ bem _  ter -- ra -- _ rum, al -- _ _ le -- _ lu
+  -- _ ia.
+}
+\score {
+  \new Staff <<
+    \new Voice = "chant" \spiritus
+    \new Lyrics = "one" \lyricsto "chant" \spirLyr
+  >>
+  \layout {
+    \context {
+      \Staff
+      \remove "Time_signature_engraver"
+      \override BarLine.X-extent = #'(-1 . 1)
+      \hide Stem
+      \hide Beam
+      \hide BarLine
+      \hide TupletNumber
+    }
+  }
+}
+@end lilypond
+
+@c extract from 1.6.1.1
+
+@c @seealso
+@c ... and reference to other sections ...
+
+
+@node 1 つのソースから古代譜と現代譜の両方を生成する
+@unnumberedsubsubsec 1 つのソースから古代譜と現代譜の両方を生成する
+@translationof Ancient and modern from one source
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{using-tags-to-produce-mensural-and-modern-music-from-the-same-source.ly}
+
+@c @seealso
+@c ... and reference to other sections ...
+
+
+@node 編集上のマーク
+@unnumberedsubsubsec 編集上のマーク
+@translationof Editorial markings
+
+
+@c @node Baroque rhythmic notation
+@c @unnumberedsubsubsec Baroque rhythmic notation
+
+@c TODO Add text
+@c try Till Rettig
+@c Add example of white note heads:
+@c In the french baroque some composers used white note heads in slow pieces,
+@c mainly in 3/2-time.  A quarter looks there like an eighth with a white
+@c note head.  (Franz-Rudolf Kuhnen)
+
+@c TODO Add example of this:
+@c I was referring to e.g. notated a8. a16, which should, if I
+@c remember correctly, be interpreted more like a8.. a32 (in the french
+@c style).  The editor might want to show that rythmic figure above the
+@c staff as an hint to performers.  (Karl Hammer)
+
+
+@c TBC
+
+
+@c @seealso
+@c ... and reference to other sections ...

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: c1b0482f63f881bd3f67845e5f76a3e04675ef2a
+    Translation of GIT committish: 3c51d1bc78aa3dddaf83fc67b4da6cfbeda75d0d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -165,7 +165,7 @@
 さらなる情報は、@ref{Special characters} を参照してください。
 
 @lilypond[quote,verbatim]
-\relative { d''8 c16 a bes8 f e' d c4 }
+\relative { d''8 c16 a bes8 f ees' d c4 }
 \addlyrics { „Schad’ um das schö -- ne grü -- ne Band, }
 
 @end lilypond
@@ -179,9 +179,6 @@
 \relative { \time 3/4 e'4 e4. e8 d4 e d c2. }
 \addlyrics { "\"I" am so lone -- "ly,\"" said she }
 @end lilypond
-
-歌詞モードでの単語の開始の完全な定義は複雑です。@c
-歌詞モードでの単語はアルファベット, @code{_}, @code{?}, @code{!},
 
 歌詞モードでの単語の開始の完全な定義は複雑です。@c
 歌詞モードで、単語は以下の文字で始まります:
@@ -231,12 +228,22 @@
 @funindex \addlyrics
 @funindex \lyricsto
 
-歌詞はコンテキスト @code{Lyrics} の中で解釈されることで譜刻されます。@c
+歌詞は @code{\lyricmode} 内で解釈され、@code{Lyrics} コンテキスト内で@c
+譜刻されます。
 @ref{Contexts explained} を参照してください。
 
 @example
 \new Lyrics \lyricmode @{ @dots{} @}
 @end example
+
+@code{\lyricmode} の異なる形が 2 種類あり、それらは@c
+歌詞を音楽に揃えるために、コンテキストを関連付けする機能を持ちます。@c
+@code{\addlyrics} はより便利で、@c
+Voice コンテキストの音楽のすぐ後に記述することで、@c
+自身で暗黙的に Lyrics コンテキストを作成し歌詞が音楽に揃えられます。@c
+@code{\lyricsto} はより多機能で、関連付ける Voice コンテキストを名前で指定@c
+します。また、Lyrics コンテキストは明示的に作成する必要があります。@c
+詳しくは、@ref{Automatic syllable durations} を参照してください。
 
 歌詞は主に 2 つの方法で歌詞に揃えることができます:
 
@@ -286,7 +293,7 @@
 詳細は @ref{Stanzas} を参照してください。
 
 @item
-歌詞を @code{¥lyricmode} で入力し、音節の演奏時間を明示的に示すことで、@c
+歌詞を @code{\lyricmode} で入力し、音節の演奏時間を明示的に示すことで、@c
 歌詞を音符とは独立して揃えることができます。
 
 @c KEEP LY
@@ -318,10 +325,6 @@
 詳細は @ref{Manual syllable durations} を参照してください。@c
 このテクニックは譜の上に会話をセットする場合にも有用です
 -- これの例は @ref{Dialogue over music} を参照してください。
-
-この方法で入力した音符はデフォルトでは音符に左揃えされますが、@c
-関連付されたボイスが存在する場合はそれを指定することで中央揃えされます。@c
-詳細は @ref{Manual syllable durations} を参照してください。
 
 @end itemize
 
@@ -356,10 +359,10 @@
 @itemize
 
 @item
-@code{¥lyricsto} で旋律を保持しているボイス コンテキストを指定します。
+@code{\lyricsto} で旋律を保持しているボイス コンテキストを指定します。
 
 @item
-@code{¥addlyrics} で歌詞を入力して、@c
+@code{\addlyrics} で歌詞を入力して、@c
 それを旋律を保持しているボイス コンテキストの直後に配置します。
 
 @item
@@ -383,13 +386,13 @@
 @funindex \lyricsto
 
 旋律を保持している名前の付いたボイス コンテキストを
-@code{¥lyricsto} で指定することにより、@c
+@code{\lyricsto} で指定することにより、@c
 歌詞を旋律の下に揃えることができます:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 <<
-  \new Voice = "melody" {
-    a4 a a a
+  \new Voice = "melody" \relative {
+    a'1 a4. a8 a2
   }
   \new Lyrics \lyricsto "melody" {
     These are the words
@@ -402,9 +405,8 @@
 -- @code{Voice} コンテキストは既に存在している必要があります。@c
 このため、普通は @code{Voice} コンテキストを先に記述して、@c
 その後に @code{Lyrics} コンテキストを記述します。@c
-歌詞自体は @code{¥lyricsto} コマンドの後に記述します。@c
-@code{¥lyricsto} コマンドは自動的に歌詞モードを呼び出すため、@c
-@code{¥lyricmode} の記述は省略できます。@c
+歌詞自体は @code{\lyricsto} コマンドの後に記述します。@c
+@code{\lyricsto} コマンドは自動的に歌詞モードを呼び出します。@c
 デフォルトでは、歌詞は音符の下に配置されます。@c
 配置場所を変更する方法は @ref{Placing lyrics vertically} を参照してください。
 
@@ -413,7 +415,7 @@
 @cindex \addlyrics
 @funindex \addlyrics
 
-@code{¥addlyrics} コマンドは便利なショートカットで、@c
+@code{\addlyrics} コマンドは便利なショートカットで、@c
 もっと複雑な LilyPond 構造を使う歌詞のセットアップの代わりとして@c
 用いることができます。
 
@@ -440,7 +442,7 @@
 }
 @end lilypond
 
-@code{¥addlyrics} セクションを追加することで、@c
+@code{\addlyrics} セクションを追加することで、@c
 歌詞の 2 番、3 番を追加することができます:
 
 
@@ -454,8 +456,9 @@
 }
 @end lilypond
 
-コマンド @code{¥addlyrics} は多声を扱うことはできません。@c
-そのような場合は @code{¥lyricsto} を使うべきです。
+コマンド @code{\addlyrics} は多声を扱うことはできません。@c
+また、このコマンドは @code{TabVoice} に歌詞を関連付けることもできません。@c
+そのような場合は @code{\lyricsto} を使うべきです。
 
 @subheading associatedVoice を用いる
 
@@ -518,7 +521,6 @@
 -- しかしながら、ピッチをテキストに置き換えて --
 入力し、歌詞の各音節の後には演奏時間を明示的に記述します。
 
-デフォルトでは、歌詞の音節は対応する音楽イベントに左揃えされます。@c
 音節の間にハイフンを描くことは普通にできますが、@c
 延長線を描くには関連付されたボイスが存在する必要があります。
 
@@ -527,11 +529,10 @@
 @lilypond[verbatim,quote]
 <<
   \new Voice = "melody" \relative {
-    \time 3/4
-    c'2 e4 g2 f
+    c''2 a f f e e
   }
   \new Lyrics \lyricmode {
-    play1 the4 game4
+    c4. -- a -- f -- f -- e2. -- e
   }
 >>
 @end lilypond
@@ -562,26 +563,21 @@
 このテクニックは、譜の上に会話を書く場合に有用です
 -- @ref{Dialogue over music} を参照してください。
 
-歌詞を音符に中央揃えさせるには、@c
-@code{associatedVoice} に音符を保持しているボイス コンテキストをセットします。@c
-@code{associatedVoice} がセットされると、@c
-2 重ハイフンと 2 重アンダースコアを記述することで、@c
-メリスマにハイフンと延長線を描くことができます。
+歌詞の水平位置を変更するには、@code{self-alignment-X} プロパティを@c
+オーバライドします:
 
-@lilypond[relative=1,verbatim,quote]
+@lilypond[verbatim,quote]
 <<
-  \new Voice = "melody" {
+  \new Voice = "melody" \relative {
     \time 3/4
-    c2 e4 g f g
+    c'2 e4 g2 f
   }
   \new Lyrics \lyricmode {
-    \set associatedVoice = #"melody"
-    play2 the4 game2. __
+    \override LyricText.self-alignment-X = #LEFT
+    play1 a4 game4
   }
 >>
 @end lilypond
-
-@c TODO see also feature request 707 - show how to do this with manual durations
 
 @seealso
 記譜法リファレンス:
@@ -607,9 +603,15 @@
 
 @lilypond[quote,ragged-right,verbatim]
 {
-  \relative { \autoBeamOff
-    r8 b' c fis, fis c' b e, }
-  \addlyrics { Che_in ques -- ta_e_in quel -- l'al -- tr'on -- da }
+  \relative {
+    \autoBeamOff
+    r8 b' c fis, fis c' b e,
+  }
+  \addlyrics
+  {
+    \override LyricHyphen.minimum-distance = #1.0 % Ensure hyphens are visible
+    Che_in ques -- ta_e_in quel -- l'al -- tr'on -- da
+  }
   \addlyrics { "Che in" ques -- "ta e in" quel -- l'al -- tr'on -- da }
   \addlyrics { Che~in ques -- ta~e~in quel -- l'al -- tr'on -- da }
 }
@@ -631,8 +633,8 @@
 @funindex \melisma
 @funindex \melismaEnd
 
-しばしば、特に中世の音楽では、1 つの音節を複数の音符で歌います。@c
-そのような歌い方をメリスマ (melismata または @rglos{melisma}) と呼びます。@c
+しばしば、特に中世やバロックの音楽では、1 つの音節を複数の音符で歌います。@c
+これをメリスマと呼びます。@rglos{melisma} を参照してください。@c
 通常、メリスマの音節はメリスマの最初の音符に左揃えされます。
 
 メリスマが単語の最後ではない音節で発生する場合、@c
@@ -798,6 +800,7 @@
 @code{\autoBeamOn},
 @code{\melisma},
 @code{\melismaEnd}
+@endpredefined
 
 @seealso
 音楽用語集:
@@ -1378,8 +1381,10 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 @cindex repeating lyrics with alternative endings (差し替えのある繰り返しの歌詞)
 @cindex alternative endings and lyrics (差し替えのある繰り返しと歌詞)
 
-繰り返し部分の歌詞が同じであれば、@c
-歌詞と音楽で同じ構造を使うことができます。
+繰り返し部分の歌詞が同じで、@c
+どの @code{\alternative} ブロックも休符で始まるのでなければ、@c
+歌詞と音楽で同じ構造を使うことができます。@c
+こうすることで @code{\unfoldRepeats} は音楽と歌詞の両方を正しく展開できます。
 
 @lilypond[quote,verbatim]
 \score {
@@ -1409,7 +1414,8 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 @cindex skipping notes in lyrics (歌詞の中で音符をスキップする)
 @cindex lyrics, skipping notes (歌詞の中で音符をスキップする)
 
-しかしながら、繰り返し部分の歌詞が異なる場合、@c
+しかしながら、繰り返し部分の歌詞が異なるか、
+どれかの @code{\alternative} ブロックが休符で始まる場合、@c
 歌詞に繰り返し構造を用いることはできず、@c
 歌詞を適用しない差し替え部分の音符をスキップするために@c
 手動で @code{\skip} コマンドを挿入する必要があります。
@@ -1649,8 +1655,16 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 }
 @end lilypond
 
-@c 2017-9-22 このノードのみ先に翻訳
-@c 第1章のxrefを正しく動作させるため。
+合唱音楽では、一部の小節において声部が分かれることがよくあります。@c
+2 つ以上の音楽表記がバックスラッシュ 2 つで分割される
+@code{<< @{@dots{}@} \\ @{@dots{}@} >>} 構造は、声部の分割する正しい方法である@c
+ように見えます。しかしながらこの構造は、内部にある@strong{全ての}音楽表記を@c
+@strong{新しい Voice コンテキスト}に割り当てるため、元の Voice コンテキストに@c
+歌詞を設定しても@emph{歌詞は表示されません}。これは通常望むものでは@c
+ないでしょう。一時的に多声となる楽節を用いるのが適切です。@c
+@ref{Single-staff polyphony} の
+@emph{一時的に多声となる楽節 (パッセージ)} 節を参照してください。
+
 @node 歌詞を共有する多声
 @unnumberedsubsubsec 歌詞を共有する多声
 @translationof Polyphony with shared lyrics
@@ -2261,7 +2275,7 @@ text = \lyricmode {
 通常、合唱は @code{ChoirStaff} グループ内の 2, 3,
 あるいは 4 つの譜に記譜します。@c
 伴奏が必要であれば、合唱譜の下に @code{PianoStaff} グループを配置します。@c
-@emph{アカペラ} であれば、普通は伴奏譜のサイズを小さくします。@c
+@emph{アカペラ} のリハーサル譜であれば、普通は伴奏譜のサイズを小さくします。@c
 各ボーカル パートの音符は @code{Voice} コンテキストの中に配置し、@c
 各譜は単一のボーカル パート (つまり、1 つの @code{Voice})
 あるいはボーカル パートのペア (つまり、2 つの @code{Voice})
@@ -2278,7 +2292,9 @@ text = \lyricmode {
 @item
 SATB (S: ソプラノ、A: アルト、T: テナー、B: バス) ボーカル譜の導入部は@c
 学習マニュアルにあります。@c
-@rlearning{Four-part SATB vocal score} を参照してください。
+@rlearning{Four-part SATB vocal score} を参照してください。@c
+また、SATB ボーカル譜の作成を簡単にする組み込みのテンプレートがあります。@c
+@rlearning{Built-in templates} を参照してください。
 
 @item
 学習マニュアルには、@c
@@ -2300,12 +2316,18 @@ SATB (S: ソプラノ、A: アルト、T: テナー、B: バス) ボーカル譜
 これを実現するには、@code{\voiceOne} と @code{\voiceTwo} を用います。@c
 @ref{Single-staff polyphony} を参照してください。
 
+@item
+ボーカル パートが一時的に分かれる場合は、@c
+@emph{一時的に多声となる楽節} を使うべきです
+(@ref{Single-staff polyphony} を参照してください)。
+
 @end itemize
 
 @predefined
 @code{\oneVoice},
 @code{\voiceOne},
 @code{\voiceTwo}
+@endpredefined
 
 @seealso
 学習マニュアル:
@@ -2406,7 +2428,10 @@ SATB (S: ソプラノ、A: アルト、T: テナー、B: バス) ボーカル譜
 @end lilypond
 
 @predefined
-@code{\dynamicUp}, @code{\dynamicDown}, @code{\dynamicNeutral}
+@code{\dynamicUp},
+@code{\dynamicDown},
+@code{\dynamicNeutral}
+@endpredefined
 
 @seealso
 記譜法リファレンス:
@@ -2417,7 +2442,7 @@ SATB (S: ソプラノ、A: アルト、T: テナー、B: バス) ボーカル譜
 @ref{Score layout},
 @ref{Separating systems},
 @ref{Setting the staff size},
-@ref{Using an extra voice for breaks},
+@ref{Breaks},
 @ref{Vertical spacing}
 
 内部リファレンス:
@@ -2485,7 +2510,7 @@ LilyPond で台詞を譜刻することはできますが、台詞には音楽�
 * オペラや舞台ミュージカルのためのリファレンス::
 * 役名::
 * 合図::
-* Spoken music::
+* 語り音楽::
 * 音楽の中での会話::
 @end menu
 
@@ -2607,49 +2632,41 @@ LilyPond で台詞を譜刻することはできますが、台詞には音楽�
 @end lilypond
 
 役の入れ替えが頻繁にある場合、@c
-最上位階層でそれぞれの役に対して @qq{楽器} 定義をセットアップして、@c
-役の入れ替えを @code{\instrumentSwitch} を用いて示す方が簡単かもしれません。
+それぞれの役の定義を保持した変数を作り、@c
+役の入れ替えを容易に、そして正確に示す方が簡単かもしれません。
 
 @lilypond[quote,verbatim]
-\addInstrumentDefinition #"kaspar"
-  #`((instrumentTransposition . ,(ly:make-pitch -1 0 0))
-     (shortInstrumentName . "Kas.")
-     (clefGlyph . "clefs.G")
-     (clefTransposition . -7)
-     (middleCPosition . 1)
-     (clefPosition . -2)
-     (instrumentCueName . ,(markup #:fontsize 1 #:smallCaps "Kaspar"))
-     (midiInstrument . "voice oohs"))
+kaspar = {
+  \clef "G_8"
+  \set Staff.shortVocalName = "Kas."
+  \set Staff.midiInstrument = "voice oohs"
+  <>^\markup \smallCaps "Kaspar"
+}
 
-\addInstrumentDefinition #"melchior"
-  #`((instrumentTransposition . ,(ly:make-pitch 0 0 0))
-     (shortInstrumentName . "Mel.")
-     (clefGlyph . "clefs.F")
-     (clefTransposition . 0)
-     (middleCPosition . 6)
-     (clefPosition . 2)
-     (instrumentCueName . ,(markup #:fontsize 1 #:smallCaps "Melchior"))
-     (midiInstrument . "choir aahs"))
+melchior = {
+  \clef "bass"
+  \set Staff.shortVocalName = "Mel."
+  \set Staff.midiInstrument = "choir aahs"
+  <>^\markup \smallCaps "Melchior"
+}
 
 \relative c' {
-  \instrumentSwitch "kaspar"
+  \kaspar
   c4 c c c
-  \instrumentSwitch "melchior"
+  \melchior
   a4 a a a
-  \instrumentSwitch "kaspar"
+  \kaspar
   c4 c c c
 }
 @end lilypond
 
 @seealso
+学習マニュアル:
+@rlearning{Organizing pieces with variables}
+
 記譜法リファレンス:
-@ref{Instrument names},
-@ref{Scheme functions},
 @ref{Text},
 @ref{Text markup commands}
-
-拡張:
-@rextend{Markup construction in Scheme}
 
 
 @node 合図
@@ -2684,10 +2701,7 @@ flute = \relative {
 pianoRH = \relative {
   c''4. g8
   % 合図音符の楽器名を、合図音符の直前、かつ譜の上に配置します
-  \new CueVoice {
-    \override InstrumentSwitch.self-alignment-X = #RIGHT
-    \set instrumentCueName = "Flute"
-  }
+  <>^\markup { \right-align { \tiny "Flute" } }
   \cueDuring "flute" #UP { g4 bes4 }
 }
 pianoLH = \relative { c4 <c' e> e, <g c> }
@@ -2713,10 +2727,6 @@ pianoLH = \relative { c4 <c' e> e, <g c> }
 @code{\cueDuring} の中で @code{DOWN} を指定し
 (これにより、符幹が下向きになります)、@c
 楽器名を譜の下に配置しています。@c
-ピアノの右手のボイスを明示的に宣言していることにも注意してください。@c
-これは、この例の合図音符は最初の小節の先頭から始まるため、@c
-明示的に宣言しないとピアノの右手のボイス全体が
-@code{CueVoice} コンテキストの中に配置されてしまうからです。
 
 @c KEEP LY
 @lilypond[quote,verbatim]
@@ -2729,11 +2739,7 @@ clarinet = \relative c' {
 pianoRH = \relative c'' {
   \transposition c'
   % 合図音符の楽器名を譜の下に配置します
-  \new CueVoice {
-    \override InstrumentSwitch.self-alignment-X = #RIGHT
-    \override InstrumentSwitch.direction = #DOWN
-    \set instrumentCueName = "Clar."
-  }
+  <>_\markup { \right-align { \tiny "Clar." } }
   \cueDuring "clarinet" #DOWN { c4. g8 }
   g4 bes4
 }
@@ -2780,7 +2786,6 @@ pianoLH = \relative { c4 <c' e> e, <g c> }
 @rlsr{Vocal music}
 
 内部リファレンス:
-@rinternals{InstrumentSwitch},
 @rinternals{CueVoice}
 
 @knownissues
@@ -2792,9 +2797,8 @@ pianoLH = \relative { c4 <c' e> e, <g c> }
 別々の @code{CueVoice} コンテキストを明示的に宣言して、@c
 合図音符の抽出と挿入に @code{\quoteDuring} を用います。
 
-@c 未訳
-@node Spoken music
-@unnumberedsubsubsec Spoken music
+@node 語り音楽
+@unnumberedsubsubsec 語り音楽
 @translationof Spoken music
 
 @cindex parlato
