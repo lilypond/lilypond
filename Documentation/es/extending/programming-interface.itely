@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of extending.tely
 @ignore
-    Translation of GIT committish: 708aa920d682cf9aa3ed647cd129afd8509760f4
+    Translation of GIT committish: a4d99bea6bfcbe19edba760b655939e4fb83cebf
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1517,6 +1517,18 @@ interna o en el archivo 'define-grobs.scm':
   c''4. d8 a4. g8
 @}
 @end example
+
+También es posible obtener el valor del valor predeterminado
+existente, empleando la función @code{grob-transformer}:
+
+@lilypond[verbatim,quote]
+\relative {
+  \override Flag.X-offset = #(grob-transformer 'X-offset
+    (lambda (flag default) (* default 4.0)))
+  c''4. d8 a4. g8
+}
+@end lilypond
+
 
 Desde dentro de un callback, el método más fácil para evaluar un
 elemento de marcado es usar grob-interpret-markup.  Por ejemplo:
