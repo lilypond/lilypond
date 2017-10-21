@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 1e5c6b0f54079eb3285dcc4c7e53f17d8bb03933
+    Translation of GIT committish: e11c5effe2c19d8a551a8d51dc58842ab18af951
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -3030,21 +3030,64 @@ de LilyPond:
 
 @sourceimage{Gonville_before,15cm,,}
 
-@subsubheading Instrucciones de instalación para MacOS
+@subsubheading Instrucciones de instalación
 
-Descargue y extraiga el archivo zip. Copie la carpeta
-@code{lilyfonts} a @file{@var{SHARE_DIR}/lilypond/current}; para
-más información, consulte @rlearning{Otras fuentes de
-información}.  Renombre la carpeta @code{fonts} existente a
-@code{fonts_orig} y la carpeta @code{lilyfonts} a @code{fonts}.
-Para volver a la fuente Emmentaler, invierta el proceso.
+Descargue y extraiga los archivos de fuente tipográfica.
+Copie los archivos
+@file{gonville-11.otf},
+@file{gonville-13.otf},
+@file{gonville-14.otf},
+@file{gonville-16.otf},
+@file{gonville-18.otf},
+@file{gonville-20.otf},
+@file{gonville-23.otf},
+@file{gonville-26.otf} y @file{gonville-brace.otf}
+en la carpeta @file{@dots{}/share/lilypond/current/fonts/otf} o
+@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/otf}.
+Si tiene los archivos @file{gonville-*.svg} y @file{gonville-*.woff},
+cópielos a @file{@dots{}/share/lilypond/current/fonts/svg} o a
+@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/svg}.
+Para más información consulte @rlearning{Otras fuentes de información}.
+
+Nota: los archivos @file{gonville-*.otf} son para los @emph{backends}
+@code{ps} y @code{eps} (para las salidas en formato PDF y PostScript).
+Los archivos @file{gonville-*.svg} son para el @emph{backend}
+@code{svg} sin la opción @code{svg-woff}.
+Los archivos @file{gonville-*.woff} son para el @emph{backend}
+@code{svg} con la opción @code{svg-woff}.
+Para más información, consulte @rprogram{Opciones avanzadas de línea de órdenes para LilyPond}.
+
+La sintaxis siguiente cambia la fuente tipográfica de la
+notación (general y llaves) al tipo Gonville.
+
+@example
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     #:music "gonville"
+     #:brace "gonville"
+   ))
+@}
+@end example
+
+Nota: cada llamada a @code{set-global-fonts} reinicia
+completamente tanto la fuente principal de notación como la de
+texto. Si se deja sin especificar una cualquiera de las
+categorías, entonces se utiliza la tipografía predeterminada para
+esa categoría.  Cada llamada a @code{set-global-fonts} cambia las
+fuentes para cada @code{\book} que le sigue, tanto si se ha creado
+explícitamente como implícitamente.  Esto significa que cada
+@code{\book} puede tener su propio conjunto de fuentes principales
+llamando a @code{set-global-fonts} previamente.  Para más
+información, véase @ref{Fuentes tipográficas del documento completo}.
 
 @seealso
 Manual de aprendizaje:
 @rlearning{Otras fuentes de información}.
 
 Referencia de la notación:
-@ref{La tipografía Emmentaler}.
+@ref{La tipografía Emmentaler},
+@ref{Entire document fonts}.
 
 @knownissues
 Gonville no se puede usar para tipografiar notación de @q{Música
@@ -3054,6 +3097,45 @@ Gonville.  Diríjase a la página web del autor para obtener más
 información sobre éste y otros asuntos, entre ellos el régimen de
 licencias de Gonville.
 
+@subsubheading Otras fuentes de notación
+
+Si tiene otras fuentes de notación como
+@file{@var{fontname}-*.otf}, @file{@var{fontname}-*.svg} y
+@file{@var{fontname}-*.woff}, puede usarlas de la misma manera que
+Gonville.
+
+Esto es, copie los archivos @file{@var{fontname}-*.otf} a la
+carpeta @file{@dots{}/share/lilypond/current/fonts/otf} o a
+@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/otf}.  Si tiene los
+archivos @file{@var{fontname}-*.svg} y
+@file{@var{fontname}-*.woff}, cópielos a
+@file{@dots{}/share/lilypond/current/fonts/svg} o a
+@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/svg}.
+
+Nota: por el momento, LilyPond espera que los nombres de archivo
+tengan los siguientes sufijos, todos los cuales deben estar
+presentes en las carpetas de instalación arriba mencionadas para
+que funcionen adecuadamente:
+@file{-11}, @file{-13}, @file{-14}, @file{-16},
+@file{-18}, @file{-20}, @file{-23}, @file{-26}, @file{-brace}.
+Por ejemplo, @file{emmentaler-11.otf}, @file{emmentaler-20.svg}
+y @file{emmentaler-brace.woff}, etc.
+
+La sintaxis siguiente cambia la fuente tipográfica de la notación
+(general y de llaves) a la fuente @var{tipoletra}.
+
+@example
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     #:music "@var{tipoletra}" ; nombre del archivo de fuente sin el sufijo ni la extensión
+     #:brace "@var{tipoletra}" ; nombre del archivo de fuente sin el sufijo ni la extensión
+   ))
+@}
+@end example
+
+Nota: para las categorías @code{music} y @code{brace}, especifique
+el nombre del archivo de fuente sin el sufijo ni la extensión.
 
 @node Creación de salida MIDI
 @section Creación de salida MIDI

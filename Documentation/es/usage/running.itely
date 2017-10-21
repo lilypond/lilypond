@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: cd1ac38996d3de35770ea31f819b392fe686bf39
+    Translation of GIT committish: 97956152eba4292886a47c74b45bc6be5a0349e8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -525,42 +525,16 @@ bruto.
 @tab @code{svg}
 @tab Gráficos vectoriales escalables.
 Por cada página de la salida, se crea un solo archivo @code{SVG}.
-Los glifos musicales se codifican como gráficos vectoriales,
-pero las fuentes tipográficas del texto
-@emph{no} se incrustan en los archivos SVG.
-Cualquier visor de SVG necesita que las fuentes de texto
-correspondientes estén disponibles para
-la correcta representación tanto del texto como de la letra. Se
-recomienda no utilizar @q{alias} ni @q{listas} de fuentes
-tipográficas por si el visor de SVG no es capaz de
-manejarlas.  Al usar archivos de fuente abierta para la web
-@emph{Web Open Font Format} (WOFF), es necesario indicar la opción
-@code{--svg-woff}.
-@end multitable
+Los glifos musicales se codifican como gráficos vectoriales, pero
+las fuentes tipográficas del texto @emph{no} se incrustan en los
+archivos SVG.  Cualquier visor de SVG necesita que las fuentes de
+texto correspondientes estén disponibles para la correcta
+representación tanto del texto como de la letra. Se recomienda no
+utilizar @q{alias} ni @q{listas} de fuentes tipográficas por si el
+visor de SVG no es capaz de manejarlas.  Al usar archivos de
+fuente abierta para la web @emph{Web Open Font Format} (WOFF), es
+necesario indicar la opción @code{--svg-woff}.
 
-@noindent
-@strong{Nota para el backend de salida svg:}
-En la salida SVG, LilyPond usa por defecto los valores
-de @code{font-family} genéricos @code{serif}, @code{sans-serif}, o
-@code{monospace}.  Por tanto, al usar el
-backend @code{svg} debemos definir explícitamente
-las fuentes predeterminadas deseadas en el archivo de entrada:
-
-@quotation
-@verbatim
-\paper  {
-  #(define fonts
-    (make-pango-font-tree "TeX Gyre Schola"
-                          "TeX Gyre Heros"
-                          "TeX Gyre Cursor"
-                          (/ staff-height pt 20)))
-}
-@end verbatim
-@end quotation
-
-Véase también @ruser{Fuentes tipográficas del documento completo}.
-
-@multitable @columnfractions .33 .16 .51
 @item @code{check-internal-types}
 @tab @code{#f}
 @tab Comprobar el tipo de cada asignación de propiedades.
