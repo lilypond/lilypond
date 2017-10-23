@@ -446,24 +446,6 @@ LilyPond への理解不足である可能性が高いです！
 bug-lilypond@@gnu.org} メーリング リストに登録済みであれば、@c
 普通に email を送ってください。
 
-@item
-登録していない場合でも、@c
-@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs,
-gmane lilypond.bugs web インタフェイス} でバグ報告を送ることができます。
-
-しかしながら、gmane インタフェイスには厳しい @qq{Top-posting}
-制限@footnote{オリジナル メッセージの引用の上に自分のメッセージを@c
-記述することで、ネチケット違反とされます。}
-があり、しばしば誤って LilyPond ファイルに反応してしまいます。@c
-これを避けるには、以下をバグ報告の先頭に付け加えてください:
-
-@example
-> I'm not top posting.
-@end example
-
-@noindent
-(@code{>} を付け忘れないでください。)
-
 @end itemize
 @divEnd
 @divEnd

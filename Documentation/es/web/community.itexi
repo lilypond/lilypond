@@ -462,24 +462,6 @@ Si está suscrito a la lista de correo
 @uref{mailto:bug-lilypond@@gnu.org,bug-lilypond@@gnu.org}, envíe
 un mensaje de la forma habitual.
 
-@item
-Si no está suscrito, aún puede enviar un informe de fallo con el
-@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs,
-interfaz web de gmane para lilypond.bugs}.
-
-Sin embargo, existe una comprobación muy estricta de que no hay
-@qq{top-posting} (contestar por encima) en el interfaz de gmane,
-que se dispara incorrectamente con frecuencia a causa de los
-archivos de lilypond.  Para evitarlo, escriba:
-
-@example
-> I'm not top posting.
-@end example
-
-@noindent
-(@emph{debe} escribir el ángulo @code{>} ) al principio de su
-informe.
-
 @end itemize
 @divEnd
 @divEnd

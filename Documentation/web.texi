@@ -354,10 +354,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 If you are aware of any other \topic\ which could be listed here,
 please let us know by writing a message to the bug-lilypond
 mailing list. If you're not subscribed yet you can do so on the list's
-@uref{https://lists.gnu.org/mailman/listinfo/bug-lilypond,info page}
-or post directly through the
-@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs,
-gmane lilypond.bugs web interface}.
+@uref{https://lists.gnu.org/mailman/listinfo/bug-lilypond,info page}.
 
 @divEnd
 @divEnd

@@ -446,24 +446,6 @@ created a bug report, please send it to us!
 If you are subscribed to the @uref{mailto:bug-lilypond@@gnu.org,
 bug-lilypond@@gnu.org} mailing list, send an email like normal.
 
-@item
-If you are not subscribed, you can still post a bug report with
-the
-@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs,
-gmane lilypond.bugs web interface}.
-
-However, there is a strict @qq{no top-posting} check on the gmane
-interface, which is often incorrectly triggered by lilypond files.
-To avoid this, please add:
-
-@example
-> I'm not top posting.
-@end example
-
-@noindent
-(you @emph{must} include the @code{>} ) to the top of your bug
-report.
-
 @end itemize
 @divEnd
 @divEnd
@@ -493,7 +475,6 @@ code and/or images (possibly created with other tools) which
 demonstrate what you think it should look like!
 
 @divEnd
-
 
 
 @node Help us
