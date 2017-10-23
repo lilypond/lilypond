@@ -584,7 +584,7 @@ Within a @code{\bookpart} block but outside all @code{\score} blocks
 within that bookpart.
 
 @item
-After the music expression in a @code{\score} block.
+Within a @code{\score} block.
 
 @end itemize
 
@@ -619,10 +619,6 @@ by default in Score Titles unless the @code{\paper} variable,
 @code{print-all-headers}, is set to @code{#t}.
 
 @end itemize
-
-@warning{Remember when placing a @bs{}@code{header} block inside a
-@bs{}@code{score} block, that the music expression must come before the
-@bs{}@code{header} block.}
 
 It is not necessary to provide @code{\header} blocks in all four
 places: any or even all of them may be omitted.  Similarly, simple
