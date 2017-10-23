@@ -84,10 +84,11 @@ Laissez_vibrer_engraver::acknowledge_note_head (Grob_info inf)
 
   SCM cause = tie_ev->self_scm ();
 
-  if (!lv_column_)
-    lv_column_ = make_item ("LaissezVibrerTieColumn", cause);
-
   Grob *lv_tie = make_item ("LaissezVibrerTie", cause);
+
+  if (!lv_column_)
+    lv_column_ = make_item ("LaissezVibrerTieColumn", lv_tie->self_scm ());
+
   lv_tie->set_object ("note-head", head->self_scm ());
 
   Pointer_group_interface::add_grob (lv_column_, ly_symbol2scm ("ties"),
