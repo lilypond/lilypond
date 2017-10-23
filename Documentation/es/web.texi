@@ -363,9 +363,7 @@ Si tiene conocimiento de cualesquiera otros \topic\ que merezcan
 aparecer relacionados aquí, le rogamos que nos lo haga saber
 escribiendo un mensaje a la lista de correo bug-lilypond.  Si no
 está suscrito a la lista, aún puede hacerlo en la
-@uref{https://lists.gnu.org/mailman/listinfo/bug-lilypond,página informativa}
-de la lista o escribiendo directamente a través del
-@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs,interfaz web de lilypond.bugs en gmane}.
+@uref{https://lists.gnu.org/mailman/listinfo/bug-lilypond,página informativa}.
 
 @divEnd
 @divEnd

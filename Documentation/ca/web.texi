@@ -360,9 +360,7 @@ Si coneixeu qualssevol altres \topic\ que mereixin aparèixer
 relacionats aquí, us preguem que ens ho feu saber escrivint un
 missatge a la llista de correu bug-lilypond.  Si no esteu subscrit
 a la llista, encara ho podeu fer a la
-@uref{https://lists.gnu.org/mailman/listinfo/bug-lilypond,página informativa}
-de la llista o escrivint directament a través de la
-@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs,interfície web de lilypond.bugs al gname}.
+@uref{https://lists.gnu.org/mailman/listinfo/bug-lilypond,página informativa}.
 
 @divEnd
 @divEnd

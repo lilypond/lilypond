@@ -471,24 +471,6 @@ Wenn Sie die Emailliste @uref{mailto:bug-lilypond@@gnu.org,
 +bug-lilypond@@gnu.org} bereits abonniert haben, können Sie
 ganz gewöhnlich eine E-Mail schicken.
 
-@item
-Wenn Sie nicht Mitglied der Liste sind, können Sie trotzdem
-einen Fehlerbericht über das
-@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs,
-gmane lilypond.bugs web interface} schicken.
-
-Es gibt jedoch eine genaue Überprüfung auf der Liste, die verhindert,
-dass man top-posted.  Diese Überprüfung wird häufig inkorrekt
-von LilyPond-Dateien alarmiert.  Darum fügen Sie
-
-@example
-> I'm not top posting.
-@end example
-
-@noindent
-(Sie @emph{müssen} das @code{>} mit einfügen) zu Anfang ihres
-Fehlerberichtes hinzu.
-
 @end itemize
 @divEnd
 @divEnd

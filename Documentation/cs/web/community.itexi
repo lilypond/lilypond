@@ -397,23 +397,6 @@ Pokud již odebíráte poštovní seznam @uref{mailto:bug-lilypond@@gnu.org,
 +bug-lilypond@@gnu.org}, můžete zcela prostě poslat
 dopis elektronickou poštou.
 
-@item
-Pokud členy poštovního seznamu nejste, přesto můžete poslat
-hlášení o chybě přes webové rozhraní
-@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs,
-gmane lilypond.bugs}.
-
-Na seznamu je však přesné prověření, které brání tomu,
-aby člověk dostal svůj dopis nahoru.  Toto prověření je často
-vyburcováno nesprávně soubory LilyPondu.  Proto přidejte
-
-@example
-> I'm not top posting.
-@end example
-
-@noindent
-(@emph{Musíte} vložit @code{>}) na začátek svého hlášení.
-
 @end itemize
 @divEnd
 

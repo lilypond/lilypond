@@ -367,27 +367,11 @@ Szinte minden hiba négy vagy kevesebb hanggal bemutatható!}
 Miután megbizonyosodtál arról, hogy tényleg egy új hibáról van szó, és
 megírtad a hibajelentést, küldd el nekünk!
 
-A hibajelentés elejére mindenképpen írd oda:
+Irhatsz e-mailt a
+@uref{mailto:bug-lilypond@@gnu.prg, bug-lilypond@@gnu.org}
+levelezőlistára.
 
-@example
-> I'm not top posting.
-@end example
-
-@noindent
-(a @code{>} karakter is fontos).
-
-@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs,
-Itt küldheted be webes felületen a hibát}, vagy írhatsz e-mailt a
-@uref{mailto:bug-lilypond@@gnu.prg, bug-lilypond@@gnu.org} levelezőlistára.
-
-Amikor a jelentés megérkezett a levelezőlistára, a hibafelelős megvizsgálja azt.
-Esetleg kérhet tőled további információt. Ha elfogadta, nyilvántartásba veszi a
-hibát, és elküldi a linkjét.
-
-A hibajelentést megjelölheted kedvencként, hogy e-mailben értesülj bármilyen
-tevékenységről a hibával kapcsolatban. Ehhez csak egy Google fiók szükséges.
 @divEnd
-
 
 @node Közreműködés
 @unnumberedsec Közreműködés
