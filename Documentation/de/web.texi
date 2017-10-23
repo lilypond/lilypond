@@ -358,10 +358,7 @@ Sollten Sie hier die Erwähnung von \topic\ vermissen, dann teilen Sie uns
 dies bitte mit indem Sie eine Nachricht an die bug-lilypond Mailingliste schicken.
 Falls Sie diese Mailingliste noch nicht abonniert haben, können Sie das auf
 dieser Seite ändern:
-@uref{https://lists.gnu.org/mailman/listinfo/bug-lilypond,info page}
-Oder schreiben Sie direkt eine Nachricht über das
-@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs,
-gmane lilypond.bugs web interface}.
+@uref{https://lists.gnu.org/mailman/listinfo/bug-lilypond,info page}.
 
 @divEnd
 @divEnd

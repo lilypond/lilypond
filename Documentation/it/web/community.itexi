@@ -448,22 +448,6 @@ creato una segnalazione bug, inviacela!
 Sei iscritto alla mailing list @uref{mailto:bug-lilypond@@gnu.org,
 bug-lilypond@@gnu.org}, puoi inviare una normale email.
 
-@item
-Se non sei iscritto, puoi comunque inviare una segnalazione bug attraverso
-@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs,
-l'interfaccia web lilypond.bugs di gmane}.
-
-Purtroppo c'è un severo controllo @qq{contro il top-posting} nell'interfaccia di
-gmane, che viene spesso innescato erroneamente dai file lilypond.
-Per evitarlo, aggiungi
-
-@example
-> I'm not top posting.
-@end example
-
-@noindent
-(@emph{devi} includere il @code{>} ) in cima alla tua segnalazione bug.
-
 @end itemize
 @divEnd
 @divEnd
