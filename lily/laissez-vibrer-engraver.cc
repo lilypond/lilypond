@@ -47,6 +47,24 @@ Laissez_vibrer_engraver::listen_laissez_vibrer (Stream_event *ev)
   ASSIGN_EVENT_ONCE (event_, ev);
 }
 
+bool
+Laissez_vibrer_engraver::is_my_event_class (Stream_event *ev)
+{
+  return ev->in_event_class ("laissez-vibrer-event");
+}
+
+Grob *
+Laissez_vibrer_engraver::make_my_tie (SCM cause)
+{
+  return make_item ("LaissezVibrerTie", cause);
+}
+
+Grob *
+Laissez_vibrer_engraver::make_my_column (SCM cause)
+{
+  return make_item ("LaissezVibrerTieColumn", cause);
+}
+
 void
 Laissez_vibrer_engraver::acknowledge_note_head (Grob_info inf)
 {
@@ -61,7 +79,7 @@ Laissez_vibrer_engraver::acknowledge_note_head (Grob_info inf)
       for (SCM s = articulations; !tie_ev && scm_is_pair (s); s = scm_cdr (s))
         {
           Stream_event *ev = unsmob<Stream_event> (scm_car (s));
-          if (ev && ev->in_event_class ("laissez-vibrer-event"))
+          if (ev && is_my_event_class (ev))
             tie_ev = ev;
         }
     }
@@ -71,10 +89,10 @@ Laissez_vibrer_engraver::acknowledge_note_head (Grob_info inf)
 
   SCM cause = tie_ev->self_scm ();
 
-  Grob *lv_tie = make_item ("LaissezVibrerTie", cause);
+  Grob *lv_tie = make_my_tie (cause);
 
   if (!lv_column_)
-    lv_column_ = make_item ("LaissezVibrerTieColumn", lv_tie->self_scm ());
+    lv_column_ = make_my_column (lv_tie->self_scm ());
 
   lv_tie->set_object ("note-head", head->self_scm ());
 

@@ -29,9 +29,13 @@ class Laissez_vibrer_engraver : public Engraver
   Grob *lv_column_;
   vector<Grob *> lv_ties_;
 
+  virtual bool is_my_event_class (Stream_event *ev);
+  virtual Grob *make_my_tie (SCM cause);
+  virtual Grob *make_my_column (SCM cause);
+
+protected:
   void stop_translation_timestep ();
   void acknowledge_note_head (Grob_info);
-protected:
   void listen_laissez_vibrer (Stream_event *);
 public:
   TRANSLATOR_DECLARATIONS (Laissez_vibrer_engraver);
