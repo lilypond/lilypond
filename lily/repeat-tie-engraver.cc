@@ -2,6 +2,7 @@
   This file is part of LilyPond, the GNU music typesetter.
 
   Copyright (C) 2005--2015 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 2017 David Kastrup <dak@gnu.org>
 
 
   LilyPond is free software: you can redistribute it and/or modify
@@ -18,80 +19,49 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "engraver.hh"
 #include "item.hh"
-#include "pointer-group-interface.hh"
-#include "stream-event.hh"
+#include "laissez-vibrer-engraver.hh"
 
 #include "translator.icc"
 
-class Repeat_tie_engraver : public Engraver
+class Repeat_tie_engraver : public Laissez_vibrer_engraver
 {
-  Stream_event *event_;
-  Grob *semi_tie_column_;
-  vector<Grob *> semi_ties_;
-
-  void stop_translation_timestep ();
-  void acknowledge_note_head (Grob_info);
-  void listen_repeat_tie (Stream_event *);
+  virtual bool is_my_event_class (Stream_event *ev);
+  virtual Grob *make_my_tie (SCM cause);
+  virtual Grob *make_my_column (SCM cause);
 
 public:
   TRANSLATOR_DECLARATIONS (Repeat_tie_engraver);
+  TRANSLATOR_INHERIT (Laissez_vibrer_engraver);
 };
 
 Repeat_tie_engraver::Repeat_tie_engraver (Context *c)
-  : Engraver (c)
+  : Laissez_vibrer_engraver (c)
 {
-  event_ = 0;
-  semi_tie_column_ = 0;
 }
 
-void
-Repeat_tie_engraver::stop_translation_timestep ()
+bool
+Repeat_tie_engraver::is_my_event_class (Stream_event *ev)
 {
-  event_ = 0;
-  semi_tie_column_ = 0;
-  semi_ties_.clear ();
+  return ev->in_event_class ("repeat-tie-event");
 }
 
-void
-Repeat_tie_engraver::listen_repeat_tie (Stream_event *ev)
+Grob *
+Repeat_tie_engraver::make_my_tie (SCM cause)
 {
-  ASSIGN_EVENT_ONCE (event_, ev);
+  return make_item ("RepeatTie", cause);
 }
 
-void
-Repeat_tie_engraver::acknowledge_note_head (Grob_info inf)
+Grob *
+Repeat_tie_engraver::make_my_column (SCM cause)
 {
-  if (!event_)
-    return;
-
-  if (!semi_tie_column_)
-    {
-      semi_tie_column_ = make_item ("RepeatTieColumn", SCM_EOL);
-    }
-
-  SCM cause = event_->self_scm ();
-  Grob *semi_tie = make_item ("RepeatTie", cause);
-  semi_tie->set_object ("note-head", inf.grob ()->self_scm ());
-
-  Pointer_group_interface::add_grob (semi_tie_column_, ly_symbol2scm ("ties"),
-                                     semi_tie);
-  semi_tie->set_parent (semi_tie_column_, Y_AXIS);
-  semi_ties_.push_back (semi_tie);
-
-  if (is_direction (unsmob<Stream_event> (cause)->get_property ("direction")))
-    {
-      Direction d = to_dir (unsmob<Stream_event> (cause)->get_property ("direction"));
-      semi_tie->set_property ("direction", scm_from_int (d));
-    }
-
+  return make_item ("RepeatTieColumn", cause);
 }
 
 void
 Repeat_tie_engraver::boot ()
 {
-  ADD_LISTENER (Repeat_tie_engraver, repeat_tie);
+  ADD_LISTENER_FOR (Repeat_tie_engraver, laissez_vibrer, repeat_tie);
   ADD_ACKNOWLEDGER (Repeat_tie_engraver, note_head);
 }
 
