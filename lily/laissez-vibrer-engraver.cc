@@ -20,24 +20,11 @@
 
 #include "engraver.hh"
 #include "item.hh"
+#include "laissez-vibrer-engraver.hh"
 #include "pointer-group-interface.hh"
 #include "stream-event.hh"
 
 #include "translator.icc"
-
-class Laissez_vibrer_engraver : public Engraver
-{
-  Stream_event *event_;
-  Grob *lv_column_;
-  vector<Grob *> lv_ties_;
-
-  void stop_translation_timestep ();
-  void acknowledge_note_head (Grob_info);
-protected:
-  void listen_laissez_vibrer (Stream_event *);
-public:
-  TRANSLATOR_DECLARATIONS (Laissez_vibrer_engraver);
-};
 
 Laissez_vibrer_engraver::Laissez_vibrer_engraver (Context *c)
   : Engraver (c)
