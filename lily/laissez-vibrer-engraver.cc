@@ -71,8 +71,7 @@ Laissez_vibrer_engraver::acknowledge_note_head (Grob_info inf)
   /* use the heard event_ for all note heads, or an individual event for just
    * a single note head (attached as an articulation inside a chord) */
   Stream_event *tie_ev = event_;
-  Grob *head = inf.grob ();
-  Stream_event *note_ev = unsmob<Stream_event> (head->get_property ("cause"));
+  Stream_event *note_ev = inf.event_cause ();
   if (!tie_ev && note_ev && note_ev->in_event_class ("note-event"))
     {
       SCM articulations = note_ev->get_property ("articulations");
@@ -94,14 +93,14 @@ Laissez_vibrer_engraver::acknowledge_note_head (Grob_info inf)
   if (!lv_column_)
     lv_column_ = make_my_column (lv_tie->self_scm ());
 
-  lv_tie->set_object ("note-head", head->self_scm ());
+  lv_tie->set_object ("note-head", inf.grob ()->self_scm ());
 
   Pointer_group_interface::add_grob (lv_column_, ly_symbol2scm ("ties"),
                                      lv_tie);
 
-  if (is_direction (unsmob<Stream_event> (cause)->get_property ("direction")))
+  if (is_direction (tie_ev->get_property ("direction")))
     {
-      Direction d = to_dir (unsmob<Stream_event> (cause)->get_property ("direction"));
+      Direction d = to_dir (tie_ev->get_property ("direction"));
       lv_tie->set_property ("direction", scm_from_int (d));
     }
 
