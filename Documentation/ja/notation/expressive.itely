@@ -994,7 +994,7 @@ moltoF = \tweak DynamicText.self-alignment-X #LEFT
 @end lilypond
 
 古代記譜法でのブレス記号の音楽指示子 --
-divisio (ディビジオー: 区切り記号) がサポートされています。@c
+divisio (ディビジオ: 区切り記号) がサポートされています。@c
 詳細は @ref{Divisiones} を参照してください。
 
 
