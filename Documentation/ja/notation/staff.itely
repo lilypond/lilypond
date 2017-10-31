@@ -59,7 +59,7 @@
 @cindex staff, percussion (打楽器譜)
 @cindex drum staff (ドラム譜)
 @cindex percussion staff (打楽器譜)
-@cindex Gregorian transcription staff (グレゴリア編曲譜)
+@cindex Gregorian transcription staff (グレゴリオ聖歌の転写譜)
 @cindex rhythmic staff (リズム譜)
 @cindex tabstaff (タブ譜)
 @cindex tablature  (タブ譜)
@@ -740,7 +740,7 @@
 @cindex hiding staves (譜を隠す)
 @cindex hiding ancient staves (古代譜を隠す)
 @cindex hiding rhythmic staves (リズム譜を隠す)
-@cindex hiding vaticana staves (バチカン譜を隠す)
+@cindex hiding vaticana staves (バチカン版スタイルの譜を隠す)
 @cindex empty staves (空の譜)
 
 @funindex \RemoveEmptyStaves
