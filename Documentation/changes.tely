@@ -335,7 +335,7 @@ c16 c c |
 with multiple exceptions separated by bar checks.  Note that writing the
 exception pattern without pitches is convenient but not mandatory (also
 see the previous documented rhythm improvement --
-@ruser{Isolated durations in music now stand for unpitched notes}.
+@emph{Isolated durations in music now stand for unpitched notes}.
 
 @item
 The positioning of tuplet numbers for kneed beams has been improved.
