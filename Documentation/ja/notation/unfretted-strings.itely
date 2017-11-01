@@ -102,7 +102,7 @@
 @cindex down bow indication (ダウン ボー指示)
 @cindex open string indication (開放弦の指示)
 @cindex string, indicating open (開放弦の指示)
-@cindex, string numbers (弦番号)
+@cindex string numbers (弦番号)
 
 ボーイング指示はアーティキュレーションとして作成します。@c
 アーティキュレーションについては、@c
