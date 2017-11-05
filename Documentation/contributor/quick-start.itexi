@@ -18,36 +18,33 @@ for you and will help you do this as quickly and easily as possible.
 @node LilyDev
 @section LilyDev
 
-@c This text was written based on LilyDev 4.0 - JL
+@c This text was written based on LilyDevOS repository.
 
-There is a @q{remix} of Debian GNU/Linux -- known as @qq{LilyDev} for
-short -- which includes all the necessary software and tools to compile
-LilyPond, the documentation and the website (also see
-@ref{Website work}).
+@qq{LilyDev} is a custom GNU/Linux operating system which includes all
+the necessary software and tools to compile LilyPond, the documentation
+and the website (also see @ref{Website work}).
 
 @warning{LilyDev does not include the software for the Grand Unified
 Builder -- also see @ref{Grand Unified Builder (GUB)}.}
 
 While compiling LilyPond on Mac OS and Windows is possible, both
-environments are complex to set up.  LilyDev can be easily installed
-and run inside a @q{virtual machine} on either of these operating
+environments are complex to set up.  LilyDev can be easily run
+inside a @q{virtual machine} on either of these operating
 systems relatively easily using readily available virtualization
 software.  We recommend using VirtualBox as it is available for all
 major operating systems and is very easy to install & configure.
 
-The LilyDev disk image can also be written to a USB device or @q{burnt}
-to a DVD -- it is approximately 900 MB in size -- and installed just
-like any standard GNU/Linux distribution.
-
-The current image is based on a 32-bit version of Debian 8 (@q{Jessie})
-and the disk image was generated using Debian
-@uref{http://live.debian.net/, live-build 4}.
+LilyDev comes in two @q{flavours}: containers and a standard disk image.
+Windows or Mac OS users should choose the disk image (to be run in a virtual
+machine), that is the file named @code{lilydev-vm-fedora-VERSION}.  GNU/Linux
+users are recommended to choose one of the containers (currently Debian or
+Fedora), which are smaller in size, lightweight and easier to manage.
 
 @noindent
-Download the LilyDev disk image file (a @code{.iso} file) from here:
+Download the appropriate file from here:
 
 @example
-@uref{https://github.com/fedelibre/LilyDev/releases/latest}
+@uref{https://github.com/fedelibre/LilyDevOS/releases/latest}
 @end example
 
 @warning{Apart from installing and configuring LilyDev in VirtualBox,
@@ -88,15 +85,22 @@ VirtualBox is installed is known as the @strong{host}.  LilyDev
 will be installed @q{inside} VirtualBox as a @strong{guest}.}
 
 @item
+The disk image you downloaded is in raw format.  As VirtualBox does not
+support the raw format, you'll have to convert it to VDI format:
+
+@example
+VBoxManage convertfromraw lilydev-vm-fedora-VERSION.raw lilydev-vm-fedora-VERSION.vdi
+@end example
+
+@item
 Start the VirtualBox software and click @q{New} to create a new
 @qq{virtual machine}.
 
 The @q{New Virtual Machine Wizard} will walk you through setting up your
 guest virtual machine.  Choose an appropriate name for your LilyDev
 installation and select the @q{Linux} operating system.  When selecting
-the @q{version} choose @q{Debian (32 bit)} (don't use the @q{64 bit}
-option).  If you do not have that specific option choose @q{Linux 2.6}
-(again do not choose any option that has 64 bit next to it).
+the @q{version} choose @q{Fedora (64 bit)}.  If you do not have that
+specific option choose @q{Linux 2.6/3.x/4.x (64-bit)}.
 
 @item
 Select the amount of RAM you will allow the LilyDev guest to use from
@@ -106,52 +110,44 @@ better, although LilyDev will currently use no more than 4 GB (4096 MB)
 even if you are able to assign more.
 
 @item
-For your @q{Virtual Hard Disk}, leave the @q{Create new hard disk}
-option checked, use the default @q{VDI} and @qq{Dynamically allocated}
-options for the virtual hard drive.  A complete compile of everything
-(code, docs, regression tests) can reach 10 GB so size your virtual disk
-and its location accordingly.
+In the @q{Hard Disk} step, you'll use the VDI file you've previously created.
+You may move it within the virtual machine's folder already created by the
+wizard (in GNU/Linux the default should be @code{~/VirtualBox VMs/NAME}).
+Click on @q{Use an existing virtual hard disk file} and browse to the
+VDI file.
 
 @item
 Verify the summary details and click @q{Create}, when you are satisfied.
 Your new guest will be displayed in the VirtualBox window.
 
-@warning{The image contains a @q{686-pae} kernel, so you must enable
-@code{PAE} within the virtual machine's settings -- click on
-@clicksequence{System @click{} Processor} and select
-@q{Extended features: Enable PAE/NX}.}
+@warning{The image can be booted only on EFI, so you must enable
+it within the virtual machine's settings -- click on
+@clicksequence{System @click{} Motherboard} and select
+@q{Extended features: Enable EFI}.}
 
 @item
-Click the @q{Start} button and the @q{First Run Wizard} will prompt you
-for the installation media.  Click the browse icon, locate the LilyDev
-disk image file that you downloaded (the @code{.iso} file) and click
-through the wizard to begin the installation process.
+Click the @q{Start} button and wait until the login screen appears.
+You'll log in as @code{dev} user; type the password @code{lilypond}.
+Before starting any work, be sure to complete the next steps.
 
 @item
-When the LilyDev disk image boots for the first time, choose either the
-@q{Install} or the @q{Graphical install} menu item.  The installer will
-then walk you through the complete installation process.
+You might need to change the keybord layout from default US (american) to
+your national layout.  Click on the menu icon on the bottom left, then on
+@clicksequence{Preferences @click{} Keyboard and Mouse @click{} Keyboard Layout}:
+add your layout and then move it up to the list so it will be the default.
 
 @item
-At the @qq{Partition disks} stage, do not be afraid to select
-@qq{Guided - use entire disk}, since this refers to your
-@strong{@emph{virtual disk}}, not your computer's own hard disk.
+Disable the screensaver: click on the menu icon, then
+on @clicksequence{Preferences @click{} Screensaver}; in the Mode dropdown
+menu choose @q{Disable Screen Saver}.
 
 @item
-Continue to click through the rest of the wizard, filling in any
-appropriate details when asked, and wait for the install to complete.
-This will take about 10 minutes or so on a reasonably modern computer.
-
-@item
-When the installation is completed, just click on @q{Continue} (you
-do not have to remove any media since you installed LilyDev from a Disk
-image, which is just a file on your computer).  The installer will
-reboot the virtual machine.
+Finally you should run a setup script.  Click on
+@clicksequence{System Tools @click{} QTerminal} to launch the command line.
+Then type @code{./setup.sh} to run the interactive script which will set up
+git and download all the repositories needed to build LilyPond.
 
 @end enumerate
-
-@noindent
-LilyDev should now be installed and running!
 
 
 @node Configuring LilyDev in VirtualBox
@@ -650,7 +646,7 @@ The @code{git-cl} script should now be correctly configured for use.
 @node Compiling with LilyDev
 @section Compiling with LilyDev
 
-LilyDev is our @q{remix} of Debian which contains all the
+LilyDev is our custom GNU/Linux which contains all the
 necessary dependencies to do LilyPond development; for more
 information, see @ref{LilyDev}.
 
@@ -754,6 +750,4 @@ LilyDev.
 @item @ref{Working with source code}
 @item @ref{Compiling}
 @end itemize
-
-
 
