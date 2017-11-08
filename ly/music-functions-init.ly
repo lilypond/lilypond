@@ -111,7 +111,7 @@ form of a spanner event, @var{property} may also have the form
           (begin
             (ly:music-warning item (_ "not a spanner"))
             item))
-      (let* ((p (check-grob-path item (*location*)
+      (let* ((p (check-grob-path item
                                  #:default 'Bottom
                                  #:min 2
                                  #:max 2))
@@ -158,7 +158,7 @@ applyOutput =
 #(define-music-function (target proc) (symbol-list-or-symbol? procedure?)
    (_i "Apply function @code{proc} to every layout object matched by
 @var{target} which takes the form @code{Context} or @code{Context.Grob}.")
-   (let ((p (check-grob-path target (*location*) #:max 2)))
+   (let ((p (check-grob-path target #:max 2)))
      (if p
          (make-music 'ApplyOutputEvent
                      'procedure proc
@@ -852,7 +852,7 @@ For example,
 @}
 @end example
 ")
-   (let* ((p (check-music-path path (*location*)))
+   (let* ((p (check-music-path path))
           (name (and p (car p)))
           (prop (and p (cadr p))))
      (if p
@@ -915,7 +915,7 @@ appropriate tweak applied.")
       (let ((prop-path (check-grob-path
                          (if (symbol? property)
                              (list property)
-                             property) (*location*)
+                             property)
                          #:start 1 #:default #t #:min 2 #:max 2)))
         (if prop-path
             ; If the head of the grob property path is a symbol--i.e.,
@@ -932,7 +932,7 @@ appropriate tweak applied.")
                          (append item
                                  (if (symbol? property)
                                      (list property)
-                                     property)) (*location*)
+                                     property))
                          #:default 'Bottom #:min 3 #:max 3)))
         (if prop-path
             (propertyOverride prop-path (offsetter (third prop-path) offsets))
@@ -1004,7 +1004,7 @@ defaults with which a grob is created, this command uses
 @code{Output_property_engraver} at the grob acknowledge stage.  This
 may be necessary for overriding values set after the initial grob
 creation.")
-   (let ((p (check-grob-path grob-property-path (*location*)
+   (let ((p (check-grob-path grob-property-path
                              #:default 'Bottom
                              #:min 3)))
      (if p
@@ -1339,7 +1339,7 @@ propertyOverride =
 with subproperties given as well.  This music function is mostly intended
 for use from Scheme as a substitute for the built-in @code{\\override}
 command.")
-   (let ((p (check-grob-path grob-property-path (*location*)
+   (let ((p (check-grob-path grob-property-path
                              #:default 'Bottom
                              #:min 3)))
      (if p
@@ -1362,7 +1362,7 @@ its previous value.  @var{grob-property-path} is a symbol list of the form
 with subproperties given as well.  This music function is mostly intended
 for use from Scheme as a substitute for the built-in @code{\\revert}
 command.")
-   (let ((p (check-grob-path grob-property-path (*location*)
+   (let ((p (check-grob-path grob-property-path
                              #:default 'Bottom
                              #:min 3)))
      (if p
@@ -1380,7 +1380,7 @@ propertySet =
    (_i "Set the context property specified by @var{property-path} to
 @var{value}.  This music function is mostly intended for use from
 Scheme as a substitute for the built-in @code{\\set} command.")
-   (let ((p (check-context-path property-path (*location*))))
+   (let ((p (check-context-path property-path)))
      (if p
          (context-spec-music
           (make-music 'PropertySet
@@ -1428,7 +1428,7 @@ property (inside of an alist) is tweaked.")
            ;; so we need to know the grob to apply it to.  That's
            ;; easy if we have a directed tweak, and otherwise we
            ;; need to find the symbol in the expression itself.
-           (let* ((p (check-grob-path prop (*location*)
+           (let* ((p (check-grob-path prop
                                       #:start 1
                                       #:default #t
                                       #:min 2))
@@ -1468,7 +1468,7 @@ propertyUnset =
    (_i "Unset the context property specified by @var{property-path}.
 This music function is mostly intended for use from Scheme as a
 substitute for the built-in @code{\\unset} command.")
-   (let ((p (check-context-path property-path (*location*))))
+   (let ((p (check-context-path property-path)))
      (if p
          (context-spec-music
           (make-music 'PropertyUnset
@@ -1902,7 +1902,7 @@ are affected.
 
 @var{prop} can contain additional elements in which case a nested
 property (inside of an alist) is tweaked.")
-   (let ((p (check-grob-path prop (*location*)
+   (let ((p (check-grob-path prop
                              #:start 1
                              #:default #t
                              #:min 2)))
