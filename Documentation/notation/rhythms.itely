@@ -948,6 +948,9 @@ setting, resulting bar-check warnings may not be displayed.
 @cindex kirchenpausen
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{multi-measure-rest-length-control.ly}
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-form-of-multi-measure-rests.ly}
 
 @cindex multi-measure rests, positioning
