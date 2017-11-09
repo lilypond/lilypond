@@ -239,8 +239,7 @@ which often can be read back in order to generate an equivalent expression."
 (use-modules (srfi srfi-39)
              (scm display-lily))
 
-(define*-public (display-lily-music expr #:optional (port (current-output-port))
-                                    #:key force-duration)
+(define*-public (display-lily-music expr #:optional (port (current-output-port)))
   "Display the music expression using LilyPond syntax"
   (memoize-clef-names supported-clefs)
   (parameterize ((*indent* 0)
