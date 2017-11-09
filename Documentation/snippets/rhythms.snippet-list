@@ -34,6 +34,7 @@ manually-controlling-beam-positions.ly
 merging-multi-measure-rests-in-a-polyphonic-part.ly
 modifying-tuplet-bracket-length.ly
 moving-dotted-notes-in-polyphony.ly
+multi-measure-rest-length-control.ly
 multi-measure-rest-markup.ly
 non-default-tuplet-numbers.ly
 partcombine-and-autobeamoff.ly
