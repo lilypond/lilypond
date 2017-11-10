@@ -236,12 +236,20 @@ Grob::try_callback_on_alist (SCM *alist, SCM sym, SCM proc)
     grob_property_callback_stack = scm_cdr (grob_property_callback_stack);
 #endif
 
+  // If the return value is *unspecified*, we are dealing with one of
+  // three situations: Either the callback erroneously tried setting
+  // the property itself.  Or it is a pseudo-callback of the
+  // before-line-breaking kind not actually doing anything.  Or the
+  // marker may already have been reset by a different invocation of
+  // the callback in which case we cross fingers and continue silently.
   if (scm_is_eq (value, SCM_UNSPECIFIED))
     {
       value = get_property_data (sym);
-      assert (scm_is_null (value) || scm_is_eq (value, marker));
       if (scm_is_eq (value, marker))
         *alist = scm_assq_remove_x (*alist, sym);
+      else if (!scm_is_null (value))
+        programming_error (_f ("%s.%s changed from inside callback",
+                               name (), ly_symbol2string (sym)));
     }
   else
     {
