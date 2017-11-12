@@ -398,6 +398,30 @@ notes can be printed automatically:
 >>
 @end lilypond
 
+A staff-change line between chords connects the chords' @qq{last notes} as
+written in the source file; this can be used to quickly adjust the line's
+vertical start and end positions.
+
+@lilypond[quote,verbatim]
+\new PianoStaff <<
+  \new Staff = "one" {
+    <c' e' g'>1
+    \showStaffSwitch
+    \change Staff = "two"
+    <a c' f>1
+    \hideStaffSwitch
+    \change Staff = "one"
+    <e' g' c'>1
+    \showStaffSwitch
+    \change Staff = "two"
+    <f a c'>1
+  }
+  \new Staff = "two" {
+    \clef bass
+    s1*4
+  }
+>>
+@end lilypond
 
 @predefined
 @code{\showStaffSwitch},
