@@ -48,13 +48,18 @@ This section discusses rhythms, rests, durations, beaming and bars.
 @funindex \breve
 @funindex \maxima
 
-Durations are designated by numbers and dots.  Durations are entered
-as their reciprocal values.  For example, a quarter note is entered
-using a @code{4} (since it is a 1/4 note), and a half note is entered
-using a @code{2} (since it is a 1/2 note).  For notes longer than a
-whole you must use the @code{\longa} (a double breve) and
-@code{\breve} commands.  Durations as short as 128th notes may be
-specified.  Shorter values are possible, but only as beamed notes.
+The durations of notes are entered using numbers and dots.  The number
+entered is based on the reciprocal value of the length of the note.  For
+example, a quarter note is designated using the numerical value of
+@code{4} as it is a 1/4 note, a half note using @code{2}, an eighth
+using @code{8} and so on.  Durations as short as @code{128} notes can be
+entered but shorter values, while possible, can only be entered as
+beamed notes.  Also see @ref{Beams}.
+
+For notes longer than a whole use the @code{\longa} -- double breve --
+and @code{\breve} commands.  A note with the duration of a quadruple
+breve is possible using the @code{\maxima} command but is only supported
+within ancient music notation.  See @ref{Ancient notation}.
 
 @c Two 64th notes are needed to obtain beams
 @lilypond[quote,verbatim]
@@ -78,24 +83,14 @@ Here are the same durations with automatic beaming turned off.
 }
 @end lilypond
 
-A note with the duration of a quadruple breve may be entered with
-@code{\maxima}, but this is supported only within ancient music
-notation.  For details, see @ref{Ancient notation}.
-
 @cindex duration, default
 @cindex default note duration
 @cindex note duration, default
+@cindex duration, isolated
+@cindex isolated duration
 
-If the duration is omitted, it is set to the previously
-entered duration.  The default for the first note is a quarter
-note.
-
-@lilypond[quote,verbatim]
-\relative { a' a a2 a a4 a a1 a }
-@end lilypond
-
-Durations occuring on their own within a music sequence will take
-their pitches from the preceding note or chord.
+Isolated durations -- durations without a pitch -- that occur within a
+music sequence will take their pitch from the preceding note or chord.
 
 @lilypond[quote,verbatim]
 \relative {
@@ -105,6 +100,21 @@ their pitches from the preceding note or chord.
 }
 @end lilypond
 
+@cindex pitches, default
+@cindex default pitch
+@cindex note pitch, default
+@cindex pitch, isolated
+@cindex isolated pitch
+
+Isolated pitches -- pitches without a duration -- that occur within a
+music sequence will take their duration from the preceding note or
+chord.  If there is no preceding duration, then default for the note is
+always @code{4}, a quarter note.
+
+@lilypond[quote,verbatim]
+\relative { a' a a2 a a4 a a1 a }
+@end lilypond
+
 @cindex notes, dotted
 @cindex dotted notes
 @cindex notes, double-dotted
@@ -112,33 +122,30 @@ their pitches from the preceding note or chord.
 
 @funindex .
 
-To obtain dotted note lengths, place a dot (@code{.}) after the
-duration.  Double-dotted notes are specified by appending two
-dots, and so on.
+Place a dot (@code{.}) after the duration to obtain @q{dotted} note
+lengths.  Double-dotted notes are specified by appending two dots,
+and so on.
 
 @lilypond[quote,verbatim]
 \relative { a'4 b c4. b8 a4. b4.. c8. }
 @end lilypond
 
-Some durations cannot be represented with just binary durations
-and dots; they can be represented only by tying two or more
-notes together.  For details, see @ref{Ties}.
-
-For ways of specifying durations for the syllables of lyrics and
-ways of aligning lyrics to notes, see @ref{Vocal music}.
-
-Optionally, notes can be spaced strictly proportionately to their
-duration.  For details of this and other settings which control
-proportional notation, see @ref{Proportional notation}.
-
 @funindex \dotsUp
 @funindex \dotsDown
 @funindex \dotsNeutral
 
-Dots are normally moved up to avoid staff lines, except in
-polyphonic situations.  Dots may be manually placed above or below
-the staff; see @ref{Direction and placement}.
+To avoid clashing with staff lines, dots on notes are normally moved up.
+In polyphonic situations however, they can be placed, manually, above or
+below the staff as required.  See @ref{Direction and placement}.
 
+Some note durations cannot be represented using just numbers and dots
+but only by tying two or more notes together.  See @ref{Ties}.
+
+To specify durations that align the syllables of lyrics and notes
+together see @ref{Vocal music}.
+
+Notes can also be spaced proportionately to their duration, see
+@ref{Proportional notation}.
 
 @predefined
 @code{\autoBeamOn},
@@ -147,7 +154,6 @@ the staff; see @ref{Direction and placement}.
 @code{\dotsDown},
 @code{\dotsNeutral}.
 @endpredefined
-
 
 @snippets
 
@@ -166,7 +172,7 @@ Music Glossary:
 @rglos{Duration names notes and rests}.
 
 Notation Reference:
-@ref{Automatic beams},
+@ref{Beams},
 @ref{Ties},
 @ref{Stems},
 @ref{Writing rhythms},
@@ -184,9 +190,9 @@ Internals Reference:
 
 @knownissues
 @c Deliberately duplicated in Durations and Rests.  -gp
-There is no fundamental limit to rest durations (both in terms of
-longest and shortest), but the number of glyphs is limited:
-rests from 128th to maxima (8× whole) may be printed.
+While there is no fundamental limit to rest durations (longest or
+shortest), there is a limit to the number of glyphs possible so only
+rests between @code{128} and @code{\maxima} may be printed.
 
 
 @node Tuplets
