@@ -110,7 +110,7 @@ LY_DEFINE (ly_output_description, "ly:output-description",
 LY_DEFINE (ly_output_find_context_def, "ly:output-find-context-def",
 	   1, 1, 0, (SCM output_def, SCM context_name),
 	   "Return an alist of all context defs (matching @var{context-name}"
-	   "if given) in @var{output-def}.")
+	   " if given) in @var{output-def}.")
 {
   LY_ASSERT_SMOB (Output_def, output_def, 1);
   if (!SCM_UNBNDP (context_name))
