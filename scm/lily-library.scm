@@ -335,18 +335,22 @@ bookoutput function"
     mods))
 
 (define-public (context-defs-from-music output-def music)
+  (define (checkmods mods)
+    (or mods
+        (begin
+          (ly:music-warning music (_ "Cannot determine contexts to modify"))
+          (ly:make-context-mod))))
   (let ((warn #t))
     (let loop ((m music) (mods #f))
       ;; The parser turns all sets, overrides etc into something
-      ;; wrapped in ContextSpeccedMusic.  If we ever get a set,
-      ;; override etc that is not wrapped in ContextSpeccedMusic, the
-      ;; user has created it in Scheme himself without providing the
-      ;; required wrapping.  In that case, using #f in the place of a
-      ;; context modification results in a reasonably recognizable
-      ;; error.
+      ;; wrapped in ContextSpeccedMusic which is how we determine the
+      ;; contexts to affect.  A set, override etc that is not wrapped
+      ;; in ContextSpeccedMusic is likely Scheme-generated and cannot
+      ;; really be assigned usefully.  `checkmods' reports this
+      ;; problem when it occurs.
       (if (music-is-of-type? m 'layout-instruction-event)
           (ly:add-context-mod
-           mods
+           (checkmods mods)
            (case (ly:music-property m 'name)
              ((PropertySet)
               (list 'assign
@@ -372,7 +376,7 @@ bookoutput function"
                        (ly:music-property m 'grob-property-path)))))))
           (case (ly:music-property m 'name)
             ((ApplyContext)
-             (ly:add-context-mod mods
+             (ly:add-context-mod (checkmods mods)
                                  (list 'apply
                                        (ly:music-property m 'procedure))))
             ((ContextSpeccedMusic)
