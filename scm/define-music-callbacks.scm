@@ -135,12 +135,14 @@ to be used by the sequential-iterator"
           ;; "notification" rather than an "event" (which is always
           ;; sent to Bottom) but we don't currently have iterators for
           ;; that.
-          (make-apply-context
-           (lambda (context)
-             (ly:broadcast (ly:context-event-source context)
-                           (ly:make-stream-event
-                            (ly:make-event-class 'time-signature-event)
-                            (ly:music-mutable-properties music))))))))
+          (descend-to-context
+           (make-apply-context
+            (lambda (context)
+              (ly:broadcast (ly:context-event-source context)
+                            (ly:make-stream-event
+                             (ly:make-event-class 'time-signature-event)
+                             (ly:music-mutable-properties music)))))
+           'Score))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Some MIDI callbacks -- is this a good place for them?
