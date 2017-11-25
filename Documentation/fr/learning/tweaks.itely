@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8c1840ca28a05b3dad8d595e04d03779ba0a286a
+   Translation of GIT committish: 0be102e5cfda9ff63694078e6e60abc63d05b991
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1382,7 +1382,7 @@ métriques la valeur @code{#f} :
 @lilypond[quote,fragment,ragged-right,verbatim]
 \relative {
   \time 12/16
-  \omit Staff.TimeSignature.stencil
+  \omit Staff.TimeSignature
   c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
