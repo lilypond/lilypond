@@ -169,7 +169,7 @@ See Info node `(elisp)Security Considerations'."
   (let* ((editor (get-editor))
          (template (get-command-template editor-command-template-alist editor))
          (command
-          (re-sub "%\\(file\\)s" (format #f "~S" file-name)
+          (re-sub "%\\(file\\)s" (shell-quote-argument file-name)
                   (re-sub "%\\(line\\)s" (format #f "~a" line)
                           (re-sub "%\\(char\\)s" (format #f "~a" char)
                                   (re-sub
