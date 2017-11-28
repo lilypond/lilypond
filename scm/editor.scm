@@ -40,6 +40,100 @@
         (else
          "emacs"))))
 
+;; A bunch of stuff stolen from Emacs
+
+(define (w32-using-nt)
+  "Return non-nil if running on a Windows NT descendant.
+That includes all Windows systems except for 9X/Me."
+  (getenv "SystemRoot"))
+
+(define (w32-shell-name)
+  "Return the name of the shell being used."
+  (or (getenv "SHELL")
+      (and (w32-using-nt) "cmd.exe")
+      "command.com"))
+
+(define w32-system-shells '("cmd" "cmd.exe" "command" "command.com"
+                            "4nt" "4nt.exe" "4dos" "4dos.exe"
+                            "tcc" "tcc.exe" "ndos" "ndos.exe"))
+
+(define (w32-system-shell-p shell-name)
+  (and shell-name
+       (member (string-downcase
+                (basename shell-name))
+	       w32-system-shells)))
+
+(define (w32-shell-dos-semantics)
+  "Return non-nil if the interactive shell being used expects MS-DOS shell semantics."
+  (or (w32-system-shell-p (w32-shell-name))
+      (and (member (string-downcase (basename (w32-shell-name)))
+		   '("cmdproxy" "cmdproxy.exe"))
+	   (w32-system-shell-p (getenv "COMSPEC")))))
+
+(define-public (shell-quote-argument argument)
+  "Quote ARGUMENT for passing as argument to an inferior shell.
+
+This function is designed to work with the syntax of your system's
+standard shell, and might produce incorrect results with unusual shells.
+See Info node `(elisp)Security Considerations'."
+  (cond
+   ((and (eq? PLATFORM 'windows) (w32-shell-dos-semantics))
+
+    ;; First, quote argument so that CommandLineToArgvW will
+    ;; understand it.  See
+    ;; http://msdn.microsoft.com/en-us/library/17w5ykft%28v=vs.85%29.aspx
+    ;; After we perform that level of quoting, escape shell
+    ;; metacharacters so that cmd won't mangle our argument.  If the
+    ;; argument contains no double quote characters, we can just
+    ;; surround it with double quotes.  Otherwise, we need to prefix
+    ;; each shell metacharacter with a caret.
+
+    (set! argument
+          ;; escape backslashes at end of string
+          (regexp-substitute/global
+           #f
+           "(\\\\+)$"
+           ;; escape backslashes and quotes in string body
+           (regexp-substitute/global
+            #f
+            "(\\\\*)\""
+            argument
+            'pre 1 1 "\\\"" 'post)
+           'pre 1 1 'post))
+
+    (if (string-match "[%!\"]" argument)
+        (string-append
+         "^\""
+         (regexp-substitute/global
+          #f
+          "[%!()\"<>&|^]"
+          argument
+          'pre "^" 0 'post)
+         "^\"")
+        (string-append "\"" argument "\"")))
+
+   (else
+    (if (string-null? argument)
+        "''"
+        ;; Quote everything except POSIX filename characters.
+        ;; This should be safe enough even for really weird shells.
+        (regexp-substitute/global
+         #f
+         "\n"
+         (regexp-substitute/global
+          #f
+;;;       "[^-0-9a-zA-Z_./\n]" Negative ranges are too dangerous since
+;;;       their UTF-8 implications aren't clear: we don't want
+;;;       characters outside the ASCII range quoted since it is not
+;;;       clear whether we need to quote bytes or characters.  So we just
+;;;       invert the above regexp pattern for Posix characters manually.
+          "[\x01-\x09\x0b-,:-@[-^{-\x7f]"
+          argument
+          'pre "\\" 0 'post)
+         'pre  "'\n'" 'post)))
+   ))
+
+
 (define editor-command-template-alist
   '(("emacs" .  "emacsclient --no-wait +%(line)s:%(column)s %(file)s || (emacs +%(line)s:%(column)s %(file)s&)")
     ("gvim" . "gvim --remote +:%(line)s:norm%(column)s %(file)s")
