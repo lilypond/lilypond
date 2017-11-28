@@ -93,7 +93,7 @@ Options:
   
   
 (define (dissect-uri uri)
-  (let* ((match (string-match "textedit://(.*):([^:]+):([^:]+):(.*)$" uri)))
+  (let* ((match (string-match "textedit://(.*):([0-9]+):([0-9]+):([0-9]*)$" uri)))
     (if match
 	(list (unquote-uri (match:substring match 1))
 	      (match:substring match 2)
