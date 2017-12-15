@@ -139,7 +139,7 @@ d'unió}.
 
 Per veure de quina manera es poden especificar les duracions de
 les síl·labes de la lletra i com alinear la lletra a les notes,
-consulteu @rusernamed{Vocal music,Música vocal}.
+consulteu @ref{Música vocal}.
 
 De forma opcional es poden espaiar les notes de forma estrictament
 proporcional a les seves duracions.  Per veure més detalls sobre
@@ -188,7 +188,7 @@ Referència de la notació:
 @ref{Pliques},
 @ref{Escriptura de les duracions (valors rítmics)},
 @ref{Escriptura dels silencis},
-@rusernamed{Vocal music,Música vocal},
+@rusernamed{Música vocal},
 @rusernamed{Ancient notation,Notació antiga},
 @rusernamed{Proportional notation,Notació proporcional}.
 

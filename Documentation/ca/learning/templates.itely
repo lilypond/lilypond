@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
 
 @ignore
-    Translation of GIT committish: 67a345f965d169bc1acd23ff4160914fb2142f38
+    Translation of GIT committish: 8892bd951e1705e116b36cf2243c061f74e73af9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.19.25"
 
 @c Translators: Walter Garcia-Fontes
 @c Translation checkers:
@@ -23,6 +23,7 @@ LilyPond ja preparada.  Sols heu d'escriure les notes, llençar el
 LilyPond i gaudir d'unes belles partitures impreses!
 
 @menu
+* Plantilles incorporades::
 * Plantilles de pentagrama únic::
 * Plantilles de piano::
 * Plantilles de quartet de corda::
@@ -32,6 +33,329 @@ LilyPond i gaudir d'unes belles partitures impreses!
 * Altres plantilles::
 @end menu
 
+@node Plantilles incorporades
+@appendixsec Plantilles incorporades
+@translationof Built-in templates
+
+Algunes plantilles que són adequades per a un ventall de
+possibilitats a la música coral, es troben incorporades dins del
+LilyPond.  Es poden usar per crear música coral senzilla, amb o
+sense acompanyament de piano, en dos, quatre o buit pentagrames.
+A diferència d'altres plantilles, aquestes plantilles estan
+@q{incorporades}, cosa que significa que no s'han de copiar o
+editar: en comptes d'això, senzillament s'inclouen amb l'ordre
+@code{@bs{}include} dins del fitxer d'entrada.
+
+@warning{A diferència de la major part dels fitxers d'inclusió,
+aquestes plantilles incorporades s'han d'incloure @emph{al final}
+del fitxer d'entrada.}
+
+Les expressions musicals necessàries s'introdueixen definint
+valors per a variables específiques.  Aquestes definicions han
+d'anar abans del fitxer inclòs amb l'ordre @code{@bs{}include}.
+
+@menu
+* Plantilla coral SATB ::
+* Plantilla coral SSAATTBB::
+@end menu
+
+@node Plantilla coral SATB
+@appendixsubsec Plantilla coral SATB
+@translationof SATB template
+
+Es pot disposar la música amb una o dues veus per pentagrama
+fixant el valor de @code{TwoVoicesPerStaff} a @code{##f} o
+@code{##t} respectivament.
+
+A continuació apareix el fitxer d'entrada complet que produeix un
+arranjament a quatre veus SATB amb lletres individuals i
+acompanyament de piano:
+
+@lilypond[verbatim, quote]
+  SopranoMusic = \relative { a'4\f a8 a a4 a }
+  SopranoLyrics = \lyricmode { Sop -- ra -- no ly -- rics }
+  AltoMusic = \relative { d'4\f d d d }
+  AltoLyrics = \lyricmode { Al -- to ly -- rics }
+  TenorMusic = \relative { a4\p a a a }
+  TenorLyrics = \lyricmode { Te -- nor ly -- rics }
+  BassMusic = \relative { c2\p c4 c }
+  BassLyrics = \lyricmode { Bass ly -- rics }
+  PianoRHMusic = \relative { c' e g c }
+  PianoDynamics = { s2\mp s4 s4 }
+  PianoLHMusic = \relative { c e g c }
+  \include "satb.ly"
+@end lilypond
+
+Es pot utilitzar la mateixa entrada per produir una partitura amb
+dues veus per pentagrama, tan sols ajustant el valor de
+@code{TwoVoicesPerStaff} a @code{##t}.  De nou, cada veu té la
+seva lletra individual.
+
+@lilypond[verbatim, quote]
+  SopranoMusic = \relative { a'4\f a8 a a4 a }
+  SopranoLyrics = \lyricmode { Sop -- ra -- no ly -- rics }
+  AltoMusic = \relative { d'4\f d d d }
+  AltoLyrics = \lyricmode { Al -- to ly -- rics }
+  TenorMusic = \relative { a4\p a a a }
+  TenorLyrics = \lyricmode { Te -- nor ly -- rics }
+  BassMusic = \relative { c2\p c4 c }
+  BassLyrics = \lyricmode { Bass ly -- rics }
+  PianoRHMusic = \relative { c' e g c }
+  PianoDynamics = { s2\mp s4 s4 }
+  PianoLHMusic = \relative { c e g c }
+  TwoVoicesPerStaff = ##t
+  \include "satb.ly"
+@end lilypond
+
+Quan s'estableix el valor de @code{TwoVoicesPerStaff} a fals es
+deixa com a predeterminat, es poden ometre qualssevol de les
+variables musicals per produir arranjaments amb menys veus.  Aquí,
+per exemple, apareix la manera en la qual s'ha d'escriure el
+fitxer d'entrada per a un duo de soprano i baix:
+
+@lilypond[verbatim,quote]
+  SopranoMusic = \relative { c'' c c c }
+  SopranoLyrics = \lyricmode { High voice ly -- rics }
+  BassMusic = \relative { a a a a }
+  BassLyrics = \lyricmode { Low voice ly -- rics }
+  \include "satb.ly"
+@end lilypond
+
+Es pot afegir a cada una de les parts una segona estrofa o una
+lletra alternativa:
+
+@lilypond[verbatim, quote]
+  SopranoMusic = \relative { a'4 a a a }
+  SopranoLyricsOne = \lyricmode {
+    \set stanza = "1."
+    Words to verse one
+  }
+  SopranoLyricsTwo = \lyricmode {
+    \set stanza = "2."
+    Words to verse two
+  }
+  \include "satb.ly"
+@end lilypond
+
+Quan la lletra i les duracions són les mateixes per a totes les
+parts, la música vocal es disposa millor sobre dos pentagrames amb
+nou estrofes.  L'exemple sense acompanyament que apareix a
+continuació té sols tres estrofes.
+
+@lilypond[verbatim, quote]
+  SopranoMusic = \relative { a' a a a }
+  AltoMusic = \relative { f' f f f }
+  VerseOne = \lyricmode {
+    \set stanza = "1."
+    Words to verse one
+  }
+  VerseTwo = \lyricmode {
+    \set stanza = "2."
+    Words to verse two
+  }
+  VerseThree = \lyricmode {
+    \set stanza = "3."
+    Words to verse three
+  }
+  TenorMusic = \relative { a a a a }
+  BassMusic = \relative { f f f f }
+  TwoVoicesPerStaff = ##t
+  \include "satb.ly"
+@end lilypond
+
+Es poden ajustar el valor d'altres variables. La tonalitat i la
+indicació de compàs es poden modificar a partir dels ajustos
+predeterminats:
+
+@lilypond[verbatim, quote]
+  Key = \key a \major
+  Time = {
+    \time 5/4
+    \tempo "Allegro" 4 = 144
+  }
+  SopranoMusic = \relative { gis' gis gis gis gis }
+  AltoMusic = \relative { cis' cis cis cis cis }
+  VerseOne = \lyricmode { Words to this du -- et }
+  TwoVoicesPerStaff = ##t
+  \include "satb.ly"
+@end lilypond
+
+Els noms d'instrument i/o els noms curts d'instrument també es
+poden modificar:
+
+@lilypond[verbatim,quote]
+  SopranoMusic = \relative { c'' c c c }
+  SopranoLyrics = \lyricmode { High voice ly -- rics }
+  SopranoInstrumentName = "Soprano 1"
+  SopranoShortInstrumentName = "S1"
+  AltoMusic = \relative { a' a a a }
+  AltoLyrics = \lyricmode { Low voice ly -- rics }
+  AltoInstrumentName = "Soprano 2"
+  AltoShortInstrumentName = "S2"
+  \include "satb.ly"
+@end lilypond
+
+tot i que en el seu lloc podria resulta més fàcil usar la
+plantilla @code{ssaattbb.ly}, vegeu @ref{Plantilla coral SSAATTBB}.
+
+Es pot afegir un discant definint el valor de la variable
+@code{DescantMusic} i es pot afegir una lletra per al discant
+definint valors per a la variable @code{DescantLyrics}.  De manera
+semblant, pot afegir-se una part solista per sobre dels
+pentagrames del cor agrupat definint valors per a
+@code{SoloMusic} i @code{SoloLyrics}.
+
+Els blocs @code{\header} i @code{\paper} es poden afegir de la
+forma normal.  Es pot posar un bloc @code{\layout} de la manera
+usual al nivell superior, i el contingut es combina (però no se
+sobreescriu) amb els ajustos predeterminats que s'ofereixen a la
+plantilla.  Com a alternativa, es poden descartar tots els ajustos
+predeterminats proveïts per la plantilla definint una variable
+@code{Layout} que contingui @emph{tots} els ajustos requerits:
+
+@example
+Layout = \layout @{ ... @}
+@end example
+
+El conjunt complet de variables que poden modificar-se es poden
+consultar al fitxer @file{ly/satb.ly}, vegeu
+@ref{Altres fonts d'informació}.
+
+@seealso
+Manual d'aprenentatge:
+@ref{Organitzar les peces mitjançant variables}
+@ref{Plantilles de conjunts vocals},
+@ref{Extensió de les plantilles},
+@ref{Altres fonts d'informació}.
+
+@knownissues
+L'establiment de la variable @code{TwoVoicesPerStaff} té efecte
+sobre la duració completa de la partitura: no es poden donar
+valors diferents en moments diferents.
+
+Amb aquesta senzilla plantilla incorporada no són possibles
+arranjaments més complexos de música coral.
+
+@node Plantilla coral SSAATTBB
+@appendixsubsec Plantilla coral SSAATTBB
+@translationof SSAATTBB template
+
+Totes les variables definides per a la plantilla SATB, amb
+l'excepció de les variables @code{VerseXxx} també estan
+disponibles per a la plantilla SSAATTBB, vegeu
+@ref{Plantilla coral SATB}.  A més a més, la música i la lletra de
+les veus primera i segona en les quatre parts o en qualsevol es
+pot especificar donant valors a les variables
+@code{SopranoOneMusic}, @code{SopranoTwoMusic}, etc., amb les
+lletres a @code{SopranoOneLyrics}, @code{SopranoTwoLyrics}, etc.
+Es pot definir fins a quatre estrofes addicionals per a totes les
+parts usant les variables @code{SopranoONeLyricsOne}, estant les
+altres definides de forma anàloga.
+
+Si s'estableix el valor de @code{TwoVoicesPerStaff} a @code{##t},
+@emph{totes} les partes vocals se situaran a pentagrames únics com
+veus en divisi.  Si @code{TwoVoicesPerStaff} es deixa en el seu
+valor predeterminat o s'estableix a @code{##f}, llavors les parts
+vocals individuals es poden disposar sobre un o dos pentagrames
+d'acord amb el valor
+@code{SopranoTwoVoicesPerStaff}, @code{MenTwoVoicesPerStaff}, etc.
+
+Com a exemple, suposem que tenim una peça per a soprano i
+contralt que comença amb totes les veus al uníson i continua en
+una secció amb dues parts vocals, soprano i contralt, i acaba amb
+una secció de quatre pentagrames. Es codificaria de la forma
+següent:
+
+@lilypond[verbatim,quote]
+Time = { s1 \break s1 \break }
+WomenMusic = \relative { a'4 a a a }
+WomenLyrics = \lyricmode { Wo -- men ly -- rics }
+SopranoMusic = \relative { s1 | c''4 c c c8 c }
+SopranoLyrics = \lyricmode{ So -- pra -- no ly -- rics }
+AltoMusic = \relative { s1 | g'4 g g g }
+AltoLyrics = \lyricmode { Al -- to ly -- rics }
+SopranoOneMusic = \relative { s1 | s1 |e''4 e e e }
+SopranoOneLyrics = \lyricmode { Sop One ly -- rics }
+SopranoTwoMusic = \relative { s1 | s1 | c''4 c c c }
+SopranoTwoLyrics = \lyricmode { Sop Two ly -- rics }
+AltoOneMusic = \relative { s1 | s1 | g'4 g g g8 g }
+AltoOneLyrics = \lyricmode { Al -- to One ly -- rics }
+AltoTwoMusic = \relative { s1 | s1 | e'4 e e e8 e }
+AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
+\layout { ragged-right = ##t }
+\include "ssaattbb.ly"
+@end lilypond
+
+Les veus masculines es poden afegir de forma anàloga.
+
+Per canviar la disposició de forma que les veus de soprano en
+divisi utilitzin un pentagrama compartit, senzillament fixem el
+valor de @code{SopranoTwoVoicesPerStaff} a ##t, deixant tota la
+resta de valors sense canvis:
+
+@lilypond[verbatim,quote]
+SopranoTwoVoicesPerStaff = ##t
+Time = { s1 \break s1 \break }
+WomenMusic = \relative { a'4 a a a }
+WomenLyrics = \lyricmode { Wo -- men ly -- rics }
+SopranoMusic = \relative { s1 | c''4 c c c8 c }
+SopranoLyrics = \lyricmode{ So -- pra -- no ly -- rics }
+AltoMusic = \relative { s1 | g'4 g g g }
+AltoLyrics = \lyricmode { Al -- to ly -- rics }
+SopranoOneMusic = \relative { s1 | s1 |e''4 e e e }
+SopranoOneLyrics = \lyricmode { Sop One ly -- rics }
+SopranoTwoMusic = \relative { s1 | s1 | c''4 c c c }
+SopranoTwoLyrics = \lyricmode { Sop Two ly -- rics }
+AltoOneMusic = \relative { s1 | s1 | g'4 g g g8 g }
+AltoOneLyrics = \lyricmode { Al -- to One ly -- rics }
+AltoTwoMusic = \relative { s1 | s1 | e'4 e e e8 e }
+AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
+\layout { ragged-right = ##t }
+\include "ssaattbb.ly"
+@end lilypond
+
+o bé, per fer que totes les veus aparellades comparteixin un sol
+pentagrama, establiu @code{TwoVoicesPerStaff} al valor ##t:
+
+@lilypond[verbatim,quote]
+TwoVoicesPerStaff = ##t
+Time = { s1 \break s1 \break }
+WomenMusic = \relative { a'4 a a a }
+WomenLyrics = \lyricmode { Wo -- men ly -- rics }
+SopranoMusic = \relative { s1 | c''4 c c c8 c }
+SopranoLyrics = \lyricmode{ So -- pra -- no ly -- rics }
+AltoMusic = \relative { s1 | g'4 g g g }
+AltoLyrics = \lyricmode { Al -- to ly -- rics }
+SopranoOneMusic = \relative { s1 | s1 |e''4 e e e }
+SopranoOneLyrics = \lyricmode { Sop One ly -- rics }
+SopranoTwoMusic = \relative { s1 | s1 | c''4 c c c }
+SopranoTwoLyrics = \lyricmode { Sop Two ly -- rics }
+AltoOneMusic = \relative { s1 | s1 | g'4 g g g8 g }
+AltoOneLyrics = \lyricmode { Al -- to One ly -- rics }
+AltoTwoMusic = \relative { s1 | s1 | e'4 e e e8 e }
+AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
+\layout { ragged-right = ##t }
+\include "ssaattbb.ly"
+@end lilypond
+
+És possible veure el conjunt complet de variables que es poden
+canviar examinant el fitxer @file{ly/ssaattbb.ly}, vegeu
+@ref{Altres fonts d'informació}.
+
+@seealso
+Manual de aprenentatge:
+@ref{Organitzar les peces mitjançant variables},
+@ref{Plantilles de conjunts vocals},
+@ref{Extensió de les plantilles},
+@ref{Altres fonts d'informació}.
+
+@knownissues
+El valor de les diferents variables @code{...TwoVoicesPerStaff}
+s'aplica a tota la duració de la partitura: no poden rebre valors
+diferents en temps diferents.
+
+No són possibles arranjament de musica coral a 8 part més
+complexos, amb aquesta senzilla plantilla incorporada.
 
 @node Plantilles de pentagrama únic
 @appendixsec Plantilles de pentagrama únic
