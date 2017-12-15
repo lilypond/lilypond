@@ -1120,7 +1120,7 @@ la lletra de les cançons; si una de les veus rep un nom explícit
 per poder adjuntar una lletra, el combinador de parts no
 funciona.  Tanmateix, es pot aconseguir aquest efecte usant un
 context @code{NullVoice}.  Vegeu
-@rusernamed{Polyphony with shared lyrics,Polifonia amb lletres compartides}.
+@ref{Polifonia amb lletres compartides}.
 
 @snippets
 

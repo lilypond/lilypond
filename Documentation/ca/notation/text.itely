@@ -24,7 +24,7 @@ format) a les partitures.
 @noindent
 Certs elements de text dels que no ens ocupem aquí es presenten a
 d'altres secciones específiques:
-@rusernamed{Vocal music,Música vocal},
+@ref{Música vocal},
 @rusernamed{Titles and headers,Títols i encapçalaments}.
 
 @menu

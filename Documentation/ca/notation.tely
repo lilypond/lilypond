@@ -56,7 +56,7 @@ Copyright @copyright{} 1999--2015 pels autors.
 
 @menu
 * Notació musical::                 Notació que es fa servir a gairebé tots els projectes.
-* Specialist notation::          Notació que sols s'usa per a fins específics.
+* Notació especialitzada::        Notació que sols s'usa per a fins específics.
 * General input and output::      Informació general sobre l'entrada i la sortida del LilyPond.
 * Spacing issues::             Presentació del resultat en paper.
 * Changing defaults::   Ajust fi del resultat
