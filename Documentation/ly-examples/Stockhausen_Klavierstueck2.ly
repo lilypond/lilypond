@@ -1,4 +1,4 @@
-\version "2.18.0"
+\version "2.19.80"
 
 \paper {
   tagline = ##f
@@ -121,8 +121,8 @@ measIIIu = {
 
 measIIIl = {
   \textSpannerDown
-  \override TextSpanner.bound-details.left.text = \markup { \musicglyph #"pedal.Ped" }
-  \override TextSpanner.bound-details.right.text = \markup { \musicglyph #"pedal.*" }
+  \override TextSpanner.bound-details.left.text = \markup { \musicglyph "pedal.Ped" }
+  \override TextSpanner.bound-details.right.text = \markup { \musicglyph "pedal.*" }
   \override TextSpanner.dash-fraction = #0.05
   \override TextSpanner.dash-period = #1
   s8 _\pp\startTextSpan s8

@@ -10,7 +10,7 @@
 
 @c Translators: Till Paala
 
-@c \version "2.19.28"
+@c \version "2.19.80"
 
 @node Notationsübersicht
 @appendix Notationsübersicht
@@ -885,14 +885,14 @@ benutzt. @code{\musicglyph} greift direkt auf die Notationsschriftart
 zu
 
 @example
-g^\markup @{\musicglyph #"scripts.segno" @}
+g^\markup @{\musicglyph "scripts.segno" @}
 @end example
 
 @noindent
 or
 
 @example
-\markup @{\musicglyph #"five"@}.
+\markup @{\musicglyph "five"@}.
 @end example
 
 Siehe auch @ref{Text formatieren}.

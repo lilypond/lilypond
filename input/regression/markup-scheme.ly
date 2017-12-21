@@ -25,7 +25,7 @@ For maintenance reasons, we don't exercise the entire markup command set.
 
 
 
-\version "2.16.0"
+\version "2.19.80"
 
 {
   \textLengthOn
@@ -37,9 +37,9 @@ For maintenance reasons, we don't exercise the entire markup command set.
     \bracket \column { baz bazr bla }
     \hspace #2.0
     \override #'(font-encoding . fetaMusic) {
-      \lookup #"noteheads-0"
+      \lookup "noteheads-0"
     }
-    \musicglyph #"accidentals.mirroredflat"
+    \musicglyph "accidentals.mirroredflat"
     \combine "X" "+"   
     \combine "o" "/"
     \box \column { \line { "string 1" } \line { "string 2" } }

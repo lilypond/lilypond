@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.19.80"
 %\include "example-header.ily"
 
 
@@ -25,7 +25,7 @@
   \override #'(baseline-skip . 2.2)
   \center-column {
    \abs-fontsize #8 \sans \bold
-   \with-url #"http://www.MutopiaProject.org" {
+   \with-url "http://www.MutopiaProject.org" {
     "Mutopia"
     "Project"
    }
@@ -38,9 +38,9 @@
   \override #'(baseline-skip . 2.2)
   \column {
    \abs-fontsize #8 \sans
-   \concat{"Typeset using " \with-url #"http://www.lilypond.org" "LilyPond" " ©2006 by " \maintainer "." }
+   \concat{"Typeset using " \with-url "http://www.lilypond.org" "LilyPond" " ©2006 by " \maintainer "." }
    \abs-fontsize #8 \sans
-   \concat {"This work is licensed under a " \with-url #"http://creativecommons.org/about/pdm" \copyright " license."}
+   \concat {"This work is licensed under a " \with-url "http://creativecommons.org/about/pdm" \copyright " license."}
   }
  }
 }

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.19.80"
 
 \header {
   lsrtags = "expressive-marks, symbols-and-glyphs"
@@ -30,16 +30,16 @@ ticks, vees and @qq{railroad tracks} (caesura).
   % rvarcomma and lvarcomma are variations of the default rcomma and lcomma
   % N.B.: must use Staff context here, since we start a Voice below
   \override Staff.BreathingSign.text =
-    \markup { \musicglyph #"scripts.rvarcomma" }
+    \markup { \musicglyph "scripts.rvarcomma" }
   << { g4 as g } \\ { es4 \breathe bes es } >> |
 
   % vee
-  \override BreathingSign.text = \markup { \musicglyph #"scripts.upbow" }
+  \override BreathingSign.text = \markup { \musicglyph "scripts.upbow" }
   es8[ d es f g] \breathe f |
 
   % caesura
   \override BreathingSign.text =
-    \markup { \musicglyph #"scripts.caesura.curved" }
+    \markup { \musicglyph "scripts.caesura.curved" }
   es8[ d] \breathe es[ f g f] |
   es2 r4 \bar "||"
 }

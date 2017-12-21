@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.19.80"
 
 \header {
   lsrtags = "template, vocal-music"
@@ -44,11 +44,11 @@ global = {
 }
 
 dot = \markup {
-  \raise #0.7 \musicglyph #"dots.dot"
+  \raise #0.7 \musicglyph "dots.dot"
 }
 
 tick = \markup {
-  \raise #1 \fontsize #-5 \musicglyph #"scripts.rvarcomma"
+  \raise #1 \fontsize #-5 \musicglyph "scripts.rvarcomma"
 }
 
 % Use markup to center the chant on the page

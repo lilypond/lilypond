@@ -6,11 +6,11 @@ best when one string number is indicated in advance "
   
 }
 
-\version "2.19.21"
+\version "2.19.80"
 
 foo = \relative {
   <d\5 fis a d fis>_\markup {
-    \fret-diagram-terse #"x;5;4;2;3;2;"
+    \fret-diagram-terse "x;5;4;2;3;2;"
   }
 }
 

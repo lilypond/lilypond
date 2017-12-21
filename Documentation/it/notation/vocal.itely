@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.80"
 
 @c Translators: Federico Bruni
 @c Translation checkers:
@@ -1805,7 +1805,7 @@ Questi numeri appaiono prima dell'inizio della prima sillaba.
 
 @ignore
 leftbrace = \markup { \override #'(font-encoding . fetaBraces) \lookup
-#"brace105" }
+"brace105" }
 
 stanzaOneOne = {
   \set stanza = \markup { "1. " \leftbrace }
@@ -2085,7 +2085,7 @@ its fleece was white as snow.
   }
 }
 \markup{
-  \wordwrap-string #"
+  \wordwrap-string "
   Verse 3.
 
   Mary took it home again,
@@ -3265,7 +3265,7 @@ Maggiori informazioni in @ref{Fonts}.
 
 @lilypond[verbatim,quote]
 tick = \markup {
-  \raise #1 \fontsize #-5 \musicglyph #"scripts.rvarcomma"
+  \raise #1 \fontsize #-5 \musicglyph "scripts.rvarcomma"
 }
 \markup {
   \fill-line {
@@ -3290,10 +3290,10 @@ solitamente un punto per indicare dove si trova il cambio di nota.
 
 @lilypond[verbatim,quote]
 dot = \markup {
-  \raise #0.7 \musicglyph #"dots.dot"
+  \raise #0.7 \musicglyph "dots.dot"
 }
 tick = \markup {
-  \raise #1 \fontsize #-5 \musicglyph #"scripts.rvarcomma"
+  \raise #1 \fontsize #-5 \musicglyph "scripts.rvarcomma"
 }
 \markup {
   \fill-line {
@@ -3318,10 +3318,10 @@ leggermente allungate sono indicate in grassetto.
 
 @lilypond[verbatim,quote]
 dot = \markup {
-  \raise #0.7 \musicglyph #"dots.dot"
+  \raise #0.7 \musicglyph "dots.dot"
 }
 tick = \markup {
-  \raise #1 \fontsize #-5 \musicglyph #"scripts.rvarcomma"
+  \raise #1 \fontsize #-5 \musicglyph "scripts.rvarcomma"
 }
 \markup {
   \fill-line {
@@ -3345,7 +3345,7 @@ per indicare l'accento.
 
 @lilypond[verbatim,quote]
 tick = \markup {
-  \raise #2 \fontsize #-5 \musicglyph #"scripts.rvarcomma"
+  \raise #2 \fontsize #-5 \musicglyph "scripts.rvarcomma"
 }
 \markup {
   \fill-line {

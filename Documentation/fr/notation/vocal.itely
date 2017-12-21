@@ -8,7 +8,7 @@
    Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.80"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Jean-Jacques Gerbaud
@@ -1810,7 +1810,7 @@ Ces numéros se placeront juste avant le début de la première syllabe.
 
 @ignore
 leftbrace = \markup { \override #'(font-encoding . fetaBraces) \lookup
-#"brace105" }
+"brace105" }
 
 stanzaOneOne = {
   \set stanza = \markup { "1. " \leftbrace }
@@ -2116,7 +2116,7 @@ M'en al- lant pro- me- ner...
   }
 }
 \markup{
-  \wordwrap-string #"
+  \wordwrap-string "
   Verse 3.
 
   Chante, rossignol, chante,
@@ -3341,7 +3341,7 @@ travers des glyphes de la fonte @code{fetaMusic} -- voir le chapitre
 
 @lilypond[verbatim,quote]
 tick = \markup {
-  \raise #1 \fontsize #-5 \musicglyph #"scripts.rvarcomma"
+  \raise #1 \fontsize #-5 \musicglyph "scripts.rvarcomma"
 }
 \markup {
   \fill-line {
@@ -3366,10 +3366,10 @@ contraire, le changement de note est indiqué par un point.
 
 @lilypond[verbatim,quote]
 dot = \markup {
-  \raise #0.7 \musicglyph #"dots.dot"
+  \raise #0.7 \musicglyph "dots.dot"
 }
 tick = \markup {
-  \raise #1 \fontsize #-5 \musicglyph #"scripts.rvarcomma"
+  \raise #1 \fontsize #-5 \musicglyph "scripts.rvarcomma"
 }
 \markup {
   \fill-line {
@@ -3394,10 +3394,10 @@ syllabes accentuées ou allongées.
 
 @lilypond[verbatim,quote]
 dot = \markup {
-  \raise #0.7 \musicglyph #"dots.dot"
+  \raise #0.7 \musicglyph "dots.dot"
 }
 tick = \markup {
-  \raise #1 \fontsize #-5 \musicglyph #"scripts.rvarcomma"
+  \raise #1 \fontsize #-5 \musicglyph "scripts.rvarcomma"
 }
 \markup {
   \fill-line {
@@ -3421,7 +3421,7 @@ d'un accent.
 
 @lilypond[verbatim,quote]
 tick = \markup {
-  \raise #2 \fontsize #-5 \musicglyph #"scripts.rvarcomma"
+  \raise #2 \fontsize #-5 \musicglyph "scripts.rvarcomma"
 }
 \markup {
   \fill-line {

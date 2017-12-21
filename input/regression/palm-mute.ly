@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.80"
 
 \header{
   texidoc =
@@ -9,7 +9,7 @@ is supported by triangle-shaped note heads."
 palmmute = \relative c, {
     \time 4/4
     \palmMuteOn
-    e8^\markup { \musicglyph #"noteheads.u2do"  = palm mute }
+    e8^\markup { \musicglyph "noteheads.u2do"  = palm mute }
     e e
     \palmMuteOff  e e  \palmMute e e e |
     e8 \palmMute { e e e } e e e e |

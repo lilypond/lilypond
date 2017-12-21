@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.22"
+@c \version "2.19.80"
 
 @c Translators: Tomohiro Tatejima, Yoshiki Sawada
 @c Translation status: post-GDP
@@ -4236,7 +4236,7 @@ XinO = {
   \once \override NoteHead.text = \markup {
     \combine
       \halign #-0.7 \draw-circle #0.85 #0.2 ##f
-      \musicglyph #"noteheads.s2cross"
+      \musicglyph "noteheads.s2cross"
   }
 }
 \relative {
@@ -4718,7 +4718,7 @@ custosNote =
    #{
      \tweak NoteHead.stencil #ly:text-interface::print
      \tweak NoteHead.text
-        \markup \musicglyph #"custodes.mensural.u0"
+        \markup \musicglyph "custodes.mensural.u0"
      \tweak Stem.stencil ##f
      #note
    #})

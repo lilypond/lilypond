@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.40"
+@c \version "2.19.80"
 
 @c Translators: Federico Bruni
 @c Translation checkers: Luca Rossetto Casel
@@ -3355,9 +3355,9 @@ comando @code{\mark}
 
 @lilypond[quote,verbatim]
 \relative c' {
-  c1 \mark \markup { \musicglyph #"scripts.segno" }
-  c1 \mark \markup { \musicglyph #"scripts.coda" }
-  c1 \mark \markup { \musicglyph #"scripts.ufermata" }
+  c1 \mark \markup { \musicglyph "scripts.segno" }
+  c1 \mark \markup { \musicglyph "scripts.coda" }
+  c1 \mark \markup { \musicglyph "scripts.ufermata" }
   c1
 }
 @end lilypond

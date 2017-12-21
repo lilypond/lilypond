@@ -11,7 +11,7 @@
 @c Translators: Federico Bruni
 @c Translation checkers:
 
-@c \version "2.19.22"
+@c \version "2.19.80"
 
 @node Modifica delle impostazioni predefinite
 @chapter Modifica delle impostazioni predefinite
@@ -4335,7 +4335,7 @@ XinO = {
   \once \override NoteHead.text = \markup {
     \combine
       \halign #-0.7 \draw-circle #0.85 #0.2 ##f
-      \musicglyph #"noteheads.s2cross"
+      \musicglyph "noteheads.s2cross"
   }
 }
 \relative {
@@ -4949,7 +4949,7 @@ custosNote =
    #{
      \tweak NoteHead.stencil #ly:text-interface::print
      \tweak NoteHead.text
-        \markup \musicglyph #"custodes.mensural.u0"
+        \markup \musicglyph "custodes.mensural.u0"
      \tweak Stem.stencil ##f
      #note
    #})
@@ -4981,7 +4981,7 @@ padText =
 custosNote =
   \tweak NoteHead.stencil #ly:text-interface::print
   \tweak NoteHead.text
-     \markup \musicglyph #"custodes.mensural.u0"
+     \markup \musicglyph "custodes.mensural.u0"
   \tweak Stem.stencil ##f
   \etc
 

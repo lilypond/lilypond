@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.19.80"
 
 \header {
   lsrtags = "symbols-and-glyphs, winds"
@@ -31,14 +31,14 @@ centermarkup = {
     \centermarkup
     g^\markup {
       \combine
-        \musicglyph #"scripts.open"
-        \musicglyph #"scripts.tenuto"
+        \musicglyph "scripts.open"
+        \musicglyph "scripts.tenuto"
     }
     \centermarkup
     g^\markup {
       \combine
-        \musicglyph #"scripts.open"
-        \musicglyph #"scripts.stopped"
+        \musicglyph "scripts.open"
+        \musicglyph "scripts.stopped"
     }
     g\stopped
   }

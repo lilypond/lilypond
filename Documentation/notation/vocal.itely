@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.80"
 
 @node Vocal music
 @section Vocal music
@@ -1780,7 +1780,7 @@ These numbers are put just before the start of the first syllable.
 
 @ignore
 leftbrace = \markup { \override #'(font-encoding . fetaBraces) \lookup
-#"brace105" }
+"brace105" }
 
 stanzaOneOne = {
   \set stanza = \markup { "1. " \leftbrace }
@@ -2059,7 +2059,7 @@ its fleece was white as snow.
   }
 }
 \markup{
-  \wordwrap-string #"
+  \wordwrap-string "
   Verse 3.
 
   Mary took it home again,
@@ -3216,7 +3216,7 @@ For details, see @ref{Fonts}.
 
 @lilypond[verbatim,quote]
 tick = \markup {
-  \raise #1 \fontsize #-5 \musicglyph #"scripts.rvarcomma"
+  \raise #1 \fontsize #-5 \musicglyph "scripts.rvarcomma"
 }
 \markup {
   \fill-line {
@@ -3241,10 +3241,10 @@ dot is usually inserted to indicate where the change in note occurs.
 
 @lilypond[verbatim,quote]
 dot = \markup {
-  \raise #0.7 \musicglyph #"dots.dot"
+  \raise #0.7 \musicglyph "dots.dot"
 }
 tick = \markup {
-  \raise #1 \fontsize #-5 \musicglyph #"scripts.rvarcomma"
+  \raise #1 \fontsize #-5 \musicglyph "scripts.rvarcomma"
 }
 \markup {
   \fill-line {
@@ -3269,10 +3269,10 @@ lengthened syllables are indicated in bold text.
 
 @lilypond[verbatim,quote]
 dot = \markup {
-  \raise #0.7 \musicglyph #"dots.dot"
+  \raise #0.7 \musicglyph "dots.dot"
 }
 tick = \markup {
-  \raise #1 \fontsize #-5 \musicglyph #"scripts.rvarcomma"
+  \raise #1 \fontsize #-5 \musicglyph "scripts.rvarcomma"
 }
 \markup {
   \fill-line {
@@ -3296,7 +3296,7 @@ stress.
 
 @lilypond[verbatim,quote]
 tick = \markup {
-  \raise #2 \fontsize #-5 \musicglyph #"scripts.rvarcomma"
+  \raise #2 \fontsize #-5 \musicglyph "scripts.rvarcomma"
 }
 \markup {
   \fill-line {

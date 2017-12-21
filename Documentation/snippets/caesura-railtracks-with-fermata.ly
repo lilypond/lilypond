@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.19.80"
 
 \header {
   lsrtags = "expressive-marks, symbols-and-glyphs, tweaks-and-overrides"
@@ -26,8 +26,8 @@ pleasing combination of railtracks and fermata.
     \override #'(baseline-skip . 1.8)
     \dir-column {
       \translate #'(0.155 . 0)
-        \center-align \musicglyph #"scripts.caesura.curved"
-      \center-align \musicglyph #"scripts.ufermata"
+        \center-align \musicglyph "scripts.caesura.curved"
+      \center-align \musicglyph "scripts.ufermata"
     }
   }
   \breathe c4

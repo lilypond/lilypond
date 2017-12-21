@@ -10,7 +10,7 @@
 
 @c Translators: Till Paala
 
-@c \version "2.19.21"
+@c \version "2.19.80"
 
 @node Tasteninstrumente und andere Instrumente mit mehreren Systemen
 @section Tasteninstrumente und andere Instrumente mit mehreren Systemen
@@ -677,8 +677,8 @@ oder Pedaldiagrammen angezeigt werden:
 
 @lilypond[quote,verbatim,fragment]
 \textLengthOn
-cis''1_\markup { \harp-pedal #"^v-|vv-^" }
-c''!1_\markup { \harp-pedal #"^o--|vv-^" }
+cis''1_\markup { \harp-pedal "^v-|vv-^" }
+c''!1_\markup { \harp-pedal "^o--|vv-^" }
 @end lilypond
 
 Der @code{\harp-pedal}-Befehl braucht eine Anzahl an Zeichen, von

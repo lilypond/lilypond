@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.19.80"
 
 \header {
   lsrtags = "expressive-marks"
@@ -21,7 +21,7 @@ text.
 \relative c'' {
   c2
   \override BreathingSign.text =
-    \markup { \musicglyph #"scripts.rvarcomma" }
+    \markup { \musicglyph "scripts.rvarcomma" }
   \breathe
   d2
 }

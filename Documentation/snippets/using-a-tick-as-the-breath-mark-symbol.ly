@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.19.80"
 
 \header {
   lsrtags = "expressive-marks"
@@ -26,7 +26,7 @@ the stave.
   d2
   \override BreathingSign.Y-offset = #2.6
   \override BreathingSign.text =
-    \markup { \musicglyph #"scripts.tickmark" }
+    \markup { \musicglyph "scripts.tickmark" }
   c2
   \breathe
   d2

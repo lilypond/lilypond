@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.19.80"
 
 \header {
   lsrtags = "contexts-and-engravers, pitches, staff-notation, tweaks-and-overrides"
@@ -28,9 +28,9 @@ minor with an extended range of printed flats.
   \override Clef.stencil = #
   (lambda (grob)(grob-interpret-markup grob
   #{ \markup\combine
-    \musicglyph #"clefs.C"
+    \musicglyph "clefs.C"
     \translate #'(-3 . -2)
-    \musicglyph #"clefs.F"
+    \musicglyph "clefs.F"
    #}))
     clefPosition = #3
     middleCPosition = #3

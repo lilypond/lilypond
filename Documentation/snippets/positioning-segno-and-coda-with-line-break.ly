@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.19.80"
 
 \header {
   lsrtags = "breaks, repeats, symbols-and-glyphs, workaround"
@@ -31,14 +31,14 @@ line.
 
     % Set segno sign as rehearsal mark and adjust size if needed
     % \once \override Score.RehearsalMark.font-size = #3
-    \mark \markup { \musicglyph #"scripts.segno" }
+    \mark \markup { \musicglyph "scripts.segno" }
     \repeat unfold 2 {
       c4 c c c
     }
 
     % Set coda sign as rehearsal mark and adjust size if needed
     \once \override Score.RehearsalMark.font-size = #4
-    \mark \markup { \musicglyph #"scripts.coda" }
+    \mark \markup { \musicglyph "scripts.coda" }
     \repeat unfold 2 {
       c4 c c c
     }
@@ -54,7 +54,7 @@ line.
     \once \override Score.RehearsalMark.break-visibility =
       #begin-of-line-invisible
     % \once \override Score.RehearsalMark.font-size = #3
-    \mark \markup { \musicglyph #"scripts.segno" }
+    \mark \markup { \musicglyph "scripts.segno" }
 
     % Here begins the trickery!
     % \cadenzaOn will suppress the bar count
@@ -87,9 +87,9 @@ line.
         \once \override TextScript.word-space = #1.5
         <>^\markup { \center-column { "D.S. al Coda"
           \line {
-            \musicglyph #"scripts.coda"
-            \musicglyph #"scripts.tenuto"
-            \musicglyph #"scripts.coda"} } }
+            \musicglyph "scripts.coda"
+            \musicglyph "scripts.tenuto"
+            \musicglyph "scripts.coda"} } }
 
         % Increasing the unfold counter will expand the staff-free space
         \repeat unfold 3 {
@@ -121,7 +121,7 @@ line.
     \once \override Score.RehearsalMark.extra-offset = #'( -5 . .5 )
 
     \once \override Score.RehearsalMark.font-size = #5
-    \mark \markup { \musicglyph #"scripts.coda" }
+    \mark \markup { \musicglyph "scripts.coda" }
 
     % The coda
     \repeat unfold 6 {

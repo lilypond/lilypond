@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.19.80"
 
 \header {
   lsrtags = "keyboards, specific-notation, symbols-and-glyphs, workaround"
@@ -23,10 +23,10 @@ the symbol parts adapt to changes of @code{font-size}.
 } % begin verbatim
 
 discant = \markup {
-  \musicglyph #"accordion.discant"
+  \musicglyph "accordion.discant"
 }
 dot = \markup {
-  \musicglyph #"accordion.dot"
+  \musicglyph "accordion.dot"
 }
 
 \layout { ragged-right = ##t }

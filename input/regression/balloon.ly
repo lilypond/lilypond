@@ -5,7 +5,7 @@
 with lines and explanatory text added."
   
 }
-\version "2.17.6"
+\version "2.19.80"
 
 \layout{ ragged-right = ##t }
 
@@ -14,7 +14,7 @@ with lines and explanatory text added."
   {
     \relative c'  {
       \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
-      <c-\balloonText #'(-2 . -2) \markup { \simple #"hoi" }  >8
+      <c-\balloonText #'(-2 . -2) \markup { \simple "hoi" }  >8
       \balloonLengthOn
       \balloonGrobText #'Rest #'(-1 . -2) \markup{ "Rest" }
       r

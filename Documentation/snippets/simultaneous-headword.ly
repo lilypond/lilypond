@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.19.80"
 
 \header {
   lsrtags = "headword"
@@ -41,7 +41,7 @@ Simultaneous notes
 trillFlat =
 \once \override TrillSpanner.bound-details.left.text = \markup {
   \concat {
-    \musicglyph #"scripts.trill"
+    \musicglyph "scripts.trill"
     \translate #'(-0.5 . 1.9)
     \fontsize #-7
     \with-dimensions #'(0 . 0) #'(0 . 0)

@@ -8,7 +8,7 @@
    Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.28"
+@c \version "2.19.80"
 
 @c Translators: Matthieu Jacquot
 @c Translation checkers: Jean-Charles Malahieude
@@ -819,10 +819,10 @@ Les cordes à vide et étouffées peuvent aussi être indiquées.
   \new Staff {
     \clef "treble_8"
     <c e g c' e'>1^\markup {
-      \fret-diagram #"6-x;5-3;4-2;3-o;2-1;1-o;"
+      \fret-diagram "6-x;5-3;4-2;3-o;2-1;1-o;"
     }
     <d a d' f'>1^\markup {
-      \fret-diagram #"6-x;5-x;4-o;3-2;2-3;1-1;"
+      \fret-diagram "6-x;5-x;4-o;3-2;2-3;1-1;"
     }
   }
 >>
@@ -844,10 +844,10 @@ d'accord dans l'interface standard :
   \new Staff {
     \clef "treble_8"
     <f, c f a c' f'>1^\markup {
-      \fret-diagram #"c:6-1-1;6-1;5-3;4-3;3-2;2-1;1-1;"
+      \fret-diagram "c:6-1-1;6-1;5-3;4-3;3-2;2-1;1-1;"
     }
     <g, d g b d' g'>1^\markup {
-      \fret-diagram #"c:6-1-3;6-3;5-5;4-5;3-4;2-3;1-3;"
+      \fret-diagram "c:6-1-3;6-3;5-5;4-5;3-4;2-3;1-3;"
     }
   }
 >>
@@ -872,10 +872,10 @@ représentées peuvent aussi être modifiés dans l'interface standard.
   \new Staff {
     \clef "treble_8"
     <f, c f a c' f'>1^\markup {
-      \fret-diagram #"s:1.5;c:6-1-1;6-1;5-3;4-3;3-2;2-1;1-1;"
+      \fret-diagram "s:1.5;c:6-1-1;6-1;5-3;4-3;3-2;2-1;1-1;"
     }
     <g, b, d g b g'>1^\markup {
-      \fret-diagram #"h:6;6-3;5-2;4-o;3-o;2-o;1-3;"
+      \fret-diagram "h:6;6-3;5-2;4-o;3-o;2-o;1-3;"
     }
   }
 >>
@@ -895,7 +895,7 @@ banjo et le ukulele.
   \new Staff {
     % An 'A' chord for ukulele
     a'1^\markup {
-      \fret-diagram #"w:4;4-2-2;3-1-1;2-o;1-o;"
+      \fret-diagram "w:4;4-2-2;3-1-1;2-o;1-o;"
     }
   }
 >>
@@ -914,10 +914,10 @@ de ces doigtés peut être modifié dans l'interface standard.
   \new Staff {
     \clef "treble_8"
     <c e g c' e'>1^\markup {
-      \fret-diagram #"f:1;6-x;5-3-3;4-2-2;3-o;2-1-1;1-o;"
+      \fret-diagram "f:1;6-x;5-3-3;4-2-2;3-o;2-1-1;1-o;"
     }
     <d a d' f'>1^\markup {
-      \fret-diagram #"f:2;6-x;5-x;4-o;3-2-2;2-3-3;1-1-1;"
+      \fret-diagram "f:2;6-x;5-x;4-o;3-2-2;2-3-3;1-1-1;"
     }
   }
 >>
@@ -936,10 +936,10 @@ l'interface standard.
   \new Staff {
     \clef "treble_8"
     <c e g c' e'>1^\markup {
-      \fret-diagram #"d:0.35;6-x;5-3;4-2;3-o;2-1;1-o;"
+      \fret-diagram "d:0.35;6-x;5-3;4-2;3-o;2-1;1-o;"
     }
     <d a d' f'>1^\markup {
-      \fret-diagram #"p:0.2;6-x;5-x;4-o;3-2;2-3;1-1;"
+      \fret-diagram "p:0.2;6-x;5-x;4-o;3-2;2-3;1-1;"
     }
   }
 >>
@@ -966,10 +966,10 @@ cordes à vide ainsi que les numéros de case peuvent y être indiqués.
   \new Staff {
     \clef "treble_8"
     <c e g c' e'>1^\markup {
-      \fret-diagram-terse #"x;3;2;o;1;o;"
+      \fret-diagram-terse "x;3;2;o;1;o;"
     }
     <d a d' f'>1^\markup {
-      \fret-diagram-terse #"x;x;o;2;3;1;"
+      \fret-diagram-terse "x;x;o;2;3;1;"
     }
   }
 >>
@@ -988,10 +988,10 @@ Les indications de barré peuvent être incluses dans l'interface
   \new Staff {
     \clef "treble_8"
     <f, c f a c' f'>1^\markup {
-      \fret-diagram-terse #"1-(;3;3;2;1;1-);"
+      \fret-diagram-terse "1-(;3;3;2;1;1-);"
     }
     <g, d g b d' g'>1^\markup {
-      \fret-diagram-terse #"3-(;5;5;4;3;3-);"
+      \fret-diagram-terse "3-(;5;5;4;3;3-);"
     }
   }
 >>
@@ -1012,10 +1012,10 @@ Les indications de doigtés peuvent être inclus dans l'interface
     \override Voice.TextScript.fret-diagram-details.finger-code = #'below-string
     \clef "treble_8"
     <c e g c' e'>1^\markup {
-      \fret-diagram-terse #"x;3-3;2-2;o;1-1;o;"
+      \fret-diagram-terse "x;3-3;2-2;o;1-1;o;"
     }
     <d a d' f'>1^\markup {
-      \fret-diagram-terse #"x;x;o;2-2;3-3;1-1;"
+      \fret-diagram-terse "x;x;o;2-2;3-3;1-1;"
     }
   }
 >>
@@ -1145,7 +1145,7 @@ Des @emph{markups} peuvent par ailleurs venir s'insérer dans les points.
                 \concat {
                   \vcenter "d"
                   \fontsize #-5
-                  \musicglyph #"accidentals.sharp"} #}
+                  \musicglyph "accidentals.sharp"} #}
           red)
         (place-fret 1 2 1)
       )
@@ -1170,7 +1170,7 @@ and color of dots.
 \new Voice {
   \clef "treble_8"
   d4^\markup {
-    \fret-diagram #"6-x;5-x;4-o;3-2;2-3;1-2;"
+    \fret-diagram "6-x;5-x;4-o;3-2;2-3;1-2;"
   }
   d4 d d
   fis^\markup {
@@ -1190,7 +1190,7 @@ and color of dots.
     \override #'(dot-radius . 0.35) {
       \override #'(finger-code . in-dot) {
         \override #'(dot-color . white) {
-          \fret-diagram-terse #"x;3-1-(;5-2;5-3;5-4;3-1-);"
+          \fret-diagram-terse "x;3-1-(;5-2;5-3;5-4;3-1-);"
         }
       }
     }
@@ -1860,7 +1860,7 @@ ce style de jeu en affectant un profil spécifique aux têtes de note.
   \relative c, {
     \clef "G_8"
     \palmMuteOn
-    e8^\markup { \musicglyph #"noteheads.u2do"  = palm mute }
+    e8^\markup { \musicglyph "noteheads.u2do"  = palm mute }
     < e b' e > e
     \palmMuteOff
     e e  \palmMute e e e |

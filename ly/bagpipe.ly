@@ -11,7 +11,7 @@
   $Id: bagpipe.ly,v 1.12 2006/03/16 14:39:46 hanwen Exp $
 %}
 
-\version "2.19.22"
+\version "2.19.80"
 
 % Notes of the scale of the Great Highland Bagpipe. Extra high notes for bombarde.
 % Flat notes used mainly in some modern music.
@@ -319,9 +319,9 @@ GbarluadhG = { \pgrace { d32[ a e G f G e G d G c G b G e G f G] } }
 trebling = \markup {
   \override #'(baseline-skip . 0.4)
   \column {
-    \musicglyph #"scripts.tenuto"
-    \musicglyph #"scripts.tenuto"
-    \musicglyph #"scripts.tenuto"
+    \musicglyph "scripts.tenuto"
+    \musicglyph "scripts.tenuto"
+    \musicglyph "scripts.tenuto"
   }
 }
 % Abbreviated notation common in piobaireachd scores.

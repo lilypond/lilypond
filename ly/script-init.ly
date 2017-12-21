@@ -1,6 +1,6 @@
 % script-init.ly
 
-\version "2.17.25"
+\version "2.19.80"
 
 harmonic = #(make-music 'HarmonicEvent)
 
@@ -53,7 +53,7 @@ staccato = #(make-articulation "staccato"
 stopped = #(make-articulation "stopped")
 tenuto = #(make-articulation "tenuto")
 thumb = \finger \markup \scale #(cons (magstep 5) (magstep 5))
-                        \musicglyph #"scripts.thumb"
+                        \musicglyph "scripts.thumb"
 trill = #(make-articulation "trill")
 turn = #(make-articulation "turn")
 upbow = #(make-articulation "upbow")

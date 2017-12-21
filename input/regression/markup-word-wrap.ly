@@ -5,7 +5,7 @@
 
 }
 
-\version "2.16.0"
+\version "2.19.80"
 
 \markup {
   this is normal  text
@@ -37,14 +37,14 @@
 
   \override #'(line-width . 40)
 
-{  \wordwrap-string #" Om mani padme hum Om mani padme hum Om mani
+{  \wordwrap-string " Om mani padme hum Om mani padme hum Om mani
 padme hum Om mani padme hum Om mani padme hum Om mani padme hum Om
 mani padme hum Om mani padme hum.
 
 Gate Gate paragate Gate Gate paragate Gate Gate paragate Gate Gate
 paragate Gate Gate paragate Gate Gate paragate."
 
-  \justify-string #" Om mani padme hum Om mani padme hum Om mani
+  \justify-string " Om mani padme hum Om mani padme hum Om mani
 padme hum Om mani padme hum Om mani padme hum Om mani padme hum Om
 mani padme hum Om mani padme hum.
 

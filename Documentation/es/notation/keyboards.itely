@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.25"
+@c \version "2.19.80"
 
 @node Teclados y otros instrumentos de varios pentagramas
 @section Teclados y otros instrumentos de varios pentagramas
@@ -720,8 +720,8 @@ o mediante diagramas de pedal:
 
 @lilypond[quote,verbatim,fragment]
 \textLengthOn
-cis''1_\markup { \harp-pedal #"^v-|vv-^" }
-c''!1_\markup { \harp-pedal #"^o--|vv-^" }
+cis''1_\markup { \harp-pedal "^v-|vv-^" }
+c''!1_\markup { \harp-pedal "^o--|vv-^" }
 @end lilypond
 
 La instrucción @code{\harp-pedal} acepta una cadena de caracteres

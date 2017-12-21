@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.25"
+@c \version "2.19.80"
 
 @c Translators: Tomohiro Tatejima, Yoshiki Sawada
 @c Translation status: post-GDP
@@ -684,8 +684,8 @@ c''!1_\markup \concat \vcenter {
 
 @lilypond[quote,verbatim,fragment]
 \textLengthOn
-cis''1_\markup { \harp-pedal #"^v-|vv-^" }
-c''!1_\markup { \harp-pedal #"^o--|vv-^" }
+cis''1_\markup { \harp-pedal "^v-|vv-^" }
+c''!1_\markup { \harp-pedal "^o--|vv-^" }
 @end lilypond
 
 @code{\harp-pedal} コマンドは文字列を受け取ります。@c

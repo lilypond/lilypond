@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.19.80"
 
 \header {
   lsrtags = "fretted-strings, tweaks-and-overrides"
@@ -38,7 +38,7 @@ diagrams.
                    (string-count . 4)
                    (dot-color . white)
                    (finger-code . in-dot))) {
-        \fret-diagram #"4-2-2;3-1-1;2-o;1-o;"
+        \fret-diagram "4-2-2;3-1-1;2-o;1-o;"
       }
     }
 
@@ -49,7 +49,7 @@ diagrams.
       \override #'(fret-diagram-details . (
                    (dot-color . white)
                    (open-string . "o"))) {
-        \fret-diagram #"s:1.2;w:4;h:3;f:2;d:0.35;p:0.55;4-2-2;3-1-1;2-o;1-o;"
+        \fret-diagram "s:1.2;w:4;h:3;f:2;d:0.35;p:0.55;4-2-2;3-1-1;2-o;1-o;"
       }
     }
 
@@ -135,7 +135,7 @@ diagrams.
                    (string-thickness-factor . 0.3)
                    (dot-position . 0.5)
                    (fret-count . 3))) {
-        \fret-diagram-terse #"x;x;o;2-1;3-2;2-3;"
+        \fret-diagram-terse "x;x;o;2-1;3-2;2-3;"
       }
     }
 
@@ -147,7 +147,7 @@ diagrams.
                    (dot-position . 0.5)
                    (top-fret-thickness . 7)
                    (fret-count . 3))) {
-        \fret-diagram-terse #"x;x;o;2-1;3-2;2-3;"
+        \fret-diagram-terse "x;x;o;2-1;3-2;2-3;"
       }
     }
 
@@ -233,7 +233,7 @@ diagrams.
                    (dot-radius . 0.35)
                    (dot-position . 0.5)
                    (fret-count . 3))) {
-        \fret-diagram-terse #"x;x;o;2-1;3-2;2-3;"
+        \fret-diagram-terse "x;x;o;2-1;3-2;2-3;"
       }
     }
 
@@ -245,7 +245,7 @@ diagrams.
                    (dot-position . 0.5)
                    (top-fret-thickness . 7)
                    (fret-count . 3))) {
-        \fret-diagram-terse #"x;x;o;2-1;3-2;2-3;"
+        \fret-diagram-terse "x;x;o;2-1;3-2;2-3;"
       }
     }
 
@@ -331,7 +331,7 @@ diagrams.
                    (dot-radius . 0.35)
                    (dot-position . 0.5)
                    (fret-count . 3))) {
-        \fret-diagram-terse #"x;x;o;2-1;3-2;2-3;"
+        \fret-diagram-terse "x;x;o;2-1;3-2;2-3;"
       }
     }
 
@@ -343,7 +343,7 @@ diagrams.
                    (dot-position . 0.5)
                    (top-fret-thickness . 7)
                    (fret-count . 3))) {
-        \fret-diagram-terse #"x;x;o;2-1;3-2;2-3;"
+        \fret-diagram-terse "x;x;o;2-1;3-2;2-3;"
       }
     }
   }

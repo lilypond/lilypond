@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.19.80"
 
 \header {
   lsrtags = "fretted-strings, specific-notation, tweaks-and-overrides"
@@ -44,14 +44,14 @@ harmonies = \chordmode
   <<
     \new ChordNames \harmonies
     \new Staff
-    {a8^\markup { \fret-diagram  #"6-x;5-0;4-2;3-0;2-0;1-2;"  }
+    {a8^\markup { \fret-diagram  "6-x;5-0;4-2;3-0;2-0;1-2;"  }
 % THE FOLLOWING IS THE COMMAND TO MOVE THE FRET DIAGRAM
      \once \override TextScript.extra-offset = #'(10 . 0)
-     b4.~^\markup { \fret-diagram  #"6-x;5-2;4-4;3-2;2-2;1-4;"  } b4. a8\break
+     b4.~^\markup { \fret-diagram  "6-x;5-2;4-4;3-2;2-2;1-4;"  } b4. a8\break
 % HERE IS THE SECOND METHOD
      <<
        { a8 b4.~ b4. a8}
-       { s4 s4 s4^\markup { \fret-diagram  #"6-x;5-2;4-4;3-2;2-2;1-4;"  }
+       { s4 s4 s4^\markup { \fret-diagram  "6-x;5-2;4-4;3-2;2-2;1-4;"  }
        }
      >>
    }

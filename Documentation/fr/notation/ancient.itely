@@ -9,7 +9,7 @@
 @end ignore
 
 
-@c \version "2.19.21"
+@c \version "2.19.80"
 
 @c Translators: Jean-Charles Malahieude
 
@@ -328,19 +328,19 @@ styles disponibles sont @code{vaticana}, @code{medicaea},
 \new Lyrics \lyricmode {
   \markup { \column {
     \typewriter "vaticana "
-    \line { " " \musicglyph #"custodes.vaticana.u0" }
+    \line { " " \musicglyph "custodes.vaticana.u0" }
   } }
   \markup { \column {
     \typewriter "medicaea "
-    \line { " " \musicglyph #"custodes.medicaea.u0" }
+    \line { " " \musicglyph "custodes.medicaea.u0" }
   }}
   \markup { \column {
     \typewriter "hufnagel "
-    \line { " " \musicglyph #"custodes.hufnagel.u0" }
+    \line { " " \musicglyph "custodes.hufnagel.u0" }
   }}
   \markup { \column {
     \typewriter "mensural "
-    \line { " " \musicglyph #"custodes.mensural.u0" }
+    \line { " " \musicglyph "custodes.mensural.u0" }
   }}
 }
 @end lilypond
@@ -590,34 +590,34 @@ suivantes :
   \set Score.barAlways = ##t
   \textLengthOn
   s^\markup { "\\time 4/4" }_\markup { "       " \musicglyph
-#"timesig.neomensural44" }
+"timesig.neomensural44" }
   s
   s^\markup { "\\time 2/2" }_\markup { "       " \musicglyph
-#"timesig.neomensural22" }
+"timesig.neomensural22" }
   s
   s^\markup { "\\time 6/4" }_\markup { "       " \musicglyph
-#"timesig.neomensural64" }
+"timesig.neomensural64" }
   s
   s^\markup { "\\time 6/8" }_\markup { "       " \musicglyph
-#"timesig.neomensural68" }
+"timesig.neomensural68" }
   \break
   s^\markup { "\\time 3/2" }_\markup { "       " \musicglyph
-#"timesig.neomensural32" }
+"timesig.neomensural32" }
   s
   s^\markup { "\\time 3/4" }_\markup { "       " \musicglyph
-#"timesig.neomensural34" }
+"timesig.neomensural34" }
   s
   s^\markup { "\\time 9/4" }_\markup { "       " \musicglyph
-#"timesig.neomensural94" }
+"timesig.neomensural94" }
   s
   s^\markup { "\\time 9/8" }_\markup { "       " \musicglyph
-#"timesig.neomensural98" }
+"timesig.neomensural98" }
   \break
   s^\markup { "\\time 4/8" }_\markup { "       " \musicglyph
-#"timesig.neomensural48" }
+"timesig.neomensural48" }
   s
   s^\markup { "\\time 2/4" }_\markup { "       " \musicglyph
-#"timesig.neomensural24" }
+"timesig.neomensural24" }
 }
 @end lilypond
 
@@ -682,7 +682,7 @@ Ce qui définira @code{breveTP} à 3/2 fois 2 = 3 fois une ronde.
 Les symboles @code{mensural68alt} et @code{neomensural68alt} --
 alternatives à la métrique 6/8 -- ne sont pas accessibles par la
 commande @code{\time}.  Utilisez alors un
-@code{\markup @{\musicglyph #"timesig.mensural68alt" @}}.
+@code{\markup @{\musicglyph "timesig.mensural68alt" @}}.
 
 
 @node Têtes de note anciennes
@@ -860,8 +860,8 @@ toutefois il était requis, le bécarre sera emprunté au style
 \markup {
   \column {
     "mensural"
-    \line { " " \musicglyph #"accidentals.mensural-1"
-      " " \musicglyph #"accidentals.mensural1" }
+    \line { " " \musicglyph "accidentals.mensural-1"
+      " " \musicglyph "accidentals.mensural1" }
   }
 }
 @end lilypond
@@ -1267,16 +1267,16 @@ LilyPond dispose d'altérations pour les trois styles grégoriens :
 \markup {
   \column {
     "vaticana"
-    \line { " " \musicglyph #"accidentals.vaticana-1"
-      " " \musicglyph #"accidentals.vaticana0" }
+    \line { " " \musicglyph "accidentals.vaticana-1"
+      " " \musicglyph "accidentals.vaticana0" }
   }
   \column {
     "medicaea"
-    \line { " " \musicglyph #"accidentals.medicaea-1" }
+    \line { " " \musicglyph "accidentals.medicaea-1" }
   }
   \column {
     "hufnagel"
-    \line { " " \musicglyph #"accidentals.hufnagel-1" }
+    \line { " " \musicglyph "accidentals.hufnagel-1" }
   }
 }
 @end lilypond

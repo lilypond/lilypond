@@ -8,7 +8,7 @@
    Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.40"
+@c \version "2.19.80"
 
 @c Translators: Frédéric Chiasson, Jean-Charles Malahieude
 @c Translation checkers: Valentin Villenave, François Martin, Xavier Scheuer
@@ -3402,9 +3402,9 @@ Un @code{\mark} peut contenir un glyphe musical tel que le signe
 
 @lilypond[quote,verbatim]
 \relative c' {
-  c1 \mark \markup { \musicglyph #"scripts.segno" }
-  c1 \mark \markup { \musicglyph #"scripts.coda" }
-  c1 \mark \markup { \musicglyph #"scripts.ufermata" }
+  c1 \mark \markup { \musicglyph "scripts.segno" }
+  c1 \mark \markup { \musicglyph "scripts.coda" }
+  c1 \mark \markup { \musicglyph "scripts.ufermata" }
   c1
 }
 @end lilypond

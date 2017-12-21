@@ -1,4 +1,4 @@
-\version "2.19.16"
+\version "2.19.80"
 
 \header {
   texidoc = "The markup command @code{\\first-visible} uses the first argument that produces a non-empty stencil and ignores the rest.
@@ -14,13 +14,13 @@ The expected markup on this score is \"Lame Songs for Testing\" followed by a \"
 \paper {
   scoreTitleMarkup = \markup {
     \first-visible {
-      \musicglyph #"nonesuch-1"
+      \musicglyph "nonesuch-1"
       \fromproperty #'header:composer
       \italic \fromproperty #'header:publication
     }
     \first-visible {
-      \musicglyph #"timesig.C44"
-      \musicglyph #"this should not be attempted"
+      \musicglyph "timesig.C44"
+      \musicglyph "this should not be attempted"
     }
   }
 }
@@ -38,7 +38,7 @@ The expected markup on this score is \"Lame Songs for Testing\" followed by a \"
 \markup {
   Single markup list (expect aaa):
   \first-visible \column-lines {
-  \musicglyph #"nonesuch-2"
+  \musicglyph "nonesuch-2"
   ""
   aaa
   bbb

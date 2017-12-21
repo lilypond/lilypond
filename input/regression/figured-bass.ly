@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.80"
 
 \header {
 
@@ -33,7 +33,7 @@ You can also enter markup strings. The vertical alignment may also be tuned.
     <3 _ 5 _ 7>
     <3 6/ >
     <3 6\\ >
-    <"V7" ["bla" 6] \markup{ \musicglyph #"rests.2"} >
+    <"V7" ["bla" 6] \markup{ \musicglyph "rests.2"} >
 
     \once \override BassFigureAlignment.stacking-dir = #UP
     <3 [5 7]>

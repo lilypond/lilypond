@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.19.80"
 
 \header {
   lsrtags = "fretted-strings, tweaks-and-overrides"
@@ -31,7 +31,7 @@ markup.
 
     %% C major for guitar, no barre, using defaults
        % terse style
-    c'1^\markup { \fret-diagram-terse #"x;3-3;2-2;o;1-1;o;" }
+    c'1^\markup { \fret-diagram-terse "x;3-3;2-2;o;1-1;o;" }
 
     %% C major for guitar, barred on third fret
        % verbose style
@@ -89,7 +89,7 @@ markup.
                    (dot-radius . 0.35)
                    (dot-position . 0.5)
                    (fret-count . 3))) {
-        \fret-diagram-terse #"x;x;o;2-1;3-2;2-3;"
+        \fret-diagram-terse "x;x;o;2-1;3-2;2-3;"
       }
     }
   }

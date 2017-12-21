@@ -1,4 +1,4 @@
-\version "2.19.46"
+\version "2.19.80"
 
 \header {
   tagline = ##f
@@ -318,7 +318,7 @@ R2. |
   harprh = \relative c'' {
     \clef treble \key ees \minor \time 6/8
     \showStaffSwitch
-    R2.*4_\markup { \harp-pedal #"--^|^^^^" } |
+    R2.*4_\markup { \harp-pedal "--^|^^^^" } |
     \time 9/8
     R1*9/8 |
   }

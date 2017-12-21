@@ -1,4 +1,4 @@
-\version "2.19.32"
+\version "2.19.80"
 
 \header {
   texidoc = "Demo of markup texts, using LilyPond syntax."
@@ -18,7 +18,7 @@
       }
       \hspace #2.0
       \override #'(font-encoding . fetaMusic) {
-        \lookup #"noteheads-0"
+        \lookup "noteheads-0"
       }
       \semiflat
       { }

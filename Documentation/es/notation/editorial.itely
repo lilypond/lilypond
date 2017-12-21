@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.80"
 
 @node Anotaciones editoriales
 @section Anotaciones editoriales
@@ -362,7 +362,7 @@ texto o de cadenas de caracteres.
 
 @lilypond[verbatim,quote]
 \relative {
-  c''4-1 d-2 f\finger \markup \tied-lyric #"4~3" c\finger "2 - 3"
+  c''4-1 d-2 f\finger \markup \tied-lyric "4~3" c\finger "2 - 3"
 }
 @end lilypond
 

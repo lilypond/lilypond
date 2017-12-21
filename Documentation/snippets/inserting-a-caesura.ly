@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.19.80"
 
 \header {
   lsrtags = "expressive-marks, tweaks-and-overrides"
@@ -20,12 +20,12 @@ available.
 
 \relative c'' {
   \override BreathingSign.text = \markup {
-    \musicglyph #"scripts.caesura.straight"
+    \musicglyph "scripts.caesura.straight"
   }
   c8 e4. \breathe g8. e16 c4
 
   \override BreathingSign.text = \markup {
-    \musicglyph #"scripts.caesura.curved"
+    \musicglyph "scripts.caesura.curved"
   }
   g8 e'4. \breathe g8. e16 c4
 }

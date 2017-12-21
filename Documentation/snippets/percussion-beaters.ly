@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.19.80"
 
 \header {
   lsrtags = "percussion"
@@ -21,7 +21,7 @@ demonstrated in this example.
 
 stick = \markup {
   \with-dimensions #'(0 . 5) #'(0 . 5)
-  \postscript #"
+  \postscript "
     0 6 translate
     0.8 -0.8 scale
     0 0 0 setrgbcolor

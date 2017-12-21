@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.28"
+@c \version "2.19.80"
 
 @node Tabelle del manuale della notazione
 @appendix Tabelle del manuale della notazione
@@ -971,14 +971,14 @@ del testo insieme al nome del glifo (come è mostrato nelle tabelle
 seguenti).  Per esempio:
 
 @example
-g^\markup @{\musicglyph #"scripts.segno" @}
+g^\markup @{\musicglyph "scripts.segno" @}
 @end example
 
 @noindent
 oppure
 
 @example
-\markup @{\musicglyph #"five"@}.
+\markup @{\musicglyph "five"@}.
 @end example
 
 Maggiori informazioni in @ref{Formattazione del testo}.

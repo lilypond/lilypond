@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.28"
+@c \version "2.19.80"
 
 @node Fretted string instruments
 @section Fretted string instruments
@@ -806,10 +806,10 @@ In addition, open and unplayed (muted) strings can be indicated.
   \new Staff {
     \clef "treble_8"
     <c e g c' e'>1^\markup {
-      \fret-diagram #"6-x;5-3;4-2;3-o;2-1;1-o;"
+      \fret-diagram "6-x;5-3;4-2;3-o;2-1;1-o;"
     }
     <d a d' f'>1^\markup {
-      \fret-diagram #"6-x;5-x;4-o;3-2;2-3;1-1;"
+      \fret-diagram "6-x;5-x;4-o;3-2;2-3;1-1;"
     }
   }
 >>
@@ -830,10 +830,10 @@ the fret-diagram markup string.
   \new Staff {
     \clef "treble_8"
     <f, c f a c' f'>1^\markup {
-      \fret-diagram #"c:6-1-1;6-1;5-3;4-3;3-2;2-1;1-1;"
+      \fret-diagram "c:6-1-1;6-1;5-3;4-3;3-2;2-1;1-1;"
     }
     <g, d g b d' g'>1^\markup {
-      \fret-diagram #"c:6-1-3;6-3;5-5;4-5;3-4;2-3;1-3;"
+      \fret-diagram "c:6-1-3;6-3;5-5;4-5;3-4;2-3;1-3;"
     }
   }
 >>
@@ -857,10 +857,10 @@ can be changed in the fret-diagram markup string.
   \new Staff {
     \clef "treble_8"
     <f, c f a c' f'>1^\markup {
-      \fret-diagram #"s:1.5;c:6-1-1;6-1;5-3;4-3;3-2;2-1;1-1;"
+      \fret-diagram "s:1.5;c:6-1-1;6-1;5-3;4-3;3-2;2-1;1-1;"
     }
     <g, b, d g b g'>1^\markup {
-      \fret-diagram #"h:6;6-3;5-2;4-o;3-o;2-o;1-3;"
+      \fret-diagram "h:6;6-3;5-2;4-o;3-o;2-o;1-3;"
     }
   }
 >>
@@ -880,7 +880,7 @@ markup string.
   \new Staff {
     % An 'A' chord for ukulele
     a'1^\markup {
-      \fret-diagram #"w:4;4-2-2;3-1-1;2-o;1-o;"
+      \fret-diagram "w:4;4-2-2;3-1-1;2-o;1-o;"
     }
   }
 >>
@@ -899,10 +899,10 @@ can be controlled by the fret-diagram markup string.
   \new Staff {
     \clef "treble_8"
     <c e g c' e'>1^\markup {
-      \fret-diagram #"f:1;6-x;5-3-3;4-2-2;3-o;2-1-1;1-o;"
+      \fret-diagram "f:1;6-x;5-3-3;4-2-2;3-o;2-1-1;1-o;"
     }
     <d a d' f'>1^\markup {
-      \fret-diagram #"f:2;6-x;5-x;4-o;3-2-2;2-3-3;1-1-1;"
+      \fret-diagram "f:2;6-x;5-x;4-o;3-2-2;2-3-3;1-1-1;"
     }
   }
 >>
@@ -921,10 +921,10 @@ markup string.
   \new Staff {
     \clef "treble_8"
     <c e g c' e'>1^\markup {
-      \fret-diagram #"d:0.35;6-x;5-3;4-2;3-o;2-1;1-o;"
+      \fret-diagram "d:0.35;6-x;5-3;4-2;3-o;2-1;1-o;"
     }
     <d a d' f'>1^\markup {
-      \fret-diagram #"p:0.2;6-x;5-x;4-o;3-2;2-3;1-1;"
+      \fret-diagram "p:0.2;6-x;5-x;4-o;3-2;2-3;1-1;"
     }
   }
 >>
@@ -950,10 +950,10 @@ Mute strings, open strings, and fret numbers can be indicated.
   \new Staff {
     \clef "treble_8"
     <c e g c' e'>1^\markup {
-      \fret-diagram-terse #"x;3;2;o;1;o;"
+      \fret-diagram-terse "x;3;2;o;1;o;"
     }
     <d a d' f'>1^\markup {
-      \fret-diagram-terse #"x;x;o;2;3;1;"
+      \fret-diagram-terse "x;x;o;2;3;1;"
     }
   }
 >>
@@ -971,10 +971,10 @@ Barre indicators can be included in the fret-diagram-terse markup string.
   \new Staff {
     \clef "treble_8"
     <f, c f a c' f'>1^\markup {
-      \fret-diagram-terse #"1-(;3;3;2;1;1-);"
+      \fret-diagram-terse "1-(;3;3;2;1;1-);"
     }
     <g, d g b d' g'>1^\markup {
-      \fret-diagram-terse #"3-(;5;5;4;3;3-);"
+      \fret-diagram-terse "3-(;5;5;4;3;3-);"
     }
   }
 >>
@@ -994,10 +994,10 @@ Fingering indications can be included in the fret-diagram-terse markup string.
     \override Voice.TextScript.fret-diagram-details.finger-code = #'below-string
     \clef "treble_8"
     <c e g c' e'>1^\markup {
-      \fret-diagram-terse #"x;3-3;2-2;o;1-1;o;"
+      \fret-diagram-terse "x;3-3;2-2;o;1-1;o;"
     }
     <d a d' f'>1^\markup {
-      \fret-diagram-terse #"x;x;o;2-2;3-3;1-1;"
+      \fret-diagram-terse "x;x;o;2-2;3-3;1-1;"
     }
   }
 >>
@@ -1124,7 +1124,7 @@ Markups can be placed into the dots as well.
                 \concat {
                   \vcenter "d"
                   \fontsize #-5
-                  \musicglyph #"accidentals.sharp"} #}
+                  \musicglyph "accidentals.sharp"} #}
           red)
         (place-fret 1 2 1)
       )
@@ -1148,7 +1148,7 @@ and color of dots.
 \new Voice {
   \clef "treble_8"
   d4^\markup {
-    \fret-diagram #"6-x;5-x;4-o;3-2;2-3;1-2;"
+    \fret-diagram "6-x;5-x;4-o;3-2;2-3;1-2;"
   }
   d4 d d
   fis^\markup {
@@ -1168,7 +1168,7 @@ and color of dots.
     \override #'(dot-radius . 0.35) {
       \override #'(finger-code . in-dot) {
         \override #'(dot-color . white) {
-          \fret-diagram-terse #"x;3-1-(;5-2;5-3;5-4;3-1-);"
+          \fret-diagram-terse "x;3-1-(;5-2;5-3;5-4;3-1-);"
         }
       }
     }
@@ -1837,7 +1837,7 @@ triangle shape.
   \relative c, {
     \clef "G_8"
     \palmMuteOn
-    e8^\markup { \musicglyph #"noteheads.u2do"  = palm mute }
+    e8^\markup { \musicglyph "noteheads.u2do"  = palm mute }
     < e b' e > e
     \palmMuteOff
     e e  \palmMute e e e |

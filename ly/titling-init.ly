@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.80"
 
 #(if (guile-v2)
   (use-modules (ice-9 curried-definitions)))
@@ -14,7 +14,7 @@ tagline = \markup {
   \pad-to-box #'(0 . 0) #'(0 . 3)
   {  \with-url
 
-    #"http://lilypond.org/"
+    "http://lilypond.org/"
     \line {
 
       %% 2014 = em dash.
