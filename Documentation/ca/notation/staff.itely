@@ -989,7 +989,7 @@ Per afegir noms d'instrument a d'altres contextos (com ara
 @code{ChordNames} o @code{FiguredBass}), hem d'afegir el gravador
 @code{Instrument_name_engraver} a aquest context.  Per veure més
 detalls, consulteu
-@rusernamed{Modifying context plugins,Modificació dels connectors de context}.
+@rusernamed{Modifying context plug-ins,Modificació dels connectors de context}.
 
 
 @cindex noms d'instrument, canviar
@@ -1041,7 +1041,7 @@ setFlute = {
 Referència de la notació:
 @rusernamed{paper variables for shifts and indents,Variables de
 paper per a desplaçaments i sagnats},
-@rusernamed{Modifying context plugins,Modificació dels connectors de context}.
+@rusernamed{Modifying context plug-ins,Modificació dels connectors de context}.
 @c Quan es tradueixi fer servir
 @c @ref{Variables de paper per a desplaçaments i sagnats,,Variables de @code{@bs{}paper} per a desplaçaments i sagnats}.
 
