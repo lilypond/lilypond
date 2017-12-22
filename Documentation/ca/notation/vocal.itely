@@ -92,7 +92,7 @@ Glossario musical:
 @rglos{ambitus}.
 
 Manual de aprenentatge:
-@rlearning{Elaborar cançons senzillas}.
+@rlearning{Elaborar cançons senzilles}.
 
 Referència de la notació:
 @ref{Introducció al marcatge de text},
@@ -1633,7 +1633,7 @@ manualment.
 
 @seealso
 Referència de la notació:
-@rusernamed{Keep contexts alive,Mantenir vius els contextos},
+@rusernamed{Keeping contexts alive,Mantenir vius els contextos},
 @ref{Repeticions}.
 
 
@@ -2310,7 +2310,7 @@ Fragments de codi:
 
 Es poden imprimir fulls guia d'acords combinant parts vocals i el
 @q{mode d'acords}; aquesta sintaxi s'explica a
-@rusernamed{Chord notacion,Notació d'acords}.
+@rusernamed{Chord notation,Notació d'acords}.
 
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
@@ -2318,7 +2318,7 @@ Es poden imprimir fulls guia d'acords combinant parts vocals i el
 
 @seealso
 Referència de la notació:
-@rusernamed{Chord notacion,Notació d'acords}.
+@rusernamed{Chord notation,Notació d'acords}.
 
 
 @node Música coral
@@ -3317,7 +3317,7 @@ Manual d'aprenentatge:
 Referència de la notació:
 @rusernamed{Ancient notation,Notació antiga},
 @ref{Barres de compàs},
-@rusernamed{Modifying context plugins,Modificació dels complements de context},
+@rusernamed{Modifying context plug-ins,Modificació dels complements de context},
 @rusernamed{Typesetting Gregorian chant,Gravat del cant gregorià},
 @ref{Música sense compassos},
 @rusernamed{Visibility of objects,Visibilitat dels objectes}.
