@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
+%% Translation of GIT committish: c7c6c948c9b70464f7069354059e5a5a8aad4a5c
   texidocfr = "
 Les propriétés d'un diagramme de fret sont modifiables grâce au
 @code{fret-diagram-details}.  Lorsqu'ils sont générés sous forme
