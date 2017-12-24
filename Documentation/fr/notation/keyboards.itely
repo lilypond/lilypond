@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: a1267e20afa61258ce3031f07d916e0e66ac6582
+   Translation of GIT committish: d88eeba3390060dbccddfc3724cbb4b8cfecceb8
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -426,6 +426,32 @@ commande @code{\showStaffSwitch} :
   \new Staff = "two" {
     \clef bass
     s1*2
+  }
+>>
+@end lilypond
+
+Dans le cas d'accords, cette ligne connectera la @b{dernière} hauteur de
+chacun d'entre eux selon leur ordre d'apparition dans le fichier
+source ; ceci permet d'ajuster rapidement les positions de départ et
+d'arrivée de cette ligne.
+
+@lilypond[quote,verbatim]
+\new PianoStaff <<
+  \new Staff = "one" {
+    <c' e' g'>1
+    \showStaffSwitch
+    \change Staff = "two"
+    <a c' f>1
+    \hideStaffSwitch
+    \change Staff = "one"
+    <e' g' c'>1
+    \showStaffSwitch
+    \change Staff = "two"
+    <f a c'>1
+  }
+  \new Staff = "two" {
+    \clef bass
+    s1*4
   }
 >>
 @end lilypond
