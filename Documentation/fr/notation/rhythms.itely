@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 1e5c6b0f54079eb3285dcc4c7e53f17d8bb03933
+   Translation of GIT committish: d88eeba3390060dbccddfc3724cbb4b8cfecceb8
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -57,15 +57,20 @@ ligature et de mesure.
 @funindex \maxima
 
 Dans les modes de notes, d'accords et de paroles, les durées sont
-écrites avec des chiffres et des points : les durées sont indiquées
-par leur valeur fractionnaire par rapport à la durée d'une ronde.  Une
-noire, par exemple, qui équivaut à un 1/4 de ronde -- @emph{quarter
-note} en anglais -- s'écrit @code{4}, alors qu'une blanche --
-@emph{half-note}, 1/2 ronde -- s'écrit @code{2}.  Pour des notes plus
-longues qu'une ronde, vous devrez utiliser les commandes @code{\longa}
-pour une longue, et @code{\breve} pour une brève, aussi appelée carrée.
-Des durées plus courtes que la quintuple croche -- 1/128 de ronde --
-sont possibles, à condition de les ligaturer.
+écrites avec des chiffres et des points : les durées sont indiquées par
+leur valeur fractionnaire par rapport à la durée d'une ronde. Une noire,
+par exemple, qui équivaut à un 1/4 de ronde -- @emph{quarter note} en
+anglais -- s'écrit @code{4}, alors qu'une blanche -- @emph{half-note},
+1/2 ronde -- s'écrit @code{2}. Des durées plus courtes que la quintuple
+croche -- 1/128 de ronde -- sont possibles, à condition de les
+ligaturer -- voir @ref{Ligatures}.
+
+Pour des notes plus longues qu'une ronde, vous devrez utiliser les
+commandes @code{\longa} pour une longue, et @code{\breve} pour une
+brève, aussi appelée carrée. Une note dont la durée est de quatre brèves
+s'obtient par la commande @code{\maxima} ; celle-ci n'est toutefois
+disponible que dans le cadre de la notation ancienne. Pour plus de
+détails, voir @ref{Notations anciennes}.
 
 @c Two 64th notes are needed to obtain beams
 @lilypond[quote,verbatim]
@@ -89,21 +94,10 @@ Voici ces mêmes durées sans la fonction de ligature automatique.
 }
 @end lilypond
 
-Une note dont la durée est de quatre brèves s'obtient par la commande
-@code{\maxima}.  Celle-ci n'est toutefois disponible que dans le cadre
-de la notation ancienne.  Pour plus de détails, voir
-@ref{Notations anciennes}.
-
 @cindex durée par défaut
 @cindex défaut, durée
-
-Si la durée d'une note n'est pas précisée, elle est alors assimilée à la
-durée de la note précédente.  La valeur par défaut pour la première note
-est la noire (@code{4}).
-
-@lilypond[quote,verbatim]
-\relative { a' a a2 a a4 a a1 a }
-@end lilypond
+@cindex durée isolée
+@cindex isolée, durée
 
 Lorsque une note ou un accord est suivi d'une succession de durées
 individuelles, celles-ci adopteront la ou les dernières hauteurs
@@ -117,6 +111,19 @@ mentionnées.
 }
 @end lilypond
 
+@cindex hauteur par défaut
+@cindex défaut, hauteur
+@cindex isolée, hauteur
+@cindex hauteur isolée
+
+Si la durée d'une note n'est pas précisée, elle est alors assimilée à la
+durée de la note précédente.  La valeur par défaut pour la première note
+est la noire (@code{4}).
+
+@lilypond[quote,verbatim]
+\relative { a' a a2 a a4 a a1 a }
+@end lilypond
+
 @cindex notes pointées
 @cindex pointée, note
 @cindex doublement pointée, note
@@ -125,13 +132,21 @@ mentionnées.
 
 @funindex .
 
-Pour obtenir des notes pointées, ajoutez simplement un point
-(@code{.}) au chiffre.  Les notes doublement pointées sont créées de
-la même façon.
+Pour obtenir des notes pointées, ajoutez simplement un point (@code{.})
+au chiffre. Les notes doublement pointées sont créées de la même façon.
 
 @lilypond[quote,verbatim]
 \relative { a'4 b c4. b8 a4. b4.. c8. }
 @end lilypond
+
+@funindex \dotsUp
+@funindex \dotsDown
+@funindex \dotsNeutral
+
+Les points sont normalement haussés pour éviter les lignes de portée,
+sauf dans certaines polyphonies.  Des commandes prédéfinies permettent
+de manuellement forcer un positionnemenet particulièr, comme indiqué au
+chapitre @ref{Direction et positionnement}.
 
 Certaines durées ne peuvent s'obtenir à partir de chiffres et de points,
 mais uniquement en « liant » deux ou plusieurs notes entre elles.  Voir
@@ -144,15 +159,6 @@ des paroles par rapport aux notes, reportez vous au chapitre
 Espacer les notes selon leur durée relative est tout à fait possible.
 Pour plus de détails à ce sujet et sur les autres réglages propres à
 cette forme de notation, reportez vous à @ref{Notation proportionnelle}.
-
-@funindex \dotsUp
-@funindex \dotsDown
-@funindex \dotsNeutral
-
-Les points sont normalement haussés pour éviter les lignes de portée,
-sauf dans certaines polyphonies.  Des commandes prédéfinies permettent
-de manuellement forcer un positionnemenet particulièr, comme indiqué au
-chapitre @ref{Direction et positionnement}.
 
 @predefined
 @code{\autoBeamOn},
@@ -183,6 +189,7 @@ Manuel de notation :
 @ref{Écriture des silences},
 @ref{Hampes},
 @ref{Liaisons de prolongation},
+@ref{Ligatures},
 @ref{Musique vocale},
 @ref{Notations anciennes},
 @ref{Notation proportionnelle}.
@@ -979,6 +986,9 @@ numéros de mesure.
 
 @cindex silence d'église
 @cindex kirchenpausen
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{multi-measure-rest-length-control.ly}
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-form-of-multi-measure-rests.ly}

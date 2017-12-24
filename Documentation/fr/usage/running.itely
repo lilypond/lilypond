@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 7186f5b169d3bc94ecb119ecec5a52cb0ddd53e9
+   Translation of GIT committish: d88eeba3390060dbccddfc3724cbb4b8cfecceb8
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -198,35 +198,6 @@ Différentes options sont disponibles en ligne de commande :
 
 @table @code
 
-@item -b, --bigpdfs
-@cindex bigpdfs
-
-Les fichiers PDF générés peuvent être beaucoup plus lourd que la normale
-selon le degré d'optimisation des fontes.  Néanmoins, lorsque plusieurs
-fichiers PDF sont inclus dans un document @code{pdftex}, @code{xetex} ou
-@code{luatex}, ils peuvent faire l'objet d'un traitement supplémentaire
-par @code{ghostscript} afin de fusionner les données de fontes
-redondantes et ainsi obtenir un fichier PDF @emph{significativement}
-plus léger.
-
-@example
-lilypond -b monfichier
-@end example
-
-Puis lancer @code{ghostscript} :
-
-@example
-gs -q -sDEVICE=pdfwrite -o gsout.pdf monfichier.pdf
-@end example
-
-@code{pdfsizeopt.py} vient alors en complément pour optimiser encore la
-taille du fichier :
-
-@example
-pdfsizeopt.py --use-multivalent=no gsout.pdf final.pdf
-@end example
-
-
 @item -d, --define-default=@var{variable}=@var{valeur}
 Voir @ref{Options avancées de lilypond}.
 
@@ -259,6 +230,9 @@ en tête de votre fichier @file{.ly}.
 doubles @code{"} en lieu et place des guillemets simples @code{'}.}
 @c Match " in context-sensitive editors
 
+@item -E, --eps
+Génèrate des fichiers EPS.
+
 @cindex sortie, format
 @cindex format de sortie
 @item -f, --format=@var{format}
@@ -283,6 +257,7 @@ d'initialisation.
 
 @cindex recherche de fichier
 @cindex chemin de recherche
+@cindex inclusion, chemin
 @item -I, --include=@var{répertoire}
 Ajoute @var{répertoire} au chemin de recherche pour les inclusions.
 
@@ -290,6 +265,9 @@ Vous pouvez mentionner plusieurs fois l'option @option{-I}, auquel cas
 la recherche commencera dans le premier répertoire inclus et, si le
 fichier en question ne s'y trouve pas, les répertoires suivants seront
 examinés l'un après l'autre.
+
+@warning{L'utilisation du tilde -- @code{~} -- avec l'option @code{-I}
+peut produire des résultats inattendus selon le @emph{shell}.}
 
 @cindex chroot jail, fonctionnement
 @item -j, --jail=@var{user},@var{group},@var{jail},@var{dir}
@@ -402,6 +380,19 @@ existant, c'est là que les fichiers résultants seront déposés.  Le
 suffixe adéquat sera ajouté (par ex. @code{.pdf} pour du pdf) dans tous
 les cas.
 
+@cindex pspdfopt
+@item -O, --pspdfopt
+En l'absence de @code{pspdfopt} ou avec le paramètre @code{size},
+lilypond tentera de générer un document PS, EPS ou PDF le plus léger
+possible.
+
+Avec le paramètre @code{TeX}, lilypond produira des fichiers optimisés
+pour un inclusion dans des documents PdfTeX, LuaTeX ou XeTeX.
+
+L'inclusion de plusieurs PDF générés par LilyPond dans un document
+@TeX{} nécessite l'utilisation de @w{@code{TeX-GS}} et un retraitement
+du PDF généré par @TeX{} à l'aide de Ghostscript.
+
 @cindex PostScript, output
 @cindex PS (PostScript), output
 @item --ps
@@ -487,7 +478,7 @@ images @code{PNG}.
 @item @code{aux-files}
 @tab @code{#t}
 @tab Génère les fichiers @code{.tex}, @code{.texi} et @code{.count}
-pour le moteur de rendu @code{EPS}.
+pour le moteur de rendu @code{eps}.
 
 @item @code{backend}
 @tab @code{ps}
@@ -524,9 +515,9 @@ programme utilisé pour visionner ces fichiers, il devra avoir accès aux
 fontes en question pour pouvoir afficher correctement les textes et
 paroles.  Il est préférable de ne pas recourir aux « alias de police »
 ni aux listes de fontes si la visionneuse de fichier SVG ne peut le
-traîter correctement.  L'option supplémentaire @code{--svg-woff} -- voir
-ci-après -- permet d'utiliser les fontes WOFF (@emph{Web Open Font
-Format}) avec le moteur SVG.
+traîter correctement.  L'option supplémentaire @w{@code{--svg-woff}} --
+voir ci-après -- permet d'utiliser les fontes WOFF (@emph{Web Open Font
+Format}) avec le moteur @code{svg}.
 
 @item @code{check-internal-types}
 @tab @code{#f}
@@ -539,6 +530,11 @@ la fonction @code{clip-regions} a été définie au sein du bloc
 @code{\layout} -- voir @ruser{Extraction de fragments musicaux}.  Bien
 entendu, aucun fragment ne sera extrait si l'on utilise l'option
 @option{-dno-print-pages}
+
+@item @code{crop}
+@tab @code{#f}
+@tab Fait correspondre le fichier résultant à la taille de l'image
+générée.
 
 @item @code{datadir}
 @tab
@@ -576,12 +572,12 @@ est automatiquement activée par l'option @code{`-ddebug-gc'}.
 
 @item @code{delete-intermediate-files}
 @tab @code{#t}
-@tab Supprime les fichiers @code{.ps} inutiles crées lors de la
+@tab Supprime les fichiers @code{.ps} inutiles créés lors de la
 compilation.
 
 @item @code{dump-cpu-profile}
 @tab @code{#f}
-@tab Génère une copie brute des informations de timing (dépend du
+@tab Génère une copie brute des informations de @emph{timing} (dépend du
 système).
 
 @item @code{dump-profile}
@@ -709,7 +705,7 @@ Cette option, disponible dans tous les formats de sortie imprimables --
 @code{pdf}, @code{png}, @code{ps}, @code{eps} et @code{svg} -- génère
 un fichier de la forme @code{monFichier.preview.extension} comprenant le
 titrage et le premier système.  S'il existe plusieurs sections
-@code{\book}, @code{\bookpart}, ce fichier contiendra les titrage et
+@code{\book} ou @code{\bookpart}, ce fichier contiendra les titrage et
 premier système de chacun des @code{\book}, @code{\bookpart} et
 @code{\score}, dès lors que la variable @code{print-all-headers} du bloc
 @code{\paper} est activée.
@@ -722,7 +718,7 @@ Pour l'éviter, utilisez conjointement l'une des options
 @tab @code{#t}
 @tab Génère l'intégralité des pages de la partition.  L'option
 @option{-dno-print-pages} est particulièrement utile lorsqu'utilisée
-conjointement avec l'option @option{-dpreview}.
+conjointement avec les options @option{-dpreview} et @option{-dcrop}.
 
 @item @code{profile-property-accesses}
 @tab @code{#f}
@@ -765,7 +761,7 @@ quelque chose du style
 
 @quotation
 @verbatim
-#(s ystem "rm -rf /") % trop dangeureux à écrire sans faute
+#(s ystem "rm -rf /") % trop dangereux à écrire sans faute
 {
   c4^$(ly:gulp-file "/etc/passwd") % malveillant mais pas destructeur
 }
@@ -791,10 +787,11 @@ accessible au public, d'en limiter aussi bien les ressources processeur
 que mémoire.
 
 Notez bien que l'utilisation du mode sécuritaire empêchera aussi la
-compilation d'un certain nombre de fragments LilyPond.  L'option
-@code{--jail} est dans ce cas une excellente alternative en terme de
-sécurité, même si elle requiert plus de temps à mettre en place -- voir
-@ref{Options basiques de lilypond}.
+compilation d'un certain nombre de fragments LilyPond.
+
+L'option @code{--jail} est dans ce cas une excellente alternative en
+terme de sécurité, même si elle requiert plus de temps à mettre en place
+-- voir @ref{Options basiques de lilypond}.
 
 @multitable @columnfractions .33 .16 .51
 @item @code{separate-log-files}
@@ -831,14 +828,14 @@ option accroit notablement la taille des fichiers PDF.
 @item @code{svg-woff}
 @tab @code{#f}
 @tab Cette option est obligatoire dès lors que sont utilisées, avec le
-moteur SVG, les fontes @emph{Web Open Font Format} (WOFF).  Un fichier
-SVG sera généré pour chacune des pages produites.  En dehors des glyphes
-musicaux propres à LilyPond, aucune autre information ne sera incluse.
-Quelque soir le visionneur de SVG utilisé, il devra avoir à disposition
-les fontes requises pour pouvoir afficher les éléments textuels et les
-paroles.  Dans la mesure où le visionneur pourrait ne pas savoir le
-gérer, mieux vaut s'abstenir derecourir aux alias ou listes de fontes.
-
+moteur @code{svg}, les fontes @emph{Web Open Font Format} (WOFF). Un
+fichier SVG sera généré pour chacune des pages produites. En dehors des
+glyphes musicaux propres à LilyPond, aucune autre information ne sera
+incluse. Quelque soir le visionneur de SVG utilisé, il devra avoir à
+disposition les fontes requises pour pouvoir afficher les éléments
+textuels et les paroles. Dans la mesure où le visionneur pourrait ne pas
+savoir le gérer, mieux vaut s'abstenir de recourir aux alias ou listes
+de fontes.
 
 Lorsque celles-ci sont utilisées correctement, nul n'est besoin
 d'installer les fontes que les fichiers SVG utiliseront dans
@@ -963,7 +960,7 @@ DIR.
 tous les fichiers nécessaires -- voir le script plus loin.
 
 Le recours à l'utilitaire @code{sed} permet de créer les commandes de
-copie de tout ce qui est nécessaire à un exécutable :
+copie de tout ce qui est nécessaire à un exécutable donné :
 
 @example
 for i in "/usr/local/lilypond/usr/bin/lilypond" "/bin/sh" "/usr/bin/;  \
@@ -1016,7 +1013,7 @@ for i in "$lilydir/usr/bin/lilypond" "$lilydir/usr/bin/guile" "/bin/sh"  \
       's/\t\/\(.*\/\)\(.*\) (.*)$/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/'  \
         | sed '/.*=>.*/d'; done | sh -s
 
-# les fichiers partagés pour ghostscript...
+# les fichiers partagés pour Ghostscript...
       cp -L -r /usr/share/ghostscript usr/share
 # les fichiers partagés pour ImageMagick
       cp -L -r /usr/lib/ImageMagick* usr/lib
@@ -1086,7 +1083,7 @@ comme de la plus haute importance.  Si vous y étiez confronté,
 transmettez un rapport de bogue.
 @end table
 
-@cindex errors, message format
+@cindex erreur, format du message
 Lorsque l'avertissement ou l'erreur est directement lié au fichier
 source, le message est libellé sous la forme
 
@@ -1217,9 +1214,9 @@ fichier journal, est associé à un message du type « GUILE a signalé
 une erreur@dots{} ». Il survient à chaque fois qu'un commentaire
 @emph{LilyPond} est indûment placé dans une routine @emph{Scheme}.
 
-Un commentaire LilyPond est introduit par le signe pourcent (@code{%})
+Un commentaire LilyPond est introduit par le signe pourcent (@code{%})
 et ne doit en aucun cas se trouver dans une routine Scheme.  En Scheme,
-les commentaires s'introduisent par un point-virgule (@code{;}).
+les commentaires s'introduisent par un point-virgule (@code{;}).
 
 
 @node Message d'erreur FT_Get_Glyph_Name
@@ -1254,7 +1251,7 @@ reportez-vous à la rubrique
 
 
 @node Message d'erreur unexpected new
-@unnumberedsubsec Message d'erreur unexpected @code{@bs{}new}
+@unnumberedsubsec Message d'erreur @code{unexpected @bs{}new}
 @translationof Error message unexpected new
 
 Un bloc @code{\score} ne peut contenir qu'@strong{une seule} expression
