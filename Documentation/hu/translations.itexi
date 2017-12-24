@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Sun Sep 10 17:19:23 UTC 2017
+@emph{Last updated Sun Dec 24 13:36:12 UTC 2017
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -415,7 +415,7 @@ partially
 @item
 1 A @command{lilypond} használata
 @*
-5391
+5422
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -432,7 +432,7 @@ partially (91 %)
 @ifhtml
 
 @html
-<span style="background-color: #ffaf4a">partially</span>
+<span style="background-color: #ffad4a">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -508,7 +508,7 @@ LilyPond -- kottaszedés mindenkinek
 @item
 Section titles
 @*
-760
+750
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -525,7 +525,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #c0ff34">partially</span>
+<span style="background-color: #b9ff33">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -643,7 +643,7 @@ partially
 @item
 Közösség
 @*
-2449
+2362
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -660,7 +660,7 @@ partially (92 %)
 @ifhtml
 
 @html
-<span style="background-color: #cdfe36">partially</span>
+<span style="background-color: #e1ff39">partially</span>
 @end html
 @end ifhtml
 @ifnothtml

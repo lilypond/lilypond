@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Actualitzat el Sun Sep 10 17:19:23 UTC 2017
+@emph{Actualitzat el Sun Dec 24 13:36:12 UTC 2017
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -201,21 +201,21 @@ A Plantilles
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">parcialment (97 %)</span>
+<span style="background-color: #1fff1f">si</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialment (97 %)
+si
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #ffdd42">parcialment</span>
+<span style="background-color: #1fff1f">si</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialment
+si
 @end ifnothtml
 @tab pre-GDP
 @end multitable
@@ -333,7 +333,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">parcialment</span>
+<span style="background-color: #39ff22">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -343,7 +343,7 @@ parcialment
 @item
 1.2 Duracions
 @*
-6853
+6854
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -360,7 +360,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">parcialment</span>
+<span style="background-color: #39ff22">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -505,7 +505,7 @@ si
 @item
 1.8 Text
 @*
-2952
+3237
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -522,11 +522,65 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">parcialment</span>
+<span style="background-color: #4efe25">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
 parcialment
+@end ifnothtml
+@tab pre-GDP
+@item
+2 Notació especialitzada
+@*
+81
+@tab Walter Garcia-Fontes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab pre-GDP
+@item
+2.1 Música vocal
+@*
+4977
+@tab Walter Garcia-Fontes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
 @end ifnothtml
 @tab pre-GDP
 @end multitable
@@ -598,7 +652,7 @@ si
 @item
 1 Execució del LilyPond
 @*
-5391
+5422
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -615,7 +669,7 @@ parcialment (95 %)
 @ifhtml
 
 @html
-<span style="background-color: #83fe2c">parcialment</span>
+<span style="background-color: #8aff2d">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -691,7 +745,7 @@ LilyPond: notació musical per a tots
 @item
 Títols de secció
 @*
-760
+750
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -708,11 +762,11 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">si</span>
+<span style="background-color: #25fe1f">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
-si
+parcialment
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -826,7 +880,7 @@ parcialment
 @item
 Comunitat
 @*
-2449
+2362
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -843,7 +897,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #8aff2d">parcialment</span>
+<span style="background-color: #97ff2f">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
