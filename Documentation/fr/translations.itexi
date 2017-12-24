@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Dernière mise à jour Sun Sep 10 17:19:23 UTC 2017
+@emph{Dernière mise à jour Sun Dec 24 13:36:12 UTC 2017
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -30,7 +30,7 @@ LilyPond Changes
 @item
 Titre des chapitres
 @*
-2988
+3348
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -303,7 +303,7 @@ oui
 @item
 2 Interfaces pour programmeurs
 @*
-5752
+5769
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -691,7 +691,7 @@ oui
 @item
 1.2 Rythme
 @*
-6853
+6854
 @tab Frédéric Chiasson
 @*
 Jean-Charles Malahieude
@@ -875,7 +875,7 @@ oui
 @item
 1.8 Texte
 @*
-2952
+3237
 @tab Jean-Charles Malahieude
 @tab Valentin Villenave
 @*
@@ -962,7 +962,7 @@ oui
 @item
 2.2 Instruments utilisant des portées multiples
 @*
-904
+934
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -1169,7 +1169,7 @@ oui
 @item
 2.9 Notations anciennes
 @*
-5518
+5409
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -1225,7 +1225,7 @@ oui
 @item
 3 Généralités en matière d'entrée et sortie
 @*
-12853
+13150
 @tab Jean-Charles Malahieude
 @*
 Valentin Villenave
@@ -1312,7 +1312,7 @@ oui
 @item
 A Tables du manuel de notation
 @*
-3079
+3382
 @tab Frédéric Chiasson
 @*
 Jean-Charles Malahieude
@@ -1438,7 +1438,7 @@ oui
 @item
 1 Exécution de @command{lilypond}
 @*
-5391
+5422
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -1591,7 +1591,7 @@ LilyPond -- la notation musicale pour tous
 @item
 Titre des chapitres
 @*
-760
+750
 @tab John Mandereau
 @tab 
 @tab 
@@ -1732,7 +1732,7 @@ oui
 @item
 Communauté
 @*
-2449
+2362
 @tab Jean-Charles Malahieude
 @*
 John Mandereau

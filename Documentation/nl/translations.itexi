@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Meest recente update Sun Sep 10 17:19:23 UTC 2017
+@emph{Meest recente update Sun Dec 24 13:36:12 UTC 2017
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -231,7 +231,7 @@ LilyPond -- Muzieknotatie voor iedereen
 @item
 Paragraaftitels
 @*
-760
+750
 @tab Jan Nieuwenhuizen
 @tab Tineke de Munnik
 @tab 

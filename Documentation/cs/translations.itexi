@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Naposledy obnoveno Sun Sep 10 17:19:23 UTC 2017
+@emph{Naposledy obnoveno Sun Dec 24 13:36:12 UTC 2017
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -231,7 +231,7 @@ LilyPond -- Zápis not pro každého
 @item
 Nadpisy
 @*
-760
+750
 @tab Pavel Fric
 @tab 
 @tab 
@@ -366,7 +366,7 @@ ano
 @item
 Společenství
 @*
-2449
+2362
 @tab  Pavel Fric
 @tab 
 @tab 
@@ -383,7 +383,7 @@ Společenství
 @ifhtml
 
 @html
-<span style="background-color: #d4ff37">částečně</span>
+<span style="background-color: #efff3a">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml

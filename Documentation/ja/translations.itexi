@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最終更新日 Sun Sep 10 17:19:23 UTC 2017
+@emph{最終更新日 Sun Dec 24 13:36:12 UTC 2017
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -264,11 +264,11 @@ LilyPond 記譜法リファレンス
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">partially</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+はい
 @end ifnothtml
 @tab post-GDP
 @item
@@ -329,196 +329,7 @@ LilyPond --- \TITLE\
 1.1 ピッチ
 @*
 5413
-@tab Yoshiki Sawada
-@tab 
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">はい</span>
-@end html
-@end ifhtml
-@ifnothtml
-はい
-@end ifnothtml
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #a5ff31">partially</span>
-@end html
-@end ifhtml
-@ifnothtml
-partially
-@end ifnothtml
-@tab post-GDP
-@item
-1.2 リズム
-@*
-6853
-@tab Yoshiki Sawada
-@tab 
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">はい</span>
-@end html
-@end ifhtml
-@ifnothtml
-はい
-@end ifnothtml
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #dbff38">partially</span>
-@end html
-@end ifhtml
-@ifnothtml
-partially
-@end ifnothtml
-@tab post-GDP
-@item
-1.3 発想記号
-@*
-1819
-@tab Yoshiki Sawada
-@tab 
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">はい</span>
-@end html
-@end ifhtml
-@ifnothtml
-はい
-@end ifnothtml
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #97ff2f">partially</span>
-@end html
-@end ifhtml
-@ifnothtml
-partially
-@end ifnothtml
-@tab post-GDP
-@item
-1.4 繰り返し
-@*
-1288
-@tab Yoshiki Sawada
-@tab 
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">はい</span>
-@end html
-@end ifhtml
-@ifnothtml
-はい
-@end ifnothtml
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #d4ff37">partially</span>
-@end html
-@end ifhtml
-@ifnothtml
-partially
-@end ifnothtml
-@tab post-GDP
-@item
-1.5 同時進行する音符
-@*
-2979
-@tab Yoshiki Sawada
-@tab 
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">はい</span>
-@end html
-@end ifhtml
-@ifnothtml
-はい
-@end ifnothtml
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #a5ff31">partially</span>
-@end html
-@end ifhtml
-@ifnothtml
-partially
-@end ifnothtml
-@tab post-GDP
-@item
-1.6 譜の記譜法
-@*
-2554
-@tab Yoshiki Sawada
-@tab 
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">はい</span>
-@end html
-@end ifhtml
-@ifnothtml
-はい
-@end ifnothtml
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #b9ff33">partially</span>
-@end html
-@end ifhtml
-@ifnothtml
-partially
-@end ifnothtml
-@tab post-GDP
-@item
-1.7 編集者の注釈
-@*
-1481
-@tab Yoshiki Sawada
-@tab 
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">はい</span>
-@end html
-@end ifhtml
-@ifnothtml
-はい
-@end ifnothtml
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #fff73e">partially</span>
-@end html
-@end ifhtml
-@ifnothtml
-partially
-@end ifnothtml
-@tab post-GDP
-@item
-1.8 テキスト
-@*
-2952
-@tab Masamichi Hosoda
+@tab Tomohiro Tatejima
 @*
 Yoshiki Sawada
 @tab 
@@ -536,7 +347,36 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #47ff24">partially</span>
+<span style="background-color: #1fff1f">はい</span>
+@end html
+@end ifhtml
+@ifnothtml
+はい
+@end ifnothtml
+@tab post-GDP
+@item
+1.2 リズム
+@*
+6854
+@tab Tomohiro Tatejima
+@*
+Yoshiki Sawada
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">はい</span>
+@end html
+@end ifhtml
+@ifnothtml
+はい
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #2cff20">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -544,10 +384,12 @@ partially
 @end ifnothtml
 @tab post-GDP
 @item
-2 専門的な記譜法
+1.3 発想記号
 @*
-81
-@tab Yoshiki Sawada
+1819
+@tab Tomohiro Tatejima
+@*
+Yoshiki Sawada
 @tab 
 @tab 
 @ifhtml
@@ -571,10 +413,12 @@ partially
 @end ifnothtml
 @tab post-GDP
 @item
-2.1 声楽
+1.4 繰り返し
 @*
-4977
-@tab Yoshiki Sawada
+1288
+@tab Tomohiro Tatejima
+@*
+Yoshiki Sawada
 @tab 
 @tab 
 @ifhtml
@@ -590,18 +434,20 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #68ff28">partially</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+はい
 @end ifnothtml
 @tab post-GDP
 @item
-2.2 キーボードと他の複数譜の楽器
+1.5 同時進行する音符
 @*
-904
-@tab Yoshiki Sawada
+2979
+@tab Tomohiro Tatejima
+@*
+Yoshiki Sawada
 @tab 
 @tab 
 @ifhtml
@@ -617,18 +463,20 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #47ff24">partially</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+はい
 @end ifnothtml
 @tab post-GDP
 @item
-2.3 フレットの無い弦楽器
+1.6 譜の記譜法
 @*
-279
-@tab Yoshiki Sawada
+2554
+@tab Tomohiro Tatejima
+@*
+Yoshiki Sawada
 @tab 
 @tab 
 @ifhtml
@@ -644,18 +492,20 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #91ff2e">partially</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+はい
 @end ifnothtml
 @tab post-GDP
 @item
-2.4 フレットのある弦楽器
+1.7 編集者の注釈
 @*
-2821
-@tab Yoshiki Sawada
+1481
+@tab Tomohiro Tatejima
+@*
+Yoshiki Sawada
 @tab 
 @tab 
 @ifhtml
@@ -671,72 +521,22 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #5bff27">partially</span>
-@end html
-@end ifhtml
-@ifnothtml
-partially
-@end ifnothtml
-@tab post-GDP
-@item
-2.5 打楽器
-@*
-799
-@tab Yoshiki Sawada
-@tab 
-@tab 
-@ifhtml
-
-@html
 <span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
 はい
 @end ifnothtml
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #91ff2e">partially</span>
-@end html
-@end ifhtml
-@ifnothtml
-partially
-@end ifnothtml
 @tab post-GDP
 @item
-2.6 管楽器
+1.8 テキスト
 @*
-324
-@tab Yoshiki Sawada
-@tab 
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">はい</span>
-@end html
-@end ifhtml
-@ifnothtml
-はい
-@end ifnothtml
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #40fe23">partially</span>
-@end html
-@end ifhtml
-@ifnothtml
-partially
-@end ifnothtml
-@tab post-GDP
-@item
-2.7 和音記譜法
+3237
+@tab Tomohiro Tatejima
 @*
-1975
-@tab Yoshiki Sawada
+Masamichi Hosoda
+@*
+Yoshiki Sawada
 @tab 
 @tab 
 @ifhtml
@@ -760,6 +560,236 @@ partially
 @end ifnothtml
 @tab post-GDP
 @item
+2 専門的な記譜法
+@*
+81
+@tab Tomohiro Tatejima
+@*
+Yoshiki Sawada
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">はい</span>
+@end html
+@end ifhtml
+@ifnothtml
+はい
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #d587ff">N/A</span>
+@end html
+@end ifhtml
+@ifnothtml
+N/A
+@end ifnothtml
+@tab post-GDP
+@item
+2.1 声楽
+@*
+4977
+@tab Tomohiro Tatejima
+@*
+Yoshiki Sawada
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">はい</span>
+@end html
+@end ifhtml
+@ifnothtml
+はい
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #d587ff">N/A</span>
+@end html
+@end ifhtml
+@ifnothtml
+N/A
+@end ifnothtml
+@tab post-GDP
+@item
+2.2 キーボードと他の複数譜の楽器
+@*
+934
+@tab Tomohiro Tatejima
+@*
+Yoshiki Sawada
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">はい</span>
+@end html
+@end ifhtml
+@ifnothtml
+はい
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #d587ff">N/A</span>
+@end html
+@end ifhtml
+@ifnothtml
+N/A
+@end ifnothtml
+@tab post-GDP
+@item
+2.3 フレットの無い弦楽器
+@*
+279
+@tab Tomohiro Tatejima
+@*
+Yoshiki Sawada
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">はい</span>
+@end html
+@end ifhtml
+@ifnothtml
+はい
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #d587ff">N/A</span>
+@end html
+@end ifhtml
+@ifnothtml
+N/A
+@end ifnothtml
+@tab post-GDP
+@item
+2.4 フレットのある弦楽器
+@*
+2821
+@tab Tomohiro Tatejima
+@*
+Yoshiki Sawada
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">はい</span>
+@end html
+@end ifhtml
+@ifnothtml
+はい
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #d587ff">N/A</span>
+@end html
+@end ifhtml
+@ifnothtml
+N/A
+@end ifnothtml
+@tab post-GDP
+@item
+2.5 打楽器
+@*
+799
+@tab Tomohiro Tatejima
+@*
+Yoshiki Sawada
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">はい</span>
+@end html
+@end ifhtml
+@ifnothtml
+はい
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #d587ff">N/A</span>
+@end html
+@end ifhtml
+@ifnothtml
+N/A
+@end ifnothtml
+@tab post-GDP
+@item
+2.6 管楽器
+@*
+324
+@tab Yoshiki Sawada
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">はい</span>
+@end html
+@end ifhtml
+@ifnothtml
+はい
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #d587ff">N/A</span>
+@end html
+@end ifhtml
+@ifnothtml
+N/A
+@end ifnothtml
+@tab post-GDP
+@item
+2.7 和音記譜法
+@*
+1975
+@tab Tomohiro Tatejima
+@*
+Yoshiki Sawada
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">はい</span>
+@end html
+@end ifhtml
+@ifnothtml
+はい
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #d587ff">N/A</span>
+@end html
+@end ifhtml
+@ifnothtml
+N/A
+@end ifnothtml
+@tab post-GDP
+@item
 2.8 現代音楽
 @*
 475
@@ -779,18 +809,18 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+N/A
 @end ifnothtml
 @tab post-GDP
 @item
-2.9 世界の音楽
+2.9 古代の記譜法
 @*
-1446
-@tab Yoshiki Sawada
+5409
+@tab Tomohiro Tatejima
 @tab 
 @tab 
 @ifhtml
@@ -806,34 +836,65 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+N/A
+@end ifnothtml
+@tab post-GDP
+@item
+2.10 世界の音楽
+@*
+1446
+@tab Tomohiro Tatejima
+@*
+Yoshiki Sawada
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">はい</span>
+@end html
+@end ifhtml
+@ifnothtml
+はい
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #d587ff">N/A</span>
+@end html
+@end ifhtml
+@ifnothtml
+N/A
 @end ifnothtml
 @tab post-GDP
 @item
 3 入出力全般
 @*
-12853
-@tab Yoshiki Sawada
+13150
+@tab Tomohiro Tatejima
+@*
+Yoshiki Sawada
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">一部 (95 %)</span>
+<span style="background-color: #dfef77">一部 (96 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-一部 (95 %)
+一部 (96 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #ffda43">partially</span>
+<span style="background-color: #ffd743">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -871,17 +932,19 @@ partially
 5 デフォルトを変更する
 @*
 17050
-@tab Yoshiki Sawada
+@tab Tomohiro Tatejima
+@*
+Yoshiki Sawada
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">一部 (92 %)</span>
+<span style="background-color: #dfef77">一部 (94 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-一部 (92 %)
+一部 (94 %)
 @end ifnothtml
 @tab 
 @ifhtml
@@ -994,7 +1057,7 @@ Yoshiki Sawada
 @item
 1 @command{lilypond} を実行する
 @*
-5391
+5422
 @tab Tomohiro Tatejima
 @*
 Masamichi Hosoda
@@ -1015,11 +1078,11 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #2cff20">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+partially
 @end ifnothtml
 @tab post-GDP
 @item
@@ -1153,7 +1216,7 @@ LilyPond -- みんなの楽譜作成
 @item
 セクション タイトル
 @*
-760
+750
 @tab Masamichi Hosoda
 @*
 Yoshiki Sawada
@@ -1174,11 +1237,11 @@ Yoshinobu Ishizaki
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #25fe1f">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+partially
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1306,7 +1369,7 @@ Yoshiki Sawada
 @item
 コミュニティ
 @*
-2449
+2362
 @tab Masamichi Hosoda
 @*
 Yoshiki Sawada
@@ -1325,7 +1388,7 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #8aff2d">partially</span>
+<span style="background-color: #9eff30">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
