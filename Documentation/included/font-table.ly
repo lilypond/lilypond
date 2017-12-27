@@ -53,7 +53,7 @@
       "five" "six"   "seven"  "eight"  "nine"))
 
   (define dynamics
-    '("space" "f" "m" "p" "r" "s" "z"))
+    '("space" "f" "m" "n" "p" "r" "s" "z"))
 
   (define default-noteheads
     (get-group glyph-list

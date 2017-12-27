@@ -687,6 +687,127 @@ fet_beginchar ("dynamic m", "m");
 	penlabels (range 1 thru 8);
 fet_endchar;
 
+%
+% NOTES:
+%
+% * This is mostly copied from dynamic m (see above)
+%
+
+code := 109;
+
+fet_beginchar ("dynamic n", "n");
+	save i_thick, i_angle, i_twiddle_thick;
+	save i_twiddle_start_angle, i_twiddle_start_y;
+	save i_twiddle_end_angle, i_left_space;
+	save idir, center, right_ending;
+	save overshoot;
+	save p;
+	pair center, idir, right_ending;
+	path p;
+
+	set_char_box (0, 1.11 ex#, 0, 1.0 ex#);
+
+	% should share code with p for twiddle.
+
+	overshoot = .25 serif_thick;
+	i_thick := 21/80 ex;
+	i_twiddle_thick = 1.2 serif_thick;
+	i_twiddle_start_y = 8/16 ex;
+	i_twiddle_start_angle = 0;
+	i_twiddle_end_angle := 35;
+
+	center = (0, 0);
+
+	i_angle := 0;
+	idir := dir (90 - i_angle);
+	i_left_space = 16/80 ex;
+
+	penpos1 (i_twiddle_thick, -i_twiddle_start_angle);
+	y1 = i_twiddle_start_y;
+	z1r = center - (i_left_space, 0) + whatever * idir;
+
+	y2l = ex + overshoot;
+	z2l = .08 [z3l, z3r] + whatever * idir;
+	z2r = 5/8 [z1r, z3l] + whatever * idir;
+	y2r = y5l + 1/9 ex;
+	z2 = 1/2 [z2l, z2r];
+
+	penpos3 (i_thick, 0);
+	y3 = 0.5 bottom_blot + ypart center;
+	z3l = center + whatever * idir;
+
+	penpos4 (i_thick - bottom_blot, 0);
+	y4 = ypart center;
+	z4 - z3 = whatever * idir;
+
+	penpos5 (i_thick, 0);
+	z5 = z4 + whatever * idir;
+	y5 = 55/80 ex;
+
+	fill simple_serif (z1l, z1r, 90)
+	     ..tension 1.2.. z2r{right}
+	     .. z5l{z3 - z5}
+	     -- z3l{z3 - z5}
+	     .. z4l{right}
+	     -- z4r{right}
+	     .. z3r{z5 - z3}
+	     -- z5r{z5 - z3}
+	     ..tension 1.2.. z2l{left}
+	     .. cycle;
+
+	right_ending := z5r;
+	penlabels (1, 2, 3, 4, 5);
+
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	clearxy;
+
+	i_thick := 23/80 ex;
+	i_angle := -6;
+	idir := dir (90 - i_angle);
+	i_left_space := 18/80 ex;
+
+	penpos1 (serif_thick, -i_twiddle_start_angle);
+	z1r = right_ending;
+
+	y2l = ex + overshoot;
+	z2l = .08 [z3l, z3r] + whatever * idir;
+	z2r = 5/8 [z1r, z3l] + whatever * idir;
+	y2r = y5l + 1/9 ex;
+	z2 = 1/2 [z2l, z2r];
+
+	penpos3 (whatever, 20);
+	y3l = 1/8 ex + ypart center;
+	z3l = z7l + whatever * idir;
+	z3r = z7r + whatever * idir;
+
+	penpos5 (whatever, 10);
+	z5l = right_ending + (i_left_space, 0);
+	z5r = z7r + whatever * idir;
+
+	penpos6 (serif_thick, -i_twiddle_end_angle);
+	y6l = 23/80 ex + ypart center;
+	z6l = 1.6 [z3l, z3r] + whatever * idir;
+
+	penpos7 (i_thick, 0);
+	y7 = 0;
+	z7l = z5l + whatever * idir;
+
+	z8 = z7 - (0, overshoot);
+
+	fill simple_serif (z1l, z1r, 90)
+	     ..tension 1.05.. z2r{right}
+	     .. z5l{z3 - z5}
+	     -- z3l{z3 - z5}
+	     .. z8{right}
+	     .. simple_serif (z6r, z6l, 90)
+	     ..tension 0.85.. z3r{z5 - z3}
+	     -- z5r{z5 - z3}
+	     ..tension 1.2.. z2l{left}
+	     .. cycle;
+
+	penlabels (range 1 thru 8);
+fet_endchar;
 
 code := 113;
 
@@ -773,6 +894,10 @@ fet_endchar;
 %%% KERNING
 
 ligtable "m":
+	"p" kern 0.2 ex#,
+	"f" kern -0.1 ex#;
+
+ligtable "n":
 	"p" kern 0.2 ex#,
 	"f" kern -0.1 ex#;
 
