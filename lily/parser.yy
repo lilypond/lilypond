@@ -4656,7 +4656,11 @@ SCM reverse_music_list (Lily_parser *parser, Input loc, SCM lst, bool preserve, 
 		Music *m = unsmob<Music> (elt);
 		assert (m);
 		if (m->is_mus_type ("post-event")) {
-			post = scm_cons (elt, post);
+			if (m->is_mus_type ("post-event-wrapper"))
+				post = ly_append2 (m->get_property ("elements"),
+						   post);
+			else
+				post = scm_cons (elt, post);
 			continue;
 		}
 		if (add_post_events (m, post)) {
