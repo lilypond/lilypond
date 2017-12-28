@@ -16,7 +16,6 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; clefs
 
@@ -84,46 +83,78 @@ way the transposition number is displayed."
             (make-line-markup (list (make-concat-markup note-markup)))
             (make-null-markup)))))
 
-(define-public (format-mark-alphabet mark context)
-  (make-bold-markup (make-markalphabet-markup (1- mark))))
+(define (select-option options available)
+  (let ((o (find (lambda (x) (memq x available))
+                 options)))
+    (if o o (car available))))
 
-(define-public (format-mark-box-alphabet mark context)
-  (make-bold-markup (make-box-markup (make-markalphabet-markup (1- mark)))))
+(define-public (format-mark-generic options)
+  ; Select “alphabet”, frame, font-series, letter-case and double letter behaviour
+  ; from options list; if none is given, default to first available.
+  (let ((ab (select-option options '(alphabet-omit-i alphabet alphabet-omit-j barnumbers numbers roman)))
+        (fr (select-option options '(noframe box circle oval)))
+        (fs (select-option options '(bold medium)))
+        (lc (select-option options '(uppercase lowercase mixedcase)))
+        (dl (select-option options '(combine repeat))))
+    (lambda (number context)
+      (let* ((the-string
+               (case ab
+                 ((barnumbers) (number->string (ly:context-property context 'currentBarNumber)))
+                 ((numbers) (number->string number))
+                 ((roman) (fancy-format #f "~@r" number))
+                 (else (markgeneric-string number ab dl))))
+             (the-cased-string
+               (case lc
+                 ; both roman numbers and alphabet-based marks are
+                 ; already uppercase, (bar)numbers aren’t affected
+                 ((uppercase)                    the-string)
+                 ((mixedcase) (string-capitalize the-string))
+                 ((lowercase) (string-downcase   the-string))))
+             (the-framed-string
+               (case fr
+                 ((box)    (make-box-markup    the-cased-string))
+                 ((circle) (make-circle-markup the-cased-string))
+                 ((oval)   (make-oval-markup   the-cased-string))
+                 ((noframe)                    the-cased-string))))
+        (case fs
+          ((bold) (make-bold-markup the-framed-string))
+          ((medium)                 the-framed-string))))))
 
-(define-public (format-mark-circle-alphabet mark context)
-  (make-bold-markup (make-circle-markup (make-markalphabet-markup (1- mark)))))
+(define-public format-mark-alphabet
+  (format-mark-generic '(alphabet)))
 
-(define-public (format-mark-letters mark context)
-  (make-bold-markup (make-markletter-markup (1- mark))))
+(define-public format-mark-box-alphabet
+  (format-mark-generic '(alphabet box)))
 
-(define-public (format-mark-numbers mark context)
-  (make-bold-markup (number->string mark)))
+(define-public format-mark-circle-alphabet
+  (format-mark-generic '(alphabet circle)))
 
-(define-public (format-mark-barnumbers mark context)
-  (make-bold-markup (number->string (ly:context-property context
-                                                         'currentBarNumber))))
+(define-public format-mark-letters
+  (format-mark-generic '()))
 
-(define-public (format-mark-box-letters mark context)
-  (make-bold-markup (make-box-markup (make-markletter-markup (1- mark)))))
+(define-public format-mark-numbers
+  (format-mark-generic '(numbers)))
 
-(define-public (format-mark-circle-letters mark context)
-  (make-bold-markup (make-circle-markup (make-markletter-markup (1- mark)))))
+(define-public format-mark-barnumbers
+  (format-mark-generic '(barnumbers)))
 
-(define-public (format-mark-box-numbers mark context)
-  (make-bold-markup (make-box-markup (number->string mark))))
+(define-public format-mark-box-letters
+  (format-mark-generic '(box)))
 
-(define-public (format-mark-circle-numbers mark context)
-  (make-bold-markup (make-circle-markup (number->string mark))))
+(define-public format-mark-circle-letters
+  (format-mark-generic '(circle)))
 
-(define-public (format-mark-box-barnumbers mark context)
-  (make-bold-markup (make-box-markup
-                     (number->string (ly:context-property context
-                                                          'currentBarNumber)))))
+(define-public format-mark-box-numbers
+  (format-mark-generic '(numbers box)))
 
-(define-public (format-mark-circle-barnumbers mark context)
-  (make-bold-markup (make-circle-markup
-                     (number->string (ly:context-property context
-                                                          'currentBarNumber)))))
+(define-public format-mark-circle-numbers
+  (format-mark-generic '(numbers circle)))
+
+(define-public format-mark-box-barnumbers
+  (format-mark-generic '(barnumbers box)))
+
+(define-public format-mark-circle-barnumbers
+  (format-mark-generic '(barnumbers circle)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

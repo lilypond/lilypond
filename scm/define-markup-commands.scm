@@ -3356,27 +3356,24 @@ format require the prefix @code{#x}.
 @end lilypond"
   (ly:text-interface::interpret-markup layout props (ly:wide-char->utf-8 num)))
 
-(define number->mark-letter-vector (make-vector 25 #\A))
+(define mark-alphabets
+   `((alphabet        . ,(list->vector (string->list "ABCDEFGHIJKLMNOPQRSTUVWXYZ")))
+     (alphabet-omit-i . ,(list->vector (string->list "ABCDEFGHJKLMNOPQRSTUVWXYZ")))
+     (alphabet-omit-j . ,(list->vector (string->list "ABCDEFGHIKLMNOPQRSTUVWXYZ")))))
 
-(do ((i 0 (1+ i))
-     (j 0 (1+ j)))
-    ((>= i 26))
-  (if (= i (- (char->integer #\I) (char->integer #\A)))
-      (set! i (1+ i)))
-  (vector-set! number->mark-letter-vector j
-               (integer->char (+ i (char->integer #\A)))))
-
-(define number->mark-alphabet-vector (list->vector
-                                      (map (lambda (i) (integer->char (+ i (char->integer #\A)))) (iota 26))))
-
-(define (number->markletter-string vec n)
-  "Double letters for big marks."
-  (let* ((lst (vector-length vec)))
-
-    (if (>= n lst)
-        (string-append (number->markletter-string vec (1- (quotient n lst)))
-                       (number->markletter-string vec (remainder n lst)))
-        (make-string 1 (vector-ref vec n)))))
+(define (markgeneric-string number alphabet double-letters)
+  (let* ((the-alphabet (assq-ref mark-alphabets alphabet))
+         (the-alphabet-length (vector-length the-alphabet)))
+    (case double-letters
+      ((repeat) (let ((the-length (1+ (quotient (1- number) the-alphabet-length)))
+                      (the-index     (remainder (1- number) the-alphabet-length)))
+                  (make-string the-length (vector-ref the-alphabet the-index))))
+      ((combine) (let loop ((num (1- number)))
+                   (if (< num the-alphabet-length)
+                       (string (vector-ref the-alphabet num))
+                       (string-append
+                         (loop (1- (quotient num the-alphabet-length)))
+                         (loop    (remainder num the-alphabet-length)))))))))
 
 (define-markup-command (markletter layout props num)
   (integer?)
@@ -3392,7 +3389,7 @@ to@tie{}Z (skipping letter@tie{}I), and continue with double letters.
 }
 @end lilypond"
   (ly:text-interface::interpret-markup layout props
-                                       (number->markletter-string number->mark-letter-vector num)))
+                                       (markgeneric-string num 'alphabet-omit-i 'combine)))
 
 (define-markup-command (markalphabet layout props num)
   (integer?)
@@ -3408,7 +3405,7 @@ and continue with double letters.
 }
 @end lilypond"
   (ly:text-interface::interpret-markup layout props
-                                       (number->markletter-string number->mark-alphabet-vector num)))
+                                       (markgeneric-string num 'alphabet 'combine)))
 
 (define-public (horizontal-slash-interval num forward number-interval mag)
   (if forward
