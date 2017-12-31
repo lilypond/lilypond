@@ -180,3 +180,9 @@ minor issue, but in some cases it might show design flaws.
 . Add `eps' for mirrored paths to assure correct MetaFont rasterization.
   See the comment and the variables at the end of `feta-params.mf' for
   details how vertical symmetry should be achieved.
+
+
+Miscellaneous
+-------------
+
+If you add new glyphs, don't forget to update file `ps/encodingdefs.ps'.
