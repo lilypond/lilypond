@@ -155,7 +155,7 @@ Plus sur LilyPond dans notre @ref{Introduction} !
 
 LilyPond est un outil à la fois puissant et flexible qui se charge de
 graver toutes sortes de partitions, qu'il s'agisse de musique classique
-(comme cet exemple de by J.S. Bach), notation complexe, musique
+(comme cet exemple de J.S. Bach), notation complexe, musique
 ancienne, musique moderne, tablature, musique vocale, feuille de chant,
 applications pédagogiques, grands projets, sortie personnalisée ainsi
 que des diagrammes de Schenker.
@@ -167,7 +167,7 @@ que des diagrammes de Schenker.
 LilyPond est un outil à la fois puissant et flexible qui se charge de
 graver toutes sortes de partitions, qu'il s'agisse de
 @uref{examples.html#Musique-classique, musique classique}
-(comme cet exemple de by J.S. Bach),
+(comme cet exemple de J.S. Bach),
 @uref{examples.html#Notation-complexe, notation complexe},
 @uref{examples.html#Musique-ancienne, musique ancienne},
 @uref{examples.html#Musique-moderne, musique moderne},
