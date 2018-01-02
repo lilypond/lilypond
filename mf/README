@@ -185,4 +185,5 @@ minor issue, but in some cases it might show design flaws.
 Miscellaneous
 -------------
 
-If you add new glyphs, don't forget to update file `ps/encodingdefs.ps'.
+If you add new glyphs, don't forget to update file `ps/encodingdefs.ps'
+and `Documentation/included/font-table.ly'.
