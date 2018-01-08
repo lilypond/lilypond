@@ -100,7 +100,7 @@ dels dos pentagrames; vegeu @ref{Matisos dinàmics}.
 @ref{Indicacions de digitació}.
 
 @item Les indicacions de pedal d'orgue s'insereixen com
-articulacions, vegeu 
+articulacions, vegeu
 @rusernamed{List of articulations,Llista d'articulacions}.
 
 @item Les línies verticals de reixeta es poden mostrar com es
@@ -182,7 +182,7 @@ nom @var{nom_del_pentagrama}.  Els valors més corrents per a
 @code{"sota"}, o bé @code{"MD"} i @code{"MI"}.
 
 El pentagrama al qual salta la veu ha d'existir en el moment del
-salt.  Si cal, els pentagrames s'han de 
+salt.  Si cal, els pentagrames s'han de
 @qq{mantenir amb vida}, vegeu
 @rusernamed{Keeping contexts alive,Mantenir vius els contextos}.
 
