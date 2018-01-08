@@ -86,7 +86,7 @@ preparada per a un conjunt de bateria típic.  Cada instrument es
 presenta amb un símbol diferent.  Els instruments s'escriuen en el
 mode de percussió que segueix a una ordre @code{\drummode}, amb
 cada instrument identificat per un nom.  Per veure més detalls,
-consulteu @rusernamed{Percussion staves,Pautes de percussió}.
+consulteu @ref{Pautes de percussió}.
 
 @lilypond[verbatim,quote]
 \new DrumStaff {
@@ -131,7 +131,7 @@ Glossari musical:
 
 Referència de la notació:
 @rusernamed{Creating and referencing contexts,Creació i referència de contextos},
-@rusernamed{Percussion staves,Pautes de percussió},
+@ref{Pautes de percussió},
 @ref{Mostrar els ritmes de la melodia},
 @rusernamed{Default tablatures,Tabulatures predeterminades},
 @rusernamed{Pre-defined contexts,Contextos predefinits},

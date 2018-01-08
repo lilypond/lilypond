@@ -1,0 +1,1193 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+
+@ignore
+    Translation of GIT committish: 553410afdd9496f7d9f1498e755ea18de8e70596
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.19.28"
+
+@c Translators: Walter Garcia-Fontes
+@c Translation checkers:
+
+@node Notació d'acords
+@section Notació d'acords
+@translationof Chord notation
+
+@lilypondfile[quote]{chords-headword.ly}
+
+Els acords es poden escriure al mode d'acords, que reconeix
+algunes convencions europees tradicionals de nomenclatura
+d'acords.  També es poden imprimir els noms dels acords.  A més a
+més es pot imprimir notació de baix xifrat.
+
+@menu
+* Mode d'acords::
+* Impressió dels acords::
+* Baix xifrat::
+@end menu
+
+
+@node Mode d'acords
+@subsection Mode d'acords
+@translationof Chord mode
+
+@cindex mode d'acords
+
+Per introduir acords s'utilitza el mode d'acords.  S'usa un
+indicador de l'estructura de l'acord enlloc de l'alçada de les
+seves notes.
+
+@menu
+* Panoràmica del mode d'acords::
+* Acords més usuals::
+* Acords estesos i alterats::
+@end menu
+
+
+@node Panoràmica del mode d'acords
+@unnumberedsubsubsec Panoràmica del mode d'acords
+@translationof Chord mode overview
+
+@cindex acords, noms de
+@cindex acords, mode de
+@cindex xifrat americà
+@cindex acords de jazz
+@cindex jazz, acords de
+
+Els acords es poden escriure com a música simultània, com
+s'explica a @ref{Notes a un acord}.
+
+També es poden escriure els acords al @qq{mode d'acords}, que és
+un mode d'entrada que se centra en les estructures dels acords
+dins de la música europea tradicional (on es coneix com «xifrat
+americà») més que en les notes concretes.  Això és molt pràctic
+per als que estan familiaritzats amb la utilització de noms per
+descriure els acords.  Hi ha més informació sobre els diferents
+modes d'entrada a @rusernamed{Input modes, Modes d'entrada}.
+
+@lilypond[verbatim,quote,ragged-right]
+\chordmode { c1 g a g c }
+@end lilypond
+
+Els acords escrits amb el mode d'acords són elements musicals, i
+es poden transposar igual que els acords escrits mitjançant
+construccions de música simultània. El @code{\chordmode} és
+absolut, @code{\relativa} no té cap efecte sobre els blocs
+@code{\chordmode}. Tanmateix, dins de @code{\chordmode} les
+alçades absolutes són una octava més agudes que al mode de notes.
+
+Es poden barrejar els modes d'acord i de nota a la música
+seqüencial:
+
+@lilypond[verbatim,quote,ragged-right]
+\relative {
+  <c' e g>2 <g b d>
+  \chordmode { c2 f }
+  <c e g>2 <g' b d>
+  \chordmode { f2 g }
+}
+@end lilypond
+
+@seealso
+Glossari musical:
+@rglos{chord}.
+
+Referència de la notació:
+@ref{Notes a un acord},
+@rusernamed{Input modes, Modes d'entrada}.
+
+Fragments de codi:
+@rlsr{Chords}.
+
+@knownissues
+No es poden usar les abreviatures predefinides d'articulacions i
+adorns sobre notes dins del mode d'acords; vegeu
+@ref{Articulacions i ornaments}.
+
+
+@node Acords més usuals
+@unnumberedsubsubsec Acords més usuals
+@translationof Common chords
+
+@cindex triades
+@cindex sèptima, acords de
+@cindex fonamental d'un acord
+@cindex modificadors d'acord
+@cindex acords, variants de
+
+Les triades majors s'introdueixen escrivint la fonamental i una
+duració opcional:
+
+@lilypond[verbatim,quote,ragged-right]
+\chordmode { c2 f4 g }
+@end lilypond
+
+Las tríades menors augmentades i disminuïdes s'escriuen posant
+@code{:} i una cadena modificadora de variant després de la
+duració:
+
+@lilypond[verbatim,quote,ragged-right]
+\chordmode { c2:m f4:aug g:dim }
+@end lilypond
+
+Es poden crear acords de sèptima:
+
+@lilypond[quote,ragged-right,verbatim]
+\chordmode { c1:7 c:m7 c:maj7 c:dim7 c:aug7 }
+@end lilypond
+
+@funindex aug
+@funindex dim
+@funindex maj
+@funindex m
+
+La taula que es veu més avall mostra l'efecte dels modificadors de
+variant sobre els acords de tríada i de sèptima.  La sèptima
+afegida de forma predeterminada als acords és menor, cosa que fa
+de l'acord de sèptima dominant l'acord bàsic de sèptima.  Totes
+les alteracions es consideren en relació amb la sèptima
+dominant. Hi ha una taula més completa on apareixen els usos dels
+modificadors a
+@rusernamed{Common chord modifiers,Modificadors d'acord més usuals}.
+
+@c @table @code
+@multitable @columnfractions .2 .4 .3
+
+@item
+@b{Modificador}
+@tab
+@b{Acció}
+@tab
+@b{Exemple}
+
+@item
+Cap
+@tab
+Acció predeterminada; produeix una triada major.
+@tab
+@lilypond[line-width=4\cm, noragged-right]
+\chordmode {
+  \omit Staff.TimeSignature
+  c1
+}
+@end lilypond
+
+@item
+m, m7
+@tab
+Acord menor.  Aquest modificador baixa la tercera.
+@tab
+@lilypond[line-width=4\cm, noragged-right]
+\chordmode {
+  \omit Staff.TimeSignature
+  c1:m c:m7
+}
+@end lilypond
+
+
+@item
+dim, dim7
+@tab
+Acorde disminuït.  Aquest modificador baixa la tercera, la quinta
+i, si existeix, la sèptima.
+@tab
+@lilypond[line-width=4\cm, noragged-right]
+\chordmode {
+  \omit Staff.TimeSignature
+  c1:dim c:dim7
+}
+@end lilypond
+
+@item
+aug
+@tab
+Acord augmentat.  Aquest modificador puja la quinta.
+@tab
+@lilypond[line-width=4\cm, noragged-right]
+\chordmode {
+  \omit Staff.TimeSignature
+  c1:aug
+}
+@end lilypond
+
+@item
+maj, maj7
+@tab
+Acord de sèptima major.  Aquest modificador afegeix una sèptima
+elevada.  El @code{7} que segueix a @code{maj} és opcional.  NO
+utilitzeu aquest modificador per crear una triada major.
+@tab
+@lilypond[line-width=4\cm, noragged-right]
+\chordmode {
+  \omit Staff.TimeSignature
+  c1:maj c:maj7
+}
+@end lilypond
+
+@end multitable
+
+@seealso
+Referència de la notació:
+@rusernamed{Common chord modifiers,Modificadors d'acord més usuals},
+@ref{Acords estesos i alterats}.
+
+Fragments de codi:
+@rlsr{Chords}.
+
+@knownissues
+Sols es pot usar un modificador per a cada acord, normalment sobre
+la nota més aguda de l'acord.  Els acords amb més d'un modificador
+es processen sense produir errors ni advertiments, però el
+resultat és imprescindible.  Els acords que no es poden aconseguir
+amb un sols modificador s'han d'alterar en les seves notes
+individuals com es descriu a @ref{Acords estesos i alterats}.
+
+@node Acords estesos i alterats
+@unnumberedsubsubsec Acords estesos i alterats
+@translationof Extended and altered chords
+
+@cindex acords estesos
+@cindex acords alterats
+
+Es poden crear estructures d'acord de complexitat arbitrària dins
+del mode d'acords.  Es pot usar la cadena modificadora per
+estendre un acord, afegir o treure notes, pujar o baixar notes de
+l'acord i afegir un baix diferent o crear una inversió.
+
+El primer número que segueix al @code{:} es considera que és
+l'àmbit de l'acord.  L'acord es construeix seqüencialment afegint
+terceres a la fonamental fins que s'assoleix el nombre
+especificat.  Observeu que la sèptima afegida com a part d'un
+acord estès és la sèptima menor, no major.  Si l'àmbit no és una
+tercera (per exemple 6), s'afegeixen terceres fina la tercera més
+alta inferior a l'àmbit, i després s'afegeix la nota de l'àmbit.
+El valor més gran possible per a l'àmbit és 13.  Qualsevol valor
+més gran s'interpreta com a 13.
+
+@lilypond[quote,ragged-right,verbatim]
+\chordmode {
+  c1:2 c:3 c:4 c:5
+  c1:6 c:7 c:8 c:9
+  c1:10 c:11 c:12 c:13
+  c1:14
+}
+@end lilypond
+
+@noindent
+Com a excepció especial, @code{c:5} produeix un @q{power chord},
+que té sols la fonamental i la quinta.
+
+Atès que una onzena sense alteració no sona bé quan es combina a
+una tresena sense alteració, s'elimina l'onzena dels acords de
+@code{:13} (a no ser que s'afegeixi explícitament).
+
+@lilypond[quote,ragged-right,verbatim]
+\chordmode {
+  c1:13 c:13.11 c:m13
+}
+@end lilypond
+
+@cindex adicions en acords
+
+Es poden afegir notes individuals a un acord.  Les addicions
+segueixen l'àmbit i van prefixades per un punt (@code{.}).  La
+sèptima normal que s'afegeix a un acord és la sèptima menor, no
+major.
+
+@lilypond[quote,verbatim]
+\chordmode {
+  c1:3.5.6 c:3.7.8 c:3.6.13
+}
+@end lilypond
+
+Les notes afegides poden set tan agudes com desitgeu.
+
+@lilypond[quote,verbatim]
+\chordmode {
+  c4:3.5.15 c:3.5.20 c:3.5.25 c:3.5.30
+}
+@end lilypond
+
+@cindex acords, alteració de notes
+
+Les notes afegides als acords es poden alterar mitjançant l'edició
+dels sufixos @code{-} o @code{+} al número.  Per alterar una nota
+que s'ha inclòs automàticament com a part de l'estructura bàsica
+de l'acord, afegiu-la com una nota alterada.
+
+@lilypond[quote,verbatim]
+\chordmode {
+  c1:7+ c:5+.3- c:3-.5-.7-
+}
+@end lilypond
+
+@cindex acords, supressions en
+
+@funindex ^
+
+Una nota que es vol suprimir d'un acord indica dins de la cadena
+modificadora prefixant-la amb un accent circumflex @code{^}.  Sols
+es permet una supressió amb @code{^} dentro d'una cadena
+modificadora.
+
+@lilypond[quote,verbatim]
+\chordmode {
+  c1^3 c:7^5 c:9^3 c:9^3.5 c:13.11^3.7
+}
+@end lilypond
+
+@funindex sus
+
+Es pot afegir el modificador @code{sus} a la cadena modificadora
+per crear acords suspensos.  Això elimina la tercera de l'acord.
+Escriviu o bé @code{2} o bé @code{4} per afegir la segona o la
+quarta a l'acord, respectivament.  Quan @code{sus} va seguit d'una
+segona a una quarta, és equivalemtn a @code{^3}, i en cas contrari
+a @code{sus4}, és a dir, @code{5.4}.
+
+@lilypond[quote,ragged-right,verbatim]
+\chordmode {
+  c1:sus c:sus2 c:sus4 c:5.4
+}
+@end lilypond
+
+@funindex /
+@cindex acords, inversions
+@cindex baix dels acords
+@cindex acords, baix de
+
+Es poden modificar les inversions (col·locar al baix una nota
+diferent de la fonamental de l'acord) i notes de baix afegides
+mitjançant l'addició de @code{/}@var{nota} a l'acord.
+
+@lilypond[quote,ragged-right,verbatim]
+\chordmode {
+  c'1 c'/e c'/f
+}
+@end lilypond
+
+@funindex /+
+
+Es pot afegir una nota del baix que forma part de l'acord, enlloc
+moure-la per efecte d'una inversió, mitjançant l'ús de
+@code{/+}@var{nota}.
+
+@lilypond[quote,ragged-right,verbatim]
+\chordmode {
+  c'1 c'/g c'/+e
+}
+@end lilypond
+
+Els modificadors d'acord que es poden fer servir per produir una
+àmplia varietat d'acords estàndard es mostren a
+@rusernamed{Common chord modifiers,Modificadors d'acord més usuals},
+
+@seealso
+Referencia de la notación:
+@rusernamed{Common chord modifiers,Modificadors d'acord més usuals},
+
+Fragments de codi:
+@rlsr{Chords}.
+
+@knownissues
+Cada not sols pot estar present a l'acord un sol cop.  El que
+segueix produeix simplement l'acord augmentat, perquè @code{5+}
+s'interpreta en últim lloc.
+
+@lilypond[quote,ragged-right,verbatim]
+\chordmode { c1:3.5.5-.5+ }
+@end lilypond
+
+
+@node Impressió dels acords
+@subsection Impressió dels acords
+@translationof Displaying chords
+
+Els acords es poden imprimir pel seu nom, a més de la impressió
+estàndard com a notes sobre un pentagrama.
+
+@menu
+* Impressió dels noms d'acord::
+* Noms d'acord personalitzats::
+@end menu
+
+
+@node Impressió dels noms d'acord
+@unnumberedsubsubsec Impressió dels noms d'acord
+@translationof Printing chord names
+
+@cindex impressió dels noms d'acord
+@cindex acords, noms de
+@cindex acords
+
+El noms d'acord s'imprimeixen dins del context
+@code{ChordNames}:
+
+@lilypond[verbatim,quote,ragged-right]
+\new ChordNames {
+  \chordmode {
+    c2 f4. g8
+  }
+}
+@end lilypond
+
+Els acords es poden escriure com a notes simultànies o a través de
+l'ús del mode d'acords.  El nom d'acord que s'imprimeix és el
+mateix independentment del mode d'entrada, a no ser que hi hagi
+inversions o baixos afegits:
+
+@lilypond[verbatim,quote]
+chordmusic = \relative {
+  <c' e g>2 <f bes c>
+  <f c' e g>1
+  \chordmode {
+    c2 f:sus4 c1:/f
+  }
+}
+<<
+  \new ChordNames {
+    \chordmusic
+  }
+  {
+    \chordmusic
+  }
+>>
+@end lilypond
+
+@cindex sense acord, símbol
+@cindex N.C., símbol
+@cindex indicar No Chord (sense acord) a ChordNames
+
+Els silencis passats a un context @code{ChordNames} fan que
+s'imprimeixi l'element de marcatge @code{noChordSymbol} (símbol de
+N.C., Sense Acord).
+
+@lilypond[verbatim,quote]
+<<
+  \new ChordNames \chordmode {
+    c1
+    r1
+    g1
+    c1
+  }
+  \chordmode {
+    c1
+    r1
+    g1
+    c1
+  }
+>>
+@end lilypond
+
+@funindex{\chords}
+
+@code{\chords @{ @dots{} @}} és una forma abreujada d'escriure
+@code{\new ChordNames \chordmode @{ @dots{} @}}.
+
+@lilypond[verbatim,quote,ragged-right]
+\chords {
+  c2 f4.:m g8:maj7
+}
+@end lilypond
+
+@lilypond[verbatim,quote,ragged-right]
+\new ChordNames {
+  \chordmode {
+    c2 f4.:m g8:maj7
+  }
+}
+@end lilypond
+
+@snippets
+
+@c Keep index entries with following snippet
+@cindex acordes, eliminar repetidos
+@funindex chordChanges
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{showing-chords-at-changes.ly}
+
+@c @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+@c {adding-bar-lines-to-chordnames-context.ly}
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{simple-lead-sheet.ly}
+
+@seealso
+Glossari musical:
+@rglos{chord}.
+
+Referència de la notació:
+@ref{Escriptura de música en paral·lel}.
+
+Fragments de codi:
+@rlsr{Chords}.
+
+Referència de funcionament intern:
+@rinternals{ChordNames},
+@rinternals{ChordName},
+@rinternals{Chord_name_engraver},
+@rinternals{Volta_engraver},
+@rinternals{Bar_engraver}.
+
+@knownissues
+Els acords que contenen inversions o baixos alterats no reben un
+nom adequat si s'escriuen usant música simultània.
+
+
+@node Noms d'acord personalitzats
+@unnumberedsubsubsec Noms d'acord personalitzats
+@translationof Customizing chord names
+
+@cindex personalització dels noms d'acord
+
+No hi ha un sistema únic per anomenar els acords.  Les diferents
+tradicions musicals usen diferents noms per al mateix conjunt
+d'acords.  A més hi ha diferents símbols impresos per a un nom
+d'acord donat.  Els noms i símbols que s'imprimeixen per als noms
+d'acord donats es poden personalitzar.
+
+@cindex Banter
+@cindex jazz, acords de
+@cindex acords de jazz
+
+L'esquema de nomenclatura d'acords predeterminat és un sistema per
+a música de Jazz, proposat per Klaus Ignatzek (vegeu
+@ressaynamed{Literature list,Llista de referències bibligràfiques}).
+També funcionen d'altres dos esquemes de nomenclatura d'acords:
+una notació d'acords de Jazz alternativa i un esquema sistemàtic
+anomenat Acords de Banter.  La notació de Jazz alternativa també
+es pot veure al 
+@rusernamed{Chord name chart,Taula de noms d'acords}.
+
+@c TODO --  Change this so we don't have a non-verbatim example.
+@c  Make short example in docs, then move longer example to
+@c  appendix, where the length of the snippet won't matter.
+
+A més dels diferents sistemes de nomenclatura, s'usen diferents
+noms de nota per a la fonamental segons la llengua.  Les variables
+predefinides @code{\germanChords}, @code{\semiGermanChords},
+@code{\italianChords} i @code{\frenchChords} estableixen el valor
+d'aquestes variables.  L'efecte es mostra aquí:
+
+@lilypondfile[ragged-right]{chord-names-languages.ly}
+
+
+@funindex chordNameLowercaseMinor
+
+Alguns cançoners alemanys indiquen els acords menors com a lletres
+minúscules, sense el sufix @var{m}.  Això es pot aconseguir
+establint la propietat @code{chordNameLowercaseMinor}:
+
+@lilypond[verbatim,quote,ragged-right]
+\chords {
+  \set chordNameLowercaseMinor = ##t
+  c2 d:m e:m f
+}
+@end lilypond
+
+Si caps dels ajustos predeterminats proporciona el resultat
+desitjat, es pot afinar la presentació dels noms d'acord a través
+de les propietats següents:
+
+@table @code
+
+@funindex chordRootNamer
+
+@item chordRootNamer
+
+El nom d'acord s'imprimeix normalment com una lletra per a la
+fonamental amb una alteració opcional.  La transformació de la
+nota en la lletra es realitza per part d'aquesta funció.  Els noms
+de nota especials (per exemple la @q{H} alemanya per a un acord de
+Si) es poden produir emmagatzemant una funció nova en aquesta
+propietat.
+
+@funindex majorSevenSymbol
+
+@item majorSevenSymbol
+
+Aquesta propietat conté l'objecte de marcatge que s'usa per fer el
+seguiment de la sortida de @code{chordRootNamer} per identificar
+un acord de sèptima major.  Les opcions predefinides són
+@code{whiteTriangleMarkup} (triangle blanc) i
+@code{blackTriangleMarkup} (triangle negre).
+
+@funindex additionalPitchPrefix
+
+@item additionalPitchPrefix
+
+Quan l'acord conté notes afegides, es poden prefixar opcionalment
+per un text.  Per defecte no hi ha cap prefix, per evitar la
+sobrecàrrega visual, però per petites quantitats de notes afegides
+pot ser visualment efectiu.
+
+@lilypond[verbatim,quote,ragged-right]
+\new ChordNames {
+  <c e g d'>    % add9
+  \set additionalPitchPrefix = #"add"
+  <c e g d'>    % add9
+}
+@end lilypond
+
+@funindex chordNoteNamer
+
+@item chordNoteNamer
+
+Quan el nom de l'acord conté notes addicionals a part de la
+fonamental (per exemple un baix afegit) s'utilitza aquesta funció
+per imprimir la nota addicional.  De forma predeterminada
+s'imprimeix la nota usant @code{chordRootNamer}.  La propietat
+@code{chordNoteNamer} es pot establir a una funció especialitzada
+per canviar aquest comportament.  Per exemple, el baix es por
+imprimir en minúscula.
+
+@funindex chordNameSeparator
+
+@item chordNameSeparator
+
+Les diferents parts del nom d'un acord se separen normalment
+mitjançant un petit espai en blanc.  Mitjançant l'ajust de
+@code{chordNameSeparator}, podem usar qualsevol marcatge que
+desitgem com a separador.  Això no afecta el separador entre un
+acord i la nota del baix: per personalitzar això, utilitzeu
+@code{slashChordSeparator}.
+
+@lilypond[verbatim,quote,ragged-right]
+\chords {
+  c4:7.9- c:7.9-/g
+  \set chordNameSeparator = \markup { "/" }
+  \break
+  c4:7.9- c:7.9-/g
+}
+@end lilypond
+
+@funindex slashChordSeparator
+
+@item slashChordSeparator
+
+Els acords es poden tocar sobre una nota del baix diferent a la
+fonamental.  S'anomenen «inversions» o «acords de barra inclinada»
+atès que la manera predeterminada d'efectuar la seva notació és
+amb una barra inclinada entre l'acord i la nota del baix.  Per
+tant, el valor de @code{slashChordSeparator} és, per defecte, una
+barra inclinada, però podem canviar-lo a qualsevol element de
+marcatge que volem.
+
+@lilypond[verbatim,quote,ragged-right]
+\chords {
+  c4:7.9- c:7.9-/g
+  \set slashChordSeparator = \markup { " over " }
+  \break
+  c4:7.9- c:7.9-/g
+}
+@end lilypond
+
+@funindex chordNameExceptions
+
+@item chordNameExceptions
+
+Aquesta propietat és una llista de parelles.  El primer element de
+cada parella és un conjunt de notes utilitzades per identificar
+els elements presents a l'acord.  El segon element és un element
+de marcatge que segueix a la sortida de @code{chordRootNamer} per
+crear el nom de l'acord.
+
+@funindex minorChordModifier
+
+@item minorChordModifier
+
+La notació dels acords menors se sol fer mitjançant el sufix
+@q{m} a la dreta de la lletra que indica la fonamental de
+l'acord.  Tanmateix, altres convencions donen preferència a
+sufixos diferents, com un signe menys.
+
+@lilypond[verbatim,quote,ragged-right]
+\chords {
+  c4:min f:min7
+  \set minorChordModifier = \markup { "-" }
+  \break
+  c4:min f:min7
+}
+@end lilypond
+
+@funindex chordPrefixSpacer
+
+@item chordPrefixSpacer
+
+El modificador dels acords menors tal i com ve determinat per
+@code{minorChordModifier} s'imprimeix en general immediatament a
+la dreta de la fonamental.  Es pot inserir un símbol separador
+entre la fonamental i el modificador establint
+@code{chordPrefixSpacer}.  El símbol separador no s'usa quan
+l'acord està alterat.
+
+@end table
+
+
+@predefined
+@funindex major seven symbols
+@code{\whiteTriangleMarkup},
+@code{\blackTriangleMarkup},
+@funindex \germanChords
+@code{\germanChords},
+@funindex \semiGermanChords
+@code{\semiGermanChords},
+@funindex \italianChords
+@code{\italianChords},
+@funindex \frenchChords
+@code{\frenchChords}.
+@endpredefined
+
+
+@snippets
+
+@cindex excepcions, noms d'acord
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{chord-name-exceptions.ly}
+
+@c TODO - tweak snippet to use \blackTriangleMarkup as well
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{chord-name-major7.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{adding-bar-lines-to-chordnames-context.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{volta-below-chords.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{changing-chord-separator.ly}
+
+@seealso
+Referència de la notació:
+@rusernamed{Chord name chart,Taula de noms d'acords},
+@rusernamed{Common chord modifiers,Modificadors d'acord més usuals}.
+
+L'assaig sobre gravat musical automatitzat:
+@ressaynamed{Literature list,Llista de referències bibligràfiques}.
+
+Fitxers instal·lats:
+@file{scm/chords-ignatzek.scm},
+@file{scm/chord-entry.scm},
+@file{ly/chord-modifier-init.ly}.
+
+Fragments de codi:
+@rlsr{Chords}.
+
+@knownissues
+Els noms d'acord es determinen a partir de les notes que estan
+presents a l'acord i de la informació sobre l'estructura de
+l'acord que s'ha pogut introduir a @code{\chordmode}. Si s'usa el mètode
+de les notes simultànies per introduir els acords, es poden
+produir noms no desitjats a partir de les inversions o de les
+notes del baix.
+
+@lilypond[quote,ragged-right,verbatim]
+myChords = \relative c' {
+  \chordmode { c1 c/g c/f }
+  <c e g>1 <g c e> <f c' e g>
+}
+<<
+  \new ChordNames { \myChords }
+  \new Staff { \myChords }
+>>
+@end lilypond
+
+
+@node Baix xifrat
+@subsection Baix xifrat
+@translationof Figured bass
+
+@c Line width hack because of instrument names
+@lilypondfile[quote,staffsize=18,line-width=14.5\cm]{figured-bass-headword.ly}
+
+Es pot imprimir notació de baix xifrat.
+
+@menu
+* Introducció al baix xifrat::
+* Introduir el baix xifrat::
+* Impressió del baix xifrat::
+@end menu
+
+
+@node Introducció al baix xifrat
+@unnumberedsubsubsec Introducció al baix xifrat
+@translationof Introduction to figured bass
+
+@cindex Basso continuo
+@cindex Baix xifrat
+@cindex Baix figurat
+@cindex Baix, xifrat
+@cindex Baix, figurat
+
+@c TODO: musicological blurb about FB
+
+El LilyPond permet el baix xifrat, també conegut com a basso continu:
+
+@lilypond[quote,ragged-right,verbatim]
+<<
+  \new Voice { \clef bass dis4 c d ais g fis}
+  \new FiguredBass {
+    \figuremode {
+      < 6 >4 < 7\+ >8 < 6+ [_!] >
+      < 6 >4 <6 5 [3+] >
+      < _ >4 < 6 5/>4
+    }
+  }
+>>
+@end lilypond
+
+El suport per a baix xifrat es composa de dues parts: hi ha un
+mode d'entrada, presentat per @code{\figuremode}, que admet
+l'entrada de les xifres del baix, i hi ha un context anomenat
+@code{FiguredBass} que s'ocupa de la impressió dels objectes del
+tipus @code{BassFigure}.  El baix xifrat també es pot imprimir
+dins de contextos de @code{Staff}.
+
+@code{\figures@{ @dots{} @}} és una notació abreujada de
+@code{\new FiguredBass \figuremode @{ @dots{} @}}.
+
+Tot i que el suport per a baix xifrat pot semblar-se
+superficialment als dels acords, en realitat és molt més
+simple. El mode @code{\figuremode} simplement emmagatzema les
+xifres i el context @code{FiguredBass} les imprimeix tal i com
+s'han introduït.  No hi ha cap conversió a notes.
+
+@ignore
+Les xifres es creen com a textos de marcatge.  Qualsevol de les
+propietats estàndard de marcatge es poden usar per modificar la
+impressió de les xifres. Per exemple, l'espaiat vertical de les
+xifres es pot ajustar amb @code{baseline-skip}.
+@end ignore
+
+@seealso
+Glossari musical:
+@rglos{figured bass}.
+
+Fragments de codi:
+@rlsr{Chords}.
+
+
+@node Introduir el baix xifrat
+@unnumberedsubsubsec Introduir el baix xifrat
+@translationof Entering figured bass
+
+S'usa @code{\figuremode} per canviar el mode d'entrada al mode de
+xifres.  Hi ha més informació sobre els diferents modes d'entrada
+a @rusernamed{Input modes, Modes d'entrada}.
+
+En el mode de xifres, un grup de xifres del baix està delimitat
+mitjançant angles simples, @code{<} y @code{>}.  La duració
+s'escriu després del @code{>}.
+
+@lilypond[verbatim,quote,ragged-right]
+\new FiguredBass {
+  \figuremode {
+    <6 4>2
+  }
+}
+@end lilypond
+
+Es poden fer servir alteracions accidentals (fins i tot becaires)
+per modificar graus de l'escala.  S'escriuen afegint @code{+} (per
+als sostinguts), @code{-} (per als becaires) o o @code{!} (per als
+becaires) després del número.  Per obtenir alteracions dobles,
+s'aplica el modificador dues vegades seguides.  Amb freqüència,
+per a la modificació del tercer grau s'omet el número, cosa que es
+pot fer utilitzant @code{_} en coptes d'un número.
+
+@lilypond[verbatim,quote,ragged-right]
+\figures {
+  <7! 6+ 4-> <5++> <3--> < _+ > < 7 _!>
+}
+@end lilypond
+
+Es poden indicar elements de l'acord augmentats i disminuïts:
+
+@lilypond[verbatim,quote,ragged-right]
+\figures {
+  <6\+ 5/> <7/>
+}
+@end lilypond
+
+Es pot crear una barra invertida creuant una xifra (usada
+normalment per sextes elevades):
+
+@lilypond[verbatim,quote,ragged-right]
+\figures {
+  <6> <6\\>
+}
+@end lilypond
+
+Es poden incloure claus a les xifres:
+
+@lilypond[verbatim,quote,ragged-right]
+\figures {
+  <[12] 8 [6  4]>
+}
+@end lilypond
+
+Es pot inserir qualsevol element de marcatge de text com una xifra:
+
+@lilypond[verbatim,quote,ragged-right]
+\figures {
+  <\markup { \tiny \number 6 \super (1) } 5>
+}
+@end lilypond
+
+@c TODO We need to include notes any time we use extenders to
+@c avoid extraneous staff creation due to Staff.use... in
+@c \bassFigureExtendersOn
+
+Es poden usar línies de continuació per indicar xifres que es repeteixen:
+
+@lilypond[verbatim,quote,ragged-right]
+<<
+  {
+    \clef bass
+    e4 d c b,
+    e4 d c b,
+  }
+  \figures {
+    \bassFigureExtendersOn
+    <6 4>4 <6 3> <7 3> <7 3>
+    \bassFigureExtendersOff
+    <6 4>4 <6 3> <7 3> <7 3>
+  }
+>>
+@end lilypond
+
+@noindent
+En aquest cas, les línies d'extensió substitueixen a les xifres
+existents, a no ser que les línies de continuació s'hagin
+finalitzat explícitament.
+
+@lilypond[verbatim,quote,ragged-right]
+<<
+  \figures {
+    \bassFigureExtendersOn
+    <6 4>4 <6 4> <6\! 4\!> <6 4>
+  }
+  {
+    \clef bass
+    d4 d c c
+  }
+>>
+@end lilypond
+
+La taula següent resumeix els modificadors de xifrat disponibles.
+
+@multitable @columnfractions .1 .5 .4
+
+@item
+@b{Modificador}
+@tab
+@b{Propòsit}
+@tab
+@b{Eexmple}
+
+@item
++, -, !
+@tab
+Alteracions
+@tab
+@lilypond[line-width=4\cm]
+\figures {
+  <7! 6+ 4-> <5++> <3-->
+}
+@end lilypond
+
+@item
+\+, /
+@tab
+Augmentacions i disminucions
+@tab
+@lilypond[line-width=4\cm]
+\figures {
+  <6\+ 5/> <7/>
+}
+@end lilypond
+
+@item
+\\
+@tab
+Sexta elevada
+@tab
+@lilypond[line-width=4\cm]
+\figures {
+  <6\\>
+}
+@end lilypond
+
+@item
+\!
+@tab
+Fin de línia de continuació
+@tab
+@lilypond[line-width=4\cm]
+<<
+  \figures {
+    \bassFigureExtendersOn
+    <6 4> <6 4> <6\! 4\!> <6 4>
+  }
+  {
+    \clef bass
+    d d c c
+  }
+>>
+@end lilypond
+
+@end multitable
+
+
+@predefined
+@cindex baix xifrat, línies d'extensió
+@code{\bassFigureExtendersOn},
+@code{\bassFigureExtendersOff}.
+@endpredefined
+
+
+@snippets
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{changing-the-positions-of-figured-bass-alterations.ly}
+
+@seealso
+Fragments de codi:
+@rlsr{Chords}.
+
+Referència de funcionament intern:
+@rinternals{BassFigure},
+@rinternals{BassFigureAlignment},
+@rinternals{BassFigureLine},
+@rinternals{BassFigureBracket},
+@rinternals{BassFigureContinuation},
+@rinternals{FiguredBass}.
+
+
+@node Impressió del baix xifrat
+@unnumberedsubsubsec Impressió del baix xifrat
+@translationof Displaying figured bass
+
+El baix xifrat es pot imprimir usant el context
+@code{FiguredBass}, o dins de la majoria dels contextos de
+pentagrama.
+
+Quan es presenta dins d'un context de @code{FiguredBass}, la
+ubicació vertical de les xifres és independent de les notes que
+estan al pentagrama.
+
+@lilypond[verbatim,ragged-right,quote]
+<<
+  \relative {
+    c''4 c'8 r8 c,4 c'
+  }
+  \new FiguredBass {
+    \figuremode {
+      <4>4 <10 6>8 s8
+      <6 4>4 <6 4>
+    }
+  }
+>>
+@end lilypond
+
+@noindent
+A l'exemple de dalt, el context @code{FiguredBass} s'ha
+d'instanciar explícitament per evitar crear un segon pentagrama
+buit.
+
+El baix xifrat es pot afegir també a contextos de
+@code{Staff} directament.  En aquest cas la posició vertical de
+les xifres s'ajusta automàticament.
+
+@lilypond[verbatim,ragged-right,quote]
+<<
+  \new Staff = "myStaff"
+  \figuremode {
+    <4>4 <10 6>8 s8
+    <6 4>4 <6 4>
+  }
+  %% Posa les notes al mateix Staff que les figures
+  \context Staff = "myStaff"
+  {
+    \clef bass
+    c4 c'8 r8 c4 c'
+  }
+>>
+@end lilypond
+
+Quan s'escriu dins d'un context de pentagrama, el baix xifrat es
+pot presentar a sobre o a sota del pentagrama.
+
+@lilypond[verbatim,ragged-right,quote]
+<<
+  \new Staff = "elmeuPentagrama"
+  \figuremode {
+    <4>4 <10 6>8 s8
+    \bassFigureStaffAlignmentDown
+    <6 4>4 <6 4>
+  }
+  %% Posa les notes al mateix Staff que les figures
+  \context Staff = "elmeuPentagrama"
+  {
+    \clef bass
+    c4 c'8 r8 c4 c'
+  }
+>>
+@end lilypond
+
+
+@predefined
+@cindex baix xifrat, alineació
+@code{\bassFigureStaffAlignmentDown},
+@code{\bassFigureStaffAlignmentUp},
+@code{\bassFigureStaffAlignmentNeutral}.
+@endpredefined
+
+@seealso
+Fragments de codi:
+@rlsr{Chords}.
+
+Referència de funcionament intern:
+@rinternals{BassFigure},
+@rinternals{BassFigureAlignment},
+@rinternals{BassFigureLine},
+@rinternals{BassFigureBracket},
+@rinternals{BassFigureContinuation},
+@rinternals{FiguredBass}.
+
+@knownissues
+Per assegurar que les línies extensores funcionen adequadament, el
+més segur és utilitzar les mateixes duracions a la línia de xifres
+i a la línia del baix.
+
+@lilypond[verbatim,ragged-right,quote]
+<<
+  {
+    \clef bass
+    \repeat unfold 4 { f16. g32 } f8. es16 d8 es
+  }
+  \figures {
+    \bassFigureExtendersOn
+    % Els extensors són correctes aquí, amb el mateix ritme que el bas
+    \repeat unfold 4 { <6 4->16. <6 4->32 }
+    <5>8. r16 <6>8 <6\! 5->
+  }
+>>
+<<
+  {
+    \clef bass
+    \repeat unfold 4 { f16. g32 } f8. es16 d8 es
+  }
+  \figures {
+    \bassFigureExtendersOn
+    % Els extensors són incorrectes aquí, tot i que la temporalització és la mateixa
+    <6 4->4 <6 4->4
+    <5>8. r16 <6>8 <6\! 5->
+  }
+>>
+@end lilypond
