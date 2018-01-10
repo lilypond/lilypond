@@ -40,6 +40,14 @@ those listed below.  As mentor availability varies from project to
 project and from year to year it is wise to get in touch with us as
 early as possible.
 
+Per 2018 we have installed the new role of “Community Mentor”.  We aim
+at assigning one Community Mentor to each active project who is
+@emph{not} responsible for discussing the implementation or reviewing
+the code.  Instead they will on the one hand discuss the @emph{design}
+of the planned features from the (power) user perspective, and they
+will look after the communication between student and mentor, and
+between the two and the community.
+
 A full list of all the current open issues can be found
 @uref{http://sourceforge.net/p/testlilyissues/issues/, here}.
 
