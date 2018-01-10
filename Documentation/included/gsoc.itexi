@@ -366,9 +366,6 @@ this feature available in current LilyPond (which is based on guile-1.8).
 
 @emph{Recommended:} Familiarity with other scorewriters (for cross-testing)
 
-@divEnd
-
-
 @subsubheading Improve slurs and ties
 
 The engraving quality of slurs and ties is often unsatisfactory. Ties
@@ -423,5 +420,7 @@ the rejection of any patch which introduced extra warnings.
 @emph{Difficulty:} medium
 
 @emph{Requirements:} C++
+
+@divEnd
 
 @end macro
