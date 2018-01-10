@@ -160,6 +160,39 @@ of timing issues
 @emph{Mentors:} Urs Liska, Carl Sorensen
 
 
+@subsubheading Support for Style Sheets
+
+LilyPond's engraving output can be tweaked to the least detail, and one
+important addition in recent years was the ability to use alternative
+notation fonts.  It is possible to create reusable modules for “house
+styles”, but this project aims at bringing this to a new level by creating
+a convenient extension package with support for creating, applying,
+and sharing modular style sheets.  We are looking for a hierarchical
+structure that allows to mix and match style elements for “house” (e.g.
+“my-personal-style”, “client-a”, “client-b” etc.), score type, paper
+size etc.
+
+Work can be built upon the existing
+@uref{https://github.com/openlilylib/notation-fonts, notation-fonts}
+openLilyLib package.  We would like to see a further improvement of the
+loading mechanism for notation fonts (for example a better separation
+of loading notation and text fonts) as part of the project, and optionally
+(this would involve working on Lilypond's C++ code) support for notation
+fonts that are installed system-wide.
+
+@emph{Difficulty:} medium
+
+@emph{Requirements:} Scheme, aesthetic competence
+
+@emph{Recommended:} sense of building hierarchical frameworks
+
+@emph{Optional:} C++ (for font loading internals)
+
+@emph{Mentor:} @emph{Abraham Lee}
+
+@emph{Community Mentor:} @emph{Kieren MacMillan}
+
+
 @subsubheading Contemporary Notation
 
 LilyPond is very good at creating non-standard notation.  Having to
