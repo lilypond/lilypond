@@ -36,7 +36,7 @@ public:
   static void calculate_spacing_rods (Grob *me, Real length);
   static Stencil big_rest (Grob *, Real);
   static Stencil symbol_stencil (Grob *, Real);
-  static Stencil church_rest (Grob *, Font_metric *, int, Real);
+  static Stencil church_rest (Grob *, Font_metric *, int, int, Real);
   static Interval bar_width (Spanner *me);
 };
 
