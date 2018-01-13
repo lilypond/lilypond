@@ -60,6 +60,11 @@ Key_performer::process_music ()
     {
       SCM pitchlist = key_ev_->get_property ("pitch-alist");
 
+      SCM tp = get_property ("instrumentTransposition");
+
+      if (unsmob<Pitch> (tp))
+        pitchlist = ly_transpose_key_alist (pitchlist, tp);
+
       SCM acc = Lily::alterations_in_key (pitchlist);
 
       Pitch key_do (0,
@@ -120,7 +125,7 @@ ADD_TRANSLATOR (Key_performer,
                 "",
 
                 /* read */
-                "",
+                "instrumentTransposition ",
 
                 /* write */
                 ""
