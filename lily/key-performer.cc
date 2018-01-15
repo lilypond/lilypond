@@ -71,11 +71,9 @@ Key_performer::process_music ()
                     scm_to_int (scm_caar (pitchlist)),
                     ly_scm2rational (scm_cdar (pitchlist)));
 
-      Pitch c_do;
-
       SCM c_pitchlist
         = ly_transpose_key_alist (pitchlist,
-                                  pitch_interval (key_do, c_do).smobbed_copy ());
+                                  key_do.negated ().smobbed_copy ());
 
       /* MIDI keys are too limited for lilypond scales.
          We check for minor scale and assume major otherwise.  */
