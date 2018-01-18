@@ -91,6 +91,9 @@ Rest::staff_position_internal (Grob *me, int duration_log, int dir)
   if (linepos.empty ())
     return pos;
 
+  if (linepos.size () == 1 && duration_log < 0 && !get_grob_direction (me))
+    return linepos[0] - 2;
+
   std::sort (linepos.begin (), linepos.end ());
 
   if (duration_log == 0)
@@ -237,6 +240,13 @@ Rest::brew_internal_stencil (Grob *me, bool ledgered)
   Stencil out = fm->find_by_name (font_char);
   if (out.is_empty ())
     me->warning (_f ("rest `%s' not found", font_char.c_str ()));
+
+  if (durlog < 0)
+    {
+      Real fs = pow (2, robust_scm2double (me->get_property ("font-size"), 0) / 6);
+      Real ss = Staff_symbol_referencer::staff_space (me);
+      out.translate_axis (ss - fs, Y_AXIS);
+    }
 
   return out.smobbed_copy ();
 }
