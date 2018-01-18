@@ -62,6 +62,19 @@ which scares away people.
 @end ignore
 
 @item
+Fret-diagrams may now be printed left-handed, setting @code{handedness} to
+@code{LEFT} (as a subproperty of @code{fret-diagram-details}).
+@lilypond[verbatim,quote]
+\markup
+  \center-column {
+    "C"
+    "(left-handed)"
+     \override #`(fret-diagram-details . ((handedness . ,LEFT)))
+     \fret-diagram "6-x;5-3-3;4-2-2;3-o;2-1;1-o;"
+  }
+@end lilypond
+
+@item
 The @code{output-classic-framework} procedure and the @code{-dclip-systems}
 are now available with the @code{SVG} backend.
 

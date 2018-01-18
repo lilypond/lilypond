@@ -391,6 +391,10 @@ Default@tie{}0.
 the center of the fret in direction orthogonal to strings.
 Default@tie{}0.
 @item
+@code{handedness} -- Print the fret-diagram left- or right-handed.
+@w{@code{-1}}, @code{LEFT} for left ; @code{1}, @code{RIGHT} for right.
+Default @code{RIGHT}.
+@item
 @code{paren-padding} -- The padding for the parenthesis.
 Default@tie{}0.05.
 @item

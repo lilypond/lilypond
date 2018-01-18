@@ -930,6 +930,20 @@ markup string.
 >>
 @end lilypond
 
+@cindex left-handed fret-diagrams
+
+Fret-diagrams may be printed left-handed
+
+@lilypond[verbatim,quote]
+\markup
+  \center-column {
+    "C"
+    "(left-handed)"
+     \override #`(fret-diagram-details . ((handedness . ,LEFT)))
+     \fret-diagram "6-x;5-3-3;4-2-2;3-o;2-1;1-o;"
+  }
+@end lilypond
+
 @cindex fret-diagram-terse markup
 
 @funindex \fret-diagram-terse
