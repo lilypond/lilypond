@@ -2,7 +2,7 @@
 @c This file is part of community.itexi
 
 @ignore
-    Translation of GIT committish: 6233e12249f74e19aff5ee5afa66e81c0f8b7259
+    Translation of GIT committish: e7efc19c0d77600c8da9ae5fe6bca6eaffb147d8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -17,10 +17,10 @@
 @c used for news about the upcoming release; see CG on Release Work
 
 @newsItem
-@subheading Rilasciato LilyPond 2.19.65  @emph{6 agosto 2017}
+@subheading Rilasciato LilyPond 2.19.80  @emph{14 ottobre 2017}
 
 Siamo felici di annunciare il rilascio di LilyPond
-2.19.65.  Questo rilascio comprende vari miglioramenti e contiene anche
+2.19.80.  Questo rilascio comprende vari miglioramenti e contiene anche
 funzionalità non ancora complete.  Permette di avere accesso alle funzionalità
 più recenti, ma è bene tenere presente che alcune potrebbero essere incomplete
 e non si possono escludere difetti o crash del programma.  A chi necessita di
