@@ -371,7 +371,7 @@ Beam::calc_beam_segments (SCM smob)
   Real gap_length = robust_scm2double (me->get_property ("gap"), 0.0);
 
   Position_stem_segments_map stem_segments;
-  Real lt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
+  Real lt = Staff_symbol_referencer::line_thickness (me);
 
   /* There are two concepts of "rank" that are used in the following code.
      The beam_rank is the vertical position of the beam (larger numbers are
