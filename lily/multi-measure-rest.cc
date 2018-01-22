@@ -252,17 +252,34 @@ Stencil
 Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measure_count,
                                  int mdl, Real space)
 {
+  // using double here is not less exact than rationals because
+  // only simple, unscaled durations are used for representation
+  // even if you have \time 10/6
   double displayed_duration = measure_count * pow (2.0, -mdl);
   SCM mols = SCM_EOL;
   int symbol_count = 0;
   Real symbols_width = 0.0;
+  int dir = get_grob_direction (me);
 
-  if (scm_is_null (me->get_property ("staff-position")))
+  SCM sp = me->get_property ("staff-position");
+  Real pos;
+
+  Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
+  std::vector<Real> linepos = Staff_symbol::line_positions (staff);
+  bool oneline = linepos.size () == 1;
+
+  if (scm_is_null (sp))
     {
-      int dir = get_grob_direction (me);
-      Real pos = Rest::staff_position_internal (me, mdl, dir);
-      me->set_property ("staff-position", scm_from_double ((mdl == 0) ? (pos - 2) : pos));
+      if (1 <= displayed_duration && displayed_duration < 2) // i. e. longest rest symbol is semibreve
+        {
+          pos = Rest::staff_position_internal (me, 0, dir) - (oneline ? 0 : 2);
+        }
+      else
+        pos = Rest::staff_position_internal (me, 1, dir);
+      me->set_property ("staff-position", scm_from_double (pos));
     }
+  else
+    pos = scm_to_double (sp);
 
   int dl = -3;
   while (displayed_duration > 0)
@@ -277,12 +294,23 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measure_cou
 
       displayed_duration -= duration;
 
-      Stencil r = musfont->find_by_name (Rest::glyph_name (me, dl, "", true, (dl == 0) ? 2 : 0));
-      if (dl == 0)
+      Real ss = Staff_symbol_referencer::staff_space (me);
+      Real spi = Rest::staff_position_internal (me, dl, dir);
+      Stencil r;
+      if (oneline && (dl == 0 || dl < 0 && !dir))
         {
-          Real staff_space = Staff_symbol_referencer::staff_space (me);
-          r.translate_axis (staff_space, Y_AXIS);
+          spi -= 2;
+          r = musfont->find_by_name (Rest::glyph_name (me, dl, "", true, (dl == 0) ? 0 : -2));
         }
+      else
+        r = musfont->find_by_name (Rest::glyph_name (me, dl, "", true, (dl == 0) ? 2 : 0));
+      if (dl < 0)
+        {
+          Real fs = pow (2, robust_scm2double (me->get_property ("font-size"), 0) / 6);
+          r.translate_axis (ss * 0.5 * (spi - pos) + (ss - fs), Y_AXIS);
+        }
+      else
+        r.translate_axis (ss * 0.5 * (spi - pos), Y_AXIS);
 
       symbols_width += r.extent (X_AXIS).length ();
       mols = scm_cons (r.smobbed_copy (), mols);
