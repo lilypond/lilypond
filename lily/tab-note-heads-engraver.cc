@@ -160,6 +160,7 @@ ADD_TRANSLATOR (Tab_note_heads_engraver,
                 "defaultStrings "
                 "fretLabels "
                 "highStringOne "
+                "maximumFretStretch "
                 "middleCPosition "
                 "minimumFret "
                 "noteToFretFunction "
