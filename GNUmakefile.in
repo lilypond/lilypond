@@ -316,9 +316,13 @@ test:
 	$(MAKE) -C input/regression/lilypond-book out=test local-test
 
 test-baseline:
-	@if test -d .git ; then \
-		$(if $(shell git diff), echo "commit before base lining" && false,true) ; \
-	fi
+	@cd $(top-src-dir) && \
+		if test -d .git ; then \
+			if ! git diff --exit-code > /dev/null ; then \
+				echo "*** commit before base lining" 1>&2; \
+				exit 1; \
+			fi \
+		fi
 	$(MAKE)
 	$(MAKE) test
 	$(MAKE) out=test -C input/regression local-test-baseline
