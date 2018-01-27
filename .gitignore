@@ -28,6 +28,7 @@
 *~
 *~*
 .\#*
+.DS_Store
 .dotest
 .gdbinit
 .htaccess
