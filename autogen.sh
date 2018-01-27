@@ -7,21 +7,23 @@ case $1 in
     --noconf*) NOCONFIGURE=true;;
 esac
 
-for i in $srcdir/configure.ac #`find $srcdir -name configure.ac -print`
-do 
-  dir=`dirname $i`
-  echo processing $dir
+if test -w "$srcdir"; then
+  configure="$srcdir/configure"
   (
-      cd $dir
+      cd "$srcdir"
       echo "Running autoconf ..."
       autoconf || exit 1
   )
-  # Autoconf automatically checks its own minimum required
-  # version, and it aborts when the check fails.
-  test "$?" -eq 1 && exit 1
-done
+else
+  configure=./configure
+  conf_flags="--srcdir $srcdir $conf_flags"
+  echo "Running autoconf for read-only source directory ..."
+  autoconf -I "$srcdir" -o "$configure" "$srcdir/configure.ac" || exit 1
+fi
+# Autoconf automatically checks its own minimum required
+# version, and it aborts when the check fails.
+test "$?" -eq 1 && exit 1
 
-#conf_flags="--enable-maintainer-mode --enable-compile-warnings" #--enable-iso-c
 if test -n "$NOCONFIGURE"; then
     echo Skipping configure process.
     exit 0
@@ -37,5 +39,5 @@ if test -z "$*"; then
 EOF
 fi
 
-echo Running $srcdir/configure $conf_flags "$@" ...
-$srcdir/configure $conf_flags "$@"
+echo Running $configure $conf_flags "$@" ...
+"$configure" $conf_flags "$@"
