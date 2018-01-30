@@ -31,11 +31,11 @@ $(outdir)/%-flat-gray.png: %-flat-gray.png
 $(outdir)/%-flat-bw.png: %-flat-bw.png
 	convert -depth 8 -geometry 50x50% $< $@
 
-$(outdir)/%.png: %.png
-	ln -f $< $@
+$(outdir)/%.png: $(top-src-dir)/Documentation/pictures/%.png
+	$(LN_SRC_TO_BUILD) -f $< $@
 
-$(outdir)/%.jpg: %.jpg
-	ln -f $< $@
+$(outdir)/%.jpg: $(top-src-dir)/Documentation/pictures/%.jpg
+	$(LN_SRC_TO_BUILD) -f $< $@
 
 $(outdir)/%.png: %.eps
 	gs -dAutoRotatePages=/None -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -q -sOutputFile=$@ -sDEVICE=png16m -dEPSCrop -dNOPAUSE -f $< -c quit
