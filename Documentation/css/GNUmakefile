@@ -20,5 +20,5 @@ endif
 #########
 ### Rules
 
-$(outdir)/%.css: %.css
-	ln -f $< $@
+$(outdir)/%.css: $(top-src-dir)/Documentation/css/%.css
+	$(LN_SRC_TO_BUILD) $< $@
