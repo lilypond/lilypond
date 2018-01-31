@@ -20,7 +20,7 @@ messages: $(outdir)/messages
 $(outdir)/messages: $(MO_FILES)
 	for i in $(CATALOGS); do \
 	  mkdir -p $(doc-localedir)/$$i/LC_MESSAGES; \
-	  cp $(outdir)/$$i.mo $(doc-localedir)/$$i/LC_MESSAGES/$(DOMAIN).mo; \
+	  $(LN) $(outdir)/$$i.mo $(doc-localedir)/$$i/LC_MESSAGES/$(DOMAIN).mo; \
 	done
 	touch $@
 
