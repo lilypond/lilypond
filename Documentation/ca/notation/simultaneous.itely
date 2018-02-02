@@ -1180,7 +1180,7 @@ diferent, s'ignoraran els esdeveniments dins del context
 
 Consulteu també l'apartat
 @emph{Advertiments i problemes coneguts} a la sessió
-@rusernamed{Default tablatures,Tabulatures predeterminades}
+@ref{Tabulatures predeterminades}
 en utilitzar@code{\partcombine} amb tabulatures, i la @emph{Nota}
 de @ref{Barres automàtiques} en utilitzar el barrat automàtic.
 

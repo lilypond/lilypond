@@ -1168,8 +1168,8 @@ Les claus especials, com les utilitzades a la música
 @rusernamed{Mensural clefs,Claus de la música mensural} i a
 @rusernamed{Gregorian clefs,Claus del cant gregorià}. La música
 que requereix claus de tabulatura s'estudia a
-@rusernamed{Default tablatures,Tabulatures predeterminades} i a
-@rusernamed{Custom tablatures,Tabulatures personalizadas}.
+@ref{Tabulatures predeterminades} i a
+@ref{Tabulatures personalitzades}.
 
 @cindex Claus de guia
 @cindex Claus amb notes guia
@@ -1284,8 +1284,8 @@ Quan hi ha un canvi de clau manual, el glif de la clau modificada
 Referencia de la notación:
 @rusernamed{Mensural clefs,Claus de la música mensural},
 @rusernamed{Gregorian clefs,Claus del cant gregorià},
-@rusernamed{Default tablatures,Tabulatures predeterminades}
-@rusernamed{Custom tablatures,Tabulatures personalizadas}.
+@ref{Tabulatures predeterminades}
+@ref{Tabulatures personalitzades}.
 @ref{Format de les notes guia}.
 
 Fitxers instal·lats:
@@ -3073,8 +3073,8 @@ Fragments de codi:
 
 Referència de la notació:
 @rusernamed{Note head styles,Estils de caps de nota},
-@rusernamed{Chorded notes,Notes en acord},
-@rusernamed{Indicating harmonics and dampened notes,Indicació d'harmònics y notes tapades}.
+@ref{Notes a un acord},
+@ref{Indicació d'harmònics i notes tapades}.
 
 Referència de funcionament interno:
 @rinternals{note-event},
