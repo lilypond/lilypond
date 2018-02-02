@@ -27,7 +27,7 @@ Aquest capítol explica com crear notació musical.
 * Notes simultànies::       Més d'una nota a l'hora.
 * Notació dels pentagrames:: Impressió dels pentagrames.
 * Anotacions editorials::   Notació especial per augmentar la llegibilitat.
-* Text::                    Addicció de text a les partitures.
+* Text::                    Addició de text a les partitures.
 @end menu
 
 @include notation/pitches.itely

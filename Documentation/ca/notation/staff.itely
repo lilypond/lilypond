@@ -105,7 +105,7 @@ reals.  Per veure més detalls, consulteu
 
 @code{TabStaff} crea una tabulatura amb sis cordes en l'afinació
 estàndard de la guitarra.  Per veure més detalls, consulteu
-@rusernamed{Default tablatures,Tabulatures predeterminades}.
+@ref{Tabulatures predeterminades}.
 
 @lilypond[verbatim,quote]
 \new TabStaff \relative { c''4 d e f }
@@ -133,7 +133,7 @@ Referència de la notació:
 @rusernamed{Creating and referencing contexts,Creació i referència de contextos},
 @ref{Pautes de percussió},
 @ref{Mostrar els ritmes de la melodia},
-@rusernamed{Default tablatures,Tabulatures predeterminades},
+@ref{Tabulatures predeterminades},
 @rusernamed{Pre-defined contexts,Contextos predefinits},
 @ref{El símbol del pentagrama},
 @rusernamed{Gregorian chant contexts,Contextos del cant gregorià},
