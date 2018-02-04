@@ -2,7 +2,7 @@
 ;;; See Info node `(emacs) Directory Variables' for more information.
 
 ((c++-mode
-  (c-default-style . "gnu")
+  (c-file-style . "gnu")
   (indent-tabs-mode))
  (scheme-mode
   (indent-tabs-mode))
