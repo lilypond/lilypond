@@ -286,22 +286,19 @@ against signature, reporting MAKE-NAME as the user-invoked function.
 "
   (let* ((arglen (length args))
          (signature (or (markup-command-signature markup-function)
-                        (ly:error (_ "~S: Not a markup (list) function: ~S")
+                        (ly:error (_ "~A: Not a markup (list) function: ~S")
                                   make-name markup-function)))
          (siglen (length signature))
          (error-msg (if (and (> siglen 0) (> arglen 0))
                         (markup-argument-list-error signature args 1)
                         #f)))
     (if (or (not (= arglen siglen)) (< siglen 0) (< arglen 0))
-        (ly:error (string-append make-name ": "
-                                 (_ "Wrong number of arguments.  Expect: ~A, found ~A: ~S"))
-                  siglen arglen args))
+        (ly:error (_ "~A: Wrong number of arguments.  Expect: ~A, found ~A: ~S")
+                  make-name siglen arglen args))
     (if error-msg
         (ly:error
-         (string-append
-          make-name ": "
-          (_ "Invalid argument in position ~A.  Expect: ~A, found: ~S."))
-         (car error-msg) (cadr error-msg)(caddr error-msg))
+         (_ "~A: Invalid argument in position ~A.  Expect: ~A, found: ~S.")
+         make-name (car error-msg) (cadr error-msg)(caddr error-msg))
         (cons markup-function args))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
