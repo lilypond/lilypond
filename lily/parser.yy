@@ -702,11 +702,8 @@ assignment:
 		{
 			parser->parser_error (@3, _ ("Not a markup function"));
 		} else {
-			scm_primitive_eval
-				(scm_list_3
-				 (Lily::define_markup_command,
-				  scm_string_to_symbol ($1),
-				  ly_quote_scm ($3)));
+			Lily::define_markup_command_internal
+				(scm_string_to_symbol ($1), $3);
 		}
 		$$ = SCM_UNSPECIFIED;
 	}
