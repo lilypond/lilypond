@@ -86,7 +86,7 @@ Les ordres per a la gestió de diverses veus es troben a
 
 @item
 Les ordres per a la indicació de harmònics està a
-@rusernamed{Harmonics,Harmònics}.
+@ref{Harmònics}.
 
 @end itemize
 
@@ -526,7 +526,7 @@ Referencia de la notació:
 @ref{Repetició d'acords},
 @ref{Repeticions explícites},
 @ref{Pliques},
-@rusernamed{Harmonics,Harmònics},
+@ref{Harmònics},
 @ref{Glissando}.
 
 Fragments de codi:
