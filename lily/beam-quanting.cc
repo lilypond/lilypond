@@ -714,14 +714,14 @@ Beam_scoring_problem::slope_damping ()
   SCM s = beam_->get_property ("damping");
   Real damping = scm_to_double (s);
   Real concaveness = calc_concaveness ();
-  if (concaveness >= 10000)
+  if ((concaveness >= 10000) || (damping >= 10000))
     {
       unquanted_y_[LEFT] = unquanted_y_[RIGHT];
       musical_dy_ = 0;
       damping = 0;
     }
 
-  if (damping)
+  if ((damping) && (damping + concaveness))
     {
       Real dy = unquanted_y_[RIGHT] - unquanted_y_[LEFT];
 
