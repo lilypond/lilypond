@@ -671,7 +671,7 @@ altres parts de la documentació:
 @ref{Repeticions de trèmol}.
 
 @item Els harmònics naturals s'estudien sota l'epígraf
-@rusernamed{Harmonics,Harmònics}.
+@ref{Harmònics}.
 
 @item Per als arpegis dirigits i els no arpegis, vegeu
 @ref{Arpegi}.
@@ -683,7 +683,7 @@ Referència de la notació:
 @ref{Repeticions de trèmol},
 @ref{Glissando},
 @ref{Arpegi},
-@rusernamed{Harmonics,Harmònics}.
+@ref{Harmònics}.
 
 
 @node Pedals d'arpa
