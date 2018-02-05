@@ -90,18 +90,18 @@ Les inflexions de to al final d'una nota es presenten a
 @ref{Caigudes i elevacions}.
 @item
 Els cops de clau o de vàlvula se solen indicar amb l'estil
-@code{cross} (aspes) de caps de nota, vegeu 
+@code{cross} (aspes) de caps de nota, vegeu
 @ref{Caps de nota especials}.
 @item
 Els instruments de vent-fusta poden sobreinflar les notes greus
 per produir harmònics.  Es mostren per mitjà de l'articulació
-@code{flageolet}.  Vegeu 
+@code{flageolet}.  Vegeu
 @rusernamed{List of articulations,Llista d'articulacions}.
 @item
 L'ús de sordines per als metalls se sol sindicar mitjançant
 marques de text, però quan es produeixen molts canvis ràpids és
 millor utilitzar les articulacions @code{stopped} (tapat) i
-@code{open} (obert).  Vegeu @ref{Articulacions i ornaments} i 
+@code{open} (obert).  Vegeu @ref{Articulacions i ornaments} i
 @rusernamed{List of articulations,Llista d'articulacions}.
 @item
 Las trompes tapades s'indiquen per mitjà de l'articulació
