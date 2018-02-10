@@ -444,12 +444,12 @@ featherDurations=
      argument))
 
 finger =
-#(define-event-function (finger) (number-or-markup?)
+#(define-event-function (finger) (integer-or-markup?)
    (_i "Apply @var{finger} as a fingering indication.")
 
    (make-music
             'FingeringEvent
-            (if (number? finger) 'digit 'text)
+            (if (integer? finger) 'digit 'text)
             finger))
 
 fixed =
@@ -830,7 +830,7 @@ transpose from @var{around} to @var{to}.")
    (music-invert around to music))
 
 mark =
-#(define-music-function (label) ((number-or-markup?))
+#(define-music-function (label) ((integer-or-markup?))
    "Make the music for the \\mark command."
    (if label
        (make-music 'MarkEvent 'label label)
@@ -1567,12 +1567,12 @@ for time signatures of @var{time-signature}.")
    (revert-time-signature-setting time-signature))
 
 rightHandFinger =
-#(define-event-function (finger) (number-or-markup?)
+#(define-event-function (finger) (integer-or-markup?)
    (_i "Apply @var{finger} as a fingering indication.")
 
    (make-music
             'StrokeFingerEvent
-            (if (number? finger) 'digit 'text)
+            (if (integer? finger) 'digit 'text)
             finger))
 
 scaleDurations =
