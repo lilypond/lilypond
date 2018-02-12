@@ -106,6 +106,27 @@ it.
 @emph{Mentor:} Werner Lemberg
 
 
+@subsubheading Improve/Extend Export to MusicXML
+
+There is experimental support for exporting scores to MusicXML.
+So far there is limited coverage that should be extended, and the export
+should become more robust with regard to unconventionally organized input
+files.  Several strategies can be thought of in that regard.
+
+Significant progress in coverage has been made in a GSoC Project hosted
+by @uref{http://frescobaldi.org, Frescobaldi} in 2017, but there is
+still much to be done that could make a nice GSoC project.
+
+Working in this project will mainly be done in the
+@uref{https://github.com/wbsoft/python-ly, python-ly} repository.
+
+@emph{Difficulty:} easy to hard (depending on the targeted improvements)
+
+@emph{Requirements:} Python, MusicXML
+
+@emph{Mentor}: Peter Bjuhr
+
+
 @subsubheading Rewrite LibreOffice LilyPond Extension with Python
 
 The @uref{http://ooolilypond.sourceforge.net/, OOoLilyPond} extension
@@ -244,6 +265,41 @@ package
 @emph{Recommended:} familiarity with scholarly editing
 
 @emph{Mentors:} Jeffery Shivers, Urs Liska
+
+
+@subsubheading  Implement a System to Handle Scores System by System
+
+One strategy that may improve the issue of LilyPond's compilation time is
+to handle scores in a system-by-system manner through partial compilation.
+This project explores one approach to achieve this and may lay the ground
+for future development towards a “LilyPond server”.  It is very ambitions
+because it involves working with LilyPond's internals and optionally a
+reference user interface in @uref{http://frescobaldi.org, Frescobaldi}.
+
+The idea behind this project is the implementation of a music viewer that
+doesn't display pages but sees a scores as a continuous sequence of systems
+that are stitched together.  LilyPond can produce such a sequence of files,
+and it can be made aware of the moments of each line break.  That way only
+systems have to be recompiled that are affected by a modification, thus
+saving significant waiting times.  Optionally there could be new engraving
+modes in LilyPond that don't try to optimize the line breaking, saving
+even more time, at least while in content editing mode.
+
+The project is fairly complex and has many more aspects than could be
+listed on this page.  So if you are interested in this please get in
+touch with us as early as possible to evaluate options and discuss the
+topics before you write an application.
+
+
+@emph{Difficulty:} hard
+
+@emph{Requirements:} LilyPond/Scheme, Python/PyQt
+
+@emph{Optional:} C++ if it's necessary to modify LilyPond itself
+
+@emph{Mentors:} NN (, Urs Liska)
+
+@emph{Community Mentor:} Kieren MacMillan
 
 @divEnd
 
