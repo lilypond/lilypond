@@ -1,4 +1,4 @@
-\version "2.19.22"
+\version "2.21.0"
 
 \header {
   texidoc = "The rest markup function works for a variety of style, dot and
@@ -32,7 +32,7 @@ showSimpleRest =
                                              dots))))
                              (append
                                '("maxima" "longa" "breve")
-                               (iota 8)))))))))
+                               (iota 11)))))))))
          '(default
            mensural
            neomensural

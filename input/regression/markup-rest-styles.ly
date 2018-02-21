@@ -1,4 +1,4 @@
-\version "2.19.22"
+\version "2.21.0"
 
 \header {
   texidoc = "@code{\\rest-by-number} and @code{\\rest} support
@@ -26,7 +26,7 @@ showRestStyles =
                        (lambda (dur-log)
                          (make-rest-by-number-markup
                           dur-log 0))
-                       '(-3 -2 -1 0 1 2 3 4 5 6 7))))))))
+                       '(-3 -2 -1 0 1 2 3 4 5 6 7 8 9 10))))))))
          '(default
            mensural
            neomensural
