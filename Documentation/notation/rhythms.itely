@@ -52,7 +52,7 @@ The durations of notes are entered using numbers and dots.  The number
 entered is based on the reciprocal value of the length of the note.  For
 example, a quarter note is designated using the numerical value of
 @code{4} as it is a 1/4 note, a half note using @code{2}, an eighth
-using @code{8} and so on.  Durations as short as @code{128} notes can be
+using @code{8} and so on.  Durations as short as @code{1024} notes can be
 entered but shorter values, while possible, can only be entered as
 beamed notes.  Also see @ref{Beams}.
 
@@ -192,7 +192,7 @@ Internals Reference:
 @c Deliberately duplicated in Durations and Rests.  -gp
 While there is no fundamental limit to rest durations (longest or
 shortest), there is a limit to the number of glyphs possible so only
-rests between @code{128} and @code{\maxima} may be printed.
+rests between @code{1024} and @code{\maxima} may be printed.
 
 
 @node Tuplets
@@ -719,7 +719,7 @@ Internals Reference:
 @c Deliberately duplicated in Durations and Rests.  -gp
 There is no fundamental limit to rest durations (both in terms of
 longest and shortest), but the number of glyphs is limited: there
-are rests from 128th to maxima (8× whole).
+are rests from 1024th to maxima (8× whole).
 
 
 @node Invisible rests

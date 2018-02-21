@@ -62,6 +62,18 @@ which scares away people.
 @end ignore
 
 @item
+Font glyphs for 256th, 512th, and 1024th flags and rests have been added.
+@lilypond[quote]
+{
+  \omit Staff.TimeSignature
+  \cadenzaOn
+  b4 8 16 32 64 128 256 512 1024 \bar "|"
+  b''4 8 16 32 64 128 256 512 1024 \bar "|"
+  r4 r8 r16 r32 r64 r128 r256 r512 r1024 \bar "|"
+}
+@end lilypond
+
+@item
 A dynamic command @code{\n} for @emph{niente} has been added.
 @lilypond[quote]
 {
