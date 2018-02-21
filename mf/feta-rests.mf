@@ -632,7 +632,7 @@ fet_beginchar ("128th rest", "7");
 	y2 = h - vround lower_brush;
 	x2r = w;
 	z2 = z1 + whatever * dir (80);
-	z9 = z2 + 0.5 linethickness * dir (angle (z2 - z1)- 10);
+	z9 = z2 + 0.5 linethickness * dir (angle (z2 - z1) - 10);
 	y9 := vround y9;
 
 	x1l := hround x1l;
@@ -668,6 +668,216 @@ fet_beginchar ("128th rest", "7");
 	     -- bulb_c
 	     -- bulb_d
 	     -- bulb_e
+	     -- z1l
+	     .. cycle;
+
+	penlabels (1, 2);
+	labels (9);
+
+	draw_staff_if_debugging (-2, 2);
+fet_endchar;
+
+
+fet_beginchar ("256th rest", "8");
+	save ycenter;
+	save pat, bulb_a, bulb_b, bulb_c, bulb_d, bulb_e, bulb_f;
+	path pat, bulb_a, bulb_b, bulb_c, bulb_d, bulb_e, bulb_f;
+
+	set_char_box (0, 1.5 staff_space#,
+		      4.0 staff_space# + 0.5 linethickness#,
+		      2.5 staff_space# + bulb_diam# / 2);
+
+	penpos1 (thick, 0);
+	penpos2 (thin, 10);
+
+	y1 = -4 staff_space_rounded;
+	y2 = h - vround lower_brush;
+	x2r = w;
+	z2 = z1 + whatever * dir (81.7);
+	z9 = z2 + 0.5 linethickness * dir (angle (z2 - z1) - 10);
+	y9 := vround y9;
+
+	x1l := hround x1l;
+	x1r := hround x1r;
+	x1 := .5 [x1l, x1r];
+
+	pat = z1l
+	      -- z2l
+	      .. z9
+	      .. z2r
+	      -- z1r
+	      .. cycle;
+	bulb_a = draw_rest_bulb (.5 staff_space + 2 staff_space_rounded,
+				 y2r, pat, 0.90, 1);
+	bulb_b = draw_rest_bulb (.5 staff_space + staff_space_rounded,
+				 hround ((1.5 + 0.20) * staff_space),
+				 pat, 0.94, 1);
+	bulb_c = draw_rest_bulb (.5 staff_space,
+				 hround ((0.5 + 0.21) * staff_space),
+				 pat, 0.98, 1);
+	bulb_d = draw_rest_bulb (.5 staff_space - staff_space_rounded,
+				 hround ((-0.5 + 0.22) * staff_space),
+				 pat, 1.02, 1);
+	bulb_e = draw_rest_bulb (.5 staff_space - 2 staff_space_rounded,
+				 hround ((-1.5 + 0.23) * staff_space),
+				 pat, 1.06, 1);
+	bulb_f = draw_rest_bulb (.5 staff_space - 3 staff_space_rounded,
+				 hround ((-2.5 + 0.24) * staff_space),
+				 pat, 1.10, 1);
+
+	fill simple_serif (z1l, z1r, 40)
+	     -- z2r
+	     .. z9
+	     .. bulb_a
+	     -- bulb_b
+	     -- bulb_c
+	     -- bulb_d
+	     -- bulb_e
+	     -- bulb_f
+	     -- z1l
+	     .. cycle;
+
+	penlabels (1, 2);
+	labels (9);
+
+	draw_staff_if_debugging (-2, 2);
+fet_endchar;
+
+
+fet_beginchar ("512th rest", "9");
+	save ycenter;
+	save pat, bulb_a, bulb_b, bulb_c, bulb_d, bulb_e, bulb_f, bulb_g;
+	path pat, bulb_a, bulb_b, bulb_c, bulb_d, bulb_e, bulb_f, bulb_g;
+
+	set_char_box (0, 1.5 staff_space#,
+		      4.0 staff_space# + 0.5 linethickness#,
+		      3.5 staff_space# + bulb_diam# / 2);
+
+	penpos1 (thick, 0);
+	penpos2 (thin, 10);
+
+	y1 = -4 staff_space_rounded;
+	y2 = h - vround lower_brush;
+	x2r = w;
+	z2 = z1 + whatever * dir (83.2);
+	z9 = z2 + 0.5 linethickness * dir (angle (z2 - z1) - 10);
+	y9 := vround y9;
+
+	x1l := hround x1l;
+	x1r := hround x1r;
+	x1 := .5 [x1l, x1r];
+
+	pat = z1l
+	      -- z2l
+	      .. z9
+	      .. z2r
+	      -- z1r
+	      .. cycle;
+	bulb_a = draw_rest_bulb (.5 staff_space + 3 staff_space_rounded,
+				 y2r, pat, 0.88, 1);
+	bulb_b = draw_rest_bulb (.5 staff_space + 2 staff_space_rounded,
+				 hround ((2.5 + 0.20) * staff_space),
+				 pat, 0.92, 1);
+	bulb_c = draw_rest_bulb (.5 staff_space + staff_space_rounded,
+				 hround ((1.5 + 0.21) * staff_space),
+				 pat, 0.96, 1);
+	bulb_d = draw_rest_bulb (.5 staff_space,
+				 hround ((0.5 + 0.22) * staff_space),
+				 pat, 1.00, 1);
+	bulb_e = draw_rest_bulb (.5 staff_space - staff_space_rounded,
+				 hround ((-0.5 + 0.23) * staff_space),
+				 pat, 1.04, 1);
+	bulb_f = draw_rest_bulb (.5 staff_space - 2 staff_space_rounded,
+				 hround ((-1.5 + 0.24) * staff_space),
+				 pat, 1.08, 1);
+	bulb_g = draw_rest_bulb (.5 staff_space - 3 staff_space_rounded,
+				 hround ((-2.5 + 0.25) * staff_space),
+				 pat, 1.12, 1);
+
+	fill simple_serif (z1l, z1r, 40)
+	     -- z2r
+	     .. z9
+	     .. bulb_a
+	     -- bulb_b
+	     -- bulb_c
+	     -- bulb_d
+	     -- bulb_e
+	     -- bulb_f
+	     -- bulb_g
+	     -- z1l
+	     .. cycle;
+
+	penlabels (1, 2);
+	labels (9);
+
+	draw_staff_if_debugging (-2, 2);
+fet_endchar;
+
+
+fet_beginchar ("1024th rest", "10");
+	save ycenter;
+	save pat, bulb_a, bulb_b, bulb_c, bulb_d, bulb_e, bulb_f, bulb_g, bulb_h;
+	path pat, bulb_a, bulb_b, bulb_c, bulb_d, bulb_e, bulb_f, bulb_g, bulb_h;
+
+	set_char_box (0, 1.5 staff_space#,
+		      5.0 staff_space# + 0.5 linethickness#,
+		      3.5 staff_space# + bulb_diam# / 2);
+
+	penpos1 (thick, 0);
+	penpos2 (thin, 10);
+
+	y1 = -5 staff_space_rounded;
+	y2 = h - vround lower_brush;
+	x2r = w;
+	z2 = z1 + whatever * dir (84.5);
+	z9 = z2 + 0.5 linethickness * dir (angle (z2 - z1) - 10);
+	y9 := vround y9;
+
+	x1l := hround x1l;
+	x1r := hround x1r;
+	x1 := .5 [x1l, x1r];
+
+	pat = z1l
+	      -- z2l
+	      .. z9
+	      .. z2r
+	      -- z1r
+	      .. cycle;
+	bulb_a = draw_rest_bulb (.5 staff_space + 3 staff_space_rounded,
+				 y2r, pat, 0.86, 1);
+	bulb_b = draw_rest_bulb (.5 staff_space + 2 staff_space_rounded,
+				 hround ((2.5 + 0.20) * staff_space),
+				 pat, 0.90, 1);
+	bulb_c = draw_rest_bulb (.5 staff_space + staff_space_rounded,
+				 hround ((1.5 + 0.21) * staff_space),
+				 pat, 0.94, 1);
+	bulb_d = draw_rest_bulb (.5 staff_space,
+				 hround ((0.5 + 0.22) * staff_space),
+				 pat, 0.98, 1);
+	bulb_e = draw_rest_bulb (.5 staff_space - staff_space_rounded,
+				 hround ((-0.5 + 0.23) * staff_space),
+				 pat, 1.02, 1);
+	bulb_f = draw_rest_bulb (.5 staff_space - 2 staff_space_rounded,
+				 hround ((-1.5 + 0.24) * staff_space),
+				 pat, 1.06, 1);
+	bulb_g = draw_rest_bulb (.5 staff_space - 3 staff_space_rounded,
+				 hround ((-2.5 + 0.25) * staff_space),
+				 pat, 1.10, 1);
+	bulb_h = draw_rest_bulb (.5 staff_space - 4 staff_space_rounded,
+				 hround ((-3.5 + 0.26) * staff_space),
+				 pat, 1.14, 1);
+
+	fill simple_serif (z1l, z1r, 40)
+	     -- z2r
+	     .. z9
+	     .. bulb_a
+	     -- bulb_b
+	     -- bulb_c
+	     -- bulb_d
+	     -- bulb_e
+	     -- bulb_f
+	     -- bulb_g
+	     -- bulb_h
 	     -- z1l
 	     .. cycle;
 
