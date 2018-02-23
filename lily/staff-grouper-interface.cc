@@ -23,6 +23,35 @@
 #include "page-layout-problem.hh"
 #include "pointer-group-interface.hh"
 
+// Find the furthest staff in the given direction whose x-extent overlaps with
+// the given interval.
+Grob *
+Staff_grouper_interface::get_extremal_staff (Grob *me, Grob *refpoint, Direction dir, Interval const &iv)
+{
+  // N.B. This is intended to work for a VerticalAlignment grob even though
+  // VerticalAlignment does not have the staff-grouper interface.  StaffGrouper
+  // and VerticalAlignment grobs are both created by the
+  // Vertical_align_engraver and contain elements meeting a common set of
+  // criteria, yet they are not described as having a common interface.  Should
+  // we treat staff grouping as a subset of vertical alignment?  Should we
+  // factor out the shared subset of features into a new interface?
+
+  extract_grob_set (me, "elements", elts);
+  vsize start = (dir == UP) ? 0 : elts.size () - 1;
+  vsize end = (dir == UP) ? elts.size () : VPOS;
+  for (vsize i = start; i != end; i += dir)
+    {
+      if (has_interface<Hara_kiri_group_spanner> (elts[i]))
+        Hara_kiri_group_spanner::consider_suicide (elts[i]);
+
+      Interval intersection = elts[i]->extent (refpoint, X_AXIS);
+      intersection.intersect (iv);
+      if (elts[i]->is_live () && !intersection.is_empty ())
+        return elts[i];
+    }
+  return 0;
+}
+
 /* Checks whether the child grob is in the "interior" of this staff-grouper.
    This is the case if the next spaceable, living child after the given one
    belongs to the group.

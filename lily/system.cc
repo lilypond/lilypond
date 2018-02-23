@@ -771,31 +771,6 @@ System::get_vertical_alignment (SCM smob)
   return ret->self_scm ();
 }
 
-// Finds the furthest staff in the given direction whose x-extent
-// overlaps with the given interval.
-Grob *
-System::get_extremal_staff (Direction dir, Interval const &iv)
-{
-  Grob *align = unsmob<Grob> (get_object ("vertical-alignment"));
-  if (!align)
-    return 0;
-
-  extract_grob_set (align, "elements", elts);
-  vsize start = (dir == UP) ? 0 : elts.size () - 1;
-  vsize end = (dir == UP) ? elts.size () : VPOS;
-  for (vsize i = start; i != end; i += dir)
-    {
-      if (has_interface<Hara_kiri_group_spanner> (elts[i]))
-        Hara_kiri_group_spanner::consider_suicide (elts[i]);
-
-      Interval intersection = elts[i]->extent (this, X_AXIS);
-      intersection.intersect (iv);
-      if (elts[i]->is_live () && !intersection.is_empty ())
-        return elts[i];
-    }
-  return 0;
-}
-
 // Finds the neighboring staff in the given direction over bounds
 Grob *
 System::get_neighboring_staff (Direction dir, Grob *vertical_axis_group, Interval_t<int> bounds)

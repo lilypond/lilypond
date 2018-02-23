@@ -38,6 +38,7 @@ class Vertical_align_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Vertical_align_engraver);
   void acknowledge_axis_group (Grob_info);
+  void acknowledge_outside_staff (Grob_info);
 
 protected:
   virtual void derived_mark () const;
@@ -52,6 +53,7 @@ void
 Vertical_align_engraver::boot ()
 {
   ADD_ACKNOWLEDGER (Vertical_align_engraver, axis_group);
+  ADD_ACKNOWLEDGER (Vertical_align_engraver, outside_staff);
 }
 
 ADD_TRANSLATOR (Vertical_align_engraver,
@@ -190,5 +192,24 @@ Vertical_align_engraver::acknowledge_axis_group (Grob_info i)
       Pointer_group_interface::add_grob (valign_, ly_symbol2scm ("elements"), i.grob ());
       if (!unsmob<Grob> (i.grob ()->get_object ("staff-grouper")))
         i.grob ()->set_object ("staff-grouper", valign_->self_scm ());
+    }
+}
+
+void
+Vertical_align_engraver::acknowledge_outside_staff (Grob_info i)
+{
+  if (!top_level_) // valign_ is a staff grouper
+    {
+      if (valign_)
+        {
+          // Claim outside-staff grobs created by engravers in this immediate
+          // context.
+          if (i.context () == context ())
+            i.grob ()->set_parent (valign_, Y_AXIS);
+        }
+      else
+        {
+          programming_error ("cannot claim outside-staff grob before creating staff grouper");
+        }
     }
 }

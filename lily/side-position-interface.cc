@@ -40,6 +40,7 @@ using namespace std;
 #include "note-column.hh"
 #include "pointer-group-interface.hh"
 #include "skyline-pair.hh"
+#include "staff-grouper-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "staff-symbol.hh"
 #include "stem.hh"
@@ -439,24 +440,35 @@ MAKE_SCHEME_CALLBACK (Side_position_interface, move_to_extremal_staff, 1);
 SCM
 Side_position_interface::move_to_extremal_staff (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
-  System *sys = dynamic_cast<System *> (me->get_system ());
+  Grob *const me = LY_ASSERT_SMOB (Grob, smob, 1);
+  if (!me)
+    return SCM_BOOL_F;
+
   Direction dir = get_grob_direction (me);
   if (dir != DOWN)
     dir = UP;
 
+  System *sys = me->get_system ();
   Interval iv = me->extent (sys, X_AXIS);
   iv.widen (1.0);
-  Grob *top_staff = sys->get_extremal_staff (dir, iv);
 
-  if (!top_staff)
+  Grob *grouper = me->get_parent (Y_AXIS);
+  if (has_interface<Staff_grouper_interface> (grouper))
+    ; // find the extremal staff of this group
+  else if (grouper == sys)
+    {
+      // find the extremal staff of the whole system
+      grouper = unsmob<Grob> (sys->get_object ("vertical-alignment"));
+      if (!grouper)
+        return SCM_BOOL_F;
+    }
+  else // do not move marks from other staves to the top staff
     return SCM_BOOL_F;
 
-  // Only move this grob if it is a direct child of the system.  We
-  // are not interested in moving marks from other staves to the top
-  // staff; we only want to move marks from the system to the top
-  // staff.
-  if (sys != me->get_parent (Y_AXIS))
+  // N.B. It's ugly to pass a VerticalAlignment to this staff-grouper function.
+  // Read the comments in the function for more detail.
+  Grob *top_staff = Staff_grouper_interface::get_extremal_staff (grouper, sys, dir, iv);
+  if (!top_staff)
     return SCM_BOOL_F;
 
   me->set_parent (top_staff, Y_AXIS);
