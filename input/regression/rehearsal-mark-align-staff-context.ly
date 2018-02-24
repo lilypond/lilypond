@@ -2,7 +2,7 @@
 
 \header {
   texidoc = "RehearsalMarks still align correctly if Mark_engraver is moved to
-another context."
+Staff context."
 }
 
 \layout {
