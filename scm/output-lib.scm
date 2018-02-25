@@ -380,15 +380,15 @@
   (let* ((head (ly:grob-parent grob Y))
          (log (ly:grob-property head 'duration-log)))
 
-    (cond
-     ((or (not (grob::has-interface head 'rest-interface))
-          (not (integer? log))) 0)
-     ((= log 7) 4)
-     ((> log 4) 3)
-     ((= log 0) -1)
-     ((= log 1) 1)
-     ((= log -1) 1)
-     (else 0))))
+    (if (or (not (grob::has-interface head 'rest-interface))
+            (not (integer? log)))
+        0
+        (case log
+          ((0)   -2)
+          ((5 6)  2)
+          ((7 8)  4)
+          ((9 10) 6)
+          (else   0)))))
 
 ;; Kept separate from note-head::calc-glyph-name to allow use by
 ;; markup commands \note and \note-by-number
