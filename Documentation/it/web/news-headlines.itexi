@@ -2,7 +2,7 @@
 @c This file is used in the web.texi file.
 
 @ignore
-    Translation of GIT committish: e7efc19c0d77600c8da9ae5fe6bca6eaffb147d8
+    Translation of GIT committish: a043f6d89d46870aca3c3ba6b61156bf1ffa4ce4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -19,7 +19,7 @@
 @ifclear web_version
   @c no anchor links, just link to News page
 
-@ref{News, Rilasciato LilyPond 2.19.80 - @emph{15 ottobre 2017}}
+@ref{News, Rilasciato LilyPond 2.19.81 - @emph{28 gennaio 2018}}
 
 @ref{News, Due progetti LilyPond nel Google Summer of Code 2016 - @emph{23 aprile 2016}}
 
@@ -31,8 +31,8 @@
 @ifset web_version
   @c anchor links, link to individual news items by their <a> tag
 
-@uref{news.html##LilyPond-2_002e19_002e80-released-October-15_002c-2017,
-  Rilasciato LilyPond 2.19.80 - @emph{15 ottobre 2017}}
+@uref{news.html#LilyPond-2_002e19_002e81-released-January-28_002c-2018,
+  Rilasciato LilyPond 2.19.81 - @emph{28 gennaio 2018}}
 
 @uref{news.html#Two-LilyPond-projects-in-Google-Summer-of-Code-2016-April-23_002c-2016,
   Due progetti LilyPond nel Google Summer of Code 2016 - @emph{23 aprile 2016}}

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 2dcca6dacd9f419922a7d056389b152f195d6e4c
+    Translation of GIT committish: a089ca62fd9b3770a932061207262fe81063dc56
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1303,9 +1303,57 @@ Si possono usare i seguenti stili per le teste di nota.
 @appendixsec Stili della chiave
 @translationof Clef styles
 
-La seguente tabella mostra tutti i diversi stili di chiave possibili
+La seguente tabella mostra tutti gli stili di chiave possibili
 (inclusi quelli in cui la posizione del @emph{Do centrale}) cambia a
 seconda della chiave).
+
+@cindex Chiave di violino
+@cindex Violino, chiave di
+@cindex Chiave di Sol
+@cindex Sol, chiave di
+@cindex G, chiave di
+@cindex G2, chiave di
+@cindex GG, chiave di
+@cindex Chiave di Sol tenore
+@cindex Sol tenore, chiave di
+@cindex Chiave di soprano
+@cindex Soprano, chiave di
+@cindex Chiave di mezzosoprano
+@cindex Mezzosoprano, chiave di
+@cindex Chiave di alto
+@cindex Alto, chiave di
+@cindex Chiave di tenore
+@cindex Tenore, chiave di
+@cindex Chiave di baritono
+@cindex Baritono, chiave di
+@cindex Chiave di basso
+@cindex Basso, chiave di
+@cindex Chiave di Fa
+@cindex Fa, chiave di
+@cindex Chiavi dell'intavolatura
+@cindex Intavolatura, chiavi di
+@cindex Tablatura, chiavi di
+@cindex Chiavi delle percussioni
+@cindex Percussioni, chiavi di
+@cindex Chiave, stili di
+@cindex Chiavi della musica antica
+@cindex Musica antica, chiavi di
+@cindex Chiave di petrucci
+@cindex Petrucci, chiave
+@cindex Chiave mensurale
+@cindex Mensurale, chiave
+
+@menu
+* Chiavi standard::
+* Chiave del rigo della percussione::
+* Chiavi del rigo dell'intavolatura::
+* Chiavi della musica antica::
+@end menu
+
+@node Chiavi standard
+@unnumberedsubsec Chiavi standard
+@translationof Standard clefs
+
 
 @multitable @columnfractions .30 .2 .30 .2
 
@@ -1374,7 +1422,9 @@ c1
 c1
 @end lilypond
 
-@tab
+@*
+
+@item
 @code{\clef soprano}
 @tab
 @lilypond[line-width=3\cm,notime,ragged-right,relative=1]
@@ -1382,7 +1432,7 @@ c1
 c1
 @end lilypond
 
-@item
+@tab
 @code{\clef mezzosoprano}
 @tab
 @lilypond[line-width=3\cm,notime,ragged-right,relative=1]
@@ -1390,7 +1440,7 @@ c1
 c1
 @end lilypond
 
-@tab
+@item
 @code{\clef C}
 @tab
 @lilypond[line-width=3\cm,notime,ragged-right,relative=1]
@@ -1398,7 +1448,7 @@ c1
 c1
 @end lilypond
 
-@item
+@tab
 @code{\clef alto}
 @tab
 @lilypond[line-width=3\cm,notime,ragged-right,relative=1]
@@ -1406,7 +1456,7 @@ c1
 c1
 @end lilypond
 
-@tab
+@item
 @code{\clef tenor}
 @tab
 @lilypond[line-width=3\cm,notime,ragged-right,relative=1]
@@ -1414,7 +1464,7 @@ c1
 c1
 @end lilypond
 
-@item
+@tab
 @code{\clef baritone}
 @tab
 @lilypond[line-width=3\cm,notime,ragged-right,relative=1]
@@ -1422,7 +1472,9 @@ c1
 c1
 @end lilypond
 
-@tab
+@*
+
+@item
 @code{\clef varC}
 @tab
 @lilypond[line-width=3\cm,notime,ragged-right,relative=1]
@@ -1430,7 +1482,7 @@ c1
 c1
 @end lilypond
 
-@item
+@tab
 @code{\clef altovarC}
 @tab
 @lilypond[line-width=3\cm,notime,ragged-right,relative=1]
@@ -1438,7 +1490,7 @@ c1
 c1
 @end lilypond
 
-@tab
+@item
 @code{\clef tenorvarC}
 @tab
 @lilypond[line-width=3\cm,notime,ragged-right,relative=1]
@@ -1446,7 +1498,7 @@ c1
 c1
 @end lilypond
 
-@item
+@tab
 @code{\clef baritonevarC}
 @tab
 @lilypond[line-width=3\cm,notime,ragged-right,relative=1]
@@ -1454,7 +1506,9 @@ c1
 c1
 @end lilypond
 
-@tab
+@*
+
+@item
 @code{\clef varbaritone}
 @tab
 @lilypond[line-width=3\cm,notime,ragged-right,relative=1]
@@ -1462,7 +1516,7 @@ c1
 c1
 @end lilypond
 
-@item
+@tab
 @code{\clef baritonevarF}
 @tab
 @lilypond[line-width=3\cm,notime,ragged-right,relative=1]
@@ -1470,7 +1524,7 @@ c1
 c1
 @end lilypond
 
-@tab
+@item
 @code{\clef F}
 @tab
 @lilypond[line-width=3\cm,notime,ragged-right,relative=1]
@@ -1478,7 +1532,7 @@ c1
 c1
 @end lilypond
 
-@item
+@tab
 @code{\clef bass}
 @tab
 @lilypond[line-width=3\cm,notime,ragged-right,relative=1]
@@ -1486,13 +1540,31 @@ c1
 c1
 @end lilypond
 
-@tab
+@item
 @code{\clef subbass}
 @tab
 @lilypond[line-width=3\cm,notime,ragged-right,relative=1]
 \clef subbass
 c1
 @end lilypond
+
+@end multitable
+
+
+@node Chiave del rigo della percussione
+@unnumberedsubsec Chiave del rigo della percussione
+@translationof Percussion staff clef
+
+@multitable @columnfractions .30 .2 .30 .2
+
+@headitem
+Esempio
+@tab
+Output
+@tab
+Esempio
+@tab
+Output
 
 @item
 @code{\clef percussion}
@@ -1502,6 +1574,33 @@ c1
 c1
 @end lilypond
 
+@tab
+@code{\clef varpercussion}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef varpercussion
+c1
+@end lilypond
+
+@end multitable
+
+
+@node Chiavi del rigo dell'intavolatura
+@unnumberedsubsec Chiavi del rigo dell'intavolatura
+@translationof Tab staff clefs
+
+@multitable @columnfractions .30 .2 .30 .2
+
+@headitem
+Esempio
+@tab
+Output
+@tab
+Esempio
+@tab
+Output
+
+@item
 @tab
 @c @example does not work as expected within multitables
 @code{
@@ -1532,6 +1631,501 @@ c1
 }
 @end lilypond
 
+@end multitable
+
+
+@node Chiavi della musica antica
+@unnumberedsubsec Chiavi della musica antica
+@translationof Ancient music clefs
+
+@strong{Gregoriane}
+
+@multitable @columnfractions .30 .20 .30 .20
+
+@headitem
+Esempio
+@tab
+Output
+@tab
+Esempio
+@tab
+Output
+
+@item
+@code{\clef "vaticana-do1"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \clef "vaticana-do1"
+  \override NoteHead.style = #'vaticana.punctum
+  c1
+@end lilypond
+@tab
+@code{\clef "vaticana-do2"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \clef "vaticana-do2"
+  \override NoteHead.style = #'vaticana.punctum
+  c1
+@end lilypond
+@item
+@code{\clef "vaticana-do3"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \clef "vaticana-do3"
+  \override NoteHead.style = #'vaticana.punctum
+  c1
+@end lilypond
+@tab
+@code{\clef "vaticana-fa1"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \clef "vaticana-fa1"
+  \override NoteHead.style = #'vaticana.punctum
+  c1
+@end lilypond
+
+@item
+@code{\clef "vaticana-fa2"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \clef "vaticana-fa2"
+  \override NoteHead.style = #'vaticana.punctum
+  c1
+@end lilypond
+
+@*
+@item
+@code{\clef "medicaea-do1"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \clef "medicaea-do1"
+  \override NoteHead.style = #'medicaea.punctum
+  c1
+@end lilypond
+@tab
+@code{\clef "medicaea-do2"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \clef "medicaea-do2"
+  \override NoteHead.style = #'medicaea.punctum
+  c1
+@end lilypond
+
+@item
+@code{\clef "medicaea-do3"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \clef "medicaea-do3"
+  \override NoteHead.style = #'medicaea.punctum
+  c1
+@end lilypond
+@tab
+@code{\clef "medicaea-fa1"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \clef "medicaea-fa1"
+  \override NoteHead.style = #'medicaea.punctum
+  c1
+@end lilypond
+@item
+@code{\clef "medicaea-fa2"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \clef "medicaea-fa2"
+  \override NoteHead.style = #'medicaea.punctum
+  c1
+@end lilypond
+
+@*
+
+@item
+@code{\clef "hufnagel-do1"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \clef "hufnagel-do1"
+  \override NoteHead.style = #'hufnagel.punctum
+  c1
+@end lilypond
+@tab
+@code{\clef "hufnagel-do2"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \clef "hufnagel-do2"
+  \override NoteHead.style = #'hufnagel.punctum
+  c1
+@end lilypond
+@item
+@code{\clef "hufnagel-do3"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \clef "hufnagel-do3"
+  \override NoteHead.style = #'hufnagel.punctum
+  c1
+@end lilypond
+@tab
+@code{\clef "hufnagel-fa1"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \clef "hufnagel-fa1"
+  \override NoteHead.style = #'hufnagel.punctum
+  c1
+@end lilypond
+
+@item
+@code{\clef "hufnagel-fa2"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \clef "hufnagel-fa2"
+  \override NoteHead.style = #'hufnagel.punctum
+  c1
+@end lilypond
+@tab
+@code{\clef @* "hufnagel-do-fa"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \override Staff.StaffSymbol.line-count = #5
+  \override Staff.StaffSymbol.color = #red
+  \clef "hufnagel-do-fa"
+  \override NoteHead.style = #'hufnagel.punctum
+  c1
+@end lilypond
+
+@end multitable
+@strong{Mensurali}
+
+@multitable @columnfractions .30 .2 .30 .2
+
+@headitem
+Esempio
+@tab
+Output
+@tab
+Esempio
+@tab
+Output
+
+@item
+@code{\clef "mensural-c1"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "mensural-c1"
+  \override NoteHead.style = #'mensural
+  c1
+@end lilypond
+@tab
+@code{\clef "mensural-c2"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "mensural-c2"
+  \override NoteHead.style = #'mensural
+  c1
+@end lilypond
+
+@item
+@code{\clef "mensural-c3"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "mensural-c3"
+  \override NoteHead.style = #'mensural
+  c1
+@end lilypond
+@tab
+@code{\clef "mensural-c4"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "mensural-c4"
+  \override NoteHead.style = #'mensural
+  c1
+@end lilypond
+@item
+@code{\clef "mensural-c5"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "mensural-c5"
+  \override NoteHead.style = #'mensural
+  c1
+@end lilypond
+
+@*
+
+@item
+@code{\clef "mensural-f"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "mensural-f"
+  \override NoteHead.style = #'mensural
+  c1
+@end lilypond
+@tab
+@code{\clef "mensural-g"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "mensural-g"
+  \override NoteHead.style = #'mensural
+  c1
+@end lilypond
+
+@*
+
+@item
+@code{\clef "blackmensural-c1"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "blackmensural-c1"
+  \override NoteHead.style = #'blackmensural
+  c1
+@end lilypond
+@tab
+@code{\clef "blackmensural-c2"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "blackmensural-c2"
+  \override NoteHead.style = #'blackmensural
+  c1
+@end lilypond
+@item
+@code{\clef "blackmensural-c3"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "blackmensural-c3"
+  \override NoteHead.style = #'blackmensural
+  c1
+@end lilypond
+@tab
+@code{\clef "blackmensural-c4"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "blackmensural-c4"
+  \override NoteHead.style = #'blackmensural
+  c1
+@end lilypond
+
+@item
+@code{\clef "blackmensural-c5"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "blackmensural-c5"
+  \override NoteHead.style = #'blackmensural
+  c1
+@end lilypond
+
+@*
+
+@item
+@code{\clef "neomensural-c1"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "neomensural-c1"
+  \override NoteHead.style = #'neomensural
+  c1
+@end lilypond
+@tab
+@code{\clef "neomensural-c2"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "neomensural-c2"
+  \override NoteHead.style = #'neomensural
+  c1
+@end lilypond
+@item
+@code{\clef "neomensural-c3"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "neomensural-c3"
+  \override NoteHead.style = #'neomensural
+  c1
+@end lilypond
+@tab
+@code{\clef "neomensural-c4"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "neomensural-c4"
+  \override NoteHead.style = #'neomensural
+  c1
+@end lilypond
+
+@item
+@code{\clef "neomensural-c5"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "neomensural-c5"
+  \override NoteHead.style = #'neomensural
+  c1
+@end lilypond
+
+@*
+
+@item
+@code{\clef "petrucci-c1"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "petrucci-c1"
+  \override NoteHead.style = #'petrucci
+  c1
+@end lilypond
+@tab
+@code{\clef "petrucci-c2"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "petrucci-c2"
+  \override NoteHead.style = #'petrucci
+  c1
+@end lilypond
+
+@item
+@code{\clef "petrucci-c3"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "petrucci-c3"
+  \override NoteHead.style = #'petrucci
+  c1
+@end lilypond
+@tab
+@code{\clef "petrucci-c4"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "petrucci-c4"
+  \override NoteHead.style = #'petrucci
+  c1
+@end lilypond
+
+@item
+@code{\clef "petrucci-c5"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "petrucci-c5"
+  \override NoteHead.style = #'petrucci
+  c1
+@end lilypond
+
+@*
+
+@item
+@code{\clef "petrucci-f"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "petrucci-f"
+  \override NoteHead.style = #'petrucci
+  c1
+@end lilypond
+@tab
+@code{\clef "petrucci-f2"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "petrucci-f2"
+  \override NoteHead.style = #'petrucci
+  c1
+@end lilypond
+
+@item
+@code{\clef "petrucci-f3"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "petrucci-f3"
+  \override NoteHead.style = #'petrucci
+  c1
+@end lilypond
+@tab
+@code{\clef "petrucci-f4"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "petrucci-f4"
+  \override NoteHead.style = #'petrucci
+  c1
+@end lilypond
+
+@item
+@code{\clef "petrucci-f5"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "petrucci-f5"
+  \override NoteHead.style = #'petrucci
+  c1
+@end lilypond
+
+@*
+
+@item
+@code{\clef "petrucci-g1"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "petrucci-g1"
+  \override NoteHead.style = #'petrucci
+  c1
+@end lilypond
+@tab
+@code{\clef "petrucci-g2"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "petrucci-g2"
+  \override NoteHead.style = #'petrucci
+  c1
+@end lilypond
+
+@item
+@code{\clef "petrucci-g"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "petrucci-g"
+  \override NoteHead.style = #'petrucci
+  c1
+@end lilypond
+
+@end multitable
+
+
+@strong{Kievane}
+
+@multitable @columnfractions .30 .2 .30 .2
+
+@headitem
+Esempio
+@tab
+Output
+@tab
+@c Example
+@tab
+@c Output
+
+
+@item
+@code{\clef "kievan-do"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "kievan-do"
+  \override NoteHead.style = #'kievan
+  c1
+@end lilypond
 
 @end multitable
 

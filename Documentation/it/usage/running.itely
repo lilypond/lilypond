@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 97956152eba4292886a47c74b45bc6be5a0349e8
+    Translation of GIT committish: c7c6c948c9b70464f7069354059e5a5a8aad4a5c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -185,33 +185,6 @@ Sono contemplate le seguenti opzioni:
 
 @table @code
 
-@item -b, --bigpdfs
-@cindex bigpdfs
-
-I file PDF generati saranno molto più grandi del normale (a causa
-di un'ottimizzazione dei tipi di carattere scarsa o assente). Tuttavia,
-due o più file PDF, se inclusi in documenti @w{@code{pdftex}},
-@w{@code{xetex}} o @w{@code{luatex}}, possono essere ulteriormente
-elaborati attraverso ghostscript (rimuovendo le duplicazioni dei dati
-dei tipi di carattere), ottenendo così file PDF @emph{molto} più piccoli.
-
-@example
-lilypond -b myfile
-@end example
-
-Poi eseguire @code{ghostscript};
-
-@example
-gs -q -sDEVICE=pdfwrite -o gsout.pdf myfile.pdf
-@end example
-
-Poi si può usare @code{pdfsizeopt.py} per ottimizzare ulteriormente la
-dimensione del file;
-
-@example
-pdfsizeopt.py --use-multivalent=no gsout.pdf final.pdf
-@end example
-
 @item -d, --define-default=@var{variabile}=@var{valore}
 Si veda @ref{Opzioni avanzate della linea di comando per LilyPond}.
 
@@ -241,6 +214,9 @@ nella linea di comando, e includi
 in cima al file @code{.ly}.
 
 @warning{Gli utenti Windows devono usare i doppi apici invece dei singoli apici.}
+
+@item -E, --eps
+Genera file EPS.
 
 @cindex output, formato
 @cindex formato, output
@@ -273,6 +249,9 @@ Imposta il file di inizializzazione su @var{file} (predefinito: @file{init.ly}).
 Aggiunge @var{directory} al percorso di ricerca per i file di input.
 directory definita, e se il file da includere non viene trovato
 la ricerca continuerà nelle directory seguenti.
+
+@warning{L'uso del carattere tilde -- @code{~} -- con l'opzione @code{-I}
+potrebbe causare risultati inaspettati in alcune shell.}
 
 @cindex gabbia chroot, esecuzione all'interno di
 
@@ -374,6 +353,18 @@ Imposta il file di output predefinito @var{FILE} oppure, se una cartella con
 quel nome esiste già, dirige l'output in @var{CARTELLA}, prendendo il nome
 del file dal file di input.  In entrambi i casi verrà aggiunto il suffisso
 appropriato (ad esempio @code{.pdf} per il pdf).
+
+@item -O, --pspdfopt
+@cindex pspdfopt
+
+Se non si usa pspdfopt o se si usa il parametro @w{@code{size}},
+lilypond cercherà di generare un documento PS/EPS/PDF molto piccolo.
+
+Se si usa il parametro @w{@code{TeX}}, lilypond produrrà file ottimizzati
+per l'inclusione in documenti PdfTeX, LuaTeX o XeTeX.
+
+Se si desidera includere più di un PDF generato da lilypond in un documento TeX,
+usare @w{@code{TeX-GS}} e rielaborare il PDF generato da TeX con ghostscript.
 
 @cindex PS (Postscript), output
 @cindex Postscript (PS), output
@@ -507,6 +498,12 @@ che sia stata definita la funzione @code{clip-regions} all'interno del blocco
 @code{\layout}.  Maggiori informazioni in @ruser{Estrarre frammenti musicali}.
 Nessun frammento verrà estratto se questa opzione è usata insieme
 all'opzione @option{-dno-print-pages}.
+
+@item @code{crop}
+@tab @code{#f}
+@c traduzione libera
+@tab Comprime la musica e le intestazioni in file di output di
+una sola pagina senza margini.
 
 @item @code{datadir}
 @tab
@@ -676,7 +673,7 @@ Per impedire il normale output, si usano le opzioni @option{-dprint-pages} o
 @item @code{print-pages}
 @tab @code{#t}
 @tab Genera le pagine complete (predefinito).  @option{-dno-print-pages} è
-utile in combinazione con @option{-dpreview}.
+utile in combinazione con @option{-dpreview} o @option{-dcrop}.
 
 @item @code{profile-property-accesses}
 @tab @code{#f}
@@ -1243,7 +1240,10 @@ naturale (quando le note di @code{\voiceThree} sono più alte di quelle di
 @code{\voiceOne}, etc.)
 
 @seealso
+Manuale di apprendimento:
 @rlearning{Definire esplicitamente le voci},
-@rlearning{Esempio musicale},
+@rlearning{Esempio musicale}.
+
+Guida alla notazione:
 @ruser{Polifonia su un solo rigo},
 @ruser{Risoluzione delle collisioni}.

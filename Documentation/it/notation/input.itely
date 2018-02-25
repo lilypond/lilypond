@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 1e5c6b0f54079eb3285dcc4c7e53f17d8bb03933
+    Translation of GIT committish: e11c5effe2c19d8a551a8d51dc58842ab18af951
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2872,20 +2872,62 @@ E alcune battute di musica che usa i glifi Feta di LilyPond:
 
 @sourceimage{Gonville_before,15cm,,}
 
-@subsubheading Instruzioni di installazione per MacOS
+@subsubheading Instruzioni di installazione
 
-Scaricare e estrarre il file zip.  Copiare la directory @code{lilyfonts}
-in @file{@var{SHARE_DIR}/lilypond/current}; maggiori informazioni si
-trovano in @rlearning{Altre fonti di informazione}.  Rinominare la
-directory esistente @code{fonts} come @code{fonts_orig} e la directory
-@code{lilyfonts} come @code{fonts}.  Per tornare a Feta, fare il contrario.
+Scaricare e estrarre i file dei font.
+Copiare i file
+@file{gonville-11.otf},
+@file{gonville-13.otf},
+@file{gonville-14.otf},
+@file{gonville-16.otf},
+@file{gonville-18.otf},
+@file{gonville-20.otf},
+@file{gonville-23.otf},
+@file{gonville-26.otf} e @file{gonville-brace.otf}
+in @file{@dots{}/share/lilypond/current/fonts/otf} o
+@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/otf}.
+Se sono presenti file @file{gonville-*.svg} e @file{gonville-*.woff},
+copiarli in @file{@dots{}/share/lilypond/current/fonts/svg} o
+@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/svg}.
+Maggiori informazioni in @rlearning{Altre fonti di informazione}.
+
+Nota: i file @file{gonville-*.otf} sono utilizzati dal backend
+@code{ps} e @code{eps} (per la creazione di file PDF e PostScript).
+I file @file{gonville-*.svg} sono utilizzati dal backend
+@code{svg} quando non è attiva l'opzione @code{svg-woff}.
+I file @file{gonville-*.woff} sono utilizzati dal backend
+@code{svg} quando è attiva l'opzione @code{svg-woff}.
+Maggiori informazioni in @rprogram{Opzioni avanzate della linea di comando per LilyPond}.
+
+La sintassi seguente imposta il font Gonville come font della notazione
+(generale e delle parentesi).
+
+@example
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     #:music "gonville"
+     #:brace "gonville"
+   ))
+@}
+@end example
+
+Nota: ogni chiamata della funzione @code{set-global-fonts} reimposta completamente
+i font sia della notazione principale che del testo. Se una categoria non è
+specificata, allora verrà usato il font predefinito per quella categoria.
+Ogni chiamata di @code{set-global-fonts} cambia i font di ciascun blocco
+@code{\book} che la segue, sia esso creato esplicitamente o implicitamente.
+Ciò significa che ogni blocco @code{\book} può avere il suo insieme di font
+principali usando @code{set-global-fonts} prima di esso.
+Maggiori informazioni in @ref{Tipi di carattere per l'intero documento}.
 
 @seealso
 Manuale di apprendimento:
 @rlearning{Altre fonti di informazione}.
 
 Guida alla notazione:
-@ref{Il font Emmentaler}.
+@ref{Il font Emmentaler},
+@ref{Tipi di carattere per l'intero documento}.
 
 @knownissues
 Gonville non può essere usato per scrivere notazione in @q{musica antica}
@@ -2893,6 +2935,46 @@ ed è probabile che i nuovi glifi introdotti in rilasci successivi di
 LilyPond non esistano in Gonville.  Fare riferimento al sito web dell'autore
 per maggiori informazioni su queste e altre problematiche, inclusa la
 licenza di Gonville.
+
+
+@subsubheading Altri font della notazione
+
+Se si hanno altri font della notazione come @file{@var{nomefont}-*.otf},
+@file{@var{nomefont}-*.svg} e @file{@var{nomefont}-*.woff},
+si possono usare nello stesso modo che abbiamo visto con Gonville.
+
+Ovvero si copiano i file
+@file{@var{nomefont}-*.otf}
+in @file{@dots{}/share/lilypond/current/fonts/otf} o
+@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/otf}.
+E i file @file{@var{nomefont}-*.svg} e @file{@var{nomefont}-*.woff}, se
+presenti, in @file{@dots{}/share/lilypond/current/fonts/svg} o
+@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/svg}.
+
+Nota: per il momento, LilyPond richiede che i nomi dei file dei font abbiano
+i seguenti suffissi, che devono essere tutti presenti nelle cartelle di
+installazione menzionate sopra perché possa funzionare correttamente:
+@file{-11}, @file{-13}, @file{-14}, @file{-16},
+@file{-18}, @file{-20}, @file{-23}, @file{-26}, @file{-brace}.
+Per esempio, @file{emmentaler-11.otf}, @file{emmentaler-20.svg}
+e @file{emmentaler-brace.woff}, etc.
+
+La sintassi seguente imposta il font @var{nomefont} come font della notazione
+(generale e delle parentesi).
+
+@example
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     #:music "@var{fontname}" ; nome del file del font senza suffisso né estensione
+     #:brace "@var{fontname}" ; nome del file del font senza suffisso né estensione
+   ))
+@}
+@end example
+
+Nota: per le categorie @code{music} e @code{brace}, specificare il nome del
+file del font senza suffisso né estensione.
+
 
 
 @node Creazione dell'output MIDI

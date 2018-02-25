@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 640edfbe2c332ccd7ddedc819106d001eed51c76
+    Translation of GIT committish: a089ca62fd9b3770a932061207262fe81063dc56
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1206,7 +1206,7 @@ completa di questi simboli e dei loro nomi si trova in
 @end lilypond
 
 Un altro modo per stampare glifi non testuali è descritto in
-@ref{Fonts explained}.  È utile per stampare parentesi di varie
+@ref{Tipi di carattere in dettaglio}.  È utile per stampare parentesi di varie
 dimensioni.
 
 La modalità markup supporta anche i diagrammi per strumenti specifici:
@@ -1262,7 +1262,7 @@ in @ref{Music}.
 Guida alla notazione:
 @ref{Music},
 @ref{Il font Emmentaler},
-@ref{Fonts explained}.
+@ref{Tipi di carattere in dettaglio}.
 
 File installati:
 @file{scm/define-markup-commands.scm},
@@ -1471,7 +1471,7 @@ c''4^smaller
 @noindent
 Una sintassi simile si usa nella modalità markup; tuttavia in questo
 caso è preferibile usare la sintassi più semplice spiegata in
-@ref{Selecting font and font size}:
+@ref{Scelta del tipo di carattere e della dimensione}:
 
 @lilypond[quote,verbatim]
 \markup {
@@ -1534,14 +1534,15 @@ consultabile qui:
 
 Sebbene sia semplice passare a un tipo di carattere preconfigurato, è anche
 possibile usare altri tipi, come viene spiegato nelle sezioni successive:
-@ref{Single entry fonts} e @ref{Tipi di carattere per l'intero documento}.
+@ref{Tipi di carattere per singolo oggetto} e
+@ref{Tipi di carattere per l'intero documento}.
 
 @seealso
 Guida alla notazione:
 @ref{Il font Emmentaler},
 @ref{Music notation inside markup},
 @ref{Rotating objects},
-@ref{Selecting font and font size},
+@ref{Scelta del tipo di carattere e della dimensione},
 @ref{Font}.
 
 
@@ -1585,7 +1586,7 @@ lilypond -dshow-available-fonts x
 
 @seealso
 Guida alla notazione:
-@ref{Fonts explained},
+@ref{Tipi di carattere in dettaglio},
 @ref{Tipi di carattere per l'intero documento}.
 
 Frammenti:
@@ -1604,9 +1605,9 @@ Frammenti:
 famiglie @emph{roman}, @emph{sans} e @emph{typewriter} specificandoli, in questo
 ordine, come è mostrato nell'esempio seguente, che ridimensiona automaticamente
 i caratteri col valore impostato per la dimensione globale del rigo.  In modo
-analogo a @ref{Single entry fonts}, si può indicare con una lista separata da
+analogo a @ref{Tipi di carattere per singolo oggetto}, si può indicare con una lista separata da
 virgole di @q{font}. Gli @q{stili} dei font, invece, non possono essere
-definiti.  I tipi di carattere  sono spiegati in @ref{Fonts explained}.
+definiti.  I tipi di carattere  sono spiegati in @ref{Tipi di carattere in dettaglio}.
 
 @cindex famiglie di tipi di carattere, impostare
 @cindex tipi di carattere, modificarli per l'intero documento
@@ -1630,12 +1631,89 @@ definiti.  I tipi di carattere  sono spiegati in @ref{Fonts explained}.
 }
 @end lilypond
 
+Nota: @code{make-pango-font-tree} reimposta i font della notazione sui
+predefiniti Emmentaler.
+
 @c we don't do Helvetica / Courier, since GS incorrectly loads
 @c Apple TTF fonts
 
+La sintassi seguente permette di cambiare font specifici, lasciando gli
+altri ai valori predefiniti.  L'esempio seguente produce lo stesso risultato
+dell'esempio precedente di @code{make-pango-font-tree}.
+Come con  @code{make-pango-font-tree}, è possibile specificare un elenco
+separato da virgola di @qq{font} per le categorie @code{roman}, @code{sans}
+e @code{typewriter}.
+Se non si cambia la dimensione del rigo dal valore predefinito di 20 pt,
+@code{#:factor (/ staff-height pt 20)} non è necessario.
+
+@funindex set-global-fonts
+
+@example
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     #:roman "Times New Roman"
+     #:sans "Nimbus Sans,Nimbus Sans L"
+     #:typewriter "Luxi Mono"
+     #:factor (/ staff-height pt 20) ; non necessario se la dimensione del rigo è predefinita
+    ))
+@}
+@end example
+
+È possibile specificare anche i font della notazione.
+Il prossimo esempio ha anch'esso lo stesso risultato degli esempi precedenti,
+perché imposta i font della notazione predefiniti.
+Maggiori informazioni in @ref{Cambiare il tipo di carattere della notazione}.
+
+@example
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     #:music "emmentaler"            ; predefinito
+     #:brace "emmentaler"            ; predefinito
+     #:roman "Times New Roman"
+     #:sans "Nimbus Sans,Nimbus Sans L"
+     #:typewriter "Luxi Mono"
+     #:factor (/ staff-height pt 20) ; non necessario se la dimensione del rigo è predefinita
+    ))
+@}
+@end example
+
+Nota: ogni chiamata della funzione @code{set-global-fonts} reimposta completamente
+i font sia della notazione principale che del testo. Se una categoria non è
+specificata, allora verrà usato il font predefinito per quella categoria.
+Ogni chiamata di @code{set-global-fonts} cambia i font di ciascun blocco
+@code{\book} che la segue.
+Se ci sono molteplici blocchi @code{\book} e si vogliono usare font diversi
+per ciascuno, basta ripetere @code{set-global-fonts}, in questo modo:
+
+@example
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     @dots{}
+    ))
+@}
+\book @{
+  @dots{}
+@}
+
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     @dots{}
+    ))
+@}
+\book @{
+  @dots{}
+@}
+@end example
+
+
 @seealso
 Guida alla notazione:
-@ref{Fonts explained},
-@ref{Single entry fonts},
-@ref{Selecting font and font size},
-@ref{Font}.
+@ref{Tipi di carattere in dettaglio},
+@ref{Tipi di carattere per singolo oggetto},
+@ref{Scelta del tipo di carattere e della dimensione},
+@ref{Font},
+@ref{Cambiare il tipo di carattere della notazione}.
