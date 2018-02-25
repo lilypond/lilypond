@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 18d03fa6a724b0102ccc47d194209802cea02f2e
+    Translation of GIT committish: 166e0662dbd7dc11dc2ff968c13ace01d6a3c010
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -55,13 +55,18 @@ travature e le battute.
 @funindex \breve
 @funindex \maxima
 
-Le durate, indicate con numeri e punti, sono indicate con i
-valori corrispondenti.  Per esempio, una nota di un quarto si indica con un
-@code{4} (dato che il suo valore è un 1/4), mentre una minima si indica
-col @code{2} (dato che il suo valore è 1/2).  Per le note più lunghe
-di un intero bisogna usare i comandi @code{\longa} (due volte una
-breve) e @code{\breve}. La minor durata esprimibile per una nota indipendente è di 128; è possibile inserire anche valori inferiori, ma solo all'interno
-di travature.
+Le durate delle note si inseriscono usando numeri e punti.  Il numero è basato
+sul valore reciproco della lunghezza della nota.  Per esempio, una nota di un
+quarto si indica col valore numerico di @code{4} perché il suo valore è 1/4,
+mentre una minima si indica col @code{2}, la croma con l'@code{8} e così via.
+La minor durata esprimibile per una nota indipendente è di @code{128}; è
+possibile inserire anche valori inferiori, ma solo all'interno di travature.
+Vedi anche @ref{Travature}.
+
+Per le note più lunghe di un intero si usano i comandi @code{\longa} (due volte
+una breve) e @code{\breve}.  Solo nella notazione per musica antica è possibile
+specificare una nota che dura quattro volte una breve, attraverso il comando
+@code{\maxima}.  Vedi @ref{Ancient notation}.
 
 @c Two 64th notes are needed to obtain beams
 @lilypond[quote,verbatim]
@@ -85,15 +90,13 @@ Ecco gli stessi valori con la disposizione automatica delle travature disabilita
 }
 @end lilypond
 
-Solo nella notazione per musica antica è possibile specificare una nota che
-dura quattro volte una breve, attraverso il comando @code{\maxima}.  Per maggiori
-informazioni si veda @ref{Ancient notation}.
-
 @cindex durata predefinita
 @cindex nota, durata predefinita
+@cindex durata isolata
+@cindex isolata, durata
 
-Se una durata viene omessa, viene mantenuta quella  precedente.  Il valore
-predefinito della prima nota è di un quarto.
+Le durate isolate, ovvero le durate prive di altezza, in una sequenza musicale
+prenderanno la loro altezza dalla nota o accordo precedenti.
 
 @lilypond[quote,verbatim]
 \relative { a' a a2 a a4 a a1 a }
@@ -109,6 +112,21 @@ Le durate isolate prendono l'altezza dalla nota o accordo precedenti.
 }
 @end lilypond
 
+@cindex altezze predefinite
+@cindex predefinite, altezze
+@cindex nota, altezza predefinita
+@cindex altezza isolata
+@cindex isolata, altezza
+
+Le altezze isolate, ovvero le altezze prive di durata, in una sequenza musicale
+prenderanno la loro durata dalla nota o accordo precedenti.  Se non c'è alcuna
+durata precedente, il valore predefinito è sempre @code{4}, una nota di
+un quarto.
+
+@lilypond[quote,verbatim]
+\relative { a' a a2 a a4 a a1 a }
+@end lilypond
+
 @cindex note puntate
 @cindex punto, note
 @cindex note doppiamente puntate
@@ -116,32 +134,31 @@ Le durate isolate prendono l'altezza dalla nota o accordo precedenti.
 
 @funindex .
 
-Per ottenere note puntate, si inserisce un punto (@code{.}) dopo la
-durata.  Le figure con doppio punto si indicano aggiungendo due
-punti, e così via.
+Inserire un punto (@code{.}) dopo la durata per ottenere note @qq{puntate}.  Le
+figure con doppio punto si indicano aggiungendo due punti, e così via.
 
 @lilypond[quote,verbatim]
 \relative { a'4 b c4. b8 a4. b4.. c8. }
 @end lilypond
 
-Alcune durate non possono essere rappresentate soltanto con
-durate e punti; occorre inserire una legatura di valore tra
-due o più note.  I dettagli sono spiegati in @ref{Ties}.
-
-Per sapere come specificare le durate delle sillabe del testo e
-come allineare il testo alle note, si veda @ref{Vocal music}.
-
-Le note possono essere distanziate in modo rigorosamente proporzionale
-alla loro durata.  I dettagli relativi a questo argomento e alle impostazioni
-della notazione proporzionale si trovano in @ref{Proportional notation}.
-
 @funindex \dotsUp
 @funindex \dotsDown
 @funindex \dotsNeutral
 
-Di norma i punti sono spostati in su per evitare le linee del rigo, fuorché all'interno
-di passaggi polifonici.  I punti possono essere orientati manualmente verso l'alto
-o verso il basso; si veda @ref{Direzione e posizionamento}.
+Per evitare collisioni con le linee del rigo, di norma i punti delle note sono
+spostati in su.  Tuttavia all'interno di passaggi polifonici possono essere
+posizionati manualmente, sopra o sotto il rigo a seconda delle necessità.
+Vedi @ref{Direzione e posizionamento}.
+
+Alcune durate non possono essere rappresentate usando solo durate e punti
+ma soltanto tramite legature di valore tra due o più note.  Vedi
+@ref{Legature di valore}.
+
+Per sapere come specificare durate che allineino le sillabe del testo
+alle note, si veda @ref{Musica vocale}.
+
+Le note possono essere distanziate in modo proporzionale alla loro durata.
+Vedi @ref{Notazione proporzionale}.
 
 
 @predefined
@@ -170,14 +187,14 @@ Glossario musicale:
 @rglosnamed{Duration names notes and rests,Nomi di durata delle note e delle pause}.
 
 Guida alla notazione:
-@ref{Travature automatiche},
-@ref{Ties},
-@ref{Stems},
-@ref{Writing rhythms},
-@ref{Writing rests},
-@ref{Vocal music},
+@ref{Travature},
+@ref{Legature di valore},
+@ref{Gambi},
+@ref{Inserimento delle durate},
+@ref{Inserimento delle pause},
+@ref{Musica vocale},
 @ref{Ancient notation},
-@ref{Proportional notation}.
+@ref{Notazione proporzionale}.
 
 Frammenti di codice:
 @rlsr{Rhythms}.
@@ -189,8 +206,8 @@ Guida al funzionamento interno:
 @knownissues
 @c Deliberately duplicated in Durations and Rests.  -gp
 Non c'è un limite massimo o minimo alla durata di una pausa, ma è
-il numero dei glifi ad essere limitato: si possono indicare pause da un
-centoventottesimo fino alla maxima (otto volte una semibreve).
+il numero dei glifi ad essere limitato, dunque si possono indicare
+pause comprese tra @code{128} e @code{\maxima}.
 
 
 @node Gruppi irregolari
@@ -957,6 +974,9 @@ non apparire i relativi avvertimenti del controllo battuta.
 
 @cindex pausa ecclesiastica
 @cindex kirchenpausen
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{multi-measure-rest-length-control.ly}
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-form-of-multi-measure-rests.ly}
