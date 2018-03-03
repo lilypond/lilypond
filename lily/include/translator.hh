@@ -224,10 +224,4 @@ SCM get_translator_creator (SCM s);
 Moment get_event_length (Stream_event *s, Moment now);
 Moment get_event_length (Stream_event *s);
 
-/*
-  This helper is only meaningful inside listen_* methods.
-*/
-extern bool internal_event_assignment (Stream_event **old_ev, Stream_event *new_ev, const char *function);
-#define ASSIGN_EVENT_ONCE(o,n) internal_event_assignment (&o, n, __FUNCTION__)
-
 #endif // TRANSLATOR_HH

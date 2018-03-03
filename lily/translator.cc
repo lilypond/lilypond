@@ -22,7 +22,6 @@
 #include "context-def.hh"
 #include "dispatcher.hh"
 #include "global-context.hh"
-#include "international.hh"
 #include "translator-group.hh"
 #include "warn.hh"
 
@@ -264,41 +263,6 @@ get_event_length (Stream_event *e, Moment now)
       len.main_part_ = Rational (0);
     }
   return len;
-}
-
-/*
-  Helper, used through ASSIGN_EVENT_ONCE to throw warnings for
-  simultaneous events. The helper is only useful in listen_* methods
-  of translators.
-*/
-bool
-internal_event_assignment (Stream_event **old_ev, Stream_event *new_ev, const char *function)
-{
-  if (*old_ev
-      && !to_boolean (scm_equal_p ((*old_ev)->self_scm (),
-                                   new_ev->self_scm ())))
-    {
-      /* extract event class from function name */
-      string ev_class = function;
-
-      /* This assertion fails if EVENT_ASSIGNMENT was called outside a
-         translator listener. Don't do that. */
-      const char *prefix = "listen_";
-      assert (0 == ev_class.find (prefix));
-
-      /* "listen_foo_bar" -> "foo-bar" */
-      ev_class.erase (0, strlen (prefix));
-      replace_all (&ev_class, '_', '-');
-
-      new_ev->origin ()->warning (_f ("Two simultaneous %s events, junking this one", ev_class.c_str ()));
-      (*old_ev)->origin ()->warning (_f ("Previous %s event here", ev_class.c_str ()));
-      return false;
-    }
-  else
-    {
-      *old_ev = new_ev;
-      return true;
-    }
 }
 
 // Base class.  Not instantiated.  No ADD_TRANSLATOR call.
