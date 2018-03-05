@@ -145,11 +145,11 @@ book が複数の score を含む場合も、すべての score に適用され�
 で説明します。@c
 ページ レイアウトを扱う @code{\paper} 変数は後のセクションで説明します。@c
 ヘッダ、フッタ、それにタイトルを扱うマークアップ定義は
-@ref{カスタム ヘッダ、フッタ、タイトル} で説明します。
+@ref{カスタム タイトル、ヘッダ、フッタ} で説明します。
 
 たいていの @code{\paper} 変数は @code{\paper} ブロック内でのみ機能します。@c
 @code{\layout} ブロック内でも機能するいくつかの @code{\paper} 変数を@c
-@ref{\layout ブロック} でリスト アップしています。
+@ref{layout ブロック,,@code{@bs{}layout} ブロック} でリスト アップしています。
 
 ページの長さに関係する @code{\paper} 変数の単位は、@c
 ユーザによって他の単位が指定されていなければ、@c
@@ -190,8 +190,8 @@ Scheme を用いて @code{\paper} の値を定義することも可能です。@
 @seealso
 記譜法リファレンス:
 @ref{紙面サイズと自動拡縮},
-@ref{カスタム ヘッダ、フッタ、タイトル},
-@ref{\layout ブロック}
+@ref{カスタム タイトル、ヘッダ、フッタ},
+@ref{layout ブロック,,@code{@bs{}layout} ブロック}
 
 インストールされているファイル:
 @file{ly/paper-defaults-init.ly}
@@ -1056,14 +1056,14 @@ increased by one.  Default: @code{#f}.
 楽譜レイアウト オプションについて説明します。
 
 @menu
-* \layout ブロック::
+* layout ブロック::
 * 譜サイズを設定する::
 @end menu
 
 
-@node \layout ブロック
-@subsection @code{\layout} ブロック
-@translationof The \layout block
+@node layout ブロック
+@subsection @code{@bs{}layout} ブロック
+@translationof The layout block
 
 @funindex \layout
 
