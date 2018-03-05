@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: d5647c5fd1c38d4124d2374725b923f4901f3661
+    Translation of GIT committish: 89bfaa4d13b036691e7e0ece78558a0af4d813d3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -39,16 +39,16 @@ LilyPond の入力の主となるフォーマットはテキスト ファイル�
 習慣として、それらのファイルの最後には @file{.ly} を付けます。
 
 @menu
-* score の構造::
-* book の中にある複数の score::
+* スコアの構造::
+* ブックの中にある複数のスコア::
 * 1 つの入力ファイルから複数の出力ファイルを生成する::
 * 出力ファイル名::
 * ファイル構造::
 @end menu
 
 
-@node score の構造
-@subsection score の構造
+@node スコアの構造
+@subsection スコアの構造
 @translationof Structure of a score
 
 @funindex \score
@@ -58,7 +58,7 @@ LilyPond の入力の主となるフォーマットはテキスト ファイル�
 
 @example
 \score @{
-...
+  @dots{}
 @}
 @end example
 
@@ -105,7 +105,7 @@ LilyPond の入力の主となるフォーマットはテキスト ファイル�
 
 この一般規則の例外の 1 つにコメントがあります。@c
 (他の例外は、@ref{File structure} を参照してください。)@c
-単一行コメントと複数行コメント (@code{%@{ .. %@}} で囲まれます) は@c
+単一行コメントと複数行コメント (@code{%@{ @dots{} %@}} で囲まれます) は@c
 どちらも入力ファイルの任意の場所に配置することができます。@c
 コメントは @code{\score} ブロックの内側あるいは外側に@c
 配置することができ、@code{\score} ブロックの中にある単一の音楽表記の@c
@@ -131,8 +131,8 @@ LilyPond の入力の主となるフォーマットはテキスト ファイル�
 @rlearning{Score is a (single) compound musical expression}
 
 
-@node book の中にある複数の score
-@subsection book の中にある複数の score
+@node ブックの中にある複数のスコア
+@subsection ブックの中にある複数のスコア
 @translationof Multiple scores in a book
 
 @funindex \book
@@ -145,7 +145,7 @@ LilyPond の入力の主となるフォーマットはテキスト ファイル�
 
 @example
 \score @{
-  @var{..music..}
+  @var{@dots{}music@dots{}}
 @}
 @end example
 
@@ -153,7 +153,7 @@ LilyPond の入力の主となるフォーマットはテキスト ファイル�
 
 @example
 \markup @{
-  @var{..text..}
+  @var{@dots{}text@dots{}}
 @}
 @end example
 
@@ -164,13 +164,13 @@ LilyPond の入力の主となるフォーマットはテキスト ファイル�
 
 @example
 \score @{
-  @var{..}
+  @var{@dots{}}
 @}
 \markup @{
-  @var{..}
+  @var{@dots{}}
 @}
 \score @{
-  @var{..}
+  @var{@dots{}}
 @}
 @end example
 
@@ -182,7 +182,7 @@ lilypond-book ドキュメントでは、明示的に @code{\book} ブロック�
 
 音楽の各節のヘッダはその節の @code{\score} ブロックの中に置くことができます。@c
 そのヘッダからの @code{piece} 名がそれぞれの楽章の前に譜刻されます。@c
-book 全体のタイトルは @code{\book} の中に置くことができます。@c
+ブック全体のタイトルは @code{\book} の中に置くことができます。@c
 しかしながら、@code{\book} が存在しない場合は、@code{\header} を@c
 入力ファイルの先頭に挿入します。
 
@@ -196,10 +196,10 @@ book 全体のタイトルは @code{\book} の中に置くことができます�
   \header @{ piece = "Romanze" @}
 @}
 \markup @{
-   ..text of second verse..
+   @dots{}text of second verse@dots{}
 @}
 \markup @{
-   ..text of third verse..
+   @dots{}text of third verse@dots{}
 @}
 \score @{
   @dots{}
@@ -210,9 +210,9 @@ book 全体のタイトルは @code{\book} の中に置くことができます�
 @funindex \bookpart
 
 @code{\bookpart} ブロックを用いて、
-複数の楽曲を book のパートとしてグループ化することができます。
+複数の楽曲をブックのパートとしてグループ化することができます。
 
-book パートは改ページで区切られ、book 自体と同様に
+ブック パートは改ページで区切られ、ブック自体と同様に
 @code{\header} ブロックによりタイトルを持つことができます。
 
 @example
@@ -260,15 +260,15 @@ LilyPond は、@code{\book} ブロックが作り出す出力ファイルが@c
 @example
 \book @{
   \score @{ @dots{} @}
-  \layout @{ @dots{} @}
+  \paper @{ @dots{} @}
 @}
 \book @{
   \score @{ @dots{} @}
-  \layout @{ @dots{} @}
+  \paper @{ @dots{} @}
 @}
 \book @{
   \score @{ @dots{} @}
-  \layout @{ @dots{} @}
+  \paper @{ @dots{} @}
 @}
 @end example
 
@@ -309,17 +309,17 @@ LilyPond がどのように単一のソース ファイルから作り出され�
 \book @{
   \bookOutputSuffix "Romanze"
   \score @{ @dots{} @}
-  \layout @{ @dots{} @}
+  \paper @{ @dots{} @}
 @}
 \book @{
   \bookOutputSuffix "Menuetto"
   \score @{ @dots{} @}
-  \layout @{ @dots{} @}
+  \paper @{ @dots{} @}
 @}
 \book @{
   \bookOutputSuffix "Nocturne"
   \score @{ @dots{} @}
-  \layout @{ @dots{} @}
+  \paper @{ @dots{} @}
 @}
 @end example
 
@@ -331,17 +331,17 @@ LilyPond がどのように単一のソース ファイルから作り出され�
 \book @{
   \bookOutputName "Romanze"
   \score @{ @dots{} @}
-  \layout @{ @dots{} @}
+  \paper @{ @dots{} @}
 @}
 \book @{
   \bookOutputName "Menuetto"
   \score @{ @dots{} @}
-  \layout @{ @dots{} @}
+  \paper @{ @dots{} @}
 @}
 \book @{
   \bookOutputName "Nocturne"
   \score @{ @dots{} @}
-  \layout @{ @dots{} @}
+  \paper @{ @dots{} @}
 @}
 @end example
 
@@ -379,7 +379,7 @@ LilyPond がどのように単一のソース ファイルから作り出され�
 最上位に同じタイプの出力定義が複数ある場合は組み合わされますが、@c
 衝突した場合は後ろの方にある出力定義が優先されます。@c
 出力定義が @code{\layout} ブロックにどのような影響を与えるかの詳細は
-@ref{The \layout block} を参照してください。
+@ref{layout ブロック,,@code{@bs{}layout} ブロック} を参照してください。
 
 
 @item
@@ -387,17 +387,21 @@ LilyPond がどのように単一のソース ファイルから作り出され�
 @code{#(ly:set-option 'point-and-click #f)} などの Scheme 表記。
 
 @item
-@code{\header} ブロック。これはグローバル ヘッダ ブロックになります。@c
-このブロックは、作曲者、曲名などのブック全体の設定定義を保持します。
+@code{\header} ブロック。これはグローバル (ファイル構造の最上位)
+ヘッダ ブロックになります。@c
+このブロックは、ファイル内にある全てのブックにおける、@c
+作曲者、曲名といったタイトル フィールドのデフォルト設定を持ちます
+(@ref{Titles explained}を参照してください)。
 
 @item
 @code{\score} ブロック。@c
-この score は他の最上位の score とともに単一の @code{\book} にまとめられます。@c
+このスコアは他の最上位のスコアとともに単一の @code{\book} にまとめられます。@c
 この振る舞いは、@c
 変数 @code{toplevel-score-handler} を最上位の階層で設定することによって、@c
 変更することができます。@c
-デフォルトのハンドラは@c
-初期化ファイル @file{../scm/lily.scm} で定義されています。
+(デフォルトのハンドラは@c
+ファイル @file{../scm/lily-library.scm} で定義され、@c
+@file{../ly/declarations-init.ly} でセットされています。)
 
 @item
 @code{\book} ブロックは複数の楽章 (すなわち、複数の @code{\score} ブロック) を@c
@@ -421,7 +425,7 @@ LilyPond がどのように単一のソース ファイルから作り出され�
 @code{\bookpart} ブロック。@c
 改ページを簡単にするため、@c
 あるいは異なるパートで別々の @code{\paper} 設定を使用するために、@c
-book は
+ブックは
 -- @code{\bookpart} を用いて --
 いくつかのパートに分割される可能性があります。
 
@@ -468,7 +472,7 @@ book は
 @end example
 
 マークアップ テキストは、それが出現した場所で、@c
-score あるいは音楽表記の上、間、あるいは下に描かれます。
+スコアあるいは音楽表記の上、間、あるいは下に描かれます。
 
 @cindex variables (変数)
 
@@ -512,7 +516,7 @@ foo = @{ c4 d e d @}
 @code{%} 記号で始まる単一行コメント。
 
 @item
-@code{%@{ .. %@}} で囲まれる複数行コメント。
+@code{%@{ @dots{} %@}} で囲まれる複数行コメント。
 
 @end itemize
 
@@ -528,11 +532,7 @@ foo = @{ c4 d e d @}
 @item Scheme 表記として解釈される要素
 -- すなわち、@code{#} 記号で始まる要素 -- の後。
 @item Scheme 表記要素を区切る空白。
-@item @code{lyricmode} モードの @code{\override} と @code{\set} コマンドの@c
-中にある単語を区切る空白。@c
-特に、@code{\override Score.LyricText.font-size = #5} のように、@c
-コマンドの中のドットとイコール記号の前後、コマンド全体の前後に@c
-空白を挿入することを忘れないで下さい。
+@item @code{lyricmode} 中にある @code{\set} と @code{\override} コマンドの前後。
 
 @end itemize
 
@@ -541,19 +541,25 @@ foo = @{ c4 d e d @}
 @rlearning{How LilyPond input files work}
 
 記譜法リファレンス:
-@ref{The \layout block}
+@ref{Titles explained},
+@ref{layout ブロック,,@code{@bs{}layout} ブロック}
 
 
 @node タイトルとヘッダ
 @section タイトルとヘッダ
 @translationof Titles and headers
 
+@cindex titles (タイトル)
+@cindex headers (ヘッダ)
+@cindex footers (フッタ)
+
 ほとんどすべての楽譜にはタイトルと作曲者名が含まれます。@c
 楽譜の中にはさらに多くの情報を含むものもあります。
 
 @menu
 * タイトル、ヘッダ、フッタを作成する::
-* カスタム ヘッダ、フッタ、タイトル::
+* カスタム タイトル、ヘッダ、フッタ::
+* 出力ファイルのメタデータを作成する::
 * 脚注を作成する::
 * ページ番号の参照::
 * 目次::
@@ -565,29 +571,105 @@ foo = @{ c4 d e d @}
 @translationof Creating titles headers and footers
 
 @menu
-* タイトル ブロックの説明::
-* book と score のタイトル ブロックのデフォルト レイアウト::
-* ヘッダとフッタのデフォルト レウアウト::
+* タイトルの説明::
+* ブック パートとスコアのタイトルのデフォルト レイアウト::
+* ヘッダとフッタのデフォルト レイアウト::
 @end menu
 
-@node タイトル ブロックの説明
-@unnumberedsubsubsec タイトル ブロックの説明
-@translationof Title blocks explained
+@node タイトルの説明
+@unnumberedsubsubsec タイトルの説明
+@translationof Titles explained
 
-@c TODO: figure out how \bookpart titles work
+1 つの入力ファイルにある各 @code{\book} ブロックは、別々の出力ファイルを@c
+作り出します。@ref{File structure} を参照してください。出力ファイルごとに
+3 種類のタイトル エリアが提供されています: 各ブックの最初にある@c
+@emph{ブック タイトル}、各ブック パートの最初にある@c
+@emph{ブック パート タイトル}、各スコアの最初にある@emph{スコア タイトル}です。
 
-タイトル ブロックには 2 つのタイプがあります:
-book の最初の @code{\score} の上に表示されるメインのタイトル ブロックと、@c
-各 @code{\score} ブロック内に表示される個々のタイトル ブロックです。@c
-両タイプのテキスト フィールドは @code{\header} ブロックを用いて挿入します。
+@code{title} や @code{composer} のようなタイトル フィールドの値は
+@code{\header} ブロックでセットします (@code{\header} ブロックの@c
+構文や、デフォルトで使用可能なフィールドの完全なリストは、@c
+@ref{Default layout of bookpart and score titles} を参照してください)。@c
+ブック タイトル、ブック パート タイトル、スコア タイトルは同じフィールドを含む@c
+ことができますが、デフォルトではスコア タイトルに使用されるのは
+@code{piece} と @code{opus} に限られています。
 
-book が単一の score しか持たない場合、@c
-@code{\header} ブロックを配置する場所は @code{\score} ブロックの内側でも@c
-外側でも構いません。
+@code{\header} ブロックは、4 つの異なる場所に配置することができ、@c
+それぞれが階層構造を作り出します。
+
+@itemize
+
+@item
+入力ファイルの最初。つまり全ての @code{\book}, @code{\bookpart}, @code{\score}
+ブロックよりも前。
+
+@item
+@code{\book} ブロックの中だが、そのブックにある全ての @code{\bookpart} や
+@code{\score} ブロックよりも外側。
+
+@item
+@code{\bookpart} ブロックの中だが、そのブック パートにある全ての @code{\score}
+よりも外側。
+
+@item
+@code{\score} ブロックの中にあり、音楽表記の後。
+
+@end itemize
+
+それぞれのフィールドの値は、この階層に沿って上書きされます。@c
+高い階層にある値は、下の階層においてオーバライドされない限り保たれます。
+つまり:
+
+@itemize
+
+@item
+ブック タイトルはまず、入力ファイルの最初にあるフィールドから設定され、@c
+@code{\book} ブロック内でフィールドが定義されていた場合にはそれで@c
+上書きされます。最終的な値は、ブックの一番始め、つまり最初のブック パートの@c
+前に、ページを割くような何らかのものがある場合に、@c
+そのブックのブック タイトルを表示するために使われます。@c
+@code{\pageBreak} が 1 つあればブック タイトルは表示されるようになります。
+
+@item
+ブック パート タイトルはまず、入力ファイルの最初にあるフィールドから設定され、@c
+@code{\book} ブロック内でフィールドが定義されていた場合はそれで上書きされ、@c
+また @code{\bookpart} ブロック内で定義されていた場合には更に上書きされます。@c
+最終的な値は、そのブック パートのブック パート タイトルを表示するために@c
+使われます。
+
+@item
+スコア タイトルはまず、入力ファイルの最初にあるフィールドから設定され、@c
+@code{\book} ブロック内でフィールドが定義されていた場合はそれで上書きされ、@c
+@code{\bookpart} ブロック内で定義されていた場合には更に上書きされ、@c
+最後に @code{\score} ブロックで定義されていた場合にも上書きされます。@c
+最終的な値は、そのスコアのスコア タイトルを表示するために使われます。@c
+しかしスコア タイトルは、@code{\paper} 変数の
+@code{print-all-headers} が @code{#t} にセットされていない限り、@c
+@code{piece} と @code{opus} フィールドのみが表示されるということに注意@c
+してください。
+
+@end itemize
 
 @warning{@bs{}@code{score} ブロックの内側に @bs{}@code{header} ブロックを@c
-追加する場合、@c
-@bs{}@code{header} ブロックの前に音楽表記を配置する必要があります。}
+配置する場合、@c
+音楽表記は @bs{}@code{header} ブロックの前にある必要があります。}
+
+@code{\header} ブロックを 4 つの場所全てに配置する必要はありません。@c
+どれかを、あるいは全てを省略することができます。@c
+同様に、単純な入力ファイルでは、@code{\book} や @code{\bookpart} ブロックを@c
+省略することができ、その時にはコンパイル時に暗黙的に作成されます。
+
+ブックにスコアが 1 つだけある場合、@code{\header} ブロックは通常、@c
+ファイルの先頭に配置するべきです。こうすることで、ブック パート タイトルのみが@c
+生成され、全てのタイトル フィールドが使用できます。
+
+ブックにスコアが複数ある場合、@code{\header} ブロックの配置方法は@c
+出版のスタイルに応じていくつか考えられます。例えば、@c
+出版譜が同じ作曲家によるいくつかの楽曲を含む場合、まずファイルの先頭に
+@code{\header} ブロックを配置し、そこでブック タイトルと作曲家を指定して、@c
+次にそれぞれの @code{\score} ブロック内に @code{\header} ブロックを配置し、@c
+そこで @code{piece} や @code{opus} を指定するのが最適でしょう。@c
+以下に例を示します:
 
 @lilypond[papersize=a5,quote,verbatim,noragged-right]
 \header {
@@ -621,8 +703,9 @@ book が単一の score しか持たない場合、@c
 }
 @end lilypond
 
-book のメイン タイトル ブロックのテキスト フィールドはすべての @code{\score}
-ブロックに表示させることができ、手動で表示を抑制することもできます:
+更に複雑な配置をすることもできます。例えば、ブック内の @code{\header}
+ブロックにあるテキスト フィールドは全てのスコア タイトルに表示させることが@c
+でき、いくつかのフィールドを上書きしたり、手動で表示を抑制することもできます:
 
 @c KEEP LY
 @lilypond[papersize=a5,quote,verbatim,noragged-right]
@@ -633,7 +716,7 @@ book のメイン タイトル ブロックのテキスト フィールドはす
   \header {
     title = "DAS WOHLTEMPERIRTE CLAVIER"
     subtitle = "TEIL I"
-    % この book では tagline を表示しません
+    % このブックではデフォルトで LilyPond が生成するフッタを表示しません
     tagline = ##f
   }
   \markup { \vspace #1 }
@@ -645,7 +728,7 @@ book のメイン タイトル ブロックのテキスト フィールドはす
     \header {
       title = "PRAELUDIUM I"
       opus = "BWV 846"
-      % この score では subtitle を表示しません
+      % このスコアでは subtitle を表示しません
       subtitle = ##f
     }
   }
@@ -658,7 +741,7 @@ book のメイン タイトル ブロックのテキスト フィールドはす
       title = "FUGA I"
       subsubtitle = "A 4 VOCI"
       opus = "BWV 846"
-      % この score では subtitle を表示しません
+      % このスコアでは subtitle を表示しません
       subtitle = ##f
     }
   }
@@ -668,23 +751,18 @@ book のメイン タイトル ブロックのテキスト フィールドはす
 @seealso
 記譜法リファレンス:
 @ref{File structure},
-@ref{Custom layout for title blocks}
+@ref{Default layout of bookpart and score titles},
+@ref{タイトルのカスタム レイアウト}
 
 
-@node book と score のタイトル ブロックのデフォルト レイアウト
-@unnumberedsubsubsec book と score のタイトル ブロックのデフォルト レイアウト
-@translationof Default layout of book and score title blocks
+@node ブック パートとスコアのタイトルのデフォルト レイアウト
+@unnumberedsubsubsec ブック パートとスコアのタイトルのデフォルト レイアウト
+@translationof Default layout of bookpart and score titles
 
-タイトル ブロックのレイアウトとフォーマットは 2 つの @code{\paper}
-変数によって制御されます。@c
-メインの @code{\header} タイトル ブロックのための @code{bookTitleMarkup} と、@c
-@code{\score} 内部の個々の @code{\header} ブロックのための
-@code{scoreTitleMarkup} です。
-
-以下の例は @code{\header} のすべての変数の使用例です:
+以下の例は表示に反映される @code{\header} のすべての変数の使用例です:
 
 @c KEEP LY
-@lilypond[papersize=a7,quote,verbatim,noragged-right]
+@lilypond[papersize=a6landscape,quote,verbatim,noragged-right]
 \book {
   \header {
       % 以下のフィールドは中央揃えされます。
@@ -701,8 +779,10 @@ book のメイン タイトル ブロックのテキスト フィールドはす
     meter = "Meter"
     arranger = "Arranger"
       % 以下のフィールドは最下段の中央に配置されます
-    tagline = "tagline goes at the bottom of the last page"
-    copyright = "copyright goes at the bottom of the first page"
+      % tagline は最後のページの最下部に配置されます
+      % copyright は最初のページの最下部に配置されます
+    tagline = "The tagline goes at the bottom of the last page"
+    copyright = "The copyright goes at the bottom of the first page"
   }
   \score {
     { s1 }
@@ -739,7 +819,7 @@ book のメイン タイトル ブロックのテキスト フィールドはす
 楽器名は各ページに繰り返し表示されます。
 
 @item
-紙面変数 @code{print-all-headers} に @code{##f} がセットされている場合
+@code{\paper} 変数 @code{print-all-headers} に @code{##f} がセットされている場合
 (デフォルトの設定です)、@code{\score} には @code{piece} と @code{opus}
 だけが表示されます。
 
@@ -755,17 +835,23 @@ book のメイン タイトル ブロックのテキスト フィールドはす
 
 @end itemize
 
-デフォルトのレイアウトを変更するには @ref{Custom layout for title blocks}
+デフォルトのレイアウトを変更するには @ref{タイトルのカスタム レイアウト}
 を参照してください。
 
 @cindex breakbefore
 
-最上位の @code{\header} ブロックのタイトルを最初のページに配置して、@c
+@code{\book} ブロックが、すぐ後に @code{\bookpart} ブロックが来るような形で@c
+始まった場合、ブック タイトルを表示するためのページが存在しないため、
+ブック タイトルは表示されません。ブック タイトルが必要ならば、@c
+@code{\book} ブロックをマークアップや @code{\pageBreak} コマンドで開始して@c
+ください。
+
+より上位の @code{\header} ブロックのタイトルを最初のページに配置して、@c
 @code{\score} ブロックで定義される楽譜を次のページから始めるするには、@c
 @code{\score} ブロックの中にある @code{\header} ブロック内で@c
 @code{breakbefore} 変数を使用します。
 
-@lilypond[papersize=a8landscape,verbatim,noragged-right]
+@lilypond[papersize=c7landscape,verbatim,noragged-right]
 \book {
   \header {
     title = "This is my Title"
@@ -787,18 +873,18 @@ book のメイン タイトル ブロックのテキスト フィールドはす
 @rlearning{How LilyPond input files work}
 
 記譜法リファレンス:
-@ref{Custom layout for title blocks},
+@ref{タイトルのカスタム レイアウト},
 @ref{File structure}
 
 インストールされているファイル:
 @file{ly/titling-init.ly}
 
 
-@node ヘッダとフッタのデフォルト レウアウト
-@unnumberedsubsubsec ヘッダとフッタのデフォルト レウアウト
+@node ヘッダとフッタのデフォルト レイアウト
+@unnumberedsubsubsec ヘッダとフッタのデフォルト レイアウト
 @translationof Default layout of headers and footers
 
-@emph{ヘッダ} と @emph{フッタ} は、book のテキストとは別の、@c
+@emph{ヘッダ} と @emph{フッタ} は、ブックのテキストとは別の、@c
 ページの最初と最後に表示されるテキスト行です。@c
 ヘッダとフッタは以下の @code{\paper} 変数によって制御されます:
 
@@ -810,7 +896,7 @@ book のメイン タイトル ブロックのテキスト フィールドはす
 @end itemize
 
 これらのマークアップ変数は、最上位の @code{\header} ブロック
-(これは book のすべての score に適用されます) から、@c
+(これはブックのすべてのスコアに適用されます) から、@c
 テキスト フィールドのみにアクセスすることができ、@c
 @file{ly/titling-init.ly} で定義されています。@c
 デフォルトでは以下のようになっています:
@@ -834,18 +920,8 @@ book のメイン タイトル ブロックのテキスト フィールドはす
 
 @end itemize
 
-@lilypond[papersize=a8landscape]
-\book {
-  \score {
-    \relative {
-      c'4 d e f
-    }
-  }
-}
-@end lilypond
-
 最上位の @code{\header} ブロックの中に @code{tagline} を追加することで、@c
-デフォルトのタグラインを変更することができます。
+デフォルトの LilyPond フッタ テキストを変更することができます。
 
 @lilypond[papersize=a8landscape,verbatim]
 \book {
@@ -860,25 +936,26 @@ book のメイン タイトル ブロックのテキスト フィールドはす
 }
 @end lilypond
 
-タグラインを削除するには、@code{tagline}  に @code{##f} をセットします。
+デフォルトの LilyPond フッタ テキストを削除するには、@code{tagline} に
+@code{##f} をセットします。
 
 
-@node カスタム ヘッダ、フッタ、タイトル
-@subsection カスタム ヘッダ、フッタ、タイトル
-@translationof Custom headers footers and titles
+@node カスタム タイトル、ヘッダ、フッタ
+@subsection カスタム タイトル、ヘッダ、フッタ
+@translationof Custom titles headers and footers
 
 @c TODO: somewhere put a link to header spacing info
 @c       (you'll have to explain it more in NR 4).
 
 @menu
-* タイトル ブロックのカスタム テキスト フォーマット::
-* タイトル ブロックのカスタム レイアウト::
+* タイトルのカスタム テキスト フォーマット::
+* タイトルのカスタム レイアウト::
 * ヘッダとフッタのカスタム レイアウト::
 @end menu
 
-@node タイトル ブロックのカスタム テキスト フォーマット
-@unnumberedsubsubsec タイトル ブロックのカスタム テキスト フォーマット
-@translationof Custom text formatting for title blocks
+@node タイトルのカスタム テキスト フォーマット
+@unnumberedsubsubsec タイトルのカスタム テキスト フォーマット
+@translationof Custom text formatting for titles
 
 標準の @code{\markup} コマンドを使って @code{\header} ブロックの中にある@c
 ヘッダ、フッタ、それにタイトル テキストをカスタマイズすることができます。
@@ -888,7 +965,7 @@ book のメイン タイトル ブロックのテキスト フィールドはす
   { s1 }
   \header {
     piece = \markup { \fontsize #4 \bold "PRAELUDIUM I" }
-    subtitle = \markup { \italic "(Excerpt)" }
+    opus = \markup { \italic "BWV 846" }
   }
 }
 @end lilypond
@@ -898,9 +975,9 @@ book のメイン タイトル ブロックのテキスト フィールドはす
 @ref{Formatting text}
 
 
-@node タイトル ブロックのカスタム レイアウト
-@unnumberedsubsubsec タイトル ブロックのカスタム レイアウト
-@translationof Custom layout for title blocks
+@node タイトルのカスタム レイアウト
+@unnumberedsubsubsec タイトルのカスタム レイアウト
+@translationof Custom layout for titles
 
 @cindex bookTitleMarkup
 @cindex scoreTitleMarkup
@@ -919,7 +996,7 @@ book のメイン タイトル ブロックのテキスト フィールドはす
 @end itemize
 
 これらの @code{\markup} のデフォルト値を用いた場合のタイトルの配置は
-@ref{Default layout of book and score title blocks} の中にある例で@c
+@ref{Default layout of bookpart and score titles} の中にある例で@c
 示しています。
 
 @file{ly/titling-init.ly} で定義されている @code{scoreTitleMarkup}
@@ -927,7 +1004,7 @@ book のメイン タイトル ブロックのテキスト フィールドはす
 
 @example
 scoreTitleMarkup = \markup @{ \column @{
-  \on-the-fly #print-all-headers @{ \bookTitleMarkup \hspace #1 @}
+  \on-the-fly \print-all-headers @{ \bookTitleMarkup \hspace #1 @}
   \fill-line @{
     \fromproperty #'header:piece
     \fromproperty #'header:opus
@@ -977,19 +1054,23 @@ scoreTitleMarkup = \markup @{ \column @{
 @end lilypond
 
 @code{print-all-headers} を @code{\paper} ブロックの中に配置することにより、@c
-メイン タイトル ブロックのテキスト フィールドを個々の score タイトル ブロック@c
+メイン タイトル ブロックのテキスト フィールドを個々のスコア タイトル ブロック@c
 に表示させることができます。@c
+
+@code{paper} ブロックに @code{print-all-headers} をセットすると、@c
+スコアの @code{\header} ブロックでは通常表示されないテキスト フィールドを、@c
+スコア タイトル領域に表示させることができます。@c
 この方法の欠点は、個々の @code{\score} ブロックで、@c
-最上位の @code{\header} ブロックだけに表示させるテキスト フィールドを@c
+ブック パート タイトル領域のみに表示させたいテキスト フィールドを@c
 手動で抑制する必要があることです。@c
-@ref{Title blocks explained} を参照してください。
+@ref{Titles explained} を参照してください。
 
 この欠点を回避するには、個々の @code{\score} ブロックに表示させたい@c
 テキスト フィールドを @code{scoreTitleMarkup} 定義に追加します。@c
 以下の例では、@code{composer} テキスト フィールド
 (通常、これは @code{bookTitleMarkup} に関連付けされています)
 を @code{scoreTitleMarkup} に追加することにより、@c
-各 score は異なる作曲者を表示しています:
+各スコアは異なる作曲者を表示しています:
 
 @lilypond[papersize=a5,quote,verbatim,noragged-right]
 \book {
@@ -1057,7 +1138,7 @@ scoreTitleMarkup = \markup @{ \column @{
 
 @seealso
 記譜法リファレンス:
-@ref{Title blocks explained}
+@ref{Titles explained}
 
 
 @node ヘッダとフッタのカスタム レイアウト
@@ -1091,9 +1172,9 @@ scoreTitleMarkup = \markup @{ \column @{
 
 @example
 variable = \markup @{
-  ...
-  \on-the-fly  #@var{procedure}  @var{markup}
-  ...
+  @dots{}
+  \on-the-fly  \@var{procedure}  @var{markup}
+  @dots{}
 @}
 @end example
 
@@ -1110,13 +1191,14 @@ variable = \markup @{
 @headitem  Procedure name           @tab  Condition tested
 
 @item print-page-number-check-first @tab  このページ番号は表示されるか？
-@item create-page-number-stencil    @tab  'print-page-numbers は真か？
-@item print-all-headers             @tab  'print-all-headers は真か？
+@item create-page-number-stencil    @tab  print-page-numbers は真か？
+@item print-all-headers             @tab  print-all-headers は真か？
 @item first-page                    @tab  ブックの最初のページか？
+@item not-first-page                @tab  ブックの最初ではないページか？
 @item (on-page nmbr)                @tab  ページ番号 = nmbr か？
 @item last-page                     @tab  ブックの最後のページか？
-@item not-first-page                @tab  ブックの最初ではないページか？
 @item part-first-page               @tab  ブック パートの最初のページか？
+@item not-part-first-page           @tab  ブック パートの最初ではないページか？
 @item part-last-page                @tab  ブック パートの最後のページか？
 @item not-single-page               @tab  ブック パートのページ数 > 1 か？
 
@@ -1139,7 +1221,7 @@ variable = \markup @{
     evenHeaderMarkup = \markup \null
     oddFooterMarkup = \markup {
       \fill-line {
-        \on-the-fly #print-page-number-check-first
+        \on-the-fly \print-page-number-check-first
         \fromproperty #'page:page-number-string
       }
     }
@@ -1155,275 +1237,490 @@ variable = \markup @{
 できます。例えば、
 
 @example
-  \on-the-fly #first-page
-  \on-the-fly #last-page
-  @{ \markup ... \fromproperty #'header: ... @}
+  \on-the-fly \first-page
+  \on-the-fly \last-page
+  @code{@{ \markup @dots{} \fromproperty #'header: @dots{} @}}
 @end example
 
 これは、出力が単一のページかどうかを判断します。
 
 @seealso
 記譜法リファレンス:
-@ref{Title blocks explained},
-@ref{Default layout of book and score title blocks}
+@ref{Titles explained},
+@ref{Default layout of bookpart and score titles}
 
 インストールされているファイル:
 @file{../ly/titling-init.ly}
 
+@node 出力ファイルのメタデータを作成する
+@subsection 出力ファイルのメタデータを作成する
+@translationof Creating output file metadata
+
+@cindex PDF metadata (PDF メタデータ)
+@cindex MIDI metadata (MIDI メタデータ)
+
+@code{\header} 変数には、楽譜の見た目上の出力に表示されるデータだけではなく、@c
+出力ファイルのメタデータを作り出すためにも使われます。@c
+例えば、PDF ファイルでは、このメタデータが PDF ファイルの @code{properties}
+フィールドとして PDF リーダに表示されます。それぞれの出力ファイルの@c
+形式に応じて、別々のファイルを作り出すようなレベルより上位での
+@code{\header} ブロックのみが使用されます。@c
+すなわち、PDF ファイルにおいては、@code{\book} レベルやトップレベルの
+@code{\header} 定義のみが PDF ドキュメント全体のメタデータとして有効で、@c
+MIDI ファイルにおいては、上で挙げたレベルに加えて @code{\score} レベルの
+@code{\header} ブロックでも有効です。
+
+例えば、@code{\header} ブロックの @code{title} プロパティを @q{Symphony I} に@c
+セットすると、PDF ドキュメントのタイトルと、MIDI ファイルのシーケンス名に@c
+使われることになります。
+
+@example
+\header@{
+  title = "Symphony I"
+@}
+@end example
+
+楽譜上のタイトルと、PDF のタイトル プロパティを@c
+別の値にしたい場合、下の例のように @code{pdftitle} を使用することができます:
+
+@example
+\header@{
+  title = "Symphony I"
+  pdftitle = "Symphony I by Beethoven"
+@}
+@end example
+
+
+変数 @code{title}, @code{subject}, @code{keywords},
+@code{subtitle}, @code{composer}, @code{arranger}, @code{poet}, @code{author},
+@code{copyright} は全て、PDF のプロパティに使われます。@c
+これらは、頭に @q{pdf} を付け加えることで楽譜上の出力とは違う値をセットする@c
+こともできます。
+
+PDF の @code{Creator} プロパティは自動的に、@q{LilyPond} と現在の LilyPond の@c
+バージョンが組み合わされてセットされます。@code{CreationDate} と
+@code{ModDate} はどちらも、現在の日時にセットされますが、@code{ModDate} は@c
+@code{\header} 変数 @code{moddate} (あるいは @code{pdfmoddate}) を@c
+正しい PDF 日時文字列にセットすることでオーバライドすることができます。
+
+@code{title} 変数は MIDI でのシーケンス名としてもセットされます。@c
+@code{midititle} 変数を使うことで、楽譜上の出力と独立してシーケンス名を@c
+指定することができます。
 
 @node 脚注を作成する
 @subsection 脚注を作成する
 @translationof Creating footnotes
 
-作成できる脚注には 2 つのタイプがあります。@c
-自動脚注と手動脚注です。
+@cindex footnotes (脚注)
+
+脚注はいくつかの異なる場面で使われます。どのような場合であっても、@c
+@q{脚注マーク}が参照としてテキストや音楽のところに配置され、@c
+対応する@q{脚注テキスト}が同じページの下部に配置されます。
+
+音楽表記の中にある脚注と、音楽表記外の独立したテキストにある脚注では、@c
+作り方が異なります。
 
 @menu
-* 脚注の概要::
-* 自動脚注::
-* 手動脚注::
+* 音楽表記の中にある脚注::
+* 独立したテキストの中にある脚注::
 @end menu
 
-@node 脚注の概要
-@unnumberedsubsubsec 脚注の概要
-@translationof Footnotes overview
+@node 音楽表記の中にある脚注
+@unnumberedsubsubsec 音楽表記の中にある脚注
+@translationof Footnotes in music expressions
 
-自動脚注は繰り上がっていくページ番号を作り出し、@c
-手動脚注はページ番号をカスタマイズすることができます。@c
-通常、脚注は @code{\tweak} のように適用されるので、多くの音楽要素や@c
-ポスト-イベントによって作成されるグラフィカル オブジェクト上に直接配置@c
-することができます。@c
-これがうまくいかない場合 (小節線や拍の変更のように、プロパティの変更の結果@c
-として作り出されるグラフィカル オブジェクトの場合)、脚注を独立した音楽@c
-イベントとして入力することである特定のタイミングにある指定したタイプの@c
-すべてのグラフィカルに影響を与えることもできます。
+@cindex footnotes in music expressions (音楽表記の中にある脚注)
+@funindex \footnote
 
-脚注コマンドの完全な形式は以下のようなものです:
+@subsubsubheading 音楽内の脚注の概要
+
+音楽表記の中にある脚注は 2 つのカテゴリーに分けられます:
+
+@table @emph
+@item イベントに紐づく脚注
+これは、単一の音符、アーティキュレーション (指番号、アクセント、@c
+強弱記号など)、音符の後に付加するイベント (スラーや手動の連桁など) といった@c
+特定のイベントに付加されます。イベントに紐づく脚注の一般的な形は@c
+以下のようなものです:
 
 @example
-\footnote @var{mark} @var{offset} @var{grob-name} @var{footnote}
-@var{music}
+[@var{direction}] \footnote [@var{mark}] @var{offset} @var{footnote} @var{music}
+@end example
+
+@item 時間に紐づく脚注
+これは、音楽コンテキスト内の時間の一点に関連付けられます。@c
+@code{\time} や @code{\clef} といったいくつかのコマンドは、@c
+拍子記号や音部記号を作り出すのにイベントを使いません。@c
+和音もそれ自体ではイベントを作りません: その和音の符幹や符尾が、
+タイム ステップの最後に (名目上は中にある音符のどれかを通して) 作られます。@c
+和音の中のどの音符が符幹や符尾の生成元として見なされるのかは、@c
+正確に定義されていません。そのため、符幹や符尾に脚注を付加する場合にも、@c
+こちらのタイプを用いると良いでしょう。
+
+時間に基づく脚注は、イベントを参照せずに、@c
+このようなレイアウト オブジェクトに注釈を入れることができます。@c
+この脚注の一般的な形は以下のようなものです:
+
+@example
+\footnote [@var{mark}] @var{offset} @var{footnote} [@var{Context}].@var{GrobName}
+@end example
+
+@end table
+
+2 つの形にあるそれぞれの要素は以下のような意味を持ちます:
+
+@table @var
+
+@item direction
+@code{\footnote} が音符の後に付加するイベントやアーティキュレンションに@c
+適用される場合に限り、方向指示子 (@code{-, _, ^}) を前に付けて、@c
+@var{music} が (脚注マークと共に) その前にある音符や休符に付加されるように@c
+しなければなりません。
+
+@item mark
+これは参照ポイントとページの下の脚注自体の両方に使われる、@c
+脚注マークを指定するマークアップや文字列です。これは省略することができ
+(これは @code{\default} に置き換えるのと同じです)、その時は自動的に@c
+連番が振られます。この連番は脚注が含まれるページごとにリセットされます。
+
+@item offset
+これは @samp{#(2 . 1)} のような数のペアで、マークを配置する場所の
+X, Y@tie{}オフセットを、@c
+オブジェクトの境界からの譜スペース単位で指定します。@c
+正の値の場合は右/上からのオフセットとして、@c
+負の値の場合は左/下からのオフセットとして解釈されます。@c
+0 は境界に中央揃えされることを意味します。
+
+@item Context
+これは脚注の付加されるグラフィカル オブジェクトが作られるコンテキストを@c
+指定します。グラフィカル オブジェクトが @code{Voice} のような@c
+下位のコンテキストに属している場合は省略することができます。
+
+@item GrobName
+これは (@samp{Flag} のように) 脚注の付加されるグラフィカル オブジェクトを@c
+指定します。これが指定された場合、脚注はある特定の音楽表記に付加される@c
+ことはなく、その音楽タイミングで生成される、指定したグラフィカル オブジェクト@c
+全てに付加されます。
+
+@item footnote
+ページの下で用いる脚注テキストを指定するマークアップや文字列です。
+
+@item music
+脚注が付加される、音楽イベントや音符の後に付加するイベント、@c
+アーティキュレーションです。
+
+@end table
+
+@subsubsubheading イベントに紐づく脚注
+
+@cindex footnotes, event-based (イベントに紐づく脚注)
+
+
+以下の構文で、@var{music} によるイベントから生成されるレイアウト
+オブジェクトに脚注を加えることができます:
+
+@example
+\footnote [@var{mark}] @var{offset} @var{footnote} @var{music}
+@end example
+
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c'' {
+    \footnote #'(-1 . 3) "A note" a4
+    a4
+    \footnote #'(2 . 2) "A rest" r4
+    a4
+  }
+}
+@end lilypond
+
+和音@emph{全体}にイベントに紐づく脚注を付け加えることはできません。@c
+和音は、例え 1 つの音符しか持っていなかったとしても、@c
+それ自身ではイベントを作り出さないからです。しかし、@c
+和音の@emph{中}にある個別の音符には脚注を付け加えることができます:
+
+@c KEEP LY
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c'' {
+    \footnote #'(2 . 3) "Does not work" <a-3>2 % これは動作しません
+    <\footnote #'(-2 . -3) "Does work" a-3>4 % これは動作します
+    <a-3 \footnote #'(3 . 1/2) "Also works" c-5>4 % これも動作します
+  }
+}
+@end lilypond
+
+脚注が音符の後に付加するイベントやアーティキュレンションに@c
+付加される場合、@code{\footnote} コマンドの前に@emph{必ず}@c
+方向指示子 (@code{-, _, ^}) を付けて、@c
+後にイベントやアーティキュレーションを続けなければなりません。@c
+この形では、@code{\footnote} の部分が、@c
+最後の引数 @var{music} に脚注マークが付加されたもののコピーとして@c
+解釈することができます。構文は以下です:
+
+@example
+@var{direction} \footnote [@var{mark}] @var{offset} @var{footnote} @var{music}
+@end example
+
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative {
+    a'4_\footnote #'(0 . -1) "A slur forced down" (
+    b8^\footnote #'(1 . 0.5) "A manual beam forced up" [
+    b8 ]
+    c4 )
+    c-\footnote #'(1 . 1) "Tenuto" --
+  }
+}
+@end lilypond
+
+@subsubsubheading 時間に紐づく脚注
+
+@cindex footnotes, time-based (時間に紐づく脚注)
+
+脚注が付加されるレイアウト オブジェクトがイベントから@emph{間接的に}@c
+生成されるものである場合 (@code{Accidental} や @code{Stem} など) には、@c
+そのレイアウト オブジェクトの @var{GrobName} が脚注テキストの後に、@c
+@var{music} の代わりに必要です:
+
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c'' {
+    \footnote #'(-1 . -3) "A flat" Accidental
+    aes4 c
+    \footnote #'(-1 . 0.5) "Another flat" Accidental
+    ees
+    \footnote #'(1 . -2) "A stem" Stem
+    aes
+  }
+}
+@end lilypond
+
+しかし、GrobName が指定された場合、脚注が現在のタイム ステップにある@c
+全てのグラフィカル オブジェクトに付加されることに注意してください:
+
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c' {
+    \footnote #'(-1 . 3) "A flat" Accidental
+    <ees ges bes>4
+    \footnote #'(2 . 0.5) "Articulation" Script
+    c'->-.
+  }
+}
+@end lilypond
+
+和音内の各音符にはそれぞれ (イベントに紐づく) 脚注を加えることができます。@c
+@samp{NoteHead} のみが音符から直接生成されるグラフィカル オブジェクトです。@c
+そのため、イベントに紐づく脚注は、和音内の @samp{NoteHead} に脚注を@c
+加える時に@emph{のみ}有効です。和音における他のグラフィカル オブジェクトは@c
+間接的に生成されるものです。@code{\footnote} コマンド自体は、@c
+グラフィカル オブジェクトの種類と、どの特定のイベントに付加するかを@c
+@emph{両方}指定できるような構文がありません。しかし、@c
+グラフィカル オブジェクトの種類を指定するために時間に紐づく脚注を使用し、@c
+それを @code{\single} で前置することで次に来るイベントのみに適用させることが@c
+できます。
+
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c'' {
+    < \footnote #'(1 . -2) "An A" a
+      \single \footnote #'(-1 . -1) "A sharp" Accidental
+      cis
+      \single \footnote #'(0.5 . 0.5) "A flat" Accidental
+      ees fis
+    >2
+  }
+}
+@end lilypond
+
+@warning {脚注が上の例のように、同じ音楽タイミングにあるいくつかの要素に@c
+付加する場合、脚注の番号は入力ファイルでの順番ではなく、@c
+上に表示されるものから順番に割り振られます。}
+
+音部記号や転調を示す調号のようなレイアウト オブジェクトは、@c
+基本的には実際のイベントから作られるわけではなく、@c
+プロパティが変化した結果として生成されるものです。@c
+また、小節線や小節番号は、タイミングに基づいて生成されるものです。@c
+そのため、このようなオブジェクトに脚注を付ける場合には、それが生成される@c
+音楽的タイミングに紐付ける必要があります。@c
+時間に紐づく脚注は、@emph{和音}にある符幹や連桁に脚注を付加する場合にも@c
+有効です。このようなオブジェクトは名目上、和音内のどれか 1 つのイベントに@c
+割り当てられて生成されます。特定の音符に脚注を紐付けることは軽率でしょう。
+
+脚注を付ける対象となるレイアウト オブジェクトは、時間に紐づく脚注の場合には@c
+常に明示する必要があります。また、グラフィカル オブジェクトが下位
+(訳注: Voice など) ではないコンテキストで生成される場合には、@c
+正しいコンテキストを指定する必要があります。
+
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c'' {
+    r1 |
+    \footnote #'(-0.5 . -1) "Meter change" Staff.TimeSignature
+    \time 3/4
+    \footnote #'(1 . -1) "Chord stem" Stem
+    <c e g>4 q q
+    \footnote #'(-0.5 . 1) "Bar line" Staff.BarLine
+    q q
+    \footnote #'(0.5 . -1) "Key change" Staff.KeySignature
+    \key c \minor
+    q
+  }
+}
+@end lilypond
+
+数字の代わりに独自の脚注マークを使うことができ、@c
+マークされるオブジェクトと、脚注マークを繋げる線の表示を@c
+抑制することができます:
+
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c' {
+    \footnote "*" #'(0.5 . -2) \markup { \italic "* The first note" } a'4
+    b8
+    \footnote \markup { \super "$" } #'(0.5 . 1)
+      \markup { \super "$" \italic " The second note" } e
+    c4
+    \once \override Score.FootnoteItem.annotation-line = ##f
+    b-\footnote \markup \tiny "+" #'(0.1 . 0.1)
+      \markup { \super "+" \italic " Editorial" } \p
+  }
+}
+@end lilypond
+
+脚注マークのカスタマイズについての更なる例は、@c
+@ref{Footnotes in stand-alone text} にあります。
+
+
+@node 独立したテキストの中にある脚注
+@unnumberedsubsubsec 独立したテキストの中にある脚注
+@translationof Footnotes in stand-alone text
+
+@cindex footnotes in stand-alone text (独立したテキストの中にある脚注)
+
+これらは参照ポイントを指す線を表示しません。脚注マークは、@c
+脚注を付加されるマークアップの後に続いて表示されます。@c
+マークは自動で挿入することができ、その場合には連番が割り振られます。@c
+手動で、独自のマークを使うよう設定することもできます。
+
+独立したテキストの中にある脚注を自動で作る方法と、独自のマークを使うために@c
+手動で作る方法は異なります。
+
+@subsubsubheading 独立したテキストに自動マークで脚注を付加する
+
+独立したテキストに自動マークで脚注を付加するための構文は以下です:
+
+@example
+\markup @{ @dots{} \auto-footnote @var{text} @var{footnote} @dots{} @}
 @end example
 
 要素は以下の通りです:
 
 @table @var
-@item mark
-これは脚注を指定するマークアップや文字列で、参照ポイントとページ下の@c
-脚注自体を指すマークになります。@c
-これは省略することができ (@code{\default} で置き換えられます)、省略した@c
-場合は連続した数字が生成されます。
-@item offset
-脚注マークを配置する参照ポイントからの X と Y オフセットを指定する
-@samp{#(2 . 1)} のような数字のペアです。
-@item grob-name
-脚注マークを付けるグラフィカル オブジェクトのタイプを指定します (例えば
-@samp{#'Flag} です)。@c
-これが指定された場合、対応するグラフィカル オブジェクトが参照される
-@var{music} 自体にあるものでなくても、そこから作成されたものであれば@c
-参照ポイントになります。@c
-これは省略するができ (@code{\default} で置き換えられます)、その場合は@c
-直接作成されたグラフィカル オブジェクトだけに脚注が付けられます。
+
+@item text
+これは、脚注を付加するマークアップや文字列です。
+
 @item footnote
-このマークアップあるいは文字列はページ下の脚注テキストになります。
-@item music
-これは脚注を付ける要素 -- 音楽イベント、和音構成要素、あるいは@c
-ポスト-イベントです。@c
-これを省略することはできませんが、@code{\default} で置き換えることで@c
-脚注をある特定の音楽表記ではなく音楽タイミングに付けることができます。@c
-@code{\default} を用いた場合、影響を与えるグラフィカル オブジェクトの@c
-タイプを指定する @var{grob-name} 引数を指定する必要があります。
+
+ページの下で用いる脚注テキストを指定するマークアップや文字列です。
+
 @end table
 
-@code{\tweak} と同様に、@code{\footnote} をポスト-イベントや@c
-アーティキュレーションに適用する場合、それ自体の前に @code{-} を配置@c
-して、構文解析の結果を前にある音符や休符にくっつけさせる必要があります。
-
-
-@node 自動脚注
-@unnumberedsubsubsec 自動脚注
-@translationof Automatic footnotes
-
-自動脚注は 4 つの引数を取ります: 脚注マークの位置 @samp{(x . y)}、@c
-脚注を付ける @var{レイアウト オブジェクト} を指定するオプションの
-@var{grob-name}、ページ下の脚注に表示される @var{footnote} マークアップ、@c
-それに脚注を付ける @var{music} です。
-
+例を示します:
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
   \header { tagline = ##f }
-  \relative c' {
-    \footnote #'(0.5 . -2)
-      \markup { The first note }
-    a'4 b8
-    \single\footnote #'(0.5 . 1)
-      \markup { The third note } Flag
-    e\noBeam c4 d4
+  \markup {
+    "A simple"
+    \auto-footnote "tune" \italic " By me"
+    "is shown below.  It is a"
+    \auto-footnote "recent" \italic " Aug 2012"
+    "composition."
   }
-}
-@end lilypond
-
-和音の音符でも難しいことはありません:
-
-@c KEEP LY
-@lilypond[verbatim,quote,ragged-right,papersize=a8]
-\book {
-  \header { tagline = ##f }
-  \relative c' {
-    <
-    \footnote #'(1 . -1.25) "これは C です" c
-    \footnote #'(2 . -0.25) \markup { \italic "E-flat です" } es
-    \footnote #'(2 . 3) \markup { \bold "これは G です" } g
-    >1
-  }
-}
-@end lilypond
-
-@warning {
-脚注の垂直方向の位置が同じになる場合、下方向に並べられます。@c
-高い位置にある脚注は、リストでも上に来ます。
-}
-
-ここで、グラフィカル オブジェクト動脚注を付ける例をいくつか挙げ、@c
-さらに脚注とタグラインやコピーライトとの位置関係を示します。
-
-@c KEEP LY
-@lilypond[verbatim,quote,ragged-right,papersize=a8]
-\book {
-  \header { copyright = \markup { "Copyright 1970" } }
-  \relative {
-    a'4-\footnote #'(-3 . 0) \markup { \bold Forte } \f
-    -\footnote #'(0 . 1.5) \markup { スラー } (
-    b8)-\footnote #'(0 . -2) \markup { 連桁 } [ e]
-    \single\footnote #'(1 . -1)
-      \markup  { \teeny { これは符幹です } } Stem
-    c4
-    \single\footnote #'(0 . 0.5)
-      \markup \italic { 忠告の臨時記号 } AccidentalCautionary
-    \footnote #'(1 . 1) "音符自体"
-    dis?4-\footnote #'(0.5 . -0.5) \markup \italic { スロー ダウン }
-         _"rit."
-  }
-}
-@end lilypond
-
-最上位の @code{\markup} に脚注を付ける場合、@c
-@code{\auto-footnote} コマンドを使う必要があります:
-
-@lilypond[verbatim,quote,ragged-right,papersize=a8]
-\book {
-  \header { tagline = ##f }
-  \markup { \auto-footnote "A simple tune" \italic "By me" }
   \relative {
     a'4 b8 e c4 d
   }
 }
 @end lilypond
 
+@subsubsubheading 独立したテキストに独自のマークで脚注を付加する
 
-@node 手動脚注
-@unnumberedsubsubsec 手動脚注
-@translationof Manual footnotes
+独立したテキストに独自のマークで脚注を付加するための構文は以下です:
 
-@cindex footnotes, manual (手動の脚注
+@example
+\markup @{ @dots{} \footnote @var{mark} @var{footnote} @dots{} @}
+@end example
 
-手動で付ける脚注は追加で最初の引数として参照マークとなる @var{mark} を@c
-取ります。@c
-自動的に生成される脚注マークとは対照的に、ページ下の @var{footnote}
-マークアップの前には表示されません: 見た目のつながりはユーザ自身で作成@c
-する必要があります。@c
-LilyPond は対応するマークアップを同じページの下に表示するだけです。
+要素は以下の通りです:
 
-上記のことを除けば、手動脚注は自動的に付番される脚注と同じです。
+@table @var
 
-@c KEEP LY
+@item mark
+
+これは参照ポイントに使われる、@c
+脚注マークを指定するマークアップや文字列です。@c
+このマークは脚注自体の最初に自動で挿入@emph{されない}ことに注意してください。
+
+@item footnote
+ページの下で用いる脚注テキストを指定するマークアップや文字列です。@c
+通常、@var{mark} から始めます。
+
+@end table
+
+@ref{Footnotes in music expressions} にあるように、@c
+* や + などの簡単な文字をマークとして用いることができます。@c
+他に、ASCII エイリアスを用いることができます (@ref{ASCII aliases} を@c
+参照してください)。
+
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
+  \paper { #(include-special-characters) }
   \header { tagline = ##f }
-  \relative c' {
-    \footnote
-          "1" #'(0.5 . -2)
-          \markup { \italic "1. 最初の音符" }
-    a'4
-    b8
-    \footnote
-          \markup { \bold "2" } #'(0.5 . 1)
-          "2. 2 番目の音符"
-    e
-    c4
-    d-\footnote "3" #'(0.5 . -1) "3. ピアノ" \p
+  \markup {
+    "A simple tune"
+    \footnote "*" \italic "* By me"
+    "is shown below.  It is a recent"
+    \footnote \super &dagger; \concat {
+      \super &dagger; \italic " Aug 2012"
+    }
+    "composition."
   }
-}
-@end lilypond
-
-和音に手動脚注を付ける場合、以下のようにします:
-
-@c KEEP LY
-@lilypond[verbatim,quote,ragged-right,papersize=a8]
-\book {
-  \header { tagline = ##f }
-  \relative c' {
-    <
-    \footnote "1" #'(1 . -1.25) "1. C" c
-    \footnote
-       \markup { \bold "b" } #'(2 . -0.25) "b. E-フラット" es
-    \footnote "3" #'(2 . 3) \markup { \italic "iii. G" } g
-    >1
-  }
-}
-@end lilypond
-
-@warning {
-脚注の垂直方向の位置が同じになる場合、下方向に並べられます。@c
-高い位置にある脚注は、リストでも上に来ます。
-}
-
-ここで、グラフィカル オブジェクトに手動脚注を付ける例をいくつか挙げ、@c
-脚注とタグラインやコピーライトとの位置関係を示します。
-
-@c KEEP LY
-@lilypond[verbatim,quote,ragged-right,papersize=a8]
-\book {
-  \header { tagline = ##f }
   \relative {
-    a'4-\footnote
-      \markup { \teeny 1 } #'(-3 . 0)
-      \markup { 1. \bold フォルテ } \f
-    -\footnote
-      \markup { \teeny b } #'(0 . 1.5)
-      \markup { b. スラー } (
-    b8)-\footnote
-      \markup { \teeny 3 } #'(0 . -2)
-      \markup { 3. 連桁 } [
-    e]
-    \single\footnote
-      \markup { 4 } #'(1 . -1)
-      \markup  { \bold 4. { これは符幹です } } Stem
-    c4
-    \single\footnote
-      \markup \concat \teeny { "sharp (v)" }
-          #'(0 . 0.5)
-      \markup \italic { v. 忠告の臨時記号 } AccidentalCautionary
-    dis?4-\footnote
-      \markup \concat \teeny { "a" } #'(0.5 . -0.5)
-      \markup \italic { a. スローダウン } _"rit."
-    \footnote
-      \markup { \teeny \musicglyph "rests.4" }
-          #'(1.5 . -0.25)
-      \markup { \null } \breathe
+    a'4 b8 e c4 d
   }
 }
 @end lilypond
 
-最上位の @code{\markup} に脚注を付ける場合、下記のようにします:
+Unicode 文字をマークに使うこともできます
+(@ref{Unicode} を参照してください)。
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
   \header { tagline = ##f }
-  \markup { "A simple tune" \footnote "*" \italic "* By me" }
+  \markup {
+    "A simple tune"
+    \footnote \super \char##x00a7 \concat {
+      \super \char##x00a7 \italic " By me"
+    }
+    "is shown below.  It is a recent"
+    \footnote \super \char##x00b6 \concat {
+      \super \char##x00b6 \italic " Aug 2012"
+    }
+    "composition."
+  }
   \relative {
-    a'4 b8 e c4 d4
+    a'4 b8 e c4 d
   }
 }
 @end lilypond
@@ -1433,11 +1730,12 @@ LilyPond は対応するマークアップを同じページの下に表示す�
 @rlearning{Objects and interfaces}
 
 記譜法リファレンス:
+@ref{ASCII aliases},
 @ref{Balloon help},
-@ref{Page layout},
+@ref{List of special characters},
 @ref{Text marks},
 @ref{Text scripts},
-@ref{Titles and headers}
+@ref{Unicode}
 
 内部リファレンス:
 @rinternals{FootnoteEvent},
@@ -1447,82 +1745,12 @@ LilyPond は対応するマークアップを同じページの下に表示す�
 
 @knownissues
 同じページにある複数の脚注は上下にしか配置できません。@c
-ある脚注が他の脚注の上に配置され、同じ行に配置することはできません。@c
-@code{MultiMeasureRests} に脚注を付けることはできず、@c
-@code{Staff}、@code{\markup} オブジェクト、それに他の @code{footnote} と@c
-衝突する可能性があります。@c
-手動の @code{footnote} コマンドを使う場合、@c
-containing @code{footnote-auto-number = ##f} を保持している
-@code{\paper} ブロックが必要です。
+一方の脚注はもう一方の脚注の上に配置され、同じ行に配置することはできません。
 
+@code{MultiMeasureRests}、自動連桁、歌詞に脚注を付けることはできません。
 
-@ignore
-@node カスタム タイトル
-@subsection カスタム タイトル
-@translationof Custom titles
-
-さらに高度なオプションとして、@c
-@code{\paper} ブロックの中にある以下の変数の定義を変更することができます。@c
-初期化ファイル @file{../ly/titling-init.ly} が@c
-デフォルトのレイアウトの設定リストです。
-
-@table @code
-@funindex bookTitleMarkup
-@item bookTitleMarkup
-  これは出力ドキュメントの先頭に付け加えられるタイトルです。@c
-通常、ここには作品の作曲者名とタイトルが含まれます。
-
-@funindex scoreTitleMarkup
-@item scoreTitleMarkup
-  これは @code{\score} ブロックの上に配置されるタイトルです。@c
-通常、ここには楽章の名前　(@code{piece} フィールド) が含まれます。
-
-@funindex oddHeaderMarkup
-@item oddHeaderMarkup
-  これは奇数番号ページのヘッダです。
-
-@funindex evenHeaderMarkup
-@item evenHeaderMarkup
-  これは偶数番号ページのヘッダです。@c
-これが指定されていない場合は、奇数番号ページのヘッダが代わりに使用されます。
-
-  デフォルトのヘッダ定義は、ページ番号は端に配置し、@c
-楽器名は中央に配置するようになっています。
-
-@funindex oddFooterMarkup
-@item oddFooterMarkup
-  これは奇数番号ページのフッタです。
-
-@funindex evenFooterMarkup
-@item evenFooterMarkup
-  これは偶数番号ページのフッタです。@c
-これが指定されていない場合は、偶数番号ページのフッタが代わりに使用されます。
-
-  デフォルトでは、最初のページのフッタには著作権についての注意書きが含まれ、@c
-最後のページのフッタにはタグ行が含まれます。
-@end table
-
-
-@cindex \paper
-@cindex header (ヘッダ)
-@cindex footer (フッタ)
-@cindex page layout (ページ レイアウト)
-@cindex titles (タイトル)
-
-以下の定義では、タイトルはページの左側に配置され、@c
-作曲者名は同じ行の右側に配置されます。
-
-@verbatim
-\paper {
-  bookTitleMarkup = \markup {
-   \fill-line {
-     \fromproperty #'header:title
-     \fromproperty #'header:composer
-   }
-  }
-}
-@end verbatim
-@end ignore
+脚注は譜や @code{\markup} オブジェクト、他の脚注マークや線と@c
+衝突する可能性があります。
 
 @node ページ番号の参照
 @subsection ページ番号の参照
@@ -1568,7 +1796,7 @@ containing @code{footnote-auto-number = ##f} を保持している
 実際のマークアップ解釈はもっと後に延期されます。@c
 しかしながら、マークアップの大きさは事前に判明している必要があるため、@c
 ゲージを使ってマークアップの大きさを決定します。@c
-book のページ数が 10 から 99 までの範囲であるのなら、ゲージを "00"
+ブックのページ数が 10 から 99 までの範囲であるのなら、ゲージを "00"
 -- つまり、2 桁の数 -- にします。
 
 
@@ -1611,40 +1839,86 @@ book のページ数が 10 から 99 までの範囲であるのなら、ゲー�
 
 目次を構成するために使用するマークアップは
 @code{\paper} ブロックの中で定義します。@c
-デフォルトのマークアップは、@c
-目次のタイトルを構成する @code{tocTitleMarkup} と、@c
-目次の要素 -- 要素のタイトルとページ番号 -- を構成する
-@code{tocItemMarkup} です。@c
-これらの変数はユーザによって変更することができます:
+@q{予め定義された}マークアップが 2 種類あります:
 
-@c KEEP LY
+@itemize
+
+@item
+@code{tocTitleMarkup}
+
+@noindent
+目次のタイトルをフォーマットするために使います。
+
+@verbatim
+tocTitleMarkup = \markup \huge \column {
+  \fill-line { \null "Table of Contents" \null }
+  \null
+}
+@end verbatim
+
+@item
+@code{tocItemMarkup}
+
+@noindent
+目次の中にある要素をフォーマットするために使います。
+
+@verbatim
+tocItemMarkup = \markup \fill-line {
+  \fromproperty #'toc:text \fromproperty #'toc:page
+}
+@end verbatim
+
+@end itemize
+
+@noindent
+これらの 2 つの変数は変更することができます。
+
+これは目次のタイトルをフランス語に変更する例です:
+
 @verbatim
 \paper {
-  %% 目次タイトルをフランス語に翻訳します:
   tocTitleMarkup = \markup \huge \column {
     \fill-line { \null "Table des matières" \null }
     \hspace #1
   }
-  %% より大きなフォント サイズを使用します
-  tocItemMarkup = \markup \large \fill-line {
-    \fromproperty #'toc:text \fromproperty #'toc:page
-  }
+@end verbatim
+
+これは目次の各要素のフォント サイズを変更する例です:
+
+@verbatim
+tocItemMarkup = \markup \large \fill-line {
+  \fromproperty #'toc:text \fromproperty #'toc:page
 }
 @end verbatim
 
-@code{tocItemMarkup} 定義の中で目次要素のテキストとページ番号を@c
+@code{tocItemMarkup} 定義の中で要素のテキストとページ番号を@c
 参照する方法に注目してください。
 
-より手の込んだ目次を構築するために新しいコマンドとマークアップを@c
-定義することもできます:
-@itemize
-@item まず、@code{\paper} ブロックの中で新しいマークアップ変数を定義します
-@item それから、このマークアップ変数を用いて、@c
-目次要素を付け加えるための音楽関数を定義します。
-@end itemize
+目次のアイテムと、対応するページ番号との間の部分をドットで埋めるために、@c
+@code{tocItemMarkup} の中に @code{\tocItemWithDotsMarkup} コマンドを@c
+挿入することができます:
 
-以下の例では、@c
-オペラの目次の中で幕の名前を挿入するために新しい様式を定義しています:
+@lilypond[verbatim,line-width=10.0\cm]
+\header { tagline = ##f }
+\paper {
+  tocItemMarkup = \tocItemWithDotsMarkup
+}
+
+\book {
+  \markuplist \table-of-contents
+  \tocItem \markup { Allegro }
+  \tocItem \markup { Largo }
+  \markup \null
+}
+@end lilypond
+
+更に複雑な目次を作るために、独自のマークアップを用いたカスタム コマンドを@c
+定義することもできます。次の例では、オペラの目次において幕の名前を入力する@c
+新たなスタイルを定義しています:
+
+@noindent
+新たなマークアップ変数 (@code{tocActMarkup}) は @code{\paper} ブロックに@c
+定義します:
 
 @verbatim
 \paper {
@@ -1654,11 +1928,20 @@ book のページ数が 10 から 99 までの範囲であるのなら、ゲー�
     \hspace #1
   }
 }
-
-tocAct =
-#(define-music-function (text) (markup?)
-   (add-toc-item! 'tocActMarkup text))
 @end verbatim
+
+@noindent
+音楽関数 (@code{tocAct}) を定義します -- ここで、新たなマークアップ定義である@c
+@code{tocActMarkup} を使います:
+
+@verbatim
+tocAct =
+  #(define-music-function (text) (markup?)
+     (add-toc-item! 'tocActMarkup text))
+@end verbatim
+
+@noindent
+このカスタム定義を使う LilyPond 入力ファイルはこのようになります:
 
 @lilypond[line-width=10.0\cm]
 \header { tagline = ##f }
@@ -1678,7 +1961,7 @@ tocAct =
   \markuplist \table-of-contents
   \tocAct \markup { Atto Primo }
   \tocItem \markup { Coro. Viva il nostro Alcide }
-  \tocItem \markup { Cesare. Presti omai l'Egizzia terra }
+  \tocItem \markup { Cesare. Presti omai l'Egizia terra }
   \tocAct \markup { Atto Secondo }
   \tocItem \markup { Sinfonia }
   \tocItem \markup { Cleopatra. V'adoro, pupille, saette d'Amore }
@@ -1686,21 +1969,18 @@ tocAct =
 }
 @end lilypond
 
-要素とページ番号の間をドットで埋めることができます:
 
-@lilypond[verbatim,line-width=10.0\cm]
-\header { tagline = ##f }
+目次内で使う @code{\fill-with-pattern} コマンドの例です:
+
+@verbatim
 \paper {
-  tocItemMarkup = \tocItemWithDotsMarkup
+  tocItemMarkup = \markup { \fill-line {
+    \override #'(line-width . 70)
+    \fill-with-pattern #1.5 #CENTER . \fromproperty #'toc:text \fromproperty #'toc:page
+    }
+  }
 }
-
-\book {
-  \markuplist \table-of-contents
-  \tocItem \markup { Allegro }
-  \tocItem \markup { Largo }
-  \markup \null
-}
-@end lilypond
+@end verbatim
 
 @seealso
 インストールされているファイル:
@@ -1710,7 +1990,7 @@ tocAct =
 @funindex \table-of-contents
 @code{\table-of-contents},
 @funindex \tocItem
-@code{\tocItem}.
+@code{\tocItem}
 @endpredefined
 
 
@@ -1772,7 +2052,7 @@ DOS/Windows ではバックスラッシュ \ を使用します) によって@c
 @example
 \include "parts/VI.ly"
 \include "parts/VII.ly"
-... etc
+@dots{} etc
 @end example
 
 インクルードされるファイルも @code{\include} 文を持つことができます。@c
@@ -1786,12 +2066,55 @@ DOS/Windows ではバックスラッシュ \ を使用します) によって@c
 コマンド ラインで渡すことによって
 (あるいは、メイン入力ファイルの先頭に
 @code{#(ly:set-option 'relative-includes #t)} を付け加えることによって)
-変更することができます。@c
-@code{relative-includes} をセットすることで、@c
+グローバルに変更することができます。@c
+
+@code{relative-includes} をセットした時、@c
 各 @code{\include} コマンドのパスは@c
 そのコマンドを保持しているファイルからの相対参照になります。@c
 この振る舞いを使用することが推奨されていて、@c
 lilypond の将来のバージョンではこの振る舞いがデフォルトになります。
+
+@code{relative-includes} をファイル内の正しい位置で @code{#t} あるいは
+@code{#f} にセットすることで、メイン ディレクトリからの相対位置にある@c
+ファイルや、その他のディレクトリからの相対位置にあるファイルを同時に
+@code{\include} することができます。@c
+例えば、様々なファイルから使われるようなライブラリ libA の@c
+エントリ ポイントが、サブ ファイルを @code{\include} している場合、@c
+これらの @code{\include} 文の前に
+@code{#(ly:set-option #relative-includes #t)}
+を配置し、メインの @code{.ly} ファイルに読み込まれる時に、パスが正しく解釈@c
+されるようにします。このようになります:
+
+@example
+libA/
+  libA.ly
+  A1.ly
+  A2.ly
+  @dots{}
+@end example
+
+@noindent
+
+エントリ ポイントとなるファイル @code{libA.ly} には以下の内容を含んでいます:
+
+@example
+#(ly:set-option 'relative-includes #t)
+\include "A1.ly"
+\include "A2.ly"
+@dots{}
+% 通常の設定に戻します
+#(ly:set-option 'relative-includes #f)
+@end example
+
+あとは以下の構文で、好きな @file{.ly} ファイルからライブラリ全体を@c
+読み込むことができます:
+
+@example
+\include "~/libA/libA.ly"
+@end example
+
+さらに複雑なファイル構造も、設定を適切な場所で変更することによって@c
+扱うことができます。
 
 コマンド ラインから LilyPond を呼び出すときにオプションとして指定した@c
 サーチ パスに含まれるディレクトリから@c
@@ -1811,7 +2134,7 @@ lilypond --include=parts main.ly
 @example
 \include "VI.ly"
 \include "VII.ly"
-... etc
+@dots{} etc
 @end example
 
 いくつもの楽譜でインクルードされるファイルは
@@ -1896,7 +2219,7 @@ sopranoMusic = \relative { a'4 b c b8( a) }
 altoMusic = \relative { e'4 e e f }
 tenorMusic = \relative { c'4 b e d8( c) }
 bassMusic = \relative { a4 gis a d, }
-allLyrics = \lyricmode {King of glo -- ry }
+allLyrics = \lyricmode { King of glo -- ry }
 <<
   \new Staff = "Soprano" \sopranoMusic
   \new Lyrics \allLyrics
@@ -1914,17 +2237,11 @@ allLyrics = \lyricmode {King of glo -- ry }
   \new Lyrics \allLyrics
   \new PianoStaff <<
     \new Staff = "RH" {
-      \set Staff.printPartCombineTexts = ##f
-      \partcombine
-      \sopranoMusic
-      \altoMusic
+      \partcombine \sopranoMusic \altoMusic
     }
     \new Staff = "LH" {
-      \set Staff.printPartCombineTexts = ##f
       \clef "bass"
-      \partcombine
-      \tenorMusic
-      \bassMusic
+      \partcombine \tenorMusic \bassMusic
     }
   >>
 >>
@@ -1944,12 +2261,9 @@ allLyrics = \lyricmode {King of glo -- ry }
 @funindex \tag
 @funindex \keepWithTag
 @funindex \removeWithTag
-@funindex \pushToTag
-@funindex \appendToTag
 @cindex tag (タグ)
 @cindex keep tagged music (タグの付いた音楽を保持する)
 @cindex remove tagged music (タグの付いた音楽を排除する)
-@cindex splice into tagged music (タグの付いた音楽を組み合わせる)
 
 @code{\tag #'@var{partA}} コマンドは音楽表記に
 @var{partA} という名前を付けます。@c
@@ -1962,24 +2276,32 @@ allLyrics = \lyricmode {King of glo -- ry }
 @headitem フィルタ
   @tab 結果
 @item
-@code{\keepWithTag #'@var{name}} が前に付くタグ付きの音楽
-  @tab タグの付いていない音楽と @var{name} というタグの付いた音楽が@c
+@code{\keepWithTag #'@var{name}} あるいは
+@code{\keepWithTag #'(@var{name1} @var{name2}@dots{})} が@c
+前に付くタグ付きの音楽
+@tab タグの付いていない音楽と、与えられたタグ名のいずれかに当てはまる音楽が@c
 インクルードされます。@c
 他のタグ名を持つタグ付き音楽は排除されます。
 @item
-@code{\removeWithTag #'@var{name}} が前に付くタグ付きの音楽
-  @tab タグの付いていない音楽と @var{name} 以外のタグを持つ音楽が@c
-インクルードされます。@c
-@var{name} というタグの付いた音楽は排除されます。
+@code{\removeWithTag #'@var{name}} あるいは
+@code{\removeWithTag #'(@var{name1} @var{name2}@dots{})} が@c
+前に付くタグ付きの音楽
+@tab タグの付いていない音楽と、与えられたタグ名のどれにも当てはまらない音楽が@c
+インクルードされます。与えられたタグ名のいずれかに当てはまる音楽は排除されます。
 @item
 @code{\keepWithTag} と @code{\removeWithTag} のどちらも@c
 前に付かないタグ付きの音楽
-  @tab タグの付いた音楽とタグの付いていない音楽すべてがインクルードされます。
+@tab タグの付いた音楽とタグの付いていない音楽すべてがインクルードされます。
 @end multitable
 
 @code{\tag}、@code{\keepWithTag} それに @code{\removeWithTag} コマンドの引数は@c
-シンボル (@code{#'score} や @code{#'part} など) とその後に続けて@c
-音楽表記であるべきです。
+シンボルやシンボルのリスト (例えば @code{#'score} or @code{#'(violinI violinII})
+と、音楽表記の順であるべきです。シンボルが LilyPond において正しい識別子
+(アルファベットのみから成り、数字、アンダースコア、ダッシュは含まない) で@c
+あり、音符名と混同しない場合である@emph{限り}、@code{#'} を省略することが@c
+でき、シンボルのリストはドットで区切る記法を用いることができます。例えば、@c
+@code{\tag #'(violinI violinII)} は @code{\tag violinI.violinII} と書くことが@c
+できます。@code{\keepWithTag} や @code{\removeWithTag} でも同様です。
 
 以下の例では、楽曲を 2 つのバージョンで示しています。@c
 1 つはトリルを通常の記譜法で示していて、@c
@@ -1988,8 +2310,8 @@ allLyrics = \lyricmode {King of glo -- ry }
 @lilypond[verbatim,quote]
 music = \relative {
   g'8. c32 d
-  \tag #'trills {d8.\trill }
-  \tag #'expand {\repeat unfold 3 {e32 d} }
+  \tag #'trills { d8.\trill }
+  \tag #'expand {\repeat unfold 3 { e32 d } }
   c32 d
  }
 
@@ -2039,12 +2361,13 @@ c1-\tag #'finger ^4
 c1-\tag #'warn ^"Watch!"
 @end example
 
-複数の @code{\tag} エントリで、表記に複数のタグを付ける場合もあります:
+複数の @code{\tag} エントリで、または複数のタグを一つのシンボルのリストにする@c
+ことで、表記に複数のタグを付けることもできます:
 
 @lilypond[quote,verbatim]
 music = \relative c'' {
   \tag #'a \tag #'both { a4 a a a }
-  \tag #'b \tag #'both { b4 b b b }
+  \tag #'(b both) { b4 b b b }
 }
 <<
 \keepWithTag #'a \music
@@ -2054,50 +2377,125 @@ music = \relative c'' {
 @end lilypond
 
 単一の音楽表記に複数の @code{\removeWithTag} フィルタを適用することによって、@c
-いくつかの異なる名前のタグが付いたセクションを排除することができます:
+いくつかの異なる名前のタグが付いたセクションを排除することができます。または、@c
+@code{\removeWitTag} にタグのリストを与える表記を用いることもできます:
 
 @lilypond[verbatim,quote]
 music = \relative c'' {
-\tag #'A { a4 a a a }
-\tag #'B { b4 b b b }
-\tag #'C { c4 c c c }
-\tag #'D { d4 d d d }
+  \tag #'A { a4 a a a }
+  \tag #'B { b4 b b b }
+  \tag #'C { c4 c c c }
+  \tag #'D { d4 d d d }
 }
-{
-\removeWithTag #'B
-\removeWithTag #'C
-\music
+\new Voice {
+  \removeWithTag #'B
+  \removeWithTag #'C
+  \music
+  \removeWithTag #'(B C)
+  \music
 }
 @end lilypond
 
-単一の音楽表記に複数の @code{\keepWithTag} フィルタを適用すると、@c
-タグ付きセクションは @emph{すべて} 排除されます。@c
-なぜなら、最初のフィルタはあるタグ名以外を持つセクションを排除し、@c
-2 番目のフィルタがそのタグ名を持つセクションを排除するからです。
+単一の音楽表記に 2 つ以上の @code{\keepWithTag} フィルタを適用すると、@c
+タグ付きセクションが @emph{すべて} 排除されてしまいます。@c
+なぜなら、最初のフィルタがそのタグ以外を持つセクションを排除し、@c
+2 番目のフィルタが更にそのセクションを排除するからです。@c
+@code{\keepWithTag} コマンドを、複数のタグのリストを引数に与えて使うことで、@c
+そのリストに無いタグを持つセクションのみを削除することができます。
+
+@lilypond[verbatim,quote]
+music = \relative c'' {
+  \tag #'violinI { a4 a a a }
+  \tag #'violinII { b4 b b b }
+  \tag #'viola { c4 c c c }
+  \tag #'cello { d4 d d d }
+}
+
+\new Staff {
+  \keepWithTag #'(violinI violinII)
+  \music
+}
+@end lilypond
+
+@noindent
+上の例では、@var{violinI} と @var{violinII} の @code{\tag} を表示しますが、@c
+@var{viola} や @var{cello} は表示しません。
+
+@cindex tag groups (タグ グループ)
+@funindex \tagGroup
+
+While @code{\keepWithTag} is convenient when dealing with @emph{one} set
+of alternatives, the removal of music tagged with @emph{unrelated} tags
+is problematic when using them for more than one purpose.
+@code{\keepWithTag} は、@emph{1 つだけの}入れ替えのセットを扱う場合には@c
+便利ですが、@emph{関係のない}タグが付けられた音楽を削除してしまうことは、@c
+タグを複数の目的で使用したい場合に問題となります。@c
+そのような場合では、タグの@q{グループ}を宣言することができます。
+
+@example
+\tagGroup #'(violinI violinII viola cello)
+@end example
+
+@noindent
+こうすることで、4 つの異なるタグが一つの@q{タグ グループ}になります。@c
+それぞれのタグは、複数の@q{タグ グループ}のメンバとなることはできません。
+
+@example
+\keepWithTag #'violinI @dots{}
+@end example
+
+@noindent
+これで、@code{violinI} のタグ グループに含まれるタグから、該当するタグのみが@c
+表示され、@emph{その他の}タグは削除されます。@emph{(訳注: 指定されたタグ
+グループに含まれないタグは表示されたままになります。)}
+
+@lilypond[verbatim,quote]
+music = \relative {
+  \tagGroup #'(violinI violinII viola cello)
+  \tag #'violinI { c''4^"violinI" c c c }
+  \tag #'violinII { a2 a }
+  \tag #'viola { e8 e e2. }
+  \tag #'cello { d'2 d4 d }
+  R1^"untagged"
+}
+
+\new Voice {
+  \keepWithTag #'violinI
+  \music
+}
+@end lilypond
+
+@c 「与えられたタグに属するタグ グループのタグのみが表示される」は
+@c 実態と異なる気がするのでコメントアウト (cf. 上の訳注,
+@c https://lists.gnu.org/archive/html/lilypond-user/2015-12/msg00059.html)
+@c When using the @code{\keepWithTag} command, only tags from the tag
+@c groups of the tags given in the command are visible.
+
+@funindex \pushToTag
+@funindex \appendToTag
+@cindex splice into tagged music (タグの付いた音楽に組み込む)
 
 既存の音楽表記のある特定の場所にいくつか音を組み込みたいことがあります。@c
 @code{\pushToTag} と @code{\appendToTag} を使って、@c
-既存の音楽構造の @code{要素} の前または後に素材を追加することができます。@c
-すべての音楽構造が @code{要素} を持つわけではありませんが、@c
-連続するか同時進行する音楽構造はまず間違いなく @code{要素} を持ちます:
+既存の音楽構造の @code{elements} の前または後に素材を追加することができます。@c
+すべての音楽構造が @code{elements} を持つわけではありませんが、@c
+連続するか同時進行する音楽構造はまず間違いなく @code{elements} を持ちます:
 
 @lilypond[verbatim,quote]
-test = { \tag #'here { \tag #'here <<c''>> } }
+music = { \tag #'here { \tag #'here <<c''>> } }
 
 {
   \pushToTag #'here c'
   \pushToTag #'here e'
-  \pushToTag #'here g' \test
+  \pushToTag #'here g' \music
   \appendToTag #'here c'
   \appendToTag #'here e'
-  \appendToTag #'here g' \test
+  \appendToTag #'here g' \music
 }
 @end lilypond
 
 どちらのコマンドもタグ、組み込む素材、それにタグ付けされた音楽表記を
 取り、タグが出現するたびに素材を組み込みます。@c
-これらのコマンドは変更するものを全てコピーするので、@c
-オリジナルの @code{\test} が元の意味を保持し続けることを保証します。
 
 @seealso
 学習マニュアル:
@@ -2107,19 +2505,13 @@ test = { \tag #'here { \tag #'here <<c''>> } }
 @ref{Automatic part combining},
 @ref{Including LilyPond files}
 
-@ignore
-@c This warning is more general than this placement implies.
-@c Rests are not merged whether or not they come from tagged sections.
-@c Should be deleted?  -td
-
 @knownissues
-Multiple rests are not merged if you create a score with more
-than one tagged section at the same place.
-
-複数のタグ付きセクションからを生成した場合、@c
-同じ場所にある複数の休符はマージされません。
-
-@end ignore
+@code{\keepWithTag} や @code{\removeWithTag} でフィルタリングされた@c
+音楽表記に @code{\relative} を用いると、オクターブ関係が変化してしまいます。@c
+これは、フィルタリングされた音符のみが @code{\relative} で解釈されるためです。@c
+@code{\keepWithTag} や @code{\removeWithTag} よりも先に@c
+まず @code{\relative} を適用することで、全ての音符が解釈されるようになるため、@c
+危険を回避することができます。
 
 
 @node グローバル設定を使用する
@@ -2195,7 +2587,7 @@ LilyPond は入力のエンコーディング変換をまったく行いませ�
 そのようなテキストを入力する最も容易な方法は Unicode を認識するエディタを@c
 用いて、ファイルを UTF-8 で保存することです。@c
 人気のある現代的なエディタのほとんどが UTF-8 をサポートします
- -- 例えば、vim, Emacs, jEdit, GEdit です。@c
+ -- 例えば、vim, Emacs, jEdit, Gedit です。@c
 NT より後の MS Windows システムはすべて@c
 ネイティブ キャラクタ エンコーディングとして Unicode を使用します。@c
 そのため、Notepad でさえ UTF-8 フォーマットのファイルを@c
@@ -2213,11 +2605,12 @@ FT_Get_Glyph_Name () error: invalid argument
 
 ここでキリル文字、ヘブライ文字、ポルトガル語のテキストを表示する例を挙げます:
 
+@c NOTE: No verbatim in the following example as the code does not
+@c display correctly in PDF Font settings for Cyrillic and Hebrew
+
 @c KEEP LY
 @lilypond[quote]
-%c No verbatim here as the code does not display correctly in PDF
-% Font settings for Cyrillic and Hebrew
-% Linux Libertine fonts contain Cyrillic and Hebrew glyphs.
+% Linux Libertine フォントはキリル文字やヘブライ文字を含みます
 \paper {
   #(define fonts
     (set-global-fonts
@@ -2242,7 +2635,7 @@ portuguese = \lyricmode {
   à vo -- cê uma can -- ção legal
 }
 
-\relative  {
+\relative {
   c'2 d e f g f e
 }
 \addlyrics { \bulgarian }
@@ -2377,42 +2770,49 @@ Unicode U+03BE の文字を入力します
 * 記譜フォントを置換する::
 @end menu
 
+@funindex clip-regions
+@cindex Fragments, music (音楽の断片)
+@cindex Music fragments (音楽の断片)
+
 @node 音楽の断片を抽出する
 @subsection 音楽の断片を抽出する
 @translationof Extracting fragments of music
 
-大きな楽譜の中の小さな範囲を、出力から直接引用することができます。@c
-これは紙の楽譜の一部をはさみで切り抜くことに相当します。
+1 つあるいは複数の楽譜の断片を出力することができます。@c
+そのためには、@code{\layout} ブロックに抽出する部分を @code{clip-regions}
+関数で明示します。@c
+そして、LilyPond を @option{-dclip-systems} オプション付きで実行します。
 
-これは切り抜く小節を定義することによって実行されます。@c
-例えば、以下の定義は、
-
-
-@verbatim
-\layout {
+@example
+\layout @{
   clip-regions
   = #(list
       (cons
        (make-rhythmic-location 5 1 2)
        (make-rhythmic-location 7 3 4)))
-}
-@end verbatim
+@}
+@end example
 
 @noindent
-第 5 小節の中間から第 7 小節までを抽出します。@c
-@code{5 1 2} は第 5 小節の先頭から 1/2 音符の位置を意味し、@c
-@code{7 3 4} は第 7 小節の先頭から 4 分音符 3 つ分の位置を意味します。
+この例では、5 小節目の 2 分音符 1 つ分後 (@code{5 1 2}) @emph{から}、@c
+7小節目の 4 分音符 3 つ分後 (@code{7 3 4}) @emph{まで}の部分を抽出します。
 
-リズムによる位置のペアをリストに追加することによって、@c
-更に多くの切り抜き範囲を定義することができます。
+@code{\layout} ブロックの @code{clip-regions} リストに
+@code{make-rhythmic-location} のペアを追加することで、断片を追加することが@c
+できます。
 
-この機能を使用するには、@c
-LilyPond を @option{-dclip-systems} を付けて呼び出す必要があります。@c
-切り抜きは EPS ファイルとして出力され、@c
-更にフォーマットが指定されている場合には PDF や PNG に変換されます。
+デフォルトでは、それぞれの断片は別々の @code{EPS} ファイルに出力されますが、@c
+必要であれば @code{PDF} や @code{PNG} などの別のフォーマットで出力することも@c
+できます。抽出された音楽は、元の楽譜を文字通り@q{切り抜いた}かのように@c
+出力されるため、断片が複数行にまたがる場合には、行ごとに出力ファイルが@c
+分割されます。
 
-出力フォーマットについての更なる情報は、@c
-@rprogram{lilypond を呼び出す} を参照してください。
+@seealso
+記譜法リファレンス:
+@ref{layout ブロック,,@code{@bs{}layout} ブロック}
+
+アプリケーション使用方法:
+@rprogram{Command-line usage}
 
 @node 校正済みの音楽をスキップする
 @subsection 校正済みの音楽をスキップする
@@ -2429,10 +2829,10 @@ LilyPond を @option{-dclip-systems} を付けて呼び出す必要がありま�
 最後の数小節以外の譜刻をスキップすることができます。@c
 これはソース ファイルの中に以下を置くことによって実現できます:
 
-@verbatim
+@example
 showLastLength = R1*5
-\score { ... }
-@end verbatim
+\score @{ @dots{} @}
+@end example
 
 @noindent
 これは入力ファイルの中にあるそれぞれの @code{\score} の最後の 5 小節だけを@c
@@ -2452,12 +2852,13 @@ showLastLength = R1*5
 くれぐれも注意してください。
 
 @lilypond[quote,ragged-right,verbatim]
-\relative {
-  c''8 d
+\relative c' {
+  c1
   \set Score.skipTypesetting = ##t
-  e8 e e e e e e e
+  \tempo 4 = 80
+  c4 c c c
   \set Score.skipTypesetting = ##f
-  c8 d b bes a g c2
+  d4 d d d
 }
 @end lilypond
 
@@ -2475,10 +2876,10 @@ showLastLength = R1*5
 @cindex EPS output (EPS 出力)
 
 譜刻される楽譜のデフォルト出力フォーマットは、@c
-Portable Document Format (PDF) と PostScript (PS) です。@c
+Portable Document Format (PDF), PostScript (PS) です。@c
 コマンド ライン オプションを指定することにより、@c
-Scalable Vector Graphics (SVG), Encapsulated PostScript (EPS) それに
-Portable Network Graphics (PNG) 出力フォーマットが利用可能です。@c
+Portable Network Graphics (PNG), Scalable Vector Graphics (SVG),
+Encapsulated PostScript (EPS) による出力が利用可能です。@c
 @rprogram{Basic command line options for LilyPond} を参照してください。
 
 
@@ -2486,7 +2887,8 @@ Portable Network Graphics (PNG) 出力フォーマットが利用可能です。
 @subsection 記譜フォントを置換する
 @translationof Replacing the notation font
 
-LilyPond で使用される Emmentaler フォントの代わりに Gonville に使うことができます。@c
+Gonville は、LilyPond で使われるグリフ セットで、@emph{Feta}
+-- Emmentaler フォントの一部 -- の代わりとなります。@c
 Gonville は以下からダウンロードできます:
 @example
 @uref{http://www.chiark.greenend.org.uk/~sgtatham/gonville/ ,http://www.chiark.greenend.org.uk/~sgtatham/gonville/}
@@ -2496,28 +2898,70 @@ Gonville のサンプル小節です:
 
 @c NOTE: these images are a bit big, but that's important
 @c       for the font comparison.  -gp
-@sourceimage{Gonville_after,,,}
+@sourceimage{Gonville_after,15cm,,}
 
-LilyPond の Emmentaler フォントのサンプル小節です:
+LilyPond の Feta グリフのサンプル小節です:
 
-@sourceimage{Gonville_before,,,}
+@sourceimage{Gonville_before,15cm,,}
 
-@subsubheading MacOS でのインストール手順
+@subsubheading インストール手順
+フォント ファイルをダウンロードし、展開します。@c
+@file{gonville-11.otf},
+@file{gonville-13.otf},
+@file{gonville-14.otf},
+@file{gonville-16.otf},
+@file{gonville-18.otf},
+@file{gonville-20.otf},
+@file{gonville-23.otf},
+@file{gonville-26.otf},
+@file{gonville-brace.otf} ファイルを
+@file{@dots{}/share/lilypond/current/fonts/otf} か
+@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/otf} にコピーします。
+@file{gonville-*.svg} や @file{gonville-*.woff} のファイルを持っているならば、@c
+それらを @file{@dots{}/share/lilypond/current/fonts/svg} か
+@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/svg} にコピーします。
+更なる情報は、@rlearning{Other sources of information} を参照してください。
 
-ZIP ファイルをダウンロードして、伸張します。@c
-@code{lilyfonts} ディレクトリを @file{@var{SHARE_DIR}/lilypond/current} に@c
-コピーします
--- 更なる情報は、@rlearning{Other sources of information} を参照してください。@c
-既存の @code{fonts} ディレクトリを @code{fonts_orig} にリネームして、@c
-@code{lilyfonts} ディレクトリを @code{fonts} にリネームします。@c
-Emmentaler フォントに戻すには、@code{fonts_orig} を @code{fonts} に戻します。
+注: @file{gonville-*.otf} ファイルは
+@code{ps} や @code{eps} バックエンドで使われます。
+(PDF や PostScript を出力します)。
+@file{gonville-*.svg} ファイルは
+@code{svg} バックエンドで @code{svg-woff} オプションが無効な場合に使われます。
+@file{gonville-*.woff} ファイルは
+@code{svg} バックエンドで @code{svg-woff} オプションが有効な場合に使われます。
+更なる情報は、@rprogram{Advanced command line options for LilyPond} を@c
+参照してください。
+
+次の構文は、記譜フォント (記号類とブレースの両方) を
+Gonville フォントに変更します:
+
+@example
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     #:music "gonville"
+     #:brace "gonville"
+   ))
+@}
+@end example
+
+注: @code{set-global-fonts} を呼び出すたびに、メインの記譜フォントとテキスト
+フォントの両方を完全にリセットします。どれかのカテゴリが指定されていない@c
+場合には、そのカテゴリのデフォルトフォントが使われます。@c
+@code{set-global-fonts} を呼び出すたびに、それに続く全ての @code{\book}
+(暗黙的に生成された場合と、明示的に生成された場合の両方を含みます) の@c
+フォントを変更します。つまり、それぞれの @code{\book} の前に@c
+@code{set-global-fonts} を呼び出すことによって、@code{\book} ごとにメイン
+フォントを指定することができます。@c
+更なる情報は、@ref{Entire document fonts} を参照してください。
 
 @seealso
 学習マニュアル:
 @rlearning{Other sources of information}
 
 記譜法リファレンス:
-@ref{The Emmentaler font}.
+@ref{The Emmentaler font},
+@ref{Entire document fonts}
 
 @knownissues
 Gonville では @q{古代の音楽} を記譜することはできません。@c
@@ -2526,9 +2970,46 @@ Gonville フォント ファミリーでは、@c
 ライセンス条件等を含む Gonville の更なる情報は、@c
 製作者の Web サイトを参照してください。
 
+@subsubheading 他の記譜フォント
 
-@c 2017/9/22 ノード名とその翻訳のみ変更
-@c 第1章のxrefを正しく動作させるため。
+@file{@var{fontname}-*.otf}, @file{@var{fontname}-*.svg},
+@file{@var{fontname}-*.woff} のような他の記譜フォントを持っている場合、@c
+Gonville と同じように使用することができます。
+
+つまり、
+@file{@var{fontname}-*.otf} ファイルを
+@file{@dots{}/share/lilypond/current/fonts/otf} や
+@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/otf} にコピーします。
+@file{@var{fontname}-*.svg} や @file{@var{fontname}-*.woff} ファイルを@c
+持っているならば、それらを
+@file{@dots{}/share/lilypond/current/fonts/svg} や
+@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/svg} にコピーします。
+
+注: 現在、LilyPond はフォントのファイル名に以下の接尾が付いていることを@c
+想定します。インストールしたフォントが正しく動作するためには、@c
+これらの全てが上のインストール フォルダに存在している必要があります:
+@file{-11}, @file{-13}, @file{-14}, @file{-16},
+@file{-18}, @file{-20}, @file{-23}, @file{-26}, @file{-brace} です。
+例えば、@file{emmentaler-11.otf}, @file{emmentaler-20.svg},
+@file{emmentaler-brace.woff} のようなファイルが必要です。
+
+次の構文は、記譜フォント (記号類とブレースの両方) を
+@var{fontname} フォントに変更します:
+
+@example
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     #:music "@var{fontname}" ; font filename without suffix and extension
+     #:brace "@var{fontname}" ; font filename without suffix and extension
+   ))
+@}
+@end example
+
+注: @code{music} や @code{brace} カテゴリには、@c
+接尾や拡張子を除いたフォントのファイル名を指定してください。
+
+
 @node MIDI 出力を作り出す
 @section MIDI 出力を作り出す
 @translationof Creating MIDI output
@@ -2536,660 +3017,682 @@ Gonville フォント ファミリーでは、@c
 @cindex Sound (サウンド)
 @cindex MIDI
 
-MIDI (Musical Instrument Digital Interface) はデジタル楽器接続 / 制御の@c
-標準インタフェイスです。@c
-MIDI ファイルはいくつかのトラックの中にある音符の連なりです。@c
-MIDI ファイルは実際はサウンド ファイルではありません。@c
-音符の連なりと実際のサウンドの翻訳を行うには専用のソフトウェアが必要になります。
+LilyPond は MIDI (Musical Instrument Digital Interface) 標準に従う@c
+ファイルを出力することが出来るため、音楽の出力を聴いてチェックすることが@c
+できます (MIDI を解釈できるアプリケーションやデバイスが必要です)。@c
+MIDI 出力を聞くことで、間違えて入力された音符や、臨時記号の欠落などのミスを@c
+発見しやすくなります。
 
-LilyPond で記述した音楽は MIDI ファイルに変換することができ、@c
-入力されたものを聴くことができます。@c
-これは音楽をチェックするのに便利です。オクターブの外れや臨時記号の付け間違いは
-MIDI 出力を聴いたときに際立ちます。
-
-標準 MIDI 出力には粗雑さがあります。@c
-オプションで @ref{The Articulate script} を用いることにより、@c
-強化されたリアルな MIDI 出力を得ることができます。
-
-MIDI 出力は譜毎に 1 つのチャンネルを割り当て、@c
-ドラムのためにチャンネル 10 を予約します。@c
-デバイス 1 つにつき MIDI チャンネルは 16 しかないため、@c
-楽譜が 16 以上の譜を保持している場合、MIDI チャンネルは再利用されます。
+MIDI ファイルは (AAC, MP3, Vorbis ファイルのような) 音を含みません。@c
+これらから音を作り出すためには、追加のソフトウェアが必要です。
 
 @menu
-* MIDI ファイルを作り出す::
+* MIDI でサポートされている記法::
+* MIDI でサポートされていない記法::
 * MIDI ブロック::
-* 何が MIDI に出力されるのか？::
-* MIDI での繰り返し::
 * MIDI での音の強弱を制御する::
-* MIDI での打楽器::
+* MIDI の楽器を用いる::
+* MIDI で繰り返しを用いる::
+* MIDI のチャンネル マッピング::
+* MIDI エフェクトのためのコンテキスト プロパティ::
 * MIDI 出力をより良くする::
 @end menu
 
-@node MIDI ファイルを作り出す
-@subsection MIDI ファイルを作り出す
-@translationof Creating MIDI files
+@cindex MIDI, Supported notation (MIDI でサポートされている記法)
 
-LilyPond 入力ファイルから MIDI ファイルを作り出すには、@c
-score に @code{\midi} ブロックを付け加えます。@c
-例えば、以下のように:
+@node MIDI でサポートされている記法
+@subsection MIDI でサポートされている記法
+@translationof Supported notation for MIDI
 
-@example
-\score @{
-  @var{...music...}
-  \midi @{ @}
-@}
-@end example
+次に挙げる記法は、LilyPond の標準 MIDI 出力機能で使うことができます:
 
-@code{\layout} ブロックを持たない @code{\score} の中に
-@code{\midi} ブロックがある場合、MIDI 出力だけが生成されます。@c
-楽譜も必要な場合は、@code{\layout} ブロックも存在している必要があります。
+@itemize
+@item ブレス記号
+@item コード ネームとして入力された和音
+@item 複数の音符にまたがるクレッシェンドとデクレッシェンド。音量が始点から@c
+終点まで線形に変化します
+@item @code{ppppp} から @code{fffff} までの強弱記号
+(@code{mp}, @code{mf}, @code{sf} を含む)
+@item 和音@emph{ではない}微分音。ピッチ ベンドをサポートする MIDI プレイヤが@c
+必要です。
+@item 歌詞
+@item ピッチ
+@item 長さが入力されたリズム (連符を含む)
+@item @q{シンプルな}アーティキュレーション:
+スタッカート、スタッカーティッシモ、アクセント、マルカート、ポルタート
+@item @code{\tempo} 関数が使われたテンポ変化
+@item タイ
+@item @q{@code{:}[@var{number}]} で入力@emph{されていない}トレモロ
+@end itemize
 
-@example
-\score @{
-  @var{...music...}
-  \midi @{ @}
-  \layout @{ @}
-@}
-@end example
+パン、バランス、エクスプレッション、リバーブ、コーラスのエフェクトは@c
+コンテキスト プロパティをセットすることで操作できます。@c
+@ref{Context properties for MIDI effects} を参照してください。
 
-ピッチ、リズム、タイ、強弱記号、テンポの変更は解釈されて@c
-正確に MIDI 出力に翻訳されます。@c
-強弱記号、クレッシェンド、デクレッシェンドは MIDI ボリューム レベルに@c
-翻訳されます。@c
-強弱記号は利用可能な MIDI ボリューム レンジ内のある固定値に翻訳されます。@c
-クレッシェンドとデクレッシェンドはそれらの開始点と終了点の間でボリュームを@c
-線形に変化させます。@c
-MIDI 出力における強弱記号の効果を完全に削除することができます
- -- @ref{MIDI block} を参照してください。
+次の @file{articulate} スクリプトと一緒に使うと、これらの表記も
+MIDI に出力することができます:
 
-初期のテンポと後のテンポ変化は、音楽記譜内部の @code{\tempo} コマンドで@c
-指定することができます。@c
-通常このコマンドはメトロノーム記号を表示させますが、@c
-表示を抑制することができます
--- @ref{Metronome marks} を参照してください。@c
-初期 MIDI テンポあるいは MIDI 全体のテンポを指定するための代替手段が@c
-この後で記述されています -- @ref{MIDI block} を参照してください。
-
-Windows の制限により、Windows での MIDI ファイルのデフォルトの拡張子は
-@code{.mid} です。@c
-他の OS では、拡張子は @code{.midi} となります。@c
-他の拡張子を使いたいのであれば、入力ファイルの最上位で、@c
-@code{\book} ブロック, @code{\bookpart} ブロック、それに @code{\score}
-ブロックの前に以下の行を挿入します:
+@itemize
+@item アッポジャトゥーラ。次の音符の半分の長さが使われます
+(付点は考慮されません)。例えば:
 
 @example
-#(ly:set-option 'midi-extension "midi")
-@end example
-
-上記の行は、MIDI ファイルのデフォルトの拡張子を @code{.midi} にします。
-
-上記の方法の代わりとして、@c
-コマンド ラインで以下のオプションを与える方法があります:
-
-@example
-lilypond … -dmidi-extension=midi lilyFile.ly
-@end example
-
-
-@unnumberedsubsubsec 楽器名
-@c @unnumberedsubsubsec Instrument names
-
-@cindex instrument names (楽器名)
-@funindex Staff.midiInstrument
-
-@code{Staff.midiInstrument} プロパティに楽器名を設定することで、@c
-使用する MIDI 楽器が指定されます。@c
-楽器名は @ref{MIDI instruments} にあるリストから選択しなければなりません。
-
-@example
-\new Staff @{
-  \set Staff.midiInstrument = #"glockenspiel"
-  @var{...notes...}
-@}
-@end example
-
-@example
-\new Staff \with @{midiInstrument = #"cello"@} @{
-  @var{...notes...}
-@}
-@end example
-
-選択された楽器が MIDI 楽器のリストにある楽器に一致しない場合、@c
-グランド ピアノ (@code{"acoustic grand"}) 楽器が使用されます。
-
-
-@snippets
-
-@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{changing-midi-output-to-one-channel-per-voice.ly}
-
-@knownissues
-
-@c In 2.11 the following no longer seems to be a problem -td
-@ignore
-Unterminated (de)crescendos will not render properly in the midi file,
-resulting in silent passages of music.  The workaround is to explicitly
-terminate the (de)crescendo.  For example,
-
-終端の無い(デ)クレッシェンドは適切に MIDI ファイルを作り出しません。@c
-結果として無音の音楽パッセージとなります。@c
-回避方法として、明示的に(デ)クレッシェンドを終了させます。@c
-例えば、
-
-@example
-@{ a\< b c d\f @}
+\appoggiatura c8 d2.
 @end example
 
 @noindent
-will not work properly but
-これは正しく機能しませんが、
+では、c の音が四分音符の長さを取ります。
 
-@example
-@{ a\< b c d\!\f @}
-@end example
+@item 装飾記号 (例えば、モルデント、トリル、ターンなど)
+@item ラレンタンド、アッチェレランド、リタルダント、ア テンポ
+@item スラー (フレージング スラーを含む)
+@item テヌート
+@end itemize
 
 @noindent
-will.
-これは正しく機能します。
-@end ignore
+@ref{Enhancing MIDI output} を参照してください。
 
-MIDI ボリュームの変化は音符の開始点でのみ起こります。@c
-そのため、クレッシェンドとデクレッシェンドは@c
-単一の音符のボリューム変化には効果を持ちません。
+@cindex MIDI, Unsupported notation (MIDI でサポートされていない記法)
 
-すべての MIDI プレイヤが MIDI 出力の中にあるテンポ変化を@c
-正しく処理するわけではありません。@c
-正しく機能するプレイヤとして知られているものには MS Windows の Media Player や
-@uref{http://@/timidity@/.sourceforge@/.net/,timidity} があります。
+@node MIDI でサポートされていない記法
+@subsection MIDI でサポートされていない記法
+@translationof Unsupported notation for MIDI
+
+次の記法は、MIDI に出力することはできません:
+
+@itemize
+@item スタッカート、スタッカーティッシモ、アクセント、マルカート、@c
+ポルタート以外のアーティキュレーション
+@item @emph{一つの}音符にまたがるクレッシェンドとデクレッシェンド
+@item フェルマータ
+@item 通奏低音
+@item グリッサンド
+@item Fall や Doit
+@item 微分音の和音
+@item スウィングなどの、注釈として入力されたリズム
+@item @code{\tempo} 以外で入力されたテンポ変化 (注釈として入力された場合など)
+@item @q{@code{:}[@var{number}]} @emph{で}入力されたトレモロ
+@end itemize
+
 
 @node MIDI ブロック
 @subsection MIDI ブロック
-@translationof MIDI block
+@translationof The MIDI block
 
 @cindex MIDI block (MIDI ブロック)
 
-MIDI 出力が必要な場合、@c
-score 内部に @code{\midi} ブロックを置く必要があります。@c
-MIDI ブロックはレイアウト ブロックに似ていますが、それよりも単純です。@c
-しばしば、@code{\midi} ブロックは空のままですが、コンテキストの再編成
--- 新しいコンテキスト定義やプロパティの値を設定するためのコード --
-を保持することもできます。@c
-例えば以下の例は、テンポ指示を譜刻することなしに、@c
-MIDI ファイルの初期テンポを設定します:
+LilyPond 入力ファイルから MIDI 出力ファイルを作り出す場合、@code{\score}
+ブロックの中に @code{\midi} ブロックを挿入します。@code{\midi} ブロックは@c
+空でも構いません。
 
 @example
 \score @{
-  @var{...music...}
+  @var{@dots{} music @dots{}}
+  \layout @{ @}
+  \midi @{ @}
+@}
+@end example
+
+@warning{@code{@bs{}score} ブロックが音楽と、@code{@bs{}midi} ブロックしか@c
+含まない場合 (つまり、@code{@bs{}layout} ブロックを@emph{持たない}場合)、@c
+MIDI 出力ファイルのみを作り出します。楽譜は出力されません。}
+
+デフォルトの出力ファイルの拡張子 (@code{.midi}) は @code{lilypond} コマンドに@c
+@code{-dmidi-extension} オプションを指定することで変更することができます:
+
+@example
+lilypond -dmidi-extension=mid MyFile.ly
+@end example
+
+または、@code{\book}, @code{\bookpart}, @code{\score} ブロックのいずれかの@c
+前に、次の Scheme コードを追加することでも変更することができます。@c
+@ref{File structure} を参照してください。
+
+@example
+#(ly:set-option 'midi-extension "mid")
+@end example
+
+@seealso
+記譜法リファレンス:
+@ref{File structure},
+@ref{Creating output file metadata}
+
+インストールされているファイル:
+@file{scm/midi.scm}
+
+@knownissues
+MIDI チャンネルは 15 個が利用可能で、さらにドラムのためのチャンネルが 1 つ (#10)
+あります。譜は一つずつ順番にチャンネルが割り当てられるため、15 よりも多くの@c
+譜を持つ楽譜は、複数の譜が同じ MIDI チャンネルに割り当てられます
+(上書きはされません)。この時、チャンネル毎に設定されるプロパティが競合して@c
+セットされている場合 -- 例えば、異なる楽器が指定されている場合 -- は@c
+問題になることがあります。
+
+@node MIDI での音の強弱を制御する
+@subsection MIDI での音の強弱を制御する
+@translationof Controlling MIDI dynamics
+
+MIDI 全体の音量や、強弱記号による相対的な音量、楽器ごとの相対的な音量を@c
+設定することができます。
+
+強弱記号は、可能な範囲内の MIDI 音量に変換されます。一方、@c
+クレッシェンドやデクレッシェンドは、始点と終点の間の音量を線形に変化させます。@c
+強弱記号の相対的な音量や、楽器ごとの全体的な音量を設定することができます。
+
+@menu
+* MIDI での強弱記号::
+* MIDI の音量を設定する::
+* MIDI ブロック プロパティを設定する::
+@end menu
+
+@cindex MIDI volume (MIDI での音量)
+@cindex MIDI equalization (MIDI での音量の均等化)
+@cindex MIDI dynamics (MIDI での強弱記号)
+@cindex Dynamics in MIDI (MIDI での強弱記号)
+
+
+@node MIDI での強弱記号
+@unnumberedsubsubsec MIDI での強弱記号
+@translationof Dynamic marks in MIDI
+
+@code{mp}, @code{mf}, @code{sf} を含む、@code{ppppp} から @code{fffff} までの@c
+強弱記号のみが音量値を設定されています。@c
+そして、この値が全体の MIDI 音量レンジの値に適用されます。@c
+MIDI 出力において、指定された強弱記号に対応した最終的な音量を得るために、@c
+これらの値が全体の音量範囲に収まるように適用されます。@c
+デフォルトで、割合の最小値は 0.25 (@notation{ppppp}) で、最大値は
+0.95 (@notation{fffff}) です。全ての強弱記号と、それに@c
+関連付けられた音量の割合の一覧は @file{scm/midi.scm} にあります。
+
+
+@snippets
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{creating-custom-dynamics-in-midi-output.ly}
+
+インストールされているファイル:
+@file{ly/script-init.ly}
+@file{scm/midi.scm}
+
+コード断片集:
+@rlsr{MIDI}
+
+内部リファレンス:
+@rinternals{Dynamic_performer}
+
+
+@node MIDI の音量を設定する
+@unnumberedsubsubsec MIDI の音量を設定する
+@translationof Setting MIDI volume
+
+全体の MIDI 音量の最小値と最大値は、@code{midiMinimumVolume} と
+@code{midiMaximumVolume} を @code{Score} レベルでセットすることで@c
+設定できます。これらのプロパティはボイスの開始時か強弱記号が配置された時に@c
+適用されます。それぞれの強弱記号に対応する音量の割合は次の式で計算されます:
+
+@example
+midiMinimumVolume + (midiMaximumVolume - midiMinimumVolume) * fraction
+@end example
+
+次の例では、全体の MIDI 音量の範囲を @code{0.2} - @code{0.5} に制限します:
+
+@example
+\score @{
+  <<
+    \new Staff @{
+      \set Staff.midiInstrument = #"flute"
+      @var{@dots{} music @dots{}}
+    @}
+    \new Staff @{
+      \set Staff.midiInstrument = #"clarinet"
+      @var{@dots{} music @dots{}}
+    @}
+  >>
+  \midi @{
+    \context @{
+      \Score
+      midiMinimumVolume = #0.2
+      midiMaximumVolume = #0.5
+    @}
+  @}
+@}
+@end example
+
+楽器ごとの音量を均等化するための単純な方法は、@c
+@code{midiMinimumVolume} と @code{midiMaximumVolume} プロパティを
+@code{Staff} コンテキストでセットすることです:
+
+@example
+\score @{
+  \new Staff @{
+    \set Staff.midiInstrument = #"flute"
+    \set Staff.midiMinimumVolume = #0.7
+    \set Staff.midiMaximumVolume = #0.9
+    @var{@dots{} music @dots{}}
+  @}
+  \midi @{ @}
+@}
+@end example
+
+複数の譜を持ち、複数の MIDI 楽器を用いる楽譜では、それぞれの相対的な音量を@c
+セットすることができます:
+
+@example
+\score @{
+  <<
+    \new Staff @{
+      \set Staff.midiInstrument = #"flute"
+      \set Staff.midiMinimumVolume = #0.7
+      \set Staff.midiMaximumVolume = #0.9
+      @var{@dots{} music @dots{}}
+    @}
+    \new Staff @{
+      \set Staff.midiInstrument = #"clarinet"
+      \set Staff.midiMinimumVolume = #0.3
+      \set Staff.midiMaximumVolume = #0.6
+      @var{@dots{} music @dots{}}
+    @}
+  >>
+  \midi @{ @}
+@}
+@end example
+
+この例では、フルートの音量に比べてクラリネットの音量が減らされています。
+
+これらの音量プロパティがセットされていない場合でも、LilyPond は特定の楽器に@c
+@q{わずかな}音量の均等化を行っています。@file{scm/midi.scm} を参照してください。
+
+インストールされているファイル:
+@file{scm/midi.scm}
+
+@seealso
+記譜法リファレンス:
+@ref{Score layout}
+
+内部リファレンス:
+@rinternals{Dynamic_performer}
+
+@snippets
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{replacing-default-midi-instrument-equalization.ly}
+
+@knownissues
+MIDI での音量変化は音符の開始時にのみ適用されます。そのため、クレッシェンドや@c
+デクレッシェンドが単一の音符に適用された場合、音量は変化しません。
+
+
+@node MIDI ブロック プロパティを設定する
+@unnumberedsubsubsec MIDI ブロック プロパティを設定する
+@translationof Setting MIDI block properties
+
+@code{\midi} ブロックでは、コンテキストを再構成したり、新たなコンテキストを@c
+定義したり、特定のプロパティに値をセットしたりすることができます。
+
+@example
+\score @{
+  @var{@dots{} music @dots{}}
   \midi @{
     \tempo 4 = 72
   @}
 @}
 @end example
 
-この例では、テンポは 1 分間あたり 72 個の 4 分音符にセットされています。@c
-@code{\tempo} は実際、コンパイルの最中にプロパティを設定する音楽コマンドです:
-@code{\midi} ブロックのような出力定義コンテキストの中にある @code{\tempo} は@c
-当然のこととして、コンテキストを変更するものとして解釈されます。
+この例では、テンポが四分音符 72 にセットされます。@code{\midi} ブロックの@c
+テンポ記号は、楽譜には出力されません。しかし、他の @code{\tempo} 指示が
+@code{\score} ブロックで指定された場合、それも MIDI 出力に反映されます。
 
-@cindex MIDI context definitions (MIDI コンテキスト定義)
+@code{\midi} ブロック内で、@code{\tempo} コマンドが記述された場合、@c
+音楽の解釈中に、出力定義のコンテキスト内でプロパティをセットします。@c
+そのため、それはコンテキストの変更である@emph{かのように}解釈されます。
 
-@code{\midi} ブロック内部でのコンテキスト定義は、@c
-@code{\layout} ブロック内部でのコンテキスト定義の構文とまったく同じです。@c
-サウンドのモジュールへの翻訳は performer と呼ばれます。@c
-MIDI 出力のためのコンテキストは
-@file{../ly/performer-init.ly} で定義されています
--- @rlearning{Other sources of information} を参照してください。@c
-例えば、MIDI 出力から強弱記号の効果を削除するには、@c
-@code{\midi@{ @}} ブロックの中に以下のコードを挿入します。
+@cindex MIDI context definitions (MIDI のコンテキスト定義)
+@cindex context definitions with MIDI (MIDI のコンテキスト定義)
+
+コンテキスト定義は、@code{\layout} ブロックと同じ表記を用います:
 
 @example
-\midi @{
-  ...
-  \context @{
-    \Voice
-    \remove "Dynamic_performer"
+\score @{
+  @var{@dots{} music @dots{}}
+  \midi @{
+    \context @{
+      \Voice
+      \remove "Dynamic_performer"
+    @}
   @}
 @}
 @end example
 
-MIDI 出力は、@code{\score} コマンドで定義された score ブロック内部に
-@code{\midi} ブロックが存在する場合にのみ生成されます。
+この例は、MIDI 出力から強弱記号の効果を取り除きます。注: LilyPond では、@c
+音楽表記から MIDI 出力に変換するモジュール (translator) は@c
+@q{パフォーマ} (performer) と呼ばれます。
 
-@ignore
-@code{\midi} ブロックが明示的にインスタンス化された score コンテキストの中
-(例えば、@code{\new Score} ブロックの中) に配置された場合、@c
-その LilyPond ファイルはエラーになります。@c
-これを解決するには、@code{\new Score} と @code{\midi} コマンドを
-@code{\score} ブロックの中に置きます。
-@end ignore
+@seealso
+学習マニュアル:
+@rlearning{Other sources of information}
+
+記譜法リファレンス:
+@ref{Expressive marks},
+@ref{Score layout}
+
+インストールされているファイル:
+@file{ly/performer-init.ly}
+
+コード断片集:
+@rlsr{MIDI}
+
+内部リファレンス:
+@rinternals{Dynamic_performer}
+
+@knownissues
+MIDI プレイヤの中には，出力のテンポ変化を正しく処理しないものがあります。
+
+@code{midiInstrument} や他の MIDI オプションの変更を@c
+譜の@emph{始め}に行った場合、MIDI 出力ファイル内でその変更が二重に@c
+記述されている場合があります。
+
+@node MIDI の楽器を用いる
+@subsection MIDI の楽器を用いる
+@translationof Using MIDI instruments
+
+MIDI の楽器は、@code{Staff} コンテキストで @code{midiInstrument} プロパティを@c
+セットすることで指定することができます:
 
 @example
 \score @{
-  @{ @dots{}notes@dots{} @}
+  \new Staff @{
+    \set Staff.midiInstrument = #"glockenspiel"
+    @var{@dots{} music @dots{}}
+  @}
   \midi @{ @}
 @}
 @end example
 
+または:
 
-@node 何が MIDI に出力されるのか？
-@subsection 何が MIDI に出力されるのか？
-@translationof What goes into the MIDI output?
+@example
+\score @{
+  \new Staff \with @{midiInstrument = #"cello"@} @{
+    @var{@dots{} music @dots{}}
+  @}
+  \midi @{ @}
+@}
+@end example
 
-@c TODO Check grace notes - timing is suspect?
+楽器名が @q{MIDI の楽器} セクションにある一覧のどれにも当てはまらない場合、@c
+@code{acoustic grand} 楽器が代わりに使用されます。
+@ref{MIDI instruments} を参照してください。
 
-@unnumberedsubsubsec MIDI でサポートされるもの
-@c @unnumberedsubsubsec Supported in MIDI
+@seealso
+学習マニュアル:
+@rlearning{Other sources of information}
 
-@cindex Pitches in MIDI (MIDI でのピッチ)
-@cindex MIDI, Pitches (MIDI でのピッチ)
-@cindex Quarter tones in MIDI (MIDI での4 分音)
-@cindex MIDI, quarter tones (MIDI での4 分音)
-@cindex Microtones in MIDI (MIDI での微分音)
-@cindex MIDI, microtones (MIDI での微分音)
-@cindex Chord names in MIDI (MIDI でのコード ネーム)
-@cindex MIDI, chord names (MIDI でのコード ネーム)
-@cindex Rhythms in MIDI (MIDI でのリズム)
-@cindex MIDI, Rhythms (MIDI でのリズム)
-@cindex Articlulate scripts (奏法スクリプト)
-@cindex MIDI, articulations (MIDI での奏法)
-@cindex articulations in MIDI (MIDI での奏法)
-@cindex trills in MIDI (MIDI でのトリル)
-@cindex turns in MIDI (MIDI でのターン)
-@cindex rallentando in MIDI (MIDI でのラレンタンド)
-@cindex accelerando in MIDI (MIDI でのアッチェレランド)
-@c TODO etc
+記譜法リファレンス:
+@ref{MIDI instruments},
+@ref{Score layout}
 
-以下の記譜要素が MIDI 出力に反映されます:
+インストールされているファイル:
+@file{scm/midi.scm}.
 
-@itemize
-@item ピッチ
-@item 微分音 (@ref{Accidentals} を参照してください。@c
-演奏にはピッチ ベンドをサポートするプレイヤが必要になります。)
-@item コード名で入力された和音
-@item 音符の演奏時間として入力されたリズム -- 連符を含みます
-@item @q{@code{:}[@var{number}]} を使わずに入力されたトレモロ
-@item タイ
-@item 強弱記号
-@item 複数の音符にかかるクレッシェンド、デクレッシェンド
-@item テンポ記号で入力されたテンポ変化
-@item 歌詞
-@end itemize
+@knownissues
+@code{DrumStaff} コンテキストで記譜されるパーカッションの楽器は、@c
+正しく MIDI の 10@tie{}チャンネルに出力されますが、@c
+いくつかのピッチ付きのパーカッション楽器 (シロフォン、マリンバ、@c
+ビブラフォン、ティンパニなど) は@qq{通常の}楽器として扱われます。@c
+そのため、これらの楽器の MIDI 出力を正しく得る場合には、音楽は
+(@code{DrumStaff} ではなく) @code{Staff} コンテキストに入力されるべきです。@c
+10@tie{}チャンネルのドラム キット (@code{channel 10 drum-kits}) の完全な@c
+リストは、@file{scm/midi.scm} にあります。@c
+@rlearning{Other sources of information} を参照してください。
 
-@ref{The Articulate script} を用いることで、@c
-上記のリストにいくつかの要素が追加されます:
-
-@itemize
-@item アーティキュレーション (スラー、スタッカート等)
-@item トリル、ターン
-@item ラレンタンドとアッチェレランド
-@end itemize
-
-@unnumberedsubsubsec MIDI でサポートされないもの
-@c @unnumberedsubsubsec Unsupported in MIDI
-
-@c TODO index as above
-
-以下の記譜要素は MIDI 出力に影響を与えません:
-
-@itemize
-@item 注記 -- 例えば swing -- として入力されたリズム
-@item テンポ記号を使わずに注記として入力されたテンポ変化
-@item スタッカートと他のアーティキュレーションや装飾
-@item スラーとフレージング スラー
-@item 単一の音符に付けられたクレッシェンド、デクレッシェンド
-@item @q{@code{:}[@var{number}]} を使って入力されたトレモロ
-@item 通奏低音
-@item 微分音の和音
-@end itemize
-
-
-@node MIDI での繰り返し
-@subsection MIDI での繰り返し
-@translationof Repeats in MIDI
+@node MIDI で繰り返しを用いる
+@subsection MIDI で繰り返しを用いる
+@translationof Using repeats with MIDI
 
 @cindex repeats in MIDI (MIDI での繰り返し)
+@cindex MIDI using repeats (MIDI で繰り返しを用いる)
 @funindex \unfoldRepeats
 
-ちょっとした追加で、@c
-すべてのタイプの繰り返しを MIDI 出力に反映させることができます。@c
-これは @code{\unfoldRepeats} 音楽関数を適用することによって@c
-達成することができます。@c
-この関数はすべての繰り返しを展開します。
-
-@lilypond[quote,verbatim]
-\unfoldRepeats {
-  \repeat tremolo 8 { c'32 e' }
-  \repeat percent 2 { c''8 d'' }
-  \repeat volta 2 { c'4 d' e' f' }
-  \alternative {
-    { g' a' a' g' }
-    { f' e' d' c' }
-  }
-}
-\bar "|."
-@end lilypond
-
-複数のボイスを持つ score で、繰り返しを正しく MIDI 出力に展開するには、@c
-@emph{各ボイス} の繰り返し指示が完全に記譜されている必要があります。
-
-MIDI のために @code{\unfoldRepeats} を使用する楽譜ファイルを作成する場合、@c
-2 つの @code{\score} ブロックが必要になります:
-1 つは MIDI のため (繰り返しを展開します) で、@c
-もう 1 つは楽譜のため
-(差し替え、トレモロ、パーセント記号の繰り返しを使用します) です。@c
-例えば、以下のようにします:
+繰り返しを MIDI で表現するためには、@code{\unfoldRepeats} コマンドを適用します:
 
 @example
 \score @{
-  @var{..music..}
-  \layout @{ .. @}
-@}
-\score @{
-  \unfoldRepeats @var{..music..}
-  \midi @{ .. @}
+  \unfoldRepeats @{
+    \repeat tremolo 8 @{ c'32 e' @}
+    \repeat percent 2 @{ c''8 d'' @}
+    \repeat volta 2 @{ c'4 d' e' f' @}
+    \alternative @{
+      @{ g' a' a' g' @}
+      @{ f' e' d' c' @}
+    @}
+  @}
+  \midi @{ @}
 @}
 @end example
 
-@node MIDI での音の強弱を制御する
-@subsection MIDI での音の強弱を制御する
-@translationof Controlling MIDI dynamics
-
-@c MIDI dynamics: MIDI での音の強弱？
-MIDI での音の強弱は @code{Dynamic_performer}
--- これはデフォルトでは Voice コンテキストの中に存在します --
-によって実装されます。@c
-MIDI 全体のボリューム、強弱記号による相対ボリューム、@c
-楽器間の相対ボリュームを制御することができます。
-
-@unnumberedsubsubsec 強弱記号
-@c @unnumberedsubsubsec Dynamic marks
-
-強弱記号は利用可能な MIDI ボリューム レンジ内のある固定の分数に翻訳されます。@c
-デフォルトでの分数の範囲は、@notation{ppppp} に対する 0.25 から、@c
-@notation{fffff} に対する 0.95 までです。@c
-強弱記号とそれに対応する分数のセットを @file{../scm/midi.scm} で@c
-調べることができます
--- @rlearning{Other sources of information} を参照してください。@c
-引数として強弱記号をとり、それに対する分数を返す関数を作成し、@c
-その関数を @code{Score.dynamicAbsoluteVolumeFunction} に@c
-セットすることによって、分数のセットを変更あるいは拡張することができます。
-
-例えば、@notation{リンフォルツァンド} 強弱記号 -- @code{\rfz} -- を@c
-使う必要がある場合、@c
-この強弱記号はデフォルト セットの中に含まれていないため、@c
-MIDI ボリュームに影響を与えません。@c
-同様に @code{make-dynamic-script} で新しい強弱記号を定義した場合、@c
-その強弱記号もデフォルト セットには含まれません。@c
-以下の例は、そのような強弱記号に対する MIDI ボリュームを追加する方法を@c
-示しています。@c
-以下の Scheme 関数は、rfz の強弱記号があった場合は分数に 0.9 をセットし、@c
-そうでない場合はデフォルトの関数を呼び出します。
-
-@lilypond[verbatim,quote]
-#(define (myDynamics dynamic)
-    (if (equal? dynamic "rfz")
-      0.9
-      (default-dynamic-absolute-volume dynamic)))
-
-\score {
-  \new Staff {
-    \set Staff.midiInstrument = #"cello"
-    \set Score.dynamicAbsoluteVolumeFunction = #myDynamics
-    \new Voice {
-      \relative {
-        a'4\pp b c-\rfz
-      }
-    }
-  }
-  \layout {}
-  \midi {}
-}
-@end lilypond
-
-分数テーブル全体を再定義する必要がある場合、@c
-上記の方法の代わりに @file{../scm/midi.scm} の中にある
-@notation{default-dynamic-absolute-volume} プロシージャと@c
-そのモデルとなる関連テーブルを使用する方が良いでしょう。@c
-このセクションの最後の例で、その方法を示しています。
-
-@unnumberedsubsubsec MIDI 全体でのボリューム
-@c @unnumberedsubsubsec Overall MIDI volume
-
-強弱記号に対する MIDI 全体の最小ボリュームと最大ボリュームは
-@code{Score} レベルでプロパティ @code{midiMinimumVolume} と
-@code{midiMaximumVolume} を設定することで制御できます。@c
-これらのプロパティは強弱記号に対してのみ効果を発揮します。@c
-そのため、楽譜の開始からそれらのプロパティを適用するには、@c
-楽譜の開始点に強弱記号を置く必要があります。@c
-各強弱記号に対応する分数は以下の式で算出されます:
+楽譜を出力しつつ、@code{\unfoldRepeats} の効果を MIDI 出力のみに制限するには、@c
+@code{\score} ブロックを@emph{二つ}作る必要があります: 一つは
+(@code{\unfoldRepeats} を用いる) MIDI 用の @code{\score}、もう一つは
+(@code{volta}, @code{tremolo}, @code{percent} による繰り返しを用いる) 記譜用の
+@code{\score} です。
 
 @example
-midiMinimumVolume + (midiMaximumVolume - midiMinimumVolume) * fraction
+\score @{
+  @var{@dots{} music @dots{}}
+  \layout @{ @}
+@}
+\score @{
+  \unfoldRepeats @{
+    @var{@dots{} music @dots{}}
+  @}
+  \midi @{ @}
+@}
 @end example
 
-以下の例では、MIDI 全体のボリュームの範囲は 0.2 - 0.5 の範囲に制限されています。
+複数のボイスを使用している場合、正しい MIDI 出力を得るためには@c
+全てのボイスの繰り返しが完全に展開されている必要があります。
 
-@lilypond[verbatim,quote]
-\score {
-  <<
-    \new Staff {
-      \key g \major
-      \time 2/2
-      \set Staff.midiInstrument = #"flute"
-      \new Voice \relative {
-        r2 g''\mp g fis~
-        4 g8 fis e2~
-        4 d8 cis d2
-      }
-    }
-    \new Staff {
-      \key g \major
-      \set Staff.midiInstrument = #"clarinet"
-      \new Voice \relative {
-        b'1\p a2. b8 a
-        g2. fis8 e
-        fis2 r
-      }
-    }
-  >>
-  \layout {}
-  \midi {
-    \tempo 2 = 72
-    \context {
+@seealso
+記譜法リファレンス:
+@ref{Repeats}
+
+@node MIDI のチャンネル マッピング
+@subsection MIDI のチャンネル マッピング
+@translationof MIDI channel mapping
+
+@cindex MIDI Channels (MIDI チャンネル)
+@cindex MIDI Tracks (MIDI トラック)
+@funindex midiChannelMapping
+
+楽譜から MIDI ファイルを生成する場合、LilyPond は自動的に全ての音符を、@c
+MIDI デバイスに転送された時に再生されるべき MIDI チャンネルに割り当てます。@c
+MIDI チャンネル毎に設定できるパラメータがあり、@c
+例えば、そのチャンネルで音符が演奏される時に用いられる楽器を選択したり、@c
+そのチャンネルで演奏された音にいくつかのエフェクトを加えるように、MIDI
+デバイスに指示をしたりすることができます。@c
+常に、それぞれのパラメータはチャンネル毎に 1 つの値しか持つことができません
+(しかし途中で変更することは可能で、例えば楽譜の途中で楽器を変更することが@c
+できます)。
+
+MIDI は標準で 1 デバイスにつき 16 チャンネルのみを持つことができます。@c
+このチャンネル数の制限は、一度に演奏できる異なる楽器の数の制限にもなっています。
+
+LilyPond は譜ごと、Lyrics コンテキスト毎に異なる MIDI トラックを生成します。
+(@code{Score.midiChannelMapping} の値によっては、異なる楽器やボイス毎に@c
+トラックが生成される場合があります。)
+トラックの数には制限はありません。
+
+MIDI のチャンネル数が制限されていることに対処するために、LilyPond には
+MIDI のチャンネル配置にいくつかの異なるモードが存在します。これは
+@code{Score.midiChannelMapping} コンテキスト プロパティで設定します。@c
+どの場合でも、制限よりも多い MIDI チャンネルが必要になった場合、@c
+割り当てられるチャンネル番号は 0 に戻ってきます。そのため、楽器の割り当てが@c
+間違っている音符ができるかもしれません。このコンテキスト プロパティは@c
+次のうちのどれかに設定することができます:
+
+@table @var
+
+@item @code{'staff}
+
+楽譜に存在する譜ごとに異なる MIDI チャンネルを割り当てます (これがデフォルト@c
+です)。それぞれの譜に含まれる全てのボイスの全ての音符は同じ MIDI
+チャンネルを共有し、同じ MIDI トラックにエンコードされます。
+
+MIDI の歌詞は MIDI チャンネルを占有しませんが、@c
+譜と Lyrics コンテキストの合計数が 16 チャンネルの制限の対象となります。
+
+@item @code{'instrument}
+
+楽譜に指定された MIDI 楽器ごとに異なる MIDI チャンネルを割り当てます。@c
+つまり、同じ MIDI 楽器を持つ音符は、譜やボイスが異なっていても、@c
+同じ MIDI チャンネル (やトラック) を共有するということです。
+
+この場合、歌詞コンテキストは (MIDI 楽器が指定されないため) MIDI チャンネルの
+16 個という制限に数えられません。そのためこの設定は、楽譜に存在する譜や歌詞が
+16 を超える場合には、MIDI チャンネルの割り当てがより良くなるかもしれません。
+
+@item @code{'voice}
+
+譜の中で異なる名前を持つボイスごとに、異なる MIDI チャンネルを割り当てます。@c
+異なる譜に属するボイスは必ず異なる MIDI チャンネルに割り当てられますが、@c
+同じ譜に属するボイスが同じ名前を持つ場合、それらは同じ MIDI チャンネルに@c
+割り当てられます。@code{midiInstrument} や、いくつかのエフェクトを操作する
+プロパティは Staff コンテキストに属するため、ボイスごとに異なる値を持つことは@c
+できません。1 番目のボイスが、譜に設定された楽器やエフェクトで演奏され、@c
+1 番目のボイスと異なる名前を持つ他のボイスは、デフォルトの楽器やエフェクトで@c
+演奏されます。
+
+注: @code{Staff_performer} を @code{Staff} から @code{Voice} コンテキストへ@c
+移動し、@code{midiChannelMapping} をデフォルトの @code{'staff} か
+@code{'instrument} にすることで、同じ譜にあるボイスによって@c
+異なる楽器やエフェクトを指定することができます。下のコード断片を@c
+参照してください。
+
+@end table
+
+下の例では、デフォルトの MIDI チャンネルの割り当て方法を @code{'instrument} に@c
+変更しています:
+
+@example
+\score @{
+  ...music...
+  \midi @{
+    \context @{
       \Score
-      midiMinimumVolume = #0.2
-      midiMaximumVolume = #0.5
-    }
-  }
-}
-@end lilypond
+      midiChannelMapping = #'instrument
+    @}
+  @}
+@}
+@end example
 
-@unnumberedsubsubsec 楽器の音の強さを均一化する (i)
-@c @unnumberedsubsubsec Equalizing different instruments (i)
-
-@code{Staff} コンテキストの中で最小 MIDI ボリューム プロパティと@c
-最大 MIDI ボリューム プロパティが設定されている場合、@c
-MIDI 楽器間の相対ボリュームを制御することができます。@c
-これは基本的な楽器イコライザであり、@c
-MIDI 出力の品質を著しく高めることができます。
-
-以下の例では、クラリネットのボリュームはフルートのボリュームよりも@c
-相対的に低く設定されています。@c
-これを正しく機能させるには、それぞれの楽器の最初の音符に@c
-強弱記号を置く必要があります。
-
-@lilypond[verbatim,quote]
-\score {
-  <<
-    \new Staff {
-      \key g \major
-      \time 2/2
-      \set Staff.midiInstrument = #"flute"
-      \set Staff.midiMinimumVolume = #0.7
-      \set Staff.midiMaximumVolume = #0.9
-      \new Voice \relative {
-        r2 g''\mp g fis~
-        4 g8 fis e2~
-        4 d8 cis d2
-      }
-    }
-    \new Staff {
-      \key g \major
-      \set Staff.midiInstrument = #"clarinet"
-      \set Staff.midiMinimumVolume = #0.3
-      \set Staff.midiMaximumVolume = #0.6
-      \new Voice \relative {
-        b'1\p a2. b8 a
-        g2. fis8 e
-        fis2 r
-      }
-    }
-  >>
-  \layout {}
-  \midi {
-    \tempo 2 = 72
-  }
-}
-@end lilypond
-
-@unnumberedsubsubsec 楽器の音の強さを均一化する (ii)
-@c @unnumberedsubsubsec Equalizing different instruments (ii)
-
-MIDI 最小/最大ボリューム プロパティが設定されていない場合、@c
-デフォルトでは、LilyPond はいくつかの楽器に軽度の均一化を適用します。@c
-適用を受ける楽器とその equalization は @file{../scm/midi.scm} の中にある@c
-テーブル @notation{instrument-equalizer-alist} に示されています。
-
-引数として MIDI 楽器名だけを受け入れて、その楽器に適用する@c
-最小/最大ボリュームの分数ペアを返す Scheme プロシージャを
-@code{Score} コンテキストの中にある
-@code{instrumentEqualizer} にセットすることで、@c
-この基本的なデフォルト イコライザを置き換えることができます。@c
-この置き換えは、このセクションの始めでの
-@code{dynamicAbsoluteVolumeFunction}  の再設定の方法とまったく同じです。@c
-@file{../scm/midi.scm} の中にあるデフォルト イコライザ
-@notation{default-instrument-equalizer} は@c
-そのようなプロシージャをどのように記述するのかを示しています。
-
-以下の例は、フルートとクラリネットの相対ボリュームを@c
-前の例と同じ値にセットしています。
-
-@lilypond[verbatim,quote]
-#(define my-instrument-equalizer-alist '())
-
-#(set! my-instrument-equalizer-alist
-  (append
-    '(
-      ("flute" . (0.7 . 0.9))
-      ("clarinet" . (0.3 . 0.6)))
-    my-instrument-equalizer-alist))
-
-#(define (my-instrument-equalizer s)
-  (let ((entry (assoc s my-instrument-equalizer-alist)))
-    (if entry
-      (cdr entry))))
-
-\score {
-  <<
-    \new Staff {
-      \key g \major
-      \time 2/2
-      \set Score.instrumentEqualizer = #my-instrument-equalizer
-      \set Staff.midiInstrument = #"flute"
-      \new Voice \relative {
-        r2 g''\mp g fis ~
-        4 g8 fis e2 ~
-        4 d8 cis d2
-      }
-    }
-    \new Staff {
-      \key g \major
-      \set Staff.midiInstrument = #"clarinet"
-      \new Voice \relative {
-        b'1\p a2. b8 a
-        g2. fis8 e
-        fis2 r
-      }
-    }
-  >>
-  \layout { }
-  \midi {
-    \tempo 2 = 72
-  }
-}
-@end lilypond
-
-@ignore
-@c Delete when satisfied this is adequately covered elsewhere -td
-
-@n ode Microtones in MIDI (MIDI での微分音)
-@s ubsection Microtones in MIDI (MIDI での微分音)
-
-@cindex microtones in MIDI (MIDI での微分音)
-
-半シャープと半フラットからなる微分音は MIDI ファイルにエクスポートされ、@c
-ピッチ ベンドをサポートする MIDI プレーヤで正しく演奏されます。@c
-@ref{Note names in other languages} を参照してください。@c
-以下の例は 1 オクターブの中にあるすべての半シャープと半フラットの音を@c
-示しています。@c
-この例をコピーしてコンパイルすることで、@c
-あなたが持っている MIDI プレイやで微分音をテストすることができます。
-
-@lilypond[verbatim,quote]
-\score {
-  \relative {
-    c' cih cis cisih
-    d dih ees eeh
-    e eih f fih
-    fis fisih g gih
-    gis gisih a aih
-    bes beh b bih
-  }
-  \layout {}
-  \midi {}
-}
-@end lilypond
-@end ignore
+@snippets
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{changing-midi-output-to-one-channel-per-voice.ly}
 
 
-@node MIDI での打楽器
-@subsection MIDI での打楽器
-@translationof Percussion in MIDI
+@node MIDI エフェクトのためのコンテキスト プロパティ
+@subsection MIDI エフェクトのためのコンテキスト プロパティ
+@translationof Context properties for MIDI effects
 
-打楽器は一般的に @code{DrumStaff} コンテキストの中で記譜され、@c
-そのように記譜された場合、その打楽器は正しく MIDI チャンネル 10 に@c
-出力されます。@c
-しかしながら、いくつかのピッチを持つ打楽器
--- ザイロフォン、マリンバ、ビブラフォン、ティンパニなど --
-は @qq{通常の} 楽器のように扱われ、正しい MIDI 出力を得るには、@c
-それらの楽器のための音楽を@c
-通常の @code{Staff} コンテキストに入力する必要があります
- -- @code{DrumStaff} には入力しません。
+@cindex Effects in MIDI (MIDI でのエフェクト)
+@cindex Pan position in MIDI (MIDI でのパン ポジション)
+@cindex Stereo balance in MIDI (MIDI でのステレオ バランス)
+@cindex Balance in MIDI (MIDI でのバランス)
+@cindex Expression in MIDI (MIDI でのエクスプレッション)
+@cindex Reverb in MIDI (MIDI でのリバーブ)
+@cindex Chorus level in MIDI (MIDI でのコーラス)
+@funindex midiPanPosition
+@funindex midiBalance
+@funindex midiExpression
+@funindex midiReverbLevel
+@funindex midiChorusLevel
 
+以下のコンテキスト プロパティは、様々な MIDI エフェクトを、@c
+割り当てられた MIDI チャンネルの音符に適用するために使われます。
+(チャンネルが譜、MIDI 楽器、ボイスのどの単位で割り当てられるかは、@c
+@code{Score.midiChannelMapping} コンテキスト プロパティと、@c
+@code{Staff_performer} がどのコンテキストに配置されるかに依存します。@c
+@ref{MIDI channel mapping} を参照してください)。
 
-いくつかのピッチを持たない打楽器
--- メロディック トム、太鼓、シンセドラムなど --
-のサウンドは一般の MIDI 標準に含まれ、MIDI チャネル@tie{}10 経由では@c
-使用できません。@c
-そのため、そのような楽器の記譜も適切なピッチを使って@c
-通常の @code{Staff} コンテキストに入力すべきです。
+これらのコンテキスト プロパティを変更すると、チャンネルに属するその後の全ての@c
+音符に影響を与えます。しかし、この内のいくつかは、すでに音が鳴っている音符にも@c
+適用されるものがあります (これは、MIDI 出力デバイスの実装次第です)。
 
-多くの打楽器 -- カスタネットなど -- は一般の MIDI 標準には含まれません。@c
-そのような楽器のための記述を行っている場合に MIDI 出力を作り出すための@c
-最も容易な -- けれども不十分な -- 方法は、@c
-標準セットから最も近いサウンドを代わりに用いることです。
+以下のコンテキスト プロパティがサポートされています:
 
-@c TODO Expand with examples, and any other issues
+@table @var
+
+@item @code{Staff.midiPanPosition}
+
+パン ポジションは、MIDI チャンネルの音が左から右までのどこに定位するかを@c
+設定します。このコンテキスト プロパティは -1.0 (@code{#LEFT}) から
+1.0 (@code{#RIGHT}) までの数値を受理します。-1.0 は全ての音がステレオの@c
+左側から鳴るようになります (右側からは音が鳴りません)。@c
+0.0 (@code{#CENTER}) は左側と右側に均等に音を振り割ります。@c
+1.0 は全ての音が右側から鳴るようになります。@c
+-1.0 と 1.0 の間の値は、完全な左側と、完全な右側の間にある定位となります。
+
+@item @code{Staff.midiBalance}
+
+MIDI チャンネルのステレオ バランスを設定します。パンと同様に、@c
+このコンテキスト プロパティは -1.0 (@code{#LEFT}) から
+1.0 (@code{#RIGHT}) までの数値を受理します。@c
+ステレオ信号の分布状態を変化させずに、2 つのステレオ スピーカーに送られる@c
+音量の相対値を調節します。
+
+@item @code{Staff.midiExpression}
+
+MIDI チャンネルに適用するエクスプレッション レベルを (可能な最大レベルとの@c
+比として) 設定します。MIDI デバイスは MIDI チャンネルのエクスプレッション
+レベルと、ボイスの現在の強弱レベル (@code{\p} や @code{\ff} などで@c
+設定されます) とを組み合わせて、ボイス中の各音符の最終的な音量を決定します。@c
+エクスプレッションは、例えば、1 つの長い音符の中でクレッシェンドや@c
+デクレッシェンドを表現するために使うことができます (LilyPond はこれを@c
+自動ではサポートしません)。
+
+@c Issue 4059 contains an attached snippet which shows how this might
+@c be done, but this is too large and complex for the NR, even as a
+@c referenced snippet.  It could be added to the LSR.
+
+エクスプレッション レベルは 0.0 (ゼロ エクスプレッション、つまり音量ゼロ) から
+1.0 (フル エクスプレッション) までです。
+
+@item @code{Staff.midiReverbLevel}
+
+MIDI チャンネルに適用するリバーブ レベルを (可能な最大レベルとの比として)
+設定します。このプロパティは 0.0 (リバーブ無し) から 1.0 (フル エフェクト)
+までの数値を受理します。
+
+@item @code{Staff.midiChorusLevel}
+
+MIDI チャンネルに適用するコーラス レベルを (可能な最大レベルとの比として)
+設定します。このプロパティは 0.0 (コーラス無し) から 1.0 (フル エフェクト)
+までの数値を受理します。
+
+@end table
+
 
 @knownissues
 
-一般の MIDI 標準はリム ショットを含まないため、@c
-代わりにサイドスティックを用います。
+MIDI ファイルは実際の音声データを含まないため、これらのコンテキスト
+プロパティの変化は、MIDI ファイル内においてはチャンネル コントロールを@c
+変化させるという要求に変換されるに過ぎません。@c
+ある MIDI デバイス (例えばソフトウェア MIDI プレイヤ) が、MIDI ファイル内に@c
+あるこれらの要求を実際に扱うかどうかは、そのデバイスの実装に完全に依存します。@c
+つまり、デバイスによっては、要求のいくつか、または全てを無視することが@c
+あるということです。また、MIDI デバイスがこれらのコントロールの値の違いを@c
+どのように解釈するか (MIDI の標準規格は、コントロールが最小値や最大値を@c
+取る時にどのように振る舞うかを標準化しているのみです)、@c
+あるいはコントロールの値の変化が、その MIDI チャンネルで@c
+既に演奏されている音符に対して影響を与えるかも、MIDI デバイスの実装次第です。
 
-@c 2017-9-22 このノードと、続く奏法スクリプトのノードのみ先に翻訳
-@c 第1章のxrefを正しく動作させるため。
-@c 元の奏法スクリプトのノードは移動（実質削除）しました。
+MIDI ファイルを生成する際、LilyPond は範囲内にある割合の数値を、@c
+対応する整数へと (通常 7 ビット: 0-127、MIDI チャンネル コントロールが@c
+より細かな分解能をサポートする場合は 14 ビット: 0-32767) 線形に変換します。@c
+その際、小数は四捨五入されます。@c
+変換された整数値が、生成された MIDI ファイルにそのまま記録されます。@c
+手持ちの MIDI デバイスがこれらの値をどのように扱うかについては、@c
+デバイスのドキュメントを参照してください。
+
+
 @node MIDI 出力をより良くする
 @subsection MIDI 出力をより良くする
 @translationof Enhancing MIDI output
@@ -3212,7 +3715,7 @@ MIDI の楽器を指定したり、@code{\midi} ブロックのプロパティ�
 
 @node 奏法スクリプト
 @unnumberedsubsubsec 奏法スクリプト
-@translationof The Articulate script
+@translationof The articulate script
 
 奏法スクリプトを使うには、入力ファイルの最初にこのような
 @code{\include} コマンドを追加します:
@@ -3289,12 +3792,12 @@ LilyPond 記譜法で書かれた音楽表記を@c
 は、以下を表示します:
 
 @example
-@{ a,4 cis e fis g @}
+@{ a,4 cis4 e4 fis4 g4 @}
 @end example
 
 デフォルトでは、LilyPond は上記のメッセージを@c
 他のすべてのメッセージと一緒にコンソールに表示します。@c
-上記のメッセージを分離して @code{\display@{STUFF@}} の結果を保存するには、@c
+上記のメッセージを分離して @code{\displayLilyMusic} の結果を保存するには、@c
 出力をファイルにリダイレクトします。
 
 @example
@@ -3307,13 +3810,15 @@ LilyPond は音楽表記を表示するだけでなく、それを解釈しま�
 (なぜなら、@code{\displayLilyMusic} は追加で音楽表記を表示するために@c
 返すだけだからです)。@c
 既存の音楽に @code{\displayLilyMusic} を挿入するだけで@c
-その音楽の情報を得るられるので便利です。@c
-本当に LilyPond に音楽を解釈させたくないのであれば、@c
-@code{\void} を使ってその音楽を無視させます:
+その音楽の情報を得られるので便利です。
+
+音楽を解釈させ、コンソールには音楽を表示したい一方で、出力ファイルからは@c
+それを削除したいならば、@code{\void} コマンドを使います:
 
 @example
 @{
   \void \displayLilyMusic \transpose c a, @{ c4 e g a bes @}
+  c1
 @}
 @end example
 
@@ -3356,7 +3861,7 @@ LilyPond は音楽表記を表示するだけでなく、それを解釈しま�
 その後にオプション パラメータが続きます。
 
 @example
-@var{time}  @var{type}  @var{...params...}
+@var{time}  @var{type}  @var{@dots{}params@dots{}}
 @end example
 
 この情報は、@c
