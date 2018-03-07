@@ -439,15 +439,12 @@ Here is an example of a good bug report:
 Once you have verified that the issue is not already known and
 created a bug report, please send it to us!
 
-@divClass{keep-bullets}
-@itemize
-
-@item
-If you are subscribed to the @uref{mailto:bug-lilypond@@gnu.org,
-bug-lilypond@@gnu.org} mailing list, send an email like normal.
-
-@end itemize
-@divEnd
+Unfortunately there is no longer an interface for posting to the
+bug-lilypond list without subscribing; see
+@example
+@uref{https://lists.gnu.org/mailman/listinfo/bug-lilypond}
+@end example
+for more information.
 @divEnd
 
 @divClass{column-center-bottom}
