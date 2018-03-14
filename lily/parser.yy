@@ -848,6 +848,16 @@ partial_function:
 	{
 		$$ = scm_acons ($1, $4, $5);
 	}
+// Stupid duplication because we already expect ETC here.  It will follow anyway.
+	| script_dir markup_mode markup_partial_function
+		if (SCM_UNBNDP ($1))
+			$1 = SCM_INUM0;
+		$3 = MAKE_SYNTAX (partial_markup, @3, $3);
+		parser->lexer_->pop_state ();
+// This relies on partial_function always being followed by ETC
+		$$ = scm_list_1 (scm_list_3 (MAKE_SYNTAX (partial_text_script, @$, $3),
+					     $3, $1));
+	}
 	;
 
 context_def_spec_block:

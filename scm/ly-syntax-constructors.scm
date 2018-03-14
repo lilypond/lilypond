@@ -97,6 +97,16 @@
                                     (reverse! rest (cdar call-list)))
                     (cdr call-list))))))))
 
+(define-public (partial-text-script partial-markup)
+  (ly:make-music-function
+   (cons (cons ly:event? #f)
+         (cons* ly:dir? markup-function? (markup-command-signature partial-markup)))
+   (lambda (direction partial-markup . rest)
+     (make-music 'TextScriptEvent
+                 'text (cons partial-markup rest)
+                 (if (zero? direction) '()
+                     (list (cons 'direction direction)))))))
+
 (define-public (create-script item)
   (cond ((ly:event? item) (ly:set-origin! item))
         ((markup? item) (ly:set-origin! (make-music 'TextScriptEvent 'text item)))
