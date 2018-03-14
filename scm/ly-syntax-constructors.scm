@@ -113,6 +113,18 @@
          (ly:parser-error (_ "not an articulation") (*location*))
          *unspecified*)))
 
+(define-public create-script-function
+  (ly:make-music-function
+   (list (cons ly:event? #f) ly:dir? scheme?)
+   (lambda (dir item)
+     (let ((res (create-script item)))
+       (if (ly:event? res)
+           (begin
+             (if (not (zero? dir))
+                 (set! (ly:music-property res 'direction) dir))
+             res)
+           (make-music 'PostEvents))))))
+
 (define-public (void-music)
   (ly:set-origin! (make-music 'Music)))
 

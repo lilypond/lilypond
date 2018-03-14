@@ -774,7 +774,8 @@ identifier_init_nonumber:
 	;
 
 // Partial functions
-partial_function:
+
+partial_function_scriptable:
 	MUSIC_FUNCTION function_arglist_partial
 	{
 		$$ = scm_acons ($1, $2, SCM_EOL);
@@ -787,6 +788,34 @@ partial_function:
 	{
 		$$ = scm_acons ($1, $2, SCM_EOL);
 	}
+	| MUSIC_FUNCTION EXPECT_SCM function_arglist_optional partial_function
+	{
+		$$ = scm_acons ($1, $3, $4);
+	}
+	| EVENT_FUNCTION EXPECT_SCM function_arglist_optional partial_function
+	{
+		$$ = scm_acons ($1, $3, $4);
+	}
+	| SCM_FUNCTION EXPECT_SCM function_arglist_optional partial_function
+	{
+		$$ = scm_acons ($1, $3, $4);
+	}
+	| MUSIC_FUNCTION EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup partial_function
+	{
+		$$ = scm_acons ($1, $4, $5);
+	}
+	| EVENT_FUNCTION EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup partial_function
+	{
+		$$ = scm_acons ($1, $4, $5);
+	}
+	| SCM_FUNCTION EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup partial_function
+	{
+		$$ = scm_acons ($1, $4, $5);
+	}
+	;
+
+partial_function:
+	partial_function_scriptable
 	| OVERRIDE grob_prop_path '='
 	{
 		if (SCM_UNBNDP ($2))
@@ -806,18 +835,6 @@ partial_function:
 				(scm_list_3 (Syntax::property_set_function,
 					     scm_cadr ($2), scm_car ($2)),
 				 SCM_EOL);
-	}
-	| MUSIC_FUNCTION EXPECT_SCM function_arglist_optional partial_function
-	{
-		$$ = scm_acons ($1, $3, $4);
-	}
-	| EVENT_FUNCTION EXPECT_SCM function_arglist_optional partial_function
-	{
-		$$ = scm_acons ($1, $3, $4);
-	}
-	| SCM_FUNCTION EXPECT_SCM function_arglist_optional partial_function
-	{
-		$$ = scm_acons ($1, $3, $4);
 	}
 	| OVERRIDE grob_prop_path '=' partial_function
 	{
@@ -839,20 +856,9 @@ partial_function:
 					     scm_cadr ($2), scm_car ($2)),
 				 $4);
 	}
-	| MUSIC_FUNCTION EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup partial_function
-	{
-		$$ = scm_acons ($1, $4, $5);
-	}
-	| EVENT_FUNCTION EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup partial_function
-	{
-		$$ = scm_acons ($1, $4, $5);
-	}
-	| SCM_FUNCTION EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup partial_function
-	{
-		$$ = scm_acons ($1, $4, $5);
-	}
 // Stupid duplication because we already expect ETC here.  It will follow anyway.
 	| script_dir markup_mode markup_partial_function
+	{
 		if (SCM_UNBNDP ($1))
 			$1 = SCM_INUM0;
 		$3 = MAKE_SYNTAX (partial_markup, @3, $3);
@@ -860,6 +866,18 @@ partial_function:
 // This relies on partial_function always being followed by ETC
 		$$ = scm_list_1 (scm_list_3 (MAKE_SYNTAX (partial_text_script, @$, $3),
 					     $3, $1));
+	}
+	| script_dir partial_function_scriptable
+	{
+		if (SCM_UNBNDP ($1))
+			$1 = SCM_INUM0;
+		$$ = scm_acons (Syntax::create_script_function, scm_list_1 ($1), $2);
+	}
+	| script_dir
+	{
+		if (SCM_UNBNDP ($1))
+			$1 = SCM_INUM0;
+		$$ = scm_acons (Syntax::create_script_function, scm_list_1 ($1), SCM_EOL);
 	}
 	;
 
