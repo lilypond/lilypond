@@ -125,6 +125,7 @@ namespace Syntax {
   Variable music_function_call_error ("music-function-call-error");
   Variable partial_markup ("partial-markup");
   Variable partial_music_function ("partial-music-function");
+  Variable partial_text_script ("partial-text-script");
   Variable property_override ("property-override");
   Variable property_override_function ("property-override-function");
   Variable property_revert ("property-revert");

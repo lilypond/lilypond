@@ -133,6 +133,7 @@ namespace Syntax {
   extern Variable music_function_call_error;
   extern Variable partial_markup;
   extern Variable partial_music_function;
+  extern Variable partial_text_script;
   extern Variable property_override;
   extern Variable property_override_function;
   extern Variable property_revert;
