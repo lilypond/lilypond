@@ -97,6 +97,13 @@
                                     (reverse! rest (cdar call-list)))
                     (cdr call-list))))))))
 
+(define-public (create-script item)
+  (cond ((ly:event? item) (ly:set-origin! item))
+        ((markup? item) (ly:set-origin! (make-music 'TextScriptEvent 'text item)))
+        (else
+         (ly:parser-error (_ "not an articulation") (*location*))
+         *unspecified*)))
+
 (define-public (void-music)
   (ly:set-origin! (make-music 'Music)))
 

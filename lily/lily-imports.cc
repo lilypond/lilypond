@@ -116,6 +116,7 @@ namespace Syntax {
   Variable composed_markup_list ("composed-markup-list");
   Variable context_change ("context-change");
   Variable context_specification ("context-specification");
+  Variable create_script ("create-script");
   Variable event_chord ("event-chord");
   Variable lyric_combine ("lyric-combine");
   Variable lyric_event ("lyric-event");

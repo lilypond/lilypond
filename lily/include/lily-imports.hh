@@ -124,6 +124,7 @@ namespace Syntax {
   extern Variable composed_markup_list;
   extern Variable context_change;
   extern Variable context_specification;
+  extern Variable create_script;
   extern Variable event_chord;
   extern Variable lyric_combine;
   extern Variable lyric_event;

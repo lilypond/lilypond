@@ -3378,17 +3378,8 @@ gen_text_def:
 	}
 	| embedded_scm
 	{
-		Music *m = unsmob<Music> ($1);
-		if (m && m->is_mus_type ("post-event"))
-			$$ = $1;
-		else if (Text_interface::is_markup ($1)) {
-			Music *t = MY_MAKE_MUSIC ("TextScriptEvent", @$);
-			t->set_property ("text", $1);
-			$$ = t->unprotect ();
-		} else {
-			parser->parser_error (@1, _ ("not an articulation"));
-			$$ = SCM_UNSPECIFIED;
-		}
+		// Could be using this for every gen_text_def but for speed
+		$$ = MAKE_SYNTAX (create_script, @1, $1);
 	}
 	;
 
