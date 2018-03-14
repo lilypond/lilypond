@@ -117,6 +117,7 @@ namespace Syntax {
   Variable context_change ("context-change");
   Variable context_specification ("context-specification");
   Variable create_script ("create-script");
+  Variable create_script_function ("create-script-function");
   Variable event_chord ("event-chord");
   Variable lyric_combine ("lyric-combine");
   Variable lyric_event ("lyric-event");
