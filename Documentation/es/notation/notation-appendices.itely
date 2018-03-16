@@ -1364,10 +1364,10 @@ posibles y el lugar del @emph{Do central} en cada una.
 @cindex Kievan, clave
 
 @menu
-* Standard clefs::
-* Percussion staff clef::
-* Tab staff clefs::
-* Ancient music clefs::
+* Claves estándar::
+* Clave de pentagramas de percusión::
+* Claves de pautas de tablatura::
+* Claves de la música antigua::
 @end menu
 
 @node Claves estándar
