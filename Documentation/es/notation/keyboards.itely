@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 09ef86c87175cc6c1071eedb022ed1d01a93bcaf
+    Translation of GIT committish: 0bc29b2f588c81289ad772db9e774360acc86de9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -427,6 +427,31 @@ automáticamente una línea que conecte las notas:
 >>
 @end lilypond
 
+Una línea de cambio de pauta entre acordes conecta las @qq{últimas
+notas} de cada uno de ellos según se han escrito en el archivo de
+entrada; Esto se puede usar para ajustar rápidamente las
+posiciones verticales del comienzo y el final de la línea.
+
+@lilypond[quote,verbatim]
+\new PianoStaff <<
+  \new Staff = "one" {
+    <c' e' g'>1
+    \showStaffSwitch
+    \change Staff = "two"
+    <a c' f>1
+    \hideStaffSwitch
+    \change Staff = "one"
+    <e' g' c'>1
+    \showStaffSwitch
+    \change Staff = "two"
+    <f a c'>1
+  }
+  \new Staff = "two" {
+    \clef bass
+    s1*4
+  }
+>>
+@end lilypond
 
 @predefined
 @code{\showStaffSwitch},

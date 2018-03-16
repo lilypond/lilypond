@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 97956152eba4292886a47c74b45bc6be5a0349e8
+    Translation of GIT committish: c7c6c948c9b70464f7069354059e5a5a8aad4a5c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -196,35 +196,6 @@ Están contempladas las siguientes opciones:
 
 @table @code
 
-@item -b, --bigpdfs
-@cindex bigpdfs
-
-Los archivos PDF generados serán mucho más grandes de lo normal (a
-causa de la poca o ninguna optimización de las fuentes
-tipográficas).  Sin embargo, si dos o más archivos PDF se incluyen
-dentro de @w{@code{pdftex}}, @w{@code{xetex}} o @w{@code{luatex}}
-los documentos producidos pueden procesarse después a través de
-ghostscript (mezclando los datos de tipografías duplicados) dando
-como resultado archivos PDF @emph{significativamente} más
-pequeños.
-
-@example
-lilypond -b archivo
-@end example
-
-Después, ejecute @code{ghostscript};
-
-@example
-gs -q -sDEVICE=pdfwrite -o gsout.pdf archivo.pdf
-@end example
-
-Se puede entonces usar @code{pdfsizeopt.py} para optimizar aún más
-el tamaño del archivo:
-
-@example
-pdfsizeopt.py --use-multivalent=no gsout.pdf final.pdf
-@end example
-
 @item -d, --define-default=@var{variable}=@var{valor}
 Véase @ref{Opciones avanzadas de línea de órdenes para LilyPond}.
 
@@ -254,6 +225,9 @@ en la línea de órdenes, e incluir
 al principio del archivo @file{.ly}.
 
 @warning{Los usuarios de Windows deben utilizar comillas dobles en lugar de apóstrofos simples.}
+
+@item -E, --eps
+Generar archivos EPS.
 
 @cindex output, format
 @cindex format, output
@@ -289,6 +263,10 @@ entrada.
 Se pueden escribir varias opciones -I.  La búsqueda se inicia en el
 primer directorio definido, y si el archivo que se debe incluir no se
 encuentra, la búsqueda continúa en los directorios siguientes.
+
+@warning{El uso del carácter de tilde curva ( @code{~} ) con la
+opción @code{-I} puede producir resultados inesperados en algunos
+@q{shells}.}
 
 @cindex chroot, ejecutar dentro de una jaula
 
@@ -404,6 +382,20 @@ Establecer el nombre del archivo de salida predeterminado a
 salida hacia @var{CARPETA}, tomando el nombre de archivo del documento
 de entrada.  Se añade el sufijo correspondiente (por ejemplo,
 @code{.pdf} para PDF) en los dos casos.
+
+@item -O, --pspdfopt
+@cindex pspdfopt
+
+Si no utiliza pspdfopt o si usa el parámetro @w{@code{size}},
+lilypond tratará de generar un documento ps/eps/pdf muy pequeño.
+
+Si usa el parámetro @w{@code{TeX}}, lilypond produce archivos que
+están optimizados para la inclusión dentro de documentos de
+PdfTeX, LuaTeX o XeTeX.
+
+Si quiere incluir más de un pdf generado por lilypond dentro de un
+documento de TeX, utilice @w{@code{TeX-GS}} y post-procese el pdf
+generado por TeX con ghostscript.
 
 @cindex PS (Postscript), salida
 @cindex Postscript (PS), salida
@@ -546,6 +538,10 @@ necesario indicar la opción @code{--svg-woff}.
 @code{\layout}.  Véase @ruser{Extracción de fragmentos de música}.
 No se extrae ningún fragmento si se usa con la copción
 @option{-dno-print-pages}.
+
+@item @code{crop}
+@tab @code{#f}
+@tab Igualar el tamaño de la salida normal a la imagen tipografiada.
 
 @item @code{datadir} (directorio de datos)
 @tab
@@ -723,7 +719,8 @@ necesidades.
 @item @code{print-pages}
 @tab @code{#t}
 @tab Generar páginas completas (es la opción predeterminada).  Es útil
-@option{-dno-print-pages} en combinación con @option{-dpreview}.
+@option{-dno-print-pages} en combinación con @option{-dpreview} o
+@option{-dcrop}.
 
 @item @code{profile-property-accesses}
 @tab @code{#f}
@@ -1326,7 +1323,10 @@ orden natural (cuando una voz con @code{\voiceThree} es más aguda
 que otra con @code{\voiceOne}, y casos semejantes).
 
 @seealso
+Manual de aprendizaje:
 @rlearning{Voces explícitas},
-@rlearning{Ejemplos reales de música},
+@rlearning{Ejemplos reales de música}.
+
+Referencia de la notación:
 @ruser{Polifonía en un solo pentagrama},
 @ruser{Resolución de las colisiones}.
