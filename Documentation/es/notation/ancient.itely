@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c vim: foldmethod=marker
 @ignore
-    Translation of GIT committish: 18d03fa6a724b0102ccc47d194209802cea02f2e
+    Translation of GIT committish: a089ca62fd9b3770a932061207262fe81063dc56
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -420,128 +420,54 @@ Glosario musical:
 @unnumberedsubsubsec Claves de la música mensural
 @translationof Mensural clefs
 
-@cindex clefs
+@cindex Clave, estilos
+@cindex Música antigua, claves
+@cindex Clave, música antigua
+@cindex Clave, petrucci
+@cindex Clave, mensural
+@cindex Clave, blackmensural
+@cindex Clave, kievana
+@cindex Petrucci, clave
+@cindex Mensural, clave
+@cindex Blackmensural, clave
+@cindex Kievan, clave
 
-La siguiente tabla presenta todas las claves antiguas que están
-contempladas a través de la instrucción @code{\clef}.  Algunas de
-las claves usan el mismo glifo, pero se diferencian sólo en la
-línea en que se imprimen.  En tales casos, se usa un número
-añadido al nombre para enumerar dichas claves, numerado desde la
-línea inferior hasta la superior.  Puede forzar manualmente que se
-escriba un glifo de clave sobre una línea arbitraria, como se
-encuentra descrito en @ref{Clave}.  La nota impresa a la derecha
-de cada clave en la columna de los ejemplos denota la situación
-del Do central (@code{c'}) con respecto a dicha clave.
+Están contempladas las claves mensurales usando la instrucción
+@code{\clef}.  Algunas de las claves utilizan el mismo glifo, pero
+se diferencian solamente respecto a la línea en la que se
+imprimen.  En tales casos, se utiliza un sufijo numérico en el
+nombre para denominar dichas claves, contando las líneas desde la
+inferior hasta la superior.
 
-Petrucci usaba claves de Do que tenían barras verticales en el
-lado izquierdo en un equilibrio variable, dependiendo de la línea
-de la pauta en que se imprimían.
-
-@multitable @columnfractions .4 .4 .2
-@item
-@b{Descripción}
-@tab
-@b{Claves posibles}
-@tab
-@b{Ejemplo}
-
-@item
-clave de Do, mensural
-@tab
-@code{mensural-c1}, @code{mensural-c2},@*
-@code{mensural-c3}, @code{mensural-c4},@*
-@code{mensural-c5}
-@tab
-@lilypond[fragment,notime]
-  \clef "mensural-c2"
-  \override NoteHead.style = #'mensural
-  c'1
+@lilypond[notime,verbatim,quote,fragment]
+\override NoteHead.style = #'vaticana.punctum
+\clef "vaticana-do1"
+c'1
 @end lilypond
 
-@item
-clave de Fa, mensural
-@tab
-@code{mensural-f}
-@tab
-@lilypond[fragment,notime]
-  \clef "mensural-f"
-  \override NoteHead.style = #'mensural
-  c'1
+@lilypond[notime,verbatim,quote,fragment]
+\override NoteHead.style = #'medicaea.punctum
+\clef "medicaea-do3"
+c'1
 @end lilypond
 
-@item
-clave de Sol, mensural
-@tab
-@code{mensural-g}
-@tab
-@lilypond[fragment,notime]
-  \clef "mensural-g"
-  \override NoteHead.style = #'mensural
-  c'1
+@lilypond[notime,verbatim,quote,fragment]
+\override NoteHead.style = #'hufnagel.punctum
+\clef "hufnagel-fa2"
+c'1
 @end lilypond
 
-@item
-clave de Do, mensural negra
-@tab
-@code{blackmensural-c1}, @code{blackmensural-c2},@*
-@code{blackmensural-c3}, @code{blackmensural-c4},@*
-@code{blackmensural-c5}
-@tab
-@lilypond[fragment,notime]
-  \clef "blackmensural-c2"
-  \override NoteHead.style = #'mensural
-  c'1
+@lilypond[notime,verbatim,quote,fragment]
+\override NoteHead.style = #'neomensural
+\clef "neomensural-c4"
+c'1
 @end lilypond
 
-@item
-clave de Do, neomensural
-@tab
-@code{neomensural-c1}, @code{neomensural-c2},@*
-@code{neomensural-c3}, @code{neomensural-c4}
-@tab
-@lilypond[fragment,notime]
-  \clef "neomensural-c2" c'1
-@end lilypond
 
-@item
-claves de Do en el estilo de Petrucci, para su uso en distintas
-líneas de la pauta (el ejemplo muestra la clave de Do en segunda)
-@tab
-@code{petrucci-c1}, @code{petrucci-c2},@*
-@code{petrucci-c3}, @code{petrucci-c4},@*
-@code{petrucci-c5}
-@tab
-@lilypond[fragment,notime]
-  \clef "petrucci-c2"
-  \override NoteHead.style = #'mensural
-  c'1
-@end lilypond
-
-@item
-claves de Fa en el estilo de Petrucci, para su uso en distintas
-líneas de la pauta (el ejemplo muestra la lclave de Fa en tercera
-línea)
-@tab
-@code{petrucci-f3}, @code{petrucci-f4},@*
-@code{petrucci-f5}
-@tab
-@lilypond[fragment,notime]
-  \clef "petrucci-f3"
-  \override NoteHead.style = #'mensural
-  c'1
-@end lilypond
-
-@item
-clave de Sol en el estilo de Petrucci
-@tab
-@code{petrucci-g}
-@tab
-@lilypond[fragment,notime]
-  \clef "petrucci-g"
-  \override NoteHead.style = #'mensural
-  c'1
-@end lilypond
-@end multitable
+Se puede forzar manualmente la composición tipográfica de un glifo
+de clave sobre cualquier línea seleccionada arbitrariamente, según
+se describe en @ref{Clave}.  Para ver el abanico completo de las
+claves posibles, consulte @ref{Estilos de clave}.
 
 @seealso
 Glosario musical:
@@ -549,10 +475,23 @@ Glosario musical:
 @rglos{clef}.
 
 Referencia de la notación:
+@ref{Claves de canto gregoriano},
 @ref{Clave}.
 
+Archivos instalados:
+@file{scm/parser-clef.scm}.
+
+Fragmentos de código:
+@rlsr{Pitches}.
+
+Referencia de funcionamiento interno:
+@rinternals{Clef_engraver},
+@rinternals{Clef},
+@rinternals{ClefModifier},
+@rinternals{clef-interface}.
+
 @knownissues
-La clave de Sol mensural está asignada a la clave de Sol de
+La clave de Sol Mensural está asignada a la clave de Sol de
 Petrucci.
 
 
