@@ -1859,6 +1859,7 @@ Preguntas aún sin respuesta
 * La instrucción override::
 * La instrucción tweak::
 * set frente a override::
+* La instrucción offset::
 * Modificación de las listas-A::
 @end menu
 
@@ -1900,7 +1901,7 @@ disposición}).  Este último es un símbolo, y por ello debe ir
 precedido de un apóstrofo.  La subsección @ref{Modificar las propiedades}
 explica cómo se deben cumplimentar los conceptos @var{nombre},
 @var{propiedad} y @var{valor}.  Aquí sólo nos ocuparemos de la
-funcionalidad des esta instrucción.
+funcionalidad de esta instrucción.
 
 La instrucción
 
