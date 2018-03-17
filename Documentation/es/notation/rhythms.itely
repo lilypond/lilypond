@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 18d03fa6a724b0102ccc47d194209802cea02f2e
+    Translation of GIT committish: 166e0662dbd7dc11dc2ff968c13ace01d6a3c010
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -52,15 +52,24 @@ las barras y los compases.
 @funindex \breve
 @funindex \maxima
 
-Las duraciones se designan mediante números y puntos. Las
-duraciones se introducen como sus valores recíprocos respecto de
-la redonda.  Por ejemplo, una negra se escribe usando un @code{4}
-(puesto que es 1/4 de redonda), mientras que una blanca se escribe
-con un @code{2} (por ser 1/2 de redonda).  Para notas mayores de
-la redonda se deben usar las instrucciones @code{\longa} (que es
-una breve doble) y @code{\breve}. Se pueden especificar duraciones
-tan cortas como la garrapatea (con el número 128).  Son posibles
-valores más cortos, pero sólo como notas unidas por una barra.
+La duración de las notas se introduce mediante números y
+puntos. El número que se escribe está basado en el valor recíproco
+de la longitud de la nota. Respecto a la redonda, esto es el
+número de veces que dicha nota cabe en una redonda.  Por ejemplo,
+una negra se escribe usando un @code{4} (puesto que es 1/4 de
+redonda), mientras que una blanca se escribe con un @code{2} (por
+ser 1/2 de redonda), una corchea se escribe como @code{8} y así
+sucesivamente.  Se pueden especificar duraciones tan cortas como
+la garrapatea (con el número 128).  Son posibles valores más
+cortos, pero sólo como notas unidas por una barra.  Véase también
+@ref{Barras}.
+
+Para notas mayores de la redonda se deben usar las instrucciones
+@code{\longa} (que es una breve doble) y @code{\breve}. Se puede
+escribir una nota con la duración de una cuádruple breve mediante
+@code{\maxima}, pero esto está contemplado solamente dentro de la
+notación musical antigua.  Para ver más detalles, consulte
+@ref{Notación antigua}.
 
 @c Two 64th notes are needed to obtain beams
 @lilypond[quote,verbatim]
@@ -85,25 +94,16 @@ desactivado.
 }
 @end lilypond
 
-Se puede escribir una nota con la duración de una cuádruple breve
-mediante @code{\maxima}, pero esto está contemplado solamente
-dentro de la notación musical antigua.  Para ver más detalles,
-consulte @ref{Notación antigua}.
-
+@cindex duración aislada
+@cindex aislada, duración
 @cindex duración predeterminada
 @cindex predeterminada, duración de la nota
 @cindex nota, duración predeterminada
 
-Si la duración se omite, su valor será el de la duración de la
-nota anterior.  Por omisión, el valor de la primera nota es el de
-una negra.
 
-@lilypond[quote,verbatim]
-\relative { a' a a2 a a4 a a1 a }
-@end lilypond
-
-Las duraciones aisladas en una secuencia musical toman la altura
-de la nota o acorde anterior.
+Las duraciones aisladas (aquellas que no especifican ninguna
+altura) en una secuencia musical toman la altura de la nota o
+acorde anterior.
 
 @lilypond[quote,verbatim]
 \relative {
@@ -111,6 +111,22 @@ de la nota o acorde anterior.
   c'' \longa \breve 1 2
   4 8 16 32 64 128 128
 }
+@end lilypond
+
+@cindex altura predeterminada
+@cindex predeterminada, altura
+@cindex nota, altura predeterminada
+@cindex altura aislada
+@cindex aislada, altura
+
+Las alturas aisladas (notas sin ninguna duración especificada) que
+aparecen dentro de una secuencia musical, obtienen su duración de
+la nota o acorde anterior.  Si no hay ninguna duración anterior,
+entonces el valor predeterminado que se utiliza para la nota
+siempre es @code{4}, una negra.
+
+@lilypond[quote,verbatim]
+\relative { a' a a2 a a4 a a1 a }
 @end lilypond
 
 @cindex notas, con puntillo
@@ -128,28 +144,24 @@ especifican escribiendo dos puntos, y así sucesivamente.
 \relative { a'4 b c4. b8 a4. b4.. c8. }
 @end lilypond
 
-Ciertas duraciones no se pueden representar sólo con duraciones
-binarias y puntillos; la única forma de representarlas es ligando
-dos o más notas.  Para ver más detalles, consulte @ref{Ligaduras
-de unión}.
-
-Para ver de qué manera se pueden especificar las duraciones de las
-sílabas de la letra y cómo alinear la letra a las notas, consulte
-@ref{Música vocal}.
-
-Opcionalmente se pueden espaciar las notas de forma estrictamente
-proporcional a sus duraciones.  Para ver más detalles sobre este y
-otros ajustes que controlan la notación proporcional, consulte
-@ref{Notación proporcional}.
-
 @funindex \dotsUp
 @funindex \dotsDown
 @funindex \dotsNeutral
 
-Normalmente los puntillos se desplazan hacia arriba para evitar
-las líneas del pentagrama, excepto en situaciones de polifonía. Se
-pueden situar los puntillos manualmente encima o debajo de las
-líneas de la pauta; véase @ref{Dirección y posición}.
+Para evitar la superposición con las líneas del pentagrama, los
+puntillos se desplazan normalmente hacia arriba.  Sin embargo, en
+situaciones de polifonía, se pueden colocar manualmente por encima
+o por debajo según sea necesario.  Véase @ref{Dirección y posición}.
+
+Ciertas duraciones no se pueden representar solamente mediante
+números y puntillos; puede ser necesario emplear dos o más notas
+ligadas entre sí.  Véase @ref{Ligaduras de unión}.
+
+Para especificat duraciones que puedan alinear las notas con las
+sílabas de la letra, véase @ref{Música vocal}.
+
+Las notas también se pueden espaciar proporcionalmente a su
+duración, véase @ref{Notación proporcional}.
 
 @predefined
 @code{\autoBeamOn},
@@ -177,7 +189,7 @@ Glosario musical:
 @rglos{Duration names notes and rests}.
 
 Referencia de la notación:
-@ref{Barras automáticas},
+@ref{Barras},
 @ref{Ligaduras de unión},
 @ref{Plicas},
 @ref{Escritura de las duraciones (valores rítmicos)},
@@ -195,10 +207,10 @@ Referencia de funcionamiento interno:
 
 @knownissues
 @c Deliberately duplicated in Durations and Rests.  -gp
-No existe un límite fundamental para las duraciones de los
+Aunque no existe un límite fundamental para las duraciones de los
 silencios (tanto para el más largo como para el más corto), pero
-el numero de glifos es limitado: sólo se pueden imprimir desde el
-silencio de garrapatea (128) hasta el de máxima (8 redondas).
+el número de glifos es limitado: sólo se pueden imprimir desde el
+silencio de garrapatea (@code{128}) hasta el de @code{\maxima} (8 redondas).
 
 
 @node Grupos especiales
@@ -992,6 +1004,9 @@ comprobación de compás.
 @cindex eclesiásticos, silencios
 @cindex silencios eclesiásticos
 @cindex kirchenpausen
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{multi-measure-rest-length-control.ly}
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-form-of-multi-measure-rests.ly}
