@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Actualitzat el Sat Feb  3 10:14:18 UTC 2018
+@emph{Actualitzat el Sat Mar 17 12:19:16 UTC 2018
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -611,7 +611,34 @@ parcialment
 @end ifnothtml
 @tab pre-GDP
 @item
-2.3 Instruments de corda amb trasts
+2.3 Instruments de corda sense trasts
+@*
+279
+@tab Walter Garcia-Fontes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab pre-GDP
+@item
+2.4 Instruments de corda amb trasts
 @*
 2821
 @tab Walter Garcia-Fontes
@@ -638,7 +665,7 @@ parcialment
 @end ifnothtml
 @tab pre-GDP
 @item
-2.4 Percussió
+2.5 Percussió
 @*
 799
 @tab Walter Garcia-Fontes
@@ -665,9 +692,63 @@ si
 @end ifnothtml
 @tab pre-GDP
 @item
-2.5 Notació d'acords
+2.6 Instruments de vent
+@*
+324
+@tab Walter Garcia-Fontes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab pre-GDP
+@item
+2.7 Notació d'acords
 @*
 1975
+@tab Walter Garcia-Fontes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab pre-GDP
+@item
+2.8 Música contemporània
+@*
+475
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
