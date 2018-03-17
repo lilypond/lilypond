@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最終更新日 Sat Feb  3 10:14:18 UTC 2018
+@emph{最終更新日 Sat Mar 17 12:19:16 UTC 2018
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -884,21 +884,21 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">一部 (96 %)</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-一部 (96 %)
+はい
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #ffd743">partially</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+はい
 @end ifnothtml
 @tab post-GDP
 @item

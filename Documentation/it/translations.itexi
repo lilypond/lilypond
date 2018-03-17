@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Ultimo aggiornamento Sat Feb  3 10:14:18 UTC 2018
+@emph{Ultimo aggiornamento Sat Mar 17 12:19:16 UTC 2018
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -47,11 +47,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #ff7f54">parzialmente</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+sì
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -542,11 +542,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">parzialmente</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+sì
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -704,11 +704,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">parzialmente</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+sì
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -812,11 +812,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">parzialmente</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+sì
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -893,11 +893,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #5bff27">parzialmente</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+sì
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1013,11 +1013,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">parzialmente</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+sì
 @end ifnothtml
 @tab pre-GDP
 @item
