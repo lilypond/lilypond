@@ -95,6 +95,7 @@ contexts.
 Two new accidental rules have been added.  Both combine the
 characteristics of @code{modern-voice}, @code{piano} and their
 equivalents:
+
 @code{choral}
 
 @lilypond[quote]
@@ -225,7 +226,7 @@ Output
 @end multitable
 
 @noindent
-Also see @emph{Clef styles}.
+Also see @ruser{Clef styles}.
 
 @item
 French note names are now explicitly defined -- previously they were
