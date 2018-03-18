@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.29"
+@c \version "2.19.38"
 
 @c Translators: Federico Bruni
 @c Translation checkers: Luca Rossetto Casel
@@ -1192,7 +1192,7 @@ stampare la musica.
 devono avere la stessa durata.}
 
 @lilypond[quote,verbatim]
-\parallelMusic #'(voiceA voiceB voiceC) {
+\parallelMusic voiceA,voiceB,voiceC {
   % Battuta 1
   r8 g'16 c'' e'' g' c'' e'' r8 g'16 c'' e'' g' c'' e'' |
   r16 e'8.~   4              r16 e'8.~   4              |
@@ -1216,7 +1216,7 @@ alla nota precedente della voce, non a quella precedente nell'input.  In altre
 parole, le note relative di @code{voiceA} ignorano le note in @code{voiceB}.
 
 @lilypond[quote,verbatim]
-\parallelMusic #'(voiceA voiceB voiceC) {
+\parallelMusic voiceA,voiceB,voiceC {
   % Battuta 1
   r8 g16 c e g, c e r8 g,16 c e g, c e  |
   r16 e8.~ 4        r16 e8.~  4         |
@@ -1243,7 +1243,7 @@ global = {
   \time 2/4
 }
 
-\parallelMusic #'(voiceA voiceB voiceC voiceD) {
+\parallelMusic voiceA,voiceB,voiceC,voiceD {
   % Battuta 1
   a8    b     c   d     |
   d4          e         |

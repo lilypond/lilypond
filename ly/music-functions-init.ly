@@ -18,7 +18,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.19.25"
+\version "2.19.38"
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1063,7 +1063,7 @@ and assign them to the identifiers provided in @var{voice-ids}.
 Example:
 
 @verbatim
-  \\parallelMusic #'(A B C) {
+  \\parallelMusic A,B,C {
     c c | d d | e e |
     d d | e e | f f |
   }
