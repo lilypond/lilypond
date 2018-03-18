@@ -62,6 +62,14 @@ which scares away people.
 @end ignore
 
 @item
+A dynamic command @code{\n} for @emph{niente} has been added.
+@lilypond[quote]
+{
+  d'1~\mp\> 2 r\n
+}
+@end lilypond
+
+@item
 Fret-diagrams may now be printed left-handed, setting @code{handedness} to
 @code{LEFT} (as a subproperty of @code{fret-diagram-details}).
 @lilypond[verbatim,quote]
