@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.29"
+@c \version "2.19.38"
 
 @c Translators: Walter Garcia-Fontes
 @c Translation checkers:
@@ -1205,7 +1205,7 @@ imprimir la música.
 @code{|}, y els compassos han de tenir la mateixa longitud.}
 
 @lilypond[quote,verbatim]
-\parallelMusic #'(voiceA voiceB voiceC) {
+\parallelMusic voiceA,voiceB,voiceC {
   % Bar 1
   r8 g'16 c'' e'' g' c'' e'' r8 g'16 c'' e'' g' c'' e'' |
   r16 e'8.~   4              r16 e'8.~   4              |
@@ -1231,7 +1231,7 @@ d'entrada (dit d'una altra manera, les notes relatives de
 @code{voiceA} ignoren les notes que hi ha a @code{voiceB}.
 
 @lilypond[quote,verbatim]
-\parallelMusic #'(voiceA voiceB voiceC) {
+\parallelMusic voiceA,voiceB,voiceC {
   % Bar 1
   r8 g16 c e g, c e r8 g,16 c e g, c e  |
   r16 e8.~ 4        r16 e8.~  4         |
@@ -1258,7 +1258,7 @@ global = {
   \time 2/4
 }
 
-\parallelMusic #'(voiceA voiceB voiceC voiceD) {
+\parallelMusic voiceA,voiceB,voiceC,voiceD {
   % Compàs 1
   a8    b     c   d     |
   d4          e         |

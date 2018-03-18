@@ -1280,7 +1280,7 @@ para imprimir la música.
 @code{|}, y los compases deben tener la misma longitud.}
 
 @lilypond[quote,verbatim]
-\parallelMusic #'(voiceA voiceB voiceC) {
+\parallelMusic voiceA,voiceB,voiceC {
   % Bar 1
   r8 g'16 c'' e'' g' c'' e'' r8 g'16 c'' e'' g' c'' e'' |
   r16 e'8.~   4              r16 e'8.~   4              |
@@ -1306,7 +1306,7 @@ código de entrada (dicho de otra manera, las notas relativas de
 @code{vozA} ignoran a las notas que hay en @code{vozB}.
 
 @lilypond[quote,verbatim]
-\parallelMusic #'(voiceA voiceB voiceC) {
+\parallelMusic voiceA,voiceB,voiceC {
   % Bar 1
   r8 g16 c e g, c e r8 g,16 c e g, c e  |
   r16 e8.~ 4        r16 e8.~  4         |
@@ -1334,7 +1334,7 @@ global = {
   \time 2/4
 }
 
-\parallelMusic #'(voiceA voiceB voiceC voiceD) {
+\parallelMusic voiceA,voiceB,voiceC,voiceD {
   % Bar 1
   a8    b     c   d     |
   d4          e         |
