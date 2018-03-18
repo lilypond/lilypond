@@ -1,4 +1,4 @@
-\version "2.19.22"
+\version "2.19.38"
 \header {
 
   texidoc = "@code{make-relative} is a Scheme utility macro mainly
@@ -23,7 +23,7 @@ ph =
      \repeat unfold 2 { r8 $p3 16 $p4 $p5 $p3 $p4 $p5 } |
    #}))
 
-\parallelMusic #'(low middle high)
+\parallelMusic low,middle,high
 {
   \ph c' e' g' c'' e''
   R1*7 | \skip 1*7 | \oneVoice R1*7 \voiceOne |
@@ -52,7 +52,7 @@ ph =
   >>
 }
 
-\parallelMusic #'(low middle high)
+\parallelMusic low,middle,high
 \relative c' {
   \ph c e g c e
   R1*7 | \skip 1*7 | \oneVoice R1*7 \voiceOne |
