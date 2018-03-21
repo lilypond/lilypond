@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: cc3b9e1430f4cc9c54da7252e504f3d274a7ea17
+    Translation of GIT committish: 0832ff1d3747a78f338dc8f97bb6e10883c673ab
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -11,7 +11,7 @@
 @c \version "2.19.22"
 
 
-@c Translators: Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Yoshiki Sawada
 @c Translation status: post-GDP
 
 
@@ -24,31 +24,6 @@ Negative numbers are allowed:
 >   first-page-number = -2
 > }
 > and prints page number -1 on the second page, for example.
-
-
-In 5.2.1 the @refbugs (line 495 in spacing.itely on master) it
-states:
-
-"@code{layout-set-staff-size} does not change the distance between
-the
-staff lines."
-
-Could we add a sentence:
-"Use instead the pair               fontSize = #@var{N}
-            \override StaffSymbol.staff-space = #(magstep
-@var{N})
-inside the Staff context to change the size of the font and the
-distance between
-staff lines accordingly."
-
-Actually I found, that the @internalsref{StaffSymbol} at line 481
-sends to an incomplete
-documentation.  The property staff-space is not explained here.  I
-thought Y-extent might be of
-help, but it is in turn explained by x-space which again is
-missing from the list.  Who has the
-knowledge to fix this?
-
 
 Clarify
 http://code.google.com/p/lilypond/issues/detail?id=68
@@ -82,11 +57,11 @@ http://code.google.com/p/lilypond/issues/detail?id=68
 
 2 タイプのブロックがレイアウト設定を保持できます:
 @code{\paper @{@dots{}@}} と @code{\layout @{@dots{}@}} です。@c
-@code{\paper} ブロックは book のすべての score で共通の@c
+@code{\paper} ブロックはブックやブック パートのすべてのスコアで共通の@c
 ページ レイアウト設定を保持します
 -- ページの高さやページ番号を表示するか等です。@c
 @ref{ページ レイアウト} を参照してください。@c
-@code{\layout} ブロックは score のレイアウトを保持します
+@code{\layout} ブロックはスコアのレイアウトを保持します
 -- システム数や譜グループ間の間隔等です。@c
 @ref{ページ レイアウト} を参照してください。@c
 
@@ -117,13 +92,38 @@ http://code.google.com/p/lilypond/issues/detail?id=68
 
 
 @node paper ブロック
-@subsection @code{\paper} ブロック
-@translationof The \paper block
+@subsection @code{@bs{}paper} ブロック
+@translationof The paper block
 
-@code{\paper} ブロックは、@code{\book} ブロック内に配置することができますが、@c
-@code{\score} ブロック内に配置することはできません。@c
-@code{\paper} ブロックでの設定は book 全体に適用されます。@c
-book が複数の score を含む場合も、すべての score に適用されます。@c
+@code{\paper} ブロック 3 つの異なる場所に配置することができ、@c
+以下の順番でブロックの階層構造を作り出します:
+
+@itemize
+
+@item
+入力ファイルの先頭。全ての @code{\book}, @code{\bookpart}, @code{\score}
+ブロックの前。
+
+@item
+@code{\book} ブロックの中であるが、そのブックの全ての @code{\bookpart} や
+@code{\score} ブロックの外。
+
+@item
+@code{\bookpart} ブロックの中であるが、そのブック パートの全ての @code{\score}
+ブロックの外。
+
+@end itemize
+
+@code{\paper} ブロックは、@code{\score} ブロックの中には配置できません。
+
+フィールドの値は、この順番に沿って継承されます。つまり、高い階層でセットされた@c
+値は、下の階層で値がセットされて上書きされない限り保たれます。
+
+各階層で、@code{\paper} ブロックは複数配置することができます。例えば、@c
+@code{\include} されるファイル毎に @code{\paper} ブロックを配置できます。@c
+その場合、それぞれの階層でフィールドの値が統合されます。@c
+同じフィールドが存在する場合、最後に出現した値が用いられます。
+
 @code{\paper} ブロックで可能な設定には以下のものがあります:
 
 @itemize
@@ -216,21 +216,19 @@ Scheme を用いて @code{\paper} の値を定義することも可能です。@
 @unnumberedsubsubsec 紙面サイズを設定する
 @translationof Setting the paper size
 
-紙面サイズを変更するために 2 つの関数が利用可能です:
-@code{set-default-paper-size} と @code{set-paper-size} です。
-@code{set-default-paper-size} は最上位スコープに配置する必要があり、@c
-and @code{set-paper-size} は @code{\paper} ブロックの中に@c
-配置する必要があります:
 @q{A4} が紙面サイズを明示的に設定しなかった場合のデフォルト値です。@c
-しかしながら、デフォルト値を変更するために使うことができる関数が 2 つあります。@c
-1 つは @code{set-default-paper-size} です:
+しかしながら、デフォルト値を変更するために使うことができる関数が 2 つあります:
+
+@table @code
+@item set-default-paper-size
 
 @example
 #(set-default-paper-size "quarto")
 @end example
 
 この関数は常に最上位スコープに配置する必要があります。@c
-もう 1 つは @code{set-paper-size} です:
+
+@item set-paper-size
 
 @example
 \paper @{
@@ -239,6 +237,7 @@ and @code{set-paper-size} は @code{\paper} ブロックの中に@c
 @end example
 
 この間数は常に @code{\paper} ブロックの中に配置する必要があります。
+@end table
 
 @code{set-default-paper-size} 関数を最上位スコープで用いる場合、@c
 どの @code{\paper} ブロックよりも前に配置する必要があります。@c
@@ -266,7 +265,7 @@ and @code{set-paper-size} は @code{\paper} ブロックの中に@c
 
 
 @example
-#(set! paper-alist (cons '("my size" . (cons (* 15 in) (* 3 in))) paper-list))
+#(set! paper-alist (cons '("my size" . (cons (* 15 in) (* 3 in))) paper-alist))
 
 \paper @{
   #(set-paper-size "my size")
@@ -287,7 +286,17 @@ and @code{set-paper-size} は @code{\paper} ブロックの中に@c
 #(set-default-paper-size "a6" 'landscape)
 @end example
 
-紙面が回転するだけで、楽譜は回転 @emph{しません}。
+出力を回転@emph{させずに}紙面の縦横を入れ替えるには (例えば、ポストカードの@c
+サイズで出力する場合や、他のドキュメントに埋め込むための楽譜を生成する場合)、@c
+紙面サイズの名前にそのまま @samp{landscape} を付け加えます:
+
+@example
+#(set-default-paper-size "a6landscape")
+@end example
+
+紙面サイズの名前が @samp{landscape} や @samp{portlait} で終わっている場合、@c
+@code{'landscape} シンボルは出力の回転に@emph{のみ}影響し、紙面の@c
+縦横サイズには影響しません。
 
 @seealso
 記譜法リファレンス:
@@ -374,19 +383,14 @@ Scheme 関数
 @item ragged-bottom
 @funindex ragged-bottom
 
-真に設定されている場合、システムはページ下端まで広がりません。@c
-これは最後のページには影響しません。@c
-ページに 2, 3 しかシステムを持たない楽曲 -- オーケストラ譜等 -- では、@c
-この変数を真に設定すべきです。
+これが真に設定されている場合、システムは自然なスペーシングを保持します。@c
+ページに縦方向にフィットするようにスペースが伸縮されません。
 
 @item ragged-last-bottom
 @funindex ragged-last-bottom
 
-偽に設定されている場合、最後のページでシステムはページ下端まで広がります。@c
-2 ページ以上ある楽曲では、この変数を偽に設定すべきです。@c
-これは book パート
--- すなわち @code{\bookpart} ブロックによって作成された部分 --
-の最後のページにも影響を与えます。
+これが偽に設定されている場合、最終ページと、@code{\bookpart} ブロックで@c
+作られた各セクションの最終ページが、途中のページと同様に縦方向に伸縮されます。
 
 @end table
 
@@ -410,8 +414,8 @@ Scheme 関数
 
 
 @node 可変な垂直方向の paper スペース変数
-@subsection 可変な垂直方向の @code{\paper} スペース変数
-@translationof Flexible vertical spacing \paper variables
+@subsection 可変な垂直方向の @code{@bs{}paper} スペース変数
+@translationof Flexible vertical spacing paper variables
 
 たいていの場合、ある要素間
 (マージン、タイトル、システム、score 等の間)
@@ -455,8 +459,14 @@ Scheme 関数
 小さいと無意味になります。@c
 なぜなら、間隔が @code{padding} や @code{minimum-distance} よりも@c
 小さくなることはないからです。
-@code{minimum-distance} の値が @code{padding} よりも小さいと無意味になります。@c
-なぜなら、間隔が @code{padding} よりも小さくなることはないからです。
+
+@item
+@code{minimum-distance} -- 2 つの要素の参照ポイント間で、圧縮が起こる場合に@c
+許容される最小の垂直方向の間隔。単位は譜スペースです。@c
+@code{minimum-distance} の値が @code{padding}よりも@c
+小さいと無意味になります。@c
+なぜなら、間隔が @code{padding}よりも@c
+小さくなることはないからです。
 
 @c TODO: explain skylines somewhere and xref to it from here.
 
@@ -483,7 +493,6 @@ Scheme 関数
 @end itemize
 
 譜がページの下端まで広がらない設定の場合、間隔は以下の中の最大値となります:
-largest of:
 
 @itemize
 
@@ -518,8 +527,8 @@ largest of:
 
 
 @node 可変な垂直方向の paper スペース変数のリスト
-@unnumberedsubsubsec 可変な垂直方向の @code{\paper} スペース変数のリスト
-@translationof List of flexible vertical spacing \paper variables
+@unnumberedsubsubsec 可変な垂直方向の @code{@bs{}paper} スペース変数のリスト
+@translationof List of flexible vertical spacing paper variables
 
 以下の変数の名前は @code{@var{upper}-@var{lower}-spacing} という形式で、@c
 @code{@var{upper}} 要素と @code{@var{lower}} 要素との間隔です。@c
@@ -595,8 +604,8 @@ score の最後のシステムと、その後に score の最初のシステム�
 
 
 @node 水平方向の paper スペース変数
-@subsection 水平方向の @code{\paper} スペース変数
-@translationof Horizontal spacing \paper variables
+@subsection 水平方向の @code{@bs{}paper} スペース変数
+@translationof Horizontal spacing paper variables
 
 @warning{いくつかの @code{@bs{}paper} の間隔は紙面サイズに応じて自動的に@c
 拡縮され、それにより予期せぬ結果となることがあります。@c
@@ -610,7 +619,7 @@ score の最後のシステムと、その後に score の最初のシステム�
 
 
 @node 幅とマージンの paper 変数
-@unnumberedsubsubsec 幅とマージンの @code{\paper} 変数
+@unnumberedsubsubsec 幅とマージンの @code{@bs{}paper} 変数
 @translationof \paper variables for widths and margins
 
 ここでリスト アップされていない (拡縮する前の) デフォルト値は、@c
@@ -631,15 +640,29 @@ score の最後のシステムと、その後に score の最初のシステム�
 @item line-width
 @funindex line-width
 
-この変数に値が設定されていない場合、@c
-インデントされず、ページ右端まで広がるシステムの譜線の水平方向の長さは、@c
+@code{\paper} ブロックで設定した場合、インデントされていないシステムの、譜線が@c
+利用できる横方向への長さが指定されます。@c
+設定されない場合、@code{\paper} の @code{line-width} は
 @code{(paper-width@tie{}@minus{}@tie{}left-margin@tie{}@minus{}@tie{}right-margin)}
-です。@c
-@code{left-margin} と @code{right-margin} に値が設定されていなければ、@c
-マージンは自動的に更新されて、@c
-システムはページの中央に配置されます。
-@code{check-consistency} も参照してください。@c
-この変数は @code{\layout} ブロック内で設定される可能性もあります。
+から計算されます。
+@code{\paper} の @code{line-width} が設定されており、@c
+@code{left-margin} と @code{right-margin} の両方が設定されていない場合は、@c
+システムがページの中央に来るように余白が調節されます。@c
+@code{check-consistency} も参照してください。
+
+@code{line-width} は @code{\layout} ブロックに設定することで、スコア毎に@c
+別の値を指定することができます。@c
+これらの値は、@code{\score} 毎の譜線の長さを設定します。@c
+@code{\score} の @code{line-width} が指定されていない場合、@c
+デフォルト値は @code{\paper} の @code{line-width} です。
+@code{\score} の @code{line-width} を設定しても、紙の余白には影響しません。@c
+@code{\score} の @code{line-width} で設定された譜線の長さは、@c
+@code{\paper} の @code{line-width} で設定された紙面領域を基にして@c
+左揃えされます。@c
+@code{\score} と @code{\paper} の @code{line-width} が同じ値の場合、@c
+譜線は左余白から右余白までちょうどいっぱいに広がりますが、@c
+@code{\score} の @code{line-width} が @code{\paper} の @code{line-width}
+よりも大きい場合、譜線は右余白を超えて広がってしまいます。
 
 @item left-margin
 @funindex left-margin
@@ -678,7 +701,7 @@ score の最後のシステムと、その後に score の最初のシステム�
 @item check-consistency
 @funindex check-consistency
 
-真にセットされた場合、@code{left-margin}, @code{line-width},
+真 (デフォルトの値) にセットされた場合、@code{left-margin}, @code{line-width},
 それに @code{right-margin} の和が @code{paper-width} にならなければ警告を@c
 表示して、@c
 @code{left-margin} と @code{right-margin} をデフォルト値に置き換え
@@ -793,14 +816,18 @@ book の一部であるページすべてが見開きページの外側に持つ
 
 score の最初のシステムに対するインデントのレベルです。@c
 紙面サイズが変更された場合、それに応じてこの変数のデフォルト値も拡縮されます。@c
-この変数は @code{\layout} ブロック内でセットされる可能性もあります。
+最初のシステムの長さは、@code{line-width} の値からこの設定の値だけ@c
+減らされます。@code{\layout} ブロック内で設定された場合、@code{\score} 毎に@c
+インデントが変更されます。
 
 @item short-indent
 @funindex short-indent
 
 最初のシステムを除くすべてのシステムに対するインデントのレベルです。@c
 紙面サイズが変更された場合、それに応じてこの変数のデフォルト値も拡縮されます。@c
-この変数は @code{\layout} ブロック内でセットされる可能性もあります。
+最初以外のシステムの長さは、@code{line-width} の値からこの設定の値だけ@c
+減らされます。@code{\layout} ブロック内で設定された場合、@code{\score} 毎に@c
+インデントが変更されます。
 
 @end table
 
@@ -816,8 +843,8 @@ score の最初のシステムに対するインデントのレベルです。@c
 
 
 @node 他の paper 変数
-@subsection 他の @code{\paper} 変数
-@translationof Other \paper variables
+@subsection 他の @code{@bs{}paper} 変数
+@translationof Other paper variables
 
 @menu
 * 改行のための paper 変数::
@@ -828,10 +855,8 @@ score の最初のシステムに対するインデントのレベルです。@c
 
 
 @node 改行のための paper 変数
-@unnumberedsubsubsec 改行のための @code{\paper} 変数
-@translationof \paper variables for line breaking
-
-@c TODO: Mention that ly:optimal-breaking is on by default? -mp
+@unnumberedsubsubsec 改行のための @code{@bs{}paper} 変数
+@translationof paper variables for line breaking
 
 @table @code
 
@@ -872,39 +897,23 @@ score で使用すべきシステム数です。@c
 
 
 @node 改ページのための paper 変数
-@unnumberedsubsubsec 改ページのための @code{\paper} 変数
-@translationof \paper variables for page breaking
+@unnumberedsubsubsec 改ページのための @code{@bs{}paper} 変数
+@translationof paper variables for page breaking
 
 ここでリスト アップされていないデフォルト値は
 @file{ly/paper-defaults-init.ly} で定義されています。
 
 @table @code
 
-@item blank-after-score-page-penalty
-@funindex blank-after-score-page-penalty
-
-楽譜の後ろ (と次の楽譜の前) に強制的に白紙を挿入します。@c
-デフォルトでは、この値は @code{blank-page-penalty} よりも小さいため、@c
-楽譜の途中ではなく後ろに白紙が挿入されます。
-
-@item blank-last-page-penalty
-@funindex blank-last-page-penalty
-
-楽譜の最後が奇数ページの場合、楽譜の後ろに白紙を挿入します。
-
-@item blank-page-penalty
-@funindex blank-page-penalty
-
-楽譜の途中に強制的に白紙を挿入します。@c
-この値は @code{ly:optimal-breaking} では用いられません。@c
-なぜなら、楽譜の途中の白紙を考慮しないからです。
-
 @item page-breaking
 @funindex page-breaking
 
 改ページのアルゴリズムを指定します。@c
-選択肢は @code{ly:minimal-breaking}, @code{ly:page-turn-breaking},
-それに @code{ly:optimal-breaking} です。
+選択肢は
+@code{ly:minimal-breaking}, @code{ly:page-turn-breaking},
+@code{ly:one-page-breaking}, @code{ly:one-line-breaking},
+@code{ly:one-line-auto-height-breaking},
+@code{ly:optimal-breaking} (デフォルト) です。
 
 @item page-breaking-system-system-spacing
 @funindex page-breaking-system-system-spacing
@@ -924,21 +933,71 @@ score で使用すべきページ数です。@c
 
 @end table
 
+次の変数は、@code{page-breaking} が @code{ly:page-turn-breaking} に@c
+セットされている場合にのみ有効です。この時、改ページはページめくりの@c
+数が最小になるように設定されます。ページめくりはページ番号が奇数のページから@c
+偶数のページへと移動する際に起こるため、最後のページ番号が奇数になることが@c
+通常望ましいということになります。ページをめくることが好まれる場所は、@c
+手動で @code{\allowPageTurn} を挿入することで明示するか、@c
+@code{Page_turn_engraver} をインクルードすることで自動的に指定されます
+(@ref{Optimal page turning} を参照してください)。
+
+最適なページめくりにするための選択肢が不十分である場合には、LilyPond は@c
+スコアの途中か、（スコアが 2 つ以上ある場合には）スコアとスコアの間に@c
+空白のページを挿入したり、偶数ページでスコアを終えることがあります。@c
+これらを起こりづらくするために、次の 3 つの変数の値を増やすことができます。
+
+値はペナルティとなります。つまり、大きな値ほど、他の選択肢に比べて@c
+その値に関連した動作が起こりづらくなるという意味です。
+
+@table @code
+
+@item blank-page-penalty
+@funindex blank-page-penalty
+
+楽譜の途中に空白ページが挿入されるペナルティです。@c
+@code{blank-page-penalty} が大きく、@code{ly:page-turn-breaking} が@c
+選択されていた場合、LilyPond は楽譜の途中に空白ページを挿入しにくくなります。@c
+その代わりに、ページを埋めるように音楽のスペーシングが広くなります。@c
+デフォルト: 5.
+
+@item blank-last-page-penalty
+@funindex blank-last-page-penalty
+
+楽譜を偶数ページで終了するペナルティです。@c
+@code{blank-last-page-penalty} が大きく、@code{ly:page-turn-breaking} が@c
+選択されていた場合、LilyPond は楽譜を偶数ページで終了しにくくなります。@c
+その代わりに、1 ページ増やしたり減らしたりするようにスペーシングを調節します。@c
+デフォルト: 0.
+
+@item blank-after-score-page-penalty
+@funindex blank-after-score-page-penalty
+
+1 つの楽譜の終わりと次の楽譜までの間に、空白ページを挿入するペナルティです。@c
+デフォルトでは、これは @code{blank-page-penalty} より小さくなっています。@c
+そのため、全ての楽譜の終わりに空白ページを挿入する方が、@c
+楽譜と楽譜の間に空白ページを挿入するよりも優先されます。デフォルト: 2.
+
+@end table
+
+
 @seealso
 記譜法リファレンス:
 @ref{改ページ},
 @ref{最適改ページ},
 @ref{最適ページめくり},
 @ref{最小改ページ},
-@ref{1 行の改ページ}
+@ref{One-page page breaking},
+@ref{1 行の改ページ},
+@ref{One-line-auto-height page breaking}
 
 インストールされているファイル:
 @file{ly/paper-defaults-init.ly}
 
 
 @node ページ番号のための paper 変数
-@unnumberedsubsubsec ページ番号のための @code{\paper} 変数
-@translationof \paper variables for page numbering
+@unnumberedsubsubsec ページ番号のための @code{@bs{}paper} 変数
+@translationof paper variables for page numbering
 
 ここでリスト アップされていないデフォルト値は
 @file{ly/paper-defaults-init.ly} で定義されています。
@@ -949,12 +1008,11 @@ score で使用すべきページ数です。@c
 @item auto-first-page-number
 @funindex auto-first-page-number
 
-@c 未訳
-The page breaking algorithm is affected by the first page number
-being odd or even.  If set to true, the page breaking algorithm
-will decide whether to start with an odd or even number.  This
-will result in the first page number remaining as is or being
-increased by one.  Default: @code{#f}.
+改ページのアルゴリズムは、最初のページの番号が奇数であるか偶数であるかに@c
+影響されます。真にセットされた場合、改ページアルゴリズムが@c
+最初のページが奇数番号で始めるか偶数番号で始めるかを決定します。@c
+したがって、最初のページ番号はそのままになるか、1 加算されます。@c
+デフォルト: @code{#f}.
 
 @cindex page numbers, specify the first (最初のページ番号を指定する)
 @item first-page-number
@@ -973,6 +1031,14 @@ increased by one.  Default: @code{#f}.
 
 偽にセットされた場合、ページ番号は譜刻されません。
 
+@cindex page numbers in roman numerals (ローマ数字のページ番号)
+@item page-number-type
+@funindex page-number-type
+
+ページ番号の種類を設定します。選択肢は
+@code{roman-lower}, @code{roman-upper}, @code{arabic} があります。@c
+デフォルト: @code{'arabic}.
+
 @end table
 
 @seealso
@@ -987,8 +1053,8 @@ increased by one.  Default: @code{#f}.
 
 
 @node その他の paper 変数
-@unnumberedsubsubsec その他の @code{\paper} 変数
-@translationof Miscellaneous \paper variables
+@unnumberedsubsubsec その他の @code{@bs{}paper} 変数
+@translationof Miscellaneous paper variables
 
 @table @code
 
@@ -1087,7 +1153,9 @@ increased by one.  Default: @code{#f}.
 で説明します。@c
 コンテキスト変更は @ref{Modifying context plug-ins} と
 @ref{Changing context default settings} で説明します。@c
-@code{\layout} ブロック内で使用される @code{\paper} には以下のものがあります:
+
+@code{\paper} ブロック内のデフォルト値が用いられ、@c
+@code{\layout} ブロック内で使用できる @code{\paper} には以下のものがあります:
 
 @itemize
 
@@ -1164,7 +1232,7 @@ layoutVariable = \layout @{
 @}
 @end example
 
-カレントの @code{\layout} 構成に @code{NoteHead #'font-size} 設定を追加@c
+カレントの @code{\layout} 構成に @code{NoteHead.font-size} 設定を追加@c
 しますが、この組み合わせは新しいカレントの構成として保存され @emph{ません}。@c
 @q{カレントの構成} は変数が定義された時に評価されるのであり、変数が使われる@c
 時に評価されるのではありません。@c
@@ -1232,105 +1300,107 @@ layoutVariable = \layout @{
 @cindex font size, setting (フォント サイズを設定する)
 @cindex staff size, setting (譜サイズを設定する)
 @funindex layout file
+@funindex magnification->font-size
+@funindex magstep
+@funindex set-global-staff-size
+@funindex layout-set-staff-size
 
 デフォルトの @strong{譜サイズ} は 20 ポイントに設定されています。@c
-これを変更するには 2 つの方法があります:
+これは、7.03mm の譜の高さ (1 ポイントは 100/7227 インチ、あるいは
+2540/7227 mm です) に相当します。@c
+譜サイズを変更するには 3 つの方法があります:
 
+@enumerate
+
+@item
 譜サイズをファイルの中にあるすべての楽譜
-(正確には @code{book} ブロックの中にあるすべての楽譜)
+(正確には @code{\book} ブロックの中にあるすべての楽譜)
 に設定するには、@c
-@code{set-global-staff-size} を使用します。
+@code{set-global-staff-size} を使用します:
 
 @example
 #(set-global-staff-size 14)
 @end example
 
 @noindent
-これはグローバルなデフォルトの譜サイズを高さが 14pt になるよう設定し、@c
+上の例では、グローバルなデフォルトの譜サイズを高さが 14pt (4.92mm)
+になるよう設定し、@c
 それに応じてすべてのフォントを拡縮します。
 
-それぞれの楽譜に個別に譜サイズを設定するには、@c
-以下のようにします:
+@item
+ブック内の 1 つのスコアの譜サイズを設定するには、@c
+スコアの @code{\layout} ブロックの中に
+@code{layout-set-staff-size} を配置してください:
+
 @example
-\score@{
+\score @{
   @dots{}
   \layout @{
-    #(layout-set-staff-size 15)
+    #(layout-set-staff-size 14)
   @}
 @}
 @end example
 
-Emmentaler フォントは 8 つのサイズの音楽シンボルを提供します。
-各フォントは譜サイズに合わせて調整されます:
-小さなサイズになるにつれて、@c
-相対的に太くなる譜線に対して釣り合いをとるために、@c
-太くなります。@c
-推奨されるフォント サイズを以下の表にリストアップします:
+@item
+システム内の 1 つの譜の譜サイズを設定するには、@c
+@code{\magnifyStaff} コマンドを使います。例えば、ピアノを伴う@c
+室内楽の伝統的な譜刻では、ピアノ譜が 7mm である一方で、@c
+他の譜は 3/5 から 5/7 の大きさ (60% から 71%) となります。@c
+5/7 の比率を得るには、このようにします:
 
-@quotation
+@example
+\score @{
+  <<
+    \new Staff \with @{
+      \magnifyStaff #5/7
+    @} @{ @dots{} @}
+    \new PianoStaff @{ @dots{} @}
+  >>
+@}
+@end example
+
+@code{fontSize} に対応する大きさが分かっている場合は、次の形を使うことが
+できます:
+
+@example
+\score @{
+  <<
+    \new Staff \with @{
+      \magnifyStaff #(magstep -3)
+    @} @{ @dots{} @}
+    \new PianoStaff @{ @dots{} @}
+  >>
+@}
+@end example
+
+伝統的な譜刻の見た目を模倣するには、譜線の太さを減らすのを避けると良いでしょう。
+
+@end enumerate
+
+@subheading フォント サイズに対応した太さの自動設定
+
+Emmentaler フォントは、@emph{Feta} 音楽グリフのセットを 8 つの異なるサイズで@c
+含んでいます。それぞれは、異なる譜サイズ向けに調整されているものです。@c
+グリフのサイズが小さいほど、相対的に細くなる譜線に合わせて@c
+より@qq{太く}なります。推奨されるグリフ サイズは以下の表にリスト アップ@c
+されています:
+
 @multitable @columnfractions .15 .2 .22 .2
-
-@item @b{フォント名}
-@tab @b{譜の高さ (pt)}
-@tab @b{譜の高さ (mm)}
-@tab @b{用途}
-
-@item feta11
-@tab 11.22
-@tab 3.9
-@tab ポケット サイズの楽譜
-
-@item feta13
-@tab 12.60
-@tab 4.4
-@tab
-
-@item feta14
-@tab 14.14
-@tab 5.0
-@tab
-
-@item feta16
-@tab 15.87
-@tab 5.6
-@tab
-
-@item feta18
-@tab 17.82
-@tab 6.3
-@tab 歌集
-
-@item feta20
-@tab 20
-@tab 7.0
-@tab 標準パート譜
-
-@item feta23
-@tab 22.45
-@tab 7.9
-@tab
-
-@item feta26
-@tab 25.2
-@tab 8.9
-@tab
-@c modern レンタルの資料？
-
+@item @b{フォント名} @tab @b{譜の高さ (pt)} @tab @b{譜の高さ (mm)} @tab @b{用途}
+@item feta11 @tab 11.22 @tab 3.9 @tab ポケット サイズの楽譜
+@item feta13 @tab 12.60 @tab 4.4 @tab
+@item feta14 @tab 14.14 @tab 5.0 @tab
+@item feta16 @tab 15.87 @tab 5.6 @tab
+@item feta18 @tab 17.82 @tab 6.3 @tab 歌集
+@item feta20 @tab 20 @tab 7.0 @tab 標準パート譜
+@item feta23 @tab 22.45 @tab 7.9 @tab
+@item feta26 @tab 25.2 @tab 8.9 @tab @c modern rental material?
 @end multitable
-@end quotation
-
-これらのフォントは任意のサイズで利用可能です。@c
-コンテキスト プロパティ @code{fontSize} と@c
-レイアウト プロパティ @code{staff-space}
-(@rinternals{StaffSymbol} の中にあります)
-を使用することで、@c
-個々の譜に対してサイズを調整することができます。@c
-個々の譜のサイズはグローバル サイズとの相対値です。
 
 @seealso
 記譜法リファレンス:
 @ref{記譜フォント サイズを選択する},
-@ref{The Emmentaler font}.
+@ref{The Emmentaler font}
 
 コード断片集:
 @rlsr{Spacing}
@@ -1346,19 +1416,19 @@ Emmentaler フォントは 8 つのサイズの音楽シンボルを提供しま
 @menu
 * 改行::
 * 改ページ::
-* 最適改ページ::
-* 最適ページめくり::
-* 最小改ページ::
-* 1 行の改ページ::
-* 明示的な改行/改ページ::
-* 改行/改ページのために追加のボイスを使用する::
 @end menu
 
 @node 改行
 @subsection 改行
 @translationof Line breaking
 
-@cindex line breaks (改行)
+@funindex \break
+@funindex \noBreak
+@funindex \autoBreaksOff
+@funindex \autoBreaksOn
+@funindex \autoLineBreaksOff
+@funindex \autoLineBreaksOn
+@cindex manual line breaks (手動改行)
 @cindex breaking lines (改行する)
 
 通常、改行は自動的に決定されます。@c
@@ -1375,15 +1445,17 @@ Emmentaler フォントは 8 つのサイズの音楽シンボルを提供しま
 }
 @end lilypond
 
-デフォルトでは、小節の途中での @code{\break} は無視され、@c
-警告が表示されます。@c
+デフォルトでは、小節の@q{途中}に挿入された @code{\break} コマンドは無視されます
+(そして、LilyPond ファイルをコンパイルする時に警告メッセージが出力されます)。@c
 小節の途中で強制的に改行を入れるには、@c
-@w{@samp{\bar ""}} を用いて不可視の小節線を追加します:
+不可視の小節線 -- @w{@samp{\bar ""}} -- を @code{\break} コマンドの前に@c
+挿入することで、強制的に改行することができます:
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'' {
   c4 c c
-  \bar "" \break
+  \bar ""
+  \break
   c |
   c4 c c c |
 }
@@ -1392,10 +1464,9 @@ Emmentaler フォントは 8 つのサイズの音楽シンボルを提供しま
 連符が開始する小節と終了する小節が異なる場合などのように、@c
 前の小節が音符の途中で終わっている場合、@c
 前の小節の終わりに @code{\break} を配置しても無視されます。@c
-そのような状況で、@code{\break} コマンドを機能させるには、@c
-@code{Voisce} コンテキストから @code{Forbid_line_break_engraver} を@c
-削除します。@c
-音符の途中で強制的に改行を入れるには、@c
+この場合、@code{Voice} コンテキストから @code{Forbid_line_break_engraver} を@c
+削除し、同時進行の音楽表記を使い、2 つ目の@q{ボイス}の正しい位置に
+@code{\break} を挿入してください:
 音楽と並列に改行コマンドを追加する必要があるということに注意してください:
 
 @lilypond[quote,ragged-right,verbatim]
@@ -1409,9 +1480,8 @@ Emmentaler フォントは 8 つのサイズの音楽シンボルを提供しま
 }
 @end lilypond
 
-同様に、通常は連桁が小節線を跨いでいる場合も、改行は禁止されます。@c
-この振る舞いは、@code{\override Beam.breakable = ##t} により、@c
-変更することができます:
+同様にデフォルトでは、連桁が小節線を跨いでいる場合も、改行は無視されます。@c
+@code{\override Beam.breakable = ##t} コマンドで強制することができます:
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'' {
@@ -1422,6 +1492,17 @@ Emmentaler フォントは 8 つのサイズの音楽シンボルを提供しま
 @end lilypond
 
 @code{\noBreak} コマンドは、コマンドが配置された小節線での改行を禁止します。
+
+楽譜の中で、@code{\autoLineBreaksOff} と @code{\autoLineBreaksOn} の間にある@c
+音楽は、自動改行が抑止されます。同様に自動改ページも抑止させたい場合は、@c
+@code{\autoBreaksOff} と @code{\autoBreaksOn} コマンドを使うべきです。@c
+手動改行や改ページは、これらのコマンドによって影響されません。@c
+自動改行を抑止した際、音楽のすべてが 1 行に収まりきらない場合に@c
+右の余白を飛び出す可能性があることに注意してください。
+
+自動改行は、小節線のところで @code{\once \autoLineBreaksOn} を用いることで、@c
+単一の小節線に対して有効にすることができます (改ページはできません)。@c
+これは、強制改行ではなく、許可された改行を示します。
 
 行スペースに影響を与える最も基本的な設定は @code{indent} と
 @code{line-width} です。@c
@@ -1452,7 +1533,6 @@ Emmentaler フォントは 8 つのサイズの音楽シンボルを提供しま
 @cindex four bar music (4 小節楽譜)
 
 規則的な間隔で改行を行うには、@c
-
 スキップで区切られた @code{\break} を用いて、@c
 それを @code{\repeat} で繰り返します。@c
 例えば、@c
@@ -1470,25 +1550,25 @@ Emmentaler フォントは 8 つのサイズの音楽シンボルを提供しま
 >>
 @end example
 
-@c TODO Check this
-改行設定を自動的に @file{.ly} ファイルに保存することができます。@c
-これにより、@c
-2 回目のフォーマット実行時に垂直方向のスペースがページにフィットするよう@c
-引き伸ばされます。@c
-この機能は本当に新しく、複雑です。@c
-詳細は @rlsr{Spacing} を参照してください。
-
 
 @predefined
-@funindex \break
 @code{\break},
-@funindex \noBreak
-@code{\noBreak}
+@code{\noBreak},
+@code{\autoBreaksOff},
+@code{\autoBreaksOn},
+@code{\autoLineBreaksOff},
+@code{\autoLineBreaksOn}
 @endpredefined
+
+@snippets
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{using-an-extra-voice-for-breaks.ly}
 
 @seealso
 記譜法リファレンス:
-@ref{改行のための paper 変数,,改行のための @code{@bs{}paper} 変数}
+@ref{改行のための paper 変数,,改行のための @code{@bs{}paper} 変数},
+@ref{The layout block}
 
 コード断片集:
 @rlsr{Spacing}
@@ -1496,17 +1576,47 @@ Emmentaler フォントは 8 つのサイズの音楽シンボルを提供しま
 内部リファレンス:
 @rinternals{LineBreakEvent}
 
+@knownissues
+
+@code{\autoLineBreaksOff} や @code{\autoBreaksOff} を音楽の最初に配置すると、@c
+エラー メッセージが表示されます。何らかの音楽の後に、これらのコマンドを@c
+配置するようにしてください。
+
 
 @node 改ページ
 @subsection 改ページ
 @translationof Page breaking
+
+このセクションでは、改ページについてのいくつかの方法や、それらをどのように@c
+カスタマイズするかを示します。
+
+@menu
+* 手動改ページ::
+* 最適改ページ::
+* 最小改ページ::
+* 1 ページの改ページ::
+* 1 行の改ページ::
+* 高さが自動の 1 行の改ページ::
+* 最適ページめくり::
+@end menu
+
+
+@node 手動改ページ
+@unnumberedsubsubsec 手動改ページ
+@translationof Manual page breaking
+
+@funindex \pageBreak
+@funindex \noPageBreak
+@funindex \autoPageBreaksOn
+@funindex \autoPageBreaksOff
+@cindex page breaking, manual (手動改ページ)
 
 デフォルトの改ページは、@c
 @code{\pageBreak} や @code{\noPageBreak} を挿入することによって@c
 上書きすることができます。@c
 これらのコマンドは @code{\break} と @code{\noBreak} に似ています。
 これらのコマンドは小節線のところに挿入すべきであり、@c
-改ページを強制/禁止します。@c
+その小節線での改ページを強制/禁止します。@c
 当然のことですが、@c
 @code{\pageBreak} は強制的に改行も行います。
 
@@ -1514,18 +1624,24 @@ Emmentaler フォントは 8 つのサイズの音楽シンボルを提供しま
 最上位レベルに挿入することができ、@c
 score や最上位レベルのマークアップの間に挿入することができます。
 
+楽譜の中で、@code{\autoPageBreaksOff} と @code{\autoPageBreaksOn} の間にある@c
+音楽は、自動改ページが抑制されます。手動改ページは、これらのコマンドに@c
+影響されません。
+
 @code{ragged-right} や @code{ragged-last} と類似で、@c
-垂直方向のスペースに対して同じ効果を持つ設定があります:
-@code{ragged-bottom} と @code{ragged-last-bottom} です。@c
-これらの設定が @code{#t} にセットされている場合、@c
-すべてのページあるいは最後のページのシステムは@c
-ページの垂直方向全体には広がりません。@c
+垂直方向のスペースに対して同じ効果を持つ設定があります。@c
+@code{ragged-bottom} が @code{#t} にセットされている場合、@c
+システムはページの垂直方向全体には広がりません。@c
+@code{ragged-last-bottom} が @code{#t} にセットされている場合
+(これがデフォルトです)、@c
+最後のページ (あるいは各 @code{\bookpart} の最後のページ) の下部に@c
+空きスペースが挿入することが許可されます。@c
 @ref{固定された垂直方向の paper スペース変数,,固定された垂直方向の @code{@bs{}paper} スペース変数} を参照してください。
 
 改ページは @code{page-breaking} 関数によって算出されます。@c
-LilyPond は改ページを算出するために 3 つのアルゴリズムを提供します:
+LilyPond は改ページを算出するためにいくつかのアルゴリズムを提供します:
 @code{ly:optimal-breaking}, @code{ly:page-turn-breaking}, それに
-@code{ly:minimal-breaking} です。@c
+@code{ly:minimal-breaking} などです。@c
 デフォルトは @code{ly:optimal-breaking} ですが、@c
 @code{\paper} ブロックの中で変更することができます:
 
@@ -1572,10 +1688,10 @@ LilyPond は改ページを算出するために 3 つのアルゴリズムを�
 
 
 @predefined
-@funindex \pageBreak
 @code{\pageBreak},
-@funindex \noPageBreak
-@code{\noPageBreak}
+@code{\noPageBreak},
+@code{\autoPageBreaksOn},
+@code{\autoPageBreaksOff}
 @endpredefined
 
 @seealso
@@ -1585,9 +1701,18 @@ LilyPond は改ページを算出するために 3 つのアルゴリズムを�
 コード断片集:
 @rlsr{Spacing}
 
+@knownissues
+
+@code{\once} 接頭辞は、@code{\autoPageBreaksOn} や @code{\autoPageBreaksOff}
+には効果がありません。自動改ページがオフになっている時に、改ページを@c
+(一時的に) 許可するためにオンにする場合、@c
+オフにする前にその後何小節かはオンになっている@c
+必要があります (具体的な小節数は楽譜に依存します)。@c
+そうしなければ、改ページの機会が失われてしまいます。
+
 
 @node 最適改ページ
-@subsection 最適改ページ
+@unnumberedsubsubsec 最適改ページ
 @translationof Optimal page breaking
 
 @funindex ly:optimal-breaking
@@ -1605,8 +1730,88 @@ LilyPond が改ページを決定するためのデフォルトの手法です�
 @rlsr{Spacing}
 
 
+@node 最小改ページ
+@unnumberedsubsubsec 最小改ページ
+@translationof Minimal page breaking
+
+@funindex ly:minimal-breaking
+
+The @code{ly:minimal-breaking} 関数は最小限の改ページを算出します:
+この関数は 1 ページに可能な限り多くのシステムを配置します。@c
+そのため、多くのページを持つ楽譜
+-- そのような場合、他の改ページ関数では時間がかかりすぎたり、@c
+メモリ使用量が多くなりすぎたりします --
+や、多くのテキストを持つ楽譜でこの関数を使用すると良いかもしれません。@c
+この関数を有効にするには以下のようにします:
+
+@example
+\paper @{
+  page-breaking = #ly:minimal-breaking
+@}
+@end example
+
+@seealso
+コード断片集:
+@rlsr{Spacing}
+
+
+@node 1 ページの改ページ
+@unnumberedsubsubsec 1 ページの改ページ
+@translationof One-page page breaking
+
+@funindex ly:one-page-breaking
+
+@code{ly:one-page-breaking} 関数は特殊な目的のための改ページアルゴリズム@c
+で、ページの高さを音楽に合わせて自動的に調整し、全てが 1 ページに収まるように@c
+します。paper ブロックの @code{paper-height} 変数は無視されますが、他の@c
+設定は通常通り反映されます。特に、最後のシステム (あるいはトップ レベルの@c
+マークアップ) とフッターの間のスペースは、paper ブロックの
+@code{last-bottom-spacing} でカスタマイズすることができます。@c
+ページの幅はデフォルトのままですが、paper ブロックの @code{paper-width} で@c
+設定することができます。
+
+@knownissues
+@code{ly:one-page-breaking} は現在
+@code{\bookpart} と互換性がありません。
+
+
+@node 1 行の改ページ
+@unnumberedsubsubsec 1 行の改ページ
+@translationof One-line page breaking
+
+@funindex ly:one-line-breaking
+
+@code{ly:one-line-breaking} 関数は特殊な目的のための改ページアルゴリズム@c
+で、楽譜をそれぞれ 1 ページに 1 行で配置します。@c
+この改ページ関数はタイトルやマージンを譜刻しません。楽譜だけを譜刻します。
+
+ページ幅は最も長い楽譜が 1 行に納まるように調節されます。@c
+@code{\paper} ブロックの中にある変数 @code{paper-width}, @code{line-width}
+それに @code{indent} は無視されますが、@code{left-margin} と
+@code{right-margin} は有効です。@c
+ページの高さは変更されません。
+
+
+@node 高さが自動の 1 行の改ページ
+@unnumberedsubsubsec 高さが自動の 1 行の改ページ
+@translationof One-line-auto-height page breaking
+
+@funindex ly:one-line-auto-height-breaking
+
+@code{ly:one-line-auto-height-breaking} 関数は、@c
+@code{ly:one-line-breaking} とほとんど同様に動作しますが、@c
+ページの高さが自動的に音楽に合わせて自動的に変更されるところが異なります。@c
+具体的には、@code{\paper} ブロックの @code{paper-height} 変数が、@c
+楽譜の最大の高さ + @code{top-margin} + @code{bottom-margin} に渡るように@c
+セットされます。
+
+@code{top-system-spacing} 設定が、音楽の縦方向の位置に影響することに@c
+注意してください。paper ブロックでこれを @code{##f} にセットすることで、@c
+単純に音楽を上部マージンと下部マージンの間に配置することができます。
+
+
 @node 最適ページめくり
-@subsection 最適ページめくり
+@unnumberedsubsubsec 最適ページめくり
 @translationof Optimal page turning
 
 @funindex ly:page-turn-breaking
@@ -1628,7 +1833,7 @@ LilyPond が改ページを決定するためのデフォルトの手法です�
 2 番目のステップを達成するには、2 つの方法があります。@c
 1 つ目の方法では、@c
 入力ファイルの適当な場所に @code{\allowPageTurn} を挿入することによって、@c
-潜在的なページめくりを手動で指定します。
+ページめくりの許可を手動で指定します。
 
 この方法では手間がかかりすぎる場合は、@c
 @code{Page_turn_engraver} を
@@ -1640,10 +1845,11 @@ LilyPond が改ページを決定するためのデフォルトの手法です�
 @code{Page_turn_engraver} に渡されないようにするためです。)
 @code{Page_turn_engraver} は音符を持たない十分に長いセクションを見つけると、@c
 @q{特殊な} 小節線 (2 重小節線など) がないかぎりは、@c
-そのセクションの最後の小節線のところに @code{\allowPageTurn} を挿入します。
+そのセクションの最後の小節線のところに @code{\allowPageTurn} を挿入します。@c
+@q{特殊な} 小節線がある場合には、@code{\allowPageTurn} がそのセクションの@c
+最後にあるそのような小節線のところに挿入されます。
 
 @funindex minimumPageTurnLength
-
 @code{Page_turn_engraver} は@c
 コンテキスト プロパティ @code{minimumPageTurnLength} を読み込んで、@c
 どれくらい音符が無いセクションが続いたらページめくりを考慮するかを決定します。@c
@@ -1680,7 +1886,8 @@ LilyPond が改ページを決定するためのデフォルトの手法です�
 
 ページめくりコマンド @code{\pageTurn}, @code{\noPageTurn}
 それに @code{\allowPageTurn} は、@c
-最上位レベル、score や最上位のマークアップの間で使用される可能性もあります。
+最上位レベル、最上位のマークアップや score どうしの間で@c
+使用される可能性もあります。
 
 @predefined
 @funindex \pageTurn
@@ -1692,6 +1899,9 @@ LilyPond が改ページを決定するためのデフォルトの手法です�
 @endpredefined
 
 @seealso
+記譜法リファレンス:
+@ref{paper variables for line breaking}
+
 コード断片集:
 @rlsr{Spacing}
 
@@ -1701,189 +1911,9 @@ score の中に配置する @code{Page_turn_engraver} は 1 つだけにする�
 互いに干渉し合います。
 
 
-@node 最小改ページ
-@subsection 最小改ページ
-@translationof Minimal page breaking
-
-@funindex ly:minimal-breaking
-
-The @code{ly:minimal-breaking} 関数は最小限の改ページを算出します:
-この関数は 1 ページに可能な限り多くのシステムを配置します。@c
-そのため、多くのページを持つ楽譜
--- そのような場合、他の改ページ関数では時間がかかりすぎたり、@c
-メモリ使用量が多くなりすぎたりします --
-や、多くのテキストを持つ楽譜でこの関数を使用すると良いかもしれません。@c
-この関数を有効にするには以下のようにします:
-
-@example
-\paper @{
-  page-breaking = #ly:minimal-breaking
-@}
-@end example
-
-@seealso
-コード断片集:
-@rlsr{Spacing}
-
-@node 1 行の改ページ
-@subsection 1 行の改ページ
-@translationof One-line page breaking
-
-@funindex ly:one-line-breaking
-
-@code{ly:one-line-breaking} 関数は特殊な目的のための改ページアルゴリズム@c
-で、楽譜をそれぞれ 1 ページに 1 行で配置します。@c
-この改ページ関数はタイトルやマージンを譜刻しません。楽譜だけを譜刻します。
-
-ページ幅は最も長い楽譜が 1 行に納まるように調節されます。@c
-@code{\paper} ブロックの中にある変数 @code{paper-width}, @code{line-width}
-それに @code{indent} は無視されますが、@code{left-margin} と
-@code{right-margin} は有効です。@c
-ページの高さは変更されません。
-
-@node 明示的な改行/改ページ
-@subsection 明示的な改行/改ページ
-@translationof Explicit breaks
-
-LilyPond はしばしば明示的な @code{\break} や @code{\pageBreak} を@c
-却下します。@c
-この振る舞いを上書きするための 2 つのコマンドがあります:
-
-@example
-\override NonMusicalPaperColumn.line-break-permission = ##f
-\override NonMusicalPaperColumn.page-break-permission = ##f
-@end example
-
-@code{line-break-permission} が偽に上書きされた場合、@c
-LilyPond は明示的な改行である @code{\break} コマンドのところで改行を行い、@c
-他の場所では改行を行いません。@c
-@code{page-break-permission} が偽に上書きされた場合、@c
-LilyPond は明示的な改ページである
-@code{\pageBreak} コマンドのところで改ページを行い、@c
-他の場所では改ページを行いません。
-
-@lilypond[quote,verbatim]
-\paper {
-  indent = #0
-  ragged-right = ##t
-  ragged-bottom = ##t
-}
-
-music = \relative { c''8 c c c }
-
-\score {
-  \new Staff {
-    \repeat unfold 2 { \music } \break
-    \repeat unfold 4 { \music } \break
-    \repeat unfold 6 { \music } \break
-    \repeat unfold 8 { \music } \pageBreak
-    \repeat unfold 8 { \music } \break
-    \repeat unfold 6 { \music } \break
-    \repeat unfold 4 { \music } \break
-    \repeat unfold 2 { \music }
-  }
-  \layout {
-    \context {
-      \Score
-      \override NonMusicalPaperColumn.line-break-permission = ##f
-      \override NonMusicalPaperColumn.page-break-permission = ##f
-    }
-  }
-}
-@end lilypond
-
-@seealso
-コード断片集:
-@rlsr{Spacing}
-
-
-@node 改行/改ページのために追加のボイスを使用する
-@subsection 改行/改ページのために追加のボイスを使用する
-@translationof Using an extra voice for breaks
-
-通常、改行/改ページ情報は音符入力部分に直接入力します。
-
-@example
-music = \relative @{ c''4 c c c @}
-
-\score @{
-  \new Staff @{
-    \repeat unfold 2 @{ \music @} \break
-    \repeat unfold 3 @{ \music @}
-  @}
-@}
-@end example
-
-この方法では @code{\break} と @code{\pageBreak} コマンドを入力しやすいですが、@c
-音楽入力と@c
-音楽をどのようにページにレイアウトするかを指定する情報とが混ざってしまいます。@c
-改行/改ページ情報を保持するための追加のボイスを導入することによって、@c
-音楽入力と改行/改ページ情報を 2 つ場所に分けることができます。@c
-この追加のボイスはスキップ、@code{\break}、@code{\pageBreak}、それに、@c
-その他の改行/改ページ情報だけを保持します。
-
-@lilypond[quote,verbatim]
-music = \relative { c''4 c c c }
-
-\score {
-  \new Staff <<
-    \new Voice {
-      s1 * 2 \break
-      s1 * 3 \break
-      s1 * 6 \break
-      s1 * 5 \break
-    }
-    \new Voice {
-      \repeat unfold 2 { \music }
-      \repeat unfold 3 { \music }
-      \repeat unfold 6 { \music }
-      \repeat unfold 5 { \music }
-    }
-  >>
-}
-@end lilypond
-
-@ignore
-This pattern becomes especially helpful when overriding
-@code{line-break-system-details} and the other useful but long properties of
-@code{NonMusicalPaperColumnGrob}, as explained in @ref{垂直方向のスペース}.
-@end ignore
-
-以下の方法は、@ref{垂直方向のスペース} で説明されているように、@c
-@code{NonMusicalPaperColumnGrob} の @code{line-break-system-details} と@c
-他の有用だが長いプロパティを上書きするときに、非常に役に立ちます。
-
-@lilypond[quote,verbatim]
-music = \relative { c''4 c c c }
-
-\score {
-  \new Staff <<
-    \new Voice {
-      \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 0))
-      s1 * 2 \break
-
-      \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 35))
-      s1 * 3 \break
-
-      \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 70))
-      s1 * 6 \break
-
-      \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 105))
-      s1 * 5 \break
-    }
-    \new Voice {
-      \repeat unfold 2 { \music }
-      \repeat unfold 3 { \music }
-      \repeat unfold 6 { \music }
-      \repeat unfold 5 { \music }
-    }
-  >>
-}
-@end lilypond
-
 @seealso
 記譜法リファレンス:
-@ref{垂直方向のスペース}
+@ref{Vertical spacing}
 
 コード断片集:
 @rlsr{Spacing}
@@ -2018,35 +2048,32 @@ music = \relative { c''4 c c c }
 alignToZero = \with {
   \override VerticalAxisGroup.nonstaff-relatedstaff-spacing = #zero-space
   \override VerticalAxisGroup.nonstaff-nonstaff-spacing = #zero-space
+  \override VerticalAxisGroup.staff-affinity = #DOWN
+  \remove Text_engraver % avoid having two
+  \consists Text_engraver
 }
 lowerCaseChords = \with {
   chordNameLowercaseMinor = ##t
-}
-staffAffinityDown = \with {
-  \override VerticalAxisGroup.staff-affinity = #DOWN
 }
 labelContext =
 #(define-music-function
      (context)
      (string?)
-   #{ s1*0^\markup { \typewriter #context } #})
+     #{ s1*0^\markup { \upright {\typewriter #context } } #})
 
 \layout {
   \context { \Dynamics    \alignToZero }
   \context { \FiguredBass \alignToZero }
   \context { \Lyrics      \alignToZero }
-  \context { \NoteNames   \alignToZero \staffAffinityDown }
-  \context { \ChordNames  \alignToZero
-                          \staffAffinityDown
-			  \lowerCaseChords }
-  \context { \FretBoards  \alignToZero \staffAffinityDown }
+  \context { \NoteNames   \alignToZero }
+  \context { \ChordNames  \alignToZero \lowerCaseChords }
+  \context { \FretBoards  \alignToZero }
   \context { \Score
     \omit BarLine
     \override DynamicText.self-alignment-X = #-1
     \override FretBoard.X-offset = #1.75
-    \override InstrumentName.minimum-Y-extent = #'(-2 . 2)
-    \override InstrumentName.extra-offset = #'(0 . -0.5)
-    \override TextScript.minimum-Y-extent = #'(-2 . 3)
+    \override InstrumentName.minimum-Y-extent = #'(-1 . 2)
+    \textLengthOn
     \omit TimeSignature
   }
 }
@@ -2054,44 +2081,29 @@ labelContext =
 %% These contexts have reference points at the baseline:
 %%   ChordNames, NoteNames, and Lyrics
 <<
-  \new ChordNames { \chords { g1:m } }
-  \new NoteNames { s1 | g1 | }
-  \new RhythmicStaff {
-    \set RhythmicStaff.instrumentName = #"baseline "
-    \textLengthOn
-    \labelContext "ChordNames " s1 |
-    \labelContext "NoteNames "  s1 |
-    \labelContext "Lyrics"     s1 |
-  }
-  \new Lyrics { \lyrics { \skip 1*2 | ghijk1 | } }
+  \new ChordNames { \chords { \labelContext "ChordNames"  g1:m } }
+  \new NoteNames { s1 |\labelContext "NoteNames"  g1 | }
+  \new Lyrics { \lyrics { \skip 1*2 | \labelContext "Lyrics" ghijk1 | } }
+  \new RhythmicStaff \with { instrumentName = #"baseline " } s1*3
 >>
 
-%% The reference point for Dynamics is its vertical center
+%% The reference point for Dynamics is the midline of 'm' in the font
 <<
-  \new RhythmicStaff {
-    \set RhythmicStaff.instrumentName = #"vertical center "
-    \labelContext "Dynamics" s1*3
-  }
-  \new Dynamics { s1\mp s\fp }
+  \new Dynamics { \labelContext "Dynamics" s1\mp s\fp }
+  \new RhythmicStaff \with { instrumentName = #"mid-height " } s1*3
 >>
 
 %% The reference point for FiguredBass is its highest point
 <<
-  \new RhythmicStaff {
-    \set RhythmicStaff.instrumentName = #"highest point "
-    \labelContext "FiguredBass" s1
-  }
-  \new FiguredBass { \figuremode { <6 5>1 } }
+  \new FiguredBass { \labelContext "FiguredBass" \figuremode { <6 5>1 } }
+  \new RhythmicStaff \with { instrumentName = #"highest point " } s1
 >>
 
 %% The reference point for FretBoards is the top line
 \include "predefined-guitar-fretboards.ly"
 <<
-  \new FretBoards { \chordmode { e1 } }
-  \new RhythmicStaff {
-    \set RhythmicStaff.instrumentName = #"top line "
-    \labelContext "FretBoards " s1
-  }
+  \new FretBoards { \labelContext "FretBoards" \chordmode { e1 } }
+  \new RhythmicStaff \with { instrumentName = #"top line " } s1
 >>
 @end lilypond
 
@@ -2413,8 +2425,8 @@ labelContext =
 それが保持するレイアウト オブジェクトが譜のように譜刻される
 (すなわち、システム内部の水平線上での譜刻) コンテキストです。@c
 具体的に言うと、@c
-譜ではない行は @code{VerticalAxisGroup} レイアウト オブジェクトを@c
-作成する譜ではないコンテキストです。
+譜ではない行は @rinternals{Axis_group_engraver} を含む@c
+譜ではないコンテキストです。
 
 以下のプロパティが、譜ではない行のスペースに影響を与えいます:
 
@@ -2487,18 +2499,19 @@ labelContext =
 譜とシステムの間の垂直方向のパティングの大きさを制御する設定を@c
 コレクションすることがあります。
 
-@code{NonMusicalPaperColumn #'line-break-system-details} を用いて、@c
+@code{NonMusicalPaperColumn.line-break-system-details} を用いて、@c
 垂直方向のスペースに別の方法でアプローチすることができます。@c
 可変な垂直方向のスペースの仕組みが垂直方向のパディングを指定するのに対して、@c
-@code{NonMusicalPaperColumn #'line-break-system-details} は@c
+@code{NonMusicalPaperColumn.line-break-system-details} は@c
 ページ上の垂直方向の位置を指定することができます。
 
-@code{NonMusicalPaperColumn #'line-break-system-details} は
-3 つ設定からなる連想配列を受け取ります:
+@code{NonMusicalPaperColumn.line-break-system-details} は
+4 つの設定からなる連想配列を受け取ります:
 
 @itemize
 @item @code{X-offset}
 @item @code{Y-offset}
+@item @code{extra-offset}
 @item @code{alignment-distances}
 @end itemize
 
@@ -2522,18 +2535,23 @@ labelContext =
 @code{NonMusicalPaperColumn} を上書きする例をいくつか挙げます:
 
 @example
-\overrideProperty NonMusicalPaperColumn.line-break-system-details #'((X-offset . 20))
+\overrideProperty NonMusicalPaperColumn.line-break-system-details
+  #'((X-offset . 20))
 
-\overrideProperty NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 40))
+\overrideProperty NonMusicalPaperColumn.line-break-system-details
+  #'((Y-offset . 40))
 
-\overrideProperty NonMusicalPaperColumn.line-break-system-details #'((X-offset . 20)
-                                 (Y-offset . 40))
+\overrideProperty NonMusicalPaperColumn.line-break-system-details
+  #'((X-offset . 20)
+     (Y-offset . 40))
 
-\overrideProperty NonMusicalPaperColumn.line-break-system-details #'((alignment-distances . (15)))
+\overrideProperty NonMusicalPaperColumn.line-break-system-details
+  #'((alignment-distances . (15)))
 
-\overrideProperty NonMusicalPaperColumn.line-break-system-details #'((X-offset . 20)
-                                 (Y-offset . 40)
-                                 (alignment-distances . (15)))
+\overrideProperty NonMusicalPaperColumn.line-break-system-details
+  #'((X-offset . 20)
+     (Y-offset . 40)
+     (alignment-distances . (15)))
 @end example
 
 これらの異なる設定がそれぞれどのように機能するのかを理解するために、@c
@@ -2568,14 +2586,14 @@ labelContext =
 この改行/改ページ用のボイスを作成するテクニックは、@c
 例がより複雑になっていくときに、@c
 レイアウトと音楽入力を分離することを助けてくれます。@c
-@ref{改行/改ページのために追加のボイスを使用する} を参照してください。
+@ref{Breaks} を参照してください。
 
-明示的な @code{\breaks} は一様に音楽を 1 行あたり 5 小節に分割しています。@c
-垂直方向のスペースは LilyPond のデフォルトです。@c
+明示的な @code{\breaks} を使うことで、音楽を 1 行あたり 5 小節に分割しています。@c
+垂直方向のスペースは LilyPond のデフォルトですが、@c
+各システムの垂直方向の開始位置が、@c
 @code{NonMusicalPaperColumn} グラフィカル オブジェクトの
 @code{line-break-system-details} 属性の中にある
-@code{Y-offset} を設定することで、@c
-各システムの垂直方向の開始位置を設定することができます:
+@code{Y-offset} により明示的にセットされています。
 
 @lilypond[verbatim,quote,staffsize=16]
 \header { tagline = ##f }
@@ -2585,11 +2603,14 @@ labelContext =
     <<
       \new Staff <<
         \new Voice {
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 0))
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((Y-offset . 0))
           s1*5 \break
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 40))
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((Y-offset . 40))
           s1*5 \break
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 80))
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((Y-offset . 60))
           s1*5 \break
         }
         \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
@@ -2609,6 +2630,39 @@ labelContext =
 各システムがページに描画される垂直方向の位置を@c
 決定しているということにも注意してください。
 
+@code{Y-offset} や @code{X-offset} を用いて絶対位置を指定することができる@c
+一方、@code{line-break-system-details} の @code{extra-offset} プロパティを@c
+用いて、相対位置を指定することもできます。この時、位置はデフォルトあるいは
+@code{X-offset} と @code{Y-offset} によって絶対的に指定された位置からの@c
+相対的なものになります。@code{extra-offset} は、X 軸、Y 軸のオフセットから@c
+なる @code{ペア} を受け入れます。
+
+@lilypond[verbatim,quote,staffsize=16]
+\header { tagline = ##f }
+\paper { left-margin = 0\mm }
+\book {
+  \score {
+    <<
+      \new Staff <<
+        \new Voice {
+          s1*5 \break
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((extra-offset . (0 . 10)))
+          s1*5 \break
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((extra-offset . (0 . 10)))
+          s1*5 \break
+        }
+        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+      >>
+      \new Staff {
+        \repeat unfold 15 { d'4 d' d' d' }
+      }
+    >>
+  }
+}
+@end lilypond
+
 これまでに各システムの垂直方向の開始位置を明示的に設定しましたが、@c
 各システム内部の各譜の垂直方向の開始位置を手動で設定することも可能です。@c
 @code{line-break-system-details} のサブプロパティ @code{alignment-offsets} を@c
@@ -2622,14 +2676,17 @@ labelContext =
     <<
       \new Staff <<
         \new Voice {
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 20)
-                                           (alignment-distances . (15)))
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((Y-offset . 20)
+               (alignment-distances . (10)))
           s1*5 \break
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 60)
-                                           (alignment-distances . (15)))
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((Y-offset . 60)
+               (alignment-distances . (15)))
           s1*5 \break
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 100)
-                                           (alignment-distances . (15)))
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+          #'((Y-offset . 85)
+             (alignment-distances . (20)))
           s1*5 \break
         }
         \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
@@ -2662,14 +2719,17 @@ labelContext =
     <<
       \new Staff <<
         \new Voice {
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 0)
-                                           (alignment-distances . (30 10)))
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((Y-offset . 0)
+               (alignment-distances . (30 10)))
           s1*5 \break
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 60)
-                                           (alignment-distances . (10 10)))
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((Y-offset . 60)
+               (alignment-distances . (10 10)))
           s1*5 \break
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 100)
-                                           (alignment-distances . (10 30)))
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((Y-offset . 100)
+               (alignment-distances . (10 30)))
           s1*5 \break
         }
         \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
@@ -2689,13 +2749,14 @@ labelContext =
 @item @code{alignment-offsets} を使用する場合、@c
 歌詞と他の譜ではない行は譜としてカウントされません。
 
-@item @code{X-offset}, @code{Y-offset} それに @code{alignment-offsets} に@c
+@item @code{X-offset}, @code{Y-offset}, @code{extra-offset},
+@code{alignment-offsets} に@c
 渡される数の単位は、@c
-譜線間隔の乗数と解釈されます。@c
+譜線間隔の倍数と解釈されます。@c
 正の値は譜と歌詞を下または右に移動させ、@c
 負の値は譜と歌詞を上または左に移動させます。
 
-@item ここで扱った @code{NonMusicalPaperColumn #'line-break-system-details}
+@item ここで扱った @code{NonMusicalPaperColumn.line-break-system-details}
 設定は譜とシステムを任意の場所に配置することを可能にするため、@c
 紙面領域やマージン領域を犯したり、@c
 他の譜やシステムの上に譜刻する可能性さえあります。@c
@@ -2742,55 +2803,53 @@ LilyPond は譜外部オブジェクトを、既に配置済みのオブジェ�
 譜の近くに配置されます。
 
 @c KEEP LY
-@lilypond[quote,ragged-right,relative=2,verbatim]
-c4_"Text"\pp
-r2.
-\once \override TextScript.outside-staff-priority = #1
-c4_"Text"\pp % ここでは、テキストが譜の近くに配置されます
-r2.
-% outside-staff-priority に数ではない値を設定することにより、
-% 自動衝突回避を無効にします
-\once \override TextScript.outside-staff-priority = ##f
-\once \override DynamicLineSpanner.outside-staff-priority = ##f
-c4_"Text"\pp % ここでは、2 つのオブジェクトが衝突します
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  c4_"Text"\pp
+  r2.
+  \once \override TextScript.outside-staff-priority = #1
+  c4_"Text"\pp % ここでは、テキストが譜の近くに配置されます
+  r2.
+  % outside-staff-priority に数ではない値を設定することにより、
+  % 自動衝突回避を無効にします
+  \once \override TextScript.outside-staff-priority = ##f
+  \once \override DynamicLineSpanner.outside-staff-priority = ##f
+  c4_"Text"\pp % ここでは、2 つのオブジェクトが衝突します
+}
 @end lilypond
 
-ある譜外部オブジェクトとその前に配置されたグラフィカル オブジェクトとの間に@c
-ある垂直方向のパディングは、@c
-@code{outside-staff-padding} で制御することができます。
+譜外部オブジェクト周りの垂直方向のパディングは、
+@code{outside-staff-padding} でコントロールできます。
 
-@c KEEP LY
-@lilypond[quote,ragged-right,relative=2,verbatim,staffsize=18]
-\once \override TextScript.outside-staff-padding = #0
-a'^"このテキストは音符のすぐ近くに配置されます。"
-\once \override TextScript.outside-staff-padding = #3
-c^"このテキストは前のテキストから離れた位置に配置されます"
-c^"この手キスとは前にテキストの近くに配置されます"
+@lilypond[quote,ragged-right,verbatim,staffsize=18]
+\relative {
+  \once \override TextScript.outside-staff-padding = #0
+  a'4-"outside-staff-padding = #0"
+  \once \override TextScript.outside-staff-padding = #3
+  d-"outside-staff-padding = #3"
+  c-"default outside-staff-padding"
+  b-"default outside-staff-padding"
+  R1
+}
 @end lilypond
 
 
 デフォルトでは、譜外部オブジェクトの配置は、@c
-配置済みのグラフィカル オブジェクトとの水平方向の衝突回避だけを考慮します。@c
+配置済みのグラフィカル オブジェクトとの水平方向の衝突を回避するように@c
+配置されます。@c
 このことは、@c
-オブジェクト同士が水平方向に非常に近く配置される状況を招く可能性があります。@c
-譜の垂直方向の間隔を設定した場合も、@c
-譜外部オブジェクトが挟み込まれる可能性があります。@c
-@code{outside-staff-horizontal-padding} を設定すると、@c
-オブジェクトは垂直方向にずれるため、@c
-そのような状況は起こらなくなります。
+オブジェクト同士が水平方向に近く配置される状況を招く可能性があります。@c
+下の例にあるように、@code{outside-staff-horizontal-padding} を@c
+セットすることで、必要な水平方向のスペースを増やしています。また、この例では、@c
+テキストが加線に近づきすぎないように上方向に移動しています。
 
-@c KEEP LY
-@lilypond[quote,ragged-right,relative=2,verbatim]
-% マークアップは後に続く音符に近寄りすぎています
-c4^"Text"
-c4
-c''2
-% outside-staff-horizontal-padding を設定することで修正します
-R1
-\once \override TextScript.outside-staff-horizontal-padding = #1
-c,,4^"Text"
-c4
-c''2
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  c''4^"Word" c c''2
+  R1
+  \once \override TextScript.outside-staff-horizontal-padding = #1
+  c,,4^"Word" c c''2
+}
 @end lilypond
 
 @seealso
@@ -2807,9 +2866,9 @@ c''2
 
 @menu
 * 水平方向のスペースの概要::
-* 新しいスペース領域::
+* 新しいスペース セクション::
 * 水平方向のスペースを変更する::
-* 行の長さ::
+* 行の幅::
 * プロポーショナル ノーテーション::
 @end menu
 
@@ -2827,18 +2886,20 @@ c''2
 @code{shortest-duration-space} によって制御されます)
 をとります。@c
 演奏時間が長くなるほど、より多くのスペースをとります:
-演奏時間が倍になると、固定量のスペース
-(これは @code{spacing-increment} によって制御されます)
-がその音符に付け加えられます。
+演奏時間が倍になると、
+@code{spacing-increment} 分のスペースがその音符に付け加えられます。
 
 例えば、以下の楽曲には多くの 2 分音符、4 分音符、@c
 それに 8 分音符が含まれています。
 8 分音符の後には符頭幅 (NHW) 1 つ分が挿入されます。@c
 4 分音符の後には 2 NHW が挿入され、2 分音符の後には 3 NHW が挿入されます。
 
-@lilypond[quote,verbatim,relative=1]
-c2 c4. c8 c4. c8 c4. c8 c8
-c8 c4 c4 c4
+@lilypond[quote,verbatim]
+\relative c' {
+  c2 c4. c8
+  c4. c8 c4. c8
+  c8 c c4 c c
+}
 @end lilypond
 
 通常、@code{spacing-increment} は 1.2 譜スペースに設定されています。@c
@@ -2861,9 +2922,7 @@ c8 c4 c4 c4
 最も共通する最短演奏時間は以下のように決定されます:
 各小節において、最短の演奏時間が決定されます。@c
 スペースの基本として、最も共通する最短演奏時間が選択されます。@c
-条件として、この最短演奏時間は常に 8 分音符以上の長さになります。@c
-@code{lilypond} を @option{--verbose} オプションを付けて実行すると、@c
-最短演奏時間が表示されます。
+条件として、この最短演奏時間は常に 8 分音符以上の長さになります。
 
 この演奏時間はカスタマイズすることもできます。@c
 @rinternals{SpacingSpanner} の中にある @code{common-shortest-duration} を@c
@@ -2884,23 +2943,22 @@ c8 c4 c4 c4
 上記の例に 16 分音符を数個付け加えた場合、@c
 16 分音符の後には NHW の半分の幅のスペースが付けられます:
 
-@lilypond[quote,verbatim,relative=2]
-c2 c4. c8 c4. c16[ c] c4. c8 c8 c8 c4 c4 c4
+@lilypond[quote,verbatim]
+\relative { c''2 c4. c8 | c4. c16[ c] c4. c8 | c8 c c4 c c }
 @end lilypond
 
+@emph{Essay on automated music engraving} で説明したように、@c
+符幹の向きはスペーシングに影響し
+(@ressay{Optical spacing} を参照してください)、@c
+またそれは (@rinternals{Voice} コンテキスト毎に生成される)
+@rinternals{NoteSpacing} オブジェクトの @code{stem-spacing-correction}
+プロパティで調整することができます。
 
-@emph{Essay on automated music engraving} において、@c
-符幹の向きはスペースに影響を与えるということを説明しました
-(@ressay{Optical spacing} を参照してください)。@c
-これは、@rinternals{NoteSpacing} オブジェクトの中にある
-@code{stem-spacing-correction} プロパティによって制御されます。@c
-このオブジェクトは @rinternals{Voice} コンテキストごとに生成されます。@c
-@code{StaffSpacing} オブジェクト
-(@rinternals{Staff} コンテキストの中で生成されます)
-は、符幹/小節線のスペースを制御するために、同様のプロパティを保持します。@c
-以下の例は、それらプロパティによる修正の様子を示しています。
-前半はデフォルト設定による修正であり、@c
-後半は修正を誇張しています:
+@code{StaffSpacing} オブジェクト (@rinternals{Staff} コンテキストで@c
+生成されます) は、符幹や小節線のスペーシングと同じプロパティを持ちます。
+
+次の例ではそのことを示しています。前者はデフォルトの設定で、後者は@c
+修正を誇張しています:
 
 @lilypond[quote,ragged-right]
 \fixed c' {
@@ -2941,17 +2999,23 @@ Essay on automated music engraving:
 スペースを減らすための手段はありません。
 
 
-@node 新しいスペース領域
-@subsection 新しいスペース領域
+@node 新しいスペース セクション
+@subsection 新しいスペース セクション
 @translationof New spacing section
 
-@code{newSpacingSection} を用いることで、@c
-異なるスペース パラメータを持つ新しいセクションを開始することができます。@c
-これは、音符の長さに関して異なる概念を持つセクションがある場合に、有用です。@c
+@funindex \newSpacingSection
+@cindex new spacing section (新しいスペース セクション)
+@cindex spacing section, new (新しいスペース セクション)
+@cindex notes, spacing horizontally (音符の水平方向のスペース)
 
-以下の例では、@c
-拍子記号が新たしいセクションを導入しています。@c
-その結果、16 分音符の間隔が広くなっています。
+@code{newSpacingSection} コマンドで、異なるスペーシング設定を持った@c
+新たなセクションを始めることができます。これは、音符の@q{長い}/@q{短い}に@c
+ついて観念が異なるセクションがある場合に有用です。@c
+@code{\newSpacingSection} コマンドは、その時点に新しい
+@code{SpacingSpanner} を作り出します。
+
+次の例では、拍子記号が変化したところで新たなセクションを作り出しています。@c
+そして、16 分音符の間隔が自動的に少し広がっています。
 
 @lilypond[verbatim,quote]
 \relative c' {
@@ -2964,9 +3028,26 @@ Essay on automated music engraving:
 }
 @end lilypond
 
-@code{\newSpacingSection} コマンドは新たに
-@code{SpacingSpanner} オブジェクトを作成します。@c
-そのため、その場所で新たに @code{\override} が使用される可能性があります。
+自動的なスペース調整が要求に合わない場合は、手動で @code{\override} を
+@code{SpacingSpanner} のプロパティに適用することができます。@c
+これらは、@code{\newSpacingSection} コマンドそのものと同じ音楽タイミングで@c
+適用される必要があり、それに続く音楽から@c
+新たなスペース セクションでプロパティが変更されるまでの間の@c
+スペースに影響します。例を示します:
+
+@lilypond[verbatim,quote]
+\relative c' {
+  \time 4/16
+  c16[ c c8]
+  \newSpacingSection
+  \override Score.SpacingSpanner.spacing-increment = #2
+  c16[ c c8]
+  \newSpacingSection
+  \revert Score.SpacingSpanner.spacing-increment
+  c16[ c c8]
+}
+@end lilypond
+
 
 @seealso
 コード断片集:
@@ -2987,7 +3068,7 @@ Essay on automated music engraving:
 @code{ly:make-moment} の値が大きくなると、@c
 楽譜は小さくなります。@c
 @code{ly:make-moment} は演奏時間を構成するため、@c
-@code{1 4} は @code{1 16} よりも長い演奏時間である@c
+@code{1/4} は @code{1/16} よりも長い演奏時間である@c
 ということに注意してください。
 
 @lilypond[verbatim,line-width=12\cm]
@@ -3025,23 +3106,17 @@ Essay on automated music engraving:
 (臨時記号、音部記号の変化など)
 に依存します。@c
 そのような記号を無視して、同じ演奏時間に等しいスペースを割り当てるには、@c
-@code{Score.SpacingSpanner #'uniform-stretching} を使用します。@c
+@code{Score.SpacingSpanner.uniform-stretching} を使用します。@c
 このプロパティは、楽譜の先頭でのみ、変更することができます。
 
 @lilypond[quote,ragged-right,verbatim]
 \score {
   <<
     \new Staff {
-      \tuplet 5/4 {
-        c8 c8 c8 c8 c8
-      }
-      c8 c8 c8 c8
+      \tuplet 5/4 { c8 c c c c } c8 c c c
     }
     \new Staff {
-      c8 c8 c8 c8
-      \tuplet 5/4 {
-        c8 c8 c8 c8 c8
-      }
+      c8 c c c \tuplet 5/4 { c8 c c c c }
     }
   >>
   \layout {
@@ -3057,9 +3132,10 @@ Essay on automated music engraving:
 音部記号、小節線、それに装飾小音符を考慮せずに、@c
 音符にスペースが割り当てられます。
 
-@lilypond[quote,ragged-right,relative=2,verbatim]
+@lilypond[quote,ragged-right,fragment,verbatim]
 \override Score.SpacingSpanner.strict-note-spacing = ##t
-\new Staff { c8[ c \clef alto c \grace { c16 c } c8 c c]  c32[ c32] }
+\new Staff \relative {
+  c''8[ c \clef alto c \grace { c16 c } c8 c c]  c32[ c] }
 @end lilypond
 
 @seealso
@@ -3067,9 +3143,9 @@ Essay on automated music engraving:
 @rlsr{Spacing}
 
 
-@node 行の長さ
-@subsection 行の長さ
-@translationof Line length
+@node 行の幅
+@subsection 行の幅
+@translationof Line width
 
 @cindex page breaks (改ページ)
 @cindex breaking pages (改ページ)
@@ -3156,15 +3232,14 @@ LilyPond はプロポーショナル ノーテーション用に 5 つの設定�
 これは、@code{ragged-right} が ON であり、@c
 クラシック音楽でのスペースを使用します。
 
+@c The initial pitch is not necessary as long as RhythmicStaff is
+@c not preceded by other material in the score, but we don't want
+@c to explain that.
 @lilypond[quote,verbatim,ragged-right]
 \score {
   <<
     \new RhythmicStaff {
-      c'2
-      c'16 c'16 c'16 c'16
-      \tuplet 5/4 {
-        c'16 c'16 c'16 c'16 c'16
-      }
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
     }
   >>
 }
@@ -3190,11 +3265,7 @@ LilyPond はプロポーショナル ノーテーション用に 5 つの設定�
 \score {
   <<
     \new RhythmicStaff {
-      c'2
-      c'16 c'16 c'16 c'16
-      \tuplet 5/4 {
-        c'16 c'16 c'16 c'16 c'16
-      }
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
     }
   >>
  \layout {
@@ -3241,11 +3312,7 @@ LilyPond Scheme 関数 @code{make-moment} は 2 つの引数をとります
 \score {
   <<
     \new RhythmicStaff {
-      c'2
-      c'16 c'16 c'16 c'16
-      \tuplet 5/4 {
-        c'16 c'16 c'16 c'16 c'16
-      }
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
     }
   >>
   \layout {
@@ -3259,11 +3326,7 @@ LilyPond Scheme 関数 @code{make-moment} は 2 つの引数をとります
 \score {
   <<
     \new RhythmicStaff {
-      c'2
-      c'16 c'16 c'16 c'16
-      \tuplet 5/4 {
-        c'16 c'16 c'16 c'16 c'16
-      }
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
     }
   >>
   \layout {
@@ -3277,11 +3340,7 @@ LilyPond Scheme 関数 @code{make-moment} は 2 つの引数をとります
 \score {
   <<
     \new RhythmicStaff {
-      c'2
-      c'16 c'16 c'16 c'16
-      \tuplet 5/4 {
-        c'16 c'16 c'16 c'16 c'16
-      }
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
     }
   >>
   \layout {
@@ -3310,16 +3369,10 @@ LilyPond Scheme 関数 @code{make-moment} は 2 つの引数をとります
 \score {
   <<
     \new RhythmicStaff {
-      c'2
-      c'16 c'16 c'16 c'16
-      \tuplet 5/4 {
-        c'16 c'16 c'16 c'16 c'16
-      }
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
     }
     \new RhythmicStaff {
-      \tuplet 9/8 {
-        c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
-      }
+      \tuplet 9/8 { c8 8 8 8 8 8 8 8 8 }
     }
   >>
 }
@@ -3336,16 +3389,10 @@ LilyPond Scheme 関数 @code{make-moment} は 2 つの引数をとります
 \score {
   <<
     \new RhythmicStaff {
-      c'2
-      c'16 c'16 c'16 c'16
-      \tuplet 5/4 {
-        c'16 c'16 c'16 c'16 c'16
-      }
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
     }
     \new RhythmicStaff {
-      \tuplet 9/8 {
-        c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
-      }
+      \tuplet 9/8 { c8 8 8 8 8 8 8 8 8 }
     }
   >>
   \layout {
@@ -3368,16 +3415,10 @@ LilyPond Scheme 関数 @code{make-moment} は 2 つの引数をとります
 \score {
   <<
     \new RhythmicStaff {
-      c'2
-      c'16 c'16 c'16 c'16
-      \tuplet 5/4 {
-        c'16 c'16 c'16 c'16 c'16
-      }
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
     }
     \new RhythmicStaff {
-      \tuplet 9/8 {
-        c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
-      }
+      \tuplet 9/8 { c8 8 8 8 8 8 8 8 8 }
     }
   >>
   \layout {
@@ -3416,7 +3457,7 @@ OFF であるかのどちらかであるということです。@c
 しかしながら、この振る舞いをオーバライドして、@c
 楽譜内の異なる場所で異なるスペース機能を設定することができます。@c
 これを実現するには、コマンド @code{\newSpacingSection} を用います。@c
-更なる情報は、@ref{新しいスペース領域} を参照してください。
+更なる情報は、@ref{新しいスペース セクション} を参照してください。
 
 次に、@code{Separating_line_group_engraver} の効果を検証し、@c
 なぜプロポーショナルな楽譜は頻繁に@c
@@ -3481,23 +3522,13 @@ OFF であるかのどちらかであるということです。@c
 @lilypond[quote,verbatim,ragged-right]
 \new Staff {
   \set Score.proportionalNotationDuration = #(ly:make-moment 1/16)
-  c''8
-  c''8
-  c''8
-  \clef alto
-  d'8
-  d'2
+  c''8 8 8 \clef alto d'2 2
 }
 
 \new Staff {
   \set Score.proportionalNotationDuration = #(ly:make-moment 1/16)
   \override Score.SpacingSpanner.strict-note-spacing = ##t
-  c''8
-  c''8
-  c''8
-  \clef alto
-  d'8
-  d'2
+  c''8 8 8 \clef alto d'2 2
 }
 @end lilypond
 
@@ -3514,7 +3545,7 @@ OFF であるかのどちらかであるということです。@c
 
 @itemize
 @item @code{\override SpacingSpanner.strict-grace-spacing = ##t}
-@item @code{tupletFullLength = ##t}
+@item @code{\set tupletFullLength = ##t}
 @item @code{\override Beam.breakable = ##t}
 @item @code{\override Glissando.breakable = ##t}
 @item @code{\override TextSpanner.breakable = ##t}
@@ -3529,7 +3560,7 @@ OFF であるかのどちらかであるということです。@c
 
 @seealso
 記譜法リファレンス:
-@ref{新しいスペース領域}
+@ref{新しいスペース セクション}
 
 コード断片集:
 @rlsr{Spacing}
@@ -3566,9 +3597,7 @@ OFF であるかのどちらかであるということです。@c
 垂直方向のレイアウト変数の値を表示させるには、@c
 @code{\paper} ブロックの中で @code{annotate-spacing} をセットします:
 
-@c need to have \book{} otherwise we get the separate systems. -hwn
-@lilypond[verbatim,quote]
-#(set-default-paper-size "a6" 'landscape)
+@lilypond[verbatim,quote,papersize=a6landscape]
 \book {
   \score { { c4 } }
   \paper { annotate-spacing = ##t }
@@ -3624,7 +3653,6 @@ OFF であるかのどちらかであるということです。@c
 
 @itemize
 @item
-
 (1 ページにできるだけ多くのシステムを収めるために)
 スペースがある限り、システムを可能な限り近寄せる。@c
 それにより、ページの下部に空きスペースが無くなります。
@@ -3666,18 +3694,19 @@ OFF であるかのどちらかであるということです。@c
 @item
 オブジェクトがシステムの垂直方向のサイズを増加させるのを避ける
 (あるいは減らす)。@c
-例えば、volta リピート (または、差し替えの繰り返し) は@c
+例えば、入れ替えの繰り返しの最後に用いる volta 囲みは@c
 余分なスペースを必要とします。@c
-これらの繰り返しが 2 つのシステムに広がっている場合、@c
-1 システムが volta リピートを持ち、もう 1 システムが volta リピートを持たない@c
-場合よりも多くのスペースをとります。@c
+これらの囲みが 2 つのシステムに広がっている場合、@c
+同じシステムにある場合よりも多くのスペースをとります。@c
 別の例では、@c
 システムから突き出ている強弱記号を譜に近づけることで、@c
 スペースを節約することができます:
 
-@lilypond[verbatim,quote,relative=1]
-e4 c g\f c
-e4 c g-\tweak X-offset #-2.7 -\tweak Y-offset #2.5 \f c
+@lilypond[verbatim,quote]
+\relative e' {
+  e4 c g\f c
+  e4 c g-\tweak X-offset #-2.7 \f c
+}
 @end lilypond
 
 @item
@@ -3716,7 +3745,8 @@ e4 c g-\tweak X-offset #-2.7 -\tweak Y-offset #2.5 \f c
   \layout {
     \context {
       \Score
-      \override SpacingSpanner.common-shortest-duration = #(ly:make-moment 1/2)
+      \override SpacingSpanner.common-shortest-duration =
+        #(ly:make-moment 1/2)
     }
   }
 }
