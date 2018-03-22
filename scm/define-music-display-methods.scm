@@ -655,7 +655,8 @@ expression."
       result)))
 
 (define-display-method RelativeOctaveMusic (m)
-  (music->lily-string (ly:music-property m 'element)))
+  (format #f "\\absolute ~a"
+          (music->lily-string (ly:music-property m 'element))))
 
 (define-display-method TransposedMusic (m)
   (music->lily-string (ly:music-property m 'element)))
