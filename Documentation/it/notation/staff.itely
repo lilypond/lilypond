@@ -95,7 +95,7 @@ con un nome.  Ulteriori dettagli in @ref{Percussion staves}.
 
 @code{RhythmicStaff} crea un rigo con una sola linea che mostra
 soltanto i valori ritmici dell'input.  Le durate reali vengono
-mantenute.  Ulteriori dettagli in @ref{Showing melody rhythms}.
+mantenute.  Ulteriori dettagli in @ref{Mostrare i ritmi della melodia}.
 
 @lilypond[verbatim,quote]
 \new RhythmicStaff { c4 d e f }
@@ -130,10 +130,10 @@ Glossario musicale:
 Guida alla notazione:
 @ref{Creazione e citazione di un contesto},
 @ref{Percussion staves},
-@ref{Showing melody rhythms},
+@ref{Mostrare i ritmi della melodia},
 @ref{Default tablatures},
 @ref{Pre-defined contexts},
-@ref{Staff symbol},
+@ref{Simbolo del rigo},
 @ref{Gregorian chant contexts},
 @ref{Mensural contexts},
 @ref{Definizione di nuovi contesti}.
@@ -816,7 +816,7 @@ Manuale d'apprendimento:
 
 Guida alla notazione:
 @ref{Modifica delle impostazioni predefinite di un contesto},
-@ref{Staff symbol},
+@ref{Simbolo del rigo},
 @ref{Ossia staves},
 @ref{Hidden notes},
 @ref{Invisible rests},

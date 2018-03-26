@@ -3400,14 +3400,14 @@ o
 
 Se il nome dello strumento non corrisponde a nessuno degli strumenti elencati
 nella sezione @q{Strumenti MIDI}, verrà usato lo strumento @code{acoustic grand}.
-Vedi @ref{MIDI instruments}.
+Vedi @ref{Strumenti MIDI}.
 
 @seealso
 Manuale di apprendimento:
 @rlearning{Altre fonti di informazione}.
 
 Guida alla notazione:
-@ref{MIDI instruments},
+@ref{Strumenti MIDI},
 @ref{Score layout}.
 
 File installati:
