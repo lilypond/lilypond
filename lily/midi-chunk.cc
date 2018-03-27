@@ -62,10 +62,15 @@ Midi_track::Midi_track (int number, bool port)
       data_string += String_convert::hex2bin (port);
     }
 
-  char const *footer_str0 = "00" "ff2f" "00";
-  string footer_string = String_convert::hex2bin (footer_str0);
+  set ("MTrk", data_string, "");
+}
 
-  set ("MTrk", data_string, footer_string);
+void
+Midi_track::push_back (int delta_ticks, Midi_item *midi)
+{
+  assert (delta_ticks >= 0);
+  Midi_event *e = new Midi_event (delta_ticks, midi);
+  events_.push_back (e);
 }
 
 void

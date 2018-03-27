@@ -76,6 +76,7 @@ public:
 
   void add (int, Midi_item *midi);
   virtual string data_string () const;
+  void push_back (int, Midi_item *midi);
 };
 
 #endif /* MIDI_CHUNK_HH */

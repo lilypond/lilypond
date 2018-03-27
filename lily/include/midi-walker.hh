@@ -45,7 +45,7 @@ public:
   void process ();
   void operator ++(int);
   bool ok () const;
-  void finalize ();
+  void finalize (int end_tick);
 
 private:
   void do_start_note (Midi_note *note);
