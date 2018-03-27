@@ -214,6 +214,12 @@ Staff_performer::stop_translation_timestep ()
 void
 Staff_performer::finalize ()
 {
+  for (map<string, Audio_staff *>::iterator i = staff_map_.begin ();
+       i != staff_map_.end (); ++i)
+    {
+      i->second->end_mom_ = now_mom ();
+    }
+
   staff_map_.clear ();
   channel_map_.clear ();
   if (staff_performer_count_)

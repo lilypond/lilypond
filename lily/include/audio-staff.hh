@@ -22,15 +22,18 @@
 
 #include "std-vector.hh"
 #include "lily-proto.hh"
+#include "moment.hh"
 #include "audio-element.hh"
 
 struct Audio_staff : public Audio_element
 {
   void add_audio_item (Audio_item *ai);
-  void output (Midi_stream &midi_stream_r, int track, bool port, int start_tick);
+  void output (Midi_stream &midi_stream_r, int track, bool port,
+               Moment start_mom);
 
   Audio_staff ();
 
+  Moment end_mom_;
   bool percussion_;
   bool merge_unisons_;
   vector<Audio_item *> audio_items_;

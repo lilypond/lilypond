@@ -101,7 +101,7 @@ Performance::output (Midi_stream &midi_stream,
           text->text_string_ = performance_name;
         }
       debug_output ("[" + ::to_string (i), true);
-      s->output (midi_stream, i, ports_, moment_to_ticks (start_mom));
+      s->output (midi_stream, i, ports_, start_mom);
       debug_output ("]", false);
     }
 }
