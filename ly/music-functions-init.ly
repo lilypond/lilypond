@@ -1684,24 +1684,18 @@ single =
    (ly:music? ly:music?)
    (_i "Convert @var{overrides} to tweaks and apply them to @var{music}.
 This does not convert @code{\\revert}, @code{\\set} or @code{\\unset}.")
-   (set! (ly:music-property music 'tweaks)
-         (fold-some-music
-          (lambda (m) (eq? (ly:music-property m 'name)
-                           'OverrideProperty))
-          (lambda (m tweaks)
-            (let ((p (cond
-                      ((ly:music-property m 'grob-property #f) => list)
-                      (else
-                       (ly:music-property m 'grob-property-path)))))
-              (acons (cons (ly:music-property m 'symbol) ;grob name
-                           (if (pair? (cdr p))
-                               p ;grob property path
-                               (car p))) ;grob property
-                     (ly:music-property m 'grob-value)
-                     tweaks)))
-          (ly:music-property music 'tweaks)
-          overrides))
-   music)
+   (fold-some-music
+    (lambda (m) (eq? (ly:music-property m 'name)
+                     'OverrideProperty))
+    (lambda (m music)
+      (tweak (cons (ly:music-property m 'symbol) ;grob name
+                   (cond
+                    ((ly:music-property m 'grob-property #f) => list)
+                    (else
+                     (ly:music-property m 'grob-property-path))))
+             (ly:music-property m 'grob-value) music))
+    music
+    overrides))
 
 skip =
 #(define-music-function (dur) (ly:duration?)
