@@ -772,9 +772,9 @@ El ensayo sobre grabado musical automatizado:
 @ressay{Lista de referencias bibliográficas}.
 
 Archivos instalados:
-@file{scm/chords-ignatzek.scm},
+@file{scm/chords-ignatzek-names.scm},
 @file{scm/chord-entry.scm},
-@file{ly/chord-modifier-init.ly}.
+@file{ly/chord-modifiers-init.ly}.
 
 Fragmentos de código:
 @rlsr{Chords}.
