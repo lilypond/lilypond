@@ -113,7 +113,7 @@ estàndard de la guitarra.  Per veure més detalls, consulteu
 
 Hi ha dos contextos de pauta específics per a la notació de música
 antiga: @code{MensuralStaff} i @code{VaticanaStaff}.  es descriuen
-a @rusernamed{Pre-defined contexts,Contextos predefinits}.
+a @ref{Contextos predefinits}.
 
 @code{GregorianTranscriptionStaff} crea una pauta per a la notació
 moderna de cant gregorià.  No mostra línies divisòries.
@@ -134,10 +134,10 @@ Referència de la notació:
 @ref{Pautes de percussió},
 @ref{Mostrar els ritmes de la melodia},
 @ref{Tabulatures predeterminades},
-@rusernamed{Pre-defined contexts,Contextos predefinits},
+@ref{Contextos predefinits},
 @ref{El símbol del pentagrama},
-@rusernamed{Gregorian chant contexts,Contextos del cant gregorià},
-@rusernamed{Mensural contexts,Contextos de la música mensural},
+@ref{Contextos del cant gregorià},
+@ref{Contextos de la música mensural},
 @rusernamed{Defining new contexts,Definició de nous contextos}.
 
 Fragments de codi:

@@ -1028,7 +1028,7 @@ automàtiques; per anul·lar aquest comportament, consulteu
 
 A la notació antiga, es contemplen els indicadors musicals per a
 les marques  de respiració, o divisiones. Per veure més detalls,
-consulteu @rusernamed{Divisiones,Divisiones}.
+consulteu @ref{Divisiones}.
 
 @snippets
 
@@ -1051,7 +1051,7 @@ Glossari musical:
 @rglos{caesura}.
 
 Referència de la notació:
-@rusernamed{Divisiones,Divisiones}.
+@ref{Divisiones}.
 
 Fragments de codi:
 @rlsr{Expressive marks}.

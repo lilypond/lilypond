@@ -455,7 +455,7 @@ Manual d'aprenentatge:
 
 Referència de la notació:
 @ref{Alteracions accidentals automàtiques},
-@rusernamed{Annotational accidentals (musica ficta), Alteracions de anotació (musica ficta)},
+@ref{Alteracions d'anotació (musica ficta)},
 @ref{Noms de les notes en altres llengües}.
 
 Fragments de codi:
@@ -1165,8 +1165,8 @@ claus, consulteu @rusernamed{Clef styles,Estils de clau}.
 
 Les claus especials, com les utilitzades a la música
 @emph{antiga}, es descriuen a
-@rusernamed{Mensural clefs,Claus de la música mensural} i a
-@rusernamed{Gregorian clefs,Claus del cant gregorià}. La música
+@ref{Claus de la música mensural} i a
+@ref{Claus de cant gregorià}. La música
 que requereix claus de tabulatura s'estudia a
 @ref{Tabulatures predeterminades} i a
 @ref{Tabulatures personalitzades}.
@@ -1282,8 +1282,8 @@ Quan hi ha un canvi de clau manual, el glif de la clau modificada
 
 @seealso
 Referencia de la notación:
-@rusernamed{Mensural clefs,Claus de la música mensural},
-@rusernamed{Gregorian clefs,Claus del cant gregorià},
+@ref{Claus de la música mensural},
+@ref{Claus de cant gregorià},
 @ref{Tabulatures predeterminades}
 @ref{Tabulatures personalitzades}.
 @ref{Format de les notes guia}.
