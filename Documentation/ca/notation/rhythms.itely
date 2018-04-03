@@ -92,7 +92,7 @@ desactivat.
 Es pot escriure una nota amb la duració d'una quàdruple breu
 mitjançant @code{\maxima}, però això es permet sols dins de la
 notació musical antiga.  Per veure més detalls, consulteu
-@rusernamed{Ancient notation, Notació antiga}.
+@ref{Notació antiga}.
 
 @cindex duració predeterminada
 @cindex predeterminada, duració de la nota
@@ -189,7 +189,7 @@ Referència de la notació:
 @ref{Escriptura de les duracions (valors rítmics)},
 @ref{Escriptura dels silencis},
 @rusernamed{Música vocal},
-@rusernamed{Ancient notation,Notació antiga},
+@ref{Notació antiga},
 @rusernamed{Proportional notation,Notació proporcional}.
 
 Fragments de codi:
@@ -1119,7 +1119,7 @@ numèric:
 @end lilypond
 
 Les indicacions de compàs de la música mensural s'estudien a
-@ref{Mensural time signatures,Indicacions de compàs de la música mensural}.
+@ref{Indicacions de compàs de la música mensural}.
 
 @cindex compàs, indicació de, ajustos predeterminats
 @cindex autobarrat, propietats per a indicacions de compàs
@@ -1287,7 +1287,7 @@ Glossari musical:
 @rglos{time signature}
 
 Referència de la notació:
-@rusernamed{Mensural time signatures,Indicacions de compàs de la música mensural},
+@ref{Indicacions de compàs de la música mensural},
 @ref{Establir el comportament de les barres automàtiques},
 @ref{Gestió del temps}.
 
@@ -2861,7 +2861,7 @@ f'1 \bar "'" g'1
 Malgrat això, donat que les mencionades marques s'utilitzen
 usualment al cant gregorià, és preferible en aquest cas utilitzar
 @code{\divisioMinima}, que es descriu en la secció
-@rusernamed{Divisiones,Divisiones} dins de cant gregorià:
+@ref{Divisiones} dins de cant gregorià:
 
 El LilyPond contempla la notació del cant kievà i ofereix una
 línia divisòria especial kievana:
@@ -2871,7 +2871,7 @@ f'1 \bar "k"
 @end lilypond
 
 Poden veure's detalls d'aquest notació explicats a
-@rusernamed{Typesetting Kievan square notation,Gravat del cant kievà en notació quadrada}.
+@ref{Gravat del cant kievà en notació quadrada}.
 
 @cindex segno
 

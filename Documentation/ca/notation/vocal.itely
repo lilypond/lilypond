@@ -3010,11 +3010,11 @@ s'estudien a aquesta secció.
 @translationof References for chants and psalms
 
 El gravat del cant gregorià en diferents estils de notació es
-descriuen a @rusernamed{Ancient notation,Notació antiga}.
+descriuen a @ref{Notació antiga}.
 
 @seealso
 Referencia de la notación:
-@rusernamed{Ancient notation,Notació antiga}.
+@ref{Notació antiga}.
 
 Snippets:
 @rlsr{Vocal music}.
@@ -3315,10 +3315,10 @@ Manual d'aprenentatge:
 @rlearning{Plantilles de conjunts vocals}.
 
 Referència de la notació:
-@rusernamed{Ancient notation,Notació antiga},
+@ref{Notació antiga},
 @ref{Barres de compàs},
 @rusernamed{Modifying context plug-ins,Modificació dels complements de context},
-@rusernamed{Typesetting Gregorian chant,Gravat del cant gregorià},
+@ref{Gravat del cant gregorià},
 @ref{Música sense compassos},
 @rusernamed{Visibility of objects,Visibilitat dels objectes}.
 
@@ -3504,7 +3504,7 @@ ordre @code{\partial} al principi de la música i ordres
 
 Es pot gravar la música vocal en estil de tipografia antiga, com
 s'explica a
-@rusernamed{Ancient notation,Notació antiga}.
+@ref{Notació antiga}.
 
 @c TODO
 
@@ -3513,4 +3513,4 @@ s'explica a
 
 @seealso
 Referència de la notació:
-@rusernamed{Ancient notation,Notació antiga}.
+@ref{Notació antiga}.
