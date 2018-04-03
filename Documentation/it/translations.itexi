@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Ultimo aggiornamento Sun Mar 25 17:43:25 UTC 2018
+@emph{Ultimo aggiornamento Tue Apr  3 17:53:33 UTC 2018
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -766,7 +766,34 @@ sì
 @end ifnothtml
 @tab pre-GDP
 @item
-2.2 World music
+2.2 Percussioni
+@*
+799
+@tab Federico Bruni
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">sì</span>
+@end html
+@end ifhtml
+@ifnothtml
+sì
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">sì</span>
+@end html
+@end ifhtml
+@ifnothtml
+sì
+@end ifnothtml
+@tab pre-GDP
+@item
+2.3 World music
 @*
 1446
 @tab Federico Bruni
