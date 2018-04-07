@@ -784,6 +784,17 @@ inside of and outside of chord construct."
         music
         (revert-head-style heads)))))
 
+(define-public (get-tweakable-music mus)
+  "When tweaking music, returns a list of music expressions where the
+tweaks should be applied.  Relevant for music wrappers and event
+chords."
+  (cond ((music-is-of-type? mus 'music-wrapper-music)
+         (get-tweakable-music (ly:music-property mus 'element)))
+        ((music-is-of-type? mus 'event-chord)
+         (filter (music-type-predicate 'rhythmic-event)
+                 (ly:music-property mus 'elements)))
+        (else (list mus))))
+
 (define-public (set-mus-properties! m alist)
   "Set all of @var{alist} as properties of @var{m}."
   (if (pair? alist)

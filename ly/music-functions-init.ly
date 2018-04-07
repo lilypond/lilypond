@@ -958,7 +958,13 @@ of a @code{\\tweak} command, no warning will be given in order to
 allow for @code{\\once \\propertyTweak} to work as both one-time
 override and proper tweak.")
    ;; is the warning worth this effort and reliable enough?
-   (let ((quiet? (pair? (ly:music-property music 'tweaks))))
+   ;;
+   ;; Note that a repeat chord has a duration but an empty list of
+   ;; tweakable music, so quiet? is trivially true for it.  Which is
+   ;; just as well, considering that tweaks will not register on it.
+   (let ((quiet? (every
+                  (lambda (m) (pair? (ly:music-property m 'tweaks)))
+                  (get-tweakable-music music))))
      (for-some-music
       (lambda (m)
         (cond ((music-is-of-type? m 'layout-instruction-event)
@@ -1897,23 +1903,27 @@ an indirectly created grob (@samp{Accidental} is caused by
 are affected.
 
 @var{prop} can contain additional elements in which case a nested
-property (inside of an alist) is tweaked.")
+property (inside of an alist) is tweaked.
+
+If @var{music} is an @samp{event-chord}, every contained
+@samp{rhythmic-event} is tweaked instead.")
    (let ((p (check-grob-path prop
                              #:start 1
                              #:default #t
                              #:min 2)))
-     (cond ((not p))
-           ;; p now contains at least two elements.  The first
-           ;; element is #t when no grob has been explicitly
-           ;; specified, otherwise it is a grob name.
-           (else
-            (set! (ly:music-property music 'tweaks)
-                  (acons (cond ((pair? (cddr p)) p)
-                               ((symbol? (car p))
-                                (cons (car p) (cadr p)))
-                               (else (cadr p)))
-                         value
-                         (ly:music-property music 'tweaks)))))
+     (define (tweak-this music)
+       (set! (ly:music-property music 'tweaks)
+             (acons (cond ((pair? (cddr p)) p)
+                          ((symbol? (car p))
+                           (cons (car p) (cadr p)))
+                          (else (cadr p)))
+                    value
+                    (ly:music-property music 'tweaks))))
+     (if p
+         ;; p now contains at least two elements.  The first
+         ;; element is #t when no grob has been explicitly
+         ;; specified, otherwise it is a grob name.
+         (for-each tweak-this (get-tweakable-music music)))
      music))
 
 
