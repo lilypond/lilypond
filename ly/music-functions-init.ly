@@ -953,21 +953,23 @@ once =
 #(define-music-function (music) (ly:music?)
    (_i "Set @code{once} to @code{#t} on all layout instruction events
 in @var{music}.  This will complain about music with an actual
-duration.  As a special exception, if @var{music} contains
-@samp{tweaks} it will be silently ignored in order to allow for
-@code{\\once \\propertyTweak} to work as both one-time override and proper
-tweak.")
-   (if (not (pair? (ly:music-property music 'tweaks)))
-       (for-some-music
-        (lambda (m)
-          (cond ((music-is-of-type? m 'layout-instruction-event)
-                 (set! (ly:music-property m 'once) #t)
-                 #t)
-                ((ly:duration? (ly:music-property m 'duration))
-                 (ly:music-warning m (_ "Cannot apply \\once to timed music"))
-                 #t)
-                (else #f)))
-        music))
+duration.  As a special exception, if @var{music} might be the result
+of a @code{\\tweak} command, no warning will be given in order to
+allow for @code{\\once \\propertyTweak} to work as both one-time
+override and proper tweak.")
+   ;; is the warning worth this effort and reliable enough?
+   (let ((quiet? (pair? (ly:music-property music 'tweaks))))
+     (for-some-music
+      (lambda (m)
+        (cond ((music-is-of-type? m 'layout-instruction-event)
+               (set! (ly:music-property m 'once) #t)
+               #t)
+              ((ly:duration? (ly:music-property m 'duration))
+               (if (not quiet?)
+                   (ly:music-warning m (_ "Cannot apply \\once to timed music")))
+               #t)
+              (else #f)))
+      music))
    music)
 
 ottava =
