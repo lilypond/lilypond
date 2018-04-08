@@ -56,6 +56,8 @@ Methods to create new dynamic markings are also discussed.
 @cindex stopped
 @cindex flageolet
 @cindex reverseturn
+@cindex slashturn
+@cindex haydnturn
 @cindex trill
 @cindex prall
 @cindex mordent
@@ -91,6 +93,8 @@ Methods to create new dynamic markings are also discussed.
 @funindex \snappizzicato
 @funindex \turn
 @funindex \reverseturn
+@funindex \slashturn
+@funindex \haydnturn
 @funindex \trill
 @funindex \prall
 @funindex \mordent

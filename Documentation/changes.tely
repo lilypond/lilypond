@@ -62,6 +62,14 @@ which scares away people.
 @end ignore
 
 @item
+Two new ornaments have been added.
+@lilypond[verbatim,quote]
+{
+  c''2\slashturn c''\haydnturn
+}
+@end lilypond
+
+@item
 Font glyphs for 256th, 512th, and 1024th flags and rests have been added.
 @lilypond[quote]
 {

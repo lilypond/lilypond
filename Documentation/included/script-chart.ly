@@ -35,6 +35,8 @@ This chart shows all articulations, or scripts, that the feta font contains.
       "mordent"
       "prallmordent"
       "turn"
+      "slashturn"
+      "haydnturn"
       "upprall"
       "downprall"
       "upmordent"

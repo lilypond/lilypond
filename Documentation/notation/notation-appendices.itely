@@ -2238,6 +2238,8 @@ f^\tenuto e,_\tenuto b'\tenuto
 @cindex trill
 @cindex turn
 @cindex reverseturn
+@cindex slashturn
+@cindex haydnturn
 
 @node Ornament scripts
 @unnumberedsubsec Ornament scripts
@@ -2316,6 +2318,16 @@ f^\turn e,_\turn b'\reverseturn
 @code{\reverseturn}
 @lilypond[notime,relative=2]
 f^\reverseturn e,_\reverseturn b'\reverseturn
+@end lilypond
+@tab
+@code{\slashturn}
+@lilypond[notime,relative=2]
+f^\slashturn e,_\slashturn b'\slashturn
+@end lilypond
+@tab
+@code{\haydnturn}
+@lilypond[notime,relative=2]
+f^\haydnturn e,_\haydnturn b'\haydnturn
 @end lilypond
 
 @end multitable
