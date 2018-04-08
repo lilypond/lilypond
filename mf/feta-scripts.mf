@@ -21,6 +21,9 @@
 
 fet_begingroup ("scripts");
 
+turn_stemwidth# = 0.1 staff_space# + 0.6 stafflinethickness#;
+define_whole_blacker_pixels (turn_stemwidth);
+
 def draw_fermata =
 	save alpha, radius, crook_thinness, crook_fatness, dot_size;
 	save pat;
@@ -741,7 +744,7 @@ fet_endchar;
 % Inspired by a computer-set version of Auf dem Strom by Baerenreiter.
 %
 
-def draw_turn =
+def draw_turn (expr height_factor, thicker_center) =
 	save thin, thick, ball_diam, darkness;
 	save wd, ht, thick_nibangle, ball_nib_thick;
 	save turndir;
@@ -751,7 +754,8 @@ def draw_turn =
 	ht# = 18/17 staff_space#;
 	darkness = 0.3 linethickness + 0.09 staff_space;
 
-	set_char_box (wd# / 2, wd# / 2, ht# / 2, ht# / 2);
+	set_char_box (wd# / 2, wd# / 2,
+		ht# / 2 * height_factor, ht# / 2 * height_factor);
 
 	thick_nibangle = 60;
 	thick = 3 darkness;
@@ -761,13 +765,13 @@ def draw_turn =
 
 	x3l = w;
 	y3 = 0;
-	y4l = h;
+	y4l = h / height_factor;
 	x4 = x2;
 	x2l = w / 2;
-	y2l = -d;
+	y2l = -d / height_factor;
 	z1 = (0,0);
 
-	penpos1 (1.1 thick, thick_nibangle);
+	penpos1 (thicker_center * thick, thick_nibangle);
 	penpos2 (thick, thick_nibangle);
 	penpos3 (thin, 180);
 	penpos4 (ball_nib_thick, -90);
@@ -801,14 +805,82 @@ enddef;
 
 
 fet_beginchar ("Reverse turn", "reverseturn");
-	draw_turn;
+	draw_turn (1, 1.1);
 	currentpicture := currentpicture yscaled -1;
 fet_endchar;
 
 
 fet_beginchar ("Turn", "turn");
-	draw_turn;
+	draw_turn (1, 1.1);
 	penlabels (1, 2, 3, 4, 5, 6, 7);
+fet_endchar;
+
+
+fet_beginchar ("Slashed turn", "slashturn");
+	draw_turn (4 / 3, 0.96);
+
+	clearxy;
+
+	pickup pencircle scaled turn_stemwidth;
+
+	top y1 = h;
+	bot y2 = -d;
+	x1 = x2;
+	x2 = 0;
+
+	draw_gridline (z2, z1, turn_stemwidth);
+fet_endchar;
+
+
+def draw_haydnturn (expr height_factor) =
+	save thin, thick, darkness;
+	save wd, ht, thick_nibangle;
+
+	wd# = 2 staff_space#;
+	ht# = 3 / 5 staff_space#;
+	set_char_box (wd# / 2, wd# / 2,
+		ht# / 2 * height_factor, ht# / 2 * height_factor);
+
+	darkness = 0.3 linethickness + 0.09 staff_space;
+
+	thick_nibangle = 60;
+	thick = 3 darkness;
+	thin = darkness;
+
+	x3l = w;
+	y3 = h / height_factor - thin / 2;
+	x2l = w / 3;
+	y2l = -d / height_factor;
+	z1 = (0,0);
+
+	penpos1 (1.1 thick, thick_nibangle);
+	penpos2 (thick, thick_nibangle);
+	penpos3 (thin, 150);
+
+	path swoosh;
+	swoosh := z1l{curl 0}
+		  .. z2l
+		  .. z3l{dir (60)}
+		  .. z3r{dir (240)}
+		  .. z2r{left};
+	fill swoosh
+	     .. swoosh scaled -1 shifted (-feta_eps, -feta_eps)
+	     .. cycle;
+
+	clearxy;
+
+	pickup pencircle scaled turn_stemwidth;
+
+	top y1 = h;
+	bot y2 = -d;
+	x1 = x2;
+	x2 = 0;
+
+	draw_gridline (z2, z1, turn_stemwidth);
+enddef;
+
+fet_beginchar ("Haydn ornament", "haydnturn");
+	draw_haydnturn (2);
 fet_endchar;
 
 
