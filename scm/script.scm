@@ -117,6 +117,12 @@
         (script-stencil . (feta . ("halfopenvertical" . "halfopenvertical")))
         (direction . ,UP)))
 
+    ("haydnturn"
+     . (
+        (script-stencil . (feta . ("haydnturn" . "haydnturn")))
+        (padding . 0.20)
+        (avoid-slur . inside)
+        (direction . ,UP)))
 
     ("ictus"
      . (
@@ -263,6 +269,12 @@
         (script-stencil . (feta . ("dsignumcongruentiae" . "usignumcongruentiae")))
         (padding . 0.20)
         (avoid-slur . outside)
+        (direction . ,UP)))
+    ("slashturn"
+     . (
+        (script-stencil . (feta . ("slashturn" . "slashturn")))
+        (padding . 0.20)
+        (avoid-slur . inside)
         (direction . ,UP)))
     ("snappizzicato"
      . (
