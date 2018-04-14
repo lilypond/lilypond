@@ -2184,7 +2184,7 @@ creado una biblioteca genérica, libA, que a su vez utiliza
 sub-archivos que se @code{\include}an por medio del archivo de
 entrada de dicha biblioteca, esas instrucciones @code{\include}
 tendrán que venir precedidas por @code{#(ly:set-option
-#relative-includes #t)} de manera que se interpreten
+'relative-includes #t)} de manera que se interpreten
 correctamente al construir el archivo de entrada @code{.ly}
 principal, de esta forma:
 
