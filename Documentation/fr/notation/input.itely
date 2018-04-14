@@ -2137,7 +2137,7 @@ fichiers situés ailleurs.  Si, par exemple, une biblothèque générale
 libA a été créée pour utiliser des sous-fichiers à l'aide
 d'inclusions dans un fichier catalogue, les clauses @code{\include}
 devront être précédées d'un
-@code{#(ly:set-option #relative-includes #t)}  de telle sorte
+@code{#(ly:set-option 'relative-includes #t)}  de telle sorte
 qu'elles soient interprétées correctement lorsque rapatriées dans
 le fichier @file{.ly} principal.  Examinons cela dans les faits :
 
