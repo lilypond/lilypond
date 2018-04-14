@@ -2074,7 +2074,7 @@ relativi a qualche altra directory impostando @code{relative-includes} su
 @code{#t} o @code{#f} nei punti giusti dei file.  Per esempio, se è stata
 creata una libreria generale, libA, che usa altri file inclusi dal file
 di base di quella libreria, tali dichiarazioni @code{\include} dovranno
-essere precedute da @code{#(ly:set-option #relative-includes #t)} per poter
+essere precedute da @code{#(ly:set-option 'relative-includes #t)} per poter
 essere interpretate correttamente quando riportate nel file @code{.ly}
 principale:
 

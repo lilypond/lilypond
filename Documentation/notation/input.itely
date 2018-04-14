@@ -2019,7 +2019,7 @@ places in the files.  For example, if a general library, libA, has
 been created which itself uses sub-files which are @code{\include}d
 by the entry file of that library, those @code{\include} statements
 will need to be preceded by
-@code{#(ly:set-option #relative-includes #t)} so they are interpreted
+@code{#(ly:set-option 'relative-includes #t)} so they are interpreted
 correctly when brought into the main @code{.ly} file, like this:
 
 @example
