@@ -275,9 +275,12 @@ make_partial_ellipse_boxes (vector<Box> &boxes,
     end += 360;
   Offset sp (offset_directed (start).scale (rad));
   Offset ep (offset_directed (end).scale (rad));
+  Real x_scale = sqrt(sqr(trans.xx) + sqr(trans.yx));
+  Real y_scale = sqrt(sqr(trans.xy) + sqr(trans.yy));
   //////////////////////
   Drul_array<vector<Offset> > points;
-  int quantization = max (1, (int) (((x_rad * trans.xx) + (y_rad * trans.yy)) * M_PI / QUANTIZATION_UNIT));
+  int quantization = max (1, (int) (((x_rad * x_scale) + (y_rad * y_scale))
+                                   * M_PI / QUANTIZATION_UNIT));
   for (DOWN_and_UP (d))
     {
       for (vsize i = 0; i < 1 + (vsize) quantization; i++)
@@ -335,7 +338,9 @@ make_partial_ellipse_boxes (vector<Box> &boxes,
 }
 
 void
-make_round_filled_box_boxes (vector<Box> &boxes, PangoMatrix trans, SCM expr)
+make_round_filled_box_boxes (vector<Box> &boxes,
+                             vector<Drul_array<Offset> > &buildings,
+                             PangoMatrix trans, SCM expr)
 {
   Real left = robust_scm2double (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
@@ -345,17 +350,98 @@ make_round_filled_box_boxes (vector<Box> &boxes, PangoMatrix trans, SCM expr)
   expr = scm_cdr (expr);
   Real top = robust_scm2double (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
-  Real th = robust_scm2double (scm_car (expr), 0.0);
+  Real diameter = robust_scm2double (scm_car (expr), 0.0);
   //////////////////////
-  vector<Offset> points;
-  Box b;
-  Offset p0 = Offset (-left - (th / 2), -bottom - (th / 2));
-  Offset p1 = Offset (right + (th / 2), top + (th / 2));
-  pango_matrix_transform_point (&trans, &p0[X_AXIS], &p0[Y_AXIS]);
-  pango_matrix_transform_point (&trans, &p1[X_AXIS], &p1[Y_AXIS]);
-  b.add_point (p0);
-  b.add_point (p1);
-  boxes.push_back (b);
+  Real x_scale = sqrt(sqr(trans.xx) + sqr(trans.yx));
+  Real y_scale = sqrt(sqr(trans.xy) + sqr(trans.yy));
+  bool rounded = (diameter * max(x_scale, y_scale) > 0.5);
+  bool rotated = (trans.yx || trans.xy);
+  //////////////////////
+
+  if  (!rotated && !rounded)
+    {
+      /* simple box */
+      Box b;
+      Offset p0 (-left, -bottom);
+      Offset p1 (right, top);
+      pango_matrix_transform_point (&trans, &p0[X_AXIS], &p0[Y_AXIS]);
+      pango_matrix_transform_point (&trans, &p1[X_AXIS], &p1[Y_AXIS]);
+      b.add_point (p0);
+      b.add_point (p1);
+      boxes.push_back (b);
+    }
+  else
+    {
+      int quantization = (int) (rounded * diameter * (x_scale + y_scale)
+                               * M_PI / QUANTIZATION_UNIT / 8);
+      /* if there is no quantization, there is no need to draw
+         rounded corners. >>> Set the effective skyline radius to 0 */
+      Real radius = (quantization ? diameter / 2 : 0.);
+
+      /* draw straight lines */
+      vector<Offset> points;
+
+      points.push_back (Offset (-left, -bottom + radius));
+      points.push_back (Offset (-left, top - radius));
+      points.push_back (Offset (-left + radius, -bottom));
+      points.push_back (Offset (right - radius, -bottom));
+      points.push_back (Offset (right, -bottom + radius));
+      points.push_back (Offset (right, top - radius));
+      points.push_back (Offset (-left + radius, top));
+      points.push_back (Offset (right - radius, top));
+
+      for (vsize i = 0; i < (vsize) points.size () - 1; i++)
+        {
+          Offset p0 = points[i];
+          Offset p1 = points[i+1];
+          pango_matrix_transform_point (&trans, &p0[X_AXIS], &p0[Y_AXIS]);
+          pango_matrix_transform_point (&trans, &p1[X_AXIS], &p1[Y_AXIS]);
+          if (p0[Y_AXIS] == p1[Y_AXIS])
+            {
+              Box b;
+              b.add_point (p0);
+              b.add_point (p1);
+              boxes.push_back (b);
+            }
+          else if (p0[X_AXIS] != p1[X_AXIS])
+            buildings.push_back (Drul_array<Offset> (p0, p1));
+        }
+
+      /* draw rounded corners */
+      if (radius)
+        {
+          vector<Offset> points;
+          Offset rad (radius, radius);
+          Drul_array<Real> cx;
+          Drul_array<Real> cy;
+
+          cx[LEFT]  = -left + radius;
+          cx[RIGHT] = right - radius;
+          cy[DOWN]  = -bottom + radius;
+          cy[UP]    = top - radius;
+
+          for (vsize i = 0; i < (vsize) quantization + 1; i++)
+            for (DOWN_and_UP(v))
+              for (LEFT_and_RIGHT(h))
+                {
+                  Real ang = linear_map (0., 90., 0, quantization, i);
+                  Offset pt (offset_directed (ang).scale (rad));
+                  Offset inter (cx[h] + h * pt[X_AXIS],
+                                cy[v] + v * pt[Y_AXIS]);
+                  pango_matrix_transform_point (&trans, &inter[X_AXIS],
+                                                        &inter[Y_AXIS]);
+                  points.push_back (inter);
+                }
+
+          for (vsize i = 0; i < points.size () - 4; i++)
+            {
+              Box b;
+              b.add_point (points[i]);
+              b.add_point (points[i+4]);
+              boxes.push_back (b);
+            }
+        }
+    }
 }
 
 void
@@ -864,7 +950,7 @@ stencil_dispatcher (vector<Box> &boxes,
   else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("partial-ellipse")))
     make_partial_ellipse_boxes (boxes, buildings, trans, scm_cdr (expr));
   else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("round-filled-box")))
-    make_round_filled_box_boxes (boxes, trans, scm_cdr (expr));
+    make_round_filled_box_boxes (boxes, buildings, trans, scm_cdr (expr));
   else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("named-glyph")))
     make_named_glyph_boxes (boxes, buildings, trans, scm_cdr (expr));
   else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("polygon")))

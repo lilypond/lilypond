@@ -62,6 +62,19 @@ which scares away people.
 @end ignore
 
 @item
+Skylines of boxes now reflect the actual box outline
+including rounded corners and rotation.
+@lilypond[verbatim,quote]
+#(ly:set-option 'debug-skylines #t)
+{
+  b'1^\markup \scale #'(2 . 1)
+              \rotate #30
+              \override #'(corner-radius . 3)
+              \rounded-box \center-column { box skyline }
+}
+@end lilypond
+
+@item
 Two new ornaments have been added.
 @lilypond[verbatim,quote]
 {
