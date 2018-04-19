@@ -44,8 +44,13 @@ Context_specced_music_iterator::construct_children ()
   if (to_boolean (get_music ()->get_property ("create-new")))
     a = get_outlet ()->create_unique_context (ct, c_id, ops);
   else
-    a = get_outlet ()->find_create_context (ct, c_id, ops);
+    {
+      a = get_outlet ()->find_create_context (get_music ()->origin (),
+                                              ct, c_id, ops);
+    }
 
+  // Q. Shouldn't descend-only block the creation of an unwanted context rather
+  // than just ignoring it after the fact?
   if (a
       && to_boolean (get_music ()->get_property ("descend-only"))
       && !is_child_context (get_outlet (), a))

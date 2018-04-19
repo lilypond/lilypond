@@ -21,6 +21,7 @@
 #define CONTEXT_HH
 
 #include "duration.hh"
+#include "lily-guile.hh"
 #include "lily-proto.hh"
 #include "listener.hh"
 #include "moment.hh"
@@ -36,7 +37,18 @@ public:
   static const char * const type_p_name_;
   virtual ~Context ();
 private:
+  void add_global_finalization (SCM x);
+  Context *create_hierarchy (const std::vector<Context_def *> &path,
+                             const std::string &intermediate_id,
+                             const std::string &leaf_id,
+                             SCM leaf_operations);
+  SCM make_revert_finalization (SCM sym);
   Scheme_hash_table *properties_dict () const;
+  Context *recursive_find_create_context (Input *,
+                                          SCM context_name, const string &id,
+                                          SCM ops);
+
+
   Context (Context const &src); // Do not define!  Not copyable!
 
   DECLARE_CLASSNAME (Context);
@@ -140,8 +152,11 @@ public:
   bool is_bottom_context () const;
   bool is_removable () const;
 
-  Context *find_create_context (SCM context_name,
-                                const string &id, SCM ops);
+  Context *find_create_context (Input *,
+                                SCM context_name,
+                                const string &id,
+                                SCM ops);
+
   Context *create_unique_context (SCM context_name, const string &context_id,
                                   SCM ops);
   vector<Context_def *> path_to_acceptable_context (SCM alias) const;

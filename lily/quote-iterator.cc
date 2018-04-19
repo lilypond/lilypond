@@ -131,8 +131,8 @@ Quote_iterator::construct_children ()
   if (scm_is_symbol (name))
     {
       Context *cue_context =
-        get_outlet ()->find_create_context (name,
-                                            robust_scm2string (id, ""),
+        get_outlet ()->find_create_context (get_music ()->origin (),
+                                            name, robust_scm2string (id, ""),
                                             SCM_EOL);
       quote_outlet_.set_context (cue_context);
     }

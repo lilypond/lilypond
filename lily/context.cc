@@ -32,6 +32,8 @@
 #include "warn.hh"
 #include "lily-imports.hh"
 
+static const char *const NEW_CONTEXT_ID = "\\new";
+
 bool
 Context::is_removable () const
 {
@@ -101,7 +103,9 @@ Context::Context ()
   events_below_->unprotect ();
 }
 
-/* TODO:  this shares code with find_create_context ().  */
+/* TODO: create_unique_context () and find_create_context () are concerningly
+   similar yet different.  If you come to understand whether they should be
+   merged, please do it or comment on what should or should not be done. */
 Context *
 Context::create_unique_context (SCM name, const string &id, SCM operations)
 {
@@ -113,27 +117,8 @@ Context::create_unique_context (SCM name, const string &id, SCM operations)
     return gthis->get_score_context ()->create_unique_context (name, id, operations);
 
   vector<Context_def *> path = path_to_acceptable_context (name);
-  if (path.size ())
-    {
-      Context *current = this;
-
-      // Iterate through the path and create all of the implicit contexts.
-      for (vsize i = 0; i < path.size (); i++)
-        {
-          SCM ops = SCM_EOL;
-          string id_str = "\\new";
-          if (i == path.size () - 1)
-            {
-              ops = operations;
-              id_str = id;
-            }
-          current = current->create_context (path[i],
-                                             id_str,
-                                             ops);
-        }
-
-      return current;
-    }
+  if (!path.empty ())
+    return create_hierarchy (path, NEW_CONTEXT_ID, id, operations);
 
   /*
     Don't go up to Global_context, because global goes down to the
@@ -152,7 +137,9 @@ Context::create_unique_context (SCM name, const string &id, SCM operations)
 }
 
 Context *
-Context::find_create_context (SCM n, const string &id, SCM operations)
+Context::find_create_context (Input *origin,
+                              SCM n, const string &id,
+                              SCM operations)
 {
   /*
     Don't create multiple score contexts.
@@ -161,7 +148,10 @@ Context::find_create_context (SCM n, const string &id, SCM operations)
   if (gthis)
     {
       if (gthis->get_score_context ())
-        return gthis->get_score_context ()->find_create_context (n, id, operations);
+        {
+          return gthis->get_score_context ()->
+            find_create_context (origin, n, id, operations);
+        }
 
       // Special case: If we use \set Timing.xxx = whatever before
       // Score is established, the alias of Score to Timing will not
@@ -181,7 +171,10 @@ Context::find_create_context (SCM n, const string &id, SCM operations)
         }
     }
 
-
+  // Searching below in recursive calls can find contexts beyond those that are
+  // visible when looking just down and up from the starting point.  The
+  // regression test lyric-combine-polyphonic.ly has a reasonably simple
+  // example of how this can be useful.
   if (Context *existing = find_context_below (this, n, id))
     return existing;
 
@@ -192,48 +185,61 @@ Context::find_create_context (SCM n, const string &id, SCM operations)
     }
 
   vector<Context_def *> path = path_to_acceptable_context (n);
-
-  if (path.size ())
-    {
-      Context *current = this;
-
-      // start at 1.  The first one (index 0) will be us.
-      for (vsize i = 0; i < path.size (); i++)
-        {
-          SCM ops = (i == path.size () - 1) ? operations : SCM_EOL;
-
-          string this_id = "";
-          if (i == path.size () - 1)
-            this_id = id;
-
-          current = current->create_context (path[i],
-                                             this_id,
-                                             ops);
-        }
-
-      return current;
-    }
+  if (!path.empty ())
+    return create_hierarchy (path, "", id, operations);
 
   /*
     Don't go up to Global_context, because global goes down to the
     Score context
   */
-  Context *ret = 0;
   if (daddy_context_ && !dynamic_cast<Global_context *> (daddy_context_))
-    ret = daddy_context_->find_create_context (n, id, operations);
+    return daddy_context_->find_create_context (origin, n, id, operations);
+
+  if (origin)
+    {
+      origin->warning (_f ("cannot find or create `%s' called `%s'",
+                           ly_symbol2string (n).c_str (), id));
+    }
   else
     {
       warning (_f ("cannot find or create `%s' called `%s'",
                    ly_symbol2string (n).c_str (), id));
-      ret = 0;
     }
-  return ret;
+
+  return 0;
 }
 
 void
 Context::acknowledge_infant (SCM sev)
 {
   infant_event_ = unsmob<Stream_event> (sev);
+}
+
+// Make a finalization to set (or unset) the current value of the given
+// property.
+SCM
+Context::make_revert_finalization (SCM sym)
+{
+  SCM val = SCM_UNDEFINED;
+  if (here_defined (sym, &val))
+    {
+      return scm_list_4 (ly_context_set_property_x_proc,
+                         self_scm (), sym, val);
+    }
+  else
+    {
+      return scm_list_3 (ly_context_unset_property_proc,
+                         self_scm (), sym);
+    }
+}
+
+void
+Context::add_global_finalization (SCM x)
+{
+  if (Global_context *g = get_global_context ())
+    g->add_finalization (x);
+  else
+    programming_error ("no global context");
 }
 
 void
@@ -247,6 +253,8 @@ Context::set_property_from_event (SCM sev)
       SCM val = ev->get_property ("value");
 
       if (SCM_UNBNDP (val)) {
+        // TODO: It looks like this ignores \once.
+        // Should this be unset_property_from event (sev)?
         unset_property (sym);
         return;
       }
@@ -257,21 +265,7 @@ Context::set_property_from_event (SCM sev)
       if (ok)
         {
           if (to_boolean (ev->get_property ("once")))
-            {
-              if (Global_context *g = get_global_context ())
-                {
-                  SCM old_val = SCM_UNDEFINED;
-                  if (here_defined (sym, &old_val))
-                    g->add_finalization (scm_list_4 (ly_context_set_property_x_proc,
-                                                     self_scm (),
-                                                     sym,
-                                                     old_val));
-                  else
-                    g->add_finalization (scm_list_3 (ly_context_unset_property_proc,
-                                                     self_scm (),
-                                                     sym));
-                }
-            }
+            add_global_finalization (make_revert_finalization (sym));
           set_property (sym, val);
         }
     }
@@ -288,21 +282,7 @@ Context::unset_property_from_event (SCM sev)
   if (ok)
     {
       if (to_boolean (ev->get_property ("once")))
-        {
-          if (Global_context *g = get_global_context ())
-            {
-              SCM old_val = SCM_UNDEFINED;
-              if (here_defined (sym, &old_val))
-                g->add_finalization (scm_list_4 (ly_context_set_property_x_proc,
-                                                 self_scm (),
-                                                 sym,
-                                                 old_val));
-              else
-                g->add_finalization (scm_list_3 (ly_context_unset_property_proc,
-                                                 self_scm (),
-                                                 sym));
-            }
-        }
+        add_global_finalization (make_revert_finalization (sym));
       unset_property (sym);
     }
 }
@@ -426,6 +406,43 @@ Context::create_context (Context_def *cdef,
   return infant;
 }
 
+// Create new contexts below this context for each path element in order.  Use
+// leaf_id and leaf_operations for the last; use intermediate_id and no
+// operations for the rest.
+//
+// If the desired leaf context is successfully created, return it.  If the path
+// is empty, return this context.
+//
+// On failure to create any context, stop and return null.  Contexts created to
+// that point will continue to exist.
+Context *
+Context::create_hierarchy (const std::vector<Context_def *> &path,
+                           const std::string &intermediate_id,
+                           const std::string &leaf_id,
+                           SCM leaf_operations)
+{
+  Context *leaf = this;
+
+  if (!path.empty ())
+    {
+      if (path.size () > 1)
+        {
+          for (vsize i = 0; i < path.size () - 1; ++i)
+            {
+              leaf = leaf->create_context (path[i], intermediate_id, SCM_EOL);
+              if (!leaf)
+                return 0; // expect that create_context logged failure
+            }
+        }
+
+      leaf = leaf->create_context (path.back(), leaf_id, leaf_operations);
+      if (!leaf)
+        return 0; // expect that create_context logged failure
+    }
+
+  return leaf;
+}
+
 /*
   Default child context as a SCM string, or something else if there is
   none.
@@ -459,7 +476,7 @@ Context::get_default_interpreter (const string &context_id)
         }
       if (scm_is_symbol (t->get_default_child (SCM_EOL)))
         {
-          Context *tg = create_context (t, "\\new", SCM_EOL);
+          Context *tg = create_context (t, NEW_CONTEXT_ID, SCM_EOL);
           return tg->get_default_interpreter (context_id);
         }
       return create_context (t, context_id, SCM_EOL);
