@@ -91,7 +91,7 @@ public:
   bool is_empty (Axis) const;
   Stencil in_color (Real r, Real g, Real b) const;
   Stencil with_outline (Stencil const &ol) const;
-  static SCM skylines_from_stencil (SCM, Real, Axis);
+  static SCM skylines_from_stencil (SCM, Real, SCM, Axis);
 };
 
 

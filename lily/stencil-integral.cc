@@ -1110,15 +1110,32 @@ Grob::simple_horizontal_skylines_from_extents (SCM smob)
 }
 
 SCM
-Stencil::skylines_from_stencil (SCM sten, Real pad, Axis a)
+Stencil::skylines_from_stencil (SCM sten, Real pad, SCM rot, Axis a)
 {
   Stencil *s = unsmob<Stencil> (sten);
+
   if (!s)
     return Skyline_pair ().smobbed_copy ();
 
-  vector<Transform_matrix_and_expression> data
-    = stencil_traverser (make_transform_matrix (1.0, 0.0, 0.0, 1.0, 0.0, 0.0),
-                         s->expr ());
+  vector<Transform_matrix_and_expression> data;
+
+  if (!scm_is_pair (rot))
+    data = stencil_traverser
+             (make_transform_matrix (1.0, 0.0, 0.0, 1.0, 0.0, 0.0),
+              s->expr ());
+  else
+    {
+      Real angle = robust_scm2double (scm_car (rot), 0.0);
+      Real x = robust_scm2double (scm_cadr (rot), 0.0);
+      Real y = robust_scm2double (scm_caddr (rot), 0.0);
+      /* pass over a rotated copy of the stencil */
+      Stencil *q = unsmob<Stencil> (s->smobbed_copy ());
+      q->rotate_degrees (angle, Offset (x, y));
+      data = stencil_traverser
+               (make_transform_matrix (1.0, 0.0, 0.0, 1.0, 0.0, 0.0),
+                q->expr ());
+    }
+
   vector<Box> boxes;
   vector<Drul_array<Offset> > buildings;
   for (vsize i = 0; i < data.size (); i++)
@@ -1142,9 +1159,10 @@ SCM
 Grob::vertical_skylines_from_stencil (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-
   Real pad = robust_scm2double (me->get_property ("skyline-horizontal-padding"), 0.0);
-  SCM out = Stencil::skylines_from_stencil (me->get_property ("stencil"), pad, X_AXIS);
+  SCM rot = me->get_property ("rotation");
+  SCM out = Stencil::skylines_from_stencil (me->get_property ("stencil"),
+                                            pad, rot, X_AXIS);
 
   return out;
 }
@@ -1154,9 +1172,10 @@ SCM
 Grob::horizontal_skylines_from_stencil (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-
   Real pad = robust_scm2double (me->get_property ("skyline-vertical-padding"), 0.0);
-  SCM out = Stencil::skylines_from_stencil (me->get_property ("stencil"), pad, Y_AXIS);
+  SCM rot = me->get_property ("rotation");
+  SCM out = Stencil::skylines_from_stencil (me->get_property ("stencil"),
+                                            pad, rot, Y_AXIS);
 
   return out;
 }

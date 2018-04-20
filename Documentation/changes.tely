@@ -62,6 +62,30 @@ which scares away people.
 @end ignore
 
 @item
+Skylines will now take account of the @code{rotation} property of layout
+objects.  Rotating a crescendo hairpin by applying
+@code{\override Hairpin.rotation = #'(15 0 0)},
+for instance, will now actually have influence on the skylines and thus
+help to enhance spacing.
+@lilypond[quote]
+#(ly:set-option 'debug-skylines #t)
+\new PianoStaff <<
+  \new Staff \relative {
+    \override TextScript.rotation = #'(30 0 0)
+    g4\<^\markup \ellipse "rot. ellipse" e' d'^\markup \box "rotated box" f\!
+    \override Hairpin.rotation = #'(15 -1 0)
+    g,,4\<^\markup \rounded-box "rounded box" e' d'^"no box" f\!
+  }
+  \new Staff \relative {
+    \override Staff.Clef.rotation = #'(180 0 -0.036)
+    <cis' ais'>4 c' g c
+    \override Accidental.rotation = #'(30 0 0)
+    <cis, ais'>2 e'4 e'
+  }
+>>
+@end lilypond
+
+@item
 Slight padding added between natural glyphs just touching at the corners
 in key cancellations.
 @lilypond[verbatim,quote]

@@ -4302,7 +4302,7 @@ puede serlo:
 
 @lilypond[quote,fragment,verbatim]
 g4\< e' d'' f''\!
-\override Hairpin.rotation = #'(20 -1 0)
+\override Hairpin.rotation = #'(15 -1 0)
 g4\< e' d'' f''\!
 @end lilypond
 
