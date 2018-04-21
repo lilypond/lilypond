@@ -22,8 +22,8 @@
 #include "audio-column.hh"
 #include "audio-item.hh"
 #include "context-def.hh"
+#include "context.hh"
 #include "dispatcher.hh"
-#include "global-context.hh"
 #include "performance.hh"
 #include "midi-stream.hh"
 #include "output-def.hh"
@@ -84,7 +84,7 @@ Score_performer::connect_to_context (Context *c)
 {
   Performer_group::connect_to_context (c);
 
-  Dispatcher *d = c->get_global_context ()->event_source ();
+  Dispatcher *d = find_top_context (c)->event_source ();
   d->add_listener (GET_LISTENER (Score_performer, one_time_step), ly_symbol2scm ("OneTimeStep"));
   d->add_listener (GET_LISTENER (Score_performer, prepare), ly_symbol2scm ("Prepare"));
   d->add_listener (GET_LISTENER (Score_performer, finish), ly_symbol2scm ("Finish"));
@@ -93,7 +93,7 @@ Score_performer::connect_to_context (Context *c)
 void
 Score_performer::disconnect_from_context ()
 {
-  Dispatcher *d = context ()->get_global_context ()->event_source ();
+  Dispatcher *d = find_top_context (context ())->event_source ();
   d->remove_listener (GET_LISTENER (Score_performer, one_time_step), ly_symbol2scm ("OneTimeStep"));
   d->remove_listener (GET_LISTENER (Score_performer, prepare), ly_symbol2scm ("Prepare"));
   d->remove_listener (GET_LISTENER (Score_performer, finish), ly_symbol2scm ("Finish"));

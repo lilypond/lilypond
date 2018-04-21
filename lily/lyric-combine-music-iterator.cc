@@ -17,8 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "context.hh"
 #include "dispatcher.hh"
-#include "global-context.hh"
 #include "grob.hh"
 #include "input.hh"
 #include "international.hh"
@@ -217,7 +217,7 @@ Lyric_combine_music_iterator::construct_children ()
     Wait for a Create_context event. If this isn't done, lyrics can be
     delayed when voices are created implicitly.
   */
-  Global_context *g = get_outlet ()->get_global_context ();
+  Context *g = find_top_context (get_outlet ());
   g->events_below ()->add_listener (GET_LISTENER (Lyric_combine_music_iterator, check_new_context), ly_symbol2scm ("CreateContext"));
 
   /*

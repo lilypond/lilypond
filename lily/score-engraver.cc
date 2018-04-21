@@ -22,8 +22,8 @@
 #include "all-font-metrics.hh"
 #include "axis-group-interface.hh"
 #include "context-def.hh"
+#include "context.hh"
 #include "dispatcher.hh"
-#include "global-context.hh"
 #include "grob-properties.hh"
 #include "international.hh"
 #include "main.hh"
@@ -104,7 +104,7 @@ Score_engraver::connect_to_context (Context *c)
 {
   Engraver_group::connect_to_context (c);
 
-  Dispatcher *d = c->get_global_context ()->event_source ();
+  Dispatcher *d = find_top_context (c)->event_source ();
   d->add_listener (GET_LISTENER (Score_engraver, one_time_step), ly_symbol2scm ("OneTimeStep"));
   d->add_listener (GET_LISTENER (Score_engraver, prepare), ly_symbol2scm ("Prepare"));
   d->add_listener (GET_LISTENER (Score_engraver, finish), ly_symbol2scm ("Finish"));
@@ -127,7 +127,7 @@ disconnect score-translators at iteration time. -es
 void
 Score_engraver::disconnect_from_context ()
 {
-  Dispatcher *d = context ()->get_global_context ()->event_source ();
+  Dispatcher *d = find_top_context (context ())->event_source ();
   d->remove_listener (GET_LISTENER (Score_engraver, one_time_step), ly_symbol2scm ("OneTimeStep"));
   d->remove_listener (GET_LISTENER (Score_engraver, prepare), ly_symbol2scm ("Prepare"));
   d->remove_listener (GET_LISTENER (Score_engraver, finish), ly_symbol2scm ("Finish"));
