@@ -698,6 +698,7 @@ thickness, and @code{offset} to determine line y-offset.
   #:properties ((thickness 1)
                 (offset 2)
                 (direction UP)
+                (height-limit 0.7)
                 (shorten-pair '(0 . 0)))
   "
 @cindex tie-ing text
@@ -734,7 +735,12 @@ of @var{arg}.  Looks at @code{thickness} to determine line thickness, and
              (cons (+ x1 (car shorten-pair) line-thickness) y)
              (cons (- x2 (cdr shorten-pair) line-thickness) y)
              thick
-             direction)))
+             direction
+             ;; For usage in text we choose a little less `height-limit'
+             ;; than the default for `Tie', i.e 0.7 (see properties above)
+             ;; TODO add the other optional arguments of `make-tie-stencil'
+             ;; i.e. `ratio' and `angularity' ?
+             height-limit)))
     (ly:stencil-add stil tie)))
 
 (define-markup-command (undertie layout props arg)
