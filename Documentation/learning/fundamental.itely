@@ -79,7 +79,7 @@ input.  LilyPond treats input like this:
 
 @example
 \relative @{
-  c''4 a d c
+  c''4 a b c
 @}
 @end example
 
