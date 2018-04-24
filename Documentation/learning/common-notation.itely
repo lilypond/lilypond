@@ -50,7 +50,7 @@ on one staff.
 * Bar lines and bar checks::
 * Pitches and key signatures::
 * Ties and slurs::
-* Articulation and dynamics::
+* Articulations and dynamics::
 * Adding text::
 * Automatic and manual beams::
 * Advanced rhythmic commands::
@@ -275,6 +275,7 @@ Notation Reference:
 @funindex ( ... )
 @funindex \( ... \)
 
+
 @menu
 * Ties::
 * Slurs::
@@ -318,7 +319,8 @@ Music Glossary: @rglos{slur}.
 
 A @notation{slur} is a curve drawn across many notes.  The
 starting note and ending note are marked with @code{(} and
-@code{)} respectively.
+@code{)} respectively. Note that the @code{(} comes after
+the first note of the slur.
 
 @lilypond[verbatim,quote]
 \relative { d''4( c16) cis( d e c cis d) e( d4) }
@@ -366,8 +368,11 @@ Notation Reference:
 @ruser{Phrasing slurs}.
 
 
-@node Articulation and dynamics
-@subsection Articulation and dynamics
+@node Articulations and dynamics
+@subsection Articulations and dynamics
+
+Articulations and dynamics are indicated by adding special codes
+after the notes to which they apply,
 
 @menu
 * Articulations::
@@ -526,6 +531,7 @@ All @notation{beams} are drawn automatically:
 If you do not like the automatic beams, they may be overridden
 manually.  To correct just an occasional beam mark the first note
 to be beamed with @code{[} and the last one with @code{]}.
+Note that @code{[} comes after the first beamed note.
 
 @lilypond[verbatim,quote]
 \relative { a'8[ ais] d[ ees r d] c16 b a8 }
@@ -597,7 +603,7 @@ Music Glossary: @rglos{note value}, @rglos{triplet}.
 
 @notation{Tuplets} are made with the @code{\tuplet} keyword.  It
 takes two arguments: a fraction and a piece of music.  The
-fraction is the number of tuplet notes over the number 
+fraction is the number of tuplet notes over the number
 of notes normally filling the same duration.
 For triplets, there are three notes instead of two, so
 @notation{triplets} have 3/2 as their fraction.
