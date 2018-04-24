@@ -58,7 +58,7 @@ Key_signature_interface::print (SCM smob)
     the cancellation signature.
   */
 
-  Slice pos, overlapping_pos;
+  Slice ht_right, last_ht_left; /* ht intervals for natural glyph kerning */
   SCM last_glyph_name = SCM_BOOL_F;
   SCM padding_pairs = me->get_property ("padding-pairs");
 
@@ -87,14 +87,15 @@ Key_signature_interface::print (SCM smob)
         me->warning (_ ("alteration not found"));
       else
         {
-          pos.set_empty ();
+          ht_right.set_empty ();
           Stencil column;
           for (SCM pos_list = Lily::key_signature_interface_alteration_positions
                  (scm_car (s), c0s, smob);
                scm_is_pair (pos_list); pos_list = scm_cdr (pos_list))
             {
               int p = scm_to_int (scm_car (pos_list));
-              pos.add_point (p);
+              ht_right.add_point (2*p - 6);  /* descender */
+              ht_right.add_point (2*p + 3);  /* upper right corner */
               column.add_stencil (acc.translated (Offset (0, p * inter)));
             }
           /*
@@ -108,14 +109,15 @@ Key_signature_interface::print (SCM smob)
                                   padding_pairs);
           if (scm_is_pair (handle))
             padding = robust_scm2double (scm_cdr (handle), 0.0);
-          else if (glyph_name == "accidentals.natural"
-                   && !intersection (overlapping_pos, pos).is_empty ())
-            padding += 0.3;
+          else if (glyph_name == "accidentals.natural")
+            if (!intersection (ht_right, last_ht_left).is_empty ())
+              padding += (intersection (ht_right, last_ht_left).length ()
+                          ? 0.3     /* edges overlap */
+                          : 0.15);  /* just touching at the corners */
 
           mol.add_at_edge (X_AXIS, LEFT, column, padding);
 
-          pos.widen (4);
-          overlapping_pos = pos + 2;
+          last_ht_left = ht_right + 3;  /* shift up (change to left side) */
           last_glyph_name = glyph_name_scm;
         }
     }

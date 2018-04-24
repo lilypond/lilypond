@@ -62,6 +62,16 @@ which scares away people.
 @end ignore
 
 @item
+Slight padding added between natural glyphs just touching at the corners
+in key cancellations.
+@lilypond[verbatim,quote]
+{
+  \omit Staff.TimeSignature
+  \key ces \major s1 \key c \major s
+}
+@end lilypond
+
+@item
 Skylines of boxes now reflect the actual box outline
 including rounded corners and rotation.
 @lilypond[verbatim,quote]
