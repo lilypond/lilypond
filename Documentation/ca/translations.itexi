@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Actualitzat el Tue Apr  3 17:53:33 UTC 2018
+@emph{Actualitzat el Fri May  4 18:02:30 UTC 2018
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -797,6 +797,33 @@ si
 @end ifhtml
 @ifnothtml
 parcialment
+@end ifnothtml
+@tab pre-GDP
+@item
+2.10 Músiques del món
+@*
+1446
+@tab Walter Garcia-Fontes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
 @end ifnothtml
 @tab pre-GDP
 @end multitable
