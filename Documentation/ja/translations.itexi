@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最終更新日 Tue Apr  3 17:53:33 UTC 2018
+@emph{最終更新日 Fri May  4 18:02:30 UTC 2018
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -905,7 +905,9 @@ Yoshiki Sawada
 4 スペースの問題
 @*
 10982
-@tab Yoshiki Sawada
+@tab Tomohiro Tatejima
+@*
+Yoshiki Sawada
 @tab 
 @tab 
 @ifhtml
@@ -921,11 +923,11 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #f6fe3b">partially</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+はい
 @end ifnothtml
 @tab post-GDP
 @item
