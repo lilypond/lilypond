@@ -315,7 +315,7 @@ int yylex (YYSTYPE *s, YYLTYPE *loc, Lily_parser *parser);
 %token ANGLE_CLOSE ">"
 %token DOUBLE_ANGLE_OPEN "<<"
 %token DOUBLE_ANGLE_CLOSE ">>"
-%token E_BACKSLASH "\\"
+%token E_BACKSLASH "\\\\"
 %token E_EXCLAMATION "\\!"
 %token E_PLUS "\\+"
 %token EXTENDER "__"
