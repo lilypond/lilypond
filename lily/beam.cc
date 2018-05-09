@@ -457,7 +457,6 @@ Beam::calc_beam_segments (SCM smob)
           Beam_stem_segment const &seg = segs[j];
           for (LEFT_and_RIGHT (event_dir))
             {
-              Beam_stem_segment const &neighbor_seg = segs[j + event_dir];
               // TODO: make names clearer? --jneem
               // on_line_bound: whether the current segment is on the boundary of the WHOLE beam
               // on_beam_bound: whether the current segment is on the boundary of just that part
@@ -471,9 +470,10 @@ Beam::calc_beam_segments (SCM smob)
                                  : seg.stem_index_ + 1 < stems.size ();
 
               bool event = on_beam_bound
-                           || abs (seg.rank_ - neighbor_seg.rank_) > 1
+                           || abs (seg.rank_ - segs[j + event_dir].rank_) > 1
                            || (abs (vertical_count) >= seg.max_connect_
-                               || abs (vertical_count) >= neighbor_seg.max_connect_);
+                               || abs (vertical_count)
+                                    >= segs[j + event_dir].max_connect_);
 
               if (!event)
                 // Then this edge of the current segment is irrelevant because it will
