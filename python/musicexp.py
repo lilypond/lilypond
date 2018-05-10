@@ -2132,7 +2132,8 @@ class StaffGroup:
             self.part_information = staves_info
         else:
             for c in self.children:
-                c.set_part_information (part_name, staves_info)
+                if hasattr(c, 'set_part_information'):
+                    c.set_part_information (part_name, staves_info)
 
     def add_context_modification (self, modification):
         self.context_modifications.append (modification)
