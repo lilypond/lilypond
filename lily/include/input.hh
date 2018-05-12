@@ -66,6 +66,12 @@ public:
 
   Input (Input const &i);
   Input ();
+
+  friend string source_location (const Input &input) // for logging
+  {
+    return input.message_location ();
+  }
+
 protected:
   string message_location () const;
   string message_string (const string &msg) const;

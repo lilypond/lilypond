@@ -65,4 +65,70 @@ void set_loglevel (string level);
 void expect_warning (const string &msg);
 void check_expected_warnings ();
 
+// The following templates accept any kind of object in place of the location
+// parameter.  All that is required to use this feature is to overload
+// source_location (const Whatever &X), returning the location string from X.
+
+// Automatically follow a pointer looking for the source location.
+template <class Bearer>
+inline string source_location (const Bearer *bearer)
+{
+  return bearer ? source_location (*bearer) : string ();
+}
+
+template <class LocationBearer>
+inline void error (const string &s, const LocationBearer &location_bearer)
+{
+  error (s, source_location (location_bearer));
+}
+
+template <class LocationBearer>
+inline void programming_error (const string &s,
+                               const LocationBearer &location_bearer)
+{
+  programming_error (s, source_location (location_bearer));
+}
+
+template <class LocationBearer>
+inline void non_fatal_error (const string &s,
+                             const LocationBearer &location_bearer)
+{
+  non_fatal_error (s, source_location (location_bearer));
+}
+
+template <class LocationBearer>
+inline void warning (const string &s,
+                     const LocationBearer &location_bearer)
+{
+  warning (s, source_location (location_bearer));
+}
+
+template <class LocationBearer>
+inline void basic_progress (const string &s,
+                            const LocationBearer &location_bearer)
+{
+  basic_progress (s, source_location (location_bearer));
+}
+
+template <class LocationBearer>
+inline void progress_indication (const string &s, bool newline,
+                                 const LocationBearer &location_bearer)
+{
+  progress_indication (s, newline, source_location (location_bearer));
+}
+
+template <class LocationBearer>
+inline void message (const string &s, bool newline,
+                     const LocationBearer &location_bearer)
+{
+  message (s, newline, source_location (location_bearer));
+}
+
+template <class LocationBearer>
+inline void debug_output (const string &s, bool newline,
+                          const LocationBearer &location_bearer)
+{
+  debug_output (s, newline, source_location (location_bearer));
+}
+
 #endif /* WARN_HH */

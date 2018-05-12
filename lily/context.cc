@@ -195,16 +195,9 @@ Context::find_create_context (Input *origin,
   if (daddy_context_ && !dynamic_cast<Global_context *> (daddy_context_))
     return daddy_context_->find_create_context (origin, n, id, operations);
 
-  if (origin)
-    {
-      origin->warning (_f ("cannot find or create `%s' called `%s'",
-                           ly_symbol2string (n).c_str (), id));
-    }
-  else
-    {
-      warning (_f ("cannot find or create `%s' called `%s'",
-                   ly_symbol2string (n).c_str (), id));
-    }
+  warning (_f ("cannot find or create `%s' called `%s'",
+               ly_symbol2string (n).c_str (), id),
+           origin);
 
   return 0;
 }
