@@ -10,22 +10,30 @@ LilyPond's Feta and Parmesan fonts
 This is a font of music symbols.  All MetaFont sources are original.  Most
 of the documentation is in comments in the MetaFont code.
 
-Non-square pixels are not supported; with other words, the horizontal and
+Non-square pixels are not supported; in other words, the horizontal and
 vertical resolution of the output device must be the same.
 
 
 Conversion from MetaFont to PostScript
 --------------------------------------
 
+[It is assumed that you have a TeX distribution like TeXLive installed on
+ your system, providing METAFONT and METAPOST infrastructure and binaries
+ together with a very basic plain TeX setup.]
+
 The MetaFont code gets directly converted to PostScript Type 1 font with a
-tool called `mf2pt1', which in turn calls `FontForge' to postprocess the
-output (mainly to remove outline overlaps and to add hints).
+script called `mf2pt1', which in turn calls `mpost' (the METAPOST binary) to
+generate outlines and the font editor `FontForge' to postprocess the output
+(mainly to remove outline overlaps and to add hints).
 
 The recommended calling sequence of mf2pt1 is
 
   mf2pt1 --rounding=0.0001 <other options> <font>
 
-You need mf2pt1 version 2.1 or newer.
+You need mf2pt1 version 2.1 or newer.  Note that the lilypond tarball comes
+with a copy of this perl script (in case your TeX distribution doesn't
+provide it); after running the `configure' script you can find it in
+directory `scripts/build/out'.
 
 Here some guidelines to assure a clean conversion.
 
@@ -78,8 +86,8 @@ Design rules
 ------------
 
 . Always use smooth curve transitions.  Since this is difficult to see in
-  MetaFont proof sheets (which don't show the tangents) I recommend to call
-  mf2pt1 like this
+  MetaFont proof sheets (which don't show the tangents) it is recommended to
+  call mf2pt1 as
 
     FONTFORGE=foo mf2pt1 ...
 
@@ -141,7 +149,8 @@ files), which are then stored within your local TEXMF tree.
 
 Here is a shell script that you can use to produce two DVI files,
 `foo.proof.dvi' and `foo.ljfour.dvi', showing the glyphs of font `foo.mf' in
-proofing mode and a 600dpi rasterization for a LaserJet IV printer.
+proofing mode and a 600dpi rasterization for a LaserJet IV printer.  `mf' is
+the name of the METAFONT binary.
 
   #!/bin/sh
   mf "\mode:=proof; input $1"
@@ -185,5 +194,5 @@ minor issue, but in some cases it might show design flaws.
 Miscellaneous
 -------------
 
-If you add new glyphs, don't forget to update file `ps/encodingdefs.ps'
-and `Documentation/included/font-table.ly'.
+If you add new glyphs, don't forget to update files `ps/encodingdefs.ps' and
+`Documentation/included/font-table.ly'.
