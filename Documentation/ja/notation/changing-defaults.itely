@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: c1b0482f63f881bd3f67845e5f76a3e04675ef2a
+    Translation of GIT committish: 0832ff1d3747a78f338dc8f97bb6e10883c673ab
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -35,7 +35,7 @@ LilyPond はデフォルトで最高品質の出力を提供できるよう設�
 このマニュアルは利用可能なすべての変数、関数、それにオプションを@c
 リストアップしています。@c
 これは HTML ドキュメントとして記述されていて、@c
-@uref{http://@/lilypond@/.org/@/doc/@/stable/@/Documentation/@/internals/,オンライン}
+@uref{http://lilypond.org/doc/stable/Documentation/internals/,オンライン}
 で入手可能であり、@c
 LilyPond ドキュメント パッケージにも含まれています。
 
@@ -81,8 +81,8 @@ Scheme の要素は、@code{.ly} の中で、@c
 @rlearning{コンテキストとエングラーバ}
 
 インストールされているファイル:
-@file{ly/@/engraver@/-init@/.ly},
-@file{ly/@/performer@/-init@/.ly}
+@file{ly/engraver-init.ly},
+@file{ly/performer-init.ly}
 
 コード断片集:
 @rlsr{Contexts and engravers}
@@ -124,11 +124,53 @@ further explanation and with links to the IR.
 コンテキストは階層的に配置されます:
 
 @menu
+* 出力定義 - コンテキストの青写真::
 * Score - すべてのコンテキストのマスタ::
 * 上位コンテキスト - 譜コンテナ::
 * 中位コンテキスト - 譜::
 * 下位コンテキスト - ボイス::
 @end menu
+
+@node 出力定義 - コンテキストの青写真
+@unnumberedsubsubsec 出力定義 - コンテキストの青写真
+@translationof Output definitions - blueprints for contexts
+
+このセクションでは、コンテキストを扱う際の出力定義との関連について説明します。@c
+実際の出力定義の例については、後で提示します
+(@ref{Changing all contexts of the same type} を参照してください)。
+
+@cindex output definitions (出力定義)
+@funindex \layout
+
+ファイルに記述される音楽は、コンテキストの種類や名前を参照しますが、@c
+コンテキストが作成されるのは、音楽が実際に解釈される時です。LilyPond は@c
+@q{出力定義}に基づいて音楽を解釈し、異なる出力定義は異なる出力をもたらします。@c
+楽譜の見た目の出力に関係する出力定義は @code{\layout} で指定します。
+
+@funindex \midi
+MIDI 出力を作り出すのに使われる出力定義はもっと単純で、@code{\midi} によって@c
+指定されます。他の出力定義も LilyPond では内部的に使用されます。例えば@c
+パートを結合する出力定義 (@ref{Automatic part combining}) や音楽の引用を@c
+作り出す出力定義 (@ref{Quoting other voices}) などです。
+
+出力定義は、各コンテキストのデフォルトの設定だけでなく、@c
+コンテキスト同士の関係も定義します。多くの変更は通常 @code{\layout} ブロックで@c
+行われますが、MIDI に関係した設定は @code{\midi} ブロックで変更された場合に@c
+のみ効果があります。
+
+@funindex autoBeaming
+いくつかの設定は複数の出力に効果があります: 例えば、@code{autoBeaming} が@c
+あるコンテキストでオフになった場合、@ref{Automatic syllable durations}
+で説明しているように、連桁は歌詞を音楽に合わせるためのメリスマとして@c
+扱われます。この位置合わせは見た目の出力だけでなく MIDI 出力でも行われます。@c
+@code{autoBeaming} が @code{\layout} ブロックの出力定義内で変更されており、@c
+しかし対応する @code{\midi} ブロックでは変更されていない場合、MIDI では@c
+歌詞と音楽が一致しなくなります。
+
+@seealso
+インストールされているファイル:
+@file{ly/engraver-init.ly},
+@file{ly/performer-init.ly}
 
 @node Score - すべてのコンテキストのマスタ
 @unnumberedsubsubsec Score - すべてのコンテキストのマスタ
@@ -139,11 +181,8 @@ further explanation and with links to the IR.
 デフォルトでは、Score コンテキストが拍子記号の管理を扱い、@c
 音部記号、拍子記号、調号などのアイテムが譜間で揃っていることを保証します。
 
-Score コンテキストは、@code{\score @{@dots{}@}} や @code{\layout @{@dots{}@}}
+Score コンテキストは、@code{\score @{@dots{}@}}
 ブロックが処理されたときに暗黙的にインスタンス化されます。@c
-@c また、@code{\new Score} コマンドが実行されたときに@c
-@c 明示的にインスタンス化されます。
-
 
 @node 上位コンテキスト - 譜コンテナ
 @unnumberedsubsubsec 上位コンテキスト - 譜コンテナ
@@ -184,7 +223,8 @@ Score コンテキストは、@code{\score @{@dots{}@}} や @code{\layout @{@dot
 @strong{@emph{RhythmicStaff}}
 
 @code{Staff} と似ていますが、リズムを表示するためのものです。@c
-ピッチは無視され、音符は線として表示されます。
+ピッチは譜刻には無視され、音符は線として表示されます。MIDI 出力では@c
+ピッチは変更されません。
 
 @strong{@emph{TabStaff}}
 
@@ -199,7 +239,7 @@ Score コンテキストは、@code{\score @{@dots{}@}} や @code{\layout @{@dot
 @strong{@emph{VaticanaStaff}}
 
 @code{Staff} と同じですが、@c
-グレゴリア形式の楽曲を譜刻するためにデザインされている点が異なります。
+グレゴリオ聖歌形式の楽曲を譜刻するためにデザインされている点が異なります。
 
 @strong{@emph{MensuralStaff}}
 
@@ -212,7 +252,9 @@ Score コンテキストは、@code{\score @{@dots{}@}} や @code{\layout @{@dot
 
 Voice レベルのコンテキストはある特定のプロパティを初期化し、@c
 適切なエングラーバを開始させます。@c
-下位コンテキストであるため、他のコンテキストを保持することはできません。
+下位コンテキストは @code{defaultchild} を持たないコンテキストです。@c
+中にコンテキストを受け入れたり保持することはできますが、@c
+明示的に作成され入力される必要があります。
 
 @strong{@emph{Voice}}
 
@@ -225,7 +267,7 @@ Voice レベルのコンテキストはある特定のプロパティを初期�
 @strong{@emph{VaticanaVoice}}
 
 @code{Voice} と同じですが、@c
-グレゴリア形式の楽曲を譜刻するためにデザインされている点が異なります。
+グレゴリオ聖歌形式の楽曲を譜刻するためにデザインされている点が異なります。
 
 @strong{@emph{MensuralVoice}}
 
@@ -350,8 +392,7 @@ score を作成するのに用いられます:
 
 @noindent
 
-@c 保留（意味のない文？）
-@c @code{\new} should always be used to specify unnamed contexts.
+無名のコンテキストは常に @code{\new} で指定する必要があります。
 
 @code{\new} と @code{\context} は動作が異なります:
 
@@ -477,7 +518,7 @@ score を作成するのに用いられます:
 
 @example
 \new Voice = "tenor" @var{music}
-...
+@dots{}
 \new Lyrics \lyricsto "tenor" @var{lyrics}
 @end example
 
@@ -515,22 +556,50 @@ score を作成するのに用いられます:
 そのため、@code{Voice} コンテキストはすべてのイベントを終えるとすぐに消滅し、@c
 @code{Staff} コンテキストは保持しているすべての @code{Voice} コンテキストの@c
 イベントが終了するとすぐに消滅する、などとなっています。@c
-このことは、早い段階のすでに消滅したコンテキスを参照する必要がある場合に、@c
+このことは、早い段階にすでに消滅したコンテキストを参照する必要がある場合に、@c
 障害となります。@c
 例えば、@code{\change} コマンドで譜を変更する場合、@c
 @code{\lyricsto} コマンドで歌詞をボイスに結び付ける場合、@c
 あるいは、早い段階で登場したコンテキストに音楽イベントを追加する場合に@c
 障害となります。
 
-この規則には 1 つ例外があります:
-@code{Staff} コンテキストや @code{<<...>>} 構造の中にある @code{Voice}
-コンテキストのうち 1 つだけは、例え途中ですることが無くなったとしても、@c
-@code{Staff} コンテキストあるいは
-@code{<<...>>} 構造の終わりまで維持されます。@c
-このように維持されるコンテキストは、最初の @code{@{...@}} 構造の中にある@c
-最初のコンテキストであり、@code{<<...>>} 構造の中にあるものは無視されます。
+@ignore
+以下2段落、翻訳に自信無し。
+恐らくではあるが、以下のような挙動のことを示したいのだろう:
+https://gist.github.com/suitougreentea/09e8c656d3d089e07ed79b6ded888bcc
 
-各音楽タイミングで何かすることを持たせることにより、@c
+原文:
+There is an exception to this general rule: inside of an
+@code{@{@dots{}@}} construct (sequential music), the construct's
+notion of the ``current context'' will descend whenever an element
+of the sequence ends in a subcontext of the previous current
+context.  This avoids spurious creation of implicit contexts in a
+number of situations but means that the first context descended
+into will be kept alive until the end of the expression.
+
+In contrast, the contexts of a @code{<<@dots{}>>} construct's
+(simultaneous music) expression are not carried forth, so
+enclosing a context creating command in an extra pair of
+@code{<<@dots{}>>} will keep the context from persisting through
+all of the enclosing @code{@{@dots{}@}} sequence.
+@end ignore
+
+この一般的な規則には 1 つ例外があります:
+@code{@{@dots{}@}} 構文 (シーケンシャルな音楽) の中で、@c
+構文が対象にする「現在のコンテキスト」は、@c
+その中の要素が更に下位のコンテキストを扱う場合、@c
+要素が終了した後もその下位のコンテキストを指し続けます。@c
+これはいくつかの場合において、暗黙的なコンテキストが誤って作成されることを@c
+防ぎますが、最初の下位コンテキストは、表記が終わるまで@c
+残り続けるということを意味しています。
+
+一方、@code{<<@dots{}>>} 構造 (同時に起こる音楽) の表記は@c
+持続しません。そのため、コンテキストを作成するコマンドを、@c
+余分な @code{<<@dots{}>>} で囲むことによって、新たなコンテキストが、@c
+囲まれた @code{@{@dots{}@}} 表記全体にわたって残り続けることを@c
+阻止することができます。
+
+いかなる音楽タイミングでも何かすることがあるようにすることで、@c
 任意のコンテキストを残しておくことができます。@c
 @code{Staff} コンテキストを残しておくには、それに含まれるボイスの 1 つが@c
 維持されることを保証する必要があります。@c
@@ -707,7 +776,7 @@ Internals Reference @expansion{} Translation @expansion{} Context.
   @emph{etc.}
 @}
 @{
-  @emph{..music..}
+  @emph{@dots{}music@dots{}}
 @}
 @end example
 
@@ -716,16 +785,16 @@ Internals Reference @expansion{} Translation @expansion{} Context.
 ここで、@code{Staff} コンテキストから @code{Time_signature_engraver} と
 @code{Clef_engraver} を削除する簡単な例を示します:
 
-@lilypond[quote,relative=1,verbatim,fragment]
+@lilypond[quote,verbatim]
 <<
-  \new Staff {
-    f2 g
+  \new Staff \relative {
+    f'2 g
   }
   \new Staff \with {
      \remove "Time_signature_engraver"
      \remove "Clef_engraver"
-  } {
-    f2 g2
+  } \relative {
+    f'2 g2
   }
 >>
 @end lilypond
@@ -747,28 +816,36 @@ Internals Reference @expansion{} Translation @expansion{} Context.
 楽譜の各譜に独自の拍子記号を持たせることが可能になります。
 
 @cindex polymetric scores (多拍子の楽譜)
-@cindex Time signatures, multiple (複数の拍子記号)
+@cindex time signature, multiple (複数の拍子記号)
 
-@lilypond[quote,relative=1,ragged-right,verbatim,fragment]
-\new Score \with {
-  \remove "Timing_translator"
-  \remove "Default_bar_line_engraver"
-} <<
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff \with {
+      \consists "Timing_translator"
+      \consists "Default_bar_line_engraver"
+    }
+    \relative {
+        \time 3/4
+        c''4 c c c c c
+    }
   \new Staff \with {
     \consists "Timing_translator"
     \consists "Default_bar_line_engraver"
-  } {
-      \time 3/4
-      c4 c c c c c
   }
-  \new Staff \with {
-    \consists "Timing_translator"
-    \consists "Default_bar_line_engraver"
-  } {
-       \time 2/4
-       c4 c c c c c
+  \relative {
+      \time 2/4
+      c''4 c c c c c
   }
 >>
+\layout {
+  \context {
+    \Score
+    \remove "Timing_translator"
+    \remove "Default_bar_line_engraver"
+    }
+  }
+}
 @end lilypond
 
 @knownissues
@@ -838,10 +915,15 @@ Internals Reference @expansion{} Translation @expansion{} Context.
 @funindex \layout
 
 @code{Score}, @code{Staff}, @code{Voice}, その他のコンテキストにおいて@c
-デフォルトで使用されるコンテキスト設定は、@code{\layout} ブロックの中の@c
-@code{\context} ブロックでで指定することができます。@c
+デフォルトで使用される譜刻のためのコンテキスト設定は、@c
+@code{\layout} ブロックの中の@c
+@code{\context} ブロックで指定することができます。@c
 @code{\layout} ブロックは、それを適用する @code{\score} ブロックの中で、@c
 かつ、音楽表記の後に配置する必要があります。
+
+譜刻ではなく MIDI 出力に関する設定をする場合は、@code{\midi} ブロックに別々に@c
+指定する必要があります (@ref{Output definitions - blueprints for contexts}を@c
+参照してください)。
 
 @example
 \layout @{
@@ -987,13 +1069,31 @@ StaffDefaults = \with {
 配置する必要があります:
 
 @example
-\new Staff
-\with @{
-  [このコンテキスト インスタンスだけに適用されるコンテキスト設定]
-@} @{
-...
+\new Staff \with @{ [このコンテキスト インスタンスだけに適用されるコンテキスト設定] @}
+@{
+  @dots{}
 @}
 @end example
+
+あるいは、もし入力モードを指定するような簡略記法のコマンド (例えば
+@code{\chordmode} の代わりに @code{\chords} を使うなど) を用いて音楽を入力@c
+する場合、@code{\with} をそのようなコマンドのすぐ後に配置する必要があります:
+
+@example
+\chords \with @{ [この (暗黙的) コンテキスト インスタンスだけに適用されるコンテキスト設定] @}
+@{
+  @dots{}
+@}
+@end example
+
+@noindent
+このような記法によって作られる暗黙的なコンテキストが変更されます。
+これは、同様な入力モードを指定する簡略記法のコマンドにも当てはまります
+(@code{\drums}, @code{\figures})。@ref{Input modes} を参照してください。
+
+@code{\with} ブロックで行われるコンテキストの変更は音楽の内部にあるため、@c
+出力定義内での変更とは異なり、@c
+@emph{全ての} 出力 (楽譜と MIDI の@emph{両方}) に影響が及びます。
 
 以下のタイプの設定を指定することができます:
 
@@ -1031,9 +1131,8 @@ StaffDefaults = \with {
       }
     }
     \new Staff
-    \with {
-      fontSize = #-4
-    } {
+    \with { fontSize = #-4 }
+    {
       \relative {
         a'4^"Smaller font" a a a
         a4 a a a
@@ -1057,11 +1156,9 @@ StaffDefaults = \with {
         }
       }
     }
-    \new Staff
-    \with { \accidentalStyle dodecaphonic }
+    \new Staff \with { \accidentalStyle dodecaphonic }
     {
-      \new Voice
-      \with { \dynamicUp }
+      \new Voice \with { \dynamicUp }
       {
         \relative {
           a'4^"Dynamics above" a a a
@@ -1074,6 +1171,10 @@ StaffDefaults = \with {
 @end lilypond
 
 @end itemize
+
+@seealso
+記譜法リファレンス:
+@ref{Input modes}
 
 @node 適用順序
 @unnumberedsubsubsec 適用順序
@@ -1091,8 +1192,8 @@ StaffDefaults = \with {
 が用いられます。
 
 @item
-さもなければ、@code{\layout} ブロックの中にある直近で適切な @code{\context}
-ブロックから取得したデフォルト値が用いられます。
+さもなければ、@code{\layout} ブロックや @code{\midi} ブロックの中にある@c
+直近で適切な @code{\context} ブロックから取得したデフォルト値が用いられます。
 
 @item
 さもなければ、LilyPond の組み込みデフォルト値が用いられます。
@@ -1179,31 +1280,35 @@ StaffDefaults = \with {
 \name ImproVoice
 @end example
 
-このコンテキストは @code{Voice} に似せる必要があるため、@c
-(既存の) @code{Voice} と同じ機能を実現するコマンドが必要です。@c
-これは、新しいコンテキストにエイリアス @code{Voice} を与えることで実現できます。
+このコンテキストは @code{Voice} コンテキストに似せる必要があるため、@c
+(既存の) @code{Voice} コンテキストで動作するコマンドを同じように動作させる@c
+必要があります。@c
+これは、新しいコンテキストに @code{Voice} のエイリアスを@c
+与えることで実現できます。
 
 @example
 \alias Voice
 @end example
 
 このコンテキストは音符と指示テキストを譜刻しますので、@c
-それらの機能を提供するエングラーバを付け加える必要があります:
+それらの機能を提供するエングラーバや、さらに同じタイミングで発生する@c
+音符・符幹・休符を列としてグループ化するエングラーバを付加する必要があります:
 
 @example
 \consists "Note_heads_engraver"
 \consists "Text_engraver"
+\consists "Rhythmic_column_engraver"
 @end example
 
-しかしながら、音符の代わりにスラッシュを譜の中央線上に配置します:
+符頭のスラッシュは譜の中央線上に配置される必要があります:
 
 @example
 \consists "Pitch_squash_engraver"
 squashedPosition = #0
 @end example
 
-@rinternals{Pitch_squash_engraver} は
-(@rinternals{Note_heads_engraver} によって作成される) 符頭を変更し、@c
+@code{Pitch_squash_engraver} は
+(@code{Note_heads_engraver} によって作成される) 符頭を変更し、@c
 符頭の垂直位置を @code{squashedPosition} にセットします
 -- 今回は @code{0}、つまり中央線上です。
 
@@ -1214,10 +1319,14 @@ squashedPosition = #0
 \hide Stem
 @end example
 
-これらのプラグインすべてが共同する必要があり、@c
-それには特殊なプラグインが必要です。@c
-このプラグインは常に @code{Engraver_group} であり、@c
-キーワード @code{\type} を付ける必要があります。
+これらのプラグインすべてがコンテキストの下で協調する必要があります。@c
+コンテキストが協調するために用いるメカニズムは、コンテキストの @code{\type} を@c
+宣言することで確立することができます。@code{\layout} ブロックの中では、@c
+ほとんどのコンテキストは @code{Engraver_group} のタイプに属しています。@c
+いくつかの特殊なコンテキストや、@code{\midi} ブロックの中では別のコンテキスト
+タイプに属していることがあります。既存のコンテキスト定義をコピーし改変する@c
+場合には、タイプについても継承されます。この例では定義を 1 から@c
+作っているため、タイプを明示的に指定する必要があります:
 
 @example
 \type "Engraver_group"
@@ -1231,6 +1340,7 @@ squashedPosition = #0
   \type "Engraver_group"
   \consists "Note_heads_engraver"
   \consists "Text_engraver"
+  \consists "Rhythmic_column_engraver"
   \consists "Pitch_squash_engraver"
   squashedPosition = #0
   \override NoteHead.style = #'slash
@@ -1240,10 +1350,11 @@ squashedPosition = #0
 @end example
 
 @funindex \accepts
-コンテキストは階層を構成します。c
-通常の @code{Voice} と同様に、@c
-@code{ImproVoice} を @code{Staff} の下に置く必要があります。@c
-それゆえ、@code{Staff} 定義を @code{\accepts} コマンドで変更します:
+コンテキストは階層を構成します。@c
+通常の @code{Voice} コンテキストと同様に、@c
+@code{ImproVoice} コンテキストを @code{Staff} コンテキストの中に@c
+置く必要があります。@c
+それゆえ、@code{Staff} の定義を @code{\accepts} コマンドで変更します:
 
 @example
 \context @{
@@ -1252,11 +1363,39 @@ squashedPosition = #0
 @}
 @end example
 
+@funindex \inherit-acceptability
+既存のコンテキスト定義を使い回す場合があるかもしれません。@c
+その際、結果としてできるコンテキストは、元のコンテキストが使用できる@c
+場所であればどこでも使用できると有用です。
+
+@example
+\layout @{
+  @dots{}
+  \inherit-acceptability @var{to} @var{from}
+@}
+@end example
+
+@noindent
+このようにすることで、@c
+@var{from} を含めることのできるすべてのコンテキストが、@c
+@var{to} のコンテキストも含めることができるようになります。例えば:
+
+@example
+\layout @{
+  @dots{}
+  \inherit-acceptability "ImproVoice" "Voice"
+@}
+@end example
+
+@noindent
+これは、@code{\accepts ImproVoice} を、@code{Staff} と @code{RhythmicStaff} の@c
+定義に追加するのと同様の効果を示します。
+
 @funindex \denies
 @code{\accepts} の反対は @code{\denies} です。@c
 これは既存のコンテキスト定義を再利用する場合に必要となります。
 
-以下のように、両方を @code{\layout} ブロックの中に置きます:
+必要なパーツを @code{\layout} ブロックの中に置きます:
 
 @example
 \layout @{
@@ -1264,10 +1403,7 @@ squashedPosition = #0
     \name ImproVoice
     @dots{}
   @}
-  \context @{
-    \Staff
-    \accepts "ImproVoice"
-  @}
+  \inherit-acceptability "ImproVoice" "Voice"
 @}
 @end example
 
@@ -1284,6 +1420,18 @@ squashedPosition = #0
   a1
 @}
 @end example
+
+この例を完成させるには、コンテキストの階層に影響する変更が @code{\midi} 
+ブロックでも同様に記述される必要があります。そうすることで、MIDI 出力に@c
+おいてもコンテキスト間の関係が同様に定義されます。
+
+@seealso
+
+内部リファレンス:
+@rinternals{Note_heads_engraver},
+@rinternals{Text_engraver},
+@rinternals{Rhythmic_column_engraver},
+@rinternals{Pitch_squash_engraver}
 
 
 @node コンテキストの配置順序
@@ -1302,50 +1450,72 @@ squashedPosition = #0
 ネストされたコンテキストのうち外側のコンテキストの @qq{accepts} リスト@c
 に含まれないものは、ネストされずに外側のコンテキストの下に再配置されます。
 
-コンテキストの @qq{accepts} リストを @code{\accepts} コマンドと
+コンテキストの @qq{accepts} リストを @code{\accepts} コマンドや
 @code{\denies} コマンドで変更することができます。@c
 @code{\accepts} はコンテキストを @qq{accepts} リストに追加して、@c
 @code{\denies} は @qq{accepts} リストからコンテキストを削除します。@c
-例えば、通常、コード ネームは @code{Staff} コンテキストの中にネスト@c
-されないため、@code{ChordNames} コンテキストはデフォルトでは @code{Staff}
-コンテキストの @qq{accepts} リストには含まれませんが、リストに含める必要が@c
-あれば含めることができます:
+
+例えば、角括弧でグループ化された譜表は通常、波括弧でグループ化され小節線が@c
+繋げられる譜表グループの中にあることは通常見られず、デフォルトで 
+@code{GrandStaff} は内部に @code{StaffGroup} を含めることができません。
 
 @lilypond[verbatim,quote]
 \score {
-  \new Staff {
-    c' d' e' f'
-    \chords { d1:m7 b1:min7.5- }
-  }
+  \new GrandStaff <<
+    \new StaffGroup <<
+      \new Staff { c'1 }
+      \new Staff { d'1 }
+    >>
+    \new Staff { \set Staff.instrumentName = bottom f'1 }
+  >>
 }
 @end lilypond
 
+しかし、@code{\accepts} コマンドを使うことで、@code{StaffGroup} を@c
+@code{GrandStaff} コンテキストの中に含めることができます:
+
 @lilypond[verbatim,quote]
 \score {
-  \new Staff {
-    c' d' e' f'
-    \chords { d1:m7 b1:min7.5- }
-  }
+  \new GrandStaff <<
+    \new StaffGroup <<
+      \new Staff { c'1 }
+      \new Staff { d'1 }
+    >>
+    \new Staff { \set Staff.instrumentName = bottom f'1 }
+  >>
   \layout {
     \context {
-      \Staff
-      \accepts "ChordNames"
+      \GrandStaff
+      \accepts "StaffGroup"
     }
   }
 }
 @end lilypond
 
-@code{\denies} は主に、他のコンテキストをベースに新しいコンテキストを@c
-作成した時に、中にネストするコンテキストを変更するために用いられます。
 
+@code{\denies} は主に、他のコンテキストをベースに新しいコンテキストを@c
+作成した時に、中にネストするコンテキストを変更するために用いられます。@c
 例えば、@code{VaticanaStaff} コンテキストは @code{Staff} コンテキストを@c
 ベースにしていますが、@qq{accepts} リストでは @code{Voice} コンテキスト@c
 の代わりに @code{VaticanaVoice} コンテキストを保持しています。
 
+@cindex contexts, implicit (暗黙的なコンテキスト)
+@cindex implicit contexts (暗黙的なコンテキスト)
+@funindex \defaultchild
+
 コンテキストに保持されるべきコマンドが出現して、それを保持するための@c
 適切なコンテキストが存在しない場合、コンテキストが暗黙的に作成される@c
 ということに注意してください。@c
-これは予期しない譜や楽譜を生み出す可能性があります。
+
+コンテキスト定義の中で、暗黙的に作り出されるサブコンテキストの種類は
+@code{\defaultchild} により指定されます。@c
+多くの音楽イベントは最下位 (@samp{Bottom}) のコンテキストが必要です。@c
+そのようなイベントが現れた場合、@samp{defaultchild} 設定を持たない@c
+コンテキストに到達するまで、再帰的にサブコンテキストが作られます。
+
+暗黙的にコンテキストが生成されることによって、@c
+予期しない譜や楽譜が生み出される可能性があります。@code{\new} で明示的に@c
+コンテキストを作ることでこれらの問題を回避できます。
 
 @cindex alignAboveContext
 @cindex alignBelowContext
@@ -1412,10 +1582,8 @@ squashedPosition = #0
 
 以下の譜面の運指記号を移動させたいとします:
 
-@lilypond[quote,relative=2,verbatim]
-c-2
-\stemUp
-f
+@lilypond[quote,fragment,verbatim]
+c''-2
 @end lilypond
 
 運指指示のドキュメント (@ref{運指の指示}) を見ると、@c
@@ -1435,7 +1603,7 @@ This fragment points to two parts of the program reference: a page
 on @code{FingeringEvent} and one on @code{Fingering}.
 
 The page on @code{FingeringEvent} describes the properties of the music
-expression for the input @code{-2}.  The page contains many links
+expression for the input @w{@code{-2}}.  The page contains many links
 forward.  For example, it says
 
 @quotation
@@ -1562,7 +1730,7 @@ Grob についての詳細は、@rinternals{grob-interface} を参照してく�
 @end quotation
 
 @noindent
-これは、この数値は少なくとも符頭の 0.5 倍の距離を保つということを意味します。
+これは、この運指記号は少なくとも符頭の 0.5 倍の距離を保つということを意味します。
 
 
 各レイアウト オブジェクトは、記譜要素あるいは写植要素としての機能を@c
@@ -1605,7 +1773,7 @@ and subscript symbols.
 @end itemize
 
 これらの側面はそれぞれ、いわゆる @emph{インターフェイス}
-として捉ええられます。@c
+として捉えられます。@c
 それらは、@rinternals{Fingering} ページの最下部でリストアップされています。
 
 @quotation
@@ -1670,10 +1838,8 @@ This object supports the following interfaces:
 
 以下の @b{2} の位置を変更しようとしていたことを思い出してください:
 
-@lilypond[quote,fragment,relative=2,verbatim]
-c-2
-\stemUp
-f
+@lilypond[quote,fragment,verbatim]
+c''-2
 @end lilypond
 
 垂直方向で見て、@b{2} は元の音符の隣に配置されるのですから、@c
@@ -1713,27 +1879,23 @@ Add this much extra space between objects that are next to each other.
 
 @code{padding} の値を増やすことで、@c
 運指記号を符頭から離すことができます。@c
-以下のコマンドは、音符と運指記号の間に 3 譜スペースを挿入します:
+以下のコマンドは、音符と運指記号の間に @qq{3 譜スペース}分の距離を加えます:
 
 @example
 \once \override Voice.Fingering.padding = #3
 @end example
 
-このコマンドを @code{Fingering} オブジェクトが作成される前に挿入する
--- つまり @code{c2} の前に挿入する -- と、以下のような結果が得られます:
+パディングを運指記号オブジェクトが作成される前に挿入すると、@c
+以下のようになります:
 
-@lilypond[quote,relative=2,fragment,verbatim]
+@lilypond[quote,fragment,verbatim]
 \once \override Voice.Fingering.padding = #3
-c-2
-\stemUp
-f
+c''-2
 @end lilypond
 
-
 このケースでは、調整されるコンテキストは @code{Voice} です。@c
-このことは、内部リファレンスの @rinternals{Fingering_engraver}
-プラグインについてのページからわかります。@c
-このページには、以下のような記述があります:
+@rinternals{Fingering_engraver} プラグインを参照してください。@c
+以下のように説明されています:
 
 @quotation
 Fingering_engraver is part of contexts: @dots{} @rinternals{Voice}
@@ -1750,15 +1912,15 @@ Fingering_engraver is part of contexts: @dots{} @rinternals{Voice}
 さまざまな命名規約についての概要があります:
 
 @itemize
-@item Scheme スタイル: 小文字の単語をハイフンでつなぎます
-(1 単語の名前を含みます) -- 例: lowercase-with-hyphens
-@item Scheme 関数: Scheme スタイルの先頭に @code{ly:} を付けます
+@item Scheme 関数: 小文字の単語をハイフンでつなぎます
+(1 単語の名前も含みます) -- 例: lowercase-with-hyphens
+@item LilyPond 独自の Scheme 関数: Scheme スタイルの先頭に @code{ly:} を付けます
 -- 例: ly:plus-scheme-style
-@item 音楽イベント、音楽クラス、それに音楽プロパティ: Scheme スタイルです
+@item 音楽イベント、音楽クラス、それに音楽プロパティ: Scheme 関数と同じスタイルです
 -- 例: as-scheme-functions
-@item グラフィカル オブジェクト インターフェイス: Scheme スタイルです
+@item グラフィカル オブジェクト インターフェイス: Scheme 関数と同じスタイルです
 -- 例: scheme-style
-@item バックエンド プロパティ: Scheme スタイルです (が、X と Y があります！)
+@item バックエンド プロパティ: Scheme 関数と同じスタイルです (が、X と Y があります！)
 @item コンテキスト (それに、音楽表記とグラフィカル オブジェクト):
 大文字で始まる単語、あるいはそれらをつなげます
 -- 例: Capitalized, CamelCase
@@ -1770,11 +1932,10 @@ Fingering_engraver is part of contexts: @dots{} @rinternals{Voice}
 -- 例: Capitalized_followed_by_lowercase_and_with_underscores
 @end itemize
 
-疑問:
+このような疑問があります:
 @itemize
 @item 命名規約のうち、慣習なのはどれで、規則なのはどれか？
-@item 命名規約のうち、どれが基本言語の規則で、@c
-どれが LP (訳者: LilyPond？) 特有の規則なのか？
+@item 命名規約のうち、どれが基本言語の規則で、どれが LilyPond 特有の規則なのか？
 @end itemize
 
 
@@ -1793,6 +1954,7 @@ Fingering_engraver is part of contexts: @dots{} @rinternals{Voice}
 * override コマンド::
 * tweak コマンド::
 * set 対 override::
+* offset コマンド::
 * 連想配列を変更する::
 @end menu
 
@@ -1846,12 +2008,12 @@ unit).  Since the command specifies @code{Staff} as context, it only
 applies to the current staff.  Other staves will keep their normal
 appearance.  Here we see the command in action:
 
-@lilypond[quote,verbatim,relative=2,fragment]
-c4
+@lilypond[quote,fragment,verbatim]
+c''4
 \override Staff.Stem.thickness = #4.0
-c4
-c4
-c4
+c''4
+c''4
+c''4
 @end lilypond
 
 The @code{\override} command changes the definition of the @code{Stem}
@@ -1862,11 +2024,11 @@ Analogous to @code{\set}, the @var{context} argument may be left out,
 causing the default context @code{Voice} to be used.  Adding
 @code{\once} applies the change during one timestep only.
 
-@lilypond[quote,fragment,verbatim,relative=2]
-c4
+@lilypond[quote,fragment,verbatim]
+c''4
 \once \override Stem.thickness = #4.0
-c4
-c4
+c''4
+c''4
 @end lilypond
 
 The @code{\override} must be done before the object is
@@ -1874,11 +2036,11 @@ started.  Therefore, when altering @emph{Spanner} objects such as slurs
 or beams, the @code{\override} command must be executed at the moment
 when the object is created.  In this example,
 
-@lilypond[quote,fragment,verbatim,relative=2]
+@lilypond[quote,fragment,verbatim]
 \override Slur.thickness = #3.0
-c8[( c
+c''8[( c''
 \override Beam.beam-thickness = #0.6
-c8 c])
+c''8 c''])
 @end lilypond
 
 @noindent
@@ -1964,7 +2126,7 @@ Scheme 値の循環参照は、ハング アップまたはクラッシュ、@c
 @code{#t} にセットされていれば、@c
 複小節休符は 1 つの小節に統合されます:
 
-@lilypond[quote,verbatim,relative=2,fragment]
+@lilypond[quote,fragment,verbatim]
 R1*2
 \set Score.skipBars = ##t
 R1*2
@@ -2005,7 +2167,7 @@ R1*2
 
 コンテキストは階層構造をとるため、音楽表記を囲っているコンテキスト
 -- 例えば、@code{Staff} -- が指定された場合、@c
-変更はカレントの @code{Staff} の中にあるすべての @code{Voice} に適用されます。
+変更は現在の @code{Staff} の中にあるすべての @code{Voice} に適用されます。
 
 @funindex \unset
 
@@ -2048,7 +2210,7 @@ R1*2
 
 
 @cindex \once
-@code{\set} の前に @code{\once} を置くと、@c
+@code{\set} や @code{\unset} の前に @code{\once} を置くと、@c
 その設定は単一の時間ステップにだけ適用されます:
 
 @lilypond[quote,fragment,verbatim]
@@ -2184,7 +2346,7 @@ c''4 c''
 @funindex \once
 @cindex overriding for only one moment (一時的にオーバライドする)
 
-@code{\once} を @code{\override} と共に用いることで、@c
+@code{\once} を @code{\override} や @code{\revert} と共に用いることで、@c
 カレントの時間ステップだけに効果を与えることができます:
 
 @lilypond[quote,verbatim]
@@ -2425,6 +2587,9 @@ f''
 拡張:
 @rextend{Displaying music expressions}
 
+@cindex tweaking control points (制御点を調整する)
+@cindex control points, tweaking (制御点を調整する)
+
 @knownissues
 @code{\tweak} コマンドで和音の中にある複数のタイのうち 1 つだけの位置を@c
 変更することはできません。@c
@@ -2434,19 +2599,361 @@ f''
 @subsection @code{\set} 対 @code{\override}
 @translationof set versus override
 
-@c TODO -- This section is probably unnecessary now.
+@c TODO Should't a bunch of that be explained earlier?
 
-@ignore
-We have seen two methods of changing properties: @code{\set} and
-@code{\override}.  There are actually two different kinds of
-properties.
+@funindex \set
+@funindex \override
 
-@code{fontSize} is a special property: it is equivalent to
-entering @code{\override ... #'font-size} for all pertinent
-objects.  Since this is a common change, the special
-property (modified with @code{\set}) was created.
+@code{\set} と @code{\override} コマンドは、コンテキストと結びついた@c
+プロパティを操作するものです。どちらの場合も、プロパティは@c
+@emph{コンテキストの階層}に従います。そのコンテキスト自身で@c
+値がセットされていないプロパティは、@c
+対応する親コンテキストのプロパティの値を用いることになります。
 
-@end ignore
+コンテキスト プロパティの値や、その有効期間は動的なものであり、@c
+音楽が解釈 (つまり、@q{イテレート}) されている最中にのみ有効なものです。@c
+コンテキストが生成される時、プロパティはそのコンテキストの定義に従って
+(変更が加えられる場合もあります) 初期化されます。続く変更は、音楽内にある@c
+@q{プロパティを変更する}コマンドによって行われます。
+
+グラフィカル オブジェクト (あるいは @qq{grob}) の定義は、コンテキスト
+プロパティの中でも@emph{特別な}カテゴリに属しており、構造や使用方法が@c
+通常のコンテキスト プロパティとは異なります。Grob の@c
+定義は、Grob プロパティに細分化されます。
+
+また、通常のコンテキスト プロパティと異なる点がもう一つあり、Grob 定義は@c
+それぞれの Grob プロパティやサブプロパティを追跡するために用いる@c
+内部@q{記録}を持っています。そのため、@c
+これらのプロパティを異なるコンテキストに定義していても、@c
+Grob が生成される時には@c
+現在のコンテキストとその親の間で保持しているプロパティを@c
+受け継ぐことで、@c
+全ての Grob 定義を保持している状態になります。
+
+Grob は音楽表記を解釈する際にエングラーバによって作成され、エングラーバが@c
+属するコンテキストの現在の Grob 定義から初期プロパティを受け取ります。 @c
+その後、エングラーバ (あるいは LilyPond の@q{バックエンド}の部分) は
+Grob の初期プロパティを変更 (または追加) することができます。しかし、@c
+これはコンテキスト自身の Grob 定義には影響しません。
+
+LilyPond が、@q{ユーザ レベル}での調整において用いる
+@emph{Grob プロパティ}という言葉は、実は@emph{コンテキスト}自身の持つ
+Grob 定義のプロパティを指しています。
+
+Grob 定義は @code{\override} と @code{\revert} という、@c
+異なるコマンド セットでアクセスあるいは操作され、大文字で始まる名前を持ちます
+(例えば @samp{NodeHead})。一方、通常のコンテキスト プロパティは
+@code{\set} と @code{\unset} というコマンドで操作され、小文字で始まる@c
+名前を持ちます。
+
+@cindex tweak, relation to @code{\override} (@code{\override} による調整)
+@funindex \tweak
+@funindex \overrideProperty
+
+@code{\tweak} や @code{\overrideProperty} は、全てのコンテキスト プロパティを@c
+完全に無視して対象の Grob プロパティを変更します。この際、Grob が生成される@c
+タイミングで取得され、@code{\tweak} では音楽イベントに関連する
+Grob のプロパティが変更されます。@code{\overrideProperty} は特定の@c
+オーバライドに対して使用します。
+
+
+@node offset コマンド
+@subsection @code{\offset} コマンド
+@translationof The offset command
+
+@funindex \offset
+@cindex offsetting (オフセット)
+@cindex defaults, offsetting (デフォルトのオフセット)
+
+@code{\override}, @code{\tweak}, @code{\overrideProperty} コマンドによって
+Grob プロパティを新たな値にセットすることができますが、そのようなプロパティを@c
+デフォルトの値との相対関係で変更できると便利な場合があります。@code{\offset}
+コマンドはこのような目的のために使用することができます。
+
+@code{\offset} の記法は:
+
+@example
+[-]\offset @var{property} @var{offsets} @var{item}
+@end example
+
+このコマンドは、@var{item} によって指定される Grob の @var{property}
+プロパティのデフォルト値に、@var{offsets} の内容を加算します。
+
+コマンドの記法によって、@code{\offset} は @code{\tweak} のように作用するか
+@code{\override} のように作用します。この使用法の差は @code{\offset} と@c
+用いられる Grob プロパティについてもう少し説明した後に示します。
+
+@subsubsubheading{オフセットできるプロパティ}
+
+全てではないですが、多くの Grob プロパティをオフセットすることができます。@c
+@var{property} がオフセットできない場合、オブジェクトは変更されず、警告が@c
+出力されます。このような場合には、代わりに @code{\override} や @code{\tweak}
+を用いてオブジェクトを変更する必要があります。
+
+トライアンドエラーで、警告を手がかりにしてオフセットできるものと@c
+できないものを判別することができます。しかし、より系統的なアプローチも@c
+存在します。
+
+次の基準は、プロパティが @code{\offset} で変更できるかどうかの目安になります:
+
+@itemize
+
+@item
+Grob の説明に@q{デフォルト設定}が記述されているプロパティ。このような@c
+プロパティは @rinternals{All layout objects} に Grob 毎にリストアップ@c
+されています。(これらは @file{scm/define-grobs.scm} からも確認することが@c
+できます。)
+
+@item
+数値を取るプロパティ。具体的には @code{number}、@code{number} のリスト、@c
+@code{number-pair}、@code{number-pair-list} を取るものを指します。@c
+@rinternals{All layout objects} のページは、それぞれのプロパティが取る@c
+データの型をリストアップしています。これはデフォルト設定が関数であっても@c
+問題ありません。
+
+@item
+@q{サブ プロパティ}ではないプロパティ。サブ プロパティとは、他のプロパティの@c
+中にあるプロパティを指します。
+
+@item
+無限大にセットされていないプロパティ。正や負の無限大をオフセットする@c
+良い方法はありません。
+@end itemize
+
+次の例では、いくつかの Grob プロパティのオフセット可能性を、上の基準に基づいて@c
+判断します。
+
+@itemize
+
+@item オフセットできるプロパティ
+
+@table @asis
+
+@item @code{Hairpin.height}
+
+このプロパティはサブ プロパティではなく、@rinternals{Hairpin} にリストアップ@c
+されています。値については、@q{dimension, in staff space} を取り、デフォルト値は
+@code{0.6666} です---無限大ではない @code{number} となっています。
+
+@item @code{Arpeggio.positions}
+
+@rinternals{Arpeggio} のページには、@code{positions} プロパティが
+@q{pair of numbers} を取ると記述されています。デフォルト値は
+@code{ly:arpeggio::positions} となっています---これは、タイプセットの時に@c
+評価され、各 @code{Arpeggio} オブジェクトについて @code{number} のペアを返す@c
+コールバック関数です。
+
+@end table
+
+@item オフセットできないプロパティ
+
+@table @asis
+
+@item @code{Hairpin.color}
+
+@rinternals{Hairpin} には、@code{color} がリストアップされていません。
+
+@item @code{Hairpin.circled-tip}
+
+@rinternals{Hairpin} の @code{Hairpin.circled-tip} には、@code{boolean} の@c
+値を取るという記述があります。@code{boolean} は数値ではありません。
+
+@item @code{Stem.details.lengths}
+
+@rinternals{Stem} の中にリストアップされており、デフォルト値が
+@code{number} のリストになっていますが、これは@q{サブ プロパティ}です。@c
+@q{ネストされたプロパティ}のオフセットには対応していません。
+
+@end table
+
+@end itemize
+
+@subsubsubheading{@bs{}offset を override として使う}
+
+@var{item} が Grob の名前 (例えば @code{Arpeggio} や @code{Staff.OttavaBracket})
+である場合、@code{\offset} の結果は指定された Grob の @code{\override}
+となります。
+
+@example
+\offset @var{property} @var{offsets} [@var{context}.]@var{GrobName}
+@end example
+
+@q{override} の形では、先頭のハイフンは@emph{必ず}使われません。@code{\override}
+コマンドにハイフンが使われないのと同様です。
+
+次の例では、最初の小節にあるデフォルト設定のアルペジオを、@q{override} 形で@c
+より和音全体に広がるようにオフセットします。アルペジオは上下に譜スペースの@c
+半分ずつ広がります。また、最初の和音について通常の方法で @code{positions}
+プロパティをオーバライドする例も示しています。この方法では端点を@c
+相対座標ではなく絶対座標で指定しなければならないため、@q{譜スペースの半分だけ@c
+広げる}という目的を全く表現できていません。また、他の和音についてはまた@c
+サイズや位置が異なるため、それぞれに別の @code{\override} が必要です。
+
+@lilypond[quote,verbatim]
+arpeggioMusic = {
+  <c' e' g'>\arpeggio <a' c'' e''>\arpeggio
+  <d' f' a' c''>\arpeggio <c' e' g' b' d'' f'' a''>\arpeggio
+}
+
+{
+  \arpeggioMusic
+  \bar "||"
+  \offset positions #'(-0.5 . 0.5) Arpeggio
+  \arpeggioMusic
+  \bar "||"
+  \once \override Arpeggio.positions = #'(-3.5 . -0.5)
+  <c' e' g'>1\arpeggio
+  \bar "||"
+}
+@end lilypond
+
+@q{override} の形では、@code{\offset} の前に @code{\once} や @code{\temporary}
+を置くことができ、@code{\revert} で元に戻すことができます。つまり、@c
+@code{\offset} は実際には @var{property} の @code{\override} を作成している@c
+ことになります。
+
+@lilypond[quote,verbatim]
+music = { c'8\< d' e' f'\! }
+
+{
+  \music
+  \offset height 1 Hairpin
+  \music
+  \music
+  \revert Hairpin.height
+  \music
+  \bar "||"
+  \once \offset height 1 Hairpin
+  \music \music
+  \bar "||"
+  \override Hairpin.height = 0.2
+  \music
+  \temporary \offset height 2 Hairpin
+  \music
+  \music
+  \revert Hairpin.height
+  \music
+  \bar "||"
+}
+@end lilypond
+
+また、@code{\override} と同様に、@code{\offset} の @q{override} 形は
+@code{\undo} や @code{\single} と使用することもできます:
+
+@lilypond[quote,verbatim]
+longStem = \offset length 6 Stem
+
+{
+ \longStem c'4 c''' c' c''
+ \bar "||"
+ \undo \longStem c'4 c''' c' c''
+ \bar "||"
+ \single \longStem c'4 c''' c' c''
+ \bar "||"
+}
+@end lilypond
+
+@subsubsubheading{@bs{}offset を tweak として使う}
+
+@var{item} が音楽表記 (@code{(} や @code{\arpeggio} など) である場合、@c
+@q{tweak} が適用された音楽表記が出力されます。
+
+@example
+[-]\offset [@var{GrobName}.]@var{property} @var{offsets} @var{music-expression}
+@end example
+
+@q{tweak} 形の @code{\offset} の記法は、@code{\tweak} コマンドそのものに@c
+似ています。引数の順番や、前に付くハイフンはそれと同様です。
+
+次の例は、@code{BreathingSign} オブジェクトの縦位置を調整するために
+@q{tweak} 形を用いています。これと、通常の @code{\tweak} コマンドによる@c
+例を見比べてください。記法は同一ですが、@code{\tweak} の出力はあまり直感的@c
+ではありません。なぜなら、@code{BreathingSign.Y-offset} が譜線の中央を@c
+原点として計算されるためです。@code{\offset} を使えば、@code{Y-offset} が@c
+どのように計算されているかを知る必要はありません。
+
+@lilypond[quote,verbatim]
+{
+  c''4
+  \breathe
+  c''4
+  \offset Y-offset 2 \breathe
+  c''2
+  \tweak Y-offset 3 \breathe
+}
+@end lilypond
+
+前の例では、@q{tweak} されたオブジェクトはユーザの入力から直接作られています:
+@code{\breathe} コマンドは @code{BreathingSign} オブジェクトを明示的に@c
+作り出すためです。コマンドが対象にするオブジェクトが曖昧ではないため、@c
+オブジェクトの名前を指定する必要はありませんでした。しかし、@c
+オブジェクトが@emph{間接的に}作られる場合には、Grob の名前を含める必要が@c
+あります。これは @code{\tweak} コマンドと同様です。
+
+次の例では、@code{Beam} オブジェクトの @code{positions} プロパティを
+@code{\offset} することで、連桁を 2 譜スペース分下にずらしています。
+
+最初の @code{\offset} では、連桁を明示的に作り出すものが存在しないため、
+Grob の名前が必要となります。次の @code{\offset} では、連桁が音楽表記
+@code{[} によって手動で作り出されるため、Grob の名前は必要ではありません。@c
+(また、後者では @code{number-pair} の両方をオフセットするために、@c
+単一の @code{number} を用いる省略記法も示しています。)
+
+@lilypond[quote,verbatim]
+{
+  c''8 g'' e'' d''
+  \offset Beam.positions #'(-2 . -2)
+  c''8 g'' e'' d''
+  c''8 g'' e'' d''
+  c''8-\offset positions #-2 [ g'' e'' d'']
+}
+@end lilypond
+
+@subsubsubheading{改行するスパナを @bs{}offset する}
+
+改行や改ページにまたがるスパナの一部分を個別に変更することもできます。@c
+このような場合、@var{offsets} はプロパティが要求する型のリストを取ります。
+
+このように用いられる @code{\offset} コマンドは @code{\alterBroken} コマンドと@c
+類似しています。(@ref{Modifying broken spanners} を参照してください。)
+ただし、@code{\alterBroken} とは異なり、@code{\offset} に与えられる値は@c
+絶対値ではなく相対値となります。
+
+次の例は、@q{改行する} @code{OttavaBracket} オブジェクトを、@code{staff-padding}
+プロパティにより移動します。プロパティは元々 @code{number} を取るため、@c
+@var{offsets} は @code{number} のリストを取り、改行によって分けられる 2 つの@c
+部分に対応します。1 行目のブラケットは、@code{staff-padding} のデフォルト値に
+@code{0} が加算されることになるため実質変更されません。2 行目のブラケットは@c
+デフォルトの高さから 3 譜スペースだけ上に移動します。高さのデフォルト値
+(絶対値) は @code{2} ですが、位置をオフセットするためにこの値を知る必要は@c
+ありません。
+
+@lilypond[quote,verbatim]
+{
+  \offset staff-padding #'(0 3) Staff.OttavaBracket
+  \ottava #1
+  c'''2 c'''
+  \break
+  c'''2 c'''
+}
+@end lilypond
+
+次の例は、@code{Slur} オブジェクトの @code{control-points} プロパティを@c
+オフセットすることで @code{\shape} コマンドを模倣しています。@c
+ここでは、@var{offsets} は @code{number-pair-list} のリストとなり、@c
+それぞれの要素がスラーの一つの部分に対応します。この例では、@c
+@ref{Modifying shapes} に示した例と全く同じ結果を出力します。
+
+@lilypond[quote,verbatim]
+{
+  c'4-\offset control-points #'(
+               ((0 . 0) (0 . 0) (0 . 0) (0 . 1))
+               ((0.5 . 1.5) (1 . 0) (0 . 0) (0 . -1.5))
+              ) ( f'4 g' c''
+  \break
+  d'4 c'' f' c')
+}
+@end lilypond
 
 
 @node 連想配列を変更する
@@ -2593,82 +3100,97 @@ property (modified with @code{\set}) was created.
 @translationof Input modes
 
 入力ファイルの中に保持されている記譜を解釈する方法は、@c
-カレントの入力モードによって決定されます。
+現在の入力モードによって決定されます。@c
+一般的には、入力モードを指定する方法は 2 種類あります:
+長い形 (例えば @code{\chordmode}) と短い形 (例えば @code{\chords}) です。@c
+長い形は通常、入力を変数に格納する際や、明示的に作成されたコンテキストに@c 
+直接音楽を入力する際に使用されます。短い形は、入力に対応したコンテキストを@c
+暗黙的に作成し、そのコンテキストに直接入力を渡します。入力を受け取る@c
+コンテキストを明示的に生成する必要がないような、シンプルな状況において有用です。
 
-@strong{和音モード}
+@subsubsubheading 和音モード
 
 このモードは @code{\chordmode} コマンドで有効になり、@c
 入力はコード記譜法の構文で解釈されるようになります。@c
 @ref{Chord notation} を参照してください。@c
-コードは、譜面上に音符として描画されます。
+和音モードで入力された音楽は、@code{Staff} コンテキスト内では和音として、@c
+@code{ChordNames} コンテキスト内ではコード ネームとして、@c
+@code{FretBoards} コンテキスト内ではフレット ボードとして表示されます。
 
 和音モードは @code{\chords} コマンドでも有効になります。@c
-このコマンドは新たに @code{ChordNames} コンテキストも作成します。@c
-入力はコード記譜法の構文で解釈され、@c
-さらに @code{ChordNames} コンテキストの中にコード ネームとして描画されます。@c
+このコマンドを用いると、@c
+入力は暗黙的に作成された @code{ChordNames} コンテキストの中で@c
+コード記譜法の構文で解釈され、コード ネームとして表示されます。@c
 @ref{Printing chord names} を参照してください。
 
-@strong{ドラム モード}
+@subsubsubheading ドラム モード
 
 このモードは @code{\drummode} コマンドで有効になり、@c
 入力はドラム記譜法の構文で解釈されるようになります。@c
-@ref{Basic percussion notation} を参照してください。
+@ref{Basic percussion notation} を参照してください。@c
+ドラム モードで入力された音楽は、@code{DrumStaff} コンテキストの中で@c
+打楽器の音符として表示されます。
 
 また、ドラム モードは @code{\drums} コマンドでも有効になります。@c
-このモードも新たに @code{DrumStaff} コンテキストを作成し、@c
-コマンドの後に続く入力をドラム記譜法の構文で解釈して、@c
-ドラム譜上にドラム記号として描画します。@c
+このコマンドを用いると、@c
+入力は暗黙的に作成された @code{DrumStaff} コンテキストの中で@c
+ドラム記譜法の構文で解釈され、打楽器の音符として表示されます。@c
 @ref{Basic percussion notation} を参照してください。
 
-@strong{音型モード}
+@subsubsubheading 通奏低音モード
 
 このモードは @code{\figuremode} コマンドで有効になり、@c
 入力は通奏低音の構文で解釈されるようになります。@c
-@ref{Entering figured bass} を参照してください。
+@ref{Entering figured bass} を参照してください。@c
+通奏低音モードで入力された音楽は、@code{FiguredBass} コンテキストか
+@code{Staff} コンテキストの中で通奏低音として表示されます。
 
-また、音型モードは @code{\figures} コマンドでも有効になります。@c
-このモードも新たに @code{FiguredBass} コンテキストを作成し、@c
-コマンドの後に続く入力を通奏低音の構文で解釈して、@c
-@code{FiguredBass} コンテキストの中に通奏低音記号として描画します。@c
+また、通奏低音モードは @code{\figures} コマンドでも有効になります。@c
+このコマンドを用いると、@c
+入力は暗黙的に作成された @code{FiguredBass} コンテキストの中で@c
+通奏低音の構文で解釈され、通奏低音記号として表示されます。@c
 @ref{Introduction to figured bass} を参照してください。
 
-@strong{フレットとタブ モード}
+@subsubsubheading フレットとタブ モード
 
 フレット記号とタブ記号を入力するための特別な入力モードはありません。
 
 タブ図を作成するには、音符モードで音符や和音を入力して、@c
-それらを @code{TabStaff} コンテキストの中に描画します。@c
+それらを @code{TabStaff} コンテキストの中に表示します。@c
 @ref{Default tablatures} を参照してください。
 
-譜の上にフレット図を作成するには、2 つの方法があります。@c
-@code{FretBoards} コンテキスト
-(@ref{Automatic fret diagrams} を参照してください) を用いるか、@c
-あるいは、音符の上に @code{\fret-diagram} コマンド
-(@ref{Fret diagram markups}) を用いてフレット図をマークアップとして@c
-入力するかのどちらかになります。
+譜の上にフレット図を作成するには、音符モードか和音モードのどちらかで@c
+音符や和音を入力し、それらを @code{FretBoards} コンテキストの中に表示します。@c
+@ref{Automatic fret diagrams} を参照してください。または、@c
+フレット図は @code{\fret-diagram} コマンドを用いて、音符の上に@c
+マークアップとして入力することもできます。@c
+@ref{Fret diagram markups} を参照してください。
 
-@strong{歌詞モード}
+@subsubsubheading 歌詞モード
 
 このモードは @code{\lyricmode} コマンドで有効になり、@c
-入力はオプションで演奏時間を持つ歌詞音節として解釈され、@c
-歌詞識別子に関連付けされます。@c
-通奏低音の構文で解釈されるようになります。@c
-@ref{Vocal music} を参照してください。
+入力はオプションで演奏時間を持つ歌詞音節や、歌詞の修飾子として解釈されます。@c
+@ref{Vocal music} を参照してください。@c
+歌詞モードでの入力は、@code{Lyrics} コンテキストの中で@c
+歌詞音節として表示されます。
+
+また、歌詞モードは @code{\lyrics} コマンドでも有効になります。@c
+このコマンドを用いると、@c
+入力は暗黙的に作成された @code{Lyrics} コンテキストの中で@c
+歌詞音節の構文で解釈され、歌詞音節として表示されます。
 
 また、歌詞モードは @code{\addlyrics} コマンドでも有効になります。@c
-このモードも新たに @code{Lyrics} コンテキストを作成し、@c
-暗黙的に @code{lyricsto} コマンドを作成します。@c
-@code{lyricsto} は、後に続く歌詞を、前にある音楽に関連付けします。
+このコマンドも同様に @code{Lyrics} コンテキストを暗黙的に作り出しますが、@c
+前にある音楽に紐づくように @code{\lyricsto} コマンドも暗黙的に作り出します。@c
+@ref{Automatic syllable durations} を参照してください。
 
-@strong{マークアップ モード}
+@subsubsubheading マークアップ モード
 
 このモードは @code{\markup} コマンドで有効になり、@c
 入力はマークアップの構文で解釈されるようになります。@c
 @ref{Text markup commands} を参照してください。
 
-@c silly work-around for texinfo broken-ness
-@c (@strong{Note...} causes a spurious cross-reference in Info)
-@strong{音符モード}
+@subsubsubheading 音符モード
 
 このモードはデフォルトのモードであり、@c
 @code{\notemode} コマンドで有効にすることもできます。@c
@@ -2680,21 +3202,6 @@ property (modified with @code{\set}) was created.
 -- 例えば、歌詞モード、和音モード、あるいは他のモードを使っていて、@c
 音符モードの構文でしか入力できないものを入力しようとしている場合 --
 では、音符モードを明示的に指定することが有用な場合があります。
-
-例えば、合唱曲で節ごとに強弱記号を指定するには、@c
-音符モードで入力して記号を解釈させる必要があります:
-
-@lilypond[verbatim,relative=2,quote]
-{ c4 c4 c4 c4 }
-\addlyrics {
-  \notemode{\set stanza = \markup{ \dynamic f 1. } }
-  To be sung loudly
-}
-\addlyrics {
-  \notemode{\set stanza = \markup{ \dynamic p 2. } }
-  To be sung quietly
-}
-@end lilypond
 
 
 @node 向きと配置
@@ -2771,8 +3278,9 @@ property (modified with @code{\set}) was created.
 多くの場合で、向きを指定するための前置コマンドが存在しています。@c
 それらはすべて以下のような形式をとります:
 
-@noindent
-@code{\xxxUp}, @code{xxxDown}, @code{xxxNeutral}
+@example
+\xxxUp, xxxDown, xxxNeutral
+@end example
 
 @noindent
 ここで、@code{xxxNeutral} は @qq{デフォルトの向きを使用する}
@@ -2884,8 +3392,6 @@ Scheme 関数 @code{magstep} を使用することができます。@c
 @ref{譜サイズを設定する}
 
 
-@c 2017-9-22 このノードのみ先に翻訳
-@c 第1章のxrefを正しく動作させるため。
 @node 寸法
 @subsection 寸法
 @translationof Dimensions
@@ -3023,14 +3529,15 @@ a'
 @end lilypond
 
 @c KEEP LY
-@lilypond[verbatim,quote,relative=2]
-a1
-\compressFullBarRests
-R1*23
-% 休符バーの長さを増加させます
-\once \override MultiMeasureRest.minimum-length = #20
-R1*23
-a1
+@lilypond[verbatim,quote]
+\relative \compressMMRests {
+  a'1
+  R1*23
+  % 休符バーの長さを増加させます
+  \once \override MultiMeasureRest.minimum-length = #20
+  R1*23
+  a1
+}
 @end lilypond
 
 @c KEEP LY
@@ -3137,7 +3644,7 @@ e'8 e' e' e'
 @end itemize
 
 これらのスパナのステンシルを描画する責任を持つルーチンは
-@code{ly:line-interface::print} です。@c
+@code{ly:line-spanner::print} です。@c
 このルーチンはスパナの両端の位置を綿密に決定し、@c
 求めに応じたスタイルでそれらの間に線を描きます@c
 スパナの両端の位置はオンザフライ (その場、その時々) で算出されますが、@c
@@ -3165,11 +3672,11 @@ e''2 \glissando b'
 部分リスト @code{left-broken} や @code{right-broken} のによって指定されます。@c
 例を示します:
 
-@lilypond[relative=2,ragged-right,verbatim,fragment]
+@lilypond[ragged-right,fragment,verbatim,quote]
 \override Glissando.breakable = ##t
 \override Glissando.bound-details.right-broken.Y = #-3
-c1 \glissando \break
-f1
+c''1 \glissando \break
+f''1
 @end lilypond
 
 
@@ -3206,10 +3713,10 @@ f1
 ステンシルを作成するために評価されるマークアップです。@c
 水平スパナに @i{cresc.}, @i{tr} それに他のテキストを配置するために使用されます。
 
-@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
+@lilypond[quote,ragged-right,fragment,verbatim]
 \override TextSpanner.bound-details.left.text
    = \markup { \small \bold Slower }
-c2\startTextSpan b c a\stopTextSpan
+\relative { c''2\startTextSpan b c a\stopTextSpan }
 @end lilypond
 
 @item stencil-align-dir-y
@@ -3221,13 +3728,14 @@ c2\startTextSpan b c a\stopTextSpan
 どちらかを設定すると、@c
 記号が上下します:
 
-@lilypond[relative=1,fragment,verbatim]
+@lilypond[quote,fragment,verbatim]
 \override TextSpanner.bound-details.left.stencil-align-dir-y = #-2
 \override TextSpanner.bound-details.right.stencil-align-dir-y = #UP
 
 \override TextSpanner.bound-details.left.text = #"ggg"
 \override TextSpanner.bound-details.right.text = #"hhh"
-c4^\startTextSpan c c c \stopTextSpan
+
+\relative { c'4^\startTextSpan c c c \stopTextSpan }
 @end lilypond
 
 予期される結果とは逆に、@c
@@ -3252,11 +3760,13 @@ c4^\startTextSpan c c c \stopTextSpan
 @code{to-barline} が真で、かつ、次の音符の前に小節線がある場合は@c
 その小節線のところでスパナを終了させます。
 
-@lilypond[verbatim,quote,ragged-right,relative=2,fragment]
-\endSpanners
-c2 \startTextSpan c2 c2
-\endSpanners
-c2 \< c2 c2
+@lilypond[verbatim,quote,ragged-right]
+\relative c'' {
+  \endSpanners
+  c2 \startTextSpan c2 c2
+  \endSpanners
+  c2 \< c2 c2
+}
 @end lilypond
 
 @code{\endSpanners} を使用している場合、@c
@@ -3307,13 +3817,24 @@ c2 \< c2 c2
 @translationof Removing the stencil
 
 @cindex stencil, removing (ステンシルを削除する)
+@funindex \omit
 
 レウアウト オブジェクトはそれぞれステンシル プロパティを持ちます。@c
 デフォルトでは、@c
 このプロパティはそのオブジェクトを描画する特殊な関数にセットされています。@c
 このプロパティが @code{#f} にオーバライドされた場合、@c
 関数は呼び出されず、そのオブジェクトは描画されません。@c
-@code{\rever} でデフォルトの動作に戻すことができます。
+@code{\revert} でデフォルトの動作に戻すことができます。
+
+@lilypond[quote,fragment,verbatim]
+a1 a
+\override Score.BarLine.stencil = ##f
+a a
+\revert Score.BarLine.stencil
+a a a
+@end lilypond
+
+これはよく使う操作であるため、@code{\omit} という短縮記法が存在します:
 
 @lilypond[quote,fragment,verbatim]
 a1 a
@@ -3328,11 +3849,20 @@ a a a
 @translationof Making objects transparent
 
 @cindex transparent, making objects (オブジェクトを透明にする)
+@funindex \hide
 
 レイアウト オブジェクトはそれぞれ @code{transparent} プロパティを持っていて、@c
 デフォルトでは @code{#f} にセットされています。@c
 @code{#t} にセットされると、そのオブジェクトはスペースを占めたままですが、@c
 不可視になります。
+
+@lilypond[quote,fragment,verbatim]
+a'4 a'
+\once \override NoteHead.transparent = ##t
+a' a'
+@end lilypond
+
+これにも @code{\hide} という短縮記法があります:
 
 @lilypond[quote,fragment,verbatim]
 a'4 a'
@@ -3437,17 +3967,17 @@ a'1
 このファイルの中で、最後の 3 列がその列のヘッダで示される場所での@c
 可視性を表しています:
 
-@multitable {@code{begin-of-line-invisible}} {@code{'#(#t #t #t)}} {改行前} {改行なし} {改行後}
-@headitem 関数形式                   @tab ベクトル形式            @tab 改行前 @tab 改行なし @tab 改行後
+@multitable {@code{begin-of-line-invisible}} {@code{#(#t #t #t)}} {改行前} {改行なし} {改行後}
+@headitem 関数形式                   @tab ベクトル形式           @tab 改行前 @tab 改行なし @tab 改行後
 
-@item @code{all-visible}             @tab @code{'#(#t #t #t)}     @tab yes    @tab yes      @tab yes
-@item @code{begin-of-line-visible}   @tab @code{'#(#f #f #t)}     @tab no     @tab no       @tab yes
-@item @code{center-visible}          @tab @code{'#(#f #t #f)}     @tab no     @tab yes      @tab no
-@item @code{end-of-line-visible}     @tab @code{'#(#t #f #f)}     @tab yes    @tab no       @tab no
-@item @code{begin-of-line-invisible} @tab @code{'#(#t #t #f)}     @tab yes    @tab yes      @tab no
-@item @code{center-invisible}        @tab @code{'#(#t #f #t)}     @tab yes    @tab no       @tab yes
-@item @code{end-of-line-invisible}   @tab @code{'#(#f #t #t)}     @tab no     @tab yes      @tab yes
-@item @code{all-invisible}           @tab @code{'#(#f #f #f)}     @tab no     @tab no       @tab no
+@item @code{all-visible}             @tab @code{#(#t #t #t)}     @tab yes    @tab yes      @tab yes
+@item @code{begin-of-line-visible}   @tab @code{#(#f #f #t)}     @tab no     @tab no       @tab yes
+@item @code{center-visible}          @tab @code{#(#f #t #f)}     @tab no     @tab yes      @tab no
+@item @code{end-of-line-visible}     @tab @code{#(#t #f #f)}     @tab yes    @tab no       @tab no
+@item @code{begin-of-line-invisible} @tab @code{#(#t #t #f)}     @tab yes    @tab yes      @tab no
+@item @code{center-invisible}        @tab @code{#(#t #f #t)}     @tab yes    @tab no       @tab yes
+@item @code{end-of-line-invisible}   @tab @code{#(#f #t #t)}     @tab no     @tab yes      @tab yes
+@item @code{all-invisible}           @tab @code{#(#f #f #f)}     @tab no     @tab no       @tab no
 @end multitable
 
 @code{break-visibility} のデフォルト設定は@c
@@ -3473,7 +4003,7 @@ a'1
 @item @code{KeySignature}        @tab @code{Staff}          @tab @code{begin-of-line-visible}
 @c omit LeftEdge until it can be explained -td
 @c @item @code{LeftEdge}         @tab @code{Score}          @tab @code{center-invisible}
-@item @code{ClefModifier}       @tab @code{Staff}          @tab @code{begin-of-line-visible}
+@item @code{ClefModifier}        @tab @code{Staff}          @tab @code{begin-of-line-visible}
 @item @code{RehearsalMark}       @tab @code{Score}          @tab @code{end-of-line-invisible}
 @item @code{TimeSignature}       @tab @code{Staff}          @tab @code{all-visible}
 
@@ -3502,15 +4032,15 @@ a'1
 
 @itemize @bullet
 @item 小節線を行の先頭に描画することはできません。
-@item 小節番号は 1 から始まるのでなければ、@c
-最初の行の先頭に描画することはできません。
-@item 音部記号 -- 以下を参照してください
-@item 2 重線のパーセント繰り返しはすべて描画するか、@c
-すべて描画しないかのどちらかです。@c
+@item 小節番号が @code{1} から始まるのでなければ、@c
+@emph{最初の}行の先頭に描画することはできません。
+@item 音部記号 -- 次のセクションを参照してください
+@item 2 重線のパーセント繰り返しは@emph{すべて描画する}か、@c
+@emph{すべて描画しない}かのどちらかです。@c
 描画するには @code{begin-of-line-invisible} を用い、@c
 描画しないのなら @code{all-invisible} を用います。
-@item Key signature -- 以下を参照してください
-@item ClefModifier -- 以下を参照してください
+@item Key signature -- 次のセクションを参照してください
+@item ClefModifier -- 次のセクションを参照してください
 @end itemize
 
 @node 特別な考慮を必要とするもの
@@ -3659,7 +4189,7 @@ B フラット メジャーへの明示的な変更の後に出現する調号�
 @cindex visibility of transposed clefs (オクターブ移調付きの音部記号の可視性)
 @cindex clefs, visibility of transposition (オクターブ移調付きの音部記号の可視性)
 
-オクターブ移調付きの音部記号上の小さなオクターブ記号は
+オクターブ移調付きの音部記号上の小さな移調記号は
 @code{ClefModifier} レイアウト オブジェクトによって作り出されます。@c
 このオブジェクトの可視性は
 @code{Clef} オブジェクトの可視性とは独立して制御されます。@c
@@ -3669,7 +4199,7 @@ B フラット メジャーへの明示的な変更の後に出現する調号�
 
 明示的な音部記号の変更では、@c
 @code{explicitClefVisibility} プロパティが@c
-音部記号とそれに関連するオクターブ記号の両方を制御します。
+音部記号とそれに関連する移調記号の両方を制御します。
 
 @seealso
 学習マニュアル:
@@ -3688,22 +4218,24 @@ B フラット メジャーへの明示的な変更の後に出現する調号�
 これらはすべてグリッサンドと同じルーチンを用いてテキストと線を描きます。@c
 そのため、それらの振る舞いの調整も同じように行います。@c
 これらはスパナによって実現され、スパナを描くルーチンは
-@code{ly:line-interface::print} です。@c
+@code{ly:line-spanner::print} です。@c
 このルーチンは 2 つの @i{スパン ポイント} の位置を決定し、@c
 要求されたスタイルに応じてそれら 2 点の間に線を描きます。
 
 利用可能なライン スタイルと、それらをどのように調整するかを示す例を挙げます。
 
-@lilypond[relative=2,ragged-right,verbatim,fragment]
-d2 \glissando d'2
-\once \override Glissando.style = #'dashed-line
-d,2 \glissando d'2
-\override Glissando.style = #'dotted-line
-d,2 \glissando d'2
-\override Glissando.style = #'zigzag
-d,2 \glissando d'2
-\override Glissando.style = #'trill
-d,2 \glissando d'2
+@lilypond[ragged-right,verbatim,quote]
+\relative {
+  d''2 \glissando d'2
+  \once \override Glissando.style = #'dashed-line
+  d,2 \glissando d'2
+  \override Glissando.style = #'dotted-line
+  d,2 \glissando d'2
+  \override Glissando.style = #'zigzag
+  d,2 \glissando d'2
+  \override Glissando.style = #'trill
+  d,2 \glissando d'2
+}
 @end lilypond
 
 スパナの終点の位置は各グラフィック オブジェクトごとに@c
@@ -3808,6 +4340,7 @@ fis'^\markup { \rotate #30 "an F-Sharp" }
 * グラフィカル オブジェクトを垂直方向にグループ化する::
 * ステンシルを変更する::
 * 形状を変更する::
+* 改行するスパナを変更する::
 * unpure-pure コンテナ::
 @end menu
 
@@ -3968,10 +4501,10 @@ a'
 @code{self-alignment-interface} をサポートするオブジェクトの水平方向の揃えは、@c
 @code{self-alignment-X} プロパティの値によって制御され、@c
 そのオブジェクトの @code{X-offset} プロパティには@c
-任意の実数値を与えることができる
-@code{ly:self-alignment-interface::x-aligned-on-self}.
-@code{self-alignment-X} がセットされます。@c
-与える実数値は、そのオブジェクトの X 方向の広がりの半分を単位とします。@c
+@code{ly:self-alignment-interface::x-aligned-on-self} がセットされています。
+@code{self-alignment-X} には@c
+任意の実数値を与えることができますが、
+与える値は、そのオブジェクトの X 方向の広がりの半分を単位とします。@c
 負値はオブジェクトを右に移動させ、正値はオブジェクトを左に移動させます。@c
 値が @code{0} であればそのオブジェクトは親オブジェクトの参照ポイントに@c
 中央揃えされ、@c
@@ -4078,25 +4611,25 @@ example shows the difference:
 @code{left-edge}, @code{key-cancellation}, @code{key-signature}, それに
 @code{time-signature} があります。
 
-デフォルトでは、@c
-リハーサル記号と小節番号はオブジェクトの上で水平方向に中央揃えされます:
+それぞれの記号は、リハーサル記号が揃えられる@c
+デフォルトの参照点を持ち、その位置は種類ごとに異なります。
 
 @c KEEP LY
 @lilypond[verbatim,quote,fragment]
-% リハーサル記号は音部記号の上に中央揃えされます
+% リハーサル記号は音部記号の右端に揃えられます
 \override Score.RehearsalMark.break-align-symbols = #'(clef)
 \key a \major
 \clef treble
 \mark "↓"
 e'1
-% リハーサル記号は拍子記号の上に中央揃えされます
+% リハーサル記号は拍子記号の左端に揃えられます
 \override Score.RehearsalMark.break-align-symbols = #'(time-signature)
 \key a \major
 \clef treble
 \time 3/4
 \mark "↓"
 e'2.
-% リハーサル記号はブレス記号の上に中央揃えされます
+% リハーサル記号はブレス記号の中央に揃えられます
 \override Score.RehearsalMark.break-align-symbols = #'(breathing-sign)
 \key a \major
 \clef treble
@@ -4117,20 +4650,20 @@ e'1
 
 @c KEEP LY
 @lilypond[verbatim,quote,fragment]
-% リハーサル記号は調号の上に中央揃えされます
+% リハーサル記号は調号の右端に揃えられます
 \override Score.RehearsalMark.break-align-symbols = #'(key-signature clef)
 \key a \major
 \clef treble
 \mark "↓"
 e'1
-% リハーサル記号は音部記号の上に中央揃えされます
+% リハーサル記号は音部記号の右端に揃えられます
 \set Staff.explicitKeySignatureVisibility = #all-invisible
 \override Score.RehearsalMark.break-align-symbols = #'(key-signature clef)
 \key a \major
 \clef bass
 \mark "↓"
 gis,1
-% リハーサル記号は小節線の上に中央揃えされます
+% リハーサル記号は小節線の中央に揃えられます
 \set Staff.explicitKeySignatureVisibility = #all-invisible
 \set Staff.explicitClefVisibility = #all-invisible
 \override Score.RehearsalMark.break-align-symbols = #'(key-signature clef)
@@ -4146,20 +4679,20 @@ e'1
 
 @c KEEP LY
 @lilypond[verbatim,quote,fragment]
-% RehearsalMark は KeySignature の上に中央揃えされます
+% リハーサル記号は調号の右端に揃えられます
 \override Score.RehearsalMark.break-align-symbols = #'(key-signature)
 \key a \major
 \clef treble
 \time 4/4
 \mark "↓"
 e'1
-% RehearsalMark は KeySignature の左端に揃えられます
-\once \override Score.KeySignature.break-align-anchor-alignment = #LEFT
+% リハーサル記号は調号の中央に揃えられます
+\once \override Score.KeySignature.break-align-anchor-alignment = #CENTER
 \mark "↓"
 \key a \major
 e'1
-% RehearsalMark は KeySignature の右端に揃えられます
-\once \override Score.KeySignature.break-align-anchor-alignment = #RIGHT
+% リハーサル記号は調号の左端に揃えられます
+\once \override Score.KeySignature.break-align-anchor-alignment = #LEFT
 \key a \major
 \mark "↓"
 e'1
@@ -4244,20 +4777,23 @@ XinO = {
 }
 @end lilypond
 
-@code{\musicglyph} マークアップ コマンドには、@c
-Emmentaler フォントに含まれる任意の図柄を提供することができます。@c
+@code{\musicglyph} マークアップ コマンドで、@c
+Emmentaler フォントに含まれる任意の @emph{Feta}
+グリフを使用することができます。@c
 @ref{The Emmentaler font} を参照してください。
 
-@c TODO Add inserting eps files or ref to later
-
-@c TODO Add inserting Postscript or ref to later
+@file{EPS} ファイルや Postscript コマンドを、それぞれ
+@code{\epsfile} や @code{\postscript} マークアップ コマンドを使って@c
+行内に埋め込むことができます。@c
+@ref{Graphic} を参照してください。
 
 @seealso
 記譜法リファレンス:
 @ref{マークアップ内部でのグラフィック記譜法},
 @ref{テキストをフォーマットする},
 @ref{Text markup commands},
-@ref{The Emmentaler font}.
+@ref{The Emmentaler font},
+@ref{Graphic}
 
 
 @node 形状を変更する
@@ -4317,11 +4853,11 @@ Web でベジエ曲線が描かれる様子を示すアニメーションを@c
 以下の例では、タイの自動配置が最適ではなく、@code{\tieDown} も役に@c
 立ちません。
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote]
 <<
-  { e1 ~ 1 }
+  { e'1~ 1 }
 \\
-  { r4 <g c,> <g c,> <g c,> }
+  \relative { r4 <g' c,> <g c,> <g c,> }
 >>
 @end lilypond
 
@@ -4352,7 +4888,7 @@ Web でベジエ曲線が描かれる様子を示すアニメーションを@c
 ペアを持つリストのリストになります。)
 
 @code{\tweak} 形式で用いる場合にのみ、先頭にハイフン @code{-} を付ける@c
-必要があｒます。
+必要があります。
 
 それでは、上記の例に @code{\once \override} 形式の @code{\shape} を@c
 使ってタイを 0.5 譜スペースだけ上に移動させてみましょう:
@@ -4489,6 +5025,113 @@ X@tie{}座標はタイあるいはスラーを取り付ける音符の参照ポ�
 @rinternals{TieColumn}
 
 
+@node 改行するスパナを変更する
+@subsection 改行するスパナを変更する
+@translationof Modifying broken spanners
+
+@menu
+* alterBroken を使用する::
+@end menu
+
+@node alterBroken を使用する
+@unnumberedsubsubsec @code{\alterBroken} を使用する
+@translationof Using alterBroken
+
+@cindex spanners, modifying (スパナを変更する)
+@cindex broken spanners, modifying (改行するスパナを変更する)
+@funindex \alterBroken
+
+スパナが改行や改ページにまたがる場合、それぞれの部分は元のスパナの属性を@c
+受け継ぎます。そのため、通常と同じようにスパナを変更することで、@c
+改行するスパナの各部分を変更することができます。下の例では
+@code{thickness} をオーバライドしていますが、改行するスラーの両方の部分が@c
+変更されています。
+
+@lilypond[verbatim,quote,ragged-right]
+\relative c'' {
+  r2
+  \once\override Slur.thickness = 10
+  c8( d e f
+  \break
+  g8 f e d) r2
+}
+@end lilypond
+
+@code{\alterBroken} コマンドを用いることで、改行するスパナの各部分を@c
+それぞれ独立して変更することができます。このコマンドはスパナのプロパティを
+@code{\override} あるいは @code{\tweak} することができます。
+
+@code{\alterBroken} の構文は:
+
+@example
+[-]\alterBroken @var{property} @var{values} @var{item}
+@end example
+
+引数 @var{values} は値のリストを取り、スパナの各部分に対応します。@c
+@var{item} が @code{Slur} や @code{Staff.PianoPedalBracket} のような
+Grob の名前である場合、結果はその Grob の @code{\override} となります。@c
+@var{item} が @qq{(} や @qq{[} のような音楽表記である場合、@c
+@code{\tweak} が適用された音楽表記が出力されます。
+
+@code{\tweak} 形では前にハイフンが必要です。@code{\alterBroken} を
+@code{\override} として用いる場合には、ハイフンを付けないでください。
+
+@code{\override} として使用する場合、@code{\alterBroken} は
+@code{\once} や @code{\temporary} を前置することができ、@c
+@code{\revert} で元に戻すことができます。
+
+次のコードは、前の例におけるスラーの各部分をそれぞれ @code{\override}
+しています。
+
+@lilypond[verbatim,quote,ragged-right]
+\relative c'' {
+  r2
+  \alterBroken thickness #'(10 1) Slur
+  c8( d e f
+  \break
+  g8 f e d) r2
+}
+@end lilypond
+
+@code{\alterBroken} コマンドは全てのスパナに対して用いることができます
+(例えば @code{Tie}, @code{PhrasingSlur}, @code{Beam}, @code{TextSpanner}
+などです)。例えば、校訂譜を作成する際には、原典に無いスラーを追加する際に@c
+点線で表示させたいことがあります。次の例ではこれをどのように実現するかを@c
+示しており、今回は @code{\tweak} 形を用いています:
+
+@c KEEP LY
+@lilypond[verbatim,quote,ragged-right]
+% 空リストが dash-definition のデフォルト設定であり、
+% 繋がった曲線が出力されます
+\relative {
+  c''2-\alterBroken dash-definition #'(() ((0 1.0 0.4 0.75))) \(e
+  \break
+  g2 e\)
+}
+@end lilypond
+
+@code{\alterBroken} において、@var{values} のリストの各要素が@c
+スパナの各部分のプロパティに影響するということは重要です。@c
+もしスパナの要素数よりも少ない数の値がセットされていた場合、@c
+残りの部分は空リストがセットされたとして扱われます。この時、@c
+プロパティのデフォルト値が空リストではない場合には意図しない結果を@c
+もたらす可能性があります。そのような場合には、各部分について正しい値を@c
+セットしてください。
+
+@knownissues
+レイアウトが変更された場合、改行の位置も変更されることがあります。@c
+このように改行位置が変更されて、スパナの跨る行数が増減した場合、@c
+@code{\alterBroken} の設定は適切ではなくなるでしょう。明示的に @code{\break}
+を用いることによってこれを防止します。
+
+@code{\alterBroken} コマンドは、@code{direction} のように、改行処理の前に@c
+アクセスされるプロパティに対しては効果がありません。
+
+@seealso
+拡張:
+@rextend{Difficult tweaks}
+
+
 @node unpure-pure コンテナ
 @subsection unpure-pure コンテナ
 @translationof Unpure-pure containers
@@ -4500,14 +5143,15 @@ X@tie{}座標はタイあるいはスラーを取り付ける音符の参照ポ�
 @cindex horizontal spacing, overriding (水平方向のスペースを上書きする)
 
 unpure-pure コンテナは @emph{Y-axis} スペース - 特に @code{Y-offset} と
-@code{Y-extent} - の算出を文字 (つまり、数字やペア) ではなく、Scheme 関数で@c
+@code{Y-extent} - の算出をリテラル (つまり、数字やペア) ではなく、Scheme 関数で@c
 上書きする際に有用です。
 
 ある特定のグラフィカル オブジェクトでは、@code{Y-extent} は @code{stencil}
 プロパティをベースにしていて、それらの @code{stencil} プロパティを上書きする場合は
 unpure-pure コンテナで @code{Y-extent} も上書きする必要があります。@c
-関数が @code{Y-offset} と/または @code{Y-extent} を上書きした場合、@c
-その関数はコンパイルの最中に改行の算出を早すぎるタイミングで引き起こすと見なされます。@c
+関数によって @code{Y-offset} と/または @code{Y-extent} を上書きした場合、@c
+その関数はコンパイルの最中の早すぎるタイミングで、@c
+改行の算出が行われるものと見なされます。@c
 そのため、その関数はまったく評価されず (通常、@samp{0} または @samp{'(0 . 0)} の@c
 値を返します)、結果として衝突を引き起こすことがあります。@c
 @q{pure} 関数はプロパティ、オブジェクト、あるいはグラフィカル オブジェクトの消失に@c
@@ -4519,7 +5163,7 @@ unpure-pure コンテナで @code{Y-extent} も上書きする必要がありま
 @q{正しいタイミングで} 調節することができます。@c
 @q{unpure} 関数は改行の @emph{後に} 評価されます。
 
-@warning{@q{pure} な関数を常に把握していることは困難なので、作成する @q{pure}
+@warning{どの関数が @q{pure} であるかを常に把握していることは困難なので、作成する @q{pure}
 関数ではグラフィカル オブジェクト @code{Beam} や @code{VerticalAlignment} を@c
 使わないことをおすすめします。}
 
@@ -4535,18 +5179,19 @@ unpure-pure コンテナは以下のように構築します:
 @code{f1} も最初の引数は常にグラフィカル オブジェクトである必要があり、2 番目と
 3 番目の引数は @q{start} と @q{end} です。
 
-@q{start} と @q{end} は事実上、@code{Spanners} (つまり、@code{Hairpin} や
-@code{Beam}) だけで問題となるダミー値であり、
-@var{start} and @var{end} are, for all intents and purposes, dummy
-values that only matter for @code{Spanners} (i.e @code{Hairpin} or
-@code{Beam}), that can return different height estimations based on a
-starting and ending column.
+@var{start} と @var{end} は事実上、@code{Spanners} (つまり、@code{Hairpin} や
+@code{Beam}) だけで問題となるダミー値であり、スパナが開始あるいは終了する段@c
+によって、高さの予想値が異なってくる場合に使用されるものです。
 
 @code{f1} の残りの引数は @code{f0} の引数と同じです (@var{n = 1} である場合は@c
 残りの引数はありません)。
 
 関数 @code{f1} の結果は概算であり、@code{f0} が実際の値を得るのに用いられます。@c
 @code{f0} の結果はもっと後のスペースの処理で微調整に用いられます。
+
+@c TODO: The following example supposedly showing a collision no longer
+@c 'works' since 2.18.x. Another example of a collision is needed.
+@c Issue #3512
 
 @lilypond[verbatim,quote,ragged-right]
 #(define (square-line-circle-space grob)
@@ -4584,7 +5229,9 @@ smartSquareLineCircleSpace = {
 知ることができ、それに応じて小節の幅を増やすことで衝突を回避しています。
 
 通常、簡単な計算では、unpure-pure コンテナの @q{unpure} パートと @q{pure} パート@c
-の両方に、引数の数とスコープを変えただけのほとんど同じ関数を用いることができます。
+の両方に、引数の数とスコープを変えただけのほとんど同じ関数を用いることができます。@c
+このように使用されることが多いため、@code{ly:make-unpure-pure-container} に@c
+関数を 1 つだけ与えた場合、デフォルトで同じ関数を用いてコンテナを作り出します。
 
 @warning{@q{pure} と見なした関数が @q{pure} でなかった場合、予期しない結果となる@c
 ことがあります。}
@@ -4643,18 +5290,15 @@ function =
 
 です。
 
-引数 @code{parser} と @code{location} を省略することはできず、@c
-@rextend{Music functions} で記述されている高度な状況で@c
-使用されることがあります。
-置換関数において、必ずこれらの引数を記述してください。
-
-引数として、型述語のリストも必須です。@c
+引数として、型述語のリストが必須です。@c
 音楽関数で用いられる一般的な型述語には下記のものがあります:
 
 @example
 boolean?
 cheap-list?  @emph{(}@q{list?}@emph{ の代わりに用いることで、処理を高速にします)}
+ly:duration?
 ly:music?
+ly:pitch?
 markup?
 number?
 pair?
@@ -4696,15 +5340,15 @@ padText =
      (padding)
      (number?)
    #{
-     \once \override TextScript.padding = $padding
+     \once \override TextScript.padding = #padding
    #})
 
 \relative {
-  c'''4^"piu mosso" b a b
+  c''4^"piu mosso" b a b
   \padText #1.8
-  c4^"piu mosso" d e f
+  c4^"piu mosso" b a b
   \padText #2.6
-  c4^"piu mosso" fis a g
+  c4^"piu mosso" b a b
 }
 @end lilypond
 
@@ -4726,6 +5370,36 @@ custosNote =
 \relative { c'4 d e f \custosNote g }
 @end lilypond
 
+@funindex \etc
+上に挙げた例の両方では、関数やオーバライドにおける最後の引数が空きに@c
+なっているだけの、単一の式の形をしています。このような特別な場合では、@c
+よりシンプルな関数の定義方法があり、一定の部分はそのまま書き出し、@c
+引数となる最後の部分を @code{\etc} で置き換えるという書き方をします:
+
+@lilypond[quote,verbatim,ragged-right]
+padText =
+  \once \override TextScript.padding = \etc
+
+\relative {
+  c''4^"piu mosso" b a b
+  \padText #1.8
+  c4^"piu mosso" b a b
+  \padText #2.6
+  c4^"piu mosso" b a b
+}
+@end lilypond
+
+@lilypond[quote,verbatim,ragged-right]
+custosNote =
+  \tweak NoteHead.stencil #ly:text-interface::print
+  \tweak NoteHead.text
+     \markup \musicglyph "custodes.mensural.u0"
+  \tweak Stem.stencil ##f
+  \etc
+
+\relative { c'4 d e f \custosNote g }
+@end lilypond
+
 複数の引数をとる置換関数を定義することもできます:
 
 @lilypond[quote,verbatim,ragged-right]
@@ -4734,7 +5408,7 @@ tempoPadded =
      (padding tempotext)
      (number? markup?)
    #{
-     \once \override Score.MetronomeMark.padding = $padding
+     \once \override Score.MetronomeMark.padding = #padding
      \tempo \markup { \bold #tempotext }
    #})
 
