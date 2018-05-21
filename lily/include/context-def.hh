@@ -68,10 +68,6 @@ public:
   vector<Context_def *> path_to_acceptable_context (SCM type_string,
                                                     Output_def *,
                                                     SCM) const;
-  vector<Context_def *> internal_path_to_acceptable_context (SCM type_string,
-                                                             Output_def *,
-                                                             SCM,
-                                                             set<const Context_def *> *seen) const;
   Context *instantiate (SCM extra_ops);
 
   SCM to_alist () const;
@@ -82,7 +78,12 @@ public:
 private:
   Context_def ();
   Context_def (Context_def const &);
-};
 
+  vector<Context_def *> internal_path_to_acceptable_context (SCM type_string,
+                                                             bool instantiable,
+                                                             Output_def *,
+                                                             SCM,
+                                                             set<const Context_def *> *seen) const;
+};
 
 #endif /* CONTEXT_DEF_HH */

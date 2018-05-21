@@ -216,15 +216,31 @@ Context_def::path_to_acceptable_context (SCM type_sym,
                                          SCM additional_accepts) const
 {
   set<const Context_def *> seen;
-  return internal_path_to_acceptable_context (type_sym, odef, additional_accepts, &seen);
+
+  // It seems we can instantiate any context with a definition, but if there
+  // were any properties in the definition that could prevent instantiatation,
+  // we would also want to check them here.
+  bool instantiable = unsmob<Context_def> (find_context_def (odef, type_sym));
+  return internal_path_to_acceptable_context (type_sym, instantiable,
+                                              odef, additional_accepts, &seen);
 }
 
 /*
 The SEEN parameter is a set which keeps track of visited contexts, allowing
 contexts of the same type to be nested.
+
+When the leaf is instantiable (the usual), we ignore aliases and thereby use
+the requested context or nothing.  Example: If the caller requests a Staff, we
+do not substitute a RhythmicStaff.
+
+When the leaf is not instantiable, since there would otherwise be nothing worth
+doing, we allow substituting an instantiable context that aliases the requested
+context.  Example: The caller requests a Timing and the current context would
+accept a Score, for which Timing is an alias, so substitute a Score.
 */
 vector<Context_def *>
 Context_def::internal_path_to_acceptable_context (SCM type_sym,
+                                                  bool instantiable,
                                                   Output_def *odef,
                                                   SCM additional_accepts,
                                                   set<const Context_def *> *seen) const
@@ -242,9 +258,10 @@ Context_def::internal_path_to_acceptable_context (SCM type_sym,
   vector<Context_def *> best_result;
   for (vsize i = 0; i < accepteds.size (); i++)
     {
-      /* do not check aliases, because \context Staff should not
-         create RhythmicStaff. */
-      if (ly_is_equal (accepteds[i]->get_context_name (), type_sym))
+      bool valid = instantiable
+                   ? ly_is_equal (accepteds[i]->get_context_name (), type_sym)
+                   : accepteds[i]->is_alias (type_sym);
+      if (valid)
         {
           best_result.push_back (accepteds[i]);
           return best_result;
@@ -260,7 +277,8 @@ Context_def::internal_path_to_acceptable_context (SCM type_sym,
       if (!seen->count (g))
         {
           vector<Context_def *> result
-            = g->internal_path_to_acceptable_context (type_sym, odef, SCM_EOL, seen);
+            = g->internal_path_to_acceptable_context (type_sym, instantiable,
+                                                      odef, SCM_EOL, seen);
           if (result.size () && result.size () < best_depth)
             {
               best_depth = result.size ();

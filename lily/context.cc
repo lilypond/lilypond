@@ -152,23 +152,6 @@ Context::find_create_context (Input *origin,
           return gthis->get_score_context ()->
             find_create_context (origin, n, id, operations);
         }
-
-      // Special case: If we use \set Timing.xxx = whatever before
-      // Score is established, the alias of Score to Timing will not
-      // be taken into account.  We check for this particular case
-      // here.  Aliases apart from Score-level ones don't warrant
-      // context creation as they could create unwanted contexts, like
-      // RhythmicVoice instead of Voice.  Creating a Score context,
-      // however, can't really do anything wrong.
-
-      SCM score_name = default_child_context_name ();
-      SCM score_def = find_context_def (get_output_def (), score_name);
-
-      if (Context_def *cd = unsmob<Context_def> (score_def))
-        {
-          if (cd->is_alias (n))
-            return create_context (cd, id, operations);
-        }
     }
 
   // Searching below in recursive calls can find contexts beyond those that are
