@@ -514,7 +514,7 @@ opening bracket will be drawn, for @code{RIGHT} we get the closing bracket."
 
     (if (eqv? dir LEFT)
         stencil
-        (ly:stencil-scale stencil -1 1))))
+        (flip-stencil X stencil))))
 
 (define ((make-spacer-bar-line glyph) grob extent)
   "Draw an invisible bar line which has the same dimensions as the one
