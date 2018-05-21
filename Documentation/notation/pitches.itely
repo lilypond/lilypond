@@ -568,12 +568,13 @@ also vary depending on the language:
 @end multitable
 @end quotation
 
-In Dutch, @code{aes} is contracted to @code{as}, but both forms
-are accepted in LilyPond.  Similarly, both @code{es} and
-@code{ees} are accepted.  This also applies to
-@code{aeses}@tie{}/@tie{}@code{ases} and
-@code{eeses}@tie{}/@tie{}@code{eses}.  Sometimes only these
-contracted names are defined in the corresponding language files.
+In Dutch, German, Norwegian, and Finnish, @code{aes} is contracted to
+@code{as}; in Dutch and Norwegian, however, both forms are accepted by
+LilyPond.  Exactly the same holds for @code{es} and @code{ees},
+@code{aeses} and @code{ases}, and finally @code{eeses} and @code{eses}.
+
+In German and Finnish, LilyPond additionally provides the more frequent
+form @code{asas} for @code{ases}.
 
 @lilypond[verbatim,quote,fragment]
 \relative c'' { a2 as e es a ases e eses }
