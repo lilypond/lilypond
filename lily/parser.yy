@@ -3496,6 +3496,11 @@ dots:
 	}
 	;
 
+multiplier_scm:
+	NUMBER_IDENTIFIER
+	| embedded_scm_bare
+	;
+
 multipliers:
 	/* empty */
 	{
@@ -3515,6 +3520,16 @@ multipliers:
 							  scm_cdr ($3)));
 		else
 			$$ = scm_divide (scm_car ($3), scm_cdr ($3));
+	}
+	| multipliers '*' multiplier_scm
+	{
+		if (scm_is_false (Lily::scale_p ($3)))
+		{
+			parser->parser_error (@3, _ ("not a multiplier"));
+		} else if (SCM_UNBNDP ($1))
+			$$ = Lily::scale_to_factor ($3);
+		else
+			$$ = scm_product ($1, Lily::scale_to_factor ($3));
 	}
 	;
 

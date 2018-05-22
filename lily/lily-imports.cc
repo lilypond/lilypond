@@ -94,6 +94,8 @@ namespace Lily {
   Variable pitchnames ("pitchnames");
   Variable pure_chain_offset_callback ("pure-chain-offset-callback");
   Variable remove_stencil_warnings ("remove-stencil-warnings");
+  Variable scale_p ("scale?");
+  Variable scale_to_factor ("scale->factor");
   Variable scale_layout ("scale-layout");
   Variable scm_to_string ("scm->string");
   Variable score_lines_markup_list ("score-lines-markup-list");

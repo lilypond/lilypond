@@ -100,6 +100,8 @@ namespace Lily {
   extern Variable pitchnames;
   extern Variable pure_chain_offset_callback;
   extern Variable remove_stencil_warnings;
+  extern Variable scale_p;
+  extern Variable scale_to_factor;
   extern Variable scale_layout;
   extern Variable scm_to_string;
   extern Variable score_lines_markup_list;
