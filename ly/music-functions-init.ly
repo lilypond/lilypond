@@ -58,7 +58,7 @@ addQuote =
 %% keep these two together
 afterGraceFraction = 3/4
 afterGrace =
-#(define-music-function (fraction main grace) ((fraction?) ly:music? ly:music?)
+#(define-music-function (fraction main grace) ((scale?) ly:music? ly:music?)
    (_i "Create @var{grace} note(s) after a @var{main} music expression.
 
 The musical position of the grace expression is after a
@@ -77,7 +77,7 @@ given fraction of the main note's duration has passed.  If
                       'duration (ly:make-duration
                                  0 0
                                  (* (ly:moment-main main-length)
-                                    (/ (car fraction) (cdr fraction)))))
+                                    (scale->factor fraction))))
           (make-music 'GraceMusic
                       'element grace)))))
       'Bottom)))
@@ -1585,10 +1585,9 @@ rightHandFinger =
 
 scaleDurations =
 #(define-music-function (fraction music)
-   (fraction? ly:music?)
+   (scale? ly:music?)
    (_i "Multiply the duration of events in @var{music} by @var{fraction}.")
-   (ly:music-compress music
-                      (ly:make-moment (car fraction) (cdr fraction))))
+   (ly:music-compress music fraction))
 
 settingsFrom =
 #(define-scheme-function (ctx music)
