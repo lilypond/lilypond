@@ -110,6 +110,18 @@
       (every symbol? x)
       (symbol? x)))
 
+(define-public (scale? x)
+  (or (and (rational? x) (exact? x) (not (negative? x)))
+      (fraction? x)
+      (and (ly:moment? x) (scale? (ly:moment-main x)))))
+
+(define-public (scale->factor x)
+  ;; assumes valid input
+  (cond ((pair? x) (/ (car x) (cdr x)))
+        ((rational? x) x)
+        ((ly:moment? x) (ly:moment-main x))
+        (else #f)))
+
 (define-public (scheme? x) #t)
 
 
