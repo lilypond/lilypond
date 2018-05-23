@@ -332,9 +332,15 @@ Internals Reference:
 @cindex scaling durations
 @cindex durations, scaling
 
-The duration of single notes, rests or chords may be multiplied by a
-fraction @code{N/M} by appending @code{*N/M} (or @code{*N} if @code{M}
-is 1) to the duration.  This will not affect the appearance of the
+The duration of single notes, rests or chords may be multiplied by
+a fraction @code{N/M} by appending @code{*N/M} (or @code{*N} if
+@code{M} is 1) to the duration.  Factors may also be added by
+using Scheme expressions evaluating to a number or musical length
+like @code{*#(ly:music-length @var{music})}.  This is convenient
+for scaling a duration of @samp{1} to let a note or multi-measure
+rest stretch to a length derived from a music variable.
+
+Adding a factor will not affect the appearance of the
 notes or rests produced, but the altered duration will be used in
 calculating the position within the measure and setting the duration
 in the MIDI output.  Multiplying factors may be combined like
@@ -371,9 +377,9 @@ a multiplier.  This is useful for skipping many measures, e.g.,
 Longer stretches of music may be compressed by a fraction in the
 same way, as if every note, chord or rest had the fraction as a
 multiplier.  This leaves the appearance of the music unchanged but
-the internal duration of the notes will be multiplied by the
-fraction @emph{num}/@emph{den}.  Here is an example showing how music
-can be compressed and expanded:
+the internal duration of the notes will be multiplied by the given
+scale factor, usually @emph{num}/@emph{den}.  Here is an example
+showing how music can be compressed and expanded:
 
 @lilypond[quote,verbatim]
 \relative {
@@ -385,7 +391,7 @@ can be compressed and expanded:
     <c a f>4. c8 a f
   }
   % Scale music by *2
-  \scaleDurations 2/1 {
+  \scaleDurations 2 {
     <c' a>4 c8 b
   }
 }
