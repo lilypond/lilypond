@@ -55,7 +55,7 @@ public:
   void print () const;
 
   /// Scale the music in time by #factor#.
-  void compress (Moment factor);
+  void compress (Rational factor);
 
   // Broadcast the event in a context's event-source.
   void send_to_context (Context *c);

@@ -185,19 +185,17 @@ LY_DEFINE (ly_music_transpose, "ly:music-transpose",
   return sc->self_scm ();
 }
 
-/*
-  TODO: should take moment factor?
-*/
 LY_DEFINE (ly_music_compress, "ly:music-compress",
            2, 0, 0, (SCM m, SCM factor),
-           "Compress music object@tie{}@var{m} by moment @var{factor}.")
+           "Compress music object@tie{}@var{m} by scale @var{factor}.")
 {
-  LY_ASSERT_SMOB (Music, m, 1);
-  LY_ASSERT_SMOB (Moment, factor, 2);
+  Music *sc = LY_ASSERT_SMOB (Music, m, 1);
+  SCM_ASSERT_TYPE (scm_is_true (Lily::scale_p (factor)),
+                   factor, SCM_ARG2, __FUNCTION__,
+                   "non-negative rational, fraction, or moment");
 
-  Music *sc = unsmob<Music> (m);
-  sc->compress (*unsmob<Moment> (factor));
-  return sc->self_scm ();
+  sc->compress (ly_scm2rational (Lily::scale_to_factor (factor)));
+  return m;
 }
 
 LY_DEFINE (ly_make_music_relative_x, "ly:make-music-relative!",

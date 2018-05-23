@@ -142,7 +142,7 @@ music_list_to_relative (SCM l, Pitch p, bool ret_first)
 }
 
 void
-compress_music_list (SCM l, Moment m)
+compress_music_list (SCM l, Rational m)
 {
   for (SCM s = l; scm_is_pair (s); s = scm_cdr (s))
     unsmob<Music> (scm_car (s))->compress (m);

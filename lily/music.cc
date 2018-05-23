@@ -184,7 +184,7 @@ Music::to_relative_octave (Pitch last)
 }
 
 void
-Music::compress (Moment factor)
+Music::compress (Rational factor)
 {
   SCM elt = get_property ("element");
 
@@ -195,7 +195,7 @@ Music::compress (Moment factor)
   Duration *d = unsmob<Duration> (get_property ("duration"));
   if (d)
     set_property ("duration",
-                  d->compressed (factor.main_part_).smobbed_copy ());
+                  d->compressed (factor).smobbed_copy ());
 }
 
 /*
