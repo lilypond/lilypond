@@ -20,6 +20,7 @@
 #ifndef CONTEXT_DEF_HH
 #define CONTEXT_DEF_HH
 
+#include "acceptance-set.hh"
 #include "std-vector.hh"
 #include "lily-proto.hh"
 #include "smobs.hh"
@@ -42,20 +43,17 @@ private:
     these lists store the definition, in opposite order of entry
   */
   SCM translator_mods_;
-  SCM accept_mods_;
+  Acceptance_set acceptance_;
   SCM property_ops_;
   SCM description_;
   SCM context_name_;
   SCM context_aliases_;
   SCM translator_group_type_;
-  SCM default_child_;
   SCM input_location_;
 public:
   Input *origin () const;
   void add_context_mod (SCM);
-  SCM get_default_child (SCM user_mods) const;
   SCM get_context_name () const { return context_name_; }
-  SCM get_accepted (SCM user_mods) const;
   SCM get_property_ops () const { return property_ops_; }
   SCM get_translator_names (SCM) const;
   SCM get_translator_group_type () const { return translator_group_type_; }

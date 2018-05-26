@@ -86,8 +86,6 @@ Context::Context ()
   client_count_ = 0;
   implementation_ = 0;
   properties_scm_ = SCM_EOL;
-  accepts_list_ = SCM_EOL;
-  default_child_ = SCM_EOL;
   context_list_ = SCM_EOL;
   definition_ = SCM_EOL;
   definition_mods_ = SCM_EOL;
@@ -329,29 +327,12 @@ Context::path_to_acceptable_context (SCM name) const
 
   if (scm_is_eq (name, ly_symbol2scm ("Bottom")))
     {
-      SCM child_name = default_child_context_name ();
-      return Context_def::path_to_bottom_context (odef, child_name);
+      return Context_def::path_to_bottom_context (odef,
+                                                  acceptance_.get_default ());
     }
 
-  // The 'accepts elements in definition_mods_ is a list of ('accepts string),
-  // but the Context_def expects to see elements of the form ('accepts symbol).
-  SCM accepts = SCM_EOL;
-  for (SCM s = definition_mods_; scm_is_pair (s); s = scm_cdr (s))
-    {
-      SCM tag = scm_caar (s);
-      if (scm_is_eq (tag, ly_symbol2scm ("accepts"))
-          || scm_is_eq (tag, ly_symbol2scm ("denies"))
-          || scm_is_eq (tag, ly_symbol2scm ("default-child")))
-        {
-          SCM elt = scm_list_2 (tag, scm_string_to_symbol (scm_cadar (s)));
-          accepts = scm_cons (elt, accepts);
-        }
-    }
-
-  return unsmob<Context_def> (definition_)->path_to_acceptable_context (name,
-         odef,
-         scm_reverse_x (accepts, SCM_EOL));
-
+  return unsmob<Context_def> (definition_)->
+    path_to_acceptable_context (name, odef, acceptance_.get_list ());
 }
 
 Context *
@@ -426,20 +407,10 @@ Context::create_hierarchy (const std::vector<Context_def *> &path,
   return leaf;
 }
 
-/*
-  Default child context as a SCM string, or something else if there is
-  none.
-*/
-SCM
-Context::default_child_context_name () const
-{
-  return default_child_;
-}
-
 bool
 Context::is_bottom_context () const
 {
-  return !scm_is_symbol (default_child_context_name ());
+  return !acceptance_.has_default ();
 }
 
 Context *
@@ -805,8 +776,7 @@ Context::mark_smob () const
   scm_gc_mark (definition_);
   scm_gc_mark (definition_mods_);
   scm_gc_mark (properties_scm_);
-  scm_gc_mark (accepts_list_);
-  scm_gc_mark (default_child_);
+  acceptance_.gc_mark ();
 
   if (implementation_)
     scm_gc_mark (implementation_->self_scm ());

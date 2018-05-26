@@ -20,6 +20,7 @@
 #ifndef CONTEXT_HH
 #define CONTEXT_HH
 
+#include "acceptance-set.hh"
 #include "duration.hh"
 #include "lily-guile.hh"
 #include "lily-proto.hh"
@@ -72,8 +73,7 @@ protected:
 
   SCM properties_scm_;
   SCM context_list_;
-  SCM accepts_list_;
-  SCM default_child_;
+  Acceptance_set acceptance_;
   SCM aliases_;
   Translator_group *implementation_;
   string id_string_;
@@ -98,7 +98,6 @@ protected:
 public:
   string id_string () const { return id_string_; }
   SCM children_contexts () const { return context_list_; }
-  SCM default_child_context_name () const;
 
   Dispatcher *event_source () const { return event_source_; }
   Dispatcher *events_below () const { return events_below_; }

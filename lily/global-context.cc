@@ -57,8 +57,7 @@ Global_context::Global_context (Output_def *o)
   else
     globaldef->apply_default_property_operations (this);
 
-  default_child_ = ly_symbol2scm ("Score");
-  accepts_list_ = scm_list_1 (default_child_);
+  acceptance_.accept_default (ly_symbol2scm ("Score"));
 }
 
 void
