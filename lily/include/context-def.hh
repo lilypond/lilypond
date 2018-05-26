@@ -68,6 +68,9 @@ public:
   vector<Context_def *> path_to_acceptable_context (SCM type_string,
                                                     Output_def *,
                                                     SCM) const;
+
+  static vector<Context_def *> path_to_bottom_context (Output_def *,
+                                                       SCM first_child_type_sym);
   Context *instantiate (SCM extra_ops);
 
   SCM to_alist () const;
@@ -84,6 +87,10 @@ private:
                                                              Output_def *,
                                                              SCM,
                                                              set<const Context_def *> *seen) const;
+
+  static bool internal_path_to_bottom_context (Output_def *,
+                                               vector<Context_def *> *path,
+                                               SCM next_type_sym);
 };
 
 #endif /* CONTEXT_DEF_HH */

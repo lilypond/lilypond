@@ -144,7 +144,8 @@ public:
   virtual Context *get_score_context () const;
   virtual Output_def *get_output_def () const;
   virtual Moment now_mom () const;
-  virtual Context *get_default_interpreter (const string &context_id = "");
+
+  Context *get_default_interpreter (const string &context_id = "");
 
   bool is_alias (SCM) const;
   void add_alias (SCM);

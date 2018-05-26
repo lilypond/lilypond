@@ -29,6 +29,17 @@
 #include "translator.hh"
 #include "warn.hh"
 
+static bool
+is_instantiable (Context_def *c)
+{
+  // This looks trivial, but it has semantic value.
+  //
+  // We can instantiate any context with a definition, but if there were any
+  // properties of the definition that could prevent instantiatation, we would
+  // also want to check them here.
+  return c;
+}
+
 Context_def::Context_def ()
 {
   context_aliases_ = SCM_EOL;
@@ -224,12 +235,8 @@ Context_def::path_to_acceptable_context (SCM type_sym,
                                          SCM additional_accepts) const
 {
   set<const Context_def *> seen;
-
-  // It seems we can instantiate any context with a definition, but if there
-  // were any properties in the definition that could prevent instantiatation,
-  // we would also want to check them here.
-  bool instantiable = unsmob<Context_def> (find_context_def (odef, type_sym));
-  return internal_path_to_acceptable_context (type_sym, instantiable,
+  Context_def *t = unsmob<Context_def> (find_context_def (odef, type_sym));
+  return internal_path_to_acceptable_context (type_sym, is_instantiable (t),
                                               odef, additional_accepts, &seen);
 }
 
@@ -259,9 +266,12 @@ Context_def::internal_path_to_acceptable_context (SCM type_sym,
 
   vector<Context_def *> accepteds;
   for (SCM s = accepted; scm_is_pair (s); s = scm_cdr (s))
-    if (Context_def *t = unsmob<Context_def> (find_context_def (odef,
-                                                               scm_car (s))))
-      accepteds.push_back (t);
+    {
+      Context_def *t = unsmob<Context_def> (find_context_def (odef,
+                                                              scm_car (s)));
+      if (is_instantiable (t))
+        accepteds.push_back (t);
+    }
 
   vector<Context_def *> best_result;
   for (vsize i = 0; i < accepteds.size (); i++)
@@ -298,6 +308,43 @@ Context_def::internal_path_to_acceptable_context (SCM type_sym,
   seen->erase (this);
 
   return best_result;
+}
+
+vector<Context_def *>
+Context_def::path_to_bottom_context (Output_def *odef,
+                                     SCM first_child_type_sym)
+{
+  vector<Context_def *> path;
+  if (!internal_path_to_bottom_context (odef, &path, first_child_type_sym))
+    path.clear ();
+  return path;
+}
+
+bool
+Context_def::internal_path_to_bottom_context (Output_def *odef,
+                                              vector<Context_def *> *path,
+                                              SCM next_type_sym)
+{
+  if (!scm_is_symbol (next_type_sym))
+    return true; // the caller is the bottom
+
+  Context_def *t = unsmob<Context_def> (find_context_def (odef, next_type_sym));
+  if (!is_instantiable (t))
+    {
+      warning (_f ("cannot create default child context: `%s'",
+                   ly_symbol2string (next_type_sym).c_str ()));
+      return false;
+    }
+
+  if (std::find (path->begin (), path->end (), t) != path->end ())
+    {
+      warning (_f ("default child context begins a cycle: `%s'",
+                   ly_symbol2string (next_type_sym).c_str ()));
+      return false;
+    }
+
+  path->push_back (t);
+  return internal_path_to_bottom_context (odef, path, t->default_child_);
 }
 
 SCM

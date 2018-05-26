@@ -161,12 +161,6 @@ Context::find_create_context (Input *origin,
   if (Context *existing = find_context_below (this, n, id))
     return existing;
 
-  if (scm_is_eq (n, ly_symbol2scm ("Bottom")))
-    {
-      Context *tg = get_default_interpreter (id);
-      return tg;
-    }
-
   vector<Context_def *> path = path_to_acceptable_context (n);
   if (!path.empty ())
     return create_hierarchy (path, "", id, operations);
@@ -331,6 +325,14 @@ Context::create_context_from_event (SCM sev)
 vector<Context_def *>
 Context::path_to_acceptable_context (SCM name) const
 {
+  Output_def *odef = get_output_def ();
+
+  if (scm_is_eq (name, ly_symbol2scm ("Bottom")))
+    {
+      SCM child_name = default_child_context_name ();
+      return Context_def::path_to_bottom_context (odef, child_name);
+    }
+
   // The 'accepts elements in definition_mods_ is a list of ('accepts string),
   // but the Context_def expects to see elements of the form ('accepts symbol).
   SCM accepts = SCM_EOL;
@@ -347,7 +349,7 @@ Context::path_to_acceptable_context (SCM name) const
     }
 
   return unsmob<Context_def> (definition_)->path_to_acceptable_context (name,
-         get_output_def (),
+         odef,
          scm_reverse_x (accepts, SCM_EOL));
 
 }
@@ -441,34 +443,25 @@ Context::is_bottom_context () const
 }
 
 Context *
-Context::get_default_interpreter (const string &context_id)
+Context::get_default_interpreter (const string &id)
 {
-  if (!is_bottom_context ())
+  if (is_bottom_context ())
     {
-      SCM nm = default_child_context_name ();
-      SCM st = find_context_def (get_output_def (), nm);
+      if (id.empty () || (id == id_string ()))
+        return this; // this is where we want to be
+    }
 
-      string name = ly_symbol2string (nm);
-      Context_def *t = unsmob<Context_def> (st);
-      if (!t)
-        {
-          warning (_f ("cannot find or create: `%s'", name.c_str ()));
-          t = unsmob<Context_def> (definition_);
-        }
-      if (scm_is_symbol (t->get_default_child (SCM_EOL)))
-        {
-          Context *tg = create_context (t, NEW_CONTEXT_ID, SCM_EOL);
-          return tg->get_default_interpreter (context_id);
-        }
-      return create_context (t, context_id, SCM_EOL);
-    }
-  else if (!context_id.empty () && context_id != id_string ())
+  // It's interesting that this goes straight to creating a new hierarchy even
+  // if there might be an existing partial (or even full?) path to a bottom
+  // context.  This deserves an explanation.
+  if (Context *c =
+      create_unique_context (ly_symbol2scm ("Bottom"), id, SCM_EOL))
     {
-      if (daddy_context_ && !dynamic_cast<Global_context *> (daddy_context_))
-        return daddy_context_->get_default_interpreter (context_id);
-      warning (_f ("cannot find or create new Bottom = \"%s\"",
-                   context_id.c_str ()));
+      return c;
     }
+
+  // We expect that create_unique_context () logged a warning.
+  // Remaining in this context is more graceful than returning null.
   return this;
 }
 
