@@ -193,11 +193,14 @@ Context_def::get_default_child (SCM user_mod) const
   for (SCM s = user_mod; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM entry = scm_car (s);
-      if (scm_is_eq (scm_car (entry), ly_symbol2scm ("default-child")))
+      SCM tag = scm_car (entry);
+      if (scm_is_eq (tag, ly_symbol2scm ("denies")))
         {
-          name = scm_cadr (entry);
-          break;
+          if (scm_is_eq (scm_cadr (entry), name))
+            name = SCM_EOL;
         }
+      else if (scm_is_eq (tag, ly_symbol2scm ("default-child")))
+        name = scm_cadr (entry);
     }
 
   return name;

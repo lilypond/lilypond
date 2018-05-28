@@ -335,11 +335,16 @@ Context::path_to_acceptable_context (SCM name) const
   // but the Context_def expects to see elements of the form ('accepts symbol).
   SCM accepts = SCM_EOL;
   for (SCM s = definition_mods_; scm_is_pair (s); s = scm_cdr (s))
-    if (scm_is_eq (scm_caar (s), ly_symbol2scm ("accepts")))
-      {
-        SCM elt = scm_list_2 (scm_caar (s), scm_string_to_symbol (scm_cadar (s)));
-        accepts = scm_cons (elt, accepts);
-      }
+    {
+      SCM tag = scm_caar (s);
+      if (scm_is_eq (tag, ly_symbol2scm ("accepts"))
+          || scm_is_eq (tag, ly_symbol2scm ("denies"))
+          || scm_is_eq (tag, ly_symbol2scm ("default-child")))
+        {
+          SCM elt = scm_list_2 (tag, scm_string_to_symbol (scm_cadar (s)));
+          accepts = scm_cons (elt, accepts);
+        }
+    }
 
   return unsmob<Context_def> (definition_)->path_to_acceptable_context (name,
          get_output_def (),
