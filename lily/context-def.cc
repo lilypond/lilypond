@@ -137,9 +137,14 @@ Context_def::add_context_mod (SCM mod)
     {
       translator_mods_ = scm_cons (scm_list_2 (tag, sym), translator_mods_);
     }
-  else if (scm_is_eq (tag, ly_symbol2scm ("accepts"))
-           || scm_is_eq (tag, ly_symbol2scm ("denies")))
+  else if (scm_is_eq (tag, ly_symbol2scm ("accepts")))
     accept_mods_ = scm_cons (scm_list_2 (tag, sym), accept_mods_);
+  else if (scm_is_eq (tag, ly_symbol2scm ("denies")))
+    {
+      accept_mods_ = scm_cons (scm_list_2 (tag, sym), accept_mods_);
+      if (scm_is_eq (sym, default_child_))
+        default_child_ = SCM_EOL;
+    }
   else if (scm_is_eq (tag, ly_symbol2scm ("pop"))
            || scm_is_eq (tag, ly_symbol2scm ("push"))
            || scm_is_eq (tag, ly_symbol2scm ("assign"))
