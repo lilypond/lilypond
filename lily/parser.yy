@@ -601,7 +601,7 @@ embedded_lilypond:
 		if (!unsmob<Music> ($1))
 			$$ = MY_MAKE_MUSIC ("PostEvents", @$)->unprotect ();
 	}
-	| multiplied_duration post_events %prec ':'
+	| duration post_events %prec ':'
 	{
 		if (scm_is_pair ($2)) {
 			Music *n = MY_MAKE_MUSIC ("NoteEvent", @$);
@@ -1456,7 +1456,7 @@ music_embedded:
 	{
 		$$ = $3;
 	}
-	| multiplied_duration post_events %prec ':'
+	| duration post_events %prec ':'
 	{
 		Music *n = MY_MAKE_MUSIC ("NoteEvent", @$);
 
@@ -1879,7 +1879,7 @@ function_arglist_nonbackup:
 					       (parser, @3, $3),
 					       $1, $2);
 	}
-	| function_arglist_nonbackup_reparse REPARSE multiplied_duration
+	| function_arglist_nonbackup_reparse REPARSE duration
 	{
 		$$ = check_scheme_arg (parser, @3, $3, $1, $2);
 	}
@@ -2276,7 +2276,7 @@ function_arglist_backup:
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
 	}
-	| function_arglist_backup REPARSE multiplied_duration
+	| function_arglist_backup REPARSE duration
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
@@ -2412,7 +2412,7 @@ function_arglist_common:
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
 	}
-	| function_arglist_common_reparse REPARSE multiplied_duration
+	| function_arglist_common_reparse REPARSE duration
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
@@ -3452,7 +3452,7 @@ maybe_notemode_duration:
 	{
 		$$ = SCM_UNDEFINED;
 	} %prec ':'
-	| multiplied_duration	{
+	| duration	{
 		$$ = $1;
 		parser->default_duration_ = *unsmob<Duration> ($$);
 	}
@@ -3481,7 +3481,7 @@ steno_duration:
 	}
 	;
 
-multiplied_duration:
+duration:
 	steno_duration multipliers {
 		$$ = make_duration ($1, 0, $2);
 	}
