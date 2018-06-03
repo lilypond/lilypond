@@ -33,7 +33,7 @@ public:
   Paper_column (SCM);
   Paper_column (Paper_column const &);
 
-  virtual Grob *clone () const;
+  virtual Paper_column *clone () const { return new Paper_column (*this); }
   virtual void do_break_processing ();
   virtual Paper_column *get_column () const;
   virtual System *get_system () const;

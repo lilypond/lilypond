@@ -90,7 +90,7 @@ public:
 
 protected:
   void set_my_columns ();
-  virtual Grob *clone () const;
+  virtual Spanner *clone () const { return new Spanner (*this); }
   virtual void do_break_processing ();
   bool fast_substitute_grob_array (SCM sym, Grob_array *);
 };

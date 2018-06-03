@@ -26,12 +26,6 @@
 #include "system.hh"
 #include "warn.hh"
 
-Grob *
-Spanner::clone () const
-{
-  return new Spanner (*this);
-}
-
 void
 Spanner::do_break_processing ()
 {
@@ -57,7 +51,7 @@ Spanner::do_break_processing ()
             programming_error ("no broken bound");
           else if (bound->get_system ())
             {
-              Spanner *span = dynamic_cast<Spanner *> (clone ());
+              Spanner *span = clone ();
               span->set_bound (LEFT, bound);
               span->set_bound (RIGHT, bound);
 
@@ -116,7 +110,7 @@ Spanner::do_break_processing ()
               continue;
             }
 
-          Spanner *span = dynamic_cast<Spanner *> (clone ());
+          Spanner *span = clone ();
           span->set_bound (LEFT, bounds[LEFT]);
           span->set_bound (RIGHT, bounds[RIGHT]);
 

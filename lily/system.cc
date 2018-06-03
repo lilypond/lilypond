@@ -68,12 +68,6 @@ System::init_elements ()
   set_object ("all-elements", scm_arr);
 }
 
-Grob *
-System::clone () const
-{
-  return new System (*this);
-}
-
 int
 System::element_count () const
 {
@@ -435,7 +429,7 @@ System::break_into_pieces (vector<Column_x_positions> const &breaking)
 {
   for (vsize i = 0; i < breaking.size (); i++)
     {
-      System *system = dynamic_cast<System *> (clone ());
+      System *system = clone ();
       system->rank_ = broken_intos_.size ();
 
       vector<Grob *> c (breaking[i].cols_);

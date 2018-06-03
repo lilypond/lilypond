@@ -89,7 +89,7 @@ public:
 
 protected:
   virtual void derived_mark () const;
-  virtual Grob *clone () const;
+  virtual System *clone () const { return new System (*this); }
 
 private:
   Interval part_of_line_pure_height (vsize start, vsize end, bool begin);

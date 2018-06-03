@@ -29,12 +29,6 @@
 
 #include "moment.hh"
 
-Grob *
-Item::clone () const
-{
-  return new Item (*this);
-}
-
 Item::Item (SCM s)
   : Grob (s)
 {

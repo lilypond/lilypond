@@ -39,12 +39,6 @@
 #include "text-interface.hh"
 #include "warn.hh"
 
-Grob *
-Paper_column::clone () const
-{
-  return new Paper_column (*this);
-}
-
 void
 Paper_column::do_break_processing ()
 {

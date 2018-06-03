@@ -36,7 +36,7 @@ public:
   Item (SCM);
   Item (Item const &);
 
-  virtual Grob *clone () const;
+  virtual Item *clone () const { return new Item (*this); }
 
   static bool is_non_musical (Grob *);
   static bool break_visible (Grob *);
