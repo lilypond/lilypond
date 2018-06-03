@@ -237,8 +237,7 @@ get_paper (Lily_parser *parser)
                        ? 0 : unsmob<Output_def> (scm_car (papers));
   SCM default_paper = parser->lexer_->lookup_identifier ("$defaultpaper");
   layout = layout ? layout : unsmob<Output_def> (default_paper);
-
-  layout = layout ? dynamic_cast<Output_def *> (layout->clone ()) : new Output_def;
+  layout = layout ? layout->clone () : new Output_def;
   layout->set_variable (ly_symbol2scm ("is-paper"), SCM_BOOL_T);
   return layout;
 }

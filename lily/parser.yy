@@ -976,7 +976,7 @@ book_body:
 	{
 		Book *book = new Book;
 		init_papers (parser);
-		book->paper_ = dynamic_cast<Output_def*> (unsmob<Output_def> (parser->lexer_->lookup_identifier ("$defaultpaper"))->clone ());
+		book->paper_ = unsmob<Output_def> (parser->lexer_->lookup_identifier ("$defaultpaper"))->clone ();
 		book->paper_->unprotect ();
 		push_paper (parser, book->paper_);
 		book->header_ = get_header (parser);
