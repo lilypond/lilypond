@@ -63,7 +63,7 @@ Hyphen_engraver::Hyphen_engraver (Context *c)
 void
 Hyphen_engraver::acknowledge_lyric_syllable (Grob_info i)
 {
-  Item *item = i.item ();
+  Item *item = dynamic_cast<Item *> (i.grob ());
 
   if (!hyphen_)
     hyphen_ = make_spanner ("LyricSpace", item->self_scm ());

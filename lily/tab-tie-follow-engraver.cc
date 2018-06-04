@@ -59,19 +59,19 @@ Tab_tie_follow_engraver::Tab_tie_follow_engraver (Context *c)
 void
 Tab_tie_follow_engraver::acknowledge_glissando (Grob_info info)
 {
-  glissandi_.push_back (info.spanner ());
+  glissandi_.push_back (dynamic_cast<Spanner *> (info.grob ()));
 }
 
 void
 Tab_tie_follow_engraver::acknowledge_tab_note_head (Grob_info info)
 {
-  note_heads_.push_back (info.item ());
+  note_heads_.push_back (dynamic_cast<Item *> (info.grob ()));
 }
 
 void
 Tab_tie_follow_engraver::acknowledge_slur (Grob_info info)
 {
-  slurs_.push_back (info.spanner ());
+  slurs_.push_back (dynamic_cast<Spanner *> (info.grob ()));
 }
 
 void

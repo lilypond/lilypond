@@ -150,10 +150,11 @@ Volta_engraver::process_music ()
 void
 Volta_engraver::acknowledge_bar_line (Grob_info i)
 {
+  Item *item = dynamic_cast<Item *> (i.grob ());
   if (volta_bracket_)
-    Volta_bracket_interface::add_bar (volta_bracket_, i.item ());
+    Volta_bracket_interface::add_bar (volta_bracket_, item);
   if (end_volta_bracket_)
-    Volta_bracket_interface::add_bar (end_volta_bracket_, i.item ());
+    Volta_bracket_interface::add_bar (end_volta_bracket_, item);
 
   if (volta_spanner_)
     Side_position_interface::add_support (volta_spanner_, i.grob ());

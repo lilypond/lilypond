@@ -96,9 +96,9 @@ Ligature_bracket_engraver::acknowledge_note_column (Grob_info info)
 {
   if (ligature_)
     {
-      Tuplet_bracket::add_column (ligature_,
-                                  info.item ());
-      add_bound_item (ligature_, info.item ());
+      Item *item = dynamic_cast<Item *> (info.grob ());
+      Tuplet_bracket::add_column (ligature_, item);
+      add_bound_item (ligature_, item);
     }
 }
 

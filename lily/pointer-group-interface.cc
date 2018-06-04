@@ -21,6 +21,7 @@
 
 #include "grob-array.hh"
 #include "grob.hh"
+#include "item.hh"
 
 int
 Pointer_group_interface::count (Grob *me, SCM sym)
@@ -106,7 +107,7 @@ internal_extract_item_array (Grob const *elt, SCM symbol)
   Grob_array *arr = unsmob<Grob_array> (elt->internal_get_object (symbol));
   vector<Item *> items;
   for (vsize i = 0; arr && i < arr->size (); i++)
-    items.push_back (arr->item (i));
+    items.push_back (dynamic_cast<Item *> (arr->grob (i)));
 
   return items;
 }

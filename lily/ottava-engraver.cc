@@ -84,14 +84,16 @@ Ottava_spanner_engraver::process_music ()
 void
 Ottava_spanner_engraver::acknowledge_note_column (Grob_info info)
 {
-  Item *it = info.item ();
-  if (span_ && it)
+  if (span_)
     {
-      Side_position_interface::add_support (span_, it);
+      if (Item *it = dynamic_cast<Item *> (info.grob ()))
+        {
+          Side_position_interface::add_support (span_, it);
 
-      if (!span_->get_bound (LEFT))
-        span_->set_bound (LEFT, it);
-      span_->set_bound (RIGHT, it);
+          if (!span_->get_bound (LEFT))
+            span_->set_bound (LEFT, it);
+          span_->set_bound (RIGHT, it);
+        }
     }
 }
 

@@ -213,14 +213,15 @@ Piano_pedal_align_engraver::acknowledge_piano_pedal_bracket (Grob_info gi)
   Grob *sp = make_line_spanner (type, gi.grob ()->self_scm ());
 
   Axis_group_interface::add_element (sp, gi.grob ());
-  pedal_info_[type].carrying_spanner_ = gi.spanner ();
+  pedal_info_[type].carrying_spanner_ = dynamic_cast<Spanner *> (gi.grob ());
 }
 
 void
 Piano_pedal_align_engraver::acknowledge_end_piano_pedal_bracket (Grob_info gi)
 {
   Pedal_type type = get_grob_pedal_type (gi);
-  pedal_info_[type].finished_carrying_spanner_ = gi.spanner ();
+  pedal_info_[type].finished_carrying_spanner_
+    = dynamic_cast<Spanner *> (gi.grob ());
 }
 
 void

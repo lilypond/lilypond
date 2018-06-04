@@ -113,7 +113,7 @@ Spacing_interface::right_column (Grob *me)
   int min_rank = INT_MAX;
   for (vsize i = 0; a && i < a->size (); i++)
     {
-      Item *ri = a->item (i);
+      Item *ri = dynamic_cast<Item *> (a->grob (i));
       Item *col = ri->get_column ();
 
       int rank = Paper_column::get_rank (col);

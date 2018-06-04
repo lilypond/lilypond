@@ -49,8 +49,11 @@ Pure_from_neighbor_engraver::Pure_from_neighbor_engraver (Context *c)
 void
 Pure_from_neighbor_engraver::acknowledge_item (Grob_info i)
 {
-  if (!has_interface<Pure_from_neighbor_interface> (i.item ()))
-    pure_relevants_.push_back (i.item ());
+  if (Item *item = dynamic_cast<Item *> (i.grob ()))
+    {
+      if (!has_interface<Pure_from_neighbor_interface> (item))
+        pure_relevants_.push_back (item);
+    }
 }
 
 bool
@@ -67,7 +70,8 @@ in_same_column (Grob *g1, Grob *g2)
 void
 Pure_from_neighbor_engraver::acknowledge_pure_from_neighbor (Grob_info i)
 {
-  need_pure_heights_from_neighbors_.push_back (i.item ());
+  Item *item = dynamic_cast<Item *> (i.grob ());
+  need_pure_heights_from_neighbors_.push_back (item);
 }
 
 void

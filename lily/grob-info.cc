@@ -19,9 +19,8 @@
 
 #include "context.hh"
 #include "grob-info.hh"
-#include "item.hh"
+#include "grob.hh"
 #include "music.hh"
-#include "spanner.hh"
 #include "stream-event.hh"
 #include "translator-group.hh"
 
@@ -68,18 +67,6 @@ Context *
 Grob_info::context () const
 {
   return origin_trans_->context ();
-}
-
-Spanner *
-Grob_info::spanner () const
-{
-  return dynamic_cast<Spanner *> (grob_);
-}
-
-Item *
-Grob_info::item () const
-{
-  return dynamic_cast<Item *> (grob_);
 }
 
 Stream_event *

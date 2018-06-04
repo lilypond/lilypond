@@ -18,21 +18,7 @@
 */
 
 #include "grob-array.hh"
-#include "item.hh"
-#include "spanner.hh"
-
-
-Item *
-Grob_array::item (vsize i)
-{
-  return dynamic_cast<Item *> (grobs_.at (i));
-}
-
-Spanner *
-Grob_array::spanner (vsize i)
-{
-  return dynamic_cast<Spanner *> (grobs_.at (i));
-}
+#include "grob.hh"
 
 Grob_array::Grob_array ()
 {

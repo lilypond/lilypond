@@ -91,7 +91,7 @@ Clef_engraver::set_glyph ()
 void
 Clef_engraver::acknowledge_bar_line (Grob_info info)
 {
-  Item *item = info.item ();
+  Item *item = dynamic_cast<Item *> (info.grob ());
   if (item && scm_is_string (get_property ("clefGlyph")))
     create_clef ();
 }

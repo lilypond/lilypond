@@ -95,7 +95,7 @@ Cue_clef_engraver::set_glyph ()
 void
 Cue_clef_engraver::acknowledge_bar_line (Grob_info info)
 {
-  Item *item = info.item ();
+  Item *item = dynamic_cast<Item *> (info.grob ());
   if (item && scm_is_string (get_property ("cueClefGlyph")))
     create_clef ();
 }

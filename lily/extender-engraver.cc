@@ -93,7 +93,7 @@ Extender_engraver::process_music ()
 void
 Extender_engraver::acknowledge_lyric_syllable (Grob_info i)
 {
-  Item *item = i.item ();
+  Item *item = dynamic_cast<Item *> (i.grob ());
   if (extender_)
     extender_->set_bound (LEFT, item);
 

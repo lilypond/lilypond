@@ -50,7 +50,7 @@ void
 Spanner_break_forbid_engraver::acknowledge_end_unbreakable_spanner (Grob_info gi)
 {
   vector<Spanner *>::iterator i = find (running_spanners_.begin (), running_spanners_.end (),
-                                        gi.spanner ());
+                                        dynamic_cast<Spanner *> (gi.grob ()));
   if (i != running_spanners_.end ())
     running_spanners_.erase (i);
 }
@@ -59,7 +59,7 @@ void
 Spanner_break_forbid_engraver::acknowledge_unbreakable_spanner (Grob_info gi)
 {
   if (!to_boolean (gi.grob ()->get_property ("breakable")))
-    running_spanners_.push_back (gi.spanner ());
+    running_spanners_.push_back (dynamic_cast<Spanner *> (gi.grob ()));
 }
 
 Spanner_break_forbid_engraver::Spanner_break_forbid_engraver (Context *c)

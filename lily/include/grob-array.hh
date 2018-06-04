@@ -39,8 +39,6 @@ private:
 public:
   bool ordered () const { return ordered_; }
   void set_ordered (bool b) { ordered_ = b; }
-  Item *item (vsize i);
-  Spanner *spanner (vsize i);
   Grob *grob (vsize i) const { return grobs_.at (i); }
   vsize size () const { return grobs_.size (); }
   bool empty () const { return grobs_.empty (); }

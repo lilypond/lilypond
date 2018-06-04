@@ -74,7 +74,7 @@ Break_align_engraver::acknowledge_break_alignable (Grob_info inf)
     Special case for MetronomeMark: filter out items which will be aligned
     on note heads rather than prefatory material
   */
-  if (!Item::is_non_musical (inf.item ()))
+  if (!Item::is_non_musical (dynamic_cast<Item *> (inf.grob ())))
     return;
 
   if (!align_)

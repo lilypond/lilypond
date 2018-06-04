@@ -108,7 +108,7 @@ Paper_column_engraver::initialize ()
 void
 Paper_column_engraver::acknowledge_item (Grob_info gi)
 {
-  items_.push_back (gi.item ());
+  items_.push_back (dynamic_cast<Item *> (gi.grob ()));
 }
 
 void

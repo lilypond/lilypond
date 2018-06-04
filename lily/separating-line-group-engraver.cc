@@ -77,7 +77,7 @@ Separating_line_group_engraver::Separating_line_group_engraver (Context *c)
 void
 Separating_line_group_engraver::acknowledge_item (Grob_info i)
 {
-  Item *it = i.item ();
+  Item *it = dynamic_cast<Item *> (i.grob ());
 
   if (has_interface<Note_spacing> (it))
     {
