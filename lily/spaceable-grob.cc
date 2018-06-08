@@ -78,23 +78,20 @@ Spaceable_grob::add_spring (Grob *me, Grob *other, Spring sp)
 Spring
 Spaceable_grob::get_spring (Paper_column *this_col, Grob *next_col)
 {
-  Spring *spring = 0;
-
   for (SCM s = this_col->get_object ("ideal-distances");
-       !spring && scm_is_pair (s);
-       s = scm_cdr (s))
+       scm_is_pair (s); s = scm_cdr (s))
     {
       if (scm_is_pair (scm_car (s))
-          && unsmob<Grob> (scm_cdar (s)) == next_col
-          && unsmob<Spring> (scm_caar (s)))
-        spring = unsmob<Spring> (scm_caar (s));
+          && unsmob<Grob> (scm_cdar (s)) == next_col)
+        {
+          if (Spring *spring = unsmob<Spring> (scm_caar (s)))
+            return *spring;
+        }
     }
 
-  if (!spring)
-    programming_error (to_string ("No spring between column %d and next one",
-                                  this_col->get_rank ()));
-
-  return spring ? *spring : Spring ();
+  programming_error (to_string ("No spring between column %d and next one",
+                                this_col->get_rank ()));
+  return {};
 }
 
 ADD_INTERFACE (Spaceable_grob,
