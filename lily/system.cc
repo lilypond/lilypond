@@ -517,8 +517,14 @@ System::add_column (Paper_column *p)
 void
 System::pre_processing ()
 {
-  for (vsize i = 0; i < all_elements_->size (); i++)
-    all_elements_->grob (i)->discretionary_processing ();
+  /*
+    Each breakable Item calls back to this System to append two clones of
+    itself (for before and after a break) to the vector.  We stop after
+    breaking the originals and don't invite the clones to break themselves.
+  */
+  vsize num_original_grobs = all_elements_->size ();
+  for (vsize i = 0; i < num_original_grobs; i++)
+    all_elements_->grob (i)->break_breakable_item (this);
 
   debug_output (_f ("Grob count %zu", element_count ()));
 

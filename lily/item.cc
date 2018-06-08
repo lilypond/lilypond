@@ -68,37 +68,38 @@ Item::get_system () const
 }
 
 void
-Item::copy_breakable_items ()
+Item::break_breakable_item (System *sys)
 {
-  Drul_array<Item *> new_copies;
-  for (LEFT_and_RIGHT (d))
+  if (is_broken ())
     {
-      Grob *dolly = clone ();
-      Item *item = dynamic_cast<Item *> (dolly);
-      get_root_system (this)->typeset_grob (item);
-      new_copies[d] = item;
+      programming_error ("item is already broken");
+      return;
     }
 
-  broken_to_drul_ = new_copies;
+  if (original ())
+    {
+      programming_error ("item is a clone; refusing to break");
+      return;
+    }
+
+  if (Item::is_non_musical (this))
+    {
+      Drul_array<Item *> new_copies;
+      for (LEFT_and_RIGHT (d))
+        {
+          Item *item = clone ();
+          sys->typeset_grob (item);
+          new_copies[d] = item;
+        }
+
+      broken_to_drul_ = new_copies;
+    }
 }
 
 bool
 Item::is_broken () const
 {
   return broken_to_drul_[LEFT] || broken_to_drul_[RIGHT];
-}
-
-/*
-  Generate items for begin and end-of line.
-*/
-void
-Item::discretionary_processing ()
-{
-  if (is_broken () || original ())
-    return;
-
-  if (Item::is_non_musical (this))
-    copy_breakable_items ();
 }
 
 Item *

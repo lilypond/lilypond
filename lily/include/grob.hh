@@ -125,7 +125,7 @@ public:
   static System *get_system (Grob *);
   virtual void do_break_processing ();
   virtual Grob *find_broken_piece (System *) const;
-  virtual void discretionary_processing ();
+  virtual void break_breakable_item (System *);
   virtual void derived_mark () const;
   virtual void handle_broken_dependencies ();
   virtual void handle_prebroken_dependencies ();

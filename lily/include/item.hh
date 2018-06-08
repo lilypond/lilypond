@@ -65,7 +65,7 @@ public:
   virtual void cache_pure_height (Interval height);
   virtual bool internal_set_as_bound_of_spanner (Spanner *, Direction);
 protected:
-  virtual void discretionary_processing ();
+  virtual void break_breakable_item (System *);
   void copy_breakable_items ();
   virtual void derived_mark () const;
 

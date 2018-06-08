@@ -213,7 +213,7 @@ Grob::do_break_processing ()
 }
 
 void
-Grob::discretionary_processing ()
+Grob::break_breakable_item (System *)
 {
 }
 
