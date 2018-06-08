@@ -344,7 +344,7 @@ set_page_permission (SCM sys, SCM symbol, SCM permission)
 {
   if (Paper_score *ps = unsmob<Paper_score> (sys))
     {
-      vector<Grob *> cols = ps->get_columns ();
+      vector<Grob *> const &cols = ps->get_columns ();
       if (cols.size ())
         {
           Paper_column *col = dynamic_cast<Paper_column *> (cols.back ());
@@ -388,7 +388,7 @@ set_labels (SCM sys, SCM labels)
 {
   if (Paper_score *ps = unsmob<Paper_score> (sys))
     {
-      vector<Grob *> cols = ps->get_columns ();
+      vector<Grob *> const &cols = ps->get_columns ();
       if (cols.size ())
         {
           Paper_column *col = dynamic_cast<Paper_column *> (cols[0]);

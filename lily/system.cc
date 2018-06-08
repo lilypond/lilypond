@@ -434,7 +434,7 @@ System::break_into_pieces (vector<Column_x_positions> const &breaking)
       System *system = clone ();
       system->rank_ = broken_intos_.size ();
 
-      vector<Grob *> c (breaking[i].cols_);
+      vector<Grob *> const &c (breaking[i].cols_);
       pscore_->typeset_system (system);
 
       int st = Paper_column::get_rank (c[0]);
@@ -456,7 +456,7 @@ System::break_into_pieces (vector<Column_x_positions> const &breaking)
         Collect labels from any loose columns too: theses will be set on
         an empty bar line or a column which is otherwise unused mid-line
       */
-      vector<Grob *> loose (breaking[i].loose_cols_);
+      vector<Grob *> const &loose (breaking[i].loose_cols_);
       for (vsize j = 0; j < loose.size (); j++)
         collect_labels (loose[j], &system_labels);
 
@@ -932,9 +932,9 @@ System::calc_pure_height (SCM smob, SCM start_scm, SCM end_scm)
 Grob *
 System::get_pure_bound (Direction d, int start, int end)
 {
-  vector<vsize> ranks = pscore_->get_break_ranks ();
-  vector<vsize> indices = pscore_->get_break_indices ();
-  vector<Grob *> cols = pscore_->get_columns ();
+  vector<vsize> const &ranks = pscore_->get_break_ranks ();
+  vector<vsize> const &indices = pscore_->get_break_indices ();
+  vector<Grob *> const &cols = pscore_->get_columns ();
 
   vsize target_rank = (d == LEFT ? start : end);
   vector<vsize>::const_iterator i

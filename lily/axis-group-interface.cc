@@ -196,8 +196,8 @@ Interval
 Axis_group_interface::combine_pure_heights (Grob *me, SCM measure_extents, int start, int end)
 {
   Paper_score *ps = get_root_system (me)->paper_score ();
-  vector<vsize> breaks = ps->get_break_indices ();
-  vector<Grob *> cols = ps->get_columns ();
+  vector<vsize> const &breaks = ps->get_break_indices ();
+  vector<Grob *> const &cols = ps->get_columns ();
 
   Interval ext;
   for (vsize i = 0; i + 1 < breaks.size (); i++)
@@ -229,7 +229,7 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
   extract_grob_set (me, "pure-relevant-grobs", elts);
 
   Paper_score *ps = get_root_system (me)->paper_score ();
-  vector<vsize> ranks = ps->get_break_ranks ();
+  vector<vsize> const &ranks = ps->get_break_ranks ();
 
   vector<Interval> begin_line_heights;
   vector<Interval> mid_line_heights;

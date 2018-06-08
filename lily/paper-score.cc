@@ -83,7 +83,7 @@ Paper_score::find_break_indices () const
     }
 }
 
-vector<vsize>
+vector<vsize> const &
 Paper_score::get_break_indices () const
 {
   if (break_indices_.empty ())
@@ -91,7 +91,7 @@ Paper_score::get_break_indices () const
   return break_indices_;
 }
 
-vector<Grob *>
+vector<Grob *> const &
 Paper_score::get_columns () const
 {
   if (cols_.empty ())
@@ -99,7 +99,7 @@ Paper_score::get_columns () const
   return cols_;
 }
 
-vector<vsize>
+vector<vsize> const &
 Paper_score::get_break_ranks () const
 {
   if (break_ranks_.empty ())

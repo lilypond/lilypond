@@ -44,9 +44,9 @@ public:
 
   void typeset_system (System *);
   vector<Column_x_positions> calc_breaking ();
-  vector<vsize> get_break_indices () const;
-  vector<vsize> get_break_ranks () const;
-  vector<Grob *> get_columns () const;
+  vector<vsize> const &get_break_indices () const;
+  vector<vsize> const &get_break_ranks () const;
+  vector<Grob *> const &get_columns () const;
   SCM get_paper_systems ();
 protected:
   void find_break_indices () const;

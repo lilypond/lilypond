@@ -126,8 +126,10 @@ Constrained_breaking::space_line (vsize i, vsize j)
   bool ragged_right = to_boolean (pscore_->layout ()->c_variable ("ragged-right"));
   bool ragged_last = to_boolean (pscore_->layout ()->c_variable ("ragged-last"));
 
-  vector<Grob *> line (all_.begin () + breaks_[i],
-                       all_.begin () + breaks_[j] + 1);
+  // TODO: Unnecessary copy.  Could pass iterators/indices to
+  // get_line_configuration().  What is the real cost?
+  vector<Grob *> const line (all_.begin () + breaks_[i],
+                             all_.begin () + breaks_[j] + 1);
   Interval line_dims = line_dimensions_int (pscore_->layout (), i);
   bool last = j == breaks_.size () - 1;
   bool ragged = ragged_right || (last && ragged_last);
