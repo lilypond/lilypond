@@ -108,10 +108,9 @@ bool
 Paper_column::is_musical (Grob *me)
 {
   SCM m = me->get_property ("shortest-starter-duration");
-  Moment s (0);
-  if (unsmob<Moment> (m))
-    s = *unsmob<Moment> (m);
-  return s != Moment (0);
+  if (Moment *s = unsmob<Moment> (m))
+    return *s != Moment (0);
+  return false;
 }
 
 bool
