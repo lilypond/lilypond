@@ -101,15 +101,15 @@ Item::discretionary_processing ()
     copy_breakable_items ();
 }
 
-Grob *
+Item *
 Item::find_broken_piece (System *l) const
 {
   if (get_system () == l)
-    return (Item *) (this);
+    return const_cast<Item *> (this);
 
   for (LEFT_and_RIGHT (d))
     {
-      Grob *s = broken_to_drul_[d];
+      Item *s = broken_to_drul_[d];
       if (s && s->get_system () == l)
         return s;
     }
@@ -117,21 +117,12 @@ Item::find_broken_piece (System *l) const
   return 0;
 }
 
-Item *
-Item::find_prebroken_piece (Direction d) const
-{
-  Item *me = (Item *) (this);
-  if (!d)
-    return me;
-  return dynamic_cast<Item *> (broken_to_drul_[d]);
-}
-
 Direction
 Item::break_status_dir () const
 {
   if (original ())
     {
-      Item *i = dynamic_cast<Item *> (original ());
+      Item *i = static_cast<Item *> (original ());
 
       return (i->broken_to_drul_[LEFT] == this) ? LEFT : RIGHT;
     }

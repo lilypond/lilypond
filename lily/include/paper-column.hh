@@ -39,6 +39,12 @@ public:
   virtual System *get_system () const;
   void set_system (System *);
 
+  Paper_column *find_prebroken_piece (Direction d) const
+  {
+    // This is safe because pieces are clones of the original.
+    return static_cast<Paper_column *> (Item::find_prebroken_piece (d));
+  }
+
   static bool less_than (Grob *const &a,
                          Grob *const &b);
 

@@ -395,8 +395,7 @@ set_labels (SCM sys, SCM labels)
           col->set_property ("labels",
                              scm_append_x (scm_list_2 (col->get_property ("labels"),
                                                        labels)));
-          Paper_column *col_right
-            = dynamic_cast<Paper_column *> (col->find_prebroken_piece (RIGHT));
+          Paper_column *col_right = col->find_prebroken_piece (RIGHT);
           col_right->set_property ("labels",
                                    scm_append_x (scm_list_2 (col_right->get_property ("labels"),
                                                              labels)));

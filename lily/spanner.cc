@@ -286,7 +286,7 @@ Spanner::get_system () const
   return spanned_drul_[LEFT]->get_system ();
 }
 
-Grob *
+Spanner *
 Spanner::find_broken_piece (System *l) const
 {
   vsize idx = binary_search (broken_intos_, (Spanner *) l, Spanner::less);

@@ -81,7 +81,7 @@ public:
 
   static int compare (Spanner *const &, Spanner *const &);
   static bool less (Spanner *const &, Spanner *const &);
-  virtual Grob *find_broken_piece (System *) const;
+  virtual Spanner *find_broken_piece (System *) const;
   virtual void derived_mark () const;
   virtual System *get_system () const;
 
