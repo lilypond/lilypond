@@ -52,8 +52,14 @@ public:
     return static_cast<Paper_column *> (Item::find_prebroken_piece (d));
   }
 
-  static bool less_than (Grob *const &a,
-                         Grob *const &b);
+  // n.b. pointers must not be null
+  static bool rank_less (Grob *const &a, Grob *const &b)
+  {
+    // TODO: Use Paper_column in the function signature.
+    Paper_column *pa = static_cast<Paper_column *> (a);
+    Paper_column *pb = static_cast<Paper_column *> (b);
+    return pa->rank_ < pb->rank_;
+  }
 
   int get_rank () const { return rank_; }
   void set_rank (int);

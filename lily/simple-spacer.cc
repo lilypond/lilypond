@@ -383,17 +383,26 @@ get_column_description (vector<Grob *> const &cols, vsize col_index, bool line_s
   for (SCM s = Spaceable_grob::get_minimum_distances (col);
        scm_is_pair (s); s = scm_cdr (s))
     {
-      Grob *other = unsmob<Grob> (scm_caar (s));
-      vsize j = binary_search (cols, other, Paper_column::less_than, col_index);
-      if (j != VPOS)
+      if (Paper_column *other = unsmob<Paper_column> (scm_caar (s)))
         {
-          if (cols[j] == other)
-            description.rods_.push_back (Rod_description (j, scm_to_double (scm_cdar (s))));
-          else /* it must end at the LEFT prebroken_piece */
-               /* see Spanner::set_spacing_rods for more comments on how
-                  to deal with situations where  we don't know if we're
-                  ending yet on the left prebroken piece */
-            description.end_rods_.push_back (Rod_description (j, scm_to_double (scm_cdar (s))));
+          vsize j = binary_search (cols, static_cast<Grob *> (other),
+                                   Paper_column::rank_less, col_index);
+          if (j != VPOS)
+            {
+              Real dist = scm_to_double (scm_cdar (s));
+              if (cols[j] == other)
+                description.rods_.push_back (Rod_description (j, dist));
+              else /* it must end at the LEFT prebroken_piece */
+                /* see Spanner::set_spacing_rods for more comments on how
+                   to deal with situations where  we don't know if we're
+                   ending yet on the left prebroken piece */
+                description.end_rods_.push_back (Rod_description (j, dist));
+            }
+        }
+      else
+        {
+          programming_error ("minimum-distances holds an object that"
+                             " is not a paper column");
         }
     }
 
