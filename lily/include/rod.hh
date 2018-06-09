@@ -28,7 +28,6 @@ struct Rod
   Drul_array<Item *> item_drul_;
   Real distance_;
 
-  void columnize ();
   void add_to_cols ();
   Rod ();
 };

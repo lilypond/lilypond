@@ -37,7 +37,7 @@ Spaceable_grob::get_minimum_distances (Grob *me)
 /*todo: merge code of spring & rod?
  */
 void
-Spaceable_grob::add_rod (Grob *me, Grob *p, Real d)
+Spaceable_grob::add_rod (Paper_column *me, Paper_column *p, Real d)
 {
   //  printf ("rod %lf\n", d);
   if (d < 0)
@@ -59,7 +59,7 @@ Spaceable_grob::add_rod (Grob *me, Grob *p, Real d)
         }
     }
 
-  if (Paper_column::get_rank (p) < Paper_column::get_rank (me))
+  if (p->get_rank () < me->get_rank ())
     programming_error ("Adding reverse rod");
 
   mins = scm_cons (scm_cons (p->self_scm (), newdist), mins);
@@ -76,7 +76,7 @@ Spaceable_grob::add_spring (Grob *me, Grob *other, Spring sp)
 }
 
 Spring
-Spaceable_grob::get_spring (Grob *this_col, Grob *next_col)
+Spaceable_grob::get_spring (Paper_column *this_col, Grob *next_col)
 {
   Spring *spring = 0;
 
@@ -92,7 +92,7 @@ Spaceable_grob::get_spring (Grob *this_col, Grob *next_col)
 
   if (!spring)
     programming_error (to_string ("No spring between column %d and next one",
-                                  Paper_column::get_rank (this_col)));
+                                  this_col->get_rank ()));
 
   return spring ? *spring : Spring ();
 }

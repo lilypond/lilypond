@@ -27,9 +27,9 @@
 struct Spaceable_grob
 {
   /// set a minimum distance
-  static void add_rod (Grob *me, Grob *to, Real distance);
+  static void add_rod (Paper_column *me, Paper_column *to, Real distance);
   static void add_spring (Grob *me, Grob *to, Spring sp);
-  static Spring get_spring (Grob *me, Grob *other);
+  static Spring get_spring (Paper_column *me, Grob *other);
 
   static SCM get_minimum_distances (Grob *);
   static SCM get_ideal_distances (Grob *);
