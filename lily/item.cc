@@ -170,6 +170,12 @@ Item::pure_is_visible (int start, int end) const
   return true;
 }
 
+bool
+Item::internal_set_as_bound_of_spanner (Spanner *s, Direction)
+{
+  return s->accepts_as_bound_item (this);
+}
+
 Interval_t<int>
 Item::spanned_rank_interval () const
 {

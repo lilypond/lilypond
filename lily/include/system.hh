@@ -23,6 +23,7 @@
 #include <limits>
 
 #include "column-x-positions.hh"
+#include "paper-column.hh"
 #include "spanner.hh"
 #include "skyline.hh"
 
@@ -42,6 +43,12 @@ class System : public Spanner
 public:
   Paper_score *paper_score () const;
   Grob *get_neighboring_staff (Direction dir, Grob *vertical_axis_group, Interval_t<int> bounds);
+  virtual bool accepts_as_bound_item (const Item *) const;
+  virtual bool accepts_as_bound_paper_column (const Paper_column *) const;
+  Paper_column *get_bound (Direction d) const {
+    // This is safe because only Paper_columns are accepted as bounds.
+    return static_cast<Paper_column *> (Spanner::get_bound (d));
+  }
   Grob *get_pure_bound (Direction dir, int start, int end);
   Grob *get_maybe_pure_bound (Direction dir, bool pure, int start, int end);
   int get_rank () const;

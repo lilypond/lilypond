@@ -168,12 +168,6 @@ Spanner::spanned_time () const
                                 spanned_drul_[RIGHT]);
 }
 
-Item *
-Spanner::get_bound (Direction d) const
-{
-  return spanned_drul_[d];
-}
-
 /*
   Set the items that this spanner spans. If D == LEFT, we also set the
   X-axis parent of THIS to S.
@@ -183,16 +177,20 @@ Spanner::get_bound (Direction d) const
   original NoteColumn, but rather to the PaperColumn after the break.
 */
 void
-Spanner::set_bound (Direction d, Grob *s)
+Spanner::set_bound (Direction d, Grob *g)
 {
-  Item *i = dynamic_cast<Item *> (s);
-  if (!i)
+  // Whether an Item and a Spanner can be linked depends on the specific type
+  // of each.  We handle this with two virtual function calls.  This call to
+  // the Grob calls back to the most specific Spanner::accepts_as_bound_...()
+  // that fits the type of the Grob.
+  if (!g->internal_set_as_bound_of_spanner (this, d))
     {
-      programming_error ("must have Item for spanner bound of " + name ());
+      programming_error (to_string ("cannot set %s as bound of %s",
+                                    g->name ().c_str (), name ().c_str ()));
       return;
     }
 
-  spanned_drul_[d] = i;
+  spanned_drul_[d] = static_cast<Item *> (g);
 
   /**
      We check for System to prevent the column -> line_of_score
@@ -205,17 +203,20 @@ Spanner::set_bound (Direction d, Grob *s)
       This happens e.g. for MultiMeasureRestNumbers and PercentRepeatCounters.
     */
     if (!dynamic_cast <Spanner *> (get_parent (X_AXIS)))
-      set_parent (i, X_AXIS);
+      set_parent (g, X_AXIS);
+}
 
-  /*
-    Signal that this column needs to be kept alive. They need to be
-    kept alive to have meaningful position and linebreaking.
+bool
+Spanner::accepts_as_bound_item (const Item *) const
+{
+  return true;
+}
 
-    [maybe we should try keeping all columns alive?, and perhaps
-    inherit position from their (non-)musical brother]
-  */
-  if (dynamic_cast<Paper_column *> (i))
-    Pointer_group_interface::add_grob (i, ly_symbol2scm ("bounded-by-me"), this);
+bool
+Spanner::accepts_as_bound_paper_column (const Paper_column *col) const
+{
+  // Spanners in general don't treat Paper_columns specially.
+  return Spanner::accepts_as_bound_item (col);
 }
 
 Preinit_Spanner::Preinit_Spanner ()

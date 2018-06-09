@@ -51,6 +51,21 @@ Paper_column::get_rank (Grob const *me)
   return dynamic_cast<Paper_column const *> (me)->rank_;
 }
 
+bool
+Paper_column::internal_set_as_bound_of_spanner (Spanner *s, Direction)
+{
+  bool ok = s->accepts_as_bound_paper_column (this);
+  if (ok)
+    {
+      // Signal that this column needs to be kept alive. They need to be kept
+      // alive to have meaningful position and linebreaking.  [maybe we should
+      // try keeping all columns alive?, and perhaps inherit position from
+      // their (non-)musical brother]
+      Pointer_group_interface::add_grob (this, ly_symbol2scm ("bounded-by-me"), s);
+    }
+  return ok;
+}
+
 void
 Paper_column::set_rank (int rank)
 {

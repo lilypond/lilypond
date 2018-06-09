@@ -38,6 +38,7 @@ public:
   virtual Paper_column *get_column () const;
   virtual System *get_system () const;
   void set_system (System *);
+  virtual bool internal_set_as_bound_of_spanner (Spanner *, Direction);
 
   Paper_column *find_prebroken_piece (Direction d) const
   {

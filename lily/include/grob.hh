@@ -129,6 +129,7 @@ public:
   virtual void derived_mark () const;
   virtual void handle_broken_dependencies ();
   virtual void handle_prebroken_dependencies ();
+  virtual bool internal_set_as_bound_of_spanner (Spanner *, Direction) { return false; }
 
   /* printing */
   Stencil *get_stencil () const;

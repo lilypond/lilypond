@@ -191,6 +191,18 @@ System::do_break_substitution_and_fixup_refpoints ()
   debug_output (_f ("Element count %d", count + element_count ()) + "\n");
 }
 
+bool
+System::accepts_as_bound_item (const Item *) const
+{
+  return false;
+}
+
+bool
+System::accepts_as_bound_paper_column (const Paper_column *) const
+{
+  return true;
+}
+
 SCM
 System::get_broken_system_grobs ()
 {
@@ -626,13 +638,13 @@ System::get_paper_system ()
         }
     }
 
-  Grob *left_bound = get_bound (LEFT);
+  Paper_column *left_bound = get_bound (LEFT);
   SCM prop_init = left_bound->get_property ("line-break-system-details");
   Prob *pl = make_paper_system (prop_init);
   paper_system_set_stencil (pl, sys_stencil);
 
   /* information that the page breaker might need */
-  Grob *right_bound = get_bound (RIGHT);
+  Paper_column *right_bound = get_bound (RIGHT);
   pl->set_property ("vertical-skylines", get_property ("vertical-skylines"));
   pl->set_property ("page-break-permission", right_bound->get_property ("page-break-permission"));
   pl->set_property ("page-turn-permission", right_bound->get_property ("page-turn-permission"));
