@@ -139,8 +139,8 @@ Spacing_spanner::set_distances_for_loose_col (Grob *me, Grob *c,
 
   for (LEFT_and_RIGHT (d))
     {
-      Item *lc = dynamic_cast<Item *> ((d == LEFT) ? next_door[LEFT] : c);
-      Item *rc = dynamic_cast<Item *> (d == LEFT ? c : next_door[RIGHT]);
+      Paper_column *lc = dynamic_cast<Paper_column *> ((d == LEFT) ? next_door[LEFT] : c);
+      Paper_column *rc = dynamic_cast<Paper_column *> (d == LEFT ? c : next_door[RIGHT]);
 
       extract_grob_set (lc, "spacing-wishes", wishes);
       for (vsize k = wishes.size (); k--;)

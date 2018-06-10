@@ -41,11 +41,11 @@ private:
   static void set_explicit_neighbor_columns (vector<Grob *> const &cols);
   static void set_implicit_neighbor_columns (vector<Grob *> const &cols);
   static void generate_springs (Grob *me, vector<Grob *> const &cols, Spacing_options const *);
-  static void musical_column_spacing (Grob *, Item *, Item *, Spacing_options const *);
+  static void musical_column_spacing (Grob *, Paper_column *, Paper_column *, Spacing_options const *);
   static bool fills_measure (Grob *, Item *, Item *);
 public:
   static vector<Grob *> get_columns (Spanner *me);
-  static Spring note_spacing (Grob *, Grob *, Grob *, Spacing_options const *);
+  static Spring note_spacing (Grob *, Paper_column *, Paper_column *, Spacing_options const *);
   static Spring standard_breakable_column_spacing (Grob *me, Item *l, Item *r, Spacing_options const *);
 
   DECLARE_SCHEME_CALLBACK (set_springs, (SCM));

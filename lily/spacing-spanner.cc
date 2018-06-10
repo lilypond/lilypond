@@ -197,7 +197,7 @@ Spacing_spanner::generate_pair_spacing (Grob *me,
       else
         musical_column_spacing (me, left_col, right_col, options);
 
-      if (Item *rb = right_col->find_prebroken_piece (LEFT))
+      if (Paper_column *rb = right_col->find_prebroken_piece (LEFT))
         musical_column_spacing (me, left_col, rb, options);
     }
   else
@@ -315,8 +315,8 @@ Spacing_spanner::generate_springs (Grob *me,
 */
 void
 Spacing_spanner::musical_column_spacing (Grob *me,
-                                         Item *left_col,
-                                         Item *right_col,
+                                         Paper_column *left_col,
+                                         Paper_column *right_col,
                                          Spacing_options const *options)
 {
   Spring spring = note_spacing (me, left_col, right_col, options);

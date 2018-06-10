@@ -80,14 +80,14 @@ Spacing_spanner::standard_breakable_column_spacing (Grob *me, Item *l, Item *r, 
   return Spring (ideal, min_dist);
 }
 
-Moment *
-get_measure_length (Grob *column)
+static Moment *
+get_measure_length (Paper_column *column)
 {
   Grob *sys = column->get_parent (X_AXIS);
 
   extract_grob_set (sys, "columns", cols);
 
-  vsize col_idx = Paper_column::get_rank (column);
+  vsize col_idx = column->get_rank ();
 
   do
     {
@@ -104,8 +104,8 @@ get_measure_length (Grob *column)
 /* Basic spring based on duration alone */
 Spring
 Spacing_spanner::note_spacing (Grob * /* me */,
-                               Grob *lc,
-                               Grob *rc,
+                               Paper_column *lc,
+                               Paper_column *rc,
                                Spacing_options const *options)
 {
   Moment shortest_playing_len = 0;
