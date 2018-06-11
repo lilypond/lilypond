@@ -283,7 +283,7 @@ make_partial_ellipse_boxes (vector<Box> &boxes,
                                    * M_PI / QUANTIZATION_UNIT));
   for (DOWN_and_UP (d))
     {
-      for (vsize i = 0; i < 1 + (vsize) quantization; i++)
+      for (vsize i = 0; i <= (vsize) quantization; i++)
         {
           Real ang = linear_map (start, end, 0, quantization, i);
           Offset pt (offset_directed (ang).scale (rad));
@@ -390,7 +390,7 @@ make_round_filled_box_boxes (vector<Box> &boxes,
       points.push_back (Offset (-left + radius, top));
       points.push_back (Offset (right - radius, top));
 
-      for (vsize i = 0; i < (vsize) points.size () - 1; i++)
+      for (vsize i = 0; i < (vsize) points.size () - 1; i+=2)
         {
           Offset p0 = points[i];
           Offset p1 = points[i+1];
@@ -420,7 +420,7 @@ make_round_filled_box_boxes (vector<Box> &boxes,
           cy[DOWN]  = -bottom + radius;
           cy[UP]    = top - radius;
 
-          for (vsize i = 0; i < (vsize) quantization + 1; i++)
+          for (vsize i = 0; i <= (vsize) quantization; i++)
             for (DOWN_and_UP(v))
               for (LEFT_and_RIGHT(h))
                 {
