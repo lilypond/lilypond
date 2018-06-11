@@ -17,6 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <algorithm>
+
 #include "system.hh"
 
 #include "align-interface.hh"
@@ -684,10 +686,12 @@ System::broken_col_range (Item const *left, Item const *right) const
   return ret;
 }
 
-/** Return all columns, but filter out any unused columns , since they might
-    disrupt the spacing problem. */
+/**
+    Return all columns in the given right-open range, but filter out any unused
+    columns, since they might disrupt the spacing problem.
+*/
 vector<Grob *>
-System::used_columns () const
+System::used_columns_in_range (vsize start, vsize end) const
 {
   extract_grob_set (this, "columns", ro_columns);
 
@@ -699,8 +703,10 @@ System::used_columns () const
         break;
     }
 
+  end = std::min(end, static_cast<vsize> (last_breakable + 1));
+
   vector<Grob *> columns;
-  for (int i = 0; i <= last_breakable; i++)
+  for (vsize i = start; i < end; ++i)
     {
       if (Paper_column::is_used (ro_columns[i]))
         columns.push_back (ro_columns[i]);

@@ -40,18 +40,22 @@
 #include "warn.hh"
 
 vector<Grob *>
-Spacing_spanner::get_columns (Grob *me_grob)
+Spacing_spanner::get_columns (Spanner *me)
 {
-  Spanner *me = dynamic_cast<Spanner *> (me_grob);
-  vector<Grob *> all (get_root_system (me)->used_columns ());
-  vsize start = binary_search (all, (Grob *)me->get_bound (LEFT),
-                               &Paper_column::less_than);
-  vsize end = binary_search (all, (Grob *) me->get_bound (RIGHT),
-                             &Paper_column::less_than);
-
-  all = vector<Grob *> (all.begin () + start,
-                        all.begin () + end + 1);
-  return all;
+  Paper_column *l_bound = dynamic_cast<Paper_column *> (me->get_bound (LEFT));
+  if (!l_bound)
+    {
+      programming_error ("spanner's left bound is not a paper column");
+      return vector<Grob *> ();
+    }
+  Paper_column *r_bound = dynamic_cast<Paper_column *> (me->get_bound (RIGHT));
+  if (!r_bound)
+    {
+      programming_error ("spanner's right bound is not a paper column");
+      return vector<Grob *> ();
+    }
+  return get_root_system (me)->used_columns_in_range (l_bound->get_rank (),
+                                                      r_bound->get_rank () + 1);
 }
 
 MAKE_SCHEME_CALLBACK (Spacing_spanner, set_springs, 1);

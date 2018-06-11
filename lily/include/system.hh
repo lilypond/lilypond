@@ -20,6 +20,8 @@
 #ifndef SYSTEM_HH
 #define SYSTEM_HH
 
+#include <limits>
+
 #include "column-x-positions.hh"
 #include "spanner.hh"
 #include "skyline.hh"
@@ -75,7 +77,11 @@ public:
   void break_into_pieces (vector<Column_x_positions> const &);
 
   vector<Item *> broken_col_range (Item const *, Item const *) const;
-  vector<Grob *> used_columns () const;
+  vector<Grob *> used_columns_in_range (vsize start, vsize end) const;
+  vector<Grob *> used_columns () const
+  {
+    return used_columns_in_range(0, std::numeric_limits<vsize>::max ());
+  }
   Paper_column *column (vsize i) const;
 
   void add_column (Paper_column *);

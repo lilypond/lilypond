@@ -44,7 +44,7 @@ private:
   static void musical_column_spacing (Grob *, Item *, Item *, Spacing_options const *);
   static bool fills_measure (Grob *, Item *, Item *);
 public:
-  static vector<Grob *> get_columns (Grob *me);
+  static vector<Grob *> get_columns (Spanner *me);
   static Spring note_spacing (Grob *, Grob *, Grob *, Spacing_options const *);
   static Spring standard_breakable_column_spacing (Grob *me, Item *l, Item *r, Spacing_options const *);
 
