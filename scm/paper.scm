@@ -120,6 +120,7 @@
     (if in-layout?
         (ly:warning (_ "set-global-staff-size: not in toplevel scope")))
 
+    (ly:reset-all-fonts)
     (layout-set-absolute-staff-size-in-module new-scope
                                               (* sz (eval 'pt new-scope)))
     (module-define! current-mod '$defaultpaper new-paper)))
