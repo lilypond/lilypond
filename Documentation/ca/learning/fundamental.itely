@@ -42,7 +42,7 @@ tota aquesta flexibilitat pot fer que les coses es tornin confuses
 per als nous usuaris.  Aquesta secció us explicarà part d'aquesta
 estructura, però pot obviar certs detalls per simplificar.  Per
 veure una descripció més completa del format d'entrada, consulteu
-@rusernamed{File structure,Estructura dels fitxers}.
+@ruser{Estructura del fitxer}.
 
 
 @menu
@@ -195,7 +195,7 @@ i @code{\midi @{ @}}.  Si apareixen tal i com es mostren aquí, fan
 que el LilyPond produeixi una sortida impresa i una sortida MIDI,
 respectivament.  Es descriuen amb tot detall al manual de
 Referència de la notació, a @rusernamed{Score layout,Disposició de la partitura}
-i a  @rusernamed{Creating MIDI output,Creació de sortida MIDI}.
+i a  @ruser{Creació de sortida MIDI}.
 
 @cindex partitures, diverses
 @cindex book, bloc implícit
@@ -232,7 +232,7 @@ bloc @code{\score} (que per això està dins d'un bloc
 @code{\score} que estan dins d'aquest @code{\book}.
 
 Per veure més detalls, consulteu
-@rusernamed{Multiple scores in a book,Partitures múltiples en un llibre}.
+@ruser{Diverses partitures a un llibre}.
 
 @cindex variables
 
@@ -261,12 +261,12 @@ caràcters alfabètics i sigui diferent a qualsevol dels noms
 d'instrucció del LilyPond.  Per veure més detalls, consulteu
 @ref{Estalvi de tecleig mitjançant variables i funcions}.  Les
 limitacions exactes que afecten els noms de variable es detallen a
-@rusernamed{File structure,Estructura dels fitxers}.
+@ruser{Estructura del fitxer}.
 
 
 @seealso
 Per veure una definició completa del format del codi d'entrada,
-consulteu @rusernamed{File structure,Estructura dels fitxers}
+consulteu @ruser{Estructura del fitxer}.
 
 @node La partitura és una (única) expressió musical composta
 @subsection La partitura és una (única) expressió musical composta
@@ -422,7 +422,7 @@ la mateixa posició horitzontal).
 
 @seealso
 Referència de la notació:
-@rusernamed{Structure of a score,Estructura d'una partitura}.
+@ruser{Estructura d'una partitura}.
 
 
 @node Niuat d'expressions musicals

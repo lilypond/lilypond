@@ -1228,12 +1228,12 @@ oboeNotes = \relative {
 @end lilypond
 
 Las cites també es poden etiquetar, vegeu
-@rusernamed{Using tags,Us de etiquetes}.
+@ref{Ús d'etiquetes}.
 
 @seealso
 Referència de la notació:
 @ref{Transposició dels instruments},
-@rusernamed{Using tags,Ús de etiquetes}.
+@ref{Ús d'etiquetes}.
 
 Fitxers d'inici:
 @file{scm/define-event-classes.scm}.
@@ -1511,7 +1511,7 @@ solament les notes i esdeveniments que s'han citat mitjançant
 guies, com els canvis de clau o una etiqueta identificativa de
 l'instrument font, poden marcar-se per a la seva inclusió
 selectiva dins de la partitura, vegeu
-@rusernamed{Using tags,Ús de etiquetes}.
+@ref{Ús d'etiquetes}.
 
 @lilypond[verbatim,quote]
 fluteNotes = \relative {
@@ -1559,7 +1559,7 @@ Referència de la notació:
 @ref{Noms d'instruments},
 @ref{Clau},
 @ref{Guies musicals},
-@rusernamed{Using tags,Ús de etiquetes}.
+@ref{Ús d'etiquetes}.
 
 
 Fragments de codi:

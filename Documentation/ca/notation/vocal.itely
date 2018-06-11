@@ -88,10 +88,10 @@ sobre del pentagrama per evitar la lletra, com s'explica a
 @end itemize
 
 @seealso
-Glossario musical:
+Glossari musical:
 @rglos{ambitus}.
 
-Manual de aprenentatge:
+Manual d'aprenentatge:
 @rlearning{Elaborar cançons senzilles}.
 
 Referència de la notació:
@@ -173,14 +173,14 @@ qualsevol llengua diferent de l'anglès, o els caràcters especials
 (com el símbol de cor o les cometes inclinades), es poden inserir
 directament al fitxer d'entrada, sempre que es desi amb la
 codificació UTF-8.  Per a més informació, consulteu
-@rusernamed{Special characters,Caràcters especials}.
+@ref{Caràcters especials}.
 
 Els signes de puntuació, les lletres amb caràcters accentuats o de
 qualsevol llengua diferent de l'anglès, o els caràcters especials
 (com el símbol de cor, o les cometes inclinades), es poden inserir
 directament al fitxer d'entrada, sempre que es gravi amb la
 codificació UTF-8. Per a més informació, consulteu
-@rusernamed{Special characters,Caràcters especials}.
+@ref{Caràcters especials}.
 
 @lilypond[quote,verbatim]
 \relative { d''8 c16 a bes8 f ees' d c4 }
@@ -225,9 +225,9 @@ Referència de la notació:
 @ref{Duració automàtica de les síl·labes},
 @ref{Tipus de lletra},
 @ref{Donar format al text},
-@ref{Input modes,Modes d'entrada},
+@rusernamed{Input modes,Modes d'entrada},
 @ref{Duració manual de les síl·labes},
-@rusernamed{Special characters,Caràcters especials}.
+@ref{Caràcters especials}.
 
 Referència de funcionament intern:
 @rinternals{LyricText}.
@@ -680,7 +680,7 @@ De forma alternativa, quan es produeix un melisma sobre l'última o
 sobre l'única síl·laba d'una paraula, se sol traçar una línia
 extensora des del final de la síl·laba fins l'última nota del
 melisma.  Aixo s'indica en el codi d'entrada escrivint una doble
-barra baixa o caràcter de subrrallat, @code{__}, immediatament
+barra baixa o caràcter de subrallat, @code{__}, immediatament
 després de la paraula.
 
 Hi ha cinc formes d'indicar els melismes:
@@ -2387,14 +2387,14 @@ notació de l'estil Arpa Sacra i altres semblants, es descriuen a
 @item
 Quan dues parts vocals comparteixen un pentagrama, les pliques,
 lligadures, etc. de la part aguda s'orienten cap amunt, i les de
-la part greu cap avall.  Per fer-o, utilitzeu @code{\voiceOne} i
+la part greu cap avall.  Per fer-ho, utilitzeu @code{\voiceOne} i
 @code{\voiceTwo}.  Vegeu
 @ref{Polifonia en un sol pentagrama}.
 
 @item
 Quan una part vocal es divideix temporalment, hem d'usar
 @emph{passatges polifònics temporals} vegeu
-@ref{Polifonia en un sol pentagrama}).
+@ref{Polifonia en un sol pentagrama}.
 
 @end itemize
 
@@ -2505,7 +2505,7 @@ mostra aquí:
 @endpredefined
 
 @seealso
-Referencia de la notació:
+Referència de la notació:
 @rusernamed{Changing spacing,Canviar l'espaiat},
 @rusernamed{Displaying spacing,Visualització de l'espaiat},
 @ref{Fitting music onto fewer pages,Encaix de la música en menys pàgines},
@@ -2626,7 +2626,7 @@ pàgines, consulteu
 @item
 Es poden inserir notes  guia de diàlegs, instruccions d'escena i
 notes al peu, vegeu
-@rusernamed{Creating footnotes,Creació de notes a peu de pàgina} i
+@ref{Creació de notes al peu} i
 @ref{Text}.  També es poden afegir indicacions d'escena extenses
 amb una secció d'elements de marcatge independents entres dos blocs
 @code{\score}, vegeu @ref{Text separat}.
@@ -2640,7 +2640,7 @@ Glossari musical:
 @rglos{transposing instrument}.
 
 Referència de la notació:
-@rusernamed{Creating footnotes,Creació de notes a peu de pàgina},
+@ref{Creació de notes al peu},
 @ref{Agrupament de pentagrames},
 @ref{Ocultament de pentagrames},
 @ref{Transposició dels instruments},
@@ -3013,7 +3013,7 @@ El gravat del cant gregorià en diferents estils de notació es
 descriuen a @ref{Notació antiga}.
 
 @seealso
-Referencia de la notación:
+Referència de la notació:
 @ref{Notació antiga}.
 
 Snippets:
@@ -3101,7 +3101,7 @@ pentagrama:
 
 Per suprimir les línies divisòries sols d'una secció de música,
 tracteu-la com si fos una cadència.  Si la secció és llarga, us
-podria caldre inserir línies divisòries @qq{mudas} amb
+podria caldre inserir línies divisòries @qq{mudes} amb
 @code{\bar ""} per indicar on es pot produir el salt de línia.
 
 @lilypond[verbatim,quote]
@@ -3472,7 +3472,7 @@ tick = \markup {
 @end lilypond
 
 L'us del marcatge per centrar text i per disposar les línies en
-columnes es descriuue a @ref{Donar format al text}.
+columnes es descriu a @ref{Donar format al text}.
 
 @seealso
 Manual d'aprenentatge

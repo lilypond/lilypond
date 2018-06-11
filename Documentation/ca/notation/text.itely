@@ -25,7 +25,7 @@ format) a les partitures.
 Certs elements de text dels que no ens ocupem aquí es presenten a
 d'altres secciones específiques:
 @ref{Música vocal},
-@rusernamed{Titles and headers,Títols i encapçalaments}.
+@ref{Títols i encapçalaments}.
 
 @menu
 * Escriptura del text::
@@ -45,7 +45,7 @@ partitura.
 (com a les llengües diferents a l'anglès), senzillament inseriu
 els caràcters directament al fitxer del LilyPond.  El fitxer s'ha
 de desar com a UTF-8.  Per veure més informació, consulteu
-@rusernamed{Text encoding,Codificació del text}.}
+@ref{Codificació del text}.}
 
 @menu
 * Scripts de text::
@@ -349,7 +349,7 @@ Referència de funcionament intern:
 Un bloc @code{\markup} pot existir de forma independent, fora de
 qualsevol bloc @code{\score}, como una @qq{expressió de nivell
 superior}.  Aquesta sintaxi es descriu a
-@rusernamed{File structure,Estructura del fitxer}.
+@ref{Estructura del fitxer}.
 
 @lilypond[verbatim,quote]
 \markup {
@@ -361,7 +361,7 @@ superior}.  Aquesta sintaxi es descriu a
 Això fa possible imprimir text separat de la música, cosa que és
 especialment útil quan el fitxer d'entrada conté diverses peces,
 tal i com es descriu a
-@rusernamed{Multiple scores in a book,Diverses partitures en un llibre}.
+@ref{Diverses partitures a un llibre}.
 
 @lilypond[quote,verbatim]
 \score {
@@ -398,8 +398,8 @@ requereix es descriuen a
 @seealso
 Referència de la notació:
 @ref{Donar format al text},
-@rusernamed{File structure,Estructura del fitxer},
-@rusernamed{Multiple scores in a book,Diverses partitures en un llibre},
+@ref{Estructura del fitxer},
+@ref{Diverses partitures a un llibre},
 @ref{Elements de marcatge de diverses pàgines}.
 
 Fragments de codi:

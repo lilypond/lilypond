@@ -1421,7 +1421,7 @@ Glossari musical:
 
 Referència de la notació:
 @ref{Donar format al text},
-@rusernamed{Creating MIDI output,Creació de sortida MIDI}.
+@ref{Creació de sortida MIDI}.
 
 Fragments de codi:
 @rlsr{Staff notation}.
