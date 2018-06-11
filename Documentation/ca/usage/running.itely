@@ -1130,7 +1130,7 @@ Aquest missatge d'error apareix a la sortida de la consola o al
 fitxer log de registre si un fitxer d'entrada conté un caràcter que
 no és ASCII i no s'ha desat en la codificació de caràcters
 UTF-8.  Per veure més detalls, consulteu
-@rusernamed{Text encoding,Codificació del text}.
+@ruser{Codificació del text}.
 
 @node Advertiment sobre que les afinitats del pentagrama sols han de decrèixer
 @unnumberedsubsec Advertiment sobre que les afinitats del pentagrama sols han de decrèixer

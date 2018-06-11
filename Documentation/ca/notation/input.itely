@@ -1,0 +1,4017 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+
+@ignore
+    Translation of GIT committish: e11c5effe2c19d8a551a8d51dc58842ab18af951
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.19.22"
+
+@c Translators: Walter Garcia-Fontes
+@c Translation checkers:
+
+@node Entrada i sortida generals
+@chapter Entrada i sortida generals
+@translationof General input and output
+
+Aquesta secció tracta de temes relacionats amb l'entrada i la
+sortida generals del LilyPond, en comptes de tractar sobre la
+notació específica.
+
+@menu
+* Estructura del codi d'entrada::
+* Títols i encapçalaments::
+* Treball sobre els fitxers d'entrada::
+* Control de la sortida::
+* Creació de sortida MIDI::
+* Extracció de la informació musical::
+@end menu
+
+
+@node Estructura del codi d'entrada
+@section Estructura del codi d'entrada
+@translationof Input structure
+
+El format principal d'entrada per al Lilypond són fitxers de
+text.  Per convenció, el nom d'aquests fitxers acaba en
+@file{.ly}.
+
+@menu
+* Estructura d'una partitura::
+* Diverses partitures a un llibre::
+* Diversos fitxers de sortida a partir d'un d'entrada::
+* Noms dels fitxers de sortida::
+* Estructura del fitxer::
+@end menu
+
+
+@node Estructura d'una partitura
+@subsection Estructura d'una partitura
+@translationof Structure of a score
+
+@funindex \score
+
+Un bloc @code{\score} ha de contenir una expressió musical única
+delimitada per un parell de claus:
+
+@example
+\score @{
+  @dots{}
+@}
+@end example
+
+@c outer?
+@warning{Sol pot haver-hi @strong{una} expressió musical dins del bloc
+@code{\score}, i @strong{ha} d'estar envoltada entre claus.}
+
+Aquesta expressió musical única pot tenir qualsevol mida, i pot
+contenir altres expressions musicals fins qualsevol grau de
+complexitat.  Tots els exemples següents són expressions musicals:
+
+@example
+@{ c'4 c' c' c' @}
+@end example
+
+@lilypond[verbatim,quote]
+{
+  { c'4 c' c' c' }
+  { d'4 d' d' d' }
+}
+@end lilypond
+
+@lilypond[verbatim,quote]
+<<
+  \new Staff { c'4 c' c' c' }
+  \new Staff { d'4 d' d' d' }
+>>
+@end lilypond
+
+@example
+@{
+  \new GrandStaff <<
+    \new StaffGroup <<
+      \new Staff @{ \flute @}
+      \new Staff @{ \oboe @}
+    >>
+    \new StaffGroup <<
+      \new Staff @{ \violinI @}
+      \new Staff @{ \violinII @}
+    >>
+  >>
+@}
+@end example
+
+Els comentaris són una excepció a aquesta regla generals (per
+veure altres excepcions, consulteu @ref{Estructura del fitxer}).
+Tant els comentaris d'una línia com els que estan delimitat per
+@code{%@{ @dots{} %@}} es poden escriure en qualsevol lloc dins
+del fitxer d'entrada.  Es poden escriure dins o fora del bloc
+@code{\score}, i dins o fora de l'expressió musical única dins del
+bloc @code{\score}.
+
+Recordeu que fins i tot dins d'un fitxer que contengui sols un bloc
+@code{\score}, aquest bloc es trob inclòs implícitament dins d'un
+bloc @code{\book}.  Un bloc @code{\book} dins d'un fitxer font
+produeix almenys un fitxer de sortida, i de forma predeterminada
+el nom del fitxer de sortida que es produeix es deriva del nom del
+fitxer d'entrada, de forma que @file{sardanaperaelefants.ly} dóna
+com a resultat @file{sardanaperaelefants.pdf}.
+
+(Per veure més detalls sobre els blocs @code{\book}, consulteu
+@ref{Diverses partitures a un llibre},
+@ref{Diversos fitxers de sortida a partir d'un d'entrada} i
+@ref{Estructura del fitxer}.)
+
+@seealso
+Manual d'aprenentatge:
+@rlearning{Treball sobre els fitxers d'entrada},
+@rlearning{Explicació de les expressions musicals},
+@rlearning{La partitura és una (única) expressió musical composta}.
+
+@node Diverses partitures a un llibre
+@subsection Diverses partitures a un llibre
+@translationof Multiple scores in a book
+
+@funindex \book
+@cindex moviments, diversos
+
+Un document pot contenir diverses peces de música i text, com per
+exemple un llibre d'estudis o una part orquestral amb diversos
+moviments.  Cada moviment s'introdueix com un bloc @code{\score}:
+
+@example
+\score @{
+  @var{@dots{}música@dots{}}
+@}
+@end example
+
+i els textos s'introdueixen amb un bloc @code{\markup}:
+
+@example
+\markup @{
+  @var{@dots{}text@dots{}}
+@}
+@end example
+
+@funindex \book
+
+Tots els moviments i els textos que apareixen en el mateix fitxer
+@file{.ly} es graven normalment en la forma d'un sol fitxer de sortida.
+
+@example
+\score @{
+  @var{@dots{}}
+@}
+\markup @{
+  @var{@dots{}}
+@}
+\score @{
+  @var{@dots{}}
+@}
+@end example
+
+Una excepció important es dóna dins dels documents del
+lilypond-book, en els quals hem d'escriure explícitament un bloc
+@code{\book}, perquè en cas contrari sola apareixerà a la sortida
+el primer @code{\score} o @code{\markup}.
+
+L'encapçalament de cada peça es pot posar dins del bloc
+@code{\score}.  Abans de cada moviment, s'imprimeix el nom de la
+peça (@code{piece}) extret de l'encapçalament.  El títol del
+llibre sencer es pot posar dins del bloc @code{\book}, però si no
+hi és present s'insereix a l'encapçalament @code{\header} que està
+al principi del fitxer.
+
+@example
+\header @{
+  title = "Vuit miniatures"
+  composer = "Igor Stravinsky"
+@}
+\score @{
+  @dots{}
+  \header @{ piece = "Romanze" @}
+@}
+\markup @{
+   @dots{}text de la segona estrofa@dots{}
+@}
+\markup @{
+   @dots{}text de la tercera estrofa@dots{}
+@}
+\score @{
+  @dots{}
+  \header @{ piece = "Menuetto" @}
+@}
+@end example
+
+@funindex \bookpart
+
+Es poden agrupar diferents peces de música en parts d'una llibre
+utilitzant blocs @code{\bookpart}.  Les parts de llibre se separen
+per mitjà de salts de pàgina, i poden donar començament amb un
+títol, com el llibre pròpiament dit, mitjançant l'especificació
+del bloc @code{\header}.
+
+@example
+\bookpart @{
+  \header @{
+    title = "Títol del llibre"
+    subtitle = "Primera part"
+  @}
+  \score @{ @dots{} @}
+  @dots{}
+@}
+\bookpart @{
+  \header @{
+    subtitle = "Segona part"
+  @}
+  \score @{ @dots{} @}
+  @dots{}
+@}
+@end example
+
+
+@node Diversos fitxers de sortida a partir d'un d'entrada
+@subsection Diversos fitxers de sortida a partir d'un d'entrada
+@translationof Multiple output files from one input file
+
+Si volem diversos fitxers de sortida a partir del mateix fitxer
+@file{.ly}, podem escriure diversos blocs @code{\book}, on cadascú
+d'aquests blocs @code{\book} donarà com a resulta un fitxer de
+sortida diferent.  Si no especifiquem cap bloc @code{\book} al
+fitxer, el LilyPond processa implícitament tot el fitxer com un
+sol bloc @code{\book}, vegeu @ref{Estructura del fitxer}.
+
+En produir diversos fitxers a partir d'un únic fitxer font, el
+LilyPond s'assegura que cap dels fitxers de sortida de cap bloc
+@code{\book} sobreescriu el fitxer de sortida produït per un
+@code{\book} anterior del mateix fitxer d'entrada.
+
+Ho fa afegint un sufix al nom de la sortida per a cada llibre
+@code{\book} que utilitza el nom del fitxer de sortida
+predeterminat, derivat del fitxer font d'entrada.
+
+El comportament predeterminat és afegir un sufix amb el número de
+versió per a cada nom que pugui coincidir; així:
+
+@example
+\book @{
+  \score @{ @dots{} @}
+  \paper @{ @dots{} @}
+@}
+\book @{
+  \score @{ @dots{} @}
+  \paper @{ @dots{} @}
+@}
+\book @{
+  \score @{ @dots{} @}
+  \paper @{ @dots{} @}
+@}
+@end example
+
+al fitxer font @file{eightminiatures.ly}, produeix
+
+@itemize
+@item
+@file{eightminiatures.pdf},
+@item
+@file{eightminiatures-1.pdf} y
+@item
+@file{eightminiatures-2.pdf}.
+@end itemize
+
+
+@node Noms dels fitxers de sortida
+@subsection Noms dels fitxers de sortida
+@translationof Output file names
+
+@funindex \bookOutputSuffix
+@funindex \bookOutputName
+
+El LilyPond us ofereix uns mecanismes que us permeten controlar
+els noms de fitxer que s'utilitzen per part dels diversos motors
+finals en produir els fitxers de sortida.
+
+A la secció anterior havíem vist com el LilyPond evita les
+coincidències de noms en produir diverses sortides a partir d'un
+únic fitxer font d'entrada.  També podem especificar els nostres
+propis sufixos per a cada bloc @code{\book}, de manera que podem
+produir, per exemple, fitxers amb els noms
+@file{eightminiatures-Romanze.pdf},
+@file{eightminiatures-Menuetto.pdf} y
+@file{eightminiatures-Nocturne.pdf} afegint una declaració
+@code{\bookOutputSuffix} dins de cada bloc @code{\book}.
+
+@example
+\book @{
+  \bookOutputSuffix "Romanze"
+  \score @{ @dots{} @}
+  \paper @{ @dots{} @}
+@}
+\book @{
+  \bookOutputSuffix "Menuetto"
+  \score @{ @dots{} @}
+  \paper @{ @dots{} @}
+@}
+\book @{
+  \bookOutputSuffix "Nocturne"
+  \score @{ @dots{} @}
+  \paper @{ @dots{} @}
+@}
+@end example
+
+També podem especificar un nom de fitxer de sortida diferent per a
+cada bloc @code{book}, mitjançant la utilització de declaracions
+@code{\bookOutputName}:
+
+@example
+\book @{
+  \bookOutputName "Romanze"
+  \score @{ @dots{} @}
+  \paper @{ @dots{} @}
+@}
+\book @{
+  \bookOutputName "Menuetto"
+  \score @{ @dots{} @}
+  \paper @{ @dots{} @}
+@}
+\book @{
+  \bookOutputName "Nocturne"
+  \score @{ @dots{} @}
+  \paper @{ @dots{} @}
+@}
+@end example
+
+El codi anterior produeix els següents fitxers de sortida:
+
+@itemize
+@item
+@file{Romanze.pdf},
+@item
+@file{Menuetto.pdf} i
+@item
+@file{Nocturne.pdf}.
+@end itemize
+
+
+@node Estructura del fitxer
+@subsection Estructura del fitxer
+@translationof File structure
+
+@funindex \paper
+@funindex \midi
+@funindex \layout
+@funindex \header
+@funindex \score
+@funindex \book
+@funindex \bookpart
+
+Un fitxer @file{.ly} pot contenir qualsevol nombre d'expressions
+del nivell superior, on una expressió del nivell superior és una
+de les possibilitats següents:
+
+@itemize
+@item
+Una definició de sortida, com @code{\paper}, @code{\midi} i
+@code{\layout}.  Una definició d'aquest tipus la nivell més alta
+canvia els ajustos predeterminats per a tot el llibre. Si
+s'introdueix més d'una d'aquestes definicions del mateix tipus al
+nivell més alt, les definicions es combinen, però en situacions de
+conflicte les definicions més tardanes tenen preferència.  Per
+veure els detalls sobre com afecta al bloc @code{\layout}, consulteu
+@rusernamed{The layout block,El bloc layout}.
+
+@item
+Una expressió directa de l'Scheme, com
+@code{#(set-default-paper-size "a7" 'landscape)} o
+@code{#(ly:set-option 'point-and-click #f)}.
+
+@item
+Un bloc @code{\header}.  Això estableix l'encapçalament global (és
+a dir, al principi del fitxer).  És el bloc que conté els ajustos
+predeterminats dels camps d'encapçalament com el compositor, el
+títol, etc per a tots els llibres que estan dins del fitxer (vegeu
+@ref{Explicació dels títols}).
+
+@item
+Un bloc @code{\score}.  Aquesta partitura es reuneix amb altres
+partitures del nivell superior, i es combina amb elles formant un
+@code{\book} (llibre) únic.  Aquest comportament es pot canviar
+establint el valor de la variable @code{toplevel-score-handler} al
+nivell superior (el @emph{handler} predeterminat es defineix al fitxer
+@file{../scm/lily-library.scm} i el seu valor s'estableix al fitxer
+@file{../ly/declarations-init.ly}.)
+
+@item
+Un bloc @code{\book} combina lògicament diversos moviments (és a
+dir, diversos blocs @code{\score}) en un sol document.  Si hi ha
+diverses partitures @code{\score}, es crea un sols fitxer de
+sortida per a cada bloc @code{\book}, en el qual es concatenen
+tots els moviments corresponents.  L'única raó per especificar
+explícitament blocs @code{\book} en un fitxer d'entrada @file{.ly}
+és si volem crear diversos fitxers de sortida a partir d'un únic
+fitxer d'entrada.  Una excepció es dóna dins dels documents de
+lilypond-book, en els quals hem d'escriure explícitament un bloc
+@code{\book} si volem tenir més d'una única partitura
+@code{\score} o marcatge @code{\markup} al mateix exemple.  Es pot
+canviar aquest comportament establint el valor de la variable
+@code{toplevel-book-handler} al nivell superior.  El
+@emph{handler} predeterminat es defineix al fitxer d'inici
+@file{../scm/lily.scm}.
+
+@item
+Un bloc @code{\bookpart}.  Un llibre pot dividir-se en diverses
+parts, utilitzant blocs @code{\bookpart}, amb l'objectiu de
+facilitar la inserció de salts de pàtina o suar diferents ajustos
+de @code{\paper} en les diferents parts.
+
+@item
+Una expressió musical composta, com
+@example
+@{ c'4 d' e'2 @}
+@end example
+
+Això afegeix la peça al @code{\score} i la conforma dins d'un
+llibre únic junt a totes les altres partitures @code{\score} i
+expressions musicals del nivell superior.  En altres paraules, un
+fitxer que conté sols l'expressió musical anterior es tradueix a
+
+@example
+\book @{
+  \score @{
+    \new Staff @{
+      \new Voice @{
+        @{ c'4 d' e'2 @}
+      @}
+    @}
+    \layout @{ @}
+  @}
+  \paper @{ @}
+  \header @{ @}
+@}
+@end example
+
+Es pot canviar aquest comportament establint el valor de la variable
+@code{toplevel-music-handler} al nivell més alt.  E.
+@emph{handler} predeterminat es defineix al fitxer d'inici
+@file{../scm/lily.scm}.
+
+@item
+Un text de marcatge, per exemple una estrofa
+@example
+\markup @{
+   2.  Estrofa dos, línia u
+@}
+@end example
+
+Els textos de marcatge es col·loquen a sobre, en mig o a sota de
+les partitures o expressions musicals, segons on apareguin escrits.
+
+@cindex variables
+
+@item
+Una variable, com
+@example
+pepet = @{ c4 d e d @}
+@end example
+
+Això es pot utilitzar més tard al fitxer escrivint
+@code{\pepet}.  El nom de les variables ha de ser exclusivament
+alfabètic; sense números, guions ni barres baixes.
+
+@end itemize
+
+L'exemple següent mostra tres coses que se poden introduir al
+nivell superior:
+
+@example
+\layout @{
+  % No justificar la sortida
+  ragged-right = ##t
+@}
+
+\header @{
+   title = "Do-re-mi"
+@}
+
+@{ c'4 d' e2 @}
+@end example
+
+En qualsevol punt del fitxer es poden introduir qualssevol de les
+instruccions lèxiques següents:
+
+
+@itemize
+@item @code{\version}
+@item @code{\include}
+@item @code{\sourcefilename}
+@item @code{\sourcefileline}
+@item Un comentari d'una línia, determinat per un símbol @code{%}
+al principi.
+
+@item
+Un comentari de diverses línies, delimita per @code{%@{ @dots{}
+%@}}.
+
+@end itemize
+
+@cindex espais en blanc
+
+En general s'ignoren els espais entre elements del flux d'entrada,
+i es poden ometre o augmentar tranquil·lament per millorar la
+llegibilitat.  Tanmateix, els espais s'han d'utilitzar sempre per
+evitar errors, en les situacions següents:
+
+@itemize
+
+@item Al voltant de totes i cadascuna de les claus i parèntesis d'obertura i
+tancament.
+
+@item A continuació de les ordres i variables, és a dir, tots els
+elements que comencen amb signe @code{\} de barra invertida.
+
+@item A continuació de tot element que s'hagi d'interpretar com a
+expressió de l'Scheme, és a dir, tot element que comenci per un
+signe@tie{}@code{#}.
+
+@item Per separar els elements d'una expressió de l'Scheme.
+
+@item Dins de @code{lyricmode} abans i després de les ordres
+@code{\set} i @code{\override}.
+
+@end itemize
+
+@seealso
+Manual d'aprenentatge:
+@rlearning{Com funcionen els fitxers d'entrada del LilyPond}
+
+Referència de la notació:
+@ref{Explicació dels títols},
+@rusernamed{The layout block,El bloc layout}.
+
+@node Títols i encapçalaments
+@section Títols i encapçalaments
+@translationof Titles and headers
+
+@cindex títols
+@cindex encapçalaments
+@cindex peus de pàgina
+
+Gairebé tota la música impresa té un títol i el nom del
+compositor; certes peces tenen molta més informació.
+
+@menu
+* Creació de títols encapçalaments i peus de pàgina::
+* Títols encapçalaments i peus de pàgina personalitzats::
+* Creació de metadades al fitxers de sortida::
+* Creació de notes al peu::
+* Referència a números de pàgina::
+* Índex general::
+@end menu
+
+
+@node Creació de títols encapçalaments i peus de pàgina
+@subsection Creació de títols encapçalaments i peus de pàgina
+@translationof Creating titles headers and footers
+
+@menu
+* Explicació dels títols::
+* Presentació predeterminada dels títols de parts de llibre i partitura::
+* Disposició predeterminada de les capçaleres i peus de pàgina::
+@end menu
+
+
+@node Explicació dels títols
+@unnumberedsubsubsec Explicació dels títols
+@translationof Titles explained
+
+Cada bloc @code{\book} d'un sol fitxer d'entrada produeix un
+fitxer de sortida diferent, vegeu @ref{Estructura del fitxer}.
+Dins de cada fitxer de sortida estan disponibles tres tipus de
+zones per a títols: @emph{Títols de llibre} al principi de cada
+llibre, @emph{Títols de part de llibre} al principi de cada part
+d'un llibre i @emph{Títols de partitura} al començament d'una
+partitura.
+
+Els valors dels camps per a encapçalaments com ara
+@code{title} (per al títol) i @code{composer} (per a l'autor)
+s'estableixen en blocs @code{\header} (per veure la sintaxi dels
+blocs @code{\header} i una llista completa dels camps disponibles
+de forma predeterminada, consulteu @ref{Presentació predeterminada
+dels títols de parts de llibre i partitura}).  Tant els títols de
+llibre com els títols de part de llibre i els títols de partitura
+poden contenir els mateixos camps, tot i que de forma
+predeterminada els camps dels títols de partitura es limiten a
+@code{piece} (peça) i @code{opus}.
+
+Els blocs @code{\header} es poden situar en quatre llocs diferents
+per formar una jerarquia descendent de blocs @code{\header}:
+
+@itemize
+
+@item
+Al principi del fitxer d'entrada, abans de qualsevol altre bloc
+@code{\book}, @code{\bookpart} o @code{\score}.
+
+@item
+Dins d'un bloc @code{\book} però fora dels blocs
+@code{\bookpart} i @code{\score} que estan dins d'aquest llibre.
+
+@item
+Dins d'un bloc @code{\bookpart} però fora de qualsevol bloc
+@code{\score} dins d'aquesta part del llibre.
+
+@item
+Després de l'expressió musical d'un bloc @code{\score}.
+
+@end itemize
+
+Els valors dels camps es filtren a través d'aquesta jerarquia,
+persistint aquells que s'estableixen més a dalt a no ser que se
+sobreescriguin per un valor establert més a sota a la jerarquia, i així:
+
+@itemize
+
+@item
+El títol d'un llibre deriva dels camps establerts al principi del
+fitxer d'entrada, modificat per camps establerts en el bloc
+@code{\book}.  Els camps resultants s'usen per imprimir el títol
+de llibre per a aquest llibre, sempre i quan hi hagi un altre
+material que generi una pàgina al començament del llibre, abans de
+la primera part de llibre.  És suficient una sola ordre @code{\pageBreak}.
+
+@item
+Un títol de part de llibre es deriva dels camps fixats al principi
+del fitxer d'entrada, modificat pels camps establerts dins del bloc
+@code{\book}, i posteriorment modificat pels camps que se fixen
+dins del bloc @code{\bookpart}.  Els valors resultants s'usen per
+imprimir el títol de part de llibre per a aquesta part.
+
+@item
+Un títol de partitura es deriva dels camps que es fixen al
+principi del fitxer d'entrada, modificats pels camps fixats dins
+del bloc @code{\book}, posteriorment modificats pels camps que es
+fixen dins del bloc @code{\bookpart} i finalment modificats pels
+camps establerts dins del bloc @code{\score}.  Els valors
+resultants s'utilitzen per imprimir el títol de partitura.
+Observeu, tanmateix, que de forma predeterminada sols
+s'imprimeixen els camps @code{piece} i @code{opus} als títols de
+partitura a no ser que la variable de @code{\paper},
+@code{print-all-headers}, tengui el valor @code{#t}.
+
+@end itemize
+
+@warning{Recordeu que al posar un bloc @bs{}@code{header} dins
+d'un bloc @bs{}@code{score}, l'expressió musical ha d'aparèixer
+abans del bloc @bs{}@code{header}.}
+
+No cal aportar blocs @code{\header} als quatre llocs: qualssevol
+d'ells o, fins i tot tots, poden ometre's.  De forma similar, els
+fitxers d'entrada senzills poden ometre els blocs @code{\book} i
+@code{\bookpart}, deixant que es creïn de forma implícita.
+
+Si el llibre sols té una partitura, el bloc
+@code{\header} hauria de situar-se normalment al principi del
+fitxer de forma que sols es produeix una zona de títol de part de
+llibre, fent que estiguin disponibles per al seu ús tots els
+títols d'encapçalament.
+
+Si el llibre té diverses partitures, són possibles diferents
+combinacions de blocs @code{\header}, segons els diferents tipus
+de publicacions musicals.  Per exemple, si la publicació conté
+diverses peces del mateix autor, un bloc @code{\header} col·locat
+al principi del fitxer que especifiqui el títol del llibre i
+l'autor, amb blocs @code{\header} en cada bloc @code{\score} que
+especifiqui la @code{piece} i/o el @code{opus} seria el mes
+adequat, com aquí:
+
+@lilypond[papersize=a5,quote,verbatim,noragged-right]
+\header {
+  title = "SUITE I."
+  composer = "J. S. Bach."
+}
+
+\score {
+  \new Staff \relative {
+    \clef bass
+    \key g \major
+    \repeat unfold 2 { g,16( d' b') a b d, b' d, } |
+    \repeat unfold 2 { g,16( e' c') b c e, c' e, } |
+  }
+  \header {
+    piece = "Prélude."
+  }
+}
+
+\score {
+  \new Staff \relative {
+    \clef bass
+    \key g \major
+    \partial 16 b16 |
+    <g, d' b'~>4 b'16 a( g fis) g( d e fis) g( a b c) |
+    d16( b g fis) g( e d c) b(c d e) fis( g a b) |
+  }
+  \header {
+    piece = "Allemande."
+  }
+}
+@end lilypond
+
+Són possibles disposicions més complexes.  Per exemple, els camps
+de text extrets del bloc @code{\header} d'un llibre es poden
+imprimir en tots els títols de partitura, amb certs camps
+sobreescrits i altres suprimits manualment:
+
+@lilypond[papersize=a5,quote,verbatim,noragged-right]
+\book {
+  \paper {
+    print-all-headers = ##t
+  }
+  \header {
+    title = "DAS WOHLTEMPERIRTE CLAVIER"
+    subtitle = "TEIL I"
+    % No mostris el peu de pàgina predeterminat del LilyPond per a aquest llibre
+    tagline = ##f
+  }
+  \markup { \vspace #1 }
+  \score {
+    \new PianoStaff <<
+      \new Staff { s1 }
+      \new Staff { \clef "bass" s1 }
+    >>
+    \header {
+      title = "PRAELUDIUM I"
+      opus = "BWV 846"
+      % No mostris el subtítol per a aquesta partitura
+      subtitle = ##f
+    }
+  }
+  \score {
+    \new PianoStaff <<
+      \new Staff { s1 }
+      \new Staff { \clef "bass" s1 }
+    >>
+    \header {
+      title = "FUGA I"
+      subsubtitle = "A 4 VOCI"
+      opus = "BWV 846"
+      % No mostris el subtítol per a aquesta partitura
+      subtitle = ##f
+    }
+  }
+}
+@end lilypond
+
+@seealso
+Referència de la notació:
+@ref{Estructura del fitxer},
+@ref{Presentació predeterminada dels títols de parts de llibre i partitura},
+@ref{Personalització dels títols}.
+
+@node Presentació predeterminada dels títols de parts de llibre i partitura
+@unnumberedsubsubsec Presentació predeterminada dels títols de parts de llibre i partitura
+@translationof Default layout of bookpart and score titles
+
+Aquest exemple mostra totes les variables impreses de @code{\header}:
+
+@c KEEP LY
+@lilypond[papersize=a6landscape,quote,verbatim,noragged-right]
+\book {
+  \header {
+      % Els camps següents estan centrats
+    dedication = "Dedicatòria"
+    title = "Títol"
+    subtitle = "Subtítol"
+    subsubtitle = "Subsubtítol"
+      % Els camps següents es distribueixen regularment sobre una línia.
+      % El camp "instrument" també apareix a les pàgines següents
+    instrument = \markup \with-color #green "Instrument"
+    poet = "Poeta"
+    composer = "Compositor"
+      % Els camps següents se situen als extrems oposats de la mateixa línia
+    meter = "Metre"
+    arranger ="Arreglador"
+      % Els camps següents estan centrats a la part inferior
+    tagline = "La línia d'etiqueta va al final de l'ultima pàgina"
+    copyright = "El copyright va al final de la primera pàgina"
+  }
+  \score {
+    { s1 }
+    \header {
+        % Els camps següents es col·loquen als extrems d'una línia
+      piece = "Peça 1"
+      opus = "Opus 1"
+    }
+  }
+  \score {
+    { s1 }
+    \header {
+        % Els camps següents se situen als extrems d'una línia
+      piece = "Peça 2  a la mateixa pàgina"
+      opus = "Opus 2"
+    }
+  }
+  \pageBreak
+  \score {
+    { s1 }
+    \header {
+        % Els camps següents se situen als extrems d'una línia
+      piece = "Peça 3 en una pàgina nova"
+      opus = "Opus 3"
+    }
+  }
+}
+@end lilypond
+
+Observeu que
+
+@itemize
+@item
+El nom d'instrument es repeteix a totes les pàgines.
+
+@item
+Sols @code{piece} (la peça) i @code{opus} s'imprimeixen a un
+@code{\score} quan la variable de paper @code{print-all-headers}
+s'estableix a @code{##f} (el valor predeterminat).
+
+@item
+@c Is the bit about \null markups true? -mp
+Els camps de text que es deixen sense establir dins d'un bloc
+@code{\header} se substitueixen per elements de marcatge nuls
+@code{\null} de manera que no ocupin espai innecessàriament.
+
+@item
+Els ajustos predeterminats per a @code{scoreTitleMarkup} situen
+els camps de text @code{piece} i @code{opus} en extrems oposants
+de la mateixa línia.
+
+@end itemize
+
+Per canviar la disposició predeterminada, vegeu
+@ref{Personalització dels títols}.
+
+@cindex breakbefore
+
+Si un bloc @code{\book} comença immediatament amb un bloc
+@code{\bookpart}, no s'imprimeix cap títol de llibre, atès que no
+existeix cap pàgina on imprimir-lo.  Si és necessari un títol de
+llibre, inicieu el bloc @code{\book} amb algun material de
+marcatge a amb una ordre @code{\pageBreak}.
+
+Utilitzeu la variable @code{breakbefore} dins d'un bloc
+@code{\header} que estigui pròpiament dins d'un bloc
+@code{\score} per fer que els títols del bloc
+@code{\header} del nivell superior apareguin ocupant tota la
+primera pàgina, començant la música (definida al bloc
+@code{\score}) a la pagina següent.
+
+@c KEEP LY
+@lilypond[papersize=c7landscape,verbatim,noragged-right]
+\book {
+  \header {
+    title = "Aquest és el meu Títol"
+    subtitle = "Aquest és el meu Subtítol"
+    copyright = "Aquest és el final de la primera pàgina"
+  }
+  \score {
+    \repeat unfold 4 { e'' e'' e'' e'' }
+    \header {
+      piece = "Això és la música"
+      breakbefore = ##t
+    }
+  }
+}
+@end lilypond
+
+@seealso
+Manual d'aprenentatge:
+@rlearning{Com funcionen els fitxers d'entrada del LilyPond}
+
+Referència de la notació:
+@ref{Personalització dels títols},
+@ref{Estructura del fitxer}.
+
+Fitxers d'inici:
+@file{ly/titling-init.ly}.
+
+
+@node Disposició predeterminada de les capçaleres i peus de pàgina
+@unnumberedsubsubsec Disposició predeterminada de les capçaleres i peus de pàgina
+@translationof Default layout of headers and footers
+
+Les @emph{capçaleres} i els @emph{peus} de pàgina són línies de
+text que apareixen a la part més alta i a la més baixa de les
+pàgines separades del text principal d'un llibre.  Es controlen
+mitjançant les variables següents de @code{\paper}:
+
+@itemize
+@item @code{oddHeaderMarkup} (marcatge de capçalera imparell)
+@item @code{evenHeaderMarkup} (marcatge de capçalera parell)
+@item @code{oddFooterMarkup} (marcatge de peu imparell)
+@item @code{evenFooterMarkup} (marcatge de peu parell)
+@end itemize
+
+Aquestes variables de marcatge sols poden accedir als camps de
+text extrets de blocs @code{\header} del nivell superior (que
+s'apliquen a totes les partitures del llibre) i es defineixen al
+fitxer @file{ly/titling-init.ly}.  De forma predeterminada:
+
+@itemize
+
+@item
+els números de pàgina se situen automàticament a l'extrem superior
+esquerre (si és parell) o superior dret (si és imparell), a partir
+de la segona pàgina.
+
+@item
+el camp de text @code{instrument} se situa al centre en cada
+pàgina, a partir de la segona pàgina.
+
+@item
+el text de @code{copyright} se centra a la part baixa de la
+primera pàgina.
+
+@item
+la línia @code{tagline} se centra al final de l'última pàgina, i a
+sota del text de @code{copyright} si sols hi ha una pàgina.
+
+@end itemize
+
+La línia predeterminada de peu de pàgina del LilyPond es pot
+canviar afegint un camp @code{tagline} al bloc @code{\header} del
+nivell superior.
+
+@lilypond[papersize=a8landscape,verbatim]
+\book {
+  \header {
+    tagline = "... music notation for Everyone"
+  }
+  \score {
+    \relative {
+      c'4 d e f
+    }
+  }
+}
+@end lilypond
+
+Per eliminar la línia de peu de pàgina predeterminada del
+LilyPond, establiu el valor de @code{tagline} a @code{##f}.
+
+@node Títols encapçalaments i peus de pàgina personalitzats
+@subsection Títols encapçalaments i peus de pàgina personalitzats
+@translationof Custom titles headers and footers
+
+@c TODO: somewhere put a link to header spacing info
+@c       (you'll have to explain it more in NR 4).
+
+@menu
+* Formatat personalitzat del text dels títols::
+* Personalització dels títols::
+* Disposició personalitzada de capçaleres i peus de pàgina::
+@end menu
+
+
+@node Formatat personalitzat del text dels títols
+@unnumberedsubsubsec Formatat personalitzat del text dels títols
+@translationof Custom text formatting for titles
+
+Es poden usar ordres @code{\markup} estàndard per personalitzar el
+text de qualsevol capçalera, peu o títol dins del bloc @code{\header}.
+
+@lilypond[quote,verbatim,noragged-right]
+\score {
+  { s1 }
+  \header {
+    piece = \markup { \fontsize #4 \bold "PRAELUDIUM I" }
+    opus = \markup { \italic "BWV 846" }
+  }
+}
+@end lilypond
+
+@seealso
+Referència de la notació:
+@ref{Donar format al text}.
+
+
+@node Personalització dels títols
+@unnumberedsubsubsec Personalització dels títols
+@translationof Custom layout for titles
+
+@cindex bookTitleMarkup
+@cindex scoreTitleMarkup
+@funindex bookTitleMarkup
+@funindex scoreTitleMarkup
+
+Les ordres @code{\markup} dins del bloc @code{\header} són útils
+per donar un format simple al text, però no permeten un control
+precís sobre la col·locació dels títols.  Per personalitzar la
+col·locació dels camps de text, canvieu un o les dos variables
+@code{\paper} següents:
+
+@itemize
+@item @code{bookTitleMarkup} (marcatge del títol del llibre)
+@item @code{scoreTitleMarkup} (marcatge del títol de la partitura)
+@end itemize
+
+La col·locació dels títols quan s'utilitzen els valors
+predeterminats d'aquestes variables de @code{\markup} es mostra
+als exemple de
+@ref{Presentació predeterminada dels títols de parts de llibre i partitura}.
+
+Els ajustos predeterminats per a @code{scoreTitleMarkup} tal i com
+estan definits al fitxer @file{ly/titling-init.ly} són:
+
+@example
+scoreTitleMarkup = \markup @{ \column @{
+  \on-the-fly \print-all-headers @{ \bookTitleMarkup \hspace #1 @}
+  \fill-line @{
+    \fromproperty #'header:piece
+    \fromproperty #'header:opus
+  @}
+@}
+@}
+@end example
+
+Això situa els camps de text @code{piece} i @code{opus} en extrems
+oposats de la mateixa línia:
+
+@lilypond[quote,verbatim,noragged-right]
+\score {
+  { s1 }
+  \header {
+    piece = "PRAELUDIUM I"
+    opus = "BWV 846"
+  }
+}
+@end lilypond
+
+Aquest exemple redefineix @code{scoreTitleMarkup} de manera que el
+camp de text @code{piece} apareix centrat i en un tipus de lletra
+gran i en negreta.
+
+@lilypond[papersize=a5,quote,verbatim,noragged-right]
+\book {
+  \paper {
+    indent = 0\mm
+    scoreTitleMarkup = \markup {
+      \fill-line {
+        \null
+        \fontsize #4 \bold \fromproperty #'header:piece
+        \fromproperty #'header:opus
+      }
+    }
+  }
+  \header { tagline = ##f }
+  \score {
+    { s1 }
+    \header {
+      piece = "PRAELUDIUM I"
+      opus = "BWV 846"
+    }
+  }
+}
+@end lilypond
+
+Els camps de text que normalment no són efectius dins dels blocs
+@code{\header} d'una partitura es poden imprimir a la zona del
+Títol de la partitura si es col·loca @code{print-all-headers} dins
+del bloc @code{\paper}.  Un desavantatge de la utilització
+d'aquest mètode es que els camps de text que estan orientats
+específicament per a la zona del títol de part de llibre han de
+suprimir-se manualment en cada un dels blocs @code{\score}.
+Vegeu @ref{Explicació dels títols}.
+
+Per evitar-lo, afegiu el camp de text desitjat a la definició de
+@code{scoreTitleMarkup}.  A l'exemple següent, el camp de text
+@code{composer} (associat normalment amb @code{bookTitleMarkup})
+se afegeix a @code{scoreTitleMarkup}, permetent que cada partitura
+mostri un compositor diferent:
+
+@lilypond[papersize=a5,quote,verbatim,noragged-right]
+\book {
+  \paper {
+    indent = 0\mm
+    scoreTitleMarkup = \markup {
+      \fill-line {
+        \null
+        \fontsize #4 \bold \fromproperty #'header:piece
+        \fromproperty #'header:composer
+      }
+    }
+  }
+  \header { tagline = ##f }
+  \score {
+    { s1 }
+    \header {
+      piece = "MENUET"
+      composer = "Christian Petzold"
+    }
+  }
+  \score {
+    { s1 }
+    \header {
+      piece = "RONDEAU"
+      composer = "François Couperin"
+    }
+  }
+}
+@end lilypond
+
+També podem crear els nostres propis camps de text personalitzats,
+i referir-nos a ells a la definició de l'element de marcatge.
+
+@lilypond[papersize=a5,quote,verbatim,noragged-right]
+\book {
+  \paper {
+    indent = 0\mm
+    scoreTitleMarkup = \markup {
+      \fill-line {
+        \null
+        \override #`(direction . ,UP) {
+          \dir-column {
+            \center-align \fontsize #-1 \bold
+              \fromproperty #'header:mycustomtext %% Camp definit per l'usuari
+            \center-align \fontsize #4 \bold
+              \fromproperty #'header:piece
+          }
+        }
+        \fromproperty #'header:opus
+      }
+    }
+  }
+  \header { tagline = ##f }
+  \score {
+    { s1 }
+    \header {
+      piece = "FUGA I"
+      mycustomtext = "A 4 VOCI" %% Camp definit per l'usuari
+      opus = "BWV 846"
+    }
+  }
+}
+@end lilypond
+
+@seealso
+Referència de la notació:
+@ref{Explicació dels títols}.
+
+
+@node Disposició personalitzada de capçaleres i peus de pàgina
+@unnumberedsubsubsec Disposició personalitzada de capçaleres i peus de pàgina
+@translationof Custom layout for headers and footers
+
+@c can make-header and make-footer be removed from
+@c paper-defaults-init.ly? -mp
+
+Les ordres @code{\markup} dins del bloc @code{\header} són
+d'utilitat per donar format al text d'una manera senzilla, però no
+permeten un control precís sobre la col·locació de les capçaleres
+i els peus de pàgina.  Per personalitzar la col·locació dels camps
+de text, useu una o més de les següents variables de @code{\paper}:
+
+@itemize
+@item @code{oddHeaderMarkup} (marcatge d'encapçalament imparell)
+@item @code{evenHeaderMarkup} (marcatge d'encapçalament parell)
+@item @code{oddFooterMarkup} (marcatge de peu de pàgina imparell)
+@item @code{evenFooterMarkup} (marcatge de peu de pàgina parell)
+@end itemize
+
+@cindex marcatge condicional
+@cindex on-the-fly
+@funindex \on-the-fly
+
+L'ordre de marcatge @code{\on-the-fly} es pot utilitzar per afegir
+elements de forma condicional al text d'encapçalament i peu de
+pàgina definit dins del bloc @code{\paper}, usant la sintaxi següent:
+
+@example
+variable = \markup @{
+  @dots{}
+  \on-the-fly  \@var{procediment}  @var{marcatge}
+  @dots{}
+@}
+@end example
+
+El @var{procediment} es crida cada cop que s'avalua l'ordre
+@code{\markup} en el qual apareix.  El @var{procediment} hauria de
+comprovar si es compleix una condició determinada i interpretar
+(és a dir: gravar) l'argument @var{marcatge} si, i sols si, la
+condició és vertadera.
+
+Es proveeixen un cert nombre de procediments ja fets per a la
+comprovació de diverses condicions:
+
+@quotation
+@multitable {print-page-number-check-first-----} {el nombre de pàgines a la part de llibre és més gran que 1?------}
+
+@headitem  Nom del procediment @tab  Condició que es comprova
+
+@item print-page-number-check-first @tab  s'hauria d'imprimir aquest número de pàgina?
+@item create-page-number-stencil    @tab  és print-page-numbers vertader?
+@item print-all-headers             @tab  és print-all-headers vertader?
+@item first-page                    @tab  és la primera pàgina del llibre?
+@item not-first-page                @tab  no es la primera pàgina del llibre?
+@item (on-page num)                 @tab  és el número de pàgina = num?
+@item last-page                     @tab  és l'última pàgina del llibre?
+@item part-first-page               @tab  és la primera pàgina de la part de llibre?
+@item not-part-first-page           @tab  no es la primera pàgina de la part de llibre?
+@item part-last-page                @tab  és l'última pàgina de la part de llibre?
+@item not-single-page               @tab  és el nombre de pàgines en la part de llibre més gran que 1?
+
+@end multitable
+@end quotation
+
+L'exemple següent centra els números de pàgina en la part baixa de
+les pàgines.  En primer lloc, els ajustaments predeterminats per a
+@code{oddHeaderMarkup} i @code{evenHeaderMarkup} s'eliminen
+definint-los com un marcatge @emph{nul}.  Després d'això, es defineix
+@code{oddFooterMarkup} amb el número de pàgina centrat.
+Finalment, @code{evenFooterMarkup} rep la mateixa disposició
+definint-la com @code{\oddFooterMarkup}:
+
+@lilypond[papersize=a8,quote,verbatim,noragged-right]
+\book {
+  \paper {
+    print-page-number = ##t
+    print-first-page-number = ##t
+    oddHeaderMarkup = \markup \null
+    evenHeaderMarkup = \markup \null
+    oddFooterMarkup = \markup {
+      \fill-line {
+        \on-the-fly \print-page-number-check-first
+        \fromproperty #'page:page-number-string
+      }
+    }
+    evenFooterMarkup = \oddFooterMarkup
+  }
+  \score {
+    \new Staff { s1 \break s1 \break s1 }
+  }
+}
+@end lilypond
+
+Es poden combinar diverses condicions de @code{\on-the-fly} amb un
+operador @q{and}, per exemple:
+
+@example
+  \on-the-fly \first-page
+  \on-the-fly \last-page
+  @code{@{ \markup @dots{} \fromproperty #'header: @dots{} @}}
+@end example
+
+determina si la sortida és una sola pàgina.
+
+@seealso
+Referència de la notació:
+@ref{Explicació dels títols},
+@ref{Presentació predeterminada dels títols de parts de llibre i partitura}.
+
+Fitxers instal·lats:
+@file{../ly/titling-init.ly}.
+
+@node Creació de metadades al fitxers de sortida
+@subsection Creació de metadades al fitxers de sortida
+@translationof Creating output file metadata
+
+@cindex metadades de PDF
+@cindex metadades de MIDI
+
+A més de mostrar-se a la sortida impresa, les variables
+d'encapçalament de @code{\header} s'usen per establir les
+metadades per als fitxers de sortida.  Per exemple, amb els
+fitxers PDF, aquestes metadades poden mostrar-se per part dels
+lectors de documents com @code{propietats} del PDF.  Per a cada
+tipus de fitxers de sortida, sols es consulten les definicions de
+@code{\header} dels blocs que defineixen fitxers separats d'aquest
+tipus, i els blocs més alts a la jerarquia de blocs.  Per tant,
+per als fitxers PDF, sols afecten a les metadades de PDF de cada
+document les definicions de @code{\header} dels nivells de
+@code{\book} i de nivell superior, mentre que per a fitxers MIDI
+s'usen totes les capçaleres que estiguin per sobre o al nivell de
+@code{\score}.
+
+Per exemple, si s'estableix la propietat @code{title} del bloc
+@code{header} com @q{Sinfonia núm. 1}, el document PDF portarà
+també aquest títol, i el farà servir com a nom de la seqüència del
+fitxer MIDI.
+
+@example
+\header@{
+  title = "Sinfonia núm. 1"
+@}
+@end example
+
+Si voleu fixar el títol de la sortida impresa amb un text però
+voleu que la propietat del títol del PDF tingui un text diferent,
+podeu usar @code{pdftitle} como es mostra a continuació.
+
+@example
+\header@{
+  title = "Sinfonia núm. 1"
+  pdftitle = "Sinfonia núm. 1 de Beethoven"
+@}
+@end example
+
+Totes les variables @code{title}, @code{subject},
+@code{keywords}, @code{subtitle}, @code{composer},
+@code{arranger}, @code{poet}, @code{author} i @code{copyright}
+estableixen propietats del PDF i poden fer-se precedir de
+@q{pdf} per fixar una propietat del fitxer PDF a un valor diferent
+del de la sortida impresa.
+
+La propietat de PDF @code{Creator} es fixa automàticament a
+@q{LilyPond} més la versió actual del LilyPond, y les variables
+@code{CreationDate} i @code{ModDate} es fixen a la data i hora
+actuals.  Es pot sobreescriure @code{ModDate} mitjançant
+l'establiment d'un valor per a la variable de capçalera
+@code{moddate} (o @code{pdfmoddate}) a una cadena de data de PDF
+vàlida.
+
+La variable @code{title} estableix també el nom de la seqüència
+per al fitxer MIDI.  Es pot usar la variable @code{midititle} per
+fixar el nom de la seqüència independentment del valor usar per a
+la sortida impresa.
+
+@node Creació de notes al peu
+@subsection Creació de notes al peu
+@translationof Creating footnotes
+
+@cindex notes al peu
+
+Es poden crear dos tipus de notes al peu: automàtiques i manuals.
+
+@menu
+* Notes al peu dins d'expressions musicals::
+* Notes al peu en text independent::
+@end menu
+
+@node Notes al peu dins d'expressions musicals
+@unnumberedsubsubsec Notes al peu dins d'expressions musicals
+@translationof Footnotes in music expressions
+
+@cindex notes al peu dins d'expressions musicals
+@funindex \footnote
+
+@subsubsubheading Panoràmica de les notes al peu
+
+Les notes al peu dins d'expressions musicals cauen dins de dues
+categories:
+
+@table @emph
+@item Notes al peu basades en esdeveniments
+S'adjunten a un esdeveniment en particular.  En són exemples
+d'aquests esdeveniments les notes soltes, les articulacions (com
+indicacions de digitació, accents, indicacions dinàmiques) i els
+post-esdeveniments (com les lligadures d'expressió i les barres de
+corxera manuals).  La forma general de les notes al peu basades en
+esdeveniments és com segueix:
+
+@example
+[@var{direcció}] \footnote [@var{marca}] @var{desplaçament} @var{text-de-la-nota} @var{música}
+@end example
+
+@item Notes al peu basades en temps
+Es lliguen a un punt temporal determinat, dins d'un context
+musical.  Algunes instruccions com @code{\time} i @code{\clef} en
+realitat no usen esdeveniments per crear objectes com la indicació
+de compàs i la clau.  Un acord tampoc crea un esdeveniment per sí
+mateix: la seva plica o gafet es crea al final d'un pas de temps
+(nominalment, a través d'un dels esdeveniments de nota que
+conté).  Una nota al peu basada en temps permet anotar aquest
+tipus d'objectes de presentació sense referir-se a cap esdeveniment.
+
+Una nota al peu basada en temps permet que aquests objectes de
+presentació es poden anotar sense fer referència a un
+esdeveniment.  La forma general per a les notes al peu basada en
+temps és:
+
+@example
+\footnote [@var{marca}] @var{desplaçament} @var{text-de-la-nota} [@var{Context}].@var{Nom-del-Grob}
+@end example
+
+@end table
+
+Els elements per a les dues formes són com segueix:
+
+@table @var
+
+@item direcció
+Si (i sols si) el @code{\footnote} s'està aplicant a un
+post-esdeveniment o articulació, ha d'anar precedida d'un
+indicador de direcció (@code{-, _, ^}) amb l'objecte d'adjuntar la
+@var{música} (amb una marca de nota al peu) a la nota o silenci
+precedent.
+
+
+@item marca
+és un element de marcatge o cadena de caràcters que especifica la
+marca de nota al peu que s'usa per marcar tant el punt de
+referència com la pròpia nota al peu en la part inferior de la
+pàgina.  Es pot ometre (o, de forma equivalent, substituir-se per
+@code{\default}) en el qual cas es genera un numero seqüencialment
+de forma automàtica.  Tals seqüències numèriques es reinicien en
+cada pàgina que conté una nota al peu.
+
+@item desplaçament
+és una parella de números tal com @samp{#(2 . 1)} que especifica
+els desplaçaments en X i en Y en unitats d'espais de pentagrama a
+partir del límit de l'objecte en el qual es desitja situar la
+marca.  Els valors de desplaçament positius s'agafen a partir del
+cantó superior dret, els valors negatius a partir del cantó
+inferior esquerre i zero implica que la  marca se centra sobre el
+cantó.
+
+@item Context
+és el context en el qual es crea el grob que rep la nota al peu.
+Es pot ometre si el grob està en un context del nivell inferior,
+per exemple, un context @code{Voice}.
+
+@item Nom-del-Grob
+especifica un tipus de grob a marcar (com @samp{Flag} per al
+gafet).  Si es dóna, la nota al peu no s'adjunta a una expressió
+musical en particular, sinó a tots els grobs del tipus especificat
+que ocorren en aquest moment de temps musical.
+
+@item text-de-la-nota
+és l'element de marcatge o cadena de caràcters que especifica el
+text de la nota al peu que utilitza en la part baixa de la pàgina.
+
+@item música
+és l'esdeveniment musical, post-esdeveniment o articulació que
+s'està anotant.
+
+@end table
+
+@subsubsubheading Notes al peu basades en esdeveniments
+
+@cindex Notes al peu, basades en esdeveniments
+
+Una nota al peu s'adjunta a un objecte de presentació causat
+directament per l'esdeveniment que correspon a @var{música}, amb
+la sintaxi següent:
+
+@example
+\footnote [@var{marca}] @var{desplaçament} @var{text-de-la-nota} @var{música}
+@end example
+
+@c KEEP LY
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c'' {
+    \footnote #'(-1 . 3) "Una nota" a4
+    a4
+    \footnote #'(2 . 2) "Un silenci" r4
+    a4
+  }
+}
+@end lilypond
+
+No és possible marcar un acord @emph{complet} amb una nota al peu
+basada en esdeveniment: un acord, fins i tot el que conté una sola
+nota, no produeix un veritable esdeveniment per sí mateix.
+Malgrat això, les notes individuals que estiguin @emph{dins} de
+l'acord si es poden marcar:
+
+@c KEEP LY
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c'' {
+    \footnote #'(2 . 3) "No funciona" <a-3>2
+    <\footnote #'(-2 . -3) "Funciona" a-3>4
+    <a-3 \footnote #'(3 . 1/2) "També funciona" c-5>4
+  }
+}
+@end lilypond
+
+Si es desitja que la nota al peu s'adjunta a un post-esdeveniment
+o articulació, l'ordre @code{\footnote} @emph{ha} d'anar precedida
+per un indicador d'adreça, @code{-, _, ^}, i seguida pel
+post-esdeveniment o articulació que es desitja anota com a
+argument @var{música}.  En aquesta forma, la @code{\footnote} es
+pot considerar com una simple còpia del seu últim argument amb una
+marca de nota al peu adjunta.  La sintaxi és:
+
+@example
+@var{direcció} \footnote [@var{marca}] @var{desplaçament} @var{text-de-la-nota} @var{música}
+@end example
+
+@c KEEP LY
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative {
+    a'4_\footnote #'(0 . -1) "Lligadura forçada cap avall" (
+    b8^\footnote #'(1 . 0.5) "Barra manual forçada cap amunt" [
+    b8 ]
+    c4 )
+    c-\footnote #'(1 . 1) "Tenuto" --
+  }
+}
+@end lilypond
+
+@subsubsubheading notes al peu basades en temps
+
+@cindex notes al peu, basades en temps
+
+Si l'objecte de presentació que rep la nota al peu està
+reutilitzat @emph{indirectament} per un esdeveniment (com un
+objecte @code{Accidental}, alteració, o @code{Stem}, plica,
+causats per un esdeveniment @code{NoteHead}, cap de nota), el nom
+del grob @var{GrobName} de l'objecte de presentació és necessari
+després del text de la nota al peu, en lloc de @var{música}:
+
+@c KEEP LY
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c'' {
+    \footnote #'(-1 . -3) "Un bemoll" Accidental
+    aes4 c
+    \footnote #'(-1 . 0.5) "Un altre bemoll" Accidental
+    ees
+    \footnote #'(1 . -2) "Una plica" Stem
+    aes
+  }
+}
+@end lilypond
+
+Malgrat això, observeu que quan s'especifica el nom d'un grob,
+s'adjunta una nota al peu a tots els grobs d'aquest tipus dins de
+l'instant del temps actual:
+
+@c KEEP LY
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c' {
+    \footnote #'(-1 . 3) "Un bemoll" Accidental
+    <ees ges bes>4
+    \footnote #'(2 . 0.5) "Articulació" Script
+    c'->-.
+  }
+}
+@end lilypond
+
+Una nota dins d'un acord pot rebre una nota al peu individual,
+basada a l'esdeveniment.  L'únic grob causat directament per una
+nota d'un acord és @samp{NoteHead}, per la qual cosa l'ordre de
+nota al peu basada en esdeveniment @emph{sols} és apta per afegir
+una nota al peu a la @samp{NoteHead} dins d'un acord.  Tots els
+altres grobs de notes d'acord estan causats indirectament.  La
+pròpia ordre @code{\footnote} no ofereix cap sintaxi per
+especificar al mateix temps un tipus concret de grob @emph{i
+també} un esdeveniment concret al qual adjuntar la nota.  Malgrat
+això, es pot usar una ordre @code{\footnote} basada en temps per
+especificar el tipus de grob, i després d'afegir l'ordre
+@code{\single} com prefix, amb l'objectiu que s'apliqui sols a
+l'esdeveniment següent:
+
+@c KEEP LY
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c'' {
+    < \footnote #'(1 . -2) "Un La" a
+      \single \footnote #'(-1 . -1) "Un sostingut" Accidental
+      cis
+      \single \footnote #'(0.5 . 0.5) "Un bemoll" Accidental
+      ees fis
+    >2
+  }
+}
+@end lilypond
+
+@warning{Quan les notes al peu s'adjunten a diversos elements
+musicals que estan dins del mateix musical, com ocorre a l'exemple
+anterior, les notes al peu es numeren des dels elements més alta
+als més baixos tal i com apareixen a la sortida impresa, no a
+l'ordre en el qual s'escriuen al flux d'entrada.}
+
+Els objectes de presentació com les claus i les armadures de canvi
+de tonalitat estan, més bé, causades per propietats que canvien, i
+no per esdeveniments.  D'altres, com les línies divisòries i els
+números de compàs, són una conseqüència directa del pas del
+temps.  Per aquesta raó, les notes al peu sobre tals objectes
+tenen que basar-se en el seu temps musical.  Les notes al peu
+basades en temps són preferibles també quan es marquen coses com
+les pliques i les barres de corxera a @emph{acords}: atès que
+aquestes funcionalitats de cada acord individual estan assignades
+normalment a @emph{un sol} esdeveniment dins de l'acord, seria
+imprudent descansar en una elecció particular.
+
+A les notes al peu basades en temps, sempre s'ha d'especificar
+explícitament l'objecte de presentació en qüestió, i si el grob es
+crea dins d'un context diferent al de nivell més baix, s'ha
+d'especificar el context apropiat.
+
+@c KEEP LY
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c'' {
+    r1 |
+    \footnote #'(-0.5 . -1) "Canvi de compàs" Staff.TimeSignature
+    \time 3/4
+    \footnote #'(1 . -1) "Plica d'acord" Stem
+    <c e g>4 q q
+    \footnote #'(-0.5 . 1) "Línia divisòria" Staff.BarLine
+    q q
+    \footnote #'(0.5 . -1) "Canvi de tonalitat" Staff.KeySignature
+    \key c\minor
+    q
+  }
+}
+@end lilypond
+
+Es poden usar marques personalitzades com alternatives a les
+marques numèriques, i es pot suprimir la línia d'anotació que
+uneix l'objecte marcat amb la seva marca:
+
+@c KEEP LY
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c' {
+    \footnote "*" #'(0.5 . -2) \markup { \italic "* La primera nota" } a'4
+    b8
+    \footnote \markup { \super "$" } #'(0.5 . 1)
+      \markup { \super "$" \italic " La segona nota" } e
+    c4
+    \once \override Score.FootnoteItem.annotation-line = ##f
+    b-\footnote \markup \tiny "+" #'(0.1 . 0.1)
+      \markup { \super "+" \italic " Editorial" } \p
+  }
+}
+@end lilypond
+
+Es mostren més exemples de marques personalitzades a
+@ref{Notes al peu en text independent}.
+
+
+@node Notes al peu en text independent
+@unnumberedsubsubsec Notes al peu en text independent
+@translationof Footnotes in stand-alone text
+
+@cindex notes al peu en text independent
+
+S'utilitzen dins d'un element de marcatge fora de qualsevol
+expressió musical.  No es traça una línia fins el punt de
+referència: la marca simplement segueix a l'element de marcatge
+que es referencia.  Es poden inserir les marques automàticament,
+en el qual cas són numèriques.  De forma alternativa, es poden
+aportar manualment marques personalitzats.
+
+Les notes al peu per a text independent com marques automàtiques i
+personalitzades es creen de formes diferents.
+
+@subsubsubheading Notes al peu en text independent amb marques automàtiques
+
+La sintaxi d'una nota al peu sobre text independent amb marques
+automàtiques és
+
+@example
+\markup @{ @dots{} \auto-footnote @var{text} @var{nota} @dots{} @}
+@end example
+
+Els elements són:
+
+@table @var
+
+@item text
+és l'element de marcatge o cadena de caràcters que es desitja
+anotar.
+
+@item nota
+és l'element de marcatge o cadena de caràcter que especifica el
+text de la nota al peu que utilitza a la part baixa de la pàgina.
+
+@end table
+
+Per exemple:
+
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { tagline = ##f }
+  \markup {
+    "Un melodia"
+    \auto-footnote "simple" \italic " Meva"
+    "es mostra a sota. És una"
+    \auto-footnote "composició" \italic " Ago 2012"
+    "recent."
+  }
+  \relative {
+    a'4 b8 e c4 d
+  }
+}
+@end lilypond
+
+@subsubsubheading Notes al peus sobre text independent amb marques personalitzades
+
+La sintaxi d'una nota al peu sobre text independent amb marques
+personalitzades és
+
+@example
+\markup @{ @dots{} \footnote @var{marca} @var{nota} @dots{} @}
+@end example
+
+Els elements són:
+
+@table @var
+
+@item marca
+és un element de marcatge o cadena de caràcters que especifica la
+marca que s'usa per senyalar el punt de referència.  Observeu que
+aquesta marca @emph{no} s'insereix automàticament abans de la
+pròpia nota al peu.
+
+@item nota
+és l'element de marcatge o cadena de caràcters que especifica el
+text de la nota que apareix en la part baixa de la pàgina,
+precedida per la @var{marca} especificada.
+
+@end table
+
+Es pot usar com marca un caràcter fàcil de teclejar, com * ó +,
+segons es mostra en @ref{Notes al peu dins d'expressions
+musicals}.  De forma alternativa, es poden usar àlies en ASCII
+(vegeu @ref{Àlies d'ASCII}):
+
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \paper { #(include-special-characters) }
+  \header { tagline = ##f }
+  \markup {
+    "Es mostra a sota"
+    \footnote "*" \italic "* Per mi"
+    "una melodia simple.  És una composició"
+    \footnote \super &dagger; \concat {
+      \super &dagger; \italic " Ago 2012"
+    }
+    "recent."
+  }
+  \relative {
+    a'4 b8 e c4 d
+  }
+}
+@end lilypond
+
+També poden utilitzar-se codis de caràcters Unicode per
+especificar les marques (vegeu @ref{Unicode}):
+
+@lilypond[verbatim,quote,ragged-right,papersize=a8]
+\book {
+  \header { tagline = ##f }
+  \markup {
+    "Es mostra a sota"
+    \footnote \super \char##x00a7 \concat {
+      \super \char##x00a7 \italic " Per mi"
+    }
+    "una melodia simple.  És una composició"
+    \footnote \super \char##x00b6 \concat {
+      \super \char##x00b6 \italic " Ago 2012"
+    }
+    "recent."
+  }
+  \relative {
+    a'4 b8 e c4 d
+  }
+}
+@end lilypond
+
+@seealso
+Manual d'aprenentatge:
+@rlearning{Objectes i interfícies}
+
+Referència de la notació:
+@ref{Àlies d'ASCII},
+@ref{Globus d'ajuda},
+@rusernamed{List of special characters,Llista de caràcters especials},
+@ref{Indicacions de text},
+@ref{Scripts de text},
+@ref{Unicode}.
+
+Referència de funcionament intern:
+@rinternals{FootnoteEvent},
+@rinternals{FootnoteItem},
+@rinternals{FootnoteSpanner},
+@rinternals{Footnote_engraver}.
+
+@knownissues
+Diverses notes al peu de la mateixa pàgina sols poden anar
+apilades unes sobre les altres; es poden imprimir a la mateixa
+línia.
+
+Les notes al peu no es poden adjuntar a @code{MultiMeasureRests}
+(silencis multicompàs), o barres de corxera automàtiques ni a la
+lletra de les cançons.
+
+Les notes al peu poden col·lisionar amb les pautes, objectes
+@code{\markup}, altres marques de notes al peu i línies d'anotació.
+
+@node Referència a números de pàgina
+@subsection Referència a números de pàgina
+@translationof Reference to page numbers
+
+Un lloc determinat d'una partitura pot senyalar-se usant l'ordre
+@code{\label} (etiqueta), ja sigui al nivell superior o dins de la
+música.  Podem referir-nos a aquesta etiqueta més tard dins d'un
+element de marcatge, per obtenir el número de la pàgina en la qual
+se situa el punt senyalitzat, usant l'ordre de marcatge @code{\page-ref}.
+
+@c KEEP LY
+@lilypond[verbatim,papersize=a8landscape]
+\header { tagline = ##f }
+\book {
+  \label #'firstScore
+  \score {
+    {
+      c'1
+      \pageBreak \mark A \label #'markA
+      c'1
+    }
+  }
+  \markup { La primera partitura comença a la pàgina \page-ref #'firstScore "0" "?" }
+  \markup { La marca A està a la pàgina \page-ref #'markA "0" "?" }
+}
+@end lilypond
+
+L'ordre de marcatge @code{\page-ref} pren tres arguments:
+@enumerate
+@item l'etiqueta, un símbol de l'Scheme, per exemple @code{#'firstScore};
+@item un element de marcatge que s'usarà com mesurador per estimar les dimensions del marcatge;
+@item un element de marcatge que s'utilitzarà en substitució del número de pàgina si l'etiqueta és desconeguda.
+@end enumerate
+
+El motiu que calgui un mesurador es que al moment en el qual
+s'estan interpretant els marcatges, els salts de pàgina encara no
+s'han produït i per tant els números de pàgina no es coneixen
+encara.  Per sortejar aquest inconvenient, la interpretació real
+del marcatge s'endarrereix fins un moment posterior: malgrat això,
+les dimensions del marcatge s'han de conèixer per anticipat, de
+manera que es fa servir aquest mesurador per decidir aquestes
+dimensions.  Si el llibre té entre 1 i 99 pàgines, el mesurador
+pot ser "00", és a dir, un nombre de dos dígits.
+
+@predefined
+@funindex \label
+@code{\label},
+@funindex \page-ref
+@code{\page-ref}.
+@endpredefined
+
+
+@node Índex general
+@subsection Índex general
+@translationof Table of contents
+
+Es pot inserir un índex general o taula de continguts utilitzant
+l'ordre @code{\markuplist \table-of-contents}. Els elements que
+han d'aparèixer a la taula de continguts s'introdueixen amb
+l'ordre @code{\tocItem}, que es pot usar al nivell més alt de la
+jerarquia del codi, o dins d'una expressió musical.
+
+@verbatim
+\markuplist \table-of-contents
+\pageBreak
+
+\tocItem \markup "Primera partitura"
+\score {
+  {
+    c'4  % ...
+    \tocItem \markup "Un punto concret dins de la primera partitura"
+    d'4  % ...
+  }
+}
+
+\tocItem \markup "Segona partitura"
+\score {
+  {
+    e'4 % ...
+  }
+}
+@end verbatim
+
+Els elements de marcatge que s'usen per donar format a l'índex
+general o taula de continguts estan definits dins del bloc
+@code{\paper}.  Hi ha dos elements de marcatge @q{predefinits} disponibles:
+
+@itemize
+
+@item
+@code{tocTitleMarkup}
+
+@noindent
+Utilitzat per donar format al títol de l'índex  general.
+
+@verbatim
+tocTitleMarkup = \markup \huge \column {
+  \fill-line { \null "Índex general" \null }
+  \null
+}
+@end verbatim
+
+@item
+@code{tocItemMarkup}
+
+@noindent
+Usat per donar formats als elements de l'índex general.
+@verbatim
+tocItemMarkup = \markup \fill-line {
+  \fromproperty #'toc:text \fromproperty #'toc:page
+}
+@end verbatim
+
+@end itemize
+
+@noindent
+Ambdues variables poden modificar-se.
+
+Vet aquí un exemple que modifica el títol de l'índex general
+perquè aparegui en francès:
+
+@verbatim
+\paper {
+  tocTitleMarkup = \markup \huge \column {
+    \fill-line { \null "Table des matières" \null }
+    \hspace #1
+  }
+@end verbatim
+
+A continuació apareix un exemple que modifica la mida del tipus de
+lletra dels elements de l´índex general:
+
+@verbatim
+tocItemMarkup = \markup \large \fill-line {
+  \fromproperty #'toc:text \fromproperty #'toc:page
+}
+@end verbatim
+
+Observeu la forma en la qual ens referim al text i al número de
+pàgina de l'element d l'índex, dins de la definició
+@code{tocItemMarkup}.
+
+L'ordre @code{\tocItemWithDotsMarkup} es pot incloure dins de
+@code{tocItemMarkup} per omplir la línia amb punts entre un
+element de l'índex general i el seu número de pàgina
+corresponent:.
+
+@lilypond[verbatim,line-width=10.0\cm]
+\header { tagline = ##f }
+\paper {
+  tocItemMarkup = \tocItemWithDotsMarkup
+}
+
+\book {
+  \markuplist \table-of-contents
+  \tocItem \markup { Allegro }
+  \tocItem \markup { Largo }
+  \markup \null
+}
+@end lilypond
+
+Les ordres predefinides amb els seus propis marcatges poden
+definir-se també perquè construeixin un índex general més
+complex.  A l'exemple següent es defineix un estil nou per
+introduir els noms dels actes d'una òpera a l'índex general:
+
+@noindent
+Una nova variable de marcatge (anomenada @code{tocActMarkup}) es
+defineix al bloc @code{\paper}:
+
+@verbatim
+\paper {
+  tocActMarkup = \markup \large \column {
+    \hspace #1
+    \fill-line { \null \italic \fromproperty #'toc:text \null }
+    \hspace #1
+  }
+}
+@end verbatim
+
+@noindent
+A continuació es crea una funció musical personalitzada
+(@code{tocAct}), que usa la nova definició de marcatge
+@code{tocActMarkup}.
+
+@verbatim
+tocAct =
+  #(define-music-function (text) (markup?)
+     (add-toc-item! 'tocActMarkup text))
+@end verbatim
+
+@noindent
+Un fitxer d'entrada del LilyPond que usi aquestes definicions
+personalitzades tindria l'aspecte següent:
+
+@lilypond[line-width=10.0\cm]
+\header { tagline = ##f }
+\paper {
+  tocActMarkup = \markup \large \column {
+    \hspace #1
+    \fill-line { \null \italic \fromproperty #'toc:text \null }
+    \hspace #1
+  }
+}
+
+tocAct =
+#(define-music-function (text) (markup?)
+   (add-toc-item! 'tocActMarkup text))
+
+\book {
+  \markuplist \table-of-contents
+  \tocAct \markup { Atto Primo }
+  \tocItem \markup { Coro. Viva il nostro Alcide }
+  \tocItem \markup { Cesare. Presti omai l'Egizia terra }
+  \tocAct \markup { Atto Secondo }
+  \tocItem \markup { Sinfonia }
+  \tocItem \markup { Cleopatra. V'adoro, pupille, saette d'Amore }
+  \markup \null
+}
+@end lilypond
+
+
+Vet aquí un exemple de l'ordre @code{\fill-with-pattern} usada
+dins del context d'un índex general:
+
+@verbatim
+\paper {
+  tocItemMarkup = \markup { \fill-line {
+    \override #'(line-width . 70)
+    \fill-with-pattern #1.5 #CENTER . \fromproperty #'toc:text \fromproperty #'toc:page
+    }
+  }
+}
+@end verbatim
+
+@seealso
+Fitxers d'inici:
+@file{ly/toc-init.ly}.
+
+@predefined
+@funindex \table-of-contents
+@code{\table-of-contents},
+@funindex \tocItem
+@code{\tocItem}.
+@endpredefined
+
+
+@node Treball sobre els fitxers d'entrada
+@section Treball sobre els fitxers d'entrada
+@translationof Working with input files
+
+@menu
+* Inclusió de fitxers del LilyPond::
+* Diferents edicions a partir d'una mateixa font::
+* Caràcters especials::
+@end menu
+
+
+@node Inclusió de fitxers del LilyPond
+@subsection Inclusió de fitxers del LilyPond
+@translationof Including LilyPond files
+
+@funindex \include
+@cindex including files
+
+Un projecte gran es pot dividir en diversos fitxers.  Per
+referir-se a un altre fitxer, utilitzeu
+
+@example
+\include "unaltrefitxer.ly"
+@end example
+
+La línia @code{\include "unaltrefitxer.ly"} equival a enganxar el
+contingut de @file{unaltrefitxer.ly} al fitxer actual al lloc en el
+qual apareix l'@code{\include}.  Por exemple, a un projecte gran
+podríem voler fitxer diferents per a cada part instrumental i
+crear un fitxer de @qq{partitura completa} que reuneix els fitxers
+individuals dels instruments.  Normalment el fitxer inclòs
+defineix un cert nombre de variables que a partir d'aleshores
+queden disponibles per poder-les utilitzar al fitxer de la
+partitura completa.  Als fitxers inclosos es poden marcar les
+seccions etiquetades per ajudar a fer-les utilitzables a diferents
+llocs de la partitura. Vegeu
+@ref{Diferents edicions a partir d'una mateixa font}.
+
+Els fitxers que estan al directori de treball actual es poden
+referenciar simplement especificant el nom després de l'ordre
+@code{\include}.  Els fitxers a d'altres llocs es poden incloure
+proporcionant una referència de ruta completa o una ruta relativa
+(però utilitzeu la barra inclinada normal de l'UNIX, /, no la
+barra invertida de DOS/Windows, \, com a separador de directori).
+Per exemple, si @file{material.ly} està ubicat un directori per
+sobre del directori de treball actual, utilitzeu
+
+@example
+\include "../material.ly"
+@end example
+
+@noindent
+o si els fitxers de les parts orquestrals incloses estan tots
+situats en un subdirectori anomenat @file{parts} dins del
+directori actual, useu
+
+@example
+\include "partes/VI.ly"
+\include "partes/VII.ly"
+@dots{} etc.
+@end example
+
+Els fitxers d'inclusió també poden contenir enunciats
+@code{\include} al seu cop.  De forma predeterminada, aquests
+enunciats @code{\include} de segon nivell no s'interpreten fins
+que s'incorporen al fitxer principal, per la qual cosa els noms de
+fitxer que especifiquen han de ser relatius al directori que conté
+el fitxer principal, no al directori que conté el fitxer inclòs.
+Malgrat això, aquest comportament es pot modificar globalment
+passant l'opció @option{-drelative-includes} a la línia d'ordres
+(o mitjançant l'addició de
+@code{#(ly:set-option 'relative-includes #t)} al principi del
+fitxer principal d'entrada).
+
+Quan @code{relative-includes} està establert al valor
+@code{#t}, la ruta de cada ordre @code{\include} es considera
+relativa al fitxer que conté aquesta ordre.  Aquest comportament
+és el recomanat i es convertirà en el comportament predeterminat a
+una versió futura del LilyPond.
+
+Tant els fitxers relatius al directori principal com els fitxers
+relatius a algun altre directori es poden incloure
+(@code{\include}) mitjançant l'establiment de
+@code{relative-includes} al valor @code{#t} o a @code{#f} als
+llocs apropiats dins dels fitxers.  Per exemple, si s'ha creat una
+biblioteca genèrica, libA, que al seu cop utilitza sub-fitxers que
+s'inclouen (@code{\include}) per mitjà del fitxer d'entrada
+d'aquesta biblioteca, aquestes instruccions @code{\include} hauran
+d'anar precedides per @code{#(ly:set-option
+#relative-includes #t)} de manera que s'interpretin correctament
+en construir el fitxer d'entrada @code{.ly} principal, d'aquesta
+forma:
+
+
+@example
+libA/
+  libA.ly
+  A1.ly
+  A2.ly
+  @dots{}
+@end example
+
+@noindent
+aleshores el fitxer d'entrada, @code{libA.ly}, conté
+
+@example
+#(ly:set-option 'relative-includes #t)
+\include "A1.ly"
+\include "A2.ly"
+@dots{}
+% retorn a l'ajustament predeterminat
+#(ly:set-option 'relative-includes #f)
+@end example
+
+Qualsevol fitxer @file{.ly} pot aleshores incloure la biblioteca
+completa, simplement amb
+
+@example
+\include "~/libA/libA.ly"
+@end example
+
+Es poden utilitzar estructures de fitxer més complexes instant els
+canvis als llocs adequats.
+
+També es poden incloure fitxers d'un directori que està a una ruta
+de cerca especificada com opció en invocar al LilyPond des de la
+línia d'ordres.  Els fitxers inclosos s'especifiquen usant sols el
+seu nom de fitxer.  Per exemple, per compilar mitjançant aquest
+mètode un fitxer @file{principal.ly} que inclou fitxers situats a
+un subdirectori anomenat @file{parts}, canvieu el directori que
+conté @file{principal.ly} e introduïu
+
+@example
+lilypond --include=parts principal.ly
+@end example
+
+i a @file{principal.ly} escriviu
+
+@example
+\include "VI.ly"
+\include "VII.ly"
+@dots{} etc.
+@end example
+
+Els fitxers que s'inclouen a moltes partitures es poden posar al
+directori del LilyPond @file{../ly} (la localització d'aquest
+directori depèn de la instal·lació: vegeu
+@rlearning{Altres fonts d'informació}).   Aquests fitxers es poden
+incloure senzillament pel seu nom a una ordre @code{\include}.
+D'aquesta forma s'inclouen els fitxers dependents de la llengua
+com @file{catala.ly}.
+
+El LilyPond inclou de forma predeterminada certes fitxers quan
+s'inicia el programa.  Aquestes inclusions no són visibles per a
+l'usuari, però els fitxers es poden identificar executant
+@code{lilypond --verbose} des de la línia d'ordres.  Això
+presentarà una llista de rutes i fitxers que fa servir el
+LilyPond, junt amb moltes altres indicacions.  De forma
+alternativa, poden veure's explicacions sobre els fitxers més
+importants d'aquest conjunt a
+@rlearning{Altres fonts d'informació}.  Aquests fitxers es poden
+editar, però els canvis realitzats sobre ells es perdran en
+instal·la una nova versió del LilyPond.
+
+Es poden veure exemples senzills sobre l'ús de @code{\include} a
+en @rlearning{Partitures i particel·les}.
+
+@seealso
+Manual d'aprenentatge
+@rlearning{Altres fonts d'informació},
+@rlearning{Partitures i particel·les}.
+
+@knownissues
+Si un fitxer inclòs rep un nom igual al d'un dels fitxers
+d'instal·lació del LilyPond, el fitxer que té prioritat és el dels
+fitxers d'instal·lació del LilyPond.
+
+@node Diferents edicions a partir d'una mateixa font
+@subsection Diferents edicions a partir d'una mateixa font
+@translationof Different editions from one source
+
+Es posen usar diversos mètodes per generar la producció de
+diferents versions d'una partitura a partir de la mateixa font
+musical.  Les variables són potser el més útil per combinar
+seccions extenses de música i/o anotacions.  Les etiquetes són més
+útils per seleccionar una secció d'entre diverses seccions de
+música alternatives, més curtes, i es poden usar també per dividir
+peces de música en diferents trossos.
+
+Qualsevol que sigui el mètode utilitzat, la separació de la
+notació de l'estructura de la partitura farà que sigui més fàcil
+canviar l'estructura deixant intacta la notació.
+
+@menu
+* Ús de les variables::
+* Ús d'etiquetes::
+* Ús d'ajustaments globals::
+@end menu
+
+@node Ús de les variables
+@unnumberedsubsubsec Ús de les variables
+@translationof Using variables
+
+@cindex variables, ús de les
+
+Si les seccions de la música es defineixen dins de variables, es
+poden reutilitzar en diferents parts de la partitura, vegeu
+@rlearning{Organitzar les peces mitjançant variables}.  Per
+exemple, una partitura vocal @notation{a cappella} freqüentment
+inclou una reducció de piano de les parts per assajar que és
+idèntica a la música vocal, per la qual cosa aquesta partitura
+sols s'ha d'escriure una vegada.  Es pot combinar sobre un sol
+pentagrama la música de dues variables, vegeu
+@ref{Combinació automàtica de les parts}. Vegeu aquí un exemple:
+
+@lilypond[verbatim,quote]
+sopranoMusic = \relative { a'4 b c b8( a) }
+altoMusic = \relative { e'4 e e f }
+tenorMusic = \relative { c'4 b e d8( c) }
+bassMusic = \relative { a4 gis a d, }
+allLyrics = \lyricmode { King of glo -- ry }
+<<
+  \new Staff = "Soprano" \sopranoMusic
+  \new Lyrics \allLyrics
+  \new Staff = "Alto" \altoMusic
+  \new Lyrics \allLyrics
+  \new Staff = "Tenor" {
+    \clef "treble_8"
+    \tenorMusic
+  }
+  \new Lyrics \allLyrics
+  \new Staff = "Bass" {
+    \clef "bass"
+    \bassMusic
+  }
+  \new Lyrics \allLyrics
+  \new PianoStaff <<
+    \new Staff = "RH" {
+      \partcombine \sopranoMusic \altoMusic
+    }
+    \new Staff = "LH" {
+      \clef "bass"
+      \partcombine \tenorMusic \bassMusic
+    }
+  >>
+>>
+@end lilypond
+
+Es poden produir partitures diferents que presenten sols les parts
+vocals o sola la part de piano, canviant sols els enunciats
+estructurals, sense modificar la notació musical.
+
+Per partitures extenses, les definicions de variable es poden
+posar a fitxers separats que s'inclouen més tard, vegeu
+@ref{Inclusió de fitxers del LilyPond}.
+
+
+@node Ús d'etiquetes
+@unnumberedsubsubsec Ús d'etiquetes
+@translationof Using tags
+
+@funindex \tag
+@funindex \keepWithTag
+@funindex \removeWithTag
+@cindex etiqueta
+@cindex mantenir música etiquetada
+@cindex treure música etiquetada
+
+L'ordre @code{\tag #'@var{parteA}} marca una expressió musical amb
+el nom @var{parteA}.  Les expressions etiquetades d'aquesta manera
+es poden seleccionar o filtrar més tard pel seu nom, usant o bé
+@code{\keepWithTag #'@var{nom}} o bé
+@code{\removeWithTag #'@var{nom}}.  El resultat de l'aplicació
+d'aquests filtres a la música etiquetada és com segueix:
+
+@multitable @columnfractions .5 .5
+@headitem Filtre
+  @tab Resultat
+@item
+Música etiquetada precedida de @code{\keepWithTag #'@var{nom}} o
+de @code{\keepWithTag #'(@var{nom1} @var{nom2}@dots{})}
+@tab S'inclou la música no etiquetada i la música etiquetada amb
+el nom o noms d'etiquetes donats; s'exclou la música etiquetada
+amb qualsevol altre nom d'etiqueta.
+@item
+Música etiquetada precedida de
+@code{\removeWithTag #'@var{nom}} o
+@code{\removeWithTag #'(@var{nom1} @var{nom2}@dots{})}
+@tab
+S'inclou la música no etiquetada i la música que no està
+etiquetada amb cap dels noms d'etiqueta donats; s'exclou la musica
+etiquetada amb els noms d'etiqueta donats.
+@item
+Música etiquetada no precedida de @code{\keepWithTag} ni de
+@code{\removeWithTag}
+@tab S'inclou la música etiquetada i no etiquetada.
+@end multitable
+
+Els arguments de les ordres @code{\tag},
+@code{\keepWithTag} i @code{\removeWithTag} han de ser un símbol o
+llista de símbols (com @code{#'score} o @code{#'(violiI
+violiII}), seguida d'una expressió musical. Si @emph{i sols si}
+els símbols són identificadors del LilyPond vàlids
+(caràcters alfabètics sols, sense números, guions baixos ni guions
+normals) que no poden confondre's amb notes, la porció
+@code{#'} es pot ometre i, com abreviatura, una llista de símbols
+pot usar el separador de punt, és a dir: @code{\tag
+#'(violiI violiII)} es pot escriure com @code{\tag
+violiI.violiII}.  Val el mateix per a @code{\keepWithTag} i
+@code{\removeWithTag}.
+
+A l'exemple següent veiem dues versions d'una peça musical, una
+que mostra trins amb la notació usual i una altra amb els trins
+expandits explícitament:
+
+@lilypond[verbatim,quote]
+music = \relative {
+  g'8. c32 d
+  \tag #'trills { d8.\trill }
+  \tag #'expand { \repeat unfold 3 { e32 d } }
+  c32 d
+ }
+
+\score {
+  \keepWithTag #'trills \music
+}
+\score {
+  \keepWithTag #'expand \music
+}
+@end lilypond
+
+@noindent
+De forma alternativa, a vegades és més fàcil excloure seccions de música:
+
+@lilypond[verbatim,quote]
+music = \relative {
+  g'8. c32 d
+  \tag #'trills { d8.\trill }
+  \tag #'expand {\repeat unfold 3 { e32 d } }
+  c32 d
+ }
+
+\score {
+  \removeWithTag #'expand
+  \music
+}
+\score {
+  \removeWithTag #'trills
+  \music
+}
+@end lilypond
+
+El filtrat d'etiquetes es pot aplicar a articulacions, textos,
+etc., anteposant
+
+@example
+-\tag #'@var{la-meva-etiqueta}
+@end example
+
+a una articulació.  Per exemple, això defineix una nota amb una
+indicació opcional de digitació i una nota amb una anotació condicional:
+
+@example
+c1-\tag #'finger ^4
+c1-\tag #'warn ^"Alerta!"
+@end example
+
+Es poden posar diverses etiquetes sobre expressions amb diverses
+entrades de @code{\tag}, o combinant diverses etiquetes en una
+llista de símbols:
+
+@lilypond[quote,verbatim]
+music = \relative c'' {
+  \tag #'a \tag #'both { a4 a a a }
+  \tag #'(b both) { b4 b b b }
+}
+<<
+\keepWithTag #'a \music
+\keepWithTag #'b \music
+\keepWithTag #'both \music
+>>
+@end lilypond
+
+Es poden aplicar diversos filtres @code{\removeWithTag} a una sola
+expressió musical per treure diverses seccions etiquetades amb
+noms diferents.  De forma alternativa, podem usar una sola ordre
+@code{\removeWithTag} amb una llista d'etiquetes.
+
+@lilypond[verbatim,quote]
+music = \relative c'' {
+  \tag #'A { a4 a a a }
+  \tag #'B { b4 b b b }
+  \tag #'C { c4 c c c }
+  \tag #'D { d4 d d d }
+}
+\new Voice {
+  \removeWithTag #'B
+  \removeWithTag #'C
+  \music
+  \removeWithTag #'(B C)
+  \music
+}
+@end lilypond
+
+L'ús de dos o més filtres @code{\keepWithTag} sobre una sola
+expressió musical produeix l'eliminació de @emph{totes} les
+seccions etiquetades.  El primer filtre treu totes excepte la que
+es nombra, i qualsevol filtre posterior elimina el reste.  Usant
+una sola ordre @code{\keepWithTag} amb una llista de diverses
+etiquetes se suprimiran sols les seccions etiquetades que no
+apareixen especificades a la llista.
+
+@lilypond[verbatim,quote]
+music = \relative c'' {
+  \tag #'violiI { a4 a a a }
+  \tag #'violiII { b4 b b b }
+  \tag #'viola { c4 c c c }
+  \tag #'violoncel { d4 d d d }
+}
+
+\new Staff {
+  \keepWithTag #'(violinI violinII)
+  \music
+}
+@end lilypond
+
+@noindent
+imprimirà @code{\tag}s @var{violiI} i @var{violiII} però no
+@var{viola} o @var{violoncel}.
+
+@cindex grups d'etiquetes
+@funindex \tagGroup
+Tot i que @code{\keepWithTag} és útil per a la gestió de @emph{un
+sol} conjunt d'alternatives, l'eliminació de música etiquetada amb
+altres etiquetes @emph{no relacionades} és problemàtica si
+s'utilitza per més d'un propòsit.  En aquest cas poden declarar-se
+@q{grups d'etiquetes}:
+
+@example
+\tagGroup #'(violiI violiII viola violoncel)
+@end example
+
+@noindent
+Ara totes les etiquetes pertanyen a un sol @q{grup
+d'etiquetes}. Observeu que les etiquetes individuals no poden ser
+membres de més d'un @emph{grup d'etiquetes}.
+
+@example
+\keepWithTag #'violiI @dots{}
+@end example
+
+@noindent
+mostrarà sols la música etiquetada a partir del grup d'etiquetes
+de @code{violiI} i qualsevol fragment musical etiquetada amb una
+de les @emph{altres} etiquetes resultarà suprimit.
+
+@lilypond[verbatim,quote]
+music = \relative {
+  \tagGroup #'(violiI violiII viola violoncel)
+  \tag #'violiI { c''4^"violiI" c c c }
+  \tag #'violiII { a2 a }
+  \tag #'viola { e8 e e2. }
+  \tag #'violoncel { d'2 d4 d }
+  R1^"untagged"
+}
+
+\new Voice {
+  \keepWithTag #'violiI
+  \music
+}
+@end lilypond
+
+En usar l'ordre @code{\keepWithTag} sols són visibles les
+etiquetes dels grups d'aquelles etiquetes que s'inclouen a l'ordre.
+
+@funindex \pushToTag
+@funindex \appendToTag
+@cindex dividir en música etiquetada
+
+A vegades podem desitjar dividir la música en un determinat lloc
+dins d'una expressió musical existent.  Podem usar
+@code{\pushToTag} i @code{\appendToTag} per afegir material davant
+o al final dels @code{elements} d'una construcció musical
+existent.  No tota construcció musical té la part
+@code{elements}, però les músiques seqüencials i simultànies són
+dues apostes segures:
+
+@lilypond[verbatim,quote]
+music = { \tag #'here { \tag #'here <<c''>> } }
+
+{
+  \pushToTag #'here c'
+  \pushToTag #'here e'
+  \pushToTag #'here g' \music
+  \appendToTag #'here c'
+  \appendToTag #'here e'
+  \appendToTag #'here g' \music
+}
+@end lilypond
+
+Les dues ordres admeten una etiqueta, el material que divideix en
+cada aparició de l'etiqueta, i l'expressió etiquetada.
+
+@seealso
+Manual d'aprenentatge:
+@rlearning{Organitzar les peces mitjançant variables}.
+
+Referència de la notació:
+@ref{Combinació automàtica de les parts},
+@ref{Inclusió de fitxers del LilyPond}.
+
+@knownissues
+En cridar a @code{\relative} sobre una expressió musical obtinguda
+mitjançant el filtratge de música amb les ordres
+@code{\keepWithTag} o @code{\removeWithTag}, podria passar que
+canviessin les altures de les notes que efectivament romanen a
+l'expressió filtrada.  L'aplicació de @code{\relative} en primer
+lloc, abans de @code{\keepWithTag} o de @code{\removeWithTag},
+evita aquest perill perquè en aquest cas
+@code{\relative} actua sobre totes les notes tal i com s'introdueixen.
+
+@node Ús d'ajustaments globals
+@unnumberedsubsubsec Ús d'ajustaments globals
+@translationof Using global settings
+
+@cindex include-settings
+
+Es poden incloure ajustos globals a partir d'un fitxer diferent:
+
+@example
+lilypond -dinclude-settings=ELS_MEUS_AJUSTAMENTS.ly LA_MEVA_PARTITURA.ly
+@end example
+
+A fitxers diferents es poden emmagatzemar grups d'ajustaments com
+la mida de la pàgina o les fonts tipogràfiques.  Això permet fer
+diferents edicions de la mateixa partitura així com aplicar
+ajustaments estàndard a moltes partitures, simplement per mitjà de
+l'especificació del fitxer d'ajustaments adequat.
+
+Aquesta tècnica també funciona bé amb l'ús de fulls d'estil, com
+s'estudia a @rlearning{Fulls d'estil}.
+
+@seealso
+Manual d'aprenentatge:
+@rlearning{Organitzar les peces mitjançant variables}.
+@rlearning{Fulls d'estil}.
+
+Referència de la notació:
+@ref{Inclusió de fitxers del LilyPond}.
+
+
+@node Caràcters especials
+@subsection Caràcters especials
+@translationof Special characters
+
+@cindex caràcters especials
+@cindex caràcters no ASCII
+
+@menu
+* Codificació del text::
+* Unicode::
+* Àlies d'ASCII::
+@end menu
+
+
+@node Codificació del text
+@unnumberedsubsubsec Codificació del text
+@translationof Text encoding
+
+@cindex UTF-8
+
+El LilyPond usa el conjunt de caràcters definit pel consorci
+Unicode i la norma ISO/IEC 10646.  Defineix un nom únic i un codi
+per als conjunts de caràcters que s'utilitzen en pràcticament tots
+els idiomes moderns i també en molts d'altres.  L'Unicode es pot
+implementar utilitzant diverses esquemes de codificació
+diferents.  El LilyPond usa la codificació UTF-8 (UTF són les
+sigles d'@emph{Unicode Transformation Format}, o format de
+transformació de l'Unicode) que representa tots els caràcters
+comuns de la codificació Latin en un sol byte, i representa altres
+caràcters usant un format de longitud variable de fina a quatre
+bytes.
+
+L'aspecte visual real dels caràcter ve determinat per els glifs
+que es defineixen als tipus de lletres concretes que es tinguin
+disponibles: un tipus de lletra defineix l'assignació d'un
+subconjunt dels codis d'Unicode a glifs.  El LilyPond fa servir la
+biblioteca Pango per representar i disposar tipogràficament els
+textos multilingües.
+
+El Lilypond no realitza cap conversió a la codificació de
+l'entrada.  Això significa que qualsevol text, ja sigui el títol,
+la lletra de la cançó o una ordre musical que contingui caràcters
+diferents als del conjunt ASCII, s'han de codificar en UTF-8.  La
+forma més fàcil d'escriure aquest text és utilitzar un editor
+preparat per a Unicode i desar el fitxer amb la codificació
+UTF-8.  Gairebé tots els editors moderns populars donen suport al
+UTF-8, per exemple ho fan el vim, l'Emacs, el jEdit i el Gedit.
+Tots els sistemes MS Windows posteriors a NT fan servir l'Unicode
+com a codificació de caràcters nativa, de manera que fins i tot
+l'accessori Bloc de Notes (Notepad) pot editar-se i desar un
+fitxer en el format UTF-8.  Una alternativa més funcional per a
+Windows és el BabelPad.
+
+Si un fitxer d'entrada que conté un caràcter que no és ASCII no es
+desa en el format UTF-8, es genera un missatge d'error.
+
+@example
+FT_Get_Glyph_Name () error: argument invàlid
+@end example
+
+Vet aquí un exemple que mostra text ciríl·lic, hebreu i portuguès:
+
+@c NOTE: No verbatim in the following example as the code does not
+@c display correctly in PDF Font settings for Cyrillic and Hebrew
+
+@lilypond[quote]
+% Els tipus de lletra Linux Libertine contenen glifs ciríl·lics i hebreus.
+\paper {
+  #(define fonts
+    (set-global-fonts
+     #:roman "Linux Libertine O,serif"
+     #:sans "Linux Biolinum O,sans-serif"
+     #:typewriter "Linux Libertine Mono O,monospace"
+   ))
+}
+
+% Cyrillic
+bulgar = \lyricmode {
+  Жълтата дюля беше щастлива, че пухът, който цъфна, замръзна като гьон.
+}
+
+% Hebrew
+hebreu = \lyricmode {
+  זה כיף סתם לשמוע איך תנצח קרפד עץ טוב בגן.
+}
+
+% Portuguese
+portugues = \lyricmode {
+  à vo -- cê uma can -- ção legal
+}
+
+\relative {
+  c'2 d e f g f e
+}
+\addlyrics { \bulgar }
+\addlyrics { \hebreu }
+\addlyrics { \portugues }
+@end lilypond
+
+
+@node Unicode
+@unnumberedsubsubsec Unicode
+@translationof Unicode
+
+@cindex Unicode
+
+Per introduir un caràcter aïllat per al qual es coneix el punt de
+codi Unicode però no està disponible a l'editor que s'està fent
+servir, useu @code{\char ##xhhhh} o bé @code{\char
+#dddd} dins d'un bloc @code{\markup}, on @code{hhhh} és el codi
+hexadecimal del caràcter en qüestió i @code{dddd} és el seu valor
+decimal corresponent.  Poden ometre's els zeros inicials, però és
+costum indicar els quatre caràcters a la representació hexadecimal
+(observeu que @emph{no} s'ha d'utilitzar la codificació UTF-8 del
+punt de codi Unicode després de @code{\char}, atès que la
+codificació UTF-8 conté bits addicionals que indiquen el nombre
+d'octets).  Hi ha taules de codis Unicode i un índex de noms de
+caràcters que dóna el punt de codi en hexadecimal per a qualsevol
+caràcter al portal del Consorci Unicode, @uref{http://www.unicode.org/}.
+
+Per exemple, tant @code{\char ##x03BE} com @code{\char #958}
+insereixen el caràcter Unicode U+03BE, que té el nom Unicode
+@qq{Lletra grega Xi petita}.
+
+Es pot escriure d'aquesta forma qualsevol punt de codi Unicode, i
+si tots els caràcters especials s'escriuen en aquest format no cal
+desar el fitxer d'entrada en format UTF-8.  Per suposat, ha
+d'estar instal·lat i estar disponible per al LilyPond un tipus de
+lletra que contingui codificats tots aquests caràcters.
+
+L'exemple següent mostra valors hexadecimals Unicode que s'usen a
+quatre llocs: a una crida d'assaig, com text d'articulació, a la
+lletra i com text independent sota la partitura:
+
+@lilypond[quote,verbatim]
+\score {
+  \relative {
+    c''1 \mark \markup { \char ##x03EE }
+    c1_\markup { \tiny { \char ##x03B1 " to " \char ##x03C9 } }
+  }
+  \addlyrics { O \markup { \concat { Ph \char ##x0153 be! } } }
+}
+\markup { "Copyright 2008--2015" \char ##x00A9 }
+@end lilypond
+
+@cindex copyright, símbol de
+
+Per escriure el símbol de copyrights a la nota de crèdits, utilitzeu:
+
+@example
+\header @{
+  copyright = \markup @{ \char ##x00A9 "2008" @}
+@}
+@end example
+
+
+@node Àlies d'ASCII
+@unnumberedsubsubsec Àlies d'ASCII
+@translationof ASCII aliases
+
+Es pot incloure una llista d'àlies d'ASCII per a caràcters especials:
+
+@lilypond[quote,verbatim]
+\paper {
+  #(include-special-characters)
+}
+
+\markup "&flqq; &ndash; &OE;uvre incomplète&hellip; &frqq;"
+
+\score {
+  \new Staff { \repeat unfold 9 a'4 }
+  \addlyrics {
+    This is al -- so wor -- kin'~in ly -- rics: &ndash;_&OE;&hellip;
+  }
+}
+
+\markup \column {
+  "The replacement can be disabled:"
+  "&ndash; &OE; &hellip;"
+  \override #'(replacement-alist . ()) "&ndash; &OE; &hellip;"
+}
+@end lilypond
+
+També podem fer els nostres propis àlies, ja sigui de forma global,
+
+@lilypond[quote,verbatim]
+\paper {
+  #(add-text-replacements!
+    '(("100" . "hundred")
+      ("dpi" . "dots per inch")))
+}
+\markup "A 100 dpi."
+@end lilypond
+
+o local:
+
+@lilypond[quote,verbatim]
+\markup \replace #'(("100" . "hundred")
+                    ("dpi" . "dots per inch")) "A 100 dpi."
+@end lilypond
+
+@seealso
+Referència de la notació:
+@rusernamed{List of special characters,Llista de caràcters especials}.
+
+Fitxers instal·lats:
+@file{ly/text-replacements.ly}.
+
+@node Control de la sortida
+@section Control de la sortida
+@translationof Controlling output
+
+@menu
+* Extracció de fragments de música::
+* Salts sobre la música corregida::
+* Formats de sortida alternatius::
+* Substitució del tipus de lletra de la notació::
+@end menu
+
+@funindex clip-regions
+@cindex fragments de música
+@cindex música, fragments
+
+@node Extracció de fragments de música
+@subsection Extracció de fragments de música
+@translationof Extracting fragments of music
+
+És possible produir a la sortida un o més fragments d'una
+partitura mitjançant la definició de la situació explícita de la
+musica que es vol extraure dins del bloc @code{\layout} del fitxer
+d'entrada, utilitzant la funció @code{clip-regions}, i a
+continuació executant el LilyPond amb l'opció
+@option{-dclip-systems}.
+
+@example
+\layout @{
+  clip-regions
+  = #(list
+      (cons
+       (make-rhythmic-location 5 1 2)
+       (make-rhythmic-location 7 3 4)))
+@}
+@end example
+
+@noindent
+Aquest exemple extrau un sol fragment del fitxer d'entrada
+@emph{començant} després de la duració d'una blanca al cinquè
+compàs (@code{5 1 2}) i @emph{acabant} després de la tercera negra
+del compàs sèptim (@code{7 3 4}).
+
+Es poden extraure fragments addicionals afegint més parells
+d'entrades de @code{make-rhythmic-location} a la llista
+@code{clip-regions} dins del bloc @code{\layout}.
+
+De forma predeterminada, cada fragment de musica s'obtindrà a la
+sortida com un fitxer @code{EPS} diferent, però també es poden
+crear altres formats com @code{PDF} o @code{PNG} si cal.  La
+música extreta s'obté a la sortida com si hagués estat literalment
+@q{tallada} de la partitura original impresa, de forma que si un
+fragment s'estén sobre una o més línies, es genera un fitxer de
+sortida diferent per a cada línia generada.
+
+@seealso
+Referencia de la notació:
+@rusernamed{The layout block,El bloc layout}.
+
+Manual d'utilització:
+@rprogramnamed{Command-line usage,Utilització des de la línia d'ordres}.
+
+@node Salts sobre la música corregida
+@subsection Salts sobre la música corregida
+@translationof Skipping corrected music
+
+@funindex skipTypesetting
+@funindex showFirstLength
+@funindex showLastLength
+
+En escriure o copiar música, normalment sols és interessant veure
+i corregir la música propera al final (on estem afegint les
+notes).  Per accelerar aquest procés de correcció, és possible
+saltar la composició tipogràfica de tots excepte uns pocs dels
+últims compassos.  Això s'aconsegueix posant
+
+@example
+showLastLength = R1*5
+\score @{ @dots{} @}
+@end example
+
+@noindent
+al nostre fitxer fonts.  Això farà que es gravin sols els últims
+cinc compassos (suposant un compàs de 4/4) de cada una de les
+partitures @code{\score} del fitxer d'entrada.  Per peces
+llargues, el gravat d'únicament una part petita és sovint un ordre
+de magnitud més ràpid que el de l'obra completa.  Si estem
+treballant sobre el principi d'una partitura que ja hem gravat
+(per exemple, per afegir una part instrumental nova), també pot
+ser útil la propietat @code{showFirstLength}.
+
+Aquest mecanisme de passar per alt parts d'una partitura es pot
+controlar amb un gra més fi mitjançant la propietat
+@code{Score.skipTypesetting}.  Quan el seu valor està establert,
+no es fa cap gravat en absolut.
+
+Aquesta propietat s'usa també per controlar la sortida cap al
+fitxer MIDI.  Observeu que passa per alt totes els esdeveniments,
+inclosos el tempo i els canvis d'instrument.  Quedeu amb aquesta
+advertència.
+
+@lilypond[quote,ragged-right,verbatim]
+\relative c' {
+  c1
+  \set Score.skipTypesetting = ##t
+  \tempo 4 = 80
+  c4 c c c
+  \set Score.skipTypesetting = ##f
+  d4 d d d
+}
+@end lilypond
+
+A la música polifònica, @code{Score.skipTypesetting} afecta a
+totes les veus i pentagrames, estalviant encara més temps.
+
+@node Formats de sortida alternatius
+@subsection Formats de sortida alternatius
+@translationof Alternative output formats
+
+@cindex sortida de gràfics de vector escalables
+@cindex SVG, sortida
+@cindex sortida de PostScript encapsulat
+@cindex EPS, sortida
+@cindex PostScript encapsulat, sortida de
+
+Els formats de sortida predeterminats per a la partitura impresa
+són el format de document portàtil (PDF) i PostScript (PS).  Els
+formats de sortida Grafics de xarxa portàtil (PNG), Grafics de
+vector escalables (SVG) i Postscript encapsulat (EPS) també hi són
+disponibles a través d'opcions de la línia d'ordres, vegeu
+@rprogramnamed{Basic command line options for LilyPond,Opcions
+bàsiques de la línia d'ordre per al LilyPond}.
+
+@node Substitució del tipus de lletra de la notació
+@subsection Substitució del tipus de lletra de la notació
+@translationof Replacing the notation font
+
+Gonville és un conjunt de glifs alternatius al tipus de lletra
+Feta (que és part del tipus de lletra Emmentaler que s'usa al
+LilyPond).  Es pot descarregar de:
+
+@example
+@uref{http://www.chiark.greenend.org.uk/~sgtatham/gonville/ ,http://www.chiark.greenend.org.uk/~sgtatham/gonville/}
+@end example
+
+Aquí presentem alguns compassos de mostra gravats amb el tipus de
+lletra Gonville:
+
+@c NOTE: these images are a bit big, but that's important
+@c       for the font comparison.  -gp
+@sourceimage{Gonville_after,15cm,,}
+
+Aquí hi ha uns compassos de mostra gravats amb els glifs Feta del LilyPond:
+
+@sourceimage{Gonville_before,15cm,,}
+
+@subsubheading Ordres d'instal·lació
+
+Descarregueu i extraieu els fitxers de tipus de lletra.
+Copieu els fitxers
+@file{gonville-11.otf},
+@file{gonville-13.otf},
+@file{gonville-14.otf},
+@file{gonville-16.otf},
+@file{gonville-18.otf},
+@file{gonville-20.otf},
+@file{gonville-23.otf},
+@file{gonville-26.otf} i @file{gonville-brace.otf}
+a la carpeta @file{@dots{}/share/lilypond/current/fonts/otf} o
+@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/otf}.
+Si teniu els fitxers @file{gonville-*.svg} i
+@file{gonville-*.woff}, copieu-los a
+@file{@dots{}/share/lilypond/current/fonts/svg} o a
+@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/svg}.
+Per a més informació consulteu
+@rlearning{Altres fonts d'informació}.
+
+Nota: els fitxers @file{gonville-*.otf} són per als @emph{rerefons}
+@code{ps} i @code{eps} (per a les sortides en format PDF i
+PostScript). Els fitxers @file{gonville-*.svg} són per al
+@emph{rerefons} @code{svg} sense l'opció @code{svg-woff}.  Els
+fitxers @file{gonville-*.woff} són per al @emph{rerefons}
+@code{svg} amb l'opció @code{svg-woff}. Per a més informació,
+consulteu
+@rprogramnamed{Advanced command line options for LilyPond,Opcions
+avançades de línia d'ordres per al LilyPond}.
+
+La sintaxi següent canvia el tipus de lletra de la notació
+(general i claus) al tipus Gonville.
+
+@example
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     #:music "gonville"
+     #:brace "gonville"
+   ))
+@}
+@end example
+
+Nota: Cada crida a @code{set-global-fonts} reinicia completament
+tant el tipus de lletra principal de notació com la de text.  Si
+es deixa sense especificar una qualsevol de les categories,
+aleshores s'utilitza el tipus de lletra predeterminat per a
+aquesta categoria.  Cada crida a @code{set-global-fonts} canvia
+les fonts per a cada @code{\book} que la segueix, tant si s'ha
+creat explícitament com implícita.  Això significa que cada
+@code{\book} pot tenir el seu propi conjunt de tipus de lletra
+principals cridant a @code{set-global-fonts} prèviament.  Per a
+més informació, vegeu @ref{Tipus de lletra del document complet}.
+
+@seealso
+Manual d'aprenentatge:
+@rlearning{Altres fonts d'informació}.
+
+Referència de la notació:
+@rusernamed{The Emmentaler font,El tipus de lletra Emmentaler},
+@ref{Tipus de lletra del document complet}.
+
+@knownissues
+Gonville no es pot usar per gravar notació de @q{Música
+Antiga} i és probable que qualsevol nou glif en versions
+posteriors del LilyPond no existeixin a la família de tipus de
+lletra Gonville.  Dirigiu-vos a la pàgina web de l'autor per
+obtenir més informació sobre aquest i d'altres assumptes, entre
+ells el règim de llicències de Gonville.
+
+@subsubheading Altres tipus de lletra de notació
+
+Si teniu altres tipus de lletra de notació com ara
+@file{@var{fontname}-*.otf}, @file{@var{fontname}-*.svg} i
+@file{@var{fontname}-*.woff}, podeu usar-les de la mateixa manera
+que Gonville.
+
+Això és, copieu els fitxers @file{@var{fontname}-*.otf} a la
+carpeta @file{@dots{}/share/lilypond/current/fonts/otf} o a
+@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/otf}.  Si teniu els
+fitxers @file{@var{fontname}-*.svg} i
+@file{@var{fontname}-*.woff}, copieu-los a
+@file{@dots{}/share/lilypond/current/fonts/svg} o a
+@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/svg}.
+
+Nota: pel moment, el LilyPond espera que els noms de fitxer
+tinguin els sufixos següents, tots els quals han d'estar presents
+a les carpetes d'instal·lació mencionats a dalt perquè funcionin
+adequadament:
+@file{-11}, @file{-13}, @file{-14}, @file{-16},
+@file{-18}, @file{-20}, @file{-23}, @file{-26}, @file{-brace}.
+Per exemple, @file{emmentaler-11.otf}, @file{emmentaler-20.svg}
+i @file{emmentaler-brace.woff}, etc.
+
+La sintaxi següent canvia el tipus de lletra de la notació
+(general i de claus) a la font @var{tipusdelletra}.
+
+@example
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     #:music "@var{tipoletra}" ; nombre del archivo de fuente sin el sufijo ni la extensión
+     #:brace "@var{tipoletra}" ; nombre del archivo de fuente sin el sufijo ni la extensión
+   ))
+@}
+@end example
+
+Nota: per a les categories @code{music} i @code{brace},
+especifiqueu el nom del fitxer de tipus de lletra sense el sufix
+ni l'extensió.
+
+@node Creació de sortida MIDI
+@section Creació de sortida MIDI
+@translationof Creating MIDI output
+
+@cindex so
+@cindex MIDI
+
+El LilyPond pot produir fitxers que segueixen l'estàndard MIDI
+(Musical Instrument Digital Interface; interfície digital per a
+instruments musicals) i permetre així comprovar la música per
+l'oïda (amb l'ajuda d'alguna aplicació o dispositiu que entengui
+el MIDI).  L'escolta de la sortida MIDI també pot ser d'ajuda per
+a la localització d'errors tals com notes que s'han introduït
+incorrectament, alteracions omeses i d'altres casos per l'estil.
+
+Els fitxers MIDI no contenen so (com els fitxers AAC, MP3 o
+Vorbis) però requereixen de programari addicional per produir el
+so a partir d'ells.
+
+@menu
+* Notació amb suport del MIDI::
+* Notació sense suport del MIDI::
+* El bloc MIDI::
+* Control de les dinàmiques del MIDI::
+* Ús dels instruments MIDI::
+* Ús de les repeticions amb el MIDI::
+* Assignació de canals MIDI::
+* Propietats de context per a efectes MIDI::
+* Enriquiment de la sortida MIDI::
+* L'script Articulate::
+@end menu
+
+@cindex MIDI, notació amb suport
+
+@node Notació amb suport del MIDI
+@subsection Notació amb suport del MIDI
+@translationof Supported notation for MIDI
+
+Es pot usar la següent notació musical amb les funcionalitats
+predeterminades del LilyPond per produir sortida MIDI:
+
+@itemize
+@item Marques de respiració
+@item Acords introduïts com noms d'acord
+@item Crescendos i decrescendos sobre més d'una nota.  El volum s'altera de forma lineal entre els dos extrems
+@item Indicadors dinàmics des de @code{ppppp} fins a @code{fffff}, incloent-hi @code{mp}, @code{mf} y @code{sf}
+@item Microtons, però @emph{no} acords microtonals.  Cal  també un reproductor de MIDI capaç d'executar esdeveniments de roda de to.
+@item Lletra de les cançons
+@item Altura de les notes
+@item Ritme introduït com duracions de les notes, fins i tot  grups de valoració especial com ara els tresets.
+@item Articulacions @q{senzilles}; picato, staccato, accent, marcato i portato
+@item Canvis de temps introduïts amb la funció @code{\tempo}
+@item Lligadures d'unió
+@item Trèmolos que  @emph{no} s'hagin introduït com un valor del tipus @q{@code{:}[@var{número}]}
+@end itemize
+
+També es poden controlar el panorama, el balanç, l'expressió i els
+efectes de reverberació i chorus mitjançant l'establiment de
+propietats de context, vegeu
+@ref{Propietats de context per a efectes MIDI}.
+
+Si es combina amb l'script @file{articulate}, és possible produir
+la sortida pel MIDI dels següents elements addicionals de notació musical:
+
+@itemize
+@item Appoggiatures.  Se'ls dóna la meitat de la duració de la nota següent (sense tenir en compte els puntets).  Per exemple:
+
+
+@example
+\appoggiatura c8 d2.
+@end example
+
+@noindent
+El Do agafa la duració d'una negra.
+
+@item Notes i grups d'adorn (mordents d'una nota, trins, grupets circulars, etc.)
+@item Rallentando, accelerando, ritardando i a temps
+@item Lligadures d'expressió i fraseig
+@item Tenuto
+@end itemize
+
+@noindent
+Vegeu @ref{Enriquiment de la sortida MIDI}.
+
+@cindex MIDI, notació no suportada
+
+@node Notació sense suport del MIDI
+@subsection Notació sense suport del MIDI
+@translationof Unsupported notation for MIDI
+
+Els següents elements de notació musical no es poder fer sortir
+pel MIDI:
+
+@itemize
+@item Articulacions diferents al picato, staccato, accent,  i portato
+@item Crescendos i decrescendos sobre una @emph{sola} nota
+@item Calderó
+@item Baix xifrat
+@item Glissandos
+@item Caigudes i elevacions
+@item Acords microtonals
+@item Duracions introduïdes com anotacions, per exemple el swing
+@item Canvis de temps sense @code{\tempo} (per exemple introduïdes com anotacions)
+@item Trèmols que @emph{s'introdueixen} amb la notació de la forma @q{@code{:}[@var{número}]}
+@end itemize
+
+@node El bloc MIDI
+@subsection El bloc MIDI
+@translationof The MIDI block
+
+@cindex bloc MIDI
+
+Per crear un fitxer de sortida MIDI a partir d'un fitxer d'entrada
+del LilyPond, introduïu un bloc @code{\midi}, que pot estar buit,
+dins del bloc @code{\score}:
+
+@example
+\score @{
+  @var{@dots{} música @dots{}}
+  \layout @{ @}
+  \midi @{ @}
+@}
+@end example
+
+@warning{Un bloc @code{@bs{}score} que, a més de la música, conté
+sols un bloc @code{@bs{}midi} (o sigui, @emph{sense} el bloc
+@code{@bs{}layout}), sols produeix fitxers de sortida MIDI; no
+s'imprimeix cap notació musical.}
+
+L'extensió predeterminada per als fitxers de sortida
+(@code{.midi}) es pot canviar usant l'opció
+@code{-dmidi-extension} amb l'ordre @code{lilypond}:
+
+@example
+lilypond -dmidi-extension=mid Fitxer.ly
+@end example
+
+Com alternativa, pot afegir-se la següent expressió de l'Scheme
+abans del començament d'un dels blocs @code{\book},
+@code{\bookpart} o @code{\score}.  Vegeu @ref{Estructura del fitxer}.
+
+@example
+#(ly:set-option 'midi-extension "mid")
+@end example
+
+@seealso
+Referència de la notació:
+@ref{Estructura del fitxer},
+@ref{Creació de metadades al fitxers de sortida}.
+
+Fitxers instal·lats:
+@file{scm/midi.scm}.
+
+@knownissues
+Hi ha disponibles 15 canals MIDI i un canal addicional (el número
+10) per a la percussió.  Els pentagrames s'assignen als canals per
+ordre, de forma que una partitura que contingui més de 15
+pentagrames dóna com a resultat que els pentagrames addicionals
+comparteixen (però no sobreescriuen) el mateix canal MIDI.  Això
+pot ser problemàtic si els pentagrames que comparteixen canal
+tenen establertes propietats MIDI, basades en canal, en mutu
+conflicte (amb diferents instruments MIDI).
+
+@node Control de les dinàmiques del MIDI
+@subsection Control de les dinàmiques del MIDI
+@translationof Controlling MIDI dynamics
+
+Es possible controlar el volum MIDI general, el volum relatiu de
+les indicacions de matís dinàmic i el volum relatiu dels diferents
+instruments.
+
+Les indicacions de matís dinàmic es tradueixen automàticament a
+nivells de volum dins del rang de volums MIDI disponible mentre
+que els crescendos i decrescendos varien el volum linealment
+entre els seus dos extrems.  És possible controlar el volum
+relatiu de les indicacions de matís dinàmic, i el volum general
+dels diferents instruments.
+
+@menu
+* Indicacions de matís dinàmic al MIDI::
+* Establiment del volum MIDI::
+* Establiment de les propietats del bloc MIDI::
+@end menu
+
+@cindex MIDI, volum
+@cindex MIDI, equalització
+@cindex MIDI, matisos dinàmics
+@cindex dinàmica del MIDI
+
+
+@node Indicacions de matís dinàmic al MIDI
+@unnumberedsubsubsec Indicacions de matís dinàmic al MIDI
+@translationof Dynamic marks in MIDI
+
+Sols les marques de dinàmica des de @code{ppppp} fins
+@code{fffff}, inclosos @code{mp}, @code{mf} i @code{sf} tenen
+valors assignats.  Aquest valor s'aplica a continuació al valor
+del rang de volum a la sortida MIDI per a aquesta indicació de
+matís dinàmic en particular.  Les fraccions predeterminades varien
+des de 0.25 per al @notation{ppppp} fins a 0.95 per al
+@notation{fffff}. El conjunt complet de les indicacions de matís
+dinàmic poden veure's al fitxer @file{scm/midi.scm}.
+
+
+@snippets
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{creating-custom-dynamics-in-midi-output.ly}
+
+Fitxers instal·lats:
+@file{ly/script-init.ly}
+@file{scm/midi.scm}.
+
+Fragments de codi:
+@rlsr{MIDI}.
+
+Referència de funcionament intern:
+@rinternals{Dynamic_performer}.
+
+
+@node Establiment del volum MIDI
+@unnumberedsubsubsec Establiment del volum MIDI
+@translationof Setting MIDI volume
+
+Els volums generals mínim i màxim de les indicacions de matís
+dinàmic MIDI es controlen establint les propietats
+@code{midiMinimumVolume} i @code{midiMaximumVolume} en el nivell
+del bloc @code{Score}.  Aquestes propietats tenen efecte sols al
+començament de una veu i sobre les indicacions dinàmiques.  La
+fracció que correspon a cada indicació dinàmica es modifica amb
+aquesta fórmula:
+
+@example
+midiMinimumVolume + (midiMaximumVolume - midiMinimumVolume) * fracció
+@end example
+
+A l'exemple següent, el rang dinàmic del volum MIDI general es
+limita a l'interval entre @code{0.2} i @code{0.5}.
+
+@example
+\score @{
+  <<
+    \new Staff @{
+      \set Staff.midiInstrument = #"flute"
+      @var{@dots{} music @dots{}}
+    @}
+    \new Staff @{
+      \set Staff.midiInstrument = #"clarinet"
+      @var{@dots{} music @dots{}}
+    @}
+  >>
+  \midi @{
+    \context @{
+      \Score
+      midiMinimumVolume = #0.2
+      midiMaximumVolume = #0.5
+    @}
+  @}
+@}
+@end example
+
+Es pot obtenir una equalització senzilla d'instruments MIDI
+establint les propietats @code{midiMinimumVolume} i
+@code{midiMaximumVolume} dins del context @code{Staff}.
+
+@example
+\score @{
+  \new Staff @{
+    \set Staff.midiInstrument = #"flute"
+    \set Staff.midiMinimumVolume = #0.7
+    \set Staff.midiMaximumVolume = #0.9
+    @var{@dots{} music @dots{}}
+  @}
+  \midi @{ @}
+@}
+@end example
+
+Per a partitures amb més d'un pentagrama i més d'un instrument
+MIDI, es poden fixar individualment els volums relatius de cada instrument:
+
+@example
+\score @{
+  <<
+    \new Staff @{
+      \set Staff.midiInstrument = #"flute"
+      \set Staff.midiMinimumVolume = #0.7
+      \set Staff.midiMaximumVolume = #0.9
+      @var{@dots{} music @dots{}}
+    @}
+    \new Staff @{
+      \set Staff.midiInstrument = #"clarinet"
+      \set Staff.midiMinimumVolume = #0.3
+      \set Staff.midiMaximumVolume = #0.6
+      @var{@dots{} music @dots{}}
+    @}
+  >>
+  \midi @{ @}
+@}
+@end example
+
+En aquest exemple el volum del clarinet es redueix de forma
+relativa al volum de la flauta.
+
+Si no s'estableixen aquestes propietats de volum, el LilyPond
+encara aplica un @q{petit grau} d'equalització a certs
+instruments.  Vegeu @file{scm/midi.scm}.
+
+Fitxers instal·lats:
+@file{scm/midi.scm}.
+
+@seealso
+Referència de la notació:
+@rusernamed{Score layout,Disposició de la partitura}.
+
+Referència de funcionament intern:
+@rinternals{Dynamic_performer}.
+
+@snippets
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{replacing-default-midi-instrument-equalization.ly}
+
+@knownissues
+Els canvis al volum del MIDI sols tenen lloc al començament d'una
+nota, per la qual cosa els crescendos i decrescendos no afecten a
+volum d'una sola nota.
+
+@node Establiment de les propietats del bloc MIDI
+@unnumberedsubsubsec Establiment de les propietats del bloc MIDI
+@translationof Setting MIDI block properties
+
+El bloc @code{\midi} pot contenir diverses disposicions dels
+contextos, definicions de context noves o codi que estableix els
+valors de certes propietats.
+
+@example
+\score @{
+  @var{@dots{} music @dots{}}
+  \midi @{
+    \tempo 4 = 72
+  @}
+@}
+@end example
+
+Aquí, el temps s'estableix a 72 pulsacions de negra per minut.  La
+indicació de temps dins del bloc @code{\midi} no apareix a la
+partitura impresa.  Tot i que qualsevol altra indicació de
+@code{\tempo} que s'especifiqui dins del bloc @code{\score} també
+apareixerà a la sortida MIDI.
+
+Dins d'un bloc @code{\midi}, l'ordre @code{\tempo} està establint
+propietats durant la interpretació de la música i en el context de
+les definicions de sortida; així, s'interpreta @emph{com si} fos
+una modificació de context.
+
+@cindex MIDI, definicions de context
+@cindex context, definicions amb MIDI
+
+Les definicions de context segueixen la mateixa sintaxi que les
+del bloc @code{\layout}:
+
+@example
+\score @{
+  @var{@dots{} music @dots{}}
+  \midi @{
+    \context @{
+      \Voice
+      \remove "Dynamic_performer"
+    @}
+  @}
+@}
+@end example
+
+Aquest exemple suprimeix l'efecte de les indicacions dinàmiques
+sobre la sortida MIDI.  Nota: els mòduls de traducció del LilyPond
+usats per al so s'anomenen @q{performers}.
+
+@seealso
+Manual de aprenentatge:
+@rlearning{Altres fonts d'informació}.
+
+Referència de la notació:
+@ref{Expressions},
+@rusernamed{Score layout,Disposició de la partitura}.
+
+Fitxers instal·lats:
+@file{ly/performer-init.ly}.
+
+Fragments de codi:
+@rlsr{MIDI}.
+
+Referència de funcionament intern:
+@rinternals{Dynamic_performer}.
+
+@knownissues
+Certs reproductors de MIDI no sempre gestionen correctament els
+canvis de tempo a la sortida MIDI.
+
+Els canvis fets al @code{midiInstrument}, així com certes opcions
+MIDI al @emph{començament} d'un pentagrama, poden aparèixer dos
+cops a la sortida MIDI.
+
+@node Ús dels instruments MIDI
+@subsection Ús dels instruments MIDI
+@translationof Using MIDI instruments
+
+Els instruments MIDI s'estableixen usant la propietat
+@code{midiInstrument} dins d'un context @code{Staff}.
+
+@example
+\score @{
+  \new Staff @{
+    \set Staff.midiInstrument = #"glockenspiel"
+    @var{@dots{} music @dots{}}
+  @}
+  \midi @{ @}
+@}
+@end example
+
+o
+
+@example
+\score @{
+  \new Staff \with @{midiInstrument = #"cello"@} @{
+    @var{@dots{} music @dots{}}
+  @}
+  \midi @{ @}
+@}
+@end example
+
+Si l'instrument escollit no coincideix exactament amb un dels
+instruments de la llista de la secció @q{instruments MIDI},
+s'usarà l'instrument Piano de cua (@code{"acoustic grand"}).
+Vegeu @rusernamed{MIDI instruments,Instruments MIDI}.
+
+@seealso
+Manual d'aprenentatge:
+@rlearning{Altres fonts d'informació}.
+
+Referència de la notació:
+@rusernamed{MIDI instruments,Instruments MIDI},
+@rusernamed{Score layout,Disposició de la partitura}.
+
+Fitxers instal·lats:
+@file{scm/midi.scm}.
+
+@knownissues
+Els instruments de percussió la notació del qual està en un context
+@code{DrumStaff} es trobaran a la sortida, correctament, sobre el
+canal MIDI número@tie{}10, però certs instruments de percussió
+afinada com el xilòfon, el vibràfon o els timbals, es tracten com
+instruments @qq{normals}, de forma que la música d'aquests
+instruments s'ha d'introduir en un context @code{Staff} (no
+@code{DrumStaff}) per obtenir una sortida MIDI correcta.  Hi ha
+una llista completa d'entrades dels @code{sets de percussió del
+canal 10} al fitxer @file{scm/midi.scm}.  Vegeu
+@rlearning{Altres fonts d'informació}.
+
+
+@node Ús de les repeticions amb el MIDI
+@subsection Ús de les repeticions amb el MIDI
+@translationof Using repeats with MIDI
+
+@cindex repeticions al MIDI
+@cindex MIDI amb repeticions
+@funindex \unfoldRepeats
+
+Les repeticions es poden representar a la sortida MIDI aplicant
+l'ordre @code{\unfoldRepeats}.
+
+@example
+\score @{
+  \unfoldRepeats @{
+    \repeat tremolo 8 @{ c'32 e' @}
+    \repeat percent 2 @{ c''8 d'' @}
+    \repeat volta 2 @{ c'4 d' e' f' @}
+    \alternative @{
+      @{ g' a' a' g' @}
+      @{ f' e' d' c' @}
+    @}
+  @}
+  \midi @{ @}
+@}
+@end example
+
+Per restringir l'efecte de @code{\unfoldRepeats} a la sortida MIDI
+únicament, i al mateix temps generar partitures imprimibles, cal
+fer @emph{dos} blocs @code{\score}: un per al MIDI (amb les
+repeticions desplegades) i un altre per a la notació (amb
+repeticions de primera i segona vegada, trèmols i del tipus percentatge):
+
+@example
+\score @{
+  @var{@dots{} music @dots{}}
+  \layout @{ @}
+@}
+\score @{
+  \unfoldRepeats @{
+    @var{@dots{} music @dots{}}
+  @}
+  \midi @{ @}
+@}
+@end example
+
+Si s'usen diverses veus, cada una d'elles ha de contenir les
+repeticions completament desplegades per poder obtenir una sortida
+MIDI correcta.
+
+@seealso
+Referència de la notació:
+@ref{Repeticions}.
+
+
+@node Assignació de canals MIDI
+@subsection Assignació de canals MIDI
+@translationof MIDI channel mapping
+
+@cindex MIDI, canals
+@cindex MIDI, pistes
+@funindex midiChannelMapping
+
+Quan s'està generant un fitxer MIDI d'una partitura, el LilyPond
+assigna cada nota de la partitura automàticament a un canal MIDI,
+aquell que es tocaria quan s'envia cap a un dispositiu MIDI.  Un
+canal MIDI té una certa quantitat de controls disponibles per
+seleccionar, per exemple, l'instrument a usar per reproduir les
+notes en aquest canal, o ordenar al dispositiu MIDI que apliqui
+diversos efectes al so produït sobre el canal.  En tot moment,
+cada control d'un canal MIDI sols pot tenir assignat un valor
+únic (que malgrat això es pot modificar, per exemple, per canviar
+a un altre instrument a la meitat d'una partitura).
+
+L'estàndard MIDI dóna suport sols a 16 canals per dispositiu
+MIDI.  Aquest límit en el nombre de canals limita també el nombre
+d'instruments diferents que poden estar tocant al mateix temps.
+
+El LilyPond crea pistes MIDI separades per a cada pentagrama (o
+instrument o veu, segons el valor de
+@code{Score.midiChannelMapping}),  i també per a cada context de
+lletra.  No hi ha un límit per al nombre de pistes.
+
+Per solucionar el nombre limitat de canals MIDI, el LilyPond dóna
+suport a alguns modes diferents per a la assignació de canals
+MIDI, que se seleccionen usant la propietat de context
+@code{Score.midiChannelMapping}.  En cada cas, si calen més canals
+MIDI que el límit, els números de canal assignats tornen a comptar
+des de zero, causant possiblement una assignació incorrecta
+d'instrument a algunes notes.  Aquesta propietat de context es pot
+fixar a un dels valors següent:
+
+@table @var
+
+@item @code{'staff}
+
+Reservar un canal MIDI diferent per a cada un dels pentagrames de
+la partitura (és l'ajustament predeterminat).  Totes les notes de
+totes les veus comparteixen el canal MIDI del pentagrama que les
+envolta, i totes es codifiquen dins de la mateixa pista MIDI.
+
+El límit de 16 canals s'aplica al nombre total de contextos de
+pentagrama i de lletra, fins i tot que les lletres del MIDI no
+consumeixin un canal MIDI.
+
+@item @code{'instrument}
+
+Reservar un canal MIDI diferent a cada un dels instruments
+diferents especificats a la partitura.  Això significa que totes
+les notes reproduïdes amb el mateix instrument MIDI comparteixen
+el mateix canal MIDI (i la mateixa pista), fins i tot que les
+notes provinguin de diferents veus o pentagrames.
+
+En aquest cas els contextos de lletra no compten per al límit de
+16 canals MIDI (ja que no s'assignen a un instrument MIDI), de
+forma que aquest ajustament pot permetre una millor distribució
+dels canals MIDI quan el nombre de contextos de pentagrama i de
+lletra en la partitura excedeix la quantitat de 16.
+
+@item @code{'voice}
+
+Reservar un canal MIDI a cada veu de la partitura que tingui un
+nom únic entre les veus del seu pentagrama que l'envolta.  Les
+veus dels diferents pentagrames sempre s'assignen a diferents
+canals MIDI però dues veus qualssevol contingudes dins del mateix
+pentagrama comparteixen el mateix canal MIDI si tenen el mateix
+nom.  A causa que @code{midiInstrument} i els diversos controls
+MIDI per als efectes són propietats del context de pentagrama, no
+es poden fixar independentment per a cada veu.  La primera veu es
+reprodueix amb l'instrument i els efectes especificats per al
+pentagrama, i les veus amb un nom diferent de la primera rebran
+l'instrument i els efectes predeterminats.
+
+Nota: es poden assignar diferents instruments i/o efectes a
+diverses veus dins del mateix pentagrama movent el
+@code{Staff_performer} del context @code{Staff} al context
+@code{Voice}, y deixant que @code{midiChannelMapping} conservi el
+seu valor predeterminat de @code{'staff} o s'estableixi al valor
+@code{'instrument}; vegeu el fragment de codi següent.
+
+@end table
+
+Per exemple, l'assignació predeterminada de canal MIDI d'una
+partitura pot canviar-se a l'ajustament @code{'instrument} com es
+mostra a continuació:
+
+@example
+\score @{
+  ...music...
+  \midi @{
+    \context @{
+      \Score
+      midiChannelMapping = #'instrument
+    @}
+  @}
+@}
+@end example
+
+@snippets
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{changing-midi-output-to-one-channel-per-voice.ly}
+
+@node Propietats de context per a efectes MIDI
+@subsection Propietats de context per a efectes MIDI
+@translationof Context properties for MIDI effects
+
+@cindex Efectes en MIDI
+@cindex Panorama en MIDI
+@cindex Balanç en MIDI
+@cindex Estèreo, balanç en MIDI
+@cindex Expressió en  MIDI
+@cindex Reverberació en  MIDI
+@cindex Chorus en MIDI
+@funindex midiPanPosition
+@funindex midiBalance
+@funindex midiExpression
+@funindex midiReverbLevel
+@funindex midiChorusLevel
+
+Es poden usar les propietats següents de context per aplicar
+diversos efectes MIDI a les notes que es reprodueixen sobre el
+canal MIDI associat amb el pentagrama, instrument MIDI o veu
+actual (depenent del valor de la propietat de context
+@code{Score.midiChannelMapping} y del context en la qual està
+situat el @code{Staff_performer}; vegeu @ref{Assignació de
+canals MIDI}).
+
+Els canvis en aquestes propietats de context afecten a totes les
+notes que es reprodueixen sobre el canal després del canvi, tot i
+que alguns dels efectes es poden fins i tot aplicar també a notes
+que estiguin ja sonant en aquest moment (depenent de la
+implementació del dispositiu MIDI).
+
+Es donen suport a les següents propietats de context:
+
+@table @var
+
+@item @code{Staff.midiPanPosition}
+
+La posició de panorama controla com es distribueix el so d'un
+canal MIDI entre les sortides estèreo esquerra i dreta.  La
+propietat de context accepta un nombre entre -1.0 (@code{#LEFT}) i
+1.0 (@code{#RIGHT}); el valor -1.0 posta tota la potència de so a
+la sortida estèreo esquerra (deixant la sortida dreta en complet
+silenci), el valor 0.0 (@code{#CENTER}) distribueix el so per
+igual entre les sortides estèreo esquerra i dreta, i el valor 1.0
+mou tot el so a la sortida estèreo dreta.  Els valors entre -1.0 i
+1.0 es poden usar per obtenir distribucions barrejades entre les
+sortides estèreo esquerra i dreta.
+
+@item @code{Staff.midiBalance}
+
+Equilibri estèreo d'un canal MIDI.  De forma semblant a la posició
+de panorama aquesta propietat de context accepta un nombre
+entre -1.0 (@code{#LEFT}) i 1.0 (@code{#RIGHT}).  Varia el
+volum relatiu que s'envia als dos altaveus estèreo sense afectar a
+la distribució dels propis senyals estèreo.
+
+@item @code{Staff.midiExpression}
+
+Nivell d'expressió (com una fracció de nivell màxim disponible)
+que s'aplica a un canal MIDI.  Un dispositiu MIDI combina el
+nivell d'expressió del canal MIDI amb el nivell actual de dinàmica
+d'una veu (controlat mitjançant les ordre de dinàmica com
+@code{\p} o @code{\ff}) per obtenir el volum total de cada nota
+dins de la veu.  El control d'expressió es pot usar, per exemple,
+per implementar efectes de crescendo i decrescendo sobre notes
+mantingudes (quelcom al qual el LilyPond no dóna suport de forma
+automàtica).
+
+
+@c Issue 4059 contains an attached snippet which shows how this might
+@c be done, but this is too large and complex for the NR, even as a
+@c referenced snippet.  It could be added to the LSR.
+
+El rang de nivells d'expressió s'estén des de 0.0 (cap expressió,
+el que significa un volum nul) fins a 1.0 (expressió al màxim).
+
+@item @code{Staff.midiReverbLevel}
+
+El nivell de reverberació (com una fracció del màxim nivell
+disponible) que s'aplica a un canal MIDI.  Aquesta propietat
+accepta nombre entre 0.0 (sense reverberació) i 1.0 (efecte màxim).
+
+
+@item @code{Staff.midiChorusLevel}
+
+Nivell de l'efecte Chorus (com una fracció del nivell màxim
+disponible) que s'aplica a un canal MIDI.  Aquesta propietat
+accepta nombres entre 0.0 (sense efecte de chorus) i 1.0 (efecte
+al màxim).
+
+@end table
+
+
+@knownissues
+
+Atès que els fitxers MIDI no contenen en realitat cap informació
+sonora, els canvis en aquestes propietats de context sols es
+converteixen en peticions perquè canviïn els controls de canal
+MIDI dins dels fitxers MIDI emesos.  Si un dispositiu MIDI
+determinat (com un reproductor MIDI per programari) pot de fer
+gestionar qualsevol d'aquestes sol·licituds d'un fitxer MIDI, és
+quelcom que depèn totalment de la implementació del mateix: un
+dispositiu podria optar per ignorar algunes o totes aquestes
+sol·licituds.  Així mateix, la forma en la qual un dispositiu MIDI
+interpreta els diferents valors d'aquests controls (generalment,
+l'estàndard MIDI determina el comportament sols als punts extrems
+del rang de valors disponibles per a cada control), i el fet de si
+un canvi en el valor d'un control afecta a les notes que ja
+s'estan reproduint sobre aquest canal MIDI o no, també śon
+aspectes específics de la implementació del dispositiu MIDI.
+
+En generar fitxers MIDI, el LilyPond senzillament converteix de
+forma lineal els valors fraccionaris dins de cada rang (7 bits, o
+14 bits per als controls de canal MIDI que admeten resolució fina)
+en valors enters dins del rang corresponent (de 0 a 127 o de 0 a
+32767, respectivament), arrodonint els valors fraccionaris cap al
+enter més pròxim en direcció oposada al zero.  Els valors enters
+convertits s'emmagatzemen tal qual al fitxer MIDI generat.
+Consulteu la documentació del seu dispositiu MIDI per veure
+informació sobre com interpreta aquests valors.
+
+@node Enriquiment de la sortida MIDI
+@subsection Enriquiment de la sortida MIDI
+@translationof Enhancing MIDI output
+
+@menu
+* L'script Articulate::
+@end menu
+
+La sortida MIDI predeterminada és molt bàsica, però es pot
+millorar mitjançant la selecció dels instruments MIDI les
+propietats del bloc @code{\midi} i/o usant l'script
+@file{articulate}.
+
+@cindex instruments, noms
+@cindex MIDI, instruments
+@cindex articulate, script
+@cindex articulate.ly
+@funindex Staff.midiInstrument
+
+
+@node L'script Articulate
+@subsection L'script Articulate
+@translationof The Articulate script
+
+Per utilitzar l'script Articulate, l'hem d'incloure al principi
+del nostre fitxer d'entrada:
+
+@example
+\include "articulate.ly"
+@end example
+
+L'script crea una sortida MIDI en la qual les notes tenen una
+duració ajustada al temps de forma que es corresponen amb una
+sèrie d'indicacions d'articulació i de tempo.  Malgrat això, la
+sortida gravada també s'altera per reflectir literalment el
+contingut de la sortida MIDI.
+
+@example
+\score @{
+  \articulate <<
+    @var{@dots{} music @dots{}}
+  >>
+  \midi @{ @}
+@}
+@end example
+
+L'ordre @code{\articulate} habilita el processat de les
+abreviatures com trins i mordents de diverses notes.  En el propi
+script pot veure's una llista completa dels elements que estan
+previstos.  Vegeu @file{ly/articulate.ly}.
+
+@seealso
+Manual d'aprenentatge:
+@rlearning{Altres fonts d'informació}.
+
+Referència de la notació:
+@rusernamed{Score layout,Disposició de la partitura}.
+
+Fitxers instal·lats:
+@file{ly/articulate.ly}.
+
+@warning{L'script @file{articulate} pot escurçar els acords, el
+que podria no ser adequat per alguns tipus d'instrument, com
+l'òrgan.  Les notes que no tenen cap articulació també es poden
+escurçar; així, per contenir l'abast d'aquest efecte limiteu l'ús
+de la funció @code{\articulate} a segments de música més breus o
+modifiqueu els valors de les variables definides per compensar
+l'efecte d'escurçament de les notes.}
+
+@node Extracció de la informació musical
+@section Extracció de la informació musical
+@translationof Extracting musical information
+
+A més de crear un resultat visual i MIDI, el LilyPond és capaç de
+presentar informació musical en forma de text.
+
+@menu
+* Impressió del codi de notació del LilyPond::
+* Impressió de les expressions musicals de l'Scheme::
+* Desar els esdeveniments musicals en un fitxer::
+@end menu
+
+
+@node Impressió del codi de notació del LilyPond
+@subsection Impressió del codi de notació del LilyPond
+@translationof Displaying LilyPond notation
+
+@funindex \displayLilyMusic
+La impressió textual d'una expressió musical en notació del
+LilyPond pot fer-se amb la funció musical
+@code{\displayLilyMusic}.  Per veure el resultat, el més usual és
+cridar al LilyPond mitjançant la línia d'ordres.  Per exemple,
+
+@example
+@{
+  \displayLilyMusic \transpose c a, @{ c4 e g a bes @}
+@}
+@end example
+
+imprimeix el següent:
+
+@example
+@{ a,4 cis e fis g @}
+@end example
+
+De forma predeterminada, el LilyPond imprimeix aquests missatges a
+la consola junt a la resta dels missatges de la compilació del
+LilyPond.  Per discernir entre aquests missatges i desar el
+resultat de @code{\displayLilyMusic}, canvieu la sortida cap a un
+fitxer.
+
+
+@example
+lilypond fitxer.ly >resultat.txt
+@end example
+
+@funindex \void
+Observeu que el LilyPond no es limita a mostrar l'expressió
+musical, sinó que també la interpreta (perquè
+@code{\displayLilyMusic} la retorna a més de mostrar-la).
+Simplement inseriu
+@code{\displayLilyMusic} dins de la música existent amb l'objectiu
+d'obtenir informació sobre ella.
+
+Per interpretar i mostrar una secció de música a la consola, i al
+mateix temps suprimir-la del fitxer de sortida, useu l'ordre @code{\void}.
+
+@example
+@{
+  \void \displayLilyMusic \transpose c a, @{ c4 e g a bes @}
+  c1
+@}
+@end example
+
+
+@node Impressió de les expressions musicals de l'Scheme
+@subsection Impressió de les expressions musicals de l'Scheme
+@translationof Displaying scheme music expressions
+
+Vegeu @rextendnamed{Displaying music expressions,Presentació de les expressions musicals}.
+
+
+@node Desar els esdeveniments musicals en un fitxer
+@subsection Desar els esdeveniments musicals en un fitxer
+@translationof Saving music events to a file
+
+Els esdeveniments musicals es poden desar en un fitxer pentagrama
+a pentagrama mitjançant la inclusió d'un fitxer a la nostra
+partitura principal.
+
+@example
+\include "event-listener.ly"
+@end example
+
+D'aquesta forma es creen un o més fitxers anomenats
+@file{FILENAME-STAFFNAME.notes} ó
+@file{FILENAME-unnamed-staff.notes} per a cada pentagrama.
+Observeu que si teniu més d'un pentagrama sense nom, els
+esdeveniments de tots els pentagrames es barrejaran entre sí dins
+del mateix fitxer.  El resultat té el següent aspecte:
+
+@example
+0.000   note     57       4   p-c 2 12
+0.000   dynamic  f
+0.250   note     62       4   p-c 7 12
+0.500   note     66       8   p-c 9 12
+0.625   note     69       8   p-c 14 12
+0.750   rest     4
+0.750   breathe
+@end example
+
+La sintaxi consisteix en una línia delimitada per caràcters de
+tabulació, amb dos camps fixos en cada línia seguits de paràmetres
+opcionals.
+
+@example
+@var{temps} @var{tipus} @var{@dots{}paràmetres@dots{}}
+@end example
+
+Aquesta informació es pot llegir fàcilment per part d'altres
+programes com guions del Python, i poden ser molt útils per
+aquells investigadors que volen realitzar una anàlisi musical o
+fer experiments de reproducció amb el LilyPond.
+
+@knownissues
+No tots els esdeveniments musicals del LilyPond tenen suport a
+@file{event-listener.ly}.  Es pretén que sigui una @qq{prova de
+concepte} ben realitzada.  Si alguns esdeveniment que voleu veure
+no apareixen inclosos, copieu @file{event-listener.ly} a la vostra
+carpeta del LilyPond i modifiqueu el fitxer de forma que produeixi
+la informació que desitgeu.

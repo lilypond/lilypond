@@ -517,8 +517,8 @@ Manual d'aprenentatge:
 Referència de la notació:
 @rusernamed{Direction and placement,Direcció i posició},
 @ref{Indicacions dinàmiques contemporànies},
-@rusernamed{Enhancing MIDI output,Enriquiment de la sortida MIDI},
-@rusernamed{Controlling MIDI dynamics,Control de las dinàmiques del MIDI}.
+@ref{Enriquiment de la sortida MIDI},
+@ref{Control de les dinàmiques del MIDI}.
 
 Fragments de codi:
 @rlsr{Expressive marks}.
@@ -655,8 +655,8 @@ descriuen a
 Referència de la notació:
 @ref{Donar format al text},
 @ref{Selecció del tipus de lletra i la seva mida},
-@rusernamed{Enhancing MIDI output,Enriquiment de la sortida MIDI},
-@rusernamed{Controlling MIDI dynamics,Control de las dinàmiques del MIDI}.
+@ref{Enriquiment de la sortida MIDI},
+@ref{Control de les dinàmiques del MIDI}.
 
 Extensió del LilyPond:
 @rextendnamed{Markup construction in Scheme,Construcció de marcatge en Scheme}.
@@ -1390,7 +1390,7 @@ convertirà automàticament a la vora dreta del refilet anterior.
 
 També es poden combinar els refilets amb notes d'adorn. La sintaxi
 d'aquesta construcció i el mètode per col·locar les notes d'adorn
-amb precisió es descriuien a
+amb precisió es descriuen a
 @ref{Notes d'adorn}.
 
 @lilypond[verbatim,quote]
@@ -1455,7 +1455,7 @@ primer refilet amb nota, dins d'un compàs.
 Glossari musical:
 @rglos{trill}.
 
-Referècia de la notació:
+Referència de la notació:
 @ref{Articulacions i ornaments},
 @ref{Notes d'adorn}.
 
