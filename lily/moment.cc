@@ -59,16 +59,6 @@ Moment::print_smob (SCM port, scm_print_state *) const
 }
 
 SCM
-Moment::as_scheme () const
-{
-  return scm_list_5 (ly_symbol2scm ("ly:make-moment"),
-                     scm_from_int64 (main_part_.num ()),
-                     scm_from_int64 (main_part_.den ()),
-                     scm_from_int64 (grace_part_.num ()),
-                     scm_from_int64 (grace_part_.den ()));
-}
-
-SCM
 Moment::equal_p (SCM a, SCM b)
 {
   Moment *m1 = unsmob<Moment> (a);

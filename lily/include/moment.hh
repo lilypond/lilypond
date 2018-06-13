@@ -56,12 +56,9 @@ public:
   bool to_bool () const;
   I64 den () const;
   I64 num () const;
-  /*
-    Deliver a copy of THIS as a smobified SCM
-  */
+
   string to_string () const;
   static int compare (Moment const &, Moment const &);
-  SCM as_scheme () const;
 };
 
 IMPLEMENT_ARITHMETIC_OPERATOR (Moment, +);
