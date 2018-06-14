@@ -135,14 +135,17 @@ See Info node `(elisp)Security Considerations'."
 
 
 (define editor-command-template-alist
-  '(("emacs" .  "emacsclient --no-wait +%(line)s:%(column)s %(file)s || (emacs +%(line)s:%(column)s %(file)s&)")
+  '(("atom" . "atom %(file)s:%(line)s:%(column)s")
+    ("emacs" .  "emacsclient --no-wait +%(line)s:%(column)s %(file)s || (emacs +%(line)s:%(column)s %(file)s&)")
+    ("geany" . "geany --line %(line)s --column %(column)s %(file)s")
+    ("gedit" . "gedit --wait %(file)s +%(line)s:%(column)s")
     ("gvim" . "gvim --remote +:%(line)s:norm%(column)s %(file)s")
-    ("uedit32" . "uedit32 %(file)s -l%(line)s -c%(char)s")
-    ("nedit" . "nc -noask +%(line)s %(file)s")
-    ("gedit" . "gedit +%(line)s %(file)s")
     ("jedit" . "jedit -reuseview %(file)s +line:%(line)s")
+    ("kate" . "kate --block --line %(line)s --column %(column)s %(file)s")
+    ("lilypad" . "lilypad +%(line)s:%(char)s %(file)s")
+    ("nedit" . "nc -noask +%(line)s %(file)s")
     ("syn" . "syn -line %(line)s -col %(char)s %(file)s")
-    ("lilypad" . "lilypad +%(line)s:%(char)s %(file)s")))
+    ("uedit32" . "uedit32 %(file)s -l%(line)s -c%(char)s")))
 
 (define (get-command-template alist editor)
   (define (get-command-template-helper)
