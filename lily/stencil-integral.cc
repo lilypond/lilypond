@@ -33,7 +33,6 @@ when this transforms a point (x,y), the point is written as matrix:
 [ 1 ]
 */
 
-#include <pango/pango-matrix.h>
 #include "box.hh"
 #include "bezier.hh"
 #include "dimensions.hh"
@@ -55,40 +54,15 @@ when this transforms a point (x,y), the point is written as matrix:
 #include "skyline.hh"
 #include "skyline-pair.hh"
 #include "spanner.hh"
+#include "transform.hh"
+
 using namespace std;
 
 Real QUANTIZATION_UNIT = 0.2;
 
 void create_path_cap (vector<Box> &boxes,
                       vector<Drul_array<Offset> > &buildings,
-                      PangoMatrix trans, Offset pt, Real rad, Offset dir);
-
-struct Transform_matrix_and_expression
-{
-  PangoMatrix tm_;
-  SCM expr_;
-
-  Transform_matrix_and_expression (PangoMatrix tm, SCM expr);
-};
-
-Transform_matrix_and_expression::Transform_matrix_and_expression (PangoMatrix tm, SCM expr)
-{
-  tm_ = tm;
-  expr_ = expr;
-}
-
-PangoMatrix
-make_transform_matrix (Real p0, Real p1, Real p2, Real p3, Real p4, Real p5)
-{
-  PangoMatrix out;
-  out.xx = p0;
-  out.xy = p1;
-  out.yx = p2;
-  out.yy = p3;
-  out.x0 = p4;
-  out.y0 = p5;
-  return out;
-}
+                      Transform trans, Offset pt, Real rad, Offset dir);
 
 //// UTILITY FUNCTIONS
 
@@ -169,7 +143,7 @@ get_normal (Offset orig)
 */
 
 void
-make_draw_line_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings, PangoMatrix trans, SCM expr, bool use_building)
+make_draw_line_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings, Transform trans, SCM expr, bool use_building)
 {
   Real thick = robust_scm2double (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
@@ -193,10 +167,8 @@ make_draw_line_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings
   for (DOWN_and_UP (d))
     {
       Offset outward = d * get_normal ((thick / 2) * dir);
-      Offset inter_l = left + outward;
-      Offset inter_r = right + outward;
-      pango_matrix_transform_point (&trans, &inter_l[X_AXIS], &inter_l[Y_AXIS]);
-      pango_matrix_transform_point (&trans, &inter_r[X_AXIS], &inter_r[Y_AXIS]);
+      Offset inter_l = trans (left + outward);
+      Offset inter_r = trans (right + outward);
       if ((inter_l[X_AXIS] == inter_r[X_AXIS]) || (inter_l[Y_AXIS] == inter_r[Y_AXIS]))
         {
           Box b;
@@ -217,8 +189,7 @@ make_draw_line_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings
             {
               Offset pt (linear_map (x0, x1, 0, passes, i),
                          linear_map (y0, y1, 0, passes, i));
-              Offset inter = pt + outward;
-              pango_matrix_transform_point (&trans, &inter[X_AXIS], &inter[Y_AXIS]);
+              Offset inter = trans (pt + outward);
               points.push_back (inter);
             }
           for (vsize i = 0; i < points.size () - 1; i++)
@@ -254,7 +225,7 @@ make_draw_line_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings
 void
 make_partial_ellipse_boxes (vector<Box> &boxes,
                             vector<Drul_array<Offset> > &buildings,
-                            PangoMatrix trans, SCM expr)
+                            Transform trans, SCM expr)
 {
   Real x_rad = robust_scm2double (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
@@ -275,8 +246,8 @@ make_partial_ellipse_boxes (vector<Box> &boxes,
     end += 360;
   Offset sp (offset_directed (start).scale (rad));
   Offset ep (offset_directed (end).scale (rad));
-  Real x_scale = sqrt(sqr(trans.xx) + sqr(trans.yx));
-  Real y_scale = sqrt(sqr(trans.xy) + sqr(trans.yy));
+  Real x_scale = sqrt(sqr(trans.get_xx ()) + sqr(trans.get_yx ()));
+  Real y_scale = sqrt(sqr(trans.get_xy ()) + sqr(trans.get_yy ()));
   //////////////////////
   Drul_array<vector<Offset> > points;
   int quantization = max (1, (int) (((x_rad * x_scale) + (y_rad * y_scale))
@@ -287,8 +258,7 @@ make_partial_ellipse_boxes (vector<Box> &boxes,
         {
           Real ang = linear_map (start, end, 0, quantization, i);
           Offset pt (offset_directed (ang).scale (rad));
-          Offset inter = pt + d * get_normal ((th/2) * pt.direction ());
-          pango_matrix_transform_point (&trans, &inter[X_AXIS], &inter[Y_AXIS]);
+          Offset inter = trans (pt + d * get_normal ((th/2) * pt.direction ()));
           points[d].push_back (inter);
         }
     }
@@ -340,7 +310,7 @@ make_partial_ellipse_boxes (vector<Box> &boxes,
 void
 make_round_filled_box_boxes (vector<Box> &boxes,
                              vector<Drul_array<Offset> > &buildings,
-                             PangoMatrix trans, SCM expr)
+                             Transform trans, SCM expr)
 {
   Real left = robust_scm2double (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
@@ -352,10 +322,10 @@ make_round_filled_box_boxes (vector<Box> &boxes,
   expr = scm_cdr (expr);
   Real diameter = robust_scm2double (scm_car (expr), 0.0);
   //////////////////////
-  Real x_scale = sqrt(sqr(trans.xx) + sqr(trans.yx));
-  Real y_scale = sqrt(sqr(trans.xy) + sqr(trans.yy));
+  Real x_scale = sqrt(sqr(trans.get_xx ()) + sqr(trans.get_yx ()));
+  Real y_scale = sqrt(sqr(trans.get_xy ()) + sqr(trans.get_yy ()));
   bool rounded = (diameter * max(x_scale, y_scale) > 0.5);
-  bool rotated = (trans.yx || trans.xy);
+  bool rotated = (trans.get_yx () || trans.get_xy ());
   //////////////////////
 
   if  (!rotated && !rounded)
@@ -364,10 +334,8 @@ make_round_filled_box_boxes (vector<Box> &boxes,
       Box b;
       Offset p0 (-left, -bottom);
       Offset p1 (right, top);
-      pango_matrix_transform_point (&trans, &p0[X_AXIS], &p0[Y_AXIS]);
-      pango_matrix_transform_point (&trans, &p1[X_AXIS], &p1[Y_AXIS]);
-      b.add_point (p0);
-      b.add_point (p1);
+      b.add_point (trans (p0));
+      b.add_point (trans (p1));
       boxes.push_back (b);
     }
   else
@@ -392,10 +360,8 @@ make_round_filled_box_boxes (vector<Box> &boxes,
 
       for (vsize i = 0; i < (vsize) points.size () - 1; i+=2)
         {
-          Offset p0 = points[i];
-          Offset p1 = points[i+1];
-          pango_matrix_transform_point (&trans, &p0[X_AXIS], &p0[Y_AXIS]);
-          pango_matrix_transform_point (&trans, &p1[X_AXIS], &p1[Y_AXIS]);
+          Offset p0 = trans (points[i]);
+          Offset p1 = trans (points[i+1]);
           if (p0[Y_AXIS] == p1[Y_AXIS])
             {
               Box b;
@@ -428,9 +394,7 @@ make_round_filled_box_boxes (vector<Box> &boxes,
                   Offset pt (offset_directed (ang).scale (rad));
                   Offset inter (cx[h] + h * pt[X_AXIS],
                                 cy[v] + v * pt[Y_AXIS]);
-                  pango_matrix_transform_point (&trans, &inter[X_AXIS],
-                                                        &inter[Y_AXIS]);
-                  points.push_back (inter);
+                  points.push_back (trans (inter));
                 }
 
           for (vsize i = 0; i < points.size () - 4; i++)
@@ -447,11 +411,11 @@ make_round_filled_box_boxes (vector<Box> &boxes,
 void
 create_path_cap (vector<Box> &boxes,
                  vector<Drul_array<Offset> > &buildings,
-                 PangoMatrix trans, Offset pt, Real rad, Offset dir)
+                 Transform trans, Offset pt, Real rad, Offset dir)
 {
   Real angle = dir.angle_degrees ();
-  PangoMatrix new_trans (trans);
-  pango_matrix_translate (&new_trans, pt[X_AXIS], pt[Y_AXIS]);
+  Transform new_trans (trans);
+  new_trans.translate (pt);
   make_partial_ellipse_boxes (boxes, buildings, new_trans,
                               scm_list_n (scm_from_double (rad),
                                           scm_from_double (rad),
@@ -466,7 +430,7 @@ create_path_cap (vector<Box> &boxes,
 void
 make_draw_bezier_boxes (vector<Box> &boxes,
                         vector<Drul_array<Offset> > &buildings,
-                        PangoMatrix trans, SCM expr)
+                        Transform trans, SCM expr)
 {
   Real th = robust_scm2double (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
@@ -491,14 +455,11 @@ make_draw_bezier_boxes (vector<Box> &boxes,
   curve.control_[1] = Offset (x1, y1);
   curve.control_[2] = Offset (x2, y2);
   curve.control_[3] = Offset (x3, y3);
-  Offset temp0 (x0, y0);
-  Offset temp1 (x1, y1);
-  Offset temp2 (x2, y2);
-  Offset temp3 (x3, y3);
-  pango_matrix_transform_point (&trans, &temp0[X_AXIS], &temp0[Y_AXIS]);
-  pango_matrix_transform_point (&trans, &temp1[X_AXIS], &temp1[Y_AXIS]);
-  pango_matrix_transform_point (&trans, &temp2[X_AXIS], &temp2[Y_AXIS]);
-  pango_matrix_transform_point (&trans, &temp3[X_AXIS], &temp3[Y_AXIS]);
+  Offset temp0 (trans (curve.control_[0]));
+  Offset temp1 (trans (curve.control_[1]));
+  Offset temp2 (trans (curve.control_[2]));
+  Offset temp3 (trans (curve.control_[3]));
+
   //////////////////////
   Drul_array<vector<Offset> > points;
   int quantization = int (((temp1 - temp0).length ()
@@ -509,20 +470,17 @@ make_draw_bezier_boxes (vector<Box> &boxes,
     {
       Offset first = curve.control_[0]
         + d * get_normal ((th / 2) * curve.dir_at_point (0.0));
-      pango_matrix_transform_point (&trans, &first[X_AXIS], &first[Y_AXIS]);
-      points[d].push_back (first);
+      points[d].push_back (trans (first));
       for (vsize i = 1; i < (vsize) quantization; i++)
         {
           Real pt = (i * 1.0) / quantization;
           Offset inter = curve.curve_point (pt)
             + d * get_normal ((th / 2) *curve.dir_at_point (pt));
-          pango_matrix_transform_point (&trans, &inter[X_AXIS], &inter[Y_AXIS]);
-          points[d].push_back (inter);
+          points[d].push_back (trans (inter));
         }
       Offset last = curve.control_[3]
         + d * get_normal ((th / 2) * curve.dir_at_point (1.0));
-      pango_matrix_transform_point (&trans, &last[X_AXIS], &last[Y_AXIS]);
-      points[d].push_back (last);
+      points[d].push_back (trans (last));
     }
 
   for (vsize i = 0; i < points[DOWN].size () - 1; i++)
@@ -698,7 +656,7 @@ all_commands_to_absolute_and_group (SCM expr)
 void
 internal_make_path_boxes (vector<Box> &boxes,
                           vector<Drul_array<Offset> > &buildings,
-                          PangoMatrix trans, SCM expr, bool use_building)
+                          Transform trans, SCM expr, bool use_building)
 {
   SCM blot = scm_car (expr);
   expr = scm_cdr (expr);
@@ -716,7 +674,7 @@ internal_make_path_boxes (vector<Box> &boxes,
 void
 make_path_boxes (vector<Box> &boxes,
                  vector<Drul_array<Offset> > &buildings,
-                 PangoMatrix trans, SCM expr)
+                 Transform trans, SCM expr)
 {
   return internal_make_path_boxes (boxes, buildings, trans, scm_cons (scm_car (expr), get_path_list (scm_cdr (expr))), false);
 }
@@ -724,7 +682,7 @@ make_path_boxes (vector<Box> &boxes,
 void
 make_polygon_boxes (vector<Box> &boxes,
                     vector<Drul_array<Offset> > &buildings,
-                    PangoMatrix trans, SCM expr)
+                    Transform trans, SCM expr)
 {
   SCM coords = get_number_list (scm_car (expr));
   expr = scm_cdr (expr);
@@ -747,7 +705,7 @@ make_polygon_boxes (vector<Box> &boxes,
 void
 make_named_glyph_boxes (vector<Box> &boxes,
                         vector<Drul_array<Offset> > &buildings,
-                        PangoMatrix trans, SCM expr)
+                        Transform trans, SCM expr)
 {
   SCM fm_scm = scm_car (expr);
   Font_metric *fm = unsmob<Font_metric> (fm_scm);
@@ -772,7 +730,7 @@ make_named_glyph_boxes (vector<Box> &boxes,
 
   Real scale = bbox[X_AXIS].length () / real_bbox[X_AXIS].length ();
 
-  pango_matrix_scale (&trans, scale, scale);
+  trans.scale (scale, scale);
 
   SCM outline = open_fm->get_glyph_outline (gidx);
   //////////////////////
@@ -792,7 +750,7 @@ make_named_glyph_boxes (vector<Box> &boxes,
 void
 make_glyph_string_boxes (vector<Box> &boxes,
                          vector<Drul_array<Offset> > &buildings,
-                         PangoMatrix trans, SCM expr)
+                         Transform trans, SCM expr)
 {
   SCM fm_scm = scm_car (expr);
   Font_metric *fm = unsmob<Font_metric> (fm_scm);
@@ -826,7 +784,7 @@ make_glyph_string_boxes (vector<Box> &boxes,
   Real cumulative_x = 0.0;
   for (vsize i = 0; i < widths.size (); i++)
     {
-      PangoMatrix transcopy (trans);
+      Transform transcopy (trans);
       Offset pt0 (cumulative_x + xos[i], heights[i][DOWN] + yos[i]);
       Offset pt1 (cumulative_x + widths[i] + xos[i], heights[i][UP] + yos[i]);
       cumulative_x += widths[i];
@@ -862,13 +820,12 @@ make_glyph_string_boxes (vector<Box> &boxes,
 
           Real scale_factor = max (xlen, ylen);
           // the three operations below move the stencil from its original coordinates to current coordinates
-          pango_matrix_translate (&transcopy, kerned_bbox[X_AXIS][LEFT],
-                                  kerned_bbox[Y_AXIS][DOWN] - real_bbox[Y_AXIS][DOWN]);
-          pango_matrix_translate (&transcopy, real_bbox[X_AXIS][LEFT],
-                                  real_bbox[Y_AXIS][DOWN]);
-          pango_matrix_scale (&transcopy, scale_factor, scale_factor);
-          pango_matrix_translate (&transcopy, -bbox[X_AXIS][LEFT],
-                                  -bbox[Y_AXIS][DOWN]);
+          // FIXME: this looks extremely fishy.
+          transcopy.translate (Offset (kerned_bbox[X_AXIS][LEFT],
+                                       kerned_bbox[Y_AXIS][DOWN] - real_bbox[Y_AXIS][DOWN]))
+            .translate (Offset (real_bbox[X_AXIS][LEFT], real_bbox[Y_AXIS][DOWN]))
+            .scale (scale_factor, scale_factor)
+            .translate (-Offset (bbox[X_AXIS][LEFT], bbox[Y_AXIS][DOWN]));
         }
       //////////////////////
       for (SCM s = outline;
@@ -893,7 +850,7 @@ make_glyph_string_boxes (vector<Box> &boxes,
 void
 stencil_dispatcher (vector<Box> &boxes,
                     vector<Drul_array<Offset> > &buildings,
-                    PangoMatrix trans, SCM expr)
+                    Transform trans, SCM expr)
 {
   if (not scm_is_pair (expr))
     return;
@@ -972,75 +929,65 @@ stencil_dispatcher (vector<Box> &boxes,
 }
 
 /*
-  traverses a stencil expression, returning a vector of Transform_matrix_and_expression
-  the struct Transform_matrix_and_expression contains two members,
-  a Transform_matrix that indicates where to move a stencil and the stencil expression
-  to show how to construct the stencil
+  traverses a stencil expression, returning a reversed list of Scheme
+  pairs, consisting of a Transform indicating where to move a stencil
+  and the stencil expression to show how to construct the stencil
+
+  The given "tail" is appended.
 */
-vector<Transform_matrix_and_expression>
-stencil_traverser (PangoMatrix trans, SCM expr)
+SCM
+stencil_traverser (SCM trans, SCM expr, SCM tail)
 {
   if (scm_is_null (expr)
       || (scm_is_string (expr) && scm_is_true (scm_string_null_p (expr))))
-    return vector<Transform_matrix_and_expression> ();
+    return tail;
   else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("combine-stencil")))
     {
-      vector<Transform_matrix_and_expression> out;
       for (SCM s = scm_cdr (expr); scm_is_pair (s); s = scm_cdr (s))
-        {
-          vector<Transform_matrix_and_expression> res =
-            stencil_traverser (trans, scm_car (s));
-          out.insert (out.end (), res.begin (), res.end ());
-        }
-      return out;
+        tail = stencil_traverser (trans, scm_car (s), tail);
+      return tail;
     }
   else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("footnote")))
-    return vector<Transform_matrix_and_expression> ();
+    return tail;
   else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("translate-stencil")))
     {
-      Real x = robust_scm2double (scm_caadr (expr), 0.0);
-      Real y = robust_scm2double (scm_cdadr (expr), 0.0);
-      pango_matrix_translate (&trans, x, y);
-      return stencil_traverser (trans, scm_caddr (expr));
+      Offset p = robust_scm2offset (scm_cadr (expr), Offset (0.0, 0.0));
+      trans = robust_scm2transform (trans).translate (p).smobbed_copy ();
+      return stencil_traverser (trans, scm_caddr (expr), tail);
     }
   else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("scale-stencil")))
     {
       Real x = robust_scm2double (scm_caadr (expr), 0.0);
       Real y = robust_scm2double (scm_cadadr (expr), 0.0);
-      pango_matrix_scale (&trans, x, y);
-      return stencil_traverser (trans, scm_caddr (expr));
+      trans = robust_scm2transform (trans).scale (x, y).smobbed_copy ();
+      return stencil_traverser (trans, scm_caddr (expr), tail);
     }
   else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("rotate-stencil")))
     {
       Real ang = robust_scm2double (scm_caadr (expr), 0.0);
-      Real x = robust_scm2double (scm_car (scm_cadadr (expr)), 0.0);
-      Real y = robust_scm2double (scm_cdr (scm_cadadr (expr)), 0.0);
-      pango_matrix_translate (&trans, x, y);
-      pango_matrix_rotate (&trans, -ang);
-      pango_matrix_translate (&trans, -x, -y);
-      return stencil_traverser (trans, scm_caddr (expr));
+      Offset center = robust_scm2offset (scm_cadadr (expr), Offset (0.0, 0.0));
+      trans = robust_scm2transform (trans).rotate (ang, center).smobbed_copy ();
+      return stencil_traverser (trans, scm_caddr (expr), tail);
     }
   else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("delay-stencil-evaluation")))
     // should not use the place-holder text, but no need for the warning below
-    return vector<Transform_matrix_and_expression> ();
+    return tail;
   else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("grob-cause")))
-    return stencil_traverser (trans, scm_caddr (expr));
+    return stencil_traverser (trans, scm_caddr (expr), tail);
   else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("color")))
-    return stencil_traverser (trans, scm_caddr (expr));
+    return stencil_traverser (trans, scm_caddr (expr), tail);
   else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("transparent-stencil")))
-    return stencil_traverser (trans, scm_cadr (expr));
+    return stencil_traverser (trans, scm_cadr (expr), tail);
   else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("output-attributes")))
-    return stencil_traverser (trans, scm_caddr (expr));
+    return stencil_traverser (trans, scm_caddr (expr), tail);
   else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("with-outline")))
-    return stencil_traverser (trans, scm_cadr (expr));
+    return stencil_traverser (trans, scm_cadr (expr), tail);
   else
     {
-      vector<Transform_matrix_and_expression> out;
-      out.push_back (Transform_matrix_and_expression (trans, expr));
-      return out;
+      return scm_acons (trans, expr, tail);
     }
-  warning ("Stencil expression not supported by the veritcal skylines.");
-  return vector<Transform_matrix_and_expression> ();
+  warning ("Stencil expression not supported by the vertical skylines.");
+  return tail;
 }
 
 SCM
@@ -1117,37 +1064,34 @@ Stencil::skylines_from_stencil (SCM sten, Real pad, SCM rot, Axis a)
   if (!s)
     return Skyline_pair ().smobbed_copy ();
 
-  vector<Transform_matrix_and_expression> data;
-
-  if (!scm_is_pair (rot))
-    data = stencil_traverser
-             (make_transform_matrix (1.0, 0.0, 0.0, 1.0, 0.0, 0.0),
-              s->expr ());
-  else
+  if (scm_is_pair (rot))
     {
       Real angle = robust_scm2double (scm_car (rot), 0.0);
       Real x = robust_scm2double (scm_cadr (rot), 0.0);
       Real y = robust_scm2double (scm_caddr (rot), 0.0);
-      // The given coordinates are relative to the bounding box.
-      // FIXME: what to do with empty extents?
-      x = s->extent (X_AXIS).linear_combination (x);
-      y = s->extent (Y_AXIS).linear_combination (y);
-      PangoMatrix trans = make_transform_matrix (1.0, 0.0, 0.0, 1.0, 0.0, 0.0);
-      pango_matrix_translate (&trans, x, y);
-      pango_matrix_rotate (&trans, -angle);
-      pango_matrix_translate (&trans, -x, -y);
 
-      data = stencil_traverser (trans, s->expr ());
+      // incorporate rotation into a stencil copy
+      sten = s->smobbed_copy ();
+      s = unsmob<Stencil> (sten);
+      s->rotate_degrees (angle, Offset (x,y));
     }
 
+  SCM data = scm_reverse_x (stencil_traverser (SCM_EOL, s->expr (), SCM_EOL), SCM_EOL);
   vector<Box> boxes;
   vector<Drul_array<Offset> > buildings;
-  for (vsize i = 0; i < data.size (); i++)
-    stencil_dispatcher (boxes, buildings, data[i].tm_, data[i].expr_);
+  for (data = scm_reverse_x (data, SCM_EOL); scm_is_pair (data); data = scm_cdr (data))
+    {
+      stencil_dispatcher (boxes, buildings,
+                          robust_scm2transform (scm_caar (data)),
+                          scm_cdar (data));
+    }
 
   // we use the bounding box if there are no boxes
+  // FIXME: Rotation?
   if (!boxes.size () && !buildings.size ())
-    boxes.push_back (Box (s->extent (X_AXIS), s->extent (Y_AXIS)));
+    boxes.push_back (s->extent_box ());
+
+  scm_remember_upto_here (sten);
 
   Skyline_pair out (boxes, a);
   out.merge (Skyline_pair (buildings, a));
