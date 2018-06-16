@@ -1128,6 +1128,10 @@ Stencil::skylines_from_stencil (SCM sten, Real pad, SCM rot, Axis a)
       Real angle = robust_scm2double (scm_car (rot), 0.0);
       Real x = robust_scm2double (scm_cadr (rot), 0.0);
       Real y = robust_scm2double (scm_caddr (rot), 0.0);
+      // The given coordinates are relative to the bounding box.
+      // FIXME: what to do with empty extents?
+      x = s->extent (X_AXIS).linear_combination (x);
+      y = s->extent (Y_AXIS).linear_combination (y);
       PangoMatrix trans = make_transform_matrix (1.0, 0.0, 0.0, 1.0, 0.0, 0.0);
       pango_matrix_translate (&trans, x, y);
       pango_matrix_rotate (&trans, -angle);
