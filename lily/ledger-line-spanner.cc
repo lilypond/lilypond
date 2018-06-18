@@ -18,7 +18,6 @@
 */
 
 #include <map>
-using namespace std;
 
 #include "note-head.hh"
 #include "staff-symbol-referencer.hh"
@@ -27,6 +26,8 @@ using namespace std;
 #include "spanner.hh"
 #include "pointer-group-interface.hh"
 #include "paper-column.hh"
+#include "interval-set.hh"
+#include "std-vector.hh"
 
 struct Ledger_line_spanner
 {
@@ -163,7 +164,7 @@ struct Ledger_request
   vector <Head_data> heads_;
   // The map's keys are vertical ledger line positions. The values are
   // vectors of the x-extents of ledger lines.
-  map <Real, vector <Interval> > ledger_extents_;
+  std::map <Real, vector <Interval> > ledger_extents_;
   Ledger_request ()
   {
     max_ledger_extent_.set_empty ();
@@ -172,7 +173,7 @@ struct Ledger_request
   }
 };
 
-typedef map < int, Drul_array<Ledger_request> > Ledger_requests;
+typedef std::map < int, Drul_array<Ledger_request> > Ledger_requests;
 
 /*
   TODO: ledger share a lot of info. Lots of room to optimize away
@@ -337,25 +338,10 @@ Ledger_line_spanner::print (SCM smob)
                         natural + downstem.
                       */
                     }
-                  // When the extents of two ledgers at the same
-                  // vertical position overlap horizontally, we merge
-                  // them together to produce a single stencil.  In rare
-                  // cases they do not overlap and we do not merge them.
+                  if (x_extent.is_empty ())
+                    continue;
 
-                  if (lr.ledger_extents_.find (lpos) == lr.ledger_extents_.end ())
-                    // Found nothing for this lpos.
-                    lr.ledger_extents_[lpos].push_back(x_extent);
-                  else
-                    {
-                      vector<Interval> &extents = lr.ledger_extents_.find (lpos)->second;
-                      for (vsize e = 0; e < extents.size (); e++)
-                        {
-                          if (intersection (extents[e], x_extent).is_empty ())
-                            extents.push_back (x_extent);
-                          else
-                            extents[e].unite (x_extent);
-                        }
-                    }
+                  lr.ledger_extents_[lpos].push_back (x_extent);
                 }
             }
         }
@@ -372,12 +358,17 @@ Ledger_line_spanner::print (SCM smob)
     {
       for (DOWN_and_UP (d))
         {
-          map<Real, vector<Interval> > &lex = i->second[d].ledger_extents_;
-          for (map<Real, vector<Interval> >::iterator k = lex.begin ();
+          std::map<Real, vector<Interval> > &lex = i->second[d].ledger_extents_;
+          for (std::map<Real, vector<Interval> >::iterator k = lex.begin ();
                k != lex.end (); k++)
             {
               Real lpos = k->first;
-              vector<Interval> &x_extents = k->second;
+              // When the extents of two ledgers at the same
+              // vertical position overlap horizontally, we merge
+              // them together to produce a single stencil.  In rare
+              // cases they do not overlap and we do not merge them.
+              Interval_set merged = Interval_set::interval_union (k->second);
+              const vector<Interval> &x_extents = merged.intervals ();
 
               for (vsize n = 0; n < x_extents.size (); n++)
                 {
