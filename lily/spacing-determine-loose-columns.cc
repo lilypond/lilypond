@@ -189,13 +189,24 @@ Spacing_spanner::prune_loose_columns (Grob *me,
                                       vector<Grob *> *cols,
                                       Spacing_options *options)
 {
-  vector<Grob *> newcols;
-  for (vsize i = 0; i < cols->size (); i++)
+  // rp is a post-increment read pointer running over the *cols
+  // vector, wp is a post-increment write pointer.  They start in sync
+  // but become different once a loose column gets pruned.
+  vector<Grob *>::const_iterator rp;
+  vector<Grob *>::iterator wp;
+  // We keep track of the last column in a separate variable instead
+  // of reading it from rp since it could already have been
+  // overwritten via wp.  Very strictly speaking, this can only happen
+  // when rp and wp are still in lockstep and thus the overwritten
+  // value would be unchanged, but let's not get too icky but stick
+  // with a pattern that works for more use cases.
+  Grob * lastcol = 0;
+  for (rp = wp = cols->begin (); rp != cols->end ();)
     {
-      Grob *c = cols->at (i);
+      Grob *c = *rp++;
 
-      bool loose = (i > 0 && i + 1 < cols->size ())
-                   && is_loose_column (cols->at (i - 1), c, cols->at (i + 1), options);
+      bool loose = (lastcol && rp != cols->end ()
+                    && is_loose_column (lastcol, c, *rp, options));
 
       /* Breakable columns never get pruned; even if they are loose,
         their broken pieces are not.  However, we mark them so that
@@ -230,8 +241,8 @@ Spacing_spanner::prune_loose_columns (Grob *me,
           if (!right_neighbor || !left_neighbor)
             {
               c->programming_error ("Cannot determine neighbors for floating column.");
-              c->set_object ("between-cols", scm_cons (cols->at (i - 1)->self_scm (),
-                                                       cols->at (i + 1)->self_scm ()));
+              c->set_object ("between-cols", scm_cons (lastcol->self_scm (),
+                                                       (*rp)->self_scm ()));
             }
           else
             {
@@ -249,10 +260,12 @@ Spacing_spanner::prune_loose_columns (Grob *me,
         }
 
       else
-        newcols.push_back (c);
+        *wp++ = c;
+
+      lastcol = c;
     }
 
-  *cols = newcols;
+  cols->erase (wp, cols->end ());
 }
 
 /*
