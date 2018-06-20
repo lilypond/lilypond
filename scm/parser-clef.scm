@@ -174,6 +174,7 @@
       (middleCClefPosition . middleCCuePosition)
       (clefPosition . cueClefPosition)
       (clefTransposition . cueClefTransposition)
+      (clefTranspositionFormatter . cueClefTranspositionFormatter)
       (clefTranspositionStyle . cueClefTranspositionStyle)))
   (let ((clef (make-clef-set clef-name)))
     (for-each
