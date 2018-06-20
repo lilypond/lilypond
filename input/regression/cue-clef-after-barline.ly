@@ -5,9 +5,9 @@ instrument = \relative {
 }
 \addQuote "instrQuote" \instrument
 
-Solo = \relative { 
+Solo = \relative {
   c'2 c |
-  
+
   % Change the break-align-orders of the score so that cue-clef comes after bar-line
   \override Score.BarLine.space-alist.cue-clef = #'(minimum-space . 1.0)
   \override Score.BreakAlignment.break-align-orders  =
@@ -23,7 +23,7 @@ Solo = \relative {
 
   \cueDuringWithClef #"instrQuote" #UP #"bass" { R1 }
   c2 c2 |
-  
+
   % Revert back to default
   \revert Score.BarLine.space-alist.cue-clef
   \revert Score.BreakAlignment.break-align-orders
