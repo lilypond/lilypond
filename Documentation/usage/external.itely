@@ -54,40 +54,42 @@ supplied with LilyPond.
 
 The program @file{lilypond-invoke-editor} is a small helper
 program.  It will invoke an editor for the special @code{textedit}
-URIs, and run a web browser for others.  It tests the environment
-variable @code{EDITOR} for the following patterns,
+URIs, and run a web browser for others.  It looks up the environment
+variables @code{EDITOR} and @code{LYEDITOR} to find out and launch the
+favorite editor to use.  @code{LYEDITOR} will have priority over
+@code{EDITOR}, so we recommend using the former especially if you want
+to use one editor in the terminal and another editor for LilyPond point
+and click.
 
-@table @code
-@item emacs
-  this will invoke
-@example
-emacsclient --no-wait +@var{line}:@var{column} @var{file}
-@end example
-@item gvim
-  this will invoke
-@example
-gvim --remote +:@var{line}:norm@var{column} @var{file}
-@end example
-
-@item nedit
-this will invoke
-@example
-  nc -noask +@var{line} @var{file}'
-@end example
-@end table
-
-The environment variable @code{LYEDITOR} is used to override this.  It
-contains the command line to start the editor, where @code{%(file)s},
-@code{%(column)s}, @code{%(line)s} is replaced with the file, column
-and line respectively.  The  setting
+Every editor may have a different syntax to open a file in a specific line
+and column.  For user's convenience, LilyPond comes with ready commands
+for several editors, listed in @file{scm/editor.scm}.  This means that
+you can simply write the editor binary name, e.g.:
 
 @example
-emacsclient --no-wait +%(line)s:%(column)s %(file)s
+export LYEDITOR=atom
 @end example
 
 @noindent
-for @code{LYEDITOR} is equivalent to the standard emacsclient
-invocation.
+and this will invoke
+@example
+atom %(file)s:%(line)s:%(column)s
+@end example
+
+where @code{%(file)s}, @code{%(line)s} and @code{%(column)s} are replaced with
+the file, line and column respectively.
+
+In order to use an editor not listed in @file{scm/editor.scm}, you should
+find its specific syntax and assign the full command to @code{LYEDITOR}.
+Here's an example for Visual Studio Code editor:
+
+@example
+export LYEDITOR="code --goto %(file)s:%(line)s:%(column)s"
+@end example
+
+@warning{If you choose Emacs, an extra configuration is needed.  You should
+add the line @code{(server-start)} to your @file{~/.emacs} file, otherwise
+every click on an object in the PDF will open a new Emacs window.}
 
 @menu
 * Using Xpdf for point and click::
