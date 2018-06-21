@@ -76,10 +76,11 @@
 
 (define-public (partial-music-function call-list)
   (let* ((good (every list? call-list))
-         (sig (ly:music-function-signature (caar call-list))))
+         (sig (ly:music-function-signature (caar call-list)))
+         (headsig (ly:music-function-signature (car (last call-list)))))
     (and good
          (ly:make-music-function
-          (cons (car sig) (list-tail sig (length (car call-list))))
+          (cons (car headsig) (list-tail sig (length (car call-list))))
           (lambda rest
             ;; Every time we use music-function, it destructively
             ;; reverses its list of arguments.  Changing the calling
