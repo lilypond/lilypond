@@ -2774,9 +2774,47 @@ voices and staves, saving even more time.
 The default output formats for the printed score are Portable
 Document Format (PDF) and PostScript (PS).  Portable
 Network Graphics (PNG), Scalable Vector Graphics (SVG) and Encapsulated
-PostScript (EPS) output is available through the command line option,
+PostScript (EPS) output formats are available through command line options,
 see @rprogram{Basic command line options for LilyPond}.
 
+@menu
+* SVG Output::
+@end menu
+
+@node SVG Output
+@unnumberedsubsubsec SVG Output
+
+SVG output can optionally contain metadata for graphical objects (grobs) like
+note heads, rests, etc.  This metadata can be standard SVG attributes like
+@code{id} and @code{class}, or non-standard custom attributes.  Specify the
+attributes and their values by overriding a grob's @code{output-attributes}
+property with a Scheme association list (alist).  The values can be numbers,
+strings, or symbols.  For example:
+
+@example
+@{
+  \once \override NoteHead.output-attributes =
+  #'((id . 123)
+     (class . "this that")
+     (data-whatever . something))
+  c
+@}
+@end example
+
+@noindent
+The input above will produce the following @code{<g>} (group) tag in the SVG
+file:
+
+@example
+<g id="123" class="this that" data-whatever="something">
+  ...NoteHead grob SVG elements...
+</g>
+@end example
+
+@noindent
+The @code{<g>} tag contains all of the SVG elements for a given grob.  (Some
+grobs generate multiple SVG elements.)  In SVG syntax the @code{data-} prefix
+is used for non-standard custom metadata attributes.
 
 @node Replacing the notation font
 @subsection Replacing the notation font
