@@ -130,10 +130,8 @@ namespace Syntax {
   Variable partial_music_function ("partial-music-function");
   Variable partial_text_script ("partial-text-script");
   Variable property_override ("property-override");
-  Variable property_override_function ("property-override-function");
   Variable property_revert ("property-revert");
   Variable property_set ("property-set");
-  Variable property_set_function ("property-set-function");
   Variable property_unset ("property-unset");
   Variable repeat ("repeat");
   Variable repetition_chord ("repetition-chord");

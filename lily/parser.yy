@@ -822,7 +822,7 @@ partial_function:
 			$$ = scm_list_1 (SCM_BOOL_F);
 		else
 			$$ = scm_cons
-				(scm_list_3 (Syntax::property_override_function,
+				(scm_list_3 (Syntax::property_override,
 					     scm_cdr ($2), scm_car ($2)),
 				 SCM_EOL);
 	}
@@ -832,7 +832,7 @@ partial_function:
 			$$ = scm_list_1 (SCM_BOOL_F);
 		else
 			$$ = scm_cons
-				(scm_list_3 (Syntax::property_set_function,
+				(scm_list_3 (Syntax::property_set,
 					     scm_cadr ($2), scm_car ($2)),
 				 SCM_EOL);
 	}
@@ -842,7 +842,7 @@ partial_function:
 			$$ = scm_list_1 (SCM_BOOL_F);
 		else
 			$$ = scm_cons
-				(scm_list_3 (Syntax::property_override_function,
+				(scm_list_3 (Syntax::property_override,
 					     scm_cdr ($2), scm_car ($2)),
 				 $4);
 	}
@@ -852,7 +852,7 @@ partial_function:
 			$$ = scm_list_1 (SCM_BOOL_F);
 		else
 			$$ = scm_cons
-				(scm_list_3 (Syntax::property_set_function,
+				(scm_list_3 (Syntax::property_set,
 					     scm_cadr ($2), scm_car ($2)),
 				 $4);
 	}

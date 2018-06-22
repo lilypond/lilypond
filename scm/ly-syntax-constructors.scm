@@ -244,13 +244,14 @@ into a @code{MultiMeasureTextEvent}."
            (length (cdar commands))))
     chain))
 
-(define-public (property-set context property value)
-  (ly:set-origin! (context-spec-music
-                   (ly:set-origin!
-                    (make-music 'PropertySet
-                                'symbol property
-                                'value value))
-                   context)))
+(define-public property-set
+  (define-music-function (context property value) (symbol? symbol? scheme?)
+    (context-spec-music
+     (ly:set-origin!
+      (make-music 'PropertySet
+                  'symbol property
+                  'value value))
+     context)))
 
 (define-public (property-unset context property)
   (ly:set-origin! (context-spec-music
@@ -259,15 +260,16 @@ into a @code{MultiMeasureTextEvent}."
                                 'symbol property))
                    context)))
 
-(define-public (property-override context path value)
-  (ly:set-origin! (context-spec-music
-                   (ly:set-origin!
-                    (make-music 'OverrideProperty
-                                'symbol (car path)
-                                'grob-property-path (cdr path)
-                                'grob-value value
-                                'pop-first #t))
-                   context)))
+(define-public property-override
+  (define-music-function (context path value) (symbol? symbol-list? scheme?)
+    (context-spec-music
+     (ly:set-origin!
+      (make-music 'OverrideProperty
+                  'symbol (car path)
+                  'grob-property-path (cdr path)
+                  'grob-value value
+                  'pop-first #t))
+     context)))
 
 (define-public (property-revert context path)
   (ly:set-origin! (context-spec-music
@@ -276,25 +278,6 @@ into a @code{MultiMeasureTextEvent}."
                                 'symbol (car path)
                                 'grob-property-path (cdr path)))
                    context)))
-
-;; The signature here is slightly fishy since the "fallback return
-;; value" is not actually music but #f.  This used to be (void-music)
-;; but triggered "Parsed object should be dead" warnings for music
-;; objects outside of the current parser session/module.  The called
-;; functions always deliver music and are used from the parser in a
-;; manner where only the last argument is provided from outside the
-;; parser, and its predicate "scheme?" is always true.  So the
-;; fallback value will never get used and its improper type is no
-;; issue.
-(define-public property-override-function
-  (ly:make-music-function
-   (list (cons ly:music? #f) symbol? symbol-list? scheme?)
-   property-override))
-
-(define-public property-set-function
-  (ly:make-music-function
-   (list (cons ly:music? #f) symbol? symbol? scheme?)
-   property-set))
 
 (define (get-first-context-id! mus)
   "Find the name of a ContextSpeccedMusic, possibly naming it"

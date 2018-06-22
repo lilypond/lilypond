@@ -138,10 +138,8 @@ namespace Syntax {
   extern Variable partial_music_function;
   extern Variable partial_text_script;
   extern Variable property_override;
-  extern Variable property_override_function;
   extern Variable property_revert;
   extern Variable property_set;
-  extern Variable property_set_function;
   extern Variable property_unset;
   extern Variable repeat;
   extern Variable repetition_chord;
