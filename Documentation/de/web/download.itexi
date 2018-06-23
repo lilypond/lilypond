@@ -543,7 +543,7 @@ Benutzer haben mehr Vorteile von der vorkompilierten Version.}
 
 Für ein ausführliche Liste aller Versionen (alt und neu) siehe
 unsere
-@uref{http://download.linuxaudio.org/lilypond/source/?C=N;O=D, Download-Seite}.
+@uref{http://lilypond.org/download/source/?C=N;O=D, Download-Seite}.
 
 @divEnd
 
@@ -568,7 +568,7 @@ Anweisungen finden sich unter @rcontribnamed{Compiling LilyPond,LilyPond kompili
 
 Für eine ausführliche Liste aller Versionen (alt und neu)
 siehe unsere
-@uref{http://download.linuxaudio.org/lilypond/binaries/, Download-Seite}.
+@uref{http://lilypond.org/download/binaries/, Download-Seite}.
 
 @divEnd
 

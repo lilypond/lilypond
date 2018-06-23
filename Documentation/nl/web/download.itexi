@@ -591,7 +591,7 @@ de voorgebouwde versie gebruiken.}
 
 Voor een uitgebreide lijst van alle versies (zowel oude als
 nieuwe), zie onze
-@uref{http://download.linuxaudio.org/lilypond/source/?C=N;O=D,
+@uref{http://lilypond.org/download/source/?C=N;O=D,
 download site}.
 
 @divEnd
@@ -617,7 +617,7 @@ Instructies worden beschreven in @rcontrib{Compiling}.
 
 Voor een uitgebreide lijst van alle versies (zowel oude als
 nieuwe), zie onze
-@uref{http://download.linuxaudio.org/lilypond/binaries/,
+@uref{http://lilypond.org/download/binaries/,
 download site}.
 
 @divEnd
