@@ -572,7 +572,7 @@ lilypond test.ly
 @downloadStableSource{}
 
 新旧すべてのバージョンは、@c
-@uref{http://download.linuxaudio.org/lilypond/source/?C=N;O=D,
+@uref{http://lilypond.org/download/source/?C=N;O=D,
 download site}
 でリストアップされています。
 
@@ -600,7 +600,7 @@ download site}
 @c All versions
 
 新旧すべてのバージョンは、@c
-@uref{http://download.linuxaudio.org/lilypond/binaries/,ダウンロード サイト}
+@uref{http://lilypond.org/download/binaries/,ダウンロード サイト}
 でリストアップされています。
 
 @divEnd

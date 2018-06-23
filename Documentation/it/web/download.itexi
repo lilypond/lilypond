@@ -538,7 +538,7 @@ dalla versione precompilata.}
 @downloadStableSource{}
 
 Per un vasto elenco di tutte le versioni (vecchie e nuove), si veda il
-nostro @uref{http://download.linuxaudio.org/lilypond/source/?C=N;O=D,
+nostro @uref{http://lilypond.org/download/source/?C=N;O=D,
 sito di download}.
 
 @divEnd
@@ -563,7 +563,7 @@ Le istruzioni sono elencate in @rcontrib{Compiling LilyPond}.
 @subheading Tutte le versioni
 
 Per un vasto elenco di tutte le versioni (vecchie e nuove), si veda
-il nostro @uref{http://download.linuxaudio.org/lilypond/binaries/, sito
+il nostro @uref{http://lilypond.org/download/binaries/, sito
 di download}.
 
 @divEnd
