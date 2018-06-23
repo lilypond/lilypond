@@ -661,7 +661,7 @@ versions and the most recent development release) are available
 here:
 
 @example
-@uref{http://download.linuxaudio.org/lilypond/source/}
+@uref{http://lilypond.org/download/source/}
 @end example
 
 Download the tarball to your @file{~/src/} directory, or some
