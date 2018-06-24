@@ -27,6 +27,28 @@ NOTE:
 @end ignore
 
 @newsItem
+@subheading LilyPond 2.19.81 released  @emph{January 28, 2018}
+
+We are happy to announce the release of LilyPond
+2.19.81.  This release is a further pre-release test version
+for the upcoming stable 2.20 release.  If you
+require a stable version of LilyPond, we recommend using the 2.18
+version.
+
+@newsEnd
+
+@newsItem
+@subheading LilyPond 2.19.80 released  @emph{October 14, 2017}
+
+We are happy to announce the release of LilyPond
+2.19.80.  This release is a pre-release test version for the upcoming
+stable 2.20 release.  If you
+require a stable version of LilyPond, we recommend using the 2.18
+version.
+
+@newsEnd
+
+@newsItem
 @subheading LilyPond 2.19.65 released  @emph{August 06, 2017}
 
 We are happy to announce the release of LilyPond
