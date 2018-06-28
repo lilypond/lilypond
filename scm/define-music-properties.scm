@@ -75,8 +75,6 @@ cautionary accidental.")
 
      (delta-step ,number? "How much should a fall change pitch?")
      (denominator ,integer? "Denominator in a time signature.")
-     (descend-only ,boolean? "If set, this @code{\\context} only descends
-in the context tree.")
      (digit ,integer? "Digit for fingering.")
      (diminished ,boolean? "This bass figure should be slashed.")
      (direction ,ly:dir? "Print this up or down?")
@@ -176,6 +174,7 @@ or down-stem?")
 
      (repeat-count ,integer? "Do a @code{\\repeat} how often?")
 
+     (search-direction ,ly:dir? "Limits the scope of @code{\\context} searches.")
      (slash-count ,integer? "The number of slashes in a single-beat repeat.
 If zero, signals a beat containing varying durations.")
      (span-direction ,ly:dir? "Does this start or stop a spanner?")

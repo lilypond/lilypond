@@ -687,7 +687,7 @@ making it possible to @code{\\revert} to any previous value afterwards."
 (define-safe-public (descend-to-context m context #:optional id mods)
   "Like @code{context-spec-music}, but only descending."
   (let ((cm (context-spec-music m context id mods)))
-    (ly:music-set-property! cm 'descend-only #t)
+    (ly:music-set-property! cm 'search-direction DOWN)
     cm))
 
 (define-public (make-non-relative-music mus)

@@ -44,8 +44,8 @@ Context_specced_music_iterator::construct_children ()
   if (scm_is_string (ci))
     c_id = ly_scm2string (ci);
   SCM ops = get_music ()->get_property ("property-operations");
-  Direction dir = to_boolean (get_music ()->get_property ("descend-only"))
-                  ? DOWN : CENTER;
+  Direction dir
+    = robust_scm2dir (get_music ()->get_property ("search-direction"), CENTER);
 
   Context *a = 0;
 
