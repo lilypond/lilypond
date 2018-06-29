@@ -33,12 +33,12 @@ struct Drul_array
   T &at (Direction d)
   {
     assert (d == 1 || d == -1);
-    return array_[ (d + 1) / 2];
+    return array_[d > 0];
   }
   T const &at (Direction d) const
   {
     assert (d == 1 || d == -1);
-    return array_[ (d + 1) / 2];
+    return array_[d > 0];
   }
   T &operator [] (Direction d)
   {
