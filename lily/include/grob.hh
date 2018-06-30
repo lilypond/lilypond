@@ -65,7 +65,6 @@ protected:
 public:
 
   /* friends */
-  friend class Spanner;
   friend class System;
   friend SCM ly_grob_properties (SCM);
   friend SCM ly_grob_basic_properties (SCM);
