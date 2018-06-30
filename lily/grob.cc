@@ -319,8 +319,8 @@ Grob::translate_axis (Real y, Axis a)
       return;
     }
 
-  if (!dim_cache_[a].offset_)
-    dim_cache_[a].offset_ = new Real (y);
+  if (!dim_cache_[a].offset_.has_value ())
+    dim_cache_[a].offset_ = y;
   else
     *dim_cache_[a].offset_ += y;
 }
@@ -358,7 +358,7 @@ Grob::pure_relative_y_coordinate (Grob const *refp, int start, int end)
 
   Real off = 0;
 
-  if (dim_cache_[Y_AXIS].offset_)
+  if (dim_cache_[Y_AXIS].offset_.has_value ())
     {
       if (to_boolean (get_property ("pure-Y-offset-in-progress")))
         programming_error ("cyclic chain in pure-Y-offset callbacks");
@@ -369,15 +369,14 @@ Grob::pure_relative_y_coordinate (Grob const *refp, int start, int end)
     {
       SCM proc = get_property_data ("Y-offset");
 
-      dim_cache_[Y_AXIS].offset_ = new Real (0.0);
+      dim_cache_[Y_AXIS].offset_ = 0;
       set_property ("pure-Y-offset-in-progress", SCM_BOOL_T);
       off = robust_scm2double (call_pure_function (proc,
                                                    scm_list_1 (self_scm ()),
                                                    start, end),
                                0.0);
       del_property ("pure-Y-offset-in-progress");
-      delete dim_cache_[Y_AXIS].offset_;
-      dim_cache_[Y_AXIS].offset_ = 0;
+      dim_cache_[Y_AXIS].offset_.reset ();
     }
 
   /* we simulate positioning-done if we are the child of a VerticalAlignment,
@@ -388,7 +387,7 @@ Grob::pure_relative_y_coordinate (Grob const *refp, int start, int end)
   if (Grob *p = get_parent (Y_AXIS))
     {
       Real trans = 0;
-      if (has_interface<Align_interface> (p) && !dim_cache_[Y_AXIS].offset_)
+      if (has_interface<Align_interface> (p) && !dim_cache_[Y_AXIS].offset_.has_value ())
         trans = Align_interface::get_pure_child_y_translation (p, this, start, end);
 
       return off + trans + p->pure_relative_y_coordinate (refp, start, end);
@@ -400,24 +399,22 @@ Grob::pure_relative_y_coordinate (Grob const *refp, int start, int end)
 Real
 Grob::get_offset (Axis a) const
 {
-  if (dim_cache_[a].offset_)
+  if (dim_cache_[a].offset_.has_value ())
     return *dim_cache_[a].offset_;
 
-  Grob *me = (Grob *) this;
-
   SCM sym = axis_offset_symbol (a);
-  me->dim_cache_[a].offset_ = new Real (0.0);
+  dim_cache_[a].offset_ = 0;
 
   /*
     UGH: can't fold next 2 statements together. Apparently GCC thinks
     dim_cache_[a].offset_ is unaliased.
   */
   Real off = robust_scm2double (get_property (sym), 0.0);
-  if (me->dim_cache_[a].offset_)
+  if (dim_cache_[a].offset_.has_value ())
     {
-      *me->dim_cache_[a].offset_ += off;
-      me->del_property (sym);
-      return *me->dim_cache_[a].offset_;
+      *dim_cache_[a].offset_ += off;
+      const_cast<Grob *> (this)->del_property (sym);
+      return *dim_cache_[a].offset_;
     }
   else
     return 0.0;
@@ -439,15 +436,14 @@ Grob::maybe_pure_coordinate (Grob const *refp, Axis a, bool pure, int start, int
 void
 Grob::flush_extent_cache (Axis axis)
 {
-  if (dim_cache_[axis].extent_)
+  if (dim_cache_[axis].extent_.has_value ())
     {
       /*
         Ugh, this is not accurate; will flush property, causing
         callback to be called if.
        */
       del_property ((axis == X_AXIS) ? ly_symbol2scm ("X-extent") : ly_symbol2scm ("Y-extent"));
-      delete dim_cache_[axis].extent_;
-      dim_cache_[axis].extent_ = 0;
+      dim_cache_[axis].extent_.reset ();
       if (get_parent (axis))
         get_parent (axis)->flush_extent_cache (axis);
     }
@@ -458,7 +454,7 @@ Grob::extent (Grob *refp, Axis a) const
 {
   Real offset = relative_coordinate (refp, a);
   Interval real_ext;
-  if (dim_cache_[a].extent_)
+  if (dim_cache_[a].extent_.has_value ())
     {
       real_ext = *dim_cache_[a].extent_;
     }
@@ -479,7 +475,7 @@ Grob::extent (Grob *refp, Axis a) const
       if (is_number_pair (min_ext))
         real_ext.unite (ly_scm2interval (min_ext));
 
-      ((Grob *)this)->dim_cache_[a].extent_ = new Interval (real_ext);
+      dim_cache_[a].extent_ = real_ext;
     }
 
   // We never want nan, so we avoid shifting infinite values.

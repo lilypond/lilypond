@@ -41,7 +41,7 @@ private:
 
 protected:
   /* data */
-  Dimension_cache dim_cache_[NO_AXES];
+  mutable Dimension_cache dim_cache_[NO_AXES];
   Output_def *layout_;
   Grob *original_;
 
