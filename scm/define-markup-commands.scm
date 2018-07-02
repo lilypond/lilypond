@@ -4590,6 +4590,9 @@ Negative values may be used to produce mirror images.
 ;; Repeating
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; TODO: this should really be pieced together at stencil level rather
+;; than markup level
+
 (define-markup-command (pattern layout props count axis space pattern)
   (integer? integer? number? markup?)
   #:category other
@@ -4607,21 +4610,22 @@ Patterns are distributed on @var{axis}.
   \\pattern #3 #Y #0.5 \\flat
 }
 @end lilypond"
-  (let ((pattern-width (interval-length
-                        (ly:stencil-extent (interpret-markup layout props pattern) X)))
-        (new-props (prepend-alist-chain 'word-space 0 (prepend-alist-chain 'baseline-skip 0 props))))
+  (let* ((pattern-stencil (interpret-markup layout props pattern))
+         (pattern-width (interval-length
+                        (ly:stencil-extent pattern-stencil X)))
+         (new-props (prepend-alist-chain 'word-space 0 (prepend-alist-chain 'baseline-skip 0 props))))
     (let loop ((i (1- count)) (patterns (markup)))
       (if (zero? i)
           (interpret-markup
            layout
            new-props
            (if (= axis X)
-               (markup patterns pattern)
-               (markup #:column (patterns pattern))))
+               (markup patterns #:stencil pattern-stencil)
+               (markup #:column (patterns #:stencil pattern-stencil))))
           (loop (1- i)
                 (if (= axis X)
-                    (markup patterns pattern #:hspace space)
-                    (markup #:column (patterns pattern #:vspace space))))))))
+                    (markup patterns #:stencil pattern-stencil #:hspace space)
+                    (markup #:column (patterns #:stencil pattern-stencil #:vspace space))))))))
 
 (define-markup-command (fill-with-pattern layout props space dir pattern left right)
   (number? ly:dir? markup? markup? markup?)
@@ -4650,20 +4654,24 @@ Patterns are aligned to the @var{dir} markup.
   \\fill-with-pattern #2 #LEFT : left second
 }
 @end lilypond"
-  (let* ((pattern-x-extent (ly:stencil-extent (interpret-markup layout props pattern) X))
+  (let* ((pattern-stencil (interpret-markup layout props pattern))
+         (pattern-x-extent (ly:stencil-extent pattern-stencil X))
          (pattern-width (interval-length pattern-x-extent))
-         (left-width (interval-length (ly:stencil-extent (interpret-markup layout props left) X)))
-         (right-width (interval-length (ly:stencil-extent (interpret-markup layout props right) X)))
+         (left-stencil (interpret-markup layout props left))
+         (left-width (interval-length (ly:stencil-extent left-stencil X)))
+         (right-stencil (interpret-markup layout props right))
+         (right-width (interval-length (ly:stencil-extent right-stencil X)))
          (middle-width (max 0 (- line-width (+ (+ left-width right-width) (* word-space 2)))))
          (period (+ space pattern-width))
          (count (truncate (/ (- middle-width pattern-width) period)))
          (x-offset (+ (* (- (- middle-width (* count period)) pattern-width) (/ (1+ dir) 2)) (abs (car pattern-x-extent)))))
     (interpret-markup layout props
-                      (markup left
+                      (markup #:stencil left-stencil
                               #:with-dimensions (cons 0 middle-width) '(0 . 0)
                               #:translate (cons x-offset 0)
-                              #:pattern (1+ count) X space pattern
-                              right))))
+                              #:pattern (1+ count) X space
+                                 #:stencil pattern-stencil
+                              #:stencil right-stencil))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Replacements
