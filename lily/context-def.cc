@@ -276,15 +276,15 @@ Context_def::internal_path_to_bottom_context (Output_def *odef,
   Context_def *t = unsmob<Context_def> (find_context_def (odef, next_type_sym));
   if (!is_instantiable (t))
     {
-      warning (_f ("cannot create default child context: `%s'",
-                   ly_symbol2string (next_type_sym).c_str ()));
+      warning (_f ("cannot create default child context: %s",
+                   Context::diagnostic_id (next_type_sym, "").c_str ()));
       return false;
     }
 
   if (std::find (path->begin (), path->end (), t) != path->end ())
     {
-      warning (_f ("default child context begins a cycle: `%s'",
-                   ly_symbol2string (next_type_sym).c_str ()));
+      warning (_f ("default child context begins a cycle: %s",
+                   Context::diagnostic_id (next_type_sym, "").c_str ()));
       return false;
     }
 

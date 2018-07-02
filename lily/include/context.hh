@@ -96,7 +96,12 @@ protected:
   void unset_property_from_event (SCM);
 
 public:
+  // e.g. "mel" in "\context Voice = mel ..."
   string id_string () const { return id_string_; }
+
+  // formatted identification for log messages
+  static string diagnostic_id (SCM name, const string& id);
+
   SCM children_contexts () const { return context_list_; }
 
   Dispatcher *event_source () const { return event_source_; }
@@ -152,9 +157,7 @@ public:
   bool is_bottom_context () const;
   bool is_removable () const;
 
-  Context *find_create_context (Input *,
-                                SCM context_name,
-                                const string &id,
+  Context *find_create_context (SCM context_name, const string &id,
                                 SCM ops);
 
   Context *create_unique_context (SCM context_name, const string &context_id,

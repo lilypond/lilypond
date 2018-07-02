@@ -18,8 +18,12 @@
 */
 
 #include "music-wrapper-iterator.hh"
+
 #include "context.hh"
+#include "input.hh"
+#include "international.hh"
 #include "music.hh"
+#include "warn.hh"
 
 class Context_specced_music_iterator : public Music_wrapper_iterator
 {
@@ -42,11 +46,24 @@ Context_specced_music_iterator::construct_children ()
   Context *a = 0;
 
   if (to_boolean (get_music ()->get_property ("create-new")))
-    a = get_outlet ()->create_unique_context (ct, c_id, ops);
+    {
+      a = get_outlet ()->create_unique_context (ct, c_id, ops);
+      if (!a)
+        {
+          Input *origin = get_music ()->origin ();
+          origin->warning (_f ("cannot create context: %s",
+                          Context::diagnostic_id (ct, c_id).c_str ()));
+        }
+    }
   else
     {
-      a = get_outlet ()->find_create_context (get_music ()->origin (),
-                                              ct, c_id, ops);
+      a = get_outlet ()->find_create_context (ct, c_id, ops);
+      if (!a)
+        {
+          Input *origin = get_music ()->origin ();
+          origin->warning (_f ("cannot find or create context: %s",
+                               Context::diagnostic_id (ct, c_id).c_str ()));
+        }
     }
 
   // Q. Shouldn't descend-only block the creation of an unwanted context rather

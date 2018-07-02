@@ -125,19 +125,25 @@ Quote_iterator::construct_children ()
 {
   Music_wrapper_iterator::construct_children ();
 
-  SCM name = get_music ()->get_property ("quoted-context-type");
-  SCM id = get_music ()->get_property ("quoted-context-id");
+  Context *cue_context = 0;
 
+  SCM name = get_music ()->get_property ("quoted-context-type");
   if (scm_is_symbol (name))
     {
-      Context *cue_context =
-        get_outlet ()->find_create_context (get_music ()->origin (),
-                                            name, robust_scm2string (id, ""),
-                                            SCM_EOL);
-      quote_outlet_.set_context (cue_context);
+      SCM id = get_music ()->get_property ("quoted-context-id");
+      std::string c_id = robust_scm2string (id, "");
+      cue_context = get_outlet ()->find_create_context (name, c_id, SCM_EOL);
+      if (!cue_context)
+        {
+          Input *origin = get_music ()->origin ();
+          origin->warning (_f ("cannot find or create context: %s",
+                               Context::diagnostic_id (name, c_id).c_str ()));
+        }
     }
-  else
-    quote_outlet_.set_context (get_outlet ()->get_default_interpreter ());
+
+  if (!cue_context)
+    cue_context = get_outlet ()->get_default_interpreter ();
+  quote_outlet_.set_context (cue_context);
 
   event_vector_ = get_music ()->get_property ("quoted-events");
 

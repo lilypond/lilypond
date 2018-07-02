@@ -63,8 +63,11 @@ Change_iterator::change_to (Music_iterator &it,
                              ly_symbol2scm ("context"), dest->self_scm ());
         }
       else
-        /* FIXME: constant error message.  */
-        it.get_music ()->origin ()->warning (_ ("cannot find context to switch to"));
+        {
+          Input *ori = it.get_music ()->origin ();
+          ori->warning (_f ("cannot find context to change to: %s",
+                            Context::diagnostic_id (to_type, to_id).c_str ()));
+        }
     }
   else if (it.get_outlet ()->is_alias (to_type))
     {

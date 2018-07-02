@@ -18,10 +18,12 @@
 */
 
 #include "simultaneous-music-iterator.hh"
-#include "music.hh"
+
 #include "context.hh"
+#include "input.hh"
+#include "international.hh"
+#include "music.hh"
 #include "warn.hh"
-#include "context-def.hh"
 
 Simultaneous_music_iterator::Simultaneous_music_iterator ()
 {
@@ -58,17 +60,21 @@ Simultaneous_music_iterator::construct_children ()
       SCM scm_iter = get_static_get_iterator (mus);
       Music_iterator *mi = unsmob<Music_iterator> (scm_iter);
 
-      /* if create_separate_contexts_ is set, create a new context with the
-         number number as name */
-
-      SCM name = ly_symbol2scm (get_outlet ()->context_name ().c_str ());
-      Context *c = (j && create_separate_contexts_)
-        ? get_outlet ()->find_create_context (get_music ()->origin (),
-                                              name, ::to_string (j), SCM_EOL)
-        : get_outlet ();
-
-      if (!c)
-        c = get_outlet ();
+      Context *c = get_outlet ();
+      if (j && create_separate_contexts_)
+        {
+          // create a new context of the same kind with the number as ID
+          SCM name = ly_symbol2scm (c->context_name ().c_str ());
+          string id = ::to_string (j);
+          if (Context *other = c->find_create_context (name, id, SCM_EOL))
+            c = other;
+          else
+            {
+              Input *origin = get_music ()->origin ();
+              origin->warning (_f ("cannot find or create context: %s",
+                                   Context::diagnostic_id (name, id).c_str ()));
+            }
+        }
 
       mi->init_context (mus, c);
       mi->construct_children ();

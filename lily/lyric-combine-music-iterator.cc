@@ -330,19 +330,23 @@ Lyric_combine_music_iterator::process (Moment /* when */)
 void
 Lyric_combine_music_iterator::do_quit ()
 {
-  if (!music_found_)
+  /* Don't print a warning for empty lyrics (in which case we don't try
+     to find the proper voice, so it will not be found) */
+  if (lyrics_found_ && !music_found_)
     {
-      SCM voice_name = get_music ()->get_property ("associated-context");
-      SCM voice_type = get_music ()->get_property ("associated-context-type");
-      string name, type;
-      if (scm_is_string (voice_name))
-        name = ly_scm2string (voice_name);
-      type = robust_symbol2string (voice_type, "Voice");
-      /* Don't print a warning for empty lyrics (in which case we don't try
-         to find the proper voice, so it will not be found) */
-      if (lyrics_found_)
-        get_music ()->origin ()->warning (_f ("cannot find %s `%s'",
-                                              type.c_str (), name.c_str ()) + "\n");
+      Music *m = get_music ();
+
+      // ugh: defaults are repeated elsewhere
+      SCM voice_type = m->get_property ("associated-context-type");
+      if (!scm_is_symbol (voice_type))
+        voice_type = ly_symbol2scm ("Voice");
+
+      string id = robust_scm2string (m->get_property ("associated-context"),
+                                     "");
+
+      Input *origin = m->origin ();
+      origin->warning (_f ("cannot find context: %s",
+                           Context::diagnostic_id (voice_type, id).c_str ()));
     }
 
   if (lyric_iter_)

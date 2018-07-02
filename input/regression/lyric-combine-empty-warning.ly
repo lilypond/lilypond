@@ -1,7 +1,7 @@
 \version "2.19.2"
 
-#(ly:set-option 'warning-as-error #f)
-#(ly:expect-warning (ly:translate-cpp-warning-scheme "cannot find Voice `%s'") "not-existing-notes")
+#(ly:set-option 'warning-as-error #t)
+#(ly:expect-warning (ly:translate-cpp-warning-scheme "cannot find context: %s") "Voice = not-existing-notes")
 
 \header {
 

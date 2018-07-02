@@ -125,18 +125,11 @@ Context::create_unique_context (SCM name, const string &id, SCM operations)
   Context *ret = 0;
   if (daddy_context_ && !dynamic_cast<Global_context *> (daddy_context_))
     ret = daddy_context_->create_unique_context (name, id, operations);
-  else
-    {
-      warning (_f ("cannot find or create new `%s'",
-                   ly_symbol2string (name).c_str ()));
-      ret = 0;
-    }
   return ret;
 }
 
 Context *
-Context::find_create_context (Input *origin,
-                              SCM n, const string &id,
+Context::find_create_context (SCM n, const string &id,
                               SCM operations)
 {
   /*
@@ -148,7 +141,7 @@ Context::find_create_context (Input *origin,
       if (gthis->get_score_context ())
         {
           return gthis->get_score_context ()->
-            find_create_context (origin, n, id, operations);
+            find_create_context (n, id, operations);
         }
     }
 
@@ -168,11 +161,7 @@ Context::find_create_context (Input *origin,
     Score context
   */
   if (daddy_context_ && !dynamic_cast<Global_context *> (daddy_context_))
-    return daddy_context_->find_create_context (origin, n, id, operations);
-
-  warning (_f ("cannot find or create `%s' called `%s'",
-               ly_symbol2string (n).c_str (), id),
-           origin);
+    return daddy_context_->find_create_context (n, id, operations);
 
   return 0;
 }
@@ -425,14 +414,16 @@ Context::get_default_interpreter (const string &id)
   // It's interesting that this goes straight to creating a new hierarchy even
   // if there might be an existing partial (or even full?) path to a bottom
   // context.  This deserves an explanation.
-  if (Context *c =
-      create_unique_context (ly_symbol2scm ("Bottom"), id, SCM_EOL))
-    {
-      return c;
-    }
+  SCM name = ly_symbol2scm ("Bottom");
+  if (Context *c = create_unique_context (name, id, SCM_EOL))
+    return c;
 
-  // We expect that create_unique_context () logged a warning.
-  // Remaining in this context is more graceful than returning null.
+  // TODO: Avoiding a null return means the caller does not detect this
+  // failure, so we have to log here if we want to log at all.  It would be
+  // more flexible to return null and let the caller decide whether to warn in
+  // its situation.  The caller might know a useful source location too.
+  warning (_f ("cannot find or create context: %s",
+               diagnostic_id (name, id).c_str ()));
   return this;
 }
 
@@ -707,6 +698,20 @@ string
 Context::context_name () const
 {
   return ly_symbol2string (context_name_symbol ());
+}
+
+string
+Context::diagnostic_id (SCM name, const string& id)
+{
+  // For robustness when this static method is called directly (e.g. after a
+  // failure to create a context), we do not assume that name is a symbol.
+  string result (ly_scm_write_string (name));
+  if (!id.empty ())
+    {
+      result += " = ";
+      result += id;
+    }
+  return result;
 }
 
 Context *
