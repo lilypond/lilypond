@@ -2243,12 +2243,10 @@ alignment accordingly.
 @cindex setting extent of text objects
 
 Set the dimensions of @var{arg} to @var{x} and@tie{}@var{y}."
-  (let* ((expr (ly:stencil-expr (interpret-markup layout props arg))))
-    (ly:stencil-add
-     (make-transparent-box-stencil x y)
-     (ly:make-stencil
-      `(delay-stencil-evaluation ,(delay expr))
-      x y))))
+  (ly:stencil-outline
+   (interpret-markup layout props arg)
+   (make-filled-box-stencil x y)))
+
 
 (define-markup-command (with-outline layout props outline arg)
   (markup? markup?)
@@ -4520,26 +4518,26 @@ width may require additional tweaking.)"
   (let* ((gauge-stencil (interpret-markup layout props gauge))
          (x-ext (ly:stencil-extent gauge-stencil X))
          (y-ext (ly:stencil-extent gauge-stencil Y)))
-   (ly:stencil-add
-    (make-transparent-box-stencil x-ext y-ext))
-    (ly:make-stencil
-     `(delay-stencil-evaluation
-       ,(delay (ly:stencil-expr
-                (let* ((table (ly:output-def-lookup layout 'label-page-table))
-                       (page-number (if (list? table)
-                                        (assoc-get label table)
-                                        #f))
-                       (number-type (ly:output-def-lookup layout 'page-number-type))
-                       (page-markup (if page-number
-                                        (number-format number-type page-number)
-                                        default))
-                       (page-stencil (interpret-markup layout props page-markup))
-                       (gap (- (interval-length x-ext)
-                               (interval-length (ly:stencil-extent page-stencil X)))))
-                  (interpret-markup layout props
-                                    (markup #:hspace gap page-markup))))))
-     x-ext
-     y-ext)))
+    (ly:stencil-outline
+     (ly:make-stencil
+      `(delay-stencil-evaluation
+        ,(delay (ly:stencil-expr
+                 (let* ((table (ly:output-def-lookup layout 'label-page-table))
+                        (page-number (if (list? table)
+                                         (assoc-get label table)
+                                         #f))
+                        (number-type (ly:output-def-lookup layout 'page-number-type))
+                        (page-markup (if page-number
+                                         (number-format number-type page-number)
+                                         default))
+                        (page-stencil (interpret-markup layout props page-markup))
+                        (gap (- (interval-length x-ext)
+                                (interval-length (ly:stencil-extent page-stencil X)))))
+                   (interpret-markup layout props
+                                     (markup #:hspace gap page-markup))))))
+      x-ext
+      y-ext)
+     (make-filled-box-stencil x-ext y-ext))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; scaling
