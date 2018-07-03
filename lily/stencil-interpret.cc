@@ -37,8 +37,6 @@ interpret_stencil_expression (SCM expr,
           interpret_stencil_expression (scm_force (scm_cadr (expr)), func, func_arg, o);
           return;
         }
-      if (scm_is_eq (head, ly_symbol2scm ("transparent-stencil")))
-        return;
       if (scm_is_eq (head, ly_symbol2scm ("footnote")))
         return;
       if (scm_is_eq (head, ly_symbol2scm ("translate-stencil")))

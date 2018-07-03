@@ -67,7 +67,6 @@ are used internally in @file{lily/@/stencil-interpret.cc}."
     rotate-stencil
     scale-stencil
     translate-stencil
-    transparent-stencil
     with-outline
     ))
 
