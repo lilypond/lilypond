@@ -114,8 +114,19 @@
          (ly:parser-error (_ "not an articulation") (*location*))
          *unspecified*)))
 
+;; We use define-syntax-function here with a slightly fishy "fallback
+;; return value" which is not actually music but #f.  The default
+;; expression of define-event-function would have a music fallback
+;; triggering "Parsed object should be dead" warnings for music
+;; objects outside of the current parser session/module.  The called
+;; functions always deliver music and are used from the parser in a
+;; manner where only the last argument is provided from outside the
+;; parser, and its predicate "scheme?" is always true.  So the
+;; fallback value will never get used and its improper type is no
+;; issue.
+
 (define-public create-script-function
-  (define-event-function (dir item) (ly:dir? scheme?)
+  (define-syntax-function ly:event? (dir item) (ly:dir? scheme?)
     (let ((res (create-script item)))
       (if (ly:event? res)
           (begin
@@ -244,8 +255,11 @@ into a @code{MultiMeasureTextEvent}."
            (length (cdar commands))))
     chain))
 
+;; See create-script-function for the rationale of using
+;; define-syntax-function instead of define-music-function here.
 (define-public property-set
-  (define-music-function (context property value) (symbol? symbol? scheme?)
+  (define-syntax-function ly:music?
+    (context property value) (symbol? symbol? scheme?)
     (context-spec-music
      (ly:set-origin!
       (make-music 'PropertySet
@@ -261,7 +275,8 @@ into a @code{MultiMeasureTextEvent}."
                    context)))
 
 (define-public property-override
-  (define-music-function (context path value) (symbol? symbol-list? scheme?)
+  (define-syntax-function ly:music?
+    (context path value) (symbol? symbol-list? scheme?)
     (context-spec-music
      (ly:set-origin!
       (make-music 'OverrideProperty
