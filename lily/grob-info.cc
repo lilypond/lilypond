@@ -48,21 +48,6 @@ Grob_info::event_cause () const
   return unsmob<Stream_event> (cause);
 }
 
-vector<Context *>
-Grob_info::origin_contexts (Translator *end) const
-{
-  Context *t = origin_trans_->context ();
-  vector<Context *> r;
-  do
-    {
-      r.push_back (t);
-      t = t->get_parent_context ();
-    }
-  while (t && t != end->context ());
-
-  return r;
-}
-
 Context *
 Grob_info::context () const
 {
