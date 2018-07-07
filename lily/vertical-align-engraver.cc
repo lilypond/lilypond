@@ -126,9 +126,7 @@ Vertical_align_engraver::finalize ()
 bool
 Vertical_align_engraver::qualifies (Grob_info i) const
 {
-  int sz = i.origin_contexts ((Translator *)this).size ();
-
-  return sz > 0 && has_interface<Axis_group_interface> (i.grob ())
+  return has_interface<Axis_group_interface> (i.grob ())
          && !i.grob ()->get_parent (Y_AXIS)
          && !to_boolean (i.grob ()->get_property ("no-alignment"))
          && Axis_group_interface::has_axis (i.grob (), Y_AXIS);

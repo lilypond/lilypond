@@ -44,17 +44,13 @@ Grid_line_span_engraver::Grid_line_span_engraver (Context *c)
 void
 Grid_line_span_engraver::acknowledge_grid_point (Grob_info i)
 {
-  int depth = i.origin_contexts (this).size ();
-  if (depth)
-    {
-      Item *it = dynamic_cast<Item *> (i.grob ());
-      lines_.push_back (it);
+  Item *it = dynamic_cast<Item *> (i.grob ());
+  lines_.push_back (it);
 
-      if (lines_.size () >= 2 && !spanline_)
-        {
-          spanline_ = make_item ("GridLine", SCM_EOL);
-          spanline_->set_parent (lines_[0], X_AXIS);
-        }
+  if (lines_.size () >= 2 && !spanline_)
+    {
+      spanline_ = make_item ("GridLine", SCM_EOL);
+      spanline_->set_parent (lines_[0], X_AXIS);
     }
 }
 

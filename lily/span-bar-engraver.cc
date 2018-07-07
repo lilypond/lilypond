@@ -56,8 +56,7 @@ Span_bar_engraver::Span_bar_engraver (Context *c)
 void
 Span_bar_engraver::acknowledge_bar_line (Grob_info i)
 {
-  int depth = i.origin_contexts (this).size ();
-  if (depth && !i.grob ()->internal_has_interface (ly_symbol2scm ("span-bar-interface")))
+  if (!i.grob ()->internal_has_interface (ly_symbol2scm ("span-bar-interface")))
     {
       Item *it = dynamic_cast<Item *> (i.grob ());
       bars_.push_back (it);

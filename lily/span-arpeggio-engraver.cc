@@ -59,8 +59,7 @@ Span_arpeggio_engraver::Span_arpeggio_engraver (Context *c)
 void
 Span_arpeggio_engraver::acknowledge_arpeggio (Grob_info info)
 {
-  if (info.origin_contexts (this).size ()) // huh? what's this test for?
-    arpeggios_.push_back (info.grob ());
+  arpeggios_.push_back (info.grob ());
 }
 
 void
