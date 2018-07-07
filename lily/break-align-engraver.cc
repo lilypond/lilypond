@@ -116,15 +116,15 @@ Break_align_engraver::create_alignment (Grob_info inf)
 {
   align_ = make_item ("BreakAlignment", SCM_EOL);
 
-  Context *origin = inf.origin_contexts (this)[0];
-
-  Translator_group *tg = origin->implementation ();
-  Engraver *random_source = unsmob<Engraver> (scm_car (tg->get_simple_trans_list ()));
+  Engraver *random_source = dynamic_cast<Engraver *> (inf.origin_translator ());
   if (!random_source)
-    random_source = this;
+    {
+      programming_error ("BreakAlignment from non-Engraver");
+      random_source = this;
+    }
 
   /*
-    Make left edge appear to come from same context as clef/bar-line etc.
+    Make left edge appear to come from same engraver as clef/bar-line etc.
   */
   left_edge_ = random_source->make_item ("LeftEdge", SCM_EOL);
   add_to_group (left_edge_->get_property ("break-align-symbol"),
