@@ -92,8 +92,10 @@ for t in targets:
         if not os.path.exists (new_dir):
             os.mkdir (new_dir)
     for f in hardlinked_files:
-        if not os.path.isfile (strip_file_name[t] (f)):
-            os.link (f, strip_file_name[t] (f))
+        dest_filename = strip_file_name[t] (f)
+        if os.path.isfile (dest_filename):
+            os.remove (dest_filename)
+        os.link (f, dest_filename)
     for l in symlinks:
         p = mirrortree.new_link_path (os.path.normpath (os.readlink (l)), os.path.dirname (l), strip_re)
         dest = strip_file_name[t] (l)
