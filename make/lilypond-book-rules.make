@@ -26,21 +26,25 @@ $(outdir)/%.tex:  %.latex
 # Add the tex => pdf rule only if we have pdflatex
 ifeq (,$(findstring pdflatex,$(MISSING_OPTIONAL)))
 $(outdir)/%.pdf:  $(outdir)/%.tex
+	rm -fr $(outdir)/$*.build/
+	mkdir $(outdir)/$*.build
 	cd $(outdir) && $(buildscript-dir)/run-and-check \
 		"$(PDFLATEX) -halt-on-error \
+			-output-directory=$*.build \
 			$(notdir $<)" \
 		"$*.pdflatex.log"
 ifeq ($(USE_EXTRACTPDFMARK),yes)
-	$(EXTRACTPDFMARK) -o $(outdir)/$*.pdfmark $@
+	$(EXTRACTPDFMARK) -o $(outdir)/$*.pdfmark $(outdir)/$*.build/$*.pdf
 	$(GS920) -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -dAutoRotatePages=/None \
-		-sOutputFile=$(outdir)/$*.final.pdf \
+		-sOutputFile=$@ \
 		-c "30000000 setvmthreshold" \
 		-f $(top-build-dir)/out-fonts/*.font.ps \
 		$(outdir)/$*.pdfmark \
-		$@
-	rm $@
-	mv $(outdir)/$*.final.pdf $@
+		$(outdir)/$*.build/$*.pdf
+else
+	mv $(outdir)/$*.build/$*.pdf $@
 endif
+	rm -fr $(outdir)/$*.build/
 endif
 
 ############## Texinfo ######################
