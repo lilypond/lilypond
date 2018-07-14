@@ -71,17 +71,18 @@ $(outdir)/%.xml:  %.lyxml
 ifeq (,$(findstring dblatex,$(MISSING_OPTIONAL)))
 $(outdir)/%.pdf:  $(outdir)/%.xml
 	cd $(outdir) && $(buildscript-dir)/run-and-check \
-		"$(DBLATEX) $(DBLATEX_BACKEND) $(notdir $<)" \
+		"$(DBLATEX) $(DBLATEX_BACKEND) -o $*.tmp.pdf $(notdir $<)" \
 		"$*.dblatex.log"
 ifeq ($(USE_EXTRACTPDFMARK),yes)
-	$(EXTRACTPDFMARK) -o $(outdir)/$*.pdfmark $@
+	$(EXTRACTPDFMARK) -o $(outdir)/$*.pdfmark $(outdir)/$*.tmp.pdf
 	$(GS920) -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -dAutoRotatePages=/None \
-		-sOutputFile=$(outdir)/$*.final.pdf \
+		-sOutputFile=$@ \
 		-c "30000000 setvmthreshold" \
 		-f $(top-build-dir)/out-fonts/*.font.ps \
 		$(outdir)/$*.pdfmark \
-		$@
-	rm $@
-	mv $(outdir)/$*.final.pdf $@
+		$(outdir)/$*.tmp.pdf
+	rm $(outdir)/$*.tmp.pdf
+else
+	mv $(outdir)/$*.tmp.pdf $@
 endif
 endif
