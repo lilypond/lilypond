@@ -79,19 +79,21 @@ $(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/%.pdf.omf $(
 					$(TEXI2PDF_WEB_VERSION_FLAGS) \
 					-I $(abs-src-dir) \
 					$(TEXINFO_PAPERSIZE_OPTION) \
+					-o $*.tmp.pdf \
 					$(<F) \
 					< /dev/null" \
 			"$*.texi2pdf.log"
 ifeq ($(USE_EXTRACTPDFMARK),yes)
-	$(EXTRACTPDFMARK) -o $(outdir)/$*.pdfmark $@
+	$(EXTRACTPDFMARK) -o $(outdir)/$*.pdfmark $(outdir)/$*.tmp.pdf
 	$(GS920) -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -dAutoRotatePages=/None \
-		-sOutputFile=$(outdir)/$*.final.pdf \
+		-sOutputFile=$@ \
 		-c "30000000 setvmthreshold" \
 		-f $(top-build-dir)/out-fonts/*.font.ps \
 		$(outdir)/$*.pdfmark \
-		$@
-	rm $@
-	mv $(outdir)/$*.final.pdf $@
+		$(outdir)/$*.tmp.pdf
+	rm $(outdir)/$*.tmp.pdf
+else
+	mv $(outdir)/$*.tmp.pdf $@
 endif
 
 $(outdir)/%.txt: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/weblinks.itexi | $(OUT_TEXINFO_MANUALS)
