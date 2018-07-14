@@ -68,13 +68,35 @@ endif
 
 $(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/%.pdf.omf $(outdir)/weblinks.itexi | $(OUT_TEXINFO_MANUALS)
 ifeq ($(WEB_VERSION),yes)
-	PDFTEX=$(PDFTEX) PDFLATEX=$(PDFLATEX) $(buildscript-dir)/run-and-check "cd $(outdir); texi2pdf $(TEXI2PDF_FLAGS) -D web_version -I $(abs-src-dir) $(TEXINFO_PAPERSIZE_OPTION) $(<F) < /dev/null" "$*.texi2pdf.log"
+	PDFTEX=$(PDFTEX) PDFLATEX=$(PDFLATEX) \
+		$(buildscript-dir)/run-and-check \
+			"cd $(outdir); \
+				texi2pdf $(TEXI2PDF_FLAGS) \
+					-D web_version \
+					-I $(abs-src-dir) \
+					$(TEXINFO_PAPERSIZE_OPTION) \
+					$(<F) \
+					< /dev/null" \
+			"$*.texi2pdf.log"
 else
-	PDFTEX=$(PDFTEX) PDFLATEX=$(PDFLATEX) $(buildscript-dir)/run-and-check "cd $(outdir); texi2pdf $(TEXI2PDF_FLAGS) -I $(abs-src-dir) $(TEXINFO_PAPERSIZE_OPTION) $(<F) < /dev/null" "$*.texi2pdf.log"
+	PDFTEX=$(PDFTEX) PDFLATEX=$(PDFLATEX) \
+		$(buildscript-dir)/run-and-check \
+			"cd $(outdir); \
+				texi2pdf $(TEXI2PDF_FLAGS) \
+					-I $(abs-src-dir) \
+					$(TEXINFO_PAPERSIZE_OPTION) \
+					$(<F) \
+					< /dev/null" \
+			"$*.texi2pdf.log"
 endif
 ifeq ($(USE_EXTRACTPDFMARK),yes)
 	$(EXTRACTPDFMARK) -o $(outdir)/$*.pdfmark $@
-	$(GS920) -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -dAutoRotatePages=/None -sOutputFile=$(outdir)/$*.final.pdf -c "30000000 setvmthreshold" -f $(top-build-dir)/out-fonts/*.font.ps $(outdir)/$*.pdfmark $@
+	$(GS920) -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -dAutoRotatePages=/None \
+		-sOutputFile=$(outdir)/$*.final.pdf \
+		-c "30000000 setvmthreshold" \
+		-f $(top-build-dir)/out-fonts/*.font.ps \
+		$(outdir)/$*.pdfmark \
+		$@
 	rm $@
 	mv $(outdir)/$*.final.pdf $@
 endif
