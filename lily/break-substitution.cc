@@ -463,40 +463,35 @@ substitute_object_alist (SCM alist, SCM dest)
 }
 
 void
-Spanner::substitute_one_mutable_property (SCM sym,
-                                          SCM val)
+Spanner::substitute_one_mutable_property (SCM sym, SCM val)
 {
-  Spanner *s = this;
-
-  bool fast_done = false;
   Grob_array *grob_array = unsmob<Grob_array> (val);
-  if (grob_array)
-    fast_done = s->fast_substitute_grob_array (sym, grob_array);
+  if (grob_array && fast_substitute_grob_array (sym, grob_array))
+    return;
 
-  if (!fast_done)
-    for (vsize i = 0; i < s->broken_intos_.size (); i++)
-      {
-        Grob *sc = s->broken_intos_[i];
-        System *l = sc->get_system ();
-        set_break_substitution (l ? l->self_scm () : SCM_UNDEFINED);
+  for (vsize i = 0; i < broken_intos_.size (); i++)
+    {
+      Grob *sc = broken_intos_[i];
+      System *l = sc->get_system ();
+      set_break_substitution (l ? l->self_scm () : SCM_UNDEFINED);
 
-        if (grob_array)
-          {
-            SCM newval = sc->internal_get_object (sym);
-            if (!unsmob<Grob_array> (newval))
-              {
-                newval = Grob_array::make_array ();
-                sc->set_object (sym, newval);
-              }
-            Grob_array *new_arr = unsmob<Grob_array> (newval);
-            new_arr->filter_map_assign (*grob_array, substitute_grob);
-          }
-        else
-          {
-            SCM newval = do_break_substitution (val);
-            sc->set_object (sym, newval);
-          }
-      }
+      if (grob_array)
+        {
+          SCM newval = sc->internal_get_object (sym);
+          if (!unsmob<Grob_array> (newval))
+            {
+              newval = Grob_array::make_array ();
+              sc->set_object (sym, newval);
+            }
+          Grob_array *new_arr = unsmob<Grob_array> (newval);
+          new_arr->filter_map_assign (*grob_array, substitute_grob);
+        }
+      else
+        {
+          SCM newval = do_break_substitution (val);
+          sc->set_object (sym, newval);
+        }
+    }
 }
 
 void
