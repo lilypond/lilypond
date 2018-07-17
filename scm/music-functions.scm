@@ -1109,6 +1109,18 @@ actually fully cloned."
         (apply ly:input-warning ip msg rest)
         (apply ly:warning msg rest))))
 
+(define-public (ly:grob-warning grob path msg . rest)
+  (let* ((name (assoc-get 'name (ly:grob-property grob 'meta)))
+         (path-string (string-join
+                       (map symbol->string
+                            (if path
+                                ((if (list? path) cons list) name path)
+                                (list name)))
+                       "."))
+         (event (event-cause grob)))
+    (if event (apply ly:event-warning event (string-append path-string ": " msg) rest)
+        (apply ly:warning (string-append path-string ": " msg) rest))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; setting stuff for grace context.
