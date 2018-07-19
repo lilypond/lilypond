@@ -69,7 +69,12 @@ get_x_bound_item (Grob *me_grob, Direction hdir, Direction my_dir)
   if (has_interface<Note_column> (g)
       && Note_column::get_stem (g)
       && Note_column::dir (g) == my_dir)
-    g = Note_column::get_stem (g);
+    {
+      Item *s = Note_column::get_stem (g);
+      if (!Stem::is_invisible (s)
+          && unsmob<Stencil> (s->get_property ("stencil")))
+        g = s;
+    }
 
   return g;
 }
