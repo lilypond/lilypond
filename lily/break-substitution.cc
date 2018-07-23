@@ -27,7 +27,7 @@ using namespace std;
 
 static SCM break_criterion;
 void
-set_break_subsititution (SCM criterion)
+set_break_substitution (SCM criterion)
 {
   break_criterion = criterion;
 }
@@ -377,7 +377,7 @@ Spanner::fast_substitute_grob_array (SCM sym,
     {
       Grob *sc = broken_intos_[i];
       System *l = sc->get_system ();
-      set_break_subsititution (l ? l->self_scm () : SCM_UNDEFINED);
+      set_break_substitution (l ? l->self_scm () : SCM_UNDEFINED);
 
       SCM newval = sc->internal_get_object (sym);
       if (!unsmob<Grob_array> (newval))
@@ -478,7 +478,7 @@ Spanner::substitute_one_mutable_property (SCM sym,
       {
         Grob *sc = s->broken_intos_[i];
         System *l = sc->get_system ();
-        set_break_subsititution (l ? l->self_scm () : SCM_UNDEFINED);
+        set_break_substitution (l ? l->self_scm () : SCM_UNDEFINED);
 
         if (grob_array)
           {
@@ -502,6 +502,6 @@ Spanner::substitute_one_mutable_property (SCM sym,
 void
 Grob::substitute_object_links (SCM crit, SCM orig)
 {
-  set_break_subsititution (crit);
+  set_break_substitution (crit);
   object_alist_ = substitute_object_alist (orig, object_alist_);
 }
