@@ -85,9 +85,6 @@ Music::Music (Music const &m)
 {
   length_callback_ = m.length_callback_;
   start_callback_ = m.start_callback_;
-
-  /// why?
-  set_spot (*m.origin ());
 }
 
 Moment
