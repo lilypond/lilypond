@@ -33,7 +33,7 @@ Prob::equal_p (SCM sa, SCM sb)
      constructor preserve equality.
 
      Perhaps it would be better to use a more strict definition of
-     equality; e.g., that two probs are equal iff they can be
+     equality; e.g., that two probs are equal iff they cannot be
      distinguished by calls to ly:prob-property.
   */
   Prob *probs[2] = {unsmob<Prob> (sa), unsmob<Prob> (sb)};
@@ -55,23 +55,34 @@ Prob::equal_p (SCM sa, SCM sb)
       SCM aprop = props[0][i];
       SCM bprop = props[1][i];
 
-      for (;
-           scm_is_pair (aprop) && scm_is_pair (bprop);
-           aprop = scm_cdr (aprop), bprop = scm_cdr (bprop))
+      for (;; aprop = scm_cdr (aprop), bprop = scm_cdr (bprop))
         {
+          SCM origin_sym = ly_symbol2scm ("origin");
+          // Skip over origin fields
+          while (scm_is_pair (aprop)
+                 && scm_is_eq (origin_sym, scm_caar (aprop)))
+            aprop = scm_cdr (aprop);
+
+          while (scm_is_pair (bprop)
+                 && scm_is_eq (origin_sym, scm_caar (bprop)))
+            bprop = scm_cdr (bprop);
+
+          /* is one list shorter? */
+          if (!scm_is_pair (aprop))
+            if (!scm_is_pair (bprop))
+              break;
+            else
+              return SCM_BOOL_F;
+          else if (!scm_is_pair (bprop))
+            return SCM_BOOL_F;
+
           SCM aval = scm_cdar (aprop);
           SCM bval = scm_cdar (bprop);
           if (!scm_is_eq (scm_caar (aprop), scm_caar (bprop))
-              || (!(unsmob<Input> (aval) && unsmob<Input> (bval))
-                  && !ly_is_equal (aval, bval)))
+              || !ly_is_equal (aval, bval))
             return SCM_BOOL_F;
         }
-
-      /* is one list shorter? */
-      if (!scm_is_null (aprop) || !scm_is_null (bprop))
-        return SCM_BOOL_F;
     }
-
   return SCM_BOOL_T;
 }
 
