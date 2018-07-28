@@ -189,7 +189,8 @@ def draw_varc_clef (expr reduction) =
 	define_pixels (norm, reduced_ss);
 	define_whole_vertical_blacker_pixels (hair);
 
-	set_char_box (0, 2.25 reduced_ss#, 2 reduced_ss#, 2 reduced_ss#);
+	% 2.58 = y4'' (2.25) + bulb radius (0.33)
+	set_char_box (0, 2.25 reduced_ss#, 2.58 reduced_ss#, 2.58 reduced_ss#);
 
 	% make unreduced glyph fit exactly into five staff lines
 	if reduction = 1:
