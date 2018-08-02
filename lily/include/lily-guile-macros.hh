@@ -76,25 +76,19 @@ scm_or_str2symbol (SCM s)
   return s;
 }
 
-/* Using this trick we cache the value of scm_from_locale_symbol ("fooo") where
-   "fooo" is a constant string. This is done at the cost of one static
-   variable per ly_symbol2scm() use, and one boolean evaluation for
-   every call.
+/* Using this trick we cache the value of scm_from_locale_symbol
+   ("fooo") where "fooo" is a constant string. This is done at the
+   cost of one static variable per ly_symbol2scm() use, and the cost
+   of C++' mechanism to ensure a static variable is only initialized
+   once.
  */
 #define ly_symbol2scm(x)                                                \
-  ({                                                                    \
-    static SCM cached;                                                  \
-    /* We store this one locally, since G++ -O2 fucks up else */        \
-    SCM value = cached;                                                 \
-    if (__builtin_constant_p ((x)))                                     \
-      {                                                                 \
-        if (!SCM_UNPACK (cached))                                       \
-          value = cached = scm_gc_protect_object (scm_or_str2symbol (x)); \
-      }                                                                 \
-    else                                                                \
-      value = scm_or_str2symbol (x);                                    \
-    value;                                                              \
-  })
+  (__builtin_constant_p (x)                                             \
+   ? ({                                                                 \
+       static SCM cached = scm_gc_protect_object (scm_or_str2symbol (x)); \
+       cached;                                                          \
+     })                                                                 \
+   : scm_or_str2symbol (x))
 #else
 inline SCM ly_symbol2scm (char const *x) { return scm_from_utf8_symbol ((x)); }
 #endif
