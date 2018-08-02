@@ -4,7 +4,7 @@
 use utf8;
 
 my @langlist = (
-    'ca', 'cs', 'de', 'es', 'fr', 'hu', 'it', 'ja', 'nl', 'po', 'zh'
+    'ca', 'cs', 'de', 'es', 'fr', 'hu', 'it', 'ja', 'nl', 'po', 'pt', 'zh'
 );
 
 foreach my $lang (@langlist)
