@@ -95,15 +95,6 @@ Fingering_engraver::make_script (Direction d, Stream_event *r, int i)
   Item *fingering = make_item ("Fingering", r->self_scm ());
 
   /*
-    Huh, what's this for? --hwn.
-
-    junkme.
-  */
-  SCM pitch = r->get_property ("pitch");
-  if (unsmob<Pitch> (pitch))
-    fingering->set_property ("pitch", pitch);
-
-  /*
     We can't fold these definitions into define-grobs since
     fingerings for chords need different settings.
   */
