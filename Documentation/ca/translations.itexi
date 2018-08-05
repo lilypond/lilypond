@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Actualitzat el Fri May  4 18:02:30 UTC 2018
+@emph{Actualitzat el Sun Aug  5 17:09:15 UTC 2018
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -113,7 +113,7 @@ parcialment
 @item
 2 Notació corrent
 @*
-4421
+4458
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -130,7 +130,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #9eff30">parcialment</span>
+<span style="background-color: #a5ff31">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -140,24 +140,24 @@ parcialment
 @item
 3 Conceptes fonamentals
 @*
-11240
+11458
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">si</span>
+<span style="background-color: #dfef77">parcialment (96 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-si
+parcialment (96 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #68ff28">parcialment</span>
+<span style="background-color: #6fff29">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -316,7 +316,7 @@ si
 @item
 1.1 Altures
 @*
-5413
+5425
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -826,6 +826,33 @@ si
 si
 @end ifnothtml
 @tab pre-GDP
+@item
+3 Entrada i sortida generals
+@*
+13150
+@tab Walter Garcia-Fontes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab pre-GDP
 @end multitable
 
 
@@ -1086,7 +1113,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">parcialment</span>
+<span style="background-color: #2cff20">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1123,7 +1150,7 @@ parcialment
 @item
 Comunitat
 @*
-2362
+2364
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -1140,7 +1167,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #97ff2f">parcialment</span>
+<span style="background-color: #9eff30">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml

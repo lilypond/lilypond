@@ -38,16 +38,16 @@ procedures}.
 1314  web/manuals.itexi
 124   learning.tely
 2499  learning/tutorial.itely
-4421  learning/common-notation.itely
-8358  total
+4458  learning/common-notation.itely
+8395  total
 
 -3- Fundamental Concepts, starting of Usage and Community
-11240 learning/fundamental.itely -- Fundamental concepts
+11458 learning/fundamental.itely -- Fundamental concepts
 135   usage.tely
 5422  usage/running.itely
 2097  usage/updating.itely
-2362  web/community.itexi
-21256 total
+2364  web/community.itexi
+21476 total
 
 -4- Rest of Learning manual and Suggestions on writing LilyPond files
 16592 learning/tweaks.itely -- Tweaking output
@@ -58,7 +58,7 @@ procedures}.
 -5- Notation reference
 326   notation.tely
 91    notation/notation.itely -- Musical notation
-5413  notation/pitches.itely
+5425  notation/pitches.itely
 6854  notation/rhythms.itely
 1819  notation/expressive.itely
 1288  notation/repeats.itely
@@ -82,7 +82,7 @@ procedures}.
 5187  notation/programming-interface.itely -- Interfaces for programmers
 3382  notation/notation-appendices.itely -- Notation manual tables
 252   notation/cheatsheet.itely -- Cheat sheet
-93286 total
+93298 total
 
 -6- Rest of Application Usage
 4211  usage/lilypond-book.itely -- LilyPond-book

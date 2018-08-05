@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最終更新日 Fri May  4 18:02:30 UTC 2018
+@emph{最終更新日 Sun Aug  5 17:09:15 UTC 2018
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -117,7 +117,7 @@ Yoshiki Sawada
 @item
 2 一般的な記譜法
 @*
-4421
+4458
 @tab Tomohiro Tatejima
 @*
 Masamichi Hosoda
@@ -148,7 +148,7 @@ Yoshiki Sawada
 @item
 3 基礎となるコンセプト
 @*
-11240
+11458
 @tab Tomohiro Tatejima
 @*
 Yoshiki Sawada
@@ -157,11 +157,11 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #dfef77">一部 (96 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+一部 (96 %)
 @end ifnothtml
 @tab 
 @ifhtml
@@ -328,7 +328,7 @@ LilyPond --- \TITLE\
 @item
 1.1 ピッチ
 @*
-5413
+5425
 @tab Tomohiro Tatejima
 @*
 Yoshiki Sawada
@@ -942,21 +942,21 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">一部 (94 %)</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-一部 (94 %)
+はい
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #b2fe32">partially</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+はい
 @end ifnothtml
 @tab post-GDP
 @item
@@ -1332,11 +1332,11 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #25fe1f">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+partially
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1371,7 +1371,7 @@ Yoshiki Sawada
 @item
 コミュニティ
 @*
-2362
+2364
 @tab Masamichi Hosoda
 @*
 Yoshiki Sawada

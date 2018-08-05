@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Dernière mise à jour Fri May  4 18:02:30 UTC 2018
+@emph{Dernière mise à jour Sun Aug  5 17:09:15 UTC 2018
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -437,7 +437,7 @@ oui
 @item
 2 Bases de notation musicale
 @*
-4421
+4458
 @tab Nicolas Grandclaude
 @*
 Ludovic Sardain
@@ -472,7 +472,7 @@ oui
 @item
 3 Concepts fondamentaux
 @*
-11240
+11458
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -660,7 +660,7 @@ oui
 @item
 1.1 Hauteurs
 @*
-5413
+5425
 @tab Frédéric Chiasson
 @*
 Jean-Charles Malahieude
@@ -1732,7 +1732,7 @@ oui
 @item
 Communauté
 @*
-2362
+2364
 @tab Jean-Charles Malahieude
 @*
 John Mandereau
