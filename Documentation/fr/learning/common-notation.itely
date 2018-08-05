@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8e2eaf4959bec63a1128a444591a540f4f1e2937
+   Translation of GIT committish: fc65f44f5cc87fe169a26e2cbcb9b664c2496b77
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -424,6 +424,9 @@ Manuel de notation :
 @subsection Articulations et nuances
 @translationof Articulation and dynamics
 
+Articulations et nuances s'indiquent par ajout de code spécifique à la
+suite de la note à laquelle elles s'appliquent.
+
 @menu
 * Articulation::
 * Doigté::
@@ -596,7 +599,8 @@ Toutes les barres de ligature sont dessinées automatiquement :
 Lorsqu'on n'aime pas la manière dont les notes sont automatiquement
 groupées, il est possible de les ligaturer manuellement, en marquant la
 première note à attacher d'un crochet ouvrant @code{[} et la dernière
-d'un crochet fermant @code{]}.
+d'un crochet fermant @code{]}.  Notez bien que le @code{[} vient après
+la première note ligaturée.
 
 @lilypond[verbatim,quote]
 \relative { a'8[ ais] d[ ees r d] c16 b a8 }
