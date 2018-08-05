@@ -40,6 +40,7 @@ description of the input format, see @ruser{File structure}.
 * Introduction to the LilyPond file structure::
 * Score is a (single) compound musical expression::
 * Nesting music expressions::
+* Structure of a note entry::
 * On the un-nestedness of brackets and ties::
 @end menu
 
@@ -79,7 +80,7 @@ input.  LilyPond treats input like this:
 
 @example
 \relative @{
-  c''4 a d c
+  c''4 a b c
 @}
 @end example
 
@@ -457,6 +458,46 @@ These require further commands which
 have not yet been introduced.  See @ref{Size of objects},
 and @ruser{Ossia staves}.
 
+@node Structure of a note entry
+@subsection Structure of a note entry
+
+A note entry in LilyPond consists of a pitch, followed by a duration,
+optionally followed by one or more @q{post-events}.  LilyPond
+post-events add things such as articulations, fingerings, string numbers,
+slurs, ties and explanatory text.
+
+The pitch may be explicitly defined using the current LilyPond input
+language as described in @ruser{Note names in other languages}.  The
+pitch may be omitted.  If the pitch is omitted, the pitch of a current
+note will be the same as the pitch of the previous note in the input
+file, see @ruser{Durations}.  Note that neither @code{r} nor @code{s}
+is a pitch.
+
+The duration includes a number and optionally one or more dots.  If a
+duration is not explicitly defined, the duration of a current note will
+be the same as the duration of the previous note, chord, rest, or spacer
+rest, see @ruser{Durations}.
+
+Post-events follow the note to which they are attached.  Suppose we
+want to have an eighth note c' with a fingering of 1, a tenuto
+articulation, a slur beginning with the note, a tie beginning with
+the note, and a text annotation.  This can be accomplished as
+shown.
+
+@lilypond[verbatim,quote]
+{ c'8-1--(~^\markup{"text annotation"} c' d') }
+@end lilypond
+
+@seealso
+Learning Manual:
+@ref{Ties and slurs},
+@ref{Articulations and dynamics},
+@ref{Adding text}.
+
+Notation Reference:
+@ruser{Pitches},
+@ruser{Rhythms},
+@ruser{Expressive marks}.
 
 @node On the un-nestedness of brackets and ties
 @subsection On the un-nestedness of brackets and ties

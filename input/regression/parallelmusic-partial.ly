@@ -1,4 +1,4 @@
-\version "2.19.22"
+\version "2.19.38"
 
 \header {
   texidoc = "
@@ -7,7 +7,7 @@ end.
 "
 }
 
-\parallelMusic vI.vII
+\parallelMusic vI,vII
 \fixed c'
 {
   f2 |

@@ -93,7 +93,7 @@ Options:
   
   
 (define (dissect-uri uri)
-  (let* ((match (string-match "textedit://(.*):([^:]+):([^:]+):(.*)$" uri)))
+  (let* ((match (string-match "textedit://(.*):([0-9]+):([0-9]+):([0-9]*)$" uri)))
     (if match
 	(list (unquote-uri (match:substring match 1))
 	      (match:substring match 2)
@@ -127,11 +127,14 @@ Options:
 	  (exit 1)))))
 
 (define (run-browser uri)
-  (system
-   (if (getenv "BROWSER")
-       (format #f "~a ~a" (getenv "BROWSER") uri)
-       (format #f "firefox -remote 'OpenURL(~a,new-tab)'" uri))))
-
+  (if (getenv "BROWSER")
+      (system*
+       (getenv "BROWSER")
+       uri)
+      (system*
+       "firefox"
+       "-remote"
+       (format #f "OpenUrl(~a,new-tab)" uri))))
 
 (define (strip-framework-path var)
   (define pat "lilypond/usr")

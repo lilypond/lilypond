@@ -263,7 +263,7 @@ LY_DEFINE (ly_transpose_key_alist, "ly:transpose-key-alist",
            " pitch @var{pit}.")
 {
   SCM newlist = SCM_EOL;
-  Pitch *p = unsmob<Pitch> (pit);
+  Pitch p (*unsmob<Pitch> (pit));
 
   for (SCM s = l; scm_is_pair (s); s = scm_cdr (s))
     {
@@ -275,7 +275,7 @@ LY_DEFINE (ly_transpose_key_alist, "ly:transpose-key-alist",
                       scm_to_int (scm_cdr (key)),
                       ly_scm2rational (alter));
 
-          orig = orig.transposed (*p);
+          orig = orig.transposed (p);
 
           SCM key = scm_cons (scm_from_int (orig.get_octave ()),
                               scm_from_int (orig.get_notename ()));
@@ -286,7 +286,7 @@ LY_DEFINE (ly_transpose_key_alist, "ly:transpose-key-alist",
       else if (scm_is_number (key))
         {
           Pitch orig (0, scm_to_int (key), ly_scm2rational (alter));
-          orig = orig.transposed (*p);
+          orig = orig.transposed (p);
 
           key = scm_from_int (orig.get_notename ());
           alter = ly_rational2scm (orig.get_alteration ());

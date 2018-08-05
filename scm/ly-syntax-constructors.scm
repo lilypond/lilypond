@@ -76,10 +76,11 @@
 
 (define-public (partial-music-function call-list)
   (let* ((good (every list? call-list))
-         (sig (ly:music-function-signature (caar call-list))))
+         (sig (ly:music-function-signature (caar call-list)))
+         (headsig (ly:music-function-signature (car (last call-list)))))
     (and good
          (ly:make-music-function
-          (cons (car sig) (list-tail sig (length (car call-list))))
+          (cons (car headsig) (list-tail sig (length (car call-list))))
           (lambda rest
             ;; Every time we use music-function, it destructively
             ;; reverses its list of arguments.  Changing the calling
@@ -95,6 +96,35 @@
                     (music-function (caar call-list)
                                     (reverse! rest (cdar call-list)))
                     (cdr call-list))))))))
+
+(define-public (partial-text-script partial-markup)
+  (ly:make-music-function
+   (cons (cons ly:event? #f)
+         (cons* ly:dir? markup-function? (markup-command-signature partial-markup)))
+   (lambda (direction partial-markup . rest)
+     (make-music 'TextScriptEvent
+                 'text (cons partial-markup rest)
+                 (if (zero? direction) '()
+                     (list (cons 'direction direction)))))))
+
+(define-public (create-script item)
+  (cond ((ly:event? item) (ly:set-origin! item))
+        ((markup? item) (ly:set-origin! (make-music 'TextScriptEvent 'text item)))
+        (else
+         (ly:parser-error (_ "not an articulation") (*location*))
+         *unspecified*)))
+
+(define-public create-script-function
+  (ly:make-music-function
+   (list (cons ly:event? #f) ly:dir? scheme?)
+   (lambda (dir item)
+     (let ((res (create-script item)))
+       (if (ly:event? res)
+           (begin
+             (if (not (zero? dir))
+                 (set! (ly:music-property res 'direction) dir))
+             res)
+           (make-music 'PostEvents))))))
 
 (define-public (void-music)
   (ly:set-origin! (make-music 'Music)))

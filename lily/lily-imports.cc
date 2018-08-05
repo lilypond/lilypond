@@ -116,6 +116,8 @@ namespace Syntax {
   Variable composed_markup_list ("composed-markup-list");
   Variable context_change ("context-change");
   Variable context_specification ("context-specification");
+  Variable create_script ("create-script");
+  Variable create_script_function ("create-script-function");
   Variable event_chord ("event-chord");
   Variable lyric_combine ("lyric-combine");
   Variable lyric_event ("lyric-event");
@@ -124,6 +126,7 @@ namespace Syntax {
   Variable music_function_call_error ("music-function-call-error");
   Variable partial_markup ("partial-markup");
   Variable partial_music_function ("partial-music-function");
+  Variable partial_text_script ("partial-text-script");
   Variable property_override ("property-override");
   Variable property_override_function ("property-override-function");
   Variable property_revert ("property-revert");

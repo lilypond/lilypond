@@ -124,6 +124,8 @@ namespace Syntax {
   extern Variable composed_markup_list;
   extern Variable context_change;
   extern Variable context_specification;
+  extern Variable create_script;
+  extern Variable create_script_function;
   extern Variable event_chord;
   extern Variable lyric_combine;
   extern Variable lyric_event;
@@ -132,6 +134,7 @@ namespace Syntax {
   extern Variable music_function_call_error;
   extern Variable partial_markup;
   extern Variable partial_music_function;
+  extern Variable partial_text_script;
   extern Variable property_override;
   extern Variable property_override_function;
   extern Variable property_revert;

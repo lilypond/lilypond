@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.19.29"
+@c \version "2.19.38"
 
 @c Translators: Till Paala
 
@@ -1165,7 +1165,7 @@ Dabei entspricht jede Zeile einer Stimme.
 die Takte müssen die gleiche Länge haben.}
 
 @lilypond[quote,verbatim]
-\parallelMusic #'(voiceA voiceB voiceC) {
+\parallelMusic voiceA,voiceB,voiceC {
   % Bar 1
   r8 g'16 c'' e'' g' c'' e'' r8 g'16 c'' e'' g' c'' e'' |
   r16 e'8.~   4              r16 e'8.~   4              |
@@ -1191,7 +1191,7 @@ vorherigen Note in der Quelldatei.  Anders gesagt ignorieren
 relative Noten von @code{voiceA} die Noten von @code{voiceB}.
 
 @lilypond[quote,verbatim]
-\parallelMusic #'(voiceA voiceB voiceC) {
+\parallelMusic voiceA,voiceB,voiceC {
   % Bar 1
   r8 g16 c e g, c e r8 g,16 c e g, c e  |
   r16 e8.~ 4        r16 e8.~  4         |
@@ -1218,7 +1218,7 @@ global = {
   \time 2/4
 }
 
-\parallelMusic #'(voiceA voiceB voiceC voiceD) {
+\parallelMusic voiceA,voiceB,voiceC,voiceD {
   % Bar 1
   a8    b     c   d     |
   d4          e         |

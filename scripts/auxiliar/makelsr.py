@@ -117,34 +117,22 @@ if not os.path.isdir (new_lys):
     sys.stderr.write ("Error: new snippets path: %s: not a directory\n" % lys_from_lsr)
     sys.exit (3)
 
-ly_output_ok = False
-if os.path.isdir (options.ly_output):
-    ly_output = options.ly_output
-    ly_output_ok = True
-elif os.path.exists (options.ly_output):
+def find_or_create_temp_dir (requested_dir):
+    if os.path.isdir (requested_dir):
+        return requested_dir
+    if os.path.exists (requested_dir): # maybe a typo; play it safe
+        sys.stderr.write ("Error: %s: not a directory\n" % requested_dir)
+        sys.exit (3)
     try:
-        os.unlink (options.ly_output)
-    except Exception as e:
-        sys.stderr.write ("Warning: could not delete file before creating directory: %s\n" % e)
-    else:
-        try:
-            os.makedirs (options.ly_output)
-        except Exception as e:
-            sys.stderr.write ("Warning: could not create directory: %s\n" % e)
-        else:
-            ly_output = options.ly_output
-            ly_output_ok = True
-else:
-    try:
-        os.makedirs (options.ly_output)
+        os.makedirs (requested_dir)
+        return requested_dir
     except Exception as e:
         sys.stderr.write ("Warning: could not create directory: %s\n" % e)
-    else:
-        ly_output = options.ly_output
-        ly_output_ok = True
-if not ly_output_ok:
-    ly_output = tempfile.gettempdir ()
-    sys.stderr.write ("Warning: could not use or create directory %s, using default %s\n" % (options.ly_output, ly_output))
+    dir = tempfile.gettempdir ()
+    sys.stderr.write ("Warning: could not use or create directory %s, using default %s\n" % (requested_dir, dir))
+    return dir
+
+ly_output = find_or_create_temp_dir (options.ly_output)
 
 def exit_with_usage (n=0):
     options_parser.print_help (sys.stderr)

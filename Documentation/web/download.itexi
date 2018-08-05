@@ -544,7 +544,7 @@ pre-built version.}
 @downloadStableSource{}
 
 For an extensive listing of all versions (old and new), see our
-@uref{http://download.linuxaudio.org/lilypond/source/?C=N;O=D,
+@uref{http://lilypond.org/download/source/?C=N;O=D,
 download site}.
 
 @divEnd
@@ -568,7 +568,7 @@ Instructions are listed in @rcontrib{Compiling}.
 @subheading All versions
 
 For an extensive listing of all versions (old and new), see our
-@uref{http://download.linuxaudio.org/lilypond/binaries/, download
+@uref{http://lilypond.org/download/binaries/, download
 site}.
 
 @divEnd

@@ -131,9 +131,16 @@ Multi_measure_rest::height (SCM smob)
 }
 
 int
-calc_closest_duration_log (Grob *me, double duration, bool force_round_up)
+calc_measure_duration_log (Grob *me)
 {
-  bool round_up = force_round_up
+  SCM sml = dynamic_cast<Spanner *> (me)->get_bound (LEFT)
+            ->get_property ("measure-length");
+  Rational ml = (unsmob<Moment> (sml)) ? unsmob<Moment> (sml)->main_part_
+                : Rational (1);
+  double duration = ml.Rational::to_double ();
+  bool round_up = to_boolean (scm_list_p (scm_member (scm_cons (scm_from_int64 (ml.numerator ()),
+                                                                scm_from_int64 (ml.denominator ())),
+                                                      me->get_property ("round-up-exceptions"))))
                   || to_boolean (me->get_property ("round-up-to-longer-rest"));
   int closest_usable_duration_log;
 
@@ -184,20 +191,6 @@ calc_closest_duration_log (Grob *me, double duration, bool force_round_up)
   return closest_usable_duration_log;
 }
 
-int
-calc_measure_duration_log (Grob *me)
-{
-  SCM sml = dynamic_cast<Spanner *> (me)->get_bound (LEFT)
-            ->get_property ("measure-length");
-  Rational ml = (unsmob<Moment> (sml)) ? unsmob<Moment> (sml)->main_part_
-                : Rational (1);
-  double measure_duration = ml.Rational::to_double ();
-  bool force_round_up = to_boolean (scm_list_p (scm_member (scm_cons (scm_from_int64 (ml.numerator ()),
-                                                            scm_from_int64 (ml.denominator ())),
-                                                            me->get_property ("round-up-exceptions"))));
-  return calc_closest_duration_log (me, measure_duration, force_round_up);
-}
-
 Stencil
 Multi_measure_rest::symbol_stencil (Grob *me, Real space)
 {
@@ -216,26 +209,12 @@ Multi_measure_rest::symbol_stencil (Grob *me, Real space)
       s.translate_axis (padding * space, X_AXIS);
       return s;
     }
-
-  Font_metric *musfont = Font_interface::get_default_font (me);
-  int mdl = calc_measure_duration_log (me);
-
-  if (measure_count == 1)
-    {
-      if (scm_is_null (me->get_property ("staff-position")))
-        {
-          int dir = get_grob_direction (me);
-          Real pos = Rest::staff_position_internal (me, mdl, dir);
-          me->set_property ("staff-position", scm_from_double (pos));
-        }
-
-      Stencil s = musfont->find_by_name (Rest::glyph_name (me, mdl, "", true, 0.0));
-
-      s.translate_axis ((space - s.extent (X_AXIS).length ()) / 2, X_AXIS);
-      return s;
-    }
   else
-    return church_rest (me, musfont, measure_count, space);
+    {
+      Font_metric *musfont = Font_interface::get_default_font (me);
+      int mdl = calc_measure_duration_log (me);
+      return church_rest (me, musfont, measure_count, mdl, space);
+    }
 }
 
 /*
@@ -255,7 +234,7 @@ Multi_measure_rest::big_rest (Grob *me, Real width)
 
   Real blot = width ? (.8 * min (y, ythick)) : 0.0;
 
-  Stencil m = Lookup::round_filled_box (b, blot);
+  Stencil m = Lookup::filled_box (b);
   Stencil yb = Lookup::round_filled_box (Box (Interval (-0.5, 0.5) * ythick, Interval (-ss, ss)), blot);
 
   m.add_at_edge (X_AXIS, RIGHT, yb, 0);
@@ -271,47 +250,40 @@ Multi_measure_rest::big_rest (Grob *me, Real width)
 */
 Stencil
 Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measure_count,
-                                 Real space)
+                                 int mdl, Real space)
 {
+  double displayed_duration = measure_count * pow (2.0, -mdl);
   SCM mols = SCM_EOL;
   int symbol_count = 0;
   Real symbols_width = 0.0;
-  double total_duration = measure_count * pow (2.0, -calc_measure_duration_log (me));
 
-  SCM staff_position = me->get_property ("staff-position");
-
-  if (!scm_is_number (staff_position))
+  if (scm_is_null (me->get_property ("staff-position")))
     {
-      // Staff position is somewhat icky regarding its definition for
-      // compatibility reasons.  It is intended to be the baseline of
-      // a breve rest.  However, when the staff space is more than
-      // single space (like with tablature), it looks better if all
-      // rests are actually hanging.  So staff position, in reality,
-      // is the semi-breve position - 2.  Everything else is
-      // calculated from there.
       int dir = get_grob_direction (me);
-      Real pos = Rest::staff_position_internal (me, 0, dir);
-      me->set_property ("staff-position", scm_from_double (pos - 2));
+      Real pos = Rest::staff_position_internal (me, mdl, dir);
+      me->set_property ("staff-position", scm_from_double ((mdl == 0) ? (pos - 2) : pos));
     }
 
-  while (total_duration > 0)
+  int dl = -3;
+  while (displayed_duration > 0)
     {
-      int dl = calc_closest_duration_log (me, total_duration, false);
       double duration = pow (2.0, -dl);
 
-      total_duration -= duration;
+      if (displayed_duration < duration)
+        {
+          dl++;
+          continue;
+        }
 
-      Stencil r = musfont->find_by_name (Rest::glyph_name (me, dl, "", true, 2));
+      displayed_duration -= duration;
 
-      Real staff_space = Staff_symbol_referencer::staff_space (me);
+      Stencil r = musfont->find_by_name (Rest::glyph_name (me, dl, "", true, (dl == 0) ? 2 : 0));
       if (dl == 0)
         {
+          Real staff_space = Staff_symbol_referencer::staff_space (me);
           r.translate_axis (staff_space, Y_AXIS);
         }
-      else
-        {
-          r.translate_axis (staff_space-r.extent (Y_AXIS).at (UP), Y_AXIS);
-        }
+
       symbols_width += r.extent (X_AXIS).length ();
       mols = scm_cons (r.smobbed_copy (), mols);
       symbol_count++;

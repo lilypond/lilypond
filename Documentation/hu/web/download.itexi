@@ -397,7 +397,7 @@ lefordított futtatható verziót használja.}
 @downloadStableSource-hu
 
 A LilyPond összes verziójának forrása
-@uref{http://download.linuxaudio.org/lilypond/, ezen az oldalon}
+@uref{http://lilypond.org/download/, ezen az oldalon}
 található.
 
 @divEnd
@@ -418,7 +418,7 @@ A tudnivalók a @rcontrib{Compiling LilyPond} c. fejezetben vannak leírva.
 @subheading A régi verziók archívuma
 
 A LilyPond összes verziója
-@uref{http://download.linuxaudio.org/lilypond/binaries/, ezen az oldalon}
+@uref{http://lilypond.org/download/binaries/, ezen az oldalon}
 található.
 
 @divEnd
