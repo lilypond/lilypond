@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Zuletzt aktualisiert am Fri May  4 18:02:30 UTC 2018
+@emph{Zuletzt aktualisiert am Sun Aug  5 17:09:15 UTC 2018
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -359,7 +359,7 @@ ja
 @item
 2 Übliche Notation
 @*
-4421
+4458
 @tab ???
 @*
 Michael Gerdau
@@ -378,7 +378,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">teilweise</span>
+<span style="background-color: #2cff20">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -388,7 +388,7 @@ teilweise
 @item
 3 Grundbegriffe
 @*
-11240
+11458
 @tab Till Paala
 @*
 Reinhold Kainhofer
@@ -399,17 +399,17 @@ Michael Gerdau
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #dfef77">teilweise (96 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+teilweise (96 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">teilweise</span>
+<span style="background-color: #39ff22">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -570,7 +570,7 @@ ja
 @item
 1.1 Tonhöhen
 @*
-5413
+5425
 @tab Till Paala
 @tab 
 @tab 
@@ -587,7 +587,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #b9ff33">teilweise</span>
+<span style="background-color: #c0ff34">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1541,7 +1541,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">teilweise</span>
+<span style="background-color: #2cff20">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1580,7 +1580,7 @@ ja
 @item
 Gemeinschaft
 @*
-2362
+2364
 @tab Till Paala
 @*
 Michael Gerdau

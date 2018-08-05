@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Ultimo aggiornamento Fri May  4 18:02:30 UTC 2018
+@emph{Ultimo aggiornamento Sun Aug  5 17:09:15 UTC 2018
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -297,7 +297,7 @@ sì
 @item
 2 Notazione comunemente utilizzata
 @*
-4421
+4458
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -324,18 +324,18 @@ sì
 @item
 3 Concetti fondamentali
 @*
-11240
+11458
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #dfef77">parzialmente (96 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+parzialmente (96 %)
 @end ifnothtml
 @tab 
 @ifhtml
@@ -498,7 +498,7 @@ sì
 @item
 1.1 Altezze
 @*
-5413
+5425
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -1268,11 +1268,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #25fe1f">parzialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+parzialmente
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1305,7 +1305,7 @@ sì
 @item
 Comunità
 @*
-2362
+2364
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
