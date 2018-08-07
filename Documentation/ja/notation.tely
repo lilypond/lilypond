@@ -1,6 +1,6 @@
 \input texinfo-ja @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: eb38c33a95cbe6adf9f176dfbb794373ec062605
+    Translation of GIT committish: 270ef754ee7c30523ce40a37dc1bd3035a51737b
 
 
     When revising a translation, copy the HEAD committish of the
@@ -43,7 +43,7 @@ Copyright @copyright{} 1998--2015 by 著作者一同
 @omflanguage English
 @end ignore
 
-@c Translators: Yoshiki Sawada
+@c Translators: Yoshiki Sawada, Tomohiro Tatejima
 @c Translation status: post-GDP
 
 @lilyTitlePage{記譜法リファレンス}
@@ -60,7 +60,7 @@ Copyright @copyright{} 1998--2015 by 著作者一同
 
 付録
 
-* Notation manual tables::      表と図
+* 付表::      表と図
 * カンニング ペーパー::     LilyPond 構文についての要約
 * GNU Free Documentation License:: このドキュメントの使用許諾書
 * LilyPond コマンド インデックス::
