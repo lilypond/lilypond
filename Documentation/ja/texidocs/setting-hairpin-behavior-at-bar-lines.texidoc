@@ -1,0 +1,7 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+ヘアピンの終端となる音符が強拍にある場合、ヘアピンはその前にある小節線の@c
+直前が終端となります。この挙動は @code{to-barline} プロパティをオーバライド@c
+することで調整できます。
+"
+  doctitleja = "小節線にぶつかるヘアピンの挙動を設定する"

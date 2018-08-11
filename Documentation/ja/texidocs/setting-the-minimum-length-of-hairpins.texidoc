@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+ヘアピンが短すぎる場合、@code{Hairpin} オブジェクトの @code{minimum-length}
+プロパティを変更することで長くすることができます。
+"
+  doctitleja = "ヘアピンの最小長さをセットする"

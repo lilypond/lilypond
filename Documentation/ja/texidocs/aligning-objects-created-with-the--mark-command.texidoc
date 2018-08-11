@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+デフォルトでは @code{\\mark} コマンドは小節線の中央に揃えられます。@c
+この挙動を変更し、右または左に揃えることもできます。
+"
+  doctitleja = "\\mark コマンドで作られたオブジェクトを揃える"

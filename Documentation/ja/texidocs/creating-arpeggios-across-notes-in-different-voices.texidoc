@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+@code{Staff} コンテキストに @code{Span_arpeggio_engraver} が追加された場合、@c
+アルペジオは同じ譜にある異なるボイスにまたがって表示されます。
+"
+  doctitleja = "異なるボイスにまたがるアルペジオを作成する"

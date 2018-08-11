@@ -1,0 +1,5 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+音域表示において、デフォルトの符頭と線との隙間を変更することができます。
+"
+  doctitleja = "音域の隙間を変更する"

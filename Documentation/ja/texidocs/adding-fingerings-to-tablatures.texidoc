@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+タブ譜に運指記号を追加するには、@code{\\markup} と @code{\\finger} を@c
+使用します。
+"
+  doctitleja = "タブ譜に運指記号を追加する"

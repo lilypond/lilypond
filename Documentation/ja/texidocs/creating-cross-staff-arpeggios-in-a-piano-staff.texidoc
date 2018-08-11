@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+@code{PianoStaff} 内では、@code{PianoStaff.connectArpeggios} プロパティを@c
+セットすることで、譜をまたがるアルペジオを作成することができます。
+"
+  doctitleja = "ピアノ譜で譜をまたがるアルペジオを作成する"

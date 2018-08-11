@@ -1,0 +1,8 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+大きなアンサンブル スコアでは、小節番号がシステムの下に、また小節の中央に@c
+表示されるものがあります。このスニペットは @code{Measure_counter_engraver} を@c
+用いて、この慣習を模倣する方法を示しています。ここでは、@code{Dynamics}
+コンテキストにエングラーバを追加しています。
+"
+  doctitleja = "小節番号を中央揃えする"

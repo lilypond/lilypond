@@ -1,0 +1,5 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+音符ごとに、入力したドットの数とは独立して付点の数を変更することができます。
+"
+  doctitleja = "音符ごとに付点の数を独立して変更する"

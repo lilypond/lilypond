@@ -1,0 +1,7 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+このスニペットは、歌詞とオッシアの位置を調整するために
+@code{alignBelowContext} と @code{alignAboveContext} コンテキスト
+プロパティを使用する方法を示しています。
+"
+  doctitleja = "オッシアと歌詞の縦方向の揃え位置"

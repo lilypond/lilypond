@@ -1,0 +1,9 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+デフォルトでは、最初の小節番号が '1' 以下の場合、表示が抑制されます。@c
+@code{barNumberVisibility} を @code{all-bar-numbers-visible} にセットする@c
+ことで、最初の小節にも小節番号を表示することができます。しかし、@c
+これを動作させるためには更に、最初の音符の前に空白の小節線を挿入する@c
+必要があります。
+"
+  doctitleja = "最初の小節に小節番号を表示する"

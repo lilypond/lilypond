@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+アルペジオの長さを変更したい場合、上端と下端の位置を独立に変更することが@c
+できます。
+"
+  doctitleja = "アルペジオの配置"

@@ -1,0 +1,7 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+@code{strict-note-spacing} がセットされている場合、音符のスペーシングは@c
+システム内にある小節線や音部記号に影響されません。これらは対応する音符の@c
+直前に配置されます。これらが衝突を引き起こす場合があります。
+"
+  doctitleja = "プロポーショナル ノーテーションで厳格モードを使用する"

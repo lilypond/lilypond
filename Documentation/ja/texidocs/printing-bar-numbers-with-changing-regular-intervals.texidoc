@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+小節番号が表示される間隔は @code{@{set-bar-number-visibility@}} コンテキスト@c
+関数を変更することで変更することもできます。
+"
+  doctitleja = "小節番号が表示される間隔を変更する"

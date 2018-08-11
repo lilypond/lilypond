@@ -1,0 +1,11 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+改行や改ページの情報を音楽から分離し、@code{\\break}, @code{\\pageBreak}
+やその他のレイアウト情報のみを含む専用のボイスを用意した方が管理しやすい@c
+場合があります。
+
+このパターンは、@code{line-break-system-details} のような、@c
+@code{NonMusicalPaperColumn} Grob の設定が長いプロパティをオーバライドする@c
+際に、特に有用です。
+"
+  doctitleja = "改行のために専用のボイスを用意する"

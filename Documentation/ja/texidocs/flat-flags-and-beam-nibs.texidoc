@@ -1,0 +1,25 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+単一の音符に出現する連桁や、端がはみ出す連桁は、@code{stemLeftBeamCount},
+@code{stemRightBeamCount} と連桁指示 @code{[]} を組み合わせることで作ることが@c
+できます。
+
+単一の音符で、右側にのみはみ出す連桁については、音符に @code{[]} を付加し、@c
+@code{stemLeftBeamCount} を 0 にします (Example 1 を参照)。
+
+左側にのみはみ出す場合は、代わりに @code{stemRightBeamCount} を 0 にします
+(Example 2)。
+
+複数音符の連桁で、右側にはみ出す場合は、@code{stemRightBeamCount} を@c
+正の値にします。左側にはみ出す場合は、@code{stemLeftBeamCount} を正の値に@c
+します (Example 3)。
+
+休符に囲まれた単一の音符では、両方向にはみ出した連桁を表示したほうが@c
+分かりやすい場合があります。これは連桁指示 @code{[]} のみで実現できます
+(Example 4)。
+
+(注意: @code{\\set stemLeftBeamCount} は常に @code{\\once \\set} と同等です。@c
+つまり、連桁の本数は@qq{保持されず}、最後の例における @code{16[]} の音符は@c
+その前の @code{\\set} に影響されません。)
+"
+  doctitleja = "はみ出す連桁"

@@ -1,0 +1,21 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+小節内の拍のまとまりは、@code{beatStructure} コンテキスト プロパティにより@c
+コントロールされます。@code{beatStructure} の値は@c
+@code{scm/time-signature-settings.scm} に、多くの拍子記号に対して設定されて@c
+います。@code{beatStructure} の値は、@code{\\set} で変更することができます。@c
+あるいは、@code{\\time} を拍子記号と @code{beatStructure} の明示的な変更@c
+のために用いることができます。そのためには、拍子記号の前に@c
+小節内部の拍のグループを数値のリストで (Scheme の構文で) 与えます。
+
+@code{\\time} は @code{Timing} コンテキストに適用されるため、@c
+@code{Voice} のような他のより低いレベルのコンテキストにセットされた
+@code{beatStructure} や @code{baseMoment} の値を上書きしません。
+
+@code{Measure_grouping_engraver} がコンテキストに含まれている場合、@c
+拍のグループを示す記号が表示されます。この記号はリズムが複雑な現代音楽を@c
+読みやすくします。この例では、9/8 の小節が 2 つの方法で 2 つのパターンに@c
+グループ化されています。5/8 は @code{scm/time-signature-settings.scm} の@c
+デフォルト設定を用いています。
+"
+  doctitleja = "小節のグループ化記号"

@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+リハーサル記号は、次の行の行頭ではなく、現在の行の行末に表示することが@c
+できます。この場合、記号を小節線に右揃えした方が良いでしょう。
+"
+  doctitleja = "リハーサル記号を行末に表示する"

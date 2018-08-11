@@ -1,0 +1,7 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+強弱記号の中には、テキスト表示を含むものがあります (@qq{più forte} や
+@qq{piano subito} など)。これらは @code{\\markup} コマンドで作り出すことが@c
+できます。
+"
+  doctitleja = "強弱記号をマークアップ テキストと結合する"

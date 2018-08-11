@@ -1,0 +1,12 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+異なるボイスにあり、符幹が同じ向きの音符が同じ位置に配置されており、@c
+両方のボイスにシフトが指定されていないか同じシフトが指定されている場合、@c
+LilyPond ファイルのコンパイル時に@c
+エラー メッセージ @samp{warning: ignoring too many clashing note columns}
+が表示されます。このメッセージは、@code{NoteColumn} オブジェクトの
+@code{ignore-collision} プロパティを @code{#t} にすることで抑制できます。@c
+これは警告を抑制するだけでなく、LilyPond による衝突の回避を完全に無効に@c
+します。そのため、注意して使用しないと予期しない結果をもたらすことがあります。
+"
+  doctitleja = "音符の衝突に関する警告を抑制する"

@@ -1,0 +1,10 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+ブラケット型のアルペジオは、異なる譜にまたがる和音が同じ手で演奏されることを@c
+示します。これを表示するためには、@code{PianoStaff} が譜をまたぐアルペジオを@c
+使用できるように設定し、@code{PianoStaff} コンテキストでアルペジオの形を@c
+ブラケットに設定します。
+
+(Debussy, Les collines d’Anacapri, m. 65)
+"
+  doctitleja = "ブラケット型のアルペジオで譜をまたぐ和音を表示する"

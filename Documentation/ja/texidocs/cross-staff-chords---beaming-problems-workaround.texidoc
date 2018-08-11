@@ -1,0 +1,11 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+譜をまたがる和音を作成する際に、@c
+連桁の衝突に関する問題が起きないように@c
+上の譜の符幹を下向きに伸ばした方が良い場合があります。@c
+次の例で下の譜の符幹を伸ばそうとした場合、@c
+@code{\\override Staff.Beam.collision-voice-only = ##t}
+を用いて、譜を越えた衝突を検出しないように、@c
+連桁の自動衝突解決の設定を変更する必要があります。
+"
+  doctitleja = "譜をまたがる和音 -- 連桁との問題を解決する"

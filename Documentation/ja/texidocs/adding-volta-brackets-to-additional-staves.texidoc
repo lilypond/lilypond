@@ -1,0 +1,9 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+デフォルトでは、@code{Volta_engraver} は @code{Score} コンテキストに@c
+属しており、繰り返しの括弧は通常最上段の譜の上にのみ表示されます。@c
+これを調整するには、@code{Volta_engraver} を、括弧を表示させたい譜の
+@code{Staff} コンテキストに追加します。@qq{複数譜に繰り返し括弧を表示する}
+スニペットも参照してください。
+"
+  doctitleja = "繰り返し括弧を他の譜にも追加する"

@@ -1,0 +1,7 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+和音に対してハンマリング オンやプリング オフを用いる際、弧は 1 つしか@c
+描かれません。@qq{二重の弧} は、@code{doubleSlurs} プロパティを @code{#t} に@c
+セットすることで描くことができます。
+"
+  doctitleja = "和音に対してハンマリング オンやプリング オフを使用する"

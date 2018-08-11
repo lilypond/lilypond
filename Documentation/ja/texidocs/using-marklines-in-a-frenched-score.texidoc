@@ -1,0 +1,12 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+空の譜が省略された楽譜 (Frenched score) で
+@code{MarkLine} コンテキスト
+(@uref{http://lsr.di.unimi.it/LSR/Item?id=1010, LSR1010})
+を使用すると、2 つの @code{MarkLine} に挟まれた全ての譜が省略された場合に@c
+問題が生じます。@c
+@code{StaffGroup} 内で @code{Keep_alive_together_engraver} を使用し、@c
+グループ内の譜のどれかが残っている場合にのみ @code{MarkLine} を@c
+残しておくようにします。
+"
+  doctitleja = "空の譜が省略された楽譜で MarkLine を使用する"

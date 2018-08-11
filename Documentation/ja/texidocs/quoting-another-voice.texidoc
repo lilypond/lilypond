@@ -1,0 +1,12 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+@code{quotedEventTypes} プロパティは、引用される音楽イベントのタイプを@c
+指定します。デフォルト値は @code{(note-event rest-event tie-event beam-event
+tuplet-span-event)} であり、これは音符、休符、タイ、連桁、連符のみが
+@code{\\quoteDuring} によって引用されることを示しています。次の例では、@c
+@code{rest-event} がリストに含まれていないため、16 分休符が引用されていません。
+
+イベントのタイプのリストは、内部リファレンスの @qq{Music classes} を@c
+参照してください。
+"
+  doctitleja = "他のボイスを引用する"

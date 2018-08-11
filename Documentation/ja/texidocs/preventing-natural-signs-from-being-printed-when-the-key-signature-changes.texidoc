@@ -1,0 +1,7 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+調号が変化する際、前の調号を打ち消すナチュラル記号が自動的に表示されます。@c
+これは @code{Staff} コンテキストの @code{printKeyCancellation} プロパティを
+@code{f} にセットすることで防止することができます。
+"
+  doctitleja = "調号が変化する際にナチュラル記号が表示されるのを防止する"

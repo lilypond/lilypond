@@ -1,0 +1,11 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+現在では専用のマークアップ コマンドが定義されているため、この方法を@c
+用いる必要はありません。記譜法リファレンスの '\\markup コマンドの一覧' にある
+'Accordion Registers' を参照してください。@c
+しかし、これは記号を組み合わせる例として有用です: @code{\\markup} で@c
+追加される記号の位置は、@code{\\translate-scaled} を用いて調整されます。@c
+@code{\\translate} ではなく @code{\\translate-scaled} が使われているのは、@c
+位置が記号全体の @code{font-size} に対して相対的になるようにするためです。
+"
+  doctitleja = "アコーディオンのディスカント記号"

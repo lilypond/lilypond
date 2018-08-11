@@ -1,0 +1,7 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+@code{\\markup} コマンドは非常に多くのことができます。@c
+このスニペットでは、テキストや記号ではなく、@code{\\score} ブロックを@c
+含んだ @code{\\markup} を作成しています。
+"
+  doctitleja = "譜の上にマークアップとして楽譜片を挿入する"

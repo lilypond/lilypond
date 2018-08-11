@@ -1,0 +1,7 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+LilyPond では、@code{Voice} コンテキストに @code{Melody_engraver} を追加し、@c
+@code{Stem} の @code{neutral-direction} をオーバライドすることで、@c
+譜の中央にある音符の符幹の向きを、メロディに合わせて変更することができます。
+"
+  doctitleja = "メロディに合わせて譜の中央にある音符の符幹の向きを自動で変更する"

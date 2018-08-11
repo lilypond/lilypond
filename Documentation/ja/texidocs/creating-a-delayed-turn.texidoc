@@ -1,0 +1,9 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+下の音符が臨時記号を持つような遅れターンを作るには、いくつかのオーバライドが@c
+必要です。@code{outside-staff-priority} プロパティを @code{#f} にセット@c
+しなければ、@code{avoid-slur} プロパティよりも優先されてしまい、スラーの@c
+内側に記号が入りません。分数 @code{2/3} と @code{1/3} は、水平位置を調整@c
+しています。
+"
+  doctitleja = "遅れターンを作成する"

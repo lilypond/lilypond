@@ -1,0 +1,9 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+デフォルトでは、連符の上には @code{\\tuplet} の引数として与えられた@c
+数字のみが表示されます。
+
+代わりに、3:2 のような形の数字を表示することができます。また、数字を@c
+非表示にすることもできます。
+"
+  doctitleja = "連符の数字を変更する"

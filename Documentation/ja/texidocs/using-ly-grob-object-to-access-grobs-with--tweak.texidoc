@@ -1,0 +1,21 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+いくつかの Grob は、他の Grob のコールバックから@c
+アクセスすることができます。これらは通常、grob-interface の
+\"Internal properties\" セクションにある \"layout objects\" にリストアップ@c
+されています。@code{ly:grob-object} は、これらの Grob にアクセスするために@c
+使用します。
+
+以下に示したのは、NoteHead コールバック内で Grob にアクセスする@c
+いくつかの方法ですが、このテクニックは NoteHead に限ったものではありません。@c
+しかし、NoteHead は @code{\\tweak} コマンドで暗黙的に指定されるために、@c
+このコールバックは特に重要です。
+
+以下で定義された例の関数 (\"display-grobs\") はそこまで有用ではないかも@c
+しれませんが、Grob が実際にアクセスできることを示しています。
+
+例のコンソール出力:
+
+@code{ #Grob Accidental () #Grob Stem}
+"
+  doctitleja = "\\tweak で Grob にアクセスするために ly:grob-object を用いる"

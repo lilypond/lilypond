@@ -1,0 +1,7 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+コード ネームの英語名をドイツ名 (@code{\\germanChords} は B, Bes を@c
+それぞれ H, B に変更します) または準ドイツ名 (@code{\\semiGermanChords} は
+B と Bes をそれぞれ H と Bb に変更します) に変更することができます。
+"
+  doctitleja = "コード ネームをドイツ名や準ドイツ名に変更する"

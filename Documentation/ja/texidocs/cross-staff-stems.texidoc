@@ -1,0 +1,8 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+このスニペットは、@code{Span_stem_engraver} と @code{\\crossStaff} を用いて、@c
+自動的に譜をまたがる符幹を作成しています。
+
+符幹の長さは自動的に計算されるため指定する必要はありません。
+"
+  doctitleja = "譜をまたがる符幹"

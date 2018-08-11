@@ -1,0 +1,8 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+@code{strict-grace-spacing} プロパティをセットすることで、@c
+装飾音符を列として '浮いた' 状態にすることができます。つまり、装飾音符では@c
+ない音符のスペーシングと独立させることができます: まず、通常の音符が@c
+スペーシングされ、その後に装飾音符が左側に配置されます。
+"
+  doctitleja = "装飾音符を浮いたスペースに配置する"

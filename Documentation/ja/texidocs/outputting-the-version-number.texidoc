@@ -1,0 +1,8 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+@code{lilypond-version} の出力を歌詞に配置することで、楽譜内に、あるいは@c
+@code{lilypond-book} で生成されたドキュメント内に LilyPond のバージョン番号を@c
+表示することができます。@c
+あるいは、以下のようにしてバージョン番号を他の文字列と結合することができます。
+"
+  doctitleja = "バージョン番号を出力する"

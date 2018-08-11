@@ -1,0 +1,8 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+ペダル ダウンやペダル アップに使われるテキストは、@c
+@code{Staff.pedalSustainStrings} で変更できます。@c
+このスニペットに表示されているものがグリフの全てであり、@c
+これ以外の文字は使用することができません。
+"
+  doctitleja = "サステイン ペダル記号のテキストを変更する"

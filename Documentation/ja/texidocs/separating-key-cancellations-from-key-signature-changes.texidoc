@@ -1,0 +1,13 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+デフォルトでは、調号が変更される際のナチュラルによる取り消し表示は、@c
+新たな調号のすぐ隣に配置されます。この挙動は、@code{BreakAlignment} Grob の
+@code{break-align-orders} プロパティをオーバライドすることで変更できます。
+
+@code{break-align-orders} は長さ 3 のベクトルで、それぞれが@c
+改行可能なアイテムを要素とした quote リストを取ります。この例では
+2 つ目のリストのみを変更しており、@code{key-cancellation} を @code{staff-bar}
+の前に移動しています。2 番目の要素はシステムの途中における配置に影響し、@c
+行頭あるいは行末には影響しません。
+"
+  doctitleja = "調号の取り消し表示を新たな調号から離す"

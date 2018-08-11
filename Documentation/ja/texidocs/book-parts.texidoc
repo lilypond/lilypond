@@ -1,0 +1,9 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+@code{\\bookpart} は、ブックをいくつかの部分に分けるために@c
+用いることができます。それぞれの @code{\\bookpart} の最後のページが@c
+@code{ragged-last-bottom} の影響を受けます。ヘッダやフッタのマークアップは
+@code{\\bookpart} ごとの最後のページを識別することができ、ブック全体の@c
+最後のページには異なるマークアップを用いることもできます。
+"
+  doctitleja = "ブック パート"
