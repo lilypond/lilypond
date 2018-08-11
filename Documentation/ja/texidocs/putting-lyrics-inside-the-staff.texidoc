@@ -1,0 +1,8 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+歌詞の垂直方向の位置を移動し、譜の内部に表示させることができます。歌詞は
+@code{\\override LyricText.extra-offset = #'(0 . dy)} で移動し、@c
+延長線やハイフンを移動する同様のコマンドも必要です。@c
+必要な移動量は試行錯誤によって決定します。
+"
+  doctitleja = "歌詞を譜の内部に表示する"

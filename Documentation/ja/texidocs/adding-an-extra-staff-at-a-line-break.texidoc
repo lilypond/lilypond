@@ -1,0 +1,8 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+改行時に譜を追加する場合、改行前の行末に不要な空間が追加されてしまいます
+(これは調号の変化に対応するためのものですが、どちらにしろ表示されません)。@c
+これを解決するには、@code{Staff.explicitKeySignatureVisibility} を例のように@c
+設定します。
+"
+  doctitleja = "改行時に譜を追加する"

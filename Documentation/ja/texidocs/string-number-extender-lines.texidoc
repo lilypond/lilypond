@@ -1,0 +1,5 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+弦番号の延長線を追加し、続く音符が全て同じ弦で演奏されることを示します。
+"
+  doctitleja = "弦番号の延長線"

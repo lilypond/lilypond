@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+分析用のブラケットは、デフォルトでは譜の下に表示されます。次の例は@c
+譜の上に表示する方法を示しています。
+"
+  doctitleja = "分析用のブラケットを譜の上に表示する"

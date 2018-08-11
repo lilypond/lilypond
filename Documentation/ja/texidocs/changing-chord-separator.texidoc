@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+コード ネームの異なる部分を区切る記号は、任意のマークアップに@c
+設定することができます。
+"
+  doctitleja = "コード ネームの区切り記号を変更する"

@@ -1,0 +1,7 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+このテンプレートは、それぞれの行が部分小節で開始し終了する@c
+賛美歌を作成する方法を示しています。また、詞を音楽の下に単独で表示する@c
+方法も示しています。
+"
+  doctitleja = "賛美歌のテンプレート"

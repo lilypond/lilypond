@@ -1,0 +1,8 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+同じ音符に配置されている、または開始あるいは終了する@c
+強弱記号は、縦方向に揃えられます。同じ音符に配置されない強弱記号も@c
+揃えるためには、@code{DynamicLineSpanner} オブジェクトの @code{staff-padding}
+プロパティを大きな値にします。
+"
+  doctitleja = "複数の音符にまたがる強弱記号を縦方向に揃える"

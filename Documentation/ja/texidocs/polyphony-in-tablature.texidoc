@@ -1,0 +1,5 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+@code{TabStaff} における多声は、通常の譜と同じように作成することができます。
+"
+  doctitleja = "タブ譜における多声"

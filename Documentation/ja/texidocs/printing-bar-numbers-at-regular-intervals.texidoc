@@ -1,0 +1,7 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+@code{barNumberVisibility} プロパティをセットすることで、小節番号を@c
+一定間隔で表示することができます。以下の例では、行末を除いて、2 小節ごとに@c
+小節番号が表示されています。
+"
+  doctitleja = "一定間隔で小節番号を表示する"

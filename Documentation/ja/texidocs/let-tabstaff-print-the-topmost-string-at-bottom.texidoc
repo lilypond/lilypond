@@ -1,0 +1,7 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+タブ譜では通常、第 1 弦が上に表示されます。下に表示したい場合には、@c
+@code{stringOneTopmost} コンテキスト プロパティを変更します。@c
+コンテキスト全体に設定するには、@code{layout} ブロックに設定することができます。
+"
+  doctitleja = "TabStaff で最高弦を下に表示する"

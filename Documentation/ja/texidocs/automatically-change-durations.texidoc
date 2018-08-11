@@ -1,0 +1,7 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+ある音楽の音符の長さを変更するために*、@code{shiftDurations} を@c
+使用することができます。これは 2 つの引数を取ります -- 1 つ目は
+2 のべき乗で与えられる倍率、2 つ目は付け加える付点の数を表す正の整数です。
+"
+  doctitleja = "自動で音価を変更する"

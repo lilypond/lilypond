@@ -1,0 +1,7 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+@code{\\whiteout} コマンドは、マークアップの背景を白色の長方形で@c
+囲みます。譜線はほとんどの Grob より下のレイヤにあるため、@c
+この白色の長方形は他の Grob と重ならなくなります。
+"
+  doctitleja = "\\whiteout コマンドで譜線を隠す"

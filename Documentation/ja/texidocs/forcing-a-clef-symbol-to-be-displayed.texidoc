@@ -1,0 +1,8 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+音部記号がその前に表示されており、別の音部記号に変化していない場合、@c
+@code{\\clef} コマンドで音部記号を指定しても何も表示されません。@c
+@code{\\set Staff.forceClef = ##t} を指定することで、音部記号を強制的に@c
+再表示させることができます。
+"
+  doctitleja = "音部記号を強制的に表示する"

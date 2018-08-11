@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+リハーサル記号は通常、一番上にある譜の上に表示されますが、@c
+全ての譜の上に表示することもできます。
+"
+  doctitleja = "リハーサル記号を全ての譜の上に表示する"

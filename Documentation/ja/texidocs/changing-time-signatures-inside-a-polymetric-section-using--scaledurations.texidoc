@@ -1,0 +1,10 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+@code{measureLength}, @code{measurePosition} プロパティは、小節線が@c
+どのタイミングで必要になるかを決定しています。しかし、@c
+@code{\\scaleDurations} を使用する際、拍子記号と整合性が取れなくなることが@c
+あります。この場合には、@code{measureLength} を @code{ly:make-moment}
+コールバックを用いて手動でセットします。2 つ目の引数は @code{\\scaleDurations}
+の 2 つ目の引数と一致している必要があります。
+"
+  doctitleja = "\\scaleDurations を使用した多拍子の部分で拍子記号を変更する"

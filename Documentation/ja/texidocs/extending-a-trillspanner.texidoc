@@ -1,0 +1,8 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+@code{TrillSpanner} に対しては、@code{minimum} プロパティは
+@code{set-spacing-rods} プロシージャが明示的に呼ばれている場合に限り@c
+有効となります。そのためには、@code{springs-and-rods} プロパティを@c
+@code{ly:spanner::set-spacing-rods} にセットします。
+"
+  doctitleja = "TrillSpanner を延長する"

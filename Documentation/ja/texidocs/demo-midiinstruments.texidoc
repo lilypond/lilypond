@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+問題: どの @code{midiInstrument} を使えば良いでしょうか？
+答え: LilyPond のデモファイルがあります。
+"
+  doctitleja = "midiInstrument のデモ"

@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+楽譜には何も出力せずに MIDI 出力のテンポのみを変更するには、@c
+メトロノーム記号を非表示にします。
+"
+  doctitleja = "メトロノーム記号を表示せずにテンポを変更する"

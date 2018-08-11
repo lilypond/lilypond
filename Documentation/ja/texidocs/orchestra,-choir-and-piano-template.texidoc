@@ -1,0 +1,8 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+このテンプレートは @code{StaffGroup} と @code{GrandStaff} コンテキストを@c
+ネストさせて用いることで、楽器のサブ グループを表示しています。また、@c
+@code{\\transpose} を使用して、移調楽器の音符をコンサート ピッチの状態で@c
+変数に格納しています。
+"
+  doctitleja = "オーケストラ、コーラス、ピアノのテンプレート"

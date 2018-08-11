@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+和音をレガートで演奏する場合、2 つのスラーを書く場合があります。これは
+@code{doubleSlurs} をセットすることで実現できます。
+"
+  doctitleja = "和音のレガートに 2 つのスラーを使用する"

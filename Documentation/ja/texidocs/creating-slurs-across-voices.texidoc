@@ -1,0 +1,10 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+異なるボイスを繋ぐスラーを作成しなければならない場合があります。
+
+解決法は、@code{\\hideNotes} を用いて片方のボイスに不可視の音符を追加する@c
+ことです。
+
+この例は、Bach の Partita for Violin No. 2 (BWV 1004) の 235 小節目です。
+"
+  doctitleja = "ボイスをまたがるスラーを作成する"

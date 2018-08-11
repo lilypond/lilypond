@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+自動パート結合機能を使用する際に、ソロやユニゾンを表示するテキストを@c
+変更することができます。
+"
+  doctitleja = "自動パート結合のテキストを変更する"

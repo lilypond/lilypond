@@ -1,0 +1,7 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+@code{\\applyOutput} コマンドは、どのようなコンテキストの@c
+どのようなレイアウト オブジェクトも変更することができます。@c
+このコマンドは Scheme 関数と 3 つの引数が必要です。
+"
+  doctitleja = "個々の Grob のプロパティを変更する"

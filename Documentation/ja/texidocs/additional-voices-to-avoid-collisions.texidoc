@@ -1,0 +1,8 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+複雑な多声音楽では、音符どうしの衝突を避けるために追加のボイスが@c
+必要になる場合があります。4 つ以上の並列ボイスが必要な場合には、@c
+追加のボイスは Scheme 関数 @code{context-spec-music} を用いて変数を@c
+定義することで追加できます。
+"
+  doctitleja = "衝突を避けるための追加のボイス"

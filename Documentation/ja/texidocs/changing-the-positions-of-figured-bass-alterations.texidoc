@@ -1,0 +1,7 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+数字付き低音の前後に表示される臨時記号やプラス記号は、その位置を
+@code{figuredBassAlterationDirection} や
+@code{figuredBassPlusDirection} プロパティによって変更することができます。
+"
+  doctitleja = "通奏低音の変化記号の位置を変更する"

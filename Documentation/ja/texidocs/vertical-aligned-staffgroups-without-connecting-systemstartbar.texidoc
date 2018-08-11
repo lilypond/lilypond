@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+このスニペットは、それぞれに SystemStartBar のある複数の StaffGroup を、@c
+SystemStartBar を繋げずに縦方向に揃える方法を示しています。
+"
+  doctitleja = "SystemStartBar を接続せずに StaffGroups を縦方向に揃える"

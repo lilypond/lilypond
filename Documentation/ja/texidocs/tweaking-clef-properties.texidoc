@@ -1,0 +1,17 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+音部記号のグリフ、位置、オクターブ記号を変更するだけでは、変更後の音符の位置は@c
+変更されません。調号を正しい位置に表示するためには、@code{middleCClefPosition}
+も設定する必要があります。これは、@qq{ミドル C} の位置を、中央の譜線を 0、@c
+上方向を正、下方向を負として設定します。
+
+例えば、@code{\\clef \"treble_8\"} は、@code{clefGlyph}, @code{clefPosition},
+(音部記号自体の縦位置) @code{middleCPosition}, @code{clefTransposition}
+を設定するのと同等です。これらのプロパティの (@code{middleCPosition} を除く)
+どれかが変更された場合、新たに音部記号が表示されます。
+
+次の例は、これらのプロパティを手動でセットする方法を示しています。@c
+最初の行では音部記号と音符の位置関係は通常通りですが、次の行では@c
+そうではありません。
+"
+  doctitleja = "音部記号のプロパティを調整する"

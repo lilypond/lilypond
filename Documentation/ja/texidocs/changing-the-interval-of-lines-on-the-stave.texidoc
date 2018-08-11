@@ -1,0 +1,7 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+音符の位置を変更するためには、@code{staffLineLayoutFunction} を使用します。@c
+このスニペットは、これを @code{ly:pitch-semitones} にセットし、@c
+半音が間隔 1 つ分になるクロマティック スケールを作り出しています。
+"
+  doctitleja = "譜線の音程を変更する"

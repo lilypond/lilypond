@@ -1,0 +1,7 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+次の例で示すように、あるプロパティをセットすることによって、@c
+右手の運指記号の配置を細かくコントロールすることができます。@c
+注意: 和音構造 @code{<>} を用いる必要があります。
+"
+  doctitleja = "右手の運指記号の配置"

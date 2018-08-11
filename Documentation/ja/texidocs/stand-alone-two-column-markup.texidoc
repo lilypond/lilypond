@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+@code{\\markup} コマンドを用いて、独立したテキストを複数段組みにすることが@c
+できます:
+"
+  doctitleja = "独立したテキストの 2 段組み"

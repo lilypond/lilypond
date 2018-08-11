@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+パーセント繰り返しのカウンタは @code{repeatCountVisibility} コンテキスト
+プロパティをセットすることで一定間隔で表示することができます。
+"
+  doctitleja = "パーセント繰り返しのカウンタの可視性"
