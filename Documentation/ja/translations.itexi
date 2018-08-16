@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最終更新日 Sun Aug  5 17:09:15 UTC 2018
+@emph{最終更新日 Thu Aug 16 12:12:38 UTC 2018
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -249,6 +249,8 @@ LilyPond 記譜法リファレンス
 @*
 326
 @tab Yoshiki Sawada
+@*
+Tomohiro Tatejima
 @tab 
 @tab 
 @ifhtml
@@ -276,6 +278,8 @@ LilyPond --- \TITLE\
 @*
 1139
 @tab Yoshiki Sawada
+@*
+Tomohiro Tatejima
 @tab 
 @tab 
 @ifhtml
@@ -960,7 +964,34 @@ Yoshiki Sawada
 @end ifnothtml
 @tab post-GDP
 @item
-A カンニング ペーパー
+A 付表
+@*
+3382
+@tab Tomohiro Tatejima
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">はい</span>
+@end html
+@end ifhtml
+@ifnothtml
+はい
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">はい</span>
+@end html
+@end ifhtml
+@ifnothtml
+はい
+@end ifnothtml
+@tab post-GDP
+@item
+B カンニング ペーパー
 @*
 252
 @tab Yoshiki Sawada
