@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated dim. août  5 17:09:15 UTC 2018
+@emph{Last updated jeu. août 16 12:12:38 UTC 2018
 }
 @multitable @columnfractions  0.25 0.25 0.25 0.25
 
@@ -3992,6 +3992,8 @@ up to date
 @end ifnothtml
 @tab Yoshiki Sawada
 @*
+Tomohiro Tatejima
+@*
 
 @ifhtml
 
@@ -4155,6 +4157,8 @@ translated
 up to date
 @end ifnothtml
 @tab Yoshiki Sawada
+@*
+Tomohiro Tatejima
 @*
 
 @ifhtml
@@ -8869,17 +8873,17 @@ translated
 @ifnothtml
 up to date
 @end ifnothtml
-@tab Yoshiki Sawada
+@tab Tomohiro Tatejima
 @*
 
 @ifhtml
 
 @html
-<span style="background-color: #d0f0f8">not translated</span>
+<span style="background-color: #1fff1f">translated</span>
 @end html
 @end ifhtml
 @ifnothtml
-not translated
+translated
 @end ifnothtml
 @*
 
@@ -9220,6 +9224,8 @@ not translated
 up to date
 @end ifnothtml
 @tab Yoshiki Sawada
+@*
+Tomohiro Tatejima
 @*
 
 @ifhtml
@@ -11071,7 +11077,7 @@ up to date
 @end multitable
 
 
-@multitable @columnfractions  0.0909090909091 0.0909090909091 0.0909090909091 0.0909090909091 0.0909090909091 0.0909090909091 0.0909090909091 0.0909090909091 0.0909090909091 0.0909090909091 0.0909090909091
+@multitable @columnfractions  0.0833333333333 0.0833333333333 0.0833333333333 0.0833333333333 0.0833333333333 0.0833333333333 0.0833333333333 0.0833333333333 0.0833333333333 0.0833333333333 0.0833333333333 0.0833333333333
 
 @headitem
 LilyPond -- Music notation for everyone
@@ -11084,6 +11090,7 @@ LilyPond -- Music notation for everyone
 @tab it
 @tab ja
 @tab nl
+@tab pt
 @tab zh
 @item
 Section titles
@@ -11361,6 +11368,29 @@ translated
 @end ifhtml
 @ifnothtml
 partially up to date
+@end ifnothtml
+@tab Rafael Fontenelle
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
 @end ifnothtml
 @tab Ben Luo
 @*
@@ -11644,6 +11674,29 @@ Tineke de Munnik
 @ifnothtml
 
 @end ifnothtml
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
+@end ifnothtml
+@tab Rafael Fontenelle
+@*
+
 @ifhtml
 
 @html
@@ -11992,6 +12045,29 @@ translated
 @ifnothtml
 partially up to date
 @end ifnothtml
+@tab Rafael Fontenelle
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
+@end ifnothtml
 @tab Ben Luo
 @*
 Anthony Fok
@@ -12309,6 +12385,29 @@ translated
 
 @html
 <span style="background-color: #6fff29">partially up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+partially up to date
+@end ifnothtml
+@tab Rafael Fontenelle
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #25fe1f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -12634,6 +12733,29 @@ translated
 @ifnothtml
 partially up to date
 @end ifnothtml
+@tab Rafael Fontenelle
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
+@end ifnothtml
 @tab Ben Luo
 @*
 
@@ -12952,6 +13074,29 @@ Tineke de Munnik
 @ifnothtml
 
 @end ifnothtml
+@ifhtml
+
+@html
+<span style="background-color: #d0f0f8">not translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+not translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
+@end ifnothtml
+@tab Rafael Fontenelle
+@*
+
 @ifhtml
 
 @html
@@ -13300,6 +13445,29 @@ Tineke de Munnik
 @end ifhtml
 @ifnothtml
 not translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
+@end ifnothtml
+@tab Rafael Fontenelle
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+translated
 @end ifnothtml
 @*
 

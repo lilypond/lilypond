@@ -16,188 +16,178 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最近更新 Thu Aug 16 12:12:38 UTC 2018
+@emph{Última atualização em Thu Aug 16 12:12:38 UTC 2018
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
 @headitem
-LilyPond -- 人人的乐谱软件
-@tab 翻译者
-@tab 翻译校对
-@tab 已翻译
-@tab 最新
-@tab 其他信息
+LilyPond -- Notação musical para todos
+@tab Tradutores
+@tab Verificadores de tradução
+@tab Traduzido
+@tab Atualizado
+@tab Outras informações
 @item
-章节标题
+Títulos de seção
 @*
 750
-@tab Ben Luo
-@*
-Anthony Fok
+@tab Rafael Fontenelle
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">是</span>
+<span style="background-color: #1fff1f">sim</span>
 @end html
 @end ifhtml
 @ifnothtml
-是
+sim
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #a5ff31">部分</span>
+<span style="background-color: #1fff1f">sim</span>
 @end html
 @end ifhtml
 @ifnothtml
-部分
+sim
 @end ifnothtml
-@tab GDP 前
+@tab pré-GDP
 @item
 LilyPond --- \TITLE\
 @*
 1139
-@tab Ben Luo
-@*
-Anthony Fok
+@tab Rafael Fontenelle
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">是</span>
+<span style="background-color: #1fff1f">sim</span>
 @end html
 @end ifhtml
 @ifnothtml
-是
+sim
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">是</span>
+<span style="background-color: #1fff1f">sim</span>
 @end html
 @end ifhtml
 @ifnothtml
-是
+sim
 @end ifnothtml
-@tab GDP 前
+@tab pré-GDP
 @item
-简介
+Introdução
 @*
 5800
-@tab Ben Luo
-@*
-Anthony Fok
+@tab Rafael Fontenelle
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">是</span>
+<span style="background-color: #1fff1f">sim</span>
 @end html
 @end ifhtml
 @ifnothtml
-是
+sim
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #efff3a">部分</span>
+<span style="background-color: #1fff1f">sim</span>
 @end html
 @end ifhtml
 @ifnothtml
-部分
+sim
 @end ifnothtml
-@tab GDP 前
+@tab pré-GDP
 @item
-下载
+Download
 @*
 1158
-@tab Ben Luo
-@*
-Anthony Fok
+@tab Rafael Fontenelle
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">是</span>
+<span style="background-color: #1fff1f">sim</span>
 @end html
 @end ifhtml
 @ifnothtml
-是
+sim
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #7dff2b">部分</span>
+<span style="background-color: #25fe1f">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-部分
+parcialmente
 @end ifnothtml
-@tab GDP 前
+@tab pré-GDP
 @item
-手册
+Manuais
 @*
 1314
-@tab Ben Luo
-@tab Anthony Fok
+@tab Rafael Fontenelle
+@tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">是</span>
+<span style="background-color: #1fff1f">sim</span>
 @end html
 @end ifhtml
 @ifnothtml
-是
+sim
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #54ff26">部分</span>
+<span style="background-color: #1fff1f">sim</span>
 @end html
 @end ifhtml
 @ifnothtml
-部分
+sim
 @end ifnothtml
-@tab GDP 前
+@tab pré-GDP
 @item
-社区
+Comunidade
 @*
 2364
-@tab Ben Luo
-@*
-Anthony Fok
+@tab Rafael Fontenelle
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">部分 (95 %)</span>
+<span style="background-color: #1fff1f">sim</span>
 @end html
 @end ifhtml
 @ifnothtml
-部分 (95 %)
+sim
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #acff31">部分</span>
+<span style="background-color: #1fff1f">sim</span>
 @end html
 @end ifhtml
 @ifnothtml
-部分
+sim
 @end ifnothtml
-@tab GDP 前
+@tab pré-GDP
 @end multitable
 
