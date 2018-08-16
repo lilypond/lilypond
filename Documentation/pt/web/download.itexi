@@ -8,6 +8,9 @@
     Guide, node Updating translation committishes..
 @end ignore
 
+@c Translators: Rafael Fontenelle
+@c Translators checkers:
+
 @include included/generating-output.itexi
 
 @macro warningTextBased
