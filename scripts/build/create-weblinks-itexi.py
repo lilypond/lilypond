@@ -10,7 +10,7 @@ import os
 import glob
 
 ### translation data -- shouldn't be here; see issue
-### http://code.google.com/p/lilypond/issues/detail?id=1050
+### https://sourceforge.net/p/testlilyissues/issues/1050/
 
 import langdefs
 # GUB only has python 2.4 !!!
@@ -28,7 +28,7 @@ depth = "../"
 
 # Get/update node translations
 '''
-for i in ca cs de es fr hu it ja nl zh; do
+for i in ca cs de es fr hu it ja nl pt zh; do
     echo "'"$i"': {"
     (echo '--' ; grep -nH -B1 translationof Documentation/$i/web/* ) \
         | pytt '^--\n.*@(?:unnum|sub)[^ ]* (.*)\n.*@translationof (.*)\n' "'\2': '\1',\n" \
@@ -304,6 +304,36 @@ translations = {
 
         'Doc tarball for ': 'Tarball met documentation voor ',
      },
+    'pt': {
+        'Source': 'Código-fonte',
+
+        'Learning': 'Aprendizagem',
+        'Music glossary': 'Glossário',
+        'Essay': 'Ensaio',
+        'Notation': 'Notação',
+        'Usage': 'Uso',
+        'Snippets': 'Trechos',
+        'Web': 'Web',
+        'Changes': 'Mudanças',
+        'Extending': 'Extensão',
+        'Internals': 'Procedimentos internos',
+        'Contributor': 'Guia do contribuidor',
+
+# keep the spaces!
+        ' (split HTML)': ' (HTML dividido)',
+        ' (big HTML)': ' (HTML único)',
+
+        'Regression tests for ': 'Testes de regressão de ',
+        'PDF of regtests for ': 'PDF dos testes de regressão de ',
+        'abc2ly Regression tests for ': 'Testes de regressão de abc2ly de ',
+        'PDF of abc2ly regtests for ': 'PDF dos testos de regressão de abc2ly de ',
+        'lilypond-book Regression tests for ': 'Testes de regressão de lilypond-book de ',
+        'PDF of lilypond-book regtests for ': 'PDF dos testes de regressão de lilypond-book de ',
+        'MusicXML Regression tests for ': 'Testes de regressão de MusicXML de ',
+        'PDF of MusicXML regtests for ': 'PDF des testos de regressão de MusicXML de ',
+
+        'Doc tarball for ': 'Arquivo da documentação de ',
+        },
     'zh': {
         'Source': '源码',
         'Learning': '学习',
