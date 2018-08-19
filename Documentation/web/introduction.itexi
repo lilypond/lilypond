@@ -543,7 +543,7 @@ achieve our goal with only a fraction of the individual effort.
 @item
 @qq{Gift culture}: the Free Software
 movement has created many great software projects, such as
-@uref{http://kernel.org/, GNU/Linux},
+@uref{https://www.gnu.org/distros/, GNU/Linux},
 @uref{http://www.getfirefox.com/, Mozilla Firefox}, and
 @uref{http://www.wesnoth.org/, Battle for Wesnoth}.  Having
 benefitted from these projects, some developers want to @qq{give
@@ -649,7 +649,7 @@ choir rehearsal scores for the Dutch translation of Benjamin Britten's
 2011;
 @uref{http://www.muziektheaterhollandsdiep.nl/nl/voorstellingen/sint_nicolaas_leeft, www.muziektheaterhollandsdiep.nl}.
 He has also worked on the score and parts for an arrangement of
-Moussurgsky’s @emph{Boris Godounov} for wind quartet, piano and
+Mussorgsky’s @emph{Boris Godunov} for wind quartet, piano and
 percussion which was performed in 2014, again by
 @emph{Muziektheater Hollands Diep}.
 
@@ -773,7 +773,7 @@ If you've already decided to try LilyPond, first read about our
 @divEnd
 
 @c TRANSLATORS, so far it's mostly from
-@c http://lilypond.org/web/switch/testimonials
+@c http://lilypond.org/productions.html
 
 @node Reviews
 @unnumberedsec Reviews
@@ -872,7 +872,7 @@ The Belgian newspaper De Standaard investigates what drives Free
 Software authors in an article titled
 @uref{http://www.standaard.be/Artikel/Detail.aspx?artikelId=G42H5GD6,
 Delen van KENNIS zonder WINSTBEJAG} (Non-profit sharing of
-knowlegde) in its @q{DS2 bijlage}.  LilyPond is used as an example
+knowledge) in its @q{DS2 bijlage}.  LilyPond is used as an example
 and the article is interspersed with quotes from an email
 interview with Jan Nieuwenhuizen.  This marks LilyPond's first
 appearance in mainstream printed press.
@@ -1244,7 +1244,7 @@ In particular, don't link to:
 Frescobaldi is a lightweight, yet powerful, music and text editor
 with many features added and enhanced particularly for LilyPond. Major
 features include point-and-click links between the code and music views,
-detailed score wizards, built in LilyPond documentation browser, syntax
+detailed score wizards, built-in LilyPond documentation browser, syntax
 highlighting and automatic completion. Frescobaldi is written in
 Python, with PyQt4 for its user interface, and will run on all major
 operating systems (GNU/Linux, Mac OS X and Windows).

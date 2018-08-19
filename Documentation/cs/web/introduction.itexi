@@ -459,7 +459,7 @@ jednotlivec.
 @item
 @qq{Dárková kultura}: Hnutí za svobodné programy (nebo @qq{otevřený zdrojový kód})
 stvořil mnoho velkolepých programů, například
-@uref{http://kernel.org/, GNU/Linux},
+@uref{https://www.gnu.org/distros/, GNU/Linux},
 @uref{http://www.getfirefox.com/, Mozilla Firefox} a
 @uref{http://www.wesnoth.org/, Battle for Wesnoth}.  Jako poděkování
 za prospěch, který z takových projektů mají,
@@ -604,7 +604,7 @@ LilyPond vyzkoušíte, přečtěte si nejprve o našem
 @divEnd
 
 @c TRANSLATORS, so far it's mostly from
-@c http://lilypond.org/web/switch/testimonials
+@c http://lilypond.org/productions.html
 
 @node Posudky
 @unnumberedsec Posudky

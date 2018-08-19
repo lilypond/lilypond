@@ -434,7 +434,7 @@ achieve our goal with only a fraction of the individual effort.
 @item
 @qq{Gift culture}: the Free Software
 movement has created many great software projects, such as
-@uref{http://kernel.org/, GNU/Linux},
+@uref{https://www.gnu.org/distros/, GNU/Linux},
 @uref{http://www.getfirefox.com/, Mozilla Firefox}, and
 @uref{http://www.wesnoth.org/, Battle for Wesnoth}.  Having
 benefitted from these projects, some developers want to @qq{give
@@ -609,7 +609,7 @@ If you've already decided to try LilyPond, first read about our
 @divEnd
 
 @c TRANSLATORS, so far it's mostly from
-@c http://lilypond.org/web/switch/testimonials
+@c http://lilypond.org/productions.html
 
 @node 评价
 @unnumberedsec 评价
@@ -703,7 +703,7 @@ that make commercial alternatives seem second-rate.}
 Software authors in an article titled
 @uref{http://www.standaard.be/Artikel/Detail.aspx?artikelId=G42H5GD6,
 Delen van KENNIS zonder WINSTBEJAG} (Non-profit sharing of
-knowlegde) in its @q{DS2 bijlage}.  LilyPond is used as an example
+knowledge) in its @q{DS2 bijlage}.  LilyPond is used as an example
 and the article is interspersed with quotes from an email
 interview with Jan Nieuwenhuizen.  This marks LilyPond's first
 appearance in mainstream printed press.

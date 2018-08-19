@@ -550,7 +550,7 @@ die ein einzelner bräuchte.
 @item
 @qq{Geschenkkultur}: Die Free Software (oder @qq{Open Source})
 Bewegung hat viele großartige Programme hervorgebracht, wie etwa
-@uref{http://kernel.org/, GNU/Linux},
+@uref{https://www.gnu.org/distros/, GNU/Linux},
 @uref{http://www.getfirefox.com/, Mozilla Firefox} und
 @uref{http://www.wesnoth.org/, Battle for Wesnoth}.  Als Dank
 für den Nutzen, den sie von solchen Projekten erhalten haben,
@@ -661,7 +661,7 @@ Chornoten für die Holländische Übersetzung von Benjamin Britten's
 2011;
 @uref{http://www.muziektheaterhollandsdiep.nl/nl/voorstellingen/sint_nicolaas_leeft, www.muziektheaterhollandsdiep.nl}.
 Er hat ebenfalls die Partitur und Einzelstimmen für ein Arrangement von
-Mussorgsk’s @emph{Boris Godounov} für Bläserquartett, Klavier und Schlagzeug verfasst.
+Mussorgsk’s @emph{Boris Godunov} für Bläserquartett, Klavier und Schlagzeug verfasst.
 Es wurde ebenfalls durch das @emph{Muziektheater Hollands Diep} in 2014 aufgeführt.
 
 @item
@@ -784,7 +784,7 @@ haben, LilyPond auszuprobieren, lesen zuerst über unsere
 @divEnd
 
 @c TRANSLATORS, so far it's mostly from
-@c http://lilypond.org/web/switch/testimonials
+@c http://lilypond.org/productions.html
 
 @node Rezensionen
 @unnumberedsec Rezensionen
