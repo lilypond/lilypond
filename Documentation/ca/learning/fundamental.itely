@@ -384,7 +384,7 @@ s'interpreta com a lletra, el precedim amb @code{\lyricmode}.
 Igual que @code{\addlyrics}, això activa el mode d'entrada de
 lletra.  Sense això, el LilyPond intentaria interpretar el
 contingut com a notes, cosa que generaria errors (Hi ha d'altres
-modes, vegeu @rusernamed{Input modes,Modes d'entrada}).
+modes, vegeu @ruser{Modes d'entrada}).
 
 Així doncs, tot escrivint algunes notes, i una clau de Fa per a la
 mà esquerra, ara tenim un fragment musical de debò:
@@ -1486,8 +1486,8 @@ altres sense guió ni barra baixa, per exemple:
 @code{PartituraDeTranscripcióGregoriana}
 
 @seealso
-Referencia de la notació:
-@rusernamed{Contexts explained,Explicació dels contextos}.
+Referència de la notació:
+@ruser{Explicació dels contextos}.
 
 
 @node Creació de contextos
@@ -1608,7 +1608,7 @@ secció sobre la lletra, a @ref{Veus i música vocal}.
 
 @seealso
 Referència de la notació:
-@rusernamed{Creating and referencing contexts,Creació i referència de contextos}.
+@ruser{Creació i referenciació dels contextos}.
 
 
 @node Explicació dels gravadors
@@ -2027,10 +2027,10 @@ enunciats dins d'un bloc @code{\with}, i mitjançant instruccions
 
 @seealso
 Referència de la notació:
-@rusernamed{Changing context default settings,Canvi de la configuració dels contextos predeterminats}.
+@ruser{Canvi dels paràmetres predeterminats dels contextos}.
 @c FIXME
 @c uncomment when backslash-node-name issue is resolved -pm
-@rusernamed{The set command,L'ordre set}
+@ruser{L'ordre set}
 
 Referència de funcionament intern:
 @rinternals{Contexts},
@@ -2198,8 +2198,8 @@ particular incloent-hi la instrucció @code{\set} dins d'un bloc
 
 @seealso
 Referència de la notació:
-@rusernamed{Modifying context plug-ins,Modificactió dels connectors de context},
-@rusernamed{Changing context default settings,Canvi de la configuració dels contextos predeterminats}.
+@ruser{Modificació dels connectors (plug-ins) de context},
+@ruser{Canvi dels paràmetres predeterminats dels contextos}.
 
 @knownissues
 Els gravadors @code{Stem_engraver} i @code{Beam_engraver}
@@ -2950,7 +2950,7 @@ reben en general el nom de @q{grob}s a la documentació del
 LilyPond); no us preocupeu de moment dels detalls, ja que això
 s'explica més tard de forma exhaustiva.  Els més curiosos podeu
 donar una ullada a
-@rusernamed{Overview of modifying properties,Panorama de la modificació de propietats}.
+@ruser{Panoràmica de la modificació de les propietats}.
 En aquest cas volem modificar solament la sub-propietat
 @code{stretchability}.  Un altre cop, els curiosos trobareu els
 valors predeterminats per a la propietat staff-staff-spacing al

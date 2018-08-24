@@ -393,7 +393,7 @@ individuals escrivint-les després de les altures.
 
 Les indicacions de digitació es poden situar manualment a sobre o
 a sota del pentagrama, vegeu
-@rusernamed{Direction and placement,Direcció i posició}.
+@ref{Direcció i posició}.
 
 @snippets
 
@@ -408,7 +408,7 @@ a sota del pentagrama, vegeu
 
 @seealso
 Referència de la notació:
-@rusernamed{Direction and placement,Direcció i posició}.
+@ref{Direcció i posició}.
 
 Fragments de codi:
 @rlsr{Editorial annotations}.
@@ -477,7 +477,7 @@ Manual d'aprenentatge:
 
 Referència de la notació:
 @ref{Silencis invisibles},
-@rusernamed{Visibility of objects,Visibilitat dels objectes},
+@ref{Visibilitat dels objectes},
 @ref{Ocultament de pentagrames}.
 
 Fragments de codi:
@@ -583,7 +583,7 @@ l'Scheme @code{rgb-color}.
 @seealso
 Referència de la notació:
 @rusernamed{List of colors,Llista de colors}.
-@rusernamed{The tweak command,L'ordre tweak}.
+@ref{L'ordre tweak}.
 
 Fragments de codi:
 @rlsr{Editorial annotations}.
@@ -608,7 +608,7 @@ bosc). Per a la web es recomanen els colors normals (o sigui:
 Les notes d'un acord no es poden acolorir individualment amb
 @code{\override}; en el seu lloc useu @code{\tweak} o el seu
 equivalent @code{\single\override} abans de la nota respectiva.
-Consulteu @rusernamed{The tweak command,L'ordre tweak} per veure
+Consulteu @ref{L'ordre tweak} per veure
 més detalls.
 
 @node Parèntesis
@@ -682,7 +682,7 @@ Quan es troba amb una nota, es crea automàticament un objecte
 creen però es fan invisibles.
 
 Es pot fer manualment que les pliques apuntin cap amunt o cap
-avall; vegeu @rusernamed{Direction and placement,Direcció i posició}.
+avall; vegeu @ref{Direcció i posició}.
 
 @predefined
 @code{\stemUp},
@@ -701,7 +701,7 @@ avall; vegeu @rusernamed{Direction and placement,Direcció i posició}.
 
 @seealso
 Referència de la notació:
-@rusernamed{Direction and placement,Direcció i posició}.
+@ref{Direcció i posició}.
 
 Fragments de codi:
 @rlsr{Editorial annotations}.

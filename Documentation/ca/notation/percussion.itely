@@ -162,7 +162,7 @@ notació de trèmol, vegeu @ref{Repeticions de trèmol}.
 Els cops de baqueta es poden indicar mitjançant la col·locació
 dels elements de marcatge @code{"R"} o @code{"L"} a sobre o a sota
 de les notes, com s'estudia a
-@rusernamed{Direction and placement,Direcció i col·locació}.  La
+@ref{Direcció i posició}.  La
 propietat @code{staff-padding} es pot sobreescriure, per
 aconseguir una línia de base satisfactòria.
 

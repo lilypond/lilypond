@@ -68,7 +68,7 @@ de desar com a UTF-8.  Per veure més informació, consulteu
 partitura, com es mostra a l'exemple següent.  Aquestes
 indicacions es poden col·locar manualment per sobre o per sota del
 pentagrama, utilitzant la sintaxi que es descriu a
-@rusernamed{Direction and placement,Direcció i posició}.
+@ref{Direcció i posició}.
 
 @lilypond[quote,verbatim]
 \relative { a'8^"pizz." g f e a4-"scherz." f }
@@ -120,7 +120,7 @@ Manual de aprenentatge:
 
 Referència de la notació:
 @ref{Donar format al text},
-@rusernamed{Direction and placement,Direcció i posició},
+@ref{Direcció i posició},
 @ref{Articulacions i ornaments}.
 
 Fragments de codi:
@@ -186,8 +186,8 @@ però es poden aconseguir diferents efectes de format utilitzant blocs
 @end lilypond
 
 L'estil de la línia, així com la cadena de text, es definir com
-una propietat d'objecte.  Aquest sintaxi es descriu a
-@rusernamed{Line styles,Estils de línia}.
+una propietat d'objecte.  Aquesta sintaxi es descriu a
+@ref{Estils de línia}.
 
 @funindex \textSpannerUp
 @funindex \textSpannerDown
@@ -213,7 +213,7 @@ cada veu.
 
 @seealso
 Referència de la notació:
-@rusernamed{Line styles,Estils de línia},
+@ref{Estils de línia},
 @ref{Matisos dinàmics},
 @ref{Donar format al text}.
 
@@ -1445,8 +1445,7 @@ especificar qualsevol enter de @code{0} a @code{575} inclusiu,
 sent @code{0} el que produeix la clau més petita.  El valor òptim
 s'ha de determinar per prova i error.  Tots aquests glifs són
 claus esquerra; les claus dreta es poden obtenir mitjançant
-rotació, vegeu
-@rusernamed{Rotating objects,Rotació d'objectes}.
+rotació, vegeu @ref{Rotació d'objectes}.
 
 Estan disponibles tres famílies de tipus de lletra per al text:
 @itemize
@@ -1515,7 +1514,7 @@ s'explica a les seccions següents:
 Referència de la notació:
 @rusernamed{The Emmentaler font,El tipus de lletra Emmentaler},
 @ref{Notació musical dins d'elements de marcatge},
-@rusernamed{Rotating objects,Rotació d'objectes},
+@ref{Rotació d'objectes},
 @ref{Selecció del tipus de lletra i la seva mida},
 @ref{Font}.
 

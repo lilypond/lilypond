@@ -225,7 +225,7 @@ Referència de la notació:
 @ref{Duració automàtica de les síl·labes},
 @ref{Tipus de lletra},
 @ref{Donar format al text},
-@rusernamed{Input modes,Modes d'entrada},
+@ref{Modes d'entrada},
 @ref{Duració manual de les síl·labes},
 @ref{Caràcters especials}.
 
@@ -408,7 +408,7 @@ alineant la lletra, no ha d'haver @qq{mort}, o es perdrà la lletra
 a partir d'aquest punt.  Això pot passar si hi ha períodes en els
 quals aquesta veu no té res a fer.  Per veure mètodes per mantenir
 vius els contextos, consulteu
-@rusernamed{Keeping contexts alive,Mantenir vius els contextos}.
+@ref{Manteniment amb vida dels contextos}.
 
 @subheading Ús de @code{\lyricsto}
 
@@ -535,7 +535,7 @@ Heus ací un exemple que mostra el seu ús:
 @seealso
 Referència de la notació:
 @ref{Línies d'extensió i guions},
-@rusernamed{Keeping contexts alive,Mantenir vius els contextos},
+@ref{Manteniment amb vida dels contextos},
 @ref{Posicionament vertical de la lletra}.
 
 
@@ -612,7 +612,7 @@ la propietat @code{self-alignment-X}:
 
 @seealso
 Referència de la notació:
-@rusernamed{Keeping contexts alive,Mantenir vius els contextos},
+@ref{Manteniment amb vida dels contextos}.
 
 Referència de funcionament intern:
 @rinternals{Lyrics},
@@ -1138,8 +1138,8 @@ Manual d' aprenentatge:
 @rlearning{Plantilles de conjunts vocals}.
 
 Referència de la notació:
-@rusernamed{Context layout order,Ordre de disposició dels contextos},
-@rusernamed{Creating and referencing contexts,Creació i referenciació de  contextos}.
+@ref{Ordre de disposició dels contextos},
+@ref{Creació i referenciació dels contextos}.
 
 
 @node Col·locació horitzontal de les síl·labes
@@ -1633,7 +1633,7 @@ manualment.
 
 @seealso
 Referència de la notació:
-@rusernamed{Keeping contexts alive,Mantenir vius els contextos},
+@ref{Manteniment amb vida dels contextos},
 @ref{Repeticions}.
 
 
@@ -2410,7 +2410,7 @@ Manual d'aprenentatge:
 @rlearning{Plantilles de conjunts vocals}.
 
 Referència de la notació:
-@rusernamed{Context layout order,Ordre de disposició dels contextos},
+@ref{Ordre de disposició dels contextos},
 @ref{Agrupament de pentagrames},
 @ref{Caps de notes amb formes diverses},
 @ref{Polifonia en un sol pentagrama}.
@@ -2859,8 +2859,8 @@ Glossari musical:
 @rglos{cue-notes}.
 
 Referència de la notació:
-@rusernamed{Aligning objects,Alineació d'objectes},
-@rusernamed{Direction and placement,Direcció i posició},
+@ref{Alineació d'objectes},
+@ref{Direcció i posició},
 @ref{Format de les notes guia},
 @ref{Cites a altres veus},
 @rextendnamed{Music function usage,Ús de les funcions musicals}.
@@ -3317,11 +3317,10 @@ Manual d'aprenentatge:
 Referència de la notació:
 @ref{Notació antiga},
 @ref{Barres de compàs},
-@rusernamed{Modifying context plug-ins,Modificació dels complements de context},
+@ref{Modificació dels connectors (plug-ins) de context},
 @ref{Gravat del cant gregorià},
 @ref{Música sense compassos},
-@rusernamed{Visibility of objects,Visibilitat dels objectes}.
-
+@ref{Visibilitat dels objectes}.
 
 @node Puntuació d'un salm
 @unnumberedsubsubsec Puntuació d'un salm
