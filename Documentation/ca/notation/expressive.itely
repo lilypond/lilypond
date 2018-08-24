@@ -172,7 +172,7 @@ Les regles per a la col·locació predeterminada de les
 articulacions es troben definides al fitxer @file{scm/script.scm}.
 Les articulacions i ornaments es poden col·locar manualment per
 sobre o per sota del pentagrama; vegeu
-@rusernamed{Direction and placement,Direcció i posició}.
+@ref{Direcció i posició}.
 
 Les articulacions són objectes @code{Script}.  Les seves
 propietats es descriuen de forma més completa a @rinternals{Script}.
@@ -220,7 +220,7 @@ Manual d'aprenentatge:
 
 Referència de la notació:
 @ref{Scripts de text},
-@rusernamed{Direction and placement,Direcció i posició},
+@ref{Direcció i posició},
 @rusernamed{List of articulations,Llista d'articulacions},
 @ref{Refilets}.
 
@@ -271,7 +271,7 @@ disponibles són @code{\ppppp}, @code{\pppp},
 @code{\sfz} i @code{\rfz}.  Les indicaciones dinàmiques es poden
 col·locar manulament per sobre o per sota del pentagrama; per veure
 més detalls, consulteu
-@rusernamed{Direction and placement,Direcció i posició}.
+@ref{Direcció i posició}.
 
 @lilypond[verbatim,quote]
 \relative c'' {
@@ -515,7 +515,7 @@ Manual d'aprenentatge:
 @rlearning{Articulacions i matisos dinàmics}.
 
 Referència de la notació:
-@rusernamed{Direction and placement,Direcció i posició},
+@ref{Direcció i posició},
 @ref{Indicacions dinàmiques contemporànies},
 @ref{Enriquiment de la sortida MIDI},
 @ref{Control de les dinàmiques del MIDI}.
@@ -709,7 +709,7 @@ d'acabar a la mateixa veu en la qual comencen.}
 
 Les lligadures d'expressió es poden col·locar manualment per sobre
 o per sota de les notes; vegeu
-@rusernamed{Direction and placement,Direcció i posició}.
+@ref{Direcció i posició}.
 
 @cindex fraseig, lligadura de
 @cindex diverses lligadures d'expressió
@@ -839,7 +839,7 @@ Manual d'aprenentatge:
 @rlearning{Quant a la impossibilitat de niuar claus i lligadures}
 
 Referència de la notació:
-@rusernamed{Direction and placement,Direcció i posició},
+@ref{Direcció i posició},
 @ref{Lligadures de fraseig}.
 
 Fragments de codi:
@@ -880,7 +880,7 @@ exactament igual que una lligadura d'expressió normal.  Tanmateix,
 es tracten com a objectes diferents.  Una @code{\slurUp} no tindrà
 cap efecte sobre una lligadura de fraseig.  El fraseig es pot
 col·locar manualment per sobre o per sota de les notes; vegeu
-@rusernamed{Direction and placement,Direcció i posició}.
+@ref{Direcció i posició}.
 
 @cindex simultànies, lligadures de fraseig
 @cindex diverses lligadures de fraseig
@@ -986,7 +986,7 @@ Manual de aprenentatge:
 @rlearning{Quant a la impossibilitat de niuar claus i lligadures}
 
 Referència de la notació:
-@rusernamed{Direction and placement,Direcció i posició},
+@ref{Direcció i posició},
 @ref{Lligadures d'expressió}.
 
 Fragments de codi:
@@ -1180,7 +1180,7 @@ el codi d'entrada del fitxer @file{.ly}.
 @end lilypond
 
 Es poden crear diversos tipus de glissando.  Per veure més
-detalls, consulteu @rusernamed{Line styles,Estils de línia}.
+detalls, consulteu @ref{Estils de línia}.
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -1200,7 +1200,7 @@ Glossari musical:
 @rglos{glissando}.
 
 Referència de la notació:
-@rusernamed{Line styles,Estils de línia}.
+@ref{Estils de línia}.
 
 Fragments de codi:
 @rlsr{Expressive marks}.

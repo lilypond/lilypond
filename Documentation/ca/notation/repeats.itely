@@ -362,8 +362,8 @@ Glossari musical:
 
 Referència de la notació:
 @ref{Barres de compàs},
-@rusernamed{Modifying context plug-ins,Modificació dels complements (plug-ins) de context},
-@rusernamed{Modifying ties and slurs,Modificació de lligadures d'unió i d'expressió},
+@ref{Modificació dels connectors (plug-ins) de context},
+@ref{Modificació de lligadures d'unió i d'expressió},
 @ref{Gestió del temps}.
 
 Fitxers instal·lats:
@@ -403,7 +403,7 @@ D'altres mètodes que poden servir per indicar lligadures que es
 continuen per sobre de diverses notes a les celes de repetició,
 i que també funcionen en contextos de tabulatura @code{TabStaff},
 s'expliquen a
-@rusernamed{Modifying ties and slurs,Modificació de lligadures d'unió i d'expressió}.
+@ref{Modificació de lligadures d'unió i d'expressió}.
 
 Així mateix, no és possible fer que les lligadures d'expressió es
 repleguin des del final d'una alternativa fins el començament de

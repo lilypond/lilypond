@@ -184,7 +184,7 @@ nom @var{nom_del_pentagrama}.  Els valors més corrents per a
 El pentagrama al qual salta la veu ha d'existir en el moment del
 salt.  Si cal, els pentagrames s'han de
 @qq{mantenir amb vida}, vegeu
-@rusernamed{Keeping contexts alive,Mantenir vius els contextos}.
+@ref{Manteniment amb vida dels contextos}.
 
 Les notes de pentagrama creuat reben la barra automàticament:
 
@@ -262,7 +262,7 @@ Manual de aprenentatge:
 Referència de la notació:
 @ref{Pliques},
 @ref{Barres automàtiques},
-@rusernamed{Keeping contexts alive,Mantenir vius els contextos}.
+@ref{Manteniment amb vida dels contextos}.
 
 Fragments de codi:
 @rlsr{Keyboards}.

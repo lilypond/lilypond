@@ -154,8 +154,7 @@ proporcional}.
 Normalment els puntets es desplacen cap amunt per evitar les
 línies del pentagrama, excepte en situacions de polifonia.  Es
 poden situar els puntets manualment a sobre o a sota de les línies
-de la pauta; vegeu @rusernamed{Direction and placement,Direcció i
-col·locació}.
+de la pauta; vegeu @ref{Direcció i posició}.
 
 @predefined
 @code{\autoBeamOn},
@@ -325,10 +324,10 @@ Manual de aprenentatge:
 @rlearning{Mètodes d'ajustament}.
 
 Referència de la notació:
-@rusernamed{Direction and placement,Direcció i posició},
+@ref{Direcció i posició},
 @ref{Gestió del temps},
 @ref{Escalat de les duracions},
-@rusernamed{The tweak command,L'ordre tweak},
+@ref{L'ordre tweak},
 @ref{Notació polimètrica}.
 
 Fragments de codi:
@@ -839,7 +838,7 @@ Manual de aprenentatge:
 
 Referència de la notació:
 @ref{Notes ocultes},
-@rusernamed{Visibility of objects,Visibilitat dels objectes}.
+@ref{Visibilitat dels objectes}.
 
 Fragments de codi:
 @rlsr{Rhythms}.
@@ -1079,7 +1078,7 @@ La indicació de compàs s'imprimeix al començament d'una peça i
 sempre que hi hagi un canvi de compàs.  Si es produeix un canvi al
 final d'una línia, s'imprimeix una indicació d'advertiment a
 aquest lloc.  Es pot modificar aquest comportament predeterminat, vegeu
-@rusernamed{Visibility of objects,Visibilitat dels objectes}
+@ref{Visibilitat dels objectes}.
 
 @lilypond[quote,verbatim]
 \relative c'' {
@@ -1629,7 +1628,7 @@ Glossari musical:
 @rglos{cadenza}.
 
 Referència de la notació:
-@rusernamed{Visibility of objects,Visibilitat dels objectes},
+@ref{Visibilitat dels objectes},
 @ref{Notació polimètrica},
 @ref{Barres manuals},
 @ref{Alteracions accidentals}.
@@ -2636,7 +2635,7 @@ grup com un tot.
 
 @seealso
 Referència de la notació:
-@rusernamed{Direction and placement,Direcció i posició},
+@ref{Direcció i posició},
 @ref{Notes d'adorn}.
 
 Fragments de codi:
@@ -3461,7 +3460,7 @@ Per veure formes comuns d'ajustar la col·locació de les lletres
 d'assaig, consulteu @ref{Donar format al text}.
 Per a un control més precís, consulteu
 @code{break-alignable-interface} a la secció
-@rusernamed{Aligning objects,Alineació d'objectes}.
+@ref{Alineació d'objectes}.
 
 El fitxer @file{scm/translation-functions.scm} conté les
 definicions de @code{format-mark-numbers} i de
@@ -3472,7 +3471,7 @@ per escriure altres funcions per donar format.
 Referència de la notació:
 @rusernamed{The Emmentaler font,El tipus de lletra Emmentaler},
 @ref{Donar format al text},
-@rusernamed{Aligning objects,Alineació d'objectes}.
+@ref{Alineació d'objectes}.
 
 Fitxers d'inici:
 @file{scm/translation-functions.scm}.

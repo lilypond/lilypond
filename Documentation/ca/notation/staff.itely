@@ -73,7 +73,7 @@ pentagrames i grups de pentagrames.
 Les @notation{pautes} i els @notation{pentagrames} o pautes de
 cinc línies es creen amb les ordres @code{\new} o
 @code{\context}.  Per veure més detalls, consulteu
-@rusernamed{Creating and referencing contexts,Creació i referència de contextos}.
+@ref{Creació i referenciació dels contextos}.
 
 El context bàsic de pentagrama és @code{Staff}:
 
@@ -122,7 +122,7 @@ moderna de cant gregorià.  No mostra línies divisòries.
 @end lilypond
 
 Es poden definir contextos nous de pentagrama únic.  Per veure més
-detalls, consulteu @rusernamed{Defining new contexts,Definició de nous contextos}.
+detalls, consulteu @ref{Definició de contextos nous}.
 
 @seealso
 Glossari musical:
@@ -130,7 +130,7 @@ Glossari musical:
 @rglos{staves}.
 
 Referència de la notació:
-@rusernamed{Creating and referencing contexts,Creació i referència de contextos},
+@ref{Creació i referenciació dels contextos},
 @ref{Pautes de percussió},
 @ref{Mostrar els ritmes de la melodia},
 @ref{Tabulatures predeterminades},
@@ -138,7 +138,7 @@ Referència de la notació:
 @ref{El símbol del pentagrama},
 @ref{Contextos del cant gregorià},
 @ref{Contextos de la música mensural},
-@rusernamed{Defining new contexts,Definició de nous contextos}.
+@ref{Definició de contextos nous}.
 
 Fragments de codi:
 @rlsr{Staff notation}.
@@ -241,8 +241,7 @@ següents: @code{SystemStartBar} (línia),
 d'especificar explícitament.
 
 Es poden definir contextos nous de grup de pentagrames.  Per veure
-més detalls, consulteu
-@rusernamed{Defining new contexts,Definició de nous contextos}.
+més detalls, consulteu @ref{Definició de contextos nous}.
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -268,7 +267,7 @@ Glossari musical:
 
 Referència de la notació:
 @ref{Noms d'instruments},
-@rusernamed{Defining new contexts,Definició de nous contextos}.
+@ref{Definició de contextos nous}.
 
 Fragments de codi:
 @rlsr{Staff notation}.
@@ -318,7 +317,7 @@ crea una clau nova adjacent a la clau del seu grup pare.
 
 Es poden definir nous contextos de grups de pentagrames niuats.
 Per veure més detalls, consulteu
-@rusernamed{Defining new contexts,Definició de nous contextos}.
+@ref{Definició de contextos nous}.
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -328,7 +327,7 @@ Per veure més detalls, consulteu
 Referència de la notació:
 @ref{Agrupament de pentagrames},
 @ref{Noms d'instruments},
-@rusernamed{Defining new contexts,Definició de nous contextos}.
+@ref{Definició de contextos nous}.
 
 Fragmentos de código:
 @rlsr{Staff notation}.
@@ -833,12 +832,12 @@ Manual d'aprenentatge:
 @rlearning{Visibilitat i color dels objectes}.
 
 Referència de la notació:
-@rusernamed{Changing context default settings,Canvi dels valores per defecte dels contextos},
+@ref{Canvi dels paràmetres predeterminats dels contextos},
 @ref{El símbol del pentagrama},
 @ref{Pentagrames d'Ossia},
 @ref{Notes ocultes},
 @ref{Silencis invisibles},
-@rusernamed{Visibility of objects,Visibilitat dels objectes}.
+@ref{Visibilitat dels objectes}.
 
 Fragments de codi:
 @rlsr{Staff notation}.
@@ -865,7 +864,7 @@ de treure el gravador:
 
 Per veure els errors i problemes coneguts, així com els
 advertiments associats amb @code{\RemoveEmptyStaves}, consulteu
-@rusernamed{Changing context default settings,Canvi dels valores per defecte dels contextos}.
+@ref{Canvi dels paràmetres predeterminats dels contextos}.
 
 @node Escriptura de les particel·les
 @subsection Escriptura de les particel·les
@@ -989,7 +988,7 @@ Per afegir noms d'instrument a d'altres contextos (com ara
 @code{ChordNames} o @code{FiguredBass}), hem d'afegir el gravador
 @code{Instrument_name_engraver} a aquest context.  Per veure més
 detalls, consulteu
-@rusernamed{Modifying context plug-ins,Modificació dels connectors de context}.
+@ref{Modificació dels connectors (plug-ins) de context}.
 
 
 @cindex noms d'instrument, canviar
@@ -1041,7 +1040,7 @@ setFlute = {
 Referència de la notació:
 @rusernamed{paper variables for shifts and indents,Variables de
 paper per a desplaçaments i sagnats},
-@rusernamed{Modifying context plug-ins,Modificació dels connectors de context}.
+@ref{Modificació dels connectors (plug-ins) de context}.
 @c Quan es tradueixi fer servir
 @c @ref{Variables de paper per a desplaçaments i sagnats,,Variables de @code{@bs{}paper} per a desplaçaments i sagnats}.
 

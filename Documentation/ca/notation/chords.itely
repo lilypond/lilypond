@@ -67,7 +67,7 @@ dins de la música europea tradicional (on es coneix com «xifrat
 americà») més que en les notes concretes.  Això és molt pràctic
 per als que estan familiaritzats amb la utilització de noms per
 descriure els acords.  Hi ha més informació sobre els diferents
-modes d'entrada a @rusernamed{Input modes, Modes d'entrada}.
+modes d'entrada a @ref{Modes d'entrada}.
 
 @lilypond[verbatim,quote,ragged-right]
 \chordmode { c1 g a g c }
@@ -98,7 +98,7 @@ Glossari musical:
 
 Referència de la notació:
 @ref{Notes a un acord},
-@rusernamed{Input modes, Modes d'entrada}.
+@ref{Modes d'entrada}.
 
 Fragments de codi:
 @rlsr{Chords}.
@@ -879,7 +879,7 @@ Fragments de codi:
 
 S'usa @code{\figuremode} per canviar el mode d'entrada al mode de
 xifres.  Hi ha més informació sobre els diferents modes d'entrada
-a @rusernamed{Input modes, Modes d'entrada}.
+a @ref{Modes d'entrada}.
 
 En el mode de xifres, un grup de xifres del baix està delimitat
 mitjançant angles simples, @code{<} y @code{>}.  La duració

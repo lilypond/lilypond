@@ -199,7 +199,7 @@ propietats a partir dels seus noms.
 
 @seealso
 Referencia de la notació:
-@rusernamed{Modifying properties,Modificació de les propietats}
+@ruser{Modificació de les propietats}
 
 @node Mètodes d'ajustament
 @subsection Mètodes d'ajustament
@@ -571,7 +571,7 @@ es pot modificar de la forma usual mitjançant ordres @code{\override}:
 
 @seealso
 Referència de la notació:
-@rusernamed{The tweak command,L'ordre tweak}.
+@ruser{L'ordre tweak}.
 
 @node El prefix single
 @unnumberedsubsubsec El prefix @code{@bs{}single}
@@ -1416,7 +1416,7 @@ les línies del pentagrama amb les quals es creua.  Podreu observar
 en alguns dels exemples que apareixen a continuació, que això
 succeeix de forma impredictible.  Els detalls sobre perquè això passa
 així, i com controlar-lo, s'estudien a
-@rusernamed{Painting objects white,Pintar els objectes de blanc};
+@ruser{Pintar els objectes de blanc};
 de moment estem estudiant el color, per la qual cosa us preguem
 que accepteu aquesta limitació per ara).
 
@@ -3233,7 +3233,7 @@ context respecta un determinat objecte.  Atès que l'objecte
 @code{MetronomeMark} respecta el context @code{Score}, els canvis
 de propietats al context @code{Voice} passaran inadvertits. Per
 veure més detalls consulteu
-@rusernamed{Modifying properties,Modificació de las propietats}.
+@ruser{Modificació de les propietats}.
 
 Si la propietat de farciment @code{padding} d'un objecte
 s'incrementa quan aquest objecte es troba a una pila d'objectes
@@ -3449,7 +3449,7 @@ seleccionat, i en aquest cas la propietat @code{positions} no té
 cap efecte.  Malgrat això, les lligadures d'unió, expressió i
 fraseig @emph{es poden} col·locar i ajustar de manera molt exacta
 quan cal. Per aprendre la manera de fer-lo, consulteu
-@rusernamed{Modifying ties and slurs,Modificació de lligadures d'unió i d'expressió}.
+@ruser{Modificació de lligadures d'unió i d'expressió}.
 
 Presentem un altre exemple.  Veiem que la barra xoca amb les lligadures:
 
