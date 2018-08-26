@@ -44,7 +44,7 @@ discussed in @ref{Showing melody rhythms}, and
 @ref{Instantiating new staves}.
 
 @item MIDI output is discussed in a separate section; please see
-@ref{MIDI instruments}.
+@ref{Creating MIDI output}.
 
 @end itemize
 
@@ -52,7 +52,7 @@ discussed in @ref{Showing melody rhythms}, and
 Notation Reference:
 @ref{Showing melody rhythms},
 @ref{Instantiating new staves}.
-@ref{MIDI instruments}.
+@ref{Creating MIDI output}.
 
 Snippets:
 @rlsr{Percussion}.
@@ -106,11 +106,11 @@ be set explicitly.  Other clefs may be used as well.
 
 
 There are a few issues concerning MIDI support for percussion
-instruments; for details please see @ref{MIDI instruments}.
+instruments; for details please see @ref{Creating MIDI output}.
 
 @seealso
 Notation Reference:
-@ref{MIDI instruments},
+@ref{Creating MIDI output},
 @ref{Percussion notes}.
 
 Installed Files:
@@ -172,7 +172,7 @@ This is covered in other sections of the manual.
 
 @seealso
 Notation Reference:
-@ref{MIDI instruments}.
+@ref{Creating MIDI output}.
 
 Snippets:
 @rlsr{Percussion}.
