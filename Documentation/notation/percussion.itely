@@ -398,8 +398,8 @@ mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
 @node Custom percussion staves
 @unnumberedsubsubsec Custom percussion staves
 
-If you do not like any of the predefined lists you can define your
-own list at the top of your file.
+It is possible to define custom percussion styles at the top of your
+file and setting the @code{drumStyleTable} within the @code{DrumStaff}.
 
 @lilypond[quote,verbatim]
 #(define mydrums '(
@@ -409,6 +409,7 @@ own list at the top of your file.
          (halfopenhihat   cross     "halfopen"   1)
          (pedalhihat      xcircle   "stopped"    2)
          (lowtom          diamond   #f           3)))
+
 up = \drummode { hh8 hh hhho hhho hhp4 hhp }
 down = \drummode { bd4 sn bd toml8 toml }
 
