@@ -1794,8 +1794,8 @@ text markup.
 @lilypond[quote,ragged-right,verbatim]
 \relative {
   \clef "treble_8"
-  \override Staff.NoteHead.style = #'harmonic-mixed
-  d'^\markup { \italic { \fontsize #-2 { "harm. 12" }}} <g b>1
+  \override NoteHead.style = #'harmonic-mixed
+  d'8^\markup { \italic \fontsize #-2 "harm. 12" } <g b>4
 }
 @end lilypond
 
