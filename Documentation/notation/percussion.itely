@@ -590,12 +590,22 @@ Internals Reference:
 @rinternals{DrumVoice}.
 
 
-@c TODO: check name -gp
 @node Ghost notes
 @unnumberedsubsubsec Ghost notes
 
-Ghost notes for drums and percussion may be created using the
-@code{\parenthesize} command detailed in @ref{Parentheses}.
+@cindex Ghost note, percussion
+@cindex Dead note, percussion
+@cindex Muted note, percussion
+@cindex Silenced note, percussion
+@cindex False note, percussion
+@cindex Percussion, ghost note
+@cindex Percussion, dead note
+@cindex Percussion, muted note
+@cindex Percussion, silenced note
+@cindex Percussion, false note
+
+Also known as dead, muted, silenced or false notes; ghost notes can be
+created using the @code{\parenthesize} command, see @ref{Parentheses}.
 
 @lilypond[quote,ragged-right,verbatim]
 \new DrumStaff
@@ -618,5 +628,8 @@ Ghost notes for drums and percussion may be created using the
 @end lilypond
 
 @seealso
+Notation Reference:
+@ref{Parentheses}.
+
 Snippets:
 @rlsr{Percussion}.
