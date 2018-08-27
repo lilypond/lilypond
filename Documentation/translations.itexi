@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated jeu. août 16 12:12:38 UTC 2018
+@emph{Last updated lun. août 27 15:01:51 UTC 2018
 }
 @multitable @columnfractions  0.25 0.25 0.25 0.25
 
@@ -8528,8 +8528,6 @@ up to date
 (17050)
 @tab Walter Garcia-Fontes
 @*
-Walter Garcia-Fontes
-@*
 
 @ifhtml
 
@@ -8554,11 +8552,11 @@ Walter Garcia-Fontes
 @ifhtml
 
 @html
-<span style="background-color: #d0f0f8">not translated</span>
+<span style="background-color: #1fff1f">translated</span>
 @end html
 @end ifhtml
 @ifnothtml
-not translated
+translated
 @end ifnothtml
 @*
 
