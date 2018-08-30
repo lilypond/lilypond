@@ -18,7 +18,6 @@
 */
 
 #include "engraver.hh"
-#include "pitch.hh"
 #include "rhythmic-head.hh"
 #include "self-alignment-interface.hh"
 #include "side-position-interface.hh"
@@ -42,6 +41,7 @@ protected:
   void acknowledge_rhythmic_head (Grob_info);
   void acknowledge_stem (Grob_info);
   void acknowledge_flag (Grob_info);
+  void acknowledge_note_column (Grob_info);
 
 private:
   void make_script (Direction, Stream_event *, int);
@@ -71,11 +71,19 @@ void
 Fingering_engraver::acknowledge_rhythmic_head (Grob_info inf)
 {
   for (vsize i = 0; i < fingerings_.size (); i++)
+    Side_position_interface::add_support (fingerings_[i], inf.grob ());
+}
+
+void
+Fingering_engraver::acknowledge_note_column (Grob_info inf)
+{
+  /* set NoteColumn as parent */
+  /* and X-align on main noteheads */
+  for (vsize i = 0; i < fingerings_.size (); i++)
     {
       Grob *t = fingerings_[i];
-      Side_position_interface::add_support (t, inf.grob ());
-      if (!t->get_parent (X_AXIS))
-        t->set_parent (inf.grob (), X_AXIS);
+      t->set_parent (inf.grob (), X_AXIS);
+      t->set_property ("X-align-on-main-noteheads", SCM_BOOL_T);
     }
 }
 
@@ -140,6 +148,7 @@ Fingering_engraver::boot ()
   ADD_ACKNOWLEDGER (Fingering_engraver, rhythmic_head);
   ADD_ACKNOWLEDGER (Fingering_engraver, stem);
   ADD_ACKNOWLEDGER (Fingering_engraver, flag);
+  ADD_ACKNOWLEDGER (Fingering_engraver, note_column);
 }
 
 ADD_TRANSLATOR (Fingering_engraver,

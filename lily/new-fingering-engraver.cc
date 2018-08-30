@@ -65,6 +65,7 @@ class New_fingering_engraver : public Engraver
   vector<Grob *> heads_;
   vector<Grob *> accidentals_;
   Grob *stem_;
+  Grob *note_column_;
 
   void position_all ();
 public:
@@ -74,6 +75,7 @@ protected:
   void acknowledge_rhythmic_head (Grob_info);
   void acknowledge_inline_accidental (Grob_info);
   void acknowledge_stem (Grob_info);
+  void acknowledge_note_column (Grob_info);
   void add_fingering (Grob *, SCM,
                       vector<Finger_tuple> *,
                       Stream_event *, Stream_event *);
@@ -144,6 +146,12 @@ void
 New_fingering_engraver::acknowledge_stem (Grob_info inf)
 {
   stem_ = inf.grob ();
+}
+
+void
+New_fingering_engraver::acknowledge_note_column (Grob_info inf)
+{
+  note_column_ = inf.grob ();
 }
 
 void
@@ -315,7 +323,18 @@ New_fingering_engraver::position_scripts (SCM orientations,
           Finger_tuple ft = vertical[d][i];
           Grob *f = ft.script_;
           int finger_prio = robust_scm2int (f->get_property ("script-priority"), 200);
-          f->set_parent (ft.head_, X_AXIS);
+
+          if (heads_.size () > 1 &&
+              to_boolean (f->get_property ("X-align-on-main-noteheads")))
+            f->set_parent (note_column_, X_AXIS);
+          else
+            {
+              f->set_parent (ft.head_, X_AXIS);
+              if (heads_.size () > 1)
+                for (vsize j = 0; j < accidentals_.size (); j++)
+                  Side_position_interface::add_support (f, accidentals_[j]);
+            }
+
           f->set_property ("script-priority",
                            scm_from_int (finger_prio + d * ft.position_));
 
@@ -332,7 +351,9 @@ New_fingering_engraver::stop_translation_timestep ()
 {
   position_all ();
   stem_ = 0;
+  note_column_ = 0;
   heads_.clear ();
+  accidentals_.clear ();
 }
 
 void
@@ -362,7 +383,6 @@ New_fingering_engraver::position_all ()
   for (vsize i = articulations_.size (); i--;)
     {
       Grob *script = articulations_[i].script_;
-
       for (vsize j = 0; j < accidentals_.size (); j++)
         Side_position_interface::add_support (script, accidentals_[j]);
 
@@ -392,6 +412,7 @@ New_fingering_engraver::boot ()
   ADD_ACKNOWLEDGER (New_fingering_engraver, rhythmic_head);
   ADD_ACKNOWLEDGER (New_fingering_engraver, inline_accidental);
   ADD_ACKNOWLEDGER (New_fingering_engraver, stem);
+  ADD_ACKNOWLEDGER (New_fingering_engraver, note_column);
 }
 
 ADD_TRANSLATOR (New_fingering_engraver,

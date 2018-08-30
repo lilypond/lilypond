@@ -62,6 +62,27 @@ which scares away people.
 @end ignore
 
 @item
+The @code{New_fingering_engraver} will now consider the
+@code{X-align-on-main-noteheads} property of the @code{self-alignment-interface}.
+If set to true (@code{##t}), all fingerings oriented @code{up} or @code{down}
+will be arranged in a straight column and aligned on the noteheads on the
+correct side of the stem:
+@lilypond[verbatim,quote]
+{
+  \set fingeringOrientations = #'(up)
+  <e'-1 d''-4 e''-5>4 <a'-1 b'-2 fis''-5>
+  \set fingeringOrientations = #'(down)
+  <e'-1 d''-4 e''-5> <eis'-1 e''-4 fis''-5>
+  \bar "."
+  \override Fingering.X-align-on-main-noteheads = ##t
+  \set fingeringOrientations = #'(up)
+  <e'-1 d''-4 e''-5> <a'-1 b'-2 fis''-5>
+  \set fingeringOrientations = #'(down)
+  <e'-1 d''-4 e''-5> <eis'-1 e''-4 fis''-5>
+}
+@end lilypond
+
+@item
 Skylines will now take account of the @code{rotation} property of layout
 objects.  Rotating a crescendo hairpin by applying
 @code{\override Hairpin.rotation = #'(15 0 0)},
