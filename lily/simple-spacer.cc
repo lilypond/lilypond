@@ -89,7 +89,7 @@ Simple_spacer::fits () const
 }
 
 Real
-Simple_spacer::rod_force (int l, int r, Real dist)
+Simple_spacer::rod_force (vsize l, vsize r, Real dist)
 {
   Real d = range_ideal_len (l, r);
   Real c = range_stiffness (l, r, dist > d);
@@ -101,7 +101,7 @@ Simple_spacer::rod_force (int l, int r, Real dist)
 }
 
 void
-Simple_spacer::add_rod (int l, int r, Real dist)
+Simple_spacer::add_rod (vsize l, vsize r, Real dist)
 {
   if (isinf (dist) || isnan (dist))
     {
@@ -115,7 +115,7 @@ Simple_spacer::add_rod (int l, int r, Real dist)
     {
       Real spring_dist = range_ideal_len (l, r);
       if (spring_dist < dist)
-        for (int i = l; i < r; i++)
+        for (vsize i = l; i < r; i++)
           {
             if (spring_dist)
               springs_[i].set_distance (springs_[i].distance () * dist / spring_dist);
@@ -126,24 +126,24 @@ Simple_spacer::add_rod (int l, int r, Real dist)
       return;
     }
   force_ = max (force_, block_force);
-  for (int i = l; i < r; i++)
+  for (vsize i = l; i < r; i++)
     springs_[i].set_blocking_force (max (block_force, springs_[i].blocking_force ()));
 }
 
 Real
-Simple_spacer::range_ideal_len (int l, int r) const
+Simple_spacer::range_ideal_len (vsize l, vsize r) const
 {
   Real d = 0.;
-  for (int i = l; i < r; i++)
+  for (vsize i = l; i < r; i++)
     d += springs_[i].distance ();
   return d;
 }
 
 Real
-Simple_spacer::range_stiffness (int l, int r, bool stretch) const
+Simple_spacer::range_stiffness (vsize l, vsize r, bool stretch) const
 {
   Real den = 0.0;
-  for (int i = l; i < r; i++)
+  for (vsize i = l; i < r; i++)
     den += stretch ? springs_[i].inverse_stretch_strength ()
            : springs_[i].inverse_compress_strength ();
 

@@ -31,10 +31,10 @@ public:
   Simple_spacer ();
 
   void solve (Real line_len, bool ragged);
-  void add_rod (int l, int r, Real dist);
+  void add_rod (vsize l, vsize r, Real dist);
   void add_spring (Spring const &);
-  Real range_ideal_len (int l, int r) const;
-  Real range_stiffness (int l, int r, bool stretch) const;
+  Real range_ideal_len (vsize l, vsize r) const;
+  Real range_stiffness (vsize l, vsize r, bool stretch) const;
   Real configuration_length (Real) const;
   vector<Real> spring_positions () const;
 
@@ -47,7 +47,7 @@ public:
 private:
   Real expand_line ();
   Real compress_line ();
-  Real rod_force (int l, int r, Real dist);
+  Real rod_force (vsize l, vsize r, Real dist);
 
   vector<Spring> springs_;
   Real line_len_;

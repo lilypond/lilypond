@@ -40,7 +40,7 @@ LY_DEFINE (ly_solve_spring_rod_problem, "ly:solve-spring-rod-problem",
            " non-satisfied constraints) followed by @var{spring-count}+1"
            " positions of the objects.")
 {
-  int len = scm_ilength (springs);
+  long len = scm_ilength (springs);
   if (len == 0)
     return scm_list_2 (scm_from_double (0.0), scm_from_double (0.0));
 
