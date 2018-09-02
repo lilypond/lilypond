@@ -220,20 +220,23 @@ Stem::extremal_heads (Grob *me)
   Drul_array<Grob *> exthead (0, 0);
   extract_grob_set (me, "note-heads", heads);
 
-  for (vsize i = heads.size (); i--;)
+  for (vsize i = 0; i < heads.size (); i++)
     {
       Grob *n = heads[i];
       int p = Staff_symbol_referencer::get_rounded_position (n);
 
-      for (LEFT_and_RIGHT (d))
+      if (p < extpos[DOWN])   /* < lowest note unison: take FIRST one */
         {
-          if (d * p > d * extpos[d])
-            {
-              exthead[d] = n;
-              extpos[d] = p;
-            }
+          exthead[DOWN] = n;
+          extpos[DOWN] = p;
+        }
+      if (p >= extpos[UP])    /* >= highest note unison: take LAST one */
+        {
+          exthead[UP] = n;
+          extpos[UP] = p;
         }
     }
+
   return exthead;
 }
 
