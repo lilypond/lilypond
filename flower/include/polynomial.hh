@@ -69,7 +69,6 @@ struct Polynomial
 
   /// take the derivative
   void differentiate ();
-  int set_mod (const Polynomial &u, const Polynomial &v);
 
   void debug_clean ();
 

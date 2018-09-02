@@ -169,37 +169,6 @@ Polynomial::set_negate (const Polynomial &src)
     coefs_[i] = -src.coefs_[i];
 }
 
-/// mod of #u/v#
-int
-Polynomial::set_mod (const Polynomial &u, const Polynomial &v)
-{
-  (*this) = u;
-
-  if (v.lc () < 0.0)
-    {
-      for (ssize_t k = u.degree () - v.degree () - 1; k >= 0; k -= 2)
-        coefs_[k] = -coefs_[k];
-
-      for (ssize_t k = u.degree () - v.degree (); k >= 0; k--)
-        for (ssize_t j = v.degree () + k - 1; j >= k; j--)
-          coefs_[j] = -coefs_[j] - coefs_[v.degree () + k] * v.coefs_[j - k];
-    }
-  else
-
-    {
-      for (ssize_t k = u.degree () - v.degree (); k >= 0; k--)
-        for (ssize_t j = v.degree () + k - 1; j >= k; j--)
-          coefs_[j] -= coefs_[v.degree () + k] * v.coefs_[j - k];
-    }
-
-  ssize_t k = v.degree () - 1;
-  while (k >= 0 && coefs_[k] == 0.0)
-    k--;
-
-  coefs_.resize (1 + ((k < 0) ? 0 : k));
-  return degree ();
-}
-
 void
 Polynomial::check_sol (Real x) const
 {
