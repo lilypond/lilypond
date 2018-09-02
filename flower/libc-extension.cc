@@ -94,18 +94,6 @@ memmem (void const *haystack, int haystack_len,
 
 #endif
 
-unsigned char *
-memrchr (unsigned char const *p, int n, char c)
-{
-  const unsigned char *q = p + n;
-  while (q > p)
-    {
-      if (*--q == c)
-        return (unsigned char *)q;
-    }
-  return 0;
-}
-
 template<class T>
 inline void
 my_swap (T &t1, T &t2, T &tmp)
@@ -113,18 +101,6 @@ my_swap (T &t1, T &t2, T &tmp)
   tmp = t1;
   t1 = t2;
   t2 = tmp;
-}
-
-unsigned char *
-memrev (unsigned char *byte, int length)
-{
-  unsigned char tmp_byte;
-  unsigned char *left = byte;
-  unsigned char *right = byte + length;
-
-  while (right > left)
-    my_swap (*right--, *left++, tmp_byte);
-  return byte;
 }
 
 /*

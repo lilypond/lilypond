@@ -366,9 +366,3 @@ String_convert::to_lower (string s)
 {
   return strnlwr (const_cast<char*>(s.c_str ()), s.length ());
 }
-
-string
-String_convert::reverse (string s)
-{
-  return (char *) memrev ((unsigned char *)s.data (), s.length ());
-}

@@ -34,14 +34,6 @@ void *memmem (void const *haystack, int haystack_len,
               void const *needle, int needle_len);
 #endif /* HAVE_MEMMEM */
 
-#if ! HAVE_MEMRCHR
-unsigned char *memrchr (unsigned char const *p, int n, char c);
-#endif
-
-#if ! HAVE_MEMREV
-unsigned char *memrev (unsigned char *byte, int length_i);
-#endif
-
 double my_round (double);
 
 /* namespace std { */

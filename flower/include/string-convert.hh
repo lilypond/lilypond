@@ -46,7 +46,6 @@ public:
   static string i64_string (I64, char const *fmt = 0);
   static string to_lower (string s);
   static string to_upper (string s);
-  static string reverse (string s);
 };
 
 #endif // __STRING_CONVERT_HH //
