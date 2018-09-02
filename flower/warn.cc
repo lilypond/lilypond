@@ -109,7 +109,7 @@ void check_expected_warnings ()
   if (expected_warnings.size () > 0)
     {
       /* Some expected warning was not triggered, so print out a warning. */
-      string msg = _f ("%d expected warning(s) not encountered: ",
+      string msg = _f ("%zu expected warning(s) not encountered: ",
                        expected_warnings.size ());
       for (vsize i = 0; i < expected_warnings.size (); i++)
         msg += "\n        " + expected_warnings[i];

@@ -28,9 +28,9 @@ to_string (const string &s)
 }
 
 string
-to_string (char c, int n)
+to_string (char c, ssize_t n)
 {
-  return string (max (n, 0), c);
+  return string (max (n, ssize_t (0)), c);
 }
 
 string

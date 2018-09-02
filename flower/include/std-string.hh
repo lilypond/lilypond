@@ -39,7 +39,7 @@ typedef size_t ssize;
 #define NPOS string::npos
 
 string to_string (const string&);
-string to_string (char c, int n = 1);
+string to_string (char c, ssize_t n = 1);
 string to_string (int i, char const *format = 0);
 string to_string (double f, char const *format = 0);
 string to_string (long);

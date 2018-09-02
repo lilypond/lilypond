@@ -29,7 +29,7 @@ using namespace std;
 #include "libc-extension.hh"
 
 char *
-strnlwr (char *start, int n)
+strnlwr (char *start, size_t n)
 {
   char *p = start + n;
   while (--p >= start)
@@ -40,7 +40,7 @@ strnlwr (char *start, int n)
 }
 
 char *
-strnupr (char *start, int n)
+strnupr (char *start, size_t n)
 {
   char *p = start + n;
   while (--p >= start)
