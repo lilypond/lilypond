@@ -57,7 +57,7 @@ ritme; això s'estudia a
 
 @item
 La sortida MIDI es tracta a una secció a part; vegeu
-@rusernamed{MIDI instruments,Instruments MIDI}.
+@ref{Instruments MIDI}.
 
 @end itemize
 
@@ -65,7 +65,7 @@ La sortida MIDI es tracta a una secció a part; vegeu
 Referència de la notació:
 @ref{Mostrar els ritmes de la melodia},
 @ref{Creació d'instàncies de pentagrames nous},
-@rusernamed{MIDI instruments,Instruments MIDI}.
+@ref{Instruments MIDI}.
 
 Fragments de codi:
 @rlsr{Percussion}.
@@ -101,7 +101,7 @@ Això és una abreviatura de
 Cada element d'un conjunt de percussió porta un nom complet i un
 nom abreujat, i les dues es poden usar a l'entrada.  La llista
 completa de noms d'instruments de percussió es troben a
-@rusernamed{Percussion notes,Notes de percussió}.
+@ref{Notes de percussió}.
 
 @cindex clau de percussió
 @cindex percussió, clau
@@ -123,12 +123,12 @@ establir explícitament o utilitzar altres claus.
 
 Hi ha certs detalls respecte a com s'incorpora el MIDI per als
 instruments de percussió; per veure els detalls, consulteu
-@rusernamed{MIDI instruments,Instruments MIDI}.
+@ref{Instruments MIDI}.
 
 @seealso
 Referència de la notació:
-@rusernamed{MIDI instruments,Instruments MIDI},
-@rusernamed{Percussion notes,Notes de percussió}.
+@ref{Instruments MIDI},
+@ref{Notes de percussió}.
 
 Fitxers d'inici:
 @file{ly/drumpitch-init.ly}.
@@ -195,7 +195,7 @@ manual.
 
 @seealso
 Referència de la notació:
-@rusernamed{MIDI instruments,Instruments MIDI}.
+@ref{Instruments MIDI}.
 
 Fragments de codi:
 @rlsr{Percussion}.

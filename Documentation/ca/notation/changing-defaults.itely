@@ -3103,7 +3103,7 @@ lletra que ve a continuació amb la música precedent, vegeu
 
 S'activa amb l'ordre @code{\markup}, i fa que l'entrada
 s'interpreti amb la sintaxi del marcatge, vegeu
- @rusernamed{Text markup commands,Ordres de marcatge de text}.
+@ref{Ordres de marcatge de text}.
 
 @subsubsubheading Mode de notes
 
@@ -4686,7 +4686,7 @@ procediment diferent escrit especialment.  Això requereix un alt
 nivell de coneixement del funcionament intern del LilyPond, però
 hi ha una forma més fàcil que sovint pot donar resultats adequats.
 
-El procediment consisteix a establirr la propietat @code{stencil}
+El procediment consisteix a establir la propietat @code{stencil}
 al procediment que imprimeix text
 (@code{ly:text-interface::print}) i afegir una propietat
 @code{text} a l'objecte ajustada perquè contingui el text de
@@ -4713,8 +4713,7 @@ XinO = {
 @end lilypond
 
 Qualssevol dels glifs de @emph{Feta} usats al tipus de lletra
-
-@rusernamed{The Emmentaler font,El tipus de lletra Emmentaler}.
+@ref{El tipus de lletra Emmentaler}.
 
 Es poden inserir en línia tant imatges en forma @file{EPS} com
 ordres de Postscrip usant les ordres de marcatge @code{\epsfile} i
@@ -4724,8 +4723,8 @@ ordres de Postscrip usant les ordres de marcatge @code{\epsfile} i
 Referencia de la notación:
 @ref{Notació gràfica dins d'elements de marcatge},
 @ref{Donar format al text},
-@rusernamed{Text markup commands,Ordres de marcatge de text},
-@rusernamed{The Emmentaler font,El tipus de lletra Emmentaler},
+@ref{Ordres de marcatge de text},
+@ref{El tipus de lletra Emmentaler},
 @rusernamed{Graphic,Grafisme}.
 
 

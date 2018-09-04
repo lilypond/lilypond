@@ -1789,7 +1789,7 @@ Manual d'aprenentatge:
 Referència de la notació:
 @ref{Àlies d'ASCII},
 @ref{Globus d'ajuda},
-@rusernamed{List of special characters,Llista de caràcters especials},
+@ref{Llista de caràcters especials},
 @ref{Indicacions de text},
 @ref{Scripts de text},
 @ref{Unicode}.
@@ -2813,7 +2813,7 @@ o local:
 
 @seealso
 Referència de la notació:
-@rusernamed{List of special characters,Llista de caràcters especials}.
+@ref{Llista de caràcters especials}.
 
 Fitxers instal·lats:
 @file{ly/text-replacements.ly}.
@@ -3033,7 +3033,7 @@ Manual d'aprenentatge:
 @rlearning{Altres fonts d'informació}.
 
 Referència de la notació:
-@rusernamed{The Emmentaler font,El tipus de lletra Emmentaler},
+@ref{El tipus de lletra Emmentaler},
 @ref{Tipus de lletra del document complet}.
 
 @knownissues
@@ -3516,14 +3516,14 @@ o
 Si l'instrument escollit no coincideix exactament amb un dels
 instruments de la llista de la secció @q{instruments MIDI},
 s'usarà l'instrument Piano de cua (@code{"acoustic grand"}).
-Vegeu @rusernamed{MIDI instruments,Instruments MIDI}.
+Vegeu @ref{Instruments MIDI}.
 
 @seealso
 Manual d'aprenentatge:
 @rlearning{Altres fonts d'informació}.
 
 Referència de la notació:
-@rusernamed{MIDI instruments,Instruments MIDI},
+@ref{Instruments MIDI},
 @rusernamed{Score layout,Disposició de la partitura}.
 
 Fitxers instal·lats:

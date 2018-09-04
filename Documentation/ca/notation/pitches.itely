@@ -1161,7 +1161,7 @@ c'2 c'
 @end lilypond
 
 Per veure el repertori complet dels possibles noms per a les
-claus, consulteu @rusernamed{Clef styles,Estils de clau}.
+claus, consulteu @ref{Estils de clau}.
 
 Les claus especials, com les utilitzades a la música
 @emph{antiga}, es descriuen a
@@ -3016,7 +3016,7 @@ Es pot modificar l'aparença del cap de les notes:
 @end lilypond
 
 Per veure totes els estils de caps de les notes, consulteu
-@rusernamed{Note head styles,Estils de caps de nota}.
+@ref{Estils de caps de nota}.
 
 L'estil @code{cross} (aspes) es fa servir per representar una
 àmplia varietat d'intencions musicals.  Les següent ordres
@@ -3072,7 +3072,7 @@ Fragments de codi:
 @rlsr{Pitches}.
 
 Referència de la notació:
-@rusernamed{Note head styles,Estils de caps de nota},
+@ref{Estils de caps de nota},
 @ref{Notes a un acord},
 @ref{Indicació d'harmònics i notes tapades}.
 
@@ -3242,14 +3242,15 @@ relatiu major:
 {applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
 
 Per veure tots els estils de formes de cap de nota, consulteu
-@rusernamed{Note head styles,Estils de caps de nota},
+@ref{Estils de caps de nota}.
 
 @seealso
 Fragments de codi:
 @rlsr{Pitches}.
 
 Referència de la notació:
-@rusernamed{Note head styles,Estils de caps de nota},
+@ref{Estils de caps de nota}.
+
 
 Referencia de funcionament interno:
 @rinternals{note-event},

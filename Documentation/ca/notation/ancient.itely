@@ -734,8 +734,7 @@ a'8*4/3 a'
 a'\longa
 @end lilypond
 
-
-@rusernamed{Note head styles,Estils de caps de nota} ofereix una visió de conjunt sobre la
+@ref{Estils de caps de nota} ofereix una visió de conjunt sobre la
 totalitat dels estils de cap disponibles.
 
 @seealso
@@ -744,7 +743,7 @@ Glossari musical:
 @rglos{note head}.
 
 Referència de la notació:
-@rusernamed{Note head styles,Estils de caps de nota}.
+@ref{Estils de caps de nota}.
 
 
 @node Corxets de la música mensural
@@ -2556,7 +2555,7 @@ Glosario musical:
 @rglos{note head}.
 
 Referencia de la notació:
-@rusernamed{Note head styles,Estils de caps de nota}.
+@ref{Estils de caps de nota}.
 
 @knownissues
 El LilyPond determina de forma automàtica s'ha de traçar la forma
@@ -2595,7 +2594,7 @@ Glossari musical:
 Referència de la notació:
 @ref{Alteracions accidentals},
 @ref{Alteracions accidentals automàtiques},
-@ref{The Emmentaler font,El tipus de lletra Emmentaler}.
+@ref{El tipus de lletra Emmentaler}.
 
 @node Línies divisòries del cant kievà
 @unnumberedsubsubsec Línies divisòries del cant kievà
@@ -2613,7 +2612,7 @@ del cant kievà». Es pot invocar com @code{\bar "k"}.
 
 @seealso
 @ref{Barres de compàs},
-@ref{The Emmentaler font,El tipus de lletra Emmentaler}.
+@ref{El tipus de lletra Emmentaler}.
 
 @node Melismes del cant kievà
 @unnumberedsubsubsec Melismes del cant kievà

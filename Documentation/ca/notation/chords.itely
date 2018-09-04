@@ -152,7 +152,7 @@ de l'acord de sèptima dominant l'acord bàsic de sèptima.  Totes
 les alteracions es consideren en relació amb la sèptima
 dominant. Hi ha una taula més completa on apareixen els usos dels
 modificadors a
-@rusernamed{Common chord modifiers,Modificadors d'acord més usuals}.
+@ref{Modificadors d'acord més usuals}.
 
 @c @table @code
 @multitable @columnfractions .2 .4 .3
@@ -232,7 +232,7 @@ utilitzeu aquest modificador per crear una triada major.
 
 @seealso
 Referència de la notació:
-@rusernamed{Common chord modifiers,Modificadors d'acord més usuals},
+@ref{Modificadors d'acord més usuals},
 @ref{Acords estesos i alterats}.
 
 Fragments de codi:
@@ -384,11 +384,11 @@ moure-la per efecte d'una inversió, mitjançant l'ús de
 
 Els modificadors d'acord que es poden fer servir per produir una
 àmplia varietat d'acords estàndard es mostren a
-@rusernamed{Common chord modifiers,Modificadors d'acord més usuals},
+@ref{Modificadors d'acord més usuals}.
 
 @seealso
 Referencia de la notación:
-@rusernamed{Common chord modifiers,Modificadors d'acord més usuals},
+@ref{Modificadors d'acord més usuals}.
 
 Fragments de codi:
 @rlsr{Chords}.
@@ -562,7 +562,7 @@ També funcionen d'altres dos esquemes de nomenclatura d'acords:
 una notació d'acords de Jazz alternativa i un esquema sistemàtic
 anomenat Acords de Banter.  La notació de Jazz alternativa també
 es pot veure al
-@rusernamed{Chord name chart,Taula de noms d'acords}.
+@ref{Taula de noms d'acords}.
 
 @c TODO --  Change this so we don't have a non-verbatim example.
 @c  Make short example in docs, then move longer example to
@@ -765,8 +765,8 @@ l'acord està alterat.
 
 @seealso
 Referència de la notació:
-@rusernamed{Chord name chart,Taula de noms d'acords},
-@rusernamed{Common chord modifiers,Modificadors d'acord més usuals}.
+@ref{Taula de noms d'acords},
+@ref{Modificadors d'acord més usuals}.
 
 L'assaig sobre gravat musical automatitzat:
 @ressaynamed{Literature list,Llista de referències bibligràfiques}.

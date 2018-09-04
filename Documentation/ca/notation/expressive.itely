@@ -134,7 +134,7 @@ utilitzant la sintaxi següent:
 @end example
 
 La llista de possibles valors de @code{@var{nom}} està a
-@rusernamed{List of articulations,Llista d'articulacions}.  Per exemple
+@ref{Llista d'articulacions}.  Per exemple
 
 @lilypond[verbatim,quote]
 \relative {
@@ -221,7 +221,7 @@ Manual d'aprenentatge:
 Referència de la notació:
 @ref{Scripts de text},
 @ref{Direcció i posició},
-@rusernamed{List of articulations,Llista d'articulacions},
+@ref{Llista d'articulacions},
 @ref{Refilets}.
 
 Fitxers instal·lats:
