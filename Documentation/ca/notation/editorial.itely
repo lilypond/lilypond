@@ -510,7 +510,7 @@ Referència de funcionament intern:
 
 Es poden assignar colors als objectes individuals.  Els noms de
 color vàlids es relacionen a la
-@rusernamed{List of colors,Llista de colors}.
+@ref{Llista de colors}.
 
 @lilypond[verbatim,quote,fragment]
 \override NoteHead.color = #red
@@ -582,7 +582,7 @@ l'Scheme @code{rgb-color}.
 
 @seealso
 Referència de la notació:
-@rusernamed{List of colors,Llista de colors}.
+@ref{Llista de colors},
 @ref{L'ordre tweak}.
 
 Fragments de codi:

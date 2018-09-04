@@ -101,7 +101,7 @@ dels dos pentagrames; vegeu @ref{Matisos dinàmics}.
 
 @item Les indicacions de pedal d'orgue s'insereixen com
 articulacions, vegeu
-@rusernamed{List of articulations,Llista d'articulacions}.
+@ref{Llista d'articulacions}.
 
 @item Les línies verticals de reixeta es poden mostrar com es
 descriu a @ref{Línies de reixeta}.
@@ -141,7 +141,7 @@ Referència de la notació:
 @ref{Resolució de les col·lisions},
 @ref{Escriptura de música en paral·lel},
 @ref{Indicacions de digitació},
-@rusernamed{List of articulations,Llista d'articulacions},
+@ref{Llista d'articulacions},
 @ref{Línies de reixeta},
 @ref{Lligadures d'unió},
 @ref{Arpegi},

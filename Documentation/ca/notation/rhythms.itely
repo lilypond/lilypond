@@ -3452,7 +3452,7 @@ element @code{\mark}
 @end lilypond
 
 @noindent
-Consulteu @rusernamed{The Emmentaler font,El tipus de lletra Emmentaler}
+Consulteu @ref{El tipus de lletra Emmentaler}
 per veure una llista dels símbols que es poden imprimir amb
 @code{\musicglyph}.
 
@@ -3469,7 +3469,7 @@ per escriure altres funcions per donar format.
 
 @seealso
 Referència de la notació:
-@rusernamed{The Emmentaler font,El tipus de lletra Emmentaler},
+@ref{El tipus de lletra Emmentaler},
 @ref{Donar format al text},
 @ref{Alineació d'objectes}.
 

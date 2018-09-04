@@ -322,7 +322,7 @@ Referència de la notació:
 @ref{Marques d'assaig},
 @ref{Donar format al text},
 @ref{Notació musical dins d'elements de marcatge},
-@ref{The Emmentaler font,El tipus de lletra Emmentaler}.
+@ref{El tipus de lletra Emmentaler}.
 
 Fragments de codi:
 @rlsr{Text}.
@@ -520,11 +520,11 @@ allegro = \markup { \bold \large Allegro }
 
 @noindent
 Es pot trobar una llista exhaustiva de les ordres específiques
-@code{\markup} a @rusernamed{Text markup commands,Ordres de marcatge de text}.
+@code{\markup} a @ref{Ordres de marcatge de text}.
 
 @seealso
 Referència de la notació:
-@rusernamed{Text markup commands,Ordres de marcatge de text}.
+@ref{Ordres de marcatge de text}.
 
 Fragments de codi:
 @rlsr{Text}.
@@ -1224,7 +1224,7 @@ De forma més general, qualsevol símbol musical disponible es pot
 incloure per separat dins d'un objecte de marcatge, com
 s'exemplifica a continuació; hi ha una llista exhaustiva d'aquests
 símbols i els seus noms a
-@rusernamed{The Emmentaler font,El tipus de lletra Emmentaler}.
+@ref{El tipus de lletra Emmentaler}.
 
 @lilypond[quote,verbatim]
 \relative {
@@ -1296,7 +1296,7 @@ musical a @ref{Music}.
 @seealso
 Referència de la notació:
 @ref{Music},
-@rusernamed{The Emmentaler font,El tipus de lletra Emmentaler},
+@ref{El tipus de lletra Emmentaler},
 @ref{Explicació dels tipus de lletra}.
 
 Fitxers d'inici:
@@ -1355,11 +1355,11 @@ o una llista de llistes de marcatge.
 @end itemize
 
 Hi una llista exhaustiva de les ordres de llista de marcage a
-@rusernamed{Text markup list commands,Ordres de llistes de marcatge de text}.
+@ref{Ordres de llistes de marcatge de text}.
 
 @seealso
 Referència de la notació:
-@rusernamed{Text markup list commands,Ordres de llistes de marcatge de text}.
+@ref{Ordres de llistes de marcatge de text}.
 
 Fitxers d'inici:
 @file{scm/define-markup-commands.scm}.
@@ -1512,7 +1512,7 @@ s'explica a les seccions següents:
 
 @seealso
 Referència de la notació:
-@rusernamed{The Emmentaler font,El tipus de lletra Emmentaler},
+@ref{El tipus de lletra Emmentaler},
 @ref{Notació musical dins d'elements de marcatge},
 @ref{Rotació d'objectes},
 @ref{Selecció del tipus de lletra i la seva mida},

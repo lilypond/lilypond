@@ -62,7 +62,7 @@ Els diferents cops de llengua, des del legato fins al staccato
 passant pel non legato, es presenten en general mitjançant
 articulacions, a vegades combinades amb lligadures d'expressió,
 vegeu @ref{Articulacions i ornaments} i
-@rusernamed{List of articulations,Llista d'articulacions}.
+@ref{Llista d'articulacions}.
 @item
 El frullato s'indica generalment mitjançant una indicació de
 trèmol i una marca textual sobre la nota.  Vegeu
@@ -96,13 +96,13 @@ Els cops de clau o de vàlvula se solen indicar amb l'estil
 Els instruments de vent-fusta poden sobreinflar les notes greus
 per produir harmònics.  Es mostren per mitjà de l'articulació
 @code{flageolet}.  Vegeu
-@rusernamed{List of articulations,Llista d'articulacions}.
+@ref{Llista d'articulacions}.
 @item
 L'ús de sordines per als metalls se sol sindicar mitjançant
 marques de text, però quan es produeixen molts canvis ràpids és
 millor utilitzar les articulacions @code{stopped} (tapat) i
 @code{open} (obert).  Vegeu @ref{Articulacions i ornaments} i
-@rusernamed{List of articulations,Llista d'articulacions}.
+@ref{Llista d'articulacions}.
 @item
 Las trompes tapades s'indiquen per mitjà de l'articulació
 @code{stopped}.  Vegeu @ref{Articulacions i ornaments}.
@@ -118,7 +118,7 @@ Referència de la notació:
 @ref{Marques de respiració},
 @ref{Lligadures d'expressió},
 @ref{Articulacions i ornaments},
-@rusernamed{List of articulations,Llista d'articulacions},
+@ref{Llista d'articulacions},
 @ref{Repeticions de trèmol},
 @ref{Transposició dels instruments},
 @ref{Glissando},

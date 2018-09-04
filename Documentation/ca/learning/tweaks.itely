@@ -1427,7 +1427,7 @@ una llista de valors en unitats internes, però per evitar haver de
 saber quines són, s'ofereixen diverses vies per a l'especificació
 dels colors.  La primera forma és utilitzar un dels colors
 @q{normals} dels quals es fa una relació a la primera taula de la
-@rusernamed{List of colors,Llista de colors}.  Per posar les
+@ruser{Llista de colors}.  Per posar les
 línies divisòries de color blanc, escrivim:
 
 @cindex BarLine, exemple de sobreescriptura
@@ -1459,7 +1459,7 @@ voleu canviar el color a una de les altres variables de la llista.
 
 La segona forma de canviar el color és utilitzar la llista de noms
 de colores d'X11 que apareix a la segona llista de
-@rusernamed{List of colors,Llista de colors}.  De totes maneres,
+@ruser{Llista de colors}.  De totes maneres,
 es fan correspondre als valors real per mitjà de la funció
 @code{x11-color} que converteix els símbols de color d'X11 a la
 llista de valors interns d'aquests colors:
