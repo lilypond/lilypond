@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated lun. août 27 15:01:51 UTC 2018
+@emph{Last updated mer. sept.  5 09:46:01 UTC 2018
 }
 @multitable @columnfractions  0.25 0.25 0.25 0.25
 
@@ -8734,8 +8734,6 @@ A Notation manual tables
 (3382)
 @tab Walter Garcia-Fontes
 @*
-Walter Garcia-Fontes
-@*
 
 @ifhtml
 
@@ -8760,11 +8758,11 @@ Walter Garcia-Fontes
 @ifhtml
 
 @html
-<span style="background-color: #d0f0f8">not translated</span>
+<span style="background-color: #1fff1f">translated</span>
 @end html
 @end ifhtml
 @ifnothtml
-not translated
+translated
 @end ifnothtml
 @*
 
@@ -8900,8 +8898,6 @@ B Cheat sheet
 (252)
 @tab Walter Garcia-Fontes
 @*
-Walter Garcia-Fontes
-@*
 
 @ifhtml
 
@@ -8926,11 +8922,11 @@ Walter Garcia-Fontes
 @ifhtml
 
 @html
-<span style="background-color: #d0f0f8">not translated</span>
+<span style="background-color: #1fff1f">translated</span>
 @end html
 @end ifhtml
 @ifnothtml
-not translated
+translated
 @end ifnothtml
 @*
 
