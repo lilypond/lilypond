@@ -208,18 +208,6 @@ Input::get_source_file () const
   return source_file_;
 }
 
-char const *
-Input::start () const
-{
-  return start_;
-}
-
-char const *
-Input::end () const
-{
-  return end_;
-}
-
 static SCM
 with_location_hook_0 (void *it)
 {

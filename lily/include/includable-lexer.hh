@@ -41,7 +41,7 @@ class Includable_lexer : public yyFlexLexer
 protected:
   bool close_input ();
   vector<Source_file *> include_stack_;
-  vector<int> char_count_stack_;
+  vector<size_t> char_count_stack_;
 
 public:
 
@@ -58,6 +58,8 @@ public:
   void new_input (const string &name, string data, Sources *);
 
   char const *here_str0 () const;
+
+  void skip_chars (size_t count);
 };
 
 #endif // INCLUDABLE_LEXER_HH

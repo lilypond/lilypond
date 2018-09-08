@@ -157,3 +157,10 @@ Includable_lexer::get_source_file () const
     return 0;
   return include_stack_.back ();
 }
+
+void Includable_lexer::skip_chars (size_t count)
+{
+  for (size_t i = 0; i < count; ++i)
+    yyinput ();
+  char_count_stack_.back () += count;
+}

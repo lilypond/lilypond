@@ -341,13 +341,7 @@ BOM_UTF8	\357\273\277
 	hi.step_forward ();
 	SCM sval = ly_parse_scm (hi, be_safe_global && is_main_input_, parser_);
 	sval = eval_scm (sval, hi);
-	int n = hi.end () - hi.start ();
-
-	for (int i = 0; i < n; i++)
-	{
-		yyinput ();
-	}
-	char_count_stack_.back () += n;
+	skip_chars (hi.size ());
 
 	if (scm_is_string (sval)) {
 		new_input (ly_scm2string (sval), sources_);
@@ -398,12 +392,7 @@ BOM_UTF8	\357\273\277
 	if (SCM_UNBNDP (sval))
 		error_level_ = 1;
 
-	int n = hi.end () - hi.start ();
-	for (int i = 0; i < n; i++)
-	{
-		yyinput ();
-	}
-	char_count_stack_.back () += n;
+	skip_chars (hi.size ());
 
 	yylval = sval;
 	return SCM_TOKEN;
@@ -413,15 +402,7 @@ BOM_UTF8	\357\273\277
 	Input hi = here_input();
 	hi.step_forward ();
 	SCM sval = ly_parse_scm (hi, be_safe_global && is_main_input_, parser_);
-
-	int n = hi.end () - hi.start ();
-
-	for (int i = 0; i < n; i++)
-	{
-		yyinput ();
-	}
-	char_count_stack_.back () += n;
-
+	skip_chars (hi.size ());
 	sval = eval_scm (sval, hi, '$');
 
 	if (YYSTATE == markup && ly_is_procedure (sval))

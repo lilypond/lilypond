@@ -37,8 +37,9 @@ public:
   static SCM equal_p (SCM, SCM);
   SCM mark_smob () const;
   Source_file *get_source_file () const;
-  char const *start () const;
-  char const *end () const;
+  char const *start () const { return start_; }
+  char const *end () const { return end_; }
+  size_t size () const { return end_ - start_; }
 
   void set (Source_file *, char const *, char const *);
   void error (const string&) const;
