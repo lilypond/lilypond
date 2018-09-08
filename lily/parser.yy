@@ -158,9 +158,8 @@ Lily_parser::parser_error (Input const *i, Lily_parser *parser, SCM *, const str
 		if (yychar != YYEMPTY)					\
 			parser->lexer_->push_extra_token		\
 				(yylloc, yychar, yylval);		\
-		if (Token)						\
-			parser->lexer_->push_extra_token		\
-				(Location, Token, Value);		\
+		parser->lexer_->push_extra_token			\
+			(Location, Token, Value);			\
 		parser->lexer_->push_extra_token (Location, BACKUP);	\
 		yychar = YYEMPTY;					\
 	} while (0)
