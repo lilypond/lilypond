@@ -147,6 +147,7 @@ Grob::get_print_stencil () const
       /* A grob has to be visible, otherwise the whiteout property has no effect. */
       /* Calls the scheme procedure stencil-whiteout in scm/stencils.scm */
       if (!transparent && (scm_is_number (get_property ("whiteout"))
+                           || scm_is_pair (get_property ("whiteout"))  /* We actually would need number-pair */
                            || to_boolean (get_property ("whiteout"))))
         {
           Real line_thickness = layout ()->get_dimension (ly_symbol2scm ("line-thickness"));

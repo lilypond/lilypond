@@ -57,6 +57,9 @@
 (define-public (boolean-or-number? x)
   (or (boolean? x) (number? x)))
 
+(define-public (boolean-or-number-or-number-pair? x)
+ (or (boolean? x) (number? x) (number-pair? x)))
+
 (define-public (boolean-or-symbol? x)
   (or (boolean? x) (symbol? x)))
 
