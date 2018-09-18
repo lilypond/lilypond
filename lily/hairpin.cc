@@ -271,15 +271,18 @@ Hairpin::print (SCM smob)
 
   Real starth = 0;
   Real endh = 0;
+  Real max_ratio = width / 2
+  Real continued_height = height / 3
+  Real continuing_height = 2 * height / 3
   if (grow_dir < 0)
     {
-      starth = continuing ? 2 * height / 3 : height;
-      endh = continued ? height / 3 : 0.0;
+      starth = continuing ? std::min(continuing_height, max_ratio) : height;
+      endh = continued ? std::max(continued_height, height - max_ratio) : 0.0;
     }
   else
     {
-      starth = continued ? height / 3 : 0.0;
-      endh = continuing ? 2 * height / 3 : height;
+      starth = continued ? std::max(continued_height, height - max_ratio) : 0.0;
+      endh = continuing ? std::min(continuing_height, max_ratio) : height;
     }
 
   /*
