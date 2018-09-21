@@ -125,7 +125,6 @@
    ly:position-on-line?
    ly:round-filled-box
    ly:run-translator
-   ly:set-option
    ly:spanner-broken-into
    ly:spanner-bound
    ly:spanner?
