@@ -303,7 +303,7 @@ Constrained_breaking::line_details (vsize start, vsize end, vsize sys_count)
   return ret;
 }
 
-int
+vsize
 Constrained_breaking::min_system_count (vsize start, vsize end)
 {
   vsize sys_count;
@@ -325,7 +325,7 @@ Constrained_breaking::min_system_count (vsize start, vsize end)
   return 1;
 }
 
-int
+vsize
 Constrained_breaking::max_system_count (vsize start, vsize end)
 {
   vsize brk = (end >= start_.size ()) ? breaks_.size () - 1 : starting_breakpoints_[end];

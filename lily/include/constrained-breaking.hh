@@ -129,7 +129,7 @@ struct Constrained_break_node
 {
   /* the number of bars in all the systems before this one
   */
-  int prev_;
+  vsize prev_;
 
   /* unlike the Gourlay breaker, this is the sum of all demerits up to,
    * and including, this line */
@@ -138,13 +138,13 @@ struct Constrained_break_node
 
   Constrained_break_node ()
   {
-    prev_ = -1;
+    prev_ = VPOS;
     demerits_ = infinity_f;
   }
 
   void print () const
   {
-    printf ("prev break %d, demerits %f\n", prev_, demerits_);
+    printf ("prev break %zu, demerits %f\n", prev_, demerits_);
   }
 };
 
@@ -161,8 +161,8 @@ public:
   Constrained_breaking (Paper_score *ps);
   Constrained_breaking (Paper_score *ps, vector<vsize> const &start_col_posns);
 
-  int max_system_count (vsize start, vsize end);
-  int min_system_count (vsize start, vsize end);
+  vsize max_system_count (vsize start, vsize end);
+  vsize min_system_count (vsize start, vsize end);
 
 private:
   Paper_score *pscore_;

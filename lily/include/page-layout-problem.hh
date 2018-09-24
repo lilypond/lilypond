@@ -40,7 +40,7 @@ public:
   static vector<Grob *> get_footnote_grobs (SCM lines);
   static vsize get_footnote_count (SCM lines);
   static SCM get_footnotes_from_lines (SCM lines);
-  static void add_footnotes_to_lines (SCM lines, int counter, Paper_book *pb);
+  static void add_footnotes_to_lines (SCM lines, vsize counter, Paper_book *pb);
   static Stencil get_footnote_separator_stencil (Output_def *paper);
   static SCM get_spacing_spec (Grob *before, Grob *after, bool pure, int start, int end);
   static Real get_fixed_spacing (Grob *before, Grob *after, int spaceable_index, bool pure, int start, int end);

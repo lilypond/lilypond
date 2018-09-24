@@ -67,7 +67,7 @@ struct Break_position
 
   /* if non-zero, this is the (fixed, uncompressed) number of lines between
      this Break_position and the previous. */
-  int forced_line_count_;
+  vsize forced_line_count_;
 
   Break_position (vsize s = VPOS, vsize brk = VPOS, Grob *g = NULL, bool end = false)
   {

@@ -610,14 +610,15 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
   vsize footnote_count = 0;
   Real last_page_force = 0;
 
-  for (vsize i = 0; i < lines_per_page.size (); i++)
+  const vsize page_count = lines_per_page.size ();
+  for (vsize i = 0; i < page_count; i++)
     {
       int page_num = first_page_number + static_cast<int> (i);
-      bool bookpart_last_page = (i == lines_per_page.size () - 1);
+      bool bookpart_last_page = (i == page_count - 1);
       bool rag = ragged () || (bookpart_last_page && ragged_last ());
-      SCM line_count = scm_from_int (lines_per_page[i]);
+      SCM line_count = scm_from_size_t (lines_per_page[i]);
       SCM lines = scm_list_head (systems, line_count);
-      int fn_lines = Page_layout_problem::get_footnote_count (lines);
+      vsize fn_lines = Page_layout_problem::get_footnote_count (lines);
       Page_layout_problem::add_footnotes_to_lines (lines, reset_footnotes_on_new_page ? 0 : footnote_count, book_);
 
       SCM config = SCM_EOL;
@@ -646,7 +647,7 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
   // TODO: previously, the following loop caused the systems to be
   // drawn.  Now that we no longer draw anything in Page_breaking,
   // it is safe to merge these two loops.
-  int page_num = first_page_number + static_cast<int> (lines_per_page.size ()) - 1;
+  int page_num = first_page_number + static_cast<int> (page_count) - 1;
   for (SCM s = systems_configs_fncounts; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM lines = scm_caar (s);
@@ -743,7 +744,7 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break, Prob_break_pred
                 forced_line_break_cols.push_back (details[j].last_column_);
             }
 
-          int last_forced_line_break_idx = 0;
+          vsize last_forced_line_break_idx = 0;
           vsize forced_line_break_idx = 0;
           vector<vsize> line_breaker_columns;
           line_breaker_columns.push_back (0);
@@ -1021,19 +1022,18 @@ Page_breaking::line_divisions_rec (vsize system_count,
                                    Line_division *cur_division)
 {
   vsize my_index = cur_division->size ();
-  int others_min = 0;
-  int others_max = 0;
+  vsize others_min = 0;
+  vsize others_max = 0;
 
   for (vsize i = my_index + 1; i < min_sys.size (); i++)
     {
       others_min += min_sys[i];
       others_max += max_sys[i];
     }
-  others_max = min (others_max, (int) system_count);
-  int real_min = max ((int) min_sys[my_index], (int) system_count - others_max);
-  int real_max = min ((int) max_sys[my_index], (int) system_count - others_min);
+  others_max = min (others_max, system_count);
+  vsize real_min = max (min_sys[my_index], system_count - others_max);
 
-  if (real_min > real_max || real_min < 0)
+  if (system_count < others_min)
     {
       /* this should never happen within a recursive call. If it happens
          at all, it means that we were called with an unsolvable problem
@@ -1042,7 +1042,18 @@ Page_breaking::line_divisions_rec (vsize system_count,
       return;
     }
 
-  for (int i = real_min; i <= real_max; i++)
+  vsize real_max = min (max_sys[my_index], system_count - others_min);
+
+  if (real_min > real_max)
+    {
+      /* this should never happen within a recursive call. If it happens
+         at all, it means that we were called with an unsolvable problem
+         and we should return an empty result */
+      assert (my_index == 0);
+      return;
+    }
+
+  for (vsize i = real_min; i <= real_max; i++)
     {
       cur_division->push_back (i);
       if (my_index == min_sys.size () - 1)

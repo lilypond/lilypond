@@ -121,7 +121,7 @@ Page_layout_problem::get_footnotes_from_lines (SCM lines)
 */
 
 void
-Page_layout_problem::add_footnotes_to_lines (SCM lines, int counter, Paper_book *pb)
+Page_layout_problem::add_footnotes_to_lines (SCM lines, vsize counter, Paper_book *pb)
 {
   /*
     first, we have to see how many footnotes are on this page.
@@ -171,9 +171,9 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, int counter, Paper_book 
         {
           SCM assertion_function = fn_grobs[i]->get_property ("numbering-assertion-function");
           if (ly_is_procedure (assertion_function))
-            (void) scm_call_1 (assertion_function, scm_from_int (counter));
+            (void) scm_call_1 (assertion_function, scm_from_size_t (counter));
         }
-      SCM markup = scm_call_1 (numbering_function, scm_from_int (counter));
+      SCM markup = scm_call_1 (numbering_function, scm_from_size_t (counter));
       SCM stencil = Text_interface::interpret_markup (layout, props, markup);
       Stencil *st = unsmob<Stencil> (stencil);
       if (!st)
