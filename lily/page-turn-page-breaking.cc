@@ -59,7 +59,7 @@ Page_turn_page_breaking::Break_node
 Page_turn_page_breaking::put_systems_on_pages (vsize start,
                                                vsize end,
                                                vsize configuration,
-                                               vsize page_number)
+                                               int page_number)
 {
   vsize min_p_count = min_page_count (configuration, page_number);
   bool auto_first = to_boolean (book_->paper_->c_variable ("auto-first-page-number"));
@@ -91,7 +91,7 @@ Page_turn_page_breaking::put_systems_on_pages (vsize start,
       else
         result = space_systems_on_n_pages (configuration, min_p_count, page_number);
     }
-  else if (page_number % 2 == min_p_count % 2)
+  else if (((page_number % 2) == 0) == ((min_p_count % 2) == 0))
     result = space_systems_on_n_pages (configuration, min_p_count, page_number);
   else
     result = space_systems_on_n_or_one_more_pages (configuration, min_p_count, page_number, blank_page_penalty ());
@@ -101,8 +101,8 @@ Page_turn_page_breaking::put_systems_on_pages (vsize start,
   ret.break_pos_ = end;
   ret.page_count_ = result.force_.size ();
   ret.first_page_number_ = page_number;
-  if (auto_first && start == 0)
-    ret.first_page_number_ += 1 - (ret.page_count_ % 2);
+  if (auto_first && (start == 0) && ((ret.page_count_ % 2) == 0))
+    ret.first_page_number_ += 1;
 
   ret.div_ = current_configuration (configuration);
   ret.system_count_ = result.systems_per_page_;
@@ -152,7 +152,8 @@ Page_turn_page_breaking::calc_subproblem (vsize ending_breakpoint)
              should always be even (left hand page).
              TODO: are there different conventions in right-to-left languages?
           */
-          p_num = state_[start - 1].first_page_number_ + state_[start - 1].page_count_;
+          p_num = state_[start - 1].first_page_number_;
+          p_num += static_cast<int> (state_[start - 1].page_count_);
           p_num += p_num % 2;
         }
 
@@ -238,11 +239,11 @@ Page_turn_page_breaking::solve ()
   progress_indication ("\n");
 
   vector<Break_node> breaking;
-  int i = state_.size () - 1;
+  int i = static_cast<int> (state_.size ()) - 1;
   while (i >= 0)
     {
       breaking.push_back (state_[i]);
-      i = state_[i].prev_;
+      i = static_cast<int> (state_[i].prev_);
     }
   reverse (breaking);
 

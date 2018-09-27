@@ -583,6 +583,7 @@ Page_breaking::draw_page (SCM systems, SCM configuration, int page_num, bool las
   return page;
 }
 
+// TODO: pass lines_per_page by const reference
 SCM
 Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
 {
@@ -611,7 +612,7 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
 
   for (vsize i = 0; i < lines_per_page.size (); i++)
     {
-      int page_num = i + first_page_number;
+      int page_num = first_page_number + static_cast<int> (i);
       bool bookpart_last_page = (i == lines_per_page.size () - 1);
       bool rag = ragged () || (bookpart_last_page && ragged_last ());
       SCM line_count = scm_from_int (lines_per_page[i]);
@@ -645,7 +646,7 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
   // TODO: previously, the following loop caused the systems to be
   // drawn.  Now that we no longer draw anything in Page_breaking,
   // it is safe to merge these two loops.
-  int page_num = first_page_number + lines_per_page.size () - 1;
+  int page_num = first_page_number + static_cast<int> (lines_per_page.size ()) - 1;
   for (SCM s = systems_configs_fncounts; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM lines = scm_caar (s);
@@ -1100,9 +1101,9 @@ Page_breaking::compute_line_heights ()
 }
 
 vsize
-Page_breaking::min_page_count (vsize configuration, vsize first_page_num)
+Page_breaking::min_page_count (vsize configuration, int first_page_num)
 {
-  vsize ret = 1;
+  int ret = 1;
   vsize page_starter = 0;
   Real cur_rod_height = 0;
   Real cur_spring_height = 0;
@@ -1177,7 +1178,7 @@ Page_breaking::min_page_count (vsize configuration, vsize first_page_num)
           /* don't increase the page count if the last page had only one system */
           && cur_rod_height > cached_line_details_.back ().full_height ())
         ret++;
-      assert (ret <= cached_line_details_.size ());
+      assert (static_cast<vsize> (ret) <= cached_line_details_.size ());
     }
 
   return ret;
@@ -1187,7 +1188,7 @@ Page_breaking::min_page_count (vsize configuration, vsize first_page_num)
 // we just put the requested number of systems on each page and penalize
 // if the result doesn't have N pages.
 Page_spacing_result
-Page_breaking::space_systems_on_n_pages (vsize configuration, vsize n, vsize first_page_num)
+Page_breaking::space_systems_on_n_pages (vsize configuration, vsize n, int first_page_num)
 {
   Page_spacing_result ret;
 
@@ -1242,7 +1243,7 @@ Page_breaking::blank_page_penalty () const
 // If systems_per_page_ is positive, we don't really try to space on N
 // or N+1 pages; see the comment to space_systems_on_n_pages.
 Page_spacing_result
-Page_breaking::space_systems_on_n_or_one_more_pages (vsize configuration, vsize n, vsize first_page_num,
+Page_breaking::space_systems_on_n_or_one_more_pages (vsize configuration, vsize n, int first_page_num,
                                                      Real penalty_for_fewer_pages)
 {
   Page_spacing_result n_res;
@@ -1295,7 +1296,7 @@ Page_breaking::space_systems_on_n_or_one_more_pages (vsize configuration, vsize 
 }
 
 Page_spacing_result
-Page_breaking::space_systems_on_best_pages (vsize configuration, vsize first_page_num)
+Page_breaking::space_systems_on_best_pages (vsize configuration, int first_page_num)
 {
   if (systems_per_page_ > 0)
     return space_systems_with_fixed_number_per_page (configuration, first_page_num);
@@ -1308,20 +1309,20 @@ Page_breaking::space_systems_on_best_pages (vsize configuration, vsize first_pag
 
 Page_spacing_result
 Page_breaking::space_systems_with_fixed_number_per_page (vsize configuration,
-                                                         vsize first_page_num)
+                                                         int first_page_num)
 {
   Page_spacing_result res;
   Page_spacing space (page_height (first_page_num, false), this);
   vsize line = 0;
-  vsize page = 0;
+  int page_num = first_page_num;
   vsize page_first_line = 0;
 
   cache_line_details (configuration);
   while (line < cached_line_details_.size ())
     {
-      page++;
+      page_num++;
       space.clear ();
-      space.resize (page_height (first_page_num + page, false));
+      space.resize (page_height (page_num, false));
 
       int system_count_on_this_page = 0;
       while (system_count_on_this_page < systems_per_page_
@@ -1352,19 +1353,19 @@ Page_breaking::space_systems_with_fixed_number_per_page (vsize configuration,
 
   /* Recalculate forces for the last page because we know now that is
      really the last page. */
-  space.resize (page_height (first_page_num + page, true));
+  space.resize (page_height (page_num, true));
   res.force_.back () = space.force_;
   return finalize_spacing_result (configuration, res);
 }
 
 Page_spacing_result
-Page_breaking::pack_systems_on_least_pages (vsize configuration, vsize first_page_num)
+Page_breaking::pack_systems_on_least_pages (vsize configuration, int first_page_num)
 {
   // TODO: add support for min/max-systems-per-page.
   Page_spacing_result res;
-  vsize page = 0;
+  int page_num = first_page_num;
   vsize page_first_line = 0;
-  Page_spacing space (page_height (first_page_num, false), this);
+  Page_spacing space (page_height (page_num, false), this);
 
   cache_line_details (configuration);
   for (vsize line = 0; line < cached_line_details_.size (); line++)
@@ -1380,8 +1381,8 @@ Page_breaking::pack_systems_on_least_pages (vsize configuration, vsize first_pag
           res.systems_per_page_.push_back (line - page_first_line);
           res.force_.push_back (prev_force);
           res.penalty_ += cached_line_details_[line - 1].page_penalty_;
-          page++;
-          space.resize (page_height (first_page_num + page, false));
+          page_num++;
+          space.resize (page_height (page_num, false));
           space.clear ();
           space.append_system (cached_line_details_[line]);
           page_first_line = line;
@@ -1393,13 +1394,13 @@ Page_breaking::pack_systems_on_least_pages (vsize configuration, vsize first_pag
           /* When the last page height was computed, we did not know yet that it
            * was the last one. If the systems put on it don't fit anymore, the last
            * system is moved to a new page */
-          space.resize (page_height (first_page_num + page, true));
+          space.resize (page_height (page_num, true));
           if ((line > page_first_line) && (isinf (space.force_)))
             {
               res.systems_per_page_.push_back (line - page_first_line);
               res.force_.push_back (prev_force);
               /* the last page containing the last line */
-              space.resize (page_height (first_page_num + page + 1, true));
+              space.resize (page_height (page_num + 1, true));
               space.clear ();
               space.append_system (cached_line_details_[line]);
               res.systems_per_page_.push_back (1);
@@ -1489,7 +1490,7 @@ Page_breaking::space_systems_on_1_page (vector<Line_details> const &lines, Real 
 }
 
 Page_spacing_result
-Page_breaking::space_systems_on_2_pages (vsize configuration, vsize first_page_num)
+Page_breaking::space_systems_on_2_pages (vsize configuration, int first_page_num)
 {
   Real page1_height = page_height (first_page_num, false);
   Real page2_height = page_height (first_page_num + 1, is_last ());

@@ -76,7 +76,7 @@ One_page_breaking::solve ()
 
   // PAGE BREAKING
   message (_ ("Fitting music on 1 page..."));
-  vsize first_page_num = robust_scm2int (book_->paper_->c_variable ("first-page-number"), 1);
+  int first_page_num = robust_scm2int (book_->paper_->c_variable ("first-page-number"), 1);
   Page_spacing_result res = space_systems_on_n_pages (0, 1, first_page_num);
   SCM lines = systems ();
   SCM pages = make_pages (res.systems_per_page_, lines);

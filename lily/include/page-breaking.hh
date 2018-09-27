@@ -161,17 +161,17 @@ protected:
   vsize current_configuration_count () const;
   Line_division current_configuration (vsize configuration_index) const;
   Page_spacing_result space_systems_on_n_pages (vsize configuration_index,
-                                                vsize n, vsize first_page_num);
+                                                vsize n, int first_page_num);
   Page_spacing_result space_systems_on_n_or_one_more_pages (vsize configuration_index, vsize n,
-                                                            vsize first_page_num,
+                                                            int first_page_num,
                                                             Real penalty_for_fewer_pages);
   Page_spacing_result space_systems_on_best_pages (vsize configuration_index,
-                                                   vsize first_page_num);
+                                                   int first_page_num);
   Page_spacing_result space_systems_with_fixed_number_per_page (vsize configuration_index,
-      vsize first_page_num);
+      int first_page_num);
   Page_spacing_result pack_systems_on_least_pages (vsize configuration_index,
-                                                   vsize first_page_num);
-  vsize min_page_count (vsize configuration_index, vsize first_page_num);
+                                                   int first_page_num);
+  vsize min_page_count (vsize configuration_index, int first_page_num);
   bool all_lines_stretched (vsize configuration_index);
   Real blank_page_penalty () const;
 
@@ -228,7 +228,7 @@ private:
 
   vector<Line_details> line_details (vsize start, vsize end, Line_division const &div);
   Page_spacing_result space_systems_on_1_page (vector<Line_details> const &lines, Real page_height, bool ragged);
-  Page_spacing_result space_systems_on_2_pages (vsize configuration_index, vsize first_page_num);
+  Page_spacing_result space_systems_on_2_pages (vsize configuration_index, int first_page_num);
   Page_spacing_result finalize_spacing_result (vsize configuration_index, Page_spacing_result);
   void create_system_list ();
   void find_chunks_and_breaks (Break_predicate, Prob_break_predicate);

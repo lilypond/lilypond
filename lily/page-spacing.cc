@@ -134,7 +134,7 @@ Page_spacing::clear ()
   has_footnotes_ = false;
 }
 
-Page_spacer::Page_spacer (vector<Line_details> const &lines, vsize first_page_num, Page_breaking const *breaker)
+Page_spacer::Page_spacer (vector<Line_details> const &lines, int first_page_num, Page_breaking const *breaker)
   : lines_ (lines)
 {
   first_page_num_ = first_page_num;
@@ -303,7 +303,7 @@ Page_spacer::calc_subproblem (vsize page, vsize line)
   // good example of this is input/regression/page-spacing-tall-headfoot.ly
   vsize page_num = page == VPOS ? 0 : page;
   Real paper_height = breaker_->paper_height ();
-  Page_spacing space (breaker_->page_height (page_num + first_page_num_, last),
+  Page_spacing space (breaker_->page_height (first_page_num_ + static_cast<int> (page), last),
                       breaker_);
   Page_spacing_node &cur = page == VPOS ? simple_state_[line] : state_.at (line, page);
   bool ragged = ragged_ || (ragged_last_ && last);

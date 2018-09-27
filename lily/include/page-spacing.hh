@@ -50,7 +50,7 @@ const Real TERRIBLE_SPACING_PENALTY = 1e8;
 class Page_spacer
 {
 public:
-  Page_spacer (vector<Line_details> const &lines, vsize first_page_num, Page_breaking const *);
+  Page_spacer (vector<Line_details> const &lines, int first_page_num, Page_breaking const *);
   Page_spacing_result solve (vsize page_count);
   Page_spacing_result solve ();
 
@@ -71,12 +71,12 @@ private:
     Real force_;
     Real penalty_;
     vsize prev_;
-    vsize page_;
+    int page_;
     int system_count_status_;
   };
 
   Page_breaking const *breaker_;
-  vsize first_page_num_;
+  int first_page_num_;
   vector<Line_details> lines_;
 
   // If a page-count is requested, we use state_, which

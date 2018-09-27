@@ -42,7 +42,7 @@ Optimal_page_breaking::solve ()
 {
   vsize end = last_break_position ();
   vsize max_sys_count = max_system_count (0, end);
-  vsize first_page_num = robust_scm2int (book_->paper_->c_variable ("first-page-number"), 1);
+  int first_page_num = robust_scm2int (book_->paper_->c_variable ("first-page-number"), 1);
 
   set_to_ideal_line_configuration (0, end);
 
