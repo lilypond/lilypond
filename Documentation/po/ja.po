@@ -161,10 +161,9 @@ msgstr ""
 msgid "Predefined commands"
 msgstr "定義済みコマンド"
 
-# not yet
 #. @subsubheading in Documentation/macros.itexi
 msgid "Selected Snippets"
-msgstr ""
+msgstr "厳選されたスニペット"
 
 # pending
 #. @subsubheading in Documentation/macros.itexi
