@@ -575,7 +575,9 @@
        (car replacement-list))
       (cadr replacement-list)))
    str
-   '((#\\ "\\\\") (#\( "\\(") (#\) "\\)"))))
+   '((#\\ "\\\\")
+     (#\nul "\\000") (#\cr "\\015") (#\newline "\\012")
+     (#\( "\\(") (#\) "\\)"))))
 
 ;;; Create DOCINFO pdfmark containing metadata
 ;;; header fields with pdf prefix override those without the prefix
