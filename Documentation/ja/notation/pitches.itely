@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: eb38c33a95cbe6adf9f176dfbb794373ec062605
+    Translation of GIT committish: c286e07798cd57a4785c3701b2bbcf94721b0f11
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -575,12 +575,15 @@ LilyPond の記号はいかなる標準にも準拠しません。
 @end multitable
 @end quotation
 
-オランダ語では、@code{aes} は縮めて @code{as} となりますが、@c
-LilyPond ではどちらの形式も認められます。@c
-同様に、@code{es} と @code{ees} の両方が認められます。@c
-これはさらに、@code{aeses}@tie{}/@tie{}@code{ases} と
-@code{eeses}@tie{}/@tie{}@code{eses} にも適用されます。@c
-他の言語ファイルでは短縮名だけが定義されている場合があります。
+オランダ語、ドイツ語、ノルウェー語、フィンランド語では、@c
+@code{aes} は縮めて @code{as} となりますが、@c
+オランダ語とノルウェー語については、LilyPond ではどちらの形式も認められます。@c
+これは @code{es} と @code{ees}、@code{aeses} と @code{ases}、@c
+@code{eeses} と @code{eses} でも同様です。@c
+
+ドイツ語とフィンランド語については、LilyPond は
+@code{ases} よりよく使われる形である
+@code{asas} が使用できます。
 
 @lilypond[verbatim,quote,fragment]
 \relative c'' { a2 as e es a ases e eses }
@@ -3287,8 +3290,8 @@ forget = #(define-music-function (music) (ly:music?) #{
 @cindex Southern Harmony note heads (Southern Harmony の符頭)
 @cindex Funk shape note heads (Funk のシェイプ ノートの符頭)
 @cindex note heads, Funk (Funk の符頭)
-@cindex note heads, Harmonica Sacra (Harmonica Sacra の符頭)
-@cindex Harmonia Sacra note heads (Harmonica Sacra の符頭)
+@cindex note heads, Harmonia Sacra (Harmonia Sacra の符頭)
+@cindex Harmonia Sacra note heads (Harmonia Sacra の符頭)
 @cindex Christian Harmony note heads (Christian Harmony の符頭)
 @cindex note heads, Christian Harmony (Christian Harmony の符頭)
 @cindex Walker shape note heads (Walker のシェイプ ノートの符頭)

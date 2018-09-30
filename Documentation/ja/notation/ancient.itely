@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: fdc83c8d7ca8322fc49cae1f3231d6de4874bb5d
+    Translation of GIT committish: c286e07798cd57a4785c3701b2bbcf94721b0f11
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -402,123 +402,50 @@ Vaticana スタイルと、計量音楽のための Mensural スタイルです
 @unnumberedsubsubsec 計量記譜法の音部記号
 @translationof Mensural clefs
 
-@cindex clefs (音部記号)
+@cindex Clef styles (音部記号のスタイル)
+@cindex Ancient music clefs (古代音楽の音部記号)
+@cindex Clef, ancient music (古代音楽の音部記号)
+@cindex Clef, petrucci (Petrucci スタイルの音部記号)
+@cindex Clef, mensural (計量記譜法の音部記号)
+@cindex Clef, blackmensural (計量記譜法の音部記号, 黒)
+@cindex Clef, kievan (キエフ記譜法の音部記号)
+@cindex Petrucci clef (Petrucci スタイルの音部記号)
+@cindex Mensural clef (計量記譜法の音部記号)
+@cindex Blackmensural clef (計量記譜法の音部記号, 黒)
+@cindex Kievan clef (キエフ記譜法の音部記号)
 
-次の表は、@code{\clef} コマンドでサポートしている全ての計量記譜法の音部記号を@c
-示しています。いくつかの音部記号は同じ形をしていますが、どの線に合わせて@c
-表示されるかのみが異なります。このような音部記号は、
-最後に来る数字がどの線に表示されるかに対応しています。小さいものが下で、@c
-大きいものが上です。@c
-音部記号がどの線に表示されるかを強制的に変更することもできます
-(@ref{Clef} に説明があります)。例の中で、音部記号の右に表示されている音符は、@c
-@code{c'} がどの位置に対応するかを示したものです。
+計量記譜法の音部記号は @code{\clef} コマンドによってサポートされています。@c
+音部記号によっては同じグリフを用いるものもありますが、音部記号が表示される@c
+位置のみが異なります。その場合は、音部記号に用いられる名前の最後に数字が@c
+付けられており、下にあるほど小さい数字、上にあるほど大きい数字になっています。
 
-Petrucci では、表示される位置によって左端の線のバランスが異なります。
-
-@multitable @columnfractions .4 .4 .2
-@item
-@b{説明}
-@tab
-@b{サポートされている音部記号}
-@tab
-@b{例}
-
-@item
-計量記譜法のハ音記号
-@tab
-@code{mensural-c1}, @code{mensural-c2},@*
-@code{mensural-c3}, @code{mensural-c4},@*
-@code{mensural-c5}
-@tab
-@lilypond[fragment,notime]
-  \clef "mensural-c2"
-  \override NoteHead.style = #'mensural
-  c'1
+@lilypond[notime,verbatim,quote,fragment]
+\override NoteHead.style = #'vaticana.punctum
+\clef "vaticana-do1"
+c'1
 @end lilypond
 
-@item
-計量記譜法のヘ音記号
-@tab
-@code{mensural-f}
-@tab
-@lilypond[fragment,notime]
-  \clef "mensural-f"
-  \override NoteHead.style = #'mensural
-  c'1
+@lilypond[notime,verbatim,quote,fragment]
+\override NoteHead.style = #'medicaea.punctum
+\clef "medicaea-do3"
+c'1
 @end lilypond
 
-@item
-計量記譜法のト音記号
-@tab
-@code{mensural-g}
-@tab
-@lilypond[fragment,notime]
-  \clef "mensural-g"
-  \override NoteHead.style = #'mensural
-  c'1
+@lilypond[notime,verbatim,quote,fragment]
+\override NoteHead.style = #'hufnagel.punctum
+\clef "hufnagel-fa2"
+c'1
 @end lilypond
 
-@item
-計量記譜法のハ音記号 (黒塗り)
-@tab
-@code{blackmensural-c1}, @code{blackmensural-c2},@*
-@code{blackmensural-c3}, @code{blackmensural-c4},@*
-@code{blackmensural-c5}
-@tab
-@lilypond[fragment,notime]
-  \clef "blackmensural-c2"
-  \override NoteHead.style = #'mensural
-  c'1
+@lilypond[notime,verbatim,quote,fragment]
+\override NoteHead.style = #'neomensural
+\clef "neomensural-c4"
+c'1
 @end lilypond
 
-@item
-計量記譜法のハ音記号 (新しい)
-@tab
-@code{neomensural-c1}, @code{neomensural-c2},@*
-@code{neomensural-c3}, @code{neomensural-c4}
-@tab
-@lilypond[fragment,notime]
-  \clef "neomensural-c2" c'1
-@end lilypond
-
-@item
-Petrucci スタイルのハ音記号、別の譜線に表示可能
-(例は第 2 線に配置)
-@tab
-@code{petrucci-c1}, @code{petrucci-c2},@*
-@code{petrucci-c3}, @code{petrucci-c4},@*
-@code{petrucci-c5}
-@tab
-@lilypond[fragment,notime]
-  \clef "petrucci-c2"
-  \override NoteHead.style = #'mensural
-  c'1
-@end lilypond
-
-@item
-Petrucci スタイルのヘ音記号、別の譜線に表示可能
-(例は第 3 線に配置)
-@tab
-@code{petrucci-f3}, @code{petrucci-f4},@*
-@code{petrucci-f5}
-@tab
-@lilypond[fragment,notime]
-  \clef "petrucci-f3"
-  \override NoteHead.style = #'mensural
-  c'1
-@end lilypond
-
-@item
-Petrucci スタイルのト音記号
-@tab
-@code{petrucci-g}
-@tab
-@lilypond[fragment,notime]
-  \clef "petrucci-g"
-  \override NoteHead.style = #'mensural
-  c'1
-@end lilypond
-@end multitable
+音部記号が表示される位置を自由に変更することができます。@ref{Clef} を@c
+参照してください。使用できる音部記号の完全な一覧については、@ref{Clef styles}
+を参照してください。
 
 @seealso
 音楽用語集:
@@ -526,7 +453,20 @@ Petrucci スタイルのト音記号
 @rglos{clef}
 
 記譜法リファレンス:
+@ref{Gregorian clefs},
 @ref{Clef}
+
+インストールされているファイル:
+@file{scm/parser-clef.scm}
+
+コード断片集:
+@rlsr{Pitches}
+
+内部リファレンス:
+@rinternals{Clef_engraver},
+@rinternals{Clef},
+@rinternals{ClefModifier},
+@rinternals{clef-interface}
 
 @knownissues
 @code{mensural-g} は @code{petrucci-g} にマッピングされています。

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: eb38c33a95cbe6adf9f176dfbb794373ec062605
+    Translation of GIT committish: c286e07798cd57a4785c3701b2bbcf94721b0f11
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -63,6 +63,17 @@
 128 分音符のような短い音符を指定することもできます。@c
 それよりも短い音価を指定することも可能ですが、必ず連桁付きの音符となります。
 
+音符の演奏時間は数とドットで入力します。入力された数は音符の長さの@c
+逆数となります。例えば、4 分音符は 1/4 の長さを持つため、@code{4} と@c
+入力します。2 分音符は @code{2}、8 分音符は @code{8} となります。@c
+@code{128} までの短い音符は入力できますが、それよりも短い音符は連桁で繋がれた@c
+状態でしか表示できません。@ref{Beams} を参照してください。
+
+全音符よりも長い音符については、@code{\longa} -- ブレヴィスの 2 倍 --
+や @code{\breve} コマンドを使用してください。ブレヴィスの 4 倍の長さは
+@code{\maxima} コマンドで入力できますが、古代の記譜法でしか表示できません。@c
+@ref{Ancient notation} を参照してください。
+
 @c Two 64th notes are needed to obtain beams
 @lilypond[quote,verbatim]
 \relative {
@@ -85,23 +96,14 @@
 }
 @end lilypond
 
-全音符の 8 倍の演奏時間を持つ音符は
-@code{\maxima} を使って入力することができます。@c
-しかしながら、これは古代音楽表記でのみサポートされます。@c
-詳細は @ref{Ancient notation} を参照してください。
-
 @cindex duration, default (デフォルトの演奏時間)
 @cindex default note duration (デフォルトの音符演奏時間)
 @cindex note duration, default (デフォルトの音符演奏時間)
+@cindex duration, isolated (独立した演奏時間)
+@cindex isolated duration (独立した演奏時間)
 
-演奏時間を省略した場合、前に入力された演奏時間にセットされます。@c
-最初の音符のデフォルト値は 4 分音符です。
-
-@lilypond[quote,verbatim]
-\relative { a' a a2 a a4 a a1 a }
-@end lilypond
-
-音楽の中で演奏時間のみを入力した場合、前の音符や和音のピッチを引き継ぎます。
+独立した演奏時間 -- ピッチを持たず、演奏時間だけの音符 -- が音楽内に現れた@c
+場合、前の音符や和音からピッチを受け継ぎます。
 
 @lilypond[quote,verbatim]
 \relative {
@@ -109,6 +111,20 @@
   c'' \longa \breve 1 2
   4 8 16 32 64 128 128
 }
+@end lilypond
+
+@cindex pitches, default (デフォルトのピッチ)
+@cindex default pitch (デフォルトのピッチ)
+@cindex note pitch, default (デフォルトの音符ピッチ)
+@cindex pitch, isolated (独立したピッチ)
+@cindex isolated pitch (独立したピッチ)
+
+独立したピッチ -- 演奏時間を持たず、ピッチだけの音符 -- が音楽内に現れた@c
+場合、前の音符や和音から演奏時間を受け継ぎます。前の演奏時間が存在しない@c
+場合、デフォルトは @code{4} つまり 4 分音符となります。
+
+@lilypond[quote,verbatim]
+\relative { a' a a2 a a4 a a1 a }
 @end lilypond
 
 @cindex notes, dotted (付点音符)
@@ -125,25 +141,23 @@
 \relative { a'4 b c4. b8 a4. b4.. c8. }
 @end lilypond
 
-演奏時間の中には 2の倍数の演奏時間とドットだけでは表せないものもあります。@c
-それらを表すには 2 つかそれ以上の音符をタイでつなげるしかありません。@c
-詳細は @ref{タイ} を参照してください。
-
-歌詞の音節に対して演奏時間を指定する方法、歌詞を音符に揃える方法については
-@ref{Vocal music} を参照してください。
-
-オプションとして、音符を音符の演奏時間に厳密に比例させた間隔で@c
-配置することができます。@c
-このオプションとプロポーショナル表記を制御するその他の設定についての@c
-詳細は @ref{Proportional notation} を参照してください。
-
 @funindex \dotsUp
 @funindex \dotsDown
 @funindex \dotsNeutral
 
-通常、多声でない限り、ドットは譜線を避けるために上に移動させられます。@c
-ある特定のドットの移動方向を手動で指定するための定義済みコマンドがあります
--- 詳細は @ref{Direction and placement} を参照してください。
+譜線を避けるために、音符のドットは通常上に移動されます。@c
+しかし、多声の場合では、必要ならば手動でドットの位置を譜線の上か下に移動@c
+することができます。@code{Direction and placement} を参照してください。
+
+演奏時間の中には数字とドットだけでは表せず、@c
+2 つ以上の音符をタイでつなげるしかない場合があります。@c
+詳細は @ref{タイ} を参照してください。
+
+歌詞音節と音符を揃えるために演奏時間を指定する方法については
+@ref{Vocal music} を参照してください。
+
+音符を演奏時間に比例させた間隔で配置することができます。@c
+@ref{Proportional notation} を参照してください。
 
 
 @predefined
@@ -172,7 +186,7 @@
 @rglos{Duration names notes and rests}
 
 記譜法リファレンス:
-@ref{Automatic beams},
+@ref{Beams},
 @ref{Ties},
 @ref{Stems},
 @ref{Writing rhythms},
@@ -190,9 +204,9 @@
 
 @knownissues
 @c Deliberately duplicated in Durations and Rests.  -gp
-休符の演奏時間には基本的に限界がありません (最大値としても、最小値としても)。@c
-しかしながら、図柄の数には限界があります:
-128 分から全音符の 8 倍までの休符を譜刻することができます。
+休符の演奏時間には基本的に限界 (最大値や最小値) がありませんが、@c
+図柄の数には限界があり、@c
+@code{128} から @code{\maxima} までの休符を譜刻することができます。
 
 
 @node 連符
@@ -972,6 +986,9 @@ R1^"right"
 @cindex church rest (教会音楽の休符)
 @cindex rest, church (教会音楽の休符)
 @cindex kirchenpausen (教会音楽の休符)
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{multi-measure-rest-length-control.ly}
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-form-of-multi-measure-rests.ly}

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: c1b0482f63f881bd3f67845e5f76a3e04675ef2a
+    Translation of GIT committish: c286e07798cd57a4785c3701b2bbcf94721b0f11
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -11,7 +11,7 @@
 @c \version "2.19.16"
 
 
-@c Translators: Yoshiki Sawada
+@c Translators: Yoshiki Sawada, Tomohiro Tatejima
 @c Translation status: post-GDP
 
 
@@ -161,7 +161,7 @@ a8-[ b-]
 @end lilypond
 
 
-@item @code{<< \new Staff ... >>}
+@item @code{<< \new Staff @dots{} >>}
 @tab 複数の譜
 @tab
 @lilypond[relative=1]
@@ -282,7 +282,7 @@ twinkle
 \chordmode { c:dim f:maj7 }
 @end lilypond
 
-@item @code{\context ChordNames}
+@item @code{\new ChordNames}
 @tab コード ネームを譜刻する
 @tab
 @lilypond[relative=2]

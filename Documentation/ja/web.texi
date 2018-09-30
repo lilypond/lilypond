@@ -1,6 +1,6 @@
 \input texinfo-ja @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: 472ecfdd548d8f700d71ec1a403b7a5bdce7d5ba
+    Translation of GIT committish: c286e07798cd57a4785c3701b2bbcf94721b0f11
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -28,7 +28,7 @@
 @omflanguage Japanese
 @end ignore
 
-@c Translators: Masamichi Hosoda, Yoshiki Sawada, Yoshinobu Ishizaki
+@c Translators: Tomohiro Tatejima, Masamichi Hosoda, Yoshiki Sawada, Yoshinobu Ishizaki
 
 @c `Web' was born 2003-03-30 with this commit:
 @c Initial revision
@@ -357,10 +357,12 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
 @divClass{heading-center}
 @divClass{contactBox}
-If you are aware of any other \topic\ which could be listed here,
-please let us know by writing a message to the bug-lilypond
-mailing list. If you're not subscribed yet you can do so on the list's
-@uref{https://lists.gnu.org/mailman/listinfo/bug-lilypond,info page}.
+
+ここにリストアップされていない他の\topic\についてご存知の場合、@c
+bug-lilypond メーリング リストにメッセージを送ってお知らせください。@c
+まだ購読していない場合は、リストの
+@uref{https://lists.gnu.org/mailman/listinfo/bug-lilypond,info ページ}
+から行うことができます。
 
 @divEnd
 @divEnd
@@ -371,10 +373,8 @@ mailing list. If you're not subscribed yet you can do so on the list's
 @ifnothtml
 @macro contactUsAbout{topic}
 @cartouche
-If you are aware of any other \topic\ which could be listed here,
-please let us know by following the instructions on
-@ref{Bug reports}.
-
+ここにリストアップされていない他の\topic\についてご存知の場合、@c
+@ref{Bug reports} の手順に従ってお知らせください。
 @end cartouche
 
 @end macro
