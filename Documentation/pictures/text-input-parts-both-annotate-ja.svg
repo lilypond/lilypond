@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="565"
+   height="439"
+   id="svg7717"
+   sodipodi:version="0.32"
+   inkscape:version="0.46"
+   version="1.0"
+   sodipodi:docname="text-input-parts-both-annotate.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+  <defs
+     id="defs7719">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective7725" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10000"
+     guidetolerance="10"
+     objecttolerance="10"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1"
+     inkscape:cx="285.55612"
+     inkscape:cy="240"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="689"
+     inkscape:window-height="708"
+     inkscape:window-x="0"
+     inkscape:window-y="0" />
+  <metadata
+     id="metadata7722">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#87de87;stroke:none;stroke-width:1.79999995;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect7765"
+       width="74"
+       height="27"
+       x="45"
+       y="105" />
+    <rect
+       style="fill:#ff8080;stroke:none;stroke-width:1.79999995;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect7767"
+       width="223"
+       height="30"
+       x="12"
+       y="222" />
+    <rect
+       style="fill:#ff8080;stroke:none;stroke-width:1.79999995;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect7763"
+       width="174"
+       height="34"
+       x="16"
+       y="8" />
+    <text
+       xml:space="preserve"
+       style="font-size:24px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:DejaVu Sans Mono;-inkscape-font-specification:Sans Bold"
+       x="23"
+       y="35"
+       id="text7727"><tspan
+         sodipodi:role="line"
+         id="tspan7729"
+         x="23"
+         y="35">hornNotes =</tspan><tspan
+         sodipodi:role="line"
+         x="23"
+         y="65"
+         id="tspan7731">\relative c {</tspan><tspan
+         sodipodi:role="line"
+         x="23"
+         y="95"
+         id="tspan7733">  \time 2/4</tspan><tspan
+         sodipodi:role="line"
+         x="23"
+         y="125"
+         id="tspan7735">  R2*3</tspan><tspan
+         sodipodi:role="line"
+         x="23"
+         y="155"
+         id="tspan7737">  r4 f8 a cis4 f e d</tspan><tspan
+         sodipodi:role="line"
+         x="23"
+         y="185"
+         id="tspan7739">}</tspan><tspan
+         sodipodi:role="line"
+         x="23"
+         y="215"
+         id="tspan7741" /><tspan
+         sodipodi:role="line"
+         x="23"
+         y="245"
+         id="tspan7743">bassoonNotes =</tspan><tspan
+         sodipodi:role="line"
+         x="23"
+         y="275"
+         id="tspan7745">\relative c {</tspan><tspan
+         sodipodi:role="line"
+         x="23"
+         y="305"
+         id="tspan7747">  \clef bass</tspan><tspan
+         sodipodi:role="line"
+         x="23"
+         y="335"
+         id="tspan7749">  r4 d,8 f gis4 g b bes</tspan><tspan
+         sodipodi:role="line"
+         x="23"
+         y="365"
+         id="tspan7751">  a8 e f4 g d gis f</tspan><tspan
+         sodipodi:role="line"
+         x="23"
+         y="395"
+         id="tspan7753">}</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#217821;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:DejaVu Serif;-inkscape-font-specification:DejaVu Serif"
+       x="327"
+       y="73"
+       id="text7755"><tspan
+         sodipodi:role="line"
+         id="tspan7757"
+         x="327"
+         y="73">複数の休符</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#c83737;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:DejaVu Serif;-inkscape-font-specification:DejaVu Serif"
+       x="292"
+       y="212"
+       id="text7759"><tspan
+         sodipodi:role="line"
+         id="tspan7761"
+         x="292"
+         y="212">音符を変数に格納します</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#217821;stroke-width:1.79999995;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 321,66 C 228,66 251,121 127,120"
+       id="path7769"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#c83737;stroke-width:1.79999995;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 407,220 C 404,260 280,205 241,237"
+       id="path7771"
+       sodipodi:nodetypes="cc" />
+  </g>
+</svg>
