@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: eb38c33a95cbe6adf9f176dfbb794373ec062605
+    Translation of GIT committish: c286e07798cd57a4785c3701b2bbcf94721b0f11
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1438,6 +1438,7 @@ a'1^\markup {
 -- @ref{Rotating objects} を参照してください。
 
 3 ファミリのテキスト フォントが利用可能になっています:
+
 @itemize
 @item
 @emph{roman} (serif) フォントの@c
@@ -1449,6 +1450,54 @@ a'1^\markup {
 @emph{typewriter} (monospaced) フォントの@c
 デフォルトは LilyPond Monospace （TeX Gyre Cursor のエイリアス）です。
 @end itemize
+
+
+@emph{roman} (serif) フォント、
+@emph{sans} フォント、@emph{typewriter} フォントです。
+
+@code{svg} バックエンドでは:
+@multitable @columnfractions .15 .30
+@headitem ファミリ @tab デフォルト フォント
+@item @emph{roman} @tab @code{serif}
+@item @emph{sans} @tab @code{sans-serif}
+@item @emph{typewriter} @tab @code{monospace}
+@end multitable
+
+@code{serif}, @code{sans-serif}, and @code{monospace} は、SVG や CSS の@c
+仕様における @code{generic-family} です。
+
+他のバックエンドでは:
+@multitable @columnfractions .15 .30 .55
+@headitem ファミリ @tab デフォルト フォント (エイリアス) @tab エイリアス定義のリスト
+@item @emph{roman}
+@tab @code{LilyPond Serif}
+@tab
+TeX Gyre Schola,
+C059, Century SchoolBook URW, Century Schoolbook L,
+DejaVu Serif,
+..., serif
+@item @emph{sans}
+@tab @code{LilyPond Sans Serif}
+@tab
+TeX Gyre Heros,
+Nimbus Sans, Nimbus Sans L, DejaVu Sans,
+..., sans-serif
+@item @emph{typewriter}
+@tab @code{LilyPond Monospace}
+@tab
+TeX Gyre Cursor,
+Nimbus Mono PS, Nimbus Mono, Nimbus Mono L,
+DejaVu Sans Mono,
+..., monospace
+@end multitable
+
+@code{LilyPond Serif}, @code{LilyPond Sans Serif},
+@code{LilyPond Monospace} は、LilyPond 専用の FontConfig 設定ファイル
+@code{00-lilypond-fonts.conf} に定義されたフォント エイリアスです。@c
+ある文字がリストの最初にあるフォントに存在しない場合、@c
+その文字を持つリストの次のフォントが代わりに使用されます。@c
+エイリアス定義の詳細については、インストール ディレクトリ中の
+@code{00-lilypond-fonts.conf} を参照してください。
 
 それぞれのファミリには異なる形状とセットのフォントが保持されています。@c
 以下の例は、ファミリ、形状、セットそれにサイズを変更する様子を示しています。@c
@@ -1492,6 +1541,43 @@ c''4^smaller
   }
 }
 @end lilypond
+
+@noindent
+OpenType フォントを使用している場合、フォント機能を使用することができます。@c
+OpenType フォントの script と language は指定できません。@c
+注: 全ての OpenType フォントが機能をサポートしているとは限りません。@c
+使用するフォントに無い機能を使用しようとした場合、機能は単純に無視されます。
+
+@c KEEP LY
+@lilypond[quote,verbatim]
+% 真のスモール キャピタル
+\markup { Normal Style: Hello HELLO }
+\markup { \caps { Small Caps: Hello } }
+\markup { \override #'(font-features . ("smcp"))
+          { True Small Caps: Hello } }
+
+% 数字スタイル
+\markup { Normal Number Style: 0123456789 }
+\markup { \override #'(font-features . ("onum"))
+          { Old Number Style: 0123456789 } }
+
+% 代替スタイル
+\markup { \override #'(font-features . ("salt 0"))
+          { Stylistic Alternates 0: εφπρθ } }
+\markup { \override #'(font-features . ("salt 1"))
+          { Stylistic Alternates 1: εφπρθ } }
+
+% 機能の組み合わせ
+\markup { \override #'(font-features . ("onum" "smcp" "salt 1"))
+          { Multiple features: Hello 0123456789 εφπρθ } }
+@end lilypond
+
+@noindent OpenType 機能の完全な一覧は以下を参照してください:
+@uref{https://www.microsoft.com/typography/otspec/featurelist.htm}
+
+@noindent OpenType フォントの機能を識別するには以下を参照してください:
+@uref{http://lists.gnu.org/archive/html/lilypond-devel/2017-08/msg00004.html}
+
 
 あらかじめ構成されているフォント間で切り替えを行う方が簡単ですが、@c
 他のフォントを使用することも可能です。@c
@@ -1597,12 +1683,86 @@ lilypond -dshow-available-fonts x
 }
 @end lilypond
 
+注: @code{make-pango-font-tree} は記譜フォントをデフォルトの Emmentaler に@c
+リセットします。
+
 @c we don't do Helvetica / Courier, since GS incorrectly loads
 @c Apple TTF fonts
+
+次の構文を使用することで、他をデフォルトの値のままにしつつ、特定のフォントを@c
+変更することができます。次の例は、上の @code{make-pango-font-tree} の例と@c
+同じ結果になります。@code{make-pango-font-tree} と同様に、@code{roman},
+@code{sans}, @code{typewriter} カテゴリに対してコンマ区切りの@q{フォント}の@c
+リストを指定します。譜のサイズをデフォルトの 20 pt から変更する必要がない@c
+場合、@code{#:factor (/ staff-height pt 20)} は不要です。
+
+@funindex set-global-fonts
+
+@example
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     #:roman "Times New Roman"
+     #:sans "Nimbus Sans,Nimbus Sans L"
+     #:typewriter "Luxi Mono"
+     #:factor (/ staff-height pt 20) ; 譜サイズを変更しない場合は不要
+    ))
+@}
+@end example
+
+記譜フォントを指定することもできます。@c
+次の例は、記譜フォントをデフォルトと同様に設定しているため、@c
+上の例と同じ結果になります。
+詳しい情報は、@ref{Replacing the notation font} を参照してください。
+
+@example
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     #:music "emmentaler"            ; デフォルト
+     #:brace "emmentaler"            ; デフォルト
+     #:roman "Times New Roman"
+     #:sans "Nimbus Sans,Nimbus Sans L"
+     #:typewriter "Luxi Mono"
+     #:factor (/ staff-height pt 20) ; 譜サイズを変更しない場合は不要
+    ))
+@}
+@end example
+
+注: @code{set-global-fonts} を呼び出すたびに、記譜フォントとテキスト
+フォントの両方を完全にリセットします。あるカテゴリが未指定であった場合、@c
+そのカテゴリのデフォルト値が使用されます。@c
+また、@code{set-global-fonts} は、その後の全ての @code{\book} ブロックに影響@c
+します。@c
+@code{\book} ブロックが複数あり、ブック毎に異なるフォントを使用したい場合、@c
+@code{set-global-fonts} を以下のように複数回呼び出します:
+
+@example
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     @dots{}
+    ))
+@}
+\book @{
+  @dots{}
+@}
+
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     @dots{}
+    ))
+@}
+\book @{
+  @dots{}
+@}
+@end example
 
 @seealso
 記譜法リファレンス:
 @ref{フォントの説明},
 @ref{個々に登録するフォント},
 @ref{フォントとフォント サイズを選択する},
-@ref{フォント}
+@ref{フォント},
+@ref{Replacing the notation font}

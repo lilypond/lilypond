@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: 9bb7fa99aa8bc7c14a45a42224545c726bb6c592
+    Translation of GIT committish: c286e07798cd57a4785c3701b2bbcf94721b0f11
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -47,6 +47,7 @@ LilyPond の入力フォーマットは非常に自由な形式であり、@c
 * LilyPond ファイル構造の紹介::
 * Score は (単一の) 複合的な音楽表記::
 * 音楽表記をネストする::
+* 入力音符の構造::
 * ネストされない括弧とタイ::
 @end menu
 
@@ -507,6 +508,46 @@ lower  = \relative { b,2 e }
 通常は小さなフォントで描かれます。@c
 これらはまだ紹介されていない追加のコマンドを必要とします。@c
 @ref{オブジェクトのサイズ} と @ruser{オッシア譜} を参照してください。
+
+
+@node 入力音符の構造
+@subsection 入力音符の構造
+@translationof Structure of a note entry
+
+LilyPond の入力における音符は、順番にピッチ、長さ、@c
+1 つ以上の@q{後置イベント} (省略可能) からなります。LilyPond における@c
+@q{後置イベント} は、アーティキュレーション、運指、弦番号、スラー、@c
+タイ、テキストなどを追加するものです。
+
+ピッチは、現在の音符名の言語
+(@ruser{Note names in other languages} で説明されています)
+に基づいて明示的に指定されます。ピッチが省略された場合、その音符の@c
+ピッチは前の音符と同じものになります。@ruser{Durations} を参照してください。@c
+@code{r} や @code{s} はピッチではないことに注意してください。
+
+長さは、数字と省略可能な 1 つ以上のドットからなります。長さが明示的に@c
+指定されない場合、その音符の長さは前の音符、和音、休符、@c
+空白休符と同じものになります。@ruser{Durations} を参照してください。
+
+後置イベントはこれらの後に付加するものです。例えば、@c
+c' の 8 分音符に、1 の運指記号、@c
+テヌート アーティキュレーション、スラーの開始、タイの開始、テキスト指示を@c
+付加したいとしましょう。これは以下のようになります:
+
+@lilypond[verbatim,quote]
+{ c'8-1--(~^\markup{"text annotation"} c' d') }
+@end lilypond
+
+@seealso
+学習マニュアル:
+@ref{Ties and slurs},
+@ref{Articulations and dynamics},
+@ref{Adding text}
+
+記譜法リファレンス:
+@ruser{Pitches},
+@ruser{Rhythms},
+@ruser{Expressive marks}
 
 
 @node ネストされない括弧とタイ

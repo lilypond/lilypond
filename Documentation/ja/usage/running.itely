@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: 5fb3f8cf17ce7b57d22584429d736f188e4827d7
+    Translation of GIT committish: c286e07798cd57a4785c3701b2bbcf94721b0f11
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -196,34 +196,6 @@ forfiles /s /p "C:\Documents\My Scores" /M *.ly /c "cmd /c lilypond @@file"
 
 @table @code
 
-@item -b, --bigpdfs
-@cindex bigpdfs
-
-通常より大きい PDF ファイルを生成します。@c
-（フォント最適化がほんの少しかまったく無くなるため。）@c
-しかし、2 つ以上の PDF ファイルを
-@w{@code{pdftex}}、@w{@code{xetex}} や @w{@code{luatex}}
-ドキュメントの中に組み込む場合、@c
-さらに ghostscript 処理で重複するフォントデータを統合し、@c
-@emph{著しく}　小さい PDF ファイルを得ることができます。
-
-@example
-lilypond -b myfile
-@end example
-
-それから @code{ghostscript} を呼び出します。
-
-@example
-gs -q -sDEVICE=pdfwrite -o gsout.pdf myfile.pdf
-@end example
-
-@code{pdfsizeopt.py} は、さらにサイズの最適化ができます。
-
-@example
-pdfsizeopt.py --use-multivalent=no gsout.pdf final.pdf
-@end example
-
-
 @item -d, --define-default=@var{var}=@var{val}
 @ref{LilyPond の高度なコマンド ライン オプション} を参照してください。
 
@@ -251,6 +223,9 @@ lilypond -e '(define-public a 42)'
 
 @warning{Windows ユーザはシングル クォートではなく、@c
 ダブル クォートを使う必要があります。}
+
+@item -E, --eps
+EPS ファイルを生成します。
 
 @cindex output, format (出力のフォーマット)
 @cindex format, output (出力のフォーマット)
@@ -284,6 +259,9 @@ init ファイルとして @var{file} をセットします (デフォルト: @f
 複数の -I オプションを与えることができます。@c
 検索は最初に指定されたディレクトリから開始され、@c
 入力ファイルが見つからない場合は次に指定されたディレクトリを検索します。
+
+@warning{チルド記号 -- @code{~} -- を @code{-I} と共に使用すると、@c
+シェルによっては予期しない結果をもたらす場合があります。}
 
 @cindex chroot jail, running inside (chroot jail 内部で実行する)
 
@@ -404,6 +382,19 @@ LilyPond が使用可能な CPU 時間を数秒に制限する
 入力ファイルから取ったファイル名で出力されます。@c
 適切な接尾辞が追加されます
 (つまり、pdf ならば拡張子 @code{.pdf} が追加されます)。
+
+@item -O, --pspdfopt
+@cindex pspdfopt
+
+pspdfopt を使用しない場合や、@w{@code{size}} パラメータを使用する場合は、@c
+LilyPond は非常に小さな PS/EPS/PDF ドキュメントを生成しようとします。
+
+@w{@code{TeX}} パラメータを使用する場合、LilyPond は PdfTeX, LuaTeX, XeTeX
+ドキュメントにインクルードされるのに最適化されたファイルを生成しようとします。
+
+LilyPond によって生成された PDF を TeX ドキュメントに複数インクルードしたい@c
+場合は、@w{@code{TeX-GS}} を使用し、TeX によって生成された PDF を
+GhostScript で後処理してください。
 
 @cindex PS (Postscript), output (PS (PostScript) 出力)
 @cindex Postscript (PS), output (PostScript (PS) 出力)
@@ -527,30 +518,7 @@ SVG ビュアーが対応していないことがあるので、@c
 @q{フォントリスト} や @q{フォントエイリアス} を使用しないことをお勧めします。@c
 @emph{Web Open Font Format} (WOFF) ファイルを使うときには、@c
 追加の @code{svg-woff} スイッチが必要となります。
-@end multitable
 
-@noindent
-@strong{SVG バッグエンド出力の注意:}
-デフォルトでは、SVG 出力には一般的な @code{font-family} の値
-@code{serif}, @code{sans-serif}, @code{monospace} が用いられます。@c
-そのため、@code{svg} バックエンドを使う場合は、@c
-ソースファイルで明示的に特定のデフォルトフォントを設定する必要があります;
-
-@quotation
-@verbatim
-\paper  {
-  #(define fonts
-    (make-pango-font-tree "TeX Gyre Schola"
-                          "TeX Gyre Heros"
-                          "TeX Gyre Cursor"
-                          (/ staff-height pt 20)))
-}
-@end verbatim
-@end quotation
-
-@ruser{ドキュメント全体のフォント} も参照してください。
-
-@multitable @columnfractions .33 .16 .51
 @item @code{check-internal-types}
 @tab @code{#f}
 @tab 全てのプロパティ代入について型チェックを行います。
@@ -561,6 +529,10 @@ SVG ビュアーが対応していないことがあるので、@c
 @code{\layout} ブロックに @code{clip-regions} 関数が定義されている必要が@c
 あります。@ruser{音楽の断片を抽出する}を参照してください。
 @option{-dno-print-pages} と一緒に用いられた場合、断片は全く出力されません。
+
+@item @code{crop}
+@tab @code{#f}
+@tab 通常の出力のサイズを、楽譜のサイズに合わせます。
 
 @item @code{datadir}
 @tab
@@ -734,6 +706,7 @@ SVG ビュアーが対応していないことがあるので、@c
 @item @code{print-pages}
 @tab @code{#t}
 @tab すべてのページを生成します。これがデフォルトです。@option{-dpreview}
+や @option{-dcrop}
 を使う場合は @option{-dno-print-pages} を組み合わせると有用です。
 
 @item @code{profile-property-accesses}
@@ -1311,7 +1284,10 @@ UTF-8 エンコードで保存されていない場合、@c
 移動しているように見えません。
 
 @seealso
+学習マニュアル:
 @rlearning{ボイスを明示的にインスタンス化する},
-@rlearning{実際の音楽からの例},
+@rlearning{実際の音楽からの例}
+
+記譜法リファレンス:
 @ruser{単一譜の多声},
 @ruser{衝突の解決}

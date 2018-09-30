@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: 9bb7fa99aa8bc7c14a45a42224545c726bb6c592
+    Translation of GIT committish: c286e07798cd57a4785c3701b2bbcf94721b0f11
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -821,7 +821,7 @@ Mutopia の作品を含む、 LilyPond で譜刻されたピアノ曲を表示�
 
 @divEnd
 
-@contactUsAbout{concerts or sheet music}
+@contactUsAbout{コンサートや楽譜}
 
 @divClass{column-center-bottom}
 @subheading どうですか？
@@ -1138,7 +1138,7 @@ LilyPond は、特に「標準」的でない場合に、最終的に望み通�
 
 @divEnd
 
-@contactUsAbout{news articles or testimonals}
+@contactUsAbout{ニュース記事や表彰}
 
 @divClass{column-center-bottom}
 @subheading どうですか？
