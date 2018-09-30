@@ -1187,7 +1187,7 @@ LilyPond は @emph{コンパイル} システムです:
 音符は英字と数字で表現されます。@c
 特殊なコマンドはバックスラッシュと一緒に入力します。
 
-@imageFloat{text-input-1-annotate,png,center}
+@imageFloat{text-input-1-annotate-ja,png,center}
 @imageFloat{text-input-1-output,png,center}
 
 臨時記号は違う名前で入力します。@c
@@ -1195,7 +1195,7 @@ LilyPond は @emph{コンパイル} システムです:
 付けます (これらは、オランダ語の音符名で、他の言語用もあります)。@c
 LilyPondがどこに臨時記号を付けるかを判断します。
 
-@imageFloat{text-input-2-annotate,png,center}
+@imageFloat{text-input-2-annotate-ja,png,center}
 @imageFloat{text-input-2-output,png,center}
 
 
@@ -1204,7 +1204,7 @@ LilyPondがどこに臨時記号を付けるかを判断します。
 
 リード譜を作るために、コードと歌詞を一緒に配置します:
 
-@imageFloat{text-input-pop-annotate,png,center}
+@imageFloat{text-input-pop-annotate-ja,png,center}
 @imageFloat{text-input-pop-output,png,center}
 
 
@@ -1217,20 +1217,20 @@ LilyPondがどこに臨時記号を付けるかを判断します。
 そのため、音符を変更すると常にパートとスコア両方に影響します。@c
 音符を共有するには、その音楽を変数に割り当てます:
 
-@imageFloat{text-input-parts-both-annotate,png,center}
+@imageFloat{text-input-parts-both-annotate-ja,png,center}
 
 
 この変数は、単一のパートに使うことができます
 (ここでは、移調され、複小節休符はまとめられています):
 
-@imageFloat{text-input-parts-single-annotate,png,center}
+@imageFloat{text-input-parts-single-annotate-ja,png,center}
 @imageFloat{text-input-parts-single-output,png,center}
 
 
 同じ変数をフル スコアで使うことができます
 (ここでは、コンサート ピッチです):
 
-@imageFloat{text-input-score-annotate,png,center}
+@imageFloat{text-input-score-annotate-ja,png,center}
 @imageFloat{text-input-score-output,png,center}
 
 
