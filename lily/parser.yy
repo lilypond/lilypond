@@ -696,11 +696,6 @@ assignment:
 		parser->lexer_->set_identifier (path, $5);
                 $$ = SCM_UNSPECIFIED;
 	}
-	| assignment_id ',' property_path '=' identifier_init {
-		SCM path = scm_cons ($1, $3);
-		parser->lexer_->set_identifier (path, $5);
-                $$ = SCM_UNSPECIFIED;
-	}
 	| markup_mode_word '=' identifier_init
 	{
 		if (scm_is_false (Lily::markup_function_p ($3)))
