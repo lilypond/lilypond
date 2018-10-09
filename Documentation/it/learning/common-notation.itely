@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 250f1bf95f84616b68932324d6b5026833080cc4
+    Translation of GIT committish: b942b1a18810fce7f61d3033507cc31c90e437f9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -38,7 +38,7 @@ un solo pentagramma.
 * Stanghette e controlli di battuta::
 * Altezze e armature di chiave::
 * Legature di valore e di portamento::
-* Articolazione e dinamiche::
+* Articolazioni e dinamiche::
 * Aggiungere il testo::
 * Code automatiche e manuali::
 * Comandi di tempo avanzati::
@@ -310,9 +310,10 @@ non come @code{c4 a4 a8 a8}.  Scrivere invece @code{c4 a4 8 8 }.
 
 Glossario musicale: @rglosnamed{slur,legatura di portamento}.
 
-Una @notation{legatura di portamento} è una linea curva che collega più note.  La
-nota iniziale e quella finale sono indicate rispettivamente con
-@code{(} e @code{)}.
+Una @notation{legatura di portamento} è una linea curva che collega più
+note.  La nota iniziale e quella finale sono indicate rispettivamente
+con @code{(} e @code{)}.  Notare che la parentesi di apertura @code{(}
+segue la prima nota della legatura.
 
 @lilypond[verbatim,quote]
 \relative { d''4( c16) cis( d e c cis d) e( d4) }
@@ -364,9 +365,12 @@ Guida alla notazione:
 @ruser{Legature di frase}.
 
 
-@node Articolazione e dinamiche
-@subsection Articolazione e dinamiche
-@translationof Articulation and dynamics
+@node Articolazioni e dinamiche
+@subsection Articolazioni e dinamiche
+@translationof Articulations and dynamics
+
+Le articolazioni e le dinamiche si indicano aggiungendo dei segni speciali
+dopo le note alle quali si applicano.
 
 @menu
 * Articolazioni::
@@ -509,6 +513,7 @@ Guida alla notazione:
 @cindex code, automatiche
 @cindex code, manuali
 @cindex code, a mano
+@cindex travature
 
 @funindex [ ... ]
 @funindex [
@@ -524,9 +529,11 @@ Tutte le @notation{travature} vengono disegnate automaticamente:
 \relative { a'8 ais d ees r d c16 b a8 }
 @end lilypond
 
-Se non ti piace il modo in cui vengono prodotte automaticamente le travature, è
-possibile sovrascriverle manualmente.  Per correggere soltanto una singola
-travatura, indica la prima nota da raggruppare con @code{[} e l'ultima con @code{]}.
+Se le travature automatiche non soddisfano le proprie esigenze, è possibile
+sovrascriverle manualmente.  Per correggere soltanto una singola travatura,
+indicare la prima nota da raggruppare con @code{[} e l'ultima con @code{]}.
+Notare che la parentesi di apertura @code{[} segue la prima nota della
+travatura.
 
 @lilypond[verbatim,quote]
 \relative { a'8[ ais] d[ ees r d] c16 b a8 }

@@ -285,7 +285,7 @@ La modifica di gruppi irregolari annidati che iniziano simultaneamente
 richiede l'uso di @code{\tweak}.
 
 Per modificare la durata delle note senza che appaia la parentesi
-quadra del gruppo irregolare, si veda @ref{Scaling durations}.
+quadra del gruppo irregolare, si veda @ref{Scalare le durate}.
 
 @predefined
 @code{\tupletUp},
@@ -335,10 +335,10 @@ Manuale di apprendimento:
 
 Guida alla notazione:
 @ref{Direzione e posizionamento},
-@ref{Time administration},
-@ref{Scaling durations},
+@ref{Gestione del tempo},
+@ref{Scalare le durate},
 @ref{Il comando tweak},
-@ref{Polymetric notation}.
+@ref{Notazione polimetrica}.
 
 Frammenti di codice:
 @rlsr{Rhythms}.
@@ -415,13 +415,13 @@ che mostra come la musica possa essere compressa e espansa:
 @end lilypond
 
 Questo comando torna utile nella notazione polimetrica, si veda
-@ref{Polymetric notation}.
+@ref{Notazione polimetrica}.
 
 @seealso
 Guida alla notazione:
-@ref{Tuplets},
-@ref{Invisible rests},
-@ref{Polymetric notation}.
+@ref{Gruppi irregolari},
+@ref{Pause invisibili},
+@ref{Notazione polimetrica}.
 
 Frammenti di codice:
 @rlsr{Rhythms}.
@@ -482,7 +482,7 @@ unire note dalle durate superiori all'unità di suddivisione della misura:
 
 Per legare una successione di note la cui durata si prolunga per più
 misure intere, è più semplice ricorrere alla suddivisione automatica
-delle note, come è spiegato in @ref{Automatic note splitting}.  Questo metodo
+delle note, come è spiegato in @ref{Divisione automatica delle note}.  Questo metodo
 divide automaticamente le note lunghe e le connette da misura a misura.
 
 @cindex legature di valore e accordi
@@ -587,7 +587,7 @@ Si possono specificare modelli di tratteggiatura personalizzati:
 
 Le definizioni dei modelli di tratteggiatura delle legature di valore hanno la
 stessa struttura di quelle per le legature di portamento. I dettagli relativi
-ai modelli complessi di tratteggiatura sono trattati in @ref{Slurs}.
+ai modelli complessi di tratteggiatura sono trattati in @ref{Legature di portamento}.
 
 Sovrascrivere le proprietà di formattazione @var{whiteout} e @var{layer}
 degli oggetti che devono creare uno spazio vuoto tra le legature di valore.
@@ -632,8 +632,8 @@ Glossario musicale:
 @rglos{laissez vibrer}.
 
 Guida alla notazione:
-@ref{Slurs},
-@ref{Automatic note splitting}.
+@ref{Legature di portamento},
+@ref{Divisione automatica delle note}.
 
 Frammenti di codice:
 @rlsr{Expressive marks},
@@ -707,7 +707,7 @@ Le durate più lunghe di un intero usano i seguenti comandi predefiniti:
 
 Le pause d'intero, poste al centro della misura, devono essere inserite
 come pause multiple.  Si possono usare sia per una sola misura sia
-su più misure, come è spiegato in @ref{Full measure rests}.
+su più misure, come è spiegato in @ref{Pause d'intero}.
 
 @cindex pausa, specificare la posizione verticale
 
@@ -734,7 +734,7 @@ Glossario musicale:
 @rglos{maxima}.
 
 Guida alla notazione:
-@ref{Full measure rests}.
+@ref{Pause d'intero}.
 
 Frammenti di codice:
 @rlsr{Rhythms}.
@@ -829,8 +829,8 @@ Manuale di apprendimento:
 @rlearning{Visibilità e colore degli oggetti}.
 
 Guida alla notazione:
-@ref{Hidden notes},
-@ref{Visibility of objects}.
+@ref{Note nascoste},
+@ref{Visibilità degli oggetti}.
 
 Frammenti di codice:
 @rlsr{Rhythms}.
@@ -996,9 +996,9 @@ Glossario musicale:
 
 Guida alla notazione:
 @ref{Durata},
-@ref{Text},
+@ref{Testo},
 @ref{Formattazione del testo},
-@ref{Text scripts}.
+@ref{Scritte}.
 
 Frammenti di codice:
 @rlsr{Rhythms}.
@@ -1058,7 +1058,7 @@ L'indicazione di tempo si imposta così:
 \time 3/4 c''2.
 @end lilypond
 
-I cambi di indicazione di tempo a metà misura sono trattati in @ref{Upbeats}.
+I cambi di indicazione di tempo a metà misura sono trattati in @ref{Anacrusi}.
 
 @cindex indicazione di tempo, visibilità dell'
 @cindex visibilità dell'indicazione di tempo
@@ -1066,7 +1066,7 @@ I cambi di indicazione di tempo a metà misura sono trattati in @ref{Upbeats}.
 Le indicazioni di tempo appaiono all'inizio di un brano e ogni volta
 che l'indicazione cambia.  Se il cambio ha luogo alla fine di un rigo,
 appare un'indicazione di tempo di precauzione.  Si può modificare questo
-comportamento predefinito, come è spiegato in @ref{Visibility of objects}.
+comportamento predefinito, come è spiegato in @ref{Visibilità degli oggetti}.
 
 @lilypond[quote,verbatim]
 \relative c'' {
@@ -1178,7 +1178,7 @@ battiti nella misura, nell'unità di @code{@var{baseMomentFraction}}.
 @item
 @code{@var{beamExceptions}}, una lista di associazione (@emph{alist}) che contiene
 regole di disposizione delle travature che vanno oltre la fine ad ogni
-battito, come descritto in @ref{Setting automatic beam behavior}.
+battito, come descritto in @ref{Impostare il comportamento delle travature automatiche}.
 @end enumerate
 
 
@@ -1251,7 +1251,7 @@ di tempo per righi diversi spostando @code{Timing_translator} e
 
 Un ulteriore metodo per modificare queste variabili relative all'indicazione di
 tempo, che evita di mostrare di nuovo l'indicazione di tempo al momento del
-cambio, è descritto in @ref{Setting automatic beam behavior}.
+cambio, è descritto in @ref{Impostare il comportamento delle travature automatiche}.
 
 @predefined
 @code{\numericTimeSignature},
@@ -1269,8 +1269,8 @@ Glossario musicale:
 
 Guida alla notazione:
 @ref{Mensural time signatures},
-@ref{Setting automatic beam behavior},
-@ref{Time administration}.
+@ref{Impostare il comportamento delle travature automatiche},
+@ref{Gestione del tempo}.
 
 File installati:
 @file{scm/time-signature-settings.scm}.
@@ -1486,7 +1486,7 @@ Glossario musicale:
 @rglosnamed{anacrusis,anacrusi}.
 
 Guida alla notazione:
-@ref{Grace notes}.
+@ref{Abbellimenti}.
 
 Frammenti di codice:
 @rlsr{Rhythms}.
@@ -1576,7 +1576,7 @@ in @ref{Alterazioni}.
 
 La disposizione automatica delle travature viene disabilitata da
 @code{\cadenzaOn}. Quindi tutte le travature nelle cadenze devono
-essere inserite manualmente.  Si veda @ref{Manual beams}.
+essere inserite manualmente.  Si veda @ref{Travature manuali}.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -1593,7 +1593,7 @@ essere inserite manualmente.  Si veda @ref{Manual beams}.
 Questi comandi predefiniti hanno effetto su tutti i righi di una partitura, anche
 quando inseriti in un solo contesto @code{Voice}.  Per modificare questo comportamento,
 si sposta @code{Timing_translator} dal contesto @code{Score} al contesto
-@code{Staff}.  Si veda @ref{Polymetric notation}.
+@code{Staff}.  Si veda @ref{Notazione polimetrica}.
 
 @predefined
 @code{\cadenzaOn},
@@ -1605,9 +1605,9 @@ Glossario musicale:
 @rglos{cadenza}.
 
 Guida alla notazione:
-@ref{Visibility of objects},
-@ref{Polymetric notation},
-@ref{Manual beams},
+@ref{Visibilità degli oggetti},
+@ref{Notazione polimetrica},
+@ref{Travature manuali},
 @ref{Alterazioni}.
 
 Frammenti di codice:
@@ -1788,9 +1788,9 @@ Glossario musicale:
 
 Guida alla notazione:
 @ref{Travature automatiche},
-@ref{Manual beams},
-@ref{Time signature},
-@ref{Scaling durations}.
+@ref{Travature manuali},
+@ref{Indicazione di tempo},
+@ref{Scalare le durate}.
 
 Frammenti di codice:
 @rlsr{Rhythms}.
@@ -2040,7 +2040,7 @@ Le travature sono inserite automaticamente:
 
 Se queste impostazioni automatiche non sono soddisfacenti, si può definire
 esplicitamente la disposizione delle travature, come è spiegato in
-@ref{Manual beams}.  Le travature @emph{devono} essere inserite
+@ref{Travature manuali}.  Le travature @emph{devono} essere inserite
 manualmente se devono estendersi oltre le pause.
 
 La disposizione automatica delle travature, se non necessaria, può essere
@@ -2066,7 +2066,7 @@ insieme a @code{@bs{}autoBeamOff} può produrre risultati imprevisti.  Si vedano
 frammenti di codice per avere maggiori informazioni.}
 
 Si possono creare dei modelli di disposizione delle travature diversi da
-quelli automatici predefiniti, come è spiegato in @ref{Setting automatic beam behavior}.
+quelli automatici predefiniti, come è spiegato in @ref{Impostare il comportamento delle travature automatiche}.
 
 @predefined
 @code{\autoBeamOff},
@@ -2094,8 +2094,8 @@ quelli automatici predefiniti, come è spiegato in @ref{Setting automatic beam b
 
 @seealso
 Guida alla notazione:
-@ref{Manual beams},
-@ref{Setting automatic beam behavior}.
+@ref{Travature manuali},
+@ref{Impostare il comportamento delle travature automatiche}.
 
 File installati:
 @file{scm/auto-beam.scm}.
@@ -2139,7 +2139,7 @@ delle travature è determinata da tre proprietà di contesto:
 @code{baseMoment}, @code{beatStructure} e @code{beamExceptions}.
 I valori predefiniti di queste variabili possono essere sovrascritti, come
 vedremo tra breve, oppure si possono anche cambiare i valori predefiniti stessi,
-come è spiegato in @ref{Time signature}.
+come è spiegato in @ref{Indicazione di tempo}.
 
 Se è definita una regola @code{beamExceptions} per l'indicazione di
 tempo corrente, tale regola soltanto determina la
@@ -2269,7 +2269,7 @@ compatibile col nuovo valore di @code{baseMoment}.
 @code{baseMoment} è un @i{momento}, ovvero un'unità della durata musicale.  Una
 quantità di tipo @i{moment} viene creata dalla funzione scheme
 @code{ly:make-moment}.  Per maggiori informazioni su questa funzione, si
-veda @ref{Time administration}.
+veda @ref{Gestione del tempo}.
 
 Per impostazione predefinita, @code{baseMoment} ha un valore di uno fratto il
 denominatore dell'indicazione di tempo.  Le eccezioni a questa regola si
@@ -2327,7 +2327,7 @@ ai valori predefiniti.
 
 Le impostazioni predefinite della disposizione automatica delle travature per
 ogni tempo sono definite in @file{scm/time-signature-settings.scm}.  La loro
-modifica è descritta in @ref{Time signature}.
+modifica è descritta in @ref{Indicazione di tempo}.
 
 Molte impostazioni di travature automatiche per le indicazioni di tempo hanno
 un elemento @code{beamExceptions}.  Ad esempio, il tempo 4/4 cerca di creare
@@ -2439,7 +2439,7 @@ Le regole predefinite per le travature si trovano in
 
 @seealso
 Guida alla notazione:
-@ref{Time signature}.
+@ref{Indicazione di tempo}.
 
 File installati:
 @file{scm/time-signature-settings.scm}.
@@ -2488,7 +2488,7 @@ un solo rigo.
 Si possono cambiare anche le impostazioni predefinite delle travature, in modo
 che sia usata sempre la disposizione delle travature desiderata.  Le modifiche
 nelle impostazioni della travatura automatica per le indicazioni di tempo sono
-descritte in @ref{Time signature}.
+descritte in @ref{Indicazione di tempo}.
 
 @lilypond[quote,verbatim]
 <<
@@ -2603,7 +2603,7 @@ all'interno dell'intero raggruppamento.
 @seealso
 Guida alla notazione:
 @ref{Direzione e posizionamento},
-@ref{Grace notes}.
+@ref{Abbellimenti}.
 
 Frammenti di codice:
 @rlsr{Rhythms}.
@@ -2744,7 +2744,7 @@ di linea senza che appaia una stanghetta si usa:
 Questo comando inserirà una stanghetta invisibile e consentirà (senza però
 forzarla) un'interruzione di linea in questo punto.  Il conteggio dei
 numeri di battuta non incrementa.  Per forzare un'interruzione di linea
-si veda @ref{Line breaking}.
+si veda @ref{Interruzioni di linea}.
 
 @cindex stanghette manuali
 @cindex battuta, stanghette manuali
@@ -2852,7 +2852,7 @@ differiscono nel comportamento quando incontrano un'interruzione di linea:
 
 Sebbene LilyPond preveda l'inserimento manuale delle stanghette che indicano i ritornelli, ciò non consente il riconoscimento della musica
 come una sezione da ripetere.  Tali sezioni devono essere inserite
-con i vari comandi di ripetizione (vedi @ref{Repeats}), che creano
+con i vari comandi di ripetizione (vedi @ref{Ripetizioni}), che creano
 automaticamente le stanghette appropriate.
 
 Inoltre si può specificare @code{".|:-||"}, che è equivalente a
@@ -2904,7 +2904,7 @@ Esistono sei diverse combinazioni di ripetizioni e indicazioni di segno:
 
 Esiste inoltre un comando @code{\inStaffSegno} che crea una stanghetta
 con segno in congiunzione con un'appropriata stanghetta di ripetizione se
-usata con un comando @code{\repeat volta}, vedi @ref{Normal repeats}..
+usata con un comando @code{\repeat volta}, vedi @ref{Ripetizioni normali}..
 
 @funindex \defineBarLine
 @cindex stanghette, definire
@@ -3036,9 +3036,9 @@ Il tipo di stanghetta predefinita per le stanghette inserite automaticamente
 
 @seealso
 Guida alla notazione:
-@ref{Line breaking},
-@ref{Repeats},
-@ref{Grouping staves}.
+@ref{Interruzioni di linea},
+@ref{Ripetizioni},
+@ref{Raggruppare i righi}.
 
 File installati:
 @file{scm/bar-line.scm}.
@@ -3584,8 +3584,8 @@ Glossario musicale:
 @rglos{appoggiatura}.
 
 Guida alla notazione:
-@ref{Scaling durations},
-@ref{Manual beams}.
+@ref{Scalare le durate},
+@ref{Travature manuali}.
 
 File installati:
 @file{ly/grace-init.ly}.
@@ -3667,7 +3667,7 @@ Oppure si cambia esplicitamente la durata musicale:
 c'8 \acciaccatura @{ \scaleDurations 1/2 @{ c'8[ d' e' f' g'] @} @}
 @end example
 
-Vedi @ref{Scaling durations}.
+Vedi @ref{Scalare le durate}.
 
 
 @node Allineamento sulle cadenze
@@ -3794,7 +3794,7 @@ sedicesimi.
 @seealso
 Guida alla notazione:
 @ref{Numeri di battuta},
-@ref{Unmetered music}.
+@ref{Musica in tempo libero}.
 
 Frammenti di codice:
 @rlsr{Rhythms}.

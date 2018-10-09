@@ -72,10 +72,10 @@ Questa sezione spiega come aggiungere enfasi agli elementi interni al rigo.
 @funindex magnification->font-size
 
 @warning{@*
-Per le dimensioni del testo, leggere @ref{Selecting font and font size}.@*
-Per la dimensione del rigo, leggere @ref{Setting the staff size}.@*
-Per le citazioni in corpo piccolo, leggere @ref{Formatting cue notes}.@*
-Per i righi ossia, leggere @ref{Ossia staves}.}
+Per le dimensioni del testo, leggere @ref{Scelta del tipo di carattere e della dimensione}.@*
+Per la dimensione del rigo, leggere @ref{Impostare la dimensione del rigo}.@*
+Per le citazioni in corpo piccolo, leggere @ref{Formattazione delle notine}.@*
+Per i righi ossia, leggere @ref{Righi ossia}.}
 
 Per modificare la dimensione di un elemento della notazione senza cambiare
 anche la dimensione del rigo, si può specificare un fattore di ingrandimento
@@ -140,7 +140,7 @@ si duplicano le dimensioni del contesto @code{CueVoice}.
 
 @warning{Il comando @code{@bs{}magnifyMusic} @i{non} deve essere
 usato quando si ridimensiona anche il rigo.  Maggiori informazioni
- in @ref{Setting the staff size}.}
+ in @ref{Impostare la dimensione del rigo}.}
 
 @subsubsubheading Ridimensionare oggetti della formattazione individualmente
 
@@ -212,7 +212,7 @@ o la spaziatura orizzontale.   Per ridimensionare gambi, travature
 e spaziatura orizzontale insieme alla dimensione degli elementi della
 notazione (senza cambiare la dimensione del rigo), si usa il comando
 @code{\magnifyMusic} presentato prima.  Per ridimensionare tutto,
-compreso il rigo, leggere @ref{Setting the staff size}.
+compreso il rigo, leggere @ref{Impostare la dimensione del rigo}.
 
 Ogni volta che la @i{proprietà di contesto} @code{fontSize} è impostata, il
 suo valore viene aggiunto al valore della @i{proprietà del grob} @code{font-size}
@@ -289,10 +289,10 @@ di 11pt.
 
 @seealso
 Guida alla notazione:
-@ref{Selecting font and font size},
-@ref{Setting the staff size},
-@ref{Formatting cue notes},
-@ref{Ossia staves}.
+@ref{Scelta del tipo di carattere e della dimensione},
+@ref{Impostare la dimensione del rigo},
+@ref{Formattazione delle notine},
+@ref{Righi ossia}.
 
 File installati:
 @file{ly/music-functions-init.ly},
@@ -459,9 +459,9 @@ Manuale d'apprendimento:
 @rlearning{Visibilità e colore degli oggetti}.
 
 Guida alla notazione:
-@ref{Invisible rests},
-@ref{Visibility of objects},
-@ref{Hiding staves}.
+@ref{Pause invisibili},
+@ref{Visibilità degli oggetti},
+@ref{Nascondere i righi}.
 
 Frammenti:
 @rlsr{Editorial annotations}.

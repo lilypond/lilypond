@@ -3106,8 +3106,8 @@ dimensioni costituiscono una famiglia di caratteri tipografici.
 
 @seealso
 Guida alla notazione:
-@ref{Fonts},
-@ref{Special characters}.
+@ref{Tipi di carattere},
+@ref{Caratteri speciali}.
 
 
 @node grob
@@ -3177,7 +3177,7 @@ Manuale di apprendimento:
 @rlearning{Proprietà presenti nelle interfacce}.
 
 Guida alla notazione:
-@ref{Layout interfaces}.
+@ref{Interfacce di formattazione}.
 
 Guida al funzionamento interno:
 @rinternals{Graphical Object Interfaces}.

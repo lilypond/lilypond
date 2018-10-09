@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: c473929f7e9d1219a1fbe60ae0922d17c26fdefe
+    Translation of GIT committish: b942b1a18810fce7f61d3033507cc31c90e437f9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -132,7 +132,7 @@ sintassi:
 @end example
 
 I valori possibili per @code{@var{nome}} sono elencati in
-@ref{List of articulations}.  Ad esempio:
+@ref{Elenco delle articolazioni}.  Ad esempio:
 
 @lilypond[verbatim,quote]
 \relative {
@@ -185,7 +185,7 @@ R1\fermataMarkup
 @end lilypond
 
 Oltre alle articolazioni, si può attaccare alle note anche un testo,
-posto tra virgolette o in un blocco @code{\markup@{@}}.  Si veda @ref{Text scripts}.
+posto tra virgolette o in un blocco @code{\markup@{@}}.  Si veda @ref{Scritte}.
 
 Ulteriori informazioni sull'ordine degli oggetti Script e TextScript
 collegati alle note si trovano in @rlearning{Posizionamento degli oggetti}.
@@ -212,10 +212,10 @@ Manuale di apprendimento:
 @rlearning{Posizionamento degli oggetti}.
 
 Guida alla notazione:
-@ref{Text scripts},
+@ref{Scritte},
 @ref{Direzione e posizionamento},
-@ref{List of articulations},
-@ref{Trills}.
+@ref{Elenco delle articolazioni},
+@ref{Trilli}.
 
 File installati:
 @file{scm/script.scm}.
@@ -403,7 +403,7 @@ Le indicazioni testuali per i cambi di dinamica possono essere impiegate anche p
 
 
 Per creare nuove indicazioni dinamiche assolute o testi da allineare
-alle dinamiche, si veda @ref{New dynamic marks}.
+alle dinamiche, si veda @ref{Nuove indicazioni dinamiche}.
 
 @cindex dinamiche, posizionamento verticale
 @cindex posizionamento verticale delle dinamiche
@@ -499,11 +499,11 @@ Glossario Musicale:
 @rglos{decrescendo},
 @rglosnamed{hairpin,forcella}.
 Manuale di apprendimento:
-@rlearning{Articolazione e dinamiche}.
+@rlearning{Articolazioni e dinamiche}.
 
 Guida alla notazione:
 @ref{Direzione e posizionamento},
-@ref{New dynamic marks},
+@ref{Nuove indicazioni dinamiche},
 @ref{Miglioramento dell'output MIDI},
 @ref{Gestione delle dinamiche nel MIDI}.
 
@@ -628,12 +628,12 @@ moltoF = \tweak DynamicText.self-alignment-X #LEFT
 @end lilypond
 
 Le impostazioni dei tipi di carattere in modalità markup sono descritti in
-@ref{Selecting font and font size}.
+@ref{Scelta del tipo di carattere e della dimensione}.
 
 @seealso
 Guida alla notazione:
 @ref{Formattazione del testo},
-@ref{Selecting font and font size},
+@ref{Scelta del tipo di carattere e della dimensione},
 @ref{Miglioramento dell'output MIDI},
 @ref{Gestione delle dinamiche nel MIDI}.
 
@@ -694,7 +694,7 @@ sotto il rigo, come è spiegato in @ref{Direzione e posizionamento}.
 Tracciare due legature di portamento simultanee o sovrapposte richiede una
 particolare attenzione.  Di solito le legature di portamento più esterne
 indicano in realtà una legatura di frase e le legature di frase possono essere
-sovrapposte a una normale legatura, vedi @ref{Phrasing slurs}.  Quando invece
+sovrapposte a una normale legatura, vedi @ref{Legature di frase}.  Quando invece
 si vogliono usare molteplici legature di portamento normali in una sola
 voce, l'inizio e la fine di ogni legatura devono essere preceduti da un
 @code{\=} seguito da una chiave identificativa (un simbolo o un numero intero
@@ -806,7 +806,7 @@ Manuale di apprendimento:
 
 Guida alla notazione:
 @ref{Direzione e posizionamento},
-@ref{Phrasing slurs}.
+@ref{Legature di frase}.
 
 Frammenti:
 @rlsr{Expressive marks}.
@@ -850,7 +850,7 @@ sopra o sotto il rigo, come è spiegato in @ref{Direzione e posizionamento}.
 @cindex legatura di portamento, fraseggio multiplo
 
 Per inserire più legature di frase simultanee o sovrapposte si usa @code{\=},
-come per le normali legature di portamento (vedi @ref{Slurs}).
+come per le normali legature di portamento (vedi @ref{Legature di portamento}).
 
 @funindex \phrasingSlurDashed
 @funindex \phrasingSlurDotted
@@ -918,7 +918,7 @@ Si possono definire modelli di tratteggio personalizzati anche per le legature d
 Le definizioni dei modelli di tratteggio per le legature di frase hanno
 la stessa  struttura di quelle per le legature di portamento.  Per maggiori
 informazioni sui modelli complessi di tratteggio si consultino i frammenti
-in @ref{Slurs}.
+in @ref{Legature di portamento}.
 
 @predefined
 @code{\phrasingSlurUp},
@@ -938,7 +938,7 @@ Manuale di apprendimento:
 
 Guida alla notazione:
 @ref{Direzione e posizionamento},
-@ref{Slurs}.
+@ref{Legature di portamento}.
 
 Frammenti:
 @rlsr{Expressive marks}.
@@ -968,7 +968,7 @@ che indicano le travature manuali e le parentesi che indicano le legature
 di portamento e di frase devono essere poste prima di @code{\breathe}.
 
 Un respiro termina una travatura automatica; per evitare questo
-comportamento, si veda @ref{Manual beams}.
+comportamento, si veda @ref{Travature manuali}.
 
 @lilypond[verbatim,quote]
 \relative { c''8 \breathe d e f g2 }
@@ -1120,7 +1120,7 @@ nel file di input @file{.ly}.
 }
 @end lilypond
 
-Si possono adottare diversi stili di glissando.  Maggiori dettagli in @ref{Line styles}.
+Si possono adottare diversi stili di glissando.  Maggiori dettagli in @ref{Stili della linea}.
 
 
 @snippets
@@ -1141,7 +1141,7 @@ Glossario Musicale:
 @rglos{glissando}.
 
 Guida alla notazione:
-@ref{Line styles}.
+@ref{Stili della linea}.
 
 Frammenti:
 @rlsr{Expressive marks}.
@@ -1218,10 +1218,10 @@ Si possono creare simboli di arpeggio speciali @emph{in forma di parentesi}:
 @end lilypond
 
 Le proprietà del tratteggio della parentesi dell'arpeggio sono regolate
-dalla proprietà @code{'dash-definition}, descritta in @ref{Slurs}.
+dalla proprietà @code{'dash-definition}, descritta in @ref{Legature di portamento}.
 
 Gli arpeggi possono essere scritti in modo esplicito con le legature di
-valore.  Per maggiori dettagli si veda @ref{Ties}.
+valore.  Per maggiori dettagli si veda @ref{Legature di valore}.
 
 
 @predefined
@@ -1251,8 +1251,8 @@ Glossario Musicale:
 @rglos{arpeggio}.
 
 Guida alla notazione:
-@ref{Slurs},
-@ref{Ties}.
+@ref{Legature di portamento},
+@ref{Legature di valore}.
 
 Frammenti:
 @rlsr{Expressive marks}.
@@ -1328,7 +1328,7 @@ automaticamente il limite destro di quello precedente.
 
 I trilli possono essere anche combinati con le note di abbellimento.  La sintassi
 di questo costrutto e il metodo per posizionare in modo preciso gli abbellimenti
-sono descritti in @ref{Grace notes}.
+sono descritti in @ref{Abbellimenti}.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -1392,7 +1392,7 @@ Glossario Musicale:
 
 Guida alla notazione:
 @ref{Articolazioni e abbellimenti},
-@ref{Grace notes}.
+@ref{Abbellimenti}.
 
 Frammenti:
 @rlsr{Expressive marks}.

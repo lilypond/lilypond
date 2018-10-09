@@ -85,7 +85,7 @@ Il contesto @code{DrumStaff} crea un rigo di cinque linee impostato
 per una tipica batteria.  Ogni strumento viene mostrato con un
 simbolo diverso.  Gli strumenti si inseriscono nella modalità percussioni,
 che si attiva col comando @code{\drummode}: ogni strumento viene indicato
-con un nome.  Ulteriori dettagli in @ref{Percussion staves}.
+con un nome.  Ulteriori dettagli in @ref{Righi delle percussioni}.
 
 @lilypond[verbatim,quote]
 \new DrumStaff {
@@ -129,7 +129,7 @@ Glossario musicale:
 
 Guida alla notazione:
 @ref{Creazione e citazione di un contesto},
-@ref{Percussion staves},
+@ref{Righi delle percussioni},
 @ref{Mostrare i ritmi della melodia},
 @ref{Default tablatures},
 @ref{Pre-defined contexts},
@@ -217,7 +217,7 @@ le stanghette sono collegate da rigo a rigo.
 
 Il contesto @code{PianoStaff} è identico a @code{GrandStaff}, con l'unica
 differenza che permette di mostrare il nome dello strumento direttamente.  Ulteriori
-dettagli in @ref{Instrument names}.
+dettagli in @ref{Nomi degli strumenti}.
 
 @lilypond[verbatim,quote]
 \new PianoStaff \with { instrumentName = #"Piano" }
@@ -262,7 +262,7 @@ Glossario musicale:
 @rglosnamed{grand staff,accollatura}.
 
 Guida alla notazione:
-@ref{Instrument names},
+@ref{Nomi degli strumenti},
 @ref{Definizione di nuovi contesti}.
 
 Frammenti:
@@ -322,8 +322,8 @@ in @ref{Definizione di nuovi contesti}.
 
 @seealso
 Guida alla notazione:
-@ref{Grouping staves},
-@ref{Instrument names},
+@ref{Raggruppare i righi},
+@ref{Nomi degli strumenti},
 @ref{Definizione di nuovi contesti}.
 
 Frammenti:
@@ -384,7 +384,7 @@ in @code{\paper}.
 
 @seealso
 Guida alla notazione:
-@ref{Page layout}.
+@ref{Formattazione della pagina}.
 
 Frammenti:
 @rlsr{Staff notation}.
@@ -679,7 +679,7 @@ esempio.
 Altrimenti si può usare il comando @code{\RemoveAllEmptyStaves}
 per creare i righi ossia.  Questo metodo conviene quando i righi ossia
 si trovano subito dopo un'interruzione di linea.  Ulteriori informazioni
-su @code{\RemoveAllEmptyStaves} si trovano in @ref{Hiding staves}.
+su @code{\RemoveAllEmptyStaves} si trovano in @ref{Nascondere i righi}.
 
 @lilypond[verbatim,quote,ragged-right]
 <<
@@ -722,7 +722,7 @@ Manuale d'apprendimento:
 @rlearning{Lunghezza e spessore degli oggetti}.
 
 Guida alla notazione:
-@ref{Hiding staves}.
+@ref{Nascondere i righi}.
 
 Frammenti:
 @rlsr{Staff notation}.
@@ -800,7 +800,7 @@ elementi.}
 
 @noindent
 @code{\RemoveAllEmptyStaves} si può usare anche per creare sezioni ossia
-per un rigo.  I dettagli si trovano in @ref{Ossia staves}.
+per un rigo.  I dettagli si trovano in @ref{Righi ossia}.
 
 @predefined
 @code{\RemoveEmptyStaves},
@@ -817,10 +817,10 @@ Manuale d'apprendimento:
 Guida alla notazione:
 @ref{Modifica delle impostazioni predefinite di un contesto},
 @ref{Simbolo del rigo},
-@ref{Ossia staves},
-@ref{Hidden notes},
-@ref{Invisible rests},
-@ref{Visibility of objects}.
+@ref{Righi ossia},
+@ref{Note nascoste},
+@ref{Pause invisibili},
+@ref{Visibilità degli oggetti}.
 
 Frammenti:
 @rlsr{Staff notation}.
@@ -962,7 +962,7 @@ Ulteriori dettagli su queste impostazioni si trovano in
 
 Per impostare i nomi degli strumenti in altri contesti (come @code{ChordNames} o
 @code{FiguredBass}), si deve aggiungere l'incisore @code{Instrument_name_engraver}
-a quel contesto.  Ulteriori dettagli in @ref{Modifying context plug-ins}.
+a quel contesto.  Ulteriori dettagli in @ref{Modifica dei componenti aggiuntivi di un contesto}.
 
 @cindex nomi degli strumenti, modifica
 @cindex modificare i nomi degli strumenti
@@ -1009,7 +1009,7 @@ setFlute = {
 @seealso
 Guida alla notazione:
 @ref{paper variables for shifts and indents,,@code{@bs{}paper} variables for shifts and indents},
-@ref{Modifying context plug-ins}.
+@ref{Modifica dei componenti aggiuntivi di un contesto}.
 
 Frammenti:
 @rlsr{Staff notation}.
@@ -1189,12 +1189,12 @@ oboeNotes = \relative {
  }
 @end lilypond
 
-Le citazioni possono anche essere contrassegnate; si veda @ref{Using tags}.
+Le citazioni possono anche essere contrassegnate; si veda @ref{Uso delle etichette}.
 
 @seealso
 Guida alla notazione:
-@ref{Instrument transpositions},
-@ref{Using tags}.
+@ref{Trasporto strumentale},
+@ref{Uso delle etichette}.
 
 File installati:
 @file{scm/define-event-classes.scm}.
@@ -1289,7 +1289,7 @@ senza un esplicito contesto @code{CueVoice}.
 Per posizionamenti complessi delle notine, per esempio includere la
 trasposizione o inserire delle notine da varie sorgenti musicali, si
 possono usare i comandi @code{\cueDuring} o @code{\cueDuringWithClef}.  Questi
-sono delle varianti più specializzate di @code{\quoteDuring}, introdotto in @ref{Quoting other voices}
+sono delle varianti più specializzate di @code{\quoteDuring}, introdotto in @ref{Citare altre voci}
 nella sezione precedente.
 
 La sintassi è:
@@ -1462,7 +1462,7 @@ partitura.  Il comando @code{\killCues} toglie soltanto le note e gli
 eventi citati da @code{\cueDuring}.  Altre annotazioni relative alle citazioni in corpo più piccolo,
 come i cambi di chiave e il nome che identifica lo strumento sorgente,
 possono essere contrassegnate per includerle in modo selettivo nella
-partitura; si veda @ref{Using tags}.
+partitura; si veda @ref{Uso delle etichette}.
 
 @lilypond[verbatim,quote]
 fluteNotes = \relative {
@@ -1499,16 +1499,16 @@ bassoonNotes = \relative c {
 
 Altrimenti, i cambi di chiave e i nomi identificativi degli strumenti
 possono essere inseriti in una definizione, in modo da poterli riutilizzare,
-col comando @code{\addInstrumentDefinition} descritto in @ref{Instrument names}.
+col comando @code{\addInstrumentDefinition} descritto in @ref{Nomi degli strumenti}.
 
 @seealso
 Guida alla notazione:
-@ref{Quoting other voices},
-@ref{Instrument transpositions},
-@ref{Instrument names},
+@ref{Citare altre voci},
+@ref{Trasporto strumentale},
+@ref{Nomi degli strumenti},
 @ref{Chiave},
-@ref{Musical cues},
-@ref{Using tags}.
+@ref{Suggerimenti musicali},
+@ref{Uso delle etichette}.
 
 Frammenti:
 @rlsr{Staff notation}.

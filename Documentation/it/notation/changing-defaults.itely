@@ -136,7 +136,7 @@ I contesti sono organizzati in modo gerarchico:
 
 Questa sezione spiega la rilevanza delle definizioni di output quando
 si lavora coi contesti.  Esempi di vere definizioni di output sono
-illustrati dopo (vedi @ref{Changing all contexts of the same type}).
+illustrati dopo (vedi @ref{Modifica di tutti i contesti dello stesso tipo}).
 
 @cindex output, definizioni
 @cindex definizioni di output
@@ -153,7 +153,7 @@ Una definizione di output molto più semplice, usata per produrre l'output
 Midi, si specifica con @code{\midi}.  Molte altre definizioni di output
 sono usate da LilyPond internamente, come quando si usa la combinazione
 automatica delle parti (@ref{Combinazione automatica delle parti}) o si creano citazioni
-musicali (@ref{Quoting other voices}).
+musicali (@ref{Citare altre voci}).
 
 Le definizioni di output definiscono la relazione tra i contesti e le loro
 rispettive impostazioni predefinite.  Sebbene la maggior parte dei cambiamenti
@@ -297,7 +297,7 @@ Solitamente omesso così che sia creato implicitamente.
 
 Un contesto della voce usato per rappresentare note a dimensione ridotta, inteso
 soprattutto per aggiungere citazioni in corpo più piccolo a un rigo, vedi
-@ref{Formatting cue notes}.  Solitamente omesso così che sia creato implicitamente.
+@ref{Formattazione delle notine}.  Solitamente omesso così che sia creato implicitamente.
 
 @strong{@emph{ChordNames}}
 
@@ -498,7 +498,7 @@ Maggiori informazioni sull'associazione del testo vocale alla musica in
 
 Le proprietà di tutti i contesti di un certo tipo possono essere modificate
 in un blocco @code{\layout} (con una sintassi diversa), vedi
-@ref{Changing all contexts of the same type}.  Questo costrutto fornisce anche
+@ref{Modifica di tutti i contesti dello stesso tipo}.  Questo costrutto fornisce anche
 un mezzo per mantenere le istruzioni di formattazione separate dal contenuto
 musicale.  Se occorre modificare un solo contesto, bisogna usare un blocco
 @code{\with}, vedi @ref{Modifica di un solo contesto specifico}.
@@ -819,7 +819,7 @@ File installati:
 
 Le proprietà dei contesti e dei grob possono essere modificate con i comandi
 @code{\set} e @code{\override}, come è spiegato in
-@ref{Modifying properties}.  Questi comandi creano eventi musicali,
+@ref{Modifica delle proprietà}.  Questi comandi creano eventi musicali,
 rendendo effettivi i cambiamenti nel momento temporale in cui è
 elaborata la musica.
 
@@ -849,7 +849,7 @@ essere specificate in un blocco @code{\context} compreso in un qualsiasi
 blocco @code{\layout}.
 
 Le impostazioni per l'output Midi invece devono essere specificate separatamente
-in blocchi @code{\midi} (vedi @ref{Output definitions - blueprints for contexts}).
+in blocchi @code{\midi} (vedi @ref{Definizioni di output - gerarchia dei contesti}).
 
 Il blocco @code{\layout} deve trovarsi all'interno del blocco @code{\score}
 al quale si vuole applicare, dopo la musica.
@@ -1020,7 +1020,7 @@ comando che specifica la modalità:
 perché è il contesto implicito creato da queste forme brevi che deve essere
 modificato.  Vale la stessa considerazione per le altre forme brevi che
 indicano la modalità di inserimento (@code{\drums}, @code{\figures}), vedi
-@ref{Input modes}.
+@ref{Modalità di inserimento}.
 
 Le @q{modifiche di contesto}, essendo specificate in blocchi @code{\with} che
 si trovano all'interno della musica, avranno effetto su @emph{tutti} gli
@@ -1136,9 +1136,9 @@ Manuale di apprendimento:
 Guida alla notazione:
 @ref{Tutto sui contesti},
 @ref{Contesti del livello inferiore - voci},
-@ref{The set command},
-@ref{The override command},
-@ref{The layout block,,Il blocco @code{@bs{}layout}}.
+@ref{Il comando set},
+@ref{Il comando override},
+@ref{Il blocco layout}.
 
 
 @node Definizione di nuovi contesti
@@ -1469,15 +1469,15 @@ che contengono la prima strofa.
 
 Esempi che mostrano questo riposizionamento di contesti temporanei possono
 essere trovati altrove --- vedi @rlearning{Annidare le espressioni musicali},
-@ref{Modifying single staves} e @ref{Techniques specific to lyrics}.
+@ref{Modificare singoli righi} e @ref{Tecniche specifiche per il testo vocale}.
 
 @seealso
 Manuale di apprendimento:
 @rlearning{Annidare le espressioni musicali}.
 
 Guida alla notazione:
-@ref{Modifying single staves},
-@ref{Techniques specific to lyrics}.
+@ref{Modificare singoli righi},
+@ref{Tecniche specifiche per il testo vocale}.
 
 Utilizzo:
 @rprogram{Appare un rigo in più}.
@@ -1512,7 +1512,7 @@ c''-2
 @end lilypond
 
 Consultando la documentazione sulle istruzioni di diteggiatura (in
-@ref{Fingering instructions}), si nota:
+@ref{Indicazioni di diteggiatura}), si nota:
 
 @quotation
 @strong{Vedi anche}
@@ -2765,14 +2765,14 @@ accordo, vedi @ref{Printing chord names}.
 
 Viene attivata col comando @code{\drummode} e fa sì che l'input
 sia interpretato con la sintassi della notazione delle percussioni,
-vedi @ref{Basic percussion notation}.  La musica in modalità percussioni
+vedi @ref{Notazione di base per percussioni}.  La musica in modalità percussioni
 è elaborata come note percussive se inserita in un contesto @code{DrumStaff}.
 
 La modalità percussioni viene attivata anche col comando @code{\drums}.
 Anche questo fa sì che l'input che segue sia interpretato con la sintassi
 della notazione delle percussioni, ma in aggiunta crea implicitamente un
 nuovo contesto @code{DrumStaff} e elabora l'input come note percussive,
-vedi @ref{Basic percussion notation}.
+vedi @ref{Notazione di base per percussioni}.
 
 @subsubsubheading Modalità basso continuo
 
@@ -2807,7 +2807,7 @@ possono essere inseriti come testo (markup) sopra le note usando il comando
 
 Viene attivata col comando @code{\lyricmode} e fa sì che l'input
 sia interpretato come sillabe del testo vocale con durate opzionali
-e modificatori del testo associato, vedi @ref{Vocal music}.  L'input in
+e modificatori del testo associato, vedi @ref{Musica vocale}.  L'input in
 modalità testo vocale viene elaborato come sillabe del testo se inserite
 in un contesto @code{Lyrics}.
 
@@ -2825,7 +2825,7 @@ segue con la musica che lo precede, vedi @ref{Durate automatiche delle sillabe}.
 
 Viene attivata col comando @code{\markup}  e fa sì che l'input
 sia interpretato con la sintassi di markup, vedi
-@ref{Text markup commands}.
+@ref{Comandi per markup}.
 
 @subsubsubheading Modalità nota
 
@@ -2947,14 +2947,14 @@ Queste indicazioni hanno effetto su tutte le note finché non vengono annullate.
 
 Nella musica polifonica, generalmente è meglio specificare una voce esplicita
 invece di cambiare la direzione di un oggetto.  Maggiori informazioni
-in @ref{Multiple voices}.
+in @ref{Più voci}.
 
 @seealso
 Manuale di apprendimento:
 @rlearning{Oggetti interni al rigo}.
 
 Guida alla notazione:
-@ref{Multiple voices}.
+@ref{Più voci}.
 
 
 @node Distanze e misurazioni
@@ -2979,7 +2979,7 @@ altre unità di misura appendendo alla quantità @code{\mm}, @code{\cm},
 un pollice).  Le distanze della formattazione di pagina possono essere
 specificate anche in unità di misura proporzionali (vedi paragrafo seguente)
 appendendo @code{\staff-space} alla quantità.  La formattazione di pagina è
-trattata dettagliatamente in @ref{Page layout}.
+trattata dettagliatamente in @ref{Formattazione della pagina}.
 
 Le distanze proporzionali sono sempre specificate in unità di spazi
 rigo o, raramente, mezzo spazio rigo.  Lo spazio rigo è la distanza
@@ -2993,7 +2993,7 @@ tipi di carattere vengono ridimensionati automaticamente soltanto con i
 cambiamenti alla dimensione globale del rigo.  Questa permette quindi di
 variare facilmente la dimensione complessiva di una partitura.  I metodi
 per impostare la dimensione globale del rigo sono descritti in
-@ref{Setting the staff size}.
+@ref{Impostare la dimensione del rigo}.
 
 @funindex magstep
 
@@ -3012,8 +3012,8 @@ Manuale di apprendimento:
 @rlearning{Lunghezza e spessore degli oggetti}.
 
 Guida alla notazione:
-@ref{Page layout},
-@ref{Setting the staff size}.
+@ref{Formattazione della pagina},
+@ref{Impostare la dimensione del rigo}.
 
 
 @node Dimensioni
@@ -3393,7 +3393,7 @@ Il Manuale di apprendimento contiene un'introduzione a queste quattro tecniche
 in @rlearning{Visibilità e colore degli oggetti}.
 
 Esistono anche altre tecniche che sono specifiche di alcuni oggetti della
-formattazione.  Queste sono trattate in @ref{Special considerations}.
+formattazione.  Queste sono trattate in @ref{Considerazioni speciali}.
 
 @menu
 * Soppressione dello stampo::
@@ -3843,7 +3843,7 @@ Se @code{Y} non è impostata, il valore è calcolato a partire dalla posizione
 verticale dei punti di attacco sinistro e destro dell'estensore.
 
 Sono possibili altre modifiche degli estensori; maggiori dettagli in
-@ref{Spanners}.
+@ref{Estensori}.
 
 
 @node Rotazione degli oggetti
@@ -3934,7 +3934,7 @@ Manuale di apprendimento:
 
 Guida alla notazione:
 @ref{Come funziona la Guida al funzionamento interno},
-@ref{Modifying properties}.
+@ref{Modifica delle proprietà}.
 
 Estendere LilyPond:
 @rextend{Interfaces for programmers}.
@@ -3993,7 +3993,7 @@ oggetti.
 
 @seealso
 Guida alla notazione:
-@ref{Using the break-alignable-interface}.
+@ref{Uso di break-alignable-interface}.
 
 Estendere LilyPond:
 @rextend{Callback functions}.
@@ -4324,7 +4324,7 @@ Si tratta di impostare la proprietà @code{stencil} sulla procedura che stampa
 testo -- @code{ly:text-interface::print} -- e aggiungere una proprietà
 @code{text} all'oggetto impostato per contenere il testo markup che produce
 il simbolo richiesto.  Grazie alla flessibilità di markup, si può ottenere
-molto -- vedi in particolare @ref{Graphic notation inside markup}.
+molto -- vedi in particolare @ref{Notazione grafica nel blocco markup}.
 
 L'esempio seguente illustra questa procedura cambiando il simbolo della testa
 di nota con una croce iscritta in un cerchio.
@@ -4354,9 +4354,9 @@ vedi @ref{Graphic}.
 
 @seealso
 Guida alla notazione:
-@ref{Graphic notation inside markup},
+@ref{Notazione grafica nel blocco markup},
 @ref{Formattazione del testo},
-@ref{Text markup commands},
+@ref{Comandi per markup},
 @ref{Il font Emmentaler},
 @ref{Graphic}.
 
@@ -4893,12 +4893,12 @@ symbol?
 
 @noindent
 Un elenco dei tipi di predicati disponibili si trova in
-@ref{Predefined type predicates}.  Sono consentiti anche tipi di predicati
+@ref{Tipi di predicati predefiniti}.  Sono consentiti anche tipi di predicati
 definiti dagli utenti.
 
 @seealso
 Guida alla notazione:
-@ref{Predefined type predicates}.
+@ref{Tipi di predicati predefiniti}.
 
 Estendere LilyPond:
 @rextend{Music functions}.

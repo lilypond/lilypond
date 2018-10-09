@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: f3564f7f9706a8ec16a7b7e1c7d32b3c14588904
+    Translation of GIT committish: fd199a16c20f7641a0a5bf763759482a99334890
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -105,7 +105,7 @@ e altri elementi.  Di conseguenza, un accordo privo di note non ha una
 durata.  Qualsiasi articolazione attaccata a un accordo vuoto si troverà
 nel momento musicale della nota o accordo seguenti e si combinerà con
 questi (possibilità più complesse di combinazione sono spiegate in
-@ref{Simultaneous expressions}):
+@ref{Espressioni simultanee}):
 
 @lilypond[verbatim,quote]
 \relative {
@@ -142,8 +142,8 @@ Manuale d'apprendimento:
 Guida alla notazione:
 @ref{Chord notation},
 @ref{Articolazioni e abbellimenti},
-@ref{Relative octave entry},
-@ref{Multiple voices}.
+@ref{Ottava relativa},
+@ref{Più voci}.
 
 Frammenti:
 @rlsr{Simultaneous notes}.
@@ -156,7 +156,7 @@ A seconda della situazione, si può migliorare l'aspetto con
 @itemize
 
 @item
-l'uso temporaneo di @ref{Multiple voices},
+l'uso temporaneo di @ref{Più voci},
 @samp{<< f! \\ <e fis!> >>},
 
 @item
@@ -628,8 +628,8 @@ Manuale d'apprendimento:
 @rlearning{Definire esplicitamente le voci}.
 
 Guida alla notazione:
-@ref{Percussion staves},
-@ref{Invisible rests},
+@ref{Righi delle percussioni},
+@ref{Pause invisibili},
 @ref{Stems}.
 
 Frammenti:
@@ -1148,7 +1148,7 @@ Il comando @code{\partcombine} non è progettato per funzionare col
 testo vocale; al punto che se una delle voci è nominata in modo
 esplicito per poterle assegnare del testo, l'unione delle parti
 smette di funzionare.  Tuttavia, questo risultato si può ottenere
-usando un contesto @code{NullVoice}.  Vedi @ref{Polyphony with shared lyrics}.
+usando un contesto @code{NullVoice}.  Vedi @ref{Polifonia con testo in comune}.
 
 
 @snippets
@@ -1165,7 +1165,7 @@ Glossario Musicale:
 @rglosnamed{part,parte}.
 
 Guida alla notazione:
-@ref{Writing parts}.
+@ref{Scrittura delle parti}.
 
 Frammenti:
 @rlsr{Simultaneous notes}.
