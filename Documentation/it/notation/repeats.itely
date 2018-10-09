@@ -354,9 +354,9 @@ Glossario Musicale:
 
 Guida alla notazione:
 @ref{Stanghette},
-@ref{Modifying context plug-ins},
-@ref{Modifying ties and slurs},
-@ref{Time administration}.
+@ref{Modifica dei componenti aggiuntivi di un contesto},
+@ref{Modifica di legature di valore e di portamento},
+@ref{Gestione del tempo}.
 
 File installati:
 @file{ly/engraver-init.ly}.
@@ -392,7 +392,7 @@ del blocco dell'alternativa, sebbene questo metodo non funzioni
 in @code{TabStaff}.  Altri metodi che si possono adattare per indicare
 legature di portamento che continuano su varie note dei blocchi di
 alternativa, e che funzionano anche nei contesti @code{TabStaff},
-sono presentati in @ref{Modifying ties and slurs}.
+sono presentati in @ref{Modifica di legature di valore e di portamento}.
 
 Inoltre le legature di portamento non possono ricollegarsi dalla fine di
 un'alternativa all'inizio della ripetizione.

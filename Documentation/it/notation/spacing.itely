@@ -55,9 +55,9 @@ Due tipi di blocchi possono contenere le impostazioni di formattazione:
 @code{\paper} contiene le impostazioni di formattazione della pagina
 da applicare a tutte le partiture di un libro o di una parte,
 come l'altezza del foglio o se stampare o meno i numeri di pagina, etc.
-(vedi @ref{Page layout}).  Il blocco @code{\layout} contiene le impostazioni
+(vedi @ref{Formattazione della pagina}).  Il blocco @code{\layout} contiene le impostazioni
 di formattazione della partitura, come il numero di sistemi da usare o lo
-spazio tra i gruppi di righi, etc. (vedi @ref{Score layout}).
+spazio tra i gruppi di righi, etc. (vedi @ref{Formattazione della partitura}).
 
 @menu
 * Formattazione della pagina::
@@ -138,7 +138,7 @@ piè di pagina e titoli.
 @end itemize
 
 La funzione @code{set-paper-size} è trattata nella prossima
-sezione, @ref{Paper size and automatic scaling}.  Le variabili
+sezione, @ref{Formato carta e ridimensionamento automatico}.  Le variabili
 @code{\paper} che si occupano della formattazione della pagina sono
 trattate in sezioni successive.  Le definizioni di markup relative a
 intestazioni, piè di pagina e titoli sono trattate in
@@ -147,7 +147,7 @@ intestazioni, piè di pagina e titoli sono trattate in
 La maggior parte delle variabili @code{\paper} funzionano soltanto in
 un blocco @code{\paper}.  Le poche che funzionano anche in un blocco
 @code{\layout} sono elencate in
-@ref{The layout block,,Il blocco @code{@bs{}layout}}.
+@ref{Il blocco layout}.
 
 Se non indicato diversamente, tutte le variabili @code{\paper} che
 corrispondono a distanze sulla pagina sono misurate in millimetri,
@@ -188,9 +188,9 @@ L'equivalente Scheme dell'esempio precedente è:
 
 @seealso
 Guida alla notazione:
-@ref{Paper size and automatic scaling},
+@ref{Formato carta e ridimensionamento automatico},
 @ref{Titoli intestazioni e piè di pagina personalizzati},
-@ref{The layout block,,Il blocco @code{@bs{}layout}}.
+@ref{Il blocco layout}.
 
 File installati:
 @file{ly/paper-defaults-init.ly}.
@@ -257,7 +257,7 @@ posta @emph{prima} di qualsiasi altra funzione usata nello stesso blocco
 I formati carta sono definiti in @file{scm/paper.scm}, e sebbene sia
 possibile aggiungere formati personalizzati in questo file, tali aggiunte
 verrebbero sovrascritte da successivi aggiornamenti del software. I formati
-disponibili sono elencati in @ref{Predefined paper sizes}.
+disponibili sono elencati in @ref{Formati carta predefiniti}.
 
 @c An appendix entry exists for paper sizes but is not auto-generated
 
@@ -304,7 +304,7 @@ usato per la formattazione.
 @seealso
 Guida alla notazione:
 @ref{Ridimensionamento automatico al formato carta},
-@ref{Predefined paper sizes}.
+@ref{Formati carta predefiniti}.
 
 File installati:
 @file{scm/paper.scm}.
@@ -325,7 +325,7 @@ automatico non viene attivato se si impostano le variabili
 @code{paper-width} può influenzare altri valori (ma questo
 è un argomento diverso dal ridimensionamento ed è trattato in seguito).  Le
 funzioni @code{set-default-paper-size} e @code{set-paper-size} sono
-descritte in @ref{Setting the paper size}.
+descritte in @ref{Impostare il formato carta}.
 
 Le dimensioni verticali interessate dal ridimensionamento automatico
 sono @code{top-margin} e @code{bottom-margin} (vedi
@@ -436,7 +436,7 @@ non regolano la spaziatura dei righi dei singoli sistemi.
 La spaziatura interna ai sistemi è controllata dalle proprietà
 del grob, solitamente inserite in un blocco @code{\score} o
 @code{\layout} e non in un blocco @code{\paper}.  Vedi
-@ref{Flexible vertical spacing within systems}.
+@ref{Spaziatura verticale flessibile all'interno dei sistemi}.
 
 @menu
 * Struttura delle liste associative flessibili della spaziatura verticale::
@@ -526,7 +526,7 @@ l'ultima pagina usa la stessa spaziatura della pagina precedente,
 purché ci sia abbastanza spazio.
 
 I metodi specifici per modificare le liste associative (alist) sono
-trattati in @ref{Modifying alists}.  L'esempio seguente illustra i
+trattati in @ref{Modifica delle liste associative}.  L'esempio seguente illustra i
 due modi in cui queste possono essere modificate.  La prima dichiarazione
 aggiorna un elemento-valore individualmente, mentre la seconda ridefinisce
 completamente la variabile:
@@ -555,7 +555,7 @@ dei due elementi (vedi la descrizione precedente della struttura della
 lista associativa). Nei nomi di queste variabili il termine @q{@code{markup}}
 si riferisce sia ai @emph{titoli} (@code{bookTitleMarkup} o
 @code{scoreTitleMarkup}) sia ai @emph{markup di livello superiore} (vedi
-@ref{File structure}).  Tutte le distanze sono misurate in spazi rigo.
+@ref{Struttura del file}).  Tutte le distanze sono misurate in spazi rigo.
 
 Le impostazioni predefinite sono definite in @file{ly/paper-defaults-init.ly}.
 
@@ -615,7 +615,7 @@ livello superiore) di una pagina, quando non c'è alcun sistema tra i due.
 
 @seealso
 Guida alla notazione:
-@ref{Flexible vertical spacing within systems}.
+@ref{Spaziatura verticale flessibile all'interno dei sistemi}.
 
 File installati:
 @file{ly/paper-defaults-init.ly}.
@@ -909,7 +909,7 @@ Questa variabile può essere impostata anche in un blocco @code{\layout}.
 
 @seealso
 Guida alla notazione:
-@ref{Line breaking}.
+@ref{Interruzioni di linea}.
 
 
 @node Variabili di paper per l'interruzione di pagina
@@ -956,7 +956,7 @@ una pagina con numero dispari a una con numero pari, verrà solitamente
 favorita una formattazione in cui l'ultima pagina abbia un numero dispari.
 I punti preferiti per le voltate di pagina possono essere indicati
 manualmente col comando @code{\allowPageTurn} o automaticamente
-includendo l'incisore @code{Page_turn_engraver} (vedi @ref{Optimal page turning}).
+includendo l'incisore @code{Page_turn_engraver} (vedi @ref{Voltata di pagina ottimale}).
 
 Se le scelte disponibili per avere voltate di pagina adeguate sono
 insufficienti, LilyPond potrebbe inserire una pagina vuota all'interno
@@ -1004,13 +1004,13 @@ Valore predefinito: 2.
 
 @seealso
 Guida alla notazione:
-@ref{Page breaking},
-@ref{Optimal page breaking},
-@ref{Optimal page turning},
-@ref{Minimal page breaking},
-@ref{One-page page breaking},
-@ref{One-line page breaking},
-@ref{One-line-auto-height page breaking}.
+@ref{Interruzioni di pagina},
+@ref{Interruzione di pagina ottimale},
+@ref{Voltata di pagina ottimale},
+@ref{Interruzione di pagina minimale},
+@ref{Interruzione di pagina di una pagina},
+@ref{Interruzione di pagina su una linea},
+@ref{Interruzione di pagina su una linea con altezza automatica}.
 
 File installati:
 @file{ly/paper-defaults-init.ly}.
@@ -1168,8 +1168,8 @@ musica.  Le impostazioni che possono apparire in un blocco
 @end itemize
 
 La funzione @code{layout-set-staff-size} è spiegata nella prossima
-sezione, @ref{Setting the staff size}.  Le modifiche di contesto sono
-trattate in un capitolo separato; vedi @ref{Modifying context plug-ins} e
+sezione, @ref{Impostare la dimensione del rigo}.  Le modifiche di contesto sono
+trattate in un capitolo separato; vedi @ref{Modifica dei componenti aggiuntivi di un contesto} e
 @ref{Modifica delle impostazioni predefinite di un contesto}.
 
 Le variabili @code{\paper} che possono apparire in un blocco @code{\layout},
@@ -1586,8 +1586,8 @@ ogni 4 misure, usare:
 
 @seealso
 Guida alla notazione:
-@ref{paper variables for line breaking}
-@ref{The layout block}.
+@ref{Variabili di paper per l'interruzione di linea},
+@ref{Il blocco layout}.
 
 Frammenti:
 @rlsr{Spacing}.
@@ -1713,7 +1713,7 @@ pagina diversi per le diverse parti del libro.
 
 @seealso
 Guida alla notazione:
-@ref{paper variables for page breaking}.
+@ref{Variabili di paper per l'interruzione di pagina}.
 
 Frammenti:
 @rlsr{Spacing}.
@@ -1844,7 +1844,7 @@ solo in punti specifici.
 
 Ci sono due passi da seguire per usare questa funzione.  Prima
 occorre abilitarla nel blocco @code{\paper}, come è spiegato in
-@ref{Page breaking}.  Poi bisogna indicare alla funzione dove
+@ref{Interruzioni di pagina}.  Poi bisogna indicare alla funzione dove
 sono permesse le interruzioni di pagina.
 
 Ci sono due modi per fare il secondo passo.  Si può specificare
@@ -1910,7 +1910,7 @@ nei blocchi markup di livello superiore e tra una partitura e l'altra.
 
 @seealso
 Guida alla notazione:
-@ref{paper variables for line breaking}.
+@ref{Variabili di paper per l'interruzione di linea}.
 
 Frammenti:
 @rlsr{Spacing}.
@@ -1922,7 +1922,7 @@ n'è più d'uno, interferiranno uno con l'altro.
 
 @seealso
 Guida alla notazione:
-@ref{Vertical spacing}.
+@ref{Spaziatura verticale}.
 
 Frammenti:
 @rlsr{Spacing}.
@@ -2121,7 +2121,7 @@ associativa usata dalle variabili di spaziatura di @code{\paper}
 trattate in
 @ref{Flexible vertical spacing paper variables,,Variabili @code{@bs{}paper} della spaziatura verticale flessibile}.
 Metodi specifici per modificare queste liste sono spiegati in
-@ref{Modifying alists}.  Le proprietà dei grob devono essere
+@ref{Modifica delle liste associative}.  Le proprietà dei grob devono essere
 modificate con un comando @code{\override} dentro un blocco
 @code{\score} o @code{\layout} e non in un blocco
 @code{\paper}.
@@ -2267,7 +2267,7 @@ spaziatura per quel rigo.
 @seealso
 Guida alla notazione:
 @ref{Flexible vertical spacing paper variables,,Variabili @code{@bs{}paper} della spaziatura verticale flessibile},
-@ref{Modifying alists}.
+@ref{Modifica delle liste associative}.
 
 File installati:
 @file{ly/engraver-init.ly},
@@ -3596,7 +3596,7 @@ superiore dell'intervallo.
 
 @seealso
 Guida alla notazione:
-@ref{Setting the staff size}.
+@ref{Impostare la dimensione del rigo}.
 
 Frammenti:
 @rlsr{Spacing}.
@@ -3608,7 +3608,7 @@ Frammenti:
 
 L'output di @code{annotate-spacing} svela le dimensioni verticali molto
 dettagliatamente.  Maggiori informazioni su come modificare i margini e
-altre variabili di formattazione si trovano in @ref{Page layout}.
+altre variabili di formattazione si trovano in @ref{Formattazione della pagina}.
 
 Oltre ai margini, ci sono altre opzioni utili per salvare spazio:
 
@@ -3719,7 +3719,7 @@ così che sia applicata all'intera partitura.
 
 @seealso
 Guida alla notazione:
-@ref{Page layout},
+@ref{Formattazione della pagina},
 @ref{Modifica della spaziatura orizzontale}.
 
 Frammenti:

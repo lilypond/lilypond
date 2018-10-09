@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 4244c3a9fbf1f3ff2e20e665f92516d35b61de53
+    Translation of GIT committish: b942b1a18810fce7f61d3033507cc31c90e437f9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -42,6 +42,7 @@ descrizione completa del formato di input, si veda @ruser{Struttura del file}.
 * Introduzione alla struttura di un file di LilyPond::
 * La partitura è una (singola) espressione musicale composta::
 * Annidare le espressioni musicali::
+* Struttura dell'inserimento note::
 * Sul non annidamento di parentesi e legature di valore::
 @end menu
 
@@ -84,7 +85,7 @@ necessari.  LilyPond tratta un input come questo:
 
 @example
 \relative @{
-  c''4 a d c
+  c''4 a b c
 @}
 @end example
 
@@ -458,6 +459,49 @@ Gli ossia vengono spesso scritti senza armatura di chiave e senza
 tempo, e solitamente hanno un font più piccolo.  Richiedono ulteriori
 comandi che non sono stati ancora presentati.  Si veda @ref{Dimensione degli oggetti},
 e @ruser{Righi ossia}.
+
+
+
+@node Struttura dell'inserimento note
+@subsection Struttura dell'inserimento note
+@translationof Structure of a note entry
+
+L'inserimento di una nota in LilyPond consiste in un'altezza, seguita da
+una durata, seguita facoltativamente da uno o più @q{post-eventi}.  I post-eventi
+di LilyPond aggiungono elementi quali le articolazioni, le diteggiature, i
+numeri di corda, le legature di portamento e di valore e il testo esplicativo.
+
+L'altezza può essere definita esplicitamente usando il linguaggio di input
+corrente di LilyPond, come è descritto in @ruser{Nomi delle note in altre lingue}.
+L'altezza può essere omessa.  Quando viene omessa, l'altezza di una nota
+corrente sarà identica all'altezza della nota precedente nel file di
+input, vedi @ruser{Durate}.  Attenzione, né @code{r} né @code{s}
+sono un'altezza.
+
+La durata è composta da un numero e eventualmente da uno o più punti.  Se una
+durata non è definita esplicitamente, la durata di una nota corrente sarà la
+identica alla durata della nota, accordo, pausa o pausa spaziatrice precedenti,
+vedi @ruser{Durate}.
+
+I post-eventi seguono la nota alla quale sono collegate.  Supponiamo di voler
+scrivere un Do di un ottavo con diteggiatura 1, articolazione tenuto, una
+legatura di portamento e una legatura di valore che iniziano con la nota e
+un'annotazione testuale.  Ciò si può ottenere nel modo seguente:
+
+@lilypond[verbatim,quote]
+{ c'8-1--(~^\markup{"text annotation"} c' d') }
+@end lilypond
+
+@seealso
+Manuale di apprendimento:
+@ref{Legature di valore e di portamento},
+@ref{Articolazioni e dinamiche},
+@ref{Aggiungere il testo}.
+
+Guida alla notazione:
+@ruser{Altezze},
+@ruser{Ritmi},
+@ruser{Segni di espressione}.
 
 
 @node Sul non annidamento di parentesi e legature di valore

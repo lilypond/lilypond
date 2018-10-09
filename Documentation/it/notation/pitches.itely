@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-   Translation of GIT committish: f9d8763d2e83aa653582123d79731e029aea83d9
+   Translation of GIT committish: 2fc469f13046808836b1ed61ade7b362a71e2bd5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -328,7 +328,7 @@ Glossario musicale:
 @rglosnamed{Pitch names,Nomi delle altezze}.
 
 Guida alla notazione:
-@ref{Octave checks}.
+@ref{Controlli di ottava}.
 
 Frammenti di codice:
 @rlsrnamed{Pitches, Altezze}.
@@ -379,7 +379,7 @@ al nome della nota, un @notation{bemolle} aggiungendo @code{es}.  Come potete
 immaginare, un @notation{doppio diesis} o @notation{doppio bemolle}
 si ottengono aggiungendo @code{isis} o @code{eses}.  Questa sintassi è
 desunta dalla notazione olandese.  Per usare altri nomi
-per le alterazioni, si veda @ref{Note names in other languages}.
+per le alterazioni, si veda @ref{Nomi delle note in altre lingue}.
 
 @lilypond[verbatim,quote,fragment]
 \relative c'' { ais1 aes aisis aeses }
@@ -466,7 +466,7 @@ Manuale di apprendimento:
 Guida alla notazione:
 @ref{Alterazioni automatiche},
 @ref{Annotational accidentals (musica ficta)},
-@ref{Note names in other languages}.
+@ref{Nomi delle note in altre lingue}.
 
 Frammenti di codice:
 @rlsrnamed{Pitches, Altezze}.
@@ -576,12 +576,13 @@ possono variare a seconda della lingua adottata:
 @end multitable
 @end quotation
 
-In olandese, @code{aes} viene contratto in @code{as}, ma entrambe le
-forme sono accettate in LilyPond.  Analogalmente, sia @code{es} che
-@code{ees} sono accettati.  Lo stesso vale per
-@code{aeses}@tie{}/@tie{}@code{ases} e
-@code{eeses}@tie{}/@tie{}@code{eses}.  Talvolta solo questi nomi
-contratti sono definiti nei corrispondenti file della lingua.
+In olandese, norvegese e finlandese @code{aes} viene contratto in @code{as};
+in olandese e norvegese, tuttavia, entrambe le forme sono accettate da
+LilyPond.  Lo stesso vale per @code{es} e @code{ees}, @code{aeses} e
+@code{ases}, e infine @code{eeses} e @code{eses}.
+
+In tedesco e finlandese, LilyPond fornisce anche la forma più frequente
+@code{asas} per @code{ases}.
 
 @lilypond[verbatim,quote,fragment]
 \relative c'' { a2 as e es a ases e eses }
@@ -627,7 +628,7 @@ Gran parte delle lingue presentate qui sono comunemente associate
 alla musica classica occidentale, nota anche come
 @notation{Common Practice Period}.  Sono tuttavia supportati
 anche altezze e sistemi di accordatura alternativi: si veda
-@ref{Common notation for non-Western music}.
+@ref{Notazione comune per la musica non occidentale}.
 
 @seealso
 Glossario musicale:
@@ -635,7 +636,7 @@ Glossario musicale:
 @rglosnamed{Common Practice Period,Periodo di pratica comune}.
 
 Guida alla notazione:
-@ref{Common notation for non-Western music}.
+@ref{Notazione comune per la musica non occidentale}.
 
 File installati:
 @file{scm/define-note-names.scm}.
@@ -837,7 +838,7 @@ musicInBflat = @{ e4 @dots{} @}
 
 @noindent
 Per maggiori informazioni sugli strumenti traspositori,
-si veda @ref{Instrument transpositions}.
+si veda @ref{Trasporto strumentale}.
 
 
 @snippets
@@ -847,11 +848,11 @@ si veda @ref{Instrument transpositions}.
 
 @seealso
 Guida alla notazione:
-@ref{Instrument transpositions},
-@ref{Inversion},
-@ref{Modal transformations},
-@ref{Relative octave entry},
-@ref{Retrograde}.
+@ref{Trasporto strumentale},
+@ref{Inversione},
+@ref{Trasposizioni modali},
+@ref{Ottava relativa},
+@ref{Retrogradazione}.
 
 Frammenti di codice:
 @rlsrnamed{Pitches, Altezze}.
@@ -910,9 +911,9 @@ in un blocco @code{\relative}.}
 
 @seealso
 Guida alla notazione:
-@ref{Modal transformations},
-@ref{Retrograde},
-@ref{Transpose}.
+@ref{Trasposizioni modali},
+@ref{Retrogradazione},
+@ref{Trasposizione}.
 
 
 @node Retrogradazione
@@ -948,9 +949,9 @@ duraturo causeranno facilmente delle sorprese.
 
 @seealso
 Guida alla notazione:
-@ref{Inversion},
-@ref{Modal transformations},
-@ref{Transpose}.
+@ref{Inversione},
+@ref{Trasposizioni modali},
+@ref{Trasposizione}.
 
 
 @node Trasposizioni modali
@@ -966,7 +967,7 @@ frequentemente trasportato in differenti modi.  Può essere
 @notation{trasposto} per iniziare in punti diversi della scala o
 può essere @notation{invertito} rispetto a un punto cardine della scala.
 Può anche essere rovesciato per produrre il @notation{retrogrado}, si veda
-@ref{Retrograde}.
+@ref{Retrogradazione}.
 
 @warning{Le note che non si trovano all'interno della scala definita non
 vengono trasformate.}
@@ -1089,9 +1090,9 @@ motif = \relative { c'8. ees16 fis8. a16 b8. gis16 f8. d16 }
 
 @seealso
 Guida alla notazione:
-@ref{Inversion},
-@ref{Retrograde},
-@ref{Transpose}.
+@ref{Inversione},
+@ref{Retrogradazione},
+@ref{Trasposizione}.
 
 
 @node Aspetto delle altezze
@@ -1179,7 +1180,7 @@ chiavi dell'intavolatura è discussa in @ref{Default tablatures} e
 @cindex chiavi con notine (citazioni in corpo piccolo)
 
 Per mischiare le chiavi quando si usano le notine, leggere come si usano i comandi
-@code{\cueClef} e @code{\cueDuringWithClef} descritti in @ref{Formatting cue notes}.
+@code{\cueClef} e @code{\cueDuringWithClef} descritti in @ref{Formattazione delle notine}.
 
 @cindex chiave traspositrice
 @cindex trasposizione, chiave
@@ -1292,7 +1293,7 @@ Guida alla notazione:
 @ref{Gregorian clefs},
 @ref{Default tablatures},
 @ref{Custom tablatures},
-@ref{Formatting cue notes}.
+@ref{Formattazione delle notine}.
 
 File installati:
 @file{scm/parser-clef.scm}.
@@ -1519,7 +1520,7 @@ parti possono essere scritte a un'altezza diversa dall'@notation{intonazione rea
 In questi casi, è necessario specificare la chiave dello @notation{strumento traspositore},
 altrimenti l'output MIDI e le citazioni in altre parti produrranno
 altezze errate.  Per maggiori informazioni sulle citazioni, si veda
-@ref{Quoting other voices}.
+@ref{Citare altre voci}.
 
 @example
 \transposition @var{altezza}
@@ -1599,8 +1600,8 @@ Glossario musicale:
 @rglosnamed{transposing instrument,strumento traspositore}.
 
 Guida alla notazione:
-@ref{Quoting other voices},
-@ref{Transpose}.
+@ref{Citare altre voci},
+@ref{Trasposizione}.
 
 Frammenti di codice:
 @rlsrnamed{Pitches, Altezze}.
@@ -3127,7 +3128,7 @@ L'aspetto delle teste delle note può essere modificato:
 }
 @end lilypond
 
-L'elenco di tutti gli stili per le teste di nota è in @ref{Note head styles}.
+L'elenco di tutti gli stili per le teste di nota è in @ref{Stili delle teste di nota}.
 
 Lo stile barrato (@code{cross}) viene usato per rappresentare varie
 intenzioni musicali.  I seguenti comandi generici predefiniti modificano
@@ -3181,7 +3182,7 @@ Frammenti di codice:
 @rlsrnamed{Pitches, Altezze}.
 
 Guida alla notazione:
-@ref{Note head styles},
+@ref{Stili delle teste di nota},
 @ref{Note in un accordo},
 @ref{Indicating harmonics and dampened notes}.
 
@@ -3212,7 +3213,7 @@ Guida al funzionamento interno:
 La nota @q{easy play} inserisce il nome della nota dentro la testa.
 Viene usata nella musica per principianti.  Per rendere le lettere
 leggibili, occorrerebbe usare un carattere più grande.  A questo
-proposito si veda @ref{Setting the staff size}.
+proposito si veda @ref{Impostare la dimensione del rigo}.
 
 @lilypond[verbatim,quote]
 #(set-global-staff-size 26)
@@ -3239,7 +3240,7 @@ proposito si veda @ref{Setting the staff size}.
 
 @seealso
 Guida alla notazione:
-@ref{Setting the staff size}.
+@ref{Impostare la dimensione del rigo}.
 
 Frammenti di codice:
 @rlsrnamed{Pitches, Altezze}.
@@ -3349,14 +3350,14 @@ in base alla relativa maggiore:
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
 
-La lista completa di tutti gli stili delle teste si trova in @ref{Note head styles}.
+La lista completa di tutti gli stili delle teste si trova in @ref{Stili delle teste di nota}.
 
 @seealso
 Frammenti di codice:
 @rlsrnamed{Pitches, Altezze}.
 
 Guida alla notazione:
-@ref{Note head styles}.
+@ref{Stili delle teste di nota}.
 
 Guida al funzionamento interno:
 @rinternals{note-event},

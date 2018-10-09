@@ -23,7 +23,7 @@ formattazione) nelle partiture musicali.
 
 @noindent
 Alcuni elementi testuali che non sono trattati qui sono discussi in altre
-sezioni specifiche: @ref{Vocal music}, @ref{Titles and headers}.
+sezioni specifiche: @ref{Musica vocale}, @ref{Titles and headers}.
 
 @menu
 * Inserimento del testo::
@@ -41,7 +41,7 @@ Questa sezione presenta vari modi di aggiungere del testo a una partitura.
 @warning{Per scrivere caratteri accentati e speciali (come quelli di
 altre lingue), basta inserire semplicemente i caratteri nel file
 LilyPond, purché il file sia salvato in formato UTF-8.  Ulteriori informazioni
-in @ref{Text encoding}.}
+in @ref{Codifica del testo}.}
 
 @menu
 * Scritte::
@@ -174,7 +174,7 @@ può ottenere una formattazione diversa tramite i blocchi @code{\markup}, come
 @end lilypond
 
 Lo stile della linea, così come la stringa testuale, può essere definito come
-una proprietà dell'oggetto.  Questa sintassi è descritta in @ref{Line styles}.
+una proprietà dell'oggetto.  Questa sintassi è descritta in @ref{Stili della linea}.
 
 @funindex \textSpannerUp
 @funindex \textSpannerDown
@@ -200,7 +200,7 @@ LilyPond è capace di gestire un solo estensore del testo per ogni voce.
 
 @seealso
 Guida alla notazione:
-@ref{Line styles},
+@ref{Stili della linea},
 @ref{Dinamiche},
 @ref{Formattazione del testo}.
 
@@ -229,7 +229,7 @@ Guida al funzionamento interno:
 @funindex \markup
 
 Si possono aggiungere vari elementi testuali a una partitura tramite la
-sintassi descritta in @ref{Rehearsal marks}:
+sintassi descritta in @ref{Segni di chiamata}:
 
 @c \mark needs to be placed on a separate line (it's not
 @c attached to an object like \markup is). -vv
@@ -261,7 +261,7 @@ blocco @code{\markup}, come è spiegato in @ref{Formattazione del testo}:
 @noindent
 Questa sintassi permette anche di stampare segni speciali, come coda, segno
 o corona, se si specifica il nome appropriato del simbolo, come è spiegato
-in @ref{Music notation inside markup}:
+in @ref{Notazione musicale nel blocco markup}:
 
 @lilypond[quote,verbatim]
 \relative {
@@ -305,9 +305,9 @@ successiva.
 
 @seealso
 Guida alla notazione:
-@ref{Rehearsal marks},
+@ref{Segni di chiamata},
 @ref{Formattazione del testo},
-@ref{Music notation inside markup},
+@ref{Notazione musicale nel blocco markup},
 @ref{Il font Emmentaler}.
 
 Frammenti:
@@ -331,7 +331,7 @@ Guida al funzionamento interno:
 
 Un blocco @code{\markup} può esistere di per sé, fuori da qualsiasi
 blocco @code{\score}, come un'@tie{@qq{espressione di livello superiore}}.  Questa
-sintassi è descritta in @ref{File structure}.
+sintassi è descritta in @ref{Struttura del file}.
 
 @lilypond[verbatim,quote]
 \markup {
@@ -342,7 +342,7 @@ sintassi è descritta in @ref{File structure}.
 @noindent
 Ciò permette di stampare il testo in modo autonomo dalla musica, ed è
 utile soprattutto quando il file di input contiene vari brani musicali,
-come è spiegato in @ref{Multiple scores in a book}.
+come è spiegato in @ref{Molteplici partiture in un libro}.
 
 @lilypond[quote,verbatim]
 \score {
@@ -359,7 +359,7 @@ come è spiegato in @ref{Multiple scores in a book}.
 Blocchi di testo separati possono essere estesi per molte pagine, rendendo
 possibile la realizzazione di documenti o libri interamente con LilyPond.
 Questa funzionalità, e la sintassi specifica che richiede, è descritta
-in @ref{Multi-page markup}.
+in @ref{Testo formattato su più pagine}.
 
 @funindex \markup
 @funindex \markuplist
@@ -378,9 +378,9 @@ in @ref{Multi-page markup}.
 @seealso
 Guida alla notazione:
 @ref{Formattazione del testo},
-@ref{File structure},
-@ref{Multiple scores in a book},
-@ref{Multi-page markup}.
+@ref{Struttura del file},
+@ref{Molteplici partiture in un libro},
+@ref{Testo formattato su più pagine}.
 
 Frammenti:
 @rlsr{Text}.
@@ -498,11 +498,11 @@ allegro = \markup { \bold \large Allegro }
 
 @noindent
 Una lista completa dei comandi specifici di @code{\markup} si trova in
-@ref{Text markup commands}.
+@ref{Comandi per markup}.
 
 @seealso
 Guida alla notazione:
-@ref{Text markup commands}.
+@ref{Comandi per markup}.
 
 Frammenti:
 @rlsr{Text}.
@@ -650,7 +650,7 @@ prima e la seconda parola.
 @noindent
 Alcune di queste famiglie di caratteri, usate per elementi specifici come i
 numeri o le dinamiche, non forniscono tutti i caratteri, come accennato in
-@ref{New dynamic marks} e @ref{Manual repeat marks}.
+@ref{Nuove indicazioni dinamiche} e @ref{Indicazioni di ripetizione manuali}.
 
 @c \concat is actually documented in Align (it is not
 @c a font-switching command).  But we need it here. -vv
@@ -679,7 +679,7 @@ Una lista completa dei comandi per cambiare il tipo di carattere o per usare
 tipi di carattere personalizzati si trova in @ref{Font}.
 
 È possibile anche definire i propri gruppi di tipi di carattere, come
-è spiegato in @ref{Fonts}.
+è spiegato in @ref{Tipi di carattere}.
 
 @funindex \teeny
 @funindex \tiny
@@ -705,9 +705,9 @@ tipi di carattere personalizzati si trova in @ref{Font}.
 @seealso
 Guida alla notazione:
 @ref{Font},
-@ref{New dynamic marks},
-@ref{Manual repeat marks},
-@ref{Fonts}.
+@ref{Nuove indicazioni dinamiche},
+@ref{Indicazioni di ripetizione manuali},
+@ref{Tipi di carattere}.
 
 File installati:
 @file{scm/define-markup-commands.scm}.
@@ -784,7 +784,7 @@ L'allineamento orizzontale può essere ritoccato usando un valore numerico:
 Alcuni oggetti possono avere proprie procedure di allineamento, e dunque
 non sono influenzate da questi comandi.   È possibile spostare tali
 oggetti di markup tutti insieme, come mostrato ad esempio in
-@ref{Text marks}.
+@ref{Indicazioni testuali}.
 
 @cindex testo, allineamento verticale
 @cindex allineamento verticale del testo
@@ -962,7 +962,7 @@ Manuale d'apprendimento:
 
 Guida alla notazione:
 @ref{Align},
-@ref{Text marks}.
+@ref{Indicazioni testuali}.
 
 File installati:
 @file{scm/define-markup-commands.scm}.
@@ -1318,11 +1318,11 @@ una lista di \markuplists.
 @end itemize
 
 Una lista completa dei comandi che si possono usare con \markuplist si
-trova in @ref{Text markup list commands}.
+trova in @ref{Comandi per una lista di markup}.
 
 @seealso
 Guida alla notazione:
-@ref{Text markup list commands}.
+@ref{Comandi per una lista di markup}.
 
 Estendere LilyPond:
 @rextend{New markup list command definition}.
@@ -1393,7 +1393,7 @@ a'1^\markup {
 @noindent
 Tuttavia, tutti questi glifi, ad eccezione delle graffe di varie
 dimensioni contenute in @code{fetaBraces}, sono già utilizzabili
-con la sintassi ben più semplice descritta in @ref{Music notation inside markup}.
+con la sintassi ben più semplice descritta in @ref{Notazione musicale nel blocco markup}.
 
 Quando si usano i glifi contenuti in @code{fetaBraces}, la dimensione
 della graffa viene specificata dalla parte numerica del nome del glifo,
@@ -1401,7 +1401,7 @@ in unità arbitrarie.  Può essere specificato qualsiasi numero intero da
 @code{0} a @code{575} compresi, dove @code{0} corrisponde alla graffa
 più piccola.  Il valore ottimale deve essere determinato per tentativi.
 Questi glifi sono tutte graffe sinistre; le graffe destre si possono
-ottenere con la rotazione, vedi @ref{Rotating objects}.
+ottenere con la rotazione, vedi @ref{Rotazione degli oggetti}.
 
 Sono disponibili tre famiglie di font: il font @emph{roman} (con grazie), il
 font @emph{sans} (senza grazie) e il font monospaziato @emph{typewriter}.
@@ -1540,8 +1540,8 @@ possibile usare altri tipi, come viene spiegato nelle sezioni successive:
 @seealso
 Guida alla notazione:
 @ref{Il font Emmentaler},
-@ref{Music notation inside markup},
-@ref{Rotating objects},
+@ref{Notazione musicale nel blocco markup},
+@ref{Rotazione degli oggetti},
 @ref{Scelta del tipo di carattere e della dimensione},
 @ref{Font}.
 

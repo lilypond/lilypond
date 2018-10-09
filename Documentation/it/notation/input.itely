@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: e11c5effe2c19d8a551a8d51dc58842ab18af951
+    Translation of GIT committish: a9ade99e9a791fa45a6d56ad0a63c031888c9b86
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -102,7 +102,7 @@ gli esempi seguenti sono espressioni musicali:
 @end example
 
 I commenti sono un'eccezione a questa regola generale (altre eccezioni
-sono spiegate in @ref{File structure}).  Sia i commenti su una singola
+sono spiegate in @ref{Struttura del file}).  Sia i commenti su una singola
 riga che quelli multiriga delimitati da @code{%@{ @dots{} %@}} possono
 essere inseriti ovunque nel file di input: dentro o fuori un blocco
 @code{\score} e dentro o fuori la singola espressione musicale di
@@ -116,8 +116,8 @@ del file di input, quindi @file{fandangoperelefanti.ly} genererà
 @file{fandangoperelefanti.pdf}.
 
 Maggiori dettagli sui blocchi @code{\book} si trovano in
-@ref{Multiple scores in a book},
-@ref{Multiple output files from one input file} e @ref{File structure}.
+@ref{Molteplici partiture in un libro},
+@ref{Molteplici file di output da un unico file di input} e @ref{Struttura del file}.
 
 @seealso
 Manuale di apprendimento:
@@ -235,7 +235,7 @@ basta aggiungere molteplici blocchi @code{\book}, ognuno dei
 quali produrrà un file di output separato.
 Se non è specificato alcun blocco @code{\book} nel file di
 input, LilyPond tratterà implicitamente l'intero file come un
-singolo blocco @code{\book}, come è spiegato in @ref{File structure}.
+singolo blocco @code{\book}, come è spiegato in @ref{Struttura del file}.
 
 Nel generare molteplici file da un singolo file sorgente, LilyPond
 controlla che nessuno dei file di output di alcun blocco
@@ -371,7 +371,7 @@ queste definizioni viene inserita nel livello superiore, le definizioni
 vengono combinate, ma in caso di conflitto hanno precedenza le definizioni
 più recenti. Per sapere con precisione come ciò influisca sul blocco
 @code{\layout}, leggere
-@ref{The layout block,,Il blocco @code{@bs{}layout}}.
+@ref{Il blocco layout}.
 
 @item
 Un'espressione scheme diretta, come
@@ -382,7 +382,7 @@ Un'espressione scheme diretta, come
 Un blocco @code{\header}.  Se all'inizio del file, imposta il blocco
 dell'intestazione globale.  Questo è il blocco che contiene
 le impostazioni predefinite dei campi dei titoli come compositore,
-titolo, etc. per tutti i libri del file (vedi @ref{Titles explained}).
+titolo, etc. per tutti i libri del file (vedi @ref{Come funzionano i titoli}).
 
 @item
 Un blocco @code{\score}.  Questa partitura e altre eventuali partiture
@@ -534,8 +534,8 @@ Manuale di apprendimento:
 @rlearning{Come funzionano i file di input di LilyPond}.
 
 Guida alla notazione:
-@ref{Titles explained},
-@ref{The layout block,,Il blocco @code{@bs{}layout}}.
+@ref{Come funzionano i titoli},
+@ref{Il blocco layout}.
 
 
 @node Titoli e intestazioni
@@ -575,7 +575,7 @@ alcuni brani comprendono molte altre informazioni.
 @translationof Titles explained
 
 Ogni blocco @code{\book} in un singolo file di input produce un diverso
-file di output, vedi @ref{File structure}.  In ciascun file di output
+file di output, vedi @ref{Struttura del file}.  In ciascun file di output
 sono disponibili tre tipi di titolazioni: @emph{titoli del libro} all'inizio
 di ogni libro (@emph{book}), @emph{titoli della parte} all'inizio di ciascuna
 parte (@emph{bookpart}) e @emph{titoli del brano} all'inizio di ciascun
@@ -743,7 +743,7 @@ di tutti i brani, magari sovrascrivendo alcuni campi e sopprimendone altri:
 
 @seealso
 Guida alla notazione:
-@ref{File structure},
+@ref{Struttura del file},
 @ref{Formattazione predefinita dei titoli delle parti e dei brani},
 @ref{Formattazione personalizzata dei titoli}.
 
@@ -864,7 +864,7 @@ Manuale di apprendimento:
 
 Guida alla notazione:
 @ref{Formattazione personalizzata dei titoli},
-@ref{File structure}.
+@ref{Struttura del file}.
 
 File installati:
 @file{ly/titling-init.ly}.
@@ -1046,7 +1046,7 @@ compresi in un blocco @code{\score} possono essere stampati nello spazio
 dedicato al titolo del brano aggiungendo @code{print-all-headers} nel
 blocco @code{\paper}.  Lo svantaggio di questo metodo è che i campi testuali
 intesi esclusivamente per lo spazio del titolo della parte devono essere
-manualmente soppressi in ogni blocco @code{\score}.  Vedi @ref{Titles explained}.
+manualmente soppressi in ogni blocco @code{\score}.  Vedi @ref{Come funzionano i titoli}.
 
 Per evitare ciò, è meglio mettere il campo testuale desiderato nella
 definizione di @code{scoreTitleMarkup}. Nell'esempio seguente il campo
@@ -1120,7 +1120,7 @@ ad esso nella definizione di markup.
 
 @seealso
 Guida alla notazione:
-@ref{Titles explained}.
+@ref{Come funzionano i titoli}.
 
 
 @node Formattazione personalizzata di intestazioni e piè di pagina
@@ -1227,7 +1227,7 @@ verificano se l'output è una pagina singola.
 
 @seealso
 Guida alla notazione:
-@ref{Titles explained},
+@ref{Come funzionano i titoli},
 @ref{Formattazione predefinita dei titoli delle parti e dei brani}.
 
 File installati:
@@ -1592,7 +1592,7 @@ si può sopprimere la linea che collega l'oggetto commentato al segno:
 @end lilypond
 
 Altri esempi di segni personalizzati si trovano in
-@ref{Footnotes in stand-alone text}.
+@ref{Note a piè di pagina nel testo separato}.
 
 
 @node Note a piè di pagina nel testo separato
@@ -1676,7 +1676,7 @@ piè di pagina, preceduto dal @var{segno}.
 @end table
 
 Qualsiasi carattere facile da scrivere, come * o +, può essere usato come+
-segno, come è spiegato in @ref{Footnotes in music expressions}.  Altrimenti,
+segno, come è spiegato in @ref{Note a piè di pagina nelle espressioni musicali}.  Altrimenti,
 si possono usare gli alias ASCII (vedi @ref{Alias ASCII}):
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
@@ -1728,9 +1728,9 @@ Manuale di apprendimento:
 Guida alla notazione:
 @ref{Alias ASCII},
 @ref{Nuvoletta di aiuto},
-@ref{List of special characters},
-@ref{Text marks},
-@ref{Text scripts},
+@ref{Elenco dei caratteri speciali},
+@ref{Indicazioni testuali},
+@ref{Scritte},
 @ref{Unicode}.
 
 Guida al funzionamento interno:
@@ -2238,7 +2238,7 @@ intatta.
 
 Nel caso di partiture lunghe, conviene mettere le definizioni delle
 variabili in file separati da includere, vedi
-@ref{Including LilyPond files}.
+@ref{Inclusione di file LilyPond}.
 
 @node Uso delle etichette
 @unnumberedsubsubsec Uso delle etichette
@@ -2484,7 +2484,7 @@ Manuale di apprendimento:
 
 Guida alla notazione:
 @ref{Combinazione automatica delle parti},
-@ref{Including LilyPond files}.
+@ref{Inclusione di file LilyPond}.
 
 @knownissues
 Se si usa @code{\relative} prima di un'espressione musicale ottenuta
@@ -2523,7 +2523,7 @@ Manuale di apprendimento:
 @rlearning{Fogli di stile}.
 
 Guida alla notazione:
-@ref{Including LilyPond files}.
+@ref{Inclusione di file LilyPond}.
 
 
 @node Caratteri speciali
@@ -2722,7 +2722,7 @@ che localmente:
 
 @seealso
 Guida alla notazione:
-@ref{List of special characters}.
+@ref{Elenco dei caratteri speciali}.
 
 File installati:
 @file{ly/text-replacements.ly}.
@@ -2780,7 +2780,7 @@ separato per ciascuna linea.
 
 @seealso
 Guida alla notazione:
-@ref{The layout block}.
+@ref{Il blocco layout}.
 
 Utilizzo:
 @rprogram{Uso da linea di comando}.
@@ -3118,7 +3118,7 @@ lilypond -dmidi-extension=mid MyFile.ly
 
 Altrimenti, aggiungere la seguente espressione Scheme prima dell'inizio
 dei blocchi @code{\book}, @code{\bookpart} o @code{\score}.  Vedi
-@ref{File structure}.
+@ref{Struttura del file}.
 
 @example
 #(ly:set-option 'midi-extension "mid")
@@ -3126,7 +3126,7 @@ dei blocchi @code{\book}, @code{\bookpart} o @code{\score}.  Vedi
 
 @seealso
 Guida alla notazione:
-@ref{File structure},
+@ref{Struttura del file},
 @ref{Creazione di metadati per i file di output}.
 
 File installati:
@@ -3284,7 +3284,7 @@ File installati:
 
 @seealso
 Guida alla notazione:
-@ref{Score layout}.
+@ref{Formattazione della partitura}.
 
 Guida al funzionamento interno:
 @rinternals{Dynamic_performer}.
@@ -3351,7 +3351,7 @@ Manuale di apprendimento:
 
 Guida alla notazione:
 @ref{Segni di espressione},
-@ref{Score layout}.
+@ref{Formattazione della partitura}.
 
 File installati:
 @file{ly/performer-init.ly}.
@@ -3408,7 +3408,7 @@ Manuale di apprendimento:
 
 Guida alla notazione:
 @ref{Strumenti MIDI},
-@ref{Score layout}.
+@ref{Formattazione della partitura}.
 
 File installati:
 @file{scm/midi.scm}.
@@ -3474,7 +3474,7 @@ ricopiate per generare un output MIDI corretto.
 
 @seealso
 Guida alla notazione:
-@ref{Repeats}.
+@ref{Ripetizioni}.
 
 
 @node Mappatura dei canali MIDI
@@ -3600,7 +3600,7 @@ Le seguenti proprietà di contesto possono essere usate per applicare
 vari effetti MIDI alle note suonate sul canale MIDI associato col
 rigo, strumento MIDI o voce correnti (a seconda del valore della
 proprietà di contesto @code{Score.midiChannelMapping} e del contesto
-in cui si trova @code{Staff_performer}; vedi @ref{MIDI channel mapping}).
+in cui si trova @code{Staff_performer}; vedi @ref{Mappatura dei canali MIDI}).
 
 La modifica di queste proprietà di contesto avrà effetto su tutte le
 note suonate sul canale dopo il cambio, tuttavia alcuni effetti potrebbero
@@ -3741,7 +3741,7 @@ Manuale di apprendimento:
 @rlearning{Altre fonti di informazione}.
 
 Guida alla notazione:
-@ref{Score layout}.
+@ref{Formattazione della partitura}.
 
 File installati:
 @file{ly/articulate.ly}.
