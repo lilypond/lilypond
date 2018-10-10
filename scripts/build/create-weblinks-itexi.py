@@ -326,11 +326,11 @@ translations = {
         'Regression tests for ': 'Testes de regressão de ',
         'PDF of regtests for ': 'PDF dos testes de regressão de ',
         'abc2ly Regression tests for ': 'Testes de regressão de abc2ly de ',
-        'PDF of abc2ly regtests for ': 'PDF dos testos de regressão de abc2ly de ',
+        'PDF of abc2ly regtests for ': 'PDF dos testes de regressão de abc2ly de ',
         'lilypond-book Regression tests for ': 'Testes de regressão de lilypond-book de ',
         'PDF of lilypond-book regtests for ': 'PDF dos testes de regressão de lilypond-book de ',
         'MusicXML Regression tests for ': 'Testes de regressão de MusicXML de ',
-        'PDF of MusicXML regtests for ': 'PDF des testos de regressão de MusicXML de ',
+        'PDF of MusicXML regtests for ': 'PDF dos testes de regressão de MusicXML de ',
 
         'Doc tarball for ': 'Arquivo da documentação de ',
         },
