@@ -2806,7 +2806,7 @@ del @code{VerticalAxisGroup}.  Ulteriori dettagli in
 
 @menu
 * Spostare gli oggetti::
-* Correggere la sovrapposizione di elementi della notazione::
+* Correggere elementi della notazione sovrapposti::
 * Esempio musicale::
 @end menu
 
@@ -3085,8 +3085,8 @@ poter sapere quali proprietà si possono usare per spostarlo.
 @end multitable
 
 
-@node Correggere la sovrapposizione di elementi della notazione
-@subsection Correggere la sovrapposizione di elementi della notazione
+@node Correggere elementi della notazione sovrapposti
+@subsection Correggere elementi della notazione sovrapposti
 @translationof Fixing overlapping notation
 
 Vediamo ora come le proprietà presentate nella sezione precedente possano

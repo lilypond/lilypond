@@ -980,7 +980,7 @@ a evitare le collisioni.  LilyPond fornisce molti modi per aggiustare la colloca
 orizzontale delle note.  Per ora, non siamo ancora pronti a cercare di
 correggere questo problema, dunque dovremo aspettare fino a una
 prossima sezione -- si veda la proprietà @code{force-hshift} in
-@ref{Correggere la sovrapposizione di elementi della notazione}.
+@ref{Correggere elementi della notazione sovrapposti}.
 
 @warning{Il testo e gli @emph{spanner} (come le legature di portamento e di valore, le
 forcelle, etc.) non possono essere create @q{attraverso} le voci.}
