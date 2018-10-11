@@ -1,0 +1,724 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
+@ignore
+    Translation of GIT committish: 0bc29b2f588c81289ad772db9e774360acc86de9
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.19.80"
+
+@node Tastiera e altri strumenti multirigo
+@section Tastiera e altri strumenti multirigo
+@translationof Keyboard and other multi-staff instruments
+
+@lilypondfile[quote]{keyboard-headword.ly}
+
+Questa sezione tratta vari aspetti della notazione musicale che sono
+specifici degli strumenti a tastiera e di altri strumenti che vengono
+scritti su molti righi, come arpe e vibrafoni.  Ai fini di questa
+sezione, questo gruppo di strumenti multirigo viene chiamato @qq{tastiere}
+per brevità, anche se alcuni di questi strumenti non hanno una tastiera.
+
+@menu
+* Notazione comune per tastiere::
+* Pianoforte::
+* Fisarmonica::
+* Arpa::
+@end menu
+
+@node Notazione comune per tastiere
+@subsection Notazione comune per tastiere
+@translationof Common notation for keyboards
+
+Questa sezione tratta le questioni di notazione che riguardano la maggior
+parte degli strumenti a tastiera.
+
+@menu
+* Riferimenti per tastiere::
+* Modifica manuale del rigo::
+* Modifica automatica del rigo::
+* Linee del cambio rigo::
+* Gambi trasversali ai righi::
+@end menu
+
+@node Riferimenti per tastiere
+@unnumberedsubsubsec Riferimenti per tastiere
+@translationof References for keyboards
+
+@cindex righi del pianoforte
+@cindex pianoforte, righi
+@cindex righi, strumenti a tastiera
+@cindex righi, strumenti dotati di tasti
+@cindex strumenti a tastiera, righi
+@cindex strumenti dotati di tasti, righi
+@cindex pianoforte, musica, centrare le dinamiche
+@cindex dinamiche, centrarle nella musica per pianoforte
+@cindex musica per pianoforte, centrare le dinamiche
+@cindex dinamiche centrate nella musica per pianoforte
+
+@funindex PianoStaff
+
+Gli strumenti a tastiera vengono rappresentati solitamente con righi per
+pianoforte, ovvero due o più righi normali raggruppati da una parentesi
+graffa.  La stessa notazione viene usata anche per altri strumenti dotati
+di tasti.  La musica per organo viene scritta normalmente con due righi
+all'interno di un gruppo @code{PianoStaff} più un terzo rigo normale
+per i pedali.
+
+I righi nella musica per tastiera sono molto indipendenti, ma talvolta
+le voci possono attraversare i due righi.  Questa sezione tratta tecniche
+di notazione specifiche della musica per tastiera.
+
+Varie questioni comuni della musica per tastiera sono discusse altrove:
+
+@itemize
+
+@item La musica per tastiera contiene solitamente varie voci, il cui
+numero può cambiare regolarmente, come è descritto in
+@ref{Risoluzione delle collisioni}.
+
+@item La musica per tastiera può essere scritta in parallelo, come è
+descritto in @ref{Scrivere la musica in parallelo}.
+
+@item Le dinamiche possono essere poste in un contesto @code{Dynamics},
+tra i due contesti @code{Staff}, per allineare le indicazioni dinamiche
+su una linea orizzontale centrata tra i righi; vedi @ref{Dinamiche}.
+
+@item Le diteggiature sono indicate con @ref{Indicazioni di diteggiatura}.
+
+@item Le indicazioni per i pedali dell'organo sono inserite come
+articolazioni, vedi @ref{Elenco delle articolazioni}.
+
+@item Le linee della griglia verticali possono essere mostrate con  le @ref{Linee della griglia}.
+
+@item La musica per tastiera contiene spesso legature di valore
+@notation{Laissez vibrer} così come legature di valore su arpeggi
+e tremoli, descritti in @ref{Legature di valore}.
+
+@item Il posizionamento di arpeggi attraverso molteplici voci e righi è
+trattato in @ref{Arpeggio}.
+
+@item I segni di tremolo sono descritti in @ref{Ripetizioni con tremolo}.
+
+@item Varie modifiche manuali che possono rendersi necessarie nella musica
+per tastiera sono illustrati in @rlearning{Esempio musicale}.
+
+@item Si possono usare le note nascoste per produrre delle legature di valore
+che attraversano le voci, come mostrato in @rlearning{Altri usi delle modifiche con \tweak}.
+
+@end itemize
+
+@c @snippets
+@c @lilypondfile[verbatim,quote,texidoc,doctitle]
+@c {forcing-visibility-of-systems-with-multi-bar-rests-when-using-\RemoveEmptyStaffContext.ly}
+@c http://lsr.di.unimi.it/LSR/Item?u=1&id=312
+
+@seealso
+Manuale di apprendimento:
+@rlearning{Esempio musicale},
+@rlearning{Altri usi delle modifiche con \tweak}.
+
+Guida alla notazione:
+@ref{Raggruppare i righi},
+@ref{Nomi degli strumenti},
+@ref{Risoluzione delle collisioni},
+@ref{Scrivere la musica in parallelo},
+@ref{Indicazioni di diteggiatura},
+@ref{Elenco delle articolazioni},
+@ref{Linee della griglia},
+@ref{Legature di valore},
+@ref{Arpeggio},
+@ref{Ripetizioni con tremolo}.
+
+Guida al funzionamento interno:
+@rinternals{PianoStaff}.
+
+Frammenti:
+@rlsr{Keyboards}.
+
+
+@node Modifica manuale del rigo
+@unnumberedsubsubsec Modifica manuale del rigo
+@translationof Changing staff manually
+
+@cindex cambiare manualmente il rigo
+@cindex modifica manuale del rigo
+@cindex rigo, cambi manuali
+@cindex note trasversali al rigo
+@cindex trasversali, note
+@cindex travature trasversali al rigo
+@cindex trasversali, travature
+
+@funindex \change
+
+Le voci possono essere passate a un altro rigo manualmente, usando il comando
+
+@example
+\change Staff = @var{nomerigo}
+@end example
+
+@noindent
+La stringa @var{nomerigo} è il nome del rigo.  Fa passare la voce corrente
+dal suo rigo corrente al rigo chiamato @var{nomerigo}.  Valori tipici di
+@var{nomerigo} sono @code{"su"} e @code{"giù"} o @code{"MD"} (mano destra)
+e @code{"MS"} (mano sinistra).
+
+Il rigo a cui viene passata la voce deve esistere nel momento dello
+scambio.  Se necessario, i righi devono essere @qq{conservati},
+vedi @ref{Conservazione di un contesto}.
+
+Le note trasversali al rigo hanno la travatura automatica:
+
+@lilypond[verbatim,quote]
+\new PianoStaff <<
+  \new Staff = "su" {
+    <e' c'>8
+    \change Staff = "giù"
+    g8 fis g
+    \change Staff = "su"
+    <g'' c''>8
+    \change Staff = "giù"
+    e8 dis e
+    \change Staff = "su"
+  }
+  \new Staff = "giù" {
+    \clef bass
+    % conserva il contesto
+    s1
+  }
+>>
+@end lilypond
+
+Se la disposizione delle travature deve essere modificata, modificare prima
+le direzioni dei gambi.  Le posizioni delle travature vengono quindi misurate
+dal centro del rigo che è più vicino alla travatura.  Un semplice esempio
+di modifica manuale della travatura è descritto in
+@rlearning{Correggere elementi della notazione sovrapposti}.
+
+@cindex collisioni trasversali ai righi
+@cindex collisioni, voci trasversali ai righi
+
+Alcuni elementi della notazione potranno sovrapporsi quando le voci sono
+trasversali ai righi:
+
+@lilypond[verbatim,quote]
+\new PianoStaff <<
+  \new Staff = "su" {
+    \voiceOne
+    % Fai spazio alla diteggiatura nella voce trasversale ai righi
+    \once\override DynamicLineSpanner.staff-padding = #4
+    e''2\p\< d''\>
+    c''1\!
+  }
+  \new Staff = "giù" <<
+    {
+      \clef bass
+      s4. e,8\rest g,2\rest
+      c1
+    } \\ {
+      c8\( g c'
+      \change Staff = "su"
+      e' g' b'-3 a' g'\)
+      f'1
+    }
+  >>
+>>
+@end lilypond
+
+Il gambo e la legatura di portamento si sovrappongono alla linea intermedia
+della dinamica, perché la risoluzione automatica delle collisioni è sospesa
+per travature, legature di portamento e altri estensori che collegano note
+di righi diversi, così come per gambi e articolazioni se il loro posizionamento
+è influenzato da un estensore trasversale ai righi.
+Le collisioni risultanti devono essere risolte manualmente, laddove necessario,
+usando i metodi descritti in @rlearning{Correggere elementi della notazione sovrapposti}.
+
+@seealso
+Manuale di apprendimento:
+@rlearning{Correggere elementi della notazione sovrapposti}.
+
+Guida alla notazione:
+@ref{Gambi},
+@ref{Travature automatiche},
+@ref{Conservazione di un contesto}.
+
+Frammenti:
+@rlsr{Keyboards}.
+
+Guida al funzionamento interno:
+@rinternals{Beam},
+@rinternals{ContextChange}.
+
+@knownissues
+Non è possibile evitare la collisione delle travature per le travature
+automatiche che terminano appena prima di un cambio di rigo.  In questo
+caso occorre usare le travature manuali.
+
+
+@node Modifica automatica del rigo
+@unnumberedsubsubsec Modifica automatica del rigo
+@translationof Changing staff automatically
+
+@cindex modifica automatica del rigo
+@cindex cambi automatici di rigo
+@cindex rigo, cambi automatici
+
+@funindex \autochange
+@funindex PianoStaff
+
+È possibile scambiare automaticamente le voci tra rigo superiore e inferiore.
+La sintassi è la seguente:
+
+@example
+\autochange @dots{}@var{musica}@dots{}
+@end example
+
+@noindent
+Ciò creerà due righi dentro il gruppo di righi corrente
+(solitamente un @code{PianoStaff}), chiamati @code{"up"} (su) e
+@code{"down"} (giù).  Il rigo più basso sarà in chiave di basso.
+La funzione di scambio automatico entra in azione in base all'altezza
+(il Do@tie{}centrale è il punto di svolta), e guarda in avanti saltando
+le pause per poter scambiare in anticipo.
+
+@lilypond[quote,verbatim]
+\new PianoStaff {
+  \autochange {
+    g4 a b c'
+    d'4 r a g
+  }
+}
+@end lilypond
+
+@noindent
+Si possono specificare altre altezze per il punto di svolta.
+Se i righi non sono istanziati esplicitamente, si possono usare altre chiavi.
+
+@lilypond[quote,verbatim]
+music = {
+  g8 b a c' b8 d' c'8 e'
+  d'8 r f' g' a'2
+}
+
+\autochange d' \music
+\autochange b \with { \clef soprano } \music
+\autochange d' \with { \clef alto } \with { \clef tenor } \music
+@end lilypond
+
+@cindex musica relativa e autochange
+@cindex autochange e musica relativa
+
+@funindex \relative
+
+Una sezione @code{\relative} che si trova fuori da @code{\autochange}
+non ha effetto sulle altezze della musica.  Dunque, se necessario, mettere
+@code{\relative} dentro @code{\autochange}.
+
+Se è richiesto ulteriore controllo sui righi individuali, possono essere
+creati manualmente coi nomi @code{"up"} e @code{"down"}.  Il comando
+@code{\autochange} scambierà allora la sua voce tra i righi esistenti.
+
+@warning{Se i righi sono creati manualmente, @emph{devono} chiamarsi
+@code{"up"} e @code{"down"}.}
+
+Per esempio, i righi devono essere creati manualmente per posizionare
+un'armatura di chiave nel rigo inferiore:
+
+@lilypond[quote,verbatim]
+\new PianoStaff <<
+  \new Staff = "up" {
+    \new Voice = "melOne" {
+      \key g \major
+      \autochange \relative {
+        g8 b a c b d c e
+        d8 r fis, g a2
+      }
+    }
+  }
+  \new Staff = "down" {
+    \key g \major
+    \clef bass
+  }
+>>
+@end lilypond
+
+@seealso
+Guida alla notazione:
+@ref{Modifica manuale del rigo}.
+
+Frammenti:
+@rlsr{Keyboards}.
+
+Guida al funzionamento interno:
+@rinternals{AutoChangeMusic}.
+
+
+@knownissues
+@cindex accordi, suddivisione sui righi con \autochange
+
+Gli scambi di rigo potrebbero finire in posizioni non ottimali.
+Per ottenere un risultato di alta qualità, i cambi di rigo devono
+essere specificati manualmente.
+
+Gli accordi non vengono divisi tra i righi; vengono assegnati a un
+rigo in base alla prima nota nominata nel costrutto dell'accordo.
+
+
+@node Linee del cambio rigo
+@unnumberedsubsubsec Linee del cambio rigo
+@translationof Staff-change lines
+
+@cindex linea del cambio rigo
+@cindex linea trasversale ai righi
+@cindex linea, staff-change follower
+@cindex trasversale ai righi, linea
+@cindex rigo, cambio del, linea
+@cindex segui voce
+@cindex voce, seguire
+@cindex cambio di rigo
+
+@funindex followVoice
+@funindex \showStaffSwitch
+@funindex \hideStaffSwitch
+
+Quando una voce passa a un altro rigo, è possibile stampare automaticamente
+una linea connettiva:
+
+@lilypond[quote,verbatim]
+\new PianoStaff <<
+  \new Staff = "uno" {
+    \showStaffSwitch
+    c'1
+    \change Staff = "due"
+    b2 a
+  }
+  \new Staff = "due" {
+    \clef bass
+    s1*2
+  }
+>>
+@end lilypond
+
+Una linea di cambio rigo tra accordi collega le @qq{ultime note} degli
+accordi come sono scritte nel file sorgente; ciò può essere utile per
+regolare velocemente le posizioni verticali di inizio e fine della linea.
+
+@lilypond[quote,verbatim]
+\new PianoStaff <<
+  \new Staff = "uno" {
+    <c' e' g'>1
+    \showStaffSwitch
+    \change Staff = "due"
+    <a c' f>1
+    \hideStaffSwitch
+    \change Staff = "uno"
+    <e' g' c'>1
+    \showStaffSwitch
+    \change Staff = "due"
+    <f a c'>1
+  }
+  \new Staff = "due" {
+    \clef bass
+    s1*4
+  }
+>>
+@end lilypond
+
+@predefined
+@code{\showStaffSwitch},
+@code{\hideStaffSwitch}.
+@endpredefined
+
+@seealso
+Frammenti:
+@rlsr{Keyboards}.
+
+Guida al funzionamento interno:
+@rinternals{Note_head_line_engraver},
+@rinternals{VoiceFollower}.
+
+
+@node Gambi trasversali ai righi
+@unnumberedsubsubsec Gambi trasversali ai righi
+@translationof Cross-staff stems
+
+@cindex note trasversali ai righi
+@cindex note che attraversano i righi
+@cindex gambi trasversali ai righi
+@cindex gambi che attraversano i righi
+@cindex trasversali ai righi, gambi
+@cindex trasversali ai righi, note
+@cindex accordi trasversali ai righi
+@cindex trasversali ai righi, accordi
+@cindex accordi che attraversano i righi
+
+@funindex Stem
+@funindex \crossStaff
+@funindex \autoBeamOff
+@funindex Span_stem_engraver
+
+È possibile produrre accordi trasversali ai righi usando
+l'incisore @code{Span_stem_engraver}. Occorre fare attenzione
+e assicurarsi che le travature automatiche non raggruppino
+le note su un rigo quando ciò non è richiesto nell'altro.
+
+@lilypondfile[verbatim,quote]
+{cross-staff-stems.ly}
+
+Per il momento, questo incisore, a causa del modo in cui è
+implementato, non può essere specifato scrivendo il suo nome
+tra virgolette doppie, bensì inserendo il simbolo di cancelletto
+@code{#} prima del suo nome.
+
+@snippets
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{indicating-cross-staff-chords-with-arpeggio-bracket.ly}
+
+@seealso
+Frammenti:
+@rlsr{Keyboards}.
+
+Guida al funzionamento interno:
+@rinternals{Stem}.
+
+
+@node Pianoforte
+@subsection Pianoforte
+@translationof Piano
+
+Questa sezione tratta le questioni di notazione che hanno a che fare
+più direttamente col pianoforte.
+
+@menu
+* Pedali del pianoforte::
+@end menu
+
+@node Pedali del pianoforte
+@unnumberedsubsubsec Pedali del pianoforte
+@translationof Piano pedals
+
+@cindex pedali del pianoforte
+@cindex pianoforte, pedali
+@cindex pedale di risonanza
+@cindex risonanza, pedale di
+@cindex pedale sostenuto
+@cindex sostenuto, pedale
+@cindex pedale tonale
+@cindex tonale, pedale
+@cindex una corda
+@cindex tre corde
+@cindex sos.
+@cindex U.C.
+
+@funindex \sustainOn
+@funindex \sustainOff
+@funindex \sostenutoOn
+@funindex \sostenutoOff
+@funindex \unaCorda
+@funindex \treCorde
+
+I pianoforti hanno generalmente tre pedali che alterano il
+modo in cui il suono viene prodotto: @notation{risonanza}, @notation{tonale}
+o @notation{sostenuto} (@notation{sos.}) e @notation{una corda} (@notation{U.C.}).
+I pedali di risonanza si trovano anche nei vibrafoni e nelle celeste.
+
+@lilypond[quote,verbatim]
+\relative {
+  c''4\sustainOn d e g
+  <c, f a>1\sustainOff
+  c4\sostenutoOn e g c,
+  <bes d f>1\sostenutoOff
+  c4\unaCorda d e g
+  <d fis a>1\treCorde
+}
+@end lilypond
+
+@cindex stili di indicazione del pedale
+@cindex pedale, indicazioni, testo
+@cindex pedale, indicazioni, parentesi
+@cindex pedale, indicazioni, misto
+@cindex stile del pedale di risonanza
+@cindex pedale di risonanza, stile del
+
+@funindex pedalSustainStyle
+@funindex mixed
+@funindex bracket
+@funindex text
+
+Ci sono tre stili per indicare i pedali: @code{text} (testo),
+@code{bracket} (parentesi quadra) e @code{mixed} (misto).
+Il pedale di risonanza e il pedale una corda usano il testo come
+stile predefinito, mentre il pedale tonale usa lo stile misto.
+
+@lilypond[quote,verbatim]
+\relative {
+  c''4\sustainOn g c2\sustainOff
+  \set Staff.pedalSustainStyle = #'mixed
+  c4\sustainOn g c d
+  d\sustainOff\sustainOn g, c2\sustainOff
+  \set Staff.pedalSustainStyle = #'bracket
+  c4\sustainOn g c d
+  d\sustainOff\sustainOn g, c2
+  \bar "|."
+}
+@end lilypond
+
+Il posizionamento dei comandi del pedale corrisponde ai movimenti fisici
+del pedale di risonanza durante l'esecuzione musicale.  Per indicare che
+il pedale è attivo fino alla stanghetta finale si omette il comando
+finale che disattiva il pedale.
+
+Le indicazioni del pedale possono essere poste in un contesto @code{Dynamics},
+che le allinea su una linea orizzontale.
+
+@seealso
+Guida alla notazione:
+@ref{Legature di valore}.
+
+Frammenti:
+@rlsr{Keyboards}.
+
+Guida al funzionamento interno:
+@rinternals{SustainPedal},
+@rinternals{SustainPedalLineSpanner},
+@rinternals{SustainEvent},
+@rinternals{SostenutoPedal},
+@rinternals{SostenutoPedalLineSpanner},
+@rinternals{SostenutoEvent},
+@rinternals{UnaCordaPedal},
+@rinternals{UnaCordaPedalLineSpanner},
+@rinternals{UnaCordaEvent},
+@rinternals{PianoPedalBracket},
+@rinternals{Piano_pedal_engraver}.
+
+
+@node Fisarmonica
+@subsection Fisarmonica
+@translationof Accordion
+
+@cindex fisarmonica
+
+Questa sezione tratta la notazione specifica della fisarmonica.
+
+@menu
+* Simboli di discanto::
+@end menu
+
+@node Simboli di discanto
+@unnumberedsubsubsec Simboli di discanto
+@translationof Discant symbols
+
+@cindex fisarmonica, simboli di discanto
+@cindex discanto, simboli, fisarmonica
+@cindex registri della fisarmonica
+@cindex fisarmonica, simboli di registro
+
+Le fisarmoniche sono spesso costruite con più di un insieme di ance
+che possono essere all'unisono, un'ottava sopra o un'ottava sotto
+rispetto all'altezza scritta.  Ogni costruttore di fisarmoniche ha
+nomi diversi per i @notation{registri} che selezionano le varie
+combinazioni di ance, come @notation{oboe}, @notation{musette} o
+@notation{bandoneon}.  È stato quindi ideato un sistema di simboli
+per semplificare le istruzioni di esecuzione.
+
+@snippets
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{accordion-register-symbols.ly}
+
+@seealso
+Frammenti:
+@rlsr{Keyboards}.
+
+
+@node Arpa
+@subsection Arpa
+@translationof Harp
+
+Questa sezione tratta le questioni di notazione specifiche dell'arpa.
+
+@menu
+* Riferimenti per arpe::
+* Pedali dell'arpa::
+@end menu
+
+@node Riferimenti per arpe
+@unnumberedsubsubsec Riferimenti per arpe
+@translationof References for harps
+
+@cindex arpe
+@cindex bisbiglando
+
+Alcune caratteristiche comuni della musica per arpa sono
+trattate altrove:
+
+@itemize
+
+@item Il glissando è la tecnica più caratteristica dell'arpa, vedi
+@ref{Glissando}.
+
+@item Un @notation{bisbigliando} è scritto come un tremolo, vedi
+@ref{Ripetizioni con tremolo}.
+
+@item Gli armonici naturali sono trattati in @ref{Harmonics}.
+
+@item Per arpeggi direzionali e non-arpeggi, vedere @ref{Arpeggio}.
+
+@end itemize
+
+@seealso
+Guida alla notazione:
+@ref{Ripetizioni con tremolo},
+@ref{Glissando},
+@ref{Arpeggio},
+@ref{Harmonics}.
+
+
+@node Pedali dell'arpa
+@unnumberedsubsubsec Pedali dell'arpa
+@translationof Harp pedals
+
+@cindex pedali dell'arpa
+@cindex diagrammi dei pedali dell'arpa
+@cindex arpa, pedali
+@cindex arpa, diagrammi dei pedali
+
+Le arpe hanno sette corde per ottava che possono risuonare all'altezza
+naturale, bemolle o diesis.  Nelle arpe con leva, ogni corda viene
+regolata individualmente, ma nelle arpe a pedale ogni corda con la
+stessa altezza è regolata da un unico pedale.  I pedali, da sinistra
+a destra rispetto all'esecutore, sono D, C e B a sinistra e E, F, G e
+A a destra.  La posizione dei pedali può essere indicata con dei segni
+testuali:
+
+@lilypond[quote,verbatim,fragment]
+\textLengthOn
+cis''1_\markup \concat \vcenter {
+  [D \flat C \sharp B|E \sharp F \sharp G A \flat] }
+c''!1_\markup \concat \vcenter {
+  [ C \natural ] }
+@end lilypond
+
+o con dei diagrammi dei pedali:
+
+@lilypond[quote,verbatim,fragment]
+\textLengthOn
+cis''1_\markup { \harp-pedal "^v-|vv-^" }
+c''!1_\markup { \harp-pedal "^o--|vv-^" }
+@end lilypond
+
+Il comando @code{\harp-pedal} accetta una stringa di caratteri, dove
+@code{^} è la posizione più alta del pedale (altezza bemolle), @code{-} è
+la posizione centrale del pedale (altezza naturale), @code{v} è la
+posizione più bassa del pedale (altezza diesis) e @code{|} è il divisore.
+@code{o} posto prima di un simbolo produrrà un cerchio intorno al simbolo di
+pedale.
+
+@seealso
+Guida alla notazione:
+@ref{Scritte},
+@c Questo nodo porta a una sezione dell'appendice che è generata dai
+@c sorgenti durante la compilazione, dunque non può essere tradotto.
+@ref{Instrument Specific Markup}.

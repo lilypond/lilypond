@@ -1271,7 +1271,7 @@ Non è possibile mostrare simultaneamente arpeggi connessi e non connessi in un
 
 L'arpeggio in forma di parentesi non può essere impostato con facilità negli
 arpeggi che attraversano i righi; occorre ricorrere a metodi più complessi
-descritti in @ref{Cross-staff stems}.
+descritti in @ref{Gambi trasversali ai righi}.
 
 
 @node Trilli
