@@ -40,11 +40,11 @@ Stencil
 Font_metric::find_by_name (string s) const
 {
   replace_all (&s, '-', 'M');
-  int idx = name_to_index (s);
+  size_t idx = name_to_index (s);
   Box b;
 
   SCM expr = SCM_EOL;
-  if (idx >= 0)
+  if (idx != GLYPH_INDEX_INVALID)
     {
       expr = scm_list_3 (ly_symbol2scm ("named-glyph"),
                          self_scm (),

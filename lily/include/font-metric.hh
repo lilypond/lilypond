@@ -28,6 +28,8 @@
 
 #include <map>
 
+static const size_t GLYPH_INDEX_INVALID(-1);
+
 typedef std::map<FT_UInt, FT_ULong> Index_to_charcode_map;
 
 class Font_metric : public Smob<Font_metric>

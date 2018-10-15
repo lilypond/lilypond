@@ -362,10 +362,8 @@ size_t
 Open_type_font::name_to_index (string nm) const
 {
   char *nm_str = (char *) nm.c_str ();
-  if (FT_UInt idx = FT_Get_Name_Index (face_, nm_str))
-    return (size_t) idx;
-
-  return (size_t) - 1;
+  FT_UInt idx = FT_Get_Name_Index (face_, nm_str);
+  return (idx != 0) ? idx : GLYPH_INDEX_INVALID;
 }
 
 Box

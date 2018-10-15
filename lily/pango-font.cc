@@ -101,14 +101,24 @@ Pango_font::name_to_index (string nm) const
   PangoFcFont *fcfont = PANGO_FC_FONT (pango_context_load_font (context_, pango_description_));
   FT_Face face = pango_fc_font_lock_face (fcfont);
   char *nm_str = (char *) nm.c_str ();
-  if (FT_UInt idx = FT_Get_Name_Index (face, nm_str))
+  FT_UInt idx = FT_Get_Name_Index (face, nm_str);
+  pango_fc_font_unlock_face (fcfont);
+  return (idx != 0) ? idx : GLYPH_INDEX_INVALID;
+}
+
+static PangoGlyph
+glyph_index_to_pango (size_t index)
+{
+  if (index != GLYPH_INDEX_INVALID)
     {
-      pango_fc_font_unlock_face (fcfont);
-      return (size_t) idx;
+      // TODO: size_t can be wider than PangoGlyph.  Using a cast to silence
+      // warnings is probably OK in practice but is still a little concerning.
+      // Consider changing the type used for indices or mapping out-of-range
+      // indices to PANGO_GLYPH_INVALID_INPUT.
+      return static_cast<PangoGlyph> (index);
     }
 
-  pango_fc_font_unlock_face (fcfont);
-  return (size_t) - 1;
+  return PANGO_GLYPH_INVALID_INPUT;
 }
 
 void
@@ -150,7 +160,8 @@ Pango_font::get_scaled_indexed_char_dimensions (size_t signed_idx) const
   PangoFont *font = pango_context_load_font (context_, pango_description_);
   PangoRectangle logical_rect;
   PangoRectangle ink_rect;
-  pango_font_get_glyph_extents (font, signed_idx, &ink_rect, &logical_rect);
+  PangoGlyph glyph = glyph_index_to_pango (signed_idx);
+  pango_font_get_glyph_extents (font, glyph, &ink_rect, &logical_rect);
   Box out (Interval (PANGO_LBEARING (ink_rect),
                      PANGO_RBEARING (ink_rect)),
            Interval (-PANGO_DESCENT (ink_rect),

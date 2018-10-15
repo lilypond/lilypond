@@ -166,8 +166,8 @@ Note_head::get_stem_attachment (Font_metric *fm, const string &key)
 {
   Offset att;
 
-  int k = fm->name_to_index (key);
-  if (k >= 0)
+  size_t k = fm->name_to_index (key);
+  if (k != GLYPH_INDEX_INVALID)
     {
       Box b = fm->get_indexed_char_dimensions (k);
       Offset wxwy = fm->attachment_point (key);
