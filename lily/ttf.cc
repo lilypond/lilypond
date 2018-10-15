@@ -84,8 +84,10 @@ print_header (void *out, FT_Face face)
 
   lily_cookie_fprintf (out, "/FontType 42 def\n");
   lily_cookie_fprintf (out, "/FontInfo 8 dict dup begin\n");
-  lily_cookie_fprintf (out, "/version (%.3f) def\n",
-                       ht->Font_Revision / 65536.0);
+  // This explicit cast avoids a long-to-double conversion warning on
+  // architectures with longer longs.
+  int32_t font_revision = static_cast<int32_t> (ht->Font_Revision);
+  lily_cookie_fprintf (out, "/version (%.3f) def\n", font_revision / 65536.0);
 
 #if 0
   if (strings[0])
