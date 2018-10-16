@@ -1,0 +1,237 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: 47b45b556c729d13e71782e52d378e1c2a0f2b4d
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.18.0"
+
+@c Translators: Federico Bruni
+@c Translation checkers:
+
+@node Strumenti a corde senza tasti
+@section Strumenti a corde senza tasti
+@translationof Unfretted string instruments
+
+@lilypondfile[quote]
+{unfretted-headword.ly}
+
+@cindex archi da orchestra
+@cindex orchestra, archi
+@cindex archi, scrivere per
+
+Questa sezione fornisce informazioni e riferimenti utili per scrivere
+musica per strumenti a corde senza tasti, principalmente archi da
+orchestra.
+
+@menu
+* Notazione comune per strumenti a corde senza tasti::
+@end menu
+
+@node Notazione comune per strumenti a corde senza tasti
+@subsection Notazione comune per strumenti a corde senza tasti
+@translationof Common notation for unfretted strings
+
+La notazione specialistica per strumenti a corde senza tasti è esigua.
+La musica viene scritta su un solo rigo e di solito è richiesta una
+sola voce.  Due voci potrebbero essere necessarie solo per alcuni
+passaggi a doppia corda o i divisi.
+
+@menu
+* Riferimenti per archi senza tasti::
+* Indicazioni di arcata::
+* Armonici::
+* Snap (Bartok) pizzicato::
+@end menu
+
+@node Riferimenti per archi senza tasti
+@unnumberedsubsubsec Riferimenti per archi senza tasti
+@translationof References for unfretted strings
+
+La maggior parte della notazione utile per gli archi da orchestra e
+altri strumenti ad arco è trattata altrove:
+
+@itemize
+
+@item Le indicazioni testuali come @qq{pizz.} e @qq{arco} sono inserite
+come testo semplice, vedi @ref{Scritte}.
+
+@item Le diteggiature, incluse le indicazioni per il pollice, sono descritte
+in @ref{Indicazioni di diteggiatura}.
+
+@item La doppia corda viene normalmente indicata scrivendo un accordo,
+vedi @ref{Note in un accordo}.  Si possono inserire delle direttive su
+come eseguire gli accordi, vedi @ref{Arpeggio}.
+
+@item I modelli per i quartetti d'archi si trovano in
+@rlearning{Modelli per quartetto d’archi}.  Altri sono illustrati nei frammenti.
+
+@end itemize
+
+@seealso
+Manuale di apprendimento:
+@rlearning{Modelli per quartetto d’archi}.
+
+Guida alla notazione:
+@ref{Scritte},
+@ref{Indicazioni di diteggiatura},
+@ref{Note in un accordo},
+@ref{Arpeggio}.
+
+Frammenti:
+@rlsr{Unfretted strings}.
+
+
+@node Indicazioni di arcata
+@unnumberedsubsubsec Indicazioni di arcata
+@translationof Bowing indications
+
+@funindex \upbow
+@funindex \downbow
+@funindex \open
+@funindex \romanStringNumbers
+
+@cindex indicazioni di arcata
+@cindex arcata, indicazioni di
+@cindex arcata in su
+@cindex arcata in giù
+@cindex indicazione di corda vuota
+@cindex corda vuota, indicazione di
+@cindex numeri di corda
+
+Le indicazioni di arcata vengono create come articolazioni, descritte
+in @ref{Articolazioni e abbellimenti}.
+
+I comandi di arcata, @code{\upbow} (su) e @code{\downbow} (giù), vengono usati
+con le legature di portamento nel seguente modo:
+
+@lilypond[verbatim,quote]
+\relative { c''4(\downbow d) e(\upbow f) }
+@end lilypond
+
+@noindent
+
+Si possono usare i numeri romani come numeri di corda (al posto dei
+numeri arabi racchiusi in un cerchio), come è spiegato in
+@ref{String number indications}.
+
+Altrimenti, le indicazioni di corda possono essere mostrate anche tramite
+comandi markup; le articolazioni possono indicare anche corde vuote.
+
+@lilypond[verbatim,quote,fragment]
+a'4 \open
+\romanStringNumbers
+a'\2
+a'2^\markup { \small "sul A" }
+@end lilypond
+
+
+@predefined
+@code{\downbow},
+@code{\upbow},
+@code{\open},
+@code{\romanStringNumbers}.
+@endpredefined
+
+@seealso
+Guida alla notazione:
+@ref{Articolazioni e abbellimenti},
+@ref{String number indications},
+@ref{Legature di portamento}.
+
+
+@node Armonici
+@unnumberedsubsubsec Armonici
+@translationof Harmonics
+
+@funindex \harmonic
+
+@strong{@i{Armonici naturali}}
+
+@cindex teste di nota romboidali
+@cindex romboidali, teste di nota
+@cindex armonici naturali
+@cindex naturali, armonici
+@funindex \harmonicsOn
+@funindex \harmonicsOff
+
+Gli armonici naturali possono essere rappresentati in vari modi.  Una testa
+di nota romboidale indica generalmente che bisogna toccare la corda dove si
+prenderebbe la nota se questa non fosse romboidale.
+
+@lilypond[verbatim,quote]
+\relative d'' {
+  d4 e4.
+  \harmonicsOn
+  d8 e e
+  d4 e4.
+  \harmonicsOff
+  d8 e e
+}
+@end lilypond
+
+Altrimenti si può mostrare una testa di nota normale all'altezza da riprodurre
+insieme a un piccolo cerchio che indica che deve essere suonata come armonico:
+
+@lilypond[verbatim,quote,fragment]
+d''2^\flageolet d''_\flageolet
+@end lilypond
+
+Si può creare anche un cerchio più piccolo, vedi l'elenco di frammenti in
+@ref{Riferimenti per archi senza tasti}.
+
+@strong{@i{Armonici artificiali}}
+
+@cindex armonici artificiali
+@cindex artificiali, armonici
+
+Gli armonici artificiali sono rappresentati da due note, una con una testa
+normale per indicare la posizione in cui sfiorare la corda e un'altra con
+una testa romboidale vuota per indicare la posizione dell'armonico.
+
+@c TODO If the default for harmonicDots is changed, change this
+Gli armonici artificial indicati con @code{\harmonic} non mostrano i
+punti.  Occorre impostare la proprietà di contesto @code{harmonicDots} per
+far apparire i punti.
+
+@lilypond[verbatim,quote]
+\relative e' {
+  <e a\harmonic>2.  <c g'\harmonic>4
+  \set harmonicDots = ##t
+  <e a\harmonic>2.  <c g'\harmonic>4
+}
+@end lilypond
+
+@seealso
+Glossario musicale:
+@rglos{harmonics}.
+
+Guida alla notazione:
+@ref{Teste di nota speciali},
+@ref{Riferimenti per archi senza tasti}.
+
+
+@node Pizzicato alla Bartok
+@unnumberedsubsubsec Pizzicato alla Bartók
+@translationof Snap (Bartok) pizzicato
+
+@cindex pizzicato alla Bartók
+@cindex pizzicato a schiocco
+@cindex Bartók, pizzicato
+@cindex schiocco, pizzicato
+
+Il pizzicato alla Bartók, in inglese @qq{snap pizzicato} (pizzicato a schiocco),
+è un tipo di pizzicato in cui la corda viene deliberatamente pizzicata
+verticalmente (invece che di lato) in modo che sbatta sulla tastiera.
+
+@lilypond[verbatim,quote]
+\relative {
+  c'4\snappizzicato
+  <c' e g>4\snappizzicato
+  <c' e g>4^\snappizzicato
+  <c, e g>4_\snappizzicato
+}
+@end lilypond
