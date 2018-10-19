@@ -261,7 +261,7 @@ de referencia independientemente del @code{\relative} exterior.
 @code{\relative} no se permite dentro de los bloques
 @code{\chordmode}.
 
-La música que esa dentro de un bloque @code{\transpose} es
+La música que está dentro de un bloque @code{\transpose} es
 absoluta, a no ser que se incluya una instrucción
 @code{\relative}.
 
