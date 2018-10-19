@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 250f1bf95f84616b68932324d6b5026833080cc4
+    Translation of GIT committish: b942b1a18810fce7f61d3033507cc31c90e437f9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -354,7 +354,9 @@ Glosario musical:
 
 Una @notation{ligadura de expresión} es una curva que se traza
 abarcando varias notas.  Las notas inicial y final se marcan
-mediante @code{(} y @code{)} respectivamente.
+mediante @code{(} y @code{)} respectivamente. Observe que el
+paréntesis de apertura @code{(} se escribe después de la primera
+nota de la ligadura.
 
 @lilypond[verbatim,quote]
 \relative { d''4( c16) cis( d e c cis d) e( d4) }
@@ -412,7 +414,11 @@ Referencia de la notación:
 
 @node Articulaciones y matices dinámicos
 @subsection Articulaciones y matices dinámicos
-@translationof Articulation and dynamics
+@translationof Articulations and dynamics
+
+Las articulaciones y los matices dinámicos se indican escribiendo
+ciertos símbolos después de las notas a las que aquellos se
+aplican.
 
 @menu
 * Articulaciones::
@@ -582,7 +588,9 @@ automáticamente:
 
 Si no le gustan las barras automáticas, pueden forzarse
 manualmente.  Marque la primera nota que comprende la barra con
-@code{[} y la última con @code{]}.
+@code{[} y la última con @code{]}.  Observe que el corchete de
+apertura @code{[} se escribe después de la primera nota que está
+unida por la barra.
 
 @lilypond[verbatim,quote]
 \relative { a'8[ ais] d[ ees r d] c16 b a8 }
