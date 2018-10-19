@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: f9d8763d2e83aa653582123d79731e029aea83d9
+    Translation of GIT committish: 2fc469f13046808836b1ed61ade7b362a71e2bd5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -587,13 +587,14 @@ alteraciones pueden también variar dependiendo del idioma:
 @end multitable
 @end quotation
 
-En holandés, @code{aes} se contrae como @code{as}, pero las dos
-formas se aceptan en LilyPond.  De forma similar, se aceptan tanto
-@code{es} como @code{ees}.  Esto se aplica también a
-@code{aeses}@tie{}/@tie{}@code{ases} y a
-@code{eeses}@tie{}/@tie{}@code{eses}.  A veces se definen
-solamente estos nombres contraídos en los archivos de idioma
-correspondientes.
+En holandés, alemán, noruego y finlandés, @code{aes} se contrae
+como @code{as}; en holandés y en noruego, sin embargo, las dos
+formas se aceptan en LilyPond.  Lo mismo exactamente vale para
+@code{es} y @code{ees}, @code{aeses} y @code{ases}, y por último
+para @code{eeses} y @code{eses}.
+
+En alemán y en finlandés, LilyPond proporciona además la forma
+@code{asas}, más frecuente, para @code{ases}.
 
 @lilypond[verbatim,quote,fragment]
 \relative c'' { a2 as e es a ases e eses }
