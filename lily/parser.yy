@@ -239,6 +239,7 @@ bool is_regular_identifier (SCM id, bool multiple=false);
 SCM make_reverse_key_list (SCM keys);
 SCM try_word_variants (SCM pred, SCM str);
 SCM try_string_variants (SCM pred, SCM str);
+SCM post_event_cons (SCM ev, SCM tail);
 int yylex (YYSTYPE *s, YYLTYPE *loc, Lily_parser *parser);
 
 %}
@@ -723,16 +724,7 @@ identifier_init:
 	}
 	| post_event_nofinger post_events
 	{
-		$$ = scm_reverse_x ($2, SCM_EOL);
-		if (Music *m = unsmob<Music> ($1))
-		{
-			if (m->is_mus_type ("post-event-wrapper"))
-				$$ = scm_append
-					(scm_list_2 (m->get_property ("elements"),
-						     $$));
-			else
-				$$ = scm_cons ($1, $$);
-		}
+		$$ = post_event_cons ($1, scm_reverse_x ($2, SCM_EOL));
 		if (scm_is_pair ($$)
 		    && scm_is_null (scm_cdr ($$)))
 			$$ = scm_car ($$);
@@ -3172,22 +3164,7 @@ post_events:
 		$$ = SCM_EOL;
 	}
 	| post_events post_event {
-		$$ = $1;
-		if (Music *m = unsmob<Music> ($2))
-		{
-			if (m->is_mus_type ("post-event-wrapper"))
-			{
-				for (SCM p = m->get_property ("elements");
-				     scm_is_pair (p);
-				     p = scm_cdr (p))
-				{
-					$$ = scm_cons (scm_car (p), $$);
-				}
-			} else {
-				m->set_spot (parser->lexer_->override_input (@2));
-				$$ = scm_cons ($2, $$);
-			}
-		}
+		$$ = post_event_cons ($2, $1);
 	}
 	;
 
@@ -4681,11 +4658,7 @@ SCM reverse_music_list (Lily_parser *parser, Input loc, SCM lst, bool preserve, 
 		Music *m = unsmob<Music> (elt);
 		assert (m);
 		if (m->is_mus_type ("post-event")) {
-			if (m->is_mus_type ("post-event-wrapper"))
-				post = ly_append2 (m->get_property ("elements"),
-						   post);
-			else
-				post = scm_cons (elt, post);
+			post = post_event_cons (elt, post);
 			continue;
 		}
 		if (add_post_events (m, post)) {
@@ -4731,6 +4704,51 @@ SCM reverse_music_list (Lily_parser *parser, Input loc, SCM lst, bool preserve, 
 	return res;
 }
 
+SCM post_event_cons (SCM post_event, SCM tail)
+{
+	Music *ev = unsmob<Music> (post_event);
+	if (!ev)
+		return tail;
+	if (!ev->is_mus_type ("post-event-wrapper"))
+		return scm_cons (post_event, tail);
+	SCM elts = SCM_UNDEFINED;
+	SCM props = SCM_EOL;
+	SCM tweaks = SCM_UNDEFINED;
+	for (SCM p = ev->get_property_alist (true);
+	     scm_is_pair (p);
+	     p = scm_cdr (p))
+	{
+		SCM pair = scm_car (p);
+		SCM sym = scm_car (pair);
+		if (scm_is_eq (sym, ly_symbol2scm ("origin")))
+			continue;
+		else if (scm_is_eq (sym, ly_symbol2scm ("elements"))
+			 && SCM_UNBNDP (elts))
+			elts = scm_cdr (pair);
+		else if (scm_is_eq (sym, ly_symbol2scm ("tweaks"))
+			 && SCM_UNBNDP (tweaks))
+			tweaks = scm_cdr (pair);
+		else
+			props = scm_cons (pair, props);
+	}
+	if (!scm_is_pair (elts))
+		return tail;
+	for (SCM p = elts; scm_is_pair (p); p = scm_cdr (p))
+	{
+		Music *ev = unsmob<Music> (scm_car (p));
+		// tweaks are always collected in-order, newer tweaks
+		// nearer to the front of the list
+		if (scm_is_pair (tweaks))
+			ev->set_property ("tweaks",
+					  scm_reverse_x (tweaks, ev->get_property ("tweaks")));
+		// other properties are applied last to first so that
+		// in case of duplicate properties, the actually
+		// current one survives
+		for (SCM q = props; scm_is_pair (q); q = scm_cdr (q))
+			ev->set_property (scm_caar (q), scm_cdar (q));
+	}
+	return ly_append2 (elts, tail);
+}
 
 int
 yylex (YYSTYPE *s, YYLTYPE *loc, Lily_parser *parser)
