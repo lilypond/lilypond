@@ -114,19 +114,18 @@ Ambitus_engraver::stop_translation_timestep ()
 {
   if (ambitus_ && !is_typeset_)
     {
-      /*
-       * Evaluate middleCPosition not until now, since otherwise we
-       * may then oversee a clef that is defined in a staff context if
-       * we are in a voice context; middleCPosition would then be
-       * assumed to be 0.
+      SCM c_pos = get_property ("middleCPosition");
+      SCM cue_pos = get_property ("middleCCuePosition");
 
-       * Don't use middleCPosition as this may be thwarted by a cue
-       * starting here.  middleCOffset is not affected by cue clefs.
-       */
-      int clef_pos = robust_scm2int (get_property ("middleCClefPosition"), 0);
-      int offset = robust_scm2int (get_property ("middleCOffset"), 0);
+      if (scm_is_integer (c_pos) && !scm_is_integer (cue_pos))
+        start_c0_ = scm_to_int (c_pos);
+      else
+        {
+          int clef_pos = robust_scm2int (get_property ("middleCClefPosition"), 0);
+          int offset = robust_scm2int (get_property ("middleCOffset"), 0);
+          start_c0_ = clef_pos + offset;
+        }
 
-      start_c0_ = clef_pos + offset;
       start_key_sig_ = get_property ("keyAlterations");
 
       is_typeset_ = true;
@@ -164,12 +163,21 @@ Ambitus_engraver::finalize ()
       Grob *accidental_placement
         = make_item ("AccidentalPlacement", accidentals_[DOWN]->self_scm ());
 
+      SCM layout_proc = get_property ("staffLineLayoutFunction");
+
       for (DOWN_and_UP (d))
         {
           Pitch p = pitch_interval_[d];
+
+          int pos;
+          if (ly_is_procedure (layout_proc))
+            pos = scm_to_int (scm_call_1 (layout_proc, p.smobbed_copy ()));
+          else
+            pos = p.steps ();
+
           heads_[d]->set_property ("cause", causes_[d]->self_scm ());
           heads_[d]->set_property ("staff-position",
-                                   scm_from_int (start_c0_ + p.steps ()));
+                                   scm_from_int (start_c0_ + pos));
 
           SCM handle = scm_assoc (scm_cons (scm_from_int (p.get_octave ()),
                                             scm_from_int (p.get_notename ())),
@@ -238,8 +246,11 @@ ADD_TRANSLATOR (Ambitus_engraver,
 
                 /* read */
                 "keyAlterations "
+                "middleCPosition "
                 "middleCClefPosition "
-                "middleCOffset ",
+                "middleCCuePosition "
+                "middleCOffset "
+                "staffLineLayoutFunction ",
 
                 /* write */
                 ""
