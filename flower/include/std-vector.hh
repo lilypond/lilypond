@@ -168,6 +168,18 @@ vector_sort (vector<T> &v,
   sort (v.begin () + b, v.begin () + e, less);
 }
 
+template<typename T, typename Compare>
+void
+vector_stable_sort (vector<T> &v,
+             Compare less,
+             vsize b = 0, vsize e = VPOS)
+{
+  if (e == VPOS)
+    e = v.size ();
+
+  stable_sort (v.begin () + b, v.begin () + e, less);
+}
+
 template<typename T>
 void
 reverse (vector<T> &v)
