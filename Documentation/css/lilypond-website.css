@@ -807,7 +807,6 @@ div.float-center a.clickable {
 .h-scroll-auto {
   position: relative;
   left: 1em;
-  width: 250px;
   overflow: auto;
 }
 

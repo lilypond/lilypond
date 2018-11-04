@@ -55,7 +55,7 @@ private:
   void create_end_clef ();
   void set_glyph ();
   void inspect_clef_properties ();
-  void create_clef_modifier (SCM oct);
+  void create_clef_modifier (SCM transp, SCM style, SCM formatter);
 };
 
 void
@@ -101,7 +101,7 @@ Cue_clef_engraver::acknowledge_bar_line (Grob_info info)
 }
 
 void
-Cue_clef_engraver::create_clef_modifier (SCM transp)
+Cue_clef_engraver::create_clef_modifier (SCM transp, SCM style, SCM formatter)
 {
   if (scm_is_number (transp) && scm_to_int (transp))
     {
@@ -114,9 +114,6 @@ Cue_clef_engraver::create_clef_modifier (SCM transp)
       SCM txt = scm_number_to_string (scm_from_int (abs_transp),
                                       scm_from_int (10));
 
-      SCM style = get_property ("cueClefTranspositionStyle");
-
-      SCM formatter = get_property ("cueClefTranspositionFormatter");
       if (ly_is_procedure (formatter))
         g->set_property ("text", scm_call_2 (formatter, txt, style));
 
@@ -141,7 +138,9 @@ Cue_clef_engraver::create_clef ()
       if (scm_is_number (cpos))
         clef_->set_property ("staff-position", cpos);
 
-      create_clef_modifier (get_property ("cueClefTransposition"));
+      create_clef_modifier (get_property ("cueClefTransposition"),
+            get_property ("cueClefTranspositionStyle"),
+            get_property ("cueClefTranspositionFormatter"));
     }
 }
 
@@ -155,7 +154,9 @@ Cue_clef_engraver::create_end_clef ()
       if (scm_is_number (cpos))
         clef_->set_property ("staff-position", cpos);
 
-      create_clef_modifier (get_property ("clefTransposition"));
+      create_clef_modifier (get_property ("clefTransposition"),
+            get_property ("clefTranspositionStyle"),
+            get_property ("clefTranspositionFormatter"));
     }
 }
 

@@ -10,15 +10,15 @@ $(top-build-dir)/Documentation/$(outdir)/%/index.$(ISOLANG).html: $(outdir)/%/in
 
 $(top-build-dir)/Documentation/$(outdir)/%-big-page.$(ISOLANG).html: $(outdir)/%-big-page.html $(TRANSLATION_LILY_IMAGES)
 	mkdir -p $(dir $@)
-	cp -f $< $@
+	ln -f $< $@
 
 $(top-build-dir)/Documentation/$(outdir)/%.$(ISOLANG).html: $(outdir)/%.html
 	mkdir -p $(dir $@)
-	cp -f $< $@
+	ln -f $< $@
 
 $(top-build-dir)/Documentation/$(outdir)/%.$(ISOLANG).pdf: $(outdir)/%.pdf
 	mkdir -p $(dir $@)
-	cp -f $< $@
+	ln -f $< $@
 
 $(outdir)/%.png: $(top-build-dir)/Documentation/$(outdir)/%.png
 	ln -f $< $@

@@ -2686,7 +2686,7 @@ f^\varcoda e,_\varcoda b'\varcoda
 \drums { tomml4 tomml1 }
 @end lilypond
 @tab
-@code{highmidtom @* tommh @*}
+@code{himidtom @* tommh @*}
 @lilypond[notime,ragged-right]
 \drums { tommh4 tommh1 }
 @end lilypond

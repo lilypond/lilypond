@@ -27,6 +27,17 @@ NOTE:
 @end ignore
 
 @newsItem
+@subheading LilyPond 2.19.82 released  @emph{June 24, 2018}
+
+We are happy to announce the release of LilyPond
+2.19.82.  This release is a further pre-release test version
+for the upcoming stable 2.20 release.  If you
+require a stable version of LilyPond, we recommend using the 2.18
+version.
+
+@newsEnd
+
+@newsItem
 @subheading LilyPond 2.19.81 released  @emph{January 28, 2018}
 
 We are happy to announce the release of LilyPond
@@ -4868,7 +4879,7 @@ number of bugs, among others, support for writing MIDI files.  (@ref{Changes},
 The Belgian newspaper @emph{De Standaard} investigates what drives
 Free Software authors in an article titled @emph{Delen van KENNIS
 zonder WINSTBEJAG} (Non-profit sharing of
-knowlegde) using LilyPond as an example.  This marks
+knowledge) using LilyPond as an example.  This marks
 LilyPond's first appearance in mainstream printed press.
 @newsEnd
 

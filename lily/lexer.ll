@@ -78,6 +78,11 @@ RH 7 fix (?)
 */
 #define isatty HORRIBLEKLUDGE
 
+// There's a lot of fallthrough in the generated code.
+#if __GNUC__ >= 7
+#pragma GCC diagnostic ignored "-Wimplicit-fallthrough"
+#endif
+
 void strip_trailing_white (string&);
 void strip_leading_white (string&);
 string lyric_fudge (string s);

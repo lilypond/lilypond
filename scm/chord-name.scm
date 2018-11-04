@@ -89,8 +89,7 @@
        (conditional-string-downcase
         (vector-ref #("C" "D" "E" "F" "G" "A" "H" "B") (car n-a))
         lowercase?))
-      (make-normal-size-super-markup
-       (accidental->markup (/ (cdr n-a) 2)))))))
+      (accidental->markup (/ (cdr n-a) 2))))))
 
 (define-safe-public (note-name->german-markup pitch lowercase?)
   (let* ((name (ly:pitch-notename pitch))

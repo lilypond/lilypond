@@ -244,8 +244,11 @@ Multiple -I options may be given.  The search will start in the first
 defined directory, and if the file to be included is not found the
 search will continue in subsequent directories.
 
-@warning{Using the tilde character -- @code{~} -- with the @code{-I}
-switch may produce unexpected results in some shells.}
+@warning{Using the tilde character (@code{~}) with the @code{-I}
+switch may produce unexpected results in some shells.
+
+Windows users will need to include a trailing slash for the directory's
+path.}
 
 @cindex chroot jail, running inside
 

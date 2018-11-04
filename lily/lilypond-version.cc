@@ -45,11 +45,13 @@ Lilypond_version::Lilypond_version (const string &str)
     extra_patch_string_ = version[3];
     if (version[2].empty ())
       return;
+    // fallthrough
   case 3:
     if (version[2].find_first_not_of (digits) != string::npos
         || version[1].empty ())
       return;
     patch_ = String_convert::dec2int (version[2]);
+    // fallthrough
   case 2:
     if (version[1].find_first_not_of (digits) != string::npos
         || version[1].empty () || version[0].empty ())

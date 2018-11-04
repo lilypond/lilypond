@@ -26,13 +26,25 @@ $(outdir)/%.tex:  %.latex
 # Add the tex => pdf rule only if we have pdflatex
 ifeq (,$(findstring pdflatex,$(MISSING_OPTIONAL)))
 $(outdir)/%.pdf:  $(outdir)/%.tex
-	cd $(outdir) && $(buildscript-dir)/run-and-check "$(PDFLATEX) -halt-on-error $(notdir $<)" "$*.pdflatex.log"
+	rm -fr $(outdir)/$*.build/
+	mkdir $(outdir)/$*.build
+	cd $(outdir) && $(buildscript-dir)/run-and-check \
+		"$(PDFLATEX) -halt-on-error \
+			-output-directory=$*.build \
+			$(notdir $<)" \
+		"$*.pdflatex.log"
 ifeq ($(USE_EXTRACTPDFMARK),yes)
-	$(EXTRACTPDFMARK) -o $(outdir)/$*.pdfmark $@
-	$(GS920) -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -dAutoRotatePages=/None -sOutputFile=$(outdir)/$*.final.pdf -c "30000000 setvmthreshold" -f $(top-build-dir)/out-fonts/*.font.ps $(outdir)/$*.pdfmark $@
-	rm $@
-	mv $(outdir)/$*.final.pdf $@
+	$(EXTRACTPDFMARK) -o $(outdir)/$*.pdfmark $(outdir)/$*.build/$*.pdf
+	$(GS920) -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -dAutoRotatePages=/None \
+		-sOutputFile=$@ \
+		-c "30000000 setvmthreshold" \
+		-f $(top-build-dir)/out-fonts/*.font.ps \
+		$(outdir)/$*.pdfmark \
+		$(outdir)/$*.build/$*.pdf
+else
+	mv $(outdir)/$*.build/$*.pdf $@
 endif
+	rm -fr $(outdir)/$*.build/
 endif
 
 ############## Texinfo ######################
@@ -58,11 +70,19 @@ $(outdir)/%.xml:  %.lyxml
 # Add the xml => pdf rule only if we have dblatex
 ifeq (,$(findstring dblatex,$(MISSING_OPTIONAL)))
 $(outdir)/%.pdf:  $(outdir)/%.xml
-	cd $(outdir) && $(buildscript-dir)/run-and-check "$(DBLATEX) $(DBLATEX_BACKEND) $(notdir $<)" "$*.dblatex.log"
+	cd $(outdir) && $(buildscript-dir)/run-and-check \
+		"$(DBLATEX) $(DBLATEX_BACKEND) -o $*.tmp.pdf $(notdir $<)" \
+		"$*.dblatex.log"
 ifeq ($(USE_EXTRACTPDFMARK),yes)
-	$(EXTRACTPDFMARK) -o $(outdir)/$*.pdfmark $@
-	$(GS920) -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -dAutoRotatePages=/None -sOutputFile=$(outdir)/$*.final.pdf -c "30000000 setvmthreshold" -f $(top-build-dir)/out-fonts/*.font.ps $(outdir)/$*.pdfmark $@
-	rm $@
-	mv $(outdir)/$*.final.pdf $@
+	$(EXTRACTPDFMARK) -o $(outdir)/$*.pdfmark $(outdir)/$*.tmp.pdf
+	$(GS920) -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -dAutoRotatePages=/None \
+		-sOutputFile=$@ \
+		-c "30000000 setvmthreshold" \
+		-f $(top-build-dir)/out-fonts/*.font.ps \
+		$(outdir)/$*.pdfmark \
+		$(outdir)/$*.tmp.pdf
+	rm $(outdir)/$*.tmp.pdf
+else
+	mv $(outdir)/$*.tmp.pdf $@
 endif
 endif

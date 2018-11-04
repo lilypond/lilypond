@@ -1839,6 +1839,7 @@ class TimeSignatureChange (Music):
         self.style = None
         # Used for the --time-signature option of musicxml2ly
         self.originalFractions = [4, 4]
+        self.visible = True
 
     def get_fractions_ratio (self):
         """
@@ -1869,7 +1870,7 @@ class TimeSignatureChange (Music):
         # forced for 2/2 or 4/4, since in all other cases we'll get numeric
         # signatures anyway despite the default 'C signature style!
         is_common_signature = self.fractions in ([2, 2], [4, 4], [4, 2])
-        if self.style:
+        if self.style and self.visible:
             if self.style == "common":
                 st = "\\defaultTimeSignature"
             elif (self.style != "'()"):
@@ -1877,11 +1878,13 @@ class TimeSignatureChange (Music):
             elif (self.style != "'()") or is_common_signature:
                 st = "\\numericTimeSignature"
 
+        omit = '' if self.visible else '\omit Staff.TimeSignature'
+
         # Easy case: self.fractions = [n,d] => normal \time n/d call:
         if len (self.fractions) == 2 and isinstance (self.fractions[0], int):
-            return st + '\\time %d/%d ' % tuple (self.fractions)
+            return st + '\\time %d/%d ' % tuple (self.fractions) + omit
         elif self.fractions:
-            return st + "\\compoundMeter #'%s" % self.format_fraction (self.fractions)
+            return st + "\\compoundMeter #'%s" % self.format_fraction (self.fractions) + omit
         else:
             return st + ''
 
@@ -1983,6 +1986,7 @@ class TempoMark (Music):
         self.newduration = None
         self.beats = None
         self.parentheses = False
+        self.text = None
     def set_base_duration (self, dur):
         self.baseduration = dur
     def set_new_duration (self, dur):
@@ -1991,6 +1995,8 @@ class TempoMark (Music):
         self.beats = beats
     def set_parentheses (self, parentheses):
         self.parentheses = parentheses
+    def set_text (self, text):
+        self.text = text
     def wait_for_note (self):
         return False
     def duration_to_markup (self, dur):
@@ -2007,8 +2013,8 @@ class TempoMark (Music):
         if not self.baseduration:
             return res
         if self.beats:
-            if self.parentheses:
-                res += "\\tempo \"\" %s=%s" % (self.baseduration.ly_expression(), self.beats)
+            if self.parentheses or self.text:
+                res += "\\tempo \"%s\" %s=%s" % (self.text or '', self.baseduration.ly_expression(), self.beats)
             else:
                 res += "\\tempo %s=%s" % (self.baseduration.ly_expression(), self.beats)
         elif self.newduration:

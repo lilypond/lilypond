@@ -99,16 +99,24 @@ command.  There is no protection against circular definitions.
   (let* ((command (if (pair? command-and-args)
                       (car command-and-args)
                       command-and-args))
-         (args (and (pair? command-and-args) (cdr command-and-args)))
-         (command-name (string->symbol (format #f "~a-markup" command)))
-         (make-markup-name (string->symbol (format #f "make-~a-markup" command))))
-    `(begin
-       ,(if args
-            `(define-public ,command-name (markup-lambda ,args ,@definition))
-            `(define-public ,command-name ,@definition))
-       (define-public (,make-markup-name . args)
-         (,make-markup ,command-name ,(symbol->string make-markup-name) args)))))
+         (args (and (pair? command-and-args) (cdr command-and-args))))
+    (if args
+        `(,define-markup-command-internal
+           ',command (markup-lambda ,args ,@definition))
+        `(,define-markup-command-internal
+           ',command ,@definition))))
 
+(define (define-markup-command-internal command definition)
+  (let* ((command-name (string->symbol (format #f "~a-markup" command)))
+         (make-markup-name (string->symbol (format #f "make-~a-markup" command))))
+    (if (not (procedure-name definition))
+        (set-procedure-property! definition 'name command-name))
+    (module-define! (current-module) command-name definition)
+    (module-define! (current-module) make-markup-name
+                    (lambda args
+                      (make-markup definition make-markup-name args)))
+    (module-export! (current-module)
+                    (list command-name make-markup-name))))
 
 (defmacro*-public markup-lambda
   (args signature
@@ -164,16 +172,24 @@ interpreted, returns a list of stencils instead of a single one"
   (let* ((command (if (pair? command-and-args)
                       (car command-and-args)
                       command-and-args))
-         (args (and (pair? command-and-args) (cdr command-and-args)))
-         (command-name (string->symbol (format #f "~a-markup-list" command)))
+         (args (and (pair? command-and-args) (cdr command-and-args))))
+    (if args
+        `(,define-markup-list-command-internal
+           ',command (markup-list-lambda ,args ,@definition))
+        `(,define-markup-list-command-internal
+           ',command ,@definition))))
+
+(define (define-markup-list-command-internal command definition)
+  (let* ((command-name (string->symbol (format #f "~a-markup-list" command)))
          (make-markup-name (string->symbol (format #f "make-~a-markup-list" command))))
-    `(begin
-       ,(if args
-            `(define-public ,command-name (markup-list-lambda ,args ,@definition))
-            `(define-public ,command-name ,@definition))
-       (define-public (,make-markup-name . args)
-         (list (,make-markup ,command-name
-                             ,(symbol->string make-markup-name) args))))))
+    (if (not (procedure-name definition))
+        (set-procedure-property! definition 'name command-name))
+    (module-define! (current-module) command-name definition)
+    (module-define! (current-module) make-markup-name
+                    (lambda args
+                      (list (make-markup definition make-markup-name args))))
+    (module-export! (current-module)
+                    (list command-name make-markup-name))))
 
 (defmacro*-public markup-list-lambda
   (arg signature #:key (properties '()) #:rest body)
@@ -286,22 +302,19 @@ against signature, reporting MAKE-NAME as the user-invoked function.
 "
   (let* ((arglen (length args))
          (signature (or (markup-command-signature markup-function)
-                        (ly:error (_ "~S: Not a markup (list) function: ~S")
+                        (ly:error (_ "~A: Not a markup (list) function: ~S")
                                   make-name markup-function)))
          (siglen (length signature))
          (error-msg (if (and (> siglen 0) (> arglen 0))
                         (markup-argument-list-error signature args 1)
                         #f)))
     (if (or (not (= arglen siglen)) (< siglen 0) (< arglen 0))
-        (ly:error (string-append make-name ": "
-                                 (_ "Wrong number of arguments.  Expect: ~A, found ~A: ~S"))
-                  siglen arglen args))
+        (ly:error (_ "~A: Wrong number of arguments.  Expect: ~A, found ~A: ~S")
+                  make-name siglen arglen args))
     (if error-msg
         (ly:error
-         (string-append
-          make-name ": "
-          (_ "Invalid argument in position ~A.  Expect: ~A, found: ~S."))
-         (car error-msg) (cadr error-msg)(caddr error-msg))
+         (_ "~A: Invalid argument in position ~A.  Expect: ~A, found: ~S.")
+         make-name (car error-msg) (cadr error-msg)(caddr error-msg))
         (cons markup-function args))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;

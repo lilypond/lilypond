@@ -152,7 +152,7 @@ def upstemsingleflag (expr shortening) =
 	define_pixels (hip_width, foot_depth);
 	define_whole_vertical_pixels (flagspace);
 
-	set_char_box (0, hip_width# + stemthickness# / 2 + right_upflag_space#,
+	set_char_box (0, hip_width# + right_upflag_space#,
 		      foot_depth# + foot_thickness# / 2, stemthickness# / 2);
 
 	draw_flag ((0, -(flag_count - 1) * flagspace),
@@ -182,7 +182,7 @@ def upstemdoubleflag (expr shortening) =
 	define_pixels (hip_width, foot_depth);
 	define_whole_vertical_pixels (flagspace);
 
-	set_char_box (0, hip_width# + stemthickness# / 2 + right_upflag_space#,
+	set_char_box (0, hip_width# + right_upflag_space#,
 		      total_depth# + foot_thickness# / 2, stemthickness# / 2);
 
 	draw_flag ((0, -(flag_count - 1) * flagspace),

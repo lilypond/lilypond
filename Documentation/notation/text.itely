@@ -1262,6 +1262,10 @@ Snippets:
 Internals Reference:
 @rinternals{TextScript}.
 
+@knownissues
+Vertical spacing of a @code{\score} inside a markup object is controlled
+by @code{baseline-skip}.  Any @code{\paper} settings are ignored.
+
 
 @node Multi-page markup
 @unnumberedsubsubsec Multi-page markup

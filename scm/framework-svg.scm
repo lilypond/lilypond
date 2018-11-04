@@ -46,15 +46,20 @@
 (define format ergonomic-simple-format)
 
 (define (svg-begin . rest)
-  (eo 'svg
-      '(xmlns . "http://www.w3.org/2000/svg")
-      '(xmlns:xlink . "http://www.w3.org/1999/xlink")
-      '(version . "1.2")
-      `(width . ,(ly:format "~2fmm" (first rest)))
-      `(height . ,(ly:format "~2fmm" (second rest)))
-      `(viewBox . ,(ly:format "~4f ~4f ~4f ~4f"
-                              (third rest) (fourth rest)
-                              (fifth rest) (sixth rest)))))
+  (string-append
+    (eo 'svg #t
+        '(xmlns . "http://www.w3.org/2000/svg")
+        '(xmlns:xlink . "http://www.w3.org/1999/xlink")
+        '(version . "1.2")
+        `(width . ,(ly:format "~2fmm" (first rest)))
+        `(height . ,(ly:format "~2fmm" (second rest)))
+        `(viewBox . ,(ly:format "~4f ~4f ~4f ~4f"
+                                (third rest) (fourth rest)
+                                (fifth rest) (sixth rest))))
+    (eo 'style #t '(text . "style/css"))
+     "<![CDATA[
+tspan { white-space: pre; }
+"))
 
 (define (svg-end)
   (ec 'svg))
@@ -97,22 +102,19 @@ src: url('~a');
            font-name url))
         "")))
 
+(define (style-defs-end)
+  (string-append
+   "]]>
+"
+   (ec 'style)))
+
 (define (woff-header paper dir)
   "TODO:
       * add (ly:version) to font name
       * copy woff font with version alongside svg output
 "
   (set! output-dir dir)
-  (string-append
-   (eo 'defs)
-   (eo 'style '(text . "style/css"))
-   "<![CDATA[
-"
-   (define-fonts paper svg-define-font svg-define-font)
-   "]]>
-"
-   (ec 'style)
-   (ec 'defs)))
+  (define-fonts paper svg-define-font svg-define-font))
 
 (define (dump-page paper filename page page-number page-count)
   (let* ((outputter (ly:make-paper-outputter (open-file filename "wb") 'svg))
@@ -133,6 +135,7 @@ src: url('~a');
         (module-remove! (ly:outputter-module outputter) 'paper))
     (if (ly:get-option 'svg-woff)
         (dump (woff-header paper (dirname filename))))
+    (dump (style-defs-end))
     (dump (comment (format #f "Page: ~S/~S" page-number page-count)))
     (ly:outputter-output-scheme outputter
                                 `(begin (set! lily-unit-length ,unit-length)
@@ -164,6 +167,7 @@ src: url('~a');
         (module-remove! (ly:outputter-module outputter) 'paper))
     (if (ly:get-option 'svg-woff)
         (dump (woff-header paper (dirname filename))))
+    (dump (style-defs-end))
     (ly:outputter-output-scheme outputter
                                 `(begin (set! lily-unit-length ,unit-length)
                                         ""))

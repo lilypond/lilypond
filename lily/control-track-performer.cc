@@ -19,6 +19,7 @@ protected:
 
   virtual void initialize ();
   virtual void acknowledge_audio_element (Audio_element_info info);
+  virtual void finalize ();
 };
 
 Control_track_performer::Control_track_performer (Context *c)
@@ -65,6 +66,12 @@ Control_track_performer::initialize ()
   add_text (Audio_text::TRACK_NAME, "control track");
   add_text (Audio_text::TEXT, "creator: ");
   add_text (Audio_text::TEXT, id_string);
+}
+
+void
+Control_track_performer::finalize ()
+{
+  control_track_->end_mom_ = now_mom ();
 }
 
 void

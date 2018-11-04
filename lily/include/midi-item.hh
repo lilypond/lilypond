@@ -43,6 +43,16 @@ public:
   virtual string to_string () const = 0;
 };
 
+class Midi_end_of_track : public Midi_item
+{
+public:
+  virtual string to_string () const
+  {
+    // the literal string's terminating null is part of the MIDI command
+    return string ("\xff\x2f", 3);
+  }
+};
+
 class Midi_channel_item : public Midi_item
 {
 public:

@@ -71,9 +71,11 @@ Midi_walker::~Midi_walker ()
 }
 
 void
-Midi_walker::finalize ()
+Midi_walker::finalize (int end_tick)
 {
   do_stop_notes (INT_MAX);
+  int delta_ticks = (end_tick >= last_tick_) ? (end_tick - last_tick_) : 0;
+  track_->push_back (delta_ticks, new Midi_end_of_track ());
 }
 
 /**

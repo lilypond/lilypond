@@ -601,7 +601,7 @@ LilyPond にはこういったこととは無縁です。@c
 @item
 @qq{与える文化}: フリー ソフトウェア運動は多くの偉大なソフトウェア
 プロジェクトを生み出してきました
--- @uref{http://kernel.org/, GNU/Linux},
+-- @uref{https://www.gnu.org/distros/, GNU/Linux},
 @uref{http://www.getfirefox.com/, Mozilla Firefox}, それに
 @uref{http://www.wesnoth.org/, Battle for Wesnoth} など。
 これらのプロジェクトの恩恵を受けて、@c
@@ -712,8 +712,8 @@ Joe Smeets は子どものための本 @emph{Zing Mee}
 合唱のリハーサル譜を作成し、2011年 @emph{Muziektheater Hollands Diep} で@c
 演奏されました:
 @uref{http://www.muziektheaterhollandsdiep.nl/nl/voorstellingen/sint_nicolaas_leeft,
-www.muziektheaterhollandsdiep.nl} 。彼はさらに Moussurgsky の
-@emph{Boris Godounov} を管楽四重奏・ピアノ・打楽器の編成に編曲し、@c
+www.muziektheaterhollandsdiep.nl} 。彼はさらに Mussorgsky の
+@emph{Boris Godunov} を管楽四重奏・ピアノ・打楽器の編成に編曲し、@c
 2014年にまた @emph{Muziektheater Hollands Diep} で演奏されました。
 
 @item
@@ -834,7 +834,7 @@ LilyPond を試してみる決心がついたのなら、@c
 @divEnd
 
 @c TRANSLATORS, so far it's mostly from
-@c http://lilypond.org/web/switch/testimonials
+@c http://lilypond.org/productions.html
 
 @node 人々の評価
 @unnumberedsec 人々の評価

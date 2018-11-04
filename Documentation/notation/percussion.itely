@@ -44,7 +44,7 @@ discussed in @ref{Showing melody rhythms}, and
 @ref{Instantiating new staves}.
 
 @item MIDI output is discussed in a separate section; please see
-@ref{MIDI instruments}.
+@ref{Creating MIDI output}.
 
 @end itemize
 
@@ -52,7 +52,7 @@ discussed in @ref{Showing melody rhythms}, and
 Notation Reference:
 @ref{Showing melody rhythms},
 @ref{Instantiating new staves}.
-@ref{MIDI instruments}.
+@ref{Creating MIDI output}.
 
 Snippets:
 @rlsr{Percussion}.
@@ -106,11 +106,11 @@ be set explicitly.  Other clefs may be used as well.
 
 
 There are a few issues concerning MIDI support for percussion
-instruments; for details please see @ref{MIDI instruments}.
+instruments; for details please see @ref{Creating MIDI output}.
 
 @seealso
 Notation Reference:
-@ref{MIDI instruments},
+@ref{Creating MIDI output},
 @ref{Percussion notes}.
 
 Installed Files:
@@ -172,7 +172,7 @@ This is covered in other sections of the manual.
 
 @seealso
 Notation Reference:
-@ref{MIDI instruments}.
+@ref{Creating MIDI output}.
 
 Snippets:
 @rlsr{Percussion}.
@@ -398,8 +398,8 @@ mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
 @node Custom percussion staves
 @unnumberedsubsubsec Custom percussion staves
 
-If you do not like any of the predefined lists you can define your
-own list at the top of your file.
+It is possible to define custom percussion styles at the top of your
+file and setting the @code{drumStyleTable} within the @code{DrumStaff}.
 
 @lilypond[quote,verbatim]
 #(define mydrums '(
@@ -409,6 +409,7 @@ own list at the top of your file.
          (halfopenhihat   cross     "halfopen"   1)
          (pedalhihat      xcircle   "stopped"    2)
          (lowtom          diamond   #f           3)))
+
 up = \drummode { hh8 hh hhho hhho hhp4 hhp }
 down = \drummode { bd4 sn bd toml8 toml }
 
@@ -420,167 +421,6 @@ down = \drummode { bd4 sn bd toml8 toml }
 @end lilypond
 
 
-@snippets
-
-@c TODO: MOVE ALL THESE TO LSR!  -gp
-
-Here are some examples:
-
-Two Woodblocks, entered with wbh (high woodblock) and wbl (low woodblock)
-
-@lilypond[quote,verbatim]
-% These lines define the position of the woodblocks in the stave;
-% if you like, you can change it or you can use special note heads
-% for the woodblocks.
-#(define mydrums '((hiwoodblock default #t  3)
-                   (lowoodblock default #t -2)))
-
-woodstaff = {
-  % This defines a staff with only two lines.
-  % It also defines the positions of the two lines.
-  \override Staff.StaffSymbol.line-positions = #'(-2 3)
-
-  % This is necessary; if not entered, the barline would be too short!
-  \override Staff.BarLine.bar-extent = #'(-1.5 . 1.5)
-}
-
-\new DrumStaff {
-  \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
-
-  % with this you load your new drum style table
-  \woodstaff
-
-  \drummode {
-    \time 2/4
-    wbl8 16 16 8-> 8 |
-    wbl8 16 16-> ~ 16 16 r8 |
-  }
-}
-@end lilypond
-
-Note that in this special case the length of the barline must
-altered with @code{\override Staff.BarLine.bar-extent #'(from . to)}.
-Otherwise it would be too short.  And you have also to define the
-positions of the two stafflines.  For more information about these
-delicate things have a look at @ref{Staff symbol}.
-
-A tambourine, entered with @q{tamb}:
-
-@lilypond[verbatim,quote]
-#(define mydrums '((tambourine default #t 0)))
-
-\new DrumStaff \with { instrumentName = #"Tambourine" }
-
-\drummode {
-  \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
-  \override Staff.StaffSymbol.line-positions = #'( 0 )
-  \override Staff.BarLine.bar-extent = #'(-1.5 . 1.5)
-
-  \time 6/8
-  tamb8. 16 8 8 8 8 |
-  tamb4. 8 8 8 |
-  % the trick with the scaled duration and the shorter rest
-  % is neccessary for the correct ending of the trill-span!
-  tamb2.*5/6 \startTrillSpan s8 \stopTrillSpan |
-}
-@end lilypond
-
-Music for Tam-Tam (entered with @q{tt}):
-
-@lilypond[quote,verbatim]
-#(define mydrums '((tamtam default #t 0)))
-
-\new DrumStaff \with { instrumentName = #"Tamtam" }
-
-\drummode {
-\set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
-\override Staff.StaffSymbol.line-positions = #'( 0 )
-\override Staff.BarLine.bar-extent = #'(-1.5 . 1.5)
-
-  tt 1 \pp \laissezVibrer
-}
-@end lilypond
-
-Two different bells, entered with @q{cb} (cowbell) and @q{rb} (ridebell)
-
-@lilypond[quote,verbatim]
-#(define mydrums '((ridebell default #t  3)
-                   (cowbell  default #t -2)))
-
-\new DrumStaff \with { instrumentName = #"Different Bells" }
-
-\drummode {
-  \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
-  \override DrumStaff.StaffSymbol.line-positions = #'(-2 3)
-  \override Staff.BarLine.bar-extent = #'(-1.5 . 1.5)
-
-  \time 2/4
-  rb8 8 cb8 16 rb16-> ~ |
-  16 8 16 cb8 8 |
-}
-@end lilypond
-
-Here a short example taken from Stravinsky's @q{L'histoire du Soldat}.
-
-@lilypond[quote,verbatim]
-#(define mydrums '((bassdrum   default #t  4)
-                   (snare      default #t -4)
-                   (tambourine default #t  0)))
-
-global = {
-  \time 3/8 s4.
-  \time 2/4 s2*2
-  \time 3/8 s4.
-  \time 2/4 s2
-}
-
-drumsA = {
-  \context DrumVoice <<
-    { \global }
-    { \drummode {
-        \autoBeamOff
-        \stemDown sn8 \stemUp tamb s8 |
-        sn4 \stemDown sn4 |
-        \stemUp tamb8 \stemDown sn8 \stemUp sn16 \stemDown sn \stemUp sn8 |
-        \stemDown sn8 \stemUp tamb s8 |
-        \stemUp sn4 s8 \stemUp tamb
-      }
-    }
-  >>
-}
-
-drumsB = {
-  \drummode {
-    s4 bd8 s2*2 s4 bd8 s4 bd8 s8
-  }
-}
-
-\layout {
-  indent = #40
-}
-
-\score {
-  \new StaffGroup <<
-    \new DrumStaff \with {
-      instrumentName = \markup {
-        \column {
-          "Tambourine"
-          "et"
-          "caisse claire s. timbre"
-        }
-      }
-    drumStyleTable = #(alist->hash-table mydrums)
-  }
-  \drumsA
-  \new DrumStaff \with {
-    instrumentName = #"Grosse Caisse"
-    drumStyleTable = #(alist->hash-table mydrums)
-  }
-  \drumsB
-  >>
-}
-@end lilypond
-
 @seealso
 Snippets:
 @rlsr{Percussion}.
@@ -590,12 +430,22 @@ Internals Reference:
 @rinternals{DrumVoice}.
 
 
-@c TODO: check name -gp
 @node Ghost notes
 @unnumberedsubsubsec Ghost notes
 
-Ghost notes for drums and percussion may be created using the
-@code{\parenthesize} command detailed in @ref{Parentheses}.
+@cindex Ghost note, percussion
+@cindex Dead note, percussion
+@cindex Muted note, percussion
+@cindex Silenced note, percussion
+@cindex False note, percussion
+@cindex Percussion, ghost note
+@cindex Percussion, dead note
+@cindex Percussion, muted note
+@cindex Percussion, silenced note
+@cindex Percussion, false note
+
+Also known as dead, muted, silenced or false notes; ghost notes can be
+created using the @code{\parenthesize} command, see @ref{Parentheses}.
 
 @lilypond[quote,ragged-right,verbatim]
 \new DrumStaff
@@ -618,5 +468,8 @@ Ghost notes for drums and percussion may be created using the
 @end lilypond
 
 @seealso
+Notation Reference:
+@ref{Parentheses}.
+
 Snippets:
 @rlsr{Percussion}.

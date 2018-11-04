@@ -66,17 +66,34 @@ $(XREF_MAPS_DIR)/%.xref-map: $(outdir)/%.texi | $(OUT_TEXINFO_MANUALS)
 	$(buildscript-dir)/extract_texi_filenames $(XREF_MAP_FLAGS) -q -o $(XREF_MAPS_DIR) $<
 endif
 
-$(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/%.pdf.omf $(outdir)/weblinks.itexi | $(OUT_TEXINFO_MANUALS)
+TEXI2PDF_WEB_VERSION_FLAGS :=
 ifeq ($(WEB_VERSION),yes)
-	PDFTEX=$(PDFTEX) PDFLATEX=$(PDFLATEX) $(buildscript-dir)/run-and-check "cd $(outdir); texi2pdf $(TEXI2PDF_FLAGS) -D web_version -I $(abs-src-dir) $(TEXINFO_PAPERSIZE_OPTION) $(<F) < /dev/null" "$*.texi2pdf.log"
-else
-	PDFTEX=$(PDFTEX) PDFLATEX=$(PDFLATEX) $(buildscript-dir)/run-and-check "cd $(outdir); texi2pdf $(TEXI2PDF_FLAGS) -I $(abs-src-dir) $(TEXINFO_PAPERSIZE_OPTION) $(<F) < /dev/null" "$*.texi2pdf.log"
+TEXI2PDF_WEB_VERSION_FLAGS += -D web_version
 endif
+
+$(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/%.pdf.omf $(outdir)/weblinks.itexi | $(OUT_TEXINFO_MANUALS)
+	PDFTEX=$(PDFTEX) PDFLATEX=$(PDFLATEX) \
+		$(buildscript-dir)/run-and-check \
+			"cd $(outdir); \
+				texi2pdf $(TEXI2PDF_FLAGS) \
+					$(TEXI2PDF_WEB_VERSION_FLAGS) \
+					-I $(abs-src-dir) \
+					$(TEXINFO_PAPERSIZE_OPTION) \
+					-o $*.tmp.pdf \
+					$(<F) \
+					< /dev/null" \
+			"$*.texi2pdf.log"
 ifeq ($(USE_EXTRACTPDFMARK),yes)
-	$(EXTRACTPDFMARK) -o $(outdir)/$*.pdfmark $@
-	$(GS920) -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -dAutoRotatePages=/None -sOutputFile=$(outdir)/$*.final.pdf -c "30000000 setvmthreshold" -f $(top-build-dir)/out-fonts/*.font.ps $(outdir)/$*.pdfmark $@
-	rm $@
-	mv $(outdir)/$*.final.pdf $@
+	$(EXTRACTPDFMARK) -o $(outdir)/$*.pdfmark $(outdir)/$*.tmp.pdf
+	$(GS920) -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -dAutoRotatePages=/None \
+		-sOutputFile=$@ \
+		-c "30000000 setvmthreshold" \
+		-f $(top-build-dir)/out-fonts/*.font.ps \
+		$(outdir)/$*.pdfmark \
+		$(outdir)/$*.tmp.pdf
+	rm $(outdir)/$*.tmp.pdf
+else
+	mv $(outdir)/$*.tmp.pdf $@
 endif
 
 $(outdir)/%.txt: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/weblinks.itexi | $(OUT_TEXINFO_MANUALS)

@@ -1109,6 +1109,18 @@ actually fully cloned."
         (apply ly:input-warning ip msg rest)
         (apply ly:warning msg rest))))
 
+(define-public (ly:grob-warning grob path msg . rest)
+  (let* ((name (assoc-get 'name (ly:grob-property grob 'meta)))
+         (path-string (string-join
+                       (map symbol->string
+                            (if path
+                                ((if (list? path) cons list) name path)
+                                (list name)))
+                       "."))
+         (event (event-cause grob)))
+    (if event (apply ly:event-warning event (string-append path-string ": " msg) rest)
+        (apply ly:warning (string-append path-string ": " msg) rest))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; setting stuff for grace context.
@@ -2380,14 +2392,19 @@ of list @var{arg}."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; The following are used by the \offset function
 
-(define (find-value-to-offset prop self alist)
+(define (find-value-to-offset grob prop self alist)
   "Return the first value of the property @var{prop} in the property
 alist @var{alist} -- after having found @var{self}.  If @var{self} is
 not found, return the first value of @var{prop}."
-  (let ((segment (member (cons prop self) alist)))
+  (let* ((lookfor (cons prop self))
+         (segment (member lookfor alist)))
     (if (not segment)
         (assoc-get prop alist)
-        (assoc-get prop (cdr segment)))))
+        (if (member lookfor (cdr segment))
+            (begin
+              (ly:grob-warning grob prop (_ "giving up on cloned grob transform"))
+              (find-value-to-offset grob prop self (cdr segment)))
+            (assoc-get prop (cdr segment))))))
 
 (define (offset-multiple-types arg offsets)
   "Displace @var{arg} by @var{offsets} if @var{arg} is a number, a
@@ -2419,7 +2436,7 @@ as the second."
            ;; contains is named `self' so it can be easily recognized.
            ;; If `offset' is called as a tweak, the basic-property
            ;; alist is unaffected.
-           (target (find-value-to-offset property self immutable))
+           (target (find-value-to-offset grob property self immutable))
            ;; if target is a procedure, we need to apply it to our
            ;; grob to calculate values to offset.
            (vals (apply caller target grob rest)))

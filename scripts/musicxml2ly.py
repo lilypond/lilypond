@@ -780,8 +780,10 @@ def musicxml_time_to_lily(attributes):
     else:
         change.style = "'()"
 
+    if getattr(time_elm, 'print-object', 'yes') == 'no':
+        change.visible = False
+
     # TODO: Handle senza-misura measures
-    # TODO: Handle hidden time signatures(print-object="no")
     # TODO: What shall we do if the symbol clashes with the sig? e.g. "cut"
     #       with 3/8 or "single-number" with(2+3)/8 or 3/8+2/4?
     return change
@@ -1455,7 +1457,7 @@ def next_non_hash_index(lst, pos):
         pos += 1
     return pos
 
-def musicxml_metronome_to_ly(mxl_event):
+def musicxml_metronome_to_ly(mxl_event, text_event=None):
     children = mxl_event.get_all_children()
     if not children:
         return
@@ -1465,6 +1467,9 @@ def musicxml_metronome_to_ly(mxl_event):
     if isinstance(children[index], musicxml.BeatUnit):
         # first form of metronome-mark, using unit and beats/min or other unit
         ev = musicexp.TempoMark()
+        if text_event:
+            ev.set_text(text_event.get_text().strip())
+
         if hasattr(mxl_event, 'parentheses'):
             ev.set_parentheses(mxl_event.parentheses == "yes")
 
@@ -1535,7 +1540,12 @@ def musicxml_direction_to_lily(n):
     for dt in n.get_typed_children(musicxml.DirType):
         dirtype_children += dt.get_all_children()
 
-    for entry in dirtype_children:
+    dirtype_children = [d for d in dirtype_children if d.get_name() != "#text"]
+
+    for i, entry in enumerate(dirtype_children):
+        if not entry:
+            continue
+
         # brackets, dashes, octave shifts. pedal marks, hairpins etc. are spanners:
         if entry.get_name() in directions_spanners:
             event = musicxml_spanner_to_lily_event(entry)
@@ -1543,6 +1553,16 @@ def musicxml_direction_to_lily(n):
                 event.force_direction=dir
                 res.append(event)
             continue
+
+        # handle text+bpm marks like "Allegro moderato (♩ = 144)"
+        if entry.get_name() == 'words' and i < len(dirtype_children) - 1:
+            next_entry = dirtype_children[i+1]
+            if next_entry.get_name() == 'metronome':
+                event = musicxml_metronome_to_ly(next_entry, entry)
+                if event:
+                    res.append(event)
+                    dirtype_children[i+1] = None
+                    continue
 
         # now treat all the "simple" ones, that can be translated using the dict
         ev = None

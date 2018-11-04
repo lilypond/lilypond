@@ -213,6 +213,19 @@ AC_CHECK_TYPES([scm_t_subr],
 	       [#include <libguile.h>])
 CXXFLAGS="$save_CXXFLAGS"
 
+# -Wcast-function-type was added to GCC in version 8.  The Guile
+# interface tends to trigger this warning, so disable it.
+# g++ -Wno-whatever may compile even when the compiler does not
+# support the warning, so we have to check for the warning itself.
+AC_MSG_CHECKING([whether $CXX supports -Wcast-function-type])
+save_CXXFLAGS="$CXXFLAGS"
+CXXFLAGS=-Wcast-function-type
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([])],
+                  [AC_MSG_RESULT([yes])
+                   CXXFLAGS="$save_CXXFLAGS -Wno-cast-function-type"],
+                  [AC_MSG_RESULT([no])
+                   CXXFLAGS="$save_CXXFLAGS"])
+
 ## Check for usable cxxabi
 save_LIBS="$LIBS"
 LIBS="$LIBS $CXXABI_LIBS"

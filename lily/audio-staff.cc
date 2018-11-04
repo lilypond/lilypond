@@ -20,6 +20,7 @@
 #include "audio-staff.hh"
 
 #include "midi-chunk.hh"
+#include "midi-item.hh"
 #include "midi-stream.hh"
 #include "midi-walker.hh"
 
@@ -35,15 +36,16 @@ Audio_staff::Audio_staff ()
 }
 
 void
-Audio_staff::output (Midi_stream &midi_stream, int track, bool port, int start_tick)
+Audio_staff::output (Midi_stream &midi_stream, int track, bool port,
+                     Moment start_mom)
 {
   Midi_track midi_track (track, port);
 
-  Midi_walker i (this, &midi_track, start_tick);
+  Midi_walker i (this, &midi_track, moment_to_ticks (start_mom));
   for (; i.ok (); i++)
     i.process ();
 
-  i.finalize ();
+  i.finalize (moment_to_ticks (end_mom_));
 
   midi_stream.write (midi_track);
 }
