@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 3ff93fbd01133506d14c929740bd26b34f59c5b4
+   Translation of GIT committish: 1b56607b3c41bcfcf0a03d94c6c22394334fef92
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -65,41 +65,45 @@ LilyPond.
 @file{lilypond-invoke-editor} est un petit programme assistant.  Il
 se charge d'appeler un éditeur pour les identifiants de ressource
 (@emph{URI}) de type @code{textedit}, et un navigateur pour les autres.
-Il teste en outre la variable d'environnement @code{EDITOR} pour les cas
-suivant :
+Il teste en outre les variables d'environnement @code{EDITOR} et
+@code{LYEDITOR} pour trouver et lancer l'éditeur favori. Dans la mesure
+où @code{LYEDITOR} aura préséance sur @code{EDITOR}, nous vous
+conseillons de l'utiliser si vous désirez utiliser un éditeur pour le
+terminal et un autre pour la fonctionnalité pointer-cliquer de LilyPond.
 
-@table @code
-@item emacs
-  sera alors lancée la commande
-@example
-emacsclient --no-wait +@var{line}:@var{column} @var{file}
-@end example
-
-@item gvim
-  sera alors lancée la commande
-@example
-gvim --remote +:@var{line}:norm@var{column} @var{file}
-@end example
-
-@item nedit
-  sera alors lancée la commande
-@example
-  nc -noask +@var{line} @var{file}'
-@end example
-@end table
-
-La variable d'environnement @code{LYEDITOR} permet d'anticiper cette
-affectation, puisqu'elle contient la commande qui permet de lancer
-l'éditeur en tenant compte des valeurs respectives de @code{%(file)s},
-@code{%(column)s} et@code{%(line)s}.  Par exemple,
+Les éditeurs peuvent recourir à des syntaxes différentes pour ouvrir un
+fichier à une ligne et une colonne spécifiques. LilyPond dispose déjà
+d'un certain nombre de commandes selon les éditeurs, définies dans le
+fichier @file{scm/editor.scm}. Il suffit donc de libeller, par exemple :
 
 @example
-emacsclient --no-wait +%(line)s:%(column)s %(file)s
+export LYEDITOR=atom
 @end example
 
 @noindent
-en variable d'environnement @code{LYEDITOR} revient au lancement d'un
-client emacs standard.
+  pour lancer la commande
+@example
+atom %(file)s:%(line)s:%(column)s
+@end example
+
+@noindent
+  où @code{%(file)s}, @code{%(line)s} et @code{%(column)s} seront
+  respectivement remplacés par le fichier, la ligne et la colonne
+  considérés.
+
+L'utilisation d'un éditeur non répertorié dans le fichier
+@file{scm/editor.scm} recquiert d'en connaître la syntaxe spécifique et
+d'assigner la commande complète à la variable @code{LYEDITOR}. Voici par
+exemple ce qui convient à l'éditeur Visual Studio Code :
+
+ @example
+export LYEDITOR="code --goto %(file)s:%(line)s:%(column)s"
+ @end example
+
+@warning{L'utilisation d'Emacs recquiert un configuration
+supplémentaire. Il faudra ajouter la ligne @code{(server-start)} à votre
+fichier @file{~/.emacs} afin d'éviter qu'une instance supplémentaire
+d'Emacs ne s'ouvre à chaque clic sur un objet du PDF.}
 
 @menu
 * Utilisation du pointer-cliquer avec Xpdf::

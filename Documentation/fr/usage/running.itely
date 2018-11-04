@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: d88eeba3390060dbccddfc3724cbb4b8cfecceb8
+   Translation of GIT committish: 1b56607b3c41bcfcf0a03d94c6c22394334fef92
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -266,8 +266,11 @@ la recherche commencera dans le premier répertoire inclus et, si le
 fichier en question ne s'y trouve pas, les répertoires suivants seront
 examinés l'un après l'autre.
 
-@warning{L'utilisation du tilde -- @code{~} -- avec l'option @code{-I}
-peut produire des résultats inattendus selon le @emph{shell}.}
+@warning{L'utilisation du tilde (@code{~}) avec l'option @code{-I}
+peut produire des résultats inattendus selon le @emph{shell}.
+
+Les utilisateurs de Windows devront ajouter une oblique (@code{/}
+finale au chemin d'accès.}
 
 @cindex chroot jail, fonctionnement
 @item -j, --jail=@var{user},@var{group},@var{jail},@var{dir}
