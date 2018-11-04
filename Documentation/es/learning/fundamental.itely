@@ -45,7 +45,7 @@ formato de entrada, consulte @ruser{Estructura del archivo}.
 * Introducción a la estructura de los archivos de LilyPond::
 * La partitura es una (única) expresión musical compuesta::
 * Anidado de expresiones musicales::
-* Structure of a note entry::
+* Estructura de un elemento de nota::
 * Acerca de la no anidabilidad de llaves y ligaduras::
 @end menu
 
@@ -501,7 +501,8 @@ Esto necesitaría más instrucciones que aún no se han visto.
 Véase @ref{Tamaño de los objetos} y @ruser{Pentagramas de Ossia}.
 
 @node Estructura de un elemento de nota
-@subsection Structure of a note entry
+@subsection Estructura de un elemento de nota
+@translationof Structure of a note entry
 
 Un elemento de nota en LilyPond consiste en una altura seguida de
 una duración, y opcionalmente seguida de uno o más
@@ -3507,4 +3508,3 @@ Referencia de la notación:
 @ruser{Escritura de las particellas},
 @ruser{Silencios de compás completo},
 @ruser{Inclusión de archivos de LilyPond}.
-

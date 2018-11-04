@@ -1253,7 +1253,7 @@ salida sobreescribirá al archivo de entrada}.
 
 Estas plantillas se usan para @code{lilypond-book}.  Si no está
 familiarizado con este programa, consulte
-@rprogram{LilyPond-book}.
+@rprogram{lilypond-book}.
 
 @subsection LaTeX
 

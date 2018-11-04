@@ -475,13 +475,13 @@ L'altezza può essere definita esplicitamente usando il linguaggio di input
 corrente di LilyPond, come è descritto in @ruser{Nomi delle note in altre lingue}.
 L'altezza può essere omessa.  Quando viene omessa, l'altezza di una nota
 corrente sarà identica all'altezza della nota precedente nel file di
-input, vedi @ruser{Durate}.  Attenzione, né @code{r} né @code{s}
+input, vedi @ruser{Durata}.  Attenzione, né @code{r} né @code{s}
 sono un'altezza.
 
 La durata è composta da un numero e eventualmente da uno o più punti.  Se una
 durata non è definita esplicitamente, la durata di una nota corrente sarà la
 identica alla durata della nota, accordo, pausa o pausa spaziatrice precedenti,
-vedi @ruser{Durate}.
+vedi @ruser{Durata}.
 
 I post-eventi seguono la nota alla quale sono collegate.  Supponiamo di voler
 scrivere un Do di un ottavo con diteggiatura 1, articolazione tenuto, una

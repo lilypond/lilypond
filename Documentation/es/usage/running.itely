@@ -31,7 +31,7 @@ LilyPond.
 @translationof Normal usage
 
 Casi todos los usuarios ejecutan LilyPond por medio de un interfaz
-gráfico; consulte @rlearning{Primeros pasos} si no lo ha leído aún.
+gráfico; consulte @rlearningnamed{Tutorial,Primeros pasos} si no lo ha leído aún.
 
 
 @node Utilización desde la línea de órdenes
@@ -59,7 +59,7 @@ documentos sobre este tema si no le resulta familiar la línea de
 
 @menu
 * Invocar a LilyPond::
-* Opciones de LilyPond básicas de la línea de órdenes::
+* Opciones básicas de la línea de órdenes para LilyPond::
 * Opciones avanzadas de línea de órdenes para LilyPond::
 * Variables de entorno::
 * LilyPond en una jaula de chroot::
@@ -183,8 +183,8 @@ forfiles /s /p "C:\Documentos\Mis Partituras" /M *.ly /c "cmd /c lilypond @@file
 @end example
 
 
-@node Opciones de LilyPond básicas de la línea de órdenes
-@unnumberedsubsec Opciones de LilyPond básicas de la línea de órdenes
+@node Opciones básicas de la línea de órdenes para LilyPond
+@unnumberedsubsec Opciones básicas de la línea de órdenes para LilyPond
 @translationof Basic command line options for LilyPond
 
 @cindex Invoca a @command{lilypond}
@@ -791,7 +791,7 @@ código útiles.
 
 La opción @option{--jail} es una alternativa más segura aún, pero
 requiere más trabajo para su configuración.  Véase
-@ref{Opciones de LilyPond básicas de la línea de órdenes}.
+@ref{Opciones básicas de la línea de órdenes para LilyPond}.
 
 @multitable @columnfractions .33 .16 .51
 @item @code{separate-log-files}

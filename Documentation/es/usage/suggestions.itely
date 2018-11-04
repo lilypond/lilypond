@@ -692,6 +692,5 @@ copy salida\miproyecto.pdf MiProyecto.pdf
 
 @seealso
 Manual de utilización del programa:
-@rprogram{Configuración para MacOS X},
 @rprogram{Utilización desde la línea de órdenes},
-@rprogram{LilyPond-book}
+@rprogram{lilypond-book}
