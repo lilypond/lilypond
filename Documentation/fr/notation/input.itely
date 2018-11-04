@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: fc65f44f5cc87fe169a26e2cbcb9b664c2496b77
+   Translation of GIT committish: 1b56607b3c41bcfcf0a03d94c6c22394334fef92
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -2943,6 +2943,50 @@ Graphics (SVG), Encapsulated PostScript (EPS) ou Portable Network
 Graphics (PNG) dès lors que vous aurez lancé LilyPond en ligne de
 commande avec l'option @i{ad hoc} -- voir
 @rprogram{Utilisation en ligne de commande} à ce sujet.
+
+@menu
+* Sortie SVG::
+@end menu
+
+@node Sortie SVG
+@unnumberedsubsubsec Sortie SVG
+@translationof SVG Output
+
+La sortie SVG peut accessoirement contenir des métadonnées pour les
+@emph{grobs} (objets graphiques) tels que têtes de notes, silences, etc.
+Ces métadonnées peuvent correspondre aux attributs standards du format
+SVG comme @code{id} et @code{class}, ou bien à des attributs
+personnalisés. Les attributs et leur valeur se spécifient à l'aide d'une
+dérogation à la propriété @code{output-attributes} d'un @emph{grob} par
+une liste associative (alist) en Scheme. Les valeurs peuvent être des
+nombres, chaînes ou symboles comme, par exemple :
+
+@example
+@{
+  \once \override NoteHead.output-attributes =
+  #'((id . 123)
+     (class . "ceci cela")
+     (data-quelconque . quelquechose))
+  c
+@}
+@end example
+
+@noindent
+
+Le code ci-dessus produira la balise @code{<g>} (group) suivante dans le
+fichier SVG :
+
+@example
+<g id="123" class="ceci cela" data-quelconque="quelquechose">
+  ...NoteHead grob SVG elements...
+</g>
+@end example
+
+@noindent
+La balise @code{<g>} contient tous les éléments SVG d'un @emph{grob}
+donné ; certains @emph{grobs} génèrent de multiples éléments SVG. Dans
+la syntaxe SVG, le préfixe @code{data-} s'utilise pour les attributs de
+métadonnée personnalisée non-standard.
 
 
 @node Changement des fontes musicales

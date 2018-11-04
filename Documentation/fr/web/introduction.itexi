@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: 721cbad0a8fa77d545bde7237dfc9aff3e5c6e2c
+   Translation of GIT committish: 1b56607b3c41bcfcf0a03d94c6c22394334fef92
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -612,7 +612,8 @@ fonctionnalités -- nous pouvons tendre bien plus vite vers ce but.
 
 @item
 « Culture du don » : le mouvement du logiciel libre a créé de nombreux
-grands projets logiciels tels que @uref{https://www.gnu.org/distros/, GNU/Linux},
+grands projets logiciels tels que
+@uref{https://www.gnu.org/distros/, GNU/Linux},
 @uref{http://www.getfirefox.com/, Mozilla Firefox} et
 @uref{http://www.wesnoth.org/, Battle for Wesnoth}.  Ayant bénéficié de
 ces projets en tant qu'utilisateurs, certains souhaitent « donner en
@@ -1177,7 +1178,7 @@ Lisez @ref{Entrée sous forme de texte}.
 @translationof Text input
 
 @c TRANSLATORS, so far it's mostly from
-@c http://lilypond.org/web/switch/howto
+@c http://lilypond.org/productions
 
 
 @divClass{column-center-top}
