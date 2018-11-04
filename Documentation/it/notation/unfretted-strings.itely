@@ -44,7 +44,7 @@ passaggi a doppia corda o i divisi.
 * Riferimenti per archi senza tasti::
 * Indicazioni di arcata::
 * Armonici::
-* Snap (Bartok) pizzicato::
+* Pizzicato alla Bartok::
 @end menu
 
 @node Riferimenti per archi senza tasti
@@ -67,13 +67,13 @@ vedi @ref{Note in un accordo}.  Si possono inserire delle direttive su
 come eseguire gli accordi, vedi @ref{Arpeggio}.
 
 @item I modelli per i quartetti d'archi si trovano in
-@rlearning{Modelli per quartetto d’archi}.  Altri sono illustrati nei frammenti.
+@rlearning{Modelli per quartetto d'archi}.  Altri sono illustrati nei frammenti.
 
 @end itemize
 
 @seealso
 Manuale di apprendimento:
-@rlearning{Modelli per quartetto d’archi}.
+@rlearning{Modelli per quartetto d'archi}.
 
 Guida alla notazione:
 @ref{Scritte},

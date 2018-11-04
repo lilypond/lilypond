@@ -3100,7 +3100,7 @@ percusión, véase @ref{Notación básica de percusión}.  Music in drum mode is
 percussion notes when entered into a @code{DrumStaff} context.
 
 El modo de percusión también se activa con la instrucción
-@code{\drums}.  También 
+@code{\drums}.  También
 hace que el código que sigue se interprete con la sintaxis de la
 notación de percusión but in addition it implicitly creates a new
 @code{DrumStaff} context and renders the input into it as percussion
@@ -5386,7 +5386,7 @@ Referencia de la notación:
 @ref{Predicados de tipo predefinidos}.
 
 Expansión de LilyPond:
-@rextend{Sintaxis de las funciones musicales}.
+@rextend{Funciones musicales}.
 
 Archivos instalados:
 @file{lily/music-scheme.cc},

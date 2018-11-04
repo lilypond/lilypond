@@ -4009,14 +4009,14 @@ lhMusic = \relative {
 @translationof Further tweaking
 
 @menu
-* Altri usi delle modifiche con \tweak::
+* Altri usi delle modifiche con tweak::
 * Uso delle variabili per modificare la formattazione::
 * Fogli di stile::
 * Altre fonti di informazione::
 * Modifiche avanzate con Scheme::
 @end menu
 
-@node Altri usi delle modifiche con \tweak
+@node Altri usi delle modifiche con tweak
 @subsection Altri usi delle modifiche con @code{\tweak}
 @translationof Other uses for tweaks
 

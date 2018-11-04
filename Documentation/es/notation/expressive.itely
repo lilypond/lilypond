@@ -620,8 +620,8 @@ mfEspressDynamic = #(make-dynamic-script mfEspress)
 @end lilypond
 
 Se puede utilizar en su lugar la forma Scheme del modo de marcado.
-Su sintaxis se explica en @rextend{Construcción del marcado en
-Scheme}.
+Su sintaxis se explica en
+@rextend{Construcción de elementos de marcado en Scheme}.
 
 @lilypond[verbatim,quote]
 moltoF = #(make-dynamic-script
@@ -658,7 +658,7 @@ Referencia de la notación:
 @ref{Control de las dinámicas del MIDI}.
 
 Extender LilyPond:
-@rextend{Construcción del marcado en Scheme}.
+@rextend{Construcción de elementos de marcado en Scheme}.
 
 Fragmentos de código:
 @rlsr{Expressive marks}.

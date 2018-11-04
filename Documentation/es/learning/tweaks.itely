@@ -215,6 +215,7 @@ Referencia de la notación:
 * El prefijo once::
 * La instrucción overrideProperty::
 * La instrucción tweak::
+* El prefijo single::
 @end menu
 
 @node La instrucción override
@@ -4902,4 +4903,3 @@ posición dentro del pentagrama.
 Se pueden encontrar ejemplos adicionales que muestran la
 utilización de estos interfaces programables, en
 @rextendnamed{Callback functions,Funciones de callback}.
-
