@@ -34,8 +34,9 @@
   Modifications for an interpretation context as given in the
   input.
 */
-struct Context_mod : public Simple_smob<Context_mod>
+class Context_mod : public Simple_smob<Context_mod>
 {
+public:
   SCM mark_smob () const;
   int print_smob (SCM, scm_print_state *) const;
   static const char * const type_p_name_;

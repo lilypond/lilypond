@@ -24,7 +24,7 @@
 #include "moment.hh"
 #include "lily-guile.hh"
 
-struct Music_sequence
+class Music_sequence
 {
 public:
   DECLARE_SCHEME_CALLBACK (cumulative_length_callback, (SCM));

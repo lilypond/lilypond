@@ -80,8 +80,9 @@ struct Bound_info
   }
 };
 
-struct Slur_score_state
+class Slur_score_state
 {
+public:
   Spanner *slur_;
   Grob *common_[NO_AXES];
   bool valid_;

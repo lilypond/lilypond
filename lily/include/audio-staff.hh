@@ -25,8 +25,9 @@
 #include "moment.hh"
 #include "audio-element.hh"
 
-struct Audio_staff : public Audio_element
+class Audio_staff : public Audio_element
 {
+public:
   void add_audio_item (Audio_item *ai);
   void output (Midi_stream &midi_stream_r, int track, bool port,
                Moment start_mom);

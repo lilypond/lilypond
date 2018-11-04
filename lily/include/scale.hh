@@ -24,8 +24,9 @@
 #include "rational.hh"
 #include "std-vector.hh"
 
-struct Scale : public Smob<Scale>
+class Scale : public Smob<Scale>
 {
+public:
   virtual ~Scale ();
   Scale (vector<Rational> const &);
   Scale (Scale const &);
@@ -34,7 +35,6 @@ struct Scale : public Smob<Scale>
   Rational step_size (int step) const;
   int step_count () const;
   int normalize_step (int step) const;
-
 
 private:
   vector<Rational> step_tones_;

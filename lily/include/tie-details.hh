@@ -22,8 +22,9 @@
 
 #include "lily-proto.hh"
 
-struct Tie_details
+class Tie_details
 {
+public:
   Real height_limit_;
   Real ratio_;
   Real staff_space_;

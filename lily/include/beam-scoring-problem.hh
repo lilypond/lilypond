@@ -43,8 +43,9 @@ enum Scorers
   NUM_SCORERS,
 };
 
-struct Beam_configuration
+class Beam_configuration
 {
+public:
   Interval y;
   Real demerits;
 #if DEBUG_BEAM_SCORING
@@ -71,8 +72,9 @@ public:
   }
 };
 
-struct Beam_quant_parameters
+class Beam_quant_parameters
 {
+public:
   Real SECONDARY_BEAM_DEMERIT;
   Real STEM_LENGTH_DEMERIT_FACTOR;
   Real REGION_SIZE;

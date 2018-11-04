@@ -63,7 +63,7 @@
 
   - optimize.
 */
-struct Slur_score_state;
+class Slur_score_state;
 
 Slur_score_state::Slur_score_state ()
 {

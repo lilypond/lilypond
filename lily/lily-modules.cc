@@ -22,8 +22,9 @@
 #include "lily-imports.hh"
 #include "warn.hh"
 
-struct Scm_module::Variable_record
+class Scm_module::Variable_record
 {
+public:
   const char *name_;
   Scm_variable *var_;
   Variable_record *next_;

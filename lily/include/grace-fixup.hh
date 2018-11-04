@@ -43,8 +43,9 @@
   Graces at the start of a sequential music iterator are handled
   by initting here_mom_ with Music::start_music (); no fixups are needed.
 */
-struct Grace_fixup
+class Grace_fixup
 {
+public:
   Moment start_;
   Moment length_;
 

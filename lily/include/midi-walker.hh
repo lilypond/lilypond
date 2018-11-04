@@ -25,8 +25,9 @@
 #include "lily-proto.hh"
 #include "moment.hh"
 
-struct Midi_note_event : PQueue_ent<int, Midi_note *>
+class Midi_note_event : public PQueue_ent<int, Midi_note *>
 {
+public:
   bool ignore_;
   Midi_note_event ();
 };

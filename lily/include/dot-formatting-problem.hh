@@ -6,8 +6,9 @@
 
 #include <map>
 
-struct Dot_formatting_problem
+class Dot_formatting_problem
 {
+public:
   Skyline head_skyline_;
   Dot_configuration *best_;
   int score_;

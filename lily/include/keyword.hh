@@ -23,8 +23,9 @@
 #include "std-vector.hh"
 
 /* for the keyword table */
-struct Keyword_ent
+class Keyword_ent
 {
+public:
   char const *name_;
   int tokcode_;
 };
@@ -32,8 +33,9 @@ struct Keyword_ent
 /*
   junkme, use  hash table.
 */
-struct Keyword_table
+class Keyword_table
 {
+public:
   vector<Keyword_ent> table_;
 
   Keyword_table (Keyword_ent *);

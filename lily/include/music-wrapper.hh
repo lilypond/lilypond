@@ -22,7 +22,7 @@
 
 #include "lily-guile.hh"
 
-struct Music_wrapper
+class Music_wrapper
 {
 public:
   DECLARE_SCHEME_CALLBACK (length_callback, (SCM));

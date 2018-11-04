@@ -32,12 +32,14 @@
   The definition of an interpretation context as given in the
   input. The lists are stored in order of definition.
 */
-struct Context_def : public Smob<Context_def>
+class Context_def : public Smob<Context_def>
 {
+public:
   SCM mark_smob () const;
   int print_smob (SCM, scm_print_state *) const;
   static const char * const type_p_name_;
   virtual ~Context_def ();
+
 private:
   /*
     these lists store the definition, in opposite order of entry
@@ -50,6 +52,7 @@ private:
   SCM context_aliases_;
   SCM translator_group_type_;
   SCM input_location_;
+
 public:
   Input *origin () const;
   void add_context_mod (SCM);

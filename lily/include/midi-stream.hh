@@ -27,8 +27,9 @@ using namespace std;
 #include "std-string.hh"
 #include "lily-proto.hh"
 
-struct Midi_stream
+class Midi_stream
 {
+public:
   Midi_stream (const string &file_name_string);
   ~Midi_stream ();
 

@@ -23,8 +23,9 @@
 #include "std-vector.hh"
 #include "lily-proto.hh"
 
-struct Column_x_positions
+class Column_x_positions
 {
+public:
   vector<Grob *> cols_;
   vector<Grob *> loose_cols_;
 

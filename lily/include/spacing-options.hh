@@ -29,8 +29,9 @@
   from GraceSpacing.
  */
 
-struct Spacing_options
+class Spacing_options
 {
+public:
   bool packed_;
   bool stretch_uniformly_;
   bool float_nonmusical_columns_;

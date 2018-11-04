@@ -19,7 +19,7 @@
 
 #include "music.hh"
 
-struct Lyric_combine_music
+class Lyric_combine_music
 {
 public:
   DECLARE_SCHEME_CALLBACK (length_callback, (SCM));
