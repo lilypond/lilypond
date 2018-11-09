@@ -1,12 +1,12 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: c286e07798cd57a4785c3701b2bbcf94721b0f11
+    Translation of GIT committish: fdb5a275551d4e87df940924aed74a0ec273f70e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.19.80"
+@c \version "2.19.82"
 
 
 @c Translators: Tomohiro Tatejima, Yoshiki Sawada

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: 5fb3f8cf17ce7b57d22584429d736f188e4827d7
+    Translation of GIT committish: fdb5a275551d4e87df940924aed74a0ec273f70e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -61,37 +61,44 @@ PDF ビューアが LilyPond で提供される @file{lilypond-invoke-editor}
 プログラム @file{lilypond-invoke-editor} は小さな支援プログラムです。@c
 これは特別な @code{textedit} URI に対してエディタを呼び出し、@c
 それ以外に対しては Web ブラウザを呼び出します。@c
-このプログラムは環境変数 @code{EDITOR} を調べて、@c
-以下のパターンに動作します:
+このプログラムは環境変数 @code{EDITOR} と @code{LYEDITOR} を調べて、@c
+ユーザの使用しているエディタを呼び出します。@code{LYEDITOR} は @code{EDITOR}
+よりも優先されるため、前者を使用することを推奨します。特に、ターミナル上で@c
+常用しているエディタとは別に、LilyPond のポイント アンド クリックのための@c
+エディタを指定したい場合には、前者を使用してください。
 
-@table @code
-@item emacs
-  このプログラムは以下を呼び出します
-@example
-emacsclient --no-wait +@var{line}:@var{column} @var{file}
-@end example
-@item gvim
-  このプログラムは以下を呼び出します
-@example
-gvim --remote +:@var{line}:norm@var{column} @var{file}
-@end example
-
-@item nedit
-  このプログラムは以下を呼び出します
-@example
-  nc -noask +@var{line} @var{file}'
-@end example
-@end table
-
-環境変数 @code{LYEDITOR} はこの動作をオーバライドするために使用されます。@c
-これにはエディタを起動するためのコマンド ラインを保持し、@c
-@code{%(column)s}, @code{%(line)s} は@c
-それぞれファイル、列、行に置き換えられます。
-以下の @code{LYEDITOR} 設定は標準の emacsclient 呼び出しと等価です。
+エディタによって、行位置と列位置を指定してファイルを開くための@c
+引数の記法は異なります。ユーザの便宜のために、LilyPond には@c
+いくつかのエディタに対するコマンドが予め登録されており、それは
+@file{scm/editor.scm} にリストアップされています。そのため、単にエディタの@c
+バイナリ名を変数に登録すれば動作します。例えば:
 
 @example
-emacsclient --no-wait +%(line)s:%(column)s %(file)s
+export LYEDITOR=atom
 @end example
+
+@noindent
+は以下を呼び出します:
+@example
+atom %(file)s:%(line)s:%(column)s
+@end example
+
+@code{%(file)s}, @code{%(line)s}, @code{%(column)s} は@c
+それぞれファイル名、行、列で置き換えられます。
+
+@file{scm/editor.scm} にリストアップされていないエディタを使用するには、@c
+@code{LYEDITOR} に特定の記法でコマンド全体を登録します。@c
+以下は Visual Studio Code を使用する場合の例です:
+
+@example
+export LYEDITOR="code --goto %(file)s:%(line)s:%(column)s"
+@end example
+
+@warning{Emacs を使用している場合、追加の設定が必要となります。@c
+@file{~/.emacs} ファイルに @code{(server-start)} という行を追加する必要が@c
+あります。そうしなければ、PDF 内のオブジェクトをクリックする度に@c
+新しい Emacs ウィンドウが開いてしまいます。}
+
 
 @menu
 * ポイント＆クリックに Xpdf を使用する::

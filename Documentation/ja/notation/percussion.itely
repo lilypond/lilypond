@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: fdc83c8d7ca8322fc49cae1f3231d6de4874bb5d
+    Translation of GIT committish: fdb5a275551d4e87df940924aed74a0ec273f70e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -50,7 +50,7 @@
 説明しています。
 
 @item MIDI 出力については、別のセクションで説明します。@c
-@ref{MIDI instruments} を参照してください。
+@ref{Creating MIDI output} を参照してください。
 
 @end itemize
 
@@ -58,7 +58,7 @@
 記譜法リファレンス:
 @ref{Showing melody rhythms},
 @ref{Instantiating new staves},
-@ref{MIDI instruments}
+@ref{Creating MIDI output}
 
 コード断片集:
 @rlsr{Percussion}
@@ -115,11 +115,11 @@
 
 
 打楽器のための MIDI サポートにはいくつか考慮すべき問題があります。@c
-@ref{MIDI instruments} を参照してください。
+@ref{Creating MIDI output} を参照してください。
 
 @seealso
 記譜法リファレンス:
-@ref{MIDI instruments},
+@ref{Creating MIDI output},
 @ref{Percussion notes}
 
 インストールされているファイル:
@@ -186,7 +186,7 @@
 
 @seealso
 記譜法リファレンス:
-@ref{MIDI instruments}
+@ref{Creating MIDI output}
 
 コード断片集:
 @rlsr{Percussion}
@@ -416,8 +416,8 @@ mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
 @unnumberedsubsubsec カスタム打楽器譜
 @translationof Custom percussion staves
 
-あらかじめ定義されている打楽器の音符名リストのいずれも気に入らなければ、@c
-入力ファイルの先頭でリストを定義することができます。@c
+入力ファイルの先頭でカスタムの打楽器スタイルを定義することができ、@c
+@code{DrumStaff} の @code{drumStyleTable} でそれを使用できます。
 
 @lilypond[quote,verbatim]
 #(define mydrums '(
@@ -427,6 +427,7 @@ mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
          (halfopenhihat   cross     "halfopen"   1)
          (pedalhihat      xcircle   "stopped"    2)
          (lowtom          diamond   #f           3)))
+
 up = \drummode { hh8 hh hhho hhho hhp4 hhp }
 down = \drummode { bd4 sn bd toml8 toml }
 
@@ -438,169 +439,6 @@ down = \drummode { bd4 sn bd toml8 toml }
 @end lilypond
 
 
-@snippets
-
-@c TODO: MOVE ALL THESE TO LSR!  -gp
-
-ここでいくつか例を挙げます:
-
-2 つのウッド ブロックを @q{wbh} (ハイ ウッド ブロック) と
-@q{wbl} (ロー ウッド ブロック) で入力します:
-
-@c KEEP LY
-@lilypond[quote,verbatim]
-% 以下の行でウッド ブロックの譜の中での位置を定義します。
-% 好みに応じて位置を変更したり、特殊な譜頭を使うすることができます。
-#(define mydrums '((hiwoodblock default #t  3)
-                   (lowoodblock default #t -2)))
-
-woodstaff = {
-  % 以下は二線の譜を定義します。
-  % また、二線の位置も定義します。
-  \override Staff.StaffSymbol.line-positions = #'(-2 3)
-
-  % 以下の行が必要です。この行を省略すると、小節線は短すぎます！
-  \override Staff.BarLine.bar-extent = #'(-1.5 . 1.5)
-}
-
-\new DrumStaff {
-  \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
-
-  % 以下の行で新しく定義したドラム スタイル テーブルを読み込みます。
-  \woodstaff
-
-  \drummode {
-    \time 2/4
-    wbl8 16 16 8-> 8 |
-    wbl8 16 16-> ~ 16 16 r8 |
-  }
-}
-@end lilypond
-
-上記の特殊なケースでは、@c
-小節線の長さを @code{\override Staff.BarLine.bar-extent #'(from . to)}
-で変更する必要があります。@c
-さもないと、小節線の長さが短すぎます。@c
-また、2 本の譜線の位置を定義する必要があります。@c
-これらの細かな内容についての更なる情報は @ref{譜シンボル} を参照してください。
-
-タンバリンを @q{tamb} で入力します:
-
-@lilypond[verbatim,quote]
-#(define mydrums '((tambourine default #t 0)))
-
-\new DrumStaff \with { instrumentName = #"Tambourine" }
-
-\drummode {
-  \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
-  \override Staff.StaffSymbol.line-positions = #'( 0 )
-  \override Staff.BarLine.bar-extent = #'(-1.5 . 1.5)
-
-  \time 6/8
-  tamb8. 16 8 8 8 8 |
-  tamb4. 8 8 8 |
-  % the trick with the scaled duration and the shorter rest
-  % is neccessary for the correct ending of the trill-span!
-  tamb2.*5/6 \startTrillSpan s8 \stopTrillSpan |
-}
-@end lilypond
-
-タムタムを @q{tt} で入力します:
-
-@lilypond[quote,verbatim]
-#(define mydrums '((tamtam default #t 0)))
-
-\new DrumStaff \with { instrumentName = #"Tamtam" }
-
-\drummode {
-\set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
-\override Staff.StaffSymbol.line-positions = #'( 0 )
-\override Staff.BarLine.bar-extent = #'(-1.5 . 1.5)
-
-  tt 1 \pp \laissezVibrer
-}
-@end lilypond
-
-2 種類のベルを @q{cb} (カウベル) と @q{rb} (ライドベル) で入力します:
-
-@lilypond[quote,verbatim]
-#(define mydrums '((ridebell default #t  3)
-                   (cowbell  default #t -2)))
-
-\new DrumStaff \with { instrumentName = #"Different Bells" }
-
-\drummode {
-  \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
-  \override DrumStaff.StaffSymbol.line-positions = #'(-2 3)
-  \override Staff.BarLine.bar-extent = #'(-1.5 . 1.5)
-
-  \time 2/4
-  rb8 8 cb8 16 rb16-> ~ |
-  16 8 16 cb8 8 |
-}
-@end lilypond
-
-ここで Stravinsky の @q{L'histoire du Soldat} からの短い例を挙げます。
-
-@lilypond[quote,verbatim]
-#(define mydrums '((bassdrum   default #t  4)
-                   (snare      default #t -4)
-                   (tambourine default #t  0)))
-
-global = {
-  \time 3/8 s4.
-  \time 2/4 s2*2
-  \time 3/8 s4.
-  \time 2/4 s2
-}
-
-drumsA = {
-  \context DrumVoice <<
-    { \global }
-    { \drummode {
-        \autoBeamOff
-        \stemDown sn8 \stemUp tamb s8 |
-        sn4 \stemDown sn4 |
-        \stemUp tamb8 \stemDown sn8 \stemUp sn16 \stemDown sn \stemUp sn8 |
-        \stemDown sn8 \stemUp tamb s8 |
-        \stemUp sn4 s8 \stemUp tamb
-      }
-    }
-  >>
-}
-
-drumsB = {
-  \drummode {
-    s4 bd8 s2*2 s4 bd8 s4 bd8 s8
-  }
-}
-
-\layout {
-  indent = #40
-}
-
-\score {
-  \new StaffGroup <<
-    \new DrumStaff \with {
-      instrumentName = \markup {
-        \column {
-          "Tambourine"
-          "et"
-          "caisse claire s. timbre"
-        }
-      }
-    drumStyleTable = #(alist->hash-table mydrums)
-  }
-  \drumsA
-  \new DrumStaff \with {
-    instrumentName = #"Grosse Caisse"
-    drumStyleTable = #(alist->hash-table mydrums)
-  }
-  \drumsB
-  >>
-}
-@end lilypond
-
 @seealso
 コード断片集:
 @rlsr{Percussion}
@@ -610,14 +448,26 @@ drumsB = {
 @rinternals{DrumVoice}
 
 
-@c TODO: check name -gp
 @node ゴースト ノート
 @unnumberedsubsubsec ゴースト ノート
 @translationof Ghost notes
 
-ドラムと打楽器のゴースト ノートは @code{\parenthesize} コマンドを用いて@c
+@cindex Ghost note, percussion (打楽器でのゴースト ノート)
+@cindex Dead note, percussion (打楽器での dead note)
+@cindex Muted note, percussion (打楽器での muted note)
+@cindex Silenced note, percussion (打楽器での silenced note)
+@cindex False note, percussion (打楽器での false note)
+@cindex Percussion, ghost note (打楽器でのゴースト ノート)
+@cindex Percussion, dead note (打楽器での dead note)
+@cindex Percussion, muted note (打楽器での muted note)
+@cindex Percussion, silenced note (打楽器での silenced note)
+@cindex Percussion, false note (打楽器での false note)
+
+ドラムと打楽器のゴースト ノート
+(dead note, muted note, silenced note, false note とも呼ばれます)
+は @code{\parenthesize} コマンドを用いて@c
 作ることができます。@c
-詳細は @ref{括弧} を参照してください。@c
+詳細は @ref{括弧} を参照してください。
 
 @lilypond[quote,ragged-right,verbatim]
 \new DrumStaff
@@ -640,5 +490,8 @@ drumsB = {
 @end lilypond
 
 @seealso
+記譜法リファレンス:
+@ref{Parentheses}
+
 コード断片集:
 @rlsr{Percussion}

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: c286e07798cd57a4785c3701b2bbcf94721b0f11
+    Translation of GIT committish: fdb5a275551d4e87df940924aed74a0ec273f70e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1304,6 +1304,11 @@ a'1_\markup {
 
 内部リファレンス:
 @rinternals{TextScript}
+
+@knownissues
+マークアップ オブジェクト内に出現する @code{\score} の縦方向のスペーシングは
+@code{baseline-skip} によって調整されます。@code{\paper} による設定は@c
+全て無視されます。
 
 
 @node 複数ページにわたるマークアップ
