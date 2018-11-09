@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: c286e07798cd57a4785c3701b2bbcf94721b0f11
+    Translation of GIT committish: fdb5a275551d4e87df940924aed74a0ec273f70e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -260,8 +260,10 @@ init ファイルとして @var{file} をセットします (デフォルト: @f
 検索は最初に指定されたディレクトリから開始され、@c
 入力ファイルが見つからない場合は次に指定されたディレクトリを検索します。
 
-@warning{チルド記号 -- @code{~} -- を @code{-I} と共に使用すると、@c
-シェルによっては予期しない結果をもたらす場合があります。}
+@warning{チルド記号 (@code{~}) を @code{-I} と共に使用すると、@c
+シェルによっては予期しない結果をもたらす場合があります。
+
+Windows ユーザは、ディレクトリのパスの最後にスラッシュを含める必要があります。}
 
 @cindex chroot jail, running inside (chroot jail 内部で実行する)
 

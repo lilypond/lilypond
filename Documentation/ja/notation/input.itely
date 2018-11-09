@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: c286e07798cd57a4785c3701b2bbcf94721b0f11
+    Translation of GIT committish: fdb5a275551d4e87df940924aed74a0ec273f70e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2879,8 +2879,48 @@ showLastLength = R1*5
 Portable Document Format (PDF), PostScript (PS) です。@c
 コマンド ライン オプションを指定することにより、@c
 Portable Network Graphics (PNG), Scalable Vector Graphics (SVG),
-Encapsulated PostScript (EPS) による出力が利用可能です。@c
+Encapsulated PostScript (EPS) フォーマットによる出力が利用可能です。@c
 @rprogram{Basic command line options for LilyPond} を参照してください。
+
+@menu
+* SVG 出力::
+@end menu
+
+@node SVG 出力
+@unnumberedsubsubsec SVG 出力
+@translationof SVG Output
+
+SVG 出力では、符頭や休符などのグラフィカル オブジェクト (Grob) に対して@c
+メタデータを付加させることができます。このメタデータは @code{id} や @code{class}
+のような SVG 標準の属性でも良いですし、非標準のカスタム属性を追加することも@c
+できます。Grob の @code{output-attributes} を、属性名と値を含む Scheme
+の連想配列 (alist) でオーバライドしてください。値は数値、文字列、@c
+シンボルです。例:
+
+@example
+@{
+  \once \override NoteHead.output-attributes =
+  #'((id . 123)
+     (class . "this that")
+     (data-whatever . something))
+  c
+@}
+@end example
+
+@noindent
+この入力は SVG ファイルに次の @code{<g>} (グループ) タグを作り出します:
+
+@example
+<g id="123" class="this that" data-whatever="something">
+  ...NoteHead grob SVG elements...
+</g>
+@end example
+
+@noindent
+@code{<g>} タグは、与えられた Grob に対する全ての SVG エレメントを中に@c
+含みます。(Grob によっては複数のエレメントを含むことがあります。)@c
+SVG のシンタックスでは、非標準のカスタム メタデータ属性に対して
+@code{data-} 接頭辞を使用します。
 
 
 @node 記譜フォントを置換する
