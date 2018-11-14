@@ -608,7 +608,7 @@ retained.")
 
 key =
 #(define-music-function (tonic pitch-alist)
-   ((ly:pitch? '()) (list? '()))
+   ((ly:pitch? '()) (number-pair-list? '()))
    (_i "Set key to @var{tonic} and scale @var{pitch-alist}.
 If both are null, just generate @code{KeyChangeEvent}.")
    (cond ((null? tonic) (make-music 'KeyChangeEvent))
