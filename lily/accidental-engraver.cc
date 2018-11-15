@@ -163,8 +163,8 @@ struct Accidental_result
 
   int score () const
   {
-    return need_acc ? 1 : 0
-           + need_restore ? 1 : 0;
+    return (need_acc ? 1 : 0)
+           + (need_restore ? 1 : 0);
   }
 };
 
