@@ -655,7 +655,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
                                         scm_from_int (prev_delta_pitch));
           prev_primitive->set_property ("flexa-width",
                                         scm_from_double (flexa_width));
-          bool add_cauda = !(prev_prefix_set && PES_OR_FLEXA);
+          bool add_cauda = !(prev_prefix_set & PES_OR_FLEXA);
           prev_primitive->set_property ("add-cauda",
                                         ly_bool2scm (add_cauda));
           check_for_prefix_loss (primitive);
