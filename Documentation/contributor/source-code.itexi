@@ -585,17 +585,10 @@ cross-platform building tool.  Since it is used by other projects as
 well, it is not stored in our gub repository.  For more info, see
 @uref{http://lilypond.org/gub}.
 
-There are two locations for this repository: the version being used to
-build lilypond, which is at
+The location for the repository is:
 
 @example
 @uref{http://github.com/gperciva/gub}
-@end example
-
-and the original version by Jan Nieuwenhuizen, kept at
-
-@example
-@uref{http://github.com/janneke/gub}
 @end example
 
 
