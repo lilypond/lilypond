@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Actualitzat el Sat Oct  6 14:43:39 UTC 2018
+@emph{Actualitzat el Sat Dec  1 14:41:28 UTC 2018
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -505,7 +505,7 @@ si
 @item
 1.8 Text
 @*
-3237
+3256
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -522,7 +522,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #4efe25">parcialment</span>
+<span style="background-color: #54ff26">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -667,7 +667,7 @@ parcialment
 @item
 2.5 Percussió
 @*
-799
+753
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -684,11 +684,11 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">si</span>
+<span style="background-color: #97ff2f">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
-si
+parcialment
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -829,18 +829,18 @@ si
 @item
 3 Entrada i sortida generals
 @*
-13150
+13300
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">si</span>
+<span style="background-color: #dfef77">parcialment (98 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-si
+parcialment (98 %)
 @end ifnothtml
 @tab 
 @ifhtml
@@ -1003,7 +1003,7 @@ si
 @item
 1 Execució del LilyPond
 @*
-5422
+5433
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -1150,7 +1150,7 @@ si
 @item
 Introducció
 @*
-5800
+5799
 @tab Walter Garcia-Fontes
 @tab 
 @tab 

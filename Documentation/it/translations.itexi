@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Ultimo aggiornamento Sat Oct  6 14:43:39 UTC 2018
+@emph{Ultimo aggiornamento Sat Dec  1 14:41:28 UTC 2018
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -30,7 +30,7 @@ Cambiamenti in LilyPond
 @item
 Section titles
 @*
-3348
+3377
 @tab Federico Bruni
 @tab 
 @tab 
@@ -331,11 +331,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">parzialmente (96 %)</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente (96 %)
+sì
 @end ifnothtml
 @tab 
 @ifhtml
@@ -687,7 +687,7 @@ sì
 @item
 1.8 Testo
 @*
-3237
+3256
 @tab Federico Bruni
 @tab 
 @tab 
@@ -766,9 +766,9 @@ sì
 @end ifnothtml
 @tab pre-GDP
 @item
-2.2 Percussioni
+2.2 Tastiera e altri strumenti multirigo
 @*
-799
+934
 @tab Federico Bruni
 @tab 
 @tab 
@@ -793,7 +793,61 @@ sì
 @end ifnothtml
 @tab pre-GDP
 @item
-2.3 World music
+2.3 Strumenti a corde senza tasti
+@*
+279
+@tab Federico Bruni
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">sì</span>
+@end html
+@end ifhtml
+@ifnothtml
+sì
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">sì</span>
+@end html
+@end ifhtml
+@ifnothtml
+sì
+@end ifnothtml
+@tab pre-GDP
+@item
+2.4 Percussioni
+@*
+753
+@tab Federico Bruni
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">sì</span>
+@end html
+@end ifhtml
+@ifnothtml
+sì
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #97ff2f">parzialmente</span>
+@end html
+@end ifhtml
+@ifnothtml
+parzialmente
+@end ifnothtml
+@tab pre-GDP
+@item
+2.5 World music
 @*
 1446
 @tab Federico Bruni
@@ -822,18 +876,18 @@ sì
 @item
 3 Input e output
 @*
-13150
+13300
 @tab Federico Bruni
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #dfef77">parzialmente (98 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+parzialmente (98 %)
 @end ifnothtml
 @tab 
 @ifhtml
@@ -1023,7 +1077,7 @@ sì
 @item
 1 Eseguire @command{lilypond}
 @*
-5422
+5433
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -1104,7 +1158,7 @@ sì
 @item
 4 Programmi esterni
 @*
-2786
+2880
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -1121,11 +1175,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #39ff22">parzialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+parzialmente
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1224,7 +1278,7 @@ sì
 @item
 Introduzione
 @*
-5800
+5799
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -1268,11 +1322,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">parzialmente</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+sì
 @end ifnothtml
 @tab pre-GDP
 @item
