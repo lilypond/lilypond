@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Dernière mise à jour Sat Oct  6 14:43:39 UTC 2018
+@emph{Dernière mise à jour Sat Dec  1 14:41:28 UTC 2018
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -30,7 +30,7 @@ LilyPond Changes
 @item
 Titre des chapitres
 @*
-3348
+3377
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -875,7 +875,7 @@ oui
 @item
 1.8 Texte
 @*
-3237
+3256
 @tab Jean-Charles Malahieude
 @tab Valentin Villenave
 @*
@@ -1051,7 +1051,7 @@ oui
 @item
 2.5 Percussions
 @*
-799
+753
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -1225,7 +1225,7 @@ oui
 @item
 3 Généralités en matière d'entrée et sortie
 @*
-13150
+13300
 @tab Jean-Charles Malahieude
 @*
 Valentin Villenave
@@ -1438,7 +1438,7 @@ oui
 @item
 1 Exécution de @command{lilypond}
 @*
-5422
+5433
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -1519,7 +1519,7 @@ oui
 @item
 4 Programmes externes
 @*
-2786
+2880
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -1645,7 +1645,7 @@ oui
 @item
 Introduction
 @*
-5800
+5799
 @tab Gauvain Pocentek
 @*
 Jean-Charles Malahieude

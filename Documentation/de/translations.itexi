@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Zuletzt aktualisiert am Sat Oct  6 14:43:39 UTC 2018
+@emph{Zuletzt aktualisiert am Sat Dec  1 14:41:28 UTC 2018
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -759,7 +759,7 @@ teilweise
 @item
 1.8 Text
 @*
-3237
+3256
 @tab Till Paala
 @tab 
 @tab 
@@ -776,7 +776,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #b9ff33">teilweise</span>
+<span style="background-color: #c0ff34">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -921,7 +921,7 @@ teilweise
 @item
 2.5 Schlagzeug
 @*
-799
+753
 @tab Till Paala
 @tab 
 @tab 
@@ -938,7 +938,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #d4ff37">teilweise</span>
+<span style="background-color: #fff23f">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1083,18 +1083,18 @@ teilweise
 @item
 3 Allgemeine Eingabe und Ausgabe
 @*
-13150
+13300
 @tab Till Paala
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">teilweise (94 %)</span>
+<span style="background-color: #dfef77">teilweise (89 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-teilweise (94 %)
+teilweise (89 %)
 @end ifnothtml
 @tab 
 @ifhtml
@@ -1284,7 +1284,7 @@ ja
 @item
 1 @command{lilypond} starten
 @*
-5422
+5433
 @tab Reinhold Kainhofer
 @*
 Till Paala
@@ -1367,7 +1367,7 @@ teilweise
 @item
 4 Externe Programme
 @*
-2786
+2880
 @tab Till Paala
 @*
 Reinhold Kainhofer
@@ -1376,17 +1376,17 @@ Reinhold Kainhofer
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">teilweise (87 %)</span>
+<span style="background-color: #dfef77">teilweise (88 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-teilweise (87 %)
+teilweise (88 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #f6fe3b">teilweise</span>
+<span style="background-color: #fff73e">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1493,7 +1493,7 @@ ja
 @item
 Einleitung
 @*
-5800
+5799
 @tab Till Paala
 @*
 Michael Gerdau

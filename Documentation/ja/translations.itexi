@@ -16,8 +16,74 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最終更新日 Sat Oct  6 14:43:39 UTC 2018
+@emph{最終更新日 Sat Dec  1 14:41:28 UTC 2018
 }
+@multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
+
+@headitem
+LilyPond 更新履歴
+@tab 翻訳者
+@tab 翻訳点検者
+@tab 翻訳済み
+@tab 最新
+@tab その他の情報
+@item
+セクション タイトル
+@*
+3377
+@tab Tomohiro Tatejima
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">はい</span>
+@end html
+@end ifhtml
+@ifnothtml
+はい
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">はい</span>
+@end html
+@end ifhtml
+@ifnothtml
+はい
+@end ifnothtml
+@tab pre-GDP
+@item
+LilyPond --- \TITLE\
+@*
+1139
+@tab Tomohiro Tatejima
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">はい</span>
+@end html
+@end ifhtml
+@ifnothtml
+はい
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">はい</span>
+@end html
+@end ifhtml
+@ifnothtml
+はい
+@end ifnothtml
+@tab pre-GDP
+@end multitable
+
+
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
 @headitem
@@ -535,7 +601,7 @@ Yoshiki Sawada
 @item
 1.8 テキスト
 @*
-3237
+3256
 @tab Tomohiro Tatejima
 @*
 Masamichi Hosoda
@@ -711,7 +777,7 @@ Yoshiki Sawada
 @item
 2.5 打楽器
 @*
-799
+753
 @tab Tomohiro Tatejima
 @*
 Yoshiki Sawada
@@ -879,7 +945,7 @@ Yoshiki Sawada
 @item
 3 入出力全般
 @*
-13150
+13300
 @tab Tomohiro Tatejima
 @*
 Yoshiki Sawada
@@ -1092,7 +1158,7 @@ Yoshiki Sawada
 @item
 1 @command{lilypond} を実行する
 @*
-5422
+5433
 @tab Tomohiro Tatejima
 @*
 Masamichi Hosoda
@@ -1181,7 +1247,7 @@ Yoshiki Sawada
 @item
 4 外部プログラム
 @*
-2786
+2880
 @tab Tomohiro Tatejima
 @*
 Yoshiki Sawada
@@ -1317,7 +1383,7 @@ Yoshinobu Ishizaki
 @item
 導入部
 @*
-5800
+5799
 @tab Tomohiro Tatejima
 @*
 Masamichi Hosoda
