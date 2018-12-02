@@ -102,44 +102,31 @@ AC_DEFUN(STEPMAKE_CHECK_SEARCH_RESULT, [
 
 
 # Check version of program ($1)
-# If version ($4: optional argument, supply if version cannot be
-# parsed using --version or -V ) is smaller than requested ($3), add
-# entry to missing-list ($2, one of 'OPTIONAL', 'REQUIRED').
+# If version is smaller than requested ($3) or larger than requested
+# ($4, optional), add entry to missing-list ($2, one of 'OPTIONAL',
+# 'REQUIRED').
 AC_DEFUN(STEPMAKE_CHECK_VERSION, [
     r="`eval echo '$'"$1"`"
     AC_MSG_CHECKING([$r version])
     exe=`STEPMAKE_GET_EXECUTABLE($r)`
-    if test -n "$4"; then
-        ver="$4"
-    else
-        ver=`STEPMAKE_GET_VERSION($exe)`
-    fi
+    ver=`STEPMAKE_GET_VERSION($exe)`
     num=`STEPMAKE_NUMERIC_VERSION($ver)`
-    req=`STEPMAKE_NUMERIC_VERSION($3)`
+    min=`STEPMAKE_NUMERIC_VERSION($3)`
     AC_MSG_RESULT([$ver])
-    if test "$num" -lt "$req"; then
-	STEPMAKE_ADD_ENTRY($2, ["$r >= $3 (installed: $ver)"])
+    if test "$num" -lt "$min"; then
+        STEPMAKE_ADD_ENTRY($2, ["$r >= $3 (installed: $ver)"])
+    fi
+    if test -n "$4"; then
+        max=`STEPMAKE_NUMERIC_VERSION($4)`
+        if test "$num" -gt "$max"; then
+            STEPMAKE_ADD_ENTRY($2, ["$r <= $4 (installed: $ver)"])
+        fi
     fi
     vervar="`echo $1 | tr '[a-z]' '[A-Z]'`_VERSION"
     eval `echo $vervar=$num`
 ##    AC_SUBST(`eval echo $vervar`)
 ])
 
-# Check version of program ($1)
-# If version is greater than or equals unsupported ($3),
-# add entry to unsupported list ($2, 'UNSUPPORTED')
-AC_DEFUN(STEPMAKE_CHECK_VERSION_UNSUPPORTED, [
-    r="`eval echo '$'"$1"`"
-    AC_MSG_CHECKING([$r version])
-    exe=`STEPMAKE_GET_EXECUTABLE($r)`
-    ver=`STEPMAKE_GET_VERSION($exe)`
-    num=`STEPMAKE_NUMERIC_VERSION($ver)`
-    sup=`STEPMAKE_NUMERIC_VERSION($3)`
-    AC_MSG_RESULT([$ver])
-    if test "$num" -ge "$sup"; then
-	STEPMAKE_ADD_ENTRY($2, ["$r < $3 (installed: $ver)"])
-    fi
-])
 
 ### Macros to build configure.ac
 
