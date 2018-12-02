@@ -1023,14 +1023,17 @@ AC_DEFUN(STEPMAKE_PATH_PROG, [
 ])
 
 
-# Check for program in set of names ($2), set result to ($1) .
-# If missing, add entry to missing-list ($3, one of 'OPTIONAL', 'REQUIRED')
-# If exists, and a minimal version ($4) is required
+# Check for program in a set of names ($2) and set result to ($1).
+# If missing, add entry to missing-list ($3, one of 'OPTIONAL', 'REQUIRED').
+# Otherwise, compare version to minimum version ($4, optional) and/or maximum
+# version ($5, optional).
 AC_DEFUN(STEPMAKE_PROGS, [
     AC_CHECK_PROGS($1, $2, no)
     STEPMAKE_OPTIONAL_REQUIRED($1, $2, $3)
-    if test $? -eq 0 -a -n "$4"; then
-	STEPMAKE_CHECK_VERSION($1, $3, $4)
+    if test $? -eq 0; then
+      if test -n "$4" -o -n "$5"; then
+	STEPMAKE_CHECK_VERSION($1, $3, $4, $5)
+      fi
     fi
 ])
 
