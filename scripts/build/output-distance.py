@@ -639,12 +639,21 @@ class SignatureFileLink (FileLink):
                                    % os.path.dirname(infile))
 
                 mkdir (os.path.split (outfile)[0])
-                cmd = ('gs -sDEVICE=png16m -dGraphicsAlphaBits=4 -dTextAlphaBits=4 '
-                       ' %(data_option)s '
-                       ' -r101 '
-                       ' -dAutoRotatePages=/None '
-                       ' -sOutputFile=%(outfile)s -dNOSAFER -dEPSCrop -q -dNOPAUSE '
-                       ' %(infile)s  -c quit ') % locals ()
+                cmd = ('gs'
+                       ' -sDEVICE=png16m'
+                       ' -dGraphicsAlphaBits=4'
+                       ' -dTextAlphaBits=4'
+                       ' %(data_option)s'
+                       ' -r101'
+                       ' -dAutoRotatePages=/None'
+                       ' -dPrinted=false'
+                       ' -sOutputFile=%(outfile)s'
+                       ' -dNOSAFER'
+                       ' -dEPSCrop'
+                       ' -q'
+                       ' -dNOPAUSE'
+                       ' %(infile)s'
+                       ' -c quit') % locals ()
 
                 files_created[oldnew].append (outfile)
                 system (cmd)

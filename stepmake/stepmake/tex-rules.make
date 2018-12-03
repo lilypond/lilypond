@@ -17,18 +17,19 @@ $(outdir)/%.pdf: $(outdir)/%.dvi
 	cd $(outdir) \
 		&& dvips $(DVIPS_FLAGS) -t $(DVIPS_PAPERSIZE) \
 			-o $(@F).pdfps $(<F) \
-	 	&& gs -dCompatibilityLevel=1.2\
-			-sPAPERSIZE=a4\
-			-q\
-			-dNOPAUSE\
-			-dBATCH\
-			-sDEVICE=pdfwrite\
-			-dAutoRotatePages=/None\
-			-sOutputFile=$(@F)\
-			-dCompatibilityLevel=1.2\
-			-sPAPERSIZE=a4\
-			-c .setpdfwrite\
-			-f $(@F).pdfps
+		&& gs -dCompatibilityLevel=1.2 \
+                      -sPAPERSIZE=a4 \
+                      -q \
+                      -dNOPAUSE \
+                      -dBATCH \
+                      -sDEVICE=pdfwrite \
+                      -dAutoRotatePages=/None \
+                      -dPrinted=false \
+                      -sOutputFile=$(@F) \
+                      -dCompatibilityLevel=1.2 \
+                      -sPAPERSIZE=a4 \
+                      -c .setpdfwrite \
+                      -f $(@F).pdfps
 
 
 # without -dSAFER
