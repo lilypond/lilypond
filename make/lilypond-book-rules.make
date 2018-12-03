@@ -35,12 +35,16 @@ $(outdir)/%.pdf:  $(outdir)/%.tex
 		"$*.pdflatex.log"
 ifeq ($(USE_EXTRACTPDFMARK),yes)
 	$(EXTRACTPDFMARK) -o $(outdir)/$*.pdfmark $(outdir)/$*.build/$*.pdf
-	$(GS920) -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -dAutoRotatePages=/None \
-		-sOutputFile=$@ \
-		-c "30000000 setvmthreshold" \
-		-f $(top-build-dir)/out-fonts/*.font.ps \
-		$(outdir)/$*.pdfmark \
-		$(outdir)/$*.build/$*.pdf
+	$(GS920) -dBATCH \
+                 -dNOPAUSE \
+                 -sDEVICE=pdfwrite \
+                 -dAutoRotatePages=/None \
+                 -dPrinted=false \
+                 -sOutputFile=$@ \
+                 -c "30000000 setvmthreshold" \
+                 -f $(top-build-dir)/out-fonts/*.font.ps \
+                 $(outdir)/$*.pdfmark \
+                 $(outdir)/$*.build/$*.pdf
 else
 	mv $(outdir)/$*.build/$*.pdf $@
 endif
@@ -75,12 +79,16 @@ $(outdir)/%.pdf:  $(outdir)/%.xml
 		"$*.dblatex.log"
 ifeq ($(USE_EXTRACTPDFMARK),yes)
 	$(EXTRACTPDFMARK) -o $(outdir)/$*.pdfmark $(outdir)/$*.tmp.pdf
-	$(GS920) -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -dAutoRotatePages=/None \
-		-sOutputFile=$@ \
-		-c "30000000 setvmthreshold" \
-		-f $(top-build-dir)/out-fonts/*.font.ps \
-		$(outdir)/$*.pdfmark \
-		$(outdir)/$*.tmp.pdf
+	$(GS920) -dBATCH \
+                 -dNOPAUSE \
+                 -sDEVICE=pdfwrite \
+                 -dAutoRotatePages=/None \
+                 -dPrinted=false \
+                 -sOutputFile=$@ \
+                 -c "30000000 setvmthreshold" \
+                 -f $(top-build-dir)/out-fonts/*.font.ps \
+                 $(outdir)/$*.pdfmark \
+                 $(outdir)/$*.tmp.pdf
 	rm $(outdir)/$*.tmp.pdf
 else
 	mv $(outdir)/$*.tmp.pdf $@

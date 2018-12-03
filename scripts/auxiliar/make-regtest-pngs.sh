@@ -68,11 +68,17 @@ while getopts "j:oncr:gpd:" opts; do
 	    backend_opt="--pdf"
 	    png_generate()
 	    {
-		$1 gs -sDEVICE=${gsdevice:-pngmono} -q -dNOPAUSE \
-		    -r${resolution:-300} -dNOPLATFONTS \
-		    -dAutoRotatePages=/None \
-		    -dTextAlphaBits=1 -dGraphicsAlphaBits=1 \
-		    -sOutputFile="${2%.pdf}-%d.png" "$2" -c quit
+		$1 gs -sDEVICE=${gsdevice:-pngmono} \
+                      -q -dNOPAUSE \
+                      -r${resolution:-300} \
+                      -dNOPLATFONTS \
+                      -dAutoRotatePages=/None \
+                      -dPrinted=false \
+                      -dTextAlphaBits=1 \
+                      -dGraphicsAlphaBits=1 \
+                      -sOutputFile="${2%.pdf}-%d.png" \
+                      "$2" \
+                      -c quit
 	    };;
 	p)
 	    use_parallel=y;;

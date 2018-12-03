@@ -98,6 +98,7 @@
                    "-r1200"
                    "-sDEVICE=pdfwrite"
                    "-dAutoRotatePages=/None"
+                   "-dPrinted=false"
                    (string-append "-sOutputFile="
                                   (string-join
                                    (string-split pdf-name #\%)
