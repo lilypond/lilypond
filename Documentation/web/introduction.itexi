@@ -605,7 +605,9 @@ try LilyPond, first read about our @ref{Text input}.
 
 Here you can read about people who actually use LilyPond
 in their productions, be it for performances of their
-music or as published scores.
+music or as published scores. The list is limited to
+works released as public domain or under open
+content licenses.
 
 @divEnd
 
@@ -729,35 +731,56 @@ Montpellier}, France.
 @divClass{column-right-top}
 @subheading Published sheet music
 
+@subsubheading Sheet libraries
+
 @divClass{keep-bullets}
 @itemize
 
 @item
 @uref{http://www.mutopiaproject.org/index.html, Mutopia Project},
-over 1500 pieces of classical sheet music for free download, and
-the main showcase of LilyPond scores.
-
-@c don't make this "Mutopia" a link, since that looks silly.
-@item
-@uref{http://etudeapp.com, Etude}, @qq{sheet music on steroids} is
-an iPhone app which displays piano music engraved with LilyPond,
-including many pieces from Mutopia.  The app includes a virtual
-piano keyboard showing which keys to press to help beginners learn
-how to read sheet music.
+with over 2000 pieces of classical sheet music for free download, is
+the main showcase of LilyPond scores. Every piece comes with its
+LilyPond source file, allowing you to learn from other typesetters
+and also make your own edition.
 
 @item
-@uref{https://twitter.com/adoromusic, Adoro Music Publishing},
-high-quality scores of sacred music, available for immediate
-download or in traditional paper format.
+@uref{https://www.baroquemusic.it/, baroquemusic.it}, started in 2005,
+collects over 800 scores of baroque music. The archive includes scores,
+separate parts and midi files, distributed with a Creative Commons
+license and available to subscribers only.
 
 @item
-@uref{http://matthieujacquot.com/, The Shady Lane Publishing},
-a @qq{micro musical publishing house} whose goal is to promote a
-new form of musical economy closer to the musicians and music
-lovers.
+@uref{http://partitura.org/, Partitura Organum} is a growing collection
+of organ pieces in the public domain, typeset by LilyPond and distributed
+under a Creative Commons license.
+
+@item
+@uref{https://clairnote.org/, Clairnote} is an alternative notation
+system that aims at making music easier to read and understand.
+The website offers @uref{https://clairnote.org/sheet-music/, free sheet music}
+in Clairnote notation; the pieces are taken from Mutopia and other
+online resources and then converted to Clairnote notation.
 
 @end itemize
+@divEnd
 
+@subsubheading Sheet source repositories
+@divClass{keep-bullets}
+@itemize
+
+@item
+@uref{https://github.com/MutopiaProject/MutopiaProject/, Mutopia Project repository}:
+source files of all pieces in Mutopia library.
+
+@item
+@uref{http://git.savannah.gnu.org/cgit/lilypond.git/tree/Documentation/ly-examples, LilyPond website examples}:
+source files of the example gallery shown in @ref{Examples}.
+
+@item
+@uref{https://github.com/nsceaux/nenuvar, Nicolas Sceaux}: baroque music scores
+typeset with LilyPond by one of its developers.
+
+@end itemize
 @divEnd
 
 @divEnd
