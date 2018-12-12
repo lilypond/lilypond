@@ -1,7 +1,7 @@
 %%  This file is part of LilyPond, the GNU music typesetter.
 %%  This file can replace arabic.ly for people wanting to use c d e f g a b
 %%  instead of do re mi fa sol la si
-%%  Copyright (C) 2014 Hassan EL FATIH <hassan.elfatihi@free.fr>
+%%  Copyright (C) 2014 Hassan EL FATIHI <hassan.elfatihi@free.fr>
 %%
 %%  LilyPond is free software: you can redistribute it and/or modify
 %%  it under the terms of the GNU General Public License as published by
@@ -48,6 +48,13 @@ HelmakamGlyphs = #'(
 %% The keys
 
 %% Rast: c d edb f g a bdb c c bb a g f edb d c
+
+%% This key can also be used for:
+%% Irak: bdb c d edb f g a bdb
+%% Rahatalarouah: bdb c d edb fd g a bdb
+%% Alboustankar: bdb c d edb f gb a bdb
+%% Sajakar: c dd edb f g a bdb altering the note d with dd (dis)
+
 rast = #`(
   (0 . ,NATURAL)
   (1 . ,NATURAL)
@@ -60,18 +67,6 @@ rast = #`(
 
 %% Souznak: c' d' edb' f' g' ab' b' c'' c'' b' ab' g' f' edb' d' c'
 souznak = #`(
-  (0 . ,NATURAL)
-  (1 . ,NATURAL)
-  (2 . ,SEMI-FLAT)
-  (3 . ,NATURAL)
-  (4 . ,NATURAL)
-  (5 . ,FLAT)
- %(6 . ,SEMI-FLAT)
-  (6 . ,NATURAL)
-)
-
-%% Sajakar: c' d' edb' f' g' ab' b' c'' c'' bb' a' g' f' edb' d' c'
-sajkar = #`(
   (0 . ,NATURAL)
   (1 . ,NATURAL)
   (2 . ,SEMI-FLAT)
@@ -132,7 +127,7 @@ nakriz = #`(
   (2 . ,FLAT)
   (3 . ,SHARP)
   (4 . ,NATURAL)
-  (5 . ,FLAT)
+  (5 . ,NATURAL)
   (6 . ,FLAT)
 )
 
@@ -167,7 +162,7 @@ karjkhar =  #`(
   (1 . ,SEMI-FLAT)
   (2 . ,FLAT)
   (3 . ,NATURAL)
-  (4 . 1/2)
+  (4 . ,FLAT)
   (5 . ,NATURAL)
   (6 . ,FLAT)
 )
@@ -217,7 +212,7 @@ huzam =  #`(
   (1 . ,SEMI-FLAT)
   (2 . ,SEMI-FLAT)
   (3 . ,SEMI-FLAT)
-  (4 . ,SEMI-FLAT)
+  (4 . ,SEMI-SHARP)
   (5 . ,SEMI-FLAT)
   (6 . ,SEMI-FLAT)
 )
@@ -244,44 +239,6 @@ yakah = #`(
   (5 . ,NATURAL)
   (6 . ,SEMI-FLAT)
 )
-
-%% Irak: bdb c d edb f g a bdb bb a g f edb d c bdb
-%% Irak: en do: c ddb edb f gdb adb c cdb bdb adb gdb f edb ddb c
-iraq = #`(
-  (0 . ,NATURAL)
-  (1 . ,SEMI-FLAT)
-  (2 . ,SEMI-FLAT)
-  (3 . ,NATURAL)
-  (4 . ,SEMI-FLAT)
-  (5 . ,SEMI-FLAT)
-  (6 . ,SEMI-FLAT)
-)
-
-%% Rahatalarouah: bdb c'd' eb' fd' g' a' bdb' bdb' a' g' fd' eb' d' c' bdb'
-%% Rahatalarouah: en do : c' ddb' edb' fdd' gdd' adb' bdb' c'' c'' bdb' adb' gdd'
-%% fdd' edb' ddb' c'
-rahatalarouah = #`(
-  (0 . ,NATURAL)
-  (1 . ,SEMI-FLAT)
-  (2 . ,SEMI-FLAT)
-  (3 . ,SEMI-FLAT)
-  (4 . ,SEMI-SHARP)
-  (5 . ,SEMI-FLAT)
-  (6 . ,SEMI-FLAT)
-)
-
-%% Alboustankar: bdb c d edb f gb a bb bb a gb f edb d c bdb
-%% Alboustankar: c ddb edb f gdb a bdb cdb cdb bdb a gdb f edb ddb c
-alboustankar = #`(
-  (0 . ,NATURAL)
-  (1 . ,SEMI-FLAT)
-  (2 . ,SEMI-FLAT)
-  (3 . ,SEMI-FLAT)
-  (4 . ,SEMI-SHARP)
-  (5 . ,SEMI-FLAT)
-  (6 . ,SEMI-FLAT)
-)
-
 
 %% Hizaz Avec sib et mib: d' eb' fd' g' a' bdb' c'' d'' d'' c''bb' a' g' fd' eb' d'
 %% Hizaz: en do: c db e f g adb bb c c bb ab g f e db c
@@ -328,96 +285,6 @@ farahfaza = #`(
   (3 . ,NATURAL)
   (4 . ,NATURAL)
   (5 . ,FLAT)
-  (6 . ,FLAT)
-)
-
-major = #`(
-  (0 . ,NATURAL)
-  (1 . ,NATURAL)
-  (2 . ,NATURAL)
-  (3 . ,NATURAL)
-  (4 . ,NATURAL)
-  (5 . ,NATURAL)
-  (6 . ,NATURAL)
-)
-
-minor = #`(
-  (0 . ,NATURAL)
-  (1 . ,NATURAL)
-  (2 . ,FLAT)
-  (3 . ,NATURAL)
-  (4 . ,NATURAL)
-  (5 . ,FLAT)
-  (6 . ,FLAT)
-)
-
-ionian = #`(
-  (0 . ,NATURAL)
-  (1 . ,NATURAL)
-  (2 . ,NATURAL)
-  (3 . ,NATURAL)
-  (4 . ,NATURAL)
-  (5 . ,NATURAL)
-  (6 . ,NATURAL)
-)
-
- locrian = #`(
-  (0 . ,NATURAL)
-  (1 . ,FLAT)
-  (2 . ,FLAT)
-  (3 . ,NATURAL)
-  (4 . ,FLAT)
-  (5 . ,FLAT)
-  (6 . ,FLAT)
-)
-
-aeolian = #`(
-  (0 . ,NATURAL)
-  (1 . ,NATURAL)
-  (2 . ,FLAT)
-  (3 . ,NATURAL)
-  (4 . ,NATURAL)
-  (5 . ,FLAT)
-  (6 . ,FLAT)
-)
-
-mixolydian = #`(
-  (0 . ,NATURAL)
-  (1 . ,NATURAL)
-  (2 . ,NATURAL)
-  (3 . ,NATURAL)
-  (4 . ,NATURAL)
-  (5 . ,NATURAL)
-  (6 . ,FLAT)
-)
-
-lydian = #`(
-  (0 . ,NATURAL)
-  (1 . ,NATURAL)
-  (2 . ,NATURAL)
-  (3 . ,SHARP)
-  (4 . ,NATURAL)
-  (5 . ,NATURAL)
-  (6 . ,NATURAL)
-)
-
-phrygian = #`(
-  (0 . ,NATURAL)
-  (1 . ,FLAT)
-  (2 . ,FLAT)
-  (3 . ,NATURAL)
-  (4 . ,NATURAL)
-  (5 . ,FLAT)
-  (6 . ,FLAT)
-)
-
-dorian = #`(
-  (0 . ,NATURAL)
-  (1 . ,NATURAL)
-  (2 . ,FLAT)
-  (3 . ,NATURAL)
-  (4 . ,NATURAL)
-  (5 . ,NATURAL)
   (6 . ,FLAT)
 )
 
