@@ -29,6 +29,23 @@ piano styles, which use @samp{GrandStaff} as a context." )
       (*location*))
      (make-music 'Music))))
 
+%% ambitus
+
+ambitusAfter =
+#(define-music-function (target) (symbol?)
+  (make-apply-context
+   (lambda (context)
+     (define (move-ambitus order)
+       (let* ((without-ambitus (delq 'ambitus order))
+              (target-index (list-index (lambda (x) (eq? x target)) without-ambitus))
+              (head (take without-ambitus (1+ target-index)))
+              (tail (drop without-ambitus (1+ target-index))))
+           (append head '(ambitus) tail)))
+     (let* ((grob-def (ly:context-grob-definition context 'BreakAlignment))
+            (orders (vector->list (ly:assoc-get 'break-align-orders grob-def)))
+            (new-orders (list->vector (map move-ambitus orders))))
+       (ly:context-pushpop-property context 'BreakAlignment 'break-align-orders new-orders)))))
+
 %% arpeggios
 
 % For drawing vertical chord brackets with \arpeggio
