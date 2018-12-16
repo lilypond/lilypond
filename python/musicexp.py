@@ -1878,7 +1878,10 @@ class TimeSignatureChange (Music):
             elif (self.style != "'()") or is_common_signature:
                 st = "\\numericTimeSignature"
 
-        omit = '' if self.visible else '\omit Staff.TimeSignature'
+        if self.visible:
+            omit = ''
+        else:
+            omit = '\omit Staff.TimeSignature'
 
         # Easy case: self.fractions = [n,d] => normal \time n/d call:
         if len (self.fractions) == 2 and isinstance (self.fractions[0], int):
