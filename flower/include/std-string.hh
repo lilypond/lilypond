@@ -21,6 +21,7 @@
 #define STD_STRING_HH
 
 #include "flower-proto.hh"
+#include "unistd.h"
 
 #if 0
 /*
