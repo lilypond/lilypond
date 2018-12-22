@@ -635,7 +635,7 @@ parse_argv (int argc, char **argv)
         case 'O':
           {
             string arg (option_parser->optional_argument_str0_);
-            if (arg == "speed")
+            if (arg == "size")
               init_scheme_variables_global +=
                 "(cons \'music-font-encodings '#f)\n"
                 "(cons \'gs-never-embed-fonts '#f)\n";
