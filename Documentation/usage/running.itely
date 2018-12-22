@@ -29,7 +29,7 @@ This chapter details the technicalities of running LilyPond.
 
 Most users run LilyPond through a GUI; if you have not done so
 already, please read the @rlearning{Tutorial}.  If you use an alternate
-editor to write lilypond files, see the documentation for that
+editor to write LilyPond files, see the documentation for that
 program.
 
 
@@ -73,17 +73,17 @@ When invoked with a filename that has no extension, the @file{.ly}
 extension is tried first.  To read input from stdin, use a
 dash (@code{-}) for @var{file}.
 
-When @file{filename.ly} is processed it will produce @file{filename.ps}
+When @file{filename.ly} is processed it produces @file{filename.ps}
 and @file{filename.pdf} as output.  Several files can be specified;
-they will each be processed independently.  @footnote{The status of
-GUILE is not reset after processing a @code{.ly} file, so be careful
+they are each processed independently.  @footnote{The status of
+GUILE is not reset after processing a @file{.ly} file, so be careful
 not to change any system defaults from within Scheme.}
 
 If @file{filename.ly} contains more than one @code{\book}
-block, then the rest of the scores will be output in numbered files,
+block, the rest of the scores is output in numbered files,
 starting with @file{filename-1.pdf}.  In addition, the value of
-@code{output-suffix} will be inserted between the basename and the
-number.  An input file containing
+@code{output-suffix} is inserted between the basename and the
+number.  For example, if @file{filename.ly} contains
 
 @example
 #(define output-suffix "violin")
@@ -93,8 +93,8 @@ number.  An input file containing
 @end example
 
 @noindent
-will output @var{base}@file{-violin.pdf} and
-@var{base}@file{-cello-1.pdf}.
+LilyPond outputs @file{filename-violin.pdf} and
+@file{filename-cello-1.pdf}.
 
 
 @unnumberedsubsubsec Using LilyPond with standard shell features
@@ -102,14 +102,14 @@ will output @var{base}@file{-violin.pdf} and
 Since LilyPond is a command line application, features of the @q{shell}
 used for calling LilyPond can also be put to good use.
 
-For example:
+For example,
 
 @example
 lilypond *.ly
 @end example
 
 @noindent
-will process all LilyPond files in the current directory.
+processes all LilyPond files in the current directory.
 
 Redirecting the console output (e.g. to a file) may also be useful:
 
@@ -122,15 +122,15 @@ lilypond file.ly &> all.txt
 @end example
 
 @noindent
-Redirects @q{normal} output, @q{errors} only or @q{everything},
-respectively, to a text file.  Consult the documentation for your
+The above commands divert @q{normal} output, @q{errors} only, or @q{everything},
+respectively, to text files.  Consult the documentation for your
 particular shell, Command (Windows), Terminal or Console
 applications (MacOS X) to see if output redirection is supported or if
 the syntax is different.
 
 The following example searches and processes all input files in the
 current directory and all directories below it recursively.  The output
-files will be located in the same directory that the command was run in,
+files are located in the same directory that the command was run in,
 rather than in the same directories as the original input files.
 
 @example
@@ -140,7 +140,7 @@ find . -name '*.ly' -exec lilypond '@{@}' \;
 @noindent
 This should also work for MacOS@tie{}X users.
 
-A Windows user would run;
+A Windows user would run
 
 @example
 forfiles /s /M *.ly /c "cmd /c lilypond @@file"
@@ -148,7 +148,7 @@ forfiles /s /M *.ly /c "cmd /c lilypond @@file"
 
 @noindent
 entering these commands in a @code{command prompt} usually found under
-@code{Start > Accessories > Command Prompt} or for version 8 users,
+@code{Start > Accessories > Command Prompt}, or
 by typing in the search window @q{command prompt}.
 
 Alternatively, an explicit path to the top-level of your folder
@@ -175,23 +175,24 @@ forfiles /s /p "C:\Documents\My Scores" /M *.ly /c "cmd /c lilypond @@file"
 @cindex options, command line
 @cindex switches
 
-The following options are supported:
+The following options are supported.
 
-@table @code
+@table @asis
 
-@item -d, --define-default=@var{var}=@var{val}
+@item @code{-d}, @code{--define-default=}@var{var}[@code{=}@var{val}]
 See @ref{Advanced command line options for LilyPond}.
 
 @cindex Scheme, expression evaluation
 @cindex expression evaluation, Scheme
 
-@item -e, --evaluate=@var{expr}
+@item @code{-e}, @code{--evaluate=}@var{expr}
 Evaluate the Scheme @var{expr} before parsing any @file{.ly} files.
-Multiple @option{-e} options may be given, they will be evaluated
+Multiple @option{-e} options may be given, they are evaluated
 sequentially.
 
-The expression will be evaluated in the @code{guile-user} module, so
-if you want to use definitions in @var{expr}, use
+The expression is evaluated in the @code{guile-user} module, so
+if you want to use a definition like @code{(define-public a 42)} as
+@var{expr}, use
 
 @example
 lilypond -e '(define-public a 42)'
@@ -205,54 +206,82 @@ on the command-line, and include
 @end example
 
 @noindent
-at the top of the @code{.ly} file.
+at the top of the @file{.ly} file.
 
 @warning{Windows users must use double quotes instead of single quotes.}
 
-@item -E, --eps
+@item @code{-E}, @code{--eps}
 Generate EPS files.
+
+This option is equivalent to setting LilyPond's command line options
+@code{--ps}, @code{-dbackend=eps}, and @code{-daux-files='#f'}.
 
 @cindex output, format
 @cindex format, output
 
-@item -f, --format=@var{format}
-which formats should be written.  Choices for @code{format} are
-@code{ps}, @code{pdf}, and @code{png}.
+@item @code{-f}, @code{--format=}@var{format}
+The format of the (main) output file or files.  Possible values for
+@var{format} are @code{ps}, @code{pdf}, or @code{png}.
 
-Example: @code{lilypond -fpng @var{filename}.ly}
+Example: @code{lilypond -fpng foo.ly}
 
-@noindent
 For @code{svg} and @code{eps} formats use the @code{-dbackend} option.
 See @ref{Advanced command line options for LilyPond}.
 
-@item -h, --help
+@item @code{-h}, @code{--help}
 Show a summary of usage.
 
-@item -H, --header=@var{FIELD}
-Dump a header field to file @file{BASENAME.@var{FIELD}}.
+@item @code{-H}, @code{--header=}@var{field}
+Dump a header field to file @file{BASENAME.@var{field}}.
 
-@item -i, --init=@var{file}
+As an example, let's assume that you have an input file @file{foo.ly}
+containing
+
+@example
+\header @{ title = "bar" @}
+\score @{ c1 @}
+@end example
+
+@noindent
+The command
+
+@example
+lilypond -H title foo.ly
+@end example
+
+@noindent
+then creates a plain text file @file{foo.title} containing the string
+@code{bar}.
+
+@item @code{-i}, @code{--init=}@var{file}
 Set init file to @var{file} (default: @file{init.ly}).
 
 @cindex file searching
 @cindex search path
 
-@item -I, --include=@var{directory}
-Add @var{directory} to the search path for input files.
+@item @code{-I}, @code{--include=}@var{directory}
+Append @var{directory} to the search path for input files with
+relative paths.  By default, only the current working directory gets
+searched.
 
-Multiple -I options may be given.  The search will start in the first
-defined directory, and if the file to be included is not found the
-search will continue in subsequent directories.
+Multiple @option{-I} options may be given.  The search starts in
+the current working directory, and if the file to be included is not
+found the search continues in the directory given by the first
+@option{-I} option, then the directory in the second @option{-I}
+option, and so on.
 
-@warning{Using the tilde character (@code{~}) with the @code{-I}
+@warning{Using the tilde character (@code{~}) with the @option{-I}
 switch may produce unexpected results in some shells.
 
-Windows users will need to include a trailing slash for the directory's
+Windows users need to include a trailing slash for the directory's
 path.}
 
 @cindex chroot jail, running inside
 
-@item -j, --jail=@var{user},@var{group},@var{jail},@var{dir}
+@item @code{-j}, @code{--jail=}@var{user}@code{,}@var{group}@code{,}@var{jail}@code{,}@var{dir}
+[This option is only available if your operating system supports the
+@code{chroot} functionality.  In particular, Windows doesn't support it.]
+
 Run @command{lilypond} in a chroot jail.
 
 The @option{--jail} option provides a more flexible alternative to
@@ -270,7 +299,7 @@ accomplished in a safe way using @command{sudo}.
 
 Setting up a jail can be a relatively complex matter, as we must be sure
 that LilyPond is able to find whatever it needs to compile the source
-@emph{inside} the jail itself.  A typical chroot jail will comprise the
+@emph{inside} the jail itself.  A typical chroot jail comprises the
 following steps:
 
 @table @asis
@@ -297,14 +326,14 @@ real root filesystem.  The entire content of the LilyPond installation
 (e.g., @file{/usr/share/lilypond}) should be copied.
 
 If problems arise, the simplest way to trace them down is to run
-LilyPond using @command{strace}, which will allow you to determine which
+LilyPond using @command{strace}, which allows you to determine which
 files are missing.
 
 @item Running LilyPond
 In a jail mounted with @code{noexec} it is impossible to execute any
 external program.  Therefore LilyPond must be run with a backend that
 does not require any such program.  As we have already mentioned, it
-must be run with superuser privileges (which, of course, it will lose
+must be run with superuser privileges (which, of course, it loses
 immediately), possibly using @command{sudo}.  It is also good practice
 to limit the number of seconds of CPU time LilyPond can use (e.g., using
 @command{ulimit@tie{}-t}), and, if your operating system supports it,
@@ -315,8 +344,8 @@ the amount of memory that can be allocated.  Also see
 @cindex loglevel
 @cindex output, verbosity
 
-@item -l, --loglevel=@var{LEVEL}
-Set the verbosity of the console output to @var{LEVEL}. Possible values
+@item @code{-l}, @code{--loglevel=}@var{level}
+Set the verbosity of the console output to @var{level}.  Possible values
 are:
 
 @table @code
@@ -336,8 +365,9 @@ Basic progress messages (success), warnings and errors.
 @item PROGRESS
 All progress messages, warnings and errors.
 
-@item INFO (default)
+@item INFO
 Progress messages, warnings, errors and further execution information.
+This is the default.
 
 @item DEBUG
 All possible messages, including verbose debug output.
@@ -348,56 +378,84 @@ All possible messages, including verbose debug output.
 @cindex output, setting filename
 @cindex output, directory
 
-@item -o, --output=@var{FILE} or @var{FOLDER}
-Set the default output file to @var{FILE} or, if a folder with that name
-exists, direct the output to @var{FOLDER}, taking the file name from the
-input file.  The appropriate suffix will be added (e.g. @code{.pdf} for
-pdf) in both cases.
+@item @code{-o}, @code{--output=}@var{file}
+@itemx @code{-o}, @code{--output=}@var{folder}
+Set the default output file to @var{file} or, if a folder with that name
+exists, direct the output to @var{folder}, taking the file name from the
+input file.  The appropriate suffix is added (e.g., @file{.pdf} for
+PDF) in both cases.
 
-@item -O, --pspdfopt
+@item @code{-O}, @code{--pspdfopt=}@var{key}
 @cindex pspdfopt
 
-If you do not use pspdfopt or if you use the paramter @w{@code{size}},
-lilypond will try to generate a very small ps/eps/pdf document.
+Set the PS/PDF output optimization to @var{key}.  Possible values are:
 
-If you use the paramter @w{@code{TeX}}, lilypond will produce files
-that are optimized for inclusion in PdfTeX, LuaTeX oder XeTeX documents.
+@table @code
 
-If you want to include more than one pdf generated by lilypond into a
-TeX document, use  @w{@code{TeX-GS}} and postprocess the pdf generated
-by TeX with ghostscript.
+@item size
+Generate a very small PS/EPS/PDF document.  This is the default.
 
-@cindex PS (Postscript), output
-@cindex Postscript (PS), output
-@cindex output, PS (Postscript)
+Using this value is equivalent to setting LilyPond's Scheme command
+line options @code{-dmusic-@/font-@/encodings=@/'#f'} and
+@code{-dgs-@/never-@/embed-@/fonts=@/'#f'}.
 
-@item --ps
-Generate PostScript.
+@item TeX
+Produce files that are optimized for inclusion in pdfTeX, luatex, or
+XeTeX documents.
+
+Using this value is equivalent to setting LilyPond's Scheme command
+line options @code{-dmusic-@/font-@/encodings=@/'#t'} and
+@code{-dgs-@/never-@/embed-@/fonts=@/'#f'}.
+
+@item TeX-GS
+If you want to include more than one PDF generated by LilyPond in a
+TeX document, use this option and postprocess the PDF generated by
+TeX with Ghostscript.
+
+Using this value is equivalent to setting LilyPond's Scheme command
+line options @code{-dmusic-@/font-@/encodings=@/'#t'} and
+@code{-dgs-@/never-@/embed-@/fonts=@/'#t'}.
+
+@end table
+
+@cindex PS (PostScript), output
+@cindex PostScript (PS), output
+@cindex output, PS (PostScript)
+
+@item @code{--ps}
+Generate PostScript.  This option is equivalent to @code{-fps}.
 
 @cindex PNG (Portable Network Graphics), output
 @cindex output, PNG (Portable Network Graphics)
 
-@item --png
-Generate pictures of each page, in PNG format.  This implies
-@option{--ps}.  The resolution in DPI of the image may be set with
+@item @code{--png}
+Generate pictures of each page, in PNG format.  This option is
+equivalent to @code{-fpng}; it implies @option{--ps}.
+
+The resolution of the image may be set to @var{N}@tie{}DPI with
 @example
--dresolution=110
+-dresolution=@var{N}
 @end example
 
 @cindex PDF (Portable Document Format), output
 @cindex output, PDF (Portable Document Format)
 
-@item --pdf
-Generate PDF.  This implies @option{--ps}.
+@item @code{--pdf}
+Generate PDF.  This is the default, being equivalent to @code{-fpdf}.
+It implies @option{--ps}.
 
-@item -v, --version
+@item @code{-s}, @code{--silent}
+Show no progress, only error messages.  This is equivalent to
+@code{-lERROR}.
+
+@item @code{-v}, @code{--version}
 Show version information.
 
-@item -V, --verbose
-Be verbose: show full paths of all files read, and give timing
-information.
+@item @code{-V}, @code{--verbose}
+Be verbose: show full paths of all files read, give timing
+information, etc.  It is equivalent to @code{-lDEBUG}.
 
-@item -w, --warranty
+@item @code{-w}, @code{--warranty}
 Show the warranty with which GNU LilyPond comes.  (It comes with
 @strong{NO WARRANTY}!)
 
@@ -486,7 +544,7 @@ fonts to be available to it for proper rendering of both text and
 lyrics.  It is recommended to not use font @q{lists} or @q{aliases}
 in case an SVG viewer is unable to handle them.  When using
 @emph{Web Open Font Format} (WOFF) files the additional
-@code{--svg-woff} switch is required.
+@code{-dsvg-woff} switch is required.
 
 @item @code{check-internal-types}
 @tab @code{#f}
