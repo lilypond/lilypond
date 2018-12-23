@@ -84,8 +84,6 @@ bool point_and_click_global = true;
 //string init_scheme_code_global; // moved to global-data.cc
 //string init_scheme_variables_global; // moved to global-data.cc
 
-//bool relocate_binary = true; // moved to global-data.cc
-
 /*
  * Miscellaneous global stuff.
  */
@@ -187,7 +185,7 @@ static Long_option_init options_static[]
   {_i ("FILE"), "output", 'o',
      _i ("write output to FILE (suffix will be added)")},
   {0, "relocate", 0,
-     _i ("relocate using directory of lilypond program")},
+     _i ("(ignored)")},
   {0, "silent", 's',
      _i ("no progress, only error messages\n"
            "(equivalent to --loglevel=ERROR)")},
@@ -254,17 +252,14 @@ dir_info (FILE *out)
 
   fprintf (out, "\nEffective prefix: \"%s\"\n", lilypond_datadir.c_str ());
 
-  if (relocate_binary)
-    {
-      env_var_info (out, "FONTCONFIG_FILE");
-      env_var_info (out, "FONTCONFIG_PATH");
-      env_var_info (out, "GS_FONTPATH");
-      env_var_info (out, "GS_LIB");
-      env_var_info (out, "GUILE_LOAD_PATH");
-      env_var_info (out, "PANGO_RC_FILE");
-      env_var_info (out, "PANGO_PREFIX");
-      env_var_info (out, "PATH");
-    }
+  env_var_info (out, "FONTCONFIG_FILE");
+  env_var_info (out, "FONTCONFIG_PATH");
+  env_var_info (out, "GS_FONTPATH");
+  env_var_info (out, "GS_LIB");
+  env_var_info (out, "GUILE_LOAD_PATH");
+  env_var_info (out, "PANGO_RC_FILE");
+  env_var_info (out, "PANGO_PREFIX");
+  env_var_info (out, "PATH");
 }
 
 static void
@@ -634,7 +629,7 @@ parse_argv (int argc, char **argv)
               || string (opt->longname_str0_) == "ps")
             add_output_format (opt->longname_str0_);
           else if (string (opt->longname_str0_) == "relocate")
-            relocate_binary = true;
+            ; // ignore option for backwards compatibility
           break;
 
         case 'E':

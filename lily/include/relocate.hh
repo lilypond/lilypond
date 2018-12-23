@@ -28,6 +28,5 @@ string expand_environment_variables (const string &orig);
 
 int sane_putenv (char const *key, const string &value, bool overwrite);
 void setup_paths (char const *argv0);
-extern bool relocate_binary;
 
 #endif /* RELOCATE_HH */

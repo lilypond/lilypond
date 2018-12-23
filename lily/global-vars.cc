@@ -44,8 +44,6 @@ bool be_safe_global = false;
 string init_scheme_code_global;
 string init_scheme_variables_global;
 
-bool relocate_binary = true;
-
 /*
  * Miscellaneous global stuff.
  */

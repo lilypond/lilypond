@@ -164,61 +164,58 @@ setup_paths (char const *argv0_ptr)
 {
   File_name argv0_filename (argv0_ptr);
 
-  if (relocate_binary)
+  string prefix_directory;
+  string argv0_abs;
+  if (argv0_filename.is_absolute ())
     {
-      string prefix_directory;
-      string argv0_abs;
-      if (argv0_filename.is_absolute ())
-        {
-          argv0_abs = argv0_filename.to_string ();
-          debug_output (_f ("Relocation: is absolute: argv0=%s\n", argv0_ptr));
-        }
-      else if (argv0_filename.dir_.length ())
-        {
-          argv0_abs = get_working_directory ()
-                      + "/" + string (argv0_filename.to_string ());
-          debug_output (_f ("Relocation : from cwd: argv0=%s\n", argv0_ptr));
-        }
-      else
-        {
-          /* Find absolute ARGV0 name, using PATH.  */
-          File_path path;
-          char *p = getenv ("PATH");
-          if (p)
-            path.parse_path (p);
+      argv0_abs = argv0_filename.to_string ();
+      debug_output (_f ("Relocation: is absolute: argv0=%s\n", argv0_ptr));
+    }
+  else if (argv0_filename.dir_.length ())
+    {
+      argv0_abs = get_working_directory ()
+                  + "/" + string (argv0_filename.to_string ());
+      debug_output (_f ("Relocation : from cwd: argv0=%s\n", argv0_ptr));
+    }
+  else
+    {
+      /* Find absolute ARGV0 name, using PATH.  */
+      File_path path;
+      char *p = getenv ("PATH");
+      if (p)
+        path.parse_path (p);
 
 #ifndef __MINGW32__
-          argv0_abs = path.find (argv0_filename.to_string ());
+      argv0_abs = path.find (argv0_filename.to_string ());
 #else /* __MINGW32__ */
-          path.prepend (get_working_directory ());
-          char const *ext[] = {"exe", "", 0 };
-          argv0_abs = path.find (argv0_filename.to_string (), ext);
+      path.prepend (get_working_directory ());
+      char const *ext[] = {"exe", "", 0 };
+      argv0_abs = path.find (argv0_filename.to_string (), ext);
 #endif /* __MINGW32__ */
 
-          debug_output (_f ("Relocation: from PATH=%s\nargv0=%s\n",
-                            path.to_string ().c_str (), argv0_ptr), true);
+      debug_output (_f ("Relocation: from PATH=%s\nargv0=%s\n",
+                        path.to_string ().c_str (), argv0_ptr), true);
 
-          if (argv0_abs.empty ())
-            programming_error ("cannot find absolute argv0");
-        }
-
-      string bindir = dir_name (argv0_abs);
-      string argv0_prefix = dir_name (bindir);
-      string compile_prefix = dir_name (dir_name (dir_name (lilypond_datadir)));
-      if (argv0_prefix != compile_prefix)
-        {
-          prefix_relocation (argv0_prefix);
-          prefix_directory = argv0_prefix;
-        }
-      if (argv0_prefix != compile_prefix || string (FRAMEWORKDIR) != "..")
-        {
-          framework_relocation (bindir + "/" + FRAMEWORKDIR);
-          prefix_directory = bindir + "/" + FRAMEWORKDIR;
-        }
-
-      lilypond_datadir = prefix_directory
-                         + "/share/lilypond/" TOPLEVEL_VERSION;
+      if (argv0_abs.empty ())
+        programming_error ("cannot find absolute argv0");
     }
+
+  string bindir = dir_name (argv0_abs);
+  string argv0_prefix = dir_name (bindir);
+  string compile_prefix = dir_name (dir_name (dir_name (lilypond_datadir)));
+  if (argv0_prefix != compile_prefix)
+    {
+      prefix_relocation (argv0_prefix);
+      prefix_directory = argv0_prefix;
+    }
+  if (argv0_prefix != compile_prefix || string (FRAMEWORKDIR) != "..")
+    {
+      framework_relocation (bindir + "/" + FRAMEWORKDIR);
+      prefix_directory = bindir + "/" + FRAMEWORKDIR;
+    }
+
+  lilypond_datadir = prefix_directory
+                     + "/share/lilypond/" TOPLEVEL_VERSION;
 
   if (getenv ("LILYPONDPREFIX"))
     error (_ ("LILYPONDPREFIX is obsolete, use LILYPOND_DATADIR"));
@@ -229,9 +226,6 @@ setup_paths (char const *argv0_ptr)
       lilypond_datadir = File_name (env).to_string ();
     }
 
-  /* When running from build dir, a full LILYPOND_DATADIR is set-up at
-     $(OUTBASE)/{share, lib}/lilypond/current.  Configure lily using
-     ./configure --prefix=$(pwd)/out */
   string build_datadir_current = dir_name (lilypond_datadir) + "/current";
   if (!is_dir (lilypond_datadir.c_str ())
       && is_dir (build_datadir_current.c_str ()))
