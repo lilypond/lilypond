@@ -465,25 +465,40 @@ Show the warranty with which GNU LilyPond comes.  (It comes with
 @node Advanced command line options for LilyPond
 @unnumberedsubsec Advanced command line options for LilyPond
 
-@table @code
+Option @option{-d} is the command-line interface to LilyPond's Scheme
+function @code{ly:set-option}.  This means that all options listed
+here can also be set within @file{.ly} files.
 
-@item -d@var{[option-name]}=@var{[value]},
---define-default=@var{[option-name]}=@var{[value]}
-This sets the equivalent internal Scheme function to @var{value}.  For
-example;
+@table @asis
+
+@item @code{-d}, @code{--define-default=}@var{option-name}[@code{=}@var{value}]
+@itemx @code{-d}, @code{--define-default=no-}@var{option-name}
+Set the equivalent internal Scheme symbol @var{option-name} to
+@var{value}.  For example, the command-line option
 
 @example
 -dbackend=svg
 @end example
 
-If a @var{value} is not supplied, then the default value is used.  The
-prefix @code{no-} may be added to @var{option-name} to switch @q{off} an
-option.  For example;
+@noindent
+is equivalent to
+
+@example
+#(ly:set-option 'backend 'svg)
+@end example
+
+@noindent
+in a LilyPond input file.
+
+If @var{value} is not supplied, use @code{#t} as the value (which might
+produce strange results if the expected @var{value} type is not boolean).
+The prefix @code{no-} may be added to @var{option-name} to switch @q{off} an
+option, providing @code{#f} as the value.  For example,
 
 @cindex point and click, command line
 
 @example
--dpoint-and-click=#f
+-dpoint-and-click='#f'
 @end example
 
 @noindent
@@ -493,50 +508,53 @@ is the same as
 @end example
 @end table
 
-@noindent The following are supported along with their respective
-default values:
+[Note that the @samp{#} character introduces a comment in many shells.
+For this reason it is recommended to always quote expressions that
+contain it.]
 
-@multitable @columnfractions .33 .16 .51
-@item @strong{Symbol}
-@tab @strong{Value}
-@tab @strong{Explanation/Options}
+The following table lists all supported option names together with
+its values.  Within Scheme code, option values can be read using
+function @code{ly:get-option}.
 
-@item @code{anti-alias-factor}
-@tab @code{1}
-@tab Render at a higher resolution (using the given factor) and scale
-down the result to prevent @q{jaggies} in @code{PNG} images.
+@table @asis
 
-@item @code{aux-files}
-@tab @code{#t}
-@tab Create @code{.tex}, @code{.texi} and @code{.count} files when used
-with the @code{eps} backend option.
+@item @code{anti-alias-factor} @var{num}
+Render at a higher resolution (using factor @var{num}) and scale
+down the result to prevent @q{jaggies} in PNG images.  Default:
+@code{1.0}.
 
-@item @code{backend}
-@tab @code{ps}
-@tab This is the default setting.  Postscript files (default) include
-@code{TTF}, @code{Type1} and @code{OTF} fonts.  No @q{subsetting} of
+@item @code{aux-files} @var{bool}
+If @var{bool} is @code{#t}, create @file{.tex}, @file{.texi}, and
+@file{.count} files when used with the @code{eps} backend option.
+Default: @code{#t}.
+
+@item @code{backend} @var{symbol}
+Use @var{symbol} as the backend for LilyPond output.  Possible values
+are:
+
+@table @code
+
+@item ps
+This is the default setting.  PostScript files include
+TTF, Type1, and OTF fonts.  No @q{subsetting} of
 these fonts is done.  Be aware that using @q{oriental} character sets
-can lead to very large file sizes.
+like Japanese can lead to very large file sizes.
 
-@item
-@tab @code{eps}
-@tab Used as default by the @command{lilypond-book} command.  This dumps
+@item eps
+Used as the default by the @command{lilypond-book} command.  This dumps
 every page as both a single file with all pages and fonts included and
-as separate encapsulated postscript files for each page but without fonts
+as separate encapsulated PostScript files for each page but without fonts
 included.
 
-@item
-@tab @code{null}
-@tab Do not output a printed score.  This has the same effect as
+@item null
+Do not output a printed score.  This has the same effect as
 @code{-dno-print-pages}.
 
-@item
-@tab @code{scm}
-@tab This dumps out the raw, internal Scheme-based drawing commands.
+@item scm
+This dumps out the raw, internal Scheme-based drawing commands.
 
-@item
-@tab @code{svg}
-@tab Scalable Vector Graphics.
+@item svg
+Scalable Vector Graphics.
 A single SVG file is created for every page of output.  Music glyphs
 are encoded as vector graphics, but text fonts are @emph{not} embedded
 in the SVG files.  Any SVG viewer will therefore need the relevant text
@@ -546,236 +564,247 @@ in case an SVG viewer is unable to handle them.  When using
 @emph{Web Open Font Format} (WOFF) files the additional
 @code{-dsvg-woff} switch is required.
 
-@item @code{check-internal-types}
-@tab @code{#f}
-@tab Check every property assignment for types.
+@end table
 
-@item @code{clip-systems}
-@tab @code{#f}
-@tab Extract music fragments out of a score.  This requires that the
-@code{clip-regions} function has been defined within the @code{\layout}
-block.  See @ruser{Extracting fragments of music}.  No fragments are
-extracted though if used with the @option{-dno-print-pages} option.
+@item @code{check-internal-types} @var{bool}
+If @var{bool} is @code{#t}, check every property assignment for
+types.  Default: @code{#f}.
 
-@item @code{crop}
-@tab @code{#f}
-@tab Match the size of the normal output to the typeset image.
+@item @code{clip-systems} @var{bool}
+If @var{bool} is @code{#t}, extract music fragments out of a score.
+This requires that the @code{clip-regions} function has been defined
+within the @code{\layout} block.  See @ruser{Extracting fragments of
+music}.  No fragments are extracted though if used with the
+@option{-dno-print-pages} option.  Default: @code{#f}.
+
+@item @code{crop} @var{bool}
+If @var{bool} is @code{#t}, match the size of the normal output to
+the typeset image.  Default: @code{#f}.
 
 @item @code{datadir}
-@tab
-@tab Prefix for data files (read-only).
+Prefix for data files.  This is a read-only option; setting it has no
+effect.
 
-@item @code{debug-gc}
-@tab @code{#f}
-@tab Dump memory debugging statistics.
+@item @code{debug-gc} @var{bool}
+If @var{bool} is @code{#t}, dump memory debugging statistics.
+Default: @code{#f}.
 
-@item @code{debug-gc-assert-parsed-dead}
-@tab @code{#f}
-@tab For memory debugging: Ensure that all references to parsed objects
-are dead. This is an internal option, and is switched on automatically
-for @code{`-ddebug-gc'}.
+@item @code{debug-gc-assert-parsed-dead} @var{bool}
+For memory debugging: If @var{bool} is @code{#t}, ensure that all
+references to parsed objects are dead.  This is an internal option,
+and is switched on automatically for @code{-ddebug-gc}.  Default:
+@code{#f}.
 
-@item @code{debug-lexer}
-@tab @code{#f}
-@tab Debug the flex lexer.
+@item @code{debug-lexer} @var{bool}
+If @var{bool} is @code{#t}, debug the flex lexer.
+Default: @code{#f}.
 
-@item @code{debug-page-breaking-scoring}
-@tab @code{#f}
-@tab Dump scores for many different page breaking configurations.
+@item @code{debug-page-breaking-scoring} @var{bool}
+If @var{bool} is @code{#t}, dump scores for many different page
+breaking configurations.
+Default: @code{#f}.
 
-@item @code{debug-parser}
-@tab @code{#f}
-@tab Debug the bison parser.
+@item @code{debug-parser} @var{bool}
+If @var{bool} is @code{#t}, debug the bison parser.
+Default: @code{#f}.
 
-@item @code{debug-property-callbacks}
-@tab @code{#f}
-@tab Debug cyclic callback chains.
+@item @code{debug-property-callbacks} @var{bool}
+If @var{bool} is @code{#t}, debug cyclic callback chains.
+Default: @code{#f}.
 
-@item @code{debug-skylines}
-@tab @code{#f}
-@tab Debug skylines.
+@item @code{debug-skylines} @var{bool}
+If @var{bool} is @code{#t}, debug skylines.
+Default: @code{#f}.
 
-@item @code{delete-intermediate-files}
-@tab @code{#t}
-@tab Delete the unusable, intermediate @code{.ps} files created during
+@item @code{delete-intermediate-files} @var{bool}
+If @var{bool} is @code{#t}, delete the unusable, intermediate
+@file{.ps} files created during
 compilation.
+Default: @code{#t}.
 
-@item @code{dump-cpu-profile}
-@tab @code{#f}
-@tab Dump timing information (system-dependent).
+@item @code{dump-cpu-profile} @var{bool}
+If @var{bool} is @code{#t}, dump (system-dependent) timing information.
+Default: @code{#f}.
 
-@item @code{dump-profile}
-@tab @code{#f}
-@tab Dump memory and time information for each file.
+@item @code{dump-profile} @var{bool}
+If @var{bool} is @code{#t}, dump memory and time information for each
+file.
+Default: @code{#f}.
 
-@item @code{dump-signatures}
-@tab @code{#f}
-@tab Dump output signatures of each system. Used for regression testing.
+@item @code{dump-signatures} @var{bool}
+If @var{bool} is @code{#t}, dump output signatures of each system.
+Used for regression testing.
+Default: @code{#f}.
 
-@item @code{embed-source-code}
-@tab @code{#f}
-@tab Embed the LilyPond source files inside the generated PDF document.
+@item @code{embed-source-code} @var{bool}
+If @var{bool} is @code{#t}, embed the LilyPond source files inside
+the generated PDF document.
+Default: @code{#f}.
 
-@item @code{eps-box-padding}
-@tab @code{#f}
-@tab Pad left edge of the output EPS bounding box by the given amount
-(in mm).
+@item @code{eps-box-padding} @var{num}
+Pad left edge of the output EPS bounding box by @var{num} millimeters.
+Default: @code{#f} (meaning no bounding box padding).
 
-@item @code{font-export-dir}
-@tab @code{#f [dir]}
-@tab Directory for exporting fonts as PostScript files.
+@item @code{font-export-dir} @var{string}
+Set directory for exporting fonts as PostScript files to @var{string}.
+Default: @code{#f} (meaning current directory).
 
-@item @code{gs-load-fonts}
-@tab @code{#f}
-@tab Load fonts via Ghostscript.
+@item @code{gs-load-fonts} @var{bool}
+If @var{bool} is @code{#t}, load fonts via Ghostscript.  This option
+makes LilyPond's output files contain only references to all fonts,
+which must be resolved to real fonts in a post-processing step by
+Ghostscript.
+Default: @code{#f}.
 
-@item @code{gs-load-lily-fonts}
-@tab @code{#f}
-@tab Load only the LilyPond fonts via Ghostscript.
+@item @code{gs-load-lily-fonts} @var{bool}
+If @var{bool} is @code{#t}, load LilyPond fonts via Ghostscript.
+This option makes LilyPond's output files contain only references to
+its music fonts, which must be resolved to real fonts in a
+post-processing step by Ghostscript.  All other fonts are still
+output as usual.
+Default: @code{#f}.
 
-@item @code{gs-never-embed-fonts}
-@tab @code{#f}
-@tab Make Ghostscript embed only TrueType fonts and no other font format.
+@item @code{gs-never-embed-fonts} @var{bool}
+If @var{bool} is @code{#t}, make Ghostscript embed only TrueType
+fonts and no other font format.
+Default: @code{#f}.
 
-@item @code{gui}
-@tab @code{#f}
-@tab Runs silently and redirect all output to a log file.
-@end multitable
+@item @code{gui} @var{bool}
+If @var{bool} is @code{#t}, make LilyPond run silently and redirect
+all output to a log file.
+Default: @code{#f}.
 
-@noindent
-@strong{Note to Windows users:} By default @code{lilypond.exe} outputs
-all progress information to the command window,
-@code{lilypond-windows.exe} does not and returns a prompt, with no
+@strong{Note to Windows users:} By default, @file{lilypond.exe} outputs
+all progress information to the command window, while
+@file{lilypond-windows.exe} does not and returns a prompt, with no
 progress information, immediately at the command line.  The
 @option{-dgui} option can be used in this case to redirect output to a
 log file.
 
-@multitable @columnfractions .33 .16 .51
-@item @code{help}
-@tab @code{#f}
-@tab Show this help.
+@item @code{help} @var{bool}
+If @var{bool} is @code{#t}, show this help.
+Default: @code{#f}.
 
-@item @code{include-book-title-preview}
-@tab @code{#t}
-@tab Include book titles in preview images.
+@item @code{include-book-title-preview} @var{bool}
+If @var{bool} is @code{#t}, include book titles in preview images.
+Default: @code{#t}.
 
-@item @code{include-eps-fonts}
-@tab @code{#t}
-@tab Include fonts in separate-system EPS files.
+@item @code{include-eps-fonts} @var{bool}
+If @var{bool} is @code{#t}, include fonts in separate-system EPS files.
+Default: @code{#t}.
 
-@item @code{include-settings}
-@tab @code{#f}
-@tab Include file for global settings, this is included before the score
-is processed.
+@item @code{include-settings} @var{string}
+Include file @var{string} for global settings, which is included before the
+score is processed.
+Default: @code{#f} (meaning no global settings file).
 
-@item @code{job-count}
-@tab @code{#f}
-@tab Process in parallel, using the given number of jobs.
+@item @code{job-count} @var{num}
+Process in parallel, using @var{num} jobs.
+Default: @code{#f} (meaning no parallel processing).
 
-@item @code{log-file}
-@tab @code{#f [file]}
-@tab If string @code{FOO} is given as a second argument,
-redirect output to the log file @code{FOO.log}.
+@item @code{log-file} @var{string}
+Redirect output to the log file @file{@var{string}.log}.
+Default: @code{#f} (meaning no log file).
 
-@item @code{max-markup-depth}
-@tab @code{1024}
-@tab Maximum depth for the markup tree. If a markup has more levels,
-assume it will not terminate on its own, print a warning and return a
-null markup instead.
+@item @code{max-markup-depth} @var{num}
+Set maximum depth for the markup tree to value @var{num}.  If a
+markup has more levels, assume it will not terminate on its own,
+print a warning, and return a null markup instead.
+Default: @code{1024}.
 
-@item @code{midi-extension}
-@tab @code{"midi"}
-@tab Set the default file extension for MIDI output file to given
-string.
+@item @code{midi-extension} @var{string}
+Set the default file extension for MIDI output files to
+@code{string}.
+Default: @code{"midi"}.
 
-@item @code{music-strings-to-paths}
-@tab @code{#f}
-@tab Convert text strings to paths when glyphs belong to a music font.
+@item @code{music-strings-to-paths} @var{bool}
+If @var{bool} is @code{#t}, convert text strings to paths when glyphs
+belong to a music font.
+Default: @code{#f}.
 
-@item @code{paper-size}
-@tab @code{\"a4\"}
-@tab Set default paper size.  Note the string must be enclosed in
-escaped double quotes.
+@item @code{paper-size} @var{extra-quoted-string}
+Set default paper size to @var{extra-quoted-string}.  Note that the
+string must be enclosed in escaped double quotes.
+Default: @code{"\"a4\""}.
 
-@item @code{pixmap-format}
-@tab @code{png16m}
-@tab Set GhostScript's output format for pixel images.
+@item @code{pixmap-format} @var{symbol}
+Set Ghostscript's output format for pixel images to @var{symbol}.
+Default: @code{png16m}.
 
-@item @code{point-and-click}
-@tab @code{#t}
-@tab Add @q{point & click} links to PDF and SVG output.
-See @ref{Point and click}.
+@item @code{point-and-click} @var{bool}
+If @var{bool} is @code{#t}, add @q{point & click} links to PDF and
+SVG output.  See @ref{Point and click}.
+Default: @code{#t}.
 
-@item @code{preview}
-@tab @code{#f}
-@tab Create preview images in addition to normal output.
-@end multitable
+@item @code{preview} @var{bool}
+If @var{bool} is @code{#t}, create preview images in addition to
+normal output.
+Default: @code{#f}.
 
-@noindent
-This option is supported by all backends; @code{pdf}, @code{png},
-@code{ps}, @code{eps} and @code{svg}, but not @code{scm}.  It generates
-an output file, in the form @code{myFile.preview.extension}, containing
-the titles and the first system of music.  If @code{\book} or
-@code{\bookpart} blocks are used, the titles of @code{\book},
-@code{\bookpart} or @code{\score} will appear in the output, including
-the first system of every @code{\score} block if the @code{\paper}
-variable @code{print-all-headers} is set to @code{#t}.
+This option is supported by all backends (@code{pdf}, @code{png},
+@code{ps}, @code{eps}, and @code{svg}) except @code{scm}.  For input
+file name @var{file} and backend @var{format}, it generates an output
+file having the name @file{@var{file}@code{.preview.}@var{format}},
+containing the titles and the first system of music.  If @code{\book}
+or @code{\bookpart} blocks are used, the titles of @code{\book},
+@code{\bookpart} or @code{\score} will appear in the output,
+including the first system of every @code{\score} block if the
+@code{\paper} variable @code{print-all-headers} is set to @code{#t}.
 
 To suppress the usual output, use the @option{-dprint-pages} or
 @option{-dno-print-pages} options according to your requirements.
 
-@multitable @columnfractions .33 .16 .51
-@item @code{print-pages}
-@tab @code{#t}
-@tab Generate full pages, the default.  @option{-dno-print-pages} is
-useful in combination with @option{-dpreview} or @option{-dcrop}.
+@item @code{print-pages} @var{bool}
+If @var{bool} is @code{#t}, generate full pages.
+Default: @code{#t}.
 
-@item @code{profile-property-accesses}
-@tab @code{#f}
-@tab Keep statistics of @code{get_property()} function calls.
+Option @option{-dno-print-pages} is useful in combination with
+@option{-dpreview} or @option{-dcrop}.
 
-@item @code{protected-scheme-parsing}
-@tab @code{#t}
-@tab Continue when errors in inline scheme are caught in the parser. If
-set to @code{#f}, halt on errors and print a stack trace.
+@item @code{profile-property-accesses} @var{bool}
+If @var{bool} is @code{#t}, keep statistics of @code{get_property()}
+function calls.
+Default: @code{#f}.
 
-@item @code{read-file-list}
-@tab @code{#f [file]}
-@tab Specify name of a file which contains a list of input files to be
+@item @code{protected-scheme-parsing} @var{bool}
+If @var{bool} is @code{#t}, continue when errors in inline Scheme
+code are caught in the parser.  If set to @code{#f}, halt on errors
+and print a stack trace.
+Default: @code{#t}.
+
+@item @code{read-file-list} @var{string}
+Use file @var{string} that contains a list of input files to be
 processed.
+Default: @code{#f} (meaning no input list file).
 
-@item @code{relative-includes}
-@tab @code{#f}
-@tab When processing an @code{\include} command, look for the included
-file relative to the current file (instead of the root file).
+@item @code{relative-includes} @var{bool}
+When processing an @code{\include} command, look for the included
+file relative to the current file if @var{bool} is @code{#t}.  If set
+to @code{#f}, look for the file relative to the root file.
+Default: @code{#f}.
 
-@item @code{resolution}
-@tab @code{101}
-@tab Set resolution for generating @code{PNG} pixmaps to given value (in
-dpi).
+@item @code{resolution} @var{num}
+Set resolution for generating @code{PNG} pixmaps to @var{num} dpi.
+Default: @code{101}.
 
-@item @code{safe}
-@tab @code{#f}
-@tab Do not trust the @code{.ly} input.
-@end multitable
+@item @code{safe} @var{bool}
+If @var{bool} is @code{#t}, do not trust the @file{.ly} input.
+Default: @code{#f}.
 
-@noindent
-When LilyPond formatting is available through a web server, either the
-@option{--safe} or the @option{--jail} option @b{MUST} be passed.  The
-@option{--safe} option will prevent inline Scheme code from wreaking
-havoc, e.g,
+When LilyPond formatting is available through a web server, either
+the @code{-dsafe} or the @option{--jail} option @b{MUST} be passed.
+The @code{-dsafe} option prevents inline Scheme code from wreaking
+havoc, e.g.,
 
-@quotation
-@verbatim
-#(s ystem "rm -rf /")  % too dangerous to write correctly
-{
-  c4^$(ly:gulp-file "/etc/passwd") % malicious but not destructive
-}
-@end verbatim
-@end quotation
+@example
+% too dangerous to write correctly
+#(s ystem "rm -rf /")
+% malicious but not destructive
+@{ c4^$(ly:gulp-file "/etc/passwd") @}
+@end example
 
 The @option{-dsafe} option works by evaluating in-line Scheme
-expressions in a special safe module.  This is derived from GUILE
+expressions in a special safe module.  This is derived from GUILE's
 @file{safe-r5rs} module, but also adds a number of functions of the
 LilyPond API which are listed in @file{scm/safe-lily.scm}.
 
@@ -783,7 +812,7 @@ In addition, safe mode disallows @code{\include} directives and
 disables the use of backslashes in @TeX{} strings.  It is also not
 possible to import LilyPond variables into Scheme while in safe mode.
 
-@option{-dsafe} does @emph{not} detect resource overuse, so it is still
+Option @option{-dsafe} does @emph{not} detect resource overuse, so it is still
 possible to make the program hang indefinitely, for example by feeding
 cyclic data structures into the backend.  Therefore, if using LilyPond
 on a publicly accessible webserver, the process should be limited in
@@ -792,66 +821,74 @@ both CPU and memory usage.
 Safe mode will prevent many useful LilyPond snippets from being
 compiled.
 
-The @option{--jail} is an even more secure alternative, but requires
-more work to set up. See @ref{Basic command line options for LilyPond}.
+Option @option{--jail} is an even more secure alternative, but requires
+more work to set up.  See @ref{Basic command line options for LilyPond}.
 
-@multitable @columnfractions .33 .16 .51
-@item @code{separate-log-files}
-@tab @code{#f}
-@tab For input files @code{FILE1.ly}, @code{FILE2.ly}, etc. output log
-data to files @code{FILE1.log}, @code{FILE2.log}@dots{}
+@item @code{separate-log-files} @var{bool}
+For input files @file{file1.ly}, @file{file2.ly}, @dots{}, output log
+data to files @file{file1.log}, @file{file2.log}, @dots{}, if
+@var{bool} is @code{#t}.
+Default: @code{#f}.
 
-@item @code{show-available-fonts}
-@tab @code{#f}
-@tab List available font names.
+@item @code{show-available-fonts} @var{bool}
+If @var{bool} is @code{#t}, list available font names as delivered by
+the fontconfig library.  Appended to this list LilyPond displays the
+configuration settings of fontconfig itself.
+Default: @code{#f}.
 
-@item @code{strict-infinity-checking}
-@tab @code{#f}
-@tab Force a crash on encountering @code{Inf} and @code{NaN} floating
-point exceptions.
+@item @code{strict-infinity-checking} @var{bool}
+If @var{bool} is @code{#t}, make @command{lilypond} abort on
+encountering @code{Inf} and @code{NaN} floating point exceptions.
+Default: @code{#f}.
 
-@item @code{strip-output-dir}
-@tab @code{#t}
-@tab Don't use directories from input files while constructing output
-file names.
+@item @code{strip-output-dir} @var{bool}
+If @var{bool} is @code{#t}, don't use the directory part from input
+file paths while constructing output file names.
+Default: @code{#t}.
 
-@item @code{strokeadjust}
-@tab @code{#f}
-@tab Force PostScript stroke adjustment.  This option is mostly
-relevant when a PDF is generated from PostScript output (stroke
-adjustment is usually enabled automatically for low-resolution bitmap
-devices).  Without this option, PDF previewers tend to produce widely
-inconsistent stem widths at resolutions typical for screen display.  The
-option does not noticeably affect print quality and causes large file
-size increases in PDF files.
+@item @code{strokeadjust} @var{bool}
+If @var{bool} is @code{#t}, force PostScript stroke adjustment.  This
+option is mostly relevant when a PDF is generated from PostScript
+output (stroke adjustment is usually enabled automatically for
+low-resolution bitmap devices).  Without this option, PDF previewers
+tend to produce widely inconsistent stem widths at resolutions
+typical for screen display.  However, the option does not noticeably
+affect print quality and causes large file size increases in PDF
+files.
+Default: @code{#f}.
 
-@item @code{svg-woff}
-@tab @code{#f}
-@tab This option is required when using Web Open Font Format (WOFF) font
-files with the backend @code{svg} command.  A single SVG file is created
-for every page of output.  Apart from LilyPond's own music glyphs, no
-other font information will be included.  Any SVG viewer will therefore
-require the fonts be available to it for the proper rendering of both
-text and lyrics.  It is also recommended not to use any font @q{aliases}
-or @q{lists} in case the SVG viewer cannot handle them.
+@item @code{svg-woff} @var{bool}
+This option is required when using Web Open Font Format (WOFF) font
+files with the @code{svg} backend.  If @var{bool} is @code{#t}, a
+single SVG file is created for every page of output.  Apart from
+LilyPond's own music glyphs, no other font information will be
+included.  Any SVG viewer will therefore require the fonts be
+available to it for the proper rendering of both text and lyrics.  It
+is also recommended not to use any font @q{aliases} or @q{lists} in
+case the SVG viewer cannot handle them.
+Default: @code{#f}.
 
-@item @code{trace-memory-frequency}
-@tab @code{#f}
-@tab Record Scheme cell usage this many times per second.  Dump the
-results to @code{FILE.stacks} and @code{FILE.graph}.
+@item @code{trace-memory-frequency} @var{bool}
+If @var{bool} is @code{#t}, record Scheme cell usage this many times
+per second.  For input file @file{foo.ly}, dump the results to
+@file{foo.stacks} and @file{foo.graph}.
+Default: @code{#f}.
 
-@item @code{trace-scheme-coverage}
-@tab @code{#f}
-@tab Record coverage of Scheme files in @code{FILE.cov}.
+@item @code{trace-scheme-coverage} @var{bool}
+If @var{bool} is @code{#t}, record coverage of Scheme files.  For
+input file @file{foo.ly}, do this in file @file{foo.cov}.
+Default: @code{#f}.
 
 @item @code{verbose}
-@tab @code{#f}
-@tab Verbose output, i.e. loglevel at DEBUG (read-only).
+Verbosity level.  This is a read-only option; setting it has no
+effect.
 
-@item @code{warning-as-error}
-@tab @code{#f}
-@tab Change all warning and @q{programming error} messages into errors.
-@end multitable
+@item @code{warning-as-error} @var{bool}
+If @var{bool} is @code{#t}, change all warning and @q{programming
+error} messages into errors.
+Default: @code{#f}.
+
+@end table
 
 
 @node Environment variables
@@ -892,7 +929,7 @@ Ubuntu GNU/Linux, and may require the use of @code{sudo} as appropriate.
 
 @itemize
 
-@item Install the necessary packages: LilyPond, GhostScript, and ImageMagick.
+@item Install the necessary packages: LilyPond, Ghostscript, and ImageMagick.
 
 @item Create a new user by the name of @code{lily}:
 
@@ -986,7 +1023,7 @@ for i in "$lilydir/usr/bin/lilypond" "$lilydir/usr/bin/guile" "/bin/sh"  \
       's/\t\/\(.*\/\)\(.*\) (.*)$/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/'  \
         | sed '/.*=>.*/d'; done | sh -s
 
-# The shared files for ghostscript...
+# The shared files for Ghostscript...
       cp -L -r /usr/share/ghostscript usr/share
 # The shared files for ImageMagick
       cp -L -r /usr/lib/ImageMagick* usr/lib
