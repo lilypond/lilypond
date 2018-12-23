@@ -7,9 +7,6 @@
 
 #define PACKAGE_DATADIR DATADIR "/" PACKAGE
 
-/* dynamic relocation? */
-#define ARGV0_RELOCATION 0
-
 /* default lilypond locale dir */
 #define LOCALEDIR "@LOCALEDIR@"
 

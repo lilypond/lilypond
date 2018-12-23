@@ -44,12 +44,6 @@ AC_ARG_WITH(urwotf-dir,
     [URWOTF_DIR=$withval],
     [URWOTF_DIR=""])
 
-reloc_b=no
-AC_ARG_ENABLE(relocation,
-    [AS_HELP_STRING([--enable-relocation],
-		    [compile with dynamic relocation.  Default: off])],
-    [reloc_b=$enableval])
-
 rpath_b=no
 AC_ARG_ENABLE(rpath,
     [AS_HELP_STRING([--enable-rpath],
@@ -272,12 +266,6 @@ AC_CHECK_FUNCS([chroot fopencookie gettext isinf memmem snprintf vsnprintf])
 
 STEPMAKE_PROGS(PKG_CONFIG, pkg-config, REQUIRED, 0.9.0)
 
-AC_MSG_CHECKING(whether to enable dynamic relocation)
-if test "$reloc_b" = "yes"; then
-    AC_DEFINE(ARGV0_RELOCATION)
-fi
-AC_MSG_RESULT($reloc_b)
-
 AC_MSG_CHECKING(for rpath linkage)
 if test "$rpath_b" = "yes"; then
     LDFLAGS="$LDFLAGS -Wl,-rpath -Wl,\\\$\$ORIGIN/../lib"
@@ -386,10 +374,6 @@ AC_DEFINE_UNQUOTED(FLOWER_VERSION, "${FULL_FLOWER_VERSION}")
 
 # must also have local.make if configure fails.
 touch local.make
-
-if test "$reloc_b$rpath_b" = "yesno"; then
-    STEPMAKE_WARN([Using --enable-relocation without --enable-rpath.  LilyPond may have trouble finding libraries.])
-fi
 
 # Gather requirements and generate output.
 STEPMAKE_END
