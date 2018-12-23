@@ -146,46 +146,57 @@ static Getopt_long *option_parser = 0;
 static Long_option_init options_static[]
 =
 {
-  {_i ("FORMATs"), "formats", 'f', _i ("dump FORMAT,...  Also as separate options:")},
-  {0, "pdf", 0, _i ("generate PDF files (default)")},
-  {0, "png", 0, _i ("generate PNG files ")},
-  {0, "ps", 0, _i ("generate PostScript files")},
-  {0, "eps", 'E', _i ("generate Encapsulated PostScript files")},
-  {_i ("KEY"), "pspdfopt", 'O', _i ("set ps/pdf optimization to KEY (default: size)\n"
-         "KEY is either 'size', 'TeX' or 'TeX-GS'")},
-  {
-    _i ("SYM[=VAL]"), "define-default", 'd',
-    _i ("set Scheme option SYM to VAL (default: #t).\n"
-    "Use -dhelp for help.")
-  },
-
-  {_i ("EXPR"), "evaluate", 'e', _i ("evaluate scheme code")},
+  {_i ("FORMATs"), "formats", 'f',
+     _i ("dump FORMAT,...  Also as separate options:")},
+  {0, "pdf", 0,
+     _i ("generate PDF files (default)")},
+  {0, "png", 0,
+     _i ("generate PNG files ")},
+  {0, "ps", 0,
+     _i ("generate PostScript files")},
+  {0, "eps", 'E',
+     _i ("generate Encapsulated PostScript files")},
+  {_i ("KEY"), "pspdfopt", 'O',
+     _i ("set ps/pdf optimization to KEY, which is either\n"
+           "'size' (default), 'TeX', or 'TeX-GS'")},
+  {_i ("SYM[=VAL]"), "define-default", 'd',
+     _i ("set Scheme option SYM to VAL (default: #t);\n"
+           "use -dhelp for help")},
+  {_i ("EXPR"), "evaluate", 'e',
+     _i ("evaluate scheme code")},
   /* Bug in option parser: --output =foe is taken as an abbreviation
      for --output-format.  */
-  {0, "help", 'h', _i ("show this help and exit")},
-  {
-    _i ("FIELD"), "header", 'H', _i ("dump header field FIELD to file\n"
-    "named BASENAME.FIELD")
-  },
-  {_i ("DIR"), "include", 'I', _i ("add DIR to search path")},
-  {_i ("FILE"), "init", 'i', _i ("use FILE as init file")},
+  {0, "help", 'h',
+     _i ("show this help and exit")},
+  {_i ("FIELD"), "header", 'H',
+     _i ("dump \\header field FIELD to file\n"
+           "named BASENAME.FIELD")},
+  {_i ("DIR"), "include", 'I',
+     _i ("append DIR to search path")},
+  {_i ("FILE"), "init", 'i',
+     _i ("use FILE as init file")},
 #if HAVE_CHROOT
-  {
-    _i ("USER, GROUP, JAIL, DIR"), "jail", 'j', _i ("chroot to JAIL, become USER:GROUP\n"
-    "and cd into DIR")
-  },
+  {_i ("USER,GROUP,JAIL,DIR"), "jail", 'j',
+     _i ("chroot to JAIL, become USER:GROUP\n"
+           "and cd into DIR")},
 #endif
-  {
-    _i ("LOGLEVEL"), "loglevel", 'l', _i ("print log messages according to"
-    " LOGLEVEL.  Possible values are:\n"
-    "NONE, ERROR, WARNING, BASIC, PROGRESS, INFO (default) and DEBUG.")
-  },
-  {_i ("FILE"), "output", 'o', _i ("write output to FILE (suffix will be added)")},
-  {0, "relocate", 0, _i ("relocate using directory of lilypond program")},
-  {0, "silent", 's', _i ("no progress, only error messages (equivalent to loglevel=ERROR)")},
-  {0, "version", 'v', _i ("show version number and exit")},
-  {0, "verbose", 'V', _i ("be verbose (equivalent to loglevel=DEBUG)")},
-  {0, "warranty", 'w', _i ("show warranty and copyright")},
+  {_i ("LOGLEVEL"), "loglevel", 'l',
+     _i ("print log messages according to LOGLEVEL,\n"
+           "which is either NONE, ERROR, WARNING,\n"
+           "BASIC, PROGRESS, INFO (default), or DEBUG")},
+  {_i ("FILE"), "output", 'o',
+     _i ("write output to FILE (suffix will be added)")},
+  {0, "relocate", 0,
+     _i ("relocate using directory of lilypond program")},
+  {0, "silent", 's',
+     _i ("no progress, only error messages\n"
+           "(equivalent to --loglevel=ERROR)")},
+  {0, "version", 'v',
+     _i ("show version number and exit")},
+  {0, "verbose", 'V',
+     _i ("be verbose (equivalent to --loglevel=DEBUG)")},
+  {0, "warranty", 'w',
+     _i ("show warranty and copyright")},
   {0, 0, 0, 0}
 };
 
