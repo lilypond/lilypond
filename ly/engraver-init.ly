@@ -656,6 +656,8 @@ automatically when an output definition (a @code{\\score} or
 
   repeatCountVisibility = #all-repeat-counts-visible
 
+  restNumberThreshold = 1
+
   %% Other Timing variables are derived and set by the Timing_translator
   %% at initialization time by calling the functions in
   %% scm/time-signature-settings.scm

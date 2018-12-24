@@ -63,6 +63,7 @@ private:
   // Ugh, this is a kludge - need this for multi-measure-rest-grace.ly
   Item *last_command_item_;
   bool first_time_;
+  int number_threshold_;
 };
 
 Multi_measure_rest_engraver::Multi_measure_rest_engraver (Context *c)
@@ -182,12 +183,7 @@ Multi_measure_rest_engraver::set_measure_count (int n)
   assert (g);
   if (scm_is_null (g->get_property ("text")))
     {
-      SCM thres = get_property ("restNumberThreshold");
-      int t = 1;
-      if (scm_is_number (thres))
-        t = scm_to_int (thres);
-
-      if (n <= t)
+      if (n <= number_threshold_)
         g->suicide ();
       else
         {
@@ -233,6 +229,7 @@ Multi_measure_rest_engraver::process_music ()
         }
 
       start_measure_ = scm_to_int (get_property ("internalBarNumber"));
+      number_threshold_ = robust_scm2int (get_property ("restNumberThreshold"), 1);
     }
 
   first_time_ = false;
