@@ -498,7 +498,7 @@ Changing this creates a new text spanner.")
 translator during music interpretation.")
 
 
-     (partCombineForced ,symbol? "Override for the partcombine
+     (partCombineForced ,symbol? "Override for the partCombine
 decision.  Can be @code{apart}, @code{chords}, @code{unisono},
 @code{solo1}, or @code{solo2}.")
      (partCombineTextsOnNote ,boolean? "Print part-combine texts only on

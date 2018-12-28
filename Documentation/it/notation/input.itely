@@ -2216,13 +2216,13 @@ allLyrics = \lyricmode { King of glo -- ry }
   \new Lyrics \allLyrics
   \new PianoStaff <<
     \new Staff = "Destra" {
-      \partcombine
+      \partCombine
       \sopranoMusic
       \altoMusic
     }
     \new Staff = "Sinistra" {
       \clef "bass"
-      \partcombine
+      \partCombine
       \tenorMusic
       \bassMusic
     }

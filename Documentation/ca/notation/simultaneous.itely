@@ -930,7 +930,7 @@ diferents que tenen també diferent puntet.
 @cindex parts, combinador de
 @cindex a due, parts
 @cindex solo, parts
-@funindex \partcombine
+@funindex \partCombine
 
 La combinació automàtica de particel·les s'usa per barrejar dues
 parts musicals diferents sobre un pentagrama.  Això pot ser de
@@ -944,7 +944,7 @@ queden marcades les parts de solista i de duo.
 La sintaxi per a la combinació automàtica de les parts és:
 
 @example
-\partcombine @var{expressió_musical_1} @var{expressió_musical_2}
+\partCombine @var{expressió_musical_1} @var{expressió_musical_2}
 @end example
 
 L'exemple següent exemplifica la funcionalitat bàsica, posant les
@@ -973,7 +973,7 @@ instrumentTwo = \relative {
 <<
   \new Staff \instrumentOne
   \new Staff \instrumentTwo
-  \new Staff \partcombine \instrumentOne \instrumentTwo
+  \new Staff \partCombine \instrumentOne \instrumentTwo
 >>
 @end lilypond
 
@@ -995,7 +995,7 @@ novena distància com acords, i disposa en veus separades les notes
 que estiguin a més d'una novena de distància (o quan hi ha
 creuament de veus).  Aquest comportament es pot sobreescriure amb
 un argument opcional que consisteix en una parella de números
-després de l'ordre @code{\partcombine}: el primer especifica
+després de l'ordre @code{\partCombine}: el primer especifica
 l'interval on les notes comencen a estar combinades (el valor
 predeterminat és zero) i el segon on les notes es divideixen en
 veus distintes.  L'ajust del segon argument al valor zero
@@ -1017,81 +1017,81 @@ instrumentTwo = \relative {
 }
 
 <<
-  \new Staff \partcombine \instrumentOne \instrumentTwo
-  \new Staff \partcombine #'(2 . 3) \instrumentOne \instrumentTwo
+  \new Staff \partCombine \instrumentOne \instrumentTwo
+  \new Staff \partCombine #'(2 . 3) \instrumentOne \instrumentTwo
 >>
 @end lilypond
 
-Els dos arguments de @code{\partcombine} s'interpreten com
+Els dos arguments de @code{\partCombine} s'interpreten com
 contextos de @rinternals{Voice} separats, per la qual cosa si la
 música està escrita en mode relatiu, aleshores @emph{las dues}
 parts han d'incloure la funció @code{\relative}, és a dir:
 
 @example
-\partcombine
+\partCombine
   \relative @dots{} @var{expresión_musical_1}
   \relative @dots{} @var{expresión_musical_2}
 @end example
 
 @noindent
 Una secció @code{\relative} que es troba fora de
-@code{\partcombine} no té cap efecte sobre les notes de
+@code{\partCombine} no té cap efecte sobre les notes de
 @code{@var{expresión_musical_1}} i
 @code{@var{expresión_musical_2}}.
 
-@funindex \partcombineChords
-@funindex \partcombineApart
-@funindex \partcombineUnisono
-@funindex \partcombineSoloI
-@funindex \partcombineSoloII
-@funindex \partcombineAutomatic
+@funindex \partCombineChords
+@funindex \partCombineApart
+@funindex \partCombineUnisono
+@funindex \partCombineSoloI
+@funindex \partCombineSoloII
+@funindex \partCombineAutomatic
 
 A les partitures professionals, sovint les veus es mantenen
 separades entre sí durant passatges llargs fins i tot si algunes
 notes coincideixen entre ambdues, i podrien escriure's fàcilment
 com un uníson.  Per això, la combinació de les notes en un acord,
 o la visualització d'una veu com un solo, no són solucions ideals
-perquè la funció @code{\partcombine} considera cada nota de forma
+perquè la funció @code{\partCombine} considera cada nota de forma
 individual.  En aquest cas, el resultat de la funció
-@code{\partcombine} es pot alterar o corregir amb una de les
+@code{\partCombine} es pot alterar o corregir amb una de les
 ordres següents.  Totes les ordres es poden antecedir per
 @code{\once} perquè s'apliquin sols a la nota següent dins de
 l'expressió musical.
 
 @itemize
 @item
-@code{\partcombineApart} manté les notes com dues veus separades
+@code{\partCombineApart} manté les notes com dues veus separades
 fins i tot si es poden combinar en un acord o uníson.
 
 @item
-@code{\partcombineChords} combina les notes d'un acord.
+@code{\partCombineChords} combina les notes d'un acord.
 
 @item
-@code{\partcombineUnisono} combina les dues veus com uníson i
+@code{\partCombineUnisono} combina les dues veus com uníson i
 marca el resultat com @qq{unison}.
 
 @item
-@code{\partcombineSoloI} mostra sols la veu u i la marca com
+@code{\partCombineSoloI} mostra sols la veu u i la marca com
 @qq{Solo}.
 
 @item
-@code{\partcombineSoloII} imprimeix sols la veu dos i la marca com
+@code{\partCombineSoloII} imprimeix sols la veu dos i la marca com
 @qq{Solo}.
 
 @item
-@code{\partcombineAutomatic} finalitza l'efecte de les ordres
+@code{\partCombineAutomatic} finalitza l'efecte de les ordres
 anteriors i retorna a la funcionalitat estàndard de
-@code{\partcombine}.
+@code{\partCombine}.
 
 @end itemize
 
 @lilypond[quote,verbatim]
 instrumentOne = \relative c' {
-  \partcombineApart c2^"apart" e |
-  \partcombineAutomatic e2^"auto" e |
-  \partcombineChords e'2^"chord" e |
-  \partcombineAutomatic c2^"auto" c |
-  \partcombineApart c2^"apart" \once \partcombineChords e^"chord once" |
+  \partCombineApart c2^"apart" e |
+  \partCombineAutomatic e2^"auto" e |
+  \partCombineChords e'2^"chord" e |
+  \partCombineAutomatic c2^"auto" c |
+  \partCombineApart c2^"apart" \once \partCombineChords e^"chord once" |
   c2 c |
 }
 instrumentTwo = \relative {
@@ -1106,16 +1106,16 @@ instrumentTwo = \relative {
 <<
   \new Staff { \instrumentOne }
   \new Staff { \instrumentTwo }
-  \new Staff { \partcombine \instrumentOne \instrumentTwo }
+  \new Staff { \partCombine \instrumentOne \instrumentTwo }
 >>
 @end lilypond
 
 
-@subsubsubheading Ús de \partcombine amb lletra
+@subsubsubheading Ús de \partCombine amb lletra
 
-@cindex \partcombine i lletra
+@cindex \partCombine i lletra
 
-L'ordre @code{\partcombine} no està dissenyada per funcionar amb
+L'ordre @code{\partCombine} no està dissenyada per funcionar amb
 la lletra de les cançons; si una de les veus rep un nom explícit
 per poder adjuntar una lletra, el combinador de parts no
 funciona.  Tanmateix, es pot aconseguir aquest efecte usant un
@@ -1146,10 +1146,10 @@ Referència de funcionament intern:
 @rinternals{Voice}.
 
 @knownissues
-Totes les funcions @code{\partcombine@dots{}} admeten
+Totes les funcions @code{\partCombine@dots{}} admeten
 exclusivament dues veus.
 
-Les funcions @code{\partcombine@dots{}} no es poden escriure dins
+Les funcions @code{\partCombine@dots{}} no es poden escriure dins
 dels blocs @code{\tuplet} ni @code{\relative}.
 
 Si @code{printPartCombineTexts} està establert i les dues veus
@@ -1157,20 +1157,20 @@ executen i acaben les mateixes notes al mateix compàs, el
 combinador de parts pot gravar @code{a2} més d'un cop en aquest
 compàs.
 
-@code{\partcombine} sols té en compte el moment d'inici de les
+@code{\partCombine} sols té en compte el moment d'inici de les
 notes dins d'una veu @code{Voice}; per exemple, no pot recordar si
 una nota dins d'una veu ja ha començat quan les notes que es
 combinen s'han iniciat just ara a l'altra veu.  Això pot conduir a
 cert nombre de problemes inesperats entre els que s'inclou la
 impressió incorrecta de marques de @qq{Solo} o de @qq{Unison}.
 
-@code{\partcombine} conserva tots els elements extensos
+@code{\partCombine} conserva tots els elements extensos
 (lligadures, reguladors, etc.) dins del mateix context
 @code{Voice} de forma que si qualsevol d'aquests elements extensos
 inicia o acaba a un context @code{Voice} diferent, pot no
 imprimir-se o fer-lo incorrectament.
 
-Si la funció @code{\partcombine} no pot combinar les dues
+Si la funció @code{\partCombine} no pot combinar les dues
 expressions musicals (és a dir, quan les dues veus tenen duracions
 diferents), atorgarà internament els seus propis noms a les veus:
 @code{one} i @code{two} respectivament.  Això significa que si es
@@ -1181,7 +1181,7 @@ diferent, s'ignoraran els esdeveniments dins del context
 Consulteu també l'apartat
 @emph{Advertiments i problemes coneguts} a la sessió
 @rusernamed{Default tablatures,Tabulatures predeterminades}
-en utilitzar@code{\partcombine} amb tabulatures, i la @emph{Nota}
+en utilitzar@code{\partCombine} amb tabulatures, i la @emph{Nota}
 de @ref{Barres automàtiques} en utilitzar el barrat automàtic.
 
 @node Escriptura de música en paral·lel

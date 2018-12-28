@@ -491,11 +491,11 @@ ratioHarmonics = {
 そのため、自動弦セレクタは和音の中にある 2 つの音符に対して@c
 同じ弦を選択することが容易に起こり得ます。
 
-@code{\partcombine} を処理するには、@c
+@code{\partCombine} を処理するには、@c
 @code{TabStaff} は特別なやり方で作成されたボイスを使う必要があります:
 
 @lilypond[quote,ragged-right,verbatim]
-melodia = \partcombine { e4 g g g } { e4 e e e }
+melodia = \partCombine { e4 g g g } { e4 e e e }
 <<
   \new TabStaff <<
     \new TabVoice = "one" s1

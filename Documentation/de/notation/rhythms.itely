@@ -2028,7 +2028,7 @@ eingeschaltet werden.
 @warning{Wenn Balken eingesetzt werden, um Melismen in Gesang zu notieren,
 sollte die automatische Bebalkung mit @code{\autoBeamOff} ausgeschaltet
 werden und die Balken manuell notiert werden.  Die Benutzung von
-@code{@bs{}partcombine} zusammen mit @code{@bs{}autoBeamOff} kann zu
+@code{@bs{}partCombine} zusammen mit @code{@bs{}autoBeamOff} kann zu
 unbeabsichtigten Ergebnissen führen.  Siehe die Schnipsel für mehr
 Information.}
 
@@ -2054,8 +2054,8 @@ können erstellt werden, siehe @ref{Einstellung von automatischen Balken}.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-beam-knee-gap.ly}
 
-@cindex Balken, \partcombine und \autoBeamOff
-@cindex Stimmen, \autoBeamOff und \partcombine
+@cindex Balken, \partCombine und \autoBeamOff
+@cindex Stimmen, \autoBeamOff und \partCombine
 
 @lilypondfile [verbatim, quote, ragged-right, texidoc, doctitle]
 {partcombine-and-autobeamoff.ly}

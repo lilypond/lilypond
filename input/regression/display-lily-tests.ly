@@ -1,4 +1,4 @@
-\version "2.19.40"
+\version "2.21.0"
 #(use-modules (srfi srfi-13)
               (ice-9 format))
 
@@ -176,7 +176,7 @@ stderr of this run."
 \test ##[ \bar "|." #]
 
 %% staff switches
-\test ##[ \autochange { c4 d4 } #]			% AutoChangeMusic
+\test ##[ \autoChange { c4 d4 } #]			% AutoChangeMusic
 \test ##[ { \change Staff = "up" { c4 d4 } } #]		% ContextChange
 
 %% Tuplets
@@ -236,12 +236,12 @@ stderr of this run."
 \test ##[ \partial 8. #]
 \test ##[ \partial 4*2/3 #]
 
-%% \partcombine
-\test ##[ \partcombine { c4 e4 }
+%% \partCombine
+\test ##[ \partCombine { c4 e4 }
 { d4 f4 } #]
-\test ##[ \partcombineUp { c2 e2 }
+\test ##[ \partCombineUp { c2 e2 }
 { d2 f2 } #]
-\test ##[ \partcombineDown { c1 e1 }
+\test ##[ \partCombineDown { c1 e1 }
 { d1 f1 } #]
 
 %% Cue notes

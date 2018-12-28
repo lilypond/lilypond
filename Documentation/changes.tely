@@ -62,6 +62,12 @@ which scares away people.
 @end ignore
 
 @item
+The @code{\\partcombine} command, as well as all @code{partCombine}-prefixed
+commands, subroutines and property names, are now written with a capital C,
+such as @code{\\partCombine}, @code{\\partCombineApart} etc.
+The @code{\\autochange} command is now also capitalized as @code{\\autoChange}.
+
+@item
 The @code{New_fingering_engraver} will now consider the
 @code{X-align-on-main-noteheads} property of the @code{self-alignment-interface}.
 If set to true (@code{##t}), all fingerings oriented @code{up} or @code{down}

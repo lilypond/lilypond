@@ -1680,8 +1680,8 @@ construire ce passage comme une polyphonie temporaire -- voir
 @cindex NullVoice
 @cindex polyphonie, mêmes paroles
 @cindex paroles communes à plusieurs voix
-@cindex \partcombine et paroles
-@funindex \partcombine
+@cindex \partCombine et paroles
+@funindex \partCombine
 
 Lorsque deux voix au rythme différent partagent les mêmes paroles,
 l'alignement des syllabes sur l'une des voix peut gêner la lecture de
@@ -1722,7 +1722,7 @@ words = \lyricmode { la __ la __ }
 @end lilypond
 
 Cette façon de procéder permet par ailleurs d'utiliser la fonction
-@code{\partcombine} qui normalement ne peut s'utiliser avec des
+@code{\partCombine} qui normalement ne peut s'utiliser avec des
 paroles :
 
 @lilypond[quote,verbatim]
@@ -1732,7 +1732,7 @@ aligner = \relative { b'8( c d c) b( a g a) }
 words = \lyricmode { la __ la __ }
 
 \new Staff <<
-  \new Voice \partcombine \soprano \alto
+  \new Voice \partCombine \soprano \alto
   \new NullVoice = "aligner" \aligner
   \new Lyrics \lyricsto "aligner" \words
 >>
@@ -1744,7 +1744,7 @@ La commande @code{\addLyrics} ne peut traiter que des paroles attachées
 @code{NullVoice}.
 
 @noindent
-La fonction @code{\partcombine} est abordée en détails dans
+La fonction @code{\partCombine} est abordée en détails dans
 @ref{Regroupement automatique de parties}.
 
 Pour finir, cette méthode est aussi utilisable lorsque les voix sont
@@ -1761,7 +1761,7 @@ words = \lyricmode { la __ la __ }
   \new Staff \soprano
   \new NullVoice = "aligner" \aligner
   \new Lyrics \lyricsto "aligner" \words
-  \new Staff \partcombine \altoOne \altoTwo
+  \new Staff \partCombine \altoOne \altoTwo
 >>
 @end lilypond
 

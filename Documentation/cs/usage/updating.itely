@@ -240,7 +240,7 @@ malý, takže ne všechny převody pracují automaticky.  Dole je seznam známý
    namísto:
    -\markup{\bold \italic "string"}
 2.0->2.2:
- Nerozumí \partcombine
+ Nerozumí \partCombine
  Nedělá \addlyrics => \lyricsto, takže některé soubory s mnoha slokami nepracují
 2.0->2.4:
  \magnify není změněno na \fontsize.

@@ -1914,14 +1914,14 @@ allLyrics = \lyricmode {King of glo -- ry }
   \new PianoStaff <<
     \new Staff = "RH" {
       \set Staff.printPartCombineTexts = ##f
-      \partcombine
+      \partCombine
       \sopranoMusic
       \altoMusic
     }
     \new Staff = "LH" {
       \set Staff.printPartCombineTexts = ##f
       \clef "bass"
-      \partcombine
+      \partCombine
       \tenorMusic
       \bassMusic
     }

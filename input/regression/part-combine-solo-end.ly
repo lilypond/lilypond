@@ -6,12 +6,12 @@
 
 }
 
-\version "2.16.0"
+\version "2.21.0"
 \layout { ragged-right = ##t }
 
 <<
     \new Staff
-    \partcombine
+    \partCombine
     { R1 * 2 }
     { c'8\> c'\! r2.  }
 >>

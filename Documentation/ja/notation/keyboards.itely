@@ -269,14 +269,14 @@
 @cindex automatic staff changes (譜の自動変更)
 @cindex staff changes, automatic (譜の自動変更)
 
-@funindex \autochange
+@funindex \autoChange
 @funindex PianoStaff
 
 譜の上端と下端の間で、ボイスを自動的に切り換えることができます。@c
 構文は以下の通りです:
 
 @example
-\autochange @dots{}@var{music}@dots{}
+\autoChange @dots{}@var{music}@dots{}
 @end example
 
 @noindent
@@ -288,27 +288,27 @@
 
 @lilypond[quote,verbatim]
 \new PianoStaff {
-  \autochange {
+  \autoChange {
     g4 a b c'
     d'4 r a g
   }
 }
 @end lilypond
 
-@cindex relative music and autochange (相対モードと自動変更)
-@cindex autochange and relative music (自動変更と相対モード)
+@cindex relative music and autoChange (相対モードと自動変更)
+@cindex autoChange and relative music (自動変更と相対モード)
 
 @funindex \relative
 
-@code{\autochange} の外側にある @code{\relative} セクションは、@c
-@code{\autochange} の内部にある音符のピッチに影響を与えません。@c
-そのため、必要に応じて @code{\autochange} の内部に @code{\relative} を@c
+@code{\autoChange} の外側にある @code{\relative} セクションは、@c
+@code{\autoChange} の内部にある音符のピッチに影響を与えません。@c
+そのため、必要に応じて @code{\autoChange} の内部に @code{\relative} を@c
 配置します。
 
 個々の譜に個別の制御を行う必要がある場合、@c
 手動で @code{"up"} と @code{"down"} という名前の譜を作成して、@c
 制御を行います。@c
-@code{\autochange} コマンドは、作成された譜間で、@c
+@code{\autoChange} コマンドは、作成された譜間で、@c
 ボイスを切り換えます。
 
 @warning{譜を手動で作成する場合、譜の名前を @code{"up"} と @code{"down"}
@@ -321,7 +321,7 @@
   \new Staff = "up" {
     \new Voice = "melOne" {
       \key g \major
-      \autochange \relative {
+      \autoChange \relative {
         g8 b a c b d c e
         d8 r fis, g a2
       }
@@ -346,7 +346,7 @@
 
 
 @knownissues
-@cindex chords, splitting across staves with \autochange
+@cindex chords, splitting across staves with \autoChange
 
 譜の切り換えが最適な場所で行われない場合もあります。@c
 高品位の出力を得るには、譜の切り換えを手動で指定する必要があります。

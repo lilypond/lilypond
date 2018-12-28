@@ -2076,7 +2076,7 @@ par @code{\autoBeamOn} :
 @warning{Si des ligatures sont utilisées dans les paroles d'une chanson
 (pour indiquer des mélismes), les ligatures automatiques doivent être
 désactivées, avec @code{@bs{}autoBeamOff}, et indiquées manuellement.@*
-L'utilisation conjointe de @code{@bs{}partcombine} et de
+L'utilisation conjointe de @code{@bs{}partCombine} et de
 @code{@bs{}autoBeamOff} peut produire des résultats quelque peu
 surprenants ; ceci fait l'objet d'un exemple particulier à la
 rubrique morceaux choisis.}
@@ -2102,8 +2102,8 @@ possibles ; voir @ref{Définition des règles de ligature automatique}.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-beam-knee-gap.ly}
 
-@cindex ligature, \partcombine et \autoBeamOff
-@cindex voix, \autoBeamOff et \partcombine
+@cindex ligature, \partCombine et \autoBeamOff
+@cindex voix, \autoBeamOff et \partCombine
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {partcombine-and-autobeamoff.ly}

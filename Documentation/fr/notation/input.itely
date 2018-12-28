@@ -2285,12 +2285,12 @@ allLyrics = \lyricmode { King of glo -- ry }
   \new PianoStaff <<
     \new Staff = "RH" {
       \set Staff.printPartCombineTexts = ##f
-      \partcombine \sopranoMusic \altoMusic
+      \partCombine \sopranoMusic \altoMusic
     }
     \new Staff = "LH" {
       \set Staff.printPartCombineTexts = ##f
       \clef "bass"
-      \partcombine \tenorMusic \bassMusic
+      \partCombine \tenorMusic \bassMusic
     }
   >>
 >>

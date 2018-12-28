@@ -1,6 +1,6 @@
 %% Translation of GIT committish: de694eef021e3c38119b08370f79809bffc52a9b
   texidocfr = "
-L'outil de combinaison de parties (la commande @code{\\partcombine})
+L'outil de combinaison de parties (la commande @code{\\partCombine})
 permet d'avoir deux parties différentes sur une même portée.  LilyPond
 ajoute automatiquement des indications textuelles, telles que « solo »
 ou « a2 ».  Si votre intention n'est que de fusionner les parties, sans
@@ -12,8 +12,8 @@ alternance entre @emph{solo} et @emph{tutti}, il vaut mieux faire appel
 à de la musique polyphonique standard.
 
 Voici trois moyens d'imprimer deux parties sur une même portée : en
-polyphonie normale, avec @code{\\partcombine} sans indication
-supplémentaire, et avec @code{\\partcombine} commentée.
+polyphonie normale, avec @code{\\partCombine} sans indication
+supplémentaire, et avec @code{\\partCombine} commentée.
 
 "
   doctitlefr = "Combinaison de deux parties sur une même portée"

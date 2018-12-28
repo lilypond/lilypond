@@ -543,11 +543,11 @@ Los acordes no se tratan de una forma especial, y de aquí que el
 selector automático de la cuerda puede elegir fácilmente la misma
 cuerda para dos notas del acorde.
 
-Para manejar @code{\partcombine}, es necesario que @code{TabStaff}
+Para manejar @code{\partCombine}, es necesario que @code{TabStaff}
 utilice voces especialmente creadas:
 
 @lilypond[quote,ragged-right,verbatim]
-melodia = \partcombine { e4 g g g } { e4 e e e }
+melodia = \partCombine { e4 g g g } { e4 e e e }
 <<
   \new TabStaff <<
     \new TabVoice = "one" s1

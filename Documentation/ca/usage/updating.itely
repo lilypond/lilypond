@@ -304,7 +304,7 @@ problema:
    en comptes del correcte
    -\markup{\bold \italic "cadena"}
 2.0->2.2:
- No gestiona \partcombine
+ No gestiona \partCombine
  No va \addlyrics => \lyricsto, això trenca algunes partitures amb diverses estrofes
 2.0->2.4:
  \magnify no es canvia per \fontsize.

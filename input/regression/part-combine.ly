@@ -11,7 +11,7 @@
 
 \layout { ragged-right = ##t }
 
-\version "2.19.21"
+\version "2.21.0"
 
 vone =  \relative {
   g'2 g    g  g4 g f' c c( c) c c  c ~ c
@@ -23,7 +23,7 @@ vtwo =  \relative {
 }
 
 
-\partcombine \vone \vtwo
+\partCombine \vone \vtwo
 
  
 

@@ -1733,8 +1733,8 @@ debemos usar es el pasaje polifónico temporal, véase la sección
 @cindex NullVoice
 @cindex polifonía, letra compartida
 @cindex letra, compartida entre voces
-@cindex \partcombine y letra
-@funindex \partcombine
+@cindex \partCombine y letra
+@funindex \partCombine
 
 Cuando dos voces cuyas notas tienen distintas duraciones comparten
 la misma letra, la alineación de ésta a una de las voces puede dar
@@ -1775,7 +1775,7 @@ words = \lyricmode { la __ la __ }
 @end lilypond
 
 Este método se puede usar trambién con la función
-@code{\partcombine}, que en sí no permite incluir letra:
+@code{\partCombine}, que en sí no permite incluir letra:
 
 @lilypond[quote,verbatim]
 soprano = \relative { b'8( c d c) d2 }
@@ -1784,7 +1784,7 @@ aligner = \relative { b'8( c d c) b( a g a) }
 words = \lyricmode { la __ la __ }
 
 \new Staff <<
-  \new Voice \partcombine \soprano \alto
+  \new Voice \partCombine \soprano \alto
   \new NullVoice = "aligner" \aligner
   \new Lyrics \lyricsto "aligner" \words
 >>
@@ -1795,7 +1795,7 @@ La función @code{\addLyrics} solo funciona con letras de
 @code{Voice}, por lo que no puede utilizarse con @code{NullVoice}.
 
 @noindent
-La función @code{\partcombine} se describe en
+La función @code{\partCombine} se describe en
 @ref{Combinación automática de las partes}.
 
 Por último, este método se puede usar incluso si las voces están
@@ -1812,7 +1812,7 @@ words = \lyricmode { la __ la __ }
   \new Staff \soprano
   \new NullVoice = "aligner" \aligner
   \new Lyrics \lyricsto "aligner" \words
-  \new Staff \partcombine \altoOne \altoTwo
+  \new Staff \partCombine \altoOne \altoTwo
 >>
 @end lilypond
 

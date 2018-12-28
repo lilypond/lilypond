@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.0"
 
 \header {
   lsrtags = "simultaneous-notes"
@@ -14,14 +14,14 @@ When using the automatic part combining feature, the printed text for
 the solo and unison sections may be changed:
 
 "
-  doctitle = "Changing partcombine texts"
+  doctitle = "Changing partCombine texts"
 } % begin verbatim
 
 \new Staff <<
   \set Staff.soloText = #"girl"
   \set Staff.soloIIText = #"boy"
   \set Staff.aDueText = #"together"
-  \partcombine
+  \partCombine
     \relative c'' {
       g4 g r r
       a2 g

@@ -3,7 +3,7 @@
 differences in steps between parts that may be combined into chords."
 }
 
-\version "2.19.21"
+\version "2.21.0"
 
 \layout { ragged-right = ##t }
 
@@ -18,6 +18,6 @@ vtwo = \relative {
 comm = { s1_"apart" s1_"chords" s1_"apart" }
 
 \new Staff <<
-  \partcombine #'(2 . 12) \vone \vtwo
+  \partCombine #'(2 . 12) \vone \vtwo
   \comm
 >>

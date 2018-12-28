@@ -933,7 +933,7 @@ are at the same time differently dotted are not clear.
 @cindex unione delle parti
 @cindex parte a due
 @cindex parte solista
-@funindex \partcombine
+@funindex \partCombine
 
 La combinazione automatica delle parti si usa per combinare in un unico rigo due
 parti musicali separate.  Ciò è utile soprattutto quando si scrivono partiture
@@ -946,7 +946,7 @@ identificate e contrassegnate.
 La sintassi per la combinazione automatica delle parti è:
 
 @example
-\partcombine @var{espressione-musicale1} @var{espressione-musicale2}
+\partCombine @var{espressione-musicale1} @var{espressione-musicale2}
 @end example
 
 L'esempio seguente illustra il funzionamento di base: le parti
@@ -974,7 +974,7 @@ instrumentTwo = \relative {
 <<
   \new Staff \instrumentOne
   \new Staff \instrumentTwo
-  \new Staff \partcombine \instrumentOne \instrumentTwo
+  \new Staff \partCombine \instrumentOne \instrumentTwo
 >>
 @end lilypond
 
@@ -995,7 +995,7 @@ combinare in un accordo note della stessa durata e separate da un intervallo
 inferiore alla nona e separare in voci distinte le note con un intervallo
 superiore alla nona (o quando le voci collidono). Tale comportamento può
 essere modificato con un argomento opzionale di una coppia di numeri dopo
-il comando @code{\partcombine}: il primo indica l'intervallo in cui le note
+il comando @code{\partCombine}: il primo indica l'intervallo in cui le note
 iniziano a essere combinate (il valore predefinito è zero) e il secondo
 dove le note vengono divise in note distinte.  Impostando il secondo argomento
 su zero, il combinatore delle parti divide le note che hanno un intervallo
@@ -1016,76 +1016,76 @@ instrumentTwo = \relative {
 }
 
 <<
-  \new Staff \partcombine \instrumentOne \instrumentTwo
-  \new Staff \partcombine #'(2 . 3) \instrumentOne \instrumentTwo
+  \new Staff \partCombine \instrumentOne \instrumentTwo
+  \new Staff \partCombine #'(2 . 3) \instrumentOne \instrumentTwo
 >>
 @end lilypond
 
 
-Entrambi gli argomenti di @code{\partcombine} sono interpretati come
+Entrambi gli argomenti di @code{\partCombine} sono interpretati come
 contesti @code{Voice} separati, dunque se la musica viene inserita in
 modo relativo @emph{entrambe} le parti devono contenere una funzione
 @code{\relative}, ovvero:
 
 @example
-\partcombine
+\partCombine
   \relative @dots{} @var{espressione-musicale1}
   \relative @dots{} @var{espressione-musicale2}
 @end example
 
 @noindent
-Un blocco @code{\relative} che racchiude un @code{\partcombine} non ha
+Un blocco @code{\relative} che racchiude un @code{\partCombine} non ha
 effetto sulle altezze di @code{@var{espressione-musicale1}} e
 @code{@var{espressione-musicale2}}.
 
-@funindex \partcombineChords
-@funindex \partcombineApart
-@funindex \partcombineUnisono
-@funindex \partcombineSoloI
-@funindex \partcombineSoloII
-@funindex \partcombineAutomatic
+@funindex \partCombineChords
+@funindex \partCombineApart
+@funindex \partCombineUnisono
+@funindex \partCombineSoloI
+@funindex \partCombineSoloII
+@funindex \partCombineAutomatic
 
 Nelle partiture professionali, spesso le voci sono tenute separate per
 lunghi passaggi anche se alcune note sono le stesse in entrambe le voci
 e potrebbero essere stampate come unisono.  Combinare le note in un
 accordo o mostrare una voce come solista, dunque, non è la scelta
-ideale, perché la funzione @code{\partcombine} considera ogni nota
+ideale, perché la funzione @code{\partCombine} considera ogni nota
 individualmente. In questo caso si può sovrascrivere la funzione
-@code{\partcombine} con uno dei comandi elencati sotto.  Tutti i comandi
+@code{\partCombine} con uno dei comandi elencati sotto.  Tutti i comandi
 devono essere preceduti da @code{\once} per applicarli soltanto alla
 nota successiva dell'espressione musicale.
 
 @itemize
 @item
-@code{\partcombineApart} mantiene le note su due voci distinte, anche se
+@code{\partCombineApart} mantiene le note su due voci distinte, anche se
 potrebbero essere combinate in un accordo o in un unisono.
 
 @item
-@code{\partcombineChords} unisce le note in un accordo.
+@code{\partCombineChords} unisce le note in un accordo.
 
 @item
-@code{\partcombineUnisono} unisce entrambe le voci come @qq{unisono}.
+@code{\partCombineUnisono} unisce entrambe le voci come @qq{unisono}.
 
 @item
-@code{\partcombineSoloI} stampa soltanto la prima voce e la contrassegna
+@code{\partCombineSoloI} stampa soltanto la prima voce e la contrassegna
 come un @qq{Solo}.
 
 @item
-@code{\partcombineSoloII} stampa soltanto la seconda voce e la contrassegna
+@code{\partCombineSoloII} stampa soltanto la seconda voce e la contrassegna
 come un @qq{Solo}.
 
 @item
-@code{\partcombineAutomatic} termina le funzioni dei comandi precedenti e
-ripristina il funzionamento predefinito di @code{\partcombine}.
+@code{\partCombineAutomatic} termina le funzioni dei comandi precedenti e
+ripristina il funzionamento predefinito di @code{\partCombine}.
 @end itemize
 
 @lilypond[quote,verbatim]
 instrumentOne = \relative c' {
-  \partcombineApart c2^"separato" e |
-  \partcombineAutomatic e2^"automatico" e |
-  \partcombineChords e'2^"accordo" e |
-  \partcombineAutomatic c2^"automatico" c |
-  \partcombineApart c2^"separato" \once \partcombineChords e^"accordo una volta sola" |
+  \partCombineApart c2^"separato" e |
+  \partCombineAutomatic e2^"automatico" e |
+  \partCombineChords e'2^"accordo" e |
+  \partCombineAutomatic c2^"automatico" c |
+  \partCombineApart c2^"separato" \once \partCombineChords e^"accordo una volta sola" |
   c2 c |
 }
 instrumentTwo = \relative {
@@ -1100,15 +1100,15 @@ instrumentTwo = \relative {
 <<
   \new Staff { \instrumentOne }
   \new Staff { \instrumentTwo }
-  \new Staff { \partcombine \instrumentOne \instrumentTwo }
+  \new Staff { \partCombine \instrumentOne \instrumentTwo }
 >>
 @end lilypond
 
-@subsubsubheading Uso di \partcombine col testo vocale
+@subsubsubheading Uso di \partCombine col testo vocale
 
-@cindex \partcombine e testo vocale
+@cindex \partCombine e testo vocale
 
-Il comando @code{\partcombine} non è progettato per funzionare col
+Il comando @code{\partCombine} non è progettato per funzionare col
 testo vocale; al punto che se una delle voci è nominata in modo
 esplicito per poterle assegnare del testo, l'unione delle parti
 smette di funzionare.  Tuttavia, questo risultato si può ottenere
@@ -1139,28 +1139,28 @@ Guida al funzionamento interno:
 @rinternals{Voice}.
 
 @knownissues
-Tutte le funzioni @code{\partcombine@dots{}} possono accettare soltanto due
+Tutte le funzioni @code{\partCombine@dots{}} possono accettare soltanto due
 voci.
 
-Le funzioni @code{\partcombine@dots{}} non possono essere inserite all'interno
+Le funzioni @code{\partCombine@dots{}} non possono essere inserite all'interno
 di un blocco @code{\tuplet} o @code{\relative}.
 
 Se @code{printPartCombineTexts} è attivo e le due voci eseguono le stesse
 note @qq{in modo discontinuo} nella stessa misura, potrebbe apparire
 il testo @code{a2} più di una volta in quella misura.
 
-@code{\partcombine} sa soltanto quando una nota inizia in una voce
+@code{\partCombine} sa soltanto quando una nota inizia in una voce
 (@code{Voice}); non può, ad esempio, ricordare se una nota in una
 voce è già iniziata quando combina le note già iniziate nell'altra
 voce.  Questo può portare a vari problemi inattesi, tra cui la stampa
 non corretta dei segni @qq{Solo} e @qq{Unisono}.
 
-@code{\partcombine} tiene tutti gli estensori (legature di portamento e
+@code{\partCombine} tiene tutti gli estensori (legature di portamento e
 di valore, forcelle, etc.) nella stessa voce, quindi se uno di questi
 estensori inizia o termina in una voce diversa potrebbe essere
 stampato incorrettamente o non essere stampato affatto.
 
-Se la funzione @code{\partcombine} non riesce a combinare le due espressioni
+Se la funzione @code{\partCombine} non riesce a combinare le due espressioni
 musicali (ovvero quando le due voci hanno durate diverse), assegnerà alle
 voci, internamente, nomi personalizzati: rispettivamente @code{one} e
 @code{two}.  Ciò significa che se c'è un @qq{passaggio} a un contesto
@@ -1168,7 +1168,7 @@ voci, internamente, nomi personalizzati: rispettivamente @code{one} e
 ignorati.
 
 Consultare i @emph{Problemi noti e avvertimenti} in @ref{Default tablatures}
-se si usa @code{\partcombine} con l'intavolatura, e la @emph{Nota} in
+se si usa @code{\partCombine} con l'intavolatura, e la @emph{Nota} in
 @ref{Travature automatiche} se si usa la disposizione automatica delle travature.
 
 

@@ -287,14 +287,14 @@ Balken einsetzen.
 @cindex Systemwechsel, automatisch
 @cindex Wechsel des Systems, automatisch
 
-@funindex \autochange
+@funindex \autoChange
 @funindex PianoStaff
 
 Stimmen können angewiesen werden, automatisch zwischen dem
 oberen und unteren System zu wechseln.  Die Syntax hierfür lautet:
 
 @example
-\autochange @dots{}@var{Noten}@dots{}
+\autoChange @dots{}@var{Noten}@dots{}
 @end example
 
 @noindent
@@ -307,7 +307,7 @@ wird die Richtung auch über Pausen hinweg im Voraus bestimmt.
 
 @lilypond[quote,verbatim]
 \new PianoStaff {
-  \autochange {
+  \autoChange {
     g4 a b c'
     d'4 r a g
   }
@@ -320,12 +320,12 @@ wird die Richtung auch über Pausen hinweg im Voraus bestimmt.
 @funindex \relative
 
 Ein @code{\relative}-Abschnitt, der sich außerhalb des
-@code{\autochange}-Abschnittes befindet, hat keinen Einfluss auf die
+@code{\autoChange}-Abschnittes befindet, hat keinen Einfluss auf die
 Notenhöhen.
 
 Wenn individuelle Kontrolle über die einzelnen Systeme benötigt
 wird, können sie manuell mit den Bezeichnungen  @code{"up"} und
-@code{"down"} erstellt werden.  Der @code{\autochange}-Befehl
+@code{"down"} erstellt werden.  Der @code{\autoChange}-Befehl
 wechselt dann die Stimme zwischen den Systemen.
 
 @warning{Wenn Systeme manuell erstellt werden, @strong{müssen} sie genau
@@ -343,7 +343,7 @@ System gesetzt werden kann:
   \new Staff = "up" {
     \new Voice = "melodieEins" {
       \key g \major
-      \autochange \relative {
+      \autoChange \relative {
         g8 b a c b d c e
         d8 r fis, g a2
       }
@@ -368,7 +368,7 @@ Referenz der Interna:
 
 @knownissues
 
-@cindex Akkorde, zwischen Systemen mit \autochange
+@cindex Akkorde, zwischen Systemen mit \autoChange
 
 Die Aufteilung auf die Systeme geschieht nicht unbedingt an optimaler
 Stelle.  Für bessere Qualität müssen die Wechsel manuell eingestellt

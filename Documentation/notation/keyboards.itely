@@ -260,27 +260,27 @@ right before a change in staff.  In this case use manual beams.
 @cindex automatic staff changes
 @cindex staff changes, automatic
 
-@funindex \autochange
+@funindex \autoChange
 @funindex PianoStaff
 
 Voices can be made to switch automatically between the top and the
 bottom staff.  The syntax for this is
 
 @example
-\autochange @dots{}@var{music}@dots{}
+\autoChange @dots{}@var{music}@dots{}
 @end example
 
 @noindent
 This will create two staves inside the current staff group
 (usually a @code{PianoStaff}), called @code{"up"} and
 @code{"down"}.  The lower staff will be in the bass clef by default.
-The autochanger switches on the basis of the pitch (middle@tie{}C is the
+The autoChanger switches on the basis of the pitch (middle@tie{}C is the
 turning point), and it looks ahead skipping over rests to switch
 in advance.
 
 @lilypond[quote,verbatim]
 \new PianoStaff {
-  \autochange {
+  \autoChange {
     g4 a b c'
     d'4 r a g
   }
@@ -297,23 +297,23 @@ music = {
   d'8 r f' g' a'2
 }
 
-\autochange d' \music
-\autochange b \with { \clef soprano } \music
-\autochange d' \with { \clef alto } \with { \clef tenor } \music
+\autoChange d' \music
+\autoChange b \with { \clef soprano } \music
+\autoChange d' \with { \clef alto } \with { \clef tenor } \music
 @end lilypond
 
-@cindex relative music and autochange
-@cindex autochange and relative music
+@cindex relative music and autoChange
+@cindex autoChange and relative music
 
 @funindex \relative
 
-A @code{\relative} section that is outside of @code{\autochange}
+A @code{\relative} section that is outside of @code{\autoChange}
 has no effect on the pitches of the music, so if necessary, put
-@code{\relative} inside @code{\autochange}.
+@code{\relative} inside @code{\autoChange}.
 
 If additional control is needed over the individual staves, they
 can be created manually with the names @code{"up"} and
-@code{"down"}.  The @code{\autochange} command will then switch
+@code{"down"}.  The @code{\autoChange} command will then switch
 its voice between the existing staves.
 
 @warning{If staves are created manually, they @emph{must} be named
@@ -327,7 +327,7 @@ key signature in the lower staff:
   \new Staff = "up" {
     \new Voice = "melOne" {
       \key g \major
-      \autochange \relative {
+      \autoChange \relative {
         g8 b a c b d c e
         d8 r fis, g a2
       }
@@ -352,7 +352,7 @@ Internals Reference:
 
 
 @knownissues
-@cindex chords, splitting across staves with \autochange
+@cindex chords, splitting across staves with \autoChange
 
 The staff switches may not end up in optimal places.  For high
 quality output, staff switches should be specified manually.

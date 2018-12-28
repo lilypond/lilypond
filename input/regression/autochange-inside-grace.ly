@@ -2,7 +2,7 @@
     texidoc = "Grace notes are placed on the appropriate staff."
 }
 
-\version "2.19.22"
+\version "2.21.0"
 \layout { ragged-right = ##t }
 
 \score {
@@ -11,7 +11,7 @@
     \context Staff = "down" {
       \clef "bass"
       r2
-      \grace { \autochange { e16 e'' } }
+      \grace { \autoChange { e16 e'' } }
       c'2
     }
   >>

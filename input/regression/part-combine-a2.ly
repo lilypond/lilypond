@@ -1,5 +1,5 @@
 
-\version "2.19.21"
+\version "2.21.0"
 \header {
     texidoc ="The a2 string is printed only on notes (i.e. not on rests),
 and only after chords, solo or polyphony."
@@ -13,7 +13,7 @@ comment = \relative c' { s1*2 s2_"a2" s2 s2_"no a2" s2 s4 s4 s4_"a2" }
 \layout { ragged-right = ##T }
 
 \new Staff << \set Score.skipBars = ##t
-   \partcombine \vone \vtwo
+   \partCombine \vone \vtwo
    \comment
 >>
 

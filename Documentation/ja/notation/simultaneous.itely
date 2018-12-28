@@ -920,7 +920,7 @@ are at the same time differently dotted are not clear.
 @cindex combining parts (パート結合)
 @cindex a due part (二重奏パート)
 @cindex solo part (ソロ パート)
-@funindex \partcombine
+@funindex \partCombine
 
 自動パート結合は 2 つのパートに分かれた音楽を単一の譜にマージします。@c
 これはオーケストラ譜を譜刻する時に特に有用です。@c
@@ -934,7 +934,7 @@ are at the same time differently dotted are not clear.
 自動パート結合の構文は以下の通りです:
 
 @example
-\partcombine @var{musicexpr1} @var{musicexpr2}
+\partCombine @var{musicexpr1} @var{musicexpr2}
 @end example
 
 以下の例は自動パート結合の基本的な機能を示しています:
@@ -962,7 +962,7 @@ instrumentTwo = \relative {
 <<
   \new Staff \instrumentOne
   \new Staff \instrumentTwo
-  \new Staff \partcombine \instrumentOne \instrumentTwo
+  \new Staff \partCombine \instrumentOne \instrumentTwo
 >>
 @end lilypond
 
@@ -978,74 +978,74 @@ instrumentTwo = \relative {
 斉奏 (@notation{二重奏}) パートには、デフォルトで、テキスト @qq{a2} という@c
 マークが付けられます。
 
-@code{\partcombine} の 2 つの引数は別個の @code{Voice} コンテキストとして@c
+@code{\partCombine} の 2 つの引数は別個の @code{Voice} コンテキストとして@c
 解釈されます。@c
 そのため、相対オクターブを用いる場合、両方のパートで @code{\relative} を@c
 記述すべきです。@c
 すなわち、以下のように記述します:
 
 @example
-\partcombine
+\partCombine
   \relative @dots{} @var{musicexpr1}
   \relative @dots{} @var{musicexpr2}
 @end example
 
 @noindent
-@code{\partcombine} の外側にある @code{\relative} セクションは @var{musicexpr1}
+@code{\partCombine} の外側にある @code{\relative} セクションは @var{musicexpr1}
 と @var{musicexpr2} のピッチには影響を与えません。
 
-@funindex \partcombineChords
-@funindex \partcombineApart
-@funindex \partcombineUnisono
-@funindex \partcombineSoloI
-@funindex \partcombineSoloII
-@funindex \partcombineAutomatic
+@funindex \partCombineChords
+@funindex \partCombineApart
+@funindex \partCombineUnisono
+@funindex \partCombineSoloI
+@funindex \partCombineSoloII
+@funindex \partCombineAutomatic
 
 プロの楽譜では長いパッセージで、@c
 2 つのボイスの音符のいくつかが同じでユニゾンとして譜刻できる場合であっても、@c
 ボイスを分けて譜刻することがあります。
 ですから、音符を和音に組み合わせることと、1 つのボイスをソロとして表示すること@c
 は等価ではありません。@c
-なぜなら、@code{\partcombine} 関数は各音符を個々に考慮するからです。
-このような場合、@code{\partcombine} 関数を以下のコマンドで@c
+なぜなら、@code{\partCombine} 関数は各音符を個々に考慮するからです。
+このような場合、@code{\partCombine} 関数を以下のコマンドで@c
 オーバライドすることができます:
 
 @code{...Once} で終わるコマンドは、コマンドの次に来る音符だけに適用されます。
 
 @itemize
 @item
-@code{\partcombineApart} と @code{\once \partcombineApart} は@c
+@code{\partCombineApart} と @code{\once \partCombineApart} は@c
 音符を 2 つの別個のボイスとして譜刻します
 -- たとえ和音やユニゾンにできる場合であっても分けて譜刻します。
 
 @item
-@code{\partcombineChords} と @code{\once \partcombineChords} は@c
+@code{\partCombineChords} と @code{\once \partCombineChords} は@c
 音符を組み合わせて、和音として譜刻します。
 
 @item
-@code{\partcombineUnisono} と @code{\once \partcombineUnisono} は@c
+@code{\partCombineUnisono} と @code{\once \partCombineUnisono} は@c
 音符を組み合わせて、@qq{ユニゾン} として譜刻します。
 
 @item
-@code{\partcombineSoloI} と @code{\once \partcombineSoloI} は@c
+@code{\partCombineSoloI} と @code{\once \partCombineSoloI} は@c
 ボイス 1 だけを譜刻して、@qq{Solo} のマークを付けます。
 
 @item
-@code{\partcombineSoloII} と @code{\once \partcombineSoloII} は@c
+@code{\partCombineSoloII} と @code{\once \partCombineSoloII} は@c
 ボイス 2 だけを譜刻して、@qq{Solo} のマークを付けます。
 
 @item
-@code{\partcombineAutomatic} と @code{\once \partcombineAutomatic}は@c
-上記のコマンドの効果を終わらせ、標準の @code{\partcombine} に戻します。
+@code{\partCombineAutomatic} と @code{\once \partCombineAutomatic}は@c
+上記のコマンドの効果を終わらせ、標準の @code{\partCombine} に戻します。
 @end itemize
 
 @lilypond[quote,verbatim]
 instrumentOne = \relative c' {
-  \partcombineApart c2^"apart" e |
-  \partcombineAutomatic e2^"auto" e |
-  \partcombineChords e'2^"chord" e |
-  \partcombineAutomatic c2^"auto" c |
-  \partcombineApart c2^"apart" \once \partcombineChords e^"chord once" |
+  \partCombineApart c2^"apart" e |
+  \partCombineAutomatic e2^"auto" e |
+  \partCombineChords e'2^"chord" e |
+  \partCombineAutomatic c2^"auto" c |
+  \partCombineApart c2^"apart" \once \partCombineChords e^"chord once" |
   c2 c |
 }
 instrumentTwo = \relative {
@@ -1060,7 +1060,7 @@ instrumentTwo = \relative {
 <<
   \new Staff { \instrumentOne }
   \new Staff { \instrumentTwo }
-  \new Staff { \partcombine \instrumentOne \instrumentTwo }
+  \new Staff { \partCombine \instrumentOne \instrumentTwo }
 >>
 @end lilypond
 
@@ -1088,29 +1088,29 @@ instrumentTwo = \relative {
 @rinternals{Voice}
 
 @knownissues
-すべての @code{\partcombine...} はボイスを 2 つだけ受け取ることができ、@c
+すべての @code{\partCombine...} はボイスを 2 つだけ受け取ることができ、@c
 歌詞を処理するようには設計されていません。@c
 ボイスに歌詞が付けられている場合、パート結合は処理を停止します。
 
-@code{\partcombine...} 関数を @code{\tuplet} ブロックや @code{\relative}
+@code{\partCombine...} 関数を @code{\tuplet} ブロックや @code{\relative}
 ブロックの中に置くことはできません。
 
 @code{printPartCombineTexts} がセットされていて、ある小節で 2 つのボイスの@c
 音符が同じである場合、@c
 パート結合はその小節で @code{a2} を複数譜刻する可能性があります。
 
-@code{\partcombine} は @code{Voice} の中の音符の開始だけを検知します。@c
+@code{\partCombine} は @code{Voice} の中の音符の開始だけを検知します。@c
 例えば、ある @code{Voice} でパート結合を開始した時に、@c
 他の @code{Voice} で音符がすでに開始しているかどうかを知ることはできません。@c
 このことは @qq{Solo} や @qq{Unison} が不適切に譜刻されるといった@c
 予期しない問題を引き起こす可能性があります
 
-@code{\partcombine} はすべてのスパナ (スラー、タイ、強弱のヘアピン等) を@c
+@code{\partCombine} はすべてのスパナ (スラー、タイ、強弱のヘアピン等) を@c
 同じ @code{Voice} で維持します。@c
 そのため、異なる @code{Voice} で始まる / 終わるスパナは@c
 不適切にの譜刻されたり、全く譜刻されなかったりする可能性があります。
 
-@code{\partcombine} 関数が 2 つのパートを組み合わせることができない場合
+@code{\partCombine} 関数が 2 つのパートを組み合わせることができない場合
 (すなわち、2 つのボイスの演奏時間が異なる場合)、@c
 内部的に 2 つのボイスにカスタム名を付与します:
 それぞれ @code{one} と @code{two} です。@c
@@ -1119,7 +1119,7 @@ instrumentTwo = \relative {
 その @code{Voice} のイベントは無視されることを意味します。
 
 @ref{Default tablatures} のタブ譜や @ref{Automatic beams} の @emph{音符}
-に対して @code{\partcombine} を使う場合は、@c
+に対して @code{\partCombine} を使う場合は、@c
 それぞれの @emph{既知の問題と警告} も参照してください。
 
 

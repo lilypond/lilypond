@@ -1,11 +1,11 @@
-\version "2.19.21"
+\version "2.21.0"
 \header {
-    texidoc = "Test some transitions that might be found in string parts produced with \\partcombine."
+    texidoc = "Test some transitions that might be found in string parts produced with \\partCombine."
 }
 
 vone =  \relative { a'2 <a e> | r2 <a e> | r     r | r2 a4 r4 | g2 r | <b g> }
 vtwo =  \relative { e'2 <e a> | r2 r     | <d g> r | r2 f4 r4 | g2 r | <g d> }
-combined = \partcombine \vone \vtwo
+combined = \partCombine \vone \vtwo
 
 % The part combiner does not yet support all of these labels.
 expectedText = \relative c' {

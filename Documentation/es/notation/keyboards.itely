@@ -281,7 +281,7 @@ un cambio de pauta.  En este caso, utilice barras manuales.
 @cindex automático, cambio de pentagrama
 @cindex pentagrama, cambio automático de
 
-@funindex \autochange
+@funindex \autoChange
 @funindex PianoStaff
 
 Se puede hacer que las voces cambien automáticamente entre los
@@ -289,7 +289,7 @@ pentagramas inferior y superior.  La sintaxis para conseguir esto
 es
 
 @example
-\autochange @dots{}@var{música}@dots{}
+\autoChange @dots{}@var{música}@dots{}
 @end example
 
 @noindent
@@ -303,7 +303,7 @@ cambios por adelantado.
 
 @lilypond[quote,verbatim]
 \new PianoStaff {
-  \autochange {
+  \autoChange {
     g4 a b c'
     d'4 r a g
   }
@@ -321,9 +321,9 @@ music = {
   d'8 r f' g' a'2
 }
 
-\autochange d' \music
-\autochange b \with { \clef soprano } \music
-\autochange d' \with { \clef alto } \with { \clef tenor } \music
+\autoChange d' \music
+\autoChange b \with { \clef soprano } \music
+\autoChange d' \with { \clef alto } \with { \clef tenor } \music
 @end lilypond
 
 @cindex relativo, modo, autocambiador y
@@ -332,13 +332,13 @@ music = {
 @funindex \relative
 
 Una sección marcada @code{\relative} que se encuentra fuera de
-@code{\autochange} no tiene efecto sobre las notas de la música;
+@code{\autoChange} no tiene efecto sobre las notas de la música;
 por tanto, en caso necesario escriba @code{\relative} dentro de
-@code{\autochange}.
+@code{\autoChange}.
 
 Si se necesita más control sobre los pentagramas individuales, se
 pueden crear manualmente con los nombres @code{"up"} y
-@code{"down"}.  Entonces, la instrucción @code{\autochange}
+@code{"down"}.  Entonces, la instrucción @code{\autoChange}
 alternará su voz entre los pentagramas existentes.
 
 @warning{Si se crean los pentagramas manualmente, @emph{se deben}
@@ -354,7 +354,7 @@ tonalidad en el pentagrama inferior:
   \new Staff = "up" {
     \new Voice = "melodiaUno" {
       \key g \major
-      \autochange \relative {
+      \autoChange \relative {
         g8 b a c b d c e
         d8 r fis, g a2
       }
@@ -378,7 +378,7 @@ Referencia de funcionamiento interno:
 @rinternals{AutoChangeMusic}.
 
 @knownissues
-@cindex acordes, división entre pentagramas con \autochange
+@cindex acordes, división entre pentagramas con \autoChange
 
 Los cambios de pentagrama pueden no acabar en lugares óptimos.
 Para conseguir una salida de alta calidad es mejor especificar

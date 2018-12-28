@@ -1,6 +1,6 @@
 %% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
   texidocde = "
-Die Funktion, die Stimmen kombiniert (also der @code{\\partcombine}-Befehl)
+Die Funktion, die Stimmen kombiniert (also der @code{\\partCombine}-Befehl)
 ermöglicht die Kombination unterschiedlicher Stimmen auf einem
 System.  Textanweisungen wie \"solo\" oder \"a2\" werden automatisch
 hinzugefügt.  Wenn man sie entfernen will, muss man die Eigenschaft
@@ -12,8 +12,8 @@ normale Polyphonie zu verwenden, weil so die Solostellen angezeigt
 werden, auch wenn der Text des Stimmenkombinierers ausgeschaltet ist.
 
 Der Schnipsel zeigt drei Möglichkeiten, Stimmen auf einem System zu
-kombinieren: Standardpolyphonie, @code{\\partcombine} ohne Text und
-@code{\\partcombine} mit Text.
+kombinieren: Standardpolyphonie, @code{\\partCombine} ohne Text und
+@code{\\partCombine} mit Text.
 
 "
   doctitlede = "Zwei Stimmen auf einem System kombinieren"

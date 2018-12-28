@@ -11,7 +11,7 @@ voices.
   
 "
 	}
-\version "2.19.21"
+\version "2.21.0"
 
 vone =
 
@@ -30,5 +30,5 @@ vtwo =
 }
 
 
-\partcombine \vone \vtwo
+\partCombine \vone \vtwo
 

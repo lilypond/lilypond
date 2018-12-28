@@ -951,7 +951,7 @@ turning off rest merging temporarily.
 @cindex combining parts
 @cindex a due part
 @cindex solo part
-@funindex \partcombine
+@funindex \partCombine
 
 Automatic part combining is used to merge two separate parts of music
 onto a single staff. This can be especially helpful when typesetting
@@ -964,7 +964,7 @@ appropriately.
 The syntax for automatic part combining is:
 
 @example
-\partcombine @var{musicexpr1} @var{musicexpr2}
+\partCombine @var{musicexpr1} @var{musicexpr2}
 @end example
 
 The following example demonstrates the basic functionality, putting
@@ -992,7 +992,7 @@ instrumentTwo = \relative {
 <<
   \new Staff \instrumentOne
   \new Staff \instrumentTwo
-  \new Staff \partcombine \instrumentOne \instrumentTwo
+  \new Staff \partCombine \instrumentOne \instrumentTwo
 >>
 @end lilypond
 
@@ -1006,15 +1006,15 @@ and second parts get marked with @qq{Solo} and @qq{Solo II},
 respectively.  The unison (@notation{a due}) parts are marked with the
 text @qq{a2}.
 
-By default, the partcombiner merges two notes of the same pitch as an
+By default, the partCombiner merges two notes of the same pitch as an
 @notation{a due} note, combines notes with the same
 rhythm less than a ninth apart as chords and separates notes more than
 a ninth apart (or when the voices cross) into
 separate voices.  This can be overridden with an optional argument of a pair
-of numbers after the @code{\partcombine} command: the first specifies
+of numbers after the @code{\partCombine} command: the first specifies
 the interval where notes start to be combined (the default is zero) and the
 second where the notes are split into separate voices.  Setting the second
-argument to zero means that the partcombiner splits notes with an interval of
+argument to zero means that the partCombiner splits notes with an interval of
 a second or more, setting it to one splits notes of a third or more, and so on.
 
 @lilypond[quote,verbatim]
@@ -1031,80 +1031,80 @@ instrumentTwo = \relative {
 }
 
 <<
-  \new Staff \partcombine \instrumentOne \instrumentTwo
-  \new Staff \partcombine #'(2 . 3) \instrumentOne \instrumentTwo
+  \new Staff \partCombine \instrumentOne \instrumentTwo
+  \new Staff \partCombine #'(2 . 3) \instrumentOne \instrumentTwo
 >>
 @end lilypond
 
 
-Both arguments to @code{\partcombine} will be interpreted as separate
+Both arguments to @code{\partCombine} will be interpreted as separate
 @code{Voice} contexts, so if the music is being specified in relative
 mode then @emph{both} parts must contain a @code{\relative} function,
 i.e.,
 
 @example
-\partcombine
+\partCombine
   \relative @dots{} @var{musicexpr1}
   \relative @dots{} @var{musicexpr2}
 @end example
 
 @noindent
-A @code{\relative} section that encloses a @code{\partcombine} has no
+A @code{\relative} section that encloses a @code{\partCombine} has no
 effect on the pitches of @code{@var{musicexpr1}} or
 @code{@var{musicexpr2}}.
 
-@funindex \partcombineChords
-@funindex \partcombineApart
-@funindex \partcombineUnisono
-@funindex \partcombineSoloI
-@funindex \partcombineSoloII
-@funindex \partcombineAutomatic
+@funindex \partCombineChords
+@funindex \partCombineApart
+@funindex \partCombineUnisono
+@funindex \partCombineSoloI
+@funindex \partCombineSoloII
+@funindex \partCombineAutomatic
 
 In professional scores, voices are often kept apart from each other for
 long passages of music even if some of the notes are the same in both
 voices, and could just as easily be printed as unison. Combining notes
 into a chord, or showing one voice as solo is, therefore, not ideal as
-the @code{\partcombine} function considers each note separately. In this
-case the @code{\partcombine} function can be overridden with one of the
+the @code{\partCombine} function considers each note separately. In this
+case the @code{\partCombine} function can be overridden with one of the
 following commands.  All of the commands may be preceded with
 @code{\once} in order to have them only apply to the next note in
 the music expression.
 
 @itemize
 @item
-@code{\partcombineApart} keeps the
+@code{\partCombineApart} keeps the
 notes as two separate voices, even if they can be combined into a chord
 or unison.
 
 @item
-@code{\partcombineChords} combines the
+@code{\partCombineChords} combines the
 notes into a chord.
 
 @item
-@code{\partcombineUnisono} combines
+@code{\partCombineUnisono} combines
 both voices as @qq{unison}.
 
 @item
-@code{\partcombineSoloI} prints only
+@code{\partCombineSoloI} prints only
 voice one, and marks it as a @qq{Solo}.
 
 @item
-@code{\partcombineSoloII} prints only
+@code{\partCombineSoloII} prints only
 voice two and marks it as a @qq{Solo}.
 
 @item
-@code{\partcombineAutomatic} ends
+@code{\partCombineAutomatic} ends
 the functions of the commands above, and reverts back to the standard
-@code{\partcombine} functionality.
+@code{\partCombine} functionality.
 @end itemize
 
 @lilypond[quote,verbatim]
 instrumentOne = \relative c' {
-  \partcombineApart c2^"apart" e |
-  \partcombineAutomatic e2^"auto" e |
-  \partcombineChords e'2^"chord" e |
-  \partcombineAutomatic c2^"auto" c |
-  \partcombineApart c2^"apart" \once \partcombineChords e^"chord once" |
+  \partCombineApart c2^"apart" e |
+  \partCombineAutomatic e2^"auto" e |
+  \partCombineChords e'2^"chord" e |
+  \partCombineAutomatic c2^"auto" c |
+  \partCombineApart c2^"apart" \once \partCombineChords e^"chord once" |
   c2 c |
 }
 instrumentTwo = \relative {
@@ -1119,18 +1119,18 @@ instrumentTwo = \relative {
 <<
   \new Staff { \instrumentOne }
   \new Staff { \instrumentTwo }
-  \new Staff { \partcombine \instrumentOne \instrumentTwo }
+  \new Staff { \partCombine \instrumentOne \instrumentTwo }
 >>
 @end lilypond
 
 
-@subsubsubheading Using \partcombine with lyrics
+@subsubsubheading Using \partCombine with lyrics
 
-@cindex \partcombine and lyrics
+@cindex \partCombine and lyrics
 
-The @code{\partcombine} command is not designed to work with
+The @code{\partCombine} command is not designed to work with
 lyrics; if one of the voices is explicitly named in order to
-attach lyrics to it, the partcombiner will stop working.  However,
+attach lyrics to it, the partCombiner will stop working.  However,
 this effect can be achieved using a @code{NullVoice} context.  See
 @ref{Polyphony with shared lyrics}.
 
@@ -1159,26 +1159,26 @@ Internals Reference:
 @rinternals{Voice}.
 
 @knownissues
-All @code{\partcombine@dots{}} functions can only accept two voices.
+All @code{\partCombine@dots{}} functions can only accept two voices.
 
-@code{\partcombine@dots{}} functions cannot be placed inside a @code{\tuplet}
+@code{\partCombine@dots{}} functions cannot be placed inside a @code{\tuplet}
 or @code{\relative} block.
 
 If @code{printPartCombineTexts} is set and the two voices play the same
 notes @qq{on and off}, in the same measure, the part combiner may
 typeset @code{a2} more than once in that measure.
 
-@code{\partcombine} only knows when a note starts in a @code{Voice}; it
+@code{\partCombine} only knows when a note starts in a @code{Voice}; it
 cannot, for example, remember if a note in one @code{Voice} has already
 started when combining notes that have just started in the other
 @code{Voice}.  This can lead to a number of unexpected issues including
 @qq{Solo} or @qq{Unison} marks being printed incorrectly.
 
-@code{\partcombine} keeps all spanners (slurs, ties, hairpins, etc.) in
+@code{\partCombine} keeps all spanners (slurs, ties, hairpins, etc.) in
 the same @code{Voice} so that if any such spanners start or end in a
 different @code{Voice}, they may not be printed properly or at all.
 
-If the @code{\partcombine} function cannot combine both music
+If the @code{\partCombine} function cannot combine both music
 expressions (i.e., when both voices have different durations), it will
 give the voices, internally, its own custom names: @code{one} and
 @code{two} respectively.  This means if there is any @qq{switch} to a
@@ -1186,7 +1186,7 @@ differently named @code{Voice} context, the events in that differently
 named @code{Voice} will be ignored.
 
 Refer also to @emph{Known issues and warnings} when using
-@code{\partcombine} with tablature in @ref{Default tablatures} and the
+@code{\partCombine} with tablature in @ref{Default tablatures} and the
 @emph{Note} in @ref{Automatic beams} when using automatic beaming.
 
 

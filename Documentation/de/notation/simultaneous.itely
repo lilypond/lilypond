@@ -939,7 +939,7 @@ are at the same time differently dotted are not clear.
 @cindex Kombinieren von Stimmen
 @cindex a due-Stellen
 @cindex solo-Stellen
-@funindex \partcombine
+@funindex \partCombine
 
 Automatische Kombination von Stimmen wird verwendet, um zwei
 selbständige Stimmen auf einem Notensystem zu setzen.  Es wird vor allem
@@ -954,7 +954,7 @@ und bezeichnet.
 Die Syntax zur automatischen Stimmenkombination lautet:
 
 @example
-\partcombine @var{musikAusdr1} @var{musikAusdr2}
+\partCombine @var{musikAusdr1} @var{musikAusdr2}
 @end example
 
 Das nächste Beispiel zeigt, wie die Kombination funktioniert.
@@ -982,7 +982,7 @@ instrumentTwo = \relative {
 <<
   \new Staff \instrumentOne
   \new Staff \instrumentTwo
-  \new Staff \partcombine \instrumentOne \instrumentTwo
+  \new Staff \partCombine \instrumentOne \instrumentTwo
 >>
 @end lilypond
 
@@ -996,35 +996,35 @@ Hälse nach unten.  An Solo-Stellen werden die Stimmen mit
 @qq{Solo} bzw. @qq{Solo II} bezeichnet.  Die Unisono-Stellen
 (@notation{a due}) werden mit dem Text @qq{a2} gekennzeichnet.
 
-Beide Argumente von @code{\partcombine} werden als eigenständige
+Beide Argumente von @code{\partCombine} werden als eigenständige
 @code{Voice}-Kontexte interpretiert.  Wenn relative Oktaven
 benutzt werden, muss @code{\relative} für beide Stimmen
 benutzt werden, also:
 
 @example
-\partcombine
+\partCombine
   \relative @dots{} @var{musikAusdr1}
   \relative @dots{} @var{musikAusdr2}
 @end example
 
 @noindent
-Ein @code{\relative}-Abschnitt, der @code{\partcombine} umschließt, hat
+Ein @code{\relative}-Abschnitt, der @code{\partCombine} umschließt, hat
 keinen Einfluss auf
 die Tonhöhen von @code{@var{musikAusdr1}} oder @code{@var{musikAusdr2}}.
 
-@funindex \partcombineChords
-@funindex \partcombineApart
-@funindex \partcombineUnisono
-@funindex \partcombineSoloI
-@funindex \partcombineSoloII
-@funindex \partcombineAutomatic
+@funindex \partCombineChords
+@funindex \partCombineApart
+@funindex \partCombineUnisono
+@funindex \partCombineSoloI
+@funindex \partCombineSoloII
+@funindex \partCombineAutomatic
 
 In professionellen Partituren werden Stimmen oft für lange Strecken auseinander
 gehalten, auch wenn eine oder mehrere Noten tatsälich aufeinander treffen und
 einfach als Unisono gesetzt werden könnten.  Noten zu Akkorden zusammenzufassen
 oder eine Stimme als Solo anzuzeigen ist darum nicht ideal, weil die
-@code{\partcombine}-Funktion jede Note separat betrachtet.  Aus diesem
-Grund kann die @code{\partcombine}-Funktion mit folgenden Befehlen verändert
+@code{\partCombine}-Funktion jede Note separat betrachtet.  Aus diesem
+Grund kann die @code{\partCombine}-Funktion mit folgenden Befehlen verändert
 werden:
 
 Befehle, die auf @code{@dots{} Once} enden, gelten nur für die nächste
@@ -1032,28 +1032,28 @@ Note eines musikalischen Ausdrucks.
 
 @itemize
 @item
-@code{\partcombineApart} und @code{\once \partcombineApart}
+@code{\partCombineApart} und @code{\once \partCombineApart}
 erhalten die Noten als zwei unterschiedliche Stimmen, auch wenn sie als Akkord
 oder Unisono kombiniert werden könnten.
 
 @item
-@code{\partcombineChords} und @code{\once \partcombineChords}
+@code{\partCombineChords} und @code{\once \partCombineChords}
 kombinieren die Noten als Akkord.
 
 @item
-@code{\partcombineUnisono} und @code{\once \partcombineUnisono}
+@code{\partCombineUnisono} und @code{\once \partCombineUnisono}
 kombinieren beide Stimmen als Unisono.
 
 @item
-@code{\partcombineSoloI} und @code{\once \partcombineSoloI}
+@code{\partCombineSoloI} und @code{\once \partCombineSoloI}
 setzen nur Stimme eins und markieren sie als @qq{Solo}.
 
 @item
-@code{\partcombineSoloII} und @code{\once \partcombineSoloII}
+@code{\partCombineSoloII} und @code{\once \partCombineSoloII}
 setzen nur Stimme zwei und markieren sie als @qq{Solo}.
 
 @item
-@code{\partcombineAutomatic} und @code{\once \partcombineAutomatic}
+@code{\partCombineAutomatic} und @code{\once \partCombineAutomatic}
 beenden die Wirkung der Befehle oben und stellt das
 normale Verhalten des Kombinationsmechanismus wieder her.
 
@@ -1061,11 +1061,11 @@ normale Verhalten des Kombinationsmechanismus wieder her.
 
 @lilypond[quote,verbatim]
 instrumentOne = \relative c' {
-  \partcombineApart c2^"apart" e |
-  \partcombineAutomatic e2^"auto" e |
-  \partcombineChords e'2^"chord" e |
-  \partcombineAutomatic c2^"auto" c |
-  \partcombineApart c2^"apart" \once \partcombineChords e^"chord once" |
+  \partCombineApart c2^"apart" e |
+  \partCombineAutomatic e2^"auto" e |
+  \partCombineChords e'2^"chord" e |
+  \partCombineAutomatic c2^"auto" c |
+  \partCombineApart c2^"apart" \once \partCombineChords e^"chord once" |
   c2 c |
 }
 instrumentTwo = \relative {
@@ -1080,7 +1080,7 @@ instrumentTwo = \relative {
 <<
   \new Staff { \instrumentOne }
   \new Staff { \instrumentTwo }
-  \new Staff { \partcombine \instrumentOne \instrumentTwo }
+  \new Staff { \partCombine \instrumentOne \instrumentTwo }
 >>
 @end lilypond
 
@@ -1109,13 +1109,13 @@ Referenz der Interna:
 
 @knownissues
 
-Alle @code{\partcombine...}-Funktionen können nur zwei Stimmen
+Alle @code{\partCombine...}-Funktionen können nur zwei Stimmen
 aufnehmen und sind nicht für die Behandlung von Gesangstext geeignet.
 Das heißt, dass die Funktion nicht funktioniert, wenn einer der
 Kontexte explizit eine Bezeichnung erhält, um ihm etwa Gesangstext
 zuweisen zu können.
 
-@code{\partcombine...}-Funktionen können nicht innerhalb von 
+@code{\partCombine...}-Funktionen können nicht innerhalb von
 @code{\times}- oder @code{\relative}-Umgebungen geschrieben werden.
 
 Wenn @code{printPartCombineTexts} definiert ist und die zwei Stimmen
@@ -1123,25 +1123,25 @@ die gleichen Noten abwechselnd spielen, kann es sein, dass die
 Kombinationsfunktion den Text @qq{a2} mehr als einmal im gleichen
 Takt setzt.
 
-@code{\partcombine} merkt nur, wenn eine Note in einer @code{Voice}-Umgebung
+@code{\partCombine} merkt nur, wenn eine Note in einer @code{Voice}-Umgebung
 beginnt; Information, dass eine Note in einer Stimme etwa schon
 begonnen hat, wenn die andere Stimme die gleiche Note spielt,
 fehlt.  Das kann zu einigen unerwarteten Problemen führen, wie etwa
 dass @qq{Solo} bzw. @qq{Unison} falsch gesetzt werden.
 
-@code{\partcombine} hält alle Strecker (Haltebögen, Legatobögen,
+@code{\partCombine} hält alle Strecker (Haltebögen, Legatobögen,
 Klammern usw.) in der gleichen @code{Voice}-Umgebung, sodass es
 sein kann, dass diese Strecker nicht korrekt erscheinen, wenn sie
 in einer anderen Stimme enden.
 
-Wenn die @code{\partcombine}-Funktion beide Noten nicht kombinieren
+Wenn die @code{\partCombine}-Funktion beide Noten nicht kombinieren
 kann (beispielsweise weil beide Stimmen unterschiedliche Dauern haben),
 werden die Stimmen intern in @code{one} und @code{two} benannt.  Das
 heißt, dass jeglicher Kontextwechsel zu einem @code{Voice}-Kontext
 mit anderer Bezeichnung ignoriert wird.
 
 Lesen Sie auch den Abschnitt @emph{Bekannte Probleme und Warnungen},
-wenn Sie @code{\partcombine} in Tabulaturen benutzen
+wenn Sie @code{\partCombine} in Tabulaturen benutzen
 (siehe @ref{Standardtabulaturen}).
 
 @node Musik parallel notieren

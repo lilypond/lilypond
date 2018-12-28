@@ -498,12 +498,12 @@ Referenz der Interna:
 Akkorde werden nicht gesondert behandelt, sodass die Saitenauswahlfunktion
 eventuell die selbe Saite für zwei Töne eines Akkordes auswählen kann.
 
-Damit die Kombination von Stimmen (@code{\partcombine}) richtig funktioniert,
+Damit die Kombination von Stimmen (@code{\partCombine}) richtig funktioniert,
 müssen speziell erstellte Stimmen innerhalb des Tabulatursystems
 (@code{TabStaff}) benutzt werden:
 
 @lilypond[quote,ragged-right,verbatim]
-melodia = \partcombine { e4 g g g } { e4 e e e }
+melodia = \partCombine { e4 g g g } { e4 e e e }
 <<
   \new TabStaff <<
     \new TabVoice = "one" s1

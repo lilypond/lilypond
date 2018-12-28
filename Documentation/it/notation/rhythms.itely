@@ -2041,7 +2041,7 @@ disabilitata con @code{\autoBeamOff} e riabilitata con @code{\autoBeamOn}:
 
 @warning{Se si usano le travature per indicare i melismi nelle parti vocali, occorre
 disabilitare la disposizione automatica delle travature con @code{\@bs{}autoBeamOff}
-e le travature devono essere indicate manualmente.  L'uso di @code{@bs{}partcombine}
+e le travature devono essere indicate manualmente.  L'uso di @code{@bs{}partCombine}
 insieme a @code{@bs{}autoBeamOff} può produrre risultati imprevisti.  Si vedano i
 frammenti di codice per avere maggiori informazioni.}
 
@@ -2066,8 +2066,8 @@ quelli automatici predefiniti, come è spiegato in @ref{Setting automatic beam b
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-beam-knee-gap.ly}
 
-@cindex travature, \partcombine con \autoBeamOff
-@cindex voci, \partcombine con \autoBeamOff
+@cindex travature, \partCombine con \autoBeamOff
+@cindex voci, \partCombine con \autoBeamOff
 
 @lilypondfile [verbatim, quote, ragged-right, texidoc, doctitle]
 {partcombine-and-autobeamoff.ly}

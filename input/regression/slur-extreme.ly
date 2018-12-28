@@ -1,5 +1,5 @@
 
-\version "2.19.21"
+\version "2.21.0"
 
 \header {
 
@@ -23,6 +23,6 @@ baseWalk =  \relative {
 }
 
 \context PianoStaff 
-    \autochange \baseWalk
+    \autoChange \baseWalk
 
 

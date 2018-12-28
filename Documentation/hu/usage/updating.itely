@@ -223,7 +223,7 @@ A helyes ez lenne:
    -\markup{\bold \italic "string"}
 
 2.0 -> 2.2:
-- A \partcombine frissítése nem támogatott.
+- A \partCombine frissítése nem támogatott.
 - Az \addlyrics => \lyricsto frissítés nem történik meg, ez több versszakkal
 rendelkező kották esetében problémát okozhat.
 

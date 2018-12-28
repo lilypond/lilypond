@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.0"
 
 \header {
   lsrtags = "automatic-notation, keyboards, template, vocal-music"
@@ -92,14 +92,14 @@ bassWords = \lyricmode {
     \new PianoStaff <<
       \new Staff <<
         \set Staff.printPartCombineTexts = ##f
-        \partcombine
+        \partCombine
         << \global \sopMusic >>
         << \global \altoMusic >>
       >>
       \new Staff <<
         \clef bass
         \set Staff.printPartCombineTexts = ##f
-        \partcombine
+        \partCombine
         << \global \tenorMusic >>
         << \global \bassMusic >>
       >>

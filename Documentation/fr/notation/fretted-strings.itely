@@ -537,11 +537,11 @@ Les accords ne subissent aucun traitement particulier ; de ce fait,
 la sélection automatique des cordes peut attribuer une même corde pour
 deux notes différentes de l'accord.
 
-Afin que @code{\partcombine} fonctionne avec des tablatures, on doit
+Afin que @code{\partCombine} fonctionne avec des tablatures, on doit
 ajouter au contexte @code{TabStaff} des voix fantômes :
 
 @lilypond[quote,ragged-right,verbatim]
-melodia = \partcombine { e4 g g g } { e4 e e e }
+melodia = \partCombine { e4 g g g } { e4 e e e }
 <<
   \new TabStaff <<
     \new TabVoice = "one" s1

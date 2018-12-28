@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.21.0"
 
 
 \header {
@@ -12,8 +12,8 @@ rests and then a solo."
 
 mI = \relative {
   \set Score.partCombineTextsOnNote = ##t
-  g'4 \partcombineSoloI r4 c2 |
-  \partcombineSoloII R1*2 |
+  g'4 \partCombineSoloI r4 c2 |
+  \partCombineSoloII R1*2 |
 }
 mII = \relative {
   c'4 r2. |
@@ -22,5 +22,5 @@ mII = \relative {
 }
 
 \score {
-  \new Staff \partcombine \mI \mII
+  \new Staff \partCombine \mI \mII
 }

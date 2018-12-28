@@ -2099,7 +2099,7 @@ Si no se necesita el barrado automático, se puede desactivar con
 @warning{Si se usan barras para indicar los melismas de las
 canciones, entonces se debe desactivar el barrado automático con
 @code{@bs{}autoBeamOff} e indicar las barras manualmente.  La
-utilización de @code{@bs{}partcombine} con @code{@bs{}autoBeamOff}
+utilización de @code{@bs{}partCombine} con @code{@bs{}autoBeamOff}
 puede producir resultados no deseados.  Véanse los fragmentos de
 código para mayor información.}
 
@@ -2125,8 +2125,8 @@ automáticos predeterminados; véase
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-beam-knee-gap.ly}
 
-@cindex barras, \partcombine con \autoBeamOff
-@cindex voces, \partcombine con \autoBeamOff
+@cindex barras, \partCombine con \autoBeamOff
+@cindex voces, \partCombine con \autoBeamOff
 
 @lilypondfile [verbatim, quote, ragged-right, texidoc, doctitle]
 {partcombine-and-autobeamoff.ly}

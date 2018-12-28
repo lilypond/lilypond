@@ -246,7 +246,7 @@ automatisch funktionieren.  Unten eine Liste der bekannten Probleme:
    anstelle von:
    -\markup{\bold \italic "string"}
 2.0->2.2:
- Versteht nicht \partcombine
+ Versteht nicht \partCombine
  Kann nicht \addlyrics => \lyricsto, sodass einige Dateien mit vielen Strophen nicht
  funktionieren
 2.0->2.4:

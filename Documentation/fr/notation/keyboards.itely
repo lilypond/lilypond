@@ -290,27 +290,27 @@ de portée, utilisez alors une ligature manuelle.
 @cindex Changement de portée automatique
 @cindex Automatique, changement de portée
 
-@funindex \autochange
+@funindex \autoChange
 @funindex PianoStaff
 
 Les voix peuvent passer automatiquement d'une portée à l'autre, au moyen
 de la syntaxe suivante :
 
 @example
-\autochange @dots{}@var{musique}@dots{}
+\autoChange @dots{}@var{musique}@dots{}
 @end example
 
 @noindent
 Deux portées seront alors créées au sein du contexte @code{PianoStaff},
 nommées respectivement @code{"up"} et @code{"down"}.  La portée du bas
-sera par défaut en clef de fa.  La commande @code{\autochange} bascule
+sera par défaut en clef de fa.  La commande @code{\autoChange} bascule
 les notes d'une portée à l'autre en fonction de leur hauteur (le do du
 milieu servant de pivot), et place les silences en fonction des notes
 qui les suivront. Ainsi :
 
 @lilypond[quote,verbatim]
 \new PianoStaff {
-  \autochange {
+  \autoChange {
     g4 a b c'
     d'4 r a g
   }
@@ -328,20 +328,20 @@ music = {
   d'8 r f' g' a'2
 }
 
-\autochange d' \music
-\autochange b \with { \clef soprano } \music
-\autochange d' \with { \clef alto } \with { \clef tenor } \music
+\autoChange d' \music
+\autoChange b \with { \clef soprano } \music
+\autoChange d' \with { \clef alto } \with { \clef tenor } \music
 @end lilypond
 
-@cindex mode relatif et autochange
-@cindex autochange et mode relatif
+@cindex mode relatif et autoChange
+@cindex autoChange et mode relatif
 
 @funindex \relative
 
 Une section en mode @code{\relative} se situant en dehors de la commande
-@code{\autochange} n'aura pas d'effet sur les hauteurs de l'expression
+@code{\autoChange} n'aura pas d'effet sur les hauteurs de l'expression
 @var{musique}.  Il est donc préférable d'introduire la directive
-@code{\relative} @strong{après} @code{\autochange}.
+@code{\relative} @strong{après} @code{\autoChange}.
 
 Lorsque des contrôles particuliers doivent s'appliquer aux portées,
 mieux vaut les nommer explicitement -- attention : sous peine
@@ -359,7 +359,7 @@ portée inférieure :
   \new Staff = "up" {
     \new Voice = "melodieUn" {
       \key g \major
-      \autochange \relative {
+      \autoChange \relative {
         g8 b a c b d c e
         d8 r fis, g a2
       }
@@ -385,7 +385,7 @@ Référence des propriétés internes :
 
 @knownissues
 
-@cindex accords, répartition sur plusieurs portées avec \autochange
+@cindex accords, répartition sur plusieurs portées avec \autoChange
 
 Les changements de portée automatiques n'interviennent pas toujours à
 l'endroit le plus opportun.  Pour un résultat de meilleure qualité, il
@@ -395,7 +395,7 @@ Un accord ne peut se répartir sur plusieurs portées ; sa portée
 d'affectation sera déterminée par la première hauteur mentionnée dans la
 construction de cet accord.
 
-@code{\autochange} ne peut intervenir à l'intérieur d'une commande
+@code{\autoChange} ne peut intervenir à l'intérieur d'une commande
 @code{\tuplet}.
 
 

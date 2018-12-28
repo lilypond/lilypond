@@ -4,14 +4,14 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.0"
 
 \header {
   lsrtags = "rhythms"
 
   texidoc = "
 The function of @code{\\autoBeamOff} when used with
-@code{\\partcombine} can be difficult to understand.
+@code{\\partCombine} can be difficult to understand.
 
 It may be preferable to use
 
@@ -23,30 +23,30 @@ instead, to ensure that autobeaming will be turned off for the entire
 staff.
 
 
-@code{\\partcombine} apparently works with 3 voices -- stem up single,
+@code{\\partCombine} apparently works with 3 voices -- stem up single,
 stem down single, stem up combined.
 
 
-An @code{\\autoBeamOff} call in the first argument to partcombine will
+An @code{\\autoBeamOff} call in the first argument to partCombine will
 apply to the voice that is active at the time the call is processed,
 either stem up single or stem up combined. An @code{\\autoBeamOff} call
 in the second argument will apply to the voice that is stem down single.
 
 
 In order to use @code{\\autoBeamOff} to stop all autobeaming when used
-with @code{\\partcombine}, it will be necessary to use three calls to
+with @code{\\partCombine}, it will be necessary to use three calls to
 @code{\\autoBeamOff}.
 
 
 
 
 "
-  doctitle = "Partcombine and autoBeamOff"
+  doctitle = "PartCombine and autoBeamOff"
 } % begin verbatim
 
 {
   %\set Staff.autoBeaming = ##f % turns off all autobeaming
-  \partcombine
+  \partCombine
   {
     \autoBeamOff % applies to split up stems
     \repeat unfold 4 a'16

@@ -2032,7 +2032,7 @@ If automatic beaming is not required, it may be turned off with
 
 @warning{If beams are used to indicate melismata in songs, then
 automatic beaming should be switched off with @code{@bs{}autoBeamOff}
-and the beams indicated manually.  Using @code{@bs{}partcombine} with
+and the beams indicated manually.  Using @code{@bs{}partCombine} with
 @code{@bs{}autoBeamOff} can produce unintended results.  See the
 snippets for more information.}
 
@@ -2057,8 +2057,8 @@ created; see @ref{Setting automatic beam behavior}.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-beam-knee-gap.ly}
 
-@cindex beams, \partcombine with \autoBeamOff
-@cindex voices, \partcombine with \autoBeamOff
+@cindex beams, \partCombine with \autoBeamOff
+@cindex voices, \partCombine with \autoBeamOff
 
 @lilypondfile [verbatim, quote, ragged-right, texidoc, doctitle]
 {partcombine-and-autobeamoff.ly}

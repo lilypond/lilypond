@@ -1,6 +1,6 @@
 %% Translation of GIT committish: 8ef5f99e63cc9e52c7c0071cde4d99e057d10329
   texidocit = "
-Lo strumento di unione delle parti (il comando @code{\\partcombine}) permette
+Lo strumento di unione delle parti (il comando @code{\\partCombine}) permette
 di combinare varie parti sullo stesso rigo.  Indicazioni testuali come
 @qq{solo} e @qq{a2} sono aggiunte automaticamente; per toglierele basta
 impostare la proprietà @code{printPartCombineTexts} su @code{f}.
@@ -11,8 +11,8 @@ verrebbe indicata.  In tali casi è preferibile usare la notazione
 polifonica normale.
 
 Questo frammento illustra i tre modi con cui due parti possono essere stampate
-su uno stesso rigo: normale polifonia, @code{\\partcombine} senza testo e
-@code{\\partcombine} con testo.
+su uno stesso rigo: normale polifonia, @code{\\partCombine} senza testo e
+@code{\\partCombine} con testo.
 
 "
   doctitleit = "Combinare due parti sullo stesso rigo"

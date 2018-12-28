@@ -2,7 +2,7 @@
 
   texidocde = "
 Die Funktionsweise von @code{@bs{}autoBeamOff}, wenn es zusammen mit
-@code{@bs{}partcombine} eingesetzt wird, kann schwer zu verstehen sein.
+@code{@bs{}partCombine} eingesetzt wird, kann schwer zu verstehen sein.
 Es kann besser sein, anstatt dessen
 
 @example
@@ -13,19 +13,19 @@ Es kann besser sein, anstatt dessen
 zu benutzen, um sicherzustellen, dass die automatische Bebalkung für das
 gesamte System ausgeschaltet ist.
 
-@code{\partcombine} funktioniert offensichtlich mit 3 Stimme (Hals nach oben
+@code{\partCombine} funktioniert offensichtlich mit 3 Stimme (Hals nach oben
 einfach, Hals nach unten einfach, Hals nach oben kombiniert).
 
-Ein @code{\autoBeamOff}-Befehl im ersten Argument von @code{\partcombine}
+Ein @code{\autoBeamOff}-Befehl im ersten Argument von @code{\partCombine}
 gilt für die Stimme, die zu dem Zeitpunkt aktiv ist, an dem der Befehl
 verarbeitet wird, entweder für Hals nach oben, nach unten oder Hals nach
 oben kombiniert.  Ein @code{\autoBeamOff}-Befehl im zweiten Argument gilt
 für die Stimme, die mit Hals nach unten einfach ist.
 
 Um @code{\autoBeamOff} zu benutzen, damit alle automatischen Balken aufhören,
-wenn man es mit @code{\partcombine} verwendet, muss @code{\autoBeamOff}
+wenn man es mit @code{\partCombine} verwendet, muss @code{\autoBeamOff}
 @emph{dreimal} aufgerufen werden.
 
 "
-doctitlede = "Partcombine und autoBeamOff"
+doctitlede = "PartCombine und autoBeamOff"
 

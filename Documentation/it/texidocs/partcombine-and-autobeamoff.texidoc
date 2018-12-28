@@ -1,7 +1,7 @@
 %% Translation of GIT committish: e0808cc5f4890c5f8f03ed1be48fc911627afea4
   texidocit = "
 La funzione @code{\\autoBeamOff}, se usata insieme a
-@code{\\partcombine}, può essere difficile da comprendere.
+@code{\\partCombine}, può essere difficile da comprendere.
 
 È preferibile usare invece
 
@@ -13,19 +13,19 @@ per assicurarsi che la disposizione delle travature sia disabilitata
 per tutto il rigo.
 
 
-@code{\\partcombine} funziona con 3 voci -- gambo in su singolo,
+@code{\\partCombine} funziona con 3 voci -- gambo in su singolo,
 gambo in giù singolo, gambo in su unito.
 
 
-L'uso di @code{\\autoBeamOff} all'interno del primo argomento di partcombine
+L'uso di @code{\\autoBeamOff} all'interno del primo argomento di partCombine
 ha effetto sulla voce che è attiva al momento in cui la funzione viene elaborata,
 ovvero sul gambo in su singolo o sul gambo in giù unito. L'uso di @code{\\autoBeamOff}
 nel secondo argomento avrà effetto sulla voce che ha il gambo in giù singolo.
 
 
 Per poter usare @code{\\autoBeamOff} per impedire tutte le disposizioni automatiche
-delle travature, se usato con @code{\\partcombine}, è necessario richiamare
+delle travature, se usato con @code{\\partCombine}, è necessario richiamare
 tre volte la funzione @code{\\autoBeamOff}.
 
 "
-  doctitleit = "Partcombine e autoBeamOff"
+  doctitleit = "PartCombine e autoBeamOff"

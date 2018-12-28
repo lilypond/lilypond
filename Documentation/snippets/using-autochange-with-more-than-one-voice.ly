@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.0"
 
 \header {
   lsrtags = "keyboards, pitches, staff-notation"
@@ -26,7 +26,7 @@ Using @code{autochange} with more than one voice.
         \set Timing.beatStructure = #'(4)
         \new Voice {
           \voiceOne
-          \autochange
+          \autoChange
           \relative c' {
             g8 a b c d e f g
             g,8 a b c d e f g
@@ -35,7 +35,7 @@ Using @code{autochange} with more than one voice.
 
         \new Voice {
           \voiceTwo
-          \autochange
+          \autoChange
           \relative c' {
             g8 a b c d e f g
             g,,8 a b c d e f g

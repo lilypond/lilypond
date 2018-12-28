@@ -2073,7 +2073,7 @@ Si no cal el barrat automàtic, es pot desactivar amb
 @warning{Si s'usen barres per indicar els melismes de les cançons,
 aleshores s'ha de desactivar el barrat automàtic amb
 @code{@bs{}autoBeamOff} i indicar les barres manualment.  La
-utilització de @code{@bs{}partcombine} amb @code{@bs{}autoBeamOff}
+utilització de @code{@bs{}partCombine} amb @code{@bs{}autoBeamOff}
 pot produir resultats no desitjats.  Vegeu els fragments de codi
 per a més informació.}
 
@@ -2099,8 +2099,8 @@ automàtics predeterminats; vegeu
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-beam-knee-gap.ly}
 
-@cindex barras, \partcombine con \autoBeamOff
-@cindex voces, \partcombine con \autoBeamOff
+@cindex barras, \partCombine con \autoBeamOff
+@cindex voces, \partCombine con \autoBeamOff
 
 @lilypondfile [verbatim, quote, ragged-right, texidoc, doctitle]
 {partcombine-and-autobeamoff.ly}

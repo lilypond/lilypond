@@ -1,4 +1,4 @@
-\version "2.19.28"
+\version "2.21.0"
 
 \header {
   texidoc ="The part combiner can combine parts of unequal lengths."
@@ -8,7 +8,7 @@
 
 \new Staff { %% based on the example in Issue 913
   c'1
-  \partcombine { e' r } { c' }
-  \partcombine { b' } {}
-  \partcombine {} { f' }
+  \partCombine { e' r } { c' }
+  \partCombine { b' } {}
+  \partCombine {} { f' }
 }

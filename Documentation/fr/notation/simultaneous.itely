@@ -1000,7 +1000,7 @@ silences.
 @cindex a due
 @cindex solo
 
-@funindex \partcombine
+@funindex \partCombine
 
 Le regroupement automatique de parties vous permet de fusionner deux
 pupitres sur une seule portée, ceci dans le but de créer des
@@ -1013,7 +1013,7 @@ ressortir les solos et parties @emph{a due}.
 Voici la syntaxe qui permet de combiner des parties :
 
 @example
-\partcombine @var{expression_musicale_1} @var{expression_musicale_2}
+\partCombine @var{expression_musicale_1} @var{expression_musicale_2}
 @end example
 
 L'exemple suivant illustre les fonctionnalités élémentaires du
@@ -1041,7 +1041,7 @@ instrumentTwo = \relative {
 <<
   \new Staff \instrumentOne
   \new Staff \instrumentTwo
-  \new Staff \partcombine \instrumentOne \instrumentTwo
+  \new Staff \partCombine \instrumentOne \instrumentTwo
 >>
 @end lilypond
 
@@ -1060,7 +1060,7 @@ note @notation{a due}, regroupera en accord les notes de même rythme et
 dont l'intervalle est inférieur à une neuvième, enfin isolera les notes
 séparées de plus d'une neuvième (ou si les voix se croisent) dans des
 voix distinctes.  Ceci peut s'adapter à l'aide d'une paire de nombres
-fournie en argument optionnel à la commande @code{\partcombine} : le
+fournie en argument optionnel à la commande @code{\partCombine} : le
 premier nombre spécifie l'intervalle à partir duquel les notes seront
 combinées (0 par défaut) et le second celui à partir duquel les notes
 seront placées dans des voix séparées.  Un second élément de cette paire
@@ -1082,78 +1082,78 @@ instrumentTwo = \relative {
 }
 
 <<
-  \new Staff \partcombine \instrumentOne \instrumentTwo
-  \new Staff \partcombine #'(2 . 3) \instrumentOne \instrumentTwo
+  \new Staff \partCombine \instrumentOne \instrumentTwo
+  \new Staff \partCombine #'(2 . 3) \instrumentOne \instrumentTwo
 >>
 @end lilypond
 
 LilyPond interprète dans un contexte @code{Voice} chacun des arguments
-fournis à @code{\partcombine}.  Si vous travaillez avec des octaves
+fournis à @code{\partCombine}.  Si vous travaillez avec des octaves
 relatives, spécifiez @code{\relative} dans chacune des expressions
 musicales, comme ceci :
 
 @example
-\partcombine
+\partCombine
   \relative @dots{} @var{expression_musicale_1}
   \relative @dots{} @var{expression_musicale_2}
 @end example
 
 @noindent
-Une section @code{\relative} à l'extérieur du @code{\partcombine}
+Une section @code{\relative} à l'extérieur du @code{\partCombine}
 restera sans effet sur les hauteurs de
 @code{@var{expression_musicale_1}} ou de
 @code{@var{expression_musicale_2}}.
 
-@funindex \partcombineChords
-@funindex \partcombineApart
-@funindex \partcombineUnisono
-@funindex \partcombineSoloI
-@funindex \partcombineSoloII
-@funindex \partcombineAutomatic
+@funindex \partCombineChords
+@funindex \partCombineApart
+@funindex \partCombineUnisono
+@funindex \partCombineSoloI
+@funindex \partCombineSoloII
+@funindex \partCombineAutomatic
 
 En matière d'édition professionnelle, les voix sont souvent maintenues
 séparément et sur une durée conséquente, bien que les notes des
 différentes voix soient les mêmes et pourraient donc être présentées à
-l'unisson.  Dans la mesure où @code{\partcombine} considère les notes
+l'unisson.  Dans la mesure où @code{\partCombine} considère les notes
 séparément, combiner des notes en accord ou indiquer un solo ne serait
 pas optimal en pareil cas.  LilyPond dispose alors de certaines
 commandes qui permettent d'influencer le comportement de la fonction
-@code{\partcombine}.  Ces commandes peuvent se voir préfixées d'un
+@code{\partCombine}.  Ces commandes peuvent se voir préfixées d'un
 @code{\once} de sorte à n'affecter que la note qui les suit
 directement dans l'expression musicale.
 
 @itemize
 @item
-@code{\partcombineApart} maintient les notes dans des voix séparées même
+@code{\partCombineApart} maintient les notes dans des voix séparées même
 si elles peuvent se combiner en accord ou en unisson.
 
 @item
-@code{\partcombineChords} combine les notes en accords.
+@code{\partCombineChords} combine les notes en accords.
 
 @item
-@code{\partcombineUnisono} combine les voix en un « unisson ».
+@code{\partCombineUnisono} combine les voix en un « unisson ».
 
 @item
-@code{\partcombineSoloI} affiche exclusivement la première voix et
+@code{\partCombineSoloI} affiche exclusivement la première voix et
 l'affuble d'un « Solo ».
 
 @item
-@code{\partcombineSoloII} affiche exclusivement la deuxième voix et
+@code{\partCombineSoloII} affiche exclusivement la deuxième voix et
 l'affuble d'un « Solo ».
 
 @item
-@code{\partcombineAutomatic} annule les effets des dérogations
+@code{\partCombineAutomatic} annule les effets des dérogations
 précédentes et active le comportement standard de la fonction
-@code{\partcombine}.
+@code{\partCombine}.
 @end itemize
 
 @lilypond[quote,verbatim]
 instrumentOne = \relative c' {
-  \partcombineApart c2^"apart" e |
-  \partcombineAutomatic e2^"auto" e |
-  \partcombineChords e'2^"chord" e |
-  \partcombineAutomatic c2^"auto" c |
-  \partcombineApart c2^"apart" \once \partcombineChords e^"chord once" |
+  \partCombineApart c2^"apart" e |
+  \partCombineAutomatic e2^"auto" e |
+  \partCombineChords e'2^"chord" e |
+  \partCombineAutomatic c2^"auto" c |
+  \partCombineApart c2^"apart" \once \partCombineChords e^"chord once" |
   c2 c |
 }
 instrumentTwo = \relative {
@@ -1168,17 +1168,17 @@ instrumentTwo = \relative {
 <<
   \new Staff { \instrumentOne }
   \new Staff { \instrumentTwo }
-  \new Staff { \partcombine \instrumentOne \instrumentTwo }
+  \new Staff { \partCombine \instrumentOne \instrumentTwo }
 >>
 @end lilypond
 
 
-@subsubsubheading Utilisation de @code{\partcombine} et paroles
+@subsubsubheading Utilisation de @code{\partCombine} et paroles
 
-@cindex \partcombine et paroles
-@cindex parloes et \partcombine
+@cindex \partCombine et paroles
+@cindex parloes et \partCombine
 
-La commande @code{\partcombine} n'est pas conçue pour traiter des
+La commande @code{\partCombine} n'est pas conçue pour traiter des
 paroles ; si l'une des voix est explicitement nommée, afin de lui
 adjoindre des paroles, le combinateur de parties cessera de fonctionner.
 Toutefois, le recours à un contexte @code{NullVoice} permet d'obtenir
@@ -1208,29 +1208,29 @@ Référence des propriétés internes :
 @rinternals{Voice}.
 
 @knownissues
-Les différentes commandes @code{\partcombine@dots{}} ne prennent en
+Les différentes commandes @code{\partCombine@dots{}} ne prennent en
 charge que deux voix.  De la même manière, le combinateur n'est pas
 conçu pour travailler avec des paroles ; il s'arrête dès qu'il est
 explicitement fait appel à l'une des voix pour y attacher des paroles.
 
-@code{\partcombine@dots{}} ne peut s'inscrire ni dans un bloc
+@code{\partCombine@dots{}} ne peut s'inscrire ni dans un bloc
 @code{\tuplet} ni dans un bloc @code{\relative}.
 
 Lorsque @code{printPartCombineTexts} est actif et que les deux voix
 jouent souvent les mêmes notes, le combinateur peut afficher @code{a2}
 plus d'une fois par mesure.
 
-@code{\partcombine} n'examine que l'attaque des notes.  Il n'est donc
+@code{\partCombine} n'examine que l'attaque des notes.  Il n'est donc
 pas en mesure de déterminer si une note attaquée précédemment est encore
 jouée ou non, ce qui peut engendrer quelques problèmes, entre autres des
 indications de « Solo » ou « Unison » incorrectement placées.
 
-@code{\partcombine} conserve les objets étendus (liaisons, soufflets,
+@code{\partCombine} conserve les objets étendus (liaisons, soufflets,
 etc.) dans la même voix de sorte à éviter qu'ils soient improprement ou
 pas du tout imprimés lorsque leur départ ou terminaison est dans une
 voix différente.
 
-En interne, @code{\partcombine} interprète les deux arguments en tant
+En interne, @code{\partCombine} interprète les deux arguments en tant
 que @code{Voice}s, dénommées @code{one} et @code{two}, puis décide de
 quand les parties seront fusionnées.  Par conséquent, si les arguments
 changent pour d'autres noms de contexte @code{Voice}, les

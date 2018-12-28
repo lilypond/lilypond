@@ -1,10 +1,10 @@
-\version "2.19.56"
+\version "2.21.0"
 
 \header {
   lsrtags = "simultaneous-notes, syntax-and-expressions, text"
 
   texidoc = "
-The part combiner tool ( @code{\\partcombine} command ) allows the
+The part combiner tool ( @code{\\partCombine} command ) allows the
 combination of several different parts on the same staff.  Text
 directions such as @qq{solo} or @qq{a2} are added by default; to remove
 them, simply set the property @code{printPartCombineTexts} to @code{f}.
@@ -14,8 +14,8 @@ it if there are any solos, as they won't be indicated.  In such cases,
 standard polyphonic notation may be preferable.
 
 This snippet presents the three ways two parts can be printed on a same
-staff: standard polyphony, @code{\\partcombine} without texts, and
-@code{\\partcombine} with texts.
+staff: standard polyphony, @code{\\partCombine} without texts, and
+@code{\\partCombine} with texts.
 
 
 
@@ -50,10 +50,10 @@ musicDown = \relative c'' {
       printPartCombineTexts = ##f
     }
 
-    \partcombine \musicUp \musicDown
+    \partCombine \musicUp \musicDown
 
     \new Staff \with { instrumentName = #"PartCombine with text" }
-      \partcombine \musicUp \musicDown
+      \partCombine \musicUp \musicDown
     >>
   \layout {
     indent = 6.0\cm

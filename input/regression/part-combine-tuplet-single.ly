@@ -5,12 +5,12 @@
 
 \paper { ragged-right = ##T }
 
-\version "2.19.21"
+\version "2.21.0"
 
 \score {
   <<
     \new Staff {
-      \partcombine
+      \partCombine
       \relative {
         \tuplet 3/2 { d''4 d d ~ } d2
       }

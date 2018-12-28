@@ -340,7 +340,7 @@ parentheses, e.g.
    instead of the correct
    -\markup{\bold \italic "string"}
 2.0->2.2:
- Doesn't handle \partcombine
+ Doesn't handle \partCombine
  Doesn't do \addlyrics => \lyricsto, this breaks some scores with multiple
 stanzas.
 2.0->2.4:

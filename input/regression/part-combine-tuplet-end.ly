@@ -5,10 +5,10 @@ even after a switch, a tuplet ends correctly."
   
 }
 
-\version "2.19.21"
+\version "2.21.0"
 
 \new Staff <<
-  \partcombine
+  \partCombine
   \relative {
     r2
     \tuplet 3/2 { g'8[ g g] }

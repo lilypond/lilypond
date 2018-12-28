@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.21.0"
 
 \layout {
   \context {
@@ -17,7 +17,7 @@
 }
 
 \header {
-texidoc="Partcombined music is preserved"
+texidoc="PartCombined music is preserved"
 options="--skip"
 }
 
@@ -39,7 +39,7 @@ instrumentTwo = \relative {
 
 \score {
 <<
-  \new Staff = "staff" \partcombine \instrumentOne \instrumentTwo
+  \new Staff = "staff" \partCombine \instrumentOne \instrumentTwo
   >>
   \layout {}
   \midi {}

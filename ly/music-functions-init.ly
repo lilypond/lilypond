@@ -18,7 +18,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.19.38"
+\version "2.21.0"
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -184,7 +184,7 @@ assertBeamSlope =
    (_i "Testing function: check whether the slope of the beam is the same as @code{comp}")
    (make-grob-property-override 'Beam 'positions (check-slope-callbacks comp)))
 
-autochange =
+autoChange =
 #(define-music-function (pitch clef-1 clef-2 music)
   ((ly:pitch? (ly:make-pitch 0 0)) (ly:context-mod?)(ly:context-mod?) ly:music?)
   (_i "Make voices that switch between staves automatically.  As an option the
@@ -1262,7 +1262,7 @@ parenthesize =
             default-part-combine-mark-state-machine split-list)
         >> #} ))
 
-partcombine =
+partCombine =
 #(define-music-function (chord-range part1 part2)
    ((number-pair? '(0 . 8)) ly:music? ly:music?)
    (_i "Take the music in @var{part1} and @var{part2} and return
@@ -1275,7 +1275,7 @@ that may be combined into a chord or unison.")
     #{ \with { \voiceTwo \override DynamicLineSpanner.direction = #DOWN } #}
     #{ #} ))
 
-partcombineUp =
+partCombineUp =
 #(define-music-function (chord-range part1 part2)
    ((number-pair? '(0 . 8)) ly:music? ly:music?)
    (_i "Take the music in @var{part1} and @var{part2} and typeset so
@@ -1285,7 +1285,7 @@ that they share a staff with stems directed upward.")
     #{ \with { \voiceThree \override DynamicLineSpanner.direction = #UP } #}
     #{ \with { \voiceOne \override DynamicLineSpanner.direction = #UP } #} ))
 
-partcombineDown =
+partCombineDown =
 #(define-music-function (chord-range part1 part2)
    ((number-pair? '(0 . 8)) ly:music? ly:music?)
    (_i "Take the music in @var{part1} and @var{part2} and typeset so

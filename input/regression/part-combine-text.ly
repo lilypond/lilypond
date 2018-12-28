@@ -9,7 +9,7 @@ texts accordingly.
     }
 
 
-\version "2.19.21"
+\version "2.21.0"
 
 \layout { ragged-right= ##t }
 
@@ -18,7 +18,7 @@ vtwo =  \relative { R1 f'4 f4 f4 f f f a a  }
 comm = { s1 s2 s4_\markup { \small "expect: solo 2" }
 	 s4 s2 s4_\markup { \small "expect: a2"  } s4 } 
 \new Staff <<
-    \partcombine \vone \vtwo
+    \partCombine \vone \vtwo
     \comm
 >>
  

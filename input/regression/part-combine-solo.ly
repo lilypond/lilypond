@@ -17,12 +17,12 @@ Solo 1/2 can not be used when a spanner is active, so there is no solo
 vone =  \relative { d''4 r8 d8 d8 r8 d8 r8 d2 ~ 2 ~ 4 }
 vtwo =  \relative { g'4.   g8 r2          g4 r4 r2  g4 } 
 
-\version "2.19.21"
+\version "2.21.0"
 
 \paper { ragged-right = ##t } 
 
     
 << \set Score.skipBars = ##t
-   \partcombine \vone \vtwo
+   \partCombine \vone \vtwo
 >>
  

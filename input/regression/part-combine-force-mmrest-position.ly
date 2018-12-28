@@ -7,10 +7,10 @@
 
 \layout { ragged-right = ##t }
 
-\version "2.19.21"
+\version "2.21.0"
 
 mI = \relative c'' {
-  \partcombineApart
+  \partCombineApart
   c2 c |
   R1 |
   c1
@@ -22,5 +22,5 @@ mII = \relative {
 }
 
 \score {
-  \new Staff \partcombine \mI \mII
+  \new Staff \partCombine \mI \mII
 }

@@ -1,28 +1,28 @@
 
 \header {
   texidoc ="Overrides for the part-combiner. All functions like
-  @code{\\partcombineApart} and @code{\\once \partcombineApart} are
+  @code{\\partCombineApart} and @code{\\once \partCombineApart} are
   internally implemented using a dedicated @code{partCombineForced}
   context property."
 }
 
 \layout { ragged-right = ##t }
 
-\version "2.19.29"
+\version "2.21.0"
 
 mI = \relative {
 	e'4 e c2 |
-	\partcombineApart c^"apart" e |
+	\partCombineApart c^"apart" e |
 	e e |
-	\partcombineChords e'^"chord" e |
-	\partcombineAutomatic c c\> |
-	\partcombineUnisono c^"unisono" c |
-	\partcombineAutomatic c\! c^"V1 longer" |
+	\partCombineChords e'^"chord" e |
+	\partCombineAutomatic c c\> |
+	\partCombineUnisono c^"unisono" c |
+	\partCombineAutomatic c\! c^"V1 longer" |
 }
 mII = \relative {
 	c'4 c c2 |
 	c c |
-	\partcombineAutomatic e^"auto" e |
+	\partCombineAutomatic e^"auto" e |
 	a, c |
 	c c' |
 	c c |
@@ -30,5 +30,5 @@ mII = \relative {
 }
 
 \score {
-	\new Staff \partcombine \mI \mII
+	\new Staff \partCombine \mI \mII
 }

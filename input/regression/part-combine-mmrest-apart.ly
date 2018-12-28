@@ -1,8 +1,8 @@
-\version "2.17.6"
+\version "2.21.0"
 
 \header {
   texidoc = "
-The positioning of multimeasure rests in @code{\\partcombineApart}
+The positioning of multimeasure rests in @code{\\partCombineApart}
 passages corresponds with @code{\\voiceOne} and @code{\\voiceTwo} even
 when using non-standard staves.
 "
@@ -17,11 +17,11 @@ when using non-standard staves.
 <<
   \new Staff \with
     { \override StaffSymbol.line-count = #4
-      instrumentName = \markup \typewriter "\\partcombine"
+      instrumentName = \markup \typewriter "\\partCombine"
     }
   {
-    \partcombine  { R1^"R1" r1^"r1"  \time 2/4 R2^"R2" r2^"r2" }
-    { \partcombineApart R1 r1 \time 2/4 R2 r2 }
+    \partCombine  { R1^"R1" r1^"r1"  \time 2/4 R2^"R2" r2^"r2" }
+    { \partCombineApart R1 r1 \time 2/4 R2 r2 }
     
   }
   \new Staff \with

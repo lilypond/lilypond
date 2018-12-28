@@ -2488,12 +2488,12 @@ Part_combine_iterator to communicate with Part_combine_engraver.
 
 @subheading Deciding between context and music properties
 
-I'm adding a property to affect how \autochange works.  It seems to
-me that it should be a context property, but the Scheme autochange
+I'm adding a property to affect how \autoChange works.  It seems to
+me that it should be a context property, but the Scheme autoChange
 procedure has a Music argument.  Does this mean I should use
 a Music property?
 
-\autochange is one of these extra strange beasts: it requires
+\autoChange is one of these extra strange beasts: it requires
 look-ahead to decide when to change staves.  This is achieved by
 running the interpreting step twice (see
 @file{scm/part-combiner.scm} , at the bottom), and
@@ -2503,11 +2503,11 @@ where-to-switch list, your must affect the code in
 make-autochange-music (@file{scm/part-combiner.scm}).
 That code is called directly from the parser and there are no
 official "parsing properties" yet, so there is no generic way
-to tune \autochange.  We would have to invent something new
+to tune \autoChange.  We would have to invent something new
 for this, or add a separate argument,
 
 @example
-    \autochange #around-central-C ..music..
+    \autoChange #around-central-C ..music..
 @end example
 
 @noindent
@@ -2580,7 +2580,7 @@ Take a look at @file{lily/music.cc} to see where the transposition takes place.
 @subheading How do I tell about the execution environment?
 
 I get lost figuring out what environment the code I'm looking at is in when it
-executes.  I found both the C++ and Scheme autochange code.  Then I was trying
+executes.  I found both the C++ and Scheme autoChange code.  Then I was trying
 to figure out where the code got called from.  I finally figured out that the
 Scheme procedure was called before the C++ iterator code, but it took me a
 while to figure that out, and I still didn't know who did the calling in the

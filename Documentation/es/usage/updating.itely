@@ -383,7 +383,7 @@ A continuación aparece una lista de los problemas conocidos.
    en vez del correcto
    -\markup{\bold \italic "cadena"}
 2.0->2.2:
- No maneja \partcombine
+ No maneja \partCombine
  No hace \addlyrics => \lyricsto, esto rompe algunas partituras con varias estrofas.
 2.0->2.4:
  \magnify no se cambia por \fontsize.

@@ -1656,8 +1656,8 @@ passage is the proper construct to use, see section
 @cindex NullVoice
 @cindex polyphony, shared lyrics
 @cindex lyrics, shared among voices
-@cindex \partcombine and lyrics
-@funindex \partcombine
+@cindex \partCombine and lyrics
+@funindex \partCombine
 
 When two voices with different rhythms share the same lyrics,
 aligning the lyrics to one of the voices may lead to problems in
@@ -1696,7 +1696,7 @@ words = \lyricmode { la __ la __ }
 >>
 @end lilypond
 
-This method also can be used with the @code{\partcombine}
+This method also can be used with the @code{\partCombine}
 function, which does not allow lyrics on its own:
 
 @lilypond[quote,verbatim]
@@ -1706,7 +1706,7 @@ aligner = \relative { b'8( c d c) b( a g a) }
 words = \lyricmode { la __ la __ }
 
 \new Staff <<
-  \new Voice \partcombine \soprano \alto
+  \new Voice \partCombine \soprano \alto
   \new NullVoice = "aligner" \aligner
   \new Lyrics \lyricsto "aligner" \words
 >>
@@ -1717,7 +1717,7 @@ The @code{\addLyrics} function only works with @code{Voice} lyrics
 and so cannot be used with @code{NullVoice}.
 
 @noindent
-The @code{\partcombine} function is described in
+The @code{\partCombine} function is described in
 @ref{Automatic part combining}.
 
 Lastly, this method can be used even when the voices are in
@@ -1734,7 +1734,7 @@ words = \lyricmode { la __ la __ }
   \new Staff \soprano
   \new NullVoice = "aligner" \aligner
   \new Lyrics \lyricsto "aligner" \words
-  \new Staff \partcombine \altoOne \altoTwo
+  \new Staff \partCombine \altoOne \altoTwo
 >>
 @end lilypond
 

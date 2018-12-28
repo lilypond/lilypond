@@ -4,18 +4,18 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.19.22"
+\version "2.21.0"
 
 \header {
   lsrtags = "simultaneous-notes, staff-notation"
 
   texidoc = "
-The @code{\\partcombine} function takes two music expressions each
+The @code{\\partCombine} function takes two music expressions each
 containing a part, and distributes them among four @code{Voice}s named
 @qq{two} @qq{one} @qq{solo} and @qq{chords} depending on when and how
 the parts merged into a common voice.   The voices output from
-@code{\\partcombine} can have their layout properties adjusted in the
-usual way.  Here we define extensions of @code{\\partcombine} to make
+@code{\\partCombine} can have their layout properties adjusted in the
+usual way.  Here we define extensions of @code{\\partCombine} to make
 it easier to put four voices on a staff.
 
 soprano = @{ d'4 | cis'  b  e'  d'8 cis' | cis'2 b @} alto = @{ fis4 |
@@ -28,11 +28,11 @@ fis b,2 @}
   \\clef alto
   \\partial 4
   \\transpose b b'
-  \\partcombineUp \\soprano \\alto
-  \\partcombineDown \\tenor \\bass >>
+  \\partCombineUp \\soprano \\alto
+  \\partCombineDown \\tenor \\bass >>
 
 "
-  doctitle = "Two \\partcombine pairs on one staff"
+  doctitle = "Two \\partCombine pairs on one staff"
 } % begin verbatim
 
 \layout {
@@ -48,7 +48,7 @@ fis b,2 @}
   }
 }
 
-partcombineUp =
+partCombineUp =
 #(define-music-function (partOne partTwo)
   (ly:music? ly:music?)
 "Take the music in @var{partOne} and @var{partTwo} and return
@@ -62,11 +62,11 @@ in the output to use upward stems."
     \context Voice = "two" { \voiceThree }
     \context Voice = "shared" { \voiceOne }
     \context Voice = "solo" { \voiceOne }
-    \partcombine #partOne #partTwo
+    \partCombine #partOne #partTwo
   >>
 #})
 
-partcombineDown = #
+partCombineDown = #
 (define-music-function (partOne partTwo)
   (ly:music? ly:music?)
 "Take the music in @var{partOne} and @var{partTwo} and return
@@ -82,7 +82,7 @@ in the output to use downward stems."
     \context Voice ="two" { \voiceTwo }
     \context Voice ="shared" { \voiceFour }
     \context Voice ="solo" { \voiceFour }
-    \partcombine #partOne #partTwo
+    \partCombine #partOne #partTwo
   >>
 #})
 
@@ -96,6 +96,6 @@ bass = { fis8 gis | a4 gis g fis | eis fis b,2 }
   \clef alto
   \partial 4
   \transpose b b'
-  \partcombineUp \soprano \alto
-  \partcombineDown \tenor \bass
+  \partCombineUp \soprano \alto
+  \partCombineDown \tenor \bass
 >>

@@ -4,7 +4,7 @@
 %%%
 %%% Nicolas Sceaux <nicolas.sceaux@free.fr>
 
-\version "2.19.2"
+\version "2.21.0"
 \include "sesto.ily"
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -30,7 +30,7 @@
       \new PianoStaff <<
         \new Staff <<
           \global \clef treble
-          \partcombine \keepWithTag #'reduction \violinoI \keepWithTag #'reduction \violinoII
+          \partCombine \keepWithTag #'reduction \violinoI \keepWithTag #'reduction \violinoII
         >>
         \new Staff <<
           \global \clef bass \bassi
