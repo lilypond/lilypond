@@ -20,16 +20,10 @@ demonstrates how to achieve such a notation.
 } % begin verbatim
 
 upline =
-#(let ((m (make-articulation "stopped")))
-   (set! (ly:music-property m 'tweaks)
-         (acons 'font-size 3
-                (acons 'stencil (lambda (grob)
-                                  (grob-interpret-markup
-                                   grob
-                                   (make-draw-line-markup '(0 . 1))))
-                       (ly:music-property m 'tweaks))))
-   m)
-
+\tweak stencil
+  #(lambda (grob)
+    (grob-interpret-markup grob #{ \markup \draw-line #'(0 . 1) #}))
+  \stopped
 
 \relative c' {
   a'4^\upline a( c d')_\upline

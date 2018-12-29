@@ -26,15 +26,4 @@ marks, but from the letter or number desired.
   c1 \mark \default
   c1 \mark \default
   c1
-  \break
-  \set Score.markFormatter = #format-mark-numbers
-  c1 \mark #1
-  c1 \mark \default
-  c1 \mark \default
-  c1 \mark \default
-  c1 \mark #14
-  c1 \mark \default
-  c1 \mark \default
-  c1 \mark \default
-  c1
 }

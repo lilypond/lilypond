@@ -12,9 +12,9 @@
   texidoc = "
 Accordion register symbols are available as @code{\\markup} as well as
 as standalone music events (as register changes tend to occur between
-actual music events.  Bass registers are not overly standardized.  The
-available commands can be found in 'Accordion Registers' in the
-Notation Reference.
+actual music events).  Bass registers are not overly standardized.  The
+available commands can be found in 'Discant symbols' in the Notation
+Reference.
 
 "
   doctitle = "Accordion register symbols"

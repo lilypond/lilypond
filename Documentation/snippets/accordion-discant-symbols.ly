@@ -11,8 +11,8 @@
 
   texidoc = "
 This snippet has been obsoleted by predefined markup commands, see
-'Accordion Registers' in the Notation Reference.  It's still useful as
-a simple demonstration of how to combine symbols: the placement of the
+'Discant symbols' in the Notation Reference.  It's still useful as a
+simple demonstration of how to combine symbols: the placement of the
 symbols added with @code{\\markup} can be tweaked by changing the
 @code{\\translate-scaled} arguments.  @code{\\translate-scaled} is used
 here rather than @code{\\translate} in order to let the positioning of

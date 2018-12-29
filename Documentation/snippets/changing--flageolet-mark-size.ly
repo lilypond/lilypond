@@ -7,22 +7,16 @@
 \version "2.18.0"
 
 \header {
-  lsrtags = "expressive-marks, scheme-language, specific-notation, symbols-and-glyphs, unfretted-strings"
+  lsrtags = "expressive-marks, specific-notation, symbols-and-glyphs"
 
   texidoc = "
-To make the @code{\\flageolet} circle smaller use the following Scheme
-function.
+To make the @code{\\flageolet} circle smaller use the following tweak.
 
 "
   doctitle = "Changing \\flageolet mark size"
 } % begin verbatim
 
-smallFlageolet =
-#(let ((m (make-articulation "flageolet")))
-   (set! (ly:music-property m 'tweaks)
-         (acons 'font-size -3
-                (ly:music-property m 'tweaks)))
-   m)
+smallFlageolet = \tweak font-size -3 \flageolet
 
 \layout { ragged-right = ##f }
 

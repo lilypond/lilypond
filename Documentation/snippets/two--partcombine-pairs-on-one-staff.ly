@@ -48,7 +48,7 @@ fis b,2 @}
   }
 }
 
-partCombineUp =
+partcombineUp =
 #(define-music-function (partOne partTwo)
   (ly:music? ly:music?)
 "Take the music in @var{partOne} and @var{partTwo} and return
@@ -66,7 +66,7 @@ in the output to use upward stems."
   >>
 #})
 
-partCombineDown = #
+partcombineDown = #
 (define-music-function (partOne partTwo)
   (ly:music? ly:music?)
 "Take the music in @var{partOne} and @var{partTwo} and return

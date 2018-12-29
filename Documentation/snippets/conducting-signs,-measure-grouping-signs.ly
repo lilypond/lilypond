@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.19.40"
+\version "2.20.0"
 
 \header {
   lsrtags = "rhythms"

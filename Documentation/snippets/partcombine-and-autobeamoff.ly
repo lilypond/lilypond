@@ -27,7 +27,7 @@ staff.
 stem down single, stem up combined.
 
 
-An @code{\\autoBeamOff} call in the first argument to partCombine will
+An @code{\\autoBeamOff} call in the first argument to partcombine will
 apply to the voice that is active at the time the call is processed,
 either stem up single or stem up combined. An @code{\\autoBeamOff} call
 in the second argument will apply to the voice that is stem down single.
@@ -41,7 +41,7 @@ with @code{\\partCombine}, it will be necessary to use three calls to
 
 
 "
-  doctitle = "PartCombine and autoBeamOff"
+  doctitle = "Partcombine and autoBeamOff"
 } % begin verbatim
 
 {

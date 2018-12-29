@@ -7,20 +7,19 @@
 \version "2.18.0"
 
 \header {
-  lsrtags = "chords"
+  lsrtags = "pitches, tweaks-and-overrides"
 
   texidoc = "
-When put together, chord names, a melody, and lyrics form a lead sheet:
+The following example shows how to force a natural sign before an
+accidental.
 
 "
-  doctitle = "Simple lead sheet"
+  doctitle = "Force a cancellation natural before accidentals"
 } % begin verbatim
 
-<<
-  \chords { c2 g:sus4 f e }
-  \new Staff \relative c'' {
-    a4 e c8 e r4
-    b2 c4( d)
-  }
-  \addlyrics { One day this shall be free __ }
->>
+\relative c' {
+  \key es \major
+  bes c des
+  \tweak Accidental.restore-first ##t
+  eis
+}

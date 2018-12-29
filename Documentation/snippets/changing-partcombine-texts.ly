@@ -14,7 +14,7 @@ When using the automatic part combining feature, the printed text for
 the solo and unison sections may be changed:
 
 "
-  doctitle = "Changing partCombine texts"
+  doctitle = "Changing partcombine texts"
 } % begin verbatim
 
 \new Staff <<

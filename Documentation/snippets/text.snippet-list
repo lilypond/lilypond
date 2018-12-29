@@ -18,7 +18,7 @@ embedding-native-postscript-in-a--markup-block.ly
 formatting-lyrics-syllables.ly
 how-to-put-ties-between-syllables-in-lyrics.ly
 lyrics-alignment.ly
-markup-lines.ly
+markup-list.ly
 multi-measure-rest-markup.ly
 ottava-text.ly
 outputting-the-version-number.ly

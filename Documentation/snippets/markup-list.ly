@@ -10,11 +10,11 @@
   lsrtags = "text"
 
   texidoc = "
-Text that can spread over pages is entered with the
-@code{\\markuplines} command.
+Text that can spread over pages is entered with the @code{\\markuplist}
+command.
 
 "
-  doctitle = "Markup lines"
+  doctitle = "Markup list"
 } % begin verbatim
 
 %% updated/modified by P.P.Schneider on Feb. 2014

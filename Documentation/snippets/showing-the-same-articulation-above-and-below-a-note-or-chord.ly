@@ -29,12 +29,7 @@ The direction will always be above, but one can tweak this via a
 } % begin verbatim
 
 % The same as \flageolet, just a little smaller
-smallFlageolet =
-#(let ((m (make-articulation "flageolet")))
-   (set! (ly:music-property m 'tweaks)
-         (acons 'font-size -2
-                (ly:music-property m 'tweaks)))
-   m)
+smallFlageolet = \tweak font-size #-2 \flageolet
 
 \relative c' {
   s4^"Wrong:"

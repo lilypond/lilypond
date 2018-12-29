@@ -27,6 +27,7 @@ staves. The possibilities are @code{SystemStartBar},
 
 \new StaffGroup
 \relative c'' <<
+  \override StaffGroup.SystemStartSquare.collapse-height = #4
   \set StaffGroup.systemStartDelimiterHierarchy
     = #'(SystemStartSquare (SystemStartBrace (SystemStartBracket a
                              (SystemStartSquare b)  ) c ) d)
