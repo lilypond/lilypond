@@ -1257,7 +1257,10 @@ independently of the value used for typeset output.
 Footnotes may be used in many different situations.  In all cases,
 a @q{footnote mark} is placed as a reference in text or music, and
 the corresponding @q{footnote text} appears at the bottom of the
-same page.
+same page, separated from the music by a horizontal line.
+The appearance of this separator can be changed by setting the paper
+variable @code{footnote-separator-markup}, see @ref{Miscellaneous
+paper variables}.
 
 Footnotes within music expressions and footnotes in stand-alone text
 outside music expressions are created in different ways.

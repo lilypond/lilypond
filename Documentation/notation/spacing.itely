@@ -1075,11 +1075,19 @@ sensible default, for example:
 }
 @end lilypond
 
+@item footnote-separator-markup
+@funindex footnote-separator-markup
+
+A markup object that is inserted above the footnote texts at the
+bottom of the page.  Default: a centered horizontal line, defined in
+@file{ly/paper-defaults-init.ly}.
+
 @end table
 
 @seealso
 Installed Files:
-@file{ly/titling-init.ly}.
+@file{ly/titling-init.ly},
+@file{ly/paper-defaults-init.ly}.
 
 Snippets:
 @rlsr{Spacing}.
