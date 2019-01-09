@@ -97,10 +97,10 @@ bind def
 
 /draw_round_box % width height x y blot
 {
-    0 max setlinewidth
+    dup 0 lt { pop 0 } if setlinewidth
     matrix currentmatrix 5 1 roll
     currentpoint translate newpath translate
-    2 copy 0 min exch 0 min exch translate
+    2 copy dup 0 gt { pop 0 } if exch dup 0 gt { pop 0 } if exch translate
     abs exch abs exch
     currentlinewidth 0 eq
     { % straight corners
