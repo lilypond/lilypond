@@ -607,7 +607,6 @@ messages into errors.")
     "define-markup-commands.scm"
     "stencil.scm"
     "modal-transforms.scm"
-    "chord-generic-names.scm"
     "chord-ignatzek-names.scm"
     "music-functions.scm"
     "part-combiner.scm"

@@ -43,8 +43,12 @@
 @node Chord name chart
 @appendixsec Chord name chart
 
-The following chart shows two standard systems for printing chord
-names, along with the pitches they represent.
+The following chart shows LilyPond’s standard system for printing chord
+names, along with the pitches they represent.  Additional (unsupported)
+naming systems are also demonstrated in the @qq{Chord names alternative}
+snippet in @rlsr{Chords}, including the notation inspired
+by Harald Banter (1982) that was used by default in early LilyPond
+releases (up to version 1.7).
 
 @c The line width is a hack to allow space for instrument names
 @lilypondfile[quote,line-width=15\cm]{chord-names-jazz.ly}
@@ -476,10 +480,10 @@ Perfect fifth
 @tab
 @code{1.5}
 @tab
-@code{\powerChords c1:5}
+@code{c1:5}
 @tab
 @lilypond[line-width=2.1\cm,noragged-right,notime]
-\chordmode { \powerChords c1:5 }
+\chordmode {c1:5 }
 @end lilypond
 
 @item
@@ -489,10 +493,10 @@ Perfect fifth, @*octave
 @tab
 @code{1.5.8}
 @tab
-@code{\powerChords c1:5.8}
+@code{c1:5.8}
 @tab
 @lilypond[line-width=2.1\cm,noragged-right,notime]
-  \chordmode { \powerChords c1:5.8 }
+  \chordmode {c1:5.8 }
 @end lilypond
 
 @end multitable

@@ -1800,8 +1800,6 @@ Schnipsel:
 @unnumberedsubsubsec Powerakkorde anzeigen
 @translationof Indicating power chords
 
-@funindex \powerChords
-
 @cindex Powerakkorde
 @cindex Powerchords
 
@@ -1811,16 +1809,17 @@ gesetzt werden:
 @lilypond[quote,ragged-right,verbatim]
 ChordsAndSymbols = {
   \chordmode {
-    \powerChords
     e,,1:5
-    a,,1:5.8
+    a,,:5.8
+    \set TabStaff.restrainOpenStrings = ##t
     \set minimumFret = #8
-    c,1:5
-    f,1:5.8
+    c,:5
+    f,:5.8
   }
-  \set minimumFret = #5
-  <a, e>1
-  <g d' g'>1
+  \set minimumFret = #2
+  \set restrainOpenStrings = ##f
+  <a, e> <a cis' e'>
+  <g d' g'>
 }
 \score {
   <<
@@ -1833,33 +1832,6 @@ ChordsAndSymbols = {
     }
     \new TabStaff {
       \ChordsAndSymbols
-    }
-  >>
-}
-@end lilypond
-
-Powerakkord-Symbole werden automatisch ausgeschaltet, wenn einer der anderen
-normalen Akkord-Modifikatoren verwendet wird:
-
-@lilypond[quote,ragged-right,verbatim]
-mixedChords = \chordmode {
-  c,1
-  \powerChords
-  b,,1:5
-  fis,,1:5.8
-  g,,1:m
-}
-\score {
-  <<
-    \new ChordNames {
-      \mixedChords
-    }
-    \new Staff {
-      \clef "treble_8"
-      \mixedChords
-    }
-    \new TabStaff {
-      \mixedChords
     }
   >>
 }

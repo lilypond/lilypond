@@ -720,8 +720,6 @@ automatically when an output definition (a @code{\\score} or
   chordNoteNamer = #'()
   chordRootNamer = #note-name->markup
   chordPrefixSpacer = #0
-  chordNameExceptionsFull = #fullJazzExceptions
-  chordNameExceptionsPartial = #partialJazzExceptions
   noChordSymbol = #(make-simple-markup "N.C.")
 
   %% tablature:

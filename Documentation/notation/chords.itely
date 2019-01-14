@@ -523,23 +523,22 @@ names and symbols displayed for chord names are customizable.
 
 @cindex jazz chords
 @cindex chords, jazz
+@cindex chords, alternative names
+@cindex alternative chord names
 
 The basic chord name layout is a system for Jazz music, proposed
-by Klaus Ignatzek (see @ressay{Literature list}).  The chord naming
-system can be modified as described below.  An alternate jazz
-chord system has been developed using these modifications.
-The Ignatzek and alternate
-Jazz notation are shown on the chart in @ref{Chord name chart}.
+by Klaus Ignatzek (see @ressay{Literature list}).  (Other chord
+naming systems may be implemented through Scheme functions, as
+demonstrated by the @qq{Chord names alternative} snippet in @rlsr{Chords}.)
+A list of common jazz chords notations may be found on the chart in
+@ref{Chord name chart}.
+@c FIXME: move the chord-names-alternative snippet to a new section. -vv
 
-@c TODO --  Change this so we don't have a non-verbatim example.
-@c  Make short example in docs, then move longer example to
-@c  appendix, where the length of the snippet won't matter.
-
-In addition to the different naming systems, different note names
-are used for the root in different languages.  The predefined
-commands @code{\germanChords}, @code{\semiGermanChords},
-@code{\italianChords} and @code{\frenchChords} set these variables.
-The effect is demonstrated here:
+The default naming system may be tweaked easily in a number
+of ways.  To begin with, predefined commands allow to use
+different languages for the root pitch.  These include
+@code{\germanChords}, @code{\semiGermanChords},
+@code{\italianChords} and @code{\frenchChords}:
 
 @lilypondfile[ragged-right]{chord-names-languages.ly}
 
@@ -557,8 +556,7 @@ without any @var{m} suffix.  This can be obtained by setting the
 }
 @end lilypond
 
-If none of the existing settings give the desired output, the chord
-name display can be tuned through the following properties.
+The chord name display can also be tuned through the following properties.
 
 @table @code
 

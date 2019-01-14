@@ -61,6 +61,17 @@ which scares away people.
 
 @end ignore
 
+
+@item
+Legacy chord naming functions @code{banter-chord-names} and @code{jazz-chord-names},
+have been removed from the main codebase,  as have been the properties
+@code{chordNamesExceptionsFull} and @code{chordNamesExceptionsPartial}.
+As part of that rewrite, power chords are now included in the default
+exceptions; they will be printed correctly (with a superscript like all other
+chords) with no additional tweaks required, thereby removing the need for the
+@code{\\powerChords} predefined command.  Anyone interested in the legacy functions
+may found a (somewhat working) copy of them in the @file{chord-names-alternative.ly} snippet.
+
 @item
 The @code{\\partcombine} command, as well as all @code{partCombine}-prefixed
 commands, subroutines and property names, are now written with a capital C,

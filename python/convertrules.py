@@ -3935,7 +3935,9 @@ matchscmarg = (r'(?:[a-zA-Z_][-a-zA-Z_0-9]*|"(?:[^\\"]|\\.)*"|[-+]?[0-9.]+|\('
 
 @rule ((2, 21, 0), r"""\note #"4." -> \note {4.}
 \markup-command #" -> \markup-command "
-\partcombine* -> \partCombine, \autochange -> \autoChange""")
+\partcombine* -> \partCombine, \autochange -> \autoChange
+remove \\powerChords, deprecate banter-chord-names and jazz-chord-names
+""")
 def conv (str):
     def repl1ly (m):
         if m.group (2)[0] in "blm":
@@ -3974,7 +3976,12 @@ def conv (str):
     str = re.sub (r"\\partcombine(Force|Up|Down|Chords|Apart|Unisono|SoloI|SoloII|Automatic|)\b",
                   r"\\partCombine\1", str)
     str = re.sub (r"\\autochange", r"\\autoChange", str)
+    str = re.sub (r'\\powerChords', '', str)
+    if re.search (r"#[banter|jazz]-chord-names", str):
+        stderr_write (NOT_SMART % "alternative chord naming functions")
+        stderr_write (UPDATE_MANUALLY)
     return str
+
 
 # Guidelines to write rules (please keep this at the end of this file)
 #

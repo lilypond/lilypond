@@ -1660,7 +1660,7 @@ chordkind_dict = {
     #'German': '???',
         # Other:
     #'pedal': '???',(pedal-point bass)
-    'power': r'\powerChords {}:1.5',
+    'power': r'{}:1.5',
     #'Tristan': '???',
     'other': r'{}:1',
     'none': None,

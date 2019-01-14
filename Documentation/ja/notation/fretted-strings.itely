@@ -1782,8 +1782,6 @@ LilyPond は、符頭を三角形に変更することで、@c
 @unnumberedsubsubsec パワー コードの指示
 @translationof Indicating power chords
 
-@funindex \powerChords
-
 @cindex power chords (パワー コード)
 @cindex chords, power (パワー コード)
 
@@ -1793,16 +1791,17 @@ LilyPond は、符頭を三角形に変更することで、@c
 @lilypond[quote,ragged-right,verbatim]
 ChordsAndSymbols = {
   \chordmode {
-    \powerChords
     e,,1:5
-    a,,1:5.8
+    a,,:5.8
+    \set TabStaff.restrainOpenStrings = ##t
     \set minimumFret = #8
-    c,1:5
-    f,1:5.8
+    c,:5
+    f,:5.8
   }
-  \set minimumFret = #5
-  <a, e>1
-  <g d' g'>1
+  \set minimumFret = #2
+  \set restrainOpenStrings = ##f
+  <a, e> <a cis' e'>
+  <g d' g'>
 }
 \score {
   <<
@@ -1815,33 +1814,6 @@ ChordsAndSymbols = {
     }
     \new TabStaff {
       \ChordsAndSymbols
-    }
-  >>
-}
-@end lilypond
-
-パワー コードのシンボルは、@c
-他の一般的な和音修飾子が使用されると自動的に Off になります:
-
-@lilypond[quote,ragged-right,verbatim]
-mixedChords = \chordmode {
-  c,1
-  \powerChords
-  b,,1:5
-  fis,,1:5.8
-  g,,1:m
-}
-\score {
-  <<
-    \new ChordNames {
-      \mixedChords
-    }
-    \new Staff {
-      \clef "treble_8"
-      \mixedChords
-    }
-    \new TabStaff {
-      \mixedChords
     }
   >>
 }

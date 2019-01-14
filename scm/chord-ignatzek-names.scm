@@ -20,8 +20,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; jazz-part 2
-;;
 ;; after Klaus Ignatzek,   Die Jazzmethode fuer Klavier 1.
 ;;
 ;; The idea is: split chords into
@@ -65,10 +63,20 @@
             t
             (cons (car ps) t)))))
 
+(define (conditional-kern-before markup bool amount)
+  "Add AMOUNT of space before MARKUP if BOOL is true."
+  (if bool
+      (make-line-markup
+       (list (make-hspace-markup amount)
+             markup))
+      markup))
 
-(define-public (ignatzek-chord-names
-                in-pitches bass inversion
-                context)
+;;; TODO: reimplement alternative chord-naming functions.
+;;; Early pre-1.7.20 LilyPond versions had `Banter’ style,
+;;; `American’ style (later renamed as jazz-chord-names)
+;;; German style and possibly others. -vv
+
+(define-public (ignatzek-chord-names in-pitches bass inversion context)
 
   (define (remove-uptil-step x ps)
     "Copy PS, but leave out everything below the Xth step."
