@@ -240,33 +240,6 @@ contemporary notation techniques
 @emph{Mentors:} @emph{NN,} Urs Liska
 
 
-@subsubheading Extending scholarly editing features
-
-The @uref{https://github.com/openlilylib/scholarly, scholarLY}
-extension package provides a powerful infrastructure for scholarly
-editions. With this package it is possible to encode annotations,
-to export them for critical reports, or to produce editorial
-highlighting in the score (e.g. dashing, parenthesizing etc.),
-footnotes etc.
-
-As a GSoC project substantial enhancements can be made to the
-package. Our suggestion is an infrastructure to encode
-@emph{variants} (alternative readings, corrections, regularizations),
-as outlined in
-@uref{https://github.com/openlilylib/scholarly/issues/61, this issue}.
-It could naturally be extended by the ability to produce music examples
-from annotations, to be used in footnotes or reports.
-
-@emph{Difficulty:} medium
-
-@emph{Requirements:} Scheme, ability to assess an extensive existing
-package
-
-@emph{Recommended:} familiarity with scholarly editing
-
-@emph{Mentors:} Jeffery Shivers, Urs Liska
-
-
 @subsubheading  Implement a System to Handle Scores System by System
 
 One strategy that may improve the issue of LilyPond's compilation time is
