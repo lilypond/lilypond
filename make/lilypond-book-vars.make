@@ -40,7 +40,7 @@ OUT_DOCBOOK_FILES = ${DOCBOOK_FILES:%.lyxml=$(outdir)/%.pdf}
 else
 OUT_DOCBOOK_FILES = ${DOCBOOK_FILES:%.lyxml=$(outdir)/%.xml}
 endif
-ifeq ($(PDFLATEX),xelatex)
+ifneq (,$(findstring xelatex,$(notdir $(PDFLATEX))))
 DBLATEX_BACKEND = -b xetex
 else
 DBLATEX_BACKEND =
