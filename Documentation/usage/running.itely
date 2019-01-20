@@ -73,9 +73,9 @@ When invoked with a filename that has no extension, the @file{.ly}
 extension is tried first.  To read input from stdin, use a
 dash (@code{-}) for @var{file}.
 
-When @file{filename.ly} is processed it produces @file{filename.ps}
-and @file{filename.pdf} as output.  Several files can be specified;
-they are each processed independently.  @footnote{The status of
+When @file{filename.ly} is processed it produces
+@file{filename.pdf} as output by default.  Several files can be specified;
+they are each processed independently.@footnote{The status of
 GUILE is not reset after processing a @file{.ly} file, so be careful
 not to change any system defaults from within Scheme.}
 
@@ -111,13 +111,11 @@ lilypond *.ly
 @noindent
 processes all LilyPond files in the current directory.
 
-Redirecting the console output (e.g. to a file) may also be useful:
+Redirecting the console output (e.g., to a file) may also be useful:
 
 @example
 lilypond file.ly 1> stdout.txt
-
 lilypond file.ly 2> stderr.txt
-
 lilypond file.ly &> all.txt
 @end example
 
@@ -125,7 +123,7 @@ lilypond file.ly &> all.txt
 The above commands divert @q{normal} output, @q{errors} only, or @q{everything},
 respectively, to text files.  Consult the documentation for your
 particular shell, Command (Windows), Terminal or Console
-applications (MacOS X) to see if output redirection is supported or if
+applications (MacOS X) to check whether output redirection is supported or if
 the syntax is different.
 
 The following example searches and processes all input files in the
@@ -430,7 +428,7 @@ Generate PostScript.  This option is equivalent to @code{-fps}.
 
 @item @code{--png}
 Generate pictures of each page, in PNG format.  This option is
-equivalent to @code{-fpng}; it implies @option{--ps}.
+equivalent to @code{-fpng}.
 
 The resolution of the image may be set to @var{N}@tie{}DPI with
 @example
@@ -442,7 +440,6 @@ The resolution of the image may be set to @var{N}@tie{}DPI with
 
 @item @code{--pdf}
 Generate PDF.  This is the default, being equivalent to @code{-fpdf}.
-It implies @option{--ps}.
 
 @item @code{-s}, @code{--silent}
 Show no progress, only error messages.  This is equivalent to
@@ -539,6 +536,10 @@ This is the default setting.  PostScript files include
 TTF, Type1, and OTF fonts.  No @q{subsetting} of
 these fonts is done.  Be aware that using @q{oriental} character sets
 like Japanese can lead to very large file sizes.
+
+For PDF output, the @code{ps} backend is used, too; the resulting
+PS data is post-processed by Ghostscript's @code{ps2pdf} script,
+which also does font subsetting by default.
 
 @item eps
 Used as the default by the @command{lilypond-book} command.  This dumps
@@ -714,7 +715,7 @@ Default: @code{1024}.
 
 @item @code{midi-extension} @var{string}
 Set the default file extension for MIDI output files to
-@code{string}.
+@file{.@var{string}}.
 Default: @code{"midi"}.
 
 @item @code{music-strings-to-paths} @var{bool}
@@ -773,7 +774,7 @@ and print a stack trace.
 Default: @code{#t}.
 
 @item @code{read-file-list} @var{string}
-Use file @var{string} that contains a list of input files to be
+Use file @file{@var{string}} that contains a list of input files to be
 processed.
 Default: @code{#f} (meaning no input list file).
 
