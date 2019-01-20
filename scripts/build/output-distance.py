@@ -644,6 +644,7 @@ class SignatureFileLink (FileLink):
             out_dir = dest_dir + '/' + dir
             mkdir (out_dir)
 
+            cur_dir = os.getcwd ()
             os.chdir (dir)
 
             for f in glob.glob (base):
@@ -672,7 +673,7 @@ class SignatureFileLink (FileLink):
                 files_created[oldnew].append (outfile)
                 system (cmd)
 
-            os.chdir ('..')
+            os.chdir (cur_dir)
 
         return files_created
 
