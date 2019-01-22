@@ -644,7 +644,10 @@ class SignatureFileLink (FileLink):
             out_dir = dest_dir + '/' + dir
             mkdir (out_dir)
 
+            abs_dir = os.path.abspath (dir)
             cur_dir = os.getcwd ()
+
+            print 'entering directory', abs_dir
             os.chdir (dir)
 
             for f in glob.glob (base):
@@ -673,6 +676,7 @@ class SignatureFileLink (FileLink):
                 files_created[oldnew].append (outfile)
                 system (cmd)
 
+            print 'leaving directory', abs_dir
             os.chdir (cur_dir)
 
         return files_created
@@ -893,7 +897,8 @@ class ComparisonData:
             self.missing += [(dir1, m) for m in m1]
             self.added += [(dir2, m) for m in m2]
 
-            for p in paired:
+            # we sort the file names for easier debugging
+            for p in sorted (paired):
                 if (options.max_count
                     and len (self.file_links) > options.max_count):
                     continue
