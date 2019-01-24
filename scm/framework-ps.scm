@@ -293,8 +293,7 @@
 
     (define (ps-load-file file-name)
       (if (string? file-name)
-          (if (and (not (ly:get-option 'font-export-dir))
-                   (string-contains file-name (ly:get-option 'datadir)))
+          (if (string-contains file-name (ly:get-option 'datadir))
               (begin
                 (set! file-name (ly:string-substitute (ly:get-option 'datadir)
                                                       "" file-name))
