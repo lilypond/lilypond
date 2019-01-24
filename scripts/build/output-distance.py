@@ -655,7 +655,7 @@ class SignatureFileLink (FileLink):
                 data_option = ''
                 if options.local_data_dir:
                     data_option = ('-slilypond-datadir=%s/share/lilypond/current '
-                                   % dir)
+                                   % abs_dir)
 
                 cmd = ('gs'
                        ' -sDEVICE=png16m'
