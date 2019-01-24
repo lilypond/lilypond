@@ -509,9 +509,19 @@
           (let ((port (open-file filename "wb")))
             (close port-excl)
             (ly:debug (_ "Exporting font file `~a'.") filename)
+            (if (or (ly:get-option 'gs-load-fonts)
+                    (ly:get-option 'gs-load-lily-fonts))
+                (begin
+                  (display "%%BeginProlog\n" port)
+                  (format port
+"/lilypond-datadir where {pop} {userdict /lilypond-datadir (~a) put } ifelse\n"
+                          (ly:get-option 'datadir))))
             (format port "%%BeginFont: ~a\n" name)
             (display body port)
             (display "%%EndFont\n" port)
+            (if (or (ly:get-option 'gs-load-fonts)
+                    (ly:get-option 'gs-load-lily-fonts))
+                (display "%%EndProlog\n" port))
             (close-port port)))))
 
   (display "%%BeginProlog\n" port)
