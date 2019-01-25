@@ -32,7 +32,7 @@
 @c Translation checkers: Luca Rossetto Casel
 
 @copying
-Copyright @copyright{} 2003--2015 degli autori.
+Copyright @copyright{} 2003--2019 degli autori.
 
 @quotation
 Permission is granted to copy, distribute and/or modify this

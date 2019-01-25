@@ -28,7 +28,7 @@ bugs have been introduced.
 }
 
 %%%% Legacy chord naming functions (formerly in scm/chord-generic-names.scm)
-%%%% Copyright (C) 2003--2015 Jan Nieuwenhuizen <janneke@gnu.org>
+%%%% Copyright (C) 2003--2019 Jan Nieuwenhuizen <janneke@gnu.org>
 
 
 #(define-public (banter-chordnames pitches bass inversion context)

@@ -2,7 +2,7 @@
 !#
 ;;;; lilypond-invoke-editor.scm -- Invoke an editor in file:line:column mode
 
-;;;; Copyright (C) 2005--2015 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;; Copyright (C) 2005--2019 Jan Nieuwenhuizen <janneke@gnu.org>
 
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;

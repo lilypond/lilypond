@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2013--2015 Aleksandr Andreev <aleksandr.andreev@gmail.com>
+  Copyright (C) 2013--2019 Aleksandr Andreev <aleksandr.andreev@gmail.com>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by

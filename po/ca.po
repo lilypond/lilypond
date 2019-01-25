@@ -1,5 +1,5 @@
 # Translation of LilyPond.
-# Copyright (C) 1998--2012 Han-Wen Nienhuys, Jan Nieuwenhuizen
+# Copyright (C) 1998--2019 Han-Wen Nienhuys, Jan Nieuwenhuizen
 # This file is distributed under the same license as the lilypond package.
 # Walter Garcia-Fontes <walter.garcia@upf.edu>, 2013-2016.
 # Suggeriments de traducció:
@@ -1579,7 +1579,7 @@ msgstr ""
 #: musicxml2ly.py:2759
 #, python-format
 msgid ""
-"Copyright (c) 2005--2016 by\n"
+"Copyright (c) 2005--2019 by\n"
 "    Han-Wen Nienhuys <hanwen@xs4all.nl>,\n"
 "    Jan Nieuwenhuizen <janneke@gnu.org> and\n"
 "    Reinhold Kainhofer <reinhold@kainhofer.com>\n"
@@ -1590,7 +1590,7 @@ msgid ""
 "under certain conditions.  Invoke as `%s --warranty' for more\n"
 "information."
 msgstr ""
-"Copyright (c) 2005--2016 per\n"
+"Copyright (c) 2005--2019 per\n"
 "    Han-Wen Nienhuys <hanwen@xs4all.nl>,\n"
 "    Jan Nieuwenhuizen <janneke@gnu.org> i\n"
 "    Reinhold Kainhofer <reinhold@kainhofer.com>\n"
@@ -4244,12 +4244,12 @@ msgstr ""
 "sols s'han proveït ~a etiquetes de trast"
 
 #~ msgid ""
-#~ "Copyright (c) 2005--2015 by\n"
+#~ "Copyright (c) 2005--2019 by\n"
 #~ "    Han-Wen Nienhuys <hanwen@xs4all.nl>,\n"
 #~ "    Jan Nieuwenhuizen <janneke@gnu.org> and\n"
 #~ "    Reinhold Kainhofer <reinhold@kainhofer.com>\n"
 #~ msgstr ""
-#~ "Copyright (c) 2005--2015 per\n"
+#~ "Copyright (c) 2005--2019 per\n"
 #~ "    Han-Wen Nienhuys <hanwen@xs4all.nl>,\n"
 #~ "    Jan Nieuwenhuizen <janneke@gnu.org> i\n"
 #~ "    Reinhold Kainhofer <reinhold@kainhofer.com>\n"

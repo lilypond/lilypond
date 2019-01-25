@@ -1,5 +1,5 @@
 # Translation of LilyPond
-# Copyright (C) 1998--2015 Han-Wen Nienhuys, Jan Nieuwenhuizen.
+# Copyright (C) 1998--2019 Han-Wen Nienhuys, Jan Nieuwenhuizen.
 # This file is distributed under the same license as the LilyPond package.
 # Martin Norbäck <d95mback@dtek.chalmers.se>, 2001, 2002, 2003.
 # Josef Andersson <l10nl18nsweja@gmail.com>, 2017.
@@ -1570,7 +1570,7 @@ msgstr ""
 #: musicxml2ly.py:2759
 #, python-format
 msgid ""
-"Copyright (c) 2005--2016 by\n"
+"Copyright (c) 2005--2019 by\n"
 "    Han-Wen Nienhuys <hanwen@xs4all.nl>,\n"
 "    Jan Nieuwenhuizen <janneke@gnu.org> and\n"
 "    Reinhold Kainhofer <reinhold@kainhofer.com>\n"
@@ -1581,7 +1581,7 @@ msgid ""
 "under certain conditions.  Invoke as `%s --warranty' for more\n"
 "information."
 msgstr ""
-"Copyright (c) 2005--2016 av\n"
+"Copyright (c) 2005--2019 av\n"
 "    Han-Wen Nienhuys <hanwen@xs4all.nl>,\n"
 "    Jan Nieuwenhuizen <janneke@gnu.org> and\n"
 "    Reinhold Kainhofer <reinhold@kainhofer.com>\n"
