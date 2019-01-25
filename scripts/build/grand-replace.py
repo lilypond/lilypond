@@ -49,6 +49,7 @@ copied_files = [
     'txi-fr.tex',
     'txi-hu.tex',
     'txi-it.tex',
+    'txi-ja.tex',
     'txi-nl.tex',
     ]
 
