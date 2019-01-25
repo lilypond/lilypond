@@ -1,5 +1,5 @@
 # Esperanto translation of LilyPond.
-# Copyright (C) 2015, 2016, 2017 Free Software Foundation, Inc.
+# Copyright (C) 2015--2019 Free Software Foundation, Inc.
 # This file is distributed under the same license as the lilypond package.
 # Felipe Castro <fefcas@gmail.com>, 2012, 2013, 2015, 2016, 2017.
 #

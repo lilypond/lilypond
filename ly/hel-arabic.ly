@@ -1,7 +1,9 @@
 %%  This file is part of LilyPond, the GNU music typesetter.
 %%  This file can replace arabic.ly for people wanting to use c d e f g a b
 %%  instead of do re mi fa sol la si
-%%  Copyright (C) 2014 Hassan EL FATIHI <hassan.elfatihi@free.fr>
+%
+%
+%%  Copyright (C) 2014--2019 Hassan EL FATIHI <hassan.elfatihi@free.fr>
 %%
 %%  LilyPond is free software: you can redistribute it and/or modify
 %%  it under the terms of the GNU General Public License as published by

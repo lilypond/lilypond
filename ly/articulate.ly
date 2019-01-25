@@ -1,5 +1,5 @@
 %
-% Copyright (C) 2008, 2009, 2010, 2011 NICTA
+% Copyright (C) 2008--2019 NICTA
 % Author: Peter Chubb <peter.chubb AT nicta.com.au>
 % $Id: articulate.ly,v 1.7 2011-03-24 00:40:00 peterc Exp $
 %

@@ -1,6 +1,6 @@
 # GNU LilyPond's Italian language file.
 # This file is distributed under the same license as the lilypond package.
-# Copyright (C) 1998 Free Software Foundation, Inc.
+# Copyright (C) 1998--2019 Free Software Foundation, Inc.
 #
 # Tineke de Munnik <jantien@xs4all.nl>, 1998.
 # Maurizio Umberto Puxeddu <umbpux@tin.it>, 1999

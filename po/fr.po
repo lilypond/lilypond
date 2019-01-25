@@ -1,7 +1,7 @@
 # Translation of 'lilypond' messages to French.
 # This file is distributed under the same license as the lilypond package.
 # French translation of GNU/lilypond - http//lilypond.org
-# Copyright © 2004 Free Software Foundation, Inc.
+# Copyright (C) 2004--2019 Free Software Foundation, Inc.
 # Michel Robitaille <robitail@IRO.UMontreal.CA>, 1996-2007.
 # Jean-Charles Malahieude <lilyfan@orange.fr>, 2007-2015
 #

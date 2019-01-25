@@ -1,5 +1,5 @@
 # translation of lilypond-2.3.21.tr.po to Turkish
-# Copyright (C) 2004, 2005 Free Software Foundation, Inc.
+# Copyright (C) 2004--2019 Free Software Foundation, Inc.
 # This file is distributed under the same license as the lilypond package.
 # Aysun Kıran <aysunkir@yahoo.com>, 2004.
 #

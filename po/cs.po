@@ -1,5 +1,5 @@
 # Czech translation of GNU LilyPond.
-# Copyright (C) 2002 Free Software Foundation, Inc.
+# Copyright (C) 2002--2019 Free Software Foundation, Inc.
 # This file is distributed under the same license as the lilypond package.
 #
 # Tomáš Kopeček <xkopec14@stud.fit.vutbr.cz>, 2002.

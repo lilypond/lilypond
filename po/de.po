@@ -1,5 +1,5 @@
 # German Translation of lilypond.
-# Copyright (C) 2013 Han-Wen Nienhuys, Jan Nieuwenhuizen
+# Copyright (C) 2013--2019 Han-Wen Nienhuys, Jan Nieuwenhuizen
 # This file is distributed under the same license as the lilypond package.
 # Erwin Dieterich <bamse@gmx.de>, 1999
 # Roland Stigge <stigge@antcom.de>, 2003, 2004, 2005, 2006, 2007

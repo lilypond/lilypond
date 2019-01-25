@@ -1,5 +1,5 @@
 # Danish translation of lilypond
-# Copyright (C) 2017 Free Software Foundation, Inc.
+# Copyright (C) 2017--2019 Free Software Foundation, Inc.
 # This file is distributed under the same license as the lilypond package.
 # Keld Simonsen <keld@dkuug.dk>, 2001-2002.
 # Reviewed 2001-09-28 Rune Zedeler <rz@daimi.au.dk>
