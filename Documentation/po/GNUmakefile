@@ -19,6 +19,7 @@ messages: $(outdir)/messages
 
 $(outdir)/messages: $(MO_FILES)
 	for i in $(CATALOGS); do \
+	  rm -rf $(doc-localedir)/$$i/LC_MESSAGES; \
 	  mkdir -p $(doc-localedir)/$$i/LC_MESSAGES; \
 	  $(LN) $(outdir)/$$i.mo $(doc-localedir)/$$i/LC_MESSAGES/$(DOMAIN).mo; \
 	done
