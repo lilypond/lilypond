@@ -72,7 +72,7 @@ TEXI2PDF_WEB_VERSION_FLAGS += -D web_version
 endif
 
 $(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/%.pdf.omf $(outdir)/weblinks.itexi | $(OUT_TEXINFO_MANUALS)
-	PDFTEX=$(PDFTEX) PDFLATEX=$(PDFLATEX) \
+	TEX=$(PDFTEX) PDFTEX=$(PDFTEX) PDFLATEX=$(PDFLATEX) \
 		$(buildscript-dir)/run-and-check \
 			"cd $(outdir); \
 				texi2pdf $(TEXI2PDF_FLAGS) \
