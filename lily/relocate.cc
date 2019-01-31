@@ -46,15 +46,19 @@
 #define FRAMEWORKDIR ".."
 
 int
-sane_putenv (char const *key, const string &value, bool overwrite)
+sane_putenv (char const *key,
+             const string &value,
+             bool overwrite,
+             bool indent)
 {
+  const char *space = indent ? "  " : "";
+
   if (overwrite || !getenv (key))
     {
       string combine = string (key) + "=" + value;
       char *s = strdup (combine.c_str ());
 
-      debug_output (_f ("Setting %s to %s", key, value.c_str ())
-                    + "\n");
+      debug_output (_f ("%sSetting %s to '%s'\n", space, key, value));
 
       int retval = putenv (s);
       /*
@@ -64,7 +68,7 @@ sane_putenv (char const *key, const string &value, bool overwrite)
       return retval;
     }
   else
-    debug_output (_f ("%s not overwritten\n", key));
+    debug_output (_f ("%s%s not overwritten\n", space, key));
 
   return -1;
 }
