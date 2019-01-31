@@ -116,7 +116,7 @@ prefix_relocation (const string &prefix)
   string bindir = prefix + "/bin";
   string datadir = prefix + "/share";
   string localedir = datadir + "/locale";
-  string package_datadir = datadir + "/lilypond/";
+  string package_datadir = datadir + "/lilypond";
   string old_lilypond_datadir = lilypond_datadir;
 
   if (is_dir (package_datadir + "/" + TOPLEVEL_VERSION))
@@ -151,7 +151,7 @@ framework_relocation (const string &prefix)
 
   sane_putenv ("INSTALLER_PREFIX", prefix, true, true);
 
-  read_relocation_dir (prefix + "/etc/relocate/");
+  read_relocation_dir (prefix + "/etc/relocate");
 
   string bindir = prefix + "/bin";
 
