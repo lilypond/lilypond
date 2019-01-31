@@ -79,8 +79,7 @@ set_env_file (char const *key, const string &value, bool overwrite = false)
   if (is_file (value))
     return sane_putenv (key, value, overwrite);
   else if (is_loglevel (LOG_DEBUG))
-    // this warning should only be printed in debug mode!
-    warning (_f ("no such file: %s for %s", value, key));
+    warning (_f ("No such file '%s' for %s", value, key));
   return -1;
 }
 
@@ -90,8 +89,7 @@ set_env_dir (char const *key, const string &value)
   if (is_dir (value))
     return sane_putenv (key, value, false);
   else if (is_loglevel (LOG_DEBUG))
-    // this warning should only be printed in debug mode!
-    warning (_f ("no such directory: %s for %s", value, key));
+    warning (_f ("No such directory '%s' for %s", value, key));
   return -1;
 }
 
@@ -100,16 +98,15 @@ prepend_env_path (char const *key, string value)
 {
   if (is_dir (value))
     {
-      debug_output (_f ("%s=%s (prepend)\n", key, value.c_str ()), false);
+      debug_output (_f ("  Prepending '%s' to %s\n", value, key));
 
       if (char const *cur = getenv (key))
         value += to_string (PATHSEP) + cur;
 
-      return sane_putenv (key, value.c_str (), true);
+      return sane_putenv (key, value.c_str (), true, true);
     }
   else if (is_loglevel (LOG_DEBUG))
-    // this warning should only be printed in debug mode
-    warning (_f ("no such directory: %s for %s", value, key));
+    warning (_f ("No such directory '%s' for %s", value, key));
   return -1;
 }
 
@@ -127,8 +124,8 @@ prefix_relocation (const string &prefix)
   else if (is_dir (package_datadir + "/current"))
     lilypond_datadir = package_datadir + "/current";
   else
-    warning (_f ("not relocating, no %s/ or current/ found under %s",
-                 TOPLEVEL_VERSION, package_datadir.c_str ()));
+    warning (_f ("Not relocating: no '%s/' or 'current/' found under '%s'",
+                 TOPLEVEL_VERSION, package_datadir));
 
 #if HAVE_GETTEXT
   if (is_dir (localedir))
@@ -137,9 +134,10 @@ prefix_relocation (const string &prefix)
 
   prepend_env_path ("PATH", bindir);
 
-  debug_output (_f ("Relocation: compile datadir=%s, new datadir=%s",
-                    old_lilypond_datadir.c_str (),
-                    lilypond_datadir.c_str ()));
+  debug_output (_f ("  Compiled-in datadir '%s'\n"
+                    "  New datadir '%s'\n",
+                    old_lilypond_datadir,
+                    lilypond_datadir));
 }
 
 /*
@@ -149,9 +147,9 @@ prefix_relocation (const string &prefix)
 static void
 framework_relocation (const string &prefix)
 {
-  debug_output (_f ("Relocation: framework_prefix=%s", prefix));
+  debug_output (_f ("  Framework prefix '%s'", prefix));
 
-  sane_putenv ("INSTALLER_PREFIX", prefix, true);
+  sane_putenv ("INSTALLER_PREFIX", prefix, true, true);
 
   read_relocation_dir (prefix + "/etc/relocate/");
 
@@ -168,18 +166,26 @@ setup_paths (char const *argv0_ptr)
 {
   File_name argv0_filename (argv0_ptr);
 
+  debug_output (_ ("\n"
+                   "Relocation\n"
+                   "\n"));
+
   string prefix_directory;
   string argv0_abs;
   if (argv0_filename.is_absolute ())
     {
       argv0_abs = argv0_filename.to_string ();
-      debug_output (_f ("Relocation: is absolute: argv0=%s\n", argv0_ptr));
+      debug_output (_f ("  LilyPond binary has absolute file name:\n"
+                        "    %s\n",
+                        argv0_ptr));
     }
   else if (argv0_filename.dir_.length ())
     {
       argv0_abs = get_working_directory ()
                   + "/" + string (argv0_filename.to_string ());
-      debug_output (_f ("Relocation : from cwd: argv0=%s\n", argv0_ptr));
+      debug_output (_f ("  LilyPond binary has relative file name:\n"
+                        "    %s\n",
+                        argv0_ptr));
     }
   else
     {
@@ -197,8 +203,10 @@ setup_paths (char const *argv0_ptr)
       argv0_abs = path.find (argv0_filename.to_string (), ext);
 #endif /* __MINGW32__ */
 
-      debug_output (_f ("Relocation: from PATH=%s\nargv0=%s\n",
-                        path.to_string ().c_str (), argv0_ptr), true);
+      debug_output (_f ("  Absolute file name of LilyPond binary computed from PATH:\n"
+                        "    PATH=%s\n"
+                        "    argv0=%s\n",
+                        path.to_string (), argv0_ptr));
 
       if (argv0_abs.empty ())
         programming_error ("cannot find absolute argv0");
@@ -228,6 +236,9 @@ setup_paths (char const *argv0_ptr)
     {
       /* Normalize file name.  */
       lilypond_datadir = File_name (env).to_string ();
+      debug_output (_f ("  Found LILYPOND_DATADIR environment variable,\n"
+                        "    setting datadir to '%s'\n",
+                        lilypond_datadir));
     }
 
   string build_datadir_current = dir_name (lilypond_datadir) + "/current";
@@ -344,11 +355,11 @@ read_line (FILE *f)
 void
 read_relocation_file (const string &filename)
 {
-  debug_output (_f ("Relocation file: %s", filename.c_str ()) + "\n");
+  debug_output (_f ("  Relocation file '%s'\n", filename));
   char const *cname = filename.c_str ();
   FILE *f = fopen (cname, "r");
   if (!f)
-    error (_f ("cannot open file: `%s'", cname));
+    error (_f ("cannot open file '%s', ignored", cname));
 
   while (!feof (f))
     {
@@ -370,9 +381,9 @@ read_relocation_file (const string &filename)
       value = expand_environment_variables (value);
 
       if (command == "set")
-        sane_putenv (variable.c_str (), value, true);
+        sane_putenv (variable.c_str (), value, true, true);
       else if (command == "set?")
-        sane_putenv (variable.c_str (), value, false);
+        sane_putenv (variable.c_str (), value, false, true);
       else if (command == "setdir")
         set_env_dir (variable.c_str (), value);
       else if (command == "setfile")
@@ -380,7 +391,7 @@ read_relocation_file (const string &filename)
       else if (command == "prependdir")
         prepend_env_path (variable.c_str (), value);
       else
-        error (_f ("Unknown relocation command %s", command));
+        error (_f ("Unknown relocation command '%s'", command));
     }
 
   fclose (f);
@@ -390,10 +401,18 @@ void
 read_relocation_dir (const string &dirname)
 {
   if (DIR *dir = opendir (dirname.c_str ()))
-    while (struct dirent *ent = readdir (dir))
-      {
-        File_name name (ent->d_name);
-        if (name.ext_ == "reloc")
-          read_relocation_file (dirname + "/" + name.to_string ());
-      }
+    {
+      if (is_loglevel (LOG_DEBUG))
+        debug_output (_f ("\n"
+                          "  Using relocation config directory '%s'\n",
+                          dirname));
+      while (struct dirent *ent = readdir (dir))
+        {
+          File_name name (ent->d_name);
+          if (name.ext_ == "reloc")
+            read_relocation_file (dirname + "/" + name.to_string ());
+        }
+    }
+  else if (is_loglevel (LOG_DEBUG))
+    warning (_f ("No relocation config directory '%s'", dirname));
 }

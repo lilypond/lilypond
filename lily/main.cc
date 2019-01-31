@@ -250,7 +250,9 @@ dir_info (FILE *out)
   env_var_info (out, "LILYPOND_DATADIR");
   fprintf (out, "LOCALEDIR=\"%s\"\n", LOCALEDIR);
 
-  fprintf (out, "\nEffective prefix: \"%s\"\n", lilypond_datadir.c_str ());
+  fprintf (out, _f ("\n"
+                    "Effective prefix: '%s'\n",
+                    lilypond_datadir).c_str ());
 
   env_var_info (out, "FONTCONFIG_FILE");
   env_var_info (out, "FONTCONFIG_PATH");
@@ -260,6 +262,7 @@ dir_info (FILE *out)
   env_var_info (out, "PANGO_RC_FILE");
   env_var_info (out, "PANGO_PREFIX");
   env_var_info (out, "PATH");
+  fputs ("\n", out);
 }
 
 static void
