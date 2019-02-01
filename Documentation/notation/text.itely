@@ -17,10 +17,6 @@
 This section explains how to include text (with various
 formatting) in music scores.
 
-@noindent
-Some text elements that are not dealt with here are discussed in other
-specific sections: @ref{Vocal music}, @ref{Titles and headers}.
-
 @menu
 * Writing text::
 * Formatting text::
@@ -39,11 +35,159 @@ the LilyPond file.  The file must be saved as UTF-8.  For more
 information, see @ref{Text encoding}.}
 
 @menu
+* Text objects overview::
 * Text scripts::
 * Text spanners::
 * Text marks::
 * Separate text::
 @end menu
+
+
+@node Text objects overview
+@unnumberedsubsubsec Text objects overview
+
+@funindex \markup
+@cindex text objects
+@cindex markup objects
+@cindex objects, markup
+
+Text objects are entered either as simple strings between
+double quotes, or as @code{\markup} blocks that can accept
+a variety of advanced text formatting and graphical enhancements,
+as detailed in @ref{Formatting text}.
+
+As such, markup blocks may be used:
+@itemize
+@item
+in any @code{TextScript} object (attached to notes with
+@code{-}, @code{^} or@tie{}@code{_}); see @ref{Text scripts};
+
+@item
+as @q{spanners}, when some indications are prolonged over
+several beats or bars; see @ref{Text spanners};
+
+@item
+in any mark printed above the score, such as
+@code{RehearsalMark} or @code{MetronomeMark} objects respectively
+introduced with the @code{\mark} or @code{\tempo} keywords;
+see @ref{Text marks};
+
+@item
+as standalone markup blocks, entered at the top level
+outside of any @code{\score} block (in this specific case the
+@code{\markup@tie{}@{...@}} command is mandatory, and cannot be
+omitted in favor of a simple text string between double quotes);
+see @ref{Separate text};
+
+@item
+in any definition inside the @code{\header} block (e.g.,
+@code{title}, @code{subtitle}, @code{composer}), or in specific
+elements defined inside the @code{\paper} block such as
+@code{evenHeaderMarkup} for page numbers.  This is explained in
+@ref{Titles and headers}.
+@end itemize
+
+Many other text-based objects may be entered as markup blocks,
+even if that is not their primary use.
+@itemize
+@item
+Fingerings may easily be replaced with markup blocks, if
+introduced with the @code{\finger} command; see
+@ref{Fingering instructions}.
+
+@item
+Lyric syllables may be formatted through the @code{\markup}
+command; see @ref{Common notation for vocal music}.
+
+@item
+Chord names are in fact defined as markup blocks, and therefore
+may be redefined in the same way for customizing chord modifiers
+or chord exceptions; see @ref{Displaying chords}.
+
+@item
+Dynamics are usually entered in a simple way; however it is possible
+to define @ref{New dynamic marks} as markup objects.  Some dynamics
+such as @emph{crescendo} are printed as spanners and may be redefined
+through properties such as @code{crescendoText}; see
+@ref{Dynamics}.
+
+@item
+Less common objects are also made of markup blocks, such as
+@ref{Balloon help} indications.
+@end itemize
+
+In fact, it is possible to use @code{\markup} to customize the appearance of
+virtually any graphical object (or @q{grob}), by overriding either its
+@code{text} property if it has one, or its @code{stencil} property.  Some of
+the logic that makes this a possibility is explained in
+@ressay{Flexible architecture}.
+
+The following example illustrates the ubiquity of markup blocks, not only
+as some of the objects listed above, but also by replacing musical
+objects with text objects through various methods.
+
+@lilypond[quote, verbatim,line-width=4\in]
+\header { title = \markup "Header" }
+
+dyn =
+#(make-dynamic-script #{ \markup \text "DynamicText" #})
+
+\markup \box "Top-level markup"
+
+\score {
+  <<
+    \new ChordNames
+    \with {
+      majorSevenSymbol = \markup "majorSevenSymbol"
+    }
+    \chordmode { c1:maj7 }
+    \new Staff {
+      \tempo \markup "MetronomeMark"
+      \mark \markup \smaller "RehearsalMark"
+      \once \override TupletNumber.text =
+        \markup "TupletNumber"
+      \tuplet 3/2 {
+        \once \override NoteHead.stencil =
+          #ly:text-interface::print
+        \once \override NoteHead.text =
+          \markup \lower #0.5 "NoteHead"
+        c''8^\markup \italic "TextScript"
+        a'\finger \markup \text "Fingering"
+        \once \override Rest.stencil =
+          #(lambda (grob)
+             (grob-interpret-markup grob #{
+               \markup  "Rest"
+               #}))
+        r
+      }
+    }
+    \new Lyrics \lyricmode {
+      \markup \smallCaps "LyricText" 1
+    }
+    \new Dynamics { s1\dyn }
+  >>
+}
+@end lilypond
+
+@seealso
+Notation Reference:
+@ref{Formatting text},
+@ref{Text scripts},
+@ref{Text spanners},
+@ref{Text marks},
+@ref{Separate text},
+@ref{Fingering instructions},
+@ref{Common notation for vocal music},
+@ref{Displaying chords},
+@ref{New dynamic marks},
+@ref{Dynamics},
+@ref{Balloon help}.
+
+Essay on automated music engraving:
+@ressay{Flexible architecture}.
+
+Snippets:
+@rlsr{Text}.
 
 
 @node Text scripts
@@ -410,7 +554,8 @@ using the @code{\markup} mode specific syntax.
 @funindex \markup
 
 A @code{\markup} block is used to typeset text with an extensible
-syntax called @qq{markup mode}.
+syntax called @qq{markup mode}.  Such blocks may be used anywhere,
+as explained in @ref{Text objects overview}.
 
 @cindex markup expressions
 @cindex expressions, markup
@@ -493,10 +638,16 @@ allegro = \markup { \bold \large Allegro }
 @noindent
 An exhaustive list of @code{\markup}-specific commands can be found in
 @ref{Text markup commands}.
+The inner workings of these commands, and how to implement new ones, is
+explained in @rextend{Markup functions}.
 
 @seealso
 Notation Reference:
+@ref{Text objects overview},
 @ref{Text markup commands}.
+
+Extending LilyPond:
+@rextend{Markup functions}.
 
 Snippets:
 @rlsr{Text}.
