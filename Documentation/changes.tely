@@ -63,6 +63,10 @@ which scares away people.
 
 
 @item
+Some ukulele fretboard-diagrams have been fixed, and new
+diagrams have also been added.
+ 
+@item
 Legacy chord naming functions @code{banter-chord-names} and @code{jazz-chord-names},
 have been removed from the main codebase,  as have been the properties
 @code{chordNamesExceptionsFull} and @code{chordNamesExceptionsPartial}.
