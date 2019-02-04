@@ -209,7 +209,7 @@ public:
       }
 
     Factory::Instance ().Report ();
-    return Factory::Instance ().Fail ();
+    return static_cast<int> (Factory::Instance ().Fail ());
   }
 };
 
