@@ -99,13 +99,16 @@ string
 File_name::dir_part () const
 {
   string s;
+
   if (!root_.empty ())
     s = root_ + ::to_string (ROOTSEP);
 
+  // handle special case of `/'
+  if (dir_.empty () && is_absolute_)
+    s += ::to_string (DIRSEP);
+
   if (!dir_.empty ())
-    {
-      s += dir_;
-    }
+    s += dir_;
 
   return s;
 }
@@ -113,10 +116,11 @@ File_name::dir_part () const
 string
 File_name::file_part () const
 {
-  string s;
-  s = base_;
+  string s = base_;
+
   if (!ext_.empty ())
     s += ::to_string (EXTSEP) + ext_;
+
   return s;
 }
 
@@ -128,9 +132,7 @@ File_name::to_string () const
 
   if (!f.empty ()
       && !dir_.empty ())
-    {
-      d += ::to_string (DIRSEP);
-    }
+    d += ::to_string (DIRSEP);
 
   return d + f;
 }
@@ -147,6 +149,10 @@ File_name::File_name (string file_name)
       root_ = file_name.substr (0, i);
       file_name = file_name.substr (i + 1);
     }
+
+  // note: `c:foo' is not absolute
+  i = file_name.find (DIRSEP);
+  is_absolute_ = (i == 0 ? true : false);
 
   i = file_name.rfind (DIRSEP);
   if (i != NPOS)
@@ -168,10 +174,7 @@ File_name::File_name (string file_name)
 bool
 File_name::is_absolute () const
 {
-  /*
-    Hmm. Is c:foo absolute?
-   */
-  return (dir_.length () && dir_[0] == DIRSEP) || root_.length ();
+  return is_absolute_;
 }
 
 File_name

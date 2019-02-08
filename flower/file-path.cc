@@ -119,23 +119,36 @@ File_path::find (const string &name) const
 
   /* Handle absolute file name.  */
   File_name file_name (name);
-  if (file_name.dir_[0] == DIRSEP && is_file (file_name.to_string ()))
-    return file_name.to_string ();
+  if (file_name.is_absolute ())
+    {
+      if (is_file (file_name.to_string ()))
+        return file_name.to_string ();
+      else
+        return "";
+    }
 
   for (vsize i = 0; i < dirs_.size (); i++)
     {
       File_name file_name (name);
       File_name dir = (string) dirs_[i];
+
+      // update `file_name' to hold `dir' and `file_name' concatenated
       file_name.root_ = dir.root_;
       dir.root_ = "";
+
+      file_name.is_absolute_ = dir.is_absolute_;
+      dir.is_absolute_ = false;
+
       if (file_name.dir_.empty ())
         file_name.dir_ = dir.to_string ();
       else if (!dir.to_string ().empty ())
         file_name.dir_ = dir.to_string ()
                          + ::to_string (DIRSEP) + file_name.dir_;
+
       if (is_file (file_name.to_string ()))
         return file_name.to_string ();
     }
+
   return "";
 }
 

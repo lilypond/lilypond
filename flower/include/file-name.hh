@@ -26,6 +26,21 @@
 std::string dir_name (const std::string &file_name);
 std::string get_working_directory ();
 
+// Split file name
+//
+//   C:/foo/bar/baz.xy
+//
+// as follows:
+//
+//   root_        = "C"
+//   dir_         = "/foo/bar"
+//   base_        = "baz"
+//   ext_         = "xy"
+//   is_absolute_ = true
+//
+// In other words, the trailing root, directory, and extension separators
+// are removed.
+//
 class File_name
 {
 public:
@@ -33,6 +48,7 @@ public:
   string dir_;
   string base_;
   string ext_;
+  bool is_absolute_;
 
   File_name (string = "");
 
