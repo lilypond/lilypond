@@ -63,6 +63,17 @@ which scares away people.
 
 
 @item
+Chords may now be automatically inverted or voiced with dropped notes.
+@lilypond[verbatim,quote]
+\chordmode {
+  \dropNote 2 {
+    c2:maj7 d:m7
+  }
+  \invertChords 1 d1:maj7
+}
+@end lilypond
+
+@item
 Some ukulele fretboard-diagrams have been fixed, and new
 diagrams have also been added.
  

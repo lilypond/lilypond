@@ -397,6 +397,12 @@ displayScheme =
    expr)
 
 
+dropNote =
+#(define-music-function (num music) (integer? ly:music?)
+   (_i "Drop a note of any chords in @var{music}, in @var{num}
+position from above.")
+   (music-map (move-chord-note (- num) DOWN) music))
+
 
 endSpanners =
 #(define-music-function (music) (ly:music?)
@@ -589,6 +595,21 @@ instrumentSwitch =
                        instrument-def))
       'Staff)))
 
+inversion =
+#(define-music-function
+   (around to music) (ly:pitch? ly:pitch? ly:music?)
+   (_i "Invert @var{music} about @var{around} and
+transpose from @var{around} to @var{to}.")
+   (music-invert around to music))
+
+invertChords =
+#(define-music-function (num music) (integer? ly:music?)
+   (_i "Invert any chords in @var{music} into their @var{num}-th position.
+(Chord inversions may be directed downwards using negative integers.)")
+   (let loop ((num num) (music music))
+     (cond ((zero? num) music)
+       ((negative? num) (loop (1+ num) (dropNote 1 music)))
+       (else (loop (1- num) (raiseNote 1 music))))))
 
 
 keepWithTag =
@@ -804,34 +825,9 @@ makeClusters =
    (_i "Display chords in @var{arg} as clusters.")
    (music-map note-to-cluster arg))
 
-modalInversion =
-#(define-music-function (around to scale music)
-    (ly:pitch? ly:pitch? ly:music? ly:music?)
-    (_i "Invert @var{music} about @var{around} using @var{scale} and
-transpose from @var{around} to @var{to}.")
-    (let ((inverter (make-modal-inverter around to scale)))
-      (change-pitches music inverter)
-      music))
-
-modalTranspose =
-#(define-music-function (from to scale music)
-    (ly:pitch? ly:pitch? ly:music? ly:music?)
-    (_i "Transpose @var{music} from pitch @var{from} to pitch @var{to}
-using @var{scale}.")
-    (let ((transposer (make-modal-transposer from to scale)))
-      (change-pitches music transposer)
-      music))
-
-inversion =
-#(define-music-function
-   (around to music) (ly:pitch? ly:pitch? ly:music?)
-   (_i "Invert @var{music} about @var{around} and
-transpose from @var{around} to @var{to}.")
-   (music-invert around to music))
-
 mark =
 #(define-music-function (label) ((integer-or-markup?))
-   "Make the music for the \\mark command."
+   (_i "Make the music for the \\mark command.")
    (if label
        (make-music 'MarkEvent 'label label)
        (make-music 'MarkEvent)))
@@ -867,12 +863,30 @@ For example,
           music)))
    music)
 
+modalInversion =
+#(define-music-function (around to scale music)
+    (ly:pitch? ly:pitch? ly:music? ly:music?)
+    (_i "Invert @var{music} about @var{around} using @var{scale} and
+transpose from @var{around} to @var{to}.")
+    (let ((inverter (make-modal-inverter around to scale)))
+      (change-pitches music inverter)
+      music))
+
+modalTranspose =
+#(define-music-function (from to scale music)
+    (ly:pitch? ly:pitch? ly:music? ly:music?)
+    (_i "Transpose @var{music} from pitch @var{from} to pitch @var{to}
+using @var{scale}.")
+    (let ((transposer (make-modal-transposer from to scale)))
+      (change-pitches music transposer)
+      music))
+
 musicMap =
 #(define-music-function (proc mus) (procedure? ly:music?)
    (_i "Apply @var{proc} to @var{mus} and all of the music it contains.")
    (music-map proc mus))
 
-%% noPageBreak and noPageTurn are music functions (not music indentifiers),
+%% noPageBreak and noPageTurn are music functions (not music identifiers),
 %% because music identifiers are not allowed at top-level.
 noPageBreak =
 #(define-music-function () ()
@@ -1506,6 +1520,12 @@ usually contains spacers or multi-measure rests.")
    (make-music 'QuoteMusic
                'element main-music
                'quoted-music-name what))
+
+raiseNote =
+#(define-music-function (parser location num music) (integer? ly:music?)
+   (_i "Raise a note of any chords in @var{music}, in @var{num}
+position from below.")
+   (music-map (move-chord-note (1- num) UP) music))
 
 reduceChords =
 #(define-music-function (music) (ly:music?)

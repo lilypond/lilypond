@@ -38,6 +38,7 @@ structure, rather than the chord pitches.
 * Chord mode overview::
 * Common chords::
 * Extended and altered chords::
+* Chord inversions and specific voicings::
 @end menu
 
 @node Chord mode overview
@@ -336,11 +337,10 @@ namely @code{5.4}.
 @end lilypond
 
 @funindex /
-@cindex chord inversions
 @cindex bass note, for chords
 
-Inversions (putting a pitch other than the root on the bottom of the
-chord) and added bass notes can be specified by appending
+Added bass notes (putting a pitch other than the root
+on the bottom of the chord) can be specified by appending
 @code{/}@var{pitch} to the chord.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -351,8 +351,11 @@ chord) and added bass notes can be specified by appending
 
 @funindex /+
 
-A bass note that is part of the chord can be added, instead of
-moved as part of an inversion, by using @code{/+}@var{pitch}.
+If the added pitch is already part of the chord, this may be
+used to print chord inversions, in which case the pitch is
+not added but merely moved to the bottom of the chord.
+It may however be treated as an added note (and thus printed
+twice), by using the syntax @code{/+}@var{pitch}.
 
 @lilypond[quote,ragged-right,verbatim]
 \chordmode {
@@ -360,12 +363,16 @@ moved as part of an inversion, by using @code{/+}@var{pitch}.
 }
 @end lilypond
 
+Automatic chord inversions and voicings are demonstrated in
+@ref{Chord inversions and specific voicings}.
+
 Chord modifiers that can be used to produce a variety of
 standard chords are shown in
 @ref{Common chord modifiers}.
 
 @seealso
 Notation Reference:
+@ref{Chord inversions and specific voicings},
 @ref{Common chord modifiers}.
 
 Snippets:
@@ -379,6 +386,45 @@ interpreted last.
 @lilypond[quote,ragged-right,verbatim]
 \chordmode { c1:3.5.5-.5+ }
 @end lilypond
+
+
+@node Chord inversions and specific voicings
+@unnumberedsubsubsec Chord inversions and specific voicings
+
+@cindex chord inversions
+@cindex chord voicings
+@funindex \invertChords
+@funindex \dropNote
+@funindex \raiseNote
+
+In addition to chord modifiers and added bass notes, various
+functions may be used to automatically print chords in a
+specific inversion or voicing -- for example the so-called
+@q{drop@tie{}2} voicing commonly used in jazz music.
+
+@lilypond[quote,verbatim]
+\chordmode {
+  \dropNote 2 {
+    c2:maj7 d:m7
+  }
+  \invertChords 1 d1:maj7
+}
+@end lilypond
+
+Unlike added bass notes shown in @ref{Extended and altered chords},
+this only affects the way chords are printed on a staff,
+and not chord names written with letters.  Furthermore, these
+functions may be used not only in chord mode but also
+with @code{<...>} chords constructs explained in
+@ref{Chorded notes}.
+
+@seealso
+Notation Reference:
+@ref{Extended and altered chords},
+@ref{Chorded notes}.
+
+Snippets:
+@rlsr{Chords}.
 
 
 @node Displaying chords

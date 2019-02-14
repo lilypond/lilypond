@@ -289,8 +289,8 @@ Typically used to construct a scale for input to
   music)
 
 (define-public (pitch-invert around to music)
-  "If @var{music} is a single pitch, inverts it about @var{around}
-and transposes from @var{around} to @var{to}."
+  (_i "If @var{music} is a single pitch, inverts it about @var{around}
+and transposes from @var{around} to @var{to}.")
   (let ((p (ly:music-property music 'pitch)))
     (if (ly:pitch? p)
         (ly:music-set-property!
@@ -299,5 +299,39 @@ and transposes from @var{around} to @var{to}."
     music))
 
 (define-public (music-invert around to music)
-  "Applies pitch-invert to all pitches in @var{music}."
+  (_i "Applies pitch-invert to all pitches in @var{music}.")
   (music-map (lambda (x) (pitch-invert around to x)) music))
+
+
+;; ---------- Transform chord voicings ------------------------
+
+(define-public (move-chord-note n direction)
+  (_i "Transpose a note (numbered as @var{n}) in @var{direction}.
+@var{n} is zero-based and can be negative to count from the end.")
+  (lambda (music)
+    (if (music-is-of-type? music 'event-chord)
+        (let* ((elts (extract-typed-music music 'note-event))
+               (l (length elts))
+               ;; if direction is up, count from the bottom note upward,
+               ;; if direction is down, count from the top note downward.
+               (count-from (if (negative? n) (+ l n) n))
+               ;; Notes may not have been entered from bottom to top;
+               ;; sort them depending on their pitch.
+               (notes (sort-list elts
+                        (lambda (a b)
+                          (ly:pitch<?
+                           (ly:music-property a 'pitch)
+                           (ly:music-property b 'pitch))))))
+          (if (< -1 count-from l)
+              (let* ((note (list-ref notes count-from))
+                     (oct (ly:music-property note 'octavation 0))
+                     (chord-limit (car (if (negative? direction)
+                                           notes (reverse notes))))
+                     (octs (ly:pitch-octave
+                            (ly:pitch-diff
+                             (ly:music-property chord-limit 'pitch)
+                             (ly:music-property note 'pitch)))))
+                (if (positive? direction) (set! octs (1+ octs)))
+                (ly:music-transpose note (ly:make-pitch octs 0))
+                (set! (ly:music-property note 'octavation) (+ oct octs))))))
+    music))
