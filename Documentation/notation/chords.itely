@@ -391,6 +391,7 @@ interpreted last.
 @node Chord inversions and specific voicings
 @unnumberedsubsubsec Chord inversions and specific voicings
 
+@cindex chords, rotating
 @cindex chord inversions
 @cindex chord voicings
 @funindex \invertChords
