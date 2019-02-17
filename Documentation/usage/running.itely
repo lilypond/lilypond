@@ -56,6 +56,7 @@ if you are unfamiliar with the command-line.
 * Basic command line options for LilyPond::
 * Advanced command line options for LilyPond::
 * Environment variables::
+* Relocation::
 * LilyPond in chroot jail::
 @end menu
 
@@ -897,20 +898,39 @@ Default: @code{#f}.
 
 @cindex LANG
 @cindex LILYPOND_DATADIR
+@cindex LILYPOND_LOCALEDIR
+@cindex LILYPOND_RELOCDIR
+@cindex LILYPOND_LOGLEVEL
 
 @command{lilypond} recognizes the following environment variables:
+
 @table @code
+
 @item LILYPOND_DATADIR
-This specifies a directory where locale messages and
-data files will be looked up by default.  The directory should contain
-subdirectories called @file{ly/}, @file{ps/}, @file{tex/}, etc.
+This specifies a directory where locale messages and data files
+are looked up by default, overriding locations defined either
+at compile-time or computed dynamically at run-time (see
+@ref{Relocation}).  The directory should contain subdirectories
+called @file{ly}, @file{ps}, @file{tex}, etc.
+
+@item LILYPOND_LOCALEDIR
+Specify the directory where locale-specific files are located.
+This overrides the value derived from @code{LILYPOND_DATADIR}.
+
+@item LILYPOND_RELOCDIR
+Specify the directory where relocation files are located.  This
+overrides the value derived from the location of the
+@command{lilypond} binary.
 
 @item LANG
-This selects the language for the warning messages.
+The language for LilyPond data sent to @code{stdout} and
+@code{stderr}, for example progress reports, warning messages, or
+debug output.  Example: @code{LANG=de}.
 
 @item LILYPOND_LOGLEVEL
-The default loglevel. If LilyPond is called without an explicit loglevel
-(i.e. no @option{--loglevel} command line option), this value is used.
+The default loglevel.  If LilyPond is called without an explicit
+loglevel (i.e., no @option{--loglevel} command line option), this
+value is used.
 
 @item LILYPOND_GC_YIELD
 A variable, as a percentage, that tunes memory management
@@ -919,6 +939,152 @@ smaller value means more CPU time is used.  The default value is
 @code{70}.
 
 @end table
+
+
+@node Relocation
+@unnumberedsubsec Relocation
+
+@cindex relocation
+
+Most programs in the Unix world use default directories for its
+data that are determined at configure time before compilation.
+LilyPond is no exception; for example, a typical installation puts
+the @file{lilypond} binary into @file{/usr/@/bin} and all files
+specific to LilyPond into subdirectories of
+@file{/usr/@/share/@/lilypond/@/2.21.0/} (assuming that the
+current version is 2.21.0).
+
+While this approach works fine for manual compilation and
+platforms that come with standardized package managers, it can
+cause issues where such managers are not common or not used by
+default.  Typical examples of such platforms are Windows and
+MacOS, where users expect that application bundles can be
+installed anywhere.
+
+The common solution to this problem is relocation support: Instead
+of using hard-coded paths to data files, locations of the
+necessary support files are computed at run time @emph{relative to
+the executed binary}.
+
+
+@menu
+* Relocation files::
+* Relocation algorithm::
+@end menu
+
+
+@node Relocation files
+@unnumberedsubsubsec Relocation files
+
+There's actually a second mechanism for run-time configuration:
+LilyPond heavily relies on external programs and libraries, in
+particular the @q{FontConfig} and @q{GUILE} libraries to find
+system fonts and handle Scheme files, respectively, and the
+@command{gs} program to convert PS data to PDF files.  All of them
+must be configured also to locate its relevant data files.  To do
+that, the @command{lilypond} program parses all files in a
+directory called @file{relocate} (if it exists; see below where
+this directory is searched for) to manipulate environment
+variables, which in turn control those external libraries and
+programs.  The format of such relocation files is simple; each
+line has the syntax
+
+@example
+@var{command} @var{key}=@var{value}
+@end example
+
+@noindent
+and empty lines get ignored.
+
+The @var{command} directive is one of the following.
+
+@table @code
+
+@item set
+Uncondionally set environment variable @var{key} to @var{value}.
+This overrides a previously set value.
+
+@item set?
+Set environment variable @var{key} to @var{value} only if
+@var{key} isn't defined yet.  In other words, it doesn't override
+a previously set value.
+
+@item setdir
+If @var{value} is a directory, unconditionally set environent
+variable @var{key} to @var{value}.  Otherwise, emit a warning.
+
+@item setfile
+If @var{value} is a file, unconditionally set environent variable
+@var{key} to @var{value}.  Otherwise, emit a warning.
+
+@item prependdir
+Prepend directory @var{value} to the list of directories in
+environment variable @var{key}.  If @var{key} doesn't exist it
+gets created.
+
+@end table
+
+Environment variables (marked with a leading dollar sign) are
+allowed in @var{value} and get expanded before the directive is
+executed.
+
+Here are two examples of relocation file entries, taken from GUB
+(see @rcontrib{Grand Unified Builder (GUB)}).
+
+@example
+set? FONTCONFIG_FILE=$INSTALLER_PREFIX/etc/fonts/fonts.conf
+prependdir GUILE_LOAD_PATH=$INSTALLER_PREFIX/share/guile/1.8
+@end example
+
+Multiple lines setting the same environment variable should be
+avoided in relocation files since the parsing order of files in
+the @file{relocate} directory is arbitrary.
+
+
+@node Relocation algorithm
+@unnumberedsubsubsec Relocation algorithm
+
+LilyPond uses the following algorithm to find its data files.
+
+@enumerate
+
+@item
+Compute the directory where the currently executed
+@command{lilypond} binary is located.  Let's call this
+@code{bindir}.  Set (internal) environment variable
+@code{INSTALLER_PREFIX} to @file{@var{bindir}/..} (i.e., the
+parent directory of @code{bindir}).
+
+@item
+Check environment variable @code{LILYPOND_DATADIR}.  If it is set,
+use its value for LilyPond's data directory, @code{datadir}.
+Otherwise use either
+@file{$INSTALLER_PREFIX/@/share/@/lilypond/@/@var{version}} (with
+@var{version} being the current LilyPond version) or
+@file{$INSTALLER_PREFIX/@/share/@/lilypond/@/current}.
+
+@item
+Check environment variable @code{LILYPOND_LOCALEDIR}.  If it is
+set, use its value for LilyPond's locale data directory,
+@code{localedir}.  Otherwise use
+@file{$INSTALLER_PREFIX/@/share/@/locale}.
+
+@item
+Check environment variable @code{LILYPOND_RELOCDIR}.  If it is
+set, use its value for the directory of LilyPond's relocation
+files, @code{relocdir}.  Otherwise use
+@file{$INSTALLER_PREFIX/@/etc/@/relocate}.
+
+@item
+If @code{datadir} doesn't exist, use a compile-time value instead.
+Ditto for @code{localedir} (but not for @code{relocdir}, since it
+doesn't make sense to have that).
+
+@item
+If @code{relocdir} exists, process all files in this directory as
+described in @ref{Relocation files}.
+
+@end enumerate
 
 
 @node LilyPond in chroot jail
