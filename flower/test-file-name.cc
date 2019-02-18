@@ -35,26 +35,50 @@ TEST_STRING (File_name, Mingw_slashify_4, "\\tmp\\x.ly")
   EQUAL ("/tmp/x.ly", s);
 }
 
-TEST_STRING (File_name, Canonicalize_1, "foo//bar/..//bla//z.ly")
+TEST_STRING (File_name, Canonicalize_1, "foo//bar/./..//bla//z.ly")
 {
   string s = canonicalized ().to_string ();
   EQUAL ("foo/bla/z.ly", s);
 }
 
-TEST_STRING (File_name, Canonicalize_2, "/")
+TEST_STRING (File_name, Canonicalize_2, "./foo")
 {
   string s = canonicalized ().to_string ();
   EQUAL (parameter_one_, s);
 }
 
-TEST_STRING (File_name, Canonicalize_3, "/foo")
+TEST_STRING (File_name, Canonicalize_3, "/")
 {
   string s = canonicalized ().to_string ();
   EQUAL (parameter_one_, s);
 }
 
-TEST_STRING (File_name, Canonicalize_4, "foo/")
+TEST_STRING (File_name, Canonicalize_4, "/foo")
+{
+  string s = canonicalized ().to_string ();
+  EQUAL (parameter_one_, s);
+}
+
+TEST_STRING (File_name, Canonicalize_5, "foo/")
 {
   string s = canonicalized ().to_string ();
   EQUAL ("foo", s);
+}
+
+TEST_STRING (File_name, Canonicalize_6, "foo/./..")
+{
+  string s = canonicalized ().to_string ();
+  EQUAL (".", s);
+}
+
+TEST_STRING (File_name, Canonicalize_7, "../.")
+{
+  string s = canonicalized ().to_string ();
+  EQUAL ("..", s);
+}
+
+TEST_STRING (File_name, Canonicalize_8, "./../")
+{
+  string s = canonicalized ().to_string ();
+  EQUAL ("..", s);
 }

@@ -161,6 +161,15 @@ File_name::File_name (string file_name)
       file_name = file_name.substr (i + 1);
     }
 
+  // handle `.' and `..' specially
+  if (file_name == string (".") || file_name == string (".."))
+    {
+      if (!dir_.empty ())
+        dir_ += DIRSEP;
+      dir_ += file_name;
+      return;
+    }
+
   i = file_name.rfind ('.');
   if (i != NPOS)
     {
@@ -189,8 +198,20 @@ File_name::canonicalized () const
 
   for (vsize i = 0; i < components.size (); i++)
     {
-      if (components[i] == "..")
-        new_components.pop_back ();
+      if (i && components[i] == string ("."))
+        continue;
+      else if (new_components.size () && components[i] == string (".."))
+        {
+          string s = new_components.back ();
+          new_components.pop_back ();
+          if (!new_components.size ())
+            {
+              if (s == string ("."))
+                new_components.push_back ("..");
+              else
+                new_components.push_back (".");
+            }
+        }
       else
         new_components.push_back (components[i]);
     }
