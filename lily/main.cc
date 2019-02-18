@@ -172,8 +172,6 @@ static Long_option_init options_static[]
   {0, 0, 0, 0}
 };
 
-char const *LILYPOND_DATADIR = PACKAGE_DATADIR "/" TOPLEVEL_VERSION;
-
 /* x86 defaults to using 80-bit extended precision arithmetic. This can cause
    problems because the truncation from 80 bits to 64 bits can occur in
    unpredictable places. To get around this, we tell the x87 FPU to use only
@@ -219,10 +217,9 @@ dir_info (FILE *out)
  */
 {
   fputs ("\n", out);
-  fprintf (out, "LILYPOND_DATADIR=\"%s\"\n", LILYPOND_DATADIR);
-  env_var_info (out, "LILYPONDPREFIX");
   env_var_info (out, "LILYPOND_DATADIR");
-  fprintf (out, "LOCALEDIR=\"%s\"\n", LOCALEDIR);
+  env_var_info (out, "LILYPOND_LOCALEDIR");
+  env_var_info (out, "LILYPOND_RELOCDIR");
 
   fprintf (out, _f ("\n"
                     "Effective prefix: '%s'\n",
@@ -555,11 +552,9 @@ setup_localisation ()
   bind_textdomain_codeset ("lilypond", "UTF-8");
 #endif
 
-  string localedir = LOCALEDIR;
-  if (char const *env = getenv ("LILYPOND_LOCALEDIR"))
-    localedir = env;
-
-  bindtextdomain ("lilypond", localedir.c_str ());
+  // we temporarily use the compile-time value for the locale
+  // until we get the final directory location
+  bindtextdomain ("lilypond", LOCALEDIR);
   textdomain ("lilypond");
 #endif
 }

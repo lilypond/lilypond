@@ -110,67 +110,57 @@ prepend_env_path (char const *key, string value)
   return -1;
 }
 
-static void
-prefix_relocation (const string &prefix)
+static string
+set_up_directory (char const *env_name,
+                  char const *id,
+                  string compile_default,
+                  string runtime_default,
+                  string alt_runtime_default = "")
 {
-  string bindir = prefix + "/bin";
-  string datadir = prefix + "/share";
-  string localedir = datadir + "/locale";
-  string package_datadir = datadir + "/lilypond";
-  string old_lilypond_datadir = lilypond_datadir;
+  string dir = "";
 
-  if (is_dir (package_datadir + "/" TOPLEVEL_VERSION))
-    lilypond_datadir = package_datadir + "/" TOPLEVEL_VERSION;
-  else if (is_dir (package_datadir + "/current"))
-    lilypond_datadir = package_datadir + "/current";
-  else
-    warning (_f ("Not relocating: no '%s/' or 'current/' found under '%s'",
-                 TOPLEVEL_VERSION, package_datadir));
+  // check environment variable
+  if (char const *env_value = getenv (env_name))
+    {
+      dir = File_name (env_value).canonicalized ().to_string ();
+      debug_output (_f ("  Found %s environment variable,\n"
+                        "    setting %s to '%s'\n",
+                        env_name, id, dir));
+      return dir;
+    }
 
-#if HAVE_GETTEXT
-  if (is_dir (localedir))
-    bindtextdomain ("lilypond", localedir.c_str ());
-#endif
+  // otherwise check run-time value(s)
+  if (is_dir (runtime_default))
+    dir = runtime_default;
+  else if (is_dir (alt_runtime_default))
+    dir = alt_runtime_default;
 
-  prepend_env_path ("PATH", bindir);
+  if (!dir.empty ())
+    {
+      dir = File_name (dir).canonicalized ().to_string ();
+      debug_output (_f ("  Using run-time value for %s,\n"
+                        "    setting it to '%s'\n",
+                        id, dir));
+      return dir;
+    }
 
-  debug_output (_f ("  Compiled-in datadir '%s'\n"
-                    "  New datadir '%s'\n",
-                    old_lilypond_datadir,
-                    lilypond_datadir));
+  // otherwise fall back to compile-time value
+  dir = File_name (compile_default).canonicalized ().to_string ();
+  debug_output (_f ("  Using compile-time value for %s,\n"
+                    "    setting it to '%s'\n",
+                    id, dir));
+  return dir;
 }
 
-/*
-  UGH : this is a complete mess.
-*/
-
-static void
-framework_relocation (const string &prefix)
-{
-  debug_output (_f ("  Framework prefix '%s'", prefix));
-
-  sane_putenv ("INSTALLER_PREFIX", prefix, true, true);
-
-  read_relocation_dir (prefix + "/etc/relocate");
-
-  string bindir = prefix + "/bin";
-
-  prepend_env_path ("PATH", bindir);
-}
-
-/*
-  UGH : this is a complete mess.
-*/
 void
 setup_paths (char const *argv0_ptr)
 {
   File_name argv0_filename (argv0_ptr);
 
   debug_output (_ ("\n"
-                   "Relocation\n"
-                   "\n"));
+                   "Relocation\n"));
 
-  string prefix_directory;
+  // compute absolute path to LilyPond binary
   string argv0_abs;
   if (argv0_filename.is_absolute ())
     {
@@ -189,7 +179,7 @@ setup_paths (char const *argv0_ptr)
     }
   else
     {
-      /* Find absolute ARGV0 name, using PATH.  */
+      // find absolute ARGV0 name, using PATH
       File_path path;
       char *p = getenv ("PATH");
       if (p)
@@ -197,11 +187,11 @@ setup_paths (char const *argv0_ptr)
 
 #ifndef __MINGW32__
       argv0_abs = path.find (argv0_filename.to_string ());
-#else /* __MINGW32__ */
+#else // __MINGW32__
       path.prepend (get_working_directory ());
       char const *ext[] = {"exe", "", 0 };
       argv0_abs = path.find (argv0_filename.to_string (), ext);
-#endif /* __MINGW32__ */
+#endif // __MINGW32__
 
       debug_output (_f ("  Absolute file name of LilyPond binary computed from PATH:\n"
                         "    PATH=%s\n"
@@ -212,59 +202,49 @@ setup_paths (char const *argv0_ptr)
         programming_error ("cannot find absolute argv0");
     }
 
-  string bindir = dir_name (argv0_abs);
-  string argv0_prefix = dir_name (bindir);
-  string compile_prefix = dir_name (dir_name (dir_name (lilypond_datadir)));
-  if (argv0_prefix != compile_prefix)
-    {
-      prefix_relocation (argv0_prefix);
-      prefix_directory = argv0_prefix;
-    }
-  if (argv0_prefix != compile_prefix || string (FRAMEWORKDIR) != "..")
-    {
-      framework_relocation (bindir + "/" FRAMEWORKDIR);
-      prefix_directory = bindir + "/" FRAMEWORKDIR;
-    }
+  string bindir = File_name (dir_name (argv0_abs)).canonicalized ().to_string ();
+  string prefix = File_name (bindir + "/..").canonicalized ().to_string ();
 
-  lilypond_datadir = prefix_directory
-                     + "/share/lilypond/" TOPLEVEL_VERSION;
+  // set INSTALLER_PREFIX environment variable
+  sane_putenv ("INSTALLER_PREFIX", prefix.c_str (), true, true);
 
+  // get values for LilyPond's data directories
   if (getenv ("LILYPONDPREFIX"))
     error (_ ("LILYPONDPREFIX is obsolete, use LILYPOND_DATADIR"));
 
-  if (char const *env = getenv ("LILYPOND_DATADIR"))
-    {
-      /* Normalize file name.  */
-      lilypond_datadir = File_name (env).to_string ();
-      debug_output (_f ("  Found LILYPOND_DATADIR environment variable,\n"
-                        "    setting datadir to '%s'\n",
-                        lilypond_datadir));
-    }
+  lilypond_datadir = set_up_directory ("LILYPOND_DATADIR",
+                                       "datadir",
+                                       PACKAGE_DATADIR "/" TOPLEVEL_VERSION,
+                                       prefix + "/share/lilypond/" TOPLEVEL_VERSION,
+                                       prefix + "/share/lilypond/current");
+  string localedir = set_up_directory ("LILYPOND_LOCALEDIR",
+                                       "localedir",
+                                       LOCALEDIR,
+                                       prefix + "/share/locale");
+  string relocdir = set_up_directory ("LILYPOND_RELOCDIR",
+                                      "relocdir",
+                                      "", // no compile-time default
+                                      prefix + "/etc/relocate");
 
-  string build_datadir_current = dir_name (lilypond_datadir) + "/current";
-  if (!is_dir (lilypond_datadir.c_str ())
-      && is_dir (build_datadir_current.c_str ()))
-    lilypond_datadir = build_datadir_current;
+#if HAVE_GETTEXT
+  if (is_dir (localedir))
+    bindtextdomain ("lilypond", localedir.c_str ());
+#endif
 
-  lilypond_datadir = File_name (lilypond_datadir).canonicalized ().to_string ();
+  if (is_dir (relocdir))
+    read_relocation_dir (relocdir);
 
+  prepend_env_path ("PATH", bindir);
   global_path.append ("");
 
-  char const *suffixes[] = {"ly", "ps", "scm", 0 };
-
-  vector<string> dirs;
-  for (char const **s = suffixes; *s; s++)
-    {
-      string path = lilypond_datadir + to_string ('/') + string (*s);
-      dirs.push_back (path);
-    }
-
-  dirs.push_back (lilypond_datadir + "/fonts/otf/");
-  dirs.push_back (lilypond_datadir + "/fonts/type1/");
-  dirs.push_back (lilypond_datadir + "/fonts/svg/");
-
-  for (vsize i = 0; i < dirs.size (); i++)
-    global_path.prepend (dirs[i]);
+  // add some datadir subdirectories to LilyPond's global path;
+  // in this list, the last item comes first in the path
+  global_path.prepend (lilypond_datadir + "/fonts/svg/");
+  global_path.prepend (lilypond_datadir + "/fonts/type1/");
+  global_path.prepend (lilypond_datadir + "/fonts/otf/");
+  global_path.prepend (lilypond_datadir + "/scm");
+  global_path.prepend (lilypond_datadir + "/ps");
+  global_path.prepend (lilypond_datadir + "/ly");
 }
 
 string
