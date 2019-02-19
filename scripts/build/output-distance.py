@@ -625,29 +625,55 @@ class SignatureFileLink (FileLink):
 
 
     def create_images (self, dest_dir):
-
         files_created = [[], []]
         for oldnew in (0, 1):
             pat = self.base_names[oldnew] + '.eps'
 
-            for f in glob.glob (pat):
-                infile = f
-                outfile = (dest_dir + '/' + f).replace ('.eps', '.png')
+            # EPS files generated for regression tests don't contain fonts
+            # to save disk space.  Instead, paths to the fonts are stored in
+            # the files that are loaded by Ghostscript's `.loadfont'
+            # operator later on.
+            #
+            # In gub builds, these paths get massaged to be relative to the
+            # location of the particular EPS files.  Since gs doesn't
+            # provide an option to adjust the font lookup paths for
+            # `.loadfont', we enter the directory so that the relative paths
+            # are valid.
+            (dir, base) = os.path.split (pat)
+
+            out_dir = dest_dir + '/' + dir
+            mkdir (out_dir)
+
+            cur_dir = os.getcwd ()
+            os.chdir (dir)
+
+            for f in glob.glob (base):
+                outfile = (out_dir + '/' + f).replace ('.eps', '.png')
                 data_option = ''
                 if options.local_data_dir:
                     data_option = ('-slilypond-datadir=%s/share/lilypond/current '
-                                   % os.path.dirname(infile))
+                                   % dir)
 
-                mkdir (os.path.split (outfile)[0])
-                cmd = ('gs -sDEVICE=png16m -dGraphicsAlphaBits=4 -dTextAlphaBits=4 '
-                       ' %(data_option)s '
-                       ' -r101 '
-                       ' -dAutoRotatePages=/None '
-                       ' -sOutputFile=%(outfile)s -dNOSAFER -dEPSCrop -q -dNOPAUSE '
-                       ' %(infile)s  -c quit ') % locals ()
+                cmd = ('gs'
+                       ' -sDEVICE=png16m'
+                       ' -dGraphicsAlphaBits=4'
+                       ' -dTextAlphaBits=4'
+                       ' %(data_option)s'
+                       ' -r101'
+                       ' -dAutoRotatePages=/None'
+                       ' -dPrinted=false'
+                       ' -sOutputFile=%(outfile)s'
+                       ' -dNOSAFER'
+                       ' -dEPSCrop'
+                       ' -q'
+                       ' -dNOPAUSE'
+                       ' %(f)s'
+                       ' -c quit') % locals ()
 
                 files_created[oldnew].append (outfile)
                 system (cmd)
+
+            os.chdir (cur_dir)
 
         return files_created
 

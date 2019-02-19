@@ -63,6 +63,8 @@ sane_putenv (char const *key, const string &value, bool overwrite)
       */
       return retval;
     }
+  else
+    debug_output (_f ("%s not overwritten\n", key));
 
   return -1;
 }
@@ -371,6 +373,8 @@ read_relocation_file (const string &filename)
 
       if (command == "set")
         sane_putenv (variable.c_str (), value, true);
+      else if (command == "set?")
+        sane_putenv (variable.c_str (), value, false);
       else if (command == "setdir")
         set_env_dir (variable.c_str (), value);
       else if (command == "setfile")
