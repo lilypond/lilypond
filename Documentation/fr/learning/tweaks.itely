@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 0be102e5cfda9ff63694078e6e60abc63d05b991
+   Translation of GIT committish: 0a5306c21d7d64d1ffdadb899c0af79ced2df336
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -276,7 +276,7 @@ expressions de base comme les nombres, chaînes de caractères et listes
 sont gérées en « mode Scheme », mode appelé en faisant précéder une
 valeur par un @samp{#}.  Bien que certaines valeurs puissent disposer
 d'une représentation tout à fait valide dans le mode musical de
-LilyPond, les exemples de ce manuel mentionnent un@samp{#} pour plus de
+LilyPond, les exemples de ce manuel mentionnent un @samp{#} pour plus de
 clarté.  Pour de plus amples informations quant au mode Scheme,
 consultez @rextend{Syntaxe Scheme dans LilyPond}.
 
@@ -730,9 +730,9 @@ page.  Mais lorsque vous connaissez le nom de l'objet à retoucher, le
 plus simple est de consulter la RPI.
 
 La page de la RPI sur les liaisons commence par préciser que les objets
-« Liaison » sont créés par le graveur Slur_engraver.  Vient ensuite la
-liste des réglages standard ; vous y trouverez la propriété susceptible
-de contrôler l'épaisseur des traits de liaison.
+« Liaison » sont créés par le graveur @code{Slur_engraver}.  Vient
+ensuite la liste des réglages standard ; vous y trouverez la propriété
+susceptible de contrôler l'épaisseur des traits de liaison.
 
 @example
 thickness (nombre)
@@ -793,12 +793,11 @@ proche d'elle. »  Essayons :
 @noindent
 et nous constatons que le trait de liaison est beaucoup plus épais.
 
-Telle est la façon normale de construire des commandes
-@code{\override}.  Comme nous aurons l'occasion de le voir
-par la suite, le problème est parfois plus complexe.  Dans
-l'immédiat, nous en savons assez pour construire nos propres
-commandes -- mais il faut encore s'exercer.  Les exemples
-suivants sont là dans cette intention.
+Telle est la façon normale de construire des commandes @code{\override}.
+Comme nous aurons l'occasion de le voir par la suite, le problème est
+parfois plus complexe. Dans l'immédiat, nous en savons assez pour
+construire nos propres commandes -- mais il faut encore s'exercer. Les
+exemples suivants sont là dans cette intention.
 
 
 @subsubsubheading Détermination du contexte adéquat
@@ -986,7 +985,7 @@ la liste des interfaces qui concernent LyricText.  Cette liste comporte
 plusieurs entrées, dont @code{font-interface}.  En cliquant dessus, nous
 voyons apparaître les différentes propriétés associées à cette
 interface, qui sont en même temps les propriétés de tous les objets qui
-s'y rapportent, parmi lesquels LyricText.
+s'y rapportent, parmi lesquels @code{LyricText}.
 
 Nous avons alors sous les yeux tous les réglages des propriétés qui
 contrôlent les polices de caractères, et notamment
@@ -1117,7 +1116,7 @@ pour obtenir des valeurs fait l'objet de la rubrique
   @tab Une valeur positive ou négative, qui peut être décimale
   @tab @code{3}, @w{@code{-2.45}}
 @item Paire (de nombres)
-  @tab Deux nombres séparées par « espace point espace », encadrés
+  @tab Deux nombres séparés par « espace point espace », encadrés
 par des parenthèses et précédés par une apostrophe
   @tab @code{'(2 . 3.5)}, @code{'(0.1 . -3.2)}
 @item Symbole
@@ -1354,7 +1353,7 @@ pour rendre la métrique transparente est :
 @noindent
 L'utilisation de la propriété @code{transparent} étant
 relativement fréquent, LilyPond dispose d'un raccourci à cet
-effet : @code{\hide} (pour « masquer ».
+effet : @code{\hide} (pour « masquer »).
 
 @funindex \hide
 
@@ -1620,7 +1619,7 @@ longtemps que ce contexte existe, tandis que les commandes
 @code{\set} ou @code{\override} insérées dans la musique sont
 dynamiques -- elles provoquent des changements synchronisés avec
 un point particulier de la musique.  Si les changements sont annulés ou
-dés activés par @code{\unset} ou @code{\revert}, les réglages reprennent
+désactivés par @code{\unset} ou @code{\revert}, les réglages reprennent
 leurs valeurs par défaut, c'est-à-dire celles qui ont été fixées dans la
 clause @code{\with}, ou, en l'absence de celle-ci, les valeurs par
 défaut normales.
@@ -1729,7 +1728,7 @@ Chacune de ces méthodes réduira la taille de police de deux points par
 rapport à sa valeur précédente, sachant que chaque point réduit ou
 augmente la taille d'environ 12 %.
 
-Essayons sur l'exemple d'ossia :
+Essayons sur l'exemple d'ossia :
 
 @cindex alignAboveContext, exemple d'utilisation de la propriété
 @cindex @code{\with}, exemple
@@ -1780,7 +1779,7 @@ sous-section montrera comment faire.
 Dans LilyPond, les écartements et longueurs sont généralement mesurés en
 « intervalles de lignes » (@emph{staff-spaces} en anglais),
 c'est-à-dire l'écartement qui sépare deux lignes adjacentes dans la
-portée -- plus rarement, il est question de demi-intervalles de lignes.
+portée. Plus rarement, il est question de demi-intervalles de lignes.
 Les propriétés d'épaisseur (@code{thickness}), quant à elles, sont
 généralement mesurées en unités d'une propriété interne appelée
 « épaisseur de ligne » (@code{line-thickness}).  Par exemple, les
@@ -1906,10 +1905,10 @@ portée.  Puis ceux-ci sont classés suivant leur
 @code{outside-staff-priority}.  Enfin, ils sont pris un par un, en
 commençant par les objets avec la @code{outside-staff-priority} la plus
 basse, et placés de façon à ne pas entrer en collision avec d'autres
-objets déjà placés.  Cela signifie que, si deux @emph{grobs} extérieurs
-à la portée doivent occuper la même place, c'est celui qui a la
-@code{outside-staff-priority} la plus basse qui est placé le plus près
-de la portée.  Et si deux objets ont la même
+objets déjà positionnés.  Cela signifie que, si deux @emph{grobs}
+extérieurs à la portée doivent occuper la même place, c'est celui qui a
+la @code{outside-staff-priority} la plus basse qui est placé le plus
+près de la portée.  Et si deux objets ont la même
 @code{outside-staff-priority}, le premier rencontré sera placé au plus
 près de la portée.
 
@@ -1982,7 +1981,6 @@ automatiquement dès lors que @code{direction} est activé.
 @cindex up
 @cindex center
 @cindex neutral
-
 
 L'exemple ci-dessous montre dans la première mesure le positionnement
 par défaut des liaisons -- celles des notes les plus hautes en surplomb
@@ -2182,7 +2180,7 @@ doigté ne peut être placée que d'un côté ou de l'autre, pas des deux.
 doigté sur une note simple, il faut la saisir comme un accord composé
 d'une note unique, en l'encadrant de chevrons.}
 
-Voici quelques exemples :
+Voici quelques exemples :
 
 @cindex doigtés, exemple
 @cindex @code{\set}, exemple d'utilisation
@@ -2290,7 +2288,7 @@ plusieurs soufflets ou indications de nuance.
 @multitable @columnfractions .3 .15 .45
 @headitem Objet de rendu
   @tab Priorité
-  @tab Contrôle la position de :
+  @tab Contrôle la position de
 @item @code{RehearsalMark}
   @tab @code{1500}
   @tab Repère
@@ -2317,7 +2315,7 @@ plusieurs soufflets ou indications de nuance.
   @tab Texte de changement d'instrument
 @item @code{TextScript}
   @tab @code{450}
-  @tab Texte des @emph{markup} (ou étiquettes)
+  @tab Texte des @emph{markups} (ou étiquettes)
 @item @code{MultiMeasureRestText}
   @tab @code{450}
   @tab Texte sur les silences multimesures
@@ -2529,6 +2527,7 @@ traitement des repères et indications de tempo :
 @code{\markLengthOn} et @code{\markLengthOff}.
 
 @cindex étiquette de texte et collision
+@cindex markup et collision
 
 Les textes des @emph{markup} éviteront également les notes qui
 s'échappent au-dessus de la portée.  Si ce n'est pas notre souhait, il
@@ -2915,7 +2914,7 @@ Les @strong{propriétés d'objet}, auxquelles LilyPond a recours pour
 positionner les objets, sont modifiables avec @code{\override}.  Il y a
 deux avantages à changer ces propriétés : (a) d'autres objets
 pourront être déplacés automatiquement si nécessaire pour faire de la
-place, et (b) la même retouche peut s'appliquer à toutes les occurrences
+place et (b) la même retouche peut s'appliquer à toutes les occurrences
 du même type d'objet.  Ces propriétés sont :
 
 @itemize
@@ -2964,7 +2963,7 @@ placés au-dehors de la portée -- il contrôle l'espace minimum à insérer
 entre la portée et l'objet extérieur.  Attention : @code{staff-padding}
 concerne les objets positionnés par rapport à la portée et n'a aucun
 effet sur les objets qui sont positionnés par rapport à une note ; tout
-aménagement qui lui serait apporté ne provoquera pas d'eereur, mais sera
+aménagement qui lui serait apporté ne provoquera pas d'erreur, mais sera
 ignoré.
 
 Pour trouver quelle propriété @code{padding} employer pour l'objet que
@@ -3113,7 +3112,7 @@ de repositionnement manuel sont :
 Cette propriété s'applique à tout objet acceptant la
 @code{grob-interface}.  Elle reçoit une paire de nombres qui indiquent
 le déplacement supplémentaire dans le sens horizontal et vertical.  Des
-nombres négatifs déplacent l'objet vers la gauche ou vers la droite.
+nombres négatifs déplacent l'objet vers la gauche ou vers le bas.
 L'unité utilisée est l'espace de portée.  Le déplacement supplémentaire
 intervient une fois que la composition des objets est achevée, si bien
 qu'un objet peut être repositionné à n'importe quel endroit sans
@@ -3539,12 +3538,12 @@ pour éviter que les hampes se chevauchent.  Pour cela, nous réglons le
 sorte qu'il se déplace de la moitié d'un espace de portée vers la
 droite et le @code{force-hshift} du fa sur zéro.  Vous noterez la
 présence du @code{\once} qui évite la propagation de ces réglages
-au-delà de cet instantn musical particulier -- bien que la présence du
+au-delà de cet instant musical particulier -- bien que la présence du
 @code{\once} et du second @code{\override} de la quatrième voix ne
 soient pas indispensables dans ce court extrait, ce ne serait pas
 montrer l'exemple que de les omettre.
 
-Et voici le résultat final :
+Et voici le résultat final :
 
 @cindex NoteColumn, exemple de dérogation
 @cindex force-hshift, exemple d'utilisation de la propriété
@@ -4158,11 +4157,11 @@ voix ; on a alors l'impression que la liaison couvre les deux voix.
 >>
 @end lilypond
 
-
 @seealso
 Manuel d'initiation :
 @ref{Le préfixe once},
 @ref{La propriété stencil}.
+
 
 @node Rendu MIDI d'un point d'orgue
 @unnumberedsubsubsec Rendu MIDI d'un point d'orgue
