@@ -113,7 +113,7 @@ Repeat_acknowledge_engraver::process_music ()
       s = robust_scm2string (get_property ("segnoType"), "S");
   else if (start)
     if (end) // { start, end }
-      s = robust_scm2string (get_property ("doubleRepeatType"), ":|.|:");
+      s = robust_scm2string (get_property ("doubleRepeatType"), ":..:");
     else // { start }
       s = robust_scm2string (get_property ("startRepeatType"), ".|:");
   else if (end) // { end }
