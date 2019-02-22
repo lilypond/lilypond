@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: fc65f44f5cc87fe169a26e2cbcb9b664c2496b77
+   Translation of GIT committish: 0a5306c21d7d64d1ffdadb899c0af79ced2df336
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -120,7 +120,7 @@ expression était incluse dans les commandes de notre premier exemple.
 @cindex contextes implicites
 @cindex implicites, contextes
 
-@strong{Attention :}  de nombreux exemples, dans la documentation de
+@strong{Attention :}  de nombreux exemples, dans la documentation de
 LilyPond, ne font pas apparaître les commandes @code{\new Staff} ou
 @code{\new Voice}, qui sont créées implicitement.  Ce qui
 n'est pas primordial pour des exemples simples le devient dès que la
@@ -210,7 +210,7 @@ vous permettra d'obtenir des fichiers résultants distincts à partir
 d'un même fichier source @file{.ly} -- par exemple un fichier par
 pupitre.
 
-En résumé :
+En résumé :
 
 Dès que LilyPond rencontre un bloc @code{\book}, il crée un fichier
 distinct (@file{.pdf} par exemple).  Dans le cas où il n'est pas
@@ -503,7 +503,7 @@ auquel cas la hauteur en cours sera identique à celle de la note
 précédente dans le fichier source -- voir @ruser{Durées}. Notez bien que
 ni @code{r} ni @code{s} ne sont des hauteurs.
 
-La durée comprte un nombre et accessoirement des points. Lorsque la
+La durée comporte un nombre et accessoirement des points. Lorsque la
 durée n'est pas explicitement mentionnée, la durée de la note en cours
 sera identique à celle de la note qui précède, qu'il s'agisse d'une
 note, d'un accord, d'un silence visible ou d'un saut -- voir
@@ -830,7 +830,7 @@ liaison de prolongation entre deux constructions.
 
 Les commandes @code{\voiceXXXStyle} sont principalement dédiées à une
 utilisation pédagogique, comme l'est ce document.  Elles modifient la
-couleur des hampes et ligatures et le style de tête des note, pour
+couleur des hampes et ligatures et le style de tête des notes pour
 permettre une meilleure distinction entre les différentes voix.   La
 première voix comporte des têtes en losange rouge, la deuxième en
 triangle bleu, la troisième en cercle barré vert, la quatrième (non
@@ -1503,7 +1503,7 @@ qui l'engendre :
 @end lilypond
 
 Si le code est assez austère, dans la partition ont été ajoutés un
-chiffre de mesure, des barres de mesure, des altérations et une clé.
+chiffre de mesure, des barres de mesure, des altérations et une clef.
 Pour une bonne raison : LilyPond @emph{interprète} le code.  Il le
 compulse dans l'ordre chronologique, de même qu'on lit une partition de
 gauche à droite ; et pendant ce traitement, le logiciel garde en
@@ -2004,7 +2004,7 @@ des bécarres supplémentaires sur la durée d'une portée, nous
 @end example
 
 @noindent
-ce qui donnerait :
+ce qui donnerait :
 
 @lilypond[quote,verbatim,ragged-right]
 <<
@@ -2118,7 +2118,7 @@ Référence des propriétés internes :
 @funindex \consists
 @funindex \remove
 
-Nous avons vu que chaque contexte met en œuvre plusieurs graveurs, et
+Nous avons vu que chaque contexte met en œuvre plusieurs graveurs et
 que chacun de ces graveurs est chargé de générer une composante
 particulière du fichier de sortie, qui les barres de mesure, qui la
 portée, qui les têtes de note, les hampes, etc.  Le fait de supprimer un
@@ -2626,7 +2626,7 @@ du modèle ne correspond pas à ce que nous voyons ci-dessus.  Il nous
 faudra y revenir pour obtenir quatre portées avec des paroles en dessous
 de chacune d'elles.  Toutes les voix devraient être @code{\voiceOne},
 ce qui est la position par défaut ; il nous faudra donc éliminer toutes
-les commandes @code{\voiceXXX}.  Les ténors auront besoin d'une clé
+les commandes @code{\voiceXXX}.  Les ténors auront besoin d'une clef
 spécifique.  Enfin, nous n'avons pas encore abordé la façon dont les
 paroles sont présentées dans le modèle ; nous procéderons donc comme
 nous en avons l'habitude.  Il faudra aussi ajouter un nom à chaque
