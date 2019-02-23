@@ -710,6 +710,12 @@ automatically when an output definition (a @code{\\score} or
 
   barCheckSynchronize = ##f
 
+  %% note names:
+  noteNameFunction = #note-name-markup
+  noteNameSeparator = "/"
+  printOctaveNames = ##f
+  printAccidentalNames = ##t
+
   %% chord names:
   chordNameFunction = #ignatzek-chord-names
   minorChordModifier = #(make-simple-markup "m")

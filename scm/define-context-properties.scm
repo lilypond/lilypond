@@ -483,6 +483,10 @@ for a minor chord")
 
      (noChordSymbol ,markup? "Markup to be displayed for rests in a
 ChordNames context.")
+     (noteNameFunction ,procedure? "Function used to convert pitches
+into strings and markups.")
+     (noteNameSeparator ,string? "String used to separate simultaneous
+NoteName objects.")
      (noteToFretFunction ,procedure? "Convert list of notes and list of
 defined strings to full list of strings and fret numbers.
 Parameters: The context, a list of note events, a list of
@@ -517,7 +521,11 @@ sustain pedals: @code{text}, @code{bracket} or @code{mixed} (both).")
 fret diagrams to use in FretBoards.")
      (printKeyCancellation ,boolean? "Print restoration alterations
 before a key signature change.")
-     (printOctaveNames ,boolean? "Print octave marks for the
+     (printAccidentalNames ,boolean-or-symbol? "Print accidentals in the
+@code{NoteNames} context.")
+     (printNotesLanguage ,string? "Use a specific language in the
+@code{NoteNames} context.")
+     (printOctaveNames ,boolean-or-symbol? "Print octave marks in the
 @code{NoteNames} context.")
      (printPartCombineTexts ,boolean? "Set @q{Solo} and @q{A due} texts
 in the part combiner?")

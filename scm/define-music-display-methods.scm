@@ -75,14 +75,6 @@ expression."
 ;;; pitch names
 ;;;
 
-;; It is a pity that there is no rassoc in Scheme.
-(define* (rassoc item alist #:optional (test equal?))
-  (do ((alist alist (cdr alist))
-       (result #f result))
-      ((or result (null? alist)) result)
-    (if (and (car alist) (test item (cdar alist)))
-        (set! result (car alist)))))
-
 (define-public (note-name->lily-string ly-pitch)
   ;; here we define a custom pitch= function, since we do not want to
   ;; test whether octaves are also equal. (otherwise, we would be using equal?)

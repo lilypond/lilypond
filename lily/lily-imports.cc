@@ -77,6 +77,7 @@ namespace Lily {
   Variable ly_event_p ("ly:event?");
   Variable ly_make_event_class ("ly:make-event-class");
   Variable ly_music_p ("ly:music?");
+  Variable make_concat_markup ("make-concat-markup");
   Variable make_music ("make-music");
   Variable make_safe_lilypond_module ("make-safe-lilypond-module");
   Variable make_span_event ("make-span-event");

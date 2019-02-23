@@ -16,16 +16,25 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
+
+;; It is a pity that there is no rassoc in Scheme.
+(define*-public (rassoc item alist #:optional (test equal?))
+  (do ((alist alist (cdr alist))
+       (result #f result))
+      ((or result (null? alist)) result)
+    (if (and (car alist) (test item (cdar alist)))
+        (set! result (car alist)))))
+
 (define (natural-chord-alteration p)
   "Return the natural alteration for step P."
   (if (= (ly:pitch-steps p) 6)
       FLAT
       0))
 
-(define (conditional-string-downcase str condition)
+(define (conditional-string-capitalize str condition)
   (if condition
-      (string-downcase str)
-      str))
+      str
+      (string-capitalize str)))
 
 ;;
 ;; TODO: make into markup.
@@ -59,15 +68,35 @@
         (make-hspace-markup (if (= alteration SHARP) 0.2 0.1))
         ))))
 
+(define-public (note-name->string pitch . language)
+  "Return pitch string for @var{pitch}, without accidentals or octaves.
+Current input language is used for pitch names, except if an
+other @var{language} is specified."
+  ;; See also note-name->lily-string if accidentals are needed.
+  (let* ((pitch-alist
+          (if (null? language) pitchnames
+              (assoc-get (car language)
+                language-pitch-names '())))
+         (result (rassoc pitch
+                   (filter  (lambda (p)
+                              ;; TODO: add exception for German B?
+                              (eq? (ly:pitch-alteration (cdr p)) 0))
+                            pitch-alist)
+                   (lambda (a b)
+                     (= (ly:pitch-notename a)
+                        (ly:pitch-notename b))))))
+    (if result (symbol->string (car result)))))
+
 (define-public (note-name->markup pitch lowercase?)
-  "Return pitch markup for @var{pitch}."
-  (make-line-markup
-   (list
-    (make-simple-markup
-     (conditional-string-downcase
-      (vector-ref #("C" "D" "E" "F" "G" "A" "B") (ly:pitch-notename pitch))
-      lowercase?))
-    (accidental->markup (ly:pitch-alteration pitch)))))
+  "Return pitch markup for @var{pitch}, including accidentals
+printed as glyphs.  If @var{lowercase?} is set to false, the
+note names are capitalized."
+  (let ((str (note-name->string pitch)))
+    (make-line-markup
+     (list
+      (make-simple-markup
+       (conditional-string-capitalize str lowercase?))
+      (accidental->markup (ly:pitch-alteration pitch))))))
 
 (define (pitch-alteration-semitones pitch)
   (inexact->exact (round (* (ly:pitch-alteration pitch) 2))))
@@ -86,12 +115,15 @@
     (make-line-markup
      (list
       (make-simple-markup
-       (conditional-string-downcase
-        (vector-ref #("C" "D" "E" "F" "G" "A" "H" "B") (car n-a))
+       (conditional-string-capitalize
+        ;; TODO: use note-name->string with an exception for B.
+        (vector-ref #("c" "d" "e" "f" "g" "a" "h" "b") (car n-a))
         lowercase?))
       (accidental->markup (/ (cdr n-a) 2))))))
 
 (define-safe-public (note-name->german-markup pitch lowercase?)
+  ;; TODO: rewrite using note-name->lily-string.
+  ;; FIXME: lowercase? is ignored.
   (let* ((name (ly:pitch-notename pitch))
          (alt-semitones (pitch-alteration-semitones pitch))
          (n-a (if (member (cons name alt-semitones) `((6 . -1) (6 . -2)))
@@ -105,25 +137,20 @@
            (list-ref '( "ses" "s" "" "is" "isis") (+ 2 (cdr n-a)))
            (list-ref '("eses" "es" "" "is" "isis") (+ 2 (cdr n-a)))))))))
 
-(define ((chord-name->italian-markup re-with-eacute) pitch lowercase?)
+(define ((chord-name->italian-markup french?) pitch lowercase?)
   "Return pitch markup for @var{pitch}, using Italian/@/French note names.
 If @var{re-with-eacute} is set to @code{#t}, french `ré' is returned for
 pitch@tie{}D instead of `re'."
 
-  (let* ((name (ly:pitch-notename pitch))
+  (let* ((name (note-name->string pitch
+                 (if french? 'français 'italiano)))
          (alt (ly:pitch-alteration pitch)))
     (make-line-markup
      (list
       (make-simple-markup
-       (conditional-string-downcase
-        (vector-ref
-         (if re-with-eacute
-             #("Do" "Ré" "Mi" "Fa" "Sol" "La" "Si")
-             #("Do" "Re" "Mi" "Fa" "Sol" "La" "Si"))
-         name)
-        lowercase?))
-      (accidental->markup-italian alt)
-      ))))
+       (conditional-string-capitalize name lowercase?))
+      (accidental->markup-italian alt)))))
+
 (export chord-name->italian-markup)
 
 ;; fixme we should standardize on omit-root (or the other one.)

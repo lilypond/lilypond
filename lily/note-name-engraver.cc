@@ -18,9 +18,12 @@
 */
 
 #include "engraver.hh"
+#include "context.hh"
 #include "item.hh"
+#include "lily-imports.hh"
 #include "pitch.hh"
 #include "stream-event.hh"
+#include "text-interface.hh"
 
 #include "translator.icc"
 
@@ -44,22 +47,34 @@ Note_name_engraver::listen_note (Stream_event *ev)
 void
 Note_name_engraver::process_music ()
 {
-  string s;
+  SCM markup_list = SCM_EOL;
+
   for (vsize i = 0; i < events_.size (); i++)
     {
+      SCM pitch = events_[i]->get_property ("pitch");
+      SCM proc = get_property ("noteNameFunction");
+      SCM sep = get_property ("noteNameSeparator");
+
       if (i)
-        s += " ";
-      Pitch p = *unsmob<Pitch> (events_[i]->get_property ("pitch"));
+        markup_list = scm_append (scm_list_2 (
+          scm_list_1(
+            Text_interface::is_markup (sep) ? sep : ly_string2scm(" ")),
+          markup_list));
 
-      if (!to_boolean (get_property ("printOctaveNames")))
-        p = Pitch (-1, p.get_notename (), p.get_alteration ());
-
-      s += p.to_string ();
+      if (ly_is_procedure (proc))
+        {
+           SCM pitch_name = scm_call_2 (proc, pitch, context ()->self_scm ());
+           markup_list = scm_append (scm_list_2 (
+             scm_list_1 (pitch_name), markup_list));
+        }
+      else
+        programming_error ("No translation function defined as noteNameFunction.");
     }
-  if (s.length ())
+  if (!scm_is_null (markup_list))
     {
-      Item *t = make_item ("NoteName", events_[0]->self_scm ());
-      t->set_property ("text", ly_string2scm (s));
+      Item *n = make_item ("NoteName", events_[0]->self_scm ());
+      SCM text = Lily::make_concat_markup (scm_reverse (markup_list));
+      n->set_property ("text", text);
     }
 }
 
@@ -88,6 +103,10 @@ ADD_TRANSLATOR (Note_name_engraver,
                 "NoteName ",
 
                 /* read */
+                "noteNameFunction "
+                "noteNameSeparator "
+                "printAccidentalNames "
+                "printNotesLanguage "
                 "printOctaveNames ",
 
                 /* write */

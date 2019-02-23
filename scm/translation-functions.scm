@@ -868,3 +868,35 @@ original @var{semitone->pitch} function."
                       key))
 
 (export shift-semitone->pitch)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; NoteNames
+
+(define-public (note-name-markup pitch context)
+  (let* ((markuplist '())
+         (oct-style (ly:context-property context 'printOctaveNames))
+         (acc-style (ly:context-property context 'printAccidentalNames))
+         (lang (ly:context-property context 'printNotesLanguage))
+         (lily-str (symbol->string (note-name->lily-string pitch)))
+         (basic-str (if (not (null? lang))
+                        (note-name->string pitch (string->symbol lang))
+                        (note-name->string pitch))))
+    (set! markuplist
+          (append markuplist
+            (if acc-style
+                (if (eq? acc-style 'lily)
+                    (list lily-str)
+                    (list basic-str
+                      (accidental->markup (ly:pitch-alteration pitch))))
+                (list basic-str))))
+    (if oct-style
+        (set! markuplist
+              (append markuplist
+                (list
+                 (if (eq? oct-style 'scientific)
+                     (make-sub-markup
+                      (number->string
+                       (+ 4 (ly:pitch-octave pitch))))
+                     (octave->lily-string pitch))))))
+    (make-concat-markup markuplist)))
