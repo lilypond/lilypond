@@ -1,4 +1,4 @@
-\version "2.18.0"
+\version "2.21.0"
 
 \header {
   texidoc = "Incipits can be printed using an @code{InstrumentName}
@@ -32,7 +32,7 @@ grob."
            (system-start-text::print grob)))
 
     %% the instrument name definition is separated:
-    \set Staff.instrumentName = #"Instrument"
+    \set Staff.instrumentName = "Instrument"
     c'4 d' e' f'
     g'1
   }

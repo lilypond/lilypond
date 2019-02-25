@@ -2641,13 +2641,13 @@ lilypond … -dmidi-extension=midi lilyFile.ly
 
 @example
 \new Staff @{
-  \set Staff.midiInstrument = #"glockenspiel"
+  \set Staff.midiInstrument = "glockenspiel"
   @var{...notes...}
 @}
 @end example
 
 @example
-\new Staff \with @{midiInstrument = #"cello"@} @{
+\new Staff \with @{midiInstrument = "cello"@} @{
   @var{...notes...}
 @}
 @end example
@@ -2931,7 +2931,7 @@ MIDI ボリュームに影響を与えません。@c
 
 \score {
   \new Staff {
-    \set Staff.midiInstrument = #"cello"
+    \set Staff.midiInstrument = "cello"
     \set Score.dynamicAbsoluteVolumeFunction = #myDynamics
     \new Voice {
       \relative {
@@ -2973,7 +2973,7 @@ midiMinimumVolume + (midiMaximumVolume - midiMinimumVolume) * fraction
     \new Staff {
       \key g \major
       \time 2/2
-      \set Staff.midiInstrument = #"flute"
+      \set Staff.midiInstrument = "flute"
       \new Voice \relative {
         r2 g''\mp g fis~
         4 g8 fis e2~
@@ -2982,7 +2982,7 @@ midiMinimumVolume + (midiMaximumVolume - midiMinimumVolume) * fraction
     }
     \new Staff {
       \key g \major
-      \set Staff.midiInstrument = #"clarinet"
+      \set Staff.midiInstrument = "clarinet"
       \new Voice \relative {
         b'1\p a2. b8 a
         g2. fis8 e
@@ -3022,7 +3022,7 @@ MIDI 出力の品質を著しく高めることができます。
     \new Staff {
       \key g \major
       \time 2/2
-      \set Staff.midiInstrument = #"flute"
+      \set Staff.midiInstrument = "flute"
       \set Staff.midiMinimumVolume = #0.7
       \set Staff.midiMaximumVolume = #0.9
       \new Voice \relative {
@@ -3033,7 +3033,7 @@ MIDI 出力の品質を著しく高めることができます。
     }
     \new Staff {
       \key g \major
-      \set Staff.midiInstrument = #"clarinet"
+      \set Staff.midiInstrument = "clarinet"
       \set Staff.midiMinimumVolume = #0.3
       \set Staff.midiMaximumVolume = #0.6
       \new Voice \relative {
@@ -3093,7 +3093,7 @@ MIDI 最小/最大ボリューム プロパティが設定されていない場�
       \key g \major
       \time 2/2
       \set Score.instrumentEqualizer = #my-instrument-equalizer
-      \set Staff.midiInstrument = #"flute"
+      \set Staff.midiInstrument = "flute"
       \new Voice \relative {
         r2 g''\mp g fis ~
         4 g8 fis e2 ~
@@ -3102,7 +3102,7 @@ MIDI 最小/最大ボリューム プロパティが設定されていない場�
     }
     \new Staff {
       \key g \major
-      \set Staff.midiInstrument = #"clarinet"
+      \set Staff.midiInstrument = "clarinet"
       \new Voice \relative {
         b'1\p a2. b8 a
         g2. fis8 e

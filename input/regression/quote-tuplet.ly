@@ -1,5 +1,5 @@
 
-\version "2.19.21"
+\version "2.21.0"
 
 \header {
 
@@ -25,7 +25,7 @@ foo = \relative {
     \foo
   }
   \new Voice {
-    \cueDuring #"foo" #DOWN { s1 }
+    \cueDuring "foo" #DOWN { s1 }
   }
 >>
   

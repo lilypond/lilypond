@@ -1500,7 +1500,7 @@ RGB 値を内部カラーに変換する @code{rgb-color} 関数です。@c
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main" }
+        alignAboveContext = "main" }
       { f8 f c }
     >>
     r4 |
@@ -1527,7 +1527,7 @@ RGB 値を内部カラーに変換する @code{rgb-color} 関数です。@c
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main"
+        alignAboveContext = "main"
       }
       {
         \omit Staff.Clef
@@ -1590,7 +1590,7 @@ RGB 値を内部カラーに変換する @code{rgb-color} 関数です。@c
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main"
+        alignAboveContext = "main"
         % この譜には音部記号を譜刻しません
         \override Clef.stencil = ##f
         % この譜には拍子記号を譜刻しません
@@ -1615,7 +1615,7 @@ RGB 値を内部カラーに変換する @code{rgb-color} 関数です。@c
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main"
+        alignAboveContext = "main"
         % この譜には音部記号を譜刻しません
         \omit Clef
         % この譜には拍子記号を譜刻しません
@@ -1685,7 +1685,7 @@ RGB 値を内部カラーに変換する @code{rgb-color} 関数です。@c
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main"
+        alignAboveContext = "main"
         \omit Clef
         \omit TimeSignature
         % すべてのフォント サイズを約 24% 減らします
@@ -1753,7 +1753,7 @@ LilyPond では距離と長さは一般に譜スペース -- 譜の中の隣り�
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main"
+        alignAboveContext = "main"
         \omit Clef
         \omit TimeSignature
         fontSize = #-2

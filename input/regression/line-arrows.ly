@@ -2,7 +2,7 @@
   texidoc = "Arrows can be applied to text-spanners and line-spanners (such as the Glissando)"
 }
 
-\version "2.19.21"
+\version "2.21.0"
 
 \paper {
   ragged-right = ##t
@@ -12,8 +12,8 @@
   \override TextSpanner.bound-padding = #1.0
   \override TextSpanner.style = #'line
   \override TextSpanner.bound-details.right.arrow = ##t
-  \override TextSpanner.bound-details.left.text = #"fof"
-  \override TextSpanner.bound-details.right.text = #"gag"
+  \override TextSpanner.bound-details.left.text = "fof"
+  \override TextSpanner.bound-details.right.text = "gag"
   \override TextSpanner.bound-details.right.padding = #0.6
 
   \override TextSpanner.bound-details.right.stencil-align-dir-y = #CENTER

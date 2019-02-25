@@ -465,7 +465,7 @@ Une section ossia se placera au dessus de la portée en procédant ainsi :
     <<
       { f c c }
       \new Staff \with {
-        alignAboveContext = #"main" }
+        alignAboveContext = "main" }
       { f8 f c }
     >>
     r4 |
@@ -2506,7 +2506,7 @@ lower = \relative {
   <<  % combine ChoirStaff and PianoStaff in parallel
     \new ChoirStaff <<
       \new Staff = "sopranos"
-      \with { instrumentName = #"Soprano" }
+      \with { instrumentName = "Soprano" }
       <<
         \new Voice = "sopranos" {
           \global
@@ -2517,7 +2517,7 @@ lower = \relative {
         \sopranoWords
       }
       \new Staff = "altos"
-      \with { instrumentName = #"Alto" }
+      \with { instrumentName = "Alto" }
       <<
         \new Voice = "altos" {
           \global
@@ -2528,7 +2528,7 @@ lower = \relative {
         \altoWords
       }
       \new Staff = "tenors"
-      \with { instrumentName = #"Tenor" }
+      \with { instrumentName = "Tenor" }
       <<
         \new Voice = "tenors" {
           \global
@@ -2539,7 +2539,7 @@ lower = \relative {
         \tenorWords
       }
       \new Staff = "basses"
-      \with { instrumentName = #"Bass" }
+      \with { instrumentName = "Bass" }
       <<
         \new Voice = "basses" {
           \global
@@ -2550,7 +2550,7 @@ lower = \relative {
         \bassWords
       }
     >>  % end ChoirStaff
-    \new PianoStaff \with { instrumentName = #"Piano" }
+    \new PianoStaff \with { instrumentName = "Piano" }
     <<
       \new Staff = "upper" \upper
       \new Staff = "lower" \lower
@@ -2592,7 +2592,7 @@ Une fois tout ceci accompli, voici notre @code{ChoirStaff} :
 @example
 \new ChoirStaff <<
   \new Staff = "sopranos"
-  \with @{ instrumentName = #"Soprano" @}
+  \with @{ instrumentName = "Soprano" @}
   <<
     \new Voice = "sopranos" @{
       \global
@@ -2603,7 +2603,7 @@ Une fois tout ceci accompli, voici notre @code{ChoirStaff} :
     \sopranoWords
   @}
   \new Staff = "altos"
-  \with @{ instrumentName = #"Alto" @}
+  \with @{ instrumentName = "Alto" @}
   <<
     \new Voice = "altos" @{
       \global
@@ -2614,7 +2614,7 @@ Une fois tout ceci accompli, voici notre @code{ChoirStaff} :
     \altoWords
   @}
   \new Staff = "tenors"
-  \with @{ instrumentName = #"Tenor" @}
+  \with @{ instrumentName = "Tenor" @}
   <<
     \new Voice = "tenors" @{
       \global
@@ -2625,7 +2625,7 @@ Une fois tout ceci accompli, voici notre @code{ChoirStaff} :
     \tenorWords
   @}
   \new Staff = "basses"
-  \with @{ instrumentName = #"Bass" @}
+  \with @{ instrumentName = "Bass" @}
   <<
     \new Voice = "basses" @{
       \global
@@ -2643,7 +2643,7 @@ nous contenter de récupérer la partie de piano du modèle @qq{Solo
 piano} :
 
 @example
-\new PianoStaff \with @{ instrumentName = #"Piano" @}
+\new PianoStaff \with @{ instrumentName = "Piano" @}
 <<
   \new Staff = "upper" \superieur
   \new Staff = "lower" \inferieur
@@ -2699,7 +2699,7 @@ doubles chevrons gauche/droite puisqu'ils doivent s'empiler :
     @}
   >>  % end ChoirStaff
 
-  \new PianoStaff \with @{ instrumentName = #"Piano" @}
+  \new PianoStaff \with @{ instrumentName = "Piano" @}
   <<
     \new Staff = "upper" \upper
     \new Staff = "lower" \lower
@@ -2753,7 +2753,7 @@ lower = \relative {
   <<  % combine ChoirStaff and PianoStaff in parallel
     \new ChoirStaff <<
       \new Staff = "sopranos"
-      \with { instrumentName = #"Soprano" }
+      \with { instrumentName = "Soprano" }
       <<
         \new Voice = "sopranos" {
           \global
@@ -2764,7 +2764,7 @@ lower = \relative {
         \sopranoWords
       }
       \new Staff = "altos"
-      \with { instrumentName = #"Alto" }
+      \with { instrumentName = "Alto" }
       <<
         \new Voice = "altos" {
           \global
@@ -2775,7 +2775,7 @@ lower = \relative {
         \altoWords
       }
       \new Staff = "tenors"
-      \with { instrumentName = #"Tenor" }
+      \with { instrumentName = "Tenor" }
       <<
         \new Voice = "tenors" {
           \global
@@ -2786,7 +2786,7 @@ lower = \relative {
         \tenorWords
       }
       \new Staff = "basses"
-      \with { instrumentName = #"Bass" }
+      \with { instrumentName = "Bass" }
       <<
         \new Voice = "basses" {
           \global
@@ -2799,7 +2799,7 @@ lower = \relative {
     >>  % end ChoirStaff
 
     \new PianoStaff
-    \with { instrumentName = #"Piano  " }
+    \with { instrumentName = "Piano  " }
     <<
       \new Staff = "upper" \upper
       \new Staff = "lower" \lower

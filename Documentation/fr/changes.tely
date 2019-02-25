@@ -519,7 +519,7 @@ d'accord.
 <<
 \new ChordNames \chordmode {
   a' b c:7
-  \once \override ChordName.text = #"foo"
+  \once \override ChordName.text = "foo"
   d
 }
 >>
@@ -553,7 +553,7 @@ valeur entre @code{0.0} et @code{1.0}.
 \score @{
   \new Staff \with @{
     midiExpression = #0.6
-    midiInstrument = #"clarinet"
+    midiInstrument = "clarinet"
   @}
   <<
     @{ a'1~ a'1 @}

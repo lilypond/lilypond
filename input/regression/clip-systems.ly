@@ -19,14 +19,14 @@ The result will be files named
 
 }
 
-\version "2.19.22"
+\version "2.21.0"
 
 #(ly:set-option 'clip-systems)
 #(define output-suffix "1")
 
 origScore = \score{
     \relative {
-      \set Staff.instrumentName = #"bla"
+      \set Staff.instrumentName = "bla"
       c'1
       d
       \grace c16

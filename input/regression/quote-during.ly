@@ -8,7 +8,7 @@ quoted. In this example, a 16th rest is not quoted, since
 @code{rest-event} is not in @code{quotedEventTypes}."
 
 }
-\version "2.19.21"
+\version "2.21.0"
 \layout {
     ragged-right = ##t
 }
@@ -35,6 +35,6 @@ original = \relative { c''8 d s2 es8 gis8 }
 	\new Voice {\voiceOne
 	    \override Voice.Beam.collision-voice-only = ##t
 	    \original }
-	\new Voice {\voiceTwo s4 \quoteDuring #"quoteMe" { s2. } }
+	\new Voice {\voiceTwo s4 \quoteDuring "quoteMe" { s2. } }
     >>
 >>

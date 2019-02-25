@@ -1,4 +1,4 @@
-\version "2.19.46"
+\version "2.21.0"
 
 \header{ texidoc = "Muted notes (also called dead notes) are supported
                     within normal staves and tablature.  They are printed
@@ -40,7 +40,7 @@ mynotes = \relative c,, {
     }
     \new TabStaff
       \with {
-        \override TabNoteHead.font-name = #"Luxi Mono"
+        \override TabNoteHead.font-name = "Luxi Mono"
         instrumentName =
           \markup \tiny \center-column { "TabNoteHead-" "font:" "Luxi Mono" }
       }{

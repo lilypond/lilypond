@@ -121,7 +121,7 @@
   \accepts "DrumVoice"
   \defaultchild "DrumVoice"
 
-  clefGlyph = #"clefs.percussion"
+  clefGlyph = "clefs.percussion"
   clefPosition = #0
   \override Script.staff-padding = #0.75
 }
@@ -617,9 +617,9 @@ automatically when an output definition (a @code{\\score} or
 
   noteToFretFunction = #determine-frets
   predefinedDiagramTable = ##f
-  soloText = #"Solo"
-  soloIIText = #"Solo II"
-  aDueText = #"a2"
+  soloText = "Solo"
+  soloIIText = "Solo II"
+  aDueText = "a2"
   printPartCombineTexts = ##t
   partCombineTextsOnNote = ##t
   systemStartDelimiter =#'SystemStartBar
@@ -629,7 +629,7 @@ automatically when an output definition (a @code{\\score} or
   associatedVoiceType = #'Voice
   melismaBusyProperties = #default-melisma-properties
   tieWaitForNote = ##f
-  clefGlyph = #"clefs.G"
+  clefGlyph = "clefs.G"
   clefPosition = #-2
   middleCClefPosition = #-6
   middleCPosition = #-6
@@ -638,10 +638,10 @@ automatically when an output definition (a @code{\\score} or
   crescendoSpanner = #'hairpin
   decrescendoSpanner = #'hairpin
 
-  defaultBarType = #"|"
-  doubleRepeatType = #":..:"
-  startRepeatType = #".|:"
-  endRepeatType = #":|."
+  defaultBarType = "|"
+  doubleRepeatType = ":..:"
+  startRepeatType = ".|:"
+  endRepeatType = ":|."
   alternativeRestores = #'(measurePosition measureLength lastChord)
   barNumberVisibility = #first-bar-number-invisible-and-no-parenthesized-bar-numbers
   barNumberFormatter = #robust-bar-number-function
@@ -719,7 +719,7 @@ automatically when an output definition (a @code{\\score} or
   %% chord names:
   chordNameFunction = #ignatzek-chord-names
   minorChordModifier = #(make-simple-markup "m")
-  additionalPitchPrefix = #"" % was "add"
+  additionalPitchPrefix = "" % was "add"
   majorSevenSymbol = #whiteTriangleMarkup
   chordNameLowercaseMinor = ##f
   chordNameSeparator = #(make-hspace-markup 0.5)
@@ -895,7 +895,7 @@ contexts and handles the line spacing, the tablature clef etc. properly."
   %% stem overlapping, because we have no stems ;-)
   \override NoteColumn.ignore-collision = ##t
   %% Special "TAB" clef
-  clefGlyph = #"clefs.tab"
+  clefGlyph = "clefs.tab"
   clefPosition = #0
   %% Change string if note results in negative fret number
   handleNegativeFrets = #'recalculate
@@ -1021,7 +1021,7 @@ of Editio Vaticana."
   %% \override StaffSymbol.width = #60.0
 
   %% Choose vaticana do clef on 3rd line as default.
-  clefGlyph = #"clefs.vaticana.do"
+  clefGlyph = "clefs.vaticana.do"
   middleCPosition = #1
   middleCClefPosition = #1
   clefPosition = #1
@@ -1113,7 +1113,7 @@ accommodated for typesetting a piece in mensural style."
   %% \override StaffSymbol.width = #60.0
 
   %% Choose mensural g clef on 2nd line as default.
-  clefGlyph = #"clefs.mensural.g"
+  clefGlyph = "clefs.mensural.g"
   middleCClefPosition = #-6
   middleCPosition = #-6
   clefPosition = #-2
@@ -1173,7 +1173,7 @@ accommodated for typesetting a piece in Petrucci style."
   \override StaffSymbol.thickness = #1.3
 
   %% Choose Petrucci g clef on 2nd line as default.
-  clefGlyph = #"clefs.petrucci.g"
+  clefGlyph = "clefs.petrucci.g"
   middleCClefPosition = #-6
   middleCPosition = #-6
   clefPosition = #-2
@@ -1232,7 +1232,7 @@ accommodated for typesetting a piece in Kievan style."
   \remove "Time_signature_engraver"
 
   %% Choose Kievan tsefaut clef
-  clefGlyph = #"clefs.kievan.do"
+  clefGlyph = "clefs.kievan.do"
   middleCClefPosition = #0
   middleCPosition = #0
   clefPosition = #0

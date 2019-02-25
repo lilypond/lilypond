@@ -1182,7 +1182,7 @@ Größe der Zeichnung explizit anzugeben, wie im Beispiel unten gezeigt:
 @lilypond[quote,verbatim,fragment]
 c'1^\markup {
   \combine
-    \epsfile #X #10 #"./context-example.eps"
+    \epsfile #X #10 "./context-example.eps"
     \with-dimensions #'(0 . 6) #'(0 . 10)
     \postscript "
       -2 3 translate
@@ -1574,7 +1574,7 @@ FontConfig erkannt wird, kann in einer Partitur eingefügt werden.  Dazu
 verwendet man folgende Syntax:
 
 @lilypond[quote,verbatim,fragment]
-\override Staff.TimeSignature.font-name = #"Bitstream Charter"
+\override Staff.TimeSignature.font-name = "Bitstream Charter"
 \override Staff.TimeSignature.font-size = #2
 \time 3/4
 

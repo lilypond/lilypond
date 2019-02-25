@@ -1,4 +1,4 @@
-\version "2.19.0"
+\version "2.21.0"
 
 \header {
     composer = "ARTHUR GRAY"
@@ -150,7 +150,7 @@ bass = \new Voice \relative c{
     >>
 
     \grace {
-	\override Flag.stroke-style = #"grace"
+	\override Flag.stroke-style = "grace"
 
         s8
         s16 s s

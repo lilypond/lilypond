@@ -1517,8 +1517,8 @@ conducteur.  Les deux instruments sont à l'unisson.
 @lilypond[verbatim,quote]
 \new GrandStaff <<
   \new Staff = "violin" \with {
-    instrumentName = #"Vln"
-    midiInstrument = #"violin"
+    instrumentName = "Vln"
+    midiInstrument = "violin"
    }
   \relative c'' {
     % not strictly necessary, but a good reminder
@@ -1528,7 +1528,7 @@ conducteur.  Les deux instruments sont à l'unisson.
   }
   \new Staff = "clarinet" \with {
     instrumentName = \markup { Cl (B\flat) }
-    midiInstrument = #"clarinet"
+    midiInstrument = "clarinet"
   }
   \relative c'' {
     \transposition bes
@@ -1545,7 +1545,7 @@ une autre en si bémol.
 @lilypond[verbatim,quote,]
 flute = \relative c'' {
   \key f \major
-  \cueDuring #"clarinet" #DOWN {
+  \cueDuring "clarinet" #DOWN {
     R1 _\markup\tiny "clarinet"
     c4 f e d
     R1 _\markup\tiny "clarinet"
@@ -1562,9 +1562,9 @@ clarinet = \relative c'' {
 }
 \addQuote "clarinet" \clarinet
 <<
-  \new Staff \with { instrumentName = #"Flute" }
+  \new Staff \with { instrumentName = "Flute" }
     \flute
-  \new Staff \with { instrumentName = #"Cl (A)" }
+  \new Staff \with { instrumentName = "Cl (A)" }
     \clarinet
 >>
 @end lilypond

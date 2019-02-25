@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.21.0"
 
 \header {
   texidoc = "For volte, the style of double repeats can be set
@@ -14,12 +14,12 @@
     c1
   }
   \mark "\":|.|:\""
-  \set Score.doubleRepeatType = #":|.|:"
+  \set Score.doubleRepeatType = ":|.|:"
   \repeat volta 1 {
     c1
   }
   \mark "\":|.:\""
-  \set Score.doubleRepeatType = #":|.:"
+  \set Score.doubleRepeatType = ":|.:"
   \repeat volta 1 {
   c1
   }

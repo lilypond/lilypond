@@ -11,7 +11,7 @@ markup can be tuned with @code{Staff.ottavation}.
 
 }
 
-\version "2.19.21"
+\version "2.21.0"
 
 %% . There must be a minimum distance between the octavation line and the
 %%   topmost staff line, taking into account the height of the closing
@@ -49,7 +49,7 @@ markup can be tuned with @code{Staff.ottavation}.
   \break
   a, 
   \ottava #1
-  \set Staff.ottavation = #"8"
+  \set Staff.ottavation = "8"
   b
   \ottava #0
   c a 
@@ -59,12 +59,12 @@ markup can be tuned with @code{Staff.ottavation}.
   \ottava #0
   c 
   \ottava #-1
-  \set Staff.ottavation = #"8"
+  \set Staff.ottavation = "8"
   c,,16
   \ottava #0
   c'16
   \ottava #-1
-  \set Staff.ottavation = #"8"
+  \set Staff.ottavation = "8"
   g,,16
 }
 

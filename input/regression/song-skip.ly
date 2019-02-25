@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.21.0"
 \header {
   texidoc="Festival song synthesis output supports
 skips.
@@ -6,7 +6,7 @@ skips.
 }
 \include "festival.ly"
 
-\festival #"song-skip.xml" { \tempo 4 = 100 }
+\festival "song-skip.xml" { \tempo 4 = 100 }
 \relative { c' c g' }
 \addlyrics {
   twin -- \skip 4

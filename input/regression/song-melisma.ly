@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.21.0"
 \header {
   texidoc="Festival song synthesis output supports
 melismas.
@@ -6,7 +6,7 @@ melismas.
 }
 \include "festival.ly"
 
-\festival #"song-melisma.xml" { \tempo 4 = 100 }
+\festival "song-melisma.xml" { \tempo 4 = 100 }
 \relative
 {
 <<

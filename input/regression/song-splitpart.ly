@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.21.0"
 \header {
   texidoc="Festival song synthesis output supports
 divided voices.
@@ -7,7 +7,7 @@ divided voices.
 \include "festival.ly"
 
 \score{
-\festival #"song-splitpart.xml" { \tempo 4 = 100 }
+\festival "song-splitpart.xml" { \tempo 4 = 100 }
 <<
   \context Voice = "melody" {
     \relative {

@@ -2057,7 +2057,7 @@ labelContext =
   \new ChordNames { \chords { g1:m } }
   \new NoteNames { s1 | g1 | }
   \new RhythmicStaff {
-    \set RhythmicStaff.instrumentName = #"baseline "
+    \set RhythmicStaff.instrumentName = "baseline "
     \textLengthOn
     \labelContext "ChordNames " s1 |
     \labelContext "NoteNames "  s1 |
@@ -2069,7 +2069,7 @@ labelContext =
 %% The reference point for Dynamics is its vertical center
 <<
   \new RhythmicStaff {
-    \set RhythmicStaff.instrumentName = #"vertical center "
+    \set RhythmicStaff.instrumentName = "vertical center "
     \labelContext "Dynamics" s1*3
   }
   \new Dynamics { s1\mp s\fp }
@@ -2078,7 +2078,7 @@ labelContext =
 %% The reference point for FiguredBass is its highest point
 <<
   \new RhythmicStaff {
-    \set RhythmicStaff.instrumentName = #"highest point "
+    \set RhythmicStaff.instrumentName = "highest point "
     \labelContext "FiguredBass" s1
   }
   \new FiguredBass { \figuremode { <6 5>1 } }
@@ -2089,7 +2089,7 @@ labelContext =
 <<
   \new FretBoards { \chordmode { e1 } }
   \new RhythmicStaff {
-    \set RhythmicStaff.instrumentName = #"top line "
+    \set RhythmicStaff.instrumentName = "top line "
     \labelContext "FretBoards " s1
   }
 >>

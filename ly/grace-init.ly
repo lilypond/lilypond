@@ -21,7 +21,7 @@ stopAppoggiaturaMusic =  {
 
 startAcciaccaturaMusic =  {
     <>\startGraceSlur
-    \temporary \override Flag.stroke-style = #"grace"
+    \temporary \override Flag.stroke-style = "grace"
 }
 
 stopAcciaccaturaMusic =  {
@@ -30,7 +30,7 @@ stopAcciaccaturaMusic =  {
 }
 
 startSlashedGraceMusic =  {
-  \temporary \override Flag.stroke-style = #"grace"
+  \temporary \override Flag.stroke-style = "grace"
 }
 
 stopSlashedGraceMusic =  {

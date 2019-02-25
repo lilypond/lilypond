@@ -630,7 +630,7 @@ words = \lyricmode { These words fol -- low the mel -- o -- dy }
         }
       >>
     }
-    \new Lyrics \with { alignAboveContext = #"music" }
+    \new Lyrics \with { alignAboveContext = "music" }
     \lyricsto "melody" { \words }
   >>
 }
@@ -670,7 +670,7 @@ words = \lyricmode { These words fol -- low the mel -- o -- dy }
         }
       >>
     }
-    \new Lyrics \with { alignAboveContext = #"music" }
+    \new Lyrics \with { alignAboveContext = "music" }
     \lyricsto "melody" { \words }
   >>
 }
@@ -1513,7 +1513,7 @@ del contexto que tenga el nombre @qq{principal}, debería definirse
 de esta forma:
 
 @example
-\new Staff \with @{ alignAboveContext = #"principal" @}
+\new Staff \with @{ alignAboveContext = "principal" @}
 @end example
 
 Se presenta una situación similar cuando se posiciona un contexto
@@ -2206,8 +2206,8 @@ o para modificar los extremos de los objetos extensos, utilice una
 forma como las siguientes:
 
 @example
-\override TextSpanner.bound-details.left.text = #"left text"
-\override TextSpanner.bound-details.right.text = #"right text"
+\override TextSpanner.bound-details.left.text = "left text"
+\override TextSpanner.bound-details.right.text = "right text"
 @end example
 
 @funindex \revert
@@ -3708,8 +3708,8 @@ línea:
 \override TextSpanner.bound-details.left.stencil-align-dir-y = #-2
 \override TextSpanner.bound-details.right.stencil-align-dir-y = #UP
 
-\override TextSpanner.bound-details.left.text = #"ggg"
-\override TextSpanner.bound-details.right.text = #"hhh"
+\override TextSpanner.bound-details.left.text = "ggg"
+\override TextSpanner.bound-details.right.text = "hhh"
 
 \relative { c'4^\startTextSpan c c c \stopTextSpan }
 @end lilypond

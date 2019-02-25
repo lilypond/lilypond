@@ -1512,7 +1512,7 @@ inserire un nuovo rigo temporaneo, come in un @rglos{ossia}.
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main" }
+        alignAboveContext = "main" }
       { f8 f c }
     >>
     r4 |
@@ -1540,7 +1540,7 @@ ciascun oggetto su @code{#f}, così:
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main"
+        alignAboveContext = "main"
       }
       {
         \omit Staff.Clef
@@ -1600,7 +1600,7 @@ Dunque possiamo sostituire l'esempio precedente con
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main"
+        alignAboveContext = "main"
         % Nasconde le chiavi di questo rigo
         \override Clef.stencil = ##f
         % Nasconde le indicazioni di tempo di questo rigo
@@ -1624,7 +1624,7 @@ impostare la proprietà @code{transparent} e togliere lo @code{stencil}
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main"
+        alignAboveContext = "main"
         % Nasconde le chiavi di questo rigo
         \omit Clef
         % Nasconde le indicazioni di tempo di questo rigo
@@ -1690,7 +1690,7 @@ Proviamolo nel nostro esempio dell'ossia:
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main"
+        alignAboveContext = "main"
         \omit Clef
         \omit TimeSignature
         % Riduce la dimensione di tutti i tipi di carattere di circa il 24%
@@ -1765,7 +1765,7 @@ questo modo:
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main"
+        alignAboveContext = "main"
         \omit Clef
         \omit TimeSignature
         fontSize = #-2

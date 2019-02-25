@@ -490,7 +490,7 @@ lower  = \relative { b,2 e }
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main"
+        alignAboveContext = "main"
       } { f8 f c }
     >>
     r4 |
@@ -1783,11 +1783,11 @@ LilyPond によって作成された楽譜上にあるすべての記号は
 @lilypond[quote,verbatim,ragged-right]
 <<
   \new Staff \relative {
-    \set Staff.instrumentName = #"Soprano"
+    \set Staff.instrumentName = "Soprano"
     c''2 c
   }
   \new Staff \relative {
-    \set instrumentName = #"Alto"  % Wrong!
+    \set instrumentName = "Alto"  % Wrong!
     d'2 d
   }
 >>
@@ -2479,7 +2479,7 @@ lower = \relative {
   <<  % combine ChoirStaff and PianoStaff in parallel
     \new ChoirStaff <<
       \new Staff = "sopranos" <<
-        \set Staff.instrumentName = #"Soprano"
+        \set Staff.instrumentName = "Soprano"
         \new Voice = "sopranos" {
           \global
           \sopranoMusic
@@ -2489,7 +2489,7 @@ lower = \relative {
         \sopranoWords
       }
       \new Staff = "altos" <<
-        \set Staff.instrumentName = #"Alto"
+        \set Staff.instrumentName = "Alto"
         \new Voice = "altos" {
           \global
           \altoMusic
@@ -2497,7 +2497,7 @@ lower = \relative {
       >>
       \new Lyrics \lyricsto "altos" { \altoWords }
       \new Staff = "tenors" <<
-        \set Staff.instrumentName = #"Tenor"
+        \set Staff.instrumentName = "Tenor"
         \new Voice = "tenors" {
           \global
           \tenorMusic
@@ -2505,7 +2505,7 @@ lower = \relative {
       >>
       \new Lyrics \lyricsto "tenors" { \tenorWords }
       \new Staff = "basses" <<
-        \set Staff.instrumentName = #"Bass"
+        \set Staff.instrumentName = "Bass"
         \new Voice = "basses" {
           \global
           \bassMusic
@@ -2516,7 +2516,7 @@ lower = \relative {
       }
     >>  % end ChoirStaff
     \new PianoStaff <<
-      \set PianoStaff.instrumentName = #"Piano"
+      \set PianoStaff.instrumentName = "Piano"
       \new Staff = "upper" \upper
       \new Staff = "lower" \lower
     >>
@@ -2547,7 +2547,7 @@ lower = \relative {
 @example
 \new ChoirStaff <<
   \new Staff = "sopranos" <<
-    \set Staff.instrumentName = #"Soprano"
+    \set Staff.instrumentName = "Soprano"
     \new Voice = "sopranos" @{
       \global
       \sopranoMusic
@@ -2557,7 +2557,7 @@ lower = \relative {
     \sopranoWords
   @}
   \new Staff = "altos" <<
-    \set Staff.instrumentName = #"Alto"
+    \set Staff.instrumentName = "Alto"
     \new Voice = "altos" @{
       \global
       \altoMusic
@@ -2567,7 +2567,7 @@ lower = \relative {
     \altoWords
   @}
   \new Staff = "tenors" <<
-    \set Staff.instrumentName = #"Tenor"
+    \set Staff.instrumentName = "Tenor"
     \new Voice = "tenors" @{
       \global
       \tenorMusic
@@ -2577,7 +2577,7 @@ lower = \relative {
     \tenorWords
   @}
   \new Staff = "basses" <<
-    \set Staff.instrumentName = #"Bass"
+    \set Staff.instrumentName = "Bass"
     \new Voice = "basses" @{
       \global
       \bassMusic
@@ -2595,7 +2595,7 @@ lower = \relative {
 
 @example
 \new PianoStaff <<
-  \set PianoStaff.instrumentName = #"Piano  "
+  \set PianoStaff.instrumentName = "Piano  "
   \new Staff = "upper" \upper
   \new Staff = "lower" \lower
 >>
@@ -2650,7 +2650,7 @@ lower = \relative {
   >>  % end ChoirStaff
 
   \new PianoStaff <<
-    \set PianoStaff.instrumentName = #"Piano"
+    \set PianoStaff.instrumentName = "Piano"
     \new Staff = "upper" \upper
     \new Staff = "lower" \lower
   >>
@@ -2703,7 +2703,7 @@ lower = \relative {
   <<  % ChoirStaff と PianoStaff を並行に組み合わせます
     \new ChoirStaff <<
       \new Staff = "sopranos" <<
-        \set Staff.instrumentName = #"Soprano"
+        \set Staff.instrumentName = "Soprano"
         \new Voice = "sopranos" {
           \global
           \sopranoMusic
@@ -2713,7 +2713,7 @@ lower = \relative {
         \sopranoWords
       }
       \new Staff = "altos" <<
-        \set Staff.instrumentName = #"Alto"
+        \set Staff.instrumentName = "Alto"
         \new Voice = "altos" {
           \global
           \altoMusic
@@ -2723,7 +2723,7 @@ lower = \relative {
         \altoWords
       }
       \new Staff = "tenors" <<
-        \set Staff.instrumentName = #"Tenor"
+        \set Staff.instrumentName = "Tenor"
         \new Voice = "tenors" {
           \global
           \tenorMusic
@@ -2733,7 +2733,7 @@ lower = \relative {
         \tenorWords
       }
       \new Staff = "basses" <<
-        \set Staff.instrumentName = #"Bass"
+        \set Staff.instrumentName = "Bass"
         \new Voice = "basses" {
           \global
           \bassMusic
@@ -2745,7 +2745,7 @@ lower = \relative {
     >>  % ChoirStaff の終了
 
     \new PianoStaff <<
-      \set PianoStaff.instrumentName = #"Piano  "
+      \set PianoStaff.instrumentName = "Piano  "
       \new Staff = "upper" \upper
       \new Staff = "lower" \lower
     >>

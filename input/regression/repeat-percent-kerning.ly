@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.21.0"
 \header {
   texidoc = "The positioning of dots and slashes in percent repeat
 glyphs can be altered using @code{dot-negative-kern} and
@@ -7,7 +7,7 @@ glyphs can be altered using @code{dot-negative-kern} and
 
 <<
   \new Staff {
-    \set Staff.instrumentName = #"(default)"
+    \set Staff.instrumentName = "(default)"
     \repeat percent 2 { c'1 }
     \repeat percent 2 { d'1 e' }
   }

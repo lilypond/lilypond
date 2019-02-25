@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.21.0"
 
 \header {
 
@@ -64,7 +64,7 @@
       }
       \with-url
       %% todo: lilypond.org/music-engraving
-      #"http://lilypond.org/"
+      "http://lilypond.org/"
       \fill-line {
 	"www.lilypond.org"
       }

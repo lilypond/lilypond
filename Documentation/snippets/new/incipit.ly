@@ -149,28 +149,28 @@ bassusLyrics = \lyricmode {
   <<
     \new StaffGroup = choirStaff <<
       \new Voice = "discantusNotes" <<
-        \set Staff.instrumentName = #"Discantus"
+        \set Staff.instrumentName = "Discantus"
         \incipit \discantusIncipit
         \global
         \discantusNotes
       >>
       \new Lyrics \lyricsto discantusNotes { \discantusLyrics }
       \new Voice = "altusNotes" <<
-        \set Staff.instrumentName = #"Altus"
+        \set Staff.instrumentName = "Altus"
         \global
         \incipit \altusIncipit
         \altusNotes
       >>
       \new Lyrics \lyricsto altusNotes { \altusLyrics }
       \new Voice = "tenorNotes" <<
-        \set Staff.instrumentName = #"Tenor"
+        \set Staff.instrumentName = "Tenor"
         \global
         \incipit \tenorIncipit
         \tenorNotes
       >>
       \new Lyrics \lyricsto tenorNotes { \tenorLyrics }
       \new Voice = "bassusNotes" <<
-        \set Staff.instrumentName = #"Bassus"
+        \set Staff.instrumentName = "Bassus"
         \global
         \incipit \bassusIncipit
         \bassusNotes

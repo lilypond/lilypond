@@ -3133,11 +3133,11 @@ Nell'esempio seguente la gamma dinamica del volume MIDI complessivo
 \score @{
   <<
     \new Staff @{
-      \set Staff.midiInstrument = #"flauto"
+      \set Staff.midiInstrument = "flauto"
       @var{@dots{} musica @dots{}}
     @}
     \new Staff @{
-      \set Staff.midiInstrument = #"clarinetto"
+      \set Staff.midiInstrument = "clarinetto"
       @var{@dots{} musica @dots{}}
     @}
   >>
@@ -3158,7 +3158,7 @@ contesto @code{Staff}.
 @example
 \score @{
   \new Staff @{
-    \set Staff.midiInstrument = #"flauto"
+    \set Staff.midiInstrument = "flauto"
     \set Staff.midiMinimumVolume = #0.7
     \set Staff.midiMaximumVolume = #0.9
     @var{@dots{} musica @dots{}}
@@ -3174,13 +3174,13 @@ di ogni strumento possono essere impostati individualmente;
 \score @{
   <<
     \new Staff @{
-      \set Staff.midiInstrument = #"flauto"
+      \set Staff.midiInstrument = "flauto"
       \set Staff.midiMinimumVolume = #0.7
       \set Staff.midiMaximumVolume = #0.9
       @var{@dots{} musica @dots{}}
     @}
     \new Staff @{
-      \set Staff.midiInstrument = #"clarinetto"
+      \set Staff.midiInstrument = "clarinetto"
       \set Staff.midiMinimumVolume = #0.3
       \set Staff.midiMaximumVolume = #0.6
       @var{@dots{} musica @dots{}}
@@ -3297,7 +3297,7 @@ contesto @code{Staff}.
 @example
 \score @{
   \new Staff @{
-    \set Staff.midiInstrument = #"glockenspiel"
+    \set Staff.midiInstrument = "glockenspiel"
     @var{@dots{} musica @dots{}}
   @}
   \midi @{ @}
@@ -3308,7 +3308,7 @@ o
 
 @example
 \score @{
-  \new Staff \with @{midiInstrument = #"cello"@} @{
+  \new Staff \with @{midiInstrument = "cello"@} @{
     @var{@dots{} musica @dots{}}
   @}
   \midi @{ @}

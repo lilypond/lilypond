@@ -481,12 +481,6 @@ LilyPond does not strictly require this, but it is a useful
 convention to follow.
 
 @item
-All context or layout object strings should be prefaced with @code{#}.
-Again, LilyPond does not strictly require this, but it is helpful
-to get users accustomed to this scheme construct, i.e. @code{\set
-Staff.instrumentName = #"cello"}
-
-@item
 Try to avoid using @code{#'} or @code{#`} when describing
 context or layout properties outside of an @code{@@example} or @code{@@lilypond}, unless
 the description explicitly requires it.
@@ -1466,7 +1460,7 @@ obviously belongs in the @qq{main text} (i.e. not inside
 good example of this.
 
 @example
-\set Staff.instrumentName = #"foo"
+\set Staff.instrumentName = "foo"
 @end example
 
 On the other side of this,

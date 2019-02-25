@@ -660,7 +660,7 @@ words = \lyricmode { These words fol -- low the mel -- o -- dy }
         }
       >>
     }
-    \new Lyrics \with { alignAboveContext = #"music" }
+    \new Lyrics \with { alignAboveContext = "music" }
     \lyricsto "melody" { \words }
   >>
 }
@@ -699,7 +699,7 @@ words = \lyricmode { These words fol -- low the mel -- o -- dy }
         }
       >>
     }
-    \new Lyrics \with { alignAboveContext = #"music" }
+    \new Lyrics \with { alignAboveContext = "music" }
     \lyricsto "melody" { \words }
   >>
 }
@@ -1509,7 +1509,7 @@ autres contextes existants.  Le repositionner au-dessus du contexte
 « principal » demande de le définir ainsi :
 
 @example
-\new Staff \with @{ alignAboveContext = #"principal" @}
+\new Staff \with @{ alignAboveContext = "principal" @}
 @end example
 
 Il en va de même pour les contextes temporaires de paroles au sein d'un
@@ -2296,8 +2296,8 @@ La commande devient alors :
 ou, pour modifier les extrémités d'un objet à extension :
 
 @example
-\override TextSpanner.bound-details.left.text = #"texte de gauche"
-\override TextSpanner.bound-details.right.text = #"texte de droite"
+\override TextSpanner.bound-details.left.text = "texte de gauche"
+\override TextSpanner.bound-details.right.text = "texte de droite"
 @end example
 
 @cindex annulation d'un override
@@ -3802,8 +3802,8 @@ le symbole verticalement par rapport au coin de la ligne :
 \override TextSpanner.bound-details.left.stencil-align-dir-y = #-2
 \override TextSpanner.bound-details.right.stencil-align-dir-y = #UP
 
-\override TextSpanner.bound-details.left.text = #"ggg"
-\override TextSpanner.bound-details.right.text = #"hhh"
+\override TextSpanner.bound-details.left.text = "ggg"
+\override TextSpanner.bound-details.right.text = "hhh"
 
 \relative { c'4^\startTextSpan c c c \stopTextSpan }
 @end lilypond

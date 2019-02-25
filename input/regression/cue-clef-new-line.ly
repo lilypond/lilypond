@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.21.0"
 
 \header {
   texidoc = "Clefs for cue notes and line breaks.  If the cue notes start in a
@@ -16,9 +16,9 @@ vI = \relative { \clef "treble" \repeat unfold 40 g'4 }
 Solo = \relative {
   \clef "bass"
   c1 | \break
-  \cueDuringWithClef #"vIQuote" #UP #"tenor" { R1 } | \break
+  \cueDuringWithClef "vIQuote" #UP "tenor" { R1 } | \break
   c1 |
-  \cueDuringWithClef #"vIQuote" #UP #"tenor" { R1 | \break
+  \cueDuringWithClef "vIQuote" #UP "tenor" { R1 | \break
     R1 } |
   c1
 }

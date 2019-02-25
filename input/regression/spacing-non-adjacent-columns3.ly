@@ -1,4 +1,4 @@
-\version "2.17.28"
+\version "2.21.0"
 \header {
   texidoc = "The spacing engine avoids collisions between non-adjacent columns."
 }
@@ -6,7 +6,7 @@
 \paper{ragged-right = ##t }
 <<
   \new ChordNames \chordmode {
-    \set additionalPitchPrefix = #"add"
+    \set additionalPitchPrefix = "add"
     f2:13.15 f2
   }
   \new Staff {

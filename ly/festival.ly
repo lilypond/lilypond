@@ -22,14 +22,14 @@
 #(use-modules (scm song))
 #(use-modules (srfi srfi-39))
 
-% \festival #"filename" { \tempo N = X } { music }
+% \festival "filename" { \tempo N = X } { music }
 festival =
 #(define-music-function (filename tempo music)
    (string? ly:music? ly:music?)
    (output-file music tempo filename)
    music)
 
-% \festivalsyl #"filename" { \tempo N = X } { music }
+% \festivalsyl "filename" { \tempo N = X } { music }
 festivalsyl =
 #(define-music-function (filename tempo music)
    (string? ly:music? ly:music?)

@@ -15,7 +15,7 @@
 upper= \relative c' {
   \time 4/4
   \key e \major
-  \set Staff.midiInstrument = #"acoustic guitar (steel)"
+  \set Staff.midiInstrument = "acoustic guitar (steel)"
   \set fingeringOrientations = #'(left)
 
   \partial 4. \acciaccatura c16 \glissando cis8 e4
@@ -36,7 +36,7 @@ lower= \relative {
 }
 
 \score {
-  \new StaffGroup \with {instrumentName = #"Guitar" } <<
+  \new StaffGroup \with {instrumentName = "Guitar" } <<
     \new Staff = "guitar" <<
       \context Voice = "upper guitar" {
         \clef "G_8" \voiceOne

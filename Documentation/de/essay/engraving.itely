@@ -496,13 +496,13 @@ global = {
     }
     \relative {
       \global
-      \set Staff.instrumentName = #"Violin"
+      \set Staff.instrumentName = "Violin"
       c'8.(\f^> b16 c d) ees8.(^> d16 c b)
       g8.(^> b16 c ees) g8-.^> r r
       R2.
     }
     \new PianoStaff <<
-      \set PianoStaff.instrumentName = #"Piano"
+      \set PianoStaff.instrumentName = "Piano"
       \new Staff \relative {
         \global
         s2.

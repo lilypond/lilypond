@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.21.0"
 
 \header {
   texidoc = "Context modification via @code{\\with} filters translators
@@ -11,7 +11,7 @@ does not affect midi output, since it is filtered out."
 \score {
   \new StaffGroup \with {
     \consists "Instrument_name_engraver"
-    instrumentName = #"StaffGroup"
+    instrumentName = "StaffGroup"
   }
   {
     a'1

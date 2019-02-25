@@ -5,7 +5,7 @@ the @code{define-markup-command} scheme macro."
 
 \layout { ragged-right = ##t }
 
-\version "2.17.6"
+\version "2.21.0"
 
 #(define-markup-command (upcase paper props str) (string?)
   "Upcase the string characters. Syntax: \\upcase #\"string\""
@@ -13,7 +13,7 @@ the @code{define-markup-command} scheme macro."
 
 \score{
   {
-    c''-\markup \upcase #"hello world in upper case"
+    c''-\markup \upcase "hello world in upper case"
   }
 
   \layout {

@@ -1128,7 +1128,7 @@ Flute quartet keeps very uneven time."
 @lilypond[quote,verbatim,fragment]
 c'1^\markup {
   \combine
-    \epsfile #X #10 #"./context-example.eps"
+    \epsfile #X #10 "./context-example.eps"
     \with-dimensions #'(0 . 6) #'(0 . 10)
     \postscript "
       -2 3 translate
@@ -1513,7 +1513,7 @@ FontConfig に認識されている任意のフォントを@c
 楽譜の中で使用することができます:
 
 @lilypond[quote,verbatim,fragment]
-\override Staff.TimeSignature.font-name = #"Bitstream Charter"
+\override Staff.TimeSignature.font-name = "Bitstream Charter"
 \override Staff.TimeSignature.font-size = #2
 \time 3/4
 

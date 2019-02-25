@@ -19,10 +19,10 @@ without size specification."
   % for font name "Times New Roman"'s explicit termination.
   % If there is no comma, Pango interpret "Times New Roman" as
   % "Times New" family with "Roman" style.
-  \override Staff.TimeSignature.font-name = #"Times New Roman,"
+  \override Staff.TimeSignature.font-name = "Times New Roman,"
   \time 3/4
   \set Score.skipBars = ##t
-  \override Staff.MultiMeasureRestText.font-name = #"Luxi Mono"
+  \override Staff.MultiMeasureRestText.font-name = "Luxi Mono"
   R1*21^"Rest in Luxi Mono"
 
   c'1_\markup {

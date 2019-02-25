@@ -1591,7 +1591,7 @@ introducir un pentagrama temporal, como en un @rglos{ossia}.
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main" }
+        alignAboveContext = "main" }
       { f8 f c }
     >>
     r4 |
@@ -1619,7 +1619,7 @@ simplemente establecemos el sello de cada uno de ellos a
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main"
+        alignAboveContext = "main"
       }
       {
         \omit Staff.Clef
@@ -1683,7 +1683,7 @@ Así pues, podemos reemplazar el ejemplo anterior con
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main"
+        alignAboveContext = "main"
         % Don't print clefs in this staff
         \override Clef.stencil = ##f
         % Don't print time signatures in this staff
@@ -1709,7 +1709,7 @@ resultado siguiente:
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main"
+        alignAboveContext = "main"
         % Don't print clefs in this staff
         \omit Clef
         % Don't print time signatures in this staff
@@ -1779,7 +1779,7 @@ Vamos a probarlo en nuestro ejemplo del ossia:
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main"
+        alignAboveContext = "main"
         \omit Clef
         \omit TimeSignature
         % Reduce all font sizes by ~24%
@@ -1850,7 +1850,7 @@ proporción.  Se usa de la siguiente forma:
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main"
+        alignAboveContext = "main"
         \omit Clef
         \omit TimeSignature
         fontSize = #-2

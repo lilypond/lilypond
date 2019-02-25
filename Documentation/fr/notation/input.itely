@@ -3233,11 +3233,11 @@ entre 0,2 et 0,5 :
 \score @{
   <<
     \new Staff @{
-      \set Staff.midiInstrument = #"flute"
+      \set Staff.midiInstrument = "flute"
       @var{@dots{} music @dots{}}
     @}
     \new Staff @{
-      \set Staff.midiInstrument = #"clarinet"
+      \set Staff.midiInstrument = "clarinet"
       @var{@dots{} music @dots{}}
     @}
   >>
@@ -3259,7 +3259,7 @@ instrument MIDI.
 @example
 \score @{
   \new Staff @{
-    \set Staff.midiInstrument = #"flute"
+    \set Staff.midiInstrument = "flute"
     \set Staff.midiMinimumVolume = #0.7
     \set Staff.midiMaximumVolume = #0.9
     @var{@dots{} musique @dots{}}
@@ -3276,13 +3276,13 @@ gèrent individuellement :
 \score @{
   <<
     \new Staff @{
-      \set Staff.midiInstrument = #"flute"
+      \set Staff.midiInstrument = "flute"
       \set Staff.midiMinimumVolume = #0.7
       \set Staff.midiMaximumVolume = #0.9
       @var{@dots{} music @dots{}}
     @}
     \new Staff @{
-      \set Staff.midiInstrument = #"clarinet"
+      \set Staff.midiInstrument = "clarinet"
       \set Staff.midiMinimumVolume = #0.3
       \set Staff.midiMaximumVolume = #0.6
       @var{@dots{} music @dots{}}
@@ -3409,7 +3409,7 @@ au sein d'un contexte @code{Staff}.
 @example
 \score @{
   \new Staff @{
-    \set Staff.midiInstrument = #"glockenspiel"
+    \set Staff.midiInstrument = "glockenspiel"
     @var{@dots{} music @dots{}}
   @}
   \midi @{ @}
@@ -3420,7 +3420,7 @@ ou
 
 @example
 \score @{
-  \new Staff \with @{midiInstrument = #"cello"@} @{
+  \new Staff \with @{midiInstrument = "cello"@} @{
     @var{@dots{} music @dots{}}
   @}
   \midi @{ @}

@@ -3,7 +3,7 @@
   texidoc  ="Tuplet bracket ends properly when quoting."
 }
 
-\version "2.17.11"
+\version "2.21.0"
 
 \paper { ragged-right = ##t }
 
@@ -15,8 +15,8 @@
    \set Staff.quotedEventTypes = #'(note-event tuplet-span-event)
    \new Voice = "cue" { s1 }
    \new Voice {
-       \cueDuring #"x" #1 { r4 }
+       \cueDuring "x" #1 { r4 }
        c'4
-       \cueDuring #"x" #1 { r2 }
+       \cueDuring "x" #1 { r2 }
    }
 >>

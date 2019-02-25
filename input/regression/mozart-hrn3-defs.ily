@@ -4,13 +4,13 @@ longgrace = \override Flag.stroke-style = #'()
 endlonggrace = \revert Flag.stroke-style
 ritenuto = \markup { \italic  "rit." }
 
-\version "2.17.6"
+\version "2.21.0"
 
 \layout {
   \context {
     \Score
     skipBars = ##t
-    midiInstrument = #"french horn"
+    midiInstrument = "french horn"
     %% try to mimic Breitkopf
     \override RehearsalMark.padding = #1
     restNumberThreshold = #1

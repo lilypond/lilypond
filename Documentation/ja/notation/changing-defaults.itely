@@ -615,7 +615,7 @@ words = \lyricmode { These words fol -- low the mel -- o -- dy }
         }
       >>
     }
-    \new Lyrics \with { alignAboveContext = #"music" }
+    \new Lyrics \with { alignAboveContext = "music" }
     \lyricsto "melody" { \words }
   >>
 }
@@ -655,7 +655,7 @@ words = \lyricmode { These words fol -- low the mel -- o -- dy }
         }
       >>
     }
-    \new Lyrics \with { alignAboveContext = #"music" }
+    \new Lyrics \with { alignAboveContext = "music" }
     \lyricsto "melody" { \words }
   >>
 }
@@ -1361,7 +1361,7 @@ squashedPosition = #0
 @qq{main} というコンテキストの上に配置し直すには以下のようにします:
 
 @example
-\new Staff \with @{ alignAboveContext = #"main" @}
+\new Staff \with @{ alignAboveContext = "main" @}
 @end example
 
 @code{ChoirStaff} のような複数の譜のレイアウトで一時的な歌詞を配置する場合
@@ -2134,8 +2134,8 @@ c''4 c''
 また、スパナの端を変更するには、以下のようにします:
 
 @example
-\override TextSpanner.bound-details.left.text = #"left text"
-\override TextSpanner.bound-details.right.text = #"right text"
+\override TextSpanner.bound-details.left.text = "left text"
+\override TextSpanner.bound-details.right.text = "right text"
 @end example
 
 @funindex \revert
@@ -3194,8 +3194,8 @@ c2\startTextSpan b c a\stopTextSpan
 \override TextSpanner.bound-details.left.stencil-align-dir-y = #-2
 \override TextSpanner.bound-details.right.stencil-align-dir-y = #UP
 
-\override TextSpanner.bound-details.left.text = #"ggg"
-\override TextSpanner.bound-details.right.text = #"hhh"
+\override TextSpanner.bound-details.left.text = "ggg"
+\override TextSpanner.bound-details.right.text = "hhh"
 c4^\startTextSpan c c c \stopTextSpan
 @end lilypond
 

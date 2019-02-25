@@ -1137,7 +1137,7 @@ ejemplifica a continuación:
 @lilypond[quote,verbatim,fragment]
 c'1^\markup {
   \combine
-    \epsfile #X #10 #"./context-example.eps"
+    \epsfile #X #10 "./context-example.eps"
     \with-dimensions #'(0 . 6) #'(0 . 10)
     \postscript "
       -2 3 translate
@@ -1532,7 +1532,7 @@ esté instalada en el sistema operativo y reconocida por parte de
 FontConfig, usando la siguiente sintaxis:
 
 @lilypond[quote,verbatim,fragment]
-\override Staff.TimeSignature.font-name = #"Bitstream Charter"
+\override Staff.TimeSignature.font-name = "Bitstream Charter"
 \override Staff.TimeSignature.font-size = #2
 \time 3/4
 

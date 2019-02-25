@@ -9,7 +9,7 @@ central C, the target is a instrument in F.  The target part may be
 
 }
 
-\version "2.16.0"
+\version "2.21.0"
 
 \layout { ragged-right = ##t }
 
@@ -31,8 +31,8 @@ quoteTest = {
     \transposition f  % french horn
     
     g'4
-    << \quoteDuring #"clarinet" { \skip 4 } s4^"clar" >> 
-    << \quoteDuring #"sax" { \skip 4 } s4^"sax" >> 
+    << \quoteDuring "clarinet" { \skip 4 } s4^"clar" >> 
+    << \quoteDuring "sax" { \skip 4 } s4^"sax" >> 
 }
 
 

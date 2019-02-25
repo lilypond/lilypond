@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.21.0"
 \header {
   texidoc="Festival song synthesis output supports
 slurs.
@@ -6,7 +6,7 @@ slurs.
 }
 \include "festival.ly"
 
-\festival #"song-slurs.xml" { \tempo 4 = 100 }
+\festival "song-slurs.xml" { \tempo 4 = 100 }
 <<
   \relative \context Voice = "lahlah" {
     \set Staff.autoBeaming = ##f

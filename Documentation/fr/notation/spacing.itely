@@ -2172,26 +2172,26 @@ labelContext =
   \new ChordNames { \chords { \labelContext "ChordNames"  g1:m } }
   \new NoteNames { s1 |\labelContext "NoteNames"  g1 | }
   \new Lyrics { \lyrics { \skip 1*2 | \labelContext "Lyrics" ghijk1 | } }
-  \new RhythmicStaff \with { instrumentName = #"ligne de base (baseline) " } s1*3
+  \new RhythmicStaff \with { instrumentName = "ligne de base (baseline) " } s1*3
 >>
 
 %% Le point de référence de Dynamics est le milieu du « m » dans la fonte
 <<
   \new Dynamics { \labelContext "Dynamics" s1\mp s\fp }
-  \new RhythmicStaff \with { instrumentName = #"mid-hauteur " } s1*3
+  \new RhythmicStaff \with { instrumentName = "mid-hauteur " } s1*3
 >>
 
 %% Le point de référence de FiguredBass est son point le plus haut
 <<
   \new FiguredBass { \labelContext "FiguredBass" \figuremode { <6 5>1 } }
-  \new RhythmicStaff \with { instrumentName = #"point le plus haut " } s1
+  \new RhythmicStaff \with { instrumentName = "point le plus haut " } s1
 >>
 
 %% Le point de référence de FretBoards est la ligne du haut
 \include "predefined-guitar-fretboards.ly"
 <<
   \new FretBoards { \labelContext "FretBoards" \chordmode { e1 } }
-  \new RhythmicStaff \with { instrumentName = #"ligne du haut " } s1
+  \new RhythmicStaff \with { instrumentName = "ligne du haut " } s1
 >>
 @end lilypond
 

@@ -121,7 +121,7 @@ independiente.  Eestán disponibles @code{fret-distance} y
 @code{string-distance} como subpropiedades de
 @code{fret-diagram-details}.
 @lilypond[verbatim,quote]
-fretMrkp = \markup { \fret-diagram-terse #"x;x;o;2;3;2;" }
+fretMrkp = \markup { \fret-diagram-terse "x;x;o;2;3;2;" }
 
 \markuplist
 \override #'(padding . 2)
@@ -578,7 +578,7 @@ los nombres de acorde.
 <<
 \new ChordNames \chordmode {
   a' b c:7
-  \once \override ChordName.text = #"foo"
+  \once \override ChordName.text = "foo"
   d
 }
 >>      
@@ -611,7 +611,7 @@ nivel}) y acepta un valor numérico entre @code{0.0} y @code{1.0}.
 \score @{
   \new Staff \with @{
     midiExpression = #0.6
-    midiInstrument = #"clarinet"
+    midiInstrument = "clarinet"
   @}
   <<
     @{ a'1~ a'1 @}

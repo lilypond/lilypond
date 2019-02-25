@@ -1320,7 +1320,7 @@ class MarkEvent (Event):
 class MusicGlyphMarkEvent (MarkEvent):
     def ly_contents (self):
         if self.mark:
-            return '\\markup { \\musicglyph #"scripts.%s" }' % self.mark
+            return '\\markup { \\musicglyph "scripts.%s" }' % self.mark
         else:
             return ''
 
@@ -2229,7 +2229,7 @@ class StaffGroup:
             printer.newline ()
         if self.sound:
             printer.dump(
-                r'\set {stafftype}.midiInstrument = #"{sound}"'.format(
+                r'\set {stafftype}.midiInstrument = "{sound}"'.format(
                     stafftype=self.stafftype, sound=self.sound))
             printer.newline ()
         self.print_ly_contents (printer)

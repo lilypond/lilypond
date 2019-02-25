@@ -19,8 +19,8 @@
 
 %  Add ninth chords to predefined fret diagrams for standard guitar tunings
 
-\addChordShape #'c:9 #guitar-tuning #"x;3-2;2-1;3-3-(;3-3;3-3-);"
-\addChordShape #'f:9 #guitar-tuning #"1-1-(;3-3;1-1;2-2;1-1-);3-4;"
+\addChordShape #'c:9 #guitar-tuning "x;3-2;2-1;3-3-(;3-3;3-3-);"
+\addChordShape #'f:9 #guitar-tuning "1-1-(;3-3;1-1;2-2;1-1-);3-4;"
 
 \storePredefinedDiagram #default-fret-table \chordmode {c:9}
                         #guitar-tuning
@@ -42,7 +42,7 @@
                         #(offset-fret 3 (chord-shape 'c:9 guitar-tuning))
 \storePredefinedDiagram #default-fret-table \chordmode {e:9}
                         #guitar-tuning
-                        #"o;2-2;o;1-1;o;2-3;"
+                        "o;2-2;o;1-1;o;2-3;"
 \storePredefinedDiagram #default-fret-table \chordmode {f:9}
                         #guitar-tuning
                         #(chord-shape 'f:9 guitar-tuning)

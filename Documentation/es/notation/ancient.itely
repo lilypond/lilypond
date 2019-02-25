@@ -2761,7 +2761,7 @@ pentagrama del propio incipit.
 \score {
   \new Staff <<
     \new Voice = Tenor {
-      \set Staff.instrumentName = #"Tenor"
+      \set Staff.instrumentName = "Tenor"
       \override Staff.InstrumentName.self-alignment-X = #RIGHT
       \incipit { \clef "mensural-c4" \key f \major r\breve r1 c'1 }
       \clef "treble_8"
@@ -2783,7 +2783,7 @@ pentagrama del propio incipit.
 Observe que se debe configurar el contenido de
 @code{instrumentName} dentro de la música, para que aparezca el
 incipit.  Si no quiere que aparezca ningún nombre para el
-instrumento, utilice @code{\set Staff.instrumentName = #""}.
+instrumento, utilice @code{\set Staff.instrumentName = ""}.
 
 @c @seealso
 @c ... and reference to other sections ...

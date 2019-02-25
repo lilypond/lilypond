@@ -466,7 +466,7 @@ woodstaff = {
 tambustaff = {
   \override Staff.StaffSymbol.line-positions = #'( 0 )
   \override Staff.BarLine.bar-extent = #'(-1.5 . 1.5)
-  \set DrumStaff.instrumentName = #"Tambourine"
+  \set DrumStaff.instrumentName = "Tambourine"
 }
 
 \new DrumStaff {
@@ -492,7 +492,7 @@ tambustaff = {
 tamtamstaff = {
   \override Staff.StaffSymbol.line-positions = #'( 0 )
   \override Staff.BarLine.bar-extent = #'(-1.5 . 1.5)
-  \set DrumStaff.instrumentName = #"Tamtam"
+  \set DrumStaff.instrumentName = "Tamtam"
 }
 
 \new DrumStaff {
@@ -515,7 +515,7 @@ bellstaff = {
   \override DrumStaff.StaffSymbol.line-positions = #'(-2 3)
   \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
   \override Staff.BarLine.bar-extent = #'(-1.5 . 1.5)
-  \set DrumStaff.instrumentName = #"Different Bells"
+  \set DrumStaff.instrumentName = "Different Bells"
 }
 
 \new DrumStaff {
@@ -582,7 +582,7 @@ drumsB = {
     }
 
    \new DrumStaff {
-     \set DrumStaff.instrumentName = #"Grosse Caisse"
+     \set DrumStaff.instrumentName = "Grosse Caisse"
      \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
      \drumsB }
   >>

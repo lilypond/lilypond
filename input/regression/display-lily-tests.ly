@@ -189,8 +189,8 @@ stderr of this run."
 \test ##[ { 4 4 8 \tuplet 3/2 { 8[ 16] } 16 } #]
 
 %% \relative and \transpose
-\test #"NOT A BUG" ##[ \relative { c'4 b4 } #]	% RelativeOctaveMusic
-\test #"NOT A BUG" ##[ \transpose c d { c4 d4 } #]	% TransposedMusic
+\test "NOT A BUG" ##[ \relative { c'4 b4 } #]	% RelativeOctaveMusic
+\test "NOT A BUG" ##[ \transpose c d { c4 d4 } #]	% TransposedMusic
 
 %% Repeats
 \test ##[ \repeat volta 2 { c4 d4 } #]			% VoltaRepeatedMusic
@@ -245,8 +245,8 @@ stderr of this run."
 { d1 f1 } #]
 
 %% Cue notes
-\test ##[ \cueDuring #"foo" #1 { c4 d4 } #]
-\test ##[ \quoteDuring #"foo" { c4 d4 } #]
+\test ##[ \cueDuring "foo" #1 { c4 d4 } #]
+\test ##[ \quoteDuring "foo" { c4 d4 } #]
 
 %% \ottava
 \test ##[ \ottava #1 #]    % OttavaMusic

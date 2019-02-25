@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.21.0"
 \header{
   texidoc="@code{staffLineLayoutFunction} is used to change the position of the notes.
 This sets @code{staffLineLayoutFunction} to @code{ly:pitch-semitones} to
@@ -17,7 +17,7 @@ scales = \relative {
   \remove "Key_engraver" 
   staffLineLayoutFunction = #ly:pitch-semitones
   middleCPosition = #-6
-  clefGlyph = #"clefs.G"
+  clefGlyph = "clefs.G"
   clefPosition = #(+ -6 7)
 }
 {

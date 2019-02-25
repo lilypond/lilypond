@@ -1,4 +1,4 @@
-\version "2.19.8"
+\version "2.21.0"
 
 \header {
   texidoc="
@@ -61,7 +61,7 @@ size, and number type.
     \revert TextScript.fret-diagram-details.label-dir
     \once \override TextScript.fret-diagram-details.number-type = #'custom
     \once \override TextScript.fret-diagram-details.fret-label-horizontal-offset = #0.5
-    \once \override TextScript.fret-diagram-details.fret-label-custom-format = #"~d°"
+    \once \override TextScript.fret-diagram-details.fret-label-custom-format = "~d°"
     c' ^\markup {
             \fret-diagram-verbose #'((mute 6)
                                      (place-fret 5 3 1)

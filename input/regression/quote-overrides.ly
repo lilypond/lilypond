@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.21.0"
 
 \header {
   texidoc = "The @code{\\quoteDuring} command shall also quote correctly all
@@ -45,5 +45,5 @@ mus = \relative {
 \score
 { <<
   \new Staff \mus
-  \new Voice { \quoteDuring #"music" s1*2 }
+  \new Voice { \quoteDuring "music" s1*2 }
 >> }

@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.21.0"
 
 instrument = \relative {
   \repeat unfold 40 { c'8 }
@@ -21,13 +21,13 @@ Solo = \relative {
          left-edge ambitus breathing-sign clef key-cancellation
          key-signature staff-bar time-signature cue-clef custos))
 
-  \cueDuringWithClef #"instrQuote" #UP #"bass" { R1 }
+  \cueDuringWithClef "instrQuote" #UP "bass" { R1 }
   c2 c2 |
 
   % Revert back to default
   \revert Score.BarLine.space-alist.cue-clef
   \revert Score.BreakAlignment.break-align-orders
-  \cueDuringWithClef #"instrQuote" #UP #"bass" { R1 }
+  \cueDuringWithClef "instrQuote" #UP "bass" { R1 }
   c2 c2 |
 }
 

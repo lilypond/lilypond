@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.21.0"
 
 \header {
   texidoc = "@code{\\quoteDuring} and @code{\\cueDuring} shall properly quote
@@ -46,23 +46,23 @@ quoteMeIII = \relative {
 
 <<
   \new Staff \relative {
-    c''4 \cueDuring #"quoteMe" #DOWN { r4 }
-    c4 \cueDuring #"quoteMe" #DOWN { r4 } % <- no cue note due to sub-voice
+    c''4 \cueDuring "quoteMe" #DOWN { r4 }
+    c4 \cueDuring "quoteMe" #DOWN { r4 } % <- no cue note due to sub-voice
   }
   \new Staff \relative {
-    c''4 \cueDuring #"quoteMeA" #DOWN { r4 }
-    c4 \cueDuring #"quoteMeA" #DOWN { r4 } % <- no cue note due to sub-voice
+    c''4 \cueDuring "quoteMeA" #DOWN { r4 }
+    c4 \cueDuring "quoteMeA" #DOWN { r4 } % <- no cue note due to sub-voice
   }
   \new Staff \relative {
-    c''4 \cueDuring #"quoteMeI" #DOWN { r4 }
+    c''4 \cueDuring "quoteMeI" #DOWN { r4 }
     c4
   }
   \new Staff \relative {
-    c''4 \cueDuring #"quoteMeII" #DOWN { r4 }
-    c4 \cueDuring #"quoteMeII" #DOWN { r4 } % <- quoted parallel notes
+    c''4 \cueDuring "quoteMeII" #DOWN { r4 }
+    c4 \cueDuring "quoteMeII" #DOWN { r4 } % <- quoted parallel notes
   }
   \new Staff \relative {
-    c''4 \cueDuring #"quoteMeIII" #DOWN { r4 }
-    c4 \cueDuring #"quoteMeIII" #DOWN { r4 } % <- quoted parallel notes
+    c''4 \cueDuring "quoteMeIII" #DOWN { r4 }
+    c4 \cueDuring "quoteMeIII" #DOWN { r4 } % <- quoted parallel notes
   }
 >>

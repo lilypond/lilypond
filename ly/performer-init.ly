@@ -90,7 +90,7 @@
   \Staff
   \name DrumStaff
   \alias Staff
-  midiInstrument = #"drums"
+  midiInstrument = "drums"
   \denies Voice
   \accepts DrumVoice
   \defaultchild DrumVoice
@@ -214,7 +214,7 @@
 \context {
   \Staff
   \name TabStaff
-  midiInstrument = #"acoustic guitar (nylon)"
+  midiInstrument = "acoustic guitar (nylon)"
   \alias Staff
   \denies Voice
   \accepts TabVoice
@@ -228,7 +228,7 @@
   \name Score
 
   melismaBusyProperties = #default-melisma-properties
-  instrumentName = #"bright acoustic"
+  instrumentName = "bright acoustic"
   midiChannelMapping = #'staff
 
   %% quarter = 60

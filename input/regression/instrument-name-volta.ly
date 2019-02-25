@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.21.0"
 
 \header {
   texidoc = "Moving the @code{Volta_engraver} to the @code{Staff}
@@ -16,7 +16,7 @@ testMusik =  \relative {
 
 \score {
   \new Staff \relative {
-    \set Staff.shortInstrumentName = #"Instr."
+    \set Staff.shortInstrumentName = "Instr."
     \repeat volta 2 {
       c'1 \break
     }

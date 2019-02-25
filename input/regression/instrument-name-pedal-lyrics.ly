@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.21.0"
 
 \header {
   texidoc = "@code{Dynamics} and @code{Lyrics} lines below
@@ -18,21 +18,21 @@ lower = \relative {
 <<
   \new PianoStaff 
   <<
-    \set PianoStaff.instrumentName = #"Piano"
+    \set PianoStaff.instrumentName = "Piano"
     \new Staff = "Staff_pfUpper" << \upper >>
     \new Staff = "Staff_pfLower" << \lower >>
     \new Dynamics { s2\sustainOn s\sustainOff }
   >>
 
   \new PianoStaff <<
-    \set PianoStaff.instrumentName = #"Piano"
+    \set PianoStaff.instrumentName = "Piano"
     \new Staff = "Staff_pfUpper" << \upper >>
     \new Staff = "Staff_pfLower" << \lower >>
     \new Lyrics \lyricmode { la2 la2 }
   >>
 
   \new PianoStaff <<
-    \set PianoStaff.instrumentName = #"Piano"
+    \set PianoStaff.instrumentName = "Piano"
     \new Staff = "Staff_pfUpper" << \upper >>
     \new Staff = "Staff_pfLower" << \lower >>
   >>

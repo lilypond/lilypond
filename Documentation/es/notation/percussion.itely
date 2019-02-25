@@ -496,7 +496,7 @@ Una pandereta, escrita mediante @q{tamb} (@emph{tambourine}):
 @lilypond[verbatim,quote]
 #(define mydrums '((tambourine default #t 0)))
 
-\new DrumStaff \with { instrumentName = #"Tambourine" }
+\new DrumStaff \with { instrumentName = "Tambourine" }
 
 \drummode {
   \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
@@ -517,7 +517,7 @@ Música para gong, introducida con @q{tt} (tam-tam):
 @lilypond[quote,verbatim]
 #(define mydrums '((tamtam default #t 0)))
 
-\new DrumStaff \with { instrumentName = #"Tamtam" }
+\new DrumStaff \with { instrumentName = "Tamtam" }
 
 \drummode {
 \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
@@ -535,7 +535,7 @@ Dos campanas, introducidas con @q{cb} (@emph{cowbell}, cencerro) y
 #(define mydrums '((ridebell default #t  3)
                    (cowbell  default #t -2)))
 
-\new DrumStaff \with { instrumentName = #"Different Bells" }
+\new DrumStaff \with { instrumentName = "Different Bells" }
 
 \drummode {
   \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
@@ -602,7 +602,7 @@ drumsB = {
   }
   \drumsA
   \new DrumStaff \with {
-    instrumentName = #"Grosse Caisse"
+    instrumentName = "Grosse Caisse"
     drumStyleTable = #(alist->hash-table mydrums)
   }
   \drumsB
