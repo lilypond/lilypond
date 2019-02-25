@@ -185,7 +185,9 @@ static Long_option_init options_static[]
            "which is either NONE, ERROR, WARNING,\n"
            "BASIC, PROGRESS, INFO (default), or DEBUG")},
   {_i ("FILE"), "output", 'o',
-     _i ("write output to FILE (suffix will be added)")},
+     _i ("write output to FILE (suffix will be added)\n"
+	   "or to FOLDER, in which case the file name\n"
+	   "will be taken from the input file.")},
   {0, "relocate", 0,
      _i ("relocate using directory of lilypond program")},
   {0, "silent", 's',
