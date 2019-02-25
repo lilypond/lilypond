@@ -1036,7 +1036,7 @@ Beam_scoring_problem::solve () const
             completed++;
         }
 
-      string card = best->score_card_ + to_string (" c%d/%d", completed, configs.size ());
+      string card = best->score_card_ + to_string (" c%d/%zu", completed, configs.size ());
       beam_->set_property ("annotation", ly_string2scm (card));
     }
 #endif

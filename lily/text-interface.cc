@@ -173,7 +173,7 @@ Text_interface::interpret_markup (SCM layout_smob, SCM props, SCM markup)
           scm_dynwind_end ();
           string name = ly_symbol2string (scm_procedure_name (func));
           // TODO: Also print the arguments of the markup!
-          non_fatal_error (_f ("Markup depth exceeds maximal value of %d; "
+          non_fatal_error (_f ("Markup depth exceeds maximal value of %zu; "
                                "Markup: %s", max_depth, name.c_str ()));
           return Stencil ().smobbed_copy ();
         }

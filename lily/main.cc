@@ -634,7 +634,7 @@ parse_argv (int argc, char **argv)
               || string (opt->longname_str0_) == "ps")
             add_output_format (opt->longname_str0_);
           else if (string (opt->longname_str0_) == "relocate")
-            ; // ignore option for backwards compatibility
+            { warning (_ ("The --relocate option is no longer relevant.")); };
           break;
 
         case 'E':

@@ -297,7 +297,7 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measure_cou
       Real ss = Staff_symbol_referencer::staff_space (me);
       Real spi = Rest::staff_position_internal (me, dl, dir);
       Stencil r;
-      if (oneline && (dl == 0 || dl < 0 && !dir))
+      if (oneline && (dl == 0 || (dl < 0 && !dir)))
         {
           spi -= 2;
           r = musfont->find_by_name (Rest::glyph_name (me, dl, "", true, (dl == 0) ? 0 : -2));
