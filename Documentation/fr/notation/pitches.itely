@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: fc65f44f5cc87fe169a26e2cbcb9b664c2496b77
+   Translation of GIT committish: 0a5306c21d7d64d1ffdadb899c0af79ced2df336
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -80,8 +80,8 @@ do central.
 
 L'octave peut être précisée sous forme d'une série
 d'apostrophes @code{'} ou d'une série de virgules @code{,}.
-Chaque @code{'} hausse la note d'une octave ;
-chaque @code{,} baisse la note d'une octave.
+Chaque @code{'} hausse la note d'une octave ; chaque @code{,} baisse la
+note d'une octave.
 
 @lilypond[verbatim,quote]
 {
@@ -179,11 +179,11 @@ absolue ; plusieurs options s'offrent à vous :
 
 @table @asis
 @item une octave de do (@code{c})
-Un @code{c'} identifiant le do placé entre les portées d'un piano,
-il est de fait aisé de déterminer d'autres octaves de @code{c}.
-Pour une musique qui commencerait par un sol dièse (@code{gis}) au
-dessus du do suraigu (@code{c'''}), vous écririez quelque chose
-comme @code{\relative c''' @{ gis' @dots{} @}}
+Un @code{c'} identifiant le do placé entre les portées d'un piano, il
+est de fait aisé de déterminer d'autres octaves de @code{c}. Pour une
+musique qui commencerait par un sol dièse (@code{gis}) au-dessus du do
+suraigu (@code{c'''}), vous écririez quelque chose comme @code{\relative
+c''' @{ gis' @dots{} @}}
 
 @item une octave de la première note de l'expression
 Écrire @code{\relative gis'' @{ gis @dots{} @}} permet de
@@ -233,7 +233,7 @@ de notes peut tout à fait couvrir un intervalle important.
 @end lilypond
 
 Lorsque plusieurs blocs @code{\relative} sont imbriqués, le bloc
-@code{\relative} inclus dispose de soa propre haueur de référence
+@code{\relative} inclus dispose de sa propre haueur de référence
 indépendamment de celui qui l'englobe.
 
 @lilypond[verbatim,quote]
@@ -504,7 +504,7 @@ Les langues disponibles ainsi que les noms de note utilisés
 sont les suivants :
 
 @quotation
-@multitable {@code{nederlands}} {do re/re mi fa sol la sib si}
+@multitable {@code{nederlands}} {do re/ré mi fa sol la sib si}
 @headitem Langue
   @tab Nom des notes
 @item @code{nederlands}
@@ -790,7 +790,7 @@ transposition suivante créera la partie appropriée.
 @end lilypond
 
 @noindent
-La présence de @w{@code{\key c \major}} s'explique par le fait que, bien
+La présence de @code{\key c \major} s'explique par le fait que, bien
 que les notes soient effectivement transposées, l'armure ne sera
 imprimée que dans la mesure où elle est explicitement mentionnée.
 
@@ -932,7 +932,7 @@ mesure où de nombreux événements se reflètent au lieu d'être échangés,
 les ajustements et indicateurs de positionnement à l'entame d'un objet
 étendu devront être répétés à leur terminaison : @code{^(} devra se
 terminer par @code{^)}, tout @code{\<} ou @code{\cresc} devra se
-terminer par un @code{\!} ou un @code{\endecresc} et tout @code{\>} ou
+terminer par un @code{\!} ou un @code{\endcresc} et tout @code{\>} ou
 @code{\decr} devra se terminer par un @code{\enddecr}.  Les dérogations
 ou commandes modifiant les propriétés sur la durée peuvent avoir des
 effets surprenants.
@@ -1215,7 +1215,7 @@ précaution ».
 Lorsqu'une clef a déjà été imprimée et qu'aucune autre clef n'a depuis
 été imprimée, LilyPond ignorera toute réitération de la commande
 @code{\clef}.  Forcer la réimpression de la clef s'obtient à l'aide de
-la commande @code{\set Staff.forceClef = ##t}.
+la commande @w{@code{\set Staff.forceClef = ##t}}.
 
 @lilypond[verbatim,quote,fragment]
   \clef treble
@@ -1381,7 +1381,7 @@ freygish = #`((0 . ,NATURAL) (1 . ,FLAT) (2 . ,NATURAL)
 Les altérations à la clef peuvent s'imprimer à des octaves différents de
 leur position traditionnelle ou à plusieurs octaves, à l'aide des
 propriétés @code{flat-positions} et @code{sharp-positions} de l'objet
-@code{KeySignature}.  Les entrées fourniees à ces propriétés définissent
+@code{KeySignature}.  Les entrées fournies à ces propriétés définissent
 l'amplitude des positions sur la portée où les altérations seront
 imprimées.  Dans le cas où l'entrée est constituée d'une position
 unique, les altérations seront placées à l'intérieur de l'octave
@@ -1417,10 +1417,10 @@ Morceaux choisis :
 @rlsrnamed{Pitches,Hauteurs}.
 
 Référence des propriétés internes :
-@rinternals{KeyChangeEvent},
 @rinternals{Key_engraver},
 @rinternals{Key_performer},
 @rinternals{KeyCancellation},
+@rinternals{KeyChangeEvent},
 @rinternals{KeySignature},
 @rinternals{key-signature-interface}.
 
@@ -1510,8 +1510,8 @@ portée est joué par l'instrument transpositeur.  Cette hauteur doit être
 mentionnée en @notation{mode absolu}.  Par exemple, lorsque
 vous saisissez une partition en notes réelles, toutes les voix
 devraient être en ut ; si un instrument joue un ton au dessus, il
-faudra lui ajouter un @w{@code{\transposition d'}}.  La commande
-@code{\transposition} s'utilise @strong{si et seulement si} les notes à
+faudra lui ajouter un @code{\transposition d'}.  La commande
+@code{\transposition} s'utilise @strong{si, et seulement si} les notes à
 saisir @strong{ne sont pas} dans la tonalité de concert.
 
 Voici un fragment pour violon et clarinette en si bémol (@emph{B-flat})
@@ -1903,7 +1903,7 @@ musicB = {
 
 Cette règle est équivalente à @code{modern}, mais les bécarres de
 précaution (absents dans la règle @code{default}) sont imprimés entre
-parenthèses.  Ils peuvent aussi adopter une taille différent, au moyen
+parenthèses.  Ils peuvent aussi adopter une taille différente, au moyen
 de la propriété @code{font-size} de l'objet @code{AccidentalSuggestion}.
 
 @lilypond[quote]
@@ -2386,7 +2386,7 @@ musicB = {
 
 Identique au style @code{neo-modern}, mais les altérations de précaution
 sont imprimées entre parenthèses.  Elles peuvent aussi adopter une
-taille différent, au moyen de la propriété @code{font-size} de l'objet
+taille différente, au moyen de la propriété @code{font-size} de l'objet
 @code{AccidentalSuggestion}.
 
 @lilypond[quote]

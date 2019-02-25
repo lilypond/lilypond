@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 3c0f38115857598db730782b1d2ff0a19fd833af
+   Translation of GIT committish: 0a5306c21d7d64d1ffdadb899c0af79ced2df336
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -12,6 +12,7 @@
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
+
 
 @node Répétitions et reprises
 @section Répétitions et reprises
@@ -135,7 +136,7 @@ Si l'on donne trop peu d'alternatives en regard du nombre de fois où le
 passage doit être rejoué, la première alternative sera jouée plusieurs
 fois.
 
-Voici une simple reprise avec une fin alternative :
+Voici une simple reprise avec une fin alternative :
 
 @lilypond[verbatim,quote]
 \relative {
@@ -247,6 +248,7 @@ composite par l'adjonction d'un symbole de @emph{segno} à une barre de
 reprise créée par une commande @code{\repeat volta}.  Qu'il s'agisse
 d'un début, d'une fin ou d'une double reprise, le type de barre est
 automatiquement sélectionné.  L'indication « D.S. » devra cependant être
+ajouté manuellement.
 
 En dehors de toute reprise :
 
@@ -347,7 +349,7 @@ Glossaire musicologique :
 @rglosnamed{repeat,répétition},
 @rglos{volta}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Barres de mesure},
 @ref{Gestion du temps},
 @ref{Modification des greffons de contexte},
@@ -359,7 +361,7 @@ Fichiers d'initialisation :
 Morceaux choisis :
 @rlsrnamed{Repeats,Répétitions}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{VoltaBracket},
 @rinternals{RepeatedMusic},
 @rinternals{VoltaRepeatedMusic},
@@ -378,7 +380,7 @@ Référence des propriétés internes :
 L'extension d'une liaison à partir d'un bloc @code{\repeat} sur un bloc
 @code{\alternative} n'est possible que pour la première alternative.
 L'aspect visuel d'une liaison se continuant dans les autres
-alternatives, peut être simulée à l'aide de la commande
+alternatives, peut être simulé à l'aide de la commande
 @code{\repeatTie} lorsqu'elle s'arrête sur sa première note --
 méthode qui cependant ne fonctionne pas pour un @code{TabStaff}.
 D'autres moyens existent pour indiquer la prolongation d'une
@@ -757,7 +759,7 @@ Glossaire musicologique :
 Morceaux choisis :
 @rlsrnamed{Repeats,Répétitions}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{RepeatSlash},
 @rinternals{RepeatSlashEvent},
 @rinternals{DoubleRepeatSlash},

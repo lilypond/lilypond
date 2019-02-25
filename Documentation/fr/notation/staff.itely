@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 64c8064154e24ff2a07e553ecdbda409f1726487
+   Translation of GIT committish: 0a5306c21d7d64d1ffdadb899c0af79ced2df336
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -12,6 +12,7 @@
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: John Mandereau
+
 
 @node Notation sur la portée
 @section Notation sur la portée
@@ -136,7 +137,7 @@ Glossaire musicologique :
 @rglos{staff},
 @rglosnamed{staves,portées}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Contextes de musique mensurale},
 @ref{Contextes du chant grégorien},
 @ref{Contextes prédéfinis},
@@ -150,7 +151,7 @@ Manuel de notation :
 Morceaux choisis :
 @rlsrnamed{Staff notation, Notation sur la portée}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{Staff},
 @rinternals{DrumStaff},
 @rinternals{GregorianTranscriptionStaff},
@@ -269,14 +270,14 @@ Glossaire musicologique :
 @rglosnamed{bracket,crochet},
 @rglosnamed{grand staff,système}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Définition de nouveaux contextes},
 @ref{Noms d'instrument}.
 
 Morceaux choisis :
 @rlsrnamed{Staff notation, Notation sur la portée}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{Staff},
 @rinternals{StaffGroup},
 @rinternals{ChoirStaff},
@@ -325,7 +326,7 @@ l'explique @ref{Définition de nouveaux contextes}.
 {nesting-staves.ly}
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Définition de nouveaux contextes},
 @ref{Noms d'instrument},
 @ref{Regroupement de portées}.
@@ -333,7 +334,7 @@ Manuel de notation :
 Morceaux choisis :
 @rlsrnamed{Staff notation,Notation sur la portée}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{StaffGroup},
 @rinternals{ChoirStaff},
 @rinternals{SystemStartBar},
@@ -727,7 +728,7 @@ Glossaire musicologique :
 @rglosnamed{staff,portée},
 @rglos{Frenched staff}.
 
-Manuel d'initiation :
+Manuel d'initiation :
 @rlearning{Expressions musicales imbriquées},
 @rlearning{Longueur et épaisseur des objets},
 @rlearning{Taille des objets}.
@@ -826,7 +827,7 @@ Glossaire musicologique :
 Manuel d'initiation:
 @rlearning{Visibilité et couleur des objets}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Dictée à trous},
 @ref{Modification des réglages par défaut d'un contexte},
 @ref{Portées d'ossia},
@@ -837,7 +838,7 @@ Manuel de notation :
 Morceaux choisis :
 @rlsrnamed{Staff notation,Notation sur la portée}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{ChordNames},
 @rinternals{FiguredBass},
 @rinternals{Lyrics},
@@ -1024,7 +1025,7 @@ setFlute = {
 @end lilypond
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Modification des greffons de contexte},
 @ref{Variables d'indentation et de décalage}.
 
@@ -1521,7 +1522,7 @@ l'aide de la commande @code{\addInstrumentDefinition}.  Pour plus
 d'information, reportez-vous au chapitre @ref{Noms d'instrument}.
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Citation d'autres voix},
 @ref{Citation-repère},
 @ref{Clefs},
