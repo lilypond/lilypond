@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: d88eeba3390060dbccddfc3724cbb4b8cfecceb8
+   Translation of GIT committish: 0a5306c21d7d64d1ffdadb899c0af79ced2df336
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -145,7 +145,7 @@ au chiffre. Les notes doublement pointées sont créées de la même façon.
 
 Les points sont normalement haussés pour éviter les lignes de portée,
 sauf dans certaines polyphonies.  Des commandes prédéfinies permettent
-de manuellement forcer un positionnemenet particulièr, comme indiqué au
+de manuellement forcer un positionnement particulier, comme indiqué au
 chapitre @ref{Direction et positionnement}.
 
 Certaines durées ne peuvent s'obtenir à partir de chiffres et de points,
@@ -185,8 +185,8 @@ Glossaire musicologique :
 
 Manuel de notation :
 @ref{Barres de ligature automatiques},
-@ref{Écriture du rythme},
 @ref{Écriture des silences},
+@ref{Écriture du rythme},
 @ref{Hampes},
 @ref{Liaisons de prolongation},
 @ref{Ligatures},
@@ -437,6 +437,8 @@ intermédiaire d'une valeur supérieure à 2^30, LilyPond s'arrêtera
 @translationof Ties
 
 @cindex liaison de prolongation
+@cindex liaison de tenue
+@cindex yenue, liaison
 
 @funindex ~
 
@@ -1374,13 +1376,12 @@ parenthèses l'indication numérique :
 @funindex \markLengthOff
 
 Dans le cas d'une partie où l'instrumentiste a de longs moments de
-silence, les indications de tempo peuvent être fort rapprochées
-l'une de l'autre.  L'instruction @code{\markLengthOn} permet de
-préserver suffisamment d'espace horizontal de telle sorte que ces
-indications ne se chevauchent ; l'instruction
-@code{\markLengthOff} restaure le comportement par défaut qui
-ignore les indications de tempo dans les calculs d'espacement
-horizontal.
+silence, les indications de tempo peuvent être fort rapprochées l'une de
+l'autre. L'instruction @code{\markLengthOn} permet de préserver
+suffisamment d'espace horizontal de telle sorte que ces indications ne
+se chevauchent ; l'instruction @code{\markLengthOff} restaure le
+comportement par défaut qui ignore les indications de tempo dans les
+calculs d'espacement horizontal.
 
 @lilypond[verbatim,quote]
 \compressMMRests {
@@ -2030,6 +2031,8 @@ Référence des propriétés internes :
 @node Barres de ligature
 @subsection Barres de ligature
 @translationof Beams
+
+@cindex lien de croche
 
 @menu
 * Barres de ligature automatiques::
@@ -2959,7 +2962,7 @@ types de barre de mesure, en respectant la syntaxe :
 @end example
 
 Les variables fournies à @code{\defineBarline} peuvent inclure la
-chîne vide @code{""} qui correspond à une barre invisible, ou bien
+chaîne vide @code{""} qui correspond à une barre invisible, ou bien
 être valorisées à @code{#f} -- ce qui aura pour effet ne
 n'imprimer aucune barre.
 
@@ -3017,7 +3020,7 @@ utilité dans la construction de la barre.
 >>
 @end lilypond
 
-Par ailleurs, le caractère espace @code{" "} permer de préserver
+Par ailleurs, le caractère espace @code{" "} permer de préserver
 de l'espace et ainsi aligner correctement les différents tronçons
 d'une barre d'un seul tenant entre les portées d'un système :
 
@@ -3094,7 +3097,7 @@ Fichiers d'initialisation :
 Morceaux choisis :
 @rlsrnamed{Rhythms,Rythme}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{BarLine} (faisant partie du contexte @code{Staff}),
 @rinternals{SpanBar} (sur plusieurs portées),
 @rinternals{Timing_translator} (pour les propriétés liées au temps).
@@ -3629,7 +3632,7 @@ Fichiers d'initialisation :
 Morceaux choisis :
 @rlsrnamed{Rhythms,Rythme}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{GraceMusic},
 @rinternals{Grace_auto_beam_engraver},
 @rinternals{Grace_beam_engraver},
@@ -3787,7 +3790,7 @@ chapitre @ref{Numéros de mesure}.
 
 @item measureLength
 La longueur de la mesure, dans la métrique en cours.  Pour une mesure
-à 4/4, elle est de 1, et de 3/4 pour une mesure à 6/8.  Sa valeur
+à 4/4, elle est de 1, et de 3/4 pour une mesure à 6/8.  Sa valeur
 détermine où peut s'insérer une barre et comment seront générées les
 ligatures automatiques.
 

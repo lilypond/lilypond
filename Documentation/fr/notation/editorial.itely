@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: d88eeba3390060dbccddfc3724cbb4b8cfecceb8
+   Translation of GIT committish: 0a5306c21d7d64d1ffdadb899c0af79ced2df336
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -11,6 +11,7 @@
 @c \version "2.19.80"
 
 @c Translators: Jean-Charles Malahieude
+
 
 @node Annotations éditoriales
 @section Annotations éditoriales
@@ -218,7 +219,7 @@ facteur d'échelle.
 
 La propriété @code{fontSize} affecte uniquement les éléments de
 notation reposant sur des glyphes, tels les têtes de note,
-altérations, scripts, etc.  Elle n'aura aucun effet sur la taille
+altérations, scripts, etc.  Elle n'aura aucun effet sur la taille
 de la portée, la hauteur des hampes ou la longueur des ligatures
 ni sur l'espacement horizontal.  L'échelonnement des hampes,
 ligature et espacement horizontal, couplé à la taille de la
@@ -302,7 +303,7 @@ de la portée.  À une portée de 20 points correspond une police de
 @endpredefined
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Définition de la taille de portée},
 @ref{Mise en forme d'une citation},
 @ref{Portées d'ossia},
@@ -411,7 +412,7 @@ Manuel de notation :
 Morceaux choisis :
 @rlsrnamed{Editorial annotations, Annotations éditoriales}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{FingeringEvent},
 @rinternals{fingering-event},
 @rinternals{Fingering_engraver},
@@ -471,7 +472,7 @@ masqués pour autant.
 Manuel d'initiation :
 @rlearning{Visibilité et couleur des objets}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Masquage de portées},
 @ref{Silences invisibles},
 @ref{Visibilité des objets}.
@@ -502,8 +503,8 @@ Référence des propriétés internes :
 @funindex \with-color
 @funindex x11-color
 
-Des objets peuvent être colorisés individuellement.  Une listes des
-noms des couleurs disponibles se trouvent à l'annexe
+Des objets peuvent être colorisés individuellement.  Une liste des
+noms des couleurs disponibles se trouve à l'annexe
 @ref{Liste des couleurs}.
 
 @lilypond[verbatim,quote,fragment]
@@ -648,7 +649,7 @@ doit cependant être précédée d'un tiret.
 Morceaux choisis :
 @rlsrnamed{Editorial annotations,Annotations éditoriales}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{Parenthesis_engraver},
 @rinternals{ParenthesesItem},
 @rinternals{parentheses-interface}.
@@ -858,7 +859,7 @@ entre chaque ligne.
 Morceaux choisis :
 @rlsrnamed{Editorial annotations,Annotations éditoriales}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{Grid_line_span_engraver},
 @rinternals{Grid_point_engraver},
 @rinternals{GridLine},

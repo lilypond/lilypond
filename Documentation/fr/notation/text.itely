@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 1b56607b3c41bcfcf0a03d94c6c22394334fef92
+   Translation of GIT committish: 0a5306c21d7d64d1ffdadb899c0af79ced2df336
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -12,6 +12,7 @@
 
 @c Translators: Jean-Charles Malahieude
 @c Translation checkers: Valentin Villenave, John Mandereau
+
 
 @node Texte
 @section Texte
@@ -116,7 +117,7 @@ textuelles et articulations, reportez-vous au chapitre
 Manuel d'initiation :
 @rlearning{Positionnement des objets}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Articulations et ornements},
 @ref{Direction et positionnement},
 @ref{Mise en forme du texte}.
@@ -129,7 +130,6 @@ Référence des propriétés internes :
 
 @cindex texte hors marges
 @cindex marges, texte qui dépasse
-@cindex texte, maintien dans les marges
 @cindex texte, maintien dans les marges
 
 @knownissues
@@ -153,7 +153,7 @@ vous pouvez toutefois vous en affranchir en ajoutant
 Certaines indications d'interprétation comme @emph{rallentando},
 @emph{accelerando} ou @emph{trilles}, s'inscrivent textuellement et se
 prolongent sur plusieurs notes à l'aide d'une ligne pleine, pointillée
-ou ondulée.  Ces objets, que l'on appelle @qq{extenseurs}, se dessinent
+ou ondulée.  Ces objets, que l'on appelle « extenseurs », se dessinent
 entre deux notes à l'aide de la syntaxe suivante :
 
 @lilypond[verbatim,quote]
@@ -206,7 +206,7 @@ Les détails concernant la syntaxe à utiliser sont expliqués au chapitre
 {dynamics-custom-text-spanner-postfix.ly}
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Mise en forme du texte},
 @ref{Nuances},
 @ref{Styles de ligne}.
@@ -316,7 +316,7 @@ de la ligne suivante.
 {printing-marks-on-every-staff.ly}
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Indications de repère},
 @ref{La fonte Emmentaler},
 @ref{Mise en forme du texte},
@@ -390,7 +390,7 @@ détail au chapitre @ref{Texte avec sauts de page}.
 {stand-alone-two-column-markup.ly}
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Mise en forme du texte},
 @ref{Plusieurs partitions dans un même ouvrage},
 @ref{Structure de fichier},
@@ -433,7 +433,7 @@ forme du texte à l'aide de la syntaxe propre au mode @code{\markup}.
 @funindex \markup
 
 La commande @code{\markup} permet d'ajouter du texte et dispose de sa
-propre syntaxe que nous appellerons le @qq{mode @emph{markup}}.
+propre syntaxe que nous appellerons le « mode @emph{markup} ».
 
 @cindex markup, expressions
 @cindex expressions markup
@@ -522,12 +522,12 @@ allegro = \markup { \bold \large Allegro }
 
 @noindent
 Pour une liste des différentes commandes spécifiques au mode
-@code{\markup}, consultez l'annexe @ref{Commandes  pour markup} (en
+@code{\markup}, consultez l'annexe @ref{Commandes pour markup} (en
 anglais).
 
 @seealso
 Manuel de notation :
-@ref{Commandes  pour markup}.
+@ref{Commandes pour markup}.
 
 Fichiers d'initialisation :
 @file{scm/markup.scm}.
@@ -728,7 +728,7 @@ Pour savoir comment personnaliser des fontes, reportez-vous au chapitre
 @endpredefined
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @rusernamed{Font,Fonte},
 @ref{Fontes},
 @ref{Indications de reprise manuelles},
@@ -744,7 +744,7 @@ Référence des propriétés internes :
 @rinternals{TextScript}.
 
 @knownissues
-Le recours aux commandes @code{\teeny}, @code{\tiny},@code{\small},
+Le recours aux commandes @code{\teeny}, @code{\tiny}, @code{\small},
 @code{\normalsize}, @code{\large} et @code{\huge} produiront des
 espacements nettement moins réguliers que si vous utilisez
 @code{\fontsize}.
@@ -828,7 +828,7 @@ L'alignement vertical est quant à lui un peu plus compliqué.  Comme nous
 l'avons vu ci-avant, les objets @emph{markup} peuvent être déplacés dans
 leur intégralité.  Il est néanmoins possible de déplacer certains
 éléments spécifiques au sein d'un bloc @emph{markup}.  En pareil cas,
-l'élément à déplacer doit être précédé d'un @qq{point d'ancrage} -- un
+l'élément à déplacer doit être précédé d'un « point d'ancrage » -- un
 autre élément du @emph{markup} ou un objet invisible.  L'exemple qui
 suit illustre ces deux possibilités.  Vous noterez par ailleurs que le
 dernier @emph{markup}, dépourvu de point d'ancrage, n'est de ce fait pas
@@ -1016,7 +1016,7 @@ Référence des propriétés internes :
 @cindex intégration d'objet graphique
 @cindex objets graphiques, tracé
 
-Vous pouvez, grâce aux mode @emph{markup}, ajouter divers objets
+Vous pouvez, grâce au mode @emph{markup}, ajouter divers objets
 graphiques à votre partition.
 
 @cindex décoration du texte
@@ -1159,7 +1159,7 @@ L'annexe @ref{Graphic} répertorie les différentes commandes en matière
 de graphisme.
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @rusernamed{Align,Alignement},
 @ref{Annotations éditoriales},
 @ref{Dimensions},
@@ -1271,7 +1271,7 @@ certains instruments :
 @c The accordion diagram is actually taken from a snippet.
 
 @noindent
-La documentation sur ces diagrammes se trouvent à l'annexe
+La documentation sur ces diagrammes se trouve à l'annexe
 @ref{Instrument Specific Markup}.
 
 @cindex partition incluse dans un markup
@@ -1376,7 +1376,7 @@ anglais).
 Manuel de notation :
 @ref{Commandes pour liste de markups}.
 
-Manuel d'extension :
+Manuel d'extension :
 @rextend{Définition d'une nouvelle commande de liste de markups}.
 
 Fichiers d'initialisation :
@@ -1447,7 +1447,7 @@ Tous ces glyphes, à l'exception des accolades qui sont regroupées dans
 Une remarque s'impose au sujet des glyphes contenus dans
 @code{fetaBraces} : chacun d'eux est formé du mot @emph{brace} auquel
 est accolé un numéro d'ordre.  Lorsque vous désirez imprimer une
-accolade, vous devez la @qq{chercher} par son numéro d'ordre -- d'où la
+accolade, vous devez la « chercher » par son numéro d'ordre -- d'où la
 fonction @code{\lookup} de l'exemple ci-dessus --, tout en sachant qu'il
 est compris entre @code{0} (la plus petite) et @code{575} (la plus
 grande).  Vous serez souvent amené à procéder par tâtonnement pour
@@ -1578,11 +1578,13 @@ cette fonctionnalité est tout bonnement ignorée.
           { Fonctionnalités multiples : Hello 0123456789 εφπρθ } }
 @end lilypond
 
-@noindent Une liste exhaustive des fonctionnalités des fontes OpenType
-est disponible à l'adresse
+@noindent
+Une liste exhaustive des fonctionnalités des fontes OpenType est
+disponible à l'adresse
 @uref{https://www.microsoft.com/typography/otspec/featurelist.htm}
 
-@noindent Les différents types de fonctionnalité des fontes OpenType
+@noindent
+Les différents types de fonctionnalité des fontes OpenType
 sont recensées dans le message
 @uref{http://lists.gnu.org/archive/html/lilypond-devel/2017-08/msg00004.html}
 
@@ -1593,7 +1595,7 @@ deux prochaines parties :
 et @ref{Choix des fontes par défaut}.
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{La fonte Emmentaler},
 @ref{Notation musicale dans du texte formaté},
 @ref{Rotation des objets},
@@ -1771,7 +1773,7 @@ peut donc disposer de son propre jeu de fontes grâce à un simple appel à
 @end example
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Attribution d'une fonte en particulier},
 @rusernamed{Font,Fonte},
 @ref{Changement des fontes musicales},

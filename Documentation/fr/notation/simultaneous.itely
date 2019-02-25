@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-   Translation of GIT committish: 1b56607b3c41bcfcf0a03d94c6c22394334fef92
+   Translation of GIT committish: 0a5306c21d7d64d1ffdadb899c0af79ced2df336
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -11,6 +11,7 @@
 
 @c Translators: Frédéric Chiasson, Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
+
 
 @node Notes simultanées
 @section Notes simultanées
@@ -142,7 +143,7 @@ Glossaire musicologique :
 Manuel d'initiation :
 @rlearning{Combinaison de notes en accords}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Articulations et ornements},
 @ref{Notation des accords}.
 @ref{Octaves relatives},
@@ -228,7 +229,7 @@ aient été attachées aux notes le composant ou à l'ensemble.
 Le seul moyen de les reproduire consiste à utiliser explicitement la
 fonction @code{\chordRepeats}, en lui adjoignant un argument
 supplémentaire qui recense les @var{types d'événement} à répéter et qui
-seraient absents de l'accord construit par un @code{q}.
+seraient absents de l'accord construit par un @code{q}.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -390,7 +391,7 @@ Glossaire musicologique :
 Morceaux choisis :
 @rlsrnamed{Simultaneous notes, Notation simultanée}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{ClusterSpanner},
 @rinternals{ClusterSpannerBeacon},
 @rinternals{Cluster_spanner_engraver}.
@@ -658,7 +659,7 @@ Manuel d'initiation :
 @rlearning{Instanciation explicite des voix},
 @rlearning{Les voix contiennent la musique}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Hampes},
 @ref{Portées de percussion},
 @ref{Silences invisibles}.
@@ -919,7 +920,7 @@ bien explicitement.
 Glossaire musicologique :
 @rglosnamed{polyphony,polyphonie}.
 
-Manuel d'initiation :
+Manuel d'initiation :
 @rlearning{Exemple concret},
 @rlearning{Les voix contiennent la musique},
 @rlearning{Notes simultanées}.
@@ -927,7 +928,7 @@ Manuel d'initiation :
 Morceaux choisis :
 @rlsrnamed{Simultaneous notes, Notation simultanée}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{NoteColumn},
 @rinternals{NoteCollision},
 @rinternals{RestCollision}.
@@ -986,7 +987,7 @@ voiceB = \relative { fis'4 r g2 | R1 | }
 @end lilypond
 
 La propriété de contexte @code{suspendRestMerging}, lorsque activée par
-un @code{##t}, permet de suspendre temporairement la fusion des
+un @code{##t}, permet de suspendre temporairement la fusion des
 silences.
 
 
@@ -1176,7 +1177,7 @@ instrumentTwo = \relative {
 @subsubsubheading Utilisation de @code{\partcombine} et paroles
 
 @cindex \partcombine et paroles
-@cindex parloes et \partcombine
+@cindex paroles et \partcombine
 
 La commande @code{\partcombine} n'est pas conçue pour traiter des
 paroles ; si l'une des voix est explicitement nommée, afin de lui
