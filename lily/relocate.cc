@@ -119,8 +119,8 @@ prefix_relocation (const string &prefix)
   string package_datadir = datadir + "/lilypond";
   string old_lilypond_datadir = lilypond_datadir;
 
-  if (is_dir (package_datadir + "/" + TOPLEVEL_VERSION))
-    lilypond_datadir = package_datadir + "/" + TOPLEVEL_VERSION;
+  if (is_dir (package_datadir + "/" TOPLEVEL_VERSION))
+    lilypond_datadir = package_datadir + "/" TOPLEVEL_VERSION;
   else if (is_dir (package_datadir + "/current"))
     lilypond_datadir = package_datadir + "/current";
   else
@@ -222,8 +222,8 @@ setup_paths (char const *argv0_ptr)
     }
   if (argv0_prefix != compile_prefix || string (FRAMEWORKDIR) != "..")
     {
-      framework_relocation (bindir + "/" + FRAMEWORKDIR);
-      prefix_directory = bindir + "/" + FRAMEWORKDIR;
+      framework_relocation (bindir + "/" FRAMEWORKDIR);
+      prefix_directory = bindir + "/" FRAMEWORKDIR;
     }
 
   lilypond_datadir = prefix_directory
@@ -250,8 +250,6 @@ setup_paths (char const *argv0_ptr)
 
   global_path.append ("");
 
-  /* Adding mf/out make lilypond unchanged source directory, when setting
-     LILYPONDPREFIX to lilypond-x.y.z */
   char const *suffixes[] = {"ly", "ps", "scm", 0 };
 
   vector<string> dirs;

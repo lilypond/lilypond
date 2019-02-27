@@ -57,37 +57,14 @@ using namespace std;
 #include "warn.hh"
 #include "lily-imports.hh"
 
+
 /*
  * Global options that can be overridden through command line.
+ * Most variables are defined in file `global-vars.cc'.
  */
-
-/* Names of header fields to be dumped to a separate file. */
-//vector<string> dump_header_fieldnames_global; // moved to global-data.cc
-
-/* Name of initialisation file. */
-//string init_name_global; // moved to global-data.cc
-
-/* Output formats to generate.  */
-//string output_format_global = ""; // moved to global-data.cc
-
-/* Current output name. */
-//string output_name_global; // moved to global-data.cc
-
-/* Run in safe mode? */
-//bool be_safe_global = false; // moved to global-data.cc
 
 /* Provide URI links to the original file */
 bool point_and_click_global = true;
-
-/* Scheme code to execute before parsing, after .scm init.
-   This is where -e arguments are appended to.  */
-//string init_scheme_code_global; // moved to global-data.cc
-//string init_scheme_variables_global; // moved to global-data.cc
-
-/*
- * Miscellaneous global stuff.
- */
-//File_path global_path; // moved to global-data.cc
 
 /*
  * File globals.
@@ -121,11 +98,6 @@ static char const *WARRANTY
         "GNU General Public License along with this program; if not, write to\n"
         "the Free Software Foundation, Inc., 59 Temple Place - Suite 330,\n"
         "Boston, MA 02111-1307, USA.\n");
-
-/* Where the init files live.  Typically:
-   LILYPOND_DATADIR = /usr/share/lilypond
-*/
-//string lilypond_datadir; // moved to global-data.cc
 
 /* The jail specification: USER, GROUP, JAIL, DIR. */
 string jail_spec;
@@ -634,7 +606,7 @@ parse_argv (int argc, char **argv)
               || string (opt->longname_str0_) == "ps")
             add_output_format (opt->longname_str0_);
           else if (string (opt->longname_str0_) == "relocate")
-            { warning (_ ("The --relocate option is no longer relevant.")); };
+            warning (_ ("The --relocate option is no longer relevant."));
           break;
 
         case 'E':
@@ -698,8 +670,8 @@ parse_argv (int argc, char **argv)
           break;
 
         case 'e':
-          init_scheme_code_global
-          += option_parser->optional_argument_str0_ + string (" ");
+          init_scheme_code_global +=
+            option_parser->optional_argument_str0_ + string (" ");
           break;
         case 'w':
           warranty ();
