@@ -35,12 +35,15 @@ is_break (T *g)
 {
   bool turnable = scm_is_symbol (g->get_property ("page-turn-permission"));
 
-  if (turnable
-      && (!scm_is_symbol (g->get_property ("page-break-permission"))
-          || !scm_is_symbol (g->get_property ("line-break-permission"))))
+  if (turnable)
     {
-      programming_error ("found a page-turnable place which was not breakable");
-      turnable = false;
+      bool page_breakable = scm_is_symbol (g->get_property ("page-break-permission"));
+      bool line_breakable = scm_is_symbol (g->get_property ("line-break-permission"));
+      if (!page_breakable || !line_breakable)
+        {
+          programming_error ("found a page-turnable place which was not breakable");
+          turnable = false;
+        }
     }
 
   return turnable;
