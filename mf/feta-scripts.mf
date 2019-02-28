@@ -80,6 +80,127 @@ fet_beginchar ("fermata down", "dfermata");
 fet_endchar;
 
 
+def draw_henze_short_fermata =
+	save alpha, radius, crook_thinness, crook_fatness, dot_size;
+	save pat;
+	path pat;
+
+	% [Wanske] and some Baerenreiter editions
+	% suggest about 80 degrees instead of a half-circle
+	alpha := 10;
+
+	radius# = 1.25 staff_space#;
+	crook_thinness# = 1.5 linethickness#;
+	crook_fatness# = 0.25 staff_space# + 1.5 linethickness#;
+
+	dot_size# = 8/6 crook_fatness#;
+
+	radius# + crook_fatness# / 2 = h#;
+	radius# + crook_thinness# / 2 = w#;
+
+	% The width of the character to the right is dot_size# / 2
+	% but the fermata should be “centered” with the dot above the
+	% note so the box is made wider here.
+	set_char_box (w#, w#, crook_thinness# / 2, h#);
+
+	define_pixels (radius, crook_thinness, crook_fatness);
+
+	define_whole_blacker_pixels (dot_size);
+
+	penpos1 (crook_thinness, 0);
+	penpos2 (crook_fatness, -90);
+	z1 = (-radius, 0);
+	z2 = (0, radius);
+	x5 = x6 = x2 + crook_thinness / 2;
+	y5 = y2l - crook_thinness / 2;
+	y6 = y2r + crook_thinness / 2;
+
+	pat := z2l{left}
+	       .. z1l{dir (-alpha - 90)}
+	       .. {dir (90 - alpha)}z1r
+	       .. {right}z2r
+	       .. z6{up}
+	       .. {up}z5
+	       .. cycle;
+	fill pat;
+
+	pickup pencircle scaled dot_size;
+	x4 = 0;
+	bot y4 = vround (-crook_thinness / 2);
+	drawdot z4;
+enddef;
+
+
+fet_beginchar ("Henze short fermata up", "uhenzeshortfermata");
+	draw_henze_short_fermata;
+	penlabels (1, 2, 4);
+fet_endchar;
+
+
+fet_beginchar ("Henze short fermata down", "dhenzeshortfermata");
+	draw_henze_short_fermata;
+	y_mirror_char;
+fet_endchar;
+
+
+def draw_henze_long_fermata =
+	save alpha, radius, crook_thinness, crook_fatness, dot_size;
+	save pat;
+	path pat;
+
+	% [Wanske] and some Baerenreiter editions
+	% suggest about 80 degrees instead of a half-circle
+	alpha := 10;
+
+	radius# = 1.25 staff_space#;
+	crook_thinness# = 1.5 linethickness#;
+	crook_fatness# = 0.25 staff_space# + 1.5 linethickness#;
+
+	radius# + crook_fatness# / 2 = h#;
+	radius# + crook_thinness# / 2 = w#;
+
+	set_char_box (w#, w#, crook_thinness# / 2, h#);
+
+	define_pixels (radius, crook_thinness, crook_fatness);
+
+	dot_size# = 8/6 crook_fatness#;
+	define_whole_blacker_pixels (dot_size);
+
+	penpos1 (crook_thinness, 0);
+	penpos2 (crook_fatness, -90);
+	z1 = (-radius, 0);
+	z2 = (0, radius);
+
+	pat := z2l{left}
+	       .. z1l{dir (-alpha - 90)}
+	       .. {dir (90 - alpha)}z1r
+	       .. {right}z2r;
+	pat := pat
+	       -- reverse pat xscaled -1 shifted (-feta_eps, 0)
+	       -- cycle;
+	fill pat;
+
+	pickup pencircle scaled dot_size;
+	x4 = -x5 = 0.8 dot_size;
+	bot y4 = vround (-crook_thinness / 2);
+	y4 = y5;
+	drawdot z4;
+	drawdot z5;
+enddef;
+
+
+fet_beginchar ("Henze long fermata up", "uhenzelongfermata");
+	draw_henze_long_fermata;
+	penlabels (1, 2, 4);
+fet_endchar;
+
+
+fet_beginchar ("Henze long fermata down", "dhenzelongfermata");
+	draw_henze_long_fermata;
+	y_mirror_char;
+fet_endchar;
+
+
 def draw_short_fermata =
 	save fat_factor, thinness, dot_size;
 	save left_dist, right_dist, se, ne;
@@ -142,6 +263,103 @@ fet_endchar;
 
 fet_beginchar ("short fermata down", "dshortfermata");
 	draw_short_fermata;
+	xy_mirror_char;
+fet_endchar;
+
+
+def draw_very_short_fermata =
+	save fat_factor, thinness, dot_size;
+	save inner_factor, x_gap, inner_fat_factor;
+	save left_dist, right_dist, se, ne;
+	pair left_dist, right_dist, se, ne;
+
+	set_char_box (1.25 staff_space#, 1.25 staff_space#, 0, 1.1 * 2.2 staff_space#);
+
+	% the same as in draw_very_long_fermata
+	dot_size# = 0.48 staff_space#;
+	define_whole_blacker_pixels (dot_size);
+
+	fat_factor = .11;
+	thinness = 1.5 linethickness;
+
+	pickup pencircle scaled thinness;
+
+	rt x2 = w;
+	lft x5 = -b;
+	bot y5 = 0;
+	top y3 = h;
+	y1 = y2 = y5;
+
+	x3 = 0;
+	z1 - z4 = whatever * (charwd, -charht);
+	z4 = fat_factor [z3, z5];
+
+	x_gap = 0.2 staff_space; % TODO: is this correct?
+	inner_fat_factor = 0.6 fat_factor;
+
+	x11 - x8 = inner_factor * (x5 - x2);
+	rt x8 = lft x1 - 1.2 x_gap;
+	lft x11 = rt x5 + x_gap;
+	bot y11 = 0;
+	y7 = y8 = y11;
+
+	z9 - z8 = whatever * (z3 - z2);
+	z9 - z11 = whatever * (z3 - z5);
+	z7 - z10 = whatever * (charwd, -charht);
+	z10 = inner_fat_factor [z9, z11];
+
+	ne = unitvector (z3 - z5);
+	se = unitvector (z2 - z3);
+
+	left_dist = (ne rotated 90) * 0.5 thinness;
+	right_dist = (se rotated 90) * 0.5 thinness;
+
+	fill bot z5{right}
+	     .. (z5 - left_dist){ne}
+	     -- (((z5 - left_dist) -- (z3 - left_dist)) intersectionpoint
+		  ((z1 - right_dist) -- (z4 - right_dist)))
+	     -- (z1 - right_dist){se}
+	     .. bot z1{right}
+	     -- bot z2{right}
+	     .. (z2 + right_dist){-se}
+	     -- (z3 + right_dist){-se}
+	     .. top z3
+	     .. (z3 + left_dist){-ne}
+	     -- (z5 + left_dist){-ne}
+	     .. cycle;
+
+	fill bot z11{right}
+	     .. (z11 - left_dist){ne}
+	     -- (((z11 - left_dist) -- (z9 - left_dist)) intersectionpoint
+		  ((z7 - right_dist) -- (z10 - right_dist)))
+	     -- (z7 - right_dist){se}
+	     .. bot z7{right}
+	     -- bot z8{right}
+	     .. (z8 + right_dist){-se}
+	     -- (z9 + right_dist){-se}
+	     .. top z9
+	     .. (z9 + left_dist){-ne}
+	     -- (z11 + left_dist){-ne}
+	     .. cycle;
+
+	pickup pencircle scaled dot_size;
+
+	%x7 - 2 x6 = x8;
+	x6 = 0.5 [x7, x11];
+	x6 := vround (x6);
+	bot y6 = -d;
+
+	drawdot z6;
+enddef;
+
+fet_beginchar ("very short fermata up", "uveryshortfermata");
+	draw_very_short_fermata;
+	labels (1, 2, 3, 4, 5, 6);
+fet_endchar;
+
+
+fet_beginchar ("very short fermata down", "dveryshortfermata");
+	draw_very_short_fermata;
 	xy_mirror_char;
 fet_endchar;
 
