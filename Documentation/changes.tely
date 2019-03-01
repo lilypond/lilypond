@@ -63,6 +63,17 @@ which scares away people.
 
 
 @item
+A very short fermata and Henze variants of long and short fermatas
+have been added.
+@lilypond[quote]
+\markup {
+  \musicglyph "scripts.uveryshortfermata"
+  \musicglyph "scripts.uhenzelongfermata"
+  \musicglyph "scripts.uhenzeshortfermata"
+}
+@end lilypond
+
+@item
 Chords may now be automatically inverted or voiced with dropped notes.
 @lilypond[verbatim,quote]
 \chordmode {
@@ -76,7 +87,7 @@ Chords may now be automatically inverted or voiced with dropped notes.
 @item
 Some ukulele fretboard-diagrams have been fixed, and new
 diagrams have also been added.
- 
+
 @item
 Legacy chord naming functions @code{banter-chord-names} and @code{jazz-chord-names},
 have been removed from the main codebase,  as have been the properties
