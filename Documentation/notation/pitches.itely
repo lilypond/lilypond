@@ -502,7 +502,7 @@ using Italian note names:
 The available languages and the note names they define are:
 
 @quotation
-@multitable {@code{nederlands}} {do re/re mi fa sol la sib si}
+@multitable {@code{espanol} or @code{español}} {do re/re mi fa sol la sib si}
 @headitem Language
   @tab Note Names
 @item @code{nederlands}
@@ -536,7 +536,7 @@ In addition to note names, accidental suffixes may
 also vary depending on the language:
 
 @quotation
-@multitable {@code{nederlands}} {-@code{s}/-@code{-sharp}} {-@code{f}/-@code{-flat}} {-@code{ss}/-@code{x}/-@code{-sharpsharp}} {-@code{ff}/-@code{-flatflat}}
+@multitable {@code{nederlands}} {-@code{s}/-@code{sharp}} {-@code{f}/-@code{flat}} {-@code{ss}/-@code{x}/-@code{sharpsharp}} {-@code{ff}/-@code{flatflat}}
 @headitem Language
   @tab sharp @tab flat @tab double sharp @tab double flat
 @item @code{nederlands}
@@ -546,9 +546,9 @@ also vary depending on the language:
 @item @code{deutsch}
   @tab -@code{is} @tab -@code{es} @tab -@code{isis} @tab -@code{eses}
 @item @code{english}
-  @tab -@code{s}/-@code{-sharp} @tab -@code{f}/-@code{-flat} @tab -@code{ss}/-@code{x}/-@code{-sharpsharp}
-    @tab -@code{ff}/-@code{-flatflat}
-@item @code{espanol} or @code{español}
+  @tab -@code{s}/-@code{sharp} @tab -@code{f}/-@code{flat} @tab -@code{ss}/-@code{x}/-@code{sharpsharp}
+    @tab -@code{ff}/-@code{flatflat}
+@item @code{espanol} or@*@ @code{español}
   @tab -@code{s} @tab -@code{b} @tab -@code{ss}/-@code{x} @tab -@code{bb}
 @item @code{français}
   @tab -@code{d} @tab -@code{b} @tab -@code{dd}/-@code{x} @tab -@code{bb}
@@ -595,7 +595,7 @@ mean @q{half} and @q{one and a half}.  Languages that do not
 appear in this table do not provide special note names yet.
 
 @quotation
-@multitable {@code{nederlands}} {@b{semi-sharp}} {@b{semi-flat}} {@b{sesqui-sharp}} {@b{sesqui-flat}}
+@multitable {@code{espanol} or @code{español}} {@b{semi-sharp}} {@b{semi-flat}} {@b{sesqui-sharp}} {@b{sesqui-flat}}
 @headitem Language
   @tab semi-sharp @tab semi-flat @tab sesqui-sharp @tab sesqui-flat
 
