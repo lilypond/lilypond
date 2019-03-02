@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: d88eeba3390060dbccddfc3724cbb4b8cfecceb8
+   Translation of GIT committish: 1e25c9708270bc41e99739da59500286ad11114c
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -12,6 +12,7 @@
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Jean-Jacques Gerbaud
+
 
 @node Musique vocale
 @section Musique vocale
@@ -87,18 +88,18 @@ la rubrique @ref{Mise en forme d'une partition chorale}.
 @end itemize
 
 @seealso
-Glossaire musicologique :
+Glossaire musicologique :
 @rglos{ambitus}.
 
-Manuel d'initiation :
+Manuel d'initiation :
 @rlearning{Écriture de chants simples}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Ambitus},
 @ref{Introduction au formatage de texte},
 @ref{Mise en forme d'une partition chorale}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Vocal music,Musique vocale}.
 
 
@@ -119,10 +120,10 @@ Morceaux choisis :
 
 Il existe un mode de saisie spécialement adapté aux paroles.  On
 l'introduit avec le mot-clé @code{\lyricmode}, ou en utilisant
-@code{\addlyrics} ou @code{\lyricsto}.  Ce mode vous permet de saisir
+@code{\addlyrics} ou @code{\lyricsto}.  Ce mode permet de saisir
 des paroles ainsi que leur ponctuation, de telle sorte que le
 caractère @code{a} ne sera plus interprété comme une note, un
-@notation{la} pour les non latinistes, mais comme une syllabe.  Les
+@notation{la} pour les latinistes, mais comme une syllabe.  Les
 syllabes sont saisies comme des notes, mais les hauteurs sont alors
 remplacées par du texte.  Exemple avec une comptine anglaise :
 
@@ -136,7 +137,7 @@ syllabe -- comme dans l'exemple ci-dessus -- soit en alignant
 automatiquement les paroles sur les notes d'une mélodie ou d'une voix en
 utilisant @code{\addlyrics} ou @code{\lyricsto}.  La première méthode
 est abordée plus en détail à la rubrique
-@ref{Durée explicite des syllabes}, et la deuxième à la rubrique
+@ref{Durée explicite des syllabes}, la deuxième à la rubrique
 @ref{Durée automatique des syllabes}.
 
 Dans les paroles, un mot ou une syllabe commence par une lettre de
@@ -182,10 +183,10 @@ Expliquer exactement comment LilyPond repère le début d'un mot en mode
 paroles (@emph{Lyrics}) est quelque peu compliqué.  En mode
 @emph{Lyrics}, un mot peut commencer par : tout caractère
 alphabétique, @code{_}, @code{?}, @code{!}, @code{:}, @code{'}, un des
-codes de contrôle @code{^A} à @code{^F} et @code{^Q} à @code{^W},
+codes de contrôle @code{^A} à @code{^F} et @code{^Q} à @code{^W},
 @code{^Y}, @code{^^}, tout caractère ASCII de code strictement supérieur
-à 127, ou enfin l'un des symboles @code{`}, @code{'}, @code{"}, ou
-@code{^}, s'il est précédé d'une barre oblique inverse.
+à 127, ou enfin l'un des symboles @code{`}, @code{'}, @code{"}
+ou @code{^}, s'il est précédé d'une barre oblique inverse.
 
 @c " to balance double quotes for not-so-bright context-sensitive editors
 
@@ -194,15 +195,15 @@ mode @code{\markup}, utilisable y compris au sein du mode
 @code{\lyricmode}.  Des explications complètes sont disponibles au
 chapitre @ref{Mise en forme du texte}.
 
-1@snippets
+@snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {formatting-lyrics-syllables.ly}
 
 @seealso
-Manuel d'initiation :
+Manuel d'initiation :
 @rlearning{Chansons}
 
-Manuel de notation :
+Manuel de notation :
 @ref{Caractères spéciaux},
 @ref{Durée automatique des syllabes},
 @ref{Durée explicite des syllabes},
@@ -210,7 +211,7 @@ Manuel de notation :
 @ref{Mise en forme du texte},
 @ref{Modes de saisie}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{LyricText}.
 
 
@@ -226,7 +227,7 @@ Référence des propriétés internes :
 
 Les paroles sont interprétées à partir à partir du mode
 @code{\lyricmode} et imprimées dans un contexte @code{Lyrics} -- voir
- @ref{Tout savoir sur les contextes}.
+@ref{Tout savoir sur les contextes}.
 
 @example
 \new Lyrics \lyricmode @{ @dots{} @}
@@ -235,11 +236,11 @@ Les paroles sont interprétées à partir à partir du mode
 Deux variantes à @code{\lyricmode} permettent de plus d'associer
 un contexte pour synchroniser les syllabes à la musique.  La plus
 commode consiste à ajouter un @code{\addlyrics} directement après
-le contenu musical du context @code{Voice} qui devrait se
+le contenu musical du contexte @code{Voice} qui devrait se
 synchroniser avec le contexte @code{Lyrics} alors implicitement
 créé.  L'instruction @code{\lyricsto} est plus versatile en ceci
 qu'elle requiert de spécifier à la fois le contexte @code{Voice}
-associé  et de créer explicitement un contexte @code{Lyrics} pour
+associé et de créer explicitement un contexte @code{Lyrics} pour
 contenir les paroles.  Pour de plus amples détails, voir
 @ref{Durée automatique des syllabes}.
 
@@ -333,10 +334,10 @@ technique permet aussi d'ajouter des dialogues, comme indiqué à la rubrique
 @end itemize
 
 @seealso
-Manuel d'initiation :
+Manuel d'initiation :
 @rlearning{Alignement des paroles sur une mélodie}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{Lyrics}.
 
 
@@ -506,9 +507,9 @@ Voici un exemple de cette manière de procéder :
 @end lilypond
 
 @seealso
-Manuel de notation :
-@ref{Traits d'union et de prolongation},
-@ref{Conservation d'un contexte}.
+Manuel de notation :
+@ref{Conservation d'un contexte},
+@ref{Traits d'union et de prolongation}.
 
 
 @node Durée explicite des syllabes
@@ -580,10 +581,10 @@ Les syllabes seront alignées selon la dérogation apportée à la propriété
 @end lilypond
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Dialogue et musique}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{Lyrics},
 @rinternals{Voice}.
 
@@ -672,7 +673,7 @@ Une liaison de prolongation constitue de fait un mélisme :
 
 @item
 LilyPond considère une liaison d'articulation comme un mélisme -- il
-s'étendra de la première à la dernière note couvertes par cette
+s'étendra de la première à la dernière note couverte par cette
 liaison.  Il s'agit là de la façon traditionnelle de saisir des
 paroles :
 
@@ -737,7 +738,7 @@ mélisme :
 
 @item
 Vous pouvez indiquer un mélisme directement dans les paroles, à l'aide
-d'un caractère souligné simple @code{_}, pour chaque note faisant partie
+d'un caractère souligné simple @code{_} pour chaque note faisant partie
 de la vocalise :
 
 @lilypond[verbatim, quote]
@@ -811,19 +812,19 @@ par un simple caractère souligné pour chaque note à inclure :
 @endpredefined
 
 @seealso
-Glossaire musicologique :
+Glossaire musicologique :
 @rglos{melisma}.
 
-Manuel d'initiation :
+Manuel d'initiation :
 @rlearning{Alignement des paroles sur une mélodie}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Alignement des paroles sur la mélodie},
 @ref{Définition des règles de ligature automatique},
 @ref{Durée automatique des syllabes},
 @ref{Rythme différent selon le couplet}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{Tunable context properties}.
 
 @knownissues
@@ -868,7 +869,7 @@ et @code{minimum-length}, seuil en deçà duquel il n'y a pas de trait
 d'union, toutes deux attachées à l'objet @code{LyricHyphen}.
 
 @seealso
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{LyricExtender},
 @rinternals{LyricHyphen}
 
@@ -967,10 +968,10 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 @end lilypond
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Positionnement vertical des paroles}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{LyricCombineMusic},
 @rinternals{Lyrics}.
 
@@ -1101,10 +1102,10 @@ de ces exemples, ou en examinant ce qui figure à la rubrique
 {obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
 
 @seealso
-Manuel d'initiation :
+Manuel d'initiation :
 @rlearning{Modèles pour ensemble vocal}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Création et référencement d'un contexte},
 @ref{Ordonnancement des contextes}.
 
@@ -1586,7 +1587,7 @@ doivent être insérées manuellement :
 @end lilypond
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Conservation d'un contexte},
 @ref{Répétitions et reprises}.
 
@@ -1662,14 +1663,14 @@ d'une fois sur l'autre :
 @end lilypond
 
 Il n'est pas rare, en musique chorale, qu'une voix se divise pendant
-plusieurs mesures.  Bien qu'une construction du type @code{<<
-@{@dots{}@} \\ @{@dots{}@} >>}, où deux expressions musicales (ou plus)
-séparées par des doubles obliques inversées peuvent sembler être le
-moyen adéquat de définir cette division, @strong{toutes} les expressions
-qu'elle contient seront assignées à de @strong{nouveaux contextes de
-voix}, ce qui aura pour effet qu'aucune parole ne leur sera affectée --
-les paroles sont attachées au contexte de voix initial.  Il vaut mieux
-construire ce passage comme une polyphonie temporaire -- voir
+plusieurs mesures. Bien qu'une construction du type
+@code{<< @{@dots{}@} \\ @{@dots{}@} >>}, où deux expressions musicales
+(ou plus) séparées par des doubles obliques inversées peuvent sembler
+être le moyen adéquat de définir cette division, @strong{toutes} les
+expressions qu'elle contient seront assignées à de @strong{nouveaux
+contextes de voix}, ce qui aura pour effet qu'aucune parole ne leur sera
+affectée -- les paroles sont attachées au contexte de voix initial. Il
+vaut mieux construire ce passage comme une polyphonie temporaire -- voir
 @ref{Polyphonie sur une portée}.
 
 
@@ -1722,7 +1723,7 @@ words = \lyricmode { la __ la __ }
 @end lilypond
 
 Cette façon de procéder permet par ailleurs d'utiliser la fonction
-@code{\partcombine} qui normalement ne peut s'utiliser avec des
+@code{\partcombine} qui, normalement, ne peut s'utiliser avec des
 paroles :
 
 @lilypond[quote,verbatim]
@@ -1785,6 +1786,7 @@ words = \lyricmode { la __ la __ }
 @translationof Adding stanza numbers
 
 @cindex numéro de couplet
+@cindex couplet, numéro
 
 On peut ajouter un numéro aux couplets en définissant la variable
 @code{stanza} :
@@ -2074,7 +2076,7 @@ une syllabe en avance, ce qui est tout à fait correct.
 @warning{La commande @code{@bs{}set associatedVoice} @strong{doit}
 intervenir une syllabe @i{avant} celle qui sera suivie par la bascule.
 Autrement dit, une modification de la voix associée sera effective une
-syllabe plus tard que prévu.  Il ne s'agit en aucun cas d'un bogue, la
+syllabe plus tard que prévu.  Il ne s'agit en aucun cas d'une bogue, la
 raison en est purement technique.}
 
 
@@ -2199,7 +2201,7 @@ text = \lyricmode {
 @end lilypond
 
 @seealso
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{LyricText},
 @rinternals{StanzaNumber}.
 
@@ -2265,10 +2267,10 @@ d’étiquette », au chapitre @ref{Vue d'ensemble des cordes frettées}.
 @end itemize
 
 @seealso
-Manuel d'initiation :
+Manuel d'initiation :
 @rlearning{Chansons}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Couplets},
 @ref{Gravure des accords},
 @ref{Gravure des portées},
@@ -2276,7 +2278,7 @@ Manuel de notation :
 @ref{Positionnement vertical des paroles},
 @ref{Vue d'ensemble de la musique vocale}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Vocal music,Musique vocale}.
 
 
@@ -2293,7 +2295,7 @@ chapitre @ref{Notation des accords}.
 {simple-lead-sheet.ly}
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Notation des accords}.
 
 
@@ -2344,7 +2346,7 @@ La création pas à pas d'une partition pour chœur se trouve dans le
 manuel d'initiation, à la rubrique
 @rlearning{Partition pour chœur à quatre voix mixtes}.
 LilyPond dispose aussi d'un canevas automatisé qui simplifie grandement
-la saisie d'une partiotion pour chœur SATB disponible à la rubrique
+la saisie d'une partition pour chœur SATB disponible à la rubrique
 @rlearning{Gabarits préprogrammés}.
 
 @item
@@ -2382,20 +2384,20 @@ passage polyphonique temporaire, est expliquée à la section
 @endpredefined
 
 @seealso
-Manuel d'initiation :
-@rlearning{Partition pour chœur à quatre voix mixtes},
-@rlearning{Modèles pour ensemble vocal}.
+Manuel d'initiation :
+@rlearning{Modèles pour ensemble vocal},
+@rlearning{Partition pour chœur à quatre voix mixtes}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Ordonnancement des contextes},
 @ref{Polyphonie sur une portée},
 @ref{Regroupement de portées},
 @ref{Têtes de note à forme variable}.
 
-Morceaux choisis :
+Morceaux choisis…:
 @rlsrnamed{Vocal music,Musique vocale}.
 
-Référence des propriétés internes :
+Référence des propriétés internes…:
 @rinternals{ChoirStaff},
 @rinternals{Lyrics},
 @rinternals{PianoStaff}.
@@ -2482,7 +2484,7 @@ du chœur.
 @endpredefined
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Définition de la taille de portée},
 @ref{Espacement vertical},
 @ref{Mise en évidence de l'espacement},
@@ -2493,7 +2495,7 @@ Manuel de notation :
 @ref{Sauts},
 @ref{Séparation des systèmes}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{VerticalAxisGroup},
 @rinternals{StaffGrouper}.
 
@@ -2508,7 +2510,7 @@ Référence des propriétés internes :
 {using-arpeggiobracket-to-make-divisi-more-visible.ly}
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Signes d'interprétation sous forme de ligne}.
 
 
@@ -2612,12 +2614,12 @@ indications de mise en scène peuvent s'intercaler entre deux blocs
 @end itemize
 
 @seealso
-Glossaire musicologique :
+Glossaire musicologique :
 @rglosnamed{Frenched score,Partition à la française},
 @rglos{Frenched staves},
 @rglosnamed{transposing instrument,instrument transpositeur}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Ajout de texte},
 @ref{Écriture de parties séparées},
 @ref{Imbrication de regroupements de portées},
@@ -2629,7 +2631,7 @@ Manuel de notation :
 @ref{Séparation des systèmes},
 @ref{Transposition}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Vocal music,Musique vocale}.
 
 
@@ -2719,10 +2721,10 @@ melchior = {
 @end lilypond
 
 @seealso
-Manuel d'initiation:
+Manuel d'initiation :
 @rlearning{Organisation du code source avec des variables}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Commandes pour markup},
 @ref{Texte}.
 
@@ -2831,20 +2833,20 @@ la lisibilité des notes du piano.
 {adding-orchestral-cues-to-a-vocal-score.ly}
 
 @seealso
-Glossaire musicologique :
+Glossaire musicologique :
 @rglos{cue-notes}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Alignement des objets},
 @ref{Citation d'autres voix},
 @ref{Direction et positionnement},
 @ref{Mise en forme d'une citation},
 @ref{Utilisation de fonctions musicales}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Vocal music,Musique vocale}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{CueVoice}.
 
 @knownissues
@@ -2951,11 +2953,11 @@ dialogue = \lyricmode {
 @c TODO show use of \column to produce dialogue on two lines
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Durée explicite des syllabes},
 @ref{Texte}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{LyricText}.
 
 
@@ -2991,10 +2993,10 @@ La présentation du plain chant et du grégorien selon différents styles
 est abordée au chapitre @ref{Notations anciennes}.
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Notations anciennes}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Vocal music,Musique vocale}.
 
 
@@ -3285,11 +3287,11 @@ syllabes et non leur durée.
 {ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 @seealso
-Manuel d'initiation :
+Manuel d'initiation :
 @rlearning{Visibilité et couleur des objets},
 @rlearning{Modèles pour ensemble vocal}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Barres de mesure},
 @ref{Modification des greffons de contexte},
 @ref{Musique sans métrique},
@@ -3453,11 +3455,11 @@ La plupart de ces éléments sont regroupés dans l'un des versets du modèle
 présenté à la rubrique @rlearning{Psalmodie}.
 
 @seealso
-Manuel d'initiation :
+Manuel d'initiation :
 @rlearning{Modèles pour ensemble vocal},
 @rlearning{Psalmodie}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Fontes},
 @ref{Mise en forme du texte}.
 
@@ -3490,5 +3492,5 @@ en détails au chapitre @ref{Notations anciennes}.
 @c and "Transcription of Ancient music with incipit" snippet. -vv
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Notations anciennes}.
