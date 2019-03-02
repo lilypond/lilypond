@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: d88eeba3390060dbccddfc3724cbb4b8cfecceb8
+   Translation of GIT committish: 1e25c9708270bc41e99739da59500286ad11114c
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -12,6 +12,7 @@
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
+
 
 @node Instruments utilisant des portées multiples
 @section Instruments utilisant des portées multiples
@@ -141,11 +142,11 @@ qui passent d'une voix à l'autre, comme le montre
 
 
 @seealso
-Manuel d'initiation :
+Manuel d'initiation :
 @rlearning{Autres utilisations des retouches},
 @rlearning{Exemple concret}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Arpèges},
 @ref{Doigtés},
 @ref{Liaisons de prolongation},
@@ -157,10 +158,10 @@ Manuel de notation :
 @ref{Résolution des collisions},
 @ref{Saisie de musique en parallèle}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Keyboards, Claviers}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{PianoStaff}.
 
 
@@ -192,7 +193,7 @@ donc @var{nomDeLaPortee} désigne habituellement @code{"haut"},
 @code{"bas"}, @code{"MD"} ou @code{"MG"}.
 
 Dans tous les cas, le contexte de portée ainsi utilisé doit exister au
-préalable.  Le cas échéant, vous devrez @qq{garder actives} certaines
+préalable.  Le cas échéant, vous devrez « garder actives » certaines
 portées -- voir @ref{Conservation d'un contexte} à ce propos.
 
 Pour ligaturer automatiquement des notes entre deux portées, procédez
@@ -262,18 +263,18 @@ faudra les résoudre, en suivant les directives du chapitre
 @rlearning{Correction des collisions d'objets}.
 
 @seealso
-Manuel d'initiation :
+Manuel d'initiation :
 @rlearning{Correction des collisions d'objets}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Barres de ligature automatiques},
 @ref{Conservation d'un contexte},
 @ref{Hampes}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Keyboards,Claviers}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{Beam},
 @rinternals{ContextChange}.
 
@@ -373,13 +374,13 @@ portée inférieure :
 @end lilypond
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Changement de portée manuel}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Keyboards, Claviers}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{AutoChangeMusic}.
 
 
@@ -462,10 +463,10 @@ d'arrivée de cette ligne.
 @endpredefined
 
 @seealso
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Keyboards, Claviers}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{Note_head_line_engraver},
 @rinternals{VoiceFollower}.
 
@@ -474,7 +475,7 @@ Référence des propriétés internes :
 @unnumberedsubsubsec Hampes et changements de portée
 @translationof Cross-staff stems
 
-@cindex hampe, enjambement portées
+@cindex hampe, enjambement de portées
 @cindex distance entre deux portées de piano
 
 @funindex Stem
@@ -492,20 +493,20 @@ ligatures.
 @lilypondfile[verbatim,quote]
 {cross-staff-stems.ly}
 
-Il n'est pas possible à l'heure actuelle, en raison de la manière
+Il n'est pas possible, à l'heure actuelle et en raison de la manière
 dont il a été implémenté, de spécifier ce graveur en le mettant entre
 guillements ; il faut le mentionner en faisant précéder son nom d'un
-symbole @emph{hash} (un @code{#}).
+symbole @emph{hash} (un @code{#}).
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {indicating-cross-staff-chords-with-arpeggio-bracket.ly}
 
 @seealso
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Keyboards, Claviers}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{Stem}.
 
 
@@ -574,7 +575,7 @@ pédale @notation{tonale} (@emph{sostenuto} ou @emph{sos.}).  La pédale
 Trois styles sont à votre disposition pour imprimer les indications de
 pédale : sous forme de texte, de crochet, ou une combinaison des
 deux.  @code{text} est le style de notation par défaut pour les pédales
-de tenue ou de sourdine --- le traditionnel « *Ped. ».  La pédale
+de tenue ou de sourdine -- le traditionnel « *Ped. ».  La pédale
 tonale, en revanche, utilise @code{mixed} par défaut.
 
 @lilypond[quote,verbatim]
@@ -595,29 +596,29 @@ pédale de tenue pendant le jeu.  Garder une pédale enclenchée jusqu'à la
 barre finale s'obtient tout simplement en omettant la commande de
 relâcher.
 
-Les indication de pédale peuvent s'inscrire dans un contexte
+Les indications de pédale peuvent s'inscrire dans un contexte
 @code{Dynamics}, ce qui aura pour effet de leur attribuer une ligne en
 propre.
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Liaisons de prolongation}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Keyboards, Claviers}.
 
-Référence des propriétés internes :
-@rinternals{SustainPedal},
-@rinternals{SustainPedalLineSpanner},
+Référence des propriétés internes :
+@rinternals{Piano_pedal_engraver},
+@rinternals{PianoPedalBracket},
 @rinternals{SustainEvent},
 @rinternals{SostenutoPedal},
-@rinternals{SostenutoPedalLineSpanner},
+@rinternals{SustainPedal},
+@rinternals{SustainPedalLineSpanner},
 @rinternals{SostenutoEvent},
+@rinternals{SostenutoPedalLineSpanner},
 @rinternals{UnaCordaPedal},
-@rinternals{UnaCordaPedalLineSpanner},
 @rinternals{UnaCordaEvent},
-@rinternals{PianoPedalBracket},
-@rinternals{Piano_pedal_engraver}.
+@rinternals{UnaCordaPedalLineSpanner}.
 
 
 @node Accordéon
@@ -652,7 +653,7 @@ pour exécuter un morceau.
 {accordion-register-symbols.ly}
 
 @seealso
-Morceaux choisis :
+Morceaux choisis :
 @rlsr{Keyboards, Claviers}.
 
 
@@ -672,6 +673,7 @@ la harpe.
 @node Généralités sur la harpe
 @unnumberedsubsubsec Généralités sur la harpe
 @translationof References for harps
+
 @cindex harpes
 @cindex bisbigliando
 
@@ -693,7 +695,7 @@ d'autres chapitres, tels que :
 @end itemize
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Arpèges},
 @ref{Glissando},
 @ref{Harmoniques},
@@ -737,14 +739,14 @@ c''!1_\markup { \harp-pedal #"^o--|vv-^" }
 Bémol si la pédale est relâchée (ou en haut), bécarre si elle est
 bloquée sur le cran du milieu, et dièse si elle est tout à fait
 enfoncée.  La commande @code{\harp-pedal} prend en argument une chaîne
-de caractères, où @code{^} indique que la pédale est relâchée ou en haut
-(bémol), @code{-} qu'elle est bloquée sur le cran du milieu (bécarre),
-@code{v} qu'elle est tout à fait enfoncée (dièse) et @code{|} représente
+de caractères, où @code{^} indique que la pédale est relâchée ou en haut
+(bémol), @code{-} qu'elle est bloquée sur le cran du milieu (bécarre),
+@code{v} qu'elle est tout à fait enfoncée (dièse) et @code{|} représente
 le séparateur (entre gauche et droite de l'instrumentiste). Faire
-précéder un symbole par un @code{o} permet de l'inscrire dans un cercle.
+précéder un symbole par un @code{o} permet de l'inscrire dans un cercle.
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Commentaires textuels},
 @rusernamed{Instrument Specific Markup,
 Markups spécifiques aux instruments (en anglais)}.

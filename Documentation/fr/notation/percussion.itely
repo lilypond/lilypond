@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: a1ccebffd84b8eeebc161040bb22a93c3f0c44a8
+    Translation of GIT committish: 1e25c9708270bc41e99739da59500286ad11114c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -12,6 +12,7 @@
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: John Mandereau
+
 
 @node Percussions
 @section Percussions
@@ -60,12 +61,12 @@ dédiée : @ref{Génération de fichiers MIDI}.
 @end itemize
 
 @seealso
-Manuel de notation :
+Manuel de notation :
+@ref{Génération de fichiers MIDI},
 @ref{Gravure de lignes rythmiques},
-@ref{Initialisation de nouvelles portées},
-@ref{Génération de fichiers MIDI}.
+@ref{Initialisation de nouvelles portées}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsr{Percussion}.
 
 
@@ -124,14 +125,14 @@ de plus amples informations sont disponibles à la rubrique
 @ref{Génération de fichiers MIDI}.
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Génération de fichiers MIDI},
 @ref{Notes utilisées en percussion}.
 
-Fichiers d'initialisation :
+Fichiers d'initialisation :
 @file{ly/drumpitch-init.ly}
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsr{Percussion}.
 
 
@@ -177,11 +178,11 @@ base satisfaisante.
 @end lilypond
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Direction et positionnement},
 @ref{Répétitions en trémolo}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsr{Percussion}.
 
 
@@ -195,10 +196,10 @@ portées classiques.  Cette possibilité est abordée dans d'autres parties
 du manuel.
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Gestion des instruments MIDI}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsr{Percussion}.
 
 
@@ -290,7 +291,7 @@ sont @code{tommh}, @code{tomml}, et @code{tomfh}.
 
 @item agostini-drums-style
 Inventé par le percussioniste français Dante Agostini en 1965, cette notation
-est comunément utilisée en France mais aussi autre part.
+est comunément utilisée en France mais aussi ailleurs.
 
 @lilypond[quote,line-width=10.0\cm]
 nam = \lyricmode {
@@ -522,5 +523,5 @@ rubrique @ref{Parenthèses}.
 Manuel de notation :
 @ref{Parenthèses}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsr{Percussion}.

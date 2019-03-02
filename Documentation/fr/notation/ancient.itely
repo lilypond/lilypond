@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: d88eeba3390060dbccddfc3724cbb4b8cfecceb8
+   Translation of GIT committish: 1e25c9708270bc41e99739da59500286ad11114c
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -12,6 +12,7 @@
 @c \version "2.19.21"
 
 @c Translators: Jean-Charles Malahieude
+
 
 @node Notations anciennes
 @section Notations anciennes
@@ -60,7 +61,7 @@ notation.  Voir à ce sujet
 D'autres aspects de la notation ancienne ne peuvent pas être gérés
 aussi simplement qu'en jouant sur les propriétés d'un style appliqué à
 un objet graphique ou en lui ajoutant des articulations.  Certains
-concepts sont spécifiques à la notation ancienne.
+concepts sont spécifiques à la notation ancienne :
 
 @itemize
 @item @ref{Guidons},
@@ -69,12 +70,12 @@ concepts sont spécifiques à la notation ancienne.
 @end itemize
 
 @seealso
-Glossaire musicologique :
+Glossaire musicologique :
 @rglos{custos},
 @rglos{ligature},
 @rglos{mensural notation}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Altérations et armures anciennes},
 @ref{Clefs grégoriennes},
 @ref{Crochets anciens},
@@ -166,7 +167,7 @@ crochet en @emph{Mensural}, des têtes de note de @emph{Petrucci}, des
 silences du @emph{Classical} et des clefs du style @emph{Vaticana}.
 
 @seealso
-Glossaire musicologique :
+Glossaire musicologique :
 @rglos{mensural notation},
 @rglos{flag}.
 
@@ -203,12 +204,12 @@ détails sur ces contextes aux rubriques
 @end itemize
 
 @seealso
-Glossaire musicologique :
+Glossaire musicologique :
 @rglos{mensural notation}.
 
-Manuel de notation :
-@ref{Contextes de musique mensurale},
-@ref{Contextes du chant grégorien}.
+Manuel de notation :
+@ref{Contextes du chant grégorien},
+@ref{Contextes de musique mensurale}.
 
 
 @node Ligatures
@@ -225,7 +226,7 @@ moins deux notes distinctes.  Les ligatures ont commencé à apparaître
 dans les manuscrits de chant grégorien, pour indiquer des suites
 ascendantes ou descendantes de notes.
 
-Les ligatures s'indiquent par un bornage entre @code{\[} et  @code{\]}.
+Les ligatures s'indiquent par un bornage entre @code{\[} et @code{\]}.
 Certains styles de ligature peuvent demander un complément de syntaxe
 spécifique.  Par défaut, le graveur @code{LigatureBracket} place un
 simple crochet au dessus de la ligature :
@@ -248,10 +249,10 @@ le graveur de ligature qui convient -- voir les rubriques
 ce sujet.
 
 @seealso
-Glossaire musicologique :
+Glossaire musicologique :
 @rglos{ligature}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Ligatures mensurales},
 @ref{Neumes et ligatures grégoriennes}.
 
@@ -346,13 +347,13 @@ styles disponibles sont @code{vaticana}, @code{medicaea},
 @end lilypond
 
 @seealso
-Glossaire musicologique :
+Glossaire musicologique :
 @rglos{custos}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{Custos}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Ancient notation, Musiques anciennes}.
 
 
@@ -407,7 +408,7 @@ lancer dans la saisie de votre chant comme ci-après :
 @end lilypond
 
 @seealso
-Glossaire musicologique :
+Glossaire musicologique :
 @rglos{mensural notation}.
 
 
@@ -426,7 +427,7 @@ Glossaire musicologique :
 Les clefs dédiées à la musique ancienne sont disponibles à l'aide de la
 commande @code{\clef}.  Certaines de ces clés utilisent le même glyphe,
 attaché à l'une ou l'autre des lignes de la portée.  Le chiffre porté en
-suffixe permet alors de les différencier, en parnant de la ligne
+suffixe permet alors de les différencier, en partant de la ligne
 inférieure.
 
 @lilypond[notime,verbatim,quote,fragment]
@@ -459,21 +460,21 @@ liste exhaustive des différentes clefs est disponible à l’annexe
 @ref{Styles de clef}.
 
 @seealso
-Glossaire musicologique :
+Glossaire musicologique :
 @rglos{mensural notation},
 @rglos{clef}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Clefs grégoriennes},
 @ref{Clefs}.
 
 Fichiers d'initialisation :
 @file{scm/parser-clef.scm}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Pitches,Hauteurs}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{Clef_engraver},
 @rinternals{Clef},
 @rinternals{ClefModifier},
@@ -552,7 +553,7 @@ ci-dessus le style @code{neomensural}, particulièrement utilisé pour
 l'incipit des transcriptions.  Le style @code{mensural} imite l'aspect
 de certaines éditions du XVIe siècle.
 
-Voici les différences entre les styles :
+Voici les différences entre les styles :
 
 @lilypond[ragged-right,quote]
 \relative c' {
@@ -582,10 +583,10 @@ La rubrique @ref{Métrique} expose les principes généraux sur
 l'utilisation des indications de métrique.
 
 @seealso
-Glossaire musicologique :
+Glossaire musicologique :
 @rglos{mensural notation}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Métrique}.
 
 @knownissues
@@ -671,11 +672,11 @@ La rubrique @ref{Têtes de note} présente tous les styles de notes
 disponibles.
 
 @seealso
-Glossaire musicologique :
+Glossaire musicologique :
 @rglos{mensural notation},
 @rglos{note head}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Têtes de note}.
 
 
@@ -710,7 +711,7 @@ Il n'existe pas de crochet spécifique au style néomensural.
 Les crochets n'existent pas en notation grégorienne.
 
 @seealso
-Glossaire musicologique :
+Glossaire musicologique :
 @rglos{mensural notation},
 @rglos{flag}.
 
@@ -748,13 +749,13 @@ huitième et seizième de soupir ; LilyPond utilise dans de tels cas
 le style par défaut.
 
 @seealso
-Glossaire musicologique :
+Glossaire musicologique :
 @rglos{mensural notation}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Silences}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Ancient notation,Notations anciennes}.
 
 @knownissues
@@ -762,7 +763,7 @@ En style mensural, LilyPond utilise pour un silence correspondant à une
 @emph{maxima}, le même glyphe que pour un @emph{longa} ; il faut
 donc les multiplier pour obtenir la durée @emph{ad hoc}.  Des silences
 correspondant à une @emph{longa} ne sont pas groupés automatiquement ;
-utilisez en pareil cas des @qq{notes silencieuses}.
+utilisez en pareil cas des « notes silencieuses ».
 
 
 @node Altérations et armures anciennes
@@ -800,19 +801,19 @@ et @code{KeySignature}, comme ceci :
 @end example
 
 @seealso
-Glossaire musicologique :
+Glossaire musicologique :
 @rglos{mensural notation},
 @rglos{Pitch names},
 @rglos{accidental},
 @rglos{key signature}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Altérations},
 @ref{Altérations accidentelles automatiques},
 @ref{Armure},
 @ref{Hauteurs}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{KeySignature}.
 
 
@@ -863,7 +864,7 @@ ficta = { \once \set suggestAccidentals = ##t }
 @end lilypond
 
 @seealso
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{Accidental_engraver},
 @rinternals{AccidentalSuggestion}.
 
@@ -958,10 +959,10 @@ par le @code{Mensural_ligature_engraver}, on obtient
 @end lilypond
 
 @seealso
-Glossaire musicologique :
+Glossaire musicologique :
 @rglos{ligature}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Ligatures},
 @ref{Neumes et ligatures grégoriennes}.
 
@@ -993,10 +994,10 @@ c'est le @code{Mensural_ligature_engraver} qui se chargera des ligatures
 mensurales.
 
 @seealso
-Glossaire musicologique :
+Glossaire musicologique :
 @rglos{ligature}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Ligatures},
 @ref{Ligatures mensurales}.
 
@@ -1171,10 +1172,10 @@ Clef combinée ut/fa, style historique Hufnagel
 @end multitable
 
 @seealso
-Glossaire musicologique :
+Glossaire musicologique :
 @rglos{clef}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Clefs}.
 
 
@@ -1222,17 +1223,17 @@ et @code{KeySignature}, comme ceci :
 @end example
 
 @seealso
-Glossaire musicologique :
+Glossaire musicologique :
 @rglos{accidental},
 @rglos{key signature}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Altérations},
 @ref{Altérations accidentelles automatiques},
 @ref{Armure},
 @ref{Hauteurs}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{KeySignature}.
 
 
@@ -1313,14 +1314,14 @@ pourquoi @file{gregorian-init.ly} définit aussi @code{\virgula} et
 @endpredefined
 
 @seealso
-Glossaire musicologique :
+Glossaire musicologique :
 @rglos{caesura},
 @rglos{divisio}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Signes de respiration}.
 
-Fichiers d'initialisation :
+Fichiers d'initialisation :
 @file{gregorian.ly}.
 
 
@@ -1351,13 +1352,13 @@ spécifiquement destinées au style des éditions vaticanes.
 @end lilypond
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Articulations et ornements}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Ancient notation,Musiques anciennes}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{Episema},
 @rinternals{EpisemaEvent},
 @rinternals{Episema_engraver},
@@ -1394,13 +1395,13 @@ abrégée de @code{\augmentum a \augmentum g}.
 @end lilypond
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Signes de respiration}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{BreathingSign}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Ancient notation,Musiques anciennes}.
 
 
@@ -1412,12 +1413,12 @@ Morceaux choisis :
 @cindex grégorien, ligatures de neumes carrés
 @cindex ligatures et neumes
 
-Les neumes grégoriens conformément au style des éditions vaticanes sont
-pris en charge de façon assez limitée.  Les ligatures élémentaires sont
-déjà disponibles, mais beaucoup de règles typographiques ne sont pas
-encore implémentées, notamment l'espacement horizontal des enchaînements
-de ligatures, l'alignement des paroles ou une gestion convenable des
-altérations.
+Les neumes grégoriens, conformément au style des éditions vaticanes,
+sont pris en charge de façon assez limitée. Les ligatures élémentaires
+sont déjà disponibles, mais beaucoup de règles typographiques ne sont
+pas encore implémentées, notamment l'espacement horizontal des
+enchaînements de ligatures, l'alignement des paroles ou une gestion
+convenable des altérations.
 
 La prise en charge des neumes grégoriens est activée par l'inclusion, en
 début de votre fichier source, du fichier d'initialisation
@@ -1467,7 +1468,7 @@ répondre à la syntaxe @code{\[@dots{}\]}.
 @c equivalent.
 
 @noindent
-Neumes simples :
+Neumes simples :
 
 @itemize
 @item Le @emph{punctum} représente l'aspect standard d'une note -- dans
@@ -1526,7 +1527,7 @@ en lui affectant une direction @code{\descendens} ou
 Signes spéciaux
 
 Une troisième catégorie regroupe quelques signes dont la signification
-particulière diverge selon la source : la  @emph{quilisma},
+particulière diverge selon la source : la @emph{quilisma},
 l'@emph{oriscus} et le @emph{strophicus}.  Ils s'obtiennent en préfixant
 la hauteur d'un @code{\quilisma}, @code{\oriscus} ou @code{\stropha}.
 
@@ -1556,7 +1557,7 @@ reproduits que si vous utilisez une fonte qui en dispose.
 
 Le tableau ci-dessous inventorie, bien que dans une certaine limite, les
 différents neumes contenus dans le second tome de l'Antiphonale Romanum
-(@emph{Liber Hymnarius}) publié par l'abbaye de Solesmes en 1983.
+(@emph{Liber Hymnarius}) publié par l'abbaye de Solesmes en 1983.
 La première colonne énumère le nom des ligatures -- forme normale en
 gras et forme liquescente en italique. La troisième colonne contient le
 code ayant permis de générer la ligature, se basant ici sur sol, la, si.
@@ -2337,10 +2338,10 @@ Utilisez la fonction musicale unaire @code{\augmentum} pour ajouter
 des points d'augmentum.
 
 @seealso
-Glossaire musicologique :
+Glossaire musicologique :
 @rglos{ligature}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Ligatures},
 @ref{Ligatures mensurales}.
 
@@ -2361,6 +2362,7 @@ s'intégrer avec d'autres préfixes dans n'importe quel ordre.
 
 @cindex kiévien
 @cindex Kievan
+@cindex Kiev
 
 @menu
 * Contextes de notation kiévienne::
@@ -2410,7 +2412,7 @@ lancer dans la saisie de votre chant, comme ci-dessous :
 @end lilypond
 
 @seealso
-Glossaire musicologique :
+Glossaire musicologique :
 @rglosnamed{kievan notation, notation kiévienne}.
 
 @knownissues
@@ -2437,11 +2439,11 @@ La notation kiévienne n'utilise qu'une seule clef -- la clef
 @end lilypond
 
 @seealso
-Glossaire musicologique :
+Glossaire musicologique :
 @rglosnamed{kievan notation, notation kiévienne},
 @rglos{clef}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Clefs}.
 
 
@@ -2453,7 +2455,7 @@ Manuel de notation :
 
 La notation kiévienne requiert l'utilisation d'un style de tête de
 note particulier et la désactivation des hampes et crochets
-classiques.  La fonction @code{\kievanOn} se charge d'affecter à
+classiques.  La fonction @code{\kievanOn} se charge d'affecter
 les propriétés adéquates aux têtes de note, hampes et crochets.
 Un simple @code{\kievanOff} permet de retrouver le comportement
 par défaut de LilyPond.
@@ -2474,11 +2476,11 @@ b'2
 @end lilypond
 
 @seealso
-Glossaire musicologique :
+Glossaire musicologique :
 @rglosnamed{kievan notation, notation kiévienne},
 @rglosnamed{note head, tête de note}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Styles de tête de note}.
 
 @knownissues
@@ -2499,7 +2501,7 @@ Le style d'altération propre à la notation kiévienne est accessible au
 travers de la propriété @code{glyph-name-alist} de l'objet
 @code{Accidental}.  Le style @code{kievan} dispose d'un dièse et d'un
 bémol, tous deux différents du style par défaut ; il n'y a pas de
-bécarre en notation kiévienne.  Bien que le dièse soit pas utilisé en
+bécarre en notation kiévienne.  Bien que le dièse ne soit pas utilisé en
 notation synodale, on peut le trouver dans certains manuscrits plus
 anciens.
 
@@ -2511,11 +2513,11 @@ bes' dis'
 @end lilypond
 
 @seealso
-Glossaire musicologique :
+Glossaire musicologique :
 @rglosnamed{kievan notation, notation kiévienne},
 @rglosnamed{accidental, altération}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Altérations},
 @ref{Altérations accidentelles automatiques},
 @ref{La fonte Emmentaler}.
@@ -2536,7 +2538,7 @@ d'un @code{\bar "k"}.
 @end lilypond
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Barres de mesure},
 @ref{La fonte Emmentaler}.
 
@@ -2687,7 +2689,7 @@ faut cependant le définir avec @code{\set Staff.instrumentName = #""}.
 
 @seealso
 @c ... and reference to other sections ...
-Morceaux choisis:
+Morceaux choisis :
 @rlsrnamed{Ancient notation, Notations anciennes}.
 
 
@@ -2695,7 +2697,7 @@ Morceaux choisis:
 @unnumberedsubsubsec Mise en forme de la musique mensurale
 @translationof Mensurstriche layout
 
-@emph{Mensurstriche}, pour @qq{lignes de mensuration}, est le terme
+@emph{Mensurstriche}, pour « lignes de mensuration », est le terme
 consacré lorsque les barres de mesure apparaissent uniquement entre les
 portées d'un système.  Cette présentation permet de préserver l'aspect
 rythmique de l'original -- par exemple sans couper une syncope par
@@ -2790,7 +2792,7 @@ verba = \lyricmode {
 
 Ceci fonctionne bien tant que le texte ne risque pas de déborder de la
 ligne.  Si tel était le cas, on pourrait plutôt ajouter des notes
-masquées comme ci dessous.
+masquées comme ci-dessous.
 
 Certaines transcriptions laissent néanmoins apparaître
 occasionnellement des hampes, notamment pour indiquer la transition
@@ -2846,11 +2848,11 @@ l'espacement en regard des barres est accru, la représentation en
 notation moderne devrait être tout à fait satisfaisante.
 
 Pour une répartition plus homogène de syllabes de longueur différente --
-telles que @qq{-ri} et @qq{-rum} -- selon les groupes de note, une
+telles que « -ri » et « -rum » -- selon les groupes de note, une
 solution consiste à figer la propriété @code{'X-extent} de l'objet
 @code{LyricText}.  Ceci s'avère moins fastidieux que d'ajouter des
 syllabes sous forme de @emph{markup}.  Des ajustements supplémentaires
-peuvent se réaliser avec des @qq{notes silencieuses} (@code{s}).
+peuvent se réaliser avec des « notes silencieuses » (@code{s}).
 
 @lilypond[verbatim,quote]
 spiritus = \relative {

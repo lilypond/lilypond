@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 97f856e8c577fdf301ac2a15b336eae8729e53f7
+   Translation of GIT committish: 1e25c9708270bc41e99739da59500286ad11114c
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -12,6 +12,7 @@
 
 @c Translators: Valentin Villenave, Matthieu Jacquot
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
+
 
 @node Cordes non frettées
 @section Cordes non frettées
@@ -57,11 +58,11 @@ notes ou des divisions.
 
 La majorité des éléments de notation nécessaires en matière de
 cordes d'orchestre et autres instruments à archet est abordée dans
-d'autres chapitres de la documentation :
+d'autres chapitres de la documentation :
 
 @itemize
 
-@item Les indications textuelles telles que @qq{pizz.} ou @qq{arco} sont
+@item Les indications textuelles telles que « pizz. » ou « arco » sont
 ajoutées comme du texte simple -- voir à ce sujet
 @ref{Commentaires textuels}.
 
@@ -79,16 +80,16 @@ se trouvent dans les exemples de code.
 @end itemize
 
 @seealso
-Manuel d'initiation :
+Manuel d'initiation :
 @rlearning{Modèles pour quatuor à cordes}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Arpèges},
 @ref{Commentaires textuels},
 @ref{Doigtés},
 @ref{Notes en accords}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Unfretted strings, Cordes non frettées}.
 
 
@@ -141,7 +142,7 @@ a'2^\markup { \small "sul A" }
 @endpredefined
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Articulations et ornements},
 @ref{Indications du numéro de corde},
 @ref{Liaisons d'articulation}.
@@ -211,10 +212,10 @@ d'ajouter un point aux notes pointées affublées d'un @code{\harmonic}.
 @end lilypond
 
 @seealso
-Glossaire musicologique :
+Glossaire musicologique :
 @rglos{harmonics}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Références en matière de cordes non frettées},
 @ref{Têtes de note spécifiques}.
 
@@ -228,7 +229,7 @@ Manuel de notation :
 @cindex Bartók pizzicato
 @cindex snap pizzicato
 
-Un @notation{snap pizzicato}, aussi appelé @qq{Bartok pizz} est un type
+Un @notation{snap pizzicato}, aussi appelé « Bartok pizz » est un type
 de pizzicato pour lequel la corde est tirée vers le haut (plutôt que sur
 le côté) de telle sorte qu'elle vienne frapper le manche.
 
