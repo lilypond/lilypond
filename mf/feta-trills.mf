@@ -106,7 +106,7 @@ endgroup;
 enddef;
 
 
-fet_beginchar ("trilelement", "trilelement");
+fet_beginchar ("trillelement", "trillelement");
 	set_char_box (.5 trill_width#, .5 trill_width#,
 		      trill_height#, trill_height#);
 
