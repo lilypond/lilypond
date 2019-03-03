@@ -39,7 +39,8 @@ trill_ne := unitvector ((2, 3));
 % The trill element sticks out on both the left and right side
 % of the normal bbox, so you can glue them together easily.
 %
-% `ending' is either 0 for none, 1 for left, or 2 for right.
+% `ending' is either 0 for none, 1 for left, 2 for right,
+% or 3/4 for longer endings left/right.
 %
 
 def draw_trillelement (expr offset, ending) =
@@ -79,7 +80,12 @@ begingroup;
 	pat := pat shifted (offset, 0);
 	fill pat;
 
-	z4 = z1 - trill_ne * trill_overlap;
+	if (ending = 3) or (ending = 4):
+		z4 = z1 - trill_ne * trill_overlap * 2;
+	else:
+		z4 = z1 - trill_ne * trill_overlap;
+	fi;
+
 	x4 := hround (x4 + 0.5 trill_thin) - 0.5 trill_thin;
 
 	pat := (z4 - nw_dist){-trill_ne}
@@ -90,9 +96,9 @@ begingroup;
 	       -- (z1 - nw_dist){-trill_ne}
 	       -- cycle;
 
-	if ending = 1:
+	if (ending = 1) or (ending = 3):
 		fill pat shifted (offset, 0);
-	elseif ending = 2:
+	elseif (ending = 2) or (ending = 4):
 		pat := pat scaled -1 shifted (-feta_eps, -feta_eps);
                 fill pat shifted (offset, 0);
 	fi;
@@ -227,11 +233,11 @@ fet_beginchar ("upmordent", "upmordent");
 fet_endchar;
 
 
-fet_beginchar ("pralldown", "pralldown");
+fet_beginchar ("prallup", "prallup");
 	set_char_box (1.5 trill_width#, 1.5 trill_width#,
 		      trill_height#, trill_height#);
 
-	currentpicture := remember_pic xscaled -1;
+	currentpicture := remember_pic rotated 180;
 fet_endchar;
 
 
@@ -239,25 +245,25 @@ fet_beginchar ("downprall", "downprall");
 	set_char_box (1.5 trill_width#, 1.5 trill_width#,
 		      trill_height#, trill_height#);
 
-	draw_trillelement (-trill_width, 1);
-	draw_trillelement (0, 0);
 	draw_trillelement (trill_width, 2);
+	draw_trillelement (0, 0);
+	draw_trillelement (-trill_width, 3);
 
 	z11 = z4 shifted (-trill_width, 0);
-	z12 = z11 + (0, 2 trill_height);
+	z12 = z11 + (0, 2.25 trill_height);
 
-	penpos11 (trill_thin, angle (trill_ne xscaled -1) - 90);
-	penpos12 (trill_thin, angle (trill_ne) - 90);
+	penpos11 (trill_thin, angle (trill_ne xscaled -1) - 80);
+	penpos12 (trill_thin, angle (trill_ne) - 80);
 	penlabels (11, 12);
 
 	pickup pencircle scaled trill_stemwidth;
 
-	fill z11l{trill_ne xscaled -1}
-	     .. z12l{trill_ne}
+	fill z11l{trill_ne xscaled -1 rotated 10}
+	     .. z12l{trill_ne rotated -10}
 	     .. top z12
-	     .. rt z12
-	     .. z12r{-trill_ne}
-	     .. z11r{-trill_ne xscaled -1}
+	     .. z12r{-trill_ne rotated -10}
+	     .. tension 0.95
+	     .. z11r{-trill_ne xscaled -1 rotated 10}
 	     -- cycle;
 
 	remember_pic := currentpicture;
@@ -285,19 +291,19 @@ fet_beginchar ("downmordent", "downmordent");
 fet_endchar;
 
 
-fet_beginchar ("prallup", "prallup");
+fet_beginchar ("pralldown", "pralldown");
 	set_char_box (1.5 trill_width#, 1.5 trill_width#,
 		      trill_height#, trill_height#);
 
-	currentpicture := remember_pic xscaled -1;
+	currentpicture := remember_pic rotated 180;
 fet_endchar;
 
 
 fet_beginchar ("lineprall", "lineprall");
 	set_char_box (1.5 trill_width#, 1.5 trill_width#,
-		      trill_height#, 4 trill_height#);
+		      trill_height#, 3.2 trill_height#);
 
-	draw_trillelement (-trill_width, 1);
+	draw_trillelement (-trill_width, 3);
 
 	labels (1, 2, 3, 3', 4, 5, 5');
 
