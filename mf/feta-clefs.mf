@@ -195,6 +195,8 @@ def draw_varc_clef (expr reduction) =
 	% make unreduced glyph fit exactly into five staff lines
 	if reduction = 1:
 		h := d := 2 staff_space_rounded;
+	else:
+		h := d := 2 reduced_ss;
 	fi;
 
 	% assure that the gap between the left and right stem
