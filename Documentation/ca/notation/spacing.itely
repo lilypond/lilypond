@@ -1,0 +1,3896 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+
+@ignore
+    Translation of GIT committish: 24dd6365d3d05f13b9259f547be9b2517851a5d1
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.19.22"
+
+@c Translators: Walter Garcia-Fontes
+@c Translation checkers:
+
+@ignore
+GDP TODO list
+
+Negative numbers are allowed:
+> Are you sure? The following works well
+> \paper{
+>   first-page-number = -2
+> }
+> and prints page number -1 on the second page, for example.
+
+
+Clarify
+http://code.google.com/p/lilypond/issues/detail?id=68
+
+@end ignore
+
+
+@node Gestió de l'espai
+@chapter Gestió de l'espai
+@translationof Spacing issues
+
+La disposició global sobre el paper ve determinada per tres
+factors: el disseny de la pàgina, els salts de línia i l'espaiat.
+Aquests factors influeixen entre sí.  L'elecció d'un o altre
+espaiat determina quina densitat acaba tenint cada sistema de
+música.  Això influeix en el lloc en el qual s'escullen els salts
+de línia i, en últim terme, en el nombre de pàgines que té una
+partitura.
+
+Considerat globalment, aquest procés es produeix en quatre fases:
+en primer lloc es trien unes distàncies elàstiques o @q{molls},
+basats en la duració de les figures.  Es proves totes les
+combinacions de salts de línia possibles, i per a cada una d'elles
+es calcula una puntuació de @q{maldat}.  Després es fa una
+estimació de l'altura de cada un dels possibles sistemes.
+Finalment se selecciona una combinació de salts de pàgina i de
+línia de tal forma que ni l'espaiat horitzontal ni el vertical
+estiguin massa estrets ni estirats.
+
+Hi ha dos tipus de blocs que poden contenir ajustaments de
+disposició: @code{\paper @{@dots{}@}} i @code{\layout
+@{@dots{}@}}.  El bloc @code{\paper} conté ajustament de
+disposició de la pàgina que s'espera siguin els mateixos per a
+totes les partitures d'un llibre o part de llibre, etc.  Vegeu
+@ref{Disposició de la pàgina}.  El bloc @code{\layout} conté
+ajustaments de disposició de la partitura, com el nombre de
+sistemes a utilitzar, o la separació entre grups de pentagrama,
+etc. Vegeu @ref{Disposició de la pàgina}.
+
+@menu
+* Disposició de la pàgina::
+* Disposició de la partitura::
+* Salts::
+* Espaiat vertical::
+* Espaiat horitzontal::
+* Encaix de la música en menys pàgines::
+@end menu
+
+
+@node Disposició de la pàgina
+@section Disposició de la pàgina
+@translationof Page layout
+
+Aquesta secció estudia les opcions de disposició de la pàgina per
+al bloc @code{\paper}.
+
+@menu
+* El bloc paper::
+* Mida del paper i escalat automàtic::
+* Variables fixes d'espaiat vertical de paper::
+* Variables flexibles d'espaiat vertical de paper::
+* Variables d'espaiat horitzontal de paper::
+* Altres variables de paper::
+@end menu
+
+
+@node El bloc paper
+@subsection El bloc @code{@bs{}paper}
+@translationof The paper block
+
+Els blocs @code{\paper} poden aparèixer en tres llocs diferents
+per formar una jerarquia descendent de blocs @code{\paper}:
+
+@itemize
+
+@item
+Al principi del fitxer, abans de qualsevol bloc
+@code{\book}, @code{\bookpart}, o @code{\score}.
+
+@item
+Dins d'un bloc @code{\book} però fora de qualsevol bloc
+@code{\bookpart} o @code{\score} que estiguin dins d'aquest llibre.
+
+@item
+Dins d'un bloc @code{\bookpart} però fora de qualsevol
+@code{\score} que estigui dins d'aquesta part de llibre.
+
+@end itemize
+
+No es posasr un bloc @code{\paper} dins d'un bloc @code{\score}.
+
+Els valors dels camps filtres aquesta jerarquia, persistint els
+valors establerts més a dalt a la jerarquia a no ser que se
+sobreescriguin per algun valor establert a sot de la jerarquia.
+
+Poden aparèixer diversos blocs @code{\paper} en cada u dels
+nivells, per exemple com a part de diversos fitxers inclosos amb
+@code{\include}.  Si és el cas, els camps en cada nivell es
+combinen, agafant precedència els camps que apareixen més tard si
+es produeixen camps duplicats.
+
+Entre els ajustaments que poden aparèixer dins d'un bloc
+@code{\paper} estan els següents:
+
+@itemize
+
+@item
+la funció de l'Scheme @code{set-paper-size},
+
+@item
+variables de @code{\paper} utilitzades per personalitzar la
+disposició de la pàgina, i
+
+@item
+definicions de marcatge utilitzats per personalitzar la disposició
+dels encapçalaments, peus i títols.
+
+@end itemize
+
+La funció @code{set-paper-size} s'estudia a la secció següent,
+@ref{Mida del paper i escalat automàtic}.  Les variables de
+@code{\paper} que s'ocupen de la disposició de la pàgina
+s'estudien en seccions posteriors.  Les definicions d'elements de
+marcatge que s'encarreguen dels encapçalaments, peus i títols
+s'estudien a
+@ref{Títols encapçalaments i peus de pàgina personalitzats}.
+
+Gairebé totes les variables de @code{\paper} funcionen sols dins
+d'un bloc @code{\paper}.  Les poques que funcionen també a un bloc
+@code{\layout} s'indiquen a
+@ref{El bloc layout,,El bloc @code{@bs{}layout}}.
+
+Excepte quan s'especifica el contrari, totes les variables de
+@code{\paper} que corresponen a distàncies sobre la pàgina es
+mesuren en milimetres, a no ser que l'usuari especifiqui unes
+unitats diferents.  Per exemple, la declaració següent estableix
+el marge superior @code{top-margin} a deu mil·límetres:
+
+@example
+\paper @{
+  top-margin = 10
+@}
+@end example
+
+Per fixar-lo a @code{0.5} polzades, utilitzeu el sufix d'unitats
+@code{\in}:
+
+@example
+\paper @{
+  top-margin = 0.5\in
+@}
+@end example
+
+Els sufixos d'unitats que estan disponibles són @code{\mm},
+@code{\cm}, @code{\in} i @code{\pt}.  Aquestes unitats són valors
+simples per convertir a partir de mil·límetres; estan definits a
+@file{ly/paper-defaults-init.ly}.  Per claredat, en usar
+mil·límetres, se sol escriure el sufix @code{\mm} tot i que no cal
+tècnicament.
+
+També és possible definir valors de @code{\paper} utilitzant
+l'Scheme.  L'equivalent de l'Scheme de l'exemple anterior és:
+
+@example
+\paper @{
+  #(define top-margin (* 0.5 in))
+@}
+@end example
+
+@seealso
+Referència de la notació:
+@ref{Mida del paper i escalat automàtic},
+@ref{Títols encapçalaments i peus de pàgina personalitzats},
+@ref{El bloc layout,,El bloc @code{@bs{}layout}}.
+
+Fitxers instal·lats:
+@file{ly/paper-defaults-init.ly}.
+
+
+@node Mida del paper i escalat automàtic
+@subsection Mida del paper i escalat automàtic
+@translationof Paper size and automatic scaling
+
+@cindex mida del paper
+@cindex mida de la pàgina
+
+@funindex \paper
+
+@menu
+* Establiment de la mida del paper::
+* Escalat automàtic a la mida del paper::
+@end menu
+
+
+@node Establiment de la mida del paper
+@unnumberedsubsubsec Establiment de la mida del paper
+@translationof Setting paper size
+
+@q{A4} és el valor predeterminat si no s'estableix cap mida de
+pàgina explícitament.  Però hi ha dues funcions que es poden usar
+per modificar-lo:
+
+@table @code
+@item set-default-paper-size
+
+@example
+#(set-default-paper-size "quarto")
+@end example
+
+que sempre s'ha de col·locar a l'àmbit superior, i
+
+@item set-paper-size
+
+@example
+\paper @{
+  #(set-paper-size "tabloid")
+@}
+@end example
+
+que es pot col·locar sempre dins d'un bloc @code{\paper}.
+@end table
+
+Si s'usa la funció @code{set-default-paper-size} a l'àmbit
+superior jeràrquic, ha d'anar abans de qualsevol bloc
+@code{\paper}.  @code{set-default-paper-size} estableix la mida de
+totes les pàgines, mentre que @code{set-paper-size} estableix sols
+la mida de les pàgines a les quals s'aplica el bloc
+@code{\paper}.  Per exemple, si el bloc @code{\paper} està al
+principi del fitxer, aplica la mida de paper a totes les pàgines.
+Si el bloc @code{\paper} està dins d'un bloc @code{\book},
+aleshores la mida del paper sols s'aplica a aquest llibre.
+
+Quan s'usa la funció @code{set-paper-size}, s'ha de col·locar
+@emph{abans} de qualsevol altra funció que es faci servir dins del
+mateix bloc @code{\paper}.  Vegeu
+@ref{Escalat automàtic de la mida del paper}.
+
+Les mides de pàgina estan definides al fitxer
+@file{scm/paper.scm}, i tot i que és possible afegir mides
+personalitzades, se sobreescriuran a les actualitzacions del
+programari posteriors.  La llista de totes les mides de paper
+disponibles estan a @ref{Mides de pàgina predefinides}.
+
+@c An appendix entry exists for paper sizes but is not auto-generated
+
+Es pot usar l'ordre següent al fitxer per afegir una mida de
+pàgina personalitzada que es pot usar després amb
+@code{set-default-paper-size} o amb @code{set-paper-size} segons
+convengui,
+
+@example
+#(set! paper-alist (cons '("mi tamaño" . (cons (* 15 in) (* 3 in))) paper-alist))
+
+\paper @{
+  #(set-paper-size "mi tamaño")
+@}
+@end example
+
+Es pot usar qualsevol de les unitats @code{in} (polzades),
+@code{cm} (centímetres) o @code{mm} (mil·límetres).
+
+@cindex paper, mida, orientació
+@cindex pàgina, orientació de la
+@cindex paper, mida, apaïsat
+
+Si s'afageix el símbol @code{'landscape} a la funció de la mida de
+la pàgina, el paper es gira 90 graus i s'estableix adequadament
+l'amplada de les línies.
+
+@example
+#(set-default-paper-size "a6" 'landscape)
+@end example
+
+Es poden intercanviar les dimensions del paper @emph{sense que la
+impressió resulti girada} (com quan s'imprimeix en mida targeta
+postal, o en crear gràfics per a la seva inclusió en comptes d'un
+document independent) afegint @samp{landscape} després del nom de
+la pròpia mida del paper:
+
+@example
+#(set-default-paper-size "a6landscape")
+@end example
+
+Quan la mida del paper acaba de forma explícita amb
+@samp{landscape} o amb @samp{portrait}, la presència d'un símbol
+@code{'landscape} @emph{solamente} afecta a l'orientació de la
+impressió, no a les dimensions del paper que s'usen per a la
+disposició.
+
+@seealso
+Referència de la notació:
+@ref{Escalat automàtic de la mida del paper},
+@ref{Mides de pàgina predefinides}.
+
+Fitxers instal·lats:
+@file{scm/paper.scm}.
+
+
+@node Escalat automàtic de la mida del paper
+@unnumberedsubsubsec Escalat automàtic de la mida del paper
+@translationof Automatic scaling to paper size
+
+Si es canvia la mida del paper amb una de les funcions de l'Scheme
+(@code{set-default-paper-size} o @code{set-paper-size}),
+els valors d'algunes variables de @code{\paper} se escalen
+automàticament a la nova mida.  Per sortejar l'escalat automàtica
+per a una variable determinada, establiu el valor de la variable
+després d'establir la mida del paper.  Observeu que l'escalat
+automàtica no s'activa mitjançant l'ajustament de les variables
+@code{paper-height} o de @code{paper-width}, fins i tot
+@code{paper-width} pot influir sobre altres valors (això és
+diferent a l'escalat i s'estudia més a baix).  Les funcions
+@code{set-default-paper-size} i @code{set-paper-size} es descriuen
+a @ref{Establir la mida del paper}.
+
+Les dimensions verticals afectades per l'escalat automàtic són
+@code{top-margin} i @code{bottom-margin} (vegeu @ref{Variables
+d'espaiat de paper vertical fixes,,Variables d'espaiat de
+@code{@bs{}paper} verticals fixes}).  Les dimensions horitzontals
+afectades per l'escalat automàtic són @code{left-margin},
+@code{right-margin}, @code{inner-margin}, @code{outer-margin},
+@code{binding-offset}, @code{indent} i @code{short-indent} (vegeu
+@ref{Variables d'espaiat de paper horitzontals,,Variables
+d'espaiat de @code{@bs{}paper} horitzontals}).
+
+Els valors predeterminats per a aquestes dimensions estan fixats
+al fitxer @file{ly/paper-defaults-init.ly}, usant variables
+internes anomenades @code{top-margin-default},
+@code{bottom-margin-default}, etc.  Aquests són els valors que
+resulten de la mida predeterminat del paper @code{a4}.  Com a
+referència, amb el paper @code{a4} l'alçada  @code{paper-height}
+és @code{297\mm} i l'amplada @code{paper-width} és @code{210\mm}.
+
+@seealso
+Referència de la notació:
+@ref{Variables d'espaiat de paper verticals fixes},
+@ref{Variables d'espaiat de paper horitzontals}.
+
+Fitxers d'inici:
+@file{ly/paper-defaults-init.ly},
+@file{scm/paper.scm}.
+
+
+@node Variables d'espaiat de paper verticals fixes
+@subsection Variables d'espaiat de @code{@bs{}paper} verticals fixes
+@translationof Fixed vertical spacing paper variables
+
+@warning{Algunes dimensions de @code{@bs{}paper} s'escalen
+automàticament a la mida del paper cosa que pot portar a un
+comportament no esperat.  Vegeu
+@ref{Escalat automàtic de la mida del paper}.}
+
+Els valors predeterminats (previs a l'escalat) estan definits al
+fitxer @file{ly/paper-defaults-init.ly}.
+
+@table @code
+@item paper-height (alçada del paper)
+@funindex paper-height
+
+Alçada de la pàgina, no fixada de forma predeterminada.  Observeu
+que l'escalat automàtic d'algunes dimensions verticals no resulta
+afectat per això.
+
+@item top-margin (marge superior)
+@funindex top-margin
+
+Marge entre l'extrem superior de la pàgina i la part superior de
+la zona imprimible.  Si es modifica el mida del paper, el valor
+predeterminat d'aquesta dimensió s'escala d'acord amb allò.
+
+@item bottom-margin (marge inferior)
+@funindex bottom-margin
+
+Marge entre la part inferir de la zona imprimible i l'extrem
+inferior de la pàgina.  Si es modifica la mida del paper, s'escala
+d'acord amb allò el valor predeterminat d'aquesta dimensió.
+
+@item ragged-bottom (sense justificar per sota)
+@funindex ragged-bottom
+
+Si això es fixa al valor vertader, els sistemes es disposen segons
+el seu espaiat natural, ni comprimit ni ampliat verticalment per
+reomplir la pàgina.
+
+@item ragged-last-bottom (sense justificar l'última per sota)
+@funindex ragged-last-bottom
+
+Si s'estableix al valor fals, aleshores l'última pàgina (tant del
+document com de cada secció que s'hagué creat amb un bloc
+@code{\bookpart}) es justifica verticalment de la mateixa forma
+que les pàgines anteriors.
+@end table
+
+@seealso
+Referència de la notació:
+@ref{Escalat automàtic a la mida del paper}.
+
+Fitxers d'inici:
+@file{ly/paper-defaults-init.ly}.
+
+Fragments de codi:
+@rlsr{Spacing}.
+
+@knownissues
+Els títols (estrets del bloc @code{\header}) es tracten com a
+sistemes, això doncs @code{ragged-bottom} i
+@code{ragged-last-bottom} augmenten la separació entre els títols
+i el primer sistema de la partitura.
+
+Les mides de paper definits explícitament sobreescriuen qualsevol
+ajustament dels marges superior i inferior definits per l'usuari.
+
+@node Variables d'espaiat de paper verticals flexibles
+@subsection Variables d'espaiat de @code{@bs{}paper} verticals flexibles
+@translationof Flexible vertical spacing paper variables
+
+En quasi totes els casos és preferible que les distàncies
+verticals entre certs elements (com marges, títols, sistemes i les
+diferents partitures) siguin flexibles, de manera que s'ampliïn i
+comprimeixin adequadament depenent de la situació. Estan
+disponibles un cert nombre de variables del bloc @code{\paper}
+(indicades més a baix) per realitzar un ajustament fi del
+comportament d'aquestes dimensions en front a la seva ampliació o
+compressió.
+
+Observeu que les variables de @code{\paper} que s'estudien a
+aquesta secció no controlen l'espaiat dels pentagrames que estan
+dins dels sistemes individual.  L'espaiat dins dels sistemes es
+controla per mitjà de propietats de grob, amb ajustaments que
+s'escriuen normalment dins d'un bloc @code{\score} o
+@code{\layout}, i no dins del bloc @code{\paper}.  Vegeu
+@ref{Espaiat vertical flexible dins dels sistemes}.
+
+@menu
+* Estructura de les llistes-A d'espaiat vertical flexible::
+* Llista de variables d'espaiat de paper verticals flexibles::
+@end menu
+
+@node Estructura de les listas-A d'espaiat vertical flexible
+@unnumberedsubsubsec Estructura de les listas-A d'espaiat vertical flexible
+@translationof Structure of flexible vertical spacing alists
+
+Cadascuna de les variables d'espaiat de @code{\paper} flexibles és
+una llista-A (llista associativa) que conté quatre @emph{claus}:
+
+@itemize
+
+@item
+@code{basic-distance} (distància bàsica):
+distància vertical, mesurada en espais de pentagrama, entre els
+@emph{punts de referència} dels dos elements, quan no resulti cap
+col·lisió, i no es produeixi cap ampliació o compressió.  El punt
+de referència d'un element de marcatge (de títol o del nivell
+jeràrquic superior) és el seu punt més alt, i el punt de
+referència d'un sistema és el centre vertical del
+@code{StaffSymbol} més proper (fins i tot si es tracta d'una línia
+que no és un pentagrama, com un context @code{Lyrics}).  Els
+valors de @code{distància bàsica} menors de @code{padding} o de
+@code{minimum-distance} no són significatius, perquè la distància
+resultant mai no serà menor de @code{padding} o de
+@code{minimum-distance}.
+
+@item
+@code{minimum-distance} (distància mínima):
+La distància vertical mínima permesa, mesurada en espais de
+pentagrama, entre els punts de referència dels dos elements, quan
+es produeix una compressió.  Els valors de @code{minimum-distance}
+menors de @code{padding} no són significatius, perquè la distància
+resultant mai no serà menor de @code{padding}.
+
+@c TODO: explain skylines somewhere and xref to it from here.
+
+@item
+@code{padding} (farciment):
+mínim espai vertical buit necessari entre els rectangles
+circumdants (o les línies d'horitzó) dels dos elements, mesurat en
+espais de pentagrama.
+
+@item
+@code{stretchability} (capacitat d'ampliació):
+mesurada sense unitats de la propensió relativa d'aquesta dimensió
+a ampliar-se.  Si és zero, la distància no s'ampliarà (a no ser
+que resultassin col·lisions).  Si és positiva, la significació del
+valor de la capacitat d'ampliació de una dimensió concreta depèn
+sols de la seva relació amb els valors de @code{stretchability} de
+les altres dimensions.  Per exemple, si una dimensió té el doble de
+@code{stretchability} que una altra, s'ampliarà amb el doble de
+facilitat.  Els valors han de ser no negatius i finits.  El valor
+@code{+inf.0} provoca un error de programació i s'ignora, però es
+pot usar @code{1.0e7} per a un moll gairebé infinitament
+ampliable.  Si no es fixa un valor, el valor predeterminat
+s'estableix a @code{basic-distance}.  Observeu que la propensió de
+la dimensió a @emph{comprimir-se} no es pot establir directament
+per l'usuari i és igual a
+(@code{basic-distance}@tie{}@minus{}@tie{}@code{minimum-distance}).
+
+@end itemize
+
+Si una pàgina té un marge inferior no justificat, la distància
+resultant és la més gran de:
+
+@itemize
+
+@item
+@code{basic-distance},
+
+@item
+@code{minimum-distance}, i
+
+@item
+@code{padding} més la distància més petita necessària per eliminar
+les col·lisions.
+
+
+@end itemize
+
+Per a partitures de diverses pàgines amb la part inferior no
+justificada a l'última pàgina, l'última pàgina usarà el mateix
+espaiat que la pàgina anterior sempre i quan hi hagi espai
+suficient per a això.
+
+Els mètodes específics per a la modificació de les llistes-A
+s'estudien a @ref{Modificació de les llistes-A}.  El següent
+exemple mostra les dues formes en les quals poden modificar-se
+aquestes llistes-A.  La primera declaració actualitza un parell
+clau-valor individualment, i la segona redefineix la variable
+completament:
+
+@example
+\paper @{
+  system-system-spacing.basic-distance = #8
+  score-system-spacing =
+    #'((basic-distance . 12)
+       (minimum-distance . 6)
+       (padding . 1)
+       (stretchability . 12))
+@}
+@end example
+
+
+@node Llista de variables d'espaiat de paper verticals flexibles
+@unnumberedsubsubsec Llista de variables d'espaiat de @code{@bs{}paper} verticals flexibles
+@translationof List of flexible vertical spacing paper variables
+
+Els noms d'aquestes variables segueixen el format
+@code{@var{superior}-@var{inferior}-spacing}, on
+@code{@var{superior}} i @code{@var{inferior}} són els elements que
+s'espaiaran.  Cada distància es mesura entre els punts de
+referència dels dos elements (vegeu més a dalt la descripció de
+l'estructura de la llista-A).  Observeu que en aquests noms de
+variable, el terme @q{@code{markup}} es refereix tant a
+@emph{elements de marcatge de títol} (@code{bookTitleMarkup} o
+@code{scoreTitleMarkup}) com a @emph{elements de marcatge del
+nivell superior} (vegeu @ref{Estructura del fitxer}).  Totes les
+distàncies es mesuren en espais de pentagrama.
+
+Els ajustaments predeterminats estan definits en el fitxer
+@file{ly/paper-defaults-init.ly}.
+
+@c TODO: Where do headers/footers fit in? -mp
+
+@table @code
+@item markup-system-spacing
+@funindex markup-system-spacing
+
+distància entre un element de marcatge (de títol o del nivell
+superior) i el sistema que el segueix.
+
+@item score-markup-spacing
+@funindex score-markup-spacing
+
+distància entre l'últim sistema d'una partitura i l'element de
+marcatge (de títol o del nivell superior) que el segueix.
+
+@item score-system-spacing
+@funindex score-system-spacing
+
+distància entre l'últim sistema d'una partitura i el primer
+sistema de la partitura que el segueix, quan no existeix cap
+element de marcatge (de títol o del nivell superior) entre ells.
+
+@item system-system-spacing
+@funindex system-system-spacing
+
+distància entre dos sistemes dins de la mateixa partitura.
+
+@item markup-markup-spacing
+@funindex markup-markup-spacing
+
+distancia entre dos elements de marcatge (de títol o del nivell
+superior).
+
+@item last-bottom-spacing
+@funindex last-bottom-spacing
+
+distància des de l'últim sistema o element de marcatge del nivell
+superior en una pàgina, fins la part inferior de la zona
+imprimible (és a dir, l'extrem superior del marge inferior).
+
+@item top-system-spacing
+@funindex top-system-spacing
+
+distància des de la part superior de la zona imprimible (és a dir,
+l'extrem inferior del marge superior) fins el primer sistema d'una
+pàgina, quan no hi ha cap element de marcatge (de títol o de
+nivell superior) entre els dos.
+
+@item top-markup-spacing
+@funindex top-markup-spacing
+
+distancia des de l'extrem superior de la zona imprimible (és a
+dir, l'extrem inferior del marge superior) fins el primer element
+de marcatge (de títol o del nivell superior) sobre una pàgina,
+quan no hi ha cap sistema entre els dos.
+@end table
+
+@seealso
+Referència de la notació:
+@ref{Espaiat vertical flexible dins dels sistemes}.
+
+Fitxers d'inici:
+@file{ly/paper-defaults-init.ly}.
+
+Fragments de codi:
+@rlsr{Spacing}.
+
+
+@node Variables d'espaiat de paper horitzontals
+@subsection Variables d'espaiat de @code{@bs{}paper} horitzontals
+@translationof Horizontal spacing paper variables
+
+@warning{Algunes dimensions de @code{@bs{}paper} s'escalen
+automàticament a la mida del paper, cosa que pot causar un
+comportament diferent a l'esperat. Vegeu
+@ref{Escalat automàtic a la mida del paper}.}
+
+@menu
+* Variables de paper per a l'amplada i els marges::
+* Variables de paper per al mode de doble cara::
+* Variables de paper per a desplaçaments i sagnats::
+@end menu
+
+
+@node Variables de paper per a l'amplada i els marges
+@unnumberedsubsubsec Variables de @code{@bs{}paper} per a l'amplada i els marges
+@translationof paper variables for widths and margins
+
+Els valors predeterminats (abans de l'escalat) que no es llisten
+aquí es poden trobar definits al fitxer
+@file{ly/paper-defaults-init.ly}.
+
+@table @code
+
+@item paper-width (amplada del paper)
+@funindex paper-width
+
+Amplada de la pàgina, sense fixar de forma predeterminada.  Tot i
+que @code{paper-width} no té cap efecte sobre l'escalat automàtic
+d'algunes dimensions horitzontals, sí influeix sobre la variable
+@code{line-width}.  Si estan establertes les dues variables
+@code{paper-width} i @code{line-width}, aleshores també
+s'actualitzen @code{left-margin} i @code{right-margin}.  Vegeu
+també @code{check-consistency}.
+
+@item line-width (longitud de la línia)
+@funindex line-width
+
+Quan s'especifica dins d'un bloc @code{\paper}, defineix les
+dimensions horitzontals de l'espai disponible per a les línies del
+pentagrama als sistemes sense sagnat per l'esquerra.  Si es deixa
+sense especificar, la longitud @code{line-width} del paper es
+determina a partir de
+@code{(paper-width@tie{}@minus{}@tie{}left-margin@tie{}@minus{}@tie{}right-margin)}.
+Si s'especifica la longitud @code{line-width} del paper, i no
+s'especifiquen el marge esquerre @code{left-margin} ni el marge
+dret @code{right-margin}, aleshores els marges s'actualitzen de
+forma que els sistemes se centren automàticament sobre la pàgina.
+Vegeu també @code{check-consistency}.
+
+Els valors de @code{line-width} per a les partitures individuals
+es poden especificar dins dels blocs @code{\layout} de les
+partitures.  Aquests valors controles la longitud de les línies
+produïdes partitura a partitura.  Si la longitud
+@code{line-width} no s'especifica per a una partitura, el seu
+valor predeterminat és el @code{line-width} del bloc paper.  El
+fet d'establir la longitud @code{line-width} d'una partitura no té
+efecte sobre els marges del paper.  Les línies del pentagrama,
+d'una longitud determinada pel valor @code{line-width} de la
+partitura, s'alineen per l'esquerra dins de l'àrea definida per la
+longitud @code{line-width} del paper. Si la longitud
+@code{line-width} del paper i de la partitura són iguals, les
+línies del pentagrama s'estenen exactament des del marge esquerre
+fins al marge dret, però si la longitud @code{line-width} de la
+partitura és més gran que la @code{line-width} del paper, les
+línies del pentagrama s'imprimiran a sobre de l'espai reservat al
+marge dret.
+
+@item left-margin (marge esquerre)
+@funindex left-margin
+
+Marge entre l'extrem esquerre de la pàgina i el començament de les
+línies del pentagrama als sistemes sense sagnat.  Si la mida del
+paper es modifica, el valor predeterminat d'aquesta dimensió
+s'escala d'acord amb això.  Si no s'estableix el valor de
+@code{left-margin}, y tant @code{line-width} com
+@code{right-margin} estan establerts, aleshores s'estableix el
+valor de @code{left-margin} a
+@code{(paper-width@tie{}@minus{}@tie{}line-width@tie{}@minus{}@tie{}right-margin)}.
+Si sols està establert @code{line-width}, aleshores els dos marges
+s'estableixen a @code{((paper-width@tie{}@minus{}@tie{}line-width)@tie{}/@tie{}2)},
+i com a conseqüència els sistemes de centren sobre la pàgina.
+Vegeu també @code{check-consistency}.
+
+@item right-margin (marge dret)
+@funindex right-margin
+
+Marge entre l'extrem dret de la pàgina i el final de les línies
+del pentagrama en sistemes justificats.  Si la mida de la pàgina
+es modifica, el valor predeterminat d'aquesta dimensió s'escala
+d'acord amb això.  Si @code{right-margin} no està establert, i tant
+@code{line-width} com @code{left-margin} estan establerts, el
+valor de @code{right-margin} se estableix a
+@code{(paper-width@tie{}@minus{}@tie{}line-width@tie{}@minus{}@tie{}left-margin)}.
+Si sols està està establert @code{line-width}, els dos marges
+s'estableixen a
+@code{((paper-width@tie{}@minus{}@tie{}line-width)@tie{}/@tie{}2)},
+i com a conseqüència els sistemes apareixen centrats sobre la
+pàgina.  Vegeu també @code{check-consistency}.
+
+@item check-consistency (comprovació de la consistència)
+@funindex check-consistency
+
+Si això és vertader (el seu valor predeterminat), s'imprimeix un
+advertiment en cas que la suma de @code{left-margin},
+@code{line-width} i @code{right-margin} no coincideixi exactament
+amb el valor de @code{paper-width}, y se substitueix cadascun
+d'aquests valors (excepte @code{paper-width}) amb el seu valor
+predeterminat (escalat a la mida del paper si cal).  Si està
+establert al valor fals, s'ignora qualsevol inconsistència i es
+permet que els sistemes se surtin de la vora del paper.
+
+@item ragged-right (sense justificació per l'esquerra)
+@funindex ragged-right
+
+Si s'estableix al valor vertader, els sistemes no cobreixen
+l'amplada de la línia.  Enlloc d'allò, els sistemes finalitzen en
+la seva longitud horitzontal natural.  Valor predeterminat:
+@code{#t} per a les partitures amb un sol sistema, i @code{#f} per
+a partitures que tenen dos o més sistemes.  Aquesta variable també
+es pot establir dins d'un bloc @code{\layout}.
+
+@item ragged-last (sense justificació l'últim)
+@funindex ragged-last
+
+Si s'estableix al valor vertader, l'últim sistema de la partitura
+no omple tota l'amplada de la línia.  Enlloc d'això, l'últim
+sistema finalitza en la seva longitud natural.  Valor
+predeterminat: @code{#f}.  Aquesta variable també es pot ajustar
+dins d'un bloc @code{\layout}.
+
+@end table
+
+@seealso
+Referència de la notació:
+@ref{Escalat automàtic a la mida del paper}.
+
+Fitxers d'inici
+@file{ly/paper-defaults-init.ly}.
+
+@knownissues
+Les mides de paper definides explícitament sobreescriuen qualsevol
+ajustament dels marges esquerre o dret per l'usuari.
+
+
+@node Variables de paper per al mode de doble cara
+@unnumberedsubsubsec Variables de @code{@bs{}paper} per al mode de doble cara
+@translationof paper variables for two-sided mode
+
+Els valors predeterminats (abans de l'escalat) es defineixen a
+@file{ly/paper-defaults-init.ly}.
+
+@table @code
+
+@item two-sided (dues cares)
+@funindex two-sided
+
+@cindex enquadernació
+@cindex marge d'enquadernació
+
+Si té el valor vertader, utilitzeu @code{inner-margin},
+@code{outer-margin} i @code{binding-offset} per determinar els
+marges depenent de si el número de la pàgina és parell o
+imparell.  Això sobreescriu a @code{left-margin} i a
+@code{right-margin}.
+
+@item inner-margin (marge intern)
+@funindex inner-margin
+
+Marge que totes les pàgines tenen al costat intern si formen part
+d'un llibre.  Si la mida del paper es modifica, el valor
+predeterminat d'aquesta dimensió s'escala d'acord amb això.  Sols
+funciona amb @code{two-sided} establert al valor vertader.
+
+@item outer-margin (marge extern)
+@funindex outer-margin
+
+Marge que totes les pàgines tenen al costat extern si formen part
+d'un llibre.  Si la mida del paper es modifica, el valor
+predeterminat d'aquesta dimensió s'escala d'acord amb això.  Sols
+funciona amb @code{two-sided} establert al valor vertader.
+
+@item binding-offset (marge d'enquadernació)
+@funindex binding-offset
+
+Mesura en la qual s'augment @code{inner-margin} per assegurar que
+no s'oculta res a causa de l'enquadernació.  Si la mida del paper
+es modifica, el valor predeterminat d'aquesta dimensió s'escala
+d'acord amb això.  Sols funciona amb @code{two-sided} establert al
+valor vertader.
+
+@end table
+
+@seealso
+Referència de la notació:
+@ref{Escalat automàtic a la mida del paper}.
+
+Fitxer d'inici:
+@file{ly/paper-defaults-init.ly}.
+
+
+@node Variables de paper per a desplaçaments i sagnats
+@unnumberedsubsubsec Variables de @code{@bs{}paper} per a desplaçaments i sagnats
+@translationof paper variables for shifts and indents
+
+Els valors predeterminats (abans de l'escalat) que no s'expliquen
+aquí estan definits al fitxer
+@file{ly/paper-defaults-init.ly}.
+
+@table @code
+
+@item horizontal-shift (desplaçament horitzontal)
+@funindex horizontal-shift
+
+@c This default value is buried in the middle of page.scm.  -mp
+
+És una mesura per la qual tots els sistemes (incloses els títols
+de capçalera i els separadors de sistemes) es desplacen cap a la
+dreta. Predeterminado: @code{0.0}.
+
+@item indent (sagnat)
+@funindex indent
+
+Nivell de sagnat per al primer sistema d'una partitura.  Si es
+modifica la mida del paper, el valor predeterminat d'aquesta
+dimensió s'escala d'acord amb això.  L'espai dins de
+@code{line-width} que està disponible per al primer sistema es
+redueix en aquesta quantitat.  @code{indent} es pot especificar
+també dins dels blocs @code{\layout} per ajustar els sagnats
+partitura a partitura.
+
+@item short-indent (sagnat reduït)
+@funindex short-indent
+
+Nivell de sagnat per a tots els sistemes d'una partitura excepte
+el primer.  Si la mida del paper es modifica, el valor
+predeterminat d'aquesta dimensió s'escala d'acord amb això.
+L'espai dins de @code{line-width} que està disponible per als
+sistemes que no són el primer, es redueix en aquesta quantitat.
+També es pot especificar @code{short-indent} dins dels blocs
+@code{\layout} per ajustar ls sagnats reduïts partitura a
+partitura.
+
+@end table
+
+@seealso
+Referència de la notació:
+@ref{Escalat automàtic a la mida del paper}.
+
+Fitxer d'inici:
+@file{ly/paper-defaults-init.ly}.
+
+Fragments de codi:
+@rlsr{Spacing}.
+
+
+@node Altres variables de paper
+@subsection Altres variables de @code{@bs{}paper}
+@translationof Other paper variables
+
+@menu
+* Variables de paper per als salts de línia::
+* Variables de paper per als salts de pàgina::
+* Variables de paper per a la numeració de les pàgines::
+* Variables de paper diverses::
+@end menu
+
+
+@node Variables de paper per als salts de línia
+@unnumberedsubsubsec Variables de @code{@bs{}paper} per als salts de línia
+@translationof paper variables for line breaking
+
+@table @code
+
+@item max-systems-per-page
+@funindex max-systems-per-page
+
+Nombre màxim de sistemes que es col·loquen sobre una pàgina.  Sols
+té suport per l'algoritme @code{ly:optimal-breaking}.  Valor
+predeterminat: no establert.
+
+@item min-systems-per-page
+@funindex min-systems-per-page
+
+Nombre mínim de sistemes que es col·loquen sobre una pàgina.  Pot
+causar que les pàgines apareguin atapeïdes si el valor és massa
+gran.  Actualment sols té suport per l'algoritme
+@code{ly:optimal-breaking}.  Valor predeterminat: no establert.
+
+@item systems-per-page
+@funindex systems-per-page
+
+Nombre de sistemes que s'han de col·locar a cada pàgina.
+Actualment sols té suport per l'algoritme
+@code{ly:optimal-breaking}.  Valor predeterminat: no establert.
+
+@item system-count
+@funindex system-count
+
+Nombre de sistemes a utilitzar per a una partitura.  Valor
+predeterminat: no establert.  Aquest variable també es pot ajustar
+dins d'un bloc @code{\layout}.
+
+@end table
+
+@seealso
+Referència de la notació:
+@ref{Salts de línia}.
+
+
+@node Variables de paper per als salts de pàgina
+@unnumberedsubsubsec Variables de @code{@bs{}paper} per als salts de pàgina
+@translationof paper variables for page breaking
+
+Els valors predeterminats que no estan relacionats aquí, es
+defineixen al fitxer @file{ly/paper-defaults-init.ly}.
+
+@table @code
+
+@item page-breaking
+@funindex page-breaking
+
+Algoritme de salts de pàgina a utilitzar.  Es pot escollir entre
+@code{ly:minimal-breaking}, @code{ly:page-turn-breaking},
+@code{ly:one-page-breaking}, @code{ly:one-line-breaking},
+@code{ly:one-line-auto-height-breaking} i
+@code{ly:optimal-breaking} (predeterminado).
+
+@item page-breaking-system-system-spacing
+@funindex page-breaking-system-system-spacing
+
+Enganya a la part del programa encarregada dels salts de pàgina
+perquè pensi que @code{system-system-spacing} està establert a un
+valor diferent al que té realment.  Per exemple, si
+@code{page-breaking-system-system-spacing #'padding} està
+establert a quelcom que és molt més gran que
+@code{system-system-spacing #'padding}, aleshores el divisor de
+pàgines posa menys sistemes a cada pàgina. Valor predeterminat:
+sense establir.
+
+@item page-count
+@funindex page-count
+
+Nombre de pàgina a utilitzar a una partitura, no ajustat de forma
+predeterminada.
+
+@end table
+
+Les variables següents són efectives sols quan
+@code{page-breaking} està establert a
+@code{ly:page-turn-breaking}. Els salts de pàgina se seleccionen
+aleshores de forma que es minimitzi el nombre de passos de
+pàgina.  Atès que els passos de pàgina són necessaris quan es
+passa d'una pàgina imparell a una pàgina parell, normalment
+resultarà afavorida aquella disposició en la qual l'última pàgina
+sigui imparell.  Els llocs en els quals es prefereixen passos de
+pàgina poden indicar-se manualment interint @code{\allowPageTurn}
+o automàticament incloent el gravador @code{Page_turn_engraver}
+(véase @ref{Paso de página óptimo}).
+
+Si no hi ha un nombre suficient de possibilitat per escollir a
+l'hora d'inserir uns passos de pàgina adequats, el LilyPond pot
+inserir una pàgina buida dins d'una partitura, entre partitures
+(si hi ha dues o més partitures) o finalitzant una partitura a una
+pàgina de numeració parell.  Els valors de les tres variables
+següents poden incrementar-se perquè aquestes accions es tornin
+menys probables.
+
+Els valors són penalitzacions, és a dir, quan més alt és el valor
+menys probable serà l'acció associada relativa a altres
+possibilitats.
+
+@table @code
+
+@item blank-page-penalty (penalització per pàgina buida)
+@funindex blank-page-penalty
+
+Penalització per tenir una pàgina buida a meitat d'una partitura.
+Si @code{blank-page-penalty} és gran i està seleccionat
+@code{ly:page-turn-breaking}, aleshores serà menys probable que el
+LilyPond insereixi una pàgina en mig d'una partitura.  Enlloc
+d'això, intercala espai a la música fins que s'ompli la pàgina
+buida i la següent.  Predeterminat: 5.
+
+@item blank-last-page-penalty (penalització per última pàgina buida)
+@funindex blank-last-page-penalty
+
+Penalització per terminar la partitura sobre una pàgina parell.  Si
+@code{blank-last-page-penalty} és gran i està seleccionat
+@code{ly:page-turn-breaking}, aleshores serà menys probable que el
+LilyPond produeixi una partitura en la qual l'última pàgina tingui
+numeració parell.  En comptes d'això, ajustarà l'espaiat de manera
+que usi una pàgina més o una pàgina menys.  Predeterminat: 0.
+
+@item blank-after-score-page-penalty (penalització per pàgina buida després d'una partitura)
+@funindex blank-after-score-page-penalty
+
+Penalització per tenir una pàgina buida després del final d'una
+partitura i abans de la següent.  De forma predeterminada, aquesta
+penalització és més petita que @code{blank-page-penalty}, de forma
+que s'insereixen pàgina buides després de les partitures com a
+preferència sobre la inserció de pàgines buides dins d'una
+partitura.  Predeterminat: 2.
+
+@end table
+
+
+@seealso
+Referència de la notació:
+@ref{Salts de pàgina},
+@ref{Salts de pagina òptims},
+@ref{Paso de pàgina òptim},
+@ref{Salts de pàgina mínims},
+@ref{Salts de pàgina del tipus pàgina única},
+@ref{Salts de pàgina del tipus una-línia}
+@ref{Salts de pàgina del tius una-línia-alçada-automàtica}.
+Fitxers d'inici:
+@file{ly/paper-defaults-init.ly}.
+
+
+@node Variables de paper per a la numeració de les pàgines
+@unnumberedsubsubsec Variables de @code{@bs{}paper} per a la numeració de les pàgines
+@translationof paper variables for page numbering
+
+Els valors predeterminats que no es relacionen aquí estan definits
+al fitxer @file{ly/paper-defaults-init.ly}.
+
+@table @code
+
+@cindex números de pàgina, automàtics
+@item auto-first-page-number
+@funindex auto-first-page-number
+
+L'algoritme de divisió de pàgines està afectat pel fet que el
+nombre de la primera pàgina sigui parell o imparell.  Si està
+establert al valor vertader, l'algoritme de divisió de pàgines
+decideix si començar amb un nombre parell o imparell.  Això fa que
+el nombre de la primer pàgina es quedi com està, o que s'augmenti
+en una unitat. Predeterminat: @code{#f}.
+
+@cindex números de pàgina, especificar el primer
+@item first-page-number
+@funindex first-page-number
+
+Valor del número de pàgina a la primera pàgina.
+
+@item print-first-page-number
+@funindex print-first-page-number
+
+Si està establert a vertader, s'imprimeix un número de pàgina a la
+primera pàgina.
+
+@cindex números de pàgina, suprimir
+@item print-page-number
+@funindex print-page-number
+
+Si està establert a fals, no s'imprimeixen els números de pàgina.
+
+@cindex números de pàgina, romans
+@item page-number-type
+@funindex page-number-type
+
+Tipus de numeració per a les pàgines.  Entre les possibilitat estan
+@code{roman-lower} (nombres romans en minúscules),
+@code{roman-upper} (nombres romans en majúscules) i @code{arabic}
+(xifres aràbigues).  Valor predeterminat: @code{'arabic}.
+
+@end table
+
+@seealso
+Fitxers d'inici:
+@file{ly/paper-defaults-init.ly}.
+
+@knownissues
+Els nombres de pàgina imparells sempre estan a la dreta.  Si voleu
+que la música comenci a la pàgina 1, ha d'haver-hi una pàgina en
+blanc al revers de la pàgina de coberta de manera que la pàgina 1
+estigui al costat dret.
+
+@node Variables de paper diverses
+@unnumberedsubsubsec Variables de @code{@bs{}paper} diverses
+@translationof Miscellaneous paper variables
+
+@table @code
+
+@item page-spacing-weight
+@funindex page-spacing-weight
+
+Importància relativa de l'espaiat (vertical) de les pàgines i
+l'espaiat (horitzontal9 de les línies.  Els valors alts fan que
+l'espaiat de la pàgina tingui més importància.  Predeterminat:
+@code{10}.
+
+@item print-all-headers
+@funindex print-all-headers
+
+Si està establert a vertader, imprimeix tots els encapçalaments
+per a cadascuna de les partitures @code{\score} de la sortida.
+Normalment sols s'imprimeixen les variables d'encapçalament
+@code{piece} i @code{opus}.  Valor predeterminat: @code{#f}.
+
+@item system-separator-markup
+@funindex system-separator-markup
+
+Objecte de marcatge que s'insereix entre els sistemes.  Se sol
+usar per a partitures orquestrals.  Predeterminat: sense
+establir.  L'element de marcatge @code{\slashSeparator}, definit
+en el fitxer @file{ly/titling-init.ly}, s'aporta com un valor
+predeterminat adequat, per exemple:
+
+@lilypond[quote,verbatim,noragged-right,line-width=30\mm]
+#(set-default-paper-size "a8")
+
+\book {
+  \paper {
+    system-separator-markup = \slashSeparator
+  }
+  \header {
+    tagline = ##f
+  }
+  \score {
+    \relative { c''1 \break c1 \break c1 }
+  }
+}
+@end lilypond
+
+@end table
+
+@seealso
+Fitxers d'inici:
+@file{ly/titling-init.ly}.
+
+Fragments de codi:
+@rlsr{Spacing}.
+
+@knownissues
+L'encapçalament de pàgina predeterminat posa el número de pàgina i
+el camp @code{instrument} del bloc @code{\header} sobre la mateixa
+línia.
+
+@node Disposició de la partitura
+@section Disposició de la partitura
+@translationof Score layout
+
+Aquesta secció presenta les opcions de disposició de la partitura
+per al bloc @code{\layout}.
+
+@menu
+* El bloc layout::
+* Establiment de la mida del pentagrama::
+@end menu
+
+
+@node El bloc layout
+@subsection El bloc @code{@bs{}layout}
+@translationof  The layout block
+
+@funindex \layout
+
+Així com el bloc @code{\paper} conté ajustos relatius al format de
+la pàgina per a tot el document, el bloc @code{\layout} conté
+ajustaments per a la disposició específica de les partitures.  Per
+establir les opcions de disposició de partitures de forma global,
+escriviu-les en un bloc @code{\layout} del nivell jeràrquic
+superior.  Per establir opcions de disposició per a una partitura
+individual escriviu-les dins d'un bloc @code{\layout} dins del
+bloc @code{\score}, després de la música.  Entre els ajustaments
+que poden aparèixer en un bloc @code{\layout} es troben els
+següents:
+
+@itemize
+@item la funció de l'Scheme @code{layout-set-staff-size},
+@item les modificacions de context dels blocs @code{\context}, i
+@item les variables de @code{\paper} que afecten a la disposició de la partitura.
+@end itemize
+
+La funció @code{layout-set-staff-size} s'estudia en la secció
+següent, @ref{Establiment de la mida del pentagrama}. Les
+modificacions de context s'estudien en un capítol diferent; vegeu
+@ref{Modificació dels connectors (plug-ins) de context} i
+@ref{Canvi dels paràmetres predeterminats dels contextos}.
+
+Les variables de @code{\paper} que poden aparèixer dins d'un bloc
+@code{\layout}, i els valors predeterminats de les quals s'agafen
+del bloc @code{paper}, són:
+
+@itemize
+
+@item
+@code{line-width}, @code{ragged-right} i @code{ragged-last} (vegeu
+f@ref{Variables de paper per a l'amplada i els marges,,Variables
+de @code{@bs{}paper} per a l'amplada i els marges})
+
+@item
+@code{indent} i @code{short-indent}
+(vegeu @ref{Variables de paper per a desplaçaments i sagnats,,Variables de @code{@bs{}paper} per a desplaçaments i sagnats})
+
+@item
+@code{system-count}
+(vegeu @ref{Variables de paper per als salts de línia,,Variables de @code{@bs{}paper} per als salts de línia})
+
+@end itemize
+
+He aquí un exemple d'un bloc @code{\layout}:
+
+@example
+\layout @{
+  indent = 2\cm
+  \context @{
+    \StaffGroup
+    \override StaffGrouper.staff-staff-spacing.basic-distance = #8
+  @}
+  \context @{
+    \Voice
+    \override TextScript.padding = #1
+    \override Glissando.thickness = #3
+  @}
+@}
+@end example
+
+Es poden escriure diversos blocs @code{\layout} com expressions
+del nivell superior.  Això pot ser útil, per exemple, si hi ha
+diferents ajustaments emmagatzemats a diversos fitxers i
+s'inclouen opcionalment.  Internament, quan s'avalua un bloc
+@code{\layout}, es fa una còpia de la configuració de
+@code{\layout} actual, i després s'apliquen els canvis definits en
+el bloc; el resultat es desa com la nova configuració actual.  Des
+del punt de vista de l'usuari, els blocs @code{\layout} es
+combinen, però en situacions de conflicte (quan es canvia la
+mateixa propietat a blocs diferents) les definicions més tardanes
+prenen preferència.
+
+Per exemple si aquest bloc:
+
+@example
+\layout @{
+  \context @{
+    \Voice
+    \override TextScript.color = #magenta
+    \override Glissando.thickness = #1.5
+  @}
+@}
+@end example
+
+es col·loca després de l'exemple anterior, les sobreescriptures de
+@code{'padding} i de @code{'color} per a @code{TextScript} es
+combinen, però l'última sobreescriptura @code{'thickness} per a
+@code{Glissando} substitueix (o oculta) a l'anterior.
+
+Els blocs @code{\layout} es poden assignar a variables per a una
+reutilització posterior, però la forma en la qual això funciona és
+lleugera i significativament diferent del fet d'escriure-les
+literalment.
+
+Si es defineix una variable de la manera següent:
+
+@example
+variable_de_Layout = \layout @{
+  \context @{
+    \Voice
+    \override NoteHead.font-size = #4
+  @}
+@}
+@end example
+
+desarà la configuració actual de @code{\layout} amb la
+sobreescriptura afegida de @code{NoteHead.font-size}, però aquesta
+combinació @emph{no} es desa com la nova configuració actual.
+Tingueu en compte que la @q{configuració actual} es llegeix quan
+la variable es defineix i no quan s'usa, de manera que el
+contingut de la variable depèn de la seva posició dins del codi font.
+
+La variable es pot aleshores usar dins d'un altre bloc
+@code{\layout}, per exemple:
+
+@example
+\layout @{
+  \variable_de_layout
+  \context @{
+    \Voice
+    \override NoteHead.color = #red
+  @}
+@}
+@end example
+
+Un bloc @code{\layout} que conté una variable, com a l'exemple
+anterior, @emph{no} copia la configuració actual, sinó en el seu
+lloc usa el contingut @code{\variable_de_layout} com la
+configuració base per a les addicions posteriors.  Això significa
+que qualsevol canvi definit entre la definició i l'ús de la
+variable, es perd.
+
+Si la @code{variable_de_layout} es defineix (o s'inclou amb
+@code{\include}) immediatament abans que s'utilitzi, el seu
+contingut és senzillament la configuració en curs més les
+sobreescritures que s'hagi definit dins d'ell.  Així doncs, a
+l'exemple anterior que mostra l'ús de
+@code{\variable_de_layout} l'últim bloc @code{\layout}
+consistiría en:
+
+@example
+  TextScript.padding = #1
+  TextScript.color = #magenta
+  Glissando.thickness = #1.5
+  NoteHead.font-size = #4
+  NoteHead.color = #red
+@end example
+
+més les sobreescriptures de @code{indent} i de @code{StaffGrouper}.
+
+Però si la variable ja hagués estat definida abans del primer bloc
+code{\layout} la configuració actual contindria ara sols
+
+@example
+  NoteHead.font-size= #4 % (escrita en la definició de la variable)
+  NoteHead.color = #red % (afegida després de l'ús de la variable)
+@end example
+
+Si es planifica amb cura, les variables de @code{\layout} poden
+ser una eina valuosa per estructurar el disseny de la disposició
+de les fonts, i també per reiniciar la configuració de
+@code{\layout} a un estat conegut.
+
+@seealso
+Referència de la notació:
+@ref{Canvi dels paràmetres predeterminats dels contextos}.
+
+Fragments de codi:
+@rlsr{Spacing}.
+
+
+@node Establiment de la mida del pentagrama
+@subsection Establiment de la mida del pentagrama
+@translationof Setting the staff size
+
+@cindex lletra, establir la mida de
+@cindex pentagrama, establir la mida del
+@funindex disposició, fitxer de
+@funindex magnification->font-size
+@funindex magstep
+@funindex set-global-staff-size
+@funindex layout-set-staff-size
+
+
+La @strong{mida de pentagrama} predeterminada és de 20 punts, que
+correspon a una alçada del pentagrama de 7.03 mm (un punt és
+100/7227 de polzada, o 2540/7227 mm).  La mida del pentagrama es
+pot modificar de tres formes:
+
+@enumerate
+
+@item
+Per establir globalment la mida del pentagrama per a totes les
+partitures d'un fitxer (o en un bloc @code{\book}, per ser
+exactes), utilitzeu @code{set-global-staff-size}:
+
+@example
+#(set-global-staff-size 14)
+@end example
+
+@noindent
+L'exemple de dalt estableix la mida global predeterminada del
+pentagrama a 14 pt (4.92 mm) i escala totes les mides de les
+lletra segons correspongui.
+
+@item
+Per fixar la mida del pentagrama per a una sola partitura dins
+d'un llibre, useu @code{layout-set-staff-size} dins del bloc
+@code{\layout} d'aquesta partitura:
+
+@example
+\score @{
+  @dots{}
+  \layout @{
+    #(layout-set-staff-size 14)
+  @}
+@}
+@end example
+
+@item
+Per fixar la mida del pentagrama per a una sola pauta dins d'un
+sistema, useu l'ordre @code{\magnifyStaff}.  Per exemple, les
+partitures de música de càmera editades de la forma tradicional,
+amb piano, usen habitualment pautes de 7 mm per al piano, mentre
+que les altres pentagrames solen estar entre 3/5 i 5/7 de reducció
+(entre el 60% i el 71%).  Per obtenir la proporció de 5/7,
+escriviu:
+
+@example
+\score @{
+  <<
+    \new Staff \with @{
+      \magnifyStaff #5/7
+    @} @{ @dots{} @}
+    \new PianoStaff @{ @dots{} @}
+  >>
+@}
+@end example
+
+En cas que sabeu quina mida de @code{fontSize} voleu usar, podeu
+usar la forma següent:
+
+@example
+\score @{
+  <<
+    \new Staff \with @{
+      \magnifyStaff #(magstep -3)
+    @} @{ @dots{} @}
+    \new PianoStaff @{ @dots{} @}
+  >>
+@}
+@end example
+
+Per imitar l'aparença de les edicions tradicionals, és millor
+evitar reduir el gruix de les línies del pentagrama.
+
+@end enumerate
+
+
+@subheading Pes automàtic de la lletra a mides diferents
+
+El tipus de lletra Emmentaler ofereix el conjunt de glifs musicals
+@emph{Feta} en buit mides diferents, cadascú d'ells ajustats a una
+mida de pentagrama.  Quant més petit és la mida dels glifs, més
+@qq{pesats} es tornen, de forma que harmonitzen amb les línies del
+pentagrama, que són també relativament més gruixudes.  Les mides
+de glif recomanades es relacionen en la taula següent:
+
+@multitable @columnfractions .15 .2 .22 .2
+
+@item @b{nom del tipus de lletra} @tab @b{alçada del pentagrama (pt)} @tab @b{alçada del pentagrama (mm)} @tab @b{usos}
+@item feta11 @tab 11.22 @tab 3.9 @tab partitures de butxaca
+@item feta13 @tab 12.60 @tab 4.4 @tab
+@item feta14 @tab 14.14 @tab 5.0 @tab
+@item feta16 @tab 15.87 @tab 5.6 @tab
+@item feta18 @tab 17.82 @tab 6.3 @tab cançoners
+@item feta20 @tab 20 @tab 7.0 @tab particel·les estàndard
+@item feta23 @tab 22.45 @tab 7.9 @tab
+@item feta26 @tab 25.2 @tab 8.9 @tab @c material modern de lloguer?
+@end multitable
+
+@seealso
+Referència de la notació:
+@ref{Selecció del la mida del tipus de lletra per a la notació}
+@ref{El tipus de lletra Emmentaler}
+
+Fragments de codi:
+@rlsr{Spacing}.
+
+@knownissues
+@code{layout-set-staff-size} no canvia la distància entres les línies del pentagrama.
+
+
+@node Salts
+@section Salts
+@translationof Breaks
+
+@menu
+* Salts de línia::
+* Salts de pàgina::
+@end menu
+
+
+@node Salts de línia
+@subsection Salts de línia
+@translationof Line breaking
+
+@funindex \break
+@funindex \noBreak
+@funindex \autoBreaksOff
+@funindex \autoBreaksOn
+@funindex \autoLineBreaksOff
+@funindex \autoLineBreaksOn
+@cindex salts de línia
+@cindex línia, salts de
+
+Normalment els salts de línia es determinen automàticament.  Es
+trien de forma que les línies no apareguin massa juntes ni
+massa separades, i que les línies consecutives tinguin una
+densitat semblant.
+
+Per forçar manualment un salt de línia sobre la línia divisòria,
+utilitzeu l'ordre @code{\break}:
+
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+
+c4 c c c | \break
+  c4 c c c |
+}
+@end lilypond
+
+De forma predeterminada s'ignora qualsevol ordre @code{\break}
+inserida a la meitat del compàs, i s'imprimeix un missatge
+d'advertiment durant la compilació del fitxer d'entrada del
+LilyPond.  Per forçar un salt de línia en mig d'un compàs, afegiu
+una línia divisòria invisible amb @w{@samp{\bar ""}}:
+
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  c4 c c
+  \bar ""
+  \break
+  c |
+  c4 c c c |
+}
+@end lilypond
+
+També s'ignora qualsevol ordre @code{\break} que es produeixi a la
+línia divisòria si el compàs anterior acaba en mig d'una nota, com
+quan un grup de valoració especial comença en un compàs i termina
+en un altre.  En aquest cas, elimineu el gravador
+@code{Forbid_line_break_engraver} del context @code{Voice} i useu
+una construcció de música simultània inserint el @code{break} al
+lloc adequat dins d'una segona veu:
+
+@lilypond[quote,ragged-right,verbatim]
+\new Voice \with {
+  \remove "Forbid_line_break_engraver"
+} \relative {
+  <<
+    { c''2. \tuplet 3/2 { c4 c c } c2. | }
+    { s1 | \break s1 | }
+  >>
+}
+@end lilypond
+
+De forma semblant, el funcionament predeterminat és que els salts
+de línia resultin ignorats quan hi ha barres de corxera que creuen
+la línia divisòria.  Utilitzeu l'ordre
+@code{\override Beam.breakable = ##t} per forçar això:
+
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  \override Beam.breakable = ##t
+  c2. c8[ c | \break
+  c8 c] c2. |
+}
+@end lilypond
+
+L'ordre @code{\noBreak}, evita que es produeixi un salt de línia a
+la barra divisòria en el qual s'insereix.
+
+Dins d'una partitura, s'eviten els salts de línia automàtics dins
+de la música que es troba entre les ordres
+@code{\autoLineBreaksOff} i @code{\autoLineBreaksOn}.  Si també es
+volen evitar els salts de pàgina automàtics, s'han d'usar les
+ordres @code{\autoBreaksOff} i @code{\autoBreaksOn}.
+Els salts manuals no estan afectats per aquestes ordres.  Observeu
+que el fet d'inhibir els salts de línia automàtics pot fer que la
+música s'estengui sobre el marge dret sempre que no cap
+completament dins d'una sola línia.
+
+Els salts automàtics de línia (no de pàgina) es poden habilitar
+sobre línies divisòries individuals mitjançant l'ús de
+@code{\once \autoLineBreaksOn} en una barra.  L'ordre identifica
+un salt de línia permès, en lloc d'un de prohibit.
+
+Els ajustaments més bàsics que influeixin sobre l'espaiat de les
+línies són @code{indent} i @code{line-width}. S'estableixen dins
+del bloc @code{\layout}.  Controlen el sagnat de la primera línia
+de música, i la longitud de les línies.
+
+Si s'estableix @code{ragged-right} a vertader al bloc
+@code{\layout}, els sistemes acaben en la seva longitud
+horitzontal natural, enlloc de distribuir-se horitzontalment per
+omplir tota la línia. Això és d'utilitat per a fragments curts, i
+per efectuar una comprovació de l'atapeït que és l'espaiat natural.
+
+@c TODO Check and add para on default for ragged-right
+
+L'opció @code{ragged-last} és semblant a @code{ragged-riht}, però
+afecta sola a l'úĺtima línia de la peça.
+
+@example
+\layout @{
+  indent = 0\mm
+  line-width = 150\mm
+  ragged-last = ##t
+@}
+@end example
+
+@cindex salts de línia normals
+@cindex música de quatre compassos per línia
+
+Per a salts de línia a intervals regulars utilitzeu @code{\break}
+separat mitjançant desplaçaments amb @code{\skip} i repetits amb
+@code{\repeat}.  Per exemple, això faria que els 28 compassos
+següents (suposant un compàs de 4/4) es divideixin cada quatre
+compassos, i sols en aquests llocs:
+
+@example
+<<
+  \repeat unfold 7 @{
+    s1 \noBreak s1 \noBreak
+    s1 \noBreak s1 \break
+  @}
+  @{ @var{la música real@dots{}} @}
+>>
+@end example
+
+
+@predefined
+@code{\break},
+@code{\noBreak},
+@code{\autoBreaksOff},
+@code{\autoBreaksOn},
+@code{\autoLineBreaksOff},
+@code{\autoLineBreaksOn}.
+@endpredefined
+
+@snippets
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{using-an-extra-voice-for-breaks.ly}
+
+@seealso
+Referència de la notació:
+@ref{Variables de paper per als salts de línia},
+@ref{El bloc layout}.
+
+Fragments de codi:
+@rlsr{Spacing}.
+
+Referència de funcionament intern:
+@rinternals{LineBreakEvent}.
+
+@knownissues
+
+Si s'escriu @code{\autoLineBreaksOff} o @code{\autoBreaksOff}
+abans de qualsevol contingut musical, apareixeran missatges
+d'error.  Escriviu sempre aquestes ordres després d'una mica de
+música.
+
+@node Salts de pàgina
+@subsection Salts de pàgina
+@translationof Page breaking
+
+Aquesta secció descriu els diferents mètodes per crear salts de
+pàgina, i com modificar-los.
+
+@menu
+* Salts de pàgina manuals::
+* Salts de pàgina òptims::
+* Salts de pàgina mínims::
+* Salts de pàgina del tipus pàgina única::
+* Salts de pàgina del tipus una-línia::
+* Salts de pàgina del tipus una-línia-alçada-automàtica::
+* Paso de página óptimo::
+@end menu
+
+
+@node Salts de pàgina manuals
+@unnumberedsubsubsec Salts de pàgina manuals
+@translationof Manual page breaking
+
+@funindex \pageBreak
+@funindex \noPageBreak
+@funindex \autoPageBreaksOn
+@funindex \autoPageBreaksOff
+@cindex pàgina, salts manuals
+
+Es pot sobreescriure el mecanisme predeterminat de salt de pàgina
+inserint ordres @code{\pageBreak} o @code{\noPageBreak}.  Aquestes
+ordres són anàlogues a @code{\break} i @code{\noBreak}.  S'han
+d'inserir en una línia divisòria.  Aquestes ordres forcen i
+prohibeixen, respectivament, l'eventualitat d'un salt de pàgina
+d'aquesta línia divisòria.  Per suposat, l'ordre @code{\pageBreak}
+també força un salt de línia.
+
+Les ordres @code{\pageBreak} i @code{\noPageBreak} també es poden
+inserir al nivell més alt, entre les partitures i els elements de
+marcatge situats al nivell superior.
+
+Dins d'una partitura, no es produeixen salts de pàgina automàtics
+a l'interior de la música que est troba entre les ordres
+@code{\autoPageBreaksOff} i @code{\autoPageBreaksOn}.  Els salts
+de pàgina manuals no es veuen afectats per aquestes ordres.
+
+Hi ha ajustament anàlegs a @code{ragged-right} i
+@code{ragged-last} que tenen el mateix efecte sobre l'espaiat
+vertical.  Si @code{ragged-bottom} s'estableix a @code{#t} els
+sistemes no es justifiquen verticalment.  Quan el valor de
+@code{ragged-last-bottom} es fixa a @code{#t}, como ho està de
+forma predeterminada, es permet una separació al final de l'última
+pàgina (o l'última pàgina de cada una de les parts de llibre
+@code{\bookpart}).  Vegeu
+@ref{Variables d'espaiat de paper verticals fixes,,Variables d'espaiat de @code{@bs{}paper} verticals fixes}.
+
+Els salts de pàgina es calculen per mitjà de la funció
+@code{page-breaking}.  El LilyPond ofereix algoritmes per al
+còmput dels salts de pàgina, entre ells
+@code{ly:optimal-breaking}, @code{ly:page-turn-breaking} i
+@code{ly:minimal-breaking}.  El predeterminat és
+@code{ly:optimal-breaking}, però el valor es pot canviar al bloc
+@code{\paper}:
+
+@example
+\paper @{
+  page-breaking = #ly:page-turn-breaking
+@}
+@end example
+
+@funindex \bookpart
+
+Quan un llibre té moltes partitures i pàgines, pot ser difícil
+resoldre el problema dels salts de pàgina, fent falta molta
+memòria i temps llargs de processament.  Per facilitar el procés
+de divisió de pàgines, s'usen els blocs @code{\bookpart} per
+dividir el llibre en diverses parts: els salts de pàgina es
+produeixen de manera independent a cada part.  També es poden usar
+diferents funcions de divisió en pàgines per a les diferents part
+del llibre.
+
+@example
+\bookpart @{
+  \header @{
+    subtitle = "Prefaci"
+  @}
+  \paper @{
+     %% En una part consisteix en text principalment,
+     %% pot ser preferible ly:minimal-breaking
+     page-breaking = #ly:minimal-breaking
+  @}
+  \markup @{ @dots{} @}
+  @dots{}
+@}
+\bookpart @{
+  %% En aquesta part, consistent en música, s'usa la funció
+  %% òptima predeterminada de salts de pàgina.
+  \header @{
+    subtitle = "Primer moviment"
+  @}
+  \score @{ @dots{} @}
+  @dots{}
+@}
+@end example
+
+
+@predefined
+@funindex \pageBreak
+@code{\pageBreak},
+@code{\noPageBreak},
+@code{\autoPageBreaksOn},
+@code{\autoPageBreaksOff}.
+@endpredefined
+
+@seealso
+Referència de la notació:
+@ref{Variables de paper per als salts de pàgina}.
+
+Fragments de codi:
+@rlsr{Spacing}.
+
+@knownissues
+
+El prefix @code{\once} no és efectiu amb
+@code{\autoPageBreaksOn} i @code{\autoPageBreaksOff}.  Si s'ha
+desactivat la divisió automàtica de pàgines i després es torna a
+activar per permetre un salt, ha de continuar activada durant
+alguns compassos (el nombre exacte dels quals dependrà de la
+partitura) abans de tornar-se a desactivar, perquè en cas contrari
+podria perdre's l'oportunitat que es produeixi el salt.
+
+@node Salts de pàgina òptims
+@unnumberedsubsubsec Salts de pàgina òptims
+@translationof Optimal page breaking
+
+@funindex ly:optimal-breaking
+
+La funció @code{ly:optimal-breaking} és el mètode predeterminat
+del LilyPond per determinar els salts de pàgina.  Intenta trobar
+una divisió de pàgines que minimitzi l'atapeïment i la distensió,
+tant horitzontalment com vertical.  A diferència de
+@code{ly:page-turn-breaking}, no inclou un concepte dels passos de
+pàgina.
+
+@seealso
+Fragments de codi:
+@rlsr{Spacing}.
+
+
+@node Salts de pàgina mínims
+@unnumberedsubsubsec Saltos de página mínimos
+@translationof Minimal page breaking
+
+@funindex ly:minimal-breaking
+
+La funció @code{ly:minimal-breaking} efectua uns càlculs mínims
+per determinar els salts de pàgina: completa una pàgina amb tants
+sistemes com sigui possible abans de continuar amb la següent.
+Així, pot preferir-se per a partitures amb moltes pàgines, on les
+altres funcions de salt de pàgina poden resultar massa lentes o
+àvides de memòria, o amb una gran quantitat de textos.  S'habilita
+utilitzant:
+
+@example
+\paper @{
+  page-breaking = #ly:minimal-breaking
+@}
+@end example
+
+@seealso
+Fragments de codi:
+@rlsr{Spacing}.
+
+
+@node Salts de pàgina de tipus pàgina única
+@unnumberedsubsubsec Salts de pàgina de tipus pàgina única
+@translationof One-page page breaking
+
+@funindex ly:one-page-breaking
+
+La funció @code{ly:one-page-breaking} (salts de pàgina única) és
+un algoritme de salts de pàgina de propòsit especial que ajusta
+automàticament l'alçada de la pàgina perquè càpiga tota la música
+en una sola pàgina.  La variable @code{paper-height} del bloc
+@code{paper} s'ignora, però els altres ajustaments funcionen de la
+manera acostumada.  Concretament, l'espaiat entre l'últim sistema
+(o element de marcatge de nivell superior) i el peu de pàgina es
+pot personalitzar amb @code{last-bottom-spacing} dins del bloc
+@code{paper}. L'amplada de la pàgina es queda sense alterar per
+omissió, però es pot fixar amb la variable @code{paper-width} del
+bloc @code{paper}.
+
+@knownissues
+@code{ly:one-page-breaking} no és compatible, de moment, amb
+@code{\bookpart}.
+
+
+@node Salts de pàgina del tipus una-línia
+@unnumberedsubsubsec Salts de pàgina del tipus una-línia
+@translationof One-line page breaking
+
+@funindex ly:one-line-breaking
+
+La funció @code{ly:one-line-breaking} és un algoritme de salts de
+pàgina per ús especial que posa cada partitura en una pàgina i una
+sola línia.  Aquesta funció de salt de pàgina no composa els
+títols ni els marges; sols s'imprimeix la partitura.
+
+L'amplada de la pàgina s'ajusta de forma que la partitura més
+llarga càpiga en una línia.  Concretament, les variables
+@code{paper-width}, @code{line-width} i @code{indent} del bloc
+@code{\paper} s'ignoren, tot i que @code{left-margin} i
+@code{right-margin} encara es respecten.  L'alçada de la pàgina es
+deixa sense canvis.
+
+@node Saltos de página del tipo una-línea-altura-automática
+@unnumberedsubsubsec Saltos de página del tipo una-línea-altura-automática
+@translationof One-line-auto-height page breaking
+
+@funindex ly:one-line-auto-height-breaking
+
+La funció @code{ly:one-line-auto-height-breaking} funciona igual
+que @code{ly:one-line-breaking} excepte que l'alçada de la pàgina
+es modifica autoàticament per fer-se correspondre amb l'alçada de
+la música.  De forma específica, la variable @code{paper-height}
+del bloc @code{\paper} s'ajusta de tal manera que abasta els
+extrems superior i inferior de la partitura més alta més els
+marges superior i inferior @code{top-margin} i @code{bottom-margin}.
+
+Observeu que l'ajustament @code{top-system-spacing} afecta a la
+posició vertical de la música.  Establiu-lo al valor @code{##f}
+dins d'un bloc @code{paper} para disposar la música senzillament
+entre els marges superior i inferior.
+
+@node Pas de pàgina òptim
+@unnumberedsubsubsec Pas de pàgina òptim
+@translationof Optimal page turning
+
+@funindex ly:page-turn-breaking
+
+Freqüentment cal trobar una configuració de divisió de pàgines de
+manera que hi hagi un silenci al final d'una pàgina de cada dos.
+D'aquesta forma, el músic pot passar la pàgina sense perdre
+notes.  La funció @code{ly:page-turn-breaking} intenta trobar una
+divisió de pàgines que faci mínims l'atapeïment i l'estirament,
+però amb la restricció afegida que sols es permet introduir voltes
+de pàgina als llocs especificats.
+
+Hi ha dues etapes en l'ús d'aquesta funció de divisió de pàgines.
+En primer lloc hem d'habilitar-lo en el bloc @code{\paper}, com es
+va explicar a @ref{Salts de pàgina}.  Aleshores hem de dir-li a la
+funció on ens agradaria permetre els salts de pàgina.
+
+Hi ha dues formes d'aconseguir la segona tasca.  Primer, podem
+especificar manualment cada un dels passos de pàgina potencials,
+inserint @code{\allowPageTurn} al nostre fitxer d'entrada als
+llocs adequats.
+
+Si això és massa tediós, podem afegir un gravador
+@code{Page_turn_engraver} a un context Staff o Voice.  El gravador
+@code{Page_turn_engraver} analitzarà el context en cerca de
+seccions sense notes (observeu que no busca silencis, sinó
+l'absència de notes.  Es fa així perquè la polifonia en un sol
+pentagrama amb silencis en una de les veus no arruïni la tasca del
+gravador @code{Page_turn_engraver}).  Quan troba una secció sense
+notes suficientment llarg, el gravador @code{Page_turn_engraver}
+insereix un @code{\allowPageTurn} a l'última barra de compàs
+d'aquesta secció, a no ser que hi hagi una barra @q{especial} de
+compàs (com una doble barra), cosa que farà que insereixi el
+@code{\allowPageTurn} en la última barra @q{especial} de compàs de
+la secció.
+
+@funindex minimumPageTurnLength
+El gravador @code{Page_turn_engraver} llegeix la propietat de context
+@code{minimumPageTurnLength} per determinar quina longitud ha de
+tenir una secció sense notes abans que es consideri la
+possibilitat d'un pas de pagina.  El valor predeterminat per a
+@code{minimumPageTurnLength} és @code{(ly:make-moment 1/1)}.  Si
+voleu deshabilitar les voltes de pàgina, establiu-lo a algun valor
+@q{molt gran}.
+
+@example
+\new Staff \with @{ \consists "Page_turn_engraver" @}
+@{
+  a4 b c d |
+  R1 | % aquí es permet un salt de pàgina
+  a4 b c d |
+  \set Staff.minimumPageTurnLength = #(ly:make-moment 5/2)
+  R1 | % aquí no es permet un salt de pàgina
+  a4 b r2 |
+  R1*2 | % aquí es permet un salt de pàgina
+  a1
+@}
+@end example
+
+@funindex minimumRepeatLengthForPageTurn
+
+En usar repeticions de primera i segona vegada, el gravador
+@code{Page_turn_engraver} sols permet un pas de pàgina durant la
+repetició si hi ha prou temps al principi i al final de la
+repetició per tornar a passar la pàgina cap a darrere.  Si la
+repetició es massa curta, es pot usar el gravador
+@code{Page_turn_engraver} per @emph{deshabilitar} els passos de
+pàgina mitjançant l'establiment d'un valor adequat per a la
+propietat de context @code{minimumRepeatLengthForPageTurn}.  En
+aquest cas el gravador @code{Page_turn_engraver} sols permetrà els
+passos de pàgina a les repeticions la durada de les quals sigui
+més gran que el valor especificat.
+
+Les ordres de pas de pàgina, @code{\pageTurn},
+@code{\noPageTurn} i @code{\allowPageTurn}, es poden usar també al
+nivell més elevat del codi, dins d'elements de marcatge del nivell
+superior i entre les partitures.
+
+@predefined
+@funindex \pageTurn
+@code{\pageTurn},
+@funindex \noPageTurn
+@code{\noPageTurn},
+@funindex \allowPageTurn
+@code{\allowPageTurn}.
+@endpredefined
+
+@seealso
+Referència de la notació:
+@ref{Variables de paper per als salts de línia}.
+
+Fragments de codi:
+@rlsr{Spacing}.
+
+@knownissues
+Utilitzeu un sols gravador @code{Page_turn_engraver} en cada
+partitura.  Si hi ha més d'un, s'interferiran entre sí.
+
+@seealso
+Referència de la notació:
+@ref{Espaiat vertical}.
+
+Fragments de codi:
+@rlsr{Spacing}.
+
+
+@node Espaiat vertical
+@section Espaiat vertical
+@translationof Vertical spacing
+
+@cindex espaiat vertical
+@cindex vertical, espaiat
+
+L'espaiat vertical es controla amb tres factors: la quantitat
+d'espai disponible (és a dir, la mida del paper i els marges), la
+separació entre els sistemes, i la separació entre els pentagrames
+dins d'un sistema.
+
+@menu
+* Espaiat vertical flexible dins dels sistemes::
+* Posicionament explícit dels pentagrames i els sistemes::
+* Evitar les col·lisions verticals::
+@end menu
+
+
+@node Espaiat vertical flexible dins dels sistemes
+@subsection Espaiat vertical flexible dins dels sistemes
+@translationof Flexible vertical spacing within systems
+
+@cindex distància entre pentagrames
+@cindex pentagrama, distància entre els
+@cindex espai entre pentagrames
+@cindex espai dins dels sistemes
+
+Tres mecanismes diferents controlen l'espaiat vertical flexible
+dins dels sistemes, un per cada una de les categories següents:
+
+@itemize
+
+@item
+@emph{pautes sense agrupar},
+
+@item
+@emph{pautes agrupades} (pautes dins d'un grup de pentagrames com
+@code{ChoirStaff}, etc.), k
+
+@item
+@emph{línies que no són pautes} (com @code{Lyrics},
+@code{ChordNames}, etc.).
+
+@end itemize
+
+@c TODO: Clarify this.  This almost implies that non-staff lines
+@c       have NO effect on the spacing between staves.  -mp
+
+L'alçada de cada sistema es determina en dues fases.  Primer, tots
+els pentagrames es disposen segons la quantitat d'espai buit
+disponible.  Després, les línies que no són pautes es
+distribueixen entre les pautes.
+
+Observeu que els mecanismes d'espaiat estudiats en aquesta secció
+sols controlen l'espaiat vertical de les pautes i les línies que
+no són pautes dins dels sistemes individuals.  L'espaiat vertical
+entre diferents sistemes, partitures, marcatges i marges es
+controla mitjançant variables de @code{\paper} que s'estudien a
+@ref{Variables d'espaiat de paper verticals flexibles,,Variables de espaiat de @code{@bs{}paper} verticals flexibles}.
+
+@menu
+* Propietats d'espaiat dins dels sistemes::
+* Espaiat de pautes no agrupades::
+* Espaiat de pautes agrupades::
+* Espaiat de las línies que no són pautes::
+@end menu
+
+
+@node Propietats d'espaiat dins dels sistemes
+@unnumberedsubsubsec Propietats d'espaiat dins dels sistemes
+@translationof Within-system spacing properties
+
+@funindex staff-affinity
+@funindex staffgroup-staff-spacing
+@funindex staff-staff-spacing
+@funindex nonstaff-unrelatedstaff-spacing
+@funindex nonstaff-relatedstaff-spacing
+@funindex nonstaff-nonstaff-spacing
+@funindex default-staff-staff-spacing
+@funindex minimum-Y-extent
+@funindex extra-offset
+@funindex self-alignment-X
+@funindex X-offset
+@funindex VerticalAxisGroup
+
+Els mecanismes d'espaiat vertical dins del sistema es controlen
+amb dos conjunts de propietats de grob.  El primer conjunt està
+associat amb el grob @code{VerticalAxisGroup}, que es crea per
+part de totes les pautes i línies que no són pautes. El segon
+conjunt està associat amb el grob @code{StaffGrouper}, que pot
+crear-se per part dels grups de pentagrames, però sol si se'l
+crida explícitament.  Aquestes propietats es descriuen
+individualment al final de la secció actual.
+
+El noms d'aquestes propietats (excepte per a
+@code{staff-affinity}) segueixen el format
+@code{@var{element1}-@var{element2}-spacing}, on
+@code{@var{element1}} i @code{@var{element2}} són els elements
+que s'espaiaran.  Observeu que @code{@var{element2}} no està
+necessàriamen per sota de @code{@var{element1}}; por exemple,
+@code{nonstaff-relatedstaff-spacing} mesura cap a munt a partir de
+la línia de tipus no-pauta si @code{staff-affinity} és @code{UP}.
+
+Cada distància es mesura entre els @emph{punts de referència} dels
+dos elements.  El @emph{punto de referència} per a un pentagrama i
+un altre tipus de pauta és el centre vertical del seu
+@code{StaffSymbol} (és a dir, la línia central si
+@code{line-count} és un nombre imparell; l'espai central si
+@code{line-count} és parell).  Els punts de referència per a les
+línies individuals que no són pautes apareixen a la taula següent:
+
+@multitable {Línia que no és una pauta} {Punt de referència}
+@headitem Línia que no és una pauta @tab Punt de referència
+@item @code{ChordNames}  @tab línia de base
+@item @code{NoteNames}   @tab liniaa de base
+@item @code{Lyrics}      @tab línia de base
+@item @code{Dynamics}    @tab la meitat de l'alçada de la @q{m}
+@item @code{FiguredBass} @tab punt més alt
+@item @code{FretBoards}  @tab línia superior
+@end multitable
+
+A la imatge següent, les línies horitzontals indiquen les
+posicions d'aquests punts de referència:
+
+@lilypond[quote,noragged-right,line-width=110\mm]
+#(define zero-space '((padding . -inf.0) (basic-distance . 0)))
+
+alignToZero = \with {
+  \override VerticalAxisGroup.nonstaff-relatedstaff-spacing = #zero-space
+  \override VerticalAxisGroup.nonstaff-nonstaff-spacing = #zero-space
+  \override VerticalAxisGroup.staff-affinity = #DOWN
+  \remove Text_engraver % impedeix que n'hi hagi dos
+  \consists Text_engraver
+}
+lowerCaseChords = \with {
+  chordNameLowercaseMinor = ##t
+}
+labelContext =
+#(define-music-function
+     (context)
+     (string?)
+     #{ s1*0^\markup { \upright {\typewriter #context } } #})
+
+\layout {
+  \context { \Dynamics    \alignToZero }
+  \context { \FiguredBass \alignToZero }
+  \context { \Lyrics      \alignToZero }
+  \context { \NoteNames   \alignToZero }
+  \context { \ChordNames  \alignToZero \lowerCaseChords }
+  \context { \FretBoards  \alignToZero }
+  \context { \Score
+    \omit BarLine
+    \override DynamicText.self-alignment-X = #-1
+    \override FretBoard.X-offset = #1.75
+    \override InstrumentName.minimum-Y-extent = #'(-1 . 2)
+    \textLengthOn
+    \omit TimeSignature
+  }
+}
+
+%% Aquests contextos tenen punts de referència a la línia base:
+%%   ChordNames, NoteNames, i Lyrics
+<<
+  \new ChordNames { \chords { \labelContext "ChordNames"  g1:m } }
+  \new NoteNames { s1 |\labelContext "NoteNames"  g1 | }
+  \new Lyrics { \lyrics { \skip 1*2 | \labelContext "Lyrics" ghijk1 | } }
+  \new RhythmicStaff \with { instrumentName = #"baseline " } s1*3
+>>
+
+%% El punt de referència per a Dynamics és la línia mitjana de 'm' al tipus de lletra
+<<
+  \new Dynamics { \labelContext "Dynamics" s1\mp s\fp }
+  \new RhythmicStaff \with { instrumentName = #"mid-height " } s1*3
+>>
+
+%% EL punt de referència per a FiguredBass és el punt més alt
+<<
+  \new FiguredBass { \labelContext "FiguredBass" \figuremode { <6 5>1 } }
+  \new RhythmicStaff \with { instrumentName = #"highest point " } s1
+>>
+
+%% El punt de referència per a FretBoards és la línia de més a dalt
+\include "predefined-guitar-fretboards.ly"
+<<
+  \new FretBoards { \labelContext "FretBoards" \chordmode { e1 } }
+  \new RhythmicStaff \with { instrumentName = #"top line " } s1
+>>
+@end lilypond
+
+Cada una de les propietats de grob de l'espaiat vertical (excepte
+@code{staff-affinity}) usa la mateixa estructura de llita-A que
+les variables d'espaiat del bloc @code{\paper} que s'han estudiat a
+@ref{Variables d'espaiat de paper verticals flexibles,,Variables d'espaiat de @code{@bs{}paper} verticals flexibles}.
+A @ref{Modificació de les llistes-A} s'estudien mètodes específics
+per a la modificació de les llistes-A.  Les propietats dels grobs
+s'han d'ajustar amb un @code{\override} dins d'un bloc
+@code{\score} o @code{\layout}, y no dins d'un bloc @code{\paper}.
+
+L'exemple que segueix mostra les dues maneres de modificar
+aquestes llistes-A.  La primera declaració actualitza un parell
+clau-valor de forma individual, i la segona redefineix la
+propietat completament:
+
+@example
+\new Staff \with @{
+  \override VerticalAxisGroup.default-staff-staff-spacing.basic-distance = #10
+@} @{ @dots{} @}
+
+\new Staff \with @{
+  \override VerticalAxisGroup.default-staff-staff-spacing =
+    #'((basic-distance . 10)
+       (minimum-distance . 9)
+       (padding . 1)
+       (stretchability . 10))
+@} @{ @dots{} @}
+@end example
+
+Per modificar globalment qualssevol dels ajustos d'espaiat,
+poseu-los dins del bloc @code{\layout}:
+
+@example
+\layout @{
+  \context @{
+    \Staff
+    \override VerticalAxisGroup.default-staff-staff-spacing.basic-distance = #10
+  @}
+@}
+@end example
+
+Els ajustos estàndard per a les propietats de grob de l'espaiat
+vertical s'indiquen a @rinternals{VerticalAxisGroup} i a
+@rinternals{StaffGrouper}.  Les sobreescriptures predeterminades
+per als tipus específics de línies que no són pautes estan
+indicades a les descripcions de context corresponents a
+@rinternals{Contexts}.
+
+@subsubheading Propietats del grob @code{VerticalAxisGroup}
+
+Les propietats de @code{VerticalAxisGroup} se solen ajustar amb
+una ordre @code{\override} al nivell de @code{Staff} (o equivalent).
+
+@table @code
+@item staff-staff-spacing
+S'utilitza per determinar la distància entre la pauta actual i la
+pauta que està just per sota d'ella dins del mateix sistema, fins
+i tot si hi ha més línies que no són pautes (com ara
+@code{Lyrics}) entre les dues pautes.  No s'aplica a la pauta
+inferior d'un sistema.
+
+Inicialment, el valor de l'espaiat @code{staff-staff-spacing} d'un
+grup @code{VerticalAxisGroup} és una funció de l'Scheme que aplica
+les propietats del @code{StaffGrouper} si la pauta forma part d'un
+grup, o el @code{default-staff-staff-spacing} de la pauta en cas
+contrari.  Això fa possible que les pautes estiguin espaiades de
+forma diferent quan estan agrupades.  Per aconseguir un espaiat
+regular sense importar l'agrupament, aquesta funció es pot
+substituir per una llista-A d'espaiat flexible, utilitzant la
+forma de sobreescriptura de redefinició completa que s'ha mostrat
+abans.
+@item default-staff-staff-spacing
+Una llista-A d'espaiat fleixble que defineix l'espai
+@code{staff-staff-spacing} que s'usarà per a les pautes sense
+agrupar, a no ser que s'hagi sobreescrit explícitament
+@code{staff-staff-spacing} amb una ordre @code{\override}.
+
+@item staff-affinity
+Direcció de la pauta a utilitzar per a l'espaiat de la línia
+actual que no és pauta.  Es pot escollir entre @code{UP} (amunt),
+@code{DOWN} (avall) i @code{CENTER} (centre).  Si és
+@code{CENTER}, la línia del tipo no-pauta es col·loca equidistant
+entre les dues pautes contigües a ambdós costat, a no ser que
+l'impedeixin col·lisions o altres restriccions d'espaiat.  Les
+línies del tipus no-pauta adjacents han de portar valors de
+@code{staff-affinity} no creixents des de la part superior fins la
+inferior, per exemple una línia del tipus no-pauta establerta a
+@code{UP} no hauria de seguir immediatament a una altra que
+estigui establerta a @code{DOWN}.  Les línies del tipus no-pauta a
+la part superior d'un sistema han d'usar @code{DOWN}; les de la
+part inferior han d'usar @code{UP}.  L'ajustament de
+@code{staff-affinity} per a una pauta fa que se la tracti com una
+línia que no és una pauta.  L'establiment de
+@code{staff-affinity} a @code{#f} per a una línia que no és una
+pauta fa que es tracti com una pauta.  L'establiment de
+@code{staff-affinity} a @code{UP}, @code{CENTER}, o @code{DOWN}
+fa que el pentagrama resulti espaiat com si fos una línia que no
+és una pauta.
+
+@item nonstaff-relatedstaff-spacing
+Distància entre la línia del tipus no-pauta actual i la pauta més
+pròxima en la direcció de @code{staff-affinity}, si no hi ha cap
+línia que no sigui una pauta entre les dues, i
+@code{staff-affinity} és @code{UP} o @code{DOWN}.  Si
+@code{staff-affinity} és @code{CENTER}, aleshores s'usa
+@code{nonstaff-relatedstaff-spacing} per a les pautes més pròximes
+@emph{als dos costats}, fins i tot que apareguin altres línies del
+tipus no-pauta entre la pauta actual i una de les altres.  Això
+significa que la col·locació d'una línia que no és una pauta depèn
+tant de les pautes que la rodegen com de les línies que no són
+pautes i que la rodegen.  L'establiment el paràmetre d'ampliat
+@code{stretchability} d'un d'aquests tipus d'espaiat a un valor
+més petit provoca que aquest espaiat domini.  L'establiment de
+@code{stretchability} a un valor més gran fa que aquest espaiat
+tingui un efecte menor.
+
+@item nonstaff-nonstaff-spacing
+Distància entre la línia actual del tipus no-pauta i la següent
+línia del tipus no-pauta en la direcció de @code{staff-affinity},
+si les dues estan al mateix cantó de la pauta relacionada, i
+@code{staff-affinity} és @code{UP} o @code{DOWN}.
+
+@item nonstaff-unrelatedstaff-spacing
+Distància entre la línia actual del tipus no-pauta i la pauta en
+la direcció oposada de @code{staff-affinity}, si no hi ha cap
+altra línia del tipus no-pauta entre les dues, i
+@code{staff-affinity} està establert a @code{UP} o @code{DOWN}.
+Es pot usar, per exemple, per requerir de farciment mínim entre
+una línia de @code{Lyrics} i la pauta a la que no pertany.
+@end table
+
+@subsubheading Propietats del grob @code{StaffGrouper}
+
+Les propietats de @code{StaffGrouper} se solen ajustar amb una
+ordre @code{\override} al nivell de @code{StaffGroup} (o
+equivalent).
+
+@table @code
+@item staff-staff-spacing
+Distància entre pautes consecutives dins del grup de pautes
+actual.  La propietat @code{staff-staff-spacing} del grob
+@code{VerticalAxisGroup} d'una pauta individual es pot
+sobreescriure amb diferents ajustaments d'espaiat per a aquesta
+pauta.
+
+@item staffgroup-staff-spacing
+Distància entre l'última pauta del grup en curs i la pauta que
+està just per sota d'ella dins del mateix sistema, fins i tot si
+existeixen una o més línies que no són pautes (tals com
+@code{Lyrics}) entre les dues pautes.  No s'aplica al pentagrama o
+pauta inferior d'un sistema.  La propietat
+@code{staff-staff-spacing} del grob @code{VerticalAxisGroup} d'una
+pauta individual es pot sobreescriure amb diferents ajustament
+d'espaiat per a aquesta pauta.
+@end table
+
+@seealso
+Referencia de la notació:
+@ref{Variables d'espaiat de paper verticals flexibles,,Variables d'espaiat de @code{@bs{}paper} verticals flexibles},
+@ref{Modificació de les llistes-A}.
+
+Fitxers d'inici:
+@file{ly/engraver-init.ly},
+@file{scm/define-grobs.scm}.
+
+Referència de funcionament intern:
+@rinternals{Contexts},
+@rinternals{VerticalAxisGroup},
+@rinternals{StaffGrouper}.
+
+
+
+@node Espaiat de pautes no agrupades
+@unnumberedsubsubsec Espaiat de pautes no agrupades
+@translationof Spacing of ungrouped staves
+
+Les @emph{pautes}, tals como els pentagrames (@code{Staff}),
+pautes de percussió (@code{DrumStaff}) o de tabulatura
+(@code{TabStaff}), etc. són contextos que poden contenir un o més
+contextos de veu, però no poden contenir altres pautes.
+
+Les següents propietats afecten a l'espaiat de les pautes
+@emph{no agrupades}:
+
+@itemize
+@item Propietats de @code{VerticalAxisGroup}:
+@itemize
+@item @code{default-staff-staff-spacing}
+@item @code{staff-staff-spacing}
+@end itemize
+@end itemize
+
+Aquestes propietats de grob es descriuen individualment més a
+dalt; vegeu @ref{Propietats d'espaiat dins dels sistemes}.
+
+Estan implicades certes propietats addicionals per a les pautes
+que són part d'un grup; vegeu @ref{Espaiat de pautes agrupades}.
+
+L'exemple següent mostra com la propietat
+@code{default-staff-staff-spacing} pot afectar l'espaiat de pautes
+no agrupades.  Les mateixes sobreescriptures aplicades a
+@code{staff-staff-spacing} tindrien el mateix efecte, però també
+s'aplicaria en cas que les pautes estiguessin combinades en un
+grup o grups.
+
+@lilypond[verbatim,quote,staffsize=16]
+\layout {
+  \context {
+    \Staff
+    \override VerticalAxisGroup.default-staff-staff-spacing =
+      #'((basic-distance . 8)
+         (minimum-distance . 7)
+         (padding . 1))
+  }
+}
+
+<<
+  % A l'última nota de totes li cal més espai que el que pot
+  % proveir 'basic-distance, per tant la distància entre aquest
+  % pentagrama i el següent es determina amb 'padding.
+  \new Staff { b,2 r | }
+
+  % Aquí, 'basic-distance proveeix prou espai, i no cal comprimir
+  % l'espai (cap a 'minimum-distance) per fer espai per cap altra
+  % cosa a la pàgina, per tant la distància entre aquest
+  % pentagrama i el següent es determina per 'basic-distance.
+  \new Staff { \clef bass g2 r | }
+
+  % Si s'estableix 'padding a un valor negatiu, permet que les
+  % pautes xoquin. EL valor més petit acceptable per a
+  % 'basic-distance és 0.
+  \new Staff \with {
+    \override VerticalAxisGroup.default-staff-staff-spacing =
+      #'((basic-distance . 3.5)
+         (padding . -10))
+  } { \clef bass g2 r | }
+  \new Staff { \clef bass g2 r | }
+>>
+@end lilypond
+
+@seealso
+Fitxers d'inici:
+@file{scm/define-grobs.scm}.
+
+Fragments de codi:
+@rlsr{Spacing}.
+
+Referència de funcionament intern:
+@rinternals{VerticalAxisGroup}.
+
+@node Espaiat de pautes agrupades
+@unnumberedsubsubsec Espaiat de pautes agrupades
+@translationof Spacing of grouped staves
+
+En partitures grans com les orquestrals, s'acostuma a col·locar
+els pentagrames en grups.  L'espaiat entre els grups sol ser més
+gran que l'espai que hi ha entre els pentagrames dins del mateix grup.
+
+Els grups de pautes, @emph{Staff-groups} (tals com
+@code{StaffGroup}, @code{ChoirStaff}, etc.) són contextos que
+poden contenir al mateix temps un o més pentagrames o pautes.
+
+Les propietats següents afecten l'espaiat de les pautes dins dels grups:
+
+@itemize
+@item Propietats de @code{VerticalAxisGroup}:
+@itemize
+@item @code{staff-staff-spacing}
+@end itemize
+@item Propietats de @code{StaffGrouper}:
+@itemize
+@item @code{staff-staff-spacing}
+@item @code{staffgroup-staff-spacing}
+@end itemize
+@end itemize
+
+Aquestes propietats de grob es descriuen individualment més a
+dalt; vegeu @ref{Propietats d'espaiat dins dels sistemes}.
+
+Aquestes propietats de grob es descriuen individualment més a dalt;
+vegeu @ref{Propietats d'espaiat dins dels sistemes}.
+
+L'exemple següent mostra com poden afectar les propietats del grob
+@code{StaffGrouper} a l'espaiat de les pautes agrupades:
+
+@lilypond[verbatim,quote,staffsize=16]
+\layout {
+  \context {
+    \Score
+    \override StaffGrouper.staff-staff-spacing.padding = #0
+    \override StaffGrouper.staff-staff-spacing.basic-distance = #1
+  }
+}
+
+<<
+  \new PianoStaff \with {
+    \override StaffGrouper.staffgroup-staff-spacing.basic-distance = #20
+  } <<
+    \new Staff { c'1 }
+    \new Staff { c'1 }
+  >>
+
+  \new StaffGroup <<
+    \new Staff { c'1 }
+    \new Staff { c'1 }
+  >>
+>>
+@end lilypond
+
+@seealso
+Fitxers d'inici:
+@file{scm/define-grobs.scm}.
+
+Fragments de codi:
+@rlsr{Spacing}.
+
+Referència de funcionament intern:
+@rinternals{VerticalAxisGroup},
+@rinternals{StaffGrouper}.
+
+
+@node Espaiat de les línies que no són pautes
+@unnumberedsubsubsec Espaiat de les línies que no són pautes
+@translationof Spacing of non-staff lines
+
+Les @emph{Línies que no són pautes} (com ara @code{Lyrics},
+@code{ChordNames}, etc.) sén contextos els objectes de presentació
+dels quals s'imprimeixen com pentagrames (és a dir, en línies
+horitzontals dins dels sistemes).  Específicament, les línies que
+no són pautes són contextos del tipus no-pauta que contenen el gravador
+@rinternals{Axis_group_engraver}.
+
+Les propietats següents afecten a l'espaiat de les línies que no
+són pautes:
+
+@itemize
+@item Propietats de @code{VerticalAxisGroup}:
+@itemize
+@item @code{staff-affinity}
+@item @code{nonstaff-relatedstaff-spacing}
+@item @code{nonstaff-nonstaff-spacing}
+@item @code{nonstaff-unrelatedstaff-spacing}
+@end itemize
+@end itemize
+
+Aquestes propietats de grob es descriuen individualment més a dalt;
+vegeu @ref{Propietats d'espaiat dins dels sistemes}.
+
+L'exemple següent mostra com la propietat
+@code{nonstaff-nonstaff-spacing} pot afectar l'espaiat de línies
+consecutives que no són pautes.  Aquí, mitjançant l'establiment de
+la clau de capacitat d'ampliació @code{stretchability} a un valor
+més gran, la línia de lletra es capaç d'ampliar-se molt més del
+que és usual:
+
+@lilypond[verbatim,quote,staffsize=16]
+\layout {
+  \context {
+    \Lyrics
+    \override VerticalAxisGroup.nonstaff-nonstaff-spacing.stretchability = #1000
+  }
+}
+
+\new StaffGroup
+<<
+  \new Staff \with {
+    \override VerticalAxisGroup.staff-staff-spacing = #'((basic-distance . 30))
+  } { c'1 }
+  \new Lyrics \with {
+    \override VerticalAxisGroup.staff-affinity = #UP
+  } \lyricmode { up }
+  \new Lyrics \with {
+    \override VerticalAxisGroup.staff-affinity = #CENTER
+  } \lyricmode { center }
+  \new Lyrics \with {
+    \override VerticalAxisGroup.staff-affinity = #DOWN
+  } \lyricmode { down }
+  \new Staff { c'1 }
+>>
+@end lilypond
+
+@seealso
+Fitxers d'inici:
+@file{ly/engraver-init.ly},
+@file{scm/define-grobs.scm}.
+
+Fragments de codi:
+@rlsr{Spacing}.
+
+@c @lsr{spacing,page-spacing.ly},
+@c @lsr{spacing,alignment-vertical-spacing.ly}.
+
+Referència de funcionament intern:
+@rinternals{Contexts},
+@rinternals{VerticalAxisGroup}.
+
+
+@node Posicionament explícit dels pentagrames i els sistemes
+@subsection Posicionament explícit dels pentagrames i els sistemes
+@translationof Explicit staff and system positioning
+
+Una forma d'entendre els mecanismes de l'espaiat vertical flexible
+que s'han explicat més a dalt es com una col·lecció d'ajustaments
+que controlen la quantitat de farciment vertical entre els
+pentagrames i els sistemes.
+
+És possible enfrontar-se a l'espaiat vertical d'una forma diferent utilitzant
+@code{NonMusicalPaperColumn.line-break-system-details}.
+Mentre que els mecanismes de l'espaiat vertical flexible
+especifiquen farciment vertical,
+@code{NonMusicalPaperColumn.line-break-system-details} pot
+especificar posicions verticals exactes sobre la pàgina.
+
+@code{NonMusicalPaperColumn.line-break-system-details} accepta una
+llista associativa de quatre ajustament diferents:
+
+@itemize
+@item @code{X-offset} (desplaçament en X)
+@item @code{Y-offset} (desplaçament en Y)
+@item @code{extra-offset} (desplaçament addicional)
+@item @code{alignment-distances} (distancies d'alineació)
+@end itemize
+
+Les sobreescriptures dels objectes gràfics, entre elles las de
+@code{NonMusicalPaperColumn} que apareixen més avall, poden
+ocórrer en tres llocs diferents dins d'un fitxer d'entrada:
+
+@itemize
+@item directament en mig de las notes
+@item en un bloc @code{\context}
+@item en el bloc @code{\with}
+@end itemize
+
+Quan sobreescrivim @code{NonMusicalPaperColumn}, usem l'ordre
+@code{\override} usual en els blocs @code{\context} i en el bloc
+@code{\with}.  Per una altra part, quan sobreescrivim
+@code{NonMusicalPaperColumn} en mig de les notes, hem d'usar
+l'ordre especial @code{\overrideProperty}.  A continuació es poden
+trobar algunes sobreescriptures de
+@code{NonMusicalPaperColumn} d'exemple amb l'ordre especial
+especial @code{\overrideProperty}:
+
+@example
+\overrideProperty NonMusicalPaperColumn.line-break-system-details
+  #'((X-offset . 20))
+
+\overrideProperty NonMusicalPaperColumn.line-break-system-details
+  #'((Y-offset . 40))
+
+\overrideProperty NonMusicalPaperColumn.line-break-system-details
+  #'((X-offset . 20)
+     (Y-offset . 40))
+
+\overrideProperty NonMusicalPaperColumn.line-break-system-details
+  #'((alignment-distances . (15)))
+
+\overrideProperty NonMusicalPaperColumn.line-break-system-details
+  #'((X-offset . 20)
+     (Y-offset . 40)
+     (alignment-distances . (15)))
+@end example
+
+Per entendre com funciona cada un dels diferents ajustament,
+comencem observant un exemple que no inclou absolutament cap
+sobreescriptura.
+
+@c \book { } is required in these examples to ensure the spacing
+@c overrides can be seen between systems. -np
+
+@lilypond[verbatim,quote,staffsize=16]
+\header { tagline = ##f }
+\paper { left-margin = 0\mm }
+\book {
+  \score {
+    <<
+      \new Staff <<
+        \new Voice {
+          s1*5 \break
+          s1*5 \break
+          s1*5 \break
+        }
+        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+      >>
+      \new Staff {
+        \repeat unfold 15 { d'4 d' d' d' }
+      }
+    >>
+  }
+}
+@end lilypond
+
+Aquesta partitura manté aïllada tant la informació dels salts de
+línia com els de pàgina d'una veu dedicada a això.  Aquesta
+tècnica de crear una veu de salts ajuda a mantenir separada de
+l'escriptura de notes conforme l'exemple es torna més complicat.
+Consulteu @ref{Salts}.
+
+Utilitzant ordres @code{\break} explícites, la música es
+divideix en línies de cinc compassos cada una.  L'espaiat vertical
+prové dels ajustos predeterminats del LilyPond però el punt
+d'origen vertical de cada sistema es fixa explícitament usant el
+parell @code{Y-offset} a l'atribut
+@code{line-break-system-details} del grob (objecte gràfic)
+@code{NonMusicalPaperColumn}:
+
+@lilypond[verbatim,quote,staffsize=16]
+\header { tagline = ##f }
+\paper { left-margin = 0\mm }
+\book {
+  \score {
+    <<
+      \new Staff <<
+        \new Voice {
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((Y-offset . 0))
+          s1*5 \break
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((Y-offset . 40))
+          s1*5 \break
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((Y-offset . 60))
+          s1*5 \break
+        }
+        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+      >>
+      \new Staff {
+        \repeat unfold 15 { d'4 d' d' d' }
+      }
+    >>
+  }
+}
+@end lilypond
+
+Observeu que @code{line-break-system-details} pren una llista
+associativa d'una quantitat de valors potencialment elevada, però
+aquí sols establim un valor.  Observeu també que aquí la propietat
+@code{Y-offset} determina la posició vertical exacta sobre la
+pàgina en la qual es traçarà cadascú dels nous sistemes.
+
+En contrast amb la localització absoluta que es pot fer usant
+@code{Y-offset} y @code{X-offset}, es possible una localització
+relativa amb la propietat @code{extra-offset} de
+@code{line-break-system-details}.  La col·locació és relativa a la
+disposició predeterminada o al posicionament absolut creat
+mitjançant l'establiment dels valors de @code{X-offset} i de
+@code{Y-offset}.  La propietat @code{extra-offset} accepta una
+parella de nombres (un @code{pair}) que consisteix en
+desplaçaments al llarg dels eixos X i Y.
+
+@lilypond[verbatim,quote,staffsize=16]
+\header { tagline = ##f }
+\paper { left-margin = 0\mm }
+\book {
+  \score {
+    <<
+      \new Staff <<
+        \new Voice {
+          s1*5 \break
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((extra-offset . (0 . 10)))
+          s1*5 \break
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((extra-offset . (0 . 10)))
+          s1*5 \break
+        }
+        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+      >>
+      \new Staff {
+        \repeat unfold 15 { d'4 d' d' d' }
+      }
+    >>
+  }
+}
+@end lilypond
+
+Ara que hem establert explícitament el punt d'origen vertical de
+cada sistema, podem també establir manualment les distàncies
+verticals entre els pentagrames dins de cada sistema.  Ho fem
+usant la subpropietat @code{alignment-distances} de
+@code{line-break-system-details}.
+
+@lilypond[verbatim,quote,staffsize=16]
+\header { tagline = ##f }
+\paper { left-margin = 0\mm }
+\book {
+  \score {
+    <<
+      \new Staff <<
+        \new Voice {
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((Y-offset . 20)
+               (alignment-distances . (10)))
+          s1*5 \break
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((Y-offset . 60)
+               (alignment-distances . (15)))
+          s1*5 \break
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+          #'((Y-offset . 85)
+             (alignment-distances . (20)))
+          s1*5 \break
+        }
+        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+      >>
+      \new Staff {
+        \repeat unfold 15 { d'4 d' d' d' }
+      }
+    >>
+  }
+}
+@end lilypond
+
+Observeu que aquí assignem dos valors diferents a l'atribut
+@code{line-break-system-details} del grob
+@code{NonMusicalPaperColumn}.  Tot i que l'atribut alist de
+@code{line-break-system-details} accepta molts paràmetres
+d'espaiat addicionals (entre ells, per exemple, un parell
+@code{X-offset} corresponent), sols hem d'establir el desplaçament
+@code{Y-offset} y els parells @code{alignment-distances} per
+controlar el punt d'origen vertical de cada sistema i pentagrama.
+Finalment, observeu que @code{alignment-distances} especifica el
+posicionament vertical dels pentagrames però no dels grups de pentagrames.
+
+@lilypond[verbatim,quote,staffsize=16]
+\header { tagline = ##f }
+\paper { left-margin = 0\mm }
+\book {
+  \score {
+    <<
+      \new Staff <<
+        \new Voice {
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((Y-offset . 0)
+               (alignment-distances . (30 10)))
+          s1*5 \break
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((Y-offset . 60)
+               (alignment-distances . (10 10)))
+          s1*5 \break
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((Y-offset . 100)
+               (alignment-distances . (10 30)))
+          s1*5 \break
+        }
+        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+      >>
+      \new StaffGroup <<
+        \new Staff { \repeat unfold 15 { d'4 d' d' d' } }
+        \new Staff { \repeat unfold 15 { e'4 e' e' e' } }
+      >>
+    >>
+  }
+}
+@end lilypond
+
+Alguns punts a tenir en compte:
+
+@itemize
+@item En usar @code{alignment-distances}, la lletra i d'altres
+línies que no són pautes no compten com un pentagrama.
+
+@item Les unitats dels nombres que es passen a @code{X-offset},
+@code{Y-offset}, @code{extra-offset} i @code{alignment-distances}
+s'interpreten com múltiples de la distància entre línies de
+pentagrama adjacents.  Els valors positius mouen als pentagrames i
+a la lletra cap amunt, els valors negatius mouen els pentagrames
+i la lletra cap avall.
+
+@item A causa que els ajustaments
+@code{NonMusicalPaperColumn.line-break-system-details} donats aquí
+permeten el posicionament de pentagrames i sistemes en qualsevol
+lloc de la pàgina, és possible violar els marges o els límits del
+paper, o fins i tot imprimir pentagrames o sistemes uns a sobre
+dels altres.  Això s'evitaria passant als diferents ajustaments
+uns valors raonables.
+@end itemize
+
+@seealso
+Fragments de codi:
+@rlsr{Spacing}.
+
+
+@node Evitar las col·lisions verticals
+@subsection Evitar las col·lisions verticals
+@translationof Vertical collision avoidance
+
+@funindex outside-staff-priority
+@funindex outside-staff-padding
+@funindex outside-staff-horizontal-padding
+
+Podem dir intuïtivament que alguns objectes de la notació musical
+pertanyen al pentagrama i d'altres se situen fora del pentagrama.
+Entre els objectes que pertanyen a l'exterior del pentagrama estan
+les marques d'assaig, les marques textuals i les indicacions de
+dinàmica (en el que segueix, les anomenarem objectes fora del
+pentagrama).  La regla del LilyPond per a la col·locació vertical
+dels objectes fora del pentagrama és posar-los tan a prop del
+pentagrama com sigui possible, però no tan propers com perquè
+xoquin amb un altre objecte.
+
+El LilyPond fa servir la propietat @code{outside-staff-priority}
+per a determinar si un grob és un objecte fora del pentagrama: si
+@code{outside-staff-priority} és un nombre, el grob és un objecte
+fora del pentagrama.  A més, @code{outside-staff-priority} informa
+al LilyPond en quin ordre s'han de situar els objectes.
+
+En primer lloc, el LilyPond situa tots els objectes que no
+pertanyen a l'exterior del pentagrama.  Després ordena els
+objectes fora del pentagrama d'acord a la seva propietat
+@code{outside-staff-priority} (en ordre creixent).  El LilyPond
+agafa els objectes fora del pentagrama un a un i els col·loca de
+forma que no xoquin amb cap objecte que ja hagi estat col·locat.
+En altres paraules, si dos gros fora del pentagrama competeixen
+pel mateix espai, el que la prioritat
+@code{outside-staff-priority} més baixa es col·locarà més proper
+al pentagrama.
+
+Hi ha un llistat complet de les prioritats
+outside-staff-priorities a
+@rlearning{La propietat outside-staff-priority (prioritat fora del pentagrama)}.
+
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  c4_"Text"\pp
+  r2.
+  \once \override TextScript.outside-staff-priority = #1
+  c4_"Text"\pp % aquest cop el text estarà més a prop del pentagrama
+  r2.
+  % establint outside-staff-priority a un no-nombre
+  % deshabilitem la cancel·lació automàtica de col·lisions
+  \once \override TextScript.outside-staff-priority = ##f
+  \once \override DynamicLineSpanner.outside-staff-priority = ##f
+  c4_"Text"\pp % now they will collide
+}
+@end lilypond
+
+El farcit vertical que rodeja als objectes fora del pentagrama es
+pot controlar amb @code{outside-staff-padding}.
+
+@lilypond[quote,ragged-right,verbatim,staffsize=18]
+\relative {
+  \once \override TextScript.outside-staff-padding = #0
+  a'4-"outside-staff-padding = #0"
+  \once \override TextScript.outside-staff-padding = #3
+  d-"outside-staff-padding = #3"
+  c-"default outside-staff-padding"
+  b-"default outside-staff-padding"
+  R1
+}
+@end lilypond
+
+De forma predeterminada, els objectes fora del pentagrama es
+col·loquen de forma que evitin una col·lisió horitzontal amb els
+grobs posicionats prèviament.  Això pot portar a situacions en les
+quals els objectes es col·loquen molt propers entre ells en el
+sentit horitzontal.  Com es mostra a l'exemple que apareix més a
+sota, en establir @code{outside-staff-horizontal-padding}
+s'incrementa l'espai horitzontal necessari, i en aquest cas es mou
+el text cap a munt per evitar que quedi massa a prop de les línies
+addicionals.
+
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  c''4^"Word" c c''2
+  R1
+  \once \override TextScript.outside-staff-horizontal-padding = #1
+  c,,4^"Word" c c''2
+}
+@end lilypond
+
+@seealso
+Fragments de codi:
+@rlsr{Spacing}.
+
+
+@node Espaiat horitzontal
+@section Espaiat horitzontal
+@translationof Horizontal spacing
+
+@cindex horitzontal, espaiat
+@cindex espaiat horitzontal
+
+@menu
+* Panoràmica de l'espaiat horitzontal::
+* Secció nova d'espaiat::
+* Canvi de l'espaiat horitzontal::
+* Longitud de la línia::
+* Notació proporcional::
+@end menu
+
+
+@node Panoràmica de l'espaiat horitzontal
+@subsection Panoràmica de l'espaiat horitzontal
+@translationof Horizontal spacing overview
+
+El motor d'espaiat tradueix les diferències en les duracions a
+distàncies ampliables (@q{molls}) de diferents longituds.  Les
+duracions més llargues reben un espaiat més gran i les duracions
+més curtes reben menys.  Les duracions més breus reben un espai de
+mida fixa (que es controla mitjançant
+@code{shortest-duration-space} a l'objecte
+@rinternals{SpacingSpanner}).  Quant més llarga la duració, més
+espai rep: en doblar una duració se suma
+@code{spacing-increment} a l'espai que ocupa la nota.
+
+Per exemple, la peça següent conté nombroses blanques, negres i
+corxeres; la corxera va seguida d'una amplada de cap de blanca
+(ACB).  La negra va seguida de 2 ACB, la blanca per 3 ACB, etc.
+
+@lilypond[quote,verbatim]
+\relative c' {
+  c2 c4. c8
+  c4. c8 c4. c8
+  c8 c c4 c c
+}
+@end lilypond
+
+Normalment, el valor de @code{spacing-increment} està establert en
+1.2 espais de pentagrama, el que és aproximadament l'amplada d'un
+cap, i @code{shortest-duration-space} està establert a 2.0, el que
+significa que la nota més breu rep 2.4 espais de pentagrama (2.0
+multiplica pel @code{spacing-increment}) d'espai horitzontal.
+Aquest espai es compta a partir de la vora esquerra del símbol, de
+manera que les notes més breus van seguides generalment per un
+espai d'1 ACB.
+
+Si seguíssim el procediment anterior exactament, aleshores
+l'addició d'una sola fusa a una partitura que usa corxeres i
+semicorxeres augmentaria enormement l'amplada de la partitura
+completa.  La nota més breu ja no és la semicorxera, sinó la fusa,
+afegint així 1 ACB a cada una de les notes.  Per evitar-ho, la
+duració més breu a efectes d'espaiat no és la nota més breu de la
+partitura, sinó la que es dóna amb més freqüència.
+
+La duració més breu que és més comuna es determina de la manera
+següent: a cada compàs es determina la duració més breu.  La
+duració més curta s'agafa com a base per a l'espaiat, havent
+estipulat que aquesta duració menor sempre ha de ser igual o menor
+a la corxera.  La duració més breu s'imprimeix quan s'executa
+@code{lilypond} amb l'opció @option{--verbose}.
+
+Aquestes duracions també es poden personalitzar.  Si establim
+la @code{common-shortest-duration} en @rinternals{SpacingSpanner},
+aleshores aquesta duració estableix la duració base per a
+l'espaiat.  La duració màima per a aquesta base (normalment una
+corxera), s'estableix amb @code{base-shortest-duration}.
+
+@funindex common-shortest-duration
+@funindex base-shortest-duration
+@funindex stem-spacing-correction
+@funindex spacing
+
+Les notes són encara més breus que la nota comuna més breu van
+seguides per un espai proporcional a la seva duració en relació
+amb la nota comuna més breu.  Així doncs, si anéssim a afegir tan
+sols algunes semicorxeres a l'exemple anterior, anirien seguides
+de mig ACB:
+
+@lilypond[quote,verbatim]
+\relative { c''2 c4. c8 | c4. c16[ c] c4. c8 | c8 c c4 c c }
+@end lilypond
+
+Com es va explicar al @emph{Assaig sobre gravat musical
+automatitzat}, les direccions de les pliques influeixen en
+l'espaiat (vegeu @ressaynamed{Optical spacing,Espaiat òptic}) i es
+pot ajustar amb la propietat @code{stem-spacing-correction} de
+l'objecte @rinternals{NoteSpacing}.  Aquestes direccions es
+generen per cada un dels contextos de @rinternals{Voice}.
+
+L'objecte @code{StaffSpacing} (generat en el context de
+@rinternals{Staff}) conté la mateixa propietat per controlar
+l'espaiat de les línies de plica o divisòries.
+
+L'exemple següent mostra aquestes correccions, un cop amb els
+valors predeterminats i un altre amb un ajustament exagerat:
+
+@lilypond[quote,ragged-right]
+\fixed c' {
+  c4 e'4 e4 b4 |
+  b4 e'4 b4 e'4 |
+  \override Staff.NoteSpacing.stem-spacing-correction = #1.5
+  \override Staff.StaffSpacing.stem-spacing-correction = #1.5
+  c4 e'4 e4 b4 |
+  b4 e'4 b4 e'4 |
+}
+@end lilypond
+
+També hi ha suport per a la notació proporcional; consulteu
+@ref{Notació proporcional}.
+
+@seealso
+Assaig sobre gravat musical automatitzat:
+@ressaynamed{Optical spacing,Espaiat òptic}.
+
+Fragments de codi:
+@rlsr{Spacing}.
+
+Referència de funcionament intern:
+@rinternals{SpacingSpanner},
+@rinternals{NoteSpacing},
+@rinternals{StaffSpacing},
+@rinternals{NonMusicalPaperColumn}.
+
+@knownissues
+No hi ha cap mecanisme convenient per sobreescriure l'espaiat
+manualment.  Es pot usar el següent ajustament per inserir espai
+addicional a una partitura, ajustant el valor de farciment a la
+mesura necessària.
+
+@example
+ \override Score.NonMusicalPaperColumn.padding = #10
+@end example
+
+No hi ha cap ajustament per reduir la magnitud de la separació.
+
+
+@node Secció nova d'espaiat
+@subsection Secció nova d'espaiat
+@translationof New spacing section
+
+@funindex \newSpacingSection
+@cindex secció nova d'espaiat
+@cindex espaiat, nova seccció de
+@cindex notes, espaiar horitzontalment
+
+Es poden iniciar seccions noves amb diferents paràmetres
+d'espaiat, amb l'ordre @code{newSpacingSection}.  Això és útil per
+a les seccions que distingeixen entre les notes @q{llargues} i
+@q{curtes}.  L'ordre @code{\newSpacingSection} crea un nou objecte
+@code{SpacingSpanner} en aquest moment musical.
+
+A l'exemple següent, el canvi de compàs introdueix una secció
+nova, i per això les semicorxeres se separen automàticament de
+manera lleugerament més àmplia.
+
+@lilypond[verbatim,quote]
+\relative c' {
+  \time 2/4
+  c4 c8 c
+  c8 c c4 c16[ c c8] c4
+  \newSpacingSection
+  \time 4/16
+  c16[ c c8]
+}
+@end lilypond
+
+Si els ajustaments d'espaiat automàtics no donen l'espaiat
+desitjat, es poden aplicar sobreescriptures manuals a les seves
+propietats amb @code{\override}.  Les sobreescriptures s'han
+d'aplicar al mateix moment musical que la pròpia ordre
+@code{\newSpacingSection} i afectaran aleshores a l'espaiat de
+tota la música que vingui a continuació fins que les propietats
+canviïn a una nova secció d'espaiat, per exemple:
+
+@lilypond[verbatim,quote]
+\relative c' {
+  \time 4/16
+  c16[ c c8]
+  \newSpacingSection
+  \override Score.SpacingSpanner.spacing-increment = #2
+  c16[ c c8]
+  \newSpacingSection
+  \revert Score.SpacingSpanner.spacing-increment
+  c16[ c c8]
+}
+@end lilypond
+
+
+@seealso
+Fragments de codi:
+@rlsr{Spacing}.
+
+Referència de funcionament intern:
+@rinternals{SpacingSpanner}.
+
+
+@node Canvi de l'espaiat horitzontal
+@subsection Canvi de l'espaiat horitzontal
+@translationof Changing horizontal spacing
+
+Es pot alterar l'espaiat horitzontal amb la propietat
+@code{base-shortest-duration}.  Aquí comparem la mateixa música, un
+cop sense alterar la propietat i després alterant-la.  Els valors
+majors de @code{ly:make-moment} produeixen música més petita.
+Observeu que @code{ly:make-moment} construeix una duració, per la
+qual cosa @code{1 4} és una duració més gran que @code{1 16}.
+
+@lilypond[verbatim,line-width=12\cm]
+\score {
+  \relative {
+    g'4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
+    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
+    d4 d d d | d4 e f2 | e4 e e e | e4 f g2 |
+    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
+  }
+}
+@end lilypond
+
+@lilypond[verbatim,line-width=12\cm]
+\score {
+  \relative {
+    g'4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
+    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
+    d4 d d d | d4 e f2 | e4 e e e | e4 f g2 |
+    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
+  }
+  \layout {
+    \context {
+      \Score
+      \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/16)
+    }
+  }
+}
+@end lilypond
+
+
+@snippets
+De forma predeterminada, l'espaiat als grups de valoració especial
+depenen de diversos factors aliens a la duració (com alteracions,
+canvis de clau, etc.).  Per passar per alt aquests símbols, i
+forçar un espaiat de duracions iguals uniforme, useu
+@code{Score.SpacingSpanner.uniform-stretching}.  Aquesta propietat
+sols pot canviar-se al principi de la partitura:
+
+@lilypond[quote,ragged-right,verbatim]
+\score {
+  <<
+    \new Staff {
+      \tuplet 5/4 { c8 c c c c } c8 c c c
+    }
+    \new Staff {
+      c8 c c c \tuplet 5/4 { c8 c c c c }
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      \override SpacingSpanner.uniform-stretching = ##t
+    }
+  }
+}
+@end lilypond
+
+Quan s'estableix @code{strict-note-spacing}, las notes se separen
+sense tenir en compte les claus, línies divisòries ni notes d'adorn:
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\override Score.SpacingSpanner.strict-note-spacing = ##t
+\new Staff \relative {
+  c''8[ c \clef alto c \grace { c16 c } c8 c c]  c32[ c] }
+@end lilypond
+
+@seealso
+Fragments de codi:
+@rlsr{Spacing}.
+
+
+@node Longitud de la línia
+@subsection Longitud de la línia
+@translationof Line width
+
+@cindex salts de pàgina
+@cindex pàgina, salts de
+
+@funindex indent
+@funindex line-width
+@funindex ragged-right
+@funindex ragged-last
+
+@c Although line-width can be set in \layout, it should be set in paper
+@c block, to get page layout right.
+@c Setting indent in \paper block makes not much sense, but it works.
+
+@c Bit verbose and vague, use examples?
+Els ajustament més bàsics que influeixen en l'espaiat són
+@code{indent} i @code{line-width}.  Es defineixen al bloc
+@code{\layout}.  Controlen el sagnat de la primera línia de música
+i la longitud de les línies.
+
+Si es fixa un valor vertader per @code{ragged-right} al bloc
+@code{\layout}, aleshores els sistemes acaben en la seva longitud
+horitzontal natural, en comptes de repartir-se horitzontalment
+fins omplir tota la línia.  Això és útil per fragments curts, i
+per comprovar el grau d'atapeïment de l'espaiat natural.  El valor
+normal predeterminat és fals, però si la partitura té sols un
+sistema, el valor predeterminat és vertader.
+
+@cindex disseny de pàgina
+@cindex pàgina, disposició de la
+@cindex vertical, espaiat
+
+L'opció @code{ragged-last} és semblant a @code{ragged-right},
+però afecta sols a l'última línia de la peça.  No s'efectua cap
+restricció sobre aquesta línia.  El resultat és semblant al format
+dels paràgrafs de text.  En un paràgraf, l'última línia
+senzillament ocupa la seva longitud horitzontal natural.
+@c Note that for text there are several options for the last line.
+@c While Knuth TeX uses natural length, lead typesetters use the same
+@c stretch as the previous line.  eTeX uses \lastlinefit to
+@c interpolate between both these solutions.
+
+@example
+\layout @{
+  indent = #0
+  line-width = #150
+  ragged-last = ##t
+@}
+@end example
+
+@seealso
+Fragments de codi:
+@rlsr{Spacing}.
+
+
+@node Notació proporcional
+@subsection Notació proporcional
+@translationof Proportional notation
+
+El LilyPond dóna suport a la notació proporcional, un tipus
+d'espaiat horitzontal en el qual cada nota consumeix una mesura
+horitzontal que equival exactament a la seva duració rítmica.
+Aquest tipus d'espaiat proporcional és comparable a l'espaiat
+horitzontal fer sobre un paper mil·limetrat.  Certes partitures de
+finals del segle XX i principis del segle XXI utilitzen notació
+proporcional per clarificar relacions rítmiques complexes o per
+facilitar la col·locació de línies cronomètriques o d'altres
+gràfics directament a la partitura.
+
+El LilyPond dóna suport a cinc ajustament diferents per a la
+notació proporcional, que es poden usar sols o combinats:
+
+@itemize
+@item @code{proportionalNotationDuration}
+@item @code{uniform-stretching}
+@item @code{strict-note-spacing}
+@item @code{\remove "Separating_line_group_engraver"}
+@item @code{\override PaperColumn.used = ##t}
+@end itemize
+
+Als exemple següents explorem l'ús d'aquests cinc ajustaments de
+la notació proporcional i examinem la forma en la qual interactuen.
+
+Comencem amb l'exemple següent d'un sols compàs, que usa un
+espaiat clàssic sense justificació per la dreta.
+
+@c The initial pitch is not necessary as long as RhythmicStaff is
+@c not preceded by other material in the score, but we don't want
+@c to explain that.
+@lilypond[quote,verbatim,ragged-right]
+\score {
+  <<
+    \new RhythmicStaff {
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
+    }
+  >>
+}
+@end lilypond
+
+Observeu que la blanca que inicia el compàs ocupa molt menys de la
+meitat de tot l'espai horitzontal del compàs.  De forma semblant,
+les semicorxeres i el cinquet de semicorxeres amb els quals
+finalitza el compàs ocupen en conjunt molt més de la meitat de
+tota l'espai horitzontal del compàs.
+
+Al gravat clàssic, aquest espaiat pot ser exactament el que
+desitgem perquè podem prendre prestat l'espai horitzontal de la
+blanca i conservar l'espai horitzontal al llarg del compàs com un tot.
+
+Per un altre cantó, si volem inserir una línia de temps graduada o
+algun altre gràfic a sobre o a sota de la partitura, ens cal la
+notació proporcional.  La notació proporcional s'activa amb
+l'ajustament @code{proportionalNotationDuration}.
+
+@lilypond[quote,verbatim,ragged-right]
+\score {
+  <<
+    \new RhythmicStaff {
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
+    }
+  >>
+ \layout {
+    \context {
+      \Score
+      proportionalNotationDuration = #(ly:make-moment 1/20)
+    }
+  }
+}
+@end lilypond
+
+La blanca al principi del compàs i les notes ràpides de la segona
+meitat del compàs ocupen ara quantitats iguals d'espai
+horitzontal.  Podríem col·locar una línia de temps graduada o un
+gràfic a sobre o a sota d'aquest exemple.
+
+L'ajustament @code{proportionalNotationDuration} és un ajustament
+de context que resideix a @code{Score}.  Recordem que els
+ajustaments de context apareixen en un de tres possibles llocs del
+fitxer d'entrada: en un bloc @code{\with}, en un bloc
+@code{\context}, o  directament entre la música precedit de
+l'ordre @code{\set}.  Igual que amb tots els ajustaments de
+context, l'usuari pot escollir en quin dels tres llocs diferents
+prefereix establir el valor de @code{proportionalNotationDuration}.
+
+L'ajustament @code{proportionalNotationDuration} accepta un sol
+argument, que és la duració de referència contra el qual s'aplica
+l'espaiat de tota la música.  La funció Scheme del LilyPond
+@code{make-moment} accepta dos arguments: un numerador i un
+denominador que, junts, expressen una certa fracció de rodona.  La
+crida @code{(ly:make-moment 1/20)}, per tant, produeix una duració
+de referència d'una nota d'un vintè de rodona (semicorxeres de
+cinquet).  Són també possibles valors com @code{(ly:make-moment
+1/16)}, @code{(ly:make-moment 1/8)} i @code{(ly:make-moment 3/97)}.
+
+Com seleccionem la duració correcta de referència per passar-la a
+@code{proportionalNotationDuration}?  Normalment mitjançant un
+procés d'assaig i error, començant amb una duració propera a la
+duració més ràpida (o més breu) de la peça.  Les duracions de
+referència més petites apliquen un espaiat menys atapeït; les
+duracions de referència més llargues apliquen un espaiat més atapeït.
+
+@lilypond[quote,verbatim,ragged-right]
+\score {
+  <<
+    \new RhythmicStaff {
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      proportionalNotationDuration = #(ly:make-moment 1/8)
+    }
+  }
+}
+
+\score {
+  <<
+    \new RhythmicStaff {
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      proportionalNotationDuration = #(ly:make-moment 1/16)
+    }
+  }
+}
+
+\score {
+  <<
+    \new RhythmicStaff {
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      proportionalNotationDuration = #(ly:make-moment 1/32)
+    }
+  }
+}
+@end lilypond
+
+Observeu que una duració de referència massa gran (com a corxera,
+a l'exemple de dalt) produeix un espaiat excessivament atapeït i
+pot ser causa de col·lisions entre els caps de nota.  Observeu
+també que la notació proporcional en general ocupa més espai
+horitzontal que l'espaiat clàssic.  L'espaiat proporcional aporta
+claredat a costa d'espai horitzontal.
+
+Ara veurem com espaiar de forma òptima grups de valoració especial
+que se superposen.
+
+Comencem per examinar que li passa al nostre exemple origina, amb
+espaiat clàssic, quan afegim un segon pentagrama amb un tipus
+diferent de grup especial.
+
+@lilypond[quote,verbatim,ragged-right]
+\score {
+  <<
+    \new RhythmicStaff {
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
+    }
+    \new RhythmicStaff {
+      \tuplet 9/8 { c8 8 8 8 8 8 8 8 8 }
+    }
+  >>
+}
+@end lilypond
+
+L'espaiat és defectuós perquè les notes regularment espaiades del
+pentagrama inferior no s'amplien de manera uniforme.  Els gravats
+clàssics inclouen molt pocs tresets complexos i així les regles
+del gravat clàssic poden generar aquest tipus de resultat.
+L'establiment de @code{proportionalNotationDuration} ho soluciona.
+
+@lilypond[quote,verbatim,ragged-right]
+\score {
+  <<
+    \new RhythmicStaff {
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
+    }
+    \new RhythmicStaff {
+      \tuplet 9/8 { c8 8 8 8 8 8 8 8 8 }
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      proportionalNotationDuration = #(ly:make-moment 1/20)
+    }
+  }
+}
+@end lilypond
+
+Però si observem amb molta cura podrem veure que les notes de la
+segona meitat del 9-set estan espaiades de forme lleugerament més
+ampla que les de la primera meitat del 9-set.  Per assegurar una
+ampliació uniforme, activem @code{uniform-stretching}, que és una
+propietat de @code{SpacingSpanner}.
+
+@lilypond[quote,verbatim,ragged-right]
+\score {
+  <<
+    \new RhythmicStaff {
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
+    }
+    \new RhythmicStaff {
+      \tuplet 9/8 { c8 8 8 8 8 8 8 8 8 }
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      proportionalNotationDuration = #(ly:make-moment 1/20)
+      \override SpacingSpanner.uniform-stretching = ##t
+    }
+  }
+}
+@end lilypond
+
+El nostre exemple de dos pentagrames ara està espaiat exactament,
+les nostres rítmiques són visualment clares, i podem incloure una
+línia de temps graduada o un gràfic, si volem.
+
+Observeu que el paquet de notació proporcional del LilyPond espera
+que totes les partitures proporcionals estableixin l'atribut
+@code{uniform-stretching} de @code{SpacingSpanner} al valor ##t.
+L'establiment de @code{proportionalNotationDuration} sense ajustar
+també l'atribut @code{uniform-stretching} de @code{SpacingSpanner}
+al valor ##t causarà, per exemple, que els desplaçament
+(@code{skips}) consumeixin una quantitat d'espai horitzontal incorrecta.
+
+El @code{SpacingSpanner} és un grob abstracte que resideix al
+context de @code{Score}.  Com als nostres ajustament de
+@code{proportionalNotationDuration}, les sobreescriptures al
+@code{SpacingSpanner} sols poden ocórrer en un d'aquests tres
+llocs dins del fitxer d'entrada: al bloc @code{\with}, al bloc
+@code{\context} o directament dins de l'escriptura de notes.
+
+De manera predeterminada, sols hi ha un @code{SpacingSpanner} per
+@code{Score}.  Això suposa, que per omissió,
+@code{uniform-stretching} està activat per a la partitura completa
+o desactivat per a la partitura completa.  No obstant, podem
+sobreescriure aquest comportament i activar diferents
+possibilitats d'espaiat a diferents llocs de la partitura.  Ho fem
+amb l'ordre @code{\newSpacingSection}.  Consulteu
+@ref{Secció nova d'espaiat} per a més informació.
+
+A continuació examinem els efectes del gravador
+@code{Separating_line_group_engraver} i veurem perquè les
+partitures proporcionals freqüentment eliminen aquest gravador.
+L'exemple següent mostra que hi ha una petita quantitat d'espai
+@qq{preliminar} just abans de la primera nota de cada sistema.
+
+@lilypond[quote,verbatim,ragged-right]
+\paper {
+  indent = #0
+}
+
+\new Staff {
+  c'1
+  \break
+  c'1
+}
+@end lilypond
+
+Aquesta quantitat d'espai preliminar és la mateixa ja sigui
+després d'una indicació de compàs, una armadura o una clau.  El gravador
+@code{Separating_line_group_engraver} és responsable d'aquest
+espai.  L'eliminació de @code{Separating_line_group_engraver}
+redueix aquest espai a zero.
+
+@lilypond[quote,verbatim,ragged-right]
+\paper {
+  indent = #0
+}
+
+\new Staff \with {
+  \remove "Separating_line_group_engraver"
+} {
+  c'1
+  \break
+  c'1
+}
+@end lilypond
+
+Els elements no musicals com la indicació de compàs, l'armadura,
+la clau i les alteracions són problemàtics en notació
+proporcional.  Cap d'aquests elements té una duració rítmica.
+Però tots ells consumeixen espai horitzontal.  Les diferents
+partitures proporcionals aborden aquest problema de manera diferent.
+
+Simplement evitant les armadures, seria possible evitar els
+problemes d'espaiat amb elles.  Aquesta és una opció vàlida atès
+que gairebé totes les partitures proporcionals són música
+contemporània.  El mateix pot valer per a les indicacions de
+compàs, especialment per a les partitures que inclouen una línia
+de temps graduada o un altre gràfic.  Però aquestes partitures són
+excepcionals i gairebé totes les partitures proporcionals inclouen
+almenys unes poques indicacions de compàs.  Les claus i les
+alteracions són encara més essencials.
+
+Així doncs, quines estratègies hi ha per a l'espaiat dels elements
+no musicals en un context proporcional?  Una bona opció és la
+propietat @code{strict-note-spacing} de @code{SpacingSpanner}.
+Compareu les dues partitures següents:
+
+@lilypond[quote,verbatim,ragged-right]
+\new Staff {
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1/16)
+  c''8 8 8 \clef alto d'2 2
+}
+
+\new Staff {
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1/16)
+  \override Score.SpacingSpanner.strict-note-spacing = ##t
+  c''8 8 8 \clef alto d'2 2
+}
+@end lilypond
+
+Les dues partitures són proporcionals, però l'espaiat de la primer
+és poc atapeït a causa del canvi de clau.  Tanmateix, l'espaiat de
+la segona partitura es manté estricte, perquè
+@code{strict-note-spacing} està activa.  L'activació de
+@code{strict-note-spacing} fa que l'amplada de les indicacions de
+compàs, armadures, canvis de clau i alteracions no prenguin part
+en l'algoritme d'espaiat.
+
+A més dels ajustaments donats aquí, hi ha d'altres apareixen amb
+freqüència a les partitures proporcionals.  Entre ells estan:
+
+@itemize
+@item @code{\override SpacingSpanner.strict-grace-spacing = ##t}
+@item @code{\set tupletFullLength = ##t}
+@item @code{\override Beam.breakable = ##t}
+@item @code{\override Glissando.breakable = ##t}
+@item @code{\override TextSpanner.breakable = ##t}
+@item @code{\remove "Forbid_line_break_engraver" in the Voice context}
+@end itemize
+
+Aquests ajustaments donen a les notes d'adorn un espaiat estricte,
+estenen les claus de grup especial perquè marquin tant els punts
+de començament com de final, i permeten que els elements
+d'extensió es divideixin entre els sistemes i les pàgines.
+Consulteu les parts respectives del manual per veure aquests
+ajustaments relacionats.
+
+@seealso
+Referència de la notació:
+@ref{Secció nova d'espaiat}.
+
+Fragments de codi:
+@rlsr{Spacing}.
+
+
+@node Encaix de la música en menys pàgines
+@section Encaix de la música en menys pàgines
+@translationof Fitting music onto fewer pages
+
+En ocasions, podem terminar amb un o dos pentagrames en una segona
+pàgina (o tercera, o cuarta@dots{}).  Es feixuc, especialment quan
+veiem que les pàgines anteriors semblen tenir espai de sobra.
+
+En investigar els problemes de disposició, una eina de valor
+incalculable és @code{annotate-spacing}.  Aquesta ordre imprimeix
+els valors d'un cert nombre de variables d'espaiat; per veure els
+detalls consulteu la secció següent, @ref{Mostrar l'espaiat}.
+
+@menu
+* Mostrar l'espaiat::
+* Canvi de l'espaiat::
+@end menu
+
+
+@node Mostrar l'espaiat
+@subsection Mostrar l'espaiat
+@translationof Displaying spacing
+
+@cindex espaiat, presentació del
+@funindex annotate-spacing
+
+Per presentar gràficament les dimensions de les variables de
+disposició vertical que poden veure's alterades pel format de la
+pàgina, establiu @code{annotate-spacing} en el bloc @code{\paper}:
+
+@lilypond[verbatim,quote,papersize=a6landscape]
+\book {
+  \score { { c4 } }
+  \paper { annotate-spacing = ##t }
+}
+@end lilypond
+
+@noindent
+Totes les dimensions de disposició es mostren en espais de
+pentagrama, independentment de les unitats especificades en els
+blocs  @code{\paper} o @code{\layout}. A l'exemple anterior, 
+@code{paper-height} té el valor de 59.75 @code{staff-spaces}
+(espais de pentagrama), i el @code{staff-size} (mida del
+pentagrama) és de 20 punts, el valor predeterminat.  Observeu que:
+
+@multitable {1 staff-space} {staff-size)/4 * (25.4/72.27) mm}
+
+@item 1 punto
+@tab = (25.4/72.27) mm
+
+@item 1 staff-space
+@tab = (@code{staff-size})/4 pts
+@item
+@tab = (@code{staff-size})/4 * (25.4/72.27) mm
+
+@end multitable
+
+@noindent
+En aquest cas, un @code{staff-space} equival aproximadament a
+1.757mm.  Així, la mesura @code{paper-height} de 59.75
+@code{staff-spaces} equival a 105 mil·límetres, l'alçada d'un full
+@code{a6} en orientació apaïsada.  Els parells (@var{a},@var{b})
+són intervals, on @var{a} és el límit inferior i @var{b} és el
+límit superior de l'interval.
+
+@seealso
+Referència de la notació:
+@ref{Establiment de la mida del pentagrama}.
+
+Fragments de codi:
+@rlsr{Spacing}.
+
+
+@node Canvi de l'espaiat
+@subsection Canvi de l'espaiat
+@translationof Changing spacing
+
+La sortida de @code{annotate-spacing} revela las dimensions
+verticals amb gran detall.  Per veure més detalls sobre la
+modificació dels marges i altres variables de disseny de la
+pàgina, consulteu @ref{Disposició de la pàgina}.
+
+Apart dels marges, hi ha algunes altres opcions per estalviar
+espai:
+
+@itemize
+@item
+Forçar els sistemes perquè s'ajuntin el més possible entre sí (de
+forma que càpiguen la quantitat més grans d'ells a la pàgina) i al
+mateix temps estiguin espaiats de form que no hi hagi un espai
+buit en la part baixa del paper.
+
+@example
+\paper @{
+  system-system-spacing = #'((basic-distance . 0.1) (padding . 0))
+  ragged-last-bottom = ##f
+  ragged-bottom = ##f
+@}
+@end example
+
+@item
+Forçar el nombre de sistemes.  Pot ser d'utilitat de dues formes.
+Si tans sols s'estableix un valor, fins i tot el mateix valor que
+el nombre de sistemes que s'estan dibuixant de forma
+predeterminada, això ocasionarà a vegades que s'intentin introduir
+més sistemes en cada pàgina, ja que en aquest cas s'omet un pas en
+el qual es produeix l'estalvi d'una pàgina addicional.  Per
+exemple, si la disposició predeterminada té 11 sistemes,
+l'assignació següent força una disposició amb 10 sistemes.
+
+@example
+\paper @{
+  system-count = #10
+@}
+@end example
+
+@item
+Forçar el nombre de pàgines.  Per exemple, l'assignació següent
+força una disposició amb dues pàgines.
+
+@example
+\paper @{
+  page-count = #2
+@}
+@end example
+
+@item
+Evitar (o reduir en nombre) els objectes que augmenten la mida
+vertical d'un sistema.  Per exemple, a les claus de les repeticions
+de primer i segona vegada (o repeticions amb finals alternatius)
+els cal espai addicional.  Si aquestes caselles es reparteixen al
+llarg de dos sistemes, ocupen més espai que si estiguessin sobre
+el mateix sistema.  Com en un altre exemple, les indicacions
+dinàmiques que se @q{surten} d'un sistema es poden apropar al
+pentagrama:
+
+@lilypond[verbatim,quote]
+\relative e' {
+  e4 c g\f c
+  e4 c g-\tweak X-offset #-2.7 \f c
+}
+@end lilypond
+
+@item
+Alterar l'espaiat horitzontal per mitjà de @code{SpacingSpanner}.
+Per veure més detalls, consulteu
+@ref{Canvi de l'espaiat horitzontal}.  L'exemple següent il·lustra
+l'espaiat predeterminat:
+
+@lilypond[verbatim,quote]
+\score {
+  \relative {
+    g'4 e e2 |
+    f4 d d2 |
+    c4 d e f |
+    g4 g g2 |
+    g4 e e2 |
+  }
+}
+@end lilypond
+
+@noindent
+L'exemple següent modifica @code{common-shortest-duration} d'un
+valor de @code{1/4} (negra) a @code{1/2} (blanca).  La negra és la
+nota més comuna i la més breu de l'exemple, per la qual cosa en
+augmentar aquesta duració es produeix un efecte d'@q{atapeïment}:
+
+@lilypond[verbatim,quote]
+\score {
+  \relative {
+    g'4 e e2 |
+    f4 d d2 |
+    c4 d e f |
+    g4 g g2 |
+    g4 e e2 |
+  }
+  \layout {
+    \context {
+      \Score
+      \override SpacingSpanner.common-shortest-duration =
+        #(ly:make-moment 1/2)
+    }
+  }
+}
+@end lilypond
+
+@noindent
+La propietat @code{common-shortest-duration} no es pot modificar
+de manera dinàmica, per la qual s'ha de situar sempre dins d'un
+bloc @code{\context} de forma que s'apliqui a la partitura
+completa.
+
+@end itemize
+
+@seealso
+Referència de la notació:
+@ref{Disposició de la pàgina},
+@ref{Canvi de l'espaiat horitzontal}.
+
+Fragments de codi:
+@rlsr{Spacing}.
