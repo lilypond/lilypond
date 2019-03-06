@@ -358,7 +358,7 @@ Manual de aprenentatge:
 @rlearning{Alineació de la lletra a una melodia}.
 
 Referència de la notació:
-@rusernamed{Contexts explained,Explicació sobre els contextos},
+@ref{Explicació dels contextos},
 @ref{Duració automàtica de les síl·labes}.
 @ref{Versos},
 @ref{Duració manual de les síl·labes},
@@ -2261,7 +2261,7 @@ Per muntar la disposició de les pautes, vegeu
 
 @item
 Per escriure música per a piano, vegeu
-@rusernamed{Keyboard and other multi-staff instruments,Teclats i altres instruments de diversos pentagrames}.
+@ref{Teclats i altres instruments de pentagrames múltiples}.
 
 @item
 Per imprimir la lletra d'una línia melòdica, vegeu
@@ -2278,7 +2278,7 @@ Per escriure versos vegeu @ref{Versos}.
 Les cançons s'imprimeixen sovint amb els acords indicats
 mitjançant xifrat americà (els noms dels acords en lletres
 majúscules) sobre les pautes. Això es descriu a
-@rusernamed{Displaying chords,Visualització d'acords}.
+@ref{Impressió dels acords}.
 
 @item
 Per imprimir diagrames de posicions dels acords per a
@@ -2295,9 +2295,9 @@ Manual d'aprenentatge:
 
 Referència de la notació:
 @ref{Notació comuna per a música vocal},
-@rusernamed{Displaying chords,Visualització d'acords}.
+@ref{Impressió dels acords},
 @ref{Visualització dels pentagrames}.
-@rusernamed{Keyboard and other multi-staff instruments,Teclats i altres instruments de diversos pentagrames}.
+@ref{Teclats i altres instruments de pentagrames múltiples},
 @ref{Posicionament vertical de la lletra},
 @ref{Versos}.
 
@@ -2438,19 +2438,19 @@ tenir compte els comptes següents:
 @item
 Es pot modificar la mida global de pentagrama per alterar la mida
 general dels elements de la partitura.  Vegeu
-@rusernamed{Setting the staff size,Establiment de la mida del pentagrama}.
+@ref{Establiment de la mida del pentagrama}.
 
 @item
 Les diferents distàncies entre sistemes, pentagrames i línies de
 text es poden ajustar de manera independent.  Vegeu
-@rusernamed{Vertical spacing,Espaiat vertical}.
+@ref{Espaiat vertical}.
 
 @item
 Es poden imprimir les dimensiones de les variables de disposició
 verticals com a ajuda per a l'ajust de l'espaiat vertical.
 Aquesta i d'altres possibilitats per fer encaixar la música a un
 nombre de pàgines menor, es descriuen a
-@ref{Fitting music onto fewer pages,Encaix de la música en menys pàgines}.
+@ref{Encaix de la música en menys pàgines}.
 
 @item
 Si el nombre de sistemes per pàgina canvia d'u a dos, s'acostuma
@@ -2459,7 +2459,7 @@ dos sistemes.  Vegeu @ref{Separació de sistemes}.
 
 @item
 Per veure més detalls sobre altres propietats de format de les
-pàgines, consulteu @rusernamed{Page layout,Disposició de la pàgina}.
+pàgines, consulteu @ref{Disposició de la pàgina}.
 
 @end itemize
 
@@ -2506,15 +2506,15 @@ mostra aquí:
 
 @seealso
 Referència de la notació:
-@rusernamed{Changing spacing,Canviar l'espaiat},
-@rusernamed{Displaying spacing,Visualització de l'espaiat},
-@ref{Fitting music onto fewer pages,Encaix de la música en menys pàgines},
-@rusernamed{Page layout,Disposició de la pàgina},
-@rusernamed{Score layout,Disposició de la partitura},
+@ref{Canvi de l'espaiat},
+@ref{Mostrar l'espaiat},
+@ref{Encaix de la música en menys pàgines},
+@ref{Disposició de la pàgina},
+@ref{Disposició de la partitura},
 @ref{Separació de sistemes},
-@rusernamed{Setting the staff size,Establiment de la mida del pentagrama},
-@rusernamed{Breaks,Salts},
-@rusernamed{Vertical spacing,Espaiat vertical}.
+@ref{Establiment de la mida del pentagrama},
+@ref{Salts},
+@ref{Espaiat vertical}.
 
 Referència de funcionament interno:
 @rinternals{VerticalAxisGroup},
@@ -2621,7 +2621,7 @@ de sistemes.  Vegeu @ref{Separació de sistemes}.
 @item
 Per veure detalls sobre altres propietats de format de les
 pàgines, consulteu
-@rusernamed{Page layout,Disposició de la pàgina}.
+@ref{Disposició de la pàgina}.
 
 @item
 Es poden inserir notes  guia de diàlegs, instruccions d'escena i
@@ -2645,7 +2645,7 @@ Referència de la notació:
 @ref{Ocultament de pentagrames},
 @ref{Transposició dels instruments},
 @ref{Grups de pentagrames niuats},
-@rusernamed{Page layout,Disposició de la pàgina},
+@ref{Disposició de la pàgina},
 @ref{Separació de sistemes},
 @ref{Transposició},
 @ref{Escriptura de les particel·les},

@@ -2722,7 +2722,7 @@ Començarem amb la lletra.
 
 La lletra es troba a l'interior d'un sistema, i per tant les
 ordres per aplicar-li l'espaiat estaran en
-@rusernamed{Flexible vertical spacing within systems,Espaiat vertical flexible dins dels sistemes}.
+@ruser{Espaiat vertical flexible dins dels sistemes}.
 Aquí es diu que el text són línies del tipus @qq{no-pauta} i per
 tant l'ordre per canviar el seu espaiat farà referència a la propietat
 @code{nonstaff}.  Per separar-les del pentagrama al que pertanyen
@@ -2876,8 +2876,8 @@ que hem de recordar és que l'espaiat entre objectes dins d'un
 @code{StaffGrouper}. L'espaiat dels pentagrames no agrupats (com
 @code{Lyrics} i @code{Staff}) es controla amb les variables
 del @code{VerticalAxisGroup}.  Per veure més detalls, consulteu
-@rusernamed{Flexible vertical spacing paper variables,Variables de espaiat de paper verticals flexibles} i
-@rusernamed{Flexible vertical spacing within systems,Espaiat vertical flexible dins dels sistemes}.
+@ruser{Variables flexibles d'espaiat vertical de paper} i
+@ruser{Espaiat vertical flexible dins dels sistemes}.
 
 
 @node Col·lisions d'objectes

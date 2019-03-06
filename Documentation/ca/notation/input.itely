@@ -381,7 +381,7 @@ s'introdueix més d'una d'aquestes definicions del mateix tipus al
 nivell més alt, les definicions es combinen, però en situacions de
 conflicte les definicions més tardanes tenen preferència.  Per
 veure els detalls sobre com afecta al bloc @code{\layout}, consulteu
-@rusernamed{The layout block,El bloc layout}.
+@ref{El bloc layout}.
 
 @item
 Una expressió directa de l'Scheme, com
@@ -549,7 +549,7 @@ Manual d'aprenentatge:
 
 Referència de la notació:
 @ref{Explicació dels títols},
-@rusernamed{The layout block,El bloc layout}.
+@ref{El bloc layout}.
 
 @node Títols i encapçalaments
 @section Títols i encapçalaments
@@ -2874,7 +2874,7 @@ sortida diferent per a cada línia generada.
 
 @seealso
 Referencia de la notació:
-@rusernamed{The layout block,El bloc layout}.
+@ref{El bloc layout}.
 
 Manual d'utilització:
 @rprogramnamed{Command-line usage,Utilització des de la línia d'ordres}.
@@ -3396,7 +3396,7 @@ Fitxers instal·lats:
 
 @seealso
 Referència de la notació:
-@rusernamed{Score layout,Disposició de la partitura}.
+@ref{Disposició de la partitura}.
 
 Referència de funcionament intern:
 @rinternals{Dynamic_performer}.
@@ -3466,7 +3466,7 @@ Manual de aprenentatge:
 
 Referència de la notació:
 @ref{Expressions},
-@rusernamed{Score layout,Disposició de la partitura}.
+@ref{Disposició de la partitura}.
 
 Fitxers instal·lats:
 @file{ly/performer-init.ly}.
@@ -3524,7 +3524,7 @@ Manual d'aprenentatge:
 
 Referència de la notació:
 @ref{Instruments MIDI},
-@rusernamed{Score layout,Disposició de la partitura}.
+@ref{Disposició de la partitura}.
 
 Fitxers instal·lats:
 @file{scm/midi.scm}.
@@ -3880,7 +3880,7 @@ Manual d'aprenentatge:
 @rlearning{Altres fonts d'informació}.
 
 Referència de la notació:
-@rusernamed{Score layout,Disposició de la partitura}.
+@ref{Disposició de la partitura}.
 
 Fitxers instal·lats:
 @file{ly/articulate.ly}.

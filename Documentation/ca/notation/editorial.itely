@@ -76,7 +76,7 @@ situats dins del pentagrama.
 Per a la mida del tipus de lletra del text consulteu
 @ref{Selecció del tipus de lletra i la seva mida}.@*
 Per a la mida del pentagrama, consulteu
-@rusernamed{Setting the staff size,Establiment de la mida del pentagrama}.@*
+@ref{Establiment de la mida del pentagrama}.@*
 Per a les notes guia, consulteu @ref{Format de les notes guia}.@*
 Per als pentagrames d'Ossia, consulteu @ref{Pentagrames d'Ossia}.}
 
@@ -146,7 +146,7 @@ com els dels exemples anteriors. Establir el valor de
 
 @warning{L'ordre @code{@bs{}magnifyMusic} @i{no} ha d'utilitzar-se
 si s'està canviant la mida del pentagrama al mateix temps.  Consulteu
-@rusernamed{Setting the staff size,Establir la mida del pentagrama}.}
+@ref{Establiment de la mida del pentagrama}.}
 
 
 @subsubsubheading Canviar la mida dels objectes individuals
@@ -224,7 +224,7 @@ les pliques, barres i l'espaiat horitzontal junt amb la mida de la
 notació (sense canviar la mida de la pauta), useu l'ordre
 @code{\magnifyMusic} que s'ha explicat anteriorment.  Per canviar
 l'escala de la mida de tot, fins i tot la pauta, vegeu
-@rusernamed{Setting the staff size,Establiment de la mida del pentagrama}.
+@ref{Establiment de la mida del pentagrama}.
 
 Sempre que s'estableix el valor de la @i{propietat de context}
 @code{fontSize}, el seu valor s'afegeix al valor de la
@@ -304,7 +304,7 @@ tipus de lletra de 11 punts.
 @seealso
 Referència de la notació:
 @ref{Selecció del tipus de lletra i la seva mida}
-@rusernamed{Setting the staff size,Establiment de la mida del pentagrama}.
+@ref{Establiment de la mida del pentagrama}.
 @ref{Format de les notes guia},
 @ref{Pentagrames d'Ossia}.
 

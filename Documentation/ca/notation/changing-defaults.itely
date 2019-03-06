@@ -1155,8 +1155,7 @@ Referència de la notació:
 @ref{Contextos del nivell més baix - veus},
 @ref{L'ordre set},
 @ref{L'ordre override},
-@rusernamed{The layout block,El bloc @code{@bs{}layout}}.
-
+@ref{El bloc layout}.
 
 @node Definició de contextos nous
 @subsection Definició de contextos nous
@@ -3264,7 +3263,7 @@ polzades).  Les distàncies de disseny de pàgina es poden
 especificar també en unitats escalables (vegeu el paràgraf
 següent) adjuntant @code{\staff-space} a la quantitat.  La
 disposició de pàgina es descriu en detall a
-@rusernamed{Page layout,Disposició de la pàgina}.
+@ref{Disposició de la pàgina}.
 
 Les distàncies escalades sempre s'especifiquen en unitats d'un
 espai del pentagrama o, més rarament, mig espai del pentagrama.
@@ -3280,7 +3279,7 @@ els canvis efectuats a la mida global del pentagrama.  Així, la
 mida global del pentagrama possibilita la variació fàcil de la
 mida general d'una partitura gravada.  Per veure els mètodes
 d'establiment de la mida global del pentagrama, vegeu
-@rusernamed{Setting the staff size,Establiment de la mida del pentagrama}.
+@ref{Establiment de la mida del pentagrama}.
 
 @funindex magstep
 
@@ -3301,8 +3300,8 @@ Manual d'aprenentatge;
 @rlearning{Longitud i gruix dels objectes}.
 
 Referència de la notació:
-@rusernamed{Page layout,Disposició de la pàgina},
-@rusernamed{Setting the staff size,Establiment de la mida del pentagrama}.
+@ref{Disposició de la pàgina},
+@ref{Establiment de la mida del pentagrama}.
 
 @node Dimensions
 @subsection Dimensions
