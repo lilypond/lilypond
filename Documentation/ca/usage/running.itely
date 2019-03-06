@@ -1149,7 +1149,7 @@ dels contextos es comporti com un pentagrama, inserint
 @noindent
 al començament.  Per veure més detalls, consulteu @qq{Espaiat de
 les línies que no són pautes} a
-@rusernamed{Flexible vertical spacing within systems,Espaiat vertical flexible dins dels sistemes}.
+@ruser{Espaiat vertical flexible dins dels sistemes}.
 
 @node Missatge d'error Unexpected new
 @unnumberedsubsec Missatge d'error Unexpected new @code{@bs{}new}

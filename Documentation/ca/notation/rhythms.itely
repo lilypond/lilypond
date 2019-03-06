@@ -144,8 +144,7 @@ consulteu @ref{Música vocal}.
 De forma opcional es poden espaiar les notes de forma estrictament
 proporcional a les seves duracions.  Per veure més detalls sobre
 aquest ajust i altres ajustos que controlen la notació
-proporciona, consulteu @rusernamed{Proportional notation,Notació
-proporcional}.
+proporciona, consulteu @ref{Notació proporcional}.
 
 @funindex \dotsUp
 @funindex \dotsDown
@@ -187,9 +186,9 @@ Referència de la notació:
 @ref{Pliques},
 @ref{Escriptura de les duracions (valors rítmics)},
 @ref{Escriptura dels silencis},
-@rusernamed{Música vocal},
+@ref{Música vocal},
 @ref{Notació antiga},
-@rusernamed{Proportional notation,Notació proporcional}.
+@ref{Notació proporcional}.
 
 Fragments de codi:
 @rlsr{Rhythms}.
@@ -2784,7 +2783,7 @@ Utilitzeu el següent:
 D'aquesta manera s'inserira una barra invisible de compàs i es
 farà possible el salt de línia a aquest punt, sense forçar-lo. No
 s'incrementa el comptador dels números de compàs.  Per forçar un
-salt de línia, consulteu @rusernamed{Line breaking,Salts de línia}.
+salt de línia, consulteu @ref{Salts de línia}.
 
 @cindex manuals, línies divisòries
 @cindex manuals, barres de compàs
@@ -3094,7 +3093,7 @@ en qualsevol moment amb @samp{\set Timing.defaultBarType
 
 @seealso
 Referència de la notació:
-@rusernamed{Line breaking,Salts de línia},
+@ref{Salts de línia},
 @ref{Repeticions},
 @ref{Agrupament de pentagrames}.
 

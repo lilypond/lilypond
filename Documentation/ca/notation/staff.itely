@@ -387,7 +387,7 @@ sistemes està inhabilitat, però es pot activar amb una opció de
 
 @seealso
 Referència de la notació:
-@rusernamed{Page layout,Disposició de la pàgina}.
+@ref{Disposició de la pàgina}.
 
 Fragments de codi:
 @rlsr{Staff notation}.
@@ -953,8 +953,7 @@ centren per a un grup de pentagrames a no ser que s'augmentin els
 valors del sagnat, @code{indent}, i del sagnat curt,
 @code{short-indent}.  Per veure més detalls sobre aquests
 ajustaments, consulteu
-@rusernamed{paper variables for shifts and indents,Variables de
-paper per a desplaçaments i sagnats}.
+@ref{Variables de paper per a desplaçaments i sagnats}.
 @c Quan es tradueixi fer servir
 @c @ref{Variables de paper per a desplaçaments i sagnats,,Variables de @code{@bs{}paper} per a desplaçaments i sagnats}.
 
@@ -1038,8 +1037,7 @@ setFlute = {
 
 @seealso
 Referència de la notació:
-@rusernamed{paper variables for shifts and indents,Variables de
-paper per a desplaçaments i sagnats},
+@ref{Variables de paper per a desplaçaments i sagnats},
 @ref{Modificació dels connectors (plug-ins) de context}.
 @c Quan es tradueixi fer servir
 @c @ref{Variables de paper per a desplaçaments i sagnats,,Variables de @code{@bs{}paper} per a desplaçaments i sagnats}.

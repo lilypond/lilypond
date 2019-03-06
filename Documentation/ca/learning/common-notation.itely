@@ -492,9 +492,9 @@ la instrucció @code{\!}:
 
 @seealso
 Referència de la notació:
-@rusernamed{Articulations and ornamentations,Articulacions i ornamentacions},
-@rusernamed{Fingering instructions,Instruccions de digitació},
-@rusernamed{Dynamics,Matisos dinàmics}.
+@ruser{Articulacions i ornaments},
+@ruser{Indicacions de digitació},
+@ruser{Matisos dinàmics}.
 
 @node Addició de text
 @subsection Addició de  text
@@ -962,7 +962,7 @@ també controla l'abast de les línies divisòries.
 
 @seealso
 Referència de la notació:
-@rusernamed{Keyboard and other multi-staff instruments,Teclat i altres instruments de pentagrama múltiple},
+@ruser{Teclats i altres instruments de pentagrames múltiples},
 @ruser{Visualització dels pentagrames}.
 
 @node Combinar notes per formar acords
@@ -1008,7 +1008,7 @@ per fora dels angles.
 
 @seealso
 Referència de la notació:
-@rusernamed{Chorded notes,Notes en acord}.
+@ruser{Notes a un acord}.
 
 
 @node Polifonia a un sol pentagrama
@@ -1038,7 +1038,7 @@ Manual d'aprenentatge:
 @ref{Les veus contenen música}.
 
 Referència de la notació:
-@rusernamed{Simultaneous notes,Notes simultànies}.
+@ruser{Notes simultànies}.
 
 
 @node Cançons
@@ -1484,7 +1484,8 @@ es troba fora de l'expressió musical principal: el bloc
 
 Quan es processa el fitxer, el títol i l'autor s'imprimeixen a
 sobre de la música.  Podeu obtenir més informació sobre els títols
-a @rusernamed{Creating titles headers and footers,Creació de capçaleres de títol i peus de pàgina}.
+a @ruser{Creació de títols encapçalaments i peus de pàgina}.
+
 
 @node Noms de nota absoluts
 @subsection Noms de nota absoluts

@@ -194,8 +194,8 @@ Dues instruccions més que no hem vist són @code{\layout @{ @}}
 i @code{\midi @{ @}}.  Si apareixen tal i com es mostren aquí, fan
 que el LilyPond produeixi una sortida impresa i una sortida MIDI,
 respectivament.  Es descriuen amb tot detall al manual de
-Referència de la notació, a @rusernamed{Score layout,Disposició de la partitura}
-i a  @ruser{Creació de sortida MIDI}.
+Referència de la notació, a @ruser{Disposició de la partitura}
+i a @ruser{Creació de sortida MIDI}.
 
 @cindex partitures, diverses
 @cindex book, bloc implícit

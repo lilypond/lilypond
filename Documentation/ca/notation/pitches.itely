@@ -3107,7 +3107,7 @@ nota (en angles) dins del cap.  S'usen a la música per a
 principiants.  Perquè que les lletres siguin llegibles, s'han
 d'imprimir en una mida gran de tipus de lletra.  Per imprimir amb
 un tipus de lletra més gran, vegeu
-@rusernamed{Setting the staff size,Establiment de la mida del pentagrama}.
+@ref{Establiment de la mida del pentagrama}.
 
 @lilypond[verbatim,quote]
 #(set-global-staff-size 26)
@@ -3131,7 +3131,7 @@ un tipus de lletra més gran, vegeu
 
 @seealso
 Referència de la notació:
-@rusernamed{Setting the staff size,Establiment de la mida del pentagrama}.
+@ref{Establiment de la mida del pentagrama}.
 
 Fragments de codi:
 @rlsr{Pitches}.
