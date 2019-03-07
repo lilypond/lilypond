@@ -51,7 +51,8 @@ OUT_TEXINFO_MANUALS = $(TEXINFO_MANUALS:%=$(outdir)/%.texi)
 # of the NR
 TEXI_FILES_FROM_TELY = $(outdir)/internals.texi
 
-PDF_FILES = $(TEXINFO_MANUALS:%=$(outdir)/%.pdf)
+NOT_WEBSITE_TEXINFO_MANUALS = $(filter-out web,$(TEXINFO_MANUALS))
+PDF_FILES = $(NOT_WEBSITE_TEXINFO_MANUALS:%=$(outdir)/%.pdf)
 
 TOPDIR_HTML_MANUALS =
 UNSPLIT_HTML_MANUALS =

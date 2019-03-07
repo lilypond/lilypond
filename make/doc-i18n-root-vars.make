@@ -21,7 +21,8 @@ OUT_HTML_FILES += $(UNSPLIT_HTML_MANUALS:%=$(top-build-dir)/Documentation/$(outd
  $(TOPDIR_HTML_MANUALS:%=$(outdir)/index.$(ISOLANG).html)
 BIG_PAGE_HTML_FILES := $(SPLIT_HTML_MANUALS:%=$(top-build-dir)/Documentation/$(outdir)/%-big-page.$(ISOLANG).html)
 DEEP_HTML_FILES := $(NOT_TOPDIR_HTML_MANUALS:%=$(top-build-dir)/Documentation/$(outdir)/%/index.$(ISOLANG).html)
-PDF_FILES := $(TELY_FILES:%.tely=$(top-build-dir)/Documentation/$(outdir)/%.$(ISOLANG).pdf) $(TEXI_FILES:%.texi=$(top-build-dir)/Documentation/$(outdir)/%.$(ISOLANG).pdf)
+NOT_WEBSITE_TEXI_FILES := $(filter-out web.texi,$(TEXI_FILES))
+PDF_FILES := $(TELY_FILES:%.tely=$(top-build-dir)/Documentation/$(outdir)/%.$(ISOLANG).pdf) $(NOT_WEBSITE_TEXI_FILES:%.texi=$(top-build-dir)/Documentation/$(outdir)/%.$(ISOLANG).pdf)
 
 ITELY_FILES := $(call src-wildcard,*.itely)
 ITEXI_FILES := $(call src-wildcard,*.itexi)
