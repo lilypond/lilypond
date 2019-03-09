@@ -1424,9 +1424,6 @@ Guida alla notazione:
 Frammenti:
 @rlsr{Spacing}.
 
-@knownissues
-@code{layout-set-staff-size} non modifica la distanza tra le linee del rigo.
-
 
 @node Interruzioni
 @section Interruzioni

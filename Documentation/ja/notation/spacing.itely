@@ -1335,9 +1335,6 @@ Emmentaler フォントは 8 つのサイズの音楽シンボルを提供しま
 コード断片集:
 @rlsr{Spacing}
 
-@knownissues
-@code{layout-set-staff-size} は譜線の間隔を変更しません。
-
 
 @node 改行/改ページ
 @section 改行/改ページ

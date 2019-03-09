@@ -1387,10 +1387,6 @@ Notation Reference:
 Snippets:
 @rlsr{Spacing}.
 
-@knownissues
-@code{layout-set-staff-size} does not change the distance between the
-staff lines.
-
 
 @node Breaks
 @section Breaks

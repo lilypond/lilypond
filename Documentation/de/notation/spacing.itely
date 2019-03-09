@@ -1333,12 +1333,6 @@ Schnipsel:
 @rlsr{Spacing}.
 
 
-@knownissues
-
-@code{layout-set-staff-size} verändert nicht den Abstand zwischen den
-Notenlinien.
-
-
 @node Umbrüche
 @section Umbrüche
 @translationof Breaks
