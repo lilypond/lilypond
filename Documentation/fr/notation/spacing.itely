@@ -1502,10 +1502,6 @@ Manuel de notation :
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
-@knownissues
-@code{layout-set-staff-size} ne modifie en rien l'espacement entre les
-lignes d'une portée.
-
 
 @node Sauts
 @section Sauts

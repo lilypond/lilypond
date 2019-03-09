@@ -1516,10 +1516,6 @@ Referencia de la notación:
 Fragmentos de código:
 @rlsr{Spacing}.
 
-@knownissues
-@code{layout-set-staff-size} no cambia la distancia entre las
-líneas del pentagrama.
-
 
 @node Saltos
 @section Saltos
