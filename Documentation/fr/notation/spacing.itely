@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8e2eaf4959bec63a1128a444591a540f4f1e2937
+   Translation of GIT committish: 120590f8029bedddde8b3bcaccce142d5de03419
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -11,6 +11,7 @@
 @c \version "2.19.22"
 
 @c Translators: Frédéric Chiasson, Jean-Charles Malahieude
+
 
 @ignore
 GDP TODO list
@@ -199,12 +200,12 @@ fonctions Scheme.  Voici l'équivalent de l'exemple précédent :
 @end example
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Format du papier et adaptation automatique},
 @ref{Le bloc layout},
 @ref{Titrages personnalisés}.
 
-Fichiers d'initialisation :
+Fichiers d'initialisation :
 @file{ly/paper-defaults-init.ly}.
 
 
@@ -239,6 +240,7 @@ fonctions :
 #(set-default-paper-size "quarto")
 @end example
 
+@noindent
 qui se place en début de fichier, et
 
 @item set-paper-size
@@ -249,6 +251,7 @@ qui se place en début de fichier, et
 @}
 @end example
 
+@noindent
 qui s'inscrit au sein d'un bloc @code{\paper}.
 @end table
 
@@ -319,11 +322,11 @@ seul effet de modifier l'orientation de l'image et non les dimensions de
 la feuille.
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Adaptation automatique au format},
 @ref{Formats de papier prédéfinis}.
 
-Fichiers d'initialisation :
+Fichiers d'initialisation :
 @file{scm/paper.scm}.
 
 
@@ -361,11 +364,11 @@ correspondant au format par défaut -- papier A4 -- pour lequel
 @code{210\mm}.
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Variables d'espacement horizontal},
 @ref{Variables d'espacement vertical fixe}.
 
-Fichiers d'initialisation :
+Fichiers d'initialisation :
 @file{ly/paper-defaults-init.ly},
 @file{scm/paper.scm}.
 
@@ -428,13 +431,13 @@ dernière page de chacune des parties -- créées à l'aide d'un bloc
 @end table
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Adaptation automatique au format}.
 
-Fichiers d'initialisation :
+Fichiers d'initialisation :
 @file{ly/paper-defaults-init.ly}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Spacing, Espacements}.
 
 @knownissues
@@ -493,7 +496,7 @@ résultant ne saurait être inférieur à @code{padding} ou
 @code{minimum-distance}.
 
 @item
-@code{minimum-distance} @emph{(distance-minimale)} -- l'espacement
+@code{minimum-distance} @emph{(distance minimale)} -- l'espacement
 minimal, exprimé en hauteur de portée, entre les points de référence des
 deux éléments alors qu'il y a déjà un effet de compression.  Une
 @code{minimum-distance} inférieure à la valeur du @code{padding} sera
@@ -643,13 +646,13 @@ page.
 @end table
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Espacement vertical au sein d'un système}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
 
@@ -702,18 +705,18 @@ marges seront alors recalculées de telle sorte que les systèmes soient
 centrés.  Voir aussi @code{check-consistency}.
 
 La valeur de @code{line-width} peut aussi se spécifier individuellement
-au niveau de la partition, au sein d'un bloc @code{\layout}.  Ceci
-permet de contrôler la longueur des lignes partition par partition.  Si
-la longueur de ligne n'est pas spécifié dans une partition particulière,
+au niveau de la partition, au sein d'un bloc @code{\layout}. Ceci permet
+de contrôler la longueur des lignes partition par partition. Si la
+longueur de ligne n'est pas spécifiée dans une partition particulière,
 elle sera valorisée à celle du @code{line-width} mentionné dans le bloc
-@code{\paper}.  La détermination de @code{line-width} pour un
-@code{\score} particulier n'a aucun effet sur les marges.  Les lignes
+@code{\paper}. La détermination de @code{line-width} pour un
+@code{\score} particulier n'a aucun effet sur les marges. Les lignes
 d'une portée dont la longueur est déterminée par le @code{line-width}
 d'une partition seront alignées par la gauche sur la surface de papier
-telle que définie par le @code{line-width} du bloc @code{\paper}.  Dès
+telle que définie par le @code{line-width} du bloc @code{\paper}. Dès
 lors que les valeurs de @code{line-width} de la partition et du papier
 sont égales, les lignes s'étendront de la marge gauche à la marge
-droite.  En cas de @code{line-width} de la partition supérieur au
+droite. En cas de @code{line-width} de la partition supérieur au
 @code{line-width} du papier, les lignes de portée déborderont dans la
 marge de droite.
 
@@ -757,7 +760,7 @@ l'addition de ces trois éléments ne dépassera pas la largeur du papier
 (@code{paper-width}).  La valeur par défaut est @code{#t}.  Dans
 le cas d'une incohérence, un message d'avertissement est émis et les
 trois variables -- marges et longueur de ligne -- rétablies à leur
-valeur par défaut (ajustées selon le format du papier).  La
+valeur par défaut (ajustées selon le format du papier).  En cas de
 désactivation de cette variable (valorisation à @code{#f}, toute
 incohérence sera ignorée, et les systèmes pourront déborder de la page.
 
@@ -781,10 +784,10 @@ gérer au sein d'un bloc @code{\layout}.
 @end table
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Adaptation automatique au format}.
 
-Fichiers d'initialisation :
+Fichiers d'initialisation :
 @file{ly/paper-defaults-init.ly}.
 
 @knownissues
@@ -846,10 +849,10 @@ défaut est de @code{0} et s'ajustera selon le format du papier.
 @end table
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Adaptation automatique au format}.
 
-Fichiers d'initialisation :
+Fichiers d'initialisation :
 @file{ly/paper-defaults-init.ly}.
 
 
@@ -893,13 +896,13 @@ bloc @code{\layout}.
 @end table
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Adaptation automatique au format}.
 
-Fichiers d'initialisation :
+Fichiers d'initialisation :
 @file{ly/paper-defaults-init.ly}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Spacing, Espacements}.
 
 
@@ -953,7 +956,7 @@ définie par défaut.  Cette variable peut se gérer au sein d'un bloc
 @end table
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Sauts de ligne}.
 
 
@@ -1050,7 +1053,7 @@ valeur par défaut est de @code{2}.
 @end table
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Minimisation des sauts de page},
 @ref{Optimisation des sauts de page},
 @ref{Optimisation des tournes},
@@ -1059,7 +1062,7 @@ Manuel de notation :
 @ref{Présentation en rouleau},
 @ref{Sauts de page}.
 
-Fichiers d'initialisation :
+Fichiers d'initialisation :
 @file{ly/paper-defaults-init.ly}.
 
 
@@ -1113,7 +1116,7 @@ Le type de chiffres à utiliser pour la numérotation : @code{roman-lower}
 @end table
 
 @seealso
-Fichiers d'initialisation :
+Fichiers d'initialisation :
 @file{ly/paper-defaults-init.ly}.
 
 @knownissues
@@ -1173,10 +1176,10 @@ courant :
 @end table
 
 @seealso
-Fichiers d'initialisation :
+Fichiers d'initialisation :
 @file{ly/titling-init.ly}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
 @knownissues
@@ -1270,12 +1273,12 @@ Voici un exemple de bloc @code{\layout} :
 @end example
 
 Il est tout à fait possible que plusieurs blocs @code{\layout}
-cohabitent en tant qu'expressions de niveau supérieur.  Ceci se révèle
+cohabitent en tant qu'expressions de niveau supérieur. Ceci se révèle
 particulièrement utile lorsque différents réglages sont stockés dans des
-fichiers séparés qui sont inclus au besoin.  Lorsqu'un bloc
+fichiers séparés qui sont inclus au besoin. Lorsqu'un bloc
 @code{\layout} est évalué, une copie de la configuration du
 @code{\layout} actuel est réalisée en interne, augmentée des
-aménagements apportés.  Bien qu'on puisse considérer que le contenu des
+aménagements apportés. Bien qu'on puisse considérer que le contenu des
 différents blocs @code{\layout} se cumule, c'est la dernière adaptation
 qui aura préséance en cas de situation conflictuelle -- cas typique
 d'une même propriété modifiée dans différents blocs.
@@ -1292,6 +1295,7 @@ Par exemple, placer le bloc suivant
 @}
 @end example
 
+@noindent
 après celui de l'exemple précédent aura pour effet de cumuler les
 adaptations de @code{'padding} et @code{'color} pour l'objet
 @code{TextScript}, mais la dernière adaptation apportée à la propriété
@@ -1314,12 +1318,13 @@ layoutVariable = \layout @{
 @}
 @end example
 
-qui contient une configuration de @code{\layout} avec
-l'adaptation @code{NoteHead.font-size}, cette combinaison n'est pas
-enregistrée en tant que configuration courante.  Notez bien que la
-« configuration courante » est lue lorsque la variable est définie, non
-lorsqu'elle est utilisée ; par voie de conséquence, le contenu de la
-variable dépend de l'endroit où elle se trouve dans le code source.
+@noindent
+qui contient une configuration de @code{\layout} avec l'adaptation
+@code{NoteHead.font-size}, cette combinaison n'est pas enregistrée en
+tant que configuration courante. Notez bien que la « configuration
+courante » est lue lorsque la variable est définie, non lorsqu'elle est
+utilisée ; par voie de conséquence, le contenu de la variable dépend de
+l'endroit où elle se trouve dans le code source.
 
 Notre variable peut alors être utilisée au sein d'un autre bloc
 @code{\layout}, comme par exemple :
@@ -1355,6 +1360,7 @@ ci-dessus, le bloc @code{\layout} final contiendra donc :
   NoteHead.color = #red
 @end example
 
+@noindent
 ainsi que les adaptations de @code{indent} et @code{StaffGrouper}.
 
 Cependant, si la variable avait été définie bien avant le premier bloc
@@ -1370,10 +1376,10 @@ outil précieux dans la mise en forme des sources et le retour à une
 configuration donnée.
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Modification des réglages par défaut d'un contexte}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
 
@@ -1424,13 +1430,13 @@ l'aide d'un @code{layout-set-staff-size} placé dans le bloc
 @end example
 
 @item
-L'affectation d'une taille particulière à l'une des portées d'un
+Pour l'affectation d'une taille particulière à l'une des portées d'un
 système, LilyPond dispose de la commande @code{\magnifyStaff}.  Par
 exemple, les partitions traditionnelles de musique de chambre avec piano
 présentaient souvent des portées de piano de 7 mm alors que les autres
 portées étaient gravées à une hauteur de cinq septièmes (s'il y avait
 assez de place) ou trois cinquièmes (en cas de présentation resserrée)
-de cette hauteur. Une proportion de 5/7 s'obtient se libelle ainsi :
+de cette hauteur. Une proportion de 5/7 se libelle ainsi :
 
 @example
 \score @{
@@ -1489,11 +1495,11 @@ différentes tailles de police.
 @end multitable
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Indication de la taille de fonte musicale},
 @ref{La fonte Emmentaler}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
 @knownissues
@@ -1591,7 +1597,7 @@ saut de ligne à la fin de la mesure où elle est explicitée.
 
 Au sein même d'une pièce, les sauts de lignes automatiques sont inhibés
 dans la musique encadrée par les commandes @code{\autoLineBreaksOff} et
-@code{\autoLineBreaksOn}.  Dans le cas où les sauts de pages
+@code{\autoLineBreaksOn}.  Dans le cas où les sauts de page
 automatiques devraient eux aussi être  inhibés, ce sont les commandes
 @code{\autoBreaksOff} et @code{\autoBreaksOn} qu'il faudrait utiliser.
 Les sauts de ligne ou de page manuels ne sont pas affectés par ces
@@ -1664,14 +1670,14 @@ ailleurs :
 {using-an-extra-voice-for-breaks.ly}
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Le bloc layout},
 @ref{Variables de gestion des sauts de ligne}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{LineBreakEvent}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
 @knownissues
@@ -1731,7 +1737,7 @@ gérer la répartition horizontale, LilyPond dispose de commutateurs
 équivalents au niveau de la verticalité. @code{ragged-bottom}, une fois
 activé, empèchera les systmèes de se répartir sur la page.  Quant à
 @code{ragged-last-bottom} (valorisé à @code{#t} par défaut), il laissera
-un espace vide en dernière page, y compris pour cahque @code{\bookpart}.
+un espace vide en dernière page, y compris pour chaque @code{\bookpart}.
 Pour de plus amples détails, reportez-vous à
 @ref{Variables d'espacement vertical fixe}.
 
@@ -1791,10 +1797,10 @@ sections.
 @endpredefined
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Variables de gestion des sauts de page}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
 @knownissues
@@ -1821,7 +1827,7 @@ aérée.  Contrairement à la fonction @code{ly:page-turn-breaking}, elle
 n'a aucune notion de ce qu'est une « tourne ».
 
 @seealso
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
 
@@ -1847,7 +1853,7 @@ beaucoup de texte.  Il suffit de la mentionner au sein du bloc
 @end example
 
 @seealso
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
 
@@ -1996,10 +2002,10 @@ entre des blocs @code{\score} ou des @emph{markups} de haut niveau.
 @endpredefined
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Variables de gestion des sauts de ligne}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
 @knownissues
@@ -2256,7 +2262,7 @@ d'un @code{\override} au niveau d'un contexte @code{Staff} (ou son
 @item staff-staff-spacing
 Il s'agit de la distance entre la portée en cours et la portée qui suit
 au sein du même regroupement, qu'il y ait ou des lignes de non-portée
-(@code{Lyrics} ou autre) entre les deux.  Cette propriété ne s'applique
+(@code{Lyrics} ou autre entre les deux.  Cette propriété ne s'applique
 pas à la dernière portée d'un système.
 
 En tout état de cause, la fonction Scheme @code{staff-staff-spacing}
@@ -2277,7 +2283,7 @@ explicitement par un @code{\override}.
 @item staff-affinity
 Il s'agit de la direction -- @code{UP}, @code{DOWN} ou @code{CENTER} --
 que prendra une ligne de non-portée pour aller s'accoler aux portées
-adjacentes .  Si vous lui attribuez @code{CENTER}, cette ligne de
+adjacentes.  Si vous lui attribuez @code{CENTER}, cette ligne de
 non-portée ira se placer à équidistance entre les portées qui
 l'encadrent, tout en tenant compte des éventuels risques de collision et
 autres contraintes d'espacement.  Des lignes de non-portée
@@ -2349,15 +2355,15 @@ regroupement a été ajustée au niveau de son propre
 @end table
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Modification de listes associatives},
 @ref{Variables d'espacement vertical fluctuant}.
 
-Fichiers d'initialisation :
+Fichiers d'initialisation :
 @file{ly/engraver-init.ly},
 @file{scm/define-grobs.scm}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{Contexts},
 @rinternals{VerticalAxisGroup},
 @rinternals{StaffGrouper}.
@@ -2375,7 +2381,7 @@ L'espacement de ces @i{portées isolées} est géré par les propriétés
 suivantes :
 
 @itemize
-@item Propriétés du @code{VerticalAxisGroup} :
+@item Propriétés du @code{VerticalAxisGroup} :
 @itemize
 @item @code{default-staff-staff-spacing}
 @item @code{staff-staff-spacing}
@@ -2430,13 +2436,13 @@ sein de regroupements.
 @end lilypond
 
 @seealso
-Fichiers d'initialisation :
+Fichiers d'initialisation :
 @file{scm/define-grobs.scm}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{VerticalAxisGroup}.
 
 
@@ -2457,11 +2463,11 @@ L'espacement entre les portées d'un même regroupement est géré par les
 propriétés suivantes :
 
 @itemize
-@item Propriétés du @code{VerticalAxisGroup} :
+@item Propriétés du @code{VerticalAxisGroup} :
 @itemize
 @item @code{staff-staff-spacing}
 @end itemize
-@item Propriétés du @code{StaffGrouper} :
+@item Propriétés du @code{StaffGrouper} :
 @itemize
 @item @code{staff-staff-spacing}
 @item @code{staffgroup-staff-spacing}
@@ -2501,13 +2507,13 @@ regroupées, à l'aide des propriétés de l'objet graphique
 
 
 @seealso
-Fichiers d'initialisation :
+Fichiers d'initialisation :
 @file{scm/define-grobs.scm}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
-Référence des propriétés internes:
+Référence des propriétés internes :
 @rinternals{VerticalAxisGroup},
 @rinternals{StaffGrouper}.
 
@@ -2527,7 +2533,7 @@ L'espacement des lignes de non-portée est géré par les propriétés
 suivantes :
 
 @itemize
-@item Propriétés du @code{VerticalAxisGroup} :
+@item Propriétés du @code{VerticalAxisGroup} :
 @itemize
 @item @code{staff-affinity}
 @item @code{nonstaff-relatedstaff-spacing}
@@ -2571,17 +2577,17 @@ Vous noterez que la valeur élevée attribuée à la clé
 @end lilypond
 
 @seealso
-Fichiers d'initialisation :
+Fichiers d'initialisation :
 @file{ly/engraver-init.ly},
 @file{scm/define-grobs.scm}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
 @c @lsr{spacing,page-spacing.ly},
 @c @lsr{spacing,alignment-vertical-spacing.ly}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{Contexts},
 @rinternals{VerticalAxisGroup}.
 
@@ -2861,7 +2867,7 @@ quant aux différentes valeurs que vous affectez à ces réglages.
 @end itemize
 
 @seealso
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
 
@@ -2938,7 +2944,7 @@ positionnés.  Ceci peut cependant générer des situations où des objets
 se trouvent horizontalement trop proches.  Comme l'illustre l'exemple
 suivant, la propriété @code{outside-staff-horizontal-padding} permet
 d'accroître l'espace horizontal requis et repoussera verticalement un
-objet pour éviter qu'il ne soit trop proche d'ventuelles lignes
+objet pour éviter qu'il ne soit trop proche d'éventuelles lignes
 supplémentaires.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -2951,7 +2957,7 @@ supplémentaires.
 @end lilypond
 
 @seealso
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
 
@@ -2985,9 +2991,9 @@ plus elle prendra d'espace : le doublement d'une durée attribuera à
 la note un espace fixé d'après la propriété @code{spacing-increment}.
 
 L'exemple suivant comporte des blanches, des noires et un certain nombre
-de croches.  La croche est suivie d'un espace de la largeur d'une tête
-de note ; pour la noire , cet espace est de deux têtes ; il
-est de trois pour la blanche.
+de croches. La croche est suivie d'un espace de la largeur d'une tête de
+note ; pour la noire, cet espace est de deux têtes ; il est de trois
+pour la blanche.
 
 @lilypond[quote,verbatim]
 \relative c' {
@@ -3000,7 +3006,7 @@ est de trois pour la blanche.
 @code{spacing-increment} est normalement défini à 1,2 espace de
 portée -- ce qui correspond à peu près à la largeur d'une tête de note
 -- et @code{shortest-duration-space} à 2,0.  La note la plus courte
-s'étendra donc sur l'équivalent de 2,4 espaces de portée (2 fois le
+s'étendra donc sur l'équivalent de 2,4 espaces de portée (deux fois le
 @code{spacing-increment}).  Le point de départ de cet espace se situe à
 l'extrémité gauche du symbole ; la note la plus courte est donc
 suivie en général d'un espace égal à la largeur d'une tête de note.
@@ -3068,13 +3074,13 @@ L'espacement spécifique à la notation proportionnelle fait l'objet d'une
 @rusernamed{Notation proportionnelle,rubrique dédiée}.
 
 @seealso
-Essai sur la gravure musicale automatisée :
+Essai sur la gravure musicale automatisée :
 @ressay{Espacement}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{SpacingSpanner},
 @rinternals{NoteSpacing},
 @rinternals{StaffSpacing},
@@ -3142,10 +3148,10 @@ qu'ils soient à nouveau modifiés par une nouvelle section, comme ici :
 @end lilypond
 
 @seealso
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{SpacingSpanner}.
 
 
@@ -3229,7 +3235,7 @@ d'ornement qui pourraient apparaître :
 @end lilypond
 
 @seealso
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
 
@@ -3287,7 +3293,7 @@ paragraphe de texte, la dernière ligne s'arrête au dernier caractère.
 @end example
 
 @seealso
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
 
@@ -3304,7 +3310,7 @@ utilisent cette proportionnalité dans le but de clarifier des structures
 rythmiques complexes, d'aider au positionnement d'indications
 temporelles ou autres éléments graphiques directement dans la partition.
 
-LilyPond met à  votre disposition cinq réglages différents, qui peuvent
+LilyPond met à votre disposition cinq réglages différents, qui peuvent
 s'utiliser conjointement ou individuellement, aux fins de mettre au
 point cette notation proportionnelle.
 
@@ -3390,7 +3396,7 @@ argument la durée de référence qui servira de base pour espacer toute la
 musique.  La fonction Scheme @code{make-moment} intégrée à LilyPond
 prend deux arguments : un numérateur et un dénominateur qui
 représentent une fraction de ronde.  L'appel de
-@w{@code{(ly:make-moment 1 20)}} produit donc une durée de référence
+@w{@code{(ly:make-moment 1/20)}} produit donc une durée de référence
 égale à un vingtième de ronde.  Vous pourriez tout aussi bien  utiliser
 @code{(ly:make-moment 1/16)}, @code{(ly:make-moment 1/8)} ou
 @code{(ly:make-moment 3/97)}.
@@ -3651,10 +3657,10 @@ l'occasion d'un saut de ligne ou de page.  Nous vous renvoyons aux
 différentes rubriques associées du manuel pour chacun de ces réglages.
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Changement d'espacement en cours de partition}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
 
@@ -3727,10 +3733,10 @@ hauteur d'une feuille au format A6 à l'italienne.  Les paires
 l'extrémité inférieure et @var{b} l'extrémité supérieure.
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Définition de la taille de portée}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
 
@@ -3767,7 +3773,7 @@ même s'il est égal à la valeur par défaut -- peut aboutir à plus de
 systèmes par page dans la mesure où l'une des étapes d'estimation des
 hauteurs est tout simplement sautée.  D'autre part, réduire le nombre de
 systèmes par page permet d'en disposer plus sur les suivantes.  Par
-exemple, avec un nombre par défaut de 11 systèmes par pages,
+exemple, avec un nombre par défaut de 11 systèmes par page,
 l'instruction suivante le force à 10.
 
 @example
@@ -3852,9 +3858,9 @@ s'applique à l'intégralité de la partition.
 @end itemize
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Mise en forme de la page},
 @ref{Modification de l'espacement horizontal}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
