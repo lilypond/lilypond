@@ -2935,8 +2935,7 @@ information.""") % 'lilypond')
     p.add_option_group('',
                         description=(
             _ ("Report bugs via %s")
-            % 'http://post.gmane.org/post.php'
-            '?group=gmane.comp.gnu.lilypond.bugs') + '\n')
+            % 'bug-lilypond@gnu.org') + '\n')
     return p
 
 def print_voice_definitions (printer, part_list, voices):
