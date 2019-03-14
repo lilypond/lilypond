@@ -1017,7 +1017,7 @@ a fret-indication list with the appropriate values"
     ;; add the modified details
     (set! props
           (prepend-alist-chain 'fret-diagram-details details props))
-    `(,props . ,output-list))) ;ugh -- hard-coded spell -- procedure better
+    (cons props output-list)))
 
 (define-public
   (fret-parse-terse-definition-string props definition-string)
@@ -1094,7 +1094,7 @@ a fret-indication list with the appropriate values"
             (parse-item (cdr myitems)))))
     (set! details (acons 'string-count string-count details))
     (set! props (prepend-alist-chain 'fret-diagram-details details props))
-    `(,props . ,output-list))) ; ugh -- hard coded; proc is better
+    (cons props output-list)))
 
 
 (define-markup-command
