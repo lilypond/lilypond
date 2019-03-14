@@ -1058,14 +1058,17 @@ a fret-indication list with the appropriate values"
                                 (list-head this-list max-element-index))))
                     (if (equal? last-element ")")
                         (let* ((this-barre
-                                (get-sub-list fret barre-start-list))
-                               (insert-index (- (length this-barre) 1)))
-                          (set! output-list
+                                (get-sub-list fret barre-start-list)))
+                          (if (not this-barre)
+                            (ly:warning
+                              "Ignoring barre end without beginning on fret: ~a"
+                              fret)
+                            (set! output-list
                                 (cons-fret (cons* 'barre
                                                   (car this-barre)
                                                   current-string
                                                   (cdr this-barre))
-                                           output-list))
+                                           output-list)))
                           (set! this-list
                                 (list-head this-list max-element-index))))
                     (if (number? fret)

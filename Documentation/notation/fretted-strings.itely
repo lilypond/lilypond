@@ -1020,6 +1020,10 @@ Fingering indications can be included in the fret-diagram-terse markup string.
 Other fret diagram properties must be adjusted using
 @code{\override} when using the fret-diagram-terse markup.
 
+Only one indication per string can be included in a fret-diagram-terse
+markup.  To have multiple indications per string use a fret-diagram
+or fret-diagram-verbose markup.
+
 @cindex fret-diagram-verbose markup
 @cindex capo
 
