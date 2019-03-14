@@ -261,7 +261,10 @@ with magnification @var{mag} of the string @var{text}."
              ((eq? my-code 'capo)
               (set! capo-fret (cadr my-item)))
              ((eq? my-code 'place-fret)
-              (set! dot-list (cons* (cdr my-item) dot-list))))
+              (set! dot-list (cons* (cdr my-item) dot-list)))
+             (else (ly:warning
+                     "unknown fret diagram placement code: ~a"
+                     (object->string my-code))))
             (parse-item (cdr mylist)))))
     ;; calculate fret-range
     (let ((maxfret 0)
