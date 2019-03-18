@@ -3647,21 +3647,26 @@ information about how the device interprets these values.
 
 @menu
 * The articulate script::
+* The swing script::
 @end menu
 
 The default MIDI output is basic but can be improved by setting MIDI
-instruments, @code{\midi} block properties and/or using the
-@file{articulate} script.
+instruments and various @code{\midi} block properties.
+
+Additional scripts allow to fine-tune the way dynamics, articulations
+and rhythm are rendered in MIDI: the @file{articulate} script
+and the @file{swing} script.
 
 @cindex instrument names
 @cindex MIDI, instruments
-@cindex articulate script
-@cindex articulate.ly
 @funindex Staff.midiInstrument
 
 
 @node The articulate script
 @unnumberedsubsubsec The @file{articulate} script
+
+@cindex articulate script
+@cindex articulate.ly
 
 To use the @file{articulate} script add the appropriate @code{\include}
 command at the top of the input file;
@@ -3682,6 +3687,9 @@ however, will also be altered to literally match the MIDI output.
   \midi @{ @}
 @}
 @end example
+
+@funindex articulate
+@funindex \articulate
 
 The @code{\articulate} command enables abbreviatures (such as trills and
 turns) to be processed.  A full list of supported items can be found in
@@ -3706,6 +3714,103 @@ values of the variables defined in the @file{articulate} script to
 compensate for the note-shortening behavior.}
 
 
+@node The swing script
+@unnumberedsubsubsec The @file{swing} script
+
+@cindex swing script
+@cindex swing.ly
+
+The @file{swing} script provides additional functions allowing
+for regular durations to be played with an inequal rhythm.  The most
+obvious example is @q{swing} intepretation commonly found in jazz
+music where binary eighth notes should be played in a ternary fashion;
+however additional interpretations are also supported.
+
+This script has to be @code{\include}-d at the beginning of the input file:
+
+@example
+\include "swing.ly"
+@end example
+
+@funindex tripletFeel
+@funindex \tripletFeel
+@funindex applySwing
+@funindex \applySwing
+@funindex applySwingWithOffset
+@funindex \applySwingWithOffset
+
+Three commands are provided:
+@itemize
+@item
+@code{\tripletFeel} creates a triplet-feel swing.  It takes two
+arguments: the durations that should be affected by it (typically
+@code{8} for eighth notes), and then the music expression to which
+it should be applied.
+
+@item
+@code{\applySwing} takes an additional argument prior to the music
+expression: a @q{weight list} of @var{n} number ratios expressing the
+way regular notes should be played: for example, @code{#'(2 1)} indicates
+that every other note should be played twice as long as the following note
+(in fact, @code{\tripletFeel @var{duration} @{@var{music}@}}
+is actually a shortcut for
+@code{\applySwing @var{duration} #'(2 1) @{@var{music}@}}).  Smoother swung
+eighths may be obtained with a weight list of @code{#'(3 2)}, or other values
+depending on taste.
+
+@noindent
+That list may include more than two values, which allows for longer and more
+sophisticated groove patterns; for example, a samba feel for sixteenth notes
+may be obtained as follows:
+
+@example
+\score @{
+  \applySwing 16 #'(3 2 2 3) @{
+    @var{@dots{} music @dots{}}
+  @}
+  \midi @{ @}
+@}
+@end example
+
+@item
+@code{\applySwingWithOffset} adds yet another argument between the
+@q{weight list} and the music expression: an offset length (entered as
+a @code{ly:make-moment} expression).  This command should be used when
+the music expression has to start off-beat, with a partial swing cycle.
+@end itemize
+
+@warning{As with the @file{articulate} script, all swing commands are also
+rendered in the engraved output, which results in irregular note spacing.
+This can be avoided by using them only in a @code{@bs{}score} block dedicated
+to MIDI output, rather than to printed music.}
+
+Additional help and information is included in the script file:
+see @file{ly/swing.ly}.
+
+@seealso
+Learning Manual:
+@rlearning{Other sources of information}.
+
+Notation Reference:
+@ref{Rhythms}.
+
+Installed Files:
+@file{ly/swing.ly}.
+
+@knownissues
+@itemize
+@item
+@code{\repeat} constructs in music (even @code{\repeat unfold}) are not taken
+into consideration when determining note timing.  This will lead
+to problems unless the durations of all repeated parts are
+integer multiples of the swing cycle duration.
+@item
+These functions are oblivious to time signatures and measures.
+That is why offsets need to be supplied by using
+@code{\applySwingWithOffset} if music starts off-beat.
+@item
+Grace notes are ignored and simply left unaffected; so are tuplets.
+@end itemize
 
 @node Extracting musical information
 @section Extracting musical information

@@ -63,6 +63,26 @@ which scares away people.
 
 
 @item
+Swing and irregular rhythmic patterns may now be applied to
+music expressions made of regular durations, which may be
+used to render inequal rhythmic interpretation in MIDI.
+@lilypond[verbatim,quote]
+\include "swing.ly"
+<<
+  \new Staff \with {
+    instrumentName = "ordinary"
+  } \repeat unfold 8 c'8
+  \new Staff \with {
+    instrumentName = "with swing"
+  } \repeat unfold 4 \tripletFeel 8 { c'8 c' }
+  \new Staff \with {
+    instrumentName = "triplets"
+  } \tuplet 3/2 4 \repeat unfold 12 c'8
+>>
+@end lilypond
+
+
+@item
 A very short fermata and Henze variants of long and short fermatas
 have been added.
 @lilypond[quote]
