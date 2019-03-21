@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: a9ade99e9a791fa45a6d56ad0a63c031888c9b86
+    Translation of GIT committish: 9d33e9d40c88b6c58eeacf6698a1d97ddce7a987
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2848,10 +2848,52 @@ voci e su tutti i righi, facendo risparmiare tempo ulteriormente.
 @cindex EPS, output
 
 I formati di output predefiniti per la partitura stampata sono Portable
-Document Format (PDF) e PostScript (PS).  È disponibile anche l'output
-nei formati Portable Network Graphics (PNG), Scalable Vector Graphics (SVG)
-e Encapsulated PostScript (EPS) attraverso l'opzione da linea di comando,
+Document Format (PDF) e PostScript (PS).  Sono disponibili anche i formati
+di output Portable Network Graphics (PNG), Scalable Vector Graphics (SVG)
+e Encapsulated PostScript (EPS) attraverso le opzioni da linea di comando,
 vedi @rprogram{Opzioni di base della linea di comando per LilyPond}.
+
+@menu
+* Output SVG::
+@end menu
+
+@node Output SVG
+@unnumberedsubsubsec Output SVG
+@translationof SVG Output
+
+L'output SVG può contenere opzionalmente dei metadati per gli oggetti
+grafici (grob) come teste di nota, pause, etc.  Questi metadati possono
+essere attributi SVG standard come @code{id} e @code{class} oppure attributi
+personalizzati e non standard.  Gli attributi e i loro valori si specificano
+sovrascrivendo la proprietà @code{output-attributes} di un grob con una
+lista associativa Scheme (alist).  I valori possono essere numeri, stringhe
+o simboli.  Per esempio:
+
+@example
+@{
+  \once \override NoteHead.output-attributes =
+  #'((id . 123)
+     (class . "questo quello")
+     (data-testo . qualcosa))
+  c
+@}
+@end example
+
+@noindent
+L'input precedente produrrà il seguente elemento @code{<g>} (gruppo) nel
+file SVG:
+
+@example
+<g id="123" class="questo quello" data-testo="qualcosa">
+  ...Elementi SVG del grob NoteHead...
+</g>
+@end example
+
+@noindent
+L'elemento @code{<g>} contiene tutti gli elementi SVG di un certo grob (alcuni
+grob generano molteplici elementi SVG).  Nella sintassi SVG il prefisso
+@code{data-} è utilizzato per gli attributi di metadati personalizzati
+non standard.
 
 
 @node Cambiare il tipo di carattere della notazione
