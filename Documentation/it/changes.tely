@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: UTF-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 7e409f0a2d97cf0bae1f49c5c0cd7fec6b0339bd
+    Translation of GIT committish: f56d39e1d744df24c05773898a4de47851172f87
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1204,6 +1204,11 @@ sequenza MIDI può anche essere definito tramite il nuovo campo
 sul campo @code{title} (ciò può essere utile, per esempio, se
 @code{title} contiene della formattazione che non può essere resa
 automaticamente in testo semplice in modo soddisfacente).
+
+@item
+È stato aggiunto il supporto per semplificare l'uso di font @q{musicali}
+alternativi al font predefinito Emmentaler.  Maggiori informazioni
+in @ruser{Cambiare il tipo di carattere della notazione}.
 
 
 @end itemize

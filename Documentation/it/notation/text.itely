@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: a089ca62fd9b3770a932061207262fe81063dc56
+    Translation of GIT committish: 953f751f6ca789bdeee5f9144be59e571c00ae9d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1274,6 +1274,11 @@ Frammenti:
 
 Guida al funzionamento interno:
 @rinternals{TextScript}.
+
+@knownissues
+La spaziatura verticale di un blocco @code{\score} interno a un oggetto markup
+è regolata da @code{baseline-skip}.  Le impostazioni in @code{\paper} vengono
+ignorate.
 
 
 @node Testo formattato su più pagine
