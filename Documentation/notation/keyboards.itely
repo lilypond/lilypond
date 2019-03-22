@@ -163,9 +163,31 @@ the current voice from its current staff to the staff called
 @var{staffname}.  Typical values for @var{staffname} are
 @code{"up"} and @code{"down"}, or @code{"RH"} and @code{"LH"}.
 
+@cindex empty chord
+@cindex chord, empty
+@funindex <>
+
 The staff to which the voice is being switched must exist at the
-time of the switch.  If necessary, staves should be @qq{kept alive},
-see @ref{Keeping contexts alive}.
+time of the switch.  If necessary, staves should be @qq{kept
+alive}, see @ref{Keeping contexts alive}, or explicitly
+instantiated, for example by using the empty chord, @code{<>}, see
+@ref{Chorded notes}.
+
+@lilypond[verbatim, quote]
+\new PianoStaff <<
+  \new Staff = "up" {
+    % enforce creation of all contexts at this point of time
+    <>
+    \change Staff = "down" c2
+    \change Staff = "up" c'2
+  }
+  \new Staff = "down" {
+    \clef bass
+    % keep staff alive
+    s1
+  }
+>>
+@end lilypond
 
 Cross-staff notes are beamed automatically:
 
