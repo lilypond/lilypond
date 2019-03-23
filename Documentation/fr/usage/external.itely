@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 1b56607b3c41bcfcf0a03d94c6c22394334fef92
+   Translation of GIT committish: 9ec5b7d295d8287f52da71d997a8277726cf8c00
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -11,6 +11,7 @@
 @c \version "2.19.21"
 
 @c Translators: Jean-Charles Malahieude
+
 
 @node Programmes externes
 @chapter Programmes externes
@@ -39,7 +40,6 @@ Le pointer-cliquer (@emph{point and click}) permet de se retrouver
 directement dans le fichier source, à la note que l'on pointe dans le
 visionneur de PDF.  Ceci facilite grandement le repérage des erreurs à
 partir du fichier imprimable.
-
 
 @menu
 * Configuration du système pour le pointer-cliquer::
@@ -87,20 +87,20 @@ atom %(file)s:%(line)s:%(column)s
 @end example
 
 @noindent
-  où @code{%(file)s}, @code{%(line)s} et @code{%(column)s} seront
-  respectivement remplacés par le fichier, la ligne et la colonne
-  considérés.
+où @code{%(file)s}, @code{%(line)s} et @code{%(column)s} seront
+respectivement remplacés par le fichier, la ligne et la colonne
+considérés.
 
 L'utilisation d'un éditeur non répertorié dans le fichier
 @file{scm/editor.scm} recquiert d'en connaître la syntaxe spécifique et
 d'assigner la commande complète à la variable @code{LYEDITOR}. Voici par
 exemple ce qui convient à l'éditeur Visual Studio Code :
 
- @example
+@example
 export LYEDITOR="code --goto %(file)s:%(line)s:%(column)s"
- @end example
+@end example
 
-@warning{L'utilisation d'Emacs recquiert un configuration
+@warning{L'utilisation d'Emacs recquiert une configuration
 supplémentaire. Il faudra ajouter la ligne @code{(server-start)} à votre
 fichier @file{~/.emacs} afin d'éviter qu'une instance supplémentaire
 d'Emacs ne s'ouvre à chaque clic sur un objet du PDF.}
@@ -214,7 +214,7 @@ devrait appeler @file{lilypond-invoke-editor} pour ouvrir les fichiers.
 
 Il se peut que, bien que @code{gnome-open} soit fonctionnel, Evince
 refuse d'ouvir les liens pointer-cliquer pour des raisons
-d'autorisation.  S'impose alors une modification du profil
+d'autorisation. S'impose alors une modification du profil
 @code{Apparmor} d'Evince ; c'est lui qui contrôle le type d'action
 qu'Evince est autorisé à réaliser.
 
@@ -295,7 +295,7 @@ Les événements générateurs de lien peuvent se gérer :
 
 @itemize
 @item
-En dur dans votre fichier @file{.ly} :
+En dur dans votre fichier @file{.ly} :
 
 @example
 \pointAndClickTypes #'note-event
@@ -304,6 +304,7 @@ En dur dans votre fichier @file{.ly} :
 @}
 @end example
 
+@noindent
 ou
 
 @example
@@ -314,7 +315,7 @@ ou
 @end example
 
 @item
-En ligne de commande :
+En ligne de commande :
 
 @example
 lilypond -dpoint-and-click=note-event exemple.ly
@@ -326,7 +327,7 @@ Plusieurs types d'événement peuvent être mentionnés :
 
 @itemize
 @item
-En dur dans votre fichier @file{.ly} :
+En dur dans votre fichier @file{.ly} :
 
 @example
 \pointAndClickTypes #'(note-event dynamic-event)
@@ -335,6 +336,7 @@ En dur dans votre fichier @file{.ly} :
 @}
 @end example
 
+@noindent
 ou
 
 @example
@@ -345,7 +347,7 @@ ou
 @end example
 
 @item
-En ligne de commande :
+En ligne de commande :
 
 @smallexample
 lilypond \
@@ -569,8 +571,8 @@ ajoutez une indication de phrasé ou de pédale.
 
 @cindex MusicXML
 
-@uref{http://@/www.@/musicxml@/.org/,MusicXML} est un
-dialecte XML pour représenter la notation musicale.
+@uref{http://@/www.@/musicxml@/.org/,MusicXML} est un dialecte XML pour
+représenter la notation musicale.
 
 @command{musicxml2ly} extrait, à partir d'un fichier MusicXML, les
 notes, articulations, structure de la partition, paroles, etc. et les
@@ -622,8 +624,8 @@ Ne pas convertir les informations de ligature ; laisser LilyPond
 gérer les ligatures automatiquement.
 
 @item -o, --output=@var{file}
-Générer le résultat dans le fichier @var{fichier}.  S'il n'est pas
-déterminé, ce sera @var{fichier-xml}@file{.ly} ; @file{-}
+Générer le résultat dans le fichier @var{file}.  S'il n'est pas
+déterminé, ce sera @var{file-xml}@file{.ly} ; @file{-}
 produira le résultat sur la sortie standard (@var{stdout}).
 
 @item -r, --relative
@@ -687,6 +689,7 @@ source ABC.  Ainsi, l'assertion
 %%LY voices \set autoBeaming = ##f
 @end example
 
+@noindent
 aura pour conséquence d'insérer le texte qui suit le mot-clé « voices »
 dans la voix correspondante du fichier LilyPond.
 
@@ -696,6 +699,7 @@ De la même manière,
 %%LY slyrics more words
 @end example
 
+@noindent
 placera le texte suivant le mot-clé « slyrics » dans une ligne de
 paroles.
 

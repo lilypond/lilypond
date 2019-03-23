@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: f7a3d8cf31367398a1955c50d3c42216d8940989
+    Translation of GIT committish: 9ec5b7d295d8287f52da71d997a8277726cf8c00
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -13,6 +13,7 @@
 
 @c Translators: Jean-Charles Malahieude
 @c Translation checkers:
+
 
 @c Note: keep this node named so that `info lilypond-book' brings you here.
 @node lilypond-book
@@ -51,7 +52,6 @@ et DocBook.
 @cindex DocBook, musique et
 @cindex LaTeX, musique et
 
-
 @menu
 * Exemple de document musicologique::
 * Association musique-texte::
@@ -73,7 +73,7 @@ et DocBook.
 Un certain nombre d'ouvrages peuvent être illustrés par des extraits
 musicaux, qu'il s'agisse d'un traité de musicologie, d'un carnet de
 chant ou d'un manuel à l'exemple de celui que vous consultez
-actuellement.  Cet agencement peut se faire @qq{à la main} par
+actuellement.  Cet agencement peut se faire « à la main » par
 importation d'un graphique PostScript dans le traitement de texte.  Les
 développeurs de LilyPond ont cependant créé un outil permettant
 d'automatiser ces opérations pour ce qui concerne les documents HTML,
@@ -81,7 +81,7 @@ d'automatiser ces opérations pour ce qui concerne les documents HTML,
 
 Un script -- @code{lilypond-book} -- se charge d'extraire les fragments
 de musique, puis de les mettre en forme avant de renvoyer la
-@qq{partition} correspondante.  Voici un court exemple utilisable avec
+« partition » correspondante.  Voici un court exemple utilisable avec
 @LaTeX{}.  Dans la mesure où il est suffisamment parlant, nous nous
 abstiendrons de le commenter.
 
@@ -228,7 +228,7 @@ aperçu des possibilités de @LaTeX{}.
 
 Afin d'insérer de la musique dans vos fichiers @LaTeX{},
 @code{lilypond-book} dispose des environnements et commandes
-suivantes :
+suivants :
 
 @itemize
 
@@ -250,7 +250,6 @@ fichier MusicXML qui sera alors traité par @code{musicxml2ly} puis
 @code{lilypond}.
 
 @end itemize
-
 
 Il suffit, pour inclure de la musique, d'utiliser l'une des instructions
 suivantes :
@@ -385,7 +384,7 @@ système, inclure un seul système est un jeu d'enfant :
 
 Pour un plus grand nombre de systèmes, il suffit d'insérer un test
 conditionnel @TeX{} avant le @code{\endinput}.  À partir de l'exemple
-qui suit, remplacez le @qq{2} par le nombre de systèmes dont vous aurez
+qui suit, remplacez le « 2 » par le nombre de systèmes dont vous aurez
 besoin :
 
 @example
@@ -433,7 +432,6 @@ nombre de systèmes requis :
 \begin@{lilypond@}@dots{}\end@{lilypond@}
 @end example
 
-
 @seealso
 @command{lilypond-book} dispose d'options en ligne de commande
 particulières.  Elles sont consultables, ainsi que d'autres détails
@@ -452,7 +450,7 @@ documents Texinfo.
 
 Afin d'insérer de la musique dans vos fichiers Texinfo,
 @code{lilypond-book} dispose des environnements et commandes
-suivantes :
+suivants :
 
 @itemize
 
@@ -537,7 +535,7 @@ intégrer d'image dans le document, mais générer un paragraphe.
 
 Afin d'insérer de la musique dans vos fichiers HTML,
 @code{lilypond-book} dispose des environnements et commandes
-suivantes :
+suivants :
 
 @itemize
 
@@ -704,7 +702,7 @@ adaptations.
 @section Options applicables aux fragments de musique
 @translationof Music fragment options
 
-Dans les lignes qui suivent, l'appellation @qq{commande LilyPond} fait
+Dans les lignes qui suivent, l'appellation « commande LilyPond » fait
 référence à toutes celles vues plus haut et qui font appel à
 @command{lilypond-book} pour produire un extrait musical.  Pour plus de
 simplicité, nous ne parlerons que de la syntaxe applicable à @LaTeX{}.
@@ -792,7 +790,7 @@ où il s'agit du comportement par défaut, point n'est besoin de spécifier
 @item quote
 Réduit la longueur des lignes musicales de @math{2*0.4}@dmn{in} (soit
 @math{2 * 10,16} @dmn{mm}) pour renvoyer l'extrait dans un bloc de
-citation.  La valeur @qq{0,4 pouce} est contrôlée par l'option
+citation.  La valeur « 0,4 pouce » est contrôlée par l'option
 @option{exampleindent}.
 
 @item exampleindent
@@ -946,7 +944,6 @@ nécessitent un traitement complémentaire.
 
 @subheading Instructions spécifiques à certains formats
 
-
 @subsubheading @LaTeX{}
 
 Un document @LaTeX{} destiné à l'impression ou à la publication peut se
@@ -1088,7 +1085,7 @@ valeurs admises sont @code{NONE}, @code{ERROR}, @code{WARNING},
 pas activée, c'est le niveau déterminé par la variable d'environnement
 @code{LILYPOND_BOOK_LOGLEVEL} qui sera utilisé.
 
-@item -o @var{dir}
+@item -o @var{rép}
 @itemx --output=@var{répertoire}
 Regroupe les fichiers générés dans @var{répertoire}.
 @command{lilypond-book} crée un certain nombre de fichiers à l'usage de
@@ -1143,7 +1140,7 @@ débordent sur la marge droite.
 
 Rappelez-vous que la largeur d'un système dépend des élément contenus
 dans sa marge gauche, tels que numéro de mesure et nom d'instrument.
-Cette option permet de @qq{raccourcir} les lignes et de les décaler vers
+Cette option permet de « raccourcir » les lignes et de les décaler vers
 la droite, de la distance donnée en argument.
 
 @item -P @var{commande}
@@ -1222,8 +1219,8 @@ sortie en fonction de l'extension du fichier source.
 Lorsque le fichier source a la même extension que celle que
 @code{lilypond-book} affectera au fichier résultant et que vous
 lancez @code{lilypond-book} à partir du répertoire le contenant, vous
-verrez assurément un message du type @qq{La sortie va écraser le fichier
-d'entrée}.  Aussi ne saurions-nous trop vous conseiller d'utiliser
+verrez assurément un message du type « La sortie va écraser le fichier
+d'entrée ».  Aussi ne saurions-nous trop vous conseiller d'utiliser
 l'option @option{--output}.
 
 
@@ -1350,7 +1347,7 @@ a4 b c d
 
 Les commandes habituelles de \textbf{fontes} sont fonctionnelles y
 compris au fil du texte, étant donné qu'\textsf{elles sont prises en
-charge par \LaTeX{} and XeteX.} Lorsque vous avez besoin de commandes
+charge par \LaTeX{} et XeteX.} Lorsque vous avez besoin de commandes
 particulières du style \verb+\XeTeX+, pensez à les inclure dans un
 environnement \verb+\ifxetex+. Vous pourrez ainsi utiliser la \ifxetex
 commande \XeTeX{} \else commande XeTeX \fi qui, elle, n'est pas reconnue

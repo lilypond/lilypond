@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 1b56607b3c41bcfcf0a03d94c6c22394334fef92
+   Translation of GIT committish: 9ec5b7d295d8287f52da71d997a8277726cf8c00
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -12,6 +12,7 @@
 
 @c Translators: Jean-Charles Malahieude
 @c Translation checkers:
+
 
 @node Exécution de lilypond
 @chapter Exécution de @command{lilypond}
@@ -231,7 +232,7 @@ doubles @code{"} en lieu et place des guillemets simples @code{'}.}
 @c Match " in context-sensitive editors
 
 @item -E, --eps
-Génèrate des fichiers EPS.
+Génère des fichiers EPS.
 
 @cindex sortie, format
 @cindex format de sortie
@@ -380,7 +381,7 @@ Tout ce qui peut être affiché, y compris le verbiage utile au débogage.
 Détermine le nom par défaut du fichier résultant à @var{FICHIER} ;
 lorsque l'argument @var{RÉPERTOIRE} correspond à un répertoire déjà
 existant, c'est là que les fichiers résultants seront déposés.  Le
-suffixe adéquat sera ajouté (par ex. @code{.pdf} pour du pdf) dans tous
+suffixe adéquat sera ajouté (par ex. @code{.pdf} pour du PDF) dans tous
 les cas.
 
 @cindex pspdfopt
@@ -834,7 +835,7 @@ option accroit notablement la taille des fichiers PDF.
 moteur @code{svg}, les fontes @emph{Web Open Font Format} (WOFF). Un
 fichier SVG sera généré pour chacune des pages produites. En dehors des
 glyphes musicaux propres à LilyPond, aucune autre information ne sera
-incluse. Quelque soir le visionneur de SVG utilisé, il devra avoir à
+incluse. Quelque soit le visionneur de SVG utilisé, il devra avoir à
 disposition les fontes requises pour pouvoir afficher les éléments
 textuels et les paroles. Dans la mesure où le visionneur pourrait ne pas
 savoir le gérer, mieux vaut s'abstenir de recourir aux alias ou listes
@@ -920,7 +921,7 @@ nécessiteront l'utilisation de @code{sudo} autant que de besoin.
 @item Installation des paquetages nécessaires : LilyPond, Ghostscript et
 ImageMagick.
 
-@item Création de l'utilisateur @code{lily} :
+@item Création de l'utilisateur @code{lily} :
 
 @example
 adduser lily
@@ -1315,7 +1316,7 @@ décalage spécifique à la voix n'a été spécifié, LilyPond émet
 shiftXx} (@emph{warning: this voice needs a \voiceXx or \shiftXx
 setting}).  Cet avertissement est émis même lorsque ces notes n'ont pas
 de hampe visible, comme par exemple des rondes, si les hampes des durées
-inférieures à ces même hauteurs avaient la même orientation.
+inférieures à ces mêmes hauteurs avaient la même orientation.
 
 N'oublions pas que l'orientation des hampes dépend de la position des
 notes sur la portée à moins que cette orientation n'ait été spécifiée,
@@ -1336,10 +1337,10 @@ bouger les rondes, hormis dans le cas d'un réel chevauchement ou lorsque
 ces voix se croisent (@code{\voiceThree} au dessus de@code{\voiceOne}).
 
 @seealso
-Manuel d'initiation :
+Manuel d'initiation :
 @rlearning{Instanciation explicite des voix},
 @rlearning{Exemple concret}.
 
-Manuel de notation :
+Manuel de notation :
 @ruser{Polyphonie sur une portée},
 @ruser{Résolution des collisions}.
