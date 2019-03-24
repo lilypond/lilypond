@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: f9d8763d2e83aa653582123d79731e029aea83d9
+   Translation of GIT committish: 5c077a521e84b118e22af570a0f556ef8e3c3b6a
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -12,6 +12,7 @@
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Gilles Thibault
+
 
 @node Interfaces pour programmeurs
 @chapter Interfaces pour programmeurs
@@ -115,6 +116,7 @@ syntaxe de LilyPond.
 * Fonctions Scheme fantômes::
 @end menu
 
+
 @node Définition de fonctions Scheme
 @subsection Définition de fonctions Scheme
 @translationof Scheme function definitions
@@ -202,16 +204,16 @@ qu'une expression musicale.  Les durées ou @emph{postévénements} qui
 viennent juste après viendront modifier cette interprétation.  C'est la
 raison pour laquelle il vaut mieux éviter des prédicats par trop
 permissifs tel que @code{Scheme?} lorsque l'application fait plutôt
-appel à des type d'argument plus spécifiques.
+appel à des types d'argument plus spécifiques.
 
 Les différents types de prédicat propres à LilyPond sont recensés à
 l'annexe @ruser{Types de prédicats prédéfinis}.
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ruser{Types de prédicats prédéfinis}.
 
-Fichiers d'initialisation :
+Fichiers d'initialisation :
 @file{lily/music-scheme.cc},
 @file{scm/c++.scm},
 @file{scm/lily.scm}.
@@ -366,10 +368,10 @@ Les différents types des prédicat sont recensés à l'annexe
 @ruser{Types de prédicats prédéfinis}.
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ruser{Types de prédicats prédéfinis}.
 
-Fichiers d'initialisation :
+Fichiers d'initialisation :
 @file{lily/music-scheme.cc},
 @file{scm/c++.scm},
 @file{scm/lily.scm}.
@@ -673,6 +675,7 @@ certain nombre d'arguments.
 @translationof Markup construction in Scheme
 
 @cindex définition d'une commande markup
+@cindex markup, définition d'une commande
 
 @funindex \displayScheme
 
@@ -857,7 +860,7 @@ Les arguments se distinguent selon leur type :
 @item une liste de @emph{markups}, correspondant au type de prédicat
 @code{markup-list?} ;
 @item tout autre objet Scheme, correspondant au types de prédicat tels
-que @code{list?}, @code{number?}, @code{boolean?}, etc.
+que @code{list?}, @code{number?}, @code{boolean?}, etc.
 @end itemize
 
 Il n'existe aucune restriction quant à l'ordre des arguments fournis à
@@ -906,7 +909,7 @@ fonctions @emph{markup}.
 
 Les arguments @code{layout} et @code{props} d'une commande de
 @emph{markup} fournissent un contexte à l'interprétation du
-@emph{markup} : taille de fonte, longueur de ligne, etc.
+@emph{markup} : taille de fonte, longueur de ligne, etc.
 
 L'argument @code{layout} permet d'accéder aux propriétés définies dans
 les blocs @code{\paper}, grâce à la fonction
@@ -922,7 +925,7 @@ commandes de @emph{markup}.  Il en va ainsi lors de l'interprétation
 d'un @emph{markup} de titre d'ouvrage : toutes les variables
 définies dans le bloc @code{\header} sont automatiquement ajoutées aux
 @code{props}, de telle sorte que le @emph{markup} de titrage de
-l'ouvrage pourra accéder aux différents champs titre, compositeur, etc.
+l'ouvrage pourra accéder aux différents champs titre, compositeur, etc.
 Ceci permet aussi de configurer le comportement d'une commande de
 @emph{markup} : la taille des fontes, par exemple, est lue à
 partir de @code{props} plutôt que grâce à un argument @code{font-size}.
@@ -984,6 +987,7 @@ tenant compte des espacements.
             \override #'(box-padding . 0.6) \box @{ #text @}#@}))
 @end lisp
 
+@noindent
 ou bien son équivalent
 
 @lisp
@@ -1399,6 +1403,7 @@ aussi bien à la syntaxe
 @example
 \applyOutput @var{Contexte} @var{procédure}
 @end example
+@noindent
 que
 @example
 \applyOutput @var{Contexte}.@var{Grob} @var{procédure}
