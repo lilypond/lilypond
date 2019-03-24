@@ -1,7 +1,7 @@
 # rules for directories with html files.
 
 LILYPOND_BOOK_COMMAND = LILYPOND_VERSION=$(TOPLEVEL_VERSION) \
-	PDFTEX=$(PDFTEX) PDFLATEX=$(PDFLATEX) \
+	TEX=$(PDFTEX) PDFTEX=$(PDFTEX) PDFLATEX=$(PDFLATEX) \
 	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) \
 	--process='$(LILYPOND_BOOK_PROCESS) \
 	$(LILYPOND_BOOK_LILYPOND_FLAGS)' --output=$(outdir) \
@@ -40,7 +40,7 @@ OUT_DOCBOOK_FILES = ${DOCBOOK_FILES:%.lyxml=$(outdir)/%.pdf}
 else
 OUT_DOCBOOK_FILES = ${DOCBOOK_FILES:%.lyxml=$(outdir)/%.xml}
 endif
-ifeq ($(PDFLATEX),xelatex)
+ifneq (,$(findstring xelatex,$(notdir $(PDFLATEX))))
 DBLATEX_BACKEND = -b xetex
 else
 DBLATEX_BACKEND =
