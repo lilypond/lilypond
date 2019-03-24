@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 39912f861693f1c24b8833e6e9e6ba82eb3e6746
+   Translation of GIT committish: 5c077a521e84b118e22af570a0f556ef8e3c3b6a
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -168,7 +168,7 @@ guile> (quit)
 @translationof Scheme simple data types
 
 L'un des concepts de base de tout langage est la saisie de données,
-qu'il s'agisse de nombres, de chaînes de caractères, de listes, etc.
+qu'il s'agisse de nombres, de chaînes de caractères, de listes, etc.
 Voici les différents types de données Scheme simples utilisées
 couramment dans LilyPond.
 
@@ -204,7 +204,7 @@ une chaîne"
 auquel cas les retours à la ligne seront inclus dans la chaîne.
 
 Un caractère de retour à la ligne peut s'ajouter dans la chaîne, sous la
-forme d'un @code{\n}.
+forme d'un @code{\n}.
 
 @example
 "ceci\nest une\nchaîne multiligne"
@@ -295,7 +295,7 @@ guile>
 
 @noindent
 
-Note : @code{cdr} se prononce « couldeur », comme l'indiquent Sussman et
+Note : @code{cdr} se prononce « couldeur », comme l'indiquent Sussman et
 Abelson -- voir
 @uref{http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-14.html#footnote_Temp_133}.
 
@@ -730,14 +730,15 @@ L'installation de LilyPond comprenant l'interpréteur Guile, les fichiers
 source LilyPond peuvent contenir du Scheme.  Vous disposez de plusieurs
 méthodes pour inclure du Scheme dans vos fichiers LilyPond.
 
-La méthode la plus simple consiste à insérer un @emph{hash} (le caractère
-@code{#}, improprement appelé dièse) avant l'expression Scheme.
+La méthode la plus simple consiste à insérer un @emph{hash} (le
+caractère @code{#}, improprement appelé dièse) avant l'expression
+Scheme.
 
 Rappelons-nous qu'un fichier source LilyPond est structuré en jetons et
 expressions, tout comme le langage humain est structuré en mots et
 phrases.  LilyPond dispose d'un analyseur lexical (appelé @emph{lexer})
 qui sait identifier les jetons -- nombres, chaînes, éléments Scheme,
-hauteurs, etc. -- ainsi que d'un analyseur syntaxique (appelé
+hauteurs, etc. -- ainsi que d'un analyseur syntaxique (appelé
 @emph{parser}) -- voir
 @rcontribnamed{LilyPond grammar, Grammaire de LilyPond}.  Dès lors
 que le programme sait quelle règle grammaticale particulière doit
@@ -765,7 +766,7 @@ dollar au lieu d'un caractère dièse -- un @code{$} au lieu
 d'un @code{#}.  En pareil cas, LilyPond évalue le code dès sa lecture
 par l'analyseur lexical, vérifie le type d'expression Scheme qui en
 résulte et détermine un type de jeton (l'un des @code{xxx_IDENTIFIER} de
-la grammaire) qui lui corresponde, puis en fait une copie qui servira à
+la grammaire) qui lui correspond, puis en fait une copie qui servira à
 traiter la valeur de ce jeton.  Lorsque la valeur de l'expression est
 @emph{void}, autrement dit une valeur Guile @code{*unspecified*} (pour
 @emph{non spécifiée}), aucune information n'est transmise à l'analyseur
@@ -867,7 +868,7 @@ la variable LilyPond (et Scheme) @code{vingtQuatre}.
 
 Scheme autorise la modification d'expressions complexes au fil de l'eau,
 ce que réalise LilyPond dans le cadre des fonctions musicales.
-Toutefois, lorsqu'une expression musicale est stockée dans une variable,
+Toutefois, lorsqu'une expression musicale est stockée dans une variable
 plutôt que saisie au fur et à mesure, on s'attend, alors qu'elle est
 passée à une fonction musicale, à ce que sa valeur originale ne soit en
 rien modifiée.  C'est la raison pour laquelle faire référence à une
@@ -1053,7 +1054,7 @@ Cette instruction ajuste l'apparence des hampes.  Une entrée
 @w{@code{'(thickness . 2.6)}} de la @emph{alist} est ajoutée à la liste
 de la propriété de l'objet @code{Stem}.  @code{thickness} devant
 s'exprimer en unité d'épaisseur de ligne, les hampes auront donc une
-épaisseur de 2,6 ligne de portée, et à peu près le double de leur
+épaisseur de 2,6 lignes de portée, et à peu près le double de leur
 épaisseur normale.  Afin de faire la distinction entre les variables que
 vous définissez au fil de vos fichiers -- tel le @code{vingtQuatre} que
 nous avons vu plus haut -- et les variables internes des objets, nous
@@ -1077,7 +1078,7 @@ pour les autres.  Ainsi, l'objet hampe possède une propriété
 * Décalages (offsets)::
 * Fractions::
 * Étendues (extents)::
-* Propriété en alists::
+* Propriété en alist::
 * Chaînes d'alist::
 @end menu
 
@@ -1139,11 +1140,11 @@ l'utilisation de ces procédures dans toute la mesure du possible afin
 d'assurer la cohérence du code.
 
 
-@node Propriété en alists
-@unnumberedsubsubsec Propriété en @emph{alists}
+@node Propriété en alist
+@unnumberedsubsubsec Propriété en @emph{alist}
 @translationof Property alists
 
-Les propriétés en @emph{alists} sont des structures de données
+Les propriétés en @emph{alist} sont des structures de données
 particulières à LilyPond.  Il s'agit de listes associatives dont les
 clés sont des propriétés et les valeurs des expressions Scheme
 fournissant la valeur requise pour cette propriété.
@@ -1604,7 +1605,7 @@ utiliser @code{ly:music-deep-copy} à cette fin.  La raison en est qu'il
 existe un contrat tacite : les fonctions musicales sont autorisées
 à modifier leurs arguments -- ils sont générés en partant de zéro (comme
 les notes que vous saisissez) ou déjà recopiés (faire référence à une
-variable musicale avec @samp{\name} ou à de la musique issue
+variable musicale avec @samp{\nom} ou à de la musique issue
 d'expressions Scheme @samp{$(@dots{})} aboutit à une copie).  Dans la
 mesure où surmultiplier les copies serait contre productif, la valeur de
 retour d'une fonction musicale n'est @strong{pas} recopiée.  Afin de
@@ -1648,10 +1649,10 @@ propriété @code{'articulations} de l'expression @code{note-event}.
 @end example
 
 La fonction @code{ly:music-property} permet d'accéder aux propriétés
-musicales -- les @code{'articulations}, @code{'duration}, @code{'pitch},
-etc. que @code{\displayMusic} nous a indiquées.  La nouvelle valeur sera
-l'ancienne propriété @code{'articulations}, augmentée d'un
-élément : l'expression @code{ArticulationEvent}, que nous
+musicales -- les @code{'articulations}, @code{'duration},
+@code{'pitch}, etc. que @code{\displayMusic} nous a indiquées. La
+nouvelle valeur sera l'ancienne propriété @code{'articulations},
+augmentée d'un élément : l'expression @code{ArticulationEvent}, que nous
 recopions à partir des informations de @code{\displayMusic}.
 
 @example
