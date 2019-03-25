@@ -173,13 +173,19 @@ Stem_tremolo::pure_height (SCM smob, SCM, SCM)
     return ly_interval2scm (s1.extent (Y_AXIS));
 
   Interval ph = stem->pure_y_extent (stem, 0, INT_MAX);
+  if (ph.is_empty ()) // This should not really happen but does
+    return ly_interval2scm (s1.extent (Y_AXIS));
+
   Stem_info si = Stem::get_stem_info (stem);
   ph[-dir] = si.shortest_y_;
+  if (ph.is_empty ()) // This should not really happen either
+    return ly_interval2scm (s1.extent (Y_AXIS));
+
   int beam_count = Stem::beam_multiplicity (stem).length () + 1;
   Real beam_translation = get_beam_translation (me);
 
   ph = ph - dir * max (beam_count, 1) * beam_translation;
-  ph = ph - ph.center ();
+  ph = ph - ph.center ();  // TODO: this nullifies the previous line?!?
 
   return ly_interval2scm (ph);
 }
