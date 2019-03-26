@@ -1,8 +1,8 @@
-%% Translation of GIT committish: 3bcb9ffb9e2ecd44866e51fe712ffec181775ecf
+%% Translation of GIT committish: 93c02a2ddbaf07d79a57748d6ec6b7177ceed756
   texidocfr = "
 Lorsque du texte est attaché à un silence multimesure, il sera centré
 dans la mesure, au-dessus ou en dessous de la portée.  Afin d'étirer la
-mesure dans le cas ou ce texte est relativement long, il suffit
+mesure dans le cas où ce texte est relativement long, il suffit
 d'insérer un accord vide auquel on attache le texte en question,
 avant le silence multimesure.
 
