@@ -1,9 +1,9 @@
-%% Translation of GIT committish: d935a5a0fac63dc0dcd8197d4d2286d235fe617c
+%% Translation of GIT committish: 93c02a2ddbaf07d79a57748d6ec6b7177ceed756
   texidocfr = "
 Tous les objets @code{DynamicLineSpanner} (soufflets ou nuances
 textuelles) viennent s'aligner sur une ligne de référence placée, par
 rapport à la portée, à au moins la valeur de @code{'staff-padding} sauf
-lorsque d'autres éléments de notation les en éloigne plus.  Les nuances
+lorsque d'autres éléments de notation les en éloignent plus. Les nuances
 seront centrés sur une même ligne dès lors que @code{'staff-padding}
 aura été défini à une valeur suffisante.
 

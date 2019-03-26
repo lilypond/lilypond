@@ -1,12 +1,12 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
+%% Translation of GIT committish: 93c02a2ddbaf07d79a57748d6ec6b7177ceed756
   texidocfr = "
 Vous pouvez tout à fait créer des tables de diagrammes de fret
 supplémentaires, notamment dans l'optique d'un fret alternatif pour un
 accord donné.
 
-Avant de pouvoir utiliser un diagramme alternatif, vous devrez alimenter
-une table à cet effet.  Les différents diagrammes seront ajoutés à cette
-table.
+Avant de pouvoir utiliser un diagramme alternatif, vous devrez avoir
+alimenté une table à cet effet. Les différents diagrammes seront ajoutés
+à cette table.
 
 Il peut aussi bien s'agir d'une table vide, que de la recopie d'une
 table existante.
