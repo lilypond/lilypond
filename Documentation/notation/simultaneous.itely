@@ -93,6 +93,8 @@ within a chord rather than to whole chords or single notes.
 @cindex chords, empty
 @cindex placeholder events
 
+@funindex <>
+
 A chord acts merely as a container for its notes, its articulations and
 other attached elements.  Consequently, a chord without notes inside
 does not actually have a duration.  Any attached articulations will
@@ -404,7 +406,9 @@ multiple staves.
 @cindex lyrics assigned to one voice
 
 @funindex \voiceOne
-@funindex \voiceOne ... \voiceFour
+@funindex \voiceTwo
+@funindex \voiceThree
+@funindex \voiceFour
 @funindex Voice
 @funindex \oneVoice
 

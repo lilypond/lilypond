@@ -120,6 +120,9 @@ g-0\3
 <g-0\3>
 @end lilypond
 
+@funindex \arabicStringNumbers
+@funindex \romanStringNumbers
+
 String numbers may also, as is customary with unfretted strings,
 be printed in Roman numerals and placed below the staff rather
 than above.

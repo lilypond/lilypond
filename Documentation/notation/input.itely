@@ -473,6 +473,11 @@ toplevel
 At any point in a file, any of the following lexical instructions can
 be entered:
 
+@funindex \version
+@funindex \include
+@funindex \sourcefilename
+@funindex \sourcefileline
+
 @itemize
 @item @code{\version}
 @item @code{\include}
@@ -1322,6 +1327,7 @@ indicator (@code{-, _, ^}) in order to attach @var{music} (with
 a footnote mark) to the preceding note or rest.
 
 @item mark
+@funindex \default
 is a markup or string specifying the footnote mark which is used for
 marking both the reference point and the footnote itself at the
 bottom of the page.  It may be omitted (or equivalently replaced with
@@ -1458,6 +1464,8 @@ will be attached to all grobs of that type at the current time step:
   }
 }
 @end lilypond
+
+@funindex \single
 
 A note inside of a chord can be given an individual (event-based)
 footnote.  A @samp{NoteHead} is the only grob directly caused
@@ -1834,6 +1842,8 @@ tocItemMarkup = \markup \large \fill-line {
 
 Note how the element text and page numbers are referred to in the
 @code{tocItemMarkup} definition.
+
+@funindex \tocItemWithDotsMarkup
 
 The @code{\tocItemWithDotsMarkup} command can be included within the
 @code{tocItemMarkup} to fill the line, between a table of contents item

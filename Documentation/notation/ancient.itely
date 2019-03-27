@@ -213,6 +213,9 @@ of Gregorian chant notation to denote ascending or descending
 sequences of notes on the same syllable.  They are also used in
 mensural notation.
 
+@funindex \[
+@funindex \]
+
 Ligatures are entered by @emph{enclosing} them in @code{\[} and
 @code{\]}.  Some ligature styles may need additional input syntax
 specific for this particular type of ligature.  By default, the
@@ -1294,6 +1297,13 @@ section @ref{Articulations and ornamentations}, articulation signs
 specifically designed for use with notation in
 @emph{Editio Vaticana} style are provided.
 
+@funindex \accentus
+@funindex \circulus
+@funindex \episemInitium
+@funindex \episemFinis
+@funindex \ictus
+@funindex \semicirculus
+
 @lilypond[quote,ragged-right,verbatim]
 \include "gregorian.ly"
 \score {
@@ -1505,6 +1515,13 @@ certain rules, which are not checked by LilyPond.  E.g., the
 ligature, and usually falls on a half-tone step, but it is
 perfectly possible, although incorrect, to make a single-note
 quilisma.
+
+@funindex \ij
+@funindex \iij
+@funindex \IJ
+@funindex \IIJ
+@funindex \responsum
+@funindex \versus
 
 In addition to the note signs, @file{gregorian.ly} also defines the
 commands @code{\versus}, @code{\responsum}, @code{\ij},
@@ -2407,6 +2424,9 @@ Notation Reference:
 @unnumberedsubsubsec Kievan notes
 
 @cindex note heads, ancient
+
+@funindex \kievanOn
+@funindex \kievanOff
 
 For Kievan square notation, the appropriate note head style needs
 to be chosen and the flags and stems need to be turned off.

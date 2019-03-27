@@ -280,6 +280,8 @@ Dynamic marks may be manually placed above or below the staff; see
 @funindex \!
 @funindex \cr
 @funindex \decr
+@funindex \endcr
+@funindex \enddecr
 
 A @notation{crescendo} mark is started with @code{\<} and
 terminated with @code{\!}, an absolute dynamic, or an additional
@@ -287,8 +289,9 @@ crescendo or decrescendo mark.  A @notation{decrescendo} mark is
 started with @code{\>} and is also terminated with @code{\!}, an
 absolute dynamic, or another crescendo or decrescendo mark.
 @code{\cr} and @code{\decr} may be used instead of @code{\<} and
-@code{\>}.  @notation{Hairpins} are engraved by default using this
-notation.
+@code{\>}; @code{\endcr} and @code{\enddecr} maybe used instead of
+@code{\!} to end a crescendo or decrescendo mark, respectively.
+@notation{Hairpins} are engraved by default using this notation.
 
 @lilypond[verbatim,quote]
 \relative c'' {
@@ -1096,6 +1099,8 @@ A glissando can connect notes across staves:
   }
 >>
 @end lilypond
+
+@funindex \glissandoMap
 
 A glissando can connect notes in chords.  If anything other than a
 direct one-to-one pairing of the notes in the two chords is required

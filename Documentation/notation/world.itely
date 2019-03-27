@@ -199,6 +199,8 @@ notated:
 @cindex Arabic semi-flat symbol
 @cindex Semi-flat symbol appearance
 
+@funindex \dwn
+
 The symbol for semi-flat does not match the symbol which is used
 in Arabic notation.  The @code{\dwn} symbol defined in
 @file{arabic.ly} may be used preceding a flat symbol as a work

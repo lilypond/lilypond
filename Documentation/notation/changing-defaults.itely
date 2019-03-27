@@ -464,6 +464,7 @@ Alternatively, variables may be employed to similar effect.  See
 @rlearning{Organizing pieces with variables}.
 
 @item
+@funindex \applyContext
 @code{\context} with no name will match the first of any previously
 created contexts of the same type in the same context heirarchy,
 even one that has been given a name, and its music expression will be
@@ -703,6 +704,8 @@ starting a new context with @code{\new} or @code{\context}, and
 modifying it,
 
 @funindex \with
+@funindex \consists
+@funindex \remove
 
 @example
 \new @var{context} \with @{
@@ -2660,10 +2663,14 @@ arpeggioMusic = {
 }
 @end lilypond
 
+@funindex \once
+@funindex \temporary
+
 In its @q{override} usage, @code{\offset} may be prefaced with
-@code{\once} or @code{\temporary} and reverted using @code{\revert} with
-@var{property}.  This follows from the fact that @code{\offset} actually
-creates an @code{\override} of @var{property}.
+@code{\once} or @code{\temporary} and reverted using @code{\revert}
+with @var{property} (see @rextend{Intermediate substitution
+functions}).  This follows from the fact that @code{\offset}
+actually creates an @code{\override} of @var{property}.
 
 @lilypond[quote,verbatim]
 music = { c'8\< d' e' f'\! }
@@ -2689,6 +2696,9 @@ music = { c'8\< d' e' f'\! }
   \bar "||"
 }
 @end lilypond
+
+@funindex \single
+@funindex \undo
 
 Also like @code{\override}, the @q{override} form of @code{\offset} may
 be used with @code{\undo} and @code{\single}.
@@ -2960,6 +2970,9 @@ when there is no requirement to explicitly create the receiving context.
 
 @subsubsubheading Chord mode
 
+@funindex \chordmode
+@funindex \chords
+
 This is activated with the @code{\chordmode} command, and causes
 input to be interpreted with the syntax of chord notation, see
 @ref{Chord notation}.  Music in chord mode is rendered as chords on a staff
@@ -2975,6 +2988,9 @@ see @ref{Printing chord names}.
 
 @subsubsubheading Drum mode
 
+@funindex \drummode
+@funindex \drums
+
 This is activated with the @code{\drummode} command, and causes
 input to be interpreted with the syntax of drum notation, see
 @ref{Basic percussion notation}.  Music in drum mode is rendered as
@@ -2987,6 +3003,9 @@ drum notation but in addition it implicitly creates a new
 notes, see @ref{Basic percussion notation}.
 
 @subsubsubheading Figure mode
+
+@funindex \figuremode
+@funindex \figures
 
 This is activated with the @code{\figuremode} command, and causes
 input to be interpreted with the syntax of figured bass, see
@@ -3016,6 +3035,9 @@ command, see @ref{Fret diagram markups}.
 
 @subsubsubheading Lyrics mode
 
+@funindex \lyricmode
+@funindex \lyrics
+
 This is activated with the @code{\lyricmode} command, and causes
 input to be interpreted as lyric syllables with optional durations
 and associated lyric modifiers, see @ref{Vocal music}.  Input in
@@ -3034,11 +3056,15 @@ lyrics with the preceding music, see @ref{Automatic syllable durations}.
 
 @subsubsubheading Markup mode
 
+@funindex \markup
+
 This is activated with the @code{\markup} command, and causes
 input to be interpreted with the syntax of markup, see
 @ref{Text markup commands}.
 
 @subsubsubheading Note mode
+
+@funindex \notemode
 
 This is the default mode or it may be activated with the
 @code{\notemode} command.  Input is interpreted as pitches,
@@ -3119,11 +3145,11 @@ Alternatively, in many cases predefined commands exist to specify the
 direction.  These are of the form
 
 @example
-\xxxUp, \xxxDown or \xxxNeutral
+\@var{xxx}Up, \@var{xxx}Down or \@var{xxx}Neutral
 @end example
 
 @noindent
-where @code{\xxxNeutral} means @qq{use the default} direction.
+where @code{\@var{xxx}Neutral} means @qq{use the default} direction.
 See @rlearning{Within-staff objects}.
 
 In a few cases, arpeggio for example, the value of the @code{direction}
@@ -3178,6 +3204,8 @@ Notation Reference:
 @funindex \pt
 
 Distances in LilyPond are of two types: absolute and scaled.
+
+@funindex \staff-space
 
 Absolute distances are used for specifying margins, indents, and
 other page layout details, and are by default specified in
@@ -3571,6 +3599,8 @@ end point of the line and the actual end.  Without padding, a
 glissando would start and end in the center of each note head.
 
 @end table
+
+@funindex \endSpanners
 
 The music function @code{\endSpanners} terminates the spanner
 which starts on the immediately following note prematurely.  It
@@ -4853,9 +4883,13 @@ The leading hyphen must be used with the @code{\tweak} form.  Do
 not add it when @code{\alterBroken} is used as an
 @code{\override}.
 
-In its @code{\override} usage, @code{\alterBroken} may be
-prefaced by @code{\once} or @code{\temporary} and reverted by
-using @code{\revert} with @var{property}.
+@funindex \once
+@funindex \temporary
+
+In its @code{\override} usage, @code{\alterBroken} may be prefaced
+by @code{\once} or @code{\temporary} and reverted by using
+@code{\revert} with @var{property} (see @rextend{Intermediate
+substitution functions}).
 
 The following code applies an independent @code{\override} to
 each of the slur segments in the previous example:
