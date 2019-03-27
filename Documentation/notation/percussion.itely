@@ -64,6 +64,9 @@ Snippets:
 @cindex percussion
 @cindex drums
 
+@funindex \drummode
+@funindex \drums
+
 Percussion notes may be entered in @code{\drummode} mode, which is
 similar to the standard mode for entering notes.  The simplest way
 to enter percussion notes is to use the @code{\drums} command,

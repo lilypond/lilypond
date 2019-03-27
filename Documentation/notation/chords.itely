@@ -535,6 +535,11 @@ Jazz notation are shown on the chart in @ref{Chord name chart}.
 @c  Make short example in docs, then move longer example to
 @c  appendix, where the length of the snippet won't matter.
 
+@funindex \germanChords
+@funindex \semiGermanChords
+@funindex \italianChords
+@funindex \frenchChords
+
 In addition to the different naming systems, different note names
 are used for the root in different languages.  The predefined
 commands @code{\germanChords}, @code{\semiGermanChords},
@@ -575,6 +580,9 @@ this property.
 @funindex majorSevenSymbol
 
 @item majorSevenSymbol
+
+@funindex \blackTriangleMarkup
+@funindex \whiteTriangleMarkup
 
 This property contains the markup object used to follow the output
 of @code{chordRootNamer} to identify a major 7 chord.  Predefined
@@ -688,16 +696,13 @@ used when the root is altered.
 
 
 @predefined
-@funindex major seven symbols
+@cindex major seven symbols
+@cindex symbols, major seven
 @code{\whiteTriangleMarkup},
 @code{\blackTriangleMarkup},
-@funindex \germanChords
 @code{\germanChords},
-@funindex \semiGermanChords
 @code{\semiGermanChords},
-@funindex \italianChords
 @code{\italianChords},
-@funindex \frenchChords
 @code{\frenchChords}.
 @endpredefined
 
@@ -798,6 +803,9 @@ or basso continuo:
 >>
 @end lilypond
 
+@funindex \figuremode
+@funindex \figures
+
 The support for figured bass consists of two parts: there is an
 input mode, introduced by @code{\figuremode}, that accepts
 entry of bass figures, and there is a context named
@@ -897,6 +905,9 @@ Any text markup can be inserted as a figure:
 @c NOTE: We need to include notes any time we use extenders to
 @c avoid extraneous staff creation due to Staff.use... in
 @c \bassFigureExtendersOn
+
+@funindex \bassFigureExtendersOn
+@funindex \bassFigureExtendersOff
 
 Continuation lines can be used to indicate repeated figures:
 
@@ -1070,6 +1081,10 @@ figures is adjusted automatically.
 >>
 @end lilypond
 
+
+@funindex \bassFigureStaffAlignmentDown
+@funindex \bassFigureStaffAlignmentUp
+@funindex \bassFigureStaffAlignmentNeutral
 
 When added in a @code{Staff} context, figured bass can be displayed above
 or below the staff.

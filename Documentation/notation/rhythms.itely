@@ -530,6 +530,10 @@ Ties may be made to curve up or down manually; see
 @funindex \tieDashed
 @funindex \tieSolid
 
+@funindex \tieDashPattern
+@funindex \tieHalfDashed
+@funindex \tieHalfSolid
+
 Ties may be made dashed, dotted, or a combination of solid and
 dashed.
 
@@ -1938,6 +1942,8 @@ be done with the @code{Pitch_squash_engraver} and
 >>
 @end lilypond
 
+@funindex \reduceChords
+
 Music containing chords can also be used as input to @code{RhythmicStaff}
 and for use with the @code{Pitch_squash_engraver} if the chords are first
 reduced to single notes with the @code{\reduceChords} music function:
@@ -1957,7 +1963,8 @@ reduced to single notes with the @code{\reduceChords} music function:
 
 @predefined
 @code{\improvisationOn},
-@code{\improvisationOff}.
+@code{\improvisationOff},
+@code{\reduceChords}.
 @endpredefined
 
 
@@ -2885,7 +2892,7 @@ New bar line types can be defined with @code{\defineBarLine}:
 \defineBarLine @var{bartype} #'(@var{end} @var{begin} @var{span})
 @end example
 
-The @code{\defineBarline} variables can include the
+The @code{\defineBarLine} variables can include the
 @q{empty} string @code{""}, which is equivalent to an invisible
 bar line being printed.  Or they can be set to @code{#f} which
 prints no bar line at all.
@@ -3230,6 +3237,8 @@ To print a rehearsal mark, use the @code{\mark} command.
   c1 \mark \default
 }
 @end lilypond
+
+@funindex \default
 
 @noindent
 The mark is incremented automatically if you use @code{\mark

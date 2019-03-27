@@ -1054,6 +1054,8 @@ header variables are printed.  Default: @code{#f}.
 @item system-separator-markup
 @funindex system-separator-markup
 
+@funindex \slashSeparator
+
 A markup object that is inserted between systems, often used for
 orchestral scores.  Default: unset.  The @code{\slashSeparator}
 markup, defined in @file{ly/titling-init.ly}, is provided as a
@@ -1314,6 +1316,7 @@ block:
 @end example
 
 @item
+@funindex \magnifyStaff
 To set the staff size for a single staff within a system, use the
 @code{\magnifyStaff} command.  For example, traditionally engraved
 chamber music scores with piano often used 7mm piano staves while

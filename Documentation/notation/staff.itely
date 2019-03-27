@@ -1214,6 +1214,7 @@ triplets may result in poor notation.
 
 @funindex \cueDuring
 @funindex \cueClef
+@funindex \cueClefUnset
 @funindex \cueDuringWithClef
 @funindex \quoteDuring
 
@@ -1480,10 +1481,6 @@ bassoonNotes = \relative c {
   }
 >>
 @end lilypond
-
-Alternatively, Clef changes and instrument labels can be
-collected into an instrument definition for repeated use, using
-@code{\addInstrumentDefinition} described in @ref{Instrument names}.
 
 @seealso
 Notation Reference:

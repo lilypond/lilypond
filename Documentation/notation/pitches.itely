@@ -3118,6 +3118,10 @@ The appearance of note heads may be altered:
 
 To see all note head styles, see @ref{Note head styles}.
 
+@funindex \xNote
+@funindex \xNotesOn
+@funindex \xNotesOff
+
 The @code{cross} style is used to represent a variety of musical
 intentions.  The following generic predefined commands modify the
 note head in both staff and tablature contexts and can be used to
@@ -3145,9 +3149,15 @@ staff and tablature contexts:
 }
 @end lilypond
 
+@funindex \deadNote
+@funindex \deadNotesOn
+@funindex \deadNotesOff
+
 As synonyms for @code{\xNote}, @code{\xNotesOn} and @code{\xNotesOff},
 @code{\deadNote}, @code{\deadNotesOn} and @code{\deadNotesOff} can
 be used.  The term @notation{dead note} is commonly used by guitarists.
+
+@funindex \harmonic
 
 There is also a similar shorthand for diamond shapes:
 
