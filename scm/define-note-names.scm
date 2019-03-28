@@ -255,7 +255,8 @@
                 (eses . ,(ly:make-pitch -1 2 DOUBLE-FLAT))
                 (eseh . ,(ly:make-pitch -1 2 THREE-Q-FLAT))
                 (es . ,(ly:make-pitch -1 2 FLAT))
-                (eeh . ,(ly:make-pitch -1 2 SEMI-FLAT))
+                (eeh . ,(ly:make-pitch -1 2 SEMI-FLAT)) ;; should be eh; kept for backward compatibility
+                (eh . ,(ly:make-pitch -1 2 SEMI-FLAT))
                 (e . ,(ly:make-pitch -1 2 NATURAL))
                 (eih . ,(ly:make-pitch -1 2 SEMI-SHARP))
                 (eis . ,(ly:make-pitch -1 2 SHARP))
@@ -287,7 +288,8 @@
                 (asah . ,(ly:make-pitch -1 5 THREE-Q-FLAT))
                 (aseh . ,(ly:make-pitch -1 5 THREE-Q-FLAT))  ;; non-standard name for asah
                 (as . ,(ly:make-pitch -1 5 FLAT))
-                (aeh . ,(ly:make-pitch -1 5 SEMI-FLAT))
+                (aeh . ,(ly:make-pitch -1 5 SEMI-FLAT)) ;; should be ah; kepy for backward compatibility
+                (ah . ,(ly:make-pitch -1 5 SEMI-FLAT))
                 (a . ,(ly:make-pitch -1 5 NATURAL))
                 (aih . ,(ly:make-pitch -1 5 SEMI-SHARP))
                 (ais . ,(ly:make-pitch -1 5 SHARP))
@@ -975,7 +977,7 @@
               (ais . ,(ly:make-pitch -1 5 SHARP))
               (aisis . ,(ly:make-pitch -1 5 DOUBLE-SHARP))
 
-              (bb . ,(ly:make-pitch -1 6 DOUBLE-FLAT)) ;; should be bes; kept for downwards compatibility
+              (bb . ,(ly:make-pitch -1 6 DOUBLE-FLAT)) ;; should be bes; kept for backward compatibility
               (bes . ,(ly:make-pitch -1 6 DOUBLE-FLAT))
               (heses . ,(ly:make-pitch -1 6 DOUBLE-FLAT))  ;; non-standard name for bb
               (b . ,(ly:make-pitch -1 6 FLAT))
