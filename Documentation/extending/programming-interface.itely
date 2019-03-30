@@ -1503,7 +1503,7 @@ of the broken tie is repositioned.
 
      (if (and (>= (length siblings) 2)
               (eq? (car (last-pair siblings)) grob))
-         (ly:grob-set-property! grob 'extra-offset '(-2 . 5)))))
+         (ly:grob-set-property! grob 'extra-offset '(1 . -4)))))
 
 \relative {
   \override Tie.after-line-breaking =
