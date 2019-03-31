@@ -561,11 +561,10 @@ Error and warning messages need to be localized.
 @subsection Localization
 
 This document provides some guidelines to help programmers write
-proper user
-messages.  To help translations, user messages must follow
+proper user messages.  To help translations, user messages must follow
 uniform conventions.  Follow these rules when coding for LilyPond.
 Hopefully, this can be replaced by general GNU guidelines in the
-future.  Even better would be to have an English (en_BR, en_AM)
+future.  Even better would be to have an English (en_GB, en_US)
 guide helping programmers writing consistent messages for all GNU
 programs.
 
