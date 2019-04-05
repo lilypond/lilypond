@@ -284,6 +284,7 @@ multiple voices on the same staff."
   \override Stem.length-fraction = #(magstep -4)
   \override Beam.length-fraction = #(magstep -4)
   \override Beam.beam-thickness = #0.35
+  \override StemTremolo.beam-thickness = #0.35
 }
 
 \context {
@@ -770,7 +771,8 @@ automatically when an output definition (a @code{\\score} or
     rest-event
     tie-event
     beam-event
-    tuplet-span-event)
+    tuplet-span-event
+    tremolo-event)
   instrumentTransposition = #(ly:make-pitch 0 0 0)
 
   topLevelAlignment = ##t
