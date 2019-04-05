@@ -523,7 +523,7 @@ line thickness and padding around the markup.
 @cindex drawing oval around text
 
 Draw an oval around @var{arg}.  Use @code{thickness},
-@code{x-padding}, @code{x-padding} and @code{font-size} properties to determine
+@code{x-padding}, @code{y-padding} and @code{font-size} properties to determine
 line thickness and padding around the markup.
 
 @lilypond[verbatim,quote]
