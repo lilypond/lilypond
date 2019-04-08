@@ -1172,8 +1172,8 @@ c'2 c'
 L'elenco completo di tutti i nomi di chiave possibili si trova in @ref{Stili della chiave}.
 Chiavi speciali, come quelle usate nella musica @emph{antica}, sono descritte
 in @ref{Mensural clefs} e @ref{Gregorian clefs}.  La musica che utilizza le
-chiavi dell'intavolatura è discussa in @ref{Default tablatures} e
-@ref{Custom tablatures}.
+chiavi dell'intavolatura è discussa in @ref{Intavolature predefinite} e
+@ref{Intavolature personalizzate}.
 
 @cindex notine, chiavi
 @cindex citazioni in corpo piccolo, chiavi
@@ -1291,8 +1291,8 @@ più piccolo del normale.  Tale comportamento può essere modificato.
 Guida alla notazione:
 @ref{Mensural clefs},
 @ref{Gregorian clefs},
-@ref{Default tablatures},
-@ref{Custom tablatures},
+@ref{Intavolature predefinite},
+@ref{Intavolature personalizzate},
 @ref{Formattazione delle notine}.
 
 File installati:
@@ -3184,7 +3184,7 @@ Frammenti di codice:
 Guida alla notazione:
 @ref{Stili delle teste di nota},
 @ref{Note in un accordo},
-@ref{Indicating harmonics and dampened notes}.
+@ref{Indicazione di armonici e note smorzate}.
 
 Guida al funzionamento interno:
 @rinternals{note-event},

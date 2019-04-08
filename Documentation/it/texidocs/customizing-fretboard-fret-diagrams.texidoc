@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocit = "
+Le proprietà del diagramma dei tasti possono essere impostate tramite
+@code{'fret-diagram-details}.  Per i diagrammi dell'oggetto FretBoard,
+gli override vengono applicati all'oggetto @code{FretBoards.FretBoard}.
+Come @code{Voice}, @code{FretBoards} è un contesto di basso livello,
+dunque può essere omesso negli override delle proprietà.
+"
+  doctitleit = "Personalizzare la tastiera del diagramma dei tasti"

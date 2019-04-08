@@ -1,4 +1,4 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
     Translation of GIT committish: 47b45b556c729d13e71782e52d378e1c2a0f2b4d
 
@@ -116,7 +116,7 @@ con le legature di portamento nel seguente modo:
 
 Si possono usare i numeri romani come numeri di corda (al posto dei
 numeri arabi racchiusi in un cerchio), come è spiegato in
-@ref{String number indications}.
+@ref{Indicazioni di numero di corda}.
 
 Altrimenti, le indicazioni di corda possono essere mostrate anche tramite
 comandi markup; le articolazioni possono indicare anche corde vuote.
@@ -139,7 +139,7 @@ a'2^\markup { \small "sul A" }
 @seealso
 Guida alla notazione:
 @ref{Articolazioni e abbellimenti},
-@ref{String number indications},
+@ref{Indicazioni di numero di corda},
 @ref{Legature di portamento}.
 
 
@@ -207,7 +207,7 @@ far apparire i punti.
 
 @seealso
 Glossario musicale:
-@rglos{harmonics}.
+@rglosnamed{harmonics,armonici}.
 
 Guida alla notazione:
 @ref{Teste di nota speciali},

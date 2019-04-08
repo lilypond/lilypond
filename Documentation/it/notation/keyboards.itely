@@ -665,7 +665,7 @@ trattate altrove:
 @item Un @notation{bisbigliando} è scritto come un tremolo, vedi
 @ref{Ripetizioni con tremolo}.
 
-@item Gli armonici naturali sono trattati in @ref{Harmonics}.
+@item Gli armonici naturali sono trattati in @ref{Armonici}.
 
 @item Per arpeggi direzionali e non-arpeggi, vedere @ref{Arpeggio}.
 
@@ -676,7 +676,7 @@ Guida alla notazione:
 @ref{Ripetizioni con tremolo},
 @ref{Glissando},
 @ref{Arpeggio},
-@ref{Harmonics}.
+@ref{Armonici}.
 
 
 @node Pedali dell'arpa

@@ -1203,7 +1203,7 @@ voci, internamente, nomi personalizzati: rispettivamente @code{one} e
 @code{Voice} nominato diversamente, gli eventi in quel contesto verranno
 ignorati.
 
-Consultare i @emph{Problemi noti e avvertimenti} in @ref{Default tablatures}
+Consultare i @emph{Problemi noti e avvertimenti} in @ref{Intavolature predefinite}
 se si usa @code{\partcombine} con l'intavolatura, e la @emph{Nota} in
 @ref{Travature automatiche} se si usa la disposizione automatica delle travature.
 

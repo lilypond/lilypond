@@ -2795,13 +2795,13 @@ e dell'intavolatura (o tablatura).
 
 Per creare diagrammi in intavolatura, inserire note o accordi nella modalità
 nota e visualizzarli in un contesto @code{TabStaff}, vedi
-@ref{Default tablatures}.
+@ref{Intavolature predefinite}.
 
 Per creare diagrammi della tastiera sopra un rigo, inserire le note o gli
 accordi in modalità nota o in modalità accordo e elaborarli in un contesto
-@code{FretBoards}, vedi @ref{Automatic fret diagrams}.  Altrimenti i diagrammi
+@code{FretBoards}, vedi @ref{Diagrammi dei tasti automatici}.  Altrimenti i diagrammi
 possono essere inseriti come testo (markup) sopra le note usando il comando
-@code{\fret-diagram}, vedi @ref{Fret diagram markups}.
+@code{\fret-diagram}, vedi @ref{Diagrammi dei tasti}.
 
 @subsubsubheading Modalità testo vocale
 
