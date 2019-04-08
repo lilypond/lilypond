@@ -103,7 +103,7 @@ mantenute.  Ulteriori dettagli in @ref{Mostrare i ritmi della melodia}.
 
 @code{TabStaff} crea un'intavolatura (o tablatura) con sei corde
 nell'accordatura standard per chitarra.  Ulteriori dettagli
-in @ref{Default tablatures}.
+in @ref{Intavolature predefinite}.
 
 @lilypond[verbatim,quote]
 \new TabStaff \relative { c''4 d e f }
@@ -131,7 +131,7 @@ Guida alla notazione:
 @ref{Creazione e citazione di un contesto},
 @ref{Righi delle percussioni},
 @ref{Mostrare i ritmi della melodia},
-@ref{Default tablatures},
+@ref{Intavolature predefinite},
 @ref{Pre-defined contexts},
 @ref{Simbolo del rigo},
 @ref{Gregorian chant contexts},

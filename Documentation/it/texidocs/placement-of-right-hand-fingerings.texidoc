@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocit = "
+È possibile avere un maggior controllo sul posizionamento delle diteggiature
+della mano destra impostando una specifica proprietà, come illustrato
+nell'esempio seguente.  Nota: occorre usare un costrutto per accordo.
+
+"
+  doctitleit = "Posizionamento delle diteggiature della mano destra"
