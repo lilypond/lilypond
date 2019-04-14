@@ -758,6 +758,7 @@ voiceNeutralStyle = {
 
 allowVoltaHook =
 #(define-void-function (bar) (string?)
+  (_i "Allow the volta bracket hook being drawn over bar line @var{bar}.")
                        (allow-volta-hook bar))
 
 %% x notes
