@@ -580,8 +580,8 @@ music}.  No fragments are extracted though if used with the
 @option{-dno-print-pages} option.  Default: @code{#f}.
 
 @item @code{crop} @var{bool}
-If @var{bool} is @code{#t}, match the size of the normal output to
-the typeset image.  Default: @code{#f}.
+If @var{bool} is @code{#t}, fit all the music and headers, without
+margins, into a @q{single-page} output file.  Default: @code{#f}.
 
 @item @code{datadir}
 Prefix for data files.  This is a read-only option; setting it has no
