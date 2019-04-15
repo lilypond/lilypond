@@ -56,10 +56,10 @@ arpeggio squiggly line.")
      (arrow-length ,number? "Arrow length.")
      (arrow-width ,number? "Arrow width.")
      (auto-knee-gap ,ly:dimension? "If a gap is found between note
-heads where a horizontal beam fits that is larger than this number,
+heads where a horizontal beam fits and it is larger than this number,
 make a kneed beam.")
-     (automatically-numbered ,boolean? "Should a footnote be automatically
-numbered?")
+     (automatically-numbered ,boolean? "Defines if a footnote should be
+     automatically numbered?")
      (average-spacing-wishes ,boolean? "If set, the spacing wishes are
 averaged over staves.")
      (avoid-note-head ,boolean? "If set, the stem of a chord does not
@@ -592,7 +592,7 @@ attachments of spanners to edges.")
      (left-padding ,ly:dimension? "The amount of space that is put
 left to an object (e.g., a lyric extender).")
      (length ,ly:dimension? "User override for the stem length of
-unbeamed stems.")
+unbeamed stems (each unit represents half a @code{staff-space}).")
      (length-fraction ,number? "Multiplier for lengths.  Used for
 determining ledger lines and stem lengths.")
      (line-break-penalty ,number? "Penalty for a line break at this
@@ -1488,7 +1488,7 @@ grob (in @code{staff-space} units).")
      (flexa-interval ,integer? "The interval spanned by the two notes of a
 flexa shape (1 is a second, 7 is an octave).")
      (flexa-width ,ly:dimension? "The width of a flexa shape in a
-ligature grob in (in @code{staff-space} units).")
+ligature grob (in @code{staff-space} units).")
      (ligature-flexa ,boolean? "request joining note to the previous one
 in a flexa.")
 
