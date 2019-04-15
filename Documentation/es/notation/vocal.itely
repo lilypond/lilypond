@@ -1791,7 +1791,7 @@ words = \lyricmode { la __ la __ }
 @end lilypond
 
 @knownissues
-La función @code{\addLyrics} solo funciona con letras de
+La función @code{\addlyrics} solo funciona con letras de
 @code{Voice}, por lo que no puede utilizarse con @code{NullVoice}.
 
 @noindent

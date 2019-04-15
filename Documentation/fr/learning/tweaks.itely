@@ -4303,7 +4303,7 @@ AltoMusic    = \relative { c'4 | c4. c8 e4 e    | f4   f   e  }
 TenorMusic   = \relative  { e4 | g4. g8 c4.  b8 | a8 b c d e4 }
 BassMusic    = \relative  { c4 | c4. c8 c4 c    | f8 g a b c4 }
 
-VerseOne = \lyrics {
+VerseOne = \lyricmode {
   E -- | ter -- nal \emphasize Fa -- ther, | \normal strong to save,
 }
 

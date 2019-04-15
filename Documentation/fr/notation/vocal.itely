@@ -1739,7 +1739,7 @@ words = \lyricmode { la __ la __ }
 @end lilypond
 
 @knownissues
-La commande @code{\addLyrics} ne peut traiter que des paroles attachées
+La commande @code{\addlyrics} ne peut traiter que des paroles attachées
 à un contexte @code{Voice} ; elle ne peut donc s'utiliser avec un
 @code{NullVoice}.
 
