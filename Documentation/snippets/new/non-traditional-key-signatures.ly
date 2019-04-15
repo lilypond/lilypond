@@ -1,8 +1,7 @@
 \version "2.19.21"
 
 \header {
-  lsrtags = "contemporary-notation, pitches, staff-notation,
-  version-specific, non-traditional, world-music"
+  lsrtags = "contemporary-notation, pitches, staff-notation, version-specific, non-traditional, world-music"
 
   texidoc = "
 The commonly used @code{\\key} command sets the @code{keyAlterations}
