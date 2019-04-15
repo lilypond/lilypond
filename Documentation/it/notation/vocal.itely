@@ -1732,7 +1732,7 @@ words = \lyricmode { la __ la __ }
 @end lilypond
 
 @knownissues
-La funzione @code{\addLyrics} funziona solo con testi vocali collegati
+La funzione @code{\addlyrics} funziona solo con testi vocali collegati
 a contesti @code{Voice} e non può essere usata con @code{NullVoice}.
 
 @noindent
