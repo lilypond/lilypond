@@ -1779,11 +1779,28 @@ Internals Reference:
 @rinternals{Staff}.
 
 @knownissues
-When using different time signatures in parallel, notes at the same
-moment will be placed at the same horizontal location.  However, the bar
-lines in the different staves will cause the note spacing to be less
-regular in each of the individual staves than would be normal without
-the different time signatures.
+Although notes that occur at the same moment in each of the different
+staves will be placed at the same horizontal location, bar lines (in
+each staff) may cause inconsistent spacing within each of the different
+time signatures.
+
+Using a @code{midi} block with polymetric notation may cause unexpected
+barcheck warnings.  In this case move the @code{Timing_translator} from
+the @code{Score} context to the @code{Staff} context within the
+@code{midi}block.
+
+@lilypond[verbatim]
+\midi {
+  \context {
+    \Score
+    \remove "Timing_translator"
+  }
+  \context {
+     \Staff
+     \consists "Timing_translator"
+  }
+}
+@end lilypond
 
 
 @node Automatic note splitting

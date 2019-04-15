@@ -3073,9 +3073,9 @@ To create a MIDI output file from a LilyPond input file, insert a
 @end example
 
 @warning{A @code{@bs{}score} block that, as well as the music, contains
-only a @code{@bs{}midi} block (i.e., @emph{without} the @code{@bs{}layout}
-block), will only produce MIDI output files.  No notation will be
-printed.}
+only a @code{@bs{}midi} block (i.e., @emph{without} the
+@code{@bs{}layout} block), will only produce MIDI output files.  No
+notation will be printed.}
 
 The default output file extension (@code{.midi}) can be changed by using
 the @code{-dmidi-extension} option with the @code{lilypond} command:
@@ -3107,6 +3107,24 @@ score that contains more than fifteen staves will result in the extra
 staves sharing (but not overwriting) the same MIDI channel.  This may be
 a problem if the sharing staves have conflicting, channel-based, MIDI
 properties -- such as different MIDI instruments -- set.
+
+Using a @code{midi} block with polymetric notation may cause unexpected
+barcheck warnings.  In this case move the @code{Timing_translator} from
+the @code{Score} context to the @code{Staff} context within the
+@code{midi}block.
+
+@lilypond[verbatim]
+\midi {
+  \context {
+    \Score
+    \remove "Timing_translator"
+  }
+  \context {
+     \Staff
+     \consists "Timing_translator"
+  }
+}
+@end lilypond
 
 
 @node Controlling MIDI dynamics
