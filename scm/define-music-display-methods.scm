@@ -174,6 +174,23 @@ expression."
             shorthand
             (or shorthand articulation))))
 
+(define-display-method MultiMeasureArticulationEvent (event) #t
+  (let* ((articulation  (ly:music-property event 'articulation-type))
+         (shorthand
+          (case (string->symbol articulation)
+            ((marcato) "^")
+            ((stopped) "+")
+            ((tenuto)    "-")
+            ((staccatissimo) "!")
+            ((accent) ">")
+            ((staccato) ".")
+            ((portato) "_")
+            (else #f))))
+    (format #f "~a~:[\\~;~]~a"
+            (event-direction->lily-string event shorthand)
+            shorthand
+            (or shorthand articulation))))
+
 (define-post-event-display-method FingeringEvent (event) #t
   (ly:music-property event 'digit))
 

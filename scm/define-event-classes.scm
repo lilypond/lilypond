@@ -36,6 +36,7 @@
                     tremolo-event bend-after-event fingering-event
                     glissando-event harmonic-event hyphen-event
                     laissez-vibrer-event mark-event multi-measure-text-event
+                    multi-measure-articulation-event
                     note-grouping-event pes-or-flexa-event repeat-tie-event
                     spacing-section-event layout-instruction-event
                     time-signature-event

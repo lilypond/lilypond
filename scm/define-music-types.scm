@@ -313,6 +313,11 @@ Example: @code{\\mark \"A\"}")
         (types . (measure-counter-event span-event event))
         ))
 
+    (MultiMeasureArticulationEvent
+     . ((description . "Articulations on multi-measure rests.")
+        (types . (post-event event multi-measure-articulation-event))
+        ))
+
     (MultiMeasureRestEvent
      . ((description . "Used internally by @code{MultiMeasureRestMusic}
 to signal rests.")
@@ -321,7 +326,8 @@ to signal rests.")
         ))
 
     (MultiMeasureRestMusic
-     . ((description . "Rests that may be compressed into Multi rests.
+     . ((description . "Rests that may be compressed into
+multi-measure rests.
 
 Syntax: @code{R2.*4} for 4 measures in 3/4 time.")
         (iterator-ctor . ,ly:sequential-iterator::constructor)
@@ -330,7 +336,7 @@ Syntax: @code{R2.*4} for 4 measures in 3/4 time.")
         ))
 
     (MultiMeasureTextEvent
-     . ((description . "Texts on multi measure rests.
+     . ((description . "Texts on multi-measure rests.
 
 Syntax: @code{R-\\markup @{ \\roman \"bla\" @}}
 

@@ -192,9 +192,12 @@
   "Extract @code{'direction} and @code{'text} from @var{music}, and transform
 into a @code{MultiMeasureTextEvent}."
 
-  (if (music-is-of-type? music 'script-event)
-      (make-music 'MultiMeasureTextEvent music)
-      music))
+  (cond
+    ((music-is-of-type? music 'text-script-event)
+     (make-music 'MultiMeasureTextEvent music))
+    ((music-is-of-type? music 'articulation-event)
+     (make-music 'MultiMeasureArticulationEvent music))
+    (else music)))
 
 (define-public (multi-measure-rest duration articulations)
   (ly:set-origin! (make-music 'MultiMeasureRestMusic

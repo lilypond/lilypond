@@ -946,6 +946,7 @@ contexts and handles the line spacing, the tablature clef etc. properly."
   \override Rest.stencil = ##f
   \override MultiMeasureRest.stencil = ##f
   \override MultiMeasureRestNumber.stencil = ##f
+  \override MultiMeasureRestScript.stencil = ##f
   \override MultiMeasureRestText.stencil = ##f
   %% ... all kinds of ties/slurs
   \override Tie.stencil = ##f

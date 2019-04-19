@@ -617,6 +617,7 @@ tabFullNotation = {
   \revert TabStaff.Rest.stencil
   \revert TabStaff.MultiMeasureRest.stencil
   \revert TabStaff.MultiMeasureRestNumber.stencil
+  \revert TabStaff.MultiMeasureRestScript.stencil
   \revert TabStaff.MultiMeasureRestText.stencil
   % markups etc.
   \revert TabStaff.Glissando.stencil

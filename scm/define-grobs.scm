@@ -1598,6 +1598,26 @@
                                 side-position-interface
                                 text-interface))))))
 
+    (MultiMeasureRestScript
+     . (
+        (direction . ,UP)
+        (outside-staff-padding . 0)
+        (outside-staff-priority . 40)
+        (parent-alignment-X . ,CENTER)
+        (self-alignment-X . ,CENTER)
+        (staff-padding . 0.25)
+        (stencil . ,ly:script-interface::print)
+        (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
+        (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
+        (Y-extent . ,grob::always-Y-extent-from-stencil)
+        (Y-offset . ,side-position-interface::y-aligned-side)
+        (meta . ((class . Spanner)
+                 (interfaces . (font-interface
+                                multi-measure-interface
+                                outside-staff-interface
+                                script-interface
+                                self-alignment-interface
+                                side-position-interface))))))
 
     (NonMusicalPaperColumn
      . (
