@@ -3933,6 +3933,7 @@ matchscmarg = (r'(?:[a-zA-Z_][-a-zA-Z_0-9]*|"(?:[^\\"]|\\.)*"|[-+]?[0-9.]+|\('
 \markup-command #" -> \markup-command "
 \partcombine* -> \partCombine, \autochange -> \autoChange
 scripts.trilelement -> scripts.trillelement
+\fermataMarkup -> \fermata
 remove \\powerChords, deprecate banter-chord-names and jazz-chord-names
 """)
 def conv (str):
@@ -3975,6 +3976,7 @@ def conv (str):
     str = re.sub (r"\\autochange", r"\\autoChange", str)
     str = re.sub (r'\\powerChords', '', str)
     str = re.sub (r'"scripts\.trilelement"', r'"scripts.trillelement"', str)
+    str = re.sub (r"\\fermataMarkup", r"\\fermata", str)
     if re.search (r"#[banter|jazz]-chord-names", str):
         stderr_write (NOT_SMART % "alternative chord naming functions")
         stderr_write (UPDATE_MANUALLY)

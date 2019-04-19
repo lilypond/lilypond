@@ -207,15 +207,6 @@ easyHeadsOff = {
 }
 
 
-%% fermata markup
-
-fermataMarkup =
-#(make-music 'MultiMeasureTextEvent
-             ;; Set the 'text based on the 'direction
-             'text (make-fermata-markup)
-             'tweaks '((outside-staff-priority . 40)
-                       (outside-staff-padding . 0)))
-
 %% font sizes
 
 teeny      = \set fontSize = #-3
