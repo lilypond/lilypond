@@ -27,7 +27,7 @@ been lowered
 
 }
 
-\version "2.19.12"
+\version "2.21.0"
 manuscriptBreak = { \break }
 
 
@@ -73,8 +73,7 @@ melody =    \relative c'' \repeat volta 2 \new Voice = "singer" {
   e4 g8 d4 a'16[ g] |
   c,4 r8 r4 r8 |
 
-    % TODO : make \fermata work. 
-  R2.^\fermataMarkup 
+  R2.^\fermata
 }
 
 

@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.21.0"
 
 \header {
   texidoc="
@@ -18,8 +18,8 @@ be closer to the staff than other articulations."
   a1^"should be higher"
   \break
   a1^"should be above fermata"
-  R1^\fermataMarkup
+  R1^\fermata
   \break
   a1_"should be below fermata"
-  R1_\fermataMarkup
+  R1_\fermata
 }

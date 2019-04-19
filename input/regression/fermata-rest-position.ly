@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.21.0"
 
 \header { texidoc = "
 Fermatas over multimeasure rests are positioned as over normal rests.
@@ -9,6 +9,6 @@ Fermatas over multimeasure rests are positioned as over normal rests.
     ragged-right = ##t 
 }
 \relative c' {
-    r1^\fermata R1^\fermataMarkup
+    r1^\fermata R1^\fermata
 }
 

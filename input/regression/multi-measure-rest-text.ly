@@ -1,9 +1,9 @@
-\version "2.17.24"
+\version "2.21.0"
 
 \header  {
 
   texidoc = "
-Texts may be added to the multi-measure rests.
+Scripts and texts may be added to the multi-measure rests.
 
 By setting the appropriate @code{spacing-procedure}, we can make
 measures stretch to accommodate wide texts.
@@ -16,8 +16,8 @@ measures stretch to accommodate wide texts.
 \book { \score { {
   \time 3/4
   \set Score.skipBars = ##t
-  R2._\markup { \center-column { \fermata \roman "Ad lib"  }  }
-  R2.^\fermataMarkup
+  R2._\fermata _"Ad lib"
+  R2.^\shortfermata
   R2.^"4"
   R2.*3_\markup { \roman "a1b2c3" }
   R2.*10^"inner"^"top"_"inner"_"bot"
