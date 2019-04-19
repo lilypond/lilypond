@@ -63,6 +63,19 @@ which scares away people.
 
 
 @item
+Fermatas and other articulations can now be added directly to
+multi-measure rests. Therefore the command @code{\fermataMarkup}
+is deprecated.
+@lilypond[verbatim,quote]
+{
+  R1\fermata
+  R->
+  R\coda
+}
+@end lilypond
+
+
+@item
 Swing and irregular rhythmic patterns may now be applied to
 music expressions made of regular durations, which may be
 used to render inequal rhythmic interpretation in MIDI.

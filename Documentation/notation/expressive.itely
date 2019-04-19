@@ -112,7 +112,6 @@ Methods to create new dynamic markings are also discussed.
 @funindex \fermata
 @funindex \longfermata
 @funindex \verylongfermata
-@funindex \fermataMarkup
 @funindex \segno
 @funindex \coda
 @funindex \varcoda
@@ -168,17 +167,15 @@ may be manually placed above or below the staff; see
 Articulations are @code{Script} objects.  Their properties are
 described more fully in @rinternals{Script}.
 
-Articulations can be attached to rests as well as notes but they
-cannot be attached to multi-measure rests.  A special predefined
-command, @code{\fermataMarkup}, is available for attaching a fermata
-to a multi-measure rest (and only a multi-measure rest).  This
-creates a @code{MultiMeasureRestText} object.
+Articulations can be attached to rests and multi-measure rests as
+well as notes.  Attaching an articulation to a multi-measure rest
+creates a @code{MultiMeasureRestScript} object.
 
 @lilypond[verbatim,quote,fragment]
 \override Script.color = #red
-\override MultiMeasureRestText.color = #blue
+\override MultiMeasureRestScript.color = #blue
 a'2\fermata r\fermata
-R1\fermataMarkup
+R1\fermata
 @end lilypond
 
 In addition to articulations, text and markups can be attached to
