@@ -115,7 +115,6 @@ Sono trattati anche i metodi per creare nuove indicazioni dinamiche.
 @funindex \fermata
 @funindex \longfermata
 @funindex \verylongfermata
-@funindex \fermataMarkup
 @funindex \segno
 @funindex \coda
 @funindex \varcoda
@@ -171,6 +170,11 @@ essere posizionati manualmente sopra o sotto il rigo; si veda
 Le articolazioni sono oggetti @code{Script}.  Le loro proprietà sono
 descritte in dettaglio in @rinternals{Script}.
 
+@ignore
+@c TODO: the next section is out of date; \fermataMarkup has been
+@c deprecated, see section `Articulations and ornamentations'
+@c in the English documentation.
+
 Le articolazioni possono essere attaccate alle pause e alle note ma
 non alle pause multiple.  Esiste un comando speciale predefinito,
 @code{\fermataMarkup}, che permette di attaccare un segno di corona
@@ -179,10 +183,11 @@ a una pausa multipla (e soltanto ad essa).  Questo crea un oggetto
 
 @lilypond[verbatim,quote,fragment]
 \override Script.color = #red
-\override MultiMeasureRestText.color = #blue
+\override MultiMeasureRestScript.color = #blue
 a'2\fermata r\fermata
-R1\fermataMarkup
+R1\fermata
 @end lilypond
+@end ignore
 
 Oltre alle articolazioni, si può attaccare alle note anche un testo,
 posto tra virgolette o in un blocco @code{\markup@{@}}.  Si veda @ref{Text scripts}.

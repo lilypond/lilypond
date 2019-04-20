@@ -109,7 +109,6 @@ Ausdrucksbezeichnungen zu erstellen.
 @funindex \fermata
 @funindex \longfermata
 @funindex \verylongfermata
-@funindex \fermataMarkup
 @funindex \segno
 @funindex \coda
 @funindex \varcoda
@@ -169,17 +168,15 @@ definiert.  Artikulationszeichen und Ornamente können manuell
 Artikulationszeichen sind @code{Script}-Objekte.  Ihre Eigenschaften
 werden ausführlich in @rinternals{Script} beschrieben.
 
-Artikulationen können neben Noten auch an Pausen gehängt werden, aber
-sie können nicht an Mehrtaktpausen gehängt werden.  Ein besonderer
-Befehl, @code{fermataMarkup}, wurde definiert, damit man eine Fermate
-an eine Mehrtaktpause anfügen kann (und nur hieran).  Damit wird ein
-@code{MultiMeasureRestText}-Objekt erstellt.
+Artikulationen können neben Noten auch an Pausen und Mehrtaktpausen
+gehängt werden.  Beim Anhängen an eine Mehrtaktpause wird ein
+@code{MultiMeasureRestScript}-Objekt erstellt.
 
 @lilypond[verbatim,quote,fragment]
 \override Script.color = #red
-\override MultiMeasureRestText.color = #blue
+\override MultiMeasureRestScript.color = #blue
 a'2\fermata r\fermata
-R1\fermataMarkup
+R1\fermata
 @end lilypond
 
 Zusätzlich zu den Artikulationszeichen können auch Text und Beschriftung

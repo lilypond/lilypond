@@ -908,19 +908,22 @@ R2.*2 |
 @cindex annotazione su pausa multipla
 @cindex pausa multipla con testo a margine
 
-@funindex \fermataMarkup
+@funindex MultiMeasureRestScript
 @funindex MultiMeasureRestText
 
-Si possono aggiungere delle annotazioni alle pause multiple.  Il comando
-predefinito @code{\fermataMarkup} permette di aggiungere il segno di corona.
+Si possono aggiungere delle annotazioni alle pause multiple.
 
 @lilypond[quote,verbatim]
 \compressMMRests {
   \time 3/4
   R2.*10^\markup { \italic "ad lib." }
-  R2.^\fermataMarkup
 }
 @end lilypond
+
+@ignore
+@c TODO: the next section is out of date; \fermataMarkup has been
+@c deprecated, see section `Full measure rests'
+@c in the English documentation.
 
 @warning{Il testo connesso a una pausa multipla è un oggetto di tipo
 @code{MultiMeasureRestText}, non @code{TextScript}.  Le sovrascritture
@@ -930,11 +933,16 @@ l'esempio seguente:}
 @lilypond[quote,verbatim,fragment]
 % Questo non funziona, perché è specificato il nome dell'oggetto sbagliato
 \override TextScript.padding = #5
+\override Script.color = #blue
 R1^"sbagliato"
+R1\fermata
 % Questo è il nome dell'oggetto corretto da specificare
 \override MultiMeasureRestText.padding = #5
+\override MultiMeasureRestScript.color = #blue
 R1^"corretto"
+R1\fermata
 @end lilypond
+@end ignore
 
 Quando una pausa multipla segue immediatamente un comando @code{\partial}, potrebbero
 non apparire i relativi avvertimenti del controllo battuta.
@@ -942,13 +950,11 @@ non apparire i relativi avvertimenti del controllo battuta.
 
 @funindex \textLengthOn
 @funindex \textLengthOff
-@funindex \fermataMarkup
 @funindex \compressMMRests
 
 @predefined
 @code{\textLengthOn},
 @code{\textLengthOff},
-@code{\fermataMarkup},
 @code{\compressMMRests},
 @endpredefined
 
@@ -986,6 +992,7 @@ Frammenti di codice:
 Guida al funzionamento interno:
 @rinternals{MultiMeasureRest},
 @rinternals{MultiMeasureRestNumber},
+@rinternals{MultiMeasureRestScript},
 @rinternals{MultiMeasureRestText}.
 
 @cindex diteggiature e pause multiple

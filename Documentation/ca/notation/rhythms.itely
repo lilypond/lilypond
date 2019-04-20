@@ -939,20 +939,22 @@ R2.*2 |
 @cindex marcatge sobre silencis multicompàs
 @cindex multicompàs, silenci, amb marcatges
 
-@funindex \fermataMarkup
+@funindex MultiMeasureRestScript
 @funindex MultiMeasureRestText
 
-Es poden afegir elements de marcatge als silencis multicompàs.  Es
-proporciona l'ordre predefinida @code{\fermataMarkup} per afegir
-calderons.
+Es poden afegir elements de marcatge als silencis multicompàs.
 
 @lilypond[quote,verbatim]
 \compressMMRests {
   \time 3/4
   R2.*10^\markup { \italic "ad lib." }
-  R2.^\fermataMarkup
 }
 @end lilypond
+
+@ignore
+@c TODO: the next section is out of date; \fermataMarkup has been
+@c deprecated, see section `Full measure rests'
+@c in the English documentation.
 
 @warning{Els elements de marcatge que s'afegeixen a un silenci
 multicompàs són objectes del tipus @code{MultiMeasureRestText}, no
@@ -963,11 +965,16 @@ l'exemple següent:}
 @lilypond[quote,verbatim,fragment]
 % Això no funciona, atès que s'especifica el nom incorrecte d'objecte
 \override TextScript.padding = #5
+\override Script.color = #blue
 R1^"wrong"
+R1\fermata
 % Aquest és el nom d'objecte correcte que s'ha d'especificar
 \override MultiMeasureRestText.padding = #5
+\override MultiMeasureRestScript.color = #blue
 R1^"right"
+R1\fermata
 @end lilypond
+@end ignore
 
 Quan un silenci multicompàs segueix immediatament a l'establiment
 d'un compàs parcial amb @code{\partial}, és possible que no es
@@ -975,13 +982,11 @@ mostrin els advertiments corresponents de comprovació de compàs.
 
 @funindex \textLengthOn
 @funindex \textLengthOff
-@funindex \fermataMarkup
 @funindex \compressMMRests
 
 @predefined
 @code{\textLengthOn},
 @code{\textLengthOff},
-@code{\fermataMarkup},
 @code{\compressMMRests}.
 @endpredefined
 
@@ -1019,6 +1024,7 @@ Fragments de codi:
 Referència de funcionament intern:
 @rinternals{MultiMeasureRest},
 @rinternals{MultiMeasureRestNumber},
+@rinternals{MultiMeasureRestScript},
 @rinternals{MultiMeasureRestText}.
 
 @cindex digitacions i silencis multicompàs

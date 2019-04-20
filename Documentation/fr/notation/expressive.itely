@@ -115,7 +115,6 @@ et aborderons la manière de générer vos propres signes.
 @funindex \fermata
 @funindex \longfermata
 @funindex \verylongfermata
-@funindex \fermataMarkup
 @funindex \segno
 @funindex \coda
 @funindex \varcoda
@@ -168,6 +167,11 @@ Les articulations sont des objets de type @code{script} ; les
 propriétés de ces objets sont abordées plus en détail au chapitre
 @rinternals{Script}.
 
+@ignore
+@c TODO: the next section is out of date; \fermataMarkup has been
+@c deprecated, see section `Articulations and ornamentations'
+@c in the English documentation.
+
 Une articulation peut se rattacher aussi bien à un silence qu'à une
 note, mais @strong{pas à un silence multimesures}.  Il existe cependant
 un cas particulier : le point d'orgue -- ou point d'arrêt -- attaché à
@@ -177,10 +181,11 @@ effet de la commande @code{\fermataMarkup}, qui créera un objet
 
 @lilypond[verbatim,quote,fragment]
 \override Script.color = #red
-\override MultiMeasureRestText.color = #blue
+\override MultiMeasureRestScript.color = #blue
 a'2\fermata r\fermata
-R1\fermataMarkup
+R1\fermata
 @end lilypond
+@end ignore
 
 En dehors des articulations habituelles, vous pouvez adjoindre du texte
 -- avec ou sans mise en forme -- à n'importe quelle note.  Voir à ce

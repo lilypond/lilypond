@@ -119,7 +119,6 @@
 @funindex \fermata
 @funindex \longfermata
 @funindex \verylongfermata
-@funindex \fermataMarkup
 @funindex \segno
 @funindex \coda
 @funindex \varcoda
@@ -176,6 +175,11 @@ c4->  c-.  c2-_
 アーティキュレーションは @code{Script} オブジェクトです。@c
 これらのプロパティについて @rinternals{Script} に説明があります。
 
+@ignore
+@c TODO: the next section is out of date; \fermataMarkup has been
+@c deprecated, see section `Articulations and ornamentations'
+@c in the English documentation.
+
 アーティキュレーションは音符と同様に休符に付けることもできますが、@c
 複数小節の休符に付けることはできません。@c
 特殊な定義済みコマンド @code{\fermataMarkup} は複数小節の休符に付ける@c
@@ -184,10 +188,11 @@ c4->  c-.  c2-_
 
 @lilypond[verbatim,quote,fragment]
 \override Script.color = #red
-\override MultiMeasureRestText.color = #blue
+\override MultiMeasureRestScript.color = #blue
 a'2\fermata r\fermata
-R1\fermataMarkup
+R1\fermata
 @end lilypond
+@end ignore
 
 アーティキュレーションに加えて、テキストとマークアップを音符に付けることができます。@c
 @ref{Text scripts} を参照してください。

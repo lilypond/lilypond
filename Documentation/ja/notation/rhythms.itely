@@ -876,19 +876,21 @@ R2.*2 |
 @cindex markup on multi-measure rest (複数小節にまたがる休符上のマークアップ)
 @cindex multi-measure rest with markup (マークアップを持つ複数小節にまたがる休符)
 
-@funindex \fermataMarkup
+@funindex MultiMeasureRestScript
 @funindex MultiMeasureRestText
 
-マークアップを複数小節にまたがる休符に付け加えることができます。@c
-フェルマータを付け加えるための定義済みコマンドとして
-@code{\fermataMarkup} が提供されています。
+マークアップを複数小節にまたがる休符に付け加えることができます。
 
 @lilypond[quote,verbatim,relative=2]
 \compressFullBarRests
 \time 3/4
 R2.*10^\markup { \italic "ad lib." }
-R2.^\fermataMarkup
 @end lilypond
+
+@ignore
+@c TODO: the next section is out of date; \fermataMarkup has been
+@c deprecated, see section `Full measure rests'
+@c in the English documentation.
 
 @warning{
 複数小節にまたがる休符に付け加えられるマークアップはタイプ
@@ -903,11 +905,16 @@ R2.^\fermataMarkup
 @lilypond[quote,verbatim,relative=2]
 % この例は誤ったオブジェクト名を指定しているため失敗します
 \override TextScript.padding = #5
+\override Script.color = #blue
 R1^"wrong"
+R1\fermata
 % この例は正しいオブジェクト名が指定されています
 \override MultiMeasureRestText.padding = #5
+\override MultiMeasureRestScript.color = #blue
 R1^"right"
+R1\fermata
 @end lilypond
+@end ignore
 
 複数小節にまたがる休符が @code{\partial} 設定の直後にある場合、@c
 小節チェックの警告が表示されないかもしれません。
@@ -916,14 +923,12 @@ R1^"right"
 @funindex \textLengthOn
 @funindex \textLengthOff
 @funindex textLenthOff
-@funindex \fermataMarkup
 @funindex \compressFullBarRests
 @funindex \expandFullBarRests
 
 @predefined
 @code{\textLengthOn},
 @code{\textLengthOff},
-@code{\fermataMarkup},
 @code{\compressFullBarRests},
 @code{\expandFullBarRests}
 @endpredefined
@@ -964,6 +969,7 @@ R1^"right"
 内部リファレンス:
 @rinternals{MultiMeasureRest},
 @rinternals{MultiMeasureRestNumber},
+@rinternals{MultiMeasureRestScript},
 @rinternals{MultiMeasureRestText}
 
 @cindex fingerings and multi-measure rests (運指記号と複数小節にまたがる休符)

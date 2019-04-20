@@ -117,7 +117,6 @@ tracten els mètodes per crear les marques dinàmiques.
 @funindex \fermata
 @funindex \longfermata
 @funindex \verylongfermata
-@funindex \fermataMarkup
 @funindex \segno
 @funindex \coda
 @funindex \varcoda
@@ -177,6 +176,11 @@ sobre o per sota del pentagrama; vegeu
 Les articulacions són objectes @code{Script}.  Les seves
 propietats es descriuen de forma més completa a @rinternals{Script}.
 
+@ignore
+@c TODO: the next section is out of date; \fermataMarkup has been
+@c deprecated, see section `Articulations and ornamentations'
+@c in the English documentation.
+
 Les articulacions es poden adjuntar als silencis així com a les
 notes, pero no es poden ajuntar a silencis multicompàs. Hi ha
 disponible una ordre predefinida especial, @code{\fermataMarkup},
@@ -185,10 +189,11 @@ silenci multicompàs).  L'ordre crea un objecte @code{MultiMeasureRestText}.
 
 @lilypond[verbatim,quote,fragment]
 \override Script.color = #red
-\override MultiMeasureRestText.color = #blue
+\override MultiMeasureRestScript.color = #blue
 a'2\fermata r\fermata
-R1\fermataMarkup
+R1\fermata
 @end lilypond
+@end ignore
 
 A més d'articulacions, es poden adjuntar textos i elements de
 marcatge de les notes. Vegeu @rusernamed{Text scripts,Scripts de text}.
