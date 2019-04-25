@@ -1773,38 +1773,39 @@ Stanza numbers can be added by setting @code{stanza}, e.g.,
 
 @noindent
 These numbers are put just before the start of the first syllable.
+Two lines of a stanza can also be grouped together, for example
+in case of a repeat with different lyrics:
 
-@c TODO Create and add snippet to show how two lines of a
-@c stanza can be grouped together, along these lines:
-@c (might need improving a bit) -td
-
-@ignore
-leftbrace = \markup { \override #'(font-encoding . fetaBraces) \lookup
-"brace105" }
-
-stanzaOneOne = {
-  \set stanza = \markup { "1. " \leftbrace }
-  \lyricmode { Child, you're mine and I love you.
-    Lend thine ear to what I say.
-
-  }
+@lilypond[quote,ragged-right,verbatim]
+leftbrace = \markup {
+  \override #'(font-encoding . fetaBraces)
+  \lookup "brace80"
 }
 
-stanzaOneThree =  {
-%  \set stanza = \markup { "   "}
-  \lyricmode { Child, I have no great -- er joy
-    Than to have you walk in truth.
-
+stanzaOneOne = \lyricmode {
+  \set stanza = \markup {
+    \column { \vspace #.33 "1. "}
+    \leftbrace
   }
+  Child, you’re mine and I love you.
+  Lend thine ear to what I say.
+}
+
+stanzaOneThree = \lyricmode {
+  Child, I have no great -- er joy
+  Than to have you walk in truth.
 }
 
 \new Voice {
-  \repeat volta 2 { c'8 c' c' c' c' c' c'4
-                    c'8 c' c' c' c' c' c'4   }
-}  \addlyrics { \stanzaOneOne }
-   \addlyrics { \stanzaOneThree }
+  \repeat volta 2 {
+    c'8 c' c' c' c' c' c'4
+    c'8 c' c' c' c' c' c'4
+  }
+}
+\addlyrics { \stanzaOneOne }
+\addlyrics { \stanzaOneThree }
 
-@end ignore
+@end lilypond
 
 @node Adding dynamics marks to stanzas
 @unnumberedsubsubsec Adding dynamics marks to stanzas
@@ -2046,19 +2047,21 @@ text = \lyricmode {
 its fleece was white as snow.
 }
 
-\score{ <<
-  \new Voice = "one" { \melody }
-  \new Lyrics \lyricsto "one" \text
->>
+\score {
+  <<
+    \new Voice = "one" { \melody }
+    \new Lyrics \lyricsto "one" \text
+  >>
   \layout { }
 }
-\markup { \column{
-  \line{ Verse 2. }
-  \line{ All the children laughed and played }
-  \line{ To see a lamb at school. }
+\markup {
+  \column {
+    \line { Verse 2. }
+    \line { All the children laughed and played }
+    \line { To see a lamb at school. }
   }
 }
-\markup{
+\markup {
   \wordwrap-string "
   Verse 3.
 
