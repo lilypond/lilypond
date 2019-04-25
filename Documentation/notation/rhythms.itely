@@ -1179,7 +1179,7 @@ Changed values of default time signature properties can be restored
 to the original values:
 
 @lilypond[quote,verbatim]
-\score{
+\score {
   \relative {
     \repeat unfold 8 { c'8 } |
     \overrideTimeSignatureSettings
@@ -3361,7 +3361,7 @@ in this manner.  However, it is possible to apply a @code{\markup} to the
 string.
 
 @example
-\mark \markup@{ \box A1 @}
+\mark \markup @{ \box A1 @}
 @end example
 
 @cindex segno

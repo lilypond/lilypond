@@ -858,7 +858,7 @@ entry of bass figures, and there is a context named
 @code{BassFigure} objects.  Figured bass can also be displayed
 in @code{Staff} contexts.
 
-@code{\figures@{ @dots{} @}} is a shortcut notation for
+@code{\figures @{ @dots{} @}} is a shortcut notation for
 @code{\new FiguredBass \figuremode @{ @dots{} @}}.
 
 

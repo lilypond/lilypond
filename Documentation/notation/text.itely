@@ -1376,16 +1376,13 @@ Such diagrams are documented in @ref{Instrument Specific Markup}.
 @cindex score inside markup
 @cindex markup, score inside
 
-A whole score can even be nested inside a markup object.  In such a
-case, the nested @code{\score} block must contain a @code{\layout}
-block, as demonstrated here:
+A whole score can even be nested inside a markup object:
 
 @lilypond[quote,verbatim]
 \relative {
   c'4 d^\markup {
     \score {
       \relative { c'4 d e f }
-      \layout { }
     }
   }
   e f |

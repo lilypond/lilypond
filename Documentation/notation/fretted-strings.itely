@@ -1314,7 +1314,7 @@ a @code{FretBoards} context and giving both contexts the same music.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
-mychords = \chordmode{
+mychords = \chordmode {
   c1 f g
 }
 
@@ -1337,7 +1337,7 @@ transposed chord is stored in the fret diagram table.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
-mychords = \chordmode{
+mychords = \chordmode {
   c1 f g
 }
 
@@ -1370,7 +1370,7 @@ fret-diagram using the automatic fret diagram functionality described in
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
-mychords = \chordmode{
+mychords = \chordmode {
   c1 c:maj9
 }
 
@@ -1479,7 +1479,7 @@ marking lists.
                         #guitar-tuning
                         #(offset-fret 2 (chord-shape 'powerf guitar-tuning))
 
-mychords = \chordmode{
+mychords = \chordmode {
   f1 f'' g g''
 }
 
