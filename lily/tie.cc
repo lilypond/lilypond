@@ -254,11 +254,15 @@ Tie::print (SCM smob)
   Real line_thick = staff_thick * robust_scm2double (me->get_property ("line-thickness"), 1);
 
   Bezier b;
-  int i = 0;
-  for (SCM s = cp; scm_is_pair (s); s = scm_cdr (s))
+  for (int i = 0; i < Bezier::CONTROL_COUNT; i++)
     {
-      b.control_[i] = ly_scm2offset (scm_car (s));
-      i++;
+      if (scm_is_pair (cp))
+        {
+          b.control_[i] = ly_scm2offset (scm_car (cp));
+          cp = scm_cdr (cp);
+        }
+      else
+        b.control_[i] = Offset (0.0, 0.0);
     }
 
   Stencil a;

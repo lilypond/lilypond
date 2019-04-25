@@ -342,11 +342,15 @@ Slur_configuration::score_extra_encompass (Slur_score_state const &state)
         SCM cp = t->get_property ("control-points");
 
         Bezier b;
-        int j = 0;
-        for (SCM s = cp; scm_is_pair (s); s = scm_cdr (s))
+        for (int j = 0; j < b.CONTROL_COUNT; ++j)
           {
-            b.control_[j] = ly_scm2offset (scm_car (s));
-            j++;
+            if (scm_is_pair (cp))
+              {
+                b.control_[j] = ly_scm2offset (scm_car (cp));
+                cp = scm_cdr (cp);
+              }
+            else
+              b.control_[j] = Offset (0.0, 0.0);
           }
         forbidden_attachments.push_back (Offset (b.control_[0]) + Offset (rp, 0));
         forbidden_attachments.push_back (Offset (b.control_[3]) + Offset (rp, 0));
