@@ -2339,7 +2339,10 @@ f^\haydnturn e,_\haydnturn b'\haydnturn
 @cindex fermata
 @cindex shortfermata
 @cindex longfermata
+@cindex veryshortfermata
 @cindex verylongfermata
+@cindex henzeshortfermata
+@cindex henzelongfermata
 
 @node Fermata scripts
 @unnumberedsubsec Fermata scripts
@@ -2347,6 +2350,11 @@ f^\haydnturn e,_\haydnturn b'\haydnturn
 @multitable @columnfractions .22 .25 .25 .25
 
 @item
+@code{\veryshortfermata}
+@lilypond[notime,relative=2]
+f^\veryshortfermata e,_\veryshortfermata b'\veryshortfermata
+@end lilypond
+@tab
 @code{\shortfermata}
 @lilypond[notime,relative=2]
 f^\shortfermata e,_\shortfermata b'\shortfermata
@@ -2361,10 +2369,21 @@ f^\fermata e,_\fermata b'\fermata
 @lilypond[notime,relative=2]
 f^\longfermata e,_\longfermata b'\longfermata
 @end lilypond
-@tab
+
+@item
 @code{\verylongfermata}
 @lilypond[notime,relative=2]
 f^\verylongfermata e,_\verylongfermata b'\verylongfermata
+@end lilypond
+@tab
+@code{\henzeshortfermata}
+@lilypond[notime,relative=2]
+f^\henzeshortfermata e,_\henzeshortfermata b'\henzeshortfermata
+@end lilypond
+@tab
+@code{\henzelongfermata}
+@lilypond[notime,relative=2]
+f^\henzelongfermata e,_\henzelongfermata b'\henzelongfermata
 @end lilypond
 
 @end multitable
