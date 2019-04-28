@@ -15,6 +15,8 @@ fermata = #(make-articulation "fermata")
 flageolet = #(make-articulation "flageolet")
 halfopen = #(make-articulation "halfopen")
 haydnturn = #(make-articulation "haydnturn")
+henzelongfermata = #(make-articulation "henzelongfermata")
+henzeshortfermata = #(make-articulation "henzeshortfermata")
 lheel = #(make-articulation "lheel")
 lineprall = #(make-articulation "lineprall")
 longfermata = #(make-articulation "longfermata")
@@ -63,6 +65,7 @@ upmordent = #(make-articulation "upmordent")
 upprall = #(make-articulation "upprall")
 varcoda = #(make-articulation "varcoda")
 verylongfermata = #(make-articulation "verylongfermata")
+veryshortfermata = #(make-articulation "veryshortfermata")
 
 % code char abbreviations
 dashHat = \marcato

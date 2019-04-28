@@ -63,10 +63,13 @@ This chart shows all articulations, or scripts, that the feta font contains.
       "rtoe"))
 
   (define fermatas
-    '("shortfermata"
+    '("veryshortfermata"
+      "shortfermata"
       "fermata"
       "longfermata"
-      "verylongfermata"))
+      "verylongfermata"
+      "henzeshortfermata"
+      "henzelongfermata"))
 
   (define repeats
     '("segno"

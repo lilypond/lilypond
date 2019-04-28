@@ -124,6 +124,20 @@
         (avoid-slur . inside)
         (direction . ,UP)))
 
+    ("henzelongfermata"
+     . (
+        (script-stencil . (feta . ("dhenzelongfermata" . "uhenzelongfermata")))
+        (padding . 0.20)
+        (avoid-slur . around)
+        (direction . ,UP)))
+
+    ("henzeshortfermata"
+     . (
+        (script-stencil . (feta . ("dhenzeshortfermata" . "uhenzeshortfermata")))
+        (padding . 0.20)
+        (avoid-slur . around)
+        (direction . ,UP)))
+
     ("ictus"
      . (
         (script-stencil . (feta . ("ictus" . "ictus")))
@@ -370,6 +384,12 @@
     ("verylongfermata"
      . (
         (script-stencil . (feta . ("dverylongfermata" . "uverylongfermata")))
+        (padding . 0.20)
+        (avoid-slur . around)
+        (direction . ,UP)))
+    ("veryshortfermata"
+     . (
+        (script-stencil . (feta . ("dveryshortfermata" . "uveryshortfermata")))
         (padding . 0.20)
         (avoid-slur . around)
         (direction . ,UP)))

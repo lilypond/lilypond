@@ -63,6 +63,17 @@ which scares away people.
 
 
 @item
+A very short fermata and Henze variants of long and short fermatas
+have been added.
+@lilypond[verbatim,quote]
+{
+  c'1\veryshortfermata
+  c'2\henzeshortfermata c'\henzelongfermata
+}
+@end lilypond
+
+
+@item
 Fermatas and other articulations can now be added directly to
 multi-measure rests. Therefore the command @code{\fermataMarkup}
 is deprecated.
@@ -92,18 +103,6 @@ used to render inequal rhythmic interpretation in MIDI.
     instrumentName = "triplets"
   } \tuplet 3/2 4 \repeat unfold 12 c'8
 >>
-@end lilypond
-
-
-@item
-A very short fermata and Henze variants of long and short fermatas
-have been added.
-@lilypond[quote]
-\markup {
-  \musicglyph "scripts.uveryshortfermata"
-  \musicglyph "scripts.uhenzelongfermata"
-  \musicglyph "scripts.uhenzeshortfermata"
-}
 @end lilypond
 
 @item
