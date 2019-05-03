@@ -2216,7 +2216,7 @@ Per inserire le strofe: @ref{Strofe}.
 
 @item
 Le canzoni hanno spesso i nomi degli accordi che appaiono sopra i
-righi.  Questo argomento è trattato in @ref{Displaying chords}.
+righi.  Questo argomento è trattato in @ref{Visualizzazione accordi}.
 
 @item
 Per stampare i diagrammi degli accordi per l'accompagnamento per chitarra o
@@ -2230,7 +2230,7 @@ Manuale di apprendimento:
 
 Guida alla notazione:
 @ref{Notazione comune per la musica vocale},
-@ref{Displaying chords},
+@ref{Visualizzazione accordi},
 @ref{Aspetto del rigo},
 @ref{Tastiera e altri strumenti multirigo},
 @ref{Posizionamento verticale del testo},
@@ -2246,7 +2246,7 @@ Frammenti:
 
 I canzonieri (in inglese @emph{lead sheet}) si ottengono combinando le
 parti vocali con la @q{modalità per accordi}; la sintassi è
-spiegata in @ref{Chord notation}.
+spiegata in @ref{Notazione per accordi}.
 
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
@@ -2254,7 +2254,7 @@ spiegata in @ref{Chord notation}.
 
 @seealso
 Guida alla notazione:
-@ref{Chord notation}.
+@ref{Notazione per accordi}.
 
 
 @node Musica corale

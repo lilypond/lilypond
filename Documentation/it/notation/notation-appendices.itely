@@ -16,7 +16,7 @@
 
 @menu
 * Grafico dei nomi degli accordi::
-* Modificatori degli accordi::
+* Modificatori degli accordi comuni::
 * Accordature predefinite::
 * Diagrammi degli accordi predefiniti::
 * Formati carta predefiniti::
@@ -52,8 +52,8 @@ nomi degli accordi, insieme alle altezze che li compongono.
 @c necessario tradurlo. - fb
 @lilypondfile[quote,line-width=15\cm]{chord-names-jazz.ly}
 
-@node Modificatori degli accordi
-@appendixsec Modificatori degli accordi
+@node Modificatori degli accordi comuni
+@appendixsec Modificatori degli accordi comuni
 @translationof Common chord modifiers
 
 La tabella seguente mostra i modificatori degli accordi che possono essere

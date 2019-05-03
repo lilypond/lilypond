@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocit = "
+La formattazione dell'accordo di settima maggiore può essere regolata
+con la proprietà @code{majorSevenSymbol}.
+
+"
+  doctitleit = "Nome dell'accordo di settima maggiore"

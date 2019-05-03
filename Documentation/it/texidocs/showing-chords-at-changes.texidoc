@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocit = "
+È possibile mostrare gli accordi solo all'inizio delle linee e quando
+l'accordo cambia.
+
+"
+  doctitleit = "Mostrare gli accordi nei cambi"
