@@ -130,7 +130,7 @@ dell'accordo sono relative alla nota che le precede @emph{all'interno dell'accor
 }
 @end lilypond
 
-Maggiori informazioni sugli accordi si trovano in @ref{Chord notation}.
+Maggiori informazioni sugli accordi si trovano in @ref{Notazione per accordi}.
 
 @seealso
 Glossario Musicale:
@@ -140,7 +140,7 @@ Manuale d'apprendimento:
 @rlearning{Combinare le note negli accordi}.
 
 Guida alla notazione:
-@ref{Chord notation},
+@ref{Notazione per accordi},
 @ref{Articolazioni e abbellimenti},
 @ref{Ottava relativa},
 @ref{Più voci}.
@@ -262,7 +262,7 @@ stati già elaborati.
 
 @seealso
 Guida alla notazione:
-@ref{Chord notation},
+@ref{Notazione per accordi},
 @ref{Articolazioni e abbellimenti}.
 
 File installati:

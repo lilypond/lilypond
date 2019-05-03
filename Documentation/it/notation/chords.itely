@@ -1,0 +1,1154 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
+@ignore
+    Translation of GIT committish: bd33a8aea7c07181b9b346ac88d4fbf91ed99c78
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.19.28"
+
+@c Translators: Federico Bruni
+@c Translation checkers:
+
+@node Notazione per accordi
+@section Notazione per accordi
+@translationof Chord notation
+
+@lilypondfile[quote]{chords-headword.ly}
+
+Gli accordi possono essere inseriti come normali note opppure nella modalità
+per accordi, e visualizzati usando varie convenzioni della tradizione europea.
+Possono essere visualizzati anche i nomi degli accordi e la notazione del
+basso continuo.
+
+@menu
+* Modalità accordo::
+* Visualizzazione accordi::
+* Basso continuo::
+@end menu
+
+
+@node Modalità accordo
+@subsection Modalità accordo
+@translationof Chord mode
+
+@cindex accordo
+
+La modalità accordo serve a inserire accordi usando un indicatore della
+struttura dell'accordo invece delle altezze dell'accordo.
+
+@menu
+* Panoramica sulla modalità accordo::
+* Accordi comuni::
+* Accordi estesi e alterati::
+@end menu
+
+@node Panoramica sulla modalità accordo
+@unnumberedsubsubsec Panoramica sulla modalità accordo
+@translationof Chord mode overview
+
+@cindex nomi degli accordi
+@cindex accordi, nomi
+@cindex modalità accordo
+@cindex accordi, modalità per
+
+Gli accordi possono essere inseriti come musica simultanea, come è
+spiegato in @ref{Note in un accordo}.
+
+Possono essere inseriti anche in @qq{modalità accordo}, ovvero una modalità
+di input che utilizza le strutture degli accordi nella tradizione musicale
+europea invece di altezze specifiche.  Ciò è più comodo per chi è abituato
+a utilizzare i nomi degli accordi per descriverli.  Maggiori informazioni
+sulle diverse modalità di input si trovano in @ref{Modalità di inserimento}.
+
+@lilypond[verbatim,quote,ragged-right]
+\chordmode { c1 g a g c }
+@end lilypond
+
+Gli accordi inseriti in modalità accordo sono elementi musicali e possono
+quindi essere trasposti proprio come gli accordi inseriti come musica
+simultanea.  @code{\chordmode} funziona in modalità  assoluta, perché
+@code{\relative} non ha effetto sui blocchi @code{\chordmode}.  Tuttavia
+in modalità accordo le altezze assolute sono un'ottava più alta che in
+modalità nota.
+
+Nella musica sequenziale è possibile mischiare la modalità accordo con la
+modalità nota:
+
+@lilypond[verbatim,quote,ragged-right]
+\relative {
+  <c' e g>2 <g b d>
+  \chordmode { c2 f }
+  <c e g>2 <g' b d>
+  \chordmode { f2 g }
+}
+@end lilypond
+
+@seealso
+Glossario musicale:
+@rglosnamed{chord,accordo}.
+
+Guida alla notazione:
+@ref{Note in un accordo},
+@ref{Modalità di inserimento}.
+
+Frammenti:
+@rlsr{Chords}.
+
+@knownissues
+Le scorciatoie predefinite per le articolazioni e gli ornamenti non possono
+essere usate sulle note in modalità accordo, vedi @ref{Articolazioni e abbellimenti}.
+
+
+@node Accordi comuni
+@unnumberedsubsubsec Accordi comuni
+@translationof Common chords
+
+@cindex triadi
+@cindex accordi di settima
+@cindex fondamentale dell'accordo
+@cindex accordo, fondamentale
+@cindex modificatori, negli accordi.
+@cindex accordo, qualità
+
+Le triadi maggiori si inseriscono scrivendo la nota fondamentale seguita
+da una durata opzionale:
+
+@lilypond[verbatim,quote,ragged-right]
+\chordmode { c2 f4 g }
+@end lilypond
+
+Le triadi minori, aumentate e diminuite si inseriscono aggiungendo
+@code{:} e un modificatore della qualità subito dopo la durata:
+
+@lilypond[verbatim,quote,ragged-right]
+\chordmode { c2:m f4:aug g:dim }
+@end lilypond
+
+Si possono creare accordi di settima:
+
+@lilypond[quote,ragged-right,verbatim]
+\chordmode { c1:7 c:m7 c:maj7 c:dim7 c:aug7 }
+@end lilypond
+
+@funindex aug
+@funindex dim
+@funindex maj
+@funindex m
+
+La tabella seguente mostra le azioni dei modificatori della qualità su
+triadi e accordi di settima.  Il settimo grado predefinito aggiunto agli
+accordi è una settima minore, che rende la settima dominante l'accordo di
+settima fondamentale.  Tutte le alterazioni sono relative alla settima
+dominante.  Una tabella più completa dell'uso dei modificatori si trova
+in @ref{Modificatori degli accordi comuni}.
+
+@c @table @code
+@multitable @columnfractions .2 .4 .3
+
+@item
+@b{Modificatore}
+@tab
+@b{Azione}
+@tab
+@b{Esempio}
+
+@item
+Nessuno
+@tab
+L'azione predefinita; produce una triade maggiore.
+@tab
+@lilypond[line-width=4\cm, noragged-right]
+\chordmode {
+  \omit Staff.TimeSignature
+  c1
+}
+@end lilypond
+
+@item
+m, m7
+@tab
+L'accordo minore.  Questo modificatore abbassa il 3° grado.
+@tab
+@lilypond[line-width=4\cm, noragged-right]
+\chordmode {
+  \omit Staff.TimeSignature
+  c1:m c:m7
+}
+@end lilypond
+
+
+@item
+dim, dim7
+@tab
+L'accordo diminuito.  Questo modificatore abbassa il 3°, il 5° e (se
+presente) il 7° grado.
+@tab
+@lilypond[line-width=4\cm, noragged-right]
+\chordmode {
+  \omit Staff.TimeSignature
+  c1:dim c:dim7
+}
+@end lilypond
+
+@item
+aug
+@tab
+L'accordo aumentato.  Questo modificatore alza il 5° grado.
+@tab
+@lilypond[line-width=4\cm, noragged-right]
+\chordmode {
+  \omit Staff.TimeSignature
+  c1:aug
+}
+@end lilypond
+
+@item
+maj, maj7
+@tab
+L'accordo di settima maggiore.  Questo modificatore aggiunge un 7° grado alzato.
+Il @code{7} che segue @code{maj} è opzionale.  Non usare questo modificatore
+per creare una triade maggiore.
+@tab
+@lilypond[line-width=4\cm, noragged-right]
+\chordmode {
+  \omit Staff.TimeSignature
+  c1:maj c:maj7
+}
+@end lilypond
+
+@end multitable
+
+@seealso
+Guida alla notazione:
+@ref{Modificatori degli accordi comuni},
+@ref{Accordi estesi e alterati}.
+
+Frammenti:
+@rlsr{Chords}.
+
+@knownissues
+Si può usare un solo modificatore della qualità per accordo, solitamente
+sul grado più alto presente nell'accordo.  Gli accordi con più di un
+modificatore verranno analizzati senza produrre errori o avvisi, ma producono
+risultati imprevedibili.  Gli accordi che non si possono ottenere
+con un singolo modificatore devono essere alterati per altezze individuali,
+come è spiegato in @ref{Accordi estesi e alterati}.
+
+
+@node Accordi estesi e alterati
+@unnumberedsubsubsec Accordi estesi e alterati
+@translationof Extended and altered chords
+
+@cindex accordi estesi
+@cindex accordi alterati
+
+In modalità accordo è possibile creare strutture di accordi di arbitraria
+complessità.  Il modificatore permette di estendere un accordo, aggiungere
+o rimuovere i gradi di un accordo, alzare o abbassare i gradi, aggiungere
+una nota di basso o creare un'inversione.
+Il primo numero che segue il @code{:} identifica l'estensione dell'accordo.
+L'accordo viene costruito aggiungendo in modo sequenziale delle terze alla
+nota fondamentale finché non si raggiunge il numero specificato.  Il settimo
+grado aggiunto come parte di un accordo esteso sarà la settima minore, non
+la settima maggiore.  Se l'estensione non è una terza (per esempio, 6),
+vengono aggiunte le terze fino alla terza più alta entro l'estensione, e
+poi viene aggiunto il grado dell'estensione.  Il valore più grande possibile
+è 13.  Qualsiasi valore superiore viene interpretato come 13.
+
+@lilypond[quote,ragged-right,verbatim]
+\chordmode {
+  c1:2 c:3 c:4 c:5
+  c1:6 c:7 c:8 c:9
+  c1:10 c:11 c:12 c:13
+  c1:14
+}
+@end lilypond
+
+@noindent
+C'è un'eccezione speciale: @code{c:5} produce un @qq{power chord} che
+consiste solo della nota fondamentale e della quinta.
+
+Dato che un 11° grado non alterato non suona bene se unito a un 13° grado
+non alterato, l'11° grado viene rimosso da un accordo @code{:13}, a
+meno che non venga aggiunto esplicitamente.
+
+@lilypond[quote,ragged-right,verbatim]
+\chordmode {
+  c1:13 c:13.11 c:m13
+}
+@end lilypond
+
+@cindex aggiunte, negli accordi
+
+Si possono aggiungere gradi individuali a un accordo.  Le aggiunte seguono
+l'estensione e sono precedute da un punto (@code{.}).  Il settimo grado
+aggiunto a un accordo è una settima minore invece di una settima maggiore.
+
+@lilypond[quote,verbatim]
+\chordmode {
+  c1:3.5.6 c:3.7.8 c:3.6.13
+}
+@end lilypond
+
+I gradi aggiunti possono essere alti quanto si vuole.
+
+@lilypond[quote,verbatim]
+\chordmode {
+  c4:3.5.15 c:3.5.20 c:3.5.25 c:3.5.30
+}
+@end lilypond
+
+@cindex gradi dell'accordo, alterazione
+
+I gradi aggiunti dell'accordo possono essere alterati aggiungendo un suffisso
+@code{-} o @code{+} al numero.  Per alterare un grado aggiunto automaticamente
+in quanto parte della struttura base dell'accordo, aggiungerlo come grado
+alterato.
+
+@lilypond[quote,verbatim]
+\chordmode {
+  c1:7+ c:5+.3- c:3-.5-.7-
+}
+@end lilypond
+
+@cindex rimozioni, negli accordi
+
+@funindex ^
+
+Dopo i gradi da aggiungere, una serie di gradi da togliere viene introdotta
+dal modificatore con prefisso @code{^}.  Per togliere più di un grado, i
+gradi da rimuovere vengono separati dal @code{.} subito dopo il @code{^}
+iniziale.
+
+@lilypond[quote,verbatim]
+\chordmode {
+  c1^3 c:7^5 c:9^3 c:9^3.5 c:13.11^3.7
+}
+@end lilypond
+
+@funindex sus
+
+Per creare accordi sospesi si aggiunge alla stringa il modificatore @code{sus},
+che toglie il terzo grado dall'accordo.  Aggiungere @code{2} o @code{4} per
+aggiungere il 2°  o il 4° grado dell'accordo.  Se @code{sus} è seguito dal 2° o
+dal 4° grado, è equivalente a @code{^3}, altrimenti a @code{sus4}, ovvero
+@code{5.4}.
+
+@lilypond[quote,ragged-right,verbatim]
+\chordmode {
+  c1:sus c:sus2 c:sus4 c:5.4
+}
+@end lilypond
+
+@funindex /
+@cindex inversioni degli accordi
+@cindex accordi, inversioni
+@cindex nota di basso, per accordi
+
+Le inversioni (ovvero l'inserimento di un'altezza diversa dalla fondamentale
+come nota più bassa dell'accordo) e le note di basso possono essere specificate
+aggiungendo @code{/}@var{altezza} all'accordo.
+
+@lilypond[quote,ragged-right,verbatim]
+\chordmode {
+  c'1 c'/e c'/f
+}
+@end lilypond
+
+@funindex /+
+
+Una nota di basso che fa parte dell'accordo può essere aggiunta, invece di
+essere spostata come in un'inversione, usando @code{/+}@var{altezza}.
+
+@lilypond[quote,ragged-right,verbatim]
+\chordmode {
+  c'1 c'/g c'/+e
+}
+@end lilypond
+
+I modificatori degli accordi che possono essere usati per produrre i vari
+accordi standard sono elencati in @ref{Modificatori degli accordi comuni}.
+
+@seealso
+Guida alla notazione:
+@ref{Modificatori degli accordi comuni}.
+
+Frammenti:
+@rlsr{Chords}.
+
+@knownissues
+Ogni grado può essere presente in un accordo una volta sola.  L'esempio
+seguente produce un accordo aumentato, perché @code{5+} viene interpretato
+per ultimo.
+
+@lilypond[quote,ragged-right,verbatim]
+\chordmode { c1:3.5.5-.5+ }
+@end lilypond
+
+
+@node Visualizzazione accordi
+@subsection Visualizzazione accordi
+@translationof Displaying chords
+
+Gli accordi possono essere visualizzati per nome, oltre alla visualizzazione
+standard come note di un rigo.
+
+@menu
+* Stampa dei nomi degli accordi::
+* Personalizzazione dei nomi degli accordi::
+@end menu
+
+@node Stampa dei nomi degli accordi
+@unnumberedsubsubsec Stampa dei nomi degli accordi
+@translationof Printing chord names
+
+@cindex stampa dei nomi degli accordi
+@cindex nomi degli accordi
+@cindex accordi, nomi
+
+Per visualizzare i nomi degli accordi si usa il contesto @code{ChordNames}:
+
+@lilypond[verbatim,quote,ragged-right]
+\new ChordNames {
+  \chordmode {
+    c2 f4. g8
+  }
+}
+@end lilypond
+
+Gli accordi possono essere inseriti come note simultanee o tramite la
+modalità accordo.  Il nome dell'accordo visualizzato sarà lo stesso,
+indipendentemente dalla modalità di inserimento, a meno che non ci
+siano inversioni o note di basso:
+
+@lilypond[verbatim,quote]
+chordmusic = \relative {
+  <c' e g>2 <f bes c>
+  <f c' e g>1
+  \chordmode {
+    c2 f:sus4 c1:/f
+  }
+}
+<<
+  \new ChordNames {
+    \chordmusic
+  }
+  {
+    \chordmusic
+  }
+>>
+@end lilypond
+
+@cindex nessun accordo, simbolo
+@cindex N.C. (No Chord), simbolo
+@cindex indicazione di No Chord in ChordNames
+
+Le pause usate nel contesto @code{ChordNames} faranno apparire il testo del
+simbolo @code{noChordSymbol} (nessun accordo).
+
+@lilypond[verbatim,quote]
+<<
+  \new ChordNames \chordmode {
+    c1
+    r1
+    g1
+    c1
+  }
+  \chordmode {
+    c1
+    r1
+    g1
+    c1
+  }
+>>
+@end lilypond
+
+@funindex{\chords}
+
+@code{\chords @{ @dots{} @}} è una scorciatoia per
+@code{\new ChordNames \chordmode @{ @dots{} @}}.
+
+@lilypond[verbatim,quote,ragged-right]
+\chords {
+  c2 f4.:m g8:maj7
+}
+@end lilypond
+
+@lilypond[verbatim,quote,ragged-right]
+\new ChordNames {
+  \chordmode {
+    c2 f4.:m g8:maj7
+  }
+}
+@end lilypond
+
+@snippets
+
+@c Keep index entries with following snippet
+@cindex accordi, soppressione delle ripetizioni
+@funindex chordChanges
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{showing-chords-at-changes.ly}
+
+@c @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+@c {adding-bar-lines-to-chordnames-context.ly}
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{simple-lead-sheet.ly}
+
+@seealso
+Glossario musicale:
+@rglos{chord}.
+
+Guida alla notazione:
+@ref{Scrivere la musica in parallelo}.
+
+Frammenti:
+@rlsr{Chords}.
+
+Guida al funzionamento interno:
+@rinternals{ChordNames},
+@rinternals{ChordName},
+@rinternals{Chord_name_engraver},
+@rinternals{Volta_engraver},
+@rinternals{Bar_engraver}.
+
+@knownissues
+Gli accordi che contengono inversioni o note di basso alterate non avranno
+un nome corretto se inseriti usando la musica simultanea.
+
+
+@node Personalizzazione dei nomi degli accordi
+@unnumberedsubsubsec Personalizzazione dei nomi degli accordi
+@translationof Customizing chord names
+
+@cindex personalizzazione dei nomi degli accordi
+@cindex accordi, nomi, personalizzazione
+
+Non esiste un unico sistema per il nome degli accordi.  Tradizioni musicali
+diverse usano nomi diversi per lo stesso gruppo di accordi.  Esistono anche
+simboli diversi per un certo nome di accordo.  I nomi e i simboli degli
+accordi sono personalizzabili.
+
+@cindex accordi jazz
+@cindex jazz, accordi
+
+Il formato fondamentale dei nomi degli accordi è un sistema per la musica
+Jazz, proposto da Klaus Ignatzek (vedi @ressay{Bibliografia}).  Il sistema
+per i nomi degli accordi può essere modificato come descritto in seguito.
+Un sistema alternativo di accordi jazz è stato sviluppato usando queste
+modifiche.  La notazione Ignatzek e quella alternativa Jazz sono illustrate
+nel @ref{Grafico dei nomi degli accordi}.
+
+@c TODO --  Change this so we don't have a non-verbatim example.
+@c  Make short example in docs, then move longer example to
+@c  appendix, where the length of the snippet won't matter.
+
+Oltre ai diversi sistemi di nomi, si usano nomi di note diversi per la
+fondamentale a seconda della lingua.  I comandi predefiniti
+@code{\germanChords}, @code{\semiGermanChords},
+@code{\italianChords} e @code{\frenchChords} impostano queste variabili.
+L'effetto è illustrato qui:
+
+@lilypondfile[ragged-right]{chord-names-languages.ly}
+
+
+@funindex chordNameLowercaseMinor
+
+I canzonieri tedeschi talvolta indicano gli accordi minori con lettere
+minuscole, senza alcun suffisso @var{m}.  Ciò si può ottenere impostando
+la proprietà @code{chordNameLowercaseMinor}:
+
+@lilypond[verbatim,quote,ragged-right]
+\chords {
+  \set chordNameLowercaseMinor = ##t
+  c2 d:m e:m f
+}
+@end lilypond
+
+Se nessuna delle impostazioni esistenti dà il risultato desiderato, il nome
+accordo da visualizzare può essere aggiustato tramite le seguenti proprietà.
+
+@table @code
+
+@funindex chordRootNamer
+
+@item chordRootNamer
+
+Il nome dell'accordo appare solitamente come una lettera per la nota
+fondamentale seguita da un'alterazione opzionale.  La trasformazione
+dell'altezza in lettera è eseguita da questa funzione.  Si possono creare
+nomi speciali di note (per esempio, il tedesco @qq{H} per l'accordo di Si)
+salvando una nuova funzione in questa proprietà.
+
+@funindex majorSevenSymbol
+
+@item majorSevenSymbol
+
+Questa proprietà contiene l'oggetto markup usato per seguire l'output di
+@code{chordRootNamer} e identificare un accordo di settima maggiore.  Le
+opzioni predefinite sono @code{whiteTriangleMarkup} e
+@code{blackTriangleMarkup}.
+
+@funindex additionalPitchPrefix
+
+@item additionalPitchPrefix
+
+Se il nome dell'accordo contiene ulteriori altezze, si può aggiungere un
+prefisso testuale.  Il comportamento predefinito è senza prefisso, per
+evitare troppo ingombro, ma per numeri piccoli di altezze aggiuntive
+il risultato può essere visualmente efficace.
+
+@lilypond[verbatim,quote,ragged-right]
+\new ChordNames {
+  <c e g d'>    % add9
+  \set additionalPitchPrefix = #"add"
+  <c e g d'>    % add9
+}
+@end lilypond
+
+@funindex chordNoteNamer
+
+@item chordNoteNamer
+
+Se il nome dell'accordo contiene altre altezze oltre all'altezza fondamentale
+(per esempio, una nota di basso), questa funzione viene usata per mostrare
+l'altezza ulteriore.  Per impostazione predefinita l'altezza viene stampata
+con la funzione @code{chordRootNamer}.  La proprietà @code{chordNoteNamer}
+può essere impostata su una funzione specializzata per cambiare tale
+comportamento.  Per esempio, la nota di basso può essere stampata in
+minuscolo.
+
+@funindex chordNameSeparator
+
+@item chordNameSeparator
+
+Parti diverse del nome di un accordo sono separate da un piccolo spazio
+orizzontale.  Impostando @code{chordNameSeparator}, si può usare qualsiasi
+testo come separatore.  Ciò non ha effetti sul separatore tra un accordo e
+la sua nota di basso; per personalizzarlo si usa una proprietà specifica,
+@code{slashChordSeparator}.
+
+@lilypond[verbatim,quote,ragged-right]
+\chords {
+  c4:7.9- c:7.9-/g
+  \set chordNameSeparator = \markup { "/" }
+  \break
+  c4:7.9- c:7.9-/g
+}
+@end lilypond
+
+@funindex slashChordSeparator
+
+@item slashChordSeparator
+
+Gli accordi possono essere suonati utilizzando come nota di basso una nota
+diversa da quella fondamentale normalmente usata.  In questo caso si parla
+di «inversioni» o «slash chord», perché il modo predefinito di rappresentarli
+è con una barra obliqua (forward slash) tra l'accordo principale e la nota
+di basso.  Dunque il valore predefinito di @code{slashChordSeparator} è una
+barra obliqua, ma è possibile cambiarlo con qualsiasi testo.
+
+@lilypond[verbatim,quote,ragged-right]
+\chords {
+  c4:7.9- c:7.9-/g
+  \set slashChordSeparator = \markup { " over " }
+  \break
+  c4:7.9- c:7.9-/g
+}
+@end lilypond
+
+@funindex chordNameExceptions
+
+@item chordNameExceptions
+
+Questa proprietà è una lista di coppie.  Il primo elemento di ciascuna coppia
+è un insieme di altezze usate per identificare i gradi presenti nell'accordo.
+Il secondo elemento è un testo markup che seguirà l'output di
+@code{chordRootNamer} per creare il nome dell'accordo.
+
+@funindex minorChordModifier
+
+@item minorChordModifier
+
+Gli accordi minori sono spesso indicati con un suffisso @qq{m} a destra della
+fondamentale dell'accordo.  Tuttavia alcuni preferiscono altri suffissi, come
+il segno meno.
+
+@lilypond[verbatim,quote,ragged-right]
+\chords {
+  c4:min f:min7
+  \set minorChordModifier = \markup { "-" }
+  \break
+  c4:min f:min7
+}
+@end lilypond
+
+@funindex chordPrefixSpacer
+
+@item chordPrefixSpacer
+
+Il modificatore per gli accordi minori determinato da @code{minorChordModifier}
+appare solitamente subito dopo la fondamentale dell'accordo.  È possibile
+porre uno spazio tra la fondamentale e il modificatore impostando
+@code{chordPrefixSpacer}.  Lo spazio non viene usato quando la fondamentale
+è alterata.
+
+@end table
+
+
+@predefined
+@funindex simboli di settima maggiore
+@code{\whiteTriangleMarkup},
+@code{\blackTriangleMarkup},
+@funindex \germanChords
+@code{\germanChords},
+@funindex \semiGermanChords
+@code{\semiGermanChords},
+@funindex \italianChords
+@code{\italianChords},
+@funindex \frenchChords
+@code{\frenchChords}.
+@endpredefined
+
+
+@snippets
+
+@cindex eccezioni, nomi dell'accordo
+@cindex accordo, nomi, eccezioni
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{chord-name-exceptions.ly}
+
+@c TODO - tweak snippet to use \blackTriangleMarkup as well
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{chord-name-major7.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{adding-bar-lines-to-chordnames-context.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{volta-below-chords.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{changing-chord-separator.ly}
+
+@seealso
+Guida alla notazione:
+@ref{Grafico dei nomi degli accordi},
+@ref{Modificatori degli accordi comuni}.
+
+Saggio sull'incisione musicale automatizzata:
+@ressay{Bibliografia}.
+
+File installati:
+@file{scm/chords-ignatzek-names.scm},
+@file{scm/chord-entry.scm},
+@file{ly/chord-modifiers-init.ly}.
+
+Frammenti:
+@rlsr{Chords}.
+
+@knownissues
+I nomi degli accordi sono determinati sia dalle altezze presenti nell'accordo
+sia dalle informazioni sulla struttura dell'accordo che potrebbero essere
+state inserite in @code{\chordmode}.  Se si usa il metodo delle altezze
+simultanee per inserire gli accordi, in caso di inversioni o note di basso
+si otterranno nomi non voluti.
+
+@lilypond[quote,ragged-right,verbatim]
+myChords = \relative c' {
+  \chordmode { c1 c/g c/f }
+  <c e g>1 <g c e> <f c' e g>
+}
+<<
+  \new ChordNames { \myChords }
+  \new Staff { \myChords }
+>>
+@end lilypond
+
+
+@node Basso continuo
+@subsection Basso continuo
+@translationof Figured bass
+
+@c Line width hack because of instrument names
+@lilypondfile[quote,staffsize=18,line-width=14.5\cm]{figured-bass-headword.ly}
+
+La notazione del basso continuo è supportata.
+
+@menu
+* Introduzione al basso continuo::
+* Inserimento del basso continuo::
+* Visualizzazione del basso continuo::
+@end menu
+
+@node Introduzione al basso continuo
+@unnumberedsubsubsec Introduzione al basso continuo
+@translationof Introduction to figured bass
+
+@cindex basso continuo
+@cindex basso numerato
+@cindex basso cifrato
+
+LilyPond supporta il basso continuo, detto anche basso numerato o cifrato:
+
+@lilypond[quote,ragged-right,verbatim]
+<<
+  \new Voice { \clef bass dis4 c d ais g fis}
+  \new FiguredBass {
+    \figuremode {
+      < 6 >4 < 7\+ >8 < 6+ [_!] >
+      < 6 >4 <6 5 [3+] >
+      < _ >4 < 6 5/>4
+    }
+  }
+>>
+@end lilypond
+
+Il supporto per il basso continuo consiste in due parti: c'è una modalità di
+input, introdotta dal comando @code{\figuremode}, che accetta l'inserimento
+dei numeri di basso; e c'è un contesto chiamato @code{FiguredBass} che si
+occupa di mostrare gli oggetti @code{BassFigure}.  Il basso continuo può
+essere mostrato anche in contesti @code{Staff}.
+
+@code{\figures@{ @dots{} @}} è una scorciatoia per
+@code{\new FiguredBass \figuremode @{ @dots{} @}}.
+
+
+Sebbene il supporto per basso continuo possa assomigliare apparentemente al
+supporto per accordi, è in realtà molto più semplice.  La modalità
+@code{\figuremode} si limita a contenere i numeri e il contesto
+@code{FiguredBass} li stampa così come sono inseriti.  Non c'è alcuna
+conversione in altezze.
+
+@ignore
+Figures are created as markup texts.  Any of the standard markup
+properties can be used to modify the display of figures.  For
+example, the vertical spacing of the figures may be set with
+@code{baseline-skip}.
+@end ignore
+
+@seealso
+Glossario musicale:
+@rglosnamed{figured bass,basso continuo}.
+
+Frammenti:
+@rlsr{Chords}.
+
+
+@node Inserimento del basso continuo
+@unnumberedsubsubsec Inserimento del basso continuo
+@translationof Entering figured bass
+
+@code{\figuremode} permette di passare alla modalità di input per il basso
+continuo.  Maggiori informazioni sulle diverse modalità di input si trovano
+in @ref{Modalità di inserimento}.
+
+In modalità basso continuo, un gruppo di numeri di basso è delimitato da
+@code{<} e @code{>}.  La durata si inserisce dopo il @code{>}.
+
+@lilypond[verbatim,quote,ragged-right]
+\new FiguredBass {
+  \figuremode {
+    <6 4>2
+  }
+}
+@end lilypond
+
+Si possono usare le alterazioni (inclusi i bequadri) per modificare i gradi
+della scala.  Si inseriscono aggiungendo @code{+} (per i diesis), @code{-}
+(per i bemolli) o @code{!} (per i bequadri) dopo il numero.  Per le doppie
+alterazioni il modificatore va applicato due volte.  Per modificare il terzo
+grado il numero di solito viene omesso e ciò si può fare usando @code{_} al
+posto del numero.
+
+@lilypond[verbatim,quote,ragged-right]
+\figures {
+  <7! 6+ 4-> <5++> <3--> < _+ > < 7 _!>
+}
+@end lilypond
+
+Si possono indicare gradi aumentati e diminuiti:
+
+@lilypond[verbatim,quote,ragged-right]
+\figures {
+  <6\+ 5/> <7/>
+}
+@end lilypond
+
+Si può creare una barra inversa che taglia il numero (usata comunemente per
+i sesti gradi alzati):
+
+@lilypond[verbatim,quote,ragged-right]
+\figures {
+  <6> <6\\>
+}
+@end lilypond
+
+I numeri possono essere racchiusi da parentesi:
+
+@lilypond[verbatim,quote,ragged-right]
+\figures {
+  <[12] 8 [6  4]>
+}
+@end lilypond
+
+Si può inserire come numero qualsiasi testo di tipo markup:
+
+@lilypond[verbatim,quote,ragged-right]
+\figures {
+  <\markup { \tiny \number 6 \super (1) } 5>
+}
+@end lilypond
+
+@c NOTE: We need to include notes any time we use extenders to
+@c avoid extraneous staff creation due to Staff.use... in
+@c \bassFigureExtendersOn
+
+Si possono usare linee di continuazione per indicare numeri ripetuti:
+
+@lilypond[verbatim,quote,ragged-right]
+<<
+  {
+    \clef bass
+    e4 d c b,
+    e4 d c b,
+  }
+  \figures {
+    \bassFigureExtendersOn
+    <6 4>4 <6 3> <7 3> <7 3>
+    \bassFigureExtendersOff
+    <6 4>4 <6 3> <7 3> <7 3>
+  }
+>>
+@end lilypond
+
+@noindent
+In questo caso, le linee di estensione sostituiscono i numeri esistenti,
+a meno che le linee di continuazione non siano state terminate esplicitamente.
+
+@lilypond[verbatim,quote,ragged-right]
+<<
+  \figures {
+    \bassFigureExtendersOn
+    <6 4>4 <6 4> <6\! 4\!> <6 4>
+  }
+  {
+    \clef bass
+    d4 d c c
+  }
+>>
+@end lilypond
+
+La seguente tabella riassume i modificatori del numero disponibili.
+
+@multitable @columnfractions .1 .5 .4
+
+@item
+@b{Modificatore}
+@tab
+@b{Scopo}
+@tab
+@b{Esempio}
+
+@item
++, -, !
+@tab
+Alterazioni
+@tab
+@lilypond[line-width=4\cm]
+\figures {
+  <7! 6+ 4-> <5++> <3-->
+}
+@end lilypond
+
+@item
+\+, /
+@tab
+Gradi aumentati e diminuiti
+@tab
+@lilypond[line-width=4\cm]
+\figures {
+  <6\+ 5/> <7/>
+}
+@end lilypond
+
+@item
+\\
+@tab
+Sesto grado alzato
+@tab
+@lilypond[line-width=4\cm]
+\figures {
+  <6\\>
+}
+@end lilypond
+
+@item
+\!
+@tab
+Fine della linea di continuazione
+@tab
+@lilypond[line-width=4\cm]
+<<
+  \figures {
+    \bassFigureExtendersOn
+    <6 4> <6 4> <6\! 4\!> <6 4>
+  }
+  {
+    \clef bass
+    d d c c
+  }
+>>
+@end lilypond
+
+@end multitable
+
+
+@predefined
+@cindex linee di estensione del basso continuo
+@code{\bassFigureExtendersOn},
+@code{\bassFigureExtendersOff}.
+@endpredefined
+
+
+@snippets
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{changing-the-positions-of-figured-bass-alterations.ly}
+
+@seealso
+Frammenti:
+@rlsr{Chords}.
+
+Guida al funzionamento interno:
+@rinternals{BassFigure},
+@rinternals{BassFigureAlignment},
+@rinternals{BassFigureLine},
+@rinternals{BassFigureBracket},
+@rinternals{BassFigureContinuation},
+@rinternals{FiguredBass}.
+
+
+@node Visualizzazione del basso continuo
+@unnumberedsubsubsec Visualizzazione del basso continuo
+@translationof Displaying figured bass
+
+Il basso continuo può essere visualizzato usando il contesto @code{FiguredBass}
+o la maggior parte dei contesti del rigo.
+
+Se visualizzato in un contesto @code{FiguredBass}, la posizione verticale dei
+numeri è independente dalle note del rigo.
+
+@lilypond[verbatim,ragged-right,quote]
+<<
+  \relative {
+    c''4 c'8 r8 c,4 c'
+  }
+  \new FiguredBass {
+    \figuremode {
+      <4>4 <10 6>8 s8
+      <6 4>4 <6 4>
+    }
+  }
+>>
+@end lilypond
+
+@noindent
+Nell'esempio precedente, il contesto @code{FiguredBass} deve essere istanziato
+esplicitamente per evitare la creazione di un secondo rigo (vuoto).
+
+Il basso continuo può anche essere aggiunto direttamente ai contesti
+@code{Staff}.  In questo caso la posizione verticale dei numeri è
+regolata automaticamente.
+
+@lilypond[verbatim,ragged-right,quote]
+<<
+  \new Staff = "mioRigo"
+  \figuremode {
+    <4>4 <10 6>8 s8
+    <6 4>4 <6 4>
+  }
+  %% Inserire le note nello stesso rigo dei numeri di basso
+  \context Staff = "mioRigo"
+  {
+    \clef bass
+    c4 c'8 r8 c4 c'
+  }
+>>
+@end lilypond
+
+
+Se aggiunto in un contesto @code{Staff}, il basso continuo può essere
+visualizzato sopra o sotto il rigo.
+
+@lilypond[verbatim,ragged-right,quote]
+<<
+  \new Staff = "mioRigo"
+  \figuremode {
+    <4>4 <10 6>8 s8
+    \bassFigureStaffAlignmentDown
+    <6 4>4 <6 4>
+  }
+  %% Inserire le note nello stesso rigo dei numeri di basso
+  \context Staff = "mioRigo"
+  {
+    \clef bass
+    c4 c'8 r8 c4 c'
+  }
+>>
+@end lilypond
+
+@predefined
+@cindex allineamento del basso continuo
+@cindex basso continuo, allineamento
+@code{\bassFigureStaffAlignmentDown},
+@code{\bassFigureStaffAlignmentUp},
+@code{\bassFigureStaffAlignmentNeutral}.
+@endpredefined
+
+@seealso
+Frammenti:
+@rlsr{Chords}.
+
+Guida al funzionamento interno:
+@rinternals{BassFigure},
+@rinternals{BassFigureAlignment},
+@rinternals{BassFigureLine},
+@rinternals{BassFigureBracket},
+@rinternals{BassFigureContinuation},
+@rinternals{FiguredBass}.
+
+@knownissues
+Per assicurarsi che le linee di continuazione funzionino correttamente, è più
+sicuro usare lo stesso ritmo nella linea dei numeri e nella linea dei bassi.
+
+@lilypond[verbatim,ragged-right,quote]
+<<
+  {
+    \clef bass
+    \repeat unfold 4 { f16. g32 } f8. es16 d8 es
+  }
+  \figures {
+    \bassFigureExtendersOn
+    % Qui gli estensori sono corretti, perché hanno lo stesso ritmo del basso
+    \repeat unfold 4 { <6 4->16. <6 4->32 }
+    <5>8. r16 <6>8 <6\! 5->
+  }
+>>
+<<
+  {
+    \clef bass
+    \repeat unfold 4 { f16. g32 } f8. es16 d8 es
+  }
+  \figures {
+    \bassFigureExtendersOn
+    % Qui gli estensori non sono corretti, anche se il tempo è lo stesso
+    <6 4->4 <6 4->4
+    <5>8. r16 <6>8 <6\! 5->
+  }
+>>
+@end lilypond

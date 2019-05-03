@@ -2962,7 +2962,7 @@ LilyPond supporta la notazione proporzionale, vedi @ref{Proportional notation}.
 
 @seealso
 Essay on automated music engraving:
-@ressay{Optical spacing}.
+@ressay{Spaziatura ottica}.
 
 Frammenti:
 @rlsr{Spacing}.

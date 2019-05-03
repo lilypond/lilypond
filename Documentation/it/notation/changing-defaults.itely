@@ -2750,7 +2750,7 @@ creare esplicitamente il contesto.
 
 Viene attivata col comando @code{\chordmode} e fa sì che l'input
 sia interpretato con la sintassi della notazione degli accordi, vedi
-@ref{Chord notation}.  La musica in modalità accordo viene elaborata
+@ref{Notazione per accordi}.  La musica in modalità accordo viene elaborata
 come accordi su un rigo se inserita in un contesto @code{Staff}, come
 nomi di accordo se inserita in un contesto @code{ChordNames} oppure come
 diagrammi della tastiera se inserita in un contesto @code{FretBoards}.
@@ -2759,7 +2759,7 @@ La modalità accordo viene attivata anche col comando @code{\chords}.
 Anche questo fa sì che l'input che segue sia interpretato con la sintassi
 della notazione degli accordi, ma in aggiunta crea implicitamente un nuovo
 contesto @code{ChordNames} e elabora l'input al suo interno come nomi di
-accordo, vedi @ref{Printing chord names}.
+accordo, vedi @ref{Stampa dei nomi degli accordi}.
 
 @subsubsubheading Modalità percussioni
 
@@ -2778,7 +2778,7 @@ vedi @ref{Notazione di base per percussioni}.
 
 Viene attivata col comando @code{\figuremode} e fa sì che
 l'input che segue sia interpretato con la sintassi del basso
-continuo, vedi @ref{Entering figured bass}.  La musica in modalità
+continuo, vedi @ref{Inserimento del basso continuo}.  La musica in modalità
 basso continuo viene elaborata come basso continuo se inserita in un
 contesto @code{FiguredBass} o in un contesto @code{Staff}.
 
@@ -2786,7 +2786,7 @@ La modalità basso continuo viene attivata anche col comando @code{\figures}.
 Anche questo fa sì che l'input che segue sia interpretato con la sintassi
 del basso continuo, ma in aggiunta crea implicitamente un nuovo contesto
 @code{FiguredBass} e elabora l'input al suo interno come basso figurato,
-vedi @ref{Introduction to figured bass}.
+vedi @ref{Introduzione al basso continuo}.
 
 @subsubsubheading Modalità tastiera e intavolatura
 

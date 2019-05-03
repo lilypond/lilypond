@@ -1296,7 +1296,7 @@ myChords = \chordmode { c1 c:m7.5- c:aug }
 @end lilypond
 
 Le altezze degli accordi possono essere inserite sia come musica simultanea
-sia usando la modalità per accordi (vedi @ref{Chord mode overview}).
+sia usando la modalità per accordi (vedi @ref{Panoramica sulla modalità accordo}).
 
 @lilypond[verbatim, ragged-right,quote]
 \include "predefined-guitar-fretboards.ly"
@@ -1516,7 +1516,7 @@ le proprietà dell'interfaccia appartengono a @code{FretBoards.FretBoard}.
 Guida alla notazione:
 @ref{Intavolature personalizzate},
 @ref{Diagrammi dei tasti automatici},
-@ref{Chord mode overview},
+@ref{Panoramica sulla modalità accordo},
 @ref{Diagrammi degli accordi predefiniti}.
 
 File installati:
@@ -1947,8 +1947,8 @@ Glossario musicale:
 @rglos{power chord}.
 
 Guida alla notazione:
-@ref{Extended and altered chords},
-@ref{Printing chord names}.
+@ref{Accordi estesi e alterati},
+@ref{Stampa dei nomi degli accordi}.
 
 Frammenti:
 @rlsr{Fretted strings}.
