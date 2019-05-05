@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 1e25c9708270bc41e99739da59500286ad11114c
+    Translation of GIT committish: 44d23f8e119b1f0debdb58e2119cb30112420557
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -290,38 +290,7 @@ sont @code{tommh}, @code{tomml}, et @code{tomfh}.
 
 
 @item agostini-drums-style
-Inventé par le percussioniste français Dante Agostini en 1965, cette notation
-est comunément utilisée en France mais aussi ailleurs.
-
-@lilypond[quote,line-width=10.0\cm]
-nam = \lyricmode {
-  cymc cyms cymr hh hhc hho hhho hhp
-  cb hc bd sn ss tomh tommh tomml toml tomfh tomfl }
-mus = \drummode {
-  cymc cyms cymr hh hhc hho hhho hhp \break
-  cb hc bd sn ss tomh tommh tomml toml tomfh tomfl s16 }
-\score {
-  << \new DrumStaff \with {
-       \remove "Bar_engraver"
-       \remove "Time_signature_engraver"
-       \hide Stem
-       \override Stem.Y-extent = ##f
-       drumStyleTable = #agostini-drums-style
-     } \mus
-     \new Lyrics \nam
-  >>
-  \layout {
-    \context {
-      \Score
-      \override LyricText.font-family = #'typewriter
-      \override BarNumber.transparent =##T
-    }
-  }
-}
-@end lilypond
-
-@item agostini-drums-style
-Inventé par le percussionniste français Dante Agostini en 1965, cette
+Inventée par le percussionniste français Dante Agostini en 1965, cette
 notation s'est répandue au-delà de l'hexagone.
 
 @lilypond[quote,line-width=10.0\cm]
