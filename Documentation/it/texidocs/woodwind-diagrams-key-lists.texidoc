@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocit = "
+Il seguente frammento produce un elenco di tutte le possibili chiavi e delle
+loro impostazioni per i diagrammi per legni, come sono definite in
+@code{scm/define-woodwind-diagrams.scm}.  L'elenco sarà visualizzato
+nel file di log, ma non nello spartito.  Se si desidera che l'output appaia
+nella console, omettere dai comandi @code{(current-error-port)}.
+
+"
+  doctitleit = "Elenco delle chiavi dei diagrammi per legni"
