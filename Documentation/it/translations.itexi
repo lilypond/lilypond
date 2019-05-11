@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Ultimo aggiornamento Sat Dec  1 14:41:28 UTC 2018
+@emph{Ultimo aggiornamento Sat May 11 14:08:58 UTC 2019
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -820,7 +820,34 @@ sì
 @end ifnothtml
 @tab pre-GDP
 @item
-2.4 Percussioni
+2.4 Strumenti a corde con tasti
+@*
+2821
+@tab Federico Bruni
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">sì</span>
+@end html
+@end ifhtml
+@ifnothtml
+sì
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">sì</span>
+@end html
+@end ifhtml
+@ifnothtml
+sì
+@end ifnothtml
+@tab pre-GDP
+@item
+2.5 Percussioni
 @*
 753
 @tab Federico Bruni
@@ -839,15 +866,69 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #97ff2f">parzialmente</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+sì
 @end ifnothtml
 @tab pre-GDP
 @item
-2.5 World music
+2.6 Strumenti aerofoni
+@*
+324
+@tab Federico Bruni
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">sì</span>
+@end html
+@end ifhtml
+@ifnothtml
+sì
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">sì</span>
+@end html
+@end ifhtml
+@ifnothtml
+sì
+@end ifnothtml
+@tab pre-GDP
+@item
+2.7 Notazione per accordi
+@*
+1975
+@tab Federico Bruni
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">sì</span>
+@end html
+@end ifhtml
+@ifnothtml
+sì
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">sì</span>
+@end html
+@end ifhtml
+@ifnothtml
+sì
+@end ifnothtml
+@tab pre-GDP
+@item
+2.8 World music
 @*
 1446
 @tab Federico Bruni
@@ -883,11 +964,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">parzialmente (98 %)</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente (98 %)
+sì
 @end ifnothtml
 @tab 
 @ifhtml
@@ -1175,11 +1256,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">parzialmente</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+sì
 @end ifnothtml
 @tab pre-GDP
 @item
