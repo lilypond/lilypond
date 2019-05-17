@@ -510,6 +510,8 @@ printing of a single line of lyrics."
 \context {
   \type "Engraver_group"
   \name "NoteNames"
+  \alias Staff			% Catch Staff-level overrides like
+				% \key, \transposition
   \description "A context for printing the names of notes."
   \consists "Axis_group_engraver"
 
