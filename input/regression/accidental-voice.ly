@@ -27,7 +27,7 @@ voiceb =  \transpose c c' {
     \set printOctaveNames = ##f
     \voicea
   }
-  \context Staff << 
+  \new Staff << 
     \accidentalStyle modern-voice-cautionary
     \new Voice \voicea
     \new Voice \voiceb
