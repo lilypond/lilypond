@@ -325,6 +325,8 @@
   \type "Performer_group"
   \consists "Staff_performer"
   \name NoteNames
+  \alias Staff			% Catch Staff-level overrides like
+				% \key, \transposition
 }
 
 \context {
