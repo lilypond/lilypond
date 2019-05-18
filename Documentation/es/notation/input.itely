@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: a9ade99e9a791fa45a6d56ad0a63c031888c9b86
+    Translation of GIT committish: 9d33e9d40c88b6c58eeacf6698a1d97ddce7a987
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2986,7 +2986,6 @@ advertido.
 En música polifónica, @code{Score.skipTypesetting} afecta a todas
 las voces y pentagramas, ahorrando más tiempo incluso.
 
-
 @node Formatos de salida alternativos
 @subsection Formatos de salida alternativos
 @translationof Alternative output formats
@@ -2998,13 +2997,55 @@ las voces y pentagramas, ahorrando más tiempo incluso.
 @cindex PostScript encapsulado, salida de
 
 Los formatos de salida predeterminados para la partitura impresa
-son el formato de documento portátil (PDF) y PostScript (PS).
-Los formatos de salida Gráficos de red portátiles (PNG),
-Gráficos de vector escalables (SVG) y PostScript encapsulado (EPS)
-también están disponibles a través de opciones de la línea de
-órdenes, véase
+son el formato de documento portátil (PDF) y PostScript (PS).  Los
+formatos de salida Gráficos de red portátiles (PNG), Gráficos de
+vector escalables (SVG) y PostScript encapsulado (EPS) también
+están disponibles a través de opciones de la línea de órdenes,
+véase
 @rprogram{Opciones básicas de la línea de órdenes para LilyPond}.
 
+@menu
+* Salida de SVG::
+@end menu
+
+@node Salida de SVG
+@unnumberedsubsubsec Salida de SVG
+@translationof SVG Output
+
+La salida de SVG puede contener, opcionalmente, metadatos para
+objetos gráficos (grobs) como cabezas de nota, silencios, etc.
+Estos metadatos pueden ser atributos SVG estándar como @code{id} y
+@code{class}, o atributos personalizados no estándar.  Especifique
+los atributos y sus values mediante la sobreescritura de la
+propiedad de grob @code{output-attributes} con una lista de
+asociación de Scheme (alist).  Los valores pueden ser números,
+cadenas de caracteres o símbolos.  Por ejemplo:
+
+@example
+@{
+  \once \override NoteHead.output-attributes =
+  #'((id . 123)
+     (class . "esto aquello")
+     (data-lo-que-sea . algo))
+  c
+@}
+@end example
+
+@noindent
+El código de entrada anterior produce la siguiente etiqueta
+@code{<g>} (grupo) dentro del archivo SVG:
+
+@example
+<g id="123" class="esto aquello" data-lo-que-sea="algo">
+  ...elementos del SVG de objetos gráficos como cabezas de nota...
+</g>
+@end example
+
+@noindent
+La etiqueta @code{<g>} contiene todos los elementos de SVG para un
+grob dado (ciertos grobs generan más de un elemento del SVG).  En
+la sintaxis del SVG el prfijo @code{data-} se usa para atributos
+de medios personalizados no estándar.
 
 @node Sustituir la tipografía de la notación
 @subsection Sustituir la tipografía de la notación
