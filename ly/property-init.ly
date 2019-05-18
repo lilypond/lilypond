@@ -33,6 +33,7 @@ piano styles, which use @samp{GrandStaff} as a context." )
 
 ambitusAfter =
 #(define-music-function (target) (symbol?)
+  (_i "Move the ambitus after the break-align symbol @var{target}.")
   (make-apply-context
    (lambda (context)
      (define (move-ambitus order)
@@ -41,10 +42,11 @@ ambitusAfter =
               (head (take without-ambitus (1+ target-index)))
               (tail (drop without-ambitus (1+ target-index))))
            (append head '(ambitus) tail)))
-     (let* ((grob-def (ly:context-grob-definition context 'BreakAlignment))
+     (let* ((score (ly:context-find context 'Score))
+            (grob-def (ly:context-grob-definition score 'BreakAlignment))
             (orders (vector->list (ly:assoc-get 'break-align-orders grob-def)))
             (new-orders (list->vector (map move-ambitus orders))))
-       (ly:context-pushpop-property context 'BreakAlignment 'break-align-orders new-orders)))))
+       (ly:context-pushpop-property score 'BreakAlignment 'break-align-orders new-orders)))))
 
 %% arpeggios
 

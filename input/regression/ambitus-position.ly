@@ -1,30 +1,39 @@
 \version "2.21.0"
 
 \header {
-  texidoc = "Ambitus can be set at various positions with correct
+  texidoc = "Ambitus can be moved to various positions with correct
 horizontal spacing in all cases."
 }
 
-music = \new Staff \with {
-  \consists Ambitus_engraver
-} \relative {
+\layout {
+  \context {
+    \Staff
+    \consists Ambitus_engraver
+  }
+}
+
+music = \relative {
   \key f \major
   \bar ".|:"
   f' a c f
 }
 
-\new Score \with {
+\new Staff {
   \ambitusAfter key-signature
-} \music
+  \music
+}
 
-\new Score \with {
+\new Staff {
   \ambitusAfter clef
-} \music
+  \music
+}
 
-\new Score \with {
+\new Staff {
   \ambitusAfter time-signature
-} \music
+  \music
+}
 
-\new Score \with {
+\new Staff {
   \ambitusAfter staff-bar
-} \music
+  \music
+}

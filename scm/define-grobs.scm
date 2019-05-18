@@ -115,6 +115,7 @@
                         (key-signature . (extra-space . 1.15))
                         (staff-bar . (extra-space . 1.15))
                         (time-signature . (extra-space . 1.15))
+                        (right-edge . (extra-space . 0.5))
                         (first-note . (extra-space . 1.15))))
         (X-extent . ,ly:axis-group-interface::width)
         (Y-extent . ,axis-group-interface::height)
@@ -232,6 +233,7 @@
         (non-musical . #t)
         (rounded . #f)
         (space-alist . (
+                        (ambitus . (extra-space . 1.0))
                         (time-signature . (extra-space . 0.75))
                         (custos . (minimum-space . 2.0))
                         (clef . (extra-space . 1.0))
@@ -2544,6 +2546,7 @@
         (extra-spacing-width . (0.0 . 0.8))
         (non-musical . #t)
         (space-alist . (
+                        (ambitus . (extra-space . 1.0))
                         (cue-clef . (extra-space . 1.5))
                         (first-note . (fixed-space . 2.0))
                         (right-edge . (extra-space . 0.5))
