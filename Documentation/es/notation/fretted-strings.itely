@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: a089ca62fd9b3770a932061207262fe81063dc56
+    Translation of GIT committish: 6317c26b6950ef6499281164e23f9ae57b4da3df
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1871,8 +1871,8 @@ más completa con un marcado de texto.
 @lilypond[quote,ragged-right,verbatim]
 \relative {
   \clef "treble_8"
-  \override Staff.NoteHead.style = #'harmonic-mixed
-  d'^\markup { \italic { \fontsize #-2 { "harm. 12" }}} <g b>1
+  \override NoteHead.style = #'harmonic-mixed
+  d'8^\markup { \italic \fontsize #-2 "harm. 12" } <g b>4
 }
 @end lilypond
 
