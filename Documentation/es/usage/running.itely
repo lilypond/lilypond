@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: c7c6c948c9b70464f7069354059e5a5a8aad4a5c
+    Translation of GIT committish: f85173973ee414ea10bcf3d3c22398b3a591e866
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -264,9 +264,12 @@ Se pueden escribir varias opciones -I.  La búsqueda se inicia en el
 primer directorio definido, y si el archivo que se debe incluir no se
 encuentra, la búsqueda continúa en los directorios siguientes.
 
-@warning{El uso del carácter de tilde curva ( @code{~} ) con la
+@warning{El uso del carácter de tilde curva (@code{~}) con la
 opción @code{-I} puede producir resultados inesperados en algunos
-@q{shells}.}
+@q{shells}.
+
+Los usuarios de Windows deben incluir una barra inclinada al final
+de la ruta del directorio.}
 
 @cindex chroot, ejecutar dentro de una jaula
 
