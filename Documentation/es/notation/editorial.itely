@@ -321,11 +321,11 @@ Referencia de funcionamiento interno:
 @c http://code.google.com/p/lilypond/issues/detail?id=3987
 @c http://code.google.com/p/lilypond/issues/detail?id=3990
 @knownissues
-Actualmente hay dos falos del programa que impiden un correcto
+Actualmente hay dos fallos del programa que impiden un correcto
 espaciado horizontal al usar @code{\magnifyMusic}.  Solamente
-existe una forma de circunventarlo, y su funcionamiento correcto
-no está garantizado en todos los casos.  En el ejemplo que aparece
-a continuación, sustituya la variable @var{mag} con su valor
+existe una forma de esquivarlo, y su funcionamiento correcto no
+está garantizado en todos los casos.  En el ejemplo que aparece a
+continuación, sustituya la variable @var{mag} con su valor
 preferido.  También puede tratar de quitar una o ambas
 instrucciones @code{\newSpacingSection}, y/o las instrucciones
 @code{\override} y @code{\revert}:
