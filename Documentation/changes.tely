@@ -63,6 +63,20 @@ which scares away people.
 
 
 @item
+The command @code{\ambitusAfter} has been added. It is used to move
+the ambitus to a different position.
+@lilypond[verbatim,quote]
+\new Staff \with {
+  \consists Ambitus_engraver
+} \relative {
+  \ambitusAfter key-signature
+  \key d \major
+  es'8 g bes cis d2
+}
+@end lilypond
+
+
+@item
 A very short fermata and Henze variants of long and short fermatas
 have been added.
 @lilypond[verbatim,quote]
