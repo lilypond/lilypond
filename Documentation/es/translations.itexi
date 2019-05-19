@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Actualizado en Sat May 11 14:08:58 UTC 2019
+@emph{Actualizado en Sun May 19 10:12:23 UTC 2019
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -986,11 +986,11 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #97ff2f">parcialmente</span>
+<span style="background-color: #1fff1f">sí</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialmente
+sí
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1138,11 +1138,11 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">parcialmente (98 %)</span>
+<span style="background-color: #1fff1f">sí</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialmente (98 %)
+sí
 @end ifnothtml
 @tab 
 @ifhtml
@@ -1430,11 +1430,11 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">parcialmente</span>
+<span style="background-color: #1fff1f">sí</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialmente
+sí
 @end ifnothtml
 @tab pre-GDP
 @item

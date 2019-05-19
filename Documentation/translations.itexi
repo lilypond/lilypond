@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated sam. mai 11 14:08:58 UTC 2019
+@emph{Last updated dim. mai 19 10:12:23 UTC 2019
 }
 @multitable @columnfractions  0.2 0.2 0.2 0.2 0.2
 
@@ -7194,11 +7194,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #97ff2f">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @tab Valentin Villenave
 @*
@@ -8371,11 +8371,11 @@ partially up to date
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially translated (98 %)</span>
+<span style="background-color: #1fff1f">translated</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially translated (98 %)
+translated
 @end ifnothtml
 @*
 
@@ -10635,11 +10635,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @tab Jean-Charles Malahieude
 @*
