@@ -646,7 +646,7 @@ messages into errors.")
 
     "paper.scm"
     "backend-library.scm"
-    "x11-color.scm"))
+    "color.scm"))
 ;;  - Files to be loaded last
 (define init-scheme-files-tail
   ;;  - must be after everything has been defined
