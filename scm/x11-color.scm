@@ -674,9 +674,16 @@
     (DarkRed 0.54509803921568623 0 0)
     (LightGreen 0.56470588235294117 0.93333333333333335 0.56470588235294117)))
 
-(define (make-x11-color-handler)
+
+(define css-color-list
+  '((AliceBlue 0.941176471 0.97254902 1)
+    ; TODO: fill in the remaining colors
+    ))
+
+
+(define (make-color-handler color-list)
   (let
-      ((x11-color-table (make-hash-table 31)))
+      ((color-table (make-hash-table 31)))
 
     (lambda (arg)
       (let*
@@ -694,15 +701,16 @@
                             (string->symbol arg))
                         arg))
 
-           (temp (hashq-ref x11-color-table arg-sym)))
+           (temp (hashq-ref color-table arg-sym)))
 
         (if temp
             temp
             (let*
-                ((temp-1 (assq-ref x11-color-list arg-sym))
+                ((temp-1 (assq-ref color-list arg-sym))
                  (temp (if temp-1 temp-1 '(0 0 0))))
-
-              (hashq-create-handle! x11-color-table arg-sym temp)
+              (ly:warning (format "Color '~a' is not defined!" arg-sym))
+              (hashq-create-handle! color-table arg-sym temp)
               temp))))))
 
-(define-public x11-color (make-x11-color-handler))
+(define-public x11-color (make-color-handler x11-color-list))
+(define-public css-color (make-color-handler css-color-list))
