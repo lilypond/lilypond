@@ -612,7 +612,7 @@ content licenses.
 @divEnd
 
 @divClass{column-left-top}
-@subheading Concerts
+@subheading Performances and Concerts
 
 LilyPond engravings have been used for performances around the world.
 Some highlights:
@@ -621,106 +621,111 @@ Some highlights:
 @itemize
 
 @item
-@uref{http://www.aurelienbello.com/,Aurélien Bello} has arranged a
-version of Richard Strauss's @emph{Der Rosenkavalier} for four singers
-and a chamber orchestra of thirteen players.  This has been commissioned
-by the Berlin Philharmonic Orchestra whose members will be the performers on
-@uref{http://www.festspielhaus.de/veranstaltung/der-kleine-rosenkavalier-02-04-2015-1100/,April 2nd and 6th}
-at the Festspielhaus, Baden-Baden, and on
-@uref{http://www.berliner-philharmoniker.de/konzerte/kalender/details/21070/,April 26th}
-in the @emph{Philharmonie (großer Saal)}, Berlin.  We are pleased to see
-musicians of such reputation playing from LilyPond scores -- and they are
-reportedly very happy with them.
+Marc Hohl has written musical scores for children and adolescents.
+Engraved using LilyPond (with LaTeX) and available for free, in
+German, from @uref{http://www.singspielschmiede.de/}, all of the music
+was performed on stage at the School where Marc works.
 
-Aurélien has also re-orchestrated @emph{Der Ring des Nibelungen} by Richard
-Wagner to a
-@uref{http://www.rsb-online.de/content/concerts/new-season-1516/family-concerts-age-7-and-above/index_eng.html,100-minute version for children}.
-Written for a standard symphony orchestra, but with a reduced cast of
-singers, it was performed by the
-@uref{http://www.rsb-online.de/,@emph{Radio-Sinfonieorchester Berlin}}
-in April 2014 at the Atze Musiktheater, Berlin.  The Conductor was Heiko
+
+@item
+@uref{http://www.aurelienbello.com/,Aurélien Bello} arranged a version
+of Richard Strauss's @emph{Der Rosenkavalier} for four singers and a
+chamber orchestra of thirteen players.  This was a commission by the
+Berlin Philharmonic Orchestra who performed it in 2015 at the
+@uref{https://www.festspielhaus.de/,Festspielhaus, Baden-Baden}
+and also at the
+@uref{https://www.berliner-philharmoniker.de/konzerte/kalender/details/21070/,Philharmonie (großer Saal), Berlin}.
+We are pleased to see musicians of such reputation playing from LilyPond
+scores (who were reportedly very happy with them).
+
+Aurélien also re-orchestrated @emph{Der Ring des Nibelungen} by Richard
+Wagner for a family concert (ages 7 and above).  It was written for a
+standard symphony orchestra, but with a reduced cast of singers and was
+performed by the
+@uref{https://www.rsb-online.de/,@emph{Radio-Sinfonieorchester Berlin}}
+in 2014 at the Atze Musiktheater, Berlin.  The Conductor was Heiko
 Matthias Förster.
+
+Another re-orchestration by Aurélien was Mussorgsky's
+@emph{Pictures at an exhibition} which he also conducted for the
+@uref{https://junge-philharmonie-brandenburg.de/,Junge Philharmonie Brandenburg}
+in 2011 and again in 2012.
+
 
 @item
 Joe Smeets created sheet music for the children's book @emph{Zing Mee}
-(@emph{Sing along}) by Annie M.G. published by
-@uref{http://www.queridokinderenjeugdboeken.nl/, Querido}
--- ISBN 9789045106205;
-choir rehearsal scores for the Dutch translation of Benjamin Britten's
-@emph{Saint Nicolas} performed by @emph{Muziektheater Hollands Diep} in
-2011;
-@uref{http://www.muziektheaterhollandsdiep.nl/nl/voorstellingen/sint_nicolaas_leeft, www.muziektheaterhollandsdiep.nl}.
-He has also worked on the score and parts for an arrangement of
-Mussorgsky’s @emph{Boris Godunov} for wind quartet, piano and
-percussion which was performed in 2014, again by
+(@emph{Sing along}) by Annie M.G. published by @emph{Querido} --
+ISBN 9789045106205.  He also worked on the score and parts for an
+arrangement of Mussorgsky’s @emph{Boris Godunov} for wind quartet, piano
+and percussion which was performed in 2014 by
 @emph{Muziektheater Hollands Diep}.
 
-@item
-A critical edition of Tommaso Traetta's @emph{Enea nel Lazio (1760)},
-opera series with libretto by Vittorio Amedeo Cigna-Santi, in four
-parts:
-@uref{http://www.academia.edu/1987651/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_1_4_, Part One}
-@uref{http://www.academia.edu/1994533/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_2_4_, Part Two}
-@uref{http://www.academia.edu/1994558/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_3_4_, Part Three}
-@uref{http://www.academia.edu/1996242/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_4_4_, Part Four}
-Created by
-@uref{http://unito.academia.edu/LucaRossettoCasel, Luca Rossetto Casel}
-for his Ph.D. Thesis.
+Joe also created the choir rehearsal scores for the Dutch translation of
+Benjamin Britten's @emph{Saint Nicolas} which was performed in 2011 by
+@emph{Muziektheater Hollands Diep} see
+@uref{https://muziektheaterhollandsdiep.nl/?s=sint+nicolaas+leeft,www.muziektheaterhollandsdiep.nl}.
+
 
 @item
-Mussorgsky's @emph{Pictures at an exhibition}, was re-orchestrated and
-conducted by @uref{http://www.aurelienbello.com/,Aurélien Bello} with
-the @uref{https://junge-philharmonie-brandenburg.de/,
-Junge Philharmonie Brandenburg} in October 2011 and April 2012.
+@uref{https://unito.academia.edu/LucaRossettoCasel,Luca Rossetto Casel},
+for his Ph.D. thesis, created a critical edition of Tommaso Traetta's
+@emph{Enea nel Lazio (1760)} opera series, with libretto by Vittorio
+Amedeo Cigna-Santi, in four parts:
+@uref{https://www.academia.edu/1987651/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_1_4_, Part One}
+@uref{https://www.academia.edu/1994533/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_2_4_, Part Two}
+@uref{https://www.academia.edu/1994558/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_3_4_, Part Three}
+@uref{https://www.academia.edu/1996242/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_4_4_, Part Four}
+
 
 @item
 @uref{http://kierenmacmillan.info/, Kieren MacMillan}, composer and
-musical director.  His many, recent works include; @emph{Go Thy Way},
-performed by the @uref{http://www.saltlakechoralartists.org/,
-Salt Lake Choral Artists} in March 2012; The
-@emph{Just Out of Reach Suite} performed
-by the
-@uref{http://www.herald-dispatch.com/news/marshall/x1883873762/Music-duo-Chrysalis-to-perform-at-Marshall-University-on-Jan-19,
-Chrysalis Duo} ; @emph{thrafsmata} performed in July 2011 by the
-@uref{http://www.pnme.org/, Pittsburgh
-New Music Ensemble}.
+musical director of many works including; @emph{Go Thy Way},
+performed by the @uref{https://www.saltlakechoralartists.org/,
+Salt Lake Choral Artists} in 2012; The @emph{Just Out of Reach Suite}
+performed by the
+@uref{https://www.herald-dispatch.com/news/marshall/x1883873762/Music-duo-Chrysalis-to-perform-at-Marshall-University-on-Jan-19,
+Chrysalis Duo}; and @emph{thrafsmata} performed by the
+@uref{https://www.pnme.org/, Pittsburgh New Music Ensemble} in 2011.
+
 
 @item
-@emph{Anonymous Student Compliment or Complaint}, by
-@uref{http://www.mikesolomon.org, Mike Solomon}, winner chosen from among
-172 entries from 22 countries of the
-@uref{http://www.leftcoastensemble.org, 2011 Left Coast Composition Contest}.
-Other works include, Norman (age 1) for clarinet solo, performed at the
-@uref{http://arts.ufl.edu/academics/music/, University of Florida}'s
-Electroacoustic Music Festival (FEMF), October 2010.
+@uref{http://www.mikesolomon.org,Mike Solomon} was the winner of 172
+entries from 22 countries for the
+@uref{https://www.leftcoastensemble.org, 2011 Left Coast Composition Contest}
+with his work @emph{Anonymous Student Compliment or Complaint}.
+
+Other works for Mike include, @emph{Norman (age 1)} for clarinet solo,
+performed at the @uref{https://arts.ufl.edu/academics/music/, University of Florida}'s
+Electroacoustic Music Festival (FEMF) in October 2010.
+
 
 @item
-A modern edition of the @emph{Serenata Erminia} by Alessandro Scarlatti,
-edited by Thomas Griffin, Musicologist (Rome, Italy).  Performed on 22
-October 2010 in the Galleria of the Palazzo Zevallos Stigliano, Naples,
-Italy.  @uref{http://www.ascarlatti2010.net, Alessandro Scarlatti 2010},
-in celebration of the composer's 350th birthday.
+Thomas Griffin, Musicologist (Rome, Italy), edited a modern edition of
+the @emph{Serenata Erminia} by Alessandro Scarlatti, which was performed
+in 2010 at the Galleria of the Palazzo Zevallos Stigliano, Naples,
+Italy in celebration of the composer's 350th birthday.  See
+@uref{http://www.ascarlatti2010.net}.
+
 
 @item
-@uref{http://www.mercuryhouston.org/, Mercury Baroque}'s performance of
-Lully's @emph{Armide}, May 15-16, 2009, in Houston, Texas (engraving by
-@uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}).
+@uref{http://nicolas.sceaux.free.fr/,Nicolas Sceaux} engraved the work
+of Lully's @emph{Armide} which was performed by
+@uref{https://www.mercuryhouston.org/, Mercury Baroque} in 2009.
+
+Nicolas also engraved the instrumental excerpts from Rameau's
+@emph{Hippolyte et Aricie} which were performed by Frederick Renz and
+his ensemble at St. James's Church, Manhattan, New York in 2009.  See
+@uref{http://www.earlymusicny.org/, Early Music New York}.
+
 
 @item
-Instrumental excerpts from Rameau's @emph{Hippolyte et Aricie} at
-St. James's Church in Manhattan, May 8, 2009, by Frederick Renz
-and his ensemble @uref{http://www.earlymusicny.org/, Early Music
-New York} (engraving by
-@uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}).
-
-@item
-@emph{Affaire étrangère}, an opera by
-@uref{http://valentin.villenave.net/,Valentin Villenave}
-to a French libretto by
+@uref{http://valentin.villenave.net/,Valentin Villenave} engraved a
+libretto of @emph{Affaire étrangère}, an opera by
 @uref{https://en.wikipedia.org/wiki/Lewis_Trondheim, Lewis
-Trondheim}, premiered February 1, 2009 at
+Trondheim}, which was premiered in 2009 at the
 @uref{http://www.orchestre-montpellier.com/, L'Opéra National de
 Montpellier}, France.
+
 
 @end itemize
 @divEnd
@@ -737,11 +742,11 @@ Montpellier}, France.
 @itemize
 
 @item
-@uref{http://www.mutopiaproject.org/index.html, Mutopia Project},
-with over 2000 pieces of classical sheet music for free download, is
-the main showcase of LilyPond scores. Every piece comes with its
-LilyPond source file, allowing you to learn from other typesetters
-and also make your own edition.
+@uref{https://www.mutopiaproject.org, Mutopia Project}, with over
+2000 pieces of classical sheet music for free download, is the main
+showcase of LilyPond scores. Every piece comes with its LilyPond source
+file, allowing you to learn from other typesetters and also make your
+own edition.
 
 @item
 @uref{https://www.baroquemusic.it/, baroquemusic.it}, started in 2005,
@@ -751,15 +756,15 @@ license and available to subscribers only.
 
 @item
 @uref{http://partitura.org/, Partitura Organum} is a growing collection
-of organ pieces in the public domain, typeset by LilyPond and distributed
-under a Creative Commons license.
+of organ pieces in the public domain, typeset by LilyPond and
+distributed under a Creative Commons license.
 
 @item
-@uref{https://clairnote.org/, Clairnote} is an alternative notation
-system that aims at making music easier to read and understand.
-The website offers @uref{https://clairnote.org/sheet-music/, free sheet music}
-in Clairnote notation; the pieces are taken from Mutopia and other
-online resources and then converted to Clairnote notation.
+@uref{https://clairnote.org/, Clairnote} offers free sheet music in
+Clairnote notation.  Clairnote is an alternative notation system that
+aims to make music easier to read and understand.  The scores on the
+website are taken from Mutopia and other online resources and then
+converted to Clairnote's own notation.
 
 @end itemize
 @divEnd
