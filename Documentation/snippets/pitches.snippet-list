@@ -29,5 +29,6 @@ preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly
 quoting-another-voice-with-transposition.ly
 separating-key-cancellations-from-key-signature-changes.ly
 transposing-pitches-with-minimum-accidentals-smart-transpose.ly
+turkish-makam-example.ly
 tweaking-clef-properties.ly
 using-autochange-with-more-than-one-voice.ly
