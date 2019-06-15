@@ -427,7 +427,7 @@ sultanisegah = #`((0 . ,NATURAL)(1 . ,(- KOMA))(2 . ,(- KOMA))(3 . ,NATURAL)(4 .
 segaharaban=\sultanisegah %\key d
 
 %%% sultaniyegah and similar
-sultaniyegah = #`((0 . ,NATURAL)(1 . ,NATURAL)(2 . ,(- KUCUK))(3 . ,NATURAL)(4 . ,NATURAL)(5 . ,(- KUCUK))(6 . ,(- KOMA))) %\key d
+sultaniyegah = #`((0 . ,NATURAL)(1 . ,NATURAL)(2 . ,(- KUCUK))(3 . ,NATURAL)(4 . ,NATURAL)(5 . ,(- BAKIYE))(6 . ,(- KOMA))) %\key d
 
 %%% suzidil and similar
 suzidil = #`((0 . ,NATURAL)(1 . ,(- BAKIYE))(2 . ,(- KOMA))(3 . ,NATURAL)(4 . ,NATURAL)(5 . ,(- KUCUK))(6 . ,(- KOMA))) %\key e
