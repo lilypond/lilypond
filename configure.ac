@@ -295,6 +295,8 @@ if test "$have_pangoft2_with_otf_feature" != yes ; then
 fi
 STEPMAKE_FONTCONFIG(fontconfig, REQUIRED, 2.4.0)
 STEPMAKE_FREETYPE2(freetype2, REQUIRED, 2.1.10)
+STEPMAKE_GLIB(glib-2.0, REQUIRED, 2.38)
+STEPMAKE_GOBJECT(gobject-2.0, REQUIRED, 2.38)
 
 STEPMAKE_WINDOWS
 
