@@ -465,7 +465,7 @@ Manuale di apprendimento:
 
 Guida alla notazione:
 @ref{Alterazioni automatiche},
-@ref{Annotational accidentals (musica ficta)},
+@ref{Alterazioni suggerite (musica ficta)},
 @ref{Nomi delle note in altre lingue}.
 
 Frammenti di codice:
@@ -1171,7 +1171,7 @@ c'2 c'
 
 L'elenco completo di tutti i nomi di chiave possibili si trova in @ref{Stili della chiave}.
 Chiavi speciali, come quelle usate nella musica @emph{antica}, sono descritte
-in @ref{Mensural clefs} e @ref{Gregorian clefs}.  La musica che utilizza le
+in @ref{Chiavi mensurali} e @ref{Chiavi gregoriane}.  La musica che utilizza le
 chiavi dell'intavolatura è discussa in @ref{Intavolature predefinite} e
 @ref{Intavolature personalizzate}.
 
@@ -1289,8 +1289,8 @@ più piccolo del normale.  Tale comportamento può essere modificato.
 
 @seealso
 Guida alla notazione:
-@ref{Mensural clefs},
-@ref{Gregorian clefs},
+@ref{Chiavi mensurali},
+@ref{Chiavi gregoriane},
 @ref{Intavolature predefinite},
 @ref{Intavolature personalizzate},
 @ref{Formattazione delle notine}.

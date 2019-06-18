@@ -66,7 +66,7 @@ Vedi anche @ref{Travature}.
 Per le note più lunghe di un intero si usano i comandi @code{\longa} (due volte
 una breve) e @code{\breve}.  Solo nella notazione per musica antica è possibile
 specificare una nota che dura quattro volte una breve, attraverso il comando
-@code{\maxima}.  Vedi @ref{Ancient notation}.
+@code{\maxima}.  Vedi @ref{Notazione antica}.
 
 @c Two 64th notes are needed to obtain beams
 @lilypond[quote,verbatim]
@@ -193,7 +193,7 @@ Guida alla notazione:
 @ref{Inserimento delle durate},
 @ref{Inserimento delle pause},
 @ref{Musica vocale},
-@ref{Ancient notation},
+@ref{Notazione antica},
 @ref{Notazione proporzionale}.
 
 Frammenti di codice:
@@ -1107,7 +1107,7 @@ sostituito da un numero:
 
 
 Le indicazioni di tempo mensurali sono trattate in
-@ref{Mensural time signatures}.
+@ref{Indicazioni di tempo mensurali}.
 
 @cindex indicazione di tempo, impostazioni predefinite
 @cindex proprietà di disposizione automatica delle travature per le indicazioni di tempo
@@ -1268,7 +1268,7 @@ Glossario musicale:
 @rglosnamed{time signature,indicazione di tempo}
 
 Guida alla notazione:
-@ref{Mensural time signatures},
+@ref{Indicazioni di tempo mensurali},
 @ref{Impostare il comportamento delle travature automatiche},
 @ref{Gestione del tempo}.
 
@@ -2823,7 +2823,7 @@ questo tipo di notazione:
 f'1 \bar "k"
 @end lilypond
 I dettagli di questo tipo di notazione sono spiegati in
-@ref{Typesetting Kievan square notation}.
+@ref{Scrivere in notazione quadrata di Kiev}.
 
 @cindex segno
 

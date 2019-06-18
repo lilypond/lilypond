@@ -2916,11 +2916,11 @@ incontrare sono generalmente simili e sono trattati in questa sezione.
 @translationof References for chants and psalms
 
 La composizione tipografica dei canti gregoriani in vari stili di
-notazione antica è descritta in @ref{Ancient notation}.
+notazione antica è descritta in @ref{Notazione antica}.
 
 @seealso
 Guida alla notazione:
-@ref{Ancient notation}.
+@ref{Notazione antica}.
 
 Frammenti:
 @rlsr{Vocal music}.
@@ -3216,10 +3216,10 @@ Manuale di apprendimento:
 @rlearning{Modelli per gruppi vocali}.
 
 Guida alla notazione:
-@ref{Ancient notation},
+@ref{Notazione antica},
 @ref{Stanghette},
 @ref{Modifica dei componenti aggiuntivi di un contesto},
-@ref{Typesetting Gregorian chant},
+@ref{Scrivere il canto gregoriano},
 @ref{Musica in tempo libero},
 @ref{Visibilità degli oggetti}.
 
@@ -3405,7 +3405,7 @@ esattamente a un rigo di testo.  Per fare ciò è necessario un comando
 @translationof Ancient vocal music
 
 È supportata la musica vocale antica, come spiegato in
-@ref{Ancient notation}.
+@ref{Notazione antica}.
 
 @c TODO
 
@@ -3414,4 +3414,4 @@ esattamente a un rigo di testo.  Per fare ciò è necessario un comando
 
 @seealso
 Guida alla notazione:
-@ref{Ancient notation}.
+@ref{Notazione antica}.
