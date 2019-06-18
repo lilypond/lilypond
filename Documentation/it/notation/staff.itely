@@ -111,7 +111,7 @@ in @ref{Intavolature predefinite}.
 
 Ci sono due contesti del rigo specifici per la notazione di musica
 antica, @code{MensuralStaff} e @code{VaticanaStaff}, descritti
-in @ref{Pre-defined contexts}.
+in @ref{Contesti predefiniti}.
 
 Il contesto @code{GregorianTranscriptionStaff} crea un rigo per
 il canto gregoriano moderno.  Non mostra le stanghette delle battute.
@@ -132,10 +132,10 @@ Guida alla notazione:
 @ref{Righi delle percussioni},
 @ref{Mostrare i ritmi della melodia},
 @ref{Intavolature predefinite},
-@ref{Pre-defined contexts},
+@ref{Contesti predefiniti},
 @ref{Simbolo del rigo},
-@ref{Gregorian chant contexts},
-@ref{Mensural contexts},
+@ref{Contesti del canto gregoriano},
+@ref{Contesti mensurali},
 @ref{Definizione di nuovi contesti}.
 
 Frammenti:
