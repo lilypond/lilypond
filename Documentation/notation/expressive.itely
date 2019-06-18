@@ -1370,9 +1370,24 @@ note, printed as a stemless note head in parentheses.
 @cindex pitched trill with accidental
 @cindex trill with accidental
 
-Subsequent accidentals of the same note in the same measure will need
-to be added manually.  Only the accidental of the first pitched trill
-in a measure is printed.
+The Accidental of the first pitched trill in a measure is always
+printed, even for naturals.
+
+@lilypond[verbatim,quote,relative]
+{
+  \key d \major
+  \pitchedTrill
+  d'2\startTrillSpan cis d\stopTrillSpan 
+  \pitchedTrill
+  d2\startTrillSpan c d\stopTrillSpan
+  \pitchedTrill
+  d2\startTrillSpan e d\stopTrillSpan
+}
+@end lilypond
+
+@noindent
+Subsequent accidentals (of the same note in the same measure) will need
+to be added manually.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -1390,6 +1405,7 @@ in a measure is printed.
   eis4\stopTrillSpan
 }
 @end lilypond
+
 
 @predefined
 @code{\startTrillSpan},
