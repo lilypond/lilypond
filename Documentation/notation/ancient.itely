@@ -248,17 +248,18 @@ Notation Reference:
 @ref{Gregorian square neume ligatures}.
 
 @knownissues
-Ligatures need special spacing that has not yet been implemented.  As
-a result, there is too much space between ligatures most of the time,
-and line breaking often is unsatisfactory.  Also, lyrics do not
-correctly align with ligatures.
+Spacing required for ligatures is not currently implemented and, as
+a result, there may end up being too much space between them.  Line
+breaking may also be unsatisfactory.
 
-Accidentals must not be printed within a ligature, but instead need to
-be collected and printed in front of it.
+Lyrics might not align as expected when using ligatures.
 
-The syntax still uses the deprecated infix style
+Accidentals must not be printed within a ligature, but instead be
+collected and printed in front of it.
+
+The syntax still uses the deprecated @qq{infix} style
 @code{\[ music expr \]}.  For consistency reasons, it will eventually
-be changed to postfix style @code{note\[ @dots{} note\]}.
+be changed to @qq{postfix} style @code{note\[ @dots{} note\]}.
 
 Alternatively, the file @file{gregorian.ly} can be included; it
 provides a scheme function
@@ -274,24 +275,23 @@ with the same effect and is believed to be stable.
 @cindex custos
 @cindex custodes
 
-A @emph{custos} (plural: @emph{custodes}; Latin word for @qq{guard})
-is a symbol that appears at the end of a staff.  It anticipates the
-pitch of the first note of the following line, thus helping the performer
-to manage line breaks during performance.
+A @emph{custos} (plural: @emph{custodes}; Latin word for @qq{guard}) is
+a symbol that appears at the end of a staff.  It anticipates the pitch
+of the first note of the following line, thus helping the performer to
+manage line breaks during performance.
 
-Custodes were frequently used in music notation until the
-seventeenth century.  Nowadays, they have survived only in a few
-particular forms of musical notation such as contemporary editions
-of Gregorian chant like the @emph{Editio Vaticana}.  There are
-different custos glyphs used in different flavors of notational
-style.
+Custodes were frequently used in music notation until the seventeenth
+century.  Nowadays, they have survived only in a few particular forms of
+musical notation such as contemporary editions of Gregorian chant like
+the @emph{Editio Vaticana}.  There are different custos glyphs used in
+different flavors of notational style.
 
 For typesetting custodes, just put a @code{Custos_engraver} into the
-@code{Staff} context when declaring the @code{\layout} block,
-and change the style of the custos with an @code{\override} if
-desired, as shown in the following example:
+@code{Staff} context when declaring the @code{\layout} block, and change
+the style of the custos with an @code{\override} if desired, as shown in
+the following example:
 
-@lilypond[quote,ragged-right]
+@lilypond[quote,ragged-right,verbatim]
 \score {
   \relative {
     a'1
@@ -310,9 +310,9 @@ desired, as shown in the following example:
 
 The custos glyph is selected by the @code{style} property.  The styles
 supported are @code{vaticana}, @code{medicaea}, @code{hufnagel}, and
-@code{mensural}.  They are demonstrated in the following fragment.
+@code{mensural}.
 
-@lilypond[quote,ragged-right,fragment]
+@lilypond[quote,ragged-right,fragment,verbatim]
 \new Lyrics \lyricmode {
   \markup { \column {
     \typewriter "vaticana "
@@ -342,6 +342,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{Custos}.
+
 
 @node Typesetting mensural music
 @subsection Typesetting mensural music
