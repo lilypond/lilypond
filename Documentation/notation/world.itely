@@ -175,26 +175,45 @@ Snippets:
 @unnumberedsubsubsec Arabic note names
 
 @cindex Arabic note names
+@cindex Hel-arabic note names
+@cindex Note names Arabic
+@cindex Note names Hel-arabic
 
-The more traditional Arabic note names can be quite long and are
-not suitable for the purpose of music writing, so they are not
-used.  English note names are not very familiar in Arabic music
-education, so Italian or Solfege note names (@code{do, re, mi, fa,
-sol, la, si}) are used instead; modifiers (accidentals) can also
-be used.  Italian note names and accidentals are explained in
-@ref{Note names in other languages}; the use of standard
-Western notation to notate non-Western music is discussed in
-@ref{Common notation for non-Western music}.
+Traditional Arabic note names can be quite long and so may not always be
+suitable for the purpose of music writing.
 
-For example, this is how the Arabic @notation{rast} scale can be
-notated:
+The @file{hel-arabic.ly} file allows English note names to be used.
+This is a @code{rast} scale using @file{hel-arabic.ly};
+
+@lilypond[quote,verbatim]
+\include "hel-arabic.ly"
+\relative {
+\key c \rast
+  c' d edb f | g a bdb c | c bb a g | f d c
+}
+@end lilypond
+
+The @file{arabic.ly} file allows Italian (or Solfege) note names to be
+used instead.  This is a @code{rast} scale using @file{arabic.ly};
 
 @lilypond[quote,verbatim]
 \include "arabic.ly"
 \relative {
-  do' re misb fa sol la sisb do sisb la sol fa misb re do
+  do' re misb fa | sol la sisb do | sisb la sol fa | misb re do
 }
 @end lilypond
+
+@noindent
+@qq{Rast} is a heptatonic scale that uses quarter-tone intervals and is
+considered the most important and central scale of the
+@qq{Arabic Maqamat}.  For the full list of supported Arabic scales
+please refer to either the @file{hel-arabic.ly} or @file{arabic.ly}
+files that are both included with LilyPond.
+
+The use of standard Western notation to notate non-Western music is
+discussed in @ref{Common notation for non-Western music}.  Also see
+@ref{Note names in other languages}.
+
 
 @cindex Arabic semi-flat symbol
 @cindex Semi-flat symbol appearance
@@ -219,7 +238,12 @@ signature cannot be altered by using this method.
 @seealso
 Notation Reference:
 @ref{Note names in other languages},
-@ref{Common notation for non-Western music}.
+@ref{Common notation for non-Western music}
+@ref{Including LilyPond files}.
+
+Installed Files:
+@file{ly/arabic.ly}
+@file{ly/hel-arabic.ly}
 
 Snippets:
 @rlsr{World music}.
@@ -230,18 +254,17 @@ Snippets:
 
 @cindex Arabic key signatures
 
-In addition to the minor and major key signatures, the following
-key signatures are defined in @file{arabic.ly}: @notation{bayati},
-@notation{rast}, @notation{sikah}, @notation{iraq}, and
-@notation{kurd}.  These key signatures define a small number of
-maqam groups rather than the large number of maqams that are in
-common use.
+In addition to the minor and major key signatures, Arabic key signatures
+are defined in either @file{hel-arabic.ly} or @file{arabic.ly} files and
+define many different maqam groups.
 
 In general, a maqam uses the key signature of its group, or a
-neighbouring group, and varying accidentals are marked throughout
-the music.
+neighbouring group, and varying accidentals are marked throughout the
+music.  Arabic maqams only allow for limited modulations, due to the
+nature of Arabic musical instruments.
 
-For example to indicate the key signature of a maqam muhayer piece:
+Here is an example of the key signature for a @qq{maqam muhayer} piece
+of music:
 
 @example
 \key re \bayati
@@ -249,33 +272,33 @@ For example to indicate the key signature of a maqam muhayer piece:
 
 @noindent
 Here @var{re} is the default pitch of the muhayer maqam, and
-@var{bayati} is the name of the base maqam in the group.
+@notation{bayati} is the name of the base maqam in the group.
 
 While the key signature indicates the group, it is common for the
 title to indicate the more specific maqam, so in this example, the
-name of maqam muhayer should appear in the title.
+name of @qq{maqam muhayer} should also appear in the title.
 
-Other maqams in the same bayati group, as shown in the table below:
-(bayati, hussaini, saba, and ushaq) can be indicated in the same
-way.  These are all variations of the base and most common maqam
-in the group, which is bayati.  They usually differ from the base
-maqam in their upper tetrachords, or certain flow details that
-don't change their fundamental nature, as siblings.
+Other maqams in the same @notation{bayati} group, as shown in the table
+below (e.g., @notation{bayati}, @notation{hussaini}, @notation{saba}, and
+@notation{ushaq}) can be indicated in the same way.  These are all
+variations of the base and most common maqam in the group, which is
+@notation{bayati}.  They usually differ from the base maqam in their
+upper tetrachords, or certain flow details that do not change their
+fundamental nature, as siblings.
 
-The other maqam in the same group (Nawa) is related to bayati by
-modulation which is indicated in the table in parenthesis for
-those maqams that are modulations of their base maqam.  Arabic
-maqams admit of only limited modulations, due to the nature of
-Arabic musical instruments.  Nawa can be indicated as follows:
+The other maqam in the same group (@notation{nawa}) is related to
+@notation{bayati} by modulation and is shown in the table in
+parentheses for those that are modulations of their base maqam.
+@notation{Nawa}, for example, can be indicated as follows:
 
 @example
 \key sol \bayati
 @end example
 
-In Arabic music, the same term such as bayati that is used to
-indicate a maqam group, is also a maqam which is usually the most
-important in the group, and can also be thought of as a base
-maqam.
+In Arabic music, the same term, for example @notation{bayati}, that is
+used to indicate a maqam group, will also be a maqam that is usually the
+most important in the group so can also be thought of as a @emph{base
+maqam}.
 
 Here is one suggested grouping that maps the more common maqams to
 key signatures:
@@ -324,7 +347,6 @@ key signatures:
 @end multitable
 
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {non-traditional-key-signatures.ly}
 
@@ -337,18 +359,22 @@ Music Glossary:
 @rglos{iraq},
 @rglos{kurd}.
 
-Notation Reference:
-@ref{Key signature}.
-
 Learning Manual:
 @rlearning{Pitches and key signatures}.
 
-Internals Reference:
-@rinternals{KeySignature}.
+Notation Reference:
+@ref{Key signature}.
+
+Installed Files:
+@file{ly/arabic.ly}
+@file{ly/hel-arabic.ly}
 
 Snippets:
 @rlsr{World music},
 @rlsr{Pitches}.
+
+Internals Reference:
+@rinternals{KeySignature}.
 
 
 @node Arabic time signatures
@@ -369,7 +395,6 @@ typeset music is not required, it may still be desirable to adjust
 the automatic beaming behaviour and/or use compound time signatures.
 
 @snippets
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {arabic-improvisation.ly}
 
@@ -386,6 +411,10 @@ Notation Reference:
 @ref{Setting automatic beam behavior},
 @ref{Time signature}.
 
+Installed Files:
+@file{ly/arabic.ly}
+@file{ly/hel-arabic.ly}
+
 Snippets:
 @rlsr{World music}.
 
@@ -397,10 +426,10 @@ Snippets:
 @cindex Arabic music template
 @cindex Template Arabic music
 
-Here is a template that also uses the start of a Turkish @notation{Semai}
-that is familiar in Arabic music education in order to illustrate
-some of the peculiarities of Arabic music notation, such as medium
-intervals and unusual modes that are discussed in this section.
+Here is a template that also uses the start of a Turkish
+@notation{Semai} that is familiar in Arabic music education in order to
+illustrate some of the peculiarities of Arabic music notation, such as
+medium intervals and unusual modes that are discussed in this section.
 
 @lilypond[quote,verbatim]
 \include "arabic.ly"
@@ -424,6 +453,10 @@ intervals and unusual modes that are discussed in this section.
 @end lilypond
 
 @seealso
+Installed Files:
+@file{ly/arabic.ly}
+@file{ly/hel-arabic.ly}
+
 Snippets:
 @rlsr{World music}.
 
