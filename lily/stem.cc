@@ -623,7 +623,7 @@ Stem::calc_positioning_done (SCM smob)
       else
         parity = true;
 
-      lastpos = int (p);
+      lastpos = p;
     }
 
   return SCM_BOOL_T;
