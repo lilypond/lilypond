@@ -11,10 +11,22 @@ local-test-baseline:
 local-test:
 	rm -f $(outdir)/collated-files.html
 	if test -d $(top-src-dir)/.git  ; then \
-		echo -e 'HEAD is:\n\n\t' ; \
-		(cd $(top-src-dir) && git log --max-count=1 --pretty=oneline ) ;\
-		echo -e '\n\n\n' ; \
-		(cd $(top-src-dir) && git diff ) ; \
+		cd $(top-src-dir) ; \
+		BR=`LANG=c git branch | grep "^\*" | sed -e "s|^* *||"` ; \
+		HD=`git rev-parse --verify HEAD` ; \
+		FP=`git merge-base --octopus origin/master HEAD` ; \
+		echo "    BRANCH: $$BR" ; \
+		echo "      HEAD: $$HD" ; \
+		if [ ! -z $$FP ]; then  \
+			echo "MERGE_BASE: $$FP" ; \
+			echo -e '\n   HISTORY:\n   ========\n' ; \
+			git log --pretty=format:"      HASH: %H%n   SUBJECT: %s%n" $$FP~1..HEAD ; \
+		else \
+			echo "MERGE_BASE: unknown" ; \
+			echo -e '\n   HISTORY:\n   ========\n' ; \
+			git log --max-count=10 --pretty=format:"      HASH: %H%nSUBJECT: %s%n" ; \
+		fi ; \
+		echo "" ; \
 	fi > $(outdir)/tree.gittxt
 ifeq ($(USE_EXTRACTPDFMARK),yes)
 	$(MAKE) LILYPOND_BOOK_LILYPOND_FLAGS="-dbackend=eps --formats=ps $(LILYPOND_JOBS) -dseparate-log-files -dinclude-eps-fonts -dgs-load-fonts --header=texidoc -I $(top-src-dir)/Documentation/included/ -ddump-profile -dcheck-internal-types -ddump-signatures -danti-alias-factor=1 -dfont-export-dir=$(top-build-dir)/out-fonts -O TeX-GS" LILYPOND_BOOK_WARN= $(outdir)/collated-files.html LYS_OUTPUT_DIR=$(top-build-dir)/out/lybook-testdb
