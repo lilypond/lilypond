@@ -48,7 +48,7 @@ Duration::Duration (Rational r, bool scale)
 {
   factor_ = Rational (1, 1);
 
-  if (r.num () == 0.0)
+  if (r.num () == 0)
     {
       durlog_ = 0;
       dots_ = 0;
@@ -71,8 +71,15 @@ Duration::Duration (Rational r, bool scale)
       /* If we were to write out log (p/q) in base 2, then the position of the
          first non-zero bit (ie. k in our notation) would be the durlog
          and the number of consecutive 1s after that bit would be the number of
-         dots */
-      p = shift_left (p, k) - q;
+         dots.
+         Depending on the sign of k we shift p or q so that no digits are lost
+         by shifting right.
+         */
+      if (k >= 0)
+        p = shift_left (p, k);
+      else
+        q = shift_left (q, -k);
+      p -= q;
       dots_ = 0;
       while ((p *= 2) >= q)
         {
