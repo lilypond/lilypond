@@ -498,6 +498,9 @@ any effect the note would have had on accidentals in other voices.")
 
      (ottavation ,markup? "If set, the text for an ottava spanner.
 Changing this creates a new text spanner.")
+     (ottavationMarkups ,list? "An alist defining the markups used
+for ottava brackets. It contains entrys of the form
+@code{(@var{number of octaves} . @var{markup})}.")
      (output ,ly:music-output? "The output produced by a score-level
 translator during music interpretation.")
 

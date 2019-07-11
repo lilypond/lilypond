@@ -77,14 +77,14 @@ to be used by the sequential-iterator"
     (list (context-spec-music
            (make-apply-context
             (lambda (context)
-              (let ((offset (* -7 octavation))
-                    (string (assoc-get octavation '((2 . "15ma")
-                                                    (1 . "8va")
-                                                    (0 . #f)
-                                                    (-1 . "8vb")
-                                                    (-2 . "15mb")))))
+              (let* ((offset (* -7 octavation))
+                     (markups (ly:context-property context 'ottavationMarkups))
+                     (ottavation-markup (assoc-get octavation markups)))
                 (set! (ly:context-property context 'middleCOffset) offset)
-                (set! (ly:context-property context 'ottavation) string)
+                (set! (ly:context-property context 'ottavation) ottavation-markup)
+                (if (and (not (zero? octavation))
+                         (not (markup? ottavation-markup)))
+                    (ly:warning "Could not find ottavation markup for ~a octaves up." octavation))
                 (ly:set-middle-C! context))))
            'Staff))))
 

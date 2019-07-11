@@ -444,7 +444,7 @@ the current tuning?"
                             (car pitch-entry) string)))
         (if (and (= this-fret 0)
                  (and finger
-		      (not (null? finger))))
+                      (not (null? finger))))
             (ly:warning (_ "Open fret on string ~a has finger of ~a")
                         string finger))
         (delete-free-string string)
@@ -900,3 +900,41 @@ original @var{semitone->pitch} function."
                        (+ 4 (ly:pitch-octave pitch))))
                      (octave->lily-string pitch))))))
     (make-concat-markup markuplist)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; markups for OttavaBrackets
+
+(define-public ottavation-numbers
+  '((4 . "29")
+    (3 . "22")
+    (2 . "15")
+    (1 . "8")
+    (-1 . "8")
+    (-2 . "15")
+    (-3 . "22")
+    (-4 . "29")))
+
+(define-public ottavation-ordinals
+  `((4 . ,(markup #:concat (#:general-align Y UP "29"
+                             #:general-align Y UP #:tiny "ma")))
+    (3 . ,(markup #:concat (#:general-align Y UP "22"
+                             #:general-align Y UP #:tiny "ma")))
+    (2 . ,(markup #:concat (#:general-align Y UP "15"
+                             #:general-align Y UP #:tiny "ma")))
+    (1 . ,(markup #:concat (#:general-align Y UP "8"
+                             #:general-align Y UP #:tiny "va")))
+    (-1 . ,(markup #:concat ("8" #:tiny "va")))
+    (-2 . ,(markup #:concat ("15" #:tiny "ma")))
+    (-3 . ,(markup #:concat ("22" #:tiny "ma")))
+    (-4 . ,(markup #:concat ("29" #:tiny "ma")))))
+
+; former default
+(define-public ottavation-simple-ordinals
+  '((4 . "29ma")
+    (3 . "22ma")
+    (2 . "15ma")
+    (1 . "8va")
+    (-1 . "8vb")
+    (-2 . "15mb")
+    (-3 . "22mb")
+    (-4 . "29mb")))

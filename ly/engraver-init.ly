@@ -104,6 +104,7 @@
   \description "Handles clefs, bar lines, keys, accidentals.  It can contain
 @code{Voice} contexts."
 
+  ottavationMarkups = #ottavation-numbers
 }
 
 \context {
