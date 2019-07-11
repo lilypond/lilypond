@@ -116,8 +116,21 @@ Ambitus_engraver::stop_translation_timestep ()
     {
       SCM c_pos = get_property ("middleCPosition");
       SCM cue_pos = get_property ("middleCCuePosition");
+      SCM ottavation = get_property ("ottavation");
 
-      if (scm_is_integer (c_pos) && !scm_is_integer (cue_pos))
+      /*
+       * \ottava reads middleCClefPosition and overrides
+       * middleCOffset and middleCPosition ignoring previously
+       * set values. Therefore
+       *  1. \ottava is incompatible with non-default offset and
+       *     position values (is this a bug? TODO)
+       *  2. we don’t need to read these values and revert the
+       *     changes \ottava made but we can just read the
+       *     clef position.
+       */
+      if (scm_is_string (ottavation))
+        start_c0_ = robust_scm2int (get_property ("middleCClefPosition"), 0);
+      else if (scm_is_integer (c_pos) && !scm_is_integer (cue_pos))
         start_c0_ = scm_to_int (c_pos);
       else
         {
