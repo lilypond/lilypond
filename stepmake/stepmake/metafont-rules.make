@@ -2,13 +2,19 @@
 
 # we want to see botched results as well.
 $(outdir)/%.dvi: %.mf
-	-$(DO_MF_DEP) MFINPUTS=$(src-dir) $(METAFONT) "\scrollmode; input $<;"
+	-$(DO_MF_DEP) \
+	  MFINPUTS=$(src-dir) \
+	  max_print_line=1000 \
+	  $(METAFONT) "\scrollmode; input $<;"
 	gftodvi $(basename $<)
 	mv $(basename $<).dvi $(outdir)
 	rm $(basename $<).*gf
 
 $(outdir)/%.tfm $(outdir)/%.log: %.mf
-	$(DO_MF_DEP) MFINPUTS=$(src-dir) $(METAFONT) "\mode:=$(MFMODE); nonstopmode; input $<;" $(METAFONT_QUIET)
+	$(DO_MF_DEP) \
+	  MFINPUTS=$(src-dir) \
+	  max_print_line=1000 \
+	  $(METAFONT) "\mode:=$(MFMODE); nonstopmode; input $<;" $(METAFONT_QUIET)
 # Let's keep this log output, it saves another mf run.
 	mv $(basename $(@F)).log $(basename $(@F)).tfm $(outdir)
 	rm -f $(basename $(@F)).*gf  $(basename $(@F)).*pk
@@ -25,6 +31,7 @@ $(outdir)/%.pfb: %.mf $(outdir)/mf2pt1.mem $(outdir)/%.log
 		&& ln -s ../../mf2pt1.mp . \
 		&& MFINPUTS=$(abs-src-dir):..:: \
 		   FONTFORGE=$(FONTFORGE) \
+		   max_print_line=1000 \
 		   $(buildscript-dir)/mf2pt1 $(MF2PT1_OPTIONS) $< $(METAFONT_QUIET)) \
 	&& mv $$TMP_DIR/*pfb $(outdir); \
 	rm -rf $$TMP_DIR

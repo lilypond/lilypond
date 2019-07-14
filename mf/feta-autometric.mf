@@ -24,8 +24,8 @@
 
 message "******************************************************";
 message "Using feta Autometric macros.";
-message "order of messages: ";
-message " NAME/CODE/BP/WD/DP/HT/WX/WY";
+message "Order of glyph parameters:";
+message "  name charcode bp wd dp ht charwx charwy idstr";
 message "******************************************************";
 message "";
 
@@ -111,8 +111,31 @@ def to_bp (expr num) =
 enddef;
 
 
-% breapth, width, depth, height
-%     breapth	x-depth
+% breapth (bp), width (wd), depth (dp), height (ht)
+%
+%              ^ y
+%              |
+%              |
+% --      +----+------------+
+%         |    |            |
+%         |    |            |
+%         |    |            |
+% ht      |    |            |
+%         |    |            |
+%         |    |            |
+%         |    |(0|0)       |
+% --   ---+----o------------+---> x
+%         |    |            |
+% dp      |    |            |
+%         |    |            |
+% --      +----+------------+
+%              |
+%              |
+%
+%         | bp |     wd     |
+%
+% `breapth' is positive leftwards; `depth' is positive downwards.
+%
 def set_char_box (expr b_sharp, w_sharp, d_sharp, h_sharp) =
 	save scharbp, scharht, scharwd, schardp;
 
@@ -253,7 +276,7 @@ def breapth_endchar =
 		makebox_with_breapth (proofrule);
 	fi;
 
-	chardx := (w + b);	% what the heck is chardx
+	chardx := w + b;	% advance width
 	shipit;
 endgroup;
 enddef;

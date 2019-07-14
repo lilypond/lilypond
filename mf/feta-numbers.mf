@@ -194,9 +194,6 @@ def draw_six =
 
 	set_char_box (0, .68 height# * widen, 0, height#);
 
-	message "w:" & decimal w;
-	message "h:" & decimal h;
-
 	penpos2 (hair, 90);
 	z2 = (w / 2, h / 2 + thin - hair / 2);
 
@@ -347,9 +344,6 @@ code := 47;	% 0 = 48
 fet_beginchar ("Numeral 0", "zero");
 	set_char_box (0, 11/15 height# * widen, 0, height#);
 
-	message "w:" & decimal w;
-	message "h:" & decimal h;
-
 	penpos1 (thin, 90);
 	penpos2 (thick, 180);
 	penpos3 (thin,- 90);
@@ -385,9 +379,6 @@ fet_beginchar ("Numeral 1", "one");
 %	set_char_box (0, 19/30 height# * widen, 0, height#);
 	set_char_box (0, 1/2 foot_width# + 3/2 thick# + 1/2 hair#,
 		      0, height#);
-
-	message "w:" & decimal w;
-	message "h:" & decimal h;
 
 	alpha = 0;
 	calc_kuulleke (thick, alpha);
@@ -441,9 +432,6 @@ fet_beginchar ("Numeral 2", "two");
 	path pat, bow;
 
 	set_char_box (0, 22/30 height# * widen, 0, height#);
-
-	message "w:" & decimal w;
-	message "h:" & decimal h;
 
 	alpha = -45 * widen;
 	beta = 85;
@@ -515,9 +503,6 @@ fet_endchar;
 fet_beginchar ("Numeral 3", "three");
 	set_char_box (0, 2/3 height# * widen, 0, height#);
 
-	message "w:" & decimal w;
-	message "h:" & decimal h;
-
 	penpos1 (hair, -90);
 
 %	flare_start = 0.25;
@@ -581,9 +566,6 @@ fet_beginchar ("Numeral 4", "four");
 	save alpha, beta, gamma;
 
 	set_char_box (0, 4/5 height# * widen, 0, height#);
-
-	message "w:" & decimal w;
-	message "h:" & decimal h;
 
 	alpha = 0;
 	calc_kuulleke (3/2 thick, alpha);
@@ -653,9 +635,6 @@ fet_beginchar ("Numeral 5", "five");
 	path pat;
 
 	set_char_box (0, 27/40 height# * widen, 0, height#);
-
-	message "w:" & decimal w;
-	message "h:" & decimal h;
 
 	alpha = 0;
 	calc_kuulleke (w - thin, alpha);
@@ -744,9 +723,6 @@ fet_beginchar ("Numeral 7", "seven");
 	set_char_box (0, 11/15 height# * widen - thin#, 0, height#);
 	overshoot_x = .75 thin;
 
-	message "w:" & decimal w;
-	message "h:" & decimal h;
-
 	alpha = -180;
 
 	penpos1 (3/2 thick, 180 + alpha);
@@ -834,9 +810,6 @@ fet_beginchar ("Numeral 8", "eight");
 	save alpha, beta;
 
 	set_char_box (0, 11/15 height# * widen, 0, height#);
-
-	message "w:" & decimal w;
-	message "h:" & decimal h;
 
 	alpha = 60;
 	beta = alpha - 15;
