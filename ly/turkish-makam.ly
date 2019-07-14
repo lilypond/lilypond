@@ -497,7 +497,7 @@ key signature padding pairs
 
 %}
 
-\override KeySignature #'padding-pairs = #'(
+\override KeySignature.padding-pairs = #'(
   (("accidentals.natural" . "accidentals.natural") . 0.2)
 
   (("accidentals.flat" . "accidentals.flat") . 0.1)

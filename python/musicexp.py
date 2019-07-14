@@ -102,9 +102,9 @@ class Output_printer(object):
 
 #    def print_note_color (self, object, rgb=None):
 #        if rgb:
-#            str = ("\\once\\override %s #'color = #(rgb-color %s # %s %s)" % (object, rgb[0], rgb[1], rgb[2]))
+#            str = ("\\once\\override %s.color = #(rgb-color %s # %s %s)" % (object, rgb[0], rgb[1], rgb[2]))
 #        else:
-#            str = "\\revert %s #'color" % object
+#            str = "\\revert %s.color" % object
 #            self.newline()
 #            self.add_word(str)
 #            self.newline()
@@ -1149,7 +1149,7 @@ class PedalEvent (SpanEvent):
 class TextSpannerEvent (SpanEvent):
     def print_before_note (self, printer):
         if hasattr(self, 'style') and self.style=="wave":
-            printer.dump("\once \override TextSpanner #'style = #'trill")
+            printer.dump("\once \override TextSpanner.style = #'trill")
         try:
             x = {-1:'\\textSpannerDown', 0:'\\textSpannerNeutral', 1: '\\textSpannerUp'}.get(self.force_direction, '')
             printer.dump (x)
@@ -1177,9 +1177,9 @@ class BracketSpannerEvent (SpanEvent):
     def print_before_note (self, printer):
         if self.span_direction == -1:
             if self.force_direction == 1:
-                printer.dump("\once \override LigatureBracket #' direction = #UP")
+                printer.dump("\once \override LigatureBracket.direction = #UP")
             elif self.force_direction == -1:
-                printer.dump("\once \override LigatureBracket #' direction = #DOWN")
+                printer.dump("\once \override LigatureBracket.direction = #DOWN")
             printer.dump ('\[')
     # the bracket after the last note
     def print_after_note (self, printer):
@@ -1527,9 +1527,9 @@ class NotestyleEvent (Event): #class changed by DaLa: additional attribute color
     def pre_chord_ly (self):
         return_string = ''
         if self.style:
-            return_string += " \\once \\override NoteHead #'style = #%s" % self.style
+            return_string += " \\once \\override NoteHead.style = #%s" % self.style
         if self.color:
-            return_string += " \\once \\override NoteHead #'color = #(rgb-color %s %s %s)" % (self.color[0], self.color[1], self.color[2])
+            return_string += " \\once \\override NoteHead.color = #(rgb-color %s %s %s)" % (self.color[0], self.color[1], self.color[2])
         return return_string
     def pre_note_ly (self, is_chord_element):
         if self.style and is_chord_element:
@@ -1545,7 +1545,7 @@ class StemstyleEvent (Event): #class added by DaLa
         self.color = None
     def pre_chord_ly (self):
         if self.color:
-            return "\\once \\override Stem #'color = #(rgb-color %s %s %s)" % (self.color[0], self.color[1], self.color[2])
+            return "\\once \\override Stem.color = #(rgb-color %s %s %s)" % (self.color[0], self.color[1], self.color[2])
         else:
             return ''
     def pre_note_ly (self, is_chord_element):

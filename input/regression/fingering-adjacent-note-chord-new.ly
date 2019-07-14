@@ -24,7 +24,7 @@
   <e'-1 d''-4 e''-5>
   <eis'-1 e''-4 fis''-5>
   \bar "."
-  <>^\markup \teeny \typewriter "#'X-align-on-main-noteheads = ##t"
+  <>^\markup \teeny \typewriter "X-align-on-main-noteheads = ##t"
     _\markup \teeny \typewriter "New_fingering_engraver"
   \override Fingering.X-align-on-main-noteheads = ##t
   \set fingeringOrientations = #'(up)

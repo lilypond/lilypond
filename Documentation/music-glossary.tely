@@ -603,8 +603,8 @@ An accidental alters a note by:
   \layout {
     \context {
       \Score
-      \override SpacingSpanner
-        #'base-shortest-duration = #(ly:make-moment 1/32)
+      \override SpacingSpanner.base-shortest-duration =
+        #(ly:make-moment 1/32)
     }
   }
 }
@@ -660,7 +660,7 @@ that the sound should fade away to nothing.
 @notation{Al niente} is indicated by circling the tip of the hairpin:
 
 @lilypond[quote,relative=2]
-\override Hairpin #'circled-tip = ##t
+\override Hairpin.circled-tip = ##t
 c1\<
 c2\> c\<
 c1\!
@@ -670,7 +670,7 @@ or with the actual phrase @notation{al niente}:
 
 @lilypond[quote,relative=2]
 \dimTextDecresc
-\override DynamicTextSpanner #'(bound-details right text) =
+\override DynamicTextSpanner.bound-details.right.text =
   \markup { \italic { al niente } }
 c1\> ~
 c1 ~
@@ -1482,7 +1482,7 @@ lines.
 
 @lilypond[quote,notime,relative=1,line-width=13.0\cm]
 \new Staff {
-  \override Staff.Clef #'full-size-change = ##t
+  \override Staff.Clef.full-size-change = ##t
   \clef soprano c1
   \clef mezzosoprano c1
   \clef alto c1
@@ -1490,7 +1490,7 @@ lines.
   \clef baritone c1
 }
 \addlyrics {
-  \override Lyrics . LyricText #'self-alignment-X = #LEFT
+  \override Lyrics . LyricText . self-alignment-X = #LEFT
   "Soprano     " "Mezzosoprano " "Alto        " "Tenor       " "Baritone    "
 }
 @end lilypond
@@ -1754,13 +1754,13 @@ the top line high F:
     \new NoteNames {
       \set printOctaveNames = ##t
       g,1 b, d f a
-      \once \override NoteName #'color = #red
+      \once \override NoteName.color = #red
       c'1
       e'1 g' b' d'' f''
     }
     %-- Treble Staff --%
     \new Staff = "G" {
-      \override Staff.Clef #'stencil = ##f
+      \override Staff.Clef.stencil = ##f
       \clef "G"
       s1 s s s s s
       e'1 g' b' d'' f''
@@ -1768,18 +1768,18 @@ the top line high F:
     }
     %-- Alto Staff reduced to a single line on middle C --%
     \new Staff = "C" {
-      \override Staff.StaffSymbol #'line-count = #1
-      \override Staff.StaffSymbol #'color = #red
-      \override Staff.Clef #'stencil = ##f
+      \override Staff.StaffSymbol.line-count = #1
+      \override Staff.StaffSymbol.color = #red
+      \override Staff.Clef.stencil = ##f
       \clef "C"
       s1 s s s s
-      \override NoteHead #'color = #red
+      \override NoteHead.color = #red
       c'1
       s1 s s s s s
     }
     %-- Bass Staff --%
     \new Staff = "F" {
-      \override Staff.Clef #'stencil = ##f
+      \override Staff.Clef.stencil = ##f
       \clef "F"
       g,1 b, d f a
       s1 s s s s s s
@@ -1788,11 +1788,11 @@ the top line high F:
   \layout {
     \context {
       \Score
-      \override SpacingSpanner
-        #'base-shortest-duration = #(ly:make-moment 1/1)
-      \override  NonMusicalPaperColumn
-        #'line-break-system-details = #'((alignment-distances . (3 3)))
-      \override BarLine #'stencil = ##f
+      \override SpacingSpanner.base-shortest-duration =
+        #(ly:make-moment 1/1)
+      \override  NonMusicalPaperColumn.line-break-system-details =
+        #'((alignment-distances . (3 3)))
+      \override BarLine.stencil = ##f
     }
     \context {
       \Staff
@@ -1814,34 +1814,34 @@ have been selected:
     \new NoteNames {
       \set printOctaveNames = ##t
       g,1 b, d f a
-      \once \override NoteName #'color = #red
+      \once \override NoteName.color = #red
       c'1
       s1
       e'1 g' b' d'' f''
     }
     %-- Treble Staff --%
     \new Staff = "G" {
-      \once \override Staff.Clef #'stencil = ##f
+      \once \override Staff.Clef.stencil = ##f
       \clef "G"
       s1 s s s s s s
-      \override Staff.Clef #'full-size-change = ##t
+      \override Staff.Clef.full-size-change = ##t
       \set Staff.forceClef = ##t
       \clef "G"
       e'1 g' b' d'' f''
     }
     %-- Alto Staff reduced to a single line on middle C --%
     \new Staff = "C" {
-      \override Staff.StaffSymbol #'line-count = #1
-      \override Staff.StaffSymbol #'color = #red
-      \override Staff.Clef #'stencil = ##f
+      \override Staff.StaffSymbol.line-count = #1
+      \override Staff.StaffSymbol.color = #red
+      \override Staff.Clef.stencil = ##f
       \clef "C"
       s1 s s s s
-      \override NoteHead #'color = #red
+      \override NoteHead.color = #red
       c'1
     }
     %-- Bass Staff --%
     \new Staff = "F" {
-      \override Staff.Clef #'stencil = ##f
+      \override Staff.Clef.stencil = ##f
       \clef "F"
       g,1 b, d f a
     }
@@ -1849,11 +1849,11 @@ have been selected:
   \layout {
     \context {
       \Score
-      \override SpacingSpanner
-        #'base-shortest-duration = #(ly:make-moment 2/1)
-      \override  NonMusicalPaperColumn
-        #'line-break-system-details = #'((alignment-distances . (3 3)))
-      \override BarLine #'stencil = ##f
+      \override SpacingSpanner.base-shortest-duration =
+        #(ly:make-moment 2/1)
+      \override  NonMusicalPaperColumn.line-break-system-details =
+        #'((alignment-distances . (3 3)))
+      \override BarLine.stencil = ##f
     }
     \context {
       \Staff
@@ -1882,21 +1882,21 @@ shown below, where the notes show an arpeggio on a C major chord.
     }
     %-- Alto Staff --%
     \new Staff = "C" {
-      \override Staff.StaffSymbol #'line-count = #1
-      \once \override Staff.Clef #'stencil = ##f
+      \override Staff.StaffSymbol.line-count = #1
+      \once \override Staff.Clef.stencil = ##f
       \stopStaff
       \clef "C"
       s1 s s
       \startStaff
-      \revert Staff.StaffSymbol #'stencil
-      \override Staff.StaffSymbol #'color = #red
+      \revert Staff.StaffSymbol.stencil
+      \override Staff.StaffSymbol.color = #red
       c'1
       s1 s s s s
       \stopStaff \startStaff
-      \revert Staff.StaffSymbol #'line-count
-      \revert Staff.StaffSymbol #'color
+      \revert Staff.StaffSymbol.line-count
+      \revert Staff.StaffSymbol.color
       \stopStaff \startStaff
-      \override Staff.Clef #'full-size-change = ##t
+      \override Staff.Clef.full-size-change = ##t
       \set Staff.forceClef = ##t
       \clef "C"
       s1 s
@@ -1912,11 +1912,11 @@ shown below, where the notes show an arpeggio on a C major chord.
   \layout {
     \context {
       \Score
-      \override SpacingSpanner #'base-shortest-duration =
+      \override SpacingSpanner.base-shortest-duration =
         #(ly:make-moment 2/1)
-      \override  NonMusicalPaperColumn
-        #'line-break-system-details = #'((alignment-distances . (3 3)))
-      \override BarLine #'stencil = ##f
+      \override  NonMusicalPaperColumn.line-break-system-details =
+        #'((alignment-distances . (3 3)))
+      \override BarLine.stencil = ##f
     }
     \context {
       \Staff
@@ -2414,8 +2414,8 @@ they have survived only in special forms of musical notation such as the
 @lilypond[quote,ragged-right]
 \score {
   \new Staff {
-    \override Staff.Custos #'neutral-direction = #DOWN
-    \override Staff.Custos #'style = #'hufnagel
+    \override Staff.Custos.neutral-direction = #DOWN
+    \override Staff.Custos.style = #'hufnagel
     c'1 \break
     <d' a' f''>1
   }
@@ -3496,7 +3496,7 @@ Double Bass).
 @lilypond[quote,notime,line-width=13.0\cm]
 <<
   \relative c {
-    \override Staff.Clef #'full-size-change = ##t
+    \override Staff.Clef.full-size-change = ##t
     \clef varbaritone
     f1
     \clef bass
@@ -3961,7 +3961,7 @@ part in modern choral scores).
 
 @lilypond[quote,notime]
 \relative c'' {
-  \override Staff.Clef #'full-size-change = ##t
+  \override Staff.Clef.full-size-change = ##t
     \set Score.proportionalNotationDuration = #(ly:make-moment 1/8)
     \clef french
     g1
@@ -4867,7 +4867,7 @@ FI: pitkä appoggiatura, pitkä etuhele.
 Note value: twice the length of a @notation{breve}.
 
 @lilypond[quote,notime,relative=2]
-\override NoteHead #'style = #'mensural
+\override NoteHead.style = #'mensural
 g\longa g\breve
 @end lilypond
 
@@ -5526,7 +5526,7 @@ FI: keski-C.
 First C below the 440 Hz A.
 
 @lilypond[quote,notime,relative=1]
-\override Staff.Clef #'full-size-change = ##t
+\override Staff.Clef.full-size-change = ##t
   \clef bass c1 s
   \clef alto c s
   \clef treble c s
@@ -5653,7 +5653,7 @@ theme or subject.
 \score{
 \relative c'' {
   \set Score.initialTimeSignatureVisibility = #all-invisible
-  \override Score.TimeSignature #'break-visibility = #all-invisible
+  \override Score.TimeSignature.break-visibility = #all-invisible
   \time 4/4
   \key g \major
   \partial 8 g16\startGroup fis |
@@ -5859,9 +5859,9 @@ C-shaped sign for @notation{common time}, and the slashed C for
 
 @lilypond[quote,notime,line-width=13.0\cm]
 \relative c'' {
-  \override NoteHead #'style = #'mensural
+  \override NoteHead.style = #'mensural
   a\longa_"longa" a\breve_"breve"
-  \revert NoteHead #'style
+  \revert NoteHead.style
   a1_"1/1" a2_"1/2" a4_"1/4" s16 a8_"1/8" s16
   a16_"1/16" s16 a32_"1/32" s16 a64_"1/64" s32 }
 @end lilypond
