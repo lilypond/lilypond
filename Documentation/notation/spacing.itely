@@ -902,8 +902,8 @@ The page-breaking algorithm to use.  Choices are
 Tricks the page breaker into thinking that
 @code{system-system-spacing} is set to something different than
 it really is.  For example, if
-@code{page-breaking-system-system-spacing #'padding} is set to something
-substantially larger than @code{system-system-spacing #'padding}, then the
+@code{page-breaking-system-system-spacing.padding} is set to something
+substantially larger than @code{system-system-spacing.padding}, then the
 page-breaker will put fewer systems on each page.  Default: unset.
 
 @item page-count

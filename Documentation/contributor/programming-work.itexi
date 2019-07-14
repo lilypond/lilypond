@@ -1875,7 +1875,7 @@ it calls also avoid the functions above.  Also, to date in LilyPond, a pure
 function will always return the same value before line breaking (or, more
 precisely, before any version of @code{break_into_pieces} is called).  This
 convention makes it possible to cache pure functions and be more flexible
-about the order in which functions are called. For example; Stem #'length has
+about the order in which functions are called. For example; @code{Stem.length} has
 a pure property that will @emph{never} trigger one of the functions listed
 above and will @emph{always} return the same value before line breaking,
 independent of where it is called.  Sometimes, this will be the actual length
@@ -1951,7 +1951,7 @@ Purity is defined in LilyPond with the creation of an unpure-pure container
 #(define (bar grob start end)
   '(-2 . 2))
 
-\override Stem #'length = #(ly:make-unpure-pure-container foo bar)
+\override Stem.length = #(ly:make-unpure-pure-container foo bar)
 @end example
 
 Note that items can only ever have two pure heights: their actual pure height

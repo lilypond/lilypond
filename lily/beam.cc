@@ -355,7 +355,7 @@ SCM
 Beam::calc_beam_segments (SCM smob)
 {
   /* ugh, this has a side-effect that we need to ensure that
-     Stem #'beaming is correct */
+     Stem.beaming is correct */
   Grob *me_grob = unsmob<Grob> (smob);
   (void) me_grob->get_property ("beaming");
 

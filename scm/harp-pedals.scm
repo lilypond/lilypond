@@ -47,13 +47,12 @@ multiple dividers) anywhere you want, but you'll have to live with the
 warnings.
 
 The appearance of the diagram can be tweaked inter alia using the size property
-of the TextScript grob (@code{\\override Voice.TextScript #'size = #0.3}) for
-the overall, the thickness property (@code{\\override Voice.TextScript
-#'thickness = #3}) for the line thickness of
+of the TextScript grob (@code{\\override Voice.TextScript.size = #0.3}) for
+the overall, the thickness property (@code{\\override
+Voice.TextScript.thickness = #3}) for the line thickness of
 the horizontal line and the divider.  The remaining configuration (box
 sizes, offsets and spaces) is done by the harp-pedal-details list of
-properties (@code{\\override Voice.TextScript #'harp-pedal-details
-#'box-width = #1}).
+properties (@code{\\override Voice.TextScript.harp-pedal-details.box-width = #1}).
 It contains the following settings: @code{box-offset} (vertical shift
 of the box center for up/down pedals), @code{box-width},
 @code{box-height}, @code{space-before-divider} (the spacing between

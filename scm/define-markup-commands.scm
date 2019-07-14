@@ -1310,15 +1310,14 @@ baseline.
       indent = 0.0\\cm
       \\context {
         \\Score
-        \\override RehearsalMark
-          #'break-align-symbols = #'(time-signature key-signature)
-        \\override RehearsalMark
-          #'self-alignment-X = #LEFT
+        \\override RehearsalMark.break-align-symbols =
+           #'(time-signature key-signature)
+        \\override RehearsalMark.self-alignment-X = #LEFT
       }
       \\context {
         \\Staff
-        \\override TimeSignature
-          #'break-align-anchor-alignment = #LEFT
+        \\override TimeSignature.break-align-anchor-alignment =
+           #LEFT
       }
     }
   }

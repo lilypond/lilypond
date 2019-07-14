@@ -1229,9 +1229,9 @@ in der Mitte einer Zeile und am Anfang einer Zeile ausgegeben
 werden.  Wenn also alle Taktlinien unsichtbar sein sollen, wie in
 unserem Beispiel, brauchen wir den Wert @code{'#(#f #f #f)}.
 Versuchen wir es also, und berücksichtigen wir auch den
-@code{Staff}-Kontext.  Beachten Sie auch, dass Sie @code{#'#}
+@code{Staff}-Kontext.  Beachten Sie auch, dass Sie @code{##}
 vor der öffnenden Klammer schreiben müssen:
-@code{'#} wird benötigt als Teil des Wertes, um einen Vektor zu
+@code{#} wird benötigt als Teil des Wertes, um einen Vektor zu
 signalisieren, und das erste @code{#} wird benötigt, um
 den Wert in einem @code{\override}-Befehl anzuführen.
 
@@ -1241,7 +1241,7 @@ den Wert in einem @code{\override}-Befehl anzuführen.
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override Staff.BarLine.break-visibility = #'#(#f #f #f)
+  \override Staff.BarLine.break-visibility = ##(#f #f #f)
   c4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8

@@ -50,7 +50,7 @@ brew_cluster_piece (Grob *me, vector<Offset> bottom_points, vector<Offset> top_p
     shape = ly_symbol2string (shape_scm);
   else
     {
-      programming_error ("#'style should be symbol.");
+      programming_error ("ClusterSpanner.style should be defined as a symbol.");
       me->suicide ();
       return Stencil ();
     }

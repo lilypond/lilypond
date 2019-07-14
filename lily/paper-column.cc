@@ -267,8 +267,8 @@ Paper_column::get_interface_extent (Grob *column, SCM iface, Axis a)
   - blue arrow representing ideal distance,
   - red arrow representing minimum distance
   to aid debugging.  To turn this on, simply add
-  \override Score.PaperColumn #'stencil = #ly:paper-column::print
-  \override Score.NonMusicalPaperColumn #'stencil = #ly:paper-column::print
+  \override Score.PaperColumn.stencil = #ly:paper-column::print
+  \override Score.NonMusicalPaperColumn.stencil = #ly:paper-column::print
   to your score.
   Also, as of 2013-10-16 there's a switch in Frescobaldi that turns this on.
 */

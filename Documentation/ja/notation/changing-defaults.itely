@@ -4017,7 +4017,7 @@ a'1
   f'4 g a b
   f4 g a b
   % カレント行の最後で小節線を削除します
-  \once \override Score.BarLine.break-visibility = #'#(#f #t #t)
+  \once \override Score.BarLine.break-visibility = ##(#f #t #t)
   \break
   f4 g a b
   f4 g a b
