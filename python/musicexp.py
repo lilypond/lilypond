@@ -816,7 +816,7 @@ class Lyrics:
         for l in self.lyrics_syllables:
             lstr += l
         #lstr += "\n}"
-        return lstr
+        return lstr.encode('utf-8')
 
 class Header:
 
@@ -1595,7 +1595,7 @@ class ChordNameEvent (Event):
         if self.duration:
             value += self.duration.ly_expression ()
         if self.kind:
-            value = self.kind.format(value)
+            value = value + self.kind
         # First print all additions/changes, and only afterwards all subtractions
         for m in self.modifications:
             if m.type == 1:
@@ -2228,9 +2228,7 @@ class StaffGroup:
                     escape_instrument_string (self.short_instrument_name)))
             printer.newline ()
         if self.sound:
-            printer.dump(
-                r'\set {stafftype}.midiInstrument = "{sound}"'.format(
-                    stafftype=self.stafftype, sound=self.sound))
+            printer.dump (r'\set %s.midiInstrument = "%s"' % (self.stafftype, self.sound))
             printer.newline ()
         self.print_ly_contents (printer)
         printer.newline ()

@@ -97,8 +97,7 @@ def extract_paper_information(score_partwise):
         if 1 < staff_size < 100:
             paper.global_staff_size = staff_size
         else:
-            msg = "paper.global_staff_size {} is too large, using defaults=20".format(
-                staff_size)
+            msg = "paper.global_staff_size %s is too large, using defaults=20" % staff_size
             warnings.warn(msg)
             paper.global_staff_size = 20
 
@@ -1248,7 +1247,7 @@ def musicxml_dynamics_to_lily_event(dynentry):
               " = #(make-dynamic-script \"" + dynamicstext + "\")"
         needed_additional_definitions.append(dynamicsname)
     event = musicexp.DynamicsEvent()
-    event.type = dynamicsname
+    event.type = dynamicsname.encode('utf-8')
     return event
 
 # Convert single-color two-byte strings to numbers 0.0 - 1.0
@@ -1621,37 +1620,37 @@ def musicxml_chordpitch_to_lily(mxl_cpitch):
     return r
 
 chordkind_dict = {
-    'major': r'{}:5',
-    'minor': r'{}:m5',
-    'augmented': r'{}:aug5',
-    'diminished': r'{}:dim5',
+    'major': ':5',
+    'minor': ':m5',
+    'augmented': ':aug5',
+    'diminished': ':dim5',
         # Sevenths:
-    'dominant': r'{}:7',
-    'dominant-seventh': r'{}:7',
-    'major-seventh': r'{}:maj7',
-    'minor-seventh': r'{}:m7',
-    'diminished-seventh': r'{}:dim7',
-    'augmented-seventh': r'{}:aug7',
-    'half-diminished': r'{}:dim5m7',
-    'major-minor': r'{}:maj7m5',
+    'dominant': ':7',
+    'dominant-seventh': ':7',
+    'major-seventh': ':maj7',
+    'minor-seventh': ':m7',
+    'diminished-seventh': ':dim7',
+    'augmented-seventh': ':aug7',
+    'half-diminished': ':dim5m7',
+    'major-minor': ':maj7m5',
         # Sixths:
-    'major-sixth': r'{}:6',
-    'minor-sixth': r'{}:m6',
+    'major-sixth': ':6',
+    'minor-sixth': ':m6',
         # Ninths:
-    'dominant-ninth': r'{}:9',
-    'major-ninth': r'{}:maj9',
-    'minor-ninth': r'{}:m9',
+    'dominant-ninth': ':9',
+    'major-ninth': ':maj9',
+    'minor-ninth': ':m9',
         # 11ths (usually as the basis for alteration):
-    'dominant-11th': r'{}:11',
-    'major-11th': r'{}:maj11',
-    'minor-11th': r'{}:m11',
+    'dominant-11th': ':11',
+    'major-11th': ':maj11',
+    'minor-11th': ':m11',
         # 13ths (usually as the basis for alteration):
-    'dominant-13th': r'{}:13.11',
-    'major-13th': r'{}:maj13.11',
-    'minor-13th': r'{}:m13',
+    'dominant-13th': ':13.11',
+    'major-13th': ':maj13.11',
+    'minor-13th': ':m13',
         # Suspended:
-    'suspended-second': r'{}:sus2',
-    'suspended-fourth': r'{}:sus4',
+    'suspended-second': ':sus2',
+    'suspended-fourth': ':sus4',
         # Functional sixths:
     # TODO
     #'Neapolitan': '???',
@@ -1660,9 +1659,9 @@ chordkind_dict = {
     #'German': '???',
         # Other:
     #'pedal': '???',(pedal-point bass)
-    'power': r'{}:1.5',
+    'power': ':1.5',
     #'Tristan': '???',
-    'other': r'{}:1',
+    'other': ':1',
     'none': None,
 }
 
