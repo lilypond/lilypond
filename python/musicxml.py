@@ -43,7 +43,7 @@ class Xml_node:
         if not self._children:
             return ''
 
-        return ''.join([c.get_text() for c in self._children])
+        return ''.join([c.get_text() for c in self._children]).encode('utf-8')
 
     def message(self, msg):
         ly.warning(msg)

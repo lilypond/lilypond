@@ -97,8 +97,7 @@ def extract_paper_information(score_partwise):
         if 1 < staff_size < 100:
             paper.global_staff_size = staff_size
         else:
-            msg = "paper.global_staff_size {} is too large, using defaults=20".format(
-                staff_size)
+            msg = "paper.global_staff_size %s is too large, using defaults=20" % staff_size
             warnings.warn(msg)
             paper.global_staff_size = 20
 
@@ -1248,7 +1247,7 @@ def musicxml_dynamics_to_lily_event(dynentry):
               " = #(make-dynamic-script \"" + dynamicstext + "\")"
         needed_additional_definitions.append(dynamicsname)
     event = musicexp.DynamicsEvent()
-    event.type = dynamicsname
+    event.type = dynamicsname.encode('utf-8')
     return event
 
 # Convert single-color two-byte strings to numbers 0.0 - 1.0

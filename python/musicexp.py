@@ -817,7 +817,7 @@ class Lyrics:
         for l in self.lyrics_syllables:
             lstr += l
         #lstr += "\n}"
-        return lstr
+        return lstr.encode('utf-8')
 
 class Header:
 
@@ -2230,9 +2230,7 @@ class StaffGroup:
                     escape_instrument_string (self.short_instrument_name)))
             printer.newline ()
         if self.sound:
-            printer.dump(
-                r'\set {stafftype}.midiInstrument = #"{sound}"'.format(
-                    stafftype=self.stafftype, sound=self.sound))
+            printer.dump (r'\set %s.midiInstrument = #"%s"' % (self.stafftype, self.sound))
             printer.newline ()
         self.print_ly_contents (printer)
         printer.newline ()
