@@ -600,9 +600,9 @@ urge you to use the @ref{Download, stable Download}, and read the
 
 There are two sets of releases for LilyPond: stable releases, and
 unstable development releases.  Stable versions have an
-even-numbered @q{minor} version number (e.g., 2.8, 2.10, 2.12).
+even-numbered @q{minor} version number (e.g., 2.14, 2.16, 2.18).
 Development versions have an odd-numbered @q{minor} version number
-(e.g., 2.7, 2.9, 2.11).
+(e.g., 2.15, 2.17, 2.19).
 
 @divEnd
 
