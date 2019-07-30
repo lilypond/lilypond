@@ -16,4 +16,11 @@ bindir = os.path.abspath (os.path.dirname (sys.argv[0]))
 for p in ['share', 'lib']:
     datadir = os.path.abspath (bindir + '/../%s/lilypond/current/python/' % p)
     sys.path.insert (0, datadir)
+
+# Python scripts executed during 'make test' and 'make test-baseline'
+# must use their own versions of the scripts and the files loaded by
+# those scripts. Assume to be in such a situation if the path to the
+# script ends with 'scripts/out'.
+if bindir.endswith (r'/scripts/out'):
+    sys.path.insert (0, bindir + r'/../../python/out')
 """
