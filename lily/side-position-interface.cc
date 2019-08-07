@@ -182,6 +182,18 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
 {
   Direction dir = get_grob_direction (me);
 
+  if (!dir)
+    {
+      // Should we even warn?  Previously this caused an assertion
+      // failure, so this might not be well-supported behavior.  But
+      // possibly this could be useful?
+      me->warning (_f ("%s needs a direction for side alignment",
+                       me->name ().c_str ()));
+      // Too much of the remaining code does not do anything sensible
+      // without a direction, so we just take what we have and bail
+      return scm_from_double (current_off ? *current_off : 0.0);
+    }
+
   set<Grob *> support = get_support_set (me);
 
   Grob *common[2];
