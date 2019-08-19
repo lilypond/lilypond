@@ -189,7 +189,7 @@ def get_latex_textwidth (source, global_options):
 
     progress (_ ("Running `%s' on file `%s' to detect default page settings.\n")
               % (global_options.latex_program, tmpfile))
-    cmd = '%s %s' % (global_options.latex_program, tmpfile)
+    cmd = '%s -interaction=nonstopmode %s' % (global_options.latex_program, tmpfile)
     debug ("Executing: %s\n" % cmd)
     run_env = os.environ.copy()
     run_env['LC_ALL'] = 'C'
