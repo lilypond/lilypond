@@ -141,7 +141,7 @@ LilyPond は @strong{テキスト ベース} の楽譜作成プログラムで�
 ユーザが作成した例、ヒント、それに TIPS。
 
 @item
-@uref{http://benlemon.me/blog/music/lilypond/operation-lilypond/,ビデオチュートリアル}:
+@uref{https://benl.xyz/lilypond/operation-lilypond,ビデオチュートリアル}:
 LilyPond ユーザの Ben Lemon は、自分のブログで新規ユーザのための@c
 ビデオチュートリアルを作成しています。
 
