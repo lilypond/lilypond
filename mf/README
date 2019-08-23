@@ -19,7 +19,14 @@ Conversion from MetaFont to PostScript
 
 [It is assumed that you have a TeX distribution like TeXLive installed on
  your system, providing METAFONT and METAPOST infrastructure and binaries
- together with a very basic plain TeX setup.]
+ together with a very basic plain TeX setup.
+
+ For better readability of log files created by METAFONT and METAPOST it is
+ also recommended to set
+
+      max_print_line=1000
+
+ in your environment.]
 
 The MetaFont code gets directly converted to PostScript Type 1 font with a
 script called `mf2pt1', which in turn calls `mpost' (the METAPOST binary) to
@@ -189,6 +196,65 @@ minor issue, but in some cases it might show design flaws.
 . Add `eps' for mirrored paths to assure correct MetaFont rasterization.
   See the comment and the variables at the end of `feta-params.mf' for
   details how vertical symmetry should be achieved.
+
+
+Conversion to OpenType fonts and integration into LilyPond
+----------------------------------------------------------
+
+A run of `mf' (or `mf2pt1') as described above creates a `*.log' file that
+contains lines like
+
+  @{group@:rests@}
+  ...
+  @{char@:breve rest@:39@:0@:2.3805@:0@:3.9675@:2.3805@:0@:M1@}
+  ...
+  @{puorg@:rests@}
+
+These lines are further parsed, see below.  The elements of a `char' line
+are as follows.
+
+  charnamestr   (METAFONT/METAPOST glyph description)
+  charcode      (METAFONT/METAPOST glyph index)
+  charbp        (the glyph `breapth', i.e., the extent left of the glyph's
+                 origin)
+  charwd        (the glyph width)
+  chardp        (the glyph depth)
+  charht        (the glyph height)
+  charwx        (the x coordinate of the stem attachment point)
+  charwy        (the y coordinate of the stem attachment point)
+  idstr         (the glyph name in the current group)
+
+If the `char' line is within a group, then group name and `idstr' are
+concatenated, with a `.' inbetween, to form the glyph name.  In the above
+example, we are in the group `rests' and `idstr' is `M1', thus the glyph
+name of `breve rest' is `rests.M1'.
+
+The log file contains more data that gets parsed; see file
+`feta-autometric.mf' for the details.  For example, lines with the
+`parameter' keyword hold global metric information like design size or staff
+line thickness.
+
+The script `mf-to-table.py' converts the just described information in the
+`*.log' file into the files `*.otf-gtable' and `*.lisp'.  A rule in
+`mf/GNUmakefile' concatenates the `*.lisp' files into `*.otf-table'.
+
+The script `gen-emmentaler-scripts' creates a FontForge script `*.genpe'
+that merges the Feta and Parmesan `*.pfb' font files (created by `mf2pt1')
+into an Emmentaler font, including kerning information (taken from the
+`*tfm' files generated during a METAFONT or METAPOST run).  It also creates
+a text file `*.subfonts' that traces which files have been merged.  The
+files `*.otf-table', `*.otf-gtable', and `*.subfonts' are then embedded
+verbatim into the OpenType font as SFNT tables `LILC', `LILY', and `LILF',
+respectively.
+
+For music symbols, LilyPond exclusively uses the data of these three tables
+for glyph metrics information; it does not use the metrics information in
+the font's `hmtx' table.  On the other hand, script-like glyph and text
+strings are handled by the Pango library, which uses the `htmx' and `kern'
+tables of the Emmentaler fonts.
+
+Right now, only glyphs defined in files `feta-dynamics.mf' and
+`feta-numbers.mf' can contain kerning values.
 
 
 Miscellaneous
