@@ -193,17 +193,19 @@ kurd = #`(
   (6 . ,FLAT)
 )
 
-%% Sahnaz: d' eb' fd' g' a' bb' cd'' d''
-%% Sahnaz: eb do: c' db' e' f' g' ab' b' c''
-sahnaz = #`(
-  (0 . ,NATURAL)
-  (1 . ,FLAT)
-  (2 . ,NATURAL)
-  (3 . ,NATURAL)
-  (4 . ,NATURAL)
-  (5 . ,FLAT)
-  (6 . ,NATURAL)
-)
+%%% Sahnaz: d' eb' fd' g' a' bb' cd'' d''
+%%% Sahnaz: eb do: c' db' e' f' g' ab' b' c''
+% Sahnaz (in D) is a transposition of Alhizazkar (in C)
+
+%sahnaz = #`(
+%  (0 . ,NATURAL)
+%  (1 . ,FLAT)
+%  (2 . ,NATURAL)
+%  (3 . ,NATURAL)
+%  (4 . ,NATURAL)
+% (5 . ,FLAT)
+%  (6 . ,NATURAL)
+%)
 
 %% Gammes commençant par midb
 
