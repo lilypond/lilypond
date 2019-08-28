@@ -94,25 +94,34 @@ Appendices
 @node LilyPond command index
 @appendix LilyPond command index
 
-This index lists all the LilyPond commands and keywords with links
-to those sections of the manual which describe or discuss their
-use.  Each link is in two parts.  The first part points to the
-exact location in the manual where the command or keyword appears;
-the second part points to the start of the section of the manual
-in which the command or keyword appears.
+This index lists all the LilyPond commands and keywords with links to
+those sections of the manual that describe or discuss their use.
+@ifhtml
+Each link is in two parts.  The first part points to the exact location
+in the manual where the command or keyword appears; the second part
+points to the start of the section of the manual in which the command
+or keyword appears.
+@end ifhtml
 
 @printindex ky
 
 @node LilyPond index
 @appendix LilyPond index
 
-In addition to all the LilyPond commands and keywords, this index
-lists musical terms and words which relate to each of them, with
-links to those sections of the manual which describe or discuss
-that topic.  Each link is in two parts.  The first part points to
-the exact location in the manual where the topic appears; the
-second part points to the start of the section of the manual where
-that topic is discussed.
+In addition to all the LilyPond commands and keywords, this index lists
+musical terms and words that relate to each of them, with links to
+those sections of the manual that describe or discuss that topic.
+@ifhtml
+Each link is in two parts.  The first part points to the exact location
+in the manual where the topic appears; the second part points to the
+start of the section of the manual where that topic is discussed.
+@end ifhtml
+
+@iftex
+Slanted index entries point to locations (mostly @q{See also} sections)
+that contain external links to other LilyPond documentation files like
+the Internal Reference or the Glossary.
+@end iftex
 
 @printindex cp
 

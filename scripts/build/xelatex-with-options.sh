@@ -6,4 +6,4 @@
 # remote PDF cannot be known. In order to avoid replacement,
 # we can use commandline option `-C 0x0010' for xdvipdfmx.
 
-exec xelatex --output-driver='xdvipdfmx -C 0x0010' "$@"
+exec xelatex -8bit --output-driver='xdvipdfmx -C 0x0010' "$@"
