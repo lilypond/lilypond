@@ -63,7 +63,6 @@
     (string-append
      "\n\n@item @code{\\" c-name "} " signature-str
      "\n@funindex \\" c-name "\n"
-     "\n@cindex \\" c-name "\n"
      (if (string? doc-str)
          doc-str
          "")
