@@ -39,12 +39,16 @@
          (map (lambda (arg type) (format #f "@var{~a} ~a" arg type))
               arg-names (cdr type-names)))))
     (format #f
-            "@item @code{~a} ~a ~a~a
-@funindex ~a
+            "@item @code{~a~a} ~a ~a~a
+@funindex ~a~a
 ~a
 "
-            name-sym (car type-names)
-            (if (string-null? signature-str) "" " - ") signature-str
+            (if (eq? (string-ref (symbol->string name-sym) 0) #\\) "" "\\")
+            name-sym
+            (car type-names)
+            (if (string-null? signature-str) "" " - ")
+            signature-str
+            (if (eq? (string-ref (symbol->string name-sym) 0) #\\) "" "\\")
             name-sym
             (if (and doc (not (string-null? doc)))
                 doc

@@ -63,8 +63,8 @@
                               (eq? (car mod) 'description))
                             mod-list)))
     (format #f
-     "@item @code{~a}
-@findex ~a
+     "@item @code{\\~a}
+@funindex \\~a
 ~a
 @itemize
 ~{~a ~}
