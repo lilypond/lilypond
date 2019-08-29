@@ -202,7 +202,7 @@ Notation Reference:
 @node Ligatures
 @unnumberedsubsubsec Ligatures
 
-@cindex Ligatures
+@cindex ligature
 
 @c TODO: Should double check if I recalled things correctly when I wrote
 @c down the following paragraph by heart.
@@ -213,8 +213,8 @@ of Gregorian chant notation to denote ascending or descending
 sequences of notes on the same syllable.  They are also used in
 mensural notation.
 
-@funindex \[
-@funindex \]
+@funindex @sortas{[B} \[
+@funindex @sortas{]B} \]
 
 Ligatures are entered by @emph{enclosing} them in @code{\[} and
 @code{\]}.  Some ligature styles may need additional input syntax
@@ -367,8 +367,8 @@ Internals Reference:
 @node Mensural contexts
 @unnumberedsubsubsec Mensural contexts
 
-@cindex MensuralVoice
-@cindex MensuralStaff
+@funindex MensuralVoice
+@funindex MensuralStaff
 
 The predefined @code{MensuralVoice} and @code{MensuralStaff}
 contexts can be used to engrave a piece in mensural style.  These
@@ -404,16 +404,16 @@ Music Glossary:
 @node Mensural clefs
 @unnumberedsubsubsec Mensural clefs
 
-@cindex Clef styles
-@cindex Ancient music clefs
-@cindex Clef, ancient music
-@cindex Clef, petrucci
-@cindex Clef, mensural
-@cindex Clef, blackmensural
-@cindex Clef, kievan
+@cindex clef style
+@cindex ancient music clef
+@cindex clef, ancient music
+@cindex clef, Petrucci
+@cindex clef, mensural
+@cindex clef, blackmensural
+@cindex clef, Kievan
 @cindex Petrucci clef
-@cindex Mensural clef
-@cindex Blackmensural clef
+@cindex mensural clef
+@cindex blackmensural clef
 @cindex Kievan clef
 
 Mensural clefs are supported using the @code{\clef} command.  Some of
@@ -597,7 +597,7 @@ Use @code{\markup @{\musicglyph "timesig.mensural68alt" @}} instead.
 @node Mensural note heads
 @unnumberedsubsubsec Mensural note heads
 
-@cindex note heads, ancient
+@cindex note head, ancient
 
 For ancient notation, a note head style other than the
 @code{default} style may be chosen.  This is accomplished by setting
@@ -667,7 +667,8 @@ Notation Reference:
 @node Mensural flags
 @unnumberedsubsubsec Mensural flags
 
-@cindex flags
+@cindex flag, mensural
+@cindex mensural flag
 
 Use the @code{flag-style} property of grob @code{Stem} to
 select ancient flags.  Besides the @code{default} flag style,
@@ -706,7 +707,7 @@ scope for mensural notation).
 @node Mensural rests
 @unnumberedsubsubsec Mensural rests
 
-@cindex rests, ancient
+@cindex rest, ancient
 
 Use the @code{style} property of grob @code{Rest} to select
 ancient rests.  Supported ancient styles are
@@ -745,8 +746,8 @@ using pitched rests.
 @node Mensural accidentals and key signatures
 @unnumberedsubsubsec Mensural accidentals and key signatures
 
-@cindex accidentals
-@cindex key signature
+@cindex accidental, mensural
+@cindex key signature, mensural
 
 The @code{mensural} style provides a sharp and a flat sign
 different from the default style.  Mensural notation rarely used a natural
@@ -800,8 +801,8 @@ certain rules.  This is called @notation{musica ficta}.  In modern
 transcriptions, these accidentals are usually printed over the
 note.
 
-@cindex Accidental, musica ficta
-@cindex Musica ficta
+@cindex accidental, musica ficta
+@cindex musica ficta
 
 Support for such suggested accidentals is included, and can be
 switched on by setting @code{suggestAccidentals} to true.
@@ -841,8 +842,9 @@ Internals Reference:
 @node White mensural ligatures
 @unnumberedsubsubsec White mensural ligatures
 
-@cindex Mensural ligatures
-@cindex White mensural ligatures
+@cindex ligature, mensural
+@cindex mensural ligature
+@cindex white mensural ligature
 
 There is limited support for white mensural ligatures.
 
@@ -970,8 +972,8 @@ Notation Reference:
 @node Gregorian chant contexts
 @unnumberedsubsubsec Gregorian chant contexts
 
-@cindex VaticanaVoice
-@cindex VaticanaStaff
+@funindex VaticanaVoice
+@funindex VaticanaStaff
 
 The predefined @code{VaticanaVoice} and
 @code{VaticanaStaff} can be used to engrave a piece of
@@ -1008,7 +1010,7 @@ the following excerpt demonstrates:
 @node Gregorian clefs
 @unnumberedsubsubsec Gregorian clefs
 
-@cindex clefs
+@cindex clef
 
 The following table shows all Gregorian clefs that are supported via
 the @code{\clef} command.  Some of the clefs use the same glyph,
@@ -1147,8 +1149,10 @@ Notation Reference:
 @node Gregorian accidentals and key signatures
 @unnumberedsubsubsec Gregorian accidentals and key signatures
 
-@cindex accidentals
-@cindex key signature
+@cindex accidental, Gregorian
+@cindex key signature, Gregorian
+@cindex Gregorian accidental
+@cindex Gregorian key signature
 
 Accidentals for the three different Gregorian styles are available:
 
@@ -1291,7 +1295,8 @@ Installed Files:
 @node Gregorian articulation signs
 @unnumberedsubsubsec Gregorian articulation signs
 
-@cindex articulations
+@cindex articulation, Gregorian
+@cindex Gregorian articulation
 
 In addition to the standard articulation signs described in
 section @ref{Articulations and ornamentations}, articulation signs
@@ -1377,8 +1382,9 @@ Snippets:
 @node Gregorian square neume ligatures
 @unnumberedsubsubsec Gregorian square neume ligatures
 
-@cindex Square neumes ligatures
-@cindex Gregorian square neumes ligatures
+@cindex ligature, square neumes
+@cindex square neumes ligature
+@cindex Gregorian square neumes ligature
 
 There is limited support for Gregorian square neumes notation
 (following the style of the Editio Vaticana).  Core ligatures can
@@ -2356,8 +2362,8 @@ with head prefixes in arbitrary order.
 @node Kievan contexts
 @unnumberedsubsubsec Kievan contexts
 
-@cindex KievanVoice
-@cindex KievanStaff
+@funindex KievanVoice
+@funindex KievanStaff
 
 As with Mensural and Gregorian notation, the predefined
 @code{KievanVoice} and @code{KievanStaff} contexts can be used
@@ -2402,7 +2408,7 @@ Kievan notation that were used in Galicia to notate Rusyn plainchant.
 @node Kievan clefs
 @unnumberedsubsubsec Kievan clefs
 
-@cindex clefs
+@cindex clef
 
 There is only one clef used in Kievan notation (the Tse-fa-ut Clef).
 It is used to indicate the position of @code{c}:
@@ -2424,7 +2430,7 @@ Notation Reference:
 @node Kievan notes
 @unnumberedsubsubsec Kievan notes
 
-@cindex note heads, ancient
+@cindex note head, ancient
 
 @funindex \kievanOn
 @funindex \kievanOff
@@ -2471,7 +2477,8 @@ setting the @code{direction} property of the @code{Stem} object.
 @node Kievan accidentals
 @unnumberedsubsubsec Kievan accidentals
 
-@cindex accidentals
+@cindex accidental, Kievan
+@cindex Kievan accidental
 
 The @code{kievan} style for accidentals is selected with the
 @code{glyph-name-alist} property of the grob @code{Accidental}.
@@ -2520,7 +2527,8 @@ Notation Reference:
 @node Kievan melismata
 @unnumberedsubsubsec Kievan melismata
 
-@cindex Ligatures
+@cindex ligature, Kievan
+@cindex Kievan ligature
 
 Notes within a Kievan melisma are usually placed close to each other
 and the melismata separated by whitespace. This is done to allow
@@ -2614,7 +2622,7 @@ same source.
 @node Incipits
 @unnumberedsubsubsec Incipits
 @funindex \incipit
-@cindex incipits, adding
+@cindex incipit, adding
 
 It is customary when transcribing mensural music into modern notation to place
 an indication of how the initial rests and note or notes of the original version

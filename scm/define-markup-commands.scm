@@ -149,7 +149,7 @@ determines the space between markups in @var{args}.
   #:category graphic
   #:properties ((thickness 1))
   "
-@cindex drawing lines within text
+@cindex drawing line, within text
 
 A simple line.
 @lilypond[verbatim,quote]
@@ -174,7 +174,7 @@ A simple line.
                 (phase 0)
                 (full-length #t))
   "
-@cindex drawing dashed lines within text
+@cindex drawing dashed line, within text
 
 A dashed line.
 
@@ -279,7 +279,7 @@ Manual settings for @code{on},@code{off} and @code{phase} are possible.
                 (off 1)
                 (phase 0))
   "
-@cindex drawing dotted lines within text
+@cindex drawing dotted line, within text
 
 A dotted line.
 
@@ -312,7 +312,7 @@ line-length.
                 (height 0.5)
                 (orientation 1))
   "
-@cindex drawing squiggled lines within text
+@cindex drawing squiggled line, within text
 
 A squiggled line.
 
@@ -392,7 +392,7 @@ Its appearance may be customized by overrides for @code{thickness},
                 (line-width)
                 (span-factor 1))
   "
-@cindex drawing a line across a page
+@cindex drawing line, across a page
 
 Draws a line across a page, where the property @code{span-factor}
 controls what fraction of the page is taken up.
@@ -415,7 +415,7 @@ controls what fraction of the page is taken up.
   (number? number? boolean?)
   #:category graphic
   "
-@cindex drawing circles within text
+@cindex drawing circle, within text
 
 A circle of radius @var{radius} and thickness @var{thickness},
 optionally filled.
@@ -436,7 +436,7 @@ optionally filled.
                 (font-size 0)
                 (baseline-skip 2))
   "
-@cindex drawing triangles within text
+@cindex drawing triangle, within text
 
 A triangle, either filled or empty.
 
@@ -492,7 +492,7 @@ thickness and padding around the markup.
                 (x-padding 0.2)
                 (y-padding 0.2))
   "
-@cindex drawing ellipse around text
+@cindex drawing ellipse, around text
 
 Draw an ellipse around @var{arg}.  Use @code{thickness},
 @code{x-padding}, @code{y-padding} and @code{font-size} properties to determine
@@ -520,7 +520,7 @@ line thickness and padding around the markup.
                 (x-padding 0.75)
                 (y-padding 0.75))
   "
-@cindex drawing oval around text
+@cindex drawing oval, around text
 
 Draw an oval around @var{arg}.  Use @code{thickness},
 @code{x-padding}, @code{y-padding} and @code{font-size} properties to determine
@@ -544,7 +544,7 @@ line thickness and padding around the markup.
   (string? markup?)
   #:category graphic
   "
-@cindex inserting URL links into text
+@cindex inserting URL link, into text
 
 Add a link to URL @var{url} around @var{arg}.  This only works in
 the PDF backend.
@@ -570,7 +570,7 @@ the PDF backend.
   (number? markup?)
   #:category other
   "
-@cindex referencing page numbers in text
+@cindex referencing page number, in text
 
 Add a link to the page @var{page-number} around @var{arg}.  This only works
 in the PDF backend.
@@ -602,7 +602,7 @@ in the PDF backend.
   (symbol? markup?)
   #:category other
   "
-@cindex referencing page labels in text
+@cindex referencing page label, in text
 
 Add a link to the page holding label @var{label} around @var{arg}.  This
 only works in the PDF backend.
@@ -640,7 +640,7 @@ only works in the PDF backend.
   (number? number? number?)
   #:category graphic
   "
-@cindex drawing beams within text
+@cindex drawing beam, within text
 
 Create a beam with the specified parameters.
 @lilypond[verbatim,quote]
@@ -813,8 +813,8 @@ thickness and padding around the markup.
   (number-pair? number-pair? number?)
   #:category graphic
   "
-@cindex drawing solid boxes within text
-@cindex drawing boxes with rounded corners
+@cindex drawing solid box, within text
+@cindex drawing box, with rounded corners
 
 Draw a box with rounded corners of dimensions @var{xext} and
 @var{yext}.  For example,
@@ -844,8 +844,8 @@ circle of diameter@tie{}0 (i.e., sharp corners).
                 (corner-radius 1)
                 (font-size 0)
                 (box-padding 0.5))
-  "@cindex enclosing text in a box with rounded corners
-   @cindex drawing boxes with rounded corners around text
+  "@cindex enclosing text in box, with rounded corners
+   @cindex drawing box, with rounded corners, around text
 Draw a box with rounded corners around @var{arg}.  Looks at @code{thickness},
 @code{box-padding} and @code{font-size} properties to determine line
 thickness and padding around the markup; the @code{corner-radius} property
@@ -893,7 +893,7 @@ Rotate object with @var{ang} degrees around its center.
   #:properties ((style 'box)
                 (thickness '()))
   "
-@cindex adding a white background to text
+@cindex adding white background, to text
 
 Provide a white background for @var{arg}.  The shape of the white
 background is determined by @code{style}.  The default
@@ -964,7 +964,7 @@ Identical to @code{pad-around}.
   ()
   #:category other
   "
-@cindex creating vertical spaces in text
+@cindex creating vertical space, in text
 
 Create a box of the same height as the space in the current font."
   (let ((m (ly:text-interface::interpret-markup layout props " ")))
@@ -977,7 +977,7 @@ Create a box of the same height as the space in the current font."
   (number?)
   #:category align
   "
-@cindex creating horizontal spaces in text
+@cindex creating horizontal space, in text
 
 Create an invisible object taking up horizontal space @var{amount}.
 
@@ -996,7 +996,7 @@ Create an invisible object taking up horizontal space @var{amount}.
   (number?)
   #:category align
   "
-@cindex creating vertical spaces in text
+@cindex creating vertical space, in text
 
 Create an invisible object taking up vertical space
 of @var{amount} multiplied by 3.
@@ -1024,7 +1024,7 @@ of @var{amount} multiplied by 3.
   (ly:stencil?)
   #:category other
   "
-@cindex importing stencils into text
+@cindex importing stencil, into text
 
 Use a stencil as markup.
 
@@ -1076,7 +1076,7 @@ Inline an EPS image.  The image is scaled along @var{axis} to
   (string?)
   #:category graphic
   "
-@cindex inserting PostScript directly into text
+@cindex inserting PostScript directly, into text
 This inserts @var{str} directly into the output as a PostScript
 command string.
 
@@ -1118,8 +1118,8 @@ grestore
                 (line-join-style 'round)
                 (filled #f))
   "
-@cindex paths, drawing
-@cindex drawing paths
+@cindex path, drawing
+@cindex drawing path
 Draws a path with line @var{thickness} according to the
 directions given in @var{commands}.  @var{commands} is a list of
 lists where the @code{car} of each sublist is a drawing command and
@@ -1273,7 +1273,7 @@ braces like it would be for @code{\\score}."
   #:category music
   #:properties ((baseline-skip))
   "
-@cindex inserting music into text
+@cindex inserting music, into text
 
 Inline an image of music.  The reference point (usually the middle
 staff line) of the lowest staff in the top system is placed on the
@@ -1326,7 +1326,7 @@ baseline.
   ()
   #:category other
   "
-@cindex creating empty text objects
+@cindex creating empty text object
 
 An empty markup with extents of a single point.
 
@@ -1345,7 +1345,7 @@ An empty markup with extents of a single point.
   (string?)
   #:category font
   "
-@cindex simple text strings
+@cindex simple text string
 
 A simple text string; @code{\\markup @{ foo @}} is equivalent with
 @code{\\markup @{ \\simple #\"foo\" @}}.
@@ -1560,7 +1560,7 @@ space.  If there are no arguments, return an empty stencil.
   #:category align
   "
 @cindex concatenating text
-@cindex ligatures in text
+@cindex ligature, in text
 
 Concatenate @var{args} in a horizontal line, without spaces in between.
 Strings and simple markups are concatenated on the input level, allowing
@@ -1970,7 +1970,7 @@ in @var{args}.
   #:properties ((direction)
                 (baseline-skip))
   "
-@cindex changing direction of text columns
+@cindex changing direction of text column
 
 Make a column of @var{args}, going up or down, depending on the
 setting of the @code{direction} layout property.
@@ -2020,7 +2020,7 @@ Remove empty stencils from @var{mols}.  If @var{mols} is an empty list return
   #:category align
   #:properties ((baseline-skip))
   "
-@cindex centering a column of text
+@cindex centering column of text
 
 Put @code{args} in a centered column.
 
@@ -2040,7 +2040,7 @@ Put @code{args} in a centered column.
   #:category align
   #:properties ((baseline-skip))
   "
-@cindex text columns, left-aligned
+@cindex text column, left-aligned
 
 Put @code{args} in a left-aligned column.
 
@@ -2060,7 +2060,7 @@ Put @code{args} in a left-aligned column.
   #:category align
   #:properties ((baseline-skip))
   "
-@cindex text columns, right-aligned
+@cindex text column, right-aligned
 
 Put @code{args} in a right-aligned column.
 
@@ -2119,7 +2119,7 @@ Align @code{arg} to its X@tie{}center.
   (markup?)
   #:category align
   "
-@cindex right aligning text
+@cindex right-aligning text
 
 Align @var{arg} on its right edge.
 
@@ -2140,7 +2140,7 @@ Align @var{arg} on its right edge.
   (markup?)
   #:category align
   "
-@cindex left aligning text
+@cindex left-aligning text
 
 Align @var{arg} on its left edge.
 
@@ -2239,7 +2239,7 @@ alignment accordingly.
   (number-pair? number-pair? markup?)
   #:category other
   "
-@cindex setting extent of text objects
+@cindex setting extent of text object
 
 Set the dimensions of @var{arg} to @var{x} and@tie{}@var{y}."
   (ly:stencil-outline
@@ -2530,7 +2530,7 @@ The footnote will be annotated automatically."
   (pair? markup?)
   #:category other
   "
-@cindex overriding properties within text markup
+@cindex overriding property within text markup
 
 Add the argument @var{new-prop} to the property list.  Properties
 may be any property supported by @rinternals{font-interface},
@@ -3259,7 +3259,7 @@ Draw @var{arg} in color specified by @var{color}.
   #:category music
   #:properties ((word-space))
   "
-@cindex simple text strings with tie characters
+@cindex simple text string, with tie characters
 
 Like simple-markup, but use tie characters for @q{~} tilde symbols.
 
@@ -3487,7 +3487,7 @@ and continue with double letters.
   #:properties ((font-size 0)
                 (thickness 1.6))
   "
-@cindex slashed digits
+@cindex slashed digit
 
 A feta number, with slash.  This is for use in the context of
 figured bass notation.
@@ -3507,7 +3507,7 @@ figured bass notation.
   #:properties ((font-size 0)
                 (thickness 1.6))
   "
-@cindex backslashed digits
+@cindex backslashed digit
 
 A feta number, with backslash.  This is for use in the context of
 figured bass notation.
@@ -3625,7 +3625,7 @@ A feta brace in point size @var{size}, rotated 180 degrees.
                 (flag-style '())
                 (style '()))
   "
-@cindex notes within text by log and dot-count
+@cindex note, within text, by @code{log} and @code{dot-count}
 
 Construct a note symbol, with stem and flag.  By using fractional values for
 @var{dir}, longer or shorter stems can be obtained.
@@ -3874,7 +3874,7 @@ and return a (log dots) list."
   #:category music
   #:properties (note-by-number-markup)
   "
-@cindex notes within text by duration
+@cindex note, within text, by duration
 
 This produces a note with a stem pointing in @var{dir} direction, with
 the @var{duration} for the note head type and augmentation dots.  For
@@ -3905,7 +3905,8 @@ a shortened down stem.
                 (style '())
                 (multi-measure-rest #f))
   "
-@cindex rests or multi-measure-rests within text by log and dot-count
+@cindex rest, within text, by @code{log} and @code{dot-count}
+@cindex multi-measure rest, within text, by @code{log} and @code{dot-count}
 
 A rest or multi-measure-rest symbol.
 
@@ -4020,7 +4021,8 @@ A rest or multi-measure-rest symbol.
                 (multi-measure-rest-number #t)
                 (word-space 0.6))
   "
-@cindex rests or multi-measure-rests within text by string
+@cindex rest, within text, by string
+@cindex multi-measure rest, within text, by string
 
 This produces a rest, with the @var{duration} for the rest type and
 augmentation dots.
@@ -4262,7 +4264,7 @@ and/or @code{extra-offset} properties.
   #:category other
   #:properties ((font-size 0))
   "
-@cindex creating text fractions
+@cindex creating text fraction
 
 Make a fraction of two markups.
 @lilypond[verbatim,quote]
@@ -4298,7 +4300,7 @@ Make a fraction of two markups.
   #:category font
   #:properties ((font-size 0))
   "
-@cindex setting superscript in standard font size
+@cindex setting superscript, in standard font size
 
 Set @var{arg} in superscript with a normal font size.
 
@@ -4393,7 +4395,7 @@ Set @var{arg} in subscript.
   #:category font
   #:properties ((font-size 0))
   "
-@cindex setting subscript in standard font size
+@cindex setting subscript, in standard font size
 
 Set @var{arg} in subscript with a normal font size.
 
@@ -4418,7 +4420,7 @@ Set @var{arg} in subscript with a normal font size.
   (markup?)
   #:category graphic
   "
-@cindex placing horizontal brackets around text
+@cindex placing horizontal brackets, around text
 
 Draw horizontal brackets around @var{arg}.
 
@@ -4439,7 +4441,7 @@ Draw horizontal brackets around @var{arg}.
   (markup?)
   #:category graphic
   "
-@cindex placing vertical brackets around text
+@cindex placing vertical brackets, around text
 
 Draw vertical brackets around @var{arg}.
 
@@ -4464,7 +4466,7 @@ Draw vertical brackets around @var{arg}.
                 (line-thickness 0.1)
                 (width 0.25))
   "
-@cindex placing parentheses around text
+@cindex placing parentheses, around text
 
 Draw parentheses around @var{arg}.  This is useful for parenthesizing
 a column containing several lines of text.
@@ -4504,7 +4506,7 @@ a column containing several lines of text.
   (symbol? markup? markup?)
   #:category other
   "
-@cindex referencing page numbers in text
+@cindex referencing page number, in text
 
 Reference to a page number.  @var{label} is the label set on the referenced
 page (using the @code{\\label} command), @var{gauge} a markup used to estimate
@@ -4747,7 +4749,7 @@ where @var{X} is the number of staff spaces."
   (number-list? markup-list?)
   #:properties ((padding 0)
                 (baseline-skip))
-  "@cindex creating a table.
+  "@cindex creating a table
 
 Returns a table.
 

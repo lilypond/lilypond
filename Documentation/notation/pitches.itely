@@ -44,8 +44,8 @@ mode.  In most cases, relative mode will be more convenient.
 @node Absolute octave entry
 @unnumberedsubsubsec Absolute octave entry
 
-@cindex pitch names
-@cindex pitches
+@cindex pitch name
+@cindex pitch
 @cindex absolute
 @cindex absolute octave specification
 @cindex octave specification, absolute
@@ -262,8 +262,8 @@ Music inside a @code{\transpose} block is absolute unless a
 @end lilypond
 
 
-@cindex chords and relative octave entry
-@cindex relative octave entry and chords
+@cindex chord, and relative octave entry
+@cindex relative octave entry, and chords
 
 If the preceding item is a chord, the first note of the chord is
 used as the reference point for the octave placement of a
@@ -331,8 +331,8 @@ Snippets:
 Internals Reference:
 @rinternals{RelativeOctaveMusic}.
 
-@cindex relative octave entry and transposition
-@cindex transposition and relative octave entry
+@cindex relative octave entry, and transposition
+@cindex transposition, and relative octave entry
 
 @funindex \transpose
 @funindex \chordmode
@@ -354,9 +354,9 @@ An unaltered note like@tie{}@code{c} means @q{C natural},
 regardless of the key signature or clef.  For more information,
 see @rlearning{Pitches and key signatures}.}
 
-@cindex note names, Dutch
-@cindex note names, default
-@cindex default note names
+@cindex note name, Dutch
+@cindex note name, default
+@cindex default note name
 @cindex sharp
 @cindex flat
 @cindex double sharp
@@ -385,9 +385,9 @@ the effect of an earlier accidental or key signature.
 \relative c'' { a4 aes a2 }
 @end lilypond
 
-@cindex quarter tones
-@cindex semi-flats
-@cindex semi-sharps
+@cindex quarter tone
+@cindex semi-flat
+@cindex semi-sharp
 
 Quarter tones may be added; the following is a series of Cs with
 increasing pitches:
@@ -406,7 +406,7 @@ increasing pitches:
 @cindex parenthesized accidental
 
 @funindex ?
-@funindex !
+@funindex @sortas{!A} !
 
 
 Normally accidentals are printed automatically, but you may also
@@ -420,7 +420,7 @@ pitch.
 \relative c'' { cis cis cis! cis? c c c! c? }
 @end lilypond
 
-@cindex accidental on tied note
+@cindex accidental, on tied note
 @cindex tied note, accidental
 
 Accidentals on tied notes are only printed at the beginning of a
@@ -481,8 +481,8 @@ any standard.
 @node Note names in other languages
 @unnumberedsubsubsec Note names in other languages
 
-@cindex note names, other languages
-@cindex pitch names, other languages
+@cindex note name, other languages
+@cindex pitch name, other languages
 @cindex language, note names in other
 @cindex language, pitch names in other
 
@@ -581,7 +581,7 @@ form @code{asas} for @code{ases}.
 @end lilypond
 
 
-@cindex microtones
+@cindex microtone
 @cindex semi-sharp
 @cindex semi-flat
 @cindex sesqui-sharp
@@ -665,7 +665,7 @@ This section discusses how to modify pitches.
 @cindex octave check
 @cindex control pitch
 
-@funindex =
+@funindex @sortas{=A} =
 @funindex \octaveCheck
 @funindex controlpitch
 
@@ -735,10 +735,10 @@ Internals Reference:
 @cindex transpose
 @cindex transposing
 @cindex transposition
-@cindex transposition of pitches
-@cindex transposition of notes
-@cindex pitches, transposition of
-@cindex notes, transposition of
+@cindex transposition, of pitches
+@cindex transposition, of notes
+@cindex pitch, transposition of
+@cindex note, transposition of
 
 @funindex \transpose
 
@@ -773,8 +773,8 @@ automatically transposed as well.
 }
 @end lilypond
 
-@cindex transposing instruments
-@cindex instruments, transposing
+@cindex transposing instrument
+@cindex instrument, transposing
 
 If a part written in C (normal @notation{concert pitch}) is to be
 played on the A clarinet (for which an A is notated as a C and
@@ -949,9 +949,9 @@ Notation Reference:
 @node Modal transformations
 @unnumberedsubsubsec Modal transformations
 
-@cindex modal transformations
-@cindex transformations, modal
-@cindex operations, modal
+@cindex modal transformation
+@cindex transformation, modal
+@cindex operation, modal
 
 In a musical composition that is based on a scale, a motif is
 frequently transformed in various ways.  It may be
@@ -1112,7 +1112,7 @@ This section discusses how to alter the output of pitches.
 @cindex alto clef
 @cindex tenor clef
 @cindex bass clef
-@cindex french clef
+@cindex French clef
 @cindex soprano clef
 @cindex mezzosoprano clef
 @cindex baritone clef
@@ -1168,8 +1168,8 @@ described in @ref{Mensural clefs} and @ref{Gregorian clefs}.  Music that
 requires tablature clefs is discussed in @ref{Default tablatures} and
 @ref{Custom tablatures}.
 
-@cindex Cue clefs
-@cindex Clefs with cue notes
+@cindex cue clef
+@cindex clef, with cue notes
 For mixing clefs when using cue notes, see the @code{\cueClef} and
 @code{\cueDuringWithClef} commands in @ref{Formatting cue notes}.
 
@@ -1348,8 +1348,8 @@ at the start of the staff.  The key signature may be altered:
 @funindex \phrygian
 @funindex \dorian
 
-@cindex church modes
-@cindex modes
+@cindex church mode
+@cindex mode
 @cindex major
 @cindex minor
 @cindex ionian
@@ -1443,8 +1443,9 @@ Internals Reference:
 
 @cindex ottava
 @cindex 15ma
+@cindex 15mb
 @cindex 8va
-@cindex 8ve
+@cindex 8vb
 @cindex octavation
 
 @funindex set-octavation
@@ -1500,7 +1501,7 @@ Internals Reference:
 @cindex transposition, instrument
 @cindex transposing instrument
 @cindex MIDI
-@cindex MIDI transposition
+@cindex MIDI, transposition
 
 @funindex \transposition
 
@@ -1603,14 +1604,14 @@ Snippets:
 
 @cindex accidental style
 @cindex accidental style, default
-@cindex accidentals
-@cindex accidentals, automatic
-@cindex automatic accidentals
+@cindex accidental
+@cindex accidental, automatic
+@cindex automatic accidental
 @cindex default accidental style
 
 @funindex \accidentalStyle
 @funindex voice
-@funindex default
+@funindex @sortas{defaultA} default
 
 There are many different conventions on how to typeset
 accidentals.  LilyPond provides a function to specify which
@@ -1712,7 +1713,7 @@ both staves.
 @cindex default accidental style
 @cindex accidental style, default
 
-@funindex default
+@funindex @sortas{defaultA} default
 
 This is the default typesetting behavior.  It corresponds to
 eighteenth-century common practice: accidentals are remembered to
@@ -1843,8 +1844,8 @@ musicB = {
 
 @item modern
 
-@cindex accidentals, modern style
-@cindex modern style accidentals
+@cindex accidental, modern style
+@cindex modern style accidental
 
 @funindex modern
 
@@ -1909,11 +1910,8 @@ musicB = {
 
 @item modern-cautionary
 
-@cindex accidentals, modern cautionary style
-@cindex modern accidental style
-@cindex modern cautionary accidental style
-@cindex modern style accidentals
-@cindex modern style cautionary accidentals
+@cindex accidental style, modern-cautionary
+@cindex modern-cautionary accidental style
 
 @funindex modern-cautionary
 
@@ -1972,11 +1970,10 @@ musicB = {
 @item modern-voice
 
 @cindex accidental style, modern
-@cindex accidentals, modern
-@cindex accidentals, multivoice
+@cindex accidental, multi-voice
 @cindex modern accidental style
-@cindex modern accidentals
-@cindex multivoice accidentals
+@cindex modern accidental
+@cindex multi-voice accidental
 
 @funindex modern-voice
 
@@ -2036,9 +2033,8 @@ musicB = {
 }
 @end lilypond
 
-@cindex accidental style, cautionary, modern voice
-@cindex accidental style, modern voice cautionary
-@cindex accidental style, voice, modern cautionary
+@cindex accidental style, modern-voice-cautionary
+@cindex modern-voice-cautionary accidental style
 
 @funindex modern-voice-cautionary
 
@@ -2100,9 +2096,7 @@ musicB = {
 @item piano
 
 @cindex accidental style, piano
-@cindex accidentals, piano
 @cindex piano accidental style
-@cindex piano accidentals
 
 @funindex piano
 
@@ -2163,12 +2157,8 @@ musicB = {
 
 @item piano-cautionary
 
-@cindex accidentals, piano cautionary
-@cindex cautionary accidentals, piano
-@cindex piano cautionary accidentals
-@cindex accidental style, piano cautionary
-@cindex cautionary accidental style, piano
-@cindex piano cautionary accidental style
+@cindex accidental style, piano-cautionary
+@cindex piano-cautionary accidental style
 
 @funindex piano-cautionary
 
@@ -2225,9 +2215,7 @@ musicB = {
 @item choral
 
 @cindex accidental style, choral
-@cindex accidentals, choral
 @cindex choral accidental style
-@cindex choral accidentals
 
 @funindex choral
 
@@ -2286,12 +2274,8 @@ musicB = {
 
 @item choral-cautionary
 
-@cindex accidentals, choral cautionary
-@cindex cautionary accidentals, choral
-@cindex choral cautionary accidentals
-@cindex accidental style, choral cautionary
-@cindex cautionary accidental style, choral
-@cindex choral cautionary accidental style
+@cindex accidental style, choral-cautionary
+@cindex choral-cautionary accidental style
 
 @funindex choral-cautionary
 
@@ -2583,7 +2567,7 @@ musicB = {
 @item dodecaphonic
 
 @cindex dodecaphonic accidental style
-@cindex dodecaphonic style, neo-modern
+@cindex accidental style, dodecaphonic
 
 @funindex dodecaphonic
 
@@ -2642,8 +2626,8 @@ musicB = {
 
 @item dodecaphonic-no-repeat
 
-@cindex dodecaphonic accidental style
-@cindex dodecaphonic style, neo-modern
+@cindex dodecaphonic-no-repeat accidental style
+@cindex accidental style, dodecaphonic-no-repeat
 
 @funindex dodecaphonic-no-repeat
 
@@ -2701,8 +2685,8 @@ musicB = {
 
 @item dodecaphonic-first
 
-@cindex dodecaphonic accidental style
-@cindex dodecaphonic style, neo-modern
+@cindex dodecaphonic-first accidental style
+@cindex accidental style, dodecaphonic-first
 
 @funindex dodecaphonic-first
 
@@ -2825,8 +2809,8 @@ musicB = {
 
 @item no-reset
 
-@cindex accidental style, no reset
-@cindex no reset accidental style
+@cindex accidental style, no-reset
+@cindex no-reset accidental style
 
 @funindex no-reset
 
@@ -2954,10 +2938,10 @@ Internals Reference:
 @rinternals{AccidentalPlacement},
 @rinternals{accidental-suggestion-interface}.
 
-@cindex accidentals and simultaneous notes
+@cindex accidental, and simultaneous notes
 @cindex simultaneous notes and accidentals
-@cindex accidentals in chords
-@cindex chords, accidentals in
+@cindex accidental, in chords
+@cindex chord, accidentals in
 
 @knownissues
 Simultaneous notes are not considered in the automatic
@@ -3091,20 +3075,20 @@ This section suggests ways of altering note heads.
 @node Special note heads
 @unnumberedsubsubsec Special note heads
 
-@cindex note heads, special
-@cindex note heads, cross
-@cindex note heads, diamond
-@cindex note heads, parlato
-@cindex note heads, harmonic
-@cindex note heads, guitar
-@cindex special note heads
-@cindex cross note heads
-@cindex diamond note heads
-@cindex parlato note heads
-@cindex harmonic note heads
-@cindex guitar note heads
-@cindex note head styles
-@cindex styles, note heads
+@cindex note head, special
+@cindex note head, cross
+@cindex note head, diamond
+@cindex note head, parlato
+@cindex note head, harmonic
+@cindex note head, guitar
+@cindex special note head
+@cindex cross note head
+@cindex diamond note head
+@cindex parlato note head
+@cindex harmonic note head
+@cindex guitar note head
+@cindex note head style
+@cindex style, note heads
 
 @funindex cross
 
@@ -3204,14 +3188,14 @@ Internals Reference:
 @node Easy notation note heads
 @unnumberedsubsubsec Easy notation note heads
 
-@cindex note heads, practice
-@cindex practice note heads
-@cindex note heads, easy notation
+@cindex note head, practice
+@cindex practice note head
+@cindex note head, easy notation
 @cindex easy notation
 @cindex beginners' music
 @cindex music, beginners'
-@cindex easy play note heads
-@cindex note heads, easy play
+@cindex easy play note head
+@cindex note head, easy play
 
 @funindex \easyHeadsOn
 @funindex \easyHeadsOff
@@ -3261,22 +3245,22 @@ Internals Reference:
 @node Shape note heads
 @unnumberedsubsubsec Shape note heads
 
-@cindex note heads, shape
-@cindex note heads, Aiken
-@cindex note heads, sacred harp
-@cindex shape notes
-@cindex Aiken shape note heads
-@cindex sacred harp note heads
-@cindex note heads, Southern Harmony
-@cindex Southern Harmony note heads
-@cindex Funk shape note heads
-@cindex note heads, Funk
-@cindex note heads, Harmonia Sacra
-@cindex Harmonia Sacra note heads
-@cindex Christian Harmony note heads
-@cindex note heads, Christian Harmony
-@cindex Walker shape note heads
-@cindex note heads, Walker
+@cindex note head, shape
+@cindex note head, Aiken
+@cindex note head, Sacred Harp
+@cindex shape note
+@cindex Aiken shape note head
+@cindex Sacred Harp note head
+@cindex note head, Southern Harmony
+@cindex Southern Harmony note head
+@cindex funk shape note head
+@cindex note head, funk
+@cindex note head, Harmonia Sacra
+@cindex Harmonia Sacra note head
+@cindex Christian Harmony note head
+@cindex note head, Christian Harmony
+@cindex Walker shape note head
+@cindex note head, Walker
 
 @funindex \aikenHeads
 @funindex \aikenThinHeads
@@ -3386,9 +3370,9 @@ Internals Reference:
 @unnumberedsubsubsec Improvisation
 
 @cindex improvisation
-@cindex slashed note heads
-@cindex note heads, improvisation
-@cindex note heads, slashed
+@cindex slashed note head
+@cindex note head, improvisation
+@cindex note head, slashed
 
 @funindex \improvisationOn
 @funindex \improvisationOff

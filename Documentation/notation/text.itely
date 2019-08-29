@@ -28,7 +28,7 @@ formatting) in music scores.
 
 This section introduces different ways of adding text to a score.
 
-@cindex Text, other languages
+@cindex text, other languages
 @warning{To write accented and special text (such as characters
 from other languages), simply insert the characters directly into
 the LilyPond file.  The file must be saved as UTF-8.  For more
@@ -47,9 +47,9 @@ information, see @ref{Text encoding}.}
 @unnumberedsubsubsec Text objects overview
 
 @funindex \markup
-@cindex text objects
-@cindex markup objects
-@cindex objects, markup
+@cindex text object
+@cindex markup object
+@cindex object, markup
 
 Text objects are entered either as simple strings between
 double quotes, or as @code{\markup} blocks that can accept
@@ -193,9 +193,9 @@ Snippets:
 @node Text scripts
 @unnumberedsubsubsec Text scripts
 
-@cindex Text scripts
-@cindex text items, non-empty
-@cindex non-empty texts
+@cindex text script
+@cindex text item, non-empty
+@cindex non-empty text
 @cindex quoted text
 
 Simple @qq{quoted text} indications may be added to a score, as
@@ -258,7 +258,7 @@ Snippets:
 Internals Reference:
 @rinternals{TextScript}.
 
-@cindex text outside margin
+@cindex text, outside margin
 @cindex margin, text running over
 @cindex text, keeping inside margin
 @cindex lyrics, keeping inside margin
@@ -276,7 +276,7 @@ performance is desired, use
 @node Text spanners
 @unnumberedsubsubsec Text spanners
 
-@cindex text spanners
+@cindex text spanner
 
 Some performance indications, e.g., @notation{rallentando} or
 @notation{accelerando}, are written as text and are extended over
@@ -292,8 +292,8 @@ following syntax:
 }
 @end lilypond
 
-@cindex text spanners, formatting
-@cindex formatting text spanners
+@cindex text spanner, formatting
+@cindex formatting, text spanner
 
 @noindent
 The string to be printed is set through object properties.  By default
@@ -353,13 +353,13 @@ Internals Reference:
 @unnumberedsubsubsec Text marks
 
 
-@cindex text marks
-@cindex marks, text
-@cindex text on bar line
-@cindex coda on bar line
-@cindex segno on bar line
-@cindex fermata on bar line
-@cindex bar lines, symbols on
+@cindex text mark
+@cindex mark, text
+@cindex text, on bar line
+@cindex coda sign, on bar line
+@cindex segno sign, on bar line
+@cindex fermata, on bar line
+@cindex bar line, symbols on
 
 @funindex \mark
 @funindex \markup
@@ -557,8 +557,8 @@ A @code{\markup} block is used to typeset text with an extensible
 syntax called @qq{markup mode}.  Such blocks may be used anywhere,
 as explained in @ref{Text objects overview}.
 
-@cindex markup expressions
-@cindex expressions, markup
+@cindex markup expression
+@cindex expression, markup
 @cindex markup syntax
 @cindex syntax, markup
 
@@ -584,12 +584,12 @@ following expression.
 }
 @end lilypond
 
-@cindex special characters in markup mode
+@cindex special character, in markup mode
 @cindex markup mode, special characters
-@cindex reserved characters, printing
-@cindex printing reserved characters
-@cindex printing special characters
-@cindex quoted text in markup mode
+@cindex reserved character, printing
+@cindex printing reserved character
+@cindex printing special character
+@cindex quoted text, in markup mode
 @cindex markup mode, quoted text
 
 A @code{\markup} block may also contain quoted text strings.  Such
@@ -663,8 +663,8 @@ Syntax error messages for markup mode can be confusing.
 @unnumberedsubsubsec Selecting font and font size
 
 @cindex font switching
-@cindex changing fonts
-@cindex switching fonts
+@cindex changing font
+@cindex switching font
 
 @funindex \italic
 @funindex \bold
@@ -767,7 +767,7 @@ printed in a smaller size, but a normal size can be used as well:
 }
 @end lilypond
 
-@cindex font families
+@cindex font family
 
 The markup mode provides an easy way to select alternate font
 families.  The default serif font, of roman type, is automatically
@@ -868,8 +868,8 @@ using @code{\fontsize}.
 @cindex text, aligning
 @cindex aligning text
 @cindex aligning markup text
-@cindex aligning markups
-@cindex markups, aligning
+@cindex aligning markup
+@cindex markup, aligning
 @cindex markup text, aligning
 
 This subsection discusses how to place text in markup mode.  Markup
@@ -992,8 +992,8 @@ must be preceded with an anchor point:
 @cindex markup, multi-line
 @cindex multi-line text
 @cindex text, multi-line
-@cindex text in columns
-@cindex columns, text
+@cindex text, in columns
+@cindex column, text
 
 @funindex \column
 @funindex \center-column
@@ -1018,9 +1018,9 @@ left-aligned or centered:
 }
 @end lilypond
 
-@cindex centering text on the page
-@cindex text, centering on the page
-@cindex markup, centering on the page
+@cindex centering text on page
+@cindex text, centering on page
+@cindex markup, centering on page
 
 @funindex \fill-line
 
@@ -1086,8 +1086,8 @@ as shown in the following example.
 }
 @end lilypond
 
-@cindex text alignment commands
-@cindex markup text alignment commands
+@cindex text alignment command
+@cindex markup text, alignment command
 @cindex alignment, text, commands
 
 An exhaustive list of text alignment commands can be found in
@@ -1115,10 +1115,10 @@ Internals Reference:
 @unnumberedsubsubsec Graphic notation inside markup
 
 @cindex graphics, embedding
-@cindex drawing graphic objects
-@cindex graphic objects, drawing
-@cindex embedding graphic objects
-@cindex graphic objects, embedding
+@cindex drawing graphic object
+@cindex graphic object, drawing
+@cindex embedding graphic object
+@cindex graphic object, embedding
 
 Various graphic objects may be added to a score, using markup
 commands.
@@ -1133,7 +1133,7 @@ commands.
 @funindex \box
 @funindex \circle
 @funindex \rounded-box
-@funindex \bracket
+@funindex @sortas{bracketB} \bracket
 @funindex \hbracket
 
 Some markup commands allow decoration of text elements with graphics,
@@ -1157,8 +1157,8 @@ as demonstrated in the following example.
 @end lilypond
 
 @cindex padding around text
-@cindex text padding
-@cindex markup text padding
+@cindex text, padding
+@cindex markup text, padding
 
 @funindex \pad-markup
 @funindex \pad-x
@@ -1192,8 +1192,8 @@ Flute quartet keeps very uneven time."
 @end lilypond
 
 @cindex graphic notation
-@cindex symbols, non-musical
-@cindex non-musical symbols
+@cindex symbol, non-musical
+@cindex non-musical symbol
 @cindex notation, graphic
 
 @funindex \combine
@@ -1223,7 +1223,7 @@ text.  As with any markup expression, such objects can be combined.
 @end lilypond
 
 @cindex embedded graphics
-@cindex images, embedding
+@cindex image, embedding
 @cindex graphics, embedding
 @cindex postscript
 
@@ -1280,8 +1280,8 @@ Internals Reference:
 @node Music notation inside markup
 @unnumberedsubsubsec Music notation inside markup
 
-@cindex notation inside markup
-@cindex music inside markup
+@cindex notation, inside markup
+@cindex music, inside markup
 @cindex markup, music notation inside
 
 Various musical notation elements may be added to a score, inside a
@@ -1373,7 +1373,7 @@ instruments:
 @noindent
 Such diagrams are documented in @ref{Instrument Specific Markup}.
 
-@cindex score inside markup
+@cindex score, inside markup
 @cindex markup, score inside
 
 A whole score can even be nested inside a markup object:
@@ -1421,7 +1421,7 @@ by @code{baseline-skip}.  Any @code{\paper} settings are ignored.
 @cindex multi-page markup
 @cindex markup, multi-page
 @cindex markup text, multi-page
-@cindex text spread over multiple pages
+@cindex text, spread over multiple pages
 
 @funindex \markuplist
 @funindex \justified-lines
@@ -1497,10 +1497,10 @@ changed in scores.
 @unnumberedsubsubsec Fonts explained
 
 @cindex Pango
-@cindex fonts, explained
-@cindex braces, various sizes
-@cindex fonts, non-text in markup
-@cindex non-text fonts in markup
+@cindex font, explained
+@cindex brace, various sizes
+@cindex font, non-text in markup
+@cindex non-text font, in markup
 
 @funindex font-interface
 
@@ -1694,7 +1694,7 @@ a'1_\markup {
 }
 @end lilypond
 
-@cindex fonts, finding available
+@cindex font, finding available
 @cindex finding available fonts
 @cindex listing available fonts
 @cindex available fonts, listing
@@ -1738,8 +1738,8 @@ size. Similar to @ref{Single entry fonts}, it can be described using a
 comma-separated list of @q{fonts}. However, font @q{styles} can not be
 described. For an explanation of fonts, see @ref{Fonts explained}.
 
-@cindex font families, setting
-@cindex fonts, changing for entire document
+@cindex font family, setting
+@cindex font, changing for entire document
 
 @funindex make-pango-font-tree
 

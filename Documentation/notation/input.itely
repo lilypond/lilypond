@@ -527,9 +527,9 @@ Notation Reference:
 @node Titles and headers
 @section Titles and headers
 
-@cindex titles
-@cindex headers
-@cindex footers
+@cindex title
+@cindex header
+@cindex footer
 
 Almost all printed music includes a title and the composer's name;
 some pieces include a lot more information.
@@ -804,7 +804,7 @@ and @code{opus} text fields at opposite ends of the same line.
 
 To change the default layout see @ref{Custom layout for titles}.
 
-@cindex breakbefore
+@funindex breakbefore
 
 If a @code{\book} block starts immediately with a @code{\bookpart}
 block, no Book Title will be printed, as there is no page on which
@@ -939,8 +939,6 @@ Notation Reference:
 @node Custom layout for titles
 @unnumberedsubsubsec Custom layout for titles
 
-@cindex bookTitleMarkup
-@cindex scoreTitleMarkup
 @funindex bookTitleMarkup
 @funindex scoreTitleMarkup
 
@@ -1112,7 +1110,6 @@ variables:
 @end itemize
 
 @cindex markup, conditional
-@cindex on-the-fly
 @funindex \on-the-fly
 
 The @code{\markup} command @code{\on-the-fly} can be used to add
@@ -1206,7 +1203,7 @@ Installed Files:
 @subsection Creating output file metadata
 
 @cindex PDF metadata
-@cindex MIDI metadata
+@cindex MIDI, metadata
 
 In addition to being shown in the printed output, @code{\header} variables
 are also used to set metadata for output files.  For example, with PDF
@@ -1257,7 +1254,7 @@ independently of the value used for typeset output.
 @node Creating footnotes
 @subsection Creating footnotes
 
-@cindex footnotes
+@cindex footnote
 
 Footnotes may be used in many different situations.  In all cases,
 a @q{footnote mark} is placed as a reference in text or music, and
@@ -1278,7 +1275,7 @@ outside music expressions are created in different ways.
 @node Footnotes in music expressions
 @unnumberedsubsubsec Footnotes in music expressions
 
-@cindex footnotes in music expressions
+@cindex footnote, in music expressions
 @funindex \footnote
 
 @subsubsubheading Music footnotes overview
@@ -1327,7 +1324,7 @@ indicator (@code{-, _, ^}) in order to attach @var{music} (with
 a footnote mark) to the preceding note or rest.
 
 @item mark
-@funindex \default
+@funindex @sortas{defaultB} \default
 is a markup or string specifying the footnote mark which is used for
 marking both the reference point and the footnote itself at the
 bottom of the page.  It may be omitted (or equivalently replaced with
@@ -1365,7 +1362,7 @@ that is being annotated.
 
 @subsubsubheading Event-based footnotes
 
-@cindex footnotes, event-based
+@cindex footnote, event-based
 
 A footnote may be attached to a layout object directly caused
 by the event corresponding to @var{music} with the syntax:
@@ -1429,7 +1426,7 @@ is:
 
 @subsubsubheading Time-based footnotes
 
-@cindex footnotes, time-based
+@cindex footnote, time-based
 
 If the layout object being footmarked is @emph{indirectly} caused by
 an event (like an @code{Accidental} or @code{Stem} caused by a
@@ -1558,7 +1555,7 @@ More examples of custom marks are shown in
 @node Footnotes in stand-alone text
 @unnumberedsubsubsec Footnotes in stand-alone text
 
-@cindex footnotes in stand-alone text
+@cindex footnote, in stand-alone text
 
 These are for use in markup outside of music expressions.  They do
 not have a line drawn to their point of reference: their marks simply
@@ -2443,7 +2440,7 @@ acts on all the pitches as-input.
 @node Using global settings
 @unnumberedsubsubsec Using global settings
 
-@cindex include-settings
+@cindex include settings
 
 Global settings can be included from a separate file:
 
@@ -2471,8 +2468,8 @@ Notation Reference:
 @node Special characters
 @subsection Special characters
 
-@cindex special characters
-@cindex non-ASCII characters
+@cindex special character
+@cindex non-ASCII character
 
 @menu
 * Text encoding::
@@ -2679,8 +2676,8 @@ Installed Files:
 @end menu
 
 @funindex clip-regions
-@cindex Fragments, music
-@cindex Music fragments
+@cindex fragment, music
+@cindex music fragment
 
 @node Extracting fragments of music
 @subsection Extracting fragments of music
@@ -2955,7 +2952,7 @@ specify the font filename without the suffix and extension.
 @node Creating MIDI output
 @section Creating MIDI output
 
-@cindex Sound
+@cindex sound
 @cindex MIDI
 
 LilyPond can produce files that conform to the MIDI (Musical Instrument
@@ -2980,7 +2977,7 @@ require additional software to produce sound from them.
 * Enhancing MIDI output::
 @end menu
 
-@cindex MIDI, Supported notation
+@cindex MIDI, supported notation
 
 @node Supported notation for MIDI
 @subsection Supported notation for MIDI
@@ -3035,7 +3032,7 @@ The c will take the value of a crotchet.
 @noindent
 See @ref{Enhancing MIDI output}.
 
-@cindex MIDI, Unsupported notation
+@cindex MIDI, unsupported notation
 
 @node Unsupported notation for MIDI
 @subsection Unsupported notation for MIDI
@@ -3061,7 +3058,7 @@ value
 @node The MIDI block
 @subsection The MIDI block
 
-@cindex MIDI block
+@cindex MIDI, block
 
 To create a MIDI output file from a LilyPond input file, insert a
 @code{\midi} block, which can be empty, within the @code{\score} block;
@@ -3147,10 +3144,10 @@ of different instruments.
 * Setting MIDI block properties::
 @end menu
 
-@cindex MIDI volume
-@cindex MIDI equalization
-@cindex MIDI dynamics
-@cindex Dynamics in MIDI
+@cindex MIDI, volume
+@cindex MIDI, equalization
+@cindex MIDI, dynamics
+@cindex dynamics in MIDI
 
 
 @node Dynamic marks in MIDI
@@ -3310,7 +3307,7 @@ during the interpretation of the music and in the context of output
 definitions; so it is interpreted @emph{as if} it were a context
 modification.
 
-@cindex MIDI context definitions
+@cindex MIDI, context definitions
 @cindex context definitions with MIDI
 
 Context definitions follow the same syntax as those in a @code{\layout}
@@ -3414,7 +3411,7 @@ See @rlearning{Other sources of information}.
 @subsection Using repeats with MIDI
 
 @cindex repeats in MIDI
-@cindex MIDI using repeats
+@cindex MIDI, using repeats
 @funindex \unfoldRepeats
 
 Repeats can be represented in the MIDI output by applying the
@@ -3465,8 +3462,8 @@ Notation Reference:
 @node MIDI channel mapping
 @subsection MIDI channel mapping
 
-@cindex MIDI Channels
-@cindex MIDI Tracks
+@cindex MIDI, channels
+@cindex MIDI, tracks
 @funindex midiChannelMapping
 
 When generating a MIDI file from a score, LilyPond will automatically
@@ -3564,13 +3561,20 @@ to the @code{'instrument} setting as shown:
 @node Context properties for MIDI effects
 @subsection Context properties for MIDI effects
 
-@cindex Effects in MIDI
-@cindex Pan position in MIDI
-@cindex Stereo balance in MIDI
-@cindex Balance in MIDI
-@cindex Expression in MIDI
-@cindex Reverb in MIDI
-@cindex Chorus level in MIDI
+@cindex effects in MIDI
+@cindex MIDI, effects
+@cindex pan position in MIDI
+@cindex MIDI, pan position
+@cindex stereo balance in MIDI
+@cindex MIDI, stereo balance
+@cindex balance in MIDI
+@cindex MIDI, balance
+@cindex expression in MIDI
+@cindex MIDI, expression
+@cindex reverb in MIDI
+@cindex MIDI, reverb
+@cindex chorus level in MIDI
+@cindex MIDI, chorus level
 @funindex midiPanPosition
 @funindex midiBalance
 @funindex midiExpression
@@ -3685,8 +3689,8 @@ Additional scripts allow to fine-tune the way dynamics, articulations
 and rhythm are rendered in MIDI: the @file{articulate} script
 and the @file{swing} script.
 
-@cindex instrument names
-@cindex MIDI, instruments
+@cindex instrument name
+@cindex MIDI, instrument
 @funindex Staff.midiInstrument
 
 
@@ -3716,7 +3720,6 @@ however, will also be altered to literally match the MIDI output.
 @}
 @end example
 
-@funindex articulate
 @funindex \articulate
 
 The @code{\articulate} command enables abbreviatures (such as trills and
@@ -3760,11 +3763,8 @@ This script has to be @code{\include}-d at the beginning of the input file:
 \include "swing.ly"
 @end example
 
-@funindex tripletFeel
 @funindex \tripletFeel
-@funindex applySwing
 @funindex \applySwing
-@funindex applySwingWithOffset
 @funindex \applySwingWithOffset
 
 Three commands are provided:

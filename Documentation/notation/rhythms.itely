@@ -39,10 +39,10 @@ This section discusses rhythms, rests, durations, beaming and bars.
 @node Durations
 @unnumberedsubsubsec Durations
 
-@cindex durations, of notes
-@cindex note durations
-@cindex length of notes
-@cindex note lengths
+@cindex duration, of note
+@cindex note duration
+@cindex length of note
+@cindex note length
 
 @funindex \longa
 @funindex \breve
@@ -100,7 +100,7 @@ music sequence will take their pitch from the preceding note or chord.
 }
 @end lilypond
 
-@cindex pitches, default
+@cindex pitch, default
 @cindex default pitch
 @cindex note pitch, default
 @cindex pitch, isolated
@@ -115,10 +115,10 @@ always @code{4}, a quarter note.
 \relative { a' a a2 a a4 a a1 a }
 @end lilypond
 
-@cindex notes, dotted
-@cindex dotted notes
-@cindex notes, double-dotted
-@cindex double-dotted notes
+@cindex note, dotted
+@cindex dotted note
+@cindex note, double-dotted
+@cindex double-dotted note
 
 @funindex .
 
@@ -198,8 +198,8 @@ rests between @code{1024} and @code{\maxima} may be printed.
 @node Tuplets
 @unnumberedsubsubsec Tuplets
 
-@cindex tuplets
-@cindex triplets
+@cindex tuplet
+@cindex triplet
 
 @funindex \tuplet
 
@@ -222,7 +222,7 @@ optionally with a bracket.  The most common tuplets are triplets
 }
 @end lilypond
 
-@cindex tuplet grouping
+@cindex tuplet, grouping
 @noindent
 When entering long passages of tuplets, having to write a separate
 @code{\tuplet} command for each group is inconvenient.  It is possible
@@ -235,7 +235,7 @@ in order to have the tuplets grouped automatically:
 }
 @end lilypond
 
-@cindex tuplet bracket placement
+@cindex tuplet bracket, placement
 
 @funindex \tupletUp
 @funindex \tupletDown
@@ -276,8 +276,8 @@ To modify the duration of notes without printing a tuplet bracket, see
 
 @snippets
 
-@cindex tuplet formatting
-@cindex triplet formatting
+@cindex tuplet, formatting
+@cindex triplet, formatting
 
 @funindex tupletNumberFormatFunction
 @funindex tupletSpannerDuration
@@ -285,7 +285,7 @@ To modify the duration of notes without printing a tuplet bracket, see
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {entering-several-tuplets-using-only-one--tuplet-command.ly}
 
-@cindex Tuplet number changes
+@cindex tuplet number, changes
 
 @funindex TupletNumber
 
@@ -329,8 +329,8 @@ Internals Reference:
 @node Scaling durations
 @unnumberedsubsubsec Scaling durations
 
-@cindex scaling durations
-@cindex durations, scaling
+@cindex scaling duration
+@cindex duration, scaling
 
 The duration of single notes, rests or chords may be multiplied by
 a fraction @code{N/M} by appending @code{*N/M} (or @code{*N} if
@@ -465,8 +465,8 @@ easier to use automatic note splitting, see @ref{Automatic note
 splitting}.  This mechanism automatically splits long notes, and
 ties them across bar lines.
 
-@cindex ties and chords
-@cindex chords and ties
+@cindex tie, in chord
+@cindex chord, and tie
 
 When a tie is applied to a chord, all note heads whose pitches
 match are connected.  When no note heads match, no ties will be
@@ -481,10 +481,10 @@ the chord.
 }
 @end lilypond
 
-@cindex repeating ties
-@cindex ties, repeating
-@cindex volta brackets and ties
-@cindex ties and volta brackets
+@cindex repeating tie
+@cindex tie, repeating
+@cindex volta bracket, and tie
+@cindex tie, and volta bracket
 
 @funindex \repeatTie
 
@@ -504,7 +504,7 @@ have to specify the repeated tie as follows:
 @end lilypond
 
 @cindex laissez vibrer
-@cindex ties, laissez vibrer
+@cindex tie, laissez vibrer
 
 @funindex \laissezVibrer
 
@@ -517,7 +517,7 @@ be entered as follows:
 <c' f' g'>1\laissezVibrer
 @end lilypond
 
-@cindex ties, placement
+@cindex tie, placement
 
 @funindex \tieUp
 @funindex \tieDown
@@ -526,11 +526,11 @@ be entered as follows:
 Ties may be made to curve up or down manually; see
 @ref{Direction and placement}.
 
-@cindex ties, appearance
-@cindex ties, dotted
-@cindex ties, dashed
-@cindex dashed ties
-@cindex dotted ties
+@cindex tie, appearance
+@cindex tie, dotted
+@cindex tie, dashed
+@cindex dashed tie
+@cindex dotted tie
 
 @funindex \tieDotted
 @funindex \tieDashed
@@ -826,12 +826,12 @@ Internals Reference:
 @node Full measure rests
 @unnumberedsubsubsec Full measure rests
 
-@cindex multi-measure rests
-@cindex full-measure rests
+@cindex multi-measure rest
+@cindex full-measure rest
 @cindex rest, multi-measure
 @cindex rest, full-measure
-@cindex whole rest for a full measure
-@cindex rest, whole for a full measure
+@cindex whole rest, for a full measure
+@cindex rest, whole, for a full measure
 
 @funindex \compressMMRests
 @funindex R
@@ -902,14 +902,14 @@ R2.*2 |
 @end lilypond
 
 
-@cindex text on multi-measure rest
+@cindex text, on multi-measure rest
 @cindex multi-measure rest, attaching text
-@cindex script on multi-measure rest
+@cindex script, on multi-measure rest
 @cindex multi-measure rest, script
-@cindex fermata on multi-measure rest
+@cindex fermata, on multi-measure rest
 @cindex multi-measure rest, attaching fermata
-@cindex markup on multi-measure rest
-@cindex multi-measure rest with markup
+@cindex markup, on multi-measure rest
+@cindex multi-measure rest, with markup
 
 @funindex MultiMeasureRestText
 @funindex MultiMeasureRestScript
@@ -962,7 +962,7 @@ setting, resulting bar-check warnings may not be displayed.
 
 @cindex church rest
 @cindex rest, church
-@cindex kirchenpausen
+@cindex kirchenpause
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {multi-measure-rest-length-control.ly}
@@ -973,8 +973,8 @@ setting, resulting bar-check warnings may not be displayed.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-form-of-multi-measure-rests.ly}
 
-@cindex multi-measure rests, positioning
-@cindex positioning multi-measure rests
+@cindex multi-measure rest, positioning
+@cindex positioning multi-measure rest
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {positioning-multi-measure-rests.ly}
@@ -1001,8 +1001,8 @@ Internals Reference:
 @rinternals{MultiMeasureRestScript},
 @rinternals{MultiMeasureRestText}.
 
-@cindex fingerings and multi-measure rests
-@cindex multi-measure rests and fingerings
+@cindex fingering, and multi-measure rest
+@cindex multi-measure rest, and fingerings
 
 @knownissues
 Fingerings over multi-measure rests (e.g., @code{R1*10-4}) may result
@@ -1050,7 +1050,7 @@ The time signature is set as follows:
 
 Mid-measure time signature changes are covered in @ref{Upbeats}.
 
-@cindex time signature visibility
+@cindex time signature, visibility
 
 Time signatures are printed at the beginning of a piece
 and whenever the time signature changes.  If a change takes place
@@ -1099,8 +1099,8 @@ changed to a numeric style:
 Mensural time signatures are covered in
 @ref{Mensural time signatures}.
 
-@cindex time signature default settings
-@cindex autobeaming properties for time signatures
+@cindex time signature, default settings
+@cindex auto-beaming, properties for time signatures
 @cindex beaming, time signature default properties
 @funindex \overrideTimeSignatureSettings
 
@@ -1173,7 +1173,7 @@ described in @ref{Setting automatic beam behavior}.
 @end enumerate
 
 
-@cindex time signature properties, restoring default values
+@cindex time signature, properties, restoring default values
 @cindex restoring default properties for time signatures
 @funindex \revertTimeSignatureSettings
 
@@ -1280,7 +1280,7 @@ Internals Reference:
 @cindex tempo
 @cindex beats per minute
 @cindex metronome mark
-@cindex metronome marking with text
+@cindex metronome marking, with text
 
 @funindex \tempo
 
@@ -1500,14 +1500,14 @@ Internal Reference:
 @cindex unmetered music, accidentals
 @cindex unmetered music, bar lines
 @cindex unmetered music, bar numbers
-@cindex accidentals, cadenzas
-@cindex accidentals, unmetered music
-@cindex bar lines, cadenzas
-@cindex bar lines, unmetered music
-@cindex bar numbers, cadenzas
-@cindex bar numbers, unmetered music
-@cindex beams, cadenzas
-@cindex beams, unmetered music
+@cindex accidental, in cadenzas
+@cindex accidental, in unmetered music
+@cindex bar line, cadenzas
+@cindex bar line, unmetered music
+@cindex bar number, cadenzas
+@cindex bar number, unmetered music
+@cindex beam, cadenzas
+@cindex beam, unmetered music
 
 @funindex \cadenzaOn
 @funindex \cadenzaOff
@@ -1607,11 +1607,11 @@ Snippets:
 @cindex cadenza, page breaks
 @cindex unmetered music, line breaks
 @cindex unmetered music, page breaks
-@cindex breaks in unmetered music
-@cindex line breaks, cadenzas
-@cindex page breaks, cadenzas
-@cindex line breaks, unmetered music
-@cindex page breaks, unmetered music
+@cindex break, in unmetered music
+@cindex line break, cadenzas
+@cindex page break, cadenzas
+@cindex line break, unmetered music
+@cindex page break, unmetered music
 
 @knownissues
 Automatic line and page breaks are inserted only at bar lines, so
@@ -1629,8 +1629,8 @@ stretches of unmetered music to permit breaking:
 @c This section necessarily uses \set
 @c This is acceptable  -td
 
-@cindex double time signatures
-@cindex signatures, polymetric
+@cindex double-time signature
+@cindex signature, polymetric
 @cindex time signature, polymetric
 @cindex time signature, double
 @cindex polymetric signatures
@@ -1650,8 +1650,8 @@ Set a common time signature for each staff, and set the
 @code{\scaleDurations} function to scale the durations of the notes in
 each staff to the common time signature.
 
-@cindex beams, with polymetric meters
-@cindex polymetric meters, with beams
+@cindex beam, with polymetric meters
+@cindex polymetric meter, with beams
 
 In the following example, music with the time signatures of 3/4, 9/8 and
 10/8 are used in parallel.  In the second staff, shown durations are
@@ -1730,7 +1730,7 @@ moving the @code{Timing_translator} and the
 @end lilypond
 
 @funindex \compoundMeter
-@cindex compound time signatures
+@cindex compound time signature
 @cindex time signature, compound
 
 @subsubsubheading Compound time signatures
@@ -1817,9 +1817,9 @@ the @code{Score} context to the @code{Staff} context within the
 @node Automatic note splitting
 @unnumberedsubsubsec Automatic note splitting
 
-@cindex notes, splitting
+@cindex note, splitting
 @cindex splitting notes
-@cindex rests, splitting
+@cindex rest, splitting
 @cindex splitting rests
 
 @funindex Note_heads_engraver
@@ -1912,8 +1912,8 @@ of the input durations.
 @node Showing melody rhythms
 @unnumberedsubsubsec Showing melody rhythms
 
-@cindex melody rhythms, showing
-@cindex rhythms, showing melody
+@cindex melody rhythm, showing
+@cindex rhythm, showing melody
 
 Sometimes you might want to show only the rhythm of a melody.  This
 can be done with the rhythmic staff.  All pitches of notes on such a
@@ -1938,9 +1938,9 @@ staff are squashed, and the staff itself has a single line
 >>
 @end lilypond
 
-@cindex guitar chord charts
-@cindex strumming rhythms, showing
-@cindex guitar strumming rhythms, showing
+@cindex guitar, chord chart
+@cindex strumming rhythm, showing
+@cindex guitar, strumming rhythm, showing
 
 @funindex Pitch_squash_engraver
 @funindex \improvisationOn
@@ -2025,9 +2025,9 @@ Internals Reference:
 
 By default, beams are inserted automatically:
 
-@cindex beams, manual
-@cindex manual beams
-@cindex beams, customizing rules
+@cindex beam, manual
+@cindex manual beam
+@cindex beam, customizing rules
 
 @funindex \autoBeamOn
 @funindex \autoBeamOff
@@ -2056,8 +2056,8 @@ If automatic beaming is not required, it may be turned off with
 }
 @end lilypond
 
-@cindex melismata, with beams
-@cindex beams, with melismata
+@cindex melisma, with beams
+@cindex beam, with melisma
 
 @warning{If beams are used to indicate melismata in songs, then
 automatic beaming should be switched off with @code{@bs{}autoBeamOff}
@@ -2073,9 +2073,9 @@ created; see @ref{Setting automatic beam behavior}.
 @code{\autoBeamOn}.
 @endpredefined
 
-@cindex beams, line breaks
-@cindex line breaks, beams
-@cindex beams, with knee gap
+@cindex beam, line breaks
+@cindex line break, beams
+@cindex beam, with knee gap
 @cindex knee gap, with beams
 @funindex breakable
 
@@ -2086,8 +2086,8 @@ created; see @ref{Setting automatic beam behavior}.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-beam-knee-gap.ly}
 
-@cindex beams, \partCombine with \autoBeamOff
-@cindex voices, \partCombine with \autoBeamOff
+@cindex beam, @code{\partCombine} with @code{\autoBeamOff}
+@cindex voice, @code{\partCombine} with @code{\autoBeamOff}
 
 @lilypondfile [verbatim, quote, ragged-right, texidoc, doctitle]
 {partcombine-and-autobeamoff.ly}
@@ -2122,8 +2122,8 @@ new beam starts.
 @node Setting automatic beam behavior
 @unnumberedsubsubsec Setting automatic beam behavior
 
-@cindex beams, with lyrics
-@cindex lyrics, with beams
+@cindex beam, with lyrics
+@cindex lyrics, with beam
 
 @funindex autoBeaming
 @funindex baseMoment
@@ -2414,18 +2414,18 @@ The default beaming rules can be found in
 
 @snippets
 
-@cindex beams, subdividing
+@cindex beam, subdividing
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {subdividing-beams.ly}
 
-@cindex beamlets, orienting
+@cindex beamlet, orienting
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {strict-beat-beaming.ly}
 
-@cindex measure groupings
-@cindex beats, grouping
+@cindex measure grouping
+@cindex beat, grouping
 @cindex grouping beats
 @cindex measure sub-grouping
 
@@ -2513,11 +2513,11 @@ beaming settings for a time signature are described in
 @node Manual beams
 @unnumberedsubsubsec Manual beams
 
-@cindex beams, manual
-@cindex manual beams
+@cindex beam, manual
+@cindex manual beam
 
-@funindex ]
-@funindex [
+@funindex @sortas{]A} ]
+@funindex @sortas{[A} [
 
 In some cases it may be necessary to override the automatic
 beaming algorithm.  For example, the autobeamer will not put beams
@@ -2530,8 +2530,8 @@ marking the begin and end point with @code{[} and @code{]}.
 \relative { r4 r8[ g' a r] r g[ | a] r }
 @end lilypond
 
-@cindex manual beams, direction shorthand for
-@cindex manual beams, grace notes
+@cindex manual beam, direction shorthand for
+@cindex manual beam, grace notes
 
 Beaming direction can be set manually using direction indicators:
 
@@ -2618,8 +2618,8 @@ Internals Reference:
 @node Feathered beams
 @unnumberedsubsubsec Feathered beams
 
-@cindex beams, feathered
-@cindex feathered beams
+@cindex beam, feathered
+@cindex feathered beam
 
 @funindex \featherDurations
 @funindex grow-direction
@@ -2693,13 +2693,13 @@ music snippets, and when numbers in the fraction are small.
 @node Bar lines
 @unnumberedsubsubsec Bar lines
 
-@cindex bar lines
-@cindex measure lines
-@cindex closing bar lines
-@cindex bar lines, closing
-@cindex double bar lines
-@cindex bar lines, double
-@cindex repeat bars
+@cindex bar line
+@cindex measure line
+@cindex closing bar line
+@cindex bar line, closing
+@cindex double bar line
+@cindex bar line, double
+@cindex repeat bar
 
 @funindex \bar
 
@@ -2728,9 +2728,9 @@ all notes end before the end of a measure.
 inhibited, leading to a line of highly compressed music or
 music that flows off the page.}
 
-@cindex line breaks
-@cindex bar lines, invisible
-@cindex measure lines, invisible
+@cindex line break
+@cindex bar line, invisible
+@cindex measure line, invisible
 
 Line breaks are also permitted at manually inserted bar lines
 even within incomplete measures.  To allow a line break without
@@ -2746,10 +2746,10 @@ force) a line break to occur at this point.  The bar number
 counter is not increased.  To force a line break see
 @ref{Line breaking}.
 
-@cindex manual bar lines
-@cindex manual measure lines
-@cindex bar lines, manual
-@cindex measure lines, manual
+@cindex manual bar line
+@cindex manual measure line
+@cindex bar line, manual
+@cindex measure line, manual
 
 This and other special bar lines may be inserted manually at any
 point.  When they coincide with the end of a measure they replace
@@ -2849,7 +2849,7 @@ differ in their behavior at line breaks:
 }
 @end lilypond
 
-@cindex repeats
+@cindex repeat
 
 Although the bar line types signifying repeats may be inserted
 manually they do not in themselves cause LilyPond to recognize
@@ -2911,8 +2911,8 @@ when used with a @code{\repeat volta} command, see
 @ref{Normal repeats}.
 
 @funindex \defineBarLine
-@cindex bar lines, defining
-@cindex defining bar lines
+@cindex bar line, defining
+@cindex defining bar line
 
 New bar line types can be defined with @code{\defineBarLine}:
 
@@ -3024,8 +3024,8 @@ connected between different staves of a @code{StaffGroup},
 @end lilypond
 
 
-@cindex default bar lines, changing
-@cindex bar lines, default, changing
+@cindex default bar line, changing
+@cindex bar line, default, changing
 
 @funindex whichBar
 @funindex defaultBarType
@@ -3061,10 +3061,10 @@ Internals Reference:
 @node Bar numbers
 @unnumberedsubsubsec Bar numbers
 
-@cindex bar numbers
-@cindex measure numbers
-@cindex numbers, bar
-@cindex numbers, measure
+@cindex bar number
+@cindex measure number
+@cindex number, bar
+@cindex number, measure
 
 @funindex currentBarNumber
 
@@ -3082,7 +3082,7 @@ automatically for every measure.  It may also be set manually:
 }
 @end lilypond
 
-@cindex bar numbers, regular spacing
+@cindex bar number, regular spacing
 
 @funindex barNumberVisibility
 @funindex BarNumber
@@ -3126,13 +3126,13 @@ are printed at all possible places:
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-bar-numbers-inside-boxes-or-circles.ly}
 
-@cindex bar numbers, with letters
-@cindex bar numbers, with repeats
+@cindex bar number, with letter
+@cindex bar number, with repeat
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {alternative-bar-numbering.ly}
 
-@cindex bar number alignment
+@cindex bar number, alignment
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {aligning-bar-numbers.ly}
@@ -3148,7 +3148,7 @@ Internals Reference:
 @rinternals{BarNumber},
 @rinternals{Bar_number_engraver}.
 
-@cindex bar number collision
+@cindex bar number, collision
 @cindex collision, bar number
 
 @knownissues
@@ -3250,7 +3250,7 @@ Snippets:
 @node Rehearsal marks
 @unnumberedsubsubsec Rehearsal marks
 
-@cindex rehearsal marks
+@cindex rehearsal mark
 @cindex mark, rehearsal
 
 @funindex \mark
@@ -3266,7 +3266,7 @@ To print a rehearsal mark, use the @code{\mark} command.
 }
 @end lilypond
 
-@funindex \default
+@funindex @sortas{defaultB} \default
 
 @noindent
 The mark is incremented automatically if you use @code{\mark
@@ -3308,8 +3308,8 @@ hollow circle).
 }
 @end lilypond
 
-@cindex rehearsal mark format
-@cindex rehearsal mark style
+@cindex rehearsal mark, format
+@cindex rehearsal mark, style
 @cindex style, rehearsal mark
 @cindex format, rehearsal mark
 @cindex mark, rehearsal, style
@@ -3370,8 +3370,8 @@ string.
 @cindex coda
 @cindex D.S. al Fine
 @cindex fermata
-@cindex music glyphs
-@cindex glyphs, music
+@cindex music glyph
+@cindex glyph, music
 
 @funindex \musicglyph
 
@@ -3431,8 +3431,8 @@ Internals Reference:
 @node Grace notes
 @unnumberedsubsubsec Grace notes
 
-@cindex ornaments
-@cindex grace notes
+@cindex ornament
+@cindex grace note
 @cindex appoggiatura
 @cindex acciaccatura
 
@@ -3482,7 +3482,7 @@ eighth grace note
 >>
 @end lilypond
 
-@cindex grace notes, following
+@cindex grace note, following
 
 @funindex \afterGrace
 
@@ -3540,9 +3540,9 @@ space lasting 7/8 of the main note.
 }
 @end lilypond
 
-@cindex tweaking grace notes
-@cindex grace notes, tweaking
-@cindex grace notes, changing layout settings
+@cindex tweaking grace note
+@cindex grace note, tweaking
+@cindex grace note, changing layout settings
 
 A @code{\grace} music expression will introduce special
 typesetting settings, for example, to produce smaller type, and
@@ -3608,7 +3608,7 @@ Internals Reference:
 @knownissues
 @cindex acciaccatura, multi-note
 @cindex multi-note acciaccatura
-@cindex grace-note synchronization
+@cindex grace note, synchronization
 
 A multi-note beamed @i{acciaccatura} is printed without a slash,
 and looks exactly the same as a multi-note beamed
@@ -3723,7 +3723,7 @@ Snippets:
 @unnumberedsubsubsec Time administration
 
 @cindex time administration
-@cindex timing (within the score)
+@cindex timing, within score
 @cindex music, unmetered
 @cindex unmetered music
 

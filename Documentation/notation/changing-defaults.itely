@@ -122,7 +122,7 @@ This section explains the relevance of output definitions when
 working with contexts.  Examples for actual output definitions are
 given later (see @ref{Changing all contexts of the same type}).
 
-@cindex output definitions
+@cindex output definition
 @funindex \layout
 While music written in a file may refer to context types and
 names, contexts are created only when the music is actually being
@@ -314,9 +314,9 @@ context.
 
 @funindex \new
 @funindex \context
-@cindex new contexts
-@cindex referencing contexts
-@cindex Contexts, creating and referencing
+@cindex new context
+@cindex referencing context
+@cindex context, creating and referencing
 
 LilyPond will create lower-level contexts automatically if a music
 expression is encountered before a suitable context exists, but this
@@ -518,8 +518,8 @@ Notation Reference:
 @node Keeping contexts alive
 @subsection Keeping contexts alive
 
-@cindex contexts, keeping alive
-@cindex contexts, lifetime
+@cindex context, keeping alive
+@cindex context, lifetime
 
 Contexts are usually terminated at the first musical moment in
 which they have nothing to do.  So @code{Voice} contexts die as
@@ -753,7 +753,7 @@ within the measure, etc.  By moving these engraver from @code{Score} to
 @code{Staff} context, we can have a score where each staff has its own
 time signature.
 
-@cindex polymetric scores
+@cindex polymetric score
 @cindex time signature, multiple
 
 @lilypond[quote,verbatim]
@@ -819,8 +819,8 @@ Installed Files:
 @node Changing context default settings
 @subsection Changing context default settings
 
-@cindex default context properties, changing
-@cindex context properties, changing defaults
+@cindex default context property, changing
+@cindex context property, changing default
 
 Context and grob properties can be changed with @code{\set}
 and @code{\override} commands, as described in
@@ -843,7 +843,7 @@ default values in just one particular instance of a context.
 @node Changing all contexts of the same type
 @unnumberedsubsubsec Changing all contexts of the same type
 
-@cindex \context in \layout block
+@cindex @code{\context} in @code{\layout} block
 @funindex \context
 @funindex \layout
 
@@ -991,7 +991,6 @@ the same command written in the music stream.
 @node Changing just one specific context
 @unnumberedsubsubsec Changing just one specific context
 
-@cindex \with
 @funindex \with
 
 The context properties of just one specific context instance can be
@@ -1146,8 +1145,8 @@ Notation Reference:
 @node Defining new contexts
 @subsection Defining new contexts
 
-@cindex contexts, defining new
-@cindex engravers, including in contexts
+@cindex context, defining new
+@cindex engraver, including in context
 
 @funindex \alias
 @funindex \name
@@ -1366,7 +1365,7 @@ Internals Reference:
 @node Context layout order
 @subsection Context layout order
 
-@cindex contexts, layout order
+@cindex context, layout order
 @funindex \accepts
 @funindex \denies
 
@@ -1427,8 +1426,8 @@ another, but the required nesting differs.  For example, the
 with the @code{VaticanaVoice} context substituted for the @code{Voice}
 context in the @qq{accepts} list.
 
-@cindex contexts, implicit
-@cindex implicit contexts
+@cindex context, implicit
+@cindex implicit context
 @funindex \defaultchild
 
 Note that a context will be silently created implicitly if a
@@ -1445,8 +1444,6 @@ Implicit context creation can at times give rise to unexpected new
 staves or scores.  Using @code{\new} to create contexts explicitly
 avoids those problems.
 
-@cindex alignAboveContext
-@cindex alignBelowContext
 @funindex alignAboveContext
 @funindex alignBelowContext
 
@@ -1463,7 +1460,7 @@ existing contexts.  To reposition it above the context called
 @end example
 
 A similar situation arises when positioning a temporary lyrics
-context within a multi-staved layout such as a @code{ChoirStaff},
+context within a multi-staff layout such as a @code{ChoirStaff},
 for example, when adding a second verse to a repeated section.
 By default the temporary lyrics context will be placed beneath the
 lower staves.  By defining the temporary lyrics context with
@@ -1961,9 +1958,9 @@ or crashes, or both.
 @node The set command
 @subsection The @code{@bs{}set} command
 
-@cindex properties
+@cindex property
 @funindex \set
-@cindex changing properties
+@cindex changing property
 
 Each context has a set of @emph{properties}, variables contained
 in that context.  Context properties are changed with the @code{\set}
@@ -2069,7 +2066,7 @@ specified for a bottom context, so the two statements
 are equivalent if the current bottom context is @code{Voice}.
 
 
-@cindex \once
+@funindex \once
 Preceding a @code{\set} or @code{\unset} command by @code{\once}
 makes the setting apply to only a single time-step:
 
@@ -2097,8 +2094,8 @@ Internals Reference:
 @node The override command
 @subsection The @code{\override} command
 
-@cindex grob properties
-@cindex properties, grob
+@cindex grob, property
+@cindex property, grob
 @funindex \override
 
 There is a special type of context property: the grob
@@ -2157,8 +2154,8 @@ or to modify the ends of spanners, use a form like these
 @end example
 
 @funindex \revert
-@cindex reverting overrides
-@cindex overrides, reverting
+@cindex reverting override
+@cindex override, reverting
 
 The effects of @code{\override} can be undone by @code{\revert}.
 
@@ -2237,8 +2234,8 @@ To construct this tweak we must determine these bits of information:
 @end itemize
 
 @cindex internal documentation
-@cindex finding graphical objects
-@cindex graphical object descriptions
+@cindex finding graphical object
+@cindex graphical object description
 @cindex tweaking
 @funindex \override
 @cindex internal documentation
@@ -2440,8 +2437,8 @@ Extending LilyPond:
 
 @knownissues
 
-@cindex tweaking control points
-@cindex control points, tweaking
+@cindex tweaking control point
+@cindex control point, tweaking
 
 The @code{\tweak} command cannot be used to modify the control
 points of just one of several ties in a chord, other than the first
@@ -2497,7 +2494,7 @@ starting with a capital letter (e.g., @samp{NoteHead}); whereas normal
 context properties are manipulated using @code{\set} and @code{\unset}
 and are named starting with a lowercase letter.
 
-@cindex tweak, relation to @code{\override}
+@cindex @code{tweak}, relation to @code{\override}
 @funindex \tweak
 @funindex \overrideProperty
 
@@ -2513,7 +2510,7 @@ a music event (@code{\tweak}) or, in the case of
 
 @funindex \offset
 @cindex offsetting
-@cindex defaults, offsetting
+@cindex default, offsetting
 
 While it is possible to set grob properties to new values with the
 @code{\override}, @code{\tweak}, and @code{\overrideProperty} commands,
@@ -3195,8 +3192,8 @@ Notation Reference:
 @node Distances and measurements
 @subsection Distances and measurements
 
-@cindex distances, absolute
-@cindex distances, scaled
+@cindex distance, absolute
+@cindex distance, scaled
 
 @funindex \mm
 @funindex \cm
@@ -3254,7 +3251,7 @@ Notation Reference:
 @node Dimensions
 @subsection Dimensions
 
-@cindex dimensions
+@cindex dimension
 @cindex bounding box
 
 The dimensions of a graphical object specify the positions of the left
@@ -3633,9 +3630,9 @@ Internals Reference:
 @node Visibility of objects
 @subsection Visibility of objects
 
-@cindex objects, visibility of
-@cindex grobs, visibility of
-@cindex visibility of objects
+@cindex object, visibility of
+@cindex grob, visibility of
+@cindex visibility of object
 
 There are four main ways in which the visibility of layout objects
 can be controlled: their stencil can be removed, they can be made
@@ -3715,13 +3712,13 @@ a' a'
 @node Painting objects white
 @unnumberedsubsubsec Painting objects white
 
-@cindex objects, coloring
-@cindex coloring objects
-@cindex layers
+@cindex object, coloring
+@cindex coloring object
+@cindex layer
 @cindex printing order
-@cindex overwriting objects
-@cindex objects, overwriting
-@cindex grobs, overwriting
+@cindex overwriting object
+@cindex object, overwriting
+@cindex grob, overwriting
 
 Every layout object has a color property which by default is set
 to @code{black}.  If this is overridden to @code{white} the object
@@ -3763,7 +3760,7 @@ a'1
 
 @c TODO Add making other objects breakable
 
-@cindex break-visibility
+@funindex break-visibility
 
 Most layout objects are printed only once, but some like
 bar lines, clefs, time signatures and key signatures, may need
@@ -3884,9 +3881,9 @@ to print them and @code{all-invisible} to suppress them.
 @subsubsubheading Visibility following explicit changes
 
 @cindex key signature, visibility following explicit change
-@cindex explicitKeySignatureVisibility
+@funindex explicitKeySignatureVisibility
 @cindex clef, visibility following explicit change
-@cindex explicitClefVisibility
+@funindex explicitClefVisibility
 
 The @code{break-visibility} property controls the visibility of
 key signatures and changes of clef only at the start of lines,
@@ -4000,8 +3997,8 @@ the visibility of the @code{KeyCancellation} grob instead:
 
 @subsubsubheading Automatic bars
 
-@cindex automaticBars
-@cindex bar lines, suppressing
+@funindex automaticBars
+@cindex bar line, suppressing
 
 As a special case, the printing of bar lines can also be turned off
 by setting the @code{automaticBars} property in the Score context.
@@ -4016,9 +4013,9 @@ occur only at explicit @code{\bar} commands.
 
 @subsubsubheading Transposed clefs
 
-@cindex transposed clefs, visibility of
-@cindex visibility of transposed clefs
-@cindex clefs, visibility of transposition
+@cindex transposed clef, visibility of
+@cindex visibility of transposed clef
+@cindex clef, visibility of transposition
 
 The small transposition symbol on transposed clefs is produced by the
 @code{ClefModifier} layout object.  Its visibility is automatically
@@ -4104,8 +4101,8 @@ any angle about any point, but the method of doing so differs.
 @node Rotating layout objects
 @unnumberedsubsubsec Rotating layout objects
 
-@cindex rotating objects
-@cindex objects, rotating
+@cindex rotating object
+@cindex object, rotating
 
 All layout objects which support the @code{grob-interface} can be
 rotated by setting their @code{rotation} property.  This takes a
@@ -4118,8 +4115,8 @@ staff-spaces.
 The angle of rotation and the coordinates of the rotation point must
 be determined by trial and error.
 
-@cindex hairpins, angled
-@cindex angled hairpins
+@cindex hairpin, angled
+@cindex angled hairpin
 
 There are only a few situations where the rotation of layout
 objects is useful; the following example shows one situation where
@@ -4409,8 +4406,8 @@ example shows the difference:
 @node Using the break-alignable-interface
 @unnumberedsubsubsec Using the @code{break-alignable-interface}
 
-@cindex align to objects
-@cindex break-align-symbols
+@cindex align to object
+@funindex break-align-symbols
 
 Rehearsal marks and bar numbers may be aligned with notation
 objects other than bar lines.  These objects include @code{ambitus},
@@ -4603,10 +4600,10 @@ Notation Reference:
 @node Modifying ties and slurs
 @unnumberedsubsubsec Modifying ties and slurs
 
-@cindex slurs, modifying
-@cindex ties, modifying
-@cindex Bézier curves, control points
-@cindex control points, Bézier curves
+@cindex slur, modifying
+@cindex tie, modifying
+@cindex Bézier curve, control points
+@cindex control point, Bézier curve
 
 @code{Tie}s, @code{Slur}s, @code{PhrasingSlur}s,
 @code{LaissezVibrerTie}s and @code{RepeatTie}s are all drawn as
@@ -4840,8 +4837,8 @@ Internals Reference:
 @node Using alterBroken
 @unnumberedsubsubsec Using @code{\alterBroken}
 
-@cindex spanners, modifying
-@cindex broken spanners, modifying
+@cindex spanner, modifying
+@cindex broken spanner, modifying
 @funindex \alterBroken
 
 When a spanner crosses a line break or breaks, each piece
@@ -4949,10 +4946,10 @@ Extending LilyPond:
 @node Unpure-pure containers
 @subsection Unpure-pure containers
 
-@cindex Scheme, pure containers
-@cindex Scheme, unpure containers
-@cindex pure containers, Scheme
-@cindex unpure containers, Scheme
+@cindex Scheme, pure container
+@cindex Scheme, unpure container
+@cindex pure container, Scheme
+@cindex unpure container, Scheme
 @cindex horizontal spacing, overriding
 
 Unpure-pure containers are useful for overriding @emph{Y-axis} spacing

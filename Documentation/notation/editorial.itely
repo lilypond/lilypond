@@ -41,23 +41,16 @@ inside the staff.
 @node Selecting notation font size
 @unnumberedsubsubsec Selecting notation font size
 
-@cindex font size (notation) scaling
+@cindex font size (notation), scaling
 @cindex font size (notation)
 @cindex selecting font size (notation)
-@cindex notation font size
-@cindex note heads
+@cindex notation, font size
+@cindex note head
 
 @funindex fontSize
 @funindex font-size
 @funindex magnification->font-size
 @funindex magstep
-@funindex magnifyMusic
-@funindex teeny
-@funindex tiny
-@funindex small
-@funindex normalsize
-@funindex large
-@funindex huge
 @funindex \magnifyMusic
 @funindex \teeny
 @funindex \tiny
@@ -346,20 +339,20 @@ Markup texts or strings may be used for finger changes.
 }
 @end lilypond
 
-@cindex thumb-script
+@cindex thumb script
 
 @funindex \thumb
 
-A thumb-script can be added (e.g., cello music) to indicate
+A thumb script can be added (e.g., cello music) to indicate
 that a note should be played with the thumb.
 
 @lilypond[verbatim,quote]
 \relative { <a'_\thumb a'-3>2 <b_\thumb b'-3> }
 @end lilypond
 
-@cindex fingering chords
-@cindex fingering instructions for chords
-@cindex chords, fingering
+@cindex fingering chord
+@cindex fingering instruction, for chords
+@cindex chord, fingering
 
 Fingerings for chords can also be added to individual notes by
 adding them after the pitches.
@@ -402,12 +395,12 @@ Internals Reference:
 @node Hidden notes
 @unnumberedsubsubsec Hidden notes
 
-@cindex hidden notes
-@cindex invisible notes
-@cindex transparent notes
-@cindex notes, hidden
-@cindex notes, invisible
-@cindex notes, transparent
+@cindex hidden note
+@cindex invisible note
+@cindex transparent note
+@cindex note, hidden
+@cindex note, invisible
+@cindex note, transparent
 
 @funindex \hideNotes
 @funindex \unHideNotes
@@ -467,16 +460,14 @@ Internals Reference:
 @node Coloring objects
 @unnumberedsubsubsec Coloring objects
 
-@cindex colored objects
-@cindex objects, colored
-@cindex colors
-@cindex coloring objects
-@cindex colored notes
-@cindex coloring notes
-@cindex notes, colored
+@cindex colored object
+@cindex object, colored
+@cindex color
+@cindex coloring object
+@cindex colored note
+@cindex coloring note
+@cindex note, colored
 @cindex x11 color
-@cindex x11-color
-@cindex with-color
 
 @funindex color
 @funindex \with-color
@@ -527,7 +518,6 @@ color returned defaults to black.
 }
 @end lilypond
 
-@cindex rgb-color
 @cindex color, rgb
 @cindex rgb color
 
@@ -562,9 +552,9 @@ Snippets:
 @rlsr{Editorial annotations}.
 
 @cindex x11 color
-@cindex colored notes in chords
-@cindex notes, colored in chords
-@cindex color in chords
+@cindex colored note in chord
+@cindex note, colored in chords
+@cindex color in chord
 
 @funindex x11-color
 
@@ -586,11 +576,11 @@ Notes in a chord cannot be separately colored with
 @node Parentheses
 @unnumberedsubsubsec Parentheses
 
-@cindex ghost notes
-@cindex notes, ghost
-@cindex notes, parenthesized
-@cindex parentheses
-@cindex brackets
+@cindex ghost note
+@cindex note, ghost
+@cindex note, parenthesized
+@cindex parenthesis
+@cindex bracket
 
 @funindex \parenthesize
 
@@ -698,8 +688,7 @@ from outside of the staff.
 @node Note names
 @unnumberedsubsubsec Note names
 
-@cindex note names, printing
-@cindex NoteNames context
+@cindex note name, printing
 
 @funindex NoteNames
 @funindex Note_name_engraver
@@ -813,8 +802,6 @@ Internals Reference:
 @funindex \balloonGrobText
 @funindex \balloonText
 @funindex Balloon_engraver
-@funindex balloonGrobText
-@funindex balloonText
 @funindex \balloonLengthOn
 @funindex \balloonLengthOff
 
@@ -872,10 +859,10 @@ Internals Reference:
 @node Grid lines
 @unnumberedsubsubsec Grid lines
 
-@cindex grid lines
-@cindex lines, grid
+@cindex grid line
+@cindex line, grid
 @cindex vertical lines between staves
-@cindex lines, vertical between staves
+@cindex lines, vertical, between staves
 
 @funindex Grid_point_engraver
 @funindex Grid_line_span_engraver
@@ -941,7 +928,7 @@ Internals Reference:
 @node Analysis brackets
 @unnumberedsubsubsec Analysis brackets
 
-@cindex brackets
+@cindex bracket
 @cindex bracket, phrasing
 @cindex phrasing bracket
 @cindex musicological analysis

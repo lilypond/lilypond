@@ -55,7 +55,6 @@ grouping staves.
 @cindex percussion staff
 @cindex Gregorian transcription staff
 @cindex rhythmic staff
-@cindex tabstaff
 @cindex tablature
 
 @funindex \drummode
@@ -152,8 +151,7 @@ Internals Reference:
 
 @cindex start of system
 @cindex staff, multiple
-@cindex staves, multiple
-@cindex system start delimiters
+@cindex system start delimiter
 @cindex bracket, vertical
 @cindex brace, vertical
 @cindex choir staff
@@ -166,7 +164,7 @@ Internals Reference:
 @cindex system
 
 Various contexts exist to group single staves together in order to
-form multi-stave systems.  Each grouping context sets the style of
+form multi-staff systems.  Each grouping context sets the style of
 the system start delimiter and the behavior of bar lines.
 
 If no context is specified, the default properties will be used:
@@ -278,12 +276,11 @@ Internals Reference:
 @unnumberedsubsubsec Nested staff groups
 
 @cindex staff, nested
-@cindex staves, nested
 @cindex nesting of staves
-@cindex system start delimiters, nested
-@cindex nested staff brackets
-@cindex brackets, nesting of
-@cindex braces, nesting of
+@cindex system start delimiter, nested
+@cindex nested staff bracket
+@cindex bracket, nesting of
+@cindex brace, nesting of
 
 Staff-group contexts can be nested to arbitrary depths.  In this
 case, each child context creates a new bracket adjacent to the
@@ -401,11 +398,11 @@ sections are also described.
 @unnumberedsubsubsec Staff symbol
 
 @cindex staff symbol
-@cindex staff lines, stopping and starting
-@cindex staff lines, modifying
-@cindex ledger lines
-@cindex ledger lines, internal
-@cindex ledger lines, modifying
+@cindex staff line, stopping and starting
+@cindex staff line, modifying
+@cindex ledger line
+@cindex ledger line, internal
+@cindex ledger line, modifying
 
 @funindex \startStaff
 @funindex \stopStaff
@@ -574,7 +571,7 @@ Internals Reference:
 
 @cindex staff, Frenched
 @cindex ossia
-@cindex Frenched staves
+@cindex Frenched staff
 @cindex staff, resizing of
 @cindex resizing of staves
 
@@ -730,7 +727,7 @@ Internals Reference:
 @cindex hiding ancient staves
 @cindex hiding rhythmic staves
 @cindex hiding vaticana staves
-@cindex empty staves
+@cindex empty staff
 
 @funindex \RemoveEmptyStaves
 @funindex \RemoveAllEmptyStaves
@@ -855,8 +852,8 @@ format cue notes are also described.
 @node Instrument names
 @unnumberedsubsubsec Instrument names
 
-@cindex instrument names
-@cindex instrument names, short
+@cindex instrument name
+@cindex instrument name, short
 
 Instrument names can be printed on the left side of staves in the
 @code{Staff}, @code{PianoStaff}, @code{StaffGroup}, @code{GrandStaff}
@@ -873,7 +870,7 @@ of @code{shortInstrumentName} is used for all succeeding staves.
 }
 @end lilypond
 
-@cindex instrument names, complex
+@cindex instrument name, complex
 
 @code{\markup} can be used to create more complex instrument names:
 
@@ -889,7 +886,7 @@ of @code{shortInstrumentName} is used for all succeeding staves.
 }
 @end lilypond
 
-@cindex instrument names, centering
+@cindex instrument name, centering
 
 When two or more staff contexts are grouped together, the instrument
 names and short instrument names are centered by default.  To center
@@ -944,14 +941,14 @@ settings, see @ref{paper variables for shifts and indents,,@code{@bs{}paper} var
 }
 @end lilypond
 
-@cindex instrument names, adding to other contexts
+@cindex instrument name, adding to other contexts
 
 To add instrument names to other contexts (such as @code{ChordNames} or
 @code{FiguredBass}), @code{Instrument_name_engraver} must be added to
 that context.  For details, see @ref{Modifying context plug-ins}.
 
-@cindex instrument names, changing
-@cindex changing instrument names
+@cindex instrument name, changing
+@cindex changing instrument name
 
 The @code{shortInstrumentName} may be changed in the middle of a piece,
 along with other settings as needed for the new instrument.
@@ -1011,9 +1008,9 @@ Internals Reference:
 @unnumberedsubsubsec Quoting other voices
 
 @cindex quote, voices
-@cindex voices, quoting
-@cindex fragments, quoting
-@cindex cue notes
+@cindex voice, quoting
+@cindex fragment, quoting
+@cindex cue note
 
 @funindex \addQuote
 @funindex \quoteDuring
@@ -1136,12 +1133,12 @@ oboeNotes = \relative {
 }
 @end lilypond
 
-@cindex note-event
-@cindex articulation-event
-@cindex dynamic-event
-@cindex rest-event
-@cindex slur-event
-@cindex crescendo-event
+@funindex note-event
+@funindex articulation-event
+@funindex dynamic-event
+@funindex rest-event
+@funindex slur-event
+@funindex crescendo-event
 
 @funindex quotedEventTypes
 @funindex quotedCueEventTypes
@@ -1205,11 +1202,11 @@ triplets may result in poor notation.
 @node Formatting cue notes
 @unnumberedsubsubsec Formatting cue notes
 
-@cindex cue notes
-@cindex fragments
-@cindex cue notes, formatting
+@cindex cue note
+@cindex fragment
+@cindex cue note, formatting
 @cindex formatting, cue notes
-@cindex voices, quoting
+@cindex voice, quoting
 
 
 @funindex \cueDuring
@@ -1218,9 +1215,9 @@ triplets may result in poor notation.
 @funindex \cueDuringWithClef
 @funindex \quoteDuring
 
-@cindex notes, smaller
-@cindex smaller notes
-@cindex CueVoice
+@cindex note, smaller
+@cindex smaller note
+@funindex CueVoice
 
 The simplest way to format cue notes is to explicitly create a
 @code{CueVoice} context within the part.
@@ -1437,7 +1434,7 @@ bassClarinetNotes = \relative c' {
 @end lilypond
 
 @cindex removing cue notes
-@cindex cue notes, removing
+@cindex cue note, removing
 
 @funindex \killCues
 

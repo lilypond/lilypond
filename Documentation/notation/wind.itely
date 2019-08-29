@@ -36,7 +36,7 @@ This section discusses notation common to most wind instruments.
 @node References for wind instruments
 @unnumberedsubsubsec References for wind instruments
 
-@cindex wind instruments
+@cindex wind instrument
 
 Many notation issues for wind instruments pertain to breathing and
 tonguing:
@@ -141,7 +141,7 @@ This section discusses notation common bagpipes.
 
 @cindex bagpipe
 @cindex Scottish highland bagpipe
-@cindex grace notes
+@cindex grace note
 @funindex \taor
 @funindex \hideKeySignature
 @funindex \showKeySignature

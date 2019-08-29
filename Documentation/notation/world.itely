@@ -58,14 +58,14 @@ that extend the standard notation using Italian note names.  For more
 details see @ref{Arabic music}.
 
 @cindex tuning, non-Western
-@cindex Makam
-@cindex Makamlar
-@cindex Maqam
+@cindex makam
+@cindex makamlar
+@cindex maqam
 @cindex Turkish, classical music
 @cindex Ottoman, classical music
-@cindex Arabic Maqam
-@cindex Persian Makam
-@cindex Turkish Makam
+@cindex Arabic maqam
+@cindex Persian makam
+@cindex Turkish makam
 
 Other types of music require extended or unique notations, for example,
 @notation{Turkish classical music} (also known as Ottoman classical
@@ -119,9 +119,8 @@ music.
 @unnumberedsubsubsec References for Arabic music
 
 @cindex Arabic music
-@cindex medium intervals
+@cindex medium interval
 @cindex maqam
-@cindex maqams
 
 Arabic music so far has been mainly an oral tradition.  When music
 is transcribed, it is usually in a sketch format, on which
@@ -174,10 +173,10 @@ Snippets:
 @node Arabic note names
 @unnumberedsubsubsec Arabic note names
 
-@cindex Arabic note names
-@cindex Hel-arabic note names
-@cindex Note names Arabic
-@cindex Note names Hel-arabic
+@cindex Arabic note name
+@cindex Hel-arabic note name
+@cindex note name, Arabic
+@cindex note name, Hel-arabic
 
 Traditional Arabic note names can be quite long and so may not always be
 suitable for the purpose of music writing.
@@ -216,7 +215,7 @@ discussed in @ref{Common notation for non-Western music}.  Also see
 
 
 @cindex Arabic semi-flat symbol
-@cindex Semi-flat symbol appearance
+@cindex semi-flat symbol, appearance
 
 @funindex \dwn
 
@@ -381,7 +380,7 @@ Internals Reference:
 @unnumberedsubsubsec Arabic time signatures
 
 @cindex Arabic time signatures
-@cindex Semai form
+@cindex semai form
 @cindex taqasim
 
 Some Arabic and Turkish music classical forms such as
@@ -424,7 +423,7 @@ Snippets:
 
 @cindex Arabic music example
 @cindex Arabic music template
-@cindex Template Arabic music
+@cindex template, Arabic music
 
 Here is a template that also uses the start of a Turkish
 @notation{Semai} that is familiar in Arabic music education in order to
@@ -527,7 +526,7 @@ classical music.
 
 @cindex Turkish music
 @cindex Ottoman music
-@cindex comma intervals
+@cindex comma interval
 @cindex makam
 @cindex makamlar
 
@@ -547,7 +546,7 @@ Special note names and accidentals are explained in
 @node Turkish note names
 @unnumberedsubsubsec Turkish note names
 
-@cindex Turkish note names
+@cindex Turkish note name
 @cindex makam
 @cindex makamlar
 

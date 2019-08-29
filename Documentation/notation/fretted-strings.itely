@@ -93,9 +93,9 @@ Notation Reference:
 @node String number indications
 @unnumberedsubsubsec String number indications
 
-@cindex string numbers
-@cindex string vs. fingering numbers
-@cindex fingering vs. string numbers
+@cindex string number
+@cindex string vs. fingering number
+@cindex fingering vs. string number
 
 The string on which a note should be played may be indicated by
 appending @code{\@var{number}} to a note.
@@ -167,8 +167,8 @@ Internals Reference:
 @node Default tablatures
 @unnumberedsubsubsec Default tablatures
 
-@cindex tablatures, basic
-@cindex tablatures, default
+@cindex tablature, basic
+@cindex tablature, default
 
 @funindex TabStaff
 @funindex TabVoice
@@ -392,8 +392,8 @@ ties = \relative {
 }
 @end lilypond
 
-@cindex harmonic indications in tablature notation
-@cindex tablature and harmonic indications
+@cindex harmonic indication, in tablature notation
+@cindex tablature, and harmonic indications
 @funindex \harmonic
 @funindex \harmonicByFret
 @funindex \harmonicByRatio
@@ -477,13 +477,13 @@ ratioHarmonics = {
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {fretted-string-harmonics-in-tablature.ly}
 
-@cindex slides in tablature notation
-@cindex tablature and slides
+@cindex slide, in tablature notation
+@cindex tablature, and slides
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {slides-in-tablature.ly}
 
-@cindex chord glissandi
+@cindex chord, glissando
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {chord-glissando-in-tablature.ly}
@@ -544,15 +544,15 @@ Guitar special effects are limited to harmonics and slides.
 @node Custom tablatures
 @unnumberedsubsubsec Custom tablatures
 
-@cindex tablatures, custom
+@cindex tablature, custom
 @cindex tablature, banjo
 @cindex tablature, mandolin
 @cindex tablature, guitar
 @cindex tablature, bass guitar
 @cindex tablature, ukulele
 @cindex tablature, predefined string tunings
-@cindex fretted instruments, predefined string tunings
-@cindex predefined string tunings for fretted instruments
+@cindex fretted instrument, predefined string tunings
+@cindex predefined string tuning, for fretted instruments
 @cindex tablature, violin
 @cindex tablature, viola
 @cindex tablature, cello
@@ -602,7 +602,7 @@ are found in @file{ly/string-tunings-init.ly}.
 
 @funindex \stringTuning
 @cindex tablature, custom string tunings
-@cindex custom string tunings
+@cindex custom string tuning
 
 Any desired string tuning can be created.  The
 @code{\stringTuning} function can be
@@ -716,15 +716,15 @@ A modern tab clef can also be used.
 
 The modern tab clef supports tablatures from 4 to 7 strings.
 
-@cindex micro-tones, tab
-@cindex quarter-tones, tab
-@cindex tab micro-tones
+@cindex microtone, tab
+@cindex quarter-tone, tab
+@cindex tab microtones
 @cindex tab quarter-tones
 
-@code{TabStaff} may support micro-tones like quarter-tones, which
+@code{TabStaff} may support microtones like quarter-tones, which
 can be played using bendings.
 @code{supportNonIntegerFret = ##t} needs to be set in
-Score-context.  However, micro-tones are not supported in @code{FretBoards}.
+Score-context.  However, microtones are not supported in @code{FretBoards}.
 
 @lilypond[quote,ragged-right,verbatim]
 \layout {
@@ -779,16 +779,16 @@ monotonically with string number, such as ukuleles.
 @node Fret diagram markups
 @unnumberedsubsubsec Fret diagram markups
 
-@cindex fret diagrams
-@cindex chord diagrams
-@cindex diagrams, fret
-@cindex diagrams, chord for fretted instruments
-@cindex fret diagrams, custom
-@cindex custom fret diagrams
+@cindex fret diagram
+@cindex chord diagram
+@cindex diagram, fret
+@cindex diagram, chord for fretted instruments
+@cindex fret diagram, custom
+@cindex custom fret diagram
 
 Fret diagrams can be added to music as a markup to the desired
 note.  The markup contains information about the desired fret
-diagram.  There are three different fret-diagram markup
+diagram.  There are three different fret diagram markup
 interfaces: standard, terse, and verbose.  The three interfaces
 produce equivalent markups, but have varying amounts of
 information in the markup string.  Details about the
@@ -818,10 +818,10 @@ In addition, open and unplayed (muted) strings can be indicated.
 >>
 @end lilypond
 
-@cindex barre indications
+@cindex barre indication
 
 Barre indications can be added to the diagram from
-the fret-diagram markup string.
+the fret diagram markup string.
 
 @lilypond[quote, verbatim]
 <<
@@ -842,13 +842,13 @@ the fret-diagram markup string.
 >>
 @end lilypond
 
-@cindex fret-diagram markup
+@cindex fret diagram, markup
 @cindex ukulele
 
 @funindex \fret-diagram
 
 The size of the fret diagram, and the number of frets in the diagram
-can be changed in the fret-diagram markup string.
+can be changed in the fret diagram markup string.
 
 @lilypond[quote, verbatim]
 <<
@@ -870,7 +870,7 @@ can be changed in the fret-diagram markup string.
 @end lilypond
 
 The number of strings in a fret diagram can be changed to accommodate
-different instruments such as banjos and ukuleles with the fret-diagram
+different instruments such as banjos and ukuleles with the fret diagram
 markup string.
 
 @lilypond[quote, verbatim]
@@ -890,7 +890,7 @@ markup string.
 @end lilypond
 
 Fingering indications can be added, and the location of fingering labels
-can be controlled by the fret-diagram markup string.
+can be controlled by the fret diagram markup string.
 
 @lilypond[quote, verbatim]
 <<
@@ -911,7 +911,7 @@ can be controlled by the fret-diagram markup string.
 >>
 @end lilypond
 
-Dot radius and dot position can be controlled with the fret-diagram
+Dot radius and dot position can be controlled with the fret diagram
 markup string.
 
 @lilypond[quote, verbatim]
@@ -933,7 +933,8 @@ markup string.
 >>
 @end lilypond
 
-@cindex left-handed fret-diagrams
+@cindex left-handed fret diagram
+@cindex fret diagram, left-handed
 
 Fret-diagrams may be printed left-handed
 
@@ -1024,7 +1025,7 @@ Other fret diagram properties must be adjusted using
 @code{\override} when using the fret-diagram-terse markup.
 
 Only one indication per string can be included in a fret-diagram-terse
-markup.  To have multiple indications per string use a fret-diagram
+markup.  To have multiple indications per string use a fret diagram
 or fret-diagram-verbose markup.
 
 @cindex fret-diagram-verbose markup
@@ -1090,7 +1091,8 @@ Markups can be placed into the dots as well.
     }
   \new Staff {
     \clef "treble_8"
-    \override Voice.TextScript.fret-diagram-details.finger-code = #'below-string
+    \override Voice.TextScript
+      .fret-diagram-details.finger-code = #'below-string
     <f, c f a c' f'>1^\markup {
       \fret-diagram-verbose #'(
         (place-fret 6 1)
@@ -1157,7 +1159,7 @@ All other fret diagram properties must be adjusted using
 @code{\override} when using the fret-diagram-verbose markup.
 
 @ignore
-The following example shows the three fret-diagram markup
+The following example shows the three fret diagram markup
 interfaces, along with examples of common tweaks.  For example,
 the size of the verbose fret diagram is reduced to 0.75, and the
 finger indications are specified to appear below the diagram.  The
@@ -1223,10 +1225,10 @@ Internals Reference:
 @node Predefined fret diagrams
 @unnumberedsubsubsec Predefined fret diagrams
 
-@cindex fret diagrams
-@cindex fret diagrams, ukulele
-@cindex fret diagrams, mandolin
-@cindex chord diagrams
+@cindex fret diagram
+@cindex fret diagram, ukulele
+@cindex fret diagram, mandolin
+@cindex chord diagram
 
 @funindex FretBoards
 @funindex stringTunings
@@ -1302,8 +1304,8 @@ either as simultaneous music or using chord mode (see
 }
 @end lilypond
 
-@cindex chord names with fret diagrams
-@cindex fret diagrams with chord names
+@cindex chord name, with fret diagrams
+@cindex fret diagram, with chord names
 
 @funindex ChordNames
 @funindex \chordmode
@@ -1328,9 +1330,9 @@ mychords = \chordmode {
 >>
 @end lilypond
 
-@cindex transposing fret diagrams
-@cindex fret diagrams, transposing
-@cindex diagrams, fret, transposing
+@cindex transposing fret diagram
+@cindex fret diagram, transposing
+@cindex diagram, fret, transposing
 
 Predefined fret diagrams are transposable, as long as a diagram for the
 transposed chord is stored in the fret diagram table.
@@ -1365,7 +1367,7 @@ suspended fourth).
 A complete list of the predefined fret diagrams is
 shown in @ref{Predefined fretboard diagrams}.  If there is no entry in
 the table for a chord, the FretBoards engraver will calculate a
-fret-diagram using the automatic fret diagram functionality described in
+fret diagram using the automatic fret diagram functionality described in
 @ref{Automatic fret diagrams}.
 
 @lilypond[verbatim, ragged-right, quote]
@@ -1384,9 +1386,9 @@ mychords = \chordmode {
 >>
 @end lilypond
 
-@cindex fret diagrams, adding custom
-@cindex custom fret diagrams, adding
-@cindex adding custom fret diagrams
+@cindex fret diagram, adding custom
+@cindex custom fret diagram, adding
+@cindex adding custom fret diagram
 
 Fret diagrams can be added to the fret diagram table.  To add a diagram,
 you must specify the hash table for the diagram, the chord for the
@@ -1445,8 +1447,8 @@ mychords = \chordmode {
 >>
 @end lilypond
 
-@cindex fretted instruments, chord shapes
-@cindex chord shapes for fretted instruments
+@cindex fretted instrument, chord shape
+@cindex chord shape, for fretted instrument
 
 @funindex \addChordShape
 @funindex \storePredefinedDiagram
@@ -1536,10 +1538,10 @@ Internals Reference:
 @node Automatic fret diagrams
 @unnumberedsubsubsec Automatic fret diagrams
 
-@cindex fret diagrams, automatic
-@cindex chord diagrams, automatic
-@cindex automatic fret diagrams
-@cindex automatic chord diagrams
+@cindex fret diagram, automatic
+@cindex chord diagram, automatic
+@cindex automatic fret diagram
+@cindex automatic chord diagram
 
 Fret diagrams can be automatically created from entered notes using the
 @code{FretBoards} context.  If no predefined diagram is available for
@@ -1610,8 +1612,8 @@ note need be manually placed on a string; the rest of
 the notes will then be placed appropriately by the
 @code{FretBoards} context.
 
-@cindex fret diagrams, adding fingerings
-@cindex fingerings, adding to fret diagrams
+@cindex fret diagram, adding fingering
+@cindex fingering, adding to fret diagram
 
 Fingerings can be added to FretBoard fret diagrams.
 
@@ -1667,7 +1669,7 @@ information on the @code{stringTunings} property.
 
 The graphical layout of a fret diagram can be customized according to
 user preference through the properties of the
-@code{fret-diagram-interface}. Details are found at
+@code{fret-diagram-interface}.  Details are found at
 @rinternals{fret-diagram-interface}.  For a @code{FretBoards} fret
 diagram, the interface properties belong to
 @code{FretBoards.FretBoard}.
@@ -1696,9 +1698,9 @@ with non-monotonic tunings.
 @node Right-hand fingerings
 @unnumberedsubsubsec Right-hand fingerings
 
-@cindex fretted instruments, right hand fingerings
-@cindex fingerings, right hand for fretted instruments
-@cindex right hand fingerings for fretted instruments
+@cindex fretted instrument, right-hand fingering
+@cindex fingering, right hand, for fretted instrument
+@cindex right-hand fingering, for fretted instrument
 
 @funindex \rightHandFinger
 
@@ -1763,8 +1765,8 @@ or, for experienced users, a typesetter like GuitarTeX.
 @node Indicating position and barring
 @unnumberedsubsubsec Indicating position and barring
 
-@cindex indicating position and barring for fretted instruments
-@cindex fretted instruments, indicating position and barring
+@cindex indicating position and barring for fretted instrument
+@cindex fretted instrument, indicating position and barring
 
 This example demonstrates how to include guitar position and
 barring indications.
@@ -1793,10 +1795,10 @@ Snippets:
 @node Indicating harmonics and dampened notes
 @unnumberedsubsubsec Indicating harmonics and dampened notes
 
-@cindex fretted instruments, dampened notes
-@cindex fretted instruments, harmonics
-@cindex dampened notes on fretted instruments
-@cindex harmonics on fretted instruments
+@cindex fretted instrument, dampened note
+@cindex fretted instrument, harmonics
+@cindex dampened note, on fretted instrument
+@cindex harmonics, on fretted instrument
 
 Special note heads can be used to indicate dampened notes or
 harmonics.  Harmonics are normally further explained with a
@@ -1870,8 +1872,8 @@ Notation Reference:
 @node Indicating power chords
 @unnumberedsubsubsec Indicating power chords
 
-@cindex power chords
-@cindex chords, power
+@cindex power chord
+@cindex chord, power
 
 Power chords and their symbols can be engraved in chord mode or as chord
 constructs.  As an exception, the fifth is specified in these chord
@@ -1930,7 +1932,7 @@ Snippets:
 @node Banjo tablatures
 @unnumberedsubsubsec Banjo tablatures
 
-@cindex banjo tablatures
+@cindex banjo tablature
 @cindex tablature, banjo
 
 LilyPond has basic support for the five-string banjo.  When making tablatures
@@ -1957,8 +1959,8 @@ music = {
 >>
 @end lilypond
 
-@cindex banjo tunings
-@cindex tunings, banjo
+@cindex banjo tuning
+@cindex tuning, banjo
 
 @funindex banjo-c-tuning
 @funindex banjo-modal-tuning
@@ -1996,7 +1998,7 @@ Snippets:
 @node Lute tablatures
 @unnumberedsubsubsec Lute tablatures
 
-@cindex lute tablatures
+@cindex lute tablature
 @cindex tablature, lute
 
 LilyPond supports tablature for lute.
@@ -2031,8 +2033,8 @@ m = { f'4 d' a f d a, g, fis, e, d, c,  \bar "|." }
 }
 @end lilypond
 
-@cindex lute tunings
-@cindex tunings, lute
+@cindex lute tuning
+@cindex tuning, lute
 
 @knownissues
 Using @code{FretBoards} with @code{additionalBassStrings} is not supported and
