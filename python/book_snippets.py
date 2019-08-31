@@ -477,7 +477,7 @@ class LilypondSnippet (Snippet):
         #   @end example
         #   @exampleindent 5
         #
-        # causes ugly results with the DVI backend of texinfo since the
+        # causes ugly results with the TeX backend of texinfo since the
         # default value for @exampleindent isn't 5em but 0.4in (or a smaller
         # value).  Executing the above code changes the environment
         # indentation to an unknown value because we don't know the amount
