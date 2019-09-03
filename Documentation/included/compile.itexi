@@ -237,7 +237,7 @@ sudo dnf install texlive-xetex
 @end example
 
 The scripts used to build the LilyPond documentation will use
-@code{XeTex} instead of @code{pdfTex} to generate the PDF documents if
+@code{XeTeX} instead of @code{pdfTeX} to generate the PDF documents if
 it is available.  No additional configuration is required.}
 
 
@@ -513,7 +513,7 @@ The @code{mpost} binary is also usually packaged with
 @item
 @uref{http://www.gnu.org/software/texinfo/, Texinfo}
 
-Use version @code{4.11} or newer.
+Use version @code{6.1} or newer.
 
 @item
 @uref{http://www.lcdf.org/~eddietwo/type/#t1utils, Type 1 utilities}
