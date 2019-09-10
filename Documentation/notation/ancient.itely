@@ -257,16 +257,12 @@ The syntax still uses the deprecated infix style
 @code{\[ music expr \]}.  For consistency reasons, it will eventually
 be changed to postfix style @code{note\[ @dots{} note\]}.
 
-@c Alternatively, the file
-@c @file{gregorian-init.ly} can be included; it provides a scheme
-@c function
-@c @example
-@c \ligature @var{music expr}
-@c @end example
-@c with the same effect and is believed to be stable.
-
-@c TODO: this does not seem to work at the moment.
-@c -- eo
+Alternatively, the file @file{gregorian.ly} can be included; it
+provides a scheme function
+@example
+\ligature @var{music expr}
+@end example
+with the same effect and is believed to be stable.
 
 
 @node Custodes

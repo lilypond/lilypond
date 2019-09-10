@@ -270,15 +270,12 @@ La syntaxe utilisée correspond à l'ancienne convention de préfixage
 nous opterons probablement pour le style en suffixe (postfix)
 @code{note\[ @dots{} note\]}.
 
-@c En attendant, vous pouvez inclure le fichier
-@c @file{gregorian-init.ly}, qui fournit une fonction Scheme
-@c @example
-@c \ligature @var{music expr}
-@c @end example
-@c qui produit le même résultat, et dont la pérennité est assurée.
-
-@c TODO: this does not seem to work at the moment.
-@c -- eo
+En attendant, vous pouvez inclure le fichier
+@file{gregorian.ly}, qui fournit une fonction Scheme
+@example
+\ligature @var{music expr}
+@end example
+qui produit le même résultat, et dont la pérennité est assurée.
 
 
 @node Guidons
@@ -1260,12 +1257,11 @@ sert aussi à indiquer la fin de chaque partie dans une structure
 verset/répons.
 
 Les divisions sont disponibles après inclusion du fichier
-@file{gregorian-init.ly}.  Ce fichier définit les commandes
+@file{gregorian.ly}. Ce fichier définit les commandes
 @code{\divisioMinima}, @code{\divisioMaior}, @code{\divisioMaxima} et
-@code{\finalis}.  Certaines éditions utilisent @emph{virgula} ou
-@emph{caesura} en lieu et place de @emph{divisio minima} ; c'est
-pourquoi @file{gregorian-init.ly} définit aussi @code{\virgula} et
-@code{\caesura}.
+@code{\finalis}. Certaines éditions utilisent @emph{virgula} ou
+@emph{caesura} en lieu et place de @emph{divisio minima} ; c'est pourquoi
+@file{gregorian.ly} définit aussi @code{\virgula} et @code{\caesura}.
 
 @lilypond[quote,ragged-right]
 \include "gregorian.ly"
