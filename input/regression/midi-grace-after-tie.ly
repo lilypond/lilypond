@@ -3,7 +3,7 @@
   texidoc = "Tied notes sound as one note in MIDI.  Grace notes
   following a tied note shorten the resulting single note in MIDI."
 
-  % https://code.google.com/p/lilypond/issues/detail?id=3091
+  % https://sourceforge.net/p/testlilyissues/issues/3091/
 }
 \version "2.19.21"
 \score {

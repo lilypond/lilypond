@@ -16,7 +16,7 @@
 #  At the end of the run, the user is prompted whether or not to
 #  remove the generated files.
 #
-#  According to http://code.google.com/p/lilypond/issues/detail?id=1236
+#  According to https://sourceforge.net/p/testlilyissues/issues/1236/
 #  the location of the lilypond git tree is taken from $LILYPOND_GIT
 #  if specified, otherwise it is auto-detected.
 #

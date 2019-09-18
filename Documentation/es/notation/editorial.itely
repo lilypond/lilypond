@@ -318,8 +318,8 @@ Referencia de funcionamiento interno:
 @rinternals{font-interface}.
 
 @c The two issues mentioned below:
-@c http://code.google.com/p/lilypond/issues/detail?id=3987
-@c http://code.google.com/p/lilypond/issues/detail?id=3990
+@c https://sourceforge.net/p/testlilyissues/issues/3987/
+@c https://sourceforge.net/p/testlilyissues/issues/3990/
 @knownissues
 Actualmente hay dos fallos del programa que impiden un correcto
 espaciado horizontal al usar @code{\magnifyMusic}.  Solamente

@@ -301,8 +301,8 @@ Internals Reference:
 @rinternals{font-interface}.
 
 @c The two issues mentioned below:
-@c http://code.google.com/p/lilypond/issues/detail?id=3987
-@c http://code.google.com/p/lilypond/issues/detail?id=3990
+@c https://sourceforge.net/p/testlilyissues/issues/3987/
+@c https://sourceforge.net/p/testlilyissues/issues/3990/
 @knownissues
 There are currently two bugs that are preventing proper horizontal
 spacing when using @code{\magnifyMusic}.  There is only one

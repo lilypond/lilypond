@@ -40,7 +40,6 @@ RedirectMatch ^/documentation/$ /doc
 # RedirectMatch ^/documentation$ /doc
 #
 RedirectMatch ^/bugs	/bug-reports
-#RedirectMatch ^/bugs	http://code.google.com/p/lilypond/issues/list
 # the new website already has an /authors
 #RedirectMatch ^/authors /doc/Documentation/topdocs/AUTHORS
 RedirectMatch ^/stable    /doc/stable

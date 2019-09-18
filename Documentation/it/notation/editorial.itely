@@ -305,8 +305,8 @@ Guida al funzionamento interno:
 @rinternals{font-interface}.
 
 @c The two issues mentioned below:
-@c http://code.google.com/p/lilypond/issues/detail?id=3987
-@c http://code.google.com/p/lilypond/issues/detail?id=3990
+@c https://sourceforge.net/p/testlilyissues/issues/3987/
+@c https://sourceforge.net/p/testlilyissues/issues/3990/
 @knownissues
 Attualmente ci sono due bug che impediscono una corretta spaziatura
 orizzontale quando si usa @code{\magnifyMusic}.  C'è un solo modo
