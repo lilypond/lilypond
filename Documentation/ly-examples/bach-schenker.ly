@@ -1,268 +1,345 @@
 % -*-coding: utf-8 -*-
 
-\header{
-  composer = "J.S. Bach"
-  title = "Wenn wir in höchsten Nöten sein"
-  subtitle = "Analysis from Gene Biringer's Schenker Text, Ex. 5-27"
-% "BWV641"
-  enteredby = "Kris Shaffer"
-}
-
-% See http://kris.shaffermusic.com/tech.html. for more information
-
-% 'Add color...' sections are not the original author's, but added
-% afterwards specifically for illustration in LilyPond's Documentation.
-
-I = \once \override NoteColumn.ignore-collision = ##t
-
 \version "2.19.21"
 
-staffPiano = \new PianoStaff {
-  \set Score.timing = ##f
-  \set PianoStaff.followVoice = ##t
-  <<
-    \new Staff = "RH" { % Right hand
-      \clef treble
-      \key g \major
-      \relative {
-	\override Staff.NoteCollision.merge-differently-headed = ##t
-	<<
-	  {
-	    \override Beam.positions = #'(8 . 8)
-	    \hide NoteHead
-	    \override NoteHead.duration-log = #1
-	    s1 b'8[^\markup {
-	      \override #'(baseline-skip . 0.5)
-              % Add color to markup in top staff
-              \column { \with-color #red \small { ^ 3 } }
-	    }
-	    s4. s1 a8^\markup {
-	      \override #'(baseline-skip . 0.5)
-              % Add color to markup in top staff
-              \column { \with-color #red \small { ^ 2 } }
-	    }
-	    s4. s2 g8]^\markup {
-              % Add color to markup in top staff
-	      \override #'(baseline-skip . 0.5)
-	      \column { \with-color #red \small { ^ 1 } }
-	    }
-	    s4.
-	    \revert Beam.positions
-	    \undo \hide NoteHead
-	    \revert NoteHead.duration-log
-	  }
-	\\
-	  {
-            % Add color to both Dashed Slurs in top staff
-            \override Slur.color = #(x11-color "purple")
-	    \hide Stem
-	    s1
-	    \once \override Slur.height-limit = #6
-	    \once \override Slur.extra-offset = #'(1.25 . 0)
-	    \slurDashed
-	    \I b2_( s2
-	    \once \hide NoteHead
-	    b4) s
-	    \once \override Slur.height-limit = #3.25
-	    \once \override Slur.extra-offset = #'(.75 . 0)
-	    a2_( s4
-	    \once \hide NoteHead
-	    a4) g2
-	    \undo \hide Stem
-	  }
-	\\
-	  \override Staff.NoteCollision.merge-differently-headed = ##t
-	  {
-	    \override Beam.positions = #'(4 . -3.25)
-	    \stemUp
-	    g8[ s s4 s2
-	    \stemDown
-	    \once \hide NoteHead
-	    \I b8] s8
-	    \override Beam.positions = #'(3 . -2.25)
-	    \stemUp
-	    a8[ s s4
-	    \stemDown
-	    c8] s s2 s s
-	  }
-	\\
-	  {
-            % Add color to all remaining Slurs in top staff
-            \override Slur.color = #(x11-color "violet")
-            \override PhrasingSlur.color = #(x11-color "violet")
-	    \hide Stem
-	    \override Stem.length = #0
-            % Add color to text markups in top staff
-	    g4_\( fis^(_\markup { \with-color #blue \tiny N } g)\)
-	    a^(^\markup { \with-color #blue \tiny P } b2)
-	    b4^(^\markup { \with-color #blue \tiny P }
-	    \stemUp
-	    \undo \hide Stem
-	    \override Stem.length = #10
-	    c8)^( s
-	    \override Stem.length = #14
-	    b4) s s
-	    \override Stem.length = #0
-	    \hide Stem
-	    \once \override Slur.extra-offset = #'(0 . 0.35)
-            % Add color to remaining text markup in top staff
-	    c4^\( b_(_\markup { \with-color #blue \tiny P } a)\) s2
-	    \revert Stem.length
-	  }
-	\\
-	  {
-	    \hide Stem
-	    \hide NoteHead
-	    \override Stem.length = #0
-	    s1 s4 e4 s
-	    \change Staff = "LH"
-	    fis,4 s2
-	    \undo \hide Stem
-	    \undo \hide NoteHead
-	    \revert Stem.length
-	  }
-	\\
-	  {
-	    \hide Stem
-	    \hide NoteHead
-	    \override Stem.length = #0
-	    s1 s s2
-	    fis'4 s
-	    \change Staff = "LH"
-	    g,4 s s2
-	    \undo \hide Stem
-	    \undo \hide NoteHead
-	    \revert Stem.length
-	  }
-	>>
-	\bar "|."
-      }
-    }
 
-    \new Staff = "LH" { % Left hand
-      \clef bass
-      \key g \major
-      \relative c' {
-	\override Staff.NoteCollision.merge-differently-headed = ##t
-	<<
-	  {
-	    \override Beam.positions = #'(-8 . -8)
-	    \hide NoteHead
-	    \stemDown
-            % Add color to long beam text markups in bottom staff
-	    \I g8[_\markup { \with-color #(x11-color 'LawnGreen) \bold I }
-            s4. s1 s s2
-	    \I d8_\markup { \with-color #(x11-color 'LawnGreen) \bold V }
-            s4.
-	    \I g,8]_\markup { \with-color #(x11-color 'LawnGreen) \bold I }
-            s4.
-	    \revert Beam.positions
-	    \undo \hide NoteHead
-	  }
-	\\
-	  {
-	    \hide Stem
-	    \stemDown
-	    \override TextScript.extra-offset = #'(-11.75 . -12.25)
-	    \I g'2 s1 s s2 \I d2 g,2
-	    \undo \hide Stem
-	  }
-	\\
-	  {
-            % Add color to all single-note Slurs in bottom staff
-            \override Slur.color = #(x11-color "violet")
-	    \hide Stem
-	    \once \hide NoteHead
-	    \override Stem.length = #0
-	    g'4
-	    \once \override TextScript.padding = #0.25
-            % Add color to text markups in bottom staff
-	    a4_(^\markup { \with-color #blue \tiny P } b)
-	    fis4^(^\markup { \with-color #blue \tiny P } e)
-	    \once \hide NoteHead
-	    \once \override Slur.height-limit = #1.5
-            % Add color to remaining text markup in bottom staff
-	    c4^( d)^\markup { \with-color #blue \tiny N }
-	    \once \hide NoteHead
-	    \once \override Slur.extra-offset = #'(0 . 0.5)
-	    \I fis,4_(
-	    \undo \hide Stem
-	    \override Stem.length = #10
-	    \stemDown
-	    g4) s
-	    \once \override Slur.extra-offset = #'(0 . 0.25)
-	    \I c8_( s
-	    \hide Stem
-	    \revert Stem.length
-	    a4)
-	    \once \hide NoteHead
-	    \I d4^( d,4) s2
-	  }
-	\\
-	  {
-            % Add color to all two-note Slurs in bottom staff
-            \override Slur.color = #(x11-color "violet")
-	    \hide Stem
-	    \hide NoteHead
-	    \I g'4^( s b) s2
-	    \undo \hide Stem
-	    \undo \hide NoteHead
-	    \override Beam.positions = #'(-4 . 1)
-	    \stemDown
-	    c,8[ s s4
-	    \stemUp
-	    fis,8] s
-	    \override Beam.positions = #'(1 . -4)
-	    g8[ s
-	    \stemDown
-	    b8] s
-	    \revert Beam.positions
-	    \hide Stem
-	    \hide NoteHead
-	    c4^( s d4) s s2
-	  }
-	\\
-	  {
-            % Add color to four-note Slur in bottom staff
-            \override Slur.color = #(x11-color "violet")
-	    \hide Stem
-	    \hide NoteHead
-	    \override Stem.length = #0
-	    \stemDown
-	    \once \override Slur.height-limit = #3
-	    \once \override Slur.extra-offset = #'(0 . 0.25)
-	    \I g4_( s2. e4) s2. s2 s1 s2
-	    \undo \hide Stem
-	    \undo \hide NoteHead
-	  }
-	\\
-	  {
-            % Add color to dashed Slur in bottom staff
-            \override Slur.color = #(x11-color "purple")
-	    \hide Stem
-	    \hide NoteHead
-	    \slurDashed
-	    \once \override Slur.height-limit = #6.0
-	    \once \override Slur.extra-offset = #'(0.5 . -0.25)
-	    \override Stem.length = #0
-	    g4_( s2. s1 g,4) s s1 s2
-	    \undo \hide Stem
-	    \undo \hide NoteHead
-	  }
-	>>
-	\bar "|."
-      }
-    }
-  >>
+\header{
+  composer = "J.S. Bach"
+  title = "Wenn wir in höchsten Nöten sein (BWV 641)"
+  subtitle = "Analysis from Gene Biringer's Schenker Text, Ex. 5-27"
+  enteredby = "Kris Shaffer, Werner Lemberg"
 }
 
-\score {
+
+setup = { \oneVoice
+          \override NoteColumn.ignore-collision = ##t }
+
+
+% Some remarks.
+%
+% - Number `i' in the comments below gives the `i'th column in the graph.
+%   Rhythmically, every column is (arbitrarily) represented as an eighth.
+%   In total, the graph has 15 columns.
+%
+% - Using `\stemUp' and `\stemDown' influences the positioning of slurs even
+%   if `\omit Stem' disables printing of stems.
+%
+% - Since each layer of the Schenker graph uses `\\' to create a new voice
+%   it is not necessary to undo `\omit' or `\hide' commands.  The same holds
+%   for overridden properties.
+%
+%   The `price' for using `\\' is to call the above-defined macro `\setup'
+%   at the beginning of each voice to undo horizontal voice shifts and to
+%   make LilyPond ignore collisions.
+%
+% - Trailing (musical) skips in voices are omitted.
+
+
+rightHand = {
+  \clef treble
+  \key g \major
+
   <<
-    \staffPiano
+    {
+      \setup
+      % This produces half notes as note heads of eighths.
+      \override NoteHead.duration-log = #1
+
+  % 1
+      s2
+  % 5
+      b'8\tweak positions #'(8 . 8) ^[
+        ^\markup { \override #'(baseline-skip . 0.8)
+                   \column { \with-color #red \small { ^ 3 } } }
+      s4.
+  % 9
+      s4 a'8
+        ^\markup { \override #'(baseline-skip . 0.8)
+                   \column { \with-color #red \small { ^ 2 } } }
+      s8
+  % 13
+      s4 g'8]
+        ^\markup { \override #'(baseline-skip . 0.8)
+                   \column { \with-color #red \small { ^ 1 } } }
+    }
+  \\
+    {
+      \setup
+      \override Slur.color = #(x11-color "purple")
+      \stemUp
+      \omit Stem
+      \hide NoteHead
+      \slurDashed
+
+  % 1
+      s2
+  % 5
+      b'2\tweak height-limit #6 _(
+  % 9
+      b'4)
+      a'4\tweak height-limit #3.25 _(
+  % 13
+      s8
+      a'4)
+    }
+  \\
+    {
+      \setup
+
+  % 1
+      \stemUp
+      g'8\tweak positions #'(4.5 . -3.25) -[ s4.
+  % 5
+      \stemDown
+      \once \hide NoteHead
+      b'8]
+      \stemUp
+      a'8\tweak positions #'(3 . -3) -[ s
+      \stemDown
+      c''8]
+    }
+  \\
+    {
+      \setup
+      \override Slur.color = #(x11-color "violet")
+
+  % 1
+      \stemDown
+      \omit Stem
+      \omit Flag
+      s8 fis'^(_\markup { \with-color #blue \tiny N } g')
+      a'8^(^\markup { \with-color #blue \tiny P }
+  % 5
+      \hideNotes
+      b'4)
+      \unHideNotes
+      \once \override TextScript.outside-staff-priority = ##f
+      b'8^(^\markup { \with-color #blue \tiny P }
+      \undo \omit Stem
+      \undo \omit Flag
+      \stemUp
+      \override Stem.length = #10
+      c''8)^(
+  % 9
+      \override Stem.length = #14
+      b'4) s8
+      \stemDown
+      \omit Stem
+      \omit Flag
+      c''8^(
+  % 13
+      b'8_\markup { \with-color #blue \tiny P } a')
+    }
+  \\
+    {
+      \setup
+      \override Slur.color = #(x11-color "violet")
+
+  % 1
+      \stemUp
+      \omit Stem
+      \omit Flag
+      g'8_( fis' g'4)
+  % 5
+      s2
+  % 9
+      s2
+  % 13
+      b'8_( a')
+    }
+  \\
+    {
+      \setup
+      \omit Stem
+      \hide NoteHead
+
+  % 1
+      s2
+  % 5
+      s8 d'4
+      \change Staff = "LH"
+      b4
+    }
+  \\
+    {
+      \setup
+      \omit Stem
+      \hide NoteHead
+
+  % 1
+      s2
+  % 5
+      s2
+  % 9
+      s4
+      d'4
+      \change Staff = "LH"
+  % 13
+      b4
+    }
   >>
+
+  \bar "|."
+}
+
+
+leftHand = {
+  \clef bass
+  \key g \major
+
+  <<
+    {
+      \setup
+      % This produces half notes as note heads of eighths.
+      \override NoteHead.duration-log = #1
+
+  % 1
+      g8\tweak positions #'(-8 . -8) _[
+        _\markup { \with-color #(x11-color 'LawnGreen) \bold I }
+      s4.
+  % 5
+      s2
+  % 9
+      s2
+  % 13
+      d8_\markup { \with-color #(x11-color 'LawnGreen) \bold V }
+      s8
+      g,8]_\markup { \with-color #(x11-color 'LawnGreen) \bold I }
+    }
+  \\
+    {
+      \setup
+      \override Slur.color = #(x11-color "violet")
+      \stemUp
+      \hide Stem
+      \hide Flag
+
+  % 1
+      s8
+      \once \override TextScript.outside-staff-priority = ##f
+      \once \override TextScript.padding = #1
+      a8_(^\markup { \with-color #blue \tiny P } b)
+      \stemDown
+      fis8^(^\markup { \with-color #blue \tiny P }
+  % 5
+      e8)
+      c8\tweak height-limit #1.5 ^(
+      d8)^\markup { \with-color #blue \tiny N }
+      \stemUp
+      fis,8_(
+  % 9
+      \undo \hide Stem
+      \undo \hide Flag
+      \override Stem.length = #10
+      \stemDown
+      g,4)
+      c8_(
+      \hide Stem
+      \hide Flag
+      a,8)
+  % 13
+      \once \hide NoteHead
+      d8^( d,)
+    }
+  \\
+    {
+      \setup
+      \override Slur.color = #(x11-color "violet")
+
+  % 1
+      \hide Stem
+      \hide Flag
+      \hide NoteHead
+      g4\tweak height-limit #4 ^( b8) s8
+  % 5
+      s8
+      \undo \hide Stem
+      \undo \hide NoteHead
+      \override Beam.positions = #'(-4 . 1)
+      \stemDown
+      c8[ s
+      \stemUp
+      fis,8]
+  % 9
+      \override Beam.positions = #'(1 . -4)
+      g,8[
+      \stemDown
+      b,8]
+      \hide Stem
+      \hide NoteHead
+      c8^( s
+  % 13
+      d4)
+    }
+  \\
+    {
+      \setup
+      \override Slur.color = #(x11-color "violet")
+      \hide Stem
+      \hide NoteHead
+
+  % 1
+      g2\tweak height-limit #3 _(
+  % 5
+      e4)
+    }
+  \\
+    {
+      \setup
+      \override Slur.color = #(x11-color "purple")
+      \hide Stem
+      \hide NoteHead
+      \slurDashed
+
+  % 1
+      g2\tweak height-limit #8 _(
+  % 5
+      s2
+  % 9
+      g,4)
+    }
+  >>
+
+  \bar "|."
+}
+
+
+\score {
+  \new PianoStaff
+  <<
+    \new Staff = "RH" \rightHand
+    \new Staff = "LH" \leftHand
+  >>
+
   \layout {
-    indent = 0.0
-    ragged-right = ##f
-    \context { \Staff \remove "Time_signature_engraver" }
+    \context {
+      \Score
+      timing = ##f
+      \override StaffGrouper.staff-staff-spacing.basic-distance = #13 }
+
+    \context {
+      \Staff
+      \remove "Time_signature_engraver" }
+
+    \context {
+      \PianoStaff
+      followVoice = ##t }
+
+    \context {
+      \Voice
+      % We use `VoiceFollower' lines to indicate related columns
+      % instead of related voices; we thus avoid vertical offsets.
+      \override VoiceFollower.bound-details.left.padding = #0
+      \override VoiceFollower.bound-details.right.padding = #0 }
   }
+}
+
+
+\paper {
+  indent = 0.0
+  ragged-right = ##f
+  tagline = ##f
+  paper-height = 100\mm
+
+  markup-system-spacing.padding = #4
 }
