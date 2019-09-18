@@ -10,7 +10,7 @@ import os
 import glob
 
 ### translation data -- shouldn't be here; see issue
-### http://code.google.com/p/lilypond/issues/detail?id=1050
+### https://sourceforge.net/p/testlilyissues/issues/1050/
 
 import langdefs
 # GUB only has python 2.4 !!!
