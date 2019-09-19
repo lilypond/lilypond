@@ -421,7 +421,7 @@ Un petit fragment de la @emph{Klavierstück II} de Stockhausen, per
 demostrar la capacitat del LilyPond d'oferir una sortida
 personalitzada.
 
-@exampleImage{Stockhausen_Klavierstueck2}
+@exampleImage{stockhausen-klavierstueckII}
 @divEnd
 
 @divClass{column-center-middle-color2}
