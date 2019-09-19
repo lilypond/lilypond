@@ -4603,18 +4603,6 @@ add_post_events (Music *m, SCM events)
 		return false;	// successfully added -- nothing
 
 	while (m) {
-		if (m->is_mus_type ("music-wrapper-music")) {
-			m = unsmob<Music> (m->get_property ("element"));
-			continue;
-		}
-		if (m->is_mus_type ("sequential-music")) {
-			SCM lp = scm_last_pair (m->get_property ("elements"));
-			if (scm_is_pair (lp)) {
-				m = unsmob<Music> (scm_car (lp));
-				continue;
-			}
-			return true;
-		}
 		if (m->is_mus_type ("rhythmic-event")) {
 			m->set_property
 				("articulations",
@@ -4630,6 +4618,18 @@ add_post_events (Music *m, SCM events)
 					       (m->get_property ("elements"),
 						events)));
 			return false;
+		}
+		if (m->is_mus_type ("sequential-music")) {
+			SCM lp = scm_last_pair (m->get_property ("elements"));
+			if (scm_is_pair (lp)) {
+				m = unsmob<Music> (scm_car (lp));
+				continue;
+			}
+			return true;
+		}
+		if (m->is_mus_type ("music-wrapper-music")) {
+			m = unsmob<Music> (m->get_property ("element"));
+			continue;
 		}
 		break;
 	}
