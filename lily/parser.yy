@@ -4633,7 +4633,8 @@ add_post_events (Music *m, SCM events)
 			}
 			return true;
 		}
-		if (m->is_mus_type ("music-wrapper-music")) {
+		if (m->is_mus_type ("music-wrapper-music")
+		    || m->is_mus_type ("time-scaled-music")) {
 			m = unsmob<Music> (m->get_property ("element"));
 			continue;
 		}
