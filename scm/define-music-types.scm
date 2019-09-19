@@ -654,7 +654,7 @@ Syntax: @code{\\times @var{fraction} @var{music}}, e.g.,
         (length-callback . ,ly:music-wrapper::length-callback)
         (start-callback . ,ly:music-wrapper::start-callback)
         (iterator-ctor . ,ly:tuplet-iterator::constructor)
-        (types . (time-scaled-music music-wrapper-music))
+        (types . (time-scaled-music))
         ))
 
     (TimeSignatureMusic
