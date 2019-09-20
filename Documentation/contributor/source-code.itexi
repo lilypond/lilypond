@@ -1552,22 +1552,6 @@ PATCH: Countdown to 20130113
 The text of the email sets the deadline for this countdown batch.  At
 present, batches are done on Tuesday, Thursday and Sunday evenings.
 
-To create the countdown announcement, use the
-@code{make-countdown-announcement.sh} script, which takes the
-deadline date, and optionally your name.  Follow the instructions
-provided:
-
-@example
-cd $LILYPOND_GIT
-scripts/auxiliar/make-countdown-announcement.sh "Jan 1, 2001" James
-@end example
-
-The script produces an announcement that is easily readable in all
-email clients.  Also, whenever a new contributor submits a patch,
-you will be prompted to add the new username and author name to
-the script itself, and then commit those changes to the main git
-repository.
-
 
 @item
 On the scheduled countdown day, the Patch Meister reviews the
