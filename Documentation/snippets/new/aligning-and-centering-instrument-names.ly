@@ -12,7 +12,7 @@ and the following systems, respectively.
 
 "
   doctitle = "Aligning and centering instrument names"
-} % begin verbatim
+}
 
 \paper { left-margin = 3\cm }
 

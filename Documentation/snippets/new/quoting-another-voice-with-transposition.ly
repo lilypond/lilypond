@@ -12,7 +12,7 @@ quoted ones) are transposed.
 
 "
   doctitle = "Quoting another voice with transposition"
-} % begin verbatim
+}
 
 \addQuote clarinet {
   \transposition bes

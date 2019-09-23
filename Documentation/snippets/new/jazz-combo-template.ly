@@ -11,7 +11,7 @@ music is within a @code{\\transpose} section.
 
 "
   doctitle = "Jazz combo template"
-} % begin verbatim
+}
 
 \header {
   title = "Song"

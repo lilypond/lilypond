@@ -22,7 +22,7 @@ staff: standard polyphony, @code{\\partcombine} without texts, and
 
 "
   doctitle = "Combining two parts on the same staff"
-} % begin verbatim
+}
 
 %% Combining pedal notes with clef changes
 

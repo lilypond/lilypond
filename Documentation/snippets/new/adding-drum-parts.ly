@@ -13,7 +13,7 @@ lines is possible.
 
 "
   doctitle = "Adding drum parts"
-} % begin verbatim
+}
 
 drh = \drummode {
         cymc4.^"crash" hhc16^"h.h." hh hhc8 hho hhc8 hh16 hh
