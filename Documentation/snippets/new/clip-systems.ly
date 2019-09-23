@@ -25,7 +25,7 @@ are generated.
 
 "
   doctitle = "Clip systems"
-} % begin verbatim
+}
 
 #(ly:set-option 'clip-systems)
 #(define output-suffix "1")

@@ -11,7 +11,7 @@ music for transposing instruments at concert pitch.
 
 "
   doctitle = "Orchestra choir and piano template"
-} % begin verbatim
+}
 
 #(set-global-staff-size 17)
 \paper {

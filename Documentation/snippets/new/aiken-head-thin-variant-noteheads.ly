@@ -9,7 +9,7 @@ especially with ledger lines. Losing interior white space makes them
 appear as quarter notes.
 "
   doctitle = "Aiken head thin variant noteheads"
-} % begin verbatim
+}
 
 \score {
   {

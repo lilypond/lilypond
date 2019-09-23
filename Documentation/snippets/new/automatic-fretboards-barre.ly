@@ -13,7 +13,7 @@ there is no way to identify where barres should be placed.
 
 "
   doctitle = "Barres in automatic fretboards"
-} % begin verbatim
+}
 
 \new FretBoards {
   <f,-1 c-3 f-4 a-2 c'-1 f'-1>1

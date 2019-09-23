@@ -8,7 +8,7 @@ Figured bass headword
 
 "
   doctitle = "Figured bass headword"
-} % begin verbatim
+}
 
 % NR 2.7.3 Figured bass
 

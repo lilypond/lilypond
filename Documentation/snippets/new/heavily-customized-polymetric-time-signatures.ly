@@ -10,7 +10,7 @@ is the template of a real Balkan song!).
 
 "
   doctitle = "Heavily customized polymetric time signatures"
-} % begin verbatim
+}
 
 melody = \relative c'' {
   \key g \major

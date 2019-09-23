@@ -9,7 +9,7 @@ familiar in the repertoire in order to illustrate some of the elements
 of Turkish music notation.
 "
   doctitle = "Turkish Makam example"
-} % begin verbatim
+}
 
 % Initialize makam settings
 \include "turkish-makam.ly"
