@@ -3164,8 +3164,12 @@ dynamic marks and their associated fractions can be found in
 
 
 @snippets
+
+@cindex dynamics in MIDI, custom
+@cindex MIDI, custom dynamics
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {creating-custom-dynamics-in-midi-output.ly}
+
 
 Installed Files:
 @file{ly/script-init.ly}
@@ -3273,9 +3277,15 @@ Notation Reference:
 Internals Reference:
 @rinternals{Dynamic_performer}.
 
+
 @snippets
+
+@cindex MIDI, replacing default instrument equalization
+@cindex instrument equalization in MIDI, replacing default
+@cindex equalization, instrument, replacing MIDI default
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {replacing-default-midi-instrument-equalization.ly}
+
 
 @knownissues
 Changes in the MIDI volume take place only on starting a note, so
@@ -3553,7 +3563,10 @@ to the @code{'instrument} setting as shown:
 @}
 @end example
 
+
 @snippets
+
+@cindex MIDI, one channel per voice
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-midi-output-to-one-channel-per-voice.ly}
 

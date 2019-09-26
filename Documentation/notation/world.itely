@@ -82,7 +82,6 @@ Other, related init files are also available; @file{hel-arabic.ly} and
 To locate these init files on your system, see
 @rlearning{Other sources of information}.
 
-@snippets
 
 @seealso
 Music Glossary:
@@ -345,9 +344,13 @@ key signatures:
   @tab huzam
 @end multitable
 
+
 @snippets
+
+@c XXX also included in `pitches.itely'
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {non-traditional-key-signatures.ly}
+
 
 @seealso
 Music Glossary:
@@ -393,9 +396,14 @@ beaming and beam the notes manually.  Even if a match to existing
 typeset music is not required, it may still be desirable to adjust
 the automatic beaming behaviour and/or use compound time signatures.
 
+
 @snippets
+
+@cindex Arabic improvisation
+@cindex improvisation, Arabic
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {arabic-improvisation.ly}
+
 
 @seealso
 Music Glossary:
@@ -595,7 +603,11 @@ The correct accidentals, koma flat (@var{b1}) and koma sharp
 (@code{f4}), (both in relation to the tonic @var{g}), will be displayed
 automatically.
 
+
 @snippets
+
+@cindex makam, example
+@cindex Turkish makam, example
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {turkish-makam-example.ly}
 

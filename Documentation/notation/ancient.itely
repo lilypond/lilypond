@@ -2665,6 +2665,8 @@ produced.  If no instrument name is required then use
 @node Mensurstriche layout
 @unnumberedsubsubsec Mensurstriche layout
 
+@cindex Mensurstriche
+
 @emph{Mensurstriche} (@q{mensuration lines}) is the accepted term
 for bar lines that are drawn between the staves of a system but
 not through the staves themselves.  It is a common way to preserve
@@ -2867,6 +2869,7 @@ spirLyr = \lyricmode {
 @node Ancient and modern from one source
 @unnumberedsubsubsec Ancient and modern from one source
 
+@cindex transcription, mensural to modern
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {using-tags-to-produce-mensural-and-modern-music-from-the-same-source.ly}
 

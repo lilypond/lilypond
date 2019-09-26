@@ -327,13 +327,17 @@ object property.  This syntax is described in @ref{Line styles}.
 @knownissues
 LilyPond is only able to handle one text spanner per voice.
 
+
 @snippets
 
+@cindex dynamics, text spanner, customize
+@cindex text spanner, dynamics, customize
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {dynamics-text-spanner-postfix.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {dynamics-custom-text-spanner-postfix.ly}
+
 
 @seealso
 Notation Reference:
@@ -431,13 +435,21 @@ the next line.
 @code{\markLengthOff}.
 @endpredefined
 
+
 @snippets
 
+@cindex end of line, positioning marks
+@cindex line, end of, positioning marks
+@cindex mark, at end of line
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-marks-at-the-end-of-a-line.ly}
 
+@cindex mark, on every staff
+@funindex Mark_engraver
+@funindex Staff_collecting_engraver
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-marks-on-every-staff.ly}
+
 
 @seealso
 Notation Reference:
@@ -511,8 +523,13 @@ requires, are described in @ref{Multi-page markup}.
 
 @snippets
 
+@cindex text, in columns
+@cindex column, text
+@cindex two-column text
+@cindex markup, two-column
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {stand-alone-two-column-markup.ly}
+
 
 @seealso
 Notation Reference:
@@ -925,7 +942,8 @@ markup objects as a whole, as shown for instance in
 @ref{Text marks}.
 
 @cindex text, vertical alignment
-@cindex vertical text alignment
+@cindex vertical alignment, text
+@cindex alignment, vertical, text
 
 @funindex \raise
 @funindex \lower

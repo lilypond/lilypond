@@ -869,12 +869,21 @@ the stems are explicitly set in opposite directions).
 @code{\shiftOff}.
 @endpredefined
 
+
 @snippets
+
+@cindex voice, additional, in polyphonic music
+@cindex additional voices in polyphonic music
+@cindex polyphony, additional voices
+@funindex context-spec-music
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {additional-voices-to-avoid-collisions.ly}
 
+@cindex note, horizontal shift
+@cindex horizontal shift of notes
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {forcing-horizontal-shift-of-notes.ly}
+
 
 @seealso
 Music Glossary:
@@ -1144,8 +1153,11 @@ this effect can be achieved using a @code{NullVoice} context.  See
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {combining-two-parts-on-the-same-staff.ly}
 
+@cindex part combiner, changing text
+@cindex combining parts, changing text
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-partcombine-texts.ly}
+
 
 @seealso
 Music Glossary:

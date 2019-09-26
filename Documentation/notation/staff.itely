@@ -233,9 +233,16 @@ New staff group contexts may be defined.  For details, see
 
 @snippets
 
+@cindex square bracket, at start of staff group
+@cindex bracket, square, at start of staff group
+@cindex staff group, with square bracket at start
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {use-square-bracket-at-the-start-of-a-staff-group.ly}
 
+@cindex bracket, at start of single staff
+@cindex brace, at start of single staff
+@cindex staff, single, with bracket or brace
+@cindex single staff with bracket or brace
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {display-bracket-with-only-one-staff-in-a-system.ly}
 
@@ -243,9 +250,10 @@ New staff group contexts may be defined.  For details, see
 @cindex renaissance music
 @cindex transcription of mensural music
 @cindex mensural music, transcription of
-
+@cindex bar line, between staves
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {mensurstriche-layout-bar-lines-between-the-staves.ly}
+
 
 @seealso
 Music Glossary:
@@ -310,6 +318,7 @@ New nested staff group contexts can be defined.  For details, see
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {nesting-staves.ly}
+
 
 @seealso
 Notation Reference:
@@ -545,9 +554,12 @@ line spacing as well.
 }
 @end lilypond
 
+
 @snippets
+
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {making-some-staff-lines-thicker-than-the-others.ly}
+
 
 @seealso
 Music Glossary:
@@ -692,8 +704,15 @@ break.  For more information about
 
 @snippets
 
+@cindex ossia, positioning
+@cindex lyrics, positioning
+@cindex position, lyrics
+@cindex position, ossia
+@funindex alignBelowContext
+@funindex alignAboveContext
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {vertically-aligning-ossias-and-lyrics.ly}
+
 
 @seealso
 Music Glossary:

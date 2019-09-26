@@ -521,18 +521,20 @@ Rests passed to a @code{ChordNames} context will cause the
 }
 @end lilypond
 
+
 @snippets
 
-@c Keep index entries with following snippet
 @cindex chord, suppressing repeated
+@cindex repeated chords, suppressing
+@cindex suppressing repeated chords
 @funindex chordChanges
-
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {showing-chords-at-changes.ly}
 
 @c @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 @c {adding-bar-lines-to-chordnames-context.ly}
 
+@cindex lead sheet
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {simple-lead-sheet.ly}
 
@@ -755,19 +757,32 @@ used when the root is altered.
 @snippets
 
 @cindex exception, chord names
+@cindex chord names, exceptions
+@funindex chordNameExceptions
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {chord-name-exceptions.ly}
 
 @c TODO - tweak snippet to use \blackTriangleMarkup as well
+@cindex major 7 chord, layout
+@cindex layout, major 7 chord
+@cindex chord, major 7, layout
+@funindex majorSevenSymbol
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {chord-name-major7.ly}
 
+@cindex @code{ChordNames}, with bar lines
+@cindex bar line, in @code{ChordNames}
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adding-bar-lines-to-chordnames-context.ly}
 
+@cindex volta repeat, below chords
+@cindex chords, volta repeat, below
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {volta-below-chords.ly}
 
+@cindex chord separator, changing
+@cindex changing chord separator
+@funindex chordNameSeparator
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-chord-separator.ly}
 
@@ -1062,6 +1077,12 @@ End of continuation line
 
 
 @snippets
+
+@cindex figured bass, alteration, position
+@cindex position, figured bass alteration
+@cindex alteration, figured bass, position
+@funindex figuredBassAlterationDirection
+@funindex figuredBassPlusDirection
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-positions-of-figured-bass-alterations.ly}
 

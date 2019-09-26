@@ -324,21 +324,32 @@ with the @code{\defineBarLine} command (see @ref{Bar lines}).
 }
 @end lilypond
 
+
 @snippets
+
+@cindex volta bracket, shortened
+@cindex shortened volta brackets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {shortening-volta-brackets.ly}
 
+@cindex volta bracket, in additional staves
+@funindex Volta_engraver
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adding-volta-brackets-to-additional-staves.ly}
 
+@cindex repeat, double, style for volta
+@cindex volta, double repeat style
+@cindex style, double repeat for volta
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {setting-the-double-repeat-default-for-volte.ly}
 
-@cindex repeat, bar numbers letters
+@cindex repeat, bar numbers with letters
+@cindex bar number, with letter, in repeat
 @cindex repeat, alternative bar numbers
-
+@cindex bar number, alternative, in repeat
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {alternative-bar-numbering.ly}
+
 
 @seealso
 Music Glossary:
@@ -736,16 +747,29 @@ use a double-percent symbol.
 }
 @end lilypond
 
+
 @snippets
 
+@cindex percent repeat counter
+@cindex counter, percent repeat
+@cindex repeat, percent counter
+@funindex countPercentRepeats
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {percent-repeat-counter.ly}
 
+@cindex percent repeat, count visibility
+@cindex count visibility of percent repeats
+@cindex repeat, percent, count visibility
+@funindex repeatCountVisibility
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {percent-repeat-count-visibility.ly}
 
+@cindex percent repeat, isolated
+@cindex isolated percent repeat
+@cindex repeat, percent, isolated
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {isolated-percent-repeats.ly}
+
 
 @seealso
 Music Glossary:
@@ -852,14 +876,15 @@ the last value is used:
 }
 @end lilypond
 
+
 @snippets
 
+@cindex tremolo, cross-staff
+@cindex cross-staff tremolo
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {cross-staff-tremolos.ly}
+
 
 @seealso
 Snippets:
 @rlsr{Repeats}.
-
-@cindex tremolo, cross-staff
-@cindex cross-staff tremolo

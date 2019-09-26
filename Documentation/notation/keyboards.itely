@@ -109,10 +109,12 @@ as shown in @rlearning{Other uses for tweaks}.
 
 @end itemize
 
+
 @c @snippets
 @c @lilypondfile[verbatim,quote,texidoc,doctitle]
 @c {forcing-visibility-of-systems-with-multi-bar-rests-when-using-\RemoveEmptyStaffContext.ly}
 @c http://lsr.di.unimi.it/LSR/Item?u=1&id=312
+
 
 @seealso
 Learning Manual:
@@ -617,6 +619,8 @@ This section discusses notation that is unique to the accordion.
 @cindex discant symbol, accordion
 @cindex accordion shift symbol
 @cindex shift symbol, accordion
+@cindex accordion register symbol
+@cindex register symbol, accordion
 
 Accordions are often built with more than one set of reeds that may be
 in unison with, an octave above, or an octave below the written pitch.
