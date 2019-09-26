@@ -2974,7 +2974,7 @@ This is activated with the @code{\chordmode} command, and causes
 input to be interpreted with the syntax of chord notation, see
 @ref{Chord notation}.  Music in chord mode is rendered as chords on a staff
 when entered into a @code{Staff} context, as chord names when entered
-into a @code{ChordNames} context or as fret boards when entered into
+into a @code{ChordNames} context or as fretboards when entered into
 a @code{FretBoards} context.
 
 Chord mode is also activated with the @code{\chords} command.  This

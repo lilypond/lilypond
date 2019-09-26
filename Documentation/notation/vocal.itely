@@ -1145,8 +1145,10 @@ To make this change for all lyrics in the score, set the property in the
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {lyrics-alignment.ly}
 
-@c TODO: move to LSR -vv
 
+@knownissues
+
+@cindex lyrics, keeping inside margin
 Checking to make sure that text scripts and lyrics are within the margins
 requires additional calculations.  To speed up processing slightly, this
 feature can be disabled:
@@ -2259,7 +2261,6 @@ etc.
 @menu
 * References for choral::
 * Score layouts for choral::
-* Divided voices::
 @end menu
 
 @node References for choral
@@ -2432,8 +2433,7 @@ Internals Reference:
 @rinternals{StaffGrouper}.
 
 
-@node Divided voices
-@unnumberedsubsubsec Divided voices
+@snippets
 
 @cindex voice, divided
 @cindex divided voices

@@ -1135,13 +1135,8 @@ to string @var{end-string} at fret @var{fret-number}.
 Place a capo indicator (a large solid bar) across the entire fretboard
 at fret location @var{fret-number}.  Also, set fret @var{fret-number}
 to be the lowest fret on the fret diagram.
-@item
-(place-fret @var{string-number}
-            @var{fret-number}
-            [@var{finger-value}]
-            [@var{color-modifier}]
-            [@var{color}]
-            [@code{'parenthesized} [@code{'default-paren-color}]])
+
+@item (place-fret @var{string-number} @var{fret-number} [@var{finger-value}] [@var{color-modifier}] [@var{color}] ['parenthesized ['default-paren-color]])
 Place a fret playing indication on string @var{string-number} at fret
 @var{fret-number} with an optional fingering label @var{finger-value},
 an optional color modifier @var{color-modifier}, an optional color
