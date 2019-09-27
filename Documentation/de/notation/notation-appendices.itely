@@ -1295,63 +1295,384 @@ an Noten angehängt werden (etwa @samp{c\accent}).
 * Ornamentale Skripte::
 * Fermatenskripte::
 * Instrumentenspezifische Skripte::
-* Wiederholungszeichensrkipte::
+* Wiederholungszeichenskripte::
 * Skripte der alten Notation::
 @end menu
+
+@cindex accent
+@cindex espressivo
+@cindex marcato
+@cindex portato
+@cindex staccatissimo
+@cindex staccato
+@cindex tenuto
+@cindex thumb
 
 @node Artikulationsskripte
 @unnumberedsubsec Artikulationsskripte
 @translationof Articulation scripts
 
-@lilypond[quote]
-\include "script-chart.ly"
-\new RhythmicStaff { \scriptStaff #articulations }
+@multitable @columnfractions .22 .25 .25 .25
+
+@item
+@code{\accent} or @code{->}
+@lilypond[notime,relative=2]
+f^\accent e,_\accent b'\accent
 @end lilypond
+@tab
+@code{\espressivo}
+@lilypond[notime,relative=2]
+f^\espressivo e,_\espressivo b'\espressivo
+@end lilypond
+@tab
+@code{\marcato} or @code{-^}
+@lilypond[notime,relative=2]
+f^\marcato e,_\marcato b'\marcato
+@end lilypond
+@tab
+@code{\portato} or @code{-_}
+@lilypond[notime,relative=2]
+f^\portato e,_\portato b'\portato
+@end lilypond
+
+@item
+@code{\staccatissimo} @* or @code{-!}
+@lilypond[notime,relative=2]
+f^\staccatissimo e,_\staccatissimo b'\staccatissimo
+@end lilypond
+@tab
+@code{\staccato} or @code{-.}
+@lilypond[notime,relative=2]
+f^\staccato e,_\staccato b'\staccato
+@end lilypond
+@tab
+@code{\tenuto} or @code{--}
+@lilypond[notime,relative=2]
+f^\tenuto e,_\tenuto b'\tenuto
+@end lilypond
+
+@end multitable
+
+@funindex \prall
+@funindex \prallup
+@funindex \pralldown
+@funindex \upprall
+@funindex \downprall
+@funindex \prallprall
+@funindex \lineprall
+@funindex \prallmordent
+@funindex \mordent
+@funindex \upmordent
+@funindex \downmordent
+@funindex \trill
+@funindex \turn
+@funindex \reverseturn
+@funindex \slashturn
+@funindex \haydnturn
 
 @node Ornamentale Skripte
 @unnumberedsubsec Ornamentale Skripte
 @translationof Ornament scripts
 
-@lilypond[quote]
-\include "script-chart.ly"
-\new RhythmicStaff { \scriptStaff #ornaments }
+@multitable @columnfractions .22 .25 .25 .25
+
+@item
+@code{\prall}
+@lilypond[notime,relative=2]
+f^\prall e,_\prall b'\prall
 @end lilypond
+@tab
+@code{\prallup}
+@lilypond[notime,relative=2]
+f^\prallup e,_\prallup b'\prallup
+@end lilypond
+@tab
+@code{\pralldown}
+@lilypond[notime,relative=2]
+f^\pralldown e,_\pralldown b'\pralldown
+@end lilypond
+@tab
+@code{\upprall}
+@lilypond[notime,relative=2]
+f^\upprall e,_\upprall b'\upprall
+@end lilypond
+
+@item
+@code{\downprall}
+@lilypond[notime,relative=2]
+f^\downprall e,_\downprall b'\downprall
+@end lilypond
+@tab
+@code{\prallprall}
+@lilypond[notime,relative=2]
+f^\prallprall e,_\prallprall b'\prallprall
+@end lilypond
+@tab
+@code{\lineprall}
+@lilypond[notime,relative=2]
+f^\lineprall e,_\lineprall b'\lineprall
+@end lilypond
+@tab
+@code{\prallmordent}
+@lilypond[notime,relative=2]
+f^\prallmordent e,_\prallmordent b'\prallmordent
+@end lilypond
+
+@item
+@code{\mordent}
+@lilypond[notime,relative=2]
+f^\mordent e,_\mordent b'\mordent
+@end lilypond
+@tab
+@code{\upmordent}
+@lilypond[notime,relative=2]
+f^\upmordent e,_\upmordent b'\upmordent
+@end lilypond
+@tab
+@code{\downmordent}
+@lilypond[notime,relative=2]
+f^\downmordent e,_\downmordent b'\downmordent
+@end lilypond
+@tab
+@code{\trill}
+@lilypond[notime,relative=2]
+f^\trill e,_\trill b'\trill
+@end lilypond
+
+@item
+@code{\turn}
+@lilypond[notime,relative=2]
+f^\turn e,_\turn b'\reverseturn
+@end lilypond
+@tab
+@code{\reverseturn}
+@lilypond[notime,relative=2]
+f^\reverseturn e,_\reverseturn b'\reverseturn
+@end lilypond
+@tab
+@code{\slashturn}
+@lilypond[notime,relative=2]
+f^\slashturn e,_\slashturn b'\slashturn
+@end lilypond
+@tab
+@code{\haydnturn}
+@lilypond[notime,relative=2]
+f^\haydnturn e,_\haydnturn b'\haydnturn
+@end lilypond
+
+@end multitable
+
+@funindex \fermata
+@funindex \shortfermata
+@funindex \longfermata
+@funindex \veryshortfermata
+@funindex \verylongfermata
+@funindex \henzeshortfermata
+@funindex \henzelongfermata
 
 @node Fermatenskripte
 @unnumberedsubsec Fermatenskripte
 @translationof Fermata scripts
 
-@lilypond[quote]
-\include "script-chart.ly"
-\new RhythmicStaff { \scriptStaff #fermatas }
+@multitable @columnfractions .22 .25 .25 .25
+
+@item
+@code{\veryshortfermata}
+@lilypond[notime,relative=2]
+f^\veryshortfermata e,_\veryshortfermata b'\veryshortfermata
 @end lilypond
+@tab
+@code{\shortfermata}
+@lilypond[notime,relative=2]
+f^\shortfermata e,_\shortfermata b'\shortfermata
+@end lilypond
+@tab
+@code{\fermata}
+@lilypond[notime,relative=2]
+f^\fermata e,_\fermata b'\fermata
+@end lilypond
+@tab
+@code{\longfermata}
+@lilypond[notime,relative=2]
+f^\longfermata e,_\longfermata b'\longfermata
+@end lilypond
+
+@item
+@code{\verylongfermata}
+@lilypond[notime,relative=2]
+f^\verylongfermata e,_\verylongfermata b'\verylongfermata
+@end lilypond
+@tab
+@code{\henzeshortfermata}
+@lilypond[notime,relative=2]
+f^\henzeshortfermata e,_\henzeshortfermata b'\henzeshortfermata
+@end lilypond
+@tab
+@code{\henzelongfermata}
+@lilypond[notime,relative=2]
+f^\henzelongfermata e,_\henzelongfermata b'\henzelongfermata
+@end lilypond
+
+@end multitable
+
+@funindex \upbow
+@funindex \downbow
+@funindex \flageolet
+@funindex \open
+@funindex \halfopen
+@funindex \lheel
+@funindex \rheel
+@funindex \ltoe
+@funindex \rtoe
+@funindex \snappizzicato
+@funindex \stopped
+@funindex -+
 
 @node Instrumentenspezifische Skripte
 @unnumberedsubsec Instrumentenspezifische Skripte
 @translationof Instrument-specific scripts
 
-@lilypond[quote]
-\include "script-chart.ly"
-\new RhythmicStaff { \scriptStaff #instrument-specific }
+@multitable @columnfractions .22 .25 .25 .25
+
+@item
+@code{\upbow}
+@lilypond[notime,relative=2]
+f^\upbow e,_\upbow b'\upbow
+@end lilypond
+@tab
+@code{\downbow}
+@lilypond[notime,relative=2]
+f^\downbow e,_\downbow b'\downbow
+@end lilypond
+@tab
+@code{\flageolet}
+@lilypond[notime,relative=2]
+f^\flageolet e,_\flageolet b'\flageolet
+@end lilypond
+@tab
+@code{\open}
+@lilypond[notime,relative=2]
+f^\open e,_\open b'\open
 @end lilypond
 
-@node Wiederholungszeichensrkipte
-@unnumberedsubsec Wiederholungszeichensrkipte
+@item
+@code{\halfopen}
+@lilypond[notime,relative=2]
+f^\halfopen e,_\halfopen b'\halfopen
+@end lilypond
+@tab
+@code{\lheel}
+@lilypond[notime,relative=2]
+f^\lheel e,_\lheel b'\lheel
+@end lilypond
+@tab
+@code{\rheel}
+@lilypond[notime,relative=2]
+f^\rheel e,_\rheel b'\rheel
+@end lilypond
+@tab
+@code{\ltoe}
+@lilypond[notime,relative=2]
+f^\ltoe e,_\ltoe b'\ltoe
+@end lilypond
+
+@item
+@code{\rtoe}
+@lilypond[notime,relative=2]
+f^\rtoe e,_\rtoe b'\rtoe
+@end lilypond
+@tab
+@code{\snappizzicato}
+@lilypond[notime,relative=2]
+f^\snappizzicato e,_\snappizzicato b'\snappizzicato
+@end lilypond
+@tab
+@code{\stopped} or @code{-+}
+@lilypond[notime,relative=2]
+f^\stopped e,_\stopped b'\stopped
+@end lilypond
+
+@end multitable
+
+@funindex \segno
+@funindex \coda
+@funindex \varcoda
+
+@node Wiederholungszeichenskripte
+@unnumberedsubsec Wiederholungszeichenskripte
 @translationof Repeat sign scripts
 
-@lilypond[quote]
-\include "script-chart.ly"
-\new RhythmicStaff { \scriptStaff #repeats }
+@multitable @columnfractions .22 .25 .25 .25
+
+@item
+@code{\segno}
+@lilypond[notime,relative=2]
+f^\segno e,_\segno b'\segno
 @end lilypond
+@tab
+@code{\coda}
+@lilypond[notime,relative=2]
+f^\coda e,_\coda b'\coda
+@end lilypond
+@tab
+@code{\varcoda}
+@lilypond[notime,relative=2]
+f^\varcoda e,_\varcoda b'\varcoda
+@end lilypond
+
+@end multitable
+
+@funindex \accentus
+@funindex \circulus
+@funindex \ictus
+@funindex \semicirculus
+@funindex \signumcongruentiae
 
 @node Skripte der alten Notation
-@unnumberedsubsec Ancient scripts
+@unnumberedsubsec Skripte der alten Notation
+@translationof Ancient scripts
 
-@lilypond[quote]
-\include "script-chart.ly"
+@multitable @columnfractions .22 .25 .25 .25
+
+@item
+@code{\accentus}
+@lilypond[notime]
 \include "gregorian.ly"
-\new VaticanaStaff { \scriptStaffAncient #ancient }
+\new VaticanaStaff { e'^\accentus s4 f_\accentus s4 b\accentus}
 @end lilypond
+@tab
+@code{\circulus}
+@lilypond[notime]
+\include "gregorian.ly"
+\new VaticanaStaff { e'^\circulus s4 f_\circulus s4 b\circulus  }
+@end lilypond
+@tab
+@code{\ictus}
+@lilypond[notime]
+\include "gregorian.ly"
+\new VaticanaStaff { e'^\ictus s4 f_\ictus s4 b\ictus}
+@end lilypond
+
+@item
+@code{\semicirculus}
+@lilypond[notime]
+\include "gregorian.ly"
+\new VaticanaStaff {
+  e'^\semicirculus s4 f_\semicirculus s4 b\semicirculus
+}
+@end lilypond
+@tab
+@code{\signumcongruentiae}
+@lilypond[notime]
+\include "gregorian.ly"
+\new VaticanaStaff {
+  e'^\signumcongruentiae s4
+  f_\signumcongruentiae s4
+  b\signumcongruentiae
+}
+@end lilypond
+
+@end multitable
 
 
 
