@@ -104,8 +104,9 @@ ADD_INTERFACE (Piano_pedal_bracket,
 
                /* properties */
                "bound-padding "
-               "edge-height "
-               "shorten-pair "
                "bracket-flare "
+               "dashed-edge "
+               "edge-height "
                "pedal-text "
+               "shorten-pair "
               );

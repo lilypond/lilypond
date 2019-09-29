@@ -188,9 +188,10 @@ ADD_INTERFACE (Ottava_bracket,
                "An ottava bracket.",
 
                /* properties */
-               "edge-height "
                "bracket-flare "
-               "shorten-pair "
+               "dashed-edge "
+               "edge-height "
                "minimum-length "
+               "shorten-pair "
               );
 

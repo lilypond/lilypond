@@ -77,8 +77,9 @@ Bracket::make_bracket (Grob *me, // for line properties.
     m.add_stencil (Line_interface::line (me, straight_corners[LEFT],
                                          straight_corners[RIGHT]));
 
-  if (scm_is_number (me->get_property ("dash-fraction")))
-    me->set_property ("dash-fraction", scm_from_double (1.0));
+  if (scm_is_eq (me->get_property ("style"), ly_symbol2scm ("dashed-line"))
+      && !to_boolean (me->get_property ("dashed-edge")))
+    me->set_property ("style", ly_symbol2scm ("line"));
   for (LEFT_and_RIGHT (d))
     m.add_stencil (Line_interface::line (me, straight_corners[d],
                                          flare_corners[d]));

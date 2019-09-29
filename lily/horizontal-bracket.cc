@@ -59,6 +59,7 @@ ADD_INTERFACE (Horizontal_bracket,
                "bracket-flare "
                "bracket-text "
                "columns "
+               "dashed-edge "
                "edge-height "
                "shorten-pair "
                "connect-to-neighbor "

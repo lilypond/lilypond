@@ -219,6 +219,8 @@ an ending t-value, a @code{dash-fraction}, and a @code{dash-period}.")
 produced")
      (dash-period ,number? "The length of one dash together with
 whitespace.  If negative, no line is drawn at all.")
+     (dashed-edge ,boolean? "If set, the bracket edges are dashed like
+the rest of the bracket.")
      (default-direction ,ly:dir? "Direction determined by note head
 positions.")
      (default-staff-staff-spacing ,list? "The settings to use for

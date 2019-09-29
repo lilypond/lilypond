@@ -781,6 +781,7 @@ ADD_INTERFACE (Tuplet_bracket,
                "bracket-visibility "
                "break-overshoot "
                "connect-to-neighbor "
+               "dashed-edge "
                "direction "
                "edge-height "
                "edge-text "

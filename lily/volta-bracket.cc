@@ -168,8 +168,9 @@ ADD_INTERFACE (Volta_bracket_interface,
 
                /* properties */
                "bars "
-               "thickness "
+               "dashed-edge "
                "height "
                "shorten-pair "
+               "thickness "
               );
 

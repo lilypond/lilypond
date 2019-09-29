@@ -37,6 +37,7 @@ ADD_INTERFACE (Enclosing_bracket,
 
                /* properties */
                "bracket-flare "
+               "dashed-edge "
                "edge-height "
                "elements "
                "padding "
