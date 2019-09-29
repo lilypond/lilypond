@@ -18,14 +18,14 @@ of Turkish music notation.
   doctitle = "Turkish Makam example"
 } % begin verbatim
 
+
 % Initialize makam settings
 \include "turkish-makam.ly"
 
 \header {
     title = "Hüseyni Saz Semaisi"
     composer = "Lavtacı Andon"
-} % begin verbatim
-
+}
 
 \relative {
   \set Staff.extraNatural = ##f

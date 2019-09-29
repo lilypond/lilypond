@@ -21,10 +21,10 @@ quoted ones) are transposed.
   doctitle = "Quoting another voice with transposition"
 } % begin verbatim
 
+
 \addQuote clarinet {
   \transposition bes
-  \repeat unfold 8 { d'16 d' d'8 } % begin verbatim
-
+  \repeat unfold 8 { d'16 d' d'8 }
 }
 
 \addQuote sax {

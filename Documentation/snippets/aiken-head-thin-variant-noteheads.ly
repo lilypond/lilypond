@@ -18,6 +18,7 @@ appear as quarter notes.
   doctitle = "Aiken head thin variant noteheads"
 } % begin verbatim
 
+
 \score {
   {
     \aikenHeads
@@ -26,7 +27,6 @@ appear as quarter notes.
     % Switch to thin-variant noteheads
     \set shapeNoteStyles = ##(doThin reThin miThin faThin sol laThin tiThin)
     c'' a' c' a
-  } % begin verbatim
-
+  }
 }
 % END EXAMPLE

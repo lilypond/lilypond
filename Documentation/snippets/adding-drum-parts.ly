@@ -22,11 +22,11 @@ lines is possible.
   doctitle = "Adding drum parts"
 } % begin verbatim
 
+
 drh = \drummode {
         cymc4.^"crash" hhc16^"h.h." hh hhc8 hho hhc8 hh16 hh
         hhc4 r4 r2
-      } % begin verbatim
-
+      }
 drl = \drummode {
         bd4 sn8 bd bd4 << bd ss >>
         bd8 tommh tommh bd toml toml bd tomfh16 tomfh

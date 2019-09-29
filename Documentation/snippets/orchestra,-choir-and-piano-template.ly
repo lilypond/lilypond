@@ -20,12 +20,12 @@ music for transposing instruments at concert pitch.
   doctitle = "Orchestra choir and piano template"
 } % begin verbatim
 
+
 #(set-global-staff-size 17)
 \paper {
   indent = 3.0\cm  % add space for instrumentName
   short-indent = 1.5\cm  % add less space for shortInstrumentName
-} % begin verbatim
-
+}
 
 fluteMusic = \relative c' { \key g \major g'1 b }
 
