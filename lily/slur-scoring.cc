@@ -121,7 +121,14 @@ Slur_score_state::get_encompass_info (Grob *col) const
   Direction stem_dir = get_grob_direction (stem);
 
   if (Grob *head = Note_column::first_head (col))
-    ei.x_ = head->extent (common_[X_AXIS], X_AXIS).center ();
+    {
+      Interval hex = head->extent (common_[X_AXIS], X_AXIS);
+      // FIXME: Is there a better option than setting to 0?
+      if (hex.is_empty ())
+        ei.x_ = 0;
+      else
+        ei.x_ = hex.center ();
+    }
   else
     ei.x_ = col->extent (common_[X_AXIS], X_AXIS).center ();
 
@@ -342,6 +349,11 @@ Slur::calc_control_points (SCM smob)
 
   if (!state.valid_)
     return SCM_EOL;
+  if (state.configurations_.empty ())
+    {
+      me->warning ("no viable slur configuration found");
+      return SCM_EOL;
+    }
 
   state.generate_curves ();
 
@@ -536,6 +548,12 @@ Slur_score_state::get_base_attachments () const
             = (fh ? fh->extent (common_[X_AXIS], X_AXIS)
                : extremes_[d].bound_->extent (common_[X_AXIS], X_AXIS))
               .linear_combination (CENTER);
+          if (!isfinite (x))
+            x = extremes_[d].note_column_->extent (common_[X_AXIS], X_AXIS)
+              .linear_combination (CENTER);
+          if (!isfinite (y))
+            y = extremes_[d].note_column_->extent (common_[Y_AXIS], Y_AXIS)
+              .linear_combination (CENTER);
         }
       else if (head)
         {
@@ -591,7 +609,7 @@ Slur_score_state::get_base_attachments () const
         {
           Real &b = base_attachment[d][Axis (a)];
 
-          if (isinf (b) || isnan (b))
+          if (!isfinite (b))
             {
               programming_error ("slur attachment is inf/nan");
               b = 0.0;
@@ -764,7 +782,6 @@ Slur_score_state::enumerate_attachments (Drul_array<Real> end_ys) const
       os[LEFT][Y_AXIS] += dir_ * staff_space_ / 2;
     }
 
-  assert (scores.size () > 0);
   return scores;
 }
 
