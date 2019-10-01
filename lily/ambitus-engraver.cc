@@ -32,6 +32,7 @@
 #include "separation-item.hh"
 #include "staff-symbol-referencer.hh"
 #include "stream-event.hh"
+#include "text-interface.hh"
 
 #include "translator.icc"
 
@@ -128,7 +129,7 @@ Ambitus_engraver::stop_translation_timestep ()
        *     changes \ottava made but we can just read the
        *     clef position.
        */
-      if (scm_is_string (ottavation))
+      if (Text_interface::is_markup (ottavation))
         start_c0_ = robust_scm2int (get_property ("middleCClefPosition"), 0);
       else if (scm_is_integer (c_pos) && !scm_is_integer (cue_pos))
         start_c0_ = scm_to_int (c_pos);
