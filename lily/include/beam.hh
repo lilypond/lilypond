@@ -42,7 +42,7 @@ struct Beam_stem_segment
   Grob *stem_;
   Real width_;
   Real stem_x_;
-  int rank_;
+  vsize rank_;
   vsize stem_index_;
   bool gapped_;
   Direction dir_;
@@ -54,7 +54,7 @@ bool operator <(Beam_stem_segment const &a, Beam_stem_segment const &b);
 class Beam
 {
 public:
-  static int normal_stem_count (Grob *);
+  static vsize normal_stem_count (Grob *);
   static Grob *first_normal_stem (Grob *);
   static Grob *last_normal_stem (Grob *);
   static void add_stem (Grob *, Grob *);
@@ -92,7 +92,7 @@ private:
   static void set_stem_directions (Grob *, Direction);
   static void consider_auto_knees (Grob *);
   static void set_stem_shorten (Grob *);
-  static int forced_stem_count (Grob *);
+  static vsize forced_stem_count (Grob *);
   static Real calc_stem_y (Grob *, Grob *s, Grob **c,
                            Real, Real, Direction,
                            Drul_array<Real> pos, bool french);

@@ -131,7 +131,7 @@ private:
   Real beam_thickness_;
   Real line_thickness_;
   Real musical_dy_;
-  int normal_stem_count_;
+  vsize normal_stem_count_;
   Real x_span_;
 
   /*

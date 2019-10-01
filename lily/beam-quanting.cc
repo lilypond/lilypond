@@ -635,16 +635,15 @@ Real
 calc_positions_concaveness (vector<int> const &positions, Direction beam_dir)
 {
   Real dy = positions.back () - positions[0];
-  Real slope = dy / Real (positions.size () - 1);
+  Real slope = dy / static_cast<Real> (positions.size () - 1);
   Real concaveness = 0.0;
   for (vsize i = 1; i + 1 < positions.size (); i++)
     {
-      Real line_y = slope * i + positions[0];
-
+      Real line_y = slope * static_cast<Real> (i) + positions[0];
       concaveness += max (beam_dir * (positions[i] - line_y), 0.0);
     }
 
-  concaveness /= positions.size ();
+  concaveness /= static_cast<Real> (positions.size ());
 
   /*
     Normalize. For dy = 0, the slope ends up as 0 anyway, so the

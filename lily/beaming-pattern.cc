@@ -351,19 +351,19 @@ Beaming_pattern::Beaming_pattern ()
 }
 
 int
-Beaming_pattern::beamlet_count (int i, Direction d) const
+Beaming_pattern::beamlet_count (vsize i, Direction d) const
 {
   return infos_.at (i).beam_count_drul_[d];
 }
 
 Moment
-Beaming_pattern::start_moment (int i) const
+Beaming_pattern::start_moment (vsize i) const
 {
   return infos_.at (i).start_moment_;
 }
 
 Moment
-Beaming_pattern::end_moment (int i) const
+Beaming_pattern::end_moment (vsize i) const
 {
   Duration dur (2 + max (beamlet_count (i, LEFT),
                          beamlet_count (i, RIGHT)),
@@ -374,13 +374,13 @@ Beaming_pattern::end_moment (int i) const
 }
 
 Moment
-Beaming_pattern::remaining_length (int i) const
+Beaming_pattern::remaining_length (vsize i) const
 {
     return end_moment (infos_.size () - 1) - infos_[i].start_moment_;
 }
 
 int
-Beaming_pattern::beam_count_for_rhythmic_position (int idx) const
+Beaming_pattern::beam_count_for_rhythmic_position (vsize idx) const
 {
     // Calculate number of beams representing the rhythmic position of given stem
     return intlog2(infos_[idx].start_moment_.main_part_.den()) - 2;
@@ -393,19 +393,19 @@ Beaming_pattern::beam_count_for_length (Moment len) const
 }
 
 bool
-Beaming_pattern::invisibility (int i) const
+Beaming_pattern::invisibility (vsize i) const
 {
   return infos_.at (i).invisible_;
 }
 
 Rational
-Beaming_pattern::factor (int i) const
+Beaming_pattern::factor (vsize i) const
 {
   return infos_.at (i).factor_;
 }
 
 bool
-Beaming_pattern::tuplet_start (int i) const
+Beaming_pattern::tuplet_start (vsize i) const
 {
   return infos_.at (i).tuplet_start_;
 }
@@ -415,7 +415,7 @@ Beaming_pattern::tuplet_start (int i) const
     Beaming_pattern containing the removed elements
 */
 Beaming_pattern *
-Beaming_pattern::split_pattern (int i)
+Beaming_pattern::split_pattern (vsize i)
 {
   Beaming_pattern *new_pattern = 0;
   int count;

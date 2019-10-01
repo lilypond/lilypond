@@ -64,7 +64,16 @@
 #include "font-interface.hh" // debug output.
 #endif
 
+#include <algorithm>
 #include <map>
+
+// like abs(a - b) but works for both signed and unsigned
+// TODO: Move this to some header?
+template <class T>
+static T absdiff (T const &a, T const &b)
+{
+  return std::max (a, b) - std::min (a, b);
+}
 
 Beam_stem_segment::Beam_stem_segment ()
 {
@@ -174,7 +183,7 @@ Beam::calc_direction (SCM smob)
 
   Direction dir = CENTER;
 
-  int count = normal_stem_count (me);
+  vsize count = normal_stem_count (me);
   if (count < 2)
     {
       extract_grob_set (me, "stems", stems);
@@ -470,7 +479,7 @@ Beam::calc_beam_segments (SCM smob)
                                  : seg.stem_index_ + 1 < stems.size ();
 
               bool event = on_beam_bound
-                           || abs (seg.rank_ - segs[j + event_dir].rank_) > 1
+                           || absdiff (seg.rank_, segs[j + event_dir].rank_) > 1
                            || (abs (vertical_count) >= seg.max_connect_
                                || abs (vertical_count)
                                     >= segs[j + event_dir].max_connect_);
@@ -715,7 +724,10 @@ Beam::print (SCM grob)
       Real factor = Interval (multiplier, 1 - multiplier).linear_combination (feather_dir);
 
       if (segments[0].vertical_count_ < 0 && feather_dir)
-        weighted_average += beam_dy * (segments.size () - 1) * factor;
+        {
+          Real n = static_cast<Real> (segments.size () - 1);
+          weighted_average += beam_dy * n * factor;
+        }
 
       b.translate_axis (weighted_average, Y_AXIS);
 
@@ -958,8 +970,8 @@ Beam::calc_stem_shorten (SCM smob)
   if (is_knee (me))
     return scm_from_int (0);
 
-  Real forced_fraction = 1.0 * forced_stem_count (me)
-                         / normal_stem_count (me);
+  Real forced_fraction = static_cast<Real> (forced_stem_count (me))
+                         / static_cast<Real> (normal_stem_count (me));
 
   int beam_count = get_beam_count (me);
 
@@ -1163,12 +1175,12 @@ Beam::set_beaming (Grob *me, Beaming_pattern const *beaming)
     }
 }
 
-int
+vsize
 Beam::forced_stem_count (Grob *me)
 {
   extract_grob_set (me, "normal-stems", stems);
 
-  int f = 0;
+  vsize f = 0;
   for (vsize i = 0; i < stems.size (); i++)
     {
       Grob *s = stems[i];
@@ -1185,7 +1197,7 @@ Beam::forced_stem_count (Grob *me)
   return f;
 }
 
-int
+vsize
 Beam::normal_stem_count (Grob *me)
 {
   extract_grob_set (me, "normal-stems", stems);

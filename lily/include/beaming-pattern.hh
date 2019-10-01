@@ -67,21 +67,21 @@ public:
   void beamify (Beaming_options const &);
   void de_grace ();
   void add_stem (Moment d, int beams, bool invisible, Rational factor, bool tuplet_starrt);
-  int beamlet_count (int idx, Direction d) const;
-  bool invisibility (int idx) const;
-  Rational factor (int idx) const;
-  bool tuplet_start (int idx) const;
-  Moment start_moment (int idx) const;
-  Moment end_moment (int idx) const;
-  Beaming_pattern *split_pattern (int idx);
+  int beamlet_count (vsize idx, Direction d) const;
+  bool invisibility (vsize idx) const;
+  Rational factor (vsize idx) const;
+  bool tuplet_start (vsize idx) const;
+  Moment start_moment (vsize idx) const;
+  Moment end_moment (vsize idx) const;
+  Beaming_pattern *split_pattern (vsize idx);
 
 private:
   vector<Beam_rhythmic_element> infos_;
   Direction flag_direction (Beaming_options const &, vsize) const;
   void find_rhythmic_importance (Beaming_options const &);
   void unbeam_invisible_stems ();
-  Moment remaining_length (int idx) const;
-  int beam_count_for_rhythmic_position (int idx) const;
+  Moment remaining_length (vsize idx) const;
+  int beam_count_for_rhythmic_position (vsize idx) const;
   int beam_count_for_length (Moment len) const;
 };
 
