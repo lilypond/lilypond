@@ -108,6 +108,10 @@ ifeq ($(BUILTINS_REMOVED),)
 endif
 .SUFFIXES:
 
+# "delete the target of a rule if it has changed and its recipe exits
+# with a nonzero exit status" (GNU make manual)
+.DELETE_ON_ERROR:
+
 # Keep this empty to prevent make from removing intermediate files.
 .SECONDARY:
 

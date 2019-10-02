@@ -1,14 +1,9 @@
-
-$(outdir)/%$(SHARED_MODULE_SUFFIX): $(outdir)/%.lo
-	$(LD) -o $@ $< $(SHARED_FLAGS) $(ALL_LDFLAGS)
-
-$(outdir)/%.pyc: $(outdir)/%.py
-	PYTHONOPTIMIZE= $(PYTHON) -c 'import py_compile; py_compile.compile ("$<")'
-
-$(outdir)/%.pyo: $(outdir)/%.py
-	$(PYTHON) -O -c 'import py_compile; py_compile.compile ("$<")'
-
+# Different versions of Python compile to different places.  We ignore
+# those details and base build dependencies on the *.py script alone.
+# Whenever the script is updated, we also try to compile it.  We rely
+# on GNU make's DELETE_ON_ERROR option to remove the script if it
+# doesn't compile.
 $(outdir)/%.py: %.py $(config_make) $(depth)/VERSION
-	cat $< | sed $(sed-atfiles) | sed $(sed-atvariables) > $@
+	sed $(sed-atfiles) < $< | sed $(sed-atvariables) > $@
+	PYTHONOPTIMIZE= $(PYTHON) -c 'import py_compile; py_compile.compile ("$@", doraise=True)'
 	chmod 755 $@
-
