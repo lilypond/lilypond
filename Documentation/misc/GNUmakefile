@@ -20,6 +20,7 @@ OUT_TXT_FILES = $(addprefix $(outdir)/, $(addsuffix .txt, $(TEXTS)))
 ##local-WWW-2: $(OUT_TXT_FILES) $(OUT_HTMLFILES) txt-to-html
 
 $(outdir)/%.txt: %
+	$(call ly_progress,Making,$@,(copy))
 	cp $< $@
 
 txt-to-html:

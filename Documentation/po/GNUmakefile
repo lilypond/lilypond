@@ -18,6 +18,7 @@ TELY_FILES += $(LSR_LYS:%.ly=../%.ly)
 messages: $(outdir)/messages
 
 $(outdir)/messages: $(MO_FILES)
+	$(call ly_progress,Making,$@,(hard links))
 	for i in $(CATALOGS); do \
 	  rm -rf $(doc-localedir)/$$i/LC_MESSAGES; \
 	  mkdir -p $(doc-localedir)/$$i/LC_MESSAGES; \

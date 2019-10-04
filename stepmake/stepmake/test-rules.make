@@ -7,5 +7,6 @@ endef
 $(foreach a, $(MODULE_LIBS), $(eval $(call MODULE_LIB_template,$(a))))
 
 $(TEST_EXECUTABLE): $(TEST_O_FILES) $(TEST_MODULE_LIBS:%=%/$(outdir)/library.a)
+	$(call ly_progress,Making,$@,)
 	$(foreach a, $(TEST_MODULE_LIBS), $(MAKE) -C $(a) && ) true
 	$(CXX) -o $@ $(TEST_O_FILES) $(TEST_LOADLIBES) $(ALL_LDFLAGS)

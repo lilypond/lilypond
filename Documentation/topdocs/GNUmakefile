@@ -14,6 +14,7 @@ DOCUMENTATION_INCLUDES += -I $(outdir) \
 
 # FIXME ad-hoc file copy?
 $(outdir)/NEWS.tely: $(top-src-dir)/Documentation/changes.tely
+	$(call ly_progress,Making,$@,(copy))
 	cp -f $< $@
 
 ifeq ($(out),www)

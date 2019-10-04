@@ -23,6 +23,7 @@ $(buildscript-dir)/lilypond-words:
 	make -C $(depth)/scripts/build
 
 $(LILYPOND_WORDS):
+	$(call ly_progress,Making,$@,)
 	cd $(top-src-dir) && $(buildscript-dir)/lilypond-words --el --dir=$(top-build-dir)/elisp/$(outconfbase)
 
 all: $(LILYPOND_WORDS)

@@ -34,11 +34,14 @@ $(top-build-dir)/Documentation/logo/$(outbase)/lilypond.ico:
 	$(MAKE) -C $(top-build-dir)/Documentation/logo
 
 $(outdir)/lilypond.ico: $(top-build-dir)/Documentation/logo/$(outbase)/lilypond.ico
+	$(call ly_progress,Making,$@,(copy))
 	cp $< $@
+
 $(top-build-dir)/Documentation/logo/$(outbase)/ly.ico:
 	$(MAKE) -C $(top-build-dir)/Documentation/logo
 
 $(outdir)/ly.ico: $(top-build-dir)/Documentation/logo/$(outbase)/ly.ico
+	$(call ly_progress,Making,$@,(copy))
 	cp $< $@
 endif
 
@@ -49,6 +52,7 @@ default:
 
 
 $(outdir)/libstdc++.a:
+	$(call ly_progress,Making,$@,(symlink))
 	rm -f $@
 	ln -s `$(CXX) -print-file-name=libstdc++.a` $(outdir)
 
@@ -67,6 +71,7 @@ $(outdir)/lily-lexer-scheme.o \
 
 ifneq ($(FLEXLEXER_FILE),)
 $(outdir)/FlexLexer.h: $(FLEXLEXER_FILE) $(config_h)
+	$(call ly_progress,Making,$@,(copy))
 	cp $< $@
 endif
 
@@ -75,6 +80,7 @@ $(outdir)/parser.cc: $(config_h)
 
 ifneq ($(LILYPOND_EXTERNAL_BINARY),)
 $(outdir)/lilypond.1: $(LILYPOND_EXTERNAL_BINARY) $(buildscript-dir)/help2man
+	$(call ly_progress,Making,$@,)
 	$(buildscript-dir)/help2man $(LILYPOND_EXTERNAL_BINARY) > $@
 endif
 

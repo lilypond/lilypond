@@ -14,6 +14,7 @@
 # than $(outdir)), hence this .dep file
 
 $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep: $(OUT_TEXI_FILES)
+	$(call ly_progress,Making,$@,(symlinks))
 ifneq ($(INFO_IMAGES_DIR),)
 	rm -f $(INFO_IMAGES_DIR)
 	ln -s $(outdir) $(INFO_IMAGES_DIR)
@@ -25,14 +26,17 @@ endif
 
 # Copy files while tracking their dependencies.
 $(outdir)/%.texi: %.texi $(outdir)/version.itexi
+	$(call ly_progress,Making,$@,(copy))
 	mkdir -p $(dir $@)
 	$(DO_TEXI_DEP) cp -f $< $@
 
 $(outdir)/%.itexi: %.itexi
+	$(call ly_progress,Making,$@,(copy))
 	mkdir -p $(dir $@)
 	$(DO_TEXI_DEP) cp -f $< $@
 
 $(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi $(outdir)/weblinks.itexi | $(OUT_TEXINFO_MANUALS)
+	$(call ly_progress,Making,$@,< texi)
 ifeq ($(WEB_VERSION),yes)
 	$(buildscript-dir)/run-and-check "$(MAKEINFO) -I$(src-dir) -I$(outdir) -D web_version --output=$@ $<" "$*.makeinfoweb.log"
 else
@@ -40,6 +44,7 @@ else
 endif
 
 $(outdir)/%-big-page.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi $(outdir)/weblinks.itexi | $(OUT_TEXINFO_MANUALS)
+	$(call ly_progress,Making,$@,< texi)
 ifeq ($(WEB_VERSION),yes)
 	$(buildscript-dir)/run-and-check "DEPTH=$(depth) AJAX_SEARCH=$(AJAX_SEARCH) $(TEXI2HTML) $(TEXI2HTML_FLAGS) -D bigpage -D web_version --output=$@ $<"  "$*.bigtexi.log"
 else
@@ -51,6 +56,7 @@ $(outdir)/%.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version
 
 
 $(outdir)/%/index.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi $(outdir)/weblinks.itexi $(outdir)/%.html.omf | $(OUT_TEXINFO_MANUALS)
+	$(call ly_progress,Making,$@,< texi)
 	mkdir -p $(dir $@)
 ifeq ($(WEB_VERSION),yes)
 	$(buildscript-dir)/run-and-check "DEPTH=$(depth)/../ AJAX_SEARCH=$(AJAX_SEARCH) $(TEXI2HTML) $(TEXI2HTML_SPLIT) $(TEXI2HTML_FLAGS) -D web_version --output=$(dir $@) $<"  "$*.splittexi.log"
@@ -60,6 +66,7 @@ endif
 
 ifneq ($(ISOLANG),)
 $(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map | $(OUT_TEXINFO_MANUALS)
+	$(call ly_progress,Making,$@,< texi)
 	$(buildscript-dir)/extract_texi_filenames $(XREF_MAP_FLAGS) -q -o $(XREF_MAPS_DIR) --master-map-file=$(XREF_MAPS_DIR)/$*.xref-map $<
 else
 $(XREF_MAPS_DIR)/%.xref-map: $(outdir)/%.texi | $(OUT_TEXINFO_MANUALS)
@@ -72,10 +79,12 @@ TEXI2PDF_WEB_VERSION_FLAGS += -D web_version
 endif
 
 $(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/%.pdf.omf $(outdir)/weblinks.itexi | $(OUT_TEXINFO_MANUALS)
+	$(call ly_progress,Making,$@,< texi)
 	TEX=$(PDFTEX) PDFTEX=$(PDFTEX) PDFLATEX=$(PDFLATEX) \
 		$(buildscript-dir)/run-and-check \
 			"cd $(outdir); \
 				texi2pdf $(TEXI2PDF_FLAGS) \
+					$(TEXI2PDF_QUIET) \
 					$(TEXI2PDF_WEB_VERSION_FLAGS) \
 					-I $(abs-src-dir) \
 					$(TEXINFO_PAPERSIZE_OPTION) \
@@ -87,6 +96,7 @@ ifeq ($(USE_EXTRACTPDFMARK),yes)
 	$(EXTRACTPDFMARK) -o $(outdir)/$*.pdfmark $(outdir)/$*.tmp.pdf
 	$(GS920) -dBATCH \
                  -dNOPAUSE \
+                 $(TEXINFO_GS_QUIET) \
                  -sDEVICE=pdfwrite \
                  -dAutoRotatePages=/None \
                  -dPrinted=false \
@@ -101,16 +111,21 @@ else
 endif
 
 $(outdir)/%.txt: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/weblinks.itexi | $(OUT_TEXINFO_MANUALS)
+	$(call ly_progress,Making,$@,< texi)
 	$(buildscript-dir)/run-and-check "$(MAKEINFO) -I$(src-dir) -I$(outdir) --no-split --no-headers --output $@ $<"  "$*.makeinfotxt.log"
 
 $(outdir)/%.html.omf: %.texi
+	$(call ly_progress,Making,$@,< texi)
 	$(call GENERATE_OMF,html)
 
 $(outdir)/%.pdf.omf: %.texi
+	$(call ly_progress,Making,$@,< texi)
 	$(call GENERATE_OMF,pdf)
 
 $(outdir)/version.itexi: $(top-src-dir)/VERSION
+	$(call ly_progress,Making,$@,)
 	$(PYTHON) $(top-src-dir)/scripts/build/create-version-itexi.py > $@
 
 $(outdir)/weblinks.itexi: $(top-src-dir)/VERSION
+	$(call ly_progress,Making,$@,)
 	$(PYTHON) $(top-src-dir)/scripts/build/create-weblinks-itexi.py > $@

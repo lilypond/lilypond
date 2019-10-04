@@ -1,11 +1,14 @@
 
 $(outdir)/%.tex: %.tex
+	$(call ly_progress,Making,$@,(copy))
 	cp $< $@
 
 $(outdir)/%.dvi: $(outdir)/%.tex
+	$(call ly_progress,Making,$@,< tex)
 	(cd $(outdir); tex \\nonstopmode \\input $(<F))
 
 $(outdir)/%.dvi: $(outdir)/%.latex
+	$(call ly_progress,Making,$@,< latex)
 	(cd $(outdir)&& \
 	  latex \\nonstopmode \\input $(<F)&&\
 	  (bibtex $(basename $(<F)) || true) && \
@@ -14,6 +17,7 @@ $(outdir)/%.dvi: $(outdir)/%.latex
 	  latex \\nonstopmode \\input $(<F) )
 
 $(outdir)/%.pdf: $(outdir)/%.dvi
+	$(call ly_progress,Making,$@,< dvi)
 	cd $(outdir) \
 		&& dvips $(DVIPS_FLAGS) -t $(DVIPS_PAPERSIZE) \
 			-o $(@F).pdfps $(<F) \

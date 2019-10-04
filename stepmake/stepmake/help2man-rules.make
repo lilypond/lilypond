@@ -23,7 +23,7 @@ endif
 
 ifeq ($(strip $(CROSS)),no)
 $(outdir)/%.1: $(outdir)/% $(buildscript-dir)/help2man
-	echo $(buildscript-dir)/help2man
+	$(call ly_progress,Making,$@,)
 	$(HELP2MAN_COMMAND)
 else
 # When cross building, some manpages will not build because the
@@ -31,11 +31,13 @@ else
 # during a previous compile for the build host, with config=for-build,
 # in the directory $(outdir)-for-build.
 $(outdir)/%.1: $(outdir:%=%-for-build)/%.1
+	$(call ly_progress,Making,$@,(copy))
 	cp $< $@
 endif
 
 ifneq ($(outdir),./out)
 $(outdir)/%.1: out/%.1
+	$(call ly_progress,Making,$@,(copy))
 	cp $< $@
 endif
 

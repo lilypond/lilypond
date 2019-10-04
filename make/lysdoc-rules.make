@@ -3,6 +3,7 @@
 # Split it up into 10 300-element chunks, and one chunk containing the rest
 # if we have more than 3000 elements.
 $(outdir)/collated-files.list: $(COLLATED_FILES)
+	$(call ly_progress,Making,$@,)
 	@echo $(wordlist    1, 299,$^)>$@
 	@echo $(wordlist  300, 599,$^)>>$@
 	@echo $(wordlist  600, 899,$^)>>$@
@@ -16,4 +17,5 @@ $(outdir)/collated-files.list: $(COLLATED_FILES)
 	@echo $(wordlist 3000,$(words $^),$^)>>$@
 
 $(outdir)/collated-files.tely: $(outdir)/collated-files.list
+	$(call ly_progress,Making,$@,)
 	$(LYS_TO_TELY) --name=$(outdir)/collated-files.tely --title="$(TITLE)" --author="$(AUTHOR)" --input-filename=$^

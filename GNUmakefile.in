@@ -60,11 +60,13 @@ dist: local-dist $(GENERATED_BUILD_FILES) top-doc refresh-release-files .gitfile
 
 ifneq ($(shell find $(top-src-dir) -name .git),)
 .gitfilelist: $(top-src-dir)/.git/index
+	$(call ly_progress,Making,$@,)
 	cd $(top-src-dir) && git ls-files >$(top-build-dir)/$@
 local-clean-filelist:
 	rm -f .gitfilelist
 else
 .gitfilelist: $(src-dir)/.gitfilelist
+	$(call ly_progress,Making,$@,(copy))
 	cp $< $@
 local-clean-filelist:
 endif
@@ -72,13 +74,16 @@ endif
 all: $(outdir)/VERSION
 
 $(outdir)/VERSION: $(config_make) VERSION
+	$(call ly_progress,Making,$@,)
 	-mkdir -p $(outdir)
 	echo $(TOPLEVEL_VERSION) > $@
 
 $(outdir)/ChangeLog: $(outdir)/VERSION
+	$(call ly_progress,Making,$@,)
 	@echo 'See http://git.savannah.gnu.org/gitweb/?p=lilypond.git;a=log;h=refs/tags/release/$(TOPLEVEL_VERSION)-1' > $@
 
 $(outdir)/RELEASE-COMMIT: # FIXME: any file in $(top-src-dir)/.git/ we can depend on and be sure RELEASE-COMMIT is up to date?
+	$(call ly_progress,Making,$@,)
 	git --git-dir=$(top-src-dir)/.git show HEAD | head -100 > $@
 
 # junk me as soon as RELEASE-COMMIT FIXME: has been addressed
@@ -156,13 +161,16 @@ WWW-post: $(top-build-dir)/.htaccess $(WEB_ROOT_FILES)
 
 # need UTF8 setting in case this is hosted on a website.
 $(top-build-dir)/.htaccess:
+	$(call ly_progress,Making,$@,)
 	echo -e 'AddDefaultCharset utf-8\nAddCharset utf-8 .html\nAddCharset utf-8 .en\nAddCharset utf-8 .nl\nAddCharset utf-8 .txt\n' > $(top-build-dir)/.htaccess
 
 $(outdir)/offline-root/index.html: $(WEB_TRACKED_FILES)
+	$(call ly_progress,Making,$@,)
 	$(buildscript-dir)/www_post $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(outdir) offline
 	find $(outdir)/offline-root -type l | xargs rm -f
 
 $(outdir)/online-root/index.html: $(WEB_TRACKED_FILES)
+	$(call ly_progress,Making,$@,)
 	$(buildscript-dir)/www_post $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(outdir) online
 endif # ifeq ($(out),www)
 
@@ -205,6 +213,7 @@ CATALOGS = $(HELP_CATALOGS:lilypond=)
 link-tree: $(tree-share-prefix)/lilypond-force
 
 $(tree-share-prefix)/lilypond-force: GNUmakefile $(outdir)/VERSION
+	$(call ly_progress,Making,$@,)
 	cd $(top-build-dir)/$(outbase) && rm -rf bin lib share
 	mkdir -p $(tree-bin)
 	mkdir -p $(tree-share-prefix)
@@ -250,6 +259,7 @@ $(tree-share-prefix)/lilypond-force: GNUmakefile $(outdir)/VERSION
 link-mf-tree: $(tree-share-prefix)/mf-link-tree
 
 $(tree-share-prefix)/mf-link-tree: $(tree-share-prefix)/lilypond-force
+	$(call ly_progress,Making,$@,)
 	-rm -f $(tree-share-prefix)/fonts/otf/* &&  \
 	rm -f $(tree-share-prefix)/fonts/svg/* &&  \
 	rm -f $(tree-share-prefix)/fonts/fonts.conf &&  \
@@ -278,6 +288,7 @@ $(tree-share-prefix)/mf-link-tree: $(tree-share-prefix)/lilypond-force
 	touch $(tree-share-prefix)/mf-link-tree
 
 TAGS.make: dummy
+	$(call ly_progress,Making,$@,)
 	etags -o $@ $(find $(top-src-dir) -name 'GNUmakefile*' -o -name '*.make')
 
 $(config_h): config.hh.in

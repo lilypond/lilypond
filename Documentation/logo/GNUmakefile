@@ -11,6 +11,7 @@ include $(depth)/make/stepmake.make
 ifeq ($(PLATFORM_WINDOWS),yes)
 
 $(outdir)/%.ico: %.xpm
+	$(call ly_progress,Making,$@,< xpm)
 	$(buildscript-dir)/genicon $< $@
 
 default: $(lilypond-icon) $(ly-icon)

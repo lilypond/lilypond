@@ -35,6 +35,7 @@ $(buildscript-dir)/lilypond-words:
 	make -C $(depth)/scripts/build
 
 $(LILYPOND_WORDS):
+	$(call ly_progress,Making,$@,)
 	cd $(top-src-dir) && $(buildscript-dir)/lilypond-words --words --vim --dir=$(top-build-dir)/vim/$(outconfbase)
 
 all: $(LILYPOND_WORDS)

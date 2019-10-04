@@ -22,9 +22,11 @@ local-test:
 	make LYS_OUTPUT_DIR=$(top-build-dir)/out/lybook-testdb $(OUT_FILES)
 
 $(outdir)/collated-files.list: $(OUT_FILES)
+	$(call ly_progress,Making,$@,)
 	echo $(sort $(filter-out %.xml,$(OUT_FILES))) > $@
 
 $(outdir)/suffix-texi.texi: suffix-texi.texi $(outdir)/version.itexi $(DOCUMENTATION_LOCALE_TARGET) $(INIT_LY_SOURCES) $(SCHEME_SOURCES)
+	$(call ly_progress,Making,$@,)
 	LILYPOND_VERSION=$(TOPLEVEL_VERSION) \
 		TEX=$(PDFTEX) PDFTEX=$(PDFTEX) PDFLATEX=$(PDFLATEX) \
 		$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) \

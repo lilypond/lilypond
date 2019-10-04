@@ -26,18 +26,23 @@ endif
 ### Rules
 
 $(outdir)/%-flat-gray.png: %-flat-gray.png
+	$(call ly_progress,Making,$@,(convert))
 	convert -strip -depth 8 -geometry 50x50% $< $@
 
 $(outdir)/%-flat-bw.png: %-flat-bw.png
+	$(call ly_progress,Making,$@,(convert))
 	convert -strip -depth 8 -geometry 50x50% $< $@
 
 $(outdir)/%.png: $(top-src-dir)/Documentation/pictures/%.png
+	$(call ly_progress,Making,$@,(hard link))
 	$(LN_SRC_TO_BUILD) -f $< $@
 
 $(outdir)/%.jpg: $(top-src-dir)/Documentation/pictures/%.jpg
+	$(call ly_progress,Making,$@,(hard link))
 	$(LN_SRC_TO_BUILD) -f $< $@
 
 $(outdir)/%.png: %.eps
+	$(call ly_progress,Making,$@,< eps)
 	gs -dAutoRotatePages=/None \
            -dPrinted=false \
            -dTextAlphaBits=4 \
@@ -51,6 +56,7 @@ $(outdir)/%.png: %.eps
            -c quit
 
 $(outdir)/%.pdf: %.eps
+	$(call ly_progress,Making,$@,< eps)
 	gs -dAutoRotatePages=/None \
            -dPrinted=false \
            -q \
