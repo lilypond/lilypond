@@ -52,9 +52,6 @@
 /* define if you have pwd header */
 #define HAVE_PWD_H 0
 
-/* define if you have Python.h header */
-#define HAVE_PYTHON_H 0
-
 /* define if explicit instantiation is needed */
 #undef NEED_EXPLICIT_INSTANTIATION
 
