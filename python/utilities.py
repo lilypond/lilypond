@@ -64,6 +64,8 @@ def hex_to_color(hex_val):
         return None
 
 def split_string_and_preserve_doublequoted_substrings(value):
+    if isinstance(value, unicode):
+        value = value.encode('utf-8')
     import shlex
     lex = shlex.shlex(value)
     lex.quotes = '"'
