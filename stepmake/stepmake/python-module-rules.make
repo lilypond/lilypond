@@ -5,6 +5,6 @@
 # doesn't compile.
 $(outdir)/%.py: %.py $(config_make) $(depth)/VERSION
 	$(call ly_progress,Making,$@,(sed))
-	sed $(sed-atfiles) < $< | sed $(sed-atvariables) > $@
+	sed $(sed-atfiles) $(sed-atvariables) < $< > $@
 	PYTHONOPTIMIZE= $(PYTHON) -c 'import py_compile; py_compile.compile ("$@", doraise=True)'
 	chmod 755 $@

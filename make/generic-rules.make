@@ -9,7 +9,7 @@ $(outdir)/%.ly: %.lym4
 $(outdir)/%: %.in
 	$(call ly_progress,Making,$@,< in)
 	rm -f $@
-	cat $< | sed $(sed-atfiles) | sed $(sed-atvariables) > $@
+	sed $(sed-atfiles) $(sed-atvariables) < $< > $@
 
 
 
