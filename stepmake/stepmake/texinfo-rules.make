@@ -52,6 +52,7 @@ else
 endif
 
 $(outdir)/%.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi $(outdir)/weblinks.itexi | $(OUT_TEXINFO_MANUALS)
+	$(call ly_progress,Making,$@,< texi)
 	$(buildscript-dir)/run-and-check "DEPTH=$(depth) AJAX_SEARCH=$(AJAX_SEARCH) $(TEXI2HTML) $(TEXI2HTML_FLAGS) --output=$@ $<"  "$*.texilog.log"
 
 
