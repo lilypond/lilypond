@@ -879,6 +879,11 @@ the stems are explicitly set in opposite directions).
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {additional-voices-to-avoid-collisions.ly}
 
+@cindex dotted note, moving horizontally
+@cindex note, dotted, moving horizontally
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{moving-dotted-notes-in-polyphony.ly}
+
 @cindex note, horizontal shift
 @cindex horizontal shift of notes
 @lilypondfile[verbatim,quote,texidoc,doctitle]
