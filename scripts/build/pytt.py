@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#! @PYTHON@
 
 '''
     Copyright (C) 2008--2019 Jan Nieuwenhuizen <janneke@gnu.org>
@@ -47,6 +47,6 @@ def main ():
     else:
         for f in sys.argv[3:]:
             pytt (from_re, to, f)
-    
+
 if __name__ == '__main__':
     main ()
