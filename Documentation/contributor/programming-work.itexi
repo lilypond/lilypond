@@ -1510,6 +1510,8 @@ introduced into the output.  This process is described in
 Initial test:
 
 @example
+make clean                       @emph{## when needed (see below)}
+make test-clean
 make [-j@var{X} CPU_COUNT=@var{X}] test-baseline
 @end example
 
@@ -1522,7 +1524,6 @@ Edit/compile/test cycle:
 make clean                       @emph{## when needed (see below)}
 make [-j@var{X}]                       @emph{## when needed (see below)}
 make [-j@var{X} CPU_COUNT=@var{X}] test-redo @emph{## redo files differing from baseline}
-make [-j@var{X} CPU_COUNT=@var{X}] check
 @end example
 
 @item
@@ -1535,27 +1536,28 @@ make test-clean
 
 If you have modified LilyPond source files that have to be
 compiled (such as @file{.cc} or @file{.hh} files in @file{flower/}
-or @file{lily/}), @command{make@tie{}check} rebuilds LilyPond
-automatically before running the tests.  @command{make@tie{}check}
-does not necessarily rebuild everything that @command{make}
-builds.  You may omit @command{make} from the debugging cycle to
-save time, but it is important to run @command{make} before
-committing.
+or @file{lily/}), the regression-test targets automatically
+rebuild LilyPond before running the tests.
 
-Also, if you have modified any font definitions in the @file{mf/}
-directory then you must run @command{make clean} before running
-@command{make test-redo}.  This recompiles everything, whether
-modified or not, and takes a lot longer.
+If you have modified any font definitions in the @file{mf/}
+directory, then you must run @command{make@tie{}clean} before
+running regression tests.  This works around incomplete makefile
+dependencies.  The subsequent regression-test target rebuilds all
+of LilyPond and the fonts before running the tests.
+
+Regression-test targets do not necessarily rebuild everything that
+a simple @command{make} builds.  You may omit @command{make} from
+the debugging cycle to save time, but it is still important to run
+@command{make} before committing.
 
 Running @command{make@tie{}check} leaves an HTML page
 @file{out/test-results/index.html}.  This page shows all the
 important differences that your change introduced, whether in the
 layout, MIDI, performance or error reporting.
 
-You only need to use @command{make test-clean} to retest all
+You only need to use @command{make@tie{}test-clean} to retest all
 cases.  To retest mismatching cases only, all that is needed is to
-repeat @command{make@tie{}test-redo} and
-@command{make@tie{}check}.
+repeat @command{make@tie{}test-redo}.
 
 
 

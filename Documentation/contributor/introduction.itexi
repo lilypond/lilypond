@@ -180,10 +180,11 @@ will enter the @qq{Patch Countdown}.  More information on this can be
 found in the section @ref{Uploading a patch for review}.
 
 @item
-Patches are generally tested within 24 hours of submission.  Once it has
-passed the basic tests -- make, make doc and a make test-baseline/check
---, the tracker will be updated and the patch's status will change to
-@code{Patch-review} for other developers to examine.
+Patches are generally tested within 24 hours of submission.  Once
+it has passed the basic tests -- @command{make@tie{}check},
+@command{make}, @command{make@tie{}doc} -- the tracker will be
+updated and the patch's status will change to @code{Patch-review}
+for other developers to examine.
 
 @item
 Every third day, the @qq{Patch Meister} will examine the issue tracker

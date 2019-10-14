@@ -210,21 +210,18 @@ twice.
 @enumerate
 
 @item
-Run @code{make} with current git master without any of your changes.
-
-@item
-Before making changes to the code, establish a baseline for the comparison by
-going to the @file{$LILYPOND_GIT/build/} directory and running:
+Before making changes to the code, establish a baseline for the
+comparison by checking out the current git master, going to the
+@file{$LILYPOND_GIT/build/} directory and running:
 
 @example
+make clean # whenever any files in mf/ are modified
+make test-clean
 make test-baseline
 @end example
 
 @item
 Make your changes, or apply the patch(es) to consider.
-
-@item
-Compile the source with @samp{make} as usual.
 
 @item
 Check for unintentional changes to the regtests:
@@ -252,18 +249,15 @@ show up as a regression.  This test changes each time it is run, and
 serves to verify that the regression tests have, in fact, run.}
 
 @item
-If you are happy with the results, then stop now.
+If you are happy with the results, then skip to the final step.
 
 If you want to continue programming, then make any additional code
 changes, and continue.
 
 @item
-Compile the source with @samp{make} as usual.
-
-@item
 To re-check files that differed between the initial
-@samp{make@tie{}test-baseline} and your post-changes
-@samp{make@tie{}check}, run:
+@command{make@tie{}test-baseline} and your post-changes
+@command{make@tie{}check}, run:
 
 @example
 make test-redo
@@ -272,20 +266,24 @@ make test-redo
 This updates the regression list at @file{out/test-results/index.html}.
 It does @emph{not} redo @file{test-output-distance.ly}.
 
-@item
 When all regressions have been resolved, the output list will be empty.
 
 @item
-Once all regressions have been resolved, a final check should be completed
-by running:
+After resolving regressions incrementally, run another full check
+to prove that your changes have not caused any skipped cases to
+regress:
 
 @example
 make test-clean
 make check
 @end example
 
-This cleans the results of the previous @samp{make@tie{}check}, then does the
-automatic regression comparison again.  
+@item
+This set of regression tests is not all that needs to remain
+working.  Before committing, make sure that you have successfully
+run @command{make} with your changes.  Also, weigh the risk of
+your changes against the time that @command{make@tie{}doc} will
+take, and run it if it is appropriate.
 
 @end enumerate
 
@@ -293,10 +291,10 @@ automatic regression comparison again.
 Once a test baseline has been established, there is no need to run it again
 unless git master changed. In other words, if you work with several branches
 and want to do regtests comparison for all of them, you can
-@code{make test-baseline} with git master, checkout some branch,
-@code{make} and @code{make check} it, then switch to another branch,
-@code{make test-clean}, @code{make} and @code{make check} it without doing
-@code{make test-baseline} again.}
+@command{make@tie{}test-baseline} with git master, checkout some branch,
+@command{make@tie{}check} it, then switch to another branch,
+@command{make@tie{}test-clean} and @command{make@tie{}check} it without doing
+@command{make@tie{}test-baseline} again.}
 
 @node Pixel-based regtest comparison
 @section Pixel-based regtest comparison
