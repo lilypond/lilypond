@@ -89,13 +89,18 @@ ly_FT_get_glyph_outline_bbox (FT_Face const &face, size_t signed_idx)
   FT_BBox bbox;
   FT_Outline_Get_BBox (outline, &bbox);
 
-  return Box (Interval (bbox.xMin, bbox.xMax), Interval (bbox.yMin, bbox.yMax));
+  return Box (Interval (static_cast<Real> (bbox.xMin),
+                        static_cast<Real> (bbox.xMax)),
+              Interval (static_cast<Real> (bbox.yMin),
+                        static_cast<Real> (bbox.yMax)));
 }
 
 SCM
 ly_FT_get_glyph_outline (FT_Face const &face, size_t signed_idx)
 {
   FT_UInt idx = FT_UInt (signed_idx);
+  // We load the glyph unscaled; all returned outline coordinates are thus
+  // not too large integers.
   FT_Load_Glyph (face, idx, FT_LOAD_NO_SCALE);
 
   if (!(face->glyph->format == FT_GLYPH_FORMAT_OUTLINE))
@@ -117,7 +122,8 @@ ly_FT_get_glyph_outline (FT_Face const &face, size_t signed_idx)
     {
       if (j == 0)
         {
-          firstpos = Offset (outline->points[j].x, outline->points[j].y);
+          firstpos = Offset (static_cast<Real> (outline->points[j].x),
+                             static_cast<Real> (outline->points[j].y));
           lastpos = firstpos;
           j++;
         }
@@ -126,10 +132,11 @@ ly_FT_get_glyph_outline (FT_Face const &face, size_t signed_idx)
           // it is a line
           out = scm_cons (scm_list_4 (scm_from_double (lastpos[X_AXIS]),
                                       scm_from_double (lastpos[Y_AXIS]),
-                                      scm_from_double (outline->points[j].x),
-                                      scm_from_double (outline->points[j].y)),
+                                      scm_from_long (outline->points[j].x),
+                                      scm_from_long (outline->points[j].y)),
                           out);
-          lastpos = Offset (outline->points[j].x, outline->points[j].y);
+          lastpos = Offset (static_cast<Real> (outline->points[j].x),
+                            static_cast<Real> (outline->points[j].y));
           j++;
         }
       else if (outline->tags[j] & 2)
@@ -137,27 +144,28 @@ ly_FT_get_glyph_outline (FT_Face const &face, size_t signed_idx)
           // it is a third order bezier
           out = scm_cons (scm_list_n (scm_from_double (lastpos[X_AXIS]),
                                       scm_from_double (lastpos[Y_AXIS]),
-                                      scm_from_double (outline->points[j].x),
-                                      scm_from_double (outline->points[j].y),
-                                      scm_from_double (outline->points[j + 1].x),
-                                      scm_from_double (outline->points[j + 1].y),
-                                      scm_from_double (outline->points[j + 2].x),
-                                      scm_from_double (outline->points[j + 2].y),
+                                      scm_from_long (outline->points[j].x),
+                                      scm_from_long (outline->points[j].y),
+                                      scm_from_long (outline->points[j + 1].x),
+                                      scm_from_long (outline->points[j + 1].y),
+                                      scm_from_long (outline->points[j + 2].x),
+                                      scm_from_long (outline->points[j + 2].y),
                                       SCM_UNDEFINED),
                           out);
-          lastpos = Offset (outline->points[j + 2].x, outline->points[j + 2].y);
+          lastpos = Offset (static_cast<Real> (outline->points[j + 2].x),
+                            static_cast<Real> (outline->points[j + 2].y));
           j += 3;
         }
       else
         {
           // it is a second order bezier
           Real x0 = lastpos[X_AXIS];
-          Real x1 = outline->points[j].x;
-          Real x2 = outline->points[j + 1].x;
+          Real x1 = static_cast<Real> (outline->points[j].x);
+          Real x2 = static_cast<Real> (outline->points[j + 1].x);
 
           Real y0 = lastpos[Y_AXIS];
-          Real y1 = outline->points[j].y;
-          Real y2 = outline->points[j + 1].y;
+          Real y1 = static_cast<Real> (outline->points[j].y);
+          Real y2 = static_cast<Real> (outline->points[j + 1].y);
 
           out = scm_cons (scm_list_n (scm_from_double (x0),
                                       scm_from_double (y0),
@@ -169,7 +177,8 @@ ly_FT_get_glyph_outline (FT_Face const &face, size_t signed_idx)
                                       scm_from_double (y2),
                                       SCM_UNDEFINED),
                           out);
-          lastpos = Offset (outline->points[j + 1].x, outline->points[j + 1].y);
+          lastpos = Offset (static_cast<Real> (outline->points[j + 1].x),
+                            static_cast<Real> (outline->points[j + 1].y));
           j += 2;
         }
     }
