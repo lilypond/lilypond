@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import re
-import string
 
 def string_to_number(s):
     try:

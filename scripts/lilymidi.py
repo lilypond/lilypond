@@ -220,7 +220,6 @@ def go ():
         if numbers:
             if options.prefix:
                 sys.stdout.write ('%s ' % (options.prefix,))
-            import string
             sys.stdout.write (','.join (numbers))
             sys.stdout.write ('\n')
     else:

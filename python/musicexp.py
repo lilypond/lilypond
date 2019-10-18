@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import inspect
 import sys
-import string
 import re
 import math
 import lilylib as ly

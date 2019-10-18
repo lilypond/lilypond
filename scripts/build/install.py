@@ -1,5 +1,4 @@
 #!@PYTHON@
-import string
 import getopt
 import sys
 import os

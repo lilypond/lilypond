@@ -4,7 +4,6 @@ import optparse
 import sys
 import re
 import os
-import string
 import codecs
 import zipfile
 import tempfile

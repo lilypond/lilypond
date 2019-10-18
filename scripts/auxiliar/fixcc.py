@@ -28,7 +28,6 @@ import __main__
 import getopt
 import os
 import re
-import string
 import sys
 import time
 import subprocess
