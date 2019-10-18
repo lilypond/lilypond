@@ -3436,7 +3436,7 @@ grob_path = symbol_list + r"(?:\s+" + symbol_list + r")*"
 grob_spec = wordsyntax + r"(?:\s*\.\s*" + wordsyntax + r")?"
 
 def path_replace (m):
-    return m.group (1) + string.join (re.findall (wordsyntax, m.group (2)), ".")
+    return m.group (1) + ".".join (re.findall (wordsyntax, m.group (2)))
 
 # The following regexp appears to be unusually expensive to compile,
 # so we do it only once instead of for every file
@@ -3452,7 +3452,7 @@ footnotec = re.compile ("(" + matchfullmarkup + ")|"
 def conv (str):
     def patrep (m):
         def fn_path_replace (m):
-            x = string.join (re.findall (wordsyntax, m.group (2)), ".")
+            x = ".".join (re.findall (wordsyntax, m.group (2)))
             if x in ["TimeSignature", "KeySignature", "BarLine",
                      "Clef", "StaffSymbol", "OttavaBracket",
                      "LedgerLineSpanner"]:
@@ -3895,7 +3895,7 @@ def conv (str):
 @rule ((2, 19, 46), r"\context ... \modification -> \context ... \with \modification")
 def conv (str):
     word=r'(?:#?"[^"]*"|\b' + wordsyntax + r'\b)'
-    mods = string.join (re.findall ("\n(" + wordsyntax + r")\s*=\s*\\with(?:\s|\\|\{)", str)
+    mods = str.join (re.findall ("\n(" + wordsyntax + r")\s*=\s*\\with(?:\s|\\|\{)")
                         + ['RemoveEmptyStaves','RemoveAllEmptyStaves'], "|")
     str = re.sub (r"(\\(?:drums|figures|chords|lyrics|addlyrics|"
                   + r"(?:new|context)\s*" + word

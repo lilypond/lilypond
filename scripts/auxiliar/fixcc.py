@@ -323,7 +323,7 @@ def nitpick_file (outdir, file):
     #code = filter (lambda x: is_derived_class (x.__class__, Substring),
     #               chunks)
 
-    t = string.join (map (lambda x: x.filter_text (), chunks), '')
+    t = ''.join (map (lambda x: x.filter_text (), chunks))
     fixt = file
     if s != t:
         if not outdir:

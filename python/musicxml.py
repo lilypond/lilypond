@@ -198,7 +198,7 @@ class Identification(Xml_node):
                 ret.append(result)
             else:
                 ret.append(text)
-        return string.join(ret, "\n")
+        return "\n".join(ret)
 
     # get contents of the source-element(usually used for publishing information).(These contents are saved in a custom variable named "source" in the header of the .ly file.)
     def get_source(self):
@@ -206,7 +206,7 @@ class Identification(Xml_node):
         ret = []
         for r in source:
           ret.append(r.get_text())
-        return string.join(ret, "\n")
+        return "\n".join(ret)
 
     def get_creator(self, type):
         creators = self.get_named_children('creator')

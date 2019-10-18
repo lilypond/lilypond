@@ -692,12 +692,12 @@ class NestedMusic(Music):
 
     def get_properties (self):
         return ("'elements (list %s)"
-            % string.join (map (lambda x: x.lisp_expression(),
+            % " ".join (map (lambda x: x.lisp_expression(),
                       self.elements)))
 
     def get_subset_properties (self, predicate):
         return ("'elements (list %s)"
-            % string.join (map (lambda x: x.lisp_expression(),
+            % " ".join (map (lambda x: x.lisp_expression(),
                       filter (predicate, self.elements))))
     def get_neighbor (self, music, dir):
         assert music.parent == self
@@ -1038,7 +1038,7 @@ class ChordEvent (NestedMusic):
                     basepitch = previous_pitch
             if stem:
                 printer (stem.ly_expression ())
-            printer ('<%s>' % string.join (pitches))
+            printer ('<%s>' % ' '.join (pitches))
             previous_pitch = basepitch
             duration = self.get_duration ()
             if duration:
@@ -1477,7 +1477,7 @@ class FretBoardEvent (NestedMusic):
           notes = []
           for n in fretboard_notes:
               notes.append (n.ly_expression ())
-          contents = string.join (notes)
+          contents = ' '.join (notes)
           printer ('<%s>%s' % (contents,self.duration))
 
 class FunctionWrapperEvent (Event):
@@ -1667,7 +1667,7 @@ class RhythmicEvent(Event):
         return [ev.pre_note_ly (is_chord_element) for ev in self.associated_events]
 
     def ly_expression_pre_note (self, is_chord_element):
-        res = string.join (self.pre_note_ly (is_chord_element), ' ')
+        res = ' '.join (self.pre_note_ly (is_chord_element))
         if res != '':
             res = res + ' '
         return res
@@ -1815,7 +1815,7 @@ class KeySignatureChange (Music):
         elif self.non_standard_alterations:
             alterations = [self.format_non_standard_alteration (a) for
                                         a in self.non_standard_alterations]
-            return "\\set Staff.keyAlterations = #`(%s)" % string.join (alterations, " ")
+            return "\\set Staff.keyAlterations = #`(%s)" % " ".join (alterations)
         else:
             return ''
 
@@ -1859,7 +1859,7 @@ class TimeSignatureChange (Music):
     def format_fraction (self, frac):
         if isinstance (frac, list):
             l = [self.format_fraction (f) for f in frac]
-            return "(" + string.join (l, " ") + ")"
+            return "(" + " ".join (l) + ")"
         else:
             return "%s" % frac
 
@@ -2076,7 +2076,7 @@ class FiguredBassEvent (NestedMusic):
           notes = []
           for x in figured_bass_events:
               notes.append (x.ly_expression ())
-          contents = string.join (notes)
+          contents = ' '.join (notes)
           if self.parentheses:
               contents = '[%s]' % contents
           printer ('<%s>' % contents)

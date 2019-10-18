@@ -221,7 +221,7 @@ def go ():
             if options.prefix:
                 sys.stdout.write ('%s ' % (options.prefix,))
             import string
-            sys.stdout.write (string.join (numbers, ','))
+            sys.stdout.write (','.join (numbers))
             sys.stdout.write ('\n')
     else:
         for n, name in info:
