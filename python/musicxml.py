@@ -519,7 +519,7 @@ class Attributes(Measure_element):
                 current_sig = []
                 for i in mxl.get_all_children():
                     if isinstance(i, Beats):
-                        beats = string.split(i.get_text().strip(), "+")
+                        beats = i.get_text().strip().split("+")
                         current_sig = [int(j) for j in beats]
                     elif isinstance(i, BeatType):
                         current_sig.append(int(i.get_text()))

@@ -529,7 +529,7 @@ class Music:
             printer.newline ()
             return
 
-        lines = string.split (text, '\n')
+        lines = text.split ('\n')
         for l in lines:
             if l:
                 printer.unformatted_output ('% ' + l)
