@@ -23,7 +23,7 @@ for (o,a) in opts:
     elif o == '-g':
         group = a
     elif o == '-m':
-        mode = string.atoi (a, 8)
+        mode = int (a, base=8)
     elif o == '-o':
         owner = a
     elif o == '-s':

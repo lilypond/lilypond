@@ -310,14 +310,14 @@ def staff_attributes_to_string_tunings(mxl_attr):
     lines = 6
     staff_lines = details.get_maybe_exist_named_child('staff-lines')
     if staff_lines:
-        lines = string.atoi(staff_lines.get_text())
+        lines = int(staff_lines.get_text())
     tunings = [musicexp.Pitch()] * lines
     staff_tunings = details.get_named_children('staff-tuning')
     for i in staff_tunings:
         p = musicexp.Pitch()
         line = 0
         try:
-            line = string.atoi(i.line) - 1
+            line = int(i.line) - 1
         except ValueError:
             pass
         tunings[line] = p
@@ -357,7 +357,7 @@ def staff_attributes_to_lily_staff(mxl_attr):
     for d in details:
         staff_lines = d.get_maybe_exist_named_child('staff-lines')
         if staff_lines:
-            lines = string.atoi(staff_lines.get_text())
+            lines = int(staff_lines.get_text())
 
     # TODO: Handle other staff attributes like staff-space, etc.
 
@@ -848,8 +848,8 @@ def musicxml_transpose_to_lily(attributes):
     shift = musicexp.Pitch()
     octave_change = transpose.get_maybe_exist_named_child('octave-change')
     if octave_change:
-        shift.octave = string.atoi(octave_change.get_text())
-    chromatic_shift = string.atoi(transpose.get_named_child('chromatic').get_text())
+        shift.octave = int(octave_change.get_text())
+    chromatic_shift = int(transpose.get_named_child('chromatic').get_text())
     chromatic_shift_normalized = chromatic_shift % 12;
     (shift.step, shift.alteration) = [
         (0, 0), (0, 1), (1, 0), (2, -1), (2, 0),
@@ -860,7 +860,7 @@ def musicxml_transpose_to_lily(attributes):
 
     diatonic = transpose.get_maybe_exist_named_child('diatonic')
     if diatonic:
-        diatonic_step = string.atoi(diatonic.get_text()) % 7
+        diatonic_step = int(diatonic.get_text()) % 7
         if diatonic_step != shift.step:
             # We got the alter incorrect!
             old_semitones = shift.semitones()
@@ -882,7 +882,7 @@ def musicxml_staff_details_to_lily(attributes):
 
     stafflines = details.get_maybe_exist_named_child('staff-lines')
     if stafflines:
-        lines = string.atoi(stafflines.get_text());
+        lines = int(stafflines.get_text());
         lines_event = musicexp.StaffLinesEvent(lines);
         ret.append(lines_event);
 
@@ -1312,7 +1312,7 @@ def musicxml_words_to_lily_event(words):
     if hasattr(words, 'default-y') and hasattr(options, 'convert_directions') and options.convert_directions:
         offset = getattr(words, 'default-y')
         try:
-            off = string.atoi(offset)
+            off = int(offset)
             if off > 0:
                 event.force_direction = 1
             else:
@@ -1372,7 +1372,7 @@ def musicxml_accordion_to_markup(mxl_event):
         # MusicXML spec is quiet about this case...
         txt = 1
         try:
-          txt = string.atoi(middle.get_text())
+          txt = int(middle.get_text())
         except ValueError:
             pass
         if txt == 3:
@@ -1782,7 +1782,7 @@ def musicxml_harmony_to_lily_chordname(n):
             # require you to know the chord and calculate either the fifth
             # pitch (for the first inversion) or the third pitch (for the
             # second inversion) so they may not be helpful for musicxml2ly.
-            inversion_count = string.atoi(inversion.get_text())
+            inversion_count = int(inversion.get_text())
             if inversion_count == 1:
               # TODO: Calculate the bass note for the inversion...
               pass
