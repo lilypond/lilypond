@@ -386,7 +386,7 @@ class Duration(Music_xml_node):
 class Hash_text(Music_xml_node):
 
     def dump(self, indent=''):
-        ly.debug_output('%s' % string.strip(self._data))
+        ly.debug_output(self._data.strip())
 
 
 class Pitch(Music_xml_node):
