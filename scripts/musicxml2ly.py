@@ -1242,7 +1242,7 @@ def musicxml_dynamics_to_lily_event(dynentry):
     if not dynamicsname in dynamics_available:
         # Get rid of - in tag names (illegal in ly tags!)
         dynamicstext = dynamicsname
-        dynamicsname = string.replace(dynamicsname, "-", "")
+        dynamicsname = dynamicsname.replace("-", "")
         additional_definitions[dynamicsname] = dynamicsname + \
               " = #(make-dynamic-script \"" + dynamicstext + "\")"
         needed_additional_definitions.append(dynamicsname)
@@ -1874,7 +1874,7 @@ def musicxml_lyrics_to_text(lyrics, ignoremelismata):
         elif isinstance(e, musicxml.Text):
             # We need to convert soft hyphens to -, otherwise the ascii codec as well
             # as lilypond will barf on that character
-            text += string.replace(e.get_text(), u'\xad', '-')
+            text += e.get_text().replace(u'\xad', '-')
         elif isinstance(e, musicxml.Elision):
             if text:
                 text += " "

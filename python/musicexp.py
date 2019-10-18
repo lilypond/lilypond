@@ -19,7 +19,7 @@ whatOrnament = ""
 ly_dur = None # stores lilypond durations
 
 def escape_instrument_string (input_string):
-    retstring = string.replace (input_string, "\"", "\\\"")
+    retstring = input_string.replace ("\"", "\\\"")
     if re.match ('.*[\r\n]+.*', retstring):
         rx = re.compile (r'[\n\r]+')
         strings = rx.split (retstring)
