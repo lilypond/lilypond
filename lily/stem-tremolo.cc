@@ -332,8 +332,16 @@ Stem_tremolo::y_offset (Grob *me, bool pure)
          is invisible */
       Real ss = Staff_symbol_referencer::staff_space (me);
       vector<int> nhp = Stem::note_head_positions (stem);
-      Real note_head = (dir == UP ? nhp.back () : nhp[0]) * ss / 2;
-      end_y = note_head + dir * 1.5;
+      if (nhp.empty ())
+        {
+          me->warning ("stem tremolo has no note heads");
+          end_y = 0.0;
+        }
+      else
+        {
+          Real note_head = (dir == UP ? nhp.back () : nhp[0]) * ss / 2;
+          end_y = note_head + dir * 1.5;
+        }
     }
 
   return end_y;
