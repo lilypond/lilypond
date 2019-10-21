@@ -667,29 +667,69 @@ Create a beam with the specified parameters.
 (define-markup-command (underline layout props arg)
   (markup?)
   #:category font
-  #:properties ((thickness 1) (offset 2))
+  #:properties ((thickness 1) (offset 2) (underline-shift 0) (underline-skip 2))
   "
 @cindex underlining text
 
 Underline @var{arg}.  Looks at @code{thickness} to determine line
-thickness, and @code{offset} to determine line y-offset.
+thickness, @code{offset} to determine line y-offset from @var{arg} and
+@code{underline-skip} to determine the distance of additional lines from the
+others.
+@code{underline-shift} is used to get subsequent calls correct.  Overriding it
+makes little sense, it would end up adding the provided value to the one of
+@code{offset}.
 
 @lilypond[verbatim,quote]
 \\markup \\fill-line {
   \\underline \"underlined\"
-  \\override #'((offset . 5) (thickness . 1))
+  \\override #'(offset . 5)
+  \\override #'(thickness . 1)
   \\underline \"underlined\"
-  \\override #'((offset . 1) (thickness . 5))
+  \\override #'(offset . 1)
+  \\override #'(thickness . 5)
   \\underline \"underlined\"
+  \\override #'(offset . 5)
+  \\override #'(underline-skip . 4)
+  \\underline \\underline \\underline \"multiple underlined\"
 }
 @end lilypond"
   (let* ((thick (ly:output-def-lookup layout 'line-thickness))
          (underline-thick (* thickness thick))
-         (m (interpret-markup layout props arg))
-         (x1 (car (ly:stencil-extent m X)))
-         (x2 (cdr (ly:stencil-extent m X)))
-         (y (* thick (- offset)))
-         (line (make-line-stencil underline-thick x1 y x2 y)))
+         (m (interpret-markup
+              layout
+              ;; For multiple calls of underline-markup, this will result in
+              ;; the innermost underline ending up lowest.
+              (prepend-alist-chain
+                'underline-shift
+                (+ underline-skip underline-shift)
+                props)
+              arg))
+         (arg-x-ext (ly:stencil-extent m X))
+         (x1 (car arg-x-ext))
+         (x2 (cdr arg-x-ext))
+         (y (* thick (- (+ offset underline-shift))))
+         (raw-line-stil (make-line-stencil underline-thick x1 y x2 y))
+         (line
+           (ly:make-stencil
+             (ly:stencil-expr raw-line-stil)
+             ;; We use x-extent of the arg-stencil instead of the line-stencil
+             ;; to avoid increasing lines with multiple calls of underline.
+             ;; As a consequence the line sticks out a bit into the space
+             ;; between elements of continuing text, without affecting it.
+             ;; For huge values of thickness this may cause undesired output,
+             ;; we regard this a very rare case, though.
+             ;; Alternatively we could have shortened the underline by its
+             ;; thickness, i.e. raw-line-stil would have been:
+             ;;    (make-line-stencil
+             ;;      underline-thick
+             ;;      (+ x1 (/ underline-thick 2))
+             ;;      y
+             ;;      (- x2 (/ underline-thick 2))
+             ;;      y))
+             ;; without need to reset x-extent, this causes a different ugliness
+             ;; for huge thickness, though.
+             arg-x-ext
+             (ly:stencil-extent raw-line-stil Y))))
     (ly:stencil-add m line)))
 
 (define-markup-command (tie layout props arg)
