@@ -33,6 +33,7 @@
 
         draw-line: \draw-line #'(5 . 3)
         \underline "underlined"
+        \underline \underline \underline "multiple underlines"
       }
     }
   }
