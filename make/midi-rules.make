@@ -10,12 +10,13 @@ $(outdir)/%.midi: %.ly $(LILYPOND_BINARY)
 	$(buildscript-dir)/run-and-check "$(LILYPOND_BINARY) $(HEADER_FIELDS:%=-H %) -o $(outdir) $<" "$*.log"
 	cp $< $(outdir)
 
-$(outdir)/%-midi.ly: $(outdir)/%.midi $(MIDI2LY)
+$(outdir)/recovered/%-midi.ly: $(outdir)/%.midi $(MIDI2LY)
 	$(call ly_progress,Making,$@,< midi)
+	mkdir -p $(dir $@)
 	(echo '\header {'; for f in $(HEADER_FIELDS); do printf $$f'="'; cat $(outdir)/$*.$$f; echo '"'; done; echo '}') > $(outdir)/$*.header
-	$(PYTHON) $(MIDI2LY) $(shell cat $(outdir)/$*.options) --quiet --include-header=$(outdir)/$*.header -o $(outdir) $<
+	$(PYTHON) $(MIDI2LY) $(shell cat $(outdir)/$*.options) --quiet --include-header=$(outdir)/$*.header -o $@ $<
 
-$(outdir)/%.diff: %.ly $(outdir)/%-midi.ly
+$(outdir)/%.diff: %.ly $(outdir)/recovered/%-midi.ly
 	$(call ly_progress,Making,$@,)
 	$(DIFF) -puN $(MIDI2LY_IGNORE_RES) $^ > $@ || cat $@
 
