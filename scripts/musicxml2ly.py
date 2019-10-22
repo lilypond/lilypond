@@ -373,8 +373,8 @@ def staff_attributes_to_lily_staff(mxl_attr):
         # staff.tablature_format = ???
     else:
         staff = musicexp.Staff()
-        # TODO: Handle case with lines <> 5!
-        if(lines != 5):
+        # TODO: Handle case with lines != 5!
+        if lines != 5:
             staff.add_context_modification("\\override StaffSymbol #'line-count = #%s" % lines)
 
     return staff
@@ -2235,7 +2235,7 @@ def musicxml_voice_to_lily_voice(voice):
         staff = n.get_maybe_exist_named_child('staff')
         if staff:
             staff = staff.get_text()
-            if current_staff and staff <> current_staff and not n.get_maybe_exist_named_child('chord'):
+            if current_staff and staff != current_staff and not n.get_maybe_exist_named_child('chord'):
                 voice_builder.add_command(musicexp.StaffChange(staff))
             current_staff = staff
 

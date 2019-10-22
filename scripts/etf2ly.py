@@ -172,9 +172,9 @@ def rational_to_lily_skip (rat):
         d = d >> 1
 
     str = 's%d' % basedur
-    if n <> 1:
+    if n != 1:
         str = str + '*%d' % n
-    if d <> 1:
+    if d != 1:
         str = str + '/%d' % d
 
     return str
@@ -315,7 +315,7 @@ class Global_measure:
             log = log * 2
             dots = 0
 
-        if dots <> 0:
+        if dots != 0:
             sys.stderr.write ("\nHuh? Beat duration has  dots? (EDU Duration = %d)" % fdur) 
         self.timesig = (beats, log)
 
@@ -571,7 +571,7 @@ class Staff:
                                  g.key_signature.signature_type())
                     
                     last_key = g.key_signature
-                if last_time <> g.timesig :
+                if last_time != g.timesig :
                     e = e + "\\time %d/%d " % g.timesig
                     last_time = g.timesig
 
@@ -596,11 +596,11 @@ class Staff:
                 if g.force_break:
                     e = e + ' \\break '  
             
-            if last_clef <> m.clef :
+            if last_clef != m.clef :
                 e = e + '\\clef "%s"' % lily_clef (m.clef)
                 last_clef = m.clef
             if e:
-                if gap <> (0,1):
+                if gap != (0,1):
                     k = k +' ' + rational_to_lily_skip (gap) + '\n'
                 gap = (0,1)
                 k = k + e
@@ -636,7 +636,7 @@ class Staff:
                     laystr = laystr + "%% non existent frame %d (skipped)\n" % x
                 if fr:
                     first_frame = fr
-                    if gap <> (0,1):
+                    if gap != (0,1):
                         laystr = laystr +'} %s {\n ' % rational_to_lily_skip (gap)
                         gap = (0,1)
                     laystr = laystr + fr.dump ()
@@ -832,7 +832,7 @@ Return: (value, rest-of-STR)
     elif str[0] == '"':
         str = str[1:]
         s = ''
-        while str and str[0] <> '"':
+        while str and str[0] != '"':
             s = s + str[0]
             str = str[1:]
 
@@ -895,7 +895,7 @@ def parse_etf_file (fn, tag_dict):
             else:
                 while content:
                     (v, content) = read_finale_value (content)
-                    if v <> None:
+                    if v != None:
                         parsed.append (v)
 
             tdict [indices].extend (parsed)
@@ -957,7 +957,7 @@ class Etf_file:
     def try_TP(self,  indices, contents):
         (nil, num) = indices
 
-        if self.tuplets[-1] == None or num <> self.tuplets[-1].start_note:
+        if self.tuplets[-1] == None or num != self.tuplets[-1].start_note:
             self.tuplets.append (Tuplet (num))
 
         self.tuplets[-1].append_finale (contents)
@@ -1130,7 +1130,7 @@ class Etf_file:
             return []
 
         
-        while c and c.number <> endno:
+        while c and c.number != endno:
             d = c # hack to avoid problem with scripts/build/grand-replace.py
             thread.append (d)
             c = c.next

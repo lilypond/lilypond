@@ -77,7 +77,7 @@ if (show_output):
     sys.stdout.write (cmd)
 #And invoke it
 stat = os.system (cmd)
-if stat <> 0:
+if stat != 0:
     sys.stderr.write ("Bibtex exited with nonzero exit status!")
     sys.exit (1)
 

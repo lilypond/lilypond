@@ -5,7 +5,7 @@ alterations = [-1, 0, 1]
 
 def print_note (octave, note, alteration):
     print "      <note>\n        <pitch>\n          <step>%s</step>" % notes[note]
-    if alteration <> 0:
+    if alteration != 0:
         print "          <alter>%s</alter>" % alteration
     print "          <octave>%s</octave>\n        </pitch>\n        <duration>1</duration>\n        <voice>1</voice>\n        <type>quarter</type>\n      </note>" % octave
 

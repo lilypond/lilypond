@@ -104,7 +104,7 @@ class Xml_node:
 
     def get_unique_typed_child(self, klass):
         cn = self.get_typed_children(klass)
-        if len(cn) <> 1:
+        if len(cn) != 1:
             ly.error(self.__dict__)
             raise 'Child is not unique for',(klass, 'found', cn)
 
@@ -1309,12 +1309,12 @@ class Part(Music_xml_node):
                 if attributes_object and previous_measure and previous_measure.partial == 0:
                     length = attributes_object.get_measure_length()
                     new_now = measure_start_moment + length
-                    if now <> new_now:
+                    if now != new_now:
                         problem = 'incomplete'
                         if now > new_now:
                             problem = 'overfull'
                         ## only for verbose operation.
-                        if problem <> 'incomplete' and previous_measure:
+                        if problem != 'incomplete' and previous_measure:
                             previous_measure.message('%s measure? Expected: %s, Difference: %s' %(problem, now, new_now - now))
                     now = new_now
                 measure_start_moment = now
@@ -1435,7 +1435,7 @@ class Part(Music_xml_node):
                 if attributes_object and m.is_implicit():
                     length = attributes_object.get_measure_length()
                     measure_end = measure_start_moment + length
-                    if measure_end <> now:
+                    if measure_end != now:
                         m.partial = now
             previous_measure = m
 

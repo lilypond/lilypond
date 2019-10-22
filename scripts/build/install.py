@@ -86,7 +86,7 @@ for f in args:
 
 for f in chown_me:
     os.chmod (f, mode)
-    if group <> None or owner <> None:
+    if group != None or owner != None:
         os.chown (f, group, owner)
     
     

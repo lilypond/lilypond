@@ -894,7 +894,7 @@ def parse_duration (str, parser_state):
 
 
 def try_parse_rest (str, parser_state):
-    if not str or str[0] <> 'z' and str[0] <> 'x':
+    if not str or str[0] != 'z' and str[0] != 'x':
         return str
 
     __main__.lyric_idx = -1
@@ -1210,12 +1210,12 @@ def try_parse_bar (str,state):
     if str[:1] == '}':
         close_beam_state(state)
 
-    if bs <> None or state.next_bar != '':
+    if bs != None or state.next_bar != '':
         if state.parsing_tuplet:
             state.parsing_tuplet =0
             voices_append ('} ')
 
-    if bs <> None:
+    if bs != None:
         clear_bar_acc(state)
         close_beam_state(state)
         voices_append (bs)

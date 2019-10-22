@@ -1017,7 +1017,7 @@ def sub_chord (m):
     for d in durs:
         if dur_str == '':
             dur_str = d
-        if dur_str <> d:
+        if dur_str != d:
             return '<%s>' % m.group (1)
 
     pslur_strs = ['']
@@ -1025,7 +1025,7 @@ def sub_chord (m):
     slur_strs = ['']
 
     last_str = ''
-    while last_str <> str:
+    while last_str != str:
         last_str = str
 
         def sub_tremolos (m, slur_strs = slur_strs):

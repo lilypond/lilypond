@@ -173,8 +173,8 @@ class Duration:
             dur_str = '%d' % (1 << self.duration_log)
         dur_str += '.' * self.dots
 
-        if factor <> Rational(1, 1):
-            if factor.denominator() <> 1:
+        if factor != Rational(1, 1):
+            if factor.denominator() != 1:
                 dur_str += '*%d/%d' % (factor.numerator(), factor.denominator())
             else:
                 dur_str += '*%d' % factor.numerator()
@@ -1077,7 +1077,7 @@ class BarLine (Music):
                        'heavy': "|", 'light-light': "||", 'light-heavy': "|.",
                        'heavy-light': ".|", 'heavy-heavy': ".|.", 'tick': "'",
                        'short': "'", 'none': "" }.get (self.type, None)
-        if bar_symbol <> None:
+        if bar_symbol != None:
             printer.dump ('\\bar "%s"' % bar_symbol)
         else:
             printer.dump ("|")
@@ -1432,9 +1432,9 @@ class FretEvent (MarkupEvent):
         self.elements = []
     def ly_expression (self):
         val = ""
-        if self.strings <> 6:
+        if self.strings != 6:
             val += "w:%s;" % self.strings
-        if self.frets <> 4:
+        if self.frets != 4:
             val += "h:%s;" % self.frets
         if self.barre and len (self.barre) >= 3:
             val += "c:%s-%s-%s;" % (self.barre[0], self.barre[1], self.barre[2]+get_transpose("integer"))
