@@ -130,12 +130,17 @@ installextradoc:
 	-$(INSTALLPY) -d $(DESTDIR)$(prefix)/doc/$(package)
 	cp -r $(EXTRA_DOC_FILES) $(prefix)/doc/$(package)
 
--include $(outdir)/dummy.dep $(wildcard $(outdir)/*.dep)
-
+# Create the output directory before any targets are built, except for
+# "make clean" because that would be silly.
+ifeq (,$(filter clean,$(MAKECMDGOALS)))
+-include $(outdir)/dummy.dep
 $(outdir)/dummy.dep:
 	-mkdir -p $(outdir)
 	touch $(outdir)/dummy.dep
 	echo '*' > $(outdir)/.gitignore
+endif
+
+-include $(wildcard $(outdir)/*.dep)
 
 check: local-check
 	$(LOOP)
