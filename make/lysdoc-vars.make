@@ -1,8 +1,7 @@
 TITLE=LYs Doc
 AUTHOR=Han-Wen Nienhuys and Jan Nieuwenhuizen
 
-
-ifeq ($(COLLATED_FILES),)
+ifndef COLLATED_FILES
 COLLATED_FILES = $(sort $(TEXINFO_SOURCES) $(LY_FILES) $(OUT_LY_FILES) )
 endif
 

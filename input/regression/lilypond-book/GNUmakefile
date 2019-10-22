@@ -3,11 +3,11 @@ depth = ../../..
 STEPMAKE_TEMPLATES=documentation texinfo
 LOCALSTEPMAKE_TEMPLATES=lilypond ly lysdoc lilypond-book
 
+COLLATED_FILES = $(sort $(filter-out %.xml,$(OUT_FILES)))
+
 include $(depth)/make/stepmake.make
 
 TITLE=lilypond-book Test Suite
-
-COLLATED_FILES = $(OUT_FILES)
 
 OUT_TEXI_FILES += ${TEXI_FILES:%.texi=$(outdir)/%.info}
 OUT_TEXI_FILES += ${TEXI_FILES:%.texi=$(outdir)/%.pdf}
@@ -20,10 +20,6 @@ XML_FILES = $(filter-out include%,$(call src-wildcard,*.xml))
 
 local-test:
 	make LYS_OUTPUT_DIR=$(top-build-dir)/out/lybook-testdb $(OUT_FILES)
-
-$(outdir)/collated-files.list: $(OUT_FILES)
-	$(call ly_progress,Making,$@,)
-	echo $(sort $(filter-out %.xml,$(OUT_FILES))) > $@
 
 $(outdir)/suffix-texi.texi: suffix-texi.texi $(outdir)/version.itexi $(DOCUMENTATION_LOCALE_TARGET) $(INIT_LY_SOURCES) $(SCHEME_SOURCES)
 	$(call ly_progress,Making,$@,)
