@@ -1510,8 +1510,7 @@ introduced into the output.  This process is described in
 Initial test:
 
 @example
-make clean                       @emph{## when needed (see below)}
-make test-clean
+make clean                     @emph{## when needed (see below)}
 make [-j@var{X} CPU_COUNT=@var{X}] test-baseline
 @end example
 
@@ -1521,9 +1520,9 @@ Edit/compile/test cycle:
 @example
 @emph{## edit source files, then...}
 
-make clean                       @emph{## when needed (see below)}
-make [-j@var{X}]                       @emph{## when needed (see below)}
-make [-j@var{X} CPU_COUNT=@var{X}] test-redo @emph{## redo files differing from baseline}
+make clean                     @emph{## when needed (see below)}
+make [-j@var{X}]                     @emph{## when needed (see below)}
+make [-j@var{X} CPU_COUNT=@var{X}] check   @emph{## retest cases differing from baseline}
 @end example
 
 @item
@@ -1557,7 +1556,7 @@ layout, MIDI, performance or error reporting.
 
 You only need to use @command{make@tie{}test-clean} to retest all
 cases.  To retest mismatching cases only, all that is needed is to
-repeat @command{make@tie{}test-redo}.
+repeat @command{make@tie{}check}.
 
 
 

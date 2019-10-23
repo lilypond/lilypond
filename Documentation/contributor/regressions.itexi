@@ -216,7 +216,6 @@ comparison by checking out the current git master, going to the
 
 @example
 make clean # whenever any files in mf/ are modified
-make test-clean
 make test-baseline
 @end example
 
@@ -255,16 +254,11 @@ If you want to continue programming, then make any additional code
 changes, and continue.
 
 @item
-To re-check files that differed between the initial
-@command{make@tie{}test-baseline} and your post-changes
-@command{make@tie{}check}, run:
-
-@example
-make test-redo
-@end example
-
-This updates the regression list at @file{out/test-results/index.html}.
-It does @emph{not} redo @file{test-output-distance.ly}.
+To rerun just the test cases that @command{make@tie{}check}
+identified as differing from the baseline, run
+@command{make@tie{}check} again.  This updates the regression list
+at @file{out/test-results/index.html}.  It does @emph{not} redo
+@file{test-output-distance.ly}.
 
 When all regressions have been resolved, the output list will be empty.
 
