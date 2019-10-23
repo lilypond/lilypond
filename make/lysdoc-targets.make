@@ -15,7 +15,9 @@ local-test-baseline:
 	  ln -sf ../$(depth)/out-baseline/share )
 
 lysdoc-test:
-	rm -f $(outdir)/collated-files.html
+#       Creating collated-files.texi also produces the tested output.
+#       Removing it works around incomplete dependencies.
+	rm -f $(outdir)/collated-files.texi
 	if test -d $(top-src-dir)/.git  ; then \
 		cd $(top-src-dir) ; \
 		BR=`LANG=c git branch | grep "^\*" | sed -e "s|^* *||"` ; \

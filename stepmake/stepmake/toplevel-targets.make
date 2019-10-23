@@ -51,7 +51,6 @@ local-help:
 	@echo "Some more targets are available for testing changes:"
 	@echo "  test-baseline"
 	@echo "  check"
-	@echo "  test-redo"
 	@echo "  test-clean"
 	@echo
 	@echo "  For more information on these targets, see"

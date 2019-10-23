@@ -71,6 +71,7 @@ $(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref
 	$(buildscript-dir)/extract_texi_filenames $(XREF_MAP_FLAGS) -q -o $(XREF_MAPS_DIR) --master-map-file=$(XREF_MAPS_DIR)/$*.xref-map $<
 else
 $(XREF_MAPS_DIR)/%.xref-map: $(outdir)/%.texi | $(OUT_TEXINFO_MANUALS)
+	$(call ly_progress,Making,$@,< texi)
 	$(buildscript-dir)/extract_texi_filenames $(XREF_MAP_FLAGS) -q -o $(XREF_MAPS_DIR) $<
 endif
 
