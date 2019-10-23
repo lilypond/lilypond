@@ -976,8 +976,10 @@ class ComparisonData:
     def write_changed (self, dest_dir, threshold):
         (changed, below, unchanged) = self.thresholded_results (threshold)
 
-        str = '\n'.join ([os.path.splitext (link.file_names[1])[0]
-                        for link in changed])
+        non_ext = [os.path.splitext (link.file_names[1])[0] for link in changed]
+        str = '\n'.join (sorted (set (non_ext)))
+        if str:
+            str += '\n'
         fn = dest_dir + '/changed.txt'
 
         open_write_file (fn).write (str)
