@@ -46,7 +46,7 @@ dirs, symlinks, files = mirrortree.walk_tree (
     tree_roots = doc_dirs,
     process_dirs = outdir,
     exclude_dirs = '(^|/)((' + \
-        r'po|xref-maps|out|out-test|out-cov|.*?[.]t2d|\w*?-root)|^Documentation/(' + \
+        r'po|xref-maps|out|out-test(-baseline)?|out-cov|.*?[.]t2d|\w*?-root)|^Documentation/(' + \
         '|'.join ([l.code for l in langdefs.LANGUAGES]) + '))(/|$)',
     find_files = r'.*?\.(?:midi|html|pdf|png|jpe?g|txt|i?ly|signature|css|zip|js|..\.idx|php)$|VERSION',
     exclude_files = r'lily-[0-9a-f]+.*\.(pdf|txt)')
@@ -54,7 +54,7 @@ dirs, symlinks, files = mirrortree.walk_tree (
 extra_files = mirrortree.walk_tree (
     tree_roots = ['input/regression/lilypond-book'],
     process_dirs = outdir,
-    exclude_dirs = r'(^|/)(out|out-test)(/|$)',
+    exclude_dirs = r'(^|/)(out|out-test(-baseline)?)(/|$)',
     find_files = r'.+\.(info|tex)$',
     exclude_files = r'lily-[0-9a-f]+.*\.tex')[2]
 files.extend(extra_files)
