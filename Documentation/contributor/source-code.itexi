@@ -2011,11 +2011,7 @@ following procedure to obtain commit access:
 @enumerate
 @item
 If you don't already have one, set up a Savannah user account at
-@uref{https://savannah.gnu.org/account/register.php}.  If your web
-browser responds with an @qq{untrusted connection} message when
-you visit the link, follow the steps for including the CAcert root
-certificate in your browser, given at
-@uref{http://savannah.gnu.org/tls/tutorial/}.
+@uref{https://savannah.gnu.org/account/register.php}.
 
 @warning{Savannah will silently put your username in lower-case --
 do not try to use capital letters.}
@@ -2055,8 +2051,8 @@ accept the default location (@file{~/.ssh/id_rsa}).
 
 Next you are asked to enter an optional passphrase.  On most
 systems, if you use a passphrase, you will likely be prompted for
-it every time you use @command{git@tie{}push} or
-@command{git@tie{}pull}.  You may prefer this since it can protect
+it every time you use @command{git push} or
+@command{git pull}.  You may prefer this since it can protect
 you from your own mistakes (like pushing when you mean to pull),
 though you may find it tedious to keep re-entering it.
 
@@ -2101,8 +2097,7 @@ Configure Git to use the SSH protocol (instead of the GIT
 protocol).  From your local Git repository, enter:
 
 @example
-git config remote.origin.url \
-  ssh://@var{user}@@git.sv.gnu.org/srv/git/lilypond.git
+git remote set-url origin ssh://@var{user}@@git.sv.gnu.org/srv/git/lilypond.git
 @end example
 
 @noindent
@@ -2143,7 +2138,7 @@ The list of known hosts is stored in the file
 At this point, you are prompted for your passphrase if you have
 one, then Git will attempt a pull.
 
-If @command{git@tie{}pull@tie{}--verbose} fails, you should see
+If @command{git pull --verbose} fails, you should see
 error messages like these:
 
 @example
@@ -2158,7 +2153,7 @@ to activate it.  It usually takes a few minutes for the key to be
 active after registering it, but if it still doesn't work after an
 hour, ask for help on the mailing list.
 
-If @command{git@tie{}pull@tie{}--verbose} succeeds, the output
+If @command{git pull --verbose} succeeds, the output
 will include a @q{From} line that shows @q{ssh} as the protocol:
 
 @example
@@ -2205,13 +2200,7 @@ machine.
 
 @itemize
 @item
-On Firefox, to view or remove the CAcert root certificate, go to:
-Edit > Preferences > Advanced > Encryption > View Certificates >
-Authorities > Certificate Name > Root CA > CA Cert Signing
-Authority.
-
-@item
-The @command{git@tie{}config} commands above should modify your
+The @command{git remote @w{set-url}} command above should modify your
 local repository's @file{.git/config} file.  These lines:
 
 @example
@@ -2232,7 +2221,7 @@ where @var{user} is your login name on Savannah.
 
 @item
 Similarly, the
-@command{git@tie{}config@tie{}push.default@tie{}matching} command
+@command{git config push.default matching} command
 should add these lines to @file{.git/config}:
 
 @example
