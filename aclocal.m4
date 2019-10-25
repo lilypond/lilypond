@@ -169,6 +169,7 @@ AC_DEFUN(STEPMAKE_COMPILE_BEFORE, [
     profile_b=no
     debug_b=yes
     pipe_b=yes
+    ubsan_b=no
 
     AC_ARG_ENABLE(debugging,
         [AS_HELP_STRING(
@@ -199,6 +200,12 @@ AC_DEFUN(STEPMAKE_COMPILE_BEFORE, [
             [--enable-pipe],
             [compile with -pipe.  Default: on])],
         [pipe_b=$enableval])
+
+    AC_ARG_ENABLE(ubsan,
+        [AS_HELP_STRING(
+            [--enable-ubsan],
+            [instrument with the Undefined Behavior Sanitizer.  Default: off])],
+        [ubsan_b=$enableval])
 
     if test "$optimise_b" = yes; then
         OPTIMIZE=" -O2 -finline-functions"
@@ -248,8 +255,29 @@ AC_DEFUN(STEPMAKE_COMPILE, [
         fi
     fi
 
-    CFLAGS="$CFLAGS $OPTIMIZE"
+    # If UBSan requested, test if it works and add to CFLAGS.
+    if test "$ubsan_b" = yes; then
+        save_cflags="$CFLAGS"
+        CFLAGS=" -fsanitize=undefined $CFLAGS";
+        AC_CACHE_CHECK([whether compiler understands -fsanitize=undefined],
+            [stepmake_cv_cflags_ubsan],
+            AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[/* UBSan test */]])],
+                [stepmake_cv_cflags_ubsan=yes],
+                [stepmake_cv_cflags_ubsan=no]))
+        CFLAGS=$save_cflags
+        if test $stepmake_cv_cflags_ubsan = yes; then
+            SANITIZE="$SANITIZE -fsanitize=undefined"
+        fi
+    fi
+
+    if test -n "$SANITIZE"; then
+        # "print a verbose error report and exit the program"
+        SANITIZE="$SANITIZE -fno-sanitize-recover"
+    fi
+
+    CFLAGS="$CFLAGS $OPTIMIZE $SANITIZE"
     CPPFLAGS=${CPPFLAGS-""}
+    LDFLAGS="$LDFLAGS $SANITIZE"
 
     AC_MSG_CHECKING([for IEEE-conformance compiler flags])
     save_cflags="$CFLAGS"
@@ -277,7 +305,7 @@ AC_DEFUN(STEPMAKE_CXX, [
     AC_PROG_CXX
     STEPMAKE_OPTIONAL_REQUIRED(CXX, c++, $1)
 
-    CXXFLAGS="$CXXFLAGS $OPTIMIZE"
+    CXXFLAGS="$CXXFLAGS $OPTIMIZE $SANITIZE"
 
     AC_SUBST(CXX)
     AC_SUBST(CXXFLAGS)
