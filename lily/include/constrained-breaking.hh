@@ -194,7 +194,7 @@ private:
   vector<Grob *> all_;
   vector<vsize> breaks_;
 
-  void initialize ();
+  void initialize (Paper_score *);
   void resize (vsize systems);
 
   Column_x_positions space_line (vsize start_col, vsize end_col);

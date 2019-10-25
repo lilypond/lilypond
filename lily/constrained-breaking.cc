@@ -350,18 +350,14 @@ Constrained_breaking::prepare_solution (vsize start, vsize end, vsize sys_count)
 
 Constrained_breaking::Constrained_breaking (Paper_score *ps)
 {
-  valid_systems_ = systems_ = 0;
   start_.push_back (0);
-  pscore_ = ps;
-  initialize ();
+  initialize (ps);
 }
 
 Constrained_breaking::Constrained_breaking (Paper_score *ps, vector<vsize> const &start)
   : start_ (start)
 {
-  valid_systems_ = systems_ = 0;
-  pscore_ = ps;
-  initialize ();
+  initialize (ps);
 }
 
 static SCM
@@ -377,13 +373,11 @@ min_permission (SCM perm1, SCM perm2)
 
 /* find the forces for all possible lines and cache ragged_ and ragged_right_ */
 void
-Constrained_breaking::initialize ()
+Constrained_breaking::initialize (Paper_score *ps)
 {
-  if (!pscore_)
-    return;
+  valid_systems_ = systems_ = 0;
+  pscore_ = ps;
 
-  ragged_right_ = to_boolean (pscore_->layout ()->c_variable ("ragged-right"));
-  ragged_last_ = to_boolean (pscore_->layout ()->c_variable ("ragged-last"));
   system_system_space_ = 0;
   system_markup_space_ = 0;
   system_system_padding_ = 0;
@@ -392,6 +386,16 @@ Constrained_breaking::initialize ()
   score_system_min_distance_ = 0;
   score_markup_padding_ = 0;
   score_markup_min_distance_ = 0;
+
+  if (!pscore_)
+    {
+      ragged_right_ = false;
+      ragged_last_ = false;
+      return;
+    }
+
+  ragged_right_ = to_boolean (pscore_->layout ()->c_variable ("ragged-right"));
+  ragged_last_ = to_boolean (pscore_->layout ()->c_variable ("ragged-last"));
 
   Output_def *l = pscore_->layout ();
 
