@@ -94,8 +94,10 @@ def compare_png_images (old, new, dest_dir):
             min (dims1[1], dims2[1]))
 
     dir = get_temp_dir ()
-    system ('convert -depth 8 -crop %dx%d+0+0 %s %s/crop1.png' % (dims + (old, dir)))
-    system ('convert -depth 8 -crop %dx%d+0+0 %s %s/crop2.png' % (dims + (new, dir)))
+    # Removing the ICC profile with -strip suppresses the warning
+    # "RGB color space not permitted on grayscale PNG."
+    system ('convert -strip -depth 8 -crop %dx%d+0+0 %s %s/crop1.png' % (dims + (old, dir)))
+    system ('convert -strip -depth 8 -crop %dx%d+0+0 %s %s/crop2.png' % (dims + (new, dir)))
 
     system1 ('compare -depth 8 -dissimilarity-threshold 1 %(dir)s/crop1.png %(dir)s/crop2.png %(dir)s/diff.png' % locals ())
 
