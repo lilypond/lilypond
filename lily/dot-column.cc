@@ -221,8 +221,6 @@ Dot_column::calc_positioning_done (SCM smob)
         cfg.remove_collision (p);
     }
 
-  problem.register_configuration (cfg);
-
   for (Dot_configuration::const_iterator i (cfg.begin ());
        i != cfg.end (); i++)
     {

@@ -4,19 +4,15 @@
 #include "skyline.hh"
 #include "std-vector.hh"
 
-#include <map>
-
 class Dot_formatting_problem
 {
-public:
+private:
   Skyline head_skyline_;
-  Dot_configuration *best_;
-  int score_;
 
-  void register_configuration (Dot_configuration const &);
-  Dot_configuration *best () const;
+public:
+  Skyline const &head_skyline () const { return head_skyline_; }
+
   Dot_formatting_problem (vector<Box> const &boxes, Interval base_x);
-  ~Dot_formatting_problem ();
 };
 
 #endif
