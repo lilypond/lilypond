@@ -21,14 +21,6 @@ OUTPUT_EXPRESSION_PENALTY = 1
 ORPHAN_GROB_PENALTY = 1
 options = None
 
-def log_terse (s):
-    if not options.verbose:
-        print s
-
-def log_verbose (s):
-    if options.verbose:
-        print s
-
 ################################################################
 # system interface.
 temp_dir = None
@@ -36,9 +28,9 @@ class TempDirectory:
     def __init__ (self):
         import tempfile
         self.dir = tempfile.mkdtemp ()
-        log_verbose ('dir is %s' % self.dir)
+        print 'dir is', self.dir
     def __del__ (self):
-        log_verbose ('rm -rf %s' % self.dir)
+        print 'rm -rf %s' % self.dir
         os.system ('rm -rf %s' % self.dir)
     def __call__ (self):
         return self.dir
@@ -51,11 +43,11 @@ def get_temp_dir  ():
     return temp_dir ()
 
 def read_pipe (c):
-    log_verbose ('pipe %s' % c)
+    print 'pipe' , c
     return os.popen (c).read ()
 
 def system (c):
-    log_verbose ('system %s' % c)
+    print 'system' , c
     s = os.system (c)
     if s :
         raise Exception ("failed")
@@ -329,7 +321,7 @@ def scheme_float (s) :
     return float(s.split('.')[0])
 
 def read_signature_file (name):
-    log_verbose ('reading %s' % name)
+    print 'reading', name
 
     entries = open (name).read ().split ('\n')
     def string_to_tup (s):
@@ -459,7 +451,7 @@ class FileCompareLink (FileLink):
             return 100.0;
 
     def get_content (self, f):
-        log_verbose ('reading %s' % f)
+        print 'reading', f
         s = open (f).read ()
         return s
 
@@ -655,7 +647,7 @@ class SignatureFileLink (FileLink):
             abs_dir = os.path.abspath (dir)
             cur_dir = os.getcwd ()
 
-            log_verbose ('entering directory %s' % abs_dir)
+            print 'entering directory', abs_dir
             os.chdir (dir)
 
             for f in glob.glob (base):
@@ -682,10 +674,9 @@ class SignatureFileLink (FileLink):
                        ' -c quit') % locals ()
 
                 files_created[oldnew].append (outfile)
-                log_terse ('writing %s' % outfile)
                 system (cmd)
 
-            log_verbose ('leaving directory %s' % abs_dir)
+            print 'leaving directory', abs_dir
             os.chdir (cur_dir)
 
         return files_created
@@ -896,9 +887,6 @@ class ComparisonData:
                 self.compare_trees (d1, d2)
 
     def compare_directories (self, dir1, dir2):
-        log_terse ('comparing %s' % dir1)
-        log_terse ('       to %s' % dir2)
-
         for ext in ['signature',
                     'midi',
                     'log',
@@ -908,9 +896,6 @@ class ComparisonData:
 
             self.missing += [(dir1, m) for m in m1]
             self.added += [(dir2, m) for m in m2]
-
-            log_terse ('%6d %s file%s' % (len(paired), ext,
-                                          's' if len(paired) != 1 else ''))
 
             # we sort the file names for easier debugging
             for p in sorted (paired):
@@ -986,26 +971,21 @@ class ComparisonData:
 
     def write_text_result_page (self, filename, threshold):
         out = None
-        verbose = True
         if filename == '':
             out = sys.stdout
-            verbose = options.verbose
         else:
-            print 'writing %s' % filename
+            print 'writing "%s"' % filename
             out = open_write_file (filename)
 
         (changed, below, unchanged) = self.thresholded_results (threshold)
 
-        if verbose:
-            for link in changed:
-                out.write (link.text_record_string ())
-            out.write ('\n\n')
-        else:
-            out.write ('output-distance summary:\n')
-            out.write ('%6d changed\n' % len (changed))
 
-        out.write ('%6d below threshold\n' % len (below))
-        out.write ('%6d unchanged\n' % len (unchanged))
+        for link in changed:
+            out.write (link.text_record_string ())
+
+        out.write ('\n\n')
+        out.write ('%d below threshold\n' % len (below))
+        out.write ('%d unchanged\n' % len (unchanged))
 
     def create_text_result_page (self, dest_dir, threshold):
         self.write_text_result_page (dest_dir + '/index.txt', threshold)
@@ -1117,13 +1097,13 @@ def compare_tree_pairs (tree_pairs, dest_dir, threshold):
 
 def mkdir (x):
     if not os.path.isdir (x):
-        log_verbose ('mkdir %s' % x)
+        print 'mkdir', x
         os.makedirs (x)
 
 def link_file (x, y):
     mkdir (os.path.split (y)[0])
     try:
-        log_verbose ('%s -> %s' % (x, y))
+        print x, '->', y
         os.link (x, y)
     except OSError, z:
         print 'OSError', x, y, z
@@ -1136,13 +1116,14 @@ def open_write_file (x):
 
 
 def system (x):
-    log_verbose ('invoking %s' % x)
+
+    print 'invoking', x
     stat = os.system (x)
     assert stat == 0
 
 def system1 (x):
 # Allow exit status 0 and 1
-    log_verbose ('invoking %s' % x)
+    print 'invoking', x
     stat = os.system (x)
     assert (stat == 0) or (stat == 256) # This return value convention is sick.
 
@@ -1376,12 +1357,6 @@ def main ():
                   action="store",
                   type="string",
                   help='where to put the test results [tree2/compare-tree1tree2]')
-
-    p.add_option ('-v', '--verbose',
-                  dest="verbose",
-                  default=False,
-                  action="store_true",
-                  help='log progress verbosely')
 
     global options
     (options, args) = p.parse_args ()
