@@ -25,7 +25,7 @@ import sys
 dry_run = False
 
 def pytt (from_re, to, file_name):
-    s = file (file_name).read ()
+    s = open (file_name).read ()
     name = os.path.basename (file_name)
     base, ext = os.path.splitext (name)
     t = re.sub (from_re, to % locals (), s)
@@ -36,7 +36,7 @@ def pytt (from_re, to, file_name):
             stat_info = os.stat (file_name)
             mode = stat.S_IMODE (stat_info[stat.ST_MODE])
             os.system ('mv --backup=t %(file_name)s %(file_name)s~' % locals ())
-            file (file_name, 'w').write (t)
+            open (file_name, 'w').write (t)
             os.chmod (file_name, mode)
 
 def main ():

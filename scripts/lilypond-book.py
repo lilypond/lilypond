@@ -414,7 +414,7 @@ def process_snippets (cmd, snippets,
     name = os.path.join (lily_output_dir,
                          'snippet-names-%d.ly' % checksum)
     logfile = name.replace('.ly', '')
-    file (name, 'wb').write (contents)
+    open (name, 'wb').write (contents)
 
     system_in_directory (' '.join ([cmd, ly.mkarg (name.replace (os.path.sep, '/'))]),
                          lily_output_dir,
@@ -424,7 +424,7 @@ def snippet_list_checksum (snippets):
     return hash (' '.join([l.basename() for l in snippets]))
 
 def write_file_map (lys, name):
-    snippet_map = file (os.path.join (
+    snippet_map = open (os.path.join (
         global_options.lily_output_dir,
         'snippet-map-%d.ly' % snippet_list_checksum (lys)), 'w')
 
@@ -496,7 +496,7 @@ def guess_format (input_filename):
 
 def write_if_updated (file_name, lines):
     try:
-        f = file (file_name)
+        f = open (file_name)
         oldstr = f.read ()
         new_str = ''.join (lines)
         if oldstr == new_str:
@@ -514,7 +514,7 @@ def write_if_updated (file_name, lines):
         os.makedirs (output_dir)
 
     progress (_ ("Writing `%s'...") % file_name)
-    file (file_name, 'w').writelines (lines)
+    open (file_name, 'w').writelines (lines)
 
 
 def note_input_file (name, inputs=[]):
@@ -548,7 +548,7 @@ def do_file (input_filename, included=False):
         input_absname = os.path.abspath (input_fullname)
 
         note_input_file (input_fullname)
-        in_handle = file (input_fullname)
+        in_handle = open (input_fullname)
 
     if input_filename == '-':
         global_options.input_dir = os.getcwd ()
@@ -762,7 +762,7 @@ def main ():
                      base_file_name + global_options.formatter.default_extension)
 
     os.chdir (original_dir)
-    file (dep_file, 'w').write ('%s: %s\n'
+    open (dep_file, 'w').write ('%s: %s\n'
                                 % (final_output_file, ' '.join (inputs)))
 
 if __name__ == '__main__':

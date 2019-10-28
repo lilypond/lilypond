@@ -234,7 +234,7 @@ def get_latex_textwidth (source, global_options):
     if os.path.exists (auxfile):
         os.unlink (auxfile)
     if os.path.exists (logfile):
-        parameter_string = file (logfile).read()
+        parameter_string = open (logfile).read()
         os.unlink (logfile)
 
     columns = 0

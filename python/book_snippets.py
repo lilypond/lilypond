@@ -231,7 +231,7 @@ FRAGMENT_LY = r'''
 ####################################################################
 
 def ps_page_count (ps_name):
-    header = file (ps_name).read (1024)
+    header = open (ps_name).read (1024)
     m = re.search ('\n%%Pages: ([0-9]+)', header)
     if m:
         return int (m.group (1))
@@ -608,9 +608,9 @@ class LilypondSnippet (Snippet):
 printing diff against existing file." % filename)
                 ly.stderr_write (self.filter_pipe (self.full_ly (), 'diff -u %s -' % filename))
         else:
-            out = file (filename, 'w')
+            out = open (filename, 'w')
             out.write (self.full_ly ())
-            file (path + '.txt', 'w').write ('image of music')
+            open (path + '.txt', 'w').write ('image of music')
 
     def relevant_contents (self, ly):
         return re.sub (r'\\(version|sourcefileline|sourcefilename)[^\n]*\n', '', ly)
@@ -721,7 +721,7 @@ printing diff against existing file." % filename)
 
         system_count = 0
         if not skip_lily and not missing:
-            system_count = int(file (full + '-systems.count').read())
+            system_count = int(open (full + '-systems.count').read())
 
         for number in range(1, system_count + 1):
             systemfile = '%s-%d' % (base, number)
@@ -821,7 +821,7 @@ class LilypondFileSnippet (LilypondSnippet):
     def __init__ (self, type, match, formatter, line_number, global_options):
         LilypondSnippet.__init__ (self, type, match, formatter, line_number, global_options)
         self.filename = self.substring ('filename')
-        self.contents = file (BookBase.find_file (self.filename,
+        self.contents = open (BookBase.find_file (self.filename,
             global_options.include_path, global_options.original_dir)).read ()
 
     def get_snippet_code (self):
@@ -918,7 +918,7 @@ class MusicXMLFileSnippet (LilypondFileSnippet):
 printing diff against existing file.") % xmlfilename)
                 ly.stderr_write (diff_against_existing)
         else:
-            out = file (xmlfilename, 'w')
+            out = open (xmlfilename, 'w')
             out.write (self.contents)
             out.close ()
 
@@ -931,10 +931,10 @@ printing diff against existing file.") % xmlfilename)
 printing diff against existing file.") % filename)
                 ly.stderr_write (diff_against_existing)
         else:
-            out = file (filename, 'w')
+            out = open (filename, 'w')
             out.write (self.full_ly ())
             out.close ()
-            file (path + '.txt', 'w').write ('image of music')
+            open (path + '.txt', 'w').write ('image of music')
 
 
 
