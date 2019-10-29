@@ -406,11 +406,11 @@ class FileLink:
         for f in self.file_names:
             link_file (f, os.path.join (dest_dir, f))
 
-    def get_distance_details (self):
+    def get_distance_details (self, dest_file):
         return ''
 
     def get_cell (self, oldnew):
-        return ''
+        return '', ''
 
     def get_file (self, oldnew):
         return self.file_names[oldnew]
@@ -418,7 +418,7 @@ class FileLink:
     def html_record_string (self, dest_dir):
         dist = self.distance()
 
-        details = self.get_distance_details ()
+        details = self.get_distance_details (self.file_names[1])
         if details:
             details_base = os.path.splitext (self.file_names[1])[0]
             details_base += '.details.html'
@@ -427,8 +427,13 @@ class FileLink:
 
             details = '<br>(<a href="%(details_base)s">details</a>)' % locals ()
 
-        cell1 = self.get_cell (0)
-        cell2 = self.get_cell (1)
+        class_attr1, cell1 = self.get_cell (0)
+        class_attr2, cell2 = self.get_cell (1)
+
+        if class_attr1:
+            class_attr1 = ' class="%s"' % class_attr1
+        if class_attr2:
+            class_attr2 = ' class="%s"' % class_attr2
 
         name = self.name () + self.extension ()
         file1 = self.get_file (0)
@@ -439,8 +444,14 @@ class FileLink:
 %(dist)f
 %(details)s
 </td>
-<td>%(cell1)s<br><font size=-2><a href="%(file1)s"><tt>%(name)s</tt></font></td>
-<td>%(cell2)s<br><font size=-2><a href="%(file2)s"><tt>%(name)s</tt></font></td>
+<td><figure%(class_attr1)s>
+%(cell1)s
+<figcaption><a href="%(file1)s">%(name)s</a></figcaption>
+</figure></td>
+<td><figure%(class_attr2)s>
+%(cell2)s
+<figcaption><a href="%(file2)s">%(name)s</a></figcaption>
+</figure></td>
 </tr>''' % locals ()
 
 
@@ -473,9 +484,9 @@ class GitFileCompareLink (FileCompareLink):
         # truncate long lines
         str = '\n'.join ([l[:80] for l in str.split ('\n')])
 
-
-        str = '<font size="-2"><pre>%s</pre></font>' % cgi.escape (str)
-        return str
+        if str:
+            str = '<pre>%s</pre>' % cgi.escape (str)
+        return '', str
 
     def calc_distance (self):
         if self.contents[0] == self.contents[1]:
@@ -515,8 +526,9 @@ class TextFileCompareLink (FileCompareLink):
         str = ''
         if oldnew == 1:
             str = '\n'.join ([d.replace ('\n','') for d in self.diff_lines])
-        str = '<font size="-2"><pre>%s</pre></font>' % cgi.escape (str)
-        return str
+        if str:
+            str = '<pre>%s</pre>' % cgi.escape (str)
+        return '', str
 
 class LogFileCompareLink (TextFileCompareLink):
   def get_content (self, f):
@@ -538,7 +550,7 @@ class ProfileFileLink (FileCompareLink):
                 str += '%-8s: %8d (%5.3f)\n' % (k, int (self.results[oldnew][k]),
                                                 self.get_ratio (k))
 
-        return '<pre>%s</pre>' % cgi.escape (str)
+        return '', ('<pre>%s</pre>' % cgi.escape (str))
 
     def get_ratio (self, key):
         (v1,v2) = (self.results[0].get (key, -1),
@@ -717,56 +729,51 @@ class SignatureFileLink (FileLink):
 
 
     def get_cell (self, oldnew):
-        def img_cell (ly, img, name):
-            if not name:
-                name = 'source'
-            else:
-                name = '<tt>%s</tt>' % name
+        def static_img_cell (img):
+            return '', ('''
+<div><a href="%(img)s"><img src="%(img)s" alt/></a></div>
+''' % locals ())
 
-            return '''
-<a href="%(img)s">
-<img src="%(img)s" style="border-style: none; max-width: 500px;">
-</a><br>
-''' % locals ()
-        def multi_img_cell (ly, imgs, name):
-            if not name:
-                name = 'source'
-            else:
-                name = '<tt>%s</tt>' % name
+        def reactive_img_cell (oldimg, newimg):
+            return 'reactive_img', ('''
+<div style="background-image: url(\'%(oldimg)s\')"><a href="%(newimg)s"><img src="%(newimg)s" alt/></a></div>
+''' % locals ())
 
-            imgs_str = '\n'.join (['''<a href="%s">
-<img src="%s" style="border-style: none; max-width: 500px;">
-</a><br>''' % (img, img)
+        def multi_img_cell (imgs):
+            imgs_str = '\n'.join (['''<a href="%s"><img src="%s" alt/></a>''' % (img, img)
                                   for img in imgs])
 
 
-            return '''
+            return '', ('''
 %(imgs_str)s
-''' % locals ()
+''' % locals ())
+
+        base = os.path.splitext (self.file_names[oldnew])[0]
+
+        if options.compare_images and (oldnew == 1):
+            ext = '.compare.jpeg'
+        else:
+            ext = '.png'
+
+        pages = glob.glob (base + '-page*' + ext)
+        if pages:
+            return multi_img_cell (sorted (pages))
+        elif oldnew == 1:
+            oldimg = os.path.splitext (self.file_names[0])[0] + '.png'
+            return reactive_img_cell (oldimg, base + ext)
+        else:
+            return static_img_cell (base + ext)
 
 
-
-        def cell (base, name):
-            pat = base + '-page*.png'
-            pages = glob.glob (pat)
-
-            if pages:
-                return multi_img_cell (base + '.ly', sorted (pages), name)
-            else:
-                return img_cell (base + '.ly', base + '.png', name)
-
-
-
-        str = cell (os.path.splitext (self.file_names[oldnew])[0], self.name ())
-        if options.compare_images and oldnew == 1:
-            str = str.replace ('.png', '.compare.jpeg')
-
-        return str
-
-
-    def get_distance_details (self):
+    def get_distance_details (self, dest_file):
         systems = self.system_links.items ()
         systems.sort ()
+
+        # Count the number of separators and construct a relative path
+        # to the current directory.  With Python 2.6, we could use
+        # os.path.relpath() instead.
+        rel_top = '../' * os.path.dirname (dest_file).count (os.path.sep) + '..'
+        style_href = os.path.join (rel_top, 'style.css')
 
         html = ""
         for (c, link) in systems:
@@ -789,12 +796,15 @@ class SignatureFileLink (FileLink):
             html += e
 
         original = self.name ()
-        html = '''<html>
+        html = '''<!DOCTYPE html>
+<html lang="en">
 <head>
 <title>comparison details for %(original)s</title>
+<link rel="stylesheet" type="text/css" href="%(style_href)s"/>
+<meta charset="UTF-8">
 </head>
 <body>
-<table border=1>
+<table>
 <tr>
 <th>system</th>
 <th>output</th>
@@ -1043,11 +1053,88 @@ class ComparisonData:
 
         me = sys.argv[0]
 
-        html = '''<html>
+        open_write_file (dest_dir + '/style.css').write('''
+:root {
+    background-color: white;
+    color: black;
+
+    --line-color: blue;
+    --link-color: blue;
+}
+
+hr, table, tr, th, td {
+    border: 1px solid var(--line-color);
+}
+
+a {
+    color: var(--link-color);
+}
+
+figcaption {
+    margin-top: 0.5rem;
+}
+
+figcaption button {
+    float: right;
+}
+
+figure {
+    display: inline-block;
+    margin: 0rem;
+    padding: 0rem;
+}
+
+figure > div:first-child {
+    background-color: white;
+    background-repeat: no-repeat;
+    border: 0.5rem solid white;
+    border-radius: 0.5rem;
+}
+
+figure.reactive_img.active > div:first-child img {
+    opacity: 0;
+}
+
+figure img {
+    border: none;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+td, th {
+    padding: 0.5rem;
+}
+
+td {
+    vertical-align: top;
+}
+
+table.ruled_rows td,
+table.ruled_rows th {
+    border-style: solid hidden;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        background-color: #1c1c1c;
+        color: #ffffff;
+
+        --line-color: #838383;
+        --link-color: #59a0e0;
+    }
+}
+''')
+
+        html = '''<!DOCTYPE html>
+<html lang="en">
 <head>
 <title>LilyPond regression test results</title>
-<meta name="author" content="This file was autogenerated by %(me)s">
-<script language="javascript" type="text/javascript">
+<link rel="stylesheet" type="text/css" href="style.css"/>
+<meta charset="UTF-8">
+<meta name="author" content="This file was autogenerated by %(me)s"/>
+<script>
 // <![CDATA[
     var rows = document.getElementsByTagName("tr");
     function showOnlyMatchingRows(substring) {
@@ -1060,10 +1147,31 @@ class ComparisonData:
                  (html.indexOf(substring + '">') != -1)) ? "" : "none";
         }
     }
+
+    function addControls() {
+        function makeMomentaryButton(label, object) {
+            function activate() { object.classList.add("active"); }
+            function revert() { object.classList.remove("active"); }
+
+            var button = document.createElement("button");
+            button.appendChild(document.createTextNode(label));
+            button.addEventListener("mousedown", activate);
+            button.addEventListener("mouseup", revert);
+            button.addEventListener("mouseout", revert);
+            return button;
+        }
+
+        for (fig of document.getElementsByClassName("reactive_img")) {
+            var caps = fig.getElementsByTagName("figcaption");
+            if (caps.length > 0) {
+                caps[0].appendChild(makeMomentaryButton("Flip", fig));
+            }
+        }
+    }
 // ]]>
 </script>
 </head>
-<body>
+<body onload="addControls()">
 <p>
   click to filter rows by type:
   <a href="#" onClick="showOnlyMatchingRows('.ly')">ly</a> /
@@ -1079,9 +1187,7 @@ class ComparisonData:
 
 %(summary)s
 
-<hr />
-
-<table rules="rows" border bordercolor="blue">
+<table class="ruled_rows">
 %(table_rows)s
 </table>
 </body>
