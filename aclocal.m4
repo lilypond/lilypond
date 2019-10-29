@@ -69,19 +69,14 @@ AC_DEFUN(STEPMAKE_ADD_ENTRY, [
 ])
 
 # Check if tested program ($2) was found ($1).
-# If not, add entry to missing-list ($3, one of 'OPTIONAL', 'REQUIRED').
-# We could abort here if a 'REQUIRED' program is not found
+# If not, add entry to missing-list ($3, one of 'OPTIONAL',
+# 'REQUIRED') and assign "false" to ($1).  "false" can be tested
+# clearly in makefiles and will surely fail if run unintentionally.
 AC_DEFUN(STEPMAKE_OPTIONAL_REQUIRED, [
     STEPMAKE_CHECK_SEARCH_RESULT($1)
     if test $? -ne 0; then
         STEPMAKE_ADD_ENTRY($3, $2)
-        if test "$3" = "REQUIRED"; then
-            command="echo ERROR: $2 not found"
-        # abort configure process here?
-        else
-            command="- echo $2 not found"
-        fi
-        eval "$1"='$command'
+        eval "$1"=false
         false
     else
         true
@@ -1076,8 +1071,9 @@ AC_DEFUN(STEPMAKE_MSGFMT, [
 ])
 
 
-# Check for program ($2), set full path result to ($1).
+# Check for program ($2).  If found, assign full path result to ($1).
 # If missing, add entry to missing-list ($3, one of 'OPTIONAL', 'REQUIRED')
+# and assign "false" to ($1).
 AC_DEFUN(STEPMAKE_PATH_PROG, [
     AC_CHECK_PROGS($1, $2, no)
     STEPMAKE_OPTIONAL_REQUIRED($1, $2, $3)
@@ -1090,8 +1086,9 @@ AC_DEFUN(STEPMAKE_PATH_PROG, [
 ])
 
 
-# Check for program in a set of names ($2) and set result to ($1).
-# If missing, add entry to missing-list ($3, one of 'OPTIONAL', 'REQUIRED').
+# Check for program in a set of names ($2).  If found, assign result to ($1).
+# If missing, add entry to missing-list ($3, one of 'OPTIONAL', 'REQUIRED')
+# and assign "false" to ($1).
 # Otherwise, compare version to minimum version ($4, optional) and/or maximum
 # version ($5, optional).
 AC_DEFUN(STEPMAKE_PROGS, [
