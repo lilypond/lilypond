@@ -887,7 +887,7 @@ class MusicXMLFileSnippet (LilypondFileSnippet):
             xml2ly_option_list.append ('--compressed')
             self.compressed = True
         opts = " ".join (xml2ly_option_list)
-        progress (_ ("Converting MusicXML file `%s'...\n") % self.filename)
+        progress (_ ("Converting MusicXML file `%s'...") % self.filename)
 
         ly_code = self.filter_pipe (self.contents, 'musicxml2ly %s --out=- - ' % opts)
         return ly_code
