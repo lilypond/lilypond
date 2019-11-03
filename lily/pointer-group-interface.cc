@@ -58,7 +58,7 @@ Pointer_group_interface::get_grob_array (Grob *me, SCM sym)
 }
 
 Grob *
-Pointer_group_interface::find_grob (Grob *me, SCM sym, bool (*pred) (Grob *))
+Pointer_group_interface::find_grob (Grob *me, SCM sym, bool (*pred) (Grob const *))
 {
   Grob_array *arr = get_grob_array (me, sym);
 

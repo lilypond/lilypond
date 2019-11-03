@@ -55,7 +55,7 @@ private:
   }
 
   template <class T>
-  friend bool has_interface(Grob *);
+  friend bool has_interface(Grob const *);
 
 private:
   static Protected_scm interface_symbol_;

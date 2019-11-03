@@ -27,6 +27,6 @@ class Bar_line
 {
 public:
 
-  static bool non_empty_barline (Grob *me);
+  static bool non_empty_barline (Grob const *me);
 };
 #endif // BAR_LINE_HH

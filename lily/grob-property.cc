@@ -314,7 +314,7 @@ Grob::is_live () const
 }
 
 bool
-Grob::internal_has_interface (SCM k)
+Grob::internal_has_interface (SCM k) const
 {
   return scm_is_true (scm_c_memq (k, interfaces_));
 }

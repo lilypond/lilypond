@@ -21,7 +21,7 @@
 #include "paper-column.hh"
 
 bool
-Bar_line::non_empty_barline (Grob *me)
+Bar_line::non_empty_barline (Grob const *me)
 {
   return me->internal_has_interface (ly_symbol2scm ("bar-line-interface"))
          && !me->extent (me, X_AXIS).is_empty ();

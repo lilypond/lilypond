@@ -136,7 +136,7 @@ public:
   Stencil get_print_stencil () const;
 
   /* interfaces */
-  bool internal_has_interface (SCM intf);
+  bool internal_has_interface (SCM intf) const;
 
   /* offsets */
   void translate_axis (Real, Axis);
@@ -146,7 +146,7 @@ public:
   Real maybe_pure_coordinate (Grob const *refp, Axis a, bool pure, int start, int end);
 
   /* extents */
-  Interval extent (Grob *refpoint, Axis) const;
+  Interval extent (Grob const *refpoint, Axis) const;
   void flush_extent_cache (Axis);
   virtual Interval pure_y_extent (Grob *refpoint, int start, int end);
   Interval maybe_pure_extent (Grob *refpoint, Axis, bool pure, int start, int end);
@@ -176,7 +176,7 @@ public:
 };
 
 template <class T>
-inline bool has_interface(Grob *g)
+inline bool has_interface(Grob const *g)
 {
   return g && g->internal_has_interface (Grob_interface<T>::interface_symbol_);
 }

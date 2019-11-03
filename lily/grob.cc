@@ -450,7 +450,7 @@ Grob::flush_extent_cache (Axis axis)
 }
 
 Interval
-Grob::extent (Grob *refp, Axis a) const
+Grob::extent (Grob const *refp, Axis a) const
 {
   Real offset = relative_coordinate (refp, a);
   Interval real_ext;
