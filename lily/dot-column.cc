@@ -223,14 +223,8 @@ Dot_column::calc_positioning_done (SCM smob)
         cfg.remove_collision (p);
     }
 
-  for (Dot_configuration::const_iterator i (cfg.begin ());
-       i != cfg.end (); i++)
-    {
-      /*
-        Junkme?
-       */
-      Staff_symbol_referencer::pure_set_position (i->second.dot_, i->first);
-    }
+  for (const auto &ent : cfg) // Junkme?
+    Staff_symbol_referencer::pure_set_position (ent.second.dot_, ent.first);
 
   me->translate_axis (cfg.x_offset () - me->relative_coordinate (commonx, X_AXIS),
                       X_AXIS);

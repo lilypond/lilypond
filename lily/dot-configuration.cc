@@ -26,15 +26,14 @@ int
 Dot_configuration::badness () const
 {
   int t = 0;
-  for (Dot_configuration::const_iterator i (begin ());
-       i != end (); i++)
+  for (const auto &ent : *this)
     {
-      int p = i->first;
-      int demerit = sqr (p - i->second.pos_) * 2;
+      int p = ent.first;
+      int demerit = sqr (p - ent.second.pos_) * 2;
 
-      int dot_move_dir = sign (p - i->second.pos_);
-      if (i->second.dir_
-          && dot_move_dir != i->second.dir_)
+      int dot_move_dir = sign (p - ent.second.pos_);
+      if (ent.second.dir_
+          && dot_move_dir != ent.second.dir_)
         demerit += 2;
       else if (dot_move_dir != UP)
         demerit += 1;
@@ -49,9 +48,8 @@ void
 Dot_configuration::print () const
 {
   printf ("dotconf { ");
-  for (Dot_configuration::const_iterator i (begin ());
-       i != end (); i++)
-    printf ("%d, ", i->first);
+  for (const auto &ent : *this)
+    printf ("%d, ", ent.first);
   printf ("}\n");
 }
 
@@ -92,8 +90,8 @@ Dot_configuration::shifted (int k, Direction d) const
 
   if (d > 0)
     {
-      for (auto i = begin (); i != end (); ++i)
-        process_entry (*i);
+      for (const auto &ent : *this)
+        process_entry (ent);
     }
   else
     {
@@ -134,9 +132,8 @@ Real
 Dot_configuration::x_offset () const
 {
   Real off = 0.0;
-  for (Dot_configuration::const_iterator i (begin ());
-       i != end (); i++)
-    off = std::max (off, problem_->head_skyline ().height ((*i).first));
+  for (const auto &ent : *this)
+    off = std::max (off, problem_->head_skyline ().height (ent.first));
 
   return off;
 }
