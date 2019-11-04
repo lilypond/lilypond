@@ -42,17 +42,23 @@ struct Dot_position
   }
 };
 
-class Dot_configuration : public std::map<int, Dot_position>
+class Dot_configuration : private std::map<int, Dot_position>
 {
 public:
   Dot_formatting_problem const *problem_;
 
+public:
   Dot_configuration (Dot_formatting_problem const &);
   Real x_offset () const;
   int badness () const;
   void print () const;
   Dot_configuration shifted (int k, Direction d) const;
   void remove_collision (int p);
+
+public: // exposed subset of map interface
+  using map::begin;
+  using map::end;
+  using map::operator[];
 };
 
 #endif
