@@ -142,7 +142,7 @@ Dot_configuration::remove_collision (int p)
       int b_up = cfg_up.badness ();
       int b_down = cfg_down.badness ();
 
-      *this = (b_up < b_down) ? cfg_up : cfg_down;
+      swap ((b_up < b_down) ? cfg_up : cfg_down);
     }
 }
 
