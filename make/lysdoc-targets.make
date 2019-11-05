@@ -27,11 +27,15 @@ lysdoc-test:
 		echo "      HEAD: $$HD" ; \
 		if [ ! -z $$FP ]; then  \
 			echo "MERGE_BASE: $$FP" ; \
-			echo -e '\n   HISTORY:\n   ========\n' ; \
+			echo ; \
+			echo "   HISTORY:" ; \
+			echo "   ========" ; \
 			git log --pretty=format:"      HASH: %H%n   SUBJECT: %s%n" $$FP~1..HEAD ; \
 		else \
 			echo "MERGE_BASE: unknown" ; \
-			echo -e '\n   HISTORY:\n   ========\n' ; \
+			echo ; \
+			echo "   HISTORY:" ; \
+			echo "   ========" ; \
 			git log --max-count=10 --pretty=format:"      HASH: %H%nSUBJECT: %s%n" ; \
 		fi ; \
 		echo "" ; \

@@ -162,7 +162,11 @@ WWW-post: $(top-build-dir)/.htaccess $(WEB_ROOT_FILES)
 # need UTF8 setting in case this is hosted on a website.
 $(top-build-dir)/.htaccess:
 	$(call ly_progress,Making,$@,)
-	echo -e 'AddDefaultCharset utf-8\nAddCharset utf-8 .html\nAddCharset utf-8 .en\nAddCharset utf-8 .nl\nAddCharset utf-8 .txt\n' > $(top-build-dir)/.htaccess
+	( echo 'AddDefaultCharset utf-8' ; \
+	  echo 'AddCharset utf-8 .html' ; \
+	  echo 'AddCharset utf-8 .en' ; \
+	  echo 'AddCharset utf-8 .nl' ; \
+	  echo 'AddCharset utf-8 .txt' ) > $@
 
 $(outdir)/offline-root/index.html: $(WEB_TRACKED_FILES)
 	$(call ly_progress,Making,$@,)
