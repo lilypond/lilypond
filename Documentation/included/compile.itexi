@@ -932,10 +932,18 @@ make conf=prof install
 @node Useful make variables
 @subsection Useful @command{make} variables
 
-If a less verbose build output if desired, the variable
-@code{QUIET_BUILD} may be set to @code{1} on @command{make}
-command line, or in @file{local.make} at top of the build tree.
+@command{make} normally echoes each command, but LilyPond
+makefiles suppress this behavior by default.  The goal is to show
+progress without hiding warnings and errors in the noise of long
+commands.
 
+To enable echoing commands, and to increase the verbosity of some
+of the commands, set @code{VERBOSE=1} on the command line or in
+@file{local.make} at the top of the build tree.
+
+Similarly, to reduce the verbosity, set @code{SILENT=1}.  Because
+of the way these options are implemented, @command{make -s} does
+not serve this purpose.
 
 @node Post-compilation options
 @section Post-compilation options
