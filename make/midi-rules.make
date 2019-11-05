@@ -17,9 +17,11 @@ $(outdir)/recovered/%-midi.ly: $(outdir)/%.midi $(MIDI2LY)
 	$(PYTHON) $(MIDI2LY) $(shell cat $(outdir)/$*.options) --quiet --include-header=$(outdir)/$*.header -o $@ $<
 
 $(outdir)/%.diff: %.ly $(outdir)/recovered/%-midi.ly
-	$(call ly_progress,Making,$@,)
-	$(DIFF) -puN $(MIDI2LY_IGNORE_RES) $^ > $@ || cat $@
+#	no ly_progress here because this is pretty fast and we'll
+#	probably log the more interesting "note: ..." below anyway
+	-$(DIFF) -puN $(MIDI2LY_IGNORE_RES) $^ > $@
 
 $(outdir)/midi.diff: $(OUT_DIFF_FILES)
-	$(call ly_progress,Making,$@,(cat))
+#	no ly_progress here because this is pretty fast
 	cat $(OUT_DIFF_FILES) > $@
+	[ ! -s $@ ] || echo "note: ly->midi->ly differences in $@" 2>&1
