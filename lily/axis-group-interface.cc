@@ -622,10 +622,10 @@ staff_priority_less (Grob *const &g1, Grob *const &g2)
     return false;
 
   /* if neither grob has an outside-staff priority, the ordering will have no
-     effect -- we just need to choose a consistent ordering. We do this to
-     avoid the side-effect of calculating extents. */
-  if (isinf (priority_1))
-    return g1 < g2;
+     effect and we assume the two grobs to be equal (none of the two is less).
+     We do this to avoid the side-effect of calculating extents. */
+  if (isinf (priority_1) && isinf (priority_2))
+    return false;
 
   /* if there is no preference in staff priority, choose the left-most one */
   Grob *common = g1->common_refpoint (g2, X_AXIS);
@@ -892,7 +892,7 @@ Axis_group_interface::skyline_spacing (Grob *me)
     if (scm_is_number (elements[i]->get_property ("outside-staff-priority")))
       elements[i]->extent (elements[i], X_AXIS);
 
-  vector_sort (elements, staff_priority_less);
+  vector_stable_sort (elements, staff_priority_less);
   Grob *x_common = common_refpoint_of_array (elements, me, X_AXIS);
   Grob *y_common = common_refpoint_of_array (elements, me, Y_AXIS);
 
