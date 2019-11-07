@@ -958,7 +958,7 @@ class Syllabic(Music_xml_node):
 
 class Lyric(Music_xml_node):
 
-    def number(self):
+    def get_number(self):
         """
         Return the number attribute(if it exists) of the lyric element.
 
@@ -966,7 +966,7 @@ class Lyric(Music_xml_node):
         @return: The value of the number attribute
         """
         if hasattr(self, 'number'):
-            return self.number
+            return int(self.number)
         else:
             return -1
 
@@ -1240,7 +1240,7 @@ class Musicxml_voice:
           self.has_lyrics = len(lyrics) > 0
 
         for l in lyrics:
-            nr = l.number
+            nr = l.get_number()
             if(nr > 0) and not(nr in self._lyrics):
                 self._lyrics.append(nr)
 

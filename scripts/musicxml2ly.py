@@ -2129,7 +2129,7 @@ def get_all_lyric_parts_in_voice(voice):
         lyrics = elem.get_typed_children(musicxml.Lyric)
         if lyrics:
             for lyric in lyrics:
-                index = lyric.number
+                index = lyric.get_number()
                 if not index in all_lyric_parts:
                     all_lyric_parts.append(index)
     return all_lyric_parts
@@ -2156,17 +2156,17 @@ def extract_lyrics(voice, lyric_key, lyrics_dict):
 
     def has_lyric_belonging_to_lyric_part(note, lyric_part_id):
         lyric_elements = get_lyric_elements(note)
-        lyric_numbers = [lyric.number for lyric in lyric_elements]
+        lyric_numbers = [lyric.get_number() for lyric in lyric_elements]
         return any([lyric_number == lyric_part_id for lyric_number in lyric_numbers])
 
     for idx, elem in enumerate(voice._elements):
         lyrics = get_lyric_elements(elem)
-        lyric_keys = [lyric.number for lyric in lyrics]
+        lyric_keys = [lyric.get_number() for lyric in lyrics]
         note_has_lyric_belonging_to_lyric_part = lyric_key in lyric_keys
         # Current note has lyric with 'number' matching 'lyric_key'.
         if note_has_lyric_belonging_to_lyric_part:
             for lyric in lyrics:
-                if lyric.number == lyric_key:
+                if lyric.get_number() == lyric_key:
                     text = musicxml_lyrics_to_text(lyric, None)
                     result.append(text)
         # Note has any lyric.
