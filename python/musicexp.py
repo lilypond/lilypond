@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+
+from __future__ import division
+
 import inspect
 import sys
 import re
@@ -396,7 +399,7 @@ class Pitch:
         while c.step < 0:
             c.step += 7
             c.octave -= 1
-        c.octave += c.step / 7
+        c.octave += c.step // 7
         c.step = c.step % 7
 
     def lisp_expression (self):
@@ -461,9 +464,9 @@ class Pitch:
         pitch_diff = (this_pitch_steps - previous_pitch_steps)
         previous_pitch = self
         if pitch_diff > 3:
-            return "'" * ((pitch_diff + 3) / 7)
+            return "'" * ((pitch_diff + 3) // 7)
         elif pitch_diff < -3:
-            return "," * ((-pitch_diff + 3) / 7)
+            return "," * ((-pitch_diff + 3) // 7)
         else:
             return ""
 

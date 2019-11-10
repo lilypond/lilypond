@@ -1,5 +1,8 @@
 #!@TARGET_PYTHON@
 # -*- coding: utf-8 -*-
+
+from __future__ import division
+
 import optparse
 import sys
 import re
@@ -855,7 +858,7 @@ def musicxml_transpose_to_lily(attributes):
         (3, 0), (3, 1), (4, 0), (5, -1), (5, 0),
         (6, -1), (6, 0)][chromatic_shift_normalized];
 
-    shift.octave += (chromatic_shift - chromatic_shift_normalized) / 12
+    shift.octave += (chromatic_shift - chromatic_shift_normalized) // 12
 
     diatonic = transpose.get_maybe_exist_named_child('diatonic')
     if diatonic:

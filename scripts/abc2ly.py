@@ -86,6 +86,8 @@
 #
 
 
+from __future__ import division
+
 import __main__
 import getopt
 import sys
@@ -373,7 +375,7 @@ def semitone_pitch  (tup):
     p =0
 
     t = tup[0]
-    p = p + 12 * (t / 7)
+    p = p + 12 * (t // 7)
     t = t % 7
 
     if t > 2:
@@ -471,10 +473,10 @@ def shift_key (note, acc, shift):
     s = semitone_pitch((note, acc))
     s = (s + shift + 12) % 12
     if s <= 4:
-        n = s / 2
+        n = s // 2
         a = s % 2
     else:
-        n = (s + 1) / 2
+        n = (s + 1) // 2
         a = (s + 1) % 2
     if a:
         n = n + 1

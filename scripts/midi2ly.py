@@ -25,6 +25,8 @@
 TODO:
 '''
 
+from __future__ import division
+
 import os
 import sys
 
@@ -254,7 +256,7 @@ class Note:
             commas = self.octave
         else:
             delta = self.pitch - reference_note.pitch
-            commas = sign (delta) * (abs (delta) / 12)
+            commas = sign (delta) * (abs (delta) // 12)
             if (((sign (delta)
                   * (self.notename - reference_note.notename) + 7)
                  % 7 >= 4)
@@ -768,7 +770,7 @@ def number2ascii (i):
     while i > 0:
         m = (i - 1) % 26
         s = '%c' % (m + ord ('A')) + s
-        i = (i - m)/26
+        i = (i - m) // 26
     return s
 
 def get_track_name (i):
