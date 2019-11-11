@@ -124,14 +124,8 @@ the top level source directory.
 
 This sets another load of variables, and then includes (i.e.
 immediately runs) @file{stepmake.make} from the @file{make}
-subdirectory.  This sets a load of other variables, does some
-testing to see if SCONS (another build tool?) is being used, and
+subdirectory.  This sets a load of other variables, and
 then runs @file{make/config.make} - which doesn't seem to exist...
-
-GP: scons is indeed a different build tool; I think that Jan
-experimented with it 5 years ago or something.  It seems like we
-still have bits and pieces of it floating around.
-
 Next, it runs @file{make/toplevel-version.make}, which sets the
 version variables for major, minor, patch, stable, development and
 mypatchlevel (which seems to be used for patch numbers for
