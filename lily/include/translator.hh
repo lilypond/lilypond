@@ -75,12 +75,18 @@ Translator_creator::allocate (Context *ctx)
   public:                                                               \
   DECLARE_CLASSNAME (NAME);                                             \
   virtual void fetch_precomputable_methods (SCM methods[]);             \
-  DECLARE_TRANSLATOR_CALLBACKS (NAME);                                  \
-  TRANSLATOR_INHERIT (Translator);                                      \
+  /* Fallback for non-overriden callbacks for which &T::x degrades to   \
+     &Translator::x */                                                  \
+  template <void (Translator::*)()>                                     \
+  static SCM method_finder ()                                           \
+  {                                                                     \
+    return SCM_UNDEFINED;                                               \
+  }                                                                     \
+  DECLARE_TRANSLATOR_CALLBACKS (NAME)                                   \
   /* end #define */
 
 #define TRANSLATOR_INHERIT(BASE)                                        \
-  using BASE::method_finder
+  DECLARE_TRANSLATOR_CALLBACKS (BASE)
 
 #define DECLARE_TRANSLATOR_CALLBACKS(NAME)                              \
   template <void (NAME::*mf)()>                                         \
@@ -196,12 +202,6 @@ protected:                      // should be private.
     (t->*callback) (unsmob<Stream_event> (event));
     return SCM_UNSPECIFIED;
   }
-
-  // Fallback for non-overriden callbacks for which &T::x degrades to
-  // &Translator::x
-  template <void (Translator::*)()>
-  static SCM
-  method_finder () { return SCM_UNDEFINED; }
 
   virtual void derived_mark () const;
   static SCM event_class_symbol (const char *ev_class);
