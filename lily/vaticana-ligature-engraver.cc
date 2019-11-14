@@ -78,6 +78,7 @@ private:
 public:
   TRANSLATOR_DECLARATIONS (Vaticana_ligature_engraver);
   TRANSLATOR_INHERIT (Gregorian_ligature_engraver);
+  TRANSLATOR_INHERIT (Ligature_engraver);
 protected:
   virtual Spanner *create_ligature_spanner ();
   virtual void transform_heads (Spanner *ligature,
