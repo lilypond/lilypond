@@ -327,7 +327,7 @@ test: test-pre
 	@echo
 	@echo '    grep sourcefilename `grep -L systems.texi out/lybook-testdb/*/*log|sed s/log/ly/g`'
 	@echo
-	$(MAKE) -C input/regression out=test lysdoc-test
+	$(MAKE) -C input/regression out=test lysdoc-gittxt lysdoc-test
 	$(MAKE) -C input/regression/midi out=test lysdoc-test
 	$(MAKE) -C input/regression/musicxml out=test lysdoc-test
 	$(MAKE) -C input/regression/abc2ly out=test lysdoc-test

@@ -14,10 +14,10 @@ local-test-baseline:
 	  rm -rf share && \
 	  ln -sf ../$(depth)/out-baseline/share )
 
-lysdoc-test:
-#       Creating collated-files.texi also produces the tested output.
-#       Removing it works around incomplete dependencies.
-	rm -f $(outdir)/collated-files.texi
+# This recipe creates the same content regardless of the subdir it
+# runs in, so it needs to be run in only one subdir to serve its
+# purpose.  Any more would be noise in the test output.
+lysdoc-gittxt:
 	if test -d $(top-src-dir)/.git  ; then \
 		cd $(top-src-dir) ; \
 		BR=`LANG=c git branch | grep "^\*" | sed -e "s|^* *||"` ; \
@@ -39,7 +39,13 @@ lysdoc-test:
 			git log --max-count=10 --pretty=format:"      HASH: %H%nSUBJECT: %s%n" ; \
 		fi ; \
 		echo "" ; \
+		date ; \
 	fi > $(outdir)/tree.gittxt
+
+lysdoc-test:
+#       Creating collated-files.texi also produces the tested output.
+#       Removing it works around incomplete dependencies.
+	rm -f $(outdir)/collated-files.texi
 ifeq ($(USE_EXTRACTPDFMARK),yes)
 	$(MAKE) LILYPOND_BOOK_LILYPOND_FLAGS="-dbackend=eps --formats=ps $(LILYPOND_JOBS) -dseparate-log-files -dinclude-eps-fonts -dgs-load-fonts --header=texidoc -I $(top-src-dir)/Documentation/included/ -ddump-profile -dcheck-internal-types -ddump-signatures -danti-alias-factor=1 -dfont-export-dir=$(top-build-dir)/out-fonts -O TeX-GS" LILYPOND_BOOK_WARN= $(outdir)/collated-files.html LYS_OUTPUT_DIR=$(top-build-dir)/out/lybook-testdb
 else
