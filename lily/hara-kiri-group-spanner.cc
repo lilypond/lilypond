@@ -60,13 +60,13 @@ Hara_kiri_group_spanner::pure_height (SCM smob, SCM start_scm, SCM end_scm)
 
 /* there is probably a way that doesn't involve re-implementing a binary
    search (I would love some proper closures right now) */
-bool find_in_range (SCM vector, int low, int hi, int min, int max)
+bool find_in_range (SCM vector, vsize low, vsize hi, vsize min, vsize max)
 {
   if (low >= hi)
     return false;
 
-  int mid = low + (hi - low) / 2;
-  int val = scm_to_int (scm_c_vector_ref (vector, mid));
+  vsize mid = low + (hi - low) / 2;
+  vsize val = scm_to_size_t (scm_c_vector_ref (vector, mid));
   if (val >= min && val <= max)
     return true;
   else if (val < min)
@@ -75,7 +75,7 @@ bool find_in_range (SCM vector, int low, int hi, int min, int max)
 }
 
 bool
-Hara_kiri_group_spanner::request_suicide (Grob *me, int start, int end)
+Hara_kiri_group_spanner::request_suicide (Grob *me, vsize start, vsize end)
 {
   extract_grob_set (me, "make-dead-when", foes);
   for (vsize i = 0; i < foes.size (); i++)
@@ -94,7 +94,7 @@ Hara_kiri_group_spanner::request_suicide (Grob *me, int start, int end)
 }
 
 bool
-Hara_kiri_group_spanner::request_suicide_alone (Grob *me, int start, int end)
+Hara_kiri_group_spanner::request_suicide_alone (Grob *me, vsize start, vsize end)
 {
   if (!to_boolean (me->get_property ("remove-empty")))
     return false;
@@ -106,7 +106,7 @@ Hara_kiri_group_spanner::request_suicide_alone (Grob *me, int start, int end)
   SCM important = me->get_property ("important-column-ranks");
   if (scm_is_vector (important))
     {
-      int len = scm_c_vector_length (important);
+      vsize len = scm_c_vector_length (important);
       if (find_in_range (important, 0, len, start, end))
         return false;
     }
@@ -126,7 +126,7 @@ Hara_kiri_group_spanner::request_suicide_alone (Grob *me, int start, int end)
 
       SCM scm_vec = scm_c_make_vector (ranks.size (), SCM_EOL);
       for (vsize i = 0; i < ranks.size (); i++)
-        scm_vector_set_x (scm_vec, scm_from_int (i), scm_from_int (ranks[i]));
+        scm_c_vector_set_x (scm_vec, i, scm_from_int (ranks[i]));
       me->set_property ("important-column-ranks", scm_vec);
 
       return request_suicide (me, start, end);

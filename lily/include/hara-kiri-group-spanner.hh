@@ -31,8 +31,8 @@ public:
   DECLARE_SCHEME_CALLBACK (calc_skylines, (SCM smob));
   DECLARE_SCHEME_CALLBACK (pure_height, (SCM smob, SCM start, SCM end));
   DECLARE_SCHEME_CALLBACK (force_hara_kiri_in_y_parent_callback, (SCM));
-  static bool request_suicide (Grob *me, int start, int end);
-  static bool request_suicide_alone (Grob *me, int start, int end);
+  static bool request_suicide (Grob *me, vsize start, vsize end);
+  static bool request_suicide_alone (Grob *me, vsize start, vsize end);
   static void consider_suicide (Grob *me);
   static void add_interesting_item (Grob *me, Grob *n);
 };
