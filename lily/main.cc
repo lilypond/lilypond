@@ -221,9 +221,9 @@ dir_info (FILE *out)
   env_var_info (out, "LILYPOND_LOCALEDIR");
   env_var_info (out, "LILYPOND_RELOCDIR");
 
-  fprintf (out, _f ("\n"
-                    "Effective prefix: '%s'\n",
-                    lilypond_datadir).c_str ());
+  fputs (_f ("\n"
+             "Effective prefix: '%s'\n",
+             lilypond_datadir).c_str (), out);
 
   env_var_info (out, "FONTCONFIG_FILE");
   env_var_info (out, "FONTCONFIG_PATH");
