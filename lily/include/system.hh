@@ -77,6 +77,11 @@ public:
 
   System (SCM);
   System (System const &);
+  System *original () const
+  {
+    // safe: if there is an original, it is because this was cloned from it
+    return static_cast<System *> (Spanner::original ());
+  }
 
   int element_count () const;
   int spanner_count () const;

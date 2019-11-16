@@ -34,6 +34,12 @@ public:
   Paper_column (Paper_column const &);
 
   virtual Paper_column *clone () const { return new Paper_column (*this); }
+  Paper_column *original () const
+  {
+    // safe: if there is an original, it is because this was cloned from it
+    return static_cast<Paper_column *> (Item::original ());
+  }
+
   virtual void do_break_processing ();
   virtual Paper_column *get_column () const;
   virtual System *get_system () const;

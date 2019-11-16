@@ -37,6 +37,11 @@ public:
   Item (Item const &);
 
   virtual Item *clone () const { return new Item (*this); }
+  Item *original () const
+  {
+    // safe: if there is an original, it is because this was cloned from it
+    return static_cast<Item *> (Grob::original ());
+  }
 
   static bool is_non_musical (Grob *);
   static bool break_visible (Grob *);

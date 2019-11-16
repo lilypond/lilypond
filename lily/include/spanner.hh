@@ -79,6 +79,11 @@ public:
 
   Spanner (SCM);
   Spanner (Spanner const &);
+  Spanner *original () const
+  {
+    // safe: if there is an original, it is because this was cloned from it
+    return static_cast<Spanner *> (Grob::original ());
+  }
   bool is_broken () const;
   void do_break ();
   Real spanner_length () const;
