@@ -29,11 +29,12 @@ using namespace std;
 #include "sources.hh"
 #include "warn.hh"
 
-Input::Input (Input const &i)
+Input& Input::operator= (Input const &i)
 {
   source_file_ = i.source_file_;
   start_ = i.start_;
   end_ = i.end_;
+  return *this;
 }
 
 Input::Input ()

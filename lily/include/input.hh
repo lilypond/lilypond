@@ -65,7 +65,10 @@ public:
 
   void get_counts (int *, int *, int *, int *) const;
 
-  Input (Input const &i);
+  // TODO: Once we are willing to require C++11, use "= default;" for
+  // assignment and copy construction.
+  Input& operator= (Input const &);
+  Input (Input const &i) { *this = i; }
   Input ();
 
   friend string source_location (const Input &input) // for logging
