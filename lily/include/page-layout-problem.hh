@@ -82,6 +82,9 @@ protected:
     {
       prob = p;
       padding = pad;
+      // min_distance is initialized to avoid -Wmaybe-uninitialized warnings
+      // which are possibly false positives.
+      min_distance = 0;
     }
   } Element;
 
