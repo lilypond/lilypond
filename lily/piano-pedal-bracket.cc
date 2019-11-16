@@ -33,7 +33,7 @@ SCM
 Piano_pedal_bracket::print (SCM smob)
 {
   Spanner *me = unsmob<Spanner> (smob);
-  Spanner *orig = dynamic_cast<Spanner *> (me->original ());
+  Spanner *orig = me->original ();
 
   Drul_array<bool> broken (false, false);
   Drul_array<Real> height = robust_scm2drul

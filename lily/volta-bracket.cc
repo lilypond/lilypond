@@ -48,13 +48,12 @@ SCM
 Volta_bracket_interface::print (SCM smob)
 {
   Spanner *me = unsmob<Spanner> (smob);
-  Spanner *orig_span = dynamic_cast<Spanner *> (me->original ());
-  bool broken_first_bracket = orig_span && (orig_span->broken_intos_[0]
-                                            == (Spanner *)me);
+  Spanner *orig_span = me->original ();
+  bool broken_first_bracket = orig_span && (orig_span->broken_intos_[0] == me);
 
   Output_def *layout = me->layout ();
 
-  Item *bound = dynamic_cast<Spanner *> (me)->get_bound (LEFT);
+  Item *bound = me->get_bound (LEFT);
 
   /*
     If the volta bracket appears after a line-break, make
@@ -118,10 +117,10 @@ Volta_bracket_interface::print (SCM smob)
 void
 Volta_bracket_interface::modify_edge_height (Spanner *me)
 {
-  Spanner *orig_span = dynamic_cast<Spanner *> (me->original ());
+  Spanner *orig_span = me->original ();
 
-  bool broken_first_bracket = orig_span && (orig_span->broken_intos_[0] == (Spanner *)me);
-  bool broken_last_bracket = orig_span && (orig_span->broken_intos_.back () == (Spanner *)me);
+  bool broken_first_bracket = orig_span && (orig_span->broken_intos_[0] == me);
+  bool broken_last_bracket = orig_span && (orig_span->broken_intos_.back () == me);
   bool no_vertical_start = orig_span && !broken_first_bracket;
   bool no_vertical_end = orig_span && !broken_last_bracket;
 

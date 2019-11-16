@@ -145,7 +145,7 @@ Spanner::set_my_columns ()
   for (LEFT_and_RIGHT (d))
     {
       if (!spanned_drul_[d]->get_system ())
-        set_bound (d, spanned_drul_[d]->find_prebroken_piece ((Direction) - d));
+        set_bound (d, spanned_drul_[d]->find_prebroken_piece (-d));
     }
 }
 
@@ -441,7 +441,7 @@ Spanner::calc_normalized_endpoints (SCM smob)
   Spanner *me = unsmob<Spanner> (smob);
   SCM result = SCM_EOL;
 
-  Spanner *orig = dynamic_cast<Spanner *> (me->original ());
+  Spanner *orig = me->original ();
 
   orig = orig ? orig : me;
 

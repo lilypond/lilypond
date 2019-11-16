@@ -98,7 +98,7 @@ set_loose_columns (System *which, Column_x_positions const *posns)
       else
         {
           clique.back ()->programming_error ("Loose column does not have right side to attach to.");
-          System *base_system = dynamic_cast<System *> (which->original ());
+          System *base_system = which->original ();
           int j = Paper_column::get_rank (clique.back ()) + 1;
           int end_rank = Paper_column::get_rank (which->get_bound (RIGHT));
           extract_grob_set (base_system, "columns", base_cols);

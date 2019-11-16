@@ -60,9 +60,8 @@ SCM
 Balloon_interface::print_spanner (SCM smob)
 {
   Spanner *me = unsmob<Spanner> (smob);
-  Spanner *orig = dynamic_cast<Spanner *> (me->original ());
 
-  if (orig)
+  if (Spanner *orig = me->original ())
     {
       Direction spanner_placement = robust_scm2dir (me->get_property ("spanner-placement"), LEFT);
 

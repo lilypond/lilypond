@@ -222,7 +222,7 @@ void Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> y
   align_broken_intos_ = align_broken_intos;
   if (align_broken_intos_)
     {
-      Spanner *orig = dynamic_cast<Spanner *> (beam_->original ());
+      Spanner *orig = beam_->original ();
       if (!orig)
         align_broken_intos_ = false;
       else if (!orig->broken_intos_.size ())

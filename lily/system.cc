@@ -247,9 +247,8 @@ System::get_footnote_grobs_in_range (vsize start, vsize end)
             spanner_placement = LEFT;
 
           pos = s->spanned_rank_interval ()[spanner_placement];
-          if (s->original ())
+          if (Spanner *orig = s->original ())
             {
-              Spanner *orig = dynamic_cast<Spanner *>(s->original ());
               at_bat = spanner_placement == LEFT ? orig->broken_intos_[0] : orig->broken_intos_.back ();
               pos = at_bat->spanned_rank_interval ()[RIGHT];
             }
@@ -651,7 +650,7 @@ System::get_paper_system ()
   pl->set_property ("page-break-penalty", right_bound->get_property ("page-break-penalty"));
   pl->set_property ("page-turn-penalty", right_bound->get_property ("page-turn-penalty"));
 
-  if (right_bound->original () == dynamic_cast<System *> (original ())->get_bound (RIGHT))
+  if (right_bound->original () == original ()->get_bound (RIGHT))
     pl->set_property ("last-in-score", SCM_BOOL_T);
 
   Interval staff_refpoints;

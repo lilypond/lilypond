@@ -120,10 +120,8 @@ Item::find_broken_piece (System *l) const
 Direction
 Item::break_status_dir () const
 {
-  if (original ())
+  if (Item *i = original ())
     {
-      Item *i = static_cast<Item *> (original ());
-
       return (i->broken_to_drul_[LEFT] == this) ? LEFT : RIGHT;
     }
   else

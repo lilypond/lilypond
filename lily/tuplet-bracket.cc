@@ -151,7 +151,7 @@ Tuplet_bracket::calc_connect_to_neighbors (SCM smob)
   for (LEFT_and_RIGHT (d))
     {
       Direction break_dir = bounds[d]->break_status_dir ();
-      Spanner *orig_spanner = dynamic_cast<Spanner *> (me->original ());
+      Spanner *orig_spanner = me->original ();
       vsize neighbor_idx = me->get_break_index () - break_dir;
       if (break_dir
           && d == RIGHT

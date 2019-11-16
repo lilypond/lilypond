@@ -138,7 +138,7 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
         {
           if (to_boolean (me->get_property ("simple-Y")))
             {
-              Spanner *orig = dynamic_cast<Spanner *>(me->original ());
+              Spanner *orig = me->original ();
               Spanner *extreme = dir == LEFT ? orig->broken_intos_.front () : orig->broken_intos_.back ();
               Grob *e_bound = extreme->get_bound (dir);
               Grob *e_common_y = extreme->common_refpoint (e_bound, Y_AXIS);
