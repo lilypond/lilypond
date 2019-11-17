@@ -605,7 +605,9 @@ AC_DEFUN(STEPMAKE_GUILE, [
     guile="guile"
     found="no"
     for r in $GUILE guile guile2 guile2.0 guile-2.0 \
-             guile1 guile1.9 guile1.8 guile-1 guile-1.9 guile-1.8; do
+             guile1 guile19 guile18 \
+             guile1.9 guile1.8 \
+             guile-1 guile-1.9 guile-1.8; do
         exe=`STEPMAKE_GET_EXECUTABLE($r)`
         if ! $exe --version > /dev/null 2>&1 ; then
             continue
@@ -690,7 +692,8 @@ AC_DEFUN(STEPMAKE_GUILE_DEVEL, [
              guile2.0-config guile-2.0-config guile-config-2.0 guile-config2.0 \
              guile1-config   guile-1-config   guile-config-1   guile-config1 \
              guile1.9-config guile-1.9-config guile-config-1.9 guile-config1.9 \
-             guile1.8-config guile-1.8-config guile-config-1.8 guile-config1.8; do
+             guile1.8-config guile-1.8-config guile-config-1.8 guile-config1.8 \
+             guile18-config; do
         exe=`STEPMAKE_GET_EXECUTABLE($r)`
         if ! $exe --version > /dev/null 2>&1 ; then
             continue
