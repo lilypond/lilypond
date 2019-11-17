@@ -739,7 +739,7 @@ AC_DEFUN(STEPMAKE_GUILE_DEVEL, [
     save_LIBS="$LIBS"
     CPPFLAGS="$GUILE_CFLAGS $CPPFLAGS"
     LIBS="$GUILE_LDFLAGS $LIBS"
-    AC_CHECK_HEADERS([libguile.h])
+    AC_CHECK_HEADERS([libguile.h libguile18.h])
     AC_CHECK_LIB(guile, scm_boot_guile)
     AC_CHECK_FUNCS(scm_boot_guile,,libguile_b=no)
     if test "$libguile_b" = "no"; then

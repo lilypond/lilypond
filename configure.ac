@@ -207,10 +207,18 @@ save_CXXFLAGS="$CXXFLAGS"
 CXXFLAGS="$GUILE_CFLAGS $CXXFLAGS"
 AC_CHECK_TYPES([scm_t_hash_fold_fn, scm_t_hash_handle_fn],
 	       [AC_DEFINE(HAVE_GUILE_HASH_FUNC)], [],
-	       [#include <libguile.h>])
+	       [[#if HAVE_LIBGUILE18_H
+# include <libguile18.h>
+#else
+# include <libguile.h>
+#endif]])
 AC_CHECK_TYPES([scm_t_subr],
 	       [AC_DEFINE(HAVE_GUILE_SUBR_TYPE)], [],
-	       [#include <libguile.h>])
+	       [[#if HAVE_LIBGUILE18_H
+# include <libguile18.h>
+#else
+# include <libguile.h>
+#endif]])
 CXXFLAGS="$save_CXXFLAGS"
 
 # -Wcast-function-type was added to GCC in version 8.  The Guile
@@ -263,7 +271,11 @@ AC_SUBST(CXXABI_LIBS)
 save_CPPFLAGS="$CPPFLAGS"
 CPPFLAGS="$GUILE_CFLAGS $CPPFLAGS"
 AC_MSG_CHECKING(GUILE rational bugfix)
-AC_PREPROC_IFELSE([AC_LANG_SOURCE([[#include <libguile.h>
+AC_PREPROC_IFELSE([AC_LANG_SOURCE([[#if HAVE_LIBGUILE18_H
+# include <libguile18.h>
+#else
+# include <libguile.h>
+#endif
 #ifdef SCM_FRACTION_REDUCED_BIT
 #error
 #endif

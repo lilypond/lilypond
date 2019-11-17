@@ -19,7 +19,6 @@
 #ifndef LY_MODULE_HH
 #define LY_MODULE_HH
 
-#include "config.hh"
 #include "lily-guile.hh"
 
 SCM ly_make_module (bool safe);
