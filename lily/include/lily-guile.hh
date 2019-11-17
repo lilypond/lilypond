@@ -20,11 +20,17 @@
 #ifndef LILY_GUILE_HH
 #define LILY_GUILE_HH
 
+#include "config.hh"
+
 #if __MINGW32__
 #include "mingw-compatibility.hh"
 #endif
 
-#include <libguile.h>
+#if HAVE_LIBGUILE18_H
+# include <libguile18.h>
+#else
+# include <libguile.h>
+#endif
 #include <string.h>
 
 /*
