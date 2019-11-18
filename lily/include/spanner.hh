@@ -88,7 +88,6 @@ public:
   void do_break ();
   Real spanner_length () const;
 
-  static int compare (Spanner *const &, Spanner *const &);
   static bool less (Spanner *const &, Spanner *const &);
   virtual Spanner *find_broken_piece (System *) const;
   virtual void derived_mark () const;

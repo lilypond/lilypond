@@ -311,12 +311,6 @@ Spanner::broken_neighbor (Direction d) const
   return orig->broken_intos_[j];
 }
 
-int
-Spanner::compare (Spanner *const &p1, Spanner *const &p2)
-{
-  return p1->get_system ()->get_rank () - p2->get_system ()->get_rank ();
-}
-
 bool
 Spanner::less (Spanner *const &a, Spanner *const &b)
 {
