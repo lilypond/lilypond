@@ -18,6 +18,7 @@
 */
 
 #include <algorithm>
+#include <limits>
 
 #include "system.hh"
 
@@ -443,7 +444,14 @@ System::break_into_pieces (vector<Column_x_positions> const &breaking)
   for (vsize i = 0; i < breaking.size (); i++)
     {
       System *system = clone ();
-      system->rank_ = broken_intos_.size ();
+
+      // set rank
+      {
+        vsize rank = broken_intos_.size ();
+        if (rank >= std::numeric_limits<rank_type>::max ())
+          programming_error ("too many systems");
+        system->rank_ = static_cast<rank_type> (rank);
+      }
 
       vector<Grob *> const &c (breaking[i].cols_);
       pscore_->typeset_system (system);
@@ -740,12 +748,6 @@ Paper_score *
 System::paper_score () const
 {
   return pscore_;
-}
-
-int
-System::get_rank () const
-{
-  return rank_;
 }
 
 System *

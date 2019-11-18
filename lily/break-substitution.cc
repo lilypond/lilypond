@@ -25,6 +25,9 @@ using namespace std;
 #include "system.hh"
 #include "grob-array.hh"
 
+// TODO: int is wider than necessary.  Consider changing it to
+// System::rank_type.  For now, the decision is not to introduce a new
+// instantiation of Interval_t<>.
 typedef Interval_t<int> System_range;
 
 static SCM break_criterion;
@@ -251,9 +254,8 @@ struct Substitution_entry
 {
   Grob *grob_;
 
-  /* Assumption: we have less than 32k paper columns. */
-  short left_;
-  short right_;
+  System::rank_type left_;
+  System::rank_type right_;
 
   void set (Grob *g, System_range sr)
   {
@@ -271,8 +273,8 @@ struct Substitution_entry
       }
     else
       {
-        left_ = (short) sr[LEFT];
-        right_ = (short) sr[RIGHT];
+        left_ = static_cast<System::rank_type> (sr[LEFT]);
+        right_ = static_cast<System::rank_type> (sr[RIGHT]);
       }
   }
   Substitution_entry ()

@@ -20,6 +20,7 @@
 #ifndef SYSTEM_HH
 #define SYSTEM_HH
 
+#include <cstdint>
 #include <limits>
 
 #include "column-x-positions.hh"
@@ -34,7 +35,11 @@
 */
 class System : public Spanner
 {
-  int rank_;
+public:
+  typedef int16_t rank_type;
+
+private:
+  rank_type rank_;
   Grob_array *all_elements_;
   void init_elements ();
   friend class Paper_score;     // ugh.
@@ -51,7 +56,7 @@ public:
   }
   Grob *get_pure_bound (Direction dir, int start, int end);
   Grob *get_maybe_pure_bound (Direction dir, bool pure, int start, int end);
-  int get_rank () const;
+  rank_type get_rank () const { return rank_; }
   vector<Real> get_footnote_heights_in_range (vsize st, vsize end);
   vector<Real> get_in_note_heights_in_range (vsize st, vsize end);
   vector<Real> internal_get_note_heights_in_range (vsize st, vsize end, bool foot);
