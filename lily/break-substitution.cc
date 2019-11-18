@@ -25,6 +25,8 @@ using namespace std;
 #include "system.hh"
 #include "grob-array.hh"
 
+typedef Interval_t<int> System_range;
+
 static SCM break_criterion;
 void
 set_break_substitution (SCM criterion)
@@ -197,29 +199,32 @@ again:
   moz-k498-p1, before 24.10, after: 19.790s, Increase of 18%
 */
 
-Slice
+System_range
 spanner_system_range (Spanner *sp)
 {
-  Slice rv;
+  System_range rv;
 
   if (System *st = sp->get_system ())
-    rv = Slice (st->get_rank (), st->get_rank ());
+    rv = System_range (st->get_rank (), st->get_rank ());
   else
     {
-      if (sp->broken_intos_.size ())
-        rv = Slice (sp->broken_intos_[0]->get_system ()->get_rank (),
-                    sp->broken_intos_.back ()->get_system ()->get_rank ());
+      vector<Spanner *> const &bs = sp->broken_intos_;
+      if (!bs.empty ())
+        {
+          rv = System_range (bs.front ()->get_system ()->get_rank (),
+                             bs.back ()->get_system ()->get_rank ());
+        }
     }
   return rv;
 }
 
-Slice
+System_range
 item_system_range (Item *it)
 {
   if (System *st = it->get_system ())
-    return Slice (st->get_rank (), st->get_rank ());
+    return System_range (st->get_rank (), st->get_rank ());
 
-  Slice sr;
+  System_range sr;
   for (LEFT_and_RIGHT (d))
     {
       Item *bi = it->find_prebroken_piece (d);
@@ -230,15 +235,16 @@ item_system_range (Item *it)
   return sr;
 }
 
-Slice
+System_range
 grob_system_range (Grob *g)
 {
+  // ugh: looks like a job for a virtual method
   if (Spanner *s = dynamic_cast<Spanner *> (g))
     return spanner_system_range (s);
   else if (Item *it = dynamic_cast<Item *> (g))
     return item_system_range (it);
   else
-    return Slice ();
+    return System_range ();
 }
 
 struct Substitution_entry
@@ -249,7 +255,7 @@ struct Substitution_entry
   short left_;
   short right_;
 
-  void set (Grob *g, Slice sr)
+  void set (Grob *g, System_range sr)
   {
     grob_ = g;
     /*
@@ -300,6 +306,8 @@ Spanner::fast_substitute_grob_array (SCM sym,
   if (grob_array->ordered ())
     return false;
 
+  // TODO: Was this chosen after profiling in 2005?  Maybe it should be
+  // revisited.
   if (len < 15)
     return false;
 
@@ -317,7 +325,7 @@ Spanner::fast_substitute_grob_array (SCM sym,
       vec_room = len;
     }
 
-  Slice system_range = spanner_system_range (this);
+  System_range system_range = spanner_system_range (this);
 
   int spanner_index = len;
   int item_index = 0;
@@ -326,9 +334,10 @@ Spanner::fast_substitute_grob_array (SCM sym,
     {
       Grob *g = grob_array->grob (i);
 
-      Slice sr = grob_system_range (g);
+      System_range sr = grob_system_range (g);
       sr.intersect (system_range);
 
+      // ugh: maybe a job for a virtual method
       int idx = 0;
       if (dynamic_cast<Spanner *> (g))
         idx = --spanner_index;
