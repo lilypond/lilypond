@@ -30,7 +30,7 @@ class String_convert;
 using namespace std;
 
 template<class T> struct Interval_t;
-template<class T> struct PQueue;
+template<class T> class PQueue;
 template<class T, class A> class Matrix;
 
 typedef Interval_t<Real> Interval;
