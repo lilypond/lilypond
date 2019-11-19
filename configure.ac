@@ -215,13 +215,28 @@ AC_CHECK_TYPES([scm_t_subr],
 #endif]])
 CXXFLAGS="$save_CXXFLAGS"
 
+# Check if the compiler understands -Werror=unknown-warning-option.
+# This is important for Clang which otherwise just warns about unknown
+# options.  GCC doesn't need this option and always returns an error.
+# Unfortunately GCC doesn't support Clang's option either, so we can't
+# just add it for all cases.
+AC_MSG_CHECKING([whether $CXX supports -Werror=unknown-warning-option])
+save_CXXFLAGS="$CXXFLAGS"
+CXXFLAGS="-Werror=unknown-warning-option"
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([])],
+                  [AC_MSG_RESULT([yes])
+                   test_CXXFLAGS="-Werror=unknown-warning-option"],
+                  [AC_MSG_RESULT([no])
+                   test_CXXFLAGS=""])
+CXXFLAGS="$save_CXXFLAGS"
+
 # -Wcast-function-type was added to GCC in version 8.  The Guile
 # interface tends to trigger this warning, so disable it.
 # g++ -Wno-whatever may compile even when the compiler does not
 # support the warning, so we have to check for the warning itself.
 AC_MSG_CHECKING([whether $CXX supports -Wcast-function-type])
 save_CXXFLAGS="$CXXFLAGS"
-CXXFLAGS=-Wcast-function-type
+CXXFLAGS="$test_CXXFLAGS -Wcast-function-type"
 AC_COMPILE_IFELSE([AC_LANG_PROGRAM([])],
                   [AC_MSG_RESULT([yes])
                    CXXFLAGS="$save_CXXFLAGS -Wno-cast-function-type"],
@@ -235,7 +250,7 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([])],
 if test "$GUILEv2" != "yes"; then
     AC_MSG_CHECKING([whether $CXX supports -Wsequence-point])
     save_CXXFLAGS="$CXXFLAGS"
-    CXXFLAGS=-Wsequence-point
+    CXXFLAGS="$test_CXXFLAGS -Wsequence-point"
     AC_COMPILE_IFELSE([AC_LANG_PROGRAM([])],
                       [AC_MSG_RESULT([yes])
                        CXXFLAGS="$save_CXXFLAGS -Wno-sequence-point"],
