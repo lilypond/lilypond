@@ -16,7 +16,11 @@ $(outdir)/recovered/%-midi.ly: $(outdir)/%.midi $(MIDI2LY)
 	(echo '\header {'; for f in $(HEADER_FIELDS); do printf $$f'="'; cat $(outdir)/$*.$$f; echo '"'; done; echo '}') > $(outdir)/$*.header
 	$(PYTHON) $(MIDI2LY) $(shell cat $(outdir)/$*.options) --quiet --include-header=$(outdir)/$*.header -o $@ $<
 
-$(outdir)/%.diff: %.ly $(outdir)/recovered/%-midi.ly
+# We expect that the files to be compared have already been updated by
+# running make out=test ....  These prerequisites are not expected to
+# be sufficient to automatically retest them now, just to detect when
+# there are new results to be compared.
+$(outdir)/%.diff: %.ly $(outroot)/out-test/recovered/%-midi.ly
 #	no ly_progress here because this is pretty fast and we'll
 #	probably log the more interesting "note: ..." below anyway
 	-$(DIFF) -puN $(MIDI2LY_IGNORE_RES) $^ > $@
