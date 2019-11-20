@@ -77,7 +77,7 @@ Tie::head (Spanner *me, Direction d)
 int
 Tie::get_column_rank (Spanner *me, Direction d)
 {
-  return Paper_column::get_rank (me->get_bound (d)->get_column ());
+  return me->get_bound (d)->get_column ()->get_rank ();
 }
 
 int

@@ -280,15 +280,15 @@ Spacing_spanner::set_explicit_neighbor_columns (vector<Grob *> const &cols)
       for (vsize j = wishes.size (); j--;)
         {
           Item *wish = dynamic_cast<Item *> (wishes[j]);
-          Item *left_col = wish->get_column ();
-          int left_rank = Paper_column::get_rank (left_col);
+          Paper_column *left_col = wish->get_column ();
+          int left_rank = left_col->get_rank ();
           int min_right_rank = INT_MAX;
 
           extract_grob_set (wish, "right-items", right_items);
           for (vsize k = right_items.size (); k--;)
             {
-              Item *right_col = dynamic_cast<Item *> (right_items[k])->get_column ();
-              int right_rank = Paper_column::get_rank (right_col);
+              Paper_column *right_col = dynamic_cast<Item *> (right_items[k])->get_column ();
+              int right_rank = right_col->get_rank ();
 
               if (right_rank < min_right_rank)
                 {
@@ -296,8 +296,8 @@ Spacing_spanner::set_explicit_neighbor_columns (vector<Grob *> const &cols)
                   min_right_rank = right_rank;
                 }
 
-              Grob *old_left_neighbor = unsmob<Grob> (right_col->get_object ("left-neighbor"));
-              if (!old_left_neighbor || left_rank > Paper_column::get_rank (old_left_neighbor))
+              Paper_column *old_left_neighbor = unsmob<Paper_column> (right_col->get_object ("left-neighbor"));
+              if (!old_left_neighbor || left_rank > old_left_neighbor->get_rank ())
                 right_col->set_object ("left-neighbor", left_col->self_scm ());
             }
         }

@@ -158,7 +158,7 @@ Item::pure_is_visible (int start, int end) const
   if (scm_is_vector (vis))
     {
       int pos = 1;
-      int pc_rank = Paper_column::get_rank (get_column ());
+      int pc_rank = get_column ()->get_rank ();
       if (pc_rank == start)
         pos = 2;
       else if (pc_rank == end)

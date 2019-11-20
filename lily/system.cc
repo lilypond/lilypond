@@ -679,27 +679,24 @@ System::get_paper_system ()
 }
 
 vector<Item *>
-System::broken_col_range (Item const *left, Item const *right) const
+System::broken_col_range (Item const *left_item, Item const *right_item) const
 {
   vector<Item *> ret;
 
-  left = left->get_column ();
-  right = right->get_column ();
+  Paper_column *left_col = left_item->get_column ();
+  Paper_column *right_col = right_item->get_column ();
 
   extract_grob_set (this, "columns", cols);
 
-  vsize i = Paper_column::get_rank (left);
-  int end_rank = Paper_column::get_rank (right);
-  if (i < cols.size ())
-    i++;
-
-  while (i < cols.size ()
-         && Paper_column::get_rank (cols[i]) < end_rank)
+  vsize end_rank = std::min(static_cast<vsize> (right_col->get_rank ()),
+                            cols.size ());
+  for (vsize i = left_col->get_rank () + 1; i < end_rank; ++i)
     {
-      Paper_column *c = dynamic_cast<Paper_column *> (cols[i]);
-      if (Paper_column::is_breakable (c) && !c->get_system ())
-        ret.push_back (c);
-      i++;
+      if (Paper_column *c = dynamic_cast<Paper_column *> (cols[i]))
+        {
+          if (Paper_column::is_breakable (c) && !c->get_system ())
+            ret.push_back (c);
+        }
     }
 
   return ret;

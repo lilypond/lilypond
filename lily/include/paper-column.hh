@@ -61,7 +61,17 @@ public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM));
 
-  static int get_rank (Grob const *);
+  static int get_rank (Grob *me)
+  {
+    // TODO: Remove this function entirely and require callers to do this on
+    // their own.  That should motivate casting as rarely as possible.
+    return dynamic_cast<Paper_column *> (me)->get_rank ();
+  }
+
+  // This is not defined because if you have a Paper_column *p, you should call
+  // p->get_rank () instead.
+  static void get_rank (Paper_column *); // not defined
+
   static bool is_musical (Grob *);
   static Moment when_mom (Grob *);
   static bool is_used (Grob *);

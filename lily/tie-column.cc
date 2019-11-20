@@ -44,8 +44,8 @@ Tie_column::add_tie (Grob *tc, Spanner *tie)
     return;
 
   if (!me->get_bound (LEFT)
-      || (Paper_column::get_rank (me->get_bound (LEFT)->get_column ())
-          > Paper_column::get_rank (dynamic_cast<Spanner *> (tie)->get_bound (LEFT)->get_column ())))
+      || (me->get_bound (LEFT)->get_column ()->get_rank ()
+          > tie->get_bound (LEFT)->get_column ()->get_rank ()))
     {
       me->set_bound (LEFT, Tie::head (tie, LEFT));
       me->set_bound (RIGHT, Tie::head (tie, RIGHT));

@@ -45,12 +45,6 @@ Paper_column::do_break_processing ()
   Item::do_break_processing ();
 }
 
-int
-Paper_column::get_rank (Grob const *me)
-{
-  return dynamic_cast<Paper_column const *> (me)->rank_;
-}
-
 bool
 Paper_column::internal_set_as_bound_of_spanner (Spanner *s, Direction)
 {
@@ -285,7 +279,7 @@ Paper_column::print (SCM p)
 {
   Paper_column *me = unsmob<Paper_column> (p);
 
-  string r = ::to_string (Paper_column::get_rank (me));
+  string r = ::to_string (me->get_rank ());
 
   Moment *mom = unsmob<Moment> (me->get_property ("when"));
   string when = mom ? mom->to_string () : "?/?";

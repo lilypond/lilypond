@@ -77,7 +77,7 @@ Semi_tie::calc_control_points (SCM smob)
 int
 Semi_tie::get_column_rank (Item *me)
 {
-  return Paper_column::get_rank (me->get_column ());
+  return me->get_column ()->get_rank ();
 }
 
 int

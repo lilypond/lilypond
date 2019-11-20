@@ -465,7 +465,7 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
             spec = top_system_spacing;
           else if (last_system_was_title)
             spec = markup_system_spacing;
-          else if (0 == Paper_column::get_rank (sys->get_bound (LEFT)))
+          else if (0 == sys->get_bound (LEFT)->get_rank ())
             spec = score_system_spacing;
 
           Spring spring (0, 0);

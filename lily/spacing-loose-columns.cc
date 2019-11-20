@@ -43,12 +43,12 @@ set_loose_columns (System *which, Column_x_positions const *posns)
   for (int i = 0; i < loose_col_count; i++)
     {
       int divide_over = 1;
-      Item *loose = dynamic_cast<Item *> (posns->loose_cols_[i]);
+      Paper_column *loose = static_cast<Paper_column *> (posns->loose_cols_[i]);
 
-      Item *left = 0;
-      Item *right = 0;
+      Paper_column *left = 0;
+      Paper_column *right = 0;
 
-      vector<Item *> clique;
+      vector<Paper_column *> clique;
       while (1)
         {
           SCM between = loose->get_object ("between-cols");
@@ -93,19 +93,19 @@ set_loose_columns (System *which, Column_x_positions const *posns)
       else if (right->find_prebroken_piece (LEFT)
                && right->find_prebroken_piece (LEFT)->get_system () == which)
         right = right->find_prebroken_piece (LEFT);
-      else if (Paper_column::get_rank (which->get_bound (RIGHT)) < Paper_column::get_rank (right))
+      else if (which->get_bound (RIGHT)->get_rank () < right->get_rank ())
         right = which->get_bound (RIGHT);
       else
         {
           clique.back ()->programming_error ("Loose column does not have right side to attach to.");
           System *base_system = which->original ();
-          int j = Paper_column::get_rank (clique.back ()) + 1;
-          int end_rank = Paper_column::get_rank (which->get_bound (RIGHT));
+          int j = clique.back ()->get_rank () + 1;
+          int end_rank = which->get_bound (RIGHT)->get_rank ();
           extract_grob_set (base_system, "columns", base_cols);
           for (; j < end_rank; j++)
             {
               if (base_cols[j]->get_system () == which)
-                right = dynamic_cast<Item *> ((Grob *)base_cols[j]);
+                right = dynamic_cast<Paper_column *> (base_cols[j]);
             }
         }
 
