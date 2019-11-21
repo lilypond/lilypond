@@ -276,9 +276,11 @@ Accidental_engraver::create_accidental (Accidental_entry *entry,
 {
   Stream_event *note = entry->melodic_;
   Grob *support = entry->head_;
-  bool as_suggestion = to_boolean (entry->origin_->get_property ("suggestAccidentals"));
+  SCM suggest = entry->origin_->get_property ("suggestAccidentals");
+  bool bsuggest = to_boolean (suggest);
   Grob *a = 0;
-  if (as_suggestion)
+  if (bsuggest
+      || (cautionary && scm_is_eq (suggest, ly_symbol2scm ("cautionary"))))
     a = make_suggested_accidental (note, support, entry->origin_engraver_);
   else
     a = make_standard_accidental (note, support, entry->origin_engraver_, cautionary);

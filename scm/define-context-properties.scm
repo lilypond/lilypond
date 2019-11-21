@@ -610,8 +610,9 @@ one).")
 @code{fingeringOrientations}.")
      (subdivideBeams ,boolean? "If set, multiple beams will be
 subdivided at @code{baseMoment} positions by only drawing one beam over the beat.")
-     (suggestAccidentals ,boolean? "If set, accidentals are typeset as
-cautionary suggestions over the note.")
+     (suggestAccidentals ,boolean-or-symbol? "If set to @code{#t},
+accidentals are typeset as suggestions above the note.  Setting it to
+@code{'cautionary} only applies that to cautionary accidentals.")
      (supportNonIntegerFret ,boolean? "If set in @code{Score} the
 @code{TabStaff} will print micro-tones as @samp{2½}")
      (systemStartDelimiter ,symbol? "Which grob to make for the start
