@@ -82,7 +82,6 @@ struct Interval_t : public Drul_array<T>
   {
     return at (LEFT) > at (RIGHT);
   }
-  bool superset (Interval_t<T> const &) const;
   Interval_t ()
   {
     set_empty ();

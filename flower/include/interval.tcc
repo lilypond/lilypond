@@ -46,16 +46,6 @@ _Interval__compare (const Interval_t<T> &a, Interval_t<T> const &b)
 }
 
 template<class T>
-bool
-Interval_t<T>::superset (Interval_t<T> const &a) const
-{
-  int c_i = _Interval__compare (*this, a);
-  if (c_i == -2)
-    return false;
-  return c_i >= 0;
-}
-
-template<class T>
 int
 Interval__compare (Interval_t<T> const &a, Interval_t<T> const &b)
 {
