@@ -153,20 +153,20 @@ Item::break_visible (Grob *g)
 }
 
 bool
-Item::pure_is_visible (int start, int end) const
+Item::pure_is_visible (vsize start, vsize end) const
 {
   SCM vis = get_property ("break-visibility");
   if (scm_is_vector (vis))
     {
-      int pos = 1;
-      int pc_rank = get_column ()->get_rank ();
+      vsize pos = 1;
+      vsize pc_rank = get_column ()->get_rank ();
       if (pc_rank == start)
         pos = 2;
       else if (pc_rank == end)
         pos = 0;
-      return to_boolean (scm_vector_ref (vis, scm_from_int (pos)));
+      return to_boolean (scm_c_vector_ref (vis, pos));
     }
-  return true;
+  return Grob::pure_is_visible (start, end);
 }
 
 bool
