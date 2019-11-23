@@ -1106,7 +1106,7 @@ aumente en una unidad.  Predeterminado: @code{#f}.
 @item first-page-number
 @funindex first-page-number
 
-Valor del número de pátina en la primera página.
+Valor del número de página en la primera página.
 
 @item print-first-page-number
 @funindex print-first-page-number

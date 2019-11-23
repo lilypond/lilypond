@@ -3068,7 +3068,7 @@ msgstr "no es un nombre de objeto gráfico: «%s»"
 
 #: relative-octave-check.cc:49
 msgid "Failed octave check, got: "
-msgstr "La comprobación de octaba ha fallado, se ha obtenido: "
+msgstr "La comprobación de octava ha fallado, se ha obtenido: "
 
 #: relocate.cc:56
 #, c-format

@@ -483,7 +483,7 @@ con una sola operación de sobreescritura.
 @end lilypond
 
 Para preservar las direcciones típicas de las plicas (hacia arriba
-para la mitad inferior del pentagra y hacia abajo para la mitad
+para la mitad inferior del pentagrama y hacia abajo para la mitad
 superior), debemos alinear la línea (o espacio) central de la
 pauta personalizada con la posición de la línea central normal
 (0).  Puede ser necesario un ajuste de la posición de la clave y
