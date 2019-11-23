@@ -577,9 +577,9 @@ class LilypondSnippet (Snippet):
             # We only want to calculate the hash based on the snippet
             # code plus fragment options relevant to processing by
             # lilypond, not the snippet + preamble
-            hash = md5 (self.relevant_contents (self.ly ()))
+            hash = md5 (self.relevant_contents (self.ly ()).encode ('utf-8'))
             for option in self.get_outputrelevant_option_strings ():
-                hash.update (option)
+                hash.update (option.encode ('utf-8'))
 
             ## let's not create too long names.
             self.checksum = hash.hexdigest ()[:10]
