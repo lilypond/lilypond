@@ -63,6 +63,23 @@ which scares away people.
 
 
 @item
+Setting @code{suggestAccidentals} to @code{'cautionary} turns only
+cautionary accidentals into @code{AccidentalSuggestion}s. This can be
+used to distinguish between facsimile and editorial accidentals.
+@lilypond[verbatim,quote]
+\relative {
+  \key d \minor
+  d''4 cis8 b? cis2
+  \set suggestAccidentals = ##t
+  d4 cis8 b? cis2
+  \set suggestAccidentals = #'cautionary
+  d4 cis8 b? cis2
+
+}
+@end lilypond
+
+
+@item
 The command @code{\ambitusAfter} has been added. It is used to move
 the ambitus to a different position.
 @lilypond[verbatim,quote]
