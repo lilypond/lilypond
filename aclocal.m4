@@ -912,6 +912,11 @@ AC_DEFUN(STEPMAKE_INIT, [
     # AC_DEFINE_UNQUOTED(package, ["${package}"])
     # AC_DEFINE_UNQUOTED(PACKAGE, ["${PACKAGE}"])
     AC_DEFINE_UNQUOTED(PACKAGE, ["${package}"])
+
+    # ugh: PACKAGE_NAME is already defined by AC_INIT,
+    #      which we call without arguments for historical reasons.
+    AS_ECHO([["#undef PACKAGE_NAME"]]) >> confdefs.h
+
     AC_DEFINE_UNQUOTED(PACKAGE_NAME, ["${PACKAGE_NAME}"])
     AC_DEFINE_UNQUOTED(TOPLEVEL_VERSION, ["${FULL_VERSION}"])
 
