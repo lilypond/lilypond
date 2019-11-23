@@ -414,7 +414,7 @@ def process_snippets (cmd, snippets,
     name = os.path.join (lily_output_dir,
                          'snippet-names-%d.ly' % checksum)
     logfile = name.replace('.ly', '')
-    open (name, 'wb').write (contents)
+    open (name, 'wb').write (contents.encode ('utf-8'))
 
     system_in_directory (' '.join ([cmd, ly.mkarg (name.replace (os.path.sep, '/'))]),
                          lily_output_dir,

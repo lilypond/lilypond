@@ -587,7 +587,7 @@ class MidiFileLink (TextFileCompareLink):
     def get_content (self, oldnew):
         import midi
 
-        data = FileCompareLink.get_content (self, oldnew)
+        data = open (oldnew, 'rb').read ()
         midi = midi.parse (data)
         tracks = midi[1]
 

@@ -3102,14 +3102,13 @@ def read_musicxml(filename, compressed, use_lxml):
              sys.stdin = os.fdopen(sys.stdin.fileno(), 'rb', 0) # Make sys.stdin binary
              bytes_read = sys.stdin.read(8192)
              while bytes_read:
-                 for b in bytes_read:
-                     tmp.write(b)
+                 tmp.write(bytes_read)
                  bytes_read = sys.stdin.read(8192)
              z = zipfile.ZipFile(tmp, "r")
         else:
             ly.progress(_("Input file %s is compressed, extracting raw MusicXML data") % filename, True)
             z = zipfile.ZipFile(filename, "r")
-        container_xml = z.read("META-INF/container.xml")
+        container_xml = z.read("META-INF/container.xml").decode("utf-8")
         if not container_xml:
             return None
         container = read_xml(StringIO.StringIO(container_xml), use_lxml)
@@ -3123,7 +3122,7 @@ def read_musicxml(filename, compressed, use_lxml):
         if len(rootfile_list) > 0:
             mxml_file = getattr(rootfile_list[0], 'full-path', None)
         if mxml_file:
-            raw_string = z.read(mxml_file)
+            raw_string = z.read(mxml_file).decode('utf-8')
 
     if raw_string:
         io_object = StringIO.StringIO(raw_string)

@@ -648,12 +648,11 @@ printing diff against existing file." % filename)
             try:
                 if (self.global_options.use_source_file_names
                         and isinstance (self, LilypondFileSnippet)):
-                    fout = open (dst, 'w')
-                    fin = open (src, 'r')
-                    for line in fin.readlines ():
-                        fout.write (line.replace (self.basename (), self.final_basename ()))
-                    fout.close ()
-                    fin.close ()
+                    content = open (src, 'rb').read ()
+                    basename = self.basename ().encode ('utf-8')
+                    final_basename = self.final_basename ().encode ('utf-8')
+                    content = content.replace (basename, final_basename)
+                    open (dst, 'wb').write (content)
                 else:
                     try:
                         os.link (src, dst)
@@ -824,13 +823,13 @@ class LilypondFileSnippet (LilypondSnippet):
         LilypondSnippet.__init__ (self, type, match, formatter, line_number, global_options)
         self.filename = self.substring ('filename')
         self.contents = open (BookBase.find_file (self.filename,
-            global_options.include_path, global_options.original_dir)).read ()
+            global_options.include_path, global_options.original_dir), 'rb').read ()
 
     def get_snippet_code (self):
-        return self.contents;
+        return self.contents.decode ('utf-8')
 
     def verb_ly (self):
-        s = self.contents
+        s = self.get_snippet_code ()
         s = re_begin_verbatim.split (s)[-1]
         s = re_end_verbatim.split (s)[0]
         if not NOGETTEXT in self.option_dict:
@@ -842,7 +841,7 @@ class LilypondFileSnippet (LilypondSnippet):
     def ly (self):
         name = self.filename
         return ('\\sourcefilename \"%s\"\n\\sourcefileline 0\n%s'
-                % (name, self.contents))
+                % (name, self.get_snippet_code ()))
 
     def final_basename (self):
         if self.global_options.use_source_file_names:
@@ -921,7 +920,7 @@ class MusicXMLFileSnippet (LilypondFileSnippet):
 printing diff against existing file.") % xmlfilename)
                 ly.stderr_write (diff_against_existing.decode ('utf-8'))
         else:
-            out = open (xmlfilename, 'w')
+            out = open (xmlfilename, 'wb')
             out.write (self.contents)
             out.close ()
 
