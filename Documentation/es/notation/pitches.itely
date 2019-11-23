@@ -97,7 +97,7 @@ cada@tie{}@code{,} baja la altura una octava.
 Las marcas de octava comunes se pueden escribir una sola vez sobre
 una nota de referencia si se emplea @code{\fixed} antes de la
 música.  Las notas dentro de @code{\fixed} solo necesitan las
-marcas de apóstrofo @code{'} o de comoa @tie{}@code{,} cuando
+marcas de apóstrofo @code{'} o de coma @tie{}@code{,} cuando
 están por encima o por debajo de la octava de la nota de
 referencia.
 
