@@ -31,6 +31,12 @@ AC_ARG_ENABLE(documentation,
     [DOCUMENTATION=$enableval])
 AC_SUBST(DOCUMENTATION)
 
+AC_ARG_WITH(flexlexer-dir,
+    [AS_HELP_STRING([--with-flexlexer-dir=DIR],
+                    [location of FlexLexer.h.])],
+    [FLEXLEXER_DIR=$withval],
+    [FLEXLEXER_DIR=""])
+
 GUILEv2=no
 AC_ARG_ENABLE(guile2,
     [AS_HELP_STRING([--enable-guile2],

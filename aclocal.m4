@@ -519,6 +519,10 @@ AC_DEFUN(STEPMAKE_FLEX, [
 
 
 AC_DEFUN(STEPMAKE_FLEXLEXER, [
+    save_CPPFLAGS="$CPPFLAGS"
+    if test -n "$FLEXLEXER_DIR"; then
+        CPPFLAGS="-I$FLEXLEXER_DIR $CPPFLAGS"
+    fi
     AC_CHECK_HEADERS([FlexLexer.h],[true],[false])
     if test $? -ne 0; then
         warn='FlexLexer.h (flex package)'
@@ -550,11 +554,17 @@ class yy_flex_lexer: public yyFlexLexer
         AC_DEFINE(HAVE_FLEXLEXER_YY_CURRENT_BUFFER, 1,
                   [Define to 1 if yyFlexLexer has yy_current_buffer.])
     fi
+    CPPFLAGS=$save_CPPFLAGS
 ])
 
 
 AC_DEFUN(STEPMAKE_FLEXLEXER_LOCATION, [
     AC_MSG_CHECKING([FlexLexer.h location])
+
+    save_CPPFLAGS="$CPPFLAGS"
+    if test -n "$FLEXLEXER_DIR"; then
+        CPPFLAGS="-I$FLEXLEXER_DIR $CPPFLAGS"
+    fi
 
     # ugh.
     cat <<EOF > conftest.cc
@@ -567,6 +577,20 @@ EOF
     rm conftest.cc
     AC_SUBST(FLEXLEXER_FILE)
     AC_MSG_RESULT($FLEXLEXER_FILE)
+    if test -n "$FLEXLEXER_DIR"; then
+        case $FLEXLEXER_FILE in
+        */*)
+            dir=${FLEXLEXER_FILE%/*}
+            ;;
+        *)
+            dir=.
+            ;;
+        esac
+        if test "x$dir" != "x$FLEXLEXER_DIR"; then
+            AC_MSG_ERROR([FlexLexer.h not located in directory given by --with-flexlexer-dir])
+        fi
+    fi
+    CPPFLAGS=$save_CPPFLAGS
 ])
 
 
