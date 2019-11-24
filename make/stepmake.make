@@ -115,12 +115,12 @@ else
   ifndef VERBOSE
     .SILENT:
     # print the terse message for a target
-    define ly_info =
+    define ly_info
       echo '$(1)'
     endef
   else # verbose
     # print the terse message as a comment; make will print the commands
-    define ly_info =
+    define ly_info
       # $(1)
     endef
   endif
@@ -131,7 +131,7 @@ endif
 # $(1) = process, operation, or command
 # $(2) = target file, i.e. $@ in a recipe
 # $(3) = comment
-define ly_progress =
+define ly_progress
   $(call ly_info,$(1) $(subst $(configure-builddir)/,,$(abspath $(2))) $(3))
 endef
 

@@ -86,7 +86,7 @@ DO_STRIP=true
 # Create a command to make targets in subdirectories.
 # $(1) is a subset of $(SUBDIRS)
 # $(2) is a list of targets
-define make_subdirs =
+define make_subdirs
 #       enforce order to avoid surprises due to implicit dependencies
 	[ "$(1)" = "$(filter $(1),$(SUBDIRS))" ] || (echo "*** {$(1)} is not a subset of ordered set {$(SUBDIRS)}" 1>&2 && false)
 	+$(foreach d, $(1), $(MAKE) PACKAGE=$(PACKAGE) package=$(package) -C $(d) $(2) &&) true
