@@ -72,7 +72,7 @@ Paper_score::find_break_indices () const
 
   for (vsize i = 0; i < cols_.size (); i++)
     {
-      Item *it = dynamic_cast<Item *> (cols_[i]);
+      Paper_column *it = cols_[i];
       if (Paper_column::is_breakable (cols_[i])
           && (i == 0 || it->find_prebroken_piece (LEFT))
           && (i == cols_.size () - 1 || it->find_prebroken_piece (RIGHT)))
@@ -91,7 +91,7 @@ Paper_score::get_break_indices () const
   return break_indices_;
 }
 
-vector<Grob *> const &
+vector<Paper_column *> const &
 Paper_score::get_columns () const
 {
   if (cols_.empty ())

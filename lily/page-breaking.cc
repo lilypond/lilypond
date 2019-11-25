@@ -136,6 +136,7 @@
 #include "page-layout-problem.hh"
 #include "page-spacing.hh"
 #include "paper-book.hh"
+#include "paper-column.hh"
 #include "paper-score.hh"
 #include "paper-system.hh"
 #include "text-interface.hh"
@@ -728,8 +729,8 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break, Prob_break_pred
     {
       if (system_specs_[i].pscore_)
         {
-          vector<Grob *> cols = system_specs_[i].pscore_->root_system ()->used_columns ();
-          vector<Grob *> forced_line_break_cols;
+          vector<Paper_column *> cols = system_specs_[i].pscore_->root_system ()->used_columns ();
+          vector<Paper_column *> forced_line_break_cols;
 
           SCM system_count = system_specs_[i].pscore_->layout ()->c_variable ("system-count");
           if (scm_is_number (system_count))

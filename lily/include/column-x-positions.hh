@@ -23,11 +23,13 @@
 #include "std-vector.hh"
 #include "lily-proto.hh"
 
+class Paper_column;
+
 class Column_x_positions
 {
 public:
-  vector<Grob *> cols_;
-  vector<Grob *> loose_cols_;
+  vector<Paper_column *> cols_;
+  vector<Paper_column *> loose_cols_;
 
   vector<Real> config_;
   Real force_;

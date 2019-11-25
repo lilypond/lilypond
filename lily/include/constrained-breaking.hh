@@ -24,6 +24,8 @@
 #include "matrix.hh"
 #include "prob.hh"
 
+class Paper_column;
+
 /*
  * Begin/rest-of-line hack.  This geometrical shape is a crude approximation
  * of Skyline, but it is better than a rectangle.
@@ -42,7 +44,7 @@ struct Line_shape
 
 struct Line_details
 {
-  Grob *last_column_;
+  Paper_column *last_column_;
   Real force_;
   Line_shape shape_;
   vector<Real> footnote_heights_; /* The footnotes at the bottom of the
@@ -191,7 +193,7 @@ private:
   vector<vsize> start_;         /* the columns at which we might be asked to start breaking */
   vector<vsize> starting_breakpoints_; /* the corresponding index in breaks_ */
 
-  vector<Grob *> all_;
+  vector<Paper_column *> all_;
   vector<vsize> breaks_;
 
   void initialize (Paper_score *);

@@ -344,10 +344,10 @@ set_page_permission (SCM sys, SCM symbol, SCM permission)
 {
   if (Paper_score *ps = unsmob<Paper_score> (sys))
     {
-      vector<Grob *> const &cols = ps->get_columns ();
+      vector<Paper_column *> const &cols = ps->get_columns ();
       if (cols.size ())
         {
-          Paper_column *col = dynamic_cast<Paper_column *> (cols.back ());
+          Paper_column *col = cols.back ();
           col->set_property (symbol, permission);
           col->find_prebroken_piece (LEFT)->set_property (symbol, permission);
         }
@@ -388,10 +388,10 @@ set_labels (SCM sys, SCM labels)
 {
   if (Paper_score *ps = unsmob<Paper_score> (sys))
     {
-      vector<Grob *> const &cols = ps->get_columns ();
+      vector<Paper_column *> const &cols = ps->get_columns ();
       if (cols.size ())
         {
-          Paper_column *col = dynamic_cast<Paper_column *> (cols[0]);
+          Paper_column *col = cols[0];
           col->set_property ("labels",
                              scm_append_x (scm_list_2 (col->get_property ("labels"),
                                                        labels)));

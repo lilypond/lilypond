@@ -197,12 +197,12 @@ Axis_group_interface::combine_pure_heights (Grob *me, SCM measure_extents, int s
 {
   Paper_score *ps = get_root_system (me)->paper_score ();
   vector<vsize> const &breaks = ps->get_break_indices ();
-  vector<Grob *> const &cols = ps->get_columns ();
+  vector<Paper_column *> const &cols = ps->get_columns ();
 
   Interval ext;
   for (vsize i = 0; i + 1 < breaks.size (); i++)
     {
-      int r = Paper_column::get_rank (cols[breaks[i]]);
+      int r = cols[breaks[i]]->get_rank ();
       if (r >= end)
         break;
 

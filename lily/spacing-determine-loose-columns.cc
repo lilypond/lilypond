@@ -186,24 +186,24 @@ Spacing_spanner::set_distances_for_loose_col (Grob *me, Grob *c,
 */
 void
 Spacing_spanner::prune_loose_columns (Grob *me,
-                                      vector<Grob *> *cols,
+                                      vector<Paper_column *> *cols,
                                       Spacing_options *options)
 {
   // rp is a post-increment read pointer running over the *cols
   // vector, wp is a post-increment write pointer.  They start in sync
   // but become different once a loose column gets pruned.
-  vector<Grob *>::const_iterator rp;
-  vector<Grob *>::iterator wp;
+  vector<Paper_column *>::const_iterator rp;
+  vector<Paper_column *>::iterator wp;
   // We keep track of the last column in a separate variable instead
   // of reading it from rp since it could already have been
   // overwritten via wp.  Very strictly speaking, this can only happen
   // when rp and wp are still in lockstep and thus the overwritten
   // value would be unchanged, but let's not get too icky but stick
   // with a pattern that works for more use cases.
-  Grob * lastcol = 0;
+  Paper_column * lastcol = 0;
   for (rp = wp = cols->begin (); rp != cols->end ();)
     {
-      Grob *c = *rp++;
+      Paper_column *c = *rp++;
 
       bool loose = (lastcol && rp != cols->end ()
                     && is_loose_column (lastcol, c, *rp, options));
@@ -272,7 +272,7 @@ Spacing_spanner::prune_loose_columns (Grob *me,
   Set neighboring columns determined by the spacing-wishes grob property.
 */
 void
-Spacing_spanner::set_explicit_neighbor_columns (vector<Grob *> const &cols)
+Spacing_spanner::set_explicit_neighbor_columns (vector<Paper_column *> const &cols)
 {
   for (vsize i = 0; i < cols.size (); i++)
     {
@@ -310,11 +310,11 @@ Spacing_spanner::set_explicit_neighbor_columns (vector<Grob *> const &cols)
   Why only these? --jneem
 */
 void
-Spacing_spanner::set_implicit_neighbor_columns (vector<Grob *> const &cols)
+Spacing_spanner::set_implicit_neighbor_columns (vector<Paper_column *> const &cols)
 {
   for (vsize i = 0; i < cols.size (); i++)
     {
-      Item *it = dynamic_cast<Item *> (cols[i]);
+      Paper_column *it = cols[i];
       if (!Paper_column::is_breakable (it) && !Paper_column::is_musical (it))
         continue;
 

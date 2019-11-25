@@ -57,12 +57,12 @@ private:
 };
 
 /* returns a vector of dimensions breaks.size () * breaks.size () */
-vector<Real> get_line_forces (vector<Grob *> const &columns,
+vector<Real> get_line_forces (vector<Paper_column *> const &columns,
                               Real line_len,
                               Real indent,
                               bool ragged);
 
-Column_x_positions get_line_configuration (vector<Grob *> const &columns,
+Column_x_positions get_line_configuration (vector<Paper_column *> const &columns,
                                            Real line_len,
                                            Real indent,
                                            bool ragged);

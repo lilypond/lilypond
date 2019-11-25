@@ -128,8 +128,8 @@ Constrained_breaking::space_line (vsize i, vsize j)
 
   // TODO: Unnecessary copy.  Could pass iterators/indices to
   // get_line_configuration().  What is the real cost?
-  vector<Grob *> const line (all_.begin () + breaks_[i],
-                             all_.begin () + breaks_[j] + 1);
+  vector<Paper_column *> const line (all_.begin () + breaks_[i],
+                                     all_.begin () + breaks_[j] + 1);
   Interval line_dims = line_dimensions_int (pscore_->layout (), i);
   bool last = j == breaks_.size () - 1;
   bool ragged = ragged_right || (last && ragged_last);
@@ -487,14 +487,14 @@ Constrained_breaking::initialize (Paper_score *ps)
 void
 Constrained_breaking::fill_line_details (Line_details *const out, vsize start, vsize end)
 {
-  int start_rank = Paper_column::get_rank (all_[breaks_[start]]);
-  int end_rank = Paper_column::get_rank (all_[breaks_[end]]);
+  int start_rank = all_[breaks_[start]]->get_rank ();
+  int end_rank = all_[breaks_[end]]->get_rank ();
   System *sys = pscore_->root_system ();
   Interval begin_of_line_extent = sys->begin_of_line_pure_height (start_rank, end_rank);
   Interval rest_of_line_extent = sys->rest_of_line_pure_height (start_rank, end_rank);
   bool last = (end == breaks_.size () - 1);
 
-  Grob *c = all_[breaks_[end]];
+  Paper_column *c = all_[breaks_[end]];
   out->last_column_ = c;
   out->break_penalty_ = robust_scm2double (c->get_property ("line-break-penalty"), 0);
   out->page_penalty_ = robust_scm2double (c->get_property ("page-break-penalty"), 0);

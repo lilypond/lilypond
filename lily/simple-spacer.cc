@@ -343,17 +343,16 @@ is_loose (Grob *g)
   return (scm_is_pair (g->get_object ("between-cols")));
 }
 
-static Grob *
-maybe_find_prebroken_piece (Grob *g, Direction d)
+static Paper_column *
+maybe_find_prebroken_piece (Paper_column *col, Direction d)
 {
-  Grob *ret = dynamic_cast<Item *> (g)->find_prebroken_piece (d);
-  if (ret)
+  if (Paper_column *ret = col->find_prebroken_piece (d))
     return ret;
-  return g;
+  return col;
 }
 
-static Grob *
-next_spaceable_column (vector<Grob *> const &list, vsize starting)
+static Paper_column *
+next_spaceable_column (vector<Paper_column *> const &list, vsize starting)
 {
   for (vsize i = starting + 1; i < list.size (); i++)
     if (!is_loose (list[i]))
@@ -362,20 +361,20 @@ next_spaceable_column (vector<Grob *> const &list, vsize starting)
 }
 
 static Column_description
-get_column_description (vector<Grob *> const &cols, vsize col_index, bool line_starter)
+get_column_description (vector<Paper_column *> const &cols, vsize col_index, bool line_starter)
 {
-  Grob *col = cols[col_index];
+  Paper_column *col = cols[col_index];
   if (line_starter)
     col = maybe_find_prebroken_piece (col, RIGHT);
 
   Column_description description;
-  Grob *next_col = next_spaceable_column (cols, col_index);
+  Paper_column *next_col = next_spaceable_column (cols, col_index);
   if (next_col)
     description.spring_ = Spaceable_grob::get_spring (col, next_col);
 
   if (col_index + 1 < cols.size ())
     {
-      Grob *end_col = dynamic_cast<Item *> (cols[col_index + 1])->find_prebroken_piece (LEFT);
+      Paper_column *end_col = cols[col_index + 1]->find_prebroken_piece (LEFT);
       if (end_col)
         description.end_spring_ = Spaceable_grob::get_spring (col, end_col);
     }
@@ -385,7 +384,7 @@ get_column_description (vector<Grob *> const &cols, vsize col_index, bool line_s
     {
       if (Paper_column *other = unsmob<Paper_column> (scm_caar (s)))
         {
-          vsize j = binary_search (cols, static_cast<Grob *> (other),
+          vsize j = binary_search (cols, other,
                                    Paper_column::rank_less, col_index);
           if (j != VPOS)
             {
@@ -414,12 +413,12 @@ get_column_description (vector<Grob *> const &cols, vsize col_index, bool line_s
 }
 
 vector<Real>
-get_line_forces (vector<Grob *> const &columns,
+get_line_forces (vector<Paper_column *> const &columns,
                  Real line_len, Real indent, bool ragged)
 {
   vector<vsize> breaks;
   vector<Real> force;
-  vector<Grob *> non_loose;
+  vector<Paper_column *> non_loose;
   vector<Column_description> cols;
   SCM force_break = ly_symbol2scm ("force");
 
@@ -487,7 +486,7 @@ get_line_forces (vector<Grob *> const &columns,
 }
 
 Column_x_positions
-get_line_configuration (vector<Grob *> const &columns,
+get_line_configuration (vector<Paper_column *> const &columns,
                         Real line_len,
                         Real indent,
                         bool ragged)
@@ -496,7 +495,7 @@ get_line_configuration (vector<Grob *> const &columns,
   Simple_spacer spacer;
   Column_x_positions ret;
 
-  ret.cols_.push_back (dynamic_cast<Item *> (columns[0])->find_prebroken_piece (RIGHT));
+  ret.cols_.push_back (columns[0]->find_prebroken_piece (RIGHT));
   for (vsize i = 1; i + 1 < columns.size (); i++)
     {
       if (is_loose (columns[i]))
@@ -504,7 +503,7 @@ get_line_configuration (vector<Grob *> const &columns,
       else
         ret.cols_.push_back (columns[i]);
     }
-  ret.cols_.push_back (dynamic_cast<Item *> (columns.back ())->find_prebroken_piece (LEFT));
+  ret.cols_.push_back (columns.back ()->find_prebroken_piece (LEFT));
 
   /* since we've already put our line-ending column in the column list, we can ignore
      the end_XXX_ fields of our column_description */

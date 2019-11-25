@@ -453,11 +453,11 @@ System::break_into_pieces (vector<Column_x_positions> const &breaking)
         system->rank_ = static_cast<rank_type> (rank);
       }
 
-      vector<Grob *> const &c (breaking[i].cols_);
+      vector<Paper_column *> const &c (breaking[i].cols_);
       pscore_->typeset_system (system);
 
-      int st = Paper_column::get_rank (c[0]);
-      int end = Paper_column::get_rank (c.back ());
+      int st = c[0]->get_rank ();
+      int end = c.back ()->get_rank ();
       Interval iv (pure_y_extent (this, st, end));
       system->set_property ("pure-Y-extent", ly_interval2scm (iv));
 
@@ -467,7 +467,7 @@ System::break_into_pieces (vector<Column_x_positions> const &breaking)
       for (vsize j = 0; j < c.size (); j++)
         {
           c[j]->translate_axis (breaking[i].config_[j], X_AXIS);
-          dynamic_cast<Paper_column *> (c[j])->set_system (system);
+          c[j]->set_system (system);
           /* collect the column labels */
           collect_labels (c[j], &system_labels);
         }
@@ -475,7 +475,7 @@ System::break_into_pieces (vector<Column_x_positions> const &breaking)
         Collect labels from any loose columns too: theses will be set on
         an empty bar line or a column which is otherwise unused mid-line
       */
-      vector<Grob *> const &loose (breaking[i].loose_cols_);
+      vector<Paper_column *> const &loose (breaking[i].loose_cols_);
       for (vsize j = 0; j < loose.size (); j++)
         collect_labels (loose[j], &system_labels);
 
@@ -706,7 +706,7 @@ System::broken_col_range (Item const *left_item, Item const *right_item) const
     Return all columns in the given right-open range, but filter out any unused
     columns, since they might disrupt the spacing problem.
 */
-vector<Grob *>
+vector<Paper_column *>
 System::used_columns_in_range (vsize start, vsize end) const
 {
   extract_grob_set (this, "columns", ro_columns);
@@ -715,17 +715,19 @@ System::used_columns_in_range (vsize start, vsize end) const
 
   while (last_breakable--)
     {
-      if (Paper_column::is_breakable (ro_columns [last_breakable]))
+      Paper_column *c = dynamic_cast<Paper_column *> (ro_columns[last_breakable]);
+      if (c && Paper_column::is_breakable (c))
         break;
     }
 
   end = std::min(end, static_cast<vsize> (last_breakable + 1));
 
-  vector<Grob *> columns;
+  vector<Paper_column *> columns;
   for (vsize i = start; i < end; ++i)
     {
-      if (Paper_column::is_used (ro_columns[i]))
-        columns.push_back (ro_columns[i]);
+      Paper_column *c = dynamic_cast<Paper_column *> (ro_columns[i]);
+      if (c && Paper_column::is_used (c))
+        columns.push_back (c);
     }
 
   return columns;
@@ -939,12 +941,12 @@ System::calc_pure_height (SCM smob, SCM start_scm, SCM end_scm)
   return ly_interval2scm (begin);
 }
 
-Grob *
+Paper_column *
 System::get_pure_bound (Direction d, int start, int end)
 {
   vector<vsize> const &ranks = pscore_->get_break_ranks ();
   vector<vsize> const &indices = pscore_->get_break_indices ();
-  vector<Grob *> const &cols = pscore_->get_columns ();
+  vector<Paper_column *> const &cols = pscore_->get_columns ();
 
   vsize target_rank = (d == LEFT ? start : end);
   vector<vsize>::const_iterator i
@@ -956,7 +958,7 @@ System::get_pure_bound (Direction d, int start, int end)
     return 0;
 }
 
-Grob *
+Paper_column *
 System::get_maybe_pure_bound (Direction d, bool pure, int start, int end)
 {
   return pure ? get_pure_bound (d, start, end) : get_bound (d);

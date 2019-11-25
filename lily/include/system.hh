@@ -54,8 +54,8 @@ public:
     // This is safe because only Paper_columns are accepted as bounds.
     return static_cast<Paper_column *> (Spanner::get_bound (d));
   }
-  Grob *get_pure_bound (Direction dir, int start, int end);
-  Grob *get_maybe_pure_bound (Direction dir, bool pure, int start, int end);
+  Paper_column *get_pure_bound (Direction dir, int start, int end);
+  Paper_column *get_maybe_pure_bound (Direction dir, bool pure, int start, int end);
   rank_type get_rank () const { return rank_; }
   vector<Real> get_footnote_heights_in_range (vsize st, vsize end);
   vector<Real> get_in_note_heights_in_range (vsize st, vsize end);
@@ -94,8 +94,8 @@ public:
   void break_into_pieces (vector<Column_x_positions> const &);
 
   vector<Item *> broken_col_range (Item const *, Item const *) const;
-  vector<Grob *> used_columns_in_range (vsize start, vsize end) const;
-  vector<Grob *> used_columns () const
+  vector<Paper_column *> used_columns_in_range (vsize start, vsize end) const;
+  vector<Paper_column *> used_columns () const
   {
     return used_columns_in_range(0, std::numeric_limits<vsize>::max ());
   }
