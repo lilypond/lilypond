@@ -93,8 +93,8 @@ public:
   virtual void derived_mark () const;
   virtual System *get_system () const;
 
-  SCM get_cached_pure_property (SCM sym, int start, int end);
-  void cache_pure_property (SCM sym, int start, int end, SCM value);
+  SCM get_cached_pure_property (SCM sym, vsize start, vsize end);
+  void cache_pure_property (SCM sym, vsize start, vsize end, SCM value);
 
 protected:
   void set_my_columns ();
