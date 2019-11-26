@@ -519,29 +519,35 @@ Spanner::kill_zero_spanned_time (SCM grob)
   return SCM_UNSPECIFIED;
 }
 
+// The pure property cache is indexed by (name start . end), where name is
+// a symbol, and start and end are numbers referring to the starting and
+// ending column ranks of the current line.
+static SCM
+make_pure_property_cache_key (SCM sym, vsize start, vsize end)
+{
+  return scm_cons2 (sym, scm_from_size_t (start), scm_from_size_t (end));
+}
+
 SCM
 Spanner::get_cached_pure_property (SCM sym, vsize start, vsize end)
 {
-  // The pure property cache is indexed by (name start . end), where name is
-  // a symbol, and start and end are numbers referring to the starting and
-  // ending column ranks of the current line.
-  if (scm_is_false (scm_hash_table_p (pure_property_cache_)))
+  if (SCM_UNBNDP (pure_property_cache_))
     return SCM_UNDEFINED;
 
-  SCM key = scm_cons (sym, scm_cons (scm_from_size_t (start),
-                                     scm_from_size_t (end)));
-  return scm_hash_ref (pure_property_cache_, key, SCM_UNDEFINED);
+  return scm_hash_ref (pure_property_cache_,
+                       make_pure_property_cache_key(sym, start, end),
+                       SCM_UNDEFINED);
 }
 
 void
 Spanner::cache_pure_property (SCM sym, vsize start, vsize end, SCM val)
 {
-  if (scm_is_false (scm_hash_table_p (pure_property_cache_)))
+  if (SCM_UNBNDP (pure_property_cache_))
     pure_property_cache_ = scm_c_make_hash_table (17);
 
-  SCM key = scm_cons (sym, scm_cons (scm_from_size_t (start),
-                                     scm_from_size_t (end)));
-  scm_hash_set_x (pure_property_cache_, key, val);
+  scm_hash_set_x (pure_property_cache_,
+                  make_pure_property_cache_key(sym, start, end),
+                  val);
 }
 
 ADD_INTERFACE (Spanner,
