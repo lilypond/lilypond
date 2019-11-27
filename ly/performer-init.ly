@@ -273,6 +273,10 @@
   timeSignatureFraction = 4/4
   autoBeaming = ##t  % needed for consistent melismata with engravers
 
+  %% It is not unusual for bar number checks to be wrong in MIDI
+  %% scores, for example when repeats are unfolded.
+  ignoreBarNumberChecks = ##t
+
   %% Other beaming variables are not important as autobeams don't affect
   %% the Midi.  Melismata are only affected by beams when autobeaming
   %% is switched off.

@@ -238,11 +238,12 @@ barNumberCheck =
    (make-music 'ApplyContext
                'procedure
                (lambda (c)
-                 (let ((cbn (ly:context-property c 'currentBarNumber)))
-                   (if (and  (number? cbn) (not (= cbn n)))
-                       (ly:input-warning (*location*)
-                                         "Barcheck failed got ~a expect ~a"
-                                         cbn n))))))
+                 (if (not (ly:context-property c 'ignoreBarNumberChecks #f))
+                     (let ((cbn (ly:context-property c 'currentBarNumber)))
+                       (if (and (number? cbn) (not (= cbn n)))
+                           (ly:input-warning (*location*)
+                                             "Bar number is ~a; expected ~a"
+                                             cbn n)))))))
 
 beamExceptions =
 #(define-scheme-function (music) (ly:music?)

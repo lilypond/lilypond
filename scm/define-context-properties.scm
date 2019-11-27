@@ -365,6 +365,7 @@ string selector for tablature notation.")
 
 
      (ignoreBarChecks ,boolean? "Ignore bar checks.")
+     (ignoreBarNumberChecks ,boolean? "Ignore bar number checks.")
      (ignoreFiguredBassRest ,boolean? "Don't swallow rest events.")
      (ignoreMelismata ,boolean? "Ignore melismata for this
 @rinternals{Lyrics} line.")
