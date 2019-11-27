@@ -88,8 +88,8 @@ public:
     return static_cast<System *> (Spanner::original ());
   }
 
-  int element_count () const;
-  int spanner_count () const;
+  vsize element_count () const;
+  vsize spanner_count () const;
 
   void break_into_pieces (vector<Column_x_positions> const &);
 

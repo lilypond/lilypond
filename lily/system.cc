@@ -71,16 +71,16 @@ System::init_elements ()
   set_object ("all-elements", scm_arr);
 }
 
-int
+vsize
 System::element_count () const
 {
   return all_elements_->size ();
 }
 
-int
+vsize
 System::spanner_count () const
 {
-  int k = 0;
+  vsize k = 0;
   for (vsize i = all_elements_->size (); i--;)
     if (dynamic_cast<Spanner *> (all_elements_->grob (i)))
       k++;
@@ -146,7 +146,7 @@ System::do_break_substitution_and_fixup_refpoints ()
   /*
     fixups must be done in broken line_of_scores, because new elements
     are put over there.  */
-  int count = 0;
+  vsize count = 0;
   for (vsize i = 0; i < broken_intos_.size (); i++)
     {
       Grob *se = broken_intos_[i];
@@ -189,7 +189,7 @@ System::do_break_substitution_and_fixup_refpoints ()
         }
     }
 
-  debug_output (_f ("Element count %d", count + element_count ()) + "\n");
+  debug_output (_f ("Element count %zu", count + element_count ()) + "\n");
 }
 
 bool
@@ -518,7 +518,7 @@ System::pre_processing ()
   for (vsize i = 0; i < all_elements_->size (); i++)
     all_elements_->grob (i)->discretionary_processing ();
 
-  debug_output (_f ("Grob count %d", element_count ()));
+  debug_output (_f ("Grob count %zu", element_count ()));
 
   /*
     order is significant: broken grobs are added to the end of the

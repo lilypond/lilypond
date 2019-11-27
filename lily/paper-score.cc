@@ -125,7 +125,7 @@ Paper_score::calc_breaking ()
 void
 Paper_score::process ()
 {
-  debug_output (_f ("Element count %d (spanners %d) ",
+  debug_output (_f ("Element count %zu (spanners %zu) ",
                     system_->element_count (),
                     system_->spanner_count ()));
 
