@@ -226,8 +226,7 @@ System::get_paper_systems ()
 
       System *system = dynamic_cast<System *> (broken_intos_[i]);
 
-      scm_vector_set_x (lines, scm_from_int (i),
-                        system->get_paper_system ());
+      scm_c_vector_set_x (lines, i, system->get_paper_system ());
 
       debug_output (::to_string (i) + "]", false);
     }
@@ -714,7 +713,7 @@ System::used_columns_in_range (vsize start, vsize end) const
 {
   extract_grob_set (this, "columns", ro_columns);
 
-  int last_breakable = ro_columns.size ();
+  vsize last_breakable = ro_columns.size ();
 
   while (last_breakable--)
     {
@@ -723,7 +722,7 @@ System::used_columns_in_range (vsize start, vsize end) const
         break;
     }
 
-  end = std::min(end, static_cast<vsize> (last_breakable + 1));
+  end = std::min(end, last_breakable + 1);
 
   vector<Paper_column *> columns;
   for (vsize i = start; i < end; ++i)
