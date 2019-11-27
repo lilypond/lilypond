@@ -77,14 +77,17 @@ System::element_count () const
   return all_elements_->size ();
 }
 
+static bool
+is_spanner (const Grob *g)
+{
+  return dynamic_cast<const Spanner *> (g);
+}
+
 vsize
 System::spanner_count () const
 {
-  vsize k = 0;
-  for (vsize i = all_elements_->size (); i--;)
-    if (dynamic_cast<Spanner *> (all_elements_->grob (i)))
-      k++;
-  return k;
+  const vector<Grob *> &grobs = all_elements_->array ();
+  return std::count_if (grobs.begin (), grobs.end (), is_spanner);
 }
 
 void
