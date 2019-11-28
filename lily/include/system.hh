@@ -54,8 +54,9 @@ public:
     // This is safe because only Paper_columns are accepted as bounds.
     return static_cast<Paper_column *> (Spanner::get_bound (d));
   }
-  Paper_column *get_pure_bound (Direction dir, int start, int end);
-  Paper_column *get_maybe_pure_bound (Direction dir, bool pure, int start, int end);
+  Paper_column *get_pure_bound (Direction dir, vsize start, vsize end);
+  Paper_column *get_maybe_pure_bound (Direction dir, bool pure,
+                                      vsize start, vsize end);
   rank_type get_rank () const { return rank_; }
   vector<Real> get_footnote_heights_in_range (vsize st, vsize end);
   vector<Real> get_in_note_heights_in_range (vsize st, vsize end);

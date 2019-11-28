@@ -950,7 +950,7 @@ System::calc_pure_height (SCM smob, SCM start_scm, SCM end_scm)
 }
 
 Paper_column *
-System::get_pure_bound (Direction d, int start, int end)
+System::get_pure_bound (Direction d, vsize start, vsize end)
 {
   vector<vsize> const &ranks = pscore_->get_break_ranks ();
   vector<vsize> const &indices = pscore_->get_break_indices ();
@@ -967,7 +967,7 @@ System::get_pure_bound (Direction d, int start, int end)
 }
 
 Paper_column *
-System::get_maybe_pure_bound (Direction d, bool pure, int start, int end)
+System::get_maybe_pure_bound (Direction d, bool pure, vsize start, vsize end)
 {
   return pure ? get_pure_bound (d, start, end) : get_bound (d);
 }
