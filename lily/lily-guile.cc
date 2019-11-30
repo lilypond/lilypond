@@ -374,12 +374,11 @@ ly_deep_copy (SCM src)
     }
   if (scm_is_vector (src))
     {
-      int len = scm_c_vector_length (src);
+      vsize len = scm_c_vector_length (src);
       SCM nv = scm_c_make_vector (len, SCM_UNDEFINED);
-      for (int i = 0; i < len; i++)
+      for (vsize i = 0; i < len; i++)
         {
-          SCM si = scm_from_int (i);
-          scm_vector_set_x (nv, si, ly_deep_copy (scm_vector_ref (src, si)));
+          scm_c_vector_set_x (nv, i, ly_deep_copy (scm_c_vector_ref (src, i)));
         }
       return nv;
     }

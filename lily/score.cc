@@ -122,9 +122,9 @@ Score::book_rendering (Output_def *layoutbook,
 
   SCM outputs = SCM_EOL;
 
-  int outdef_count = defs_.size ();
+  vsize outdef_count = defs_.size ();
 
-  for (int i = 0; !i || i < outdef_count; i++)
+  for (vsize i = 0; !i || i < outdef_count; i++)
     {
       Output_def *def = outdef_count ? defs_[i] : default_def;
       SCM scaled = def->self_scm ();

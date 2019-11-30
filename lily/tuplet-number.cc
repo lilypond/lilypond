@@ -44,7 +44,7 @@ Tuplet_number::select_reference_stem (Grob *me_grob, vector<Grob *> const &cols)
 {
   Spanner *me = dynamic_cast<Spanner *> (me_grob);
 
-  int col_count = cols.size ();
+  vsize col_count = cols.size ();
 
   if (!col_count)
     return 0;

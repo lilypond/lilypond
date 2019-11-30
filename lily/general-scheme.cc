@@ -295,8 +295,8 @@ LY_DEFINE (ly_output_formats, "ly:output-formats",
   vector<string> output_formats = string_split (output_format_global, ',');
 
   SCM lst = SCM_EOL;
-  int output_formats_count = output_formats.size ();
-  for (int i = 0; i < output_formats_count; i++)
+  vsize output_formats_count = output_formats.size ();
+  for (vsize i = 0; i < output_formats_count; i++)
     lst = scm_cons (ly_string2scm (output_formats[i]), lst);
 
   return lst;

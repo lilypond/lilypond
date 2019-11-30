@@ -33,14 +33,14 @@
 void
 set_loose_columns (System *which, Column_x_positions const *posns)
 {
-  int loose_col_count = posns->loose_cols_.size ();
+  vsize loose_col_count = posns->loose_cols_.size ();
   if (!loose_col_count)
     return;
 
-  for (int i = 0; i < loose_col_count; i++)
+  for (vsize i = 0; i < loose_col_count; i++)
     dynamic_cast<Paper_column *> (posns->loose_cols_[i])->set_system (which);
 
-  for (int i = 0; i < loose_col_count; i++)
+  for (vsize i = 0; i < loose_col_count; i++)
     {
       int divide_over = 1;
       Paper_column *loose = static_cast<Paper_column *> (posns->loose_cols_[i]);

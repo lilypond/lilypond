@@ -38,8 +38,8 @@ LY_DEFINE (ly_make_scale, "ly:make-scale",
   vector<Rational> tones;
   if (type_ok)
     {
-      int len = scm_c_vector_length (steps);
-      for (int i = 0; i < len; i++)
+      vsize len = scm_c_vector_length (steps);
+      for (vsize i = 0; i < len; i++)
         {
           SCM step = scm_c_vector_ref (steps, i);
           type_ok = type_ok && scm_is_rational (step);

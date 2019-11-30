@@ -258,7 +258,7 @@ New_fingering_engraver::position_scripts (SCM orientations,
     }
   else if (up_p && down_p)
     {
-      int center = scripts->size () / 2;
+      vsize center = scripts->size () / 2;
       down.insert (down.end (), scripts->begin (), scripts->begin () + center);
       up.insert (up.end (), scripts->begin () + center, scripts->end ());
     }
