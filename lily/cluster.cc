@@ -58,10 +58,12 @@ brew_cluster_piece (Grob *me, vector<Offset> bottom_points, vector<Offset> top_p
   Stencil out;
   vector<Offset> points;
   points.clear ();
-  int size = bottom_points.size ();
-  if (shape == "leftsided-stairs")
+  vsize size = bottom_points.size ();
+  if (size <= 0)
+    programming_error ("no points provided");
+  else if (shape == "leftsided-stairs")
     {
-      for (int i = 0; i < size - 1; i++)
+      for (vsize i = 0; i < size - 1; i++)
         {
           Box box;
           box.add_point (bottom_points[i] - hvpadding);
@@ -72,7 +74,7 @@ brew_cluster_piece (Grob *me, vector<Offset> bottom_points, vector<Offset> top_p
     }
   else if (shape == "rightsided-stairs")
     {
-      for (int i = 0; i < size - 1; i++)
+      for (vsize i = 0; i < size - 1; i++)
         {
           Box box;
           box.add_point (Offset (bottom_points[i][X_AXIS],
@@ -84,7 +86,7 @@ brew_cluster_piece (Grob *me, vector<Offset> bottom_points, vector<Offset> top_p
   else if (shape == "centered-stairs")
     {
       Real left_xmid = bottom_points[0][X_AXIS];
-      for (int i = 0; i < size - 1; i++)
+      for (vsize i = 0; i < size - 1; i++)
         {
           Real right_xmid
             = 0.5 * (bottom_points[i][X_AXIS] + bottom_points[i + 1][X_AXIS]);
@@ -107,12 +109,15 @@ brew_cluster_piece (Grob *me, vector<Offset> bottom_points, vector<Offset> top_p
   else if (shape == "ramp")
     {
       points.push_back (bottom_points[0] - vpadding + hpadding);
-      for (int i = 1; i < size - 1; i++)
+      for (vsize i = 1; i < size - 1; i++)
         points.push_back (bottom_points[i] - vpadding);
       points.push_back (bottom_points[size - 1] - vpadding - hpadding);
       points.push_back (top_points[size - 1] + vpadding - hpadding);
-      for (int i = size - 2; i > 0; i--)
-        points.push_back (top_points[i] + vpadding);
+      if (size >= 2)
+        {
+          for (vsize i = size - 2; i > 0; i--)
+            points.push_back (top_points[i] + vpadding);
+        }
       points.push_back (top_points[0] + vpadding + hpadding);
       out.add_stencil (Lookup::round_filled_polygon (points, blotdiameter));
     }
