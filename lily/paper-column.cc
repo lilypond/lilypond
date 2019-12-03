@@ -39,12 +39,6 @@
 #include "text-interface.hh"
 #include "warn.hh"
 
-void
-Paper_column::do_break_processing ()
-{
-  Item::do_break_processing ();
-}
-
 bool
 Paper_column::internal_set_as_bound_of_spanner (Spanner *s, Direction)
 {
