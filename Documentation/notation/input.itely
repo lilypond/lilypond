@@ -96,6 +96,13 @@ are music expressions:
 @}
 @end example
 
+@funindex %
+@funindex %@{ @dots{} %@}
+@cindex comment
+@cindex line comment
+@cindex single-line comment
+@cindex block comment
+@cindex multi-line comment
 Comments are one exception to this general rule.  (For others see
 @ref{File structure}.)  Both single-line comments and comments
 delimited by @code{%@{ @dots{} %@}} may be placed anywhere within an
@@ -477,6 +484,14 @@ be entered:
 @funindex \include
 @funindex \sourcefilename
 @funindex \sourcefileline
+
+@funindex %
+@funindex %@{ @dots{} %@}
+@cindex comment
+@cindex line comment
+@cindex single-line comment
+@cindex block comment
+@cindex multi-line comment
 
 @itemize
 @item @code{\version}
