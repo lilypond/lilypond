@@ -89,8 +89,8 @@ Tuplet_number::select_reference_stem (Grob *me_grob, vector<Grob *> const &cols)
     ref_stem = bounding_stems[LEFT];
   else
     {
-      int beam_count_L_R = Stem::get_beaming (bounding_stems[LEFT], RIGHT);
-      int beam_count_R_L = Stem::get_beaming (bounding_stems[RIGHT], LEFT);
+      long beam_count_L_R = Stem::get_beaming (bounding_stems[LEFT], RIGHT);
+      long beam_count_R_L = Stem::get_beaming (bounding_stems[RIGHT], LEFT);
       if (beam_count_L_R == beam_count_R_L)
         ref_stem = (dir_left == me_dir) ? bounding_stems[LEFT] : bounding_stems[RIGHT];
       else

@@ -64,7 +64,7 @@ using std::string;
 using std::vector;
 
 void
-Stem::set_beaming (Grob *me, int beam_count, Direction d)
+Stem::set_beaming (Grob *me, long beam_count, Direction d)
 {
   SCM pair = me->get_property ("beaming");
 
@@ -76,15 +76,15 @@ Stem::set_beaming (Grob *me, int beam_count, Direction d)
 
   SCM lst = index_get_cell (pair, d);
   if (beam_count)
-    for (int i = 0; i < beam_count; i++)
-      lst = scm_cons (scm_from_int (i), lst);
+    for (long i = 0; i < beam_count; i++)
+      lst = scm_cons (scm_from_long (i), lst);
   else
     lst = SCM_BOOL_F;
 
   index_set_cell (pair, d, lst);
 }
 
-int
+long
 Stem::get_beaming (Grob *me, Direction d)
 {
   SCM pair = me->get_property ("beaming");
@@ -93,8 +93,8 @@ Stem::get_beaming (Grob *me, Direction d)
 
   SCM lst = index_get_cell (pair, d);
 
-  int len = scm_ilength (lst); // -1 for dotted lists!
-  return std::max (len, 0);
+  long len = scm_ilength (lst); // -1 for dotted lists!
+  return std::max (len, 0L);
 }
 
 Interval

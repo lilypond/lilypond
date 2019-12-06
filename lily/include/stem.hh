@@ -30,8 +30,8 @@ class Stem
 public:
   static std::vector<int> note_head_positions (Grob *, bool filter = false);
   static int duration_log (Grob *);
-  static void set_beaming (Grob *, int, Direction d);
-  static int get_beaming (Grob *, Direction d);
+  static void set_beaming (Grob *, long, Direction d);
+  static long get_beaming (Grob *, Direction d);
   static Spanner *get_beam (Grob *);
   static Grob *first_head (Grob *);
   static Grob *last_head (Grob *);
