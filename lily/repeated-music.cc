@@ -39,7 +39,7 @@ Moment
 Repeated_music::alternatives_get_length (Music *me, bool fold)
 {
   SCM alternative_list = alternatives (me);
-  int len = scm_ilength (alternative_list);
+  long len = scm_ilength (alternative_list);
   if (len <= 0)
     return 0;
 

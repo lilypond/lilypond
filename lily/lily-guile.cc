@@ -667,7 +667,7 @@ ly_is_rational (SCM n)
 SCM
 alist_to_hashq (SCM alist)
 {
-  int i = scm_ilength (alist);
+  long i = scm_ilength (alist);
   if (i < 0)
     return scm_c_make_hash_table (0);
 

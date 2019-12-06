@@ -86,7 +86,7 @@ Dispatcher::dispatch (SCM sev)
 #if 0
   bool sent = false;
 #endif
-  int num_classes = scm_ilength (class_list);
+  long num_classes = scm_ilength (class_list);
 
   /*
     For each event class there is a list of listeners, which is

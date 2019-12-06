@@ -640,7 +640,7 @@ LY_DEFINE (ly_spawn, "ly:spawn",
 {
   LY_ASSERT_TYPE (scm_is_string, command, 1);
 
-  int argc = scm_is_pair (rest) ? scm_ilength (rest) : 0;
+  long argc = scm_is_pair (rest) ? scm_ilength (rest) : 0;
   char **argv = new char*[argc + 2];
 
   int n = 0;
