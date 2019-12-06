@@ -731,16 +731,16 @@ class SignatureFileLink (FileLink):
     def get_cell (self, oldnew):
         def static_img_cell (img):
             return '', ('''
-<div><a href="%(img)s"><img src="%(img)s" alt/></a></div>
+<div><a href="%(img)s"><img src="%(img)s" alt=""/></a></div>
 ''' % locals ())
 
         def reactive_img_cell (oldimg, newimg):
             return 'reactive_img', ('''
-<div style="background-image: url(\'%(oldimg)s\')"><a href="%(newimg)s"><img src="%(newimg)s" alt/></a></div>
+<div style="background-image: url(\'%(oldimg)s\')"><a href="%(newimg)s"><img src="%(newimg)s" alt=""/></a></div>
 ''' % locals ())
 
         def multi_img_cell (imgs):
-            imgs_str = '\n'.join (['''<a href="%s"><img src="%s" alt/></a>''' % (img, img)
+            imgs_str = '\n'.join (['''<a href="%s"><img src="%s" alt=""/></a>''' % (img, img)
                                   for img in imgs])
 
 
