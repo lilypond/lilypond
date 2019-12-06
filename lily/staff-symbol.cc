@@ -123,7 +123,7 @@ Staff_symbol::line_positions (Grob *me)
     }
   else
     {
-      int line_count = Staff_symbol::line_count (me);
+      int line_count = internal_line_count (me);
       Real height = line_count - 1;
       vector<Real> values (line_count);
       for (int i = 0; i < line_count; i++)
@@ -289,7 +289,15 @@ Staff_symbol::line_count (Grob *me)
   if (scm_is_pair (line_positions))
     return scm_ilength (line_positions);
   else
-    return robust_scm2int (me->get_property ("line-count"), 0);
+    return internal_line_count (me);
+}
+
+// Get the line-count property directly.  This is for internal use when it is
+// known that the line-positions property is not relevant.
+int
+Staff_symbol::internal_line_count (Grob *me)
+{
+  return robust_scm2int (me->get_property ("line-count"), 0);
 }
 
 Real
@@ -337,10 +345,13 @@ Staff_symbol::height (SCM smob)
     }
   else
     {
-      int l = Staff_symbol::line_count (me);
+      // TODO: If the line count is zero, return Interval (0, 0)?
+      // It would improve input/regression/rest-positioning.ly.
+      int l = internal_line_count (me);
       Real height = (l - 1) * staff_space (me) / 2;
       y_ext = Interval (-height, height);
     }
+  // TODO: Widening is wrong if the line count is zero.
   y_ext.widen (t / 2);
   return ly_interval2scm (y_ext);
 }
@@ -352,7 +363,7 @@ Staff_symbol::on_line (Grob *me, int pos, bool allow_ledger)
   if (!scm_is_pair (me->get_property ("line-positions"))
       && !scm_is_pair (me->get_property ("ledger-positions")))
     {
-      int const line_cnt = line_count (me);
+      int const line_cnt = internal_line_count (me);
       bool result = abs (pos + line_cnt) % 2 == 1;
       if (result && !allow_ledger)
         {
@@ -401,7 +412,9 @@ Staff_symbol::line_span (Grob *me)
       iv.add_point (scm_to_double (scm_car (s)));
   else
     {
-      int count = line_count (me);
+      // Note: This yields an empty interval (start > end) when there are no
+      // staff lines.
+      int count = internal_line_count (me);
       return Interval (-count + 1, count - 1);
     }
 

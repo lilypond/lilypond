@@ -40,5 +40,8 @@ public:
   static Interval line_span (Grob *);
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (height, (SCM));
+
+private:
+  static int internal_line_count (Grob *);
 };
 #endif // STAFF_SYMBOL_HH
