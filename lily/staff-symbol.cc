@@ -111,15 +111,7 @@ Staff_symbol::line_positions (Grob *me)
   SCM line_positions = me->get_property ("line-positions");
   if (scm_is_pair (line_positions))
     {
-      int line_count = scm_ilength (line_positions);
-      vector<Real> values (line_count);
-      int i = 0;
-      for (SCM s = line_positions; scm_is_pair (s);
-           s = scm_cdr (s))
-        {
-          values[i++] = scm_to_double (scm_car (s));
-        }
-      return values;
+      return ly_scm2floatvector (line_positions);
     }
   else
     {
