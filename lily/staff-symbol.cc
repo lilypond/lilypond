@@ -312,29 +312,23 @@ SCM
 Staff_symbol::height (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  Real t = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
-  t *= robust_scm2double (me->get_property ("thickness"), 1.0);
 
-  SCM line_positions = me->get_property ("line-positions");
-
-  Interval y_ext;
-  Real space = staff_space (me);
-  if (scm_is_pair (line_positions))
+  Interval y_ext = line_span (me); // units of staff position
+  if (!y_ext.is_empty ()) // line count > 0
     {
-      for (SCM s = line_positions; scm_is_pair (s);
-           s = scm_cdr (s))
-        y_ext.add_point (scm_to_double (scm_car (s)) * 0.5 * space);
+      // convert staff position to height
+      y_ext *= 0.5 * staff_space (me);
+
+      // account for top and bottom line thickness
+      Real t = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
+      t *= robust_scm2double (me->get_property ("thickness"), 1.0);
+      y_ext.widen (t / 2);
     }
   else
     {
-      // TODO: If the line count is zero, return Interval (0, 0)?
-      // It would improve input/regression/rest-positioning.ly.
-      int l = internal_line_count (me);
-      Real height = (l - 1) * staff_space (me) / 2;
-      y_ext = Interval (-height, height);
+      y_ext = Interval (0, 0);
     }
-  // TODO: Widening is wrong if the line count is zero.
-  y_ext.widen (t / 2);
+
   return ly_interval2scm (y_ext);
 }
 
