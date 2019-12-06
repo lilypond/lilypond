@@ -24,13 +24,6 @@
 #include "output-def.hh"
 #include "libc-extension.hh"
 
-int
-Staff_symbol_referencer::line_count (Grob *me)
-{
-  Grob *st = get_staff_symbol (me);
-  return st ? Staff_symbol::line_count (st) : 0;
-}
-
 bool
 Staff_symbol_referencer::on_line (Grob *me, int pos)
 {

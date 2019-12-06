@@ -282,16 +282,6 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item const *head)
   return final_values;
 }
 
-int
-Staff_symbol::line_count (Grob *me)
-{
-  SCM line_positions = me->get_property ("line-positions");
-  if (scm_is_pair (line_positions))
-    return scm_ilength (line_positions);
-  else
-    return internal_line_count (me);
-}
-
 // Get the line-count property directly.  This is for internal use when it is
 // known that the line-positions property is not relevant.
 int

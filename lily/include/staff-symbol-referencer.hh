@@ -44,7 +44,6 @@ public:
   static Grob *get_staff_symbol (Grob *);
   static bool on_line (Grob *, int);
   static bool on_staff_line (Grob *, int);
-  static int line_count (Grob *);
   static Real get_position (Grob *);
   static Real pure_get_position (Grob *);
 
