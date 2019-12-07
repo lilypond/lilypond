@@ -49,18 +49,18 @@ musicDown = \relative c'' {
 
 \score {
     <<
-    \new Staff \with { instrumentName = #"Standard polyphony" }
+    \new Staff \with { instrumentName = "Standard polyphony" }
 
       << \musicUp \\ \musicDown >>
 
     \new Staff \with {
-      instrumentName = #"PartCombine without text"
+      instrumentName = "PartCombine without text"
       printPartCombineTexts = ##f
     }
 
     \partcombine \musicUp \musicDown
 
-    \new Staff \with { instrumentName = #"PartCombine with text" }
+    \new Staff \with { instrumentName = "PartCombine with text" }
       \partcombine \musicUp \musicDown
     >>
   \layout {
