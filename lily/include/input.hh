@@ -59,12 +59,12 @@ public:
   string line_number_string () const;
   string file_string ()const;
 
-  int line_number ()const;
-  int column_number ()const;
-  int end_line_number ()const;
-  int end_column_number ()const;
+  ssize_t line_number () const;
+  ssize_t column_number () const;
+  ssize_t end_line_number () const;
+  ssize_t end_column_number () const;
 
-  void get_counts (int *, int *, int *, int *) const;
+  void get_counts (ssize_t *, ssize_t *, ssize_t *, ssize_t *) const;
 
   Input& operator= (Input const &) = default;
   Input (Input const &i) = default;

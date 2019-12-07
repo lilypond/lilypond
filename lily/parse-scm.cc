@@ -46,8 +46,8 @@ internal_ly_parse_scm (Parse_start *ps)
   scm_seek (port, scm_from_long (off), scm_from_long (SEEK_SET));
   SCM from = scm_ftell (port);
 
-  scm_set_port_line_x (port, scm_from_int (hi.line_number () - 1));
-  scm_set_port_column_x (port, scm_from_int (hi.column_number () - 1));
+  scm_set_port_line_x (port, scm_from_ssize_t (hi.line_number () - 1));
+  scm_set_port_column_x (port, scm_from_ssize_t (hi.column_number () - 1));
 
   bool multiple = ly_is_equal (scm_peek_char (port), SCM_MAKE_CHAR ('@'));
 

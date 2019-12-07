@@ -29,10 +29,6 @@ using namespace std;
 
 /**
    class for reading and mapping a file.
-
-   duplicates a lot of Data_file and Text_stream.
-   should look at including Data_file's functionality:
-   get_line (), get_word () here.
 */
 
 class Source_file : public Smob<Source_file>
@@ -57,24 +53,25 @@ public:
   Source_file (const string&, const string&);
 
   char const *c_str () const;
-  virtual string quote_input (char const *pos_str0) const;
+  string quote_input (char const *pos_str0) const;
   istream *get_istream ();
   bool contains (char const *pos_str0) const;
-  int length () const;
-  virtual int get_line (char const *pos_str0) const;
-  void set_line (char const *pos_str0, int i);
+  size_t length () const;
+  ssize_t get_line (char const *pos_str0) const;
+  void set_line (char const *pos_str0, ssize_t line);
   string name_string () const;
   string file_line_column_string (char const *str0) const;
 
   Slice line_slice (char const *pos_str0) const;
   string line_string (char const *pos_str0) const;
-  void get_counts (char const *pos_str0, int *, int *, int *, int *) const;
+  void get_counts (char const *pos_str0,
+                   ssize_t *, ssize_t *, ssize_t *, ssize_t *) const;
 
   SCM get_port () const;
   string name_;
 
 protected:
-  int line_offset_;
+  ssize_t line_offset_;
 };
 
 vector<char> gulp_file (const string &fn, size_t desired_size);

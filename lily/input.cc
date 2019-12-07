@@ -140,7 +140,7 @@ Input::file_string () const
   return "";
 }
 
-int
+ssize_t
 Input::line_number () const
 {
   if (source_file_)
@@ -148,16 +148,16 @@ Input::line_number () const
   return 0;
 }
 
-int
+ssize_t
 Input::column_number () const
 {
-  int line, chr, col, offset = 0;
+  ssize_t line, chr, col, offset = 0;
   source_file_->get_counts (start_, &line, &chr, &col, &offset);
 
   return col;
 }
 
-int
+ssize_t
 Input::end_line_number () const
 {
   if (source_file_)
@@ -165,17 +165,18 @@ Input::end_line_number () const
   return 0;
 }
 
-int
+ssize_t
 Input::end_column_number () const
 {
-  int line, chr, col, offset = 0;
+  ssize_t line, chr, col, offset = 0;
   source_file_->get_counts (end_, &line, &chr, &col, &offset);
 
   return col;
 }
 
 void
-Input::get_counts (int *line, int *chr, int *col, int *offset) const
+Input::get_counts (ssize_t *line, ssize_t *chr,
+                   ssize_t *col, ssize_t *offset) const
 {
   source_file_->get_counts (start_, line, chr, col, offset);
 }

@@ -65,12 +65,12 @@ LY_DEFINE (ly_input_file_line_char_column,
   LY_ASSERT_SMOB (Input, sip, 1);
   Input *ip = unsmob<Input> (sip);
 
-  int l, ch, col, offset = 0;
+  ssize_t l, ch, col, offset = 0;
   ip->get_counts (&l, &ch, &col, &offset);
   return scm_list_4 (ly_string2scm (ip->file_string ()),
-                     scm_from_int (l),
-                     scm_from_int (ch),
-                     scm_from_int (col));
+                     scm_from_ssize_t (l),
+                     scm_from_ssize_t (ch),
+                     scm_from_ssize_t (col));
 }
 
 LY_DEFINE (ly_input_both_locations,
@@ -84,8 +84,8 @@ LY_DEFINE (ly_input_both_locations,
   Input *ip = unsmob<Input> (sip);
 
   return scm_list_5 (ly_string2scm (ip->file_string ()),
-                     scm_from_int (ip->line_number ()),
-                     scm_from_int (ip->column_number ()),
-                     scm_from_int (ip->end_line_number ()),
-                     scm_from_int (ip->end_column_number ()));
+                     scm_from_ssize_t (ip->line_number ()),
+                     scm_from_ssize_t (ip->column_number ()),
+                     scm_from_ssize_t (ip->end_line_number ()),
+                     scm_from_ssize_t (ip->end_column_number ()));
 }

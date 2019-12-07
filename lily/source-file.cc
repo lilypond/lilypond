@@ -172,7 +172,7 @@ Source_file::file_line_column_string (char const *context_str0) const
     return " (" + _ ("position unknown") + ")";
   else
     {
-      int l, ch, col, offset;
+      ssize_t l, ch, col, offset;
       get_counts (context_str0, &l, &ch, &col, &offset);
 
       return name_string () + ":" + std::to_string (l)
@@ -186,7 +186,7 @@ Source_file::quote_input (char const *pos_str0) const
   if (!contains (pos_str0))
     return " (" + _ ("position unknown") + ")";
 
-  int l, ch, col, offset;
+  ssize_t l, ch, col, offset;
   get_counts (pos_str0, &l, &ch, &col, &offset);
   string line = line_string (pos_str0);
   string context = line.substr (0, offset);
@@ -251,10 +251,10 @@ Source_file::line_string (char const *pos_str0) const
 
 void
 Source_file::get_counts (char const *pos_str0,
-                         int *line_number,
-                         int *line_char,
-                         int *column,
-                         int *byte_offset) const
+                         ssize_t *line_number,
+                         ssize_t *line_char,
+                         ssize_t *column,
+                         ssize_t *byte_offset) const
 {
   // Initialize arguments to defaults, needed if pos_str0 is not in source
   *line_number = 0;
@@ -274,6 +274,7 @@ Source_file::get_counts (char const *pos_str0,
   ssize left = (char const *) pos_str0 - line_start;
   *byte_offset = left;
 
+  // TODO: copying into line_begin looks pointless and wasteful
   string line_begin (line_start, left);
   char const *line_chars = line_begin.c_str ();
 
@@ -302,7 +303,7 @@ Source_file::contains (char const *pos_str0) const
   return (pos_str0 && (pos_str0 >= c_str ()) && (pos_str0 <= c_str () + length ()));
 }
 
-int
+ssize_t
 Source_file::get_line (char const *pos_str0) const
 {
   if (!contains (pos_str0))
@@ -321,11 +322,11 @@ Source_file::get_line (char const *pos_str0) const
 }
 
 void
-Source_file::set_line (char const *pos_str0, int line)
+Source_file::set_line (char const *pos_str0, ssize_t line)
 {
   if (pos_str0)
     {
-      int current_line = get_line (pos_str0);
+      auto current_line = get_line (pos_str0);
       line_offset_ += line - current_line;
 
       assert (line == get_line (pos_str0));
@@ -334,7 +335,7 @@ Source_file::set_line (char const *pos_str0, int line)
     line_offset_ = line;
 }
 
-int
+size_t
 Source_file::length () const
 {
   return characters_.size ();
