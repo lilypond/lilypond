@@ -55,44 +55,41 @@ Source_file::load_stdin ()
   return contents of FILENAME. *Not 0-terminated!*
  */
 vector<char>
-gulp_file (const string &filename, int desired_size)
+gulp_file (const string &filename, size_t desired_size)
 {
   /* "b" must ensure to open literally, avoiding text (CR/LF)
      conversions.  */
-  FILE *f = fopen (filename.c_str (), "rb");
+  FILE *f = fopen (filename.c_str (), "rb"); // TODO: RAII
   if (!f)
     {
       warning (_f ("cannot open file: `%s'", filename.c_str ()));
-
-      vector<char> cxx_arr;
-      return cxx_arr;
+      return {};
     }
 
   fseek (f, 0, SEEK_END);
-  int real_size = ftell (f);
-  int read_count = real_size;
+  const auto real_size = ftell (f);
+  if (real_size < 0)
+    {
+      warning (_f ("failed to get file size: `%s'", filename.c_str ()));
+      fclose (f);
+      return {};
+    }
+  size_t read_count = real_size;
 
   if (desired_size > 0)
     read_count = min (read_count, desired_size);
 
   rewind (f);
 
-  char *str = new char[read_count + 1];
-  str[read_count] = 0;
-
-  int bytes_read = fread (str, sizeof (char), read_count, f);
-  if (bytes_read != read_count)
-    warning (_f ("expected to read %d characters, got %d", bytes_read,
-                 read_count));
+  vector<char> cxx_arr (read_count);
+  size_t bytes_read = fread (cxx_arr.data (), sizeof (char), read_count, f);
+  if (bytes_read < read_count)
+    {
+      warning (_f ("expected to read %zu characters, got %zu", read_count,
+                   bytes_read));
+      cxx_arr.resize (bytes_read);
+    }
   fclose (f);
-  int filesize = bytes_read;
-
-  vector<char> cxx_arr;
-  cxx_arr.resize (filesize);
-
-  copy (str, str + filesize, cxx_arr.begin ());
-
-  delete[] str;
   return cxx_arr;
 }
 

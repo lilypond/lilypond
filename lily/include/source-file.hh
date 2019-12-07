@@ -77,6 +77,6 @@ protected:
   int line_offset_;
 };
 
-vector<char> gulp_file (const string &fn, int desired);
+vector<char> gulp_file (const string &fn, size_t desired_size);
 
 #endif /* SOURCE_FILE_HH */
