@@ -10,7 +10,7 @@ vI = \relative { \clef "treble" \repeat unfold 40 g'4 }
 
 Solo = \relative c'' {
   \clef "bass"
-  \cueDuringWithClef #"vIQuote" #DOWN #"treble" { r2 } d,,4 d4 |
+  \cueDuringWithClef "vIQuote" #DOWN "treble" { r2 } d,,4 d4 |
 }
 
 \score {

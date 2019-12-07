@@ -9,9 +9,9 @@ vI = \relative { \clef "treble" \repeat unfold 40 g'4 }
 \score {
   \new Staff {
     \clef "bass" \key g \major
-    \cueDuringWithClef #"vIQuote" #DOWN #"treble" { R1 } |
+    \cueDuringWithClef "vIQuote" #DOWN "treble" { R1 } |
     c1 |
-    \cueDuringWithClef #"vIQuote" #DOWN #"soprano" { R1 \break R1 }
+    \cueDuringWithClef "vIQuote" #DOWN "soprano" { R1 \break R1 }
     c1 |
   }
 }

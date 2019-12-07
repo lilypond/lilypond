@@ -1563,7 +1563,7 @@ nouvelle portée temporaire, du type @rglos{ossia}.
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main" }
+        alignAboveContext = "main" }
       { f8 f c }
     >>
     r4 |
@@ -1590,7 +1590,7 @@ régler le stencil de chacun sur @code{#f}, comme ceci :
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main"
+        alignAboveContext = "main"
       }
       {
         \omit Staff.Clef
@@ -1653,7 +1653,7 @@ Remplaçons donc l'exemple ci-dessus par celui-ci :
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main"
+        alignAboveContext = "main"
         % Don't print clefs in this staff
         \override Clef.stencil = ##f
         % Don't print time signatures in this staff
@@ -1678,7 +1678,7 @@ le @code{stencil}, ce qui donnerait :
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main"
+        alignAboveContext = "main"
         % Don't print clefs in this staff
         \omit Clef
         % Don't print time signatures in this staff
@@ -1744,7 +1744,7 @@ Essayons sur l'exemple d'ossia :
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main"
+        alignAboveContext = "main"
         \omit Clef
         \omit TimeSignature
         % Reduce all font sizes by ~24%
@@ -1815,7 +1815,7 @@ augmente, les objets en question.  Voici comment elle s'utilise :
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main"
+        alignAboveContext = "main"
         \omit Clef
         \omit TimeSignature
         fontSize = #-2

@@ -6,7 +6,7 @@
 \paper{ragged-right = ##t }
 <<
   \new ChordNames \chordmode {
-    \set additionalPitchPrefix = #"add"
+    \set additionalPitchPrefix = "add"
     f2:13.15 f2
   }
   \new Staff {

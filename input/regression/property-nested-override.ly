@@ -8,12 +8,12 @@ list.
 }
 
 \relative {
-  \once \override TextSpanner.bound-details.left.text = #"foo"
+  \once \override TextSpanner.bound-details.left.text = "foo"
   c'4\startTextSpan
   \once \override Tie.details.note-head-gap = #1
   c4 ~ 4 c\stopTextSpan
   
-  \once \override TextSpanner.bound-details.left.text = #"foo"
+  \once \override TextSpanner.bound-details.left.text = "foo"
   c4\startTextSpan
   \once \override Tie.details.note-head-gap = #1
   c4 ~ 4 c\stopTextSpan

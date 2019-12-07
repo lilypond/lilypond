@@ -2606,7 +2606,7 @@ del rigo principale per impostare la larghezza occupata dall'incipit, e
 \score {
   \new Staff <<
     \new Voice = Tenor {
-      \set Staff.instrumentName = #"Tenor"
+      \set Staff.instrumentName = "Tenor"
       \override Staff.InstrumentName.self-alignment-X = #RIGHT
       \incipit { \clef "mensural-c4" \key f \major r\breve r1 c'1 }
       \clef "treble_8"
@@ -2627,7 +2627,7 @@ del rigo principale per impostare la larghezza occupata dall'incipit, e
 @knownissues
 Attenzione: @code{instrumentName} deve essere impostato perché l'incipit venga
 prodotto.  Se non è richiesto il nome di uno strumento, usare
-@code{\set Staff.instrumentName = #""}.
+@code{\set Staff.instrumentName = ""}.
 
 @c @seealso
 @c ... and reference to other sections ...

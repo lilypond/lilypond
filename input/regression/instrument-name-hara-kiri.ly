@@ -11,8 +11,8 @@ disappears, as does the instrument name."
 \new PianoStaff <<
   \new Staff {
     \override Staff.VerticalAxisGroup.remove-empty = ##t  
-    \set PianoStaff.instrumentName = #"up" 
-    \set PianoStaff.shortInstrumentName = #"u"
+    \set PianoStaff.instrumentName = "up" 
+    \set PianoStaff.shortInstrumentName = "u"
     c'1\break R
   }
 >>

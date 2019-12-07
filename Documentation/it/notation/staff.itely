@@ -220,7 +220,7 @@ differenza che permette di mostrare il nome dello strumento direttamente.  Ulter
 dettagli in @ref{Nomi degli strumenti}.
 
 @lilypond[verbatim,quote]
-\new PianoStaff \with { instrumentName = #"Piano" }
+\new PianoStaff \with { instrumentName = "Piano" }
 <<
   \new Staff \relative { c''1 c }
   \new Staff \relative { \clef bass c1 c }
@@ -628,7 +628,7 @@ righi ossia.
 
     \new Staff \with {
       \remove "Time_signature_engraver"
-      alignAboveContext = #"main"
+      alignAboveContext = "main"
       \magnifyStaff #2/3
       firstClef = ##f
     }
@@ -878,8 +878,8 @@ primo rigo e quello di @code{shortInstrumentName} per tutti i righi successivi.
 
 @lilypond[verbatim,quote,ragged-right]
 \new Staff \with {
-  instrumentName = #"Violin "
-  shortInstrumentName = #"Vln. "
+  instrumentName = "Violin "
+  shortInstrumentName = "Vln. "
 } \relative {
   c'4.. g'16 c4.. g'16 \break | c1 |
 }
@@ -912,7 +912,7 @@ usare @code{\center-column}:
 @lilypond[verbatim,quote,indent=1.5\cm]
 <<
   \new Staff \with {
-    instrumentName = #"Flute"
+    instrumentName = "Flute"
   } \relative {
     f''2 g4 f
 }
@@ -937,15 +937,15 @@ Ulteriori dettagli su queste impostazioni si trovano in
 @lilypond[verbatim,quote,ragged-right]
 <<
   \new Staff \with {
-    instrumentName = #"Alto Flute in G"
-    shortInstrumentName = #"Flt."
+    instrumentName = "Alto Flute in G"
+    shortInstrumentName = "Flt."
   } \relative {
     f''2 g4 f \break
     g4 f g2
   }
   \new Staff \with {
-    instrumentName = #"Clarinet"
-    shortInstrumentName = #"Clar."
+    instrumentName = "Clarinet"
+    shortInstrumentName = "Clar."
   } \relative {
     c''4 b c2 \break
     c2 b4 c
@@ -988,19 +988,19 @@ setFlute = {
 }
 
 \new Staff \with {
-  instrumentName = #"Flute"
-  shortInstrumentName = #"Flt."
+  instrumentName = "Flute"
+  shortInstrumentName = "Flt."
 }
 \relative {
   g'1 g g g \break
   g1 g \prepPiccolo R R \break
-  \set Staff.instrumentName = #"Piccolo"
-  \set Staff.shortInstrumentName = #"Picc."
+  \set Staff.instrumentName = "Piccolo"
+  \set Staff.shortInstrumentName = "Picc."
   \setPiccolo
   g1 g g g \break
   g1 g \prepFlute R R \break
-  \set Staff.instrumentName = #"Flute"
-  \set Staff.shortInstrumentName = #"Flt."
+  \set Staff.instrumentName = "Flute"
+  \set Staff.shortInstrumentName = "Flt."
   \setFlute
   g1 g g g
 }
@@ -1053,7 +1053,7 @@ fluteNotes = \relative {
 }
 
 oboeNotes = \relative {
-  c''4 cis c b \quoteDuring #"flute" { s1 }
+  c''4 cis c b \quoteDuring "flute" { s1 }
 }
 
 \addQuote "flute" { \fluteNotes }
@@ -1076,7 +1076,7 @@ fluteNotes = \relative {
 }
 
 oboeNotes = \relative {
-  c''4 cis c b \quoteDuring #"flute" { e4 r8 ais b4 a }
+  c''4 cis c b \quoteDuring "flute" { e4 r8 ais b4 a }
 }
 
 \addQuote "flute" { \fluteNotes }
@@ -1100,11 +1100,11 @@ fluteNotes = \relative {
 }
 
 oboeNotesDW = \relative {
-  \repeat volta 2 \quoteDuring #"incorrect" { s1 }
+  \repeat volta 2 \quoteDuring "incorrect" { s1 }
 }
 
 oboeNotesW = \relative {
-  \repeat volta 2 \quoteDuring #"correct" { s1 }
+  \repeat volta 2 \quoteDuring "correct" { s1 }
 }
 
 
@@ -1137,7 +1137,7 @@ clarinetNotes = \relative c'' {
 }
 
 oboeNotes = \relative {
-  c''4 cis c b \quoteDuring #"clarinet" { s1 }
+  c''4 cis c b \quoteDuring "clarinet" { s1 }
 }
 
 \addQuote "clarinet" { \clarinetNotes }
@@ -1173,7 +1173,7 @@ fluteNotes = \relative {
 
 oboeNotes = \relative {
   c''2. b4 |
-  \quoteDuring #"flute" { s1 }
+  \quoteDuring "flute" { s1 }
 }
 
 \addQuote "flute" { \fluteNotes }
@@ -1319,7 +1319,7 @@ fluteNotes = \relative {
 oboeNotes = \relative c'' {
   R1
   <>^\markup \tiny { flute }
-  \cueDuring #"flute" #UP { R1 }
+  \cueDuring "flute" #UP { R1 }
   g2 c,
 }
 
@@ -1356,7 +1356,7 @@ oboeNotes = \relative {
   \set Score.quotedCueEventTypes = #'(note-event rest-event tie-event
                                       beam-event tuplet-span-event
                                       dynamic-event slur-event)
-  \cueDuring #"oboe" #UP { R1 }
+  \cueDuring "oboe" #UP { R1 }
   g2 c,
 }
 @end lilypond
@@ -1376,7 +1376,7 @@ bassoonNotes = \relative c {
   R1
   \clef treble
   <>^\markup \tiny { flute }
-  \cueDuring #"flute" #UP { R1 }
+  \cueDuring "flute" #UP { R1 }
   \clef bass
   g4. b8 d2
 }
@@ -1402,7 +1402,7 @@ bassoonNotes = \relative c {
   \clef bass
   R1
   <>^\markup { \tiny "flute" }
-  \cueDuringWithClef #"flute" #UP #"treble" { R1 }
+  \cueDuringWithClef "flute" #UP "treble" { R1 }
   g4. b8 d2
 }
 
@@ -1438,7 +1438,7 @@ bassClarinetNotes = \relative c' {
   \key d \major
   \transposition bes,
   d4 r a r
-  \transposedCueDuring #"piccolo" #UP d { R1 }
+  \transposedCueDuring "piccolo" #UP d { R1 }
   d4 r a r
 }
 
@@ -1476,7 +1476,7 @@ bassoonNotes = \relative c {
     \clef treble
     <>^\markup { \tiny "flute" }
   }
-  \cueDuring #"flute" #UP { R1 }
+  \cueDuring "flute" #UP { R1 }
   \tag #'part \clef bass
   g4. b8 d2
 }

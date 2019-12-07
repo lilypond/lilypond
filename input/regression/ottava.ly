@@ -49,7 +49,7 @@ markup can be tuned with @code{Staff.ottavation}.
   \break
   a, 
   \ottava #1
-  \set Staff.ottavation = #"8"
+  \set Staff.ottavation = "8"
   b
   \ottava #0
   c a 
@@ -59,12 +59,12 @@ markup can be tuned with @code{Staff.ottavation}.
   \ottava #0
   c 
   \ottava #-1
-  \set Staff.ottavation = #"8"
+  \set Staff.ottavation = "8"
   c,,16
   \ottava #0
   c'16
   \ottava #-1
-  \set Staff.ottavation = #"8"
+  \set Staff.ottavation = "8"
   g,,16
 }
 

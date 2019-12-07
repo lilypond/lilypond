@@ -1734,11 +1734,11 @@ pitches.  The three clef symbols in common use are:
   }
   \hspace #0.5
   \left-column {
-    \musicglyph #"clefs.G"
+    \musicglyph "clefs.G"
     \strut
-    \musicglyph #"clefs.F"
+    \musicglyph "clefs.F"
     \strut
-    \musicglyph #"clefs.C"
+    \musicglyph "clefs.C"
  }
 }
 @end lilypond
@@ -2519,7 +2519,7 @@ g,4^\segno a b c
 b4 a g2-\markup {
   \italic "D.S. "
   \tiny \raise #1
-  \musicglyph #"scripts.segno"
+  \musicglyph "scripts.segno"
 }
 \bar "|."
 @end lilypond

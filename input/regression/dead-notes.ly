@@ -40,7 +40,7 @@ mynotes = \relative c,, {
     }
     \new TabStaff
       \with {
-        \override TabNoteHead.font-name = #"Luxi Mono"
+        \override TabNoteHead.font-name = "Luxi Mono"
         instrumentName =
           \markup \tiny \center-column { "TabNoteHead-" "font:" "Luxi Mono" }
       }{

@@ -26,7 +26,7 @@
       \combine "o" "/"
     }
     g'1-\markup {
-                                  %		\char-number #"abc1234abc"
+                                  %		\char-number "abc1234abc"
       \box \column {
         \line { "string 1" }
         \line { "string 2" }

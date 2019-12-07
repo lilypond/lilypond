@@ -13,7 +13,7 @@ the @code{define-markup-command} scheme macro."
 
 \score{
   {
-    c''-\markup \upcase #"hello world in upper case"
+    c''-\markup \upcase "hello world in upper case"
   }
 
   \layout {

@@ -8,7 +8,7 @@ associated voices.
 
 \include "festival.ly"
 
-\festival #"song-associated-voice.xml" { \tempo 4 = 100 }
+\festival "song-associated-voice.xml" { \tempo 4 = 100 }
 \relative c'
 {
 << \context Voice = melody {
@@ -16,7 +16,7 @@ associated voices.
      c2 e4 g2.
   }
   \new Lyrics \lyricmode {
-    \set associatedVoice = #"melody"
+    \set associatedVoice = "melody"
     play2 the4 game2.
   } >>
 }

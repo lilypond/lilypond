@@ -6,7 +6,7 @@ breath marks.
 }
 \include "festival.ly"
 
-\festival #"song-breathe.xml" { \tempo 4 = 100 }
+\festival "song-breathe.xml" { \tempo 4 = 100 }
 {
 \time 3/4
 \relative { c'2 e \breathe g }

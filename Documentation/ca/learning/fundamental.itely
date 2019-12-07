@@ -475,7 +475,7 @@ manera següent:
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main"
+        alignAboveContext = "main"
       } { f8 f c }
     >>
     r4 |
@@ -1792,11 +1792,11 @@ etiquetat, però no el segon, perquè hem omès el nom del context.
 @lilypond[quote,verbatim,ragged-right]
 <<
   \new Staff \relative {
-    \set Staff.instrumentName = #"Soprano"
+    \set Staff.instrumentName = "Soprano"
     c''2 c
   }
   \new Staff \relative {
-    \set instrumentName = #"Alto"  % Incorrecte!
+    \set instrumentName = "Alto"  % Incorrecte!
     d'2 d
   }
 >>
@@ -2483,7 +2483,7 @@ lower = \relative {
   <<  % combina el pentagrama del cor i del piano en paral·lel
     \new ChoirStaff <<
       \new Staff = "sopranos" <<
-        \set Staff.instrumentName = #"Soprano"
+        \set Staff.instrumentName = "Soprano"
         \new Voice = "sopranos" {
           \global
           \musicaSoprano
@@ -2493,7 +2493,7 @@ lower = \relative {
         \lletraSoprano
       }
       \new Staff = "altos" <<
-        \set Staff.instrumentName = #"Alto"
+        \set Staff.instrumentName = "Alto"
         \new Voice = "altos" {
           \global
           \musicaAlto
@@ -2501,7 +2501,7 @@ lower = \relative {
       >>
       \new Lyrics \lyricsto "altos" { \lletraAlto }
       \new Staff = "tenors" <<
-        \set Staff.instrumentName = #"Tenor"
+        \set Staff.instrumentName = "Tenor"
         \new Voice = "tenors" {
           \global
           \musicaTenor
@@ -2509,7 +2509,7 @@ lower = \relative {
       >>
       \new Lyrics \lyricsto "tenors" { \lletraTenor }
       \new Staff = "baixos" <<
-        \set Staff.instrumentName = #"Baix"
+        \set Staff.instrumentName = "Baix"
         \new Voice = "baixos" {
           \global
           \musicaBaix
@@ -2520,7 +2520,7 @@ lower = \relative {
       }
     >>  % final del pentagrama del cor
     \new PianoStaff <<
-      \set PianoStaff.instrumentName = #"Piano"
+      \set PianoStaff.instrumentName = "Piano"
       \new Staff = "upper" \upper
       \new Staff = "lower" \lower
     >>
@@ -2554,7 +2554,7 @@ En fer-lo així obtenim el ChoirStaff següent:
 @example
 \new ChoirStaff <<
   \new Staff = "sopranos" <<
-    \set Staff.instrumentName = #"Soprano"
+    \set Staff.instrumentName = "Soprano"
     \new Voice = "sopranos" @{
       \global
       \musicaSoprano
@@ -2564,7 +2564,7 @@ En fer-lo així obtenim el ChoirStaff següent:
     \lletraSoprano
   @}
   \new Staff = "altos" <<
-    \set Staff.instrumentName = #"Alto"
+    \set Staff.instrumentName = "Alto"
     \new Voice = "altos" @{
       \global
       \musicaAlto
@@ -2574,7 +2574,7 @@ En fer-lo així obtenim el ChoirStaff següent:
     \lletraAlto
   @}
   \new Staff = "tenors" <<
-    \set Staff.instrumentName = #"Tenor"
+    \set Staff.instrumentName = "Tenor"
     \new Voice = "tenors" @{
       \global
       \musicaTenor
@@ -2584,7 +2584,7 @@ En fer-lo així obtenim el ChoirStaff següent:
     \lletraTenor
   @}
   \new Staff = "baixos" <<
-    \set Staff.instrumentName = #"Baix"
+    \set Staff.instrumentName = "Baix"
     \new Voice = "baixos" @{
       \global
       \musicaBaix
@@ -2602,7 +2602,7 @@ tan sols s'ha de treure la part de piano de la plantilla de
 
 @example
 \new PianoStaff <<
-  \set PianoStaff.instrumentName = #"Piano"
+  \set PianoStaff.instrumentName = "Piano"
   \new Staff = "superior" \superior
   \new Staff = "inferior" \inferior
 >>
@@ -2658,7 +2658,7 @@ angles dobles, atès que els volem apilar l'un sobre l'altre
   >>  % fi del ChoirStaff
 
   \new PianoStaff <<
-    \set PianoStaff.instrumentName = #"Piano"
+    \set PianoStaff.instrumentName = "Piano"
     \new Staff = "upper" \upper
     \new Staff = "lower" \lower
   >>
@@ -2711,7 +2711,7 @@ lower = \relative {
   <<  % combina el ChoirStaff i PianoStaff en paral·lel
     \new ChoirStaff <<
       \new Staff = "sopranos" <<
-        \set Staff.instrumentName = #"Soprano"
+        \set Staff.instrumentName = "Soprano"
         \new Voice = "sopranos" {
           \global
           \musicaSoprano
@@ -2721,7 +2721,7 @@ lower = \relative {
         \lletraSoprano
       }
       \new Staff = "altos" <<
-        \set Staff.instrumentName = #"Alto"
+        \set Staff.instrumentName = "Alto"
         \new Voice = "altos" {
           \global
           \musicaAlto
@@ -2731,7 +2731,7 @@ lower = \relative {
         \lletraAlto
       }
       \new Staff = "tenors" <<
-        \set Staff.instrumentName = #"Tenor"
+        \set Staff.instrumentName = "Tenor"
         \new Voice = "tenors" {
           \global
           \musicaTenor
@@ -2741,7 +2741,7 @@ lower = \relative {
         \lletraTenor
       }
       \new Staff = "baixos" <<
-        \set Staff.instrumentName = #"Baix"
+        \set Staff.instrumentName = "Baix"
         \new Voice = "baixos" {
           \global
           \musicaBaix
@@ -2753,7 +2753,7 @@ lower = \relative {
     >>  % fi ChoirStaff
 
     \new PianoStaff <<
-      \set PianoStaff.instrumentName = #"Piano  "
+      \set PianoStaff.instrumentName = "Piano  "
       \new Staff = "upper" \upper
       \new Staff = "lower" \lower
     >>

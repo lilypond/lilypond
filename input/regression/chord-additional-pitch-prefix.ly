@@ -6,6 +6,6 @@
 
 \new ChordNames {
     <c e g d'>	% add9
-    \set additionalPitchPrefix = #"add"
+    \set additionalPitchPrefix = "add"
     <c e g d'>	% add9
 }

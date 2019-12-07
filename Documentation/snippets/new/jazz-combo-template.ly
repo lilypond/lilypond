@@ -236,30 +236,30 @@ drumContents = {
 \score {
   <<
     \new StaffGroup = "horns" <<
-      \new Staff = "trumpet" \with { instrumentName = #"Trumpet" }
+      \new Staff = "trumpet" \with { instrumentName = "Trumpet" }
       \trumpet
-      \new Staff = "altosax" \with { instrumentName = #"Alto Sax" }
+      \new Staff = "altosax" \with { instrumentName = "Alto Sax" }
       \altoSax
-      \new ChordNames = "barichords" \with { instrumentName = #"Trumpet" }
+      \new ChordNames = "barichords" \with { instrumentName = "Trumpet" }
       \bariHarmony
-      \new Staff = "barisax" \with { instrumentName = #"Bari Sax" }
+      \new Staff = "barisax" \with { instrumentName = "Bari Sax" }
       \bariSax
-      \new Staff = "trombone" \with { instrumentName = #"Trombone" }
+      \new Staff = "trombone" \with { instrumentName = "Trombone" }
       \trombone
     >>
 
     \new StaffGroup = "rhythm" <<
       \new ChordNames = "chords" \gtrHarmony
-      \new Staff = "guitar" \with { instrumentName = #"Guitar" }
+      \new Staff = "guitar" \with { instrumentName = "Guitar" }
       \guitar
       \new PianoStaff = "piano" \with {
-        instrumentName = #"Piano"
-        midiInstrument = #"acoustic grand"
+        instrumentName = "Piano"
+        midiInstrument = "acoustic grand"
       }
       \piano
-      \new Staff = "bass" \with { instrumentName = #"Bass" }
+      \new Staff = "bass" \with { instrumentName = "Bass" }
       \bass
-      \new DrumStaff \with { instrumentName = #"Drums" }
+      \new DrumStaff \with { instrumentName = "Drums" }
       \drumContents
     >>
   >>

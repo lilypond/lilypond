@@ -14,7 +14,7 @@ the default note head style for @code{\\note} and
                               (markup #:override '(baseline-skip . 0)
                                       #:column (#:number "2" #:note "2" DOWN))))
   \override TextSpanner.bound-details.left.text =
-    \markup { \note #"16" #UP }
+    \markup { \note "16" #UP }
   c1\startTextSpan
   c1\stopTextSpan
 }

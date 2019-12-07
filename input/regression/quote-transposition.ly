@@ -31,8 +31,8 @@ quoteTest = {
     \transposition f  % french horn
     
     g'4
-    << \quoteDuring #"clarinet" { \skip 4 } s4^"clar" >> 
-    << \quoteDuring #"sax" { \skip 4 } s4^"sax" >> 
+    << \quoteDuring "clarinet" { \skip 4 } s4^"clar" >> 
+    << \quoteDuring "sax" { \skip 4 } s4^"sax" >> 
 }
 
 

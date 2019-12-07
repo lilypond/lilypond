@@ -1587,8 +1587,8 @@ unísono.
 @lilypond[verbatim,quote]
 \new GrandStaff <<
   \new Staff = "violin" \with {
-    instrumentName = #"Vln"
-    midiInstrument = #"violin"
+    instrumentName = "Vln"
+    midiInstrument = "violin"
   }
   \relative c'' {
     % not strictly necessary, but a good reminder
@@ -1598,7 +1598,7 @@ unísono.
   }
   \new Staff = "clarinet" \with {
     instrumentName = \markup { Cl (B\flat) }
-    midiInstrument = #"clarinet"
+    midiInstrument = "clarinet"
   }
   \relative c'' {
     \transposition bes
@@ -1615,7 +1615,7 @@ clarinete en Si bemol.
 @lilypond[verbatim,quote]
 flute = \relative c'' {
   \key f \major
-  \cueDuring #"clarinet" #DOWN {
+  \cueDuring "clarinet" #DOWN {
     R1 _\markup\tiny "clarinet"
     c4 f e d
     R1 _\markup\tiny "clarinet"
@@ -1632,9 +1632,9 @@ clarinet = \relative c'' {
 }
 \addQuote "clarinet" \clarinet
 <<
-  \new Staff \with { instrumentName = #"Flute" }
+  \new Staff \with { instrumentName = "Flute" }
     \flute
-  \new Staff \with { instrumentName = #"Cl (A)" }
+  \new Staff \with { instrumentName = "Cl (A)" }
     \clarinet
 >>
 @end lilypond

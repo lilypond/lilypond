@@ -6,7 +6,7 @@ non-english syllabels.
 }
 \include "festival.ly"
 
-\festivalsyl #"song-basic-nonenglish.xml" { \tempo 4 = 100 }
+\festivalsyl "song-basic-nonenglish.xml" { \tempo 4 = 100 }
 {
 \relative { c' e g r }
 \addlyrics { ov -- čá -- ci }

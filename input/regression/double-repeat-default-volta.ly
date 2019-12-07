@@ -14,12 +14,12 @@
     c1
   }
   \mark "\":|.|:\""
-  \set Score.doubleRepeatType = #":|.|:"
+  \set Score.doubleRepeatType = ":|.|:"
   \repeat volta 1 {
     c1
   }
   \mark "\":|.:\""
-  \set Score.doubleRepeatType = #":|.:"
+  \set Score.doubleRepeatType = ":|.:"
   \repeat volta 1 {
   c1
   }

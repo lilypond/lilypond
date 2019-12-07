@@ -6,7 +6,7 @@ properties for an in staff instrument switch. "
   }
 
 \version "2.19.21"
-\addInstrumentDefinition #"bassClar"
+\addInstrumentDefinition "bassClar"
   #`((instrumentTransposition . ,(ly:make-pitch -1 6 FLAT))
      (instrumentName . "bla") 
      (shortInstrumentName . "bl")

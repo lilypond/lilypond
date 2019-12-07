@@ -6,7 +6,7 @@ slurs.
 }
 \include "festival.ly"
 
-\festival #"song-slurs.xml" { \tempo 4 = 100 }
+\festival "song-slurs.xml" { \tempo 4 = 100 }
 <<
   \relative \context Voice = "lahlah" {
     \set Staff.autoBeaming = ##f

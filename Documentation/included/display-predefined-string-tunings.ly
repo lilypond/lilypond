@@ -35,41 +35,41 @@ displayInstrumentDefaultTunings =
 
       \mark \markup {\left-align "Guitar tunings"}
       \clef "treble_8"
-      \displayInstrumentDefaultTunings #"guitar"
+      \displayInstrumentDefaultTunings "guitar"
       \break
 
       \mark \markup {\left-align "Bass tunings"}
       \clef "bass_8"
-      \displayInstrumentDefaultTunings #"bass"
+      \displayInstrumentDefaultTunings "bass"
       \break
 
       \mark \markup {\left-align "Mandolin tunings"}
       \clef "treble"
-      \displayInstrumentDefaultTunings #"mandolin"
+      \displayInstrumentDefaultTunings "mandolin"
       \break
 
       \mark \markup {\left-align "Banjo tunings"}
       \clef "treble_8"
-      \displayInstrumentDefaultTunings #"banjo"
+      \displayInstrumentDefaultTunings "banjo"
       \break
 
       \mark \markup {\left-align "Ukulele tunings"}
       \clef "treble"
-      \displayInstrumentDefaultTunings #"ukulele"
+      \displayInstrumentDefaultTunings "ukulele"
       \clef "alto"
-      \displayInstrumentDefaultTunings #"tenor-ukulele"
-      \displayInstrumentDefaultTunings #"baritone-ukulele"
+      \displayInstrumentDefaultTunings "tenor-ukulele"
+      \displayInstrumentDefaultTunings "baritone-ukulele"
       \break
 
       \mark \markup {\left-align "Orchestral string tunings"}
       \clef "treble"
-      \displayInstrumentDefaultTunings #"violin"
+      \displayInstrumentDefaultTunings "violin"
       \clef "alto"
-      \displayInstrumentDefaultTunings #"viola"
+      \displayInstrumentDefaultTunings "viola"
       \clef "bass"
-      \displayInstrumentDefaultTunings #"cello"
+      \displayInstrumentDefaultTunings "cello"
       \clef "bass_8"
-      \displayInstrumentDefaultTunings #"double-bass"
+      \displayInstrumentDefaultTunings "double-bass"
     }
   }
 }

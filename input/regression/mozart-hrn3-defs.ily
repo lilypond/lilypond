@@ -10,7 +10,7 @@ ritenuto = \markup { \italic  "rit." }
   \context {
     \Score
     skipBars = ##t
-    midiInstrument = #"french horn"
+    midiInstrument = "french horn"
     %% try to mimic Breitkopf
     \override RehearsalMark.padding = #1
     restNumberThreshold = #1

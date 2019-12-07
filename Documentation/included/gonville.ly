@@ -26,13 +26,13 @@ sampleMusic = \relative {
 
 
 {
-  \set Staff.instrumentName = #"Default"
+  \set Staff.instrumentName = "Default"
   \sampleMusic
 }
 
 \score {
   {
-    \set Staff.instrumentName = #"Feta"
+    \set Staff.instrumentName = "Feta"
     \sampleMusic
   }
   \layout {
@@ -43,7 +43,7 @@ sampleMusic = \relative {
 
 \score {
   \relative c'' {
-    \set Staff.instrumentName = #"Gonv"
+    \set Staff.instrumentName = "Gonv"
     \sampleMusic
   }
   \layout {
@@ -54,7 +54,7 @@ sampleMusic = \relative {
 
 \relative
 {
-  \set Staff.instrumentName = #"Gonv override"
+  \set Staff.instrumentName = "Gonv override"
   c''2^\trill c
   \override NoteHead.font-family = #'gonville
   \override Script.font-family = #'gonville

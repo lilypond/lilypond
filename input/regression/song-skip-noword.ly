@@ -7,7 +7,7 @@ lyrics which are not complete words.
 \include "festival.ly"
 #(*skip-word* #f)
 
-\festival #"song-skip-noword.xml" { \tempo 4 = 100 }
+\festival "song-skip-noword.xml" { \tempo 4 = 100 }
 \relative { c'4 c g' }
 \addlyrics {
   twin -- \skip 4

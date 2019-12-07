@@ -1138,7 +1138,7 @@ dimensions du dessin, comme dans ce qui suit :
 @lilypond[quote,verbatim,fragment]
 c'1^\markup {
   \combine
-    \epsfile #X #10 #"./context-example.eps"
+    \epsfile #X #10 "./context-example.eps"
     \with-dimensions #'(0 . 6) #'(0 . 10)
     \postscript "
       -2 3 translate
@@ -1192,7 +1192,7 @@ Notes et altérations sont données à l'aide d'instructions
 
 @lilypond[quote,verbatim,fragment]
 a'2 a'^\markup {
-  \note #"4" #1
+  \note "4" #1
   =
   \note-by-number #1 #1 #1.5
 }
@@ -1612,7 +1612,7 @@ système, dès lors qu'elle est accessible par Fontconfig et que vous
 respectez la syntaxe suivante :
 
 @lilypond[quote,verbatim,fragment]
-\override Staff.TimeSignature.font-name = #"Bitstream Charter"
+\override Staff.TimeSignature.font-name = "Bitstream Charter"
 \override Staff.TimeSignature.font-size = #2
 \time 3/4
 

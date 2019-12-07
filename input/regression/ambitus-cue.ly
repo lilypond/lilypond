@@ -18,7 +18,7 @@ contexts.
 
 \new Staff \new Voice \relative c'
 {
- \cueDuringWithClef #"other" #UP #"bass" { R1 } |
+ \cueDuringWithClef "other" #UP "bass" { R1 } |
  e4 b c2
 }
 

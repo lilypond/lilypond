@@ -6,7 +6,7 @@ reordered lyrics.
 }
 \include "festival.ly"
 
-\festival #"song-reordering2.xml" { \tempo 4 = 100 }
+\festival "song-reordering2.xml" { \tempo 4 = 100 }
 <<
   \relative \context Voice = "lahlah" {
     \set Staff.autoBeaming = ##f

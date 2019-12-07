@@ -3424,11 +3424,11 @@ general se limita al intervalo entre @code{0.2} y @code{0.5}.
 \score @{
   <<
     \new Staff @{
-      \set Staff.midiInstrument = #"flute"
+      \set Staff.midiInstrument = "flute"
       @var{@dots{} music @dots{}}
     @}
     \new Staff @{
-      \set Staff.midiInstrument = #"clarinet"
+      \set Staff.midiInstrument = "clarinet"
       @var{@dots{} music @dots{}}
     @}
   >>
@@ -3449,7 +3449,7 @@ estableciendo las propiedades @code{midiMinimumVolume} y
 @example
 \score @{
   \new Staff @{
-    \set Staff.midiInstrument = #"flute"
+    \set Staff.midiInstrument = "flute"
     \set Staff.midiMinimumVolume = #0.7
     \set Staff.midiMaximumVolume = #0.9
     @var{@dots{} music @dots{}}
@@ -3466,13 +3466,13 @@ cada instrumento:
 \score @{
   <<
     \new Staff @{
-      \set Staff.midiInstrument = #"flute"
+      \set Staff.midiInstrument = "flute"
       \set Staff.midiMinimumVolume = #0.7
       \set Staff.midiMaximumVolume = #0.9
       @var{@dots{} music @dots{}}
     @}
     \new Staff @{
-      \set Staff.midiInstrument = #"clarinet"
+      \set Staff.midiInstrument = "clarinet"
       \set Staff.midiMinimumVolume = #0.3
       \set Staff.midiMaximumVolume = #0.6
       @var{@dots{} music @dots{}}
@@ -3595,7 +3595,7 @@ Los instrumentos MIDI se establecen usando la propiedad
 @example
 \score @{
   \new Staff @{
-    \set Staff.midiInstrument = #"glockenspiel"
+    \set Staff.midiInstrument = "glockenspiel"
     @var{@dots{} music @dots{}}
   @}
   \midi @{ @}
@@ -3606,7 +3606,7 @@ o
 
 @example
 \score @{
-  \new Staff \with @{midiInstrument = #"cello"@} @{
+  \new Staff \with @{midiInstrument = "cello"@} @{
     @var{@dots{} music @dots{}}
   @}
   \midi @{ @}

@@ -1481,7 +1481,7 @@ how to introduce a new temporary staff, as in an @rglos{ossia}.
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main" }
+        alignAboveContext = "main" }
       { f8 f c }
     >>
     r4 |
@@ -1508,7 +1508,7 @@ we simply set the stencil of each to @code{#f}, as follows:
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main"
+        alignAboveContext = "main"
       }
       {
         \omit Staff.Clef
@@ -1571,7 +1571,7 @@ So we could replace the example above with
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main"
+        alignAboveContext = "main"
         % Don't print clefs in this staff
         \override Clef.stencil = ##f
         % Don't print time signatures in this staff
@@ -1596,7 +1596,7 @@ clearing the @code{stencil} here, leading to the result
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main"
+        alignAboveContext = "main"
         % Don't print clefs in this staff
         \omit Clef
         % Don't print time signatures in this staff
@@ -1660,7 +1660,7 @@ Let's try it in our ossia example:
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main"
+        alignAboveContext = "main"
         \omit Clef
         \omit TimeSignature
         % Reduce all font sizes by ~24%
@@ -1726,7 +1726,7 @@ objects in proportion.  It is used like this:
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main"
+        alignAboveContext = "main"
         \omit Clef
         \omit TimeSignature
         fontSize = #-2

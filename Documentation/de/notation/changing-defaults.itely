@@ -514,7 +514,7 @@ words = \lyricmode { These words fol -- low the mel -- o -- dy }
         }
       >>
     }
-    \new Lyrics \with { alignAboveContext = #"music" }
+    \new Lyrics \with { alignAboveContext = "music" }
     \lyricsto "melody" { \words }
   >>
 }
@@ -553,7 +553,7 @@ words = \lyricmode { These words fol -- low the mel -- o -- dy }
         }
       >>
     }
-    \new Lyrics \with { alignAboveContext = #"music" }
+    \new Lyrics \with { alignAboveContext = "music" }
     \lyricsto "melody" { \words }
   >>
 }
@@ -1279,7 +1279,7 @@ der neue Kontext unter den existierenden Kontexten angelegt.  Um ihn aber
 sollte er folgenderweise erstellt werden:
 
 @example
-\new Staff \with @{ alignAboveContext = #"Hauptstimme" @}
+\new Staff \with @{ alignAboveContext = "Hauptstimme" @}
 @end example
 
 Eine ähnliche Situation entsteht, wenn man einen zeitweiligen Gesangstext
@@ -3045,8 +3045,8 @@ des Endpunktes der Linie verschoben:
 \override TextSpanner.bound-details.left.stencil-align-dir-y = #-2
 \override TextSpanner.bound-details.right.stencil-align-dir-y = #UP
 
-\override TextSpanner.bound-details.left.text = #"ggg"
-\override TextSpanner.bound-details.right.text = #"hhh"
+\override TextSpanner.bound-details.left.text = "ggg"
+\override TextSpanner.bound-details.right.text = "hhh"
 
 \relative { c'4^\startTextSpan c c c \stopTextSpan }
 @end lilypond

@@ -26,7 +26,7 @@ The result will be files named
 
 origScore = \score{
     \relative {
-      \set Staff.instrumentName = #"bla"
+      \set Staff.instrumentName = "bla"
       c'1
       d
       \grace c16

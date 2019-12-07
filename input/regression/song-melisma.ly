@@ -6,7 +6,7 @@ melismas.
 }
 \include "festival.ly"
 
-\festival #"song-melisma.xml" { \tempo 4 = 100 }
+\festival "song-melisma.xml" { \tempo 4 = 100 }
 \relative
 {
 <<

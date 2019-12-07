@@ -24,7 +24,7 @@ quoted = \relative c'' {
   \new Staff \new Voice \relative c'' {
     \set Staff.instrumentName = "quoted"
     R1
-    \cueDuring #"quoted" #1  { \grace s16. r2 }
+    \cueDuring "quoted" #1  { \grace s16. r2 }
     c2^"original"
   }
 >>

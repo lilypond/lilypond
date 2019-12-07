@@ -11,7 +11,7 @@ does not affect midi output, since it is filtered out."
 \score {
   \new StaffGroup \with {
     \consists "Instrument_name_engraver"
-    instrumentName = #"StaffGroup"
+    instrumentName = "StaffGroup"
   }
   {
     a'1

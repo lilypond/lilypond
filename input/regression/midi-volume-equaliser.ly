@@ -21,71 +21,71 @@ Override, see scm/midi.scm:
 %}
 
 flauti =  \relative {
-  \set Staff.midiInstrument = #"flute"
+  \set Staff.midiInstrument = "flute"
 
   c'1\f R1*10
 }
 
 oboi =  \relative {
-  \set Staff.midiInstrument = #"oboe"
+  \set Staff.midiInstrument = "oboe"
 
   R1*1 c'1\f R1*9
 }
 
 clarinetti =  \relative {
-  \set Staff.midiInstrument = #"clarinet"
+  \set Staff.midiInstrument = "clarinet"
 
   R1*2 c'1\f R1*8
 }
 
 fagotti =  \relative {
-  \set Staff.midiInstrument = #"bassoon"
+  \set Staff.midiInstrument = "bassoon"
 
   \clef bass
   R1*3 c'1\f R1*7
 }
 
 corni =  \relative {
-  \set Staff.midiInstrument = #"french horn"
+  \set Staff.midiInstrument = "french horn"
 
   R1*4 c'1\f R1*6
 }
 
 trombe =  \relative {
-  \set Staff.midiInstrument = #"trumpet"
+  \set Staff.midiInstrument = "trumpet"
 
   \clef bass
   R1*5 c'1\f R1*5
 }
 
 timpani =  \relative {
-  \set Staff.midiInstrument = #"timpani"
+  \set Staff.midiInstrument = "timpani"
 
   R1*6 c'1\f R1*4
 }
 
 violinoI =  \relative {
-  \set Staff.midiInstrument = #"violin"
+  \set Staff.midiInstrument = "violin"
 
   R1*7 c'1\f R1*3
 }
 
 violinoII =  \relative {
-  \set Staff.midiInstrument = #"violin"
+  \set Staff.midiInstrument = "violin"
   
   R1*8 c'1\f R1*2
 }
 
 viola =  \relative {
-  \set Staff.midiInstrument = #"viola"
+  \set Staff.midiInstrument = "viola"
 
   \clef alto
   R1*9 c'1\f R1*1
 }
 
 violoncello =  \relative {
-  \set Staff.midiInstrument = #"cello"
-				%\set Staff.midiInstrument = #"contrabass"
+  \set Staff.midiInstrument = "cello"
+				%\set Staff.midiInstrument = "contrabass"
   
   \clef bass
   R1*10 c'1\f

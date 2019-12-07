@@ -833,7 +833,7 @@ désormais s'ajuster de manière indépendante, à l'aide des
 sous-propriétés de @code{fret-diagram-details} @code{fret-distance} et
 @code{string-distance}.
 @lilypond[verbatim,quote]
-fretMrkp = \markup { \fret-diagram-terse #"x;x;o;2;3;2;" }
+fretMrkp = \markup { \fret-diagram-terse "x;x;o;2;3;2;" }
 
 \markuplist
 \override #'(padding . 2)
@@ -996,7 +996,7 @@ d'accord.
 <<
 \new ChordNames \chordmode {
   a' b c:7
-  \once \override ChordName.text = #"foo"
+  \once \override ChordName.text = "foo"
   d
 }
 >>
@@ -1167,7 +1167,7 @@ valeur entre @code{0.0} et @code{1.0}.
 \score @{
   \new Staff \with @{
     midiExpression = #0.6
-    midiInstrument = #"clarinet"
+    midiInstrument = "clarinet"
   @}
   <<
     @{ a'1~ a'1 @}
