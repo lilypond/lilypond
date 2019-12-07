@@ -245,13 +245,10 @@ use just a few simple properties and values which are easily
 understood in order to illustrate the format and use of these
 commands.
 
-LilyPond's primary expressions are musical items like notes,
-durations, and markups.  More basic expressions like numbers,
-strings, and lists are processed in @q{Scheme mode}, which is
-invoked by prefixing the value with @samp{#}.  Although the
-values may sometimes have a valid representation in LilyPond's
-musical mode, this manual will always use @samp{#} for their
-entry for the sake of consistency.  For more information about
+LilyPond's primary expressions are musical items like notes and
+durations, as well as strings and markups.  More specific expressions
+like numbers, symbols and lists are processed in @q{Scheme mode}, which is
+invoked by prefixing the value with @samp{#}.  For more information about
 Scheme mode, see @rextend{LilyPond Scheme syntax}.
 
 @code{\override} is the most common command used in tweaking, and
