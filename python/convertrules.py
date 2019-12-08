@@ -2257,7 +2257,7 @@ def conv (str):
         elif what == 'override':
             return "override %s #'callbacks #'%s" % (grob, newkey)
         else:
-            raise 'urg'
+            raise RuntimeError ('1st group should match revert or override')
             return ''
 
     str = re.sub(r"(override|revert)\s*([a-zA-Z.]+)\s*#'(spacing-procedure|after-line-breaking-callback"

@@ -77,7 +77,7 @@ class Output_printer(object):
     def revert (self):
         del self._output_state_stack[-1]
         if not self._output_state_stack:
-            raise 'empty'
+            raise RuntimeError ('empty stack')
 
     def duration_factor (self):
         return self._output_state_stack[-1].factor
@@ -2511,7 +2511,6 @@ def test_expr ():
 
 if __name__ == '__main__':
     test_printer ()
-    raise 'bla'
     test_pitch()
 
     expr = test_expr()

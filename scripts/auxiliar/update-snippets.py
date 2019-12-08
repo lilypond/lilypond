@@ -77,7 +77,7 @@ for pattern in file_patterns:
         target_source = snippet_split (target_source)
         ref_source = snippet_split (ref_source)
         if '' in target_source or '' in ref_source:
-            raise "AAAAARGH: unuseful empty string"
+            raise RuntimeError ("target_source and ref_source must not be empty")
         snippet_count = count_snippet (target_source)
         if not snippet_count == count_snippet (ref_source):
             update_exit_code (1)

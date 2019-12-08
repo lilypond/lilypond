@@ -105,7 +105,7 @@ class Xml_node:
         cn = self.get_typed_children(klass)
         if len(cn) != 1:
             ly.error(self.__dict__)
-            raise 'Child is not unique for',(klass, 'found', cn)
+            raise RuntimeError('Child is not unique for %s found %d' % (klass, cn))
 
         return cn[0]
 
