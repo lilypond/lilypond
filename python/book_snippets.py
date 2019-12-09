@@ -606,7 +606,7 @@ class LilypondSnippet (Snippet):
             if self.relevant_contents (existing) != self.relevant_contents (self.full_ly ()):
                 warning ("%s: duplicate filename but different contents of original file,\n\
 printing diff against existing file." % filename)
-                input = self.full_ly ().encode ('utf-8')
+                encoded = self.full_ly ().encode ('utf-8')
                 cmd = 'diff -u %s -' % filename
                 ly.stderr_write (self.filter_pipe (encoded, cmd).decode ('utf-8'))
         else:
@@ -927,7 +927,7 @@ printing diff against existing file.") % xmlfilename)
         # also write the converted lilypond
         filename = path + '.ly'
         if os.path.exists (filename):
-            input = self.full_ly ().encode ('utf-8')
+            encoded = self.full_ly ().encode ('utf-8')
             cmd = 'diff -u %s -' % filename
             diff_against_existing = self.filter_pipe (encoded, cmd).decode ('utf-8')
             if diff_against_existing:
