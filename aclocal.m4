@@ -470,7 +470,9 @@ EOF
         abssrcdir="`cd $srcdir; pwd`"
         absbuilddir="`pwd`"
 
+        depth=""
         for d in 2 3 4 5 ; do
+            depth="$depth../"
             for mf in `cd $srcdir; \
                        find . -maxdepth $d -mindepth $d -name GNUmakefile`; do
                 case "$abssrcdir" in
@@ -486,11 +488,11 @@ EOF
                 esac
 
                 mkdir -p ${mf%/*}
-                cat <<EOF | $PYTHON -  > $mf
-print 'depth=' + ('../' * ( $d-1 ) )
-print 'include \$(depth)/config\$(if \$(conf),-\$(conf),).make'
-print 'include \$(configure-srcdir)/$mf'
-print 'MODULE_INCLUDES += \$(src-dir)/\$(outbase)'
+                cat <<EOF > $mf
+depth=$depth
+include \$(depth)/config\$(if \$(conf),-\$(conf),).make
+include \$(configure-srcdir)/$mf
+MODULE_INCLUDES += \$(src-dir)/\$(outbase)
 EOF
             done
 
@@ -510,9 +512,9 @@ EOF
                 esac
 
                 mkdir -p ${mf%/*}
-                cat <<EOF | $PYTHON -  > $mf
-print 'include \$(depth)/config\$(if \$(conf),-\$(conf),).make'
-print 'include \$(configure-srcdir)/$mf'
+                cat <<EOF > $mf
+include \$(depth)/config\$(if \$(conf),-\$(conf),).make
+include \$(configure-srcdir)/$mf
 EOF
             done
         done
