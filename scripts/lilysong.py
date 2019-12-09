@@ -23,7 +23,7 @@
 import codecs
 import optparse
 import os
-import popen2
+import subprocess
 import sys
 import tempfile
 
@@ -32,7 +32,7 @@ import tempfile
 """
 
 
-FESTIVAL_COMMAND = 'festival --pipe'
+FESTIVAL_COMMAND = ['festival', '--pipe']
 VOICE_CODINGS = {'voice_czech_ph': 'iso-8859-2'}
 
 _USAGE = """lilysong [-p PLAY-PROGRAM] FILE.xml [LANGUAGE-CODE-OR-VOICE [SPEEDUP]]
@@ -58,12 +58,13 @@ def process_options (args):
     return options, args
 
 def call_festival (scheme_code):
-    in_, out = popen2.popen2 (FESTIVAL_COMMAND)
-    out.write (scheme_code)
-    out.close ()
+    p = subprocess.Popen (FESTIVAL_COMMAND, stdin=subprocess.PIPE,
+                          stdout=subprocess.PIPE, close_fds=True)
+    p.stdin.write (scheme_code)
+    p.stdin.close ()
     answer = ''
     while True:
-        process_output = in_.read ()
+        process_output = p.stdout.read ()
         if not process_output:
             break
         answer = answer + process_output
