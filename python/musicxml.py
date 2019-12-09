@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import new
 from rational import *
 import re
 import sys
@@ -14,7 +13,7 @@ import musicxml2ly_conversion
 import utilities
 
 
-class Xml_node:
+class Xml_node(object):
 
     def __init__(self):
         self._children = []
@@ -1793,7 +1792,7 @@ def get_class(name):
         return classname
     else:
         class_name = name2class_name(name)
-        klass = new.classobj(class_name,(Music_xml_node,) , {})
+        klass = type(class_name,(Music_xml_node,) , {})
         class_dict[name] = klass
         return klass
 
