@@ -35,6 +35,6 @@ original = \relative { c''8 d s2 es8 gis8 }
 	\new Voice {\voiceOne
 	    \override Voice.Beam.collision-voice-only = ##t
 	    \original }
-	\new Voice {\voiceTwo s4 \quoteDuring #"quoteMe" { s2. } }
+	\new Voice {\voiceTwo s4 \quoteDuring "quoteMe" { s2. } }
     >>
 >>

@@ -1132,7 +1132,7 @@ del dibuix, com s'exemplifica a continuació:
 @lilypond[quote,verbatim,fragment]
 c'1^\markup {
   \combine
-    \epsfile #X #10 #"./context-example.eps"
+    \epsfile #X #10 "./context-example.eps"
     \with-dimensions #'(0 . 6) #'(0 . 10)
     \postscript "
       -2 3 translate
@@ -1186,7 +1186,7 @@ marcatge:
 
 @lilypond[quote,verbatim,fragment]
 a'2 a'^\markup {
-  \note #"4" #1
+  \note "4" #1
   =
   \note-by-number #1 #1 #1.5
 }
@@ -1528,7 +1528,7 @@ instal·lada al sistema operatiu i reconeguda per part de
 FontConfig, usant la sintaxi següent:
 
 @lilypond[quote,verbatim,fragment]
-\override Staff.TimeSignature.font-name = #"Bitstream Charter"
+\override Staff.TimeSignature.font-name = "Bitstream Charter"
 \override Staff.TimeSignature.font-size = #2
 \time 3/4
 

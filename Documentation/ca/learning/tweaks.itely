@@ -1572,7 +1572,7 @@ un pentagrama temporal, com a un @rglos{ossia}.
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main" }
+        alignAboveContext = "main" }
       { f8 f c }
     >>
     r4 |
@@ -1599,7 +1599,7 @@ establim el segell de cadascú d'ells a @code{#f}, como segueix:
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main"
+        alignAboveContext = "main"
       }
       {
         \omit Staff.Clef
@@ -1662,7 +1662,7 @@ Així doncs, podem reemplaçar l'exemple anterior amb
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main"
+        alignAboveContext = "main"
         % Don't print clefs in this staff
         \override Clef.stencil = ##f
         % Don't print time signatures in this staff
@@ -1687,7 +1687,7 @@ el @code{stencil}, el que condueix al resultat següent:
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"principal"
+        alignAboveContext = "principal"
         % No imprimeixis claus en aquest pentagrama
         \omit Clef
         % No imprimeixis indicacions de compàs en aquest pentagrama
@@ -1757,7 +1757,7 @@ Ho provarem al nostre exemple de l'ossia:
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main"
+        alignAboveContext = "main"
         \omit Clef
         \omit TimeSignature
         % Redueix totes les mides de tipus de lletra per ~24%
@@ -1826,7 +1826,7 @@ de la forma següent:
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main"
+        alignAboveContext = "main"
         \omit Clef
         \omit TimeSignature
         fontSize = #-2

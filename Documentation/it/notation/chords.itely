@@ -606,7 +606,7 @@ il risultato può essere visualmente efficace.
 @lilypond[verbatim,quote,ragged-right]
 \new ChordNames {
   <c e g d'>    % add9
-  \set additionalPitchPrefix = #"add"
+  \set additionalPitchPrefix = "add"
   <c e g d'>    % add9
 }
 @end lilypond

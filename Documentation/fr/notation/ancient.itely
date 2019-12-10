@@ -2660,7 +2660,7 @@ portée d'incipit.
 \score {
   \new Staff <<
     \new Voice = Tenor {
-      \set Staff.instrumentName = #"Tenor"
+      \set Staff.instrumentName = "Tenor"
       \override Staff.InstrumentName.self-alignment-X = #RIGHT
       \incipit { \clef "mensural-c4" \key f \major r\breve r1 c'1 }
       \clef "treble_8"
@@ -2681,7 +2681,7 @@ portée d'incipit.
 @knownissues
 La propriété @code{instrumentName} doit se placer au sein de la musique
 de l'incipit à produire.  Lorsqu'il n'y a pas de nom d'instrument, il
-faut cependant le définir avec @code{\set Staff.instrumentName = #""}.
+faut cependant le définir avec @code{\set Staff.instrumentName = ""}.
 
 @seealso
 @c ... and reference to other sections ...

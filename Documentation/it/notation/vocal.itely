@@ -477,7 +477,7 @@ La melodia a cui allineare il testo vocale può essere cambiata
 impostando la proprietà @code{associatedVoice},
 
 @example
-\set associatedVoice = #"lala"
+\set associatedVoice = "lala"
 @end example
 
 @noindent
@@ -1352,12 +1352,12 @@ Per posizionarli correttamente usare @code{alignBelowContext}:
       <<
   { Parole della prima volta. }
   \new Lyrics = "secondVerse"
-  \with { alignBelowContext = #"firstVerse" } {
+  \with { alignBelowContext = "firstVerse" } {
     \set associatedVoice = "melody"
     Parole della seconda volta.
   }
   \new Lyrics = "thirdVerse"
-  \with { alignBelowContext = #"secondVerse" } {
+  \with { alignBelowContext = "secondVerse" } {
     \set associatedVoice = "melody"
     Parole della terza volta..
   }
@@ -1787,10 +1787,10 @@ I numeri di strofa si aggiungono impostando @code{stanza}:
 \new Voice \relative {
   \time 3/4 g'2 e4 a2 f4 g2.
 } \addlyrics {
-  \set stanza = #"1. "
+  \set stanza = "1. "
   Hi, my name is Bert.
 } \addlyrics {
-  \set stanza = #"2. "
+  \set stanza = "2. "
   Oh, ché -- ri, je t'aime
 }
 @end lilypond
@@ -1874,10 +1874,10 @@ si inserisce con @code{shortVocalName}.
 \new Voice \relative {
   \time 3/4 g'2 e4 a2 f4 g2.
 } \addlyrics {
-  \set vocalName = #"Bert "
+  \set vocalName = "Bert "
   Hi, my name is Bert.
 } \addlyrics {
-  \set vocalName = #"Ernie "
+  \set vocalName = "Ernie "
   Oh, ché -- ri, je t'aime
 }
 @end lilypond
@@ -2068,7 +2068,7 @@ d d e d | c1 |
 }
 
 text = \lyricmode {
-\set stanza = #"1." Ma- ry had a lit- tle lamb,
+\set stanza = "1." Ma- ry had a lit- tle lamb,
 its fleece was white as snow.
 }
 
@@ -2110,7 +2110,7 @@ melody = \relative {
 }
 
 text = \lyricmode {
-  \set stanza = #"1."
+  \set stanza = "1."
   This is verse one.
   It has two lines.
 }

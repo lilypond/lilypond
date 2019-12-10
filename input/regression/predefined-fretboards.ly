@@ -7,7 +7,7 @@ texidoc = "Predefined fretboards and chord shapes can be added.
 
 % add a chord shape
 
-\addChordShape #'bes #guitar-tuning #"x;1-1-(;3-2;3-3;3-4;1-1-);"
+\addChordShape #'bes #guitar-tuning "x;1-1-(;3-2;3-3;3-4;1-1-);"
 
 % add chords
 

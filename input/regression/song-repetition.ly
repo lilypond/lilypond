@@ -7,7 +7,7 @@ repeat signs.
 \include "festival.ly"
 
 \score{
-\festival #"song-repetition.xml" { \tempo 4 = 100 }
+\festival "song-repetition.xml" { \tempo 4 = 100 }
 <<
   \context Voice = melody \relative {
     c'2 e4 r4 | g2 e | c1 |

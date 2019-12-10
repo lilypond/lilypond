@@ -16,7 +16,7 @@ testMusik =  \relative {
 
 \score {
   \new Staff \relative {
-    \set Staff.shortInstrumentName = #"Instr."
+    \set Staff.shortInstrumentName = "Instr."
     \repeat volta 2 {
       c'1 \break
     }

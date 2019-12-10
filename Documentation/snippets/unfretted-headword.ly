@@ -4,7 +4,7 @@
 % and then run scripts/auxiliar/makelsr.py
 %
 % This file is in the public domain.
-%% Note: this file works from version 2.19.2
+%% Note: this file works from version 2.19.80
 \version "2.19.80"
 
 \header {
@@ -125,7 +125,7 @@ ViolinSolo = \relative c' {
   \voiceOne
 
   \set Score.markFormatter                    = #format-mark-box-numbers
-  \override Score.VoltaBracket.font-name      = #"LilyPond Sans Serif"
+  \override Score.VoltaBracket.font-name      = "LilyPond Sans Serif"
   \override Score.VoltaBracket.extra-offset   = #'(0 . 1)
   \override SpacingSpanner.uniform-stretching = ##t
 

@@ -6,10 +6,10 @@
 }
 
 mus = \relative { c'2 c c c c c c c }
-\addQuote #"M" \mus
+\addQuote "M" \mus
 
 quot = \relative { 
-  d'2 \quoteDuring #"M" { s1 } e2 \cueDuring #"M" #UP { s1 } f2
+  d'2 \quoteDuring "M" { s1 } e2 \cueDuring "M" #UP { s1 } f2
 }
 
 \score { <<

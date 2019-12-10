@@ -41,5 +41,5 @@ thickness and padding around the markup."
 
 \relative c' {
   c1^\markup { \NWS-box ABCD }
-  c1^\markup { \NWS-box \note #"4" #1.0 }
+  c1^\markup { \NWS-box \note "4" #1.0 }
 }

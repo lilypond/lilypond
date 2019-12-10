@@ -14,4 +14,4 @@ closepath stroke" port)
 
   (close port))
 
-{ c''4-\markup { \box \epsfile #X #10 #"box.eps" } } 
+{ c''4-\markup { \box \epsfile #X #10 "box.eps" } } 

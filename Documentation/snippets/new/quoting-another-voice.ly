@@ -48,7 +48,7 @@ original = \relative c'' {
       s4
       \set fontSize = #-4
       \override Stem.length-fraction = #(magstep -4)
-      \quoteDuring #"quoteMe" { \skip 2. }
+      \quoteDuring "quoteMe" { \skip 2. }
     }
   >>
 >>

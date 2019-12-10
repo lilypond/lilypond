@@ -6,4 +6,4 @@ no effect.
 "
 }
 
-{ \override NoteHead.id = #"foo" c }
+{ \override NoteHead.id = "foo" c }

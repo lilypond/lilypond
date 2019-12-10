@@ -83,7 +83,7 @@ showMultiMeasureRests =
 
 \markup \column { \bold "Simple Rests" \combine \null \vspace #0.1 }
 
-\showSimpleRest #"."
+\showSimpleRest "."
 
 \markup \column { \combine \null \vspace #0.1 \bold "MultiMeasureRests" \combine \null \vspace #0.1 }
 

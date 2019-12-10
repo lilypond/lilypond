@@ -17,11 +17,11 @@ anywhere in the vertical alignment. "
     { \skip 1
     <<
       \lyrics {
-        \set alignBelowContext = #"1"
+        \set alignBelowContext = "1"
         below4 first staff
       }
       \new Staff {
-        \set Staff.alignAboveContext = #"3"
+        \set Staff.alignAboveContext = "3"
         \tuplet 6/4 {
           \override TextScript.padding = #3
           c4^"this" d_"staff" e^"above" d_"last" e^"staff" f

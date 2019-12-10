@@ -466,7 +466,7 @@ Voice コンテキストの音楽のすぐ後に記述することで、@c
 歌詞を揃える旋律を変更することができます:
 
 @example
-\set associatedVoice = #"lala"
+\set associatedVoice = "lala"
 @end example
 
 @noindent
@@ -1350,12 +1350,12 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
       <<
         { The first time words.	}
 	\new Lyrics = "secondVerse"
-        \with { alignBelowContext = #"firstVerse" } {
+        \with { alignBelowContext = "firstVerse" } {
 	  \set associatedVoice = "melody"
 	  Sec -- ond time words.
 	}
 	\new Lyrics = "thirdVerse"
-        \with { alignBelowContext = #"secondVerse" } {
+        \with { alignBelowContext = "secondVerse" } {
 	  \set associatedVoice = "melody"
 	  The third time words.
 	}
@@ -1780,10 +1780,10 @@ words = \lyricmode { la __ la __ }
 \new Voice \relative {
   \time 3/4 g'2 e4 a2 f4 g2.
 } \addlyrics {
-  \set stanza = #"1. "
+  \set stanza = "1. "
   Hi, my name is Bert.
 } \addlyrics {
-  \set stanza = #"2. "
+  \set stanza = "2. "
   Oh, ché -- ri, je t'aime
 }
 @end lilypond
@@ -1868,10 +1868,10 @@ text = {
 \new Voice \relative {
   \time 3/4 g'2 e4 a2 f4 g2.
 } \addlyrics {
-  \set vocalName = #"Bert "
+  \set vocalName = "Bert "
   Hi, my name is Bert.
 } \addlyrics {
-  \set vocalName = #"Ernie "
+  \set vocalName = "Ernie "
   Oh, ché -- ri, je t'aime
 }
 @end lilypond
@@ -2064,7 +2064,7 @@ d d e d | c1 |
 }
 
 text = \lyricmode {
-\set stanza = #"1." Ma- ry had a lit- tle lamb,
+\set stanza = "1." Ma- ry had a lit- tle lamb,
 its fleece was white as snow.
 }
 
@@ -2106,7 +2106,7 @@ melody = \relative {
 }
 
 text = \lyricmode {
-  \set stanza = #"1." This is verse one.
+  \set stanza = "1." This is verse one.
   It has two lines.
 }
 

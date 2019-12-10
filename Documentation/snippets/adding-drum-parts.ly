@@ -39,7 +39,7 @@ timb = \drummode {
 \score {
   <<
     \new DrumStaff \with {
-      instrumentName = #"timbales"
+      instrumentName = "timbales"
       drumStyleTable = #timbales-style
       \override StaffSymbol.line-count = #2
       \override BarLine.bar-extent = #'(-1 . 1)
@@ -47,7 +47,7 @@ timb = \drummode {
     <<
       \timb
     >>
-    \new DrumStaff \with { instrumentName = #"drums" }
+    \new DrumStaff \with { instrumentName = "drums" }
     <<
       \new DrumVoice { \stemUp \drh }
       \new DrumVoice { \stemDown \drl }

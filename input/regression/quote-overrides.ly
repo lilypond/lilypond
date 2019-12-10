@@ -45,5 +45,5 @@ mus = \relative {
 \score
 { <<
   \new Staff \mus
-  \new Voice { \quoteDuring #"music" s1*2 }
+  \new Voice { \quoteDuring "music" s1*2 }
 >> }

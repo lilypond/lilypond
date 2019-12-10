@@ -54,6 +54,7 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
       && to_boolean (ly_get_option (ly_symbol2scm ("strip-output-dir"))))
     {
       out_file_name.dir_ = "";
+      out_file_name.is_absolute_ = false;
     }
 
   /* When running from gui, generate output in .ly source directory.  */

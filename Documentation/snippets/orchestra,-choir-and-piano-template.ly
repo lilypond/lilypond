@@ -77,7 +77,7 @@ bassMusic = \relative c { \clef "bass_8" \key g \major g,1 b }
 \score {
   <<
     \new StaffGroup = "StaffGroup_woodwinds" <<
-      \new Staff = "Staff_flute" \with { instrumentName = #"Flute" }
+      \new Staff = "Staff_flute" \with { instrumentName = "Flute" }
       \fluteMusic
 
       \new Staff = "Staff_clarinet" \with {
@@ -94,45 +94,45 @@ bassMusic = \relative c { \clef "bass_8" \key g \major g,1 b }
     >>
 
     \new StaffGroup = "StaffGroup_brass" <<
-      \new Staff = "Staff_hornI" \with { instrumentName = #"Horn in F" }
+      \new Staff = "Staff_hornI" \with { instrumentName = "Horn in F" }
        % \transposition f
         \transpose f c' \hornMusic
 
-      \new Staff = "Staff_trumpet" \with { instrumentName = #"Trumpet in  C" }
+      \new Staff = "Staff_trumpet" \with { instrumentName = "Trumpet in  C" }
       \trumpetMusic
 
     >>
     \new RhythmicStaff = "RhythmicStaff_percussion"
-    \with { instrumentName = #"Percussion" }
+    \with { instrumentName = "Percussion" }
     <<
       \percussionMusic
     >>
-    \new PianoStaff \with { instrumentName = #"Piano" }
+    \new PianoStaff \with { instrumentName = "Piano" }
     <<
       \new Staff { \pianoRHMusic }
       \new Staff { \pianoLHMusic }
     >>
     \new ChoirStaff = "ChoirStaff_choir" <<
-      \new Staff = "Staff_soprano" \with { instrumentName = #"Soprano" }
+      \new Staff = "Staff_soprano" \with { instrumentName = "Soprano" }
       \new Voice = "soprano"
       \sopranoMusic
 
       \new Lyrics \lyricsto "soprano" { \sopranoLyrics }
       \new GrandStaff = "GrandStaff_altos"
       \with { \accepts Lyrics } <<
-        \new Staff = "Staff_altoI"  \with { instrumentName = #"Alto I" }
+        \new Staff = "Staff_altoI"  \with { instrumentName = "Alto I" }
         \new Voice = "altoI"
         \altoIMusic
 
         \new Lyrics \lyricsto "altoI" { \altoILyrics }
-        \new Staff = "Staff_altoII" \with { instrumentName = #"Alto II" }
+        \new Staff = "Staff_altoII" \with { instrumentName = "Alto II" }
         \new Voice = "altoII"
         \altoIIMusic
 
         \new Lyrics \lyricsto "altoII" { \altoIILyrics }
       >>
 
-      \new Staff = "Staff_tenor" \with { instrumentName = #"Tenor" }
+      \new Staff = "Staff_tenor" \with { instrumentName = "Tenor" }
         \new Voice = "tenor"
         \tenorMusic
 
@@ -140,20 +140,20 @@ bassMusic = \relative c { \clef "bass_8" \key g \major g,1 b }
     >>
     \new StaffGroup = "StaffGroup_strings" <<
       \new GrandStaff = "GrandStaff_violins" <<
-        \new Staff = "Staff_violinI" \with { instrumentName = #"Violin I" }
+        \new Staff = "Staff_violinI" \with { instrumentName = "Violin I" }
         \violinIMusic
 
-        \new Staff = "Staff_violinII" \with { instrumentName = #"Violin II" }
+        \new Staff = "Staff_violinII" \with { instrumentName = "Violin II" }
         \violinIIMusic
       >>
 
-      \new Staff = "Staff_viola" \with { instrumentName = #"Viola" }
+      \new Staff = "Staff_viola" \with { instrumentName = "Viola" }
       \violaMusic
 
-      \new Staff = "Staff_cello" \with { instrumentName = #"Cello" }
+      \new Staff = "Staff_cello" \with { instrumentName = "Cello" }
       \celloMusic
 
-      \new Staff = "Staff_bass" \with { instrumentName = #"Double Bass" }
+      \new Staff = "Staff_bass" \with { instrumentName = "Double Bass" }
       \bassMusic
     >>
   >>

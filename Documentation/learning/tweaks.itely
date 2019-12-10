@@ -245,13 +245,10 @@ use just a few simple properties and values which are easily
 understood in order to illustrate the format and use of these
 commands.
 
-LilyPond's primary expressions are musical items like notes,
-durations, and markups.  More basic expressions like numbers,
-strings, and lists are processed in @q{Scheme mode}, which is
-invoked by prefixing the value with @samp{#}.  Although the
-values may sometimes have a valid representation in LilyPond's
-musical mode, this manual will always use @samp{#} for their
-entry for the sake of consistency.  For more information about
+LilyPond's primary expressions are musical items like notes and
+durations, as well as strings and markups.  More specific expressions
+like numbers, symbols and lists are processed in @q{Scheme mode}, which is
+invoked by prefixing the value with @samp{#}.  For more information about
 Scheme mode, see @rextend{LilyPond Scheme syntax}.
 
 @code{\override} is the most common command used in tweaking, and
@@ -1481,7 +1478,7 @@ how to introduce a new temporary staff, as in an @rglos{ossia}.
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main" }
+        alignAboveContext = "main" }
       { f8 f c }
     >>
     r4 |
@@ -1508,7 +1505,7 @@ we simply set the stencil of each to @code{#f}, as follows:
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main"
+        alignAboveContext = "main"
       }
       {
         \omit Staff.Clef
@@ -1571,7 +1568,7 @@ So we could replace the example above with
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main"
+        alignAboveContext = "main"
         % Don't print clefs in this staff
         \override Clef.stencil = ##f
         % Don't print time signatures in this staff
@@ -1596,7 +1593,7 @@ clearing the @code{stencil} here, leading to the result
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main"
+        alignAboveContext = "main"
         % Don't print clefs in this staff
         \omit Clef
         % Don't print time signatures in this staff
@@ -1660,7 +1657,7 @@ Let's try it in our ossia example:
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main"
+        alignAboveContext = "main"
         \omit Clef
         \omit TimeSignature
         % Reduce all font sizes by ~24%
@@ -1726,7 +1723,7 @@ objects in proportion.  It is used like this:
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main"
+        alignAboveContext = "main"
         \omit Clef
         \omit TimeSignature
         fontSize = #-2

@@ -8,6 +8,6 @@
 
 \new ChordNames \chordmode {
   a b c:7
-  \once \override ChordName.text = #"foo"
+  \once \override ChordName.text = "foo"
   d
 }

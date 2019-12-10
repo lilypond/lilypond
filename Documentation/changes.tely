@@ -814,7 +814,7 @@ In fret-diagrams the distance between frets and the distance between strings is
 now independently adjustable.  Available are @code{fret-distance} and
 @code{string-distance} as subproperties of @code{fret-diagram-details}.
 @lilypond[verbatim,quote]
-fretMrkp = \markup { \fret-diagram-terse #"x;x;o;2;3;2;" }
+fretMrkp = \markup { \fret-diagram-terse "x;x;o;2;3;2;" }
 
 \markuplist
 \override #'(padding . 2)
@@ -974,7 +974,7 @@ chord names.
 <<
 \new ChordNames \chordmode {
   a' b c:7
-  \once \override ChordName.text = #"foo"
+  \once \override ChordName.text = "foo"
   d
 }
 >>
@@ -1135,7 +1135,7 @@ This can be used to alter the perceived volume of even sustained notes
 \score @{
   \new Staff \with @{
     midiExpression = #0.6
-    midiInstrument = #"clarinet"
+    midiInstrument = "clarinet"
   @}
   <<
     @{ a'1~ a'1 @}

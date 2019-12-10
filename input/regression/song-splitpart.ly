@@ -7,7 +7,7 @@ divided voices.
 \include "festival.ly"
 
 \score{
-\festival #"song-splitpart.xml" { \tempo 4 = 100 }
+\festival "song-splitpart.xml" { \tempo 4 = 100 }
 <<
   \context Voice = "melody" {
     \relative {

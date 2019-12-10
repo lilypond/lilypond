@@ -45,7 +45,7 @@
       \key g \major
       \time 2/2
       \set Score.instrumentEqualizer = #my-instrument-equalizer
-      \set Staff.midiInstrument = #"flute"
+      \set Staff.midiInstrument = "flute"
       \new Voice \relative {
         r2 g''\mp g fis~
         4 g8 fis e2~
@@ -54,7 +54,7 @@
     }
     \new Staff {
       \key g \major
-      \set Staff.midiInstrument = #"clarinet"
+      \set Staff.midiInstrument = "clarinet"
       \new Voice \relative {
         b'1\p a2. b8 a
         g2. fis8 e

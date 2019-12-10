@@ -834,7 +834,7 @@ Nei diagrammi dei tasti la distanza tra i tasti e quella tra le corde sono
 ora regolabili in modo indipendente.  Sono disponibili @code{fret-distance} e
 @code{string-distance} come sottoproprietà di @code{fret-diagram-details}.
 @lilypond[verbatim,quote]
-fretMrkp = \markup { \fret-diagram-terse #"x;x;o;2;3;2;" }
+fretMrkp = \markup { \fret-diagram-terse "x;x;o;2;3;2;" }
 
 \markuplist
 \override #'(padding . 2)
@@ -999,7 +999,7 @@ accordi.
 <<
 \new ChordNames \chordmode {
   a' b c:7
-  \once \override ChordName.text = #"bla"
+  \once \override ChordName.text = "bla"
   d
 }
 >>
@@ -1171,7 +1171,7 @@ può specificare un valore compreso tra @code{0.0} e @code{1.0}.
 \score @{
   \new Staff \with @{
     midiExpression = #0.6
-    midiInstrument = #"clarinet"
+    midiInstrument = "clarinet"
   @}
   <<
     @{ a'1~ a'1 @}

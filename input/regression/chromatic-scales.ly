@@ -17,7 +17,7 @@ scales = \relative {
   \remove "Key_engraver" 
   staffLineLayoutFunction = #ly:pitch-semitones
   middleCPosition = #-6
-  clefGlyph = #"clefs.G"
+  clefGlyph = "clefs.G"
   clefPosition = #(+ -6 7)
 }
 {

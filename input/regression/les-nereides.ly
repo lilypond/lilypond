@@ -150,7 +150,7 @@ bass = \new Voice \relative c{
     >>
 
     \grace {
-	\override Flag.stroke-style = #"grace"
+	\override Flag.stroke-style = "grace"
 
         s8
         s16 s s

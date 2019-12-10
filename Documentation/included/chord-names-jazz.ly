@@ -110,14 +110,14 @@ banterProperties = \sequential {
 \score{
   <<
     \new ChordNames {
-      \set instrumentName = #"Ignatzek (default)"
-      \set shortInstrumentName = #"Def"
+      \set instrumentName = "Ignatzek (default)"
+      \set shortInstrumentName = "Def"
       \chs
     }
     \new ChordNames {
       \jazzAltProperties
-      \set instrumentName = #"Alternative"
-      \set shortInstrumentName = #"Alt"
+      \set instrumentName = "Alternative"
+      \set shortInstrumentName = "Alt"
       \chs
     }
   %{
@@ -132,8 +132,8 @@ banterProperties = \sequential {
 
     \new ChordNames {
       \banterProperties
-      \set instrumentName = #"Banter"
-      \set shortInstrumentName = #"Ban"
+      \set instrumentName = "Banter"
+      \set shortInstrumentName = "Ban"
       \chs
     }
   %}

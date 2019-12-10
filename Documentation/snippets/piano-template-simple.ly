@@ -35,7 +35,7 @@ lower = \relative c {
 }
 
 \score {
-  \new PianoStaff \with { instrumentName = #"Piano" }
+  \new PianoStaff \with { instrumentName = "Piano" }
   <<
     \new Staff = "upper" \upper
     \new Staff = "lower" \lower

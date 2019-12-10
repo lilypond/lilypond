@@ -26,10 +26,10 @@ endif
 ### Rules
 
 $(outdir)/%-flat-gray.png: %-flat-gray.png
-	convert -depth 8 -geometry 50x50% $< $@
+	convert -strip -depth 8 -geometry 50x50% $< $@
 
 $(outdir)/%-flat-bw.png: %-flat-bw.png
-	convert -depth 8 -geometry 50x50% $< $@
+	convert -strip -depth 8 -geometry 50x50% $< $@
 
 $(outdir)/%.png: $(top-src-dir)/Documentation/pictures/%.png
 	$(LN_SRC_TO_BUILD) -f $< $@

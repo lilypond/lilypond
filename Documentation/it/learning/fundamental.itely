@@ -439,7 +439,7 @@ nel seguente modo:
     <<
       { f8 c c }
       \new Staff \with {
-        alignAboveContext = #"main"
+        alignAboveContext = "main"
       } { f8 f c }
     >>
     r4 |
@@ -1815,11 +1815,11 @@ abbiamo omesso il nome del contesto.
 @lilypond[quote,verbatim,ragged-right]
 <<
   \new Staff \relative {
-    \set Staff.clefGlyph = #"clefs.C"
+    \set Staff.clefGlyph = "clefs.C"
     c''2 c
  }
   \new Staff \relative {
-    \set clefGlyph = #"clefs.F"  % Sbagliato!
+    \set clefGlyph = "clefs.F"  % Sbagliato!
     d'2 d
  }
 >>
@@ -2482,7 +2482,7 @@ lower = \relative {
   <<  % unisci in parallelo ChoirStaff e PianoStaff
     \new ChoirStaff <<
       \new Staff = "sopranos"
-      \with { instrumentName = #"Soprano" }
+      \with { instrumentName = "Soprano" }
       <<
         \new Voice = "sopranos" {
           \global
@@ -2493,7 +2493,7 @@ lower = \relative {
         \sopranoWords
       }
       \new Staff = "altos"
-      \with { instrumentName = #"Alto" }
+      \with { instrumentName = "Alto" }
       <<
         \new Voice = "altos" {
           \global
@@ -2502,7 +2502,7 @@ lower = \relative {
       >>
       \new Lyrics \lyricsto "altos" { \altoWords }
       \new Staff = "tenors"
-      \with { instrumentName = #"Tenor" }
+      \with { instrumentName = "Tenor" }
       <<
         \new Voice = "tenors" {
           \global
@@ -2511,7 +2511,7 @@ lower = \relative {
       >>
       \new Lyrics \lyricsto "tenors" { \tenorWords }
       \new Staff = "basses"
-      \with { instrumentName = #"Bass" }
+      \with { instrumentName = "Bass" }
       <<
         \new Voice = "basses" {
           \global
@@ -2523,7 +2523,7 @@ lower = \relative {
       }
     >>  % end ChoirStaff
     \new PianoStaff
-    \with { instrumentName = #"Piano" }
+    \with { instrumentName = "Piano" }
     <<
       \new Staff = "upper" \upper
       \new Staff = "lower" \lower
@@ -2564,7 +2564,7 @@ In questo modo il nostro ChoirStaff avrà questo aspetto:
 @example
 \new ChoirStaff <<
   \new Staff = "sopranos"
-  \with @{ instrumentName = #"Soprano" @}
+  \with @{ instrumentName = "Soprano" @}
   <<
     \new Voice = "sopranos" @{
       \global
@@ -2575,7 +2575,7 @@ In questo modo il nostro ChoirStaff avrà questo aspetto:
     \sopranoWords
   @}
   \new Staff = "altos"
-  \with @{ instrumentName = #"Alto" @}
+  \with @{ instrumentName = "Alto" @}
   <<
     \new Voice = "altos" @{
       \global
@@ -2586,7 +2586,7 @@ In questo modo il nostro ChoirStaff avrà questo aspetto:
     \altoWords
   @}
   \new Staff = "tenors"
-  \with @{ instrumentName = #"Tenor" @}
+  \with @{ instrumentName = "Tenor" @}
   <<
     \new Voice = "tenors" @{
       \global
@@ -2597,7 +2597,7 @@ In questo modo il nostro ChoirStaff avrà questo aspetto:
     \tenorWords
   @}
   \new Staff = "basses"
-  \with @{ instrumentName = #"Bass" @}
+  \with @{ instrumentName = "Bass" @}
   <<
     \new Voice = "basses" @{
       \global
@@ -2616,7 +2616,7 @@ modello @q{Pianoforte solista}:
 
 @example
 \new PianoStaff
-\with @{ instrumentName = #"Piano  " @}
+\with @{ instrumentName = "Piano  " @}
 <<
   \new Staff = "upper" \upper
   \new Staff = "lower" \lower
@@ -2673,7 +2673,7 @@ perché vogliamo che siano impilati uno sopra l'altro:
   >>  % end ChoirStaff
 
   \new PianoStaff
-  \with @{ instrumentName = #"Piano" @}
+  \with @{ instrumentName = "Piano" @}
   <<
     \new Staff = "upper" \upper
     \new Staff = "lower" \lower
@@ -2727,7 +2727,7 @@ lower = \relative {
   <<  % combina ChoirStaff e PianoStaff in parallelo
     \new ChoirStaff <<
       \new Staff = "sopranos"
-      \with { instrumentName = #"Soprano" }
+      \with { instrumentName = "Soprano" }
       <<
         \new Voice = "sopranos" {
           \global
@@ -2738,7 +2738,7 @@ lower = \relative {
         \sopranoWords
       }
       \new Staff = "altos"
-      \with { instrumentName = #"Alto" }
+      \with { instrumentName = "Alto" }
       <<
         \new Voice = "altos" {
           \global
@@ -2749,7 +2749,7 @@ lower = \relative {
         \altoWords
       }
       \new Staff = "tenors"
-      \with { instrumentName = #"Tenor" }
+      \with { instrumentName = "Tenor" }
       <<
         \new Voice = "tenors" {
           \global
@@ -2760,7 +2760,7 @@ lower = \relative {
         \tenorWords
       }
       \new Staff = "basses"
-      \with { instrumentName = #"Bass" }
+      \with { instrumentName = "Bass" }
       <<
         \new Voice = "basses" {
           \global
@@ -2773,7 +2773,7 @@ lower = \relative {
     >>  % end ChoirStaff
 
     \new PianoStaff
-    \with { instrumentName = #"Piano  " }
+    \with { instrumentName = "Piano  " }
     <<
       \new Staff = "upper" \upper
       \new Staff = "lower" \lower

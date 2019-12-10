@@ -2611,7 +2611,7 @@ LilyPond では、メリスマはリガトゥーラとして扱われ、@c
 \score {
   \new Staff <<
     \new Voice = Tenor {
-      \set Staff.instrumentName = #"Tenor"
+      \set Staff.instrumentName = "Tenor"
       \override Staff.InstrumentName.self-alignment-X = #RIGHT
       \incipit { \clef "mensural-c4" \key f \major r\breve r1 c'1 }
       \clef "treble_8"
@@ -2632,7 +2632,7 @@ LilyPond では、メリスマはリガトゥーラとして扱われ、@c
 @knownissues
 インキピットを生成するためには、@code{instrumentName} がセットされている@c
 必要があります。楽器名が必要ない場合には、
-@code{\set Staff.instrumentName = #""} としてください。
+@code{\set Staff.instrumentName = ""} としてください。
 
 @c @seealso
 @c ... and reference to other sections ...

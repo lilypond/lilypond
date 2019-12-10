@@ -6,7 +6,7 @@ changing tempo in the middle of a piece.
 }
 \include "festival.ly"
 
-\festival #"song-tempo.xml" { \tempo 4=90 }
+\festival "song-tempo.xml" { \tempo 4=90 }
 {
 \time 3/4
 \relative { c'4 e g \tempo 4=60 c, e g }

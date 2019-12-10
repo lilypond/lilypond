@@ -31,8 +31,8 @@ can be changed.
             \fret-diagram-terse "x;x;o;2-1;3-2;2-3;"}
 
      %% D major for guitar, terse style
-    \override TextScript.fret-diagram-details.mute-string = #"M"
-    \override TextScript.fret-diagram-details.open-string = #"*"
+    \override TextScript.fret-diagram-details.mute-string = "M"
+    \override TextScript.fret-diagram-details.open-string = "*"
     \override TextScript.fret-diagram-details.xo-padding = #0.5
     d'1 ^\markup {
             \fret-diagram-terse "x;x;o;2-1;3-2;2-3;"}

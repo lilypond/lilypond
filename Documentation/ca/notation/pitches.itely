@@ -1542,8 +1542,8 @@ director.  El que toquen els dos instruments està sonant a l'uníson.
 \new GrandStaff <<
   \new Staff = "violin" {
     \relative c'' {
-      \set Staff.instrumentName = #"Vln"
-      \set Staff.midiInstrument = #"violin"
+      \set Staff.instrumentName = "Vln"
+      \set Staff.midiInstrument = "violin"
       % no estrictament necessari, però un bon recordatori
       \transposition c'
 
@@ -1554,7 +1554,7 @@ director.  El que toquen els dos instruments està sonant a l'uníson.
   \new Staff = "clarinet" {
     \relative c'' {
       \set Staff.instrumentName = \markup { Cl (B\flat) }
-      \set Staff.midiInstrument = #"clarinet"
+      \set Staff.midiInstrument = "clarinet"
       \transposition bes
 
       \key d \major
@@ -1571,7 +1571,7 @@ clarinet en Si bemoll.
 @lilypond[verbatim,quote]
 flute = \relative c'' {
   \key f \major
-  \cueDuring #"clarinet" #DOWN {
+  \cueDuring "clarinet" #DOWN {
     R1 _\markup\tiny "clarinet"
     c4 f e d
     R1 _\markup\tiny "clarinet"
@@ -1588,9 +1588,9 @@ clarinet = \relative c'' {
 }
 \addQuote "clarinet" \clarinet
 <<
-  \new Staff \with { instrumentName = #"Flute" }
+  \new Staff \with { instrumentName = "Flute" }
     \flute
-  \new Staff \with { instrumentName = #"Cl (A)" }
+  \new Staff \with { instrumentName = "Cl (A)" }
     \clarinet
 >>
 @end lilypond

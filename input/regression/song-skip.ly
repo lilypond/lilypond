@@ -6,7 +6,7 @@ skips.
 }
 \include "festival.ly"
 
-\festival #"song-skip.xml" { \tempo 4 = 100 }
+\festival "song-skip.xml" { \tempo 4 = 100 }
 \relative { c' c g' }
 \addlyrics {
   twin -- \skip 4

@@ -36,7 +36,7 @@ original = \relative { c''8 d s2 es8 gis8 }
 	    s4
 	    \set fontSize = #-4
 	    \override Stem.length-fraction = #(magstep -4)
-	    \quoteDuring #"quoteMe" { \skip 2. }
+	    \quoteDuring "quoteMe" { \skip 2. }
 	}
     >>
 >>

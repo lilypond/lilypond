@@ -2602,7 +2602,7 @@ incipit staff.
 \score {
   \new Staff <<
     \new Voice = Tenor {
-      \set Staff.instrumentName = #"Tenor"
+      \set Staff.instrumentName = "Tenor"
       \override Staff.InstrumentName.self-alignment-X = #RIGHT
       \incipit { \clef "mensural-c4" \key f \major r\breve r1 c'1 }
       \clef "treble_8"
@@ -2623,7 +2623,7 @@ incipit staff.
 @knownissues
 Note that instrumentName must be set in the music for the incipit to be
 produced.  If no instrument name is required then use
-@code{\set Staff.instrumentName = #""}.
+@code{\set Staff.instrumentName = ""}.
 
 @c @seealso
 @c ... and reference to other sections ...

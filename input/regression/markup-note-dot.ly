@@ -7,7 +7,7 @@
 	}
 
 \relative {
-  c'4^\markup { \note #"1." #1 }
-  c4^\markup { \note #"2." #1 }
-  c4^\markup { \note #"8." #1 }
+  c'4^\markup { \note "1." #1 }
+  c4^\markup { \note "2." #1 }
+  c4^\markup { \note "8." #1 }
 }
