@@ -775,7 +775,7 @@ Beam::get_default_dir (Grob *me)
   extract_grob_set (me, "stems", stems);
 
   Drul_array<Real> extremes (0.0, 0.0);
-  for (iterof (s, stems); s != stems.end (); s++)
+  for (vector<Grob*>::const_iterator s = stems.begin (); s != stems.end (); s++)
     {
       Interval positions = Stem::head_positions (*s);
       for (DOWN_and_UP (d))
