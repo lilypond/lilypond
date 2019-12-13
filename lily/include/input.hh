@@ -28,9 +28,10 @@
 */
 class Input : public Simple_smob<Input>
 {
-  char const *start_;
-  char const *end_;
-  Source_file *source_file_;
+  char const *start_ = nullptr;
+  char const *end_ = nullptr;
+  Source_file *source_file_ = nullptr;
+
 public:
   static const char * const type_p_name_;
   int print_smob (SCM, scm_print_state *) const;
@@ -65,11 +66,9 @@ public:
 
   void get_counts (int *, int *, int *, int *) const;
 
-  // TODO: Once we are willing to require C++11, use "= default;" for
-  // assignment and copy construction.
-  Input& operator= (Input const &);
-  Input (Input const &i) { *this = i; }
-  Input ();
+  Input& operator= (Input const &) = default;
+  Input (Input const &i) = default;
+  Input () = default;
 
   friend string source_location (const Input &input) // for logging
   {

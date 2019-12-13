@@ -29,21 +29,6 @@ using namespace std;
 #include "sources.hh"
 #include "warn.hh"
 
-Input& Input::operator= (Input const &i)
-{
-  source_file_ = i.source_file_;
-  start_ = i.start_;
-  end_ = i.end_;
-  return *this;
-}
-
-Input::Input ()
-{
-  source_file_ = 0;
-  start_ = 0;
-  end_ = 0;
-}
-
 Input
 Input::spot () const
 {
