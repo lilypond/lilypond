@@ -50,9 +50,7 @@ class Dimension_cache
 
     void reset () { has_value_ = false; }
 
-    // explicit operator bool () const { return has_value_; } would fit better
-    // with the use of operator * to access the value.  "explicit" is C++11.
-    bool has_value () const { return has_value_; }
+    explicit operator bool () const { return has_value_; }
 
     T &operator * () { return value_; }
     const T &operator * () const { return value_; }

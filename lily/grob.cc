@@ -319,7 +319,7 @@ Grob::translate_axis (Real y, Axis a)
       return;
     }
 
-  if (!dim_cache_[a].offset_.has_value ())
+  if (!dim_cache_[a].offset_)
     dim_cache_[a].offset_ = y;
   else
     *dim_cache_[a].offset_ += y;
@@ -358,7 +358,7 @@ Grob::pure_relative_y_coordinate (Grob const *refp, int start, int end)
 
   Real off = 0;
 
-  if (dim_cache_[Y_AXIS].offset_.has_value ())
+  if (dim_cache_[Y_AXIS].offset_)
     {
       if (to_boolean (get_property ("pure-Y-offset-in-progress")))
         programming_error ("cyclic chain in pure-Y-offset callbacks");
@@ -387,7 +387,7 @@ Grob::pure_relative_y_coordinate (Grob const *refp, int start, int end)
   if (Grob *p = get_parent (Y_AXIS))
     {
       Real trans = 0;
-      if (has_interface<Align_interface> (p) && !dim_cache_[Y_AXIS].offset_.has_value ())
+      if (has_interface<Align_interface> (p) && !dim_cache_[Y_AXIS].offset_)
         trans = Align_interface::get_pure_child_y_translation (p, this, start, end);
 
       return off + trans + p->pure_relative_y_coordinate (refp, start, end);
@@ -399,7 +399,7 @@ Grob::pure_relative_y_coordinate (Grob const *refp, int start, int end)
 Real
 Grob::get_offset (Axis a) const
 {
-  if (dim_cache_[a].offset_.has_value ())
+  if (dim_cache_[a].offset_)
     return *dim_cache_[a].offset_;
 
   SCM sym = axis_offset_symbol (a);
@@ -410,7 +410,7 @@ Grob::get_offset (Axis a) const
     dim_cache_[a].offset_ is unaliased.
   */
   Real off = robust_scm2double (get_property (sym), 0.0);
-  if (dim_cache_[a].offset_.has_value ())
+  if (dim_cache_[a].offset_)
     {
       *dim_cache_[a].offset_ += off;
       const_cast<Grob *> (this)->del_property (sym);
@@ -436,7 +436,7 @@ Grob::maybe_pure_coordinate (Grob const *refp, Axis a, bool pure, int start, int
 void
 Grob::flush_extent_cache (Axis axis)
 {
-  if (dim_cache_[axis].extent_.has_value ())
+  if (dim_cache_[axis].extent_)
     {
       /*
         Ugh, this is not accurate; will flush property, causing
@@ -454,7 +454,7 @@ Grob::extent (Grob const *refp, Axis a) const
 {
   Real offset = relative_coordinate (refp, a);
   Interval real_ext;
-  if (dim_cache_[a].extent_.has_value ())
+  if (dim_cache_[a].extent_)
     {
       real_ext = *dim_cache_[a].extent_;
     }
