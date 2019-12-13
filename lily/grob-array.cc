@@ -71,7 +71,7 @@ Grob_array::filter (bool (*predicate) (const Grob *))
     if (predicate (grobs_[i]))
       grobs_[new_size++] = grobs_[i];
   grobs_.resize (new_size);
-  // could call grobs_.shrink_to_fit () with C++11
+  grobs_.shrink_to_fit ();
 }
 
 void
@@ -82,7 +82,7 @@ Grob_array::filter_map (Grob * (*map_fun) (Grob *))
     if (Grob *grob = map_fun (grobs_[i]))
       grobs_[new_size++] = grob;
   grobs_.resize (new_size);
-  // could call grobs_.shrink_to_fit () with C++11
+  grobs_.shrink_to_fit ();
 }
 
 void
@@ -91,12 +91,12 @@ Grob_array::filter_map_assign (const Grob_array &src,
 {
   if (&src != this)
     {
-      grobs_.resize (0);
+      grobs_.clear ();
       grobs_.reserve (src.grobs_.size ());
       for (vsize i = 0; i < src.grobs_.size (); i++)
         if (Grob *grob = map_fun (src.grobs_[i]))
           grobs_.push_back (grob);
-      // could call grobs_.shrink_to_fit () with C++11
+      grobs_.shrink_to_fit ();
     }
   else
     filter_map (map_fun);
