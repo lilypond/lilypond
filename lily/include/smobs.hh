@@ -229,8 +229,8 @@ private:
                         REQ, OPT, VAR);                                 \
   }
 
-  // Well, function template argument packs are a C++11 feature.  So
-  // we just define a bunch of trampolines manually.  It turns out
+  // Template parameter packs could reduce repetition here; however,
+  // they would allow parameter types other than SCM.  It turns out
   // that GUILE 1.8.8 cannot actually make callable structures with
   // more than 3 arguments anyway.  That's surprising, to say the
   // least, but in emergency situations one can always use a "rest"
