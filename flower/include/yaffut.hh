@@ -141,7 +141,7 @@ public:
               {
                 std::cout << std::endl << it->first << ' ' << std::flush;
                 {
-                  std::auto_ptr<ITest> test (it->second ());
+                  std::unique_ptr<ITest> test (it->second ());
                 }
                 std::cout << "[OK]" << std::flush;
                 ++m_pass;
