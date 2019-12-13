@@ -257,7 +257,7 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item) const
 
       if (pg & PANGO_GLYPH_UNKNOWN_FLAG)
         {
-          warning (_f ("no glyph for character U+%0X in font `%s'",
+          warning (_f ("no glyph for character U+%04X in font `%s'",
                        pg & ~PANGO_GLYPH_UNKNOWN_FLAG, file_name.c_str ()));
           continue;
         }
@@ -285,7 +285,7 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item) const
       if (glyph_name[0] == '\0' && has_glyph_names)
         {
           programming_error (_f ("Glyph has no name, but font supports glyph naming.\n"
-                                 "Skipping glyph U+%0X, file %s",
+                                 "Skipping glyph U+%04X, file %s",
                                  pg, file_name.c_str ()));
           continue;
         }
