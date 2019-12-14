@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最終更新日 Sun Jun 30 13:55:55 UTC 2019
+@emph{最終更新日 Sat Dec 14 18:15:11 UTC 2019
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -243,7 +243,7 @@ Yoshiki Sawada
 @item
 4 出力を調整する
 @*
-16592
+16570
 @tab Tomohiro Tatejima
 @*
 Yoshiki Sawada
@@ -562,11 +562,11 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #2cff20">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+partially
 @end ifnothtml
 @tab post-GDP
 @item
@@ -889,7 +889,7 @@ Yoshiki Sawada
 @item
 2.9 古代の記譜法
 @*
-5409
+5437
 @tab Tomohiro Tatejima
 @tab 
 @tab 
@@ -945,7 +945,7 @@ Yoshiki Sawada
 @item
 3 入出力全般
 @*
-13300
+13276
 @tab Tomohiro Tatejima
 @*
 Yoshiki Sawada
@@ -1383,7 +1383,7 @@ Yoshinobu Ishizaki
 @item
 導入部
 @*
-5799
+5937
 @tab Tomohiro Tatejima
 @*
 Masamichi Hosoda
@@ -1406,11 +1406,11 @@ Yoshinobu Ishizaki
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #25fe1f">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+partially
 @end ifnothtml
 @tab pre-GDP
 @item

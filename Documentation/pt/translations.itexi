@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Última atualização em Sun Jun 30 13:55:55 UTC 2019
+@emph{Última atualização em Sat Dec 14 18:15:11 UTC 2019
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -84,7 +84,7 @@ sim
 @item
 Introdução
 @*
-5799
+5937
 @tab Rafael Fontenelle
 @tab 
 @tab 
@@ -101,11 +101,11 @@ sim
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sim</span>
+<span style="background-color: #25fe1f">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sim
+parcialmente
 @end ifnothtml
 @tab pré-GDP
 @item

@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Ultimo aggiornamento Sun Jun 30 13:55:55 UTC 2019
+@emph{Ultimo aggiornamento Sat Dec 14 18:15:11 UTC 2019
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -351,7 +351,7 @@ sì
 @item
 4 Modifica dell'output
 @*
-16592
+16570
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -650,11 +650,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #2cff20">parzialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+parzialmente
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -957,7 +957,7 @@ sì
 @item
 2.9 Notazione antica
 @*
-5409
+5437
 @tab Federico Bruni
 @tab 
 @tab 
@@ -1011,7 +1011,7 @@ sì
 @item
 3 Input e output
 @*
-13300
+13276
 @tab Federico Bruni
 @tab 
 @tab 
@@ -1413,7 +1413,7 @@ sì
 @item
 Introduzione
 @*
-5799
+5937
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -1430,11 +1430,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #25fe1f">parzialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+parzialmente
 @end ifnothtml
 @tab pre-GDP
 @item
