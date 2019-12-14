@@ -307,6 +307,24 @@
    ly:side-position-interface::pure-y-aligned-side))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; break-alignable stuff
+
+(define-public (break-alignable-interface::self-alignment-of-anchor g)
+  "Return a value for @var{g}'s @code{self-alignment-X} that will
+   place @var{g} on the same side of the reference point defined by a
+   @code{break-aligned} item such as a @code{Clef}."
+  (let ((parent (ly:break-alignable-interface::find-parent g)))
+    (if (ly:grob? parent)
+        (ly:grob-property parent 'break-align-anchor-alignment CENTER)
+        CENTER)))
+
+(define-public (break-alignable-interface::self-alignment-opposite-of-anchor g)
+  "Return a value for @var{g}'s @code{self-alignment-X} that will
+   place @var{g} on the opposite side of the reference point defined by a
+   @code{break-aligned} item such as a @code{Clef}."
+  (* -1 (break-alignable-interface::self-alignment-of-anchor g)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; self-alignment stuff
 
 (define-public self-alignment-interface::y-aligned-on-self

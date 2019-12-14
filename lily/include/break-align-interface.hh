@@ -37,10 +37,16 @@ struct Break_aligned_interface
   DECLARE_SCHEME_CALLBACK (calc_average_anchor, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_extent_aligned_anchor, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_break_visibility, (SCM));
+
+  DECLARE_SCHEME_CALLBACK (calc_joint_anchor_alignment, (SCM));
+  static int calc_joint_anchor_alignment(Grob *me);
 };
 
 struct Break_alignable_interface
 {
+  DECLARE_SCHEME_CALLBACK (find_parent, (SCM grob));
+  static Grob* find_parent (Grob *me);
+
   DECLARE_SCHEME_CALLBACK (self_align_callback, (SCM element));
 };
 

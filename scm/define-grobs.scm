@@ -446,6 +446,7 @@
      . (
         (axes . (,X))
         (break-align-anchor . ,ly:break-aligned-interface::calc-average-anchor)
+        (break-align-anchor-alignment . ,ly:break-aligned-interface::calc-joint-anchor-alignment)
         (break-visibility . ,ly:break-aligned-interface::calc-break-visibility)
         (X-extent . ,ly:axis-group-interface::width)
         (meta . ((class . Item)
@@ -1897,7 +1898,7 @@
         (outside-staff-horizontal-padding . 0.2)
         (outside-staff-priority . 1500)
         (padding . 0.8)
-        (self-alignment-X . ,CENTER)
+        (self-alignment-X . ,break-alignable-interface::self-alignment-opposite-of-anchor)
         (stencil . ,ly:text-interface::print)
         (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
         (X-offset . ,self-alignment-interface::self-aligned-on-breakable)

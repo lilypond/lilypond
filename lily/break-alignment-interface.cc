@@ -257,21 +257,28 @@ Break_alignment_interface::calc_positioning_done (SCM smob)
   return SCM_BOOL_T;
 }
 
-MAKE_SCHEME_CALLBACK (Break_alignable_interface, self_align_callback, 1)
+MAKE_SCHEME_CALLBACK (Break_alignable_interface, find_parent, 1)
 SCM
-Break_alignable_interface::self_align_callback (SCM grob)
+Break_alignable_interface::find_parent (SCM grob)
 {
-  Grob *me = unsmob<Grob> (grob);
+  Grob *me = LY_ASSERT_SMOB (Grob, grob, 1);
+  Grob *alignment_parent = find_parent (me);
+  return alignment_parent ? alignment_parent->self_scm () : SCM_BOOL_F;
+}
+
+Grob*
+Break_alignable_interface::find_parent (Grob* me)
+{
   Item *alignment = dynamic_cast<Item *> (me->get_parent (X_AXIS));
   if (!has_interface<Break_alignment_interface> (alignment))
-    return scm_from_int (0);
+    return 0;
 
   SCM symbol_list = me->get_property ("break-align-symbols");
   vector<Grob *> elements = Break_alignment_interface::ordered_elements (alignment);
   if (elements.size () == 0)
-    return scm_from_int (0);
+    return 0;
 
-  int break_aligned_grob = -1;
+  Grob *break_aligned_grob = 0;
   for (; scm_is_pair (symbol_list); symbol_list = scm_cdr (symbol_list))
     {
       SCM sym = scm_car (symbol_list);
@@ -283,20 +290,26 @@ Break_alignable_interface::self_align_callback (SCM grob)
                   // TODO SCM: simplify syntax?
                   && !elements[i]->extent (elements[i], X_AXIS).is_empty ())
                 {
-                  break_aligned_grob = i;
-                  goto found_break_aligned_grob; /* ugh. need to break out of 2 loops */
+                  return elements[i];
                 }
-              else if (break_aligned_grob == -1)
-                break_aligned_grob = i;
+              else if (!break_aligned_grob)
+                break_aligned_grob = elements[i];
             }
         }
     }
 
-found_break_aligned_grob:
-  if (break_aligned_grob == -1)
+  return break_aligned_grob;
+}
+
+MAKE_SCHEME_CALLBACK (Break_alignable_interface, self_align_callback, 1)
+SCM
+Break_alignable_interface::self_align_callback (SCM grob)
+{
+  Grob *me = LY_ASSERT_SMOB (Grob, grob, 1);
+  Grob *alignment_parent = find_parent (me);
+  if (!alignment_parent)
     return scm_from_int (0);
 
-  Grob *alignment_parent = elements[break_aligned_grob];
   Grob *common = me->common_refpoint (alignment_parent, X_AXIS);
   Real anchor = robust_scm2double (alignment_parent->get_property ("break-align-anchor"), 0);
 
@@ -326,6 +339,41 @@ Break_aligned_interface::calc_average_anchor (SCM grob)
     }
 
   return scm_from_double (count > 0 ? avg / count : 0);
+}
+
+MAKE_SCHEME_CALLBACK (Break_aligned_interface, calc_joint_anchor_alignment, 1)
+SCM
+Break_aligned_interface::calc_joint_anchor_alignment (SCM grob)
+{
+  Grob *me = LY_ASSERT_SMOB (Grob, grob, 1);
+  return scm_from_int (calc_joint_anchor_alignment (me));
+}
+
+int
+Break_aligned_interface::calc_joint_anchor_alignment (Grob *me)
+{
+  // If all elements with non-zero alignment agree in sign, return that
+  // direction.  Otherwise, return center.  Just enough thought has been put
+  // into this algorithm to serve our immediate needs.
+  int direction = CENTER;
+
+  extract_grob_set (me, "elements", elts);
+  for (vsize i = 0; i < elts.size (); i++)
+    {
+      SCM s = elts[i]->get_property ("break-align-anchor-alignment");
+      double alignment = robust_scm2double (s, 0.0);
+      if (alignment < CENTER) {
+        if (direction > CENTER)
+          return CENTER; // conflict
+        direction = -1;
+      } else if (alignment > CENTER) {
+        if (direction < CENTER)
+          return CENTER; // conflict
+        direction = 1;
+      }
+    }
+
+  return direction;
 }
 
 MAKE_SCHEME_CALLBACK (Break_aligned_interface, calc_extent_aligned_anchor, 1)
