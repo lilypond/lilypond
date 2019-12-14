@@ -25,7 +25,9 @@
 
 class Sources
 {
-  Sources (Sources const &);  // Do not define!  Not copyable!
+  Sources (Sources const &) = delete;
+  Sources& operator= (Sources const &) = delete;
+
   vector<Source_file *> sourcefiles_;
 
 public:

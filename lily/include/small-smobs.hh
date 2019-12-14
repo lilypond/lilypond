@@ -24,8 +24,9 @@
 template <class Super>
 class Smob1 : public Smob_base<Super>
 {
-  Smob1 (); // Do not define!  Not constructible!
-  Smob1 (const Smob1 &); // Do not define!  Not copyable!
+  Smob1 () = delete;
+  Smob1 (const Smob1 &) = delete;
+  Smob1& operator= (const Smob1 &) = delete;
 public:
   SCM self_scm () const { return SCM_PACK (this); }
   SCM & scm1 () const { return *SCM_SMOB_OBJECT_LOC (self_scm ()); }
@@ -41,8 +42,9 @@ public:
 template <class Super>
 class Smob2 : public Smob_base<Super>
 {
-  Smob2 (); // Do not define!  Not constructible!
-  Smob2 (const Smob2 &); // Do not define!  Not copyable!
+  Smob2 () = delete;
+  Smob2 (const Smob2 &) = delete;
+  Smob2 operator= (const Smob2 &) = delete;
 public:
   SCM self_scm () const { return SCM_PACK (this); }
   SCM & scm1 () const { return *SCM_SMOB_OBJECT_LOC (self_scm ()); }
@@ -65,8 +67,9 @@ public:
 template <class Super>
 class Smob3 : public Smob_base<Super>
 {
-  Smob3 (); // Do not define!  Not constructible!
-  Smob3 (const Smob3 &); // Do not define!  Not copyable!
+  Smob3 () = delete;
+  Smob3 (const Smob3 &) = delete;
+  Smob3 operator= (const Smob3 &) = delete;
 public:
   SCM self_scm () const { return SCM_PACK (this); }
   SCM & scm1 () const { return *SCM_SMOB_OBJECT_LOC (self_scm ()); }

@@ -314,7 +314,8 @@ template <class Super>
 class Smob : public Smob_core, public Smob_base<Super> {
 private:
   SCM protection_cons_;
-  Smob (const Smob<Super> &); // Do not define!  Not copyable!
+  Smob (const Smob<Super> &) = delete;
+  Smob& operator= (const Smob<Super> &) = delete;
 protected:
   Smob () : protection_cons_ (SCM_EOL) { };
 public:

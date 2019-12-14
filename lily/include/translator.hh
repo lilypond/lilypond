@@ -157,7 +157,8 @@ public:
 protected:
   Translator (Context *);
 private:
-  Translator (Translator const &); // not copyable
+  Translator (Translator const &) = delete;
+  Translator& operator= (Translator const &) = delete;
 public:
 
   SCM internal_get_property (SCM symbol) const;

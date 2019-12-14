@@ -71,7 +71,8 @@ protected:
 
   DECLARE_CLASSNAME (Music_iterator);
 private:
-  Music_iterator (Music_iterator const &); // Do not define!  Not copyable!
+  Music_iterator (Music_iterator const &) = delete;
+  Music_iterator& operator= (Music_iterator const &) = delete;
 
 public:
   Moment music_get_length () const;

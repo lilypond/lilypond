@@ -49,8 +49,8 @@ private:
                                           SCM context_name, const string &id,
                                           SCM ops);
 
-
-  Context (Context const &src); // Do not define!  Not copyable!
+  Context (Context const &src) = delete;
+  Context& operator= (Context const &) = delete;
 
   DECLARE_CLASSNAME (Context);
   void terminate ();
