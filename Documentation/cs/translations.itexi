@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Naposledy obnoveno Sun Jun 30 13:55:55 UTC 2019
+@emph{Naposledy obnoveno Sat Dec 14 18:15:11 UTC 2019
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -165,18 +165,18 @@ ano
 @item
 4 Ladění výstupu
 @*
-16592
+16570
 @tab Pavel Fric
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">částečně (51 %)</span>
+<span style="background-color: #dfef77">částečně (50 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-částečně (51 %)
+částečně (50 %)
 @end ifnothtml
 @tab 
 @ifhtml
@@ -285,7 +285,7 @@ ano
 @item
 Úvod
 @*
-5799
+5937
 @tab Pavel Fric
 @tab 
 @tab 

@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Actualitzat el Sun Jun 30 13:55:55 UTC 2019
+@emph{Actualitzat el Sat Dec 14 18:15:11 UTC 2019
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -167,7 +167,7 @@ parcialment
 @item
 4 Ajustament de la sortida
 @*
-16592
+16570
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -468,7 +468,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">parcialment</span>
+<span style="background-color: #33ff21">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -775,7 +775,7 @@ si
 @item
 2.9 Notació antiga
 @*
-5409
+5437
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -792,7 +792,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">parcialment</span>
+<span style="background-color: #39ff22">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -829,7 +829,7 @@ si
 @item
 3 Entrada i sortida generals
 @*
-13300
+13276
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -846,11 +846,11 @@ parcialment (98 %)
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">si</span>
+<span style="background-color: #25fe1f">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
-si
+parcialment
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1177,7 +1177,7 @@ si
 @item
 Introducció
 @*
-5799
+5937
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -1194,7 +1194,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">parcialment</span>
+<span style="background-color: #39ff22">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml

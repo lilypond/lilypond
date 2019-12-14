@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Sun Jun 30 13:55:55 UTC 2019
+@emph{Last updated Sat Dec 14 18:15:11 UTC 2019
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -295,7 +295,7 @@ partially
 @item
 4 A kimenet finomhangolása
 @*
-16592
+16570
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -562,7 +562,7 @@ partially
 @item
 Bevezetés
 @*
-5799
+5937
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -579,7 +579,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #fffa3d">partially</span>
+<span style="background-color: #fff73e">partially</span>
 @end html
 @end ifhtml
 @ifnothtml

@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Zuletzt aktualisiert am Sun Jun 30 13:55:55 UTC 2019
+@emph{Zuletzt aktualisiert am Sat Dec 14 18:15:11 UTC 2019
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -204,7 +204,7 @@ ja
 @item
 1 Scheme-Tutorium
 @*
-6403
+6331
 @tab Till Paala
 @tab 
 @tab 
@@ -221,7 +221,7 @@ teilweise (54 %)
 @ifhtml
 
 @html
-<span style="background-color: #6fff29">teilweise</span>
+<span style="background-color: #76fe2a">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -419,7 +419,7 @@ teilweise
 @item
 4 Die Ausgabe verbessern
 @*
-16592
+16570
 @tab ???
 @*
 Michael Gerdau
@@ -438,11 +438,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #25fe1f">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+teilweise
 @end ifnothtml
 @tab vor-GDP
 @item
@@ -722,7 +722,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #c7ff35">teilweise</span>
+<span style="background-color: #cdfe36">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -911,7 +911,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #6fff29">teilweise</span>
+<span style="background-color: #76fe2a">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -992,7 +992,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #54ff26">teilweise</span>
+<span style="background-color: #5bff27">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1029,7 +1029,7 @@ ja
 @item
 2.9 Notation von alter Musik
 @*
-5409
+5437
 @tab Till Paala
 @tab 
 @tab 
@@ -1083,7 +1083,7 @@ teilweise
 @item
 3 Allgemeine Eingabe und Ausgabe
 @*
-13300
+13276
 @tab Till Paala
 @tab 
 @tab 
@@ -1493,7 +1493,7 @@ ja
 @item
 Einleitung
 @*
-5799
+5937
 @tab Till Paala
 @*
 Michael Gerdau
@@ -1512,7 +1512,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">teilweise</span>
+<span style="background-color: #39ff22">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml

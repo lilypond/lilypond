@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated dim. juin 30 13:55:55 UTC 2019
+@emph{Last updated sam. déc. 14 18:15:11 UTC 2019
 }
 @multitable @columnfractions  0.2 0.2 0.2 0.2 0.2
 
@@ -1240,7 +1240,7 @@ up to date
 @item
 1 Scheme tutorial
 @*
-(6403)
+(6331)
 @tab Till Paala
 @*
 
@@ -1258,7 +1258,7 @@ partially translated (54 %)
 @ifhtml
 
 @html
-<span style="background-color: #6fff29">partially up to date</span>
+<span style="background-color: #76fe2a">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1281,11 +1281,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #25fe1f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Jean-Charles Malahieude
 @*
@@ -1304,11 +1304,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #25fe1f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @item
 2 Interfaces for programmers
@@ -3020,7 +3020,7 @@ partially up to date
 @item
 4 Tweaking output
 @*
-(16592)
+(16570)
 @tab Walter Garcia-Fontes
 @*
 
@@ -3070,11 +3070,11 @@ up to date
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially translated (51 %)</span>
+<span style="background-color: #dfef77">partially translated (50 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially translated (51 %)
+partially translated (50 %)
 @end ifnothtml
 @*
 
@@ -3106,11 +3106,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #25fe1f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Francisco Vila
 @*
@@ -5531,7 +5531,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially up to date</span>
+<span style="background-color: #33ff21">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -5554,7 +5554,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #c7ff35">partially up to date</span>
+<span style="background-color: #cdfe36">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -5577,11 +5577,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #2cff20">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Valentin Villenave
 @*
@@ -5622,11 +5622,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #2cff20">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Federico Bruni
 @*
@@ -5665,11 +5665,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #2cff20">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Tomohiro Tatejima
 @*
@@ -5690,11 +5690,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #2cff20">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @item
 1.7 Editorial annotations
@@ -6967,7 +6967,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #6fff29">partially up to date</span>
+<span style="background-color: #76fe2a">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -7592,7 +7592,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #54ff26">partially up to date</span>
+<span style="background-color: #5bff27">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -7950,7 +7950,7 @@ up to date
 @item
 2.9 Ancient notation
 @*
-(5409)
+(5437)
 @tab Walter Garcia-Fontes
 @*
 
@@ -7988,7 +7988,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">partially up to date</span>
+<span style="background-color: #39ff22">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -8338,7 +8338,7 @@ up to date
 @item
 3 General input and output
 @*
-(13300)
+(13276)
 @tab Walter Garcia-Fontes
 @*
 
@@ -8376,11 +8376,11 @@ partially translated (98 %)
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #25fe1f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Till Paala
 @*
@@ -11930,7 +11930,7 @@ up to date
 @item
 Introduction
 @*
-(5799)
+(5937)
 @tab Walter Garcia-Fontes
 @*
 
@@ -11968,7 +11968,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">partially up to date</span>
+<span style="background-color: #39ff22">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -12016,7 +12016,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">partially up to date</span>
+<span style="background-color: #39ff22">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -12039,11 +12039,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #25fe1f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Gauvain Pocentek
 @*
@@ -12086,11 +12086,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #25fe1f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Harmath Dénes
 @*
@@ -12109,7 +12109,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #fffa3d">partially up to date</span>
+<span style="background-color: #fff73e">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -12152,11 +12152,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #25fe1f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Tomohiro Tatejima
 @*
@@ -12181,11 +12181,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #25fe1f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Jan Nieuwenhuizen
 @*
@@ -12224,7 +12224,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #f6fe3b">partially up to date</span>
+<span style="background-color: #fffd3d">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -12247,11 +12247,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #25fe1f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Ben Luo
 @*
