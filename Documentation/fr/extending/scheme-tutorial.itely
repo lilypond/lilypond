@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 5c077a521e84b118e22af570a0f556ef8e3c3b6a
+   Translation of GIT committish: 4944e92191308c589f9ed1d3796c6403a2280d18
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1510,27 +1510,16 @@ doubleSlur = #(define-music-function (note) (ly:music?)
 @subsection Ajout d'articulation à des notes (exemple)
 @translationof Adding articulation to notes (example)
 
-Le moyen d'ajouter une articulation à des notes consiste à fusionner
-deux expressions musicales en un même contexte.  L'option de réaliser
-nous-mêmes une fonction musicale à cette fin nous offre l'avantage de
-pouvoir alors ajouter une articulation, telle qu'une instruction de
-doigté, individuellement à l'une des notes d'un accord, ce qui est
-impossible dans le cadre d'une simple fusion de musique indépendante.
+Le moyen d'ajouter une articulation à des notes consiste à juxtaposer
+deux expressions musicales. L'option de réaliser nous-mêmes une fonction
+musicale à cette fin..
 
 Un @code{$variable} au milieu de la notation @code{#@{ @dots{} #@}} se
 comporte exactement comme un banal @code{\variable} en notation LilyPond
-traditionnelle.  Nous savons déjà que
+traditionnelle.  Nous pourrions écrire
 
 @example
 @{ \musique -. -> @}
-@end example
-
-@noindent
-n'est pas admis par LilyPond.  Nous pourrions tout à fait contourner ce
-problème en attachant l'articulation à un accord vide,
-
-@example
-@{ << \musique <> -. -> >> @}
 @end example
 
 @noindent
@@ -1676,8 +1665,7 @@ fonction musicale, à l'aide d'un peu d'enrobage syntaxique et mention du
 type de son argument.
 
 @example
-ajouteAccent = #(define-music-function (note-event)
-                                        (ly:music?)
+ajouteAccent = #(define-music-function (note-event) (ly:music?)
   "Ajoute un accent (ArticulationEvent) aux articulations de `note-event',
   qui est censé être une expression NoteEvent."
   (set! (ly:music-property note-event 'articulations)
