@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 6b4e0aa811081b9246a5207d4e81be84aa85e028
+   Translation of GIT committish: 4944e92191308c589f9ed1d3796c6403a2280d18
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -622,7 +622,7 @@ Au sein d'un bloc @code{\bookpart} et en dehors de tout bloc
 @code{\score} qu'il contient ;
 
 @item
-Après l'expression musicale incluse dans un bloc @code{\score}.
+Au sein d'un bloc @code{\score}.
 
 @end itemize
 

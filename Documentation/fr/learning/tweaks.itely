@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 0a5306c21d7d64d1ffdadb899c0af79ced2df336
+   Translation of GIT committish: 4944e92191308c589f9ed1d3796c6403a2280d18
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -271,14 +271,12 @@ n'employer que quelques propriétés et valeurs simples, facilement
 compréhensibles.
 
 LilyPond reconnaît comme expression primaire les éléments musicaux tels
-que les notes, durées et annotations (les @emph{markups}).  D'autres
-expressions de base comme les nombres, chaînes de caractères et listes
-sont gérées en « mode Scheme », mode appelé en faisant précéder une
-valeur par un @samp{#}.  Bien que certaines valeurs puissent disposer
-d'une représentation tout à fait valide dans le mode musical de
-LilyPond, les exemples de ce manuel mentionnent un @samp{#} pour plus de
-clarté.  Pour de plus amples informations quant au mode Scheme,
-consultez @rextend{Syntaxe Scheme dans LilyPond}.
+que les notes et durées, ainsi que les chînes de caractères et
+annotations (les @emph{markups}). D'autres expressions spécifiques comme
+les nombres, symboles et listes sont gérées en « mode Scheme », mode
+appelé en faisant précéder une valeur par un @samp{#}. Pour de plus
+amples informations quant au mode Scheme, consultez
+@rextend{Syntaxe Scheme dans LilyPond}.
 
 La commande @code{\override} est la plus fréquemment utilisée pour faire
 des retouches, et pratiquement tout le reste de ce chapitre aura pour

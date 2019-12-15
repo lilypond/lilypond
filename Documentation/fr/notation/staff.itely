@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 0a5306c21d7d64d1ffdadb899c0af79ced2df336
+   Translation of GIT committish: 4944e92191308c589f9ed1d3796c6403a2280d18
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1314,13 +1314,13 @@ la commande @code{\quoteDuring} -- voir la rubrique précédente
 Leur syntaxe est :
 
 @example
-\cueDuring #@var{origine} #@var{position} #@var{musique}
+\cueDuring @var{origine} #@var{position} @var{musique}
 @end example
 
 et
 
 @example
-\cueDuringWithClef #@var{origine} #@var{position} #@var{clef} #@var{musique}
+\cueDuringWithClef @var{origine} #@var{position} #@var{clef} @var{musique}
 @end example
 
 Des mesures issues de la partie d'@code{@var{origine}} seront recopiées
