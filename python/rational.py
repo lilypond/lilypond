@@ -161,11 +161,25 @@ class Rational(object):
         return other - other // self * self
     def __divmod__(self, other):
         return self // other, self % other
-    def __cmp__(self, other):
+    def _cmp(self, other, compare):
         if other == 0:
-            return cmp(self._n, 0)
+            return compare(self._n, 0)
         else:
-            return cmp(self - other, 0)
+            return compare(self - other, 0)
+    # TODO: Think about using functools.total_ordering available since
+    # Python 2.7 after raising the minimum required version.
+    def __lt__(self, other):
+        return self._cmp(other, lambda a, b: a < b)
+    def __le__(self, other):
+        return self._cmp(other, lambda a, b: a <= b)
+    def __eq__(self, other):
+        return self._cmp(other, lambda a, b: a == b)
+    def __ne__(self, other):
+        return self._cmp(other, lambda a, b: a != b)
+    def __ge__(self, other):
+        return self._cmp(other, lambda a, b: a >= b)
+    def __gt__(self, other):
+        return self._cmp(other, lambda a, b: a > b)
     def __pow__(self, other):
         if isinstance(other, (int, long)):
             if other < 0:
