@@ -1297,13 +1297,13 @@ in the previous section.
 The syntax is:
 
 @example
-\cueDuring #@var{quotename} #@var{direction} #@var{music}
+\cueDuring @var{quotename} #@var{direction} @var{music}
 @end example
 
 and
 
 @example
-\cueDuringWithClef #@var{quotename} #@var{direction} #@var{clef} #@var{music}
+\cueDuringWithClef @var{quotename} #@var{direction} #@var{clef} @var{music}
 @end example
 
 The music from the corresponding measures of the @code{@var{quote name}}
@@ -1520,4 +1520,3 @@ between @code{Voice} and @code{CueVoice} contexts.  When using
 @code{\cueDuringWithClef} or @code{\transposedCueDuring} the extra
 argument required for each case must come after the quote and the
 direction.
-
