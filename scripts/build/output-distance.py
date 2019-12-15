@@ -305,7 +305,8 @@ class SystemLink:
 
     def geo_details_string (self):
         results = [(d, g1,g2) for ((g1, g2), d) in self.geo_distances.items()]
-        results.sort ()
+        # Only compare distances.
+        results.sort (key=lambda x: x[0])
         results.reverse ()
 
         return ', '.join (['%s: %f' % (g1.name, d) for (d, g1, g2) in results])
@@ -1055,7 +1056,8 @@ class ComparisonData:
         ## todo: support more scores.
         results = [(link.distance(), link)
                    for link in self.file_links.values ()]
-        results.sort ()
+        # Only compare distances.
+        results.sort (key=lambda x: x[0])
         results.reverse ()
 
         unchanged = [r for (d,r) in results if d == 0.0]
