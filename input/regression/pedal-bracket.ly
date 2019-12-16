@@ -20,6 +20,7 @@ be placed at spacer rests." }
         \set Staff.pedalUnaCordaStyle = #'mixed
 
         c4 d \unaCorda e f g b \break
+        \once \override Score.RehearsalMark.self-alignment-X = #CENTER
         \mark "long mark"
         c b <c e,>\arpeggio \treCorde c |
         b8\sustainOn g d b <<c2 {s4 s4\sustainOff\sustainOn }>> |
