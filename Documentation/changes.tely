@@ -1252,6 +1252,29 @@ with @code{DynamicText} or @code{LyricText}.
 
 @itemize
 
+An optional argument for the @code{\afterGrace} command has been added.
+
+@noindent
+@code{\afterGrace} now has an optional argument to specificy the spacing
+fraction position of its notes.
+@lilypond[quote,verbatim]
+<<
+\new Staff \relative {
+  % The default, hard-coded value (3/4)
+  c''1 \afterGrace d1 { c16[ d] } c1
+}
+\new Staff \relative {
+  % Changing the hard-coded value manually (15/16)
+  #(define afterGraceFraction (cons 15 16))
+  c''1 \afterGrace d1 { c16[ d] } c1
+}
+\new Staff \relative {
+  % Using the new argument (5/6)
+  c''1 \afterGrace 5/6 d1 { c16[ d] } c1
+}
+>>
+@end lilypond
+
 @item
 All of @code{\override}, @code{\revert}, @code{\set}, and
 @code{\unset} now work with the @code{\once} prefix for making
