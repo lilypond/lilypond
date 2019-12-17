@@ -24,7 +24,7 @@
 #include "smobs.hh"
 
 /**
-   Base class for anything that records its poisition in the parse file.
+   Base class for anything that records its position in the parse file.
 */
 class Input : public Simple_smob<Input>
 {

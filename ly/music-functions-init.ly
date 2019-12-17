@@ -1044,7 +1044,7 @@ creation.")
 
 
 
-%% pageBreak and pageTurn are music functions (iso music indentifiers),
+%% pageBreak and pageTurn are music functions (iso music identifiers),
 %% because music identifiers are not allowed at top-level.
 pageBreak =
 #(define-music-function () ()
