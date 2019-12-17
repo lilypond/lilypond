@@ -106,6 +106,44 @@ string mangle_cxx_identifier (string);
 void ly_add_type_predicate (void *ptr, const string &name);
 string predicate_to_typename (void *ptr);
 
+// ly_scm_func_of_arity<n>::ptr_type is a pointer to a function taking n SCM
+// arguments and returning SCM.
+template <unsigned>
+struct ly_scm_func_of_arity
+{
+  // ptr_type is defined in specializations
+};
+
+template <>
+struct ly_scm_func_of_arity<0>
+{
+  typedef SCM (*ptr_type) ();
+};
+
+template <>
+struct ly_scm_func_of_arity<1>
+{
+  typedef SCM (*ptr_type) (SCM);
+};
+
+template <>
+struct ly_scm_func_of_arity<2>
+{
+  typedef SCM (*ptr_type) (SCM, SCM);
+};
+
+template <>
+struct ly_scm_func_of_arity<3>
+{
+  typedef SCM (*ptr_type) (SCM, SCM, SCM);
+};
+
+template <>
+struct ly_scm_func_of_arity<4>
+{
+  typedef SCM (*ptr_type) (SCM, SCM, SCM, SCM);
+};
+
 /*
   Make TYPE::FUNC available as a Scheme function.
 */
@@ -116,9 +154,11 @@ string predicate_to_typename (void *ptr);
   {                                                                     \
     string cxx = string (#TYPE) + "::" + string (#FUNC); \
     string id = mangle_cxx_identifier (cxx); \
+    /* assignment selects the SCM function even if it is overloaded */ \
+    ly_scm_func_of_arity<ARGCOUNT>::ptr_type func = TYPE::FUNC; \
     TYPE ::FUNC ## _proc = scm_c_define_gsubr (id.c_str(),                      \
                                                (ARGCOUNT-OPTIONAL_COUNT), OPTIONAL_COUNT, 0,    \
-                                               (scm_t_subr) TYPE::FUNC); \
+                                               (scm_t_subr) func); \
     ly_add_function_documentation (TYPE :: FUNC ## _proc, id.c_str(), "", \
                                    DOC);                                \
     scm_c_export (id.c_str (), NULL);                                   \
