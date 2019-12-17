@@ -1620,37 +1620,37 @@ def musicxml_chordpitch_to_lily(mxl_cpitch):
     return r
 
 chordkind_dict = {
-    'major': r'{}:5',
-    'minor': r'{}:m5',
-    'augmented': r'{}:aug5',
-    'diminished': r'{}:dim5',
+    'major': r'%s:5',
+    'minor': r'%s:m5',
+    'augmented': r'%s:aug5',
+    'diminished': r'%s:dim5',
         # Sevenths:
-    'dominant': r'{}:7',
-    'dominant-seventh': r'{}:7',
-    'major-seventh': r'{}:maj7',
-    'minor-seventh': r'{}:m7',
-    'diminished-seventh': r'{}:dim7',
-    'augmented-seventh': r'{}:aug7',
-    'half-diminished': r'{}:dim5m7',
-    'major-minor': r'{}:maj7m5',
+    'dominant': r'%s:7',
+    'dominant-seventh': r'%s:7',
+    'major-seventh': r'%s:maj7',
+    'minor-seventh': r'%s:m7',
+    'diminished-seventh': r'%s:dim7',
+    'augmented-seventh': r'%s:aug7',
+    'half-diminished': r'%s:dim5m7',
+    'major-minor': r'%s:maj7m5',
         # Sixths:
-    'major-sixth': r'{}:6',
-    'minor-sixth': r'{}:m6',
+    'major-sixth': r'%s:6',
+    'minor-sixth': r'%s:m6',
         # Ninths:
-    'dominant-ninth': r'{}:9',
-    'major-ninth': r'{}:maj9',
-    'minor-ninth': r'{}:m9',
+    'dominant-ninth': r'%s:9',
+    'major-ninth': r'%s:maj9',
+    'minor-ninth': r'%s:m9',
         # 11ths (usually as the basis for alteration):
-    'dominant-11th': r'{}:11',
-    'major-11th': r'{}:maj11',
-    'minor-11th': r'{}:m11',
+    'dominant-11th': r'%s:11',
+    'major-11th': r'%s:maj11',
+    'minor-11th': r'%s:m11',
         # 13ths (usually as the basis for alteration):
-    'dominant-13th': r'{}:13.11',
-    'major-13th': r'{}:maj13.11',
-    'minor-13th': r'{}:m13',
+    'dominant-13th': r'%s:13.11',
+    'major-13th': r'%s:maj13.11',
+    'minor-13th': r'%s:m13',
         # Suspended:
-    'suspended-second': r'{}:sus2',
-    'suspended-fourth': r'{}:sus4',
+    'suspended-second': r'%s:sus2',
+    'suspended-fourth': r'%s:sus4',
         # Functional sixths:
     # TODO
     #'Neapolitan': '???',
@@ -1659,9 +1659,9 @@ chordkind_dict = {
     #'German': '???',
         # Other:
     #'pedal': '???',(pedal-point bass)
-    'power': r'\powerChords {}:1.5',
+    'power': r'\powerChords %s:1.5',
     #'Tristan': '???',
-    'other': r'{}:1',
+    'other': r'%s:1',
     'none': None,
 }
 

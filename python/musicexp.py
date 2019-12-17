@@ -1596,7 +1596,7 @@ class ChordNameEvent (Event):
         if self.duration:
             value += self.duration.ly_expression ()
         if self.kind:
-            value = self.kind.format(value)
+            value = self.kind % value
         # First print all additions/changes, and only afterwards all subtractions
         for m in self.modifications:
             if m.type == 1:
