@@ -11,9 +11,6 @@ local-distclean:
 	rm -rf autom4te.cache
 	rm -rf $(outdir)
 
-GNUmakefile: GNUmakefile.in
-	$(MAKE) INFILE=$< OUTFILE=$@ -f $(stepdir)/automatically-generated.sub.make
-
 $(package-icon):
 	$(MAKE) -C Documentation/logo icon
 
