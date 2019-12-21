@@ -133,29 +133,6 @@ non-stable versions only?).
 
 Next - @file{make/local.make}, which doesn't exist.
 
-Then a few more variable and the interesting comment:
-
-@example
-# Don't try to outsmart us, you puny computer!
-# Well, UGH.  This only removes builtin rules from
-@end example
-
-and then tests to see whether BUILTINS_REMOVED is defined.  It
-appears to be when I run make, and so
-@file{stepmake/stepmake/no-builtin-rules.make} is run.  The
-comment at the head of this file says:
-
-@example
-# UGH.  GNU make comes with implicit rules.
-# We don't want any of them, and can't force users to run
-# --no-builtin-rules
-@end example
-
-I've not studied that file at length, but assume it removes all
-make's build-in rules (e.g. @file{*.c} files are run through the
-GNU C compiler) - there's a lot of them in here, and a lot of
-comments, and I'd guess most of it isn't needed.
-
 We return to @file{stepmake.make}, where we hit the make rule all:
 The first line of this is:
 
@@ -409,7 +386,7 @@ doc: doc-stage-1
 @end example
 
 @example
-MAKE = make --no-builtin-rules
+MAKE = make
 -C = Change to directory before make
 @end example
 
@@ -982,7 +959,7 @@ $(MAKE) config_make=$(config_make) \
 This translates as:
 
 @example
-make --no-builtin-rules config_make=./config.make \
+make config_make=./config.make \
                 top-src-dir=/home/phil/lilypond-git \
                 -f /home/phil/lilypond-git/make/website.make \
                 website
