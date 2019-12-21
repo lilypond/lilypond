@@ -2,9 +2,7 @@
 
 depth = ..
 
-STEPMAKE_TEMPLATES = metafont \
-		     install \
-		     install-out
+STEPMAKE_TEMPLATES = metafont install install-out
 LOCALSTEPMAKE_TEMPLATES = lilypond
 
 # These are the main .mf files.  We don't use $(MF_FILES) here,
