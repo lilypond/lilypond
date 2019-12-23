@@ -16,9 +16,6 @@ ifeq ($(LINK_GXX_STATICALLY),yes)
 MODULE_LDFLAGS += -L$(outdir) -static-libgcc
 endif
 
-CXXFLAGS += -Woverloaded-virtual
-
-
 # for profiling, link guile statically:
 #
 # CONFIG_LDFLAGS += -static -lltdl -ldl

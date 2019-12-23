@@ -1,7 +1,7 @@
 
 include $(stepdir)/compile-vars.make
 
-EXTRA_CXXFLAGS = -std=c++11 -W -Wall -Wconversion
+EXTRA_CXXFLAGS = -std=c++11 -W -Wall -Wconversion -Woverloaded-virtual
 #ifeq ($(MY_PATCH_LEVEL),)
 #EXTRA_CXXFLAGS += -Werror
 #endif
