@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 4944e92191308c589f9ed1d3796c6403a2280d18
+   Translation of GIT committish: a0f1e4d8aa9632b4324f140a56354597edd7ad87
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1252,6 +1252,7 @@ qualité.
 
 @funindex \cueDuring
 @funindex \cueClef
+@funindex \cueClefUnset
 @funindex \cueDuringWithClef
 @funindex \quoteDuring
 
@@ -1515,11 +1516,6 @@ bassoonNotes = \relative c {
   }
 >>
 @end lilypond
-
-Lorsque la citation comporte une étiquette indiquant l'instrument qui
-joue et un changement de clef, ces éléments peuvent se regrouper à
-l'aide de la commande @code{\addInstrumentDefinition}.  Pour plus
-d'information, reportez-vous au chapitre @ref{Noms d'instrument}.
 
 @seealso
 Manuel de notation :

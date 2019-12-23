@@ -1,6 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+
 @ignore
-   Translation of GIT committish: 0a5306c21d7d64d1ffdadb899c0af79ced2df336
+   Translation of GIT committish: a0f1e4d8aa9632b4324f140a56354597edd7ad87
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -101,6 +102,8 @@ individuelles.
 
 @cindex accord vide
 @cindex substituant pour événement
+
+@funindex <>
 
 Un accord peut se voir comme un conteneur de notes, articulations et
 autres éléments rattachés.  Par voie de conséquence, un accord dépourvu
@@ -438,7 +441,9 @@ portées.
 @cindex paroles assignées à une voix
 
 @funindex \voiceOne
-@funindex \voiceOne ... \voiceFour
+@funindex \voiceTwo
+@funindex \voiceThree
+@funindex \voiceFour
 @funindex Voice
 @funindex \oneVoice
 

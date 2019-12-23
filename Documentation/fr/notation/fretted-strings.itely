@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 4944e92191308c589f9ed1d3796c6403a2280d18
+   Translation of GIT committish: a0f1e4d8aa9632b4324f140a56354597edd7ad87
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -136,6 +136,9 @@ g-0\3
 <g\3-0>2
 <g-0\3>
 @end lilypond
+
+@funindex \arabicStringNumbers
+@funindex \romanStringNumbers
 
 Les numéros de corde peuvent aussi, comme traditionnellement pour les
 cordes non frettées, s'imprimer en chiffres romains placés sous la
@@ -1025,6 +1028,11 @@ Les indications de doigtés peuvent être incluses dans l'interface
 Les autres propriétés des diagrammes d'accord doivent être ajustées en
 utilisant la commande @code{\override} dans l'interface
 @code{fret-diagram-terse}.
+
+Il n'est possible d'inclure qu'une seule indication par corde dans un
+@emph{markup} @code{fret-diagram-terse}. Il faudra, pour en inclure
+plusieurs, utiliser un @emph{markup} @code{fret-diagram} ou
+@code{fret-diagram-verbose}.
 
 @cindex fret-diagram-verbose markup
 @cindex capo

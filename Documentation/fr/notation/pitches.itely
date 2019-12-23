@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 4944e92191308c589f9ed1d3796c6403a2280d18
+   Translation of GIT committish: a0f1e4d8aa9632b4324f140a56354597edd7ad87
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -504,33 +504,33 @@ Les langues disponibles ainsi que les noms de note utilisés
 sont les suivants :
 
 @quotation
-@multitable {@code{nederlands}} {do re/ré mi fa sol la sib si}
-@headitem Langue
-  @tab Nom des notes
+@multitable {@code{espanol} ou @code{español}} {@code{do} @code{re}/@code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}}
+@headitem Language
+  @tab Note Names
 @item @code{nederlands}
-  @tab c d e f g a bes b
+  @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{bes} @code{b}
 @item @code{catalan}
-  @tab do re mi fa sol la sib si
+  @tab @code{do} @code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
 @item @code{deutsch}
-  @tab c d e f g a b h
+  @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{b} @code{h}
 @item @code{english}
-  @tab c d e f g a bf b
+  @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{bf}/@code{b-flat} @code{b}
 @item @code{espanol} ou @code{español}
-  @tab do re mi fa sol la sib si
+  @tab @code{do} @code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
 @item @code{français}
-  @tab do ré/re mi fa sol la sib si
+  @tab @code{do} @code{ré}/@code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
 @item @code{italiano}
-  @tab do re mi fa sol la sib si
+  @tab @code{do} @code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
 @item @code{norsk}
-  @tab c d e f g a b h
+  @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{b} @code{h}
 @item @code{portugues}
-  @tab do re mi fa sol la sib si
+  @tab @code{do} @code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
 @item @code{suomi}
-  @tab c d e f g a b h
+  @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{b} @code{h}
 @item @code{svenska}
-  @tab c d e f g a b h
+  @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{b} @code{h}
 @item @code{vlaams}
-  @tab do re mi fa sol la sib si
+  @tab @code{do} @code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
 @end multitable
 @end quotation
 
@@ -538,35 +538,35 @@ sont les suivants :
 et les suffixes d'altération correspondants :
 
 @quotation
-@multitable {@code{nederlands}} {-@code{s}/-@code{-sharp}} {-@code{f}/-@code{flat}} {-@code{ss}/-@code{x}/-@code{-sharpsharp}} {-@code{essess}/-@code{eses}}
-@headitem Langue
-  @tab dièse @tab bémol @tab double dièse @tab double bémol
+@multitable {@code{nederlands}} {@code{s}/@code{-sharp}} {@code{f}/@code{-flat}} {@code{ss}/@code{x}/@code{-sharpsharp}} {@code{ff}/@code{-flatflat}}
+@headitem Language
+  @tab sharp @tab flat @tab double sharp @tab double flat
 @item @code{nederlands}
-  @tab -@code{is} @tab -@code{es} @tab -@code{isis} @tab -@code{eses}
+  @tab @code{is} @tab @code{es} @tab @code{isis} @tab @code{eses}
 @item @code{catalan}
-  @tab -@code{d}/-@code{s} @tab -@code{b} @tab -@code{dd}/-@code{ss} @tab -@code{bb}
+  @tab @code{d}/@code{s} @tab @code{b} @tab @code{dd}/@code{ss} @tab @code{bb}
 @item @code{deutsch}
-  @tab -@code{is} @tab -@code{es} @tab -@code{isis} @tab -@code{eses}
+  @tab @code{is} @tab @code{es} @tab @code{isis} @tab @code{eses}
 @item @code{english}
-  @tab -@code{s}/-@code{-sharp} @tab -@code{f}/-@code{-flat} @tab -@code{ss}/-@code{x}/-@code{-sharpsharp}
-    @tab -@code{ff}/-@code{-flatflat}
-@item @code{espanol} ou @code{español}
-  @tab -@code{s} @tab -@code{b} @tab -@code{ss}/-@code{x} @tab -@code{bb}
+  @tab @code{s}/@code{-sharp} @tab @code{f}/@code{-flat} @tab @code{ss}/@code{x}/@code{-sharpsharp}
+    @tab @code{ff}/@code{-flatflat}
+@item @code{espanol} ou@*@ @code{español}
+  @tab @code{s} @tab @code{b} @tab @code{ss}/@code{x} @tab @code{bb}
 @item @code{français}
-  @tab -@code{d} @tab -@code{b} @tab -@code{dd}/-@code{x} @tab -@code{bb}
+  @tab @code{d} @tab @code{b} @tab @code{dd}/@code{x} @tab @code{bb}
 @item @code{italiano}
-  @tab -@code{d} @tab -@code{b} @tab -@code{dd} @tab -@code{bb}
+  @tab @code{d} @tab @code{b} @tab @code{dd} @tab @code{bb}
 @item @code{norsk}
-  @tab -@code{iss}/-@code{is} @tab -@code{ess}/-@code{es} @tab -@code{ississ}/-@code{isis}
-    @tab -@code{essess}/-@code{eses}
+  @tab @code{iss}/@code{is} @tab @code{ess}/@code{es} @tab @code{ississ}/@code{isis}
+    @tab @code{essess}/@code{eses}
 @item @code{portugues}
-  @tab -@code{s} @tab -@code{b} @tab -@code{ss} @tab -@code{bb}
+  @tab @code{s} @tab @code{b} @tab @code{ss} @tab @code{bb}
 @item @code{suomi}
-  @tab -@code{is} @tab -@code{es} @tab -@code{isis} @tab -@code{eses}
+  @tab @code{is} @tab @code{es} @tab @code{isis} @tab @code{eses}
 @item @code{svenska}
-  @tab -@code{iss} @tab -@code{ess} @tab -@code{ississ} @tab -@code{essess}
+  @tab @code{iss} @tab @code{ess} @tab @code{ississ} @tab @code{essess}
 @item @code{vlaams}
-  @tab -@code{k} @tab -@code{b} @tab -@code{kk} @tab -@code{bb}
+  @tab @code{k} @tab @code{b} @tab @code{kk} @tab @code{bb}
 @end multitable
 @end quotation
 
@@ -593,33 +593,42 @@ utilisée de @code{asas} pour @code{ases}.
 
 @noindent
 Certaines musiques utilisent des microtonalités, pour lesquelles les
-altérations sont des fractions de dièse ou bémol « normaux ».  Le
-tableau suivant répertorie les noms de note en quart de ton, tels que
-définis dans plusieurs fichiers linguistiques.  Les préfixes @emph{semi-}
-et @emph{sesqui-} correspondent au @emph{demi-} et @emph{trois demis}.
-À noter qu'aucune définition n'existe à ce jour pour le norvégien, le
+altérations sont des fractions de dièse ou bémol « normaux ». Le tableau
+suivant répertorie les suffixes d'altération en quart de ton, tels que
+définis dans plusieurs fichiers linguistiques. Les préfixes @emph{semi-}
+et @emph{sesqui-} correspondent au @emph{demi-} et @emph{trois demis}. À
+noter qu'aucune définition n'existe à ce jour pour le norvégien, le
 suédois, le catalan et l'espagnol.
 
 @quotation
-@multitable {@code{nederlands}} {@b{semi-dièse}} {@b{semi-bémol}} {@b{sesqui-dièse}} {@b{sesqui-bémol}}
+@multitable {@code{espanol} ou @code{español}} {@b{semi-dièse}} {@b{semi-bémol}} {@b{sesqui-dièse}} {@b{sesqui-bémol}}
 @headitem Langue
   @tab semi-dièse @tab semi-bémol @tab sesqui-dièse @tab sesqui-bémol
 @item @code{nederlands}
-  @tab -ih @tab -eh @tab -isih @tab -eseh
+  @tab @code{ih} @tab @code{eh} @tab @code{isih} @tab @code{eseh}
 @item @code{deutsch}
-  @tab -ih @tab -eh @tab -isih @tab -eseh
+  @tab @code{ih} @tab @code{eh} @tab @code{isih} @tab @code{eseh}
 @item @code{english}
-  @tab -qs @tab -qf @tab -tqs @tab -tqf
-@item @code{espanol}
-  @tab -cs @tab -cb @tab -tcs @tab -tcb
+  @tab @code{qs} @tab @code{qf} @tab @code{tqs} @tab @code{tqf}
+@item @code{espanol} ou @code{español}
+  @tab @code{cs} @tab @code{cb} @tab @code{tcs} @tab @code{tcb}
 @item @code{français}
-  @tab -sd @tab -sb @tab -dsd @tab -bsb
+  @tab @code{sd} @tab @code{sb} @tab @code{dsd} @tab @code{bsb}
 @item @code{italiano}
-  @tab -sd @tab -sb @tab -dsd @tab -bsb
+  @tab @code{sd} @tab @code{sb} @tab @code{dsd} @tab @code{bsb}
 @item @code{portugues}
-  @tab -sqt @tab -bqt @tab -stqt @tab -btqt
+  @tab @code{sqt} @tab @code{bqt} @tab @code{stqt} @tab @code{btqt}
 @end multitable
 @end quotation
+
+En allemand, les contractions de microtonalités sont identiques à celles
+des hauteurs normales indiquées ci-dessus.
+
+@lilypond[verbatim,quote,fragment]
+\language "deutsch"
+
+\relative c'' { asah2 eh aih eisih }
+@end lilypond
 
 La plupart des langues dont nous venons de parler correspondent à la
 musique classique occidentale au tempérament égal -- le concept de
@@ -3098,6 +3107,10 @@ L'apparence des têtes de note peut évoluer au cours de la partition :
 Pour une liste exhaustive des styles de tête de note, consultez
 @ref{Styles de tête de note}.
 
+@funindex \xNote
+@funindex \xNotesOn
+@funindex \xNotesOff
+
 Certains instruments utilisent des têtes de note différentes à des
 fins spécifiques -- des croix (style @code{cross}) pour le
 @emph{parlato} des chanteurs ou les notes étouffées des guitares :
@@ -3124,9 +3137,15 @@ tablature :
 }
 @end lilypond
 
+@funindex \deadNote
+@funindex \deadNotesOn
+@funindex \deadNotesOff
+
 Vous pouvez utiliser, en lieu et place de @code{\xNote},
 @code{\xNotesOn} et @code{\xNotesOff}, les commandes
 @code{\deadNote}, @code{\deadNotesOn} et @code{\deadNotesOff}.
+
+@funindex \harmonic
 
 Il existe un raccourci pour les notes en losange :
 

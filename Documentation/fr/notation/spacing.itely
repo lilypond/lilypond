@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 4944e92191308c589f9ed1d3796c6403a2280d18
+   Translation of GIT committish: a0f1e4d8aa9632b4324f140a56354597edd7ad87
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1149,6 +1149,7 @@ est @code{#f}.
 
 @item system-separator-markup
 @funindex system-separator-markup
+@funindex \slashSeparator
 
 Il s'agit en l'occurrence d'insérer un objet de type @emph{markup} entre
 chaque système, comme on le voit dans nombre de partitions orchestrales.
@@ -1430,6 +1431,7 @@ l'aide d'un @code{layout-set-staff-size} placé dans le bloc
 @end example
 
 @item
+@funindex \magnifyStaff
 Pour l'affectation d'une taille particulière à l'une des portées d'un
 système, LilyPond dispose de la commande @code{\magnifyStaff}.  Par
 exemple, les partitions traditionnelles de musique de chambre avec piano

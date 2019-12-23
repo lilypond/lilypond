@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 1e25c9708270bc41e99739da59500286ad11114c
+   Translation of GIT committish: a0f1e4d8aa9632b4324f140a56354597edd7ad87
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -192,9 +192,31 @@ portée supérieure @code{"haut"} et la portée inférieure @code{"bas"},
 donc @var{nomDeLaPortee} désigne habituellement @code{"haut"},
 @code{"bas"}, @code{"MD"} ou @code{"MG"}.
 
+@cindex accord vide
+@cindex vide, accord
+@funindex <>
+
 Dans tous les cas, le contexte de portée ainsi utilisé doit exister au
 préalable.  Le cas échéant, vous devrez « garder actives » certaines
-portées -- voir @ref{Conservation d'un contexte} à ce propos.
+portées -- voir @ref{Conservation d'un contexte} à ce propos, ou bien
+explicitement instanciées -- en recourant par exemple à un accord vide
+@code{<>} (voir @ref{Notes en accords}).
+
+@lilypond[verbatim, quote]
+\new PianoStaff <<
+  \new Staff = "up" {
+    % enforce creation of all contexts at this point of time
+    <>
+    \change Staff = "down" c2
+    \change Staff = "up" c'2
+  }
+  \new Staff = "down" {
+    \clef bass
+    % keep staff alive
+    s1
+  }
+>>
+@end lilypond
 
 Pour ligaturer automatiquement des notes entre deux portées, procédez
 ainsi :

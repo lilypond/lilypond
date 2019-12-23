@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 4944e92191308c589f9ed1d3796c6403a2280d18
+   Translation of GIT committish: a0f1e4d8aa9632b4324f140a56354597edd7ad87
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -505,6 +505,7 @@ Par ailleurs, le recours à des variables produira les mêmes effets --
 voir @rlearning{Organisation du code source avec des variables}.
 
 @item
+@funindex \applyContext
 La commande @code{\context} utilisée sans nommage recherchera le premier
 de tous les contextes du même type précédemment créés dans la même
 hiérarchie de contextes ; l'expression musicale lui sera alors transmise
@@ -748,6 +749,8 @@ Lorsqu'un contexte est créé, par la commande @code{\new} ou
 @code{\consists}) ou d'enlever (commande @code{\remove}) des graveurs :
 
 @funindex \with
+@funindex \consists
+@funindex \remove
 
 @example
 \new @var{contexte} \with @{
@@ -2836,10 +2839,14 @@ arpeggioMusic = {
 }
 @end lilypond
 
+funindex \once
+@funindex \temporary
+
 Dans cette utilisation d'@emph{override}, @code{\offset} peut se
 préfixer de @code{\once} ou @code{\temporary} et être annulé à l'aide
-d'un @code{\revert} suivi de @var{propriété}.  Ceci tient au fait que
-@code{\offset} crée effectivement un @code{\override} de
+d'un @code{\revert} suivi de @var{propriété} -- voir
+@rextend{Fonctions de substitution intermédiaires}.  Ceci tient au fait
+que @code{\offset} crée effectivement un @code{\override} de
 @var{propriété}.
 
 @lilypond[quote,verbatim]
@@ -2866,6 +2873,9 @@ music = { c'8\< d' e' f'\! }
   \bar "||"
 }
 @end lilypond
+
+@funindex \single
+@funindex \undo
 
 Tout comme @code{\override}, la forme « dérogation » de @code{\offset}
 peut s'utiliser avec @code{\undo} et @code{\single}.
@@ -3163,6 +3173,9 @@ charge la saisie.
 @subsubsubheading Mode accords
 @c VO Chord mode
 
+@funindex \chordmode
+@funindex \chords
+
 Ce mode, activé par la commande @code{\chordmode}, permet d'interpréter
 les saisies comme étant des accords, qui seront imprimés sous forme de
 notes sur une portée -- voir @ref{Notation des accords}.  La musique
@@ -3181,6 +3194,9 @@ contexte @code{ChordNames} -- voir @ref{Impression des noms d'accord}.
 @subsubsubheading Mode percussions
 @c VO Drum mode
 
+funindex \drummode
+@funindex \drums
+
 Ce mode, activé par la commande @code{\drummode}, permet d'interpréter
 les saisies comme étant de la notation pour percussions -- voir
 @ref{Notation de base pour percussions}.  Lorsqu'elle est entrée en
@@ -3197,6 +3213,9 @@ symbolique sur une portée de percussions -- voir
 
 @subsubsubheading Mode figures
 @c VO Figure mode
+
+@funindex \figuremode
+@funindex \figures
 
 Ce mode, activé par la commande @code{\figuremode}, permet d'interpréter
 les saisies comme étant de la basse chiffrée (ou figurée) -- voir
@@ -3233,6 +3252,9 @@ accord puis rendus dans un contexte @code{FretBoards} -- voir
 @subsubsubheading Mode paroles
 @c VO Lyrics mode
 
+@funindex \lyricmode
+@funindex \lyrics
+
 Ce mode, activé par la commande @code{\lyricmode}, permet d'interpréter
 les saisies comme étant des syllabes, ayant éventuellement une durée, et
 des indications habituelles aux paroles -- voir @ref{Musique vocale}.
@@ -3253,6 +3275,8 @@ précédemment saisie -- voir @ref{Durée automatique des syllabes}.
 @subsubsubheading Mode @emph{markup}
 @c VO Markup mode
 
+@funindex \markup
+
 Ce mode, activé par la commande @code{\markup}, permet d'interpréter les
 saisies comme étant des @emph{markups} (annotations ou étiquettes) --
 voir @ref{Commandes pour markup}.
@@ -3260,6 +3284,8 @@ voir @ref{Commandes pour markup}.
 
 @subsubsubheading Mode notes
 @c VO Note mode
+
+@funindex \notemode
 
 Le mode notes est le mode par défaut dans LilyPond.  Il peut aussi
 s'activer par la commande @code{\notemode}.  Les saisies seront
@@ -3353,12 +3379,12 @@ comportement en matière d'orientation ou positionnement ; elles
 sont de la forme
 
 @example
-\xxxUp, \xxxDown et \xxxNeutral
+\@var{xxx}Up, \@var{xxx}Down et \@var{xxx}Neutral
 @end example
 
 @noindent
-auquel cas @code{\xxxNeutral} signifie « retour au comportement par
-défaut » -- voir @rlearning{Objets inclus dans la portée}.
+auquel cas @code{\@var{xxx}Neutral} signifie « retour au comportement
+par défaut » -- voir @rlearning{Objets inclus dans la portée}.
 
 Dans quelques cas particuliers, comme l'indication d'un @emph{arpeggio},
 la valeur affectée à la propriété @code{direction} déterminera si
@@ -3419,6 +3445,8 @@ Manuel de notation :
 
 LilyPond considère deux types de distances : les distances absolues
 et les distances relatives ou extensibles.
+
+@funindex \staff-space
 
 Les distances absolues permettent de spécifier les marges, indentations
 et autres détails de mise en page ; elles s'expriment par défaut en
@@ -3827,6 +3855,8 @@ trait indiquant un glissando commencerait et finirait au beau milieu de
 chacune des têtes de note.
 
 @end table
+
+@funindex \endSpanners
 
 La fonction @code{\endSpanners} permet d'interrompre l'extenseur qui
 vient dès la note suivante.  Autrement dit, il ne s'étendra que sur une
@@ -5178,9 +5208,13 @@ expression musicale à laquelle s'applique un @code{\tweak}.
 Le tiret introduisant la commande @code{\alterBroken} est impératif dans
 le cadre d'un @code{\tweak} ; il est superflu pour un @code{\override}.
 
+@funindex \once
+@funindex \temporary
+
 Dans sa variante @code{\override}, la commande @code{\alterBroken} peut
 se préfixer d'un @code{\once} ou d'un @code{\temporary} qui seront
-annulés par un @code{\revert} suivi de la @var{propriété}.
+annulés par un @code{\revert} suivi de la @var{propriété} -- voir
+@rextend{Fonctions de substitution intermédiaires}.
 
 Le code ci-dessous applique un @code{\override} indépendant à chacun
 des segments du phrasé de l'exemple précédent :
