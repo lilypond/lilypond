@@ -7,7 +7,8 @@ EXTRA_CXXFLAGS = -std=c++11 -W -Wall -Wconversion -Woverloaded-virtual
 #endif
 
 ALL_CXXPPFLAGS = $(CPPFLAGS) $(CONFIG_CPPFLAGS) $(DEFINES) $(INCLUDES:%=-I%)
-ALL_CXXFLAGS = $(CXXFLAGS) $(ALL_CXXPPFLAGS) $($(PACKAGE)_CXXFLAGS) $(CONFIG_CXXFLAGS) $(MODULE_CXXFLAGS) $(EXTRA_CXXFLAGS)
+# note: CXXFLAGS last allows user override of prior flags
+ALL_CXXFLAGS = $(ALL_CXXPPFLAGS) $($(PACKAGE)_CXXFLAGS) $(CONFIG_CXXFLAGS) $(MODULE_CXXFLAGS) $(EXTRA_CXXFLAGS) $(CXXFLAGS)
 
 TCC_FILES := $(call src-wildcard,*.tcc)
 HH_FILES := $(call src-wildcard,*.hh)
