@@ -24,6 +24,6 @@ $(outdir)/%.cc: %.ll
 	$(call ly_progress,Making,$@,< ll)
 	$(FLEX) -Cfe -p -p -o$@ $<
 
-$(outdir)/%-rc.o: $(outdir)/%.rc
+$(outdir)/%.rc.o: $(outdir)/%.rc
 	$(call ly_progress,Making,$@,< rc)
 	$(WINDRES) $(WINDRES_FLAGS) -o$@ $<

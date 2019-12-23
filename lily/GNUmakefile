@@ -8,7 +8,7 @@ MODULE_INCLUDES= $(depth)/flower/include
 
 
 HELP2MAN_EXECS = lilypond
-STEPMAKE_TEMPLATES=c c++ executable po help2man
+STEPMAKE_TEMPLATES=c++ executable po help2man
 
 include $(depth)/make/stepmake.make
 
