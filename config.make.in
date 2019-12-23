@@ -51,8 +51,8 @@ USE_EXTRACTPDFMARK=@USE_EXTRACTPDFMARK@
 prefix = @prefix@
 exec_prefix = @exec_prefix@
 
-configure-builddir = @ugh_ugh_autoconf250_builddir@
-configure-srcdir = @srcdir@
+configure-builddir = @abs_builddir@
+configure-srcdir = @abs_srcdir@
 
 bindir = @bindir@
 build_lilypond_datadir = @build_package_datadir@
@@ -70,7 +70,7 @@ omfdir = $(datadir)/omf
 program_prefix = @program_prefix@
 program_suffix = @program_suffix@
 sharedstatedir = @sharedstatedir@
-stepmake = @stepmake@
+stepmake = @abs_srcdir@/stepmake
 
 package_datadir = $(datadir)/$(package)
 package_infodir = $(infodir)/$(package)

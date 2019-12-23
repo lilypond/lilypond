@@ -354,7 +354,7 @@ AC_DEFUN(STEPMAKE_DATADIR, [
         presome=${ac_default_prefix}
     fi
 
-    build_package_datadir=$ugh_ugh_autoconf250_builddir/out$CONFIGSUFFIX/share/$package
+    build_package_datadir=$ac_pwd/out$CONFIGSUFFIX/share/$package
 
     DATADIR=`echo ${datadir} | sed "s!\\\${datarootdir}!${presome}/share!"`
     DATADIR=`echo ${DATADIR} | sed "s!\\\${prefix}!$presome!"`
@@ -378,7 +378,7 @@ AC_DEFUN(STEPMAKE_LIBDIR, [
         presome=${ac_default_prefix}
     fi
 
-    build_package_libdir=$ugh_ugh_autoconf250_builddir/out$CONFIGSUFFIX/lib/$package
+    build_package_libdir=$ac_pwd/out$CONFIGSUFFIX/lib/$package
 
     LIBDIR=`echo ${libdir} | sed "s!\\\${exec_prefix}!$presome!"`
     BUILD_PACKAGE_LIBDIR=`echo ${build_package_libdir} | sed "s!\\\${exec_prefix}!$presome!"`
@@ -848,15 +848,6 @@ AC_DEFUN(STEPMAKE_INIT, [
     package=`echo $PACKAGE_NAME | tr '[A-Z]' '[a-z]'`
     changequote([, ])#dnl
 
-    # No versioning on directory names of sub-packages
-    # urg, urg
-    stepmake=${datadir}/stepmake
-    presome=${prefix}
-    if test "$prefix" = "NONE"; then
-        presome=${ac_default_prefix}
-    fi
-    stepmake=`echo ${stepmake} | sed "s!\\\${prefix}!$presome!"`
-
     # urg, how is this supposed to work?
     if test "$program_prefix" = "NONE"; then
         program_prefix=
@@ -865,62 +856,13 @@ AC_DEFUN(STEPMAKE_INIT, [
         program_suffix=
     fi
 
-    AC_MSG_CHECKING(Package)
-    if test "$PACKAGE" = "STEPMAKE"; then
-        AC_MSG_RESULT(Stepmake package!)
-
-        AC_MSG_CHECKING(builddir)
-
-        ugh_ugh_autoconf250_builddir="`pwd`"
-
-        if test "$srcdir" = "."; then
-            srcdir_build=yes
-        else
-            srcdir_build=no
-            package_builddir="`dirname $ugh_ugh_autoconf250_builddir`"
-            package_srcdir="`dirname  $srcdir`"
-        fi
-        AC_MSG_RESULT($ugh_ugh_autoconf250_builddir)
-
-        (cd stepmake 2>/dev/null || mkdir stepmake)
-        (cd stepmake; rm -f bin; ln -s ../$srcdir/bin .)
-        stepmake=stepmake
+    # From configure: "When building in place, set srcdir=." 
+    if test "$srcdir" = "."; then
+        srcdir_build=yes
     else
-        AC_MSG_RESULT($PACKAGE)
-
-        AC_MSG_CHECKING(builddir)
-        ugh_ugh_autoconf250_builddir="`pwd`"
-
-        here_dir=$(cd . && pwd)
-        full_src_dir=$(cd $srcdir && pwd)
-
-        if test "$full_src_dir" = "$here_dir"; then
-            srcdir_build=yes
-        else
-            srcdir_build=no
-        fi
-        AC_MSG_RESULT($ugh_ugh_autoconf250_builddir)
-
-        AC_MSG_CHECKING(for stepmake)
-        # Check for installed stepmake
-        if test -d $stepmake; then
-            AC_MSG_RESULT($stepmake)
-        else
-            stepmake="`cd $srcdir/stepmake; pwd`"
-            AC_MSG_RESULT([$srcdir/stepmake  ($datadir/stepmake not found)])
-        fi
+        srcdir_build=no
     fi
 
-    AC_SUBST(ugh_ugh_autoconf250_builddir)
-
-    # Use absolute directory for non-srcdir builds, so that build
-    # dir can be moved.
-    if test "$srcdir_build" = "no" ;  then
-        srcdir="`cd $srcdir; pwd`"
-    fi
-
-    AC_SUBST(srcdir)
-    AC_SUBST(stepmake)
     AC_SUBST(package)
     AC_SUBST(PACKAGE)
     AC_SUBST(PACKAGE_NAME)
