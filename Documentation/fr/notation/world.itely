@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 1e25c9708270bc41e99739da59500286ad11114c
+    Translation of GIT committish: a0f1e4d8aa9632b4324f140a56354597edd7ad87
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -206,6 +206,8 @@ Par exemple, voici comment on peut écrire la gamme arabe
 @cindex symbole arabe d'un demi-bémol
 @cindex aspect d'un symbole de demi-bémol
 @cindex demi-bémol
+
+@funindex \dwn
 
 Le symbole indiquant un demi-bémol ne correspond pas au symbole
 utilisé dans la notation arabe.  Si le symbole particulier du

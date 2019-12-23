@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 0a5306c21d7d64d1ffdadb899c0af79ced2df336
+   Translation of GIT committish: a0f1e4d8aa9632b4324f140a56354597edd7ad87
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -281,11 +281,14 @@ d'information, consultez @ref{Direction et positionnement}.
 @funindex \!
 @funindex \cr
 @funindex \decr
+@funindex \endcr
+@funindex \enddecr
 
 Un crescendo est délimité par @code{\<} et @code{\!}, ou peut se
 terminer par une commande de nuance explicite, ou bien un decrescendo ou
 un nouveau crescendo.  Il en va de même pour un diminuendo.  Au lieu de
 @code{\<} et @code{\>}, vous pouvez utiliser @code{\cr} et @code{\decr},
+tout comme @code{\endcr} et @code{\enddecr} au lieu de @code{\!},
 auquel cas LilyPond n'imprimera pas de soufflet (@emph{hairpin} en
 anglais).
 
@@ -1126,6 +1129,8 @@ Un glissando peut intervenir au moment d'un changement de portée :
   }
 >>
 @end lilypond
+
+@funindex \glissandoMap
 
 Un glissando peut affecter des notes d'un accord.  En dehors du cas où
 les notes des deux accords sont reliées directement l'une à l'autre, les

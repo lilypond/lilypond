@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 44d23f8e119b1f0debdb58e2119cb30112420557
+    Translation of GIT committish: a0f1e4d8aa9632b4324f140a56354597edd7ad87
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -76,6 +76,9 @@ Morceaux choisis :
 
 @cindex percussions
 @cindex batterie
+
+@funindex \drummode
+@funindex \drums
 
 Les parties de percussions peuvent être saisies avec le mode
 @code{\drummode}, qui est l'équivalent du mode standard utilisé pour les

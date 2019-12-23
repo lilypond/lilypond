@@ -1,4 +1,4 @@
-%% Translation of GIT committish: db92af51a444062c8edaef3afa36f57375b8feeb
+%% Translation of GIT committish: a0f1e4d8aa9632b4324f140a56354597edd7ad87
   texidocfr = "
 Pour appréhender la notation, nous l'avons disséquée en éléments
 simples : chaque type de symbole est géré par un module différent.

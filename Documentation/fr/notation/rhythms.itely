@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 0a5306c21d7d64d1ffdadb899c0af79ced2df336
+   Translation of GIT committish: a0f1e4d8aa9632b4324f140a56354597edd7ad87
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -544,6 +544,9 @@ lieu de l'étouffer.  Elles s'indiquent de la manière suivante :
 @funindex \tieUp
 @funindex \tieDown
 @funindex \tieNeutral
+@funindex \tieDashPattern
+@funindex \tieHalfDashed
+@funindex \tieHalfSolid
 
 Le positionnement vertical des liaisons de prolongation peut être affiné
 -- voir à ce sujet les « commandes prédéfinies » et, pour de plus
@@ -1828,9 +1831,29 @@ Références des propriétés internes :
 @rinternals{Staff}.
 
 @knownissues
-L'utilisation de métriques différentes en parallèle entraîne un
-alignement vertical.  De ce fait, les barres de mesure ont tendance à
-fausser l'espacement régulier entre les différentes portées.
+Bien que les notes de différentes portées tombant au même moment seront
+positionnées horizontalement au même endroit, les barres de mesure (dans
+chacune des portées) peuvent causer un espacement incohérent pour
+chacune des différentes métriques.
+
+L'utilisation d'un bloc @code{midi} dans le cadre de musique
+polymétrique peut entraîner des avertissements intempestifs quant au
+contrôle des barres de mesure. Il est possible de s'en prémunir en
+déplaçant, au sein du bloc @code{midi}, le @code{Timing_translator} du
+contexte @code{Score} au contexte @code{Staff}.
+
+@lilypond[verbatim]
+\midi {
+  \context {
+    \Score
+    \remove "Timing_translator"
+  }
+  \context {
+     \Staff
+     \consists "Timing_translator"
+  }
+}
+@end lilypond
 
 
 @node Découpage automatique des notes
@@ -1991,6 +2014,8 @@ grille d'accords :
   }
 >>
 @end lilypond
+
+@funindex \reduceChords
 
 Une musique comportant des accords peut s'utiliser dans un
 @code{RhythmicStaff}, et avec le@code{Pitch_squash_engraver}, dès
@@ -3309,6 +3334,8 @@ Indiquer un repère s'obtient grâce à la commande @code{\mark}.
   c1 \mark \default
 }
 @end lilypond
+
+@funindex \default
 
 @noindent
 Lorsque vous utilisez @code{\mark \default}, le repère s'incrémente

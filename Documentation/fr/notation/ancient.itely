@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 4944e92191308c589f9ed1d3796c6403a2280d18
+   Translation of GIT committish: a0f1e4d8aa9632b4324f140a56354597edd7ad87
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -225,6 +225,9 @@ Une ligature est un symbole graphique qui représente un groupe d'au
 moins deux notes distinctes.  Les ligatures ont commencé à apparaître
 dans les manuscrits de chant grégorien, pour indiquer des suites
 ascendantes ou descendantes de notes.
+
+@funindex \[
+@funindex \]
 
 Les ligatures s'indiquent par un bornage entre @code{\[} et @code{\]}.
 Certains styles de ligature peuvent demander un complément de syntaxe
@@ -1331,6 +1334,13 @@ En plus des signes d'articulation standards décrits à la section
 @ref{Articulations et ornements}, LilyPond fournit des articulations
 spécifiquement destinées au style des éditions vaticanes.
 
+@funindex \accentus
+@funindex \circulus
+@funindex \episemInitium
+@funindex \episemFinis
+@funindex \ictus
+@funindex \semicirculus
+
 @lilypond[quote,ragged-right,verbatim]
 \include "gregorian.ly"
 \score {
@@ -1541,6 +1551,13 @@ intermédiaire d'une ligature ascendante et tombe habituellement sur un
 demi ton ; bien que cela soit tout à fait possible, mais
 parfaitement incorrect, rien ne vous empêche de créer une quilisma sur
 une seule note.
+
+@funindex \ij
+@funindex \iij
+@funindex \IJ
+@funindex \IIJ
+@funindex \responsum
+@funindex \versus
 
 En plus des signes propres à la notation, le fichier @file{gregorian.ly}
 contient la définition des commandes @code{\versus}, @code{\responsum},
@@ -2448,6 +2465,9 @@ Manuel de notation :
 @translationof Kievan notes
 
 @cindex kiéviennnes, têtes de note
+
+@funindex \kievanOn
+@funindex \kievanOff
 
 La notation kiévienne requiert l'utilisation d'un style de tête de
 note particulier et la désactivation des hampes et crochets

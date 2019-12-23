@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 4944e92191308c589f9ed1d3796c6403a2280d18
+   Translation of GIT committish: a0f1e4d8aa9632b4324f140a56354597edd7ad87
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -554,6 +554,11 @@ propriétés.  Les deux notations, Ignatzek et alternative, sont illustrés
 @c  Make short example in docs, then move longer example to
 @c  appendix, where the length of the snippet won't matter.
 
+@funindex \germanChords
+@funindex \semiGermanChords
+@funindex \italianChords
+@funindex \frenchChords
+
 En plus des différents systèmes de nommage, le nom de la fondamentale
 varie selon la langue utilisée.  Les instructions @code{\germanChords},
 @code{\semiGermanChords}, @code{\italianChords} et @code{\frenchChords}
@@ -593,6 +598,8 @@ fonction à cette propriété que l'on peut produire des noms de note
 spéciaux adaptés par exemple aux systèmes de notation d'autres pays.
 
 @funindex majorSevenSymbol
+@funindex \blackTriangleMarkup
+@funindex \whiteTriangleMarkup
 
 @item majorSevenSymbol
 Cette propriété définit l'objet ajouté au @code{chordRootNamer} pour
@@ -698,16 +705,13 @@ réduit à néant si la fondamentale est altérée.
 @end table
 
 @predefined
-@funindex symboles de septième majeure
+@cindex symboles de septième majeure
+@cindex septième majeure, symboles
 @code{\whiteTriangleMarkup},
 @code{\blackTriangleMarkup},
-@funindex \germanChords
 @code{\germanChords},
-@funindex \semiGermanChords
 @code{\semiGermanChords},
-@funindex \italianChords
 @code{\italianChords},
-@funindex \frenchChords
 @code{\frenchChords}.
 @endpredefined
 
@@ -823,6 +827,9 @@ LilyPond gère la basse chiffrée.
 >>
 @end lilypond
 
+@funindex \figuremode
+@funindex \figures
+
 La gestion de la basse chiffrée se décompose en deux parties.  Dans un
 premier temps, le mode @code{\figuremode} permet de saisir les accords
 sous forme chiffrée.  Le contexte @code{FiguredBass} s'occupera ensuite
@@ -923,6 +930,9 @@ cf. @ref{Commandes pour markup}.
 @c NOTE: We need to include notes any time we use extenders to
 @c avoid extraneous staff creation due to Staff.use... in
 @c \bassFigureExtendersOn
+
+@funindex \bassFigureExtendersOn
+@funindex \bassFigureExtendersOff
 
 Lorsque des chiffrages se répètent, vous pouvez utiliser des lignes de
 prolongation.
@@ -1097,6 +1107,10 @@ On peut ajouter une basse chiffrée directement à un contexte
   }
 >>
 @end lilypond
+
+@funindex \bassFigureStaffAlignmentDown
+@funindex \bassFigureStaffAlignmentUp
+@funindex \bassFigureStaffAlignmentNeutral
 
 La basse chiffrée attachée à un contexte @code{Staff} peut se
 positionner au-dessus ou en dessous de la portée.
