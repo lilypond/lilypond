@@ -5,8 +5,6 @@ MISSING_REQUIRED = @REQUIRED@
 
 # @configure_input@
 
-package-depth = @package_depth@
-
 ################################################################
 ## FLAGS
 ################################################################
@@ -36,8 +34,8 @@ CONFIG_LIBS = @LIBS@ @EXTRA_LIBS@ $(GLIB_LIBS) $(GUILE_LIBS) \
                                   $(FREETYPE2_LIBS)
 CONFIG_LDFLAGS = @LDFLAGS@
 
-PACKAGE = @PACKAGE@
-package = @package@
+PACKAGE = LILYPOND
+package = lilypond
 PACKAGE_NAME = @PACKAGE_NAME@
 
 HOST_ARCH=@HOST_ARCH@

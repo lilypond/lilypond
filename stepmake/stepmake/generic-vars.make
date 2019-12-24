@@ -89,10 +89,10 @@ DO_STRIP=true
 define make_subdirs
 #       enforce order to avoid surprises due to implicit dependencies
 	[ "$(1)" = "$(filter $(1),$(SUBDIRS))" ] || (echo "*** {$(1)} is not a subset of ordered set {$(SUBDIRS)}" 1>&2 && false)
-	+$(foreach d, $(1), $(MAKE) PACKAGE=$(PACKAGE) package=$(package) -C $(d) $(2) &&) true
+	+$(foreach d, $(1), $(MAKE) -C $(d) $(2) &&) true
 endef
 
-LOOP=+$(foreach i, $(SUBDIRS), $(MAKE) PACKAGE=$(PACKAGE) package=$(package) -C $(i) $@ &&) true
+LOOP=+$(foreach i, $(SUBDIRS), $(MAKE) -C $(i) $@ &&) true
 
 ETAGS_FLAGS =
 CTAGS_FLAGS =

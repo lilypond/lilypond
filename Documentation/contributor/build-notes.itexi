@@ -396,22 +396,22 @@ processing.
 @example
 Variable LOOP =
 
-+ make PACKAGE=LILYPOND package=lilypond -C python
-&& make PACKAGE=LILYPOND package=lilypond -C scripts
-&&  make PACKAGE=LILYPOND package=lilypond -C flower
-&&  make PACKAGE=LILYPOND package=lilypond -C lily
-&&  make PACKAGE=LILYPOND package=lilypond -C mf
-&&  make PACKAGE=LILYPOND package=lilypond -C ly
-&&  make PACKAGE=LILYPOND package=lilypond -C tex
-&&  make PACKAGE=LILYPOND package=lilypond -C ps
-&&  make PACKAGE=LILYPOND package=lilypond -C scm
-&&  make PACKAGE=LILYPOND package=lilypond -C po
-&&  make PACKAGE=LILYPOND package=lilypond -C make
-&&  make PACKAGE=LILYPOND package=lilypond -C elisp
-&&  make PACKAGE=LILYPOND package=lilypond -C vim
-&&  make PACKAGE=LILYPOND package=lilypond -C input
-&&  make PACKAGE=LILYPOND package=lilypond -C stepmake
-&&  make PACKAGE=LILYPOND package=lilypond -C Documentation
++ make -C python
+&& make -C scripts
+&&  make -C flower
+&&  make -C lily
+&&  make -C mf
+&&  make -C ly
+&&  make -C tex
+&&  make -C ps
+&&  make -C scm
+&&  make -C po
+&&  make -C make
+&&  make -C elisp
+&&  make -C vim
+&&  make -C input
+&&  make -C stepmake
+&&  make -C Documentation
 && true
 @end example
 
@@ -420,7 +420,7 @@ From git grep:
 stepmake/stepmake/generic-vars.make has this:
 
 @smallexample
-LOOP=+$(foreach i, $(SUBDIRS), $(MAKE) PACKAGE=$(PACKAGE) package=$(package) -C $(i) $@@ &&) true
+LOOP=+$(foreach i, $(SUBDIRS), $(MAKE) -C $(i) $@@ &&) true
 @end smallexample
 
 $@@ is the name of the target - WWW-1 in this case.
@@ -443,22 +443,22 @@ So that's how we get the main make loop...
 That loop expands like this:
 
 @example
-make PACKAGE=LILYPOND package=lilypond -C python WWW-1 &&
-make PACKAGE=LILYPOND package=lilypond -C scripts WWW-1 &&
-make PACKAGE=LILYPOND package=lilypond -C flower WWW-1 &&
-make PACKAGE=LILYPOND package=lilypond -C lily WWW-1 &&
-make PACKAGE=LILYPOND package=lilypond -C mf WWW-1 &&
-make PACKAGE=LILYPOND package=lilypond -C ly WWW-1 &&
-make PACKAGE=LILYPOND package=lilypond -C tex WWW-1 &&
-make PACKAGE=LILYPOND package=lilypond -C ps WWW-1 &&
-make PACKAGE=LILYPOND package=lilypond -C scm WWW-1 &&
-make PACKAGE=LILYPOND package=lilypond -C po WWW-1 &&
-make PACKAGE=LILYPOND package=lilypond -C make WWW-1 &&
-make PACKAGE=LILYPOND package=lilypond -C elisp WWW-1 &&
-make PACKAGE=LILYPOND package=lilypond -C vim WWW-1 &&
-make PACKAGE=LILYPOND package=lilypond -C input WWW-1 &&
-make PACKAGE=LILYPOND package=lilypond -C stepmake WWW-1 &&
-make PACKAGE=LILYPOND package=lilypond -C Documentation WWW-1 &&
+make -C python WWW-1 &&
+make -C scripts WWW-1 &&
+make -C flower WWW-1 &&
+make -C lily WWW-1 &&
+make -C mf WWW-1 &&
+make -C ly WWW-1 &&
+make -C tex WWW-1 &&
+make -C ps WWW-1 &&
+make -C scm WWW-1 &&
+make -C po WWW-1 &&
+make -C make WWW-1 &&
+make -C elisp WWW-1 &&
+make -C vim WWW-1 &&
+make -C input WWW-1 &&
+make -C stepmake WWW-1 &&
+make -C Documentation WWW-1 &&
 true
 @end example
 
@@ -515,7 +515,7 @@ Failed to remake target file `../../make/ly-inclusions.make'.
 Having decided that, it then leaves the directory and re-executes:
 
 @example
-make PACKAGE=LILYPOND package=lilypond -C regression WWW-1
+make -C regression WWW-1
 @end example
 
 The top of this make is:
@@ -1054,7 +1054,6 @@ and @code{create-weblinks-itexi.py} to
 the top source dir.  It contains:
 
 @example
-PACKAGE_NAME=LilyPond
 MAJOR_VERSION=2
 MINOR_VERSION=15
 PATCH_LEVEL=13

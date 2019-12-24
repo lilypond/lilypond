@@ -1,11 +1,9 @@
 /* @AUTOGENERATE@ */
 
-#define PACKAGE "@package@"
-
 /* datadir */
 #define DATADIR "@DATADIR@"
 
-#define PACKAGE_DATADIR DATADIR "/" PACKAGE
+#define PACKAGE_DATADIR DATADIR "/lilypond"
 
 /* default lilypond locale dir */
 #define LOCALEDIR "@LOCALEDIR@"

@@ -17,12 +17,12 @@ local-install: $(MO_FILES)
 	for i in $(CATALOGS); do \
 	  $(INSTALL) -d $(DESTDIR)$(localedir)/$$i/LC_MESSAGES; \
 	  $(INSTALL) -m 644 $(outdir)/$$i.mo \
-	  	     $(DESTDIR)$(localedir)/$$i/LC_MESSAGES/$(package).mo; \
+	  	     $(DESTDIR)$(localedir)/$$i/LC_MESSAGES/$(NAME).mo; \
 	done
 
 local-uninstall:
 	for i in $(CATALOGS); do \
-	  rm -f $(DESTDIR)$(localedir)/$$i/LC_MESSAGES/$(package).mo; \
+	  rm -f $(DESTDIR)$(localedir)/$$i/LC_MESSAGES/$(NAME).mo; \
 	  rmdir $(DESTDIR)$(localedir)/$$i/LC_MESSAGES || true; \
 	done
 

@@ -13,7 +13,6 @@ ATVARIABLES = \
   MAJOR_VERSION\
   MINOR_VERSION\
   NCSB_DIR\
-  PACKAGE\
   PATCH_LEVEL\
   PATHSEP\
   PERL\
@@ -31,7 +30,6 @@ ATVARIABLES = \
   local_lilypond_libdir\
   localedir\
   outdir\
-  package\
   prefix\
   program_prefix\
   program_suffix\
