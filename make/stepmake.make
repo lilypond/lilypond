@@ -42,7 +42,6 @@ include $(depth)/make/toplevel-version.make
 # 
 -include $(depth)/local.make
 
-MICRO_VERSION=$(PATCH_LEVEL)
 BUILD_VERSION=1
 
 
