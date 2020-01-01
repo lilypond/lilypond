@@ -264,6 +264,18 @@ if test "$GUILEv2" != "yes"; then
                        CXXFLAGS="$save_CXXFLAGS"])
 fi
 
+# GCC versions 5 and up support requiring the use of the C++11 keyword
+# "override" when a derived class overrides a virtual method.  This
+# keyword makes the code easier to understand.
+AC_MSG_CHECKING([whether $CXX supports -Werror=suggest-override])
+save_CXXFLAGS="$CXXFLAGS"
+CXXFLAGS="$test_CXXFLAGS -Werror=suggest-override"
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([])],
+                  [AC_MSG_RESULT([yes])
+                   CXXFLAGS="$save_CXXFLAGS -Werror=suggest-override"],
+                  [AC_MSG_RESULT([no])
+                   CXXFLAGS="$save_CXXFLAGS"])
+
 ## Check for usable cxxabi
 save_LIBS="$LIBS"
 LIBS="$LIBS $CXXABI_LIBS"
