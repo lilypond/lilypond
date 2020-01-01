@@ -20,9 +20,6 @@
 #ifndef VIRTUAL_METHODS_HH
 #define VIRTUAL_METHODS_HH
 
-#include <typeinfo>
-using namespace std;
-
 /*
 Virtual copy constructor.  Make up for C++'s lack of a standard
 factory or clone () function.  Usage:
