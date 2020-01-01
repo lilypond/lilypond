@@ -22,16 +22,6 @@
 
 #include <type_traits>
 
-/*
-Virtual copy constructor.  Make up for C++'s lack of a standard
-factory or clone () function.  Usage:
-
-class Foo : Baseclass
-{
-VIRTUAL_COPY_CONSTRUCTOR (Baseclass, Foo);
-};
-*/
-
 #define DECLARE_CLASSNAME(name) \
   virtual const char *class_name () const {     \
     /* It is annoying that we must repeat the class name for */ \
@@ -41,11 +31,5 @@ VIRTUAL_COPY_CONSTRUCTOR (Baseclass, Foo);
     \
     return #name; \
 }
-
-#define VIRTUAL_COPY_CONSTRUCTOR(Base, name)    \
-  virtual Base *clone () const                  \
-  {                                             \
-    return new name (*this);                    \
-  }
 
 #endif /* VIRTUAL_METHODS_HH */

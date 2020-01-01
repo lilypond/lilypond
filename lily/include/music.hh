@@ -39,7 +39,7 @@ public:
   Music (SCM init);
   Music (Music const &m);
   DECLARE_CLASSNAME (Music);
-  VIRTUAL_COPY_CONSTRUCTOR (Music, Music);
+  virtual Music *clone () const { return new Music (*this); }
 
   Input *origin () const;
   void set_spot (Input);

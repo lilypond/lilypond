@@ -47,7 +47,7 @@ public:
   Score (Score const &);
 
   DECLARE_CLASSNAME (Score);
-  VIRTUAL_COPY_CONSTRUCTOR (Score, Score);
+  virtual Score *clone () const { return new Score (*this); }
 
   SCM get_music () const;
   void add_output_def (Output_def *def);

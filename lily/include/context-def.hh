@@ -65,7 +65,7 @@ public:
   bool is_alias (SCM sym) const;
 
   DECLARE_CLASSNAME (Context_def);
-  VIRTUAL_COPY_CONSTRUCTOR (Context_def, Context_def);
+  virtual Context_def *clone () const { return new Context_def (*this); }
 
   vector<Context_def *> path_to_acceptable_context (SCM type_string,
                                                     Output_def *,
