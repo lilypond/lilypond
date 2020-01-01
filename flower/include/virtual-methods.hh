@@ -20,6 +20,8 @@
 #ifndef VIRTUAL_METHODS_HH
 #define VIRTUAL_METHODS_HH
 
+#include <type_traits>
+
 /*
 Virtual copy constructor.  Make up for C++'s lack of a standard
 factory or clone () function.  Usage:
@@ -32,6 +34,11 @@ VIRTUAL_COPY_CONSTRUCTOR (Baseclass, Foo);
 
 #define DECLARE_CLASSNAME(name) \
   virtual const char *class_name () const {     \
+    /* It is annoying that we must repeat the class name for */ \
+    /* the preprocessor, but we can check that it is correct. */ \
+    typedef std::decay<decltype(*this)>::type self_type; \
+    static_assert (std::is_same<name, self_type>::value, ""); \
+    \
     return #name; \
 }
 
