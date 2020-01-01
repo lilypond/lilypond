@@ -28,6 +28,7 @@ class Stream_event : public Prob
 {
 public:
   Stream_event ();
+  DECLARE_CLASSNAME (Stream_event);
   VIRTUAL_COPY_CONSTRUCTOR (Stream_event, Stream_event);
 
   Stream_event (SCM event_class, SCM immutable_props = SCM_EOL);

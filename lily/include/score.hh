@@ -46,6 +46,7 @@ public:
   Score ();
   Score (Score const &);
 
+  DECLARE_CLASSNAME (Score);
   VIRTUAL_COPY_CONSTRUCTOR (Score, Score);
 
   SCM get_music () const;

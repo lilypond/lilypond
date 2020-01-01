@@ -64,6 +64,7 @@ public:
   SCM lookup (SCM sym) const;
   bool is_alias (SCM sym) const;
 
+  DECLARE_CLASSNAME (Context_def);
   VIRTUAL_COPY_CONSTRUCTOR (Context_def, Context_def);
 
   vector<Context_def *> path_to_acceptable_context (SCM type_string,

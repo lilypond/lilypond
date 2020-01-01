@@ -38,6 +38,7 @@ class Music : Preinit_Music, public Prob
 public:
   Music (SCM init);
   Music (Music const &m);
+  DECLARE_CLASSNAME (Music);
   VIRTUAL_COPY_CONSTRUCTOR (Music, Music);
 
   Input *origin () const;

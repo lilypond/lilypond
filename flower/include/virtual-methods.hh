@@ -43,7 +43,6 @@ VIRTUAL_COPY_CONSTRUCTOR (Baseclass, Foo);
 }
 
 #define VIRTUAL_COPY_CONSTRUCTOR(Base, name)    \
-  DECLARE_CLASSNAME(name);\
   virtual Base *clone () const                  \
   {                                             \
     return new name (*this);                    \

@@ -40,6 +40,7 @@ public:
 
   Book (Book const &);
   Input *origin () const;
+  DECLARE_CLASSNAME (Book);
   VIRTUAL_COPY_CONSTRUCTOR (Book, Book);
   Book ();
   void add_score (SCM);
