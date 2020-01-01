@@ -43,7 +43,7 @@ protected:
   void acknowledge_bass_figure_alignment (Grob_info);
   void acknowledge_end_bass_figure_alignment (Grob_info);
 
-  virtual void finalize ();
+  void finalize () override;
   void start_spanner ();
   void stop_spanner ();
   void stop_translation_timestep ();

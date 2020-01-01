@@ -31,12 +31,12 @@ class Item : public Grob
 {
   Drul_array<Item *> broken_to_drul_;
 
-  DECLARE_CLASSNAME (Item);
+  OVERRIDE_CLASS_NAME (Item);
 public:
   Item (SCM);
   Item (Item const &);
 
-  virtual Item *clone () const { return new Item (*this); }
+  Item *clone () const override { return new Item (*this); }
   Item *original () const
   {
     // safe: if there is an original, it is because this was cloned from it
@@ -47,7 +47,7 @@ public:
   static bool break_visible (Grob *);
 
   bool is_broken () const;
-  virtual bool pure_is_visible (vsize start, vsize end) const;
+  bool pure_is_visible (vsize start, vsize end) const override;
 
   Direction break_status_dir () const;
 
@@ -56,18 +56,18 @@ public:
     return !d ? const_cast<Item *> (this) : broken_to_drul_[d];
   }
 
-  virtual Item *find_broken_piece (System *) const;
-  virtual System *get_system () const;
+  Item *find_broken_piece (System *) const override;
+  System *get_system () const override;
   virtual Paper_column *get_column () const;
-  virtual void handle_prebroken_dependencies ();
-  virtual Interval_t<int> spanned_rank_interval () const;
-  virtual Interval pure_y_extent (Grob *ref, int start, int end);
+  void handle_prebroken_dependencies () override;
+  Interval_t<int> spanned_rank_interval () const override;
+  Interval pure_y_extent (Grob *ref, int start, int end) override;
   virtual void cache_pure_height (Interval height);
-  virtual bool internal_set_as_bound_of_spanner (Spanner *, Direction);
+  bool internal_set_as_bound_of_spanner (Spanner *, Direction) override;
 protected:
-  virtual void break_breakable_item (System *);
+  void break_breakable_item (System *) override;
   void copy_breakable_items ();
-  virtual void derived_mark () const;
+  void derived_mark () const override;
 
   bool cached_pure_height_valid_;
   Interval cached_pure_height_;

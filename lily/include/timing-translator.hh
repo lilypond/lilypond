@@ -29,7 +29,7 @@ public:
   TRANSLATOR_DECLARATIONS (Timing_translator);
 
 protected:
-  virtual void initialize ();
+  void initialize () override;
   void stop_translation_timestep ();
   void start_translation_timestep ();
 

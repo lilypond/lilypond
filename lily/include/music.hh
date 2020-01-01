@@ -38,7 +38,7 @@ class Music : Preinit_Music, public Prob
 public:
   Music (SCM init);
   Music (Music const &m);
-  DECLARE_CLASSNAME (Music);
+  OVERRIDE_CLASS_NAME (Music);
   virtual Music *clone () const { return new Music (*this); }
 
   Input *origin () const;
@@ -64,9 +64,9 @@ public:
   DECLARE_SCHEME_CALLBACK (duration_length_callback, (SCM));
 
 protected:
-  virtual SCM copy_mutable_properties () const;
-  virtual void type_check_assignment (SCM, SCM) const;
-  virtual void derived_mark () const;
+  SCM copy_mutable_properties () const override;
+  void type_check_assignment (SCM, SCM) const override;
+  void derived_mark () const override;
 protected:
   friend SCM ly_extended_make_music (SCM, SCM);
 };

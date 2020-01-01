@@ -33,12 +33,12 @@ class Footnote_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Footnote_engraver);
 
-  void acknowledge_grob (Grob_info);
+  void acknowledge_grob (Grob_info) override;
   void acknowledge_end_grob (Grob_info);
 
   vector<Drul_array<Spanner *> > annotated_spanners_;
 
-  void finalize ();
+  void finalize () override;
 
   void footnotify (Grob *, SCM);
 };

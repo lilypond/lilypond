@@ -26,7 +26,7 @@
 class Optimal_page_breaking: public Page_breaking
 {
 public:
-  virtual SCM solve ();
+  SCM solve () override;
 
   Optimal_page_breaking (Paper_book *pb);
   virtual ~Optimal_page_breaking ();

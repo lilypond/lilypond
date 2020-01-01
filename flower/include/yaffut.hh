@@ -233,7 +233,7 @@ public:
     failure_ = os.str ();
   }
   virtual ~failure () throw () {}
-  virtual const char *what () const throw () { return failure_.c_str (); }
+  const char *what () const throw () override { return failure_.c_str (); }
 };
 
 template <typename Suite, typename Case>

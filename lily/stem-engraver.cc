@@ -52,7 +52,7 @@ protected:
   void listen_tuplet_span (Stream_event *);
   void acknowledge_rhythmic_head (Grob_info);
   void stop_translation_timestep ();
-  void finalize ();
+  void finalize () override;
   void kill_unused_flags ();
 };
 

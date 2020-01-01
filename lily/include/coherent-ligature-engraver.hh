@@ -35,8 +35,8 @@ public:
 protected:
   virtual void build_ligature (Spanner *ligature,
                                vector<Grob_info> const &primitives) = 0;
-  virtual void typeset_ligature (Spanner *ligature,
-                                 vector<Grob_info> const &primitives);
+  void typeset_ligature (Spanner *ligature,
+                         vector<Grob_info> const &primitives) override;
   virtual void move_related_items_to_column (Item *, Paper_column *, Real);
 private:
   void collect_accidentals (Spanner *, vector<Grob_info> const &);

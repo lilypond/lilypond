@@ -45,8 +45,8 @@ protected:
 
   void process_music ();
   void stop_translation_timestep ();
-  virtual void finalize ();
-  virtual void derived_mark () const;
+  void finalize () override;
+  void derived_mark () const override;
 
 private:
   void create_ambitus ();

@@ -41,7 +41,7 @@ public:
   static const char * const type_p_name_;
   virtual ~Prob ();
 private:
-  DECLARE_CLASSNAME (Prob);
+  VIRTUAL_CLASS_NAME (Prob);
 
   void init_vars ();
 protected:

@@ -30,7 +30,7 @@
 class Performer : public Translator
 {
 public:
-  DECLARE_CLASSNAME (Performer);
+  OVERRIDE_CLASS_NAME (Performer);
   friend class Performer_group;
   Performer_group *get_daddy_performer () const;
   Performer (Context *c)

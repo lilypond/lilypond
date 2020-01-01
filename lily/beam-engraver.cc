@@ -71,7 +71,7 @@ protected:
   Moment last_stem_added_at_;
   void stop_translation_timestep ();
   void start_translation_timestep ();
-  virtual void finalize ();
+  void finalize () override;
 
   void process_music ();
 
@@ -346,8 +346,8 @@ public:
   TRANSLATOR_INHERIT (Beam_engraver);
 
 protected:
-  virtual bool valid_start_point ();
-  virtual bool valid_end_point ();
+  bool valid_start_point () override;
+  bool valid_end_point () override;
 };
 
 Grace_beam_engraver::Grace_beam_engraver (Context *c)

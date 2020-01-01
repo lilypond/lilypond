@@ -79,7 +79,7 @@ public:
 
   Lily_lexer (Sources *, Lily_parser *);
   Lily_lexer (Lily_lexer const &, Lily_parser *, SCM);
-  int yylex ();
+  int yylex () override;
 
   void add_lexed_char (int);
 
@@ -95,7 +95,7 @@ public:
 
   void start_main_input ();
 
-  virtual void new_input (const string &s, Sources *);
+  void new_input (const string &s, Sources *) override;
   virtual void new_input (const string &s, string d, Sources *);
 
   bool top_input () { return include_stack_.size () < 2; }
@@ -112,7 +112,7 @@ public:
   void push_markup_state ();
   void push_note_state (SCM alist);
   void pop_state ();
-  void LexerError (char const *);
+  void LexerError (char const *) override;
   void LexerWarning (char const *);
   void set_identifier (SCM path, SCM val);
   int get_state () const;

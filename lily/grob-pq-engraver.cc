@@ -41,8 +41,8 @@ class Grob_pq_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Grob_pq_engraver);
 protected:
-  virtual void initialize ();
-  void acknowledge_grob (Grob_info);
+  void initialize () override;
+  void acknowledge_grob (Grob_info) override;
   void start_translation_timestep ();
   void stop_translation_timestep ();
   void process_acknowledged ();

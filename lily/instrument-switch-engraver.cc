@@ -35,7 +35,7 @@ protected:
   void stop_translation_time_step ();
   void process_music ();
 
-  virtual void derived_mark () const;
+  void derived_mark () const override;
 };
 
 void

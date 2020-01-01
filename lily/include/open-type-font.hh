@@ -43,7 +43,7 @@ class Open_type_font : Preinit_Open_type_font, public Font_metric
   Index_to_charcode_map index_to_charcode_map_;
   Open_type_font (FT_Face);
 
-  DECLARE_CLASSNAME (Open_type_font);
+  OVERRIDE_CLASS_NAME (Open_type_font);
 public:
   Real get_units_per_EM () const;
   SCM get_subfonts () const;
@@ -54,17 +54,17 @@ public:
   Box get_glyph_outline_bbox (size_t signed_idx) const;
   string get_otf_table (const string &tag) const;
   static SCM make_otf (const string&);
-  string font_name () const;
+  string font_name () const override;
   ~Open_type_font ();
-  Offset attachment_point (const string&) const;
-  size_t count () const;
-  Box get_indexed_char_dimensions (size_t) const;
+  Offset attachment_point (const string&) const override;
+  size_t count () const override;
+  Box get_indexed_char_dimensions (size_t) const override;
   Box get_unscaled_indexed_char_dimensions (size_t) const;
-  size_t name_to_index (string) const;
-  size_t index_to_charcode (size_t) const;
-  void derived_mark () const;
-  SCM sub_fonts () const;
-  Real design_size () const;
+  size_t name_to_index (string) const override;
+  size_t index_to_charcode (size_t) const override;
+  void derived_mark () const override;
+  SCM sub_fonts () const override;
+  Real design_size () const override;
 };
 
 string get_otf_table (FT_Face face, const string &tag);

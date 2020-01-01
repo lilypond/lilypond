@@ -29,15 +29,15 @@
 class Simple_music_iterator : public Music_iterator
 {
 protected:
-  DECLARE_CLASSNAME (Simple_music_iterator);
+  OVERRIDE_CLASS_NAME (Simple_music_iterator);
 
   Moment last_processed_mom_;
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
   Simple_music_iterator ();
-  virtual void process (Moment);
-  virtual bool ok ()const;
-  virtual Moment pending_moment ()const;
+  void process (Moment) override;
+  bool ok ()const override;
+  Moment pending_moment ()const override;
 };
 
 #endif /* SIMPLE_MUSIC_ITERATOR_HH */

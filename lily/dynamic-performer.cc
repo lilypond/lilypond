@@ -30,8 +30,8 @@ class Dynamic_performer : public Performer
 public:
   TRANSLATOR_DECLARATIONS (Dynamic_performer);
 protected:
-  virtual void acknowledge_audio_element (Audio_element_info info);
-  virtual void finalize ();
+  void acknowledge_audio_element (Audio_element_info info) override;
+  void finalize () override;
   void stop_translation_timestep ();
   void process_music ();
   Real equalize_volume (Real);

@@ -33,7 +33,7 @@ public:
   TRANSLATOR_DECLARATIONS (Ledger_line_engraver);
 
 protected:
-  virtual void finalize ();
+  void finalize () override;
   void process_music ();
 
   void acknowledge_ledgered (Grob_info);

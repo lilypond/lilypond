@@ -51,7 +51,7 @@ class Spanner : Preinit_Spanner, public Grob
 {
   vsize break_index_;
 
-  DECLARE_CLASSNAME (Spanner);
+  OVERRIDE_CLASS_NAME (Spanner);
 
 public:
   DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM));
@@ -69,7 +69,7 @@ public:
   void substitute_one_mutable_property (SCM sym, SCM val);
 
   Interval_t<Moment> spanned_time () const;
-  virtual Interval_t<int> spanned_rank_interval () const;
+  Interval_t<int> spanned_rank_interval () const override;
 
   void set_bound (Direction d, Grob *);
   // accepts_as_bound_...() are used in the implementation of set_bound ().
@@ -89,17 +89,17 @@ public:
   Real spanner_length () const;
 
   static bool less (Spanner *const &, Spanner *const &);
-  virtual Spanner *find_broken_piece (System *) const;
-  virtual void derived_mark () const;
-  virtual System *get_system () const;
+  Spanner *find_broken_piece (System *) const override;
+  void derived_mark () const override;
+  System *get_system () const override;
 
   SCM get_cached_pure_property (SCM sym, vsize start, vsize end);
   void cache_pure_property (SCM sym, vsize start, vsize end, SCM value);
 
 protected:
   void set_my_columns ();
-  virtual Spanner *clone () const { return new Spanner (*this); }
-  virtual void do_break_processing ();
+  Spanner *clone () const override { return new Spanner (*this); }
+  void do_break_processing () override;
   bool fast_substitute_grob_array (SCM sym, Grob_array *);
 };
 

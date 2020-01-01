@@ -125,7 +125,7 @@ protected:
   void listen_rest (Stream_event *);
   void listen_bass_figure (Stream_event *);
 
-  virtual void derived_mark () const;
+  void derived_mark () const override;
 
   void start_translation_timestep ();
   void stop_translation_timestep ();

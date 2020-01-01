@@ -60,7 +60,7 @@ protected:
   Grob *previous_stem_;
 
 protected:
-  virtual void finalize ();
+  void finalize () override;
   void process_music ();
   void listen_tremolo_span (Stream_event *);
   void acknowledge_stem (Grob_info);

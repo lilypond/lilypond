@@ -74,7 +74,7 @@ public:
   TRANSLATOR_DECLARATIONS (Piano_pedal_align_engraver);
 
 protected:
-  virtual void finalize ();
+  void finalize () override;
 
   void acknowledge_piano_pedal_script (Grob_info);
   void acknowledge_piano_pedal_bracket (Grob_info);

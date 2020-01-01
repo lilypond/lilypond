@@ -42,14 +42,14 @@ protected:
   vector<Grob *> axis_groups_;
   vector<Grob *> backup_axis_groups_;
 
-  virtual void finalize ();
+  void finalize () override;
   void acknowledge_axis_group (Grob_info);
   void process_music ();
   void start_spanner ();
   void consider_start_spanner ();
   void stop_spanner ();
 
-  virtual void derived_mark () const;
+  void derived_mark () const override;
 };
 
 void

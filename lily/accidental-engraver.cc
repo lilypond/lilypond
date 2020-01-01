@@ -82,8 +82,8 @@ protected:
   void stop_translation_timestep ();
   void process_acknowledged ();
 
-  virtual void finalize ();
-  virtual void derived_mark () const;
+  void finalize () override;
+  void derived_mark () const override;
 
 public:
   SCM last_keysig_;

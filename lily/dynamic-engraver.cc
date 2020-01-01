@@ -41,7 +41,7 @@ class Dynamic_engraver : public Engraver
 protected:
   virtual void process_music ();
   virtual void stop_translation_timestep ();
-  virtual void finalize ();
+  void finalize () override;
 
 private:
   SCM get_property_setting (Stream_event *evt, char const *evprop,

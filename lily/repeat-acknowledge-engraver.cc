@@ -42,7 +42,7 @@ public:
 protected:
   void start_translation_timestep ();
   void process_music ();
-  virtual void initialize ();
+  void initialize () override;
 };
 
 void

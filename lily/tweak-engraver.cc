@@ -29,7 +29,7 @@ class Tweak_engraver : public Engraver
   TRANSLATOR_DECLARATIONS (Tweak_engraver);
 
 protected:
-  void acknowledge_grob (Grob_info);
+  void acknowledge_grob (Grob_info) override;
 };
 
 Tweak_engraver::Tweak_engraver (Context *c)

@@ -26,9 +26,9 @@ class Change_iterator : public Simple_music_iterator
 {
 public:
   /* constructor is public */
-  virtual void process (Moment);
+  void process (Moment) override;
   DECLARE_SCHEME_CALLBACK (constructor, ());
-  DECLARE_CLASSNAME (Change_iterator);
+  OVERRIDE_CLASS_NAME (Change_iterator);
 
   // returns an error message (empty on success)
   static string change_to (Music_iterator &it,

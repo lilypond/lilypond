@@ -33,7 +33,7 @@ string int2midi_varint_string (int i);
 class Midi_item
 {
 public:
-  DECLARE_CLASSNAME (Midi_item);
+  VIRTUAL_CLASS_NAME (Midi_item);
   Midi_item ();
   virtual ~Midi_item ();
   virtual char const *name () const;
@@ -46,7 +46,7 @@ public:
 class Midi_end_of_track : public Midi_item
 {
 public:
-  virtual string to_string () const
+  string to_string () const override
   {
     // the literal string's terminating null is part of the MIDI command
     return string ("\xff\x2f", 3);
@@ -58,7 +58,7 @@ class Midi_channel_item : public Midi_item
 public:
   virtual ~Midi_channel_item ();
   int channel_;
-  DECLARE_CLASSNAME (Midi_channel_item);
+  OVERRIDE_CLASS_NAME (Midi_channel_item);
   Midi_channel_item (Audio_item *ai);
 };
 
@@ -67,7 +67,7 @@ class Midi_duration : public Midi_item
 public:
   Midi_duration (Real seconds_f);
 
-  virtual string to_string () const;
+  string to_string () const override;
   Real seconds_;
 };
 
@@ -77,10 +77,10 @@ public:
 class Midi_control_change : public Midi_channel_item
 {
 public:
-  DECLARE_CLASSNAME (Midi_control_change);
+  OVERRIDE_CLASS_NAME (Midi_control_change);
   Midi_control_change (Audio_control_change *ai);
   virtual ~Midi_control_change ();
-  virtual string to_string () const;
+  string to_string () const override;
 
   Audio_control_change *audio_;
 };
@@ -93,8 +93,8 @@ class Midi_instrument : public Midi_channel_item
 public:
   Midi_instrument (Audio_instrument *);
 
-  DECLARE_CLASSNAME (Midi_instrument);
-  virtual string to_string () const;
+  OVERRIDE_CLASS_NAME (Midi_instrument);
+  string to_string () const override;
 
   Audio_instrument *audio_;
 };
@@ -103,9 +103,9 @@ class Midi_key : public Midi_item
 {
 public:
   Midi_key (Audio_key *);
-  DECLARE_CLASSNAME (Midi_key);
+  OVERRIDE_CLASS_NAME (Midi_key);
 
-  virtual string to_string () const;
+  string to_string () const override;
 
   Audio_key *audio_;
 };
@@ -114,9 +114,9 @@ class Midi_time_signature : public Midi_item
 {
 public:
   Midi_time_signature (Audio_time_signature *);
-  DECLARE_CLASSNAME (Midi_time_signature);
+  OVERRIDE_CLASS_NAME (Midi_time_signature);
 
-  virtual string to_string () const;
+  string to_string () const override;
 
   Audio_time_signature *audio_;
   int clocks_per_1_;
@@ -126,11 +126,11 @@ class Midi_note : public Midi_channel_item
 {
 public:
   Midi_note (Audio_note *);
-  DECLARE_CLASSNAME (Midi_note);
+  OVERRIDE_CLASS_NAME (Midi_note);
 
   int get_semitone_pitch () const;
   int get_fine_tuning () const;
-  virtual string to_string () const;
+  string to_string () const override;
 
   Audio_note *audio_;
 
@@ -142,9 +142,9 @@ class Midi_note_off : public Midi_note
 {
 public:
   Midi_note_off (Midi_note *);
-  DECLARE_CLASSNAME (Midi_note_off);
+  OVERRIDE_CLASS_NAME (Midi_note_off);
 
-  virtual string to_string () const;
+  string to_string () const override;
 
   Midi_note *on_;
   Byte aftertouch_byte_;
@@ -158,11 +158,11 @@ public:
     TEXT = 1, COPYRIGHT, TRACK_NAME, INSTRUMENT_NAME, LYRIC,
     MARKER, CUE_POINT
   };
-  DECLARE_CLASSNAME (Midi_text);
+  OVERRIDE_CLASS_NAME (Midi_text);
 
   Midi_text (Audio_text *);
 
-  virtual string to_string () const;
+  string to_string () const override;
 
   Audio_text *audio_;
 };
@@ -171,9 +171,9 @@ class Midi_piano_pedal : public Midi_channel_item
 {
 public:
   Midi_piano_pedal (Audio_piano_pedal *);
-  DECLARE_CLASSNAME (Midi_piano_pedal);
+  OVERRIDE_CLASS_NAME (Midi_piano_pedal);
 
-  virtual string to_string () const;
+  string to_string () const override;
 
   Audio_piano_pedal *audio_;
 };
@@ -182,9 +182,9 @@ class Midi_tempo : public Midi_item
 {
 public:
   Midi_tempo (Audio_tempo *);
-  DECLARE_CLASSNAME (Midi_tempo);
+  OVERRIDE_CLASS_NAME (Midi_tempo);
 
-  virtual string to_string () const;
+  string to_string () const override;
 
   Audio_tempo *audio_;
 };

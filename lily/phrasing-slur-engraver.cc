@@ -23,11 +23,11 @@
 
 class Phrasing_slur_engraver : public Slur_engraver
 {
-  virtual SCM event_symbol () const;
-  virtual bool double_property () const;
-  virtual SCM grob_symbol () const;
-  virtual const char* object_name () const;
-  virtual void set_melisma (bool);
+  SCM event_symbol () const override;
+  bool double_property () const override;
+  SCM grob_symbol () const override;
+  const char* object_name () const override;
+  void set_melisma (bool) override;
 
 public:
   TRANSLATOR_DECLARATIONS (Phrasing_slur_engraver);

@@ -46,11 +46,11 @@ struct Bracket_nesting_group : public Bracket_nesting_node
   SCM symbol_;
 
   void from_list (SCM);
-  virtual void add_support (Grob *grob);
-  virtual bool add_staff (Grob *grob);
-  virtual void set_nesting_support (Grob *);
-  virtual void set_bound (Direction, Grob *grob);
-  virtual void create_grobs (Engraver *, SCM);
+  void add_support (Grob *grob) override;
+  bool add_staff (Grob *grob) override;
+  void set_nesting_support (Grob *) override;
+  void set_bound (Direction, Grob *grob) override;
+  void create_grobs (Engraver *, SCM) override;
   ~Bracket_nesting_group ();
   Bracket_nesting_group ();
 };
@@ -60,7 +60,7 @@ struct Bracket_nesting_staff : public Bracket_nesting_node
   Grob *staff_;
 
   Bracket_nesting_staff (Grob *s) { staff_ = s; }
-  virtual bool add_staff (Grob *);
+  bool add_staff (Grob *) override;
 };
 
 Bracket_nesting_group::Bracket_nesting_group ()
@@ -173,7 +173,7 @@ protected:
   void acknowledge_staff_symbol (Grob_info);
 
   void process_music ();
-  virtual void finalize ();
+  void finalize () override;
 };
 
 System_start_delimiter_engraver::System_start_delimiter_engraver (Context *c)

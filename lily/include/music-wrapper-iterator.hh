@@ -32,19 +32,19 @@ class Music_wrapper_iterator : public Music_iterator
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
   Music_wrapper_iterator ();
-  DECLARE_CLASSNAME (Music_wrapper_iterator);
+  OVERRIDE_CLASS_NAME (Music_wrapper_iterator);
 
-  virtual Context *get_outlet () const;
-  virtual void set_context (Context *trans);
-  virtual void derived_substitute (Context *f, Context *t);
-  virtual void derived_mark () const;
-  virtual void construct_children ();
-  virtual Moment pending_moment () const;
-  virtual void do_quit ();
-  virtual bool ok () const;
-  virtual bool run_always () const;
+  Context *get_outlet () const override;
+  void set_context (Context *trans) override;
+  void derived_substitute (Context *f, Context *t) override;
+  void derived_mark () const override;
+  void construct_children () override;
+  Moment pending_moment () const override;
+  void do_quit () override;
+  bool ok () const override;
+  bool run_always () const override;
 protected:
-  virtual void process (Moment);
+  void process (Moment) override;
 
   Music_iterator *child_iter_;
 };

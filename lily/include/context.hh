@@ -52,7 +52,7 @@ private:
   Context (Context const &src) = delete;
   Context& operator= (Context const &) = delete;
 
-  DECLARE_CLASSNAME (Context);
+  VIRTUAL_CLASS_NAME (Context);
   void terminate ();
 
 private:

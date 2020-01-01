@@ -37,7 +37,7 @@ private:
 public:
   Page_marker ();
   Page_marker (Page_marker const &);
-  DECLARE_CLASSNAME (Page_marker);
+  VIRTUAL_CLASS_NAME (Page_marker);
   virtual Page_marker *clone () const { return new Page_marker (*this); }
 
   void set_permission (SCM symbol, SCM permission);

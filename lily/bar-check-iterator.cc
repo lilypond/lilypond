@@ -30,7 +30,7 @@
 class Bar_check_iterator : Simple_music_iterator
 {
 public:
-  virtual void process (Moment);
+  void process (Moment) override;
   Bar_check_iterator ();
   DECLARE_SCHEME_CALLBACK (constructor, ());
 };

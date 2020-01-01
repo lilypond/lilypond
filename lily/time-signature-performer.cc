@@ -31,7 +31,7 @@ protected:
 
   void stop_translation_timestep ();
   void process_music ();
-  virtual void derived_mark () const;
+  void derived_mark () const override;
   SCM prev_fraction_;
 private:
 

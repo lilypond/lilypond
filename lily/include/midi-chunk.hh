@@ -46,7 +46,7 @@ public:
   void set (const string &header_string, const string &data_string, const string &footer_string);
   virtual string to_string () const;
   virtual string data_string () const;
-  DECLARE_CLASSNAME (Midi_chunk);
+  VIRTUAL_CLASS_NAME (Midi_chunk);
   virtual ~Midi_chunk ();
 private:
   string data_string_;
@@ -57,7 +57,7 @@ private:
 class Midi_header : public Midi_chunk
 {
 public:
-  DECLARE_CLASSNAME (Midi_header);
+  OVERRIDE_CLASS_NAME (Midi_header);
 
   Midi_header (int format, int tracks, int clocks_per_4);
 };
@@ -67,7 +67,7 @@ class Midi_track : public Midi_chunk
 public:
   int number_;
   int port_;
-  DECLARE_CLASSNAME (Midi_track);
+  OVERRIDE_CLASS_NAME (Midi_track);
 
   vector<Midi_event *> events_;
 
@@ -75,7 +75,7 @@ public:
   ~Midi_track ();
 
   void add (int, Midi_item *midi);
-  virtual string data_string () const;
+  string data_string () const override;
   void push_back (int, Midi_item *midi);
 };
 

@@ -35,8 +35,8 @@ protected:
   Gregorian_ligature_engraver (Context *);
 
   void listen_pes_or_flexa (Stream_event *ev);
-  virtual void build_ligature (Spanner *ligature,
-                               vector<Grob_info> const &primitives);
+  void build_ligature (Spanner *ligature,
+                       vector<Grob_info> const &primitives) override;
   virtual void transform_heads (Spanner *ligature,
                                 vector<Grob_info> const &primitives) = 0;
   void stop_translation_timestep ();

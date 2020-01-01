@@ -47,7 +47,7 @@ protected:
   void listen_completize_extender (Stream_event *);
   void acknowledge_lyric_syllable (Grob_info);
 
-  virtual void finalize ();
+  void finalize () override;
 
   void stop_translation_timestep ();
   void process_music ();

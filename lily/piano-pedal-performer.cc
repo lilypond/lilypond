@@ -43,7 +43,7 @@ public:
   TRANSLATOR_DECLARATIONS (Piano_pedal_performer);
 
 protected:
-  virtual void initialize ();
+  void initialize () override;
   static const char *pedal_type_str (int t);
   void process_music ();
   void stop_translation_timestep ();

@@ -73,8 +73,8 @@ Translator_creator::allocate (Context *ctx)
 
 #define TRANSLATOR_FAMILY_DECLARATIONS(NAME)                            \
   public:                                                               \
-  DECLARE_CLASSNAME (NAME);                                             \
-  virtual void fetch_precomputable_methods (SCM methods[]);             \
+  OVERRIDE_CLASS_NAME (NAME);                                           \
+  void fetch_precomputable_methods (SCM methods[]) override;            \
   /* Fallback for non-overriden callbacks for which &T::x degrades to   \
      &Translator::x */                                                  \
   template <void (Translator::*)()>                                     \
@@ -118,7 +118,7 @@ Translator_creator::allocate (Context *ctx)
   static Drul_array<Protected_scm> acknowledge_static_array_drul_;      \
   static Protected_scm listener_list_;                                  \
   static SCM static_get_acknowledger (SCM sym, Direction start_end);    \
-  virtual SCM get_acknowledger (SCM sym, Direction start_end)           \
+  SCM get_acknowledger (SCM sym, Direction start_end) override          \
   {                                                                     \
     return static_get_acknowledger (sym, start_end);                    \
   }                                                                     \
@@ -126,7 +126,7 @@ public:                                                                 \
   NAME (Context *);                                                     \
   static void boot ();                                                  \
   static SCM static_translator_description ();                          \
-  virtual SCM get_listener_list () const                                \
+  SCM get_listener_list () const override                               \
   {                                                                     \
     return listener_list_;                                              \
   }                                                                     \
@@ -182,7 +182,7 @@ public:
   Context *get_score_context () const;
   Global_context *get_global_context () const;
 
-  DECLARE_CLASSNAME (Translator);
+  VIRTUAL_CLASS_NAME (Translator);
 
   virtual void fetch_precomputable_methods (SCM methods[]) = 0;
   virtual SCM get_listener_list () const = 0;

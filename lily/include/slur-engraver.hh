@@ -65,8 +65,8 @@ protected:
   bool try_to_end (Event_info evi);
 
   virtual void set_melisma (bool);
-  virtual void finalize ();
-  virtual void derived_mark () const;
+  void finalize () override;
+  void derived_mark () const override;
 
 public:
   TRANSLATOR_DECLARATIONS (Slur_engraver);

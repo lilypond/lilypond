@@ -27,7 +27,7 @@ public:
   Part_combine_part_iterator () {}
 
 private:
-  virtual void change_to (const string &id);
+  void change_to (const string &id) override;
   Context *find_voice(const string &id);
 };
 

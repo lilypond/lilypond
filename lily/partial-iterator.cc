@@ -32,7 +32,7 @@ public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
   DECLARE_SCHEME_CALLBACK (finalization, (SCM, SCM));
 protected:
-  virtual void process (Moment);
+  void process (Moment) override;
 };
 
 void

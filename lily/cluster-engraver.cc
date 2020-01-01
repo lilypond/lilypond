@@ -37,8 +37,8 @@ protected:
   void listen_cluster_note (Stream_event *);
   void acknowledge_note_column (Grob_info);
   void stop_translation_timestep ();
-  virtual void process_music ();
-  virtual void finalize ();
+  virtual void process_music (); // TODO: Why virtual?  Look for others too.
+  void finalize () override;
 private:
   vector<Stream_event *> cluster_notes_;
   Item *beacon_;

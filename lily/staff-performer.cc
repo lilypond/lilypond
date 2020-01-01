@@ -42,9 +42,9 @@ public:
   ~Staff_performer ();
 
 protected:
-  virtual void acknowledge_audio_element (Audio_element_info info);
-  virtual void finalize ();
-  virtual void initialize ();
+  void acknowledge_audio_element (Audio_element_info info) override;
+  void finalize () override;
+  void initialize () override;
   void process_music ();
   void stop_translation_timestep ();
 
@@ -63,8 +63,8 @@ private:
                               Audio_staff *audio_staff,
                               int channel);
 
-    SCM get_property_value (const char *property_name);
-    void do_announce (Audio_control_change *item);
+    SCM get_property_value (const char *property_name) override;
+    void do_announce (Audio_control_change *item) override;
 
   private:
     Staff_performer *performer_;

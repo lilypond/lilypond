@@ -41,7 +41,7 @@ private:
   void create_child_translator (SCM);
 
 public:
-  DECLARE_CLASSNAME (Translator_group);
+  VIRTUAL_CLASS_NAME (Translator_group);
 
   virtual void connect_to_context (Context *c);
   virtual void disconnect_from_context ();

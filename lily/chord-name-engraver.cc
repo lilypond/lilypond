@@ -38,7 +38,7 @@ class Chord_name_engraver : public Engraver
 protected:
   void stop_translation_timestep ();
   void process_music ();
-  virtual void finalize ();
+  void finalize () override;
   void listen_note (Stream_event *);
   void listen_rest (Stream_event *);
 private:

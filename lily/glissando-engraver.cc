@@ -37,7 +37,7 @@ public:
 protected:
   void listen_glissando (Stream_event *);
   void acknowledge_note_column (Grob_info);
-  virtual void finalize ();
+  void finalize () override;
 
   void stop_translation_timestep ();
   void process_music ();

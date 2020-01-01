@@ -42,8 +42,8 @@ protected:
   void process_acknowledged ();
 
   virtual void process_music ();
-  virtual void finalize ();
-  virtual void derived_mark () const;
+  void finalize () override;
+  void derived_mark () const override;
 
   void acknowledge_rest (Grob_info);
   void acknowledge_beam (Grob_info);
@@ -585,9 +585,9 @@ class Grace_auto_beam_engraver : public Auto_beam_engraver
 private:
   Moment last_grace_start_; // Full starting time of last grace group
   Moment last_grace_position_; // Measure position of same
-  virtual void process_music ();
-  virtual bool is_same_grace_state (Moment, Moment);
-  virtual bool test_moment (Direction, Moment, Moment);
+  void process_music () override;
+  bool is_same_grace_state (Moment, Moment) override;
+  bool test_moment (Direction, Moment, Moment) override;
 };
 
 Grace_auto_beam_engraver::Grace_auto_beam_engraver (Context *c)

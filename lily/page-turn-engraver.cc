@@ -104,7 +104,7 @@ public:
   TRANSLATOR_DECLARATIONS (Page_turn_engraver);
   void stop_translation_timestep ();
   void start_translation_timestep ();
-  void finalize ();
+  void finalize () override;
 };
 
 Page_turn_engraver::Page_turn_engraver (Context *c)

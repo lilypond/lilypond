@@ -45,7 +45,7 @@ protected:
 
   void acknowledge_bar_line (Grob_info);
 
-  virtual void derived_mark () const;
+  void derived_mark () const override;
   void stop_translation_timestep ();
   void process_music ();
 

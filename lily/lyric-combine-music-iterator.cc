@@ -47,14 +47,14 @@ public:
   Lyric_combine_music_iterator (Lyric_combine_music_iterator const &src);
   DECLARE_SCHEME_CALLBACK (constructor, ());
 protected:
-  virtual void construct_children ();
-  virtual Moment pending_moment () const;
-  virtual void do_quit ();
-  virtual void process (Moment);
-  virtual bool run_always ()const;
-  virtual bool ok () const;
-  virtual void derived_mark () const;
-  virtual void derived_substitute (Context *, Context *);
+  void construct_children () override;
+  Moment pending_moment () const override;
+  void do_quit () override;
+  void process (Moment) override;
+  bool run_always () const override;
+  bool ok () const override;
+  void derived_mark () const override;
+  void derived_substitute (Context *, Context *) override;
   void set_music_context (Context *to);
 private:
   bool start_new_syllable () const;

@@ -40,7 +40,7 @@ class Trill_spanner_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Trill_spanner_engraver);
 protected:
-  virtual void finalize ();
+  void finalize () override;
   void listen_trill_span (Stream_event *);
   void acknowledge_note_column (Grob_info);
 

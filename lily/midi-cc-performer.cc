@@ -43,8 +43,8 @@ public:
   void announce_control_change (SCM);
   ~Midi_control_change_performer ();
 
-  void connect_to_context (Context *c);
-  void disconnect_from_context (Context *c);
+  void connect_to_context (Context *c) override;
+  void disconnect_from_context (Context *c) override;
 
 private:
   class Control_change_announcer : public Midi_control_change_announcer
@@ -53,8 +53,8 @@ private:
     Control_change_announcer (Midi_control_change_performer *p,
                               Stream_event *ev, const string &s);
 
-    SCM get_property_value (const char *property_name);
-    void do_announce (Audio_control_change *item);
+    SCM get_property_value (const char *property_name) override;
+    void do_announce (Audio_control_change *item) override;
 
   private:
     Midi_control_change_performer *performer_;

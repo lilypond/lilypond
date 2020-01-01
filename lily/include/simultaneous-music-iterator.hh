@@ -27,22 +27,22 @@ class Simultaneous_music_iterator : public Music_iterator
 public:
   Simultaneous_music_iterator ();
   Simultaneous_music_iterator (Simultaneous_music_iterator const &);
-  virtual void derived_substitute (Context *f, Context *t);
-  virtual void derived_mark () const;
+  void derived_substitute (Context *f, Context *t) override;
+  void derived_mark () const override;
   DECLARE_SCHEME_CALLBACK (constructor, ());
-  DECLARE_CLASSNAME (Simultaneous_music_iterator);
+  OVERRIDE_CLASS_NAME (Simultaneous_music_iterator);
 
   /// make a new context for every child.
   bool create_separate_contexts_;
 
-  virtual void construct_children ();
-  virtual Moment pending_moment () const;
-  virtual void do_quit ();
-  virtual bool ok () const;
-  virtual bool run_always () const;
+  void construct_children () override;
+  Moment pending_moment () const override;
+  void do_quit () override;
+  bool ok () const override;
+  bool run_always () const override;
 
 protected:
-  virtual void process (Moment);
+  void process (Moment) override;
 
 private:
   SCM children_list_;

@@ -38,7 +38,7 @@ class Time_signature_engraver : public Engraver
   SCM time_cause_;
 
 protected:
-  virtual void derived_mark () const;
+  void derived_mark () const override;
   void stop_translation_timestep ();
   void process_music ();
 public:

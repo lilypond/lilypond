@@ -42,11 +42,11 @@ protected:
 
   void stop_translation_timestep ();
   virtual ~Staff_symbol_engraver ();
-  void acknowledge_grob (Grob_info);
+  void acknowledge_grob (Grob_info) override;
   void listen_staff_span (Stream_event *);
-  virtual void finalize ();
+  void finalize () override;
   void process_music ();
-  virtual void derived_mark () const;
+  void derived_mark () const override;
 };
 
 void

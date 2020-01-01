@@ -30,8 +30,8 @@ public:
   Change_sequence_iterator ();
 
 protected:
-  virtual void construct_children ();
-  virtual void process (Moment);
+  void construct_children () override;
+  void process (Moment) override;
 
 private:
   // implement in derived class to effect a context change

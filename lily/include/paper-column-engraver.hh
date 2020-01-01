@@ -39,8 +39,8 @@ protected:
   void start_translation_timestep ();
   void process_music ();
   void handle_manual_breaks (bool);
-  virtual void initialize ();
-  virtual void finalize ();
+  void initialize () override;
+  void finalize () override;
 
   void listen_break (Stream_event *);
   void listen_label (Stream_event *);

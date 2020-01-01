@@ -41,7 +41,7 @@ protected:
   void process_music ();
   void acknowledge_bar_line (Grob_info);
 
-  virtual void derived_mark () const;
+  void derived_mark () const override;
 private:
   Item *clef_;
   Item *modifier_;

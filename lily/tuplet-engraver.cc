@@ -68,7 +68,7 @@ protected:
   void acknowledge_finger (Grob_info);
   void acknowledge_string_number (Grob_info);
   void listen_tuplet_span (Stream_event *);
-  virtual void finalize ();
+  void finalize () override;
   void start_translation_timestep ();
   void process_music ();
 };

@@ -29,7 +29,7 @@ typedef void (Performer:: *Performer_method) (void);
 class Performer_group : public Translator_group
 {
 public:
-  DECLARE_CLASSNAME (Performer_group);
+  OVERRIDE_CLASS_NAME (Performer_group);
 
   void do_announces ();
   virtual void announce_element (Audio_element_info);

@@ -29,7 +29,7 @@ class Balloon_engraver : public Engraver
   TRANSLATOR_DECLARATIONS (Balloon_engraver);
 
   void listen_annotate_output (Stream_event *);
-  void acknowledge_grob (Grob_info);
+  void acknowledge_grob (Grob_info) override;
   vector<Stream_event *> events_;
 
   void stop_translation_timestep ();

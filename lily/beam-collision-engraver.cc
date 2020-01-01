@@ -40,7 +40,7 @@ protected:
   void acknowledge_beam (Grob_info);
   void acknowledge_flag (Grob_info);
 
-  virtual void finalize ();
+  void finalize () override;
 
 private:
   bool covered_grob_has_interface (Grob *covered_grob, Grob *beam);

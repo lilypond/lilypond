@@ -26,7 +26,7 @@
 class One_page_breaking: public Page_breaking
 {
 public:
-  virtual SCM solve ();
+  SCM solve () override;
 
   One_page_breaking (Paper_book *pb);
   virtual ~One_page_breaking ();

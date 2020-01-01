@@ -35,7 +35,7 @@ protected:
   Rational stop_grouping_mom_;
 
   void process_music ();
-  virtual void finalize ();
+  void finalize () override;
   void acknowledge_note_column (Grob_info);
 };
 

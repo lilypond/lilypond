@@ -59,7 +59,7 @@ protected:
   void acknowledge_hara_kiri_group_spanner (Grob_info);
   void process_acknowledged ();
   void stop_translation_timestep ();
-  virtual void derived_mark () const;
+  void derived_mark () const override;
 };
 
 Span_bar_stub_engraver::Span_bar_stub_engraver (Context *c)

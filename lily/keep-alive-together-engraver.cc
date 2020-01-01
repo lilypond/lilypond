@@ -34,7 +34,7 @@ public:
   TRANSLATOR_DECLARATIONS (Keep_alive_together_engraver);
   void acknowledge_hara_kiri_group_spanner (Grob_info);
 
-  virtual void finalize ();
+  void finalize () override;
 };
 
 Keep_alive_together_engraver::Keep_alive_together_engraver (Context *c)

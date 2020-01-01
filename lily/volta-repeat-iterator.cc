@@ -30,11 +30,11 @@ public:
 
   void add_repeat_command (SCM);
 protected:
-  virtual SCM get_music_list () const;
-  virtual void next_element (bool);
-  virtual void construct_children ();
-  virtual void process (Moment);
-  virtual void derived_mark () const;
+  SCM get_music_list () const override;
+  void next_element (bool) override;
+  void construct_children () override;
+  void process (Moment) override;
+  void derived_mark () const override;
 
   bool first_time_;
   int alt_count_;

@@ -28,7 +28,7 @@ class Ligature_engraver : public Engraver
 protected:
   Ligature_engraver (Context *c);
   void stop_translation_timestep ();
-  virtual void finalize ();
+  void finalize () override;
 
   void acknowledge_rest (Grob_info);
   void acknowledge_ligature_head (Grob_info);

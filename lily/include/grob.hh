@@ -35,7 +35,7 @@ public:
   static const char * const type_p_name_;
   virtual ~Grob ();
 private:
-  DECLARE_CLASSNAME (Grob);
+  VIRTUAL_CLASS_NAME (Grob);
 
   void init ();
 

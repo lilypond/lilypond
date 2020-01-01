@@ -28,7 +28,7 @@
 class Page_turn_page_breaking: public Page_breaking
 {
 public:
-  virtual SCM solve ();
+  SCM solve () override;
 
   Page_turn_page_breaking (Paper_book *pb);
   virtual ~Page_turn_page_breaking ();

@@ -27,10 +27,10 @@ class Chord_tremolo_iterator : public Sequential_iterator
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
   /* construction */
-  DECLARE_CLASSNAME (Chord_tremolo_iterator);
+  OVERRIDE_CLASS_NAME (Chord_tremolo_iterator);
   Chord_tremolo_iterator ();
 protected:
-  virtual SCM get_music_list () const;
+  SCM get_music_list () const override;
 private:
 };
 

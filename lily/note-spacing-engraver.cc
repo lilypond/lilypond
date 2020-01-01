@@ -43,8 +43,8 @@ protected:
   void acknowledge_rhythmic_grob (Grob_info);
   void acknowledge_note_column (Grob_info);
   void stop_translation_timestep ();
-  virtual void finalize ();
-  virtual void derived_mark () const;
+  void finalize () override;
+  void derived_mark () const override;
 };
 
 void

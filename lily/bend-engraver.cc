@@ -33,7 +33,7 @@ public:
 
 protected:
   void listen_bend_after (Stream_event *);
-  void finalize ();
+  void finalize () override;
   void process_music ();
   void stop_translation_timestep ();
   void start_translation_timestep ();

@@ -37,7 +37,7 @@ class Paper_score : public Music_output
 public:
   Paper_score (Output_def *);
 
-  DECLARE_CLASSNAME (Paper_score);
+  OVERRIDE_CLASS_NAME (Paper_score);
 
   Output_def *layout () const;
   System *root_system () const;
@@ -50,8 +50,8 @@ public:
   SCM get_paper_systems ();
 protected:
   void find_break_indices () const;
-  virtual void process ();
-  virtual void derived_mark () const;
+  void process () override;
+  void derived_mark () const override;
 
 private:
   Paper_score (Paper_score const &) = delete;

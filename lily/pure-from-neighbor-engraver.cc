@@ -38,7 +38,7 @@ public:
 protected:
   void acknowledge_pure_from_neighbor (Grob_info);
   void acknowledge_item (Grob_info);
-  void finalize ();
+  void finalize () override;
 };
 
 Pure_from_neighbor_engraver::Pure_from_neighbor_engraver (Context *c)

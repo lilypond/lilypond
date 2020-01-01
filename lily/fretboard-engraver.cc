@@ -47,7 +47,7 @@ public:
 protected:
   void stop_translation_timestep ();
   void process_music ();
-  virtual void derived_mark () const;
+  void derived_mark () const override;
   void listen_note (Stream_event *);
   void listen_string_number (Stream_event *);
   void listen_fingering (Stream_event *);

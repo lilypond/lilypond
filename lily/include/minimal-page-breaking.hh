@@ -26,7 +26,7 @@
 class Minimal_page_breaking: public Page_breaking
 {
 public:
-  virtual SCM solve ();
+  SCM solve () override;
 
   Minimal_page_breaking (Paper_book *pb);
   virtual ~Minimal_page_breaking ();

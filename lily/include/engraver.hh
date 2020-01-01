@@ -78,7 +78,7 @@ public:
   /**
      override other ctor
   */
-  DECLARE_CLASSNAME (Engraver);
+  OVERRIDE_CLASS_NAME (Engraver);
   DECLARE_TRANSLATOR_CALLBACKS (Engraver);
   Engraver (Context *);
 };

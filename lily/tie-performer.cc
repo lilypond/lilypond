@@ -49,7 +49,7 @@ class Tie_performer : public Performer
 protected:
   void stop_translation_timestep ();
   void start_translation_timestep ();
-  virtual void acknowledge_audio_element (Audio_element_info);
+  void acknowledge_audio_element (Audio_element_info) override;
   void process_music ();
   void listen_tie (Stream_event *);
 public:

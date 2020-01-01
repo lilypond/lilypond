@@ -28,7 +28,7 @@
 class Rhythmic_music_iterator : public Simple_music_iterator
 {
 protected:
-  DECLARE_CLASSNAME (Rhythmic_music_iterator);
+  OVERRIDE_CLASS_NAME (Rhythmic_music_iterator);
 
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
@@ -36,8 +36,8 @@ public:
   Rhythmic_music_iterator (Rhythmic_music_iterator const &);
 
 protected:
-  virtual void process (Moment);
-  virtual void construct_children ();
+  void process (Moment) override;
+  void construct_children () override;
 };
 
 #endif /* RHYTHMIC_MUSIC_ITERATOR_HH */

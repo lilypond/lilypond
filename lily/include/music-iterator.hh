@@ -69,7 +69,7 @@ protected:
   Moment music_length_;
   Moment start_mom_;
 
-  DECLARE_CLASSNAME (Music_iterator);
+  VIRTUAL_CLASS_NAME (Music_iterator);
 private:
   Music_iterator (Music_iterator const &) = delete;
   Music_iterator& operator= (Music_iterator const &) = delete;

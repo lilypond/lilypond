@@ -75,7 +75,7 @@ public:
   TRANSLATOR_DECLARATIONS (Completion_heads_engraver);
 
 protected:
-  virtual void initialize ();
+  void initialize () override;
   void make_tie (Grob *, Grob *);
   void start_translation_timestep ();
   void process_music ();

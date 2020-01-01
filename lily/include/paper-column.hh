@@ -34,17 +34,17 @@ public:
   Paper_column (SCM);
   Paper_column (Paper_column const &);
 
-  virtual Paper_column *clone () const { return new Paper_column (*this); }
+  Paper_column *clone () const override { return new Paper_column (*this); }
   Paper_column *original () const
   {
     // safe: if there is an original, it is because this was cloned from it
     return static_cast<Paper_column *> (Item::original ());
   }
 
-  virtual Paper_column *get_column () const;
-  virtual System *get_system () const;
+  Paper_column *get_column () const override;
+  System *get_system () const override;
   void set_system (System *);
-  virtual bool internal_set_as_bound_of_spanner (Spanner *, Direction);
+  bool internal_set_as_bound_of_spanner (Spanner *, Direction) override;
 
   Paper_column *find_prebroken_piece (Direction d) const
   {

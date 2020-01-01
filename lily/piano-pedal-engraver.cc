@@ -121,8 +121,8 @@ public:
   TRANSLATOR_DECLARATIONS (Piano_pedal_engraver);
 
 protected:
-  virtual void initialize ();
-  virtual void finalize ();
+  void initialize () override;
+  void finalize () override;
   void listen_sustain (Stream_event *);
   void listen_una_corda (Stream_event *);
   void listen_sostenuto (Stream_event *);

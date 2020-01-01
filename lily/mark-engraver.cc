@@ -52,7 +52,7 @@ protected:
   void process_music ();
   void start_translation_timestep ();
   void stop_translation_timestep ();
-  virtual void finalize ();
+  void finalize () override;
 
   void listen_mark (Stream_event *);
   void acknowledge_break_alignment (Grob_info);

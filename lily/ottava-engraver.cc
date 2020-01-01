@@ -30,13 +30,13 @@ class Ottava_spanner_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Ottava_spanner_engraver);
 protected:
-  virtual void finalize ();
+  void finalize () override;
 
   void acknowledge_note_column (Grob_info);
 
   void process_music ();
   void stop_translation_timestep ();
-  virtual void derived_mark () const;
+  void derived_mark () const override;
 private:
   Spanner *span_;
   Spanner *finished_;

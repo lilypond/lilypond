@@ -33,7 +33,7 @@ public:
 
 protected:
 
-  virtual void derived_mark () const;
+  void derived_mark () const override;
   void stop_translation_timestep ();
   void process_music ();
 private:

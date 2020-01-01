@@ -41,14 +41,14 @@ protected:
   SCM interesting_;
   vector<Grob *> elts_;
   void process_music ();
-  virtual void initialize ();
-  virtual void finalize ();
-  void acknowledge_grob (Grob_info);
+  void initialize () override;
+  void finalize () override;
+  void acknowledge_grob (Grob_info) override;
   void process_acknowledged ();
   virtual Spanner *get_spanner ();
   virtual void add_element (Grob *);
-  virtual bool must_be_last () const;
-  virtual void derived_mark () const;
+  bool must_be_last () const override;
+  void derived_mark () const override;
 
 public:
   TRANSLATOR_DECLARATIONS (Axis_group_engraver);

@@ -48,8 +48,8 @@ private:
 public:
   Paper_score *paper_score () const;
   Grob *get_neighboring_staff (Direction dir, Grob *vertical_axis_group, Interval_t<int> bounds);
-  virtual bool accepts_as_bound_item (const Item *) const;
-  virtual bool accepts_as_bound_paper_column (const Paper_column *) const;
+  bool accepts_as_bound_item (const Item *) const override;
+  bool accepts_as_bound_paper_column (const Paper_column *) const override;
   Paper_column *get_bound (Direction d) const {
     // This is safe because only Paper_columns are accepted as bounds.
     return static_cast<Paper_column *> (Spanner::get_bound (d));
@@ -112,8 +112,8 @@ public:
   void collect_labels (Grob const *, SCM *);
 
 protected:
-  virtual void derived_mark () const;
-  virtual System *clone () const { return new System (*this); }
+  void derived_mark () const override;
+  System *clone () const override { return new System (*this); }
 
 private:
   Interval part_of_line_pure_height (vsize start, vsize end, bool begin);

@@ -41,10 +41,10 @@ public:
   void acknowledge_outside_staff (Grob_info);
 
 protected:
-  virtual void derived_mark () const;
+  void derived_mark () const override;
   void process_music ();
-  virtual void finalize ();
-  virtual void initialize ();
+  void finalize () override;
+  void initialize () override;
 
   bool top_level_;
 };

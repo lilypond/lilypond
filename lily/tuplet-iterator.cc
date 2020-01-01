@@ -36,13 +36,13 @@ class Tuplet_iterator : public Music_wrapper_iterator
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
   /* construction */
-  DECLARE_CLASSNAME (Tuplet_iterator);
+  OVERRIDE_CLASS_NAME (Tuplet_iterator);
   Tuplet_iterator ();
 protected:
-  virtual void process (Moment m);
-  virtual void construct_children ();
-  virtual void derived_mark () const;
-  virtual Moment pending_moment () const;
+  void process (Moment m) override;
+  void construct_children () override;
+  void derived_mark () const override;
+  Moment pending_moment () const override;
 
   Music *create_event (Direction d);
 

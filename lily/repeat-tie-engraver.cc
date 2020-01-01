@@ -26,9 +26,9 @@
 
 class Repeat_tie_engraver : public Laissez_vibrer_engraver
 {
-  virtual bool is_my_event_class (Stream_event *ev);
-  virtual Grob *make_my_tie (SCM cause);
-  virtual Grob *make_my_column (SCM cause);
+  bool is_my_event_class (Stream_event *ev) override;
+  Grob *make_my_tie (SCM cause) override;
+  Grob *make_my_column (SCM cause) override;
 
 public:
   TRANSLATOR_DECLARATIONS (Repeat_tie_engraver);

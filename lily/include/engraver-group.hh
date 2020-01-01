@@ -46,12 +46,12 @@ protected:
   void override (SCM);
   void revert (SCM);
 public:
-  DECLARE_CLASSNAME (Engraver_group);
+  OVERRIDE_CLASS_NAME (Engraver_group);
   Engraver_group ();
-  virtual void derived_mark () const;
+  void derived_mark () const override;
   void do_announces ();
-  virtual void connect_to_context (Context *c);
-  virtual void disconnect_from_context ();
+  void connect_to_context (Context *c) override;
+  void disconnect_from_context () override;
   virtual void announce_grob (Grob_info, Direction start_end,
                               Context *reroute_context = 0);
   bool pending_grobs () const;

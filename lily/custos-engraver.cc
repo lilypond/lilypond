@@ -43,7 +43,7 @@ public:
   void acknowledge_note_head (Grob_info);
   void process_acknowledged ();
   void stop_translation_timestep ();
-  virtual void finalize ();
+  void finalize () override;
 
 private:
   Item *create_custos ();

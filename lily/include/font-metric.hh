@@ -40,7 +40,7 @@ public:
   static const char * const type_p_name_;
   virtual ~Font_metric ();
 private:
-  DECLARE_CLASSNAME (Font_metric);
+  VIRTUAL_CLASS_NAME (Font_metric);
 
 public:
   SCM description_;

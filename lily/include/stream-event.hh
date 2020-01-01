@@ -28,7 +28,7 @@ class Stream_event : public Prob
 {
 public:
   Stream_event ();
-  DECLARE_CLASSNAME (Stream_event);
+  OVERRIDE_CLASS_NAME (Stream_event);
   virtual Stream_event *clone () const { return new Stream_event (*this); }
 
   Stream_event (SCM event_class, SCM immutable_props = SCM_EOL);
@@ -39,7 +39,7 @@ public:
   bool internal_in_event_class (SCM class_name);
   void make_transposable ();
 
-  virtual SCM copy_mutable_properties () const;
+  SCM copy_mutable_properties () const override;
 
   DECLARE_SCHEME_CALLBACK (undump, (SCM));
   DECLARE_SCHEME_CALLBACK (dump, (SCM));

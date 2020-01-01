@@ -33,15 +33,15 @@ public:
 
   DECLARE_SCHEME_CALLBACK (constructor, ());
 protected:
-  virtual void derived_substitute (Context *f, Context *t);
-  virtual void derived_mark () const;
+  void derived_substitute (Context *f, Context *t) override;
+  void derived_mark () const override;
 
-  virtual void construct_children ();
-  virtual Moment pending_moment () const;
-  virtual void do_quit ();
-  virtual void process (Moment);
+  void construct_children () override;
+  Moment pending_moment () const override;
+  void do_quit () override;
+  void process (Moment) override;
 
-  virtual bool ok () const;
+  bool ok () const override;
 
 private:
   static const size_t NUM_PARTS = 2;

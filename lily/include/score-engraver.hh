@@ -37,17 +37,18 @@ protected:
   void one_time_step (SCM);
 
   /* Engraver_group_engraver interface */
-  virtual void connect_to_context (Context *);
-  virtual void disconnect_from_context ();
-  virtual void initialize ();
-  virtual void finalize ();
-  virtual void announce_grob (Grob_info, Direction dir, Context *reroute_context = 0);
+  void connect_to_context (Context *) override;
+  void disconnect_from_context () override;
+  void initialize () override;
+  void finalize () override;
+  void announce_grob (Grob_info, Direction dir,
+                      Context *reroute_context = 0) override;
   void stop_translation_timestep ();
 
   /*
     Translator interface
   */
-  virtual void derived_mark () const;
+  void derived_mark () const override;
 
 public:
   Score_engraver ();

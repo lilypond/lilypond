@@ -53,7 +53,7 @@ public:
   SCM mark_smob () const;
   static const char * const type_p_name_;
   virtual ~Output_def ();
-  DECLARE_CLASSNAME (Output_def);
+  VIRTUAL_CLASS_NAME (Output_def);
   virtual Output_def *clone () const { return new Output_def (*this); }
 
   SCM scope_;

@@ -30,7 +30,7 @@ class Event_chord_iterator : public Simple_music_iterator
   /**
      Find a bottom notation context to deliver events to.
   */
-  DECLARE_CLASSNAME (Event_chord_iterator);
+  OVERRIDE_CLASS_NAME (Event_chord_iterator);
 
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
@@ -38,8 +38,8 @@ public:
   Event_chord_iterator (Event_chord_iterator const &);
 
 protected:
-  virtual void process (Moment);
-  virtual void construct_children ();
+  void process (Moment) override;
+  void construct_children () override;
 };
 
 #endif // EVENT_CHORD_ITERATOR_HH

@@ -45,7 +45,7 @@ protected:
   void acknowledge_lyric_syllable (Grob_info);
   void listen_hyphen (Stream_event *);
 
-  virtual void finalize ();
+  void finalize () override;
 
   void stop_translation_timestep ();
   void process_music ();

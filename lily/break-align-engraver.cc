@@ -37,7 +37,7 @@ class Break_align_engraver : public Engraver
   void create_alignment (Grob_info);
 protected:
   void stop_translation_timestep ();
-  virtual void derived_mark () const;
+  void derived_mark () const override;
 public:
   TRANSLATOR_DECLARATIONS (Break_align_engraver);
   void acknowledge_break_aligned (Grob_info);

@@ -56,9 +56,9 @@ class Mensural_ligature_engraver : public Coherent_ligature_engraver
 {
 
 protected:
-  virtual Spanner *create_ligature_spanner ();
-  virtual void build_ligature (Spanner *ligature,
-                               vector<Grob_info> const &primitives);
+  Spanner *create_ligature_spanner () override;
+  void build_ligature (Spanner *ligature,
+                       vector<Grob_info> const &primitives) override;
 
 public:
   TRANSLATOR_DECLARATIONS (Mensural_ligature_engraver);

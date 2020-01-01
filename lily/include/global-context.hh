@@ -32,9 +32,9 @@ struct Preinit_Global_context
 class Global_context : Preinit_Global_context, public Context
 {
   PQueue<Moment> extra_mom_pq_;
-  virtual void derived_mark () const;
+  void derived_mark () const override;
 
-  DECLARE_CLASSNAME (Global_context);
+  OVERRIDE_CLASS_NAME (Global_context);
 
   friend class Output_def;
 public:
@@ -43,15 +43,15 @@ public:
   Moment sneaky_insert_extra_moment (Moment);
   void add_moment_to_process (Moment);
   void run_iterator_on_me (Music_iterator *);
-  virtual Context *get_score_context () const;
+  Context *get_score_context () const override;
 
   void apply_finalizations ();
   void add_finalization (SCM);
 
   void prepare (SCM);
   virtual SCM get_output ();
-  virtual Output_def *get_output_def () const;
-  virtual Moment now_mom () const;
+  Output_def *get_output_def () const override;
+  Moment now_mom () const override;
 
   Moment previous_moment () const;
 protected:

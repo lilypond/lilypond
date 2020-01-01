@@ -32,10 +32,10 @@ class Grace_engraver : public Engraver
   SCM grace_settings_;
   void consider_change_grace_settings ();
 protected:
-  virtual void derived_mark () const;
+  void derived_mark () const override;
   virtual void process_music ();
   virtual void start_translation_timestep ();
-  virtual void finalize ();
+  void finalize () override;
 
   TRANSLATOR_DECLARATIONS (Grace_engraver);
   void grace_change (SCM);

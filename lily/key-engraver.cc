@@ -41,8 +41,8 @@ public:
   TRANSLATOR_DECLARATIONS (Key_engraver);
 
 protected:
-  virtual void initialize ();
-  virtual void finalize ();
+  void initialize () override;
+  void finalize () override;
   void stop_translation_timestep ();
   void process_music ();
 

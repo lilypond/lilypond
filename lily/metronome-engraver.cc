@@ -48,7 +48,7 @@ protected:
 
   void acknowledge_break_aligned (Grob_info);
   void acknowledge_break_alignment (Grob_info);
-  void acknowledge_grob (Grob_info);
+  void acknowledge_grob (Grob_info) override;
 
   void listen_tempo_change (Stream_event *);
 };

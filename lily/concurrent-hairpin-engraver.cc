@@ -38,7 +38,7 @@ protected:
   void acknowledge_end_hairpin (Grob_info);
 
   void stop_translation_timestep ();
-  void finalize ();
+  void finalize () override;
 
 private:
   vector<Grob *> arriving_hairpins_;

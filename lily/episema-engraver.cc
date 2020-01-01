@@ -32,7 +32,7 @@ class Episema_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Episema_engraver);
 protected:
-  virtual void finalize ();
+  void finalize () override;
   void listen_episema (Stream_event *);
   void acknowledge_note_column (Grob_info);
   void acknowledge_note_head (Grob_info);

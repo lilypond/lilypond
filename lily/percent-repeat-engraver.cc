@@ -49,7 +49,7 @@ protected:
   Grob *first_command_column_;
   Moment command_moment_;
 
-  virtual void finalize ();
+  void finalize () override;
   void listen_percent (Stream_event *);
 
   void start_translation_timestep ();

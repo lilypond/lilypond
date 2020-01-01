@@ -48,12 +48,12 @@ public:
   bool accept_music_type (Stream_event *, bool is_cue = true) const;
 
 protected:
-  virtual void derived_mark () const;
-  virtual void construct_children ();
-  virtual Moment pending_moment () const;
-  virtual void process (Moment);
-  virtual void do_quit ();
-  virtual bool ok () const;
+  void derived_mark () const override;
+  void construct_children () override;
+  Moment pending_moment () const override;
+  void process (Moment) override;
+  void do_quit () override;
+  bool ok () const override;
 };
 
 void

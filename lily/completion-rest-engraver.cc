@@ -72,7 +72,7 @@ public:
   TRANSLATOR_DECLARATIONS (Completion_rest_engraver);
 
 protected:
-  virtual void initialize ();
+  void initialize () override;
   void start_translation_timestep ();
   void process_music ();
   void stop_translation_timestep ();

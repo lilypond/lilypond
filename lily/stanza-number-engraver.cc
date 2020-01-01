@@ -30,7 +30,7 @@ class Stanza_number_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Stanza_number_engraver);
   void process_music ();
-  virtual void derived_mark () const;
+  void derived_mark () const override;
   void stop_translation_timestep ();
   void acknowledge_lyric_syllable (Grob_info);
 };

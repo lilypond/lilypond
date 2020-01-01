@@ -29,15 +29,15 @@ class Performance : public Music_output
 public:
   Performance (bool ports = false);
   ~Performance ();
-  DECLARE_CLASSNAME (Performance);
+  OVERRIDE_CLASS_NAME (Performance);
 
   SCM get_header () const;
   void set_header (SCM header);
 
-  virtual void derived_mark () const;
+  void derived_mark () const override;
 
   void add_element (Audio_element *p);
-  virtual void process ();
+  void process () override;
   void remap_grace_durations ();
   void output (Midi_stream &midi_stream, const string &performance_name) const;
   void output_header_track (Midi_stream &midi_stream) const;

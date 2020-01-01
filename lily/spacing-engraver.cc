@@ -87,7 +87,7 @@ protected:
   void process_music ();
   void add_starter_duration (Grob_info i);
 
-  virtual void finalize ();
+  void finalize () override;
 
   void start_spanner ();
   void stop_spanner ();

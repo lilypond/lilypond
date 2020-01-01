@@ -64,7 +64,7 @@ public:
   SCM lookup (SCM sym) const;
   bool is_alias (SCM sym) const;
 
-  DECLARE_CLASSNAME (Context_def);
+  VIRTUAL_CLASS_NAME (Context_def);
   virtual Context_def *clone () const { return new Context_def (*this); }
 
   vector<Context_def *> path_to_acceptable_context (SCM type_string,

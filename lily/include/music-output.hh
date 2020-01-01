@@ -34,7 +34,7 @@ public:
   static const char * const type_p_name_;
   virtual ~Music_output ();
 private:
-  DECLARE_CLASSNAME (Music_output);
+  VIRTUAL_CLASS_NAME (Music_output);
 protected:
   Music_output ();
 
