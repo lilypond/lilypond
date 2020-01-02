@@ -259,7 +259,7 @@ Completion_heads_engraver::process_music ()
 
   left_to_do_ -= note_dur.get_length ();
   if (left_to_do_)
-    get_global_context ()->add_moment_to_process (now.main_part_ + note_dur.get_length ());
+    find_global_context ()->add_moment_to_process (now.main_part_ + note_dur.get_length ());
   /*
     don't do complicated arithmetic with grace notes.
   */

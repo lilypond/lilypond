@@ -157,8 +157,8 @@ Grob_property_info::create ()
   if (check ())
     return true;
   SCM current_context_val = SCM_EOL;
-  Context *g = context_->get_global_context ();
-  if (!g)
+  Context *g = find_top_context (context_);
+  if (!dynamic_cast<Global_context *> (g))
     return false; // Context is probably dead
 
   /*

@@ -193,10 +193,7 @@ Context::make_revert_finalization (SCM sym)
 void
 Context::add_global_finalization (SCM x)
 {
-  if (Global_context *g = get_global_context ())
-    g->add_finalization (x);
-  else
-    programming_error ("no global context");
+  find_global_context (this)->add_finalization (x);
 }
 
 void
@@ -789,19 +786,6 @@ Context::mark_smob () const
 }
 
 const char * const Context::type_p_name_ = "ly:context?";
-
-Global_context *
-Context::get_global_context () const
-{
-  if (dynamic_cast<Global_context *> ((Context *) this))
-    return dynamic_cast<Global_context *> ((Context *) this);
-
-  if (daddy_context_)
-    return daddy_context_->get_global_context ();
-
-  programming_error ("no Global context");
-  return 0;
-}
 
 Context *
 Context::get_parent_context () const

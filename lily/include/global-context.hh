@@ -61,6 +61,11 @@ protected:
   Moment now_mom_;
 };
 
+// If the given context is null, return null.  Otherwise, starting from the
+// given context, find the top context, expecting it to be a Global_context.
+// If it is not a Global_context, abort the program.
+Global_context *find_global_context (Context *where);
+
 SCM ly_format_output (SCM);
 
 #endif // GLOBAL_CONTEXT_HH

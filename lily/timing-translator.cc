@@ -28,8 +28,6 @@
 void
 Timing_translator::stop_translation_timestep ()
 {
-  Global_context *global = get_global_context ();
-
   if (to_boolean (get_property ("timing"))
       && !to_boolean (get_property ("skipBars")))
     {
@@ -40,7 +38,7 @@ Timing_translator::stop_translation_timestep ()
         {
           Moment nextmom = now + barleft;
           nextmom.grace_part_ = Rational (0);
-          global->add_moment_to_process (nextmom);
+          find_global_context ()->add_moment_to_process (nextmom);
         }
     }
 }
@@ -153,7 +151,7 @@ Timing_translator::Timing_translator (Context *c)
 void
 Timing_translator::start_translation_timestep ()
 {
-  Global_context *global = get_global_context ();
+  Global_context *global = find_global_context ();
 
   Moment now = global->now_mom ();
   Moment dt = now - global->previous_moment ();

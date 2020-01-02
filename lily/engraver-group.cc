@@ -39,13 +39,13 @@ Engraver_group::override (SCM sev)
       SCM token = gpi.temporary_override (ev->get_property ("property-path"),
                                           ev->get_property ("value"));
       if (scm_is_pair (token))
-        if (Global_context *g = context ()->get_global_context ())
-          {
-            g->add_finalization (scm_list_4 (ly_context_matched_pop_property_proc,
-                                             context ()->self_scm (),
-                                             sym,
-                                             token));
-          }
+        {
+          Global_context *g = find_global_context (context ());
+          g->add_finalization (scm_list_4 (ly_context_matched_pop_property_proc,
+                                           context ()->self_scm (),
+                                           sym,
+                                           token));
+        }
     }
   else
     gpi.push (ev->get_property ("property-path"),
@@ -63,13 +63,13 @@ Engraver_group::revert (SCM sev)
     {
       SCM token = gpi.temporary_revert (ev->get_property ("property-path"));
       if (scm_is_pair (token))
-        if (Global_context *g = context ()->get_global_context ())
-          {
-            g->add_finalization (scm_list_4 (ly_context_matched_pop_property_proc,
-                                             context ()->self_scm (),
-                                             sym,
-                                             token));
-          }
+        {
+          Global_context *g = find_global_context (context ());
+          g->add_finalization (scm_list_4 (ly_context_matched_pop_property_proc,
+                                           context ()->self_scm (),
+                                           sym,
+                                           token));
+        }
     }
   else
     gpi.pop (ev->get_property ("property-path"));

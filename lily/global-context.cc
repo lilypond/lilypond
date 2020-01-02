@@ -208,3 +208,14 @@ Global_context::previous_moment () const
 {
   return prev_mom_;
 }
+
+Global_context *
+find_global_context (Context *where)
+{
+  if (!where)
+    return nullptr;
+  if (auto g = dynamic_cast<Global_context *> (find_top_context (where)))
+    return g;
+  programming_error ("no global context");
+  abort ();
+}

@@ -157,6 +157,7 @@ public:
 protected:
   Translator (Context *);
 
+  Global_context *find_global_context () const;
   Context *find_score_context () const;
 
 private:
@@ -181,8 +182,6 @@ public:
   void start_translation_timestep ();
   void process_music ();
   void process_acknowledged ();
-
-  Global_context *get_global_context () const;
 
   VIRTUAL_CLASS_NAME (Translator);
 

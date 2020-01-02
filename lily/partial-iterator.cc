@@ -62,10 +62,10 @@ Partial_iterator::process (Moment m)
       else if (get_outlet ()->now_mom () > 0)
         {
           timing->set_property ("partialBusy", ly_bool2scm (true));
-          Global_context *tg = get_outlet ()->get_global_context ();
-          tg->add_finalization (scm_list_3 (finalization_proc,
-                                            get_outlet ()->self_scm (),
-                                            length.smobbed_copy ()));
+          Global_context *g = find_global_context (get_outlet ());
+          g->add_finalization (scm_list_3 (finalization_proc,
+                                           get_outlet ()->self_scm (),
+                                           length.smobbed_copy ()));
         }
       else
         {

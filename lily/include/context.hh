@@ -145,7 +145,6 @@ public:
   void check_removal ();
   string context_name () const;
   SCM context_name_symbol () const;
-  Global_context *get_global_context () const;
 
   virtual Output_def *get_output_def () const;
   virtual Moment now_mom () const;

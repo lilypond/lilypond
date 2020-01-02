@@ -100,7 +100,7 @@ Measure_grouping_engraver::process_music ()
                   grouping_->set_bound (LEFT, unsmob<Grob> (get_property ("currentMusicalColumn")));
 
                   stop_grouping_mom_ = now.main_part_ + Rational (grouplen - 1) * base_moment;
-                  get_global_context ()->add_moment_to_process (Moment (stop_grouping_mom_));
+                  find_global_context ()->add_moment_to_process (Moment (stop_grouping_mom_));
 
                   if (grouplen == 3)
                     grouping_->set_property ("style", ly_symbol2scm ("triangle"));

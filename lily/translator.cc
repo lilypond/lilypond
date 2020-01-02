@@ -183,9 +183,9 @@ Translator::mark_smob () const
 }
 
 Global_context *
-Translator::get_global_context () const
+Translator::find_global_context () const
 {
-  return daddy_context_->get_global_context ();
+  return ::find_global_context (daddy_context_);
 }
 
 Context *
