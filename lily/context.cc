@@ -111,8 +111,11 @@ Context::create_unique_context (SCM name, const string &id, SCM operations)
     Don't create multiple score contexts.
   */
   Global_context *gthis = dynamic_cast<Global_context *> (this);
-  if (gthis && gthis->get_score_context ())
-    return gthis->get_score_context ()->create_unique_context (name, id, operations);
+  if (gthis)
+    {
+      if (Context *score = gthis->get_score_context ())
+        return score->create_unique_context (name, id, operations);
+    }
 
   vector<Context_def *> path = path_to_acceptable_context (name);
   if (!path.empty ())
@@ -145,11 +148,8 @@ Context::find_create_context (SCM n, const string &id,
   Global_context *gthis = dynamic_cast<Global_context *> (this);
   if (gthis)
     {
-      if (gthis->get_score_context ())
-        {
-          return gthis->get_score_context ()->
-            find_create_context (n, id, operations);
-        }
+      if (Context *score = gthis->get_score_context ())
+        return score->find_create_context (n, id, operations);
     }
 
   vector<Context_def *> path = path_to_acceptable_context (n);
@@ -712,15 +712,6 @@ Context::diagnostic_id (SCM name, const string& id)
       result += id;
     }
   return result;
-}
-
-Context *
-Context::get_score_context () const
-{
-  if (daddy_context_)
-    return daddy_context_->get_score_context ();
-  else
-    return 0;
 }
 
 Output_def *

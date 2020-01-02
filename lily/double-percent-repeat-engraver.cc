@@ -89,8 +89,7 @@ Double_percent_repeat_engraver::process_music ()
           double_percent_counter->set_parent (double_percent, X_AXIS);
         }
       // forbid breaks on a % line
-      context ()->get_score_context ()->set_property ("forbidBreak",
-                                                      SCM_BOOL_T);
+      find_score_context ()->set_property ("forbidBreak", SCM_BOOL_T);
       percent_event_ = 0;
     }
 }

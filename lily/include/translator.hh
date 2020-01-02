@@ -156,6 +156,9 @@ public:
 
 protected:
   Translator (Context *);
+
+  Context *find_score_context () const;
+
 private:
   Translator (Translator const &) = delete;
   Translator& operator= (Translator const &) = delete;
@@ -179,7 +182,6 @@ public:
   void process_music ();
   void process_acknowledged ();
 
-  Context *get_score_context () const;
   Global_context *get_global_context () const;
 
   VIRTUAL_CLASS_NAME (Translator);

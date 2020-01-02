@@ -94,7 +94,7 @@ void
 Bar_engraver::stop_translation_timestep ()
 {
   if (!bar_)
-    context ()->get_score_context ()->set_property ("forbidBreak", SCM_BOOL_T);
+    find_score_context ()->set_property ("forbidBreak", SCM_BOOL_T);
 
   bar_ = 0;
   spanners_.clear ();

@@ -41,9 +41,7 @@ void
 Spanner_break_forbid_engraver::process_music ()
 {
   if (running_spanners_.size ())
-    {
-      context ()->get_score_context ()->set_property ("forbidBreak", SCM_BOOL_T);
-    }
+    find_score_context ()->set_property ("forbidBreak", SCM_BOOL_T);
 }
 
 void

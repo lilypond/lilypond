@@ -127,7 +127,7 @@ Ligature_engraver::process_music ()
   if (ligature_)
     {
       // TODO: maybe forbid breaks only if not transcribing
-      context ()->get_score_context ()->set_property ("forbidBreak", SCM_BOOL_T);
+      find_score_context ()->set_property ("forbidBreak", SCM_BOOL_T);
     }
 
   if (events_drul_[START])

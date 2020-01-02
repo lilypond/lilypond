@@ -189,9 +189,13 @@ Translator::get_global_context () const
 }
 
 Context *
-Translator::get_score_context () const
+Translator::find_score_context () const
 {
-  return daddy_context_->get_score_context ();
+  Context *score = find_context_above (daddy_context_, ly_symbol2scm ("Score"));
+  if (score)
+    return score;
+  programming_error ("no score context");
+  abort ();
 }
 
 const char * const Translator::type_p_name_ = "ly:translator?";

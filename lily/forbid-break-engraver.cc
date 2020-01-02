@@ -54,7 +54,7 @@ Forbid_line_break_engraver::start_translation_timestep ()
     {
       Grob *g = unsmob<Grob> (scm_cdar (busy));
       if (g->internal_has_interface (ly_symbol2scm ("rhythmic-grob-interface")))
-        context ()->get_score_context ()->set_property ("forbidBreak", SCM_BOOL_T);
+        find_score_context ()->set_property ("forbidBreak", SCM_BOOL_T);
       busy = scm_cdr (busy);
     }
 }

@@ -45,7 +45,7 @@ public:
   void run_iterator_on_me (Music_iterator *);
 
   bool is_accessible_to_user () const override { return false; }
-  Context *get_score_context () const override;
+  Context *get_score_context () const;
 
   void apply_finalizations ();
   void add_finalization (SCM);

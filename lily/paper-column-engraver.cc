@@ -283,7 +283,7 @@ Paper_column_engraver::stop_translation_timestep ()
         progress_indication ("[" + ::to_string (breaks_) + "]");
     }
 
-  context ()->get_score_context ()->unset_property (ly_symbol2scm ("forbidBreak"));
+  find_score_context ()->unset_property (ly_symbol2scm ("forbidBreak"));
 
   first_ = false;
   label_events_.clear ();
