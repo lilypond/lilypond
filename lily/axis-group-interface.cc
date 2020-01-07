@@ -152,7 +152,7 @@ Axis_group_interface::sum_partial_pure_heights (Grob *me, int start, int end)
 }
 
 Interval
-Axis_group_interface::part_of_line_pure_height (Grob *me, bool begin, int start, int end)
+Axis_group_interface::part_of_line_pure_height (Grob *me, bool begin, vsize start, vsize end)
 {
   Spanner *sp = dynamic_cast<Spanner *> (me);
   if (!sp)
@@ -186,19 +186,20 @@ Axis_group_interface::part_of_line_pure_height (Grob *me, bool begin, int start,
 }
 
 Interval
-Axis_group_interface::begin_of_line_pure_height (Grob *me, int start)
+Axis_group_interface::begin_of_line_pure_height (Grob *me, vsize start)
 {
   return part_of_line_pure_height (me, true, start, start + 1);
 }
 
 Interval
-Axis_group_interface::rest_of_line_pure_height (Grob *me, int start, int end)
+Axis_group_interface::rest_of_line_pure_height (Grob *me, vsize start, vsize end)
 {
   return part_of_line_pure_height (me, false, start, end);
 }
 
 Interval
-Axis_group_interface::combine_pure_heights (Grob *me, SCM measure_extents, int start, int end)
+Axis_group_interface::combine_pure_heights (Grob *me, SCM measure_extents,
+                                            vsize start, vsize end)
 {
   Paper_score *ps = get_root_system (me)->paper_score ();
   vector<vsize> const &breaks = ps->get_break_indices ();
@@ -207,7 +208,7 @@ Axis_group_interface::combine_pure_heights (Grob *me, SCM measure_extents, int s
   Interval ext;
   for (vsize i = 0; i + 1 < breaks.size (); i++)
     {
-      int r = cols[breaks[i]]->get_rank ();
+      vsize r = cols[breaks[i]]->get_rank ();
       if (r >= end)
         break;
 
@@ -279,13 +280,13 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
 
       for (vsize j = first_break; j + 1 < ranks.size () && (int)ranks[j] <= rank_span[RIGHT]; ++j)
         {
-          int start = ranks[j];
-          int end = ranks[j + 1];
+          vsize start = ranks[j];
+          vsize end = ranks[j + 1];
 
           // Take grobs that are visible with respect to a slightly longer line.
           // Otherwise, we will never include grobs at breakpoints which aren't
           // end-of-line-visible.
-          int visibility_end = j + 2 < ranks.size () ? ranks[j + 2] : end;
+          vsize visibility_end = j + 2 < ranks.size () ? ranks[j + 2] : end;
 
           if (g->pure_is_visible (start, visibility_end))
             {
@@ -316,8 +317,10 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
   SCM mid_scm = scm_c_make_vector (ranks.size () - 1, SCM_EOL);
   for (vsize i = 0; i < begin_line_heights.size (); ++i)
     {
-      scm_vector_set_x (begin_scm, scm_from_int (i), ly_interval2scm (begin_line_heights[i]));
-      scm_vector_set_x (mid_scm, scm_from_int (i), ly_interval2scm (mid_line_heights[i]));
+      scm_c_vector_set_x (begin_scm, i,
+                          ly_interval2scm (begin_line_heights[i]));
+      scm_c_vector_set_x (mid_scm, i,
+                          ly_interval2scm (mid_line_heights[i]));
     }
 
   return scm_cons (begin_scm, mid_scm);

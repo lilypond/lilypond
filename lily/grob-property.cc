@@ -189,7 +189,7 @@ Grob::internal_get_property (SCM sym) const
 
 /* Unlike internal_get_property, this function does no caching. Use it, therefore, with caution. */
 SCM
-Grob::internal_get_pure_property (SCM sym, int start, int end) const
+Grob::internal_get_pure_property (SCM sym, vsize start, vsize end) const
 {
   SCM val = internal_get_property_data (sym);
   if (ly_is_procedure (val))
@@ -207,7 +207,8 @@ Grob::internal_get_pure_property (SCM sym, int start, int end) const
 }
 
 SCM
-Grob::internal_get_maybe_pure_property (SCM sym, bool pure, int start, int end) const
+Grob::internal_get_maybe_pure_property (SCM sym, bool pure,
+                                        vsize start, vsize end) const
 {
   return pure ? internal_get_pure_property (sym, start, end) : internal_get_property (sym);
 }
@@ -320,7 +321,7 @@ Grob::internal_has_interface (SCM k) const
 }
 
 SCM
-call_pure_function (SCM value, SCM args, int start, int end)
+call_pure_function (SCM value, SCM args, vsize start, vsize end)
 {
   if (Unpure_pure_container *upc = unsmob<Unpure_pure_container> (value))
     {
@@ -339,8 +340,8 @@ call_pure_function (SCM value, SCM args, int start, int end)
       if (ly_is_procedure (value))
         return scm_apply_3 (value,
                             scm_car (args),
-                            scm_from_int (start),
-                            scm_from_int (end),
+                            scm_from_size_t (start),
+                            scm_from_size_t (end),
                             scm_cdr (args));
 
       return value;

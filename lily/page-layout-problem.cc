@@ -1096,7 +1096,9 @@ Page_layout_problem::read_spacing_spec (SCM spec, Real *dest, SCM sym)
 // If after is spaceable, it is the (spaceable_index + 1)th spaceable grob in
 // its alignment.
 Real
-Page_layout_problem::get_fixed_spacing (Grob *before, Grob *after, int spaceable_index, bool pure, int start, int end)
+Page_layout_problem::get_fixed_spacing (Grob *before, Grob *after,
+                                        int spaceable_index, bool pure,
+                                        vsize start, vsize end)
 {
   Spanner *after_sp = dynamic_cast<Spanner *> (after);
   SCM cache_symbol = (is_spaceable (before) && is_spaceable (after))
@@ -1156,7 +1158,8 @@ const double HUGE_STRETCH = 10e7;
 
 // Returns the spacing spec connecting BEFORE to AFTER.
 SCM
-Page_layout_problem::get_spacing_spec (Grob *before, Grob *after, bool pure, int start, int end)
+Page_layout_problem::get_spacing_spec (Grob *before, Grob *after, bool pure,
+                                       vsize start, vsize end)
 {
   // If there are no spacing wishes, return a very flexible spring.
   // This will occur, for example, if there are lyrics at the bottom of

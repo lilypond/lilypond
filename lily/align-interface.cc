@@ -72,7 +72,7 @@ static Skyline_pair
 get_skylines (Grob *g,
               Axis a,
               Grob *other_common,
-              bool pure, int start, int end)
+              bool pure, vsize start, vsize end)
 {
   Skyline_pair skylines;
 
@@ -143,7 +143,7 @@ Align_interface::get_minimum_translations (Grob *me,
 vector<Real>
 Align_interface::get_pure_minimum_translations (Grob *me,
                                                 vector<Grob *> const &all_grobs,
-                                                Axis a, int start, int end)
+                                                Axis a, vsize start, vsize end)
 {
   return internal_get_minimum_translations (me, all_grobs, a, true, true, start, end);
 }
@@ -170,7 +170,7 @@ Align_interface::internal_get_minimum_translations (Grob *me,
                                                     vector<Grob *> const &elems,
                                                     Axis a,
                                                     bool include_fixed_spacing,
-                                                    bool pure, int start, int end)
+                                                    bool pure, vsize start, vsize end)
 {
   if (!pure && a == Y_AXIS && dynamic_cast<Spanner *> (me) && !me->get_system ())
     me->programming_error ("vertical alignment called before line-breaking");
@@ -178,7 +178,8 @@ Align_interface::internal_get_minimum_translations (Grob *me,
   // check the cache
   if (pure)
     {
-      SCM fv = ly_assoc_get (scm_cons (scm_from_int (start), scm_from_int (end)),
+      SCM fv = ly_assoc_get (scm_cons (scm_from_size_t (start),
+                                       scm_from_size_t (end)),
                              me->get_property ("minimum-translations-alist"),
                              SCM_EOL);
       if (!scm_is_null (fv))
@@ -283,7 +284,8 @@ Align_interface::internal_get_minimum_translations (Grob *me,
   if (pure)
     {
       SCM mta = me->get_property ("minimum-translations-alist");
-      mta = scm_cons (scm_cons (scm_cons (scm_from_int (start), scm_from_int (end)),
+      mta = scm_cons (scm_cons (scm_cons (scm_from_size_t (start),
+                                          scm_from_size_t (end)),
                                 ly_floatvector2scm (translates)),
                       mta);
       me->set_property ("minimum-translations-alist", mta);
@@ -316,7 +318,7 @@ Align_interface::align_elements_to_minimum_distances (Grob *me, Axis a)
 }
 
 Real
-Align_interface::get_pure_child_y_translation (Grob *me, Grob *ch, int start, int end)
+Align_interface::get_pure_child_y_translation (Grob *me, Grob *ch, vsize start, vsize end)
 {
   extract_grob_set (me, "elements", all_grobs);
   vector<Real> translates = get_pure_minimum_translations (me, all_grobs, Y_AXIS, start, end);

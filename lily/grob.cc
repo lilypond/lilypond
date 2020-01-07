@@ -355,7 +355,7 @@ Grob::parent_relative (Grob const *refp, Axis a) const
 }
 
 Real
-Grob::pure_relative_y_coordinate (Grob const *refp, int start, int end)
+Grob::pure_relative_y_coordinate (Grob const *refp, vsize start, vsize end)
 {
   if (refp == this)
     return 0.0;
@@ -425,7 +425,8 @@ Grob::get_offset (Axis a) const
 }
 
 Real
-Grob::maybe_pure_coordinate (Grob const *refp, Axis a, bool pure, int start, int end)
+Grob::maybe_pure_coordinate (Grob const *refp, Axis a, bool pure,
+                             vsize start, vsize end)
 {
   if (pure && a != Y_AXIS)
     programming_error ("tried to get pure X-offset");
@@ -493,7 +494,7 @@ Grob::extent (Grob const *refp, Axis a) const
 }
 
 Interval
-Grob::pure_y_extent (Grob *refp, int start, int end)
+Grob::pure_y_extent (Grob *refp, vsize start, vsize end)
 {
   SCM iv_scm = get_pure_property ("Y-extent", start, end);
   Interval iv = robust_scm2interval (iv_scm, Interval ());
@@ -513,7 +514,7 @@ Grob::pure_y_extent (Grob *refp, int start, int end)
 }
 
 Interval
-Grob::maybe_pure_extent (Grob *refp, Axis a, bool pure, int start, int end)
+Grob::maybe_pure_extent (Grob *refp, Axis a, bool pure, vsize start, vsize end)
 {
   return (pure && a == Y_AXIS) ? pure_y_extent (refp, start, end) : extent (refp, a);
 }

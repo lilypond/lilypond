@@ -107,8 +107,9 @@ public:
   SCM get_property_alist_chain (SCM) const;
   SCM internal_get_property (SCM symbol) const;
   SCM internal_get_property_data (SCM symbol) const;
-  SCM internal_get_pure_property (SCM symbol, int start, int end) const;
-  SCM internal_get_maybe_pure_property (SCM symbol, bool pure, int start, int end) const;
+  SCM internal_get_pure_property (SCM symbol, vsize start, vsize end) const;
+  SCM internal_get_maybe_pure_property (SCM symbol, bool pure,
+                                        vsize start, vsize end) const;
   SCM internal_get_non_callback_marker_property_data (SCM symbol) const;
   SCM internal_get_object (SCM symbol) const;
   void internal_set_object (SCM sym, SCM val);
@@ -142,14 +143,15 @@ public:
   void translate_axis (Real, Axis);
   Real relative_coordinate (Grob const *refp, Axis) const;
   Real parent_relative (Grob const *refp, Axis) const;
-  Real pure_relative_y_coordinate (Grob const *refp, int start, int end);
-  Real maybe_pure_coordinate (Grob const *refp, Axis a, bool pure, int start, int end);
+  Real pure_relative_y_coordinate (Grob const *refp, vsize start, vsize end);
+  Real maybe_pure_coordinate (Grob const *refp, Axis a, bool pure, vsize start, vsize end);
 
   /* extents */
   Interval extent (Grob const *refpoint, Axis) const;
   void flush_extent_cache (Axis);
-  virtual Interval pure_y_extent (Grob *refpoint, int start, int end);
-  Interval maybe_pure_extent (Grob *refpoint, Axis, bool pure, int start, int end);
+  virtual Interval pure_y_extent (Grob *refpoint, vsize start, vsize end);
+  Interval maybe_pure_extent (Grob *refpoint, Axis, bool pure,
+                              vsize start, vsize end);
 
   /* refpoints */
   Grob *common_refpoint (Grob const *s, Axis a) const;
@@ -203,7 +205,7 @@ void chain_callback (Grob *g, SCM proc, SCM sym);
 SCM axis_offset_symbol (Axis a);
 SCM axis_parent_positioning (Axis a);
 
-SCM call_pure_function (SCM unpure, SCM args, int start, int end);
+SCM call_pure_function (SCM unpure, SCM args, vsize start, vsize end);
 
 void set_nested_property (Grob *, SCM property_path, SCM value);
 

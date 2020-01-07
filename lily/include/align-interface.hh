@@ -33,21 +33,24 @@ public:
   static void align_elements_to_ideal_distances (Grob *);
   static std::vector<Real> get_minimum_translations (Grob *, std::vector<Grob *> const &, Axis a);
   static std::vector<Real> get_minimum_translations_without_min_dist (Grob *, std::vector<Grob *> const &, Axis a);
-  static std::vector<Real> get_pure_minimum_translations (Grob *, std::vector<Grob *> const &,
-                                                     Axis a, int start, int end);
+  static std::vector<Real>
+  get_pure_minimum_translations (Grob *, std::vector<Grob *> const &,
+                                 Axis a, vsize start, vsize end);
   static void set_ordered (Grob *);
   static Axis axis (Grob *);
   static void add_element (Grob *, Grob *);
   static int get_count (Grob *, Grob *);
 
 
-  static Real get_pure_child_y_translation (Grob *, Grob *child, int start, int end);
+  static Real get_pure_child_y_translation (Grob *, Grob *child,
+                                            vsize start, vsize end);
 
 protected:
   static std::vector<Real> internal_get_minimum_translations (Grob *, std::vector<Grob *> const &,
                                                          Axis a,
                                                          bool include_fixed_spacing,
-                                                         bool pure, int start, int end);
+                                                         bool pure,
+                                                         vsize start, vsize end);
 };
 
 #endif /* ALIGN_INTERFACE_HH */

@@ -214,7 +214,7 @@ Item::derived_mark () const
 }
 
 Interval
-Item::pure_y_extent (Grob *g, int start, int end)
+Item::pure_y_extent (Grob *g, vsize start, vsize end)
 {
   if (cached_pure_height_valid_)
     return cached_pure_height_ + pure_relative_y_coordinate (g, start, end);

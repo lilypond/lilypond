@@ -53,11 +53,11 @@ class Axis_group_interface
   static Interval relative_maybe_bound_group_extent (std::vector<Grob *> const &list,
                                                      Grob *common, Axis, bool);
   static Interval relative_pure_height (Grob *me, int start, int end);
-  static Interval combine_pure_heights (Grob *me, SCM, int, int);
+  static Interval combine_pure_heights (Grob *me, SCM, vsize, vsize);
   static Interval sum_partial_pure_heights (Grob *me, int, int);
-  static Interval begin_of_line_pure_height (Grob *me, int);
-  static Interval rest_of_line_pure_height (Grob *me, int, int);
-  static Interval part_of_line_pure_height (Grob *me, bool begin, int, int);
+  static Interval begin_of_line_pure_height (Grob *me, vsize);
+  static Interval rest_of_line_pure_height (Grob *me, vsize, vsize);
+  static Interval part_of_line_pure_height (Grob *me, bool begin, vsize, vsize);
 
   static Grob *outside_staff_ancestor (Grob *me);
   static Skyline_pair skyline_spacing (Grob *me);
