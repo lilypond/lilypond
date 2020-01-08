@@ -104,6 +104,20 @@ Context::Context ()
   events_below_->unprotect ();
 }
 
+// True if this context has the given type and id.
+// These values function as wildcards: type=SCM_EOL, id="".
+bool
+Context::matches (SCM type, const string &id) const
+{
+  if (!id.empty () && (id_string () != id))
+    return false;
+
+  if (!scm_is_null (type) && !is_alias (type))
+    return false;
+
+  return true;
+}
+
 /* TODO: create_unique_context () and find_create_context () are concerningly
    similar yet different.  If you come to understand whether they should be
    merged, please do it or comment on what should or should not be done. */
@@ -634,11 +648,8 @@ Context *
 find_context_below (Context *where,
                     SCM type, const string &id)
 {
-  if (where->is_alias (type))
-    {
-      if (id == "" || where->id_string () == id)
-        return where;
-    }
+  if (where->matches (type, id))
+    return where;
 
   Context *found = 0;
   for (SCM s = where->children_contexts ();
