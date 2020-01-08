@@ -1759,13 +1759,7 @@ def conv (str):
 @rule ((2, 1, 27), "property transposing -> tuning")
 def conv (str):
     def subst (m):
-        g = int (m.group (2))
-        o = g / 12
-        g -= o * 12
-        if g <  0:
-            g += 12
-            o -= 1
-
+        (o, g) = divmod (int (m.group (2)), 12)
 
         lower_pitches = filter (lambda x : x <= g, [0, 2, 4, 5, 7, 9, 11, 12])
         s = len (lower_pitches) -1
@@ -1774,10 +1768,11 @@ def conv (str):
 
         str = 'cdefgab' [s]
         str += ['eses', 'es', '', 'is', 'isis'][a + 2]
+        o += 1                  # c' is octave 0
         if o < 0:
-            str += ',' * (-o - 1)
-        elif o >= 0:
-            str += "'" * (o + 1)
+            str += (-o) * ","
+        elif o > 0:
+            str += o * "'"
 
         return '\\transposition %s ' % str
 
@@ -3218,7 +3213,6 @@ def paren_matcher (n):
     # parens inside; add the outer parens yourself if needed.
     # Nongreedy.
     return r"[^()]*?(?:\("*n+r"[^()]*?"+r"\)[^()]*?)*?"*n
-    return
 
 def undollar_scm (m):
     return re.sub (r"\$(.?)", r"\1", m.group (0))
