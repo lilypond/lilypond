@@ -43,6 +43,8 @@ public:
   Moment sneaky_insert_extra_moment (Moment);
   void add_moment_to_process (Moment);
   void run_iterator_on_me (Music_iterator *);
+
+  bool is_accessible_to_user () const override { return false; }
   Context *get_score_context () const override;
 
   void apply_finalizations ();

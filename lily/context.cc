@@ -132,6 +132,13 @@ Context *
 Context::find_create_context (SCM n, const string &id,
                               SCM operations)
 {
+  // Searching below in recursive calls can find contexts beyond those that are
+  // visible when looking just down and up from the starting point.  The
+  // regression test lyric-combine-polyphonic.ly has a reasonably simple
+  // example of how this can be useful.
+  if (Context *existing = find_context_below (this, n, id))
+    return existing->is_accessible_to_user () ? existing : nullptr;
+
   /*
     Don't create multiple score contexts.
   */
@@ -144,13 +151,6 @@ Context::find_create_context (SCM n, const string &id,
             find_create_context (n, id, operations);
         }
     }
-
-  // Searching below in recursive calls can find contexts beyond those that are
-  // visible when looking just down and up from the starting point.  The
-  // regression test lyric-combine-polyphonic.ly has a reasonably simple
-  // example of how this can be useful.
-  if (Context *existing = find_context_below (this, n, id))
-    return existing;
 
   vector<Context_def *> path = path_to_acceptable_context (n);
   if (!path.empty ())

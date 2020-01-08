@@ -135,6 +135,8 @@ public:
   void internal_set_property (SCM var_sym, SCM value);
 
   Context *create_context (Context_def *, const string&, SCM);
+  virtual bool is_accessible_to_user () const { return true; }
+
   void create_context_from_event (SCM);
   void acknowledge_infant (SCM);
   void remove_context (SCM);
