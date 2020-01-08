@@ -18,7 +18,7 @@ else
   configure=./configure
   conf_flags="--srcdir $srcdir $conf_flags"
   echo "Running autoconf for read-only source directory ..."
-  autoconf -I "$srcdir" -o "$configure" "$srcdir/configure.ac" || exit 1
+  SRCDIR="$srcdir" autoconf -I "$srcdir" -o "$configure" "$srcdir/configure.ac" || exit 1
 fi
 # Autoconf automatically checks its own minimum required
 # version, and it aborts when the check fails.

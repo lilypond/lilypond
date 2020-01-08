@@ -1,10 +1,12 @@
 dnl configure.ac   -*-shell-script-*-
 dnl Process this file with autoconf to produce a configure script.
 
-AC_PREREQ(2.60)
+AC_PREREQ([2.60])
 
 # Bootstrap the init process.
-AC_INIT
+AC_INIT([LilyPond],
+    [m4_esyscmd_s([. ${SRCDIR:-.}/VERSION; echo $MAJOR_VERSION.$MINOR_VERSION.$PATCH_LEVEL])],
+    [bug-lilypond@gnu.org], [lilypond], [http://lilypond.org/])
 
 # Bootstrap StepMake configure
 AC_CONFIG_AUX_DIR([config])
