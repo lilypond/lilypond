@@ -20,7 +20,7 @@
 #ifndef INTERVAL_HH
 #define INTERVAL_HH
 
-#include <math.h>
+#include <cmath>
 
 #include "flower-proto.hh"
 #include "std-string.hh"

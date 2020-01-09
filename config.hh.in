@@ -19,9 +19,6 @@
 /* define if you have gettext */
 #define HAVE_GETTEXT 0
 
-/* define if you have isinf */
-#define HAVE_ISINF 0
-
 /* define if you have lrint */
 #define HAVE_LRINT 0
 

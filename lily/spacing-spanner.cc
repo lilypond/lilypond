@@ -19,7 +19,7 @@
 
 #include "spacing-spanner.hh"
 
-#include <math.h>
+#include <cmath>
 #include <cstdio>
 
 #include "spacing-options.hh"

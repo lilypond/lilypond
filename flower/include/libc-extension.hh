@@ -47,12 +47,6 @@ __attribute__ ((format (printf, 3, 4)));
 int vsnprintf (char *str, size_t, char const *format, va_list args);
 #endif
 
-#ifndef isinf
-#if ! HAVE_ISINF                /* BSD extension. */
-int isinf (double x);
-#endif
-#endif
-
 /* }; */
 
 #endif /* LIBC_EXTENSION_HH */

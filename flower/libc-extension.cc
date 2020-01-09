@@ -114,16 +114,6 @@ my_round (double x)
 
 /* namespace std { */
 
-#ifndef isinf
-#if !HAVE_ISINF
-int
-isinf (double x)
-{
-  return x && (x == x / 2);
-}
-#endif
-#endif
-
 #if ! HAVE_SNPRINTF
 int
 snprintf (char *str, size_t n, char const *format, ...)

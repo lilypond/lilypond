@@ -22,7 +22,6 @@
 #include "engraver-group.hh"
 #include "international.hh"
 #include "item.hh"
-#include "math.h" // ceil
 #include "misc.hh"
 #include "repeated-music.hh"
 #include "rhythmic-head.hh"
