@@ -29,6 +29,8 @@ using namespace std;
 #include "sources.hh"
 #include "warn.hh"
 
+using std::string;
+
 Input
 Input::spot () const
 {

@@ -24,6 +24,8 @@
 #include "page-breaking.hh"
 #include "warn.hh"
 
+using std::vector;
+
 void
 Page_spacing::calc_force ()
 {

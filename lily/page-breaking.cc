@@ -143,6 +143,9 @@
 #include "system.hh"
 #include "warn.hh"
 
+using std::pair;
+using std::vector;
+
 /* for each forbidden page break, merge the systems around it into one
    system. */
 static vector<Line_details>

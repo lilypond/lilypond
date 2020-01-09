@@ -25,6 +25,8 @@
 #include "item.hh"
 #include "paper-column.hh"
 
+using std::vector;
+
 #define EPS 1e-5
 
 struct Fingering_and_offset

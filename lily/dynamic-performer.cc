@@ -25,6 +25,8 @@
 
 #include "translator.icc"
 
+using std::vector;
+
 class Dynamic_performer : public Performer
 {
 public:

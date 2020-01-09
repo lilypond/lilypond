@@ -29,6 +29,8 @@
 
 #include "translator.icc"
 
+using std::vector;
+
 class Cluster_spanner_engraver : public Engraver
 {
 

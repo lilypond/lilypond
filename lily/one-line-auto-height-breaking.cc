@@ -30,6 +30,8 @@
 #include "simple-spacer.hh"
 #include "system.hh"
 
+using std::vector;
+
 One_line_auto_height_breaking::One_line_auto_height_breaking (Paper_book *pb)
   : Page_breaking (pb, 0, 0)
 {

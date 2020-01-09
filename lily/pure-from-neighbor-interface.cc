@@ -27,6 +27,8 @@
 #include "spanner.hh"
 #include "system.hh"
 
+using std::vector;
+
 MAKE_SCHEME_CALLBACK (Pure_from_neighbor_interface, calc_pure_relevant_grobs, 1);
 SCM
 Pure_from_neighbor_interface::calc_pure_relevant_grobs (SCM smob)

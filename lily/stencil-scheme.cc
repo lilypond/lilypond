@@ -23,6 +23,8 @@
 #include "offset.hh"
 #include "stencil.hh"
 
+using std::vector;
+
 /*
  * A few general helpers in degrees
  */

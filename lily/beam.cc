@@ -67,6 +67,10 @@
 #include <algorithm>
 #include <map>
 
+using std::map;
+using std::string;
+using std::vector;
+
 // like abs(a - b) but works for both signed and unsigned
 // TODO: Move this to some header?
 template <class T>

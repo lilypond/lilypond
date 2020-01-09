@@ -25,6 +25,8 @@
 #include "paper-score.hh"
 #include "system.hh"
 
+using std::vector;
+
 One_page_breaking::One_page_breaking (Paper_book *pb)
   : Page_breaking (pb, 0, 0)
 {

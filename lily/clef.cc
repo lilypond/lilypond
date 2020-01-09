@@ -24,6 +24,8 @@
 #include "item.hh"
 #include "stencil.hh"
 
+using std::string;
+
 MAKE_SCHEME_CALLBACK (Clef, calc_glyph_name, 1);
 SCM
 Clef::calc_glyph_name (SCM smob)

@@ -25,6 +25,8 @@
 #include "music.hh"
 #include "warn.hh"
 
+using std::string;
+
 Simultaneous_music_iterator::Simultaneous_music_iterator ()
 {
   create_separate_contexts_ = false;

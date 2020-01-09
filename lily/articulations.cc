@@ -23,6 +23,8 @@
 #include "warn.hh"
 #include "context.hh"
 
+using std::vector;
+
 /*
   Return an articulation list given a note_events vector and an
   articulation_events vector.

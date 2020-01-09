@@ -34,6 +34,8 @@
 
 #include "translator.icc"
 
+using std::string;
+
 Paper_column_engraver::Paper_column_engraver (Context *c)
   : Engraver (c)
 {

@@ -32,6 +32,8 @@
 #define FT_Get_Font_Format FT_Get_X11_Font_Format
 #endif
 
+using std::string;
+
 LY_DEFINE (ly_font_sub_fonts, "ly:font-sub-fonts", 1, 0, 0,
            (SCM font),
            "Given the font metric @var{font} of an OpenType font, return the"

@@ -24,6 +24,7 @@
 
 #include "translator.icc"
 
+using std::vector;
 
 class Output_property_engraver : public Engraver
 {

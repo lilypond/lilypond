@@ -29,6 +29,8 @@
 #include "staff-symbol-referencer.hh"
 #include "warn.hh"
 
+using std::string;
+
 Stencil
 vaticana_brew_cauda (Grob *me,
                      int pos,

@@ -25,6 +25,8 @@ using namespace std;
 #include "system.hh"
 #include "grob-array.hh"
 
+using std::vector;
+
 // TODO: int is wider than necessary.  Consider changing it to
 // System::rank_type.  For now, the decision is not to introduce a new
 // instantiation of Interval_t<>.

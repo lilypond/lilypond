@@ -32,6 +32,8 @@
 #include "warn.hh"
 #include "lily-imports.hh"
 
+using std::string;
+
 LY_DEFINE (ly_parse_file, "ly:parse-file",
            1, 0, 0, (SCM name),
            "Parse a single @code{.ly} file."

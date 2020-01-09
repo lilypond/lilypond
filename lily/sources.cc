@@ -24,6 +24,9 @@
 #include "file-name.hh"
 #include "file-path.hh"
 
+using std::string;
+using std::vector;
+
 Sources::Sources ()
 {
   path_ = 0;

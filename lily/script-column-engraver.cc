@@ -24,6 +24,8 @@
 
 #include "translator.icc"
 
+using std::vector;
+
 /**
    Find potentially colliding scripts, and put them in a
    Script_column, that will fix the collisions.  */

@@ -32,6 +32,10 @@ using namespace std;
 #include "main.hh"
 #include "warn.hh"
 
+using std::string;
+using std::stringstream;
+using std::vector;
+
 vector<char>
 pfb2pfa (const vector<char> &pfb)
 {

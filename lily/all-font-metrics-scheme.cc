@@ -22,6 +22,8 @@
 #include "main.hh"
 #include "protected-scm.hh"
 
+using std::string;
+
 All_font_metrics *all_fonts_global = 0;
 Protected_scm all_fonts_global_scm;
 

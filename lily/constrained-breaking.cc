@@ -29,6 +29,8 @@
 #include "system.hh"
 #include "warn.hh"
 
+using std::vector;
+
 /*
   We use the following optimal substructure. Let W (A) be our weight function.
 

@@ -7,6 +7,9 @@
 #include "main.hh"
 #include "warn.hh"
 
+using std::string;
+using std::vector;
+
 LY_DEFINE (ly_type1_2_pfa, "ly:type1->pfa",
            1, 0, 0, (SCM type1_file_name),
            "Convert the contents of a Type@tie{}1 font in PFB format"

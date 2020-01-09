@@ -142,7 +142,7 @@ using namespace std;
 #include "lily-imports.hh"
 
 void
-Lily_parser::parser_error (Input const *i, Lily_parser *parser, SCM *, const string &s)
+Lily_parser::parser_error (Input const *i, Lily_parser *parser, SCM *, const std::string &s)
 {
 	parser->parser_error (*i, s);
 }
@@ -223,6 +223,7 @@ SCM get_next_unique_lyrics_context_id ();
 #define _(x) gettext (x)
 #endif
 
+using std::string;
 
 static Music *make_music_with_input (SCM name, Input where);
 bool add_post_events (Music *music, SCM events);

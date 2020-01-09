@@ -23,6 +23,8 @@
 #include "libc-extension.hh"
 #include "midi-cc-announcer.hh"
 
+using std::string;
+
 /*
   Context properties for setting MIDI controls.  Each MIDI control
   specification has the following components:

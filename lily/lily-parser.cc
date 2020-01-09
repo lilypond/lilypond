@@ -37,6 +37,7 @@
 #include "warn.hh"
 #include "program-option.hh"
 
+using std::string;
 
 Lily_parser::Lily_parser (Sources *sources)
 {

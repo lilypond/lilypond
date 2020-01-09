@@ -33,6 +33,7 @@
 #include "tie-configuration.hh"
 
 using namespace std;
+using std::vector;
 
 void
 Tie_column::add_tie (Grob *tc, Spanner *tie)

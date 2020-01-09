@@ -41,6 +41,9 @@
 
 #include <algorithm>
 
+using std::string;
+using std::vector;
+
 vector<string>
 File_path::directories () const
 {

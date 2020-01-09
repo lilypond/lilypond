@@ -32,6 +32,8 @@
 #include "break-align-interface.hh"
 #include "warn.hh"
 
+using std::vector;
+
 /*
   Return whether COL is fixed to its neighbors by some kind of spacing
   constraint.

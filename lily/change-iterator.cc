@@ -25,6 +25,8 @@
 #include "music.hh"
 #include "warn.hh"
 
+using std::string;
+
 void
 Change_iterator::error (const string &reason)
 {

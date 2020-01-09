@@ -25,6 +25,8 @@
 #include "translator.icc"
 #include <list>
 
+using std::list;
+
 struct Head_audio_event_tuple
 {
   Audio_element_info head_;

@@ -26,6 +26,8 @@
 #include "spanner.hh"
 #include "item.hh"
 
+using std::vector;
+
 MAKE_SCHEME_CALLBACK (Horizontal_bracket, print, 1);
 SCM
 Horizontal_bracket::print (SCM smob)

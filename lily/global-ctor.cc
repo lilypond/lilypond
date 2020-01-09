@@ -21,6 +21,8 @@
 
 #include "std-vector.hh"
 
+using std::vector;
+
 static vector<Global_ctor> *ctor_global_statics_;
 
 void

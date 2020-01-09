@@ -33,6 +33,8 @@
 
 #include "translator.icc"
 
+using std::vector;
+
 class Auto_beam_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Auto_beam_engraver);

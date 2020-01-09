@@ -45,6 +45,9 @@
 #include "stem.hh"
 #include "warn.hh"
 
+using std::string;
+using std::vector;
+
 /*
   TODO:
 
@@ -122,12 +125,12 @@ Slur_score_state::get_encompass_info (Grob *col) const
 
   if (Grob *head = Note_column::first_head (col))
     {
-      Interval hex = head->extent (common_[X_AXIS], X_AXIS);
+      Interval head_ext = head->extent (common_[X_AXIS], X_AXIS);
       // FIXME: Is there a better option than setting to 0?
-      if (hex.is_empty ())
+      if (head_ext.is_empty ())
         ei.x_ = 0;
       else
-        ei.x_ = hex.center ();
+        ei.x_ = head_ext.center ();
     }
   else
     ei.x_ = col->extent (common_[X_AXIS], X_AXIS).center ();

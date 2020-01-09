@@ -26,6 +26,8 @@
 
 #include "translator.icc"
 
+using std::vector;
+
 class Keep_alive_together_engraver: public Engraver
 {
   vector<Grob *> group_spanners_;

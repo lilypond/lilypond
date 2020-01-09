@@ -100,7 +100,7 @@ static char const *WARRANTY
         "Boston, MA 02111-1307, USA.\n");
 
 /* The jail specification: USER, GROUP, JAIL, DIR. */
-string jail_spec;
+std::string jail_spec;
 
 /*  The option parser */
 static Getopt_long *option_parser = 0;
@@ -196,6 +196,10 @@ configure_fpu ()
 }
 
 #endif /* defined(__x86__) || defined(__i386__) */
+
+using std::map;
+using std::string;
+using std::vector;
 
 static void
 env_var_info (FILE *out, char const *key)

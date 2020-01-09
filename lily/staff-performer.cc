@@ -32,6 +32,10 @@
 
 #include "translator.icc"
 
+using std::deque;
+using std::map;
+using std::string;
+
 /* Perform a staff. Individual notes should have their instrument
   (staff-wide) set, so we override play_element ()
 */

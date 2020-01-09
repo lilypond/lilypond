@@ -25,6 +25,8 @@
 #include "music.hh"
 #include "warn.hh"
 
+using std::string;
+
 class Context_specced_music_iterator : public Music_wrapper_iterator
 {
 public:

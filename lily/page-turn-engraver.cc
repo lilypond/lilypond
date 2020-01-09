@@ -29,6 +29,9 @@
 
 #include "translator.icc"
 
+using std::string;
+using std::vector;
+
 class Page_turn_event
 {
 public:

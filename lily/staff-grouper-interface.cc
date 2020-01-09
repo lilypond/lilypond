@@ -23,6 +23,8 @@
 #include "page-layout-problem.hh"
 #include "pointer-group-interface.hh"
 
+using std::vector;
+
 // Find the furthest staff in the given direction whose x-extent overlaps with
 // the given interval.
 Grob *

@@ -29,6 +29,10 @@
 #include "translator.hh"
 #include "warn.hh"
 
+using std::set;
+using std::string;
+using std::vector;
+
 static bool
 is_instantiable (Context_def *c)
 {

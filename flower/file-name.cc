@@ -33,6 +33,9 @@ using namespace std;
 #include <sys/stat.h>
 #endif
 
+using std::string;
+using std::vector;
+
 #ifndef ROOTSEP
 #define ROOTSEP ':'
 #endif

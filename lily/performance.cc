@@ -35,6 +35,8 @@ using namespace std;
 #include "string-convert.hh"
 #include "warn.hh"
 
+using std::string;
+
 Performance::Performance (bool ports)
   : midi_ (0),
     ports_ (ports),

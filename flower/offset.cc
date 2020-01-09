@@ -19,6 +19,8 @@
 
 #include "offset.hh"
 
+using std::string;
+
 #ifndef STANDALONE
 string
 Offset::to_string () const

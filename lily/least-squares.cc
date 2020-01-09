@@ -21,6 +21,8 @@
 
 #include "warn.hh"
 
+using std::vector;
+
 void
 minimise_least_squares (Real *coef, Real *offset,
                         vector<Offset> const &input)

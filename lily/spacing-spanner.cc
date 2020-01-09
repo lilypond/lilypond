@@ -39,6 +39,8 @@
 #include "system.hh"
 #include "warn.hh"
 
+using std::vector;
+
 vector<Paper_column *>
 Spacing_spanner::get_columns (Spanner *me)
 {

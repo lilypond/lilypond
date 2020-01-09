@@ -30,6 +30,8 @@
 
 #include "translator.icc"
 
+using std::vector;
+
 struct Tuplet_description
 {
   Stream_event *event_;

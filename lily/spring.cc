@@ -36,6 +36,8 @@
 
 #include "spring.hh"
 
+using std::vector;
+
 Spring::Spring ()
 {
   distance_ = 1.0;

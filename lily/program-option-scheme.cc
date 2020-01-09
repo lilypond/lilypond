@@ -32,6 +32,9 @@ using namespace std;
 #include "lily-imports.hh"
 #include "protected-scm.hh"
 
+using std::string;
+using std::vector;
+
 bool debug_skylines;
 bool debug_property_callbacks;
 bool debug_page_breaking_scoring;

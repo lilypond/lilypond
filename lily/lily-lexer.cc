@@ -37,6 +37,8 @@ using namespace std;
 #include "lily-parser.hh"
 #include "ly-module.hh"
 
+using std::string;
+
 static Keyword_ent the_key_tab[]
 =
 {

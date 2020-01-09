@@ -20,6 +20,8 @@
 #include "change-sequence-iterator.hh"
 #include "context.hh"
 
+using std::string;
+
 class Part_combine_part_iterator : public Change_sequence_iterator
 {
 public:

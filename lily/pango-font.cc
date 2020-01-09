@@ -46,6 +46,8 @@
 #if HAVE_PANGO_FT2
 #include "stencil.hh"
 
+using std::string;
+
 Preinit_Pango_font::Preinit_Pango_font ()
 {
   physical_font_tab_ = SCM_EOL;

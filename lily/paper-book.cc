@@ -33,6 +33,8 @@
 #include "ly-module.hh"
 #include "lily-imports.hh"
 
+using std::string;
+using std::vector;
 
 Paper_book::Paper_book ()
 {

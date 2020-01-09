@@ -37,6 +37,11 @@ using namespace std;
 #include "misc.hh"
 #include "warn.hh"
 
+using std::istream;
+using std::istringstream;
+using std::string;
+using std::vector;
+
 void
 Source_file::load_stdin ()
 {

@@ -37,7 +37,7 @@
 using namespace std;
 
 typedef size_t ssize;
-#define NPOS string::npos
+#define NPOS std::string::npos
 
 // TODO: This should probably be renamed to avoid any possible confusion with
 // std::to_string.

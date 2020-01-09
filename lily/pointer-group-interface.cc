@@ -23,6 +23,8 @@
 #include "grob.hh"
 #include "item.hh"
 
+using std::vector;
+
 int
 Pointer_group_interface::count (Grob *me, SCM sym)
 {

@@ -22,6 +22,9 @@
 #include "offset.hh"
 #include "warn.hh"
 
+using std::string;
+using std::vector;
+
 double
 log_2 (double x)
 {

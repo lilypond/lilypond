@@ -26,6 +26,8 @@
 #include "system.hh"
 #include "warn.hh"
 
+using std::vector;
+
 void
 Spanner::do_break_processing ()
 {

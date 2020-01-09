@@ -20,6 +20,8 @@
 #include "stencil.hh"
 #include "font-interface.hh"
 
+using std::string;
+
 // update comment --hwn
 /*
   Urg.

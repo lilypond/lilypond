@@ -26,6 +26,8 @@
 
 #include "translator.icc"
 
+using std::vector;
+
 class Note_performer : public Performer
 {
 public:

@@ -30,6 +30,8 @@
  #include "item.hh"
  #include "line-interface.hh"
 
+using std::vector;
+
 /*
   should move to lookup?
 

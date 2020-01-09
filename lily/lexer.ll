@@ -73,6 +73,8 @@ using namespace std;
 #include "warn.hh"
 #include "lily-imports.hh"
 
+using std::string;
+
 /*
 RH 7 fix (?)
 */

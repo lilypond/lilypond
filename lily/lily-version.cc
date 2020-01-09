@@ -22,6 +22,8 @@
 #include "config.hh"
 #include "version.hh"
 
+using std::string;
+
 string
 version_string ()
 {

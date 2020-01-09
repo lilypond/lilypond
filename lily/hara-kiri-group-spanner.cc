@@ -26,6 +26,8 @@
 #include "spanner.hh"
 #include "warn.hh"
 
+using std::vector;
+
 MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, y_extent, 1);
 SCM
 Hara_kiri_group_spanner::y_extent (SCM smob)

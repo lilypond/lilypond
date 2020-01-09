@@ -32,6 +32,8 @@
 
 #include "translator.icc"
 
+using std::vector;
+
 class Pitched_trill_engraver : public Engraver
 {
 public:

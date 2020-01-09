@@ -24,6 +24,8 @@
 #include "stream-event.hh"
 #include "translator-group.hh"
 
+using std::vector;
+
 Grob_info::Grob_info (Translator *t, Grob *g)
 {
   origin_trans_ = t;

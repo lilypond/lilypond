@@ -35,6 +35,9 @@
 #include "pitch.hh"
 #include "translator.icc"
 
+using std::string;
+using std::vector;
+
 /*
  * This class implements the notation specific aspects of Vaticana
  * style ligatures for Gregorian chant notation.

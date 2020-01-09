@@ -32,6 +32,8 @@
 
 #include "translator.icc"
 
+using std::vector;
+
 struct Figure_group
 {
   Spanner *group_;

@@ -29,6 +29,9 @@
 #include "interval-set.hh"
 #include "std-vector.hh"
 
+using std::map;
+using std::vector;
+
 struct Ledger_line_spanner
 {
   DECLARE_SCHEME_CALLBACK (print, (SCM));

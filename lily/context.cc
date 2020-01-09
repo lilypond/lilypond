@@ -32,6 +32,9 @@
 #include "warn.hh"
 #include "lily-imports.hh"
 
+using std::string;
+using std::vector;
+
 static const char *const NEW_CONTEXT_ID = "\\new";
 
 bool

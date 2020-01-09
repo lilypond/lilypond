@@ -22,6 +22,8 @@
 #include "stream-event.hh"
 #include "translator.icc"
 
+using std::vector;
+
 class Lyric_performer : public Performer
 {
 public:

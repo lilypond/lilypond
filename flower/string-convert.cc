@@ -13,6 +13,8 @@ using namespace std;
 #include "libc-extension.hh"
 #include "std-vector.hh"
 
+using std::string;
+
 /**
    A safe length for stringconversion buffers.
 

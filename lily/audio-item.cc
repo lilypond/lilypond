@@ -23,6 +23,8 @@
 #include "audio-column.hh"
 #include "international.hh"
 
+using std::string;
+
 Audio_instrument::Audio_instrument (string instrument_string)
 {
   str_ = instrument_string;

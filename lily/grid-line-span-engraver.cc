@@ -23,6 +23,8 @@
 
 #include "translator.icc"
 
+using std::vector;
+
 class Grid_line_span_engraver : public Engraver
 {
   Item *spanline_;

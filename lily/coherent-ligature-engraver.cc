@@ -27,6 +27,8 @@
 #include "staff-symbol-referencer.hh"
 #include "stream-event.hh"
 
+using std::vector;
+
 /*
  * This abstract class serves as common superclass for all ligature
  * engravers thet produce a single connected graphical object of fixed

@@ -45,6 +45,8 @@
 #include "unpure-pure-container.hh"
 #include "lily-imports.hh"
 
+using std::vector;
+
 System::System (System const &src)
   : Spanner (src)
 {
