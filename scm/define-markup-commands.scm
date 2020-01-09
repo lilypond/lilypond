@@ -2038,22 +2038,18 @@ setting of the @code{direction} layout property.
                (interpret-markup-list layout props args)))
 
 (define (general-column align-dir baseline mols)
-  "Stack @var{mols} vertically, aligned to @var{align-dir} horizontally.
-Remove empty stencils from @var{mols}.  If @var{mols} is an empty list return
-@code{empty-stencil}."
-  (let ((aligned-mols
-          (filter-map
-            (lambda (x)
-              (if (ly:stencil-empty? x)
-                  #f
-                  (ly:stencil-aligned-to x X align-dir)))
-            mols)))
-    (if (pair? aligned-mols)
-        (let* ((stacked-stencil (stack-lines -1 0.0 baseline aligned-mols))
-               (stacked-extent (ly:stencil-extent stacked-stencil X)))
-          (ly:stencil-translate-axis
-            stacked-stencil (- (car stacked-extent)) X))
-        empty-stencil)))
+  "Stack @var{mols} vertically, aligned to  @var{align-dir} horizontally."
+  (let* ((aligned-mols
+           (map (lambda (x) (ly:stencil-aligned-to x X align-dir)) mols))
+         (stacked-stencil (stack-lines -1 0.0 baseline aligned-mols))
+         (stacked-extent (ly:stencil-extent stacked-stencil X)))
+    ;; empty stencils are not moved
+    (if (interval-sane? stacked-extent)
+        (ly:stencil-translate-axis
+          stacked-stencil
+          (- (car stacked-extent))
+          X)
+        stacked-stencil)))
 
 (define-markup-command (center-column layout props args)
   (markup-list?)
