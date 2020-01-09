@@ -28,13 +28,8 @@
 #include "config.hh"
 
 #include <cstdio>
-
-#if HAVE_SSTREAM
 #include <sstream>
-#else
-#include <strstream>
-#define istringstream(x) istrstream (x, length ())
-#endif
+
 using namespace std;
 
 #include "file-name-map.hh"

@@ -316,7 +316,6 @@ STEPMAKE_PATH_PROG(FONTFORGE, fontforge, REQUIRED, 20110222)
 STEPMAKE_PATH_PROG(T1ASM, t1asm, REQUIRED)
 
 AC_CHECK_HEADERS([assert.h grp.h libio.h pwd.h sys/stat.h wchar.h fpu_control.h])
-AC_CHECK_HEADERS([sstream])
 AC_HEADER_STAT
 AC_FUNC_MEMCMP
 AC_FUNC_VPRINTF

@@ -74,9 +74,6 @@
 /* define if you have sys/stat.h */
 #define STAT_MACROS_BROKEN 0
 
-/* define if you have sstream */
-#define HAVE_SSTREAM 0
-
 /* define if you have fontconfig */
 #define HAVE_FONTCONFIG 0
 
