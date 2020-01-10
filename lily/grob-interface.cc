@@ -65,9 +65,8 @@ check_interfaces_for_property (Grob const *me, SCM sym)
       SCM iface = scm_hashq_ref (all_ifaces, scm_car (ifs), SCM_BOOL_F);
       if (scm_is_false (iface))
         {
-          string msg = to_string (_f ("Unknown interface `%s'",
-                                      ly_symbol2string (scm_car (ifs)).c_str ()));
-          programming_error (msg);
+          programming_error (_f ("Unknown interface `%s'",
+                                 ly_symbol2string (scm_car (ifs)).c_str ()));
           continue;
         }
 
@@ -76,9 +75,8 @@ check_interfaces_for_property (Grob const *me, SCM sym)
 
   if (!found)
     {
-      string str = to_string (_f ("Grob `%s' has no interface for property `%s'",
-                                  me->name ().c_str (),
-                                  ly_symbol2string (sym).c_str ()));
-      programming_error (str);
+      programming_error (_f ("Grob `%s' has no interface for property `%s'",
+                             me->name ().c_str (),
+                             ly_symbol2string (sym).c_str ()));
     }
 }

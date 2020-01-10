@@ -22,12 +22,6 @@
 #include "std-vector.hh"
 
 string
-to_string (const string &s)
-{
-  return s;
-}
-
-string
 to_string (char c, ssize_t n)
 {
   return string (max (n, ssize_t (0)), c);
