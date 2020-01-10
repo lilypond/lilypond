@@ -34,12 +34,6 @@ to_string (int i, char const *format)
 }
 
 string
-to_string (bool b)
-{
-  return String_convert::bool_string (b);
-}
-
-string
 to_string (long b)
 {
   return String_convert::long_string (b);

@@ -21,7 +21,6 @@ class String_convert
   static Byte nibble2hex_byte (Byte byte);
 public:
   static string pad_to (const string &s, size_t length);
-  static string bool_string (bool b);
   static string bin2hex (Byte bin_char);
   static string bin2hex (const string &bin_string);
   static int bin2int (const string &bin_string);

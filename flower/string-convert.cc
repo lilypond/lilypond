@@ -27,12 +27,6 @@ using namespace std;
 static const int STRING_BUFFER_LEN = 1024;
 
 string
-String_convert::bool_string (bool b)
-{
-  return string (b ? "true" : "false");
-}
-
-string
 String_convert::bin2hex (Byte bin_char)
 {
   string str;

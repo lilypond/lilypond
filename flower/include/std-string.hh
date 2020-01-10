@@ -46,7 +46,7 @@ string to_string (long);
 string to_string (long unsigned);
 string to_string (I64, char const *format = 0);
 string to_string (unsigned);
-string to_string (bool b);
+string to_string (bool b) = delete;
 string to_string (char const *format, ...)
 __attribute__ ((format (printf, 1, 2)));
 
