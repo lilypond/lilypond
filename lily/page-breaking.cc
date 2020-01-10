@@ -635,7 +635,7 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
         config = layout.solution (rag);
 
       if ((ragged () && layout.force () < 0.0)
-          || isinf (layout.force ()))
+          || std::isinf (layout.force ()))
         warning (_f ("page %d has been compressed", page_num));
       else
         last_page_force = layout.force ();
@@ -1385,7 +1385,7 @@ Page_breaking::pack_systems_on_least_pages (vsize configuration, int first_page_
       Real prev_force = space.force_;
       space.append_system (cached_line_details_[line]);
       if ((line > page_first_line)
-          && (isinf (space.force_)
+          && (std::isinf (space.force_)
               || ((line > 0)
                   && scm_is_eq (cached_line_details_[line - 1].page_permission_,
                                 ly_symbol2scm ("force")))))
@@ -1407,7 +1407,7 @@ Page_breaking::pack_systems_on_least_pages (vsize configuration, int first_page_
            * was the last one. If the systems put on it don't fit anymore, the last
            * system is moved to a new page */
           space.resize (page_height (page_num, true));
-          if ((line > page_first_line) && (isinf (space.force_)))
+          if ((line > page_first_line) && (std::isinf (space.force_)))
             {
               res.systems_per_page_.push_back (line - page_first_line);
               res.force_.push_back (prev_force);

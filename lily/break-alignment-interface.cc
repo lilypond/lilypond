@@ -384,7 +384,7 @@ Break_aligned_interface::calc_extent_aligned_anchor (SCM smob)
   Real alignment = robust_scm2double (me->get_property ("break-align-anchor-alignment"), 0.0);
   Interval iv = me->extent (me, X_AXIS);
 
-  if (isinf (iv[LEFT]) && isinf (iv[RIGHT])) /* avoid NaN */
+  if (std::isinf (iv[LEFT]) && std::isinf (iv[RIGHT])) /* avoid NaN */
     return scm_from_double (0.0);
 
   return scm_from_double (iv.linear_combination (alignment));

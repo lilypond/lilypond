@@ -95,7 +95,7 @@ Simple_spacer::rod_force (vsize l, vsize r, Real dist)
   Real c = range_stiffness (l, r, dist > d);
   Real block_stretch = dist - d;
 
-  if (isinf (c) && block_stretch == 0) /* take care of the 0*infinity_f case */
+  if (std::isinf (c) && block_stretch == 0) /* take care of the 0*infinity_f case */
     return 0;
   return c * block_stretch;
 }
@@ -103,7 +103,7 @@ Simple_spacer::rod_force (vsize l, vsize r, Real dist)
 void
 Simple_spacer::add_rod (vsize l, vsize r, Real dist)
 {
-  if (isinf (dist) || isnan (dist))
+  if (std::isinf (dist) || std::isnan (dist))
     {
       programming_error ("ignoring weird minimum distance");
       return;
@@ -111,7 +111,7 @@ Simple_spacer::add_rod (vsize l, vsize r, Real dist)
 
   Real block_force = rod_force (l, r, dist);
 
-  if (isinf (block_force))
+  if (std::isinf (block_force))
     {
       Real spring_dist = range_ideal_len (l, r);
       if (spring_dist < dist)
@@ -237,7 +237,7 @@ Simple_spacer::compress_line ()
     {
       Spring sp = sorted_springs[i];
 
-      if (isinf (sp.blocking_force ()))
+      if (std::isinf (sp.blocking_force ()))
         break;
 
       double block_dist = (cur_force - sp.blocking_force ()) * inv_hooke;

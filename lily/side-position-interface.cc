@@ -345,7 +345,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
 
   Real ss = Staff_symbol_referencer::staff_space (me);
   Real dist = dim.distance (my_dim, robust_scm2double (me->get_maybe_pure_property ("horizon-padding", pure, start, end), 0.0));
-  Real total_off = !isinf (dist) ? dir * dist : 0.0;
+  Real total_off = !std::isinf (dist) ? dir * dist : 0.0;
 
   total_off += dir * ss * robust_scm2double (me->get_maybe_pure_property ("padding", pure, start, end), 0.0);
 

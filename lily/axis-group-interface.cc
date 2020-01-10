@@ -624,7 +624,7 @@ staff_priority_less (Grob *const &g1, Grob *const &g2)
   /* if neither grob has an outside-staff priority, the ordering will have no
      effect and we assume the two grobs to be equal (none of the two is less).
      We do this to avoid the side-effect of calculating extents. */
-  if (isinf (priority_1) && isinf (priority_2))
+  if (std::isinf (priority_1) && std::isinf (priority_2))
     return false;
 
   /* if there is no preference in staff priority, choose the left-most one */

@@ -226,7 +226,7 @@ LY_DEFINE (ly_number_2_string, "ly:number->string",
   if (scm_is_false (scm_exact_p (s)))
     {
       Real r (scm_to_double (s));
-      if (isinf (r) || isnan (r))
+      if (std::isinf (r) || std::isnan (r))
         {
           programming_error ("infinity or NaN encountered while converting Real number, "
                              "setting to zero");
@@ -469,7 +469,7 @@ format_single_argument (SCM arg, int precision, bool escape = false)
     {
       Real val = scm_to_double (arg);
 
-      if (isnan (val) || isinf (val))
+      if (std::isnan (val) || std::isinf (val))
         {
           warning (_ ("Found infinity or nan in output.  Substituting 0.0"));
           return ("0.0");

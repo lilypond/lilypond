@@ -173,7 +173,7 @@ Lookup::round_filled_box (Box b, Real blotdiameter)
 
   if (blotdiameter < 0.0)
     {
-      if (!isinf (blotdiameter))
+      if (!std::isinf (blotdiameter))
         warning (_f ("Not drawing a box with negative dimension, %.2f by %.2f.",
                      width, height));
       return Stencil (b, SCM_EOL);

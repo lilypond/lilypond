@@ -313,7 +313,7 @@ Grob::find_broken_piece (System *) const
 void
 Grob::translate_axis (Real y, Axis a)
 {
-  if (isinf (y) || isnan (y))
+  if (std::isinf (y) || std::isnan (y))
     {
       programming_error ("Infinity or NaN encountered");
       return;
@@ -479,7 +479,7 @@ Grob::extent (Grob const *refp, Axis a) const
     }
 
   // We never want nan, so we avoid shifting infinite values.
-    if(!isinf (offset))
+    if(!std::isinf (offset))
       real_ext.translate(offset);
     else
       warning(_f ("ignored infinite %s-offset",

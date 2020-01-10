@@ -61,7 +61,7 @@ Lyric_extender::print (SCM smob)
   else
     left_point = left_edge->extent (common, X_AXIS)[RIGHT];
 
-  if (isinf (left_point))
+  if (std::isinf (left_point))
     return SCM_EOL;
 
   /* It seems that short extenders are even lengthened to go past the

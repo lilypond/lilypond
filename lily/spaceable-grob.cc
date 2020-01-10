@@ -43,7 +43,7 @@ Spaceable_grob::add_rod (Paper_column *me, Paper_column *p, Real d)
   if (d < 0)
     return;
 
-  if (isinf (d))
+  if (std::isinf (d))
     programming_error ("infinite rod");
 
   SCM mins = get_minimum_distances (me);

@@ -129,7 +129,7 @@ merge_springs (vector<Spring> const &springs)
 void
 Spring::set_distance (Real d)
 {
-  if (d < 0 || isinf (d) || isnan (d))
+  if (d < 0 || std::isinf (d) || std::isnan (d))
     programming_error ("insane spring distance requested, ignoring it");
   else
     {
@@ -141,7 +141,7 @@ Spring::set_distance (Real d)
 void
 Spring::set_min_distance (Real d)
 {
-  if (d < 0 || isinf (d) || isnan (d))
+  if (d < 0 || std::isinf (d) || std::isnan (d))
     programming_error ("insane spring min_distance requested, ignoring it");
   else
     {
@@ -159,7 +159,7 @@ Spring::ensure_min_distance (Real d)
 void
 Spring::set_inverse_stretch_strength (Real f)
 {
-  if (isinf (f) || isnan (f) || f < 0)
+  if (std::isinf (f) || std::isnan (f) || f < 0)
     programming_error ("insane spring constant");
   else
     inverse_stretch_strength_ = f;
@@ -170,7 +170,7 @@ Spring::set_inverse_stretch_strength (Real f)
 void
 Spring::set_inverse_compress_strength (Real f)
 {
-  if (isinf (f) || isnan (f) || f < 0)
+  if (std::isinf (f) || std::isnan (f) || f < 0)
     programming_error ("insane spring constant");
   else
     inverse_compress_strength_ = f;
@@ -181,7 +181,7 @@ Spring::set_inverse_compress_strength (Real f)
 void
 Spring::set_blocking_force (Real f)
 {
-  if (isinf (f) || isnan (f))
+  if (std::isinf (f) || std::isnan (f))
     {
       programming_error ("insane blocking force");
       return;
@@ -218,7 +218,7 @@ Spring::length (Real f) const
   Real force = max (f, blocking_force_);
   Real inv_k = force < 0.0 ? inverse_compress_strength_ : inverse_stretch_strength_;
 
-  if (isinf (force))
+  if (std::isinf (force))
     {
       programming_error ("cruelty to springs");
       force = 0.0;

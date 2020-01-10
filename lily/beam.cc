@@ -922,7 +922,7 @@ Beam::consider_auto_knees (Grob *me)
       /*
         the outer gaps are not knees.
       */
-      if (isinf (gap[LEFT]) || isinf (gap[RIGHT]))
+      if (std::isinf (gap[LEFT]) || std::isinf (gap[RIGHT]))
         continue;
 
       if (gap.length () >= max_gap_len)

@@ -399,7 +399,7 @@ position_apes (Grob *me,
 
       Real offset = -ape->horizontal_skylines_[RIGHT]
                     .distance (left_skyline, 0.1);
-      if (isinf (offset))
+      if (std::isinf (offset))
         offset = last_offset;
       else
         offset -= padding;
@@ -416,7 +416,7 @@ position_apes (Grob *me,
       for (LEFT_and_RIGHT (d))
         {
           Real mh = ape->horizontal_skylines_[d].max_height ();
-          if (!isinf (mh))
+          if (!std::isinf (mh))
             width.add_point (mh + offset);
         }
 

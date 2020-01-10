@@ -706,7 +706,7 @@ Page_layout_problem::solve_rod_spring_problem (bool ragged, Real fixed_force)
   for (vsize i = 0; i < springs_.size (); ++i)
     spacer.add_spring (springs_[i]);
 
-  if (ragged && !isinf (fixed_force))
+  if (ragged && !std::isinf (fixed_force))
     {
       // We need to tell the spacer it isn't ragged.  Otherwise, it will
       // refuse to stretch.

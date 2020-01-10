@@ -548,10 +548,10 @@ Slur_score_state::get_base_attachments () const
             = (fh ? fh->extent (common_[X_AXIS], X_AXIS)
                : extremes_[d].bound_->extent (common_[X_AXIS], X_AXIS))
               .linear_combination (CENTER);
-          if (!isfinite (x))
+          if (!std::isfinite (x))
             x = extremes_[d].note_column_->extent (common_[X_AXIS], X_AXIS)
               .linear_combination (CENTER);
-          if (!isfinite (y))
+          if (!std::isfinite (y))
             y = extremes_[d].note_column_->extent (common_[Y_AXIS], Y_AXIS)
               .linear_combination (CENTER);
         }
@@ -609,7 +609,7 @@ Slur_score_state::get_base_attachments () const
         {
           Real &b = base_attachment[d][Axis (a)];
 
-          if (!isfinite (b))
+          if (!std::isfinite (b))
             {
               programming_error ("slur attachment is inf/nan");
               b = 0.0;

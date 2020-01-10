@@ -184,9 +184,9 @@ Page_turn_page_breaking::calc_subproblem (vsize ending_breakpoint)
             {
               cur = put_systems_on_pages (start, end, i, p_num);
 
-              if (isinf (cur.demerits_)
+              if (std::isinf (cur.demerits_)
                   || (cur.page_count_ + (p_num % 2) > 2
-                      && (!isinf (this_start_best.demerits_))
+                      && (!std::isinf (this_start_best.demerits_))
                       && total_page_count (cur) > total_page_count (this_start_best)))
                 {
                   ok_page = false;
@@ -210,9 +210,9 @@ Page_turn_page_breaking::calc_subproblem (vsize ending_breakpoint)
           if (!found && this_start_best.too_many_lines_)
             break;
         }
-      if (isinf (this_start_best.demerits_))
+      if (std::isinf (this_start_best.demerits_))
         {
-          assert (!isinf (best.demerits_) && start < end - 1);
+          assert (!std::isinf (best.demerits_) && start < end - 1);
           break;
         }
 

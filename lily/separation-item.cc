@@ -170,13 +170,13 @@ Separation_item::boxes (Grob *me, Grob *left)
       //  on items that must not overlap other note-columns.
       // If these two uses of inf combine, leave the empty extent.
 
-      if (!isinf (x[LEFT]))
+      if (!std::isinf (x[LEFT]))
         x[LEFT] += extra_width[LEFT];
-      if (!isinf (x[RIGHT]))
+      if (!std::isinf (x[RIGHT]))
         x[RIGHT] += extra_width[RIGHT];
-      if (!isinf (y[DOWN]))
+      if (!std::isinf (y[DOWN]))
         y[DOWN] += extra_height[DOWN];
-      if (!isinf (y[UP]))
+      if (!std::isinf (y[UP]))
         y[UP] += extra_height[UP];
 
       if (!x.is_empty () && !y.is_empty ())

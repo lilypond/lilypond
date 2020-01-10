@@ -191,7 +191,7 @@ Page_spacer::solve (vsize page_count)
   vsize extra_systems = 0;
   vsize extra_pages = 0;
 
-  if (isinf (state_.at (system, page_count - 1).demerits_))
+  if (std::isinf (state_.at (system, page_count - 1).demerits_))
     {
       programming_error ("tried to space systems on a bad number of pages");
       /* Usually, this means that we tried to cram too many systems into
@@ -200,7 +200,7 @@ Page_spacer::solve (vsize page_count)
          All the systems that don't fit get tacked onto the last page.
       */
       vsize i;
-      for (i = system; isinf (state_.at (i, page_count - 1).demerits_) && i; i--)
+      for (i = system; std::isinf (state_.at (i, page_count - 1).demerits_) && i; i--)
         ;
 
       if (i)
@@ -212,7 +212,7 @@ Page_spacer::solve (vsize page_count)
         {
           /* try chopping off pages from the end */
           vsize j;
-          for (j = page_count; j && isinf (state_.at (system, j - 1).demerits_); j--)
+          for (j = page_count; j && std::isinf (state_.at (system, j - 1).demerits_); j--)
             ;
 
           if (j)
@@ -392,6 +392,6 @@ Page_spacer::calc_subproblem (vsize page, vsize line)
                         ly_symbol2scm ("force")))
         break;
     }
-  return !isinf (cur.demerits_);
+  return !std::isinf (cur.demerits_);
 }
 

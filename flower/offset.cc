@@ -38,7 +38,7 @@ Offset
 complex_multiply (Offset z1, Offset z2)
 {
   Offset z;
-  if (!isinf (z2[Y_AXIS]))
+  if (!std::isinf (z2[Y_AXIS]))
     {
       z[X_AXIS] = z1[X_AXIS] * z2[X_AXIS] - z1[Y_AXIS] * z2[Y_AXIS];
       z[Y_AXIS] = z1[X_AXIS] * z2[Y_AXIS] + z1[Y_AXIS] * z2[X_AXIS];
@@ -119,22 +119,22 @@ Offset::length () const
 bool
 Offset::is_sane () const
 {
-  return !isnan (coordinate_a_[X_AXIS])
-         && !isnan (coordinate_a_ [Y_AXIS])
-         && !isinf (coordinate_a_[X_AXIS])
-         && !isinf (coordinate_a_[Y_AXIS]);
+  return !std::isnan (coordinate_a_[X_AXIS])
+         && !std::isnan (coordinate_a_ [Y_AXIS])
+         && !std::isinf (coordinate_a_[X_AXIS])
+         && !std::isinf (coordinate_a_[Y_AXIS]);
 }
 
 Offset
 Offset::direction () const
 {
   Offset d = *this;
-  if (isinf (d[X_AXIS]))
+  if (std::isinf (d[X_AXIS]))
     {
-      if (!isinf (d[Y_AXIS]))
+      if (!std::isinf (d[Y_AXIS]))
         return Offset ((d[X_AXIS] > 0.0 ? 1.0 : -1.0), 0.0);
     }
-  else if (isinf (d[Y_AXIS]))
+  else if (std::isinf (d[Y_AXIS]))
     return Offset (0.0, (d[Y_AXIS] > 0.0 ? 1.0 : -1.0));
   else if (d[X_AXIS] == 0.0 && d[Y_AXIS] == 0.0)
     return d;

@@ -340,8 +340,8 @@ void
 Bezier::assert_sanity () const
 {
   for (int i = 0; i < CONTROL_COUNT; i++)
-    assert (!isnan (control_[i].length ())
-            && !isinf (control_[i].length ()));
+    assert (!std::isnan (control_[i].length ())
+            && !std::isinf (control_[i].length ()));
 }
 
 void

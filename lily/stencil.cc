@@ -150,8 +150,8 @@ Stencil::translate (Offset o)
   Axis a = X_AXIS;
   while (a < NO_AXES)
     {
-      if (isinf (o[a])
-          || isnan (o[a])
+      if (std::isinf (o[a])
+          || std::isnan (o[a])
 
           // ugh, hardcoded.
           || fabs (o[a]) > 1e6)

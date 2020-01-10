@@ -90,7 +90,7 @@ Skyline::print_points () const
 
 Building::Building (Real start, Real start_height, Real end_height, Real end)
 {
-  if (isinf (start) || isinf (end))
+  if (std::isinf (start) || std::isinf (end))
     assert (start_height == end_height);
 
   start_ = start;
@@ -116,9 +116,9 @@ Building::precompute (Real start, Real start_height, Real end_height, Real end)
   if (start_height != end_height)
     slope_ = (end_height - start_height) / (end - start);
 
-  assert (!isinf (slope_) && !isnan (slope_));
+  assert (!std::isinf (slope_) && !std::isnan (slope_));
 
-  if (isinf (start))
+  if (std::isinf (start))
     {
       assert (start_height == end_height);
       y_intercept_ = start_height;
@@ -136,7 +136,7 @@ Building::precompute (Real start, Real start_height, Real end_height, Real end)
 inline Real
 Building::height (Real x) const
 {
-  return isinf (x) ? y_intercept_ : slope_ * x + y_intercept_;
+  return std::isinf (x) ? y_intercept_ : slope_ * x + y_intercept_;
 }
 
 void
@@ -149,7 +149,7 @@ inline Real
 Building::intersection_x (Building const &other) const
 {
   Real ret = (y_intercept_ - other.y_intercept_) / (other.slope_ - slope_);
-  return isnan (ret) ? -infinity_f : ret;
+  return std::isnan (ret) ? -infinity_f : ret;
 }
 
 // Returns a shift s such that (x + s, y) intersects the roof of
@@ -160,7 +160,7 @@ Building::shift_to_intersect (Real x, Real y) const
   // Solve for s: y = (x + s)*m + b
   Real ret = (y - y_intercept_ - slope_ * x) / slope_;
 
-  if (ret >= start_ && ret <= end_ && !isinf (ret))
+  if (ret >= start_ && ret <= end_ && !std::isinf (ret))
     return ret;
   return infinity_f;
 }
@@ -168,7 +168,7 @@ Building::shift_to_intersect (Real x, Real y) const
 bool
 Building::above (Building const &other, Real x) const
 {
-  return (isinf (y_intercept_) || isinf (other.y_intercept_) || isinf (x))
+  return (std::isinf (y_intercept_) || std::isinf (other.y_intercept_) || std::isinf (x))
          ? y_intercept_ > other.y_intercept_
          : (slope_ - other.slope_) * x + y_intercept_ > other.y_intercept_;
 }
@@ -530,8 +530,8 @@ Skyline::insert (Box const &b, Axis a)
   list<Building> other_bld;
   list<Building> my_bld;
 
-  if (isnan (b[other_axis (a)][LEFT])
-      || isnan (b[other_axis (a)][RIGHT]))
+  if (std::isnan (b[other_axis (a)][LEFT])
+      || std::isnan (b[other_axis (a)][RIGHT]))
     {
       programming_error ("insane box for skyline");
       return;
@@ -691,7 +691,7 @@ Skyline::internal_distance (Skyline const &other, Real *touch_point) const
 Real
 Skyline::height (Real airplane) const
 {
-  assert (!isinf (airplane));
+  assert (!std::isinf (airplane));
 
   list<Building>::const_iterator i;
   for (i = buildings_.begin (); i != buildings_.end (); i++)

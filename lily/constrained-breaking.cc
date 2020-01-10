@@ -93,7 +93,7 @@ Constrained_breaking::calc_subproblem (vsize start, vsize sys, vsize brk)
         continue; /* the first line cannot have its first break after the beginning */
 
       Line_details const &cur = lines_.at (brk, j + start_col);
-      if (isinf (cur.force_))
+      if (std::isinf (cur.force_))
         break;
 
       Real prev_f = 0;
@@ -104,7 +104,7 @@ Constrained_breaking::calc_subproblem (vsize start, vsize sys, vsize brk)
           prev_f = st.at (j, sys - 1).details_.force_;
           prev_dem = st.at (j, sys - 1).demerits_;
         }
-      if (isinf (prev_dem))
+      if (std::isinf (prev_dem))
         continue;
 
       Real dem = combine_demerits (cur.force_, prev_f) + prev_dem + cur.break_penalty_;
@@ -180,7 +180,7 @@ Constrained_breaking::solve (vsize start, vsize end, vsize sys_count)
     {
       for (vsize brk = end_brk; brk != VPOS; brk--)
         {
-          if (!isinf (st.at (brk, sys).details_.force_))
+          if (!std::isinf (st.at (brk, sys).details_.force_))
             {
               if (brk != end_brk)
                 {
@@ -262,7 +262,7 @@ Constrained_breaking::line_details (vsize start, vsize end, vsize sys_count)
     {
       for (vsize brk = end_brk; brk != VPOS; brk--)
         {
-          if (!isinf (st.at (brk, sys).details_.force_))
+          if (!std::isinf (st.at (brk, sys).details_.force_))
             {
               if (brk != end_brk)
                 {
@@ -318,7 +318,7 @@ Constrained_breaking::min_system_count (vsize start, vsize end)
         {
           resize (sys_count + 3);
         }
-      if (!isinf (st.at (brk, sys_count).details_.force_))
+      if (!std::isinf (st.at (brk, sys_count).details_.force_))
         return sys_count + 1;
     }
   /* no possible breaks satisfy constraints */
@@ -459,9 +459,9 @@ Constrained_breaking::initialize (Paper_score *ps)
           Line_details &line = lines_.at (j, i);
 
           line.force_ = forces[i * breaks_.size () + j];
-          if (ragged && last && !isinf (line.force_))
+          if (ragged && last && !std::isinf (line.force_))
             line.force_ = (line.force_ < 0 && j > i + 1) ? infinity_f : 0;
-          if (isinf (line.force_))
+          if (std::isinf (line.force_))
             break;
 
           fill_line_details (&line, i, j);
@@ -511,12 +511,12 @@ Constrained_breaking::fill_line_details (Line_details *const out, vsize start, v
                                           out->turn_permission_);
 
   begin_of_line_extent = (begin_of_line_extent.is_empty ()
-                          || isnan (begin_of_line_extent[LEFT])
-                          || isnan (begin_of_line_extent[RIGHT]))
+                          || std::isnan (begin_of_line_extent[LEFT])
+                          || std::isnan (begin_of_line_extent[RIGHT]))
                          ? Interval (0, 0) : begin_of_line_extent;
   rest_of_line_extent = (rest_of_line_extent.is_empty ()
-                         || isnan (rest_of_line_extent[LEFT])
-                         || isnan (rest_of_line_extent[RIGHT]))
+                         || std::isnan (rest_of_line_extent[LEFT])
+                         || std::isnan (rest_of_line_extent[RIGHT]))
                         ? Interval (0, 0) : rest_of_line_extent;
   out->shape_ = Line_shape (begin_of_line_extent, rest_of_line_extent);
   out->padding_ = last ? score_system_padding_ : system_system_padding_;

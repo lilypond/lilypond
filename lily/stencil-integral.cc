@@ -815,7 +815,7 @@ make_glyph_string_boxes (vector<Box> &boxes,
         from the Pango_font.  This should eventually be fixed.  The solution
         for now is just to use the bounding box.
       */
-      if (isnan (xlen) || isnan (ylen) || isinf (xlen) || isinf (ylen))
+      if (std::isnan (xlen) || std::isnan (ylen) || std::isinf (xlen) || std::isinf (ylen))
         outline = box_to_scheme_lines (kerned_bbox);
       else
         {

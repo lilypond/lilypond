@@ -158,7 +158,7 @@ Page_turn_engraver::acknowledge_note_head (Grob_info gi)
   if (rest_begin_ < now_mom ())
     {
       Real pen = penalty ((now_mom () - rest_begin_).main_part_);
-      if (!isinf (pen))
+      if (!std::isinf (pen))
         automatic_breaks_.push_back (Page_turn_event (rest_begin_.main_part_,
                                                       now_mom ().main_part_,
                                                       ly_symbol2scm ("allow"), 0));
