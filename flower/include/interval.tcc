@@ -136,10 +136,12 @@ Interval_t<T>::to_string () const
 {
   if (is_empty ())
     return "[empty]";
-  string s ("[");
 
-  return (s + T_to_string (at (LEFT)) + string (",")
-          + T_to_string (at (RIGHT)) + string ("]"));
+  // Rely on argument-dependent lookup to find to_string for classes,
+  // and import std::to_string to support basic types.
+  using std::to_string;
+  string s ("[");
+  return s + to_string (at (LEFT)) + ',' + to_string (at (RIGHT)) + ']';
 }
 
 template<class T>

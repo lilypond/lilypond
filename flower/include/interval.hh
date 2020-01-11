@@ -35,8 +35,6 @@ struct Interval_t : public Drul_array<T>
   using Drul_array<T>::at;
 
   static T infinity ();
-  // TODO: This function should not exist; just call to_string.
-  static string T_to_string (T arg);
   T center () const;
   void translate (T t)
   {

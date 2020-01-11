@@ -78,4 +78,10 @@ ostream &operator << (ostream &, Moment const &);
 
 bool moment_less (SCM a, SCM b);
 
+inline string
+to_string (Moment const &m)
+{
+  return m.to_string ();
+}
+
 #endif /* MOMENT_HH */

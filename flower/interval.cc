@@ -29,24 +29,10 @@ Interval_t<Real>::infinity ()
 }
 
 template<>
-string
-Interval_t<Real>::T_to_string (Real r)
-{
-  return std::to_string (r);
-}
-
-template<>
 int
 Interval_t<int>::infinity ()
 {
   return INT_MAX;
-}
-
-template<>
-string
-Interval_t<int>::T_to_string (int i)
-{
-  return std::to_string (i);
 }
 
 template INTERVAL__INSTANTIATE (int);

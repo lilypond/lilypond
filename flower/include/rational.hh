@@ -119,4 +119,10 @@ operator << (ostream &, Rational);
 
 const Rational infinity_rat (U64_MAX);
 
+inline string
+to_string (Rational const &r)
+{
+  return r.to_string ();
+}
+
 #endif // RATIONAL_HH

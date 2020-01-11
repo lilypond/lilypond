@@ -32,13 +32,6 @@ Interval_t<Rational>::infinity ()
   return infty;
 }
 
-template<>
-string
-Interval_t<Rational>::T_to_string (Rational a)
-{
-  return a.to_string ();
-}
-
 template INTERVAL__INSTANTIATE (Rational);
 
 template<>
@@ -49,13 +42,6 @@ Interval_t<Moment>::infinity ()
 
   infty.main_part_.set_infinite (1);
   return infty;
-}
-
-template<>
-string
-Interval_t<Moment>::T_to_string (Moment a)
-{
-  return a.to_string ();
 }
 
 template INTERVAL__INSTANTIATE (Moment);
