@@ -205,7 +205,7 @@ void Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> y
   */
   do_initial_slope_calculations_ = false;
   for (LEFT_and_RIGHT (d))
-    do_initial_slope_calculations_ |= std::isinf (unquanted_y_[d]) || std::isnan (unquanted_y_[d]);
+    do_initial_slope_calculations_ |= !std::isfinite (unquanted_y_[d]);
 
   /*
     Calculations are relative to a unit-scaled staff, i.e. the quants are

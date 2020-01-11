@@ -819,7 +819,7 @@ Stem::internal_calc_stem_begin_position (Grob *me, bool calc_beam)
       Real y_attach = Note_head::stem_attachment_coordinate (head, Y_AXIS);
 
       y_attach = head_height.linear_combination (y_attach);
-      if (!std::isinf (y_attach) && !std::isnan (y_attach)) // empty heads
+      if (std::isfinite (y_attach)) // empty heads
         pos += d * y_attach * 2 / ss;
     }
 

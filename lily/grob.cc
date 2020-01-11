@@ -313,7 +313,7 @@ Grob::find_broken_piece (System *) const
 void
 Grob::translate_axis (Real y, Axis a)
 {
-  if (std::isinf (y) || std::isnan (y))
+  if (!std::isfinite (y))
     {
       programming_error ("Infinity or NaN encountered");
       return;

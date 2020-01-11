@@ -103,7 +103,7 @@ Simple_spacer::rod_force (vsize l, vsize r, Real dist)
 void
 Simple_spacer::add_rod (vsize l, vsize r, Real dist)
 {
-  if (std::isinf (dist) || std::isnan (dist))
+  if (!std::isfinite (dist))
     {
       programming_error ("ignoring weird minimum distance");
       return;

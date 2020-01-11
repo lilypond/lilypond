@@ -73,7 +73,7 @@ Bezier
 Tie_configuration::get_untransformed_bezier (Tie_details const &details) const
 {
   Real l = attachment_x_.length ();
-  if (std::isinf (l) || std::isnan (l))
+  if (!std::isfinite (l))
     {
       programming_error ("Inf or NaN encountered");
       l = 1.0;

@@ -116,7 +116,7 @@ Building::precompute (Real start, Real start_height, Real end_height, Real end)
   if (start_height != end_height)
     slope_ = (end_height - start_height) / (end - start);
 
-  assert (!std::isinf (slope_) && !std::isnan (slope_));
+  assert (std::isfinite (slope_));
 
   if (std::isinf (start))
     {
