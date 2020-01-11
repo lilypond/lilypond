@@ -40,9 +40,6 @@ public:
   static string int2hex (int i, size_t length_i, char ch);
   static string unsigned2hex (unsigned u, size_t length, char ch);
   static string int2dec (int i, size_t length_i, char ch);
-  static string rational_string (Rational);
-  static string pointer_string (void const *);
-  static string precision_string (double x, int n);
   static string i64_string (I64, char const *fmt = 0);
   static string to_lower (string s);
   static string to_upper (string s);

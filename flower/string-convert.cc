@@ -11,7 +11,6 @@
 using namespace std;
 
 #include "libc-extension.hh"
-#include "rational.hh"
 #include "std-vector.hh"
 
 /**
@@ -272,57 +271,6 @@ String_convert::char_string (char c, int n)
 
   delete[] ch;
   return s;
-}
-
-string
-String_convert::rational_string (Rational r)
-{
-  return r.to_string ();
-}
-
-string
-String_convert::pointer_string (void const *l)
-{
-  char buffer[STRING_BUFFER_LEN];
-  snprintf (buffer, STRING_BUFFER_LEN, "%p", l); // assume radix 10
-  return string (buffer);
-}
-
-/**
-   Convert a double to a string.
-
-   @param
-   #n# is the number of nonzero digits
-*/
-string
-String_convert::precision_string (double x, int n)
-{
-  string format = "%." + ::to_string (max (0, n - 1)) + "e";
-  string str = double_string (abs (x), format.c_str ());
-
-  int exp = dec2int (str.substr (str.length () - 3));
-  str = str.substr (0, str.length () - 4);
-
-  while (str[str.length () - 1] == '0')
-    str = str.substr (0, str.length () - 1);
-  if (str[str.length () - 1] == '.')
-    str = str.substr (0, str.length () - 1);
-
-  if (exp == 0)
-    return (sign (x) > 0 ? str : "-" + str);
-
-  str = str.substr (0, 1) + str.substr (2);
-  ssize dot = 1 + exp;
-  if (dot <= 0)
-    str = "0." + ::to_string ('0', -dot) + str;
-  else if (dot >= str.length ())
-    str += ::to_string ('0', dot - str.length ());
-  else if ((dot > 0) && (dot < str.length ()))
-    str = str.substr (0, dot) + "." + str.substr (dot);
-  else
-    assert (0);
-
-  return (sign (x) > 0 ? str : "-" + str);
 }
 
 string

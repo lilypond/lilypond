@@ -53,6 +53,5 @@ __attribute__ ((format (printf, 1, 2)));
 
 string &replace_all (string *str, string const &find, string const &replace);
 string &replace_all (string *str, char find, char replace);
-char *string_copy (const string &s);
 
 #endif /* STD_STRING_HH */

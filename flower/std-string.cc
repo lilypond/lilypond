@@ -106,17 +106,6 @@ replace_all (string *str, char find, char replace)
   return *str;
 }
 
-char *
-string_copy (const string &s)
-{
-  ssize len = s.length ();
-  char *dest = new char[len + 1];
-  copy (s.begin (), s.end (), dest);
-  dest[len] = 0;
-
-  return dest;
-}
-
 vector<string>
 string_split (string str, char c)
 {
