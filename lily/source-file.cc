@@ -189,10 +189,11 @@ Source_file::quote_input (char const *pos_str0) const
   int l, ch, col, offset;
   get_counts (pos_str0, &l, &ch, &col, &offset);
   string line = line_string (pos_str0);
-  string context = line.substr (0, offset)
-                   + ::to_string ('\n')
-                   + ::to_string (' ', col)
-                   + line.substr (offset, line.length () - offset);
+  string context = line.substr (0, offset);
+  context += '\n';
+  if (col > 0)
+    context += string (col, ' ');
+  context += line.substr (offset, line.length () - offset);
   return context;
 }
 

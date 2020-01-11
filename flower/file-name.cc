@@ -101,11 +101,11 @@ File_name::dir_part () const
   string s;
 
   if (!root_.empty ())
-    s = root_ + ::to_string (ROOTSEP);
+    s = root_ + ROOTSEP;
 
   // handle special case of `/'
   if (dir_.empty () && is_absolute_)
-    s += ::to_string (DIRSEP);
+    s += DIRSEP;
 
   if (!dir_.empty ())
     s += dir_;
@@ -119,7 +119,7 @@ File_name::file_part () const
   string s = base_;
 
   if (!ext_.empty ())
-    s += ::to_string (EXTSEP) + ext_;
+    s += EXTSEP + ext_;
 
   return s;
 }
@@ -132,7 +132,7 @@ File_name::to_string () const
 
   if (!f.empty ()
       && !dir_.empty ())
-    d += ::to_string (DIRSEP);
+    d += DIRSEP;
 
   return d + f;
 }

@@ -36,8 +36,8 @@ string
 String_convert::bin2hex (Byte bin_char)
 {
   string str;
-  str += ::to_string ((char) nibble2hex_byte ((Byte) (bin_char >> 4)));
-  str += ::to_string ((char) nibble2hex_byte (bin_char++));
+  str += nibble2hex_byte ((Byte) (bin_char >> 4));
+  str += nibble2hex_byte (bin_char++);
   return str;
 }
 
@@ -48,8 +48,8 @@ String_convert::bin2hex (const string &bin_string)
   Byte const *byte = (Byte const *)bin_string.data ();
   for (ssize i = 0; i < bin_string.length (); i++)
     {
-      str += ::to_string ((char)nibble2hex_byte ((Byte) (*byte >> 4)));
-      str += ::to_string ((char)nibble2hex_byte (*byte++));
+      str += nibble2hex_byte ((Byte) (*byte >> 4));
+      str += nibble2hex_byte (*byte++);
     }
   return str;
 }
@@ -124,7 +124,7 @@ String_convert::hex2bin (string hex_string, string &bin_string_r)
       int low_i = hex2nibble (*byte++);
       if (high_i < 0 || low_i < 0)
         return 1; // invalid char
-      bin_string_r += ::to_string ((char) (high_i << 4 | low_i), 1);
+      bin_string_r += static_cast<char> (high_i << 4 | low_i);
       i += 2;
     }
   return 0;
@@ -162,10 +162,12 @@ String_convert::int2dec (int i, size_t length_i, char ch)
     fill_char = '0';
 
   // ugh
-  string dec_string = ::to_string (i);
+  string dec_string = std::to_string (i);
 
   // ugh
-  return ::to_string (fill_char, ssize_t (length_i - dec_string.length ())) + dec_string;
+  if (dec_string.length () < length_i)
+    dec_string = string (length_i - dec_string.length (), fill_char) + dec_string;
+  return dec_string;
 }
 
 // stupido.  Should use int_string ()
@@ -176,17 +178,14 @@ String_convert::unsigned2hex (unsigned u, size_t length, char fill_char)
   if (!u)
     str = "0";
 
-#if 1 // both go...
   while (u)
     {
-      str = ::to_string ((char) ((u % 16)["0123456789abcdef"])) + str;
+      str = string (1, (char) ((u % 16)["0123456789abcdef"])) + str;
       u /= 16;
     }
-#else
-  str += int_string (u, "%x");  // hmm. %lx vs. %x -> portability?
-#endif
 
-  str = ::to_string (fill_char, ssize_t (length - str.length ())) + str;
+  if (str.length () < length)
+    str = string (length - str.length (), fill_char) + str;
   while ((str.length () > length) && (str[ 0 ] == 'f'))
     str = str.substr (2);
 

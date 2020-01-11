@@ -22,12 +22,6 @@
 #include "std-vector.hh"
 
 string
-to_string (char c, ssize_t n)
-{
-  return string (max (n, ssize_t (0)), c);
-}
-
-string
 to_string (double f, char const *format)
 {
   return String_convert::double_string (f, format);

@@ -137,7 +137,8 @@ Duration::to_string () const
   else
     s = ::to_string (1 << durlog_);
 
-  s += ::to_string ('.', dots_);
+  if (dots_ > 0)
+    s += string (dots_, '.');
   if (factor_ != Moment (Rational (1, 1)))
     s += "*" + factor_.to_string ();
   return s;

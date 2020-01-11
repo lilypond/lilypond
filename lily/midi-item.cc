@@ -90,8 +90,8 @@ Midi_instrument::to_string () const
   else
     warning (_f ("no such MIDI instrument: `%s'", audio_->str_.c_str ()));
 
-  string str = ::to_string ((char) (0xc0 + channel_)); //YIKES! FIXME : Should be track. -rz
-  str += ::to_string ((char)program_byte);
+  string str (1, static_cast<char> (0xc0 + channel_)); //YIKES! FIXME : Should be track. -rz
+  str += program_byte;
   return str;
 }
 
@@ -136,7 +136,7 @@ int2midi_varint_string (int i)
   string str;
   while (1)
     {
-      str += ::to_string ((char)buffer);
+      str += static_cast<char> (buffer);
       if (buffer & 0x80)
         buffer >>= 8;
       else
@@ -229,15 +229,15 @@ Midi_note::to_string () const
     {
       finetune = PITCH_WHEEL_CENTER + get_fine_tuning ();
 
-      str += ::to_string ((char) (0xE0 + channel_));
-      str += ::to_string ((char) (finetune & 0x7F));
-      str += ::to_string ((char) (finetune >> 7));
-      str += ::to_string ((char) (0x00));
+      str += static_cast<char> (0xE0 + channel_);
+      str += static_cast<char> (finetune & 0x7F);
+      str += static_cast<char> (finetune >> 7);
+      str += static_cast<char> (0x00);
     }
 
-  str += ::to_string ((char) status_byte);
-  str += ::to_string ((char) (get_semitone_pitch () + c0_pitch_));
-  str += ::to_string ((char) dynamic_byte_);
+  str += status_byte;
+  str += static_cast<char> (get_semitone_pitch () + c0_pitch_);
+  str += dynamic_byte_;
 
   return str;
 }
@@ -257,17 +257,17 @@ Midi_note_off::to_string () const
 {
   Byte status_byte = (char) (0x90 + channel_);
 
-  string str = ::to_string ((char)status_byte);
-  str += ::to_string ((char) (get_semitone_pitch () + Midi_note::c0_pitch_));
-  str += ::to_string ((char)aftertouch_byte_);
+  string str (1, status_byte);
+  str += static_cast<char> (get_semitone_pitch () + Midi_note::c0_pitch_);
+  str += aftertouch_byte_;
 
   if (get_fine_tuning () != 0)
     {
       // Move pitch wheel back to the central position.
-      str += ::to_string ((char) 0x00);
-      str += ::to_string ((char) (0xE0 + channel_));
-      str += ::to_string ((char) (PITCH_WHEEL_CENTER & 0x7F));
-      str += ::to_string ((char) (PITCH_WHEEL_CENTER >> 7));
+      str += static_cast<char> (0x00);
+      str += static_cast<char> (0xE0 + channel_);
+      str += static_cast<char> (PITCH_WHEEL_CENTER & 0x7F);
+      str += static_cast<char> (PITCH_WHEEL_CENTER >> 7);
     }
 
   return str;
@@ -283,17 +283,17 @@ string
 Midi_piano_pedal::to_string () const
 {
   Byte status_byte = (char) (0xB0 + channel_);
-  string str = ::to_string ((char)status_byte);
+  string str (1, status_byte);
 
   if (audio_->type_string_ == "Sostenuto")
-    str += ::to_string ((char)0x42);
+    str += static_cast<char> (0x42);
   else if (audio_->type_string_ == "Sustain")
-    str += ::to_string ((char)0x40);
+    str += static_cast<char> (0x40);
   else if (audio_->type_string_ == "UnaCorda")
-    str += ::to_string ((char)0x43);
+    str += static_cast<char> (0x43);
 
   int pedal = ((1 - audio_->dir_) / 2) * 0x7f;
-  str += ::to_string ((char)pedal);
+  str += static_cast<char> (pedal);
   return str;
 }
 
@@ -330,9 +330,9 @@ string
 Midi_control_change::to_string () const
 {
   Byte status_byte = (char) (0xB0 + channel_);
-  string str = ::to_string ((char)status_byte);
-  str += ::to_string ((char) (audio_->control_));
-  str += ::to_string ((char) (audio_->value_));
+  string str (1, status_byte);
+  str += static_cast<char> (audio_->control_);
+  str += static_cast<char> (audio_->value_);
   return str;
 }
 

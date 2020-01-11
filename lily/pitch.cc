@@ -154,7 +154,7 @@ string
 Pitch::to_string () const
 {
   int n = (notename_ + 2) % scale_->step_count ();
-  string s = ::to_string (char (n + 'a'));
+  string s (1, static_cast<char> (n + 'a'));
   Rational qtones = alteration_ * Rational (4, 1);
   int qt = int (rint (Real (qtones)));
 
@@ -169,7 +169,7 @@ Pitch::to_string () const
     {
       int o = (-octave_) - 1;
       while (o--)
-        s += ::to_string (',');
+        s += ',';
     }
 
   return s;

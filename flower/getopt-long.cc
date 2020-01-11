@@ -116,7 +116,10 @@ Long_option_init::str_for_help () const
 {
   string s;
   if (shortname_char_)
-    s = "-" + ::to_string (shortname_char_);
+    {
+      s += '-';
+      s += shortname_char_;
+    }
   else
     s = "  ";
 

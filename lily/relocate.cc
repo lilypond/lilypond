@@ -101,7 +101,10 @@ prepend_env_path (char const *key, string value)
       debug_output (_f ("  Prepending '%s' to %s\n", value, key));
 
       if (char const *cur = getenv (key))
-        value += to_string (PATHSEP) + cur;
+        {
+          value += PATHSEP;
+          value += cur;
+        }
 
       return sane_putenv (key, value.c_str (), true, true);
     }
