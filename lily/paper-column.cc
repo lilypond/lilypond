@@ -263,7 +263,7 @@ Paper_column::print (SCM p)
 {
   Paper_column *me = unsmob<Paper_column> (p);
 
-  string r = ::to_string (me->get_rank ());
+  string r = std::to_string (me->get_rank ());
 
   Moment *mom = unsmob<Moment> (me->get_property ("when"));
   string when = mom ? mom->to_string () : "?/?";

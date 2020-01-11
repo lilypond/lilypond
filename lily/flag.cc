@@ -103,7 +103,7 @@ Flag::glyph_name (SCM smob)
     staffline_offs = "";
 
   char dir = (d == UP) ? 'u' : 'd';
-  string font_char = flag_style + dir + staffline_offs + ::to_string (log);
+  string font_char = flag_style + dir + staffline_offs + std::to_string (log);
   return ly_string2scm ("flags." + font_char);
 }
 

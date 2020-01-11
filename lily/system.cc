@@ -228,7 +228,7 @@ System::get_paper_systems ()
 
       scm_c_vector_set_x (lines, i, system->get_paper_system ());
 
-      debug_output (::to_string (i) + "]", false);
+      debug_output (std::to_string (i) + "]", false);
     }
   return lines;
 }

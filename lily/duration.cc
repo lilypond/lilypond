@@ -133,9 +133,9 @@ Duration::to_string () const
   string s;
 
   if (durlog_ < 0)
-    s = "log = " + ::to_string (durlog_);
+    s = "log = " + std::to_string (durlog_);
   else
-    s = ::to_string (1 << durlog_);
+    s = std::to_string (1 << durlog_);
 
   if (dots_ > 0)
     s += string (dots_, '.');

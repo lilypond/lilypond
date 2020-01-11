@@ -237,7 +237,7 @@ Page_turn_page_breaking::solve ()
   for (vsize i = 0; i < last_break_position (); i++)
     {
       calc_subproblem (i);
-      progress_indication (string ("[") + ::to_string (i + 1) + "]");
+      progress_indication (string ("[") + std::to_string (i + 1) + "]");
     }
   progress_indication ("\n");
 

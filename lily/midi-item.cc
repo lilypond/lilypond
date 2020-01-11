@@ -67,7 +67,7 @@ Midi_duration::Midi_duration (Real seconds_f)
 string
 Midi_duration::to_string () const
 {
-  return string ("<duration: ") + ::to_string (seconds_) + ">";
+  return string ("<duration: ") + std::to_string (seconds_) + ">";
 }
 
 Midi_instrument::Midi_instrument (Audio_instrument *a)

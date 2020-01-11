@@ -40,12 +40,12 @@ typedef size_t ssize;
 #define NPOS string::npos
 
 string to_string (char c) = delete;
-string to_string (int i, char const *format = 0);
-string to_string (double f, char const *format = 0);
-string to_string (long);
-string to_string (long unsigned);
-string to_string (I64, char const *format = 0);
-string to_string (unsigned);
+string to_string (int i) = delete;
+string to_string (double f) = delete;
+string to_string (long) = delete;
+string to_string (long unsigned) = delete;
+string to_string (I64) = delete;
+string to_string (unsigned) = delete;
 string to_string (bool b) = delete;
 string to_string (char const *format, ...)
 __attribute__ ((format (printf, 1, 2)));

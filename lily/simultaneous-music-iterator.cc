@@ -65,7 +65,7 @@ Simultaneous_music_iterator::construct_children ()
         {
           // create a new context of the same kind with the number as ID
           SCM name = ly_symbol2scm (c->context_name ().c_str ());
-          string id = ::to_string (j);
+          string id = std::to_string (j);
           if (Context *other = c->find_create_context (name, id, SCM_EOL))
             c = other;
           else

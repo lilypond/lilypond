@@ -35,8 +35,10 @@ template <class T>
 int
 intlog2 (T d)
 {
+  // TODO: To support user-defined types, use namespace std and call
+  // unqualified to_string().
   if (d <= 0)
-    error ("intlog2 with negative argument: " + ::to_string (d));
+    error ("intlog2 with negative argument: " + std::to_string (d));
   int i = 0;
   while ((d != 1))
     {

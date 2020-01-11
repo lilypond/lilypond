@@ -22,42 +22,6 @@
 #include "std-vector.hh"
 
 string
-to_string (double f, char const *format)
-{
-  return String_convert::double_string (f, format);
-}
-
-string
-to_string (int i, char const *format)
-{
-  return String_convert::int_string (i, format);
-}
-
-string
-to_string (long b)
-{
-  return String_convert::long_string (b);
-}
-
-string
-to_string (long unsigned b)
-{
-  return String_convert::unsigned_long_string (b);
-}
-
-string
-to_string (unsigned u)
-{
-  return String_convert::unsigned_string (u);
-}
-
-string
-to_string (I64 b, char const *format)
-{
-  return String_convert::i64_string (b, format);
-}
-
-string
 to_string (char const *format, ...)
 {
   va_list args;

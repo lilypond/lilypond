@@ -68,9 +68,9 @@ Lilypond_version::to_string () const
 {
   if (major_ < 0)
     return "invalid";
-  return ::to_string (major_)
-         + "." + ::to_string (minor_)
-         + "." + ::to_string (patch_);
+  return std::to_string (major_)
+         + "." + std::to_string (minor_)
+         + "." + std::to_string (patch_);
 }
 
 Lilypond_version::operator bool () const

@@ -352,9 +352,9 @@ Rational::to_string () const
       return string (s + "infinity");
     }
 
-  string s = ::to_string (num ());
+  string s = std::to_string (num ());
   if (den () != 1 && num ())
-    s += "/" + ::to_string (den ());
+    s += "/" + std::to_string (den ());
   return s;
 }
 

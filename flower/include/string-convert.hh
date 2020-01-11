@@ -27,18 +27,13 @@ public:
   static unsigned bin2unsigned (const string &bin_string);
   static int dec2int (const string &dec_string);
   static double dec2double (const string &dec_string);
-  static string double_string (double f, char const *fmt = 0);
   static string form_string (char const *format, ...) __attribute__ ((format (printf, 1, 2)));
   static string vform_string (char const *format, va_list args);
   static string hex2bin (const string &str);
   static string int_string (int i, char const *fmt = 0);
-  static string unsigned_string (unsigned);
-  static string unsigned_long_string (unsigned long);
-  static string long_string (long);
   static string int2hex (int i, size_t length_i, char ch);
   static string unsigned2hex (unsigned u, size_t length, char ch);
   static string int2dec (int i, size_t length_i, char ch);
-  static string i64_string (I64, char const *fmt = 0);
   static string to_lower (string s);
   static string to_upper (string s);
 };

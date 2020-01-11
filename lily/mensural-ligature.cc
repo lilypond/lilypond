@@ -170,7 +170,7 @@ internal_brew_primitive (Grob *me)
       // fallthrough
     case MLP_BREVIS:
       duration_log--;
-      suffix = ::to_string (duration_log) + color
+      suffix = std::to_string (duration_log) + color
                + (duration_log < -1 ? "lig" : "") + "mensural";
       index = prefix + "s";
       out = fm->find_by_name (index + "r" + suffix);

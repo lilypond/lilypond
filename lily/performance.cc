@@ -100,7 +100,7 @@ Performance::output (Midi_stream &midi_stream,
           assert (text->text_string_ == "control track");
           text->text_string_ = performance_name;
         }
-      debug_output ("[" + ::to_string (i), true);
+      debug_output ("[" + std::to_string (i), true);
       s->output (midi_stream, i, ports_, start_mom);
       debug_output ("]", false);
     }

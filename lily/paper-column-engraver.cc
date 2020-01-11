@@ -50,7 +50,7 @@ void
 Paper_column_engraver::finalize ()
 {
   if (! (breaks_ % 8))
-    progress_indication ("[" + ::to_string (breaks_) + "]");
+    progress_indication ("[" + std::to_string (breaks_) + "]");
 
   if (!made_columns_)
     {
@@ -280,7 +280,7 @@ Paper_column_engraver::stop_translation_timestep ()
       breaks_++;
 
       if (! (breaks_ % 8))
-        progress_indication ("[" + ::to_string (breaks_) + "]");
+        progress_indication ("[" + std::to_string (breaks_) + "]");
     }
 
   find_score_context ()->unset_property (ly_symbol2scm ("forbidBreak"));

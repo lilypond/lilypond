@@ -104,7 +104,7 @@ Volta_repeat_iterator::next_element (bool side_effect)
     {
       if (alt_count_)
         {
-          string repstr = ::to_string (rep_count_ - alt_count_ + done_count_) + ".";
+          string repstr = std::to_string (rep_count_ - alt_count_ + done_count_) + ".";
           if (done_count_ <= 1)
             {
               alt_restores_ = SCM_EOL;
@@ -163,7 +163,7 @@ Volta_repeat_iterator::next_element (bool side_effect)
             }
 
           if (done_count_ == 1 && alt_count_ < rep_count_)
-            repstr = "1.--" + ::to_string (rep_count_ - alt_count_ + done_count_) + ".";
+            repstr = "1.--" + std::to_string (rep_count_ - alt_count_ + done_count_) + ".";
 
           if (done_count_ <= alt_count_)
             add_repeat_command (scm_list_2 (ly_symbol2scm ("volta"),

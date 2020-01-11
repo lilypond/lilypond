@@ -175,8 +175,8 @@ Source_file::file_line_column_string (char const *context_str0) const
       int l, ch, col, offset;
       get_counts (context_str0, &l, &ch, &col, &offset);
 
-      return name_string () + ":" + ::to_string (l)
-             + ":" + ::to_string (col + 1);
+      return name_string () + ":" + std::to_string (l)
+             + ":" + std::to_string (col + 1);
     }
 }
 

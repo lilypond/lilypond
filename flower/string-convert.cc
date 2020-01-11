@@ -81,14 +81,6 @@ String_convert::dec2int (const string &dec_string)
   return (int)l;
 }
 
-string
-String_convert::i64_string (I64 i64, char const *fmt)
-{
-  char buffer[STRING_BUFFER_LEN];
-  snprintf (buffer, STRING_BUFFER_LEN,
-            (fmt ? fmt : "%Ld"), i64); // assume radix 10
-  return string (buffer);
-}
 // breendet imp from string
 double
 String_convert::dec2double (const string &dec_string)
@@ -232,44 +224,6 @@ String_convert::vform_string (char const *format, va_list args)
   char buffer[STRING_BUFFER_LEN];
   vsnprintf (buffer, STRING_BUFFER_LEN, format, args);
   return string (buffer);
-}
-
-/**
-   Convert a double to a string.
-
-   @param #fmt# is a printf style format, default assumes "%lf" as format
-*/
-string
-String_convert::double_string (double f, char const *fmt)
-{
-  char buf[STRING_BUFFER_LEN];
-
-  snprintf (buf, STRING_BUFFER_LEN, fmt ? fmt : "%f", f);
-  return string (buf);
-}
-
-string
-String_convert::long_string (long l)
-{
-  char s[STRING_BUFFER_LEN];
-  sprintf (s, "%ld", l);
-  return s;
-}
-
-string
-String_convert::unsigned_string (unsigned u)
-{
-  char s[STRING_BUFFER_LEN];
-  sprintf (s, "%u", u);
-  return s;
-}
-
-string
-String_convert::unsigned_long_string (unsigned long ul)
-{
-  char s[STRING_BUFFER_LEN];
-  sprintf (s, "%lu", ul);
-  return s;
 }
 
 string
