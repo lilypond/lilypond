@@ -26,7 +26,6 @@ public:
   static string bin2hex (const string &bin_string);
   static int bin2int (const string &bin_string);
   static unsigned bin2unsigned (const string &bin_string);
-  static string char_string (char c, int n);
   static int dec2int (const string &dec_string);
   static double dec2double (const string &dec_string);
   static string double_string (double f, char const *fmt = 0);

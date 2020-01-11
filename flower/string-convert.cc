@@ -255,24 +255,6 @@ String_convert::double_string (double f, char const *fmt)
   return string (buf);
 }
 
-/**
-   Make a string from a single character.
-
-   @param
-   #n# is a repetition count, default value is 1
-*/
-string
-String_convert::char_string (char c, int n)
-{
-  n = n >= 0 ? n : 0;
-  char *ch = new char[ n ];
-  memset (ch, c, n);
-  string s (ch, n);
-
-  delete[] ch;
-  return s;
-}
-
 string
 String_convert::long_string (long l)
 {

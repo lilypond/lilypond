@@ -145,17 +145,16 @@ get_help_string ()
     {
       SCM sym = scm_caar (s);
       SCM val = scm_cdar (s);
-      string opt_spec = String_convert::char_string (' ', INDENT)
+      string opt_spec = string (INDENT, ' ')
                         + ly_symbol2string (sym)
                         + " ("
                         + ly_scm2string (Lily::scm_to_string (val))
                         + ")";
 
       if (opt_spec.length () + SEPARATION > HELP_INDENT)
-        opt_spec += "\n" + String_convert::char_string (' ', HELP_INDENT);
+        opt_spec += '\n' + string (HELP_INDENT, ' ');
       else
-        opt_spec += String_convert::char_string (' ', HELP_INDENT
-                                                 - opt_spec.length ());
+        opt_spec += string (HELP_INDENT - opt_spec.length (), ' ');
 
       SCM opt_help_scm
         = scm_object_property (sym,
@@ -163,8 +162,7 @@ get_help_string ()
       string opt_help = ly_scm2string (opt_help_scm);
       replace_all (&opt_help,
                    string ("\n"),
-                   string ("\n")
-                   + String_convert::char_string (' ', HELP_INDENT));
+                   string ("\n") + string (HELP_INDENT, ' '));
 
       opts.push_back (opt_spec + opt_help + "\n");
     }
