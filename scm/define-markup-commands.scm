@@ -1569,6 +1569,11 @@ If there are no arguments, return an empty stencil.
       }
       \\line { across the page }
     }
+    \\null
+    \\override #'(line-width . 50)
+    \\fill-line {
+      Width explicitly specified
+    }
   }
 }
 @end lilypond"

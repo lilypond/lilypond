@@ -1064,6 +1064,26 @@ multi-line text or any other markup expression:
 }
 @end lilypond
 
+@cindex text, line width
+@cindex markup text, line width
+
+@funindex line-width
+
+Elements may be spread to fill any specified width by overriding
+the @code{line-width} property.  By default it is set to
+@code{#f} which indicates the entire line:
+
+@lilypond[quote,verbatim]
+\markup {
+  \column {
+    \fill-line { left center right }
+    \null
+    \override #'(line-width . 30)
+    \fill-line { left center right }
+  }
+}
+@end lilypond
+
 @cindex wordwrapped text
 @cindex justified text
 @cindex text, justified
