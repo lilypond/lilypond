@@ -3895,8 +3895,8 @@ def conv (str):
 @rule ((2, 19, 46), r"\context ... \modification -> \context ... \with \modification")
 def conv (str):
     word=r'(?:#?"[^"]*"|\b' + wordsyntax + r'\b)'
-    mods = str.join (re.findall ("\n(" + wordsyntax + r")\s*=\s*\\with(?:\s|\\|\{)")
-                        + ['RemoveEmptyStaves','RemoveAllEmptyStaves'], "|")
+    mods = "|".join (re.findall ("\n(" + wordsyntax + r")\s*=\s*\\with(?:\s|\\|\{)", str)
+                     + ['RemoveEmptyStaves','RemoveAllEmptyStaves'])
     str = re.sub (r"(\\(?:drums|figures|chords|lyrics|addlyrics|"
                   + r"(?:new|context)\s*" + word
                   + r"(?:\s*=\s*" + word + r")?)\s*)(\\(?:" + mods + "))",
