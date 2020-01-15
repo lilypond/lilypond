@@ -5,6 +5,7 @@
 
 # Generates lilypond-words.el for (X)Emacs and lilypond-words[.vim] for Vim.
 
+import codecs
 import re
 import sys
 import os
@@ -18,7 +19,7 @@ note_names = []
 keywords += ['include', 'maininput', 'version']
 
 # the main keywords
-s = open ('lily/lily-lexer.cc', 'r').read ()
+s = codecs.open ('lily/lily-lexer.cc', 'r', 'utf-8').read ()
 keywords += [w for w in re.findall (r"\s*{\"(.+)\",\s*.*},\s*\n", s)]
 
 # markup commands
@@ -26,7 +27,7 @@ for name in ['ly/toc-init.ly',
              'scm/define-markup-commands.scm',
              'scm/fret-diagrams.scm',
              'scm/harp-pedals.scm']:
-    s = open (name, 'r').read ()
+    s = codecs.open (name, 'r', 'utf-8').read ()
     keywords += [w for w in re.findall (r"\(define-markup[a-z-]+\s+\(([a-zA-Z-]+)", s)]
 
 # identifiers and keywords
@@ -43,17 +44,17 @@ for name in ['ly/chord-modifiers-init.ly',
              'ly/spanners-init.ly',
              'ly/toc-init.ly',
              'ly/declarations-init.ly']:
-    s = open (name, 'r').read ()
+    s = codecs.open (name, 'r', 'utf-8').read ()
     keywords += [w for w in re.findall (r"(?m)^\s*\"?([a-zA-Z]+)\"?\s*=", s)]
 
 # note names
-s = open ('scm/define-note-names.scm', 'r').read ()
+s = codecs.open ('scm/define-note-names.scm', 'r', 'utf-8').read ()
 note_names += [n for n in re.findall (r"(?m)^\s*\(([a-z]+)\s+\.\s+,\(ly:make-pitch", s)]
 
 # reserved words
 for name in ['ly/engraver-init.ly',
              'ly/performer-init.ly']:
-    s = open (name, 'r').read ()
+    s = codecs.open (name, 'r', 'utf-8').read ()
     for pattern in [r"(?m)^\s*.consists\s+\"([a-zA-Z_]+)\"",
                     r"[\\]name\s+[\"]?([a-zA-Z_]+)[\"]?",
                     r"\s+([a-zA-Z_]+)\s*\\(?:set|override)"]:

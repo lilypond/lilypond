@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import codecs
 import re
 import tempfile
 import subprocess
@@ -338,9 +339,9 @@ class BookTexinfoOutputFormat (BookBase.BookOutputFormat):
             doctitle = base + '.doctitle'
             translated_doctitle = doctitle + self.document_language
             if os.path.exists (translated_doctitle):
-                str += '\n@lydoctitle %s\n\n' % open (translated_doctitle).read ()
+                str += '\n@lydoctitle %s\n\n' % codecs.open (translated_doctitle, 'r', 'utf-8').read ()
             elif os.path.exists (doctitle):
-                str += '\n@lydoctitle %s\n\n' % open (doctitle).read ()
+                str += '\n@lydoctitle %s\n\n' % codecs.open (doctitle, 'r', 'utf-8').read ()
         if TEXIDOC in snippet.option_dict:
             texidoc = base + '.texidoc'
             translated_texidoc = texidoc + self.document_language

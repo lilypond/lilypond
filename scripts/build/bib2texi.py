@@ -1,4 +1,5 @@
 #!@PYTHON@
+import codecs
 import os
 import sys
 import getopt
@@ -83,13 +84,13 @@ if stat != 0:
 
 #TODO: do tex -> itexi on output
 # Following lines copy tmpfile.bbl to the desired output file
-bbl = open (tmpfile + '.bbl').read ()
+bbl = codecs.open (tmpfile + '.bbl', 'r', 'utf-8').read ()
 
 if bbl.strip () == '':
     sys.stderr.write ("Bibtex generated an empty file!")
     sys.exit (1)
 
-fout = open (output, 'w')
+fout = codecs.open (output, 'w', 'utf-8')
 fout.write (marker)
 fout.write (bbl)
 fout.close ()

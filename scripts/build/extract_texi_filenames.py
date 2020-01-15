@@ -29,6 +29,7 @@
 # are added to the map for the translated manual.
 
 
+import codecs
 import sys
 import re
 import os
@@ -140,7 +141,7 @@ lang_re = re.compile (r'^@documentlanguage (.+)', re.M)
 
 def extract_sections (filename):
     result = ''
-    f = open (filename, 'r')
+    f = codecs.open (filename, 'r', 'utf-8')
     page = f.read ()
     f.close()
     # Search document language
@@ -224,7 +225,7 @@ def process_sections (filename, lang_suffix, page):
     p = os.path.join (outdir, basename) + lang_suffix + '.xref-map'
     if not suppress_output:
         print 'writing:', p
-    f = open (p, 'w')
+    f = codecs.open (p, 'w', 'utf-8')
 
     node_prefix_title = ''
     this_title = ''

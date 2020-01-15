@@ -1,10 +1,13 @@
 #!@PYTHON@
 
+import codecs
 import getopt
 import os
 import re
 import sys
 import time
+
+sys.stdout = codecs.getwriter ('utf8') (sys.stdout)
 
 def usage ():
     sys.stderr.write ('''
@@ -70,7 +73,7 @@ infile = files[0]
 
 today = time.localtime ()
 
-texi = open (infile).read ()
+texi = codecs.open (infile, 'r', 'utf-8').read ()
 
 if not location:
     location = 'file:/%s' % re.sub (r'\..*', '.' + format, infile)

@@ -6,6 +6,7 @@
 # USAGE: www_post PACKAGE_NAME TOPLEVEL_VERSION OUTDIR TARGETS
 # please call me from top of the source directory
 
+import codecs
 import sys
 import os
 import re
@@ -70,7 +71,8 @@ whitelisted_files = [
 ]
 for f in files:
     if f.endswith ('.html'):
-        if f in whitelisted_files or not 'UNTRANSLATED NODE: IGNORE ME' in open (f).read ():
+        contents = codecs.open (f, 'r', 'utf-8').read ()
+        if f in whitelisted_files or not 'UNTRANSLATED NODE: IGNORE ME' in contents:
             html_files.append (f)
     else:
         hardlinked_files.append (f)

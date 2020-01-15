@@ -45,6 +45,7 @@ TODO:
 
 # TODO: Better solve the global_options copying to the snippets...
 
+import codecs
 import glob
 import os
 import re
@@ -514,7 +515,7 @@ def write_if_updated (file_name, lines):
         os.makedirs (output_dir)
 
     progress (_ ("Writing `%s'...") % file_name)
-    open (file_name, 'w').writelines (lines)
+    codecs.open (file_name, 'w', 'utf-8').writelines (lines)
 
 
 def note_input_file (name, inputs=[]):
@@ -548,7 +549,7 @@ def do_file (input_filename, included=False):
         input_absname = os.path.abspath (input_fullname)
 
         note_input_file (input_fullname)
-        in_handle = open (input_fullname)
+        in_handle = codecs.open (input_fullname, 'r', 'utf-8')
 
     if input_filename == '-':
         global_options.input_dir = os.getcwd ()

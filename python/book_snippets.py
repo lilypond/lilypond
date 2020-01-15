@@ -3,6 +3,7 @@
 import book_base as BookBase
 import lilylib as ly
 global _;_=ly._
+import codecs
 import re
 import os
 import copy
@@ -610,7 +611,7 @@ printing diff against existing file." % filename)
                 cmd = 'diff -u %s -' % filename
                 ly.stderr_write (self.filter_pipe (encoded, cmd).decode ('utf-8'))
         else:
-            out = open (filename, 'w')
+            out = codecs.open (filename, 'w', 'utf-8')
             out.write (self.full_ly ())
             open (path + '.txt', 'w').write ('image of music')
 
@@ -935,7 +936,7 @@ printing diff against existing file.") % xmlfilename)
 printing diff against existing file.") % filename)
                 ly.stderr_write (diff_against_existing.decode ('utf-8'))
         else:
-            out = open (filename, 'w')
+            out = codecs.open (filename, 'w', 'utf-8')
             out.write (self.full_ly ())
             out.close ()
             open (path + '.txt', 'w').write ('image of music')

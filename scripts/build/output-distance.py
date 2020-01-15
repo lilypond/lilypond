@@ -1,4 +1,5 @@
 #!@PYTHON@
+import codecs
 import errno
 import sys
 import optparse
@@ -491,14 +492,12 @@ class FileCompareLink (FileLink):
     def get_content (self, name):
         log_verbose ('reading %s' % name)
         try:
-            f = open (name)
+            return codecs.open (name, 'r', 'utf-8').read ()
         except IOError, e:
             if e.errno == errno.ENOENT:
                 return None
             else:
                 raise
-        s = f.read ()
-        return s
 
 
 class GitFileCompareLink (FileCompareLink):
@@ -939,7 +938,7 @@ class ComparisonData:
             sf = val.source_file ()
             if sf:
                 re.sub (r'\\sourcefilename "([^"]+)"',
-                        note_original, open (sf).read ())
+                        note_original, codecs.open (sf, 'r', 'utf-8').read ())
             else:
                 print 'no source for', val.file_names[1]
 
