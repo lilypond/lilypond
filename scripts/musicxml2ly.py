@@ -3174,9 +3174,9 @@ def convert(filename, options):
     printer = musicexp.Output_printer()
     #ly.progress(_("Output to `%s'") % defs_ly_name, True)
     if (options.output_name == "-"):
-      printer.set_file(codecs.getwriter("utf-8")(sys.stdout))
+      printer.set_file(sys.stdout)
     else:
-      printer.set_file(codecs.open(output_ly_name, 'wb', encoding='utf-8'))
+      printer.set_file(codecs.open(output_ly_name, 'w', encoding='utf-8'))
     print_ly_preamble(printer, filename)
     print_ly_additional_definitions(printer, filename)
     if score_information:
