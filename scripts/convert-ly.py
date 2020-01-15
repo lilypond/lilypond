@@ -69,7 +69,7 @@ def identify ():
 
 def warranty ():
     identify ()
-    ly.encoded_write (sys.stdout, '''
+    sys.stdout.write ('''
 %s
 
 %s
@@ -183,7 +183,7 @@ def show_rules (file, from_version, to_version):
     for x in convertrules.conversions:
         if (not from_version or x[0] > from_version) \
            and (not to_version or x[0] <= to_version):
-            ly.encoded_write  (file, '%s: %s\n' % (tup_to_str (x[0]), x[2]))
+            file.write ('%s: %s\n' % (tup_to_str (x[0]), x[2]))
 
 def do_conversion (str, from_version, to_version):
     """Apply conversions from FROM_VERSION to TO_VERSION.  Return

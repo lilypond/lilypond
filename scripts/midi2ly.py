@@ -72,7 +72,7 @@ def identify ():
 
 def warranty ():
     identify ()
-    ly.encoded_write (sys.stdout, '''
+    sys.stdout.write ('''
 %s
 
   %s
@@ -85,7 +85,7 @@ def warranty ():
         _ ('It comes with NO WARRANTY.')))
 
 def progress (s):
-    ly.encoded_write (errorport, s + '\n')
+    errorport.write (s + '\n')
 
 def warning (s):
     progress (_ ("warning: ") + s)

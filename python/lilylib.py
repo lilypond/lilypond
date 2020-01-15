@@ -59,9 +59,6 @@ import codecs
 sys.stdout = codecs.getwriter ('utf8') (sys.stdout)
 sys.stderr = codecs.getwriter ('utf8') (sys.stderr)
 
-def encoded_write(f, s):
-    f.write (s.encode (f.encoding or 'utf-8', 'replace'))
-
 # ugh, Python 2.5 optparse requires Unicode strings in some argument
 # functions, and refuse them in some other places
 def display_encode (s):
@@ -118,7 +115,7 @@ def is_verbose ():
     return is_loglevel ("DEBUG")
 
 def stderr_write (s):
-    encoded_write (sys.stderr, s)
+    sys.stderr.write (s)
 
 def print_logmessage (level, s, fullmessage = True, newline = True):
     if (is_loglevel (level)):

@@ -106,7 +106,7 @@ def identify ():
 
 def warranty ():
     identify ()
-    ly.encoded_write (sys.stdout, '''
+    sys.stdout.write ('''
 %s
 
   %s
