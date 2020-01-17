@@ -239,6 +239,8 @@ piano staff.")
 percent repeats.")
      (createKeyOnClefChange ,boolean? "Print a key signature whenever
 the clef is changed.")
+     (createMultiMeasureRestReminders ,boolean? "Add a reminder at the
+top of the page of the last multi measure rest on the preceding page.")
      (createSpacing ,boolean? "Create @code{StaffSpacing} objects?
 Should be set for staves.")
      (crescendoSpanner ,symbol? "The type of spanner to be used for
