@@ -785,6 +785,7 @@ break at a column with a negative penalty.")
      (page-break-permission ,symbol? "Instructs the page breaker on
 whether to put a page break at this column.  Can be @code{force} or
 @code{allow}.")
+     (page-number ,number? "Page number on which this system ends up.")
      (page-turn-penalty ,number? "Penalty for a page turn at this
 column.  This affects the choices of the page breaker; it avoids a
 page turn at a column with a positive penalty and prefers a page turn
@@ -820,6 +821,7 @@ horizontal edges.")
 ;;;
 ;;; r
 ;;;
+     (rank-on-page ,number? "0-based index of the system on a page.")
      (ratio ,number? "Parameter for slur shape.  The higher this
 number, the quicker the slur attains its @code{height-limit}.")
      (remove-empty ,boolean? "If set, remove group if it contains no
