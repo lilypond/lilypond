@@ -1601,6 +1601,31 @@
                                 side-position-interface
                                 text-interface))))))
 
+    (MultiMeasureRestReminder
+     . (
+        (break-align-symbols . (left-edge staff-bar))
+        (non-musical . #t)
+        (break-visibility . ,begin-of-line-visible)
+        (X-extent . (0 . 0))
+        (Y-extent . (0 . 0))
+        (staff-position . 8)
+        (stencil . ,ly:text-interface::print)
+        (text . ,(lambda (grob)
+                   (let*
+                       ((r (ly:grob-property (ly:grob-system grob) 'rank-on-page)))
+                     (display (ly:format "rank ~a" r))
+                     (if (< 0 r)
+                         (begin
+                           (ly:grob-suicide! grob)
+                           "")
+                         (ly:format "(~a)"  (ly:grob-property grob 'measure-count))))))
+        (Y-offset . ,staff-symbol-referencer::callback)
+        (meta . ((class . Item)
+                 (interfaces . (font-interface
+                                multi-measure-interface
+                                outside-staff-interface
+                                text-interface))))
+        ))
     (MultiMeasureRestText
      . (
         (direction . ,UP)

@@ -239,10 +239,16 @@ Multi_measure_rest_engraver::process_music ()
       if (grobs_initialized ())
         {
           int curr_measure = scm_to_int (get_property ("internalBarNumber"));
-          set_measure_count (curr_measure - start_measure_);
+          int count = curr_measure - start_measure_;
+          set_measure_count (count);
           if (last_command_item_)
             add_bound_item_to_grobs (last_command_item_);
           reset_grobs ();
+
+          if (scm_to_bool (get_property("createMultiMeasureRestReminders"))) {
+            Item *reminder = make_item ("MultiMeasureRestReminder", SCM_EOL);
+            reminder->set_property ("measure-count", scm_from_int (count));
+          }
         }
     }
 
@@ -291,6 +297,7 @@ ADD_TRANSLATOR (Multi_measure_rest_engraver,
                 "MultiMeasureRest "
                 "MultiMeasureRestNumber "
                 "MultiMeasureRestText "
+                "MultiMeasureRestReminder "
                 "MultiMeasureRestScript ",
 
                 /* read */
@@ -298,6 +305,7 @@ ADD_TRANSLATOR (Multi_measure_rest_engraver,
                 "restNumberThreshold "
                 "currentCommandColumn "
                 "measurePosition "
+                "createMultiMeasureRestReminders ",
                 "whichBar ",
 
                 /* write */
