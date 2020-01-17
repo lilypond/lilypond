@@ -788,9 +788,9 @@ savannah bug tracker?
 (prep: 1 hour.  discuss: 5 hours)
 
 @item @strong{Patch review tool}:
-Reitveld is inconvenient in some respects: it requires a google
+Rietveld is inconvenient in some respects: it requires a google
 account, and there's no way to see all patches relating to
-lilypond. Should we switch to something like gerritt?
+lilypond. Should we switch to something like gerrit?
 @uref{https://sourceforge.net/p/testlilyissues/issues/1184/}
 
 (prep: 5 hours.  discuss: 15 hours)
