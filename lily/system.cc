@@ -1046,6 +1046,8 @@ ADD_INTERFACE (System,
                "in-note-padding "
                "in-note-stencil "
                "labels "
+               "page-number "
                "pure-Y-extent "
+               "rank-on-page "
                "vertical-alignment "
               );

@@ -621,6 +621,18 @@ Page_breaking::make_pages (const vector<vsize> &lines_per_page, SCM systems)
       bool rag = ragged () || (bookpart_last_page && ragged_last ());
       SCM line_count = scm_from_size_t (lines_per_page[i]);
       SCM lines = scm_list_head (systems, line_count);
+
+      int rank_on_page = 0;
+      for (SCM line = lines; scm_is_pair (line); line = scm_cdr (line))
+        {
+          System *sys = unsmob<System> (scm_car (line));
+          if (sys) {
+            sys->set_property ("rank-on-page", scm_from_int (rank_on_page));
+            sys->set_property ("page-number", scm_from_int (page_num));
+            rank_on_page++;
+          }
+        }
+
       vsize fn_lines = Page_layout_problem::get_footnote_count (lines);
       Page_layout_problem::add_footnotes_to_lines (lines, reset_footnotes_on_new_page ? 0 : footnote_count, book_);
 
