@@ -254,6 +254,10 @@ struct Substitution_entry
 {
   Grob *grob_;
 
+  /* The all-elements array inside the System is large. To save
+     memory, we assume there will not be more than 32k systems, and use
+     int16 for the indices, to save some space.
+  */
   System::rank_type left_;
   System::rank_type right_;
 
