@@ -584,9 +584,8 @@ Page_breaking::draw_page (SCM systems, SCM configuration, int page_num, bool las
   return page;
 }
 
-// TODO: pass lines_per_page by const reference
 SCM
-Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
+Page_breaking::make_pages (const vector<vsize> &lines_per_page, SCM systems)
 {
   if (scm_is_null (systems))
     return SCM_EOL;
