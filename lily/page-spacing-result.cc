@@ -41,7 +41,7 @@ Page_spacing_result::average_force () const
   for (vsize i = 0; i < page_count (); i++)
     average_force += force_[i];
 
-  average_force /= page_count ();
+  average_force /= Real (page_count ());
   return average_force;
 }
 

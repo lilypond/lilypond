@@ -142,7 +142,7 @@ Multi_measure_rest_engraver::initialize_grobs ()
           Spanner *sp = make_spanner ("MultiMeasureRestScript", e->self_scm ());
           make_script_from_event (sp, context (),
                                   e->get_property ("articulation-type"),
-                                  i);
+                                  int(i));
           SCM dir = e->get_property ("direction");
           if (is_direction (dir))
             sp->set_property ("direction", dir);

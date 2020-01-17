@@ -27,7 +27,7 @@ int
 Pointer_group_interface::count (Grob *me, SCM sym)
 {
   Grob_array *arr = unsmob<Grob_array> (me->internal_get_object (sym));
-  return arr ? arr->size () : 0;
+  return arr ? int (arr->size ()) : 0;
 }
 
 void

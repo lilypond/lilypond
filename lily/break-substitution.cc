@@ -113,11 +113,11 @@ again:
     }
   else if (scm_is_vector (src))
     {
-      int len = scm_c_vector_length (src);
+      size_t len = scm_c_vector_length (src);
       SCM nv = scm_c_make_vector (len, SCM_UNDEFINED);
-      for (int i = 0; i < len; i++)
+      for (size_t i = 0; i < len; i++)
         {
-          SCM si = scm_from_int (i);
+          SCM si = scm_from_int ((int)i);
           scm_vector_set_x (nv, si,
                             do_break_substitution (scm_vector_ref (src, si)));
         }
@@ -307,7 +307,7 @@ bool
 Spanner::fast_substitute_grob_array (SCM sym,
                                      Grob_array *grob_array)
 {
-  int len = grob_array->size ();
+  vsize len = grob_array->size ();
 
   if (grob_array->ordered ())
     return false;
