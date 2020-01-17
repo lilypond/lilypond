@@ -110,28 +110,14 @@ Context::Context ()
 Context *
 Context::create_unique_context (SCM name, const string &id, SCM operations)
 {
-  /*
-    Don't create multiple score contexts.
-  */
-  Global_context *gthis = dynamic_cast<Global_context *> (this);
-  if (gthis)
-    {
-      if (Context *score = gthis->get_score_context ())
-        return score->create_unique_context (name, id, operations);
-    }
-
   vector<Context_def *> path = path_to_acceptable_context (name);
   if (!path.empty ())
     return create_hierarchy (path, NEW_CONTEXT_ID, id, operations);
 
-  /*
-    Don't go up to Global_context, because global goes down to the
-    Score context
-  */
-  Context *ret = 0;
-  if (daddy_context_ && !dynamic_cast<Global_context *> (daddy_context_))
-    ret = daddy_context_->create_unique_context (name, id, operations);
-  return ret;
+  if (daddy_context_)
+    return daddy_context_->create_unique_context (name, id, operations);
+
+  return nullptr;
 }
 
 Context *
@@ -145,25 +131,11 @@ Context::find_create_context (SCM n, const string &id,
   if (Context *existing = find_context_below (this, n, id))
     return existing->is_accessible_to_user () ? existing : nullptr;
 
-  /*
-    Don't create multiple score contexts.
-  */
-  Global_context *gthis = dynamic_cast<Global_context *> (this);
-  if (gthis)
-    {
-      if (Context *score = gthis->get_score_context ())
-        return score->find_create_context (n, id, operations);
-    }
-
   vector<Context_def *> path = path_to_acceptable_context (n);
   if (!path.empty ())
     return create_hierarchy (path, "", id, operations);
 
-  /*
-    Don't go up to Global_context, because global goes down to the
-    Score context
-  */
-  if (daddy_context_ && !dynamic_cast<Global_context *> (daddy_context_))
+  if (daddy_context_)
     return daddy_context_->find_create_context (n, id, operations);
 
   return 0;
@@ -359,9 +331,12 @@ Context::create_context (Context_def *cdef,
   return infant;
 }
 
-// Create new contexts below this context for each path element in order.  Use
-// leaf_id and leaf_operations for the last; use intermediate_id and no
-// operations for the rest.
+// Create a new context at the end of a given path below this context, using
+// leaf_id and leaf_operations for it.
+//
+// Intermediate contexts in the path are reused or created.  Contexts
+// configured to "adopt" new descendants are considered for reuse.  When
+// necessary, contexts are created using intermediate_id and no operations.
 //
 // If the desired leaf context is successfully created, return it.  If the path
 // is empty, return this context.
@@ -378,9 +353,16 @@ Context::create_hierarchy (const std::vector<Context_def *> &path,
 
   if (!path.empty ())
     {
-      if (path.size () > 1)
+      // choose or create the intermediate contexts
+      for (vsize i = 0; i < path.size () - 1; ++i)
         {
-          for (vsize i = 0; i < path.size () - 1; ++i)
+          SCM child_name = path[i]->get_context_name ();
+          SCM grandchild_name = path[i + 1]->get_context_name ();
+          Context *c = leaf->find_child_to_adopt_grandchild (child_name,
+                                                             grandchild_name);
+          if (c)
+            leaf = c;
+          else
             {
               leaf = leaf->create_context (path[i], intermediate_id, SCM_EOL);
               if (!leaf)
@@ -394,6 +376,26 @@ Context::create_hierarchy (const std::vector<Context_def *> &path,
     }
 
   return leaf;
+}
+
+// Find an existing child of the exact given type (not an alias), which will
+// adopt the given type of grandchild.
+Context *
+Context::find_child_to_adopt_grandchild (SCM child_name, SCM grandchild_name)
+{
+  for (SCM s = context_list_; scm_is_pair (s); s = scm_cdr (s))
+    {
+      Context *c = unsmob<Context> (scm_car (s));
+      if (c->adopts_ &&
+          scm_is_eq (c->context_name_symbol (), child_name) &&
+          // Is this way of checking acceptance too heavy?
+          (c->path_to_acceptable_context (grandchild_name).size () == 1))
+        {
+          return c;
+        }
+    }
+
+  return nullptr;
 }
 
 bool

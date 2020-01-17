@@ -330,6 +330,8 @@ Context_def::instantiate (SCM ops)
   context->definition_mods_ = ops;
   context->aliases_ = context_aliases_;
   context->acceptance_.assign_copy (acceptance_);
+  // TODO: Set this with "\adopts ##t" in the ly code.
+  context->adopts_ = scm_is_eq (context_name_, ly_symbol2scm ("Score"));
 
   Acceptance_set& acc = context->acceptance_;
   for (SCM s = ops; scm_is_pair (s); s = scm_cdr (s))

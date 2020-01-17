@@ -43,6 +43,7 @@ private:
                              const std::string &intermediate_id,
                              const std::string &leaf_id,
                              SCM leaf_operations);
+  Context *find_child_to_adopt_grandchild (SCM child_name, SCM grandchild_name);
   SCM make_revert_finalization (SCM sym);
   Scheme_hash_table *properties_dict () const;
   Context *recursive_find_create_context (Input *,
@@ -74,6 +75,9 @@ protected:
   SCM properties_scm_;
   SCM context_list_;
   Acceptance_set acceptance_;
+  /* When a context needs to be added to the tree, but its descent is not fully
+     specified, can this context accept it as a descendant? */
+  bool adopts_ = false;
   SCM aliases_;
   Translator_group *implementation_;
   std::string id_string_;
