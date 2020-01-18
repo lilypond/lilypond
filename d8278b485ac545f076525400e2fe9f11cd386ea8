@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0df9ef6e_7f2bd016",
+        "filename": "lily/break-substitution.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1017531
+      },
+      "writtenOn": "2020-01-18T23:51:33Z",
+      "side": 1,
+      "message": "scm_from_size_t (i) would be more straightforward; however, it looks like you wouldn\u0027t need si at all if you changed the calls in the next line to scm_c_vector_set_x and scm_c_vector_ref.",
+      "revId": "d8278b485ac545f076525400e2fe9f11cd386ea8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f34d9dc_70291906",
+        "filename": "lily/break-substitution.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1017531
+      },
+      "writtenOn": "2020-01-18T23:51:33Z",
+      "side": 1,
+      "message": "My memory is as fallible as anyone\u0027s, but I think that I tried this, and it introduced other warnings (about signed comparisons?) that led through a series of similar changes to one that required more consideration than I had time for.",
+      "revId": "d8278b485ac545f076525400e2fe9f11cd386ea8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5f91911_6d90aab6",
+        "filename": "lily/pointer-group-interface.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1017531
+      },
+      "writtenOn": "2020-01-18T23:51:33Z",
+      "side": 1,
+      "message": "My experience leads me to prefer resolving warnings with less casting: in this case, changing the return type to vsize and following where it leads.  OTOH, I recognize that LilyPond is not a high-availability telecom system.  Maybe we can have a friendly chat about casting practices on Sunday afternoon.",
+      "revId": "d8278b485ac545f076525400e2fe9f11cd386ea8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
