@@ -401,9 +401,6 @@ PDF previews.")
      "Record Scheme cell usage this many times per
 second.  Dump results to `FILE.stacks' and
 `FILE.graph'.")
-    (trace-scheme-coverage
-     #f
-     "Record coverage of Scheme files in `FILE.cov'.")
     (verbose ,(ly:verbose-output?)
              "Verbose output, i.e. loglevel at least DEBUG (read-only).")
     (warning-as-error
@@ -441,7 +438,6 @@ messages into errors.")
              (srfi srfi-14)
              (scm clip-region)
              (scm memory-trace)
-             (scm coverage)
              (scm safe-utility-defs))
 
 (define-public _ gettext)
@@ -493,15 +489,11 @@ messages into errors.")
 
 
 (if (or (ly:get-option 'verbose)
-        (ly:get-option 'trace-memory-frequency)
-        (ly:get-option 'trace-scheme-coverage))
+        (ly:get-option 'trace-memory-frequency))
     (begin
       (ly:set-option 'protected-scheme-parsing #f)
       (debug-enable 'backtrace)
       (read-enable 'positions)))
-
-(if (ly:get-option 'trace-scheme-coverage)
-    (coverage:enable))
 
 (define music-string-to-path-backends
   '(svg))
@@ -1029,10 +1021,6 @@ PIDs or the number of the process."
   (if (string-or-symbol? (ly:get-option 'log-file))
       (ly:stderr-redirect (format #f "~a.log" (ly:get-option 'log-file)) "w"))
   (let ((failed (lilypond-all files)))
-    (if (ly:get-option 'trace-scheme-coverage)
-        (begin
-          (coverage:show-all (lambda (f)
-                               (string-contains f "lilypond")))))
     (if (pair? failed)
         (begin (ly:error (_ "failed files: ~S") (string-join failed))
                (ly:exit 1 #f))
