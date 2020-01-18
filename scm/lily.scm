@@ -396,11 +396,6 @@ PDF previews.")
     (svg-woff
      #f
      "Use woff font files in SVG backend.")
-    (trace-memory-frequency
-     #f
-     "Record Scheme cell usage this many times per
-second.  Dump results to `FILE.stacks' and
-`FILE.graph'.")
     (verbose ,(ly:verbose-output?)
              "Verbose output, i.e. loglevel at least DEBUG (read-only).")
     (warning-as-error
@@ -437,7 +432,6 @@ messages into errors.")
              (srfi srfi-13)
              (srfi srfi-14)
              (scm clip-region)
-             (scm memory-trace)
              (scm safe-utility-defs))
 
 (define-public _ gettext)
@@ -488,8 +482,7 @@ messages into errors.")
 ;;; default.
 
 
-(if (or (ly:get-option 'verbose)
-        (ly:get-option 'trace-memory-frequency))
+(if (or (ly:get-option 'verbose))
     (begin
       (ly:set-option 'protected-scheme-parsing #f)
       (debug-enable 'backtrace)
@@ -1052,16 +1045,11 @@ PIDs or the number of the process."
              (ly:stderr-redirect (format #f "~a.log" base) "w"))
          (if ping-log
              (format ping-log "Processing ~a\n" base))
-         (if (ly:get-option 'trace-memory-frequency)
-             (mtrace:start-trace  (ly:get-option 'trace-memory-frequency)))
          (lilypond-file handler x)
          (ly:check-expected-warnings)
          (session-terminate)
          (if start-measurements
              (dump-profile x start-measurements (profile-measurements)))
-         (if (ly:get-option 'trace-memory-frequency)
-             (begin (mtrace:stop-trace)
-                    (mtrace:dump-results base)))
          (for-each (lambda (s)
                      (ly:set-option (car s) (cdr s)))
                    all-settings)
