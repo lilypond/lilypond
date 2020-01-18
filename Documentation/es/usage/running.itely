@@ -867,16 +867,6 @@ para la representación correcta tanto del texto como de la letra.
 Asimismo se recomienda no usar alias de fuentes ni listas, por si
 el visor de SVG no es capaz de manejarlos.
 
-@item @code{trace-memory-frequency}
-@tab @code{#f}
-@tab Registrar el uso de células de Scheme esta cantidad de veces por
-segundo.  Volcar los resultados en @code{ARCHIVO.stacks} y en
-@code{ARCHIVO.graph}.
-
-@item @code{trace-scheme-coverage}
-@tab @code{#f}
-@tab Registrar la cobertura de los archivos de Scheme en @code{ARCHIVO.cov}.
-
 @item @code{verbose}
 @tab @code{#f}
 @tab Salida prolija, es decir el nivel de registro en DEBUG (sólo lectura).

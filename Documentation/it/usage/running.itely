@@ -809,15 +809,6 @@ accesso ai tipi di carattere per rendere in modo adeguato il testo.  Si raccoman
 di non usare gli @q{alias} o le @q{liste} dei tipi di carattere se il lettore
 SVG non è in grado di gestirli.
 
-@item @code{trace-memory-frequency}
-@tab @code{#f}
-@tab Registra molte volte al secondo l'uso delle celle da parte di Scheme.  Salva i
-risultati in @code{FILE.stacks} e @code{FILE.graph}.
-
-@item @code{trace-scheme-coverage}
-@tab @code{#f}
-@tab Registra la copertura dei file Scheme in @code{FILE.cov}.
-
 @item @code{verbose}
 @tab @code{#f}
 @tab Output dettagliato, ovvero livello di log DEBUG (sola lettura).

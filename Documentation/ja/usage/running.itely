@@ -830,15 +830,6 @@ SVG ビュアーにフォントが必要となります。@c
 SVG ビュアーが対応していないことがあるので、@c
 @q{フォントエイリアス} や @q{フォントリスト} を使用しないことをお勧めします。@c
 
-@item @code{trace-memory-frequency}
-@tab @code{#f}
-@tab Scheme セルの 1 秒毎の使用数を記録します。結果を @code{FILE.stacks}
-と @code{FILE.graph} に吐き出します。
-
-@item @code{trace-scheme-coverage}
-@tab @code{#f}
-@tab Scheme ファイルの適用範囲を @code{FILE.cov} に記録します。
-
 @item @code{verbose}
 @tab @code{#f}
 @tab 饒舌な出力。つまり、loglevel を DEBUG に設定します。

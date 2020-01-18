@@ -869,16 +869,6 @@ l'environnement du visionneur.  Néanmoins, LilyPond ne dispose pas de
 fichier de fonte @code{woff} textuelle.  La présence du fichier de fonte
 @code{woff} est un prérequis.
 
-@item @code{trace-memory-frequency}
-@tab @code{#f}
-@tab Enregistre l'utilisation de la cellule Scheme plusieurs fois par
-seconde, dans les fichiers @code{FICHIER.stacks} et
-@code{FICHIER.graph}.
-
-@item @code{trace-scheme-coverage}
-@tab @code{#f}
-@tab Enregistre la couverture des fichiers Scheme dans @code{FILE.cov}.
-
 @item @code{verbose}
 @tab @code{#f}
 @tab Passe en mode verbeux, ce qui correspond à un niveau de

@@ -870,17 +870,6 @@ is also recommended not to use any font @q{aliases} or @q{lists} in
 case the SVG viewer cannot handle them.
 Default: @code{#f}.
 
-@item @code{trace-memory-frequency} @var{bool}
-If @var{bool} is @code{#t}, record Scheme cell usage this many times
-per second.  For input file @file{foo.ly}, dump the results to
-@file{foo.stacks} and @file{foo.graph}.
-Default: @code{#f}.
-
-@item @code{trace-scheme-coverage} @var{bool}
-If @var{bool} is @code{#t}, record coverage of Scheme files.  For
-input file @file{foo.ly}, do this in file @file{foo.cov}.
-Default: @code{#f}.
-
 @item @code{verbose}
 Verbosity level.  This is a read-only option; setting it has no
 effect.

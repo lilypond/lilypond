@@ -724,15 +724,6 @@ Ausgabedateinamen einbeziehen.
 @tab @code{#f}
 @tab Woff-Schriftarten im SVG-Backend benuützen..
 
-@item @code{trace-memory-frequency}
-@tab @code{#f}
-@tab Zeichnet die Benutzung von Scheme so oft pro Sekunde auf.  Das Resultat
-wird in die Dateien @code{FILE.stacks} und @code{FILE.graph} ausgegeben.
-
-@item @code{trace-scheme-coverage}
-@tab @code{#f}
-@tab Abdeckung der Scheme-Dateien in Datei @code{FILE.cov} schreiben.
-
 @item @code{verbose}
 @tab @code{#f}
 @tab Ausfühliche Ausgabe, also Logstufe DEBUG (read-only).

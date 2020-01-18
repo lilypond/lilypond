@@ -9,7 +9,6 @@
 * Regtest comparison::
 * Pixel-based regtest comparison::
 * Finding the cause of a regression::
-* Memory and coverage tests::
 * MusicXML tests::
 @end menu
 
@@ -483,34 +482,6 @@ git bisect bad
 @end example
 
 @end itemize
-
-
-@node Memory and coverage tests
-@section Memory and coverage tests
-
-In addition to the graphical output of the regression tests, it is
-possible to test memory usage and to determine how much of the source
-code has been exercised by the tests.
-
-@subheading Memory usage
-
-For tracking memory usage as part of this test, you will need
-GUILE CVS; especially the following patch:
-@smallexample
-@uref{http://lilypond.org/vc/old/gub.darcs/patches/guile-1.9-gcstats.patch}.
-@end smallexample
-
-@subheading Code coverage
-
-For checking the coverage of the test suite, do the following
-
-@example
-./scripts/auxiliar/build-coverage.sh
-@emph{# uncovered files, least covered first}
-./scripts/auxiliar/coverage.py  --summary out-cov/*.cc
-@emph{# consecutive uncovered lines, longest first}
-./scripts/auxiliar/coverage.py  --uncovered out-cov/*.cc
-@end example
 
 
 @node MusicXML tests

@@ -736,16 +736,6 @@ causa grans increments a la mida del fitxer @code{PDF}.
 @tab Usar fitxers de tipus tipogràfic de lletra de woff al
 rerefons SVG.
 
-@item @code{trace-memory-frequency}
-@tab @code{#f}
-@tab Registra l'ús de cèl·lules del Scheme aquesta quantitat de
-vegades per segon.  Bolca els resultats en @code{FITXER.stacks} i
-en @code{FITXER.graph}.
-
-@item @code{trace-scheme-coverage}
-@tab @code{#f}
-@tab Registra la cobertura dels fitxers del Scheme a @code{FITXER.cov}.
-
 @item @code{verbose}
 @tab @code{#f}
 @tab Sortida detallada, és a dir el nivell de registre en DEBUT
