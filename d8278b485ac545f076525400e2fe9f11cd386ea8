@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "18c11180_3f9646af",
+        "filename": "lily/break-substitution.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1007980
+      },
+      "writtenOn": "2020-01-19T09:32:33Z",
+      "side": 1,
+      "message": "(incomplete comment)\n\nOn 32-bit systems, we don\u0027t have any objects that are small enough (ie. chars) that we put into arrays for the difference between 2G and 4G worth of objects to be worth it.\n\nOn 64-bit systems, the distinction is even less important.",
+      "parentUuid": "3e9f15a4_831674d9",
+      "revId": "d8278b485ac545f076525400e2fe9f11cd386ea8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a5f91911_6d90aab6",
         "filename": "lily/pointer-group-interface.cc",
         "patchSetId": 1
