@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "cd391728_0915cb29",
+        "filename": "lily/break-substitution.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1007980
+      },
+      "writtenOn": "2020-01-19T09:29:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0df9ef6e_7f2bd016",
+      "revId": "d8278b485ac545f076525400e2fe9f11cd386ea8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8f34d9dc_70291906",
         "filename": "lily/break-substitution.cc",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "3e9f15a4_831674d9",
+        "filename": "lily/break-substitution.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1007980
+      },
+      "writtenOn": "2020-01-19T09:29:13Z",
+      "side": 1,
+      "message": "good point. I didn\u0027t look in detail.\n\nIn general, I think the idea to use unsigned ints for vector sizes was misplaced. We don\u0027t have any objects that are small enough (ie. chars) that we put into arrays. \n\nIt might be worth it trying to go back to signed ints for the length functions that we control.",
+      "parentUuid": "8f34d9dc_70291906",
+      "revId": "d8278b485ac545f076525400e2fe9f11cd386ea8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a5f91911_6d90aab6",
         "filename": "lily/pointer-group-interface.cc",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2020-01-18T23:51:33Z",
       "side": 1,
       "message": "My experience leads me to prefer resolving warnings with less casting: in this case, changing the return type to vsize and following where it leads.  OTOH, I recognize that LilyPond is not a high-availability telecom system.  Maybe we can have a friendly chat about casting practices on Sunday afternoon.",
+      "revId": "d8278b485ac545f076525400e2fe9f11cd386ea8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85f1a443_8ce296f6",
+        "filename": "lily/pointer-group-interface.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1007980
+      },
+      "writtenOn": "2020-01-19T09:29:13Z",
+      "side": 1,
+      "message": "as said before, I think none of the signedness warning are useful, so I think we should we just do whatever is the least amount of work to get the source compiling without warnings.",
+      "parentUuid": "a5f91911_6d90aab6",
       "revId": "d8278b485ac545f076525400e2fe9f11cd386ea8",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
