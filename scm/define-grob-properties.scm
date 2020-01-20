@@ -543,10 +543,10 @@ for ambitus calculation.")
      (ignore-collision ,boolean? "If set, don't do note collision
 resolution on this @code{NoteColumn}.")
      (implicit ,boolean? "Is this an implicit bass figure?")
-     (inspect-index ,integer? "If debugging is set, set beam and slur
-configuration to this index, and print the respective scores.")
      (inspect-quants ,number-pair? "If debugging is set, set beam and
-slur quants to this position, and print the respective scores.")
+slur position to a (quantized) position that is as close as possible
+to this value, and print the demerits for the inspected position in
+the output.")
 
 
 ;;;
