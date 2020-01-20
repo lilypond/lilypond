@@ -1,6 +1,6 @@
 ;;; lilypond-font-lock.el --- syntax coloring for LilyPond mode
 
-;; Author: 2001-2019: Heikki Junes
+;; Author: 2001-2020: Heikki Junes
 ;;  * Emacs-mode: new keywords, reserved words, identifiers, notenames, 
 ;;    some dynamics and brackets are font-lock-keywords
 ;;  * context-dependent syntax-tables

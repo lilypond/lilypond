@@ -1,5 +1,5 @@
 # traditional Chinese translation for lilypond.
-# Copyright (C) 2005--2019 Free Software Foundation, Inc.
+# Copyright (C) 2005--2020 Free Software Foundation, Inc.
 # Abel Cheung <abelcheung@gmail.com>, 2005.
 #
 msgid ""

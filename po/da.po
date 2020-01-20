@@ -1,5 +1,5 @@
 # Danish translation of lilypond
-# Copyright (C) 2017--2019 Free Software Foundation, Inc.
+# Copyright (C) 2017--2020 Free Software Foundation, Inc.
 # This file is distributed under the same license as the lilypond package.
 # Keld Simonsen <keld@dkuug.dk>, 2001-2002.
 # Reviewed 2001-09-28 Rune Zedeler <rz@daimi.au.dk>
@@ -1590,7 +1590,7 @@ msgstr ""
 #: musicxml2ly.py:2759
 #, python-format
 msgid ""
-"Copyright (c) 2005--2019 by\n"
+"Copyright (c) 2005--2020 by\n"
 "    Han-Wen Nienhuys <hanwen@xs4all.nl>,\n"
 "    Jan Nieuwenhuizen <janneke@gnu.org> and\n"
 "    Reinhold Kainhofer <reinhold@kainhofer.com>\n"

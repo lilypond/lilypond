@@ -1,5 +1,5 @@
 # Japanese message for lilypond
-# Copyright (C) 2000--2019 Free Software Foundation, Inc.
+# Copyright (C) 2000--2020 Free Software Foundation, Inc.
 # This file is distributed under the same license as the lilypond package.
 # Daisuke Yamashita <yamad@mb.infoweb.ne.jp>, 2000.
 # Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>, 2012.
@@ -1518,7 +1518,7 @@ msgstr ""
 
 #: musicxml2ly.py:2576
 msgid ""
-"Copyright (c) 2005--2019 by\n"
+"Copyright (c) 2005--2020 by\n"
 "    Han-Wen Nienhuys <hanwen@xs4all.nl>,\n"
 "    Jan Nieuwenhuizen <janneke@gnu.org> and\n"
 "    Reinhold Kainhofer <reinhold@kainhofer.com>\n"
