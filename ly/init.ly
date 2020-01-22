@@ -79,3 +79,9 @@ $(if (ly:get-option 'include-settings)
   (ly:parser-clear-error)
   (if expect-error
    (ly:parser-error (_ "expected error, but none found"))))
+
+#(if (ly:get-option 'verbose)
+  (begin
+   (display "gc time taken: ")
+   (display (* 1.0 (/ (cdr (assoc 'gc-time-taken (gc-stats))) internal-time-units-per-second)))
+   (display "\n")))

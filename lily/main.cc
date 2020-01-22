@@ -725,6 +725,8 @@ setup_guile_gc_env ()
 }
 
 #if (GUILEV2)
+extern unsigned long GC_free_space_divisor;
+
 void
 setup_guile_v2_env ()
 /*
@@ -747,6 +749,9 @@ setup_guile_v2_env ()
      // (gc-stats)) just before \maininput in init.ly, and check that
      // it's roughly this value.
      sane_putenv("GC_INITIAL_HEAP_SIZE", "40M", false);
+
+     // Use less CPU for GC, at the expense of memory.
+     GC_free_space_divisor = 1;
 }
 #endif
 
