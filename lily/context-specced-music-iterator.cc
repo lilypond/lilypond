@@ -44,12 +44,14 @@ Context_specced_music_iterator::construct_children ()
   if (scm_is_string (ci))
     c_id = ly_scm2string (ci);
   SCM ops = get_music ()->get_property ("property-operations");
+  Direction dir = to_boolean (get_music ()->get_property ("descend-only"))
+                  ? DOWN : CENTER;
 
   Context *a = 0;
 
   if (to_boolean (get_music ()->get_property ("create-new")))
     {
-      a = get_outlet ()->create_unique_context (ct, c_id, ops);
+      a = get_outlet ()->create_unique_context (dir, ct, c_id, ops);
       if (!a)
         {
           Input *origin = get_music ()->origin ();
@@ -59,21 +61,22 @@ Context_specced_music_iterator::construct_children ()
     }
   else
     {
-      a = get_outlet ()->find_create_context (ct, c_id, ops);
-      if (!a)
+      a = get_outlet ()->find_create_context (dir, ct, c_id, ops);
+      // Warnings in regression tests would be pretty common if we didn't
+      // ignore them for DOWN.
+      //
+      // TODO: Not warning about a failure in DOWN mode smells funny.  It
+      // suggests that the fallback (remaining in the current context) is a
+      // fully acceptable alternative (from the perspective of the end user) in
+      // all cases; however, that seems unlikely.  But if this is the desired
+      // behavior for DOWN mode, should we do it for UP too?
+      if (!a && (dir != DOWN))
         {
           Input *origin = get_music ()->origin ();
           origin->warning (_f ("cannot find or create context: %s",
                                Context::diagnostic_id (ct, c_id).c_str ()));
         }
     }
-
-  // Q. Shouldn't descend-only block the creation of an unwanted context rather
-  // than just ignoring it after the fact?
-  if (a
-      && to_boolean (get_music ()->get_property ("descend-only"))
-      && !is_child_context (get_outlet (), a))
-    a = 0;
 
   if (a)
     set_context (a);

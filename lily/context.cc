@@ -35,8 +35,6 @@
 using std::string;
 using std::vector;
 
-static const char *const NEW_CONTEXT_ID = "\\new";
-
 bool
 Context::is_removable () const
 {
@@ -118,41 +116,138 @@ Context::matches (SCM type, const string &id) const
   return true;
 }
 
-/* TODO: create_unique_context () and find_create_context () are concerningly
-   similar yet different.  If you come to understand whether they should be
-   merged, please do it or comment on what should or should not be done. */
+// This recursive find-or-create traversal is the core part of \context and
+// \new, but it is not the complete search.  See find ().
+//
+// If dir is UP, do not descend.  If dir is DOWN, do not ascend.  If dir is
+// CENTER, do not limit the walk.
+//
+// n is a symbol: the name of the context to find or create.  In FIND_ONLY
+// mode, it may also be SCM_EOL to act as a wild card.
 Context *
-Context::create_unique_context (SCM name, const string &id, SCM operations)
+Context::core_find (FindMode mode, Direction dir,
+                    SCM n, const string &id, SCM ops)
 {
-  vector<Context_def *> path = path_to_acceptable_context (name);
-  if (!path.empty ())
-    return create_hierarchy (path, NEW_CONTEXT_ID, id, operations);
+  const bool allow_create = (mode != FIND_ONLY);
+  const bool allow_find = (mode != CREATE_ONLY);
+  const bool walk_down = (dir != UP);
+  const bool walk_up = (dir != DOWN);
 
-  if (daddy_context_)
-    return daddy_context_->create_unique_context (name, id, operations);
+  if (allow_find && matches (n, id))
+    return this;
+
+  if (walk_down && allow_find)
+    {
+      // Searching below in recursive calls can find contexts beyond those that
+      // are visible when looking just down and up from the starting point.
+      // The regression test lyric-combine-polyphonic.ly has a reasonably
+      // simple example of how this can be useful.
+      for (SCM s = children_contexts (); scm_is_pair (s); s = scm_cdr (s))
+        {
+          if (Context *c = unsmob<Context> (scm_car (s)))
+            {
+              c = c->core_find (FIND_ONLY, DOWN, n, id, SCM_EOL);
+              if (c)
+                return c;
+            }
+        }
+    }
+
+  if (walk_down && allow_create)
+    {
+      vector<Context_def *> path = path_to_acceptable_context (n);
+      if (!path.empty ())
+        {
+          // TODO: Would it be OK to use one intermediate ID for all cases?  It
+          // changes the output of ly->midi->ly regression tests such as
+          // lyrics-addlyrics-midi.ly, but are the differences important?
+          const char *intermediate_id = allow_find ? "" : "\\new";
+          return create_hierarchy (path, intermediate_id, id, ops);
+        }
+    }
+
+  if (walk_up && daddy_context_)
+    return daddy_context_->core_find (mode, dir, n, id, ops);
+
+  return nullptr;
+}
+
+// This implements all the logic of find () except a final check that the found
+// context is accessible to the user.
+Context *
+Context::unchecked_find (FindMode mode, Direction dir,
+                         SCM n, const string &id, SCM ops)
+{
+  const bool allow_create = (mode != FIND_ONLY);
+  const bool allow_find = (mode != CREATE_ONLY);
+
+  // TODO: Enabling this block will fix input/regression/context-find-parent.ly.
+  if (false && allow_find && (dir == CENTER))
+    {
+      // Search everything in and below the scope of the current context first.
+      // Here is an example that depends on finding a context below.
+      //
+      //   \new PianoStaff <<
+      //     \new Staff = "RH" { ... }
+      //     \new Staff = "LH" { ... }
+      //     \context Staff = "RH" { ... }
+      //   >>
+      //
+      if (Context *c = core_find (FIND_ONLY, DOWN, n, id, SCM_EOL))
+        return c;
+
+      // Search the path to the top before considering more distantly related
+      // contexts.
+      if (Context *c = core_find (FIND_ONLY, UP, n, id, SCM_EOL))
+        return c;
+    }
+
+  if (allow_create && scm_is_symbol (n))
+    {
+      if (Context *c = core_find (mode, dir, n, id, ops))
+        return c;
+    }
+  else if (allow_find)
+    {
+      if (Context *c = core_find (FIND_ONLY, dir, n, id, SCM_EOL))
+        return c;
+    }
 
   return nullptr;
 }
 
 Context *
-Context::find_create_context (SCM n, const string &id,
-                              SCM operations)
+Context::find (FindMode mode, Direction dir, SCM n, const string &id, SCM ops)
 {
-  // Searching below in recursive calls can find contexts beyond those that are
-  // visible when looking just down and up from the starting point.  The
-  // regression test lyric-combine-polyphonic.ly has a reasonably simple
-  // example of how this can be useful.
-  if (Context *existing = find_context_below (this, n, id))
-    return existing->is_accessible_to_user () ? existing : nullptr;
+  if (Context *c = unchecked_find (mode, dir, n, id, ops))
+    {
+      if (c->is_accessible_to_user ())
+        return c;
+    }
 
-  vector<Context_def *> path = path_to_acceptable_context (n);
-  if (!path.empty ())
-    return create_hierarchy (path, "", id, operations);
+  return nullptr;
+}
 
-  if (daddy_context_)
-    return daddy_context_->find_create_context (n, id, operations);
+Context *
+Context::create_unique_context (Direction dir,
+                                SCM name, const string &id,
+                                SCM ops)
+{
+  return find (CREATE_ONLY, dir, name, id, ops);
+}
 
-  return 0;
+Context *
+Context::find_context (Direction dir, SCM name, const string &id)
+{
+  return find (FIND_ONLY, dir, name, id, SCM_EOL);
+}
+
+Context *
+Context::find_create_context (Direction dir,
+                              SCM name, const string &id,
+                              SCM ops)
+{
+  return find (FIND_CREATE, dir, name, id, ops);
 }
 
 void
@@ -423,7 +518,7 @@ Context::get_default_interpreter (const string &id)
   // if there might be an existing partial (or even full?) path to a bottom
   // context.  This deserves an explanation.
   SCM name = ly_symbol2scm ("Bottom");
-  if (Context *c = create_unique_context (name, id, SCM_EOL))
+  if (Context *c = create_unique_context (CENTER, name, id, SCM_EOL))
     return c;
 
   // TODO: Avoiding a null return means the caller does not detect this
@@ -624,15 +719,6 @@ Context::disconnect_from_parent ()
 }
 
 Context *
-find_context_above (Context *where, SCM type)
-{
-  while (where && !where->is_alias (type))
-    where = where->get_parent_context ();
-
-  return where;
-}
-
-Context *
 find_context_above_by_parent_type (Context *where, SCM parent_type)
 {
   while (Context *parent = where->get_parent_context ())
@@ -641,39 +727,6 @@ find_context_above_by_parent_type (Context *where, SCM parent_type)
         return where;
       where = parent;
     }
-  return 0;
-}
-
-Context *
-find_context_below (Context *where,
-                    SCM type, const string &id)
-{
-  if (where->matches (type, id))
-    return where;
-
-  Context *found = 0;
-  for (SCM s = where->children_contexts ();
-       !found && scm_is_pair (s); s = scm_cdr (s))
-    {
-      Context *tr = unsmob<Context> (scm_car (s));
-
-      found = find_context_below (tr, type, id);
-    }
-
-  return found;
-}
-
-Context *
-find_context_near (Context *where,
-                   SCM type, const string &id)
-{
-  for ( ; where; where = where->get_parent_context ())
-    {
-      Context *found = find_context_below (where, type, id);
-      if (found)
-        return found;
-    }
-
   return 0;
 }
 

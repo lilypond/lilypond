@@ -132,7 +132,8 @@ Quote_iterator::construct_children ()
     {
       SCM id = get_music ()->get_property ("quoted-context-id");
       std::string c_id = robust_scm2string (id, "");
-      cue_context = get_outlet ()->find_create_context (name, c_id, SCM_EOL);
+      cue_context = get_outlet ()->find_create_context (CENTER,
+                                                        name, c_id, SCM_EOL);
       if (!cue_context)
         {
           Input *origin = get_music ()->origin ();

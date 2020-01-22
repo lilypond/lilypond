@@ -21,6 +21,7 @@
 #define CONTEXT_HH
 
 #include "acceptance-set.hh"
+#include "direction.hh"
 #include "duration.hh"
 #include "lily-guile.hh"
 #include "lily-proto.hh"
@@ -46,9 +47,22 @@ private:
   Context *find_child_to_adopt_grandchild (SCM child_name, SCM grandchild_name);
   SCM make_revert_finalization (SCM sym);
   Scheme_hash_table *properties_dict () const;
-  Context *recursive_find_create_context (Input *,
-                                          SCM context_name, const std::string &id,
-                                          SCM ops);
+
+  enum FindMode
+  {
+    FIND_CREATE,
+    FIND_ONLY,
+    CREATE_ONLY
+  };
+
+  Context *core_find (FindMode, Direction,
+                      SCM context_name, const std::string &id, SCM ops);
+
+  Context *find (FindMode, Direction,
+                 SCM context_name, const std::string &id, SCM ops);
+
+  Context *unchecked_find (FindMode, Direction,
+                           SCM context_name, const std::string &id, SCM ops);
 
   Context (Context const &src) = delete;
   Context& operator= (Context const &) = delete;
@@ -162,11 +176,32 @@ public:
   bool is_bottom_context () const;
   bool is_removable () const;
 
-  Context *find_create_context (SCM context_name, const std::string &id,
-                                SCM ops);
+  // This is like find_create_context () without the possibility of finding an
+  // existing context.
+  Context *
+  create_unique_context (Direction dir,
+                         SCM name, const std::string &id, SCM ops);
 
-  Context *create_unique_context (SCM context_name, const std::string &context_id,
-                                  SCM ops);
+  // This is like find_create_context () without the possibility of creating a
+  // new context.
+  Context *
+  find_context (Direction dir, SCM name, const std::string &id);
+
+  // Find the first context with the given name and ID, or create a new context
+  // with the given name, ID, and context ops.
+  //
+  // The search proceeds as follows:
+  //   1. this context
+  //   2. an existing descendant of this context
+  //   3. an ancestor of this context (nearest first)
+  //   4. a new descendant of this context
+  //   5. an existing or new descendant of an ancestor (nearest first)
+  //
+  // A direction of DOWN skips the ancestors and a direction of UP skips the
+  // descendants.  This context is always considered.
+  Context *
+  find_create_context (Direction dir, SCM name, const std::string &id, SCM ops);
+
   std::vector<Context_def *> path_to_acceptable_context (SCM alias) const;
 };
 
@@ -177,27 +212,31 @@ public:
 void apply_property_operations (Context *tg, SCM pre_init_ops);
 void execute_pushpop_property (Context *trg, SCM prop, SCM eltprop, SCM val);
 
-// Search for a context of the given type starting from the given context and
-// moving toward the root of the tree.  If the starting context matches, it is
-// returned.
-Context *find_context_above (Context *where, SCM type_sym);
+// abbreviate calling where->find_context when where might be null
+inline Context *
+find_context_above (Context *where, SCM type_sym, const std::string &id = "")
+{
+  return where ? where->find_context (UP, type_sym, id) : nullptr;
+}
 
 // Search for a context of the given type starting from the given context and
 // moving toward the root of the tree.  If found, return its child that was
 // found on the way there.
 Context *find_context_above_by_parent_type (Context *where, SCM parent_type);
 
-// Search for a context of the given type and ID starting from the given
-// context and moving toward the leaves of the tree.  If the starting context
-// matches, it is returned.  An empty ID matches any context of the given type.
-Context *find_context_below (Context *where,
-                             SCM type_sym, const std::string &id);
+// abbreviate calling where->find_context when where might be null
+inline Context *
+find_context_below (Context *where, SCM type_sym, const std::string &id)
+{
+  return where ? where->find_context (DOWN, type_sym, id) : nullptr;
+}
 
-// Search for a context of the given type and ID starting with the given
-// context, then searching its descendants, then its parent's descendants, etc.
-// An empty ID matches any context of the given type.
-Context *find_context_near (Context *where,
-                            SCM type_sym, const std::string &id);
+// abbreviate calling where->find_context when where might be null
+inline Context *
+find_context_near (Context *where, SCM type_sym, const std::string &id)
+{
+  return where ? where->find_context (CENTER, type_sym, id) : nullptr;
+}
 
 // Search for the top context (i.e. the ancestor with no parent) starting with
 // the given context.
