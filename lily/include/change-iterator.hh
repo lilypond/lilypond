@@ -31,11 +31,11 @@ public:
   OVERRIDE_CLASS_NAME (Change_iterator);
 
   // returns an error message (empty on success)
-  static string change_to (Music_iterator &it,
-                           SCM to_type, const string &to_id);
+  static std::string change_to (Music_iterator &it,
+                           SCM to_type, const std::string &to_id);
 
 private:
-  void error (const string&);
+  void error (const std::string&);
 };
 
 #endif

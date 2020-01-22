@@ -51,7 +51,6 @@
 #define LEXER_CC
 
 #include <iostream>
-using namespace std;
 
 #include "context-def.hh"
 #include "duration.hh"

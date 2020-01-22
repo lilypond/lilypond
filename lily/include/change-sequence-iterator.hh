@@ -35,7 +35,7 @@ protected:
 
 private:
   // implement in derived class to effect a context change
-  virtual void change_to (const string &id) = 0;
+  virtual void change_to (const std::string &id) = 0;
 
 private:
   // There is no need to protect this in derived_mark() because it is protected

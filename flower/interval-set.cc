@@ -58,7 +58,7 @@ Interval_set::interval_union (vector<Interval> ivs)
 
       if (last[RIGHT] >= iv[LEFT])
         // overlapping intervals: merge them
-        last[RIGHT] = max (last[RIGHT], iv[RIGHT]);
+        last[RIGHT] = std::max (last[RIGHT], iv[RIGHT]);
       else if (!iv.is_empty ())
         ret.intervals_.push_back (iv);
     }

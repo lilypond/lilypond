@@ -34,7 +34,7 @@ public:
   void solve ();
 
 private:
-  vector<Interval> forbidden_intervals_;
+  std::vector<Interval> forbidden_intervals_;
   Interval feasible_placements_;
   Real bulk_;
 };

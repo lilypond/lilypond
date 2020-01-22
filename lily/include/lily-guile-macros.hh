@@ -25,7 +25,7 @@
 #if GUILEV2
 // if Guile's internal representation switches to utf8, this should be
 // changed accordingly for efficiency's sake.  This is used for
-// strings known to be in ASCII entirely, including any string
+// strings known to be in ASCII entirely, including any std::string
 // constants in the C code.
 #define scm_from_ascii_string scm_from_latin1_string
 #define scm_from_ascii_stringn scm_from_latin1_stringn
@@ -77,7 +77,7 @@ scm_or_str2symbol (SCM s)
 }
 
 /* Using this trick we cache the value of scm_from_locale_symbol
-   ("fooo") where "fooo" is a constant string. This is done at the
+   ("fooo") where "fooo" is a constant std::string. This is done at the
    cost of one static variable per ly_symbol2scm() use, and the cost
    of C++' mechanism to ensure a static variable is only initialized
    once.
@@ -101,10 +101,10 @@ inline SCM ly_symbol2scm (char const *x) { return scm_from_utf8_symbol ((x)); }
   static SCM NAME ARGS;                         \
   static SCM NAME ## _proc
 
-string mangle_cxx_identifier (string);
+std::string mangle_cxx_identifier (std::string);
 
-void ly_add_type_predicate (void *ptr, const string &name);
-string predicate_to_typename (void *ptr);
+void ly_add_type_predicate (void *ptr, const std::string &name);
+std::string predicate_to_typename (void *ptr);
 
 // ly_scm_func_of_arity<n>::ptr_type is a pointer to a function taking n SCM
 // arguments and returning SCM.
@@ -152,8 +152,8 @@ struct ly_scm_func_of_arity<4>
   void                                                                  \
   TYPE ## _ ## FUNC ## _init_functions ()                               \
   {                                                                     \
-    string cxx = string (#TYPE) + "::" + string (#FUNC); \
-    string id = mangle_cxx_identifier (cxx); \
+    std::string cxx = std::string (#TYPE) + "::" + std::string (#FUNC); \
+    std::string id = mangle_cxx_identifier (cxx); \
     /* assignment selects the SCM function even if it is overloaded */ \
     ly_scm_func_of_arity<ARGCOUNT>::ptr_type func = TYPE::FUNC; \
     TYPE ::FUNC ## _proc = scm_c_define_gsubr (id.c_str(),                      \
@@ -173,8 +173,8 @@ struct ly_scm_func_of_arity<4>
 #define MAKE_SCHEME_CALLBACK(TYPE, FUNC, ARGCOUNT)                      \
   MAKE_SCHEME_CALLBACK_WITH_OPTARGS(TYPE,FUNC,ARGCOUNT, 0, "");
 
-void ly_add_function_documentation (SCM proc, const string &fname, const string &varlist, const string &doc);
-void ly_check_name (const string &cxx, const string &fname);
+void ly_add_function_documentation (SCM proc, const std::string &fname, const std::string &varlist, const std::string &doc);
+void ly_check_name (const std::string &cxx, const std::string &fname);
 
 #define ADD_SCM_INIT_FUNC(name, func)           \
   class name ## _scm_initter                    \

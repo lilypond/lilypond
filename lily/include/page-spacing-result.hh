@@ -36,8 +36,8 @@ typedef enum
 
 struct Page_spacing_result
 {
-  vector<vsize> systems_per_page_;
-  vector<Real> force_;
+  std::vector<vsize> systems_per_page_;
+  std::vector<Real> force_;
   Real penalty_;
   Real demerits_;
   int system_count_status_;

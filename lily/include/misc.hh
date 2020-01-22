@@ -21,7 +21,6 @@
 #define MISC_HH
 
 #include <cstdlib>
-using namespace std;
 
 #include "std-vector.hh"
 #include "interval.hh"
@@ -84,7 +83,7 @@ Real directed_round (Real f, Direction d);
 
 Real peak_around (Real epsilon, Real threshold, Real x);
 Real convex_amplifier (Real standard_x, Real increase_factor, Real x);
-string camel_case_to_lisp_identifier (const string &in);
+std::string camel_case_to_lisp_identifier (const std::string &in);
 
 #endif
 

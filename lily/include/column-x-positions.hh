@@ -28,10 +28,10 @@ class Paper_column;
 class Column_x_positions
 {
 public:
-  vector<Paper_column *> cols_;
-  vector<Paper_column *> loose_cols_;
+  std::vector<Paper_column *> cols_;
+  std::vector<Paper_column *> loose_cols_;
 
-  vector<Real> config_;
+  std::vector<Real> config_;
   Real force_;
   bool satisfies_constraints_;
 

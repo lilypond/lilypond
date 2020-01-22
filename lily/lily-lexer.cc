@@ -21,7 +21,6 @@
 
 #include <cctype>
 #include <sstream>
-using namespace std;
 
 #include "context.hh" // for nested_property_alist
 #include "international.hh"

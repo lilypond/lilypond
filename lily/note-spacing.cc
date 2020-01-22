@@ -78,7 +78,7 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
   Real ideal = base.distance () - increment + left_head_end;
   Drul_array<Skyline> skys = Spacing_interface::skylines (me, right_col);
   Real distance = skys[LEFT].distance (skys[RIGHT], robust_scm2double (right_col->get_property ("skyline-vertical-padding"), 0.0));
-  Real min_dist = max (0.0, distance);
+  Real min_dist = std::max (0.0, distance);
   base.set_min_distance (min_dist);
 
   /* If we have a NonMusical column on the right, we measure the ideal distance
@@ -99,13 +99,13 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
              but keep at least half the gap we would have had to a note */
           Real min_desired_space = (ideal + min_dist) / 2.0;
           ideal -= right_col->extent (right_col, X_AXIS)[RIGHT];
-          ideal = max (ideal, min_desired_space);
+          ideal = std::max (ideal, min_desired_space);
         }
     }
 
   stem_dir_correction (me, right_col, increment, &ideal);
 
-  base.set_distance (max (0.0, ideal));
+  base.set_distance (std::max (0.0, ideal));
   return base;
 }
 
@@ -147,7 +147,7 @@ different_directions_correction (Grob *note_spacing,
       /*
         Ugh. 7 is hardcoded.
       */
-      ret = min (ret / 7, 1.0)
+      ret = std::min (ret / 7, 1.0)
             * left_stem_dir
             * robust_scm2double (note_spacing->get_property ("stem-spacing-correction"), 0);
     }

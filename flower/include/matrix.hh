@@ -57,7 +57,7 @@ public:
       data_.resize (rows * columns, t);
     else
       {
-        vector<T, A> new_data;
+        std::vector<T, A> new_data;
         new_data.resize (rows * columns, t);
         vsize cur_cols = rank_ ? data_.size () / rank_ : 0;
 
@@ -70,7 +70,7 @@ public:
   }
 
 private:
-  vector<T, A> data_;
+  std::vector<T, A> data_;
   vsize rank_;
 };
 

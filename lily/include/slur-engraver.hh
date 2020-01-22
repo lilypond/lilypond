@@ -34,14 +34,14 @@ protected:
     { }
   };
   // protected so that subclasses can see them
-  vector<Event_info> start_events_;
-  vector<Event_info> stop_events_;
+  std::vector<Event_info> start_events_;
+  std::vector<Event_info> stop_events_;
 
   typedef std::multimap<Stream_event *, Spanner *> Note_slurs;
   Drul_array<Note_slurs> note_slurs_;
-  vector<Grob *> slurs_;
-  vector<Grob *> end_slurs_;
-  vector<Grob_info> objects_to_acknowledge_;
+  std::vector<Grob *> slurs_;
+  std::vector<Grob *> end_slurs_;
+  std::vector<Grob_info> objects_to_acknowledge_;
 
   virtual SCM event_symbol () const;
   virtual bool double_property () const;

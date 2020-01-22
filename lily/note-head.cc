@@ -23,7 +23,6 @@
 #include <cctype>
 #include <algorithm>            //  min, max
 
-using namespace std;
 
 #include "directional-element-interface.hh"
 #include "font-interface.hh"
@@ -40,7 +39,7 @@ internal_print (Grob *me, string *font_char)
 {
   string style = robust_symbol2string (me->get_property ("style"), "default");
 
-  string suffix = std::to_string (min (robust_scm2int (me->get_property ("duration-log"), 2), 2));
+  string suffix = std::to_string (std::min (robust_scm2int (me->get_property ("duration-log"), 2), 2));
   if (style != "default")
     suffix = robust_scm2string (me->get_property ("glyph-name"), "");
 
@@ -146,8 +145,8 @@ Note_head::include_ledger_line_height (SCM smob)
       // The +1 and -1 come from the fact that we only want to add
       // the interval between the note and the first ledger line, not
       // the whole interval between the note and the staff.
-      Interval iv (min (0.0, lines[UP] - my_ext[DOWN] + 1),
-                   max (0.0, lines[DOWN] - my_ext[UP] - 1));
+      Interval iv (std::min (0.0, lines[UP] - my_ext[DOWN] + 1),
+                   std::max (0.0, lines[DOWN] - my_ext[UP] - 1));
       return ly_interval2scm (iv);
     }
 

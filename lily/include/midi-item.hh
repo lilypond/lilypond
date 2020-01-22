@@ -23,7 +23,7 @@
 #include "audio-item.hh"
 #include "std-vector.hh"
 
-string int2midi_varint_string (int i);
+std::string int2midi_varint_string (int i);
 
 /**
    Any piece of midi information.
@@ -40,16 +40,16 @@ public:
 
   static Midi_item *get_midi (Audio_item *a);
 
-  virtual string to_string () const = 0;
+  virtual std::string to_string () const = 0;
 };
 
 class Midi_end_of_track : public Midi_item
 {
 public:
-  string to_string () const override
+  std::string to_string () const override
   {
-    // the literal string's terminating null is part of the MIDI command
-    return string ("\xff\x2f", 3);
+    // the literal std::string's terminating null is part of the MIDI command
+    return std::string ("\xff\x2f", 3);
   }
 };
 
@@ -67,7 +67,7 @@ class Midi_duration : public Midi_item
 public:
   Midi_duration (Real seconds_f);
 
-  string to_string () const override;
+  std::string to_string () const override;
   Real seconds_;
 };
 
@@ -80,7 +80,7 @@ public:
   OVERRIDE_CLASS_NAME (Midi_control_change);
   Midi_control_change (Audio_control_change *ai);
   virtual ~Midi_control_change ();
-  string to_string () const override;
+  std::string to_string () const override;
 
   Audio_control_change *audio_;
 };
@@ -94,7 +94,7 @@ public:
   Midi_instrument (Audio_instrument *);
 
   OVERRIDE_CLASS_NAME (Midi_instrument);
-  string to_string () const override;
+  std::string to_string () const override;
 
   Audio_instrument *audio_;
 };
@@ -105,7 +105,7 @@ public:
   Midi_key (Audio_key *);
   OVERRIDE_CLASS_NAME (Midi_key);
 
-  string to_string () const override;
+  std::string to_string () const override;
 
   Audio_key *audio_;
 };
@@ -116,7 +116,7 @@ public:
   Midi_time_signature (Audio_time_signature *);
   OVERRIDE_CLASS_NAME (Midi_time_signature);
 
-  string to_string () const override;
+  std::string to_string () const override;
 
   Audio_time_signature *audio_;
   int clocks_per_1_;
@@ -130,7 +130,7 @@ public:
 
   int get_semitone_pitch () const;
   int get_fine_tuning () const;
-  string to_string () const override;
+  std::string to_string () const override;
 
   Audio_note *audio_;
 
@@ -144,7 +144,7 @@ public:
   Midi_note_off (Midi_note *);
   OVERRIDE_CLASS_NAME (Midi_note_off);
 
-  string to_string () const override;
+  std::string to_string () const override;
 
   Midi_note *on_;
   Byte aftertouch_byte_;
@@ -162,7 +162,7 @@ public:
 
   Midi_text (Audio_text *);
 
-  string to_string () const override;
+  std::string to_string () const override;
 
   Audio_text *audio_;
 };
@@ -173,7 +173,7 @@ public:
   Midi_piano_pedal (Audio_piano_pedal *);
   OVERRIDE_CLASS_NAME (Midi_piano_pedal);
 
-  string to_string () const override;
+  std::string to_string () const override;
 
   Audio_piano_pedal *audio_;
 };
@@ -184,7 +184,7 @@ public:
   Midi_tempo (Audio_tempo *);
   OVERRIDE_CLASS_NAME (Midi_tempo);
 
-  string to_string () const override;
+  std::string to_string () const override;
 
   Audio_tempo *audio_;
 };

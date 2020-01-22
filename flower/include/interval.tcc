@@ -27,7 +27,6 @@
 
 // MacOS 10.3 problems:
 // #include <cmath>
-using namespace std;
 
 template<class T>
 int
@@ -93,8 +92,8 @@ template<class T>
 void
 Interval_t<T>::unite (Interval_t<T> h)
 {
-  at (LEFT) = min (h.at (LEFT), at (LEFT));
-  at (RIGHT) = max (h.at (RIGHT), at (RIGHT));
+  at (LEFT) = std::min (h.at (LEFT), at (LEFT));
+  at (RIGHT) = std::max (h.at (RIGHT), at (RIGHT));
 }
 
 /* Unites h and this interval, but in such a way
@@ -126,12 +125,12 @@ template<class T>
 void
 Interval_t<T>::intersect (Interval_t<T> h)
 {
-  at (LEFT) = max (h.at (LEFT), at (LEFT));
-  at (RIGHT) = min (h.at (RIGHT), at (RIGHT));
+  at (LEFT) = std::max (h.at (LEFT), at (LEFT));
+  at (RIGHT) = std::min (h.at (RIGHT), at (RIGHT));
 }
 
 template<class T>
-string
+std::string
 Interval_t<T>::to_string () const
 {
   if (is_empty ())
@@ -140,7 +139,7 @@ Interval_t<T>::to_string () const
   // Rely on argument-dependent lookup to find to_string for classes,
   // and import std::to_string to support basic types.
   using std::to_string;
-  string s ("[");
+  std::string s ("[");
   return s + to_string (at (LEFT)) + ',' + to_string (at (RIGHT)) + ']';
 }
 

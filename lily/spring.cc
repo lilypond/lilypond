@@ -86,8 +86,8 @@ Spring::update_blocking_force ()
 void
 Spring::operator *= (Real r)
 {
-  distance_ = max (min_distance_, distance_ * r);
-  inverse_compress_strength_ = max (0.0, distance_ - min_distance_);
+  distance_ = std::max (min_distance_, distance_ * r);
+  inverse_compress_strength_ = std::max (0.0, distance_ - min_distance_);
   inverse_stretch_strength_ *= r;
   update_blocking_force ();
 }
@@ -113,13 +113,13 @@ merge_springs (vector<Spring> const &springs)
       avg_distance += springs[i].distance ();
       avg_stretch += springs[i].inverse_stretch_strength ();
       avg_compress += 1 / springs[i].inverse_compress_strength ();
-      min_distance = max (springs[i].min_distance (), min_distance);
+      min_distance = std::max (springs[i].min_distance (), min_distance);
     }
 
   avg_stretch /= Real (springs.size ());
   avg_compress /= Real (springs.size ());
   avg_distance /= Real (springs.size ());
-  avg_distance = max (min_distance + 0.3, avg_distance);
+  avg_distance = std::max (min_distance + 0.3, avg_distance);
 
   Spring ret = Spring (avg_distance, min_distance);
   ret.set_inverse_stretch_strength (avg_stretch);
@@ -155,7 +155,7 @@ Spring::set_min_distance (Real d)
 void
 Spring::ensure_min_distance (Real d)
 {
-  set_min_distance (max (d, min_distance_));
+  set_min_distance (std::max (d, min_distance_));
 }
 
 void
@@ -217,7 +217,7 @@ Spring::set_default_stretch_strength ()
 Real
 Spring::length (Real f) const
 {
-  Real force = max (f, blocking_force_);
+  Real force = std::max (f, blocking_force_);
   Real inv_k = force < 0.0 ? inverse_compress_strength_ : inverse_stretch_strength_;
 
   if (std::isinf (force))
@@ -229,6 +229,6 @@ Spring::length (Real f) const
   // There is a corner case here: if min_distance_ is larger than
   // distance_ but the spring is fixed, then inv_k will be zero
   // and we need to make sure that we return min_distance_.
-  return max (min_distance_, distance_ + force * inv_k);
+  return std::max (min_distance_, distance_ + force * inv_k);
 }
 

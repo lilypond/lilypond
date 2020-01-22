@@ -18,7 +18,6 @@
 */
 
 #include <map>
-using namespace std;
 
 #include "file-name-map.hh"
 #include "lily-guile.hh"

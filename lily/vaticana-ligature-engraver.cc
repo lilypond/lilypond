@@ -718,7 +718,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
   add_mora_column (prev_primitive->get_column ());
 
 #if 0 // experimental code to collapse spacing after ligature
-  /* TODO: set to max (old/new spacing-increment), since other
+  /* TODO: set to std::max (old/new spacing-increment), since other
      voices/staves also may want to set this property. */
   Item *first_primitive = dynamic_cast<Item *> (primitives[0].grob ());
   Paper_column *paper_column = first_primitive->get_column ();

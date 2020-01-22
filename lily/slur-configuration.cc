@@ -122,7 +122,7 @@ fit_factor (Offset dz_unit, Offset dz_perp, Real close_to_edge_length,
 
       Real y = curve.get_other_coordinate (X_AXIS, p[X_AXIS]);
       if (y)
-        fit_factor = max (fit_factor, (p[Y_AXIS] / y));
+        fit_factor = std::max (fit_factor, (p[Y_AXIS] / y));
     }
   return fit_factor;
 }
@@ -154,7 +154,7 @@ Slur_configuration::generate_curve (Slur_score_state const &state,
   (control3 - control0).  */
 
   Real max_indent = len / 3.1;
-  indent = min (indent, max_indent);
+  indent = std::min (indent, max_indent);
 
   Real a1 = sqr (len) / 3.0;
   Real a2 = 0.75 * sqr (indent + len / 3.0);
@@ -184,7 +184,7 @@ Slur_configuration::generate_curve (Slur_score_state const &state,
   Real ff = fit_factor (dz_unit, dz_perp, state.parameters_.close_to_edge_length_,
                         curve, state.dir_, avoid);
 
-  height = max (height, min (height * ff, max_h));
+  height = std::max (height, std::min (height * ff, max_h));
 
   curve.control_[0] = attachment_[LEFT];
   curve.control_[1] = attachment_[LEFT] + dz_perp * height * state.dir_
@@ -258,7 +258,7 @@ Slur_configuration::score_encompass (Slur_score_state const &state)
               Real hd = (head_dy)
                         ? (1 / fabs (head_dy) - 1 / state.parameters_.free_head_distance_)
                         : state.parameters_.head_encompass_penalty_;
-              hd = min (max (hd, 0.0), state.parameters_.head_encompass_penalty_);
+              hd = std::min (std::max (hd, 0.0), state.parameters_.head_encompass_penalty_);
 
               demerit += hd;
             }
@@ -273,7 +273,7 @@ Slur_configuration::score_encompass (Slur_score_state const &state)
             {
 
               Real closest
-                = state.dir_ * max (state.dir_ * state.encompass_infos_[j].get_point (state.dir_), state.dir_ * line_y);
+                = state.dir_ * std::max (state.dir_ * state.encompass_infos_[j].get_point (state.dir_), state.dir_ * line_y);
               Real d = fabs (closest - y);
 
               convex_head_distances.push_back (d);
@@ -299,7 +299,7 @@ Slur_configuration::score_encompass (Slur_score_state const &state)
 
       for (vsize j = 0; j < n; j++)
         {
-          min_dist = min (min_dist, convex_head_distances[j]);
+          min_dist = std::min (min_dist, convex_head_distances[j]);
           avg_distance += convex_head_distances[j];
         }
 
@@ -322,9 +322,9 @@ Slur_configuration::score_encompass (Slur_score_state const &state)
       Real variance_penalty = state.parameters_.head_slur_distance_max_ratio_;
       if (min_dist > 0.0)
         variance_penalty
-          = min ((avg_distance / (min_dist + state.parameters_.absolute_closeness_measure_) - 1.0), variance_penalty);
+          = std::min ((avg_distance / (min_dist + state.parameters_.absolute_closeness_measure_) - 1.0), variance_penalty);
 
-      variance_penalty = max (variance_penalty, 0.0);
+      variance_penalty = std::max (variance_penalty, 0.0);
       variance_penalty *= state.parameters_.head_slur_distance_factor_;
 
       add_score (variance_penalty, "variance");
@@ -431,7 +431,7 @@ Slur_configuration::score_extra_encompass (Slur_score_state const &state)
       else
         programming_error ("unknown avoidance type");
 
-      dist = max (dist, 0.0);
+      dist = std::max (dist, 0.0);
 
       Real penalty = info.penalty_ * peak_around (0.1 * state.parameters_.extra_encompass_free_distance_,
                                                   state.parameters_.extra_encompass_free_distance_,
@@ -477,7 +477,7 @@ Slur_configuration::score_slopes (Slur_score_state const &state)
   Real slur_dy = slur_dz[Y_AXIS];
   Real demerit = 0.0;
 
-  demerit += max ((fabs (slur_dy / slur_dz[X_AXIS])
+  demerit += std::max ((fabs (slur_dy / slur_dz[X_AXIS])
                    - state.parameters_.max_slope_), 0.0)
              * state.parameters_.max_slope_factor_;
 
@@ -488,9 +488,9 @@ Slur_configuration::score_slopes (Slur_score_state const &state)
 
   if (!state.is_broken_)
     demerit += state.parameters_.steeper_slope_factor_
-               * (max (fabs (slur_dy) - max_dy, 0.0));
+               * (std::max (fabs (slur_dy) - max_dy, 0.0));
 
-  demerit += max ((fabs (slur_dy / slur_dz[X_AXIS])
+  demerit += std::max ((fabs (slur_dy / slur_dz[X_AXIS])
                    - state.parameters_.max_slope_), 0.0)
              * state.parameters_.max_slope_factor_;
 

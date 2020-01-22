@@ -56,7 +56,6 @@ when this transforms a point (x,y), the point is written as matrix:
 #include "spanner.hh"
 #include "transform.hh"
 
-using namespace std;
 
 using std::string;
 using std::vector;
@@ -161,8 +160,8 @@ make_draw_line_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings
   //////////////////////
   if (x1 < x0)
     {
-      swap (x0, x1);
-      swap (y0, y1);
+      std::swap (x0, x1);
+      std::swap (y0, y1);
     }
   Offset left (x0, y0);
   Offset right (x1, y1);
@@ -254,7 +253,7 @@ make_partial_ellipse_boxes (vector<Box> &boxes,
   Real y_scale = sqrt(sqr(t.get_xy ()) + sqr(t.get_yy ()));
   //////////////////////
   Drul_array<vector<Offset> > points;
-  int quantization = max (1, (int) (((x_rad * x_scale) + (y_rad * y_scale))
+  int quantization = std::max (1, (int) (((x_rad * x_scale) + (y_rad * y_scale))
                                    * M_PI / QUANTIZATION_UNIT));
   for (DOWN_and_UP (d))
     {
@@ -329,7 +328,7 @@ make_round_filled_box_boxes (vector<Box> &boxes,
   Transform t = robust_scm2transform (trans);
   Real x_scale = sqrt(sqr(t.get_xx ()) + sqr(t.get_yx ()));
   Real y_scale = sqrt(sqr(t.get_xy ()) + sqr(t.get_yy ()));
-  bool rounded = (diameter * max(x_scale, y_scale) > 0.5);
+  bool rounded = (diameter * std::max(x_scale, y_scale) > 0.5);
   bool rotated = (t.get_yx () || t.get_xy ());
   //////////////////////
 
@@ -824,7 +823,7 @@ make_glyph_string_boxes (vector<Box> &boxes,
         {
           assert (abs (xlen - ylen) < 10e-3);
 
-          Real scale_factor = max (xlen, ylen);
+          Real scale_factor = std::max (xlen, ylen);
           // the three operations below move the stencil from its original coordinates to current coordinates
           // FIXME: this looks extremely fishy.
           transcopy =

@@ -99,7 +99,7 @@ Part_combine_iterator::pending_moment () const
 
   for (size_t i = 0; i < NUM_PARTS; i++)
     if (iterators_[i]->ok ())
-      p = min (p, iterators_[i]->pending_moment ());
+      p = std::min (p, iterators_[i]->pending_moment ());
 
   return p;
 }

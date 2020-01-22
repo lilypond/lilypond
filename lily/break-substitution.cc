@@ -19,7 +19,6 @@
 
 #include <cstdio>
 #include <cstdlib>
-using namespace std;
 
 #include "item.hh"
 #include "system.hh"

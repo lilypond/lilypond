@@ -67,11 +67,11 @@ public:
   VIRTUAL_CLASS_NAME (Context_def);
   virtual Context_def *clone () const { return new Context_def (*this); }
 
-  vector<Context_def *> path_to_acceptable_context (SCM type_string,
+  std::vector<Context_def *> path_to_acceptable_context (SCM type_string,
                                                     Output_def *,
                                                     SCM) const;
 
-  static vector<Context_def *> path_to_bottom_context (Output_def *,
+  static std::vector<Context_def *> path_to_bottom_context (Output_def *,
                                                        SCM first_child_type_sym);
   Context *instantiate (SCM extra_ops);
 
@@ -84,14 +84,14 @@ private:
   Context_def ();
   Context_def (Context_def const &);
 
-  vector<Context_def *> internal_path_to_acceptable_context (SCM type_string,
+  std::vector<Context_def *> internal_path_to_acceptable_context (SCM type_string,
                                                              bool instantiable,
                                                              Output_def *,
                                                              SCM,
-                                                             set<const Context_def *> *seen) const;
+                                                             std::set<const Context_def *> *seen) const;
 
   static bool internal_path_to_bottom_context (Output_def *,
-                                               vector<Context_def *> *path,
+                                               std::vector<Context_def *> *path,
                                                SCM next_type_sym);
 };
 

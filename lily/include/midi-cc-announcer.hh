@@ -45,7 +45,7 @@ public:
 private:
   virtual SCM get_property_value (const char *property_name) = 0;
   virtual void do_announce (Audio_control_change *item) = 0;
-  void warn (const string &message);
+  void warn (const std::string &message);
 
   Input *origin_;
 

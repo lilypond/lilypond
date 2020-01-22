@@ -20,7 +20,6 @@
 #include "midi-stream.hh"
 
 #include <cerrno>
-using namespace std;
 
 #include "international.hh"
 #include "main.hh"

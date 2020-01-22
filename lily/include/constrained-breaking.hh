@@ -47,10 +47,10 @@ struct Line_details
   Paper_column *last_column_;
   Real force_;
   Line_shape shape_;
-  vector<Real> footnote_heights_; /* The footnotes at the bottom of the
+  std::vector<Real> footnote_heights_; /* The footnotes at the bottom of the
                                    page, where each stencil represents
                                    a different footnote. */
-  vector<Real> in_note_heights_; /* The in-notes under a system,
+  std::vector<Real> in_note_heights_; /* The in-notes under a system,
                                    where each stencil represents
                                    a different in-note. */
   Interval refpoint_extent_; /* The refpoints of the first and last
@@ -156,12 +156,12 @@ struct Constrained_break_node
 class Constrained_breaking
 {
 public:
-  vector<Column_x_positions> solve (vsize start, vsize end, vsize sys_count);
-  vector<Column_x_positions> best_solution (vsize start, vsize end);
-  vector<Line_details> line_details (vsize start, vsize end, vsize sys_count);
+  std::vector<Column_x_positions> solve (vsize start, vsize end, vsize sys_count);
+  std::vector<Column_x_positions> best_solution (vsize start, vsize end);
+  std::vector<Line_details> line_details (vsize start, vsize end, vsize sys_count);
 
   Constrained_breaking (Paper_score *ps);
-  Constrained_breaking (Paper_score *ps, vector<vsize> const &start_col_posns);
+  Constrained_breaking (Paper_score *ps, std::vector<vsize> const &start_col_posns);
 
   vsize max_system_count (vsize start, vsize end);
   vsize min_system_count (vsize start, vsize end);
@@ -188,13 +188,13 @@ private:
 
   /* the [i](j,k)th entry is the score for fitting the first k bars onto the
     first j systems, starting at the i'th allowed starting column */
-  vector<Matrix<Constrained_break_node> > state_;
+  std::vector<Matrix<Constrained_break_node> > state_;
 
-  vector<vsize> start_;         /* the columns at which we might be asked to start breaking */
-  vector<vsize> starting_breakpoints_; /* the corresponding index in breaks_ */
+  std::vector<vsize> start_;         /* the columns at which we might be asked to start breaking */
+  std::vector<vsize> starting_breakpoints_; /* the corresponding index in breaks_ */
 
-  vector<Paper_column *> all_;
-  vector<vsize> breaks_;
+  std::vector<Paper_column *> all_;
+  std::vector<vsize> breaks_;
 
   void initialize (Paper_score *);
   void resize (vsize systems);

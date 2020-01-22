@@ -34,20 +34,20 @@
 
 class File_path
 {
-  vector<string> dirs_;
+  std::vector<std::string> dirs_;
 
 public:
-  vector<string> directories () const;
-  string find (const string &name) const;
-  string find (const string &name, char const *extensions[]);
-  string to_string () const;
-  bool try_append (string str);
-  void append (const string&);
-  void parse_path (const string&);
-  void prepend (const string&);
+  std::vector<std::string> directories () const;
+  std::string find (const std::string &name) const;
+  std::string find (const std::string &name, char const *extensions[]);
+  std::string to_string () const;
+  bool try_append (std::string str);
+  void append (const std::string&);
+  void parse_path (const std::string&);
+  void prepend (const std::string&);
 };
 
-bool is_file (const string &file_name);
-bool is_dir (string file_name);
+bool is_file (const std::string &file_name);
+bool is_dir (std::string file_name);
 
 #endif /* FILE_PATH */

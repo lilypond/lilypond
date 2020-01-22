@@ -22,12 +22,12 @@
 
 #include "std-string.hh"
 
-void read_relocation_dir (const string &dirname);
-void read_relocation_file (const string &filename);
-string expand_environment_variables (const string &orig);
+void read_relocation_dir (const std::string &dirname);
+void read_relocation_file (const std::string &filename);
+std::string expand_environment_variables (const std::string &orig);
 
 int sane_putenv (char const *key,
-                 const string &value,
+                 const std::string &value,
                  bool overwrite,
                  bool indent = false);
 void setup_paths (char const *argv0);

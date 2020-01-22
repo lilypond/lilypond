@@ -22,7 +22,6 @@
 
 #include <cstddef>
 #include <cstdarg>
-using namespace std;
 
 #include "config.hh"
 

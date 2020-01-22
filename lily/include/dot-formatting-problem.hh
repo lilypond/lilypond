@@ -12,7 +12,7 @@ private:
 public:
   Skyline const &head_skyline () const { return head_skyline_; }
 
-  Dot_formatting_problem (vector<Box> const &boxes, Interval base_x);
+  Dot_formatting_problem (std::vector<Box> const &boxes, Interval base_x);
 };
 
 #endif

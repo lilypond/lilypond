@@ -144,7 +144,7 @@
     debugging purposes.  If the class does not define this function,
     the output will be #<Classname> when printing.
 
-  - a static const * const type_p_name_ string set to something like
+  - a static const * const type_p_name_ std::string set to something like
     "ly:grob?".  When provided, an accordingly named function for
     checking for the given smob type will be available in Scheme.
 
@@ -174,7 +174,7 @@ class Smob_base
   static scm_t_bits smob_tag_;
   static Scm_init scm_init_;
   static void init (void);
-  static string smob_name_;
+  static std::string smob_name_;
 protected:
   static Super *unchecked_unsmob (SCM s)
   {
@@ -348,7 +348,7 @@ public:
 extern bool parsed_objects_should_be_dead;
 class parsed_dead
 {
-  static vector<parsed_dead *> elements;
+  static std::vector<parsed_dead *> elements;
   SCM data;
   SCM readout_one ()
   {

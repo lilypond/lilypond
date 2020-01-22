@@ -20,7 +20,6 @@
 #include "book.hh"
 
 #include <cstdio>
-using namespace std;
 
 #include "main.hh"
 #include "music.hh"

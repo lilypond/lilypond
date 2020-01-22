@@ -70,21 +70,21 @@ Lyric_extender::print (SCM smob)
   Real right_point
     = left_point + (robust_scm2double (minlen, 0));
 
-  right_point = min (right_point, me->get_system ()->get_bound (RIGHT)->relative_coordinate (common, X_AXIS));
+  right_point = std::min (right_point, me->get_system ()->get_bound (RIGHT)->relative_coordinate (common, X_AXIS));
 
   if (heads.size ())
-    right_point = max (right_point, heads.back ()->extent (common, X_AXIS)[RIGHT]);
+    right_point = std::max (right_point, heads.back ()->extent (common, X_AXIS)[RIGHT]);
 
   Real h = sl * robust_scm2double (me->get_property ("thickness"), 0);
   Drul_array<Real> paddings (robust_scm2double (me->get_property ("left-padding"), h),
                              robust_scm2double (me->get_property ("right-padding"), h));
 
   if (right_text)
-    right_point = min (right_point, (robust_relative_extent (right_text, common, X_AXIS)[LEFT] - paddings[RIGHT]));
+    right_point = std::min (right_point, (robust_relative_extent (right_text, common, X_AXIS)[LEFT] - paddings[RIGHT]));
 
   /* run to end of line. */
   if (me->get_bound (RIGHT)->break_status_dir ())
-    right_point = max (right_point, (robust_relative_extent (me->get_bound (RIGHT), common, X_AXIS)[LEFT] - paddings[RIGHT]));
+    right_point = std::max (right_point, (robust_relative_extent (me->get_bound (RIGHT), common, X_AXIS)[LEFT] - paddings[RIGHT]));
 
   left_point += paddings[LEFT];
   Real w = right_point - left_point;

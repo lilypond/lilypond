@@ -19,7 +19,6 @@
 
 #include <cctype>
 #include <cstdio>
-using namespace std;
 
 #include "articulations.hh"
 #include "context.hh"

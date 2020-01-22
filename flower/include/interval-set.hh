@@ -28,15 +28,15 @@ class Interval_set
 public:
   Interval_set ();
 
-  static Interval_set interval_union (vector<Interval>);
+  static Interval_set interval_union (std::vector<Interval>);
 
-  vector<Interval> const &intervals () const { return intervals_; }
-  vector<Interval>::const_iterator upper_bound (Real x) const;
+  std::vector<Interval> const &intervals () const { return intervals_; }
+  std::vector<Interval>::const_iterator upper_bound (Real x) const;
   Real nearest_point (Real x, Direction dir = CENTER) const;
   Interval_set complement () const;
 
 private:
-  vector<Interval> intervals_;
+  std::vector<Interval> intervals_;
 };
 
 #endif /* INTERVAL_SET_HH */

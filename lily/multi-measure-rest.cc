@@ -80,7 +80,7 @@ Multi_measure_rest::percent (SCM smob)
     we gotta stay clear of sp_iv, so move a bit to the right if
     needed.
   */
-  x_off += max (sp_iv[LEFT] - rx, 0.0);
+  x_off += std::max (sp_iv[LEFT] - rx, 0.0);
 
   /*
     center between stuff.
@@ -107,7 +107,7 @@ Multi_measure_rest::print (SCM smob)
     we gotta stay clear of sp_iv, so move a bit to the right if
     needed.
   */
-  Real x_off = max (sp_iv[LEFT] - rx, 0.0);
+  Real x_off = std::max (sp_iv[LEFT] - rx, 0.0);
 
   Stencil mol;
   mol.add_stencil (symbol_stencil (me, space));
@@ -230,9 +230,9 @@ Multi_measure_rest::big_rest (Grob *me, Real width)
   Real slt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
   Real y = slt * thick_thick / 2 * ss;
   Real ythick = hair_thick * slt * ss;
-  Box b (Interval (0.0, max (0.0, (width - 2 * ythick))), Interval (-y, y));
+  Box b (Interval (0.0, std::max (0.0, (width - 2 * ythick))), Interval (-y, y));
 
-  Real blot = width ? (.8 * min (y, ythick)) : 0.0;
+  Real blot = width ? (.8 * std::min (y, ythick)) : 0.0;
 
   Stencil m = Lookup::filled_box (b);
   Stencil yb = Lookup::round_filled_box (Box (Interval (-0.5, 0.5) * ythick, Interval (-ss, ss)), blot);
@@ -328,10 +328,10 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measure_cou
   if (inner_padding < 0)
     inner_padding = 1.0;
 
-  Real max_separation = max (robust_scm2double (me->get_property ("max-symbol-separation"), 8.0),
+  Real max_separation = std::max (robust_scm2double (me->get_property ("max-symbol-separation"), 8.0),
                              1.0);
 
-  inner_padding = min (inner_padding, max_separation);
+  inner_padding = std::min (inner_padding, max_separation);
   Real left_offset = (space - symbols_width - (inner_padding * (symbol_count - 1)))
                      / 2;
 
@@ -403,7 +403,7 @@ Multi_measure_rest::calculate_spacing_rods (Grob *me, Real length)
       rod.item_drul_[LEFT] = li;
       rod.item_drul_[RIGHT] = ri;
 
-      rod.distance_ = max (Paper_column::minimum_distance (li, ri) + length,
+      rod.distance_ = std::max (Paper_column::minimum_distance (li, ri) + length,
                            minlen);
       rod.add_to_cols ();
     }

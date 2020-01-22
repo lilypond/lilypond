@@ -22,7 +22,6 @@
 #include <map>
 #include <set>
 
-using namespace std;
 
 #include "axis-group-interface.hh"
 #include "directional-element-interface.hh"

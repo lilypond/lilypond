@@ -50,7 +50,7 @@ const Real TERRIBLE_SPACING_PENALTY = 1e8;
 class Page_spacer
 {
 public:
-  Page_spacer (vector<Line_details> const &lines, int first_page_num, Page_breaking const *);
+  Page_spacer (std::vector<Line_details> const &lines, int first_page_num, Page_breaking const *);
   Page_spacing_result solve (vsize page_count);
   Page_spacing_result solve ();
 
@@ -77,14 +77,14 @@ private:
 
   Page_breaking const *breaker_;
   int first_page_num_;
-  vector<Line_details> lines_;
+  std::vector<Line_details> lines_;
 
   // If a page-count is requested, we use state_, which
   // is indexed by page*system, for our dynamic programming
   // intermediate storage.  Otherwise, we use simple_state_,
   // which is indexed only by system.
   Matrix<Page_spacing_node> state_;
-  vector<Page_spacing_node> simple_state_;
+  std::vector<Page_spacing_node> simple_state_;
   vsize max_page_count_;
 
   bool ragged_;

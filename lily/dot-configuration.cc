@@ -158,7 +158,7 @@ Dot_configuration::x_offset () const
   Real off = 0.0;
   for (Dot_configuration::const_iterator i (begin ());
        i != end (); i++)
-    off = max (off, problem_->head_skyline ().height ((*i).first));
+    off = std::max (off, problem_->head_skyline ().height ((*i).first));
 
   return off;
 }

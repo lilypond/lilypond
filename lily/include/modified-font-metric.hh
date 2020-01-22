@@ -33,14 +33,14 @@ class Modified_font_metric : Preinit_Modified_font_metric,
                               public Font_metric
 {
 public:
-  Stencil text_stencil (Output_def *output_state, const string&, bool, const string&) const override;
+  Stencil text_stencil (Output_def *output_state, const std::string&, bool, const std::string&) const override;
   Real get_magnification () const;
 
   static SCM make_scaled_font_metric (Font_metric *fm, Real magnification);
   size_t count () const override;
   Offset get_indexed_wxwy (size_t) const override;
-  Offset attachment_point (const string&) const override;
-  size_t name_to_index (string) const override;
+  Offset attachment_point (const std::string&) const override;
+  size_t name_to_index (std::string) const override;
   size_t index_to_charcode (size_t) const override;
   Font_metric *original_font () const;
 
@@ -49,7 +49,7 @@ protected:
 
   Modified_font_metric (Font_metric *fm, Real magnification);
   SCM sub_fonts () const override;
-  string font_name () const override;
+  std::string font_name () const override;
   Real design_size () const override;
   void derived_mark () const override;
   Box get_indexed_char_dimensions (size_t) const override;

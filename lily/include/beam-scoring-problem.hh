@@ -49,14 +49,14 @@ public:
   Interval y;
   Real demerits;
 #if DEBUG_BEAM_SCORING
-  string score_card_;
+  std::string score_card_;
 #endif
 
   int next_scorer_todo;
 
   Beam_configuration ();
   bool done () const;
-  void add (Real demerit, const string &reason);
+  void add (Real demerit, const std::string &reason);
   static Beam_configuration *new_config (Interval start,
                                          Interval offset);
 };
@@ -142,14 +142,14 @@ private:
     affine linear in YL and YR. If YL == YR == 0, then we might have
     stem_y != 0.0, when we're cross staff.
   */
-  vector<Stem_info> stem_infos_;
-  vector<Real> chord_start_y_;
-  vector<Interval> head_positions_;
-  vector<Slice> beam_multiplicity_;
-  vector<bool> is_normal_;
-  vector<Real> base_lengths_;
-  vector<Real> stem_xpositions_;
-  vector<Real> stem_ypositions_;
+  std::vector<Stem_info> stem_infos_;
+  std::vector<Real> chord_start_y_;
+  std::vector<Interval> head_positions_;
+  std::vector<Slice> beam_multiplicity_;
+  std::vector<bool> is_normal_;
+  std::vector<Real> base_lengths_;
+  std::vector<Real> stem_xpositions_;
+  std::vector<Real> stem_ypositions_;
 
   bool is_xstaff_;
   bool is_knee_;
@@ -166,8 +166,8 @@ private:
   // Beam_configurations.
   Drul_array<Interval> quant_range_;
   Real beam_translation_;
-  vector<Beam_collision> collisions_;
-  vector<Beam_segment> segments_;
+  std::vector<Beam_collision> collisions_;
+  std::vector<Beam_segment> segments_;
 
   vsize first_normal_index ();
   vsize last_normal_index ();
@@ -182,7 +182,7 @@ private:
 
   void one_scorer (Beam_configuration *config) const;
   Beam_configuration *force_score (SCM inspect_quants,
-                                   const vector<Beam_configuration *> &configs) const;
+                                   const std::vector<Beam_configuration *> &configs) const;
   Real y_at (Real x, Beam_configuration const *c) const;
 
   // Scoring functions:
@@ -192,7 +192,7 @@ private:
   void score_slope_direction (Beam_configuration *config) const;
   void score_slope_musical (Beam_configuration *config) const;
   void score_stem_lengths (Beam_configuration *config) const;
-  void generate_quants (vector<Beam_configuration *> *scores) const;
+  void generate_quants (std::vector<Beam_configuration *> *scores) const;
   void score_collisions (Beam_configuration *config) const;
 };
 

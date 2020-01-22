@@ -59,7 +59,7 @@ public:
   DECLARE_SCHEME_CALLBACK (bounds_width, (SCM));
   DECLARE_SCHEME_CALLBACK (kill_zero_spanned_time, (SCM));
 
-  vector<Spanner *> broken_intos_;
+  std::vector<Spanner *> broken_intos_;
 
   vsize get_break_index () const;
   Spanner *broken_neighbor (Direction d) const;

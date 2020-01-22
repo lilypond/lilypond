@@ -28,7 +28,7 @@ class Scale : public Smob<Scale>
 {
 public:
   virtual ~Scale ();
-  Scale (vector<Rational> const &);
+  Scale (std::vector<Rational> const &);
   Scale (Scale const &);
 
   Rational tones_at_step (int step, int octave) const;
@@ -37,7 +37,7 @@ public:
   int normalize_step (int step) const;
 
 private:
-  vector<Rational> step_tones_;
+  std::vector<Rational> step_tones_;
 };
 
 extern Scale *default_global_scale;

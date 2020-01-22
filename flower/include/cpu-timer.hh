@@ -21,7 +21,6 @@
 #define CPU_TIMER_HH
 
 #include <ctime>
-using namespace std;
 
 #include "real.hh"
 

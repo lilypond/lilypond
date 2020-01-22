@@ -66,7 +66,7 @@ public:
   static Real get_beam_translation (Grob *me);
   static Real get_beam_thickness (Grob *me);
   static void connect_beams (Grob *me);
-  static vector<Beam_segment> get_beam_segments (Grob *me_grob, Grob **common);
+  static std::vector<Beam_segment> get_beam_segments (Grob *me_grob, Grob **common);
 
   DECLARE_SCHEME_CALLBACK (rest_collision_callback, (SCM element, SCM prev_off));
   DECLARE_SCHEME_CALLBACK (pure_rest_collision_callback, (SCM element, SCM, SCM, SCM prev_off));
@@ -88,7 +88,7 @@ private:
   friend class Beam_scoring_problem;
 
   static Direction get_default_dir (Grob *);
-  static vector<Beam_segment> get_beam_segments (Grob *);
+  static std::vector<Beam_segment> get_beam_segments (Grob *);
   static void set_stem_directions (Grob *, Direction);
   static void consider_auto_knees (Grob *);
   static void set_stem_shorten (Grob *);

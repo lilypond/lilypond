@@ -20,7 +20,6 @@
 #include <cassert>
 #include <cstring>
 #include <cstdlib>
-using namespace std;
 
 #include "memory-stream.hh"
 

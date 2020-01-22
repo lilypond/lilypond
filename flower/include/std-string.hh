@@ -34,17 +34,16 @@
 
 #include <string>
 
-using namespace std;
 
 typedef size_t ssize;
 #define NPOS std::string::npos
 
 // TODO: This should probably be renamed to avoid any possible confusion with
 // std::to_string.
-string to_string (char const *format, ...)
+std::string to_string (char const *format, ...)
 __attribute__ ((format (printf, 1, 2)));
 
-string &replace_all (string *str, string const &find, string const &replace);
-string &replace_all (string *str, char find, char replace);
+std::string &replace_all (std::string *str, std::string const &find, std::string const &replace);
+std::string &replace_all (std::string *str, char find, char replace);
 
 #endif /* STD_STRING_HH */

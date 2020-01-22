@@ -44,24 +44,24 @@ private:
 
 public:
   SCM description_;
-  string file_name_;
+  std::string file_name_;
 
-  // Return stencil for given string. output_state may be modified to
+  // Return stencil for given std::string. output_state may be modified to
   // record the font.
   virtual Stencil text_stencil (Output_def *output_state,
-                                const string &text,
+                                const std::string &text,
                                 bool music,
-                                const string &features_str) const;
+                                const std::string &features_str) const;
 
-  virtual string font_name () const;
+  virtual std::string font_name () const;
   virtual size_t count () const;
-  virtual Offset attachment_point (const string&) const;
+  virtual Offset attachment_point (const std::string&) const;
   virtual Offset get_indexed_wxwy (size_t) const;
   virtual Box get_indexed_char_dimensions (size_t index) const;
-  virtual size_t name_to_index (string) const=0;
+  virtual size_t name_to_index (std::string) const=0;
   virtual size_t index_to_charcode (size_t) const;
   virtual Real design_size () const;
-  virtual Stencil find_by_name (string) const;
+  virtual Stencil find_by_name (std::string) const;
   virtual SCM sub_fonts () const;
   virtual SCM font_file_name () const;
 
@@ -76,6 +76,6 @@ protected:
 };
 
 
-vector<char> pfb2pfa (const vector<char> &pfb);
+std::vector<char> pfb2pfa (const std::vector<char> &pfb);
 
 #endif /* FONT_METRIC_HH */

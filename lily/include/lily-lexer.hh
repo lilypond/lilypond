@@ -40,10 +40,10 @@ public:
   virtual ~Lily_lexer ();
   int scan_word (SCM & output, SCM sym);
 private:
-  int lookup_keyword (const string&);
-  int scan_bare_word (const string&);
-  int scan_escaped_word (const string&);
-  int scan_shorthand (const string&);
+  int lookup_keyword (const std::string&);
+  int scan_bare_word (const std::string&);
+  int scan_escaped_word (const std::string&);
+  int scan_shorthand (const std::string&);
   int scan_scm_id (SCM);
   int identifier_type (SCM);
   void push_markup_predicates (SCM sig);
@@ -95,12 +95,12 @@ public:
 
   void start_main_input ();
 
-  void new_input (const string &s, Sources *) override;
-  virtual void new_input (const string &s, string d, Sources *);
+  void new_input (const std::string &s, Sources *) override;
+  virtual void new_input (const std::string &s, std::string d, Sources *);
 
   bool top_input () { return include_stack_.size () < 2; }
   SCM keyword_list () const;
-  SCM lookup_identifier (const string &s);
+  SCM lookup_identifier (const std::string &s);
   SCM lookup_identifier_symbol (SCM s);
   void push_extra_token (Input const &where,
                          int token_type, SCM scm = SCM_UNSPECIFIED);

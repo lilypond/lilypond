@@ -107,8 +107,8 @@ Cluster_spanner_engraver::process_music ()
 
           int p = (pit ? pit->steps () : 0) + c0;
 
-          pmax = max (pmax, p);
-          pmin = min (pmin, p);
+          pmax = std::max (pmax, p);
+          pmin = std::min (pmin, p);
         }
 
       beacon_ = make_item ("ClusterSpannerBeacon", cluster_notes_[0]->self_scm ());

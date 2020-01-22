@@ -47,7 +47,7 @@ protected:
     vsize break_pos_; /* index into breaks_ */
 
     Line_division div_;
-    vector<vsize> system_count_; /* systems per page */
+    std::vector<vsize> system_count_; /* systems per page */
 
     Break_node ()
     {
@@ -59,7 +59,7 @@ protected:
     }
   };
 
-  vector<Break_node> state_;
+  std::vector<Break_node> state_;
 
   vsize total_page_count (Break_node const &b);
   Break_node put_systems_on_pages (vsize start,
@@ -67,8 +67,8 @@ protected:
                                    vsize configuration,
                                    int page_number);
 
-  SCM make_lines (vector<Break_node> *breaks);
-  SCM make_pages (vector<Break_node> const &breaks, SCM systems);
+  SCM make_lines (std::vector<Break_node> *breaks);
+  SCM make_pages (std::vector<Break_node> const &breaks, SCM systems);
 
   void calc_subproblem (vsize i);
   void print_break_node (Break_node const &b);

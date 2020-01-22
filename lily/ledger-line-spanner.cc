@@ -133,7 +133,7 @@ Ledger_line_spanner::set_spacing_rods (SCM smob)
         continue;
 
       current_extents[vdir].unite (head_extent);
-      current_head_width = max (current_head_width, head_extent.length ());
+      current_head_width = std::max (current_head_width, head_extent.length ());
     }
 
   if (previous_column && current_column)
@@ -236,7 +236,7 @@ Ledger_line_spanner::print (SCM smob)
           reqs[rank][vdir].max_ledger_extent_.unite (ledger_extent);
           reqs[rank][vdir].max_head_extent_.unite (head_extent);
           reqs[rank][vdir].max_position_
-            = vdir * max (vdir * reqs[rank][vdir].max_position_,
+            = vdir * std::max (vdir * reqs[rank][vdir].max_position_,
                           vdir * pos);
           Head_data hd;
           hd.position_ = pos;
@@ -291,7 +291,7 @@ Ledger_line_spanner::print (SCM smob)
 
                   Real limit = (center + (both ? which * gap / 2 : 0));
                   lr.max_ledger_extent_.at (-which)
-                    = which * max (which * lr.max_ledger_extent_[-which],
+                    = which * std::max (which * lr.max_ledger_extent_[-which],
                                    which * limit);
                 }
             }
@@ -334,7 +334,7 @@ Ledger_line_spanner::print (SCM smob)
                                                                 head_size[LEFT]),
                                               0.0);
 
-                      Real left_shorten = max (-ledger_size[LEFT] + dist, 0.0);
+                      Real left_shorten = std::max (-ledger_size[LEFT] + dist, 0.0);
                       x_extent[LEFT] += left_shorten;
                       /*
                         TODO: shorten 2 ledger lines for the case

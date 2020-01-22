@@ -34,7 +34,7 @@ struct Bracket
                                                 Axis a, Direction dir,
                                                 Interval gap);
   static Stencil make_enclosing_bracket (Grob *me, Grob *refpoint,
-                                         vector<Grob *> grobs,
+                                         std::vector<Grob *> grobs,
                                          Axis a, Direction dir);
 };
 

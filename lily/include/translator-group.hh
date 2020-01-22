@@ -33,7 +33,7 @@ public:
   virtual ~Translator_group ();
 private:
   void precompute_method_bindings ();
-  vector<Method_instance>
+  std::vector<Method_instance>
   precomputed_method_bindings_[TRANSLATOR_METHOD_PRECOMPUTE_COUNT];
 
   SCM protected_events_;

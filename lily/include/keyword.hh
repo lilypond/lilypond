@@ -36,7 +36,7 @@ public:
 class Keyword_table
 {
 public:
-  vector<Keyword_ent> table_;
+  std::vector<Keyword_ent> table_;
 
   Keyword_table (Keyword_ent *);
   int lookup (char const *s) const;

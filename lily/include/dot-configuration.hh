@@ -42,7 +42,7 @@ struct Dot_position
   }
 };
 
-class Dot_configuration : public map<int, Dot_position>
+class Dot_configuration : public std::map<int, Dot_position>
 {
 public:
   Dot_formatting_problem const *problem_;

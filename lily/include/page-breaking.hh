@@ -101,7 +101,7 @@ class Page_breaking
 public:
   typedef bool (*Break_predicate) (Grob *);
   typedef bool (*Prob_break_predicate) (Prob *);
-  typedef vector<vsize> Line_division;
+  typedef std::vector<vsize> Line_division;
 
   /*
     TODO: naming.
@@ -142,7 +142,7 @@ protected:
 
   vsize next_system (Break_position const &break_pos) const;
 
-  SCM make_pages (vector<vsize> lines_per_page, SCM lines);
+  SCM make_pages (std::vector<vsize> lines_per_page, SCM lines);
 
   vsize min_system_count (vsize start, vsize end);
   vsize max_system_count (vsize start, vsize end);
@@ -179,11 +179,11 @@ protected:
 
   vsize last_break_position () const;
 
-  vector<System_spec> system_specs_;
+  std::vector<System_spec> system_specs_;
 private:
-  vector<Break_position> breaks_;
-  vector<Break_position> chunks_;
-  vector<Constrained_breaking> line_breaking_;
+  std::vector<Break_position> breaks_;
+  std::vector<Break_position> chunks_;
+  std::vector<Constrained_breaking> line_breaking_;
   bool ragged_;
   bool ragged_last_;
   int systems_per_page_;
@@ -197,8 +197,8 @@ private:
   Real footnote_footer_padding_;
   int orphan_penalty_;
 
-  vector<Line_division> current_configurations_;
-  vector<Break_position> current_chunks_;
+  std::vector<Line_division> current_configurations_;
+  std::vector<Break_position> current_chunks_;
   vsize current_start_breakpoint_;
   vsize current_end_breakpoint_;
 
@@ -206,15 +206,15 @@ private:
   void compute_line_heights ();
   void clear_line_details_cache ();
   vsize cached_configuration_index_;
-  vector<Line_details> cached_line_details_;
-  vector<Line_details> uncompressed_line_details_;
+  std::vector<Line_details> cached_line_details_;
+  std::vector<Line_details> uncompressed_line_details_;
 
   Real paper_height_;
-  mutable vector<Real> page_height_cache_;
-  mutable vector<Real> last_page_height_cache_;
+  mutable std::vector<Real> page_height_cache_;
+  mutable std::vector<Real> last_page_height_cache_;
 
-  vector<Break_position> chunk_list (vsize start, vsize end);
-  Line_division system_count_bounds (vector<Break_position> const &chunks, bool min);
+  std::vector<Break_position> chunk_list (vsize start, vsize end);
+  Line_division system_count_bounds (std::vector<Break_position> const &chunks, bool min);
   void line_breaker_args (vsize i,
                           Break_position const &start,
                           Break_position const &end,
@@ -226,8 +226,8 @@ private:
                            Line_division const &max,
                            Line_division *cur);
 
-  vector<Line_details> line_details (vsize start, vsize end, Line_division const &div);
-  Page_spacing_result space_systems_on_1_page (vector<Line_details> const &lines, Real page_height, bool ragged);
+  std::vector<Line_details> line_details (vsize start, vsize end, Line_division const &div);
+  Page_spacing_result space_systems_on_1_page (std::vector<Line_details> const &lines, Real page_height, bool ragged);
   Page_spacing_result space_systems_on_2_pages (vsize configuration_index, int first_page_num);
   Page_spacing_result finalize_spacing_result (vsize configuration_index, Page_spacing_result);
   void create_system_list ();

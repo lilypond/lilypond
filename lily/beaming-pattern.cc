@@ -174,18 +174,18 @@ Beaming_pattern::beamify (Beaming_options const &options)
                         // we're left of a subdivision
                 ?  (i != infos_.size () - 2)
                    // respect the beam count for shortened beams ...
-                   ? max (beam_count_for_rhythmic_position (i + 1),
+                   ? std::max (beam_count_for_rhythmic_position (i + 1),
                           beam_count_for_length (remaining_length (i + 1)))
                    // ... except if there's only one trailing stem
                    : beam_count_for_rhythmic_position (i + 1)
 
                 // we're at any other stem
-                : min (min (infos_[i].count (non_flag_dir),
+                : std::min (std::min (infos_[i].count (non_flag_dir),
                             infos_[i + non_flag_dir].count (-non_flag_dir)),
                        infos_[i - non_flag_dir].count (non_flag_dir));
 
             // Ensure at least one beam is left, even for groups longer than 1/8
-            count = max (count, 1);
+            count = std::max (count, 1);
 
             infos_[i].beam_count_drul_[non_flag_dir] = count;
           }
@@ -327,7 +327,7 @@ Beaming_pattern::unbeam_invisible_stems ()
   for (vsize i = 1; i < infos_.size (); i++)
     if (infos_[i].invisible_)
       {
-        int b = min (infos_[i].count (LEFT), infos_[i - 1].count (LEFT));
+        int b = std::min (infos_[i].count (LEFT), infos_[i - 1].count (LEFT));
         infos_[i].beam_count_drul_[LEFT] = b;
         infos_[i].beam_count_drul_[RIGHT] = b;
       }
@@ -336,7 +336,7 @@ Beaming_pattern::unbeam_invisible_stems ()
     for (vsize i = infos_.size () - 1; i--;)
       if (infos_[i].invisible_)
         {
-          int b = min (infos_[i].count (LEFT), infos_[i + 1].count (LEFT));
+          int b = std::min (infos_[i].count (LEFT), infos_[i + 1].count (LEFT));
           infos_[i].beam_count_drul_[LEFT] = b;
           infos_[i].beam_count_drul_[RIGHT] = b;
         }
@@ -367,7 +367,7 @@ Beaming_pattern::start_moment (vsize i) const
 Moment
 Beaming_pattern::end_moment (vsize i) const
 {
-  Duration dur (2 + max (beamlet_count (i, LEFT),
+  Duration dur (2 + std::max (beamlet_count (i, LEFT),
                          beamlet_count (i, RIGHT)),
                 0);
 
@@ -425,7 +425,7 @@ Beaming_pattern::split_pattern (vsize i)
   new_pattern = new Beaming_pattern ();
   for (vsize j = i + 1; j < infos_.size (); j++)
     {
-      count = max (beamlet_count (j, LEFT), beamlet_count (j, RIGHT));
+      count = std::max (beamlet_count (j, LEFT), beamlet_count (j, RIGHT));
       new_pattern->add_stem (start_moment (j),
                              count,
                              invisibility (j),

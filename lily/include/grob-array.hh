@@ -31,7 +31,7 @@ public:
   SCM mark_smob () const;
   static const char * const type_p_name_;
 private:
-  vector<Grob *> grobs_;
+  std::vector<Grob *> grobs_;
   bool ordered_;
 
 
@@ -45,9 +45,9 @@ public:
   void remove_duplicates ();
   void clear () { grobs_.clear (); }
   void add (Grob *x) { grobs_.push_back (x); }
-  void set_array (vector<Grob *> const &src) { grobs_ = src; }
-  vector<Grob *> &array_reference () { return grobs_; }
-  vector<Grob *> const &array () const { return grobs_; }
+  void set_array (std::vector<Grob *> const &src) { grobs_ = src; }
+  std::vector<Grob *> &array_reference () { return grobs_; }
+  std::vector<Grob *> const &array () const { return grobs_; }
   static SCM make_array ();
 
   // Remove grobs that do not satisfy the predicate, leaving the order
@@ -65,7 +65,7 @@ public:
 };
 
 
-vector<Grob *> const &ly_scm2link_array (SCM x);
+std::vector<Grob *> const &ly_scm2link_array (SCM x);
 SCM grob_list_to_grob_array (SCM lst);
 SCM grob_array_to_list (Grob_array *array);
 

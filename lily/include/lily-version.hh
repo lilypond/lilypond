@@ -22,9 +22,9 @@
 
 #include "std-string.hh"
 
-string version_string ();
-string gnu_lilypond_string ();
-string gnu_lilypond_version_string ();
+std::string version_string ();
+std::string gnu_lilypond_string ();
+std::string gnu_lilypond_version_string ();
 
 #endif // LILY_VERSION_HH
 

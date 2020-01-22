@@ -31,7 +31,6 @@
 
 #include <cstdio>
 
-using namespace std;
 
 #include FT_TRUETYPE_TABLES_H
 

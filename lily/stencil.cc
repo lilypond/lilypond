@@ -249,7 +249,7 @@ Stencil::align_to (Axis a, Real x)
 /*  See scheme Function.  */
 
 // Any stencil that is empty in the orthogonal axis is spacing.
-// Spacing is not subjected to the max (0) rule and can thus be
+// Spacing is not subjected to the std::max (0) rule and can thus be
 // negative.
 
 void

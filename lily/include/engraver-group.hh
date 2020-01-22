@@ -42,7 +42,7 @@ struct Preinit_Engraver_group
 class Engraver_group : Preinit_Engraver_group, public Translator_group
 {
 protected:
-  vector<Announce_grob_info> announce_infos_;
+  std::vector<Announce_grob_info> announce_infos_;
   void override (SCM);
   void revert (SCM);
 public:

@@ -88,7 +88,7 @@ public:
   Rational &operator %= (Rational);
   static int compare (Rational const &, Rational const &);
   int sign () const;
-  string to_string () const;
+  std::string to_string () const;
 };
 
 #include "arithmetic-operator.hh"
@@ -119,7 +119,7 @@ operator << (ostream &, Rational);
 
 const Rational infinity_rat (U64_MAX);
 
-inline string
+inline std::string
 to_string (Rational const &r)
 {
   return r.to_string ();

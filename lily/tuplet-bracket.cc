@@ -246,7 +246,7 @@ Tuplet_bracket::calc_x_positions (SCM smob)
           if (to_boolean (me->get_property ("full-length-to-extent")))
             coord = robust_relative_extent (bounds[d], commonx, X_AXIS)[LEFT];
 
-          coord = max (coord, x_span[LEFT]);
+          coord = std::max (coord, x_span[LEFT]);
 
           x_span[d] = coord - padding;
         }

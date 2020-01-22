@@ -24,7 +24,6 @@
 #include <set>
 #include <map>
 
-using namespace std;
 
 #include "accidental-interface.hh"
 #include "accidental-placement.hh"
@@ -361,7 +360,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
     total_off = minimum_space * dir;
 
   if (current_off)
-    total_off = dir * max (dir * total_off,
+    total_off = dir * std::max (dir * total_off,
                            dir * (*current_off));
 
   /* FIXME: 1000 should relate to paper size.  */
@@ -420,7 +419,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
           Real diff = (dir * staff_extent[dir] + staff_padding
                        - dir * total_off
                        + dir * (staff_position - parent_position));
-          total_off += dir * max (diff, 0.0);
+          total_off += dir * std::max (diff, 0.0);
         }
     }
   return scm_from_double (total_off);

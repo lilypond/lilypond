@@ -8,7 +8,6 @@
 
 #include <cstring>
 #include <cstdio>
-using namespace std;
 
 #include "libc-extension.hh"
 #include "std-vector.hh"
@@ -231,7 +230,7 @@ String_convert::vform_string (char const *format, va_list args)
 string
 String_convert::pad_to (const string &s, size_t n)
 {
-  return s + string (max (int (n - s.length ()), 0), ' ');
+  return s + string (std::max (int (n - s.length ()), 0), ' ');
 }
 
 string

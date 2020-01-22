@@ -20,7 +20,6 @@
 #define STENCIL_HH
 
 #include <cstdlib>              // size_t
-using namespace std;
 
 #include "lily-proto.hh"
 #include "box.hh"

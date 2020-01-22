@@ -28,7 +28,7 @@
 
 class Engraver_dispatch_list : public Simple_smob<Engraver_dispatch_list>
 {
-  vector<Method_instance> dispatch_entries_;
+  std::vector<Method_instance> dispatch_entries_;
 public:
   void apply (Grob_info);
   SCM static create (SCM trans_list,

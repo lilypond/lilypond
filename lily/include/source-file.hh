@@ -25,7 +25,6 @@
 #include "smobs.hh"
 
 #include <iostream>
-using namespace std;
 
 /**
    class for reading and mapping a file.
@@ -39,9 +38,9 @@ public:
   static const char * const type_p_name_;
   virtual ~Source_file ();
 private:
-  vector<char const *> newline_locations_;
-  istream *istream_;
-  vector<char> characters_;
+  std::vector<char const *> newline_locations_;
+  std::istream *istream_;
+  std::vector<char> characters_;
   SCM str_port_;
 
   void load_stdin ();
@@ -49,31 +48,31 @@ private:
   void init ();
 
 public:
-  Source_file (const string &fn);
-  Source_file (const string&, const string&);
+  Source_file (const std::string &fn);
+  Source_file (const std::string&, const std::string&);
 
   char const *c_str () const;
-  string quote_input (char const *pos_str0) const;
-  istream *get_istream ();
+  std::string quote_input (char const *pos_str0) const;
+  std::istream *get_istream ();
   bool contains (char const *pos_str0) const;
   size_t length () const;
   ssize_t get_line (char const *pos_str0) const;
   void set_line (char const *pos_str0, ssize_t line);
-  string name_string () const;
-  string file_line_column_string (char const *str0) const;
+  std::string name_string () const;
+  std::string file_line_column_string (char const *str0) const;
 
   Slice line_slice (char const *pos_str0) const;
-  string line_string (char const *pos_str0) const;
+  std::string line_string (char const *pos_str0) const;
   void get_counts (char const *pos_str0,
                    ssize_t *, ssize_t *, ssize_t *, ssize_t *) const;
 
   SCM get_port () const;
-  string name_;
+  std::string name_;
 
 protected:
   ssize_t line_offset_;
 };
 
-vector<char> gulp_file (const string &fn, size_t desired_size);
+std::vector<char> gulp_file (const std::string &fn, size_t desired_size);
 
 #endif /* SOURCE_FILE_HH */

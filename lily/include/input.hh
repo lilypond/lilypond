@@ -43,21 +43,21 @@ public:
   size_t size () const { return end_ - start_; }
 
   void set (Source_file *, char const *, char const *);
-  void error (const string&) const;
-  void programming_error (const string&) const;
-  void non_fatal_error (const string&) const;
-  void warning (const string&) const;
-  void message (const string&) const;
-  void debug_output (const string&) const;
+  void error (const std::string&) const;
+  void programming_error (const std::string&) const;
+  void non_fatal_error (const std::string&) const;
+  void warning (const std::string&) const;
+  void message (const std::string&) const;
+  void debug_output (const std::string&) const;
   void set_spot (Input const &);
   void step_forward ();
   void set_location (Input const &, Input const &);
 
   Input spot () const;
 
-  string location_string () const;
-  string line_number_string () const;
-  string file_string ()const;
+  std::string location_string () const;
+  std::string line_number_string () const;
+  std::string file_string ()const;
 
   ssize_t line_number () const;
   ssize_t column_number () const;
@@ -70,14 +70,14 @@ public:
   Input (Input const &i) = default;
   Input () = default;
 
-  friend string source_location (const Input &input) // for logging
+  friend std::string source_location (const Input &input) // for logging
   {
     return input.message_location ();
   }
 
 protected:
-  string message_location () const;
-  string message_string (const string &msg) const;
+  std::string message_location () const;
+  std::string message_string (const std::string &msg) const;
 };
 
 extern Input dummy_input_global;

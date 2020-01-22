@@ -57,7 +57,7 @@ public:
   I64 den () const;
   I64 num () const;
 
-  string to_string () const;
+  std::string to_string () const;
   static int compare (Moment const &, Moment const &);
 };
 
@@ -78,7 +78,7 @@ ostream &operator << (ostream &, Moment const &);
 
 bool moment_less (SCM a, SCM b);
 
-inline string
+inline std::string
 to_string (Moment const &m)
 {
   return m.to_string ();

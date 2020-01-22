@@ -30,7 +30,7 @@ public:
   static void add_side_positioned (Grob *, Grob *);
   DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM));
   DECLARE_SCHEME_CALLBACK (row_before_line_breaking, (SCM));
-  static void order_grobs (vector<Grob *> grobs);
+  static void order_grobs (std::vector<Grob *> grobs);
 
 };
 

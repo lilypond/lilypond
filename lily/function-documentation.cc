@@ -19,7 +19,6 @@
 
 #include <cstring>
 #include <map>
-using namespace std;
 
 #include "std-string.hh"
 #include "lily-guile.hh"

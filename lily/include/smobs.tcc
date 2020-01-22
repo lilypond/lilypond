@@ -111,7 +111,7 @@ template <class Super>
 Scm_init Smob_base<Super>::scm_init_ (init);
 
 template <class Super>
-string Smob_base<Super>::smob_name_;
+std::string Smob_base<Super>::smob_name_;
 
 template <class Super>
 const char * const Smob_base<Super>::type_p_name_ = 0;
@@ -145,7 +145,7 @@ void Smob_base<Super>::init ()
     {
       SCM subr = scm_c_define_gsubr (Super::type_p_name_, 1, 0, 0,
                                      (scm_t_subr) smob_p);
-      string fundoc = string("Is @var{x} a @code{") + smob_name_
+      std::string fundoc = std::string("Is @var{x} a @code{") + smob_name_
         + "} object?";
       ly_add_function_documentation (subr, Super::type_p_name_, "(SCM x)",
                                      fundoc);

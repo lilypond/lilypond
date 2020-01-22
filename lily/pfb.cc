@@ -22,7 +22,6 @@
 #include <cstring>
 #include <iomanip>
 #include <sstream>
-using namespace std;
 
 #include "international.hh"
 #include "program-option.hh"
@@ -73,11 +72,11 @@ pfb2pfa (const vector<char> &pfb)
         {
           stringstream ss;
 
-          ss << hex << setfill ('0');
+          ss << std::hex << std::setfill ('0');
 
           for (size_t i = seglen; i > 0; --i)
             {
-              ss << setw (2) << static_cast<int>(static_cast<Byte>(*p++));
+              ss << std::setw (2) << static_cast<int>(static_cast<Byte>(*p++));
               if (! (i % 32))
                 ss << '\n';
             }
