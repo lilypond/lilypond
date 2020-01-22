@@ -181,8 +181,7 @@ Context::unchecked_find (FindMode mode, Direction dir,
   const bool allow_create = (mode != FIND_ONLY);
   const bool allow_find = (mode != CREATE_ONLY);
 
-  // TODO: Enabling this block will fix input/regression/context-find-parent.ly.
-  if (false && allow_find && (dir == CENTER))
+  if (allow_find && (dir == CENTER))
     {
       // Search everything in and below the scope of the current context first.
       // Here is an example that depends on finding a context below.
