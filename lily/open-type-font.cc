@@ -236,9 +236,11 @@ get_postscript_name (FT_Face face)
         }
     }
 
-  debug_output (_f ("Replace font name from %s to %s.",
-                    face_ps_name.c_str (), ret.c_str ()));
-
+  if (face_ps_name != ret)
+    {
+      debug_output (_f ("Subsitute font name: %s => %s", face_ps_name.c_str (),
+                        ret.c_str ()));
+    }
   FT_Done_Face (cff_face);
 
   return ret;
