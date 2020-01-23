@@ -1605,10 +1605,10 @@ context_mod_list:
 
 context_prefix:
 	CONTEXT symbol optional_id optional_context_mods {
-		$$ = START_MAKE_SYNTAX (context_specification, $2, $3, $4, SCM_BOOL_F);
+		$$ = START_MAKE_SYNTAX (context_find_or_create, $2, $3, $4);
 	}
 	| NEWCONTEXT symbol optional_id optional_context_mods {
-		$$ = START_MAKE_SYNTAX (context_specification, $2, $3, $4, SCM_BOOL_T);
+		$$ = START_MAKE_SYNTAX (context_create, $2, $3, $4);
 	}
 	;
 
@@ -2626,7 +2626,7 @@ mode_changed_music:
 		parser->lexer_->pop_state ();
 	}
 	| mode_changing_head_with_context optional_context_mods grouped_music_list {
-		$$ = MAKE_SYNTAX (context_specification, @$, $1, SCM_EOL, $2, SCM_BOOL_T, $3);
+		$$ = MAKE_SYNTAX (context_create, @$, $1, SCM_EOL, $2, $3);
 		if (scm_is_eq ($1, ly_symbol2scm ("ChordNames")))
 		{
 		  $$ = MAKE_SYNTAX (unrelativable_music, @$, $$);

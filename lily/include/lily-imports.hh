@@ -126,7 +126,8 @@ namespace Syntax {
   extern Variable argument_error;
   extern Variable composed_markup_list;
   extern Variable context_change;
-  extern Variable context_specification;
+  extern Variable context_create;
+  extern Variable context_find_or_create;
   extern Variable create_script;
   extern Variable create_script_function;
   extern Variable event_chord;

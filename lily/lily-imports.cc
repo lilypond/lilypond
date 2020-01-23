@@ -118,7 +118,8 @@ namespace Syntax {
   Variable argument_error ("argument-error");
   Variable composed_markup_list ("composed-markup-list");
   Variable context_change ("context-change");
-  Variable context_specification ("context-specification");
+  Variable context_create ("context-create");
+  Variable context_find_or_create ("context-find-or-create");
   Variable create_script ("create-script");
   Variable create_script_function ("create-script-function");
   Variable event_chord ("event-chord");

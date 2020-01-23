@@ -209,11 +209,13 @@ into a @code{MultiMeasureTextEvent}."
                               'duration duration
                               'elements articulations)))
 
-(define-public (context-specification type id ops create-new mus)
-  (let ((csm (context-spec-music mus type id)))
-    (set! (ly:music-property csm 'property-operations) ops)
-    (if create-new (set! (ly:music-property csm 'create-new) #t))
+(define-public (context-create type id ops mus)
+  (let ((csm (context-spec-music mus type id ops)))
+    (set! (ly:music-property csm 'create-new) #t)
     (ly:set-origin! csm)))
+
+(define-public (context-find-or-create type id ops mus)
+  (ly:set-origin! (context-spec-music mus type id ops)))
 
 (define-public (composed-markup-list commands markups)
   ;; `markups' being a list of markups, eg (markup1 markup2 markup3),
