@@ -244,6 +244,8 @@ Multi_measure_rest_engraver::process_music ()
           set_measure_count (curr_measure - start_measure_);
           if (last_command_item_)
             add_bound_item_to_grobs (last_command_item_);
+
+          announce_end_grob(mmrest_, SCM_EOL);
           reset_grobs ();
         }
     }
