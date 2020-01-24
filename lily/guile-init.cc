@@ -18,6 +18,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "cpu-timer.hh"
+#include "international.hh"
 #include "lily-guile.hh"
 #include "main.hh"
 #include "warn.hh"
@@ -58,6 +60,7 @@ ly_init_ly_module ()
   for (vsize i = scm_init_funcs_->size (); i--;)
     (scm_init_funcs_->at (i)) ();
 
+  Cpu_timer timer;
   if (is_loglevel (LOG_DEBUG))
     {
       debug_output ("[", true);
@@ -67,6 +70,7 @@ ly_init_ly_module ()
     }
 
   scm_primitive_load_path (scm_from_ascii_string ("lily.scm"));
+  debug_output (_f ("Load lily.scm: %.2f seconds", timer.read ()));
 }
 
 void
