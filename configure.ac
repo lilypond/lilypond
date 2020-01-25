@@ -382,7 +382,7 @@ if test "$GS920_VERSION" -lt "$req"; then
     GS920=
     USE_EXTRACTPDFMARK=no
 fi
-if test "$EXTRACTPDFMARK" != "extractpdfmark"; then
+if test "$EXTRACTPDFMARK" == "false"; then
     EXTRACTPDFMARK=
     USE_EXTRACTPDFMARK=no
 fi
