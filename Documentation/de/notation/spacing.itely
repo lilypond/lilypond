@@ -184,7 +184,7 @@ welcher immer auf oberster Ebene der Datei geschrieben werden muss, und
 
 @example
 \paper @{
-  #(set-paper-size "tabliod")
+  #(set-paper-size "tabloid")
 @}
 @end example
 
