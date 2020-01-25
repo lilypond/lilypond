@@ -18,14 +18,16 @@ for you and will help you do this as quickly and easily as possible.
 @node LilyDev
 @section LilyDev
 
-@c This text was written based on LilyDevOS repository.
+@c This text was written based on LilyDev repository.
+
+@warning{The following sections are based on LilyDev v2 and are
+not necessarily correct for different releases.}
 
 @qq{LilyDev} is a custom GNU/Linux operating system which includes all
 the necessary software and tools to compile LilyPond, the documentation
-and the website (also see @ref{Website work}).
-
-@warning{LilyDev does not include the software for the Grand Unified
-Builder -- also see @ref{Grand Unified Builder (GUB)}.}
+and the website (also see @ref{Website work}).  It is also prepared
+for building the @ref{Grand Unified Builder (GUB)}, though this
+is an involved process and may require further tweaking.
 
 While compiling LilyPond on Mac OS and Windows is possible, both
 environments are complex to set up.  LilyDev can be easily run
@@ -35,16 +37,20 @@ software.  We recommend using VirtualBox as it is available for all
 major operating systems and is very easy to install & configure.
 
 LilyDev comes in two @q{flavours}: containers and a standard disk image.
-Windows or Mac OS users should choose the disk image (to be run in a virtual
-machine), that is the file named @code{lilydev-vm-fedora-VERSION}.  GNU/Linux
-users are recommended to choose one of the containers (currently Debian or
+Windows or Mac OS users should choose the Debian disk image
+(to be run in a virtual machine), that is the file named
+@file{LilyDev-VERSION-debian-vm.zip}.  GNU/Linux users are recommended
+to choose one of the containers (currently Debian or
 Fedora), which are smaller in size, lightweight and easier to manage.
+The Fedora disk image has currently not been released, you can
+create it from the sources located in the @file{/mkosi} subdirectory
+of the LilyDev repository, however.
 
 @noindent
 Download the appropriate file from here:
 
 @example
-@uref{https://github.com/fedelibre/LilyDevOS/releases/latest}
+@uref{https://github.com/fedelibre/LilyDev/releases/latest}
 @end example
 
 @warning{Apart from installing and configuring LilyDev in VirtualBox,
@@ -85,104 +91,144 @@ VirtualBox is installed is known as the @strong{host}.  LilyDev
 will be installed @q{inside} VirtualBox as a @strong{guest}.}
 
 @item
-The disk image you downloaded is in raw format.  As VirtualBox does not
-support the raw format, you'll have to convert it to VDI format:
+The zip archive you downloaded contains the raw disk image and
+its SHA256 checksum.  You can verify the integrity of the downloaded
+archive with any hashing tool your OS does support.
+On Linux, run the following command in the directory where you have
+extracted the files (this may take some time):
 
 @example
-VBoxManage convertfromraw lilydev-vm-fedora-VERSION.raw lilydev-vm-fedora-VERSION.vdi
+sha256sum -c SHA256SUMS
 @end example
+
+For Windows, look for the tools @command{FCIV} or @command{certutil}
+to compute the archive's hash.
+
+@item
+As VirtualBox does not support the raw format, you have to
+extract it and then convert it to VDI format.  Make sure
+that @q{VBoxManage} is in your @code{PATH} or call it from your
+VirtualBox installation directory:
+
+@example
+VBoxManage convertfromraw LilyDev-VERSION-debian-vm.img \
+  LilyDev-VERSION-debian-vm.vdi
+@end example
+
+@warning{You need a fair amount of disk space (around 30@dmn{GB}) to
+extract the raw image.  After converting to a dynamic VirtualBox image
+it will take up much less space (only the amount of space that is
+actually allocated by the guest filesystem)}
 
 @item
 Start the VirtualBox software and click @q{New} to create a new
 @qq{virtual machine}.
 
-The @q{New Virtual Machine Wizard} will walk you through setting up your
+The @q{New Virtual Machine Wizard} walks you through setting up your
 guest virtual machine.  Choose an appropriate name for your LilyDev
 installation and select the @q{Linux} operating system.  When selecting
-the @q{version} choose @q{Fedora (64 bit)}.  If you do not have that
+the @q{version} choose @q{Debian (64-bit)}.  If you do not have that
 specific option choose @q{Linux 2.6/3.x/4.x (64-bit)}.
 
 @item
-Select the amount of RAM you will allow the LilyDev guest to use from
+Select the amount of RAM you allow the LilyDev guest to use from
 your host operating system when it is running.  If possible, use at
-least 700 MB of RAM; the more RAM you can spare from your host the
-better, although LilyDev will currently use no more than 4 GB (4096 MB)
-even if you are able to assign more.
+least 1@dmn{GB} of RAM; the more RAM you can spare from your host the
+better
 
 @item
-In the @q{Hard Disk} step, you'll use the VDI file you've previously created.
-You may move it within the virtual machine's folder already created by the
-wizard (in GNU/Linux the default should be @code{~/VirtualBox VMs/NAME}).
-Click on @q{Use an existing virtual hard disk file} and browse to the
-VDI file.
+In the @q{Hard Disk} step, you use the VDI file you have previously
+created.  You may move it within the virtual machine's folder already
+created by the wizard (in GNU/Linux the default should be
+@file{~/VirtualBox VMs/NAME}).  Click on @q{Use an existing virtual
+hard disk file} and browse to the VDI file.
 
 @item
-Verify the summary details and click @q{Create}, when you are satisfied.
-Your new guest will be displayed in the VirtualBox window.
+Verify the summary details and click @q{Create} as soon as you are
+satisfied.  Your new guest shall be displayed in the VirtualBox
+window now.
 
-@warning{The image can be booted only on EFI, so you must enable
-it within the virtual machine's settings -- click on
+@item
+Enable EFI within the virtual machine's settings -- click on
 @clicksequence{System @click{} Motherboard} and select
-@q{Extended features: Enable EFI}.}
+@q{Extended features: Enable EFI}.  Otherwise, you won't be
+able to boot the image.
+
+@item
+VirtualBox @q{guest additions}, which are installed by default
+in the debian image, provide some additional features such
+as being able to dynamically resize the LilyDev window, allow seamless
+interaction with your mouse pointer on both the host and guest, and let
+you copy/paste between your host and guest if needed.
+It seems that dynamic window resizing works only with
+the @q{VBoxVGA} graphics controller, which you can choose in
+@clicksequence{Display @click{} Graphics Controller}.
+To enable clipboard sharing between guest and host,
+choose @clicksequence{General @click{} Advanced @click{}
+Shared Clipboard @click{} Bidirectional}.
 
 @item
 Click the @q{Start} button and wait until the login screen appears.
-You'll log in as @code{dev} user; type the password @code{lilypond}.
+Log in as @code{dev} user then; type the password @code{lilypond}.
 Before starting any work, be sure to complete the next steps.
 
-@item
-You might need to change the keybord layout from default US (american) to
-your national layout.  Click on the menu icon on the bottom left, then on
-@clicksequence{Preferences @click{} Keyboard and Mouse @click{} Keyboard Layout}:
-add your layout and then move it up to the list so it will be the default.
+@warning{Since the default keyboard layout is US (American), you
+may have to type the password differently if you are using another
+layout, like @q{lilzpond} on a German keyboard, for example.}
 
 @item
-Disable the screensaver: click on the menu icon, then
-on @clicksequence{Preferences @click{} Screensaver}; in the Mode dropdown
-menu choose @q{Disable Screen Saver}.
+Open a terminal by clicking @clicksequence{Applications @click{}
+Terminal} at the upper left of the screen.  You may want to change
+the password of user @q{dev} before doing further work with the command
+@command{passwd}.
 
 @item
-Finally you should run a setup script.  Click on
-@clicksequence{System Tools @click{} QTerminal} to launch the command line.
-Then type @code{./setup.sh} to run the interactive script which will set up
-git and download all the repositories needed to build LilyPond.
+You might need to change the keyboard layout from default US (American)
+to your national layout.  Therefore open a terminal and run
+
+@example
+sudo dpkg-reconfigure keyboard-configuration
+@end example
+
+@warning{You need superuser rights to change certain aspects of the
+system configuration.  The @command{sudo} tool allows to gain superuser
+rights temporarily.  It does show you a warning message on its first
+use that reminds you to use your extended rights carefully.}
+
+At first, you are prompted for the model of your keyboard.
+Press Enter to show further models.  In most cases, it is
+sufficient to choose @q{Generic, 105 keys}.  After that,
+choose your keyboard layout.  Now, you can customize the function of
+your @key{AltGr} key.  Normally, the default layout settings fit well,
+so take number@tie{}1.  The same holds for the question of whether you want
+to configure a @q{compose} key.
+At last, you are asked if you want to configure
+@key{Ctrl+Alt+Backspace} as a shortcut to terminate the X server.
+Presumably, you do not need this, so you can safely type @q{no}.
+
+@item
+To set up your system language (charset, localized messages etc.),
+continue with
+
+@example
+sudo dpkg-reconfigure locales
+@end example
+
+@warning{Restarting is required in order to take the changes
+into effect.}
+
+@item
+
+Finally, you should run a setup script.  If you are on the command line
+already, simply type @command{./setup.sh} to run the interactive script
+that does set up git and downloads all the repositories needed to build
+LilyPond.
 
 @end enumerate
 
 
 @node Configuring LilyDev in VirtualBox
 @unnumberedsubsec Configuring LilyDev in VirtualBox
-
-VirtualBox has extra @q{guest additions} which although are not
-necessary to use LilyDev or compile LilyPond, do provide some additional
-features to your Virtual Machine to make it easier to work with.  Such
-as being able to dynamically resize the LilyDev window, allow seamless
-interaction with your mouse pointer on both the host and guest and let
-you copy/paste between your host and guest if needed.
-
-@enumerate
-
-@item
-Select the @q{Devices} menu from the virtual machine window and choose
-@q{Install Guest Additions...}.  This will automount a CD which will
-prompt you to autorun it.  Click OK and follow the instructions.  It is
-recommended to reboot the guest when the installation is complete.
-
-Other virtualization software will also have their own @q{guest}
-additions, follow the normal procedures for your virtualization software
-with LilyDev as the client.
-
-@item
-Restart LilyDev to complete the installation of the guest additions.
-
-@advanced{If you do any kernel upgrades, you may need to reinstall the
-additional software.  Just follow the step above again and reboot when
-the reinstallation is complete.}
-
-@end enumerate
-
-@noindent
-Other items that may be helpful:
 
 @itemize
 
