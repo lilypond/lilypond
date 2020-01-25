@@ -258,7 +258,7 @@ LY_DEFINE (ly_unit, "ly:unit", 0, 0, 0, (),
 }
 
 LY_DEFINE (ly_dimension_p, "ly:dimension?", 1, 0, 0, (SCM d),
-           "Return @var{d} as a number.  Used to distinguish length"
+           "Is @var{d} a dimension?  Used to distinguish length"
            " variables from normal numbers.")
 {
   return scm_number_p (d);
