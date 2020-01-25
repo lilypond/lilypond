@@ -71,7 +71,7 @@ Dot_configuration::shifted (int k, Direction d) const
   if (d > 0)
     {
       for (Dot_configuration::const_iterator i (begin ());
-           i != end (); i++)
+           i != end (); ++i)
         {
           int p = i->first;
           if (p == k)
@@ -95,11 +95,11 @@ Dot_configuration::shifted (int k, Direction d) const
     }
   else
     {
-      Dot_configuration::const_iterator i (end ());
-      do
+      // TODO: This looks identical to the other block, apart from the
+      // direction of iteration.  Deduplicate it.
+      for (Dot_configuration::const_reverse_iterator i (rbegin ());
+           i != rend (); ++i)
         {
-          i--;
-
           int p = i->first;
           if (p == k)
             {
@@ -120,7 +120,6 @@ Dot_configuration::shifted (int k, Direction d) const
               new_cfg[p + offset] = i->second;
             }
         }
-      while (i != begin ());
     }
 
   return new_cfg;
