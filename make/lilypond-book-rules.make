@@ -43,6 +43,7 @@ $(outdir)/%.pdf:  $(outdir)/%.tex
 ifeq ($(USE_EXTRACTPDFMARK),yes)
 	$(EXTRACTPDFMARK) -o $(outdir)/$*.pdfmark $(outdir)/$*.build/$*.pdf
 	$(GS920) -dBATCH \
+                 -dNOSAFER \
                  -dNOPAUSE \
                  $(LILYPOND_BOOK_GS_QUIET) \
                  -sDEVICE=pdfwrite \
@@ -94,6 +95,7 @@ $(outdir)/%.pdf:  $(outdir)/%.xml
 ifeq ($(USE_EXTRACTPDFMARK),yes)
 	$(EXTRACTPDFMARK) -o $(outdir)/$*.pdfmark $(outdir)/$*.tmp.pdf
 	$(GS920) -dBATCH \
+                 -dNOSAFER \
                  -dNOPAUSE \
                  $(LILYPOND_BOOK_GS_QUIET) \
                  -sDEVICE=pdfwrite \
