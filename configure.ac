@@ -388,11 +388,9 @@ if test "$EXTRACTPDFMARK" == "false"; then
 fi
 if test "$USE_EXTRACTPDFMARK" != "yes"; then
     STEPMAKE_ADD_ENTRY(OPTIONAL,
-        ["(Optionally using Ghostscript >= 9.20 together with"])
+        ["(Using GhostScript >= 9.20 together with extractpdfmark"])
     STEPMAKE_ADD_ENTRY(OPTIONAL,
-        [" Extract PDFmark can significantly reduce the disk space required"])
-    STEPMAKE_ADD_ENTRY(OPTIONAL,
-        [" for building the documentation and the final PDF files.)"])
+        [" can significantly reduce the size of the final PDF files.)"])
 fi
 
 STEPMAKE_PROGS(MAKEINFO, makeinfo, REQUIRED, 6.1)
