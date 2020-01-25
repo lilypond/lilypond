@@ -86,6 +86,7 @@ $(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/%.pdf.omf $(
 ifeq ($(USE_EXTRACTPDFMARK),yes)
 	$(EXTRACTPDFMARK) -o $(outdir)/$*.pdfmark $(outdir)/$*.tmp.pdf
 	$(GS920) -dBATCH \
+                 -dNOSAFER \
                  -dNOPAUSE \
                  -sDEVICE=pdfwrite \
                  -dAutoRotatePages=/None \
