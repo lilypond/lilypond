@@ -36,6 +36,7 @@
 class System : public Spanner
 {
 public:
+  // See Substitution_entry.
   typedef int16_t rank_type;
 
 private:
