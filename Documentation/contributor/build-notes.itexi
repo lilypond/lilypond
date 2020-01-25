@@ -110,7 +110,7 @@ build directory.  This only contains 3 lines:
 
 @example
 depth = .
-include config$(if $(conf),-$(conf),).make
+include config.make
 include $(configure-srcdir)/GNUmakefile.in
 @end example
 
@@ -469,7 +469,7 @@ make in non-debug mode, although debug does show lots of action.
 
 @example
 depth=../
-include $(depth)/config$(if $(conf),-$(conf),).make
+include $(depth)/config.make
 include $(configure-srcdir)/./input/GNUmakefile
 MODULE_INCLUDES += $(src-dir)/$(outbase)
 @end example

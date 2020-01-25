@@ -1,16 +1,5 @@
 # make/Stepmake.make
 
-# Use alternate configurations alongside eachother:
-#
-#     ./configure --enable-config=debug
-#     make conf=debug
-#
-# uses config-debug.make and config-debug.h; output goes to out-debug.
-#
-ifdef conf
-  CONFIGSUFFIX=-$(conf)
-endif
-
 # Use same configuration, but different output directory:
 #
 #     make out=www
@@ -20,13 +9,13 @@ endif
 ifdef out
   outbase=out-$(out)
 else
-  outbase=out$(CONFIGSUFFIX)
+  outbase=out
 endif
 
 ifdef config
   config_make=$(config)
 else
-  config_make=$(depth)/config$(CONFIGSUFFIX).make
+  config_make=$(depth)/config.make
 endif
 
 outroot=.
@@ -48,16 +37,13 @@ BUILD_VERSION=1
 outdir=$(outroot)/$(outbase)
 
 # why not generic ??
-config_h=$(top-build-dir)/config$(CONFIGSUFFIX).hh
+config_h=$(top-build-dir)/config.hh
 
 # The outdir that was configured for: best guess to find binaries
-outconfbase=out$(CONFIGSUFFIX)
-outconfdir=$(outroot)/$(outconfbase)
+outconfbase=out
 
 # user package
 stepdir = $(stepmake)/stepmake
-# for stepmake package
-# stepdir = $(depth)/stepmake
 
 STEPMAKE_TEMPLATES := generic $(STEPMAKE_TEMPLATES)
 LOCALSTEPMAKE_TEMPLATES:= generic $(LOCALSTEPMAKE_TEMPLATES)

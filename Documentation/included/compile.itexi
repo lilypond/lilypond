@@ -841,7 +841,6 @@ If you encounter any problems, please see @ref{Problems}.
 @menu
 * Using make::
 * Saving time with the -j option::
-* Compiling for multiple platforms::
 * Useful make variables::
 @end menu
 
@@ -891,42 +890,6 @@ succeeds without it, try lowering the @code{@var{X}} value.
 Because multiple jobs run in parallel when @option{-j} is used, it can
 be difficult to determine the source of an error when one occurs.  In
 that case, running @samp{make} without the @option{-j} is advised.
-
-@node Compiling for multiple platforms
-@subsection Compiling for multiple platforms
-
-If you want to build multiple versions of LilyPond with different
-configuration settings, you can use the
-@option{--enable-config=@var{conf}} option of @command{configure}.
-You should use @code{make@tie{}conf=@var{conf}} to generate the
-output in @file{out-@var{conf}}.  For example, suppose you want to
-build with and without profiling, then use the following for the
-normal build
-
-@example
-./configure --prefix=$HOME/usr/ --enable-checking
-make
-@end example
-
-and for the profiling version, specify a different configuration
-
-@example
-./configure --prefix=$HOME/usr/ --enable-profiling \
-  --enable-config=prof --disable-checking
-make conf=prof
-@end example
-
-If you wish to install a copy of the build with profiling, don't
-forget to use @code{conf=@var{CONF}} when issuing
-@command{make@tie{}install}:
-
-@example
-make conf=prof install
-@end example
-
-
-@seealso
-@ref{Installing LilyPond from a local build}
 
 
 @node Useful make variables

@@ -22,7 +22,7 @@ AS_CASE([$host_cpu],
 AC_CONFIG_SRCDIR([lily/main.cc])
 
 # Move to aclocal.m4?
-AC_CONFIG_HEADERS([$CONFIGFILE.hh:config.hh.in])
+AC_CONFIG_HEADERS([config.hh:config.hh.in])
 
 # Uncomment the configuration options your package needs.
 
@@ -398,8 +398,8 @@ if test "$PDFLATEX" = "xelatex"; then
     STEPMAKE_PROGS(PDFTEX, xetex, $DOCUMENTATION_REQUIRED)
     if test "$PDFTEX" = "xetex"; then
         # For avoiding PDF destination name replacement.
-        PDFTEX=$ac_pwd/scripts/build/out$CONFIGSUFFIX/xetex-with-options
-        PDFLATEX=$ac_pwd/scripts/build/out$CONFIGSUFFIX/xelatex-with-options
+        PDFTEX=$ac_pwd/scripts/build/out/xetex-with-options
+        PDFLATEX=$ac_pwd/scripts/build/out/xelatex-with-options
     fi
 else
     STEPMAKE_PROGS(PDFTEX, pdfetex pdftex etex, $DOCUMENTATION_REQUIRED)
@@ -435,8 +435,6 @@ touch local.make
 # Gather requirements and generate output.
 STEPMAKE_END
 
-test -n "$CONFIGURATION" && mc=" conf=$CONFIGURATION" || mc=""
-
 if make top-doc 1>/dev/null 2>&1; then
     rm -f INSTALL.txt && ln Documentation/topdocs/out/INSTALL.txt .
     rm -f README.txt && ln Documentation/topdocs/out/README.txt .
@@ -445,9 +443,9 @@ fi
 cat <<EOF
 
 Type:
-    make$mc all       to build LilyPond
-    make$mc install   to install LilyPond
-    make$mc help      to see all possible targets
+    make all       to build LilyPond
+    make install   to install LilyPond
+    make help      to see all possible targets
 
 Edit local.make for local Makefile overrides.
 
