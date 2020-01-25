@@ -142,7 +142,7 @@ protected:
 
   vsize next_system (Break_position const &break_pos) const;
 
-  SCM make_pages (std::vector<vsize> lines_per_page, SCM lines);
+  SCM make_pages (const std::vector<vsize> &lines_per_page, SCM lines);
 
   vsize min_system_count (vsize start, vsize end);
   vsize max_system_count (vsize start, vsize end);
