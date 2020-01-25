@@ -72,7 +72,7 @@ Includable_lexer::new_input (const string &name, Sources *sources)
       string msg = _f ("cannot find file: `%s'", name);
       msg += "\n";
       msg += _f ("(search path: `%s')",
-                 (current_dir.length () ? (current_dir + PATHSEP) : "") + sources->path_->to_string ().c_str ());
+                 (current_dir.length () ? (current_dir + PATHSEP) : "") + sources->search_path ().c_str ());
       LexerError (msg.c_str ());
       return;
     }

@@ -51,28 +51,39 @@ Sources::get_file (string file_string, string const &current_dir)
 {
   if (file_string != "-")
     {
-      // First, check for a path relative to the directory of the
-      // file currently being parsed.
-      if (current_dir.length ()
-          && file_string.length ()
-          && !File_name (file_string).is_absolute ()
-          && is_file (current_dir + DIRSEP + file_string))
-        file_string = current_dir + DIRSEP + file_string;
-
-      // Otherwise, check the rest of the path.
-      else if (path_)
-        {
-          string file_string_o = path_->find (file_string);
-          if ((file_string_o == "") && (file_string != ""))
-            return 0;
-
-          file_string = file_string_o;
-        }
+      file_string = find_full_path(file_string, current_dir);
     }
 
   Source_file *f = new Source_file (file_string);
   add (f);
   return f;
+}
+
+string
+Sources::find_full_path(string file_string, string const &current_dir) const
+{
+  // First, check for a path relative to the directory of the
+  // file currently being parsed.
+  if (current_dir.length ()
+      && file_string.length ()
+      && !File_name (file_string).is_absolute ()
+      && is_file (current_dir + DIRSEP + file_string))
+    file_string = current_dir + DIRSEP + file_string;
+
+  // Otherwise, check the rest of the path.
+  else if (path_)
+    {
+      string file_string_o = path_->find (file_string);
+      if ((file_string_o == "") && (file_string != ""))
+        return 0;
+
+      file_string = file_string_o;
+    }
+  return file_string;
+}
+
+string Sources::search_path() const {
+  return path_->to_string();
 }
 
 void
@@ -96,10 +107,10 @@ Sources::~Sources ()
 
 LY_DEFINE (ly_source_files, "ly:source-files", 0, 1, 0,
            (SCM parser_smob),
-           "A list of LilyPond files being processed;"
+           "A list of input files that have been opened up to here, "
+           "including the files that have been closed already. "
            "a PARSER may optionally be specified.")
 {
-
   if (SCM_UNBNDP (parser_smob))
     parser_smob = scm_fluid_ref (Lily::f_parser);
   Lily_parser *parser = LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);

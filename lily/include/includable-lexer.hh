@@ -49,7 +49,7 @@ public:
   ~Includable_lexer ();
   std::string main_input_name_;
 
-  /// store dependencies for Makefile stuff.
+  // A list of all files opened so far
   std::vector<std::string> file_name_strings_;
 
   Source_file *get_source_file () const;

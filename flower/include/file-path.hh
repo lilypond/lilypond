@@ -24,14 +24,8 @@
 #include "std-string.hh"
 
 /**
-   search in directories for a file.
-
-   Abstraction of PATH variable. An interface for searching input files.
-   Search a number of dirs for a file.
-
-   TODO: add a unix style PATH interface
+   A list of directories to look for files, analogous to $PATH.
 */
-
 class File_path
 {
   std::vector<std::string> dirs_;

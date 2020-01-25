@@ -23,12 +23,17 @@
 #include "lily-proto.hh"
 #include "std-vector.hh"
 
+/** holds a list of Source_files, which are assumed to be protected
+    objects. On destruction, unprotect the objects.
+ */
 class Sources
 {
   Sources (Sources const &) = delete;
   Sources& operator= (Sources const &) = delete;
 
   std::vector<Source_file *> sourcefiles_;
+  const File_path *path_;
+  std::string find_full_path(std::string file_string, const std::string &dir) const;
 
 public:
   Sources ();
@@ -36,9 +41,8 @@ public:
 
   Source_file *get_file (std::string file_name, std::string const &currentpath);
   void add (Source_file *sourcefile);
+  std::string search_path() const;
   void set_path (File_path *);
-
-  const File_path *path_;
 };
 
 #endif /* SOURCE_HH */
