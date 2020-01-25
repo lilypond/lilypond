@@ -68,58 +68,37 @@ Dot_configuration::shifted (int k, Direction d) const
   Dot_configuration new_cfg (*problem_);
   int offset = 0;
 
+  auto process_entry = [d, k, &new_cfg, &offset](const value_type &ent)
+    {
+      int p = ent.first;
+      if (p == k)
+        {
+          if (Staff_symbol_referencer::on_line (ent.second.dot_, p))
+            p += d;
+          else
+            p += 2 * d;
+
+          offset = 2 * d;
+
+          new_cfg[p] = ent.second;
+        }
+      else
+        {
+          if (new_cfg.find (p) == new_cfg.end ())
+            offset = 0;
+          new_cfg[p + offset] = ent.second;
+        }
+    };
+
   if (d > 0)
     {
-      for (Dot_configuration::const_iterator i (begin ());
-           i != end (); ++i)
-        {
-          int p = i->first;
-          if (p == k)
-            {
-              if (Staff_symbol_referencer::on_line (i->second.dot_, p))
-                p += d;
-              else
-                p += 2 * d;
-
-              offset = 2 * d;
-
-              new_cfg[p] = i->second;
-            }
-          else
-            {
-              if (new_cfg.find (p) == new_cfg.end ())
-                offset = 0;
-              new_cfg[p + offset] = i->second;
-            }
-        }
+      for (auto i = begin (); i != end (); ++i)
+        process_entry (*i);
     }
   else
     {
-      // TODO: This looks identical to the other block, apart from the
-      // direction of iteration.  Deduplicate it.
-      for (Dot_configuration::const_reverse_iterator i (rbegin ());
-           i != rend (); ++i)
-        {
-          int p = i->first;
-          if (p == k)
-            {
-              if (Staff_symbol_referencer::on_line (i->second.dot_, p))
-                p += d;
-              else
-                p += 2 * d;
-
-              offset = 2 * d;
-
-              new_cfg[p] = i->second;
-            }
-          else
-            {
-              if (new_cfg.find (p) == new_cfg.end ())
-                offset = 0;
-
-              new_cfg[p + offset] = i->second;
-            }
-        }
+      for (auto i = rbegin (); i != rend (); ++i)
+        process_entry (*i);
     }
 
   return new_cfg;
