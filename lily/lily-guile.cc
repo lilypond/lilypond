@@ -52,11 +52,7 @@ ly_scm_write_string (SCM s)
                             scm_make_string (SCM_INUM0, SCM_UNDEFINED),
                             SCM_OPN | SCM_WRTNG,
                             "ly_write2string");
-  //  SCM write = scm_eval_3 (ly_symbol2scm ("write"), s, SCM_EOL);
-  SCM write = scm_primitive_eval (ly_symbol2scm ("write"));
-
-  // scm_apply (write, port, SCM_EOL);
-  scm_call_2 (write, s, port);
+  scm_write(s, port);
   return ly_scm2string (scm_strport_to_string (port));
 }
 
