@@ -45,24 +45,10 @@
 #define SMOB_FREE_RETURN_VAL(CL) 0
 #endif
 
-#ifndef SCM_PACK
-#define SCM_PACK(x) ((SCM) x)
-#endif
-
-#ifndef SCM_UNPACK
-#define SCM_UNPACK(x) (x)
-#endif
-
-/* For backward compatability with Guile 1.8 */
+/* For backward compatibility with Guile 1.8 */
 #if !HAVE_GUILE_SUBR_TYPE
 typedef SCM (*scm_t_subr) (GUILE_ELLIPSIS);
 #endif
-
-/* Unreliable with gcc-2.x
-   FIXME: should add check for x86 as well?  */
-#define CACHE_SYMBOLS
-
-#ifdef CACHE_SYMBOLS
 
 /* this lets us "overload" macros such as get_property to take
    symbols as well as strings */
@@ -89,9 +75,6 @@ scm_or_str2symbol (SCM s)
        cached;                                                          \
      })                                                                 \
    : scm_or_str2symbol (x))
-#else
-inline SCM ly_symbol2scm (char const *x) { return scm_from_utf8_symbol ((x)); }
-#endif
 
 /*
   Adds the NAME as a Scheme function, and a variable to store the SCM
