@@ -24,6 +24,7 @@
 #include "lily-proto.hh"
 #include "std-vector.hh"
 
+/* A candidate position for a slur. */
 class Slur_configuration
 {
   Real score_;
@@ -35,6 +36,8 @@ public:
   Real height_;
   int index_;
 
+  /* The different scoring functions we have, ordered by increasing
+     computational cost */
   enum Slur_scorers
   {
     INITIAL_SCORE,

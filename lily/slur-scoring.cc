@@ -108,22 +108,22 @@ Slur_score_state::slur_direction () const
 }
 
 Encompass_info
-Slur_score_state::get_encompass_info (Grob *col) const
+Slur_score_state::get_encompass_info (Grob *notecol) const
 {
-  Grob *stem = unsmob<Grob> (col->get_object ("stem"));
+  Grob *stem = unsmob<Grob> (notecol->get_object ("stem"));
   Encompass_info ei;
 
   if (!stem)
     {
       programming_error ("no stem for note column");
-      ei.x_ = col->relative_coordinate (common_[X_AXIS], X_AXIS);
-      ei.head_ = ei.stem_ = col->extent (common_[Y_AXIS],
+      ei.x_ = notecol->relative_coordinate (common_[X_AXIS], X_AXIS);
+      ei.head_ = ei.stem_ = notecol->extent (common_[Y_AXIS],
                                          Y_AXIS)[dir_];
       return ei;
     }
   Direction stem_dir = get_grob_direction (stem);
 
-  if (Grob *head = Note_column::first_head (col))
+  if (Grob *head = Note_column::first_head (notecol))
     {
       Interval head_ext = head->extent (common_[X_AXIS], X_AXIS);
       // FIXME: Is there a better option than setting to 0?
@@ -133,12 +133,12 @@ Slur_score_state::get_encompass_info (Grob *col) const
         ei.x_ = head_ext.center ();
     }
   else
-    ei.x_ = col->extent (common_[X_AXIS], X_AXIS).center ();
+    ei.x_ = notecol->extent (common_[X_AXIS], X_AXIS).center ();
 
   Grob *h = Stem::extremal_heads (stem)[Direction (dir_)];
   if (!h)
     {
-      ei.head_ = ei.stem_ = col->extent (common_[Y_AXIS], Y_AXIS)[dir_];
+      ei.head_ = ei.stem_ = notecol->extent (common_[Y_AXIS], Y_AXIS)[dir_];
       return ei;
     }
 
@@ -228,10 +228,10 @@ void
 Slur_score_state::fill (Grob *me)
 {
   slur_ = dynamic_cast<Spanner *> (me);
-  columns_
+  note_columns_
     = internal_extract_grob_array (me, ly_symbol2scm ("note-columns"));
 
-  if (columns_.empty ())
+  if (note_columns_.empty ())
     {
       me->suicide ();
       return;
@@ -319,8 +319,8 @@ Slur_score_state::fill (Grob *me)
     end_ys[d] += additional_ys[d];
 
   configurations_ = enumerate_attachments (end_ys);
-  for (vsize i = 0; i < columns_.size (); i++)
-    encompass_infos_.push_back (get_encompass_info (columns_[i]));
+  for (vsize i = 0; i < note_columns_.size (); i++)
+    encompass_infos_.push_back (get_encompass_info (note_columns_[i]));
 
   valid_ = true;
 
@@ -449,7 +449,7 @@ Slur_score_state::get_best_curve () const
 Interval
 Slur_score_state::breakable_bound_extent (Direction d) const
 {
-  Grob *col = slur_->get_bound (d)->get_column ();
+  Grob *paper_col = slur_->get_bound (d)->get_column ();
   Interval ret;
   ret.set_empty ();
 
@@ -458,7 +458,7 @@ Slur_score_state::breakable_bound_extent (Direction d) const
   for (vsize i = 0; i < extra_encompasses.size (); i++)
     {
       Item *item = dynamic_cast<Item *> (extra_encompasses[i]);
-      if (item && col == item->get_column ())
+      if (item && paper_col == item->get_column ())
         ret.unite (robust_relative_extent (item, common_[X_AXIS], X_AXIS));
     }
 
@@ -585,7 +585,7 @@ Slur_score_state::get_base_attachments () const
                                         common_[X_AXIS], X_AXIS);
           x = ext[-d];
 
-          Grob *col = (d == LEFT) ? columns_[0] : columns_.back ();
+          Grob *col = (d == LEFT) ? note_columns_[0] : note_columns_.back ();
 
           if (extremes_[-d].bound_ != col)
             {
@@ -650,7 +650,7 @@ vector<Offset>
 Slur_score_state::generate_avoid_offsets () const
 {
   vector<Offset> avoid;
-  vector<Grob *> encompasses = columns_;
+  vector<Grob *> encompasses = note_columns_;
 
   for (vsize i = 0; i < encompasses.size (); i++)
     {
@@ -851,7 +851,6 @@ Slur_score_state::get_extra_encompass_infos () const
                   && !to_boolean (g->get_property ("parenthesized"))
                   && !to_boolean (g->get_property ("restore-first")))
                 {
-                  /* End copy accidental.cc */
                   if (alt == FLAT_ALTERATION
                       || alt == DOUBLE_FLAT_ALTERATION)
                     xp = LEFT;

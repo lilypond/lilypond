@@ -25,18 +25,29 @@
 #include "lily-guile.hh"
 #include "slur-score-parameters.hh"
 
+/* potential collisions with non-notes.
+ */
 struct Extra_collision_info
 {
+  // The place within X extents that we care about here, from -1..1
   Real idx_;
   Box extents_;
+
+  // configurable penalty, so accidentals can be treated specially.
   Real penalty_;
+
+  // the grob for the collision
   Grob *grob_;
+
+  // How collisions should be resolved. See #'avoid-slur grob property.
   SCM type_;
 
   Extra_collision_info (Grob *g, Real idx, Interval x, Interval y, Real p);
   Extra_collision_info ();
 };
 
+/* The notes that the slur covers. This is the note head most close to
+   the slur, and possibly a stem. */
 struct Encompass_info
 {
   Real x_;
@@ -57,6 +68,7 @@ struct Encompass_info
   }
 };
 
+/* The objects that are at the begin and end of a slur */
 struct Bound_info
 {
   Box stem_extent_;
@@ -80,6 +92,7 @@ struct Bound_info
   }
 };
 
+/* Input data and scoring state for a single slur formatting problem. */
 class Slur_score_state
 {
 public:
@@ -91,7 +104,7 @@ public:
   bool has_same_beam_;
 
   Real musical_dy_;
-  std::vector<Grob *> columns_;
+  std::vector<Grob *> note_columns_;
   std::vector<Encompass_info> encompass_infos_;
   std::vector<Extra_collision_info> extra_encompass_infos_;
 
