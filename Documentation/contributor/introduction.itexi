@@ -117,7 +117,7 @@ currently hosted by Sourceforge.
 @end example
 
 @item @strong{patch review}:
-Reitveld -- the collaborative code review tool.
+Rietveld -- the collaborative code review tool.
 
 @example
 @uref{https://codereview.appspot.com}
