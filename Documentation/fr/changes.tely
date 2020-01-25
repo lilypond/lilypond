@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 4944e92191308c589f9ed1d3796c6403a2280d18
+    Translation of GIT committish: 36aecbfce5f3d3cb6b1cc23198f0d5164f19fbf4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1263,6 +1263,29 @@ objet peut désormais s'aligner sur le « centre » de son parent.
 @c VO New for changing defaults
 
 @itemize
+Un argument supplémentaire a été ajouté à la commande @code{\afterGrace}.
+
+@noindent
+@code{\afterGrace} dispose à présent d'un argument permettant de
+spécifier, sous forme de fraction, l'espacement à respecter avant de
+positionner ses notes.
+@lilypond[quote,verbatim]
+<<
+\new Staff \relative {
+  % Par défaut, valeur figée à (3/4)
+  c''1 \afterGrace d1 { c16[ d] } c1
+}
+\new Staff \relative {
+  % Modification manuelle à (15/16) de la valeur figée
+  #(define afterGraceFraction (cons 15 16))
+  c''1 \afterGrace d1 { c16[ d] } c1
+}
+\new Staff \relative {
+  % Utilisation du nouvel argument (5/6)
+  c''1 \afterGrace 5/6 d1 { c16[ d] } c1
+}
+>>
+@end lilypond
 
 @item
 Les différentes instructions @code{\override}, @code{\revert},
