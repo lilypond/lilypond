@@ -275,7 +275,8 @@ LY_DEFINE (ly_protects, "ly:protects",
 #if SCM_MAJOR_VERSION < 2 || SCM_MAJOR_VERSION == 2 && SCM_MINOR_VERSION < 1
   return scm_protects;
 #else
-  return programming_error ("ly:protects is not supported in Guile 2.1");
+  programming_error ("ly:protects is not supported in Guile 2.1");
+  return SCM_EOL;
 #endif
 }
 
