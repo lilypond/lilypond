@@ -340,7 +340,7 @@ BOM_UTF8	\357\273\277
 <incl>(\$|#) { // scm for the filename
 	Input hi = here_input();
 	hi.step_forward ();
-	SCM sval = ly_parse_scm (hi, be_safe_global && is_main_input_, parser_);
+	SCM sval = parse_embedded_scheme (&hi, be_safe_global && is_main_input_, parser_);
 	sval = eval_scm (sval, hi);
 	skip_chars (hi.size ());
 
@@ -388,7 +388,7 @@ BOM_UTF8	\357\273\277
 <INITIAL,chords,figures,lyrics,markup,notes>#	{ //embedded scm
 	Input hi = here_input();
 	hi.step_forward ();
-	SCM sval = ly_parse_scm (hi, be_safe_global && is_main_input_, parser_);
+	SCM sval = parse_embedded_scheme (&hi, be_safe_global && is_main_input_, parser_);
 
 	if (SCM_UNBNDP (sval))
 		error_level_ = 1;
@@ -402,7 +402,7 @@ BOM_UTF8	\357\273\277
 <INITIAL,chords,figures,lyrics,markup,notes>\$	{ //immediate scm
 	Input hi = here_input();
 	hi.step_forward ();
-	SCM sval = ly_parse_scm (hi, be_safe_global && is_main_input_, parser_);
+	SCM sval = parse_embedded_scheme (&hi, be_safe_global && is_main_input_, parser_);
 	skip_chars (hi.size ());
 	sval = eval_scm (sval, hi, '$');
 
@@ -1094,7 +1094,7 @@ Lily_lexer::eval_scm (SCM readerdata, Input hi, char extra_token)
 
 	if (!SCM_UNBNDP (readerdata))
 	{
-		sval = ly_eval_scm (readerdata,
+		sval = evaluate_embedded_scheme (readerdata,
 				    hi,
 				    be_safe_global && is_main_input_,
 				    parser_);
