@@ -826,7 +826,7 @@ main (int argc, char **argv, char **envp)
     {
       scm_boot_guile (argc, argv, main_with_guile, 0);
     }
-  catch (exception e)
+  catch (std::exception e)
     {
       error (_f ("exception caught: %s", e.what ()));
     };
