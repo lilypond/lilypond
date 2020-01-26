@@ -57,6 +57,7 @@ std::string gulp_file_to_string (const std::string &fn, bool must_exist, int siz
 
 SCM ly_string2scm (std::string const &s);
 std::string ly_scm2string (SCM s);
+std::string ly_scm2utf8_string (SCM);
 std::string ly_symbol2string (SCM);
 std::string robust_symbol2string (SCM, const std::string&);
 Rational ly_scm2rational (SCM);

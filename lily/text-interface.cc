@@ -78,7 +78,7 @@ Text_interface::interpret_string (SCM layout_smob,
   LY_ASSERT_SMOB (Output_def, layout_smob, 1);
   LY_ASSERT_TYPE (scm_is_string, markup, 3);
 
-  string str = ly_scm2string (markup);
+  string str = ly_scm2utf8_string (markup);
   Output_def *layout = unsmob<Output_def> (layout_smob);
   Font_metric *fm = select_encoded_font (layout, props);
 

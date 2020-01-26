@@ -120,6 +120,24 @@ extern "C" {
   STRINGS
  */
 string
+ly_scm2utf8_string (SCM str)
+{
+#if GUILEV2
+  assert (scm_is_string (str));
+  size_t len = 0;
+  char *bytes = scm_to_utf8_stringn (str, &len);
+
+  // It would be nice to stick 'bytes' directly into string.
+  string result(bytes, len);
+
+  free(bytes);
+  return result;
+#else
+  return ly_scm2string(str);
+#endif
+}
+
+string
 ly_scm2string (SCM str)
 {
   assert (scm_is_string (str));
