@@ -665,6 +665,8 @@ mark {ly~a_stream} /CLOSE pdfmark
          (page-number (1- (ly:output-def-lookup paper 'first-page-number)))
          (page-count (length page-stencils))
          (port (ly:outputter-port outputter)))
+    (if (guile-v2)
+        (set-port-encoding! port "Latin1"))
     (initialize-font-embedding)
     (if (ly:get-option 'clip-systems)
         (clip-system-EPSes basename book))
