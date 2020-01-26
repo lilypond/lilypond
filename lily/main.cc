@@ -747,7 +747,7 @@ setup_guile_gc_env ()
                "104857600", overwrite);
 }
 
-
+#if (GUILEV2)
 void
 setup_guile_v2_env ()
 /*
@@ -765,6 +765,7 @@ setup_guile_v2_env ()
      sane_putenv("XDG_CACHE_HOME",
                   lilypond_datadir, true);
 }
+#endif
 
 void
 setup_guile_env ()
@@ -772,10 +773,10 @@ setup_guile_env ()
  * Set up environment variables relevant to Scheme
  */
 {
-
-  setup_guile_gc_env ();  // configure garbage collector
 #if (GUILEV2)
   setup_guile_v2_env ();  // configure Guile V2 behaviour
+#else
+  setup_guile_gc_env ();  // configure garbage collector
 #endif
 }
 
