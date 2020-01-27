@@ -371,7 +371,7 @@ Options:
 
 Typical use with LilyPond:
 
- fixcc $(find flower lily -name '*cc' -o -name '*hh' | grep -v /out)
+ scripts/auxiliar/fixcc.py $(git ls-files '*.cc' '*.hh')
 
 ''')
 
