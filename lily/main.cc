@@ -820,22 +820,7 @@ main (int argc, char **argv, char **envp)
   /*
    * Start up Guile API using main_with_guile as a callback.
    */
-#if (GUILEV2)
- /* Debugging aid.
-    Set it on by default for Guile V2
-    while migration in progress.
- */
-  try
-    {
-      scm_boot_guile (argc, argv, main_with_guile, 0);
-    }
-  catch (std::exception e)
-    {
-      error (_f ("exception caught: %s", e.what ()));
-    };
-#else
   scm_boot_guile (argc, argv, main_with_guile, 0);
-#endif
 
   /* Only reachable if GUILE exits.  That is an error.  */
   return 1;
