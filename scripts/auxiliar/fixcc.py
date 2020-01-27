@@ -375,9 +375,9 @@ Typical use with LilyPond:
 ''')
 
 def do_options ():
-    global indent_p, outdir, verbose_p
+    global indent_p, outdir, verbose_p, PREFERRED_ASTYLE_VERSION
     (options, files) = getopt.getopt (sys.argv[1:], '',
-                     ['help', 'lazy', 'outdir=',
+                     ['help', 'lazy', 'outdir=', 'sloppy',
                      'test', 'verbose'])
     for (o, a) in options:
         if o == '--help':
@@ -403,11 +403,11 @@ def do_options ():
 
 def check_astyle_version():
     cmd = "astyle --version"
-    process = subprocess.Popen(cmd, shell=True, stderr=subprocess.PIPE)
+    process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE,
+                               stderr=subprocess.PIPE)
     stdout, stderr = process.communicate()
-    if PREFERRED_ASTYLE_VERSION in stderr:
-        return True
-    return False
+    return (PREFERRED_ASTYLE_VERSION in stderr) \
+        or (PREFERRED_ASTYLE_VERSION in stdout)
 
 
 outdir = 0
