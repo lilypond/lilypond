@@ -7,8 +7,8 @@ import tempfile
 
 # usage:
 def usage ():
-    print 'usage: bib2texi.py [-s style] [-o <outfile>] [-q] BIBFILES...'
-    print '-q suppresses most output'
+    print('usage: bib2texi.py [-s style] [-o <outfile>] [-q] BIBFILES...')
+    print('-q suppresses most output')
 
 (options, files) = getopt.getopt (sys.argv[1:], 's:o:hq', [])
 

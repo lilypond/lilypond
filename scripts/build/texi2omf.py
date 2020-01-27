@@ -7,7 +7,7 @@ import re
 import sys
 import time
 
-sys.stdout = codecs.getwriter ('utf8') (sys.stdout)
+sys.stdout = codecs.getwriter ('utf8') (sys.stdout.detach ())
 
 def usage ():
     sys.stderr.write ('''
@@ -64,7 +64,7 @@ formats = {
     'xml' : 'text/xml',
     }
 
-if not formats.has_key (format):
+if format not in formats:
     sys.stderr.write ("Format `%s' unknown\n" % format)
     sys.exit (1)
 
@@ -95,7 +95,7 @@ for a in omf_caterories:
     m = re.search ('@omf%s (.*)\n'% a, texi)
     if m:
         omf_vars[a] = m.group (1)
-    elif not omf_vars.has_key (a):
+    elif a not in omf_vars:
         omf_vars[a] = ''
         
 if not omf_vars['title']:
@@ -121,7 +121,7 @@ if not omf_vars['creator']:
 
 
 
-print r'''<?xml version="1.0" encoding="UTF-8"?>
+print(r'''<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE omf PUBLIC "-//OMF//DTD Scrollkeeper OMF Variant V1.0//EN" "http://scrollkeeper.sourceforge.net/dtds/scrollkeeper-omf-1.0/scrollkeeper-omf.dtd">
 <omf>
  <resource>
@@ -152,6 +152,6 @@ print r'''<?xml version="1.0" encoding="UTF-8"?>
  </resource>
 </omf>
 
-''' % omf_vars
+''' % omf_vars)
 
 

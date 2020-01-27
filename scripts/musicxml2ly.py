@@ -1,7 +1,7 @@
 #!@TARGET_PYTHON@
 # -*- coding: utf-8 -*-
 
-from __future__ import division
+
 
 import optparse
 import sys
@@ -10,8 +10,9 @@ import os
 import codecs
 import zipfile
 import tempfile
-import StringIO
+import io
 import warnings
+from functools import reduce
 
 """
 @relocate-preamble@
@@ -324,15 +325,15 @@ def staff_attributes_to_string_tunings(mxl_attr):
             pass
         tunings[line] = p
 
-        step = i.get_named_child(u'tuning-step')
+        step = i.get_named_child('tuning-step')
         step = step.get_text().strip()
         p.step = musicxml2ly_conversion.musicxml_step_to_lily(step)
 
-        octave = i.get_named_child(u'tuning-octave')
+        octave = i.get_named_child('tuning-octave')
         octave = octave.get_text().strip()
         p.octave = int(octave) - 4
 
-        alter = i.get_named_child(u'tuning-alter')
+        alter = i.get_named_child('tuning-alter')
         if alter:
             p.alteration = int(alter.get_text().strip())
     # lilypond seems to use the opposite ordering than MusicXML...
@@ -343,7 +344,7 @@ def staff_attributes_to_lily_staff(mxl_attr):
     if not mxl_attr:
         return musicexp.Staff()
 
-    (staff_id, attributes) = mxl_attr.items()[0]
+    (staff_id, attributes) = list(mxl_attr.items())[0]
 
     # distinguish by clef:
     # percussion(percussion and rhythmic), tab, and everything else
@@ -489,20 +490,20 @@ def extract_score_structure(part_list, staffinfo):
             elif len(el.end) > 0: # no group to end here
                 el.end = {}
             if len(el.end) > 0: # closes an existing group
-                ends = el.end.keys()
-                prev_started = staves[prev_start].start.keys()
+                ends = list(el.end.keys())
+                prev_started = list(staves[prev_start].start.keys())
                 grpid = None
-                intersection = filter(lambda x:x in ends, prev_started)
+                intersection = [x for x in prev_started if x in ends]
                 if len(intersection) > 0:
                     grpid = intersection[0]
                 else:
                     # Close the last started group
-                    grpid = staves[prev_start].start.keys() [0]
+                    grpid = list(staves[prev_start].start.keys()) [0]
                     # Find the corresponding closing tag and remove it!
                     j = pos + 1
                     foundclosing = False
                     while j < len(staves) and not foundclosing:
-                        if isinstance(staves[j], PartGroupInfo) and staves[j].end.has_key(grpid):
+                        if isinstance(staves[j], PartGroupInfo) and grpid in staves[j].end:
                             foundclosing = True
                             del staves[j].end[grpid]
                             if staves[j].is_empty():
@@ -511,7 +512,7 @@ def extract_score_structure(part_list, staffinfo):
                 grpobj = staves[prev_start].start[grpid]
                 group = read_score_group(grpobj)
                 # remove the id from both the start and end
-                if el.end.has_key(grpid):
+                if grpid in el.end:
                     del el.end[grpid]
                 del staves[prev_start].start[grpid]
                 if el.is_empty():
@@ -900,7 +901,7 @@ def musicxml_attributes_to_lily(attrs):
         'transpose': musicxml_transpose_to_lily,
         'staff-details': musicxml_staff_details_to_lily,
     }
-    for (k, func) in attr_dispatch.items():
+    for (k, func) in list(attr_dispatch.items()):
         children = attrs.get_named_children(k)
         if children:
             ev = func(attrs)
@@ -1249,7 +1250,7 @@ def musicxml_dynamics_to_lily_event(dynentry):
               " = #(make-dynamic-script \"" + dynamicstext + "\")"
         needed_additional_definitions.append(dynamicsname)
     event = musicexp.DynamicsEvent()
-    event.type = dynamicsname.encode('utf-8')
+    event.type = dynamicsname
     return event
 
 # Convert single-color two-byte strings to numbers 0.0 - 1.0
@@ -1265,7 +1266,7 @@ def hexcolorval_to_nr(hex_val):
 def hex_to_color(hex_val):
     res = re.match(r'#([0-9a-f][0-9a-f]|)([0-9a-f][0-9a-f])([0-9a-f][0-9a-f])([0-9a-f][0-9a-f])$', hex_val, re.IGNORECASE)
     if res:
-        return map(lambda x: hexcolorval_to_nr(x), res.group(2, 3, 4))
+        return [hexcolorval_to_nr(x) for x in res.group(2, 3, 4)]
     else:
         return None
 
@@ -1279,7 +1280,7 @@ def font_size_number_to_lily_command(size):
         (24, float('inf')): r'\huge',
     }
     result = None
-    for r in d.keys():
+    for r in list(d.keys()):
         if r[0] <= size < r[1]:
             result = d[r]
             break
@@ -1701,7 +1702,7 @@ def musicxml_frame_to_lily_event(frame):
     #offset = frame.get_first_fret() - 1
     #offset = frame.get_first_fret()
     barre = []
-    open_strings = range(1,ev.strings+1)
+    open_strings = list(range(1,ev.strings+1))
     for fn in frame.get_named_children('frame-note'):
         fret = fn.get_fret()
         if fret <= 0:
@@ -1876,7 +1877,7 @@ def musicxml_lyrics_to_text(lyrics, ignoremelismata):
         elif isinstance(e, musicxml.Text):
             # We need to convert soft hyphens to -, otherwise the ascii codec as well
             # as lilypond will barf on that character
-            text += e.get_text().replace(u'\xad', '-')
+            text += e.get_text().replace('\xad', '-')
         elif isinstance(e, musicxml.Elision):
             if text:
                 text += " "
@@ -1896,7 +1897,7 @@ def musicxml_lyrics_to_text(lyrics, ignoremelismata):
             if (ignoremelismata == "on"):
                 return " \set ignoreMelismata = ##t " + utilities.escape_ly_output_string (text)
             elif (ignoremelismata == "off"):
-                return " " + utilities.escape_ly_output_string(text) + " -- \unset ignoreMelismata"
+                return " " + utilities.escape_ly_output_string(text) + " -- \\unset ignoreMelismata"
             else:
                 return " " + utilities.escape_ly_output_string(text) + " --"
         else:
@@ -2226,8 +2227,8 @@ def musicxml_voice_to_lily_voice(voice):
     in_slur = False
 
     all_lyric_parts = set(get_all_lyric_parts_in_voice(voice))
-    if lyrics.keys():
-        for number in lyrics.keys():
+    if list(lyrics.keys()):
+        for number in list(lyrics.keys()):
             extracted_lyrics = extract_lyrics(voice, number, lyrics)
 
     for idx, n in enumerate(voice._elements):
@@ -2258,7 +2259,7 @@ def musicxml_voice_to_lily_voice(voice):
                 figured_bass_builder.jumpto(n._when)
                 chordnames_builder.jumpto(n._when)
                 fretboards_builder.jumpto(n._when)
-            except NegativeSkip, neg:
+            except NegativeSkip as neg:
                 voice_builder.correct_negative_skip(n._when)
                 figured_bass_builder.correct_negative_skip(n._when)
                 chordnames_builder.correct_negative_skip(n._when)
@@ -2435,7 +2436,7 @@ def musicxml_voice_to_lily_voice(voice):
                 figured_bass_builder.jumpto(n._when)
                 if (figured_bass_builder.stay_here):
                     figured_bass_builder.stay_here = False
-            except NegativeSkip, neg:
+            except NegativeSkip as neg:
                 pass
             for fb in pending_figured_bass:
                 # if a duration is given, use that, otherwise the one of the note
@@ -2452,7 +2453,7 @@ def musicxml_voice_to_lily_voice(voice):
                 chordnames_builder.jumpto(n._when)
                 if (chordnames_builder.stay_here):
                     chordnames_builder.stay_here = False
-            except NegativeSkip, neg:
+            except NegativeSkip as neg:
                 pass
             for cn in pending_chordnames:
                 # Assign the duration of the EventChord
@@ -2465,7 +2466,7 @@ def musicxml_voice_to_lily_voice(voice):
                 fretboards_builder.jumpto(n._when)
                 if (fretboards_builder.stay_here):
                     fretboards_builder.stay_here = False
-            except NegativeSkip, neg:
+            except NegativeSkip as neg:
                 pass
             for fb in pending_fretboards:
                 # Assign the duration of the EventChord
@@ -2622,19 +2623,19 @@ def musicxml_voice_to_lily_voice(voice):
 
     seq_music = musicexp.SequentialMusic()
 
-    if 'drummode' in modes_found.keys():
+    if 'drummode' in list(modes_found.keys()):
         ## \key <pitch> barfs in drummode.
         ly_voice = [e for e in ly_voice
                     if not isinstance(e, musicexp.KeySignatureChange)]
 
     seq_music.elements = ly_voice
-    for k in lyrics.keys():
+    for k in list(lyrics.keys()):
         return_value.lyrics_dict[k] = musicexp.Lyrics()
         return_value.lyrics_dict[k].lyrics_syllables = lyrics[k]
 
 
     if len(modes_found) > 1:
-       ly.warning(_('cannot simultaneously have more than one mode: %s') % modes_found.keys())
+       ly.warning(_('cannot simultaneously have more than one mode: %s') % list(modes_found.keys()))
 
     if hasattr(options, 'shift_meter') and options.shift_meter:
         sd[-1].element = seq_music
@@ -2648,7 +2649,7 @@ def musicxml_voice_to_lily_voice(voice):
         seq_music = v
 
     return_value.ly_voice = seq_music
-    for mode in modes_found.keys():
+    for mode in list(modes_found.keys()):
         v = musicexp.ModeChangingMusicWrapper()
         v.element = seq_music
         v.mode = mode
@@ -2749,10 +2750,10 @@ def get_all_voices(parts):
 
     all_ly_voices = {}
     all_ly_staffinfo = {}
-    for p, (name_voice, staff_info) in all_voices.items():
+    for p, (name_voice, staff_info) in list(all_voices.items()):
 
         part_ly_voices = {}
-        for n, v in name_voice.items():
+        for n, v in list(name_voice.items()):
             ly.progress(_("Converting to LilyPond expressions..."), True)
             # musicxml_voice_to_lily_voice returns (lily_voice, {nr->lyrics, nr->lyrics})
             voice = musicxml_voice_to_lily_voice(v)
@@ -2943,7 +2944,7 @@ def print_voice_definitions (printer, part_list, voices):
     for part in part_list:
         part_id = part.id
         nv_dict = voices.get (part_id, {})
-        for (name, voice) in nv_dict.items ():
+        for (name, voice) in list(nv_dict.items ()):
             k = music_xml_voice_name_to_lily_name (part_id, name)
             printer.dump ('%s = ' % k)
             voice.ly_voice.print_ly (printer)
@@ -2970,7 +2971,7 @@ def print_voice_definitions (printer, part_list, voices):
                 printer.newline()
 
 def uniq_list(l):
-    return dict([(elt, 1) for elt in l]).keys()
+    return list(dict([(elt, 1) for elt in l]).keys())
 
 # format the information about the staff in the form
 #     [staffid,
@@ -3008,8 +3009,8 @@ def update_score_setup(score_structure, part_list, voices, parts):
             continue
 
         staves = reduce(lambda x, y: x + y,
-                [voice.voicedata._staves.keys()
-                 for voice in nv_dict.values()],
+                [list(voice.voicedata._staves.keys())
+                 for voice in list(nv_dict.values())],
                 [])
         staves_info = []
         if len(staves) > 1:
@@ -3018,12 +3019,12 @@ def update_score_setup(score_structure, part_list, voices, parts):
             staves.sort()
             for s in staves:
                 thisstaff_raw_voices = [(voice_name, voice.lyrics_order, voice.figured_bass, voice.chordnames, voice.fretboards)
-                    for (voice_name, voice) in nv_dict.items()
+                    for (voice_name, voice) in list(nv_dict.items())
                     if voice.voicedata._start_staff == s]
                 staves_info.append(format_staff_info(part_id, s, thisstaff_raw_voices))
         else:
             thisstaff_raw_voices = [(voice_name, voice.lyrics_order, voice.figured_bass, voice.chordnames, voice.fretboards)
-                for (voice_name, voice) in nv_dict.items()]
+                for (voice_name, voice) in list(nv_dict.items())]
             staves_info.append(format_staff_info(part_id, None, thisstaff_raw_voices))
         score_structure.set_part_information(part_id, staves_info)
 
@@ -3111,7 +3112,7 @@ def read_musicxml(filename, compressed, use_lxml):
         container_xml = z.read("META-INF/container.xml").decode("utf-8")
         if not container_xml:
             return None
-        container = read_xml(StringIO.StringIO(container_xml), use_lxml)
+        container = read_xml(io.StringIO(container_xml), use_lxml)
         if not container:
             return None
         rootfiles = container.get_maybe_exist_named_child('rootfiles')
@@ -3125,7 +3126,7 @@ def read_musicxml(filename, compressed, use_lxml):
             raw_string = z.read(mxml_file).decode('utf-8')
 
     if raw_string:
-        io_object = StringIO.StringIO(raw_string)
+        io_object = io.StringIO(raw_string)
     elif filename == "-":
         io_object = sys.stdin
     else:
@@ -3256,7 +3257,7 @@ def main():
     conversion_settings.convert_stem_directions = options.convert_stem_directions
 
     # Allow the user to leave out the .xml or xml on the filename
-    basefilename = args[0].decode('utf-8')
+    basefilename = args[0]
     if basefilename == "-": # Read from stdin
         filename = "-"
     else:

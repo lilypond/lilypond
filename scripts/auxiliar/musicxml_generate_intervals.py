@@ -4,13 +4,13 @@ notes = "CDEFGAB"
 alterations = [-1, 0, 1]
 
 def print_note (octave, note, alteration):
-    print "      <note>\n        <pitch>\n          <step>%s</step>" % notes[note]
+    print("      <note>\n        <pitch>\n          <step>%s</step>" % notes[note])
     if alteration != 0:
-        print "          <alter>%s</alter>" % alteration
-    print "          <octave>%s</octave>\n        </pitch>\n        <duration>1</duration>\n        <voice>1</voice>\n        <type>quarter</type>\n      </note>" % octave
+        print("          <alter>%s</alter>" % alteration)
+    print("          <octave>%s</octave>\n        </pitch>\n        <duration>1</duration>\n        <voice>1</voice>\n        <type>quarter</type>\n      </note>" % octave)
 
 
-print """<?xml version="1.0" encoding="UTF-8"?>
+print("""<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 1.0 Partwise//EN"
                                 "http://www.musicxml.org/dtds/partwise.dtd">
 <score-partwise>
@@ -38,7 +38,7 @@ print """<?xml version="1.0" encoding="UTF-8"?>
           <line>2</line>
         </clef>
       </attributes>
-"""
+""")
 
 start_octave = 5
 
@@ -52,7 +52,7 @@ for octave in (start_octave, start_octave+1):
 #                 continue
             print_note (start_octave-(octave-start_octave)-(1-(7-note)/7), (7-note)%7, -alteration)
 
-print """    </measure>
+print("""    </measure>
   </part>
 </score-partwise>
-"""
+""")

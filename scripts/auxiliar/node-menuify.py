@@ -5,7 +5,7 @@ try:
     infile = sys.argv[1]
     lines = open(infile).readlines()
 except:
-    print "ERROR: need a filename"
+    print("ERROR: need a filename")
     sys.exit(1)
 
 nodes = []
@@ -34,8 +34,8 @@ for i in range(len(lines)):
               section_line.startswith('@appendixsubsubsec ')):
             section_type = 4
         else:
-            print "ERROR: unknown sectioning command"
-            print section_line
+            print("ERROR: unknown sectioning command")
+            print(section_line)
             sys.exit(1)
         nodes.append( (section_type, node_name) )
 

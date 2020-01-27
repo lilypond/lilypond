@@ -35,7 +35,7 @@ def read_pipe (cmd, ignore_errors=False):
     return val
 
 def filter_out (p, lst):
-    return filter (lambda x: not p (x), lst)
+    return [x for x in lst if not p (x)]
 
 copied_files = [
     'help2man.pl',

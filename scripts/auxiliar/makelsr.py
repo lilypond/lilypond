@@ -301,10 +301,10 @@ def dump_file_list (file, file_list):
 ## not recreating all of them from the tarball don't delete
 ## snippets that came from LSR.
 if in_dir:
-    map (os.remove, glob.glob (os.path.join (lys_from_lsr, '*.ly')) +
-        glob.glob (os.path.join (lys_from_lsr, '*.snippet-list')))
+    list(map (os.remove, glob.glob (os.path.join (lys_from_lsr, '*.ly')) +
+        glob.glob (os.path.join (lys_from_lsr, '*.snippet-list'))))
 else:
-    map (os.remove, glob.glob (os.path.join (lys_from_lsr, '*.snippet-list')))
+    list(map (os.remove, glob.glob (os.path.join (lys_from_lsr, '*.snippet-list'))))
     for f in glob.glob (os.path.join (lys_from_lsr, '*.ly')):
         if new_lys_marker in open (f).read ():
             os.remove (f)
@@ -317,12 +317,12 @@ if in_dir:
 snippets_new, not_used_list = read_source (new_lys)
 snippets.update (snippets_new)
 
-for (name, (srcdir, file_tags)) in snippets.items ():
+for (name, (srcdir, file_tags)) in list(snippets.items ()):
     copy_ly (srcdir, name, file_tags)
 
 not_used_snippets, tag_lists = read_source (lys_from_lsr)
 
-for (tag, file_set) in tag_lists.items ():
+for (tag, file_set) in list(tag_lists.items ()):
     dump_file_list (os.path.join (lys_from_lsr, tag + '.snippet-list'),
                     file_set)
 if unconverted:

@@ -54,6 +54,7 @@ import sys
 import tempfile
 import imp
 from optparse import OptionGroup
+from functools import reduce
 
 
 """
@@ -394,7 +395,7 @@ def system_in_directory (cmd, directory, logfile):
               ignore_error=global_options.redirect_output)
     if retval != 0:
         print ("Error trapped by lilypond-book")
-        print ("\nPlease see " + logfile + ".log\n")
+        print(("\nPlease see " + logfile + ".log\n"))
         sys.exit(1)
 
     os.chdir (current)
@@ -568,7 +569,7 @@ def do_file (input_filename, included=False):
         global_options.output_dir = os.path.abspath(global_options.output_dir)
 
         if not os.path.isdir (global_options.output_dir):
-            os.mkdir (global_options.output_dir, 0777)
+            os.mkdir (global_options.output_dir, 0o777)
         os.chdir (global_options.output_dir)
 
     output_filename = os.path.join(global_options.output_dir,
@@ -610,9 +611,8 @@ def do_file (input_filename, included=False):
             progress (_ ("Processing include: %s") % name)
             return do_file (name, included=True)
 
-        include_chunks = map (process_include,
-                              filter (lambda x: isinstance (x, BookSnippet.IncludeSnippet),
-                                      chunks))
+        include_chunks = list(map (process_include,
+                              [x for x in chunks if isinstance (x, BookSnippet.IncludeSnippet)]))
 
         return chunks + reduce (lambda x, y: x + y, include_chunks, [])
 
@@ -692,7 +692,7 @@ def do_options ():
 
 def main ():
     # FIXME: 85 lines of `main' macramee??
-    if (os.environ.has_key ("LILYPOND_BOOK_LOGLEVEL")):
+    if ("LILYPOND_BOOK_LOGLEVEL" in os.environ):
         ly.set_loglevel (os.environ["LILYPOND_BOOK_LOGLEVEL"])
     files = do_options ()
 

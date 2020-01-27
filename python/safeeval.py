@@ -58,11 +58,11 @@ def safe_eval(source, fail_on_error = True):
     walker = fail_on_error and SafeEvalWithErrors() or SafeEval()
     try:
         ast = compiler.parse(source,"eval")
-    except SyntaxError, err:
+    except SyntaxError as err:
         raise
     try:
         return walker.visit(ast)
-    except Unsafe_Source_Error, err:
+    except Unsafe_Source_Error as err:
         raise
 
 
@@ -70,15 +70,15 @@ def safe_eval(source, fail_on_error = True):
     walker = fail_on_error and SafeEvalWithErrors() or SafeEval()
     try:
         ast = compiler.parse(source,"eval")
-    except SyntaxError, err:
+    except SyntaxError as err:
         raise
     try:
         return walker.visit(ast)
-    except Unsafe_Source_Error, err:
+    except Unsafe_Source_Error as err:
         raise
 
 def test ():
-    print safe_eval ('{1: [2,3], "4": (-1,2)}')
+    print(safe_eval ('{1: [2,3], "4": (-1,2)}'))
     
 if __name__ == '__main__':
     test ()

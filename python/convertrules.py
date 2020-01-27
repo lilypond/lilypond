@@ -647,7 +647,7 @@ def conv (str):
         "Custos": "custos"
         }
         props =  match.group (1)
-        for (k,v) in break_dict.items():
+        for (k,v) in list(break_dict.items()):
             props = re.sub (k, v, props)
         return  "breakAlignOrder = #'(%s)" % props
 
@@ -1761,7 +1761,7 @@ def conv (str):
     def subst (m):
         (o, g) = divmod (int (m.group (2)), 12)
 
-        lower_pitches = filter (lambda x : x <= g, [0, 2, 4, 5, 7, 9, 11, 12])
+        lower_pitches = [x for x in [0, 2, 4, 5, 7, 9, 11, 12] if x <= g]
         s = len (lower_pitches) -1
         a = g - lower_pitches [-1]
 

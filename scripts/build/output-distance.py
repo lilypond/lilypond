@@ -7,7 +7,8 @@ import os
 import math
 import re
 
-import cgi
+import html
+from functools import reduce
 
 ## so we can call directly as scripts/build/output-distance.py
 me_path = os.path.abspath (os.path.split (sys.argv[0])[0])
@@ -25,11 +26,11 @@ options = None
 
 def log_terse (s):
     if not options.verbose:
-        print s
+        print(s)
 
 def log_verbose (s):
     if options.verbose:
-        print s
+        print(s)
 
 ################################################################
 # system interface.
@@ -167,7 +168,7 @@ class GrobSignature:
                                                    self.bbox[1][1])
 
     def axis_centroid (self, axis):
-        return apply (sum, self.bbox[axis])  / 2
+        return sum(*self.bbox[axis])  / 2
 
     def centroid_distance (self, other, scale):
         return max_distance (self.centroid, other.centroid) / scale
@@ -223,7 +224,7 @@ class SystemSignature:
         except KeyError:
             return None
     def grobs (self):
-        return reduce (lambda x,y: x+y, self.grob_dict.values(), [])
+        return reduce (lambda x,y: x+y, list(self.grob_dict.values()), [])
 
 ################################################################
 ## comparison of systems.
@@ -269,7 +270,7 @@ class SystemLink:
         else:
             total = 100.0 * (self.system1 != self.system2)
 
-        for (g1,g2) in self.back_link_dict.items ():
+        for (g1,g2) in list(self.back_link_dict.items ()):
             if g2:
                 d = g1.bbox_distance (g2)
                 if d:
@@ -281,7 +282,7 @@ class SystemLink:
 
     def calc_orphan_count (self):
         count = 0
-        for (g1, g2) in self.back_link_dict.items ():
+        for (g1, g2) in list(self.back_link_dict.items ()):
             if g2 == None:
                 self.orphans.append ((g1, None))
 
@@ -295,7 +296,7 @@ class SystemLink:
         else:
             d = 100 * (self.system1 != self.system2)
 
-        for (g1,g2) in self.back_link_dict.items ():
+        for (g1,g2) in list(self.back_link_dict.items ()):
             if g2:
                 d += g1.expression_distance (g2)
 
@@ -305,7 +306,7 @@ class SystemLink:
         return ', '.join ([g1.name for g1 in self.expression_changed])
 
     def geo_details_string (self):
-        results = [(d, g1,g2) for ((g1, g2), d) in self.geo_distances.items()]
+        results = [(d, g1,g2) for ((g1, g2), d) in list(self.geo_distances.items())]
         # Only compare distances.
         results.sort (key=lambda x: x[0])
         results.reverse ()
@@ -346,7 +347,7 @@ def read_signature_file (name):
 
     try:
         f = open (name)
-    except IOError, e:
+    except IOError as e:
         if e.errno == errno.ENOENT:
             return None
         else:
@@ -406,7 +407,7 @@ class FileLink:
         return ''
 
     def directories (self):
-        return map (os.path.dirname, self.file_names)
+        return list(map (os.path.dirname, self.file_names))
 
     def name (self):
         base = os.path.basename (self.file_names[1])
@@ -493,7 +494,7 @@ class FileCompareLink (FileLink):
         log_verbose ('reading %s' % name)
         try:
             return codecs.open (name, 'r', 'utf-8').read ()
-        except IOError, e:
+        except IOError as e:
             if e.errno == errno.ENOENT:
                 return None
             else:
@@ -508,7 +509,7 @@ class GitFileCompareLink (FileCompareLink):
         str = '\n'.join ([l[:80] for l in str.split ('\n')])
 
         if str:
-            str = '<pre>%s</pre>' % cgi.escape (str)
+            str = '<pre>%s</pre>' % html.escape (str)
         return '', str
 
     def calc_distance (self):
@@ -556,7 +557,7 @@ class TextFileCompareLink (FileCompareLink):
         if oldnew == 1:
             str = '\n'.join ([d.replace ('\n','') for d in self.diff_lines])
         if str:
-            str = '<pre>%s</pre>' % cgi.escape (str)
+            str = '<pre>%s</pre>' % html.escape (str)
         return '', str
 
 class LogFileCompareLink (TextFileCompareLink):
@@ -585,7 +586,7 @@ class ProfileFileLink (FileCompareLink):
                     str += '%-8s: %d\n' %  (k, int (self.results[oldnew][k]))
 
         if str:
-            str = '<pre>%s</pre>' % cgi.escape (str)
+            str = '<pre>%s</pre>' % html.escape (str)
         return '', str
 
     def get_ratio (self, key):
@@ -629,7 +630,7 @@ class MidiFileLink (TextFileCompareLink):
 
         try:
             f = open (name, 'rb')
-        except IOError, e:
+        except IOError as e:
             if e.errno == errno.ENOENT:
                 return None
             else:
@@ -650,7 +651,7 @@ class MidiFileLink (TextFileCompareLink):
                 if re.search ('LilyPond [0-9.]+', ev_str):
                     continue
 
-                str += '  ev %s\n' % `e`
+                str += '  ev %s\n' % repr(e)
         return str
 
 
@@ -667,7 +668,7 @@ class SignatureFileLink (FileLink):
         d = 0.0
 
         orphan_distance = 0.0
-        for l in self.system_links.values ():
+        for l in list(self.system_links.values ()):
             d = max (d, l.geometric_distance ())
             orphan_distance += l.orphan_count ()
 
@@ -801,8 +802,8 @@ class SignatureFileLink (FileLink):
 
         # If we have systems, we expect that images have been or will
         # be created.
-        num_systems = (sum(1 for x in self.system_links.values () if x.system1),
-                       sum(1 for x in self.system_links.values () if x.system2))
+        num_systems = (sum(1 for x in list(self.system_links.values ()) if x.system1),
+                       sum(1 for x in list(self.system_links.values ()) if x.system2))
         expect_compare = options.compare_images and num_systems[0] and oldnew
         
         base = os.path.splitext (self.file_names[oldnew])[0]
@@ -827,7 +828,7 @@ class SignatureFileLink (FileLink):
 
 
     def get_distance_details (self, dest_file):
-        systems = self.system_links.items ()
+        systems = list(self.system_links.items ())
         systems.sort ()
 
         # Count the number of separators and construct a relative path
@@ -916,7 +917,7 @@ def paired_files (dir1, dir2, pattern):
         except KeyError:
             missing.append (f)
 
-    return (pairs, files[1].keys (), missing)
+    return (pairs, list(files[1].keys ()), missing)
 
 class ComparisonData:
     def __init__ (self):
@@ -928,7 +929,7 @@ class ComparisonData:
     def read_sources (self):
 
         ## ugh: drop the .ly.txt
-        for (key, val) in self.file_links.items ():
+        for (key, val) in list(self.file_links.items ()):
 
             def note_original (match, ln=val):
                 key = ln.name ()
@@ -940,13 +941,13 @@ class ComparisonData:
                 re.sub (r'\\sourcefilename "([^"]+)"',
                         note_original, codecs.open (sf, 'r', 'utf-8').read ())
             else:
-                print 'no source for', val.file_names[1]
+                print('no source for', val.file_names[1])
 
     def compare_trees (self, dir1, dir2):
         self.compare_directories (dir1, dir2)
 
         try:
-            (root, dirs, files) = os.walk (dir1).next ()
+            (root, dirs, files) = next(os.walk (dir1))
         except StopIteration:
             if dir1.endswith("-baseline"):
                 sys.stderr.write("Failed to walk through %s. This can be caused by forgetting to run make test-baseline.\n" % dir1)
@@ -1012,7 +1013,7 @@ class ComparisonData:
                 '.gittxt': GitFileCompareLink,
                 }
 
-            if klasses.has_key (ext):
+            if ext in klasses:
                 self.compare_general_files (klasses[ext], f1, f2)
 
     def compare_general_files (self, klass, f1, f2):
@@ -1054,7 +1055,7 @@ class ComparisonData:
     def thresholded_results (self, threshold):
         ## todo: support more scores.
         results = [(link.distance(), link)
-                   for link in self.file_links.values ()]
+                   for link in list(self.file_links.values ())]
         # Only compare distances.
         results.sort (key=lambda x: x[0])
         results.reverse ()
@@ -1073,7 +1074,7 @@ class ComparisonData:
             out = sys.stdout
             verbose = options.verbose
         else:
-            print 'writing %s' % filename
+            print('writing %s' % filename)
             out = open_write_file (filename)
 
         (changed, below, unchanged) = self.thresholded_results (threshold)
@@ -1321,11 +1322,11 @@ def link_file (x, y):
     try:
         log_verbose ('%s -> %s' % (x, y))
         os.link (x, y)
-    except OSError, z:
+    except OSError as z:
         if z.errno == errno.ENOENT:
             pass
         else:
-            print 'OSError', x, y, z
+            print('OSError', x, y, z)
             raise
 
 def open_write_file (x):
@@ -1347,8 +1348,8 @@ def system1 (x):
 
 
 def test_paired_files ():
-    print paired_files (os.environ["HOME"] + "/src/lilypond/scripts/",
-                        os.environ["HOME"] + "/src/lilypond-stable/scripts/build/", '*.py')
+    print(paired_files (os.environ["HOME"] + "/src/lilypond/scripts/",
+                        os.environ["HOME"] + "/src/lilypond-stable/scripts/build/", '*.py'))
 
 
 def test_compare_tree_pairs ():
@@ -1482,24 +1483,24 @@ def test_compare_signatures (names, timing=False):
         count += 1
 
     if timing:
-        print 'elapsed', (time.clock() - t0)/count
+        print('elapsed', (time.clock() - t0)/count)
 
 
     t0 = time.clock ()
     count = 0
     combinations = {}
-    for (n1, s1) in sigs.items():
-        for (n2, s2) in sigs.items():
+    for (n1, s1) in list(sigs.items()):
+        for (n2, s2) in list(sigs.items()):
             combinations['%s-%s' % (n1, n2)] = SystemLink (s1,s2).distance ()
             count += 1
 
     if timing:
-        print 'elapsed', (time.clock() - t0)/count
+        print('elapsed', (time.clock() - t0)/count)
 
-    results = combinations.items ()
+    results = list(combinations.items ())
     results.sort ()
     for k,v in results:
-        print '%-20s' % k, v
+        print('%-20s' % k, v)
 
     assert combinations['20-20'] == (0.0,0.0,0.0)
     assert combinations['20-20expr'][0] > 0.0
@@ -1512,7 +1513,7 @@ def run_tests ():
 
     do_clean = not os.path.exists (dir)
 
-    print 'test results in ', dir
+    print('test results in ', dir)
     if do_clean:
         system ('rm -rf ' + dir)
         system ('mkdir ' + dir)
@@ -1598,7 +1599,7 @@ def main ():
         out = args[0].replace ('/', '')
         out = os.path.join (args[1], 'compare-' + shorten_string (out))
 
-    compare_tree_pairs (zip (args[0::2], args[1::2]), out, options.threshold)
+    compare_tree_pairs (list(zip(args[0::2], args[1::2])), out, options.threshold)
 
 if __name__ == '__main__':
     main ()

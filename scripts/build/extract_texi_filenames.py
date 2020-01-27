@@ -82,9 +82,9 @@ for opt in options_list:
             path_list = a.split('/')
             file_name = path_list[len(path_list)-1]
             if not (file_name in docs_without_directories):
-                print a, 'is not a directory.'
-                print 'Please consider adding it to the list of '
-                print 'known missing files in extract_texi_filename.py.'
+                print(a, 'is not a directory.')
+                print('Please consider adding it to the list of ')
+                print('known missing files in extract_texi_filename.py.')
     elif o == '-o' or o == '--output':
         outdir = a
     elif o == '-s' or o == '--split':
@@ -96,7 +96,7 @@ for opt in options_list:
         if os.path.isfile (a):
             known_missing_files_file = a
         else:
-            print 'Missing files list file not found: ', a
+            print('Missing files list file not found: ', a)
     elif o == '-q' or o == '--quiet':
         suppress_output = True
     else:
@@ -133,8 +133,8 @@ def expand_includes (m, filename):
                 return extract_sections (filepath)[1]
         if not (include_name in known_missing_files):
             # Not found
-            print 'Warning: No such file: ' + include_name + \
-                  ' (search path: ' + ':'.join (include_path)+')'
+            print('Warning: No such file: ' + include_name + \
+                  ' (search path: ' + ':'.join (include_path)+')')
         return ''
 
 lang_re = re.compile (r'^@documentlanguage (.+)', re.M)
@@ -224,7 +224,7 @@ def process_sections (filename, lang_suffix, page):
     basename = os.path.splitext (os.path.basename (filename))[0]
     p = os.path.join (outdir, basename) + lang_suffix + '.xref-map'
     if not suppress_output:
-        print 'writing:', p
+        print('writing:', p)
     f = codecs.open (p, 'w', 'utf-8')
 
     node_prefix_title = ''
@@ -310,6 +310,6 @@ if master_map_file:
 
 for filename in files:
     if not suppress_output:
-        print "extract_texi_filenames.py: Processing %s" % filename
+        print("extract_texi_filenames.py: Processing %s" % filename)
     (lang_suffix, sections) = extract_sections (filename)
     process_sections (filename, lang_suffix, sections)

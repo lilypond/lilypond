@@ -30,7 +30,7 @@ for (o,a) in opts:
     elif o == '-t':
         transform = a
     elif o == '-h':
-        print ''' Usage: $0 [OPTION]... SRCFILE DSTFILE
+        print(''' Usage: $0 [OPTION]... SRCFILE DSTFILE
  or: $0 [OPTION]... SRCFILES... DIRECTORY
  or: $0 -d DIRECTORIES...
 
@@ -47,14 +47,14 @@ Options:
 -s         strip installed files (using $stripprog).
 -t=TRANSFORM
 --help     display this help and exit.
---version  display version info and exit.'''
+--version  display version info and exit.''')
         sys.exit (0)
 
 if not mode:
     if create_dir:
-        mode = 0755
+        mode = 0o755
     else:
-        mode = 0644
+        mode = 0o644
         
 
 chown_me = []

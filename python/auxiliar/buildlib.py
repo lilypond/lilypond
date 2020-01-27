@@ -14,7 +14,7 @@ def read_pipe (command):
     (output, error) = child.communicate ()
     code = str (child.wait ())
     if not child.stdout or child.stdout.close ():
-        print "pipe failed: %(command)s" % locals ()
+        print("pipe failed: %(command)s" % locals ())
     if code != '0':
         error = code + ' ' + error
     return (output, error)

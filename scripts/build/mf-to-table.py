@@ -71,9 +71,9 @@ def parse_logfile (fn):
             try:
                 name = tags[9]
             except IndexError:
-                print 'Error in mf-to-table while processing file', fn
-                print 'Index 9 >', len(tags)-1, 'on line', i
-                print l
+                print('Error in mf-to-table while processing file', fn)
+                print('Index 9 >', len(tags)-1, 'on line', i)
+                print(l)
                 raise
 
             if group:
@@ -160,7 +160,7 @@ def global_lisp_table (global_info):
         'blot_diameter'
         ]
     for k in keys:
-        if global_info.has_key (k):
+        if k in global_info:
             str = str + "(%s . %s)\n" % (k,global_info[k])
 
     return str
@@ -237,7 +237,7 @@ for opt in options:
     elif o == '--debug':
         debug_b = 1
     else:
-        print o
+        print(o)
         raise getopt.error
 
 base = os.path.splitext (lyfile_nm)[0]

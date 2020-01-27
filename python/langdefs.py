@@ -80,7 +80,7 @@ if os.getenv("MAKEWEB") == '1':
     LANGUAGES=WEB_LANGUAGES
 
 if __name__ == '__main__':
-    print ' '.join ([l.code for l in LANGUAGES if l.enabled and l.code != 'en'])
+    print(' '.join ([l.code for l in LANGUAGES if l.enabled and l.code != 'en']))
 else:
     LANGDICT = {}
     for l in LANGUAGES:
@@ -97,6 +97,6 @@ else:
                                         [l.code])
                 translation[l.code] = t.gettext
     except:
-        if os.environ.has_key ('LYDOC_LOCALEDIR'):
+        if 'LYDOC_LOCALEDIR' in os.environ:
             sys.stderr.write ('langdefs.py: warning: lilypond-doc gettext domain not found.\n')
         translation = dict ([(l.code, lambda x: x) for l in LANGUAGES])

@@ -4,7 +4,7 @@ notes = "CDEFGAB"
 alterations = [-1, 0, 1]
 
 def print_measure (nr, fifth, mode, atts1 = "", atts = "", final = ""):
-    print """    <measure number="%s">
+    print("""    <measure number="%s">
       <attributes>
 %s        <key>
           <fifths>%s</fifths>
@@ -20,7 +20,7 @@ def print_measure (nr, fifth, mode, atts1 = "", atts = "", final = ""):
         <voice>1</voice>
         <type>half</type>
       </note>
-%s    </measure>""" % (nr, atts1, fifth, mode, atts, final)
+%s    </measure>""" % (nr, atts1, fifth, mode, atts, final))
 
 first_div = """        <divisions>1</divisions>
 """
@@ -39,7 +39,7 @@ final_barline = """      <barline location="right">
       </barline>
 """
 
-print """<?xml version="1.0" encoding="UTF-8"?>
+print("""<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 1.0 Partwise//EN"
                                 "http://www.musicxml.org/dtds/partwise.dtd">
 <score-partwise>
@@ -57,7 +57,7 @@ print """<?xml version="1.0" encoding="UTF-8"?>
     </score-part>
   </part-list>
   <!--=========================================================-->
-  <part id="P1">"""
+  <part id="P1">""")
 
 max_range = 11
 measure = 0
@@ -74,5 +74,5 @@ for fifth in range(-max_range, max_range+1):
         print_measure (measure, fifth, "minor")
     
 
-print """  </part>
-</score-partwise>"""
+print("""  </part>
+</score-partwise>""")

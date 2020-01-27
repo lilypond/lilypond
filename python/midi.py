@@ -110,7 +110,7 @@ def _read_three_bytes (status, nextbyte, getbyte):
 
 def _read_string (nextbyte, getbyte):
     length = _get_variable_length_number (nextbyte, getbyte)
-    return ''.join(chr(getbyte()) for i in xrange(length))
+    return ''.join(chr(getbyte()) for i in range(length))
 
 def _read_f0_byte (status, nextbyte, getbyte):
     if status == 0xff:
@@ -139,7 +139,7 @@ _read_midi_event = (
 def _parse_track_body (data, clocks_max):
     # This seems to be the fastest way of getting bytes in order as integers.
     dataiter = iter(array.array('B', data))
-    getbyte = dataiter.next
+    getbyte = dataiter.__next__
 
     time = 0
     status = 0
@@ -156,7 +156,7 @@ def _parse_track_body (data, clocks_max):
     except StopIteration:
         # If the track ended just before the start of an event, the for loop
         # will exit normally. If it ends anywhere else, we end up here.
-        print len(list(dataiter))
+        print(len(list(dataiter)))
         raise error('a track ended in the middle of a MIDI command')
 
 def _parse_hunk (data, pos, type, magic):
@@ -175,20 +175,20 @@ def _parse_hunk (data, pos, type, magic):
 def _parse_tracks (midi, pos, num_tracks, clocks_max):
     if num_tracks > 256:
         raise error('too many tracks: %d' % num_tracks)
-    for i in xrange(num_tracks):
-        trackdata, pos = _parse_hunk (midi, pos, 'track', 'MTrk')
+    for i in range(num_tracks):
+        trackdata, pos = _parse_hunk (midi, pos, 'track', b'MTrk')
         yield list (_parse_track_body (trackdata, clocks_max))
     # if pos < len(midi):
     #     warn
 
 def parse_track (track, clocks_max=None):
-    track_body, end = _parse_hunk (track, 0, 'track', 'MTrk')
+    track_body, end = _parse_hunk (track, 0, 'track', b'MTrk')
     # if end < len(track):
     #     warn
     return list (_parse_track_body (track_body, clocks_max))
 
 def parse (midi, clocks_max=None):
-    header, first_track_pos = _parse_hunk(midi, 0, 'file', 'MThd')
+    header, first_track_pos = _parse_hunk(midi, 0, 'file', b'MThd')
     try:
         format, num_tracks, division = struct.unpack ('>3H', header[:6])
     except struct.error:

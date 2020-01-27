@@ -162,7 +162,7 @@ def main ():
     current_revision = buildlib.read_pipe (vc_revision_parse % 'HEAD')[0]
 
     for i in files:
-        do_file (i, langdefs.LANGDICT.keys ())
+        do_file (i, list(langdefs.LANGDICT.keys ()))
 
 if __name__ == '__main__':
     main ()

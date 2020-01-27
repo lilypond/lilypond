@@ -13,7 +13,7 @@ entities = {
     }
 
 def txt2html (s):
-    for i in entities.keys ():
+    for i in list(entities.keys ()):
         s = re.sub (i, '\001' + entities[i] + ';', s);
     s = re.sub ('\001', '&', s);
     return s

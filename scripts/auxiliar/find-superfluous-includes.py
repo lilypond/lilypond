@@ -31,13 +31,13 @@ def has_include (f, name):
 for a in sys.argv:
     parse_file (a)
 
-print '-*-compilation-*-'
-for (f, lst) in incs.items ():
+print('-*-compilation-*-')
+for (f, lst) in list(incs.items ()):
     for (n, inc) in lst:
         for (n2, inc2) in lst:
             if has_include (inc2, inc):
-                print "%s:%d: already have %s from %s" % (full_paths[f], n,
-                                                          inc, inc2)
+                print("%s:%d: already have %s from %s" % (full_paths[f], n,
+                                                          inc, inc2))
                 break
 
         

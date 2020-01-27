@@ -14,4 +14,4 @@ def relative (dir, r=os.getcwd ()):
     return dir
 
 if __name__ == '__main__':
-    print relative (sys.argv[1])
+    print(relative (sys.argv[1]))

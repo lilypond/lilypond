@@ -1,6 +1,6 @@
 """Implementation of rational arithmetic."""
 
-from __future__ import division
+
 
 import math as _math
 
@@ -32,9 +32,9 @@ class Rational(object):
 
     def __init__(self, numerator, denominator=1):
        """Contructs the Rational object for numerator/denominator."""
-       if not isinstance(numerator, (int, long)):
+       if not isinstance(numerator, int):
            raise TypeError('numerator must have integer type')
-       if not isinstance(denominator, (int, long)):
+       if not isinstance(denominator, int):
            raise TypeError('denominator must have integer type')
        if not denominator:
            raise ZeroDivisionError('rational construction')
@@ -70,7 +70,7 @@ class Rational(object):
         try:
             return hash(float(self))
         except OverflowError:
-            return hash(long(self))
+            return hash(int(self))
     def __float__(self):
         return self._n / self._d
     def __int__(self):
@@ -79,8 +79,8 @@ class Rational(object):
         else:
             return int(self._n // self._d)
     def __long__(self):
-        return long(int(self))
-    def __nonzero__(self):
+        return int(int(self))
+    def __bool__(self):
         return bool(self._n)
     def __pos__(self):
         return self
@@ -95,7 +95,7 @@ class Rational(object):
         if isinstance(other, Rational):
             return Rational(self._n * other._d + self._d * other._n,
                             self._d * other._d)
-        elif isinstance(other, (int, long)):
+        elif isinstance(other, int):
             return Rational(self._n + self._d * other, self._d)
         elif isinstance(other, (float, complex)):
             return float(self) + other
@@ -106,14 +106,14 @@ class Rational(object):
         if isinstance(other, Rational):
             return Rational(self._n * other._d - self._d * other._n,
                             self._d * other._d)
-        elif isinstance(other, (int, long)):
+        elif isinstance(other, int):
             return Rational(self._n - self._d * other, self._d)
         elif isinstance(other, (float, complex)):
             return float(self) - other
         else:
             return NotImplemented
     def __rsub__(self, other):
-        if isinstance(other, (int, long)):
+        if isinstance(other, int):
             return Rational(other * self._d - self._n, self._d)
         elif isinstance(other, (float, complex)):
             return other - float(self)
@@ -122,7 +122,7 @@ class Rational(object):
     def __mul__(self, other):
         if isinstance(other, Rational):
             return Rational(self._n * other._n, self._d * other._d)
-        elif isinstance(other, (int, long)):
+        elif isinstance(other, int):
             return Rational(self._n * other, self._d)
         elif isinstance(other, (float, complex)):
             return float(self) * other
@@ -132,7 +132,7 @@ class Rational(object):
     def __truediv__(self, other):
         if isinstance(other, Rational):
             return Rational(self._n * other._d, self._d * other._n)
-        elif isinstance(other, (int, long)):
+        elif isinstance(other, int):
             return Rational(self._n, self._d * other)
         elif isinstance(other, (float, complex)):
             return float(self) / other
@@ -140,7 +140,7 @@ class Rational(object):
             return NotImplemented
     __div__ = __truediv__
     def __rtruediv__(self, other):
-        if isinstance(other, (int, long)):
+        if isinstance(other, int):
             return Rational(other * self._d, self._n)
         elif isinstance(other, (float, complex)):
             return other / float(self)
@@ -181,7 +181,7 @@ class Rational(object):
     def __gt__(self, other):
         return self._cmp(other, lambda a, b: a > b)
     def __pow__(self, other):
-        if isinstance(other, (int, long)):
+        if isinstance(other, int):
             if other < 0:
                 return Rational(self._d ** -other, self._n ** -other)
             else:
@@ -245,7 +245,7 @@ def rational_approx_smallest_error(x, maxDenominator):
     """
     result = None
     minError = x
-    for n in xrange(1, maxDenominator + 1):
+    for n in range(1, maxDenominator + 1):
         m = int(round(x * n))
         r = Rational(m, n)
         error = abs(r - x)
@@ -258,7 +258,7 @@ def rational_approx_smallest_error(x, maxDenominator):
 
 def divide(x, y):
     """Same as x/y, but returns a Rational if both are ints."""
-    if isinstance(x, (int, long)) and isinstance(y, (int, long)):
+    if isinstance(x, int) and isinstance(y, int):
         return Rational(x, y)
     else:
         return x / y

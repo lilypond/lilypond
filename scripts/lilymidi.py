@@ -170,38 +170,38 @@ def dump_event (ev, time, padding):
 
     if f:
       if len (ev) > 2:
-        print padding + f.format (ev[1], ev[2])
+        print(padding + f.format (ev[1], ev[2]))
       elif len (ev) > 1:
-        print padding + f.format (ev[1])
+        print(padding + f.format (ev[1]))
       else:
-        print padding + f.format ()
+        print(padding + f.format ())
     else:
-      print padding + "Unrecognized MIDI event: " + str (ev);
+      print(padding + "Unrecognized MIDI event: " + str (ev));
 
 def dump_midi (data, midi_file, options):
     if not options.pretty:
-        print data
+        print(data)
         return
     # First, dump general info, #tracks, etc.
-    print "Filename:     " + midi_file;
+    print("Filename:     " + midi_file);
     i = data[0];
     m_formats = {0: 'single multi-channel track',
                  1: "one or more simultaneous tracks",
                  2: "one or more sequentially independent single-track patterns"}
-    print "MIDI format:  " + str (i[0]) + " (" + m_formats.get (i[0], "") + ")";
-    print "Divisions:    " + str (i[1]) + " per whole note";
-    print "#Tracks:      " + str ( len (data[1]))
+    print("MIDI format:  " + str (i[0]) + " (" + m_formats.get (i[0], "") + ")");
+    print("Divisions:    " + str (i[1]) + " per whole note");
+    print("#Tracks:      " + str ( len (data[1])))
     n = 0;
     for tr in data[1]:
       time = 0;
       n += 1;
-      print
-      print "Track " + str(n) + ":"
-      print "    Time 0:"
+      print()
+      print("Track " + str(n) + ":")
+      print("    Time 0:")
       for ev in tr:
         if ev[0]>time:
            time = ev[0]
-           print "    Time " + str(time) + ": "
+           print("    Time " + str(time) + ": ")
         dump_event (ev[1], time, "        ");
 
 

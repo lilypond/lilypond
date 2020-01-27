@@ -16,5 +16,5 @@ for file_name in source_files:
     contents = open (file_name).read ()
     for match in texidoc_chunk_re.finditer (contents):
         language_code = match.group (1)
-        print language_code
+        print(language_code)
         open (dest_path % (language_code, base_name), 'w').write (match.group (0))

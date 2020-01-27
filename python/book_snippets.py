@@ -232,8 +232,9 @@ FRAGMENT_LY = r'''
 ####################################################################
 
 def ps_page_count (ps_name):
-    header = open (ps_name).read (1024)
-    m = re.search ('\n%%Pages: ([0-9]+)', header)
+    # Open .ps file in binary mode, it might contain embedded fonts.
+    header = open (ps_name, 'rb').read (1024)
+    m = re.search (b'\n%%Pages: ([0-9]+)', header)
     if m:
         return int (m.group (1))
     return 0
@@ -311,7 +312,7 @@ class Snippet (Chunk):
         return self.match.group (s)
 
     def __repr__ (self):
-        return `self.__class__` + ' type = ' + self.type
+        return repr(self.__class__) + ' type = ' + self.type
 
 
 
@@ -418,12 +419,12 @@ class LilypondSnippet (Snippet):
                 self.snippet_option_dict[key] = value
 
         # If LINE_WIDTH is used without parameter, set it to default.
-        has_line_width = self.snippet_option_dict.has_key (LINE_WIDTH)
+        has_line_width = LINE_WIDTH in self.snippet_option_dict
         if has_line_width and self.snippet_option_dict[LINE_WIDTH] == None:
             del self.snippet_option_dict[LINE_WIDTH]
 
         # RELATIVE does not work without FRAGMENT, so imply that
-        if self.snippet_option_dict.has_key (RELATIVE):
+        if RELATIVE in self.snippet_option_dict:
             self.snippet_option_dict[FRAGMENT] = None
 
         # Now get the default options from the formatter object (HTML, latex,
@@ -436,8 +437,7 @@ class LilypondSnippet (Snippet):
 
         # also construct a list of all options (as strings) that influence the
         # visual appearance of the snippet
-        lst = filter (lambda (x,y): x not in PROCESSING_INDEPENDENT_OPTIONS,
-                      self.option_dict.iteritems ());
+        lst = [x_y for x_y in iter(self.option_dict.items ()) if x_y[0] not in PROCESSING_INDEPENDENT_OPTIONS];
         option_list = []
         for (key, value) in lst:
             if value == None:
@@ -509,7 +509,7 @@ class LilypondSnippet (Snippet):
         for a in compose_types:
             compose_dict[a] = []
 
-        option_names = self.option_dict.keys ()
+        option_names = list(self.option_dict.keys ())
         option_names.sort ()
         for key in option_names:
             value = self.option_dict[key]
@@ -517,12 +517,12 @@ class LilypondSnippet (Snippet):
             if value:
                 override[key] = value
             else:
-                if not override.has_key (key):
+                if key not in override:
                     override[key] = None
 
             found = 0
             for typ in compose_types:
-                if snippet_options[typ].has_key (key):
+                if key in snippet_options[typ]:
                     compose_dict[typ].append (snippet_options[typ][key])
                     found = 1
                     break
@@ -602,7 +602,7 @@ class LilypondSnippet (Snippet):
             os.makedirs (directory)
         filename = path + '.ly'
         if os.path.exists (filename):
-            existing = open (filename, 'r').read ()
+            existing = codecs.open (filename, 'r', 'utf-8').read ()
 
             if self.relevant_contents (existing) != self.relevant_contents (self.full_ly ()):
                 warning ("%s: duplicate filename but different contents of original file,\n\
@@ -704,18 +704,18 @@ printing diff against existing file." % filename)
         if 'dseparate-log-file' in self.global_options.process_cmd:
             require_file (base + '.log')
 
-        map (consider_file, [base + '.tex',
+        list(map (consider_file, [base + '.tex',
                              base + '.eps',
                              base + '.pdf',
                              base + '.texidoc',
                              base + '.doctitle',
                              base + '-systems.texi',
                              base + '-systems.tex',
-                             base + '-systems.pdftexi'])
+                             base + '-systems.pdftexi']))
         if self.formatter.document_language:
-            map (consider_file,
+            list(map (consider_file,
                  [base + '.texidoc' + self.formatter.document_language,
-                  base + '.doctitle' + self.formatter.document_language])
+                  base + '.doctitle' + self.formatter.document_language]))
 
         required_files = self.formatter.required_files (self, base, full, result)
         for f in required_files:
@@ -735,8 +735,8 @@ printing diff against existing file." % filename)
             if 'ddump-signature' in self.global_options.process_cmd:
                 consider_file (systemfile + '.signature')
 
-        map (consider_file, self.additional_files_to_consider (base, full))
-        map (require_file, self.additional_files_required (base, full))
+        list(map (consider_file, self.additional_files_to_consider (base, full)))
+        list(map (require_file, self.additional_files_required (base, full)))
 
         return (result, missing)
 
@@ -872,12 +872,12 @@ class MusicXMLFileSnippet (LilypondFileSnippet):
 	 }
 
     def snippet_options (self):
-        return self.musicxml_options_dict.keys ()
+        return list(self.musicxml_options_dict.keys ())
 
     def convert_from_musicxml (self):
         name = self.filename
         xml2ly_option_list = []
-        for (key, value) in self.option_dict.items ():
+        for (key, value) in list(self.option_dict.items ()):
             cmd_key = self.musicxml_options_dict.get (key, None)
             if cmd_key == None:
                 continue

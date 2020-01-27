@@ -154,6 +154,6 @@ for line in lines(sys.stdin):
     if m is None:
         print('line did not match')
     else:
-        pts = map(float, m.groups())
+        pts = list(map(float, m.groups()))
         if not any(map(isinf, pts)):
             current_skyline.append(pts)

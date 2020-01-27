@@ -201,7 +201,7 @@ class Snippet (Chunk):
         return self.match.group (s)
 
     def __repr__ (self):
-        return `self.__class__` + ' type = ' + self.type
+        return repr(self.__class__) + ' type = ' + self.type
 
 class Multiline_comment (Snippet):
     def __init__ (self, source, match, format):
@@ -241,8 +241,8 @@ def find_toplevel_snippets (s, types):
     ##                      types))
     ## urg python2.1
     found = {}
-    map (lambda x, f = found: f.setdefault (x, None),
-      types)
+    list(map (lambda x, f = found: f.setdefault (x, None),
+      types))
 
     # We want to search for multiple regexes, without searching
     # the string multiple times for one regex.
@@ -264,7 +264,7 @@ def find_toplevel_snippets (s, types):
                     continue
 
                 cl = Snippet
-                if snippet_type_to_class.has_key (type):
+                if type in snippet_type_to_class:
                     cl = snippet_type_to_class[type]
                 snip = cl (type, m, format)
                 start = index + m.start ('match')
@@ -322,7 +322,7 @@ def nitpick_file (outdir, file):
     #code = filter (lambda x: is_derived_class (x.__class__, Substring),
     #               chunks)
 
-    t = ''.join (map (lambda x: x.filter_text (), chunks))
+    t = ''.join ([x.filter_text () for x in chunks])
     fixt = file
     if s != t:
         if not outdir:
@@ -418,10 +418,10 @@ socketname = 'fixcc%d' % os.getpid ()
 def main ():
     files = do_options ()
     if not check_astyle_version():
-        print "Warning: try to use %s." % PREFERRED_ASTYLE_VERSION
-        print "Please limit use of this version to files with changed code."
+        print("Warning: try to use %s." % PREFERRED_ASTYLE_VERSION)
+        print("Please limit use of this version to files with changed code.")
         if len(files) > 4:
-            print "Too many files with this version.  See `astyle --help`"
+            print("Too many files with this version.  See `astyle --help`")
             sys.exit(1)
     if outdir and not os.path.isdir (outdir):
         os.makedirs (outdir)

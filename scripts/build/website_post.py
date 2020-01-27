@@ -172,7 +172,7 @@ for file in html_files:
             continue
     else:
         # it's a mess
-        print "is a mess"
+        print("is a mess")
         continue
 
     ### we need to replace parts of the file

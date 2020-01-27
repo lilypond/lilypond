@@ -4,6 +4,7 @@
 Postprocess HTML files:
 add footer, tweak links, add language selection menu.
 """
+import codecs
 import re
 import os
 import sys
@@ -11,6 +12,7 @@ import time
 import operator
 
 import langdefs
+from functools import reduce
 
 # This is to try to make the docball not too big with almost duplicate files
 # see process_links()
@@ -334,8 +336,8 @@ def process_html_files (package_name = '',
 
     # Initialize dictionaries for string formatting
     subst = {}
-    subst[''] = dict ([i for i in globals ().items() if type (i[1]) is str])
-    subst[''].update (dict ([i for i in locals ().items() if type (i[1]) is str]))
+    subst[''] = dict ([i for i in list(globals ().items()) if type (i[1]) is str])
+    subst[''].update (dict ([i for i in list(locals ().items()) if type (i[1]) is str]))
     for l in translation:
         e = langdefs.LANGDICT[l].webext
         if e:
@@ -348,7 +350,7 @@ def process_html_files (package_name = '',
         subst[e]['footer_name_version'] = subst[e]['footer_name_version'] % subst[e]
         subst[e]['footer_report_links'] = subst[e]['footer_report_links'] % subst[e]
 
-    for prefix, ext_list in pages_dict.items ():
+    for prefix, ext_list in list(pages_dict.items ()):
         for lang_ext in ext_list:
             file_name = langdefs.lang_file_name (prefix, lang_ext, '.html')
             source_time = os.path.getmtime(file_name)
@@ -357,10 +359,7 @@ def process_html_files (package_name = '',
                 dest_time = os.path.getmtime(name_filter(file_name))
             if dest_time < source_time:
 
-                in_f = open (file_name)
-                s = in_f.read()
-                in_f.close()
-
+                s = codecs.open (file_name, 'r', 'utf-8').read ()
                 s = s.replace ('%', '%%')
                 s = hack_urls (s, prefix, target, bool (int (versiontup[1]) %  2))
                 s = add_header (s, prefix)
@@ -381,7 +380,7 @@ def process_html_files (package_name = '',
                     page_flavors = add_menu (page_flavors, prefix, available, target, translation)
                 for k in page_flavors:
                     page_flavors[k][1] = page_flavors[k][1] % subst[page_flavors[k][0]]
-                    out_f = open (name_filter (k), 'w')
+                    out_f = codecs.open (name_filter (k), 'w', 'utf-8')
                     out_f.write (page_flavors[k][1])
                     out_f.close()
         # if the page is translated, a .en.html symlink is necessary for content negotiation

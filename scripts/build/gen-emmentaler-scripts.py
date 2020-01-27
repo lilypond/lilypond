@@ -19,7 +19,7 @@ for opt in options:
     elif o == '--design-size':
         design_size = int(a)
     else:
-        print o
+        print(o)
         raise getopt.error
 
         

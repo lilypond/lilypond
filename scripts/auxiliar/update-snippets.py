@@ -19,8 +19,9 @@ import sys
 import os
 import glob
 import re
+from functools import reduce
 
-print "update-snippets.py"
+print("update-snippets.py")
 
 comment_re = re.compile (r'(?<!@)(@c(?:omment)? .*?\n|^@ignore\n.*?\n@end ignore\n)', re.M | re.S)
 snippet_re = re.compile (r'^(@lilypond(?:file)?(?:\[.*?\])?\s*\{.+?\}|@lilypond(?:\[.*?\])?(?:.|\n)+?@end lilypond)', re.M)

@@ -6,7 +6,7 @@
 
 # USAGE:  tely-gettext.py LANG FILES
 
-print "tely-gettext.py"
+print("tely-gettext.py")
 
 import sys
 import re
@@ -45,7 +45,7 @@ def menu_entry_gettext (m):
     return '* ' + _doc (m.group (1)) + '::'
 
 def process_file (filename, master_file_dir='.', included=False):
-    print "Processing %s" % filename
+    print("Processing %s" % filename)
     f = open (filename, 'r')
     page = f.read ()
     f.close()

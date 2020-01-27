@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import division
+
 
 import inspect
 import sys
@@ -694,13 +694,11 @@ class NestedMusic(Music):
 
     def get_properties (self):
         return ("'elements (list %s)"
-            % " ".join (map (lambda x: x.lisp_expression(),
-                      self.elements)))
+            % " ".join ([x.lisp_expression() for x in self.elements]))
 
     def get_subset_properties (self, predicate):
         return ("'elements (list %s)"
-            % " ".join (map (lambda x: x.lisp_expression(),
-                      filter (predicate, self.elements))))
+            % " ".join ([x.lisp_expression() for x in list(filter (predicate, self.elements))]))
     def get_neighbor (self, music, dir):
         assert music.parent == self
         idx = self.elements.index (music)
@@ -818,7 +816,7 @@ class Lyrics:
         for l in self.lyrics_syllables:
             lstr += l
         #lstr += "\n}"
-        return lstr.encode('utf-8')
+        return lstr
 
 class Header:
 
@@ -851,7 +849,7 @@ class Header:
     def print_ly(self, printer):
         printer.dump("\header {")
         printer.newline()
-        for (k, v) in self.header_fields.items():
+        for (k, v) in list(self.header_fields.items()):
             if v:
                self.format_header_strings(k, v, printer)
         #printer.newline()
@@ -927,17 +925,17 @@ class Layout:
     def __init__ (self):
         self.context_dict = {}
     def add_context (self, context):
-        if not self.context_dict.has_key (context):
+        if context not in self.context_dict:
             self.context_dict[context] = []
     def set_context_item (self, context, item):
         self.add_context (context)
         if not item in self.context_dict[context]:
             self.context_dict[context].append (item)
     def print_ly (self, printer):
-        if self.context_dict.items ():
+        if list(self.context_dict.items ()):
             printer.dump ('\\layout {')
             printer.newline ()
-            for (context, defs) in self.context_dict.items ():
+            for (context, defs) in list(self.context_dict.items ()):
                 printer.dump ('\\context { \\%s' % context)
                 printer.newline ()
                 for d in defs:
@@ -2427,14 +2425,14 @@ def test_pitch ():
     down.normalize ()
 
 
-    print bflat.semitones()
-    print bflat.transposed (fifth), bflat.transposed (fifth).transposed (fifth)
-    print bflat.transposed (fifth).transposed (fifth).transposed (fifth)
+    print(bflat.semitones())
+    print(bflat.transposed (fifth), bflat.transposed (fifth).transposed (fifth))
+    print(bflat.transposed (fifth).transposed (fifth).transposed (fifth))
 
-    print bflat.semitones(), 'down'
-    print bflat.transposed (down)
-    print bflat.transposed (down).transposed (down)
-    print bflat.transposed (down).transposed (down).transposed (down)
+    print(bflat.semitones(), 'down')
+    print(bflat.transposed (down))
+    print(bflat.transposed (down).transposed (down))
+    print(bflat.transposed (down).transposed (down).transposed (down))
 
 
 
@@ -2515,11 +2513,11 @@ if __name__ == '__main__':
 
     expr = test_expr()
     expr.set_start (Rational (0))
-    print expr.ly_expression()
+    print(expr.ly_expression())
     start = Rational (0, 4)
     stop = Rational (4, 2)
     def sub(x, start=start, stop=stop):
         ok = x.start >= start and x.start + x.get_length() <= stop
         return ok
 
-    print expr.lisp_sub_expression(sub)
+    print(expr.lisp_sub_expression(sub))

@@ -39,7 +39,7 @@ static_files = {
         package_version + '\n',
     }
 
-for f, contents in static_files.items ():
+for f, contents in list(static_files.items ()):
     open (f, 'w').write (contents)
 
 sys.stderr.write ("Mirroring...\n")

@@ -98,10 +98,10 @@ class BookOutputFormat:
 
     def supported_snippet_types (self):
         # Sort according to snippet_type_order, unknown keys come last
-        keys = self.snippet_res.keys ()
+        keys = list(self.snippet_res.keys ())
         # First the entries in snippet_type_order in that order (if present)
         # then all entries not in snippet_type_order in given order
-        res = filter (lambda x:x in keys, snippet_type_order) + filter (lambda x:x not in snippet_type_order, keys)
+        res = [x for x in snippet_type_order if x in keys] + [x for x in keys if x not in snippet_type_order]
         return res
 
     def snippet_regexp (self, snippettype):

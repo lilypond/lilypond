@@ -134,17 +134,17 @@ have the correct number of accidentals
 
 # should cache this.
 def find_scale (keysig):
-    cscale = map (lambda x: (x,0), range (0,7))
+    cscale = [(x,0) for x in range (0,7)]
 #        print "cscale: ", cscale
-    ascale = map (lambda x: (x,0), range (-2,5))
+    ascale = [(x,0) for x in range (-2,5)]
 #        print "ascale: ", ascale
     transposition = keysig.pitch
     if keysig.sig_type == 1:
         transposition = transpose(transposition, (2, -1))
         transposition = (transposition[0] % 7, transposition[1])
-        trscale = map(lambda x, k=transposition: transpose(x, k), ascale)
+        trscale = list(map(lambda x, k=transposition: transpose(x, k), ascale))
     else:
-        trscale = map(lambda x, k=transposition: transpose(x, k), cscale)
+        trscale = list(map(lambda x, k=transposition: transpose(x, k), cscale))
 #        print "trscale: ", trscale
     return trscale
 
@@ -262,7 +262,7 @@ class Tuplet:
                 edu_left = edu_left - c.EDU_duration ()
             if edu_left == 0:
                 c.chord_suffix = c.chord_suffix+ self.dump_end ()
-            c = c.next
+            c = c.__next__
 
         if edu_left:
             sys.stderr.write ("\nHuh? Tuplet starting at entry %d was too short." % self.start_note)
@@ -304,7 +304,7 @@ class Global_measure:
         self.finale = []
 
     def __str__ (self):
-        return `self.finale `
+        return repr(self.finale)
     
     def set_timesig (self, finale):
         (beats, fdur) = finale
@@ -754,9 +754,9 @@ class Chord:
         if tiestart :
             self.chord_suffix = self.chord_suffix + ' ~ '
         
-    REST_MASK = 0x40000000L
-    TIE_START_MASK = 0x40000000L
-    GRACE_MASK = 0x00800000L
+    REST_MASK = 0x40000000
+    TIE_START_MASK = 0x40000000
+    GRACE_MASK = 0x00800000
     
     def ly_string (self):
         s = ''
@@ -828,7 +828,7 @@ Return: (value, rest-of-STR)
             str = str[1:]
 
         
-        return (long (hex, 16), str)
+        return (int (hex, 16), str)
     elif str[0] == '"':
         str = str[1:]
         s = ''
@@ -874,7 +874,7 @@ def parse_etf_file (fn, tag_dict):
 
     for l in  ls:
         m = re.match ('^([a-zA-Z0-9&]+)\(([^)]+)\)', l)
-        if m and tag_dict.has_key (m.group (1)):
+        if m and m.group (1) in tag_dict:
             tag = m.group (1)
 
             indices = tuple ([int (s) for s in m.group (2).split (',')])
@@ -882,7 +882,7 @@ def parse_etf_file (fn, tag_dict):
 
 
             tdict = etf_file_dict[tag]
-            if not tdict.has_key (indices):
+            if indices not in tdict:
                 tdict[indices] = []
 
 
@@ -1054,8 +1054,8 @@ class Etf_file:
         sys.stderr.write ('reconstructing ...')
         sys.stderr.flush ()
 
-        for (tag,routine) in Etf_file.routine_dict.items ():
-            ks = etf_dict[tag].keys ()
+        for (tag,routine) in list(Etf_file.routine_dict.items ()):
+            ks = list(etf_dict[tag].keys ())
             ks.sort ()
             for k in ks:
                 routine (self, k, etf_dict[tag][k])
@@ -1133,7 +1133,7 @@ class Etf_file:
         while c and c.number != endno:
             d = c # hack to avoid problem with scripts/build/grand-replace.py
             thread.append (d)
-            c = c.next
+            c = c.__next__
 
         if c: 
             d = c # hack to avoid problem with scripts/build/grand-replace.py

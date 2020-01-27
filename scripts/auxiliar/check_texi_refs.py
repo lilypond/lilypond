@@ -107,7 +107,7 @@ if options.interactive:
     def yes_prompt (question, default=False, retries=3):
         d = {True: 'y', False: 'n'}.get (default, False)
         while retries:
-            a = raw_input ('%s [default: %s]' % (question, d) + '\n')
+            a = input ('%s [default: %s]' % (question, d) + '\n')
             if a.lower ().startswith ('y'):
                 return True
             if a.lower ().startswith ('n'):
@@ -124,7 +124,7 @@ If user input is empty or matches no node name, return None,
 otherwise return a list of (manual, node name, file) tuples.
 
 """
-        substring = raw_input ("Enter a substring to search in node names \
+        substring = input ("Enter a substring to search in node names \
 (press Enter to skip this x-ref):\n")
         if not substring:
             return None
@@ -209,7 +209,8 @@ def read_file (f, d):
         elif m.group (1) == 'include':
             try:
                 p = find_file (m.group (2), dir)
-            except EnvironmentError, (errno, strerror):
+            except EnvironmentError as xxx_todo_changeme:
+                (errno, strerror) = xxx_todo_changeme.args
                 if strerror == file_not_found:
                     continue
                 else:
@@ -245,13 +246,15 @@ Included files that can be found in the include path are processed too.
     manual = manuals_defs.references_dict.get (name, '')
     try:
         f = find_file (name + '.tely')
-    except EnvironmentError, (errno, strerror):
+    except EnvironmentError as xxx_todo_changeme2:
+        (errno, strerror) = xxx_todo_changeme2.args
         if not strerror == file_not_found:
             raise
         else:
             try:
                 f = find_file (name + '.texi')
-            except EnvironmentError, (errno, strerror):
+            except EnvironmentError as xxx_todo_changeme1:
+                (errno, strerror) = xxx_todo_changeme1.args
                 if strerror == file_not_found:
                     sys.stderr.write (name + '.{texi,tely}: ' +
                                       file_not_found + '\n')
@@ -267,7 +270,7 @@ Included files that can be found in the include path are processed too.
 log.write ("Reading files...\n")
 
 manuals = dict ([read_manual (name)
-                 for name in manuals_defs.references_dict.keys ()])
+                 for name in list(manuals_defs.references_dict.keys ())])
 
 ref_fixes = set ()
 bad_refs_count = 0
@@ -308,7 +311,7 @@ def choose_in_numbered_list (message, string_list, sep=' ', retries=3):
         value = ''
         stdout.write (message +
                       "(press Enter to discard and start a new search)\n")
-        input = raw_input (numbered_list)
+        input = input (numbered_list)
         if not input:
             return ''
         try:
@@ -490,7 +493,7 @@ please fix the code source instead of generated documentation.\n")
         if original_display_name:
             if bad_ref:
                 stdout.write ("Current display name is `%s'\n")
-                display_name = raw_input \
+                display_name = input \
                     ("Enter a new display name or press enter to keep the existing name:\n") \
                     or display_name
                 (display_name, n) = preserve_linebreak (display_name, display_linebroken)
@@ -514,7 +517,7 @@ try:
 except KeyboardInterrupt:
     log.write ("Operation interrupted, exiting.\n")
     sys.exit (2)
-except InteractionError, instance:
+except InteractionError as instance:
     log.write ("Operation refused by user: %s\nExiting.\n" % instance)
     sys.exit (3)
 

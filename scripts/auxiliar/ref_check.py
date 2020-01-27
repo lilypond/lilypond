@@ -38,7 +38,7 @@ class CrossRefs:
     self.Manuals[refManual] = manualName
 
   def getRefManuals(self):
-    return self.Manuals.keys()
+    return list(self.Manuals.keys())
 
   def getManualName(self, refManual):
     return self.Manuals[refManual]
@@ -48,9 +48,9 @@ class CrossRefs:
 #    print "Node: ", nodeName, " in ", manualName, " found in ", fileName
     if "\\" in nodeName:
       returnCode = 1
-      print "nodeName: ", nodeName, " in ", fileName, " contains backslash"
-    if manualName+"/"+nodeName in self.Nodes.keys():
-      print "Error: Duplicate nodename ",nodeName, " in ", fileName, " and ", self.Nodes[manualName+"/"+nodeName][1]
+      print("nodeName: ", nodeName, " in ", fileName, " contains backslash")
+    if manualName+"/"+nodeName in list(self.Nodes.keys()):
+      print("Error: Duplicate nodename ",nodeName, " in ", fileName, " and ", self.Nodes[manualName+"/"+nodeName][1])
       returnCode=1
     self.Nodes[manualName + "/" + nodeName] = [manualName, fileName]
     self.nodeNames[nodeName] = fileName
@@ -59,7 +59,7 @@ class CrossRefs:
     global returnCode
     if "\\" in toHeading:
       returnCode = 1
-      print "ref to: ", toHeading, " in ", inFileName, " contains backslash"
+      print("ref to: ", toHeading, " in ", inFileName, " contains backslash")
 #    if inFileName == "notation/vocal.itely":
 #      print "Ref to ", toManualName, "/",toHeading, " found in ", inFileName
     self.Refs.append([toManualName + "/" + toHeading, inFileName])
@@ -73,9 +73,9 @@ class CrossRefs:
 #          print "ref to: ", refHeading, " in ", refFileName, " found in ", targetFileName
       except KeyError:
         noErrors = False
-        print "ref to: ", refHeading, " in ", refFileName, " not found"
+        print("ref to: ", refHeading, " in ", refFileName, " not found")
     if noErrors:
-      print " All references satisfied"
+      print(" All references satisfied")
     else:
       returnCode=1
 
@@ -104,7 +104,7 @@ class File:
     try:
       myfile = open(self.fullFileName, 'r')
     except IOError:
-      print "File ", self.fullFileName, " referenced in ", File.CurrentManualName, " but not found"
+      print("File ", self.fullFileName, " referenced in ", File.CurrentManualName, " but not found")
       return
     remainderLine = ""
     lineNo = 0
@@ -165,7 +165,7 @@ class File:
             if refStart >= 0:
               refFound = True
               if actualToManualName == File.CurrentManualName:
-                print "Warning: should xref be internal around line ", lineNo, " in ", self.fileName, "?"
+                print("Warning: should xref be internal around line ", lineNo, " in ", self.fileName, "?")
               twoLines = twoLines[refStart:]
               refNodeStart = twoLines.find("{") + 1
               # TODO Need to check here for nested {}
@@ -186,10 +186,10 @@ class File:
     return
 
 topFile = File("scripts/auxiliar/ref_check.tely") # TODO get from input params
-print "RefCheck ver 0.1"
+print("RefCheck ver 0.1")
 returnCode=0
 crossRefs = CrossRefs()
 topFile.read(crossRefs)
 crossRefs.check()
 if returnCode > 0:
-  print "Errors found: status code: ",returnCode
+  print("Errors found: status code: ",returnCode)

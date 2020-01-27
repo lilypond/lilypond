@@ -16,7 +16,7 @@ def string_to_integer(s):
 
 def escape_ly_output_string (input_string):
     return_string = input_string
-    needs_quotes = not re.match (u"^[a-zA-ZäöüÜÄÖßñ]*$", return_string);
+    needs_quotes = not re.match ("^[a-zA-ZäöüÜÄÖßñ]*$", return_string);
     if needs_quotes:
         return_string = "\"" + return_string.replace ("\"", "\\\"") + "\""
     return return_string
@@ -58,13 +58,11 @@ def hex_to_color(hex_val):
         hex_val,
         re.IGNORECASE)
     if res:
-        return map(lambda x: hexcolorval_to_nr (x), res.group (2, 3, 4))
+        return [hexcolorval_to_nr (x) for x in res.group (2, 3, 4)]
     else:
         return None
 
 def split_string_and_preserve_doublequoted_substrings(value):
-    if isinstance(value, unicode):
-        value = value.encode('utf-8')
     import shlex
     lex = shlex.shlex(value)
     lex.quotes = '"'

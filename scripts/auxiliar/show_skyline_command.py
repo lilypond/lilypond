@@ -41,7 +41,7 @@ def find_type(orig, name):
         # anything fancier here.
         field = typ.fields()[0]
         if not field.is_base_class:
-            raise ValueError, "Cannot find type %s::%s" % (str(orig), name)
+            raise ValueError("Cannot find type %s::%s" % (str(orig), name))
         typ = field.type
 
 # Class adapted from GCC
@@ -58,7 +58,7 @@ class ListIterator:
     def __iter__ (self):
         return self
 
-    def next (self):
+    def __next__ (self):
         if self.base == self.head:
                 raise StopIteration
         elt = self.base.cast (self.nodetype).dereference ()
@@ -83,7 +83,7 @@ def skyline_to_lines (sky_value):
             return None
         return (x1, y_intercept + slope * x1, x2, y_intercept + slope * x2)
 
-    ret = map (bld_to_line, buildings)
+    ret = list(map (bld_to_line, buildings))
     return [r for r in ret if r is not None]
 
 viewer = Popen(SKYLINE_VIEWER, stdin=PIPE)

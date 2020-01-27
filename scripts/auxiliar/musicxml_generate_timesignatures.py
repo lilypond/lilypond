@@ -56,7 +56,7 @@ def print_measure (nr, beats, type, params = "", attr = "", attr2 = "", barline 
     duration = 8*beats/type
     note = generate_note (duration)
 
-    print """    <measure number="%s">
+    print("""    <measure number="%s">
       <attributes>
 %s        <time%s>
           <beats>%s</beats>
@@ -64,7 +64,7 @@ def print_measure (nr, beats, type, params = "", attr = "", attr2 = "", barline 
         </time>
 %s      </attributes>
 %s
-%s    </measure>""" % (nr, attr, params, beats, type, attr2, note, barline)
+%s    </measure>""" % (nr, attr, params, beats, type, attr2, note, barline))
 
 first_key = """        <divisions>2</divisions>
         <key>
@@ -83,7 +83,7 @@ final_barline = """      <barline location="right">
       </barline>
 """
 
-print """<?xml version="1.0" encoding="UTF-8"?>
+print("""<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 1.0 Partwise//EN"
                                 "http://www.musicxml.org/dtds/partwise.dtd">
 <score-partwise>
@@ -100,7 +100,7 @@ print """<?xml version="1.0" encoding="UTF-8"?>
     </score-part>
   </part-list>
   <!--=========================================================-->
-  <part id="P1">"""
+  <part id="P1">""")
 
 measure = 1
 
@@ -137,5 +137,5 @@ measure += 1
 print_measure (measure, 12, 8, "", "", "", final_barline)
 measure += 1
 
-print """  </part>
-</score-partwise>"""
+print("""  </part>
+</score-partwise>""")

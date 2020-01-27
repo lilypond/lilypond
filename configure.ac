@@ -172,7 +172,7 @@ fi
 
 AC_LANG([C++])
 
-STEPMAKE_PYTHON(REQUIRED, 2.4, 3.0)
+STEPMAKE_PYTHON(REQUIRED, 3.5, 3.99)
 # this checks if we have GNU C by compiling a program with
 # __GNUC__, but that macro now unofficially means "the compiler
 # supports the GNU C extensions" -- the intel C compiler and clang

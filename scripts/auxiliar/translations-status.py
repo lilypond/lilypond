@@ -33,6 +33,7 @@ import os
 #
 import langdefs
 import buildlib
+from functools import reduce
 
 def progress (str):
     sys.stderr.write (str + '\n')
@@ -125,7 +126,8 @@ class SectionNumber (object):
             return ''
         return '.'.join ([str (i[0]) for i in self.__data if i[1] != 'u']) + ' '
 
-    def increase (self, (type, level)):
+    def increase (self, xxx_todo_changeme):
+        (type, level) = xxx_todo_changeme
         if level == 0:
             self.__data = [[0,'u']]
         while level + 1 < len (self.__data):
@@ -345,10 +347,10 @@ class TranslatedTelyDocument (TelyDocument):
         if not self.language and parent_translation:
             self.language = parent_translation.__dict__.get ('language', '')
         if self.language == 'en':
-            print filename + ': language en specified: set @documentlanguage', self.filename[:2]
+            print(filename + ': language en specified: set @documentlanguage', self.filename[:2])
             self.language = ''
         if not self.language and filename[2] == '/':
-            print filename + ': no language specified: add @documentlanguage', self.filename[:2]
+            print(filename + ': no language specified: add @documentlanguage', self.filename[:2])
             self.language = filename[:2]
         if self.language:
             self.translation = translation[self.language]
@@ -365,7 +367,7 @@ class TranslatedTelyDocument (TelyDocument):
             self.translators = [n.strip () for n in
                                 reduce (operator.add, [n.split (',') for n in m])]
         if self.language != self.filename[:2]:
-            print 'Barf:', self.filename
+            print('Barf:', self.filename)
             barf
         if (not isinstance (self, UntranslatedTelyDocument)
             and (not self.translators or not self.translators[0])
@@ -584,7 +586,7 @@ class MasterTelyDocument (TelyDocument):
         self.translations = {}
         self.includes = []
         if not self.language or self.language == 'en':
-            languages = [x for x in parent_translations.keys () if x != 'en']
+            languages = [x for x in list(parent_translations.keys ()) if x != 'en']
             self.translations = dict ([x for x in
                                        [(lang, self.translated_factory (os.path.join (lang, self.filename),
                                                                         parent_translations.get (lang)))

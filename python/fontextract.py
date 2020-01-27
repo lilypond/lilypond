@@ -34,7 +34,7 @@ def scan_files (files):
                 break
             name = match.group (1)
             idx += match.end (1)
-            if file_of_font_dict.has_key (name):
+            if name in file_of_font_dict:
                 continue
 
             file_of_font_dict[name] = f
@@ -43,8 +43,8 @@ def scan_files (files):
 
 def get_file_fonts_dict (file_of_font_dict):
     dict = {}
-    for (n, f) in file_of_font_dict.items ():
-        if not dict.has_key (f):
+    for (n, f) in list(file_of_font_dict.items ()):
+        if f not in dict:
             dict[f] = []
 
         dict[f].append (n)
@@ -89,12 +89,12 @@ def write_extracted_fonts (output_file_name, font_dict):
 %%Creator: lilypond-extract-fonts
 ''')
 
-    for x in font_dict.keys ():
+    for x in list(font_dict.keys ()):
         output.write ('%%%%DocumentSuppliedResources: font %s\n' % x)
 
     output.write ('''%%EndComments\n''')
 
-    for (k,v) in font_dict.items ():
+    for (k,v) in list(font_dict.items ()):
         output.write ('\n%%%%BeginFont: %s\n' % k)
         output.write (v)
         output.write ('\n%%EndFont')
@@ -105,7 +105,7 @@ def extract_fonts (output_file_name, input_files):
     ff = get_file_fonts_dict (d)
 
     font_dict = {}
-    for (file, fonts) in ff.items ():
+    for (file, fonts) in list(ff.items ()):
         extract_fonts_from_file (fonts, font_dict, file)
 
     write_extracted_fonts (output_file_name, font_dict)

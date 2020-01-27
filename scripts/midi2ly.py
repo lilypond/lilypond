@@ -25,7 +25,7 @@
 TODO:
 '''
 
-from __future__ import division
+
 
 import os
 import sys
@@ -459,7 +459,7 @@ class Channel:
                 end_note (pitches, notes, t, e[1][1])
 
             elif e[1][0] == midi.NOTE_ON:
-                if not pitches.has_key (e[1][1]):
+                if e[1][1] not in pitches:
                     debug ('%d: NOTE ON: %s' % (t, e[1][1]))
                     pitches[e[1][1]] = (t, e[1][2])
                 else:
@@ -478,16 +478,16 @@ class Channel:
                     break
 
                 elif e[1][1] == midi.SET_TEMPO:
-                    (u0, u1, u2) = map (ord, e[1][2])
+                    (u0, u1, u2) = list(map (ord, e[1][2]))
                     us_per_4 = u2 + 256 * (u1 + 256 * u0)
                     seconds_per_1 = us_per_4 * 4 / 1e6
                     music.append ((t, Tempo (seconds_per_1)))
                 elif e[1][1] == midi.TIME_SIGNATURE:
-                    (num, dur, clocks4, count32) = map (ord, e[1][2])
+                    (num, dur, clocks4, count32) = list(map (ord, e[1][2]))
                     den = 2 ** dur
                     music.append ((t, Time (num, den)))
                 elif e[1][1] == midi.KEY_SIGNATURE:
-                    (alterations, minor) = map (ord, e[1][2])
+                    (alterations, minor) = list(map (ord, e[1][2]))
                     sharps = 0
                     flats = 0
                     if alterations < 127:
@@ -525,10 +525,10 @@ class Channel:
                         self.name = text.text
                 else:
                     if global_options.verbose:
-                        sys.stderr.write ("SKIP: %s\n" % `e`)
+                        sys.stderr.write ("SKIP: %s\n" % repr(e))
             else:
                 if global_options.verbose:
-                    sys.stderr.write ("SKIP: %s\n" % `e`)
+                    sys.stderr.write ("SKIP: %s\n" % repr(e))
 
         if last_lyric:
             # last_lyric.clocks = t - last_time
@@ -793,11 +793,11 @@ def get_voice_layout (average_pitch):
     for i in range (len (average_pitch)):
         d[average_pitch[i]] = lst_append (d.get (average_pitch[i], []), i)
     s = list (reversed (sorted (average_pitch)))
-    non_empty = len (filter (lambda x: x, s))
+    non_empty = len ([x for x in s if x])
     names = ['One', 'Two']
     if non_empty > 2:
         names = ['One', 'Three', 'Four', 'Two']
-    layout = map (lambda x: '', range (len (average_pitch)))
+    layout = ['' for x in range (len (average_pitch))]
     for i, n in zip (s, names):
         if i:
             v = d[i]
@@ -812,7 +812,7 @@ def dump_track (track, n):
     track_name = get_track_name (n)
 
     average_pitch = track_average_pitch (track)
-    voices = len (filter (lambda x: x, average_pitch[1:]))
+    voices = len ([x for x in average_pitch[1:] if x])
     clef = get_best_clef (average_pitch[0])
 
     c = 0
@@ -967,7 +967,7 @@ def convert_midi (in_file, out_file):
         allowed_tuplet_clocks.append (clocks_per_1 / dur * num / den)
 
     if global_options.verbose:
-        print 'allowed tuplet clocks:', allowed_tuplet_clocks
+        print('allowed tuplet clocks:', allowed_tuplet_clocks)
 
     tracks = [create_track (t) for t in midi_dump[1]]
     # urg, parse all global track events, such as Key first
@@ -1117,7 +1117,7 @@ def get_option_parser ():
     p.add_option ('-x', '--text-lyrics', help=_ ('treat every text as a lyric'),
            action='store_true')
 
-    p.add_option_group (ly.display_encode (_ ('Examples')),
+    p.add_option_group (_ ('Examples'),
               description = r'''
   $ midi2ly --key=-2:1 --duration-quant=32 --allow-tuplet=4*2/3 --allow-tuplet=2*4/3 foo.midi
 ''')
@@ -1147,7 +1147,7 @@ def do_options ():
         options.duration_quant = int (options.duration_quant)
 
     if options.key:
-        (alterations, minor) = map (int, (options.key + ':0').split (':'))[0:2]
+        (alterations, minor) = list(map (int, (options.key + ':0').split (':')))[0:2]
         sharps = 0
         flats = 0
         if alterations >= 0:
@@ -1163,11 +1163,11 @@ def do_options ():
     if options.preview:
         bar_max = 4
 
-    options.allowed_tuplets = [map (int, a.replace ('/','*').split ('*'))
+    options.allowed_tuplets = [list(map (int, a.replace ('/','*').split ('*')))
                 for a in options.allowed_tuplets]
 
     if options.verbose:
-        sys.stderr.write ('Allowed tuplets: %s\n' % `options.allowed_tuplets`)
+        sys.stderr.write ('Allowed tuplets: %s\n' % repr(options.allowed_tuplets))
 
     global global_options
     global_options = options
@@ -1203,7 +1203,7 @@ def main ():
             (outdir, outbase) = os.path.split (o)
 
         if outdir and outdir != '.' and not os.path.exists (outdir):
-            os.mkdir (outdir, 0777)
+            os.mkdir (outdir, 0o777)
 
         convert_midi (f, o)
 

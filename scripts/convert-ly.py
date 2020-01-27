@@ -174,7 +174,7 @@ def version_cmp (t1, t2):
 def get_conversions (from_version, to_version):
     def is_applicable (v, f = from_version, t = to_version):
         return version_cmp (v[0], f) > 0 and version_cmp (v[0], t) <= 0
-    return filter (is_applicable, convertrules.conversions)
+    return list(filter (is_applicable, convertrules.conversions))
 
 def latest_version ():
     return convertrules.conversions[-1][0]
@@ -252,7 +252,7 @@ def back_up (file, numbered):
     return back_up
 
 def do_one_file (infile_name):
-    ly.progress (_ (u"Processing `%s\'... ") % infile_name, True)
+    ly.progress (_ ("Processing `%s\'... ") % infile_name, True)
 
     if infile_name:
         infile = open (infile_name, 'r')
@@ -362,19 +362,19 @@ def main ():
         if f == '-':
             f = ''
         elif not os.path.isfile (f):
-            ly.error (_ (u"%s: Unable to open file") % f)
+            ly.error (_ ("%s: Unable to open file") % f)
             errors += 1
             continue
         try:
             errors += do_one_file (f)
         except UnknownVersion:
-            ly.error (_ (u"%s: Unable to determine version.  Skipping") % f)
+            ly.error (_ ("%s: Unable to determine version.  Skipping") % f)
             errors += 1
         except InvalidVersion:
             # Compat code for 2.x and 3.0 syntax ("except .. as v" doesn't 
             # work in python 2.4!):
             t, v, b = sys.exc_info ()
-            ly.error (_ (u"%s: Invalid version string `%s' \n"
+            ly.error (_ ("%s: Invalid version string `%s' \n"
                          "Valid version strings consist of three numbers, "
                          "separated by dots, e.g. `2.8.12'") % (f, v.version) )
             errors += 1

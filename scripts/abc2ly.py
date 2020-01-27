@@ -86,7 +86,7 @@
 #
 
 
-from __future__ import division
+
 
 import __main__
 import getopt
@@ -184,7 +184,7 @@ def check_clef(s):
     return s
 
 def select_voice (name, rol):
-    if not voice_idx_dict.has_key (name):
+    if name not in voice_idx_dict:
         state_list.append(Parser_state())
         voices.append ('')
         slyrics.append ([])
@@ -215,7 +215,7 @@ def select_voice (name, rol):
 
 def dump_header (outf,hdr):
     outf.write ('\\header {\n')
-    ks = hdr.keys ()
+    ks = list(hdr.keys ())
     ks.sort ()
     for k in ks:
         hdr[k] = re.sub('"', '\\"', hdr[k])
@@ -239,7 +239,7 @@ def dump_default_bar (outf):
 
 
 def dump_slyrics (outf):
-    ks = voice_idx_dict.keys()
+    ks = list(voice_idx_dict.keys())
     ks.sort ()
     for k in ks:
         if re.match('[1-9]', k):
@@ -254,7 +254,7 @@ def dump_slyrics (outf):
 
 def dump_voices (outf):
     global doing_alternative, in_repeat
-    ks = voice_idx_dict.keys()
+    ks = list(voice_idx_dict.keys())
     ks.sort ()
     for k in ks:
         if re.match ('[1-9]', k):
@@ -303,7 +303,7 @@ def dump_score (outf):
     <<
 """)
 
-    ks = voice_idx_dict.keys ();
+    ks = list(voice_idx_dict.keys ());
     ks.sort ()
     for k in  ks:
         if re.match('[1-9]', k):
@@ -461,7 +461,7 @@ def lily_key (k):
         return '%s \\major' % key
 
     type = k[0:3]
-    if not key_lookup.has_key (type):
+    if type not in key_lookup:
         #ugh, use lilylib, say WARNING:FILE:LINE:
         sys.stderr.write ("abc2ly:warning:")
         sys.stderr.write ("ignoring unknown key: `%s'" % orig)
@@ -517,7 +517,7 @@ def compute_key (k):
         intkeyacc = 1
         k = k[1:]
     k = k[0:3]
-    if k and key_shift.has_key(k):
+    if k and k in key_shift:
         (intkey, intkeyacc) = shift_key(intkey, intkeyacc, key_shift[k])
     keytup = (intkey, intkeyacc)
 
@@ -529,12 +529,12 @@ def compute_key (k):
     if keytup in sharp_key_seq:
         accsign = 1
         key_count = sharp_key_seq.index (keytup)
-        accseq = map (lambda x: (4*x -1 ) % 7, range (1, key_count + 1))
+        accseq = [(4*x -1 ) % 7 for x in range (1, key_count + 1)]
 
     elif keytup in flat_key_seq:
         accsign = -1
         key_count = flat_key_seq.index (keytup)
-        accseq = map (lambda x: (3*x + 3 ) % 7, range (1, key_count + 1))
+        accseq = [(3*x + 3 ) % 7 for x in range (1, key_count + 1)]
     else:
         error ("Huh?")
         raise Exception ("Huh")
@@ -575,7 +575,7 @@ def  try_parse_group_end (str, state):
 
 def header_append (key, a):
     s = ''
-    if header.has_key (key):
+    if key in header:
         s = header[key] + "\n"
         header [key] = s + a
 
@@ -675,7 +675,7 @@ def try_parse_header_line (ln, state):
         a = m.group (2)
         if g == 'T':        #title
             a = re.sub('[ \t]*$','', a)        #strip trailing blanks
-            if header.has_key('title'):
+            if 'title' in header:
                 if a:
                     if len(header['title']):
                         # the non-ascii character
@@ -713,7 +713,7 @@ def try_parse_header_line (ln, state):
                     # between the key letter and the mode
                     # convert the mode to lower-case before comparing
                     mode = m.group(2)[0:3].lower();
-                    if key_lookup.has_key(mode):
+                    if mode in key_lookup:
                         # use the full mode, not only the first three letters
                         key_info = m.group(1) + m.group(2).lower()
                         clef_info = a[m.start(4):]
@@ -743,7 +743,7 @@ def try_parse_header_line (ln, state):
         if g == 'B':        # Book
             header ['book'] = a
         if g == 'C':        # Composer
-            if header.has_key('composer'):
+            if 'composer' in header:
                 if a:
                     header['composer'] = header['composer'] + '\\\\\\\\' + a
             else:
@@ -936,7 +936,7 @@ artic_tbl = {
 }
 
 def try_parse_articulation (str, state):
-    while str and  artic_tbl.has_key(str[:1]):
+    while str and  str[:1] in artic_tbl:
         state.next_articulation = state.next_articulation + artic_tbl[str[:1]]
         if not artic_tbl[str[:1]]:
             sys.stderr.write("Warning: ignoring `%s'\n" % str[:1] )
@@ -969,7 +969,7 @@ def set_bar_acc(note, octave, acc, state):
 # get accidental set in this bar or UNDEF if not set
 def get_bar_acc(note, octave, state):
     n_oct = note + octave * 7
-    if state.in_acc.has_key(n_oct):
+    if n_oct in state.in_acc:
         return(state.in_acc[n_oct])
     else:
         return(UNDEF)
@@ -1168,7 +1168,7 @@ def try_parse_bar (str,state):
         select_voice ('default', '')
     # first try the longer one
     for trylen in [3,2,1]:
-        if str[:trylen] and bar_dict.has_key (str[:trylen]):
+        if str[:trylen] and str[:trylen] in bar_dict:
             s = str[:trylen]
             if using_old:
                 bs = "\\bar \"%s\"" % old_bar_dict[s]
@@ -1327,7 +1327,7 @@ happy_count = 100
 def parse_file (fn):
     f = open (fn)
     ls = f.readlines ()
-    ls = map (lambda x: re.sub ("\r$", '', x), ls)
+    ls = [re.sub ("\r$", '', x) for x in ls]
 
     select_voice('default', '')
     global lineno
@@ -1389,7 +1389,7 @@ Written by Han-Wen Nienhuys <hanwen@xs4all.nl>, Laura Conrad
 """
 
 def print_version ():
-    print r"""abc2ly (GNU lilypond) %s""" % version
+    print(r"""abc2ly (GNU lilypond) %s""" % version)
 
 def get_option_parser ():
     p = ly.get_option_parser (usage=_ ("%s [OPTION]... FILE") % 'abc2ly',
