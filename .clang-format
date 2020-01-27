@@ -1,0 +1,12 @@
+---
+Language:        Cpp
+
+# BasedOnStyle:  LLVM
+# tested with clang-format 9.0.0
+
+AlwaysBreakAfterReturnType: TopLevelDefinitions
+BreakBeforeBinaryOperators: All
+BreakBeforeBraces: GNU
+SpaceBeforeParens: Always
+ReflowComments: false
+...
