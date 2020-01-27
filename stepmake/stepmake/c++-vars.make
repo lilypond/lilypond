@@ -14,7 +14,7 @@ DO_O_DEP = rm -f $(o-dep-out); DEPENDENCIES_OUTPUT="$(o-dep-out) $(outdir)/$(not
 lo-dep-out = $(outdir)/$(subst .lo,.dep,$(notdir $@))#
 DO_LO_DEP = rm -f $(lo-dep-out); DEPENDENCIES_OUTPUT="$(lo-dep-out) $(outdir)/$(notdir $@)"
 
-EXTRA_CXXFLAGS = -std=c++11 -W -Wall -Wconversion -Woverloaded-virtual
+EXTRA_CXXFLAGS = -std=c++11 -fno-exceptions -W -Wall -Wconversion -Woverloaded-virtual
 #ifeq ($(MY_PATCH_LEVEL),)
 #EXTRA_CXXFLAGS += -Werror
 #endif
