@@ -22,6 +22,7 @@
        (cons input-str result-str))))
 
 #(read-hash-extend #\[ parse-lily-and-compute-lily-string) %{ ] %}
+#(ly:set-option 'warning-as-error #t)
 
 test =
 #(define-void-function (harmless strings)
