@@ -426,7 +426,7 @@ messages into errors.")
 
 (for-each (lambda (x)
             (ly:set-option (car x) (cdr x)))
-          (eval-string (ly:command-line-options)))
+          (with-input-from-string (ly:command-line-options) read))
 
 (debug-set! stack 0)
 

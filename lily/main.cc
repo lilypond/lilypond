@@ -326,7 +326,7 @@ LY_DEFINE (ly_usage, "ly:usage",
      "Report bugs in English via %s or in YOUR_LANG via URI"  */
   printf ("%s", (_f ("You found a bug? Please read %s",
                      "https://lilypond.org/bug-reports.html")
-                   .c_str ()));
+                 .c_str ()));
   printf ("\n");
   printf ("\n");
   return SCM_UNSPECIFIED;
@@ -520,7 +520,7 @@ main_with_guile (void *, int, char **)
   if (is_loglevel (LOG_DEBUG))
     dir_info (stderr);
 
-  init_scheme_variables_global = "(list " + init_scheme_variables_global + ")";
+  init_scheme_variables_global = "(" + init_scheme_variables_global + ")";
   init_scheme_code_global = "(begin " + init_scheme_code_global + ")";
 
   ly_c_init_guile ();
@@ -662,7 +662,7 @@ parse_argv (int argc, char **argv)
                 if (format == "svg")
                   {
                     wants_svg = 1;
-                    init_scheme_variables_global += "(cons \'backend 'svg)\n";
+                    init_scheme_variables_global += "(backend . svg)\n";
                   }
 		if ((i > 0) && (wants_svg))
 		  {
@@ -680,7 +680,7 @@ parse_argv (int argc, char **argv)
               || string (opt->longname_str0_) == "ps")
             add_output_format (opt->longname_str0_);
 	  else if (string (opt->longname_str0_) == "svg")
-            init_scheme_variables_global += "(cons \'backend 'svg)\n";
+            init_scheme_variables_global += "(backend . svg)\n";
           else if (string (opt->longname_str0_) == "relocate")
             warning (_ ("The --relocate option is no longer relevant."));
           break;
@@ -688,7 +688,7 @@ parse_argv (int argc, char **argv)
         case 'E':
           add_output_format ("ps");
           init_scheme_variables_global
-          += "(cons \'backend 'eps)\n(cons \'aux-files '#f)\n";
+          += "(backend . eps)\n(aux-files . #f)\n";
           break;
 
         case 'O':
@@ -696,16 +696,16 @@ parse_argv (int argc, char **argv)
             string arg (option_parser->optional_argument_str0_);
             if (arg == "size")
               init_scheme_variables_global
-              += "(cons \'music-font-encodings '#f)\n"
-                 "(cons \'gs-never-embed-fonts '#f)\n";
+              += "(music-font-encodings . #f)\n"
+                 "(gs-never-embed-fonts . #f)\n";
             else if (arg == "TeX-GS")
               init_scheme_variables_global
-              += "(cons \'music-font-encodings '#t)\n"
-                 "(cons \'gs-never-embed-fonts '#t)\n";
+              += "(music-font-encodings . #t)\n"
+                 "(gs-never-embed-fonts . #t)\n";
             else if (arg == "TeX")
               init_scheme_variables_global
-              += "(cons \'music-font-encodings '#t)\n"
-                 "(cons \'gs-never-embed-fonts '#f)\n";
+              += "(music-font-encodings . #t)\n"
+                 "(gs-never-embed-fonts . #f)\n";
             else
               programming_error ("Ignoring unknown optimization key");
           }
@@ -726,7 +726,7 @@ parse_argv (int argc, char **argv)
               }
 
             init_scheme_variables_global
-            += "(cons \'" + key + " '" + val + ")\n";
+            += "(" + key + " . " + val + ")\n";
           }
           break;
 
@@ -918,7 +918,7 @@ main (int argc, char **argv, char **envp)
 
 #if !GS_API
   // Let Guile know whether the Ghostscript API is not available.
-  init_scheme_variables_global += "(cons \'gs-api '#f)\n";
+  init_scheme_variables_global += "(gs-api . #f)\n";
 #endif
 
   /*
