@@ -20,8 +20,8 @@
 #ifndef HORIZONTAL_BRACKET_HH
 #define HORIZONTAL_BRACKET_HH
 
-#include "lily-proto.hh"
 #include "grob-interface.hh"
+#include "lily-proto.hh"
 
 struct Horizontal_bracket
 {

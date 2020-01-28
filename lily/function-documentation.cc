@@ -20,16 +20,16 @@
 #include <cstring>
 #include <map>
 
-#include "std-string.hh"
 #include "lily-guile.hh"
+#include "std-string.hh"
 #include "warn.hh"
 
 /* type predicates. */
 #include "global-context.hh"
 #include "input.hh"
 #include "item.hh"
-#include "music.hh"
 #include "music-function.hh"
+#include "music.hh"
 #include "paper-score.hh"
 #include "performance.hh"
 #include "protected-scm.hh"
@@ -48,15 +48,14 @@ ly_check_name (const string &cxx, const string &scm_name)
   string mangle = mangle_cxx_identifier (cxx);
   if (mangle != scm_name)
     {
-      programming_error ("wrong cxx name: " + mangle + ", " + cxx + ", " + scm_name);
+      programming_error ("wrong cxx name: " + mangle + ", " + cxx + ", "
+                         + scm_name);
     }
 }
 
 void
-ly_add_function_documentation (SCM func,
-                               const string &fname,
-                               const string &varlist,
-                               const string &doc)
+ly_add_function_documentation (SCM func, const string &fname,
+                               const string &varlist, const string &doc)
 {
   if (doc == "")
     return;
@@ -73,8 +72,8 @@ ly_add_function_documentation (SCM func,
   scm_hashq_set_x (doc_hash_table, ly_symbol2scm (fname.c_str ()), entry);
 }
 
-LY_DEFINE (ly_get_all_function_documentation, "ly:get-all-function-documentation",
-           0, 0, 0, (),
+LY_DEFINE (ly_get_all_function_documentation,
+           "ly:get-all-function-documentation", 0, 0, 0, (),
            "Get a hash table with all LilyPond Scheme extension functions.")
 {
   return doc_hash_table;
@@ -83,8 +82,7 @@ LY_DEFINE (ly_get_all_function_documentation, "ly:get-all-function-documentation
 map<void *, string> type_names;
 
 void
-ly_add_type_predicate (void *ptr,
-                       const string &name)
+ly_add_type_predicate (void *ptr, const string &name)
 {
   type_names[ptr] = name;
 }
@@ -104,28 +102,28 @@ predicate_to_typename (void *ptr)
 void
 init_func_doc ()
 {
-  ly_add_type_predicate ((void *) &is_direction, "direction");
-  ly_add_type_predicate ((void *) &ly_is_port, "port");
-  ly_add_type_predicate ((void *) &ly_cheap_is_list, "list");
-  ly_add_type_predicate ((void *) &unsmob<Global_context>, "Global_context");
-  ly_add_type_predicate ((void *) &unsmob<Paper_score>, "Paper_score");
-  ly_add_type_predicate ((void *) &unsmob<Performance>, "Performance");
-  ly_add_type_predicate ((void *) &is_axis, "axis");
-  ly_add_type_predicate ((void *) &is_number_pair, "number pair");
-  ly_add_type_predicate ((void *) &ly_is_list, "list");
-  ly_add_type_predicate ((void *) &ly_is_procedure, "procedure");
-  ly_add_type_predicate ((void *) &ly_is_symbol, "symbol");
-  ly_add_type_predicate ((void *) &scm_is_bool, "boolean");
-  ly_add_type_predicate ((void *) &scm_is_integer, "integer");
-  ly_add_type_predicate ((void *) &scm_is_number, "number");
-  ly_add_type_predicate ((void *) &scm_is_pair, "pair");
-  ly_add_type_predicate ((void *) &scm_is_rational, "rational");
-  ly_add_type_predicate ((void *) &scm_is_string, "string");
-  ly_add_type_predicate ((void *) &scm_is_vector, "vector");
-  ly_add_type_predicate ((void *) &unsmob<Item>, "Item");
-  ly_add_type_predicate ((void *) &unsmob<Music>, "Music");
-  ly_add_type_predicate ((void *) &unsmob<Spanner>, "Spanner");
-  ly_add_type_predicate ((void *) &unsmob<Stream_event>, "Stream_event");
+  ly_add_type_predicate ((void *)&is_direction, "direction");
+  ly_add_type_predicate ((void *)&ly_is_port, "port");
+  ly_add_type_predicate ((void *)&ly_cheap_is_list, "list");
+  ly_add_type_predicate ((void *)&unsmob<Global_context>, "Global_context");
+  ly_add_type_predicate ((void *)&unsmob<Paper_score>, "Paper_score");
+  ly_add_type_predicate ((void *)&unsmob<Performance>, "Performance");
+  ly_add_type_predicate ((void *)&is_axis, "axis");
+  ly_add_type_predicate ((void *)&is_number_pair, "number pair");
+  ly_add_type_predicate ((void *)&ly_is_list, "list");
+  ly_add_type_predicate ((void *)&ly_is_procedure, "procedure");
+  ly_add_type_predicate ((void *)&ly_is_symbol, "symbol");
+  ly_add_type_predicate ((void *)&scm_is_bool, "boolean");
+  ly_add_type_predicate ((void *)&scm_is_integer, "integer");
+  ly_add_type_predicate ((void *)&scm_is_number, "number");
+  ly_add_type_predicate ((void *)&scm_is_pair, "pair");
+  ly_add_type_predicate ((void *)&scm_is_rational, "rational");
+  ly_add_type_predicate ((void *)&scm_is_string, "string");
+  ly_add_type_predicate ((void *)&scm_is_vector, "vector");
+  ly_add_type_predicate ((void *)&unsmob<Item>, "Item");
+  ly_add_type_predicate ((void *)&unsmob<Music>, "Music");
+  ly_add_type_predicate ((void *)&unsmob<Spanner>, "Spanner");
+  ly_add_type_predicate ((void *)&unsmob<Stream_event>, "Stream_event");
 }
 
 ADD_SCM_INIT_FUNC (func_doc, init_func_doc);

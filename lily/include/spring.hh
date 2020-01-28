@@ -27,7 +27,8 @@ class Spring : public Simple_smob<Spring>
 {
 public:
   static SCM equal_p (SCM, SCM);
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
+
 private:
   Real distance_;
   Real min_distance_;
@@ -43,11 +44,11 @@ public:
   Spring ();
   Spring (Real distance, Real min_distance);
 
-  Real distance () const {return distance_;}
-  Real min_distance () const {return min_distance_;}
-  Real inverse_stretch_strength () const {return inverse_stretch_strength_;}
-  Real inverse_compress_strength () const {return inverse_compress_strength_;}
-  Real blocking_force () const {return blocking_force_;}
+  Real distance () const { return distance_; }
+  Real min_distance () const { return min_distance_; }
+  Real inverse_stretch_strength () const { return inverse_stretch_strength_; }
+  Real inverse_compress_strength () const { return inverse_compress_strength_; }
+  Real blocking_force () const { return blocking_force_; }
 
   Real length (Real f) const;
 
@@ -61,8 +62,8 @@ public:
   void set_default_compress_strength ();
   void set_default_stretch_strength ();
 
-  void operator *= (Real);
-  bool operator > (Spring const &) const;
+  void operator*= (Real);
+  bool operator> (Spring const &) const;
 };
 
 Spring merge_springs (std::vector<Spring> const &springs);

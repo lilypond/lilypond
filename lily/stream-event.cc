@@ -28,20 +28,19 @@
 
 /* TODO: Rename Stream_event -> Event */
 
-Stream_event::Stream_event ()
-  : Prob (ly_symbol2scm ("Stream_event"), SCM_EOL)
+Stream_event::Stream_event () : Prob (ly_symbol2scm ("Stream_event"), SCM_EOL)
 {
 }
 
 Stream_event::Stream_event (SCM event_class, SCM immutable_props)
-  : Prob (ly_symbol2scm ("Stream_event"),
-          scm_acons (ly_symbol2scm ("class"), event_class, immutable_props))
+    : Prob (ly_symbol2scm ("Stream_event"),
+            scm_acons (ly_symbol2scm ("class"), event_class, immutable_props))
 {
 }
 
 Stream_event::Stream_event (SCM class_name, Input *origin)
-  : Prob (ly_symbol2scm ("Stream_event"),
-          scm_list_1 (scm_cons (ly_symbol2scm ("class"), class_name)))
+    : Prob (ly_symbol2scm ("Stream_event"),
+            scm_list_1 (scm_cons (ly_symbol2scm ("class"), class_name)))
 {
   if (origin)
     set_spot (origin);
@@ -89,12 +88,15 @@ Stream_event::make_transposable ()
       SCM val = scm_cdr (entry);
 
       if ((unsmob<Pitch> (val)
-           || (scm_is_eq (prop, ly_symbol2scm ("element")) && unsmob<Music> (val))
-           || (scm_is_eq (prop, ly_symbol2scm ("elements")) && scm_is_pair (val))
-           || (scm_is_eq (prop, ly_symbol2scm ("pitch-alist")) && scm_is_pair (val)))
+           || (scm_is_eq (prop, ly_symbol2scm ("element"))
+               && unsmob<Music> (val))
+           || (scm_is_eq (prop, ly_symbol2scm ("elements"))
+               && scm_is_pair (val))
+           || (scm_is_eq (prop, ly_symbol2scm ("pitch-alist"))
+               && scm_is_pair (val)))
           && scm_is_false (scm_assq (prop, mutable_property_alist_)))
         mutable_property_alist_
-          = scm_acons (prop, music_deep_copy (val), mutable_property_alist_);
+            = scm_acons (prop, music_deep_copy (val), mutable_property_alist_);
     }
 }
 

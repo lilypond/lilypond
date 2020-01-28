@@ -18,16 +18,12 @@
 */
 
 #include "bezier.hh"
-#include "warn.hh"
 #include "libc-extension.hh"
+#include "warn.hh"
 
 using std::vector;
 
-Real binomial_coefficient_3[]
-=
-{
-  1, 3, 3, 1
-};
+Real binomial_coefficient_3[] = {1, 3, 3, 1};
 
 void
 scale (vector<Offset> *array, Real x, Real y)
@@ -107,8 +103,7 @@ Bezier::curve_coordinate (Real t, Axis a) const
   Real r = 0.0;
   for (int j = 0; j < 4; j++)
     {
-      r += control_[j][a] * binomial_coefficient_3[j]
-           * tj * one_min_tj[3 - j];
+      r += control_[j][a] * binomial_coefficient_3[j] * tj * one_min_tj[3 - j];
 
       tj *= t;
     }
@@ -128,8 +123,7 @@ Bezier::curve_point (Real t) const
   Offset o;
   for (int j = 0; j < 4; j++)
     {
-      o += control_[j] * binomial_coefficient_3[j]
-           * tj * one_min_tj[3 - j];
+      o += control_[j] * binomial_coefficient_3[j] * tj * one_min_tj[3 - j];
 
       tj *= t;
     }
@@ -153,7 +147,8 @@ Bezier::dir_at_point (Real t) const
     second_order[i] = ((control_[i + 1] - control_[i]) * t) + control_[i];
 
   for (vsize i = 0; i < 2; i++)
-    third_order[i] = ((second_order[i + 1] - second_order[i]) * t) + second_order[i];
+    third_order[i]
+        = ((second_order[i + 1] - second_order[i]) * t) + second_order[i];
 
   return (third_order[1] - third_order[0]).direction ();
 }
@@ -167,10 +162,9 @@ struct Polynomial_cache
   Polynomial_cache ()
   {
     for (int j = 0; j <= 3; j++)
-      terms_[j]
-        = binomial_coefficient_3[j]
-          * Polynomial::power (j, Polynomial (0, 1))
-          * Polynomial::power (3 - j, Polynomial (1, -1));
+      terms_[j] = binomial_coefficient_3[j]
+                  * Polynomial::power (j, Polynomial (0, 1))
+                  * Polynomial::power (3 - j, Polynomial (1, -1));
   }
 };
 
@@ -214,7 +208,7 @@ Bezier::solve_derivative (Offset deriv) const
   xp.differentiate ();
   yp.differentiate ();
 
-  Polynomial combine = xp * deriv[Y_AXIS] - yp * deriv [X_AXIS];
+  Polynomial combine = xp * deriv[Y_AXIS] - yp * deriv[X_AXIS];
 
   return filter_solutions (combine.solve ());
 }
@@ -365,7 +359,7 @@ Bezier::subdivide (Real t, Bezier *left_part, Bezier *right_part) const
   Offset p[CONTROL_COUNT][CONTROL_COUNT];
 
   for (int i = 0; i < CONTROL_COUNT; i++)
-    p[i][CONTROL_COUNT - 1 ] = control_[i];
+    p[i][CONTROL_COUNT - 1] = control_[i];
   for (int j = CONTROL_COUNT - 2; j >= 0; j--)
     for (int i = 0; i < CONTROL_COUNT - 1; i++)
       p[i][j] = p[i][j + 1] + t * (p[i + 1][j + 1] - p[i][j + 1]);
@@ -384,11 +378,11 @@ Bezier
 Bezier::extract (Real t_min, Real t_max) const
 {
   if ((t_min < 0) || (t_max) > 1)
-    programming_error
-    ("bezier extract arguments outside of limits: curve may have bad shape");
+    programming_error (
+        "bezier extract arguments outside of limits: curve may have bad shape");
   if (t_min >= t_max)
-    programming_error
-    ("lower bezier extract value not less than upper value: curve may have bad shape");
+    programming_error ("lower bezier extract value not less than upper value: "
+                       "curve may have bad shape");
   Bezier bez1, bez2, bez3, bez4;
   if (t_min == 0.0)
     bez2 = *this;

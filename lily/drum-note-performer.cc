@@ -17,10 +17,10 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "performer.hh"
-#include "audio-item.hh"
 #include "audio-column.hh"
+#include "audio-item.hh"
 #include "global-context.hh"
+#include "performer.hh"
 #include "stream-event.hh"
 #include "translator.icc"
 #include "warn.hh"
@@ -36,14 +36,12 @@ protected:
   void stop_translation_timestep ();
   void process_music ();
   void listen_note (Stream_event *);
+
 private:
   vector<Stream_event *> note_evs_;
 };
 
-Drum_note_performer::Drum_note_performer (Context *c)
-  : Performer (c)
-{
-}
+Drum_note_performer::Drum_note_performer (Context *c) : Performer (c) {}
 
 void
 Drum_note_performer::process_music ()
@@ -57,8 +55,7 @@ Drum_note_performer::process_music ()
       SCM sym = n->get_property ("drum-type");
       SCM defn = SCM_EOL;
 
-      if (scm_is_symbol (sym)
-          && to_boolean (scm_hash_table_p (tab)))
+      if (scm_is_symbol (sym) && to_boolean (scm_hash_table_p (tab)))
         defn = scm_hashq_ref (tab, sym, SCM_EOL);
 
       if (Pitch *pit = unsmob<Pitch> (defn))
@@ -80,11 +77,12 @@ Drum_note_performer::process_music ()
                 len = robust_scm2moment (scm_call_2 (f, len.smobbed_copy (),
                                                      context ()->self_scm ()),
                                          len);
-              velocity += robust_scm2int (ev->get_property ("midi-extra-velocity"), 0);
+              velocity += robust_scm2int (
+                  ev->get_property ("midi-extra-velocity"), 0);
             }
 
-          Audio_note *p = new Audio_note (*pit, len,
-                                          tie_event, Pitch (0, 0), velocity);
+          Audio_note *p
+              = new Audio_note (*pit, len, tie_event, Pitch (0, 0), velocity);
           Audio_element_info info (p, n);
           announce_element (info);
         }
@@ -122,5 +120,4 @@ ADD_TRANSLATOR (Drum_note_performer,
                 "",
 
                 /* write */
-                ""
-               );
+                "");

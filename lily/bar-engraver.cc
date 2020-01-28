@@ -19,10 +19,10 @@
 */
 
 #include "context.hh"
-#include "score-engraver.hh"
-#include "warn.hh"
 #include "item.hh"
+#include "score-engraver.hh"
 #include "spanner.hh"
+#include "warn.hh"
 
 #include "translator.icc"
 
@@ -49,11 +49,7 @@ private:
   vector<Spanner *> spanners_;
 };
 
-Bar_engraver::Bar_engraver (Context *c)
-  : Engraver (c)
-{
-  bar_ = 0;
-}
+Bar_engraver::Bar_engraver (Context *c) : Engraver (c) { bar_ = 0; }
 
 void
 Bar_engraver::create_bar ()
@@ -111,7 +107,6 @@ Bar_engraver::acknowledge_end_spanner (Grob_info gi)
     spanners_.push_back (dynamic_cast<Spanner *> (g));
 }
 
-
 void
 Bar_engraver::boot ()
 {
@@ -133,5 +128,4 @@ ADD_TRANSLATOR (Bar_engraver,
                 "whichBar ",
 
                 /* write */
-                "forbidBreak "
-               );
+                "forbidBreak ");

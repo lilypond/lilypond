@@ -28,8 +28,8 @@
 #include "pitch-interval.hh"
 #include "pointer-group-interface.hh"
 #include "protected-scm.hh"
-#include "side-position-interface.hh"
 #include "separation-item.hh"
+#include "side-position-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "stream-event.hh"
 #include "text-interface.hh"
@@ -40,6 +40,7 @@ class Ambitus_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Ambitus_engraver);
+
 protected:
   void acknowledge_note_head (Grob_info);
 
@@ -77,8 +78,7 @@ Ambitus_engraver::create_ambitus ()
       heads_[d] = make_item ("AmbitusNoteHead", SCM_EOL);
       accidentals_[d] = make_item ("AmbitusAccidental", SCM_EOL);
       accidentals_[d]->set_parent (heads_[d], Y_AXIS);
-      heads_[d]->set_object ("accidental-grob",
-                             accidentals_[d]->self_scm ());
+      heads_[d]->set_object ("accidental-grob", accidentals_[d]->self_scm ());
       Axis_group_interface::add_element (group_, heads_[d]);
       Axis_group_interface::add_element (group_, accidentals_[d]);
     }
@@ -89,8 +89,7 @@ Ambitus_engraver::create_ambitus ()
   is_typeset_ = false;
 }
 
-Ambitus_engraver::Ambitus_engraver (Context *c)
-  : Engraver (c)
+Ambitus_engraver::Ambitus_engraver (Context *c) : Engraver (c)
 {
   ambitus_ = 0;
   heads_.set (0, 0);
@@ -135,7 +134,8 @@ Ambitus_engraver::stop_translation_timestep ()
         start_c0_ = scm_to_int (c_pos);
       else
         {
-          int clef_pos = robust_scm2int (get_property ("middleCClefPosition"), 0);
+          int clef_pos
+              = robust_scm2int (get_property ("middleCClefPosition"), 0);
           int offset = robust_scm2int (get_property ("middleCOffset"), 0);
           start_c0_ = clef_pos + offset;
         }
@@ -175,7 +175,7 @@ Ambitus_engraver::finalize ()
   if (ambitus_ && !pitch_interval_.is_empty ())
     {
       Grob *accidental_placement
-        = make_item ("AccidentalPlacement", accidentals_[DOWN]->self_scm ());
+          = make_item ("AccidentalPlacement", accidentals_[DOWN]->self_scm ());
 
       SCM layout_proc = get_property ("staffLineLayoutFunction");
 
@@ -198,12 +198,13 @@ Ambitus_engraver::finalize ()
                                   start_key_sig_);
 
           if (scm_is_false (handle))
-            handle = scm_assoc (scm_from_int (p.get_notename ()),
-                                start_key_sig_);
+            handle
+                = scm_assoc (scm_from_int (p.get_notename ()), start_key_sig_);
 
-          Rational sig_alter = (scm_is_true (handle))
-                               ? robust_scm2rational (scm_cdr (handle), Rational (0))
-                               : Rational (0);
+          Rational sig_alter
+              = (scm_is_true (handle))
+                    ? robust_scm2rational (scm_cdr (handle), Rational (0))
+                    : Rational (0);
 
           const Pitch other = pitch_interval_[-d];
 
@@ -215,16 +216,14 @@ Ambitus_engraver::finalize ()
               heads_[d]->set_object ("accidental-grob", SCM_EOL);
             }
           else
-            accidentals_[d]->
-            set_property ("alteration",
-                          ly_rational2scm (p.get_alteration ()));
+            accidentals_[d]->set_property (
+                "alteration", ly_rational2scm (p.get_alteration ()));
           Separation_item::add_conditional_item (heads_[d],
                                                  accidental_placement);
           Accidental_placement::add_accidental (accidental_placement,
                                                 accidentals_[d], false, 0);
-          Pointer_group_interface::add_grob (ambitus_,
-                                             ly_symbol2scm ("note-heads"),
-                                             heads_[d]);
+          Pointer_group_interface::add_grob (
+              ambitus_, ly_symbol2scm ("note-heads"), heads_[d]);
         }
 
       Axis_group_interface::add_element (group_, accidental_placement);
@@ -267,5 +266,4 @@ ADD_TRANSLATOR (Ambitus_engraver,
                 "staffLineLayoutFunction ",
 
                 /* write */
-                ""
-               );
+                "");

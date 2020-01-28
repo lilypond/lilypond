@@ -21,14 +21,14 @@
 
 #include <cctype>
 
-#include "item.hh"
 #include "context.hh"
-#include "staff-symbol-referencer.hh"
-#include "engraver.hh"
 #include "direction.hh"
-#include "side-position-interface.hh"
-#include "warn.hh"
+#include "engraver.hh"
 #include "international.hh"
+#include "item.hh"
+#include "side-position-interface.hh"
+#include "staff-symbol-referencer.hh"
+#include "warn.hh"
 
 #include "translator.icc"
 
@@ -43,6 +43,7 @@ protected:
   void acknowledge_bar_line (Grob_info);
 
   void derived_mark () const override;
+
 private:
   Item *clef_;
   Item *modifier_;
@@ -65,8 +66,7 @@ Cue_clef_engraver::derived_mark () const
   scm_gc_mark (prev_glyph_);
 }
 
-Cue_clef_engraver::Cue_clef_engraver (Context *c)
-  : Engraver (c)
+Cue_clef_engraver::Cue_clef_engraver (Context *c) : Engraver (c)
 {
   clef_ = 0;
   modifier_ = 0;
@@ -80,11 +80,13 @@ Cue_clef_engraver::set_glyph ()
   SCM glyph_sym = ly_symbol2scm ("glyph");
   SCM basic = ly_symbol2scm ("CueClef");
   execute_pushpop_property (context (), basic, glyph_sym, SCM_UNDEFINED);
-  execute_pushpop_property (context (), basic, glyph_sym, get_property ("cueClefGlyph"));
+  execute_pushpop_property (context (), basic, glyph_sym,
+                            get_property ("cueClefGlyph"));
 
   basic = ly_symbol2scm ("CueEndClef");
   execute_pushpop_property (context (), basic, glyph_sym, SCM_UNDEFINED);
-  execute_pushpop_property (context (), basic, glyph_sym, get_property ("clefGlyph"));
+  execute_pushpop_property (context (), basic, glyph_sym,
+                            get_property ("clefGlyph"));
 }
 
 /**
@@ -110,8 +112,8 @@ Cue_clef_engraver::create_clef_modifier (SCM transp, SCM style, SCM formatter)
       int dir = sign (abs_transp);
       abs_transp = abs (abs_transp) + 1;
 
-      SCM txt = scm_number_to_string (scm_from_int (abs_transp),
-                                      scm_from_int (10));
+      SCM txt
+          = scm_number_to_string (scm_from_int (abs_transp), scm_from_int (10));
 
       if (ly_is_procedure (formatter))
         g->set_property ("text", scm_call_2 (formatter, txt, style));
@@ -138,8 +140,8 @@ Cue_clef_engraver::create_clef ()
         clef_->set_property ("staff-position", cpos);
 
       create_clef_modifier (get_property ("cueClefTransposition"),
-            get_property ("cueClefTranspositionStyle"),
-            get_property ("cueClefTranspositionFormatter"));
+                            get_property ("cueClefTranspositionStyle"),
+                            get_property ("cueClefTranspositionFormatter"));
     }
 }
 
@@ -154,8 +156,8 @@ Cue_clef_engraver::create_end_clef ()
         clef_->set_property ("staff-position", cpos);
 
       create_clef_modifier (get_property ("clefTransposition"),
-            get_property ("clefTranspositionStyle"),
-            get_property ("clefTranspositionFormatter"));
+                            get_property ("clefTranspositionStyle"),
+                            get_property ("clefTranspositionFormatter"));
     }
 }
 
@@ -172,8 +174,7 @@ Cue_clef_engraver::inspect_clef_properties ()
   SCM clefpos = get_property ("cueClefPosition");
   SCM transposition = get_property ("cueClefTransposition");
 
-  if (!ly_is_equal (glyph, prev_glyph_)
-      || !ly_is_equal (clefpos, prev_cpos_)
+  if (!ly_is_equal (glyph, prev_glyph_) || !ly_is_equal (clefpos, prev_cpos_)
       || !ly_is_equal (transposition, prev_transposition_))
     {
       set_glyph ();
@@ -190,7 +191,6 @@ Cue_clef_engraver::inspect_clef_properties ()
       prev_glyph_ = glyph;
       prev_transposition_ = transposition;
     }
-
 }
 
 void
@@ -236,5 +236,4 @@ ADD_TRANSLATOR (Cue_clef_engraver,
                 "clefTransposition ",
 
                 /* write */
-                ""
-               );
+                "");

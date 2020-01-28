@@ -17,8 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "engraver.hh"
 #include "context.hh"
+#include "engraver.hh"
 #include "item.hh"
 #include "lily-imports.hh"
 #include "pitch.hh"
@@ -60,18 +60,19 @@ Note_name_engraver::process_music ()
 
       if (i)
         markup_list = scm_append (scm_list_2 (
-          scm_list_1(
-            Text_interface::is_markup (sep) ? sep : ly_string2scm(" ")),
-          markup_list));
+            scm_list_1 (Text_interface::is_markup (sep) ? sep
+                                                        : ly_string2scm (" ")),
+            markup_list));
 
       if (ly_is_procedure (proc))
         {
-           SCM pitch_name = scm_call_2 (proc, pitch, context ()->self_scm ());
-           markup_list = scm_append (scm_list_2 (
-             scm_list_1 (pitch_name), markup_list));
+          SCM pitch_name = scm_call_2 (proc, pitch, context ()->self_scm ());
+          markup_list
+              = scm_append (scm_list_2 (scm_list_1 (pitch_name), markup_list));
         }
       else
-        programming_error ("No translation function defined as noteNameFunction.");
+        programming_error (
+            "No translation function defined as noteNameFunction.");
     }
   if (!scm_is_null (markup_list))
     {
@@ -87,10 +88,7 @@ Note_name_engraver::stop_translation_timestep ()
   events_.clear ();
 }
 
-Note_name_engraver::Note_name_engraver (Context *c)
-  : Engraver (c)
-{
-}
+Note_name_engraver::Note_name_engraver (Context *c) : Engraver (c) {}
 
 void
 Note_name_engraver::boot ()
@@ -113,5 +111,4 @@ ADD_TRANSLATOR (Note_name_engraver,
                 "printOctaveNames ",
 
                 /* write */
-                ""
-               );
+                "");

@@ -57,8 +57,8 @@ atan2d (Real y, Real x)
 Real
 Offset::angle_degrees () const
 {
-  Real x = coordinate_a_ [X_AXIS];
-  Real y = coordinate_a_ [Y_AXIS];
+  Real x = coordinate_a_[X_AXIS];
+  Real y = coordinate_a_[Y_AXIS];
 
   // We keep in the vicinity of multiples of 45 degrees here: this is
   // where straightforward angles for straightforward angular
@@ -74,27 +74,27 @@ Offset::angle_degrees () const
   // NAN angles.
   if (y < 0.0)
     {
-      if (2*x < -y)
-        if (-x > -2*y)          // x < 0, y < 0, |x| > |2y|
+      if (2 * x < -y)
+        if (-x > -2 * y) // x < 0, y < 0, |x| > |2y|
           return -180 + atan2d (-y, -x);
-        else if (-2*x >= -y)    // x < 0, y < 0, |y| < |2x| <= |4y|
+        else if (-2 * x >= -y) // x < 0, y < 0, |y| < |2x| <= |4y|
           return -135 + atan2d (x - y, -y - x);
-        else                    // y < 0, |y| >= |2x|
+        else // y < 0, |y| >= |2x|
           return -90 + atan2d (x, -y);
-      else if (x <= -2*y)       // x > 0, y < 0, |y| <= |2x| < |4y|
+      else if (x <= -2 * y) // x > 0, y < 0, |y| <= |2x| < |4y|
         return -45 + atan2d (x + y, x - y);
       // Drop through for y < 0, x > |2y|
     }
   else if (y > 0.0)
     {
-      if (2*x < y)
-        if (-x > 2*y)           // x < 0, y >= 0, |x| > |2y|
+      if (2 * x < y)
+        if (-x > 2 * y) // x < 0, y >= 0, |x| > |2y|
           return 180 - atan2d (y, -x);
-        else if (-2*x >= y)     // x < 0, y >= 0, |y| < |2x| <= |4y|
+        else if (-2 * x >= y) // x < 0, y >= 0, |y| < |2x| <= |4y|
           return 135 - atan2d (x + y, y - x);
-        else                    // y >= 0, |y| >= |2x|
+        else // y >= 0, |y| >= |2x|
           return 90 - atan2d (x, y);
-      else if (x <= 2*y)        // x >= 0, y >= 0, |y| < |2x| < |4y|
+      else if (x <= 2 * y) // x >= 0, y >= 0, |y| < |2x| < |4y|
         return 45 - atan2d (x - y, x + y);
       // Drop through for y > 0, x > |2y|
     }
@@ -107,7 +107,6 @@ Offset::angle_degrees () const
     return (x < 0.0) ? 180 : 0;
   return atan2d (y, x);
 }
-
 
 /**
    euclidian vector length / complex modulus
@@ -122,7 +121,7 @@ bool
 Offset::is_sane () const
 {
   return !std::isnan (coordinate_a_[X_AXIS])
-         && !std::isnan (coordinate_a_ [Y_AXIS])
+         && !std::isnan (coordinate_a_[Y_AXIS])
          && !std::isinf (coordinate_a_[X_AXIS])
          && !std::isinf (coordinate_a_[Y_AXIS]);
 }
@@ -175,15 +174,15 @@ offset_directed (Real angle)
 
   if (angle > 0)
     if (angle > 90)
-      return Offset (sin ((90 - angle) * M_PI/180.0),
-                     sin ((180 - angle) * M_PI/180.0));
+      return Offset (sin ((90 - angle) * M_PI / 180.0),
+                     sin ((180 - angle) * M_PI / 180.0));
     else
-      return Offset (sin ((90 - angle) * M_PI/180.0),
-                     sin (angle * M_PI/180.0));
+      return Offset (sin ((90 - angle) * M_PI / 180.0),
+                     sin (angle * M_PI / 180.0));
   else if (angle < -90)
-    return Offset (sin ((90 + angle) * M_PI/180.0),
-                   sin ((-180 - angle) * M_PI/180.0));
+    return Offset (sin ((90 + angle) * M_PI / 180.0),
+                   sin ((-180 - angle) * M_PI / 180.0));
   else
-    return Offset (sin ((90 + angle) * M_PI/180.0),
-                   sin (angle * M_PI/180.0));
+    return Offset (sin ((90 + angle) * M_PI / 180.0),
+                   sin (angle * M_PI / 180.0));
 }

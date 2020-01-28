@@ -18,8 +18,8 @@
 */
 
 #include "std-string.hh"
-#include "string-convert.hh"
 #include "std-vector.hh"
+#include "string-convert.hh"
 
 using std::string;
 using std::vector;
@@ -43,7 +43,7 @@ replace_all (string *str, string const &find, string const &replace)
   ssize len = find.length ();
   ssize replen = replace.length ();
   for (ssize i = str->find (find); i != NPOS; i = str->find (find, i + replen))
-    * str = str->replace (i, len, replace);
+    *str = str->replace (i, len, replace);
   return *str;
 }
 

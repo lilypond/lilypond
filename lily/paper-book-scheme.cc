@@ -17,19 +17,17 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "paper-book.hh"
 #include "output-def.hh"
+#include "paper-book.hh"
 
-LY_DEFINE (ly_paper_book_pages, "ly:paper-book-pages",
-           1, 0, 0, (SCM pb),
+LY_DEFINE (ly_paper_book_pages, "ly:paper-book-pages", 1, 0, 0, (SCM pb),
            "Return pages in @code{Paper_book} object @var{pb}.")
 {
   LY_ASSERT_SMOB (Paper_book, pb, 1);
   return unsmob<Paper_book> (pb)->pages ();
 }
 
-LY_DEFINE (ly_paper_book_scopes, "ly:paper-book-scopes",
-           1, 0, 0, (SCM pb),
+LY_DEFINE (ly_paper_book_scopes, "ly:paper-book-scopes", 1, 0, 0, (SCM pb),
            "Return scopes in @code{Paper_book} object @var{pb}.")
 {
   LY_ASSERT_SMOB (Paper_book, pb, 1);
@@ -46,24 +44,22 @@ LY_DEFINE (ly_paper_book_scopes, "ly:paper-book-scopes",
   return scopes;
 }
 
-LY_DEFINE (ly_paper_book_performances, "ly:paper-book-performances",
-           1, 0, 0, (SCM pb),
+LY_DEFINE (ly_paper_book_performances, "ly:paper-book-performances", 1, 0, 0,
+           (SCM pb),
            "Return performances in @code{Paper_book} object @var{pb}.")
 {
   LY_ASSERT_SMOB (Paper_book, pb, 1);
   return unsmob<Paper_book> (pb)->performances ();
 }
 
-LY_DEFINE (ly_paper_book_systems, "ly:paper-book-systems",
-           1, 0, 0, (SCM pb),
+LY_DEFINE (ly_paper_book_systems, "ly:paper-book-systems", 1, 0, 0, (SCM pb),
            "Return systems in @code{Paper_book} object @var{pb}.")
 {
   LY_ASSERT_SMOB (Paper_book, pb, 1);
   return unsmob<Paper_book> (pb)->systems ();
 }
 
-LY_DEFINE (ly_paper_book_paper, "ly:paper-book-paper",
-           1, 0, 0, (SCM pb),
+LY_DEFINE (ly_paper_book_paper, "ly:paper-book-paper", 1, 0, 0, (SCM pb),
            "Return the paper output definition (@code{\\paper})"
            " in @code{Paper_book} object @var{pb}.")
 {
@@ -72,8 +68,7 @@ LY_DEFINE (ly_paper_book_paper, "ly:paper-book-paper",
   return pbook->paper_->self_scm ();
 }
 
-LY_DEFINE (ly_paper_book_header, "ly:paper-book-header",
-           1, 0, 0, (SCM pb),
+LY_DEFINE (ly_paper_book_header, "ly:paper-book-header", 1, 0, 0, (SCM pb),
            "Return the header definition (@code{\\header})"
            " in @code{Paper_book} object @var{pb}.")
 {

@@ -22,9 +22,9 @@
 
 #include <cstdio>
 
-#include <string.h>
-#include "std-string.hh"
 #include "lily-proto.hh"
+#include "std-string.hh"
+#include <string.h>
 
 class Midi_stream
 {
@@ -32,7 +32,7 @@ public:
   Midi_stream (const std::string &file_name_string);
   ~Midi_stream ();
 
-  void write (const std::string&);
+  void write (const std::string &);
   void write (Midi_chunk const &);
   void open ();
 

@@ -4,11 +4,12 @@
 
 #include "keyword.hh"
 
-#include <cstring>
 #include <cstdlib>
+#include <cstring>
 
 /* for qsort */
-bool tab_less (Keyword_ent const &p1, Keyword_ent const &p2)
+bool
+tab_less (Keyword_ent const &p1, Keyword_ent const &p2)
 {
   return strcmp (p1.name_, p2.name_) < 0;
 }

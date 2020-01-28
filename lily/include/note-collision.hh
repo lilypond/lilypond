@@ -20,9 +20,9 @@
 #ifndef COLLISION_HH
 #define COLLISION_HH
 
-#include "std-vector.hh"
 #include "grob-interface.hh"
 #include "lily-proto.hh"
+#include "std-vector.hh"
 
 /**
    Resolve conflicts between various Note_columns (chords).
@@ -37,11 +37,11 @@
 class Note_collision_interface
 {
 public:
-  static SCM automatic_shift (Grob *, Drul_array<std::vector<Grob *> >);
+  static SCM automatic_shift (Grob *, Drul_array<std::vector<Grob *>>);
   static SCM forced_shift (Grob *);
 
   static std::vector<int> note_head_positions (Grob *me);
-  static Drul_array<std::vector<Grob *> > get_clash_groups (Grob *me);
+  static Drul_array<std::vector<Grob *>> get_clash_groups (Grob *me);
   DECLARE_SCHEME_CALLBACK (calc_positioning_done, (SCM smob));
   static void add_column (Grob *me, Grob *ncol);
 };

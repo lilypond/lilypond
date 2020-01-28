@@ -24,16 +24,10 @@
 #include "warn.hh"
 
 MAKE_SCHEME_CALLBACK (Kievan_ligature, print, 1);
-SCM
-Kievan_ligature::print (SCM)
-{
-  return SCM_EOL;
-}
+SCM Kievan_ligature::print (SCM) { return SCM_EOL; }
 
-ADD_INTERFACE (Kievan_ligature,
-               "A kievan ligature.",
+ADD_INTERFACE (Kievan_ligature, "A kievan ligature.",
 
                /* properties */
                "primitive "
-               "padding "
-              );
+               "padding ");

@@ -41,7 +41,6 @@ public:
   TRANSLATOR_DECLARATIONS (Hyphen_engraver);
 
 protected:
-
   void acknowledge_lyric_syllable (Grob_info);
   void listen_hyphen (Stream_event *);
 
@@ -51,8 +50,7 @@ protected:
   void process_music ();
 };
 
-Hyphen_engraver::Hyphen_engraver (Context *c)
-  : Engraver (c)
+Hyphen_engraver::Hyphen_engraver (Context *c) : Engraver (c)
 {
   hyphen_ = 0;
   finished_hyphen_ = 0;
@@ -155,7 +153,6 @@ Hyphen_engraver::stop_translation_timestep ()
   ev_ = 0;
 }
 
-
 void
 Hyphen_engraver::boot ()
 {
@@ -175,5 +172,4 @@ ADD_TRANSLATOR (Hyphen_engraver,
                 "",
 
                 /* write */
-                ""
-               );
+                "");

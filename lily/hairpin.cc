@@ -24,14 +24,14 @@
 #include "directional-element-interface.hh"
 #include "international.hh"
 #include "line-interface.hh"
+#include "note-column.hh"
 #include "output-def.hh"
 #include "paper-column.hh"
 #include "pointer-group-interface.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
-#include "text-interface.hh"
-#include "note-column.hh"
 #include "system.hh"
+#include "text-interface.hh"
 #include "warn.hh"
 
 MAKE_SCHEME_CALLBACK (Hairpin, pure_height, 3);
@@ -57,7 +57,8 @@ Hairpin::broken_bound_padding (SCM smob)
   Item *r_bound = me->get_bound (RIGHT);
   if (r_bound->break_status_dir () != -1)
     {
-      me->warning (_ ("Asking for broken bound padding at a non-broken bound."));
+      me->warning (
+          _ ("Asking for broken bound padding at a non-broken bound."));
       return scm_from_double (0.0);
     }
 
@@ -69,9 +70,11 @@ Hairpin::broken_bound_padding (SCM smob)
   Grob *my_vertical_axis_group = Grob::get_vertical_axis_group (me);
   Drul_array<Grob *> vertical_axis_groups;
   for (DOWN_and_UP (d))
-    vertical_axis_groups[d] = d == dir
-                              ? sys->get_neighboring_staff (d, my_vertical_axis_group, Interval_t<int> (me->spanned_rank_interval ()))
-                              : my_vertical_axis_group;
+    vertical_axis_groups[d]
+        = d == dir ? sys->get_neighboring_staff (
+              d, my_vertical_axis_group,
+              Interval_t<int> (me->spanned_rank_interval ()))
+                   : my_vertical_axis_group;
 
   if (!vertical_axis_groups[dir])
     return scm_from_double (0.0);
@@ -81,7 +84,8 @@ Hairpin::broken_bound_padding (SCM smob)
     {
       extract_grob_set (vertical_axis_groups[d], "elements", elts);
       for (vsize i = elts.size (); i--;)
-        if (elts[i]->internal_has_interface (ly_symbol2scm ("bar-line-interface"))
+        if (elts[i]->internal_has_interface (
+                ly_symbol2scm ("bar-line-interface"))
             && dynamic_cast<Item *> (elts[i])->break_status_dir () == -1)
           {
             SCM hsb = elts[i]->get_property ("has-span-bar");
@@ -99,8 +103,8 @@ Hairpin::broken_bound_padding (SCM smob)
   if (span_bars[DOWN] != span_bars[UP])
     return scm_from_double (0.0);
 
-  return scm_from_double (robust_scm2double (me->get_property ("bound-padding"), 0.5)
-                          / 2.0);
+  return scm_from_double (
+      robust_scm2double (me->get_property ("bound-padding"), 0.5) / 2.0);
 }
 
 MAKE_SCHEME_CALLBACK (Hairpin, print, 1);
@@ -133,7 +137,7 @@ Hairpin::print (SCM smob)
       // Hairpin-parts suicide in after-line-breaking if they need not be drawn
       if (next)
         {
-          (void) next->get_property ("after-line-breaking");
+          (void)next->get_property ("after-line-breaking");
           broken[RIGHT] = next->is_live ();
         }
       else
@@ -157,30 +161,34 @@ Hairpin::print (SCM smob)
   if (circled_tip)
     thick = robust_scm2double (me->get_property ("thickness"), 1.0)
             * Staff_symbol_referencer::line_thickness (me);
-  Drul_array<Real> shorten = robust_scm2interval (me->get_property ("shorten-pair"),
-                                                  Interval (0, 0));
+  Drul_array<Real> shorten = robust_scm2interval (
+      me->get_property ("shorten-pair"), Interval (0, 0));
 
   for (LEFT_and_RIGHT (d))
     {
       Item *b = bounds[d];
-      Interval e = Axis_group_interface::generic_bound_extent (b, common, X_AXIS);
+      Interval e
+          = Axis_group_interface::generic_bound_extent (b, common, X_AXIS);
 
       x_points[d] = b->relative_coordinate (common, X_AXIS);
-      if (broken [d])
+      if (broken[d])
         {
           if (d == LEFT)
             x_points[d] = e[-d];
           else
             {
-              Real broken_bound_padding
-                = robust_scm2double (me->get_property ("broken-bound-padding"), 0.0);
+              Real broken_bound_padding = robust_scm2double (
+                  me->get_property ("broken-bound-padding"), 0.0);
               extract_grob_set (me, "concurrent-hairpins", chp);
               for (vsize i = 0; i < chp.size (); i++)
                 {
                   Spanner *span_elt = dynamic_cast<Spanner *> (chp[i]);
                   if (span_elt->get_bound (RIGHT)->break_status_dir () == LEFT)
-                    broken_bound_padding = std::max (broken_bound_padding,
-                                                robust_scm2double (span_elt->get_property ("broken-bound-padding"), 0.0));
+                    broken_bound_padding = std::max (
+                        broken_bound_padding,
+                        robust_scm2double (
+                            span_elt->get_property ("broken-bound-padding"),
+                            0.0));
                 }
               x_points[d] -= d * broken_bound_padding;
             }
@@ -254,15 +262,15 @@ Hairpin::print (SCM smob)
             }
         }
 
-        x_points[d] -= shorten[d] * d;
+      x_points[d] -= shorten[d] * d;
     }
 
   Real width = x_points[RIGHT] - x_points[LEFT];
 
   if (width < 0)
     {
-      me->warning (_ ((grow_dir < 0) ? "decrescendo too small"
-                      : "crescendo too small"));
+      me->warning (
+          _ ((grow_dir < 0) ? "decrescendo too small" : "crescendo too small"));
       width = 0;
     }
 
@@ -300,9 +308,8 @@ Hairpin::print (SCM smob)
         width -= rad * 2.0;
     }
   mol = Line_interface::line (me, Offset (x, starth), Offset (width, endh));
-  mol.add_stencil (Line_interface::line (me,
-                                         Offset (x, -starth),
-                                         Offset (width, -endh)));
+  mol.add_stencil (
+      Line_interface::line (me, Offset (x, -starth), Offset (width, -endh)));
 
   /*
     Support al/del niente notation by putting a circle at the
@@ -313,11 +320,9 @@ Hairpin::print (SCM smob)
       Box extent (Interval (-rad, rad), Interval (-rad, rad));
 
       /* Hmmm, perhaps we should have a Lookup::circle () method? */
-      Stencil circle (extent,
-                      scm_list_4 (ly_symbol2scm ("circle"),
-                                  scm_from_double (rad),
-                                  scm_from_double (thick),
-                                  SCM_BOOL_F));
+      Stencil circle (extent, scm_list_4 (ly_symbol2scm ("circle"),
+                                          scm_from_double (rad),
+                                          scm_from_double (thick), SCM_BOOL_F));
 
       /*
         don't add another circle if the hairpin is broken
@@ -327,13 +332,12 @@ Hairpin::print (SCM smob)
     }
 
   mol.translate_axis (x_points[LEFT]
-                      - bounds[LEFT]->relative_coordinate (common, X_AXIS),
+                          - bounds[LEFT]->relative_coordinate (common, X_AXIS),
                       X_AXIS);
   return mol.smobbed_copy ();
 }
 
-ADD_INTERFACE (Hairpin,
-               "A hairpin crescendo or decrescendo.",
+ADD_INTERFACE (Hairpin, "A hairpin crescendo or decrescendo.",
 
                /* properties */
                "adjacent-spanners "
@@ -343,5 +347,4 @@ ADD_INTERFACE (Hairpin,
                "bound-padding "
                "grow-direction "
                "height "
-               "shorten-pair "
-              );
+               "shorten-pair ");

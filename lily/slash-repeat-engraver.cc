@@ -18,8 +18,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "item.hh"
 #include "engraver.hh"
+#include "item.hh"
 #include "stream-event.hh"
 
 #include "translator.icc"
@@ -32,15 +32,16 @@ class Slash_repeat_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Slash_repeat_engraver);
+
 protected:
   Stream_event *slash_;
+
 protected:
   void listen_repeat_slash (Stream_event *);
   void process_music ();
 };
 
-Slash_repeat_engraver::Slash_repeat_engraver (Context *c)
-  : Engraver (c)
+Slash_repeat_engraver::Slash_repeat_engraver (Context *c) : Engraver (c)
 {
   slash_ = 0;
 }
@@ -83,5 +84,4 @@ ADD_TRANSLATOR (Slash_repeat_engraver,
                 "",
 
                 /* write */
-                ""
-               );
+                "");

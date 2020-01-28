@@ -17,10 +17,10 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "international.hh"
 #include "score-engraver.hh"
 #include "score-performer.hh"
 #include "warn.hh"
-#include "international.hh"
 
 /*
   Quick & dirty.

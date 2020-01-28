@@ -17,20 +17,19 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "pointer-group-interface.hh"
 #include "grob.hh"
+#include "pointer-group-interface.hh"
 
-LY_DEFINE (ly_pointer_group_interface__add_grob, "ly:pointer-group-interface::add-grob",
-           3, 0, 0, (SCM grob, SCM sym, SCM grob_element),
+LY_DEFINE (ly_pointer_group_interface__add_grob,
+           "ly:pointer-group-interface::add-grob", 3, 0, 0,
+           (SCM grob, SCM sym, SCM grob_element),
            "Add @var{grob-element} to @var{grob}'s @var{sym} grob array.")
 {
   LY_ASSERT_SMOB (Grob, grob, 1);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
   LY_ASSERT_SMOB (Grob, grob_element, 3);
 
-  Pointer_group_interface::add_grob (unsmob<Grob> (grob),
-                                     sym,
+  Pointer_group_interface::add_grob (unsmob<Grob> (grob), sym,
                                      unsmob<Grob> (grob_element));
   return SCM_UNSPECIFIED;
 }
-

@@ -20,8 +20,8 @@
 #ifndef CLEF_HH
 #define CLEF_HH
 
-#include "lily-proto.hh"
 #include "grob-interface.hh"
+#include "lily-proto.hh"
 
 struct Clef
 {
@@ -30,4 +30,3 @@ struct Clef
 };
 
 #endif /* CLEF_HH */
-

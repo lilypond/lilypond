@@ -25,8 +25,7 @@
 #include "program-option.hh"
 #include "warn.hh"
 
-LY_DEFINE (ly_music_length, "ly:music-length",
-           1, 0, 0, (SCM mus),
+LY_DEFINE (ly_music_length, "ly:music-length", 1, 0, 0, (SCM mus),
            "Get the length of music expression @var{mus} and return"
            " it as a @code{Moment} object.")
 {
@@ -35,8 +34,8 @@ LY_DEFINE (ly_music_length, "ly:music-length",
   return sc->get_length ().smobbed_copy ();
 }
 
-LY_DEFINE (ly_music_property, "ly:music-property",
-           2, 1, 0, (SCM mus, SCM sym, SCM val),
+LY_DEFINE (ly_music_property, "ly:music-property", 2, 1, 0,
+           (SCM mus, SCM sym, SCM val),
            "Return the value for property @var{sym} of music expression"
            " @var{mus}.  If no value is found, return @var{val} or"
            " @code{'()} if @var{val} is not specified.")
@@ -45,8 +44,8 @@ LY_DEFINE (ly_music_property, "ly:music-property",
   return ly_prob_property (mus, sym, val);
 }
 
-LY_DEFINE (ly_music_set_property_x, "ly:music-set-property!",
-           3, 0, 0, (SCM mus, SCM sym, SCM val),
+LY_DEFINE (ly_music_set_property_x, "ly:music-set-property!", 3, 0, 0,
+           (SCM mus, SCM sym, SCM val),
            "Set property @var{sym} in music expression @var{mus} to"
            " @var{val}.")
 {
@@ -56,8 +55,7 @@ LY_DEFINE (ly_music_set_property_x, "ly:music-set-property!",
 }
 
 /* todo:  property args */
-LY_DEFINE (ly_make_music, "ly:make-music",
-           1, 0, 0, (SCM props),
+LY_DEFINE (ly_make_music, "ly:make-music", 1, 0, 0, (SCM props),
            "Make a C++ @code{Music} object and initialize it with"
            " @var{props}.\n"
            "\n"
@@ -69,15 +67,13 @@ LY_DEFINE (ly_make_music, "ly:make-music",
   return ms->unprotect ();
 }
 
-LY_DEFINE (ly_music_p, "ly:music?",
-           1, 0, 0, (SCM obj),
+LY_DEFINE (ly_music_p, "ly:music?", 1, 0, 0, (SCM obj),
            "Is @var{obj} a music object?")
 {
   return ly_bool2scm (unsmob<Music> (obj));
 }
 
-LY_DEFINE (ly_event_p, "ly:event?",
-           1, 0, 0, (SCM obj),
+LY_DEFINE (ly_event_p, "ly:event?", 1, 0, 0, (SCM obj),
            "Is @var{obj} a proper (non-rhythmic) event object?")
 {
   if (Music *m = unsmob<Music> (obj))
@@ -88,8 +84,8 @@ LY_DEFINE (ly_event_p, "ly:event?",
 }
 
 /* todo: property args */
-LY_DEFINE (ly_music_mutable_properties, "ly:music-mutable-properties",
-           1, 0, 0, (SCM mus),
+LY_DEFINE (ly_music_mutable_properties, "ly:music-mutable-properties", 1, 0, 0,
+           (SCM mus),
            "Return an alist containing the mutable properties of @var{mus}."
            "  The immutable properties are not available, since they are"
            " constant and initialized by the @code{make-music} function.")
@@ -99,8 +95,7 @@ LY_DEFINE (ly_music_mutable_properties, "ly:music-mutable-properties",
   return m->get_property_alist (true);
 }
 
-LY_DEFINE (ly_music_list_p, "ly:music-list?",
-           1, 0, 0, (SCM lst),
+LY_DEFINE (ly_music_list_p, "ly:music-list?", 1, 0, 0, (SCM lst),
            "Is @var{lst} a list of music objects?")
 {
   if (!ly_is_list (lst))
@@ -116,8 +111,8 @@ LY_DEFINE (ly_music_list_p, "ly:music-list?",
   return SCM_BOOL_T;
 }
 
-LY_DEFINE (ly_music_deep_copy, "ly:music-deep-copy",
-           1, 1, 0, (SCM m, SCM origin),
+LY_DEFINE (ly_music_deep_copy, "ly:music-deep-copy", 1, 1, 0,
+           (SCM m, SCM origin),
            "Copy @var{m} and all sub expressions of@tie{}@var{m}."
            " @var{m} may be an arbitrary type; cons cells and music"
            " are copied recursively.  If @var{origin} is given,"
@@ -130,7 +125,7 @@ LY_DEFINE (ly_music_deep_copy, "ly:music-deep-copy",
     return m;
 
   if (Music *mus = unsmob<Music> (origin))
-      origin = mus->get_property ("origin");
+    origin = mus->get_property ("origin");
 
   if (scm_is_false (origin) || scm_is_null (origin))
     return m;
@@ -141,8 +136,7 @@ LY_DEFINE (ly_music_deep_copy, "ly:music-deep-copy",
   return m;
 }
 
-LY_DEFINE (ly_set_origin_x, "ly:set-origin!",
-           1, 1, 0, (SCM m, SCM origin),
+LY_DEFINE (ly_set_origin_x, "ly:set-origin!", 1, 1, 0, (SCM m, SCM origin),
            "This sets the origin given in @var{origin} to @var{m}. "
            " @var{m} will typically be a music expression or a list"
            " of music.  List structures are searched recursively,"
@@ -169,8 +163,7 @@ LY_DEFINE (ly_set_origin_x, "ly:set-origin!",
   return m;
 }
 
-LY_DEFINE (ly_music_transpose, "ly:music-transpose",
-           2, 0, 0, (SCM m, SCM p),
+LY_DEFINE (ly_music_transpose, "ly:music-transpose", 2, 0, 0, (SCM m, SCM p),
            "Transpose @var{m} such that central@tie{}C is mapped"
            " to@tie{}@var{p}.  Return@tie{}@var{m}.")
 {
@@ -185,21 +178,19 @@ LY_DEFINE (ly_music_transpose, "ly:music-transpose",
   return sc->self_scm ();
 }
 
-LY_DEFINE (ly_music_compress, "ly:music-compress",
-           2, 0, 0, (SCM m, SCM factor),
+LY_DEFINE (ly_music_compress, "ly:music-compress", 2, 0, 0, (SCM m, SCM factor),
            "Compress music object@tie{}@var{m} by scale @var{factor}.")
 {
   Music *sc = LY_ASSERT_SMOB (Music, m, 1);
-  SCM_ASSERT_TYPE (scm_is_true (Lily::scale_p (factor)),
-                   factor, SCM_ARG2, __FUNCTION__,
-                   "non-negative rational, fraction, or moment");
+  SCM_ASSERT_TYPE (scm_is_true (Lily::scale_p (factor)), factor, SCM_ARG2,
+                   __FUNCTION__, "non-negative rational, fraction, or moment");
 
   sc->compress (ly_scm2rational (Lily::scale_to_factor (factor)));
   return m;
 }
 
-LY_DEFINE (ly_make_music_relative_x, "ly:make-music-relative!",
-           2, 0, 0, (SCM music, SCM pitch),
+LY_DEFINE (ly_make_music_relative_x, "ly:make-music-relative!", 2, 0, 0,
+           (SCM music, SCM pitch),
            "Make @var{music} relative to @var{pitch},"
            " return final pitch.")
 {
@@ -255,8 +246,8 @@ LY_DEFINE (ly_music_duration_compress, "ly:music-duration-compress", 2, 0, 0,
 
   TODO: this should use ly:pitch.
 */
-LY_DEFINE (ly_transpose_key_alist, "ly:transpose-key-alist",
-           2, 0, 0, (SCM l, SCM pit),
+LY_DEFINE (ly_transpose_key_alist, "ly:transpose-key-alist", 2, 0, 0,
+           (SCM l, SCM pit),
            "Make a new key alist of@tie{}@var{l} transposed by"
            " pitch @var{pit}.")
 {
@@ -269,8 +260,7 @@ LY_DEFINE (ly_transpose_key_alist, "ly:transpose-key-alist",
       SCM alter = scm_cdar (s);
       if (scm_is_pair (key))
         {
-          Pitch orig (scm_to_int (scm_car (key)),
-                      scm_to_int (scm_cdr (key)),
+          Pitch orig (scm_to_int (scm_car (key)), scm_to_int (scm_cdr (key)),
                       ly_scm2rational (alter));
 
           orig = orig.transposed (p);
@@ -278,8 +268,9 @@ LY_DEFINE (ly_transpose_key_alist, "ly:transpose-key-alist",
           SCM key = scm_cons (scm_from_int (orig.get_octave ()),
                               scm_from_int (orig.get_notename ()));
 
-          newlist = scm_cons (scm_cons (key, ly_rational2scm (orig.get_alteration ())),
-                              newlist);
+          newlist = scm_cons (
+              scm_cons (key, ly_rational2scm (orig.get_alteration ())),
+              newlist);
         }
       else if (scm_is_number (key))
         {

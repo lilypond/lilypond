@@ -18,15 +18,13 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "context.hh"
 #include "context-def.hh"
+#include "context.hh"
 #include "dispatcher.hh"
 #include "grob-properties.hh"
 
-LY_DEFINE (ly_context_current_moment,
-           "ly:context-current-moment",
-           1, 0, 0, (SCM context),
-           "Return the current moment of @var{context}.")
+LY_DEFINE (ly_context_current_moment, "ly:context-current-moment", 1, 0, 0,
+           (SCM context), "Return the current moment of @var{context}.")
 {
   Context *tr = unsmob<Context> (context);
 
@@ -35,8 +33,7 @@ LY_DEFINE (ly_context_current_moment,
   return tr->now_mom ().smobbed_copy ();
 }
 
-LY_DEFINE (ly_context_id, "ly:context-id",
-           1, 0, 0, (SCM context),
+LY_DEFINE (ly_context_id, "ly:context-id", 1, 0, 0, (SCM context),
            "Return the ID string of @var{context},"
            " i.e., for @code{\\context Voice = \"one\" @dots{}}"
            " return the string @code{one}.")
@@ -48,8 +45,7 @@ LY_DEFINE (ly_context_id, "ly:context-id",
   return ly_string2scm (tr->id_string ());
 }
 
-LY_DEFINE (ly_context_name, "ly:context-name",
-           1, 0, 0, (SCM context),
+LY_DEFINE (ly_context_name, "ly:context-name", 1, 0, 0, (SCM context),
            "Return the name of @var{context},"
            " i.e., for @code{\\context Voice = \"one\" @dots{}}"
            " return the symbol @code{Voice}.")
@@ -61,8 +57,8 @@ LY_DEFINE (ly_context_name, "ly:context-name",
   return ly_symbol2scm (tr->context_name ().c_str ());
 }
 
-LY_DEFINE (ly_context_grob_definition, "ly:context-grob-definition",
-           2, 0, 0, (SCM context, SCM name),
+LY_DEFINE (ly_context_grob_definition, "ly:context-grob-definition", 2, 0, 0,
+           (SCM context, SCM name),
            "Return the definition of @var{name} (a symbol) within"
            " @var{context} as an alist.")
 {
@@ -74,8 +70,8 @@ LY_DEFINE (ly_context_grob_definition, "ly:context-grob-definition",
   return Grob_property_info (tr, name).updated ();
 }
 
-LY_DEFINE (ly_context_pushpop_property, "ly:context-pushpop-property",
-           3, 1, 0, (SCM context, SCM grob, SCM eltprop, SCM val),
+LY_DEFINE (ly_context_pushpop_property, "ly:context-pushpop-property", 3, 1, 0,
+           (SCM context, SCM grob, SCM eltprop, SCM val),
            "Do @code{\\temporary \\override} or @code{\\revert} operation"
            " in @var{context}.  The grob definition @var{grob} is extended"
            " with @var{eltprop} (if @var{val} is specified) or reverted"
@@ -104,9 +100,8 @@ LY_DEFINE (ly_context_matched_pop_property, "ly:context-matched-pop-property",
   return SCM_UNSPECIFIED;
 }
 
-
-LY_DEFINE (ly_context_property, "ly:context-property",
-           2, 1, 0, (SCM context, SCM sym, SCM def),
+LY_DEFINE (ly_context_property, "ly:context-property", 2, 1, 0,
+           (SCM context, SCM sym, SCM def),
            "Return the value for property @var{sym} in @var{context}."
            " If @var{def} is given, and property value is @code{'()},"
            " return @var{def}.")
@@ -119,8 +114,8 @@ LY_DEFINE (ly_context_property, "ly:context-property",
   return !SCM_UNBNDP (def) && scm_is_null (result) ? def : result;
 }
 
-LY_DEFINE (ly_context_set_property_x, "ly:context-set-property!",
-           3, 0, 0, (SCM context, SCM name, SCM val),
+LY_DEFINE (ly_context_set_property_x, "ly:context-set-property!", 3, 0, 0,
+           (SCM context, SCM name, SCM val),
            "Set value of property @var{name} in context @var{context}"
            " to @var{val}.")
 {
@@ -134,8 +129,9 @@ LY_DEFINE (ly_context_set_property_x, "ly:context-set-property!",
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_context_property_where_defined, "ly:context-property-where-defined",
-           2, 0, 0, (SCM context, SCM name),
+LY_DEFINE (ly_context_property_where_defined,
+           "ly:context-property-where-defined", 2, 0, 0,
+           (SCM context, SCM name),
            "Return the context above @var{context}"
            " where @var{name} is defined.")
 {
@@ -164,8 +160,7 @@ LY_DEFINE (ly_context_unset_property, "ly:context-unset-property", 2, 0, 0,
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_context_parent, "ly:context-parent",
-           1, 0, 0, (SCM context),
+LY_DEFINE (ly_context_parent, "ly:context-parent", 1, 0, 0, (SCM context),
            "Return the parent of @var{context}, @code{#f} if none.")
 {
   LY_ASSERT_SMOB (Context, context, 1);
@@ -179,8 +174,7 @@ LY_DEFINE (ly_context_parent, "ly:context-parent",
 }
 
 /* FIXME: todo: should support translator IDs, and creation? */
-LY_DEFINE (ly_context_find, "ly:context-find",
-           2, 0, 0, (SCM context, SCM name),
+LY_DEFINE (ly_context_find, "ly:context-find", 2, 0, 0, (SCM context, SCM name),
            "Find a parent of @var{context} that has name or alias @var{name}."
            "  Return @code{#f} if not found.")
 {
@@ -191,8 +185,7 @@ LY_DEFINE (ly_context_find, "ly:context-find",
   return tr ? tr->self_scm () : SCM_BOOL_F;
 }
 
-LY_DEFINE (ly_context_now, "ly:context-now",
-           1, 0, 0, (SCM context),
+LY_DEFINE (ly_context_now, "ly:context-now", 1, 0, 0, (SCM context),
            "Return @code{now-moment} of context @var{context}.")
 {
   LY_ASSERT_SMOB (Context, context, 1);
@@ -200,8 +193,8 @@ LY_DEFINE (ly_context_now, "ly:context-now",
   return ctx->now_mom ().smobbed_copy ();
 }
 
-LY_DEFINE (ly_context_event_source, "ly:context-event-source",
-           1, 0, 0, (SCM context),
+LY_DEFINE (ly_context_event_source, "ly:context-event-source", 1, 0, 0,
+           (SCM context),
            "Return @code{event-source} of context @var{context}.")
 {
   LY_ASSERT_SMOB (Context, context, 1);
@@ -209,8 +202,8 @@ LY_DEFINE (ly_context_event_source, "ly:context-event-source",
   return ctx->event_source ()->self_scm ();
 }
 
-LY_DEFINE (ly_context_events_below, "ly:context-events-below",
-           1, 0, 0, (SCM context),
+LY_DEFINE (ly_context_events_below, "ly:context-events-below", 1, 0, 0,
+           (SCM context),
            "Return a @code{stream-distributor} that distributes all events"
            " from @var{context} and all its subcontexts.")
 {

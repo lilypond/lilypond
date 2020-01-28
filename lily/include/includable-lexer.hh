@@ -24,9 +24,9 @@
 #include <FlexLexer.h>
 #endif
 
+#include "lily-proto.hh"
 #include "std-string.hh"
 #include "std-vector.hh"
-#include "lily-proto.hh"
 
 // GIGA urg!
 typedef struct yy_buffer_state *YY_BUFFER_STATE;
@@ -44,7 +44,6 @@ protected:
   std::vector<size_t> char_count_stack_;
 
 public:
-
   Includable_lexer ();
   ~Includable_lexer ();
   std::string main_input_name_;

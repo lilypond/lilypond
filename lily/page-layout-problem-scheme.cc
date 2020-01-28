@@ -17,8 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "lily-guile.hh"
 #include "grob.hh"
+#include "lily-guile.hh"
 #include "page-layout-problem.hh"
 
 LY_DEFINE (ly_get_spacing_spec, "ly:get-spacing-spec", 2, 0, 0,

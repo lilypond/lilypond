@@ -17,9 +17,9 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "engraver.hh"
 #include "pointer-group-interface.hh"
 #include "spanner.hh"
-#include "engraver.hh"
 #include "staff-symbol.hh"
 
 #include "translator.icc"
@@ -46,8 +46,7 @@ protected:
   void stop_translation_timestep ();
 };
 
-Ledger_line_engraver::Ledger_line_engraver (Context *c)
-  : Engraver (c)
+Ledger_line_engraver::Ledger_line_engraver (Context *c) : Engraver (c)
 {
   span_ = 0;
 }
@@ -69,9 +68,8 @@ Ledger_line_engraver::stop_translation_timestep ()
       for (vsize i = 0; i < ledgered_grobs_.size (); i++)
         {
           if (!to_boolean (ledgered_grobs_[i]->get_property ("no-ledgers")))
-            Pointer_group_interface::add_grob (span_,
-                                               ly_symbol2scm ("note-heads"),
-                                               ledgered_grobs_[i]);
+            Pointer_group_interface::add_grob (
+                span_, ly_symbol2scm ("note-heads"), ledgered_grobs_[i]);
         }
     }
 
@@ -99,7 +97,8 @@ Ledger_line_engraver::stop_spanner ()
 {
   if (span_)
     {
-      span_->set_bound (RIGHT, unsmob<Grob> (get_property ("currentCommandColumn")));
+      span_->set_bound (RIGHT,
+                        unsmob<Grob> (get_property ("currentCommandColumn")));
       span_ = 0;
     }
 }
@@ -109,8 +108,7 @@ Ledger_line_engraver::acknowledge_staff_symbol (Grob_info s)
 {
   Spanner *sym = dynamic_cast<Spanner *> (s.grob ());
 
-  if (!span_
-      || (span_->get_bound (LEFT) != sym->get_bound (LEFT)))
+  if (!span_ || (span_->get_bound (LEFT) != sym->get_bound (LEFT)))
     {
       stop_spanner ();
       start_spanner ();
@@ -142,5 +140,4 @@ ADD_TRANSLATOR (Ledger_line_engraver,
                 "",
 
                 /* write */
-                ""
-               );
+                "");

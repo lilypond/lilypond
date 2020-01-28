@@ -19,14 +19,14 @@
 
 #include "staff-symbol.hh"
 
-#include "lookup.hh"
 #include "dimensions.hh"
+#include "item.hh"
+#include "lookup.hh"
 #include "output-def.hh"
 #include "paper-column.hh"
-#include "warn.hh"
-#include "item.hh"
-#include "staff-symbol-referencer.hh"
 #include "spanner.hh"
+#include "staff-symbol-referencer.hh"
+#include "warn.hh"
 
 using std::vector;
 
@@ -38,7 +38,7 @@ Staff_symbol::print (SCM smob)
   Grob *me = unsmob<Grob> (smob);
   Spanner *sp = dynamic_cast<Spanner *> (me);
   Grob *common
-    = sp->get_bound (LEFT)->common_refpoint (sp->get_bound (RIGHT), X_AXIS);
+      = sp->get_bound (LEFT)->common_refpoint (sp->get_bound (RIGHT), X_AXIS);
 
   Interval span_points (0, 0);
 
@@ -75,9 +75,8 @@ Staff_symbol::print (SCM smob)
           // now, so we just reimplement.
           else
             {
-              SCM where = (d == RIGHT
-                           ? me->get_property ("break-align-symbols")
-                           : ly_symbol2scm ("break-alignment"));
+              SCM where = (d == RIGHT ? me->get_property ("break-align-symbols")
+                                      : ly_symbol2scm ("break-alignment"));
               span_points[d] = Paper_column::break_align_width (x, where)[d];
             }
         }
@@ -89,16 +88,13 @@ Staff_symbol::print (SCM smob)
 
   vector<Real> line_positions = Staff_symbol::line_positions (me);
 
-  Stencil line
-    = Lookup::horizontal_line (span_points
-                               - me->relative_coordinate (common, X_AXIS),
-                               t);
+  Stencil line = Lookup::horizontal_line (
+      span_points - me->relative_coordinate (common, X_AXIS), t);
 
   Real space = staff_space (me);
   for (vector<Real>::const_iterator i = line_positions.begin (),
-       e = line_positions.end ();
-       i != e;
-       ++i)
+                                    e = line_positions.end ();
+       i != e; ++i)
     {
       Stencil b (line);
       b.translate_axis (*i * 0.5 * space, Y_AXIS);
@@ -145,9 +141,8 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item const *head)
     {
       SCM func = scm_eval (lp_function, scm_interaction_environment ());
       if (ly_is_procedure (func))
-        return ly_scm2floatvector (scm_call_2 (func,
-                                               me->self_scm (),
-                                               scm_from_int (pos)));
+        return ly_scm2floatvector (
+            scm_call_2 (func, me->self_scm (), scm_from_int (pos)));
     }
 
   SCM ledger_positions = me->get_property ("ledger-positions");
@@ -162,9 +157,8 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item const *head)
   Real nearest_line = line_positions[0];
   Real line_dist = abs (line_positions[0] - pos);
   for (vector<Real>::const_iterator i = line_positions.begin (),
-       e = line_positions.end ();
-       i != e;
-       ++i)
+                                    e = line_positions.end ();
+       i != e; ++i)
     {
       if (abs (*i - pos) < line_dist)
         {
@@ -205,7 +199,7 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item const *head)
       ledger_fill.add_point (pos + 0.5 * dir + ledger_extra * dir);
 
       // fill the Interval ledger_fill with ledger lines
-      int n = (int) floor ((ledger_fill[DOWN] - min_pos) / cycle);
+      int n = (int)floor ((ledger_fill[DOWN] - min_pos) / cycle);
       Real current;
       SCM s = scm_cdr (ledger_positions);
       if (!scm_is_pair (s) || cycle < 0.1)
@@ -253,7 +247,8 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item const *head)
   else
     // normal ledger lines
     {
-      int ledger_count = (int) floor ((abs (nearest_line - pos) + ledger_extra) / 2);
+      int ledger_count
+          = (int)floor ((abs (nearest_line - pos) + ledger_extra) / 2);
       values.resize (ledger_count);
       for (int i = 0; i < ledger_count; i++)
         {
@@ -263,12 +258,11 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item const *head)
   // remove any ledger lines that would fall on staff lines,
   // which can happen when ledger-extra > 0
   vector<Real> final_values;
-  for (vector<Real>::const_iterator i = values.begin (),
-       e = values.end ();
-       i != e;
-       ++i)
+  for (vector<Real>::const_iterator i = values.begin (), e = values.end ();
+       i != e; ++i)
     {
-      if (find (line_positions.begin (), line_positions.end (), *i) == line_positions.end ())
+      if (find (line_positions.begin (), line_positions.end (), *i)
+          == line_positions.end ())
         {
           final_values.push_back (*i);
         }
@@ -316,7 +310,7 @@ Staff_symbol::height (SCM smob)
   Grob *me = unsmob<Grob> (smob);
 
   Interval y_ext = line_span (me); // units of staff position
-  if (!y_ext.is_empty ()) // line count > 0
+  if (!y_ext.is_empty ())          // line count > 0
     {
       // convert staff position to height
       y_ext *= 0.5 * staff_space (me);
@@ -352,10 +346,8 @@ Staff_symbol::on_line (Grob *me, int pos, bool allow_ledger)
 
   // staff lines (custom or standard)
   vector<Real> lines = Staff_symbol::line_positions (me);
-  for (vector<Real>::const_iterator i = lines.begin (),
-       e = lines.end ();
-       i != e;
-       ++i)
+  for (vector<Real>::const_iterator i = lines.begin (), e = lines.end ();
+       i != e; ++i)
     {
       if (pos == *i)
         return true;
@@ -368,9 +360,8 @@ Staff_symbol::on_line (Grob *me, int pos, bool allow_ledger)
       if (ledgers.empty ())
         return false;
       for (vector<Real>::const_iterator i = ledgers.begin (),
-           e = ledgers.end ();
-           i != e;
-           ++i)
+                                        e = ledgers.end ();
+           i != e; ++i)
         {
           if (pos == *i)
             return true;
@@ -417,5 +408,4 @@ ADD_INTERFACE (Staff_symbol,
                "line-positions "
                "staff-space "
                "thickness "
-               "width "
-              );
+               "width ");

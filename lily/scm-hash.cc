@@ -83,10 +83,7 @@ Scheme_hash_table::remove (SCM k)
 }
 
 static SCM
-collect_handles (void * /* closure */,
-                 SCM key,
-                 SCM value,
-                 SCM result)
+collect_handles (void * /* closure */, SCM key, SCM value, SCM result)
 {
   return scm_acons (key, value, result);
 }
@@ -94,6 +91,6 @@ collect_handles (void * /* closure */,
 SCM
 Scheme_hash_table::to_alist () const
 {
-  return scm_internal_hash_fold ((scm_t_hash_fold_fn) &collect_handles,
-                                 NULL, SCM_EOL, hash_tab ());
+  return scm_internal_hash_fold ((scm_t_hash_fold_fn)&collect_handles, NULL,
+                                 SCM_EOL, hash_tab ());
 }

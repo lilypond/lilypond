@@ -20,9 +20,9 @@
 #ifndef DOT_CONFIGURATION_HH
 #define DOT_CONFIGURATION_HH
 
-#include "lily-proto.hh"
-#include "direction.hh"
 #include "box.hh"
+#include "direction.hh"
+#include "lily-proto.hh"
 
 #include <map>
 

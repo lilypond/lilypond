@@ -34,10 +34,8 @@
   grob_property_path and context_property.
 */
 void
-general_pushpop_property (Context *context,
-                          SCM context_property,
-                          SCM grob_property_path,
-                          SCM new_value)
+general_pushpop_property (Context *context, SCM context_property,
+                          SCM grob_property_path, SCM new_value)
 {
   // Numbers may appear, but not in first place
   if (!scm_is_symbol (context_property)
@@ -48,8 +46,8 @@ general_pushpop_property (Context *context,
         assert (false);
     }
 
-  Grob_property_info (context, context_property).pushpop
-    (grob_property_path, new_value);
+  Grob_property_info (context, context_property)
+      .pushpop (grob_property_path, new_value);
 }
 
 bool
@@ -57,16 +55,18 @@ typecheck_grob (SCM symbol, SCM value)
 {
   if (Unpure_pure_container *upc = unsmob<Unpure_pure_container> (value))
     return typecheck_grob (symbol, upc->unpure_part ())
-      && typecheck_grob (symbol, upc->pure_part ());
+           && typecheck_grob (symbol, upc->pure_part ());
   return ly_is_procedure (value)
-    || type_check_assignment (symbol, value, ly_symbol2scm ("backend-type?"));
+         || type_check_assignment (symbol, value,
+                                   ly_symbol2scm ("backend-type?"));
 }
 
 class Grob_properties : public Simple_smob<Grob_properties>
 {
 public:
   SCM mark_smob () const;
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
+
 private:
   friend class Grob_property_info;
   friend SCM ly_make_grob_properties (SCM);
@@ -88,16 +88,18 @@ private:
   // nominal key of #t/#f and a value of the original cons cell.
   int nested_;
 
-  Grob_properties (SCM alist, SCM based_on) :
-    alist_ (alist), based_on_ (based_on),
-    // if the constructor was called with lists possibly containing
-    // partial overrides, we would need to initialize with based_on in
-    // order to trigger an initial update.  But this should never
-    // happen, so we initialize straight with alist.
-    cooked_ (alist), cooked_from_ (alist), nested_ (0) { }
+  Grob_properties (SCM alist, SCM based_on)
+      : alist_ (alist), based_on_ (based_on),
+        // if the constructor was called with lists possibly containing
+        // partial overrides, we would need to initialize with based_on in
+        // order to trigger an initial update.  But this should never
+        // happen, so we initialize straight with alist.
+        cooked_ (alist), cooked_from_ (alist), nested_ (0)
+  {
+  }
 };
 
-const char * const Grob_properties::type_p_name_ = "ly:grob-properties?";
+const char *const Grob_properties::type_p_name_ = "ly:grob-properties?";
 
 SCM
 Grob_properties::mark_smob () const
@@ -108,8 +110,8 @@ Grob_properties::mark_smob () const
   return cooked_from_;
 }
 
-LY_DEFINE (ly_make_grob_properties, "ly:make-grob-properties",
-           1, 0, 0, (SCM alist),
+LY_DEFINE (ly_make_grob_properties, "ly:make-grob-properties", 1, 0, 0,
+           (SCM alist),
            "This packages the given property list @var{alist} in"
            " a grob property container stored in a context property"
            " with the name of a grob.")
@@ -117,7 +119,6 @@ LY_DEFINE (ly_make_grob_properties, "ly:make-grob-properties",
   LY_ASSERT_TYPE (ly_is_list, alist, 1);
   return Grob_properties (alist, SCM_EOL).smobbed_copy ();
 }
-
 
 Grob_property_info
 Grob_property_info::find ()
@@ -128,7 +129,7 @@ Grob_property_info::find ()
   if (Context *c = context_->where_defined (symbol_, &res))
     if (c != context_)
       return Grob_property_info (c, symbol_, unsmob<Grob_properties> (res));
-  props_  = unsmob<Grob_properties> (res);
+  props_ = unsmob<Grob_properties> (res);
   return *this;
 }
 
@@ -164,8 +165,7 @@ Grob_property_info::create ()
   /*
     Don't mess with MIDI.
   */
-  if (g == context_
-      || !g->here_defined (symbol_, &current_context_val))
+  if (g == context_ || !g->here_defined (symbol_, &current_context_val))
     return false;
 
   Grob_properties *def = unsmob<Grob_properties> (current_context_val);
@@ -214,12 +214,13 @@ Grob_property_info::push (SCM grob_property_path, SCM new_value)
   if (scm_is_pair (rest))
     {
       // poor man's typechecking
-      if (typecheck_grob (symbol, nested_create_alist (rest, new_value))) {
-        SCM cell = scm_cons (grob_property_path, new_value);
-        props_->alist_ = scm_cons (cell, props_->alist_);
-        props_->nested_++;
-        return cell;
-      }
+      if (typecheck_grob (symbol, nested_create_alist (rest, new_value)))
+        {
+          SCM cell = scm_cons (grob_property_path, new_value);
+          props_->alist_ = scm_cons (cell, props_->alist_);
+          props_->nested_++;
+          return cell;
+        }
       return SCM_EOL;
     }
 
@@ -289,7 +290,6 @@ Grob_property_info::temporary_revert (SCM grob_property_path)
   return cell;
 }
 
-
 void
 Grob_property_info::matched_pop (SCM cell)
 {
@@ -345,14 +345,15 @@ Grob_property_info::pop (SCM grob_property_path)
   if (scm_is_pair (scm_cdr (grob_property_path)))
     {
       SCM old_alist = current_alist;
-      current_alist = evict_from_alist (grob_property_path, current_alist, daddy);
+      current_alist
+          = evict_from_alist (grob_property_path, current_alist, daddy);
       if (scm_is_eq (old_alist, current_alist))
         return;
       props_->nested_--;
     }
   else
-    current_alist = evict_from_alist (scm_car (grob_property_path),
-                                      current_alist, daddy);
+    current_alist
+        = evict_from_alist (scm_car (grob_property_path), current_alist, daddy);
 
   if (scm_is_eq (current_alist, daddy))
     {
@@ -368,12 +369,11 @@ Grob_property_info::pop (SCM grob_property_path)
   as argument.
 */
 void
-execute_pushpop_property (Context *context,
-                          SCM grob,
-                          SCM grob_property,
+execute_pushpop_property (Context *context, SCM grob, SCM grob_property,
                           SCM new_value)
 {
-  Grob_property_info (context, grob).pushpop (scm_list_1 (grob_property), new_value);
+  Grob_property_info (context, grob)
+      .pushpop (scm_list_1 (grob_property), new_value);
 }
 
 /*
@@ -414,7 +414,8 @@ apply_property_operations (Context *tg, SCM pre_init_ops)
   Return the object alist for SYM, checking if its base in enclosing
   contexts has changed. The alist is updated if necessary.
 */
-SCM Grob_property_info::updated ()
+SCM
+Grob_property_info::updated ()
 {
   assert (scm_is_symbol (symbol_));
 
@@ -426,7 +427,7 @@ SCM Grob_property_info::updated ()
   Context *dad = where.context_->get_parent_context ();
 
   SCM daddy_props
-    = dad ? Grob_property_info (dad, symbol_).updated () : SCM_EOL;
+      = dad ? Grob_property_info (dad, symbol_).updated () : SCM_EOL;
 
   SCM based_on = where.props_->based_on_;
   SCM alist = where.props_->alist_;

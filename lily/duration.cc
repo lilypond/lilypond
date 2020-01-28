@@ -20,8 +20,8 @@
 
 #include "duration.hh"
 
-#include "misc.hh"
 #include "lily-proto.hh"
+#include "misc.hh"
 
 using std::string;
 
@@ -61,8 +61,8 @@ Duration::Duration (Rational r, bool scale)
          satisfies the left inequality and is within a factor of 2 of
          satistying the right one. Therefore either k = k' or k = k'+1 */
 
-      int p = (int) r.num ();
-      int q = (int) r.den ();
+      int p = (int)r.num ();
+      int q = (int)r.den ();
       int k = intlog2 (q) - intlog2 (p);
       if (shift_left (p, k) < q)
         k++;
@@ -145,8 +145,7 @@ Duration::to_string () const
   return s;
 }
 
-const char * const Duration::type_p_name_ = "ly:duration?";
-
+const char *const Duration::type_p_name_ = "ly:duration?";
 
 int
 Duration::print_smob (SCM port, scm_print_state *) const
@@ -164,8 +163,7 @@ Duration::equal_p (SCM a, SCM b)
   Duration *p = unsmob<Duration> (a);
   Duration *q = unsmob<Duration> (b);
 
-  bool eq = p->dots_ == q->dots_
-            && p->durlog_ == q->durlog_
+  bool eq = p->dots_ == q->dots_ && p->durlog_ == q->durlog_
             && p->factor_ == q->factor_;
 
   return eq ? SCM_BOOL_T : SCM_BOOL_F;

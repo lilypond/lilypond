@@ -20,9 +20,9 @@
 #include <cstdio>
 #include <cstdlib>
 
+#include "grob-array.hh"
 #include "item.hh"
 #include "system.hh"
-#include "grob-array.hh"
 
 using std::vector;
 
@@ -56,8 +56,7 @@ substitute_grob (Grob *sc)
     }
   else
     {
-      System *line
-        = unsmob<System> (break_criterion);
+      System *line = unsmob<System> (break_criterion);
       if (sc->get_system () != line)
         sc = sc->find_broken_piece (line);
 
@@ -131,8 +130,7 @@ again:
       SCM newcar = do_break_substitution (scm_car (src));
       SCM oldcdr = scm_cdr (src);
 
-      if (SCM_UNBNDP (newcar)
-          && (scm_is_pair (oldcdr) || scm_is_null (oldcdr)))
+      if (SCM_UNBNDP (newcar) && (scm_is_pair (oldcdr) || scm_is_null (oldcdr)))
         {
           /*
             This is tail-recursion, ie.
@@ -289,15 +287,12 @@ struct Substitution_entry
   }
 
   int length () { return right_ - left_; }
-  static int
-  item_compare (void const *a, void const *b)
+  static int item_compare (void const *a, void const *b)
   {
-    return ((Substitution_entry *)a)->left_
-           - ((Substitution_entry *)b)->left_;
+    return ((Substitution_entry *)a)->left_ - ((Substitution_entry *)b)->left_;
   }
 
-  static int
-  spanner_compare (void const *a, void const *b)
+  static int spanner_compare (void const *a, void const *b)
   {
     return ((Substitution_entry *)a)->length ()
            - ((Substitution_entry *)b)->length ();
@@ -305,8 +300,7 @@ struct Substitution_entry
 };
 
 bool
-Spanner::fast_substitute_grob_array (SCM sym,
-                                     Grob_array *grob_array)
+Spanner::fast_substitute_grob_array (SCM sym, Grob_array *grob_array)
 {
   int len = grob_array->size ();
 
@@ -328,7 +322,8 @@ Spanner::fast_substitute_grob_array (SCM sym,
 
   if (vec_room < len)
     {
-      vec = (Substitution_entry *) realloc (vec, sizeof (Substitution_entry) * len);
+      vec = (Substitution_entry *)realloc (vec,
+                                           sizeof (Substitution_entry) * len);
       vec_room = len;
     }
 
@@ -354,8 +349,8 @@ Spanner::fast_substitute_grob_array (SCM sym,
       vec[idx].set (g, sr);
     }
 
-  qsort (vec, item_index,
-         sizeof (Substitution_entry), &Substitution_entry::item_compare);
+  qsort (vec, item_index, sizeof (Substitution_entry),
+         &Substitution_entry::item_compare);
 
   vector<Slice> item_indices;
   vector<Slice> spanner_indices;
@@ -365,11 +360,7 @@ Spanner::fast_substitute_grob_array (SCM sym,
       spanner_indices.push_back (Slice (len, 0));
     }
 
-  vector<Slice> *arrs[]
-  =
-  {
-    &item_indices, &spanner_indices
-  };
+  vector<Slice> *arrs[] = {&item_indices, &spanner_indices};
 
   for (int i = 0; i < item_index; i++)
     {
@@ -412,8 +403,7 @@ Spanner::fast_substitute_grob_array (SCM sym,
           }
 
 #ifdef PARANOIA
-      printf ("%d (%d), sp %d (%d)\n",
-              item_indices [i].length (), item_index,
+      printf ("%d (%d), sp %d (%d)\n", item_indices[i].length (), item_index,
               spanner_indices[i].length (), len - spanner_index);
 
       {
@@ -452,10 +442,8 @@ substitute_object_alist (SCM alist, SCM dest)
       if (Grob_array *orig = unsmob<Grob_array> (val))
         {
           SCM handle = scm_assq (sym, dest);
-          SCM newval
-            = (scm_is_pair (handle))
-              ? scm_cdr (handle)
-              : Grob_array::make_array ();
+          SCM newval = (scm_is_pair (handle)) ? scm_cdr (handle)
+                                              : Grob_array::make_array ();
 
           Grob_array *new_arr = unsmob<Grob_array> (newval);
           // TODO: What if new_arr is null?

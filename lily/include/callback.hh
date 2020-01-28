@@ -45,23 +45,19 @@ class Callback_wrapper : public Simple_smob<Callback_wrapper>
   // the scope containing the callback.
   SCM (*trampoline_) (SCM, SCM);
   Callback_wrapper (SCM (*trampoline) (SCM, SCM))
-    : trampoline_ (trampoline)
-  { } // Private constructor, use only in make_smob
+      : trampoline_ (trampoline)
+  {} // Private constructor, use only in make_smob
 public:
   LY_DECLARE_SMOB_PROC (&Callback_wrapper::call, 2, 0, 0)
-  SCM call (SCM target, SCM arg)
-  {
-    return trampoline_ (target, arg);
-  }
+  SCM call (SCM target, SCM arg) { return trampoline_ (target, arg); }
   // Callback wrappers are for an unchanging entity, so we do the Lisp
   // creation just once on the first call of make_smob.  So we only
   // get a single Callback_wrapper instance for each differently
   // templated make_smob call.
-  template <SCM (*trampoline) (SCM, SCM)>
-  static SCM make_smob ()
+  template <SCM (*trampoline) (SCM, SCM)> static SCM make_smob ()
   {
-    static SCM res =
-      scm_permanent_object (Callback_wrapper (trampoline).smobbed_copy ());
+    static SCM res
+        = scm_permanent_object (Callback_wrapper (trampoline).smobbed_copy ());
     return res;
   }
 };
@@ -73,8 +69,9 @@ class Callback2_wrapper : public Simple_smob<Callback2_wrapper>
   // Callback_wrapper but is otherwise identical.
   SCM (*trampoline_) (SCM, SCM, SCM);
   Callback2_wrapper (SCM (*trampoline) (SCM, SCM, SCM))
-    : trampoline_ (trampoline)
-  { } // Private constructor, use only in make_smob
+      : trampoline_ (trampoline)
+  {
+  } // Private constructor, use only in make_smob
 public:
   LY_DECLARE_SMOB_PROC (&Callback2_wrapper::call, 3, 0, 0)
   SCM call (SCM target, SCM arg1, SCM arg2)
@@ -82,11 +79,10 @@ public:
     return trampoline_ (target, arg1, arg2);
   }
 
-  template <SCM (*trampoline) (SCM, SCM, SCM)>
-  static SCM make_smob ()
+  template <SCM (*trampoline) (SCM, SCM, SCM)> static SCM make_smob ()
   {
-    static SCM res =
-      scm_permanent_object (Callback2_wrapper (trampoline).smobbed_copy ());
+    static SCM res
+        = scm_permanent_object (Callback2_wrapper (trampoline).smobbed_copy ());
     return res;
   }
 };
@@ -97,49 +93,41 @@ class Callback0_wrapper : public Simple_smob<Callback0_wrapper>
   // pass arguments but is otherwise identical to Callback_wrapper.
   SCM (*trampoline_) (SCM);
   Callback0_wrapper (SCM (*trampoline) (SCM))
-    : trampoline_ (trampoline)
-  { } // Private constructor, use only in make_smob
+      : trampoline_ (trampoline)
+  {} // Private constructor, use only in make_smob
 public:
   LY_DECLARE_SMOB_PROC (&Callback0_wrapper::call, 1, 0, 0)
-  SCM call (SCM target)
-  {
-    return trampoline_ (target);
-  }
+  SCM call (SCM target) { return trampoline_ (target); }
 
-  template <SCM (*trampoline) (SCM)>
-  static SCM make_smob ()
+  template <SCM (*trampoline) (SCM)> static SCM make_smob ()
   {
-    static SCM res =
-      scm_permanent_object (Callback0_wrapper (trampoline).smobbed_copy ());
+    static SCM res
+        = scm_permanent_object (Callback0_wrapper (trampoline).smobbed_copy ());
     return res;
   }
   // Since there are no arguments at all, we might as well provide
   // default trampolines
-  template <class T, SCM (T::*p)()>
-  static SCM trampoline (SCM target)
+  template <class T, SCM (T::*p) ()> static SCM trampoline (SCM target)
   {
     T *t = LY_ASSERT_SMOB (T, target, 1);
     return (t->*p) ();
   }
 
-  template <class T, void (T::*p)()>
-  static SCM trampoline (SCM target)
+  template <class T, void (T::*p) ()> static SCM trampoline (SCM target)
   {
     T *t = LY_ASSERT_SMOB (T, target, 1);
     (t->*p) ();
     return SCM_UNSPECIFIED;
   }
 
-  template <class T, SCM (T::*p)()>
-  static SCM make_smob ()
+  template <class T, SCM (T::*p) ()> static SCM make_smob ()
   {
-    return make_smob<trampoline<T, p> > ();
+    return make_smob<trampoline<T, p>> ();
   }
 
-  template <class T, void (T::*p)()>
-  static SCM make_smob ()
+  template <class T, void (T::*p) ()> static SCM make_smob ()
   {
-    return make_smob<trampoline<T, p> > ();
+    return make_smob<trampoline<T, p>> ();
   }
 };
 
@@ -149,30 +137,27 @@ public:
 class Method_instance : public Simple_smob<Method_instance>
 {
   SCM method_, instance_;
+
 public:
   LY_DECLARE_SMOB_PROC (&Method_instance::call, 0, 0, 1)
-  SCM call (SCM rest)
-  {
-    return scm_apply_1 (method_, instance_, rest);
-  }
+  SCM call (SCM rest) { return scm_apply_1 (method_, instance_, rest); }
 
   Method_instance (SCM method, SCM instance)
-    : method_ (method), instance_ (instance)
-  { }
+      : method_ (method), instance_ (instance)
+  {
+  }
   Method_instance (SCM method, Smob_core *instance)
-    : method_ (method), instance_ (instance->self_scm ())
-  { }
+      : method_ (method), instance_ (instance->self_scm ())
+  {
+  }
   SCM method () const { return method_; }
   SCM instance () const { return instance_; }
-  SCM operator () () const
-  {
-    return scm_call_1 (method_, instance_);
-  }
-  SCM operator () (SCM arg) const
+  SCM operator() () const { return scm_call_1 (method_, instance_); }
+  SCM operator() (SCM arg) const
   {
     return scm_call_2 (method_, instance_, arg);
   }
-  SCM operator () (SCM arg1, SCM arg2) const
+  SCM operator() (SCM arg1, SCM arg2) const
   {
     return scm_call_3 (method_, instance_, arg1, arg2);
   }

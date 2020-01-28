@@ -17,15 +17,15 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "context.hh"
-#include "paper-column.hh"
 #include "align-interface.hh"
 #include "axis-group-interface.hh"
+#include "context.hh"
 #include "engraver.hh"
-#include "international.hh"
-#include "spanner.hh"
-#include "pointer-group-interface.hh"
 #include "grob-array.hh"
+#include "international.hh"
+#include "paper-column.hh"
+#include "pointer-group-interface.hh"
+#include "spanner.hh"
 
 #include "translator.icc"
 
@@ -73,11 +73,9 @@ ADD_TRANSLATOR (Vertical_align_engraver,
                 "hasAxisGroup ",
 
                 /* write */
-                ""
-               );
+                "");
 
-Vertical_align_engraver::Vertical_align_engraver (Context *c)
-  : Engraver (c)
+Vertical_align_engraver::Vertical_align_engraver (Context *c) : Engraver (c)
 {
   valign_ = 0;
   id_to_group_hashtab_ = SCM_EOL;
@@ -107,11 +105,13 @@ Vertical_align_engraver::process_music ()
           id_to_group_hashtab_ = SCM_EOL;
           return;
         }
-      
+
       top_level_ = to_boolean (get_property ("topLevelAlignment"));
 
-      valign_ = make_spanner (top_level_ ? "VerticalAlignment" : "StaffGrouper", SCM_EOL);
-      valign_->set_bound (LEFT, unsmob<Grob> (get_property ("currentCommandColumn")));
+      valign_ = make_spanner (top_level_ ? "VerticalAlignment" : "StaffGrouper",
+                              SCM_EOL);
+      valign_->set_bound (LEFT,
+                          unsmob<Grob> (get_property ("currentCommandColumn")));
       Align_interface::set_ordered (valign_);
     }
 }
@@ -121,7 +121,8 @@ Vertical_align_engraver::finalize ()
 {
   if (valign_)
     {
-      valign_->set_bound (RIGHT, unsmob<Grob> (get_property ("currentCommandColumn")));
+      valign_->set_bound (RIGHT,
+                          unsmob<Grob> (get_property ("currentCommandColumn")));
       valign_ = 0;
     }
 }
@@ -161,7 +162,8 @@ Vertical_align_engraver::acknowledge_axis_group (Grob_info i)
 
       if (before_grob || after_grob)
         {
-          Grob_array *ga = unsmob<Grob_array> (valign_->get_object ("elements"));
+          Grob_array *ga
+              = unsmob<Grob_array> (valign_->get_object ("elements"));
           vector<Grob *> &arr = ga->array_reference ();
 
           Grob *added = arr.back ();
@@ -172,8 +174,10 @@ Vertical_align_engraver::acknowledge_axis_group (Grob_info i)
                 {
                   arr.insert (arr.begin () + i, added);
 
-                  /* Only set staff affinity if it already has one.  That way we won't
-                     set staff-affinity on things that don't want it (like staves). */
+                  /* Only set staff affinity if it already has one.  That way we
+                     won't
+                     set staff-affinity on things that don't want it (like
+                     staves). */
                   if (scm_is_number (added->get_property ("staff-affinity")))
                     added->set_property ("staff-affinity", scm_from_int (DOWN));
                   break;
@@ -190,7 +194,8 @@ Vertical_align_engraver::acknowledge_axis_group (Grob_info i)
     }
   else if (qualifies (i))
     {
-      Pointer_group_interface::add_grob (valign_, ly_symbol2scm ("elements"), i.grob ());
+      Pointer_group_interface::add_grob (valign_, ly_symbol2scm ("elements"),
+                                         i.grob ());
       if (!unsmob<Grob> (i.grob ()->get_object ("staff-grouper")))
         i.grob ()->set_object ("staff-grouper", valign_->self_scm ());
     }
@@ -210,7 +215,8 @@ Vertical_align_engraver::acknowledge_outside_staff (Grob_info i)
         }
       else
         {
-          programming_error ("cannot claim outside-staff grob before creating staff grouper");
+          programming_error (
+              "cannot claim outside-staff grob before creating staff grouper");
         }
     }
 }

@@ -23,7 +23,8 @@
 
 using std::string;
 
-void check_prefix (const string &name, int mask, int prefix_set, string *str)
+void
+check_prefix (const string &name, int mask, int prefix_set, string *str)
 {
   if (prefix_set & mask)
     {
@@ -37,8 +38,7 @@ string
 Gregorian_ligature::prefixes_to_str (Grob *primitive)
 {
   string str;
-  int prefix_set
-    = scm_to_int (primitive->get_property ("prefix-set"));
+  int prefix_set = scm_to_int (primitive->get_property ("prefix-set"));
   check_prefix ("virga", VIRGA, prefix_set, &str);
   check_prefix ("stropha", STROPHA, prefix_set, &str);
   check_prefix ("inclinatum", INCLINATUM, prefix_set, &str);
@@ -61,8 +61,7 @@ Gregorian_ligature::prefixes_to_str (Grob *primitive)
   subclass like VaticanaLigatureEngraver.  The property is lateron
   read by the associated item class, such as VaticanaLigature.--jr
 */
-ADD_INTERFACE (Gregorian_ligature,
-               "A gregorian ligature.",
+ADD_INTERFACE (Gregorian_ligature, "A gregorian ligature.",
 
                /* properties */
                "virga "
@@ -78,5 +77,4 @@ ADD_INTERFACE (Gregorian_ligature,
                "linea "
                "pes-or-flexa "
                "context-info "
-               "prefix-set "
-              );
+               "prefix-set ");

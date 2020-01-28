@@ -29,10 +29,11 @@ public:
   /* construction */
   OVERRIDE_CLASS_NAME (Chord_tremolo_iterator);
   Chord_tremolo_iterator ();
+
 protected:
   SCM get_music_list () const override;
+
 private:
 };
 
 #endif /* CHORD_TREMOLO_ITERATOR_HH */
-

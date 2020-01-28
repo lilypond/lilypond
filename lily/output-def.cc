@@ -17,6 +17,7 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "output-def.hh"
 #include "context-def.hh"
 #include "file-path.hh"
 #include "global-context.hh"
@@ -24,10 +25,8 @@
 #include "interval.hh"
 #include "ly-module.hh"
 #include "main.hh"
-#include "output-def.hh"
 #include "scm-hash.hh"
 #include "warn.hh"
-
 
 #include "program-option.hh"
 
@@ -45,8 +44,7 @@ Output_def::Output_def ()
   scope_ = ly_make_module (false);
 }
 
-Output_def::Output_def (Output_def const &s)
-  : Smob<Output_def> ()
+Output_def::Output_def (Output_def const &s) : Smob<Output_def> ()
 {
   scope_ = SCM_EOL;
   parent_ = 0;
@@ -58,10 +56,7 @@ Output_def::Output_def (Output_def const &s)
     ly_module_copy (scope_, s.scope_);
 }
 
-Output_def::~Output_def ()
-{
-}
-
+Output_def::~Output_def () {}
 
 SCM
 Output_def::mark_smob () const
@@ -75,7 +70,7 @@ Output_def::mark_smob () const
 }
 
 void
-assign_context_def (Output_def * m, SCM transdef)
+assign_context_def (Output_def *m, SCM transdef)
 {
   Context_def *tp = unsmob<Context_def> (transdef);
   assert (tp);
@@ -146,23 +141,20 @@ Output_def::normalize ()
   // We don't distinguish between outer-margin / left-margin and so on
   // until page-stencil positioning in page.scm
   Real left_margin, left_margin_default;
-  SCM scm_left_margin_default = (twosided
-                                 ? c_variable ("outer-margin-default-scaled")
-                                 : c_variable ("left-margin-default-scaled"));
-  SCM scm_left_margin = (twosided
-                         ? c_variable ("outer-margin")
-                         : c_variable ("left-margin"));
+  SCM scm_left_margin_default
+      = (twosided ? c_variable ("outer-margin-default-scaled")
+                  : c_variable ("left-margin-default-scaled"));
+  SCM scm_left_margin
+      = (twosided ? c_variable ("outer-margin") : c_variable ("left-margin"));
 
   Real right_margin, right_margin_default;
-  SCM scm_right_margin_default = (twosided
-                                  ? c_variable ("inner-margin-default-scaled")
-                                  : c_variable ("right-margin-default-scaled"));
-  SCM scm_right_margin = (twosided
-                          ? c_variable ("inner-margin")
-                          : c_variable ("right-margin"));
+  SCM scm_right_margin_default
+      = (twosided ? c_variable ("inner-margin-default-scaled")
+                  : c_variable ("right-margin-default-scaled"));
+  SCM scm_right_margin
+      = (twosided ? c_variable ("inner-margin") : c_variable ("right-margin"));
 
-  if (SCM_UNBNDP (scm_paper_width)
-      || SCM_UNBNDP (scm_left_margin_default)
+  if (SCM_UNBNDP (scm_paper_width) || SCM_UNBNDP (scm_left_margin_default)
       || SCM_UNBNDP (scm_right_margin_default))
     {
       programming_error ("called normalize () on paper with missing settings");
@@ -177,7 +169,7 @@ Output_def::normalize ()
 
   Real line_width;
   Real line_width_default
-    = paper_width - left_margin_default - right_margin_default;
+      = paper_width - left_margin_default - right_margin_default;
   SCM scm_line_width = c_variable ("line-width");
 
   Real binding_offset = 0;
@@ -186,12 +178,13 @@ Output_def::normalize ()
 
   if (SCM_UNBNDP (scm_line_width))
     {
-      left_margin = (SCM_UNBNDP (scm_left_margin)
-                     ? left_margin_default
-                     : scm_to_double (scm_left_margin));
-      right_margin = (SCM_UNBNDP (scm_right_margin)
-                      ? right_margin_default
-                      : scm_to_double (scm_right_margin)) + binding_offset;
+      left_margin
+          = (SCM_UNBNDP (scm_left_margin) ? left_margin_default
+                                          : scm_to_double (scm_left_margin));
+      right_margin
+          = (SCM_UNBNDP (scm_right_margin) ? right_margin_default
+                                           : scm_to_double (scm_right_margin))
+            + binding_offset;
       line_width = paper_width - left_margin - right_margin;
     }
   else
@@ -215,8 +208,9 @@ Output_def::normalize ()
         {
           left_margin = scm_to_double (scm_left_margin);
           right_margin = (SCM_UNBNDP (scm_right_margin)
-                           ? (paper_width - line_width - left_margin)
-                           : scm_to_double (scm_right_margin)) + binding_offset;
+                              ? (paper_width - line_width - left_margin)
+                              : scm_to_double (scm_right_margin))
+                         + binding_offset;
         }
     }
 
@@ -228,14 +222,16 @@ Output_def::normalize ()
           line_width = line_width_default;
           left_margin = left_margin_default;
           right_margin = right_margin_default;
-          warning (_ ("margins do not fit with line-width, setting default values"));
+          warning (
+              _ ("margins do not fit with line-width, setting default values"));
         }
       else if ((left_margin < 0) || (right_margin < 0))
         {
           line_width = line_width_default;
           left_margin = left_margin_default;
           right_margin = right_margin_default;
-          warning (_ ("systems run off the page due to improper paper settings, setting default values"));
+          warning (_ ("systems run off the page due to improper paper "
+                      "settings, setting default values"));
         }
     }
 
@@ -250,8 +246,7 @@ Interval
 line_dimensions_int (Output_def *def, int n)
 {
   Real lw = def->get_dimension (ly_symbol2scm ("line-width"));
-  Real ind = n
-    ? def->get_dimension (ly_symbol2scm ("short-indent"))
-    : def->get_dimension (ly_symbol2scm ("indent"));
+  Real ind = n ? def->get_dimension (ly_symbol2scm ("short-indent"))
+               : def->get_dimension (ly_symbol2scm ("indent"));
   return Interval (ind, lw);
 }

@@ -16,9 +16,9 @@
   You should have received a copy of the GNU General Public License
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
+#include "font-interface.hh"
 #include "grob.hh"
 #include "stencil.hh"
-#include "font-interface.hh"
 
 using std::string;
 
@@ -34,7 +34,8 @@ using std::string;
 
   Properties:
 
-  glyph -- text string (TODO: make one large glyph of the Ped symbol, removes need for member_print ())
+  glyph -- text string (TODO: make one large glyph of the Ped symbol, removes
+  need for member_print ())
 */
 
 /*
@@ -76,4 +77,3 @@ Sustain_pedal::print (SCM smob)
 
   return mol.smobbed_copy ();
 }
-

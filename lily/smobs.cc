@@ -39,13 +39,11 @@ init_smob_protection ()
 }
 ADD_SCM_INIT_FUNC (init_smob_protection, init_smob_protection);
 
-LY_DEFINE (ly_smob_protects, "ly:smob-protects",
-           0, 0, 0, (),
+LY_DEFINE (ly_smob_protects, "ly:smob-protects", 0, 0, 0, (),
            "Return LilyPond's internal smob protection list.")
 {
-  return scm_is_pair (smob_protection_list)
-         ? scm_cdr (smob_protection_list)
-         : SCM_EOL;
+  return scm_is_pair (smob_protection_list) ? scm_cdr (smob_protection_list)
+                                            : SCM_EOL;
 }
 
 void
@@ -62,7 +60,7 @@ protect_smob (SCM smob, SCM *prot_cons)
                  prot);
   *prot_cons = prot;
 #else
-  (void) prot_cons;
+  (void)prot_cons;
   scm_gc_protect_object (smob);
 #endif
 }
@@ -71,7 +69,7 @@ void
 unprotect_smob (SCM smob, SCM *prot_cons)
 {
 #if 1
-  (void) prot_cons;
+  (void)prot_cons;
   scm_gc_unprotect_object (smob);
 #else
   SCM next = scm_cdr (*prot_cons);
@@ -81,8 +79,7 @@ unprotect_smob (SCM smob, SCM *prot_cons)
   else
     {
       scm_set_car_x (*prot_cons, SCM_BOOL_F);
-      while (scm_is_pair (next)
-             && scm_is_false (scm_car (next)))
+      while (scm_is_pair (next) && scm_is_false (scm_car (next)))
 
         next = scm_cdr (next);
 
@@ -92,7 +89,6 @@ unprotect_smob (SCM smob, SCM *prot_cons)
   *prot_cons = SCM_EOL;
 #endif
 }
-
 
 Scm_init const *Scm_init::list_ = 0;
 

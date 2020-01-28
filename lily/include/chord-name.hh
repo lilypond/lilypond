@@ -20,8 +20,8 @@
 #ifndef CHORD_NAME_HH
 #define CHORD_NAME_HH
 
-#include "stencil.hh"
 #include "grob-interface.hh"
+#include "stencil.hh"
 
 class Chord_name
 {

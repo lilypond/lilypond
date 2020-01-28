@@ -19,12 +19,12 @@
 
 #include <algorithm> // for reverse
 
-#include "paper-column.hh"
-#include "output-def.hh"
-#include "side-position-interface.hh"
-#include "engraver.hh"
 #include "context.hh"
+#include "engraver.hh"
 #include "grob-array.hh"
+#include "output-def.hh"
+#include "paper-column.hh"
+#include "side-position-interface.hh"
 #include "stream-event.hh"
 
 #include "translator.icc"
@@ -62,11 +62,13 @@ Bar_number_engraver::listen_alternative (Stream_event *ev)
 
   alternative_event_ = ev;
   int current_barnumber = robust_scm2int (get_property ("currentBarNumber"), 0);
-  Direction alternative_dir = robust_scm2dir (ev->get_property ("alternative-dir"), CENTER);
-  bool make_alternative = scm_is_eq (get_property ("alternativeNumberingStyle"),
-                                     ly_symbol2scm ("numbers"))
-                          || scm_is_eq (get_property ("alternativeNumberingStyle"),
-                                        ly_symbol2scm ("numbers-with-letters"));
+  Direction alternative_dir
+      = robust_scm2dir (ev->get_property ("alternative-dir"), CENTER);
+  bool make_alternative
+      = scm_is_eq (get_property ("alternativeNumberingStyle"),
+                   ly_symbol2scm ("numbers"))
+        || scm_is_eq (get_property ("alternativeNumberingStyle"),
+                      ly_symbol2scm ("numbers-with-letters"));
   if (make_alternative)
     {
       /*
@@ -83,7 +85,8 @@ Bar_number_engraver::listen_alternative (Stream_event *ev)
       if (alternative_dir < RIGHT)
         current_barnumber = alternative_starting_bar_number_;
 
-      context ()->set_property ("currentBarNumber", scm_from_int (current_barnumber));
+      context ()->set_property ("currentBarNumber",
+                                scm_from_int (current_barnumber));
     }
 }
 
@@ -94,7 +97,8 @@ Bar_number_engraver::process_music ()
 
   if (scm_is_string (wb))
     {
-      Moment mp (robust_scm2moment (get_property ("measurePosition"), Moment (0)));
+      Moment mp (
+          robust_scm2moment (get_property ("measurePosition"), Moment (0)));
       SCM bn = get_property ("currentBarNumber");
       SCM proc = get_property ("barNumberVisibility");
       if (scm_is_number (bn) && ly_is_procedure (proc)
@@ -103,11 +107,14 @@ Bar_number_engraver::process_music ()
           create_items ();
           SCM alternative_style = get_property ("alternativeNumberingStyle");
           string text_tag = "";
-          if (scm_is_eq (alternative_style, ly_symbol2scm ("numbers-with-letters")))
+          if (scm_is_eq (alternative_style,
+                         ly_symbol2scm ("numbers-with-letters")))
             {
               if (alternative_event_)
                 {
-                  Direction alternative_dir = robust_scm2dir (alternative_event_->get_property ("alternative-dir"), RIGHT);
+                  Direction alternative_dir = robust_scm2dir (
+                      alternative_event_->get_property ("alternative-dir"),
+                      RIGHT);
                   switch (alternative_dir)
                     {
                     case LEFT:
@@ -123,22 +130,23 @@ Bar_number_engraver::process_music ()
                     }
                   alternative_number_ += alternative_number_increment_;
 
-                  alternative_number_increment_ = robust_scm2int (alternative_event_->get_property ("alternative-increment"), 1);
+                  alternative_number_increment_
+                      = robust_scm2int (alternative_event_->get_property (
+                                            "alternative-increment"),
+                                        1);
                 }
             }
           SCM formatter = get_property ("barNumberFormatter");
           if (ly_is_procedure (formatter))
-            text_->set_property ("text", scm_call_4 (formatter,
-                                                     bn,
-                                                     mp.smobbed_copy (),
-                                                     scm_from_int (alternative_number_),
-                                                     context ()->self_scm ()));
+            text_->set_property ("text",
+                                 scm_call_4 (formatter, bn, mp.smobbed_copy (),
+                                             scm_from_int (alternative_number_),
+                                             context ()->self_scm ()));
         }
     }
 }
 
-Bar_number_engraver::Bar_number_engraver (Context *c)
-  : Engraver (c)
+Bar_number_engraver::Bar_number_engraver (Context *c) : Engraver (c)
 {
   text_ = 0;
   alternative_starting_bar_number_ = 0;
@@ -151,8 +159,7 @@ void
 Bar_number_engraver::acknowledge_break_alignment (Grob_info inf)
 {
   Grob *s = inf.grob ();
-  if (text_
-      && dynamic_cast<Item *> (s))
+  if (text_ && dynamic_cast<Item *> (s))
     {
       text_->set_parent (s, X_AXIS);
     }
@@ -164,8 +171,9 @@ Bar_number_engraver::stop_translation_timestep ()
   alternative_event_ = 0;
   if (text_)
     {
-      text_->set_object ("side-support-elements",
-                         grob_list_to_grob_array (get_property ("stavesFound")));
+      text_->set_object (
+          "side-support-elements",
+          grob_list_to_grob_array (get_property ("stavesFound")));
       text_ = 0;
     }
 }
@@ -178,7 +186,6 @@ Bar_number_engraver::create_items ()
 
   text_ = make_item ("BarNumber", SCM_EOL);
 }
-
 
 void
 Bar_number_engraver::boot ()
@@ -208,5 +215,4 @@ ADD_TRANSLATOR (Bar_number_engraver,
                 "alternativeNumberingStyle ",
 
                 /* write */
-                "currentBarNumber "
-               );
+                "currentBarNumber ");

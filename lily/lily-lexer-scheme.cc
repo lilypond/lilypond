@@ -20,8 +20,7 @@
 
 #include "lily-lexer.hh"
 
-LY_DEFINE (ly_lexer_keywords, "ly:lexer-keywords",
-           1, 0, 0, (SCM lexer),
+LY_DEFINE (ly_lexer_keywords, "ly:lexer-keywords", 1, 0, 0, (SCM lexer),
            "Return a list of @code{(KEY . CODE)} pairs, signifying the"
            " LilyPond reserved words list.")
 {

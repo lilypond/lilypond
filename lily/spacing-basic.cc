@@ -19,14 +19,14 @@
 
 #include "spacing-spanner.hh"
 
-#include "spacing-options.hh"
 #include "moment.hh"
 #include "paper-column.hh"
-#include "warn.hh"
 #include "pointer-group-interface.hh"
-#include "system.hh"
 #include "spacing-interface.hh"
+#include "spacing-options.hh"
 #include "spring.hh"
+#include "system.hh"
+#include "warn.hh"
 
 /*
   LilyPond spaces by taking a simple-minded spacing algorithm, and
@@ -38,7 +38,8 @@
   different spacing wishes from one to the next column.
 */
 Spring
-Spacing_spanner::standard_breakable_column_spacing (Grob *me, Item *l, Item *r, Spacing_options const *options)
+Spacing_spanner::standard_breakable_column_spacing (
+    Grob *me, Item *l, Item *r, Spacing_options const *options)
 {
   Real min_dist = std::max (0.0, Paper_column::minimum_distance (l, r));
 
@@ -50,14 +51,16 @@ Spacing_spanner::standard_breakable_column_spacing (Grob *me, Item *l, Item *r, 
         mlen = *dt;
 
       Real incr = robust_scm2double (me->get_property ("spacing-increment"), 1);
-      Real space = incr * double (mlen.main_part_ / options->global_shortest_) * 0.8;
+      Real space
+          = incr * double (mlen.main_part_ / options->global_shortest_) * 0.8;
       Spring spring = Spring (min_dist + space, min_dist);
 
       /*
-        By default, the spring will have an inverse_stretch_strength of space+min_dist.
-        However, we don't want stretchability to scale with min_dist or else an
-        empty first measure on a line (which has a large min_dist because of the clef)
-        will stretch much more than an empty measure later in the line.
+        By default, the spring will have an inverse_stretch_strength of
+        space+min_dist. However, we don't want stretchability to scale with
+        min_dist or else an empty first measure on a line (which has a large
+        min_dist because of the clef) will stretch much more than an empty
+        measure later in the line.
       */
       spring.set_inverse_stretch_strength (space);
       return spring;
@@ -91,7 +94,8 @@ get_measure_length (Paper_column *column)
 
   do
     {
-      if (Moment *len = unsmob<Moment> (cols[col_idx]->get_property ("measure-length")))
+      if (Moment *len
+          = unsmob<Moment> (cols[col_idx]->get_property ("measure-length")))
         {
           return len;
         }
@@ -103,10 +107,8 @@ get_measure_length (Paper_column *column)
 
 /* Basic spring based on duration alone */
 Spring
-Spacing_spanner::note_spacing (Grob * /* me */,
-                               Paper_column *lc,
-                               Paper_column *rc,
-                               Spacing_options const *options)
+Spacing_spanner::note_spacing (Grob * /* me */, Paper_column *lc,
+                               Paper_column *rc, Spacing_options const *options)
 {
   Moment shortest_playing_len = 0;
   SCM s = lc->get_property ("shortest-playing-duration");
@@ -114,9 +116,10 @@ Spacing_spanner::note_spacing (Grob * /* me */,
   if (unsmob<Moment> (s))
     shortest_playing_len = *unsmob<Moment> (s);
 
-  if (! shortest_playing_len.to_bool ())
+  if (!shortest_playing_len.to_bool ())
     {
-      programming_error ("cannot find a ruling note at: " + Paper_column::when_mom (lc).to_string ());
+      programming_error ("cannot find a ruling note at: "
+                         + Paper_column::when_mom (lc).to_string ());
       shortest_playing_len = 1;
     }
 
@@ -150,7 +153,7 @@ Spacing_spanner::note_spacing (Grob * /* me */,
     {
       // A spring of length and stiffness based on the controlling duration
       Real len = options->get_duration_space (shortest_playing_len.main_part_);
-      Real min = options->increment_;  // canonical notehead width
+      Real min = options->increment_; // canonical notehead width
 
       // The portion of that spring proportional to the time between lc and rc
       Real fraction = (delta_t.main_part_ / shortest_playing_len.main_part_);
@@ -173,11 +176,10 @@ Spacing_spanner::note_spacing (Grob * /* me */,
           ret.set_inverse_stretch_strength (grace_opts.increment_ / 2.0);
         }
       else // Fallback to the old grace spacing: half that of the shortest note
-        ret = Spring (options->
-                      get_duration_space (options->global_shortest_) / 2.0,
+        ret = Spring (options->get_duration_space (options->global_shortest_)
+                          / 2.0,
                       options->increment_ / 2.0);
     }
 
   return ret;
 }
-

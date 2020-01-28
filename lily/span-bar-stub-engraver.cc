@@ -21,11 +21,11 @@
 
 #include "align-interface.hh"
 #include "context.hh"
-#include "grob.hh"
+#include "engraver.hh"
 #include "grob-properties.hh"
+#include "grob.hh"
 #include "item.hh"
 #include "pointer-group-interface.hh"
-#include "engraver.hh"
 
 #include "translator.icc"
 
@@ -56,6 +56,7 @@ class Span_bar_stub_engraver : public Engraver
 
 public:
   TRANSLATOR_DECLARATIONS (Span_bar_stub_engraver);
+
 protected:
   void acknowledge_span_bar (Grob_info);
   void acknowledge_hara_kiri_group_spanner (Grob_info);
@@ -64,8 +65,7 @@ protected:
   void derived_mark () const override;
 };
 
-Span_bar_stub_engraver::Span_bar_stub_engraver (Context *c)
-  : Engraver (c)
+Span_bar_stub_engraver::Span_bar_stub_engraver (Context *c) : Engraver (c)
 {
   axis_groups_ = SCM_EOL;
 }
@@ -85,7 +85,9 @@ Span_bar_stub_engraver::acknowledge_span_bar (Grob_info i)
 void
 Span_bar_stub_engraver::acknowledge_hara_kiri_group_spanner (Grob_info i)
 {
-  axis_groups_ = scm_cons (scm_cons (i.grob ()->self_scm (), i.context ()->self_scm ()), axis_groups_);
+  axis_groups_
+      = scm_cons (scm_cons (i.grob ()->self_scm (), i.context ()->self_scm ()),
+                  axis_groups_);
 }
 
 void
@@ -96,11 +98,14 @@ Span_bar_stub_engraver::process_acknowledged ()
 
   if (!scm_is_pair (axis_groups_))
     {
-      programming_error ("At least one vertical axis group needs to be created in the first time step.");
+      programming_error ("At least one vertical axis group needs to be created "
+                         "in the first time step.");
       return;
     }
-  Grob *vertical_alignment = Grob::get_root_vertical_alignment (unsmob<Grob> (scm_caar (axis_groups_)));
-  if (!vertical_alignment) // we are at the beginning of a score, so no need for stubs
+  Grob *vertical_alignment = Grob::get_root_vertical_alignment (
+      unsmob<Grob> (scm_caar (axis_groups_)));
+  if (!vertical_alignment) // we are at the beginning of a score, so no need for
+                           // stubs
     return;
 
   for (vsize i = 0; i < spanbars_.size (); i++)
@@ -111,7 +116,7 @@ Span_bar_stub_engraver::process_acknowledged ()
         {
           int i = Grob::get_vertical_axis_group_index (bars[j]);
           if (i >= 0)
-            bar_axis_indices.push_back ((vsize) i);
+            bar_axis_indices.push_back ((vsize)i);
         }
       vector<Context *> affected_contexts;
       vector<Grob *> y_parents;
@@ -126,9 +131,9 @@ Span_bar_stub_engraver::process_acknowledged ()
             continue;
 
           vsize j = Grob::get_vertical_axis_group_index (g);
-          if (j > bar_axis_indices[0]
-              && j < bar_axis_indices.back ()
-              && find (bar_axis_indices.begin (), bar_axis_indices.end (), j) == bar_axis_indices.end ())
+          if (j > bar_axis_indices[0] && j < bar_axis_indices.back ()
+              && find (bar_axis_indices.begin (), bar_axis_indices.end (), j)
+                     == bar_axis_indices.end ())
             {
               vsize k = 0;
               for (; k < bar_axis_indices.size (); k++)
@@ -139,7 +144,8 @@ Span_bar_stub_engraver::process_acknowledged ()
 
               if (c && c->get_parent_context ())
                 {
-                  keep_extent.push_back (to_boolean (bars[k]->get_property ("allow-span-bar")));
+                  keep_extent.push_back (
+                      to_boolean (bars[k]->get_property ("allow-span-bar")));
                   y_parents.push_back (g);
                   affected_contexts.push_back (c);
                 }
@@ -148,7 +154,10 @@ Span_bar_stub_engraver::process_acknowledged ()
 
       for (vsize j = 0; j < affected_contexts.size (); j++)
         {
-          Item *it = new Item (Grob_property_info (affected_contexts[j], ly_symbol2scm ("SpanBarStub")).updated ());
+          Item *it
+              = new Item (Grob_property_info (affected_contexts[j],
+                                              ly_symbol2scm ("SpanBarStub"))
+                              .updated ());
           it->set_parent (spanbars_[i], X_AXIS);
           Grob_info gi = make_grob_info (it, spanbars_[i]->self_scm ());
           announce_grob (gi, affected_contexts[j]);
@@ -185,16 +194,16 @@ Span_bar_stub_engraver::boot ()
   ADD_ACKNOWLEDGER (Span_bar_stub_engraver, hara_kiri_group_spanner);
 }
 
-ADD_TRANSLATOR (Span_bar_stub_engraver,
-                /* doc */
-                "Make stubs for span bars in all contexts that the span bars cross.",
+ADD_TRANSLATOR (
+    Span_bar_stub_engraver,
+    /* doc */
+    "Make stubs for span bars in all contexts that the span bars cross.",
 
-                /* create */
-                "SpanBarStub ",
+    /* create */
+    "SpanBarStub ",
 
-                /* read */
-                "",
+    /* read */
+    "",
 
-                /* write */
-                ""
-               );
+    /* write */
+    "");

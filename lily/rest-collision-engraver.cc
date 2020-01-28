@@ -26,8 +26,8 @@
 #include "moment.hh"
 #include "note-column.hh"
 #include "paper-column.hh"
-#include "rest.hh"
 #include "rest-collision.hh"
+#include "rest.hh"
 #include "rhythmic-head.hh"
 #include "stream-event.hh"
 #include "warn.hh"
@@ -43,12 +43,12 @@ protected:
 
   void process_acknowledged ();
   void stop_translation_timestep ();
+
 public:
   TRANSLATOR_DECLARATIONS (Rest_collision_engraver);
 };
 
-Rest_collision_engraver::Rest_collision_engraver (Context *c)
-  : Engraver (c)
+Rest_collision_engraver::Rest_collision_engraver (Context *c) : Engraver (c)
 {
   rest_collision_ = 0;
 }
@@ -71,11 +71,14 @@ Rest_collision_engraver::process_acknowledged ()
         {
           Grob *column = g->get_parent (X_AXIS);
           if (!column)
-              continue;
+            continue;
 
-          // Only include rests that start now. Include notes that started any time.
-          Paper_column *paper_column = dynamic_cast<Item *> (column)->get_column ();
-          if (!has_interface<Rest> (g) || !paper_column || Paper_column::when_mom (paper_column) == now)
+          // Only include rests that start now. Include notes that started any
+          // time.
+          Paper_column *paper_column
+              = dynamic_cast<Item *> (column)->get_column ();
+          if (!has_interface<Rest> (g) || !paper_column
+              || Paper_column::when_mom (paper_column) == now)
             {
               columns.insert (column);
               rest_count += Note_column::has_rests (column);
@@ -100,7 +103,6 @@ Rest_collision_engraver::stop_translation_timestep ()
 void
 Rest_collision_engraver::boot ()
 {
-
 }
 
 ADD_TRANSLATOR (Rest_collision_engraver,
@@ -114,5 +116,4 @@ ADD_TRANSLATOR (Rest_collision_engraver,
                 "busyGrobs ",
 
                 /* write */
-                ""
-               );
+                "");

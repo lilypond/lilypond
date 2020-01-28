@@ -19,16 +19,14 @@
 
 #include "score.hh"
 
-#include "music.hh"
-#include "output-def.hh"
 #include "global-context.hh"
 #include "music-output.hh"
-#include "paper-score.hh"
+#include "music.hh"
+#include "output-def.hh"
 #include "paper-book.hh"
+#include "paper-score.hh"
 
-LY_DEFINE (ly_make_score, "ly:make-score",
-           1, 0, 0,
-           (SCM music),
+LY_DEFINE (ly_make_score, "ly:make-score", 1, 0, 0, (SCM music),
            "Return score with @var{music} encapsulated in it.")
 {
   LY_ASSERT_SMOB (Music, music, 1);
@@ -39,8 +37,7 @@ LY_DEFINE (ly_make_score, "ly:make-score",
   return score->unprotect ();
 }
 
-LY_DEFINE (ly_score_output_defs, "ly:score-output-defs",
-           1, 0, 0, (SCM score),
+LY_DEFINE (ly_score_output_defs, "ly:score-output-defs", 1, 0, 0, (SCM score),
            "All output definitions in a score.")
 {
   LY_ASSERT_SMOB (Score, score, 1);
@@ -52,8 +49,8 @@ LY_DEFINE (ly_score_output_defs, "ly:score-output-defs",
   return scm_reverse_x (l, SCM_EOL);
 }
 
-LY_DEFINE (ly_score_add_output_def_x, "ly:score-add-output-def!",
-           2, 0, 0, (SCM score, SCM def),
+LY_DEFINE (ly_score_add_output_def_x, "ly:score-add-output-def!", 2, 0, 0,
+           (SCM score, SCM def),
            "Add an output definition @var{def} to @var{score}.")
 {
   LY_ASSERT_SMOB (Score, score, 1);
@@ -64,8 +61,7 @@ LY_DEFINE (ly_score_add_output_def_x, "ly:score-add-output-def!",
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_score_header, "ly:score-header",
-           1, 0, 0, (SCM score),
+LY_DEFINE (ly_score_header, "ly:score-header", 1, 0, 0, (SCM score),
            "Return score header.")
 {
   LY_ASSERT_SMOB (Score, score, 1);
@@ -73,9 +69,8 @@ LY_DEFINE (ly_score_header, "ly:score-header",
   return sc->get_header ();
 }
 
-LY_DEFINE (ly_score_set_header_x, "ly:score-set-header!",
-           2, 0, 0, (SCM score, SCM module),
-           "Set the score header.")
+LY_DEFINE (ly_score_set_header_x, "ly:score-set-header!", 2, 0, 0,
+           (SCM score, SCM module), "Set the score header.")
 {
   LY_ASSERT_SMOB (Score, score, 1);
   SCM_ASSERT_TYPE (ly_is_module (module), module, SCM_ARG2, __FUNCTION__,
@@ -86,8 +81,7 @@ LY_DEFINE (ly_score_set_header_x, "ly:score-set-header!",
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_score_music, "ly:score-music",
-           1, 0, 0, (SCM score),
+LY_DEFINE (ly_score_music, "ly:score-music", 1, 0, 0, (SCM score),
            "Return score music.")
 {
   LY_ASSERT_SMOB (Score, score, 1);
@@ -95,8 +89,7 @@ LY_DEFINE (ly_score_music, "ly:score-music",
   return sc->get_music ();
 }
 
-LY_DEFINE (ly_score_error_p, "ly:score-error?",
-           1, 0, 0, (SCM score),
+LY_DEFINE (ly_score_error_p, "ly:score-error?", 1, 0, 0, (SCM score),
            "Was there an error in the score?")
 {
   LY_ASSERT_SMOB (Score, score, 1);
@@ -104,8 +97,8 @@ LY_DEFINE (ly_score_error_p, "ly:score-error?",
   return scm_from_bool (sc->error_found_);
 }
 
-LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
-           2, 0, 0, (SCM score, SCM layout),
+LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format", 2, 0, 0,
+           (SCM score, SCM layout),
            "Run @var{score} through @var{layout} (an output definition)"
            " scaled to correct output-scale already, returning a list of"
            " layout-lines.")

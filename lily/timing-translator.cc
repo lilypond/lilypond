@@ -19,11 +19,11 @@
 
 #include "timing-translator.hh"
 
-#include "warn.hh"
-#include "translator-group.hh"
 #include "global-context.hh"
-#include "moment.hh"
 #include "lily-imports.hh"
+#include "moment.hh"
+#include "translator-group.hh"
+#include "warn.hh"
 
 void
 Timing_translator::stop_translation_timestep ()
@@ -46,8 +46,8 @@ Timing_translator::stop_translation_timestep ()
 void
 Timing_translator::initialize ()
 {
-  Context *timing = unsmob<Context>
-    (Lily::ly_context_find (context ()->self_scm (), ly_symbol2scm ("Timing")));
+  Context *timing = unsmob<Context> (Lily::ly_context_find (
+      context ()->self_scm (), ly_symbol2scm ("Timing")));
   if (timing != context ())
     {
       context ()->add_alias (ly_symbol2scm ("Timing"));
@@ -78,10 +78,10 @@ Timing_translator::initialize ()
 
   if (!unsmob<Moment> (measureLength))
     {
-      measureLength =
-        Moment (ly_scm2rational
-                (scm_divide (scm_car (timeSignatureFraction),
-                             scm_cdr (timeSignatureFraction)))).smobbed_copy ();
+      measureLength = Moment (ly_scm2rational (
+                                  scm_divide (scm_car (timeSignatureFraction),
+                                              scm_cdr (timeSignatureFraction))))
+                          .smobbed_copy ();
     }
   context ()->set_property ("measureLength", measureLength);
 
@@ -109,20 +109,18 @@ Timing_translator::initialize ()
   SCM baseMoment = timing->get_property ("baseMoment");
   if (!unsmob<Moment> (baseMoment))
     {
-      baseMoment =
-        Moment (ly_scm2rational
-                (Lily::base_length (timeSignatureFraction,
-                                    timeSignatureSettings))).smobbed_copy ();
+      baseMoment = Moment (ly_scm2rational (Lily::base_length (
+                               timeSignatureFraction, timeSignatureSettings)))
+                       .smobbed_copy ();
     }
   context ()->set_property ("baseMoment", baseMoment);
 
   SCM beatStructure = timing->get_property ("beatStructure");
   if (!scm_is_pair (beatStructure))
     {
-      beatStructure =
-        Lily::beat_structure (ly_rational2scm (unsmob<Moment> (baseMoment)->main_part_),
-                              timeSignatureFraction,
-                              timeSignatureSettings);
+      beatStructure = Lily::beat_structure (
+          ly_rational2scm (unsmob<Moment> (baseMoment)->main_part_),
+          timeSignatureFraction, timeSignatureSettings);
     }
   context ()->set_property ("beatStructure", beatStructure);
 
@@ -143,10 +141,7 @@ Timing_translator::measure_length () const
     return Rational (1);
 }
 
-Timing_translator::Timing_translator (Context *c)
-  : Translator (c)
-{
-}
+Timing_translator::Timing_translator (Context *c) : Translator (c) {}
 
 void
 Timing_translator::start_translation_timestep ()
@@ -180,7 +175,8 @@ Timing_translator::start_translation_timestep ()
     }
 
   int current_barnumber = robust_scm2int (get_property ("currentBarNumber"), 0);
-  int internal_barnumber = robust_scm2int (get_property ("internalBarNumber"), 0);
+  int internal_barnumber
+      = robust_scm2int (get_property ("internalBarNumber"), 0);
 
   SCM cad = get_property ("timing");
   bool c = to_boolean (cad);
@@ -199,7 +195,6 @@ Timing_translator::start_translation_timestep ()
         }
     }
 
-
   // Because "timing" can be switched on and off asynchronously with
   // graces, measurePosition might get into strange settings of
   // grace_part_.  It does not actually make sense to have it diverge
@@ -214,9 +209,10 @@ Timing_translator::start_translation_timestep ()
 
   measposp.grace_part_ = now.grace_part_;
 
-
-  context ()->set_property ("currentBarNumber", scm_from_int (current_barnumber));
-  context ()->set_property ("internalBarNumber", scm_from_int (internal_barnumber));
+  context ()->set_property ("currentBarNumber",
+                            scm_from_int (current_barnumber));
+  context ()->set_property ("internalBarNumber",
+                            scm_from_int (internal_barnumber));
   context ()->set_property ("measurePosition", measposp.smobbed_copy ());
 }
 
@@ -225,7 +221,6 @@ Timing_translator::start_translation_timestep ()
 void
 Timing_translator::boot ()
 {
-
 }
 
 ADD_TRANSLATOR (Timing_translator,
@@ -253,5 +248,4 @@ ADD_TRANSLATOR (Timing_translator,
                 "internalBarNumber "
                 "measureLength "
                 "measurePosition "
-                "timeSignatureFraction "
-               );
+                "timeSignatureFraction ");

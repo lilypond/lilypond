@@ -32,7 +32,7 @@
 using std::string;
 using std::vector;
 
-template<typename T>
+template <typename T>
 static bool
 is_break (T *g)
 {
@@ -40,11 +40,14 @@ is_break (T *g)
 
   if (turnable)
     {
-      bool page_breakable = scm_is_symbol (g->get_property ("page-break-permission"));
-      bool line_breakable = scm_is_symbol (g->get_property ("line-break-permission"));
+      bool page_breakable
+          = scm_is_symbol (g->get_property ("page-break-permission"));
+      bool line_breakable
+          = scm_is_symbol (g->get_property ("line-break-permission"));
       if (!page_breakable || !line_breakable)
         {
-          programming_error ("found a page-turnable place which was not breakable");
+          programming_error (
+              "found a page-turnable place which was not breakable");
           turnable = false;
         }
     }
@@ -53,22 +56,20 @@ is_break (T *g)
 }
 
 Page_turn_page_breaking::Page_turn_page_breaking (Paper_book *pb)
-  : Page_breaking (pb, is_break<Grob>, is_break<Prob>)
+    : Page_breaking (pb, is_break<Grob>, is_break<Prob>)
 {
 }
 
-Page_turn_page_breaking::~Page_turn_page_breaking ()
-{
-}
+Page_turn_page_breaking::~Page_turn_page_breaking () {}
 
 Page_turn_page_breaking::Break_node
-Page_turn_page_breaking::put_systems_on_pages (vsize start,
-                                               vsize end,
+Page_turn_page_breaking::put_systems_on_pages (vsize start, vsize end,
                                                vsize configuration,
                                                int page_number)
 {
   vsize min_p_count = min_page_count (configuration, page_number);
-  bool auto_first = to_boolean (book_->paper_->c_variable ("auto-first-page-number"));
+  bool auto_first
+      = to_boolean (book_->paper_->c_variable ("auto-first-page-number"));
 
   /* If [START, END] does not contain an intermediate
      breakpoint, we may need to consider solutions that result in a bad turn.
@@ -93,14 +94,17 @@ Page_turn_page_breaking::put_systems_on_pages (vsize start,
   if (start == 0 && auto_first)
     {
       if (min_p_count % 2)
-        result = space_systems_on_n_or_one_more_pages (configuration, min_p_count, page_number, 0);
+        result = space_systems_on_n_or_one_more_pages (
+            configuration, min_p_count, page_number, 0);
       else
-        result = space_systems_on_n_pages (configuration, min_p_count, page_number);
+        result = space_systems_on_n_pages (configuration, min_p_count,
+                                           page_number);
     }
   else if (((page_number % 2) == 0) == ((min_p_count % 2) == 0))
     result = space_systems_on_n_pages (configuration, min_p_count, page_number);
   else
-    result = space_systems_on_n_or_one_more_pages (configuration, min_p_count, page_number, blank_page_penalty ());
+    result = space_systems_on_n_or_one_more_pages (
+        configuration, min_p_count, page_number, blank_page_penalty ());
 
   Break_node ret;
   ret.prev_ = start - 1;
@@ -151,11 +155,12 @@ Page_turn_page_breaking::calc_subproblem (vsize ending_breakpoint)
       if (start > 0 && best.demerits_ < state_[start - 1].demerits_)
         continue;
 
-      int p_num = robust_scm2int (book_->paper_->c_variable ("first-page-number"), 1);
+      int p_num
+          = robust_scm2int (book_->paper_->c_variable ("first-page-number"), 1);
       if (start > 0)
         {
-          /* except possibly for the first page, enforce the fact that first_page_number_
-             should always be even (left hand page).
+          /* except possibly for the first page, enforce the fact that
+             first_page_number_ should always be even (left hand page).
              TODO: are there different conventions in right-to-left languages?
           */
           p_num = state_[start - 1].first_page_number_;
@@ -173,14 +178,17 @@ Page_turn_page_breaking::calc_subproblem (vsize ending_breakpoint)
       bool ok_page = true;
 
       if (debug_page_breaking_scoring)
-        message (_f ("page-turn-page-breaking: breaking from %d to %d", (int) start, (int) end));
+        message (_f ("page-turn-page-breaking: breaking from %d to %d",
+                     (int)start, (int)end));
 
       /* heuristic: we've just added a breakpoint, we'll need at least as
          many systems as before */
       min_sys_count = std::max (min_sys_count, prev_best_system_count);
-      for (vsize sys_count = min_sys_count; sys_count <= max_sys_count && ok_page; sys_count++)
+      for (vsize sys_count = min_sys_count;
+           sys_count <= max_sys_count && ok_page; sys_count++)
         {
-          set_current_breakpoints (start, end, sys_count, min_division, max_division);
+          set_current_breakpoints (start, end, sys_count, min_division,
+                                   max_division);
           bool found = false;
 
           for (vsize i = 0; i < current_configuration_count (); i++)
@@ -190,7 +198,8 @@ Page_turn_page_breaking::calc_subproblem (vsize ending_breakpoint)
               if (std::isinf (cur.demerits_)
                   || (cur.page_count_ + (p_num % 2) > 2
                       && (!std::isinf (this_start_best.demerits_))
-                      && total_page_count (cur) > total_page_count (this_start_best)))
+                      && total_page_count (cur)
+                             > total_page_count (this_start_best)))
                 {
                   ok_page = false;
                   break;
@@ -205,7 +214,8 @@ Page_turn_page_breaking::calc_subproblem (vsize ending_breakpoint)
                   this_start_best = cur;
                   prev_best_system_count = sys_count;
 
-                  /* heuristic: if we increase the number of systems, we can bound the
+                  /* heuristic: if we increase the number of systems, we can
+                     bound the
                      division from below by our current best division */
                   min_division = current_configuration (i);
                 }
@@ -219,8 +229,7 @@ Page_turn_page_breaking::calc_subproblem (vsize ending_breakpoint)
           break;
         }
 
-      if (start == 0 && end == 1
-          && this_start_best.first_page_number_ == 1
+      if (start == 0 && end == 1 && this_start_best.first_page_number_ == 1
           && this_start_best.page_count_ > 1)
         warning (_ ("cannot fit the first page turn onto a single page."
                     "  Consider setting first-page-number to an even number."));
@@ -236,7 +245,7 @@ Page_turn_page_breaking::solve ()
 {
   state_.clear ();
   message (_f ("Calculating page and line breaks (%d possible page breaks)...",
-               (int) last_break_position ()));
+               (int)last_break_position ()));
   for (vsize i = 0; i < last_break_position (); i++)
     {
       calc_subproblem (i);
@@ -275,7 +284,8 @@ Page_turn_page_breaking::make_lines (vector<Break_node> *psoln)
 }
 
 SCM
-Page_turn_page_breaking::make_pages (vector<Break_node> const &soln, SCM systems)
+Page_turn_page_breaking::make_pages (vector<Break_node> const &soln,
+                                     SCM systems)
 {
   if (scm_is_null (systems))
     return SCM_EOL;
@@ -286,7 +296,8 @@ Page_turn_page_breaking::make_pages (vector<Break_node> const &soln, SCM systems
       for (vsize j = 0; j < soln[i].page_count_; j++)
         lines_per_page.push_back (soln[i].system_count_[j]);
 
-      if (i + 1 < soln.size () && (soln[i].first_page_number_ + soln[i].page_count_) % 2)
+      if (i + 1 < soln.size ()
+          && (soln[i].first_page_number_ + soln[i].page_count_) % 2)
         /* add a blank page */
         lines_per_page.push_back (0);
     }
@@ -305,9 +316,9 @@ Page_turn_page_breaking::print_break_node (Break_node const &node)
   for (vsize i = 0; i < node.system_count_.size (); i++)
     system_count += node.system_count_[i];
 
-  message (_f ("break starting at page %d", (int) node.first_page_number_));
+  message (_f ("break starting at page %d", (int)node.first_page_number_));
   message (_f ("\tdemerits: %f", node.demerits_));
   message (_f ("\tsystem count: %zu", system_count));
-  message (_f ("\tpage count: %d", (int) node.page_count_));
-  message (_f ("\tprevious break: %d", (int) node.prev_));
+  message (_f ("\tpage count: %d", (int)node.page_count_));
+  message (_f ("\tprevious break: %d", (int)node.prev_));
 }

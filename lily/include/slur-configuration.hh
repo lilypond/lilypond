@@ -54,13 +54,14 @@ public:
 
   Real score () const { return score_; }
   std::string card () const { return score_card_; }
-  void add_score (Real, const std::string&);
+  void add_score (Real, const std::string &);
 
   void generate_curve (Slur_score_state const &state, Real r0, Real h_inf,
                        std::vector<Offset> const &);
   void run_next_scorer (Slur_score_state const &);
   bool done () const;
-  static Slur_configuration *new_config (Drul_array<Offset> const &offs, int idx);
+  static Slur_configuration *new_config (Drul_array<Offset> const &offs,
+                                         int idx);
 
 protected:
   void score_extra_encompass (Slur_score_state const &);
@@ -75,7 +76,7 @@ protected:
 class Slur_configuration_less
 {
 public:
-  bool operator () (Slur_configuration *const &l, Slur_configuration *const &r)
+  bool operator() (Slur_configuration *const &l, Slur_configuration *const &r)
   {
     // Invert
     return l->score_ > r->score_;
@@ -83,4 +84,3 @@ public:
 };
 
 #endif /* SLUR_CONFIGURATION_HH */
-

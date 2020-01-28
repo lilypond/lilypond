@@ -21,17 +21,17 @@
 
 #include "grob.hh"
 #include "international.hh"
+#include "lily-imports.hh"
+#include "ly-module.hh"
 #include "main.hh"
 #include "output-def.hh"
+#include "page-marker.hh"
 #include "paper-column.hh"
 #include "paper-score.hh"
 #include "paper-system.hh"
+#include "program-option.hh"
 #include "text-interface.hh"
 #include "warn.hh"
-#include "program-option.hh"
-#include "page-marker.hh"
-#include "ly-module.hh"
-#include "lily-imports.hh"
 
 using std::string;
 using std::vector;
@@ -51,11 +51,9 @@ Paper_book::Paper_book ()
   smobify_self ();
 }
 
-Paper_book::~Paper_book ()
-{
-}
+Paper_book::~Paper_book () {}
 
-const char * const Paper_book::type_p_name_ = "ly:paper-book?";
+const char *const Paper_book::type_p_name_ = "ly:paper-book?";
 
 SCM
 Paper_book::mark_smob () const
@@ -87,9 +85,8 @@ dump_fields ()
 {
   SCM fields = SCM_EOL;
   for (vsize i = dump_header_fieldnames_global.size (); i--;)
-    fields
-      = scm_cons (ly_symbol2scm (dump_header_fieldnames_global[i].c_str ()),
-                  fields);
+    fields = scm_cons (
+        ly_symbol2scm (dump_header_fieldnames_global[i].c_str ()), fields);
   return fields;
 }
 
@@ -112,17 +109,15 @@ Paper_book::add_performance (SCM s)
 }
 
 long
-Paper_book::output_aux (SCM output_channel,
-                        bool is_last,
-                        long *first_page_number,
-                        long *first_performance_number)
+Paper_book::output_aux (SCM output_channel, bool is_last,
+                        long *first_page_number, long *first_performance_number)
 {
   long page_nb = 0;
   if (scm_is_pair (performances_))
     {
-      Lily::write_performances_midis (performances (),
-                                      output_channel,
-                                      scm_from_long (*first_performance_number));
+      Lily::write_performances_midis (
+          performances (), output_channel,
+          scm_from_long (*first_performance_number));
       *first_performance_number += scm_ilength (performances_);
     }
 
@@ -132,8 +127,7 @@ Paper_book::output_aux (SCM output_channel,
         if (Paper_book *pbookpart = unsmob<Paper_book> (scm_car (p)))
           {
             bool is_last_part = (is_last && !scm_is_pair (scm_cdr (p)));
-            page_nb += pbookpart->output_aux (output_channel,
-                                              is_last_part,
+            page_nb += pbookpart->output_aux (output_channel, is_last_part,
                                               first_page_number,
                                               first_performance_number);
           }
@@ -157,7 +151,7 @@ void
 Paper_book::output (SCM output_channel)
 {
   long first_page_number
-    = robust_scm2int (paper_->c_variable ("first-page-number"), 1);
+      = robust_scm2int (paper_->c_variable ("first-page-number"), 1);
   long first_performance_number = 0;
 
   /* FIXME: We need a line-width for ps output (framework-ps.scm:92).
@@ -170,9 +164,7 @@ Paper_book::output (SCM output_channel)
     paper_->set_variable (ly_symbol2scm ("line-width"),
                           paper_->c_variable ("paper-width"));
 
-  if (!output_aux (output_channel,
-                   true,
-                   &first_page_number,
+  if (!output_aux (output_channel, true, &first_page_number,
                    &first_performance_number))
     return;
 
@@ -186,35 +178,30 @@ Paper_book::output (SCM output_channel)
 
   if (get_program_option ("print-pages"))
     {
-      SCM framework = ly_module_lookup (mod,
-                                        ly_symbol2scm ("output-framework"));
+      SCM framework
+          = ly_module_lookup (mod, ly_symbol2scm ("output-framework"));
 
       if (scm_is_true (framework))
         {
           SCM func = scm_variable_ref (framework);
-          scm_call_4 (func,
-                      output_channel,
-                      self_scm (),
-                      scopes,
+          scm_call_4 (func, output_channel, self_scm (), scopes,
                       dump_fields ());
         }
       else
-        warning (_f ("program option -dprint-pages not supported by backend `%s'",
-                     get_output_backend_name ()));
+        warning (
+            _f ("program option -dprint-pages not supported by backend `%s'",
+                get_output_backend_name ()));
     }
 
   if (get_program_option ("preview"))
     {
       SCM framework
-        = ly_module_lookup (mod, ly_symbol2scm ("output-preview-framework"));
+          = ly_module_lookup (mod, ly_symbol2scm ("output-preview-framework"));
 
       if (scm_is_true (framework))
         {
           SCM func = scm_variable_ref (framework);
-          scm_call_4 (func,
-                      output_channel,
-                      self_scm (),
-                      scopes,
+          scm_call_4 (func, output_channel, self_scm (), scopes,
                       dump_fields ());
         }
       else
@@ -225,15 +212,12 @@ Paper_book::output (SCM output_channel)
   if (get_program_option ("crop"))
     {
       SCM framework
-        = ly_module_lookup (mod, ly_symbol2scm ("output-crop-framework"));
+          = ly_module_lookup (mod, ly_symbol2scm ("output-crop-framework"));
 
       if (scm_is_true (framework))
         {
           SCM func = scm_variable_ref (framework);
-          scm_call_4 (func,
-                      output_channel,
-                      self_scm (),
-                      scopes,
+          scm_call_4 (func, output_channel, self_scm (), scopes,
                       dump_fields ());
         }
       else
@@ -243,14 +227,12 @@ Paper_book::output (SCM output_channel)
 }
 
 void
-Paper_book::classic_output_aux (SCM output,
-                                long *first_performance_number)
+Paper_book::classic_output_aux (SCM output, long *first_performance_number)
 {
   if (scm_is_pair (performances_))
     {
-      Lily::write_performances_midis (performances (),
-                                      output,
-                                      scm_from_long (*first_performance_number));
+      Lily::write_performances_midis (
+          performances (), output, scm_from_long (*first_performance_number));
       *first_performance_number += scm_ilength (performances_);
     }
 
@@ -278,11 +260,7 @@ Paper_book::classic_output (SCM output)
   SCM func = scm_c_module_lookup (mod, "output-classic-framework");
 
   func = scm_variable_ref (func);
-  scm_call_4 (func,
-              output,
-              self_scm (),
-              scopes,
-              dump_fields ());
+  scm_call_4 (func, output, self_scm (), scopes, dump_fields ());
   progress_indication ("\n");
 }
 
@@ -299,9 +277,7 @@ Paper_book::book_title ()
 
   SCM tit = SCM_EOL;
   if (ly_is_procedure (title_func))
-    tit = scm_call_2 (title_func,
-                      paper_->self_scm (),
-                      scopes);
+    tit = scm_call_2 (title_func, paper_->self_scm (), scopes);
 
   if (unsmob<Stencil> (tit))
     title = *unsmob<Stencil> (tit);
@@ -328,9 +304,7 @@ Paper_book::score_title (SCM header)
 
   SCM tit = SCM_EOL;
   if (ly_is_procedure (title_func))
-    tit = scm_call_2 (title_func,
-                      paper_->self_scm (),
-                      scopes);
+    tit = scm_call_2 (title_func, paper_->self_scm (), scopes);
 
   if (unsmob<Stencil> (tit))
     title = *unsmob<Stencil> (tit);
@@ -368,8 +342,7 @@ set_system_penalty (SCM sys, SCM header)
   if (ly_is_module (header))
     {
       SCM force = ly_module_lookup (header, ly_symbol2scm ("breakbefore"));
-      if (SCM_VARIABLEP (force)
-          && scm_is_bool (SCM_VARIABLE_REF (force)))
+      if (SCM_VARIABLEP (force) && scm_is_bool (SCM_VARIABLE_REF (force)))
         {
           if (to_boolean (SCM_VARIABLE_REF (force)))
             {
@@ -394,19 +367,18 @@ set_labels (SCM sys, SCM labels)
       if (cols.size ())
         {
           Paper_column *col = cols[0];
-          col->set_property ("labels",
-                             scm_append_x (scm_list_2 (col->get_property ("labels"),
-                                                       labels)));
+          col->set_property (
+              "labels",
+              scm_append_x (scm_list_2 (col->get_property ("labels"), labels)));
           Paper_column *col_right = col->find_prebroken_piece (RIGHT);
-          col_right->set_property ("labels",
-                                   scm_append_x (scm_list_2 (col_right->get_property ("labels"),
-                                                             labels)));
+          col_right->set_property (
+              "labels", scm_append_x (scm_list_2 (
+                            col_right->get_property ("labels"), labels)));
         }
     }
   else if (Prob *pb = unsmob<Prob> (sys))
-    pb->set_property ("labels",
-                      scm_append_x (scm_list_2 (pb->get_property ("labels"),
-                                                labels)));
+    pb->set_property ("labels", scm_append_x (scm_list_2 (
+                                    pb->get_property ("labels"), labels)));
 }
 
 SCM
@@ -422,7 +394,7 @@ Paper_book::get_score_title (SCM header)
         override settings from \paper {}
       */
       SCM props
-        = paper_->lookup_variable (ly_symbol2scm ("score-title-properties"));
+          = paper_->lookup_variable (ly_symbol2scm ("score-title-properties"));
       Prob *ps = make_paper_system (props);
       paper_system_set_stencil (ps, title);
 
@@ -441,7 +413,7 @@ Paper_book::get_system_specs ()
   if (!title.is_empty ())
     {
       SCM props
-        = paper_->lookup_variable (ly_symbol2scm ("book-title-properties"));
+          = paper_->lookup_variable (ly_symbol2scm ("book-title-properties"));
       Prob *ps = make_paper_system (props);
       paper_system_set_stencil (ps, title);
 
@@ -450,7 +422,7 @@ Paper_book::get_system_specs ()
     }
 
   SCM page_properties
-    = Lily::layout_extract_page_properties (paper_->self_scm ());
+      = Lily::layout_extract_page_properties (paper_->self_scm ());
 
   SCM header = SCM_EOL;
   SCM labels = SCM_EOL;
@@ -512,9 +484,8 @@ Paper_book::get_system_specs ()
         }
       else if (Text_interface::is_markup_list (scm_car (s)))
         {
-          SCM texts = Lily::interpret_markup_list (paper_->self_scm (),
-                                                   page_properties,
-                                                   scm_car (s));
+          SCM texts = Lily::interpret_markup_list (
+              paper_->self_scm (), page_properties, scm_car (s));
           Prob *first = 0;
           Prob *last = 0;
           for (SCM list = texts; scm_is_pair (list); list = scm_cdr (list))
@@ -540,7 +511,7 @@ Paper_book::get_system_specs ()
                 {
                   // last line so far, in a multi-line paragraph
                   last = ps;
-                  //Place closely to previous line, no stretching.
+                  // Place closely to previous line, no stretching.
                   ps->set_property ("tight-spacing", SCM_BOOL_T);
                 }
               system_specs = scm_cons (ps->self_scm (), system_specs);
@@ -552,7 +523,7 @@ Paper_book::get_system_specs ()
                   labels = SCM_EOL;
                 }
               // FIXME: figure out penalty.
-              //set_system_penalty (ps, scores_[i].header_);
+              // set_system_penalty (ps, scores_[i].header_);
             }
           /* Set properties to avoid widowed/orphaned lines.
              Single-line markup_lists are excluded, but in future
@@ -591,11 +562,10 @@ Paper_book::systems ()
       SCM specs = get_system_specs ();
       for (SCM s = specs; scm_is_pair (s); s = scm_cdr (s))
         {
-          if (Paper_score * pscore
-              = unsmob<Paper_score> (scm_car (s)))
+          if (Paper_score *pscore = unsmob<Paper_score> (scm_car (s)))
             {
               SCM system_list
-                = scm_vector_to_list (pscore->get_paper_systems ());
+                  = scm_vector_to_list (pscore->get_paper_systems ());
 
               systems_ = scm_reverse_x (system_list, systems_);
             }
@@ -614,8 +584,7 @@ Paper_book::systems ()
           Prob *ps = unsmob<Prob> (scm_car (s));
           ps->set_property ("number", scm_from_int (++i));
 
-          if (last
-              && to_boolean (last->get_property ("is-title"))
+          if (last && to_boolean (last->get_property ("is-title"))
               && !scm_is_number (ps->get_property ("penalty")))
             ps->set_property ("penalty", scm_from_int (10000));
           last = ps;

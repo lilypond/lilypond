@@ -37,6 +37,7 @@ class Global_context : Preinit_Global_context, public Context
   OVERRIDE_CLASS_NAME (Global_context);
 
   friend class Output_def;
+
 public:
   Global_context (Output_def *);
   int get_moments_left () const;
@@ -56,6 +57,7 @@ public:
   Moment now_mom () const override;
 
   Moment previous_moment () const;
+
 protected:
   Moment prev_mom_;
   Moment now_mom_;

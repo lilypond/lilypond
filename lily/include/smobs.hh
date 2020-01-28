@@ -156,25 +156,25 @@
 // Reference somewhere (like in the constructor of the containing
 // class) to make sure the variable is actually instantiated.
 
-class Scm_init {
-  static const Scm_init * list_;
-  void (*const fun_)(void);
-  Scm_init const * const next_;
-  Scm_init ();          // don't use default constructor, don't define
-  Scm_init (const Scm_init &);  // don't define copy constructor
+class Scm_init
+{
+  static const Scm_init *list_;
+  void (*const fun_) (void);
+  Scm_init const *const next_;
+  Scm_init ();                 // don't use default constructor, don't define
+  Scm_init (const Scm_init &); // don't define copy constructor
 public:
-  Scm_init (void (*fun) (void)) : fun_ (fun), next_ (list_)
-  { list_ = this; }
+  Scm_init (void (*fun) (void)) : fun_ (fun), next_ (list_) { list_ = this; }
   static void init ();
 };
 
-template <class Super>
-class Smob_base
+template <class Super> class Smob_base
 {
   static scm_t_bits smob_tag_;
   static Scm_init scm_init_;
   static void init (void);
   static std::string smob_name_;
+
 protected:
   static Super *unchecked_unsmob (SCM s)
   {
@@ -183,10 +183,15 @@ protected:
   // reference scm_init_ in smob_tag which is sure to be called.  The
   // constructor, in contrast, may not be called at all in classes
   // like Smob1.
-  static scm_t_bits smob_tag () { (void) scm_init_; return smob_tag_; }
-  Smob_base () { }
+  static scm_t_bits smob_tag ()
+  {
+    (void)scm_init_;
+    return smob_tag_;
+  }
+  Smob_base () {}
   static SCM register_ptr (Super *p);
   static Super *unregister_ptr (SCM obj);
+
 private:
   // Those fallbacks are _only_ for internal use by Smob_base.  They
   // are characterized by no knowledge about the implemented type
@@ -208,12 +213,12 @@ private:
   static SCM equal_p (SCM, SCM);
   int print_smob (SCM, scm_print_state *) const;
   static int print_trampoline (SCM, SCM, scm_print_state *);
-  static void smob_proc_init (scm_t_bits) { };
+  static void smob_proc_init (scm_t_bits){};
 
   // Define type_p_name_ in the Super class as a const char * const.
   // Without such definition it defaults to 0, producing no predicate.
 
-  static const char * const type_p_name_; // = 0
+  static const char *const type_p_name_; // = 0
 
   // LY_DECLARE_SMOB_PROC is used in the Super class definition for
   // making a smob callable like a function.  Its first argument is a
@@ -221,12 +226,11 @@ private:
   // correct number of SCM arguments and returning SCM.  The function
   // itself has to be defined separately.
 
-#define LY_DECLARE_SMOB_PROC(PMF, REQ, OPT, VAR)                        \
-  static void smob_proc_init (scm_t_bits smob_tag)                      \
-  {                                                                     \
-    scm_set_smob_apply (smob_tag,                                       \
-                        (scm_t_subr)smob_trampoline<PMF>,               \
-                        REQ, OPT, VAR);                                 \
+#define LY_DECLARE_SMOB_PROC(PMF, REQ, OPT, VAR)                               \
+  static void smob_proc_init (scm_t_bits smob_tag)                             \
+  {                                                                            \
+    scm_set_smob_apply (smob_tag, (scm_t_subr)smob_trampoline<PMF>, REQ, OPT,  \
+                        VAR);                                                  \
   }
 
   // Template parameter packs could reduce repetition here; however,
@@ -236,52 +240,45 @@ private:
   // least, but in emergency situations one can always use a "rest"
   // argument and take it apart manually.
 
-  template <SCM (Super::*pmf)(void)>
-  static SCM smob_trampoline (SCM self)
+  template <SCM (Super::*pmf) (void)> static SCM smob_trampoline (SCM self)
   {
-    return (Super::unchecked_unsmob (self)->*pmf)();
+    return (Super::unchecked_unsmob (self)->*pmf) ();
   }
-  template <SCM (Super::*pmf)(SCM)>
+  template <SCM (Super::*pmf) (SCM)>
   static SCM smob_trampoline (SCM self, SCM arg1)
   {
-    return (Super::unchecked_unsmob (self)->*pmf)(arg1);
+    return (Super::unchecked_unsmob (self)->*pmf) (arg1);
   }
-  template <SCM (Super::*pmf)(SCM, SCM)>
+  template <SCM (Super::*pmf) (SCM, SCM)>
   static SCM smob_trampoline (SCM self, SCM arg1, SCM arg2)
   {
-    return (Super::unchecked_unsmob (self)->*pmf)(arg1, arg2);
+    return (Super::unchecked_unsmob (self)->*pmf) (arg1, arg2);
   }
-  template <SCM (Super::*pmf)(SCM, SCM, SCM)>
+  template <SCM (Super::*pmf) (SCM, SCM, SCM)>
   static SCM smob_trampoline (SCM self, SCM arg1, SCM arg2, SCM arg3)
   {
-    return (Super::unchecked_unsmob (self)->*pmf)(arg1, arg2, arg3);
+    return (Super::unchecked_unsmob (self)->*pmf) (arg1, arg2, arg3);
   }
 
-  static bool is_smob (SCM s)
-  {
-    return SCM_SMOB_PREDICATE (smob_tag (), s);
-  }
-  static SCM smob_p (SCM s)
-  {
-    return is_smob (s) ? SCM_BOOL_T : SCM_BOOL_F;
-  }
+  static bool is_smob (SCM s) { return SCM_SMOB_PREDICATE (smob_tag (), s); }
+  static SCM smob_p (SCM s) { return is_smob (s) ? SCM_BOOL_T : SCM_BOOL_F; }
 
-  template <class T>
-  friend T *unsmob (SCM s);
+  template <class T> friend T *unsmob (SCM s);
 
   template <class T>
   friend T *ly_assert_smob (SCM s, int number, const char *fun);
 };
 
 template <class T>
-inline T *unsmob (SCM s)
+inline T *
+unsmob (SCM s)
 {
   return T::is_smob (s) ? dynamic_cast<T *> (T::unchecked_unsmob (s)) : 0;
 }
 
 // Simple smobs
-template <class Super>
-class Simple_smob : public Smob_base<Super> {
+template <class Super> class Simple_smob : public Smob_base<Super>
+{
 public:
   static size_t free_smob (SCM obj)
   {
@@ -290,7 +287,7 @@ public:
   }
   SCM smobbed_copy () const
   {
-    Super *p = new Super(*static_cast<const Super *> (this));
+    Super *p = new Super (*static_cast<const Super *> (this));
     return Smob_base<Super>::register_ptr (p);
   }
 };
@@ -301,23 +298,27 @@ void unprotect_smob (SCM smob, SCM *prot_cons);
 // The Smob_core class is not templated and contains material not
 // depending on the Super class.
 
-class Smob_core {
+class Smob_core
+{
 protected:
   SCM self_scm_;
-  Smob_core () : self_scm_ (SCM_UNDEFINED) { };
+  Smob_core () : self_scm_ (SCM_UNDEFINED){};
+
 public:
   SCM self_scm () const { return self_scm_; }
   Listener get_listener (SCM callback);
 };
 
-template <class Super>
-class Smob : public Smob_core, public Smob_base<Super> {
+template <class Super> class Smob : public Smob_core, public Smob_base<Super>
+{
 private:
   SCM protection_cons_;
   Smob (const Smob<Super> &) = delete;
-  Smob& operator= (const Smob<Super> &) = delete;
+  Smob &operator= (const Smob<Super> &) = delete;
+
 protected:
-  Smob () : protection_cons_ (SCM_EOL) { };
+  Smob () : protection_cons_ (SCM_EOL){};
+
 public:
   static size_t free_smob (SCM obj)
   {
@@ -330,11 +331,9 @@ public:
     self_scm_ = s;
     return s;
   }
-  void protect ()
+  void protect () { protect_smob (self_scm_, &protection_cons_); }
+  void smobify_self ()
   {
-    protect_smob (self_scm_, &protection_cons_);
-  }
-  void smobify_self () {
     protect_smob (unprotected_smobify_self (), &protection_cons_);
   }
   SCM unprotect ()
@@ -356,11 +355,9 @@ class parsed_dead
     data = SCM_UNDEFINED;
     return res;
   }
+
 public:
-  parsed_dead () : data (SCM_UNDEFINED)
-  {
-    elements.push_back (this);
-  }
+  parsed_dead () : data (SCM_UNDEFINED) { elements.push_back (this); }
   void checkin (SCM arg) { data = arg; }
   static SCM readout ();
 };
@@ -371,14 +368,20 @@ public:
 // included in the GC scans.  So it would appear that scanning smobs
 // is not equivalent to marking them.  Ugh.
 #if defined(DEBUG) && !GUILEV2
-#define ASSERT_LIVE_IS_ALLOWED(arg)                                     \
-  do {                                                                  \
-    static parsed_dead pass_here;                                       \
-    if (parsed_objects_should_be_dead)                                  \
-      pass_here.checkin (arg);                                          \
-  } while (0)
+#define ASSERT_LIVE_IS_ALLOWED(arg)                                            \
+  do                                                                           \
+    {                                                                          \
+      static parsed_dead pass_here;                                            \
+      if (parsed_objects_should_be_dead)                                       \
+        pass_here.checkin (arg);                                               \
+    }                                                                          \
+  while (0)
 #else
-#define ASSERT_LIVE_IS_ALLOWED(arg) do { (void)(arg); }  \
+#define ASSERT_LIVE_IS_ALLOWED(arg)                                            \
+  do                                                                           \
+    {                                                                          \
+      (void)(arg);                                                             \
+    }                                                                          \
   while (0)
 #endif
 

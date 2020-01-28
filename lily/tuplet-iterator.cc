@@ -21,10 +21,10 @@
 #include "context.hh"
 #include "input.hh"
 #include "international.hh"
-#include "music.hh"
-#include "music-wrapper-iterator.hh"
-#include "stream-event.hh"
 #include "lily-imports.hh"
+#include "music-wrapper-iterator.hh"
+#include "music.hh"
+#include "stream-event.hh"
 
 /*
   Iterates \times, by sending TupletSpanEvents at the start/end of each
@@ -38,6 +38,7 @@ public:
   /* construction */
   OVERRIDE_CLASS_NAME (Tuplet_iterator);
   Tuplet_iterator ();
+
 protected:
   void process (Moment m) override;
   void construct_children () override;
@@ -47,7 +48,6 @@ protected:
   Music *create_event (Direction d);
 
 private:
-
   /* tupletSpannerDuration */
   Moment spanner_duration_;
 
@@ -100,8 +100,7 @@ Tuplet_iterator::pending_moment () const
 void
 Tuplet_iterator::process (Moment m)
 {
-  if (spanner_duration_.to_bool ()
-      && m.main_part_ == next_split_mom_)
+  if (spanner_duration_.to_bool () && m.main_part_ == next_split_mom_)
     {
       descend_to_bottom_context ();
       if (tuplet_handler_.get_context ())
@@ -109,8 +108,8 @@ Tuplet_iterator::process (Moment m)
 
       if (m.main_part_ < music_get_length ().main_part_)
         {
-          spanner_duration_ =
-            std::min (music_get_length () - next_split_mom_, spanner_duration_);
+          spanner_duration_ = std::min (music_get_length () - next_split_mom_,
+                                        spanner_duration_);
           tuplet_handler_.set_context (get_outlet ());
           report_event (create_event (START));
 
@@ -122,7 +121,6 @@ Tuplet_iterator::process (Moment m)
   Music_wrapper_iterator::process (m);
   if (child_iter_ && child_iter_->ok ())
     descend_to_child (child_iter_->get_outlet ());
-
 }
 
 void
@@ -130,8 +128,8 @@ Tuplet_iterator::construct_children ()
 {
   if (Duration *d = unsmob<Duration> (get_music ()->get_property ("duration")))
     spanner_duration_ = d->get_length ();
-  else if (Moment *mp
-           = unsmob<Moment> (get_outlet ()->get_property ("tupletSpannerDuration")))
+  else if (Moment *mp = unsmob<Moment> (
+               get_outlet ()->get_property ("tupletSpannerDuration")))
     spanner_duration_ = mp->main_part_;
   else
     spanner_duration_.set_infinite (1);

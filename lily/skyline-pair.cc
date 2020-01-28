@@ -24,28 +24,25 @@
 
 using std::vector;
 
-Skyline_pair::Skyline_pair ()
-  : skylines_ (Skyline (DOWN), Skyline (UP))
-{
-}
+Skyline_pair::Skyline_pair () : skylines_ (Skyline (DOWN), Skyline (UP)) {}
 
 Skyline_pair::Skyline_pair (vector<Box> const &boxes, Axis a)
-  : skylines_ (Skyline (boxes, a, DOWN), Skyline (boxes, a, UP))
+    : skylines_ (Skyline (boxes, a, DOWN), Skyline (boxes, a, UP))
 {
 }
 
-Skyline_pair::Skyline_pair (vector<Drul_array<Offset> > const &buildings, Axis a)
-  : skylines_ (Skyline (buildings, a, DOWN), Skyline (buildings, a, UP))
+Skyline_pair::Skyline_pair (vector<Drul_array<Offset>> const &buildings, Axis a)
+    : skylines_ (Skyline (buildings, a, DOWN), Skyline (buildings, a, UP))
 {
 }
 
 Skyline_pair::Skyline_pair (vector<Skyline_pair> const &skypairs)
-  : skylines_ (Skyline (skypairs, DOWN), Skyline (skypairs, UP))
+    : skylines_ (Skyline (skypairs, DOWN), Skyline (skypairs, UP))
 {
 }
 
 Skyline_pair::Skyline_pair (Box const &b, Axis a)
-  : skylines_ (Skyline (b, a, DOWN), Skyline (b, a, UP))
+    : skylines_ (Skyline (b, a, DOWN), Skyline (b, a, UP))
 {
 }
 
@@ -106,24 +103,17 @@ Skyline_pair::print_points () const
 bool
 Skyline_pair::is_empty () const
 {
-  return skylines_[UP].is_empty ()
-         && skylines_[DOWN].is_empty ();
+  return skylines_[UP].is_empty () && skylines_[DOWN].is_empty ();
 }
 
-Skyline &
-Skyline_pair::operator [] (Direction d)
+Skyline &Skyline_pair::operator[] (Direction d) { return skylines_[d]; }
+
+Skyline const &Skyline_pair::operator[] (Direction d) const
 {
   return skylines_[d];
 }
 
-Skyline const &
-Skyline_pair::operator [] (Direction d) const
-{
-  return skylines_[d];
-}
-
-const char * const Skyline_pair::type_p_name_ = "ly:skyline-pair?";
-
+const char *const Skyline_pair::type_p_name_ = "ly:skyline-pair?";
 
 MAKE_SCHEME_CALLBACK (Skyline_pair, skyline, 2);
 SCM

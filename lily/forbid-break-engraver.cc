@@ -34,7 +34,7 @@ public:
 };
 
 Forbid_line_break_engraver::Forbid_line_break_engraver (Context *c)
-  : Engraver (c)
+    : Engraver (c)
 {
 }
 
@@ -47,7 +47,8 @@ Forbid_line_break_engraver::start_translation_timestep ()
   SCM busy = get_property ("busyGrobs");
 
   Moment now = now_mom ();
-  while (scm_is_pair (busy) && unsmob<Moment> (scm_caar (busy))->main_part_ == now.main_part_)
+  while (scm_is_pair (busy)
+         && unsmob<Moment> (scm_caar (busy))->main_part_ == now.main_part_)
     busy = scm_cdr (busy);
 
   while (scm_is_pair (busy))
@@ -62,7 +63,6 @@ Forbid_line_break_engraver::start_translation_timestep ()
 void
 Forbid_line_break_engraver::boot ()
 {
-
 }
 
 ADD_TRANSLATOR (Forbid_line_break_engraver,
@@ -77,5 +77,4 @@ ADD_TRANSLATOR (Forbid_line_break_engraver,
                 "busyGrobs ",
 
                 /* write */
-                "forbidBreak "
-               );
+                "forbidBreak ");

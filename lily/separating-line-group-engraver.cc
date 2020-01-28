@@ -19,16 +19,16 @@
 
 #include "engraver.hh"
 
-#include "separation-item.hh"
-#include "paper-column.hh"
-#include "output-def.hh"
-#include "axis-group-interface.hh"
-#include "note-spacing.hh"
 #include "accidental-placement.hh"
+#include "axis-group-interface.hh"
 #include "context.hh"
-#include "spanner.hh"
 #include "grob-array.hh"
+#include "note-spacing.hh"
+#include "output-def.hh"
+#include "paper-column.hh"
 #include "pointer-group-interface.hh"
+#include "separation-item.hh"
+#include "spanner.hh"
 
 #include "translator.icc"
 
@@ -39,15 +39,9 @@ struct Spacings
   Item *staff_spacing_;
   vector<Item *> note_spacings_;
 
-  Spacings ()
-  {
-    staff_spacing_ = 0;
-  }
+  Spacings () { staff_spacing_ = 0; }
 
-  bool is_empty () const
-  {
-    return !staff_spacing_ && !note_spacings_.size ();
-  }
+  bool is_empty () const { return !staff_spacing_ && !note_spacings_.size (); }
   void clear ()
   {
     staff_spacing_ = 0;
@@ -67,12 +61,13 @@ protected:
   void start_translation_timestep ();
 
   vector<Grob *> break_aligned_;
+
 public:
   TRANSLATOR_DECLARATIONS (Separating_line_group_engraver);
 };
 
 Separating_line_group_engraver::Separating_line_group_engraver (Context *c)
-  : Engraver (c)
+    : Engraver (c)
 {
 }
 
@@ -87,8 +82,7 @@ Separating_line_group_engraver::acknowledge_item (Grob_info i)
       return;
     }
 
-  if (Item::is_non_musical (it)
-      && !current_spacings_.staff_spacing_
+  if (Item::is_non_musical (it) && !current_spacings_.staff_spacing_
       && to_boolean (get_property ("createSpacing")))
     {
       Grob *col = unsmob<Grob> (get_property ("currentCommandColumn"));
@@ -97,8 +91,7 @@ Separating_line_group_engraver::acknowledge_item (Grob_info i)
       context ()->set_property ("hasStaffSpacing", SCM_BOOL_T);
 
       Pointer_group_interface::add_grob (current_spacings_.staff_spacing_,
-                                         ly_symbol2scm ("left-items"),
-                                         col);
+                                         ly_symbol2scm ("left-items"), col);
 
       if (!last_spacings_.note_spacings_.size ()
           && last_spacings_.staff_spacing_)
@@ -138,11 +131,13 @@ Separating_line_group_engraver::stop_translation_timestep ()
       SCM smob = break_aligned_[i]->self_scm ();
 
       if (Item *sp = current_spacings_.staff_spacing_)
-        Pointer_group_interface::add_grob (sp, ly_symbol2scm ("left-break-aligned"), smob);
+        Pointer_group_interface::add_grob (
+            sp, ly_symbol2scm ("left-break-aligned"), smob);
 
       for (vsize j = 0; j < last_spacings_.note_spacings_.size (); j++)
-        Pointer_group_interface::add_grob (last_spacings_.note_spacings_[j],
-                                           ly_symbol2scm ("right-break-aligned"), smob);
+        Pointer_group_interface::add_grob (
+            last_spacings_.note_spacings_[j],
+            ly_symbol2scm ("right-break-aligned"), smob);
     }
 
   if (!current_spacings_.is_empty ())
@@ -150,12 +145,12 @@ Separating_line_group_engraver::stop_translation_timestep ()
 
   if (Item *sp = current_spacings_.staff_spacing_)
     if (Grob *col = unsmob<Grob> (get_property ("currentMusicalColumn")))
-      Pointer_group_interface::add_grob (sp, ly_symbol2scm ("right-items"), col);
+      Pointer_group_interface::add_grob (sp, ly_symbol2scm ("right-items"),
+                                         col);
 
   current_spacings_.clear ();
   break_aligned_.clear ();
 }
-
 
 void
 Separating_line_group_engraver::boot ()
@@ -175,5 +170,4 @@ ADD_TRANSLATOR (Separating_line_group_engraver,
                 "createSpacing ",
 
                 /* write */
-                "hasStaffSpacing "
-               );
+                "hasStaffSpacing ");

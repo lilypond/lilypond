@@ -30,8 +30,8 @@
 #include "note-column.hh"
 #include "pointer-group-interface.hh"
 #include "side-position-interface.hh"
-#include "stream-event.hh"
 #include "spanner.hh"
+#include "stream-event.hh"
 
 #include "translator.icc"
 
@@ -39,6 +39,7 @@ class Trill_spanner_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Trill_spanner_engraver);
+
 protected:
   void finalize () override;
   void listen_trill_span (Stream_event *);
@@ -55,8 +56,7 @@ private:
   void typeset_all ();
 };
 
-Trill_spanner_engraver::Trill_spanner_engraver (Context *c)
-  : Engraver (c)
+Trill_spanner_engraver::Trill_spanner_engraver (Context *c) : Engraver (c)
 {
   finished_ = 0;
   current_event_ = 0;
@@ -76,16 +76,15 @@ Trill_spanner_engraver::acknowledge_note_column (Grob_info info)
 {
   if (span_)
     {
-      Pointer_group_interface::add_grob (span_,
-                                         ly_symbol2scm ("note-columns"),
+      Pointer_group_interface::add_grob (span_, ly_symbol2scm ("note-columns"),
                                          info.grob ());
       if (!span_->get_bound (LEFT))
         add_bound_item (span_, info.grob ());
     }
   else if (finished_)
     {
-      Pointer_group_interface::add_grob (finished_, ly_symbol2scm ("note-columns"),
-                                         info.grob ());
+      Pointer_group_interface::add_grob (
+          finished_, ly_symbol2scm ("note-columns"), info.grob ());
       if (!finished_->get_bound (RIGHT))
         add_bound_item (finished_, info.grob ());
     }
@@ -94,8 +93,7 @@ Trill_spanner_engraver::acknowledge_note_column (Grob_info info)
 void
 Trill_spanner_engraver::process_music ()
 {
-  if (span_
-      && (event_drul_[STOP] || event_drul_[START]))
+  if (span_ && (event_drul_[STOP] || event_drul_[START]))
     {
       Stream_event *ender = event_drul_[STOP];
       if (!ender)
@@ -152,7 +150,6 @@ Trill_spanner_engraver::finalize ()
     }
 }
 
-
 void
 Trill_spanner_engraver::boot ()
 {
@@ -172,5 +169,4 @@ ADD_TRANSLATOR (Trill_spanner_engraver,
                 "currentMusicalColumn ",
 
                 /* write */
-                ""
-               );
+                "");

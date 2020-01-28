@@ -22,17 +22,13 @@
 
 #include "std-vector.hh"
 
-template<class T, class A = std::allocator<T> >
-class Matrix
+template <class T, class A = std::allocator<T>> class Matrix
 {
 public:
-  Matrix<T, A> ()
-  {
-    rank_ = 0;
-  }
+  Matrix<T, A> () { rank_ = 0; }
 
   Matrix<T, A> (vsize rows, vsize columns, T const &t)
-    : data_ (rows *columns, t)
+      : data_ (rows * columns, t)
   {
     rank_ = rows;
   }

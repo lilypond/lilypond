@@ -20,14 +20,13 @@
 #ifndef PURE_FROM_NEIGHBOR_INTERFACE_HH
 #define PURE_FROM_NEIGHBOR_INTERFACE_HH
 
-#include "lily-proto.hh"
 #include "grob-interface.hh"
+#include "lily-proto.hh"
 
 class Pure_from_neighbor_interface
 {
 public:
   DECLARE_SCHEME_CALLBACK (calc_pure_relevant_grobs, (SCM));
-
 };
 
 #endif

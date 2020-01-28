@@ -20,8 +20,8 @@
 #ifndef CHANGE_SEQUENCE_ITERATOR_HH
 #define CHANGE_SEQUENCE_ITERATOR_HH
 
-#include "music-wrapper-iterator.hh"
 #include "context.hh"
+#include "music-wrapper-iterator.hh"
 
 /** base for iterators that perform a sequence of timed context changes */
 class Change_sequence_iterator : public Music_wrapper_iterator
@@ -42,6 +42,5 @@ private:
   // via Music_iterator::music_.
   SCM change_list_;
 };
-
 
 #endif /* CHANGE_SEQUENCE_ITERATOR_HH */

@@ -21,17 +21,17 @@
 
 #include <cstdio>
 
+#include "ly-module.hh"
 #include "main.hh"
 #include "music.hh"
 #include "output-def.hh"
+#include "page-marker.hh"
 #include "paper-book.hh"
+#include "paper-score.hh"
+#include "performance.hh"
 #include "score.hh"
 #include "text-interface.hh"
 #include "warn.hh"
-#include "performance.hh"
-#include "paper-score.hh"
-#include "page-marker.hh"
-#include "ly-module.hh"
 
 Book::Book ()
 {
@@ -45,8 +45,7 @@ Book::Book ()
   input_location_ = Input ().smobbed_copy ();
 }
 
-Book::Book (Book const &s)
-  : Smob<Book> ()
+Book::Book (Book const &s) : Smob<Book> ()
 {
   paper_ = 0;
   header_ = SCM_EOL;
@@ -72,9 +71,9 @@ Book::Book (Book const &s)
       SCM entry = scm_car (p);
 
       if (Score *newscore = unsmob<Score> (entry))
-        * t = scm_cons (newscore->clone ()->unprotect (), SCM_EOL);
+        *t = scm_cons (newscore->clone ()->unprotect (), SCM_EOL);
       else if (Page_marker *marker = unsmob<Page_marker> (entry))
-        * t = scm_cons (marker->clone ()->unprotect (), SCM_EOL);
+        *t = scm_cons (marker->clone ()->unprotect (), SCM_EOL);
       else
         {
           /* This entry is a markup list */
@@ -100,10 +99,7 @@ Book::origin () const
   return unsmob<Input> (input_location_);
 }
 
-Book::~Book ()
-{
-}
-
+Book::~Book () {}
 
 SCM
 Book::mark_smob () const
@@ -189,21 +185,22 @@ Book::error_found ()
 }
 
 Paper_book *
-Book::process (Output_def *default_paper,
-               Output_def *default_layout)
+Book::process (Output_def *default_paper, Output_def *default_layout)
 {
   return process (default_paper, default_layout, 0);
 }
 
 void
-Book::process_bookparts (Paper_book *output_paper_book, Output_def *paper, Output_def *layout)
+Book::process_bookparts (Paper_book *output_paper_book, Output_def *paper,
+                         Output_def *layout)
 {
   add_scores_to_bookpart ();
   for (SCM p = scm_reverse (bookparts_); scm_is_pair (p); p = scm_cdr (p))
     {
       if (Book *book = unsmob<Book> (scm_car (p)))
         {
-          Paper_book *paper_book_part = book->process (paper, layout, output_paper_book);
+          Paper_book *paper_book_part
+              = book->process (paper, layout, output_paper_book);
           if (paper_book_part)
             {
               output_paper_book->add_bookpart (paper_book_part->self_scm ());
@@ -212,7 +209,8 @@ Book::process_bookparts (Paper_book *output_paper_book, Output_def *paper, Outpu
         }
     }
   /* In a Paper_book, bookparts are stored in straight order */
-  output_paper_book->bookparts_ = scm_reverse_x (output_paper_book->bookparts_, SCM_EOL);
+  output_paper_book->bookparts_
+      = scm_reverse_x (output_paper_book->bookparts_, SCM_EOL);
 }
 
 void
@@ -220,8 +218,7 @@ Book::process_score (SCM s, Paper_book *output_paper_book, Output_def *layout)
 {
   if (Score *score = unsmob<Score> (scm_car (s)))
     {
-      SCM outputs = score
-                    ->book_rendering (output_paper_book->paper_, layout);
+      SCM outputs = score->book_rendering (output_paper_book->paper_, layout);
 
       while (scm_is_pair (outputs))
         {
@@ -255,14 +252,12 @@ Book::process_score (SCM s, Paper_book *output_paper_book, Output_def *layout)
     output_paper_book->add_score (scm_car (s));
   else
     assert (0);
-
 }
 
 /* Concatenate all score or book part outputs into a Paper_book
  */
 Paper_book *
-Book::process (Output_def *default_paper,
-               Output_def *default_layout,
+Book::process (Output_def *default_paper, Output_def *default_layout,
                Paper_book *parent_part)
 {
   Output_def *paper = paper_ ? paper_ : default_paper;

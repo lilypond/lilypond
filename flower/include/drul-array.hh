@@ -26,8 +26,7 @@
 /**
    Left/right or Up/down arrays. Drul is nicer sounding than udlr
 */
-template<class T>
-struct Drul_array
+template <class T> struct Drul_array
 {
   T array_[2];
   T &at (Direction d)
@@ -40,21 +39,10 @@ struct Drul_array
     assert (d == 1 || d == -1);
     return array_[d > 0];
   }
-  T &operator [] (Direction d)
-  {
-    return at (d);
-  }
-  T const &operator [] (Direction d) const
-  {
-    return at (d);
-  }
-  Drul_array ()
-  {
-  }
-  Drul_array (T const &t1, T const &t2)
-  {
-    set (t1, t2);
-  }
+  T &operator[] (Direction d) { return at (d); }
+  T const &operator[] (Direction d) const { return at (d); }
+  Drul_array () {}
+  Drul_array (T const &t1, T const &t2) { set (t1, t2); }
   void set (T const &t1, T const &t2)
   {
     array_[0] = t1;
@@ -62,7 +50,7 @@ struct Drul_array
   }
 };
 
-template<class T>
+template <class T>
 void
 scale_drul (Drul_array<T> *dr, T x)
 {
@@ -73,8 +61,8 @@ scale_drul (Drul_array<T> *dr, T x)
 inline Real
 linear_combination (Drul_array<Real> const &d, Real x)
 {
-  return ((1.0 - x) * Real (d.at (LEFT))
-          + (x + 1.0) * Real (d.at (RIGHT))) * 0.5;
+  return ((1.0 - x) * Real (d.at (LEFT)) + (x + 1.0) * Real (d.at (RIGHT)))
+         * 0.5;
 }
 
 #endif /* DRUL_ARRAY_HH */

@@ -17,8 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "music.hh"
 #include "music-wrapper.hh"
+#include "music.hh"
 
 class Grace_music
 {

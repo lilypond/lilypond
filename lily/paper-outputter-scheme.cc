@@ -25,8 +25,8 @@
 
 using std::string;
 
-LY_DEFINE (ly_make_paper_outputter, "ly:make-paper-outputter",
-           2, 0, 0, (SCM port, SCM format),
+LY_DEFINE (ly_make_paper_outputter, "ly:make-paper-outputter", 2, 0, 0,
+           (SCM port, SCM format),
            "Create an outputter that evaluates within"
            " @code{output-}@var{format}, writing to @var{port}.")
 {
@@ -40,8 +40,7 @@ LY_DEFINE (ly_make_paper_outputter, "ly:make-paper-outputter",
   if (scm_is_string (port_name))
     output_name = ly_scm2string (port_name);
 
-  message (_f ("Layout output to `%s'...",
-               output_name.c_str ()));
+  message (_f ("Layout output to `%s'...", output_name.c_str ()));
 
   progress_indication ("\n");
   Paper_outputter *po = new Paper_outputter (port, f);
@@ -51,8 +50,8 @@ LY_DEFINE (ly_make_paper_outputter, "ly:make-paper-outputter",
 }
 
 /* FIXME: why is output_* wrapper called dump?  */
-LY_DEFINE (ly_outputter_dump_stencil, "ly:outputter-dump-stencil",
-           2, 0, 0, (SCM outputter, SCM stencil),
+LY_DEFINE (ly_outputter_dump_stencil, "ly:outputter-dump-stencil", 2, 0, 0,
+           (SCM outputter, SCM stencil),
            "Dump stencil @var{expr} onto @var{outputter}.")
 {
 
@@ -66,9 +65,8 @@ LY_DEFINE (ly_outputter_dump_stencil, "ly:outputter-dump-stencil",
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_outputter_dump_string, "ly:outputter-dump-string",
-           2, 0, 0, (SCM outputter, SCM str),
-           "Dump @var{str} onto @var{outputter}.")
+LY_DEFINE (ly_outputter_dump_string, "ly:outputter-dump-string", 2, 0, 0,
+           (SCM outputter, SCM str), "Dump @var{str} onto @var{outputter}.")
 {
   LY_ASSERT_SMOB (Paper_outputter, outputter, 1);
   LY_ASSERT_TYPE (scm_is_string, str, 2);
@@ -78,8 +76,7 @@ LY_DEFINE (ly_outputter_dump_string, "ly:outputter-dump-string",
   return po->dump_string (str);
 }
 
-LY_DEFINE (ly_outputter_port, "ly:outputter-port",
-           1, 0, 0, (SCM outputter),
+LY_DEFINE (ly_outputter_port, "ly:outputter-port", 1, 0, 0, (SCM outputter),
            "Return output port for @var{outputter}.")
 {
   LY_ASSERT_SMOB (Paper_outputter, outputter, 1);
@@ -88,8 +85,7 @@ LY_DEFINE (ly_outputter_port, "ly:outputter-port",
   return po->file ();
 }
 
-LY_DEFINE (ly_outputter_close, "ly:outputter-close",
-           1, 0, 0, (SCM outputter),
+LY_DEFINE (ly_outputter_close, "ly:outputter-close", 1, 0, 0, (SCM outputter),
            "Close port of @var{outputter}.")
 {
   LY_ASSERT_SMOB (Paper_outputter, outputter, 1);
@@ -99,8 +95,8 @@ LY_DEFINE (ly_outputter_close, "ly:outputter-close",
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_outputter_output_scheme, "ly:outputter-output-scheme",
-           2, 0, 0, (SCM outputter, SCM expr),
+LY_DEFINE (ly_outputter_output_scheme, "ly:outputter-output-scheme", 2, 0, 0,
+           (SCM outputter, SCM expr),
            "Eval @var{expr} in module of @var{outputter}.")
 {
   LY_ASSERT_SMOB (Paper_outputter, outputter, 1);
@@ -111,8 +107,7 @@ LY_DEFINE (ly_outputter_output_scheme, "ly:outputter-output-scheme",
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_outputter_module, "ly:outputter-module",
-           1, 0, 0, (SCM outputter),
+LY_DEFINE (ly_outputter_module, "ly:outputter-module", 1, 0, 0, (SCM outputter),
            "Return output module of @var{outputter}.")
 {
   LY_ASSERT_SMOB (Paper_outputter, outputter, 1);

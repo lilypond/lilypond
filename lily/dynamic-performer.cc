@@ -17,11 +17,11 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "performer.hh"
 #include "audio-item.hh"
+#include "international.hh"
+#include "performer.hh"
 #include "std-vector.hh"
 #include "stream-event.hh"
-#include "international.hh"
 
 #include "translator.icc"
 
@@ -31,6 +31,7 @@ class Dynamic_performer : public Performer
 {
 public:
   TRANSLATOR_DECLARATIONS (Dynamic_performer);
+
 protected:
   void acknowledge_audio_element (Audio_element_info info) override;
   void finalize () override;
@@ -44,17 +45,13 @@ protected:
 
 private:
   void close_and_enqueue_span ();
-  Real compute_departure_volume (Direction depart_dir,
-                                 Real start_vol,
-                                 Real end_vol,
-                                 Real min_vol,
-                                 Real max_vol);
+  Real compute_departure_volume (Direction depart_dir, Real start_vol,
+                                 Real end_vol, Real min_vol, Real max_vol);
   bool drive_state_machine (Direction next_grow_dir);
   // next_vol < 0 means select a target dynamic based on growth direction.
   // return actual next volume (computed if not provided)
   Real finish_queued_spans (Real next_vol = -1.0);
-  Real look_up_absolute_volume (SCM dynamicString,
-                                Real defaultValue);
+  Real look_up_absolute_volume (SCM dynamicString, Real defaultValue);
 
 private:
   // This performer queues a number of dynamic spans waiting for the following
@@ -72,7 +69,7 @@ private:
   {
     STATE_INITIAL = 0, // waiting for a (de)crescendo
     STATE_DEPART, // enqueued the first span, gathering same-direction spans
-    STATE_RETURN // gathering opposite-direction spans
+    STATE_RETURN  // gathering opposite-direction spans
   };
 
   struct UnfinishedSpan
@@ -99,8 +96,7 @@ private:
       change_duration_ = 0;
     }
 
-    void push_back (const UnfinishedSpan &span,
-                    Real min_target_vol,
+    void push_back (const UnfinishedSpan &span, Real min_target_vol,
                     Real max_target_vol)
     {
       if (span.grow_dir_ != CENTER)
@@ -126,14 +122,10 @@ private:
 };
 
 Dynamic_performer::Dynamic_performer (Context *c)
-  : Performer (c),
-    script_event_ (0),
-    next_grow_dir_ (CENTER),
-    depart_dir_ (CENTER),
-    state_ (STATE_INITIAL)
+    : Performer (c), script_event_ (0), next_grow_dir_ (CENTER),
+      depart_dir_ (CENTER), state_ (STATE_INITIAL)
 {
-  span_events_[LEFT]
-  = span_events_[RIGHT] = 0;
+  span_events_[LEFT] = span_events_[RIGHT] = 0;
 }
 
 void
@@ -141,9 +133,10 @@ Dynamic_performer::acknowledge_audio_element (Audio_element_info inf)
 {
   // Keep track of the notes played in this translation time step so that they
   // can be pointed to the current dynamic in stop_translation_timestep.
-  if (Audio_note *n = dynamic_cast<Audio_note *> (inf.elem_)) {
-    notes_.push_back (n);
-  }
+  if (Audio_note *n = dynamic_cast<Audio_note *> (inf.elem_))
+    {
+      notes_.push_back (n);
+    }
 }
 
 bool
@@ -184,7 +177,7 @@ Dynamic_performer::close_and_enqueue_span ()
   else
     {
       DynamicQueue &dq
-      = (state_ == STATE_RETURN) ? return_queue_ : depart_queue_;
+          = (state_ == STATE_RETURN) ? return_queue_ : depart_queue_;
 
       // Changing equalizer settings in the course of the performance does not
       // seem very likely.  This is a fig leaf: Equalize these limit volumes
@@ -195,7 +188,7 @@ Dynamic_performer::close_and_enqueue_span ()
       // with dynamicAbsoluteVolumeFunction, however that would yield 0.25.)
       const Real min_target = equalize_volume (0.1);
       const Real max_target
-      = equalize_volume (Audio_span_dynamic::MAXIMUM_VOLUME);
+          = equalize_volume (Audio_span_dynamic::MAXIMUM_VOLUME);
 
       open_span_.dynamic_->set_end_moment (now_mom ());
       dq.push_back (open_span_, min_target, max_target);
@@ -208,8 +201,7 @@ Dynamic_performer::close_and_enqueue_span ()
 // (loss) of any (de)crescendo is proportional to its share of the total time
 // spent changing.
 void
-Dynamic_performer::DynamicQueue::set_volume (Real start_vol,
-                                             Real target_vol)
+Dynamic_performer::DynamicQueue::set_volume (Real start_vol, Real target_vol)
 {
   const Real gain = target_vol - start_vol;
   Real dur = 0; // duration of (de)crescendi processed so far
@@ -237,10 +229,8 @@ Dynamic_performer::DynamicQueue::set_volume (Real start_vol,
 // The given minimum and maximum volumes are the allowable dynamic range.
 Real
 Dynamic_performer::compute_departure_volume (Direction depart_dir,
-                                             Real start_vol,
-                                             Real end_vol,
-                                             Real min_vol,
-                                             Real max_vol)
+                                             Real start_vol, Real end_vol,
+                                             Real min_vol, Real max_vol)
 {
   if (depart_dir == CENTER)
     return start_vol;
@@ -272,9 +262,9 @@ Dynamic_performer::compute_departure_volume (Direction depart_dir,
   const Real vol_range = max_vol - min_vol;
 
   const Real near_vol = minmax (depart_dir, start_vol, end_vol)
-                    + depart_dir * near_padding * vol_range;
+                        + depart_dir * near_padding * vol_range;
   const Real far_vol = minmax (-depart_dir, start_vol, end_vol)
-                   + depart_dir * far_padding * vol_range;
+                       + depart_dir * far_padding * vol_range;
   const Real depart_vol = minmax (depart_dir, near_vol, far_vol);
   return std::max (std::min (depart_vol, max_vol), min_vol);
 }
@@ -288,7 +278,8 @@ Dynamic_performer::finish_queued_spans (Real next_vol)
       return next_vol;
     }
 
-  const Real start_vol = depart_queue_.spans_.front ().dynamic_->get_start_volume ();
+  const Real start_vol
+      = depart_queue_.spans_.front ().dynamic_->get_start_volume ();
 
   if (return_queue_.spans_.empty ())
     {
@@ -298,10 +289,9 @@ Dynamic_performer::finish_queued_spans (Real next_vol)
       // direction of growth, choose a reasonable target.
       if ((next_vol < 0) || (depart_dir_ != sign (next_vol - start_vol)))
         {
-          depart_vol = compute_departure_volume (depart_dir_,
-                                                 start_vol, start_vol,
-                                                 depart_queue_.min_target_vol_,
-                                                 depart_queue_.max_target_vol_);
+          depart_vol = compute_departure_volume (
+              depart_dir_, start_vol, start_vol, depart_queue_.min_target_vol_,
+              depart_queue_.max_target_vol_);
         }
 
       depart_queue_.set_volume (start_vol, depart_vol);
@@ -312,10 +302,9 @@ Dynamic_performer::finish_queued_spans (Real next_vol)
     {
       // If the next dynamic is not specified, return to the starting volume.
       const Real return_vol = (next_vol >= 0) ? next_vol : start_vol;
-      Real depart_vol = compute_departure_volume (depart_dir_,
-                                                  start_vol, return_vol,
-                                                  depart_queue_.min_target_vol_,
-                                                  depart_queue_.max_target_vol_);
+      Real depart_vol = compute_departure_volume (
+          depart_dir_, start_vol, return_vol, depart_queue_.min_target_vol_,
+          depart_queue_.max_target_vol_);
       depart_queue_.set_volume (start_vol, depart_vol);
       depart_queue_.clear ();
       return_queue_.set_volume (depart_vol, return_vol);
@@ -431,9 +420,9 @@ Dynamic_performer::process_music ()
         volume = equalize_volume (Audio_span_dynamic::DEFAULT_VOLUME);
 
       Stream_event *cause
-      = span_events_[START] ? span_events_[START]
-        : script_event_ ? script_event_
-        : span_events_[STOP];
+          = span_events_[START]
+                ? span_events_[START]
+                : script_event_ ? script_event_ : span_events_[STOP];
 
       open_span_.dynamic_ = new Audio_span_dynamic (now_mom (), volume);
       open_span_.grow_dir_ = next_grow_dir_;
@@ -446,7 +435,7 @@ Dynamic_performer::stop_translation_timestep ()
 {
   // link notes to the current dynamic
   if (!open_span_.dynamic_)
-    programming_error("no current dynamic");
+    programming_error ("no current dynamic");
   else
     {
       for (vector<Audio_note *>::const_iterator ni = notes_.begin ();
@@ -458,8 +447,7 @@ Dynamic_performer::stop_translation_timestep ()
   notes_.clear ();
 
   script_event_ = 0;
-  span_events_[LEFT]
-  = span_events_[RIGHT] = 0;
+  span_events_[LEFT] = span_events_[RIGHT] = 0;
   next_grow_dir_ = CENTER;
 }
 
@@ -508,5 +496,4 @@ ADD_TRANSLATOR (Dynamic_performer,
                 "midiInstrument ",
 
                 /* write */
-                ""
-               );
+                "");

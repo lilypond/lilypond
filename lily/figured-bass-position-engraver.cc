@@ -20,12 +20,12 @@
 
 #include "engraver.hh"
 
+#include "axis-group-interface.hh"
 #include "context.hh"
-#include "spanner.hh"
 #include "item.hh"
 #include "side-position-interface.hh"
+#include "spanner.hh"
 #include "translator.icc"
-#include "axis-group-interface.hh"
 
 using std::vector;
 
@@ -37,6 +37,7 @@ class Figured_bass_position_engraver : public Engraver
   Spanner *positioner_;
   vector<Grob *> support_;
   vector<Grob *> span_support_;
+
 protected:
   void acknowledge_note_column (Grob_info);
   void acknowledge_slur (Grob_info);
@@ -52,7 +53,7 @@ protected:
 };
 
 Figured_bass_position_engraver::Figured_bass_position_engraver (Context *c)
-  : Engraver (c)
+    : Engraver (c)
 {
   positioner_ = 0;
   bass_figure_alignment_ = 0;
@@ -63,7 +64,8 @@ Figured_bass_position_engraver::start_spanner ()
 {
   assert (!positioner_);
 
-  positioner_ = make_spanner ("BassFigureAlignmentPositioning", bass_figure_alignment_->self_scm ());
+  positioner_ = make_spanner ("BassFigureAlignmentPositioning",
+                              bass_figure_alignment_->self_scm ());
   positioner_->set_bound (LEFT, bass_figure_alignment_->get_bound (LEFT));
   Axis_group_interface::add_element (positioner_, bass_figure_alignment_);
 }
@@ -95,8 +97,8 @@ Figured_bass_position_engraver::acknowledge_note_column (Grob_info info)
 void
 Figured_bass_position_engraver::acknowledge_end_slur (Grob_info info)
 {
-  vector<Grob *>::iterator i = find (span_support_.begin (), span_support_.end (),
-                                     info.grob ());
+  vector<Grob *>::iterator i
+      = find (span_support_.begin (), span_support_.end (), info.grob ());
 
   if (i < span_support_.end ())
     span_support_.erase (i);
@@ -128,20 +130,19 @@ Figured_bass_position_engraver::stop_translation_timestep ()
   support_.clear ();
 }
 
-void
-Figured_bass_position_engraver::acknowledge_end_bass_figure_alignment (Grob_info /* info */)
+void Figured_bass_position_engraver::acknowledge_end_bass_figure_alignment (
+    Grob_info /* info */)
 {
   stop_spanner ();
 }
 
 void
-Figured_bass_position_engraver::acknowledge_bass_figure_alignment (Grob_info info)
+Figured_bass_position_engraver::acknowledge_bass_figure_alignment (
+    Grob_info info)
 {
   bass_figure_alignment_ = dynamic_cast<Spanner *> (info.grob ());
   start_spanner ();
 }
-
-
 
 void
 Figured_bass_position_engraver::boot ()
@@ -165,5 +166,4 @@ ADD_TRANSLATOR (Figured_bass_position_engraver,
                 "",
 
                 /* write */
-                ""
-               );
+                "");

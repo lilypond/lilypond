@@ -54,8 +54,7 @@ private:
   vector<Pitch> pitches_;
 };
 
-Custos_engraver::Custos_engraver (Context *c)
-  : Engraver (c)
+Custos_engraver::Custos_engraver (Context *c) : Engraver (c)
 {
   custos_permitted_ = false;
 }
@@ -64,7 +63,8 @@ void
 Custos_engraver::stop_translation_timestep ()
 {
   /*
-    delay typeset until we're at the next moment, so we can silence custodes at the end of the piece.
+    delay typeset until we're at the next moment, so we can silence custodes at
+    the end of the piece.
   */
   pitches_.clear ();
 
@@ -77,8 +77,7 @@ Custos_engraver::start_translation_timestep ()
   custodes_.clear ();
 }
 
-void
-Custos_engraver::acknowledge_bar (Grob_info /* info */)
+void Custos_engraver::acknowledge_bar (Grob_info /* info */)
 {
   custos_permitted_ = true;
 }
@@ -119,8 +118,7 @@ Custos_engraver::process_acknowledged ()
           if (scm_is_number (c0))
             p += scm_to_int (c0);
 
-          c->set_property ("staff-position",
-                           scm_from_int (p));
+          c->set_property ("staff-position", scm_from_int (p));
         }
 
       pitches_.clear ();
@@ -145,7 +143,6 @@ Custos_engraver::finalize ()
   custodes_.clear ();
 }
 
-
 void
 Custos_engraver::boot ()
 {
@@ -164,5 +161,4 @@ ADD_TRANSLATOR (Custos_engraver,
                 "",
 
                 /* write */
-                ""
-               );
+                "");

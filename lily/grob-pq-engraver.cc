@@ -33,7 +33,7 @@ struct Grob_pq_entry
 };
 
 bool
-operator < (Grob_pq_entry const &a, Grob_pq_entry const &b)
+operator< (Grob_pq_entry const &a, Grob_pq_entry const &b)
 {
   return a.end_ < b.end_;
 }
@@ -42,6 +42,7 @@ class Grob_pq_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Grob_pq_engraver);
+
 protected:
   void initialize () override;
   void acknowledge_grob (Grob_info) override;
@@ -52,10 +53,7 @@ protected:
   vector<Grob_pq_entry> started_now_;
 };
 
-Grob_pq_engraver::Grob_pq_engraver (Context *c)
-  : Engraver (c)
-{
-}
+Grob_pq_engraver::Grob_pq_engraver (Context *c) : Engraver (c) {}
 
 void
 Grob_pq_engraver::initialize ()
@@ -63,13 +61,13 @@ Grob_pq_engraver::initialize ()
   context ()->set_property ("busyGrobs", SCM_EOL);
 }
 
-LY_DEFINE (ly_grob_pq_less_p, "ly:grob-pq<?",
-           2, 0, 0, (SCM a, SCM b),
+LY_DEFINE (ly_grob_pq_less_p, "ly:grob-pq<?", 2, 0, 0, (SCM a, SCM b),
            "Compare two grob priority queue entries."
            "  This is an internal function.")
 {
   if (Moment::compare (*unsmob<Moment> (scm_car (a)),
-                       *unsmob<Moment> (scm_car (b))) < 0)
+                       *unsmob<Moment> (scm_car (b)))
+      < 0)
     return SCM_BOOL_T;
   else
     return SCM_BOOL_F;
@@ -81,7 +79,8 @@ Grob_pq_engraver::acknowledge_grob (Grob_info gi)
   Stream_event *ev = gi.event_cause ();
 
   if (ev
-      && !gi.grob ()->internal_has_interface (ly_symbol2scm ("multi-measure-interface")))
+      && !gi.grob ()->internal_has_interface (
+          ly_symbol2scm ("multi-measure-interface")))
     {
       Moment n = now_mom ();
       Moment l = get_event_length (ev, n);
@@ -108,8 +107,7 @@ Grob_pq_engraver::process_acknowledged ()
   for (vsize i = 0; i < started_now_.size (); i++)
     {
       *tail = scm_acons (started_now_[i].end_.smobbed_copy (),
-                         started_now_[i].grob_->self_scm (),
-                         SCM_EOL);
+                         started_now_[i].grob_->self_scm (), SCM_EOL);
       tail = SCM_CDRLOC (*tail);
     }
 
@@ -128,7 +126,6 @@ Grob_pq_engraver::stop_translation_timestep ()
   SCM busy = start_busy;
   while (scm_is_pair (busy) && *unsmob<Moment> (scm_caar (busy)) == now)
     busy = scm_cdr (busy);
-
 }
 
 void
@@ -169,5 +166,4 @@ ADD_TRANSLATOR (Grob_pq_engraver,
                 "busyGrobs ",
 
                 /* write */
-                "busyGrobs "
-               );
+                "busyGrobs ");

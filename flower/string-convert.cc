@@ -6,8 +6,8 @@
 
 #include "string-convert.hh"
 
-#include <cstring>
 #include <cstdio>
+#include <cstring>
 
 #include "libc-extension.hh"
 #include "std-vector.hh"
@@ -64,7 +64,7 @@ String_convert::bin2unsigned (const string &bin_string)
   for (ssize i = 0; i < bin_string.length (); i++)
     {
       result_u <<= 8;
-      result_u += (Byte)bin_string[ i ];
+      result_u += (Byte)bin_string[i];
     }
   return result_u;
 }
@@ -103,7 +103,7 @@ String_convert::hex2bin (string hex_string, string &bin_string_r)
     hex_string = "0" + hex_string;
 
   bin_string_r = "";
-  Byte const *byte = (Byte const *) hex_string.data ();
+  Byte const *byte = (Byte const *)hex_string.data ();
   ssize i = 0;
   while (i < hex_string.length ())
     {
@@ -153,7 +153,8 @@ String_convert::int2dec (int i, size_t length_i, char ch)
 
   // ugh
   if (dec_string.length () < length_i)
-    dec_string = string (length_i - dec_string.length (), fill_char) + dec_string;
+    dec_string
+        = string (length_i - dec_string.length (), fill_char) + dec_string;
   return dec_string;
 }
 
@@ -167,13 +168,13 @@ String_convert::unsigned2hex (unsigned u, size_t length, char fill_char)
 
   while (u)
     {
-      str = string (1, (char) ((u % 16)["0123456789abcdef"])) + str;
+      str = string (1, (char)((u % 16)["0123456789abcdef"])) + str;
       u /= 16;
     }
 
   if (str.length () < length)
     str = string (length - str.length (), fill_char) + str;
-  while ((str.length () > length) && (str[ 0 ] == 'f'))
+  while ((str.length () > length) && (str[0] == 'f'))
     str = str.substr (2);
 
   return str;
@@ -203,8 +204,8 @@ string
 String_convert::int_string (int i, char const *fmt)
 {
   char buffer[STRING_BUFFER_LEN];
-  snprintf (buffer, STRING_BUFFER_LEN,
-            (fmt ? fmt : "%d"), i); // assume radix 10
+  snprintf (buffer, STRING_BUFFER_LEN, (fmt ? fmt : "%d"),
+            i); // assume radix 10
   return string (buffer);
 }
 
@@ -236,11 +237,11 @@ String_convert::pad_to (const string &s, size_t n)
 string
 String_convert::to_upper (string s)
 {
-  return strnupr (const_cast<char*>(s.c_str ()), s.length ());
+  return strnupr (const_cast<char *> (s.c_str ()), s.length ());
 }
 
 string
 String_convert::to_lower (string s)
 {
-  return strnlwr (const_cast<char*>(s.c_str ()), s.length ());
+  return strnlwr (const_cast<char *> (s.c_str ()), s.length ());
 }

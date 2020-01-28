@@ -44,19 +44,20 @@ protected:
   void process_music ();
   void stop_translation_timestep ();
   void listen_arpeggio (Stream_event *);
+
 private:
   Item *arpeggio_;
   Stream_event *arpeggio_event_;
 };
 
-Arpeggio_engraver::Arpeggio_engraver (Context *c)
-  : Engraver (c)
+Arpeggio_engraver::Arpeggio_engraver (Context *c) : Engraver (c)
 {
   arpeggio_ = 0;
   arpeggio_event_ = 0;
 }
 
-void Arpeggio_engraver::listen_arpeggio (Stream_event *ev)
+void
+Arpeggio_engraver::listen_arpeggio (Stream_event *ev)
 {
   ASSIGN_EVENT_ONCE (arpeggio_event_, ev);
 }
@@ -69,8 +70,7 @@ Arpeggio_engraver::acknowledge_stem (Grob_info info)
       if (!arpeggio_->get_parent (Y_AXIS))
         arpeggio_->set_parent (info.grob (), Y_AXIS);
 
-      Pointer_group_interface::add_grob (arpeggio_,
-                                         ly_symbol2scm ("stems"),
+      Pointer_group_interface::add_grob (arpeggio_, ly_symbol2scm ("stems"),
                                          info.grob ());
     }
 }
@@ -109,7 +109,6 @@ Arpeggio_engraver::stop_translation_timestep ()
   arpeggio_event_ = 0;
 }
 
-
 void
 Arpeggio_engraver::boot ()
 {
@@ -130,5 +129,4 @@ ADD_TRANSLATOR (Arpeggio_engraver,
                 "",
 
                 /* write */
-                ""
-               );
+                "");

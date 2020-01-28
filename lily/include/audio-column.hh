@@ -20,10 +20,10 @@
 #ifndef AUDIO_COLUMN_HH
 #define AUDIO_COLUMN_HH
 
+#include "audio-element.hh"
 #include "lily-proto.hh"
 #include "moment.hh"
 #include "std-vector.hh"
-#include "audio-element.hh"
 
 /**
    generic audio grouped vertically.
@@ -40,10 +40,10 @@ public:
   std::vector<Audio_item *> audio_items_;
   Moment when_;
   int ticks () const;
+
 protected:
   void offset_when (Moment m);
   friend class Score_performer;
-
 };
 
 #endif // AUDIO_COLUMN_HH

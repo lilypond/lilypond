@@ -25,7 +25,7 @@
 #include "interval.hh"
 #include "lily-guile.hh"
 #include "lily-proto.hh"
-#include "main.hh"  //  DEBUG_BEAM_SCORING
+#include "main.hh" //  DEBUG_BEAM_SCORING
 #include "std-vector.hh"
 #include "stem-info.hh"
 
@@ -57,15 +57,14 @@ public:
   Beam_configuration ();
   bool done () const;
   void add (Real demerit, const std::string &reason);
-  static Beam_configuration *new_config (Interval start,
-                                         Interval offset);
+  static Beam_configuration *new_config (Interval start, Interval offset);
 };
 
 // Comparator for a queue of Beam_configuration*.
 class Beam_configuration_less
 {
 public:
-  bool operator () (Beam_configuration *const &l, Beam_configuration *const &r)
+  bool operator() (Beam_configuration *const &l, Beam_configuration *const &r)
   {
     // Invert
     return l->demerits > r->demerits;
@@ -172,7 +171,8 @@ private:
   vsize first_normal_index ();
   vsize last_normal_index ();
 
-  void init_instance_variables (Grob *me, Drul_array<Real> ys, bool align_broken_intos);
+  void init_instance_variables (Grob *me, Drul_array<Real> ys,
+                                bool align_broken_intos);
   void add_collision (Real x, Interval y, Real factor);
   void no_visible_stem_positions ();
   void least_squares_positions ();
@@ -181,8 +181,9 @@ private:
   void shift_region_to_valid ();
 
   void one_scorer (Beam_configuration *config) const;
-  Beam_configuration *force_score (SCM inspect_quants,
-                                   const std::vector<Beam_configuration *> &configs) const;
+  Beam_configuration *
+  force_score (SCM inspect_quants,
+               const std::vector<Beam_configuration *> &configs) const;
   Real y_at (Real x, Beam_configuration const *c) const;
 
   // Scoring functions:

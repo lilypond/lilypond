@@ -38,7 +38,7 @@ public:
 };
 
 Repeat_tie_engraver::Repeat_tie_engraver (Context *c)
-  : Laissez_vibrer_engraver (c)
+    : Laissez_vibrer_engraver (c)
 {
 }
 
@@ -79,5 +79,4 @@ ADD_TRANSLATOR (Repeat_tie_engraver,
                 "",
 
                 /* write */
-                ""
-               );
+                "");

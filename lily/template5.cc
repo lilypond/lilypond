@@ -17,15 +17,15 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "interval.hh"
 #include "moment.hh"
 #include "real.hh"
-#include "interval.hh"
 
 #include "interval.tcc"
 
 using std::string;
 
-template<>
+template <>
 Rational
 Interval_t<Rational>::infinity ()
 {
@@ -36,7 +36,7 @@ Interval_t<Rational>::infinity ()
 
 template INTERVAL__INSTANTIATE (Rational);
 
-template<>
+template <>
 Moment
 Interval_t<Moment>::infinity ()
 {
@@ -48,7 +48,7 @@ Interval_t<Moment>::infinity ()
 
 template INTERVAL__INSTANTIATE (Moment);
 
-template<>
+template <>
 Real
 Interval_t<Real>::linear_combination (Real x) const
 {

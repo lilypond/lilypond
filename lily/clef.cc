@@ -69,13 +69,10 @@ Clef::print (SCM smob)
   return out.smobbed_copy ();
 }
 
-ADD_INTERFACE (Clef,
-               "A clef sign.",
+ADD_INTERFACE (Clef, "A clef sign.",
 
                /* properties */
                "full-size-change "
                "glyph "
                "glyph-name "
-               "non-default "
-              );
-
+               "non-default ");

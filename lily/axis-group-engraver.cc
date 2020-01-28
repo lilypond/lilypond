@@ -20,10 +20,10 @@
 #include "engraver.hh"
 
 #include "axis-group-interface.hh"
-#include "hara-kiri-group-spanner.hh"
-#include "pointer-group-interface.hh"
 #include "context.hh"
+#include "hara-kiri-group-spanner.hh"
 #include "international.hh"
+#include "pointer-group-interface.hh"
 #include "spanner.hh"
 #include "warn.hh"
 
@@ -56,9 +56,7 @@ public:
   TRANSLATOR_DECLARATIONS (Axis_group_engraver);
 };
 
-
-Axis_group_engraver::Axis_group_engraver (Context *c)
-  : Engraver (c)
+Axis_group_engraver::Axis_group_engraver (Context *c) : Engraver (c)
 {
   staffline_ = 0;
   interesting_ = SCM_EOL;
@@ -78,7 +76,6 @@ Axis_group_engraver::derived_mark () const
 {
   scm_gc_mark (interesting_);
 }
-
 
 bool
 Axis_group_engraver::must_be_last () const
@@ -112,7 +109,8 @@ Axis_group_engraver::finalize ()
       Grob *it = unsmob<Grob> (get_property ("currentCommandColumn"));
       staffline_->set_bound (RIGHT, it);
 
-      Pointer_group_interface::set_ordered (staffline_, ly_symbol2scm ("elements"), false);
+      Pointer_group_interface::set_ordered (staffline_,
+                                            ly_symbol2scm ("elements"), false);
     }
 }
 
@@ -130,7 +128,8 @@ Axis_group_engraver::acknowledge_grob (Grob_info i)
         {
           if (i.grob ()->internal_has_interface (scm_car (s)))
             {
-              Hara_kiri_group_spanner::add_interesting_item (staffline_, i.grob ());
+              Hara_kiri_group_spanner::add_interesting_item (staffline_,
+                                                             i.grob ());
               break;
             }
         }
@@ -154,7 +153,8 @@ Axis_group_engraver::process_acknowledged ()
           if (staffline_->get_parent (Y_AXIS)
               && staffline_->get_parent (Y_AXIS) == elts_[i])
             {
-              staffline_->warning (_ ("Axis_group_engraver: vertical group already has a parent"));
+              staffline_->warning (_ (
+                  "Axis_group_engraver: vertical group already has a parent"));
               staffline_->warning (_ ("are there two Axis_group_engravers?"));
               staffline_->warning (_ ("removing this vertical group"));
               staffline_->suicide ();
@@ -172,7 +172,6 @@ Axis_group_engraver::add_element (Grob *e)
 {
   Axis_group_interface::add_element (staffline_, e);
 }
-
 
 void
 Axis_group_engraver::boot ()
@@ -192,7 +191,6 @@ ADD_TRANSLATOR (Axis_group_engraver,
                 "currentCommandColumn "
                 "keepAliveInterfaces "
                 "hasAxisGroup ",
-                
+
                 /* write */
-                "hasAxisGroup "
-               );
+                "hasAxisGroup ");

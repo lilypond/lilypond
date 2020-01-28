@@ -17,17 +17,15 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #include "measure-spanner.hh"
 
 #include "bracket.hh"
-#include "output-def.hh"
-#include "font-interface.hh"
-#include "text-interface.hh"
 #include "directional-element-interface.hh"
-#include "spanner.hh"
+#include "font-interface.hh"
+#include "output-def.hh"
 #include "paper-column.hh"
-
+#include "spanner.hh"
+#include "text-interface.hh"
 
 MAKE_SCHEME_CALLBACK (Measure_spanner, calc_connect_to_neighbors, 1);
 SCM
@@ -36,10 +34,10 @@ Measure_spanner::calc_connect_to_neighbors (SCM smob)
   Spanner *me = unsmob<Spanner> (smob);
 
   Spanner *orig_spanner = me->original ();
-  if (!orig_spanner) return SCM_EOL;
+  if (!orig_spanner)
+    return SCM_EOL;
 
-  Drul_array<Item *> bounds (me->get_bound (LEFT),
-                             me->get_bound (RIGHT));
+  Drul_array<Item *> bounds (me->get_bound (LEFT), me->get_bound (RIGHT));
   Drul_array<bool> connect_to_other (false, false);
 
   for (LEFT_and_RIGHT (d))
@@ -48,9 +46,8 @@ Measure_spanner::calc_connect_to_neighbors (SCM smob)
       vsize neighbor_idx = me->get_break_index () - break_dir;
 
       connect_to_other[d]
-        = (break_dir
-           && neighbor_idx < orig_spanner->broken_intos_.size ()
-           && orig_spanner->broken_intos_[neighbor_idx]->is_live ());
+          = (break_dir && neighbor_idx < orig_spanner->broken_intos_.size ()
+             && orig_spanner->broken_intos_[neighbor_idx]->is_live ());
     }
 
   if (connect_to_other[LEFT] || connect_to_other[RIGHT])
@@ -82,11 +79,9 @@ Measure_spanner::print (SCM smob)
 
   for (LEFT_and_RIGHT (d))
     {
-      align_syms = (scm_is_pair (sp) ?
-	                index_get_cell (sp, d)
-                    : ly_symbol2scm ("staff-bar"));
-	  x_points[d] = Paper_column::break_align_width (bounds[d],
-	                                                 align_syms)[-d];
+      align_syms = (scm_is_pair (sp) ? index_get_cell (sp, d)
+                                     : ly_symbol2scm ("staff-bar"));
+      x_points[d] = Paper_column::break_align_width (bounds[d], align_syms)[-d];
     }
 
   Stencil bracket_text;
@@ -96,13 +91,13 @@ Measure_spanner::print (SCM smob)
     {
       Output_def *pap = me->layout ();
       SCM properties = Font_interface::text_font_alist_chain (me);
-      SCM t = Text_interface::interpret_markup (pap->self_scm (),
-                                                properties, txt);
+      SCM t = Text_interface::interpret_markup (pap->self_scm (), properties,
+                                                txt);
       bracket_text = *unsmob<Stencil> (t);
       bracket_text.align_to (X_AXIS, CENTER);
       Interval stil_Y_ext = bracket_text.extent (Y_AXIS);
-      bracket_text.translate_axis (
-        (x_points[RIGHT] - x_points[LEFT]) / 2.0, X_AXIS);
+      bracket_text.translate_axis ((x_points[RIGHT] - x_points[LEFT]) / 2.0,
+                                   X_AXIS);
       bracket_text.translate_axis (-stil_Y_ext[UP] / 2.0, Y_AXIS);
       Real gap = bracket_text.extent (X_AXIS).length ();
       gap_iv = Interval (-0.5, 0.5) * gap;
@@ -111,8 +106,8 @@ Measure_spanner::print (SCM smob)
 
   if (ly_scm2bool (visible))
     brack = Bracket::make_axis_constrained_bracket (
-      me, x_points[RIGHT] - x_points[LEFT], X_AXIS,
-      get_grob_direction (me), gap_iv);
+        me, x_points[RIGHT] - x_points[LEFT], X_AXIS, get_grob_direction (me),
+        gap_iv);
 
   if (!bracket_text.is_empty ())
     brack.add_stencil (bracket_text);
@@ -126,8 +121,7 @@ Measure_spanner::print (SCM smob)
   return mol.smobbed_copy ();
 }
 
-ADD_INTERFACE (Measure_spanner,
-               "A bracket aligned to a measure or measures.",
+ADD_INTERFACE (Measure_spanner, "A bracket aligned to a measure or measures.",
 
                /* properties */
                "bracket-flare "
@@ -139,5 +133,4 @@ ADD_INTERFACE (Measure_spanner,
                "shorten-pair "
                "spacing-pair "
                "staff-padding "
-               "thickness "
-              );
+               "thickness ");

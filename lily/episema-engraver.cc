@@ -33,6 +33,7 @@ class Episema_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Episema_engraver);
+
 protected:
   void finalize () override;
   void listen_episema (Stream_event *);
@@ -50,8 +51,7 @@ private:
   void typeset_all ();
 };
 
-Episema_engraver::Episema_engraver (Context *c)
-  : Engraver (c)
+Episema_engraver::Episema_engraver (Context *c) : Engraver (c)
 {
   finished_ = 0;
   current_event_ = 0;
@@ -86,8 +86,8 @@ Episema_engraver::process_music ()
   if (event_drul_[STOP])
     {
       if (!span_)
-        event_drul_[STOP]
-        ->origin ()->warning (_ ("cannot find start of episema"));
+        event_drul_[STOP]->origin ()->warning (
+            _ ("cannot find start of episema"));
       else
         {
           finished_ = span_;
@@ -106,9 +106,10 @@ Episema_engraver::typeset_all ()
     {
       if (!finished_->get_bound (RIGHT))
         {
-          Grob *col = (note_columns_.size ()
-                       ? note_columns_.back ()
-                       : unsmob<Grob> (get_property ("currentMusicalColumn")));
+          Grob *col
+              = (note_columns_.size ()
+                     ? note_columns_.back ()
+                     : unsmob<Grob> (get_property ("currentMusicalColumn")));
           finished_->set_bound (RIGHT, col);
         }
       finished_ = 0;
@@ -121,8 +122,8 @@ Episema_engraver::stop_translation_timestep ()
   if (span_ && !span_->get_bound (LEFT))
     {
       Grob *col = (note_columns_.size ()
-                   ? note_columns_.front ()
-                   : unsmob<Grob> (get_property ("currentMusicalColumn")));
+                       ? note_columns_.front ()
+                       : unsmob<Grob> (get_property ("currentMusicalColumn")));
       span_->set_bound (LEFT, col);
     }
 
@@ -163,7 +164,6 @@ Episema_engraver::acknowledge_note_head (Grob_info info)
     }
 }
 
-
 void
 Episema_engraver::boot ()
 {
@@ -183,5 +183,4 @@ ADD_TRANSLATOR (Episema_engraver,
                 "",
 
                 /* write */
-                ""
-               );
+                "");

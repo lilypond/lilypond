@@ -42,9 +42,12 @@ public:
   static SCM get_footnotes_from_lines (SCM lines);
   static void add_footnotes_to_lines (SCM lines, vsize counter, Paper_book *pb);
   static Stencil get_footnote_separator_stencil (Output_def *paper);
-  static SCM get_spacing_spec (Grob *before, Grob *after, bool pure, int start, int end);
-  static Real get_fixed_spacing (Grob *before, Grob *after, int spaceable_index, bool pure, int start, int end);
-  static Stencil add_footnotes_to_footer (SCM footnotes, Stencil foot, Paper_book *pb);
+  static SCM get_spacing_spec (Grob *before, Grob *after, bool pure, int start,
+                               int end);
+  static Real get_fixed_spacing (Grob *before, Grob *after, int spaceable_index,
+                                 bool pure, int start, int end);
+  static Stencil add_footnotes_to_footer (SCM footnotes, Stencil foot,
+                                          Paper_book *pb);
 
 protected:
   void append_system (System *, Spring const &, Real indent, Real padding);
@@ -52,9 +55,12 @@ protected:
 
   void solve_rod_spring_problem (bool ragged, Real fixed_force);
   SCM find_system_offsets ();
-  void distribute_loose_lines (std::vector<Grob *> const &, std::vector<Real> const &, Real, Real);
+  void distribute_loose_lines (std::vector<Grob *> const &,
+                               std::vector<Real> const &, Real, Real);
 
-  static void build_system_skyline (std::vector<Grob *> const &, std::vector<Real> const &, Skyline *up, Skyline *down);
+  static void build_system_skyline (std::vector<Grob *> const &,
+                                    std::vector<Real> const &, Skyline *up,
+                                    Skyline *down);
   static std::vector<Grob *> filter_dead_elements (std::vector<Grob *> const &);
 
   // This is a union (in spirit).
@@ -69,7 +75,8 @@ protected:
     Real min_distance;
     Real padding;
 
-    Element (std::vector<Grob *> const &a, std::vector<Real> const &o, Real m, Real p)
+    Element (std::vector<Grob *> const &a, std::vector<Real> const &o, Real m,
+             Real p)
     {
       staves = a;
       min_offsets = o;

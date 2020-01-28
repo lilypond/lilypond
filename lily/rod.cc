@@ -19,10 +19,10 @@
 
 #include "rod.hh"
 
-#include "paper-column.hh"
-#include "warn.hh"
 #include "dimensions.hh"
+#include "paper-column.hh"
 #include "spaceable-grob.hh"
+#include "warn.hh"
 
 Rod::Rod ()
 {
@@ -33,8 +33,7 @@ Rod::Rod ()
 void
 Rod::add_to_cols ()
 {
-  if (!item_drul_[LEFT]
-      || !item_drul_[RIGHT])
+  if (!item_drul_[LEFT] || !item_drul_[RIGHT])
     return;
 
   for (LEFT_and_RIGHT (d))
@@ -44,8 +43,8 @@ Rod::add_to_cols ()
       item_drul_[d] = pc;
     }
 
-  if (item_drul_[LEFT] != item_drul_[RIGHT]
-      && item_drul_[LEFT] && item_drul_[RIGHT])
+  if (item_drul_[LEFT] != item_drul_[RIGHT] && item_drul_[LEFT]
+      && item_drul_[RIGHT])
     {
       // casts are safe because we just stored Paper_columns above
       Spaceable_grob::add_rod (static_cast<Paper_column *> (item_drul_[LEFT]),

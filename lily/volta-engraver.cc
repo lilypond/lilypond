@@ -23,8 +23,8 @@
 #include "context.hh"
 #include "grob-array.hh"
 #include "international.hh"
-#include "note-column.hh"
 #include "item.hh"
+#include "note-column.hh"
 #include "side-position-interface.hh"
 #include "staff-symbol.hh"
 #include "text-interface.hh"
@@ -41,8 +41,8 @@ class Volta_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Volta_engraver);
-protected:
 
+protected:
   void acknowledge_bar_line (Grob_info);
 
   void derived_mark () const override;
@@ -62,8 +62,7 @@ Volta_engraver::derived_mark () const
   scm_gc_mark (start_string_);
 }
 
-Volta_engraver::Volta_engraver (Context *c)
-  : Engraver (c)
+Volta_engraver::Volta_engraver (Context *c) : Engraver (c)
 {
   start_string_ = SCM_EOL;
   volta_bracket_ = 0;
@@ -82,8 +81,7 @@ Volta_engraver::process_music ()
     {
       SCM c = scm_car (cs);
 
-      if (scm_is_pair (c)
-          && scm_is_eq (scm_car (c), ly_symbol2scm ("volta"))
+      if (scm_is_pair (c) && scm_is_eq (scm_car (c), ly_symbol2scm ("volta"))
           && scm_is_pair (scm_cdr (c)))
         {
           if (scm_is_false (scm_cadr (c)))
@@ -100,8 +98,8 @@ Volta_engraver::process_music ()
       SCM l (get_property ("voltaSpannerDuration"));
       Moment now = now_mom ();
 
-      bool early_stop = unsmob<Moment> (l)
-                        && *unsmob<Moment> (l) <= now - started_mom_;
+      bool early_stop
+          = unsmob<Moment> (l) && *unsmob<Moment> (l) <= now - started_mom_;
 
       end = end || early_stop;
     }
@@ -131,8 +129,7 @@ Volta_engraver::process_music ()
       volta_bracket_ = 0;
     }
 
-  if (!volta_bracket_
-      && Text_interface::is_markup (start_string_))
+  if (!volta_bracket_ && Text_interface::is_markup (start_string_))
     {
       started_mom_ = now_mom ();
 
@@ -174,8 +171,10 @@ Volta_engraver::stop_translation_timestep ()
 
   if (end_volta_bracket_ && !volta_bracket_)
     {
-      for (SCM s = get_property ("stavesFound"); scm_is_pair (s); s = scm_cdr (s))
-        Side_position_interface::add_support (volta_spanner_, unsmob<Grob> (scm_car (s)));
+      for (SCM s = get_property ("stavesFound"); scm_is_pair (s);
+           s = scm_cdr (s))
+        Side_position_interface::add_support (volta_spanner_,
+                                              unsmob<Grob> (scm_car (s)));
       volta_spanner_ = 0;
     }
 
@@ -211,5 +210,4 @@ ADD_TRANSLATOR (Volta_engraver,
                 "stavesFound ",
 
                 /* write */
-                ""
-               );
+                "");

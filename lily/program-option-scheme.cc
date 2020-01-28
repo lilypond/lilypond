@@ -22,14 +22,14 @@
 #include <cstdio>
 #include <cstring>
 
-#include "profile.hh"
 #include "international.hh"
+#include "lily-imports.hh"
 #include "main.hh"
 #include "parse-scm.hh"
+#include "profile.hh"
+#include "protected-scm.hh"
 #include "string-convert.hh"
 #include "warn.hh"
-#include "lily-imports.hh"
-#include "protected-scm.hh"
 
 using std::string;
 using std::vector;
@@ -51,8 +51,7 @@ bool strict_infinity_checking = false;
 static Protected_scm option_hash;
 
 void
-internal_set_option (SCM var,
-                     SCM val)
+internal_set_option (SCM var, SCM val)
 {
   string varstr = robust_symbol2string (var, "");
   bool valbool = to_boolean (val);
@@ -147,23 +146,18 @@ get_help_string ()
     {
       SCM sym = scm_caar (s);
       SCM val = scm_cdar (s);
-      string opt_spec = string (INDENT, ' ')
-                        + ly_symbol2string (sym)
-                        + " ("
-                        + ly_scm2string (Lily::scm_to_string (val))
-                        + ")";
+      string opt_spec = string (INDENT, ' ') + ly_symbol2string (sym) + " ("
+                        + ly_scm2string (Lily::scm_to_string (val)) + ")";
 
       if (opt_spec.length () + SEPARATION > HELP_INDENT)
         opt_spec += '\n' + string (HELP_INDENT, ' ');
       else
         opt_spec += string (HELP_INDENT - opt_spec.length (), ' ');
 
-      SCM opt_help_scm
-        = scm_object_property (sym,
-                               ly_symbol2scm ("program-option-documentation"));
+      SCM opt_help_scm = scm_object_property (
+          sym, ly_symbol2scm ("program-option-documentation"));
       string opt_help = ly_scm2string (opt_help_scm);
-      replace_all (&opt_help,
-                   string ("\n"),
+      replace_all (&opt_help, string ("\n"),
                    string ("\n") + string (HELP_INDENT, ' '));
 
       opts.push_back (opt_spec + opt_help + "\n");
@@ -198,8 +192,8 @@ LY_DEFINE (ly_add_option, "ly:add-option", 3, 0, 0,
 
   internal_set_option (sym, val);
 
-  scm_set_object_property_x (sym, ly_symbol2scm ("program-option-documentation"),
-                             description);
+  scm_set_object_property_x (
+      sym, ly_symbol2scm ("program-option-documentation"), description);
 
   return SCM_UNSPECIFIED;
 }
@@ -245,8 +239,7 @@ LY_DEFINE (ly_verbose_output_p, "ly:verbose-output?", 0, 0, 0, (),
   return scm_from_bool (is_loglevel (LOG_DEBUG));
 }
 
-LY_DEFINE (ly_all_options, "ly:all-options",
-           0, 0, 0, (),
+LY_DEFINE (ly_all_options, "ly:all-options", 0, 0, 0, (),
            "Get all option settings in an alist.")
 {
   return ly_hash2alist (option_hash);

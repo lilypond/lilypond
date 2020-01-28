@@ -27,8 +27,7 @@ using std::vector;
 /*
   todo: put string <-> pitch here too.
 */
-LY_DEFINE (ly_make_scale, "ly:make-scale",
-           1, 0, 0, (SCM steps),
+LY_DEFINE (ly_make_scale, "ly:make-scale", 1, 0, 0, (SCM steps),
            "Create a scale."
            "  The argument is a vector of rational numbers, each of which"
            " represents the number of 200 cent tones of a pitch above the"
@@ -53,7 +52,8 @@ LY_DEFINE (ly_make_scale, "ly:make-scale",
         }
     }
 
-  SCM_ASSERT_TYPE (type_ok, steps, SCM_ARG1, __FUNCTION__, "vector of rational");
+  SCM_ASSERT_TYPE (type_ok, steps, SCM_ARG1, __FUNCTION__,
+                   "vector of rational");
 
   return (new Scale (tones))->unprotect ();
 }
@@ -67,15 +67,13 @@ Protected_scm default_global_scale_scm (SCM_BOOL_F);
 // changing the default scale might cause some existing pitches to
 // lose their scale's protection.
 
-LY_DEFINE (ly_default_scale, "ly:default-scale",
-           0, 0, 0, (),
+LY_DEFINE (ly_default_scale, "ly:default-scale", 0, 0, 0, (),
            "Get the global default scale.")
 {
   return default_global_scale_scm;
 }
 
-LY_DEFINE (ly_set_default_scale, "ly:set-default-scale",
-           1, 0, 0, (SCM scale),
+LY_DEFINE (ly_set_default_scale, "ly:set-default-scale", 1, 0, 0, (SCM scale),
            "Set the global default scale.  This determines the tuning of"
            " pitches with no accidentals or key signatures.  The first"
            " pitch is C.  Alterations are calculated relative to this"
@@ -132,8 +130,6 @@ Scale::normalize_step (int step) const
   return ret;
 }
 
-
-
 Scale::Scale (vector<Rational> const &tones)
 {
   step_tones_ = tones;
@@ -141,13 +137,10 @@ Scale::Scale (vector<Rational> const &tones)
   smobify_self ();
 }
 
-Scale::Scale (Scale const &src)
-  : Smob<Scale> ()
+Scale::Scale (Scale const &src) : Smob<Scale> ()
 {
   step_tones_ = src.step_tones_;
   smobify_self ();
 }
 
-Scale::~Scale ()
-{
-}
+Scale::~Scale () {}

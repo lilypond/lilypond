@@ -19,11 +19,11 @@
 
 #include "chord-name.hh"
 
-#include "output-def.hh"
 #include "font-interface.hh"
+#include "output-def.hh"
 #include "paper-column.hh"
-#include "system.hh"
 #include "staff-symbol-referencer.hh"
+#include "system.hh"
 #include "text-interface.hh"
 
 MAKE_SCHEME_CALLBACK (Chord_name, after_line_breaking, 1);
@@ -37,15 +37,14 @@ Chord_name::after_line_breaking (SCM smob)
   if (to_boolean (s))
     {
       if (me->get_column ()->get_rank ()
-          - me->get_system ()->spanned_rank_interval ()[LEFT] > 1)
+              - me->get_system ()->spanned_rank_interval ()[LEFT]
+          > 1)
         me->suicide ();
     }
   return SCM_UNSPECIFIED;
 }
 
-ADD_INTERFACE (Chord_name,
-               "A chord label (name or fretboard).",
+ADD_INTERFACE (Chord_name, "A chord label (name or fretboard).",
 
                /* properties */
-               "begin-of-line-visible "
-              );
+               "begin-of-line-visible ");

@@ -19,9 +19,9 @@
 #ifndef PAPER_BOOK_HH
 #define PAPER_BOOK_HH
 
-#include "std-vector.hh"
-#include "smobs.hh"
 #include "lily-proto.hh"
+#include "smobs.hh"
+#include "std-vector.hh"
 
 /** Paper_book collects headers, systems (Paper_system) and texts, and
     exports them to the output backend, either as systems or as
@@ -31,8 +31,9 @@ class Paper_book : public Smob<Paper_book>
 {
 public:
   SCM mark_smob () const;
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
   virtual ~Paper_book ();
+
 private:
   SCM systems_;
   SCM pages_;
@@ -69,13 +70,9 @@ public:
   void output (SCM output_channel);
 
 protected:
-  void classic_output_aux (SCM output,
-                           long *first_performance_number);
-  long output_aux (SCM output_channel,
-                   bool is_last,
-                   long *first_page_number,
+  void classic_output_aux (SCM output, long *first_performance_number);
+  long output_aux (SCM output_channel, bool is_last, long *first_page_number,
                    long *first_performance_number);
 };
-
 
 #endif /* PAPER_BOOK_HH */

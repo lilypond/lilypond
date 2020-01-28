@@ -39,9 +39,7 @@ Preinit_Scheme_engraver::Preinit_Scheme_engraver ()
     precomputable_methods_[i] = SCM_UNDEFINED;
 }
 
-Scheme_engraver::~Scheme_engraver ()
-{
-}
+Scheme_engraver::~Scheme_engraver () {}
 
 // Extracts the value if callable, if not return SCM_UNDEFINED;
 static SCM
@@ -64,26 +62,24 @@ Scheme_engraver::fetch_precomputable_methods (SCM ptrs[])
     ptrs[i] = precomputable_methods_[i];
 }
 
-Scheme_engraver::Scheme_engraver (SCM definition, Context *c)
-  : Engraver (c)
+Scheme_engraver::Scheme_engraver (SCM definition, Context *c) : Engraver (c)
 {
   precomputable_methods_[START_TRANSLATION_TIMESTEP]
-    = callable (ly_symbol2scm ("start-translation-timestep"), definition);
+      = callable (ly_symbol2scm ("start-translation-timestep"), definition);
   precomputable_methods_[STOP_TRANSLATION_TIMESTEP]
-    = callable (ly_symbol2scm ("stop-translation-timestep"), definition);
+      = callable (ly_symbol2scm ("stop-translation-timestep"), definition);
   precomputable_methods_[PROCESS_MUSIC]
-    = callable (ly_symbol2scm ("process-music"), definition);
+      = callable (ly_symbol2scm ("process-music"), definition);
   precomputable_methods_[PROCESS_ACKNOWLEDGED]
-    = callable (ly_symbol2scm ("process-acknowledged"), definition);
+      = callable (ly_symbol2scm ("process-acknowledged"), definition);
   initialize_function_ = callable (ly_symbol2scm ("initialize"), definition);
   finalize_function_ = callable (ly_symbol2scm ("finalize"), definition);
 
   SCM p = ly_assoc_get (ly_symbol2scm ("listeners"), definition, SCM_EOL);
   SCM listeners = SCM_EOL;
 
-  must_be_last_ = to_boolean (ly_assoc_get (ly_symbol2scm ("must-be-last"),
-                                            definition,
-                                            SCM_BOOL_F));
+  must_be_last_ = to_boolean (
+      ly_assoc_get (ly_symbol2scm ("must-be-last"), definition, SCM_BOOL_F));
 
   for (; scm_is_pair (p); p = scm_cdr (p))
     {
@@ -99,12 +95,10 @@ Scheme_engraver::Scheme_engraver (SCM definition, Context *c)
       listeners = scm_acons (event_class, proc, listeners);
     }
 
-  SCM hash1 =
-    init_acknowledgers (ly_assoc_get (ly_symbol2scm ("acknowledgers"),
-                                      definition, SCM_EOL));
-  SCM hash2 =
-    init_acknowledgers (ly_assoc_get (ly_symbol2scm ("end-acknowledgers"),
-                                      definition, SCM_EOL));
+  SCM hash1 = init_acknowledgers (
+      ly_assoc_get (ly_symbol2scm ("acknowledgers"), definition, SCM_EOL));
+  SCM hash2 = init_acknowledgers (
+      ly_assoc_get (ly_symbol2scm ("end-acknowledgers"), definition, SCM_EOL));
 
   per_instance_listeners_ = listeners;
   interface_acknowledger_hash_.set (hash1, hash2);
@@ -133,7 +127,7 @@ Scheme_engraver::init_acknowledgers (SCM alist)
       if (!(ly_is_procedure (proc) && ly_is_symbol (iface)))
         continue;
 
-      unsmob<Scheme_hash_table>(hash)->set (iface, proc);
+      unsmob<Scheme_hash_table> (hash)->set (iface, proc);
     }
   return hash;
 }

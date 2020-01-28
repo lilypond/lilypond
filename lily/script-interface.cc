@@ -20,14 +20,14 @@
 #include "script-interface.hh"
 
 #include "directional-element-interface.hh"
-#include "item.hh"
-#include "warn.hh"
 #include "font-interface.hh"
-#include "side-position-interface.hh"
-#include "output-def.hh"
+#include "item.hh"
 #include "lookup.hh"
-#include "stem.hh"
 #include "note-column.hh"
+#include "output-def.hh"
+#include "side-position-interface.hh"
+#include "stem.hh"
+#include "warn.hh"
 
 Stencil
 Script_interface::get_stencil (Grob *me, Direction d)
@@ -40,9 +40,9 @@ Script_interface::get_stencil (Grob *me, Direction d)
     {
       SCM name_entry = scm_cdr (s);
       SCM str = ((scm_is_pair (name_entry)) ? index_get_cell (name_entry, d)
-                 : name_entry);
-      return Font_interface::get_default_font (me)
-             ->find_by_name ("scripts." + ly_scm2string (str));
+                                            : name_entry);
+      return Font_interface::get_default_font (me)->find_by_name (
+          "scripts." + ly_scm2string (str));
     }
   else
     assert (false);
@@ -93,7 +93,7 @@ Script_interface::calc_direction (SCM smob)
       d = DOWN;
     }
 
-  (void) me->get_property ("positioning-done");
+  (void)me->get_property ("positioning-done");
   return scm_from_int (d);
 }
 
@@ -133,20 +133,17 @@ struct Text_script
 {
 };
 
-ADD_INTERFACE (Text_script,
-               "An object that is put above or below a note.",
+ADD_INTERFACE (Text_script, "An object that is put above or below a note.",
 
                /* properties */
                "avoid-slur "
                "script-priority "
-               "slur "
-              );
+               "slur ");
 
 /*
   Hmm. Where should we put add-stem-support ?
 */
-ADD_INTERFACE (Script_interface,
-               "An object that is put above or below a note.",
+ADD_INTERFACE (Script_interface, "An object that is put above or below a note.",
 
                /* properties */
                "avoid-slur "
@@ -159,6 +156,4 @@ ADD_INTERFACE (Script_interface,
                "slur "
                "slur-padding "
                "toward-stem-shift "
-               "toward-stem-shift-in-column "
-              );
-
+               "toward-stem-shift-in-column ");

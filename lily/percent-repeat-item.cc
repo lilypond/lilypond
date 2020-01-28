@@ -19,8 +19,8 @@
 
 #include "percent-repeat-item.hh"
 
-#include "item.hh"
 #include "font-interface.hh"
+#include "item.hh"
 #include "lookup.hh"
 #include "stream-event.hh"
 
@@ -38,7 +38,7 @@ Percent_repeat_item_interface::brew_slash (Grob *me, int count)
   Stencil m = slash;
 
   Real slash_neg_kern
-    = robust_scm2double (me->get_property ("slash-negative-kern"), 1.6);
+      = robust_scm2double (me->get_property ("slash-negative-kern"), 1.6);
   for (int i = count - 1; i--;)
     m.add_at_edge (X_AXIS, RIGHT, slash, -slash_neg_kern);
 
@@ -52,7 +52,7 @@ Percent_repeat_item_interface::x_percent (Grob *me, int count)
   Stencil m = brew_slash (me, count);
 
   Real dot_neg_kern
-    = robust_scm2double (me->get_property ("dot-negative-kern"), 0.75);
+      = robust_scm2double (me->get_property ("dot-negative-kern"), 0.75);
 
   Stencil d1 = Font_interface::get_default_font (me)->find_by_name ("dots.dot");
   Stencil d2 = d1;
@@ -99,5 +99,4 @@ ADD_INTERFACE (Percent_repeat_item_interface,
                "dot-negative-kern "
                "slash-negative-kern "
                "slope "
-               "thickness "
-              );
+               "thickness ");

@@ -32,10 +32,10 @@ public:
   ~Tempo_performer ();
 
 protected:
-
   void derived_mark () const override;
   void stop_translation_timestep ();
   void process_music ();
+
 private:
   Audio_tempo *audio_;
   SCM last_tempo_;
@@ -47,23 +47,19 @@ Tempo_performer::derived_mark () const
   scm_gc_mark (last_tempo_);
 }
 
-Tempo_performer::Tempo_performer (Context *c)
-  : Performer (c)
+Tempo_performer::Tempo_performer (Context *c) : Performer (c)
 {
   last_tempo_ = SCM_EOL;
   audio_ = 0;
 }
 
-Tempo_performer::~Tempo_performer ()
-{
-}
+Tempo_performer::~Tempo_performer () {}
 
 void
 Tempo_performer::process_music ()
 {
   SCM w = get_property ("tempoWholesPerMinute");
-  if (unsmob<Moment> (w)
-      && !ly_is_equal (w, last_tempo_))
+  if (unsmob<Moment> (w) && !ly_is_equal (w, last_tempo_))
     {
       Rational r = unsmob<Moment> (w)->main_part_;
       r *= Rational (4, 1);
@@ -89,7 +85,6 @@ Tempo_performer::stop_translation_timestep ()
 void
 Tempo_performer::boot ()
 {
-
 }
 
 ADD_TRANSLATOR (Tempo_performer,
@@ -103,5 +98,4 @@ ADD_TRANSLATOR (Tempo_performer,
                 "tempoWholesPerMinute ",
 
                 /* write */
-                ""
-               );
+                "");

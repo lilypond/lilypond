@@ -43,7 +43,8 @@ int
 Rhythmic_head::dot_count (Grob *me)
 {
   return get_dots (me)
-         ? robust_scm2int (get_dots (me)->get_property ("dot-count"), 0) : 0;
+             ? robust_scm2int (get_dots (me)->get_property ("dot-count"), 0)
+             : 0;
 }
 
 void
@@ -59,12 +60,10 @@ Rhythmic_head::duration_log (Grob *me)
   return scm_is_number (s) ? scm_to_int (s) : 0;
 }
 
-ADD_INTERFACE (Rhythmic_head,
-               "Note head or rest.",
+ADD_INTERFACE (Rhythmic_head, "Note head or rest.",
 
                /* properties */
                "dot "
                "duration-log "
                "glissando-skip "
-               "stem "
-              );
+               "stem ");

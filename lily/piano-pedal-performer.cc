@@ -29,7 +29,13 @@
 using std::string;
 using std::vector;
 
-enum Pedal_type {SOSTENUTO, SUSTAIN, UNA_CORDA, NUM_PEDAL_TYPES};
+enum Pedal_type
+{
+  SOSTENUTO,
+  SUSTAIN,
+  UNA_CORDA,
+  NUM_PEDAL_TYPES
+};
 
 /**
    perform Piano pedals
@@ -54,15 +60,13 @@ protected:
   void listen_sustain (Stream_event *);
   void listen_una_corda (Stream_event *);
   void listen_sostenuto (Stream_event *);
+
 private:
   vector<Audio_piano_pedal *> audios_;
   Pedal_info info_alist_[NUM_PEDAL_TYPES];
 };
 
-Piano_pedal_performer::Piano_pedal_performer (Context *c)
-  : Performer (c)
-{
-}
+Piano_pedal_performer::Piano_pedal_performer (Context *c) : Performer (c) {}
 
 const char *
 Piano_pedal_performer::pedal_type_str (int t)
@@ -105,7 +109,8 @@ Piano_pedal_performer::process_music ()
       if (p->event_drul_[STOP])
         {
           if (!p->start_event_)
-            p->event_drul_[STOP]->origin ()->warning (_f ("cannot find start of piano pedal: `%s'", pedal_type));
+            p->event_drul_[STOP]->origin ()->warning (
+                _f ("cannot find start of piano pedal: `%s'", pedal_type));
           else
             {
               Audio_piano_pedal *a = new Audio_piano_pedal;
@@ -190,5 +195,4 @@ ADD_TRANSLATOR (Piano_pedal_performer,
                 "",
 
                 /* write */
-                ""
-               );
+                "");

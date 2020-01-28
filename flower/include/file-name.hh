@@ -20,8 +20,8 @@
 #ifndef FILE_NAME_HH
 #define FILE_NAME_HH
 
-#include "std-vector.hh"
 #include "std-string.hh"
+#include "std-vector.hh"
 
 std::string dir_name (const std::string &file_name);
 std::string get_working_directory ();

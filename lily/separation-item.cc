@@ -42,14 +42,16 @@ Separation_item::add_item (Grob *s, Item *i)
 void
 Separation_item::add_conditional_item (Grob *me, Grob *e)
 {
-  Pointer_group_interface::add_grob (me, ly_symbol2scm ("conditional-elements"), e);
+  Pointer_group_interface::add_grob (me, ly_symbol2scm ("conditional-elements"),
+                                     e);
 }
 
 Real
 Separation_item::set_distance (Item *l, Item *r, Real padding)
 {
-  Drul_array<Skyline_pair *> lines (unsmob<Skyline_pair> (l->get_property ("horizontal-skylines")),
-                                    unsmob<Skyline_pair> (r->get_property ("horizontal-skylines")));
+  Drul_array<Skyline_pair *> lines (
+      unsmob<Skyline_pair> (l->get_property ("horizontal-skylines")),
+      unsmob<Skyline_pair> (r->get_property ("horizontal-skylines")));
   Skyline right = conditional_skyline (r, l);
   right.merge ((*lines[RIGHT])[LEFT]);
 
@@ -70,7 +72,8 @@ Separation_item::set_distance (Item *l, Item *r, Real padding)
 bool
 Separation_item::is_empty (Grob *me)
 {
-  Skyline_pair *sky = unsmob<Skyline_pair> (me->get_property ("horizontal-skylines"));
+  Skyline_pair *sky
+      = unsmob<Skyline_pair> (me->get_property ("horizontal-skylines"));
   return (!sky || sky->is_empty ());
 }
 
@@ -100,7 +103,8 @@ Separation_item::calc_skylines (SCM smob)
     vertical skylines are handled (where padding is not built into
     the skyline).
   */
-  Real vp = robust_scm2double (me->get_property ("skyline-vertical-padding"), 0.0);
+  Real vp
+      = robust_scm2double (me->get_property ("skyline-vertical-padding"), 0.0);
   sp[LEFT] = sp[LEFT].padded (vp);
   sp[RIGHT] = sp[RIGHT].padded (vp);
   return sp.smobbed_copy ();
@@ -122,7 +126,8 @@ Separation_item::boxes (Grob *me, Grob *left)
   int very_large = INT_MAX;
   Paper_column *pc = item->get_column ();
   vector<Box> out;
-  extract_grob_set (me, left ? "conditional-elements" : "elements", read_only_elts);
+  extract_grob_set (me, left ? "conditional-elements" : "elements",
+                    read_only_elts);
   vector<Grob *> elts;
 
   if (left)
@@ -136,7 +141,8 @@ Separation_item::boxes (Grob *me, Grob *left)
           else
             other_elts.push_back (read_only_elts[i]);
         }
-      elts = Accidental_placement::get_relevant_accidentals (accidental_elts, left);
+      elts = Accidental_placement::get_relevant_accidentals (accidental_elts,
+                                                             left);
       elts.insert (elts.end (), other_elts.begin (), other_elts.end ());
     }
   else
@@ -153,8 +159,8 @@ Separation_item::boxes (Grob *me, Grob *left)
       /* ugh. We want to exclude groups of grobs (so that we insert each grob
          individually into the skyline instead of adding a single box that
          bounds all of them). However, we can't exclude an axis-group that
-         adds to its childrens' stencil. Currently, this is just TrillPitchGroup;
-         hence the check for note-head-interface. */
+         adds to its childrens' stencil. Currently, this is just
+         TrillPitchGroup; hence the check for note-head-interface. */
       if (has_interface<Axis_group_interface> (il)
           && !has_interface<Note_head> (il))
         continue;
@@ -162,10 +168,10 @@ Separation_item::boxes (Grob *me, Grob *left)
       Interval y (il->pure_y_extent (ycommon, 0, very_large));
       Interval x (il->extent (pc, X_AXIS));
 
-      Interval extra_width = robust_scm2interval (elts[i]->get_property ("extra-spacing-width"),
-                                                  Interval (-0.1, 0.1));
-      Interval extra_height = robust_scm2interval (elts[i]->get_property ("extra-spacing-height"),
-                                                   Interval (0.0, 0.0));
+      Interval extra_width = robust_scm2interval (
+          elts[i]->get_property ("extra-spacing-width"), Interval (-0.1, 0.1));
+      Interval extra_height = robust_scm2interval (
+          elts[i]->get_property ("extra-spacing-height"), Interval (0.0, 0.0));
 
       // The conventional empty extent is (+inf.0 . -inf.0)
       //  but (-inf.0 . +inf.0) is used as extra-spacing-height
@@ -188,15 +194,16 @@ Separation_item::boxes (Grob *me, Grob *left)
   return out;
 }
 
-MAKE_DOCUMENTED_SCHEME_CALLBACK (Separation_item, print, 1,
-                                 "Optional stencil for @code{PaperColumn} or"
-                                 "@code{NonMusicalPaperColumn}.\n"
-                                 "Draws the @code{horizontal-skylines} of each"
-                                 " @code{PaperColumn}, showing the shapes used"
-                                 " to determine the minimum distances between"
-                                 " @code{PaperColumns} at the note-spacing step,"
-                                 " before staves have been spaced (vertically)"
-                                 " on the page.")
+MAKE_DOCUMENTED_SCHEME_CALLBACK (
+    Separation_item, print, 1,
+    "Optional stencil for @code{PaperColumn} or"
+    "@code{NonMusicalPaperColumn}.\n"
+    "Draws the @code{horizontal-skylines} of each"
+    " @code{PaperColumn}, showing the shapes used"
+    " to determine the minimum distances between"
+    " @code{PaperColumns} at the note-spacing step,"
+    " before staves have been spaced (vertically)"
+    " on the page.")
 SCM
 Separation_item::print (SCM smob)
 {
@@ -205,10 +212,15 @@ Separation_item::print (SCM smob)
 
   Grob *me = unsmob<Grob> (smob);
   Stencil ret;
-  if (Skyline_pair *s = unsmob<Skyline_pair> (me->get_property ("horizontal-skylines")))
+  if (Skyline_pair *s
+      = unsmob<Skyline_pair> (me->get_property ("horizontal-skylines")))
     {
-      ret.add_stencil (Lookup::points_to_line_stencil (0.1, (*s)[LEFT].to_points (Y_AXIS)).in_color (1.0, 1.0, 0.0));
-      ret.add_stencil (Lookup::points_to_line_stencil (0.1, (*s)[RIGHT].to_points (Y_AXIS)).in_color (0.0, 1.0, 1.0));
+      ret.add_stencil (
+          Lookup::points_to_line_stencil (0.1, (*s)[LEFT].to_points (Y_AXIS))
+              .in_color (1.0, 1.0, 0.0));
+      ret.add_stencil (
+          Lookup::points_to_line_stencil (0.1, (*s)[RIGHT].to_points (Y_AXIS))
+              .in_color (0.0, 1.0, 1.0));
     }
   return ret.smobbed_copy ();
 }
@@ -222,5 +234,4 @@ ADD_INTERFACE (Separation_item,
                "elements "
                "padding "
                "horizontal-skylines "
-               "skyline-vertical-padding "
-              );
+               "skyline-vertical-padding ");

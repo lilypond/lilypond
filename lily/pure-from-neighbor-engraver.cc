@@ -17,14 +17,14 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <map>
 #include <algorithm>
+#include <map>
 
+#include "engraver.hh"
 #include "grob.hh"
 #include "item.hh"
 #include "pointer-group-interface.hh"
 #include "pure-from-neighbor-interface.hh"
-#include "engraver.hh"
 
 #include "translator.icc"
 
@@ -37,6 +37,7 @@ class Pure_from_neighbor_engraver : public Engraver
 
 public:
   TRANSLATOR_DECLARATIONS (Pure_from_neighbor_engraver);
+
 protected:
   void acknowledge_pure_from_neighbor (Grob_info);
   void acknowledge_item (Grob_info);
@@ -44,7 +45,7 @@ protected:
 };
 
 Pure_from_neighbor_engraver::Pure_from_neighbor_engraver (Context *c)
-  : Engraver (c)
+    : Engraver (c)
 {
 }
 
@@ -91,17 +92,16 @@ Pure_from_neighbor_engraver::finalize ()
   */
 
   vsize l = 0;
-  vector<vector<Grob *> > need_pure_heights_from_neighbors;
+  vector<vector<Grob *>> need_pure_heights_from_neighbors;
   do
     {
       vector<Grob *> temp;
       temp.push_back (need_pure_heights_from_neighbors_[l]);
-      for (;
-           (l < need_pure_heights_from_neighbors_.size () - 1
-            && ((need_pure_heights_from_neighbors_[l]
-                 ->spanned_rank_interval ()[LEFT])
-                == (need_pure_heights_from_neighbors_[l + 1]
-                    ->spanned_rank_interval ()[LEFT])));
+      for (; (l < need_pure_heights_from_neighbors_.size () - 1
+              && ((need_pure_heights_from_neighbors_[l]
+                       ->spanned_rank_interval ()[LEFT])
+                  == (need_pure_heights_from_neighbors_[l + 1]
+                          ->spanned_rank_interval ()[LEFT])));
            l++)
         temp.push_back (need_pure_heights_from_neighbors_[l + 1]);
       need_pure_heights_from_neighbors.push_back (temp);
@@ -114,29 +114,27 @@ Pure_from_neighbor_engraver::finalize ()
     to the elements of need_pure_heights_from_neighbors_ on either side.
   */
 
-  int pos[2] = { -1, 0};
+  int pos[2] = {-1, 0};
   for (vsize i = 0; i < pure_relevants_.size (); i++)
     {
-      while (pos[1] < (int) need_pure_heights_from_neighbors.size ()
+      while (pos[1] < (int)need_pure_heights_from_neighbors.size ()
              && (pure_relevants_[i]->spanned_rank_interval ()[LEFT]
                  > (need_pure_heights_from_neighbors[pos[1]][0]
-                    ->spanned_rank_interval ()[LEFT])))
+                        ->spanned_rank_interval ()[LEFT])))
         {
           pos[0] = pos[1];
           pos[1]++;
         }
       for (int j = 0; j < 2; j++)
-        if (pos[j] >= 0 && pos[j]
-            < (int) need_pure_heights_from_neighbors.size ())
+        if (pos[j] >= 0
+            && pos[j] < (int)need_pure_heights_from_neighbors.size ())
           for (vsize k = 0;
-               k < need_pure_heights_from_neighbors[pos[j]].size ();
-               k++)
+               k < need_pure_heights_from_neighbors[pos[j]].size (); k++)
             if (!in_same_column (need_pure_heights_from_neighbors[pos[j]][k],
                                  pure_relevants_[i]))
-              Pointer_group_interface::add_grob
-              (need_pure_heights_from_neighbors[pos[j]][k],
-               ly_symbol2scm ("neighbors"),
-               pure_relevants_[i]);
+              Pointer_group_interface::add_grob (
+                  need_pure_heights_from_neighbors[pos[j]][k],
+                  ly_symbol2scm ("neighbors"), pure_relevants_[i]);
     }
 
   need_pure_heights_from_neighbors_.clear ();
@@ -150,16 +148,16 @@ Pure_from_neighbor_engraver::boot ()
   ADD_ACKNOWLEDGER (Pure_from_neighbor_engraver, pure_from_neighbor);
 }
 
-ADD_TRANSLATOR (Pure_from_neighbor_engraver,
-                /* doc */
-                "Coordinates items that get their pure heights from their neighbors.",
+ADD_TRANSLATOR (
+    Pure_from_neighbor_engraver,
+    /* doc */
+    "Coordinates items that get their pure heights from their neighbors.",
 
-                /* create */
-                "",
+    /* create */
+    "",
 
-                /* read */
-                "",
+    /* read */
+    "",
 
-                /* write */
-                ""
-               );
+    /* write */
+    "");

@@ -20,9 +20,9 @@
 #ifndef SINGLE_MALT_GROUPING_ITEM_HH
 #define SINGLE_MALT_GROUPING_ITEM_HH
 
-#include "lily-proto.hh"
 #include "direction.hh"
 #include "grob-interface.hh"
+#include "lily-proto.hh"
 #include "skyline.hh"
 
 struct Separation_item
@@ -40,4 +40,3 @@ struct Separation_item
 };
 
 #endif /* SINGLE_MALT_GROUPING_ITEM_HH */
-

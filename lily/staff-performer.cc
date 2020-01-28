@@ -17,18 +17,18 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <map>
 #include <deque>
+#include <map>
 
 #include "audio-column.hh"
 #include "audio-item.hh"
 #include "audio-staff.hh"
 #include "context.hh"
 #include "international.hh"
+#include "lily-imports.hh"
 #include "midi-cc-announcer.hh"
 #include "performer-group.hh"
 #include "warn.hh"
-#include "lily-imports.hh"
 
 #include "translator.icc"
 
@@ -64,8 +64,7 @@ private:
   {
   public:
     Midi_control_initializer (Staff_performer *performer,
-                              Audio_staff *audio_staff,
-                              int channel);
+                              Audio_staff *audio_staff, int channel);
 
     SCM get_property_value (const char *property_name) override;
     void do_announce (Audio_control_change *item) override;
@@ -100,7 +99,6 @@ int Staff_performer::staff_performer_count_ = 0;
 void
 Staff_performer::boot ()
 {
-
 }
 
 ADD_TRANSLATOR (Staff_performer,
@@ -117,18 +115,12 @@ ADD_TRANSLATOR (Staff_performer,
                 "");
 
 Staff_performer::Staff_performer (Context *c)
-  : Performer (c),
-    channel_ (-1),
-    instrument_ (0),
-    instrument_name_ (0),
-    name_ (0),
-    tempo_ (0)
+    : Performer (c), channel_ (-1), instrument_ (0), instrument_name_ (0),
+      name_ (0), tempo_ (0)
 {
 }
 
-Staff_performer::~Staff_performer ()
-{
-}
+Staff_performer::~Staff_performer () {}
 
 void
 Staff_performer::initialize ()
@@ -140,13 +132,12 @@ Audio_staff *
 Staff_performer::new_audio_staff (const string &voice)
 {
   Audio_staff *audio_staff = new Audio_staff;
-  audio_staff->merge_unisons_
-    = to_boolean (get_property ("midiMergeUnisons"));
+  audio_staff->merge_unisons_ = to_boolean (get_property ("midiMergeUnisons"));
   string track_name = context ()->id_string () + ":" + voice;
   if (track_name != ":")
     {
-      name_ = new Audio_text (Audio_text::TRACK_NAME, context ()->id_string ()
-                              + ":" + voice);
+      name_ = new Audio_text (Audio_text::TRACK_NAME,
+                              context ()->id_string () + ":" + voice);
       audio_staff->add_audio_item (name_);
       announce_element (Audio_element_info (name_, 0));
     }
@@ -200,8 +191,8 @@ Staff_performer::set_instrument (int channel, const string &voice)
 void
 Staff_performer::set_instrument_name (const string &voice)
 {
-  instrument_name_ = new Audio_text (Audio_text::INSTRUMENT_NAME,
-                                     instrument_string_);
+  instrument_name_
+      = new Audio_text (Audio_text::INSTRUMENT_NAME, instrument_string_);
   announce_element (Audio_element_info (instrument_name_, 0));
   get_audio_staff (voice)->add_audio_item (instrument_name_);
 }
@@ -241,8 +232,7 @@ Staff_performer::new_instrument_string ()
   // mustn't ask Score for instrument: it will return piano!
   SCM minstr = get_property ("midiInstrument");
 
-  if (!scm_is_string (minstr)
-      || ly_scm2string (minstr) == instrument_string_)
+  if (!scm_is_string (minstr) || ly_scm2string (minstr) == instrument_string_)
     return "";
 
   instrument_string_ = ly_scm2string (minstr);
@@ -255,12 +245,11 @@ Staff_performer::get_channel (const string &instrument)
 {
   SCM channel_mapping = get_property ("midiChannelMapping");
   map<string, int> &channel_map
-    = (!scm_is_eq (channel_mapping, ly_symbol2scm ("instrument")))
-      ? channel_map_
-      : static_channel_map_;
+      = (!scm_is_eq (channel_mapping, ly_symbol2scm ("instrument")))
+            ? channel_map_
+            : static_channel_map_;
 
-  if (scm_is_eq (channel_mapping, ly_symbol2scm ("staff"))
-      && channel_ >= 0)
+  if (scm_is_eq (channel_mapping, ly_symbol2scm ("staff")) && channel_ >= 0)
     return channel_;
 
   map<string, int>::const_iterator i = channel_map.find (instrument);
@@ -268,8 +257,8 @@ Staff_performer::get_channel (const string &instrument)
     return i->second;
 
   int channel = (scm_is_eq (channel_mapping, ly_symbol2scm ("staff")))
-                ? channel_count_++
-                : channel_map.size ();
+                    ? channel_count_++
+                    : channel_map.size ();
 
   /* MIDI players tend to ignore instrument settings on channel
      10, the percussion channel.  */
@@ -319,22 +308,22 @@ Staff_performer::acknowledge_audio_element (Audio_element_info inf)
     }
 }
 
-Staff_performer::Midi_control_initializer::Midi_control_initializer
-(Staff_performer *performer, Audio_staff *audio_staff, int channel)
-  : performer_ (performer),
-    audio_staff_ (audio_staff),
-    channel_ (channel)
+Staff_performer::Midi_control_initializer::Midi_control_initializer (
+    Staff_performer *performer, Audio_staff *audio_staff, int channel)
+    : performer_ (performer), audio_staff_ (audio_staff), channel_ (channel)
 {
 }
 
-SCM Staff_performer::Midi_control_initializer::get_property_value
-(const char *property_name)
+SCM
+Staff_performer::Midi_control_initializer::get_property_value (
+    const char *property_name)
 {
   return performer_->get_property (property_name);
 }
 
-void Staff_performer::Midi_control_initializer::do_announce
-(Audio_control_change *item)
+void
+Staff_performer::Midi_control_initializer::do_announce (
+    Audio_control_change *item)
 {
   item->channel_ = channel_;
   audio_staff_->add_audio_item (item);

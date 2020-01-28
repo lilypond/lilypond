@@ -17,16 +17,16 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "text-interface.hh"
+#include "font-interface.hh"
 #include "grob.hh"
 #include "item.hh"
+#include "lily-guile.hh"
 #include "line-interface.hh"
 #include "lookup.hh"
-#include "font-interface.hh"
-#include "lily-guile.hh"
-#include "output-def.hh"
 #include "misc.hh"
+#include "output-def.hh"
 #include "spanner.hh"
+#include "text-interface.hh"
 
 class Balloon_interface
 {
@@ -63,11 +63,12 @@ Balloon_interface::print_spanner (SCM smob)
 
   if (Spanner *orig = me->original ())
     {
-      Direction spanner_placement = robust_scm2dir (me->get_property ("spanner-placement"), LEFT);
+      Direction spanner_placement
+          = robust_scm2dir (me->get_property ("spanner-placement"), LEFT);
 
       Spanner *wanted = (spanner_placement != RIGHT)
-                        ? orig->broken_intos_[0]
-                        : orig->broken_intos_.back ();
+                            ? orig->broken_intos_[0]
+                            : orig->broken_intos_.back ();
 
       if (me != wanted)
         return SCM_EOL;
@@ -132,6 +133,4 @@ ADD_INTERFACE (Balloon_interface,
                "annotation-line "
                "padding "
                "spanner-placement "
-               "text "
-              );
-
+               "text ");

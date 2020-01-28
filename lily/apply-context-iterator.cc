@@ -27,6 +27,7 @@ class Apply_context_iterator : public Simple_music_iterator
 {
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
+
 protected:
   void process (Moment) override;
 };
@@ -36,13 +37,13 @@ Apply_context_iterator::process (Moment m)
 {
   SCM proc = get_music ()->get_property ("procedure");
   if (ly_is_procedure (proc))
-    with_location (get_music ()->get_property ("origin"),
-                   proc, get_outlet ()->self_scm ());
+    with_location (get_music ()->get_property ("origin"), proc,
+                   get_outlet ()->self_scm ());
   else
-    get_music ()->origin ()->warning (_ ("\\applycontext argument is not a procedure"));
+    get_music ()->origin ()->warning (
+        _ ("\\applycontext argument is not a procedure"));
 
   Simple_music_iterator::process (m);
 }
 
 IMPLEMENT_CTOR_CALLBACK (Apply_context_iterator);
-

@@ -18,12 +18,11 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <cassert>
+#include <cctype>
 #include <cmath>
 #include <cstdio>
 #include <cstring>
-#include <cctype>
-#include <cassert>
-
 
 #include "libc-extension.hh"
 
@@ -33,7 +32,7 @@ strnlwr (char *start, size_t n)
   char *p = start + n;
   while (--p >= start)
     {
-      *p = (char)tolower (*p);    /* a macro on some compilers */
+      *p = (char)tolower (*p); /* a macro on some compilers */
     }
   return start;
 }
@@ -44,7 +43,7 @@ strnupr (char *start, size_t n)
   char *p = start + n;
   while (--p >= start)
     {
-      *p = (char)toupper (*p);    /* a macro on some compilers */
+      *p = (char)toupper (*p); /* a macro on some compilers */
     }
   return start;
 }
@@ -75,16 +74,16 @@ _memmem (unsigned char const *haystack, int haystack_len,
           goto next;
 
       /* Completed the needle.  Gotcha.  */
-      return (unsigned char *) haystack;
-next:
+      return (unsigned char *)haystack;
+    next:
       haystack++;
     }
   return 0;
 }
 
 void *
-memmem (void const *haystack, int haystack_len,
-        void const *needle, int needle_len)
+memmem (void const *haystack, int haystack_len, void const *needle,
+        int needle_len)
 {
   unsigned char const *haystack_byte_c = (unsigned char const *)haystack;
   unsigned char const *needle_byte_c = (unsigned char const *)needle;
@@ -93,7 +92,7 @@ memmem (void const *haystack, int haystack_len,
 
 #endif
 
-template<class T>
+template <class T>
 inline void
 my_swap (T &t1, T &t2, T &tmp)
 {
@@ -113,26 +112,26 @@ my_round (double x)
 
 /* namespace std { */
 
-#if ! HAVE_SNPRINTF
+#if !HAVE_SNPRINTF
 int
 snprintf (char *str, size_t n, char const *format, ...)
 {
   va_list ap;
   va_start (ap, format);
   int i = vsprintf (str, format, ap);
-  if (i > 0 && (unsigned) i > n)
+  if (i > 0 && (unsigned)i > n)
     assert (false);
   va_end (ap);
   return i;
 }
 #endif
 
-#if ! HAVE_VSNPRINTF
+#if !HAVE_VSNPRINTF
 int
 vsnprintf (char *str, size_t n, char const *format, va_list args)
 {
   int i = vsprintf (str, format, args);
-  if (i > 0 && (unsigned) i > n)
+  if (i > 0 && (unsigned)i > n)
     assert (false);
   return i;
 }

@@ -43,6 +43,7 @@ public:
   void do_quit () override;
   bool ok () const override;
   bool run_always () const override;
+
 protected:
   void process (Moment) override;
 
@@ -50,4 +51,3 @@ protected:
 };
 
 #endif /* MUSIC_WRAPPER_ITERATOR_HH */
-

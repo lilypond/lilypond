@@ -30,7 +30,6 @@
 #include <cstdio>
 #include <sstream>
 
-
 #include "file-name-map.hh"
 #include "international.hh"
 #include "misc.hh"
@@ -179,8 +178,8 @@ Source_file::file_line_column_string (char const *context_str0) const
       ssize_t l, ch, col, offset;
       get_counts (context_str0, &l, &ch, &col, &offset);
 
-      return name_string () + ":" + std::to_string (l)
-             + ":" + std::to_string (col + 1);
+      return name_string () + ":" + std::to_string (l) + ":"
+             + std::to_string (col + 1);
     }
 }
 
@@ -207,10 +206,7 @@ Source_file::name_string () const
   return map_file_name (name_);
 }
 
-Source_file::~Source_file ()
-{
-  delete istream_;
-}
+Source_file::~Source_file () { delete istream_; }
 
 Slice
 Source_file::line_slice (char const *pos_str0) const
@@ -254,10 +250,8 @@ Source_file::line_string (char const *pos_str0) const
 }
 
 void
-Source_file::get_counts (char const *pos_str0,
-                         ssize_t *line_number,
-                         ssize_t *line_char,
-                         ssize_t *column,
+Source_file::get_counts (char const *pos_str0, ssize_t *line_number,
+                         ssize_t *line_char, ssize_t *column,
                          ssize_t *byte_offset) const
 {
   // Initialize arguments to defaults, needed if pos_str0 is not in source
@@ -275,7 +269,7 @@ Source_file::get_counts (char const *pos_str0,
   char const *data = c_str ();
   char const *line_start = (char const *)data + line[LEFT];
 
-  ssize left = (char const *) pos_str0 - line_start;
+  ssize left = (char const *)pos_str0 - line_start;
   *byte_offset = left;
 
   // TODO: copying into line_begin looks pointless and wasteful
@@ -304,7 +298,8 @@ Source_file::get_counts (char const *pos_str0,
 bool
 Source_file::contains (char const *pos_str0) const
 {
-  return (pos_str0 && (pos_str0 >= c_str ()) && (pos_str0 <= c_str () + length ()));
+  return (pos_str0 && (pos_str0 >= c_str ())
+          && (pos_str0 <= c_str () + length ()));
 }
 
 ssize_t
@@ -317,9 +312,8 @@ Source_file::get_line (char const *pos_str0) const
     return 1 + line_offset_;
 
   /* this will find the '\n' character at the end of our line */
-  vsize lo = lower_bound (newline_locations_,
-                          pos_str0,
-                          std::less<char const *> ());
+  vsize lo
+      = lower_bound (newline_locations_, pos_str0, std::less<char const *> ());
 
   /* the return value will be indexed from 1 */
   return lo + 1 + line_offset_;
@@ -359,8 +353,7 @@ Source_file::get_port () const
 
 /****************************************************************/
 
-
-const char * const Source_file::type_p_name_ = "ly:source-file?";
+const char *const Source_file::type_p_name_ = "ly:source-file?";
 
 SCM
 Source_file::mark_smob () const

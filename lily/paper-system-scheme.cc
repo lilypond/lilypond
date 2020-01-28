@@ -22,8 +22,7 @@
 
 #include "skyline-pair.hh"
 
-LY_DEFINE (ly_paper_system_p, "ly:paper-system?",
-           1, 0, 0, (SCM obj),
+LY_DEFINE (ly_paper_system_p, "ly:paper-system?", 1, 0, 0, (SCM obj),
            "Is @var{obj} a C++ @code{Prob} object of type"
            " @code{paper-system}?")
 {
@@ -39,8 +38,10 @@ LY_DEFINE (ly_paper_system_minimum_distance, "ly:paper-system-minimum-distance",
   Real ret = 0;
   Prob *p1 = unsmob<Prob> (sys1);
   Prob *p2 = unsmob<Prob> (sys2);
-  Skyline_pair *sky1 = unsmob<Skyline_pair> (p1->get_property ("vertical-skylines"));
-  Skyline_pair *sky2 = unsmob<Skyline_pair> (p2->get_property ("vertical-skylines"));
+  Skyline_pair *sky1
+      = unsmob<Skyline_pair> (p1->get_property ("vertical-skylines"));
+  Skyline_pair *sky2
+      = unsmob<Skyline_pair> (p2->get_property ("vertical-skylines"));
 
   if (sky1 && sky2)
     ret = (*sky1)[DOWN].distance ((*sky2)[UP]);

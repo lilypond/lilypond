@@ -20,8 +20,8 @@
 #ifndef CLUSTER_HH
 #define CLUSTER_HH
 
-#include "stencil.hh"
 #include "grob-interface.hh"
+#include "stencil.hh"
 
 class Cluster
 {
@@ -31,4 +31,3 @@ public:
 };
 
 #endif // CLUSTER_HH
-

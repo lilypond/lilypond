@@ -20,8 +20,8 @@
 #ifndef FINGERING_COLUMN_HH
 #define FINGERING_COLUMN_HH
 
-#include "lily-proto.hh"
 #include "grob-interface.hh"
+#include "lily-proto.hh"
 #include "std-vector.hh"
 
 struct Fingering_column

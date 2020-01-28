@@ -19,27 +19,27 @@
 */
 
 #include "tuplet-number.hh"
-#include "tuplet-bracket.hh"
-#include "moment.hh"      // needed?
-#include "paper-column.hh"
-#include "text-interface.hh"
-#include "spanner.hh"
-#include "lookup.hh"
-#include "pointer-group-interface.hh"
-#include "staff-symbol-referencer.hh"
 #include "axis-group-interface.hh"
-#include "directional-element-interface.hh"
-#include "note-column.hh"
 #include "beam.hh"
+#include "directional-element-interface.hh"
+#include "lookup.hh"
+#include "moment.hh" // needed?
+#include "note-column.hh"
+#include "paper-column.hh"
+#include "pointer-group-interface.hh"
+#include "spanner.hh"
+#include "staff-symbol-referencer.hh"
 #include "stem.hh"
+#include "text-interface.hh"
+#include "tuplet-bracket.hh"
 #include "warn.hh"
 
 using std::vector;
 
 /*
   The reference stem is used to determine on which side of the beam to place
-  the tuplet number when it is positioned independently of a bracket.  (The number
-  is always placed on the opposite side of this stem.)
+  the tuplet number when it is positioned independently of a bracket.  (The
+  number is always placed on the opposite side of this stem.)
 */
 Grob *
 Tuplet_number::select_reference_stem (Grob *me_grob, vector<Grob *> const &cols)
@@ -65,8 +65,9 @@ Tuplet_number::select_reference_stem (Grob *me_grob, vector<Grob *> const &cols)
     two stems.
   */
   Direction me_dir = robust_scm2dir (me->get_property ("direction"), UP);
-  Drul_array<Item *> bounding_stems (Note_column::get_stem (cols[col_count / 2 - 1]),
-                                     Note_column::get_stem (cols[col_count / 2]));
+  Drul_array<Item *> bounding_stems (
+      Note_column::get_stem (cols[col_count / 2 - 1]),
+      Note_column::get_stem (cols[col_count / 2]));
 
   for (LEFT_and_RIGHT (d))
     if (!bounding_stems[d])
@@ -92,10 +93,11 @@ Tuplet_number::select_reference_stem (Grob *me_grob, vector<Grob *> const &cols)
       int beam_count_L_R = Stem::get_beaming (bounding_stems[LEFT], RIGHT);
       int beam_count_R_L = Stem::get_beaming (bounding_stems[RIGHT], LEFT);
       if (beam_count_L_R == beam_count_R_L)
-        ref_stem = (dir_left == me_dir) ? bounding_stems[LEFT] : bounding_stems[RIGHT];
+        ref_stem = (dir_left == me_dir) ? bounding_stems[LEFT]
+                                        : bounding_stems[RIGHT];
       else
-        ref_stem = (beam_count_L_R > beam_count_R_L)
-                   ? bounding_stems[LEFT] : bounding_stems[RIGHT];
+        ref_stem = (beam_count_L_R > beam_count_R_L) ? bounding_stems[LEFT]
+                                                     : bounding_stems[RIGHT];
     }
 
   return ref_stem;
@@ -114,7 +116,8 @@ Tuplet_number::adjacent_note_columns (Grob *me_grob, Grob *ref_stem)
   Spanner *tuplet = unsmob<Spanner> (me->get_object ("bracket"));
 
   extract_grob_set (tuplet, "note-columns", columns);
-  Grob *ref_col = ref_stem->get_parent (X_AXIS); // X-parent of Stem = NoteColumn
+  Grob *ref_col
+      = ref_stem->get_parent (X_AXIS); // X-parent of Stem = NoteColumn
   Direction ref_stem_dir = get_grob_direction (ref_stem);
   vector<Grob *> filtered_cols;
   vsize ref_pos = 0;
@@ -197,9 +200,12 @@ Tuplet_number::knee_position_against_beam (Grob *me_grob, Grob *ref_stem)
   for (LEFT_and_RIGHT (d))
     {
       if (adj_cols[d])
-        available_ext[d] = Axis_group_interface::generic_bound_extent (adj_cols[d], commonx, X_AXIS)[-d] + (-d * padding);
+        available_ext[d] = Axis_group_interface::generic_bound_extent (
+                               adj_cols[d], commonx, X_AXIS)[-d]
+                           + (-d * padding);
       else
-        available_ext[d] = Axis_group_interface::generic_bound_extent (bounds[d], commonx, X_AXIS)[-d];
+        available_ext[d] = Axis_group_interface::generic_bound_extent (
+            bounds[d], commonx, X_AXIS)[-d];
     }
 
   if (number_ext.length () > available_ext.length ())
@@ -241,8 +247,10 @@ Real
 calc_beam_y_shift (Grob *ref_stem, Real dx)
 {
   Grob *beam = Stem::get_beam (ref_stem);
-  Interval x_pos = robust_scm2interval (beam->get_property ("X-positions"), Interval (0.0, 0.0));
-  Interval y_pos = robust_scm2interval (beam->get_property ("quantized-positions"), Interval (0.0, 0.0));
+  Interval x_pos = robust_scm2interval (beam->get_property ("X-positions"),
+                                        Interval (0.0, 0.0));
+  Interval y_pos = robust_scm2interval (
+      beam->get_property ("quantized-positions"), Interval (0.0, 0.0));
   Real beam_dx = x_pos.length ();
   Real beam_dy = y_pos[RIGHT] - y_pos[LEFT];
   Real slope = beam_dx ? beam_dy / beam_dx : 0.0;
@@ -277,7 +285,8 @@ Tuplet_number::calc_x_offset (SCM smob)
       if (has_interface<Note_column> (bounds[d])
           && Note_column::get_stem (bounds[d]))
         bounds[d] = Note_column::get_stem (bounds[d]);
-      bound_poss[d] = Axis_group_interface::generic_bound_extent (bounds[d], commonx, X_AXIS)[-d];
+      bound_poss[d] = Axis_group_interface::generic_bound_extent (
+          bounds[d], commonx, X_AXIS)[-d];
     }
 
   extract_grob_set (tuplet, "note-columns", cols);
@@ -286,8 +295,7 @@ Tuplet_number::calc_x_offset (SCM smob)
   /*
     Return bracket-based positioning.
   */
-  if (!ref_stem
-      || !knee_position_against_beam (me, ref_stem))
+  if (!ref_stem || !knee_position_against_beam (me, ref_stem))
     {
       Interval x_positions;
       x_positions = robust_scm2interval (tuplet->get_property ("X-positions"),
@@ -351,8 +359,8 @@ Tuplet_number::calc_y_offset (SCM smob)
 {
   Spanner *me = unsmob<Spanner> (smob);
   Spanner *tuplet = unsmob<Spanner> (me->get_object ("bracket"));
-  Drul_array<Real> positions = robust_scm2drul (tuplet->get_property ("positions"),
-                                                Drul_array<Real> (0.0, 0.0));
+  Drul_array<Real> positions = robust_scm2drul (
+      tuplet->get_property ("positions"), Drul_array<Real> (0.0, 0.0));
   SCM to_bracket = scm_from_double ((positions[LEFT] + positions[RIGHT]) / 2.0);
 
   Grob *commonx = Tuplet_bracket::get_common_x (me);
@@ -389,8 +397,7 @@ Tuplet_number::calc_y_offset (SCM smob)
       Grob *beam = Stem::get_beam (ref_stem);
       Real beam_translation = Beam::get_beam_translation (beam);
       SCM beaming = ref_stem->get_property ("beaming");
-      y_offset += ref_stem_dir
-                  * count_beams_not_touching_stem (beaming)
+      y_offset += ref_stem_dir * count_beams_not_touching_stem (beaming)
                   * beam_translation;
     }
 
@@ -407,19 +414,19 @@ Tuplet_number::calc_y_offset (SCM smob)
   y_offset += calc_beam_y_shift (ref_stem, x_coord - ref_stem_x);
 
   /*
-    Check if the number is between the beam and the staff.  If so, it will collide
-    with ledger lines.  Move it into the staff.
+    Check if the number is between the beam and the staff.  If so, it will
+    collide with ledger lines.  Move it into the staff.
   */
   if (Grob *st = Staff_symbol_referencer::get_staff_symbol (ref_stem))
     {
       Interval staff_ext_y = st->extent (commony, Y_AXIS);
-      bool move = ref_stem_dir == DOWN
-                  ? ref_stem_ext[DOWN] > staff_ext_y[UP]
-                  : staff_ext_y[DOWN] > ref_stem_ext[UP];
+      bool move = ref_stem_dir == DOWN ? ref_stem_ext[DOWN] > staff_ext_y[UP]
+                                       : staff_ext_y[DOWN] > ref_stem_ext[UP];
       if (move)
         {
-          Interval ledger_domain = Interval (std::min (staff_ext_y[UP], ref_stem_ext[UP]),
-                                             std::max (staff_ext_y[DOWN], ref_stem_ext[DOWN]));
+          Interval ledger_domain
+              = Interval (std::min (staff_ext_y[UP], ref_stem_ext[UP]),
+                          std::max (staff_ext_y[DOWN], ref_stem_ext[DOWN]));
           Interval num_y (me->extent (commony, Y_AXIS));
           num_y.translate (y_offset);
           Interval num_ledger_overlap (num_y);
@@ -428,8 +435,7 @@ Tuplet_number::calc_y_offset (SCM smob)
           Real staff_space = Staff_symbol_referencer::staff_space (st);
           // Number will touch outer staff line.
           if (!num_ledger_overlap.is_empty ()
-              && num_ledger_overlap.length () > (staff_space / 2.0)
-              && move)
+              && num_ledger_overlap.length () > (staff_space / 2.0) && move)
             y_offset += staff_ext_y[-ref_stem_dir] - num_y[-ref_stem_dir]
                         + line_thickness * ref_stem_dir;
         }
@@ -477,7 +483,8 @@ Tuplet_number::calc_y_offset (SCM smob)
   overlap_acc_y.intersect (num_ext_y);
 
   if (!overlap_acc_y.is_empty ())
-    y_offset += colliding_acc_ext_y[ref_stem_dir] - num_ext_y[-ref_stem_dir] + padding * ref_stem_dir;
+    y_offset += colliding_acc_ext_y[ref_stem_dir] - num_ext_y[-ref_stem_dir]
+                + padding * ref_stem_dir;
 
   return scm_from_double (y_offset);
 }
@@ -487,16 +494,14 @@ SCM
 Tuplet_number::calc_cross_staff (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  return unsmob<Grob> (me->get_object ("bracket"))->get_property ("cross-staff");
+  return unsmob<Grob> (me->get_object ("bracket"))
+      ->get_property ("cross-staff");
 }
 
-ADD_INTERFACE (Tuplet_number,
-               "The number for a bracket.",
+ADD_INTERFACE (Tuplet_number, "The number for a bracket.",
 
                /* properties */
-               "avoid-slur "    // UGH.
+               "avoid-slur " // UGH.
                "bracket "
                "direction "
-               "knee-to-beam "
-              );
-
+               "knee-to-beam ");

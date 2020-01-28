@@ -31,10 +31,7 @@
 #endif
 #endif
 
-Cpu_timer::Cpu_timer ()
-{
-  restart ();
-}
+Cpu_timer::Cpu_timer () { restart (); }
 void
 Cpu_timer::restart ()
 {

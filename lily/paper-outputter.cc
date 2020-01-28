@@ -23,11 +23,11 @@
 #include <cmath>
 #include <ctime>
 
-
 #include "dimensions.hh"
 #include "file-name.hh"
 #include "font-metric.hh"
 #include "input.hh"
+#include "lily-imports.hh"
 #include "lily-version.hh"
 #include "main.hh"
 #include "output-def.hh"
@@ -36,7 +36,6 @@
 #include "scm-hash.hh"
 #include "string-convert.hh"
 #include "warn.hh"
-#include "lily-imports.hh"
 
 using std::string;
 
@@ -56,10 +55,7 @@ Paper_outputter::Paper_outputter (SCM port, const string &format)
   Lily::backend_testing (output_module_);
 }
 
-Paper_outputter::~Paper_outputter ()
-{
-}
-
+Paper_outputter::~Paper_outputter () {}
 
 SCM
 Paper_outputter::mark_smob () const
@@ -104,7 +100,7 @@ Paper_outputter::output_scheme (SCM scm)
 SCM
 paper_outputter_dump (void *po, SCM x)
 {
-  Paper_outputter *me = (Paper_outputter *) po;
+  Paper_outputter *me = (Paper_outputter *)po;
   return me->output_scheme (x);
 }
 
@@ -112,7 +108,7 @@ void
 Paper_outputter::output_stencil (Stencil stil)
 {
   interpret_stencil_expression (stil.expr (), paper_outputter_dump,
-                                (void *) this, Offset (0, 0));
+                                (void *)this, Offset (0, 0));
 }
 
 void

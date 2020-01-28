@@ -17,8 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "context.hh"
 #include "grob-info.hh"
+#include "context.hh"
 #include "grob.hh"
 #include "music.hh"
 #include "stream-event.hh"

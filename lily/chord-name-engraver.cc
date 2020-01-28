@@ -37,12 +37,14 @@ using std::vector;
 class Chord_name_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Chord_name_engraver);
+
 protected:
   void stop_translation_timestep ();
   void process_music ();
   void finalize () override;
   void listen_note (Stream_event *);
   void listen_rest (Stream_event *);
+
 private:
   vector<Stream_event *> notes_;
 
@@ -54,8 +56,7 @@ Chord_name_engraver::finalize ()
 {
 }
 
-Chord_name_engraver::Chord_name_engraver (Context *c)
-  : Engraver (c)
+Chord_name_engraver::Chord_name_engraver (Context *c) : Engraver (c)
 {
   rest_event_ = 0;
 }
@@ -109,7 +110,8 @@ Chord_name_engraver::process_music ()
                   SCM oct = n->get_property ("octavation");
                   if (scm_is_number (oct))
                     {
-                      Pitch orig = unsmob<Pitch> (p)->transposed (Pitch (-scm_to_int (oct), 0));
+                      Pitch orig = unsmob<Pitch> (p)->transposed (
+                          Pitch (-scm_to_int (oct), 0));
                       pitches = scm_cons (orig.smobbed_copy (), pitches);
                     }
                   else
@@ -118,7 +120,8 @@ Chord_name_engraver::process_music ()
                     {
                       inversion = p;
                       if (!scm_is_number (oct))
-                        programming_error ("inversion does not have original pitch");
+                        programming_error (
+                            "inversion does not have original pitch");
                     }
                 }
             }
@@ -176,24 +179,24 @@ Chord_name_engraver::boot ()
   ADD_LISTENER (Chord_name_engraver, rest);
 }
 
-ADD_TRANSLATOR (Chord_name_engraver,
-                /* doc */
-                "Catch note and rest events and generate the appropriate chordname.",
+ADD_TRANSLATOR (
+    Chord_name_engraver,
+    /* doc */
+    "Catch note and rest events and generate the appropriate chordname.",
 
-                /* create */
-                "ChordName ",
+    /* create */
+    "ChordName ",
 
-                /* read */
-                "chordChanges "
-                "chordNameExceptions "
-                "chordNameFunction "
-                "chordNoteNamer "
-                "chordRootNamer "
-                "chordNameExceptions "
-                "lastChord "
-                "majorSevenSymbol "
-                "noChordSymbol ",
+    /* read */
+    "chordChanges "
+    "chordNameExceptions "
+    "chordNameFunction "
+    "chordNoteNamer "
+    "chordRootNamer "
+    "chordNameExceptions "
+    "lastChord "
+    "majorSevenSymbol "
+    "noChordSymbol ",
 
-                /* write */
-                "lastChord "
-               );
+    /* write */
+    "lastChord ");

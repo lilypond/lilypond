@@ -31,4 +31,3 @@ void ly_reexport_module (SCM mod);
 SCM ly_use_module (SCM mod, SCM used);
 
 #endif /* LY_MODULE_HH */
-

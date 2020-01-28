@@ -20,9 +20,9 @@
 #ifndef Tuplet_bracket_HH
 #define Tuplet_bracket_HH
 
+#include "grob-interface.hh"
 #include "lily-proto.hh"
 #include "std-vector.hh"
-#include "grob-interface.hh"
 
 class Tuplet_bracket
 {
@@ -47,4 +47,3 @@ public:
 };
 
 #endif // Tuplet_bracket_HH
-

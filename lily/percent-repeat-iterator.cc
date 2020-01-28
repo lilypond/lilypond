@@ -20,9 +20,9 @@
 
 #include "context.hh"
 #include "input.hh"
+#include "lily-imports.hh"
 #include "repeated-music.hh"
 #include "sequential-iterator.hh"
-#include "lily-imports.hh"
 
 using std::string;
 
@@ -32,11 +32,13 @@ public:
   OVERRIDE_CLASS_NAME (Percent_repeat_iterator);
   DECLARE_SCHEME_CALLBACK (constructor, ());
   Percent_repeat_iterator ();
+
 protected:
   SCM get_music_list () const override;
   void construct_children () override;
   void next_element (bool) override;
   void derived_mark () const override;
+
 private:
   SCM child_list_;
   int starting_bar_;
@@ -45,7 +47,7 @@ private:
 IMPLEMENT_CTOR_CALLBACK (Percent_repeat_iterator);
 
 Percent_repeat_iterator::Percent_repeat_iterator ()
-  : child_list_ (SCM_UNDEFINED), starting_bar_ (-1)
+    : child_list_ (SCM_UNDEFINED), starting_bar_ (-1)
 {
 }
 
@@ -68,8 +70,8 @@ Percent_repeat_iterator::construct_children ()
 
   descend_to_bottom_context ();
   if (!measure_position (get_outlet ()).main_part_)
-    starting_bar_ =
-      robust_scm2int (get_outlet ()->get_property ("internalBarNumber"), 0);
+    starting_bar_
+        = robust_scm2int (get_outlet ()->get_property ("internalBarNumber"), 0);
 }
 
 SCM
@@ -99,8 +101,8 @@ Percent_repeat_iterator::next_element (bool side_effect)
 
   int current_bar = -1;
   if (!measure_position (get_outlet ()).main_part_)
-    current_bar =
-      robust_scm2int (get_outlet ()->get_property ("internalBarNumber"), 0);
+    current_bar
+        = robust_scm2int (get_outlet ()->get_property ("internalBarNumber"), 0);
 
   SCM child_list = SCM_EOL;
 
@@ -109,7 +111,7 @@ Percent_repeat_iterator::next_element (bool side_effect)
 
   if (starting_bar_ >= 0 && current_bar == starting_bar_ + 1)
     event_type = "PercentEvent";
-  else if (starting_bar_ >=0 && current_bar == starting_bar_ + 2)
+  else if (starting_bar_ >= 0 && current_bar == starting_bar_ + 2)
     event_type = "DoublePercentEvent";
   else
     {

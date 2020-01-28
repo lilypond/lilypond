@@ -17,11 +17,11 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "warn.hh"
-#include "side-position-interface.hh"
-#include "global-context.hh"
 #include "engraver.hh"
+#include "global-context.hh"
+#include "side-position-interface.hh"
 #include "spanner.hh"
+#include "warn.hh"
 
 #include "translator.icc"
 
@@ -44,7 +44,8 @@ Measure_grouping_engraver::finalize ()
 {
   if (grouping_)
     {
-      grouping_->set_bound (RIGHT, unsmob<Grob> (get_property ("currentCommandColumn")));
+      grouping_->set_bound (
+          RIGHT, unsmob<Grob> (get_property ("currentCommandColumn")));
       grouping_->suicide ();
       grouping_ = 0;
     }
@@ -63,8 +64,8 @@ Measure_grouping_engraver::process_music ()
   Moment now = now_mom ();
   if (grouping_ && now.main_part_ >= stop_grouping_mom_ && !now.grace_part_)
     {
-      grouping_->set_bound (RIGHT,
-                            unsmob<Grob> (get_property ("currentMusicalColumn")));
+      grouping_->set_bound (
+          RIGHT, unsmob<Grob> (get_property ("currentMusicalColumn")));
 
       grouping_ = 0;
     }
@@ -83,8 +84,8 @@ Measure_grouping_engraver::process_music ()
 
       Rational where (0);
       for (SCM s = grouping; scm_is_pair (s);
-           where += Rational ((int) scm_to_int (scm_car (s))) * base_moment,
-           s = scm_cdr (s))
+           where += Rational ((int)scm_to_int (scm_car (s))) * base_moment,
+               s = scm_cdr (s))
         {
           int grouplen = scm_to_int (scm_car (s));
           if (where == mp)
@@ -97,15 +98,20 @@ Measure_grouping_engraver::process_music ()
               if (grouplen > 1)
                 {
                   grouping_ = make_spanner ("MeasureGrouping", SCM_EOL);
-                  grouping_->set_bound (LEFT, unsmob<Grob> (get_property ("currentMusicalColumn")));
+                  grouping_->set_bound (LEFT, unsmob<Grob> (get_property (
+                                                  "currentMusicalColumn")));
 
-                  stop_grouping_mom_ = now.main_part_ + Rational (grouplen - 1) * base_moment;
-                  find_global_context ()->add_moment_to_process (Moment (stop_grouping_mom_));
+                  stop_grouping_mom_
+                      = now.main_part_ + Rational (grouplen - 1) * base_moment;
+                  find_global_context ()->add_moment_to_process (
+                      Moment (stop_grouping_mom_));
 
                   if (grouplen == 3)
-                    grouping_->set_property ("style", ly_symbol2scm ("triangle"));
+                    grouping_->set_property ("style",
+                                             ly_symbol2scm ("triangle"));
                   else
-                    grouping_->set_property ("style", ly_symbol2scm ("bracket"));
+                    grouping_->set_property ("style",
+                                             ly_symbol2scm ("bracket"));
 
                   break;
                 }
@@ -114,8 +120,7 @@ Measure_grouping_engraver::process_music ()
     }
 }
 
-Measure_grouping_engraver::Measure_grouping_engraver (Context *c)
-  : Engraver (c)
+Measure_grouping_engraver::Measure_grouping_engraver (Context *c) : Engraver (c)
 {
   grouping_ = 0;
 }
@@ -140,5 +145,4 @@ ADD_TRANSLATOR (Measure_grouping_engraver,
                 "measurePosition ",
 
                 /* write */
-                ""
-               );
+                "");

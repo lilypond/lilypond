@@ -19,17 +19,18 @@
 
 #include "tie.hh"
 
-#include "main.hh"
 #include "bezier.hh"
 #include "directional-element-interface.hh"
 #include "font-interface.hh"
 #include "grob-array.hh"
 #include "lookup.hh"
+#include "main.hh"
 #include "note-head.hh"
 #include "output-def.hh"
 #include "paper-column.hh"
 #include "pointer-group-interface.hh"
 #include "rhythmic-head.hh"
+#include "semi-tie-column.hh"
 #include "semi-tie.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
@@ -39,7 +40,6 @@
 #include "tie-configuration.hh"
 #include "tie-formatting-problem.hh"
 #include "warn.hh"
-#include "semi-tie-column.hh"
 
 using std::string;
 
@@ -89,7 +89,7 @@ Tie::get_position (Spanner *me)
     {
       Grob *h = head (me, d);
       if (h)
-        return (int) rint (Staff_symbol_referencer::get_position (h));
+        return (int)rint (Staff_symbol_referencer::get_position (h));
     }
 
   /*
@@ -159,10 +159,10 @@ Tie::calc_direction (SCM smob)
        || has_interface<Semi_tie_column> (yparent))
       && unsmob<Grob_array> (yparent->get_object ("ties"))
       //      && unsmob<Grob_array> (yparent->get_object ("ties"))->size () > 1
-     )
+  )
     {
       /* trigger positioning. */
-      (void) yparent->get_property ("positioning-done");
+      (void)yparent->get_property ("positioning-done");
 
       return me->get_property_data ("direction");
     }
@@ -185,21 +185,18 @@ Tie::get_default_control_points (Spanner *me)
   if (!me->is_live ())
     return SCM_EOL;
 
-  Ties_configuration conf
-    = problem.generate_optimal_configuration ();
+  Ties_configuration conf = problem.generate_optimal_configuration ();
 
-  return get_control_points (me, problem.common_x_refpoint (),
-                             conf[0], problem.details_);
+  return get_control_points (me, problem.common_x_refpoint (), conf[0],
+                             problem.details_);
 }
 
 SCM
-Tie::get_control_points (Grob *me,
-                         Grob *common,
-                         Tie_configuration const &conf,
+Tie::get_control_points (Grob *me, Grob *common, Tie_configuration const &conf,
                          Tie_details const &details)
 {
   Bezier b = conf.get_transformed_bezier (details);
-  b.translate (Offset (- me->relative_coordinate (common, X_AXIS), 0));
+  b.translate (Offset (-me->relative_coordinate (common, X_AXIS), 0));
 
   SCM controls = SCM_EOL;
   for (int i = 4; i--;)
@@ -215,7 +212,7 @@ MAKE_SCHEME_CALLBACK (Tie, calc_control_points, 1);
 SCM
 Tie::calc_control_points (SCM smob)
 {
-  Spanner *me = LY_ASSERT_SMOB(Spanner, smob, 1);
+  Spanner *me = LY_ASSERT_SMOB (Spanner, smob, 1);
 
   Grob *yparent = me->get_parent (Y_AXIS);
   if ((has_interface<Tie_column> (yparent)
@@ -230,7 +227,7 @@ Tie::calc_control_points (SCM smob)
           set_grob_direction (me, Tie::get_default_dir (me));
         }
       /* trigger positioning. */
-      (void) yparent->get_property ("positioning-done");
+      (void)yparent->get_property ("positioning-done");
     }
 
   SCM cp = me->get_property_data ("control-points");
@@ -252,8 +249,11 @@ Tie::print (SCM smob)
   SCM cp = me->get_property ("control-points");
 
   Real staff_thick = Staff_symbol_referencer::line_thickness (me);
-  Real base_thick = staff_thick * robust_scm2double (me->get_property ("thickness"), 1);
-  Real line_thick = staff_thick * robust_scm2double (me->get_property ("line-thickness"), 1);
+  Real base_thick
+      = staff_thick * robust_scm2double (me->get_property ("thickness"), 1);
+  Real line_thick
+      = staff_thick
+        * robust_scm2double (me->get_property ("line-thickness"), 1);
 
   Bezier b;
   for (int i = 0; i < Bezier::CONTROL_COUNT; i++)
@@ -270,9 +270,7 @@ Tie::print (SCM smob)
   Stencil a;
 
   SCM dash_definition = me->get_property ("dash-definition");
-  a = Lookup::slur (b,
-                    get_grob_direction (me) * base_thick,
-                    line_thick,
+  a = Lookup::slur (b, get_grob_direction (me) * base_thick, line_thick,
                     dash_definition);
 
 #if DEBUG_TIE_SCORING
@@ -282,11 +280,10 @@ Tie::print (SCM smob)
       string str;
       SCM properties = Font_interface::text_font_alist_chain (me);
 
-      Stencil tm = *unsmob<Stencil> (Text_interface::interpret_markup
-                                    (me->layout ()->self_scm (), properties,
-                                     annotation));
-      tm.translate (Offset (b.control_[3][X_AXIS] + 0.5,
-                            b.control_[0][Y_AXIS] * 2));
+      Stencil tm = *unsmob<Stencil> (Text_interface::interpret_markup (
+          me->layout ()->self_scm (), properties, annotation));
+      tm.translate (
+          Offset (b.control_[3][X_AXIS] + 0.5, b.control_[0][Y_AXIS] * 2));
       tm = tm.in_color (1.0, 0.0, 0.0);
 
       /*
@@ -399,7 +396,7 @@ ADD_INTERFACE (Tie,
 
                /* properties */
                "annotation "
-               "avoid-slur "    //  UGH.
+               "avoid-slur " //  UGH.
                "control-points "
                "dash-definition "
                "details "
@@ -408,5 +405,4 @@ ADD_INTERFACE (Tie,
                "line-thickness "
                "neutral-direction "
                "staff-position "
-               "thickness "
-              );
+               "thickness ");

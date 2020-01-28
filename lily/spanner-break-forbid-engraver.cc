@@ -17,12 +17,12 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "context.hh"
 #include "engraver.hh"
 #include "international.hh"
 #include "spanner.hh"
 #include "stream-event.hh"
 #include "warn.hh"
-#include "context.hh"
 
 #include "translator.icc"
 
@@ -32,6 +32,7 @@ class Spanner_break_forbid_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Spanner_break_forbid_engraver);
   vector<Spanner *> running_spanners_;
+
 protected:
   void acknowledge_unbreakable_spanner (Grob_info);
   void acknowledge_end_unbreakable_spanner (Grob_info);
@@ -47,10 +48,12 @@ Spanner_break_forbid_engraver::process_music ()
 }
 
 void
-Spanner_break_forbid_engraver::acknowledge_end_unbreakable_spanner (Grob_info gi)
+Spanner_break_forbid_engraver::acknowledge_end_unbreakable_spanner (
+    Grob_info gi)
 {
-  vector<Spanner *>::iterator i = find (running_spanners_.begin (), running_spanners_.end (),
-                                        dynamic_cast<Spanner *> (gi.grob ()));
+  vector<Spanner *>::iterator i
+      = find (running_spanners_.begin (), running_spanners_.end (),
+              dynamic_cast<Spanner *> (gi.grob ()));
   if (i != running_spanners_.end ())
     running_spanners_.erase (i);
 }
@@ -63,7 +66,7 @@ Spanner_break_forbid_engraver::acknowledge_unbreakable_spanner (Grob_info gi)
 }
 
 Spanner_break_forbid_engraver::Spanner_break_forbid_engraver (Context *c)
-  : Engraver (c)
+    : Engraver (c)
 {
 }
 
@@ -85,5 +88,4 @@ ADD_TRANSLATOR (Spanner_break_forbid_engraver,
                 "",
 
                 /* write */
-                ""
-               );
+                "");

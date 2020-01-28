@@ -21,9 +21,9 @@
 
 #include "axis-group-interface.hh"
 #include "lookup.hh"
+#include "moment.hh"
 #include "output-def.hh"
 #include "paper-column.hh"
-#include "moment.hh"
 #include "spanner.hh"
 
 /*
@@ -36,8 +36,7 @@ SCM
 Lyric_hyphen::print (SCM smob)
 {
   Spanner *me = unsmob<Spanner> (smob);
-  Drul_array<Item *> bounds (me->get_bound (LEFT),
-                             me->get_bound (RIGHT));
+  Drul_array<Item *> bounds (me->get_bound (LEFT), me->get_bound (RIGHT));
 
   if (bounds[LEFT]->break_status_dir ()
       && (Paper_column::when_mom (bounds[LEFT])
@@ -49,11 +48,12 @@ Lyric_hyphen::print (SCM smob)
   Interval span_points;
   for (LEFT_and_RIGHT (d))
     {
-      Interval iv = Axis_group_interface::generic_bound_extent (bounds[d], common, X_AXIS);
+      Interval iv = Axis_group_interface::generic_bound_extent (bounds[d],
+                                                                common, X_AXIS);
 
       span_points[d] = iv.is_empty ()
-                       ? bounds[d]->relative_coordinate (common, X_AXIS)
-                       : iv[-d];
+                           ? bounds[d]->relative_coordinate (common, X_AXIS)
+                           : iv[-d];
     }
 
   Real lt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
@@ -78,10 +78,10 @@ Lyric_hyphen::print (SCM smob)
   if (n <= 0)
     n = 1;
 
-  if (l < dash_length + 2 * padding
-      && !bounds[RIGHT]->break_status_dir ())
+  if (l < dash_length + 2 * padding && !bounds[RIGHT]->break_status_dir ())
     {
-      Real minimum_length = robust_scm2double (me->get_property ("minimum-length"), .3);
+      Real minimum_length
+          = robust_scm2double (me->get_property ("minimum-length"), .3);
       dash_length = std::max ((l - 2 * padding), minimum_length);
     }
 
@@ -91,8 +91,7 @@ Lyric_hyphen::print (SCM smob)
     If there is not enough space, the hyphen should disappear, but not
     at the end of the line.
   */
-  if (space_left < 0.0
-      && !bounds[RIGHT]->break_status_dir ())
+  if (space_left < 0.0 && !bounds[RIGHT]->break_status_dir ())
     return SCM_EOL;
 
   space_left = std::max (space_left, 0.0);
@@ -104,17 +103,18 @@ Lyric_hyphen::print (SCM smob)
   for (int i = 0; i < n; i++)
     {
       Stencil m (dash_mol);
-      m.translate_axis (span_points[LEFT] + i * dash_period +
-                        space_left / 2, X_AXIS);
+      m.translate_axis (span_points[LEFT] + i * dash_period + space_left / 2,
+                        X_AXIS);
       total.add_stencil (m);
-      if (whiteout > 0.0 )
+      if (whiteout > 0.0)
         {
           Box c (Interval (0, dash_length + 2 * whiteout * lt),
                  Interval (h - whiteout * lt, h + th + whiteout * lt));
           Stencil w (Lookup::round_filled_box (c, 0.8 * lt));
           w = w.in_color (1.0, 1.0, 1.0);
-          w.translate_axis (span_points[LEFT] + i * dash_period +
-                            space_left / 2 - whiteout * lt, X_AXIS);
+          w.translate_axis (span_points[LEFT] + i * dash_period + space_left / 2
+                                - whiteout * lt,
+                            X_AXIS);
           total.add_stencil (w);
         }
     }
@@ -137,11 +137,11 @@ Lyric_hyphen::set_spacing_rods (SCM smob)
     {
       r.item_drul_[d] = sp->get_bound (d);
       if (r.item_drul_[d])
-        r.distance_ += -d * r.item_drul_[d]->extent (r.item_drul_[d], X_AXIS)[-d];
+        r.distance_
+            += -d * r.item_drul_[d]->extent (r.item_drul_[d], X_AXIS)[-d];
     }
 
-  if (r.item_drul_[LEFT]
-      && r.item_drul_[RIGHT])
+  if (r.item_drul_[LEFT] && r.item_drul_[RIGHT])
     r.add_to_cols ();
 
   return SCM_UNSPECIFIED;
@@ -158,5 +158,4 @@ ADD_INTERFACE (Lyric_hyphen,
                "minimum-distance "
                "minimum-length "
                "padding "
-               "thickness "
-              );
+               "thickness ");

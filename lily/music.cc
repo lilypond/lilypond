@@ -24,11 +24,11 @@
 #include "duration.hh"
 #include "input.hh"
 #include "international.hh"
+#include "lily-imports.hh"
 #include "main.hh"
 #include "music-sequence.hh"
 #include "score.hh"
 #include "warn.hh"
-#include "lily-imports.hh"
 
 /*
   Music is anything that has (possibly zero) duration and supports
@@ -51,8 +51,7 @@ Preinit_Music::Preinit_Music ()
   start_callback_ = SCM_EOL;
 }
 
-Music::Music (SCM init)
-  : Prob (ly_symbol2scm ("Music"), init)
+Music::Music (SCM init) : Prob (ly_symbol2scm ("Music"), init)
 {
   length_callback_ = get_property ("length-callback");
   if (!ly_is_procedure (length_callback_))
@@ -80,8 +79,7 @@ Music::type_check_assignment (SCM s, SCM v) const
   ::type_check_assignment (s, v, ly_symbol2scm ("music-type?"));
 }
 
-Music::Music (Music const &m)
-  : Prob (m)
+Music::Music (Music const &m) : Prob (m)
 {
   length_callback_ = m.length_callback_;
   start_callback_ = m.start_callback_;
@@ -141,15 +139,13 @@ Music::generic_to_relative_octave (Pitch last)
       new_pit = new_pit.to_relative_octave (last);
 
       SCM check = get_property ("absolute-octave");
-      if (scm_is_number (check)
-          && new_pit.get_octave () != scm_to_int (check))
+      if (scm_is_number (check) && new_pit.get_octave () != scm_to_int (check))
         {
-          Pitch expected_pit (scm_to_int (check),
-                              new_pit.get_notename (),
+          Pitch expected_pit (scm_to_int (check), new_pit.get_notename (),
                               new_pit.get_alteration ());
-          origin ()->warning (_f ("octave check failed; expected \"%s\", found: \"%s\"",
-                                  expected_pit.to_string (),
-                                  new_pit.to_string ()));
+          origin ()->warning (
+              _f ("octave check failed; expected \"%s\", found: \"%s\"",
+                  expected_pit.to_string (), new_pit.to_string ()));
           new_pit = expected_pit;
         }
 
@@ -161,7 +157,7 @@ Music::generic_to_relative_octave (Pitch last)
   if (Music *m = unsmob<Music> (elt))
     last = m->to_relative_octave (last);
 
-  (void) music_list_to_relative (get_property ("articulations"), last, true);
+  (void)music_list_to_relative (get_property ("articulations"), last, true);
   last = music_list_to_relative (get_property ("elements"), last, false);
   return last;
 }
@@ -172,8 +168,8 @@ Music::to_relative_octave (Pitch last)
   SCM callback = get_property ("to-relative-callback");
   if (ly_is_procedure (callback))
     {
-      Pitch *p = unsmob<Pitch> (scm_call_2 (callback, self_scm (),
-                                           last.smobbed_copy ()));
+      Pitch *p = unsmob<Pitch> (
+          scm_call_2 (callback, self_scm (), last.smobbed_copy ()));
       return *p;
     }
 
@@ -191,8 +187,7 @@ Music::compress (Rational factor)
   compress_music_list (get_property ("elements"), factor);
   Duration *d = unsmob<Duration> (get_property ("duration"));
   if (d)
-    set_property ("duration",
-                  d->compressed (factor).smobbed_copy ());
+    set_property ("duration", d->compressed (factor).smobbed_copy ());
 }
 
 /*
@@ -264,9 +259,8 @@ Music::to_event () const
   if (!internal_is_music_type (class_name))
     programming_error ("Not a music type");
 
-  Stream_event *e = new Stream_event
-    (Lily::ly_make_event_class (class_name),
-     mutable_property_alist_);
+  Stream_event *e = new Stream_event (Lily::ly_make_event_class (class_name),
+                                      mutable_property_alist_);
   Moment length = get_length ();
   if (length.to_bool ())
     e->set_property ("length", length.smobbed_copy ());
@@ -329,7 +323,7 @@ SCM
 music_deep_copy (SCM m)
 {
   if (Music *mus = unsmob<Music> (m))
-      return mus->clone ()->unprotect ();
+    return mus->clone ()->unprotect ();
   if (scm_is_pair (m))
     {
       SCM copy = SCM_EOL;

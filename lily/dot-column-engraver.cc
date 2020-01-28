@@ -17,28 +17,27 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "rhythmic-head.hh"
 #include "dot-column.hh"
-#include "side-position-interface.hh"
 #include "engraver.hh"
-#include "translator.icc"
 #include "item.hh"
+#include "rhythmic-head.hh"
+#include "side-position-interface.hh"
+#include "translator.icc"
 
 class Dot_column_engraver : public Engraver
 {
   Grob *dotcol_;
+
 public:
   TRANSLATOR_DECLARATIONS (Dot_column_engraver);
 
 protected:
-
   void acknowledge_rhythmic_head (Grob_info);
 
   void stop_translation_timestep ();
 };
 
-Dot_column_engraver::Dot_column_engraver (Context *c)
-  : Engraver (c)
+Dot_column_engraver::Dot_column_engraver (Context *c) : Engraver (c)
 {
   dotcol_ = 0;
 }
@@ -80,5 +79,4 @@ ADD_TRANSLATOR (Dot_column_engraver,
                 "",
 
                 /* write */
-                ""
-               );
+                "");

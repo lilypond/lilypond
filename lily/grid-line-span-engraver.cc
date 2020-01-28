@@ -18,8 +18,8 @@
 */
 
 #include "engraver.hh"
-#include "item.hh"
 #include "grid-line-interface.hh"
+#include "item.hh"
 
 #include "translator.icc"
 
@@ -32,13 +32,13 @@ class Grid_line_span_engraver : public Engraver
 
 public:
   TRANSLATOR_DECLARATIONS (Grid_line_span_engraver);
+
 protected:
   void acknowledge_grid_point (Grob_info);
   void stop_translation_timestep ();
 };
 
-Grid_line_span_engraver::Grid_line_span_engraver (Context *c)
-  : Engraver (c)
+Grid_line_span_engraver::Grid_line_span_engraver (Context *c) : Engraver (c)
 {
   spanline_ = 0;
 }
@@ -87,5 +87,4 @@ ADD_TRANSLATOR (Grid_line_span_engraver,
                 "",
 
                 /* write */
-                ""
-               );
+                "");

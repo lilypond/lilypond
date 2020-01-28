@@ -52,7 +52,7 @@ public:
   void set (SCM k, SCM v);
   SCM get (SCM k) const;
   void remove (SCM k);
-  void operator = (Scheme_hash_table const &);
+  void operator= (Scheme_hash_table const &);
   SCM to_alist () const;
   static SCM make_smob ();
 

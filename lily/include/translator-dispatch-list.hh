@@ -20,20 +20,19 @@
 #ifndef TRANSLATOR_DISPATCH_LIST_HH
 #define TRANSLATOR_DISPATCH_LIST_HH
 
-#include "lily-proto.hh"
 #include "callback.hh"
-#include "std-vector.hh"
+#include "lily-proto.hh"
 #include "smobs.hh"
+#include "std-vector.hh"
 #include "translator.hh"
 
 class Engraver_dispatch_list : public Simple_smob<Engraver_dispatch_list>
 {
   std::vector<Method_instance> dispatch_entries_;
+
 public:
   void apply (Grob_info);
-  SCM static create (SCM trans_list,
-                     SCM iface_list, Direction);
-
+  SCM static create (SCM trans_list, SCM iface_list, Direction);
 };
 
 #endif /* TRANSLATOR_DISPATCH_LIST_HH */

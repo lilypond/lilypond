@@ -35,22 +35,21 @@ class Context : public Smob<Context>
 public:
   SCM mark_smob () const;
   int print_smob (SCM, scm_print_state *) const;
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
   virtual ~Context ();
+
 private:
   void add_global_finalization (SCM x);
   Context *create_hierarchy (const std::vector<Context_def *> &path,
                              const std::string &intermediate_id,
-                             const std::string &leaf_id,
-                             SCM leaf_operations);
+                             const std::string &leaf_id, SCM leaf_operations);
   SCM make_revert_finalization (SCM sym);
   Scheme_hash_table *properties_dict () const;
-  Context *recursive_find_create_context (Input *,
-                                          SCM context_name, const std::string &id,
-                                          SCM ops);
+  Context *recursive_find_create_context (Input *, SCM context_name,
+                                          const std::string &id, SCM ops);
 
   Context (Context const &src) = delete;
-  Context& operator= (Context const &) = delete;
+  Context &operator= (Context const &) = delete;
 
   VIRTUAL_CLASS_NAME (Context);
   void terminate ();
@@ -100,23 +99,21 @@ public:
   std::string id_string () const { return id_string_; }
 
   // formatted identification for log messages
-  static std::string diagnostic_id (SCM name, const std::string& id);
+  static std::string diagnostic_id (SCM name, const std::string &id);
 
   SCM children_contexts () const { return context_list_; }
 
   Dispatcher *event_source () const { return event_source_; }
   Dispatcher *events_below () const { return events_below_; }
   void internal_send_stream_event (SCM type, Input *origin);
-  void internal_send_stream_event (SCM type, Input *origin,
-                                   SCM prop, SCM val);
-  void internal_send_stream_event (SCM type, Input *origin,
-                                   SCM prop, SCM val, SCM prop2, SCM val2);
-  void internal_send_stream_event (SCM type, Input *origin,
-                                   SCM prop, SCM val, SCM prop2, SCM val2,
-                                   SCM prop3, SCM val3);
-  void internal_send_stream_event (SCM type, Input *origin,
-                                   SCM prop, SCM val, SCM prop2, SCM val2,
-                                   SCM prop3, SCM val3, SCM prop4, SCM val4);
+  void internal_send_stream_event (SCM type, Input *origin, SCM prop, SCM val);
+  void internal_send_stream_event (SCM type, Input *origin, SCM prop, SCM val,
+                                   SCM prop2, SCM val2);
+  void internal_send_stream_event (SCM type, Input *origin, SCM prop, SCM val,
+                                   SCM prop2, SCM val2, SCM prop3, SCM val3);
+  void internal_send_stream_event (SCM type, Input *origin, SCM prop, SCM val,
+                                   SCM prop2, SCM val2, SCM prop3, SCM val3,
+                                   SCM prop4, SCM val4);
   SCM get_definition () const { return definition_; }
   SCM get_definition_mods () const { return definition_mods_; }
 
@@ -134,7 +131,7 @@ public:
   void instrumented_set_property (SCM, SCM, const char *, int, const char *);
   void internal_set_property (SCM var_sym, SCM value);
 
-  Context *create_context (Context_def *, const std::string&, SCM);
+  Context *create_context (Context_def *, const std::string &, SCM);
   virtual bool is_accessible_to_user () const { return true; }
 
   void create_context_from_event (SCM);
@@ -160,8 +157,8 @@ public:
   Context *find_create_context (SCM context_name, const std::string &id,
                                 SCM ops);
 
-  Context *create_unique_context (SCM context_name, const std::string &context_id,
-                                  SCM ops);
+  Context *create_unique_context (SCM context_name,
+                                  const std::string &context_id, SCM ops);
   std::vector<Context_def *> path_to_acceptable_context (SCM alias) const;
 };
 
@@ -185,14 +182,14 @@ Context *find_context_above_by_parent_type (Context *where, SCM parent_type);
 // Search for a context of the given type and ID starting from the given
 // context and moving toward the leaves of the tree.  If the starting context
 // matches, it is returned.  An empty ID matches any context of the given type.
-Context *find_context_below (Context *where,
-                             SCM type_sym, const std::string &id);
+Context *find_context_below (Context *where, SCM type_sym,
+                             const std::string &id);
 
 // Search for a context of the given type and ID starting with the given
 // context, then searching its descendants, then its parent's descendants, etc.
 // An empty ID matches any context of the given type.
-Context *find_context_near (Context *where,
-                            SCM type_sym, const std::string &id);
+Context *find_context_near (Context *where, SCM type_sym,
+                            const std::string &id);
 
 // Search for the top context (i.e. the ancestor with no parent) starting with
 // the given context.
@@ -214,7 +211,7 @@ bool check_repeat_count_visibility (Context const *context, SCM count);
 void set_context_property_on_children (Context *trans, SCM sym, SCM val);
 
 /* Shorthand for creating and broadcasting stream events. */
-#define send_stream_event(ctx, type, origin, ...)                       \
+#define send_stream_event(ctx, type, origin, ...)                              \
   ctx->internal_send_stream_event (ly_symbol2scm (type), origin, ##__VA_ARGS__)
 
 SCM nested_property_alist (SCM alist, SCM prop_path, SCM value);

@@ -17,18 +17,18 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "beaming-pattern.hh"
 #include "beam.hh"
-#include "context.hh"
+#include "beaming-pattern.hh"
 #include "context-handle.hh"
+#include "context.hh"
 #include "duration.hh"
 #include "engraver.hh"
 #include "grob-properties.hh"
 #include "item.hh"
 #include "rest.hh"
 #include "spanner.hh"
-#include "stream-event.hh"
 #include "stem.hh"
+#include "stream-event.hh"
 #include "warn.hh"
 
 #include "translator.icc"
@@ -113,8 +113,7 @@ Auto_beam_engraver::check_bar_property ()
      Repeat_acknowledge_engraver::process_music () may also set whichBar.  */
 
   Moment now = now_mom ();
-  if (scm_is_string (get_property ("whichBar"))
-      && beam_start_moment_ < now)
+  if (scm_is_string (get_property ("whichBar")) && beam_start_moment_ < now)
     {
       consider_end (measure_position (context ()), shortest_mom_);
       junk_beam ();
@@ -149,8 +148,7 @@ Auto_beam_engraver::process_music ()
     }
 }
 
-Auto_beam_engraver::Auto_beam_engraver (Context *c)
-  : Engraver (c)
+Auto_beam_engraver::Auto_beam_engraver (Context *c) : Engraver (c)
 {
   forbid_ = 0;
   process_acknowledged_count_ = 0;
@@ -172,19 +170,16 @@ Auto_beam_engraver::listen_beam_forbid (Stream_event *ev)
 bool
 Auto_beam_engraver::test_moment (Direction dir, Moment test_mom, Moment dur)
 {
-  return scm_is_true (scm_call_4 (get_property ("autoBeamCheck"),
-                                    context ()->self_scm (),
-                                    scm_from_int (dir),
-                                    test_mom.smobbed_copy (),
-                                    dur.smobbed_copy ()));
+  return scm_is_true (scm_call_4 (
+      get_property ("autoBeamCheck"), context ()->self_scm (),
+      scm_from_int (dir), test_mom.smobbed_copy (), dur.smobbed_copy ()));
 }
 
 void
 Auto_beam_engraver::consider_begin (Moment test_mom, Moment dur)
 {
   bool on = to_boolean (get_property ("autoBeaming"));
-  if (!stems_ && on
-      && !forbid_)
+  if (!stems_ && on && !forbid_)
     {
       bool b = test_moment (START, test_mom, dur);
       if (b)
@@ -242,12 +237,13 @@ Auto_beam_engraver::begin_beam ()
   stems_ = new vector<Item *>;
   grouping_ = new Beaming_pattern ();
   beaming_options_.from_context (context ());
-  beam_settings_ = Grob_property_info (context (), ly_symbol2scm ("Beam")).updated ();
+  beam_settings_
+      = Grob_property_info (context (), ly_symbol2scm ("Beam")).updated ();
 
   beam_start_context_.set_context (context ()->get_parent_context ());
   beam_start_moment_ = now_mom ();
   beam_start_location_
-    = robust_scm2moment (get_property ("measurePosition"), Moment (0));
+      = robust_scm2moment (get_property ("measurePosition"), Moment (0));
 }
 
 void
@@ -270,7 +266,6 @@ Auto_beam_engraver::is_same_grace_state (Moment start, Moment now)
 {
   return bool (start.grace_part_) == bool (now.grace_part_);
 }
-
 
 void
 Auto_beam_engraver::end_beam ()
@@ -334,32 +329,28 @@ Auto_beam_engraver::finalize ()
     junk_beam ();
 }
 
-void
-Auto_beam_engraver::acknowledge_beam (Grob_info /* info */)
+void Auto_beam_engraver::acknowledge_beam (Grob_info /* info */)
 {
   check_bar_property ();
   if (stems_)
     end_beam ();
 }
 
-void
-Auto_beam_engraver::acknowledge_bar_line (Grob_info /* info */)
+void Auto_beam_engraver::acknowledge_bar_line (Grob_info /* info */)
 {
   check_bar_property ();
   if (stems_)
     end_beam ();
 }
 
-void
-Auto_beam_engraver::acknowledge_breathing_sign (Grob_info /* info */)
+void Auto_beam_engraver::acknowledge_breathing_sign (Grob_info /* info */)
 {
   check_bar_property ();
   if (stems_)
     end_beam ();
 }
 
-void
-Auto_beam_engraver::acknowledge_rest (Grob_info /* info */)
+void Auto_beam_engraver::acknowledge_rest (Grob_info /* info */)
 {
   check_bar_property ();
   if (stems_)
@@ -395,7 +386,8 @@ Auto_beam_engraver::acknowledge_stem (Grob_info info)
       return;
     }
 
-  int durlog = unsmob<Duration> (ev->get_property ("duration"))->duration_log ();
+  int durlog
+      = unsmob<Duration> (ev->get_property ("duration"))->duration_log ();
 
   if (durlog <= 2)
     {
@@ -414,7 +406,8 @@ Auto_beam_engraver::acknowledge_stem (Grob_info info)
   Duration *stem_duration = unsmob<Duration> (ev->get_property ("duration"));
   Moment dur = stem_duration->get_length ();
 
-  //Moment dur = unsmob<Duration> (ev->get_property ("duration"))->get_length ();
+  // Moment dur = unsmob<Duration> (ev->get_property ("duration"))->get_length
+  // ();
   Moment measure_now = measure_position (context ());
   bool recheck_needed = false;
 
@@ -434,8 +427,7 @@ Auto_beam_engraver::acknowledge_stem (Grob_info info)
     return;
 
   grouping_->add_stem (now - beam_start_moment_ + beam_start_location_,
-                       durlog - 2,
-                       Stem::is_invisible (stem),
+                       durlog - 2, Stem::is_invisible (stem),
                        stem_duration->factor (),
                        (to_boolean (stem->get_property ("tuplet-start"))));
   stems_->push_back (stem);
@@ -463,9 +455,7 @@ Auto_beam_engraver::recheck_beam ()
 
   for (vsize i = 0; i < stems_->size () - 1;)
     {
-      found_end = test_moment (STOP,
-                               grouping_->end_moment (i),
-                               shortest_mom_);
+      found_end = test_moment (STOP, grouping_->end_moment (i), shortest_mom_);
       if (!found_end)
         i++;
       else
@@ -493,9 +483,7 @@ Auto_beam_engraver::recheck_beam ()
 
           i = 0;
         }
-
     }
-
 }
 
 /*
@@ -503,11 +491,11 @@ Auto_beam_engraver::recheck_beam ()
   from stems_, and return a vector containing all of the
   removed stems
 */
-vector <Item *> *
+vector<Item *> *
 Auto_beam_engraver::remove_end_stems (vsize split_index)
 {
-  vector <Item *> *removed_stems = 0;
-  removed_stems = new vector <Item *>;
+  vector<Item *> *removed_stems = 0;
+  removed_stems = new vector<Item *>;
 
   for (vsize j = split_index + 1; j < stems_->size (); j++)
     removed_stems->push_back ((*stems_).at (j));
@@ -576,8 +564,7 @@ ADD_TRANSLATOR (Auto_beam_engraver,
                 "subdivideBeams ",
 
                 /* write */
-                ""
-               );
+                "");
 
 class Grace_auto_beam_engraver : public Auto_beam_engraver
 {
@@ -585,7 +572,7 @@ class Grace_auto_beam_engraver : public Auto_beam_engraver
   TRANSLATOR_INHERIT (Auto_beam_engraver);
 
 private:
-  Moment last_grace_start_; // Full starting time of last grace group
+  Moment last_grace_start_;    // Full starting time of last grace group
   Moment last_grace_position_; // Measure position of same
   void process_music () override;
   bool is_same_grace_state (Moment, Moment) override;
@@ -593,15 +580,14 @@ private:
 };
 
 Grace_auto_beam_engraver::Grace_auto_beam_engraver (Context *c)
-  : Auto_beam_engraver (c)
+    : Auto_beam_engraver (c)
 {
   last_grace_start_.main_part_.set_infinite (-1);
   // grace_part_ is zero -> test_moment is false, last_grace_position_
   // not considered.
 }
 
-bool
-Grace_auto_beam_engraver::is_same_grace_state (Moment, Moment)
+bool Grace_auto_beam_engraver::is_same_grace_state (Moment, Moment)
 {
   // This is for ignoring interspersed grace notes in main note
   // beaming.  We never want to ignore something inside of grace note
@@ -634,7 +620,7 @@ Grace_auto_beam_engraver::test_moment (Direction dir, Moment test_mom, Moment)
     return false;
   // Autobeam start only when at the start of the grace group.
   if (dir == START)
-      return last_grace_position_ == test_mom;
+    return last_grace_position_ == test_mom;
   // Autobeam end only when the grace part is finished.
   return !test_mom.grace_part_;
 }
@@ -664,5 +650,4 @@ ADD_TRANSLATOR (Grace_auto_beam_engraver,
                 "autoBeaming ",
 
                 /* write */
-                ""
-               );
+                "");

@@ -53,7 +53,10 @@ typedef SCM (*scm_t_subr) (GUILE_ELLIPSIS);
 /* this lets us "overload" macros such as get_property to take
    symbols as well as strings */
 inline SCM
-scm_or_str2symbol (char const *c) { return scm_from_utf8_symbol (c); }
+scm_or_str2symbol (char const *c)
+{
+  return scm_from_utf8_symbol (c);
+}
 
 inline SCM
 scm_or_str2symbol (SCM s)
@@ -68,21 +71,20 @@ scm_or_str2symbol (SCM s)
    of C++' mechanism to ensure a static variable is only initialized
    once.
  */
-#define ly_symbol2scm(x)                                                \
-  (__builtin_constant_p (x)                                             \
-   ? ({                                                                 \
-       static SCM cached = scm_gc_protect_object (scm_or_str2symbol (x)); \
-       cached;                                                          \
-     })                                                                 \
-   : scm_or_str2symbol (x))
+#define ly_symbol2scm(x)                                                       \
+  (__builtin_constant_p (x) ? ({                                               \
+    static SCM cached = scm_gc_protect_object (scm_or_str2symbol (x));         \
+    cached;                                                                    \
+  })                                                                           \
+                            : scm_or_str2symbol (x))
 
 /*
   Adds the NAME as a Scheme function, and a variable to store the SCM
   version of the function in the static variable NAME_proc
 */
-#define DECLARE_SCHEME_CALLBACK(NAME, ARGS)     \
-  static SCM NAME ARGS;                         \
-  static SCM NAME ## _proc
+#define DECLARE_SCHEME_CALLBACK(NAME, ARGS)                                    \
+  static SCM NAME ARGS;                                                        \
+  static SCM NAME##_proc
 
 std::string mangle_cxx_identifier (std::string);
 
@@ -91,38 +93,32 @@ std::string predicate_to_typename (void *ptr);
 
 // ly_scm_func_of_arity<n>::ptr_type is a pointer to a function taking n SCM
 // arguments and returning SCM.
-template <unsigned>
-struct ly_scm_func_of_arity
+template <unsigned> struct ly_scm_func_of_arity
 {
   // ptr_type is defined in specializations
 };
 
-template <>
-struct ly_scm_func_of_arity<0>
+template <> struct ly_scm_func_of_arity<0>
 {
   typedef SCM (*ptr_type) ();
 };
 
-template <>
-struct ly_scm_func_of_arity<1>
+template <> struct ly_scm_func_of_arity<1>
 {
   typedef SCM (*ptr_type) (SCM);
 };
 
-template <>
-struct ly_scm_func_of_arity<2>
+template <> struct ly_scm_func_of_arity<2>
 {
   typedef SCM (*ptr_type) (SCM, SCM);
 };
 
-template <>
-struct ly_scm_func_of_arity<3>
+template <> struct ly_scm_func_of_arity<3>
 {
   typedef SCM (*ptr_type) (SCM, SCM, SCM);
 };
 
-template <>
-struct ly_scm_func_of_arity<4>
+template <> struct ly_scm_func_of_arity<4>
 {
   typedef SCM (*ptr_type) (SCM, SCM, SCM, SCM);
 };
@@ -130,80 +126,74 @@ struct ly_scm_func_of_arity<4>
 /*
   Make TYPE::FUNC available as a Scheme function.
 */
-#define MAKE_SCHEME_CALLBACK_WITH_OPTARGS(TYPE, FUNC, ARGCOUNT, OPTIONAL_COUNT, DOC) \
-  SCM TYPE ::FUNC ## _proc;                                             \
-  void                                                                  \
-  TYPE ## _ ## FUNC ## _init_functions ()                               \
-  {                                                                     \
-    std::string cxx = std::string (#TYPE) + "::" + std::string (#FUNC); \
-    std::string id = mangle_cxx_identifier (cxx); \
-    /* assignment selects the SCM function even if it is overloaded */ \
-    ly_scm_func_of_arity<ARGCOUNT>::ptr_type func = TYPE::FUNC; \
-    TYPE ::FUNC ## _proc = scm_c_define_gsubr (id.c_str(),                      \
-                                               (ARGCOUNT-OPTIONAL_COUNT), OPTIONAL_COUNT, 0,    \
-                                               (scm_t_subr) func); \
-    ly_add_function_documentation (TYPE :: FUNC ## _proc, id.c_str(), "", \
-                                   DOC);                                \
-    scm_c_export (id.c_str (), NULL);                                   \
-  }                                                                     \
-                                                                        \
-  ADD_SCM_INIT_FUNC (TYPE ## _ ## FUNC ## _callback,                    \
-                     TYPE ## _ ## FUNC ## _init_functions);
+#define MAKE_SCHEME_CALLBACK_WITH_OPTARGS(TYPE, FUNC, ARGCOUNT,                \
+                                          OPTIONAL_COUNT, DOC)                 \
+  SCM TYPE ::FUNC##_proc;                                                      \
+  void TYPE##_##FUNC##_init_functions ()                                       \
+  {                                                                            \
+    std::string cxx = std::string (#TYPE) + "::" + std::string (#FUNC);        \
+    std::string id = mangle_cxx_identifier (cxx);                              \
+    /* assignment selects the SCM function even if it is overloaded */         \
+    ly_scm_func_of_arity<ARGCOUNT>::ptr_type func = TYPE::FUNC;                \
+    TYPE ::FUNC##_proc                                                         \
+        = scm_c_define_gsubr (id.c_str (), (ARGCOUNT - OPTIONAL_COUNT),        \
+                              OPTIONAL_COUNT, 0, (scm_t_subr)func);            \
+    ly_add_function_documentation (TYPE ::FUNC##_proc, id.c_str (), "", DOC);  \
+    scm_c_export (id.c_str (), NULL);                                          \
+  }                                                                            \
+                                                                               \
+  ADD_SCM_INIT_FUNC (TYPE##_##FUNC##_callback, TYPE##_##FUNC##_init_functions);
 
-#define MAKE_DOCUMENTED_SCHEME_CALLBACK(TYPE, FUNC, ARGCOUNT, DOC)              \
-  MAKE_SCHEME_CALLBACK_WITH_OPTARGS(TYPE, FUNC, ARGCOUNT, 0, DOC);
+#define MAKE_DOCUMENTED_SCHEME_CALLBACK(TYPE, FUNC, ARGCOUNT, DOC)             \
+  MAKE_SCHEME_CALLBACK_WITH_OPTARGS (TYPE, FUNC, ARGCOUNT, 0, DOC);
 
-#define MAKE_SCHEME_CALLBACK(TYPE, FUNC, ARGCOUNT)                      \
-  MAKE_SCHEME_CALLBACK_WITH_OPTARGS(TYPE,FUNC,ARGCOUNT, 0, "");
+#define MAKE_SCHEME_CALLBACK(TYPE, FUNC, ARGCOUNT)                             \
+  MAKE_SCHEME_CALLBACK_WITH_OPTARGS (TYPE, FUNC, ARGCOUNT, 0, "");
 
-void ly_add_function_documentation (SCM proc, const std::string &fname, const std::string &varlist, const std::string &doc);
+void ly_add_function_documentation (SCM proc, const std::string &fname,
+                                    const std::string &varlist,
+                                    const std::string &doc);
 void ly_check_name (const std::string &cxx, const std::string &fname);
 
-#define ADD_SCM_INIT_FUNC(name, func)           \
-  class name ## _scm_initter                    \
-  {                                             \
-  public:                                       \
-    name ## _scm_initter ()                     \
-    {                                           \
-      add_scm_init_func (func);                 \
-    }                                           \
-  }                                             \
-    _ ## name ## _scm_initter;
+#define ADD_SCM_INIT_FUNC(name, func)                                          \
+  class name##_scm_initter                                                     \
+  {                                                                            \
+  public:                                                                      \
+    name##_scm_initter () { add_scm_init_func (func); }                        \
+  } _##name##_scm_initter;
 
 /* end define */
 
-#define LY_DEFINE_WITHOUT_DECL(INITPREFIX, FNAME, PRIMNAME, REQ, OPT, VAR, \
-                               ARGLIST, DOCSTRING)                      \
-  SCM FNAME ## _proc;                                                   \
-  void                                                                  \
-  INITPREFIX ## init ()                                                 \
-  {                                                                     \
-    FNAME ## _proc = scm_c_define_gsubr (PRIMNAME, REQ, OPT, VAR,       \
-                                         (scm_t_subr) FNAME); \
-    ly_check_name (#FNAME, PRIMNAME);\
-    ly_add_function_documentation (FNAME ## _proc, PRIMNAME, #ARGLIST,  \
-                                   DOCSTRING);                          \
-    scm_c_export (PRIMNAME, NULL);                                      \
-  }                                                                     \
-  ADD_SCM_INIT_FUNC (INITPREFIX ## init_unique_prefix, INITPREFIX ## init); \
-  SCM                                                                   \
-  FNAME ARGLIST
+#define LY_DEFINE_WITHOUT_DECL(INITPREFIX, FNAME, PRIMNAME, REQ, OPT, VAR,     \
+                               ARGLIST, DOCSTRING)                             \
+  SCM FNAME##_proc;                                                            \
+  void INITPREFIX##init ()                                                     \
+  {                                                                            \
+    FNAME##_proc                                                               \
+        = scm_c_define_gsubr (PRIMNAME, REQ, OPT, VAR, (scm_t_subr)FNAME);     \
+    ly_check_name (#FNAME, PRIMNAME);                                          \
+    ly_add_function_documentation (FNAME##_proc, PRIMNAME, #ARGLIST,           \
+                                   DOCSTRING);                                 \
+    scm_c_export (PRIMNAME, NULL);                                             \
+  }                                                                            \
+  ADD_SCM_INIT_FUNC (INITPREFIX##init_unique_prefix, INITPREFIX##init);        \
+  SCM FNAME ARGLIST
 
-#define LY_DEFINE(FNAME, PRIMNAME, REQ, OPT, VAR, ARGLIST, DOCSTRING)   \
-  SCM FNAME ARGLIST;                                                    \
-  LY_DEFINE_WITHOUT_DECL (FNAME, FNAME, PRIMNAME, REQ, OPT, VAR, ARGLIST, \
+#define LY_DEFINE(FNAME, PRIMNAME, REQ, OPT, VAR, ARGLIST, DOCSTRING)          \
+  SCM FNAME ARGLIST;                                                           \
+  LY_DEFINE_WITHOUT_DECL (FNAME, FNAME, PRIMNAME, REQ, OPT, VAR, ARGLIST,      \
                           DOCSTRING)
 
-#define LY_DEFINE_MEMBER_FUNCTION(CLASS, FNAME, PRIMNAME, REQ, OPT, VAR, \
-                                  ARGLIST, DOCSTRING)                   \
-  SCM FNAME ARGLIST;                                                    \
-  LY_DEFINE_WITHOUT_DECL (CLASS ## FNAME, CLASS::FNAME, PRIMNAME, REQ, OPT, \
-                          VAR, ARGLIST, DOCSTRING)
+#define LY_DEFINE_MEMBER_FUNCTION(CLASS, FNAME, PRIMNAME, REQ, OPT, VAR,       \
+                                  ARGLIST, DOCSTRING)                          \
+  SCM FNAME ARGLIST;                                                           \
+  LY_DEFINE_WITHOUT_DECL (CLASS##FNAME, CLASS::FNAME, PRIMNAME, REQ, OPT, VAR, \
+                          ARGLIST, DOCSTRING)
 
 #define get_property(x) internal_get_property (ly_symbol2scm (x))
-#define get_pure_property(x,y,z) \
+#define get_pure_property(x, y, z)                                             \
   internal_get_pure_property (ly_symbol2scm (x), y, z)
-#define get_maybe_pure_property(w,x,y,z) \
+#define get_maybe_pure_property(w, x, y, z)                                    \
   internal_get_maybe_pure_property (ly_symbol2scm (w), x, y, z)
 #define get_property_data(x) internal_get_property_data (ly_symbol2scm (x))
 #define get_object(x) internal_get_object (ly_symbol2scm (x))
@@ -215,30 +205,32 @@ void ly_check_name (const std::string &cxx, const std::string &fname);
   TODO: include modification callback support here, perhaps
   through intermediate Grob::instrumented_set_property( .. __LINE__ ).
  */
-#define set_property(x, y) instrumented_set_property (ly_symbol2scm (x), y, __FILE__, __LINE__, __FUNCTION__)
+#define set_property(x, y)                                                     \
+  instrumented_set_property (ly_symbol2scm (x), y, __FILE__, __LINE__,         \
+                             __FUNCTION__)
 #else
 #define set_property(x, y) internal_set_property (ly_symbol2scm (x), y)
 #endif
 
-#define LY_ASSERT_TYPE(pred, var, number)                                       \
-  {                                                                     \
-    if (!pred (var)) \
-      {                                                                 \
-        scm_wrong_type_arg_msg(mangle_cxx_identifier (__FUNCTION__).c_str(), \
-                               number, var, \
-                               predicate_to_typename ((void*) &pred).c_str()); \
-      }                                                                 \
+#define LY_ASSERT_TYPE(pred, var, number)                                      \
+  {                                                                            \
+    if (!pred (var))                                                           \
+      {                                                                        \
+        scm_wrong_type_arg_msg (                                               \
+            mangle_cxx_identifier (__FUNCTION__).c_str (), number, var,        \
+            predicate_to_typename ((void *)&pred).c_str ());                   \
+      }                                                                        \
   }
 
-template <class T>
-T *unsmob (SCM var);
+template <class T> T *unsmob (SCM var);
 
 void ly_wrong_smob_arg (bool pred (SCM), SCM var, int number, const char *fun);
 
 // Do not call this directly.
 // Use LY_ASSERT_SMOB() which supplies the function name automatically.
 template <class T>
-inline T *ly_assert_smob (SCM var, int number, const char *fun)
+inline T *
+ly_assert_smob (SCM var, int number, const char *fun)
 {
   T *smob = unsmob<T> (var);
   if (smob)
@@ -251,7 +243,7 @@ inline T *ly_assert_smob (SCM var, int number, const char *fun)
 // Could be just implemented using LY_ASSERT_TYPE, but this variant
 // saves a slight amount of code
 
-#define LY_ASSERT_SMOB(klass, var, number)                              \
+#define LY_ASSERT_SMOB(klass, var, number)                                     \
   ly_assert_smob<klass> (var, number, __FUNCTION__)
 
 #endif /* LILY_GUILE_MACROS_HH */

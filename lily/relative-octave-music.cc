@@ -18,8 +18,8 @@
 */
 
 #include "music.hh"
-#include "warn.hh"
 #include "program-option.hh"
+#include "warn.hh"
 
 class Relative_octave_music
 {
@@ -30,17 +30,14 @@ public:
 
 MAKE_SCHEME_CALLBACK (Relative_octave_music, no_relative_callback, 2)
 SCM
-Relative_octave_music::no_relative_callback (SCM /* music */,
-                                             SCM pitch)
+Relative_octave_music::no_relative_callback (SCM /* music */, SCM pitch)
 {
   return pitch;
 }
 
 MAKE_SCHEME_CALLBACK (Relative_octave_music, relative_callback, 2)
 SCM
-Relative_octave_music::relative_callback (SCM /* music */,
-                                          SCM pitch)
+Relative_octave_music::relative_callback (SCM /* music */, SCM pitch)
 {
   return pitch;
 }
-

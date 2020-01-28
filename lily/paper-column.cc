@@ -52,7 +52,8 @@ Paper_column::internal_set_as_bound_of_spanner (Spanner *s, Direction)
       // alive to have meaningful position and linebreaking.  [maybe we should
       // try keeping all columns alive?, and perhaps inherit position from
       // their (non-)musical brother]
-      Pointer_group_interface::add_grob (this, ly_symbol2scm ("bounded-by-me"), s);
+      Pointer_group_interface::add_grob (this, ly_symbol2scm ("bounded-by-me"),
+                                         s);
     }
   return ok;
 }
@@ -78,18 +79,16 @@ Paper_column::set_system (System *s)
 Paper_column *
 Paper_column::get_column () const
 {
-  return (Paper_column *) (this);
+  return (Paper_column *)(this);
 }
 
-Paper_column::Paper_column (SCM l)
-  : Item (l)
+Paper_column::Paper_column (SCM l) : Item (l)
 {
   system_ = 0;
   rank_ = -1;
 }
 
-Paper_column::Paper_column (Paper_column const &src)
-  : Item (src)
+Paper_column::Paper_column (Paper_column const &src) : Item (src)
 {
   system_ = 0;
   rank_ = src.rank_;
@@ -147,11 +146,13 @@ Real
 Paper_column::minimum_distance (Grob *left, Grob *right)
 {
   Drul_array<Grob *> cols (left, right);
-  Drul_array<Skyline> skys = Drul_array<Skyline> (Skyline (RIGHT), Skyline (LEFT));
+  Drul_array<Skyline> skys
+      = Drul_array<Skyline> (Skyline (RIGHT), Skyline (LEFT));
 
   for (LEFT_and_RIGHT (d))
     {
-      Skyline_pair *sp = unsmob<Skyline_pair> (cols[d]->get_property ("horizontal-skylines"));
+      Skyline_pair *sp = unsmob<Skyline_pair> (
+          cols[d]->get_property ("horizontal-skylines"));
       if (sp)
         skys[d] = (*sp)[-d];
     }
@@ -171,27 +172,29 @@ Paper_column::break_align_width (Grob *me, SCM align_syms)
 
   if (is_musical (me))
     {
-      me->programming_error ("tried to get break-align-width of a musical column");
+      me->programming_error (
+          "tried to get break-align-width of a musical column");
       return Interval (0, 0) + me->relative_coordinate (p, X_AXIS);
     }
 
   Grob *align = 0;
-  for (;!align && scm_is_pair (align_syms); align_syms = scm_cdr (align_syms))
+  for (; !align && scm_is_pair (align_syms); align_syms = scm_cdr (align_syms))
     {
       SCM align_sym = scm_car (align_syms);
       if (scm_is_eq (align_sym, ly_symbol2scm ("staff-bar"))
           || scm_is_eq (align_sym, ly_symbol2scm ("break-alignment")))
-        align = Pointer_group_interface::find_grob
-          (me, ly_symbol2scm ("elements"),
-           (scm_is_eq (align_sym, ly_symbol2scm ("staff-bar"))
-            ? Bar_line::non_empty_barline
-            : has_interface<Break_alignment_interface>));
+        align = Pointer_group_interface::find_grob (
+            me, ly_symbol2scm ("elements"),
+            (scm_is_eq (align_sym, ly_symbol2scm ("staff-bar"))
+                 ? Bar_line::non_empty_barline
+                 : has_interface<Break_alignment_interface>));
       else
         {
           extract_grob_set (me, "elements", elts);
           for (vsize i = 0; i < elts.size (); i++)
             {
-              if (scm_is_eq (align_sym, elts[i]->get_property ("break-align-symbol"))
+              if (scm_is_eq (align_sym,
+                             elts[i]->get_property ("break-align-symbol"))
                   // TODO SCM: there must be a simpler way to put this.
                   && !elts[i]->extent (elts[i], X_AXIS).is_empty ())
                 {
@@ -208,8 +211,9 @@ Paper_column::break_align_width (Grob *me, SCM align_syms)
   return align->extent (p, X_AXIS);
 }
 
-LY_DEFINE (ly_paper_column__break_align_width, "ly:paper-column::break-align-width",
-           2, 0, 0, (SCM col, SCM align_syms),
+LY_DEFINE (ly_paper_column__break_align_width,
+           "ly:paper-column::break-align-width", 2, 0, 0,
+           (SCM col, SCM align_syms),
            "Determine the extent along the X-axis of a grob used for"
            " break-alignment organized by column @var{col}. The grob is"
            " specified by @var{align-syms}, which contains either a"
@@ -220,7 +224,8 @@ LY_DEFINE (ly_paper_column__break_align_width, "ly:paper-column::break-align-wid
   SCM_ASSERT_TYPE (scm_is_symbol (align_syms) || ly_is_list (align_syms),
                    align_syms, SCM_ARG2, __FUNCTION__, "symbol or list");
 
-  Interval ext = Paper_column::break_align_width (unsmob<Grob> (col), align_syms);
+  Interval ext
+      = Paper_column::break_align_width (unsmob<Grob> (col), align_syms);
   return ly_interval2scm (ext);
 }
 
@@ -273,12 +278,10 @@ Paper_column::print (SCM p)
 
   Font_metric *musfont = Font_interface::get_default_font (me);
   SCM properties = Font_interface::text_font_alist_chain (me);
-  SCM scm_mol = Text_interface::interpret_markup (me->layout ()->self_scm (),
-                                                  properties,
-                                                  ly_string2scm (r));
-  SCM when_mol = Text_interface::interpret_markup (me->layout ()->self_scm (),
-                                                   properties,
-                                                   ly_string2scm (when));
+  SCM scm_mol = Text_interface::interpret_markup (
+      me->layout ()->self_scm (), properties, ly_string2scm (r));
+  SCM when_mol = Text_interface::interpret_markup (
+      me->layout ()->self_scm (), properties, ly_string2scm (when));
   Stencil t = *unsmob<Stencil> (scm_mol);
   t.scale (1.2, 1.4);
   t.add_at_edge (Y_AXIS, DOWN, *unsmob<Stencil> (when_mol), 0.1);
@@ -287,8 +290,7 @@ Paper_column::print (SCM p)
   t.translate (Offset (-0.1, 0));
   t.align_to (Y_AXIS, DOWN);
 
-  Stencil l = Lookup::filled_box (Box (Interval (0, 0.02),
-                                       Interval (-8, -1)));
+  Stencil l = Lookup::filled_box (Box (Interval (0, 0.02), Interval (-8, -1)));
 
   Real small_pad = 0.15;
   Real big_pad = 0.35;
@@ -296,8 +298,8 @@ Paper_column::print (SCM p)
   // number of printed arrows from *both* loops
   int j = 0;
 
-  for (SCM s = me->get_object ("ideal-distances");
-       scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = me->get_object ("ideal-distances"); scm_is_pair (s);
+       s = scm_cdr (s))
     {
       Spring *sp = unsmob<Spring> (scm_caar (s));
       if (!unsmob<Grob> (scm_cdar (s))
@@ -311,9 +313,10 @@ Paper_column::print (SCM p)
       arrowhead.scale (1, 1.66);
       Real head_len = arrowhead.extent (X_AXIS).length ();
 
-      SCM stil = Text_interface::interpret_markup (me->layout ()->self_scm (),
-                                                   properties,
-                                                   ly_string2scm (String_convert::form_string ("%5.2lf", sp->distance ())));
+      SCM stil = Text_interface::interpret_markup (
+          me->layout ()->self_scm (), properties,
+          ly_string2scm (
+              String_convert::form_string ("%5.2lf", sp->distance ())));
       Stencil *number_stc = unsmob<Stencil> (stil);
       number_stc->scale (1, 1.1);
       Real num_height = number_stc->extent (Y_AXIS).length ();
@@ -324,8 +327,8 @@ Paper_column::print (SCM p)
       Real y = -2.5;
       y -= j * (num_height + small_pad + big_pad);
       // horizontally center number on the arrow, excluding arrowhead.
-      Offset num_off = Offset ((sp->distance () - num_len - head_len) / 2,
-                               y + small_pad);
+      Offset num_off
+          = Offset ((sp->distance () - num_len - head_len) / 2, y + small_pad);
 
       vector<Offset> pts;
       pts.push_back (Offset (0, y));
@@ -336,13 +339,14 @@ Paper_column::print (SCM p)
       Stencil id_stencil = Lookup::points_to_line_stencil (0.1, pts);
       id_stencil.add_stencil (arrowhead.translated (p2));
       id_stencil.add_stencil (number_stc->translated (num_off));
-      // use a lighter shade of blue so it will remain legible on black background.
+      // use a lighter shade of blue so it will remain legible on black
+      // background.
       id_stencil = id_stencil.in_color (0.2, 0.4, 1.0);
       l.add_stencil (id_stencil);
     }
 
-  for (SCM s = me->get_object ("minimum-distances");
-       scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = me->get_object ("minimum-distances"); scm_is_pair (s);
+       s = scm_cdr (s))
     {
       Real dist = scm_to_double (scm_cdar (s));
       Grob *other = unsmob<Grob> (scm_caar (s));
@@ -356,9 +360,9 @@ Paper_column::print (SCM p)
       arrowhead.scale (1, 1.66);
       Real head_len = arrowhead.extent (X_AXIS).length ();
 
-      SCM stil = Text_interface::interpret_markup (me->layout ()->self_scm (),
-                                                   properties,
-                                                   ly_string2scm (String_convert::form_string ("%5.2lf", dist)));
+      SCM stil = Text_interface::interpret_markup (
+          me->layout ()->self_scm (), properties,
+          ly_string2scm (String_convert::form_string ("%5.2lf", dist)));
       Stencil *number_stc = unsmob<Stencil> (stil);
       number_stc->scale (1, 1.1);
       Real num_height = number_stc->extent (Y_AXIS).length ();
@@ -369,8 +373,7 @@ Paper_column::print (SCM p)
       Real y = -3;
       y -= j * (num_height + small_pad + big_pad);
       // horizontally center number on the arrow, excluding arrowhead.
-      Offset num_off = Offset ((dist - num_len - head_len) / 2,
-                               y - small_pad);
+      Offset num_off = Offset ((dist - num_len - head_len) / 2, y - small_pad);
 
       vector<Offset> pts;
       pts.push_back (Offset (0, y));
@@ -381,7 +384,8 @@ Paper_column::print (SCM p)
       Stencil id_stencil = Lookup::points_to_line_stencil (0.1, pts);
       id_stencil.add_stencil (arrowhead.translated (p2));
       id_stencil.add_stencil (number_stc->translated (num_off));
-      // use a lighter shade of red so it will remain legible on black background.
+      // use a lighter shade of red so it will remain legible on black
+      // background.
       id_stencil = id_stencil.in_color (1.0, 0.25, 0.25);
       l.add_stencil (id_stencil);
     }
@@ -389,7 +393,8 @@ Paper_column::print (SCM p)
   return t.smobbed_copy ();
 }
 
-static bool grob_is_live (const Grob *g)
+static bool
+grob_is_live (const Grob *g)
 {
   return g && g->is_live ();
 }

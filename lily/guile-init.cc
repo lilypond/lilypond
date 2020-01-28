@@ -19,10 +19,10 @@
 */
 
 #include "lily-guile.hh"
-#include "main.hh"
-#include "warn.hh"
-#include "smobs.hh"
 #include "lily-imports.hh"
+#include "main.hh"
+#include "smobs.hh"
+#include "warn.hh"
 
 using std::vector;
 
@@ -42,7 +42,8 @@ using std::vector;
 typedef void (*Void_fptr) ();
 vector<Void_fptr> *scm_init_funcs_;
 
-void add_scm_init_func (void (*f) ())
+void
+add_scm_init_func (void (*f) ())
 {
   if (!scm_init_funcs_)
     scm_init_funcs_ = new vector<Void_fptr>;

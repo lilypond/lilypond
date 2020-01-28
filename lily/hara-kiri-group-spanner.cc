@@ -20,9 +20,9 @@
 
 #include "hara-kiri-group-spanner.hh"
 
+#include "axis-group-interface.hh"
 #include "paper-column.hh"
 #include "pointer-group-interface.hh"
-#include "axis-group-interface.hh"
 #include "spanner.hh"
 #include "warn.hh"
 
@@ -57,12 +57,14 @@ Hara_kiri_group_spanner::pure_height (SCM smob, SCM start_scm, SCM end_scm)
   if (request_suicide (me, start, end))
     return ly_interval2scm (Interval ());
 
-  return ly_interval2scm (Axis_group_interface::pure_group_height (me, start, end));
+  return ly_interval2scm (
+      Axis_group_interface::pure_group_height (me, start, end));
 }
 
 /* there is probably a way that doesn't involve re-implementing a binary
    search (I would love some proper closures right now) */
-bool find_in_range (SCM vector, vsize low, vsize hi, vsize min, vsize max)
+bool
+find_in_range (SCM vector, vsize low, vsize hi, vsize min, vsize max)
 {
   if (low >= hi)
     return false;
@@ -89,14 +91,16 @@ Hara_kiri_group_spanner::request_suicide (Grob *me, vsize start, vsize end)
 
   extract_grob_set (me, "keep-alive-with", friends);
   for (vsize i = 0; i < friends.size (); ++i)
-    if (friends[i]->is_live () && !request_suicide_alone (friends[i], start, end))
+    if (friends[i]->is_live ()
+        && !request_suicide_alone (friends[i], start, end))
       return false;
 
   return true;
 }
 
 bool
-Hara_kiri_group_spanner::request_suicide_alone (Grob *me, vsize start, vsize end)
+Hara_kiri_group_spanner::request_suicide_alone (Grob *me, vsize start,
+                                                vsize end)
 {
   if (!to_boolean (me->get_property ("remove-empty")))
     return false;
@@ -174,7 +178,8 @@ Hara_kiri_group_spanner::force_hara_kiri_callback (SCM smob)
   return scm_from_double (0.0);
 }
 
-MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, force_hara_kiri_in_y_parent_callback, 1);
+MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner,
+                      force_hara_kiri_in_y_parent_callback, 1);
 SCM
 Hara_kiri_group_spanner::force_hara_kiri_in_y_parent_callback (SCM smob)
 {
@@ -186,7 +191,8 @@ Hara_kiri_group_spanner::force_hara_kiri_in_y_parent_callback (SCM smob)
 void
 Hara_kiri_group_spanner::add_interesting_item (Grob *me, Grob *n)
 {
-  Pointer_group_interface::add_unordered_grob (me, ly_symbol2scm ("items-worth-living"), n);
+  Pointer_group_interface::add_unordered_grob (
+      me, ly_symbol2scm ("items-worth-living"), n);
 }
 
 ADD_INTERFACE (Hara_kiri_group_spanner,
@@ -205,5 +211,4 @@ ADD_INTERFACE (Hara_kiri_group_spanner,
                "make-dead-when "
                "remove-empty "
                "remove-first "
-               "remove-layer "
-              );
+               "remove-layer ");

@@ -33,4 +33,3 @@ public:
 };
 
 #endif /* PERCENT_REPEAT_ITEM_HH */
-

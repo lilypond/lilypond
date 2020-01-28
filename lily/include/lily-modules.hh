@@ -31,8 +31,9 @@ class Scm_module
   class Variable_record;
   Variable_record *variables_;
   static void boot_init (void *);
+
 public:
-  void boot (void (*init)() = 0);
+  void boot (void (*init) () = 0);
   void import ();
   void register_variable (const char *name, Scm_variable *var);
 
@@ -51,6 +52,7 @@ class Scm_variable
   friend Scm_module;
   void boot (const char *name);
   void import (SCM module, const char *name);
+
 public:
   operator SCM & ()
   {
@@ -64,36 +66,27 @@ public:
 #endif
     return *SCM_VARIABLE_LOC (var_);
   }
-  SCM operator () ()
-  {
-    return scm_call_0 (*this);
-  }
-  SCM operator () (SCM arg1)
-  {
-    return scm_call_1 (*this, arg1);
-  }
-  SCM operator () (SCM arg1, SCM arg2)
-  {
-    return scm_call_2 (*this, arg1, arg2);
-  }
-  SCM operator () (SCM arg1, SCM arg2, SCM arg3)
+  SCM operator() () { return scm_call_0 (*this); }
+  SCM operator() (SCM arg1) { return scm_call_1 (*this, arg1); }
+  SCM operator() (SCM arg1, SCM arg2) { return scm_call_2 (*this, arg1, arg2); }
+  SCM operator() (SCM arg1, SCM arg2, SCM arg3)
   {
     return scm_call_3 (*this, arg1, arg2, arg3);
   }
-  SCM operator () (SCM arg1, SCM arg2, SCM arg3, SCM arg4)
+  SCM operator() (SCM arg1, SCM arg2, SCM arg3, SCM arg4)
   {
     return scm_call_4 (*this, arg1, arg2, arg3, arg4);
   }
   Scm_variable (Scm_module &m, const char *name, SCM value = SCM_UNDEFINED);
 };
 
-template <Scm_module &m>
-class Module_variable : public Scm_variable
+template <Scm_module &m> class Module_variable : public Scm_variable
 {
 public:
   Module_variable (const char *name, SCM value = SCM_UNDEFINED)
-    : Scm_variable (m, name, value)
-  { }
+      : Scm_variable (m, name, value)
+  {
+  }
 };
 
 #endif

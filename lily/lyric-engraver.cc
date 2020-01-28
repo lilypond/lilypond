@@ -20,10 +20,10 @@
 
 #include "context.hh"
 #include "engraver.hh"
+#include "international.hh"
 #include "item.hh"
 #include "note-head.hh"
 #include "stream-event.hh"
-#include "international.hh"
 
 #include "translator.icc"
 
@@ -51,8 +51,7 @@ private:
   Context *get_voice_context ();
 };
 
-Lyric_engraver::Lyric_engraver (Context *c)
-  : Engraver (c)
+Lyric_engraver::Lyric_engraver (Context *c) : Engraver (c)
 {
   text_ = 0;
   last_text_ = 0;
@@ -83,9 +82,7 @@ Lyric_engraver::process_music ()
     }
 
   Context *voice = get_voice_to_lyrics (context ());
-  if (last_text_
-      && voice
-      && to_boolean (voice->get_property ("melismaBusy"))
+  if (last_text_ && voice && to_boolean (voice->get_property ("melismaBusy"))
       && !to_boolean (context ()->get_property ("ignoreMelismata")))
     last_text_->set_property ("self-alignment-X",
                               get_property ("lyricMelismaAlignment"));
@@ -132,10 +129,11 @@ Grob *
 get_current_note_head (Context *voice)
 {
   Moment now = voice->now_mom ();
-  for (SCM s = voice->get_property ("busyGrobs");
-       scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = voice->get_property ("busyGrobs"); scm_is_pair (s);
+       s = scm_cdr (s))
     {
-      Grob *g = unsmob<Grob> (scm_cdar (s));;
+      Grob *g = unsmob<Grob> (scm_cdar (s));
+      ;
       Moment *end_mom = unsmob<Moment> (scm_caar (s));
       if (!end_mom || !g)
         {
@@ -145,9 +143,10 @@ get_current_note_head (Context *voice)
 
       // It's a bit irritating that we just have the length and
       // duration of the Grob.
-      Moment end_from_now =
-        get_event_length (unsmob<Stream_event> (g->get_property ("cause")), now)
-        + now;
+      Moment end_from_now
+          = get_event_length (unsmob<Stream_event> (g->get_property ("cause")),
+                              now)
+            + now;
       // We cannot actually include more than a single grace note
       // using busyGrobs on ungraced lyrics since a grob ending on
       // grace time will just have disappeared from busyGrobs by the
@@ -158,8 +157,7 @@ get_current_note_head (Context *voice)
       // indistinguishable from a proper note ending on a non-grace
       // time.  So we really have no way to obey includeGraceNotes
       // here.  Not with this mechanism.
-      if ((*end_mom == end_from_now)
-          && dynamic_cast<Item *> (g)
+      if ((*end_mom == end_from_now) && dynamic_cast<Item *> (g)
           && has_interface<Note_head> (g))
         {
           return g;
@@ -182,7 +180,7 @@ Lyric_engraver::stop_translation_timestep ()
 
           if (head)
             {
-              text_->set_parent (head->get_parent(X_AXIS), X_AXIS);
+              text_->set_parent (head->get_parent (X_AXIS), X_AXIS);
               if (melisma_busy (voice)
                   && !to_boolean (get_property ("ignoreMelismata")))
                 text_->set_property ("self-alignment-X",
@@ -215,5 +213,4 @@ ADD_TRANSLATOR (Lyric_engraver,
                 "searchForVoice",
 
                 /* write */
-                ""
-               );
+                "");

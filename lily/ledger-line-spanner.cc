@@ -19,14 +19,14 @@
 
 #include <map>
 
+#include "interval-set.hh"
+#include "lookup.hh"
 #include "note-head.hh"
+#include "paper-column.hh"
+#include "pointer-group-interface.hh"
+#include "spanner.hh"
 #include "staff-symbol-referencer.hh"
 #include "staff-symbol.hh"
-#include "lookup.hh"
-#include "spanner.hh"
-#include "pointer-group-interface.hh"
-#include "paper-column.hh"
-#include "interval-set.hh"
 #include "std-vector.hh"
 
 using std::map;
@@ -40,15 +40,12 @@ struct Ledger_line_spanner
 
 static void
 set_rods (Drul_array<Interval> const &current_extents,
-          Drul_array<Interval> const &previous_extents,
-          Item *current_column,
-          Item *previous_column,
-          Real min_length)
+          Drul_array<Interval> const &previous_extents, Item *current_column,
+          Item *previous_column, Real min_length)
 {
   for (UP_and_DOWN (d))
     {
-      if (!current_extents[d].is_empty ()
-          && !previous_extents[d].is_empty ())
+      if (!current_extents[d].is_empty () && !previous_extents[d].is_empty ())
         {
           Rod rod;
           rod.distance_ = 2 * min_length
@@ -80,7 +77,7 @@ Ledger_line_spanner::set_spacing_rods (SCM smob)
     }
 
   Real min_length_fraction
-    = robust_scm2double (me->get_property ("minimum-length-fraction"), 0.15);
+      = robust_scm2double (me->get_property ("minimum-length-fraction"), 0.15);
 
   Drul_array<Interval> current_extents;
   Drul_array<Interval> previous_extents;
@@ -103,7 +100,7 @@ Ledger_line_spanner::set_spacing_rods (SCM smob)
       Item *h = heads[i];
 
       int pos = Staff_symbol_referencer::get_rounded_position (h);
-      if  (Staff_symbol::ledger_positions (staff, pos).empty ())
+      if (Staff_symbol::ledger_positions (staff, pos).empty ())
         continue;
 
       /* Ambitus heads can appear out-of-order in heads[],
@@ -114,9 +111,8 @@ Ledger_line_spanner::set_spacing_rods (SCM smob)
       Item *column = h->get_column ();
       if (current_column != column)
         {
-          set_rods (current_extents, previous_extents,
-                    current_column, previous_column,
-                    current_head_width * min_length_fraction);
+          set_rods (current_extents, previous_extents, current_column,
+                    previous_column, current_head_width * min_length_fraction);
 
           previous_column = current_column;
           current_column = column;
@@ -137,9 +133,8 @@ Ledger_line_spanner::set_spacing_rods (SCM smob)
     }
 
   if (previous_column && current_column)
-    set_rods (current_extents, previous_extents,
-              current_column, previous_column,
-              current_head_width * min_length_fraction);
+    set_rods (current_extents, previous_extents, current_column,
+              previous_column, current_head_width * min_length_fraction);
 
   return SCM_UNSPECIFIED;
 }
@@ -164,10 +159,10 @@ struct Ledger_request
   Interval max_ledger_extent_;
   Interval max_head_extent_;
   int max_position_;
-  vector <Head_data> heads_;
+  vector<Head_data> heads_;
   // The map's keys are vertical ledger line positions. The values are
   // vectors of the x-extents of ledger lines.
-  std::map <Real, vector <Interval> > ledger_extents_;
+  std::map<Real, vector<Interval>> ledger_extents_;
   Ledger_request ()
   {
     max_ledger_extent_.set_empty ();
@@ -176,7 +171,7 @@ struct Ledger_request
   }
 };
 
-typedef std::map < int, Drul_array<Ledger_request> > Ledger_requests;
+typedef std::map<int, Drul_array<Ledger_request>> Ledger_requests;
 
 /*
   TODO: ledger share a lot of info. Lots of room to optimize away
@@ -204,7 +199,7 @@ Ledger_line_spanner::print (SCM smob)
   staff_extent *= 1 / halfspace;
 
   Real length_fraction
-    = robust_scm2double (me->get_property ("length-fraction"), 0.25);
+      = robust_scm2double (me->get_property ("length-fraction"), 0.25);
 
   Grob *common_x = common_refpoint_of_array (heads, me, X_AXIS);
   for (vsize i = heads.size (); i--;)
@@ -218,8 +213,8 @@ Ledger_line_spanner::print (SCM smob)
     {
       Item *h = dynamic_cast<Item *> (heads[i]);
       int pos = Staff_symbol_referencer::get_rounded_position (h);
-      vector<Real> ledger_positions =
-        Staff_symbol::ledger_positions (staff, pos, h);
+      vector<Real> ledger_positions
+          = Staff_symbol::ledger_positions (staff, pos, h);
 
       // We work with all notes that produce ledgers and any notes that
       // fall outside the staff that do not produce ledgers, such as
@@ -236,8 +231,8 @@ Ledger_line_spanner::print (SCM smob)
           reqs[rank][vdir].max_ledger_extent_.unite (ledger_extent);
           reqs[rank][vdir].max_head_extent_.unite (head_extent);
           reqs[rank][vdir].max_position_
-            = vdir * std::max (vdir * reqs[rank][vdir].max_position_,
-                          vdir * pos);
+              = vdir
+                * std::max (vdir * reqs[rank][vdir].max_position_, vdir * pos);
           Head_data hd;
           hd.position_ = pos;
           hd.ledger_positions_ = ledger_positions;
@@ -245,7 +240,7 @@ Ledger_line_spanner::print (SCM smob)
           hd.head_extent_ = head_extent;
           if (Grob *g = unsmob<Grob> (h->get_object ("accidental-grob")))
             hd.accidental_extent_ = g->extent (common_x, X_AXIS);
-          reqs[rank][vdir].heads_.push_back(hd);
+          reqs[rank][vdir].heads_.push_back (hd);
         }
     }
 
@@ -257,8 +252,8 @@ Ledger_line_spanner::print (SCM smob)
   // produce more space between them.
   Real gap = robust_scm2double (me->get_property ("gap"), 0.1);
   Ledger_requests::iterator last (reqs.end ());
-  for (Ledger_requests::iterator i (reqs.begin ());
-       i != reqs.end (); last = i++)
+  for (Ledger_requests::iterator i (reqs.begin ()); i != reqs.end ();
+       last = i++)
     {
       if (last == reqs.end ())
         continue;
@@ -271,28 +266,30 @@ Ledger_line_spanner::print (SCM smob)
               && !staff_extent.contains (i->second[d].max_position_))
             {
               // Midpoint between the furthest bounds of the two heads.
-              Real center
-                = (last->second[d].max_head_extent_[RIGHT]
-                   + i->second[d].max_head_extent_[LEFT]) / 2;
+              Real center = (last->second[d].max_head_extent_[RIGHT]
+                             + i->second[d].max_head_extent_[LEFT])
+                            / 2;
 
               // Do both reqs have notes further than the first space
               // beyond the staff?
               // (due tilt of quarter note-heads)
               /* FIXME */
-              bool both
-                = (!staff_extent.contains (last->second[d].max_position_
-                                           - sign (last->second[d].max_position_))
-                   && !staff_extent.contains (i->second[d].max_position_
-                                              - sign (i->second[d].max_position_)));
+              bool both = (!staff_extent.contains (
+                               last->second[d].max_position_
+                               - sign (last->second[d].max_position_))
+                           && !staff_extent.contains (
+                               i->second[d].max_position_
+                               - sign (i->second[d].max_position_)));
 
               for (LEFT_and_RIGHT (which))
                 {
-                  Ledger_request &lr = ((which == LEFT) ? * last : *i).second[d];
+                  Ledger_request &lr = ((which == LEFT) ? *last : *i).second[d];
 
                   Real limit = (center + (both ? which * gap / 2 : 0));
                   lr.max_ledger_extent_.at (-which)
-                    = which * std::max (which * lr.max_ledger_extent_[-which],
-                                   which * limit);
+                      = which
+                        * std::max (which * lr.max_ledger_extent_[-which],
+                                    which * limit);
                 }
             }
         }
@@ -301,8 +298,7 @@ Ledger_line_spanner::print (SCM smob)
   // Iterate through ledger requests and the data they have about each
   // note head to generate the final extents for all ledger lines.
   // Note heads of different widths produce different ledger extents.
-  for (Ledger_requests::iterator i (reqs.begin ());
-       i != reqs.end (); i++)
+  for (Ledger_requests::iterator i (reqs.begin ()); i != reqs.end (); i++)
     {
       for (DOWN_and_UP (d))
         {
@@ -329,12 +325,12 @@ Ledger_line_spanner::print (SCM smob)
                   // (Only happens for the furthest note in the column.)
                   if (l == 0 && !acc_extent.is_empty ())
                     {
-                      Real dist
-                        = linear_combination (Drul_array<Real> (acc_extent[RIGHT],
-                                                                head_size[LEFT]),
-                                              0.0);
+                      Real dist = linear_combination (
+                          Drul_array<Real> (acc_extent[RIGHT], head_size[LEFT]),
+                          0.0);
 
-                      Real left_shorten = std::max (-ledger_size[LEFT] + dist, 0.0);
+                      Real left_shorten
+                          = std::max (-ledger_size[LEFT] + dist, 0.0);
                       x_extent[LEFT] += left_shorten;
                       /*
                         TODO: shorten 2 ledger lines for the case
@@ -361,8 +357,8 @@ Ledger_line_spanner::print (SCM smob)
     {
       for (DOWN_and_UP (d))
         {
-          std::map<Real, vector<Interval> > &lex = i->second[d].ledger_extents_;
-          for (std::map<Real, vector<Interval> >::iterator k = lex.begin ();
+          std::map<Real, vector<Interval>> &lex = i->second[d].ledger_extents_;
+          for (std::map<Real, vector<Interval>>::iterator k = lex.begin ();
                k != lex.end (); k++)
             {
               Real lpos = k->first;
@@ -376,8 +372,8 @@ Ledger_line_spanner::print (SCM smob)
               for (vsize n = 0; n < x_extents.size (); n++)
                 {
                   // thickness (ledger line thickness) is the blot diameter
-                  Stencil line = Lookup::round_filled_box (Box (x_extents[n], y_extent),
-                                                           thickness);
+                  Stencil line = Lookup::round_filled_box (
+                      Box (x_extents[n], y_extent), thickness);
 
                   line.translate_axis (lpos * halfspace, Y_AXIS);
                   ledgers.add_stencil (line);
@@ -400,8 +396,7 @@ ADD_INTERFACE (Ledger_line_spanner,
                "gap "
                "length-fraction "
                "minimum-length-fraction "
-               "note-heads "
-              );
+               "note-heads ");
 
 struct Ledgered_interface
 {
@@ -412,5 +407,4 @@ ADD_INTERFACE (Ledgered_interface,
                " also @ref{ledger-line-spanner-interface}.",
 
                /* properties */
-               "no-ledgers "
-              );
+               "no-ledgers ");

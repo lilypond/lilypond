@@ -23,8 +23,8 @@
 #include <cstdio>
 #include <unistd.h>
 
-#include "libc-extension.hh"
 #include "file-cookie.hh"
+#include "libc-extension.hh"
 
 class Memory_out_stream
 {

@@ -21,8 +21,8 @@
 #define ENGRAVER_HH
 
 #include "callback.hh"
-#include "grob.hh"
 #include "grob-info.hh"
+#include "grob.hh"
 #include "translator.hh"
 
 /**
@@ -31,10 +31,11 @@
 */
 class Engraver : public Translator
 {
-  Grob *internal_make_grob (SCM sym, SCM cause,
-                            char const *f, int l, char const *fun);
+  Grob *internal_make_grob (SCM sym, SCM cause, char const *f, int l,
+                            char const *fun);
   friend SCM ly_engraver_make_grob (SCM, SCM, SCM);
   friend class Engraver_group;
+
 protected:
   /*
     take note of item/spanner
@@ -49,7 +50,7 @@ protected:
 
 public:
   using Translator::trampoline;
-  template <class T, void (T::*callback)(Grob_info)>
+  template <class T, void (T::*callback) (Grob_info)>
   static SCM trampoline (SCM target, SCM grob, SCM source_engraver)
   {
     T *t = LY_ASSERT_SMOB (T, target, 1);
@@ -68,12 +69,12 @@ public:
 
   Grob_info make_grob_info (Grob *, SCM cause);
 
-  Item *internal_make_item (SCM sym, SCM cause,
-                            char const *f, int l, char const *fun);
-  Spanner *internal_make_spanner (SCM sym, SCM cause,
-                                  char const *f, int l, char const *fun);
-  Paper_column *internal_make_column (SCM sym,
-                                      char const *f, int l, char const *fun);
+  Item *internal_make_item (SCM sym, SCM cause, char const *f, int l,
+                            char const *fun);
+  Spanner *internal_make_spanner (SCM sym, SCM cause, char const *f, int l,
+                                  char const *fun);
+  Paper_column *internal_make_column (SCM sym, char const *f, int l,
+                                      char const *fun);
 
   /**
      override other ctor
@@ -83,9 +84,14 @@ public:
   Engraver (Context *);
 };
 
-#define make_item(x, cause) internal_make_item (ly_symbol2scm (x), cause, __FILE__, __LINE__, __FUNCTION__)
-#define make_spanner(x, cause) internal_make_spanner (ly_symbol2scm (x), cause, __FILE__, __LINE__, __FUNCTION__)
-#define make_paper_column(x) internal_make_column (ly_symbol2scm (x), __FILE__, __LINE__, __FUNCTION__)
+#define make_item(x, cause)                                                    \
+  internal_make_item (ly_symbol2scm (x), cause, __FILE__, __LINE__,            \
+                      __FUNCTION__)
+#define make_spanner(x, cause)                                                 \
+  internal_make_spanner (ly_symbol2scm (x), cause, __FILE__, __LINE__,         \
+                         __FUNCTION__)
+#define make_paper_column(x)                                                   \
+  internal_make_column (ly_symbol2scm (x), __FILE__, __LINE__, __FUNCTION__)
 
 bool ly_is_grob_cause (SCM obj);
 

@@ -17,10 +17,10 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "item.hh"
 #include "engraver.hh"
-#include "pointer-group-interface.hh"
+#include "item.hh"
 #include "lily-imports.hh"
+#include "pointer-group-interface.hh"
 
 #include "translator.icc"
 
@@ -42,14 +42,14 @@ class Span_bar_engraver : public Engraver
 
 public:
   TRANSLATOR_DECLARATIONS (Span_bar_engraver);
+
 protected:
   void acknowledge_bar_line (Grob_info);
   void stop_translation_timestep ();
   void process_acknowledged ();
 };
 
-Span_bar_engraver::Span_bar_engraver (Context *c)
-  : Engraver (c)
+Span_bar_engraver::Span_bar_engraver (Context *c) : Engraver (c)
 {
   spanbar_ = 0;
   make_spanbar_ = false;
@@ -77,7 +77,8 @@ Span_bar_engraver::process_acknowledged ()
 
       spanbar_->set_parent (bars_[0], X_AXIS);
       for (vsize i = 0; i < bars_.size (); i++)
-        Pointer_group_interface::add_grob (spanbar_, ly_symbol2scm ("elements"), bars_[i]);
+        Pointer_group_interface::add_grob (spanbar_, ly_symbol2scm ("elements"),
+                                           bars_[i]);
       make_spanbar_ = false;
     }
 }
@@ -114,5 +115,4 @@ ADD_TRANSLATOR (Span_bar_engraver,
                 "",
 
                 /* write */
-                ""
-               );
+                "");

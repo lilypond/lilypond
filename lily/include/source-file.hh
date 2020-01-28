@@ -20,9 +20,9 @@
 #ifndef SOURCE_FILE_HH
 #define SOURCE_FILE_HH
 
-#include "std-vector.hh"
 #include "lily-proto.hh"
 #include "smobs.hh"
+#include "std-vector.hh"
 
 #include <iostream>
 
@@ -35,8 +35,9 @@ class Source_file : public Smob<Source_file>
 public:
   int print_smob (SCM, scm_print_state *) const;
   SCM mark_smob () const;
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
   virtual ~Source_file ();
+
 private:
   std::vector<char const *> newline_locations_;
   std::istream *istream_;
@@ -49,7 +50,7 @@ private:
 
 public:
   Source_file (const std::string &fn);
-  Source_file (const std::string&, const std::string&);
+  Source_file (const std::string &, const std::string &);
 
   char const *c_str () const;
   std::string quote_input (char const *pos_str0) const;
@@ -63,8 +64,8 @@ public:
 
   Slice line_slice (char const *pos_str0) const;
   std::string line_string (char const *pos_str0) const;
-  void get_counts (char const *pos_str0,
-                   ssize_t *, ssize_t *, ssize_t *, ssize_t *) const;
+  void get_counts (char const *pos_str0, ssize_t *, ssize_t *, ssize_t *,
+                   ssize_t *) const;
 
   SCM get_port () const;
   std::string name_;

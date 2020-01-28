@@ -20,8 +20,8 @@
 #ifndef MOMENT_HH
 #define MOMENT_HH
 
-#include "smobs.hh"
 #include "rational.hh"
+#include "smobs.hh"
 
 /**
    Musical timing (Main-timing, grace-timing) with glue for
@@ -32,21 +32,21 @@ class Moment : public Simple_smob<Moment>
 public:
   static SCM equal_p (SCM, SCM);
   int print_smob (SCM, scm_print_state *) const;
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
   Moment ();
   Moment (int m);
 
   Moment (Rational, Rational);
   Moment (Rational m);
 
-  Moment operator - () const;
+  Moment operator- () const;
 
-  void operator += (Moment const &m);
-  void operator -= (Moment const &m);
+  void operator+= (Moment const &m);
+  void operator-= (Moment const &m);
 
-  void operator *= (Moment const &m);
-  void operator /= (Moment const &m);
-  void operator %= (Moment const &m);
+  void operator*= (Moment const &m);
+  void operator/= (Moment const &m);
+  void operator%= (Moment const &m);
 
   Rational main_part_;
   Rational grace_part_;
@@ -63,9 +63,9 @@ public:
 
 IMPLEMENT_ARITHMETIC_OPERATOR (Moment, +);
 IMPLEMENT_ARITHMETIC_OPERATOR (Moment, -);
-IMPLEMENT_ARITHMETIC_OPERATOR (Moment, / );
+IMPLEMENT_ARITHMETIC_OPERATOR (Moment, /);
 IMPLEMENT_ARITHMETIC_OPERATOR (Moment, *);
-IMPLEMENT_ARITHMETIC_OPERATOR (Moment, % );
+IMPLEMENT_ARITHMETIC_OPERATOR (Moment, %);
 
 int compare (Moment const &, Moment const &);
 INSTANTIATE_COMPARE (Moment const &, Moment::compare);
@@ -73,7 +73,7 @@ INSTANTIATE_COMPARE (Moment const &, Moment::compare);
 Moment robust_scm2moment (SCM, Moment);
 
 #ifdef STREAM_SUPPORT
-ostream &operator << (ostream &, Moment const &);
+ostream &operator<< (ostream &, Moment const &);
 #endif
 
 bool moment_less (SCM a, SCM b);

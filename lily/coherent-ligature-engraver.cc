@@ -19,13 +19,13 @@
 
 #include "coherent-ligature-engraver.hh"
 
-#include "warn.hh"
 #include "paper-column.hh"
 #include "pitch.hh"
 #include "pointer-group-interface.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
 #include "stream-event.hh"
+#include "warn.hh"
 
 using std::vector;
 
@@ -89,8 +89,8 @@ using std::vector;
  * TODO: move this function to class Item?
  */
 void
-Coherent_ligature_engraver::move_related_items_to_column
-(Item *item, Paper_column *target_column, Real offset)
+Coherent_ligature_engraver::move_related_items_to_column (
+    Item *item, Paper_column *target_column, Real offset)
 {
   Paper_column *source_column = item->get_column ();
   Grob *staff_symbol = Staff_symbol_referencer::get_staff_symbol (item);
@@ -152,8 +152,7 @@ compute_delta_pitches (vector<Grob_info> const &primitives)
     {
       primitive = dynamic_cast<Item *> (primitives[i].grob ());
       Stream_event *cause = primitives[i].event_cause ();
-      int pitch
-        = unsmob<Pitch> (cause->get_property ("pitch"))->steps ();
+      int pitch = unsmob<Pitch> (cause->get_property ("pitch"))->steps ();
       if (prev_primitive)
         {
           delta_pitch = pitch - prev_pitch;
@@ -167,8 +166,8 @@ compute_delta_pitches (vector<Grob_info> const &primitives)
 }
 
 void
-Coherent_ligature_engraver::typeset_ligature (Spanner *ligature,
-                                              vector<Grob_info> const &primitives)
+Coherent_ligature_engraver::typeset_ligature (
+    Spanner *ligature, vector<Grob_info> const &primitives)
 {
   // compute some commonly needed context info stored as grob
   // properties

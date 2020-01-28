@@ -17,8 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "international.hh"
 #include "optimal-page-breaking.hh"
+#include "international.hh"
 #include "output-def.hh"
 #include "page-spacing.hh"
 #include "paper-book.hh"
@@ -27,13 +27,11 @@
 #include "system.hh"
 
 Optimal_page_breaking::Optimal_page_breaking (Paper_book *pb)
-  : Page_breaking (pb, 0, 0)
+    : Page_breaking (pb, 0, 0)
 {
 }
 
-Optimal_page_breaking::~Optimal_page_breaking ()
-{
-}
+Optimal_page_breaking::~Optimal_page_breaking () {}
 
 extern bool debug_page_breaking_scoring;
 
@@ -42,7 +40,8 @@ Optimal_page_breaking::solve ()
 {
   vsize end = last_break_position ();
   vsize max_sys_count = max_system_count (0, end);
-  int first_page_num = robust_scm2int (book_->paper_->c_variable ("first-page-number"), 1);
+  int first_page_num
+      = robust_scm2int (book_->paper_->c_variable ("first-page-number"), 1);
 
   set_to_ideal_line_configuration (0, end);
 
@@ -75,7 +74,7 @@ Optimal_page_breaking::solve ()
           if (page_count > 1 && best.systems_per_page_[page_count - 2] > 1)
             min_sys_count -= best.systems_per_page_[page_count - 2];
 
-          if (min_sys_count > ideal_sys_count  // subtraction wrapped around
+          if (min_sys_count > ideal_sys_count // subtraction wrapped around
               || min_sys_count <= 0)
             min_sys_count = 1;
         }
@@ -91,7 +90,8 @@ Optimal_page_breaking::solve ()
           if (ideal_sys_count > max_system_count (0, end)
               || ideal_sys_count < min_system_count (0, end))
             {
-              warning (_ ("could not satisfy systems-per-page and page-count at the same time, ignoring systems-per-page"));
+              warning (_ ("could not satisfy systems-per-page and page-count "
+                          "at the same time, ignoring systems-per-page"));
               ideal_sys_count = system_count ();
               min_sys_count = page_count;
             }
@@ -115,7 +115,8 @@ Optimal_page_breaking::solve ()
   else if (scm_is_integer (forced_page_count) || page_count == 0)
     message (_f ("Fitting music on %d pages...", (int)page_count));
   else
-    message (_f ("Fitting music on %d or %d pages...", (int)page_count - 1, (int)page_count));
+    message (_f ("Fitting music on %d or %d pages...", (int)page_count - 1,
+                 (int)page_count));
 
   /* try a smaller number of systems than the ideal number for line breaking */
   Line_division bound = ideal_line_division;
@@ -144,7 +145,8 @@ Optimal_page_breaking::solve ()
         }
 
       if (debug_page_breaking_scoring)
-        message (_f ("best score for this sys-count: %f", best_for_this_sys_count.demerits_));
+        message (_f ("best score for this sys-count: %f",
+                     best_for_this_sys_count.demerits_));
 
       if (best_for_this_sys_count.demerits_ < best.demerits_)
         {
@@ -156,8 +158,8 @@ Optimal_page_breaking::solve ()
          we check this: if we are trying one less than the ideal number of pages
          and the pages are stretched on average then we have too
          few systems. If the spacing is worse than BAD_SPACING_PENALTY, then we
-         have too few systems. In either case, though, we need to continue reducing
-         the number of systems if max-systems-per-page requires it. */
+         have too few systems. In either case, though, we need to continue
+         reducing the number of systems if max-systems-per-page requires it. */
       if (!(best.system_count_status_ & SYSTEM_COUNT_TOO_MANY))
         {
           if (best_for_this_sys_count.page_count () < page_count
@@ -172,7 +174,8 @@ Optimal_page_breaking::solve ()
   /* try a larger number of systems than the ideal line breaking number. This
      is more or less C&P. */
   bound = ideal_line_division;
-  for (vsize sys_count = ideal_sys_count + 1; sys_count <= max_sys_count; sys_count++)
+  for (vsize sys_count = ideal_sys_count + 1; sys_count <= max_sys_count;
+       sys_count++)
     {
       Real best_demerits_for_this_sys_count = infinity_f;
       set_current_breakpoints (0, end, sys_count, bound);
@@ -206,7 +209,8 @@ Optimal_page_breaking::solve ()
         }
 
       if (debug_page_breaking_scoring)
-        message (_f ("best score for this sys-count: %f", best_demerits_for_this_sys_count));
+        message (_f ("best score for this sys-count: %f",
+                     best_demerits_for_this_sys_count));
 
       if (best_demerits_for_this_sys_count >= BAD_SPACING_PENALTY
           && !(best.system_count_status_ & SYSTEM_COUNT_TOO_FEW))
@@ -218,4 +222,3 @@ Optimal_page_breaking::solve ()
   SCM lines = systems ();
   return make_pages (best.systems_per_page_, lines);
 }
-

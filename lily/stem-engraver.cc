@@ -40,7 +40,7 @@ class Stem_engraver : public Engraver
 {
   Grob *stem_;
   Grob *tremolo_;
-  vector <Grob *> maybe_flags_;
+  vector<Grob *> maybe_flags_;
   Stream_event *rhythmic_ev_;
   Stream_event *tremolo_ev_;
   bool tuplet_start_;
@@ -58,8 +58,7 @@ protected:
   void kill_unused_flags ();
 };
 
-Stem_engraver::Stem_engraver (Context *c)
-  : Engraver (c)
+Stem_engraver::Stem_engraver (Context *c) : Engraver (c)
 {
   tremolo_ev_ = 0;
   stem_ = 0;
@@ -76,7 +75,7 @@ Stem_engraver::make_stem (Grob_info gi, bool tuplet_start)
   stem_ = make_item ("Stem", gi.grob ()->self_scm ());
   if (tuplet_start)
     stem_->set_property ("tuplet-start", SCM_BOOL_T);
-  (void) make_item ("StemStub", gi.grob ()->self_scm ());
+  (void)make_item ("StemStub", gi.grob ()->self_scm ());
   if (tremolo_ev_)
     {
       /* Stem tremolo is never applied to a note by default,
@@ -87,7 +86,7 @@ Stem_engraver::make_stem (Grob_info gi, bool tuplet_start)
 
          the first and last (quarter) note both get one tremolo flag.  */
       int requested_type
-        = robust_scm2int (tremolo_ev_->get_property ("tremolo-type"), 8);
+          = robust_scm2int (tremolo_ev_->get_property ("tremolo-type"), 8);
 
       /*
         we take the duration log from the Event, since the duration-log
@@ -96,8 +95,9 @@ Stem_engraver::make_stem (Grob_info gi, bool tuplet_start)
       Stream_event *ev = gi.event_cause ();
       Duration *dur = unsmob<Duration> (ev->get_property ("duration"));
 
-      int tremolo_flags = intlog2 (requested_type) - 2
-                          - (dur->duration_log () > 2 ? dur->duration_log () - 2 : 0);
+      int tremolo_flags
+          = intlog2 (requested_type) - 2
+            - (dur->duration_log () > 2 ? dur->duration_log () - 2 : 0);
       if (tremolo_flags <= 0)
         {
           tremolo_ev_->origin ()->warning (_ ("tremolo duration is too long"));
@@ -152,16 +152,16 @@ Stem_engraver::acknowledge_rhythmic_head (Grob_info gi)
 
   if (ds != dc)
     {
-      gi.event_cause ()->origin ()->warning (_f ("adding note head to incompatible stem (type = %d/%d)",
-                                                 ds < 0 ? 1 << -ds : 1,
-                                                 ds > 0 ? 1 << ds : 1));
-      gi.event_cause ()->origin ()->warning (_ ("maybe input should specify polyphonic voices"));
+      gi.event_cause ()->origin ()->warning (
+          _f ("adding note head to incompatible stem (type = %d/%d)",
+              ds < 0 ? 1 << -ds : 1, ds > 0 ? 1 << ds : 1));
+      gi.event_cause ()->origin ()->warning (
+          _ ("maybe input should specify polyphonic voices"));
     }
 
   Stem::add_head (stem_, gi.grob ());
 
-  if (Stem::is_normal_stem (stem_)
-      && Stem::duration_log (stem_) > 2
+  if (Stem::is_normal_stem (stem_) && Stem::duration_log (stem_) > 2
       && !(unsmob<Grob> (stem_->get_object ("flag"))))
     {
       Item *flag = make_item ("Flag", stem_->self_scm ());
@@ -177,7 +177,8 @@ void
 Stem_engraver::kill_unused_flags ()
 {
   for (vsize i = 0; i < maybe_flags_.size (); i++)
-    if (unsmob<Grob> (maybe_flags_[i]->get_parent (X_AXIS)->get_object ("beam")))
+    if (unsmob<Grob> (
+            maybe_flags_[i]->get_parent (X_AXIS)->get_object ("beam")))
       maybe_flags_[i]->suicide ();
 }
 
@@ -224,7 +225,7 @@ Stem_engraver::listen_tuplet_span (Stream_event *ev)
       // set stem property if stem already exists
       if (stem_)
         stem_->set_property ("tuplet-start", SCM_BOOL_T);
-      tuplet_start_ = true;  // stash the value for use in later creation
+      tuplet_start_ = true; // stash the value for use in later creation
     }
 }
 
@@ -233,7 +234,6 @@ Stem_engraver::listen_tremolo (Stream_event *ev)
 {
   ASSIGN_EVENT_ONCE (tremolo_ev_, ev);
 }
-
 
 void
 Stem_engraver::boot ()
@@ -260,5 +260,4 @@ ADD_TRANSLATOR (Stem_engraver,
                 "whichBar ",
 
                 /* write */
-                ""
-               );
+                "");

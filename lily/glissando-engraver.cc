@@ -20,12 +20,12 @@
 #include "engraver.hh"
 
 #include "international.hh"
+#include "item.hh"
 #include "pointer-group-interface.hh"
 #include "rhythmic-head.hh"
 #include "spanner.hh"
 #include "stream-event.hh"
 #include "warn.hh"
-#include "item.hh"
 
 #include "translator.icc"
 
@@ -56,8 +56,7 @@ private:
   vector<vsize> note_column_2;
 };
 
-Glissando_engraver::Glissando_engraver (Context *c)
-  : Engraver (c)
+Glissando_engraver::Glissando_engraver (Context *c) : Engraver (c)
 {
   event_ = 0;
   start_glissandi_ = false;
@@ -98,9 +97,11 @@ Glissando_engraver::acknowledge_note_column (Grob_info info)
           else
             {
               lines_[i]->set_bound (RIGHT, note_heads[note_column_2[i]]);
-              lines_[i]->set_property ("glissando-index", scm_from_int (glissando_index));
+              lines_[i]->set_property ("glissando-index",
+                                       scm_from_int (glissando_index));
               glissando_index++;
-              announce_end_grob (lines_[i], note_heads[note_column_2[i]]->self_scm ());
+              announce_end_grob (lines_[i],
+                                 note_heads[note_column_2[i]]->self_scm ());
             }
         }
       lines_.clear ();
@@ -191,5 +192,4 @@ ADD_TRANSLATOR (Glissando_engraver,
                 "glissandoMap ",
 
                 /* write */
-                ""
-               );
+                "");

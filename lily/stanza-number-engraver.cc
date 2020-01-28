@@ -1,7 +1,8 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2000--2020 Han-Wen Nienhuys <hanwen@xs4all.nl>, Glen Prideaux <glenprideaux@iname.com>
+  Copyright (C) 2000--2020 Han-Wen Nienhuys <hanwen@xs4all.nl>, Glen Prideaux
+  <glenprideaux@iname.com>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -18,15 +19,16 @@
 */
 
 #include "engraver.hh"
+#include "item.hh"
 #include "side-position-interface.hh"
 #include "text-interface.hh"
-#include "item.hh"
 
 class Stanza_number_engraver : public Engraver
 {
   Item *text_;
 
   SCM last_stanza_;
+
 public:
   TRANSLATOR_DECLARATIONS (Stanza_number_engraver);
   void process_music ();
@@ -47,8 +49,7 @@ Stanza_number_engraver::derived_mark () const
   all aligned.
 */
 
-Stanza_number_engraver::Stanza_number_engraver (Context *c)
-  : Engraver (c)
+Stanza_number_engraver::Stanza_number_engraver (Context *c) : Engraver (c)
 {
   text_ = 0;
   last_stanza_ = SCM_EOL;
@@ -59,8 +60,7 @@ Stanza_number_engraver::process_music ()
 {
   SCM stanza = get_property ("stanza");
 
-  if (Text_interface::is_markup (stanza)
-      && !scm_is_eq (stanza, last_stanza_))
+  if (Text_interface::is_markup (stanza) && !scm_is_eq (stanza, last_stanza_))
     {
       last_stanza_ = stanza;
 
@@ -101,5 +101,4 @@ ADD_TRANSLATOR (Stanza_number_engraver,
                 "stanza ",
 
                 /* write */
-                ""
-               );
+                "");

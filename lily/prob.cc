@@ -18,14 +18,14 @@
 */
 
 #include "prob.hh"
-#include "main.hh"
-#include "item.hh"
 #include "input.hh"
+#include "item.hh"
+#include "main.hh"
 #include "profile.hh"
 
 using std::string;
 
-const char * const Prob::type_p_name_ = "ly:prob?";
+const char *const Prob::type_p_name_ = "ly:prob?";
 
 SCM
 Prob::equal_p (SCM sa, SCM sb)
@@ -95,12 +95,9 @@ Prob::Prob (SCM type, SCM immutable_init) : Smob<Prob> ()
   smobify_self ();
 }
 
-Prob::~Prob ()
-{
-}
+Prob::~Prob () {}
 
-Prob::Prob (Prob const &src)
-  : Smob<Prob> ()
+Prob::Prob (Prob const &src) : Smob<Prob> ()
 {
   immutable_property_alist_ = src.immutable_property_alist_;
   mutable_property_alist_ = SCM_EOL;
@@ -171,7 +168,8 @@ Prob::internal_get_property (SCM sym) const
 
 /* We don't (yet) instrument probs */
 void
-Prob::instrumented_set_property (SCM sym, SCM val, const char *, int, const char *)
+Prob::instrumented_set_property (SCM sym, SCM val, const char *, int,
+                                 const char *)
 {
   internal_set_property (sym, val);
 }
@@ -185,11 +183,7 @@ Prob::internal_set_property (SCM sym, SCM val)
   mutable_property_alist_ = scm_assq_set_x (mutable_property_alist_, sym, val);
 }
 
-void
-Prob::type_check_assignment (SCM, SCM) const
-{
-  /* empty */
-}
+void Prob::type_check_assignment (SCM, SCM) const { /* empty */ }
 
 SCM
 Prob::get_property_alist (bool m) const

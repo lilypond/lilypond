@@ -20,8 +20,8 @@
 #ifndef SPACEABLE_GROB_HH
 #define SPACEABLE_GROB_HH
 
-#include "lily-proto.hh"
 #include "grob-interface.hh"
+#include "lily-proto.hh"
 #include "spring.hh"
 
 struct Spaceable_grob
@@ -36,4 +36,3 @@ struct Spaceable_grob
 };
 
 #endif /* SPACEABLE_GROB_HH */
-

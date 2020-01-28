@@ -18,9 +18,9 @@
 */
 
 #include "engraver.hh"
+#include "item.hh"
 #include "script-column.hh"
 #include "side-position-interface.hh"
-#include "item.hh"
 
 #include "translator.icc"
 
@@ -36,14 +36,14 @@ class Script_column_engraver : public Engraver
 
 public:
   TRANSLATOR_DECLARATIONS (Script_column_engraver);
+
 protected:
   void acknowledge_side_position (Grob_info);
   void process_acknowledged ();
   void stop_translation_timestep ();
 };
 
-Script_column_engraver::Script_column_engraver (Context *c)
-  : Engraver (c)
+Script_column_engraver::Script_column_engraver (Context *c) : Engraver (c)
 {
   script_column_ = 0;
 }
@@ -98,5 +98,4 @@ ADD_TRANSLATOR (Script_column_engraver,
                 "",
 
                 /* write */
-                ""
-               );
+                "");

@@ -24,16 +24,16 @@
 #ifndef POLY_H
 #define POLY_H
 
-#include <sys/types.h>
-#include "std-vector.hh"
 #include "arithmetic-operator.hh"
 #include "real.hh"
+#include "std-vector.hh"
+#include <sys/types.h>
 
 /// structure for a polynomial in one var.
 struct Polynomial
 {
   /// degree of polynomial
-  ssize_t degree ()const;
+  ssize_t degree () const;
 
   /// coefficients
   std::vector<Real> coefs_;
@@ -58,11 +58,11 @@ struct Polynomial
   /// eliminate #x#  close to  zero
   void real_clean ();
   void scalarmultiply (Real fact);
-  void operator *= (Real f) { scalarmultiply (f); }
-  void operator /= (Real f) { scalarmultiply (1 / f); }
-  void operator += (Polynomial const &p2);
-  void operator *= (Polynomial const &p2);
-  void operator -= (Polynomial const &p2);
+  void operator*= (Real f) { scalarmultiply (f); }
+  void operator/= (Real f) { scalarmultiply (1 / f); }
+  void operator+= (Polynomial const &p2);
+  void operator*= (Polynomial const &p2);
+  void operator-= (Polynomial const &p2);
   Polynomial (Real a, Real b = 0.0);
   Polynomial () {}
   void set_negate (const Polynomial &src);
@@ -72,9 +72,9 @@ struct Polynomial
 
   void debug_clean ();
 
-  std::vector<Real> solve_quadric ()const;
-  std::vector<Real> solve_cubic ()const;
-  std::vector<Real> solve_linear ()const;
+  std::vector<Real> solve_quadric () const;
+  std::vector<Real> solve_cubic () const;
+  std::vector<Real> solve_linear () const;
 
   std::vector<Real> solve () const;
 };
@@ -83,17 +83,14 @@ IMPLEMENT_ARITHMETIC_OPERATOR (Polynomial, -);
 IMPLEMENT_ARITHMETIC_OPERATOR (Polynomial, +);
 IMPLEMENT_ARITHMETIC_OPERATOR (Polynomial, *);
 
-inline Polynomial
-operator * (Polynomial p, Real a)
+inline Polynomial operator* (Polynomial p, Real a)
 {
   p *= a;
   return p;
 }
-inline Polynomial
-operator * (Real a, Polynomial p)
+inline Polynomial operator* (Real a, Polynomial p)
 {
   p *= a;
   return p;
 }
 #endif
-

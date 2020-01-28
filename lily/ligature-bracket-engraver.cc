@@ -20,11 +20,11 @@
 #include "international.hh"
 
 #include "engraver.hh"
+#include "item.hh"
 #include "note-column.hh"
-#include "tuplet-bracket.hh"
 #include "spanner.hh"
 #include "stream-event.hh"
-#include "item.hh"
+#include "tuplet-bracket.hh"
 
 #include "translator.icc"
 
@@ -36,6 +36,7 @@ protected:
   void acknowledge_rest (Grob_info);
   void acknowledge_note_column (Grob_info);
   void listen_ligature (Stream_event *);
+
 public:
   TRANSLATOR_DECLARATIONS (Ligature_bracket_engraver);
 
@@ -53,8 +54,7 @@ Ligature_bracket_engraver::listen_ligature (Stream_event *ev)
   ASSIGN_EVENT_ONCE (events_drul_[d], ev);
 }
 
-Ligature_bracket_engraver::Ligature_bracket_engraver (Context *c)
-  : Engraver (c)
+Ligature_bracket_engraver::Ligature_bracket_engraver (Context *c) : Engraver (c)
 {
   ligature_ = 0;
   finished_ligature_ = 0;
@@ -69,7 +69,8 @@ Ligature_bracket_engraver::process_music ()
     {
       if (!ligature_)
         {
-          events_drul_[STOP]->origin ()->warning (_ ("cannot find start of ligature"));
+          events_drul_[STOP]->origin ()->warning (
+              _ ("cannot find start of ligature"));
           return;
         }
 
@@ -82,12 +83,14 @@ Ligature_bracket_engraver::process_music ()
     {
       if (ligature_)
         {
-          events_drul_[START]->origin ()->warning (_ ("already have a ligature"));
+          events_drul_[START]->origin ()->warning (
+              _ ("already have a ligature"));
           return;
         }
 
       previous_start_event_ = events_drul_[START];
-      ligature_ = make_spanner ("LigatureBracket", events_drul_[START]->self_scm ());
+      ligature_
+          = make_spanner ("LigatureBracket", events_drul_[START]->self_scm ());
     }
 }
 
@@ -111,11 +114,9 @@ Ligature_bracket_engraver::acknowledge_rest (Grob_info info)
 void
 Ligature_bracket_engraver::stop_translation_timestep ()
 {
-  events_drul_[LEFT]
-    = events_drul_[RIGHT] = 0;
+  events_drul_[LEFT] = events_drul_[RIGHT] = 0;
   finished_ligature_ = 0;
 }
-
 
 void
 Ligature_bracket_engraver::boot ()
@@ -137,5 +138,4 @@ ADD_TRANSLATOR (Ligature_bracket_engraver,
                 "",
 
                 /* write */
-                ""
-               );
+                "");

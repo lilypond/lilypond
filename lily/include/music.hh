@@ -20,14 +20,15 @@
 #ifndef MUSIC_HH
 #define MUSIC_HH
 
-#include "smobs.hh"
 #include "moment.hh"
 #include "pitch.hh"
 #include "prob.hh"
+#include "smobs.hh"
 
 #define is_mus_type(x) internal_is_music_type (ly_symbol2scm (x))
 
-struct Preinit_Music {
+struct Preinit_Music
+{
   SCM length_callback_;
   SCM start_callback_;
   Preinit_Music ();
@@ -67,6 +68,7 @@ protected:
   SCM copy_mutable_properties () const override;
   void type_check_assignment (SCM, SCM) const override;
   void derived_mark () const override;
+
 protected:
   friend SCM ly_extended_make_music (SCM, SCM);
 };

@@ -20,8 +20,8 @@
 #ifndef SELF_ALIGNMENT_INTERFACE_HH
 #define SELF_ALIGNMENT_INTERFACE_HH
 
-#include "lily-proto.hh"
 #include "grob-interface.hh"
+#include "lily-proto.hh"
 
 struct Self_alignment_interface
 {
@@ -34,7 +34,8 @@ struct Self_alignment_interface
   DECLARE_SCHEME_CALLBACK (x_aligned_on_self, (SCM element));
   DECLARE_SCHEME_CALLBACK (y_aligned_on_self, (SCM element));
 
-  DECLARE_SCHEME_CALLBACK (pure_y_aligned_on_self, (SCM element, SCM start, SCM end));
+  DECLARE_SCHEME_CALLBACK (pure_y_aligned_on_self,
+                           (SCM element, SCM start, SCM end));
 
   DECLARE_SCHEME_CALLBACK (centered_on_x_parent, (SCM element));
   DECLARE_SCHEME_CALLBACK (centered_on_y_parent, (SCM element));

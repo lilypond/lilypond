@@ -52,8 +52,7 @@ protected:
   void listen_tempo_change (Stream_event *);
 };
 
-Metronome_mark_engraver::Metronome_mark_engraver (Context *c)
-  : Engraver (c)
+Metronome_mark_engraver::Metronome_mark_engraver (Context *c) : Engraver (c)
 {
   text_ = 0;
   support_ = 0;
@@ -82,8 +81,7 @@ Metronome_mark_engraver::acknowledge_break_aligned (Grob_info info)
       && scm_is_eq (g->get_property ("break-align-symbol"),
                     ly_symbol2scm ("staff-bar")))
     bar_ = g;
-  else if (text_
-           && !support_
+  else if (text_ && !support_
            && safe_is_member (g->get_property ("break-align-symbol"),
                               text_->get_property ("break-align-symbols"))
            && Item::break_visible (g))
@@ -100,9 +98,7 @@ Metronome_mark_engraver::acknowledge_break_alignment (Grob_info info)
 {
   Grob *g = info.grob ();
 
-  if (text_
-      && support_
-      && dynamic_cast<Item *> (g))
+  if (text_ && support_ && dynamic_cast<Item *> (g))
     text_->set_parent (g, X_AXIS);
 }
 
@@ -113,8 +109,7 @@ Metronome_mark_engraver::acknowledge_grob (Grob_info info)
 
   if (text_)
     for (SCM s = text_->get_property ("non-break-align-symbols");
-         scm_is_pair (s);
-         s = scm_cdr (s))
+         scm_is_pair (s); s = scm_cdr (s))
       if (g->internal_has_interface (scm_car (s)))
         text_->set_parent (g, X_AXIS);
 }
@@ -125,7 +120,8 @@ Metronome_mark_engraver::stop_translation_timestep ()
   if (text_)
     {
       if (text_->get_parent (X_AXIS)
-          && text_->get_parent (X_AXIS)->internal_has_interface (ly_symbol2scm ("multi-measure-rest-interface"))
+          && text_->get_parent (X_AXIS)->internal_has_interface (
+              ly_symbol2scm ("multi-measure-rest-interface"))
           && bar_)
         text_->set_parent (bar_, X_AXIS);
       else if (!support_)
@@ -139,11 +135,13 @@ Metronome_mark_engraver::stop_translation_timestep ()
           */
           if (Grob *mc = unsmob<Grob> (get_property ("currentMusicalColumn")))
             text_->set_parent (mc, X_AXIS);
-          else if (Grob *cc = unsmob<Grob> (get_property ("currentCommandColumn")))
+          else if (Grob *cc
+                   = unsmob<Grob> (get_property ("currentCommandColumn")))
             text_->set_parent (cc, X_AXIS);
         }
-      text_->set_object ("side-support-elements",
-                         grob_list_to_grob_array (get_property ("stavesFound")));
+      text_->set_object (
+          "side-support-elements",
+          grob_list_to_grob_array (get_property ("stavesFound")));
       text_ = 0;
       support_ = 0;
       bar_ = 0;
@@ -159,14 +157,12 @@ Metronome_mark_engraver::process_music ()
       text_ = make_item ("MetronomeMark", tempo_ev_->self_scm ());
 
       SCM proc = get_property ("metronomeMarkFormatter");
-      SCM result = scm_call_2 (proc,
-                               tempo_ev_->self_scm (),
-                               context ()->self_scm ());
+      SCM result
+          = scm_call_2 (proc, tempo_ev_->self_scm (), context ()->self_scm ());
 
       text_->set_property ("text", result);
     }
 }
-
 
 void
 Metronome_mark_engraver::boot ()
@@ -196,5 +192,4 @@ ADD_TRANSLATOR (Metronome_mark_engraver,
                 "tempoHideNote ",
 
                 /* write */
-                ""
-               );
+                "");

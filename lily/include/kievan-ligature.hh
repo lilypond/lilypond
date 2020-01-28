@@ -20,8 +20,8 @@
 #ifndef KIEVAN_LIGATURE_HH
 #define KIEVAN_LIGATURE_HH
 
-#include "lily-proto.hh"
 #include "grob-interface.hh"
+#include "lily-proto.hh"
 
 struct Kievan_ligature
 {

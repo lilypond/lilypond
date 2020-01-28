@@ -17,11 +17,11 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <cstdio>
+#include "freetype.hh"
 #include "international.hh"
 #include "modified-font-metric.hh"
 #include "open-type-font.hh"
-#include "freetype.hh"
+#include <cstdio>
 
 #ifdef FT_FONT_FORMATS_H
 /* FreeType 2.6+ */
@@ -34,8 +34,7 @@
 
 using std::string;
 
-LY_DEFINE (ly_font_sub_fonts, "ly:font-sub-fonts", 1, 0, 0,
-           (SCM font),
+LY_DEFINE (ly_font_sub_fonts, "ly:font-sub-fonts", 1, 0, 0, (SCM font),
            "Given the font metric @var{font} of an OpenType font, return the"
            " names of the subfonts within @var{font}.")
 {
@@ -50,11 +49,10 @@ LY_DEFINE (ly_otf_font_glyph_info, "ly:otf-font-glyph-info", 2, 0, 0,
            "Given the font metric @var{font} of an OpenType font, return the"
            " information about named glyph @var{glyph} (a string).")
 {
-  Modified_font_metric *fm
-    = unsmob<Modified_font_metric> (font);
-  Open_type_font *otf = fm
-                        ? dynamic_cast<Open_type_font *> (fm->original_font ())
-                        : unsmob<Open_type_font> (font);
+  Modified_font_metric *fm = unsmob<Modified_font_metric> (font);
+  Open_type_font *otf
+      = fm ? dynamic_cast<Open_type_font *> (fm->original_font ())
+           : unsmob<Open_type_font> (font);
 
   SCM_ASSERT_TYPE (otf, font, SCM_ARG1, __FUNCTION__, "OpenType font");
   LY_ASSERT_TYPE (scm_is_string, glyph, 2);
@@ -68,70 +66,63 @@ LY_DEFINE (ly_otf_font_table_data, "ly:otf-font-table-data", 2, 0, 0,
            "Extract a table @var{tag} from @var{font}.  Return empty string"
            " for non-existent @var{tag}.")
 {
-  Modified_font_metric *fm
-    = unsmob<Modified_font_metric> (font);
-  Open_type_font *otf = fm
-                        ? dynamic_cast<Open_type_font *> (fm->original_font ())
-                        : unsmob<Open_type_font> (font);
+  Modified_font_metric *fm = unsmob<Modified_font_metric> (font);
+  Open_type_font *otf
+      = fm ? dynamic_cast<Open_type_font *> (fm->original_font ())
+           : unsmob<Open_type_font> (font);
 
   SCM_ASSERT_TYPE (otf, font, SCM_ARG1, __FUNCTION__, "OpenType font");
   LY_ASSERT_TYPE (scm_is_string, tag, 2);
 
-  char ctag [5] = "    ";
+  char ctag[5] = "    ";
 
   string tag_string = ly_scm2string (tag);
   strncpy (ctag, tag_string.c_str (), tag_string.length ());
 
   string tab = otf->get_otf_table (string (ctag));
 
-  return scm_from_latin1_stringn ((char const *) tab.data (), tab.length ());
+  return scm_from_latin1_stringn ((char const *)tab.data (), tab.length ());
 }
 
-LY_DEFINE (ly_otf_font_p, "ly:otf-font?", 1, 0, 0,
-           (SCM font),
+LY_DEFINE (ly_otf_font_p, "ly:otf-font?", 1, 0, 0, (SCM font),
            "Is @var{font} an OpenType font?")
 {
-  Modified_font_metric *fm
-    = unsmob<Modified_font_metric> (font);
-  Open_type_font *otf = fm
-                        ? dynamic_cast<Open_type_font *> (fm->original_font ())
-                        : unsmob<Open_type_font> (font);
+  Modified_font_metric *fm = unsmob<Modified_font_metric> (font);
+  Open_type_font *otf
+      = fm ? dynamic_cast<Open_type_font *> (fm->original_font ())
+           : unsmob<Open_type_font> (font);
 
   return scm_from_bool (otf);
 }
 
-LY_DEFINE (ly_otf_glyph_count, "ly:otf-glyph-count", 1, 0, 0,
-           (SCM font),
+LY_DEFINE (ly_otf_glyph_count, "ly:otf-glyph-count", 1, 0, 0, (SCM font),
            "Return the number of glyphs in @var{font}.")
 {
-  Modified_font_metric *fm
-    = unsmob<Modified_font_metric> (font);
-  Open_type_font *otf = fm
-                        ? dynamic_cast<Open_type_font *> (fm->original_font ())
-                        : unsmob<Open_type_font> (font);
+  Modified_font_metric *fm = unsmob<Modified_font_metric> (font);
+  Open_type_font *otf
+      = fm ? dynamic_cast<Open_type_font *> (fm->original_font ())
+           : unsmob<Open_type_font> (font);
 
   SCM_ASSERT_TYPE (otf, font, SCM_ARG1, __FUNCTION__, "OpenType font");
 
-  return scm_from_int ((int) otf->count ());
+  return scm_from_int ((int)otf->count ());
 }
 
-LY_DEFINE (ly_otf_glyph_list, "ly:otf-glyph-list", 1, 0, 0,
-           (SCM font),
+LY_DEFINE (ly_otf_glyph_list, "ly:otf-glyph-list", 1, 0, 0, (SCM font),
            "Return a list of glyph names for @var{font}.")
 {
-  Modified_font_metric *fm
-    = unsmob<Modified_font_metric> (font);
-  Open_type_font *otf = fm
-                        ? dynamic_cast<Open_type_font *> (fm->original_font ())
-                        : unsmob<Open_type_font> (font);
+  Modified_font_metric *fm = unsmob<Modified_font_metric> (font);
+  Open_type_font *otf
+      = fm ? dynamic_cast<Open_type_font *> (fm->original_font ())
+           : unsmob<Open_type_font> (font);
 
   SCM_ASSERT_TYPE (otf, font, SCM_ARG1, __FUNCTION__, "OpenType font");
 
   return otf->glyph_list ();
 }
 
-LY_DEFINE (ly_get_font_format, "ly:get-font-format",
-           1, 1, 0, (SCM font_file_name, SCM idx),
+LY_DEFINE (ly_get_font_format, "ly:get-font-format", 1, 1, 0,
+           (SCM font_file_name, SCM idx),
            "Get the font format for @var{font_file_name},"
            " returning it as a symbol.  The optional"
            " @var{idx} argument is useful for TrueType Collections (TTC) and"
@@ -176,8 +167,8 @@ LY_DEFINE (ly_get_font_format, "ly:get-font-format",
   return asscm;
 }
 
-LY_DEFINE (ly_has_glyph_names_p, "ly:has-glyph-names?",
-           1, 1, 0, (SCM font_file_name, SCM idx),
+LY_DEFINE (ly_has_glyph_names_p, "ly:has-glyph-names?", 1, 1, 0,
+           (SCM font_file_name, SCM idx),
            "Does the font for @var{font_file_name} have glyph names?"
            "  The optional @var{idx} argument is useful for"
            " TrueType Collections (TTC) and"
@@ -216,14 +207,14 @@ LY_DEFINE (ly_has_glyph_names_p, "ly:has-glyph-names?",
     }
 
   face = open_ft_face (file_name, i);
-  bool has_glyph_names = FT_HAS_GLYPH_NAMES(face);
+  bool has_glyph_names = FT_HAS_GLYPH_NAMES (face);
   FT_Done_Face (face);
 
   return has_glyph_names ? SCM_BOOL_T : SCM_BOOL_F;
 }
 
-LY_DEFINE (ly_get_cff_offset, "ly:get-cff-offset",
-           1, 1, 0, (SCM font_file_name, SCM idx),
+LY_DEFINE (ly_get_cff_offset, "ly:get-cff-offset", 1, 1, 0,
+           (SCM font_file_name, SCM idx),
            "Get the offset of 'CFF' table for @var{font_file_name},"
            " returning it as an integer.  The optional"
            " @var{idx} argument is useful for"
@@ -276,17 +267,16 @@ LY_DEFINE (ly_get_cff_offset, "ly:get-cff-offset",
       if (fread (buff, 4, 1, fp) != 1)
         {
           fclose (fp);
-          warning (_f ("cannot read %s of `%s'",
-                       "numFonts", file_name.c_str ()));
+          warning (
+              _f ("cannot read %s of `%s'", "numFonts", file_name.c_str ()));
           return SCM_BOOL_F;
         }
-      int numfonts =
-        static_cast<unsigned char>(buff[0]) << 24 |
-        static_cast<unsigned char>(buff[1]) << 16 |
-        static_cast<unsigned char>(buff[2]) << 8 |
-        static_cast<unsigned char>(buff[3]);
+      int numfonts = static_cast<unsigned char> (buff[0]) << 24
+                     | static_cast<unsigned char> (buff[1]) << 16
+                     | static_cast<unsigned char> (buff[2]) << 8
+                     | static_cast<unsigned char> (buff[3]);
 
-      if ( i > numfonts )
+      if (i > numfonts)
         {
           warning (_f ("font index %d too large for font `%s', using index 0",
                        i, file_name.c_str ()));
@@ -299,15 +289,14 @@ LY_DEFINE (ly_get_cff_offset, "ly:get-cff-offset",
       if (fread (buff, 4, 1, fp) != 1)
         {
           fclose (fp);
-          warning (_f ("cannot read %s of `%s'",
-                       "OffsetTable", file_name.c_str ()));
+          warning (
+              _f ("cannot read %s of `%s'", "OffsetTable", file_name.c_str ()));
           return SCM_BOOL_F;
         }
-      unsigned int offset =
-        static_cast<unsigned char>(buff[0]) << 24 |
-        static_cast<unsigned char>(buff[1]) << 16 |
-        static_cast<unsigned char>(buff[2]) << 8 |
-        static_cast<unsigned char>(buff[3]);
+      unsigned int offset = static_cast<unsigned char> (buff[0]) << 24
+                            | static_cast<unsigned char> (buff[1]) << 16
+                            | static_cast<unsigned char> (buff[2]) << 8
+                            | static_cast<unsigned char> (buff[3]);
 
       // Seek to subfont and skip `sfnt version`
       fseek (fp, offset + 4, SEEK_SET);
@@ -319,13 +308,11 @@ LY_DEFINE (ly_get_cff_offset, "ly:get-cff-offset",
   if (fread (buff, 2, 1, fp) != 1)
     {
       fclose (fp);
-      warning (_f ("cannot read %s of `%s'",
-                   "numTables", file_name.c_str ()));
+      warning (_f ("cannot read %s of `%s'", "numTables", file_name.c_str ()));
       return SCM_BOOL_F;
     }
-  int numtables =
-    static_cast<unsigned char>(buff[0]) << 8 |
-    static_cast<unsigned char>(buff[1]);
+  int numtables = static_cast<unsigned char> (buff[0]) << 8
+                  | static_cast<unsigned char> (buff[1]);
 
   // Skip `searchRange`, `entrySelector` and `rangeShift`
   fseek (fp, 6, SEEK_CUR);
@@ -337,8 +324,7 @@ LY_DEFINE (ly_get_cff_offset, "ly:get-cff-offset",
       if (fread (buff, 4, 1, fp) != 1)
         {
           fclose (fp);
-          warning (_f ("cannot read %s of `%s'",
-                       "tag", file_name.c_str ()));
+          warning (_f ("cannot read %s of `%s'", "tag", file_name.c_str ()));
           return SCM_BOOL_F;
         }
 
@@ -353,15 +339,14 @@ LY_DEFINE (ly_get_cff_offset, "ly:get-cff-offset",
           if (fread (buff, 4, 1, fp) != 1)
             {
               fclose (fp);
-              warning (_f ("cannot read %s of `%s'",
-                           "CFF offset", file_name.c_str ()));
+              warning (_f ("cannot read %s of `%s'", "CFF offset",
+                           file_name.c_str ()));
               return SCM_BOOL_F;
             }
-          unsigned int offset =
-            static_cast<unsigned char>(buff[0]) << 24 |
-            static_cast<unsigned char>(buff[1]) << 16 |
-            static_cast<unsigned char>(buff[2]) << 8 |
-            static_cast<unsigned char>(buff[3]);
+          unsigned int offset = static_cast<unsigned char> (buff[0]) << 24
+                                | static_cast<unsigned char> (buff[1]) << 16
+                                | static_cast<unsigned char> (buff[2]) << 8
+                                | static_cast<unsigned char> (buff[3]);
 
           // Done
           fclose (fp);

@@ -19,11 +19,11 @@
 
 #include "line-interface.hh"
 
-#include "stencil.hh"
 #include "grob.hh"
+#include "stencil.hh"
 
-LY_DEFINE (ly_line_interface__line, "ly:line-interface::line",
-           5, 0, 0, (SCM grob, SCM startx, SCM starty, SCM endx, SCM endy),
+LY_DEFINE (ly_line_interface__line, "ly:line-interface::line", 5, 0, 0,
+           (SCM grob, SCM startx, SCM starty, SCM endx, SCM endy),
            "Make a line using layout information from grob @var{grob}.")
 {
   LY_ASSERT_SMOB (Grob, grob, 1);

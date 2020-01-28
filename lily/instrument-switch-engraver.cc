@@ -28,6 +28,7 @@ class Instrument_switch_engraver : public Engraver
 {
 
   TRANSLATOR_DECLARATIONS (Instrument_switch_engraver);
+
 protected:
   Grob *text_;
   SCM cue_name_;
@@ -45,7 +46,7 @@ Instrument_switch_engraver::derived_mark () const
 }
 
 Instrument_switch_engraver::Instrument_switch_engraver (Context *c)
-  : Engraver (c)
+    : Engraver (c)
 {
   cue_name_ = SCM_EOL;
   text_ = 0;
@@ -79,7 +80,6 @@ Instrument_switch_engraver::stop_translation_time_step ()
 void
 Instrument_switch_engraver::boot ()
 {
-
 }
 
 ADD_TRANSLATOR (Instrument_switch_engraver,
@@ -93,5 +93,4 @@ ADD_TRANSLATOR (Instrument_switch_engraver,
                 "instrumentCueName ",
 
                 /* write */
-                ""
-               );
+                "");

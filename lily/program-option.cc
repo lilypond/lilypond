@@ -35,4 +35,3 @@ get_program_option (const char *s)
 
   return to_boolean (ly_get_option (sym));
 }
-

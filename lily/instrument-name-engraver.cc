@@ -61,8 +61,7 @@ Instrument_name_engraver::derived_mark () const
   scm_gc_mark (short_text_);
 }
 
-Instrument_name_engraver::Instrument_name_engraver (Context *c)
-  : Engraver (c)
+Instrument_name_engraver::Instrument_name_engraver (Context *c) : Engraver (c)
 {
   text_spanner_ = 0;
 
@@ -91,8 +90,7 @@ Instrument_name_engraver::consider_start_spanner ()
 
   if ((Text_interface::is_markup (long_text)
        || Text_interface::is_markup (short_text))
-      && (!text_spanner_
-          || !scm_is_eq (short_text_, short_text)
+      && (!text_spanner_ || !scm_is_eq (short_text_, short_text)
           || !scm_is_eq (long_text_, long_text)))
     {
       if (text_spanner_)
@@ -133,9 +131,12 @@ Instrument_name_engraver::acknowledge_axis_group (Grob_info info)
 
       /* ugh. */
 
-      && !info.grob ()->internal_has_interface (ly_symbol2scm ("dynamic-interface"))
-      && !info.grob ()->internal_has_interface (ly_symbol2scm ("piano-pedal-interface"))
-      && !info.grob ()->internal_has_interface (ly_symbol2scm ("volta-interface"))
+      && !info.grob ()->internal_has_interface (
+          ly_symbol2scm ("dynamic-interface"))
+      && !info.grob ()->internal_has_interface (
+          ly_symbol2scm ("piano-pedal-interface"))
+      && !info.grob ()->internal_has_interface (
+          ly_symbol2scm ("volta-interface"))
       && (!has_interface<Align_interface> (info.grob ())))
     {
       if (Page_layout_problem::is_spaceable (info.grob ()))
@@ -162,20 +163,17 @@ Instrument_name_engraver::stop_spanner ()
     axis_groups_ = backup_axis_groups_;
 
   for (vsize i = 0; i < axis_groups_.size (); i++)
-    Pointer_group_interface::add_grob (text_spanner_,
-                                       ly_symbol2scm ("elements"),
-                                       axis_groups_[i]);
+    Pointer_group_interface::add_grob (
+        text_spanner_, ly_symbol2scm ("elements"), axis_groups_[i]);
 
-  text_spanner_->set_bound (RIGHT,
-                            unsmob<Grob> (get_property ("currentCommandColumn")));
+  text_spanner_->set_bound (
+      RIGHT, unsmob<Grob> (get_property ("currentCommandColumn")));
 
   Pointer_group_interface::set_ordered (text_spanner_,
-                                        ly_symbol2scm ("elements"),
-                                        false);
+                                        ly_symbol2scm ("elements"), false);
 
   text_spanner_ = 0;
 }
-
 
 void
 Instrument_name_engraver::boot ()
@@ -198,5 +196,4 @@ ADD_TRANSLATOR (Instrument_name_engraver,
                 "vocalName ",
 
                 /* write */
-                ""
-               );
+                "");

@@ -24,6 +24,7 @@
 #include "duration.hh"
 #include "global-context.hh"
 #include "item.hh"
+#include "misc.hh"
 #include "output-def.hh"
 #include "pitch.hh"
 #include "rhythmic-head.hh"
@@ -31,10 +32,9 @@
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
 #include "stream-event.hh"
-#include "tie.hh"
 #include "tie-column.hh"
+#include "tie.hh"
 #include "warn.hh"
-#include "misc.hh"
 
 #include "translator.icc"
 
@@ -119,8 +119,8 @@ Completion_heads_engraver::next_moment (Rational const &note_len)
   Moment result = *l - *e;
   if (result < 0)
     {
-      programming_error ("invalid measure position: "
-                         + e->to_string () + " of " + l->to_string ());
+      programming_error ("invalid measure position: " + e->to_string () + " of "
+                         + l->to_string ());
       return 0;
     }
   Moment const *unit = unsmob<Moment> (get_property ("completionUnit"));
@@ -149,7 +149,7 @@ Completion_heads_engraver::next_moment (Rational const &note_len)
           if (step_unit.den () < step_unit.num ())
             {
               int const log2
-                = intlog2 (int (step_unit.num () / step_unit.den ()));
+                  = intlog2 (int (step_unit.num () / step_unit.den ()));
               result.main_part_ = unit->main_part_ * Rational (1 << log2);
             }
         }
@@ -202,8 +202,7 @@ Completion_heads_engraver::process_music ()
       note_dur = *orig;
       SCM factor = get_property ("completionFactor");
       if (ly_is_procedure (factor))
-        factor = scm_call_2 (factor,
-                             context ()->self_scm (),
+        factor = scm_call_2 (factor, context ()->self_scm (),
                              note_dur.smobbed_copy ());
       factor_ = robust_scm2rational (factor, note_dur.factor ());
       left_to_do_ = orig->get_length ();
@@ -227,17 +226,21 @@ Completion_heads_engraver::process_music ()
       SCM pits = note_events_[i]->get_property ("pitch");
       event->set_property ("pitch", pits);
       event->set_property ("duration", note_dur.smobbed_copy ());
-      event->set_property ("length", Moment (note_dur.get_length ()).smobbed_copy ());
-      event->set_property ("duration-log", scm_from_int (note_dur.duration_log ()));
+      event->set_property ("length",
+                           Moment (note_dur.get_length ()).smobbed_copy ());
+      event->set_property ("duration-log",
+                           scm_from_int (note_dur.duration_log ()));
 
       /*
-        The Completion_heads_engraver splits an event into a group of consecutive events.
-        For each event in the group, the property "autosplit-end" denotes whether the current event
-        was truncated during splitting. Based on "autosplit-end", the Tie_engraver decides whether a
+        The Completion_heads_engraver splits an event into a group of
+        consecutive events. For each event in the group, the property
+        "autosplit-end" denotes whether the current event was truncated during
+        splitting. Based on "autosplit-end", the Tie_engraver decides whether a
         tie event should be processed.
       */
-      event->set_property ("autosplit-end",
-                           ly_bool2scm (left_to_do_ - note_dur.get_length () > Rational (0)));
+      event->set_property (
+          "autosplit-end",
+          ly_bool2scm (left_to_do_ - note_dur.get_length () > Rational (0)));
 
       Item *note = make_note_head (event);
       if (need_clone)
@@ -260,7 +263,8 @@ Completion_heads_engraver::process_music ()
 
   left_to_do_ -= note_dur.get_length ();
   if (left_to_do_)
-    find_global_context ()->add_moment_to_process (now.main_part_ + note_dur.get_length ());
+    find_global_context ()->add_moment_to_process (now.main_part_
+                                                   + note_dur.get_length ());
   /*
     don't do complicated arithmetic with grace notes.
   */
@@ -302,8 +306,7 @@ Completion_heads_engraver::start_translation_timestep ()
                             ly_bool2scm (note_events_.size ()));
 }
 
-Completion_heads_engraver::Completion_heads_engraver (Context *c)
-  : Engraver (c)
+Completion_heads_engraver::Completion_heads_engraver (Context *c) : Engraver (c)
 {
   tie_column_ = 0;
 }
@@ -334,5 +337,4 @@ ADD_TRANSLATOR (Completion_heads_engraver,
                 "timing ",
 
                 /* write */
-                "completionBusy "
-               );
+                "completionBusy ");

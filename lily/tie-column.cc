@@ -21,16 +21,16 @@
 
 #include <cmath>
 
-#include "output-def.hh"
-#include "skyline.hh"
-#include "warn.hh"
-#include "paper-column.hh"
-#include "spanner.hh"
-#include "pointer-group-interface.hh"
-#include "tie.hh"
 #include "directional-element-interface.hh"
-#include "tie-formatting-problem.hh"
+#include "output-def.hh"
+#include "paper-column.hh"
+#include "pointer-group-interface.hh"
+#include "skyline.hh"
+#include "spanner.hh"
 #include "tie-configuration.hh"
+#include "tie-formatting-problem.hh"
+#include "tie.hh"
+#include "warn.hh"
 
 using std::vector;
 
@@ -100,12 +100,10 @@ Tie_column::calc_positioning_done (SCM smob)
   for (vsize i = 0; i < base.size (); i++)
     {
       SCM cp = Tie::get_control_points (ties[i], problem.common_x_refpoint (),
-                                        base[i],
-                                        problem.details_);
+                                        base[i], problem.details_);
 
       ties[i]->set_property ("control-points", cp);
-      set_grob_direction (ties[i],
-                          base[i].dir_);
+      set_grob_direction (ties[i], base[i].dir_);
 
       problem.set_debug_scoring (base);
     }
@@ -119,6 +117,4 @@ ADD_INTERFACE (Tie_column,
                /* properties */
                "positioning-done "
                "tie-configuration "
-               "ties "
-              );
-
+               "ties ");

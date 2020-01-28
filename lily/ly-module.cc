@@ -17,12 +17,12 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "lily-guile.hh"
 #include "ly-module.hh"
-#include "warn.hh"
+#include "lily-guile.hh"
+#include "lily-imports.hh"
 #include "main.hh"
 #include "protected-scm.hh"
-#include "lily-imports.hh"
+#include "warn.hh"
 
 SCM
 ly_make_module (bool safe)
@@ -90,10 +90,7 @@ ly_module_symbols (SCM mod)
 }
 
 static SCM
-entry_to_alist (void * /* closure */,
-                SCM key,
-                SCM val,
-                SCM result)
+entry_to_alist (void * /* closure */, SCM key, SCM val, SCM result)
 {
   if (to_boolean (scm_variable_bound_p (val)))
     return scm_cons (scm_cons (key, scm_variable_ref (val)), result);
@@ -101,15 +98,14 @@ entry_to_alist (void * /* closure */,
   return result;
 }
 
-LY_DEFINE (ly_module_2_alist, "ly:module->alist",
-           1, 0, 0, (SCM mod),
+LY_DEFINE (ly_module_2_alist, "ly:module->alist", 1, 0, 0, (SCM mod),
            "Dump the contents of module @var{mod} as an alist.")
 {
   SCM_VALIDATE_MODULE (1, mod);
   SCM obarr = SCM_MODULE_OBARRAY (mod);
 
-  return scm_internal_hash_fold ((scm_t_hash_fold_fn) &entry_to_alist,
-                                 NULL, SCM_EOL, obarr);
+  return scm_internal_hash_fold ((scm_t_hash_fold_fn)&entry_to_alist, NULL,
+                                 SCM_EOL, obarr);
 }
 
 void

@@ -47,4 +47,3 @@ gnu_lilypond_version_string ()
   string str = gnu_lilypond_string () + " " + version_string ();
   return str;
 }
-

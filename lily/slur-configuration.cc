@@ -35,8 +35,7 @@ using std::string;
 using std::vector;
 
 Bezier
-avoid_staff_line (Slur_score_state const &state,
-                  Bezier bez)
+avoid_staff_line (Slur_score_state const &state, Bezier bez)
 {
   Offset horiz (1, 0);
   vector<Real> ts = bez.solve_derivative (horiz);
@@ -46,17 +45,18 @@ avoid_staff_line (Slur_score_state const &state,
       && (state.extremes_[LEFT].staff_ == state.extremes_[RIGHT].staff_)
       && state.extremes_[LEFT].staff_ && state.extremes_[RIGHT].staff_)
     {
-      Real t = ts[0]; //the first (usually only) point where slur is horizontal
+      Real t = ts[0]; // the first (usually only) point where slur is horizontal
       Real y = bez.curve_point (t)[Y_AXIS];
       // A Bezier curve at t moves 3t-3t² as far as the middle control points
       Real factor = 3.0 * t * (1.0 - t);
 
       Grob *staff = state.extremes_[LEFT].staff_;
 
-      Real p = 2 * (y - staff->relative_coordinate (state.common_[Y_AXIS], Y_AXIS))
-               / state.staff_space_;
+      Real p
+          = 2 * (y - staff->relative_coordinate (state.common_[Y_AXIS], Y_AXIS))
+            / state.staff_space_;
 
-      int round_p = (int) my_round (p);
+      int round_p = (int)my_round (p);
       if (!Staff_symbol_referencer::on_staff_line (staff, round_p))
         round_p += (p > round_p) ? 1 : -1;
       if (!Staff_symbol_referencer::on_staff_line (staff, round_p))
@@ -65,11 +65,11 @@ avoid_staff_line (Slur_score_state const &state,
       Real const distance = (p - round_p) * state.staff_space_ / 2.0;
       // Allow half the thickness of the slur at the point t, plus one basic
       // blot-diameter (half for the slur outline, half for the staff line)
-      Real const min_distance = 0.5 * state.thickness_ * factor
-        + state.line_thickness_
-        + ((state.dir_ * distance > 0.0)
-           ? state.parameters_.gap_to_staffline_inside_
-           : state.parameters_.gap_to_staffline_outside_);
+      Real const min_distance
+          = 0.5 * state.thickness_ * factor + state.line_thickness_
+            + ((state.dir_ * distance > 0.0)
+                   ? state.parameters_.gap_to_staffline_inside_
+                   : state.parameters_.gap_to_staffline_outside_);
       if (fabs (distance) < min_distance)
         {
           Direction resolution_dir = (distance > 0.0) ? UP : DOWN;
@@ -103,12 +103,13 @@ fit_factor (Offset dz_unit, Offset dz_perp, Real close_to_edge_length,
   for (vsize i = 0; i < avoid.size (); i++)
     {
       Offset z = (avoid[i] - x0);
-      Offset p (dot_product (z, dz_unit),
-                d * dot_product (z, dz_perp));
+      Offset p (dot_product (z, dz_unit), d * dot_product (z, dz_perp));
 
       bool close_to_edge = false;
       for (LEFT_and_RIGHT (d))
-        close_to_edge = close_to_edge || -d * (p[X_AXIS] - curve_xext[d]) < close_to_edge_length;
+        close_to_edge
+            = close_to_edge
+              || -d * (p[X_AXIS] - curve_xext[d]) < close_to_edge_length;
 
       if (close_to_edge)
         continue;
@@ -128,11 +129,11 @@ fit_factor (Offset dz_unit, Offset dz_perp, Real close_to_edge_length,
 }
 
 void
-Slur_configuration::generate_curve (Slur_score_state const &state,
-                                    Real r_0, Real h_inf,
-                                    vector<Offset> const &avoid)
+Slur_configuration::generate_curve (Slur_score_state const &state, Real r_0,
+                                    Real h_inf, vector<Offset> const &avoid)
 {
-  Offset dz = attachment_[RIGHT] - attachment_[LEFT];;
+  Offset dz = attachment_[RIGHT] - attachment_[LEFT];
+  ;
   Offset dz_unit = dz;
   dz_unit *= 1 / dz.length ();
   Offset dz_perp = dz_unit * Offset (0, 1);
@@ -168,29 +169,31 @@ Slur_configuration::generate_curve (Slur_score_state const &state,
   else
     max_h = sqrt (max_h);
 
-  Real eccentricity = robust_scm2double (state.slur_->get_property ("eccentricity"), 0);
+  Real eccentricity
+      = robust_scm2double (state.slur_->get_property ("eccentricity"), 0);
 
   Real x1 = (eccentricity + indent);
   Real x2 = (eccentricity - indent);
 
   Bezier curve;
   curve.control_[0] = attachment_[LEFT];
-  curve.control_[1] = attachment_[LEFT] + dz_perp * height * state.dir_
-                      + dz_unit * x1;
-  curve.control_[2] = attachment_[RIGHT] + dz_perp * height * state.dir_
-                      + dz_unit * x2;
+  curve.control_[1]
+      = attachment_[LEFT] + dz_perp * height * state.dir_ + dz_unit * x1;
+  curve.control_[2]
+      = attachment_[RIGHT] + dz_perp * height * state.dir_ + dz_unit * x2;
   curve.control_[3] = attachment_[RIGHT];
 
-  Real ff = fit_factor (dz_unit, dz_perp, state.parameters_.close_to_edge_length_,
-                        curve, state.dir_, avoid);
+  Real ff
+      = fit_factor (dz_unit, dz_perp, state.parameters_.close_to_edge_length_,
+                    curve, state.dir_, avoid);
 
   height = std::max (height, std::min (height * ff, max_h));
 
   curve.control_[0] = attachment_[LEFT];
-  curve.control_[1] = attachment_[LEFT] + dz_perp * height * state.dir_
-                      + dz_unit * x1;
-  curve.control_[2] = attachment_[RIGHT] + dz_perp * height * state.dir_
-                      + dz_unit * x2;
+  curve.control_[1]
+      = attachment_[LEFT] + dz_perp * height * state.dir_ + dz_unit * x1;
+  curve.control_[2]
+      = attachment_[RIGHT] + dz_perp * height * state.dir_ + dz_unit * x2;
   curve.control_[3] = attachment_[RIGHT];
 
   curve_ = avoid_staff_line (state, curve);
@@ -240,8 +243,7 @@ Slur_configuration::score_encompass (Slur_score_state const &state)
       bool r_edge = j == state.encompass_infos_.size () - 1;
       bool edge = l_edge || r_edge;
 
-      if (! (x < attachment_[RIGHT][X_AXIS]
-             && x > attachment_[LEFT][X_AXIS]))
+      if (!(x < attachment_[RIGHT][X_AXIS] && x > attachment_[LEFT][X_AXIS]))
         continue;
 
       Real y = bez.get_other_coordinate (X_AXIS, x);
@@ -256,24 +258,29 @@ Slur_configuration::score_encompass (Slur_score_state const &state)
           else
             {
               Real hd = (head_dy)
-                        ? (1 / fabs (head_dy) - 1 / state.parameters_.free_head_distance_)
-                        : state.parameters_.head_encompass_penalty_;
-              hd = std::min (std::max (hd, 0.0), state.parameters_.head_encompass_penalty_);
+                            ? (1 / fabs (head_dy)
+                               - 1 / state.parameters_.free_head_distance_)
+                            : state.parameters_.head_encompass_penalty_;
+              hd = std::min (std::max (hd, 0.0),
+                             state.parameters_.head_encompass_penalty_);
 
               demerit += hd;
             }
 
-          Real line_y = linear_interpolate (x,
-                                            attachment_[RIGHT][X_AXIS],
-                                            attachment_[LEFT][X_AXIS],
-                                            attachment_[RIGHT][Y_AXIS],
-                                            attachment_[LEFT][Y_AXIS]);
+          Real line_y = linear_interpolate (
+              x, attachment_[RIGHT][X_AXIS], attachment_[LEFT][X_AXIS],
+              attachment_[RIGHT][Y_AXIS], attachment_[LEFT][Y_AXIS]);
 
-          if (1) // state.dir_ * state.encompass_infos_[j].get_point (state.dir_) > state.dir_ *line_y )
+          if (1) // state.dir_ * state.encompass_infos_[j].get_point
+                 // (state.dir_) > state.dir_ *line_y )
             {
 
               Real closest
-                = state.dir_ * std::max (state.dir_ * state.encompass_infos_[j].get_point (state.dir_), state.dir_ * line_y);
+                  = state.dir_
+                    * std::max (
+                        state.dir_
+                            * state.encompass_infos_[j].get_point (state.dir_),
+                        state.dir_ * line_y);
               Real d = fabs (closest - y);
 
               convex_head_distances.push_back (d);
@@ -283,8 +290,7 @@ Slur_configuration::score_encompass (Slur_score_state const &state)
       if (state.dir_ * (y - state.encompass_infos_[j].stem_) < 0)
         {
           Real stem_dem = state.parameters_.stem_encompass_penalty_;
-          if ((l_edge && state.dir_ == UP)
-              || (r_edge && state.dir_ == DOWN))
+          if ((l_edge && state.dir_ == UP) || (r_edge && state.dir_ == DOWN))
             stem_dem /= 5;
 
           demerit += stem_dem;
@@ -321,8 +327,11 @@ Slur_configuration::score_encompass (Slur_score_state const &state)
       avg_distance /= n;
       Real variance_penalty = state.parameters_.head_slur_distance_max_ratio_;
       if (min_dist > 0.0)
-        variance_penalty
-          = std::min ((avg_distance / (min_dist + state.parameters_.absolute_closeness_measure_) - 1.0), variance_penalty);
+        variance_penalty = std::min (
+            (avg_distance
+                 / (min_dist + state.parameters_.absolute_closeness_measure_)
+             - 1.0),
+            variance_penalty);
 
       variance_penalty = std::max (variance_penalty, 0.0);
       variance_penalty *= state.parameters_.head_slur_distance_factor_;
@@ -355,21 +364,25 @@ Slur_configuration::score_extra_encompass (Slur_score_state const &state)
             else
               b.control_[j] = Offset (0.0, 0.0);
           }
-        forbidden_attachments.push_back (Offset (b.control_[0]) + Offset (rp, 0));
-        forbidden_attachments.push_back (Offset (b.control_[3]) + Offset (rp, 0));
+        forbidden_attachments.push_back (Offset (b.control_[0])
+                                         + Offset (rp, 0));
+        forbidden_attachments.push_back (Offset (b.control_[3])
+                                         + Offset (rp, 0));
       }
 
   bool too_close = false;
   for (vsize k = 0; k < forbidden_attachments.size (); k++)
     for (LEFT_and_RIGHT (side))
-      if ((forbidden_attachments[k] - attachment_[side]).length () < state.parameters_.slur_tie_extrema_min_distance_)
+      if ((forbidden_attachments[k] - attachment_[side]).length ()
+          < state.parameters_.slur_tie_extrema_min_distance_)
         {
           too_close = true;
           break;
         }
 
   if (too_close)
-    add_score (state.parameters_.slur_tie_extrema_min_distance_penalty_, "extra");
+    add_score (state.parameters_.slur_tie_extrema_min_distance_penalty_,
+               "extra");
 
   for (vsize j = 0; j < state.extra_encompass_infos_.size (); j++)
     {
@@ -394,7 +407,8 @@ Slur_configuration::score_extra_encompass (Slur_score_state const &state)
             coordinate a bad approximation of the object-slur
             distance.
           */
-          Item *as_item = dynamic_cast<Item *> (state.extra_encompass_infos_[j].grob_);
+          Item *as_item
+              = dynamic_cast<Item *> (state.extra_encompass_infos_[j].grob_);
           if (!as_item)
             continue;
 
@@ -405,7 +419,6 @@ Slur_configuration::score_extra_encompass (Slur_score_state const &state)
               y = attachment[d][Y_AXIS];
               found = true;
             }
-
         }
 
       if (!found)
@@ -433,9 +446,11 @@ Slur_configuration::score_extra_encompass (Slur_score_state const &state)
 
       dist = std::max (dist, 0.0);
 
-      Real penalty = info.penalty_ * peak_around (0.1 * state.parameters_.extra_encompass_free_distance_,
-                                                  state.parameters_.extra_encompass_free_distance_,
-                                                  dist);
+      Real penalty
+          = info.penalty_
+            * peak_around (
+                0.1 * state.parameters_.extra_encompass_free_distance_,
+                state.parameters_.extra_encompass_free_distance_, dist);
 
       add_score (penalty, "extra");
     }
@@ -445,8 +460,7 @@ void
 Slur_configuration::score_edges (Slur_score_state const &state)
 {
 
-  Offset dz = attachment_[RIGHT]
-              - attachment_[LEFT];
+  Offset dz = attachment_[RIGHT] - attachment_[LEFT];
   Real slope = dz[Y_AXIS] / dz[X_AXIS];
   for (LEFT_and_RIGHT (d))
     {
@@ -478,7 +492,8 @@ Slur_configuration::score_slopes (Slur_score_state const &state)
   Real demerit = 0.0;
 
   demerit += std::max ((fabs (slur_dy / slur_dz[X_AXIS])
-                   - state.parameters_.max_slope_), 0.0)
+                        - state.parameters_.max_slope_),
+                       0.0)
              * state.parameters_.max_slope_factor_;
 
   /* 0.2: account for staffline offset. */
@@ -491,21 +506,18 @@ Slur_configuration::score_slopes (Slur_score_state const &state)
                * (std::max (fabs (slur_dy) - max_dy, 0.0));
 
   demerit += std::max ((fabs (slur_dy / slur_dz[X_AXIS])
-                   - state.parameters_.max_slope_), 0.0)
+                        - state.parameters_.max_slope_),
+                       0.0)
              * state.parameters_.max_slope_factor_;
 
-  if (sign (dy) == 0
-      && sign (slur_dy) != 0
-      && !state.is_broken_)
+  if (sign (dy) == 0 && sign (slur_dy) != 0 && !state.is_broken_)
     demerit += state.parameters_.non_horizontal_penalty_;
 
-  if (sign (dy)
-      && !state.is_broken_
-      && sign (slur_dy)
+  if (sign (dy) && !state.is_broken_ && sign (slur_dy)
       && sign (slur_dy) != sign (dy))
     demerit += state.edge_has_beams_
-               ? state.parameters_.same_slope_penalty_ / 10
-               : state.parameters_.same_slope_penalty_;
+                   ? state.parameters_.same_slope_penalty_ / 10
+                   : state.parameters_.same_slope_penalty_;
 
   add_score (demerit, "slope");
 }
@@ -513,8 +525,7 @@ Slur_configuration::score_slopes (Slur_score_state const &state)
 // This is a temporary hack to see how much we can gain by using a
 // priority queue on the beams to score.
 static int score_count = 0;
-LY_DEFINE (ly_slur_score_count, "ly:slur-score-count", 0, 0, 0,
-           (),
+LY_DEFINE (ly_slur_score_count, "ly:slur-score-count", 0, 0, 0, (),
            "count number of slur scores.")
 {
   return scm_from_int (score_count);

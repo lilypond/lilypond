@@ -21,10 +21,7 @@
 #include "music-wrapper.hh"
 #include "music.hh"
 
-Music_wrapper_iterator::Music_wrapper_iterator ()
-{
-  child_iter_ = 0;
-}
+Music_wrapper_iterator::Music_wrapper_iterator () { child_iter_ = 0; }
 
 void
 Music_wrapper_iterator::do_quit ()
@@ -52,9 +49,7 @@ Music_wrapper_iterator::construct_children ()
 {
   Music *my_music = get_music ();
   Music *child = unsmob<Music> (my_music->get_property ("element"));
-  child_iter_ = (child)
-                ? unsmob<Music_iterator> (get_iterator (child))
-                : 0;
+  child_iter_ = (child) ? unsmob<Music_iterator> (get_iterator (child)) : 0;
 }
 
 bool

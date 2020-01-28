@@ -20,12 +20,12 @@
 */
 
 #include "engraver.hh"
+#include "item.hh"
 #include "note-head.hh"
 #include "side-position-interface.hh"
 #include "stem.hh"
 #include "stream-event.hh"
 #include "text-interface.hh"
-#include "item.hh"
 
 #include "translator.icc"
 
@@ -66,8 +66,7 @@ Part_combine_engraver::listen_note (Stream_event *)
   note_found_ = true;
 }
 
-Part_combine_engraver::Part_combine_engraver (Context *c)
-  : Engraver (c)
+Part_combine_engraver::Part_combine_engraver (Context *c) : Engraver (c)
 {
   text_ = 0;
   new_event_ = 0;
@@ -97,8 +96,7 @@ Part_combine_engraver::create_item (Stream_event *ev)
 void
 Part_combine_engraver::process_music ()
 {
-  if (waiting_event_
-      && to_boolean (get_property ("printPartCombineTexts")))
+  if (waiting_event_ && to_boolean (get_property ("printPartCombineTexts")))
     {
       if (note_found_ || !to_boolean (get_property ("partCombineTextsOnNote")))
         {
@@ -161,5 +159,4 @@ ADD_TRANSLATOR (Part_combine_engraver,
                 "aDueText ",
 
                 /* write */
-                ""
-               );
+                "");

@@ -20,7 +20,6 @@
 #include "translator-dispatch-list.hh"
 #include "engraver.hh"
 
-
 void
 Engraver_dispatch_list::apply (Grob_info gi)
 {
@@ -37,8 +36,8 @@ Engraver_dispatch_list::apply (Grob_info gi)
 }
 
 SCM
-Engraver_dispatch_list::create (SCM trans_list,
-                                SCM iface_list, Direction start_end)
+Engraver_dispatch_list::create (SCM trans_list, SCM iface_list,
+                                Direction start_end)
 {
   SCM retval = Engraver_dispatch_list ().smobbed_copy ();
   Engraver_dispatch_list *list = unsmob<Engraver_dispatch_list> (retval);

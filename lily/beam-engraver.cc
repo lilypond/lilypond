@@ -28,8 +28,8 @@
 #include "item.hh"
 #include "rest.hh"
 #include "spanner.hh"
-#include "stream-event.hh"
 #include "stem.hh"
+#include "stream-event.hh"
 #include "unpure-pure-container.hh"
 #include "warn.hh"
 
@@ -100,8 +100,7 @@ Beam_engraver::valid_end_point ()
   return valid_start_point ();
 }
 
-Beam_engraver::Beam_engraver (Context *c)
-  : Engraver (c)
+Beam_engraver::Beam_engraver (Context *c) : Engraver (c)
 {
   beam_ = 0;
   finished_beam_ = 0;
@@ -153,8 +152,8 @@ Beam_engraver::process_music ()
       prev_start_ev_ = start_ev_;
       beam_ = make_spanner ("Beam", start_ev_->self_scm ());
 
-      Moment mp (robust_scm2moment (get_property ("measurePosition"),
-                                    Moment (0)));
+      Moment mp (
+          robust_scm2moment (get_property ("measurePosition"), Moment (0)));
 
       beam_start_location_ = mp;
       beam_start_mom_ = now_mom ();
@@ -168,7 +167,6 @@ Beam_engraver::process_music ()
   if (stop_ev_ && beam_)
     {
       announce_end_grob (beam_, stop_ev_->self_scm ());
-
     }
 }
 
@@ -196,7 +194,6 @@ Beam_engraver::typeset_beam ()
       delete finished_beam_info_;
       finished_beam_info_ = 0;
       finished_beam_ = 0;
-
     }
 }
 
@@ -248,9 +245,9 @@ Beam_engraver::acknowledge_rest (Grob_info info)
   if (beam_
       && !scm_is_number (info.grob ()->get_property_data ("staff-position")))
     chain_offset_callback (info.grob (),
-                           Unpure_pure_container::make_smob
-                             (Beam::rest_collision_callback_proc,
-                              Beam::pure_rest_collision_callback_proc),
+                           Unpure_pure_container::make_smob (
+                               Beam::rest_collision_callback_proc,
+                               Beam::pure_rest_collision_callback_proc),
                            Y_AXIS);
 }
 
@@ -287,7 +284,8 @@ Beam_engraver::acknowledge_stem (Grob_info info)
 
   Duration *stem_duration = unsmob<Duration> (ev->get_property ("duration"));
   int durlog = stem_duration->duration_log ();
-  //int durlog = unsmob<Duration> (ev->get_property ("duration"))->duration_log ();
+  // int durlog = unsmob<Duration> (ev->get_property ("duration"))->duration_log
+  // ();
   if (durlog <= 2)
     {
       ev->origin ()->warning (_ ("stem does not fit in beam"));
@@ -304,14 +302,11 @@ Beam_engraver::acknowledge_stem (Grob_info info)
 
   stem->set_property ("duration-log", scm_from_int (durlog));
   Moment stem_location = now - beam_start_mom_ + beam_start_location_;
-  beam_info_->add_stem (stem_location,
-                        std::max (durlog - 2, 0),
-                        Stem::is_invisible (stem),
-                        stem_duration->factor (),
+  beam_info_->add_stem (stem_location, std::max (durlog - 2, 0),
+                        Stem::is_invisible (stem), stem_duration->factor (),
                         (to_boolean (stem->get_property ("tuplet-start"))));
   Beam::add_stem (beam_, stem);
 }
-
 
 void
 Beam_engraver::boot ()
@@ -336,8 +331,7 @@ ADD_TRANSLATOR (Beam_engraver,
                 "subdivideBeams ",
 
                 /* write */
-                "forbidBreak"
-               );
+                "forbidBreak");
 
 class Grace_beam_engraver : public Beam_engraver
 {
@@ -350,10 +344,7 @@ protected:
   bool valid_end_point () override;
 };
 
-Grace_beam_engraver::Grace_beam_engraver (Context *c)
-  : Beam_engraver (c)
-{
-}
+Grace_beam_engraver::Grace_beam_engraver (Context *c) : Beam_engraver (c) {}
 
 bool
 Grace_beam_engraver::valid_start_point ()
@@ -393,6 +384,4 @@ ADD_TRANSLATOR (Grace_beam_engraver,
                 "subdivideBeams ",
 
                 /* write */
-                ""
-               );
-
+                "");

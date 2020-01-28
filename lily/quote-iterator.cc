@@ -158,16 +158,13 @@ Quote_iterator::construct_children ()
 bool
 Quote_iterator::ok () const
 {
-  return
-    Music_wrapper_iterator::ok ()
-    || quote_ok ();
+  return Music_wrapper_iterator::ok () || quote_ok ();
 }
 
 bool
 Quote_iterator::quote_ok () const
 {
-  return (event_idx_ >= 0
-          && scm_is_vector (event_vector_)
+  return (event_idx_ >= 0 && scm_is_vector (event_vector_)
           && event_idx_ <= end_idx_
 
           /*
@@ -214,15 +211,14 @@ Quote_iterator::process (Moment m)
 
   if (event_idx_ < 0)
     {
-      event_idx_ = binsearch_scm_vector (event_vector_,
-                                         get_outlet ()->now_mom ().smobbed_copy (),
-                                         &moment_less);
+      event_idx_ = binsearch_scm_vector (
+          event_vector_, get_outlet ()->now_mom ().smobbed_copy (),
+          &moment_less);
       start_moment_ = get_outlet ()->now_mom () - music_start_mom ();
       stop_moment_ = start_moment_ + get_music ()->get_length ();
 
-      end_idx_ = binsearch_scm_vector (event_vector_,
-                                       stop_moment_.smobbed_copy (),
-                                       &moment_less);
+      end_idx_ = binsearch_scm_vector (
+          event_vector_, stop_moment_.smobbed_copy (), &moment_less);
     }
 
   m += start_moment_;
@@ -247,9 +243,11 @@ Quote_iterator::process (Moment m)
         The pitch that sounds when written central C is played.
       */
       Pitch temp_pitch;
-      Pitch *me_pitch = unsmob<Pitch> (get_music ()->get_property ("quoted-transposition"));
+      Pitch *me_pitch
+          = unsmob<Pitch> (get_music ()->get_property ("quoted-transposition"));
       if (!me_pitch)
-        me_pitch = unsmob<Pitch> (get_outlet ()->get_property ("instrumentTransposition"));
+        me_pitch = unsmob<Pitch> (
+            get_outlet ()->get_property ("instrumentTransposition"));
       else
         {
           // We are not going to win a beauty contest with this one,
@@ -284,7 +282,8 @@ Quote_iterator::process (Moment m)
                   ev = ev->clone ();
                   ev->make_transposable ();
                   ev->transpose (diff);
-                  transposed_musics_ = scm_cons (ev->unprotect (), transposed_musics_);
+                  transposed_musics_
+                      = scm_cons (ev->unprotect (), transposed_musics_);
                 }
               quote_outlet_.get_context ()->event_source ()->broadcast (ev);
             }

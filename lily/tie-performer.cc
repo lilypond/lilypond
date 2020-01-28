@@ -46,7 +46,7 @@ class Tie_performer : public Performer
   Stream_event *event_;
   list<Head_audio_event_tuple> now_heads_;
   list<Head_audio_event_tuple> now_tied_heads_; // new tied notes
-  list<Head_audio_event_tuple> heads_to_tie_; // heads waiting for closing tie
+  list<Head_audio_event_tuple> heads_to_tie_;   // heads waiting for closing tie
 
 protected:
   void stop_translation_timestep ();
@@ -54,15 +54,12 @@ protected:
   void acknowledge_audio_element (Audio_element_info) override;
   void process_music ();
   void listen_tie (Stream_event *);
+
 public:
   TRANSLATOR_DECLARATIONS (Tie_performer);
 };
 
-Tie_performer::Tie_performer (Context *c)
-  : Performer (c)
-{
-  event_ = 0;
-}
+Tie_performer::Tie_performer (Context *c) : Performer (c) { event_ = 0; }
 
 void
 Tie_performer::listen_tie (Stream_event *ev)
@@ -96,8 +93,7 @@ Tie_performer::acknowledge_audio_element (Audio_element_info inf)
       list<Head_audio_event_tuple>::iterator it;
       bool found = false;
       Stream_event *right_mus = inf.event_;
-      for (it = heads_to_tie_.begin ();
-           !found && (it != heads_to_tie_.end ());
+      for (it = heads_to_tie_.begin (); !found && (it != heads_to_tie_.end ());
            it++)
         {
           Audio_element_info et = (*it).head_;
@@ -117,8 +113,7 @@ Tie_performer::acknowledge_audio_element (Audio_element_info inf)
         }
       if (found)
         return;
-      for (it = heads_to_tie_.begin ();
-           !found && (it != heads_to_tie_.end ());
+      for (it = heads_to_tie_.begin (); !found && (it != heads_to_tie_.end ());
            it++)
         {
           Audio_element_info et = (*it).head_;
@@ -131,7 +126,8 @@ Tie_performer::acknowledge_audio_element (Audio_element_info inf)
           SCM p1 = left_mus->get_property ("pitch");
           SCM p2 = right_mus->get_property ("pitch");
           if (unsmob<Pitch> (p1) && unsmob<Pitch> (p2)
-              && unsmob<Pitch> (p1)->tone_pitch () == unsmob<Pitch> (p2)->tone_pitch ())
+              && unsmob<Pitch> (p1)->tone_pitch ()
+                     == unsmob<Pitch> (p2)->tone_pitch ())
             {
               found = true;
               // (*it).moment_ already stores the end of the tied note!
@@ -156,9 +152,10 @@ class end_moment_passed
 {
 protected:
   Moment now;
+
 public:
   end_moment_passed (Moment mom) : now (mom) {}
-  bool operator () (const Head_audio_event_tuple &value)
+  bool operator() (const Head_audio_event_tuple &value)
   {
     return (value.end_moment_ <= now);
   }
@@ -174,7 +171,8 @@ Tie_performer::stop_translation_timestep ()
       heads_to_tie_.remove_if (end_moment_passed (now_mom ()));
     }
 
-  // Append now_heads_ and now_tied_heads to heads_to_tie_ for the next time step
+  // Append now_heads_ and now_tied_heads to heads_to_tie_ for the next time
+  // step
   if (event_)
     {
       heads_to_tie_.splice (heads_to_tie_.end (), now_heads_);
@@ -203,5 +201,4 @@ ADD_TRANSLATOR (Tie_performer,
                 "tieWaitForNote",
 
                 /* write */
-                "tieMelismaBusy"
-               );
+                "tieMelismaBusy");

@@ -21,10 +21,7 @@
 
 #include "audio-item.hh"
 
-Audio_column::Audio_column (Moment when)
-{
-  when_ = when;
-}
+Audio_column::Audio_column (Moment when) { when_ = when; }
 
 void
 Audio_column::add_audio_item (Audio_item *l)
@@ -50,4 +47,3 @@ Audio_column::offset_when (Moment m)
 {
   when_ += m;
 }
-

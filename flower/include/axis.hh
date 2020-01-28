@@ -29,8 +29,7 @@ enum Axis
   NO_AXES = 2,
 };
 
-static inline
-Axis
+static inline Axis
 incr (Axis &a)
 {
   assert (a < NO_AXES);
@@ -38,8 +37,7 @@ incr (Axis &a)
   return a;
 }
 
-static inline
-Axis
+static inline Axis
 other_axis (Axis a)
 {
   return a == Y_AXIS ? X_AXIS : Y_AXIS;

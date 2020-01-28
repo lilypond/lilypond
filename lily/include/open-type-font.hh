@@ -26,7 +26,8 @@ Index_to_charcode_map make_index_to_charcode_map (FT_Face face);
 void get_unicode_name (char *s, FT_ULong code);
 void get_glyph_index_name (char *s, FT_ULong code);
 
-struct Preinit_Open_type_font {
+struct Preinit_Open_type_font
+{
   SCM lily_subfonts_;
   SCM lily_character_table_;
   SCM lily_global_table_;
@@ -44,6 +45,7 @@ class Open_type_font : Preinit_Open_type_font, public Font_metric
   Open_type_font (FT_Face);
 
   OVERRIDE_CLASS_NAME (Open_type_font);
+
 public:
   Real get_units_per_EM () const;
   SCM get_subfonts () const;
@@ -53,10 +55,10 @@ public:
   SCM get_glyph_outline (size_t signed_idx) const;
   Box get_glyph_outline_bbox (size_t signed_idx) const;
   std::string get_otf_table (const std::string &tag) const;
-  static SCM make_otf (const std::string&);
+  static SCM make_otf (const std::string &);
   std::string font_name () const override;
   ~Open_type_font ();
-  Offset attachment_point (const std::string&) const override;
+  Offset attachment_point (const std::string &) const override;
   size_t count () const override;
   Box get_indexed_char_dimensions (size_t) const override;
   Box get_unscaled_indexed_char_dimensions (size_t) const;
@@ -68,7 +70,7 @@ public:
 };
 
 std::string get_otf_table (FT_Face face, const std::string &tag);
-FT_Face open_ft_face (const std::string&, FT_Long idx);
+FT_Face open_ft_face (const std::string &, FT_Long idx);
 std::string get_postscript_name (FT_Face face);
 
 #endif /* OPEN_TYPE_FONT_HH */

@@ -34,7 +34,8 @@ init_freetype ()
 }
 
 Box
-ly_FT_get_unscaled_indexed_char_dimensions (FT_Face const &face, size_t signed_idx)
+ly_FT_get_unscaled_indexed_char_dimensions (FT_Face const &face,
+                                            size_t signed_idx)
 {
   FT_UInt idx = FT_UInt (signed_idx);
   FT_Load_Glyph (face, idx, FT_LOAD_NO_SCALE);
@@ -81,7 +82,8 @@ ly_FT_get_glyph_outline_bbox (FT_Face const &face, size_t signed_idx)
       // will generate a lot of warnings
       warning ("Cannot make glyph outline");
 #endif
-      return Box (Interval (infinity_f, -infinity_f), Interval (infinity_f, -infinity_f));
+      return Box (Interval (infinity_f, -infinity_f),
+                  Interval (infinity_f, -infinity_f));
     }
   FT_Outline *outline;
   outline = &(face->glyph->outline);
@@ -89,10 +91,9 @@ ly_FT_get_glyph_outline_bbox (FT_Face const &face, size_t signed_idx)
   FT_BBox bbox;
   FT_Outline_Get_BBox (outline, &bbox);
 
-  return Box (Interval (static_cast<Real> (bbox.xMin),
-                        static_cast<Real> (bbox.xMax)),
-              Interval (static_cast<Real> (bbox.yMin),
-                        static_cast<Real> (bbox.yMax)));
+  return Box (
+      Interval (static_cast<Real> (bbox.xMin), static_cast<Real> (bbox.xMax)),
+      Interval (static_cast<Real> (bbox.yMin), static_cast<Real> (bbox.yMax)));
 }
 
 SCM
@@ -109,7 +110,8 @@ ly_FT_get_glyph_outline (FT_Face const &face, size_t signed_idx)
       // will generate a lot of warnings
       warning ("Cannot make glyph outline");
 #endif
-      return box_to_scheme_lines (ly_FT_get_unscaled_indexed_char_dimensions (face, signed_idx));
+      return box_to_scheme_lines (
+          ly_FT_get_unscaled_indexed_char_dimensions (face, signed_idx));
     }
 
   FT_Outline *outline;
@@ -169,13 +171,12 @@ ly_FT_get_glyph_outline (FT_Face const &face, size_t signed_idx)
 
           out = scm_cons (scm_list_n (scm_from_double (x0),
                                       scm_from_double (y0),
-                                      scm_from_double ((x0 + 2*x1)/3),
-                                      scm_from_double ((y0 + 2*y1)/3),
-                                      scm_from_double ((2*x1 + x2)/3),
-                                      scm_from_double ((2*y1 + y2)/3),
+                                      scm_from_double ((x0 + 2 * x1) / 3),
+                                      scm_from_double ((y0 + 2 * y1) / 3),
+                                      scm_from_double ((2 * x1 + x2) / 3),
+                                      scm_from_double ((2 * y1 + y2) / 3),
                                       scm_from_double (x2),
-                                      scm_from_double (y2),
-                                      SCM_UNDEFINED),
+                                      scm_from_double (y2), SCM_UNDEFINED),
                           out);
           lastpos = Offset (static_cast<Real> (outline->points[j + 1].x),
                             static_cast<Real> (outline->points[j + 1].y));

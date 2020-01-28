@@ -19,8 +19,8 @@
 
 #include "engraver.hh"
 
-#include "stream-event.hh"
 #include "item.hh"
+#include "stream-event.hh"
 
 #include "translator.icc"
 
@@ -51,10 +51,7 @@ Balloon_engraver::stop_translation_timestep ()
   events_.clear ();
 }
 
-Balloon_engraver::Balloon_engraver (Context *c)
-  : Engraver (c)
-{
-}
+Balloon_engraver::Balloon_engraver (Context *c) : Engraver (c) {}
 
 void
 Balloon_engraver::balloonify (Grob *g, Stream_event *event)
@@ -82,11 +79,11 @@ Balloon_engraver::acknowledge_grob (Grob_info info)
 
   for (vsize i = 0; i < events_.size (); i++)
     {
-      if (info.grob ()->name () == ly_symbol2string (events_[i]->get_property ("symbol")))
+      if (info.grob ()->name ()
+          == ly_symbol2string (events_[i]->get_property ("symbol")))
         balloonify (info.grob (), events_[i]);
     }
 }
-
 
 void
 Balloon_engraver::boot ()
@@ -106,5 +103,4 @@ ADD_TRANSLATOR (Balloon_engraver,
                 "",
 
                 /*write*/
-                ""
-               );
+                "");

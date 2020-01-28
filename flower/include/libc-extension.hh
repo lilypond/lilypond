@@ -20,29 +20,29 @@
 #ifndef LIBC_EXTENSION_HH
 #define LIBC_EXTENSION_HH
 
-#include <cstddef>
 #include <cstdarg>
+#include <cstddef>
 
 #include "config.hh"
 
 char *strnlwr (char *start, size_t n);
 char *strnupr (char *start, size_t n);
 
-#if ! HAVE_MEMMEM               /* GNU extension. */
-void *memmem (void const *haystack, int haystack_len,
-              void const *needle, int needle_len);
+#if !HAVE_MEMMEM /* GNU extension. */
+void *memmem (void const *haystack, int haystack_len, void const *needle,
+              int needle_len);
 #endif /* HAVE_MEMMEM */
 
 double my_round (double);
 
 /* namespace std { */
 
-#if ! HAVE_SNPRINTF             /* GNU extension. */
+#if !HAVE_SNPRINTF /* GNU extension. */
 int snprintf (char *str, size_t n, char const *format, ...);
 __attribute__ ((format (printf, 3, 4)));
 #endif
 
-#if ! HAVE_VSNPRINTF            /* GNU extension. */
+#if !HAVE_VSNPRINTF /* GNU extension. */
 int vsnprintf (char *str, size_t, char const *format, va_list args);
 #endif
 

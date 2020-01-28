@@ -17,10 +17,10 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "performer.hh"
-#include "audio-item.hh"
 #include "audio-column.hh"
+#include "audio-item.hh"
 #include "global-context.hh"
+#include "performer.hh"
 #include "stream-event.hh"
 #include "warn.hh"
 
@@ -41,14 +41,14 @@ protected:
   void set_melisma (bool);
 
   void listen_slur (Stream_event *);
+
 private:
   Stream_event *start_ev_;
   Stream_event *now_stop_ev_;
   bool slur_;
 };
 
-Slur_performer::Slur_performer (Context *c)
-  : Performer (c)
+Slur_performer::Slur_performer (Context *c) : Performer (c)
 {
   slur_ = false;
   start_ev_ = 0;
@@ -112,5 +112,4 @@ ADD_TRANSLATOR (Slur_performer,
                 "",
 
                 /* write */
-                ""
-               );
+                "");

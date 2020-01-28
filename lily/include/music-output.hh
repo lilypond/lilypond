@@ -20,10 +20,10 @@
 #ifndef MUSIC_OUTPUT_HH
 #define MUSIC_OUTPUT_HH
 
-#include "std-string.hh"
 #include "lily-proto.hh"
 #include "protected-scm.hh"
 #include "smobs.hh"
+#include "std-string.hh"
 #include "virtual-methods.hh"
 
 class Music_output : public Smob<Music_output>
@@ -31,10 +31,12 @@ class Music_output : public Smob<Music_output>
 public:
   int print_smob (SCM, scm_print_state *) const;
   SCM mark_smob () const;
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
   virtual ~Music_output ();
+
 private:
   VIRTUAL_CLASS_NAME (Music_output);
+
 protected:
   Music_output ();
 

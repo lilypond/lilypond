@@ -37,9 +37,7 @@ public:
 
 IMPLEMENT_CTOR_CALLBACK (Bar_check_iterator);
 
-Bar_check_iterator::Bar_check_iterator ()
-{
-}
+Bar_check_iterator::Bar_check_iterator () {}
 
 void
 Bar_check_iterator::process (Moment m)
@@ -73,16 +71,15 @@ Bar_check_iterator::process (Moment m)
           else
             {
               SCM lf = tr->get_property ("barCheckLastFail");
-              if (unsmob<Moment> (lf)
-                  && *unsmob<Moment> (lf) == *where)
+              if (unsmob<Moment> (lf) && *unsmob<Moment> (lf) == *where)
                 warn = false;
               else
                 tr->set_property ("barCheckLastFail", mp);
             }
 
           if (warn)
-            get_music ()->origin ()->warning (_f ("barcheck failed at: %s",
-                                                  where->to_string ()));
+            get_music ()->origin ()->warning (
+                _f ("barcheck failed at: %s", where->to_string ()));
         }
     }
 }

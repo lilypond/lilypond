@@ -1,7 +1,8 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2000--2020 Han-Wen Nienhuys <hanwen@xs4all.nl>, Erik Sandberg <mandolaerik@gmail.com>
+  Copyright (C) 2000--2020 Han-Wen Nienhuys <hanwen@xs4all.nl>, Erik Sandberg
+  <mandolaerik@gmail.com>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -57,8 +58,7 @@ protected:
   void process_music ();
 };
 
-Percent_repeat_engraver::Percent_repeat_engraver (Context *c)
-  : Engraver (c)
+Percent_repeat_engraver::Percent_repeat_engraver (Context *c) : Engraver (c)
 {
   percent_ = 0;
   percent_counter_ = 0;
@@ -74,7 +74,7 @@ Percent_repeat_engraver::start_translation_timestep ()
   if (now_mom ().main_part_ != command_moment_.main_part_)
     {
       first_command_column_
-        = unsmob<Grob> (get_property ("currentCommandColumn"));
+          = unsmob<Grob> (get_property ("currentCommandColumn"));
       command_moment_ = now_mom ();
     }
 
@@ -110,8 +110,7 @@ Percent_repeat_engraver::listen_percent (Stream_event *ev)
 void
 Percent_repeat_engraver::process_music ()
 {
-  if (percent_event_
-      && now_mom ().main_part_ == start_mom_.main_part_)
+  if (percent_event_ && now_mom ().main_part_ == start_mom_.main_part_)
     {
       if (percent_)
         typeset_perc ();
@@ -122,7 +121,8 @@ Percent_repeat_engraver::process_music ()
       percent_->set_bound (LEFT, col);
 
       SCM count = percent_event_->get_property ("repeat-count");
-      if (!scm_is_null (count) && to_boolean (get_property ("countPercentRepeats"))
+      if (!scm_is_null (count)
+          && to_boolean (get_property ("countPercentRepeats"))
           && check_repeat_count_visibility (context (), count))
         {
           percent_counter_ = make_spanner ("PercentRepeatCounter",
@@ -189,5 +189,4 @@ ADD_TRANSLATOR (Percent_repeat_engraver,
                 "repeatCountVisibility ",
 
                 /* write */
-                ""
-               );
+                "");

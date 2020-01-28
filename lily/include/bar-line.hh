@@ -20,13 +20,12 @@
 #ifndef BAR_LINE_HH
 #define BAR_LINE_HH
 
-#include "lily-proto.hh"
 #include "grob-interface.hh"
+#include "lily-proto.hh"
 
 class Bar_line
 {
 public:
-
   static bool non_empty_barline (Grob const *me);
 };
 #endif // BAR_LINE_HH

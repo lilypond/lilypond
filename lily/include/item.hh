@@ -32,6 +32,7 @@ class Item : public Grob
   Drul_array<Item *> broken_to_drul_;
 
   OVERRIDE_CLASS_NAME (Item);
+
 public:
   Item (SCM);
   Item (Item const &);
@@ -64,6 +65,7 @@ public:
   Interval pure_y_extent (Grob *ref, int start, int end) override;
   virtual void cache_pure_height (Interval height);
   bool internal_set_as_bound_of_spanner (Spanner *, Direction) override;
+
 protected:
   void break_breakable_item (System *) override;
   void copy_breakable_items ();

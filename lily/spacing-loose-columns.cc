@@ -17,16 +17,16 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "system.hh"
-#include "paper-column.hh"
 #include "column-x-positions.hh"
-#include "pointer-group-interface.hh"
-#include "staff-spacing.hh"
-#include "note-spacing.hh"
-#include "spacing-spanner.hh"
-#include "warn.hh"
 #include "moment.hh"
+#include "note-spacing.hh"
+#include "paper-column.hh"
+#include "pointer-group-interface.hh"
 #include "spacing-options.hh"
+#include "spacing-spanner.hh"
+#include "staff-spacing.hh"
+#include "system.hh"
+#include "warn.hh"
 
 using std::vector;
 
@@ -65,7 +65,7 @@ set_loose_columns (System *which, Column_x_positions const *posns)
           Paper_column *le = unsmob<Paper_column> (scm_car (between));
           Paper_column *re = unsmob<Paper_column> (scm_cdr (between));
 
-          if (! (le && re))
+          if (!(le && re))
             break;
 
           if (!left && le)
@@ -99,7 +99,8 @@ set_loose_columns (System *which, Column_x_positions const *posns)
         right = which->get_bound (RIGHT);
       else
         {
-          clique.back ()->programming_error ("Loose column does not have right side to attach to.");
+          clique.back ()->programming_error (
+              "Loose column does not have right side to attach to.");
           System *base_system = which->original ();
           int j = clique.back ()->get_rank () + 1;
           int end_rank = which->get_bound (RIGHT)->get_rank ();
@@ -120,11 +121,12 @@ set_loose_columns (System *which, Column_x_positions const *posns)
           clique_spacing keeps track of ideal spaces.
           clique_tight_spacing keeps track of minimum spaces.
         Below, a scale factor is applied to the shifting of loose columns that
-        aims to preserve clique_spacing but gets closer to clique_tight_spacing as the
-        space becomes smaller.  This is used because the rods placed for loose columns
-        are tight (meaning they use minimum distances - see set_distances_for_loose_columns).
-        However, other rods may widen this distance, in which case we don't want a crammed score.
-        Thus, we aim for non-crammed, and fall back on crammed as needed.
+        aims to preserve clique_spacing but gets closer to clique_tight_spacing
+        as the space becomes smaller.  This is used because the rods placed for
+        loose columns are tight (meaning they use minimum distances - see
+        set_distances_for_loose_columns). However, other rods may widen this
+        distance, in which case we don't want a crammed score. Thus, we aim for
+        non-crammed, and fall back on crammed as needed.
       */
       vector<Real> clique_spacing;
       vector<Real> clique_tight_spacing;
@@ -138,7 +140,8 @@ set_loose_columns (System *which, Column_x_positions const *posns)
           Paper_column *next_col = dynamic_cast<Paper_column *> (clique[j + 1]);
 
           Grob *spacing = unsmob<Grob> (clique_col->get_object ("spacing"));
-          if (Grob *grace_spacing = unsmob<Grob> (clique_col->get_object ("grace-spacing")))
+          if (Grob *grace_spacing
+              = unsmob<Grob> (clique_col->get_object ("grace-spacing")))
             {
               spacing = grace_spacing;
             }
@@ -155,61 +158,75 @@ set_loose_columns (System *which, Column_x_positions const *posns)
           if (Paper_column::is_musical (next_col)
               && Paper_column::is_musical (loose_col))
             {
-              Spring spring = Spacing_spanner::note_spacing (spacing, loose_col,
-                                                             next_col, &options);
+              Spring spring = Spacing_spanner::note_spacing (
+                  spacing, loose_col, next_col, &options);
               if (has_interface<Note_spacing> (spacing))
-                spring = Note_spacing::get_spacing (spacing, next_col,
-                                                    spring, options.increment_);
+                spring = Note_spacing::get_spacing (spacing, next_col, spring,
+                                                    options.increment_);
 
               base_note_space = spring.distance ();
               tight_note_space = spring.min_distance ();
             }
           else
             {
-              Spring spring = Spacing_spanner::standard_breakable_column_spacing (spacing,
-                              loose_col, next_col,
-                              &options);
+              Spring spring
+                  = Spacing_spanner::standard_breakable_column_spacing (
+                      spacing, loose_col, next_col, &options);
 
               base_note_space = spring.distance ();
               tight_note_space = spring.min_distance ();
             }
 
-          Real loose_col_horizontal_length = loose_col->extent (loose_col, X_AXIS).length ();
-          base_note_space = std::max (base_note_space, loose_col_horizontal_length);
-          tight_note_space = std::max (tight_note_space, loose_col_horizontal_length);
+          Real loose_col_horizontal_length
+              = loose_col->extent (loose_col, X_AXIS).length ();
+          base_note_space
+              = std::max (base_note_space, loose_col_horizontal_length);
+          tight_note_space
+              = std::max (tight_note_space, loose_col_horizontal_length);
 
           clique_spacing.push_back (base_note_space);
           clique_tight_spacing.push_back (tight_note_space);
         }
 
-      Real permissible_distance = clique.back ()->relative_coordinate (common, X_AXIS) - robust_relative_extent (clique[0], common, X_AXIS)[RIGHT];
-      Real right_point = robust_relative_extent (clique.back (), common, X_AXIS)[LEFT];
+      Real permissible_distance
+          = clique.back ()->relative_coordinate (common, X_AXIS)
+            - robust_relative_extent (clique[0], common, X_AXIS)[RIGHT];
+      Real right_point
+          = robust_relative_extent (clique.back (), common, X_AXIS)[LEFT];
       Grob *finished_right_column = clique.back ();
 
       Real sum_tight_spacing = 0;
       Real sum_spacing = 0;
-      // currently a magic number - what would be a good grob to hold this property?
+      // currently a magic number - what would be a good grob to hold this
+      // property?
       Real left_padding = 0.15;
       for (vsize j = 0; j < clique_spacing.size (); j++)
         {
           sum_tight_spacing += clique_tight_spacing[j];
           sum_spacing += clique_spacing[j];
         }
-      Real scale_factor = std::max (0.0, std::min (1.0, (permissible_distance - left_padding - sum_tight_spacing) / (sum_spacing - sum_tight_spacing)));
+      Real scale_factor = std::max (
+          0.0, std::min (1.0, (permissible_distance - left_padding
+                               - sum_tight_spacing)
+                                  / (sum_spacing - sum_tight_spacing)));
       for (vsize j = clique.size () - 2; j > 0; j--)
         {
           Paper_column *clique_col = dynamic_cast<Paper_column *> (clique[j]);
 
-          right_point = finished_right_column->relative_coordinate (common, X_AXIS);
+          right_point
+              = finished_right_column->relative_coordinate (common, X_AXIS);
 
-          Real distance_to_next = clique_tight_spacing[j] + (clique_spacing[j] - clique_tight_spacing[j]) * scale_factor;
+          Real distance_to_next
+              = clique_tight_spacing[j]
+                + (clique_spacing[j] - clique_tight_spacing[j]) * scale_factor;
 
           Real my_offset = right_point - distance_to_next;
 
-          clique_col->translate_axis (my_offset - clique_col->relative_coordinate (common, X_AXIS), X_AXIS);
+          clique_col->translate_axis (
+              my_offset - clique_col->relative_coordinate (common, X_AXIS),
+              X_AXIS);
 
           finished_right_column = clique_col;
         }
     }
 }
-

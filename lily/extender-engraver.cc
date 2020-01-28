@@ -26,10 +26,10 @@
 #include "lyric-extender.hh"
 #include "note-head.hh"
 #include "pointer-group-interface.hh"
-#include "stream-event.hh"
-#include "warn.hh"
 #include "spanner.hh"
+#include "stream-event.hh"
 #include "translator.icc"
+#include "warn.hh"
 
 void completize_extender (Spanner *sp);
 
@@ -53,8 +53,7 @@ protected:
   void process_music ();
 };
 
-Extender_engraver::Extender_engraver (Context *c)
-  : Engraver (c)
+Extender_engraver::Extender_engraver (Context *c) : Engraver (c)
 {
   extender_ = 0;
   pending_extender_ = 0;
@@ -198,5 +197,4 @@ ADD_TRANSLATOR (Extender_engraver,
                 "extendersOverRests ",
 
                 /* write */
-                ""
-               );
+                "");

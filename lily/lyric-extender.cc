@@ -20,13 +20,13 @@
 
 #include "lyric-extender.hh"
 
-#include "system.hh"
 #include "item.hh"
-#include "warn.hh"
 #include "lookup.hh"
-#include "output-def.hh"
 #include "note-head.hh"
+#include "output-def.hh"
 #include "pointer-group-interface.hh"
+#include "system.hh"
+#include "warn.hh"
 
 MAKE_SCHEME_CALLBACK (Lyric_extender, print, 1);
 SCM
@@ -54,7 +54,8 @@ Lyric_extender::print (SCM smob)
   common = common_refpoint_of_array (heads, common, X_AXIS);
 
   Real left_point = 0.0;
-  if (left_edge->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
+  if (left_edge->internal_has_interface (
+          ly_symbol2scm ("lyric-syllable-interface")))
     left_point = left_edge->extent (common, X_AXIS)[RIGHT];
   else if (heads.size ())
     left_point = heads[0]->extent (common, X_AXIS)[LEFT];
@@ -67,24 +68,32 @@ Lyric_extender::print (SCM smob)
   /* It seems that short extenders are even lengthened to go past the
      note head, but haven't found a pattern in it yet. --hwn 1/1/04  */
   SCM minlen = me->get_property ("minimum-length");
-  Real right_point
-    = left_point + (robust_scm2double (minlen, 0));
+  Real right_point = left_point + (robust_scm2double (minlen, 0));
 
-  right_point = std::min (right_point, me->get_system ()->get_bound (RIGHT)->relative_coordinate (common, X_AXIS));
+  right_point = std::min (
+      right_point, me->get_system ()->get_bound (RIGHT)->relative_coordinate (
+                       common, X_AXIS));
 
   if (heads.size ())
-    right_point = std::max (right_point, heads.back ()->extent (common, X_AXIS)[RIGHT]);
+    right_point
+        = std::max (right_point, heads.back ()->extent (common, X_AXIS)[RIGHT]);
 
   Real h = sl * robust_scm2double (me->get_property ("thickness"), 0);
-  Drul_array<Real> paddings (robust_scm2double (me->get_property ("left-padding"), h),
-                             robust_scm2double (me->get_property ("right-padding"), h));
+  Drul_array<Real> paddings (
+      robust_scm2double (me->get_property ("left-padding"), h),
+      robust_scm2double (me->get_property ("right-padding"), h));
 
   if (right_text)
-    right_point = std::min (right_point, (robust_relative_extent (right_text, common, X_AXIS)[LEFT] - paddings[RIGHT]));
+    right_point = std::min (
+        right_point, (robust_relative_extent (right_text, common, X_AXIS)[LEFT]
+                      - paddings[RIGHT]));
 
   /* run to end of line. */
   if (me->get_bound (RIGHT)->break_status_dir ())
-    right_point = std::max (right_point, (robust_relative_extent (me->get_bound (RIGHT), common, X_AXIS)[LEFT] - paddings[RIGHT]));
+    right_point = std::max (
+        right_point,
+        (robust_relative_extent (me->get_bound (RIGHT), common, X_AXIS)[LEFT]
+         - paddings[RIGHT]));
 
   left_point += paddings[LEFT];
   Real w = right_point - left_point;
@@ -92,8 +101,7 @@ Lyric_extender::print (SCM smob)
   if (w < 1.5 * h)
     return SCM_EOL;
 
-  Stencil mol (Lookup::round_filled_box (Box (Interval (0, w),
-                                              Interval (0, h)),
+  Stencil mol (Lookup::round_filled_box (Box (Interval (0, w), Interval (0, h)),
                                          0.8 * h));
   mol.translate_axis (left_point - me->relative_coordinate (common, X_AXIS),
                       X_AXIS);
@@ -110,5 +118,4 @@ ADD_INTERFACE (Lyric_extender,
                "left-padding "
                "next "
                "right-padding "
-               "thickness "
-              );
+               "thickness ");

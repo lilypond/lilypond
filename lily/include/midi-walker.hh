@@ -21,9 +21,9 @@
 #ifndef MIDI_WALKER_HH
 #define MIDI_WALKER_HH
 
-#include "pqueue.hh"
 #include "lily-proto.hh"
 #include "moment.hh"
+#include "pqueue.hh"
 
 class Midi_note_event : public PQueue_ent<int, Midi_note *>
 {
@@ -40,11 +40,12 @@ int compare (Midi_note_event const &left, Midi_note_event const &right);
 class Midi_walker
 {
 public:
-  Midi_walker (Audio_staff *audio_staff, Midi_track *midi_track, int start_tick);
+  Midi_walker (Audio_staff *audio_staff, Midi_track *midi_track,
+               int start_tick);
   ~Midi_walker ();
 
   void process ();
-  void operator ++(int);
+  void operator++ (int);
   bool ok () const;
   void finalize (int end_tick);
 

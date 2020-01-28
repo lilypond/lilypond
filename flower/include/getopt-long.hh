@@ -44,7 +44,8 @@ class Getopt_long
   const Long_option_init *option_a_;
   int table_len_;
 
-  /// if doing short option, arg_value_char_a_a_[optind][optindind] is processed next.
+  /// if doing short option, arg_value_char_a_a_[optind][optindind] is processed
+  /// next.
   int argument_index_;
 
   /// the option found
@@ -53,9 +54,14 @@ class Getopt_long
 public:
   /** errorcodes: no error, argument expected, no argument expected,
       unknown option, illegal argument (eg. int expected).  */
-  enum Errorcod { E_NOERROR = 0, E_ARGEXPECT, E_NOARGEXPECT, E_UNKNOWNOPTION,
-                  E_ILLEGALARG
-                };
+  enum Errorcod
+  {
+    E_NOERROR = 0,
+    E_ARGEXPECT,
+    E_NOARGEXPECT,
+    E_UNKNOWNOPTION,
+    E_ILLEGALARG
+  };
 
   /// argument. Set to 0 if not present
   char const *optional_argument_str0_;
@@ -103,7 +109,7 @@ public:
        @return pointer to next option found.
        0 if error occurred, or next argument is no option.
   */
-  const Long_option_init *operator () ();
+  const Long_option_init *operator() ();
 
   char const *current_arg ();
   char const *get_next_arg ();

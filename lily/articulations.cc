@@ -19,9 +19,9 @@
 #include "engraver.hh"
 
 #include "articulations.hh"
+#include "context.hh"
 #include "stream-event.hh"
 #include "warn.hh"
-#include "context.hh"
 
 using std::vector;
 
@@ -76,10 +76,9 @@ articulation_list (vector<Stream_event *> note_events,
           if (j + 1 < articulation_events.size ())
             j++;
         }
-      articulations = scm_cons ((articulation_event
-                                 ? articulation_event->self_scm ()
-                                 : SCM_EOL),
-                                articulations);
+      articulations = scm_cons (
+          (articulation_event ? articulation_event->self_scm () : SCM_EOL),
+          articulations);
     }
 
   return scm_reverse_x (articulations, SCM_EOL);

@@ -19,7 +19,6 @@
 
 #include "stem-tremolo.hh"
 
-#include "spanner.hh"
 #include "beam.hh"
 #include "directional-element-interface.hh"
 #include "item.hh"
@@ -27,6 +26,7 @@
 #include "note-collision.hh"
 #include "note-column.hh"
 #include "output-def.hh"
+#include "spanner.hh"
 #include "staff-symbol-referencer.hh"
 #include "stem.hh"
 #include "warn.hh"
@@ -48,7 +48,7 @@ Stem_tremolo::calc_slope (SCM smob)
       Real dy = 0;
       SCM s = beam->get_property ("quantized-positions");
       if (is_number_pair (s))
-        dy = - scm_to_double (scm_car (s)) + scm_to_double (scm_cdr (s));
+        dy = -scm_to_double (scm_car (s)) + scm_to_double (scm_cdr (s));
 
       Grob *s2 = Beam::last_normal_stem (beam);
       Grob *s1 = Beam::first_normal_stem (beam);
@@ -64,7 +64,8 @@ Stem_tremolo::calc_slope (SCM smob)
        flag/stem collisions without making the stem very long) */
     return scm_from_double ((Stem::duration_log (stem) >= 3
                              && get_grob_direction (me) == DOWN && !beam)
-                            ? 0.40 : 0.25);
+                                ? 0.40
+                                : 0.25);
 }
 
 MAKE_SCHEME_CALLBACK (Stem_tremolo, calc_width, 1)
@@ -93,8 +94,9 @@ Stem_tremolo::calc_shape (SCM smob)
   SCM style = me->get_property ("style");
 
   return ly_symbol2scm (!scm_is_eq (style, ly_symbol2scm ("constant"))
-                        && ((dir == UP && flag) || beam)
-                        ? "rectangle" : "beam-like");
+                                && ((dir == UP && flag) || beam)
+                            ? "rectangle"
+                            : "beam-like");
 }
 
 Real
@@ -104,9 +106,10 @@ Stem_tremolo::get_beam_translation (Grob *me)
   Spanner *beam = Stem::get_beam (stem);
 
   return (beam && beam->is_live ())
-         ? Beam::get_beam_translation (beam)
-         : (Staff_symbol_referencer::staff_space (me)
-            * robust_scm2double (me->get_property ("length-fraction"), 1.0) * 0.81);
+             ? Beam::get_beam_translation (beam)
+             : (Staff_symbol_referencer::staff_space (me)
+                * robust_scm2double (me->get_property ("length-fraction"), 1.0)
+                * 0.81);
 }
 
 Stencil
@@ -187,7 +190,7 @@ Stem_tremolo::pure_height (SCM smob, SCM, SCM)
   Real beam_translation = get_beam_translation (me);
 
   ph = ph - dir * std::max (beam_count, 1) * beam_translation;
-  ph = ph - ph.center ();  // TODO: this nullifies the previous line?!?
+  ph = ph - ph.center (); // TODO: this nullifies the previous line?!?
 
   return ly_interval2scm (ph);
 }
@@ -242,8 +245,7 @@ Stem_tremolo::calc_y_offset (SCM smob)
 
 MAKE_SCHEME_CALLBACK (Stem_tremolo, pure_calc_y_offset, 3);
 SCM
-Stem_tremolo::pure_calc_y_offset (SCM smob,
-                                  SCM, /* start */
+Stem_tremolo::pure_calc_y_offset (SCM smob, SCM, /* start */
                                   SCM /* end */)
 {
   Grob *me = unsmob<Grob> (smob);
@@ -272,7 +274,8 @@ Stem_tremolo::calc_direction (SCM smob)
   if (whole_note && has_interface<Note_collision_interface> (maybe_nc))
     {
       Drul_array<bool> avoid_me (false, false);
-      vector<int> all_nhps = Note_collision_interface::note_head_positions (maybe_nc);
+      vector<int> all_nhps
+          = Note_collision_interface::note_head_positions (maybe_nc);
       if (all_nhps[0] < nhp[0])
         avoid_me[DOWN] = true;
       if (all_nhps.back () > nhp.back ())
@@ -282,7 +285,8 @@ Stem_tremolo::calc_direction (SCM smob)
           stemdir = -stemdir;
           if (avoid_me[stemdir])
             {
-              me->warning ("Whole-note tremolo may collide with simultaneous notes.");
+              me->warning (
+                  "Whole-note tremolo may collide with simultaneous notes.");
               stemdir = -stemdir;
             }
         }
@@ -310,15 +314,14 @@ Stem_tremolo::y_offset (Grob *me, bool pure)
       Stem_info si = Stem::get_stem_info (stem);
       ph[-dir] = si.shortest_y_;
 
-      return (ph - dir * std::max (beam_count, 1) * beam_translation)[dir] - dir * 0.5 * me->pure_y_extent (me, 0, INT_MAX).length ();
+      return (ph - dir * std::max (beam_count, 1) * beam_translation)[dir]
+             - dir * 0.5 * me->pure_y_extent (me, 0, INT_MAX).length ();
     }
 
-  Real end_y
-    = (pure
-       ? stem->pure_y_extent (stem, 0, INT_MAX)[dir]
-       : stem->extent (stem, Y_AXIS)[dir])
-      - dir * std::max (beam_count, 1) * beam_translation
-      - Stem::beam_end_corrective (stem);
+  Real end_y = (pure ? stem->pure_y_extent (stem, 0, INT_MAX)[dir]
+                     : stem->extent (stem, Y_AXIS)[dir])
+               - dir * std::max (beam_count, 1) * beam_translation
+               - Stem::beam_end_corrective (stem);
 
   if (!beam && Stem::duration_log (stem) >= 3)
     {
@@ -328,7 +331,7 @@ Stem_tremolo::y_offset (Grob *me, bool pure)
     }
 
   bool whole_note = Stem::duration_log (stem) <= 0;
-  if (whole_note || std::isinf(end_y))
+  if (whole_note || std::isinf (end_y))
     {
       /* we shouldn't position relative to the end of the stem since the stem
          is invisible */
@@ -355,7 +358,8 @@ Stem_tremolo::print (SCM grob)
 {
   Grob *me = unsmob<Grob> (grob);
 
-  Stencil s = untranslated_stencil (me, robust_scm2double (me->get_property ("slope"), 0.25));
+  Stencil s = untranslated_stencil (
+      me, robust_scm2double (me->get_property ("slope"), 0.25));
   return s.smobbed_copy ();
 }
 
@@ -371,5 +375,4 @@ ADD_INTERFACE (Stem_tremolo,
                "length-fraction "
                "stem "
                "shape "
-               "slope "
-              );
+               "slope ");

@@ -8,7 +8,7 @@
 
 using std::vector;
 
-template<typename T>
+template <typename T>
 void
 print (vector<T> v)
 {
@@ -48,8 +48,7 @@ FUNC (vector_slice)
 #else
   EQUAL (vector<int> (v.begin (), v.begin ()).size (), vsize (0));
   EQUAL (vector<int> (v.begin (), v.end ()).size (), v.size ());
-  EQUAL (vector<int> (v.begin () + 1, v.begin () + 2).size (),
-         vsize (1));
+  EQUAL (vector<int> (v.begin () + 1, v.begin () + 2).size (), vsize (1));
 #endif
 }
 
@@ -62,7 +61,7 @@ FUNC (vector_sorting)
 #if VECTOR_SORT
   v.sort (default_compare);
 #else
-  //sort (v.begin (), v.end ());
+  // sort (v.begin (), v.end ());
   vector_sort (v, std::less<int> ());
 #endif
   EQUAL (v[0], 0);
@@ -98,7 +97,7 @@ FUNC (vector_insert)
 FUNC (parray_concat)
 {
   vector<int *> u, v;
-  int a[5] = { 0, 1, 2, 3, 4 };
+  int a[5] = {0, 1, 2, 3, 4};
   u.push_back (&a[0]);
   u.push_back (&a[1]);
   u.push_back (&a[2]);

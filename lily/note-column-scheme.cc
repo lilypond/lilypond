@@ -17,12 +17,12 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "note-column.hh"
-#include "lily-guile.hh"
 #include "grob.hh"
+#include "lily-guile.hh"
+#include "note-column.hh"
 
-LY_DEFINE (ly_note_column_accidentals, "ly:note-column-accidentals",
-           1, 0, 0, (SCM note_column),
+LY_DEFINE (ly_note_column_accidentals, "ly:note-column-accidentals", 1, 0, 0,
+           (SCM note_column),
            "Return the @code{AccidentalPlacement} grob from @var{note-column}"
            " if any, or @code{SCM_EOL} otherwise.")
 {
@@ -34,8 +34,8 @@ LY_DEFINE (ly_note_column_accidentals, "ly:note-column-accidentals",
   return SCM_EOL;
 }
 
-LY_DEFINE (ly_note_column_dot_column, "ly:note-column-dot-column",
-           1, 0, 0, (SCM note_column),
+LY_DEFINE (ly_note_column_dot_column, "ly:note-column-dot-column", 1, 0, 0,
+           (SCM note_column),
            "Return the @code{DotColumn} grob from @var{note-column}"
            " if any, or @code{SCM_EOL} otherwise.")
 {

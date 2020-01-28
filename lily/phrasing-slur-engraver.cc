@@ -26,7 +26,7 @@ class Phrasing_slur_engraver : public Slur_engraver
   SCM event_symbol () const override;
   bool double_property () const override;
   SCM grob_symbol () const override;
-  const char* object_name () const override;
+  const char *object_name () const override;
   void set_melisma (bool) override;
 
 public:
@@ -58,8 +58,7 @@ Phrasing_slur_engraver::object_name () const
   return "phrasing slur";
 }
 
-Phrasing_slur_engraver::Phrasing_slur_engraver (Context *c)
-  : Slur_engraver (c)
+Phrasing_slur_engraver::Phrasing_slur_engraver (Context *c) : Slur_engraver (c)
 {
 }
 
@@ -73,7 +72,8 @@ Phrasing_slur_engraver::boot ()
 {
   ADD_LISTENER_FOR (Phrasing_slur_engraver, slur, phrasing_slur);
   ADD_LISTENER (Phrasing_slur_engraver, note);
-  ADD_ACKNOWLEDGER_FOR (Phrasing_slur_engraver, extra_object, inline_accidental);
+  ADD_ACKNOWLEDGER_FOR (Phrasing_slur_engraver, extra_object,
+                        inline_accidental);
   ADD_ACKNOWLEDGER_FOR (Phrasing_slur_engraver, extra_object, fingering);
   ADD_ACKNOWLEDGER (Phrasing_slur_engraver, note_column);
   ADD_ACKNOWLEDGER_FOR (Phrasing_slur_engraver, extra_object, slur);
@@ -95,5 +95,4 @@ ADD_TRANSLATOR (Phrasing_slur_engraver,
                 "",
 
                 /* write */
-                ""
-               );
+                "");

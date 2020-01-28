@@ -20,9 +20,9 @@
 #include "font-interface.hh"
 
 #include "all-font-metrics.hh"
+#include "grob.hh"
 #include "output-def.hh"
 #include "warn.hh"
-#include "grob.hh"
 
 /* todo: split up this func, reuse in text_item?  */
 Font_metric *
@@ -44,7 +44,7 @@ SCM
 Font_interface::music_font_alist_chain (Grob *g)
 {
   SCM defaults
-    = g->layout ()->lookup_variable (ly_symbol2scm ("font-defaults"));
+      = g->layout ()->lookup_variable (ly_symbol2scm ("font-defaults"));
   if (SCM_UNBNDP (defaults))
     defaults = SCM_EOL;
   return g->get_property_alist_chain (defaults);
@@ -54,7 +54,7 @@ SCM
 Font_interface::text_font_alist_chain (Grob *g)
 {
   SCM defaults
-    = g->layout ()->lookup_variable (ly_symbol2scm ("text-font-defaults"));
+      = g->layout ()->lookup_variable (ly_symbol2scm ("text-font-defaults"));
   if (SCM_UNBNDP (defaults))
     defaults = SCM_EOL;
   return g->get_property_alist_chain (defaults);
@@ -72,5 +72,4 @@ ADD_INTERFACE (Font_interface,
                "font-series "
                "font-shape "
                "font-size "
-               "font-features "
-              );
+               "font-features ");

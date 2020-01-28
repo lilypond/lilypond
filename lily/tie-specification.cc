@@ -1,11 +1,11 @@
-#include "tie-formatting-problem.hh"
+#include "tie-specification.hh"
 #include "grob.hh"
 #include "item.hh"
+#include "libc-extension.hh"
 #include "semi-tie.hh"
 #include "spanner.hh"
+#include "tie-formatting-problem.hh"
 #include "tie.hh"
-#include "libc-extension.hh"
-#include "tie-specification.hh"
 
 Tie_specification::Tie_specification ()
 {
@@ -16,10 +16,8 @@ Tie_specification::Tie_specification ()
   position_ = 0;
   manual_position_ = 0;
   manual_dir_ = CENTER;
-  note_head_drul_[LEFT]
-    = note_head_drul_[RIGHT] = 0;
-  column_ranks_[RIGHT]
-    = column_ranks_[LEFT] = 0;
+  note_head_drul_[LEFT] = note_head_drul_[RIGHT] = 0;
+  column_ranks_[RIGHT] = column_ranks_[LEFT] = 0;
 }
 
 void

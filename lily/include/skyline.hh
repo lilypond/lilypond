@@ -20,13 +20,13 @@
 #ifndef SKYLINE_HH
 #define SKYLINE_HH
 
-#include "lily-proto.hh"
 #include "axis.hh"
 #include "box.hh"
-#include "interval.hh"
 #include "direction.hh"
-#include "std-vector.hh"
+#include "interval.hh"
+#include "lily-proto.hh"
 #include "smobs.hh"
+#include "std-vector.hh"
 
 #include <list>
 
@@ -51,7 +51,8 @@ struct Building
 class Skyline : public Simple_smob<Skyline>
 {
 public:
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
+
 private:
   std::list<Building> buildings_;
   Direction sky_;
@@ -59,16 +60,16 @@ private:
   void internal_merge_skyline (std::list<Building> *, std::list<Building> *,
                                std::list<Building> *result) const;
   std::list<Building> internal_build_skyline (std::list<Building> *) const;
-  Real internal_distance (Skyline const &, Real horizon_padding, Real *touch_point) const;
+  Real internal_distance (Skyline const &, Real horizon_padding,
+                          Real *touch_point) const;
   Real internal_distance (Skyline const &, Real *touch_point) const;
   void normalize ();
-
 
 public:
   Skyline ();
   Skyline (Direction sky);
   Skyline (std::vector<Box> const &bldgs, Axis a, Direction sky);
-  Skyline (std::vector<Drul_array<Offset> > const &bldgs, Axis a, Direction sky);
+  Skyline (std::vector<Drul_array<Offset>> const &bldgs, Axis a, Direction sky);
   Skyline (std::vector<Skyline_pair> const &skypairs, Direction sky);
   Skyline (Box const &b, Axis a, Direction sky);
 
@@ -81,10 +82,15 @@ public:
   void shift (Real);
   Real distance (Skyline const &, Real horizon_padding = 0) const;
   Real touching_point (Skyline const &, Real horizon_padding = 0) const;
-  Real shift_to_avoid (Skyline const &other, Real, Direction d, Real horizon_padding = 0);
-  Real raise_to_avoid (Skyline const &other, Real, Direction d, Real horizon_padding = 0);
-  Drul_array<Real> shifts_to_avoid_intersection (Skyline const &, Real horizon_padding = 0) const;
-  Interval raises_to_avoid_intersection (Skyline const &, Real horizon_padding = 0) const;
+  Real shift_to_avoid (Skyline const &other, Real, Direction d,
+                       Real horizon_padding = 0);
+  Real raise_to_avoid (Skyline const &other, Real, Direction d,
+                       Real horizon_padding = 0);
+  Drul_array<Real> shifts_to_avoid_intersection (Skyline const &,
+                                                 Real horizon_padding
+                                                 = 0) const;
+  Interval raises_to_avoid_intersection (Skyline const &,
+                                         Real horizon_padding = 0) const;
   Real height (Real airplane) const;
   Real max_height () const;
   Real max_height_position () const;

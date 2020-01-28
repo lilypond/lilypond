@@ -1,12 +1,14 @@
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
 #include <unistd.h>
 
 #include <cstdio>
 
-#if (! defined (__off64_t) && ! defined (__off64_t_defined)) || ! defined (__cplusplus)
+#if (!defined(__off64_t) && !defined(__off64_t_defined))                       \
+    || !defined(__cplusplus)
 #define off64_t unsigned long long
 #endif
 
@@ -23,7 +25,7 @@ extern "C" {
 
   ssize_t lily_cookie_fclose (void *);
   ssize_t lily_cookie_fprintf (void *file, char const *format, ...)
-  __attribute__ ((format (printf, 2, 3)));
+      __attribute__ ((format (printf, 2, 3)));
   ssize_t lily_cookie_putc (int c, void *file);
 
 #ifdef __cplusplus

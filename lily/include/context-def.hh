@@ -21,10 +21,10 @@
 #define CONTEXT_DEF_HH
 
 #include "acceptance-set.hh"
-#include "std-vector.hh"
+#include "input.hh"
 #include "lily-proto.hh"
 #include "smobs.hh"
-#include "input.hh"
+#include "std-vector.hh"
 #include "virtual-methods.hh"
 #include <set>
 
@@ -37,7 +37,7 @@ class Context_def : public Smob<Context_def>
 public:
   SCM mark_smob () const;
   int print_smob (SCM, scm_print_state *) const;
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
   virtual ~Context_def ();
 
 private:
@@ -67,12 +67,11 @@ public:
   VIRTUAL_CLASS_NAME (Context_def);
   virtual Context_def *clone () const { return new Context_def (*this); }
 
-  std::vector<Context_def *> path_to_acceptable_context (SCM type_string,
-                                                    Output_def *,
-                                                    SCM) const;
+  std::vector<Context_def *>
+  path_to_acceptable_context (SCM type_string, Output_def *, SCM) const;
 
-  static std::vector<Context_def *> path_to_bottom_context (Output_def *,
-                                                       SCM first_child_type_sym);
+  static std::vector<Context_def *>
+  path_to_bottom_context (Output_def *, SCM first_child_type_sym);
   Context *instantiate (SCM extra_ops);
 
   SCM to_alist () const;
@@ -84,11 +83,9 @@ private:
   Context_def ();
   Context_def (Context_def const &);
 
-  std::vector<Context_def *> internal_path_to_acceptable_context (SCM type_string,
-                                                             bool instantiable,
-                                                             Output_def *,
-                                                             SCM,
-                                                             std::set<const Context_def *> *seen) const;
+  std::vector<Context_def *> internal_path_to_acceptable_context (
+      SCM type_string, bool instantiable, Output_def *, SCM,
+      std::set<const Context_def *> *seen) const;
 
   static bool internal_path_to_bottom_context (Output_def *,
                                                std::vector<Context_def *> *path,

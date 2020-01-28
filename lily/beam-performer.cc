@@ -17,10 +17,10 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "performer.hh"
-#include "audio-item.hh"
 #include "audio-column.hh"
+#include "audio-item.hh"
 #include "global-context.hh"
+#include "performer.hh"
 #include "stream-event.hh"
 #include "warn.hh"
 
@@ -36,14 +36,14 @@ protected:
   void process_music ();
   void set_melisma (bool);
   void listen_beam (Stream_event *);
+
 private:
   Stream_event *start_ev_;
   Stream_event *now_stop_ev_;
   bool beam_;
 };
 
-Beam_performer::Beam_performer (Context *c)
-  : Performer (c)
+Beam_performer::Beam_performer (Context *c) : Performer (c)
 {
   beam_ = false;
   start_ev_ = 0;
@@ -109,6 +109,4 @@ ADD_TRANSLATOR (Beam_performer,
                 "",
 
                 /* write */
-                ""
-               );
-
+                "");

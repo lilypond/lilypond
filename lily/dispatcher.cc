@@ -20,14 +20,12 @@
 #include "dispatcher.hh"
 #include "input.hh"
 #include "international.hh"
-#include "warn.hh"
 #include "lily-imports.hh"
+#include "warn.hh"
 
-const char * const Dispatcher::type_p_name_ = "ly:dispatcher?";
+const char *const Dispatcher::type_p_name_ = "ly:dispatcher?";
 
-Dispatcher::~Dispatcher ()
-{
-}
+Dispatcher::~Dispatcher () {}
 
 Dispatcher::Dispatcher ()
 {
@@ -35,8 +33,8 @@ Dispatcher::Dispatcher ()
   dispatchers_ = SCM_EOL;
   listen_classes_ = SCM_EOL;
   smobify_self ();
-// TODO: use resizable hash (guile 1.8)
-//  listeners_ = scm_c_make_hash_table (0);
+  // TODO: use resizable hash (guile 1.8)
+  //  listeners_ = scm_c_make_hash_table (0);
   listeners_ = scm_c_make_hash_table (17);
   priority_count_ = 0;
 }
@@ -105,7 +103,11 @@ Dispatcher::dispatch (SCM sev)
     The first step is to collect all listener lists and to initially
     insert them in the priority queue.
   */
-  struct { int prio; SCM list; } lists[num_classes + 1];
+  struct
+  {
+    int prio;
+    SCM list;
+  } lists[num_classes + 1];
   int i = 0;
   for (SCM cl = class_list; scm_is_pair (cl); cl = scm_cdr (cl))
     {
@@ -179,10 +181,7 @@ Dispatcher::is_listened_class (SCM cl)
 }
 
 static SCM
-accumulate_types (void * /* closure */,
-                  SCM key,
-                  SCM val,
-                  SCM result)
+accumulate_types (void * /* closure */, SCM key, SCM val, SCM result)
 {
   if (scm_is_pair (val))
     return scm_cons (key, result);
@@ -192,8 +191,8 @@ accumulate_types (void * /* closure */,
 SCM
 Dispatcher::listened_types ()
 {
-  return scm_internal_hash_fold ((scm_t_hash_fold_fn) &accumulate_types,
-                                 NULL, SCM_EOL, listeners_);
+  return scm_internal_hash_fold ((scm_t_hash_fold_fn)&accumulate_types, NULL,
+                                 SCM_EOL, listeners_);
 }
 
 void
@@ -236,8 +235,9 @@ Dispatcher::internal_add_listener (SCM callback, SCM ev_class, int priority)
         {
           int priority = scm_to_int (scm_cdar (disp));
           Dispatcher *d = unsmob<Dispatcher> (scm_caar (disp));
-          d->internal_add_listener (GET_LISTENER (Dispatcher, dispatch).smobbed_copy (),
-                                    ev_class, priority);
+          d->internal_add_listener (
+              GET_LISTENER (Dispatcher, dispatch).smobbed_copy (), ev_class,
+              priority);
         }
       listen_classes_ = scm_cons (ev_class, listen_classes_);
     }
@@ -306,7 +306,8 @@ Dispatcher::register_as_listener (Dispatcher *disp)
       return;
     }
 
-  dispatchers_ = scm_acons (disp->self_scm (), scm_from_int (priority), dispatchers_);
+  dispatchers_
+      = scm_acons (disp->self_scm (), scm_from_int (priority), dispatchers_);
 
   SCM list = GET_LISTENER (Dispatcher, dispatch).smobbed_copy ();
   for (SCM cl = listen_classes_; scm_is_pair (cl); cl = scm_cdr (cl))

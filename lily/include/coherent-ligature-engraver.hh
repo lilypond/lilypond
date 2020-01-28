@@ -24,9 +24,7 @@
 class Coherent_ligature_engraver : public Ligature_engraver
 {
 public:
-  Coherent_ligature_engraver(Context *c)
-    : Ligature_engraver (c)
-  {}
+  Coherent_ligature_engraver (Context *c) : Ligature_engraver (c) {}
   // no TRANSLATOR_DECLARATIONS (Coherent_ligature_engraver) needed
   // since this class is abstract
   TRANSLATOR_INHERIT (Ligature_engraver);
@@ -34,10 +32,12 @@ public:
 
 protected:
   virtual void build_ligature (Spanner *ligature,
-                               std::vector<Grob_info> const &primitives) = 0;
+                               std::vector<Grob_info> const &primitives)
+      = 0;
   void typeset_ligature (Spanner *ligature,
                          std::vector<Grob_info> const &primitives) override;
   virtual void move_related_items_to_column (Item *, Paper_column *, Real);
+
 private:
   void collect_accidentals (Spanner *, std::vector<Grob_info> const &);
 };

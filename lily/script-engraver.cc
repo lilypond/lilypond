@@ -69,18 +69,14 @@ public:
   TRANSLATOR_DECLARATIONS (Script_engraver);
 };
 
-Script_engraver::Script_engraver (Context *c)
-  : Engraver (c)
-{
-}
+Script_engraver::Script_engraver (Context *c) : Engraver (c) {}
 
 void
 Script_engraver::listen_articulation (Stream_event *ev)
 {
   /* Discard double articulations for part-combining.  */
   for (vsize i = 0; i < scripts_.size (); i++)
-    if (ly_is_equal (scripts_[i].event_
-                     ->get_property ("articulation-type"),
+    if (ly_is_equal (scripts_[i].event_->get_property ("articulation-type"),
                      ev->get_property ("articulation-type")))
       return;
 
@@ -105,8 +101,7 @@ copy_property (Grob *g, SCM sym, SCM alist)
    ScriptStaccato , ScriptMarcato, etc. ).
 */
 void
-make_script_from_event (Grob *p, Context *tg,
-                        SCM art_type, int index)
+make_script_from_event (Grob *p, Context *tg, SCM art_type, int index)
 {
   SCM alist = tg->get_property ("scriptDefinitions");
   SCM art = scm_assoc (art_type, alist);
@@ -146,15 +141,13 @@ make_script_from_event (Grob *p, Context *tg,
         }
 
       SCM preset = p->get_property_data (sym);
-      if (scm_is_null (val)
-          || scm_is_false (scm_call_1 (type, preset)))
+      if (scm_is_null (val) || scm_is_false (scm_call_1 (type, preset)))
         p->set_property (sym, val);
     }
 
   if (!priority_found)
     {
-      p->set_property ("script-priority",
-                       scm_from_int (index));
+      p->set_property ("script-priority", scm_from_int (index));
     }
 }
 
@@ -168,8 +161,7 @@ Script_engraver::process_music ()
       Grob *p = make_item ("Script", ev->self_scm ());
 
       make_script_from_event (p, context (),
-                              ev->get_property ("articulation-type"),
-                              i);
+                              ev->get_property ("articulation-type"), i);
 
       scripts_[i].script_ = p;
 
@@ -277,7 +269,6 @@ Script_engraver::stop_translation_timestep ()
   scripts_.clear ();
 }
 
-
 void
 Script_engraver::boot ()
 {
@@ -302,5 +293,4 @@ ADD_TRANSLATOR (Script_engraver,
                 "scriptDefinitions ",
 
                 /* write */
-                ""
-               );
+                "");

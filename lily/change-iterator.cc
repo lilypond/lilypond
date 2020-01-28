@@ -30,25 +30,25 @@ using std::string;
 void
 Change_iterator::error (const string &reason)
 {
-  string to_type = ly_symbol2string (get_music ()->get_property ("change-to-type"));
+  string to_type
+      = ly_symbol2string (get_music ()->get_property ("change-to-type"));
   string to_id = ly_scm2string (get_music ()->get_property ("change-to-id"));
 
-  string warn1 = _f ("cannot change `%s' to `%s'", to_type, to_id)
-                 + ": " + reason;
+  string warn1
+      = _f ("cannot change `%s' to `%s'", to_type, to_id) + ": " + reason;
 
   /*
     GUHG!
   */
-  string warn2 = "Change_iterator::process (): "
-                 + get_outlet ()->context_name () + " = `"
-                 + get_outlet ()->id_string () + "': ";
+  string warn2
+      = "Change_iterator::process (): " + get_outlet ()->context_name ()
+        + " = `" + get_outlet ()->id_string () + "': ";
   warning (warn2);
   get_music ()->origin ()->warning (warn1);
 }
 
 string
-Change_iterator::change_to (Music_iterator &it,
-                            SCM to_type,
+Change_iterator::change_to (Music_iterator &it, SCM to_type,
                             const string &to_id)
 {
   string result; // error message
@@ -76,7 +76,8 @@ Change_iterator::change_to (Music_iterator &it,
       // No enclosing context of the right kind was found
       // and the iterator's immediate context is the kind that was sought.
 
-      result = _f ("not changing to same context type: %s", ly_symbol2string (to_type).c_str ());
+      result = _f ("not changing to same context type: %s",
+                   ly_symbol2string (to_type).c_str ());
     }
   else
     /* FIXME: incomprehensible message */

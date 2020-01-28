@@ -17,28 +17,27 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "pure-from-neighbor-interface.hh"
 #include "axis-group-interface.hh"
-#include "grob.hh"
 #include "grob-array.hh"
+#include "grob.hh"
 #include "moment.hh"
 #include "paper-column.hh"
 #include "pointer-group-interface.hh"
-#include "pure-from-neighbor-interface.hh"
 #include "spanner.hh"
 #include "system.hh"
 
 using std::vector;
 
-MAKE_SCHEME_CALLBACK (Pure_from_neighbor_interface, calc_pure_relevant_grobs, 1);
+MAKE_SCHEME_CALLBACK (Pure_from_neighbor_interface, calc_pure_relevant_grobs,
+                      1);
 SCM
 Pure_from_neighbor_interface::calc_pure_relevant_grobs (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  extract_grob_set ((me->original () && me->original ()->is_live ()
-                     ? me->original ()
-                     : me),
-                    "neighbors",
-                    elts);
+  extract_grob_set (
+      (me->original () && me->original ()->is_live () ? me->original () : me),
+      "neighbors", elts);
 
   vector<Grob *> new_elts;
   new_elts.insert (new_elts.end (), elts.begin (), elts.end ());
@@ -46,7 +45,8 @@ Pure_from_neighbor_interface::calc_pure_relevant_grobs (SCM smob)
   if (Grob_array *a = unsmob<Grob_array> (me->get_object ("neighbors")))
     a->set_array (new_elts);
 
-  return Axis_group_interface::internal_calc_pure_relevant_grobs (me, "neighbors");
+  return Axis_group_interface::internal_calc_pure_relevant_grobs (me,
+                                                                  "neighbors");
 }
 
 ADD_INTERFACE (Pure_from_neighbor_interface,
@@ -57,5 +57,4 @@ ADD_INTERFACE (Pure_from_neighbor_interface,
                /* properties */
                "neighbors "
                "pure-relevant-grobs "
-               "pure-Y-common "
-              );
+               "pure-Y-common ");

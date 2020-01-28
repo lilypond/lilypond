@@ -19,12 +19,12 @@
 
 #include "engraver.hh"
 
-#include "music.hh"
-#include "stream-event.hh"
 #include "international.hh"
 #include "item.hh"
+#include "music.hh"
 #include "pointer-group-interface.hh"
 #include "spanner.hh"
+#include "stream-event.hh"
 #include "system.hh"
 
 #include "translator.icc"
@@ -38,7 +38,7 @@ class Footnote_engraver : public Engraver
   void acknowledge_grob (Grob_info) override;
   void acknowledge_end_grob (Grob_info);
 
-  vector<Drul_array<Spanner *> > annotated_spanners_;
+  vector<Drul_array<Spanner *>> annotated_spanners_;
 
   void finalize () override;
 
@@ -51,15 +51,12 @@ Footnote_engraver::finalize ()
   annotated_spanners_.clear ();
 }
 
-Footnote_engraver::Footnote_engraver (Context *c)
-  : Engraver (c)
-{
-}
+Footnote_engraver::Footnote_engraver (Context *c) : Engraver (c) {}
 
 void
 Footnote_engraver::footnotify (Grob *g, SCM cause)
 {
-  Spanner *s = dynamic_cast<Spanner *>(g);
+  Spanner *s = dynamic_cast<Spanner *> (g);
 
   if (s)
     {
@@ -103,7 +100,7 @@ Footnote_engraver::acknowledge_grob (Grob_info info)
 void
 Footnote_engraver::acknowledge_end_grob (Grob_info info)
 {
-  Spanner *s = dynamic_cast<Spanner *>(info.grob ());
+  Spanner *s = dynamic_cast<Spanner *> (info.grob ());
 
   if (s)
     for (vsize i = 0; i < annotated_spanners_.size (); i++)
@@ -116,7 +113,6 @@ Footnote_engraver::acknowledge_end_grob (Grob_info info)
           }
       }
 }
-
 
 void
 Footnote_engraver::boot ()
@@ -137,5 +133,4 @@ ADD_TRANSLATOR (Footnote_engraver,
                 "currentMusicalColumn ",
 
                 /*write*/
-                ""
-               );
+                "");

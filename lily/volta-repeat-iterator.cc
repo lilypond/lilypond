@@ -17,10 +17,10 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "music.hh"
-#include "sequential-iterator.hh"
 #include "context.hh"
 #include "lily-imports.hh"
+#include "music.hh"
+#include "sequential-iterator.hh"
 
 using std::string;
 
@@ -31,6 +31,7 @@ public:
   Volta_repeat_iterator ();
 
   void add_repeat_command (SCM);
+
 protected:
   SCM get_music_list () const override;
   void next_element (bool) override;
@@ -60,7 +61,7 @@ Volta_repeat_iterator::derived_mark () const
 }
 
 SCM
-Volta_repeat_iterator::get_music_list ()const
+Volta_repeat_iterator::get_music_list () const
 {
   return scm_cons (get_music ()->get_property ("element"),
                    Sequential_iterator::get_music_list ());
@@ -106,24 +107,25 @@ Volta_repeat_iterator::next_element (bool side_effect)
     {
       if (alt_count_)
         {
-          string repstr = std::to_string (rep_count_ - alt_count_ + done_count_) + ".";
+          string repstr
+              = std::to_string (rep_count_ - alt_count_ + done_count_) + ".";
           if (done_count_ <= 1)
             {
               alt_restores_ = SCM_EOL;
               if (to_boolean (get_outlet ()->get_property ("timing")))
                 {
-                  for (SCM lst = get_outlet ()->get_property ("alternativeRestores");
-                       scm_is_pair (lst);
-                       lst = scm_cdr (lst))
+                  for (SCM lst
+                       = get_outlet ()->get_property ("alternativeRestores");
+                       scm_is_pair (lst); lst = scm_cdr (lst))
                     {
                       SCM res = SCM_EOL;
-                      Context *t = get_outlet ()->where_defined (scm_car (lst),
-                                                                 &res);
+                      Context *t
+                          = get_outlet ()->where_defined (scm_car (lst), &res);
                       if (t)
                         {
-                          alt_restores_ = scm_cons
-                            (scm_list_3 (t->self_scm (), scm_car (lst), res),
-                             alt_restores_);
+                          alt_restores_ = scm_cons (
+                              scm_list_3 (t->self_scm (), scm_car (lst), res),
+                              alt_restores_);
                         }
                     }
                 }
@@ -131,7 +133,8 @@ Volta_repeat_iterator::next_element (bool side_effect)
           else
             {
 
-              add_repeat_command (scm_list_2 (ly_symbol2scm ("volta"), SCM_BOOL_F));
+              add_repeat_command (
+                  scm_list_2 (ly_symbol2scm ("volta"), SCM_BOOL_F));
 
               if (done_count_ - 1 < alt_count_)
                 {
@@ -140,7 +143,8 @@ Volta_repeat_iterator::next_element (bool side_effect)
                   if (to_boolean (get_outlet ()->get_property ("timing")))
                     {
                       SCM mps = ly_symbol2scm ("measurePosition");
-                      for (SCM p = alt_restores_; scm_is_pair (p); p = scm_cdr (p))
+                      for (SCM p = alt_restores_; scm_is_pair (p);
+                           p = scm_cdr (p))
                         {
                           SCM ls = scm_car (p);
                           if (scm_is_eq (scm_cadr (ls), mps))
@@ -151,11 +155,11 @@ Volta_repeat_iterator::next_element (bool side_effect)
                             // Timing_translator does this already but is
                             // too late to avoid bad side-effects
                             {
-                              Moment mp (unsmob<Moment> (scm_caddr (ls))->main_part_,
-                                         get_outlet ()->now_mom ().grace_part_);
-                              Lily::ly_context_set_property_x (scm_car (ls),
-                                                               mps,
-                                                               mp.smobbed_copy ());
+                              Moment mp (
+                                  unsmob<Moment> (scm_caddr (ls))->main_part_,
+                                  get_outlet ()->now_mom ().grace_part_);
+                              Lily::ly_context_set_property_x (
+                                  scm_car (ls), mps, mp.smobbed_copy ());
                             }
                           else
                             scm_apply_0 (Lily::ly_context_set_property_x, ls);
@@ -165,11 +169,13 @@ Volta_repeat_iterator::next_element (bool side_effect)
             }
 
           if (done_count_ == 1 && alt_count_ < rep_count_)
-            repstr = "1.--" + std::to_string (rep_count_ - alt_count_ + done_count_) + ".";
+            repstr = "1.--"
+                     + std::to_string (rep_count_ - alt_count_ + done_count_)
+                     + ".";
 
           if (done_count_ <= alt_count_)
-            add_repeat_command (scm_list_2 (ly_symbol2scm ("volta"),
-                                            ly_string2scm (repstr)));
+            add_repeat_command (
+                scm_list_2 (ly_symbol2scm ("volta"), ly_string2scm (repstr)));
         }
       else
         add_repeat_command (ly_symbol2scm ("end-repeat"));

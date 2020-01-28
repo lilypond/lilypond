@@ -64,7 +64,8 @@ assoc_tail (SCM key, SCM alist, SCM based_on = SCM_EOL)
 }
 
 // Like assq, but removes the found element destructively
-SCM assq_pop_x (SCM key, SCM *alist)
+SCM
+assq_pop_x (SCM key, SCM *alist)
 {
   for (SCM p = *alist; scm_is_pair (p); p = *(alist = SCM_CDRLOC (p)))
     {
@@ -98,8 +99,7 @@ nested_create_alist (SCM prop_path, SCM value)
   if (scm_is_null (prop_path))
     return value;
   return scm_acons (scm_car (prop_path),
-                    nested_create_alist (scm_cdr (prop_path), value),
-                    SCM_EOL);
+                    nested_create_alist (scm_cdr (prop_path), value), SCM_EOL);
 }
 
 /*
@@ -129,13 +129,12 @@ nested_property_alist (SCM alist, SCM prop_path, SCM value)
 
       if (scm_is_false (where))
         return scm_acons (key, nested_create_alist (rest, value), alist);
-      return scm_acons (key, nested_property_alist (scm_cdar (where),
-                                                    rest,
-                                                    value),
+      return scm_acons (key,
+                        nested_property_alist (scm_cdar (where), rest, value),
                         partial_list_copy (alist, where, scm_cdr (where)));
     }
-  // Outcommented code would coalesce multiple overrides of the same
-  // property
+    // Outcommented code would coalesce multiple overrides of the same
+    // property
 #if 0
   SCM where = assq_tail (alist, key);
   if (scm_is_true (where))
@@ -205,8 +204,7 @@ nalist_to_alist (SCM nalist, int nested)
         {
           SCM pair = scm_sloppy_assq (scm_car (key), partials);
           if (scm_is_false (pair))
-            partials = scm_acons (scm_car (key), scm_list_1 (elt),
-                                  partials);
+            partials = scm_acons (scm_car (key), scm_list_1 (elt), partials);
           else
             scm_set_cdr_x (pair, scm_cons (elt, scm_cdr (pair)));
           continue;
@@ -218,7 +216,8 @@ nalist_to_alist (SCM nalist, int nested)
         {
           SCM value = scm_cdr (elt);
           for (SCM pp = scm_cdr (pair); scm_is_pair (pp); pp = scm_cdr (pp))
-            value = nested_property_alist (value, scm_cdaar (pp), scm_cdar (pp));
+            value
+                = nested_property_alist (value, scm_cdaar (pp), scm_cdar (pp));
           copied = scm_acons (key, value, copied);
         }
       else
@@ -228,7 +227,7 @@ nalist_to_alist (SCM nalist, int nested)
   // unique, so we can push them to `copied' after resolving without
   // losing information.
 
-  for (;scm_is_pair (partials); partials = scm_cdr (partials))
+  for (; scm_is_pair (partials); partials = scm_cdr (partials))
     {
       SCM pair = scm_car (partials);
       SCM key = scm_car (pair);

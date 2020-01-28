@@ -20,10 +20,7 @@
 #include "context-handle.hh"
 #include "context.hh"
 
-Context_handle::Context_handle ()
-{
-  outlet_ = 0;
-}
+Context_handle::Context_handle () { outlet_ = 0; }
 
 Context_handle::Context_handle (Context_handle const &s)
 {
@@ -59,7 +56,7 @@ Context_handle::down ()
 }
 
 void
-Context_handle::operator = (Context_handle const &s)
+Context_handle::operator= (Context_handle const &s)
 {
   set_context (s.outlet_);
 }

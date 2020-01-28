@@ -68,8 +68,7 @@ Staff_symbol_engraver::~Staff_symbol_engraver ()
     }
 }
 
-Staff_symbol_engraver::Staff_symbol_engraver (Context *c)
-  : Engraver (c)
+Staff_symbol_engraver::Staff_symbol_engraver (Context *c) : Engraver (c)
 {
   finished_span_ = 0;
   first_start_ = true;
@@ -98,8 +97,7 @@ Staff_symbol_engraver::process_music ()
         first_start_ = false;
     }
 
-  if (span_events_[START]
-      || (first_start_ && !span_events_[STOP]))
+  if (span_events_[START] || (first_start_ && !span_events_[STOP]))
     start_spanner ();
 }
 
@@ -121,12 +119,12 @@ Staff_symbol_engraver::stop_spanner ()
     return;
 
   if (!finished_span_->get_bound (RIGHT))
-    finished_span_->set_bound (RIGHT, unsmob<Grob> (get_property ("currentCommandColumn")));
+    finished_span_->set_bound (
+        RIGHT, unsmob<Grob> (get_property ("currentCommandColumn")));
 
-  announce_end_grob (finished_span_,
-                     span_events_[STOP]
-                     ? span_events_[STOP]->self_scm ()
-                     : SCM_EOL);
+  announce_end_grob (finished_span_, span_events_[STOP]
+                                         ? span_events_[STOP]->self_scm ()
+                                         : SCM_EOL);
 
   finished_span_ = 0;
 }
@@ -134,8 +132,7 @@ Staff_symbol_engraver::stop_spanner ()
 void
 Staff_symbol_engraver::stop_translation_timestep ()
 {
-  if ((span_events_[START] || first_start_)
-      && span_)
+  if ((span_events_[START] || first_start_) && span_)
     first_start_ = false;
 
   span_events_.set (0, 0);
@@ -163,7 +160,6 @@ Staff_symbol_engraver::acknowledge_grob (Grob_info s)
     }
 }
 
-
 void
 Staff_symbol_engraver::boot ()
 {
@@ -182,5 +178,4 @@ ADD_TRANSLATOR (Staff_symbol_engraver,
                 "",
 
                 /* write */
-                ""
-               );
+                "");

@@ -20,15 +20,15 @@
 
 #include <cctype>
 
-#include "item.hh"
 #include "context.hh"
-#include "staff-symbol-referencer.hh"
-#include "engraver.hh"
 #include "direction.hh"
+#include "engraver.hh"
+#include "item.hh"
 #include "side-position-interface.hh"
+#include "staff-symbol-referencer.hh"
 
-#include "translator.icc"
 #include "lily-imports.hh"
+#include "translator.icc"
 
 class Clef_engraver : public Engraver
 {
@@ -41,6 +41,7 @@ protected:
   void acknowledge_bar_line (Grob_info);
 
   void derived_mark () const override;
+
 private:
   Item *clef_;
   Item *modifier_;
@@ -61,8 +62,7 @@ Clef_engraver::derived_mark () const
   scm_gc_mark (prev_glyph_);
 }
 
-Clef_engraver::Clef_engraver (Context *c)
-  : Engraver (c)
+Clef_engraver::Clef_engraver (Context *c) : Engraver (c)
 {
   clef_ = 0;
   modifier_ = 0;
@@ -80,7 +80,8 @@ Clef_engraver::set_glyph ()
   SCM basic = ly_symbol2scm ("Clef");
 
   execute_pushpop_property (context (), basic, glyph_sym, SCM_UNDEFINED);
-  execute_pushpop_property (context (), basic, glyph_sym, get_property ("clefGlyph"));
+  execute_pushpop_property (context (), basic, glyph_sym,
+                            get_property ("clefGlyph"));
 }
 
 /**
@@ -141,11 +142,11 @@ Clef_engraver::process_music ()
   inspect_clef_properties ();
 }
 
-static void apply_on_children (Context *context, SCM fun)
+static void
+apply_on_children (Context *context, SCM fun)
 {
   scm_call_1 (fun, context->self_scm ());
-  for (SCM s = context->children_contexts ();
-       scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = context->children_contexts (); scm_is_pair (s); s = scm_cdr (s))
     apply_on_children (unsmob<Context> (scm_car (s)), fun);
 }
 
@@ -157,8 +158,7 @@ Clef_engraver::inspect_clef_properties ()
   SCM transposition = get_property ("clefTransposition");
   SCM force_clef = get_property ("forceClef");
 
-  if (scm_is_null (clefpos)
-      || !ly_is_equal (glyph, prev_glyph_)
+  if (scm_is_null (clefpos) || !ly_is_equal (glyph, prev_glyph_)
       || !ly_is_equal (clefpos, prev_cpos_)
       || !ly_is_equal (transposition, prev_transposition_)
       || to_boolean (force_clef))
@@ -180,7 +180,8 @@ Clef_engraver::inspect_clef_properties ()
   if (to_boolean (force_clef))
     {
       SCM prev;
-      Context *w = context ()->where_defined (ly_symbol2scm ("forceClef"), &prev);
+      Context *w
+          = context ()->where_defined (ly_symbol2scm ("forceClef"), &prev);
       w->set_property ("forceClef", SCM_EOL);
     }
 }
@@ -227,5 +228,4 @@ ADD_TRANSLATOR (Clef_engraver,
                 "forceClef ",
 
                 /* write */
-                ""
-               );
+                "");

@@ -20,10 +20,10 @@
 
 #include "config.hh"
 
+#include "international.hh"
 #include "lily-guile.hh"
 #include "program-option.hh"
 #include "version.hh"
-#include "international.hh"
 #include "warn.hh"
 
 using std::string;
@@ -32,8 +32,7 @@ using std::string;
   Error / warning / progress / debug message output functions
 */
 
-LY_DEFINE (ly_error, "ly:error",
-           1, 0, 1, (SCM str, SCM rest),
+LY_DEFINE (ly_error, "ly:error", 1, 0, 1, (SCM str, SCM rest),
            "A Scheme callable function to issue the error @var{str}."
            "  The error is formatted with @code{format} and @var{rest}.")
 {
@@ -43,8 +42,8 @@ LY_DEFINE (ly_error, "ly:error",
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_programming_error, "ly:programming-error",
-           1, 0, 1, (SCM str, SCM rest),
+LY_DEFINE (ly_programming_error, "ly:programming-error", 1, 0, 1,
+           (SCM str, SCM rest),
            "A Scheme callable function to issue the internal warning"
            "  @var{str}.  The message is formatted with @code{format}"
            " and @var{rest}.")
@@ -55,8 +54,7 @@ LY_DEFINE (ly_programming_error, "ly:programming-error",
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_warning, "ly:warning",
-           1, 0, 1, (SCM str, SCM rest),
+LY_DEFINE (ly_warning, "ly:warning", 1, 0, 1, (SCM str, SCM rest),
            "A Scheme callable function to issue the warning @var{str}."
            "  The message is formatted with @code{format} and @var{rest}.")
 {
@@ -66,8 +64,7 @@ LY_DEFINE (ly_warning, "ly:warning",
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_progress, "ly:progress",
-           1, 0, 1, (SCM str, SCM rest),
+LY_DEFINE (ly_progress, "ly:progress", 1, 0, 1, (SCM str, SCM rest),
            "A Scheme callable function to print progress @var{str}."
            "  The message is formatted with @code{format} and @var{rest}.")
 {
@@ -78,10 +75,10 @@ LY_DEFINE (ly_progress, "ly:progress",
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_basic_progress, "ly:basic-progress",
-           1, 0, 1, (SCM str, SCM rest),
-           "A Scheme callable function to issue a basic progress message @var{str}."
-           "  The message is formatted with @code{format} and @var{rest}.")
+LY_DEFINE (
+    ly_basic_progress, "ly:basic-progress", 1, 0, 1, (SCM str, SCM rest),
+    "A Scheme callable function to issue a basic progress message @var{str}."
+    "  The message is formatted with @code{format} and @var{rest}.")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
@@ -89,8 +86,7 @@ LY_DEFINE (ly_basic_progress, "ly:basic-progress",
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_message, "ly:message",
-           1, 0, 1, (SCM str, SCM rest),
+LY_DEFINE (ly_message, "ly:message", 1, 0, 1, (SCM str, SCM rest),
            "A Scheme callable function to issue the message @var{str}."
            "  The message is formatted with @code{format} and @var{rest}.")
 {
@@ -100,8 +96,7 @@ LY_DEFINE (ly_message, "ly:message",
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_debug, "ly:debug",
-           1, 0, 1, (SCM str, SCM rest),
+LY_DEFINE (ly_debug, "ly:debug", 1, 0, 1, (SCM str, SCM rest),
            "A Scheme callable function to issue a debug message @var{str}."
            "  The message is formatted with @code{format} and @var{rest}.")
 {
@@ -112,8 +107,8 @@ LY_DEFINE (ly_debug, "ly:debug",
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_warning_located, "ly:warning-located",
-           2, 0, 1, (SCM location, SCM str, SCM rest),
+LY_DEFINE (ly_warning_located, "ly:warning-located", 2, 0, 1,
+           (SCM location, SCM str, SCM rest),
            "A Scheme callable function to issue the warning @var{str} at"
            " the specified location in an input file."
            "  The message is formatted with @code{format} and @var{rest}.")
@@ -125,8 +120,7 @@ LY_DEFINE (ly_warning_located, "ly:warning-located",
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_expect_warning, "ly:expect-warning",
-           1, 0, 1, (SCM str, SCM rest),
+LY_DEFINE (ly_expect_warning, "ly:expect-warning", 1, 0, 1, (SCM str, SCM rest),
            "A Scheme callable function to register a warning to be expected"
            " and subsequently suppressed.  If the warning is not encountered,"
            " a warning about the missing warning will be shown.  The message"
@@ -139,8 +133,8 @@ LY_DEFINE (ly_expect_warning, "ly:expect-warning",
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_check_expected_warnings, "ly:check-expected-warnings",
-           0, 0, 0, (),
+LY_DEFINE (ly_check_expected_warnings, "ly:check-expected-warnings", 0, 0, 0,
+           (),
            "Check whether all expected warnings have really been triggered.")
 {
   check_expected_warnings ();
@@ -161,7 +155,7 @@ LY_DEFINE (ly_translate_cpp_warning_scheme, "ly:translate-cpp-warning-scheme",
    * There is no easy way to replace all ~ -> ~~, %% -> %, % -> ~,
    * so simply walk through each character.
    */
-//   size_t pos = 0;
+  //   size_t pos = 0;
   const char *pos = s.c_str ();
   string result = "";
   while (*pos != '\0')

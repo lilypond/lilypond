@@ -42,8 +42,8 @@ using std::vector;
   based on the notehead size, skylines, and optical illusions.
 */
 Spring
-Note_spacing::get_spacing (Grob *me, Item *right_col,
-                           Spring base, Real increment)
+Note_spacing::get_spacing (Grob *me, Item *right_col, Spring base,
+                           Real increment)
 {
   vector<Item *> note_columns = Spacing_interface::left_note_columns (me);
   Real left_head_end = 0;
@@ -64,7 +64,8 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
       if (g)
         {
           if (g->common_refpoint (col, X_AXIS) != col)
-            programming_error ("Note_spacing::get_spacing (): Common refpoint incorrect");
+            programming_error (
+                "Note_spacing::get_spacing (): Common refpoint incorrect");
           else
             left_head_end = g->extent (col, X_AXIS)[RIGHT];
         }
@@ -77,19 +78,20 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
   */
   Real ideal = base.distance () - increment + left_head_end;
   Drul_array<Skyline> skys = Spacing_interface::skylines (me, right_col);
-  Real distance = skys[LEFT].distance (skys[RIGHT], robust_scm2double (right_col->get_property ("skyline-vertical-padding"), 0.0));
+  Real distance = skys[LEFT].distance (
+      skys[RIGHT],
+      robust_scm2double (right_col->get_property ("skyline-vertical-padding"),
+                         0.0));
   Real min_dist = std::max (0.0, distance);
   base.set_min_distance (min_dist);
 
   /* If we have a NonMusical column on the right, we measure the ideal distance
      to the bar-line (if present), not the start of the column. */
-  if (!Paper_column::is_musical (right_col)
-      && !skys[RIGHT].is_empty ()
+  if (!Paper_column::is_musical (right_col) && !skys[RIGHT].is_empty ()
       && to_boolean (me->get_property ("space-to-barline")))
     {
-      Grob *bar = Pointer_group_interface::find_grob (right_col,
-                                                      ly_symbol2scm ("elements"),
-                                                      Bar_line::non_empty_barline);
+      Grob *bar = Pointer_group_interface::find_grob (
+          right_col, ly_symbol2scm ("elements"), Bar_line::non_empty_barline);
 
       if (bar)
         ideal -= bar->extent (right_col, X_AXIS)[LEFT];
@@ -128,7 +130,8 @@ knee_correction (Grob *note_spacing, Grob *right_stem, Real increment)
     }
 
   return -note_head_width * get_grob_direction (right_stem)
-         * robust_scm2double (note_spacing->get_property ("knee-spacing-correction"), 0);
+         * robust_scm2double (
+             note_spacing->get_property ("knee-spacing-correction"), 0);
 }
 
 static Real
@@ -147,9 +150,9 @@ different_directions_correction (Grob *note_spacing,
       /*
         Ugh. 7 is hardcoded.
       */
-      ret = std::min (ret / 7, 1.0)
-            * left_stem_dir
-            * robust_scm2double (note_spacing->get_property ("stem-spacing-correction"), 0);
+      ret = std::min (ret / 7, 1.0) * left_stem_dir
+            * robust_scm2double (
+                note_spacing->get_property ("stem-spacing-correction"), 0);
     }
   return ret;
 }
@@ -182,10 +185,11 @@ same_direction_correction (Grob *note_spacing, Drul_array<Interval> head_posns)
     return 0;
 
   Direction lowest
-    = (head_posns[LEFT][DOWN] > head_posns[RIGHT][UP]) ? RIGHT : LEFT;
+      = (head_posns[LEFT][DOWN] > head_posns[RIGHT][UP]) ? RIGHT : LEFT;
 
   Real delta = head_posns[-lowest][DOWN] - head_posns[lowest][UP];
-  Real corr = robust_scm2double (note_spacing->get_property ("same-direction-correction"), 0);
+  Real corr = robust_scm2double (
+      note_spacing->get_property ("same-direction-correction"), 0);
 
   return (delta > 1) ? -lowest * corr : 0;
 }
@@ -198,8 +202,7 @@ same_direction_correction (Grob *note_spacing, Drul_array<Interval> head_posns)
   TODO: have to check whether the stems are in the same staff.
 */
 void
-Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
-                                   Real increment,
+Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn, Real increment,
                                    Real *space)
 {
   Drul_array<Direction> stem_dirs (CENTER, CENTER);
@@ -218,15 +221,14 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
 
   bool acc_right = false;
 
-  Grob *bar = Spacing_interface::extremal_break_aligned_grob (me, RIGHT,
-                                                              rcolumn->break_status_dir (),
-                                                              &bar_xextent);
+  Grob *bar = Spacing_interface::extremal_break_aligned_grob (
+      me, RIGHT, rcolumn->break_status_dir (), &bar_xextent);
   if (bar && dynamic_cast<Item *> (bar)->get_column () == rcolumn)
     bar_yextent = Staff_spacing::bar_y_positions (bar);
 
   for (LEFT_and_RIGHT (d))
     {
-      vector<Grob *> const &items (ly_scm2link_array (props [d]));
+      vector<Grob *> const &items (ly_scm2link_array (props[d]));
       for (vsize i = 0; i < items.size (); i++)
         {
           Item *it = dynamic_cast<Item *> (items[i]);
@@ -259,8 +261,8 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
             Correction doesn't seem appropriate  when there is a large flag
             hanging from the note.
           */
-          if (d == LEFT
-              && Stem::duration_log (stem) > 2 && !Stem::get_beam (stem))
+          if (d == LEFT && Stem::duration_log (stem) > 2
+              && !Stem::get_beam (stem))
             return;
 
           Interval hp = Stem::head_positions (stem);
@@ -290,7 +292,8 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
         }
       else
         {
-          correction = different_directions_correction (me, stem_posns, stem_dirs[LEFT]);
+          correction = different_directions_correction (me, stem_posns,
+                                                        stem_dirs[LEFT]);
 
           if (!bar_yextent.is_empty ())
             correction *= 0.5;
@@ -300,8 +303,7 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
     Only apply same direction correction if there are no
     accidentals sticking out of the right hand side.
   */
-  else if (stem_dirs[LEFT] * stem_dirs[RIGHT] == 1
-           && !acc_right)
+  else if (stem_dirs[LEFT] * stem_dirs[RIGHT] == 1 && !acc_right)
     correction = same_direction_correction (me, head_posns);
 
   *space += correction;
@@ -320,6 +322,4 @@ ADD_INTERFACE (Note_spacing,
                "right-items "
                "same-direction-correction "
                "stem-spacing-correction "
-               "space-to-barline "
-              );
-
+               "space-to-barline ");

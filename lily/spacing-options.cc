@@ -19,10 +19,10 @@
 */
 
 #include "spacing-options.hh"
-#include "spacing-spanner.hh"
 #include "grob.hh"
 #include "misc.hh"
 #include "moment.hh"
+#include "spacing-spanner.hh"
 #include "spanner.hh"
 
 void
@@ -33,13 +33,14 @@ Spacing_options::init_from_grob (Grob *me)
   packed_ = to_boolean (me->get_property ("packed-spacing"));
   stretch_uniformly_ = to_boolean (me->get_property ("uniform-stretching"));
   float_nonmusical_columns_
-    = to_boolean (me->get_property ("strict-note-spacing"));
-  float_grace_columns_
-    = to_boolean (me->get_property ("strict-grace-spacing"));
-  shortest_duration_space_ = robust_scm2double (me->get_property ("shortest-duration-space"), 1);
+      = to_boolean (me->get_property ("strict-note-spacing"));
+  float_grace_columns_ = to_boolean (me->get_property ("strict-grace-spacing"));
+  shortest_duration_space_
+      = robust_scm2double (me->get_property ("shortest-duration-space"), 1);
 
-  Moment shortest_dur = robust_scm2moment (me->get_property ("common-shortest-duration"),
-                                           Moment (Rational (1, 8), Rational (1, 16)));
+  Moment shortest_dur
+      = robust_scm2moment (me->get_property ("common-shortest-duration"),
+                           Moment (Rational (1, 8), Rational (1, 16)));
 
   if (shortest_dur.main_part_)
     global_shortest_ = shortest_dur.main_part_;
@@ -100,4 +101,3 @@ Spacing_options::get_duration_space (Rational d) const
       return (shortest_duration_space_ + log_2 (ratio)) * increment_;
     }
 }
-

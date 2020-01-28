@@ -17,20 +17,21 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "engraver.hh"
 #include "context.hh"
 #include "dispatcher.hh"
-#include "listener.hh"
-#include "warn.hh"
+#include "engraver.hh"
 #include "grob-properties.hh"
+#include "listener.hh"
 #include "stream-event.hh"
 #include "translator.icc"
+#include "warn.hh"
 
 class Grace_engraver : public Engraver
 {
   Moment last_moment_;
   SCM grace_settings_;
   void consider_change_grace_settings ();
+
 protected:
   void derived_mark () const override;
   virtual void process_music ();
@@ -41,19 +42,14 @@ protected:
   void grace_change (SCM);
 };
 
-Grace_engraver::Grace_engraver (Context *c)
-  : Engraver (c)
+Grace_engraver::Grace_engraver (Context *c) : Engraver (c)
 {
   grace_settings_ = SCM_EOL;
   last_moment_ = Moment (Rational (-1, 1));
 }
 
 // The iterator should usually come before process_music
-void
-Grace_engraver::grace_change (SCM)
-{
-  consider_change_grace_settings ();
-}
+void Grace_engraver::grace_change (SCM) { consider_change_grace_settings (); }
 
 // if we are in grace time already on initialization, it is unlikely
 // that we'll receive a GraceChange event from the grace iterator yet,
@@ -101,7 +97,8 @@ Grace_engraver::consider_change_grace_settings ()
           SCM grob = scm_cadr (elt);
           SCM cell = scm_cddr (elt);
 
-          Grob_property_info (unsmob<Context> (context), grob).matched_pop (cell);
+          Grob_property_info (unsmob<Context> (context), grob)
+              .matched_pop (cell);
         }
       grace_settings_ = SCM_EOL;
     }
@@ -125,8 +122,8 @@ Grace_engraver::consider_change_grace_settings ()
           if (c)
             {
               SCM cell = Grob_property_info (c, grob).push (sym, val);
-              grace_settings_
-                = scm_cons (scm_cons2 (c->self_scm (), grob, cell), grace_settings_);
+              grace_settings_ = scm_cons (
+                  scm_cons2 (c->self_scm (), grob, cell), grace_settings_);
             }
           else
             programming_error ("cannot find context from graceSettings: "
@@ -136,7 +133,8 @@ Grace_engraver::consider_change_grace_settings ()
   if (last_moment_ == Rational (-1))
     {
       Dispatcher *d = context ()->event_source ();
-      d->add_listener (GET_LISTENER (Grace_engraver, grace_change), ly_symbol2scm ("GraceChange"));
+      d->add_listener (GET_LISTENER (Grace_engraver, grace_change),
+                       ly_symbol2scm ("GraceChange"));
     }
   last_moment_ = now;
 }
@@ -147,7 +145,8 @@ Grace_engraver::finalize ()
   if (last_moment_ != Rational (-1))
     {
       Dispatcher *d = context ()->event_source ();
-      d->remove_listener (GET_LISTENER (Grace_engraver, grace_change), ly_symbol2scm ("GraceChange"));
+      d->remove_listener (GET_LISTENER (Grace_engraver, grace_change),
+                          ly_symbol2scm ("GraceChange"));
     }
 }
 
@@ -161,7 +160,6 @@ Grace_engraver::derived_mark () const
 void
 Grace_engraver::boot ()
 {
-
 }
 
 ADD_TRANSLATOR (Grace_engraver,
@@ -175,5 +173,4 @@ ADD_TRANSLATOR (Grace_engraver,
                 "graceSettings ",
 
                 /* write */
-                ""
-               );
+                "");

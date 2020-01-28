@@ -17,13 +17,13 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "dot-column.hh"
 #include "engraver.hh"
+#include "item.hh"
+#include "note-column.hh"
+#include "pointer-group-interface.hh"
 #include "rhythmic-head.hh"
 #include "stem.hh"
-#include "note-column.hh"
-#include "item.hh"
-#include "dot-column.hh"
-#include "pointer-group-interface.hh"
 
 #include "translator.icc"
 
@@ -61,8 +61,8 @@ class Rhythmic_column_engraver : public Engraver
   Grob *note_column_;
 
   TRANSLATOR_DECLARATIONS (Rhythmic_column_engraver);
-protected:
 
+protected:
   void acknowledge_stem (Grob_info);
   void acknowledge_flag (Grob_info);
   void acknowledge_rhythmic_head (Grob_info);
@@ -70,8 +70,7 @@ protected:
   void stop_translation_timestep ();
 };
 
-Rhythmic_column_engraver::Rhythmic_column_engraver (Context *c)
-  : Engraver (c)
+Rhythmic_column_engraver::Rhythmic_column_engraver (Context *c) : Engraver (c)
 {
 
   stem_ = 0;
@@ -96,8 +95,7 @@ Rhythmic_column_engraver::process_acknowledged ()
 
   if (note_column_)
     {
-      if (stem_
-          && !stem_->get_parent (X_AXIS))
+      if (stem_ && !stem_->get_parent (X_AXIS))
         {
           Note_column::set_stem (note_column_, stem_);
           stem_ = 0;
@@ -105,7 +103,8 @@ Rhythmic_column_engraver::process_acknowledged ()
 
       if (flag_)
         {
-          Pointer_group_interface::add_grob (note_column_, ly_symbol2scm ("elements"), flag_);
+          Pointer_group_interface::add_grob (note_column_,
+                                             ly_symbol2scm ("elements"), flag_);
           flag_ = 0;
         }
     }
@@ -137,7 +136,6 @@ Rhythmic_column_engraver::stop_translation_timestep ()
   flag_ = 0;
 }
 
-
 void
 Rhythmic_column_engraver::boot ()
 {
@@ -158,5 +156,4 @@ ADD_TRANSLATOR (Rhythmic_column_engraver,
                 "",
 
                 /* write */
-                ""
-               );
+                "");

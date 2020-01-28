@@ -19,12 +19,14 @@
 
 #include "rest-collision.hh"
 
-#include <cmath>                // ceil.
+#include <cmath> // ceil.
 
 #include "directional-element-interface.hh"
 #include "duration.hh"
+#include "grob.hh"
 #include "international.hh"
 #include "item.hh"
+#include "lily-imports.hh"
 #include "note-column.hh"
 #include "output-def.hh"
 #include "pointer-group-interface.hh"
@@ -32,14 +34,13 @@
 #include "rhythmic-head.hh"
 #include "staff-symbol-referencer.hh"
 #include "stem.hh"
-#include "grob.hh"
 #include "unpure-pure-container.hh"
 #include "warn.hh"
-#include "lily-imports.hh"
 
 using std::vector;
 
-MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Rest_collision, force_shift_callback_rest, 2, 1, "");
+MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Rest_collision, force_shift_callback_rest, 2,
+                                   1, "");
 SCM
 Rest_collision::force_shift_callback_rest (SCM rest, SCM offset)
 {
@@ -58,7 +59,7 @@ Rest_collision::force_shift_callback_rest (SCM rest, SCM offset)
       Grob *collision = unsmob<Grob> (parent->get_object ("rest-collision"));
 
       if (collision)
-        (void) collision->get_property ("positioning-done");
+        (void)collision->get_property ("positioning-done");
     }
 
   return scm_from_double (0.0);
@@ -75,9 +76,9 @@ Rest_collision::add_column (Grob *me, Grob *p)
   if (rest)
     {
       chain_offset_callback (rest,
-                             Unpure_pure_container::make_smob
-                             (Rest_collision::force_shift_callback_rest_proc,
-                              Lily::pure_chain_offset_callback),
+                             Unpure_pure_container::make_smob (
+                                 Rest_collision::force_shift_callback_rest_proc,
+                                 Lily::pure_chain_offset_callback),
                              Y_AXIS);
     }
 }
@@ -143,7 +144,7 @@ Rest_collision::calc_positioning_done (SCM smob)
         This is incomplete: in case of an uneven number of rests, the
         center one should be centered on the staff.
       */
-      Drul_array<vector<Grob *> > ordered_rests;
+      Drul_array<vector<Grob *>> ordered_rests;
       for (vsize i = 0; i < rests.size (); i++)
         {
           Grob *r = Note_column::get_rest (rests[i]);
@@ -152,7 +153,8 @@ Rest_collision::calc_positioning_done (SCM smob)
           if (d)
             ordered_rests[d].push_back (r);
           else
-            rests[d]->warning (_ ("cannot resolve rest collision: rest direction not set"));
+            rests[d]->warning (
+                _ ("cannot resolve rest collision: rest direction not set"));
         }
 
       for (LEFT_and_RIGHT (d))
@@ -172,19 +174,17 @@ Rest_collision::calc_positioning_done (SCM smob)
       Grob *common = common_refpoint_of_array (ordered_rests[DOWN], me, Y_AXIS);
       common = common_refpoint_of_array (ordered_rests[UP], common, Y_AXIS);
 
-      Real diff
-        = (ordered_rests[DOWN].back ()->extent (common, Y_AXIS)[UP]
-           - ordered_rests[UP].back ()->extent (common, Y_AXIS)[DOWN]) / staff_space;
+      Real diff = (ordered_rests[DOWN].back ()->extent (common, Y_AXIS)[UP]
+                   - ordered_rests[UP].back ()->extent (common, Y_AXIS)[DOWN])
+                  / staff_space;
 
       if (diff > 0)
         {
-          int amount_down = (int) ceil (diff / 2);
+          int amount_down = (int)ceil (diff / 2);
           diff -= amount_down;
-          Rest::translate (ordered_rests[DOWN].back (),
-                           -2 * amount_down);
+          Rest::translate (ordered_rests[DOWN].back (), -2 * amount_down);
           if (diff > 0)
-            Rest::translate (ordered_rests[UP].back (),
-                             2 * int (ceil (diff)));
+            Rest::translate (ordered_rests[UP].back (), 2 * int (ceil (diff)));
         }
 
       for (LEFT_and_RIGHT (d))
@@ -196,7 +196,7 @@ Rest_collision::calc_positioning_done (SCM smob)
 
               Real diff = d * ((last_y - y) / staff_space);
               if (diff > 0)
-                Rest::translate (ordered_rests[d][i], d * (int) ceil (diff) * 2);
+                Rest::translate (ordered_rests[d][i], d * (int)ceil (diff) * 2);
             }
         }
     }
@@ -228,7 +228,9 @@ Rest_collision::calc_positioning_done (SCM smob)
             continue;
 
           Real staff_space = Staff_symbol_referencer::staff_space (rcol);
-          Real minimum_dist = robust_scm2double (me->get_property ("minimum-distance"), 1.0) * staff_space;
+          Real minimum_dist
+              = robust_scm2double (me->get_property ("minimum-distance"), 1.0)
+                * staff_space;
 
           Interval notedim;
           for (vsize i = 0; i < notes.size (); i++)
@@ -236,8 +238,10 @@ Rest_collision::calc_positioning_done (SCM smob)
               if (Note_column::dir (notes[i]) == -dir
                   // If the note has already happened (but it has a long
                   // duration, so there is a collision), don't look at the stem.
-                  // If we do, the rest gets shifted down a lot and it looks bad.
-                  || dynamic_cast<Item *> (notes[i])->get_column () != dynamic_cast<Item *> (rest)->get_column ())
+                  // If we do, the rest gets shifted down a lot and it looks
+                  // bad.
+                  || dynamic_cast<Item *> (notes[i])->get_column ()
+                         != dynamic_cast<Item *> (rest)->get_column ())
                 {
                   /* try not to look at the stem, as looking at a beamed
                      note may trigger beam positioning prematurely.
@@ -255,8 +259,9 @@ Rest_collision::calc_positioning_done (SCM smob)
                 notedim.unite (notes[i]->extent (common, Y_AXIS));
             }
 
-          Real y = dir * std::max (0.0,
-                              -dir * restdim[-dir] + dir * notedim[dir] + minimum_dist);
+          Real y = dir
+                   * std::max (0.0, -dir * restdim[-dir] + dir * notedim[dir]
+                                        + minimum_dist);
 
           // move discretely by half spaces.
           int discrete_y = dir * int (ceil (y / (0.5 * dir * staff_space)));
@@ -264,8 +269,8 @@ Rest_collision::calc_positioning_done (SCM smob)
           Interval staff_span = Staff_symbol_referencer::staff_span (rest);
           staff_span.widen (1);
           // move by whole spaces inside the staff.
-          if (staff_span.contains
-              (Staff_symbol_referencer::get_position (rest) + discrete_y))
+          if (staff_span.contains (Staff_symbol_referencer::get_position (rest)
+                                   + discrete_y))
             {
               discrete_y = dir * int (ceil (dir * discrete_y / 2.0) * 2.0);
             }
@@ -285,6 +290,4 @@ ADD_INTERFACE (Rest_collision,
                /* properties */
                "minimum-distance "
                "positioning-done "
-               "elements "
-              );
-
+               "elements ");

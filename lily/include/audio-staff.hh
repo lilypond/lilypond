@@ -20,10 +20,10 @@
 #ifndef AUDIO_STAFF_HH
 #define AUDIO_STAFF_HH
 
-#include "std-vector.hh"
+#include "audio-element.hh"
 #include "lily-proto.hh"
 #include "moment.hh"
-#include "audio-element.hh"
+#include "std-vector.hh"
 
 class Audio_staff : public Audio_element
 {

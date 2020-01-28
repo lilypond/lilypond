@@ -20,8 +20,8 @@
 #ifndef DOTS_HH
 #define DOTS_HH
 
-#include "lily-proto.hh"
 #include "grob-interface.hh"
+#include "lily-proto.hh"
 
 class Dots
 {

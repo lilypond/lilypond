@@ -20,10 +20,10 @@
 #ifndef MUSIC_ITERATOR_HH
 #define MUSIC_ITERATOR_HH
 
-#include "std-vector.hh"
-#include "moment.hh"
-#include "virtual-methods.hh"
 #include "context-handle.hh"
+#include "moment.hh"
+#include "std-vector.hh"
+#include "virtual-methods.hh"
 
 /**
    ---
@@ -63,16 +63,18 @@ class Music_iterator : public Smob<Music_iterator>
 public:
   int print_smob (SCM, scm_print_state *) const;
   SCM mark_smob () const;
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
   virtual ~Music_iterator ();
+
 protected:
   Moment music_length_;
   Moment start_mom_;
 
   VIRTUAL_CLASS_NAME (Music_iterator);
+
 private:
   Music_iterator (Music_iterator const &) = delete;
-  Music_iterator& operator= (Music_iterator const &) = delete;
+  Music_iterator &operator= (Music_iterator const &) = delete;
 
 public:
   Moment music_get_length () const;
@@ -102,6 +104,7 @@ public:
   SCM get_iterator (Music *) const;
 
   Music *get_music () const;
+
 protected:
   virtual void do_quit ();
   void descend_to_child (Context *);
@@ -113,16 +116,14 @@ private:
 
 bool is_child_context (Context *me, Context *child);
 
-#define IMPLEMENT_CTOR_CALLBACK(Class)                                  \
-  LY_DEFINE_MEMBER_FUNCTION (Class, constructor, \
-                             mangle_cxx_identifier (std::string (#Class) + "::constructor").c_str(), \
-                             0, 0, 0,                                   \
-                             (),                                        \
-                             "")                                        \
-  {                                                                     \
-    Class *c = (new Class);                                             \
-    return c->unprotect ();                                             \
+#define IMPLEMENT_CTOR_CALLBACK(Class)                                         \
+  LY_DEFINE_MEMBER_FUNCTION (                                                  \
+      Class, constructor,                                                      \
+      mangle_cxx_identifier (std::string (#Class) + "::constructor").c_str (), \
+      0, 0, 0, (), "")                                                         \
+  {                                                                            \
+    Class *c = (new Class);                                                    \
+    return c->unprotect ();                                                    \
   }
-
 
 #endif // MUSIC_ITERATOR_HH

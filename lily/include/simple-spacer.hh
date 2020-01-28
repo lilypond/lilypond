@@ -20,10 +20,10 @@
 #ifndef SIMPLE_SPACER_HH
 #define SIMPLE_SPACER_HH
 
-#include "std-vector.hh"
 #include "lily-proto.hh"
-#include "spring.hh"
 #include "smobs.hh"
+#include "spring.hh"
+#include "std-vector.hh"
 
 class Simple_spacer : public Simple_smob<Simple_spacer>
 {
@@ -43,7 +43,6 @@ public:
   Real force_penalty (bool ragged) const;
   bool fits () const;
 
-
 private:
   Real expand_line ();
   Real compress_line ();
@@ -58,13 +57,10 @@ private:
 
 /* returns a vector of dimensions breaks.size () * breaks.size () */
 std::vector<Real> get_line_forces (std::vector<Paper_column *> const &columns,
-                              Real line_len,
-                              Real indent,
-                              bool ragged);
+                                   Real line_len, Real indent, bool ragged);
 
-Column_x_positions get_line_configuration (std::vector<Paper_column *> const &columns,
-                                           Real line_len,
-                                           Real indent,
-                                           bool ragged);
+Column_x_positions
+get_line_configuration (std::vector<Paper_column *> const &columns,
+                        Real line_len, Real indent, bool ragged);
 
 #endif /* SIMPLE_SPACER_HH */

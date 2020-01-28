@@ -26,7 +26,7 @@
 class Sources
 {
   Sources (Sources const &) = delete;
-  Sources& operator= (Sources const &) = delete;
+  Sources &operator= (Sources const &) = delete;
 
   std::vector<Source_file *> sourcefiles_;
 

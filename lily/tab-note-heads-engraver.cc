@@ -1,7 +1,8 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2002--2020 Han-Wen Nienhuys, Jean-Baptiste Lamy <jiba@tuxfamily.org>,
+  Copyright (C) 2002--2020 Han-Wen Nienhuys, Jean-Baptiste Lamy
+  <jiba@tuxfamily.org>,
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -22,8 +23,8 @@
 
 #include "engraver.hh"
 
-
 #include "articulations.hh"
+#include "context.hh"
 #include "duration.hh"
 #include "item.hh"
 #include "output-def.hh"
@@ -31,7 +32,6 @@
 #include "rhythmic-head.hh"
 #include "stream-event.hh"
 #include "warn.hh"
-#include "context.hh"
 
 #include "translator.icc"
 
@@ -58,10 +58,7 @@ protected:
   void stop_translation_timestep ();
 };
 
-Tab_note_heads_engraver::Tab_note_heads_engraver (Context *c)
-  : Engraver (c)
-{
-}
+Tab_note_heads_engraver::Tab_note_heads_engraver (Context *c) : Engraver (c) {}
 
 void
 Tab_note_heads_engraver::listen_note (Stream_event *ev)
@@ -84,21 +81,16 @@ Tab_note_heads_engraver::listen_fingering (Stream_event *ev)
 void
 Tab_note_heads_engraver::process_music ()
 {
-  SCM tab_strings = articulation_list (note_events_,
-                                       tabstring_events_,
+  SCM tab_strings = articulation_list (note_events_, tabstring_events_,
                                        "string-number-event");
-  SCM defined_fingers = articulation_list (note_events_,
-                                           fingering_events_,
-                                           "fingering-event");
+  SCM defined_fingers
+      = articulation_list (note_events_, fingering_events_, "fingering-event");
   SCM tab_notes = ly_cxx_vector_to_list (note_events_);
   SCM proc = get_property ("noteToFretFunction");
   SCM string_fret_finger = SCM_EOL;
   if (ly_is_procedure (proc))
-    string_fret_finger = scm_call_3 (proc,
-                                     context ()->self_scm (),
-                                     tab_notes,
-                                     scm_list_2 (tab_strings,
-                                                 defined_fingers));
+    string_fret_finger = scm_call_3 (proc, context ()->self_scm (), tab_notes,
+                                     scm_list_2 (tab_strings, defined_fingers));
   SCM note_entry = SCM_EOL;
   SCM string_number = SCM_EOL;
   SCM fret = SCM_EOL;
@@ -106,7 +98,7 @@ Tab_note_heads_engraver::process_music ()
   SCM fret_procedure = get_property ("tablatureFormat");
   SCM staff_line_procedure = get_property ("tabStaffLineLayoutFunction");
   SCM staff_position = SCM_EOL;
-  vsize fret_count = (vsize) scm_ilength (string_fret_finger);
+  vsize fret_count = (vsize)scm_ilength (string_fret_finger);
   bool length_changed = (note_events_.size () != fret_count);
   vsize index;
 
@@ -118,16 +110,14 @@ Tab_note_heads_engraver::process_music ()
         if (scm_is_true (string_number))
           {
             fret = scm_cadr (note_entry);
-            fret_label = scm_call_3 (fret_procedure,
-                                     context ()->self_scm (),
-                                     string_number,
-                                     fret);
+            fret_label = scm_call_3 (fret_procedure, context ()->self_scm (),
+                                     string_number, fret);
             index = length_changed ? 0 : i;
-            Item *note = make_item ("TabNoteHead", note_events_[index]->self_scm ());
+            Item *note
+                = make_item ("TabNoteHead", note_events_[index]->self_scm ());
             note->set_property ("text", fret_label);
-            staff_position = scm_call_2 (staff_line_procedure,
-                                         context ()->self_scm (),
-                                         string_number);
+            staff_position = scm_call_2 (
+                staff_line_procedure, context ()->self_scm (), string_number);
             note->set_property ("staff-position", staff_position);
           }
       }
@@ -171,6 +161,4 @@ ADD_TRANSLATOR (Tab_note_heads_engraver,
                 "tabStaffLineLayoutFunction ",
 
                 /* write */
-                ""
-               );
-
+                "");

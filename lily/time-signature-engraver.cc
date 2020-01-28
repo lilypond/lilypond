@@ -19,8 +19,8 @@
 
 #include "engraver-group.hh"
 
-#include "item.hh"
 #include "international.hh"
+#include "item.hh"
 #include "misc.hh"
 #include "moment.hh"
 #include "stream-event.hh"
@@ -41,6 +41,7 @@ protected:
   void derived_mark () const override;
   void stop_translation_timestep ();
   void process_music ();
+
 public:
   TRANSLATOR_DECLARATIONS (Time_signature_engraver);
   void listen_time_signature (Stream_event *);
@@ -53,8 +54,7 @@ Time_signature_engraver::derived_mark () const
   scm_gc_mark (time_cause_);
 }
 
-Time_signature_engraver::Time_signature_engraver (Context *c)
-  : Engraver (c)
+Time_signature_engraver::Time_signature_engraver (Context *c) : Engraver (c)
 {
   time_signature_ = 0;
   time_cause_ = SCM_EOL;
@@ -80,8 +80,9 @@ Time_signature_engraver::process_music ()
       time_signature_->set_property ("fraction", fr);
 
       if (scm_is_false (last_time_fraction_))
-        time_signature_->set_property ("break-visibility",
-                                       get_property ("initialTimeSignatureVisibility"));
+        time_signature_->set_property (
+            "break-visibility",
+            get_property ("initialTimeSignatureVisibility"));
 
       int den = scm_to_int (scm_cdr (fr));
       if (den != (1 << intlog2 (den)))
@@ -92,8 +93,7 @@ Time_signature_engraver::process_music ()
             OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
           */
           time_signature_->warning (_f ("strange time signature found: %d/%d",
-                                        int (scm_to_int (scm_car (fr))),
-                                        den));
+                                        int (scm_to_int (scm_car (fr))), den));
         }
 
       last_time_fraction_ = fr;
@@ -108,7 +108,8 @@ Time_signature_engraver::stop_translation_timestep ()
       Moment *mp = unsmob<Moment> (get_property ("measurePosition"));
       if (mp && (mp->main_part_ > Rational (0))
           && !to_boolean (get_property ("partialBusy")))
-        time_signature_->warning ("mid-measure time signature without \\partial");
+        time_signature_->warning (
+            "mid-measure time signature without \\partial");
     }
 
   time_signature_ = 0;
@@ -135,5 +136,4 @@ ADD_TRANSLATOR (Time_signature_engraver,
                 "timeSignatureFraction ",
 
                 /* write */
-                ""
-               );
+                "");

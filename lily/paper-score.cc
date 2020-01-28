@@ -21,6 +21,7 @@
 
 #include "all-font-metrics.hh"
 #include "book.hh"
+#include "constrained-breaking.hh"
 #include "international.hh"
 #include "main.hh"
 #include "misc.hh"
@@ -32,7 +33,6 @@
 #include "stencil.hh"
 #include "system.hh"
 #include "warn.hh"
-#include "constrained-breaking.hh"
 
 using std::vector;
 
@@ -128,8 +128,7 @@ void
 Paper_score::process ()
 {
   debug_output (_f ("Element count %zu (spanners %zu) ",
-                    system_->element_count (),
-                    system_->spanner_count ()));
+                    system_->element_count (), system_->spanner_count ()));
 
   message (_ ("Preprocessing graphical objects..."));
 

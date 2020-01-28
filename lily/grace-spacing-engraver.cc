@@ -30,7 +30,6 @@ class Grace_spacing_engraver : public Engraver
   TRANSLATOR_DECLARATIONS (Grace_spacing_engraver);
 
 protected:
-
   Moment last_moment_;
   Spanner *grace_spacing_;
 
@@ -38,8 +37,7 @@ protected:
   void stop_translation_timestep ();
 };
 
-Grace_spacing_engraver::Grace_spacing_engraver (Context *c)
-  : Engraver (c)
+Grace_spacing_engraver::Grace_spacing_engraver (Context *c) : Engraver (c)
 {
   grace_spacing_ = 0;
 }
@@ -57,8 +55,7 @@ Grace_spacing_engraver::process_music ()
     {
       Grob *column = unsmob<Grob> (get_property ("currentMusicalColumn"));
       Pointer_group_interface::add_grob (grace_spacing_,
-                                         ly_symbol2scm ("columns"),
-                                         column);
+                                         ly_symbol2scm ("columns"), column);
 
       column->set_object ("grace-spacing", grace_spacing_->self_scm ());
 
@@ -81,7 +78,6 @@ Grace_spacing_engraver::stop_translation_timestep ()
 void
 Grace_spacing_engraver::boot ()
 {
-
 }
 
 ADD_TRANSLATOR (Grace_spacing_engraver,
@@ -95,5 +91,4 @@ ADD_TRANSLATOR (Grace_spacing_engraver,
                 "currentMusicalColumn ",
 
                 /* write */
-                ""
-               );
+                "");

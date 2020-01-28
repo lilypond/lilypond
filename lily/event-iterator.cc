@@ -26,9 +26,7 @@
 #include "music.hh"
 #include "warn.hh"
 
-Event_iterator::Event_iterator ()
-{
-}
+Event_iterator::Event_iterator () {}
 
 void
 Event_iterator::construct_children ()

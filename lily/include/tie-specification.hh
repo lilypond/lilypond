@@ -20,8 +20,8 @@
 #ifndef TIE_SPECIFICATION_HH
 #define TIE_SPECIFICATION_HH
 
-#include "lily-proto.hh"
 #include "drul-array.hh"
+#include "lily-proto.hh"
 
 struct Tie_specification
 {
@@ -44,4 +44,3 @@ struct Tie_specification
 };
 
 #endif /* TIE_SPECIFICATION_HH */
-

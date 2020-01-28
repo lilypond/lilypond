@@ -39,10 +39,7 @@ Midi_stream::Midi_stream (const string &file_name)
     error (_f ("cannot open for write: %s: %s", file_name, strerror (errno)));
 }
 
-Midi_stream::~Midi_stream ()
-{
-  fclose (out_file_);
-}
+Midi_stream::~Midi_stream () { fclose (out_file_); }
 
 void
 Midi_stream::write (const string &str)
@@ -62,4 +59,3 @@ Midi_stream::write (Midi_chunk const &midi)
 
   return write (str);
 }
-

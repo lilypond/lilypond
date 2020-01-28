@@ -20,15 +20,15 @@
 #ifndef TRANSLATOR_HH
 #define TRANSLATOR_HH
 
-#include "global-ctor.hh"
-#include "lily-proto.hh"
-#include "virtual-methods.hh"
 #include "callback.hh"
-#include "input.hh"             // for error reporting
-#include "smobs.hh"
-#include "stream-event.hh"
-#include "std-vector.hh"
+#include "global-ctor.hh"
+#include "input.hh" // for error reporting
+#include "lily-proto.hh"
 #include "protected-scm.hh"
+#include "smobs.hh"
+#include "std-vector.hh"
+#include "stream-event.hh"
+#include "virtual-methods.hh"
 
 // The Translator_creator class is only for translators defined in C.
 // Its elements are callable entities taking a context argument and
@@ -44,65 +44,61 @@
 class Translator_creator : public Smob<Translator_creator>
 {
   Translator_creator (Translator_creator const &); // don't define
-  Translator * (*allocate_)(Context *);
-  template <class T>
-  static Translator *allocate (Context *ctx);
+  Translator *(*allocate_) (Context *);
+  template <class T> static Translator *allocate (Context *ctx);
 
-  Translator_creator (Translator * (*allocate)(Context *))
-    : allocate_(allocate)
+  Translator_creator (Translator *(*allocate) (Context *))
+      : allocate_ (allocate)
   {
     smobify_self ();
   }
+
 public:
   // This is stupid, but constructors cannot have explicit template
   // argument lists.
-  template <class T>
-  static Translator_creator *alloc()
+  template <class T> static Translator_creator *alloc ()
   {
-    return new Translator_creator(&allocate<T>);
+    return new Translator_creator (&allocate<T>);
   }
   SCM call (SCM ctx);
   LY_DECLARE_SMOB_PROC (&Translator_creator::call, 1, 0, 0);
 };
 
-template <class T> Translator *
+template <class T>
+Translator *
 Translator_creator::allocate (Context *ctx)
 {
-  return new T(ctx);
+  return new T (ctx);
 }
 
-#define TRANSLATOR_FAMILY_DECLARATIONS(NAME)                            \
-  public:                                                               \
-  OVERRIDE_CLASS_NAME (NAME);                                           \
-  void fetch_precomputable_methods (SCM methods[]) override;            \
-  /* Fallback for non-overriden callbacks for which &T::x degrades to   \
-     &Translator::x */                                                  \
-  template <void (Translator::*)()>                                     \
-  static SCM method_finder ()                                           \
-  {                                                                     \
-    return SCM_UNDEFINED;                                               \
-  }                                                                     \
-  DECLARE_TRANSLATOR_CALLBACKS (NAME)                                   \
+#define TRANSLATOR_FAMILY_DECLARATIONS(NAME)                                   \
+public:                                                                        \
+  OVERRIDE_CLASS_NAME (NAME);                                                  \
+  void fetch_precomputable_methods (SCM methods[]) override;                   \
+  /* Fallback for non-overriden callbacks for which &T::x degrades to          \
+     &Translator::x */                                                         \
+  template <void (Translator::*) ()> static SCM method_finder ()               \
+  {                                                                            \
+    return SCM_UNDEFINED;                                                      \
+  }                                                                            \
+  DECLARE_TRANSLATOR_CALLBACKS (NAME)                                          \
   /* end #define */
 
-#define TRANSLATOR_INHERIT(BASE)                                        \
-  DECLARE_TRANSLATOR_CALLBACKS (BASE)
+#define TRANSLATOR_INHERIT(BASE) DECLARE_TRANSLATOR_CALLBACKS (BASE)
 
-#define DECLARE_TRANSLATOR_CALLBACKS(NAME)                              \
-  template <void (NAME::*mf)()>                                         \
-  static SCM method_finder ()                                           \
-  {                                                                     \
-    return Callback0_wrapper::make_smob<NAME, mf> ();                   \
-  }                                                                     \
-  template <void (NAME::*mf)(Stream_event *)>                           \
-  static SCM method_finder ()                                           \
-  {                                                                     \
-    return Callback_wrapper::make_smob<trampoline<NAME, mf> > ();       \
-  }                                                                     \
-  template <void (NAME::*mf)(Grob_info)>                                \
-  static SCM method_finder () {                                         \
-    return Callback2_wrapper::make_smob<trampoline <NAME, mf> > ();     \
-  }                                                                     \
+#define DECLARE_TRANSLATOR_CALLBACKS(NAME)                                     \
+  template <void (NAME::*mf) ()> static SCM method_finder ()                   \
+  {                                                                            \
+    return Callback0_wrapper::make_smob<NAME, mf> ();                          \
+  }                                                                            \
+  template <void (NAME::*mf) (Stream_event *)> static SCM method_finder ()     \
+  {                                                                            \
+    return Callback_wrapper::make_smob<trampoline<NAME, mf>> ();               \
+  }                                                                            \
+  template <void (NAME::*mf) (Grob_info)> static SCM method_finder ()          \
+  {                                                                            \
+    return Callback2_wrapper::make_smob<trampoline<NAME, mf>> ();              \
+  }                                                                            \
   /* end #define */
 
 /*
@@ -112,24 +108,22 @@ Translator_creator::allocate (Context *ctx)
   announced in a context.
 */
 
-#define TRANSLATOR_DECLARATIONS(NAME)                                   \
-  public:                                                               \
-  TRANSLATOR_FAMILY_DECLARATIONS (NAME);                                \
-  static Drul_array<Protected_scm> acknowledge_static_array_drul_;      \
-  static Protected_scm listener_list_;                                  \
-  static SCM static_get_acknowledger (SCM sym, Direction start_end);    \
-  SCM get_acknowledger (SCM sym, Direction start_end) override          \
-  {                                                                     \
-    return static_get_acknowledger (sym, start_end);                    \
-  }                                                                     \
-public:                                                                 \
-  NAME (Context *);                                                     \
-  static void boot ();                                                  \
-  static SCM static_translator_description ();                          \
-  SCM get_listener_list () const override                               \
-  {                                                                     \
-    return listener_list_;                                              \
-  }                                                                     \
+#define TRANSLATOR_DECLARATIONS(NAME)                                          \
+public:                                                                        \
+  TRANSLATOR_FAMILY_DECLARATIONS (NAME);                                       \
+  static Drul_array<Protected_scm> acknowledge_static_array_drul_;             \
+  static Protected_scm listener_list_;                                         \
+  static SCM static_get_acknowledger (SCM sym, Direction start_end);           \
+  SCM get_acknowledger (SCM sym, Direction start_end) override                 \
+  {                                                                            \
+    return static_get_acknowledger (sym, start_end);                           \
+  }                                                                            \
+                                                                               \
+public:                                                                        \
+  NAME (Context *);                                                            \
+  static void boot ();                                                         \
+  static SCM static_translator_description ();                                 \
+  SCM get_listener_list () const override { return listener_list_; }           \
   /* end #define */
 
 enum Translator_precompute_index
@@ -149,7 +143,7 @@ class Translator : public Smob<Translator>
 public:
   int print_smob (SCM, scm_print_state *) const;
   SCM mark_smob () const;
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
   virtual ~Translator ();
 
   Context *context () const { return daddy_context_; }
@@ -162,13 +156,13 @@ protected:
 
 private:
   Translator (Translator const &) = delete;
-  Translator& operator= (Translator const &) = delete;
-public:
+  Translator &operator= (Translator const &) = delete;
 
+public:
   SCM internal_get_property (SCM symbol) const;
 
   virtual Output_def *get_output_def () const;
-  virtual Translator_group *get_daddy_translator ()const;
+  virtual Translator_group *get_daddy_translator () const;
   virtual Moment now_mom () const;
   virtual bool must_be_last () const;
 
@@ -189,11 +183,11 @@ public:
   virtual SCM get_listener_list () const = 0;
   virtual SCM get_acknowledger (SCM sym, Direction start_end) = 0;
 
-protected:                      // should be private.
+protected: // should be private.
   Context *daddy_context_;
   void protect_event (SCM ev);
 
-  template <class T, void (T::*callback)(Stream_event *)>
+  template <class T, void (T::*callback) (Stream_event *)>
   static SCM trampoline (SCM target, SCM event)
   {
     T *t = unsmob<T> (target);
@@ -207,18 +201,14 @@ protected:                      // should be private.
 
   virtual void derived_mark () const;
   static SCM event_class_symbol (const char *ev_class);
-  static SCM
-  static_translator_description (const char *grobs,
-                                 const char *desc,
-                                 SCM listener_list,
-                                 const char *read,
-                                 const char *write);
+  static SCM static_translator_description (const char *grobs, const char *desc,
+                                            SCM listener_list, const char *read,
+                                            const char *write);
 
   friend class Translator_group;
 };
 
-SCM
-generic_get_acknowledger (SCM sym, SCM ack_hash);
+SCM generic_get_acknowledger (SCM sym, SCM ack_hash);
 
 void add_translator_creator (SCM creator, SCM name, SCM description);
 

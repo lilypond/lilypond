@@ -29,13 +29,14 @@ class Grob_array : public Simple_smob<Grob_array>
 public:
   int print_smob (SCM, scm_print_state *) const;
   SCM mark_smob () const;
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
+
 private:
   std::vector<Grob *> grobs_;
   bool ordered_;
 
-
   Grob_array ();
+
 public:
   bool ordered () const { return ordered_; }
   void set_ordered (bool b) { ordered_ = b; }
@@ -57,13 +58,12 @@ public:
   // Run a function on all grobs in this array.  If the function returns null,
   // remove the original grob, reducing the size of the array.  If the function
   // returns a Grob, replace the original grob with the returned Grob.
-  void filter_map (Grob * (*map_fun) (Grob *));
+  void filter_map (Grob *(*map_fun) (Grob *));
 
   // Like src.filter_map (f), but store the result in this array instead of
   // mutating the input.
-  void filter_map_assign (const Grob_array &src, Grob * (*map_fun) (Grob *));
+  void filter_map_assign (const Grob_array &src, Grob *(*map_fun) (Grob *));
 };
-
 
 std::vector<Grob *> const &ly_scm2link_array (SCM x);
 SCM grob_list_to_grob_array (SCM lst);

@@ -47,10 +47,7 @@ protected:
   void stop_translation_timestep ();
 };
 
-Note_heads_engraver::Note_heads_engraver (Context *c)
-  : Engraver (c)
-{
-}
+Note_heads_engraver::Note_heads_engraver (Context *c) : Engraver (c) {}
 
 void
 Note_heads_engraver::listen_note (Stream_event *ev)
@@ -104,11 +101,13 @@ Note_heads_engraver::process_music ()
           if (unsmob<Pitch> (scm_tonic))
             tonic = *unsmob<Pitch> (scm_tonic);
 
-          unsigned int delta = (pit->get_notename () - tonic.get_notename () + 7) % 7;
+          unsigned int delta
+              = (pit->get_notename () - tonic.get_notename () + 7) % 7;
 
           SCM style = SCM_EOL;
           if (scm_c_vector_length (shape_vector) > delta
-              && scm_is_symbol (scm_vector_ref (shape_vector, scm_from_int (delta))))
+              && scm_is_symbol (
+                  scm_vector_ref (shape_vector, scm_from_int (delta))))
             style = scm_vector_ref (shape_vector, scm_from_int (delta));
           if (scm_is_symbol (style))
             note->set_property ("style", style);
@@ -140,5 +139,4 @@ ADD_TRANSLATOR (Note_heads_engraver,
                 "staffLineLayoutFunction ",
 
                 /* write */
-                ""
-               );
+                "");

@@ -22,15 +22,14 @@
 
 #include <cmath>
 
+#include "drul-array.hh"
 #include "flower-proto.hh"
 #include "std-string.hh"
-#include "drul-array.hh"
 
 /* A T interval.  This represents the closed interval [left,right].
    No invariants.  T must be a totally ordered ring (with division, anyway ..)
    At instantiation, the function infinity () has to be defined explicitly. */
-template<class T>
-struct Interval_t : public Drul_array<T>
+template <class T> struct Interval_t : public Drul_array<T>
 {
   using Drul_array<T>::at;
 
@@ -77,35 +76,24 @@ struct Interval_t : public Drul_array<T>
   void unite_disjoint (Interval_t<T> h, T padding, Direction d);
   Interval_t<T> union_disjoint (Interval_t<T> h, T padding, Direction d) const;
 
-  bool is_empty () const
-  {
-    return at (LEFT) > at (RIGHT);
-  }
-  Interval_t ()
-  {
-    set_empty ();
-  }
-  Interval_t (Drul_array<T> const &src)
-    : Drul_array<T> (src)
-  {
-  }
+  bool is_empty () const { return at (LEFT) > at (RIGHT); }
+  Interval_t () { set_empty (); }
+  Interval_t (Drul_array<T> const &src) : Drul_array<T> (src) {}
 
-  Interval_t (T m, T M) : Drul_array<T> (m, M)
-  {
-  }
-  Interval_t<T> &operator -= (T r)
+  Interval_t (T m, T M) : Drul_array<T> (m, M) {}
+  Interval_t<T> &operator-= (T r)
   {
     *this += -r;
     return *this;
   }
 
-  Interval_t<T> &operator += (T r)
+  Interval_t<T> &operator+= (T r)
   {
     at (LEFT) += r;
     at (RIGHT) += r;
     return *this;
   }
-  Interval_t<T> &operator *= (T r)
+  Interval_t<T> &operator*= (T r)
   {
     if (!is_empty ())
       {
@@ -145,15 +133,14 @@ struct Interval_t : public Drul_array<T>
 /**
    inclusion ordering. Crash if not  comparable.
 */
-template<class T>
+template <class T>
 int Interval__compare (const Interval_t<T> &, Interval_t<T> const &);
 
 /**
    Inclusion ordering.  return -2 if not comparable
 */
-template<class T>
-int
-_Interval__compare (const Interval_t<T> &a, Interval_t<T> const &b);
+template <class T>
+int _Interval__compare (const Interval_t<T> &a, Interval_t<T> const &b);
 
 /*
   INLINE
@@ -161,9 +148,11 @@ _Interval__compare (const Interval_t<T> &a, Interval_t<T> const &b);
 
 #include "compare.hh"
 
-TEMPLATE_INSTANTIATE_COMPARE (Interval_t<T> &, Interval__compare, template<class T>);
+TEMPLATE_INSTANTIATE_COMPARE (Interval_t<T> &, Interval__compare,
+                              template <class T>
+);
 
-template<class T>
+template <class T>
 inline Interval_t<T>
 intersection (Interval_t<T> a, Interval_t<T> const &b)
 {
@@ -171,54 +160,50 @@ intersection (Interval_t<T> a, Interval_t<T> const &b)
   return a;
 }
 
-template<class T>
-inline
-Interval_t<T> operator + (T a, Interval_t<T> i)
+template <class T>
+inline Interval_t<T>
+operator+ (T a, Interval_t<T> i)
 {
   i += a;
   return i;
 }
 
-template<class T>
-inline
-Interval_t<T> operator - (Interval_t<T> i, T a)
+template <class T>
+inline Interval_t<T>
+operator- (Interval_t<T> i, T a)
 {
   i += -a;
   return i;
 }
 
-template<class T>
-inline
-Interval_t<T> operator - (T a, Interval_t<T> i)
+template <class T>
+inline Interval_t<T>
+operator- (T a, Interval_t<T> i)
 {
   i.negate ();
   i += a;
   return i;
 }
 
-template<class T>
-inline
-Interval_t<T> operator + (Interval_t<T> i, T a)
+template <class T>
+inline Interval_t<T>
+operator+ (Interval_t<T> i, T a)
 {
   return a + i;
 }
 
-template<class T>
-inline
-Interval_t<T> operator * (T a, Interval_t<T> i)
+template <class T> inline Interval_t<T> operator* (T a, Interval_t<T> i)
 {
   i *= a;
   return i;
 }
 
-template<class T>
-inline
-Interval_t<T> operator * (Interval_t<T> i, T a)
+template <class T> inline Interval_t<T> operator* (Interval_t<T> i, T a)
 {
   return a * i;
 }
 
-template<class T>
+template <class T>
 inline T
 Interval_t<T>::center () const
 {
@@ -227,8 +212,6 @@ Interval_t<T>::center () const
 }
 
 typedef Interval_t<Real> Interval;
-typedef Interval_t<int> Slice;  // weird name
-
+typedef Interval_t<int> Slice; // weird name
 
 #endif // INTERVAL_HH
-

@@ -16,14 +16,14 @@
   You should have received a copy of the GNU General Public License
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "engraver.hh"
-#include "protected-scm.hh"
-#include "break-align-interface.hh"
 #include "align-interface.hh"
 #include "axis-group-interface.hh"
+#include "break-align-interface.hh"
 #include "context.hh"
-#include "translator-group.hh"
+#include "engraver.hh"
 #include "item.hh"
+#include "protected-scm.hh"
+#include "translator-group.hh"
 
 #include "translator.icc"
 
@@ -35,9 +35,11 @@ class Break_align_engraver : public Engraver
 
   void add_to_group (SCM, Item *);
   void create_alignment (Grob_info);
+
 protected:
   void stop_translation_timestep ();
   void derived_mark () const override;
+
 public:
   TRANSLATOR_DECLARATIONS (Break_align_engraver);
   void acknowledge_break_aligned (Grob_info);
@@ -53,8 +55,7 @@ Break_align_engraver::stop_translation_timestep ()
   left_edge_ = 0;
 }
 
-Break_align_engraver::Break_align_engraver (Context *c)
-  : Engraver (c)
+Break_align_engraver::Break_align_engraver (Context *c) : Engraver (c)
 {
   column_alist_ = SCM_EOL;
   left_edge_ = 0;
@@ -127,8 +128,7 @@ Break_align_engraver::create_alignment (Grob_info inf)
     Make left edge appear to come from same engraver as clef/bar-line etc.
   */
   left_edge_ = random_source->make_item ("LeftEdge", SCM_EOL);
-  add_to_group (left_edge_->get_property ("break-align-symbol"),
-                left_edge_);
+  add_to_group (left_edge_->get_property ("break-align-symbol"), left_edge_);
 }
 
 void
@@ -149,7 +149,8 @@ Break_align_engraver::add_to_group (SCM align_name, Item *item)
       group->set_property ("break-align-symbol", align_name);
       group->set_parent (align_, Y_AXIS);
 
-      column_alist_ = scm_assoc_set_x (column_alist_, align_name, group->self_scm ());
+      column_alist_
+          = scm_assoc_set_x (column_alist_, align_name, group->self_scm ());
 
       Break_alignment_interface::add_element (align_, group);
     }
@@ -179,5 +180,4 @@ ADD_TRANSLATOR (Break_align_engraver,
                 "",
 
                 /* write */
-                ""
-               );
+                "");

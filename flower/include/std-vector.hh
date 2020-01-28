@@ -30,15 +30,15 @@
 #endif
 #endif
 
-#include "config.hh"   /* needed at least for HAVE_STL_DATA_METHOD */
-#include <algorithm>   /* find, reverse, sort */
-#include <functional>  /* unary_function */
+#include "config.hh" /* needed at least for HAVE_STL_DATA_METHOD */
+#include <algorithm> /* find, reverse, sort */
 #include <cassert>
+#include <functional> /* unary_function */
 #include <string>
 
-
-template<typename T>
-int default_compare (T const &a, T const &b)
+template <typename T>
+int
+default_compare (T const &a, T const &b)
 {
   if (a < b)
     return -1;
@@ -48,8 +48,9 @@ int default_compare (T const &a, T const &b)
     return 0;
 }
 
-template<typename T>
-int default_compare (T *const &a, T *const &b)
+template <typename T>
+int
+default_compare (T *const &a, T *const &b)
 {
   if (a < b)
     return -1;
@@ -64,12 +65,12 @@ int default_compare (T *const &a, T *const &b)
 #ifndef VSIZE
 #define VSIZE
 typedef size_t vsize;
-#define VPOS ((vsize) -1)
+#define VPOS ((vsize)-1)
 #endif
 
 #include <vector>
 
-template<typename T>
+template <typename T>
 T const &
 boundary (std::vector<T> const &v, int dir, vsize i)
 {
@@ -77,7 +78,7 @@ boundary (std::vector<T> const &v, int dir, vsize i)
   return v[dir == -1 ? i : v.size () - 1 - i];
 }
 
-template<typename T>
+template <typename T>
 T &
 boundary (std::vector<T> &v, int dir, vsize i)
 {
@@ -85,68 +86,58 @@ boundary (std::vector<T> &v, int dir, vsize i)
   return v[dir == -1 ? i : v.size () - 1 - i];
 }
 
-template<typename T>
+template <typename T>
 T const &
 back (std::vector<T> const &v, vsize i)
 {
   return v[v.size () - i - 1];
 }
 
-template<typename T>
+template <typename T>
 T &
 back (std::vector<T> &v, vsize i)
 {
   return v[v.size () - i - 1];
 }
 
-template<typename T>
+template <typename T>
 void
 concat (std::vector<T> &v, std::vector<T> const &w)
 {
   v.insert (v.end (), w.begin (), w.end ());
 }
 
-template<typename T, typename Compare>
+template <typename T, typename Compare>
 vsize
-lower_bound (std::vector<T> const &v,
-             T const &key,
-             Compare less,
-             vsize b = 0, vsize e = VPOS)
+lower_bound (std::vector<T> const &v, T const &key, Compare less, vsize b = 0,
+             vsize e = VPOS)
 {
   if (e == VPOS)
     e = v.size ();
-  typename std::vector<T>::const_iterator i = lower_bound (v.begin () + b,
-                                                      v.begin () + e,
-                                                      key,
-                                                      less);
+  typename std::vector<T>::const_iterator i
+      = lower_bound (v.begin () + b, v.begin () + e, key, less);
 
   return i - v.begin ();
 }
 
-template<typename T, typename Compare>
+template <typename T, typename Compare>
 vsize
-upper_bound (std::vector<T> const &v,
-             T const &key,
-             Compare less,
-             vsize b = 0, vsize e = VPOS)
+upper_bound (std::vector<T> const &v, T const &key, Compare less, vsize b = 0,
+             vsize e = VPOS)
 {
   if (e == VPOS)
     e = v.size ();
 
-  typename std::vector<T>::const_iterator i = upper_bound (v.begin () + b,
-                                                      v.begin () + e,
-                                                      key,
-                                                      less);
+  typename std::vector<T>::const_iterator i
+      = upper_bound (v.begin () + b, v.begin () + e, key, less);
 
   return i - v.begin ();
 }
 
-template<typename T, typename Compare>
+template <typename T, typename Compare>
 vsize
-binary_search (std::vector<T> const &v,
-               T const &key,
-               Compare less,
-               vsize b = 0, vsize e = VPOS)
+binary_search (std::vector<T> const &v, T const &key, Compare less, vsize b = 0,
+               vsize e = VPOS)
 {
   vsize lb = lower_bound (v, key, less, b, e);
 
@@ -155,11 +146,9 @@ binary_search (std::vector<T> const &v,
   return lb;
 }
 
-template<typename T, typename Compare>
+template <typename T, typename Compare>
 void
-vector_sort (std::vector<T> &v,
-             Compare less,
-             vsize b = 0, vsize e = VPOS)
+vector_sort (std::vector<T> &v, Compare less, vsize b = 0, vsize e = VPOS)
 {
   if (e == VPOS)
     e = v.size ();
@@ -167,11 +156,10 @@ vector_sort (std::vector<T> &v,
   sort (v.begin () + b, v.begin () + e, less);
 }
 
-template<typename T, typename Compare>
+template <typename T, typename Compare>
 void
-vector_stable_sort (std::vector<T> &v,
-             Compare less,
-             vsize b = 0, vsize e = VPOS)
+vector_stable_sort (std::vector<T> &v, Compare less, vsize b = 0,
+                    vsize e = VPOS)
 {
   if (e == VPOS)
     e = v.size ();
@@ -179,7 +167,7 @@ vector_stable_sort (std::vector<T> &v,
   stable_sort (v.begin () + b, v.begin () + e, less);
 }
 
-template<typename T>
+template <typename T>
 void
 reverse (std::vector<T> &v)
 {
@@ -188,30 +176,30 @@ reverse (std::vector<T> &v)
   reverse (v.begin (), v.end ());
 }
 
-template<typename T>
+template <typename T>
 void
 uniq (std::vector<T> &v)
 {
   v.erase (unique (v.begin (), v.end ()), v.end ());
 }
 
-template<typename T>
+template <typename T>
 typename std::vector<T>::const_iterator
 find (std::vector<T> const &v, T const &key)
 {
   return find (v.begin (), v.end (), key);
 }
 
-template<typename T> struct del : public std::unary_function<T, void>
+template <typename T> struct del : public std::unary_function<T, void>
 {
-  void operator () (T x)
+  void operator() (T x)
   {
     delete x;
     x = 0;
   }
 };
 
-template<typename T>
+template <typename T>
 void
 junk_pointers (std::vector<T> &v)
 {
@@ -221,6 +209,7 @@ junk_pointers (std::vector<T> &v)
 }
 
 std::vector<std::string> string_split (std::string str, char c);
-std::string string_join (std::vector<std::string> const &strs, const std::string &infix);
+std::string string_join (std::vector<std::string> const &strs,
+                         const std::string &infix);
 
 #endif /* STD_VECTOR_HH */

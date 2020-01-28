@@ -20,8 +20,8 @@
 #ifndef Script_COLUMN_HH
 #define Script_COLUMN_HH
 
-#include "lily-proto.hh"
 #include "grob-interface.hh"
+#include "lily-proto.hh"
 #include "std-vector.hh"
 
 class Script_column
@@ -31,8 +31,6 @@ public:
   DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM));
   DECLARE_SCHEME_CALLBACK (row_before_line_breaking, (SCM));
   static void order_grobs (std::vector<Grob *> grobs);
-
 };
 
 #endif /* Script_COLUMN_HH */
-

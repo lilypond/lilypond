@@ -70,4 +70,3 @@ int compare_position (Grob *const &, Grob *const &);
 bool position_less (Grob *const &, Grob *const &);
 bool pure_position_less (Grob *const &, Grob *const &);
 #endif /* STAFF_SYMBOL_REFERENCER_HH */
-

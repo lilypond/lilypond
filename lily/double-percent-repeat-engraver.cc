@@ -44,7 +44,7 @@ protected:
 };
 
 Double_percent_repeat_engraver::Double_percent_repeat_engraver (Context *c)
-  : Engraver (c)
+    : Engraver (c)
 {
   percent_event_ = 0;
 }
@@ -54,8 +54,8 @@ Double_percent_repeat_engraver::listen_double_percent (Stream_event *ev)
 {
   if (!percent_event_)
     {
-      Moment meas_len (robust_scm2moment (get_property ("measureLength"),
-                                          Moment (1)));
+      Moment meas_len (
+          robust_scm2moment (get_property ("measureLength"), Moment (1)));
       start_mom_ = now_mom () + meas_len;
       find_global_context ()->add_moment_to_process (start_mom_);
       percent_event_ = ev;
@@ -69,16 +69,16 @@ Double_percent_repeat_engraver::process_music ()
 {
   if (percent_event_ && now_mom ().main_part_ == start_mom_.main_part_)
     {
-      Item *double_percent = make_item ("DoublePercentRepeat",
-                                        percent_event_->self_scm ());
+      Item *double_percent
+          = make_item ("DoublePercentRepeat", percent_event_->self_scm ());
 
       SCM count = percent_event_->get_property ("repeat-count");
-      if (!scm_is_null (count) && to_boolean (get_property ("countPercentRepeats"))
+      if (!scm_is_null (count)
+          && to_boolean (get_property ("countPercentRepeats"))
           && check_repeat_count_visibility (context (), count))
         {
-          Item *double_percent_counter
-            = make_item ("DoublePercentRepeatCounter",
-                         percent_event_->self_scm ());
+          Item *double_percent_counter = make_item (
+              "DoublePercentRepeatCounter", percent_event_->self_scm ());
 
           SCM text = scm_number_to_string (count, scm_from_int (10));
           double_percent_counter->set_property ("text", text);
@@ -114,5 +114,4 @@ ADD_TRANSLATOR (Double_percent_repeat_engraver,
                 "repeatCountVisibility ",
 
                 /* write */
-                "forbidBreak "
-               );
+                "forbidBreak ");

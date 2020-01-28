@@ -18,10 +18,10 @@
 */
 
 #include "engraver.hh"
-#include "side-position-interface.hh"
-#include "pointer-group-interface.hh"
 #include "fingering-column.hh"
 #include "item.hh"
+#include "pointer-group-interface.hh"
+#include "side-position-interface.hh"
 
 #include "translator.icc"
 
@@ -33,19 +33,19 @@ using std::vector;
 class Fingering_column_engraver : public Engraver
 {
   Drul_array<Grob *> fingering_columns_;
-  Drul_array<vector<Grob *> > scripts_;
+  Drul_array<vector<Grob *>> scripts_;
   vector<Grob *> possibles_;
 
 public:
   TRANSLATOR_DECLARATIONS (Fingering_column_engraver);
+
 protected:
   void acknowledge_finger (Grob_info);
   void process_acknowledged ();
   void stop_translation_timestep ();
 };
 
-Fingering_column_engraver::Fingering_column_engraver (Context *c)
-  : Engraver (c)
+Fingering_column_engraver::Fingering_column_engraver (Context *c) : Engraver (c)
 {
   for (LEFT_and_RIGHT (d))
     fingering_columns_[d] = 0;
@@ -59,11 +59,13 @@ Fingering_column_engraver::stop_translation_timestep ()
       {
         if (Side_position_interface::get_axis (possibles_[i]) == X_AXIS)
           {
-            Direction d = robust_scm2dir (possibles_[i]->get_property ("direction"), CENTER);
+            Direction d = robust_scm2dir (
+                possibles_[i]->get_property ("direction"), CENTER);
             if (d)
               scripts_[d].push_back (possibles_[i]);
             else
-              possibles_[i]->warning ("Cannot add a fingering without a direction.");
+              possibles_[i]->warning (
+                  "Cannot add a fingering without a direction.");
           }
       }
 
@@ -77,8 +79,8 @@ Fingering_column_engraver::stop_translation_timestep ()
       if (fingering_columns_[d])
         {
           for (vsize i = 0; i < scripts_[d].size (); i++)
-            Fingering_column::add_fingering (fingering_columns_[d], scripts_[d][i]);
-
+            Fingering_column::add_fingering (fingering_columns_[d],
+                                             scripts_[d][i]);
         }
       scripts_[d].clear ();
       fingering_columns_[d] = 0;
@@ -122,5 +124,4 @@ ADD_TRANSLATOR (Fingering_column_engraver,
                 "",
 
                 /* write */
-                ""
-               );
+                "");

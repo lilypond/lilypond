@@ -28,8 +28,7 @@
 #include "translator-group.hh"
 #include "warn.hh"
 
-LY_DEFINE (ly_format_output, "ly:format-output",
-           1, 0, 0, (SCM context),
+LY_DEFINE (ly_format_output, "ly:format-output", 1, 0, 0, (SCM context),
            "Given a global context in its final state,"
            " process it and return the @code{Music_output} object"
            " in its final state.")
@@ -47,8 +46,8 @@ LY_DEFINE (ly_format_output, "ly:format-output",
   return output;
 }
 
-LY_DEFINE (ly_make_global_translator, "ly:make-global-translator",
-           1, 0, 0, (SCM global),
+LY_DEFINE (ly_make_global_translator, "ly:make-global-translator", 1, 0, 0,
+           (SCM global),
            "Create a translator group and connect it to the global context"
            " @var{global}.  The translator group is returned.")
 {
@@ -62,8 +61,8 @@ LY_DEFINE (ly_make_global_translator, "ly:make-global-translator",
   return tg->unprotect ();
 }
 
-LY_DEFINE (ly_make_global_context, "ly:make-global-context",
-           1, 0, 0, (SCM output_def),
+LY_DEFINE (ly_make_global_context, "ly:make-global-context", 1, 0, 0,
+           (SCM output_def),
            "Set up a global interpretation context, using the output"
            " block @var{output-def}.  The context is returned.")
 {
@@ -81,8 +80,8 @@ LY_DEFINE (ly_make_global_context, "ly:make-global-context",
   return glob->unprotect ();
 }
 
-LY_DEFINE (ly_interpret_music_expression, "ly:interpret-music-expression",
-           2, 0, 0, (SCM mus, SCM ctx),
+LY_DEFINE (ly_interpret_music_expression, "ly:interpret-music-expression", 2, 0,
+           0, (SCM mus, SCM ctx),
            "Interpret the music expression @var{mus} in the global context"
            " @var{ctx}.  The context is returned in its final state.")
 {
@@ -127,8 +126,8 @@ LY_DEFINE (ly_interpret_music_expression, "ly:interpret-music-expression",
   return ctx;
 }
 
-LY_DEFINE (ly_run_translator, "ly:run-translator",
-           2, 1, 0, (SCM mus, SCM output_def),
+LY_DEFINE (ly_run_translator, "ly:run-translator", 2, 1, 0,
+           (SCM mus, SCM output_def),
            "Process @var{mus} according to @var{output-def}.  An"
            " interpretation context is set up, and @var{mus} is"
            " interpreted with it.  The context is returned in its"

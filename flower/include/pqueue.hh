@@ -21,15 +21,15 @@
 #define PQUEUE_HH
 #include "std-vector.hh"
 
-template<class K, class T>
-struct PQueue_ent
+template <class K, class T> struct PQueue_ent
 {
   T val;
   K key;
 };
 
-template<class K, class T>
-int compare (PQueue_ent<K, T> const &e1, PQueue_ent<K, T> const &e2)
+template <class K, class T>
+int
+compare (PQueue_ent<K, T> const &e1, PQueue_ent<K, T> const &e2)
 {
   return compare (e1.key, e2.key);
 }
@@ -42,31 +42,19 @@ int compare (PQueue_ent<K, T> const &e1, PQueue_ent<K, T> const &e2)
    TODO: add increase/decrease operations,
    add max () operation
 */
-template<class T>
-class PQueue
+template <class T> class PQueue
 {
   std::vector<T> heap_array_;
-  T &elt (vsize i)
-  {
-    return heap_array_[i - 1];
-  }
-  T const &elt (vsize i) const
-  {
-    return heap_array_[i - 1];
-  }
+  T &elt (vsize i) { return heap_array_[i - 1]; }
+  T const &elt (vsize i) const { return heap_array_[i - 1]; }
+
 public:
   /** acces an heap element.  Careful with this, as changing the
       priority might fuck up the invariants
 
       @param 1 <= i < size () */
-  T &operator [] (vsize i)
-  {
-    return heap_array_[i];
-  }
-  T operator [] (vsize i) const
-  {
-    return heap_array_[i];
-  }
+  T &operator[] (vsize i) { return heap_array_[i]; }
+  T operator[] (vsize i) const { return heap_array_[i]; }
   void OK () const
   {
 #ifdef DEBUG
@@ -74,14 +62,8 @@ public:
       assert (compare (elt (i / 2), elt (i)) <= 0);
 #endif
   }
-  T front () const
-  {
-    return elt (1);
-  }
-  vsize size () const
-  {
-    return heap_array_.size ();
-  }
+  T front () const { return elt (1); }
+  vsize size () const { return heap_array_.size (); }
   void insert (T v)
   {
     heap_array_.push_back (v);
@@ -103,7 +85,7 @@ public:
   }
   T max () const
   {
-    //int first_leaf_i = size ();
+    // int first_leaf_i = size ();
     T max_t;
     return max_t;
   }

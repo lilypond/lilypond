@@ -20,8 +20,8 @@
 #ifndef LILYPOND_VERSION_HH
 #define LILYPOND_VERSION_HH
 
-#include "std-string.hh"
 #include "compare.hh"
+#include "std-string.hh"
 
 struct Lilypond_version
 {

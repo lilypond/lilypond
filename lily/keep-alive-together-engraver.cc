@@ -20,15 +20,15 @@
 #include "context.hh"
 #include "dispatcher.hh"
 #include "engraver.hh"
-#include "grob.hh"
 #include "grob-array.hh"
+#include "grob.hh"
 #include "international.hh"
 
 #include "translator.icc"
 
 using std::vector;
 
-class Keep_alive_together_engraver: public Engraver
+class Keep_alive_together_engraver : public Engraver
 {
   vector<Grob *> group_spanners_;
 
@@ -40,7 +40,7 @@ public:
 };
 
 Keep_alive_together_engraver::Keep_alive_together_engraver (Context *c)
-  : Engraver (c)
+    : Engraver (c)
 {
 }
 
@@ -93,8 +93,9 @@ Keep_alive_together_engraver::finalize ()
                 }
               else
                 {
-                  group_spanners_[i]->warning (_f ("unknown remove-layer value `%s'",
-                                                   ly_symbol2string (this_layer).c_str ()));
+                  group_spanners_[i]->warning (
+                      _f ("unknown remove-layer value `%s'",
+                          ly_symbol2string (this_layer).c_str ()));
                   continue;
                 }
             }
@@ -124,7 +125,6 @@ Keep_alive_together_engraver::finalize ()
     }
 }
 
-
 void
 Keep_alive_together_engraver::boot ()
 {
@@ -148,5 +148,4 @@ ADD_TRANSLATOR (Keep_alive_together_engraver,
                 "",
 
                 /* write */
-                ""
-               );
+                "");

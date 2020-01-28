@@ -17,22 +17,23 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "grob.hh"
 #include "engraver.hh"
+#include "grob.hh"
 
 class Font_size_engraver : public Engraver
 {
 
   TRANSLATOR_DECLARATIONS (Font_size_engraver);
+
 protected:
   void acknowledge_font (Grob_info);
   void process_music ();
   Real size;
+
 private:
 };
 
-Font_size_engraver::Font_size_engraver (Context *c)
-  : Engraver (c)
+Font_size_engraver::Font_size_engraver (Context *c) : Engraver (c)
 {
   size = 0.0;
 }
@@ -55,8 +56,8 @@ Font_size_engraver::acknowledge_font (Grob_info gi)
   if (gi.context () != context ())
     return;
 
-  Real font_size = size
-                   + robust_scm2double (gi.grob ()->get_property ("font-size"), 0);
+  Real font_size
+      = size + robust_scm2double (gi.grob ()->get_property ("font-size"), 0);
   gi.grob ()->set_property ("font-size", scm_from_double (font_size));
 }
 
@@ -79,5 +80,4 @@ ADD_TRANSLATOR (Font_size_engraver,
                 "fontSize ",
 
                 /* write */
-                ""
-               );
+                "");

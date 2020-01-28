@@ -19,20 +19,19 @@
 
 #include "all-font-metrics.hh"
 
-#include "string-convert.hh"
 #include "international.hh"
 #include "main.hh"
 #include "open-type-font.hh"
 #include "pango-font.hh"
 #include "scm-hash.hh"
+#include "string-convert.hh"
 #include "warn.hh"
 
 using std::string;
 
 Index_to_charcode_map const *
 All_font_metrics::get_index_to_charcode_map (const string &filename,
-                                             int face_index,
-                                             FT_Face face)
+                                             int face_index, FT_Face face)
 {
   string key = filename + String_convert::int_string (face_index);
   if (filename_charcode_maps_map_.find (key)
@@ -59,8 +58,8 @@ All_font_metrics::All_font_metrics (const string &path)
   pango_ft2_fontmap_ = PANGO_FT2_FONT_MAP (pfm);
 
   pango_dpi_ = PANGO_RESOLUTION;
-  pango_ft2_font_map_set_resolution (pango_ft2_fontmap_,
-                                     pango_dpi_, pango_dpi_);
+  pango_ft2_font_map_set_resolution (pango_ft2_fontmap_, pango_dpi_,
+                                     pango_dpi_);
 #endif
 
   search_path_.parse_path (path);
@@ -89,8 +88,7 @@ All_font_metrics::mark_smob () const
 
 Pango_font *
 All_font_metrics::find_pango_font (PangoFontDescription const *description,
-                                   Real output_scale
-                                  )
+                                   Real output_scale)
 {
   gchar *pango_fn = pango_font_description_to_filename (description);
   SCM key = ly_symbol2scm (pango_fn);
@@ -100,10 +98,8 @@ All_font_metrics::find_pango_font (PangoFontDescription const *description,
     {
       debug_output ("[" + string (pango_fn), true); // start on a new line
 
-      Pango_font *pf = new Pango_font (pango_ft2_fontmap_,
-                                       description,
-                                       output_scale
-                                      );
+      Pango_font *pf
+          = new Pango_font (pango_ft2_fontmap_, description, output_scale);
 
       val = pf->self_scm ();
       pango_dict_->set (key, val);
@@ -111,8 +107,7 @@ All_font_metrics::find_pango_font (PangoFontDescription const *description,
 
       debug_output ("]", false);
 
-      pf->description_ = scm_cons (SCM_BOOL_F,
-                                   scm_from_double (1.0));
+      pf->description_ = scm_cons (SCM_BOOL_F, scm_from_double (1.0));
     }
   g_free (pango_fn);
   return unsmob<Pango_font> (val);
@@ -142,8 +137,8 @@ All_font_metrics::find_otf (const string &name)
 
       unsmob<Font_metric> (val)->file_name_ = file_name;
       SCM name_string = ly_string2scm (name);
-      unsmob<Font_metric> (val)->description_ = scm_cons (name_string,
-                                                     scm_from_double (1.0));
+      unsmob<Font_metric> (val)->description_
+          = scm_cons (name_string, scm_from_double (1.0));
       otf_dict_->set (sname, val);
       unsmob<Font_metric> (val)->unprotect ();
     }

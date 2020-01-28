@@ -20,11 +20,11 @@
 #include "context.hh"
 #include "dispatcher.hh"
 #include "lily-guile.hh"
-#include "music.hh"
+#include "lily-imports.hh"
 #include "music-iterator.hh"
 #include "music-sequence.hh"
+#include "music.hh"
 #include "warn.hh"
-#include "lily-imports.hh"
 
 class Part_combine_iterator : public Music_iterator
 {
@@ -32,6 +32,7 @@ public:
   Part_combine_iterator ();
 
   DECLARE_SCHEME_CALLBACK (constructor, ());
+
 protected:
   void derived_substitute (Context *f, Context *t) override;
   void derived_mark () const override;
@@ -83,8 +84,7 @@ Part_combine_iterator::derived_mark () const
 }
 
 void
-Part_combine_iterator::derived_substitute (Context *f,
-                                           Context *t)
+Part_combine_iterator::derived_substitute (Context *f, Context *t)
 {
   // (Explain why just iterators_[0].)
   if (iterators_[0])
@@ -114,7 +114,8 @@ Part_combine_iterator::ok () const
   return false;
 }
 
-bool Part_combine_iterator::is_active_outlet (const Context *c) const
+bool
+Part_combine_iterator::is_active_outlet (const Context *c) const
 {
   for (size_t i = 0; i < NUM_PARTS; i++)
     if (iterators_[i] && (iterators_[i]->get_outlet () == c))
@@ -129,8 +130,8 @@ Part_combine_iterator::kill_mmrest (Context *c)
 
   if (!mmrest_event_)
     {
-      mmrest_event_ = new Stream_event
-        (Lily::ly_make_event_class (ly_symbol2scm ("multi-measure-rest-event")));
+      mmrest_event_ = new Stream_event (Lily::ly_make_event_class (
+          ly_symbol2scm ("multi-measure-rest-event")));
       mmrest_event_->set_property ("duration", SCM_EOL);
       mmrest_event_->unprotect ();
     }
@@ -142,8 +143,10 @@ void
 Part_combine_iterator::construct_children ()
 {
   SCM lst = get_music ()->get_property ("elements");
-  iterators_[0] = unsmob<Music_iterator> (get_iterator (unsmob<Music> (scm_car (lst))));
-  iterators_[1] = unsmob<Music_iterator> (get_iterator (unsmob<Music> (scm_cadr (lst))));
+  iterators_[0]
+      = unsmob<Music_iterator> (get_iterator (unsmob<Music> (scm_car (lst))));
+  iterators_[1]
+      = unsmob<Music_iterator> (get_iterator (unsmob<Music> (scm_cadr (lst))));
 }
 
 void
@@ -159,7 +162,7 @@ Part_combine_iterator::process (Moment m)
         iterators_[i]->process (m);
 
       if (prev_active_outlets[i] != iterators_[i]->get_outlet ())
-          any_outlet_changed = true;
+        any_outlet_changed = true;
     }
 
   if (any_outlet_changed)
@@ -170,7 +173,7 @@ Part_combine_iterator::process (Moment m)
         {
           Context *c = prev_active_outlets[i];
           if (c && !is_active_outlet (c))
-              kill_mmrest (c);
+            kill_mmrest (c);
         }
     }
 }

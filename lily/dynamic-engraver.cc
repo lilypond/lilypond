@@ -60,8 +60,7 @@ private:
   bool end_new_spanner_;
 };
 
-Dynamic_engraver::Dynamic_engraver (Context *c)
-  : Engraver (c)
+Dynamic_engraver::Dynamic_engraver (Context *c) : Engraver (c)
 {
   script_event_ = 0;
   current_span_event_ = 0;
@@ -102,8 +101,7 @@ Dynamic_engraver::listen_break_span (Stream_event *event)
 }
 
 SCM
-Dynamic_engraver::get_property_setting (Stream_event *evt,
-                                        char const *evprop,
+Dynamic_engraver::get_property_setting (Stream_event *evt, char const *evprop,
                                         char const *ctxprop)
 {
   SCM spanner_type = evt->get_property (evprop);
@@ -116,8 +114,7 @@ void
 Dynamic_engraver::process_music ()
 {
   if (current_spanner_
-      && (accepted_spanevents_drul_[STOP]
-          || script_event_
+      && (accepted_spanevents_drul_[STOP] || script_event_
           || accepted_spanevents_drul_[START]))
     {
       Stream_event *ender = accepted_spanevents_drul_[STOP];
@@ -144,8 +141,8 @@ Dynamic_engraver::process_music ()
       if (scm_is_eq (cresc_type, ly_symbol2scm ("text")))
         {
           current_spanner_
-            = make_spanner ("DynamicTextSpanner",
-                            accepted_spanevents_drul_[START]->self_scm ());
+              = make_spanner ("DynamicTextSpanner",
+                              accepted_spanevents_drul_[START]->self_scm ());
 
           SCM text = get_property_setting (current_span_event_, "span-text",
                                            (start_type + "Text").c_str ());
@@ -165,13 +162,15 @@ Dynamic_engraver::process_music ()
           if (!scm_is_eq (cresc_type, ly_symbol2scm ("hairpin")))
             {
               string as_string = ly_scm_write_string (cresc_type);
-              current_span_event_
-              ->origin ()->warning (_f ("unknown crescendo style: %s\ndefaulting to hairpin.", as_string.c_str ()));
+              current_span_event_->origin ()->warning (
+                  _f ("unknown crescendo style: %s\ndefaulting to hairpin.",
+                      as_string.c_str ()));
             }
-          current_spanner_ = make_spanner ("Hairpin",
-                                           current_span_event_->self_scm ());
+          current_spanner_
+              = make_spanner ("Hairpin", current_span_event_->self_scm ());
         }
-      // if we have a break-dynamic-span event right after the start dynamic, break the new spanner immediately
+      // if we have a break-dynamic-span event right after the start dynamic,
+      // break the new spanner immediately
       if (end_new_spanner_)
         {
           current_spanner_->set_property ("spanner-broken", SCM_BOOL_T);
@@ -180,21 +179,20 @@ Dynamic_engraver::process_music ()
       if (finished_spanner_)
         {
           if (has_interface<Hairpin> (finished_spanner_))
-            Pointer_group_interface::add_grob (finished_spanner_,
-                                               ly_symbol2scm ("adjacent-spanners"),
-                                               current_spanner_);
+            Pointer_group_interface::add_grob (
+                finished_spanner_, ly_symbol2scm ("adjacent-spanners"),
+                current_spanner_);
           if (has_interface<Hairpin> (current_spanner_))
-            Pointer_group_interface::add_grob (current_spanner_,
-                                               ly_symbol2scm ("adjacent-spanners"),
-                                               finished_spanner_);
+            Pointer_group_interface::add_grob (
+                current_spanner_, ly_symbol2scm ("adjacent-spanners"),
+                finished_spanner_);
         }
     }
 
   if (script_event_)
     {
       script_ = make_item ("DynamicText", script_event_->self_scm ());
-      script_->set_property ("text",
-                             script_event_->get_property ("text"));
+      script_->set_property ("text", script_event_->get_property ("text"));
 
       if (finished_spanner_)
         finished_spanner_->set_bound (RIGHT, script_);
@@ -207,14 +205,12 @@ void
 Dynamic_engraver::stop_translation_timestep ()
 {
   if (finished_spanner_ && !finished_spanner_->get_bound (RIGHT))
-    finished_spanner_
-    ->set_bound (RIGHT,
-                 unsmob<Grob> (get_property ("currentMusicalColumn")));
+    finished_spanner_->set_bound (
+        RIGHT, unsmob<Grob> (get_property ("currentMusicalColumn")));
 
   if (current_spanner_ && !current_spanner_->get_bound (LEFT))
-    current_spanner_
-    ->set_bound (LEFT,
-                 unsmob<Grob> (get_property ("currentMusicalColumn")));
+    current_spanner_->set_bound (
+        LEFT, unsmob<Grob> (get_property ("currentMusicalColumn")));
   script_ = 0;
   script_event_ = 0;
   accepted_spanevents_drul_.set (0, 0);
@@ -225,15 +221,12 @@ Dynamic_engraver::stop_translation_timestep ()
 void
 Dynamic_engraver::finalize ()
 {
-  if (current_spanner_
-      && !current_spanner_->is_live ())
+  if (current_spanner_ && !current_spanner_->is_live ())
     current_spanner_ = 0;
   if (current_spanner_)
     {
-      current_span_event_
-      ->origin ()->warning (_f ("unterminated %s",
-                                get_spanner_type (current_span_event_)
-                                .c_str ()));
+      current_span_event_->origin ()->warning (_f (
+          "unterminated %s", get_spanner_type (current_span_event_).c_str ()));
       current_spanner_->suicide ();
       current_spanner_ = 0;
     }
@@ -265,9 +258,9 @@ Dynamic_engraver::acknowledge_note_column (Grob_info info)
         Spacing constraints may require dynamics to be attached to rests,
         so check for a rest if this note column has no note heads.
       */
-      Grob *x_parent = (heads.size ()
-                        ? info.grob ()
-                        : unsmob<Grob> (info.grob ()->get_object ("rest")));
+      Grob *x_parent
+          = (heads.size () ? info.grob ()
+                           : unsmob<Grob> (info.grob ()->get_object ("rest")));
       if (x_parent)
         script_->set_parent (x_parent, X_AXIS);
     }
@@ -304,5 +297,4 @@ ADD_TRANSLATOR (Dynamic_engraver,
                 "decrescendoText ",
 
                 /* write */
-                ""
-               );
+                "");

@@ -18,8 +18,8 @@
 */
 
 #include <cassert>
-#include <cstring>
 #include <cstdlib>
+#include <cstring>
 
 #include "memory-stream.hh"
 
@@ -28,20 +28,14 @@
 */
 const int Memory_out_stream::block_size_ = 1024;
 
-lily_cookie_io_functions_t
-Memory_out_stream::functions_
-=
-{
-  Memory_out_stream::reader,
-  Memory_out_stream::writer,
-  Memory_out_stream::seeker,
-  Memory_out_stream::cleaner
-};
+lily_cookie_io_functions_t Memory_out_stream::functions_
+    = {Memory_out_stream::reader, Memory_out_stream::writer,
+       Memory_out_stream::seeker, Memory_out_stream::cleaner};
 
 ssize_t
 Memory_out_stream::cleaner (void *cookie)
 {
-  Memory_out_stream *stream = (Memory_out_stream *) cookie;
+  Memory_out_stream *stream = (Memory_out_stream *)cookie;
 
   stream->file_ = 0;
   return 0;
@@ -86,13 +80,11 @@ Memory_out_stream::get_string () const
 }
 
 ssize_t
-Memory_out_stream::writer (void *cookie,
-                           char const *buffer,
-                           size_t size)
+Memory_out_stream::writer (void *cookie, char const *buffer, size_t size)
 {
-  Memory_out_stream *stream = (Memory_out_stream *) cookie;
+  Memory_out_stream *stream = (Memory_out_stream *)cookie;
 
-  ssize_t newsize = stream->size_ + (ssize_t) size;
+  ssize_t newsize = stream->size_ + (ssize_t)size;
 
   bool change = false;
   while (newsize > stream->buffer_blocks_ * block_size_)
@@ -103,18 +95,17 @@ Memory_out_stream::writer (void *cookie,
     }
 
   if (change)
-    stream->buffer_ = (char *) realloc (stream->buffer_,
-                                        (size_t) (stream->buffer_blocks_ * block_size_));
+    stream->buffer_ = (char *)realloc (
+        stream->buffer_, (size_t) (stream->buffer_blocks_ * block_size_));
 
   memcpy (stream->buffer_ + stream->size_, buffer, size);
   stream->size_ = newsize;
 
-  return (ssize_t) size;
+  return (ssize_t)size;
 }
 
 ssize_t
-Memory_out_stream::reader (void * /* cookie */,
-                           char * /* buffer */,
+Memory_out_stream::reader (void * /* cookie */, char * /* buffer */,
                            size_t /* size */)
 {
   assert (false);
@@ -122,9 +113,7 @@ Memory_out_stream::reader (void * /* cookie */,
 }
 
 ssize_t
-Memory_out_stream::seeker (void *,
-                           off64_t *,
-                           size_t)
+Memory_out_stream::seeker (void *, off64_t *, size_t)
 {
   assert (false);
   return 0;

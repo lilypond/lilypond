@@ -52,6 +52,7 @@ create dependencies between engravers, which is bad.
 class Chord_tremolo_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Chord_tremolo_engraver);
+
 protected:
   Stream_event *repeat_;
 
@@ -67,8 +68,7 @@ protected:
   void acknowledge_stem (Grob_info);
 };
 
-Chord_tremolo_engraver::Chord_tremolo_engraver (Context *c)
-  : Engraver (c)
+Chord_tremolo_engraver::Chord_tremolo_engraver (Context *c) : Engraver (c)
 {
   beam_ = 0;
   repeat_ = 0;
@@ -118,9 +118,11 @@ Chord_tremolo_engraver::acknowledge_stem (Grob_info info)
 {
   if (beam_)
     {
-      int tremolo_type = robust_scm2int (repeat_->get_property ("tremolo-type"), 1);
+      int tremolo_type
+          = robust_scm2int (repeat_->get_property ("tremolo-type"), 1);
       int flags = std::max (0, intlog2 (tremolo_type) - 2);
-      int repeat_count = robust_scm2int (repeat_->get_property ("repeat-count"), 1);
+      int repeat_count
+          = robust_scm2int (repeat_->get_property ("repeat-count"), 1);
       int gap_count = std::min (flags, intlog2 (repeat_count) + 1);
 
       Grob *s = info.grob ();
@@ -177,5 +179,4 @@ ADD_TRANSLATOR (Chord_tremolo_engraver,
                 "",
 
                 /* write */
-                ""
-               );
+                "");

@@ -19,15 +19,14 @@
 
 #include "dispatcher.hh"
 
-LY_DEFINE (ly_make_dispatcher, "ly:make-dispatcher",
-           0, 0, 0, (),
+LY_DEFINE (ly_make_dispatcher, "ly:make-dispatcher", 0, 0, 0, (),
            "Return a newly created dispatcher.")
 {
   return (new Dispatcher ())->unprotect ();
 }
 
-LY_DEFINE (ly_connect_dispatchers, "ly:connect-dispatchers",
-           2, 0, 0, (SCM to, SCM from),
+LY_DEFINE (ly_connect_dispatchers, "ly:connect-dispatchers", 2, 0, 0,
+           (SCM to, SCM from),
            "Make the dispatcher @var{to} listen to events from @var{from}.")
 {
   Dispatcher *t = unsmob<Dispatcher> (to);
@@ -41,8 +40,8 @@ LY_DEFINE (ly_connect_dispatchers, "ly:connect-dispatchers",
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_disconnect_dispatchers, "ly:disconnect-dispatchers",
-           2, 0, 0, (SCM to, SCM from),
+LY_DEFINE (ly_disconnect_dispatchers, "ly:disconnect-dispatchers", 2, 0, 0,
+           (SCM to, SCM from),
            "Stop the dispatcher @var{to} listening to events from @var{from}.")
 {
   Dispatcher *t = unsmob<Dispatcher> (to);
@@ -56,8 +55,8 @@ LY_DEFINE (ly_disconnect_dispatchers, "ly:disconnect-dispatchers",
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_add_listener, "ly:add-listener",
-           2, 0, 1, (SCM callback, SCM disp, SCM cl),
+LY_DEFINE (ly_add_listener, "ly:add-listener", 2, 0, 1,
+           (SCM callback, SCM disp, SCM cl),
            "Add the single-argument procedure @var{callback} as listener"
            " to the dispatcher @var{disp}.  Whenever @var{disp} hears"
            " an event of class @var{cl}, it calls @var{callback} with it.")
@@ -77,8 +76,8 @@ LY_DEFINE (ly_add_listener, "ly:add-listener",
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_listened_event_types, "ly:listened-event-types",
-           1, 0, 0, (SCM disp),
+LY_DEFINE (ly_listened_event_types, "ly:listened-event-types", 1, 0, 0,
+           (SCM disp),
            "Return a list of all event types that @var{disp} listens"
            " to.")
 {
@@ -91,8 +90,8 @@ LY_DEFINE (ly_listened_event_types, "ly:listened-event-types",
   return result;
 }
 
-LY_DEFINE (ly_listened_event_class_p, "ly:listened-event-class?",
-           2, 0, 0, (SCM disp, SCM cl),
+LY_DEFINE (ly_listened_event_class_p, "ly:listened-event-class?", 2, 0, 0,
+           (SCM disp, SCM cl),
            "Does @var{disp} listen to any event type in the list"
            " @var{cl}?")
 {
@@ -106,8 +105,7 @@ LY_DEFINE (ly_listened_event_class_p, "ly:listened-event-class?",
   return scm_from_bool (result);
 }
 
-LY_DEFINE (ly_broadcast, "ly:broadcast",
-           2, 0, 0, (SCM disp, SCM ev),
+LY_DEFINE (ly_broadcast, "ly:broadcast", 2, 0, 0, (SCM disp, SCM ev),
            "Send the stream event @var{ev} to the dispatcher @var{disp}.")
 {
   Dispatcher *d = unsmob<Dispatcher> (disp);

@@ -20,8 +20,8 @@
 #ifndef SCRIPT_INTERFACE_HH
 #define SCRIPT_INTERFACE_HH
 
-#include "lily-proto.hh"
 #include "grob-interface.hh"
+#include "lily-proto.hh"
 
 /**
    Articulation marks (and the like) that are attached to notes/stems.
@@ -40,8 +40,6 @@ public:
   DECLARE_SCHEME_CALLBACK (calc_cross_staff, (SCM));
 };
 
-void make_script_from_event (Grob *p, Context *tg,
-                             SCM type, int index);
+void make_script_from_event (Grob *p, Context *tg, SCM type, int index);
 
 #endif /* SCRIPT_INTERFACE_HH */
-

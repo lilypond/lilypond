@@ -18,14 +18,14 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "semi-tie-column.hh"
 #include "semi-tie.hh"
 #include "directional-element-interface.hh"
 #include "grob.hh"
 #include "paper-column.hh"
+#include "semi-tie-column.hh"
+#include "staff-symbol-referencer.hh"
 #include "tie.hh"
 #include "warn.hh"
-#include "staff-symbol-referencer.hh"
 
 ADD_INTERFACE (Semi_tie,
                "A tie which is only connected to a note head on one side."
@@ -49,16 +49,15 @@ ADD_INTERFACE (Semi_tie,
                "head-direction "
                "note-head "
                "thickness "
-               "line-thickness "
-              );
+               "line-thickness ");
 
 MAKE_SCHEME_CALLBACK (Semi_tie, calc_control_points, 1)
 SCM
 Semi_tie::calc_control_points (SCM smob)
 {
-  Item *me = LY_ASSERT_SMOB(Item, smob, 1);
+  Item *me = LY_ASSERT_SMOB (Item, smob, 1);
 
-  (void) me->get_property ("direction");
+  (void)me->get_property ("direction");
 
   Grob *yparent = me->get_parent (Y_AXIS);
   if (has_interface<Semi_tie_column> (yparent))
@@ -83,7 +82,7 @@ Semi_tie::get_column_rank (Item *me)
 int
 Semi_tie::get_position (Item *me)
 {
-  return (int) rint (Staff_symbol_referencer::get_position (head (me)));
+  return (int)rint (Staff_symbol_referencer::get_position (head (me)));
 }
 
 bool

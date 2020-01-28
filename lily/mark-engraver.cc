@@ -57,8 +57,7 @@ protected:
   void acknowledge_break_alignment (Grob_info);
 };
 
-Mark_engraver::Mark_engraver (Context *c)
-  : Engraver (c)
+Mark_engraver::Mark_engraver (Context *c) : Engraver (c)
 {
   text_ = 0;
   final_text_ = 0;
@@ -69,8 +68,7 @@ void
 Mark_engraver::acknowledge_break_alignment (Grob_info inf)
 {
   Grob *s = inf.grob ();
-  if (text_
-      && dynamic_cast<Item *> (s))
+  if (text_ && dynamic_cast<Item *> (s))
     text_->set_parent (s, X_AXIS);
 }
 
@@ -85,8 +83,9 @@ Mark_engraver::stop_translation_timestep ()
 {
   if (text_)
     {
-      text_->set_object ("side-support-elements",
-                         grob_list_to_grob_array (get_property ("stavesFound")));
+      text_->set_object (
+          "side-support-elements",
+          grob_list_to_grob_array (get_property ("stavesFound")));
       final_text_ = text_;
       text_ = 0;
     }
@@ -133,8 +132,7 @@ Mark_engraver::process_music ()
 
       SCM m = mark_ev_->get_property ("label");
       SCM proc = get_property ("markFormatter");
-      if (!Text_interface::is_markup (m)
-          && ly_is_procedure (proc))
+      if (!Text_interface::is_markup (m) && ly_is_procedure (proc))
         {
           if (!scm_is_number (m))
             m = get_property ("rehearsalMark");
@@ -147,8 +145,8 @@ Mark_engraver::process_music ()
           else
             /* Score.rehearsalMark is initialized to #1 so we
                never should see this case without user error */
-            mark_ev_->origin ()->warning
-              (_ ("rehearsalMark must have integer value"));
+            mark_ev_->origin ()->warning (
+                _ ("rehearsalMark must have integer value"));
         }
 
       if (Text_interface::is_markup (m))
@@ -157,7 +155,6 @@ Mark_engraver::process_music ()
         mark_ev_->origin ()->warning (_ ("mark label must be a markup object"));
     }
 }
-
 
 void
 Mark_engraver::boot ()
@@ -183,5 +180,4 @@ ADD_TRANSLATOR (Mark_engraver,
                 "stavesFound ",
 
                 /* write */
-                ""
-               );
+                "");

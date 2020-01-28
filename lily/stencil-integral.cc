@@ -33,37 +33,35 @@ when this transforms a point (x,y), the point is written as matrix:
 [ 1 ]
 */
 
-#include "box.hh"
 #include "bezier.hh"
+#include "box.hh"
 #include "dimensions.hh"
 #include "font-metric.hh"
+#include "freetype.hh"
 #include "grob.hh"
 #include "interval.hh"
-#include "freetype.hh"
+#include "lily-guile.hh"
 #include "misc.hh"
-#include "offset.hh"
 #include "modified-font-metric.hh"
+#include "offset.hh"
 #include "open-type-font.hh"
 #include "pango-font.hh"
 #include "pointer-group-interface.hh"
-#include "lily-guile.hh"
 #include "real.hh"
 #include "rest.hh"
+#include "skyline-pair.hh"
+#include "skyline.hh"
+#include "spanner.hh"
 #include "stencil.hh"
 #include "string-convert.hh"
-#include "skyline.hh"
-#include "skyline-pair.hh"
-#include "spanner.hh"
 #include "transform.hh"
-
 
 using std::string;
 using std::vector;
 
 Real QUANTIZATION_UNIT = 0.2;
 
-void create_path_cap (vector<Box> &boxes,
-                      vector<Drul_array<Offset> > &buildings,
+void create_path_cap (vector<Box> &boxes, vector<Drul_array<Offset>> &buildings,
                       SCM trans, Offset pt, Real rad, Offset dir);
 
 //// UTILITY FUNCTIONS
@@ -106,15 +104,12 @@ get_path_list (SCM l)
 {
   if (scm_is_pair (l))
     {
-      if (scm_is_true (scm_memv (scm_car (l),
-                                 scm_list_n (ly_symbol2scm ("moveto"),
-                                             ly_symbol2scm ("rmoveto"),
-                                             ly_symbol2scm ("lineto"),
-                                             ly_symbol2scm ("rlineto"),
-                                             ly_symbol2scm ("curveto"),
-                                             ly_symbol2scm ("rcurveto"),
-                                             ly_symbol2scm ("closepath"),
-                                             SCM_UNDEFINED))))
+      if (scm_is_true (scm_memv (
+              scm_car (l),
+              scm_list_n (ly_symbol2scm ("moveto"), ly_symbol2scm ("rmoveto"),
+                          ly_symbol2scm ("lineto"), ly_symbol2scm ("rlineto"),
+                          ly_symbol2scm ("curveto"), ly_symbol2scm ("rcurveto"),
+                          ly_symbol2scm ("closepath"), SCM_UNDEFINED))))
         return l;
       SCM res = get_path_list (scm_car (l));
       if (scm_is_false (res))
@@ -145,7 +140,8 @@ get_normal (Offset orig)
 */
 
 void
-make_draw_line_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings, SCM trans, SCM expr, bool use_building)
+make_draw_line_boxes (vector<Box> &boxes, vector<Drul_array<Offset>> &buildings,
+                      SCM trans, SCM expr, bool use_building)
 {
   Real thick = robust_scm2double (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
@@ -171,7 +167,8 @@ make_draw_line_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings
       Offset outward = d * get_normal ((thick / 2) * dir);
       Offset inter_l = scm_transform (trans, left + outward);
       Offset inter_r = scm_transform (trans, right + outward);
-      if ((inter_l[X_AXIS] == inter_r[X_AXIS]) || (inter_l[Y_AXIS] == inter_r[Y_AXIS]))
+      if ((inter_l[X_AXIS] == inter_r[X_AXIS])
+          || (inter_l[Y_AXIS] == inter_r[Y_AXIS]))
         {
           Box b;
           b.add_point (inter_l);
@@ -207,27 +204,17 @@ make_draw_line_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings
   if (thick > 0.0)
     {
       // beg line cap
-      create_path_cap (boxes,
-                       buildings,
-                       trans,
-                       left,
-                       thick / 2,
-                       -dir);
+      create_path_cap (boxes, buildings, trans, left, thick / 2, -dir);
 
       // end line cap
-      create_path_cap (boxes,
-                       buildings,
-                       trans,
-                       right,
-                       thick / 2,
-                       dir);
+      create_path_cap (boxes, buildings, trans, right, thick / 2, dir);
     }
 }
 
 void
 make_partial_ellipse_boxes (vector<Box> &boxes,
-                            vector<Drul_array<Offset> > &buildings,
-                            SCM trans, SCM expr)
+                            vector<Drul_array<Offset>> &buildings, SCM trans,
+                            SCM expr)
 {
   Real x_rad = robust_scm2double (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
@@ -249,19 +236,19 @@ make_partial_ellipse_boxes (vector<Box> &boxes,
   Offset sp (offset_directed (start).scale (rad));
   Offset ep (offset_directed (end).scale (rad));
   Transform t = robust_scm2transform (trans);
-  Real x_scale = sqrt(sqr(t.get_xx ()) + sqr(t.get_yx ()));
-  Real y_scale = sqrt(sqr(t.get_xy ()) + sqr(t.get_yy ()));
+  Real x_scale = sqrt (sqr (t.get_xx ()) + sqr (t.get_yx ()));
+  Real y_scale = sqrt (sqr (t.get_xy ()) + sqr (t.get_yy ()));
   //////////////////////
-  Drul_array<vector<Offset> > points;
-  int quantization = std::max (1, (int) (((x_rad * x_scale) + (y_rad * y_scale))
-                                   * M_PI / QUANTIZATION_UNIT));
+  Drul_array<vector<Offset>> points;
+  int quantization = std::max (1, (int)(((x_rad * x_scale) + (y_rad * y_scale))
+                                        * M_PI / QUANTIZATION_UNIT));
   for (DOWN_and_UP (d))
     {
-      for (vsize i = 0; i <= (vsize) quantization; i++)
+      for (vsize i = 0; i <= (vsize)quantization; i++)
         {
           Real ang = linear_map (start, end, 0, quantization, i);
           Offset pt (offset_directed (ang).scale (rad));
-          Offset inter = t (pt + d * get_normal ((th/2) * pt.direction ()));
+          Offset inter = t (pt + d * get_normal ((th / 2) * pt.direction ()));
           points[d].push_back (inter);
         }
     }
@@ -292,28 +279,18 @@ make_partial_ellipse_boxes (vector<Box> &boxes,
     {
       // beg line cap
       Offset pt (offset_directed (start).scale (rad));
-      create_path_cap (boxes,
-                       buildings,
-                       trans,
-                       pt,
-                       th / 2,
-                       -get_normal (pt));
+      create_path_cap (boxes, buildings, trans, pt, th / 2, -get_normal (pt));
 
       // end line cap
       pt = offset_directed (end).scale (rad);
-      create_path_cap (boxes,
-                       buildings,
-                       trans,
-                       pt,
-                       th / 2,
-                       get_normal (pt));
+      create_path_cap (boxes, buildings, trans, pt, th / 2, get_normal (pt));
     }
 }
 
 void
 make_round_filled_box_boxes (vector<Box> &boxes,
-                             vector<Drul_array<Offset> > &buildings,
-                             SCM trans, SCM expr)
+                             vector<Drul_array<Offset>> &buildings, SCM trans,
+                             SCM expr)
 {
   Real left = robust_scm2double (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
@@ -326,13 +303,13 @@ make_round_filled_box_boxes (vector<Box> &boxes,
   Real diameter = robust_scm2double (scm_car (expr), 0.0);
   //////////////////////
   Transform t = robust_scm2transform (trans);
-  Real x_scale = sqrt(sqr(t.get_xx ()) + sqr(t.get_yx ()));
-  Real y_scale = sqrt(sqr(t.get_xy ()) + sqr(t.get_yy ()));
-  bool rounded = (diameter * std::max(x_scale, y_scale) > 0.5);
+  Real x_scale = sqrt (sqr (t.get_xx ()) + sqr (t.get_yx ()));
+  Real y_scale = sqrt (sqr (t.get_xy ()) + sqr (t.get_yy ()));
+  bool rounded = (diameter * std::max (x_scale, y_scale) > 0.5);
   bool rotated = (t.get_yx () || t.get_xy ());
   //////////////////////
 
-  if  (!rotated && !rounded)
+  if (!rotated && !rounded)
     {
       /* simple box */
       Box b;
@@ -344,8 +321,8 @@ make_round_filled_box_boxes (vector<Box> &boxes,
     }
   else
     {
-      int quantization = (int) (rounded * diameter * (x_scale + y_scale)
-                               * M_PI / QUANTIZATION_UNIT / 8);
+      int quantization = (int)(rounded * diameter * (x_scale + y_scale) * M_PI
+                               / QUANTIZATION_UNIT / 8);
       /* if there is no quantization, there is no need to draw
          rounded corners. >>> Set the effective skyline radius to 0 */
       Real radius = (quantization ? diameter / 2 : 0.);
@@ -362,10 +339,10 @@ make_round_filled_box_boxes (vector<Box> &boxes,
       points.push_back (Offset (-left + radius, top));
       points.push_back (Offset (right - radius, top));
 
-      for (vsize i = 0; i < (vsize) points.size () - 1; i+=2)
+      for (vsize i = 0; i < (vsize)points.size () - 1; i += 2)
         {
           Offset p0 = t (points[i]);
-          Offset p1 = t (points[i+1]);
+          Offset p1 = t (points[i + 1]);
           if (p0[Y_AXIS] == p1[Y_AXIS])
             {
               Box b;
@@ -385,19 +362,18 @@ make_round_filled_box_boxes (vector<Box> &boxes,
           Drul_array<Real> cx;
           Drul_array<Real> cy;
 
-          cx[LEFT]  = -left + radius;
+          cx[LEFT] = -left + radius;
           cx[RIGHT] = right - radius;
-          cy[DOWN]  = -bottom + radius;
-          cy[UP]    = top - radius;
+          cy[DOWN] = -bottom + radius;
+          cy[UP] = top - radius;
 
-          for (vsize i = 0; i <= (vsize) quantization; i++)
-            for (DOWN_and_UP(v))
-              for (LEFT_and_RIGHT(h))
+          for (vsize i = 0; i <= (vsize)quantization; i++)
+            for (DOWN_and_UP (v))
+              for (LEFT_and_RIGHT (h))
                 {
                   Real ang = linear_map (0., 90., 0, quantization, i);
                   Offset pt (offset_directed (ang).scale (rad));
-                  Offset inter (cx[h] + h * pt[X_AXIS],
-                                cy[v] + v * pt[Y_AXIS]);
+                  Offset inter (cx[h] + h * pt[X_AXIS], cy[v] + v * pt[Y_AXIS]);
                   points.push_back (t (inter));
                 }
 
@@ -405,7 +381,7 @@ make_round_filled_box_boxes (vector<Box> &boxes,
             {
               Box b;
               b.add_point (points[i]);
-              b.add_point (points[i+4]);
+              b.add_point (points[i + 4]);
               boxes.push_back (b);
             }
         }
@@ -413,29 +389,25 @@ make_round_filled_box_boxes (vector<Box> &boxes,
 }
 
 void
-create_path_cap (vector<Box> &boxes,
-                 vector<Drul_array<Offset> > &buildings,
+create_path_cap (vector<Box> &boxes, vector<Drul_array<Offset>> &buildings,
                  SCM trans, Offset pt, Real rad, Offset dir)
 {
   Real angle = dir.angle_degrees ();
   Transform t (pt);
   t = scm_transform (trans, t);
   SCM new_trans = t.smobbed_copy ();
-  make_partial_ellipse_boxes (boxes, buildings, new_trans,
-                              scm_list_n (scm_from_double (rad),
-                                          scm_from_double (rad),
-                                          scm_from_double (angle-90.01),
-                                          scm_from_double (angle+90.01),
-                                          scm_from_double (0.0),
-                                          SCM_BOOL_F,
-                                          SCM_BOOL_F,
-                                          SCM_UNDEFINED));
+  make_partial_ellipse_boxes (
+      boxes, buildings, new_trans,
+      scm_list_n (scm_from_double (rad), scm_from_double (rad),
+                  scm_from_double (angle - 90.01),
+                  scm_from_double (angle + 90.01), scm_from_double (0.0),
+                  SCM_BOOL_F, SCM_BOOL_F, SCM_UNDEFINED));
 }
 
 void
 make_draw_bezier_boxes (vector<Box> &boxes,
-                        vector<Drul_array<Offset> > &buildings,
-                        SCM trans, SCM expr)
+                        vector<Drul_array<Offset>> &buildings, SCM trans,
+                        SCM expr)
 {
   Real th = robust_scm2double (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
@@ -466,25 +438,24 @@ make_draw_bezier_boxes (vector<Box> &boxes,
   Offset temp3 (scm_transform (trans, curve.control_[3]));
 
   //////////////////////
-  Drul_array<vector<Offset> > points;
-  int quantization = int (((temp1 - temp0).length ()
-                           + (temp2 - temp1).length ()
+  Drul_array<vector<Offset>> points;
+  int quantization = int (((temp1 - temp0).length () + (temp2 - temp1).length ()
                            + (temp3 - temp2).length ())
                           / QUANTIZATION_UNIT);
   for (DOWN_and_UP (d))
     {
       Offset first = curve.control_[0]
-        + d * get_normal ((th / 2) * curve.dir_at_point (0.0));
+                     + d * get_normal ((th / 2) * curve.dir_at_point (0.0));
       points[d].push_back (scm_transform (trans, first));
-      for (vsize i = 1; i < (vsize) quantization; i++)
+      for (vsize i = 1; i < (vsize)quantization; i++)
         {
           Real pt = (i * 1.0) / quantization;
           Offset inter = curve.curve_point (pt)
-            + d * get_normal ((th / 2) *curve.dir_at_point (pt));
+                         + d * get_normal ((th / 2) * curve.dir_at_point (pt));
           points[d].push_back (scm_transform (trans, inter));
         }
       Offset last = curve.control_[3]
-        + d * get_normal ((th / 2) * curve.dir_at_point (1.0));
+                    + d * get_normal ((th / 2) * curve.dir_at_point (1.0));
       points[d].push_back (scm_transform (trans, last));
     }
 
@@ -502,19 +473,11 @@ make_draw_bezier_boxes (vector<Box> &boxes,
   if (th >= 0)
     {
       // beg line cap
-      create_path_cap (boxes,
-                       buildings,
-                       trans,
-                       curve.control_[0],
-                       th / 2,
+      create_path_cap (boxes, buildings, trans, curve.control_[0], th / 2,
                        -curve.dir_at_point (0.0));
 
       // end line cap
-      create_path_cap (boxes,
-                       buildings,
-                       trans,
-                       curve.control_[3],
-                       th / 2,
+      create_path_cap (boxes, buildings, trans, curve.control_[3], th / 2,
                        curve.dir_at_point (1.0));
     }
 }
@@ -564,8 +527,7 @@ all_commands_to_absolute_and_group (SCM expr)
           Real y = robust_scm2double (scm_caddr (expr), 0.0);
           out = scm_cons (scm_list_4 (scm_from_double (current[X_AXIS]),
                                       scm_from_double (current[Y_AXIS]),
-                                      scm_from_double (x),
-                                      scm_from_double (y)),
+                                      scm_from_double (x), scm_from_double (y)),
                           out);
           current = Offset (x, y);
           expr = scm_cdddr (expr);
@@ -596,16 +558,14 @@ all_commands_to_absolute_and_group (SCM expr)
           expr = scm_cdr (expr);
           Real y3 = robust_scm2double (scm_car (expr), 0.0);
           expr = scm_cdr (expr);
-          out = scm_cons (scm_list_n (scm_from_double (current[X_AXIS]),
-                                      scm_from_double (current[Y_AXIS]),
-                                      scm_from_double (x1),
-                                      scm_from_double (y1),
-                                      scm_from_double (x2),
-                                      scm_from_double (y2),
-                                      scm_from_double (x3),
-                                      scm_from_double (y3),
-                                      SCM_UNDEFINED),
-                          out);
+          out = scm_cons (
+              scm_list_n (scm_from_double (current[X_AXIS]),
+                          scm_from_double (current[Y_AXIS]),
+                          scm_from_double (x1), scm_from_double (y1),
+                          scm_from_double (x2), scm_from_double (y2),
+                          scm_from_double (x3), scm_from_double (y3),
+                          SCM_UNDEFINED),
+              out);
           current = Offset (x3, y3);
         }
       else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("rcurveto")))
@@ -660,33 +620,36 @@ all_commands_to_absolute_and_group (SCM expr)
 
 void
 internal_make_path_boxes (vector<Box> &boxes,
-                          vector<Drul_array<Offset> > &buildings,
-                          SCM trans, SCM expr, bool use_building)
+                          vector<Drul_array<Offset>> &buildings, SCM trans,
+                          SCM expr, bool use_building)
 {
   SCM blot = scm_car (expr);
   expr = scm_cdr (expr);
   SCM path = all_commands_to_absolute_and_group (expr);
-  // note that expr has more stuff that we don't need after this - simply ignore it
+  // note that expr has more stuff that we don't need after this - simply ignore
+  // it
   //////////////////////
   for (SCM s = path; scm_is_pair (s); s = scm_cdr (s))
     {
       scm_to_int (scm_length (scm_car (s))) == 4
-      ? make_draw_line_boxes (boxes, buildings, trans, scm_cons (blot, scm_car (s)), use_building)
-      : make_draw_bezier_boxes (boxes, buildings, trans, scm_cons (blot, scm_car (s)));
+          ? make_draw_line_boxes (boxes, buildings, trans,
+                                  scm_cons (blot, scm_car (s)), use_building)
+          : make_draw_bezier_boxes (boxes, buildings, trans,
+                                    scm_cons (blot, scm_car (s)));
     }
 }
 
 void
-make_path_boxes (vector<Box> &boxes,
-                 vector<Drul_array<Offset> > &buildings,
+make_path_boxes (vector<Box> &boxes, vector<Drul_array<Offset>> &buildings,
                  SCM trans, SCM expr)
 {
-  return internal_make_path_boxes (boxes, buildings, trans, scm_cons (scm_car (expr), get_path_list (scm_cdr (expr))), false);
+  return internal_make_path_boxes (
+      boxes, buildings, trans,
+      scm_cons (scm_car (expr), get_path_list (scm_cdr (expr))), false);
 }
 
 void
-make_polygon_boxes (vector<Box> &boxes,
-                    vector<Drul_array<Offset> > &buildings,
+make_polygon_boxes (vector<Box> &boxes, vector<Drul_array<Offset>> &buildings,
                     SCM trans, SCM expr)
 {
   SCM coords = get_number_list (scm_car (expr));
@@ -697,20 +660,22 @@ make_polygon_boxes (vector<Box> &boxes,
   SCM l = SCM_EOL;
   for (SCM s = coords; scm_is_pair (s); s = scm_cddr (s))
     {
-      l = scm_cons (first ? ly_symbol2scm ("moveto") : ly_symbol2scm ("lineto"), l);
+      l = scm_cons (first ? ly_symbol2scm ("moveto") : ly_symbol2scm ("lineto"),
+                    l);
       l = scm_cons (scm_car (s), l);
       l = scm_cons (scm_cadr (s), l);
       first = false;
     }
   l = scm_cons (ly_symbol2scm ("closepath"), l);
-  internal_make_path_boxes (boxes, buildings, trans,
-                            scm_cons (blot_diameter, scm_reverse_x (l, SCM_EOL)), true);
+  internal_make_path_boxes (
+      boxes, buildings, trans,
+      scm_cons (blot_diameter, scm_reverse_x (l, SCM_EOL)), true);
 }
 
 void
 make_named_glyph_boxes (vector<Box> &boxes,
-                        vector<Drul_array<Offset> > &buildings,
-                        SCM trans, SCM expr)
+                        vector<Drul_array<Offset>> &buildings, SCM trans,
+                        SCM expr)
 {
   SCM fm_scm = scm_car (expr);
   Font_metric *fm = unsmob<Font_metric> (fm_scm);
@@ -719,9 +684,8 @@ make_named_glyph_boxes (vector<Box> &boxes,
   string glyph_s = ly_scm2string (glyph);
 
   //////////////////////
-  Open_type_font *open_fm
-    = dynamic_cast<Open_type_font *>
-      (dynamic_cast<Modified_font_metric *>(fm)->original_font ());
+  Open_type_font *open_fm = dynamic_cast<Open_type_font *> (
+      dynamic_cast<Modified_font_metric *> (fm)->original_font ());
   SCM_ASSERT_TYPE (open_fm, fm_scm, SCM_ARG1, __FUNCTION__, "OpenType font");
 
   size_t gidx = open_fm->name_to_index (glyph_s);
@@ -739,23 +703,22 @@ make_named_glyph_boxes (vector<Box> &boxes,
 
   SCM outline = open_fm->get_glyph_outline (gidx);
   //////////////////////
-  for (SCM s = outline;
-       scm_is_pair (s);
-       s = scm_cdr (s))
+  for (SCM s = outline; scm_is_pair (s); s = scm_cdr (s))
     {
       scm_to_int (scm_length (scm_car (s))) == 4
-      ? make_draw_line_boxes (boxes, buildings, trans,
-                              scm_cons (scm_from_double (0), scm_car (s)),
-                              false)
-      : make_draw_bezier_boxes (boxes, buildings, trans,
-                                scm_cons (scm_from_double (0), scm_car (s)));
+          ? make_draw_line_boxes (boxes, buildings, trans,
+                                  scm_cons (scm_from_double (0), scm_car (s)),
+                                  false)
+          : make_draw_bezier_boxes (
+              boxes, buildings, trans,
+              scm_cons (scm_from_double (0), scm_car (s)));
     }
 }
 
 void
 make_glyph_string_boxes (vector<Box> &boxes,
-                         vector<Drul_array<Offset> > &buildings,
-                         SCM trans, SCM expr)
+                         vector<Drul_array<Offset>> &buildings, SCM trans,
+                         SCM expr)
 {
   SCM fm_scm = scm_car (expr);
   Font_metric *fm = unsmob<Font_metric> (fm_scm);
@@ -817,35 +780,38 @@ make_glyph_string_boxes (vector<Box> &boxes,
         from the Pango_font.  This should eventually be fixed.  The solution
         for now is just to use the bounding box.
       */
-      if (std::isnan (xlen) || std::isnan (ylen) || std::isinf (xlen) || std::isinf (ylen))
+      if (std::isnan (xlen) || std::isnan (ylen) || std::isinf (xlen)
+          || std::isinf (ylen))
         outline = box_to_scheme_lines (kerned_bbox);
       else
         {
           assert (abs (xlen - ylen) < 10e-3);
 
           Real scale_factor = std::max (xlen, ylen);
-          // the three operations below move the stencil from its original coordinates to current coordinates
+          // the three operations below move the stencil from its original
+          // coordinates to current coordinates
           // FIXME: this looks extremely fishy.
-          transcopy =
-            robust_scm2transform (transcopy)
-            .translate (Offset (kerned_bbox[X_AXIS][LEFT],
-                                 kerned_bbox[Y_AXIS][DOWN] - real_bbox[Y_AXIS][DOWN]))
-            .translate (Offset (real_bbox[X_AXIS][LEFT], real_bbox[Y_AXIS][DOWN]))
-            .scale (scale_factor, scale_factor)
-            .translate (-Offset (bbox[X_AXIS][LEFT], bbox[Y_AXIS][DOWN]))
-            .smobbed_copy ();
+          transcopy = robust_scm2transform (transcopy)
+                          .translate (Offset (kerned_bbox[X_AXIS][LEFT],
+                                              kerned_bbox[Y_AXIS][DOWN]
+                                                  - real_bbox[Y_AXIS][DOWN]))
+                          .translate (Offset (real_bbox[X_AXIS][LEFT],
+                                              real_bbox[Y_AXIS][DOWN]))
+                          .scale (scale_factor, scale_factor)
+                          .translate (
+                              -Offset (bbox[X_AXIS][LEFT], bbox[Y_AXIS][DOWN]))
+                          .smobbed_copy ();
         }
       //////////////////////
-      for (SCM s = outline;
-           scm_is_pair (s);
-           s = scm_cdr (s))
+      for (SCM s = outline; scm_is_pair (s); s = scm_cdr (s))
         {
           scm_to_int (scm_length (scm_car (s))) == 4
-          ? make_draw_line_boxes (boxes, buildings, transcopy,
-                                  scm_cons (scm_from_double (0), scm_car (s)),
-                                  false)
-          : make_draw_bezier_boxes (boxes, buildings, transcopy,
-                                    scm_cons (scm_from_double (0), scm_car (s)));
+              ? make_draw_line_boxes (
+                  boxes, buildings, transcopy,
+                  scm_cons (scm_from_double (0), scm_car (s)), false)
+              : make_draw_bezier_boxes (
+                  boxes, buildings, transcopy,
+                  scm_cons (scm_from_double (0), scm_car (s)));
         }
     }
 }
@@ -856,8 +822,7 @@ make_glyph_string_boxes (vector<Box> &boxes,
 */
 
 void
-stencil_dispatcher (vector<Box> &boxes,
-                    vector<Drul_array<Offset> > &buildings,
+stencil_dispatcher (vector<Box> &boxes, vector<Drul_array<Offset>> &buildings,
                     SCM trans, SCM expr)
 {
   if (not scm_is_pair (expr))
@@ -874,9 +839,10 @@ stencil_dispatcher (vector<Box> &boxes,
       SCM x1 = scm_car (expr);
       expr = scm_cdr (expr);
       SCM x2 = scm_car (expr);
-      make_draw_line_boxes (boxes, buildings, trans,
-                            scm_list_5 (th, scm_from_double (0.0),
-                                        scm_from_double (0.0), x1, x2), true);
+      make_draw_line_boxes (
+          boxes, buildings, trans,
+          scm_list_5 (th, scm_from_double (0.0), scm_from_double (0.0), x1, x2),
+          true);
     }
   else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("circle")))
     {
@@ -884,15 +850,10 @@ stencil_dispatcher (vector<Box> &boxes,
       SCM rad = scm_car (expr);
       expr = scm_cdr (expr);
       SCM th = scm_car (expr);
-      make_partial_ellipse_boxes (boxes, buildings, trans,
-                                  scm_list_n (rad,
-                                              rad,
-                                              scm_from_double (0.0),
-                                              scm_from_double (360.0),
-                                              th,
-                                              SCM_BOOL_F,
-                                              SCM_BOOL_T,
-                                              SCM_UNDEFINED));
+      make_partial_ellipse_boxes (
+          boxes, buildings, trans,
+          scm_list_n (rad, rad, scm_from_double (0.0), scm_from_double (360.0),
+                      th, SCM_BOOL_F, SCM_BOOL_T, SCM_UNDEFINED));
     }
   else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("ellipse")))
     {
@@ -902,15 +863,11 @@ stencil_dispatcher (vector<Box> &boxes,
       SCM y_rad = scm_car (expr);
       expr = scm_cdr (expr);
       SCM th = scm_car (expr);
-      make_partial_ellipse_boxes (boxes, buildings, trans,
-                                  scm_list_n (x_rad,
-                                              y_rad,
-                                              scm_from_double (0.0),
-                                              scm_from_double (360.0),
-                                              th,
-                                              SCM_BOOL_F,
-                                              SCM_BOOL_T,
-                                              SCM_UNDEFINED));
+      make_partial_ellipse_boxes (
+          boxes, buildings, trans,
+          scm_list_n (x_rad, y_rad, scm_from_double (0.0),
+                      scm_from_double (360.0), th, SCM_BOOL_F, SCM_BOOL_T,
+                      SCM_UNDEFINED));
     }
   else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("partial-ellipse")))
     make_partial_ellipse_boxes (boxes, buildings, trans, scm_cdr (expr));
@@ -977,7 +934,8 @@ stencil_traverser (SCM trans, SCM expr, SCM tail)
       trans = robust_scm2transform (trans).rotate (ang, center).smobbed_copy ();
       return stencil_traverser (trans, scm_caddr (expr), tail);
     }
-  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("delay-stencil-evaluation")))
+  else if (scm_is_eq (scm_car (expr),
+                      ly_symbol2scm ("delay-stencil-evaluation")))
     // should not use the place-holder text, but no need for the warning below
     return tail;
   else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("grob-cause")))
@@ -997,21 +955,22 @@ stencil_traverser (SCM trans, SCM expr, SCM tail)
 }
 
 SCM
-Grob::maybe_pure_internal_simple_skylines_from_extents (Grob *me, Axis a, bool pure, int beg, int end, bool ignore_x, bool ignore_y)
+Grob::maybe_pure_internal_simple_skylines_from_extents (Grob *me, Axis a,
+                                                        bool pure, int beg,
+                                                        int end, bool ignore_x,
+                                                        bool ignore_y)
 {
   vector<Box> boxes;
   // we don't know how far spanners stretch along the X axis before
   // line breaking. better have them take up the whole thing
-  Interval xex = ignore_x
-                 ? Interval (-infinity_f, infinity_f)
-                 : me->extent (me, X_AXIS);
+  Interval xex
+      = ignore_x ? Interval (-infinity_f, infinity_f) : me->extent (me, X_AXIS);
 
   // If we're looking at the x exent of a cross staff grob, it could be
   // very early on in the computation process.  We won't know its height
   // until way later, so we give a brute force approximation.
-  Interval yex = ignore_y
-                 ? Interval (-infinity_f, infinity_f)
-                 : me->maybe_pure_extent (me, Y_AXIS, pure, beg, end);
+  Interval yex = ignore_y ? Interval (-infinity_f, infinity_f)
+                          : me->maybe_pure_extent (me, Y_AXIS, pure, beg, end);
 
   if (xex.is_empty () || yex.is_empty ())
     return Skyline_pair ().smobbed_copy ();
@@ -1022,14 +981,16 @@ Grob::maybe_pure_internal_simple_skylines_from_extents (Grob *me, Axis a, bool p
 
 MAKE_SCHEME_CALLBACK (Grob, pure_simple_vertical_skylines_from_extents, 3);
 SCM
-Grob::pure_simple_vertical_skylines_from_extents (SCM smob, SCM begscm, SCM endscm)
+Grob::pure_simple_vertical_skylines_from_extents (SCM smob, SCM begscm,
+                                                  SCM endscm)
 {
   Grob *me = unsmob<Grob> (smob);
   int beg = robust_scm2int (begscm, 0);
   int end = robust_scm2int (endscm, INT_MAX);
   // We cannot measure the widths before line breaking,
   // so we assume that the width is infinite: pass ignore_x=true
-  return maybe_pure_internal_simple_skylines_from_extents (me, X_AXIS, true, beg, end, true, false);
+  return maybe_pure_internal_simple_skylines_from_extents (
+      me, X_AXIS, true, beg, end, true, false);
 }
 
 MAKE_SCHEME_CALLBACK (Grob, simple_vertical_skylines_from_extents, 1);
@@ -1037,12 +998,14 @@ SCM
 Grob::simple_vertical_skylines_from_extents (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  return maybe_pure_internal_simple_skylines_from_extents (me, X_AXIS, false, 0, 0, false, false);
+  return maybe_pure_internal_simple_skylines_from_extents (me, X_AXIS, false, 0,
+                                                           0, false, false);
 }
 
 MAKE_SCHEME_CALLBACK (Grob, pure_simple_horizontal_skylines_from_extents, 3);
 SCM
-Grob::pure_simple_horizontal_skylines_from_extents (SCM smob, SCM begscm, SCM endscm)
+Grob::pure_simple_horizontal_skylines_from_extents (SCM smob, SCM begscm,
+                                                    SCM endscm)
 {
   Grob *me = unsmob<Grob> (smob);
   int beg = robust_scm2int (begscm, 0);
@@ -1050,7 +1013,9 @@ Grob::pure_simple_horizontal_skylines_from_extents (SCM smob, SCM begscm, SCM en
   // If the grob is cross staff, we cannot measure its Y-extent before
   // wayyyy downstream (after spacing of axis groups is done).
   // Thus, we assume that the Y extent is infinite for cross staff grobs.
-  return maybe_pure_internal_simple_skylines_from_extents (me, Y_AXIS, true, beg, end, false, to_boolean (me->get_property ("cross-staff")));
+  return maybe_pure_internal_simple_skylines_from_extents (
+      me, Y_AXIS, true, beg, end, false,
+      to_boolean (me->get_property ("cross-staff")));
 }
 
 MAKE_SCHEME_CALLBACK (Grob, simple_horizontal_skylines_from_extents, 1);
@@ -1059,7 +1024,9 @@ Grob::simple_horizontal_skylines_from_extents (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
   // See comment in function above.
-  return maybe_pure_internal_simple_skylines_from_extents (me, Y_AXIS, false, 0, 0, false, to_boolean (me->get_property ("cross-staff")));
+  return maybe_pure_internal_simple_skylines_from_extents (
+      me, Y_AXIS, false, 0, 0, false,
+      to_boolean (me->get_property ("cross-staff")));
 }
 
 SCM
@@ -1079,13 +1046,15 @@ Stencil::skylines_from_stencil (SCM sten, Real pad, SCM rot, Axis a)
       // incorporate rotation into a stencil copy
       sten = s->smobbed_copy ();
       s = unsmob<Stencil> (sten);
-      s->rotate_degrees (angle, Offset (x,y));
+      s->rotate_degrees (angle, Offset (x, y));
     }
 
-  SCM data = scm_reverse_x (stencil_traverser (SCM_EOL, s->expr (), SCM_EOL), SCM_EOL);
+  SCM data = scm_reverse_x (stencil_traverser (SCM_EOL, s->expr (), SCM_EOL),
+                            SCM_EOL);
   vector<Box> boxes;
-  vector<Drul_array<Offset> > buildings;
-  for (data = scm_reverse_x (data, SCM_EOL); scm_is_pair (data); data = scm_cdr (data))
+  vector<Drul_array<Offset>> buildings;
+  for (data = scm_reverse_x (data, SCM_EOL); scm_is_pair (data);
+       data = scm_cdr (data))
     stencil_dispatcher (boxes, buildings, scm_caar (data), scm_cdar (data));
 
   // we use the bounding box if there are no boxes
@@ -1109,10 +1078,11 @@ SCM
 Grob::vertical_skylines_from_stencil (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  Real pad = robust_scm2double (me->get_property ("skyline-horizontal-padding"), 0.0);
+  Real pad = robust_scm2double (me->get_property ("skyline-horizontal-padding"),
+                                0.0);
   SCM rot = me->get_property ("rotation");
-  SCM out = Stencil::skylines_from_stencil (me->get_property ("stencil"),
-                                            pad, rot, X_AXIS);
+  SCM out = Stencil::skylines_from_stencil (me->get_property ("stencil"), pad,
+                                            rot, X_AXIS);
 
   return out;
 }
@@ -1122,16 +1092,18 @@ SCM
 Grob::horizontal_skylines_from_stencil (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  Real pad = robust_scm2double (me->get_property ("skyline-vertical-padding"), 0.0);
+  Real pad
+      = robust_scm2double (me->get_property ("skyline-vertical-padding"), 0.0);
   SCM rot = me->get_property ("rotation");
-  SCM out = Stencil::skylines_from_stencil (me->get_property ("stencil"),
-                                            pad, rot, Y_AXIS);
+  SCM out = Stencil::skylines_from_stencil (me->get_property ("stencil"), pad,
+                                            rot, Y_AXIS);
 
   return out;
 }
 
 SCM
-Grob::internal_skylines_from_element_stencils (Grob *me, Axis a, bool pure, int beg, int end)
+Grob::internal_skylines_from_element_stencils (Grob *me, Axis a, bool pure,
+                                               int beg, int end)
 {
 
   extract_grob_set (me, "elements", elts);
@@ -1142,7 +1114,8 @@ Grob::internal_skylines_from_element_stencils (Grob *me, Axis a, bool pure, int 
   for (vsize i = 0; i < elts.size (); i++)
     {
       x_pos.push_back (elts[i]->relative_coordinate (x_common, X_AXIS));
-      y_pos.push_back (elts[i]->maybe_pure_coordinate (y_common, Y_AXIS, pure, beg, end));
+      y_pos.push_back (
+          elts[i]->maybe_pure_coordinate (y_common, Y_AXIS, pure, beg, end));
     }
   Real my_x = me->relative_coordinate (x_common, X_AXIS);
   Real my_y = me->maybe_pure_coordinate (y_common, Y_AXIS, pure, beg, end);
@@ -1150,7 +1123,10 @@ Grob::internal_skylines_from_element_stencils (Grob *me, Axis a, bool pure, int 
   Skyline_pair res;
   for (vsize i = 0; i < elts.size (); i++)
     {
-      Skyline_pair *skyp = unsmob<Skyline_pair> (elts[i]->get_maybe_pure_property (a == X_AXIS ? "vertical-skylines" : "horizontal-skylines", pure, beg, end));
+      Skyline_pair *skyp
+          = unsmob<Skyline_pair> (elts[i]->get_maybe_pure_property (
+              a == X_AXIS ? "vertical-skylines" : "horizontal-skylines", pure,
+              beg, end));
       if (skyp)
         {
           /*
@@ -1185,7 +1161,8 @@ SCM
 Grob::vertical_skylines_from_element_stencils (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  return internal_skylines_from_element_stencils (me, X_AXIS, false, 0, INT_MAX);
+  return internal_skylines_from_element_stencils (me, X_AXIS, false, 0,
+                                                  INT_MAX);
 }
 
 MAKE_SCHEME_CALLBACK (Grob, horizontal_skylines_from_element_stencils, 1);
@@ -1193,12 +1170,14 @@ SCM
 Grob::horizontal_skylines_from_element_stencils (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  return internal_skylines_from_element_stencils (me, Y_AXIS, false, 0, INT_MAX);
+  return internal_skylines_from_element_stencils (me, Y_AXIS, false, 0,
+                                                  INT_MAX);
 }
 
 MAKE_SCHEME_CALLBACK (Grob, pure_vertical_skylines_from_element_stencils, 3);
 SCM
-Grob::pure_vertical_skylines_from_element_stencils (SCM smob, SCM beg_scm, SCM end_scm)
+Grob::pure_vertical_skylines_from_element_stencils (SCM smob, SCM beg_scm,
+                                                    SCM end_scm)
 {
   Grob *me = unsmob<Grob> (smob);
   int beg = robust_scm2int (beg_scm, 0);
@@ -1208,7 +1187,8 @@ Grob::pure_vertical_skylines_from_element_stencils (SCM smob, SCM beg_scm, SCM e
 
 MAKE_SCHEME_CALLBACK (Grob, pure_horizontal_skylines_from_element_stencils, 3);
 SCM
-Grob::pure_horizontal_skylines_from_element_stencils (SCM smob, SCM beg_scm, SCM end_scm)
+Grob::pure_horizontal_skylines_from_element_stencils (SCM smob, SCM beg_scm,
+                                                      SCM end_scm)
 {
   Grob *me = unsmob<Grob> (smob);
   int beg = robust_scm2int (beg_scm, 0);

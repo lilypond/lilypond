@@ -19,16 +19,15 @@
 
 #include <cstdio>
 
-#include "warn.hh"
-#include "music.hh"
 #include "context.hh"
 #include "event-iterator.hh"
 #include "input.hh"
 #include "international.hh"
-#include "music-wrapper.hh"
 #include "music-wrapper-iterator.hh"
+#include "music-wrapper.hh"
+#include "music.hh"
 #include "simple-music-iterator.hh"
-
+#include "warn.hh"
 
 Music_iterator::Music_iterator ()
 {
@@ -36,9 +35,7 @@ Music_iterator::Music_iterator ()
   smobify_self ();
 }
 
-Music_iterator::~Music_iterator ()
-{
-}
+Music_iterator::~Music_iterator () {}
 
 Context *
 Music_iterator::get_outlet () const
@@ -63,10 +60,7 @@ Music_iterator::pending_moment () const
   return 0;
 }
 
-void
-Music_iterator::process (Moment)
-{
-}
+void Music_iterator::process (Moment) {}
 
 bool
 Music_iterator::ok () const
@@ -114,7 +108,7 @@ Music_iterator::music_get_length () const
 }
 
 Moment
-Music_iterator::music_start_mom ()const
+Music_iterator::music_start_mom () const
 {
   return start_mom_;
 }
@@ -124,7 +118,7 @@ Music_iterator::init_context (Music *m, Context *report)
 {
   music_ = m;
   assert (m);
-  if (! get_outlet ())
+  if (!get_outlet ())
     set_context (report);
 }
 
@@ -189,7 +183,7 @@ Music_iterator::get_music () const
 
 /****************************************************************/
 
-const char * const Music_iterator::type_p_name_ = "ly:iterator?";
+const char *const Music_iterator::type_p_name_ = "ly:iterator?";
 
 SCM
 Music_iterator::mark_smob () const
@@ -221,7 +215,7 @@ Music_iterator::print_smob (SCM port, scm_print_state *) const
 }
 
 void
-Music_iterator::derived_mark ()const
+Music_iterator::derived_mark () const
 {
 }
 
@@ -238,7 +232,7 @@ Music_iterator::do_quit ()
 }
 
 bool
-Music_iterator::run_always ()const
+Music_iterator::run_always () const
 {
   return false;
 }

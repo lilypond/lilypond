@@ -18,11 +18,11 @@
 */
 
 #include "audio-item.hh"
+#include "lily-imports.hh"
 #include "music-sequence.hh"
 #include "performer.hh"
 #include "stream-event.hh"
 #include "warn.hh"
-#include "lily-imports.hh"
 
 #include "translator.icc"
 
@@ -37,21 +37,19 @@ protected:
   void stop_translation_timestep ();
 
   void listen_key_change (Stream_event *);
+
 private:
   Stream_event *key_ev_;
   Audio_key *audio_;
 };
 
-Key_performer::Key_performer (Context *c)
-  : Performer (c)
+Key_performer::Key_performer (Context *c) : Performer (c)
 {
   key_ev_ = 0;
   audio_ = 0;
 }
 
-Key_performer::~Key_performer ()
-{
-}
+Key_performer::~Key_performer () {}
 
 void
 Key_performer::process_music ()
@@ -67,25 +65,20 @@ Key_performer::process_music ()
 
       SCM acc = Lily::alterations_in_key (pitchlist);
 
-      Pitch key_do (0,
-                    scm_to_int (scm_caar (pitchlist)),
+      Pitch key_do (0, scm_to_int (scm_caar (pitchlist)),
                     ly_scm2rational (scm_cdar (pitchlist)));
 
-      SCM c_pitchlist
-        = ly_transpose_key_alist (pitchlist,
-                                  key_do.negated ().smobbed_copy ());
+      SCM c_pitchlist = ly_transpose_key_alist (
+          pitchlist, key_do.negated ().smobbed_copy ());
 
       /* MIDI keys are too limited for lilypond scales.
          We check for minor scale and assume major otherwise.  */
 
-      SCM third = scm_assoc (scm_from_int (2),
-                             c_pitchlist);
-      bool minor = (scm_is_pair (third)
-                    && scm_is_number (scm_cdr (third))
+      SCM third = scm_assoc (scm_from_int (2), c_pitchlist);
+      bool minor = (scm_is_pair (third) && scm_is_number (scm_cdr (third))
                     && ly_scm2rational (scm_cdr (third)) == FLAT_ALTERATION);
 
-      audio_ = new Audio_key (scm_to_int (acc),
-                              !minor);
+      audio_ = new Audio_key (scm_to_int (acc), !minor);
 
       Audio_element_info info (audio_, key_ev_);
       announce_element (info);
@@ -126,5 +119,4 @@ ADD_TRANSLATOR (Key_performer,
                 "instrumentTransposition ",
 
                 /* write */
-                ""
-               );
+                "");

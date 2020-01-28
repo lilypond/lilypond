@@ -21,9 +21,9 @@
 #define SLUR_SCORING_HH
 
 #include "box.hh"
-#include "std-vector.hh"
 #include "lily-guile.hh"
 #include "slur-score-parameters.hh"
+#include "std-vector.hh"
 
 /* potential collisions with non-notes.
  */
@@ -128,7 +128,8 @@ public:
   std::vector<Offset> generate_avoid_offsets () const;
   Drul_array<Bound_info> get_bound_info () const;
   void generate_curves () const;
-  std::vector<Slur_configuration *> enumerate_attachments (Drul_array<Real> end_ys) const;
+  std::vector<Slur_configuration *>
+  enumerate_attachments (Drul_array<Real> end_ys) const;
   Drul_array<Offset> get_base_attachments () const;
   Drul_array<Real> get_y_attachment_range () const;
   Encompass_info get_encompass_info (Grob *col) const;

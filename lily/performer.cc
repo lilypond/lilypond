@@ -18,22 +18,18 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "context.hh"
 #include "performer.hh"
+#include "context.hh"
 #include "performer-group.hh"
 #include "warn.hh"
 
 Performer_group *
 Performer::get_daddy_performer () const
 {
-  return
-    dynamic_cast<Performer_group *> (get_daddy_translator ());
+  return dynamic_cast<Performer_group *> (get_daddy_translator ());
 }
 
-void
-Performer::acknowledge_audio_element (Audio_element_info)
-{
-}
+void Performer::acknowledge_audio_element (Audio_element_info) {}
 
 void
 Performer::create_audio_elements ()

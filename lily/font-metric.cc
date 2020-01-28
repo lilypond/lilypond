@@ -19,8 +19,8 @@
 
 #include "font-metric.hh"
 
-#include <cmath>
 #include <cctype>
+#include <cmath>
 
 #include "dimensions.hh"
 #include "modified-font-metric.hh"
@@ -46,8 +46,7 @@ Font_metric::find_by_name (string s) const
   SCM expr = SCM_EOL;
   if (idx != GLYPH_INDEX_INVALID)
     {
-      expr = scm_list_3 (ly_symbol2scm ("named-glyph"),
-                         self_scm (),
+      expr = scm_list_3 (ly_symbol2scm ("named-glyph"), self_scm (),
                          ly_string2scm (s));
       b = get_indexed_char_dimensions (idx);
     }
@@ -62,14 +61,9 @@ Font_metric::Font_metric ()
   smobify_self ();
 }
 
-Font_metric::Font_metric (Font_metric const &)
-  : Smob<Font_metric> ()
-{
-}
+Font_metric::Font_metric (Font_metric const &) : Smob<Font_metric> () {}
 
-Font_metric::~Font_metric ()
-{
-}
+Font_metric::~Font_metric () {}
 
 size_t
 Font_metric::count () const
@@ -77,17 +71,12 @@ Font_metric::count () const
   return 0;
 }
 
-Box
-Font_metric::get_indexed_char_dimensions (size_t) const
+Box Font_metric::get_indexed_char_dimensions (size_t) const
 {
   return Box (Interval (0, 0), Interval (0, 0));
 }
 
-Offset
-Font_metric::get_indexed_wxwy (size_t) const
-{
-  return Offset (0, 0);
-}
+Offset Font_metric::get_indexed_wxwy (size_t) const { return Offset (0, 0); }
 
 void
 Font_metric::derived_mark () const
@@ -112,7 +101,7 @@ Font_metric::print_smob (SCM port, scm_print_state *) const
   return 1;
 }
 
-const char * const Font_metric::type_p_name_ = "ly:font-metric?";
+const char *const Font_metric::type_p_name_ = "ly:font-metric?";
 
 SCM
 Font_metric::font_file_name () const
@@ -134,7 +123,7 @@ Font_metric::index_to_charcode (size_t i) const
 }
 
 Offset
-Font_metric::attachment_point (const string&) const
+Font_metric::attachment_point (const string &) const
 {
   return Offset (0, 0);
 }
@@ -146,12 +135,10 @@ Font_metric::sub_fonts () const
 }
 
 Stencil
-Font_metric::text_stencil (Output_def *state,
-                           const string&,
-                           bool,
-                           const string&) const
+Font_metric::text_stencil (Output_def *state, const string &, bool,
+                           const string &) const
 {
-  (void) state;
+  (void)state;
 
   programming_error ("Cannot get a text stencil from this font");
   return Stencil (Box (), SCM_EOL);

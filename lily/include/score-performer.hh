@@ -48,6 +48,7 @@ protected:
   void announce_element (Audio_element_info) override;
   void derived_mark () const override;
   void acknowledge_audio_elements () override;
+
 private:
   void header (Midi_stream &);
 

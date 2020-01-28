@@ -17,10 +17,10 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "engraver.hh"
-#include "translator-group.hh"
 #include "context.hh"
+#include "engraver.hh"
 #include "repeated-music.hh"
+#include "translator-group.hh"
 
 #include "translator.icc"
 
@@ -39,8 +39,8 @@ using std::string;
 class Repeat_acknowledge_engraver : public Engraver
 {
 public:
-
   TRANSLATOR_DECLARATIONS (Repeat_acknowledge_engraver);
+
 protected:
   void start_translation_timestep ();
   void process_music ();
@@ -54,7 +54,7 @@ Repeat_acknowledge_engraver::initialize ()
 }
 
 Repeat_acknowledge_engraver::Repeat_acknowledge_engraver (Context *c)
-  : Engraver (c)
+    : Engraver (c)
 {
 }
 
@@ -62,7 +62,8 @@ void
 Repeat_acknowledge_engraver::start_translation_timestep ()
 {
   SCM rc;
-  Context *tr = context ()->where_defined (ly_symbol2scm ("repeatCommands"), &rc);
+  Context *tr
+      = context ()->where_defined (ly_symbol2scm ("repeatCommands"), &rc);
   if (!tr)
     tr = context ();
 
@@ -106,7 +107,8 @@ Repeat_acknowledge_engraver::process_music ()
   if (segno)
     if (start)
       if (end) // { segno, start, end }
-        s = robust_scm2string (get_property ("doubleRepeatSegnoType"), ":|.S.|:");
+        s = robust_scm2string (get_property ("doubleRepeatSegnoType"),
+                               ":|.S.|:");
       else // { segno, start }
         s = robust_scm2string (get_property ("startRepeatSegnoType"), "S.|:");
     else if (end) // { segno, end }
@@ -141,7 +143,6 @@ Repeat_acknowledge_engraver::process_music ()
 void
 Repeat_acknowledge_engraver::boot ()
 {
-
 }
 
 ADD_TRANSLATOR (Repeat_acknowledge_engraver,
@@ -165,5 +166,4 @@ ADD_TRANSLATOR (Repeat_acknowledge_engraver,
                 "whichBar ",
 
                 /* write */
-                ""
-               );
+                "");

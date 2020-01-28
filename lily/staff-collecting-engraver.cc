@@ -17,10 +17,10 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "staff-symbol.hh"
+#include "context.hh"
 #include "engraver.hh"
 #include "grob.hh"
-#include "context.hh"
+#include "staff-symbol.hh"
 
 class Staff_collecting_engraver : public Engraver
 {
@@ -30,8 +30,7 @@ public:
   void acknowledge_end_staff_symbol (Grob_info);
 };
 
-Staff_collecting_engraver::Staff_collecting_engraver (Context *c)
-  : Engraver (c)
+Staff_collecting_engraver::Staff_collecting_engraver (Context *c) : Engraver (c)
 {
 }
 
@@ -55,7 +54,6 @@ Staff_collecting_engraver::acknowledge_end_staff_symbol (Grob_info gi)
 
 #include "translator.icc"
 
-
 void
 Staff_collecting_engraver::boot ()
 {
@@ -74,5 +72,4 @@ ADD_TRANSLATOR (Staff_collecting_engraver,
                 "stavesFound ",
 
                 /* write */
-                "stavesFound "
-               );
+                "stavesFound ");

@@ -35,10 +35,7 @@ protected:
   void acknowledge_grob (Grob_info) override;
 };
 
-Parenthesis_engraver::Parenthesis_engraver (Context *c)
-  : Engraver (c)
-{
-}
+Parenthesis_engraver::Parenthesis_engraver (Context *c) : Engraver (c) {}
 
 void
 Parenthesis_engraver::acknowledge_grob (Grob_info info)
@@ -49,14 +46,19 @@ Parenthesis_engraver::acknowledge_grob (Grob_info info)
         {
           if (Item *victim = dynamic_cast<Item *> (info.grob ()))
             {
-              Engraver *eng = dynamic_cast<Engraver *> (info.origin_translator ());
-              Item *paren = eng->make_item ("ParenthesesItem", victim->self_scm ());
-              Pointer_group_interface::add_grob (paren, ly_symbol2scm ("elements"), victim);
+              Engraver *eng
+                  = dynamic_cast<Engraver *> (info.origin_translator ());
+              Item *paren
+                  = eng->make_item ("ParenthesesItem", victim->self_scm ());
+              Pointer_group_interface::add_grob (
+                  paren, ly_symbol2scm ("elements"), victim);
 
               paren->set_parent (victim, Y_AXIS);
 
-              Real size = robust_scm2double (paren->get_property ("font-size"), 0.0)
-                          + robust_scm2double (victim->get_property ("font-size"), 0.0);
+              Real size
+                  = robust_scm2double (paren->get_property ("font-size"), 0.0)
+                    + robust_scm2double (victim->get_property ("font-size"),
+                                         0.0);
               paren->set_property ("font-size", scm_from_double (size));
 
               /*
@@ -67,7 +69,8 @@ Parenthesis_engraver::acknowledge_grob (Grob_info info)
             }
           else
             {
-              info.grob ()->warning ("Don't know how to parenthesize spanners.");
+              info.grob ()->warning (
+                  "Don't know how to parenthesize spanners.");
             }
         }
     }
@@ -91,5 +94,4 @@ ADD_TRANSLATOR (Parenthesis_engraver,
                 "",
 
                 /* write */
-                ""
-               );
+                "");

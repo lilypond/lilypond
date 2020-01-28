@@ -29,8 +29,9 @@ public:
   Scm_variable *var_;
   Variable_record *next_;
   Variable_record (const char *name, Scm_variable *var, Variable_record *next_)
-    : name_ (name), var_ (var), next_ (next_)
-  { }
+      : name_ (name), var_ (var), next_ (next_)
+  {
+  }
 };
 
 void
@@ -40,7 +41,7 @@ Scm_module::register_variable (const char *name, Scm_variable *var)
 }
 
 Scm_module::Scm_module (const char *name)
-  : name_ (name), module_ (SCM_UNDEFINED), variables_ (0)
+    : name_ (name), module_ (SCM_UNDEFINED), variables_ (0)
 {
 }
 
@@ -59,7 +60,7 @@ call_trampoline (void *self)
 {
   // One more indirection since void * can only be safely cast to
   // pointers to data rather than pointers to function.
-  (*static_cast <void (**)()> (self)) ();
+  (*static_cast<void (**) ()> (self)) ();
   return SCM_UNDEFINED;
 }
 
@@ -67,19 +68,21 @@ void
 Scm_module::boot (void (*init) ())
 {
   assert (SCM_UNBNDP (module_));
-  module_ = scm_c_define_module (name_, boot_init, static_cast <void *> (this));
+  module_ = scm_c_define_module (name_, boot_init, static_cast<void *> (this));
   // Can't wrap the following in the scm_c_define_module call since
   // the init code may need module_ operative.
   if (init)
-    scm_c_call_with_current_module (module_, call_trampoline, static_cast <void *> (&init));
+    scm_c_call_with_current_module (module_, call_trampoline,
+                                    static_cast<void *> (&init));
   // Verify that every Variable has a definition, either because of
   // getting initialized with a value at definition or because of the
   // init call providing one.
-  for (Variable_record *p = variables_; p; )
+  for (Variable_record *p = variables_; p;)
     {
       Variable_record *next = p->next_;
       if (SCM_UNBNDP (SCM (*p->var_)))
-        error (_f ("Uninitialized variable `%s' in module (%s)", p->name_, name_));
+        error (
+            _f ("Uninitialized variable `%s' in module (%s)", p->name_, name_));
       delete p;
       p = next;
     }
@@ -121,9 +124,8 @@ Scm_variable::import (SCM module, const char *name)
   var_ = scm_c_module_lookup (module, name);
 }
 
-
 Scm_variable::Scm_variable (Scm_module &m, const char *name, SCM value)
-  : var_ (value)
+    : var_ (value)
 {
   assert (SCM_IMP (value));
   m.register_variable (name, this);

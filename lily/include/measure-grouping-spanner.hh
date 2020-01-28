@@ -27,8 +27,6 @@ class Measure_grouping
 {
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-
 };
 
 #endif /* MEASURE_GROUPING_SPANNER_HH */
-

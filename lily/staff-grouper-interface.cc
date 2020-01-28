@@ -28,7 +28,8 @@ using std::vector;
 // Find the furthest staff in the given direction whose x-extent overlaps with
 // the given interval.
 Grob *
-Staff_grouper_interface::get_extremal_staff (Grob *me, Grob *refpoint, Direction dir, Interval const &iv)
+Staff_grouper_interface::get_extremal_staff (Grob *me, Grob *refpoint,
+                                             Direction dir, Interval const &iv)
 {
   // N.B. This is intended to work for a VerticalAlignment grob even though
   // VerticalAlignment does not have the staff-grouper interface.  StaffGrouper
@@ -59,7 +60,8 @@ Staff_grouper_interface::get_extremal_staff (Grob *me, Grob *refpoint, Direction
    belongs to the group.
 */
 bool
-Staff_grouper_interface::maybe_pure_within_group (Grob *me, Grob *child, bool pure, int start, int end)
+Staff_grouper_interface::maybe_pure_within_group (Grob *me, Grob *child,
+                                                  bool pure, int start, int end)
 {
   extract_grob_set (me, "elements", elts);
 
@@ -79,11 +81,8 @@ Staff_grouper_interface::maybe_pure_within_group (Grob *me, Grob *child, bool pu
   return false;
 }
 
-ADD_INTERFACE (Staff_grouper_interface,
-               "A grob that collects staves together.",
+ADD_INTERFACE (Staff_grouper_interface, "A grob that collects staves together.",
 
                /* properties */
                "staff-staff-spacing "
-               "staffgroup-staff-spacing "
-              );
-
+               "staffgroup-staff-spacing ");

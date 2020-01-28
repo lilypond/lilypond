@@ -20,17 +20,14 @@
 #include "sources.hh"
 
 #include "config.hh"
-#include "source-file.hh"
 #include "file-name.hh"
 #include "file-path.hh"
+#include "source-file.hh"
 
 using std::string;
 using std::vector;
 
-Sources::Sources ()
-{
-  path_ = 0;
-}
+Sources::Sources () { path_ = 0; }
 
 void
 Sources::set_path (File_path *f)
@@ -53,8 +50,7 @@ Sources::get_file (string file_string, string const &current_dir)
     {
       // First, check for a path relative to the directory of the
       // file currently being parsed.
-      if (current_dir.length ()
-          && file_string.length ()
+      if (current_dir.length () && file_string.length ()
           && !File_name (file_string).is_absolute ()
           && is_file (current_dir + DIRSEP + file_string))
         file_string = current_dir + DIRSEP + file_string;
@@ -89,13 +85,12 @@ Sources::~Sources ()
     }
 }
 
-#include "lily-parser.hh"
-#include "lily-lexer.hh"
-#include "lily-imports.hh"
 #include "fluid.hh"
+#include "lily-imports.hh"
+#include "lily-lexer.hh"
+#include "lily-parser.hh"
 
-LY_DEFINE (ly_source_files, "ly:source-files", 0, 1, 0,
-           (SCM parser_smob),
+LY_DEFINE (ly_source_files, "ly:source-files", 0, 1, 0, (SCM parser_smob),
            "A list of LilyPond files being processed;"
            "a PARSER may optionally be specified.")
 {
@@ -106,11 +101,10 @@ LY_DEFINE (ly_source_files, "ly:source-files", 0, 1, 0,
   Includable_lexer *lex = parser->lexer_;
 
   SCM lst = SCM_EOL;
-  for (vector<string>::const_iterator
-       i = lex->file_name_strings_.begin();
-       i != lex->file_name_strings_.end(); ++i)
-       {
-         lst = scm_cons (ly_string2scm (*i), lst);
-       }
+  for (vector<string>::const_iterator i = lex->file_name_strings_.begin ();
+       i != lex->file_name_strings_.end (); ++i)
+    {
+      lst = scm_cons (ly_string2scm (*i), lst);
+    }
   return scm_reverse_x (lst, SCM_EOL);
 }

@@ -20,17 +20,16 @@
 #include "item.hh"
 
 #include "axis-group-interface.hh"
-#include "paper-score.hh"
-#include "warn.hh"
-#include "paper-column.hh"
 #include "lily-guile.hh"
-#include "system.hh"
+#include "paper-column.hh"
+#include "paper-score.hh"
 #include "pointer-group-interface.hh"
+#include "system.hh"
+#include "warn.hh"
 
 #include "moment.hh"
 
-Item::Item (SCM s)
-  : Grob (s)
+Item::Item (SCM s) : Grob (s)
 {
   broken_to_drul_[LEFT] = broken_to_drul_[RIGHT] = 0;
   cached_pure_height_valid_ = false;
@@ -39,8 +38,7 @@ Item::Item (SCM s)
 /**
    Item copy ctor.  Copy nothing: everything should be an elt property
    or a special purpose pointer (such as broken_to_drul_[]) */
-Item::Item (Item const &s)
-  : Grob (s)
+Item::Item (Item const &s) : Grob (s)
 {
   broken_to_drul_[LEFT] = broken_to_drul_[RIGHT] = 0;
   cached_pure_height_valid_ = false;
@@ -50,7 +48,8 @@ bool
 Item::is_non_musical (Grob *me)
 {
   Item *i = dynamic_cast<Item *> (me->get_parent (X_AXIS));
-  return i ? Item::is_non_musical (i) : to_boolean (me->get_property ("non-musical"));
+  return i ? Item::is_non_musical (i)
+           : to_boolean (me->get_property ("non-musical"));
 }
 
 Paper_column *
@@ -191,8 +190,8 @@ spanned_time_interval (Item *l, Item *r)
   for (LEFT_and_RIGHT (d))
     {
       if (bounds[d] && bounds[d]->get_column ())
-        iv[d] = robust_scm2moment (bounds[d]->get_column ()->get_property ("when"),
-                                   iv[d]);
+        iv[d] = robust_scm2moment (
+            bounds[d]->get_column ()->get_property ("when"), iv[d]);
     }
 
   for (LEFT_and_RIGHT (d))
@@ -275,5 +274,4 @@ ADD_INTERFACE (Item,
                "break-visibility "
                "extra-spacing-height "
                "extra-spacing-width "
-               "non-musical "
-              );
+               "non-musical ");

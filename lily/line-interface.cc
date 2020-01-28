@@ -28,9 +28,8 @@
 using std::vector;
 
 Stencil
-Line_interface::make_arrow (Offset begin, Offset end,
-                            Real thick,
-                            Real length, Real width)
+Line_interface::make_arrow (Offset begin, Offset end, Real thick, Real length,
+                            Real width)
 {
   Offset dir = (end - begin).direction ();
   vector<Offset> points;
@@ -46,9 +45,7 @@ Line_interface::make_arrow (Offset begin, Offset end,
 }
 
 Stencil
-Line_interface::make_trill_line (Grob *me,
-                                 Offset from,
-                                 Offset to)
+Line_interface::make_trill_line (Grob *me, Offset from, Offset to)
 {
   Offset dz = (to - from);
 
@@ -79,19 +76,19 @@ Line_interface::make_trill_line (Grob *me,
 }
 
 Stencil
-Line_interface::make_zigzag_line (Grob *me,
-                                  Offset from,
-                                  Offset to)
+Line_interface::make_zigzag_line (Grob *me, Offset from, Offset to)
 {
   Offset dz = to - from;
 
   Real thick = Staff_symbol_referencer::line_thickness (me);
-  thick *= robust_scm2double (me->get_property ("thickness"), 1.0); // todo: staff sym referencer?
+  thick *= robust_scm2double (me->get_property ("thickness"),
+                              1.0); // todo: staff sym referencer?
 
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
-  Real w = robust_scm2double (me->get_property ("zigzag-width"), 1) * staff_space;
-  int count = (int) ceil (dz.length () / w);
+  Real w
+      = robust_scm2double (me->get_property ("zigzag-width"), 1) * staff_space;
+  int count = (int)ceil (dz.length () / w);
   w = dz.length () / count;
 
   Real l = robust_scm2double (me->get_property ("zigzag-length"), 1) * w;
@@ -107,7 +104,8 @@ Line_interface::make_zigzag_line (Grob *me,
     points[i] = complex_multiply (points[i], rotation_factor);
 
   Stencil squiggle (Line_interface::make_line (thick, points[0], points[1]));
-  squiggle.add_stencil (Line_interface::make_line (thick, points[1], points[2]));
+  squiggle.add_stencil (
+      Line_interface::make_line (thick, points[1], points[2]));
 
   Stencil total;
   for (int i = 0; i < count; i++)
@@ -128,14 +126,11 @@ Line_interface::make_dashed_line (Real thick, Offset from, Offset to,
   Real on = dash_fraction * dash_period;
   Real off = std::max (0.0, dash_period - on);
 
-  SCM at = scm_list_n (ly_symbol2scm ("dashed-line"),
-                       scm_from_double (thick),
-                       scm_from_double (on),
-                       scm_from_double (off),
+  SCM at = scm_list_n (ly_symbol2scm ("dashed-line"), scm_from_double (thick),
+                       scm_from_double (on), scm_from_double (off),
                        scm_from_double (to[X_AXIS] - from[X_AXIS]),
                        scm_from_double (to[Y_AXIS] - from[Y_AXIS]),
-                       scm_from_double (0.0),
-                       SCM_UNDEFINED);
+                       scm_from_double (0.0), SCM_UNDEFINED);
 
   Box box;
   box.add_point (Offset (0, 0));
@@ -152,13 +147,11 @@ Line_interface::make_dashed_line (Real thick, Offset from, Offset to,
 Stencil
 Line_interface::make_line (Real th, Offset from, Offset to)
 {
-  SCM at = scm_list_n (ly_symbol2scm ("draw-line"),
-                       scm_from_double (th),
+  SCM at = scm_list_n (ly_symbol2scm ("draw-line"), scm_from_double (th),
                        scm_from_double (from[X_AXIS]),
                        scm_from_double (from[Y_AXIS]),
                        scm_from_double (to[X_AXIS]),
-                       scm_from_double (to[Y_AXIS]),
-                       SCM_UNDEFINED);
+                       scm_from_double (to[Y_AXIS]), SCM_UNDEFINED);
 
   Box box;
   box.add_point (from);
@@ -171,8 +164,7 @@ Line_interface::make_line (Real th, Offset from, Offset to)
 }
 
 Stencil
-Line_interface::arrows (Grob *me, Offset from, Offset to,
-                        bool from_arrow,
+Line_interface::arrows (Grob *me, Offset from, Offset to, bool from_arrow,
                         bool to_arrow)
 {
   Stencil a;
@@ -182,7 +174,8 @@ Line_interface::arrows (Grob *me, Offset from, Offset to,
                    * robust_scm2double (me->get_property ("thickness"), 1);
       Real ss = Staff_symbol_referencer::staff_space (me);
 
-      Real len = robust_scm2double (me->get_property ("arrow-length"), 1.3 * ss);
+      Real len
+          = robust_scm2double (me->get_property ("arrow-length"), 1.3 * ss);
       Real wid = robust_scm2double (me->get_property ("arrow-width"), 0.5 * ss);
 
       if (to_arrow)
@@ -216,9 +209,9 @@ Line_interface::line (Grob *me, Offset from, Offset to)
     {
 
       Real fraction
-        = scm_is_eq (type, ly_symbol2scm ("dotted-line"))
-          ? 0.0
-          : robust_scm2double (me->get_property ("dash-fraction"), 0.4);
+          = scm_is_eq (type, ly_symbol2scm ("dotted-line"))
+                ? 0.0
+                : robust_scm2double (me->get_property ("dash-fraction"), 0.4);
 
       fraction = std::min (std::max (fraction, 0.0), 1.0);
       Real period = Staff_symbol_referencer::staff_space (me)
@@ -233,8 +226,7 @@ Line_interface::line (Grob *me, Offset from, Offset to)
         there will be one more dash than complete dash + whitespace
         units (full periods).
       */
-      int full_period_count =
-        (int) rint ((len - period * fraction) / period);
+      int full_period_count = (int)rint ((len - period * fraction) / period);
       full_period_count = std::max (0, full_period_count);
       if (full_period_count > 0)
         {
@@ -270,5 +262,4 @@ ADD_INTERFACE (Line_interface,
                "style "
                "thickness "
                "zigzag-length "
-               "zigzag-width "
-              );
+               "zigzag-width ");

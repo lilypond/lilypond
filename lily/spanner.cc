@@ -31,7 +31,7 @@ using std::vector;
 void
 Spanner::do_break_processing ()
 {
-  //break_into_pieces
+  // break_into_pieces
   Item *left = spanned_drul_[LEFT];
   Item *right = spanned_drul_[RIGHT];
 
@@ -92,23 +92,27 @@ Spanner::do_break_processing ()
           for (LEFT_and_RIGHT (d))
             {
               if (!bounds[d]->get_system ())
-                bounds[d] = bounds[d]->find_prebroken_piece (- d);
+                bounds[d] = bounds[d]->find_prebroken_piece (-d);
             }
 
-          if (!bounds[LEFT] || ! bounds[RIGHT])
+          if (!bounds[LEFT] || !bounds[RIGHT])
             {
               programming_error ("bounds of this piece aren't breakable.");
               continue;
             }
 
-          bool ok = parent_rank_slice.contains (bounds[LEFT]->get_column ()->get_rank ());
-          ok = ok && parent_rank_slice.contains (bounds[RIGHT]->get_column ()->get_rank ());
+          bool ok = parent_rank_slice.contains (
+              bounds[LEFT]->get_column ()->get_rank ());
+          ok = ok
+               && parent_rank_slice.contains (
+                   bounds[RIGHT]->get_column ()->get_rank ());
 
           if (!ok)
             {
-              programming_error (to_string ("Spanner `%s' is not fully contained in parent spanner."
-                                            "  Ignoring orphaned part",
-                                            name ().c_str ()));
+              programming_error (to_string (
+                  "Spanner `%s' is not fully contained in parent spanner."
+                  "  Ignoring orphaned part",
+                  name ().c_str ()));
               continue;
             }
 
@@ -116,8 +120,7 @@ Spanner::do_break_processing ()
           span->set_bound (LEFT, bounds[LEFT]);
           span->set_bound (RIGHT, bounds[RIGHT]);
 
-          if (!bounds[LEFT]->get_system ()
-              || !bounds[RIGHT]->get_system ()
+          if (!bounds[LEFT]->get_system () || !bounds[RIGHT]->get_system ()
               || bounds[LEFT]->get_system () != bounds[RIGHT]->get_system ())
             {
               programming_error ("bounds of spanner are invalid");
@@ -166,8 +169,7 @@ Spanner::spanned_rank_interval () const
 Interval_t<Moment>
 Spanner::spanned_time () const
 {
-  return spanned_time_interval (spanned_drul_[LEFT],
-                                spanned_drul_[RIGHT]);
+  return spanned_time_interval (spanned_drul_[LEFT], spanned_drul_[RIGHT]);
 }
 
 /*
@@ -204,7 +206,7 @@ Spanner::set_bound (Direction d, Grob *g)
       original parent for alignment.
       This happens e.g. for MultiMeasureRestNumbers and PercentRepeatCounters.
     */
-    if (!dynamic_cast <Spanner *> (get_parent (X_AXIS)))
+    if (!dynamic_cast<Spanner *> (get_parent (X_AXIS)))
       set_parent (g, X_AXIS);
 }
 
@@ -227,17 +229,9 @@ Preinit_Spanner::Preinit_Spanner ()
   pure_property_cache_ = SCM_UNDEFINED;
 }
 
-Spanner::Spanner (SCM s)
-  : Grob (s)
-{
-  break_index_ = 0;
-}
+Spanner::Spanner (SCM s) : Grob (s) { break_index_ = 0; }
 
-Spanner::Spanner (Spanner const &s)
-  : Grob (s)
-{
-  break_index_ = 0;
-}
+Spanner::Spanner (Spanner const &s) : Grob (s) { break_index_ = 0; }
 
 /*
   Certain spanners have pre-computed X values that lie either in
@@ -254,8 +248,8 @@ Spanner::Spanner (Spanner const &s)
 Real
 Spanner::spanner_length () const
 {
-  Interval lr = robust_scm2interval (get_property ("X-positions"),
-                                     Interval (1, -1));
+  Interval lr
+      = robust_scm2interval (get_property ("X-positions"), Interval (1, -1));
 
   if (lr.is_empty ())
     {
@@ -263,8 +257,8 @@ Spanner::spanner_length () const
                               get_property ("right-bound-info"));
 
       for (LEFT_and_RIGHT (d))
-        lr[d] = robust_scm2double (ly_assoc_get (ly_symbol2scm ("X"),
-                                                 bounds[d], SCM_BOOL_F), -d);
+        lr[d] = robust_scm2double (
+            ly_assoc_get (ly_symbol2scm ("X"), bounds[d], SCM_BOOL_F), -d);
     }
 
   if (lr.is_empty ())
@@ -292,9 +286,9 @@ Spanner::get_system () const
 Spanner *
 Spanner::find_broken_piece (System *l) const
 {
-  vsize idx = binary_search (broken_intos_, (Spanner *) l, Spanner::less);
+  vsize idx = binary_search (broken_intos_, (Spanner *)l, Spanner::less);
   if (idx != VPOS)
-    return broken_intos_ [idx];
+    return broken_intos_[idx];
   return 0;
 }
 
@@ -364,18 +358,16 @@ Spanner::set_spacing_rods (SCM smob)
   Grob *me = unsmob<Grob> (smob);
   SCM num_length = me->get_property ("minimum-length");
   SCM broken_length = me->get_property ("minimum-length-after-break");
-  if (scm_is_number (num_length)
-     || scm_is_number (broken_length))
+  if (scm_is_number (num_length) || scm_is_number (broken_length))
     {
       Spanner *sp = dynamic_cast<Spanner *> (me);
       System *root = get_root_system (me);
-      Drul_array<Item *> bounds (sp->get_bound (LEFT),
-                                 sp->get_bound (RIGHT));
+      Drul_array<Item *> bounds (sp->get_bound (LEFT), sp->get_bound (RIGHT));
       if (!bounds[LEFT] || !bounds[RIGHT])
         return SCM_UNSPECIFIED;
 
-      vector<Item *> cols (root->broken_col_range (bounds[LEFT]->get_column (),
-                                                   bounds[RIGHT]->get_column ()));
+      vector<Item *> cols (root->broken_col_range (
+          bounds[LEFT]->get_column (), bounds[RIGHT]->get_column ()));
 
       if (cols.size ())
         {
@@ -395,8 +387,8 @@ Spanner::set_spacing_rods (SCM smob)
               changed value), we cannot directly reset r.distance_ to
               broken_length.
             */
-            r.distance_ += robust_scm2double (broken_length, 0) -
-              robust_scm2double (num_length, 0);
+            r.distance_ += robust_scm2double (broken_length, 0)
+                           - robust_scm2double (num_length, 0);
           r.add_to_cols ();
         }
 
@@ -453,7 +445,8 @@ Spanner::calc_normalized_endpoints (SCM smob)
 
       for (vsize i = 0; i < span_data.size (); i++)
         {
-          unnormalized_endpoints.push_back (Interval (total_width, total_width + span_data[i]));
+          unnormalized_endpoints.push_back (
+              Interval (total_width, total_width + span_data[i]));
           total_width += span_data[i];
         }
 
@@ -480,7 +473,8 @@ Spanner::bounds_width (SCM grob)
 {
   Spanner *me = unsmob<Spanner> (grob);
 
-  Grob *common = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);
+  Grob *common
+      = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);
 
   Interval w (me->get_bound (LEFT)->relative_coordinate (common, X_AXIS),
               me->get_bound (RIGHT)->relative_coordinate (common, X_AXIS));
@@ -513,7 +507,7 @@ Spanner::kill_zero_spanned_time (SCM grob)
   if (me->get_bound (LEFT)->break_status_dir ())
     {
       Interval_t<Moment> moments = me->spanned_time ();
-      moments [LEFT].grace_part_ = 0;
+      moments[LEFT].grace_part_ = 0;
       if (moments.length () == Moment (0, 0))
         me->suicide ();
     }
@@ -537,7 +531,7 @@ Spanner::get_cached_pure_property (SCM sym, vsize start, vsize end)
     return SCM_UNDEFINED;
 
   return scm_hash_ref (pure_property_cache_,
-                       make_pure_property_cache_key(sym, start, end),
+                       make_pure_property_cache_key (sym, start, end),
                        SCM_UNDEFINED);
 }
 
@@ -548,8 +542,7 @@ Spanner::cache_pure_property (SCM sym, vsize start, vsize end, SCM val)
     pure_property_cache_ = scm_c_make_hash_table (17);
 
   scm_hash_set_x (pure_property_cache_,
-                  make_pure_property_cache_key(sym, start, end),
-                  val);
+                  make_pure_property_cache_key (sym, start, end), val);
 }
 
 ADD_INTERFACE (Spanner,
@@ -566,5 +559,4 @@ ADD_INTERFACE (Spanner,
                "minimum-length-after-break "
                "spanner-broken "
                "spanner-id "
-               "to-barline "
-              );
+               "to-barline ");

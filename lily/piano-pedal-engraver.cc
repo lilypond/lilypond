@@ -27,15 +27,15 @@
 #include "context.hh"
 #include "directional-element-interface.hh"
 #include "international.hh"
+#include "item.hh"
 #include "lily-guile.hh"
 #include "note-column.hh"
 #include "side-position-interface.hh"
+#include "spanner.hh"
 #include "staff-symbol-referencer.hh"
 #include "stream-event.hh"
 #include "string-convert.hh"
 #include "warn.hh"
-#include "spanner.hh"
-#include "item.hh"
 
 #include "translator.icc"
 
@@ -142,7 +142,7 @@ private:
 static void
 init_pedal_types ()
 {
-  const char *names [NUM_PEDAL_TYPES];
+  const char *names[NUM_PEDAL_TYPES];
   names[SOSTENUTO] = "Sostenuto";
   names[SUSTAIN] = "Sustain";
   names[UNA_CORDA] = "UnaCorda";
@@ -159,18 +159,25 @@ init_pedal_types ()
       for (cur_pos = 1; name[cur_pos]; cur_pos++)
         if (isupper (name[cur_pos]))
           {
-            base_ident = base_ident + String_convert::to_lower (string (name, prev_pos, cur_pos - prev_pos)) + "-";
+            base_ident = base_ident
+                         + String_convert::to_lower (
+                             string (name, prev_pos, cur_pos - prev_pos))
+                         + "-";
             prev_pos = cur_pos;
           }
-      base_ident += String_convert::to_lower (string (name, prev_pos, cur_pos - prev_pos));
+      base_ident += String_convert::to_lower (
+          string (name, prev_pos, cur_pos - prev_pos));
 
       /*
         be careful, as we don't want to loose references to the _sym_ members.
        */
       Pedal_type_info info;
-      info.event_class_sym_ = scm_from_ascii_symbol ((base_ident + "-event").c_str ());
-      info.style_sym_ = scm_from_ascii_symbol (("pedal" + base_name + "Style").c_str ());
-      info.strings_sym_ = scm_from_ascii_symbol (("pedal" + base_name + "Strings").c_str ());
+      info.event_class_sym_
+          = scm_from_ascii_symbol ((base_ident + "-event").c_str ());
+      info.style_sym_
+          = scm_from_ascii_symbol (("pedal" + base_name + "Style").c_str ());
+      info.strings_sym_
+          = scm_from_ascii_symbol (("pedal" + base_name + "Strings").c_str ());
 
       info.base_name_ = name;
       info.pedal_c_str_ = strdup ((base_name + "Pedal").c_str ());
@@ -183,10 +190,7 @@ init_pedal_types ()
 
 ADD_SCM_INIT_FUNC (Piano_pedal_engraver_init_pedal_types_, init_pedal_types);
 
-Piano_pedal_engraver::Piano_pedal_engraver (Context *c)
-  : Engraver (c)
-{
-}
+Piano_pedal_engraver::Piano_pedal_engraver (Context *c) : Engraver (c) {}
 
 void
 Piano_pedal_engraver::initialize ()
@@ -252,10 +256,9 @@ Piano_pedal_engraver::process_music ()
           SCM style = get_property (p->type_->style_sym_);
 
           bool mixed = scm_is_eq (style, ly_symbol2scm ("mixed"));
-          bool bracket = (mixed
-                          || scm_is_eq (style, ly_symbol2scm ("bracket")));
-          bool text = (mixed
-                       || scm_is_eq (style, ly_symbol2scm ("text")));
+          bool bracket
+              = (mixed || scm_is_eq (style, ly_symbol2scm ("bracket")));
+          bool text = (mixed || scm_is_eq (style, ly_symbol2scm ("text")));
 
           if (text && !p->item_)
             create_text_grobs (p, mixed);
@@ -274,7 +277,8 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
   if (scm_ilength (strings) < 3)
     {
       Stream_event *m = p->event_drul_[START];
-      if (!m) m = p->event_drul_ [STOP];
+      if (!m)
+        m = p->event_drul_[STOP];
 
       string msg = _f ("expect 3 strings for piano pedals, found: %ld",
                        scm_ilength (strings));
@@ -291,7 +295,9 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
       if (!mixed)
         {
           if (!p->start_ev_)
-            p->event_drul_[STOP]->origin ()->warning (_f ("cannot find start of piano pedal: `%s'", p->type_->base_name_.c_str ()));
+            p->event_drul_[STOP]->origin ()->warning (
+                _f ("cannot find start of piano pedal: `%s'",
+                    p->type_->base_name_.c_str ()));
           else
             s = scm_cadr (strings);
           p->start_ev_ = p->event_drul_[START];
@@ -302,7 +308,9 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
       if (!mixed)
         {
           if (!p->start_ev_)
-            p->event_drul_[STOP]->origin ()->warning (_f ("cannot find start of piano pedal: `%s'", p->type_->base_name_.c_str ()));
+            p->event_drul_[STOP]->origin ()->warning (
+                _f ("cannot find start of piano pedal: `%s'",
+                    p->type_->base_name_.c_str ()));
           else
             s = scm_caddr (strings);
           p->start_ev_ = 0;
@@ -318,9 +326,10 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
     {
       const char *propname = p->type_->pedal_c_str_;
 
-      p->item_ = make_item (propname, (p->event_drul_[START]
-                                       ? p->event_drul_[START]
-                                       : p->event_drul_[STOP])->self_scm ());
+      p->item_
+          = make_item (propname, (p->event_drul_[START] ? p->event_drul_[START]
+                                                        : p->event_drul_[STOP])
+                                     ->self_scm ());
 
       p->item_->set_property ("text", s);
     }
@@ -337,7 +346,8 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
 {
   if (!p->bracket_ && p->event_drul_[STOP])
     {
-      string msg = _f ("cannot find start of piano pedal bracket: `%s'", p->type_->base_name_.c_str ());
+      string msg = _f ("cannot find start of piano pedal bracket: `%s'",
+                       p->type_->base_name_.c_str ());
       p->event_drul_[STOP]->origin ()->warning (msg);
       p->event_drul_[STOP] = 0;
     }
@@ -358,14 +368,16 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
         {
           SCM flare = p->bracket_->get_property ("bracket-flare");
           if (scm_is_pair (flare))
-            p->bracket_->set_property ("bracket-flare", scm_cons (scm_car (flare),
-                                                                  scm_from_double (0)));
+            p->bracket_->set_property (
+                "bracket-flare",
+                scm_cons (scm_car (flare), scm_from_double (0)));
         }
 
       p->finished_bracket_ = p->bracket_;
       p->bracket_ = 0;
 
-      announce_end_grob (p->finished_bracket_, p->event_drul_[STOP]->self_scm ());
+      announce_end_grob (p->finished_bracket_,
+                         p->event_drul_[STOP]->self_scm ());
 
       p->current_bracket_ev_ = 0;
     }
@@ -375,7 +387,8 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
       p->start_ev_ = p->event_drul_[START];
       p->current_bracket_ev_ = p->event_drul_[START];
 
-      p->bracket_ = make_spanner ("PianoPedalBracket", p->event_drul_[START]->self_scm ());
+      p->bracket_ = make_spanner ("PianoPedalBracket",
+                                  p->event_drul_[START]->self_scm ());
 
       /*
         Set properties so that the stencil-creating function will
@@ -385,11 +398,13 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
       if (!p->finished_bracket_)
         {
           SCM flare = p->bracket_->get_property ("bracket-flare");
-          p->bracket_->set_property ("bracket-flare", scm_cons (scm_from_double (0), scm_cdr (flare)));
+          p->bracket_->set_property (
+              "bracket-flare", scm_cons (scm_from_double (0), scm_cdr (flare)));
         }
 
       /* Set this property for 'mixed style' pedals,    Ped._______/\ ,
-         so the stencil function will shorten the ____ line by the length of the Ped. text.
+         so the stencil function will shorten the ____ line by the length of the
+         Ped. text.
       */
 
       if (mixed)
@@ -417,8 +432,7 @@ Piano_pedal_engraver::finalize ()
 {
   for (Pedal_info *p = info_list_; p->type_; p++)
     {
-      if (p->bracket_
-          && !p->bracket_->is_live ())
+      if (p->bracket_ && !p->bracket_->is_live ())
         p->bracket_ = 0;
 
       if (p->bracket_)
@@ -431,7 +445,6 @@ Piano_pedal_engraver::finalize ()
           p->bracket_ = 0;
           typeset_all (p);
         }
-
     }
 }
 
@@ -462,8 +475,7 @@ Piano_pedal_engraver::typeset_all (Pedal_info *p)
   /*
     Handle suicide.
   */
-  if (p->finished_bracket_
-      && !p->finished_bracket_->is_live ())
+  if (p->finished_bracket_ && !p->finished_bracket_->is_live ())
     p->finished_bracket_ = 0;
 
   if (p->item_)
@@ -473,7 +485,8 @@ Piano_pedal_engraver::typeset_all (Pedal_info *p)
     {
       Grob *r = p->finished_bracket_->get_bound (RIGHT);
       if (!r)
-        p->finished_bracket_->set_bound (RIGHT, unsmob<Grob> (get_property ("currentMusicalColumn")));
+        p->finished_bracket_->set_bound (
+            RIGHT, unsmob<Grob> (get_property ("currentMusicalColumn")));
 
       p->finished_bracket_ = 0;
     }
@@ -507,5 +520,4 @@ ADD_TRANSLATOR (Piano_pedal_engraver,
                 "pedalUnaCordaStyle ",
 
                 /* write */
-                ""
-               );
+                "");

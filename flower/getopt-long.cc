@@ -19,9 +19,9 @@
 
 #include "getopt-long.hh"
 
-#include <cstring>
 #include <cassert>
 #include <cstdlib>
+#include <cstring>
 
 #include "config.hh"
 #include "international.hh"
@@ -163,10 +163,14 @@ Getopt_long::report (Errorcod c)
                  found_option_->to_string ());
       break;
     case E_UNKNOWNOPTION:
-      str += _f ("unrecognized option: `%s'",
-                 string (argument_index_
-                         ? string ("-" + string (1, arg_value_char_a_a_[array_index_][argument_index_]))
-                         : string (arg_value_char_a_a_[array_index_])));
+      str += _f (
+          "unrecognized option: `%s'",
+          string (
+              argument_index_ ? string (
+                  "-"
+                  + string (1,
+                            arg_value_char_a_a_[array_index_][argument_index_]))
+                              : string (arg_value_char_a_a_[array_index_])));
       break;
     case E_ILLEGALARG:
       str += _f ("invalid argument `%s' to option `%s'",
@@ -222,7 +226,7 @@ Getopt_long::parseshort ()
 }
 
 const Long_option_init *
-Getopt_long::operator () ()
+Getopt_long::operator() ()
 {
   if (!ok ())
     return 0;
@@ -239,7 +243,7 @@ Getopt_long::operator () ()
   if (argument[0] != '-')
     return 0;
 
-  if (argument[1] == '-')  // what to do with "command  --  bla"
+  if (argument[1] == '-') // what to do with "command  --  bla"
     {
       if (argument[2])
         return parselong ();
@@ -248,7 +252,7 @@ Getopt_long::operator () ()
     }
   else
     {
-      if (argument[ 1 ])
+      if (argument[1])
         {
           argument_index_ = 1;
           return parseshort ();
@@ -269,7 +273,8 @@ Getopt_long::Getopt_long (int c, char **v, Long_option_init *lo)
 
   //    reached end of option table?
   table_len_ = 0;
-  for (int i = 0; option_a_[i].longname_str0_ || option_a_[i].shortname_char_; i++)
+  for (int i = 0; option_a_[i].longname_str0_ || option_a_[i].shortname_char_;
+       i++)
     table_len_++;
 }
 
@@ -340,7 +345,8 @@ Long_option_init::table_string (Long_option_init *l)
 int
 Long_option_init::compare (Long_option_init const &a, Long_option_init const &b)
 {
-  if (a.shortname_char_ && b.shortname_char_ && a.shortname_char_ - b.shortname_char_)
+  if (a.shortname_char_ && b.shortname_char_
+      && a.shortname_char_ - b.shortname_char_)
     return a.shortname_char_ - b.shortname_char_;
 
   if (b.shortname_char_ && a.longname_str0_)

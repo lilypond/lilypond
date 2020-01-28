@@ -19,17 +19,16 @@
 
 #include "simple-music-iterator.hh"
 
-#include "music.hh"
 #include "input.hh"
+#include "music.hh"
 
-Simple_music_iterator::Simple_music_iterator ()
-  : Music_iterator ()
+Simple_music_iterator::Simple_music_iterator () : Music_iterator ()
 {
   last_processed_mom_ = -1;
 }
 
 bool
-Simple_music_iterator::ok ()const
+Simple_music_iterator::ok () const
 {
   return last_processed_mom_ < music_get_length ();
 }
@@ -42,7 +41,7 @@ Simple_music_iterator::ok ()const
   well.
 */
 Moment
-Simple_music_iterator::pending_moment ()const
+Simple_music_iterator::pending_moment () const
 {
   if (last_processed_mom_ < Moment (0))
     return Moment (0);

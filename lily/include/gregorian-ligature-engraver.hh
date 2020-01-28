@@ -29,8 +29,9 @@ public:
   // no TRANSLATOR_DECLARATIONS (Gregorian_ligature_engraver) needed
   // since this class is abstract
 
-  TRANSLATOR_INHERIT(Coherent_ligature_engraver);
+  TRANSLATOR_INHERIT (Coherent_ligature_engraver);
   DECLARE_TRANSLATOR_CALLBACKS (Gregorian_ligature_engraver);
+
 protected:
   Gregorian_ligature_engraver (Context *);
 
@@ -38,7 +39,8 @@ protected:
   void build_ligature (Spanner *ligature,
                        std::vector<Grob_info> const &primitives) override;
   virtual void transform_heads (Spanner *ligature,
-                                std::vector<Grob_info> const &primitives) = 0;
+                                std::vector<Grob_info> const &primitives)
+      = 0;
   void stop_translation_timestep ();
 };
 

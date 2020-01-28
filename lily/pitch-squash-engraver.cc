@@ -19,10 +19,10 @@
 
 #include "engraver.hh"
 
-#include "staff-symbol-referencer.hh"
+#include "grob.hh"
 #include "note-head.hh"
 #include "rhythmic-head.hh"
-#include "grob.hh"
+#include "staff-symbol-referencer.hh"
 
 class Pitch_squash_engraver : public Engraver
 {
@@ -39,10 +39,7 @@ Pitch_squash_engraver::acknowledge_note_head (Grob_info i)
     i.grob ()->set_property ("staff-position", newpos);
 }
 
-Pitch_squash_engraver::Pitch_squash_engraver (Context *c)
-  : Engraver (c)
-{
-}
+Pitch_squash_engraver::Pitch_squash_engraver (Context *c) : Engraver (c) {}
 
 #include "translator.icc"
 void
@@ -65,5 +62,4 @@ ADD_TRANSLATOR (Pitch_squash_engraver,
                 "squashedPosition ",
 
                 /* write */
-                ""
-               );
+                "");

@@ -18,7 +18,6 @@
 */
 
 #include "system-start-delimiter.hh"
-#include "text-interface.hh"
 #include "all-font-metrics.hh"
 #include "axis-group-interface.hh"
 #include "font-interface.hh"
@@ -29,6 +28,7 @@
 #include "pointer-group-interface.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
+#include "text-interface.hh"
 
 Stencil
 System_start_delimiter::staff_bracket (Grob *me, Real height)
@@ -42,9 +42,7 @@ System_start_delimiter::staff_bracket (Grob *me, Real height)
 
   Real overlap = 0.1 * thickness;
 
-  Box box (Interval (0, thickness),
-           Interval (-1, 1)
-           * (height / 2 + overlap));
+  Box box (Interval (0, thickness), Interval (-1, 1) * (height / 2 + overlap));
 
   Stencil bracket = Lookup::filled_box (box);
   for (DOWN_and_UP (d))
@@ -59,19 +57,15 @@ System_start_delimiter::staff_bracket (Grob *me, Real height)
 Stencil
 System_start_delimiter::line_bracket (Grob *me, Real height)
 {
-  Real thick
-    = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"))
-      * robust_scm2double (me->get_property ("thickness"), 1);
+  Real thick = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"))
+               * robust_scm2double (me->get_property ("thickness"), 1);
   Real w = 0.8;
 
-  Stencil tip1 = Line_interface::make_line (thick,
-                                            Offset (0, -height / 2),
+  Stencil tip1 = Line_interface::make_line (thick, Offset (0, -height / 2),
                                             Offset (w, -height / 2));
-  Stencil tip2 = Line_interface::make_line (thick,
-                                            Offset (0, height / 2),
+  Stencil tip2 = Line_interface::make_line (thick, Offset (0, height / 2),
                                             Offset (w, height / 2));
-  Stencil vline = Line_interface::make_line (thick,
-                                             Offset (0, -height / 2),
+  Stencil vline = Line_interface::make_line (thick, Offset (0, -height / 2),
                                              Offset (0, height / 2));
 
   vline.add_stencil (tip1);
@@ -85,8 +79,8 @@ System_start_delimiter::simple_bar (Grob *me, Real h)
 {
   Real lt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
   Real w = lt * robust_scm2double (me->get_property ("thickness"), 1);
-  return Lookup::round_filled_box (Box (Interval (0, w), Interval (-h / 2, h / 2)),
-                                   lt);
+  return Lookup::round_filled_box (
+      Box (Interval (0, w), Interval (-h / 2, h / 2)), lt);
 }
 
 MAKE_SCHEME_CALLBACK (System_start_delimiter, print, 1);
@@ -104,8 +98,7 @@ System_start_delimiter::print (SCM smob)
     {
       Spanner *sp = dynamic_cast<Spanner *> (elts[i]);
 
-      if (sp
-          && sp->get_bound (LEFT) == me->get_bound (LEFT))
+      if (sp && sp->get_bound (LEFT) == me->get_bound (LEFT))
         {
           Interval dims = sp->extent (common, Y_AXIS);
           if (!dims.is_empty ())
@@ -122,7 +115,8 @@ System_start_delimiter::print (SCM smob)
 
   // Use collapse-height in multiples of the staff-space
   if (ext.is_empty ()
-      || (robust_scm2double (me->get_property ("collapse-height"), 0.0) >= (len / staffspace)))
+      || (robust_scm2double (me->get_property ("collapse-height"), 0.0)
+          >= (len / staffspace)))
     {
       me->suicide ();
       return SCM_UNSPECIFIED;
@@ -152,9 +146,8 @@ System_start_delimiter::staff_brace (Grob *me, Real y)
   */
   fm = Font_interface::get_default_font (me);
 
-  int
-  lo = 0;
-  int hi = std::max ((int) fm->count () - 1, 2);
+  int lo = 0;
+  int hi = std::max ((int)fm->count () - 1, 2);
 
   /* do a binary search for each Y, not very efficient, but passable?  */
   Box b;
@@ -206,5 +199,4 @@ ADD_INTERFACE (System_start_delimiter,
                /* properties */
                "collapse-height "
                "style "
-               "thickness "
-              );
+               "thickness ");

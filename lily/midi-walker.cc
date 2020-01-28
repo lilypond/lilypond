@@ -22,15 +22,12 @@
 
 #include "audio-column.hh"
 #include "audio-staff.hh"
-#include "midi-item.hh"
 #include "midi-chunk.hh"
+#include "midi-item.hh"
 #include "midi-stream.hh"
 #include "warn.hh"
 
-Midi_note_event::Midi_note_event ()
-{
-  ignore_ = false;
-}
+Midi_note_event::Midi_note_event () { ignore_ = false; }
 
 int
 compare (Midi_note_event const &left, Midi_note_event const &right)
@@ -46,29 +43,26 @@ compare (Midi_note_event const &left, Midi_note_event const &right)
 }
 
 bool
-audio_item_less (Audio_item *const a,
-                 Audio_item *const b)
+audio_item_less (Audio_item *const a, Audio_item *const b)
 {
   return a->get_column ()->when_ < b->get_column ()->when_;
 }
 
-Midi_walker::Midi_walker (Audio_staff *audio_staff, Midi_track *track, int start_tick)
+Midi_walker::Midi_walker (Audio_staff *audio_staff, Midi_track *track,
+                          int start_tick)
 {
   track_ = track;
   index_ = 0;
   items_ = audio_staff->audio_items_;
   vector_stable_sort (items_, audio_item_less);
-  //Scores that begin with grace notes start at negative times. This
-  //is OK - MIDI output doesn't use absolute ticks, only differences.
+  // Scores that begin with grace notes start at negative times. This
+  // is OK - MIDI output doesn't use absolute ticks, only differences.
   last_tick_ = start_tick;
   percussion_ = audio_staff->percussion_;
   merge_unisons_ = audio_staff->merge_unisons_;
 }
 
-Midi_walker::~Midi_walker ()
-{
-  junk_pointers (midi_events_);
-}
+Midi_walker::~Midi_walker () { junk_pointers (midi_events_); }
 
 void
 Midi_walker::finalize (int end_tick)
@@ -87,17 +81,18 @@ Midi_walker::do_start_note (Midi_note *note)
   Audio_item *ptr = items_[index_];
   assert (note->audio_ == ptr);
   int now_ticks = ptr->audio_column_->ticks ();
-  int stop_ticks = int (moment_to_real (note->audio_->length_mom_) *
-                        Real (384 * 4)) + now_ticks;
+  int stop_ticks
+      = int (moment_to_real (note->audio_->length_mom_) * Real (384 * 4))
+        + now_ticks;
   for (vsize i = 0; i < stop_note_queue.size (); i++)
     {
       /* if this pitch already in queue, and is not already ignored */
-      if (!stop_note_queue[i].ignore_ &&
-          stop_note_queue[i].val->get_semitone_pitch ()
-          == note->get_semitone_pitch ())
+      if (!stop_note_queue[i].ignore_
+          && stop_note_queue[i].val->get_semitone_pitch ()
+                 == note->get_semitone_pitch ())
         {
           int queued_ticks
-            = stop_note_queue[i].val->audio_->audio_column_->ticks ();
+              = stop_note_queue[i].val->audio_->audio_column_->ticks ();
           // If the two notes started at the same time, or option is set,
           if (now_ticks == queued_ticks || merge_unisons_)
             {
@@ -218,7 +213,7 @@ Midi_walker::ok () const
 }
 
 void
-Midi_walker::operator ++(int)
+Midi_walker::operator++ (int)
 {
   assert (ok ());
   index_++;

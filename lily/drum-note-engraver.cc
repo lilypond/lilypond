@@ -19,13 +19,13 @@
 
 #include <cctype>
 
-#include "item.hh"
 #include "duration.hh"
 #include "engraver.hh"
+#include "item.hh"
 #include "note-column.hh"
 #include "rhythmic-head.hh"
-#include "side-position-interface.hh"
 #include "script-interface.hh"
+#include "side-position-interface.hh"
 #include "stem.hh"
 #include "stream-event.hh"
 #include "warn.hh"
@@ -50,10 +50,7 @@ protected:
   void stop_translation_timestep ();
 };
 
-Drum_notes_engraver::Drum_notes_engraver (Context *c)
-  : Engraver (c)
-{
-}
+Drum_notes_engraver::Drum_notes_engraver (Context *c) : Engraver (c) {}
 
 void
 Drum_notes_engraver::listen_note (Stream_event *ev)
@@ -94,8 +91,7 @@ Drum_notes_engraver::process_music ()
           if (scm_is_string (script))
             {
               Item *p = make_item ("Script", ev->self_scm ());
-              make_script_from_event (p, context (), script,
-                                      0);
+              make_script_from_event (p, context (), script, 0);
 
               p->set_parent (note, Y_AXIS);
               Side_position_interface::add_support (p, note);
@@ -141,7 +137,6 @@ Drum_notes_engraver::stop_translation_timestep ()
   events_.clear ();
 }
 
-
 void
 Drum_notes_engraver::boot ()
 {
@@ -162,5 +157,4 @@ ADD_TRANSLATOR (Drum_notes_engraver,
                 "drumStyleTable ",
 
                 /* write */
-                ""
-               );
+                "");

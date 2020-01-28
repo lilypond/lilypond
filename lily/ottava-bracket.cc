@@ -18,19 +18,19 @@
 */
 
 #include "axis-group-interface.hh"
-#include "text-interface.hh"
-#include "spanner.hh"
-#include "font-interface.hh"
-#include "dimensions.hh"
-#include "output-def.hh"
-#include "warn.hh"
-#include "paper-column.hh"
-#include "staff-symbol-referencer.hh"
-#include "note-column.hh"
-#include "directional-element-interface.hh"
 #include "bracket.hh"
-#include "rhythmic-head.hh"
+#include "dimensions.hh"
+#include "directional-element-interface.hh"
+#include "font-interface.hh"
+#include "note-column.hh"
+#include "output-def.hh"
+#include "paper-column.hh"
 #include "pointer-group-interface.hh"
+#include "rhythmic-head.hh"
+#include "spanner.hh"
+#include "staff-symbol-referencer.hh"
+#include "text-interface.hh"
+#include "warn.hh"
 
 struct Ottava_bracket
 {
@@ -51,7 +51,8 @@ Ottava_bracket::print (SCM smob)
   Spanner *me = unsmob<Spanner> (smob);
   Interval span_points;
 
-  Grob *common = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);
+  Grob *common
+      = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);
   Output_def *layout = me->layout ();
 
   Drul_array<bool> broken;
@@ -78,11 +79,11 @@ Ottava_bracket::print (SCM smob)
   SCM markup = me->get_property ("text");
   Stencil text;
   if (Text_interface::is_markup (markup))
-    text = *unsmob<Stencil> (Text_interface::interpret_markup (layout->self_scm (),
-                                                              properties, markup));
+    text = *unsmob<Stencil> (Text_interface::interpret_markup (
+        layout->self_scm (), properties, markup));
 
-  Drul_array<Real> shorten = robust_scm2interval (me->get_property ("shorten-pair"),
-                                                  Interval (0, 0));
+  Drul_array<Real> shorten = robust_scm2interval (
+      me->get_property ("shorten-pair"), Interval (0, 0));
 
   /*
     TODO: we should check if there are ledgers, and modify length of
@@ -112,7 +113,8 @@ Ottava_bracket::print (SCM smob)
 
       if (broken[d])
         {
-          span_points[d] = Axis_group_interface::generic_bound_extent (b, common, X_AXIS)[RIGHT];
+          span_points[d] = Axis_group_interface::generic_bound_extent (
+              b, common, X_AXIS)[RIGHT];
           shorten[d] = 0.;
         }
 
@@ -126,21 +128,22 @@ Ottava_bracket::print (SCM smob)
     0.3 is ~ italic correction.
   */
   Real text_size = text.extent (X_AXIS).is_empty ()
-                   ? 0.0 : text.extent (X_AXIS)[RIGHT] + 0.3;
+                       ? 0.0
+                       : text.extent (X_AXIS)[RIGHT] + 0.3;
 
-  span_points[LEFT]
-    = std::min (span_points[LEFT],
-           (span_points[RIGHT] - text_size
-            - robust_scm2double (me->get_property ("minimum-length"), -1.0)));
+  span_points[LEFT] = std::min (
+      span_points[LEFT],
+      (span_points[RIGHT] - text_size
+       - robust_scm2double (me->get_property ("minimum-length"), -1.0)));
 
   Interval bracket_span_points = span_points;
   bracket_span_points[LEFT] += text_size;
 
-  Drul_array<Real> edge_height = robust_scm2interval (me->get_property ("edge-height"),
-                                                      Interval (1.0, 1.0));
+  Drul_array<Real> edge_height = robust_scm2interval (
+      me->get_property ("edge-height"), Interval (1.0, 1.0));
 
-  Drul_array<Real> flare = robust_scm2interval (me->get_property ("bracket-flare"),
-                                                Interval (0, 0));
+  Drul_array<Real> flare = robust_scm2interval (
+      me->get_property ("bracket-flare"), Interval (0, 0));
 
   for (LEFT_and_RIGHT (d))
     {
@@ -154,8 +157,8 @@ Ottava_bracket::print (SCM smob)
 
   if (!bracket_span_points.is_empty () && bracket_span_points.length () > 0.001)
     b = Bracket::make_bracket (
-      me, Y_AXIS, Offset (bracket_span_points.length (), 0),
-      edge_height, empty, flare, Drul_array<Real> (0, 0));
+        me, Y_AXIS, Offset (bracket_span_points.length (), 0), edge_height,
+        empty, flare, Drul_array<Real> (0, 0));
 
   /*
    * The vertical lines should not take space, for the following scenario:
@@ -168,30 +171,25 @@ Ottava_bracket::print (SCM smob)
    * Just a small amount, yes.  In tight situations, it is even
    * possible to center the `8' directly below the note, dropping the
    * ottava line completely...
-  */
+   */
 
-  b = Stencil (Box (b.extent (X_AXIS),
-                    Interval (0.1, 0.1)),
-               b.expr ());
+  b = Stencil (Box (b.extent (X_AXIS), Interval (0.1, 0.1)), b.expr ());
 
   b.translate_axis (bracket_span_points[LEFT], X_AXIS);
   text.translate_axis (span_points[LEFT], X_AXIS);
   text.align_to (Y_AXIS, CENTER);
   b.add_stencil (text);
 
-  b.translate_axis (- me->relative_coordinate (common, X_AXIS), X_AXIS);
+  b.translate_axis (-me->relative_coordinate (common, X_AXIS), X_AXIS);
 
   return b.smobbed_copy ();
 }
 
-ADD_INTERFACE (Ottava_bracket,
-               "An ottava bracket.",
+ADD_INTERFACE (Ottava_bracket, "An ottava bracket.",
 
                /* properties */
                "bracket-flare "
                "dashed-edge "
                "edge-height "
                "minimum-length "
-               "shorten-pair "
-              );
-
+               "shorten-pair ");

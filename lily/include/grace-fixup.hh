@@ -55,4 +55,3 @@ public:
 };
 
 #endif /* GRACE_FIXUP_HH */
-

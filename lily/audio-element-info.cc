@@ -19,8 +19,8 @@
 
 #include "audio-element-info.hh"
 
-#include "translator-group.hh"
 #include "context.hh"
+#include "translator-group.hh"
 
 using std::vector;
 

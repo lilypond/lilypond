@@ -20,9 +20,9 @@
 #ifndef MIDI_CC_ANNOUNCER_HH
 #define MIDI_CC_ANNOUNCER_HH
 
+#include "audio-item.hh"
 #include "input.hh"
 #include "performer.hh"
-#include "audio-item.hh"
 
 /* Base class for announcing MIDI control changes. */
 class Midi_control_change_announcer

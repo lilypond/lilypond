@@ -26,68 +26,64 @@
 #include "international.hh"
 #include "interval.hh"
 #include "keyword.hh"
+#include "lily-parser.hh"
+#include "ly-module.hh"
 #include "main.hh"
 #include "moment.hh"
 #include "parser.hh"
+#include "program-option.hh"
 #include "scm-hash.hh"
 #include "source-file.hh"
 #include "warn.hh"
-#include "program-option.hh"
-#include "lily-parser.hh"
-#include "ly-module.hh"
 
 using std::string;
 
-static Keyword_ent the_key_tab[]
-=
-{
-  {"accepts", ACCEPTS},
-  {"addlyrics", ADDLYRICS},
-  {"alias", ALIAS},
-  {"alternative", ALTERNATIVE},
-  {"book", BOOK},
-  {"bookpart", BOOKPART},
-  {"change", CHANGE},
-  {"chordmode", CHORDMODE},
-  {"chords", CHORDS},
-  {"consists", CONSISTS},
-  {"context", CONTEXT},
-  {"default", DEFAULT},
-  {"defaultchild", DEFAULTCHILD},
-  {"denies", DENIES},
-  {"description", DESCRIPTION},
-  {"drummode", DRUMMODE},
-  {"drums", DRUMS},
-  {"etc", ETC},
-  {"figuremode", FIGUREMODE},
-  {"figures", FIGURES},
-  {"header", HEADER},
-  {"layout", LAYOUT},
-  {"lyricmode", LYRICMODE},
-  {"lyrics", LYRICS},
-  {"lyricsto", LYRICSTO},
-  {"markup", MARKUP},
-  {"markuplist", MARKUPLIST},
-  {"midi", MIDI},
-  {"name", NAME},
-  {"new", NEWCONTEXT},
-  {"notemode", NOTEMODE},
-  {"override", OVERRIDE},
-  {"paper", PAPER},
-  {"remove", REMOVE},
-  {"repeat", REPEAT},
-  {"rest", REST},
-  {"revert", REVERT},
-  {"score", SCORE},
-  {"sequential", SEQUENTIAL},
-  {"set", SET},
-  {"simultaneous", SIMULTANEOUS},
-  {"tempo", TEMPO},
-  {"type", TYPE},
-  {"unset", UNSET},
-  {"with", WITH},
-  {0, 0}
-};
+static Keyword_ent the_key_tab[] = {{"accepts", ACCEPTS},
+                                    {"addlyrics", ADDLYRICS},
+                                    {"alias", ALIAS},
+                                    {"alternative", ALTERNATIVE},
+                                    {"book", BOOK},
+                                    {"bookpart", BOOKPART},
+                                    {"change", CHANGE},
+                                    {"chordmode", CHORDMODE},
+                                    {"chords", CHORDS},
+                                    {"consists", CONSISTS},
+                                    {"context", CONTEXT},
+                                    {"default", DEFAULT},
+                                    {"defaultchild", DEFAULTCHILD},
+                                    {"denies", DENIES},
+                                    {"description", DESCRIPTION},
+                                    {"drummode", DRUMMODE},
+                                    {"drums", DRUMS},
+                                    {"etc", ETC},
+                                    {"figuremode", FIGUREMODE},
+                                    {"figures", FIGURES},
+                                    {"header", HEADER},
+                                    {"layout", LAYOUT},
+                                    {"lyricmode", LYRICMODE},
+                                    {"lyrics", LYRICS},
+                                    {"lyricsto", LYRICSTO},
+                                    {"markup", MARKUP},
+                                    {"markuplist", MARKUPLIST},
+                                    {"midi", MIDI},
+                                    {"name", NAME},
+                                    {"new", NEWCONTEXT},
+                                    {"notemode", NOTEMODE},
+                                    {"override", OVERRIDE},
+                                    {"paper", PAPER},
+                                    {"remove", REMOVE},
+                                    {"repeat", REPEAT},
+                                    {"rest", REST},
+                                    {"revert", REVERT},
+                                    {"score", SCORE},
+                                    {"sequential", SEQUENTIAL},
+                                    {"set", SET},
+                                    {"simultaneous", SIMULTANEOUS},
+                                    {"tempo", TEMPO},
+                                    {"type", TYPE},
+                                    {"unset", UNSET},
+                                    {"with", WITH},
+                                    {0, 0}};
 
 Lily_lexer::Lily_lexer (Sources *sources, Lily_parser *parser)
 {
@@ -111,7 +107,7 @@ Lily_lexer::Lily_lexer (Sources *sources, Lily_parser *parser)
 
 Lily_lexer::Lily_lexer (Lily_lexer const &src, Lily_parser *parser,
                         SCM override_input)
-  : Includable_lexer ()
+    : Includable_lexer ()
 {
   parser_ = parser;
   keytable_ = (src.keytable_) ? new Keyword_table (*src.keytable_) : 0;
@@ -134,10 +130,7 @@ Lily_lexer::Lily_lexer (Lily_lexer const &src, Lily_parser *parser,
   push_note_state (SCM_EOL);
 }
 
-Lily_lexer::~Lily_lexer ()
-{
-  delete keytable_;
-}
+Lily_lexer::~Lily_lexer () { delete keytable_; }
 
 void
 Lily_lexer::add_scope (SCM module)
@@ -197,8 +190,7 @@ Lily_lexer::keyword_list () const
   for (vsize i = 0; i < keytable_->table_.size (); i++)
     {
       *tail = scm_acons (scm_from_utf8_string (keytable_->table_[i].name_),
-                         scm_from_int (keytable_->table_[i].tokcode_),
-                         SCM_EOL);
+                         scm_from_int (keytable_->table_[i].tokcode_), SCM_EOL);
 
       tail = SCM_CDRLOC (*tail);
     }
@@ -233,8 +225,7 @@ Lily_lexer::start_main_input ()
 
   new_input (main_input_name_, sources_);
 
-  scm_module_define (scm_car (scopes_),
-                     ly_symbol2scm ("input-file-name"),
+  scm_module_define (scm_car (scopes_), ly_symbol2scm ("input-file-name"),
                      ly_string2scm (main_input_name_));
 }
 
@@ -346,8 +337,7 @@ Lily_lexer::here_input () const
 Input const &
 Lily_lexer::override_input (Input const &in) const
 {
-  return override_input_.get_source_file ()
-    ? override_input_ : in;
+  return override_input_.get_source_file () ? override_input_ : in;
 }
 
 void
@@ -364,13 +354,11 @@ void
 Lily_lexer::add_lexed_char (int count)
 {
   char const *start = here_str0 ();
-  lexloc_->set (get_source_file (),
-                start, start + count);
+  lexloc_->set (get_source_file (), start, start + count);
   char_count_stack_.back () += count;
 }
 
-
-const char * const Lily_lexer::type_p_name_ = "ly:lily-lexer?";
+const char *const Lily_lexer::type_p_name_ = "ly:lily-lexer?";
 
 SCM
 Lily_lexer::mark_smob () const

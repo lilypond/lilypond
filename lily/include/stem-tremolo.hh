@@ -20,13 +20,12 @@
 #ifndef ABBREV_HH
 #define ABBREV_HH
 
-#include "lily-proto.hh"
 #include "grob-interface.hh"
+#include "lily-proto.hh"
 
 class Stem_tremolo
 {
 public:
-
   DECLARE_SCHEME_CALLBACK (calc_slope, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_width, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_y_offset, (SCM));
@@ -44,4 +43,3 @@ public:
 };
 
 #endif /* ABBREV_HH */
-

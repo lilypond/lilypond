@@ -21,10 +21,10 @@
 #define PAPER_OUTPUTTER_HH
 
 #include "lily-proto.hh"
-#include "std-vector.hh"
-#include "std-string.hh"
 #include "protected-scm.hh"
 #include "smobs.hh"
+#include "std-string.hh"
+#include "std-vector.hh"
 
 /*
   Glue between the backend (grobs, systems, pages) and the output file.
@@ -35,6 +35,7 @@ class Paper_outputter : public Smob<Paper_outputter>
 public:
   SCM mark_smob () const;
   virtual ~Paper_outputter ();
+
 private:
   SCM output_module_;
   std::string file_name_;
@@ -51,6 +52,5 @@ public:
   void output_stencil (Stencil);
   SCM scheme_to_string (SCM);
 };
-
 
 #endif /* PAPER_OUTPUTTER_HH */

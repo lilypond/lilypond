@@ -31,14 +31,15 @@
 struct Side_position_interface
 {
 public:
-
   DECLARE_SCHEME_CALLBACK (x_aligned_side, (SCM element, SCM current));
   DECLARE_SCHEME_CALLBACK (y_aligned_side, (SCM element, SCM current));
-  DECLARE_SCHEME_CALLBACK (pure_y_aligned_side, (SCM element, SCM start, SCM end, SCM current));
+  DECLARE_SCHEME_CALLBACK (pure_y_aligned_side,
+                           (SCM element, SCM start, SCM end, SCM current));
   DECLARE_SCHEME_CALLBACK (calc_cross_staff, (SCM element));
   DECLARE_SCHEME_CALLBACK (move_to_extremal_staff, (SCM));
 
-  static SCM aligned_side (Grob *me, Axis a, bool pure, int start, int end, Real *current_off_ptr);
+  static SCM aligned_side (Grob *me, Axis a, bool pure, int start, int end,
+                           Real *current_off_ptr);
 
   static Axis get_axis (Grob *);
   static void set_axis (Grob *, Axis);
@@ -48,4 +49,3 @@ public:
 };
 
 #endif /* SIDE_POSITION_INTERFACE_HH */
-

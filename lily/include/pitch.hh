@@ -21,8 +21,8 @@
 #define PITCH_HH
 
 #include "lily-proto.hh"
-#include "smobs.hh"
 #include "rational.hh"
+#include "smobs.hh"
 
 /*
   A "tonal" pitch.  This is a pitch used in diatonal western music
@@ -38,7 +38,8 @@ public:
   static SCM equal_p (SCM, SCM);
   int print_smob (SCM, scm_print_state *) const;
   SCM mark_smob () const;
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
+
 private:
   int octave_;
   int notename_;

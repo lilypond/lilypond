@@ -35,9 +35,7 @@ struct Line_shape
   Interval begin_;
   Interval rest_;
 
-  Line_shape ()
-  {
-  }
+  Line_shape () {}
   Line_shape (Interval begin, Interval rest);
   Line_shape piggyback (Line_shape mount, Real padding) const;
 };
@@ -50,23 +48,23 @@ struct Line_details
   std::vector<Real> footnote_heights_; /* The footnotes at the bottom of the
                                    page, where each stencil represents
                                    a different footnote. */
-  std::vector<Real> in_note_heights_; /* The in-notes under a system,
-                                   where each stencil represents
-                                   a different in-note. */
-  Interval refpoint_extent_; /* The refpoints of the first and last
-                                spaceable staff in this line.  min-distance
-                                should be measured from the bottom
-                                refpoint_extent of one line to the
-                                top refpoint_extent of the next. */
+  std::vector<Real> in_note_heights_;  /* The in-notes under a system,
+                                    where each stencil represents
+                                    a different in-note. */
+  Interval refpoint_extent_;           /* The refpoints of the first and last
+                                          spaceable staff in this line.  min-distance
+                                          should be measured from the bottom
+                                          refpoint_extent of one line to the
+                                          top refpoint_extent of the next. */
   Real tallness_; /* Y-extent, adjusted according to begin/rest-of-line*/
 
-  Real padding_;  /* compulsory space after this system (if we're not
-                     last on a page) */
+  Real padding_; /* compulsory space after this system (if we're not
+                    last on a page) */
   Real title_padding_;
   Real min_distance_;
   Real title_min_distance_;
   Real bottom_padding_;
-  Real space_;    /* spring length */
+  Real space_; /* spring length */
   Real title_space_;
   Real inverse_hooke_;
 
@@ -130,7 +128,7 @@ struct Line_details
 struct Constrained_break_node
 {
   /* the number of bars in all the systems before this one
-  */
+   */
   vsize prev_;
 
   /* unlike the Gourlay breaker, this is the sum of all demerits up to,
@@ -156,12 +154,15 @@ struct Constrained_break_node
 class Constrained_breaking
 {
 public:
-  std::vector<Column_x_positions> solve (vsize start, vsize end, vsize sys_count);
+  std::vector<Column_x_positions> solve (vsize start, vsize end,
+                                         vsize sys_count);
   std::vector<Column_x_positions> best_solution (vsize start, vsize end);
-  std::vector<Line_details> line_details (vsize start, vsize end, vsize sys_count);
+  std::vector<Line_details> line_details (vsize start, vsize end,
+                                          vsize sys_count);
 
   Constrained_breaking (Paper_score *ps);
-  Constrained_breaking (Paper_score *ps, std::vector<vsize> const &start_col_posns);
+  Constrained_breaking (Paper_score *ps,
+                        std::vector<vsize> const &start_col_posns);
 
   vsize max_system_count (vsize start, vsize end);
   vsize min_system_count (vsize start, vsize end);
@@ -188,10 +189,12 @@ private:
 
   /* the [i](j,k)th entry is the score for fitting the first k bars onto the
     first j systems, starting at the i'th allowed starting column */
-  std::vector<Matrix<Constrained_break_node> > state_;
+  std::vector<Matrix<Constrained_break_node>> state_;
 
-  std::vector<vsize> start_;         /* the columns at which we might be asked to start breaking */
-  std::vector<vsize> starting_breakpoints_; /* the corresponding index in breaks_ */
+  std::vector<vsize>
+      start_; /* the columns at which we might be asked to start breaking */
+  std::vector<vsize>
+      starting_breakpoints_; /* the corresponding index in breaks_ */
 
   std::vector<Paper_column *> all_;
   std::vector<vsize> breaks_;

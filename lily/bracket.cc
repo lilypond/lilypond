@@ -18,17 +18,17 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
- #include "bracket.hh"
+#include "bracket.hh"
 
- #include "axis-group-interface.hh"
- #include "directional-element-interface.hh"
- #include "grob.hh"
- #include "lookup.hh"
- #include "output-def.hh"
- #include "staff-symbol-referencer.hh"
- #include "spanner.hh"
- #include "item.hh"
- #include "line-interface.hh"
+#include "axis-group-interface.hh"
+#include "directional-element-interface.hh"
+#include "grob.hh"
+#include "item.hh"
+#include "line-interface.hh"
+#include "lookup.hh"
+#include "output-def.hh"
+#include "spanner.hh"
+#include "staff-symbol-referencer.hh"
 
 using std::vector;
 
@@ -40,9 +40,9 @@ using std::vector;
 */
 Stencil
 Bracket::make_bracket (Grob *me, // for line properties.
-                       Axis protrusion_axis, Offset dz,
-                       Drul_array<Real> height, Interval gap,
-                       Drul_array<Real> flare, Drul_array<Real> shorten)
+                       Axis protrusion_axis, Offset dz, Drul_array<Real> height,
+                       Interval gap, Drul_array<Real> flare,
+                       Drul_array<Real> shorten)
 {
   Drul_array<Offset> corners (Offset (0, 0), dz);
 
@@ -73,8 +73,8 @@ Bracket::make_bracket (Grob *me, // for line properties.
   Stencil m;
   if (!gap.is_empty ())
     for (LEFT_and_RIGHT (d))
-      m.add_stencil (Line_interface::line (me, straight_corners[d],
-                                           gap_corners[d]));
+      m.add_stencil (
+          Line_interface::line (me, straight_corners[d], gap_corners[d]));
   else
     m.add_stencil (Line_interface::line (me, straight_corners[LEFT],
                                          straight_corners[RIGHT]));
@@ -83,8 +83,8 @@ Bracket::make_bracket (Grob *me, // for line properties.
       && !to_boolean (me->get_property ("dashed-edge")))
     me->set_property ("style", ly_symbol2scm ("line"));
   for (LEFT_and_RIGHT (d))
-    m.add_stencil (Line_interface::line (me, straight_corners[d],
-                                         flare_corners[d]));
+    m.add_stencil (
+        Line_interface::line (me, straight_corners[d], flare_corners[d]));
   return m;
 }
 
@@ -96,12 +96,12 @@ Stencil
 Bracket::make_axis_constrained_bracket (Grob *me, Real length, Axis a,
                                         Direction dir, Interval gap)
 {
-  Drul_array<Real> edge_height = robust_scm2interval (me->get_property ("edge-height"),
-                                                      Interval (1.0, 1.0));
-  Drul_array<Real> flare = robust_scm2interval (me->get_property ("bracket-flare"),
-                                                Interval (0, 0));
-  Drul_array<Real> shorten = robust_scm2interval (me->get_property ("shorten-pair"),
-                                                  Interval (0, 0));
+  Drul_array<Real> edge_height = robust_scm2interval (
+      me->get_property ("edge-height"), Interval (1.0, 1.0));
+  Drul_array<Real> flare = robust_scm2interval (
+      me->get_property ("bracket-flare"), Interval (0, 0));
+  Drul_array<Real> shorten = robust_scm2interval (
+      me->get_property ("shorten-pair"), Interval (0, 0));
 
   // Make sure that it points in the correct direction:
   scale_drul (&edge_height, Real (-dir));
@@ -110,8 +110,8 @@ Bracket::make_axis_constrained_bracket (Grob *me, Real length, Axis a,
   start[a] = length;
 
   Drul_array<bool> connect_to_other
-    = robust_scm2booldrul (me->get_property ("connect-to-neighbor"),
-                           Drul_array<bool> (false, false));
+      = robust_scm2booldrul (me->get_property ("connect-to-neighbor"),
+                             Drul_array<bool> (false, false));
 
   for (LEFT_and_RIGHT (d))
     {
@@ -123,8 +123,8 @@ Bracket::make_axis_constrained_bracket (Grob *me, Real length, Axis a,
         }
     }
 
-  return make_bracket (me, other_axis (a), start, edge_height,
-                       gap, flare, shorten);
+  return make_bracket (me, other_axis (a), start, edge_height, gap, flare,
+                       shorten);
 }
 
 /*
@@ -133,9 +133,8 @@ Bracket::make_axis_constrained_bracket (Grob *me, Real length, Axis a,
   figured bass (BassFigureBracket).
 */
 Stencil
-Bracket::make_enclosing_bracket (Grob *me, Grob *refpoint,
-                                 vector<Grob *> grobs, Axis a,
-                                 Direction dir)
+Bracket::make_enclosing_bracket (Grob *me, Grob *refpoint, vector<Grob *> grobs,
+                                 Axis a, Direction dir)
 {
   Grob *common = common_refpoint_of_array (grobs, refpoint, a);
   Interval ext = Axis_group_interface::relative_group_extent (grobs, common, a);
@@ -147,8 +146,10 @@ Bracket::make_enclosing_bracket (Grob *me, Grob *refpoint,
     }
   else
     {
-      Stencil b = make_axis_constrained_bracket (me, ext.length (), a, dir, Interval ());
-      b.translate_axis (ext[LEFT] - refpoint->relative_coordinate (common, a), a);
+      Stencil b = make_axis_constrained_bracket (me, ext.length (), a, dir,
+                                                 Interval ());
+      b.translate_axis (ext[LEFT] - refpoint->relative_coordinate (common, a),
+                        a);
       return b;
     }
 }

@@ -20,8 +20,8 @@
 #include "repeated-music.hh"
 #include "music-sequence.hh"
 #include "pitch.hh"
-#include "warn.hh"
 #include "program-option.hh"
+#include "warn.hh"
 
 Music *
 Repeated_music::body (Music *me)
@@ -90,7 +90,8 @@ Repeated_music::unfolded_music_length (SCM m)
 {
   Music *me = unsmob<Music> (m);
 
-  Moment l = Moment (repeat_count (me)) * body_get_length (me) + alternatives_get_length (me, false);
+  Moment l = Moment (repeat_count (me)) * body_get_length (me)
+             + alternatives_get_length (me, false);
   return l.smobbed_copy ();
 }
 
@@ -129,7 +130,8 @@ Repeated_music::minimum_start (SCM m)
   if (body)
     return body->start_mom ().smobbed_copy ();
   else
-    return Music_sequence::minimum_start (me->get_property ("elements")).smobbed_copy ();
+    return Music_sequence::minimum_start (me->get_property ("elements"))
+        .smobbed_copy ();
 }
 
 MAKE_SCHEME_CALLBACK (Repeated_music, first_start, 1);
@@ -139,8 +141,9 @@ Repeated_music::first_start (SCM m)
   Music *me = unsmob<Music> (m);
   Music *body = unsmob<Music> (me->get_property ("element"));
 
-  Moment rv = (body) ? body->start_mom ()
-              : Music_sequence::first_start (me->get_property ("elements"));
+  Moment rv = (body)
+                  ? body->start_mom ()
+                  : Music_sequence::first_start (me->get_property ("elements"));
 
   return rv.smobbed_copy ();
 }

@@ -44,22 +44,25 @@ MAKE_SCHEME_CALLBACK (Self_alignment_interface, pure_y_aligned_on_self, 3);
 SCM
 Self_alignment_interface::pure_y_aligned_on_self (SCM smob, SCM start, SCM end)
 {
-  return aligned_on_self (unsmob<Grob> (smob), Y_AXIS, true, robust_scm2int (start, 0), robust_scm2int (end, INT_MAX));
+  return aligned_on_self (unsmob<Grob> (smob), Y_AXIS, true,
+                          robust_scm2int (start, 0),
+                          robust_scm2int (end, INT_MAX));
 }
 
 SCM
-Self_alignment_interface::aligned_on_self (Grob *me, Axis a, bool pure, int start, int end)
+Self_alignment_interface::aligned_on_self (Grob *me, Axis a, bool pure,
+                                           int start, int end)
 {
-  SCM align = (a == X_AXIS)
-          ? me->get_property ("self-alignment-X")
-          : me->get_property ("self-alignment-Y");
+  SCM align = (a == X_AXIS) ? me->get_property ("self-alignment-X")
+                            : me->get_property ("self-alignment-Y");
   if (scm_is_number (align))
     {
       Interval ext (me->maybe_pure_extent (me, a, pure, start, end));
       // Empty extent doesn't mean an error - we simply don't align such grobs.
       // However, empty extent and non-empty stencil would be suspicious.
       if (!ext.is_empty ())
-        return scm_from_double (- ext.linear_combination (scm_to_double (align)));
+        return scm_from_double (
+            -ext.linear_combination (scm_to_double (align)));
       else
         {
           Stencil *st = me->get_stencil ();
@@ -110,32 +113,30 @@ Self_alignment_interface::aligned_on_parent (Grob *me, Axis a)
   Grob *him = me->get_parent (a);
   Interval he;
   if (has_interface<Paper_column> (him))
-      /*
-        PaperColumn extents aren't reliable (they depend on size and alignment
-        of PaperColumn's children), so we align on NoteColumn instead.
-        This happens e.g. for lyrics without associatedVoice.
-      */
-    he = Paper_column::get_interface_extent
-              (him, ly_symbol2scm ("note-column-interface"), a);
+    /*
+      PaperColumn extents aren't reliable (they depend on size and alignment
+      of PaperColumn's children), so we align on NoteColumn instead.
+      This happens e.g. for lyrics without associatedVoice.
+    */
+    he = Paper_column::get_interface_extent (
+        him, ly_symbol2scm ("note-column-interface"), a);
   else
     {
       if (to_boolean (me->get_property ("X-align-on-main-noteheads"))
           && has_interface<Note_column> (him))
-        he = Note_column::calc_main_extent(him);
+        he = Note_column::calc_main_extent (him);
       else
         he = him->extent (him, a);
     }
 
-  SCM self_align = (a == X_AXIS)
-          ? me->get_property ("self-alignment-X")
-          : me->get_property ("self-alignment-Y");
+  SCM self_align = (a == X_AXIS) ? me->get_property ("self-alignment-X")
+                                 : me->get_property ("self-alignment-Y");
 
-  SCM par_align = (a == X_AXIS)
-          ? me->get_property ("parent-alignment-X")
-          : me->get_property ("parent-alignment-Y");
+  SCM par_align = (a == X_AXIS) ? me->get_property ("parent-alignment-X")
+                                : me->get_property ("parent-alignment-Y");
 
   if (scm_is_null (par_align))
-      par_align = self_align;
+    par_align = self_align;
 
   Real x = 0.0;
   Interval ext (me->extent (me, a));
@@ -173,9 +174,9 @@ Self_alignment_interface::aligned_on_parent (Grob *me, Axis a)
 void
 Self_alignment_interface::set_aligned_on_parent (Grob *me, Axis a)
 {
-  add_offset_callback (me,
-                       (a == X_AXIS) ? aligned_on_x_parent_proc : aligned_on_y_parent_proc,
-                       a);
+  add_offset_callback (
+      me, (a == X_AXIS) ? aligned_on_x_parent_proc : aligned_on_y_parent_proc,
+      a);
 }
 
 ADD_INTERFACE (Self_alignment_interface,
@@ -197,5 +198,4 @@ ADD_INTERFACE (Self_alignment_interface,
                "parent-alignment-Y "
                "self-alignment-X "
                "self-alignment-Y "
-               "X-align-on-main-noteheads "
-              );
+               "X-align-on-main-noteheads ");

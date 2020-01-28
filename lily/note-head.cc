@@ -19,17 +19,16 @@
 
 #include "note-head.hh"
 
-#include <cmath>
+#include <algorithm> //  min, max
 #include <cctype>
-#include <algorithm>            //  min, max
-
+#include <cmath>
 
 #include "directional-element-interface.hh"
 #include "font-interface.hh"
 #include "grob.hh"
 #include "international.hh"
-#include "staff-symbol.hh"
 #include "staff-symbol-referencer.hh"
+#include "staff-symbol.hh"
 #include "warn.hh"
 
 using std::string;
@@ -39,7 +38,8 @@ internal_print (Grob *me, string *font_char)
 {
   string style = robust_symbol2string (me->get_property ("style"), "default");
 
-  string suffix = std::to_string (std::min (robust_scm2int (me->get_property ("duration-log"), 2), 2));
+  string suffix = std::to_string (
+      std::min (robust_scm2int (me->get_property ("duration-log"), 2), 2));
   if (style != "default")
     suffix = robust_scm2string (me->get_property ("glyph-name"), "");
 
@@ -62,15 +62,11 @@ internal_print (Grob *me, string *font_char)
       out = fm->find_by_name (idx_either + suffix);
     }
 
-  if (style == "mensural"
-      || style == "neomensural"
-      || style == "petrucci"
-      || style == "baroque"
-      || style == "kievan")
+  if (style == "mensural" || style == "neomensural" || style == "petrucci"
+      || style == "baroque" || style == "kievan")
     {
-      if (!Staff_symbol_referencer::on_line
-          (me,
-           robust_scm2int (me->get_property ("staff-position"), 0)))
+      if (!Staff_symbol_referencer::on_line (
+              me, robust_scm2int (me->get_property ("staff-position"), 0)))
         {
           Stencil test = fm->find_by_name (idx_either + "r" + suffix);
           if (!test.is_empty ())
@@ -113,7 +109,7 @@ Note_head::stem_x_shift (SCM smob)
   Grob *me = unsmob<Grob> (smob);
   Grob *stem = unsmob<Grob> (me->get_object ("stem"));
   if (stem)
-    (void) stem->get_property ("positioning-done");
+    (void)stem->get_property ("positioning-done");
 
   return scm_from_int (0);
 }
@@ -156,10 +152,10 @@ Note_head::include_ledger_line_height (SCM smob)
 Real
 Note_head::stem_attachment_coordinate (Grob *me, Axis a)
 {
-  Offset off = robust_scm2offset (me->get_property ("stem-attachment"),
-                                  Offset (0, 0));
+  Offset off
+      = robust_scm2offset (me->get_property ("stem-attachment"), Offset (0, 0));
 
-  return off [a];
+  return off[a];
 }
 
 Offset
@@ -212,6 +208,4 @@ ADD_INTERFACE (Note_head,
                "glyph-name "
                "stem-attachment "
                "style "
-               "ledger-positions "
-              );
-
+               "ledger-positions ");

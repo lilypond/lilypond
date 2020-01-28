@@ -27,9 +27,9 @@
 #endif
 
 #if HAVE_LIBGUILE18_H
-# include <libguile18.h>
+#include <libguile18.h>
 #else
-# include <libguile.h>
+#include <libguile.h>
 #endif
 #include <string.h>
 
@@ -53,20 +53,23 @@ std::string ly_scm_write_string (SCM s);
 SCM ly_deep_copy (SCM);
 SCM ly_truncate_list (int k, SCM lst);
 
-std::string gulp_file_to_string (const std::string &fn, bool must_exist, int size);
+std::string gulp_file_to_string (const std::string &fn, bool must_exist,
+                                 int size);
 
 SCM ly_string2scm (std::string const &s);
 std::string ly_scm2string (SCM s);
 std::string ly_symbol2string (SCM);
-std::string robust_symbol2string (SCM, const std::string&);
+std::string robust_symbol2string (SCM, const std::string &);
 Rational ly_scm2rational (SCM);
 SCM ly_rational2scm (Rational);
 SCM ly_offset2scm (Offset);
 Offset ly_scm2offset (SCM);
 SCM ly_chain_assoc (SCM key, SCM achain);
-SCM ly_chain_assoc_get (SCM key, SCM achain, SCM default_value, SCM strict_checking = SCM_BOOL_F);
+SCM ly_chain_assoc_get (SCM key, SCM achain, SCM default_value,
+                        SCM strict_checking = SCM_BOOL_F);
 SCM ly_assoc_cdr (SCM key, SCM alist);
-SCM ly_assoc_get (SCM key, SCM alist, SCM default_value, SCM strict_checking = SCM_BOOL_F);
+SCM ly_assoc_get (SCM key, SCM alist, SCM default_value,
+                  SCM strict_checking = SCM_BOOL_F);
 Interval ly_scm2interval (SCM);
 Drul_array<Real> ly_scm2realdrul (SCM);
 SCM ly_memv (SCM, SCM);
@@ -82,7 +85,7 @@ Drul_array<Real> robust_scm2drul (SCM, Drul_array<Real>);
 Drul_array<bool> robust_scm2booldrul (SCM, Drul_array<bool>);
 Interval robust_scm2interval (SCM, Drul_array<Real>);
 Offset robust_scm2offset (SCM, Offset);
-std::string robust_scm2string (SCM, const std::string&);
+std::string robust_scm2string (SCM, const std::string &);
 Rational robust_scm2rational (SCM, Rational);
 std::vector<Real> ly_scm2floatvector (SCM);
 SCM ly_floatvector2scm (std::vector<Real> v);
@@ -102,37 +105,77 @@ SCM ly_hash_table_keys (SCM tab);
 
 SCM ly_assoc_prepend_x (SCM alist, SCM key, SCM val);
 
-inline bool ly_is_list (SCM x) { return scm_is_true (scm_list_p (x)); }
-inline bool ly_cheap_is_list (SCM x) { return scm_is_pair (x) || scm_is_null (x); }
-inline bool ly_is_module (SCM x) { return SCM_MODULEP (x); }
-inline bool ly_is_procedure (SCM x) { return scm_is_true (scm_procedure_p (x)); }
-inline bool ly_is_port (SCM x) { return scm_is_true (scm_port_p (x)); }
+inline bool
+ly_is_list (SCM x)
+{
+  return scm_is_true (scm_list_p (x));
+}
+inline bool
+ly_cheap_is_list (SCM x)
+{
+  return scm_is_pair (x) || scm_is_null (x);
+}
+inline bool
+ly_is_module (SCM x)
+{
+  return SCM_MODULEP (x);
+}
+inline bool
+ly_is_procedure (SCM x)
+{
+  return scm_is_true (scm_procedure_p (x));
+}
+inline bool
+ly_is_port (SCM x)
+{
+  return scm_is_true (scm_port_p (x));
+}
 
 bool ly_is_rational (SCM);
 /*
   want to take the address of this function; scm_is_symbol() is a
   macro.
  */
-inline bool ly_is_symbol (SCM x) { return scm_is_symbol (x); }
+inline bool
+ly_is_symbol (SCM x)
+{
+  return scm_is_symbol (x);
+}
 
-inline bool ly_is_equal (SCM x, SCM y)
+inline bool
+ly_is_equal (SCM x, SCM y)
 {
   return scm_is_true (scm_equal_p (x, y));
 }
 
-inline bool ly_scm2bool (SCM x) { return scm_is_true (x); }
-inline char ly_scm2char (SCM x) { return (char)SCM_CHAR (x); }
-inline SCM ly_bool2scm (bool x) { return scm_from_bool (x); }
+inline bool
+ly_scm2bool (SCM x)
+{
+  return scm_is_true (x);
+}
+inline char
+ly_scm2char (SCM x)
+{
+  return (char)SCM_CHAR (x);
+}
+inline SCM
+ly_bool2scm (bool x)
+{
+  return scm_from_bool (x);
+}
 
-inline SCM ly_append2 (SCM x1, SCM x2)
+inline SCM
+ly_append2 (SCM x1, SCM x2)
 {
   return scm_append (scm_list_2 (x1, x2));
 }
-inline SCM ly_append3 (SCM x1, SCM x2, SCM x3)
+inline SCM
+ly_append3 (SCM x1, SCM x2, SCM x3)
 {
   return scm_append (scm_list_3 (x1, x2, x3));
 }
-inline SCM ly_append4 (SCM x1, SCM x2, SCM x3, SCM x4)
+inline SCM
+ly_append4 (SCM x1, SCM x2, SCM x3, SCM x4)
 {
   return scm_append (scm_list_4 (x1, x2, x3, x4));
 }
@@ -140,7 +183,8 @@ inline SCM ly_append4 (SCM x1, SCM x2, SCM x3, SCM x4)
 /*
   display and print newline.
 */
-extern "C" {
+extern "C"
+{
   void ly_display_scm (SCM s);
 }
 
@@ -175,9 +219,10 @@ SCM ly_output_formats ();
 /*
   snarfing.
 */
-void add_scm_init_func (void ( *) ());
+void add_scm_init_func (void (*) ());
 
-extern "C" {
+extern "C"
+{
   typedef SCM (*Scheme_function_unknown) (GUILE_ELLIPSIS);
 }
 
@@ -203,11 +248,23 @@ typedef SCM (*Scheme_function_3) (GUILE_ELLIPSIS);
 #define scm_is_pair ly_is_pair
 #endif
 
-inline SCM ly_car (SCM x) { return SCM_CAR (x); }
-inline SCM ly_cdr (SCM x) { return SCM_CDR (x); }
-inline bool ly_is_pair (SCM x) { return SCM_I_CONSP (x); }
+inline SCM
+ly_car (SCM x)
+{
+  return SCM_CAR (x);
+}
+inline SCM
+ly_cdr (SCM x)
+{
+  return SCM_CDR (x);
+}
+inline bool
+ly_is_pair (SCM x)
+{
+  return SCM_I_CONSP (x);
+}
 
-template<class T>
+template <class T>
 SCM
 ly_cxx_vector_to_list (std::vector<T> const &src)
 {

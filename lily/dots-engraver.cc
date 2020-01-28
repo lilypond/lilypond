@@ -17,8 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "engraver.hh"
 #include "duration.hh"
+#include "engraver.hh"
 #include "item.hh"
 #include "rhythmic-head.hh"
 #include "stream-event.hh"
@@ -31,10 +31,7 @@ class Dots_engraver : public Engraver
   TRANSLATOR_DECLARATIONS (Dots_engraver);
 };
 
-Dots_engraver::Dots_engraver (Context *c)
-  : Engraver (c)
-{
-}
+Dots_engraver::Dots_engraver (Context *c) : Engraver (c) {}
 
 void
 Dots_engraver::acknowledge_rhythmic_head (Grob_info gi)
@@ -57,7 +54,6 @@ Dots_engraver::acknowledge_rhythmic_head (Grob_info gi)
     }
 }
 
-
 void
 Dots_engraver::boot ()
 {
@@ -75,5 +71,4 @@ ADD_TRANSLATOR (Dots_engraver,
                 "",
 
                 /* write */
-                ""
-               );
+                "");

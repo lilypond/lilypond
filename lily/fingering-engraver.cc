@@ -18,12 +18,12 @@
 */
 
 #include "engraver.hh"
+#include "item.hh"
 #include "rhythmic-head.hh"
 #include "self-alignment-interface.hh"
 #include "side-position-interface.hh"
 #include "stem.hh"
 #include "stream-event.hh"
-#include "item.hh"
 
 #include "translator.icc"
 
@@ -36,6 +36,7 @@ class Fingering_engraver : public Engraver
 
 public:
   TRANSLATOR_DECLARATIONS (Fingering_engraver);
+
 protected:
   void stop_translation_timestep ();
   void process_music ();
@@ -137,11 +138,7 @@ Fingering_engraver::stop_translation_timestep ()
   events_.clear ();
 }
 
-Fingering_engraver::Fingering_engraver (Context *c)
-  : Engraver (c)
-{
-}
-
+Fingering_engraver::Fingering_engraver (Context *c) : Engraver (c) {}
 
 void
 Fingering_engraver::boot ()
@@ -164,5 +161,4 @@ ADD_TRANSLATOR (Fingering_engraver,
                 "",
 
                 /* write */
-                ""
-               );
+                "");

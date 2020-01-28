@@ -20,8 +20,8 @@
 #ifndef VOLTA_SPANNER_HH
 #define VOLTA_SPANNER_HH
 
-#include "spanner.hh"
 #include "lily-proto.hh"
+#include "spanner.hh"
 
 class Volta_bracket_interface
 {
@@ -32,4 +32,3 @@ public:
 };
 
 #endif // VOLTA_SPANNER_HH
-

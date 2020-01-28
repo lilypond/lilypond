@@ -47,7 +47,7 @@ public:
 };
 
 Horizontal_bracket_engraver::Horizontal_bracket_engraver (Context *c)
-  : Engraver (c)
+    : Engraver (c)
 {
   pop_count_ = 0;
   push_count_ = 0;
@@ -82,10 +82,8 @@ Horizontal_bracket_engraver::acknowledge_note_column (Grob_info gi)
       Side_position_interface::add_support (bracket_stack_[i], gi.grob ());
       Pointer_group_interface::add_grob (bracket_stack_[i],
                                          ly_symbol2scm ("columns"), gi.grob ());
-      add_bound_item (bracket_stack_[i],
-                      gi.grob ());
-      add_bound_item (text_stack_[i],
-                      gi.grob ());
+      add_bound_item (bracket_stack_[i], gi.grob ());
+      add_bound_item (text_stack_[i], gi.grob ());
     }
 }
 
@@ -153,5 +151,4 @@ ADD_TRANSLATOR (Horizontal_bracket_engraver,
                 "",
 
                 /* write */
-                ""
-               );
+                "");

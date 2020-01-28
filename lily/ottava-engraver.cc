@@ -29,6 +29,7 @@ class Ottava_spanner_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Ottava_spanner_engraver);
+
 protected:
   void finalize () override;
 
@@ -37,6 +38,7 @@ protected:
   void process_music ();
   void stop_translation_timestep ();
   void derived_mark () const override;
+
 private:
   Spanner *span_;
   Spanner *finished_;
@@ -52,8 +54,7 @@ Ottava_spanner_engraver::derived_mark () const
   scm_gc_mark (last_ottavation_);
 }
 
-Ottava_spanner_engraver::Ottava_spanner_engraver (Context *c)
-  : Engraver (c)
+Ottava_spanner_engraver::Ottava_spanner_engraver (Context *c) : Engraver (c)
 {
   finished_ = 0;
   span_ = 0;
@@ -139,7 +140,6 @@ Ottava_spanner_engraver::finalize ()
 
 #include "translator.icc"
 
-
 void
 Ottava_spanner_engraver::boot ()
 {
@@ -159,5 +159,4 @@ ADD_TRANSLATOR (Ottava_spanner_engraver,
                 "currentMusicalColumn ",
 
                 /* write */
-                ""
-               );
+                "");

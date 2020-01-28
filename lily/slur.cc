@@ -19,29 +19,29 @@
 */
 
 #include "slur.hh"
-#include "grob-info.hh"
-#include "grob-array.hh"
 #include "beam.hh"
 #include "bezier.hh"
 #include "directional-element-interface.hh"
 #include "font-interface.hh"
+#include "grob-array.hh"
+#include "grob-info.hh"
+#include "international.hh"
 #include "item.hh"
-#include "pointer-group-interface.hh"
 #include "lookup.hh"
-#include "main.hh"              // DEBUG_SLUR_SCORING
+#include "main.hh" // DEBUG_SLUR_SCORING
 #include "note-column.hh"
 #include "output-def.hh"
+#include "pointer-group-interface.hh"
+#include "separation-item.hh"
 #include "skyline-pair.hh"
+#include "slur-scoring.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
 #include "stem.hh"
 #include "text-interface.hh"
 #include "tie.hh"
-#include "warn.hh"
-#include "slur-scoring.hh"
-#include "separation-item.hh"
 #include "unpure-pure-container.hh"
-#include "international.hh"
+#include "warn.hh"
 
 using std::string;
 using std::vector;
@@ -141,7 +141,7 @@ Slur::height (SCM smob)
   // FIXME uncached
   Stencil *m = me->get_stencil ();
   return m ? ly_interval2scm (m->extent (Y_AXIS))
-         : ly_interval2scm (Interval ());
+           : ly_interval2scm (Interval ());
 }
 
 MAKE_SCHEME_CALLBACK (Slur, print, 1);
@@ -157,18 +157,17 @@ Slur::print (SCM smob)
     }
 
   Real staff_thick = Staff_symbol_referencer::line_thickness (me);
-  Real base_thick = staff_thick
-                    * robust_scm2double (me->get_property ("thickness"), 1);
-  Real line_thick = staff_thick
-                    * robust_scm2double (me->get_property ("line-thickness"), 1);
+  Real base_thick
+      = staff_thick * robust_scm2double (me->get_property ("thickness"), 1);
+  Real line_thick
+      = staff_thick
+        * robust_scm2double (me->get_property ("line-thickness"), 1);
 
   Bezier one = get_curve (me);
   Stencil a;
 
   SCM dash_definition = me->get_property ("dash-definition");
-  a = Lookup::slur (one,
-                    get_grob_direction (me) * base_thick,
-                    line_thick,
+  a = Lookup::slur (one, get_grob_direction (me) * base_thick, line_thick,
                     dash_definition);
 
 #if DEBUG_SLUR_SCORING
@@ -179,12 +178,12 @@ Slur::print (SCM smob)
       SCM properties = Font_interface::text_font_alist_chain (me);
 
       if (!scm_is_number (me->get_property ("font-size")))
-        properties = scm_cons (scm_acons (ly_symbol2scm ("font-size"), scm_from_int (-6), SCM_EOL),
-                               properties);
+        properties = scm_cons (
+            scm_acons (ly_symbol2scm ("font-size"), scm_from_int (-6), SCM_EOL),
+            properties);
 
-      Stencil tm = *unsmob<Stencil> (Text_interface::interpret_markup
-                                    (me->layout ()->self_scm (), properties,
-                                     annotation));
+      Stencil tm = *unsmob<Stencil> (Text_interface::interpret_markup (
+          me->layout ()->self_scm (), properties, annotation));
       a.add_at_edge (Y_AXIS, get_grob_direction (me), tm, 1.0);
     }
 #endif
@@ -213,7 +212,8 @@ Slur::replace_breakable_encompass_objects (Grob *me)
           for (vsize j = 0; j < breakables.size (); j++)
             /* if we encompass a separation-item that spans multiple staves,
                we filter out the grobs that don't belong to our staff */
-            if (me->common_refpoint (breakables[j], Y_AXIS) == me->get_parent (Y_AXIS)
+            if (me->common_refpoint (breakables[j], Y_AXIS)
+                    == me->get_parent (Y_AXIS)
                 && scm_is_eq (breakables[j]->get_property ("avoid-slur"),
                               ly_symbol2scm ("inside")))
               new_encompasses.push_back (breakables[j]);
@@ -255,12 +255,14 @@ Slur::add_column (Grob *me, Grob *n)
 void
 Slur::add_extra_encompass (Grob *me, Grob *n)
 {
-  Pointer_group_interface::add_grob (me, ly_symbol2scm ("encompass-objects"), n);
+  Pointer_group_interface::add_grob (me, ly_symbol2scm ("encompass-objects"),
+                                     n);
 }
 
 MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Slur, pure_outside_slur_callback, 4, 1, "");
 SCM
-Slur::pure_outside_slur_callback (SCM grob, SCM start_scm, SCM end_scm, SCM offset_scm)
+Slur::pure_outside_slur_callback (SCM grob, SCM start_scm, SCM end_scm,
+                                  SCM offset_scm)
 {
   int start = robust_scm2int (start_scm, 0);
   int end = robust_scm2int (end_scm, 0);
@@ -276,7 +278,8 @@ Slur::pure_outside_slur_callback (SCM grob, SCM start_scm, SCM end_scm, SCM offs
 
   Real offset = robust_scm2double (offset_scm, 0.0);
   Direction dir = get_grob_direction (script);
-  return scm_from_double (offset + dir * slur->pure_y_extent (slur, start, end).length () / 4);
+  return scm_from_double (
+      offset + dir * slur->pure_y_extent (slur, start, end).length () / 4);
 }
 
 MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Slur, outside_slur_callback, 2, 1, "");
@@ -328,8 +331,8 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
   yext.translate (offset);
 
   /* FIXME: slur property, script property?  */
-  Real slur_padding = robust_scm2double (script->get_property ("slur-padding"),
-                                         0.0);
+  Real slur_padding
+      = robust_scm2double (script->get_property ("slur-padding"), 0.0);
   yext.widen (slur_padding);
 
   Interval exts[] = {xext, yext};
@@ -339,7 +342,9 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
     {
       for (LEFT_and_RIGHT (d))
         {
-          Real x = minmax (-d, xext[d], curve.control_[d == LEFT ? 0 : 3][X_AXIS] + -d * EPS);
+          Real x
+              = minmax (-d, xext[d],
+                        curve.control_[d == LEFT ? 0 : 3][X_AXIS] + -d * EPS);
           Real y = curve.get_other_coordinate (X_AXIS, x);
           do_shift = y == minmax (dir, yext[-dir], y);
           if (do_shift)
@@ -352,7 +357,8 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
         {
           for (LEFT_and_RIGHT (d))
             {
-              vector<Real> coords = curve.get_other_coordinates (Axis (a), exts[a][d]);
+              vector<Real> coords
+                  = curve.get_other_coordinates (Axis (a), exts[a][d]);
               for (vsize i = 0; i < coords.size (); i++)
                 {
                   do_shift = exts[(a + 1) % NO_AXES].contains (coords[i]);
@@ -367,7 +373,14 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
         }
     }
 
-  Real avoidance_offset = do_shift ? curve.minmax (X_AXIS, std::max (xext[LEFT], curve.control_[0][X_AXIS] + EPS), std::min (xext[RIGHT], curve.control_[3][X_AXIS] - EPS), dir) - yext[-dir] : 0.0;
+  Real avoidance_offset
+      = do_shift
+            ? curve.minmax (
+                  X_AXIS,
+                  std::max (xext[LEFT], curve.control_[0][X_AXIS] + EPS),
+                  std::min (xext[RIGHT], curve.control_[3][X_AXIS] - EPS), dir)
+                  - yext[-dir]
+            : 0.0;
 
   return scm_from_double (offset + avoidance_offset);
 }
@@ -383,7 +396,8 @@ Slur::vertical_skylines (SCM smob)
     return Skyline_pair (boxes, X_AXIS).smobbed_copy ();
 
   Bezier curve = Slur::get_curve (me);
-  vsize box_count = robust_scm2vsize (me->get_property ("skyline-quantizing"), 10);
+  vsize box_count
+      = robust_scm2vsize (me->get_property ("skyline-quantizing"), 10);
   for (vsize i = 0; i < box_count; i++)
     {
       Box b;
@@ -414,8 +428,7 @@ Slur::auxiliary_acknowledge_extra_object (Grob_info const &info,
   else
     slur = slurs[0];
 
-  if (has_interface<Tie> (e)
-      || scm_is_eq (avoid, ly_symbol2scm ("inside")))
+  if (has_interface<Tie> (e) || scm_is_eq (avoid, ly_symbol2scm ("inside")))
     {
       for (vsize i = slurs.size (); i--;)
         add_extra_encompass (slurs[i], e);
@@ -429,11 +442,13 @@ Slur::auxiliary_acknowledge_extra_object (Grob_info const &info,
     {
       if (slur)
         {
-          chain_offset_callback (e,
-                                 Unpure_pure_container::make_smob (outside_slur_callback_proc,
-                                                                   pure_outside_slur_callback_proc),
-                                 Y_AXIS);
-          chain_callback (e, outside_slur_cross_staff_proc, ly_symbol2scm ("cross-staff"));
+          chain_offset_callback (
+              e,
+              Unpure_pure_container::make_smob (
+                  outside_slur_callback_proc, pure_outside_slur_callback_proc),
+              Y_AXIS);
+          chain_callback (e, outside_slur_cross_staff_proc,
+                          ly_symbol2scm ("cross-staff"));
           e->set_object ("slur", slur->self_scm ());
         }
     }
@@ -567,7 +582,7 @@ ADD_INTERFACE (Slur,
 
                /* properties */
                "annotation "
-               "avoid-slur "  /* UGH. */
+               "avoid-slur " /* UGH. */
                "control-points "
                "dash-definition "
                "details "
@@ -581,6 +596,4 @@ ADD_INTERFACE (Slur,
                "note-columns "
                "positions "
                "ratio "
-               "thickness "
-              );
-
+               "thickness ");

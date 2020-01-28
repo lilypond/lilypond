@@ -18,13 +18,13 @@
 */
 
 #include "music-function.hh"
-#include "lily-parser.hh"
-#include "input.hh"
-#include "music.hh"
 #include "fluid.hh"
+#include "input.hh"
 #include "lily-imports.hh"
+#include "lily-parser.hh"
+#include "music.hh"
 
-const char * const Music_function::type_p_name_ = "ly:music-function?";
+const char *const Music_function::type_p_name_ = "ly:music-function?";
 
 /* Print a textual represenation of the smob to a given port.  */
 int
@@ -99,8 +99,8 @@ Music_function::call (SCM rest)
           // non-optional argument
           if (scm_is_false (scm_call_1 (pred, arg)))
             {
-              Syntax::argument_error (scm_oneplus (scm_length (args)),
-                                      pred, arg);
+              Syntax::argument_error (scm_oneplus (scm_length (args)), pred,
+                                      arg);
               SCM val = scm_car (get_signature ());
               val = scm_is_pair (val) ? scm_cdr (val) : SCM_BOOL_F;
               return with_loc (val, location);
@@ -122,13 +122,15 @@ Music_function::call (SCM rest)
             rest = scm_cdr (rest);
           // Replace this and all following optional arguments with
           // their defaults:
-          do {
-            args = scm_cons (with_loc (scm_cdr (pred), location), args);
-            signature = scm_cdr (signature);
-            if (!scm_is_pair (signature))
-              break;
-            pred = scm_car (signature);
-          } while (scm_is_pair (pred));
+          do
+            {
+              args = scm_cons (with_loc (scm_cdr (pred), location), args);
+              signature = scm_cdr (signature);
+              if (!scm_is_pair (signature))
+                break;
+              pred = scm_car (signature);
+            }
+          while (scm_is_pair (pred));
           continue;
         }
       // Normal processing of accepted argument

@@ -20,15 +20,12 @@
 #include "grob-array.hh"
 #include "grob.hh"
 
-Grob_array::Grob_array ()
-{
-  ordered_ = true;
-}
+Grob_array::Grob_array () { ordered_ = true; }
 
 SCM
 Grob_array::mark_smob () const
 {
-#if 0  /* see System::derived_mark () const */
+#if 0 /* see System::derived_mark () const */
   for (vsize i = 0; i < grobs_.size (); i++)
     scm_gc_mark (grobs_[i]->self_scm ());
 #endif
@@ -75,7 +72,7 @@ Grob_array::filter (bool (*predicate) (const Grob *))
 }
 
 void
-Grob_array::filter_map (Grob * (*map_fun) (Grob *))
+Grob_array::filter_map (Grob *(*map_fun) (Grob *))
 {
   vsize new_size = 0;
   for (vsize i = 0; i < grobs_.size (); ++i)
@@ -86,8 +83,7 @@ Grob_array::filter_map (Grob * (*map_fun) (Grob *))
 }
 
 void
-Grob_array::filter_map_assign (const Grob_array &src,
-                               Grob * (*map_fun) (Grob *))
+Grob_array::filter_map_assign (const Grob_array &src, Grob *(*map_fun) (Grob *))
 {
   if (&src != this)
     {
@@ -102,8 +98,7 @@ Grob_array::filter_map_assign (const Grob_array &src,
     filter_map (map_fun);
 }
 
-const char * const Grob_array::type_p_name_ = "ly:grob-array?";
-
+const char *const Grob_array::type_p_name_ = "ly:grob-array?";
 
 SCM
 grob_list_to_grob_array (SCM lst)

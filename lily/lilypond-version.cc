@@ -20,8 +20,8 @@
 #include <ctype.h>
 
 #include "lilypond-version.hh"
-#include "string-convert.hh"
 #include "misc.hh"
+#include "string-convert.hh"
 
 using std::string;
 using std::vector;
@@ -43,27 +43,28 @@ Lilypond_version::Lilypond_version (const string &str)
   const char *digits = "0123456789";
   version = string_split (str, '.');
 
-  switch (version.size ()) {
-  case 4:
-    extra_patch_string_ = version[3];
-    if (version[2].empty ())
-      return;
-    // fallthrough
-  case 3:
-    if (version[2].find_first_not_of (digits) != string::npos
-        || version[1].empty ())
-      return;
-    patch_ = String_convert::dec2int (version[2]);
-    // fallthrough
-  case 2:
-    if (version[1].find_first_not_of (digits) != string::npos
-        || version[1].empty () || version[0].empty ())
-      return;
-    minor_ = String_convert::dec2int (version[1]);
-    if (version[0].find_first_not_of (digits) != string::npos)
-      return;
-    major_ = String_convert::dec2int (version[0]);
-  }
+  switch (version.size ())
+    {
+    case 4:
+      extra_patch_string_ = version[3];
+      if (version[2].empty ())
+        return;
+      // fallthrough
+    case 3:
+      if (version[2].find_first_not_of (digits) != string::npos
+          || version[1].empty ())
+        return;
+      patch_ = String_convert::dec2int (version[2]);
+      // fallthrough
+    case 2:
+      if (version[1].find_first_not_of (digits) != string::npos
+          || version[1].empty () || version[0].empty ())
+        return;
+      minor_ = String_convert::dec2int (version[1]);
+      if (version[0].find_first_not_of (digits) != string::npos)
+        return;
+      major_ = String_convert::dec2int (version[0]);
+    }
 }
 
 string
@@ -71,15 +72,11 @@ Lilypond_version::to_string () const
 {
   if (major_ < 0)
     return "invalid";
-  return std::to_string (major_)
-         + "." + std::to_string (minor_)
-         + "." + std::to_string (patch_);
+  return std::to_string (major_) + "." + std::to_string (minor_) + "."
+         + std::to_string (patch_);
 }
 
-Lilypond_version::operator bool () const
-{
-  return !(major_ < 0);
-}
+Lilypond_version::operator bool () const { return !(major_ < 0); }
 
 int
 Lilypond_version::compare (const Lilypond_version &a, const Lilypond_version &b)

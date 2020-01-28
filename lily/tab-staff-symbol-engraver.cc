@@ -24,6 +24,7 @@ class Tab_staff_symbol_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Tab_staff_symbol_engraver);
+
 protected:
   void acknowledge_staff_symbol (Grob_info);
 };
@@ -36,8 +37,7 @@ Tab_staff_symbol_engraver::acknowledge_staff_symbol (Grob_info gi)
     gi.grob ()->set_property ("line-count", scm_from_long (k));
 }
 
-Tab_staff_symbol_engraver::Tab_staff_symbol_engraver (Context *c)
-  : Engraver (c)
+Tab_staff_symbol_engraver::Tab_staff_symbol_engraver (Context *c) : Engraver (c)
 {
 }
 
@@ -61,5 +61,4 @@ ADD_TRANSLATOR (Tab_staff_symbol_engraver,
                 "stringTunings ",
 
                 /* write */
-                ""
-               );
+                "");

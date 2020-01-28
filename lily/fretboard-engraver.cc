@@ -22,8 +22,8 @@
 
 #include "articulations.hh"
 #include "context.hh"
-#include "item.hh"
 #include "engraver.hh"
+#include "item.hh"
 #include "pitch.hh"
 #include "stream-event.hh"
 #include "warn.hh"
@@ -42,6 +42,7 @@ class Fretboard_engraver : public Engraver
   vector<Stream_event *> note_events_;
   vector<Stream_event *> tabstring_events_;
   vector<Stream_event *> fingering_events_;
+
 public:
   TRANSLATOR_DECLARATIONS (Fretboard_engraver);
 
@@ -63,8 +64,7 @@ Fretboard_engraver::derived_mark () const
   scm_gc_mark (last_placements_);
 }
 
-Fretboard_engraver::Fretboard_engraver (Context *c)
-  : Engraver (c)
+Fretboard_engraver::Fretboard_engraver (Context *c) : Engraver (c)
 {
   fret_board_ = 0;
   last_placements_ = SCM_BOOL_F;
@@ -94,25 +94,19 @@ Fretboard_engraver::process_music ()
   if (!note_events_.size ())
     return;
 
-  SCM tab_strings = articulation_list (note_events_,
-                                       tabstring_events_,
+  SCM tab_strings = articulation_list (note_events_, tabstring_events_,
                                        "string-number-event");
-  SCM fingers = articulation_list (note_events_,
-                                   fingering_events_,
-                                   "fingering-event");
+  SCM fingers
+      = articulation_list (note_events_, fingering_events_, "fingering-event");
   fret_board_ = make_item ("FretBoard", note_events_[0]->self_scm ());
   SCM fret_notes = ly_cxx_vector_to_list (note_events_);
   SCM proc = get_property ("noteToFretFunction");
   if (ly_is_procedure (proc))
-    scm_call_4 (proc,
-                context ()->self_scm (),
-                fret_notes,
-                scm_list_2 (tab_strings, fingers),
-                fret_board_->self_scm ());
+    scm_call_4 (proc, context ()->self_scm (), fret_notes,
+                scm_list_2 (tab_strings, fingers), fret_board_->self_scm ());
   SCM changes = get_property ("chordChanges");
   SCM placements = fret_board_->get_property ("dot-placement-list");
-  if (to_boolean (changes)
-      && ly_is_equal (last_placements_, placements))
+  if (to_boolean (changes) && ly_is_equal (last_placements_, placements))
     fret_board_->set_property ("begin-of-line-visible", SCM_BOOL_T);
 
   last_placements_ = placements;
@@ -155,6 +149,4 @@ ADD_TRANSLATOR (Fretboard_engraver,
                 "tablatureFormat ",
 
                 /* write */
-                ""
-               );
-
+                "");

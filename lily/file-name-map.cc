@@ -35,9 +35,8 @@ map_file_name (const string &s)
   return s;
 }
 
-LY_DEFINE (ly_add_file_name_alist, "ly:add-file-name-alist",
-           1, 0, 0, (SCM alist),
-           "Add mappings for error messages from @var{alist}.")
+LY_DEFINE (ly_add_file_name_alist, "ly:add-file-name-alist", 1, 0, 0,
+           (SCM alist), "Add mappings for error messages from @var{alist}.")
 {
   for (SCM s = alist; scm_is_pair (s); s = scm_cdr (s))
     {
@@ -48,4 +47,3 @@ LY_DEFINE (ly_add_file_name_alist, "ly:add-file-name-alist",
     }
   return SCM_UNSPECIFIED;
 }
-

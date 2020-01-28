@@ -82,8 +82,7 @@
  * would require to have a single, complicated Ligature_engraver that
  * consists of all the code...  This needs further thoughts.
  */
-Ligature_engraver::Ligature_engraver (Context *c)
-  : Engraver (c)
+Ligature_engraver::Ligature_engraver (Context *c) : Engraver (c)
 {
   ligature_ = 0;
   finished_ligature_ = 0;
@@ -107,7 +106,8 @@ Ligature_engraver::process_music ()
     {
       if (!ligature_)
         {
-          events_drul_[STOP]->origin ()->warning (_ ("cannot find start of ligature"));
+          events_drul_[STOP]->origin ()->warning (
+              _ ("cannot find start of ligature"));
           return;
         }
 
@@ -134,7 +134,8 @@ Ligature_engraver::process_music ()
     {
       if (ligature_)
         {
-          events_drul_[START]->origin ()->warning (_ ("already have a ligature"));
+          events_drul_[START]->origin ()->warning (
+              _ ("already have a ligature"));
           return;
         }
 
@@ -161,8 +162,9 @@ Ligature_engraver::stop_translation_timestep ()
     {
       if (!finished_primitives_.size ())
         {
-          finished_ligature_->programming_error ("Ligature_engraver::stop_translation_timestep ():"
-                                                 " junking empty ligature");
+          finished_ligature_->programming_error (
+              "Ligature_engraver::stop_translation_timestep ():"
+              " junking empty ligature");
         }
       else
         {
@@ -214,7 +216,8 @@ Ligature_engraver::acknowledge_rest (Grob_info info)
 {
   if (ligature_)
     {
-      info.event_cause ()->origin ()->warning (_ ("ignoring rest: ligature may not contain rest"));
+      info.event_cause ()->origin ()->warning (
+          _ ("ignoring rest: ligature may not contain rest"));
       prev_start_event_->origin ()->warning (_ ("ligature was started here"));
       // TODO: maybe better should stop ligature here rather than
       // ignoring the rest?

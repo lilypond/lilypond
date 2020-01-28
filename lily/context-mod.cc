@@ -19,22 +19,13 @@
 
 #include "context-mod.hh"
 
-Context_mod::Context_mod ()
-{
-  mods_ = SCM_EOL;
-}
+Context_mod::Context_mod () { mods_ = SCM_EOL; }
 
-Context_mod::Context_mod (Context_mod const &s)
-{
-  mods_ = s.mods_;
-}
+Context_mod::Context_mod (Context_mod const &s) { mods_ = s.mods_; }
 
-Context_mod::Context_mod (SCM mod_list)
-{
-  mods_ = scm_reverse (mod_list);
-}
+Context_mod::Context_mod (SCM mod_list) { mods_ = scm_reverse (mod_list); }
 
-const char * const Context_mod::type_p_name_ = "ly:context-mod?";
+const char *const Context_mod::type_p_name_ = "ly:context-mod?";
 
 int
 Context_mod::print_smob (SCM port, scm_print_state *) const

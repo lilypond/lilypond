@@ -20,8 +20,8 @@
 #ifndef GRID_LINE_INTERFACE_HH
 #define GRID_LINE_INTERFACE_HH
 
-#include "lily-proto.hh"
 #include "grob-interface.hh"
+#include "lily-proto.hh"
 
 class Grid_line_interface
 {
@@ -37,4 +37,3 @@ public:
 };
 
 #endif /* GRID_LINE_INTERFACE_HH */
-

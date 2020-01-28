@@ -38,8 +38,10 @@ class Text_engraver : public Engraver
 {
   vector<Stream_event *> evs_;
   vector<Grob *> scripts_;
+
 public:
   TRANSLATOR_DECLARATIONS (Text_engraver);
+
 protected:
   void stop_translation_timestep ();
   void process_music ();
@@ -64,8 +66,8 @@ Text_engraver::process_music ()
       Item *script = make_item ("TextScript", ev->self_scm ());
       scripts_.push_back (script);
 
-      int priority = robust_scm2int (script->get_property ("script-priority"),
-                                     200);
+      int priority
+          = robust_scm2int (script->get_property ("script-priority"), 200);
 
       /* see script-engraver.cc */
       priority += i;
@@ -87,9 +89,9 @@ Text_engraver::acknowledge_note_column (Grob_info info)
 {
   // Make note column (or rest, if there are no heads) the parent of the script.
   extract_grob_set (info.grob (), "note-heads", heads);
-  Grob *x_parent = (heads.size ()
-                    ? info.grob ()
-                    : unsmob<Grob> (info.grob ()->get_object ("rest")));
+  Grob *x_parent
+      = (heads.size () ? info.grob ()
+                       : unsmob<Grob> (info.grob ()->get_object ("rest")));
 
   for (vsize i = 0; i < scripts_.size (); i++)
     {
@@ -107,11 +109,7 @@ Text_engraver::stop_translation_timestep ()
   scripts_.clear ();
 }
 
-Text_engraver::Text_engraver (Context *c)
-  : Engraver (c)
-{
-}
-
+Text_engraver::Text_engraver (Context *c) : Engraver (c) {}
 
 void
 Text_engraver::boot ()
@@ -131,5 +129,4 @@ ADD_TRANSLATOR (Text_engraver,
                 "",
 
                 /* write */
-                ""
-               );
+                "");

@@ -21,8 +21,8 @@
 #ifndef TEXT_ITEM
 #define TEXT_ITEM
 
-#include "stencil.hh"
 #include "grob-interface.hh"
+#include "stencil.hh"
 
 class Text_interface
 {

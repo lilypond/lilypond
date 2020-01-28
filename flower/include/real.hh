@@ -29,7 +29,9 @@ extern const Real infinity_f;
 
 /* namespace std { */
 
-template<class T> inline T abs (T x)
+template <class T>
+inline T
+abs (T x)
 {
   return x > 0 ? x : -x;
 }
@@ -42,14 +44,18 @@ distance (Real x, Real y)
   return abs (x - y);
 }
 
-template<class T> inline int sign (T x)
+template <class T>
+inline int
+sign (T x)
 {
   if (x)
     return x > T (0) ? 1 : -1;
   return 0;
 }
 
-template<class T> inline T sqr (T x)
+template <class T>
+inline T
+sqr (T x)
 {
   return x * x;
 }

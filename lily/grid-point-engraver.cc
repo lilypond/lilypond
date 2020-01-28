@@ -27,6 +27,7 @@ class Grid_point_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Grid_point_engraver);
+
 protected:
   void process_music ();
 };
@@ -44,15 +45,11 @@ Grid_point_engraver::process_music ()
     }
 }
 
-Grid_point_engraver::Grid_point_engraver (Context *c)
-  : Engraver (c)
-{
-}
+Grid_point_engraver::Grid_point_engraver (Context *c) : Engraver (c) {}
 
 void
 Grid_point_engraver::boot ()
 {
-
 }
 
 ADD_TRANSLATOR (Grid_point_engraver,
@@ -66,6 +63,4 @@ ADD_TRANSLATOR (Grid_point_engraver,
                 "gridInterval ",
 
                 /* write */
-                ""
-               );
-
+                "");

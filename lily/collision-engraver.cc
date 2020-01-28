@@ -17,11 +17,11 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "engraver.hh"
-#include "note-column.hh"
-#include "note-collision.hh"
 #include "axis-group-interface.hh"
+#include "engraver.hh"
 #include "item.hh"
+#include "note-collision.hh"
+#include "note-column.hh"
 
 #include "translator.icc"
 
@@ -36,6 +36,7 @@ protected:
   void acknowledge_note_column (Grob_info);
   void process_acknowledged ();
   void stop_translation_timestep ();
+
 public:
   TRANSLATOR_DECLARATIONS (Collision_engraver);
 };
@@ -75,12 +76,7 @@ Collision_engraver::stop_translation_timestep ()
   note_columns_.clear ();
 }
 
-Collision_engraver::Collision_engraver (Context *c)
-  : Engraver (c)
-{
-  col_ = 0;
-}
-
+Collision_engraver::Collision_engraver (Context *c) : Engraver (c) { col_ = 0; }
 
 void
 Collision_engraver::boot ()
@@ -100,5 +96,4 @@ ADD_TRANSLATOR (Collision_engraver,
                 "",
 
                 /* write */
-                ""
-               );
+                "");

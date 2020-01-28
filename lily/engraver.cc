@@ -81,15 +81,12 @@ Engraver::announce_end_grob (Grob *e, SCM cause)
   announce_end_grob (make_grob_info (e, cause));
 }
 
-Engraver::Engraver (Context *c)
-  : Translator (c)
-{
-}
+Engraver::Engraver (Context *c) : Translator (c) {}
 
 #ifdef DEBUG
 static SCM creation_callback = SCM_EOL;
-LY_DEFINE (ly_set_grob_creation_callback, "ly:set-grob-creation-callback",
-           1, 0, 0, (SCM cb),
+LY_DEFINE (ly_set_grob_creation_callback, "ly:set-grob-creation-callback", 1, 0,
+           0, (SCM cb),
            "Specify a procedure that will be called every time a new grob"
            " is created.  The callback will receive as arguments the grob"
            " that was created, the name of the C++ source file that caused"
@@ -105,10 +102,7 @@ LY_DEFINE (ly_set_grob_creation_callback, "ly:set-grob-creation-callback",
 #endif
 
 Grob *
-Engraver::internal_make_grob (SCM symbol,
-                              SCM cause,
-                              char const *file,
-                              int line,
+Engraver::internal_make_grob (SCM symbol, SCM cause, char const *file, int line,
                               char const *fun)
 {
 #ifndef DEBUG
@@ -118,15 +112,17 @@ Engraver::internal_make_grob (SCM symbol,
 #endif
 
   SCM props = Grob_property_info (context (), symbol).updated ();
-  if (!scm_is_pair (props)) {
-    programming_error (to_string ("No grob definition found for `%s’.",
-      ly_symbol2string (symbol).c_str ()));
-  };
+  if (!scm_is_pair (props))
+    {
+      programming_error (to_string ("No grob definition found for `%s’.",
+                                    ly_symbol2string (symbol).c_str ()));
+    };
 
   Grob *grob = 0;
 
   SCM handle = scm_sloppy_assq (ly_symbol2scm ("meta"), props);
-  SCM klass = scm_cdr (scm_sloppy_assq (ly_symbol2scm ("class"), scm_cdr (handle)));
+  SCM klass
+      = scm_cdr (scm_sloppy_assq (ly_symbol2scm ("class"), scm_cdr (handle)));
 
   if (scm_is_eq (klass, ly_symbol2scm ("Item")))
     grob = new Item (props);
@@ -140,34 +136,38 @@ Engraver::internal_make_grob (SCM symbol,
 
 #ifdef DEBUG
   if (ly_is_procedure (creation_callback))
-    scm_call_4 (creation_callback,
-                grob->self_scm (), scm_from_utf8_string (file),
-                scm_from_int (line), scm_from_ascii_string (fun));
+    scm_call_4 (creation_callback, grob->self_scm (),
+                scm_from_utf8_string (file), scm_from_int (line),
+                scm_from_ascii_string (fun));
 #endif
 
   return grob;
 }
 
 Item *
-Engraver::internal_make_item (SCM x, SCM cause,
-                              char const *file, int line, char const *fun)
+Engraver::internal_make_item (SCM x, SCM cause, char const *file, int line,
+                              char const *fun)
 {
-  Item *it = dynamic_cast<Item *> (internal_make_grob (x, cause, file, line, fun));
+  Item *it
+      = dynamic_cast<Item *> (internal_make_grob (x, cause, file, line, fun));
   assert (it);
   return it;
 }
 
 Paper_column *
-Engraver::internal_make_column (SCM x, char const *file, int line, char const *fun)
+Engraver::internal_make_column (SCM x, char const *file, int line,
+                                char const *fun)
 {
-  return dynamic_cast<Paper_column *> (internal_make_grob (x, SCM_EOL, file, line, fun));
+  return dynamic_cast<Paper_column *> (
+      internal_make_grob (x, SCM_EOL, file, line, fun));
 }
 
 Spanner *
-Engraver::internal_make_spanner (SCM x, SCM cause,
-                                 char const *file, int line, char const *fun)
+Engraver::internal_make_spanner (SCM x, SCM cause, char const *file, int line,
+                                 char const *fun)
 {
-  Spanner *sp = dynamic_cast<Spanner *> (internal_make_grob (x, cause, file, line, fun));
+  Spanner *sp = dynamic_cast<Spanner *> (
+      internal_make_grob (x, cause, file, line, fun));
   assert (sp);
   return sp;
 }

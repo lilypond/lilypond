@@ -27,9 +27,7 @@
 #include "music.hh"
 #include "warn.hh"
 
-Rhythmic_music_iterator::Rhythmic_music_iterator ()
-{
-}
+Rhythmic_music_iterator::Rhythmic_music_iterator () {}
 
 void
 Rhythmic_music_iterator::construct_children ()
@@ -61,17 +59,19 @@ Rhythmic_music_iterator::process (Moment m)
             {
               SCM art = scm_car (arts);
 
-              if (c->event_source ()->is_listened_class
-                  (unsmob<Stream_event> (art)->get_property ("class")))
+              if (c->event_source ()->is_listened_class (
+                      unsmob<Stream_event> (art)->get_property ("class")))
                 listened = scm_cons (art, listened);
               else
                 unlistened = scm_cons (art, unlistened);
             }
-          ev->set_property ("articulations", scm_reverse_x (unlistened, SCM_EOL));
+          ev->set_property ("articulations",
+                            scm_reverse_x (unlistened, SCM_EOL));
           c->event_source ()->broadcast (ev);
           arts = scm_reverse_x (listened, SCM_EOL);
           for (; scm_is_pair (arts); arts = scm_cdr (arts))
-            c->event_source ()->broadcast (unsmob<Stream_event> (scm_car (arts)));
+            c->event_source ()->broadcast (
+                unsmob<Stream_event> (scm_car (arts)));
         }
       else
         c->event_source ()->broadcast (ev);

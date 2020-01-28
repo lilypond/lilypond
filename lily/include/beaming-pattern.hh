@@ -20,9 +20,9 @@
 #ifndef BEAMING_PATTERN_HH
 #define BEAMING_PATTERN_HH
 
-#include "std-vector.hh"
-#include "moment.hh"
 #include "lily-proto.hh"
+#include "moment.hh"
+#include "std-vector.hh"
 
 struct Beaming_options
 {
@@ -66,7 +66,8 @@ public:
 
   void beamify (Beaming_options const &);
   void de_grace ();
-  void add_stem (Moment d, int beams, bool invisible, Rational factor, bool tuplet_starrt);
+  void add_stem (Moment d, int beams, bool invisible, Rational factor,
+                 bool tuplet_starrt);
   int beamlet_count (vsize idx, Direction d) const;
   bool invisibility (vsize idx) const;
   Rational factor (vsize idx) const;

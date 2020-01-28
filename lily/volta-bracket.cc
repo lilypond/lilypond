@@ -19,19 +19,19 @@
 
 #include <cstring>
 
-#include "warn.hh"
+#include "bracket.hh"
+#include "directional-element-interface.hh"
 #include "font-interface.hh"
+#include "lily-imports.hh"
 #include "line-interface.hh"
-#include "paper-column.hh"
+#include "lookup.hh"
 #include "output-def.hh"
-#include "text-interface.hh"
-#include "volta-bracket.hh"
+#include "paper-column.hh"
 #include "pointer-group-interface.hh"
 #include "side-position-interface.hh"
-#include "directional-element-interface.hh"
-#include "lookup.hh"
-#include "bracket.hh"
-#include "lily-imports.hh"
+#include "text-interface.hh"
+#include "volta-bracket.hh"
+#include "warn.hh"
 
 using std::string;
 
@@ -64,10 +64,11 @@ Volta_bracket_interface::print (SCM smob)
   if (bound->break_status_dir () == RIGHT)
     {
       Paper_column *pc = bound->get_column ();
-      left = pc->break_align_width (pc, ly_symbol2scm ("break-alignment"))[RIGHT]
-             // For some reason, break_align_width is relative to
-             // the x-parent of the column.
-             - bound->relative_coordinate (pc->get_parent (X_AXIS), X_AXIS);
+      left
+          = pc->break_align_width (pc, ly_symbol2scm ("break-alignment"))[RIGHT]
+            // For some reason, break_align_width is relative to
+            // the x-parent of the column.
+            - bound->relative_coordinate (pc->get_parent (X_AXIS), X_AXIS);
     }
   else
     {
@@ -81,22 +82,21 @@ Volta_bracket_interface::print (SCM smob)
   if (!me->is_live ())
     return SCM_EOL;
 
-  Drul_array<Real> edge_height = robust_scm2interval (me->get_property ("edge-height"),
-                                                      Interval (1.0, 1.0));
-  Drul_array<Real> flare = robust_scm2interval (me->get_property ("bracket-flare"),
-                                                Interval (0, 0));
-  Drul_array<Real> shorten = robust_scm2interval (me->get_property ("shorten-pair"),
-                                                  Interval (0, 0));
+  Drul_array<Real> edge_height = robust_scm2interval (
+      me->get_property ("edge-height"), Interval (1.0, 1.0));
+  Drul_array<Real> flare = robust_scm2interval (
+      me->get_property ("bracket-flare"), Interval (0, 0));
+  Drul_array<Real> shorten = robust_scm2interval (
+      me->get_property ("shorten-pair"), Interval (0, 0));
 
-  scale_drul (&edge_height, - Real (get_grob_direction (me)));
+  scale_drul (&edge_height, -Real (get_grob_direction (me)));
 
   Interval empty;
   Offset start;
   start[X_AXIS] = me->spanner_length () - left;
 
-  Stencil total
-    = Bracket::make_bracket (me, Y_AXIS, start, edge_height, empty,
-                             flare, shorten);
+  Stencil total = Bracket::make_bracket (me, Y_AXIS, start, edge_height, empty,
+                                         flare, shorten);
 
   if (!orig_span || broken_first_bracket)
     {
@@ -107,8 +107,8 @@ Volta_bracket_interface::print (SCM smob)
       Stencil num = *unsmob<Stencil> (snum);
       num.align_to (Y_AXIS, UP);
       num.translate_axis (-0.5, Y_AXIS);
-      total.add_at_edge (X_AXIS, LEFT, num, - num.extent (X_AXIS).length ()
-                         - 1.0);
+      total.add_at_edge (X_AXIS, LEFT, num,
+                         -num.extent (X_AXIS).length () - 1.0);
     }
 
   total.translate_axis (left, X_AXIS);
@@ -121,7 +121,8 @@ Volta_bracket_interface::modify_edge_height (Spanner *me)
   Spanner *orig_span = me->original ();
 
   bool broken_first_bracket = orig_span && (orig_span->broken_intos_[0] == me);
-  bool broken_last_bracket = orig_span && (orig_span->broken_intos_.back () == me);
+  bool broken_last_bracket
+      = orig_span && (orig_span->broken_intos_.back () == me);
   bool no_vertical_start = orig_span && !broken_first_bracket;
   bool no_vertical_end = orig_span && !broken_last_bracket;
 
@@ -135,13 +136,13 @@ Volta_bracket_interface::modify_edge_height (Spanner *me)
   else
     str = "|";
 
-  no_vertical_end |= ly_scm2bool (Lily::volta_bracket_calc_hook_visibility
-                                  (ly_string2scm (str)));
+  no_vertical_end |= ly_scm2bool (
+      Lily::volta_bracket_calc_hook_visibility (ly_string2scm (str)));
 
   if (no_vertical_end || no_vertical_start)
     {
-      Drul_array<Real> edge_height = robust_scm2interval (me->get_property ("edge-height"),
-                                                          Interval (1.0, 1.0));
+      Drul_array<Real> edge_height = robust_scm2interval (
+          me->get_property ("edge-height"), Interval (1.0, 1.0));
       if (no_vertical_start)
         edge_height[LEFT] = 0.0;
 
@@ -163,14 +164,11 @@ Volta_bracket_interface::add_bar (Grob *me, Item *b)
   add_bound_item (dynamic_cast<Spanner *> (me), b);
 }
 
-ADD_INTERFACE (Volta_bracket_interface,
-               "Volta bracket with number.",
+ADD_INTERFACE (Volta_bracket_interface, "Volta bracket with number.",
 
                /* properties */
                "bars "
                "dashed-edge "
                "height "
                "shorten-pair "
-               "thickness "
-              );
-
+               "thickness ");

@@ -21,7 +21,6 @@
 
 #include <cstdio>
 
-
 #include "book.hh"
 #include "cpu-timer.hh"
 #include "global-context.hh"
@@ -34,7 +33,6 @@
 #include "paper-book.hh"
 #include "paper-score.hh"
 #include "warn.hh"
-
 
 Input *
 Score::origin () const
@@ -54,11 +52,9 @@ Score::Score ()
   input_location_ = Input ().smobbed_copy ();
 }
 
-Score::~Score ()
-{
-}
+Score::~Score () {}
 
-const char * const Score::type_p_name_ = "ly:score?";
+const char *const Score::type_p_name_ = "ly:score?";
 
 SCM
 Score::mark_smob () const
@@ -71,8 +67,7 @@ Score::mark_smob () const
   return music_;
 }
 
-Score::Score (Score const &s)
-  : Smob<Score> ()
+Score::Score (Score const &s) : Smob<Score> ()
 {
   header_ = SCM_EOL;
   music_ = SCM_EOL;
@@ -108,8 +103,7 @@ Score::Score (Score const &s)
   LAYOUTBOOK should be scaled already.
 */
 SCM
-Score::book_rendering (Output_def *layoutbook,
-                       Output_def *default_def)
+Score::book_rendering (Output_def *layoutbook, Output_def *default_def)
 {
   if (error_found_)
     return SCM_EOL;
@@ -156,16 +150,16 @@ Score::set_music (SCM music)
 {
   if (unsmob<Music> (music_))
     {
-      unsmob<Music> (music)->origin ()->non_fatal_error
-        (_ ("already have music in score"));
-      unsmob<Music> (music_)->origin ()->non_fatal_error
-        (_ ("this is the previous music"));
+      unsmob<Music> (music)->origin ()->non_fatal_error (
+          _ ("already have music in score"));
+      unsmob<Music> (music_)->origin ()->non_fatal_error (
+          _ ("this is the previous music"));
     }
   Music *m = unsmob<Music> (music);
   if (m && to_boolean (m->get_property ("error-found")))
     {
-      m->origin ()->non_fatal_error
-        (_ ("errors found, ignoring music expression"));
+      m->origin ()->non_fatal_error (
+          _ ("errors found, ignoring music expression"));
 
       error_found_ = true;
     }

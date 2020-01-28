@@ -29,11 +29,12 @@ public:
   Context_handle ();
 
   void set_context (Context *);
-  void operator = (Context_handle const &);
+  void operator= (Context_handle const &);
   Context_handle (Context_handle const &);
   Context *get_context () const;
 
   int get_count () const;
+
 private:
   Context *outlet_;
   void down ();
@@ -41,4 +42,3 @@ private:
 };
 
 #endif /* CONTEXT_HANDLE_HH */
-

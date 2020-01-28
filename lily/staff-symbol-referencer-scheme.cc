@@ -19,11 +19,10 @@
 
 #include "grob.hh"
 #include "libc-extension.hh"
-#include "staff-symbol.hh"
 #include "staff-symbol-referencer.hh"
+#include "staff-symbol.hh"
 
-LY_DEFINE (ly_grob_staff_position, "ly:grob-staff-position",
-           1, 0, 0, (SCM sg),
+LY_DEFINE (ly_grob_staff_position, "ly:grob-staff-position", 1, 0, 0, (SCM sg),
            "Return the Y-position of @var{sg} relative to the staff.")
 {
   LY_ASSERT_SMOB (Grob, sg, 1);
@@ -31,13 +30,13 @@ LY_DEFINE (ly_grob_staff_position, "ly:grob-staff-position",
   Real pos = Staff_symbol_referencer::get_position (g);
 
   if (fabs (rint (pos) - pos) < 1e-6) // ugh.
-    return scm_from_int ((int) my_round (pos));
+    return scm_from_int ((int)my_round (pos));
   else
     return scm_from_double (pos);
 }
 
-LY_DEFINE (ly_position_on_line_p, "ly:position-on-line?",
-           2, 0, 0, (SCM sg, SCM spos),
+LY_DEFINE (ly_position_on_line_p, "ly:position-on-line?", 2, 0, 0,
+           (SCM sg, SCM spos),
            "Return whether @var{spos} is on a line of the staff associated"
            " with the grob @var{sg} (even on an extender line).")
 {
@@ -50,8 +49,8 @@ LY_DEFINE (ly_position_on_line_p, "ly:position-on-line?",
   return scm_from_bool (on_line);
 }
 
-LY_DEFINE (ly_staff_symbol_line_thickness, "ly:staff-symbol-line-thickness",
-           1, 0, 0, (SCM grob),
+LY_DEFINE (ly_staff_symbol_line_thickness, "ly:staff-symbol-line-thickness", 1,
+           0, 0, (SCM grob),
            "Returns the current staff-line thickness in the staff"
            " associated with @var{grob}, expressed as a multiple of the"
            " current staff-space height.")
@@ -62,8 +61,8 @@ LY_DEFINE (ly_staff_symbol_line_thickness, "ly:staff-symbol-line-thickness",
   return scm_from_double (thickness);
 }
 
-LY_DEFINE (ly_staff_symbol_staff_space, "ly:staff-symbol-staff-space",
-           1, 0, 0, (SCM grob),
+LY_DEFINE (ly_staff_symbol_staff_space, "ly:staff-symbol-staff-space", 1, 0, 0,
+           (SCM grob),
            "Returns the current staff-space height in the staff"
            " associated with @var{grob}, expressed as a multiple of the"
            " default height of a staff-space in the traditional"
@@ -75,8 +74,8 @@ LY_DEFINE (ly_staff_symbol_staff_space, "ly:staff-symbol-staff-space",
   return scm_from_double (staff_space);
 }
 
-LY_DEFINE (ly_staff_symbol_staff_radius, "ly:staff-symbol-staff-radius",
-           1, 0, 0, (SCM grob),
+LY_DEFINE (ly_staff_symbol_staff_radius, "ly:staff-symbol-staff-radius", 1, 0,
+           0, (SCM grob),
            "Returns the radius of the staff associated with"
            " @var{grob}.")
 {

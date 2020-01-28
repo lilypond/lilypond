@@ -77,10 +77,10 @@ private:
 };
 
 Mensural_ligature_engraver::Mensural_ligature_engraver (Context *c)
-  : Coherent_ligature_engraver (c)
+    : Coherent_ligature_engraver (c)
 {
   brew_ligature_primitive_proc
-    = Mensural_ligature::brew_ligature_primitive_proc;
+      = Mensural_ligature::brew_ligature_primitive_proc;
 }
 
 Spanner *
@@ -90,7 +90,8 @@ Mensural_ligature_engraver::create_ligature_spanner ()
 }
 
 void
-Mensural_ligature_engraver::transform_heads (vector<Grob_info> const &primitives)
+Mensural_ligature_engraver::transform_heads (
+    vector<Grob_info> const &primitives)
 {
   if (primitives.size () < 2)
     {
@@ -120,8 +121,8 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> const &primitives
       */
       if (!nr->in_event_class ("note-event"))
         {
-          nr->origin ()->warning
-          (_ ("cannot determine pitch of ligature primitive -> skipping"));
+          nr->origin ()->warning (
+              _ ("cannot determine pitch of ligature primitive -> skipping"));
           at_beginning = true;
           continue;
         }
@@ -134,8 +135,7 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> const &primitives
           if (i == s - 1)
             {
               // we can get here after invalid input
-              nr->origin ()->warning
-              (_ ("single note ligature - skipping"));
+              nr->origin ()->warning (_ ("single note ligature - skipping"));
               break;
             }
           prev_semibrevis = prev_brevis_shape = false;
@@ -145,8 +145,8 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> const &primitives
         {
           if (pitch == prev_pitch)
             {
-              nr->origin ()->warning
-              (_ ("prime interval within ligature -> skipping"));
+              nr->origin ()->warning (
+                  _ ("prime interval within ligature -> skipping"));
               at_beginning = true;
               prim = MLP_NONE;
               continue;
@@ -156,8 +156,8 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> const &primitives
       if (duration_log < -3 // is this possible at all???
           || duration_log > 0)
         {
-          nr->origin ()->warning
-          (_ ("mensural ligature: duration none of Mx, L, B, S -> skipping"));
+          nr->origin ()->warning (_ (
+              "mensural ligature: duration none of Mx, L, B, S -> skipping"));
           prim = MLP_NONE;
           at_beginning = true;
           continue;
@@ -179,8 +179,11 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> const &primitives
             }
           // b. descendens longa or brevis
           else if (i < s - 1
-                   && (unsmob<Pitch> (primitives[i + 1].event_cause ()
-                                     ->get_property ("pitch"))->steps () < pitch)
+                   && (unsmob<Pitch> (
+                           primitives[i + 1].event_cause ()->get_property (
+                               "pitch"))
+                           ->steps ()
+                       < pitch)
                    && duration_log > -3)
             {
               int left_stem = duration_log == -1 ? MLP_DOWN : 0;
@@ -199,8 +202,8 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> const &primitives
             }
           else
             {
-              nr->origin ()->warning
-              (_ ("semibrevis must be followed by another one -> skipping"));
+              nr->origin ()->warning (
+                  _ ("semibrevis must be followed by another one -> skipping"));
               prim = MLP_NONE;
               at_beginning = true;
               continue;
@@ -209,9 +212,9 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> const &primitives
       // 3. semibreves are otherwise not allowed
       else if (duration_log == 0)
         {
-          nr->origin ()->warning
-          (_ ("semibreves can only appear at the beginning of a ligature,\n"
-              "and there may be only zero or two of them"));
+          nr->origin ()->warning (
+              _ ("semibreves can only appear at the beginning of a ligature,\n"
+                 "and there may be only zero or two of them"));
           prim = MLP_NONE;
           at_beginning = true;
           continue;
@@ -229,11 +232,11 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> const &primitives
                 }
               else
                 {
-                  nr->origin ()->warning
-                  (_ ("invalid ligatura ending:\n"
-                      "when the last note is a descending brevis,\n"
-                      "the penultimate note must be another one,\n"
-                      "or the ligatura must be LB or SSB"));
+                  nr->origin ()->warning (
+                      _ ("invalid ligatura ending:\n"
+                         "when the last note is a descending brevis,\n"
+                         "the penultimate note must be another one,\n"
+                         "or the ligatura must be LB or SSB"));
                   prim = MLP_NONE;
                   break;
                 }
@@ -272,8 +275,10 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> const &primitives
                   /*
                     breve: check whether descending
                   */
-                  int const next_pitch = unsmob<Pitch>
-                                         (next_info.event_cause ()->get_property ("pitch"))->steps ();
+                  int const next_pitch
+                      = unsmob<Pitch> (
+                            next_info.event_cause ()->get_property ("pitch"))
+                            ->steps ();
                   if (next_pitch < pitch)
                     /*
                       sorry, forbidden
@@ -295,17 +300,17 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> const &primitives
           /*
             turn the note with the previous one into a flexa
           */
-          prev_primitive->set_property
-          ("primitive",
-           scm_from_int
-           (MLP_FLEXA_BEGIN
-            | (scm_to_int (prev_primitive->get_property ("primitive"))
-               & MLP_STEM)));
-          prev_primitive->set_property
-          ("flexa-interval", scm_from_int (pitch - prev_pitch));
+          prev_primitive->set_property (
+              "primitive",
+              scm_from_int (
+                  MLP_FLEXA_BEGIN
+                  | (scm_to_int (prev_primitive->get_property ("primitive"))
+                     & MLP_STEM)));
+          prev_primitive->set_property ("flexa-interval",
+                                        scm_from_int (pitch - prev_pitch));
           prim = MLP_FLEXA_END;
-          primitive->set_property
-          ("flexa-interval", scm_from_int (pitch - prev_pitch));
+          primitive->set_property ("flexa-interval",
+                                   scm_from_int (pitch - prev_pitch));
         }
 
       // join_primitives replacement
@@ -336,21 +341,22 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> const &primitives
  * propagate_properties () does.
  */
 void
-Mensural_ligature_engraver::propagate_properties (Spanner *ligature,
-                                                  vector<Grob_info> const &primitives,
-                                                  Real &min_length)
+Mensural_ligature_engraver::propagate_properties (
+    Spanner *ligature, vector<Grob_info> const &primitives, Real &min_length)
 {
   Real thickness
-    = robust_scm2double (ligature->get_property ("thickness"), 1.3);
+      = robust_scm2double (ligature->get_property ("thickness"), 1.3);
   thickness
-  *= ligature->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
+      *= ligature->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
 
-  Real head_width
-    = Font_interface::get_default_font (ligature)->
-      find_by_name ("noteheads.sM1mensural").extent (X_AXIS).length ();
-  Real maxima_head_width
-    = Font_interface::get_default_font (ligature)->
-      find_by_name ("noteheads.sM3ligmensural").extent (X_AXIS).length ();
+  Real head_width = Font_interface::get_default_font (ligature)
+                        ->find_by_name ("noteheads.sM1mensural")
+                        .extent (X_AXIS)
+                        .length ();
+  Real maxima_head_width = Font_interface::get_default_font (ligature)
+                               ->find_by_name ("noteheads.sM3ligmensural")
+                               .extent (X_AXIS)
+                               .length ();
 
   min_length = 0.0;
   Item *prev_primitive = NULL;
@@ -358,8 +364,7 @@ Mensural_ligature_engraver::propagate_properties (Spanner *ligature,
     {
       Item *primitive = dynamic_cast<Item *> (primitives[i].grob ());
       int output = scm_to_int (primitive->get_property ("primitive"));
-      primitive->set_property ("thickness",
-                               scm_from_double (thickness));
+      primitive->set_property ("thickness", scm_from_double (thickness));
 
       switch (output & MLP_ANY)
         {
@@ -399,8 +404,8 @@ Mensural_ligature_engraver::propagate_properties (Spanner *ligature,
 }
 
 void
-Mensural_ligature_engraver::fold_up_primitives (vector<Grob_info> const &primitives,
-                                                Real &min_length)
+Mensural_ligature_engraver::fold_up_primitives (
+    vector<Grob_info> const &primitives, Real &min_length)
 {
   Item *first = 0;
   Real distance = 0.0;
@@ -417,8 +422,7 @@ Mensural_ligature_engraver::fold_up_primitives (vector<Grob_info> const &primiti
           thickness = scm_to_double (current->get_property ("thickness"));
         }
 
-      move_related_items_to_column (current, first->get_column (),
-                                    distance);
+      move_related_items_to_column (current, first->get_column (), distance);
 
       Real head_width = scm_to_double (current->get_property ("head-width"));
       distance += head_width - thickness;
@@ -431,13 +435,13 @@ Mensural_ligature_engraver::fold_up_primitives (vector<Grob_info> const &primiti
         {
           Grob *dot_gr = Rhythmic_head::get_dots (current);
 
-          bool const on_line = Staff_symbol_referencer::on_line
-                               (current,
-                                robust_scm2int (current->get_property ("staff-position"), 0));
+          bool const on_line = Staff_symbol_referencer::on_line (
+              current,
+              robust_scm2int (current->get_property ("staff-position"), 0));
           Real vert_shift = on_line ? staff_space * 0.5 : 0.0;
           bool const flexa_begin
-            = scm_to_int (current->get_property ("primitive"))
-              & MLP_FLEXA_BEGIN;
+              = scm_to_int (current->get_property ("primitive"))
+                & MLP_FLEXA_BEGIN;
 
           if (i + 1 < primitives.size ())
             /*
@@ -447,10 +451,10 @@ Mensural_ligature_engraver::fold_up_primitives (vector<Grob_info> const &primiti
             */
             {
               int const delta
-                = scm_to_int (current->get_property ("delta-position"));
+                  = scm_to_int (current->get_property ("delta-position"));
               if (flexa_begin)
-                vert_shift += delta < 0
-                              ? staff_space : (on_line ? -2.0 : -1.0) * staff_space;
+                vert_shift += delta < 0 ? staff_space
+                                        : (on_line ? -2.0 : -1.0) * staff_space;
               else if (on_line)
                 {
                   if (0 < delta && delta < 3)
@@ -467,8 +471,9 @@ Mensural_ligature_engraver::fold_up_primitives (vector<Grob_info> const &primiti
           /*
             move all dots behind head
           */
-          dot_gr->translate_axis
-          ((flexa_begin ? staff_space * 0.6 : head_width) - 2.0 * thickness, X_AXIS);
+          dot_gr->translate_axis ((flexa_begin ? staff_space * 0.6 : head_width)
+                                      - 2.0 * thickness,
+                                  X_AXIS);
         }
     }
 }
@@ -492,7 +497,6 @@ Mensural_ligature_engraver::build_ligature (Spanner *ligature,
     ligature->set_property ("minimum-length", scm_from_double (min_length));
 }
 
-
 void
 Mensural_ligature_engraver::boot ()
 {
@@ -513,5 +517,4 @@ ADD_TRANSLATOR (Mensural_ligature_engraver,
                 "",
 
                 /* write */
-                ""
-               );
+                "");

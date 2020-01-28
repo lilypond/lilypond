@@ -19,12 +19,12 @@
 
 #include "rational.hh"
 
-#include <cmath>
 #include <cassert>
+#include <cmath>
 #include <cstdlib>
 
-#include "string-convert.hh"
 #include "libc-extension.hh"
+#include "string-convert.hh"
 
 using std::string;
 
@@ -45,7 +45,7 @@ Rational::to_double () const
 
 #ifdef STREAM_SUPPORT
 ostream &
-operator << (ostream &o, Rational r)
+operator<< (ostream &o, Rational r)
 {
   o << r.string ();
   return o;
@@ -109,7 +109,7 @@ Rational::set_infinite (int s)
 }
 
 Rational
-Rational::operator - () const
+Rational::operator- () const
 {
   Rational r (*this);
   r.negate ();
@@ -160,7 +160,7 @@ gcd (I64 u, I64 v)
       else
         {
           t = u;
-b3:
+        b3:
           t = t >> 1;
         }
       if (!(1 & t))
@@ -231,14 +231,14 @@ compare (Rational const &r, Rational const &s)
 }
 
 Rational &
-Rational::operator %= (Rational r)
+Rational::operator%= (Rational r)
 {
   *this = mod_rat (r);
   return *this;
 }
 
 Rational &
-Rational::operator += (Rational r)
+Rational::operator+= (Rational r)
 {
   if (is_infinity ())
     ;
@@ -281,7 +281,7 @@ Rational::Rational (double x)
       */
 
       num_ = (U64) (mantissa * FACT);
-      den_ = (U64) FACT;
+      den_ = (U64)FACT;
       normalize ();
       if (expt < 0)
         den_ <<= -expt;
@@ -307,7 +307,7 @@ Rational::invert ()
 }
 
 Rational &
-Rational::operator *= (Rational r)
+Rational::operator*= (Rational r)
 {
   sign_ *= ::sign (r.sign_);
   if (r.is_infinity ())
@@ -325,7 +325,7 @@ exit_func:
 }
 
 Rational &
-Rational::operator /= (Rational r)
+Rational::operator/= (Rational r)
 {
   r.invert ();
   return (*this *= r);
@@ -338,7 +338,7 @@ Rational::negate ()
 }
 
 Rational &
-Rational::operator -= (Rational r)
+Rational::operator-= (Rational r)
 {
   r.negate ();
   return (*this += r);
@@ -362,7 +362,7 @@ Rational::to_string () const
 int
 Rational::to_int () const
 {
-  return (int) (num () / den ());
+  return (int)(num () / den ());
 }
 
 int

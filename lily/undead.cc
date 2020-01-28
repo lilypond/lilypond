@@ -26,12 +26,14 @@ class Undead : public Simple_smob<Undead>
 public:
   int print_smob (SCM, scm_print_state *) const;
   SCM mark_smob () const;
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
+
 private:
   SCM object_;
+
 public:
   SCM object () const { return object_; }
-  Undead (SCM object = SCM_UNDEFINED) : object_ (object) { };
+  Undead (SCM object = SCM_UNDEFINED) : object_ (object){};
 };
 
 SCM
@@ -53,10 +55,9 @@ Undead::print_smob (SCM port, scm_print_state *) const
   return 1;
 }
 
-const char * const Undead::type_p_name_ = "ly:undead?";
+const char *const Undead::type_p_name_ = "ly:undead?";
 
-LY_DEFINE (ly_make_undead, "ly:make-undead",
-           1, 0, 0, (SCM object),
+LY_DEFINE (ly_make_undead, "ly:make-undead", 1, 0, 0, (SCM object),
            "This packages @var{object} in a manner that keeps it from"
            " triggering \"Parsed object should be dead\" messages.")
 {
@@ -64,8 +65,7 @@ LY_DEFINE (ly_make_undead, "ly:make-undead",
   return undead.smobbed_copy ();
 }
 
-LY_DEFINE (ly_get_undead, "ly:get-undead",
-           1, 0, 0, (SCM undead),
+LY_DEFINE (ly_get_undead, "ly:get-undead", 1, 0, 0, (SCM undead),
            "Get back object from @var{undead}.")
 {
   LY_ASSERT_SMOB (Undead, undead, 1);
@@ -96,8 +96,7 @@ parsed_dead::readout ()
   return result;
 }
 
-LY_DEFINE (ly_parsed_undead_list_x, "ly:parsed-undead-list!",
-           0, 0, 0, (),
+LY_DEFINE (ly_parsed_undead_list_x, "ly:parsed-undead-list!", 0, 0, 0, (),
            "Return the list of objects that have been found live"
            " that should have been dead, and clear that list.")
 {

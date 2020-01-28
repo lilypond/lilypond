@@ -20,8 +20,8 @@
 #ifndef ROD_HH
 #define ROD_HH
 
-#include "lily-proto.hh"
 #include "drul-array.hh"
+#include "lily-proto.hh"
 
 struct Rod
 {
@@ -33,4 +33,3 @@ struct Rod
 };
 
 #endif /* ROD_HH */
-

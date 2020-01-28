@@ -64,7 +64,7 @@ public:
 
   operator bool () const { return sign_ != 0; }
 
-  Rational operator - () const;
+  Rational operator- () const;
   /**
      Initialize to 0.
   */
@@ -74,18 +74,18 @@ public:
   Rational (U64);
   explicit Rational (I64, I64);
   explicit Rational (double);
-  Rational (Rational const &r) { copy (r);}
-  Rational &operator = (Rational const &r)
+  Rational (Rational const &r) { copy (r); }
+  Rational &operator= (Rational const &r)
   {
     copy (r);
     return *this;
   }
 
-  Rational &operator *= (Rational);
-  Rational &operator /= (Rational);
-  Rational &operator += (Rational);
-  Rational &operator -= (Rational);
-  Rational &operator %= (Rational);
+  Rational &operator*= (Rational);
+  Rational &operator/= (Rational);
+  Rational &operator+= (Rational);
+  Rational &operator-= (Rational);
+  Rational &operator%= (Rational);
   static int compare (Rational const &, Rational const &);
   int sign () const;
   std::string to_string () const;
@@ -93,11 +93,11 @@ public:
 
 #include "arithmetic-operator.hh"
 
-IMPLEMENT_ARITHMETIC_OPERATOR (Rational, / );
+IMPLEMENT_ARITHMETIC_OPERATOR (Rational, /);
 IMPLEMENT_ARITHMETIC_OPERATOR (Rational, +);
 IMPLEMENT_ARITHMETIC_OPERATOR (Rational, *);
 IMPLEMENT_ARITHMETIC_OPERATOR (Rational, -);
-IMPLEMENT_ARITHMETIC_OPERATOR (Rational, % );
+IMPLEMENT_ARITHMETIC_OPERATOR (Rational, %);
 
 INSTANTIATE_COMPARE (Rational const &, Rational::compare);
 

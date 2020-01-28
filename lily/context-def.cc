@@ -22,8 +22,8 @@
 
 #include "context-def.hh"
 
-#include "context.hh"
 #include "context-mod.hh"
+#include "context.hh"
 #include "international.hh"
 #include "output-def.hh"
 #include "translator.hh"
@@ -66,8 +66,7 @@ Context_def::origin () const
   return unsmob<Input> (input_location_);
 }
 
-Context_def::Context_def (Context_def const &s)
-  : Smob<Context_def> ()
+Context_def::Context_def (Context_def const &s) : Smob<Context_def> ()
 {
   context_aliases_ = SCM_EOL;
   translator_group_type_ = SCM_EOL;
@@ -88,11 +87,9 @@ Context_def::Context_def (Context_def const &s)
   context_name_ = s.context_name_;
 }
 
-Context_def::~Context_def ()
-{
-}
+Context_def::~Context_def () {}
 
-const char * const Context_def::type_p_name_ = "ly:context-def?";
+const char *const Context_def::type_p_name_ = "ly:context-def?";
 
 int
 Context_def::print_smob (SCM port, scm_print_state *) const
@@ -180,8 +177,7 @@ Context_def::add_context_mod (SCM mod)
   list may have been modified from the defined default.)
 */
 vector<Context_def *>
-Context_def::path_to_acceptable_context (SCM type_sym,
-                                         Output_def *odef,
+Context_def::path_to_acceptable_context (SCM type_sym, Output_def *odef,
                                          SCM accepted) const
 {
   set<const Context_def *> seen;
@@ -204,19 +200,17 @@ context.  Example: The caller requests a Timing and the current context would
 accept a Score, for which Timing is an alias, so substitute a Score.
 */
 vector<Context_def *>
-Context_def::internal_path_to_acceptable_context (SCM type_sym,
-                                                  bool instantiable,
-                                                  Output_def *odef,
-                                                  SCM accepted,
-                                                  set<const Context_def *> *seen) const
+Context_def::internal_path_to_acceptable_context (
+    SCM type_sym, bool instantiable, Output_def *odef, SCM accepted,
+    set<const Context_def *> *seen) const
 {
   assert (scm_is_symbol (type_sym));
 
   vector<Context_def *> accepteds;
   for (SCM s = accepted; scm_is_pair (s); s = scm_cdr (s))
     {
-      Context_def *t = unsmob<Context_def> (find_context_def (odef,
-                                                              scm_car (s)));
+      Context_def *t
+          = unsmob<Context_def> (find_context_def (odef, scm_car (s)));
       if (is_instantiable (t))
         accepteds.push_back (t);
     }
@@ -224,9 +218,10 @@ Context_def::internal_path_to_acceptable_context (SCM type_sym,
   vector<Context_def *> best_result;
   for (vsize i = 0; i < accepteds.size (); i++)
     {
-      bool valid = instantiable
-                   ? ly_is_equal (accepteds[i]->get_context_name (), type_sym)
-                   : accepteds[i]->is_alias (type_sym);
+      bool valid
+          = instantiable
+                ? ly_is_equal (accepteds[i]->get_context_name (), type_sym)
+                : accepteds[i]->is_alias (type_sym);
       if (valid)
         {
           best_result.push_back (accepteds[i]);
@@ -244,8 +239,8 @@ Context_def::internal_path_to_acceptable_context (SCM type_sym,
         {
           SCM acc = g->acceptance_.get_list ();
           vector<Context_def *> result
-            = g->internal_path_to_acceptable_context (type_sym, instantiable,
-                                                      odef, acc, seen);
+              = g->internal_path_to_acceptable_context (type_sym, instantiable,
+                                                        odef, acc, seen);
           if (result.size () && result.size () < best_depth)
             {
               best_depth = result.size ();
@@ -260,8 +255,7 @@ Context_def::internal_path_to_acceptable_context (SCM type_sym,
 }
 
 vector<Context_def *>
-Context_def::path_to_bottom_context (Output_def *odef,
-                                     SCM first_child_type_sym)
+Context_def::path_to_bottom_context (Output_def *odef, SCM first_child_type_sym)
 {
   vector<Context_def *> path;
   if (!internal_path_to_bottom_context (odef, &path, first_child_type_sym))
@@ -331,7 +325,7 @@ Context_def::instantiate (SCM ops)
   context->aliases_ = context_aliases_;
   context->acceptance_.assign_copy (acceptance_);
 
-  Acceptance_set& acc = context->acceptance_;
+  Acceptance_set &acc = context->acceptance_;
   for (SCM s = ops; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM tag = scm_caar (s);
@@ -364,8 +358,9 @@ Context_def::to_alist () const
 {
   SCM ell = SCM_EOL;
 
-  ell = scm_cons (scm_cons (ly_symbol2scm ("consists"),
-                            get_translator_names (SCM_EOL)), ell);
+  ell = scm_cons (
+      scm_cons (ly_symbol2scm ("consists"), get_translator_names (SCM_EOL)),
+      ell);
   ell = scm_cons (scm_cons (ly_symbol2scm ("description"), description_), ell);
   ell = scm_cons (scm_cons (ly_symbol2scm ("aliases"), context_aliases_), ell);
   ell = scm_cons (scm_cons (ly_symbol2scm ("accepts"), acceptance_.get_list ()),
@@ -381,8 +376,8 @@ Context_def::to_alist () const
                   ell);
 
   if (scm_is_symbol (translator_group_type_))
-    ell = scm_cons (scm_cons (ly_symbol2scm ("group-type"),
-                              translator_group_type_), ell);
+    ell = scm_cons (
+        scm_cons (ly_symbol2scm ("group-type"), translator_group_type_), ell);
   return ell;
 }
 
@@ -420,8 +415,8 @@ Context_def::is_alias (SCM sym) const
   return scm_is_true (scm_c_memq (sym, context_aliases_));
 }
 
-LY_DEFINE (ly_context_def_lookup, "ly:context-def-lookup",
-           2, 1, 0, (SCM def, SCM sym, SCM val),
+LY_DEFINE (ly_context_def_lookup, "ly:context-def-lookup", 2, 1, 0,
+           (SCM def, SCM sym, SCM val),
            "Return the value of @var{sym} in context definition @var{def}"
            " (e.g., @code{\\Voice}).  If no value is found, return"
            " @var{val} or @code{'()} if @var{val} is undefined."
@@ -446,8 +441,8 @@ LY_DEFINE (ly_context_def_lookup, "ly:context-def-lookup",
   return res;
 }
 
-LY_DEFINE (ly_context_def_modify, "ly:context-def-modify",
-           2, 0, 0, (SCM def, SCM mod),
+LY_DEFINE (ly_context_def_modify, "ly:context-def-modify", 2, 0, 0,
+           (SCM def, SCM mod),
            "Return the result of applying the context-mod @var{mod} to"
            " the context definition @var{def}.  Does not change @var{def}.")
 {
@@ -456,8 +451,7 @@ LY_DEFINE (ly_context_def_modify, "ly:context-def-modify",
 
   Context_def *cd = unsmob<Context_def> (def)->clone ();
 
-  for (SCM s = unsmob<Context_mod> (mod)->get_mods ();
-       scm_is_pair (s);
+  for (SCM s = unsmob<Context_mod> (mod)->get_mods (); scm_is_pair (s);
        s = scm_cdr (s))
     cd->add_context_mod (scm_car (s));
 

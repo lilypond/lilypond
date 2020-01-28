@@ -40,13 +40,13 @@ protected:
   void stop_translation_timestep ();
 
   void listen_breathing (Stream_event *);
+
 private:
   Stream_event *breathing_sign_event_;
   Grob *breathing_sign_;
 };
 
-Breathing_sign_engraver::Breathing_sign_engraver (Context *c)
-  : Engraver (c)
+Breathing_sign_engraver::Breathing_sign_engraver (Context *c) : Engraver (c)
 {
   breathing_sign_ = 0;
   breathing_sign_event_ = 0;
@@ -63,7 +63,8 @@ Breathing_sign_engraver::process_music ()
 {
   if (breathing_sign_event_)
     {
-      breathing_sign_ = make_item ("BreathingSign", breathing_sign_event_->self_scm ());
+      breathing_sign_
+          = make_item ("BreathingSign", breathing_sign_event_->self_scm ());
     }
 }
 
@@ -91,5 +92,4 @@ ADD_TRANSLATOR (Breathing_sign_engraver,
                 "",
 
                 /* write */
-                ""
-               );
+                "");

@@ -26,7 +26,6 @@ public:
   DECLARE_SCHEME_CALLBACK (divisio_maxima, (SCM));
   DECLARE_SCHEME_CALLBACK (finalis, (SCM));
   DECLARE_SCHEME_CALLBACK (offset_callback, (SCM element));
-
 };
 
 #endif // BREATHING_SIGN_HH

@@ -21,8 +21,8 @@
 #define STREAM_EVENT_HH
 
 #include "lily-proto.hh"
-#include "smobs.hh"
 #include "prob.hh"
+#include "smobs.hh"
 
 class Stream_event : public Prob
 {
@@ -45,7 +45,8 @@ public:
   DECLARE_SCHEME_CALLBACK (dump, (SCM));
 };
 
-#define in_event_class(class_name) internal_in_event_class (ly_symbol2scm (class_name))
+#define in_event_class(class_name)                                             \
+  internal_in_event_class (ly_symbol2scm (class_name))
 
 SCM ly_event_deep_copy (SCM);
 
@@ -70,6 +71,6 @@ assign_event_ptr_once (Stream_event *&old_ev, Stream_event *new_ev)
 
 // This macro is no longer necessary.
 // If you have time to eliminate it, go ahead.
-#define ASSIGN_EVENT_ONCE(o,n) assign_event_ptr_once (o, n)
+#define ASSIGN_EVENT_ONCE(o, n) assign_event_ptr_once (o, n)
 
 #endif /* STREAM_EVENT_HH */

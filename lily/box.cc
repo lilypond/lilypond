@@ -37,13 +37,10 @@ Box::unite (Box b)
 Real
 Box::area () const
 {
-  return interval_a_[X_AXIS].length ()
-         * interval_a_[Y_AXIS].length ();
+  return interval_a_[X_AXIS].length () * interval_a_[Y_AXIS].length ();
 }
 
-Box::Box ()
-{
-}
+Box::Box () {}
 
 void
 Box::set_empty ()
@@ -64,7 +61,7 @@ Box::is_empty (Axis a) const
   Interval empty;
   empty.set_empty ();
   return interval_a_[a][LEFT] == empty[LEFT]
-    && interval_a_[a][RIGHT] == empty[RIGHT];
+         && interval_a_[a][RIGHT] == empty[RIGHT];
 }
 
 Box::Box (Interval ix, Interval iy)
@@ -73,17 +70,9 @@ Box::Box (Interval ix, Interval iy)
   y () = iy;
 }
 
-Interval &
-Box::operator [] (Axis a)
-{
-  return interval_a_[a];
-}
+Interval &Box::operator[] (Axis a) { return interval_a_[a]; }
 
-Interval
-Box::operator [] (Axis a) const
-{
-  return interval_a_[a];
-}
+Interval Box::operator[] (Axis a) const { return interval_a_[a]; }
 
 void
 Box::scale (Real s)
@@ -102,8 +91,7 @@ Box::add_point (Offset o)
 Offset
 Box::center () const
 {
-  return Offset (interval_a_[X_AXIS].center (),
-                 interval_a_[Y_AXIS].center ());
+  return Offset (interval_a_[X_AXIS].center (), interval_a_[Y_AXIS].center ());
 }
 
 void
@@ -132,5 +120,4 @@ Box::print ()
 
 /****************************************************************/
 
-
-const char * const Box::type_p_name_ = "ly:box?";
+const char *const Box::type_p_name_ = "ly:box?";

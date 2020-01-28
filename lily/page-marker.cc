@@ -27,8 +27,7 @@ Page_marker::Page_marker ()
   smobify_self ();
 }
 
-Page_marker::Page_marker (Page_marker const &src)
-  : Smob<Page_marker> ()
+Page_marker::Page_marker (Page_marker const &src) : Smob<Page_marker> ()
 {
   symbol_ = src.symbol_;
   permission_ = src.permission_;
@@ -36,11 +35,9 @@ Page_marker::Page_marker (Page_marker const &src)
   smobify_self ();
 }
 
-Page_marker::~Page_marker ()
-{
-}
+Page_marker::~Page_marker () {}
 
-const char * const Page_marker::type_p_name_ = "ly:page-marker?";
+const char *const Page_marker::type_p_name_ = "ly:page-marker?";
 
 SCM
 Page_marker::mark_smob () const

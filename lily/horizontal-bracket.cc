@@ -20,11 +20,11 @@
 #include "horizontal-bracket.hh"
 
 #include "bracket.hh"
-#include "stencil.hh"
-#include "pointer-group-interface.hh"
 #include "directional-element-interface.hh"
-#include "spanner.hh"
 #include "item.hh"
+#include "pointer-group-interface.hh"
+#include "spanner.hh"
+#include "stencil.hh"
 
 using std::vector;
 
@@ -54,8 +54,7 @@ Horizontal_bracket::print (SCM smob)
   return b.smobbed_copy ();
 }
 
-ADD_INTERFACE (Horizontal_bracket,
-               "A horizontal bracket encompassing notes.",
+ADD_INTERFACE (Horizontal_bracket, "A horizontal bracket encompassing notes.",
 
                /* properties */
                "bracket-flare "
@@ -64,6 +63,4 @@ ADD_INTERFACE (Horizontal_bracket,
                "dashed-edge "
                "edge-height "
                "shorten-pair "
-               "connect-to-neighbor "
-              );
-
+               "connect-to-neighbor ");

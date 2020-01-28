@@ -31,4 +31,3 @@ public:
 };
 
 #endif // EXTENDER_SPANNER_HH
-

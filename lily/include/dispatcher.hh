@@ -21,16 +21,17 @@
 #define DISPATCHER_HH
 
 #include "listener.hh"
-#include "stream-event.hh"
 #include "smobs.hh"
+#include "stream-event.hh"
 
 class Dispatcher : public Smob<Dispatcher>
 {
 public:
   int print_smob (SCM, scm_print_state *) const;
   SCM mark_smob () const;
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
   virtual ~Dispatcher ();
+
 private:
   /* Hash table. Each event-class maps to a list of listeners. */
   SCM listeners_;
@@ -43,6 +44,7 @@ private:
      first. */
   int priority_count_;
   void internal_add_listener (SCM callback, SCM event_class, int priority);
+
 public:
   Dispatcher ();
   void broadcast (Stream_event *ev);
@@ -54,6 +56,5 @@ public:
   void register_as_listener (Dispatcher *dist);
   void unregister_as_listener (Dispatcher *dist);
 };
-
 
 #endif // DISPATCHER_HH

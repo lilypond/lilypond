@@ -49,20 +49,20 @@ Score_engraver::derived_mark () const
   Engraver_group::derived_mark ();
 }
 
-void
-Score_engraver::prepare (SCM)
+void Score_engraver::prepare (SCM)
 {
-  precomputed_recurse_over_translators (context (), START_TRANSLATION_TIMESTEP, DOWN);
+  precomputed_recurse_over_translators (context (), START_TRANSLATION_TIMESTEP,
+                                        DOWN);
 }
 
-void
-Score_engraver::finish (SCM)
+void Score_engraver::finish (SCM)
 {
-  recurse_over_translators
-    (context (),
-     Callback0_wrapper::make_smob<Translator, &Translator::finalize> (),
-     Callback0_wrapper::make_smob<Translator_group, &Translator_group::finalize> (),
-     UP);
+  recurse_over_translators (
+      context (),
+      Callback0_wrapper::make_smob<Translator, &Translator::finalize> (),
+      Callback0_wrapper::make_smob<Translator_group,
+                                   &Translator_group::finalize> (),
+      UP);
 }
 
 #define MUSIC_FONT "emmentaler-20"
@@ -76,20 +76,19 @@ Score_engraver::initialize ()
   Font_metric *fm = all_fonts_global->find_otf (MUSIC_FONT);
   if (!fm)
     {
-      error (_f ("cannot find `%s'", MUSIC_FONT ".otf")
-             + "\n"
-             + _ ("Music font has not been installed properly.")
-             + "\n"
-             + _f ("Search path `%s'", global_path.to_string ().c_str ())
-             + "\n"
+      error (_f ("cannot find `%s'", MUSIC_FONT ".otf") + "\n"
+             + _ ("Music font has not been installed properly.") + "\n"
+             + _f ("Search path `%s'", global_path.to_string ().c_str ()) + "\n"
              + _ ("Aborting"));
     }
 
-  pscore_ = new Paper_score (dynamic_cast<Output_def *> (context ()->get_output_def ()));
+  pscore_ = new Paper_score (
+      dynamic_cast<Output_def *> (context ()->get_output_def ()));
   pscore_->unprotect ();
   context ()->set_property ("output", pscore_->self_scm ());
 
-  SCM props = Grob_property_info (context (), ly_symbol2scm ("System")).updated ();
+  SCM props
+      = Grob_property_info (context (), ly_symbol2scm ("System")).updated ();
 
   pscore_->typeset_system (new System (props));
 
@@ -105,9 +104,12 @@ Score_engraver::connect_to_context (Context *c)
   Engraver_group::connect_to_context (c);
 
   Dispatcher *d = find_top_context (c)->event_source ();
-  d->add_listener (GET_LISTENER (Score_engraver, one_time_step), ly_symbol2scm ("OneTimeStep"));
-  d->add_listener (GET_LISTENER (Score_engraver, prepare), ly_symbol2scm ("Prepare"));
-  d->add_listener (GET_LISTENER (Score_engraver, finish), ly_symbol2scm ("Finish"));
+  d->add_listener (GET_LISTENER (Score_engraver, one_time_step),
+                   ly_symbol2scm ("OneTimeStep"));
+  d->add_listener (GET_LISTENER (Score_engraver, prepare),
+                   ly_symbol2scm ("Prepare"));
+  d->add_listener (GET_LISTENER (Score_engraver, finish),
+                   ly_symbol2scm ("Finish"));
 }
 
 /*
@@ -128,9 +130,12 @@ void
 Score_engraver::disconnect_from_context ()
 {
   Dispatcher *d = find_top_context (context ())->event_source ();
-  d->remove_listener (GET_LISTENER (Score_engraver, one_time_step), ly_symbol2scm ("OneTimeStep"));
-  d->remove_listener (GET_LISTENER (Score_engraver, prepare), ly_symbol2scm ("Prepare"));
-  d->remove_listener (GET_LISTENER (Score_engraver, finish), ly_symbol2scm ("Finish"));
+  d->remove_listener (GET_LISTENER (Score_engraver, one_time_step),
+                      ly_symbol2scm ("OneTimeStep"));
+  d->remove_listener (GET_LISTENER (Score_engraver, prepare),
+                      ly_symbol2scm ("Prepare"));
+  d->remove_listener (GET_LISTENER (Score_engraver, finish),
+                      ly_symbol2scm ("Finish"));
 
   Engraver_group::disconnect_from_context ();
 }
@@ -143,8 +148,7 @@ Score_engraver::finalize ()
   typeset_all ();
 }
 
-void
-Score_engraver::one_time_step (SCM)
+void Score_engraver::one_time_step (SCM)
 {
   if (!to_boolean (context ()->get_property ("skipTypesetting")))
     {
@@ -152,12 +156,14 @@ Score_engraver::one_time_step (SCM)
       Engraver_group::do_announces ();
     }
 
-  precomputed_recurse_over_translators (context (), STOP_TRANSLATION_TIMESTEP, UP);
+  precomputed_recurse_over_translators (context (), STOP_TRANSLATION_TIMESTEP,
+                                        UP);
   typeset_all ();
 }
 
 void
-Score_engraver::announce_grob (Grob_info info, Direction start_end, Context *reroute_context)
+Score_engraver::announce_grob (Grob_info info, Direction start_end,
+                               Context *reroute_context)
 {
   Engraver_group::announce_grob (info, start_end, reroute_context);
   if (start_end == START)
@@ -203,5 +209,4 @@ ADD_TRANSLATOR_GROUP (Score_engraver,
                       "currentCommandColumn ",
 
                       /* write */
-                      ""
-                     );
+                      "");

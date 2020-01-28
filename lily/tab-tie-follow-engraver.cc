@@ -22,7 +22,6 @@
 
 #include "engraver.hh"
 
-
 #include "context.hh"
 #include "item.hh"
 #include "spanner.hh"
@@ -52,10 +51,7 @@ protected:
   void stop_translation_timestep ();
 };
 
-Tab_tie_follow_engraver::Tab_tie_follow_engraver (Context *c)
-  : Engraver (c)
-{
-}
+Tab_tie_follow_engraver::Tab_tie_follow_engraver (Context *c) : Engraver (c) {}
 
 void
 Tab_tie_follow_engraver::acknowledge_glissando (Grob_info info)
@@ -112,7 +108,6 @@ Tab_tie_follow_engraver::stop_translation_timestep ()
   note_heads_.clear ();
 }
 
-
 void
 Tab_tie_follow_engraver::boot ()
 {
@@ -133,5 +128,4 @@ ADD_TRANSLATOR (Tab_tie_follow_engraver,
                 " ",
 
                 /* write */
-                " "
-               );
+                " ");

@@ -52,7 +52,7 @@ protected:
   System *system_;
   std::vector<Stream_event *> break_events_;
   std::vector<Stream_event *> label_events_;
-  int breaks_;                  // used for stat printing
+  int breaks_; // used for stat printing
   Paper_column *command_column_;
   Paper_column *musical_column_;
   std::vector<Item *> items_;

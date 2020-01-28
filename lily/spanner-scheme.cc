@@ -18,11 +18,11 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "spanner.hh"
 #include "item.hh"
+#include "spanner.hh"
 
-LY_DEFINE (ly_spanner_bound, "ly:spanner-bound",
-           2, 0, 0, (SCM spanner, SCM dir),
+LY_DEFINE (ly_spanner_bound, "ly:spanner-bound", 2, 0, 0,
+           (SCM spanner, SCM dir),
            "Get one of the bounds of @var{spanner}.  @var{dir} is @w{@code{-1}}"
            " for left, and @code{1} for right.")
 {
@@ -32,8 +32,8 @@ LY_DEFINE (ly_spanner_bound, "ly:spanner-bound",
   return bound ? bound->self_scm () : SCM_EOL;
 }
 
-LY_DEFINE (ly_spanner_set_bound_x, "ly:spanner-set-bound!",
-           3, 0, 0, (SCM spanner, SCM dir, SCM item),
+LY_DEFINE (ly_spanner_set_bound_x, "ly:spanner-set-bound!", 3, 0, 0,
+           (SCM spanner, SCM dir, SCM item),
            "Set grob @var{item} as bound in direction @var{dir} for"
            " @var{spanner}.")
 {
@@ -47,9 +47,8 @@ LY_DEFINE (ly_spanner_set_bound_x, "ly:spanner-set-bound!",
 
 /* TODO: maybe we should return a vector -- random access is more
    logical for this list? */
-LY_DEFINE (ly_spanner_broken_into, "ly:spanner-broken-into",
-           1, 0, 0, (SCM spanner),
-           "Return broken-into list for @var{spanner}.")
+LY_DEFINE (ly_spanner_broken_into, "ly:spanner-broken-into", 1, 0, 0,
+           (SCM spanner), "Return broken-into list for @var{spanner}.")
 {
   LY_ASSERT_TYPE (unsmob<Spanner>, spanner, 1);
   Spanner *me = unsmob<Spanner> (spanner);
@@ -60,8 +59,7 @@ LY_DEFINE (ly_spanner_broken_into, "ly:spanner-broken-into",
   return s;
 }
 
-LY_DEFINE (ly_spanner_p, "ly:spanner?",
-           1, 0, 0, (SCM g),
+LY_DEFINE (ly_spanner_p, "ly:spanner?", 1, 0, 0, (SCM g),
            "Is @var{g} a spanner object?")
 {
   Grob *me = unsmob<Grob> (g);

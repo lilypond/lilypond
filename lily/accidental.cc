@@ -24,9 +24,9 @@
 #include "output-def.hh"
 #include "paper-column.hh"
 #include "pitch.hh"
+#include "skyline-pair.hh"
 #include "stencil.hh"
 #include "system.hh"
-#include "skyline-pair.hh"
 
 using std::string;
 using std::vector;
@@ -34,12 +34,9 @@ using std::vector;
 Stencil
 parenthesize (Grob *me, Stencil m)
 {
-  Font_metric *font
-    = Font_interface::get_default_font (me);
-  Stencil open
-    = font->find_by_name ("accidentals.leftparen");
-  Stencil close
-    = font->find_by_name ("accidentals.rightparen");
+  Font_metric *font = Font_interface::get_default_font (me);
+  Stencil open = font->find_by_name ("accidentals.leftparen");
+  Stencil close = font->find_by_name ("accidentals.rightparen");
 
   m.add_at_edge (X_AXIS, LEFT, Stencil (open), 0);
   m.add_at_edge (X_AXIS, RIGHT, Stencil (close), 0);
@@ -60,17 +57,14 @@ Accidental_interface::horizontal_skylines (SCM smob)
     return Skyline_pair ().smobbed_copy ();
 
   SCM rot = me->get_property ("rotation");
-  Skyline_pair *sky =
-    unsmob<Skyline_pair>
-      (Stencil::skylines_from_stencil
-        (my_stencil->smobbed_copy (), 0.0, rot, Y_AXIS));
+  Skyline_pair *sky = unsmob<Skyline_pair> (Stencil::skylines_from_stencil (
+      my_stencil->smobbed_copy (), 0.0, rot, Y_AXIS));
 
   SCM alist = me->get_property ("glyph-name-alist");
   SCM alt = me->get_property ("alteration");
-  string glyph_name = robust_scm2string (ly_assoc_get (alt, alist, SCM_BOOL_F),
-                                                       "");
-  if (glyph_name == "accidentals.flat"
-      || glyph_name == "accidentals.flatflat")
+  string glyph_name
+      = robust_scm2string (ly_assoc_get (alt, alist, SCM_BOOL_F), "");
+  if (glyph_name == "accidentals.flat" || glyph_name == "accidentals.flatflat")
     {
       // a bit more padding for the right of the stem
       // we raise the stem horizontally to a bit less than the average
@@ -97,8 +91,7 @@ Accidental_interface::height (SCM smob)
   Grob *me = unsmob<Grob> (smob);
   Grob *tie = unsmob<Grob> (me->get_object ("tie"));
 
-  if (tie
-      && !to_boolean (me->get_property ("forced"))
+  if (tie && !to_boolean (me->get_property ("forced"))
       && to_boolean (me->get_property ("hide-tied-accidental-after-break")))
     return ly_interval2scm (Interval ());
 
@@ -112,10 +105,9 @@ Accidental_interface::remove_tied (SCM smob)
   Grob *me = unsmob<Grob> (smob);
   Grob *tie = unsmob<Grob> (me->get_object ("tie"));
 
-  if (tie
-      && !to_boolean (me->get_property ("forced"))
+  if (tie && !to_boolean (me->get_property ("forced"))
       && (to_boolean (me->get_property ("hide-tied-accidental-after-break"))
-          || !tie->original()))
+          || !tie->original ()))
     me->suicide ();
 
   return SCM_UNSPECIFIED;
@@ -169,8 +161,7 @@ Accidental_interface::get_stencil (Grob *me)
   return mol.smobbed_copy ();
 }
 
-ADD_INTERFACE (Accidental_interface,
-               "A single accidental.",
+ADD_INTERFACE (Accidental_interface, "A single accidental.",
 
                /* properties */
                "alteration "
@@ -181,5 +172,4 @@ ADD_INTERFACE (Accidental_interface,
                "hide-tied-accidental-after-break "
                "parenthesized "
                "restore-first "
-               "tie "
-              );
+               "tie ");

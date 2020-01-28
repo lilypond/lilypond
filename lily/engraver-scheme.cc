@@ -20,8 +20,8 @@
 #include "engraver.hh"
 #include "grob.hh"
 
-LY_DEFINE (ly_engraver_make_grob, "ly:engraver-make-grob",
-           3, 0, 0, (SCM engraver, SCM grob_name, SCM cause),
+LY_DEFINE (ly_engraver_make_grob, "ly:engraver-make-grob", 3, 0, 0,
+           (SCM engraver, SCM grob_name, SCM cause),
            "Create a grob originating from given @var{engraver} instance,"
            " with given @var{grob-name}, a symbol."
            "  @var{cause} should either be another grob"
@@ -31,14 +31,13 @@ LY_DEFINE (ly_engraver_make_grob, "ly:engraver-make-grob",
   LY_ASSERT_TYPE (ly_is_symbol, grob_name, 2);
   LY_ASSERT_TYPE (ly_is_grob_cause, cause, 3);
 
-  Grob *g = unsmob<Engraver> (engraver)->
-            internal_make_grob (grob_name, cause,
-                                "scheme", 0, "scheme");
+  Grob *g = unsmob<Engraver> (engraver)->internal_make_grob (
+      grob_name, cause, "scheme", 0, "scheme");
   return g->self_scm ();
 }
 
-LY_DEFINE (ly_engraver_announce_end_grob, "ly:engraver-announce-end-grob",
-           3, 0, 0, (SCM engraver, SCM grob, SCM cause),
+LY_DEFINE (ly_engraver_announce_end_grob, "ly:engraver-announce-end-grob", 3, 0,
+           0, (SCM engraver, SCM grob, SCM cause),
            "Announce the end of a grob (i.e., the end of a spanner)"
            " originating from given @var{engraver} instance, with"
            " @var{grob} being a grob.  @var{cause} should either"
@@ -48,8 +47,7 @@ LY_DEFINE (ly_engraver_announce_end_grob, "ly:engraver-announce-end-grob",
   LY_ASSERT_SMOB (Grob, grob, 2);
   LY_ASSERT_TYPE (ly_is_grob_cause, cause, 3);
 
-  unsmob<Engraver> (engraver)->
-  announce_end_grob (unsmob<Grob> (grob), cause);
+  unsmob<Engraver> (engraver)->announce_end_grob (unsmob<Grob> (grob), cause);
 
   return SCM_UNSPECIFIED;
 }

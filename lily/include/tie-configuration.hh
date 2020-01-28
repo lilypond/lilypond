@@ -22,8 +22,8 @@
 
 #include "direction.hh"
 #include "interval.hh"
-#include "std-vector.hh"
 #include "main.hh" // DEBUG_SLUR_SCORING
+#include "std-vector.hh"
 
 class Tie_configuration
 {
@@ -46,7 +46,7 @@ public:
   /* computed. */
   Interval attachment_x_;
 
-  void add_score (Real, const std::string&);
+  void add_score (Real, const std::string &);
   Tie_configuration ();
   void center_tie_vertically (Tie_details const &);
   Bezier get_transformed_bezier (Tie_details const &) const;
@@ -54,10 +54,8 @@ public:
   Real height (Tie_details const &) const;
   int column_span_length () const;
 
-  static int compare (Tie_configuration const &a,
-                      Tie_configuration const &b);
-  static Real distance (Tie_configuration const &a,
-                        Tie_configuration const &b);
+  static int compare (Tie_configuration const &a, Tie_configuration const &b);
+  static Real distance (Tie_configuration const &a, Tie_configuration const &b);
 };
 
 INSTANTIATE_COMPARE (Tie_configuration, Tie_configuration::compare);
@@ -70,6 +68,7 @@ class Ties_configuration : public std::vector<Tie_configuration>
   std::vector<std::string> tie_score_cards_;
 
   friend class Tie_formatting_problem;
+
 public:
   Ties_configuration ();
   void add_score (Real amount, const std::string &description);
@@ -83,4 +82,3 @@ public:
 };
 
 #endif /* TIE_CONFIGURATION_HH */
-

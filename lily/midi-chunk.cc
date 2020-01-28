@@ -27,8 +27,7 @@
 using std::string;
 using std::vector;
 
-Midi_track::Midi_track (int number, bool port)
-  : number_ (number)
+Midi_track::Midi_track (int number, bool port) : number_ (number)
 {
   //                4D 54 72 6B     MTrk
   //                00 00 00 3B     chunk length (59)
@@ -45,14 +44,14 @@ Midi_track::Midi_track (int number, bool port)
   //         mi = 1:  minor key
 
   char const *data_str0 = ""
-                          //        "00" "ff58" "0404" "0218" "08"
-                          //  "00" "ff51" "0307" "a120"
-                          // why a key at all, in midi?
-                          // key: C
-                          //  "00" "ff59" "02" "00" "00"
-                          // key: F (scsii-menuetto)
-                          //                            "00" "ff59" "02" "ff" "00"
-                          ;
+      //        "00" "ff58" "0404" "0218" "08"
+      //  "00" "ff51" "0307" "a120"
+      // why a key at all, in midi?
+      // key: C
+      //  "00" "ff59" "02" "00" "00"
+      // key: F (scsii-menuetto)
+      //                            "00" "ff59" "02" "ff" "00"
+      ;
 
   string data_string;
   // only for format 0 (currently using format 1)?
@@ -60,7 +59,10 @@ Midi_track::Midi_track (int number, bool port)
 
   if (port)
     {
-      string port = "00" "ff" "21" "01"
+      string port = "00"
+                    "ff"
+                    "21"
+                    "01"
                     + String_convert::int2hex (number_, 2, '0');
       data_string += String_convert::hex2bin (port);
     }
@@ -86,7 +88,7 @@ Midi_track::add (int delta_ticks, Midi_item *midi)
   // Insertion position for the new event in the track.
   vector<Midi_event *>::iterator position (events_.end ());
   if (delta_ticks == 0
-      && (! dynamic_cast<Midi_note *> (midi)
+      && (!dynamic_cast<Midi_note *> (midi)
           || dynamic_cast<Midi_note_off *> (midi)))
     {
       // If the new event occurs at the same time as the most recently added
@@ -98,7 +100,7 @@ Midi_track::add (int delta_ticks, Midi_item *midi)
       while (position != events_.begin ())
         {
           vector<Midi_event *>::iterator previous (position - 1);
-          if (! dynamic_cast<Midi_note *> ((*previous)->midi_)
+          if (!dynamic_cast<Midi_note *> ((*previous)->midi_)
               || dynamic_cast<Midi_note_off *> ((*previous)->midi_))
             {
               // Found an event that does not represent the start of a note.
@@ -139,10 +141,7 @@ Midi_track::data_string () const
   return str;
 }
 
-Midi_track::~Midi_track ()
-{
-  junk_pointers (events_);
-}
+Midi_track::~Midi_track () { junk_pointers (events_); }
 
 /****************************************************************
   event
@@ -183,13 +182,11 @@ Midi_header::Midi_header (int format, int tracks, int clocks_per_4)
 /****************************************************************
    chunk
  */
-Midi_chunk::~Midi_chunk ()
-{
-
-}
+Midi_chunk::~Midi_chunk () {}
 
 void
-Midi_chunk::set (const string &header_string, const string &data_string, const string &footer_string)
+Midi_chunk::set (const string &header_string, const string &data_string,
+                 const string &footer_string)
 {
   data_string_ = data_string;
   footer_string_ = footer_string;
@@ -207,8 +204,8 @@ Midi_chunk::to_string () const
 {
   string str = header_string_;
   string dat = data_string ();
-  string length_string = String_convert::int2hex (dat.length ()
-                                                  + footer_string_.length (), 8, '0');
+  string length_string = String_convert::int2hex (
+      dat.length () + footer_string_.length (), 8, '0');
   length_string = String_convert::hex2bin (length_string);
 
   str += length_string;
@@ -217,4 +214,3 @@ Midi_chunk::to_string () const
 
   return str;
 }
-

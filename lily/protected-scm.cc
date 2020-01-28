@@ -23,13 +23,9 @@
 // only one object protected during the life time of Protected_scm
 // than several.
 
-Protected_scm::Protected_scm ()
-  : object_ (SCM_UNDEFINED)
-{
-}
+Protected_scm::Protected_scm () : object_ (SCM_UNDEFINED) {}
 
-Protected_scm::Protected_scm (SCM s)
-  : object_ (s)
+Protected_scm::Protected_scm (SCM s) : object_ (s)
 {
   // Only allow immediate objects at construction time.  Protected_scm
   // is intended for variables of static duration, and creating
@@ -52,7 +48,7 @@ Protected_scm::protectify (SCM s)
 }
 
 Protected_scm &
-Protected_scm::operator = (SCM s)
+Protected_scm::operator= (SCM s)
 {
   if (SCM_CONSP (object_))
     SCM_SETCAR (object_, s);
@@ -65,9 +61,9 @@ Protected_scm::operator = (SCM s)
 }
 
 Protected_scm &
-Protected_scm::operator = (Protected_scm const &s)
+Protected_scm::operator= (Protected_scm const &s)
 {
-  return *this = (SCM) s;
+  return *this = (SCM)s;
 }
 
 Protected_scm::operator SCM const & () const

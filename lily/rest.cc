@@ -22,13 +22,13 @@
 #include "directional-element-interface.hh"
 #include "dots.hh"
 #include "font-interface.hh"
+#include "grob.hh"
 #include "international.hh"
 #include "output-def.hh"
 #include "paper-score.hh"
 #include "staff-symbol-referencer.hh"
 #include "staff-symbol.hh"
 #include "stencil.hh"
-#include "grob.hh"
 
 using std::string;
 
@@ -41,7 +41,9 @@ Rest::y_offset_callback (SCM smob)
   int duration_log = scm_to_int (me->get_property ("duration-log"));
   Real ss = Staff_symbol_referencer::staff_space (me);
 
-  return scm_from_double (ss * 0.5 * Rest::staff_position_internal (me, duration_log, get_grob_direction (me)));
+  return scm_from_double (ss * 0.5
+                          * Rest::staff_position_internal (
+                              me, duration_log, get_grob_direction (me)));
 }
 
 Real
@@ -55,8 +57,7 @@ Rest::staff_position_internal (Grob *me, int duration_log, int dir)
 
   if (position_override)
     {
-      pos
-        = robust_scm2double (me->get_property ("staff-position"), 0);
+      pos = robust_scm2double (me->get_property ("staff-position"), 0);
 
       /*
         semibreve rests are positioned one staff line off
@@ -113,7 +114,7 @@ Rest::staff_position_internal (Grob *me, int duration_log, int dir)
       */
 
       std::vector<Real>::const_iterator it
-        = std::upper_bound (linepos.begin (), linepos.end (), pos);
+          = std::upper_bound (linepos.begin (), linepos.end (), pos);
       if (it != linepos.end ())
         pos = *it;
       else
@@ -122,7 +123,7 @@ Rest::staff_position_internal (Grob *me, int duration_log, int dir)
   else
     {
       std::vector<Real>::const_iterator it
-        = std::upper_bound (linepos.begin (), linepos.end (), pos);
+          = std::upper_bound (linepos.begin (), linepos.end (), pos);
       if (it != linepos.begin ())
         --it;
       pos = *it;
@@ -170,17 +171,18 @@ Rest::glyph_name (Grob *me, int durlog, const string &style, bool try_ledgers,
   bool is_ledgered = false;
   if (try_ledgers && (durlog == -1 || durlog == 0 || durlog == 1))
     {
-      int const pos = int (Staff_symbol_referencer::get_position (me)
-                           + offset);
+      int const pos = int (Staff_symbol_referencer::get_position (me) + offset);
       /*
         half rests need ledger if not lying on a staff line,
         whole rests need ledger if not hanging from a staff line,
-        breve rests need ledger if neither lying on nor hanging from a staff line
+        breve rests need ledger if neither lying on nor hanging from a staff
+        line
       */
       if (-1 <= durlog && durlog <= 1)
-        is_ledgered = !Staff_symbol_referencer::on_staff_line (me, pos)
-                      && !(durlog == -1
-                           && Staff_symbol_referencer::on_staff_line (me, pos + 2));
+        is_ledgered
+            = !Staff_symbol_referencer::on_staff_line (me, pos)
+              && !(durlog == -1
+                   && Staff_symbol_referencer::on_staff_line (me, pos + 2));
     }
 
   string actual_style (style.c_str ());
@@ -245,7 +247,8 @@ Rest::brew_internal_stencil (Grob *me, bool ledgered)
 
   if (durlog < 0)
     {
-      Real fs = pow (2, robust_scm2double (me->get_property ("font-size"), 0) / 6);
+      Real fs
+          = pow (2, robust_scm2double (me->get_property ("font-size"), 0) / 6);
       Real ss = Staff_symbol_referencer::staff_space (me);
       out.translate_axis (ss - fs, Y_AXIS);
     }
@@ -262,7 +265,8 @@ Rest::translate (Grob *me, int dy)
 {
   if (!scm_is_number (me->get_property ("staff-position")))
     {
-      me->translate_axis (dy * Staff_symbol_referencer::staff_space (me) / 2.0, Y_AXIS);
+      me->translate_axis (dy * Staff_symbol_referencer::staff_space (me) / 2.0,
+                          Y_AXIS);
       Grob *p = me->get_parent (Y_AXIS);
       p->flush_extent_cache (Y_AXIS);
     }
@@ -311,9 +315,7 @@ Rest::generic_extent_callback (Grob *me, Axis a)
 
 MAKE_SCHEME_CALLBACK (Rest, pure_height, 3);
 SCM
-Rest::pure_height (SCM smob,
-                   SCM /* start */,
-                   SCM /* end */)
+Rest::pure_height (SCM smob, SCM /* start */, SCM /* end */)
 {
   Grob *me = unsmob<Grob> (smob);
   SCM m = brew_internal_stencil (me, false);
@@ -329,5 +331,4 @@ ADD_INTERFACE (Rest,
                "direction "
                "minimum-distance "
                "style "
-               "voiced-position "
-              );
+               "voiced-position ");

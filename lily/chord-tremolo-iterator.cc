@@ -20,12 +20,10 @@
 
 #include "chord-tremolo-iterator.hh"
 
-#include "repeated-music.hh"
 #include "lily-imports.hh"
+#include "repeated-music.hh"
 
-Chord_tremolo_iterator::Chord_tremolo_iterator ()
-{
-}
+Chord_tremolo_iterator::Chord_tremolo_iterator () {}
 
 SCM
 Chord_tremolo_iterator::get_music_list () const

@@ -21,34 +21,33 @@
 #include "text-interface.hh"
 #include "skyline-pair.hh"
 
-#include "lookup.hh"
 #include "config.hh"
 #include "font-interface.hh"
 #include "grob.hh"
+#include "international.hh"
+#include "lily-imports.hh"
+#include "lookup.hh"
 #include "main.hh"
 #include "misc.hh"
 #include "modified-font-metric.hh"
 #include "output-def.hh"
 #include "pango-font.hh"
 #include "program-option.hh"
-#include "international.hh"
 #include "warn.hh"
-#include "lily-imports.hh"
 
 using std::string;
 
 static void
 replace_special_characters (string &str, SCM props)
 {
-  SCM replacement_alist = ly_chain_assoc_get (ly_symbol2scm ("replacement-alist"),
-                                              props,
-                                              SCM_EOL);
+  SCM replacement_alist = ly_chain_assoc_get (
+      ly_symbol2scm ("replacement-alist"), props, SCM_EOL);
 
   int max_length = 0;
   for (SCM s = replacement_alist; scm_is_pair (s); s = scm_cdr (s))
     {
-      max_length = std::max (max_length, scm_to_int
-                        (scm_string_length (scm_caar (s))));
+      max_length = std::max (max_length,
+                             scm_to_int (scm_string_length (scm_caar (s))));
     }
 
   for (vsize i = 0; i < str.size (); i++)
@@ -61,8 +60,8 @@ replace_special_characters (string &str, SCM props)
           if (j > str.size () - i)
             continue;
           string dummy = str.substr (i, j);
-          SCM ligature = ly_assoc_get (ly_string2scm (dummy),
-                                       replacement_alist, SCM_BOOL_F);
+          SCM ligature = ly_assoc_get (ly_string2scm (dummy), replacement_alist,
+                                       SCM_BOOL_F);
           if (scm_is_true (ligature))
             str.replace (i, j, robust_scm2string (ligature, ""));
         }
@@ -71,9 +70,7 @@ replace_special_characters (string &str, SCM props)
 
 MAKE_SCHEME_CALLBACK (Text_interface, interpret_string, 3);
 SCM
-Text_interface::interpret_string (SCM layout_smob,
-                                  SCM props,
-                                  SCM markup)
+Text_interface::interpret_string (SCM layout_smob, SCM props, SCM markup)
 {
   LY_ASSERT_SMOB (Output_def, layout_smob, 1);
   LY_ASSERT_TYPE (scm_is_string, markup, 3);
@@ -89,14 +86,12 @@ Text_interface::interpret_string (SCM layout_smob,
     the text interface.  Here the font encoding is checked to see
     if it matches one of the music font encodings.  --pmccarty
   */
-  SCM encoding = ly_chain_assoc_get (ly_symbol2scm ("font-encoding"),
-                                     props,
-                                     SCM_BOOL_F);
+  SCM encoding
+      = ly_chain_assoc_get (ly_symbol2scm ("font-encoding"), props, SCM_BOOL_F);
   SCM music_encodings = Lily::all_music_font_encodings;
 
-  SCM features = ly_chain_assoc_get (ly_symbol2scm ("font-features"),
-                                     props,
-                                     SCM_BOOL_F);
+  SCM features
+      = ly_chain_assoc_get (ly_symbol2scm ("font-features"), props, SCM_BOOL_F);
 
   // The font-features value is stored in a scheme list. This joins the entries
   // with commas for processing with pango.
@@ -121,13 +116,16 @@ Text_interface::interpret_string (SCM layout_smob,
             }
           else
             {
-              scm_misc_error (__FUNCTION__, "Found non-string in font-features list", SCM_EOL);
+              scm_misc_error (__FUNCTION__,
+                              "Found non-string in font-features list",
+                              SCM_EOL);
             }
         }
     }
   else if (!scm_is_false (features))
     {
-      scm_misc_error (__FUNCTION__, "Expecting a list for font-features value", SCM_EOL);
+      scm_misc_error (__FUNCTION__, "Expecting a list for font-features value",
+                      SCM_EOL);
     }
 
   bool is_music = scm_is_true (scm_memq (encoding, music_encodings));
@@ -136,18 +134,29 @@ Text_interface::interpret_string (SCM layout_smob,
 
 static size_t markup_depth = 0;
 
-void markup_up_depth (void *) { ++markup_depth; }
-void markup_down_depth (void *) { --markup_depth; }
+void
+markup_up_depth (void *)
+{
+  ++markup_depth;
+}
+void
+markup_down_depth (void *)
+{
+  --markup_depth;
+}
 
-MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Text_interface, interpret_markup, 3, 0,
-                                   "Convert a text markup into a stencil."
-                                   "  Takes three arguments, @var{layout}, @var{props}, and @var{markup}.\n"
-                                   "\n"
-                                   "@var{layout} is a @code{\\layout} block; it may be obtained from a grob with"
-                                   " @code{ly:grob-layout}.  @var{props} is an alist chain, i.e. a list of"
-                                   "  alists.  This is typically obtained with"
-                                   " @code{(ly:grob-alist-chain grob (ly:output-def-lookup layout 'text-font-defaults))}."
-                                   "  @var{markup} is the markup text to be processed.");
+MAKE_SCHEME_CALLBACK_WITH_OPTARGS (
+    Text_interface, interpret_markup, 3, 0,
+    "Convert a text markup into a stencil."
+    "  Takes three arguments, @var{layout}, @var{props}, and @var{markup}.\n"
+    "\n"
+    "@var{layout} is a @code{\\layout} block; it may be obtained from a grob "
+    "with"
+    " @code{ly:grob-layout}.  @var{props} is an alist chain, i.e. a list of"
+    "  alists.  This is typically obtained with"
+    " @code{(ly:grob-alist-chain grob (ly:output-def-lookup layout "
+    "'text-font-defaults))}."
+    "  @var{markup} is the markup text to be processed.");
 SCM
 Text_interface::interpret_markup (SCM layout_smob, SCM props, SCM markup)
 {
@@ -176,7 +185,8 @@ Text_interface::interpret_markup (SCM layout_smob, SCM props, SCM markup)
           string name = ly_symbol2string (scm_procedure_name (func));
           // TODO: Also print the arguments of the markup!
           non_fatal_error (_f ("Markup depth exceeds maximal value of %zu; "
-                               "Markup: %s", max_depth, name.c_str ()));
+                               "Markup: %s",
+                               max_depth, name.c_str ()));
           return Stencil ().smobbed_copy ();
         }
 
@@ -211,9 +221,9 @@ bool
 Text_interface::is_markup (SCM x)
 {
   return scm_is_string (x)
-    || (scm_is_pair (x)
-        && scm_is_true (Lily::markup_command_signature (scm_car (x)))
-        && scm_is_false (Lily::markup_list_function_p (scm_car (x))));
+         || (scm_is_pair (x)
+             && scm_is_true (Lily::markup_command_signature (scm_car (x)))
+             && scm_is_false (Lily::markup_list_function_p (scm_car (x))));
 }
 bool
 Text_interface::is_markup_list (SCM x)
@@ -236,6 +246,4 @@ ADD_INTERFACE (Text_interface,
                "text "
                "word-space "
                "text-direction "
-               "flag-style "
-              );
-
+               "flag-style ");

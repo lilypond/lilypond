@@ -20,8 +20,8 @@
 #ifndef ARPEGGIO_HH
 #define ARPEGGIO_HH
 
-#include "lily-proto.hh"
 #include "grob-interface.hh"
+#include "lily-proto.hh"
 
 class Arpeggio
 {
@@ -37,4 +37,3 @@ public:
 };
 
 #endif /* ARPEGGIO_HH */
-

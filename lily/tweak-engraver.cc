@@ -32,10 +32,7 @@ protected:
   void acknowledge_grob (Grob_info) override;
 };
 
-Tweak_engraver::Tweak_engraver (Context *c)
-  : Engraver (c)
-{
-}
+Tweak_engraver::Tweak_engraver (Context *c) : Engraver (c) {}
 
 void
 Tweak_engraver::acknowledge_grob (Grob_info info)
@@ -53,28 +50,28 @@ Tweak_engraver::acknowledge_grob (Grob_info info)
       // (grob . symbol) -> targeted tweak
       // (#t . symbol-path) -> direct nested tweak
       // (grob . symbol-path) -> targeted nested tweak
-      for (SCM s = ev->get_property ("tweaks");
-           scm_is_pair (s); s = scm_cdr (s))
+      for (SCM s = ev->get_property ("tweaks"); scm_is_pair (s);
+           s = scm_cdr (s))
         {
           if (scm_is_pair (scm_caar (s)))
             {
               if (scm_is_symbol (scm_caaar (s)))
                 {
                   if (SCM_UNBNDP (grobname))
-                    grobname = scm_from_utf8_symbol
-                      (info.grob ()->name ().c_str ());
+                    grobname
+                        = scm_from_utf8_symbol (info.grob ()->name ().c_str ());
                   if (scm_is_eq (scm_caaar (s), grobname))
                     {
                       if (scm_is_symbol (scm_cdaar (s)))
-                        info.grob ()->set_property (scm_cdaar (s), scm_cdar (s));
+                        info.grob ()->set_property (scm_cdaar (s),
+                                                    scm_cdar (s));
                       else
                         set_nested_property (info.grob (), scm_cdaar (s),
                                              scm_cdar (s));
                     }
                 }
               else if (direct)
-                set_nested_property (info.grob (), scm_cdaar (s),
-                                     scm_cdar (s));
+                set_nested_property (info.grob (), scm_cdaar (s), scm_cdar (s));
             }
           else if (direct)
             info.grob ()->set_property (scm_caar (s), scm_cdar (s));
@@ -100,5 +97,4 @@ ADD_TRANSLATOR (Tweak_engraver,
                 "",
 
                 /* write */
-                ""
-               );
+                "");

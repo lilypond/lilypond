@@ -23,14 +23,14 @@
 #include "context-def.hh"
 #include "context.hh"
 #include "dispatcher.hh"
-#include "engraver.hh"
 #include "engraver-group.hh"
+#include "engraver.hh"
 #include "international.hh"
 #include "main.hh"
 #include "music.hh"
 #include "output-def.hh"
-#include "performer.hh"
 #include "performer-group.hh"
+#include "performer.hh"
 #include "scheme-engraver.hh"
 #include "scm-hash.hh"
 #include "warn.hh"
@@ -60,9 +60,11 @@ Translator_group::connect_to_context (Context *c)
     }
 
   context_ = c;
-  c->event_source ()->add_listener (GET_LISTENER (Translator_group, create_child_translator),
-                                    ly_symbol2scm ("AnnounceNewContext"));
-  for (SCM tr_list = simple_trans_list_; scm_is_pair (tr_list); tr_list = scm_cdr (tr_list))
+  c->event_source ()->add_listener (
+      GET_LISTENER (Translator_group, create_child_translator),
+      ly_symbol2scm ("AnnounceNewContext"));
+  for (SCM tr_list = simple_trans_list_; scm_is_pair (tr_list);
+       tr_list = scm_cdr (tr_list))
     {
       Translator *tr = unsmob<Translator> (scm_car (tr_list));
       tr->connect_to_context (c);
@@ -72,13 +74,15 @@ Translator_group::connect_to_context (Context *c)
 void
 Translator_group::disconnect_from_context ()
 {
-  for (SCM tr_list = simple_trans_list_; scm_is_pair (tr_list); tr_list = scm_cdr (tr_list))
+  for (SCM tr_list = simple_trans_list_; scm_is_pair (tr_list);
+       tr_list = scm_cdr (tr_list))
     {
       Translator *tr = unsmob<Translator> (scm_car (tr_list));
       tr->disconnect_from_context (context_);
     }
-  context_->event_source ()->remove_listener (GET_LISTENER (Translator_group, create_child_translator),
-                                              ly_symbol2scm ("AnnounceNewContext"));
+  context_->event_source ()->remove_listener (
+      GET_LISTENER (Translator_group, create_child_translator),
+      ly_symbol2scm ("AnnounceNewContext"));
   context_ = 0;
   protected_events_ = SCM_EOL;
 }
@@ -159,7 +163,8 @@ Translator_group::create_child_translator (SCM sev)
 
   SCM trans_names = def->get_translator_names (ops);
 
-  Translator_group *g = get_translator_group (def->get_translator_group_type ());
+  Translator_group *g
+      = get_translator_group (def->get_translator_group_type ());
   SCM trans_list = SCM_EOL;
 
   for (SCM s = trans_names; scm_is_pair (s); s = scm_cdr (s))
@@ -175,7 +180,8 @@ Translator_group::create_child_translator (SCM sev)
       Translator *instance = unsmob<Translator> (trans);
       if (!instance)
         {
-          warning (_f ("cannot find: `%s'", ly_scm_write_string (trans).c_str ()));
+          warning (
+              _f ("cannot find: `%s'", ly_scm_write_string (trans).c_str ()));
           continue;
         }
 
@@ -189,7 +195,6 @@ Translator_group::create_child_translator (SCM sev)
         }
       else
         trans_list = scm_cons (trans, trans_list);
-
     }
 
   /* Filter unwanted translator types. Required to make
@@ -205,11 +210,12 @@ Translator_group::create_child_translator (SCM sev)
   g->connect_to_context (new_context);
   g->unprotect ();
 
-  recurse_over_translators
-    (new_context,
-     Callback0_wrapper::make_smob<Translator, &Translator::initialize> (),
-     Callback0_wrapper::make_smob<Translator_group, &Translator_group::initialize> (),
-     DOWN);
+  recurse_over_translators (
+      new_context,
+      Callback0_wrapper::make_smob<Translator, &Translator::initialize> (),
+      Callback0_wrapper::make_smob<Translator_group,
+                                   &Translator_group::initialize> (),
+      DOWN);
 }
 
 SCM
@@ -219,19 +225,21 @@ Translator_group::get_simple_trans_list ()
 }
 
 void
-precomputed_recurse_over_translators (Context *c, Translator_precompute_index idx, Direction dir)
+precomputed_recurse_over_translators (Context *c,
+                                      Translator_precompute_index idx,
+                                      Direction dir)
 {
   Translator_group *tg
-    = dynamic_cast<Translator_group *> (c->implementation ());
+      = dynamic_cast<Translator_group *> (c->implementation ());
 
   if (tg && dir == DOWN)
     {
       tg->precomputed_translator_foreach (idx);
     }
 
-  for (SCM s = c->children_contexts (); scm_is_pair (s);
-       s = scm_cdr (s))
-    precomputed_recurse_over_translators (unsmob<Context> (scm_car (s)), idx, dir);
+  for (SCM s = c->children_contexts (); scm_is_pair (s); s = scm_cdr (s))
+    precomputed_recurse_over_translators (unsmob<Context> (scm_car (s)), idx,
+                                          dir);
 
   if (tg && dir == UP)
     {
@@ -240,8 +248,7 @@ precomputed_recurse_over_translators (Context *c, Translator_precompute_index id
 }
 
 void
-recurse_over_translators (Context *c, SCM ptr,
-                          SCM tg_ptr, Direction dir)
+recurse_over_translators (Context *c, SCM ptr, SCM tg_ptr, Direction dir)
 {
   Translator_group *tg = c->implementation ();
   SCM tg_scm = tg ? tg->self_scm () : SCM_UNDEFINED;
@@ -252,14 +259,12 @@ recurse_over_translators (Context *c, SCM ptr,
       translator_each (tg->get_simple_trans_list (), ptr);
     }
 
-  for (SCM s = c->children_contexts (); scm_is_pair (s);
-       s = scm_cdr (s))
+  for (SCM s = c->children_contexts (); scm_is_pair (s); s = scm_cdr (s))
     recurse_over_translators (unsmob<Context> (scm_car (s)), ptr, tg_ptr, dir);
 
   if (tg && dir == UP)
     {
-      translator_each (tg->get_simple_trans_list (),
-                       ptr);
+      translator_each (tg->get_simple_trans_list (), ptr);
 
       scm_call_1 (tg_ptr, tg_scm);
     }
@@ -291,26 +296,24 @@ Translator_group::precompute_method_bindings ()
       for (int i = 0; i < TRANSLATOR_METHOD_PRECOMPUTE_COUNT; i++)
         {
           if (!SCM_UNBNDP (ptrs[i]))
-            precomputed_method_bindings_[i].push_back (Method_instance (ptrs[i], tr));
+            precomputed_method_bindings_[i].push_back (
+                Method_instance (ptrs[i], tr));
         }
     }
-
 }
 
 void
-Translator_group::precomputed_translator_foreach (Translator_precompute_index idx)
+Translator_group::precomputed_translator_foreach (
+    Translator_precompute_index idx)
 {
   vector<Method_instance> &bindings (precomputed_method_bindings_[idx]);
   for (vsize i = 0; i < bindings.size (); i++)
     bindings[i]();
 }
 
-Translator_group::~Translator_group ()
-{
-}
+Translator_group::~Translator_group () {}
 
-
-const char * const Translator_group::type_p_name_ = "ly:translator-group?";
+const char *const Translator_group::type_p_name_ = "ly:translator-group?";
 
 int
 Translator_group::print_smob (SCM port, scm_print_state *) const

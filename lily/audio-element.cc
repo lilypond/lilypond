@@ -20,13 +20,9 @@
 
 #include "audio-element.hh"
 
-Audio_element::Audio_element ()
-{
-}
+Audio_element::Audio_element () {}
 
-Audio_element::~Audio_element ()
-{
-}
+Audio_element::~Audio_element () {}
 
 char const *
 Audio_element::name () const

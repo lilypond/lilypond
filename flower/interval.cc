@@ -23,14 +23,14 @@
 
 using std::string;
 
-template<>
+template <>
 Real
 Interval_t<Real>::infinity ()
 {
   return HUGE_VAL;
 }
 
-template<>
+template <>
 int
 Interval_t<int>::infinity ()
 {

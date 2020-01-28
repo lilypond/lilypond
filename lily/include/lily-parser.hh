@@ -33,10 +33,11 @@ class Lily_parser : public Smob<Lily_parser>
 {
   SCM do_yyparse ();
   static SCM do_yyparse_trampoline (void *parser);
+
 public:
   int print_smob (SCM, scm_print_state *) const;
   SCM mark_smob () const;
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
   virtual ~Lily_parser ();
   Lily_lexer *lexer_;
   Sources *sources_;
@@ -58,18 +59,20 @@ public:
   void clear ();
   void do_init_file ();
   void include_string (const std::string &ly_code);
-  void parse_file (const std::string &init, const std::string &name, const std::string &out_name);
+  void parse_file (const std::string &init, const std::string &name,
+                   const std::string &out_name);
   void parse_string (const std::string &ly_code);
-  SCM parse_string_expression (const std::string &ly_code, const std::string &filename, int line);
-  void parser_error (const std::string&);
-  void parser_error (Input const &, const std::string&);
+  SCM parse_string_expression (const std::string &ly_code,
+                               const std::string &filename, int line);
+  void parser_error (const std::string &);
+  void parser_error (Input const &, const std::string &);
   // The following is called as yyerror
-  static void parser_error (Input const *i, Lily_parser *parser, SCM *, const std::string &s);
+  static void parser_error (Input const *i, Lily_parser *parser, SCM *,
+                            const std::string &s);
   void set_yydebug (bool);
 
   SCM make_scope () const;
 };
-
 
 Output_def *get_layout (Lily_parser *parser);
 Output_def *get_midi (Lily_parser *parser);

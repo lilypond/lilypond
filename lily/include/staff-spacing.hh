@@ -20,8 +20,8 @@
 #ifndef STAFF_SPACING_HH
 #define STAFF_SPACING_HH
 
-#include "lily-proto.hh"
 #include "grob-interface.hh"
+#include "lily-proto.hh"
 #include "spring.hh"
 
 class Staff_spacing

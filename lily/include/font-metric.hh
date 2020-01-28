@@ -28,7 +28,7 @@
 
 #include <map>
 
-static const size_t GLYPH_INDEX_INVALID(-1);
+static const size_t GLYPH_INDEX_INVALID (-1);
 
 typedef std::map<FT_UInt, FT_ULong> Index_to_charcode_map;
 
@@ -37,8 +37,9 @@ class Font_metric : public Smob<Font_metric>
 public:
   int print_smob (SCM, scm_print_state *) const;
   SCM mark_smob () const;
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
   virtual ~Font_metric ();
+
 private:
   VIRTUAL_CLASS_NAME (Font_metric);
 
@@ -49,16 +50,15 @@ public:
   // Return stencil for given std::string. output_state may be modified to
   // record the font.
   virtual Stencil text_stencil (Output_def *output_state,
-                                const std::string &text,
-                                bool music,
+                                const std::string &text, bool music,
                                 const std::string &features_str) const;
 
   virtual std::string font_name () const;
   virtual size_t count () const;
-  virtual Offset attachment_point (const std::string&) const;
+  virtual Offset attachment_point (const std::string &) const;
   virtual Offset get_indexed_wxwy (size_t) const;
   virtual Box get_indexed_char_dimensions (size_t index) const;
-  virtual size_t name_to_index (std::string) const=0;
+  virtual size_t name_to_index (std::string) const = 0;
   virtual size_t index_to_charcode (size_t) const;
   virtual Real design_size () const;
   virtual Stencil find_by_name (std::string) const;
@@ -74,7 +74,6 @@ protected:
 
   Font_metric ();
 };
-
 
 std::vector<char> pfb2pfa (const std::vector<char> &pfb);
 

@@ -55,26 +55,24 @@ init_fontconfig ()
 
   /* fontconfig's default conf file */
   void *default_conf = FcConfigFilename (NULL);
-  confs.push_back (static_cast<char*>(default_conf));
-  FcStrFree(static_cast<FcChar8*>(default_conf));
+  confs.push_back (static_cast<char *> (default_conf));
+  FcStrFree (static_cast<FcChar8 *> (default_conf));
 
   /* LilyPond local fontconfig conf file 99
      This file is loaded *after* fontconfig's default conf. */
   confs.push_back (lilypond_datadir + "/fonts/99-lilypond-fonts.conf");
 
   /* Load fontconfig conf files */
-  for (vector<string>::const_iterator it = confs.begin ();
-       it != confs.end ();
+  for (vector<string>::const_iterator it = confs.begin (); it != confs.end ();
        it++)
     {
-      if (!FcConfigParseAndLoad (font_config_global,
-                                 (FcChar8 *)it->c_str (),
+      if (!FcConfigParseAndLoad (font_config_global, (FcChar8 *)it->c_str (),
                                  FcFalse))
         error (_f ("failed to add fontconfig configuration file `%s'",
                    it->c_str ()));
       else
-        debug_output (_f ("Adding fontconfig configuration file: %s",
-                          it->c_str ()));
+        debug_output (
+            _f ("Adding fontconfig configuration file: %s", it->c_str ()));
     }
 
   /* Extra trailing slash suddenly breaks fontconfig (fc-cache 2.5.0)
@@ -92,7 +90,6 @@ init_fontconfig ()
   FcConfigSetCurrent (font_config_global);
 
   debug_output ("\n");
-
 }
 
 #else

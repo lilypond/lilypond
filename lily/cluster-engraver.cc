@@ -19,13 +19,13 @@
 */
 
 #include "engraver.hh"
-#include "spanner.hh"
-#include "note-head.hh"
-#include "note-column.hh"
-#include "pointer-group-interface.hh"
-#include "pitch.hh"
-#include "stream-event.hh"
 #include "item.hh"
+#include "note-column.hh"
+#include "note-head.hh"
+#include "pitch.hh"
+#include "pointer-group-interface.hh"
+#include "spanner.hh"
+#include "stream-event.hh"
 
 #include "translator.icc"
 
@@ -41,6 +41,7 @@ protected:
   void stop_translation_timestep ();
   virtual void process_music (); // TODO: Why virtual?  Look for others too.
   void finalize () override;
+
 private:
   vector<Stream_event *> cluster_notes_;
   Item *beacon_;
@@ -50,8 +51,7 @@ private:
   Spanner *finished_spanner_;
 };
 
-Cluster_spanner_engraver::Cluster_spanner_engraver (Context *c)
-  : Engraver (c)
+Cluster_spanner_engraver::Cluster_spanner_engraver (Context *c) : Engraver (c)
 {
   spanner_ = 0;
   finished_spanner_ = 0;
@@ -76,7 +76,6 @@ Cluster_spanner_engraver::typeset_grobs ()
         {
           finished_spanner_->set_bound (RIGHT,
                                         finished_spanner_->get_bound (LEFT));
-
         }
 
       finished_spanner_ = 0;
@@ -103,7 +102,8 @@ Cluster_spanner_engraver::process_music ()
 
       for (vsize i = 0; i < cluster_notes_.size (); i++)
         {
-          Pitch *pit = unsmob<Pitch> (cluster_notes_[i]->get_property ("pitch"));
+          Pitch *pit
+              = unsmob<Pitch> (cluster_notes_[i]->get_property ("pitch"));
 
           int p = (pit ? pit->steps () : 0) + c0;
 
@@ -111,10 +111,10 @@ Cluster_spanner_engraver::process_music ()
           pmin = std::min (pmin, p);
         }
 
-      beacon_ = make_item ("ClusterSpannerBeacon", cluster_notes_[0]->self_scm ());
-      beacon_->set_property ("positions",
-                             scm_cons (scm_from_int (pmin),
-                                       scm_from_int (pmax)));
+      beacon_
+          = make_item ("ClusterSpannerBeacon", cluster_notes_[0]->self_scm ());
+      beacon_->set_property (
+          "positions", scm_cons (scm_from_int (pmin), scm_from_int (pmax)));
     }
 
   if (beacon_ && !spanner_)
@@ -123,7 +123,8 @@ Cluster_spanner_engraver::process_music ()
   if (beacon_ && spanner_)
     {
       add_bound_item (spanner_, beacon_);
-      Pointer_group_interface::add_grob (spanner_, ly_symbol2scm ("columns"), beacon_);
+      Pointer_group_interface::add_grob (spanner_, ly_symbol2scm ("columns"),
+                                         beacon_);
     }
 }
 
@@ -163,6 +164,4 @@ ADD_TRANSLATOR (Cluster_spanner_engraver,
                 "",
 
                 /* write */
-                ""
-               );
-
+                "");

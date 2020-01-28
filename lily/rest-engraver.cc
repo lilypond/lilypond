@@ -34,10 +34,12 @@ class Rest_engraver : public Engraver
   Stream_event *rest_event_;
   Item *dot_;
   Grob *rest_;
+
 protected:
   void start_translation_timestep ();
   void process_music ();
   void listen_rest (Stream_event *);
+
 public:
   TRANSLATOR_DECLARATIONS (Rest_engraver);
 };
@@ -45,8 +47,7 @@ public:
 /*
   Should merge with Note_head_engraver
 */
-Rest_engraver::Rest_engraver (Context *c)
-  : Engraver (c)
+Rest_engraver::Rest_engraver (Context *c) : Engraver (c)
 {
   rest_event_ = 0;
   rest_ = 0;
@@ -104,5 +105,4 @@ ADD_TRANSLATOR (Rest_engraver,
                 "middleCPosition ",
 
                 /* write */
-                ""
-               );
+                "");

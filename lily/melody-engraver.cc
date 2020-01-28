@@ -27,8 +27,8 @@ class Melody_engraver : public Engraver
 {
   Grob *melody_item_;
   Grob *stem_;
-protected:
 
+protected:
   void acknowledge_stem (Grob_info);
   void acknowledge_slur (Grob_info);
   TRANSLATOR_DECLARATIONS (Melody_engraver);
@@ -37,8 +37,7 @@ protected:
   void process_music ();
 };
 
-Melody_engraver::Melody_engraver (Context *c)
-  : Engraver (c)
+Melody_engraver::Melody_engraver (Context *c) : Engraver (c)
 {
   stem_ = 0;
   melody_item_ = 0;
@@ -58,8 +57,7 @@ Melody_engraver::process_music ()
 void
 Melody_engraver::process_acknowledged ()
 {
-  if (stem_
-      && !is_direction (stem_->get_property_data ("neutral-direction")))
+  if (stem_ && !is_direction (stem_->get_property_data ("neutral-direction")))
     {
       extract_grob_set (stem_, "rests", rests);
       if (rests.size ())
@@ -80,8 +78,7 @@ Melody_engraver::stop_translation_timestep ()
   stem_ = 0;
 }
 
-void
-Melody_engraver::acknowledge_slur (Grob_info /* info */)
+void Melody_engraver::acknowledge_slur (Grob_info /* info */)
 {
   melody_item_ = 0;
 }
@@ -93,7 +90,6 @@ Melody_engraver::acknowledge_stem (Grob_info info)
 }
 
 #include "translator.icc"
-
 
 void
 Melody_engraver::boot ()
@@ -114,6 +110,4 @@ ADD_TRANSLATOR (Melody_engraver,
                 "",
 
                 /* write */
-                ""
-               );
-
+                "");

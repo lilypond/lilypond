@@ -32,4 +32,3 @@ struct Semi_tie_column
 };
 
 #endif /* SEMI_TIE_COLUMN_HH */
-

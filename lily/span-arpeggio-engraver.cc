@@ -19,8 +19,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "engraver.hh"
 #include "arpeggio.hh"
+#include "engraver.hh"
 #include "item.hh"
 #include "pointer-group-interface.hh"
 #include "separation-item.hh"
@@ -52,8 +52,7 @@ private:
   vector<Grob *> note_columns_;
 };
 
-Span_arpeggio_engraver::Span_arpeggio_engraver (Context *c)
-  : Engraver (c)
+Span_arpeggio_engraver::Span_arpeggio_engraver (Context *c) : Engraver (c)
 {
   span_arpeggio_ = 0;
 }
@@ -87,7 +86,8 @@ Span_arpeggio_engraver::process_acknowledged ()
   if (span_arpeggio_)
     {
       for (vsize i = 0; i < note_columns_.size (); i++)
-        Separation_item::add_conditional_item (note_columns_[i], span_arpeggio_);
+        Separation_item::add_conditional_item (note_columns_[i],
+                                               span_arpeggio_);
       note_columns_.clear ();
     }
 }
@@ -105,13 +105,14 @@ Span_arpeggio_engraver::stop_translation_timestep ()
         {
           extract_grob_set (arpeggios_[j], "stems", stems);
           for (vsize i = 0; i < stems.size (); i++)
-            Pointer_group_interface::add_grob (span_arpeggio_, ly_symbol2scm ("stems"),
-                                               stems[i]);
+            Pointer_group_interface::add_grob (
+                span_arpeggio_, ly_symbol2scm ("stems"), stems[i]);
 
           extract_grob_set (arpeggios_[j], "side-support-elements", sses);
           for (vsize i = 0; i < sses.size (); i++)
-            Pointer_group_interface::add_grob (span_arpeggio_, ly_symbol2scm ("side-support-elements"),
-                                               sses[i]);
+            Pointer_group_interface::add_grob (
+                span_arpeggio_, ly_symbol2scm ("side-support-elements"),
+                sses[i]);
 
           /*
             we can't kill the children, since we don't want to the
@@ -145,5 +146,4 @@ ADD_TRANSLATOR (Span_arpeggio_engraver,
                 "connectArpeggios ",
 
                 /* write */
-                ""
-               );
+                "");

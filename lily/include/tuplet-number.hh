@@ -20,9 +20,9 @@
 #ifndef Tuplet_number_HH
 #define Tuplet_number_HH
 
+#include "grob-interface.hh"
 #include "lily-proto.hh"
 #include "std-vector.hh"
-#include "grob-interface.hh"
 
 struct Tuplet_number
 {
@@ -33,10 +33,10 @@ struct Tuplet_number
 
   static Real calc_offset (Spanner *me, Axis a); // not used
 
-  static Grob *select_reference_stem (Grob *me, std::vector<Grob *> const &cols);
+  static Grob *select_reference_stem (Grob *me,
+                                      std::vector<Grob *> const &cols);
   static Drul_array<Grob *> adjacent_note_columns (Grob *me, Grob *ref_stem);
   static bool knee_position_against_beam (Grob *me, Grob *ref_stem);
 };
 
 #endif // Tuplet_number_HH
-

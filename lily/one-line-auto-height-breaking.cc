@@ -33,13 +33,11 @@
 using std::vector;
 
 One_line_auto_height_breaking::One_line_auto_height_breaking (Paper_book *pb)
-  : Page_breaking (pb, 0, 0)
+    : Page_breaking (pb, 0, 0)
 {
 }
 
-One_line_auto_height_breaking::~One_line_auto_height_breaking ()
-{
-}
+One_line_auto_height_breaking::~One_line_auto_height_breaking () {}
 
 /*
   This is a somewhat unconventional page-breaking algorithm.  Like
@@ -64,7 +62,8 @@ One_line_auto_height_breaking::solve ()
           vector<Paper_column *> cols = ps->root_system ()->used_columns ();
 
           // No indent, "infinite" line width, ragged.
-          Column_x_positions pos = get_line_configuration (cols, std::numeric_limits<Real>::max (), 0, true);
+          Column_x_positions pos = get_line_configuration (
+              cols, std::numeric_limits<Real>::max (), 0, true);
           vector<Column_x_positions> positions;
           positions.push_back (pos);
 
@@ -77,8 +76,10 @@ One_line_auto_height_breaking::solve ()
           SCM systems = scm_list_1 (system->self_scm ());
           SCM pages = make_pages (lines_per_page, systems);
 
-          max_width = std::max (max_width, system->extent (system, X_AXIS).length ());
-          max_height = std::max (max_height, system->extent (system, Y_AXIS).length ());
+          max_width
+              = std::max (max_width, system->extent (system, X_AXIS).length ());
+          max_height = std::max (max_height,
+                                 system->extent (system, Y_AXIS).length ());
           all_pages = scm_cons (scm_car (pages), all_pages);
         }
       else if (Prob *pb = system_specs_[i].prob_)
@@ -89,17 +90,24 @@ One_line_auto_height_breaking::solve ()
 
   // Alter paper-width so that it is large enough to fit every system.
   // TODO: it might be nice to allow different pages to have different widths
-  // and heights.  This would need support in the backends (eg. framework-ps.scm).
-  Real right_margin = robust_scm2double (book_->paper_->c_variable ("right-margin"), 0.0);
-  Real left_margin = robust_scm2double (book_->paper_->c_variable ("left-margin"), 0.0);
+  // and heights.  This would need support in the backends (eg.
+  // framework-ps.scm).
+  Real right_margin
+      = robust_scm2double (book_->paper_->c_variable ("right-margin"), 0.0);
+  Real left_margin
+      = robust_scm2double (book_->paper_->c_variable ("left-margin"), 0.0);
   Real width = max_width + right_margin + left_margin;
-  book_->paper_->set_variable (ly_symbol2scm ("paper-width"), scm_from_double (width));
+  book_->paper_->set_variable (ly_symbol2scm ("paper-width"),
+                               scm_from_double (width));
 
   // Alter paper-height so that it fits the height of the tallest system.
-  Real top_margin = robust_scm2double (book_->paper_->c_variable ("top-margin"), 0.0);
-  Real bottom_margin = robust_scm2double (book_->paper_->c_variable ("bottom-margin"), 0.0);
+  Real top_margin
+      = robust_scm2double (book_->paper_->c_variable ("top-margin"), 0.0);
+  Real bottom_margin
+      = robust_scm2double (book_->paper_->c_variable ("bottom-margin"), 0.0);
   Real height = max_height + top_margin + bottom_margin;
-  book_->paper_->set_variable (ly_symbol2scm ("paper-height"), scm_from_double (height));
+  book_->paper_->set_variable (ly_symbol2scm ("paper-height"),
+                               scm_from_double (height));
 
   return scm_reverse_x (all_pages, SCM_EOL);
 }

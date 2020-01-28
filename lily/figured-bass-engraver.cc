@@ -79,19 +79,17 @@ struct Figure_group
   }
   bool group_is_equal_to (Stream_event *evt) const
   {
-    return
-      ly_is_equal (number_, evt->get_property ("figure"))
-      && ly_is_equal (alteration_, evt->get_property ("alteration"))
-      && ly_is_equal (augmented_, evt->get_property ("augmented"))
-      && ly_is_equal (diminished_, evt->get_property ("diminished"))
-      && ly_is_equal (augmented_slash_, evt->get_property ("augmented-slash"))
-      && ly_is_equal (text_, evt->get_property ("text"));
+    return ly_is_equal (number_, evt->get_property ("figure"))
+           && ly_is_equal (alteration_, evt->get_property ("alteration"))
+           && ly_is_equal (augmented_, evt->get_property ("augmented"))
+           && ly_is_equal (diminished_, evt->get_property ("diminished"))
+           && ly_is_equal (augmented_slash_,
+                           evt->get_property ("augmented-slash"))
+           && ly_is_equal (text_, evt->get_property ("text"));
   }
   bool is_continuation () const
   {
-    return
-      current_event_
-      && group_is_equal_to (current_event_);
+    return current_event_ && group_is_equal_to (current_event_);
   }
   void assign_from_event (Stream_event *currevt, Item *item)
   {
@@ -114,6 +112,7 @@ struct Figured_bass_engraver : public Engraver
 
   void center_continuations (vector<Spanner *> const &consecutive_lines);
   void center_repeated_continuations ();
+
 protected:
   vector<Figure_group> groups_;
   Spanner *alignment_;
@@ -134,8 +133,7 @@ protected:
   void process_music ();
 };
 
-Figured_bass_engraver::Figured_bass_engraver (Context *c)
-  : Engraver (c)
+Figured_bass_engraver::Figured_bass_engraver (Context *c) : Engraver (c)
 {
   alignment_ = 0;
   continuation_ = false;
@@ -170,8 +168,7 @@ Figured_bass_engraver::start_translation_timestep ()
 void
 Figured_bass_engraver::stop_translation_timestep ()
 {
-  if (groups_.empty ()
-      || now_mom ().main_part_ < stop_moment_.main_part_
+  if (groups_.empty () || now_mom ().main_part_ < stop_moment_.main_part_
       || now_mom ().grace_part_ < Rational (0))
     return;
 
@@ -203,8 +200,7 @@ Figured_bass_engraver::listen_bass_figure (Stream_event *ev)
     {
       for (vsize i = 0; i < groups_.size (); i++)
         {
-          if (!groups_[i].current_event_
-              && groups_[i].group_is_equal_to (ev))
+          if (!groups_[i].current_event_ && groups_[i].group_is_equal_to (ev))
             {
               groups_[i].current_event_ = ev;
               continuation_ = true;
@@ -216,7 +212,8 @@ Figured_bass_engraver::listen_bass_figure (Stream_event *ev)
 }
 
 void
-Figured_bass_engraver::center_continuations (vector<Spanner *> const &consecutive_lines)
+Figured_bass_engraver::center_continuations (
+    vector<Spanner *> const &consecutive_lines)
 {
   vector<Grob *> left_figs;
   for (vsize j = consecutive_lines.size (); j--;)
@@ -236,13 +233,16 @@ Figured_bass_engraver::center_repeated_continuations ()
   vector<Spanner *> consecutive_lines;
   for (vsize i = 0; i <= groups_.size (); i++)
     {
-      if (i < groups_.size ()
-          && groups_[i].continuation_line_
+      if (i < groups_.size () && groups_[i].continuation_line_
           && (consecutive_lines.empty ()
               || (consecutive_lines[0]->get_bound (LEFT)->get_column ()
-                  == groups_[i].continuation_line_->get_bound (LEFT)->get_column ()
+                      == groups_[i]
+                             .continuation_line_->get_bound (LEFT)
+                             ->get_column ()
                   && consecutive_lines[0]->get_bound (RIGHT)->get_column ()
-                  == groups_[i].continuation_line_->get_bound (RIGHT)->get_column ())))
+                         == groups_[i]
+                                .continuation_line_->get_bound (RIGHT)
+                                ->get_column ())))
         consecutive_lines.push_back (groups_[i].continuation_line_);
       else
         {
@@ -289,10 +289,10 @@ Figured_bass_engraver::process_music ()
   if (alignment_ && !use_extenders)
     clear_spanners ();
 
-  // If we have a rest, or we have no new or continued events, clear all spanners
+  // If we have a rest, or we have no new or continued events, clear all
+  // spanners
   bool ignore_rest = to_boolean (get_property ("ignoreFiguredBassRest"));
-  if ((ignore_rest && have_rest_)
-      || (!continuation_ && new_events_.empty ()))
+  if ((ignore_rest && have_rest_) || (!continuation_ && new_events_.empty ()))
     {
       clear_spanners ();
       groups_.clear ();
@@ -321,8 +321,7 @@ Figured_bass_engraver::process_music ()
   vsize k = 0;
   for (vsize i = 0; i < new_events_.size (); i++)
     {
-      while (k < groups_.size ()
-             && groups_[k].current_event_)
+      while (k < groups_.size () && groups_[k].current_event_)
         k++;
 
       if (k >= groups_.size ())
@@ -357,7 +356,7 @@ Figured_bass_engraver::process_music ()
               if (!group.continuation_line_)
                 {
                   Spanner *line
-                    = make_spanner ("BassFigureContinuation", SCM_EOL);
+                      = make_spanner ("BassFigureContinuation", SCM_EOL);
                   Item *item = group.figure_item_;
                   group.continuation_line_ = line;
                   line->set_bound (LEFT, item);
@@ -367,7 +366,8 @@ Figured_bass_engraver::process_music ()
                     (pre-break) stencil when callbacks are triggered.
                   */
                   line->set_parent (group.group_, Y_AXIS);
-                  Pointer_group_interface::add_grob (line, ly_symbol2scm ("figures"), item);
+                  Pointer_group_interface::add_grob (
+                      line, ly_symbol2scm ("figures"), item);
 
                   group.figure_item_ = 0;
                 }
@@ -385,14 +385,18 @@ Figured_bass_engraver::process_music ()
           for (vsize i = 0; i <= junk_continuations.size (); i++)
             {
               if (i < junk_continuations.size ()
-                  && (i == 0 || junk_continuations[i - 1] == junk_continuations[i] - 1))
-                consecutive.push_back (groups_[junk_continuations[i]].continuation_line_);
+                  && (i == 0
+                      || junk_continuations[i - 1]
+                             == junk_continuations[i] - 1))
+                consecutive.push_back (
+                    groups_[junk_continuations[i]].continuation_line_);
               else
                 {
                   center_continuations (consecutive);
                   consecutive.clear ();
                   if (i < junk_continuations.size ())
-                    consecutive.push_back (groups_[junk_continuations[i]].continuation_line_);
+                    consecutive.push_back (
+                        groups_[junk_continuations[i]].continuation_line_);
                 }
             }
         }
@@ -407,8 +411,7 @@ Figured_bass_engraver::process_music ()
 void
 Figured_bass_engraver::create_grobs ()
 {
-  Grob *muscol
-    = unsmob<Item> (get_property ("currentMusicalColumn"));
+  Grob *muscol = unsmob<Item> (get_property ("currentMusicalColumn"));
   if (!alignment_)
     {
       alignment_ = make_spanner ("BassFigureAlignment", SCM_EOL);
@@ -424,7 +427,7 @@ Figured_bass_engraver::create_grobs ()
       if (group.current_event_)
         {
           Item *item
-            = make_item ("BassFigure", group.current_event_->self_scm ());
+              = make_item ("BassFigure", group.current_event_->self_scm ());
           group.assign_from_event (group.current_event_, item);
 
           if (!group.group_)
@@ -434,17 +437,18 @@ Figured_bass_engraver::create_grobs ()
               Align_interface::add_element (alignment_, group.group_);
             }
 
-          if (scm_is_true (scm_memq (group.number_, get_property ("implicitBassFigures"))))
+          if (scm_is_true (scm_memq (group.number_,
+                                     get_property ("implicitBassFigures"))))
             {
               item->set_property ("transparent", SCM_BOOL_T);
               item->set_property ("implicit", SCM_BOOL_T);
             }
 
           SCM text = group.text_;
-          if (!Text_interface::is_markup (text)
-              && ly_is_procedure (proc))
+          if (!Text_interface::is_markup (text) && ly_is_procedure (proc))
             {
-              text = scm_call_3 (proc, group.number_, group.current_event_->self_scm (),
+              text = scm_call_3 (proc, group.number_,
+                                 group.current_event_->self_scm (),
                                  context ()->self_scm ());
             }
 
@@ -468,9 +472,7 @@ Figured_bass_engraver::create_grobs ()
 
       if (groups_[i].group_)
         groups_[i].group_->set_bound (RIGHT, muscol);
-
     }
-
 }
 
 void
@@ -483,7 +485,8 @@ Figured_bass_engraver::add_brackets ()
       if (!groups_[i].current_event_)
         continue;
 
-      if (to_boolean (groups_[i].current_event_->get_property ("bracket-start")))
+      if (to_boolean (
+              groups_[i].current_event_->get_property ("bracket-start")))
         inside = true;
 
       if (inside && groups_[i].figure_item_)
@@ -493,12 +496,12 @@ Figured_bass_engraver::add_brackets ()
         {
           inside = false;
 
-          Item *brack = make_item ("BassFigureBracket", groups_[i].current_event_->self_scm ());
+          Item *brack = make_item ("BassFigureBracket",
+                                   groups_[i].current_event_->self_scm ());
           for (vsize j = 0; j < encompass.size (); j++)
             {
-              Pointer_group_interface::add_grob (brack,
-                                                 ly_symbol2scm ("elements"),
-                                                 encompass[j]);
+              Pointer_group_interface::add_grob (
+                  brack, ly_symbol2scm ("elements"), encompass[j]);
             }
           encompass.clear ();
         }
@@ -532,5 +535,4 @@ ADD_TRANSLATOR (Figured_bass_engraver,
                 "ignoreFiguredBassRest ",
 
                 /* write */
-                ""
-               );
+                "");

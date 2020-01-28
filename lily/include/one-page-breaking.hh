@@ -23,13 +23,14 @@
 #include "page-breaking.hh"
 #include "page-spacing.hh"
 
-class One_page_breaking: public Page_breaking
+class One_page_breaking : public Page_breaking
 {
 public:
   SCM solve () override;
 
   One_page_breaking (Paper_book *pb);
   virtual ~One_page_breaking ();
+
 private:
   SCM read_spacing_alist (SCM spec, SCM sym);
 };

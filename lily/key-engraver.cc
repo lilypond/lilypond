@@ -37,6 +37,7 @@ class Key_engraver : public Engraver
   Stream_event *key_event_;
   Item *item_;
   Item *cancellation_;
+
 public:
   TRANSLATOR_DECLARATIONS (Key_engraver);
 
@@ -56,8 +57,7 @@ Key_engraver::finalize ()
 {
 }
 
-Key_engraver::Key_engraver (Context *c)
-  : Engraver (c)
+Key_engraver::Key_engraver (Context *c) : Engraver (c)
 {
   key_event_ = 0;
   item_ = 0;
@@ -76,8 +76,7 @@ Key_engraver::create_key (bool is_default)
        * notes with a different clef will modify middleCPosition. The
        * Key signature, however, should still be printed at the original
        * position. */
-      item_->set_property ("c0-position",
-                           get_property ("middleCClefPosition"));
+      item_->set_property ("c0-position", get_property ("middleCClefPosition"));
 
       SCM last = get_property ("lastKeyAlterations");
       SCM key = get_property ("keyAlterations");
@@ -92,7 +91,8 @@ Key_engraver::create_key (bool is_default)
               SCM new_alter_pair = scm_assoc (scm_caar (s), key);
               Rational old_alter = robust_scm2rational (scm_cdar (s), 0);
               if (scm_is_false (new_alter_pair)
-                  || ((ly_scm2rational (scm_cdr (new_alter_pair)) - old_alter) * old_alter
+                  || ((ly_scm2rational (scm_cdr (new_alter_pair)) - old_alter)
+                          * old_alter
                       < Rational (0)))
                 {
                   restore = scm_cons (scm_car (s), restore);
@@ -101,13 +101,13 @@ Key_engraver::create_key (bool is_default)
 
           if (scm_is_pair (restore))
             {
-              cancellation_ = make_item ("KeyCancellation",
-                                         key_event_
-                                         ? key_event_->self_scm () : SCM_EOL);
+              cancellation_
+                  = make_item ("KeyCancellation",
+                               key_event_ ? key_event_->self_scm () : SCM_EOL);
 
               cancellation_->set_property ("alteration-alist", restore);
-              cancellation_->set_property ("c0-position",
-                                           get_property ("middleCClefPosition"));
+              cancellation_->set_property (
+                  "c0-position", get_property ("middleCClefPosition"));
             }
         }
 
@@ -130,16 +130,14 @@ Key_engraver::listen_key_change (Stream_event *ev)
     read_event (key_event_);
 }
 
-void
-Key_engraver::acknowledge_clef (Grob_info /* info */)
+void Key_engraver::acknowledge_clef (Grob_info /* info */)
 {
   SCM c = get_property ("createKeyOnClefChange");
   if (to_boolean (c))
     create_key (false);
 }
 
-void
-Key_engraver::acknowledge_bar_line (Grob_info /* info */)
+void Key_engraver::acknowledge_bar_line (Grob_info /* info */)
 {
   create_key (true);
 }
@@ -157,7 +155,8 @@ void
 Key_engraver::stop_translation_timestep ()
 {
   item_ = 0;
-  context ()->set_property ("lastKeyAlterations", get_property ("keyAlterations"));
+  context ()->set_property ("lastKeyAlterations",
+                            get_property ("keyAlterations"));
   cancellation_ = 0;
   key_event_ = 0;
 }
@@ -173,8 +172,7 @@ Key_engraver::read_event (Stream_event const *r)
 
   SCM alist = scm_list_copy (p);
   SCM order = get_property ("keyAlterationOrder");
-  for (SCM s = order;
-       scm_is_pair (s) && scm_is_pair (alist); s = scm_cdr (s))
+  for (SCM s = order; scm_is_pair (s) && scm_is_pair (alist); s = scm_cdr (s))
     {
       SCM head = scm_member (scm_car (s), alist);
 
@@ -196,12 +194,12 @@ Key_engraver::read_event (Stream_event const *r)
           }
 
       if (warn)
-        r->origin ()->warning (_ ("Incomplete keyAlterationOrder for key signature"));
+        r->origin ()->warning (
+            _ ("Incomplete keyAlterationOrder for key signature"));
     }
 
   context ()->set_property ("keyAlterations", scm_reverse_x (accs, SCM_EOL));
-  context ()->set_property ("tonic",
-                            r->get_property ("tonic"));
+  context ()->set_property ("tonic", r->get_property ("tonic"));
 }
 
 void
@@ -213,7 +211,6 @@ Key_engraver::initialize ()
   Pitch p;
   context ()->set_property ("tonic", p.smobbed_copy ());
 }
-
 
 void
 Key_engraver::boot ()
@@ -244,5 +241,4 @@ ADD_TRANSLATOR (Key_engraver,
                 /* write */
                 "keyAlterations "
                 "lastKeyAlterations "
-                "tonic "
-               );
+                "tonic ");

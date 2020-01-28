@@ -20,8 +20,8 @@
 #ifndef DIRECTION_HH
 #define DIRECTION_HH
 
-#include <algorithm>
 #include "axis.hh"
+#include <algorithm>
 
 enum Direction
 {
@@ -50,25 +50,33 @@ enum Direction
 };
 
 inline Direction
-operator - (Direction d)
+operator- (Direction d)
 {
-  return Direction (- static_cast<int> (d)); // cast avoids recursion
+  return Direction (-static_cast<int> (d)); // cast avoids recursion
 }
 
-#define UP_and_DOWN(d) \
-  Direction d = UP; d != CENTER; d = (d == UP ? DOWN : CENTER)
+#define UP_and_DOWN(d)                                                         \
+  Direction d = UP;                                                            \
+  d != CENTER;                                                                 \
+  d = (d == UP ? DOWN : CENTER)
 
-#define DOWN_and_UP(d) \
-  Direction d = DOWN; d != CENTER; d = (d == DOWN ? UP : CENTER)
+#define DOWN_and_UP(d)                                                         \
+  Direction d = DOWN;                                                          \
+  d != CENTER;                                                                 \
+  d = (d == DOWN ? UP : CENTER)
 
-#define LEFT_and_RIGHT(d) \
-  Direction d = LEFT; d != CENTER; d = (d == LEFT ? RIGHT : CENTER)
+#define LEFT_and_RIGHT(d)                                                      \
+  Direction d = LEFT;                                                          \
+  d != CENTER;                                                                 \
+  d = (d == LEFT ? RIGHT : CENTER)
 
 /**
    if d > 0: the max operator
    if d < 0: the min operator
 */
-template<class T> T minmax (Direction d, T a, T b)
+template <class T>
+T
+minmax (Direction d, T a, T b)
 {
   if (d == UP)
     return std::max (a, b);

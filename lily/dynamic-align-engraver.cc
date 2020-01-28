@@ -60,14 +60,12 @@ private:
   set<Spanner *> running_;
 };
 
-Dynamic_align_engraver::Dynamic_align_engraver (Context *c)
-  : Engraver (c)
+Dynamic_align_engraver::Dynamic_align_engraver (Context *c) : Engraver (c)
 {
   line_ = 0;
   ended_line_ = 0;
   current_dynamic_spanner_ = 0;
 }
-
 
 void
 Dynamic_align_engraver::create_line_spanner (Grob *cause)
@@ -176,8 +174,7 @@ Dynamic_align_engraver::set_spanner_bounds (Spanner *line, bool end)
       if ((d == LEFT && !line->get_bound (LEFT))
           || (end && d == RIGHT && !line->get_bound (RIGHT)))
         {
-          vector<Spanner *> const &spanners
-            = (d == LEFT) ? started_ : ended_;
+          vector<Spanner *> const &spanners = (d == LEFT) ? started_ : ended_;
 
           Grob *bound = 0;
           if (scripts_.size ())
@@ -187,7 +184,8 @@ Dynamic_align_engraver::set_spanner_bounds (Spanner *line, bool end)
           else
             {
               bound = unsmob<Grob> (get_property ("currentMusicalColumn"));
-              programming_error ("started DynamicLineSpanner but have no left bound");
+              programming_error (
+                  "started DynamicLineSpanner but have no left bound");
             }
 
           line->set_bound (d, bound);
@@ -221,7 +219,8 @@ Dynamic_align_engraver::stop_translation_timestep ()
   // add any more support points (needed e.g. for style=none, where the
   // invisible spanner should NOT be shifted since we don't have a line).
   bool spanner_broken = current_dynamic_spanner_
-                        && to_boolean (current_dynamic_spanner_->get_property ("spanner-broken"));
+                        && to_boolean (current_dynamic_spanner_->get_property (
+                            "spanner-broken"));
   for (vsize i = 0; line_ && !spanner_broken && i < support_.size (); i++)
     Side_position_interface::add_support (line_, support_[i]);
 
@@ -258,5 +257,4 @@ ADD_TRANSLATOR (Dynamic_align_engraver,
                 "currentMusicalColumn ",
 
                 /* write */
-                ""
-               );
+                "");

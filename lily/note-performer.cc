@@ -17,10 +17,10 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "performer.hh"
-#include "audio-item.hh"
 #include "audio-column.hh"
+#include "audio-item.hh"
 #include "global-context.hh"
+#include "performer.hh"
 #include "stream-event.hh"
 #include "warn.hh"
 
@@ -41,6 +41,7 @@ protected:
   void listen_breathing (Stream_event *);
   void listen_tie (Stream_event *);
   void listen_articulation (Stream_event *);
+
 private:
   vector<Stream_event *> note_evs_, script_evs_;
   vector<Audio_note *> notes_;
@@ -73,7 +74,8 @@ Note_performer::process_music ()
           int velocity = 0;
 
           for (vsize j = script_evs_.size (); j--;)
-            articulations = scm_cons (script_evs_[j]->self_scm (), articulations);
+            articulations
+                = scm_cons (script_evs_[j]->self_scm (), articulations);
 
           for (SCM s = articulations; scm_is_pair (s); s = scm_cdr (s))
             {
@@ -88,11 +90,12 @@ Note_performer::process_music ()
                 len = robust_scm2moment (scm_call_2 (f, len.smobbed_copy (),
                                                      context ()->self_scm ()),
                                          len);
-              velocity += robust_scm2int (ev->get_property ("midi-extra-velocity"), 0);
+              velocity += robust_scm2int (
+                  ev->get_property ("midi-extra-velocity"), 0);
             }
 
-          Audio_note *p = new Audio_note (*pitp, len,
-                                          tie_event, transposing, velocity);
+          Audio_note *p
+              = new Audio_note (*pitp, len, tie_event, transposing, velocity);
           Audio_element_info info (p, n);
           announce_element (info);
           notes_.push_back (p);
@@ -109,8 +112,8 @@ Note_performer::process_music ()
                     {
                       Audio_note *tie_head = last_notes_[i]->tie_head ();
                       Moment start = tie_head->audio_column_->when ();
-                      //Shorten the note if it would overlap. It might
-                      //not if there's a rest in between.
+                      // Shorten the note if it would overlap. It might
+                      // not if there's a rest in between.
                       if (start + tie_head->length_mom_ > now_mom ())
                         tie_head->length_mom_ = now_mom () - start;
                     }
@@ -155,19 +158,21 @@ Note_performer::listen_articulation (Stream_event *ev)
 void
 Note_performer::listen_breathing (Stream_event *ev)
 {
-  //Shorten previous note if needed
+  // Shorten previous note if needed
   SCM f = ev->get_property ("midi-length");
   if (ly_is_procedure (f))
     for (vsize i = 0; i < last_notes_.size (); i++)
       {
-        //Pass midi-length the available time since the last note started,
-        //including any intervening rests. It returns how much is left for the
-        //note.
+        // Pass midi-length the available time since the last note started,
+        // including any intervening rests. It returns how much is left for the
+        // note.
         Moment start = last_notes_[i]->audio_column_->when ();
         Moment available = now_mom () - start;
-        Moment len = robust_scm2moment (scm_call_2 (f, available.smobbed_copy (),
-                                                    context ()->self_scm ()), available);
-        //Take time from the first note of the tie, since it has all the length.
+        Moment len = robust_scm2moment (
+            scm_call_2 (f, available.smobbed_copy (), context ()->self_scm ()),
+            available);
+        // Take time from the first note of the tie, since it has all the
+        // length.
         Audio_note *tie_head = last_notes_[i]->tie_head ();
         len += start - tie_head->audio_column_->when ();
         if (len < tie_head->length_mom_)
@@ -195,10 +200,6 @@ ADD_TRANSLATOR (Note_performer,
                 "",
 
                 /* write */
-                ""
-               );
+                "");
 
-Note_performer::Note_performer (Context *c)
-  : Performer (c)
-{
-}
+Note_performer::Note_performer (Context *c) : Performer (c) {}

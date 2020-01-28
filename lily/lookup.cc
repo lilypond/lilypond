@@ -21,17 +21,17 @@
 
 #include "lookup.hh"
 
-#include <cmath>
 #include <cctype>
+#include <cmath>
 
-#include "line-interface.hh"
-#include "warn.hh"
-#include "international.hh"
-#include "dimensions.hh"
 #include "bezier.hh"
+#include "dimensions.hh"
 #include "file-path.hh"
-#include "main.hh"
+#include "international.hh"
 #include "lily-guile.hh"
+#include "line-interface.hh"
+#include "main.hh"
+#include "warn.hh"
 
 using std::vector;
 
@@ -49,37 +49,31 @@ Lookup::beam (Real slope, Real width, Real thick, Real blot)
   SCM points = SCM_EOL;
 
   points = scm_cons (scm_from_double (p[X_AXIS]),
-                     scm_cons (scm_from_double (p[Y_AXIS]),
-                               points));
+                     scm_cons (scm_from_double (p[Y_AXIS]), points));
 
   p = Offset (0, -thick / 2);
   b.add_point (p);
   p += Offset (1, 1) * (blot / 2);
 
   points = scm_cons (scm_from_double (p[X_AXIS]),
-                     scm_cons (scm_from_double (p[Y_AXIS]),
-                               points));
+                     scm_cons (scm_from_double (p[Y_AXIS]), points));
 
   p = Offset (width, width * slope - thick / 2);
   b.add_point (p);
   p += Offset (-1, 1) * (blot / 2);
 
   points = scm_cons (scm_from_double (p[X_AXIS]),
-                     scm_cons (scm_from_double (p[Y_AXIS]),
-                               points));
+                     scm_cons (scm_from_double (p[Y_AXIS]), points));
 
   p = Offset (width, width * slope + thick / 2);
   b.add_point (p);
   p += Offset (-1, -1) * (blot / 2);
 
   points = scm_cons (scm_from_double (p[X_AXIS]),
-                     scm_cons (scm_from_double (p[Y_AXIS]),
-                               points));
+                     scm_cons (scm_from_double (p[Y_AXIS]), points));
 
-  SCM expr = scm_list_4 (ly_symbol2scm ("polygon"),
-                         ly_quote_scm (points),
-                         scm_from_double (blot),
-                         SCM_BOOL_T);
+  SCM expr = scm_list_4 (ly_symbol2scm ("polygon"), ly_quote_scm (points),
+                         scm_from_double (blot), SCM_BOOL_T);
 
   return Stencil (b, expr);
 }
@@ -100,12 +94,9 @@ Lookup::rotated_box (Real slope, Real width, Real thick, Real blot)
 Stencil
 Lookup::horizontal_line (Interval w, Real th)
 {
-  SCM at = scm_list_n (ly_symbol2scm ("draw-line"),
-                       scm_from_double (th),
-                       scm_from_double (w[LEFT]),
-                       scm_from_double (0),
-                       scm_from_double (w[RIGHT]),
-                       scm_from_double (0),
+  SCM at = scm_list_n (ly_symbol2scm ("draw-line"), scm_from_double (th),
+                       scm_from_double (w[LEFT]), scm_from_double (0),
+                       scm_from_double (w[RIGHT]), scm_from_double (0),
                        SCM_UNDEFINED);
 
   Box box;
@@ -125,10 +116,9 @@ Stencil
 Lookup::circle (Real rad, Real thick, bool filled)
 {
   Box b (Interval (-rad, rad), Interval (-rad, rad));
-  return Stencil (b, scm_list_4 (ly_symbol2scm ("circle"),
-                                 scm_from_double (rad),
-                                 scm_from_double (thick),
-                                 scm_from_bool (filled)));
+  return Stencil (b,
+                  scm_list_4 (ly_symbol2scm ("circle"), scm_from_double (rad),
+                              scm_from_double (thick), scm_from_bool (filled)));
 }
 
 Stencil
@@ -180,13 +170,11 @@ Lookup::round_filled_box (Box b, Real blotdiameter)
       return Stencil (b, SCM_EOL);
     }
 
-  SCM at = (scm_list_n (ly_symbol2scm ("round-filled-box"),
-                        scm_from_double (-b[X_AXIS][LEFT]),
-                        scm_from_double (b[X_AXIS][RIGHT]),
-                        scm_from_double (-b[Y_AXIS][DOWN]),
-                        scm_from_double (b[Y_AXIS][UP]),
-                        scm_from_double (blotdiameter),
-                        SCM_UNDEFINED));
+  SCM at = (scm_list_n (
+      ly_symbol2scm ("round-filled-box"), scm_from_double (-b[X_AXIS][LEFT]),
+      scm_from_double (b[X_AXIS][RIGHT]), scm_from_double (-b[Y_AXIS][DOWN]),
+      scm_from_double (b[Y_AXIS][UP]), scm_from_double (blotdiameter),
+      SCM_UNDEFINED));
 
   return Stencil (b, at);
 }
@@ -239,8 +227,7 @@ Lookup::round_filled_box (Box b, Real blotdiameter)
  * outside of the given polygon.
  */
 Stencil
-Lookup::round_filled_polygon (vector<Offset> const &points,
-                              Real blotdiameter,
+Lookup::round_filled_polygon (vector<Offset> const &points, Real blotdiameter,
                               Real extroversion)
 {
   /* TODO: Maybe print a warning if one of the above limitations
@@ -265,12 +252,14 @@ Lookup::round_filled_polygon (vector<Offset> const &points,
     return Stencil ();
   if (points.size () == 1)
     {
-      Stencil circ = circle (0.5 * (1.0 + extroversion) * blotdiameter, 0, true);
+      Stencil circ
+          = circle (0.5 * (1.0 + extroversion) * blotdiameter, 0, true);
       circ.translate (points[0]);
       return circ;
     }
   if (points.size () == 2)
-    return Line_interface::make_line ((1.0 + extroversion) * blotdiameter, points[0], points[1]);
+    return Line_interface::make_line ((1.0 + extroversion) * blotdiameter,
+                                      points[0], points[1]);
 
   vector<Offset> shrunk_points;
 
@@ -306,7 +295,8 @@ Lookup::round_filled_polygon (vector<Offset> const &points,
           last = here;
         }
 
-      bool ccw = area >= 0.0;  // true if whole shape is counterclockwise oriented
+      bool ccw
+          = area >= 0.0; // true if whole shape is counterclockwise oriented
 
       shrunk_points.resize (points.size ());
 
@@ -320,8 +310,8 @@ Lookup::round_filled_polygon (vector<Offset> const &points,
           Offset p2 = points[i2];
           Offset p01 = p1 - p0;
           Offset p12 = p2 - p1;
-          Offset inward0 = Offset(-p01[Y_AXIS], p01[X_AXIS]).direction ();
-          Offset inward2 = Offset(-p12[Y_AXIS], p12[X_AXIS]).direction ();
+          Offset inward0 = Offset (-p01[Y_AXIS], p01[X_AXIS]).direction ();
+          Offset inward2 = Offset (-p12[Y_AXIS], p12[X_AXIS]).direction ();
 
           if (!ccw)
             {
@@ -329,7 +319,7 @@ Lookup::round_filled_polygon (vector<Offset> const &points,
               inward2 = -inward2;
             }
 
-          Offset middle = 0.5*(inward0 + inward2);
+          Offset middle = 0.5 * (inward0 + inward2);
 
           // "middle" now is a vector in the right direction for the
           // shrinkage.  Its size needs to be large enough that the
@@ -354,8 +344,8 @@ Lookup::round_filled_polygon (vector<Offset> const &points,
           if (abs (proj) < 0.03)
             proj = proj < 0 ? -0.03 : 0.03;
 
-          shrunk_points[i1] = p1 - (0.5 * blotdiameter / proj) * middle
-                          * extroversion;
+          shrunk_points[i1]
+              = p1 - (0.5 * blotdiameter / proj) * middle * extroversion;
         }
     }
 
@@ -371,12 +361,11 @@ Lookup::round_filled_polygon (vector<Offset> const &points,
       box.add_point (points[i]);
       shrunk_box.add_point (shrunk_points[i]);
     }
-  shrunk_box.widen (0.5*blotdiameter, 0.5*blotdiameter);
+  shrunk_box.widen (0.5 * blotdiameter, 0.5 * blotdiameter);
   box.unite (shrunk_box);
-  SCM polygon_scm = scm_list_4 (ly_symbol2scm ("polygon"),
-                                ly_quote_scm (shrunk_points_scm),
-                                scm_from_double (blotdiameter),
-                                SCM_BOOL_T);
+  SCM polygon_scm
+      = scm_list_4 (ly_symbol2scm ("polygon"), ly_quote_scm (shrunk_points_scm),
+                    scm_from_double (blotdiameter), SCM_BOOL_T);
 
   Stencil polygon = Stencil (box, polygon_scm);
   return polygon;
@@ -409,8 +398,7 @@ Lookup::frame (Box b, Real thick, Real blot)
   Make a smooth curve along the points
 */
 Stencil
-Lookup::slur (Bezier curve, Real curvethick, Real linethick,
-              SCM dash_details)
+Lookup::slur (Bezier curve, Real curvethick, Real linethick, SCM dash_details)
 {
   Stencil return_value;
 
@@ -442,34 +430,31 @@ Lookup::slur (Bezier curve, Real curvethick, Real linethick,
           Real t_min = robust_scm2double (scm_car (dash_pattern), 0);
           Real t_max = robust_scm2double (scm_cadr (dash_pattern), 1.0);
           Real dash_fraction
-            = robust_scm2double (scm_caddr (dash_pattern), 1.0);
+              = robust_scm2double (scm_caddr (dash_pattern), 1.0);
           Real dash_period
-            = robust_scm2double (scm_cadddr (dash_pattern), 0.75);
+              = robust_scm2double (scm_cadddr (dash_pattern), 0.75);
           Bezier back_segment = back.extract (t_min, t_max);
           Bezier curve_segment = curve.extract (t_min, t_max);
           if (dash_fraction == 1.0)
-            return_value.add_stencil (bezier_sandwich (back_segment,
-                                                       curve_segment,
-                                                       linethick));
+            return_value.add_stencil (
+                bezier_sandwich (back_segment, curve_segment, linethick));
           else
             {
               Bezier back_dash, curve_dash;
-              Real seg_length = (back_segment.control_[3]
-                                 - back_segment.control_[0]).length ();
-              int pattern_count = (int) (seg_length / dash_period);
+              Real seg_length
+                  = (back_segment.control_[3] - back_segment.control_[0])
+                        .length ();
+              int pattern_count = (int)(seg_length / dash_period);
               Real pattern_length = 1.0 / (pattern_count + dash_fraction);
               Real start_t, end_t;
               for (int p = 0; p <= pattern_count; p++)
                 {
                   start_t = p * pattern_length;
                   end_t = (p + dash_fraction) * pattern_length;
-                  back_dash
-                    = back_segment.extract (start_t, end_t);
-                  curve_dash
-                    = curve_segment.extract (start_t, end_t);
-                  return_value.add_stencil (bezier_sandwich (back_dash,
-                                                             curve_dash,
-                                                             linethick));
+                  back_dash = back_segment.extract (start_t, end_t);
+                  curve_dash = curve_segment.extract (start_t, end_t);
+                  return_value.add_stencil (
+                      bezier_sandwich (back_dash, curve_dash, linethick));
                 }
             }
         }
@@ -503,36 +488,31 @@ Lookup::slur (Bezier curve, Real curvethick, Real linethick,
 Stencil
 Lookup::bezier_sandwich (Bezier top_curve, Bezier bottom_curve, Real thickness)
 {
-  SCM commands = scm_list_n (ly_symbol2scm ("moveto"),
-                             scm_from_double (top_curve.control_[0][X_AXIS]),
-                             scm_from_double (top_curve.control_[0][Y_AXIS]),
-                             ly_symbol2scm ("curveto"),
-                             scm_from_double (top_curve.control_[1][X_AXIS]),
-                             scm_from_double (top_curve.control_[1][Y_AXIS]),
-                             scm_from_double (top_curve.control_[2][X_AXIS]),
-                             scm_from_double (top_curve.control_[2][Y_AXIS]),
-                             scm_from_double (top_curve.control_[3][X_AXIS]),
-                             scm_from_double (top_curve.control_[3][Y_AXIS]),
-                             ly_symbol2scm ("lineto"),
-                             scm_from_double (bottom_curve.control_[3][X_AXIS]),
-                             scm_from_double (bottom_curve.control_[3][Y_AXIS]),
-                             ly_symbol2scm ("curveto"),
-                             scm_from_double (bottom_curve.control_[2][X_AXIS]),
-                             scm_from_double (bottom_curve.control_[2][Y_AXIS]),
-                             scm_from_double (bottom_curve.control_[1][X_AXIS]),
-                             scm_from_double (bottom_curve.control_[1][Y_AXIS]),
-                             scm_from_double (bottom_curve.control_[0][X_AXIS]),
-                             scm_from_double (bottom_curve.control_[0][Y_AXIS]),
-                             ly_symbol2scm ("closepath"),
-                             SCM_UNDEFINED);
+  SCM commands = scm_list_n (
+      ly_symbol2scm ("moveto"), scm_from_double (top_curve.control_[0][X_AXIS]),
+      scm_from_double (top_curve.control_[0][Y_AXIS]),
+      ly_symbol2scm ("curveto"),
+      scm_from_double (top_curve.control_[1][X_AXIS]),
+      scm_from_double (top_curve.control_[1][Y_AXIS]),
+      scm_from_double (top_curve.control_[2][X_AXIS]),
+      scm_from_double (top_curve.control_[2][Y_AXIS]),
+      scm_from_double (top_curve.control_[3][X_AXIS]),
+      scm_from_double (top_curve.control_[3][Y_AXIS]), ly_symbol2scm ("lineto"),
+      scm_from_double (bottom_curve.control_[3][X_AXIS]),
+      scm_from_double (bottom_curve.control_[3][Y_AXIS]),
+      ly_symbol2scm ("curveto"),
+      scm_from_double (bottom_curve.control_[2][X_AXIS]),
+      scm_from_double (bottom_curve.control_[2][Y_AXIS]),
+      scm_from_double (bottom_curve.control_[1][X_AXIS]),
+      scm_from_double (bottom_curve.control_[1][Y_AXIS]),
+      scm_from_double (bottom_curve.control_[0][X_AXIS]),
+      scm_from_double (bottom_curve.control_[0][Y_AXIS]),
+      ly_symbol2scm ("closepath"), SCM_UNDEFINED);
 
-  SCM horizontal_bend = scm_list_n (ly_symbol2scm ("path"),
-                                    scm_from_double (thickness),
-                                    ly_quote_scm (commands),
-                                    ly_quote_scm (ly_symbol2scm ("round")),
-                                    ly_quote_scm (ly_symbol2scm ("round")),
-                                    SCM_BOOL_T,
-                                    SCM_UNDEFINED);
+  SCM horizontal_bend = scm_list_n (
+      ly_symbol2scm ("path"), scm_from_double (thickness),
+      ly_quote_scm (commands), ly_quote_scm (ly_symbol2scm ("round")),
+      ly_quote_scm (ly_symbol2scm ("round")), SCM_BOOL_T, SCM_UNDEFINED);
 
   Interval x_extent = top_curve.extent (X_AXIS);
   x_extent.unite (bottom_curve.extent (X_AXIS));
@@ -548,34 +528,22 @@ Stencil
 Lookup::repeat_slash (Real w, Real s, Real t)
 {
 
-  Real x_width = hypot (t, t/s);
+  Real x_width = hypot (t, t / s);
   Real height = w * s;
 
-  SCM controls = scm_list_n (ly_symbol2scm ("moveto"),
-                             scm_from_double (0),
-                             scm_from_double (0),
-                             ly_symbol2scm ("rlineto"),
-                             scm_from_double (x_width),
-                             scm_from_double (0),
-                             ly_symbol2scm ("rlineto"),
-                             scm_from_double (w),
-                             scm_from_double (height),
-                             ly_symbol2scm ("rlineto"),
-                             scm_from_double (-x_width),
-                             scm_from_double (0),
-                             ly_symbol2scm ("closepath"),
-                             SCM_UNDEFINED);
+  SCM controls = scm_list_n (
+      ly_symbol2scm ("moveto"), scm_from_double (0), scm_from_double (0),
+      ly_symbol2scm ("rlineto"), scm_from_double (x_width), scm_from_double (0),
+      ly_symbol2scm ("rlineto"), scm_from_double (w), scm_from_double (height),
+      ly_symbol2scm ("rlineto"), scm_from_double (-x_width),
+      scm_from_double (0), ly_symbol2scm ("closepath"), SCM_UNDEFINED);
 
-  SCM slashnodot = scm_list_n (ly_symbol2scm ("path"),
-                               scm_from_double (0),
-                               ly_quote_scm (controls),
-                               ly_quote_scm (ly_symbol2scm ("round")),
-                               ly_quote_scm (ly_symbol2scm ("round")),
-                               SCM_BOOL_T,
-                               SCM_UNDEFINED);
+  SCM slashnodot = scm_list_n (
+      ly_symbol2scm ("path"), scm_from_double (0), ly_quote_scm (controls),
+      ly_quote_scm (ly_symbol2scm ("round")),
+      ly_quote_scm (ly_symbol2scm ("round")), SCM_BOOL_T, SCM_UNDEFINED);
 
-  Box b (Interval (0, w + x_width),
-         Interval (0, height));
+  Box b (Interval (0, w + x_width), Interval (0, height));
 
   return Stencil (b, slashnodot); //  http://slashnodot.org
 }
@@ -612,10 +580,9 @@ Lookup::triangle (Interval iv, Real thick, Real protrude)
   points.push_back (Offset (iv[LEFT], 0));
   points.push_back (Offset (iv[RIGHT], 0));
   points.push_back (Offset (iv.center (), protrude));
-  points.push_back (Offset (iv[LEFT], 0));  // close triangle
+  points.push_back (Offset (iv[LEFT], 0)); // close triangle
 
   return points_to_line_stencil (thick, points);
-
 }
 
 Stencil
@@ -627,7 +594,7 @@ Lookup::points_to_line_stencil (Real thick, vector<Offset> const &points)
       if (points[i - 1].is_sane () && points[i].is_sane ())
         {
           Stencil line
-            = Line_interface::make_line (thick, points[i - 1], points[i]);
+              = Line_interface::make_line (thick, points[i - 1], points[i]);
           ret.add_stencil (line);
         }
     }

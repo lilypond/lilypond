@@ -32,8 +32,8 @@
 #include "separation-item.hh"
 #include "spacing-options.hh"
 #include "spanner.hh"
-#include "staff-symbol.hh"
 #include "staff-symbol-referencer.hh"
+#include "staff-symbol.hh"
 #include "system.hh"
 #include "text-interface.hh"
 #include "warn.hh"
@@ -47,9 +47,8 @@ Multi_measure_rest::bar_width (Spanner *me)
     {
       Item *col = me->get_bound (d)->get_column ();
       SCM align_sym
-        = (scm_is_pair (spacing_pair)
-           ? index_get_cell (spacing_pair, d)
-           : ly_symbol2scm ("staff-bar"));
+          = (scm_is_pair (spacing_pair) ? index_get_cell (spacing_pair, d)
+                                        : ly_symbol2scm ("staff-bar"));
       Interval coldim = Paper_column::break_align_width (col, align_sym);
 
       iv[d] = coldim[-d];
@@ -70,8 +69,8 @@ Multi_measure_rest::percent (SCM smob)
 
   // ugh copy & paste.
 
-  Grob *common_x = sp->get_bound (LEFT)->common_refpoint (sp->get_bound (RIGHT),
-                                                          X_AXIS);
+  Grob *common_x
+      = sp->get_bound (LEFT)->common_refpoint (sp->get_bound (RIGHT), X_AXIS);
   Interval sp_iv = bar_width (sp);
   Real x_off = 0.0;
 
@@ -133,14 +132,15 @@ Multi_measure_rest::height (SCM smob)
 int
 calc_measure_duration_log (Grob *me)
 {
-  SCM sml = dynamic_cast<Spanner *> (me)->get_bound (LEFT)
-            ->get_property ("measure-length");
+  SCM sml = dynamic_cast<Spanner *> (me)->get_bound (LEFT)->get_property (
+      "measure-length");
   Rational ml = (unsmob<Moment> (sml)) ? unsmob<Moment> (sml)->main_part_
-                : Rational (1);
+                                       : Rational (1);
   double duration = ml.Rational::to_double ();
-  bool round_up = to_boolean (scm_list_p (scm_member (scm_cons (scm_from_int64 (ml.numerator ()),
-                                                                scm_from_int64 (ml.denominator ())),
-                                                      me->get_property ("round-up-exceptions"))))
+  bool round_up = to_boolean (scm_list_p (
+                      scm_member (scm_cons (scm_from_int64 (ml.numerator ()),
+                                            scm_from_int64 (ml.denominator ())),
+                                  me->get_property ("round-up-exceptions"))))
                   || to_boolean (me->get_property ("round-up-to-longer-rest"));
   int closest_usable_duration_log;
 
@@ -223,19 +223,22 @@ Multi_measure_rest::symbol_stencil (Grob *me, Real space)
 Stencil
 Multi_measure_rest::big_rest (Grob *me, Real width)
 {
-  Real thick_thick = robust_scm2double (me->get_property ("thick-thickness"), 1.0);
+  Real thick_thick
+      = robust_scm2double (me->get_property ("thick-thickness"), 1.0);
   Real hair_thick = robust_scm2double (me->get_property ("hair-thickness"), .1);
 
   Real ss = Staff_symbol_referencer::staff_space (me);
   Real slt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
   Real y = slt * thick_thick / 2 * ss;
   Real ythick = hair_thick * slt * ss;
-  Box b (Interval (0.0, std::max (0.0, (width - 2 * ythick))), Interval (-y, y));
+  Box b (Interval (0.0, std::max (0.0, (width - 2 * ythick))),
+         Interval (-y, y));
 
   Real blot = width ? (.8 * std::min (y, ythick)) : 0.0;
 
   Stencil m = Lookup::filled_box (b);
-  Stencil yb = Lookup::round_filled_box (Box (Interval (-0.5, 0.5) * ythick, Interval (-ss, ss)), blot);
+  Stencil yb = Lookup::round_filled_box (
+      Box (Interval (-0.5, 0.5) * ythick, Interval (-ss, ss)), blot);
 
   m.add_at_edge (X_AXIS, RIGHT, yb, 0);
   m.add_at_edge (X_AXIS, LEFT, yb, 0);
@@ -249,8 +252,8 @@ Multi_measure_rest::big_rest (Grob *me, Real width)
   Kirchenpause (?)
 */
 Stencil
-Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measure_count,
-                                 int mdl, Real space)
+Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont,
+                                 int measure_count, int mdl, Real space)
 {
   // using double here is not less exact than rationals because
   // only simple, unscaled durations are used for representation
@@ -270,7 +273,8 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measure_cou
 
   if (scm_is_null (sp))
     {
-      if (1 <= displayed_duration && displayed_duration < 2) // i. e. longest rest symbol is semibreve
+      if (1 <= displayed_duration
+          && displayed_duration < 2) // i. e. longest rest symbol is semibreve
         {
           pos = Rest::staff_position_internal (me, 0, dir) - (oneline ? 0 : 2);
         }
@@ -300,13 +304,16 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measure_cou
       if (oneline && (dl == 0 || (dl < 0 && !dir)))
         {
           spi -= 2;
-          r = musfont->find_by_name (Rest::glyph_name (me, dl, "", true, (dl == 0) ? 0 : -2));
+          r = musfont->find_by_name (
+              Rest::glyph_name (me, dl, "", true, (dl == 0) ? 0 : -2));
         }
       else
-        r = musfont->find_by_name (Rest::glyph_name (me, dl, "", true, (dl == 0) ? 2 : 0));
+        r = musfont->find_by_name (
+            Rest::glyph_name (me, dl, "", true, (dl == 0) ? 2 : 0));
       if (dl < 0)
         {
-          Real fs = pow (2, robust_scm2double (me->get_property ("font-size"), 0) / 6);
+          Real fs = pow (
+              2, robust_scm2double (me->get_property ("font-size"), 0) / 6);
           r.translate_axis (ss * 0.5 * (spi - pos) + (ss - fs), Y_AXIS);
         }
       else
@@ -328,12 +335,12 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measure_cou
   if (inner_padding < 0)
     inner_padding = 1.0;
 
-  Real max_separation = std::max (robust_scm2double (me->get_property ("max-symbol-separation"), 8.0),
-                             1.0);
+  Real max_separation = std::max (
+      robust_scm2double (me->get_property ("max-symbol-separation"), 8.0), 1.0);
 
   inner_padding = std::min (inner_padding, max_separation);
-  Real left_offset = (space - symbols_width - (inner_padding * (symbol_count - 1)))
-                     / 2;
+  Real left_offset
+      = (space - symbols_width - (inner_padding * (symbol_count - 1))) / 2;
 
   Stencil mol;
   for (SCM s = mols; scm_is_pair (s); s = scm_cdr (s))
@@ -355,7 +362,7 @@ void
 Multi_measure_rest::calculate_spacing_rods (Grob *me, Real length)
 {
   Spanner *sp = dynamic_cast<Spanner *> (me);
-  if (! (sp->get_bound (LEFT) && sp->get_bound (RIGHT)))
+  if (!(sp->get_bound (LEFT) && sp->get_bound (RIGHT)))
     {
       programming_error ("Multi_measure_rest::get_rods (): I am not spanned!");
       return;
@@ -373,23 +380,21 @@ Multi_measure_rest::calculate_spacing_rods (Grob *me, Real length)
     {
       Spacing_options options;
       options.init_from_grob (me);
-      Moment mlen = robust_scm2moment (li->get_property ("measure-length"),
-                                       Moment (1));
-      length += robust_scm2double (li->get_property ("full-measure-extra-space"), 0.0)
+      Moment mlen
+          = robust_scm2moment (li->get_property ("measure-length"), Moment (1));
+      length += robust_scm2double (
+                    li->get_property ("full-measure-extra-space"), 0.0)
                 + options.get_duration_space (mlen.main_part_)
                 + (robust_scm2double (me->get_property ("space-increment"), 0.0)
-                   * log_2 (robust_scm2int (me->get_property ("measure-count"), 1)));
+                   * log_2 (
+                       robust_scm2int (me->get_property ("measure-count"), 1)));
     }
 
   length += 2 * robust_scm2double (me->get_property ("bound-padding"), 0.0);
 
   Real minlen = robust_scm2double (me->get_property ("minimum-length"), 0.0);
 
-  Item *combinations[4][2] = {{li, ri},
-    {lb, ri},
-    {li, rb},
-    {lb, rb}
-  };
+  Item *combinations[4][2] = {{li, ri}, {lb, ri}, {li, rb}, {lb, rb}};
 
   for (int i = 0; i < 4; i++)
     {
@@ -403,8 +408,8 @@ Multi_measure_rest::calculate_spacing_rods (Grob *me, Real length)
       rod.item_drul_[LEFT] = li;
       rod.item_drul_[RIGHT] = ri;
 
-      rod.distance_ = std::max (Paper_column::minimum_distance (li, ri) + length,
-                           minlen);
+      rod.distance_
+          = std::max (Paper_column::minimum_distance (li, ri) + length, minlen);
       rod.add_to_cols ();
     }
 }
@@ -429,8 +434,8 @@ Multi_measure_rest::set_text_rods (SCM smob)
 
   /* FIXME uncached */
   Real len = (stil && !stil->extent (X_AXIS).is_empty ())
-             ? stil->extent (X_AXIS).length ()
-             : 0.0;
+                 ? stil->extent (X_AXIS).length ()
+                 : 0.0;
   calculate_spacing_rods (me, len);
 
   return SCM_UNSPECIFIED;
@@ -451,5 +456,4 @@ ADD_INTERFACE (Multi_measure_rest,
                "space-increment "
                "spacing-pair "
                "thick-thickness "
-               "usable-duration-logs "
-              );
+               "usable-duration-logs ");

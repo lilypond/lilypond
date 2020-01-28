@@ -20,8 +20,8 @@
 #ifndef SCALE_HH
 #define SCALE_HH
 
-#include "smobs.hh"
 #include "rational.hh"
+#include "smobs.hh"
 #include "std-vector.hh"
 
 class Scale : public Smob<Scale>

@@ -20,8 +20,8 @@
 #ifndef HARA_KIRI_VERTICAL_GROUP_SPANNER_HH
 #define HARA_KIRI_VERTICAL_GROUP_SPANNER_HH
 
-#include "lily-proto.hh"
 #include "grob-interface.hh"
+#include "lily-proto.hh"
 
 class Hara_kiri_group_spanner
 {

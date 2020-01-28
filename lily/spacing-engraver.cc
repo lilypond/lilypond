@@ -36,9 +36,7 @@ struct Rhythmic_tuple
   Grob_info info_;
   Moment end_;
 
-  Rhythmic_tuple ()
-  {
-  }
+  Rhythmic_tuple () {}
   Rhythmic_tuple (Grob_info i, Moment m)
   {
     info_ = i;
@@ -95,8 +93,7 @@ protected:
   void stop_spanner ();
 };
 
-Spacing_engraver::Spacing_engraver (Context *c)
-  : Engraver (c)
+Spacing_engraver::Spacing_engraver (Context *c) : Engraver (c)
 {
   spacing_ = 0;
   start_section_ = 0;
@@ -149,13 +146,15 @@ Spacing_engraver::stop_spanner ()
 void
 Spacing_engraver::acknowledge_note_spacing (Grob_info i)
 {
-  Pointer_group_interface::add_grob (spacing_, ly_symbol2scm ("wishes"), i.grob ());
+  Pointer_group_interface::add_grob (spacing_, ly_symbol2scm ("wishes"),
+                                     i.grob ());
 }
 
 void
 Spacing_engraver::acknowledge_staff_spacing (Grob_info i)
 {
-  Pointer_group_interface::add_grob (spacing_, ly_symbol2scm ("wishes"), i.grob ());
+  Pointer_group_interface::add_grob (spacing_, ly_symbol2scm ("wishes"),
+                                     i.grob ());
 }
 
 void
@@ -173,8 +172,10 @@ Spacing_engraver::acknowledge_rhythmic_head (Grob_info i)
 void
 Spacing_engraver::add_starter_duration (Grob_info i)
 {
-  if (i.grob ()->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface"))
-      || i.grob ()->internal_has_interface (ly_symbol2scm ("multi-measure-interface")))
+  if (i.grob ()->internal_has_interface (
+          ly_symbol2scm ("lyric-syllable-interface"))
+      || i.grob ()->internal_has_interface (
+          ly_symbol2scm ("multi-measure-interface")))
     return;
 
   /*
@@ -196,14 +197,14 @@ void
 Spacing_engraver::stop_translation_timestep ()
 {
   Paper_column *musical_column
-    = unsmob<Paper_column> (get_property ("currentMusicalColumn"));
+      = unsmob<Paper_column> (get_property ("currentMusicalColumn"));
 
   if (!spacing_)
     start_spanner ();
 
   musical_column->set_object ("spacing", spacing_->self_scm ());
   unsmob<Grob> (get_property ("currentCommandColumn"))
-  ->set_object ("spacing", spacing_->self_scm ());
+      ->set_object ("spacing", spacing_->self_scm ());
 
   SCM proportional = get_property ("proportionalNotationDuration");
   if (unsmob<Moment> (proportional))
@@ -263,7 +264,6 @@ Spacing_engraver::start_translation_timestep ()
     stopped_durations_.push_back (playing_durations_.get ());
 }
 
-
 void
 Spacing_engraver::boot ()
 {
@@ -288,5 +288,4 @@ ADD_TRANSLATOR (Spacing_engraver,
                 "proportionalNotationDuration ",
 
                 /* write */
-                ""
-               );
+                "");

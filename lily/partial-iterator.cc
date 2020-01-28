@@ -21,16 +21,17 @@
 #include "global-context.hh"
 #include "input.hh"
 #include "international.hh"
+#include "lily-imports.hh"
 #include "moment.hh"
 #include "music.hh"
 #include "simple-music-iterator.hh"
-#include "lily-imports.hh"
 
 class Partial_iterator : public Simple_music_iterator
 {
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
   DECLARE_SCHEME_CALLBACK (finalization, (SCM, SCM));
+
 protected:
   void process (Moment) override;
 };
@@ -38,7 +39,7 @@ protected:
 void
 Partial_iterator::process (Moment m)
 {
-  if (Duration * dur
+  if (Duration *dur
       = unsmob<Duration> (get_music ()->get_property ("duration")))
     {
       Moment length = Moment (dur->get_length ());
@@ -53,9 +54,8 @@ Partial_iterator::process (Moment m)
       // work since the Timing_translator does not set
       // measurePosition when initializing.
 
-      Context *timing = unsmob<Context>
-        (Lily::ly_context_find (get_outlet ()->self_scm (),
-                                ly_symbol2scm ("Timing")));
+      Context *timing = unsmob<Context> (Lily::ly_context_find (
+          get_outlet ()->self_scm (), ly_symbol2scm ("Timing")));
 
       if (!timing)
         programming_error ("missing Timing in \\partial");
@@ -69,12 +69,11 @@ Partial_iterator::process (Moment m)
         }
       else
         {
-          Moment mp = robust_scm2moment
-                      (timing->get_property ("measurePosition"),
-                       Rational (0));
+          Moment mp = robust_scm2moment (
+              timing->get_property ("measurePosition"), Rational (0));
           mp.main_part_ = 0;
-          timing->set_property
-          ("measurePosition", (mp - length).smobbed_copy ());
+          timing->set_property ("measurePosition",
+                                (mp - length).smobbed_copy ());
         }
     }
   else
@@ -91,12 +90,13 @@ Partial_iterator::finalization (SCM ctx, SCM length)
 {
   LY_ASSERT_SMOB (Context, ctx, 1);
   LY_ASSERT_SMOB (Moment, length, 2);
-  Context *timing = unsmob<Context>
-    (Lily::ly_context_find (ctx, ly_symbol2scm ("Timing")));
-  if (!timing) {
-    programming_error ("missing Timing in \\partial");
-    return SCM_UNSPECIFIED;
-  }
+  Context *timing
+      = unsmob<Context> (Lily::ly_context_find (ctx, ly_symbol2scm ("Timing")));
+  if (!timing)
+    {
+      programming_error ("missing Timing in \\partial");
+      return SCM_UNSPECIFIED;
+    }
   Moment mp = robust_scm2moment (timing->get_property ("measurePosition"),
                                  Rational (0));
   mp.main_part_ = measure_length (timing);

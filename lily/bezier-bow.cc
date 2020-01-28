@@ -17,8 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "misc.hh"
 #include "bezier.hh"
+#include "misc.hh"
 
 static Real
 F0_1 (Real x)
@@ -100,8 +100,8 @@ slur_height (Real width, Real h_inf, Real r_0)
 */
 
 void
-get_slur_indent_height (Real *indent, Real *height,
-                        Real width, Real h_inf, Real r_0)
+get_slur_indent_height (Real *indent, Real *height, Real width, Real h_inf,
+                        Real r_0)
 {
   Real max_fraction = 1.0 / 3.1;
   *height = slur_height (width, h_inf, r_0);
@@ -116,8 +116,7 @@ slur_shape (Real width, Real h_inf, Real r_0)
   Real indent;
   Real height;
 
-  get_slur_indent_height (&indent, &height,
-                          width, h_inf, r_0);
+  get_slur_indent_height (&indent, &height, width, h_inf, r_0);
 
   Bezier curve;
   curve.control_[0] = Offset (0, 0);

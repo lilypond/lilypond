@@ -20,8 +20,8 @@
 #ifndef DOT_COLUMN_HH
 #define DOT_COLUMN_HH
 
-#include "lily-proto.hh"
 #include "grob-interface.hh"
+#include "lily-proto.hh"
 
 class Grob;
 

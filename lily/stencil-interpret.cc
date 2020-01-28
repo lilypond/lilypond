@@ -20,10 +20,8 @@
 #include "stencil.hh"
 
 void
-interpret_stencil_expression (SCM expr,
-                              SCM (*func) (void *, SCM),
-                              void *func_arg,
-                              Offset o)
+interpret_stencil_expression (SCM expr, SCM (*func) (void *, SCM),
+                              void *func_arg, Offset o)
 {
   while (1)
     {
@@ -34,7 +32,8 @@ interpret_stencil_expression (SCM expr,
 
       if (scm_is_eq (head, ly_symbol2scm ("delay-stencil-evaluation")))
         {
-          interpret_stencil_expression (scm_force (scm_cadr (expr)), func, func_arg, o);
+          interpret_stencil_expression (scm_force (scm_cadr (expr)), func,
+                                        func_arg, o);
           return;
         }
       if (scm_is_eq (head, ly_symbol2scm ("footnote")))
@@ -55,9 +54,9 @@ interpret_stencil_expression (SCM expr,
         {
           SCM grob = scm_cadr (expr);
 
-          SCM link =
-            (*func) (func_arg,
-                     scm_list_3 (head, ly_quote_scm (ly_offset2scm (o)), grob));
+          SCM link = (*func) (
+              func_arg,
+              scm_list_3 (head, ly_quote_scm (ly_offset2scm (o)), grob));
           interpret_stencil_expression (scm_caddr (expr), func, func_arg, o);
           if (scm_is_true (link))
             (*func) (func_arg, scm_list_1 (ly_symbol2scm ("no-origin")));
@@ -91,15 +90,18 @@ interpret_stencil_expression (SCM expr,
         {
           SCM args = scm_cadr (expr);
           SCM angle = scm_car (args);
-          Offset tmp = o + robust_scm2offset (scm_cadr (args), Offset (0.0, 0.0));
+          Offset tmp
+              = o + robust_scm2offset (scm_cadr (args), Offset (0.0, 0.0));
 
           SCM offset = ly_offset2scm (tmp);
           SCM x = scm_car (offset);
           SCM y = scm_cdr (offset);
 
-          (*func) (func_arg, scm_list_4 (ly_symbol2scm ("setrotation"), angle, x, y));
+          (*func) (func_arg,
+                   scm_list_4 (ly_symbol2scm ("setrotation"), angle, x, y));
           interpret_stencil_expression (scm_caddr (expr), func, func_arg, o);
-          (*func) (func_arg, scm_list_4 (ly_symbol2scm ("resetrotation"), angle, x, y));
+          (*func) (func_arg,
+                   scm_list_4 (ly_symbol2scm ("resetrotation"), angle, x, y));
 
           return;
         }
@@ -111,8 +113,8 @@ interpret_stencil_expression (SCM expr,
           Offset unscaled = o.scale (Offset (1 / scm_to_double (x_scale),
                                              1 / scm_to_double (y_scale)));
 
-          (*func) (func_arg, scm_list_3 (ly_symbol2scm ("setscale"), x_scale,
-                                         y_scale));
+          (*func) (func_arg,
+                   scm_list_3 (ly_symbol2scm ("setscale"), x_scale, y_scale));
           interpret_stencil_expression (scm_caddr (expr), func, func_arg,
                                         unscaled);
           (*func) (func_arg, scm_list_1 (ly_symbol2scm ("resetscale")));
@@ -125,11 +127,9 @@ interpret_stencil_expression (SCM expr,
         }
       else
         {
-          (*func) (func_arg,
-                   scm_list_4 (ly_symbol2scm ("placebox"),
-                               scm_from_double (o[X_AXIS]),
-                               scm_from_double (o[Y_AXIS]),
-                               expr));
+          (*func) (func_arg, scm_list_4 (ly_symbol2scm ("placebox"),
+                                         scm_from_double (o[X_AXIS]),
+                                         scm_from_double (o[Y_AXIS]), expr));
           return;
         }
     }
@@ -143,7 +143,7 @@ struct Font_list
 static SCM
 find_font_function (void *fs, SCM x)
 {
-  Font_list *me = (Font_list *) fs;
+  Font_list *me = (Font_list *)fs;
 
   if (scm_is_eq (scm_car (x), ly_symbol2scm ("placebox")))
     {
@@ -169,8 +169,8 @@ find_expression_fonts (SCM expr)
 
   fl.fonts_ = SCM_EOL;
 
-  interpret_stencil_expression (expr, &find_font_function,
-                                (void *) & fl, Offset (0, 0));
+  interpret_stencil_expression (expr, &find_font_function, (void *)&fl,
+                                Offset (0, 0));
 
   return fl.fonts_;
 }

@@ -32,6 +32,7 @@ class Text_spanner_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Text_spanner_engraver);
+
 protected:
   void finalize () override;
   void listen_text_span (Stream_event *);
@@ -47,8 +48,7 @@ private:
   void typeset_all ();
 };
 
-Text_spanner_engraver::Text_spanner_engraver (Context *c)
-  : Engraver (c)
+Text_spanner_engraver::Text_spanner_engraver (Context *c) : Engraver (c)
 {
   finished_ = 0;
   current_event_ = 0;
@@ -69,7 +69,8 @@ Text_spanner_engraver::process_music ()
   if (event_drul_[STOP])
     {
       if (!span_)
-        event_drul_[STOP]->origin ()->warning (_ ("cannot find start of text spanner"));
+        event_drul_[STOP]->origin ()->warning (
+            _ ("cannot find start of text spanner"));
       else
         {
           finished_ = span_;
@@ -82,7 +83,8 @@ Text_spanner_engraver::process_music ()
   if (event_drul_[START])
     {
       if (current_event_)
-        event_drul_[START]->origin ()->warning (_ ("already have a text spanner"));
+        event_drul_[START]->origin ()->warning (
+            _ ("already have a text spanner"));
       else
         {
           current_event_ = event_drul_[START];
@@ -140,22 +142,19 @@ Text_spanner_engraver::acknowledge_note_column (Grob_info info)
 {
   if (span_)
     {
-      Pointer_group_interface::add_grob (span_,
-                                         ly_symbol2scm ("note-columns"),
+      Pointer_group_interface::add_grob (span_, ly_symbol2scm ("note-columns"),
                                          info.grob ());
       if (!span_->get_bound (LEFT))
         add_bound_item (span_, info.grob ());
     }
   else if (finished_)
     {
-      Pointer_group_interface::add_grob (finished_,
-                                         ly_symbol2scm ("note-columns"),
-                                         info.grob ());
+      Pointer_group_interface::add_grob (
+          finished_, ly_symbol2scm ("note-columns"), info.grob ());
       if (!finished_->get_bound (RIGHT))
         add_bound_item (finished_, info.grob ());
     }
 }
-
 
 void
 Text_spanner_engraver::boot ()
@@ -175,5 +174,4 @@ ADD_TRANSLATOR (Text_spanner_engraver,
                 "currentMusicalColumn ",
 
                 /* write */
-                ""
-               );
+                "");

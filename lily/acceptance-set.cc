@@ -37,7 +37,7 @@ Acceptance_set::accept (SCM item)
         {
           // insert the new item after the default
           SCM rest = scm_cdr (accepted_);
-          scm_set_cdr_x(accepted_, scm_cons (item, rest));
+          scm_set_cdr_x (accepted_, scm_cons (item, rest));
         }
       else
         {
@@ -49,7 +49,7 @@ Acceptance_set::accept (SCM item)
 void
 Acceptance_set::accept_default (SCM item)
 {
-  accepted_ = scm_cons(item, scm_delete_x (item, accepted_));
+  accepted_ = scm_cons (item, scm_delete_x (item, accepted_));
   default_ = item;
 }
 

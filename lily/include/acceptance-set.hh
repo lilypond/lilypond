@@ -32,16 +32,12 @@ private:
   SCM default_;
 
 public:
-  Acceptance_set() :
-    accepted_ (SCM_EOL),
-    default_ (SCM_EOL)
-  {
-  }
+  Acceptance_set () : accepted_ (SCM_EOL), default_ (SCM_EOL) {}
 
-  Acceptance_set (const Acceptance_set&) = delete;
-  Acceptance_set& operator= (const Acceptance_set&) = delete;
+  Acceptance_set (const Acceptance_set &) = delete;
+  Acceptance_set &operator= (const Acceptance_set &) = delete;
 
-  Acceptance_set& assign_copy (const Acceptance_set& other)
+  Acceptance_set &assign_copy (const Acceptance_set &other)
   {
     accepted_ = scm_list_copy (other.accepted_);
     default_ = scm_is_pair (accepted_) ? scm_car (accepted_) : SCM_EOL;

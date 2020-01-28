@@ -84,7 +84,7 @@ Spring::update_blocking_force ()
 
 /* scale a spring, but in a way that doesn't violate min_distance */
 void
-Spring::operator *= (Real r)
+Spring::operator*= (Real r)
 {
   distance_ = std::max (min_distance_, distance_ * r);
   inverse_compress_strength_ = std::max (0.0, distance_ - min_distance_);
@@ -93,7 +93,7 @@ Spring::operator *= (Real r)
 }
 
 bool
-Spring::operator > (Spring const &other) const
+Spring::operator> (Spring const &other) const
 {
   return blocking_force_ > other.blocking_force_;
 }
@@ -204,7 +204,8 @@ Spring::set_default_strength ()
 void
 Spring::set_default_compress_strength ()
 {
-  inverse_compress_strength_ = (distance_ >= min_distance_) ? distance_ - min_distance_ : 0;
+  inverse_compress_strength_
+      = (distance_ >= min_distance_) ? distance_ - min_distance_ : 0;
   update_blocking_force ();
 }
 
@@ -218,7 +219,8 @@ Real
 Spring::length (Real f) const
 {
   Real force = std::max (f, blocking_force_);
-  Real inv_k = force < 0.0 ? inverse_compress_strength_ : inverse_stretch_strength_;
+  Real inv_k
+      = force < 0.0 ? inverse_compress_strength_ : inverse_stretch_strength_;
 
   if (std::isinf (force))
     {
@@ -231,4 +233,3 @@ Spring::length (Real f) const
   // and we need to make sure that we return min_distance_.
   return std::max (min_distance_, distance_ + force * inv_k);
 }
-

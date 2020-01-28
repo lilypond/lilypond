@@ -49,8 +49,8 @@ Arpeggio::get_common_y (Grob *me)
   for (vsize i = 0; i < stems.size (); i++)
     {
       Grob *stem = stems[i];
-      common = common->common_refpoint (Staff_symbol_referencer::get_staff_symbol (stem),
-                                        Y_AXIS);
+      common = common->common_refpoint (
+          Staff_symbol_referencer::get_staff_symbol (stem), Y_AXIS);
     }
 
   return common;
@@ -117,9 +117,9 @@ SCM
 Arpeggio::print (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  Interval heads = robust_scm2interval (me->get_property ("positions"),
-                                        Interval ())
-                   * Staff_symbol_referencer::staff_space (me);
+  Interval heads
+      = robust_scm2interval (me->get_property ("positions"), Interval ())
+        * Staff_symbol_referencer::staff_space (me);
 
   if (heads.is_empty () || heads.length () < 0.5)
     {
@@ -163,7 +163,8 @@ Arpeggio::print (SCM smob)
   if (dir)
     {
       Font_metric *fm = Font_interface::get_default_font (me);
-      arrow = fm->find_by_name ("scripts.arpeggio.arrow." + std::to_string (dir));
+      arrow
+          = fm->find_by_name ("scripts.arpeggio.arrow." + std::to_string (dir));
       heads[dir] -= dir * arrow.extent (Y_AXIS).length ();
     }
 
@@ -185,13 +186,12 @@ SCM
 Arpeggio::brew_chord_bracket (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  Interval heads = robust_scm2interval (me->get_property ("positions"),
-                                        Interval ())
-                   * Staff_symbol_referencer::staff_space (me);
+  Interval heads
+      = robust_scm2interval (me->get_property ("positions"), Interval ())
+        * Staff_symbol_referencer::staff_space (me);
 
-  Real th
-    = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"))
-      * robust_scm2double (me->get_property ("thickness"), 1);
+  Real th = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"))
+            * robust_scm2double (me->get_property ("thickness"), 1);
   Real sp = 1.5 * Staff_symbol_referencer::staff_space (me);
   Real dy = heads.length () + sp;
   Real x = robust_scm2double (me->get_property ("protrusion"), 0.4);
@@ -207,16 +207,14 @@ Arpeggio::brew_chord_slur (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
   SCM dash_definition = me->get_property ("dash-definition");
-  Interval heads = robust_scm2interval (me->get_property ("positions"),
-                                        Interval ())
-                   * Staff_symbol_referencer::staff_space (me);
+  Interval heads
+      = robust_scm2interval (me->get_property ("positions"), Interval ())
+        * Staff_symbol_referencer::staff_space (me);
 
-  Real lt
-    = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"))
-      * robust_scm2double (me->get_property ("line-thickness"), 1.0);
-  Real th
-    = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"))
-      * robust_scm2double (me->get_property ("thickness"), 1.0);
+  Real lt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"))
+            * robust_scm2double (me->get_property ("line-thickness"), 1.0);
+  Real th = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"))
+            * robust_scm2double (me->get_property ("thickness"), 1.0);
   Real dy = heads.length ();
 
   Real height_limit = 1.5;
@@ -263,6 +261,4 @@ ADD_INTERFACE (Arpeggio,
                "protrusion "
                "script-priority " // TODO: make around-note-interface
                "stems "
-               "thickness "
-              );
-
+               "thickness ");

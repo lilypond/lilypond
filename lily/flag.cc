@@ -57,11 +57,13 @@ Flag::width (SCM smob)
 
   /*
     TODO:
-    This reproduces a bad hard-coding that has been in the code for quite some time:
-    the bounding boxes for the flags are slightly off and need to be fixed.
+    This reproduces a bad hard-coding that has been in the code for quite some
+    time: the bounding boxes for the flags are slightly off and need to be
+    fixed.
   */
 
-  return ly_interval2scm (sten->extent (X_AXIS) - stem->extent (stem, X_AXIS)[RIGHT]);
+  return ly_interval2scm (sten->extent (X_AXIS)
+                          - stem->extent (stem, X_AXIS)[RIGHT]);
 }
 
 MAKE_SCHEME_CALLBACK (Flag, glyph_name, 1);
@@ -94,9 +96,9 @@ Flag::glyph_name (SCM smob)
       if (adjust)
         {
           Real ss = Staff_symbol_referencer::staff_space (me);
-          int p = (int) (rint (stem->extent (stem, Y_AXIS)[d] * 2 / ss));
+          int p = (int)(rint (stem->extent (stem, Y_AXIS)[d] * 2 / ss));
           staffline_offs
-            = Staff_symbol_referencer::on_line (stem, p) ? "0" : "1";
+              = Staff_symbol_referencer::on_line (stem, p) ? "0" : "1";
         }
       else
         staffline_offs = "2";
@@ -162,9 +164,7 @@ Flag::print (SCM smob)
 
 MAKE_SCHEME_CALLBACK (Flag, pure_calc_y_offset, 3);
 SCM
-Flag::pure_calc_y_offset (SCM smob,
-                          SCM /* beg */,
-                          SCM /* end */)
+Flag::pure_calc_y_offset (SCM smob, SCM /* beg */, SCM /* end */)
 {
   return internal_calc_y_offset (smob, true);
 }
@@ -183,16 +183,13 @@ Flag::internal_calc_y_offset (SCM smob, bool pure)
   Grob *stem = me->get_parent (X_AXIS);
   Direction d = get_grob_direction (stem);
 
-  Real blot
-    = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
+  Real blot = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
 
-  Interval stem_extent = pure
-                         ? stem->pure_y_extent (stem, 0, INT_MAX)
-                         : stem->extent (stem, Y_AXIS);
+  Interval stem_extent = pure ? stem->pure_y_extent (stem, 0, INT_MAX)
+                              : stem->extent (stem, Y_AXIS);
 
-  return scm_from_double (stem_extent.is_empty ()
-                          ? 0.0
-                          : stem_extent[d] - d * blot / 2);
+  return scm_from_double (
+      stem_extent.is_empty () ? 0.0 : stem_extent[d] - d * blot / 2);
 }
 
 MAKE_SCHEME_CALLBACK (Flag, calc_x_offset, 1);
@@ -215,5 +212,4 @@ ADD_INTERFACE (Flag,
                /* properties */
                "glyph-name "
                "style "
-               "stroke-style "
-              );
+               "stroke-style ");

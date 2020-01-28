@@ -29,12 +29,13 @@ class Translator_group : public Smob<Translator_group>
 public:
   SCM mark_smob () const;
   int print_smob (SCM, scm_print_state *) const;
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
   virtual ~Translator_group ();
+
 private:
   void precompute_method_bindings ();
   std::vector<Method_instance>
-  precomputed_method_bindings_[TRANSLATOR_METHOD_PRECOMPUTE_COUNT];
+      precomputed_method_bindings_[TRANSLATOR_METHOD_PRECOMPUTE_COUNT];
 
   SCM protected_events_;
 
@@ -59,6 +60,7 @@ public:
   void precomputed_translator_foreach (Translator_precompute_index);
 
   Context *context () const { return context_; }
+
 protected:
   SCM simple_trans_list_;
   Context *context_;
@@ -68,13 +70,14 @@ protected:
 };
 
 SCM names_to_translators (SCM namelist, Context *tg);
-void recurse_over_translators (Context *c, SCM tr_method,
-                               SCM tr_group_method, Direction);
-void precomputed_recurse_over_translators (Context *c, Translator_precompute_index idx, Direction dir);
+void recurse_over_translators (Context *c, SCM tr_method, SCM tr_group_method,
+                               Direction);
+void precomputed_recurse_over_translators (Context *c,
+                                           Translator_precompute_index idx,
+                                           Direction dir);
 Translator_group *get_translator_group (SCM sym);
 
 #define foobar
 #define ADD_TRANSLATOR_GROUP(classname, desc, grobs, read, write) foobar
-
 
 #endif // TRANSLATOR_GROUP_HH

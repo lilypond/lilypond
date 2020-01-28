@@ -28,13 +28,12 @@ public:
   ~Time_signature_performer ();
 
 protected:
-
   void stop_translation_timestep ();
   void process_music ();
   void derived_mark () const override;
   SCM prev_fraction_;
-private:
 
+private:
   Audio_time_signature *audio_;
 };
 
@@ -44,16 +43,13 @@ Time_signature_performer::derived_mark () const
   scm_gc_mark (prev_fraction_);
 }
 
-Time_signature_performer::Time_signature_performer (Context *c)
-  : Performer (c)
+Time_signature_performer::Time_signature_performer (Context *c) : Performer (c)
 {
   prev_fraction_ = SCM_BOOL_F;
   audio_ = 0;
 }
 
-Time_signature_performer::~Time_signature_performer ()
-{
-}
+Time_signature_performer::~Time_signature_performer () {}
 
 void
 Time_signature_performer::process_music ()
@@ -85,7 +81,6 @@ Time_signature_performer::stop_translation_timestep ()
 void
 Time_signature_performer::boot ()
 {
-
 }
 
 ADD_TRANSLATOR (Time_signature_performer,
@@ -99,5 +94,4 @@ ADD_TRANSLATOR (Time_signature_performer,
                 "",
 
                 /* write */
-                ""
-               );
+                "");

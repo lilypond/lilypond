@@ -52,7 +52,7 @@ struct Finger_tuple
 };
 
 bool
-operator < (Finger_tuple const &a, Finger_tuple const &b)
+operator< (Finger_tuple const &a, Finger_tuple const &b)
 {
   return a.position_ < b.position_;
 }
@@ -70,17 +70,18 @@ class New_fingering_engraver : public Engraver
   Grob *note_column_;
 
   void position_all ();
+
 public:
   TRANSLATOR_DECLARATIONS (New_fingering_engraver);
+
 protected:
   void stop_translation_timestep ();
   void acknowledge_rhythmic_head (Grob_info);
   void acknowledge_inline_accidental (Grob_info);
   void acknowledge_stem (Grob_info);
   void acknowledge_note_column (Grob_info);
-  void add_fingering (Grob *, SCM,
-                      vector<Finger_tuple> *,
-                      Stream_event *, Stream_event *);
+  void add_fingering (Grob *, SCM, vector<Finger_tuple> *, Stream_event *,
+                      Stream_event *);
   void add_script (Grob *, Stream_event *, Stream_event *);
   void position_scripts (SCM orientations, vector<Finger_tuple> *);
 };
@@ -108,12 +109,11 @@ New_fingering_engraver::acknowledge_rhythmic_head (Grob_info inf)
         continue;
 
       if (ev->in_event_class ("fingering-event"))
-        add_fingering (inf.grob (),
-                       ly_symbol2scm ("Fingering"),
-                       &fingerings_,
+        add_fingering (inf.grob (), ly_symbol2scm ("Fingering"), &fingerings_,
                        ev, note_ev);
       else if (ev->in_event_class ("text-script-event"))
-        ev->origin ()->warning (_ ("cannot add text scripts to individual note heads"));
+        ev->origin ()->warning (
+            _ ("cannot add text scripts to individual note heads"));
       else if (ev->in_event_class ("script-event"))
         add_script (inf.grob (), ev, note_ev);
       else if (ev->in_event_class ("string-number-event"))
@@ -123,15 +123,13 @@ New_fingering_engraver::acknowledge_rhythmic_head (Grob_info inf)
           // for them if 'stencil is #f
           Grob *g = make_item ("StringNumber", ev->self_scm ());
           if (scm_is_true (g->get_property ("stencil")))
-            add_fingering (inf.grob (),
-                           ly_symbol2scm ("StringNumber"), &string_numbers_,
-                           ev, note_ev);
+            add_fingering (inf.grob (), ly_symbol2scm ("StringNumber"),
+                           &string_numbers_, ev, note_ev);
           g->suicide (); // Kill grob created to check stencil
         }
       else if (ev->in_event_class ("stroke-finger-event"))
-        add_fingering (inf.grob (),
-                       ly_symbol2scm ("StrokeFinger"), &stroke_fingerings_,
-                       ev, note_ev);
+        add_fingering (inf.grob (), ly_symbol2scm ("StrokeFinger"),
+                       &stroke_fingerings_, ev, note_ev);
       else if (ev->in_event_class ("harmonic-event"))
         {
           inf.grob ()->set_property ("style", ly_symbol2scm ("harmonic"));
@@ -157,8 +155,7 @@ New_fingering_engraver::acknowledge_note_column (Grob_info inf)
 }
 
 void
-New_fingering_engraver::add_script (Grob *head,
-                                    Stream_event *event,
+New_fingering_engraver::add_script (Grob *head, Stream_event *event,
                                     Stream_event * /* note */)
 {
   Finger_tuple ft;
@@ -177,8 +174,7 @@ New_fingering_engraver::add_script (Grob *head,
 }
 
 void
-New_fingering_engraver::add_fingering (Grob *head,
-                                       SCM grob_sym,
+New_fingering_engraver::add_fingering (Grob *head, SCM grob_sym,
                                        vector<Finger_tuple> *tuple_vector,
                                        Stream_event *event,
                                        Stream_event *hevent)
@@ -218,7 +214,8 @@ New_fingering_engraver::position_scripts (SCM orientations,
     positioning the fingerings, setting both X and Y coordinates.
   */
   for (vsize i = 0; i < scripts->size (); i++)
-    (*scripts)[i].position_ = scm_to_int ((*scripts)[i].head_->get_property ("staff-position"));
+    (*scripts)[i].position_
+        = scm_to_int ((*scripts)[i].head_->get_property ("staff-position"));
 
   for (vsize i = scripts->size (); i--;)
     for (vsize j = heads_.size (); j--;)
@@ -240,7 +237,8 @@ New_fingering_engraver::position_scripts (SCM orientations,
   bool up_p = scm_is_true (scm_c_memq (ly_symbol2scm ("up"), orientations));
   bool down_p = scm_is_true (scm_c_memq (ly_symbol2scm ("down"), orientations));
   bool left_p = scm_is_true (scm_c_memq (ly_symbol2scm ("left"), orientations));
-  bool right_p = scm_is_true (scm_c_memq (ly_symbol2scm ("right"), orientations));
+  bool right_p
+      = scm_is_true (scm_c_memq (ly_symbol2scm ("right"), orientations));
   Direction hordir = (right_p) ? RIGHT : LEFT;
   if (left_p || right_p)
     {
@@ -289,26 +287,26 @@ New_fingering_engraver::position_scripts (SCM orientations,
       f->set_property ("avoid-slur", ly_symbol2scm ("inside"));
       if (hordir == LEFT
           && unsmob<Grob> (ft.head_->get_object ("accidental-grob")))
-        Side_position_interface::add_support (f,
-                                              unsmob<Grob> (ft.head_->get_object ("accidental-grob")));
+        Side_position_interface::add_support (
+            f, unsmob<Grob> (ft.head_->get_object ("accidental-grob")));
       else if (Rhythmic_head::dot_count (ft.head_))
         for (vsize j = 0; j < heads_.size (); j++)
-           if (Grob *d = unsmob<Grob> (heads_[j]->get_object ("dot")))
-             Side_position_interface::add_support (f, d);
+          if (Grob *d = unsmob<Grob> (heads_[j]->get_object ("dot")))
+            Side_position_interface::add_support (f, d);
 
-      if (horiz.size () > 1)  /* -> FingeringColumn */
+      if (horiz.size () > 1) /* -> FingeringColumn */
         {
           Stencil *fs = f->get_stencil ();
           fs->align_to (Y_AXIS, CENTER);
         }
       else
         {
-          SCM self_align_y =
-                Self_alignment_interface::aligned_on_parent (f, Y_AXIS);
-          SCM yoff= f->get_property ("Y-offset");
+          SCM self_align_y
+              = Self_alignment_interface::aligned_on_parent (f, Y_AXIS);
+          SCM yoff = f->get_property ("Y-offset");
           if (scm_is_number (yoff))
             self_align_y = scm_from_double (scm_to_double (self_align_y)
-                                          + scm_to_double (yoff));
+                                            + scm_to_double (yoff));
           f->set_property ("Y-offset", self_align_y);
         }
 
@@ -317,17 +315,18 @@ New_fingering_engraver::position_scripts (SCM orientations,
       f->set_property ("direction", scm_from_int (hordir));
     }
 
-  Drul_array< vector<Finger_tuple> > vertical (down, up);
+  Drul_array<vector<Finger_tuple>> vertical (down, up);
   for (DOWN_and_UP (d))
     {
       for (vsize i = 0; i < vertical[d].size (); i++)
         {
           Finger_tuple ft = vertical[d][i];
           Grob *f = ft.script_;
-          int finger_prio = robust_scm2int (f->get_property ("script-priority"), 200);
+          int finger_prio
+              = robust_scm2int (f->get_property ("script-priority"), 200);
 
-          if (heads_.size () > 1 &&
-              to_boolean (f->get_property ("X-align-on-main-noteheads")))
+          if (heads_.size () > 1
+              && to_boolean (f->get_property ("X-align-on-main-noteheads")))
             f->set_parent (note_column_, X_AXIS);
           else
             {
@@ -363,8 +362,7 @@ New_fingering_engraver::position_all ()
 {
   if (fingerings_.size ())
     {
-      position_scripts (get_property ("fingeringOrientations"),
-                        &fingerings_);
+      position_scripts (get_property ("fingeringOrientations"), &fingerings_);
       fingerings_.clear ();
     }
 
@@ -401,12 +399,10 @@ New_fingering_engraver::position_all ()
   articulations_.clear ();
 }
 
-New_fingering_engraver::New_fingering_engraver (Context *c)
-  : Engraver (c)
+New_fingering_engraver::New_fingering_engraver (Context *c) : Engraver (c)
 {
   stem_ = 0;
 }
-
 
 void
 New_fingering_engraver::boot ()
@@ -436,5 +432,4 @@ ADD_TRANSLATOR (New_fingering_engraver,
                 "stringNumberOrientations ",
 
                 /* write */
-                ""
-               );
+                "");

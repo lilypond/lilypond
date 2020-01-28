@@ -19,8 +19,8 @@
 
 #include "context.hh"
 #include "engraver.hh"
-#include "note-head.hh"
 #include "lyric-extender.hh"
+#include "note-head.hh"
 #include "pointer-group-interface.hh"
 #include "side-position-interface.hh"
 
@@ -43,7 +43,7 @@ protected:
 };
 
 Stanza_number_align_engraver::Stanza_number_align_engraver (Context *c)
-  : Engraver (c)
+    : Engraver (c)
 {
 }
 
@@ -72,7 +72,6 @@ Stanza_number_align_engraver::stop_translation_timestep ()
   lyrics_.clear ();
 }
 
-
 void
 Stanza_number_align_engraver::boot ()
 {
@@ -93,4 +92,3 @@ ADD_TRANSLATOR (Stanza_number_align_engraver,
 
                 /* write */
                 "");
-

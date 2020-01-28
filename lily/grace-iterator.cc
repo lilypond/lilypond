@@ -29,9 +29,11 @@ Grace_iterator::process (Moment m)
 
   // GraceChange is announced in order to make the Grace_engraver able
   // to distinguish \stemNeutral \grace { ... and \grace { \stemNeutral ...
-  if (in_grace_ != bool (m.grace_part_) && child_iter_ && child_iter_->get_outlet ())
+  if (in_grace_ != bool (m.grace_part_) && child_iter_
+      && child_iter_->get_outlet ())
     {
-      send_stream_event (child_iter_->get_outlet (), "GraceChange", get_music ()->origin ());
+      send_stream_event (child_iter_->get_outlet (), "GraceChange",
+                         get_music ()->origin ());
     }
   in_grace_ = m.grace_part_;
 

@@ -18,16 +18,15 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "laissez-vibrer-engraver.hh"
 #include "engraver.hh"
 #include "item.hh"
-#include "laissez-vibrer-engraver.hh"
 #include "pointer-group-interface.hh"
 #include "stream-event.hh"
 
 #include "translator.icc"
 
-Laissez_vibrer_engraver::Laissez_vibrer_engraver (Context *c)
-  : Engraver (c)
+Laissez_vibrer_engraver::Laissez_vibrer_engraver (Context *c) : Engraver (c)
 {
   event_ = 0;
   lv_column_ = 0;
@@ -128,5 +127,4 @@ ADD_TRANSLATOR (Laissez_vibrer_engraver,
                 "",
 
                 /* write */
-                ""
-               );
+                "");

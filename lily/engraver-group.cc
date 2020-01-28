@@ -17,12 +17,12 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "engraver-group.hh"
 #include "context.hh"
 #include "dispatcher.hh"
-#include "engraver-group.hh"
 #include "global-context.hh"
-#include "grob.hh"
 #include "grob-properties.hh"
+#include "grob.hh"
 #include "paper-score.hh"
 #include "translator-dispatch-list.hh"
 #include "warn.hh"
@@ -42,14 +42,12 @@ Engraver_group::override (SCM sev)
         {
           Global_context *g = find_global_context (context ());
           g->add_finalization (scm_list_4 (ly_context_matched_pop_property_proc,
-                                           context ()->self_scm (),
-                                           sym,
+                                           context ()->self_scm (), sym,
                                            token));
         }
     }
   else
-    gpi.push (ev->get_property ("property-path"),
-              ev->get_property ("value"));
+    gpi.push (ev->get_property ("property-path"), ev->get_property ("value"));
 }
 
 void
@@ -66,8 +64,7 @@ Engraver_group::revert (SCM sev)
         {
           Global_context *g = find_global_context (context ());
           g->add_finalization (scm_list_4 (ly_context_matched_pop_property_proc,
-                                           context ()->self_scm (),
-                                           sym,
+                                           context ()->self_scm (), sym,
                                            token));
         }
     }
@@ -79,15 +76,19 @@ void
 Engraver_group::connect_to_context (Context *c)
 {
   Translator_group::connect_to_context (c);
-  c->event_source ()->add_listener (GET_LISTENER (Engraver_group, override), ly_symbol2scm ("Override"));
-  c->event_source ()->add_listener (GET_LISTENER (Engraver_group, revert), ly_symbol2scm ("Revert"));
+  c->event_source ()->add_listener (GET_LISTENER (Engraver_group, override),
+                                    ly_symbol2scm ("Override"));
+  c->event_source ()->add_listener (GET_LISTENER (Engraver_group, revert),
+                                    ly_symbol2scm ("Revert"));
 }
 
 void
 Engraver_group::disconnect_from_context ()
 {
-  context ()->event_source ()->remove_listener (GET_LISTENER (Engraver_group, override), ly_symbol2scm ("Override"));
-  context ()->event_source ()->remove_listener (GET_LISTENER (Engraver_group, revert), ly_symbol2scm ("Revert"));
+  context ()->event_source ()->remove_listener (
+      GET_LISTENER (Engraver_group, override), ly_symbol2scm ("Override"));
+  context ()->event_source ()->remove_listener (
+      GET_LISTENER (Engraver_group, revert), ly_symbol2scm ("Revert"));
   Translator_group::disconnect_from_context ();
 }
 
@@ -97,13 +98,12 @@ Engraver_group::announce_grob (Grob_info info, Direction dir,
 {
   announce_infos_.push_back (Announce_grob_info (info, dir));
 
-  Context *dad_con = reroute_context ? reroute_context
-    : context_->get_parent_context ();
+  Context *dad_con
+      = reroute_context ? reroute_context : context_->get_parent_context ();
 
   Engraver_group *dad_eng
-    = dad_con
-      ? dynamic_cast<Engraver_group *> (dad_con->implementation ())
-      : 0;
+      = dad_con ? dynamic_cast<Engraver_group *> (dad_con->implementation ())
+                : 0;
 
   if (dad_eng)
     dad_eng->announce_grob (info, dir);
@@ -128,15 +128,14 @@ Engraver_group::acknowledge_grobs ()
       else
         continue;
 
-      SCM ackhandle = scm_hashq_create_handle_x (acknowledge_hash_table_drul_[info.start_end ()],
-                                                 nm, SCM_BOOL_F);
+      SCM ackhandle = scm_hashq_create_handle_x (
+          acknowledge_hash_table_drul_[info.start_end ()], nm, SCM_BOOL_F);
 
       SCM acklist = scm_cdr (ackhandle);
 
       if (scm_is_false (acklist))
         {
-          SCM ifaces
-            = scm_cdr (scm_assoc (ly_symbol2scm ("interfaces"), meta));
+          SCM ifaces = scm_cdr (scm_assoc (ly_symbol2scm ("interfaces"), meta));
           acklist = Engraver_dispatch_list::create (get_simple_trans_list (),
                                                     ifaces, info.start_end ());
 
@@ -144,7 +143,7 @@ Engraver_group::acknowledge_grobs ()
         }
 
       Engraver_dispatch_list *dispatch
-        = unsmob<Engraver_dispatch_list> (acklist);
+          = unsmob<Engraver_dispatch_list> (acklist);
 
       if (dispatch)
         dispatch->apply (info);
@@ -160,12 +159,11 @@ Engraver_group::pending_grobs () const
 {
   if (!announce_infos_.empty ())
     return true;
-  for (SCM s = context_->children_contexts ();
-       scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = context_->children_contexts (); scm_is_pair (s); s = scm_cdr (s))
     {
       Context *c = unsmob<Context> (scm_car (s));
       Engraver_group *group
-        = dynamic_cast<Engraver_group *> (c->implementation ());
+          = dynamic_cast<Engraver_group *> (c->implementation ());
 
       if (group && group->pending_grobs ())
         return true;
@@ -181,12 +179,12 @@ Engraver_group::do_announces ()
       /*
         DOCME: why is this inside the loop?
        */
-      for (SCM s = context ()->children_contexts ();
-           scm_is_pair (s); s = scm_cdr (s))
+      for (SCM s = context ()->children_contexts (); scm_is_pair (s);
+           s = scm_cdr (s))
         {
           Context *c = unsmob<Context> (scm_car (s));
           Engraver_group *group
-            = dynamic_cast<Engraver_group *> (c->implementation ());
+              = dynamic_cast<Engraver_group *> (c->implementation ());
           if (group)
             group->do_announces ();
         }
@@ -228,8 +226,7 @@ ADD_TRANSLATOR_GROUP (Engraver_group,
                       "",
 
                       /* write */
-                      ""
-                     );
+                      "");
 
 void
 Engraver_group::derived_mark () const

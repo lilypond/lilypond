@@ -22,8 +22,7 @@
 #include "paper-score.hh"
 #include "warn.hh"
 
-
-const char * const Grob::type_p_name_ = "ly:grob?";
+const char *const Grob::type_p_name_ = "ly:grob?";
 
 SCM
 Grob::mark_smob () const
@@ -53,7 +52,7 @@ int
 Grob::print_smob (SCM port, scm_print_state *) const
 {
   scm_puts ("#<Grob ", port);
-  scm_puts ((char *) name ().c_str (), port);
+  scm_puts ((char *)name ().c_str (), port);
 
   /* Do not print properties, that is too much hassle.  */
   scm_puts (" >", port);

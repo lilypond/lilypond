@@ -34,15 +34,15 @@ public:
   bool safe_;
   Lily_parser *parser_;
 
-  Parse_start (SCM form, Input &location, bool safe, Lily_parser *parser) :
-    form_ (form), location_ (location), safe_ (safe), parser_ (parser)
+  Parse_start (SCM form, Input &location, bool safe, Lily_parser *parser)
+      : form_ (form), location_ (location), safe_ (safe), parser_ (parser)
   {
   }
 };
 
 SCM catch_protected_parse_body (void *);
 SCM protected_ly_parse_scm (Parse_start *, bool);
-SCM ly_parse_scm (Input&, bool, Lily_parser *);
+SCM ly_parse_scm (Input &, bool, Lily_parser *);
 SCM ly_eval_scm (SCM, Input, bool, Lily_parser *);
 
 #endif /* PARSE_SCM_HH */

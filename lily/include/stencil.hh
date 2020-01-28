@@ -19,10 +19,10 @@
 #ifndef STENCIL_HH
 #define STENCIL_HH
 
-#include <cstdlib>              // size_t
+#include <cstdlib> // size_t
 
-#include "lily-proto.hh"
 #include "box.hh"
+#include "lily-proto.hh"
 #include "smobs.hh"
 
 /** a group of individually translated symbols. You can add stencils
@@ -58,7 +58,8 @@ class Stencil : public Simple_smob<Stencil>
 {
 public:
   SCM mark_smob () const;
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
+
 private:
   Box dim_;
   SCM expr_;
@@ -73,7 +74,8 @@ public:
      Set dimensions to empty, or to (Interval (0, 0), Interval (0, 0) */
   void set_empty (bool);
   void add_at_edge (Axis a, Direction d, const Stencil &m, Real padding);
-  void stack (Axis a, Direction d, const Stencil &m, Real padding, Real mindist);
+  void stack (Axis a, Direction d, const Stencil &m, Real padding,
+              Real mindist);
   void add_stencil (Stencil const &m);
   void translate (Offset);
   Stencil translated (Offset) const;
@@ -93,11 +95,8 @@ public:
   static SCM skylines_from_stencil (SCM, Real, SCM, Axis);
 };
 
-
-void interpret_stencil_expression (SCM expr,
-                                   SCM (*func) (void *, SCM),
-                                   void *func_arg,
-                                   Offset o);
+void interpret_stencil_expression (SCM expr, SCM (*func) (void *, SCM),
+                                   void *func_arg, Offset o);
 SCM find_expression_fonts (SCM expr);
 
 void register_stencil_head (SCM symbol);

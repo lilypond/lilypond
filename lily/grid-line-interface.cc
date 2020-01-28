@@ -20,9 +20,9 @@
 #include "grid-line-interface.hh"
 
 #include "grob.hh"
-#include "pointer-group-interface.hh"
 #include "lookup.hh"
 #include "output-def.hh"
+#include "pointer-group-interface.hh"
 
 MAKE_SCHEME_CALLBACK (Grid_line_interface, print, 1);
 SCM
@@ -48,13 +48,13 @@ Grid_line_interface::print (SCM smobbed_me)
       return SCM_EOL;
     }
 
-  Real staffline = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
-  Real thick = robust_scm2double (me->get_property ("thickness"), 1.0)
-               * staffline;
+  Real staffline
+      = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
+  Real thick
+      = robust_scm2double (me->get_property ("thickness"), 1.0) * staffline;
 
   iv += -me->relative_coordinate (refp, Y_AXIS);
-  Stencil st = Lookup::filled_box (Box (Interval (0, thick),
-                                        iv));
+  Stencil st = Lookup::filled_box (Box (Interval (0, thick), iv));
 
   return st.smobbed_copy ();
 }
@@ -65,9 +65,10 @@ Grid_line_interface::width (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
 
-  Real staffline = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
-  Real thick = robust_scm2double (me->get_property ("thickness"), 1.0)
-               * staffline;
+  Real staffline
+      = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
+  Real thick
+      = robust_scm2double (me->get_property ("thickness"), 1.0) * staffline;
 
   return ly_interval2scm (Interval (0, thick));
 }
@@ -83,12 +84,9 @@ ADD_INTERFACE (Grid_line_interface,
 
                /* properties */
                "elements "
-               "thickness "
-              );
+               "thickness ");
 
-ADD_INTERFACE (Grid_point_interface,
-               "A spanning point for grid lines.",
+ADD_INTERFACE (Grid_point_interface, "A spanning point for grid lines.",
 
                /* properties */
-               ""
-              );
+               "");

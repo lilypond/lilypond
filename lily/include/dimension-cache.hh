@@ -31,8 +31,7 @@ class Dimension_cache
   // replacing this with C++17 std::optional someday.  The implementation
   // differs fundamentally from std::optional, but not in any way that matters
   // for current uses in Dimension_cache.
-  template <class T>
-  class Optional
+  template <class T> class Optional
   {
   private:
     bool has_value_;
@@ -41,7 +40,7 @@ class Dimension_cache
   public:
     Optional () : has_value_ (false), value_ () {}
 
-    Optional &operator = (const T &value)
+    Optional &operator= (const T &value)
     {
       has_value_ = true;
       value_ = value;
@@ -52,8 +51,8 @@ class Dimension_cache
 
     explicit operator bool () const { return has_value_; }
 
-    T &operator * () { return value_; }
-    const T &operator * () const { return value_; }
+    T &operator* () { return value_; }
+    const T &operator* () const { return value_; }
   };
 
   Optional<Interval> extent_;

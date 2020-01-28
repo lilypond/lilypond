@@ -23,8 +23,8 @@
 #include "std-vector.hh"
 
 #include "box.hh"
-#include "lily-proto.hh"
 #include "grob-interface.hh"
+#include "lily-proto.hh"
 
 class Accidental_interface
 {

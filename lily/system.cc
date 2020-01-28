@@ -29,6 +29,7 @@
 #include "grob-array.hh"
 #include "hara-kiri-group-spanner.hh"
 #include "international.hh"
+#include "lily-imports.hh"
 #include "lookup.hh"
 #include "main.hh"
 #include "output-def.hh"
@@ -41,14 +42,12 @@
 #include "staff-symbol-referencer.hh"
 #include "system-start-delimiter.hh"
 #include "text-interface.hh"
-#include "warn.hh"
 #include "unpure-pure-container.hh"
-#include "lily-imports.hh"
+#include "warn.hh"
 
 using std::vector;
 
-System::System (System const &src)
-  : Spanner (src)
+System::System (System const &src) : Spanner (src)
 {
   all_elements_ = 0;
   pscore_ = 0;
@@ -56,8 +55,7 @@ System::System (System const &src)
   init_elements ();
 }
 
-System::System (SCM s)
-  : Spanner (s)
+System::System (SCM s) : Spanner (s)
 {
   all_elements_ = 0;
   rank_ = 0;
@@ -108,7 +106,7 @@ System::typeset_grob (Grob *elem)
 void
 System::derived_mark () const
 {
-  const vector <Grob *> &arr = all_elements_->array ();
+  const vector<Grob *> &arr = all_elements_->array ();
   for (vsize i = arr.size (); i--;)
     scm_gc_mark (arr[i]->self_scm ());
 
@@ -190,7 +188,7 @@ System::do_break_substitution_and_fixup_refpoints ()
         {
           Grob *g = child->all_elements_->grob (j);
 
-          (void) g->get_property ("after-line-breaking");
+          (void)g->get_property ("after-line-breaking");
         }
     }
 
@@ -245,21 +243,23 @@ System::get_footnote_grobs_in_range (vsize start, vsize end)
       Grob *at_bat = footnote_grobs[i];
       int pos = at_bat->spanned_rank_interval ()[LEFT];
       bool end_of_line_visible = true;
-      if (Spanner *s = dynamic_cast<Spanner *>(at_bat))
+      if (Spanner *s = dynamic_cast<Spanner *> (at_bat))
         {
-          Direction spanner_placement = robust_scm2dir (s->get_property ("spanner-placement"), LEFT);
+          Direction spanner_placement
+              = robust_scm2dir (s->get_property ("spanner-placement"), LEFT);
           if (spanner_placement == CENTER)
             spanner_placement = LEFT;
 
           pos = s->spanned_rank_interval ()[spanner_placement];
           if (Spanner *orig = s->original ())
             {
-              at_bat = spanner_placement == LEFT ? orig->broken_intos_[0] : orig->broken_intos_.back ();
+              at_bat = spanner_placement == LEFT ? orig->broken_intos_[0]
+                                                 : orig->broken_intos_.back ();
               pos = at_bat->spanned_rank_interval ()[RIGHT];
             }
         }
 
-      if (Item *item = dynamic_cast<Item *>(at_bat))
+      if (Item *item = dynamic_cast<Item *> (at_bat))
         {
           /*
             We use this to weed out grobs that fall at the end
@@ -269,12 +269,14 @@ System::get_footnote_grobs_in_range (vsize start, vsize end)
 
           if (!Item::break_visible (item))
             continue;
-          // safeguard to bring down the column rank so that end of line footnotes show up on the correct line
+          // safeguard to bring down the column rank so that end of line
+          // footnotes show up on the correct line
           if (pos == int (start) && item->break_status_dir () != RIGHT)
             continue;
           if (pos == int (end) && item->break_status_dir () != LEFT)
             continue;
-          if (pos != int (end) && pos != int (start) && item->break_status_dir () != CENTER)
+          if (pos != int (end) && pos != int (start)
+              && item->break_status_dir () != CENTER)
             continue;
         }
 
@@ -321,9 +323,8 @@ System::internal_get_note_heights_in_range (vsize start, vsize end, bool foot)
   vector<Real> out;
 
   for (vsize i = footnote_grobs.size (); i--;)
-    if (foot
-        ? !to_boolean (footnote_grobs[i]->get_property ("footnote"))
-        : to_boolean (footnote_grobs[i]->get_property ("footnote")))
+    if (foot ? !to_boolean (footnote_grobs[i]->get_property ("footnote"))
+             : to_boolean (footnote_grobs[i]->get_property ("footnote")))
       footnote_grobs.erase (footnote_grobs.begin () + i);
 
   for (vsize i = 0; i < footnote_grobs.size (); i++)
@@ -333,11 +334,11 @@ System::internal_get_note_heights_in_range (vsize start, vsize end, bool foot)
       if (!Text_interface::is_markup (footnote_markup))
         continue;
 
-      SCM props =
-        Lily::layout_extract_page_properties (pscore_->layout ()->self_scm ());
+      SCM props = Lily::layout_extract_page_properties (
+          pscore_->layout ()->self_scm ());
 
-      SCM footnote_stl = Text_interface::interpret_markup (pscore_->layout ()->self_scm (),
-                                                           props, footnote_markup);
+      SCM footnote_stl = Text_interface::interpret_markup (
+          pscore_->layout ()->self_scm (), props, footnote_markup);
 
       Stencil *footnote_stencil = unsmob<Stencil> (footnote_stl);
       out.push_back (footnote_stencil->extent (Y_AXIS).length ());
@@ -365,9 +366,11 @@ grob_2D_less (Grob *g1, Grob *g2)
       if (Spanner *s = dynamic_cast<Spanner *> (gs[i]))
         {
           if (s->broken_intos_.size ())
-            s = (scm_to_int (s->broken_intos_[0]->get_property ("spanner-placement")) == LEFT
-                 ? s->broken_intos_[0]
-                 : s->broken_intos_.back ());
+            s = (scm_to_int (
+                     s->broken_intos_[0]->get_property ("spanner-placement"))
+                         == LEFT
+                     ? s->broken_intos_[0]
+                     : s->broken_intos_.back ());
           gs[i] = s;
           if (robust_scm2double (s->get_property ("X-offset"), 0.0) > 0)
             sri[i] = s->spanned_rank_interval ()[RIGHT];
@@ -403,7 +406,8 @@ System::footnotes_after_line_breaking (SCM smob)
   Spanner *sys_span = unsmob<Spanner> (smob);
   System *sys = dynamic_cast<System *> (sys_span);
   Interval_t<int> sri = sys->spanned_rank_interval ();
-  vector<Grob *> footnote_grobs = sys->get_footnote_grobs_in_range (sri[LEFT], sri[RIGHT]);
+  vector<Grob *> footnote_grobs
+      = sys->get_footnote_grobs_in_range (sri[LEFT], sri[RIGHT]);
   vector_sort (footnote_grobs, grob_2D_less);
 
   SCM grobs_scm = Grob_array::make_array ();
@@ -543,13 +547,13 @@ System::pre_processing ()
   for (vsize i = 0; i < all_elements_->size (); i++)
     {
       Grob *g = all_elements_->grob (i);
-      (void) g->get_property ("before-line-breaking");
+      (void)g->get_property ("before-line-breaking");
     }
 
   for (vsize i = 0; i < all_elements_->size (); i++)
     {
       Grob *e = all_elements_->grob (i);
-      (void) e->get_property ("springs-and-rods");
+      (void)e->get_property ("springs-and-rods");
     }
 }
 
@@ -583,8 +587,7 @@ struct Layer_entry
 };
 
 bool
-operator < (Layer_entry const &a,
-            Layer_entry const &b)
+operator< (Layer_entry const &a, Layer_entry const &b)
 {
   return a.layer_ < b.layer_;
 }
@@ -620,9 +623,9 @@ System::get_paper_system ()
       for (int a = X_AXIS; a < NO_AXES; a++)
         o[Axis (a)] = g->relative_coordinate (this, Axis (a));
 
-      Offset extra = robust_scm2offset (g->get_property ("extra-offset"),
-                                        Offset (0, 0))
-                     * Staff_symbol_referencer::staff_space (g);
+      Offset extra
+          = robust_scm2offset (g->get_property ("extra-offset"), Offset (0, 0))
+            * Staff_symbol_referencer::staff_space (g);
 
       /* Must copy the stencil, for we cannot change the stencil
          cached in G.  */
@@ -639,17 +642,17 @@ System::get_paper_system ()
   Interval x (extent (this, X_AXIS));
   Interval y (extent (this, Y_AXIS));
   Stencil sys_stencil (Box (x, y),
-                       scm_cons (ly_symbol2scm ("combine-stencil"),
-                                 exprs));
+                       scm_cons (ly_symbol2scm ("combine-stencil"), exprs));
   if (debug_skylines)
     {
-      Skyline_pair *skylines = unsmob<Skyline_pair> (get_property ("vertical-skylines"));
+      Skyline_pair *skylines
+          = unsmob<Skyline_pair> (get_property ("vertical-skylines"));
       if (skylines)
         {
-          Stencil up
-            = Lookup::points_to_line_stencil (0.1, (*skylines)[UP].to_points (X_AXIS));
-          Stencil down
-            = Lookup::points_to_line_stencil (0.1, (*skylines)[DOWN].to_points (X_AXIS));
+          Stencil up = Lookup::points_to_line_stencil (
+              0.1, (*skylines)[UP].to_points (X_AXIS));
+          Stencil down = Lookup::points_to_line_stencil (
+              0.1, (*skylines)[DOWN].to_points (X_AXIS));
           sys_stencil.add_stencil (up.in_color (1.0, 0.0, 0.0));
           sys_stencil.add_stencil (down.in_color (0.0, 1.0, 0.0));
         }
@@ -663,10 +666,14 @@ System::get_paper_system ()
   /* information that the page breaker might need */
   Paper_column *right_bound = get_bound (RIGHT);
   pl->set_property ("vertical-skylines", get_property ("vertical-skylines"));
-  pl->set_property ("page-break-permission", right_bound->get_property ("page-break-permission"));
-  pl->set_property ("page-turn-permission", right_bound->get_property ("page-turn-permission"));
-  pl->set_property ("page-break-penalty", right_bound->get_property ("page-break-penalty"));
-  pl->set_property ("page-turn-penalty", right_bound->get_property ("page-turn-penalty"));
+  pl->set_property ("page-break-permission",
+                    right_bound->get_property ("page-break-permission"));
+  pl->set_property ("page-turn-permission",
+                    right_bound->get_property ("page-turn-permission"));
+  pl->set_property ("page-break-penalty",
+                    right_bound->get_property ("page-break-penalty"));
+  pl->set_property ("page-turn-penalty",
+                    right_bound->get_property ("page-turn-penalty"));
 
   if (right_bound->original () == original ()->get_bound (RIGHT))
     pl->set_property ("last-in-score", SCM_BOOL_T);
@@ -678,8 +685,8 @@ System::get_paper_system ()
       for (vsize i = 0; i < staves.size (); i++)
         if (staves[i]->is_live ()
             && Page_layout_problem::is_spaceable (staves[i]))
-          staff_refpoints.add_point (staves[i]->relative_coordinate (this,
-                                                                     Y_AXIS));
+          staff_refpoints.add_point (
+              staves[i]->relative_coordinate (this, Y_AXIS));
     }
 
   pl->set_property ("staff-refpoint-extent", ly_interval2scm (staff_refpoints));
@@ -698,8 +705,8 @@ System::broken_col_range (Item const *left_item, Item const *right_item) const
 
   extract_grob_set (this, "columns", cols);
 
-  vsize end_rank = std::min(static_cast<vsize> (right_col->get_rank ()),
-                            cols.size ());
+  vsize end_rank
+      = std::min (static_cast<vsize> (right_col->get_rank ()), cols.size ());
   for (vsize i = left_col->get_rank () + 1; i < end_rank; ++i)
     {
       if (Paper_column *c = dynamic_cast<Paper_column *> (cols[i]))
@@ -725,12 +732,13 @@ System::used_columns_in_range (vsize start, vsize end) const
 
   while (last_breakable--)
     {
-      Paper_column *c = dynamic_cast<Paper_column *> (ro_columns[last_breakable]);
+      Paper_column *c
+          = dynamic_cast<Paper_column *> (ro_columns[last_breakable]);
       if (c && Paper_column::is_breakable (c))
         break;
     }
 
-  end = std::min(end, last_breakable + 1);
+  end = std::min (end, last_breakable + 1);
 
   vector<Paper_column *> columns;
   for (vsize i = start; i < end; ++i)
@@ -781,7 +789,8 @@ System::get_vertical_alignment (SCM smob)
     if (has_interface<Align_interface> (elts[i]))
       {
         if (ret)
-          me->programming_error ("found multiple vertical alignments in this system");
+          me->programming_error (
+              "found multiple vertical alignments in this system");
         ret = elts[i];
       }
 
@@ -795,7 +804,8 @@ System::get_vertical_alignment (SCM smob)
 
 // Finds the neighboring staff in the given direction over bounds
 Grob *
-System::get_neighboring_staff (Direction dir, Grob *vertical_axis_group, Interval_t<int> bounds)
+System::get_neighboring_staff (Direction dir, Grob *vertical_axis_group,
+                               Interval_t<int> bounds)
 {
   Grob *align = unsmob<Grob> (get_object ("vertical-alignment"));
   if (!align)
@@ -832,7 +842,8 @@ System::pure_refpoint_extent (vsize start, vsize end)
     return Interval ();
 
   extract_grob_set (alignment, "elements", staves);
-  vector<Real> offsets = Align_interface::get_pure_minimum_translations (alignment, staves, Y_AXIS, start, end);
+  vector<Real> offsets = Align_interface::get_pure_minimum_translations (
+      alignment, staves, Y_AXIS, start, end);
 
   for (vsize i = 0; i < offsets.size (); ++i)
     if (Page_layout_problem::is_spaceable (staves[i]))
@@ -859,22 +870,25 @@ System::part_of_line_pure_height (vsize start, vsize end, bool begin)
     return Interval ();
 
   extract_grob_set (alignment, "elements", staves);
-  vector<Real> offsets = Align_interface::get_pure_minimum_translations (alignment, staves, Y_AXIS, start, end);
+  vector<Real> offsets = Align_interface::get_pure_minimum_translations (
+      alignment, staves, Y_AXIS, start, end);
 
   Interval ret;
   for (vsize i = 0; i < staves.size (); ++i)
     {
-      Interval iv = begin
-                    ? Axis_group_interface::begin_of_line_pure_height (staves[i], start)
-                    : Axis_group_interface::rest_of_line_pure_height (staves[i], start, end);
+      Interval iv = begin ? Axis_group_interface::begin_of_line_pure_height (
+                        staves[i], start)
+                          : Axis_group_interface::rest_of_line_pure_height (
+                              staves[i], start, end);
       if (i < offsets.size ())
         iv.translate (offsets[i]);
       ret.unite (iv);
     }
 
-  Interval other_elements = begin
-                            ? Axis_group_interface::begin_of_line_pure_height (this, start)
-                            : Axis_group_interface::rest_of_line_pure_height (this, start, end);
+  Interval other_elements
+      = begin
+            ? Axis_group_interface::begin_of_line_pure_height (this, start)
+            : Axis_group_interface::rest_of_line_pure_height (this, start, end);
 
   ret.unite (other_elements);
 
@@ -959,8 +973,8 @@ System::get_pure_bound (Direction d, vsize start, vsize end)
   vector<Paper_column *> const &cols = pscore_->get_columns ();
 
   vsize target_rank = (d == LEFT ? start : end);
-  vector<vsize>::const_iterator i
-    = lower_bound (ranks.begin (), ranks.end (), target_rank, std::less<vsize> ());
+  vector<vsize>::const_iterator i = lower_bound (
+      ranks.begin (), ranks.end (), target_rank, std::less<vsize> ());
 
   if (i != ranks.end () && (*i) == target_rank)
     return cols[indices[i - ranks.begin ()]];
@@ -1047,5 +1061,4 @@ ADD_INTERFACE (System,
                "in-note-stencil "
                "labels "
                "pure-Y-extent "
-               "vertical-alignment "
-              );
+               "vertical-alignment ");

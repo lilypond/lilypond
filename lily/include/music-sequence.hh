@@ -20,9 +20,9 @@
 #ifndef MUSIC_SEQUENCE_HH
 #define MUSIC_SEQUENCE_HH
 
-#include "pitch.hh"
-#include "moment.hh"
 #include "lily-guile.hh"
+#include "moment.hh"
+#include "pitch.hh"
 
 class Music_sequence
 {

@@ -27,6 +27,7 @@
 #include "input.hh"
 #include "international.hh"
 #include "item.hh"
+#include "lily-imports.hh"
 #include "main.hh"
 #include "misc.hh"
 #include "music.hh"
@@ -38,7 +39,6 @@
 #include "system.hh"
 #include "unpure-pure-container.hh"
 #include "warn.hh"
-#include "lily-imports.hh"
 
 using std::set;
 using std::string;
@@ -82,29 +82,30 @@ Grob::Grob (SCM basicprops)
   if (scm_is_null (get_property_data ("X-extent")))
     set_property ("X-extent", Grob::stencil_width_proc);
   if (scm_is_null (get_property_data ("Y-extent")))
-    set_property ("Y-extent",
-                  Unpure_pure_container::make_smob (Grob::stencil_height_proc,
-                                                    Grob::pure_stencil_height_proc));
+    set_property ("Y-extent", Unpure_pure_container::make_smob (
+                                  Grob::stencil_height_proc,
+                                  Grob::pure_stencil_height_proc));
   if (scm_is_null (get_property_data ("vertical-skylines")))
     set_property ("vertical-skylines",
-                  Unpure_pure_container::make_smob (Grob::simple_vertical_skylines_from_extents_proc,
-                                                    Grob::pure_simple_vertical_skylines_from_extents_proc));
+                  Unpure_pure_container::make_smob (
+                      Grob::simple_vertical_skylines_from_extents_proc,
+                      Grob::pure_simple_vertical_skylines_from_extents_proc));
   if (scm_is_null (get_property_data ("horizontal-skylines")))
     set_property ("horizontal-skylines",
-                  Unpure_pure_container::make_smob (Grob::simple_horizontal_skylines_from_extents_proc,
-                                                    Grob::pure_simple_horizontal_skylines_from_extents_proc));
+                  Unpure_pure_container::make_smob (
+                      Grob::simple_horizontal_skylines_from_extents_proc,
+                      Grob::pure_simple_horizontal_skylines_from_extents_proc));
 }
 
-Grob::Grob (Grob const &s)
-  : Smob<Grob> ()
+Grob::Grob (Grob const &s) : Smob<Grob> ()
 {
-  original_ = (Grob *) & s;
+  original_ = (Grob *)&s;
 
   immutable_property_alist_ = s.immutable_property_alist_;
   mutable_property_alist_ = SCM_EOL;
 
   for (Axis a = X_AXIS; a < NO_AXES; incr (a))
-      dim_cache_ [a] = s.dim_cache_ [a];
+    dim_cache_[a] = s.dim_cache_[a];
 
   interfaces_ = s.interfaces_;
   object_alist_ = SCM_EOL;
@@ -114,12 +115,9 @@ Grob::Grob (Grob const &s)
   smobify_self ();
 
   mutable_property_alist_ = ly_deep_copy (s.mutable_property_alist_);
-
 }
 
-Grob::~Grob ()
-{
-}
+Grob::~Grob () {}
 /****************************************************************
   STENCILS
 ****************************************************************/
@@ -147,25 +145,25 @@ Grob::get_print_stencil () const
 
       /* Process whiteout before color and grob-cause to prevent colored */
       /* whiteout background and larger file sizes with \pointAndClickOn. */
-      /* A grob has to be visible, otherwise the whiteout property has no effect. */
+      /* A grob has to be visible, otherwise the whiteout property has no
+       * effect. */
       /* Calls the scheme procedure stencil-whiteout in scm/stencils.scm */
-      if (!transparent && (scm_is_number (get_property ("whiteout"))
-                           || to_boolean (get_property ("whiteout"))))
+      if (!transparent
+          && (scm_is_number (get_property ("whiteout"))
+              || to_boolean (get_property ("whiteout"))))
         {
-          Real line_thickness = layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
-          retval = *unsmob<Stencil>
-            (Lily::stencil_whiteout (retval.smobbed_copy (),
-                                     get_property ("whiteout-style"),
-                                     get_property ("whiteout"),
-                                     scm_from_double (line_thickness)));
+          Real line_thickness
+              = layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
+          retval = *unsmob<Stencil> (Lily::stencil_whiteout (
+              retval.smobbed_copy (), get_property ("whiteout-style"),
+              get_property ("whiteout"), scm_from_double (line_thickness)));
         }
 
       if (transparent)
         retval = Stencil (m->extent_box (), SCM_EOL);
       else
         {
-          SCM expr = scm_list_3 (ly_symbol2scm ("grob-cause"),
-                                 self_scm (),
+          SCM expr = scm_list_3 (ly_symbol2scm ("grob-cause"), self_scm (),
                                  retval.expr ());
 
           retval = Stencil (retval.extent_box (), expr);
@@ -185,9 +183,8 @@ Grob::get_print_stencil () const
       SCM color = get_property ("color");
       if (scm_is_pair (color))
         {
-          SCM expr = scm_list_3 (ly_symbol2scm ("color"),
-                                 color,
-                                 retval.expr ());
+          SCM expr
+              = scm_list_3 (ly_symbol2scm ("color"), color, retval.expr ());
 
           retval = Stencil (retval.extent_box (), expr);
         }
@@ -196,12 +193,10 @@ Grob::get_print_stencil () const
       if (scm_is_pair (attributes))
         {
           SCM expr = scm_list_3 (ly_symbol2scm ("output-attributes"),
-                                 attributes,
-                                 retval.expr ());
+                                 attributes, retval.expr ());
 
           retval = Stencil (retval.extent_box (), expr);
         }
-
     }
 
   return retval;
@@ -234,7 +229,7 @@ System *
 Grob::get_system (Grob *me)
 {
   Grob *p = me->get_parent (X_AXIS);
-  return p ? get_system (p) : dynamic_cast<System *>(me);
+  return p ? get_system (p) : dynamic_cast<System *> (me);
 }
 
 void
@@ -254,9 +249,7 @@ Grob::handle_broken_dependencies ()
     }
   System *system = get_system ();
 
-  if (is_live ()
-      && system
-      && common_refpoint (system, X_AXIS)
+  if (is_live () && system && common_refpoint (system, X_AXIS)
       && common_refpoint (system, Y_AXIS))
     substitute_object_links (system->self_scm (), object_alist_);
   else if (dynamic_cast<System *> (this))
@@ -374,10 +367,8 @@ Grob::pure_relative_y_coordinate (Grob const *refp, int start, int end)
 
       dim_cache_[Y_AXIS].offset_ = 0;
       set_property ("pure-Y-offset-in-progress", SCM_BOOL_T);
-      off = robust_scm2double (call_pure_function (proc,
-                                                   scm_list_1 (self_scm ()),
-                                                   start, end),
-                               0.0);
+      off = robust_scm2double (
+          call_pure_function (proc, scm_list_1 (self_scm ()), start, end), 0.0);
       del_property ("pure-Y-offset-in-progress");
       dim_cache_[Y_AXIS].offset_.reset ();
     }
@@ -391,7 +382,8 @@ Grob::pure_relative_y_coordinate (Grob const *refp, int start, int end)
     {
       Real trans = 0;
       if (has_interface<Align_interface> (p) && !dim_cache_[Y_AXIS].offset_)
-        trans = Align_interface::get_pure_child_y_translation (p, this, start, end);
+        trans = Align_interface::get_pure_child_y_translation (p, this, start,
+                                                               end);
 
       return off + trans + p->pure_relative_y_coordinate (refp, start, end);
     }
@@ -424,12 +416,13 @@ Grob::get_offset (Axis a) const
 }
 
 Real
-Grob::maybe_pure_coordinate (Grob const *refp, Axis a, bool pure, int start, int end)
+Grob::maybe_pure_coordinate (Grob const *refp, Axis a, bool pure, int start,
+                             int end)
 {
   if (pure && a != Y_AXIS)
     programming_error ("tried to get pure X-offset");
   return (pure && a == Y_AXIS) ? pure_relative_y_coordinate (refp, start, end)
-         : relative_coordinate (refp, a);
+                               : relative_coordinate (refp, a);
 }
 
 /****************************************************************
@@ -445,7 +438,8 @@ Grob::flush_extent_cache (Axis axis)
         Ugh, this is not accurate; will flush property, causing
         callback to be called if.
        */
-      del_property ((axis == X_AXIS) ? ly_symbol2scm ("X-extent") : ly_symbol2scm ("Y-extent"));
+      del_property ((axis == X_AXIS) ? ly_symbol2scm ("X-extent")
+                                     : ly_symbol2scm ("Y-extent"));
       dim_cache_[axis].extent_.reset ();
       if (get_parent (axis))
         get_parent (axis)->flush_extent_cache (axis);
@@ -466,15 +460,13 @@ Grob::extent (Grob const *refp, Axis a) const
       /*
         Order is significant: ?-extent may trigger suicide.
        */
-      SCM ext = (a == X_AXIS)
-              ? get_property ("X-extent")
-              : get_property ("Y-extent");
+      SCM ext = (a == X_AXIS) ? get_property ("X-extent")
+                              : get_property ("Y-extent");
       if (is_number_pair (ext))
         real_ext.unite (ly_scm2interval (ext));
 
-      SCM min_ext = (a == X_AXIS)
-              ? get_property ("minimum-X-extent")
-              : get_property ("minimum-Y-extent");
+      SCM min_ext = (a == X_AXIS) ? get_property ("minimum-X-extent")
+                                  : get_property ("minimum-Y-extent");
       if (is_number_pair (min_ext))
         real_ext.unite (ly_scm2interval (min_ext));
 
@@ -482,11 +474,10 @@ Grob::extent (Grob const *refp, Axis a) const
     }
 
   // We never want nan, so we avoid shifting infinite values.
-    if(!std::isinf (offset))
-      real_ext.translate(offset);
-    else
-      warning(_f ("ignored infinite %s-offset",
-                        a == X_AXIS ? "X" : "Y"));
+  if (!std::isinf (offset))
+    real_ext.translate (offset);
+  else
+    warning (_f ("ignored infinite %s-offset", a == X_AXIS ? "X" : "Y"));
 
   return real_ext;
 }
@@ -514,7 +505,8 @@ Grob::pure_y_extent (Grob *refp, int start, int end)
 Interval
 Grob::maybe_pure_extent (Grob *refp, Axis a, bool pure, int start, int end)
 {
-  return (pure && a == Y_AXIS) ? pure_y_extent (refp, start, end) : extent (refp, a);
+  return (pure && a == Y_AXIS) ? pure_y_extent (refp, start, end)
+                               : extent (refp, a);
 }
 
 Interval_t<int>
@@ -527,7 +519,8 @@ Grob::spanned_rank_interval () const
 bool
 Grob::less (Grob *g1, Grob *g2)
 {
-  return g1->spanned_rank_interval ()[LEFT] < g2->spanned_rank_interval ()[LEFT];
+  return g1->spanned_rank_interval ()[LEFT]
+         < g2->spanned_rank_interval ()[LEFT];
 }
 
 /****************************************************************
@@ -570,7 +563,7 @@ Grob::common_refpoint (Grob const *s, Axis a) const
       d = d->dim_cache_[a].parent_;
     }
 
-  return (Grob *) c;
+  return (Grob *)c;
 }
 
 void
@@ -631,7 +624,6 @@ get_maybe_root_vertical_alignment (Grob *g, Grob *maybe)
   if (has_interface<Align_interface> (g))
     return get_maybe_root_vertical_alignment (g->get_parent (Y_AXIS), g);
   return get_maybe_root_vertical_alignment (g->get_parent (Y_AXIS), maybe);
-
 }
 
 Grob *
@@ -651,7 +643,6 @@ Grob::get_vertical_axis_group (Grob *g)
       && has_interface<Align_interface> (g->get_parent (Y_AXIS)))
     return g;
   return get_vertical_axis_group (g->get_parent (Y_AXIS));
-
 }
 
 int
@@ -664,8 +655,9 @@ Grob::get_vertical_axis_group_index (Grob *g)
   extract_grob_set (val, "elements", elts);
   for (vsize i = 0; i < elts.size (); i++)
     if (elts[i] == vax)
-      return (int) i;
-  g->programming_error ("could not find this grob's vertical axis group in the vertical alignment");
+      return (int)i;
+  g->programming_error ("could not find this grob's vertical axis group in the "
+                        "vertical alignment");
   return -1;
 }
 
@@ -699,7 +691,8 @@ Grob::internal_vertical_less (Grob *g1, Grob *g2, bool pure)
   if (ag1 == ag2 && !pure)
     {
       Grob *common = g1->common_refpoint (g2, Y_AXIS);
-      return g1->relative_coordinate (common, Y_AXIS) > g2->relative_coordinate (common, Y_AXIS);
+      return g1->relative_coordinate (common, Y_AXIS)
+             > g2->relative_coordinate (common, Y_AXIS);
     }
 
   for (vsize i = 0; i < elts.size (); i++)
@@ -830,8 +823,7 @@ ADD_INTERFACE (Grob,
                "transparent "
                "vertical-skylines "
                "whiteout "
-               "whiteout-style "
-              );
+               "whiteout-style ");
 
 /****************************************************************
   CALLBACKS
@@ -864,7 +856,6 @@ Grob::pure_stencil_height (SCM smob, SCM /* beg */, SCM /* end */)
     return grob_stencil_extent (me, Y_AXIS);
 
   return ly_interval2scm (Interval ());
-
 }
 
 MAKE_SCHEME_CALLBACK (Grob, y_parent_positioning, 1);
@@ -874,7 +865,7 @@ Grob::y_parent_positioning (SCM smob)
   Grob *me = unsmob<Grob> (smob);
   Grob *par = me->get_parent (Y_AXIS);
   if (par)
-    (void) par->get_property ("positioning-done");
+    (void)par->get_property ("positioning-done");
 
   return scm_from_double (0.0);
 }
@@ -887,7 +878,7 @@ Grob::x_parent_positioning (SCM smob)
 
   Grob *par = me->get_parent (X_AXIS);
   if (par)
-    (void) par->get_property ("positioning-done");
+    (void)par->get_property ("positioning-done");
 
   return scm_from_double (0.0);
 }
@@ -966,8 +957,7 @@ Grob::check_cross_staff (Grob *commony)
   return false;
 }
 
-static
-bool
+static bool
 indirect_less (Grob **a, Grob **b)
 {
   // Use original order as tie breaker.  That gives us a stable sort
@@ -977,15 +967,13 @@ indirect_less (Grob **a, Grob **b)
   return *a < *b || (*a == *b && a < b);
 }
 
-static
-bool
+static bool
 indirect_eq (Grob **a, Grob **b)
 {
   return *a == *b;
 }
 
-static
-bool
+static bool
 direct_less (Grob **a, Grob **b)
 {
   return a < b;
@@ -996,9 +984,9 @@ direct_less (Grob **a, Grob **b)
 // memory allocation of Grobs.
 
 void
-uniquify (vector <Grob *> & grobs)
+uniquify (vector<Grob *> &grobs)
 {
-  vector <Grob **> vec (grobs.size ());
+  vector<Grob **> vec (grobs.size ());
   for (vsize i = 0; i < grobs.size (); i++)
     vec[i] = &grobs[i];
   vector_sort (vec, indirect_less);

@@ -21,14 +21,14 @@
 #include "lily-guile.hh"
 
 #include <cassert>
-#include <clocale>
-#include <cstring>
 #include <cerrno>
+#include <clocale>
 #include <cstdio>
+#include <cstring>
 
-#include <unistd.h>
-#include <sys/types.h>
 #include "config.hh"
+#include <sys/types.h>
+#include <unistd.h>
 
 #if HAVE_GRP_H
 #include <grp.h>
@@ -46,6 +46,7 @@
 #include "getopt-long.hh"
 #include "global-ctor.hh"
 #include "international.hh"
+#include "lily-imports.hh"
 #include "lily-version.hh"
 #include "misc.hh"
 #include "output-def.hh"
@@ -54,8 +55,6 @@
 #include "string-convert.hh"
 #include "version.hh"
 #include "warn.hh"
-#include "lily-imports.hh"
-
 
 /*
  * Global options that can be overridden through command line.
@@ -69,34 +68,33 @@ bool point_and_click_global = true;
  * File globals.
  */
 
-static char const *AUTHORS
-  = "  Han-Wen Nienhuys <hanwen@xs4all.nl>\n"
-    "  Jan Nieuwenhuizen <janneke@gnu.org>\n";
+static char const *AUTHORS = "  Han-Wen Nienhuys <hanwen@xs4all.nl>\n"
+                             "  Jan Nieuwenhuizen <janneke@gnu.org>\n";
 
 static char const *PROGRAM_NAME = "lilypond";
 static char const *PROGRAM_URL = "http://lilypond.org";
 
-static char const *NOTICE
-  = _i ("This program is free software.  It is covered by the GNU General Public\n"
-        "License and you are welcome to change it and/or distribute copies of it\n"
-        "under certain conditions.  Invoke as `%s --warranty' for more\n"
-        "information.\n");
+static char const *NOTICE = _i (
+    "This program is free software.  It is covered by the GNU General Public\n"
+    "License and you are welcome to change it and/or distribute copies of it\n"
+    "under certain conditions.  Invoke as `%s --warranty' for more\n"
+    "information.\n");
 
-static char const *WARRANTY
-  = _i ("    This program is free software; you can redistribute it and/or\n"
-        "modify it under the terms of the GNU General Public License as \n"
-        "published by the Free Software Foundation, either version 3 of\n"
-        "the License, or (at your option) any later version.\n"
-        "\n"
-        "    This program is distributed in the hope that it will be useful,\n"
-        "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-        "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n"
-        "General Public License for more details.\n"
-        "\n"
-        "    You should have received a copy of the\n"
-        "GNU General Public License along with this program; if not, write to\n"
-        "the Free Software Foundation, Inc., 59 Temple Place - Suite 330,\n"
-        "Boston, MA 02111-1307, USA.\n");
+static char const *WARRANTY = _i (
+    "    This program is free software; you can redistribute it and/or\n"
+    "modify it under the terms of the GNU General Public License as \n"
+    "published by the Free Software Foundation, either version 3 of\n"
+    "the License, or (at your option) any later version.\n"
+    "\n"
+    "    This program is distributed in the hope that it will be useful,\n"
+    "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+    "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n"
+    "General Public License for more details.\n"
+    "\n"
+    "    You should have received a copy of the\n"
+    "GNU General Public License along with this program; if not, write to\n"
+    "the Free Software Foundation, Inc., 59 Temple Place - Suite 330,\n"
+    "Boston, MA 02111-1307, USA.\n");
 
 /* The jail specification: USER, GROUP, JAIL, DIR. */
 std::string jail_spec;
@@ -113,71 +111,56 @@ static Getopt_long *option_parser = 0;
   -h command line option is detected.
 */
 static Long_option_init options_static[]
-=
-{
-  {_i ("FORMATs"), "formats", 'f',
-     _i ("dump FORMAT,...  Also as separate options:")},
-  {0, "pdf", 0,
-     _i ("generate PDF files (default)")},
-  {0, "png", 0,
-     _i ("generate PNG files ")},
-  {0, "ps", 0,
-     _i ("generate PostScript files")},
-  {0, "eps", 'E',
-     _i ("generate Encapsulated PostScript files")},
-  {_i ("KEY"), "pspdfopt", 'O',
-     _i ("set ps/pdf optimization to KEY, which is either\n"
-           "'size' (default), 'TeX', or 'TeX-GS'")},
-  {_i ("SYM[=VAL]"), "define-default", 'd',
-     _i ("set Scheme option SYM to VAL (default: #t);\n"
-           "use -dhelp for help")},
-  {_i ("EXPR"), "evaluate", 'e',
-     _i ("evaluate scheme code")},
-  /* Bug in option parser: --output =foe is taken as an abbreviation
-     for --output-format.  */
-  {0, "help", 'h',
-     _i ("show this help and exit")},
-  {_i ("FIELD"), "header", 'H',
-     _i ("dump \\header field FIELD to file\n"
-           "named BASENAME.FIELD")},
-  {_i ("DIR"), "include", 'I',
-     _i ("append DIR to search path")},
-  {_i ("FILE"), "init", 'i',
-     _i ("use FILE as init file")},
+    = {{_i ("FORMATs"), "formats", 'f',
+        _i ("dump FORMAT,...  Also as separate options:")},
+       {0, "pdf", 0, _i ("generate PDF files (default)")},
+       {0, "png", 0, _i ("generate PNG files ")},
+       {0, "ps", 0, _i ("generate PostScript files")},
+       {0, "eps", 'E', _i ("generate Encapsulated PostScript files")},
+       {_i ("KEY"), "pspdfopt", 'O',
+        _i ("set ps/pdf optimization to KEY, which is either\n"
+            "'size' (default), 'TeX', or 'TeX-GS'")},
+       {_i ("SYM[=VAL]"), "define-default", 'd',
+        _i ("set Scheme option SYM to VAL (default: #t);\n"
+            "use -dhelp for help")},
+       {_i ("EXPR"), "evaluate", 'e', _i ("evaluate scheme code")},
+       /* Bug in option parser: --output =foe is taken as an abbreviation
+          for --output-format.  */
+       {0, "help", 'h', _i ("show this help and exit")},
+       {_i ("FIELD"), "header", 'H',
+        _i ("dump \\header field FIELD to file\n"
+            "named BASENAME.FIELD")},
+       {_i ("DIR"), "include", 'I', _i ("append DIR to search path")},
+       {_i ("FILE"), "init", 'i', _i ("use FILE as init file")},
 #if HAVE_CHROOT
-  {_i ("USER,GROUP,JAIL,DIR"), "jail", 'j',
-     _i ("chroot to JAIL, become USER:GROUP\n"
-           "and cd into DIR")},
+       {_i ("USER,GROUP,JAIL,DIR"), "jail", 'j',
+        _i ("chroot to JAIL, become USER:GROUP\n"
+            "and cd into DIR")},
 #endif
-  {_i ("LOGLEVEL"), "loglevel", 'l',
-     _i ("print log messages according to LOGLEVEL,\n"
-           "which is either NONE, ERROR, WARNING,\n"
-           "BASIC, PROGRESS, INFO (default), or DEBUG")},
-  {_i ("FILE"), "output", 'o',
-     _i ("write output to FILE (suffix will be added)\n"
-	   "or to FOLDER, in which case the file name\n"
-	   "will be taken from the input file.")},
-  {0, "relocate", 0,
-     _i ("(ignored)")},
-  {0, "silent", 's',
-     _i ("no progress, only error messages\n"
-           "(equivalent to --loglevel=ERROR)")},
-  {0, "version", 'v',
-     _i ("show version number and exit")},
-  {0, "verbose", 'V',
-     _i ("be verbose (equivalent to --loglevel=DEBUG)")},
-  {0, "warranty", 'w',
-     _i ("show warranty and copyright")},
-  {0, 0, 0, 0}
-};
+       {_i ("LOGLEVEL"), "loglevel", 'l',
+        _i ("print log messages according to LOGLEVEL,\n"
+            "which is either NONE, ERROR, WARNING,\n"
+            "BASIC, PROGRESS, INFO (default), or DEBUG")},
+       {_i ("FILE"), "output", 'o',
+        _i ("write output to FILE (suffix will be added)\n"
+            "or to FOLDER, in which case the file name\n"
+            "will be taken from the input file.")},
+       {0, "relocate", 0, _i ("(ignored)")},
+       {0, "silent", 's',
+        _i ("no progress, only error messages\n"
+            "(equivalent to --loglevel=ERROR)")},
+       {0, "version", 'v', _i ("show version number and exit")},
+       {0, "verbose", 'V', _i ("be verbose (equivalent to --loglevel=DEBUG)")},
+       {0, "warranty", 'w', _i ("show warranty and copyright")},
+       {0, 0, 0, 0}};
 
 /* x86 defaults to using 80-bit extended precision arithmetic. This can cause
    problems because the truncation from 80 bits to 64 bits can occur in
    unpredictable places. To get around this, we tell the x87 FPU to use only
    double precision. Note that this is not needed for x86_64 because that uses
    the SSE unit by default instead of the x87 FPU. */
-#if ((defined (__x86__) || defined (__i386__)) \
-  && defined (HAVE_FPU_CONTROL_H) && (HAVE_FPU_CONTROL_H == 1))
+#if ((defined(__x86__) || defined(__i386__)) && defined(HAVE_FPU_CONTROL_H)    \
+     && (HAVE_FPU_CONTROL_H == 1))
 
 #include <fpu_control.h>
 static void
@@ -226,7 +209,9 @@ dir_info (FILE *out)
 
   fputs (_f ("\n"
              "Effective prefix: '%s'\n",
-             lilypond_datadir).c_str (), out);
+             lilypond_datadir)
+             .c_str (),
+         out);
 
   env_var_info (out, "FONTCONFIG_FILE");
   env_var_info (out, "FONTCONFIG_PATH");
@@ -246,8 +231,9 @@ copyright ()
  */
 {
   /* Do not update the copyright years here, run `make grand-replace'  */
-  printf ("%s", (_f ("Copyright (c) %s by\n%s  and others.", "1996--2020",
-                     AUTHORS).c_str ()));
+  printf ("%s",
+          (_f ("Copyright (c) %s by\n%s  and others.", "1996--2020", AUTHORS)
+               .c_str ()));
   printf ("\n");
 }
 
@@ -274,13 +260,10 @@ notice ()
   puts (_f (NOTICE, PROGRAM_NAME).c_str ());
 }
 
-LY_DEFINE (ly_usage, "ly:usage",
-           0, 0, 0, (),
-           "Print usage message.")
+LY_DEFINE (ly_usage, "ly:usage", 0, 0, 0, (), "Print usage message.")
 /*
- * ly_usage: Routine to output standard information when LilyPond is run without a
- * source file to compile.
- * Also callable as ly:usage from Scheme.
+ * ly_usage: Routine to output standard information when LilyPond is run without
+ * a source file to compile. Also callable as ly:usage from Scheme.
  */
 {
   /* No version number or newline here.  It confuses help2man.  */
@@ -301,8 +284,8 @@ LY_DEFINE (ly_usage, "ly:usage",
      or if there is a LilyPond users list or forum in your language
      "Report bugs in English via %s or in YOUR_LANG via URI"  */
   printf ("%s", (_f ("You found a bug? Please read %s",
-                     "http://lilypond.org/bug-reports.html"
-                    ).c_str ()));
+                     "http://lilypond.org/bug-reports.html")
+                     .c_str ()));
   printf ("\n");
   printf ("\n");
   return SCM_UNSPECIFIED;
@@ -330,12 +313,12 @@ prepend_scheme_list (const string &dir, const string &scmlist)
  *    scmlist: The Scheme list onto which to prepend the directory
  */
 {
-  SCM var = scm_c_lookup (scmlist.c_str());
-  scm_variable_set_x (var, scm_cons (scm_from_locale_string (dir.c_str()),
-				     scm_variable_ref (var)));
+  SCM var = scm_c_lookup (scmlist.c_str ());
+  scm_variable_set_x (var, scm_cons (scm_from_locale_string (dir.c_str ()),
+                                     scm_variable_ref (var)));
   /*  string setcmd =
              "(set! " + scmlist + " (cons \"" + dir + "\" " + scmlist +"))";
-	     scm_c_eval_string (setcmd.c_str());*/
+             scm_c_eval_string (setcmd.c_str());*/
 }
 
 void init_global_tweak_registry ();
@@ -353,14 +336,18 @@ do_chroot_jail ()
 
   enum Jail
   {
-    USER_NAME, GROUP_NAME, JAIL, DIR, JAIL_MAX
+    USER_NAME,
+    GROUP_NAME,
+    JAIL,
+    DIR,
+    JAIL_MAX
   };
 
   vector<string> components = string_split (jail_spec, ',');
   if (components.size () != JAIL_MAX)
     {
       error (_f ("expected %d arguments with jail, found: %u", JAIL_MAX,
-                 (unsigned) components.size ()));
+                 (unsigned)components.size ()));
       exit (2);
     }
 
@@ -376,8 +363,7 @@ do_chroot_jail ()
         error (_f ("no such user: %s", components[USER_NAME]));
       else
         error (_f ("cannot get user id from user name: %s: %s",
-                   components[USER_NAME],
-                   strerror (errno)));
+                   components[USER_NAME], strerror (errno)));
       exit (3);
     }
 
@@ -393,15 +379,14 @@ do_chroot_jail ()
         error (_f ("no such group: %s", components[GROUP_NAME]));
       else
         error (_f ("cannot get group id from group name: %s: %s",
-                   components[GROUP_NAME],
-                   strerror (errno)));
+                   components[GROUP_NAME], strerror (errno)));
       exit (3);
     }
 
   if (chroot (components[JAIL].c_str ()))
     {
-      error (_f ("cannot chroot to: %s: %s", components[JAIL],
-                 strerror (errno)));
+      error (
+          _f ("cannot chroot to: %s: %s", components[JAIL], strerror (errno)));
       exit (3);
     }
 
@@ -440,35 +425,35 @@ main_with_guile (void *, int, char **)
       %load-path is the symbol Guile searches for .scm files
       %load-compiled-path is the symbol Guile V2 searches for .go files
    */
-   string scm_pct_load_path = "%load-path";
-   string scm_pct_load_compiled_path = "%load-compiled-path";
+  string scm_pct_load_path = "%load-path";
+  string scm_pct_load_compiled_path = "%load-compiled-path";
 
-   prepend_scheme_list (lilypond_datadir, scm_pct_load_path );
-   prepend_scheme_list (lilypond_datadir + "/scm", scm_pct_load_path);
+  prepend_scheme_list (lilypond_datadir, scm_pct_load_path);
+  prepend_scheme_list (lilypond_datadir + "/scm", scm_pct_load_path);
 
 #if (GUILE2)
-   /*
-     Just as ughy - prepend "/scm/out" onto GUILE V2+ %load-compiled-path
-     and set %compile-fallback-path to our scm/out directory
-   */
-   /*
-     %load-compiled-path is the symbol Guile V2 searches for .go files
-   */
-   prepend_scheme_list (lilypond_datadir + "/scm/out",
-			  scm_pct_load_compiled_path);
-   /*
-     %compile-fallback-path is the guile cache root for auto-compiled files
-   */
+  /*
+    Just as ughy - prepend "/scm/out" onto GUILE V2+ %load-compiled-path
+    and set %compile-fallback-path to our scm/out directory
+  */
+  /*
+    %load-compiled-path is the symbol Guile V2 searches for .go files
+  */
+  prepend_scheme_list (lilypond_datadir + "/scm/out",
+                       scm_pct_load_compiled_path);
+  /*
+    %compile-fallback-path is the guile cache root for auto-compiled files
+  */
 
-   string scm_pct_fallback_path = "%compile-fallback-path";
-   string ly_scm_go_dir = lilypond_datadir + "/scm/out";
-   //string scm_pct_set_fallback = "(set! " + scm_pct_fallback_path +
-   //  " \"" + lilypond_datadir + "/scm/out\")";
-   //scm_c_eval_string (scm_pct_set_fallback.c_str() );
-   scm_primitive_eval
-     (scm_list_3 (scm_from_latin1_symbol ("set!"),
+  string scm_pct_fallback_path = "%compile-fallback-path";
+  string ly_scm_go_dir = lilypond_datadir + "/scm/out";
+  // string scm_pct_set_fallback = "(set! " + scm_pct_fallback_path +
+  //  " \"" + lilypond_datadir + "/scm/out\")";
+  // scm_c_eval_string (scm_pct_set_fallback.c_str() );
+  scm_primitive_eval (
+      scm_list_3 (scm_from_latin1_symbol ("set!"),
                   scm_from_latin1_symbol ("%compile-fallback-path"),
-                  scm_from_locale_string (ly_scm_go_dir.c_str())));
+                  scm_from_locale_string (ly_scm_go_dir.c_str ())));
 #endif
 
   if (is_loglevel (LOG_DEBUG))
@@ -487,8 +472,8 @@ main_with_guile (void *, int, char **)
   /*
      We accept multiple independent music files on the command line to
      reduce compile time when processing lots of small files.
-     This way we don't have to start the Guile/Scheme interpreter more than once, as
-     starting the GUILE engine is very time consuming.
+     This way we don't have to start the Guile/Scheme interpreter more than
+     once, as starting the GUILE engine is very time consuming.
   */
 
   SCM files = SCM_EOL;
@@ -514,10 +499,10 @@ main_with_guile (void *, int, char **)
   // SCM rep_mod = scm_c_resolve_module ("system repl repl");
   // scm_c_use_module ("system repl repl");
   // SCM err_handling_mod = scm_c_resolve_module ("system repl error-handling");
-  // SCM call_with_error_handling = scm_c_module_lookup (err_handling_mod, "call-with-error-handling");
-  // SCM result = scm_call_1 (
-  // 			   scm_variable_ref (call_with_error_handling),
-  // 			   scm_call_1 (ly_lily_module_constant ("lilypond-main"), files));
+  // SCM call_with_error_handling = scm_c_module_lookup (err_handling_mod,
+  // "call-with-error-handling"); SCM result = scm_call_1 ( 			   scm_variable_ref
+  // (call_with_error_handling), 			   scm_call_1 (ly_lily_module_constant
+  // ("lilypond-main"), files));
 
   Lily::lilypond_main (files);
 
@@ -592,7 +577,7 @@ parse_argv (int argc, char **argv)
         case 'f':
           {
             vector<string> components
-              = string_split (option_parser->optional_argument_str0_, ',');
+                = string_split (option_parser->optional_argument_str0_, ',');
             for (vsize i = 0; i < components.size (); i++)
               add_output_format (components[i]);
           }
@@ -609,25 +594,25 @@ parse_argv (int argc, char **argv)
 
         case 'E':
           add_output_format ("ps");
-          init_scheme_variables_global +=
-            "(cons \'backend 'eps)\n(cons \'aux-files '#f)\n";
-        break;
+          init_scheme_variables_global
+              += "(cons \'backend 'eps)\n(cons \'aux-files '#f)\n";
+          break;
 
         case 'O':
           {
             string arg (option_parser->optional_argument_str0_);
             if (arg == "size")
-              init_scheme_variables_global +=
-                "(cons \'music-font-encodings '#f)\n"
-                "(cons \'gs-never-embed-fonts '#f)\n";
+              init_scheme_variables_global
+                  += "(cons \'music-font-encodings '#f)\n"
+                     "(cons \'gs-never-embed-fonts '#f)\n";
             else if (arg == "TeX-GS")
-              init_scheme_variables_global +=
-                "(cons \'music-font-encodings '#t)\n"
-                "(cons \'gs-never-embed-fonts '#t)\n";
+              init_scheme_variables_global
+                  += "(cons \'music-font-encodings '#t)\n"
+                     "(cons \'gs-never-embed-fonts '#t)\n";
             else if (arg == "TeX")
-              init_scheme_variables_global +=
-                "(cons \'music-font-encodings '#t)\n"
-                "(cons \'gs-never-embed-fonts '#f)\n";
+              init_scheme_variables_global
+                  += "(cons \'music-font-encodings '#t)\n"
+                     "(cons \'gs-never-embed-fonts '#f)\n";
             else
               programming_error ("Ignoring unknown optimization key");
           }
@@ -648,7 +633,7 @@ parse_argv (int argc, char **argv)
               }
 
             init_scheme_variables_global
-            += "(cons \'" + key + " '" + val + ")\n";
+                += "(cons \'" + key + " '" + val + ")\n";
           }
           break;
 
@@ -668,8 +653,8 @@ parse_argv (int argc, char **argv)
           break;
 
         case 'e':
-          init_scheme_code_global +=
-            option_parser->optional_argument_str0_ + string (" ");
+          init_scheme_code_global
+              += option_parser->optional_argument_str0_ + string (" ");
           break;
         case 'w':
           warranty ();
@@ -677,8 +662,8 @@ parse_argv (int argc, char **argv)
           break;
 
         case 'H':
-          dump_header_fieldnames_global
-          .push_back (option_parser->optional_argument_str0_);
+          dump_header_fieldnames_global.push_back (
+              option_parser->optional_argument_str0_);
           break;
         case 'I':
           global_path.append (option_parser->optional_argument_str0_);
@@ -699,8 +684,8 @@ parse_argv (int argc, char **argv)
           set_loglevel (option_parser->optional_argument_str0_);
           break;
         default:
-          programming_error (to_string ("unhandled short option: %c",
-                                        opt->shortname_char_));
+          programming_error (
+              to_string ("unhandled short option: %c", opt->shortname_char_));
           assert (false);
           break;
         }
@@ -741,10 +726,8 @@ setup_guile_gc_env ()
   sane_putenv ("GUILE_MIN_YIELD_2", yield, overwrite);
   sane_putenv ("GUILE_MIN_YIELD_MALLOC", yield, overwrite);
 
-  sane_putenv ("GUILE_INIT_SEGMENT_SIZE_1",
-               "10485760", overwrite);
-  sane_putenv ("GUILE_MAX_SEGMENT_SIZE",
-               "104857600", overwrite);
+  sane_putenv ("GUILE_INIT_SEGMENT_SIZE_1", "10485760", overwrite);
+  sane_putenv ("GUILE_MAX_SEGMENT_SIZE", "104857600", overwrite);
 }
 
 #if (GUILEV2)
@@ -755,15 +738,14 @@ setup_guile_v2_env ()
  * Scheme files for Guile V2.
  */
 {
-     sane_putenv("GUILE_AUTO_COMPILE", "0", true);  // disable auto-compile
-     sane_putenv("GUILE_WARN_DEPRECATED",
-                  "detailed", "true");   // set Guile to info re deprecation
-     /*
-        Set root for Guile %compile-fallback to
-        Lilypond root for its data.
-      */
-     sane_putenv("XDG_CACHE_HOME",
-                  lilypond_datadir, true);
+  sane_putenv ("GUILE_AUTO_COMPILE", "0", true); // disable auto-compile
+  sane_putenv ("GUILE_WARN_DEPRECATED", "detailed",
+               "true"); // set Guile to info re deprecation
+  /*
+     Set root for Guile %compile-fallback to
+     Lilypond root for its data.
+   */
+  sane_putenv ("XDG_CACHE_HOME", lilypond_datadir, true);
 }
 #endif
 
@@ -774,13 +756,13 @@ setup_guile_env ()
  */
 {
 #if (GUILEV2)
-  setup_guile_v2_env ();  // configure Guile V2 behaviour
+  setup_guile_v2_env (); // configure Guile V2 behaviour
 #else
-  setup_guile_gc_env ();  // configure garbage collector
+  setup_guile_gc_env (); // configure garbage collector
 #endif
 }
 
-//vector<string> start_environment_global;
+// vector<string> start_environment_global;
 
 int
 main (int argc, char **argv, char **envp)
@@ -814,15 +796,15 @@ main (int argc, char **argv, char **envp)
     identify (stderr);
 
   setup_paths (argv[0]);
-  setup_guile_env ();  // set up environment variables to pass into Guile API
+  setup_guile_env (); // set up environment variables to pass into Guile API
   /*
    * Start up Guile API using main_with_guile as a callback.
    */
 #if (GUILEV2)
- /* Debugging aid.
-    Set it on by default for Guile V2
-    while migration in progress.
- */
+  /* Debugging aid.
+     Set it on by default for Guile V2
+     while migration in progress.
+  */
   try
     {
       scm_boot_guile (argc, argv, main_with_guile, 0);

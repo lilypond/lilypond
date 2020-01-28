@@ -19,12 +19,12 @@
 
 #include "dots.hh"
 
-#include "item.hh"
-#include "output-def.hh"
 #include "font-interface.hh"
-#include "lookup.hh"
-#include "staff-symbol-referencer.hh"
 #include "international.hh"
+#include "item.hh"
+#include "lookup.hh"
+#include "output-def.hh"
+#include "staff-symbol-referencer.hh"
 
 using std::string;
 
@@ -59,8 +59,7 @@ Dots::print (SCM d)
       /*
         TODO: this should  be handled by side-position padding.
       */
-      mol = Lookup::blank (Box (Interval (0, 0),
-                                Interval (0, 0)));
+      mol = Lookup::blank (Box (Interval (0, 0), Interval (0, 0)));
 
       for (int i = scm_to_int (c); i--;)
         {
@@ -80,5 +79,4 @@ ADD_INTERFACE (Dots,
                /* properties */
                "direction "
                "dot-count "
-               "style "
-              );
+               "style ");

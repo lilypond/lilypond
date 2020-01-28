@@ -17,24 +17,22 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <cstdio>
 #include "dot-configuration.hh"
 #include "dot-formatting-problem.hh"
 #include "staff-symbol-referencer.hh"
+#include <cstdio>
 
 int
 Dot_configuration::badness () const
 {
   int t = 0;
-  for (Dot_configuration::const_iterator i (begin ());
-       i != end (); i++)
+  for (Dot_configuration::const_iterator i (begin ()); i != end (); i++)
     {
       int p = i->first;
       int demerit = sqr (p - i->second.pos_) * 2;
 
       int dot_move_dir = sign (p - i->second.pos_);
-      if (i->second.dir_
-          && dot_move_dir != i->second.dir_)
+      if (i->second.dir_ && dot_move_dir != i->second.dir_)
         demerit += 2;
       else if (dot_move_dir != UP)
         demerit += 1;
@@ -49,8 +47,7 @@ void
 Dot_configuration::print () const
 {
   printf ("dotconf { ");
-  for (Dot_configuration::const_iterator i (begin ());
-       i != end (); i++)
+  for (Dot_configuration::const_iterator i (begin ()); i != end (); i++)
     printf ("%d, ", i->first);
   printf ("}\n");
 }
@@ -70,8 +67,7 @@ Dot_configuration::shifted (int k, Direction d) const
 
   if (d > 0)
     {
-      for (Dot_configuration::const_iterator i (begin ());
-           i != end (); i++)
+      for (Dot_configuration::const_iterator i (begin ()); i != end (); i++)
         {
           int p = i->first;
           if (p == k)
@@ -156,8 +152,7 @@ Real
 Dot_configuration::x_offset () const
 {
   Real off = 0.0;
-  for (Dot_configuration::const_iterator i (begin ());
-       i != end (); i++)
+  for (Dot_configuration::const_iterator i (begin ()); i != end (); i++)
     off = std::max (off, problem_->head_skyline ().height ((*i).first));
 
   return off;

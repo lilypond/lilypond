@@ -24,8 +24,8 @@
 - decide: do or do not print custos if the next line starts with a rest
 */
 
-#include <cstdio>
 #include <cmath> // rint
+#include <cstdio>
 
 #include "custos.hh"
 #include "direction.hh"
@@ -59,8 +59,7 @@ Custos::print (SCM smob)
   bool adjust = true;
 
   int neutral_pos = robust_scm2int (me->get_property ("neutral-position"), 0);
-  Direction neutral_direction
-    = to_dir (me->get_property ("neutral-direction"));
+  Direction neutral_direction = to_dir (me->get_property ("neutral-direction"));
 
   int pos = Staff_symbol_referencer::get_rounded_position (me);
 
@@ -82,7 +81,7 @@ Custos::print (SCM smob)
     font_char += "2";
 
   Stencil stencil
-    = Font_interface::get_default_font (me)->find_by_name (font_char);
+      = Font_interface::get_default_font (me)->find_by_name (font_char);
   if (stencil.is_empty ())
     {
       me->warning (_f ("custos `%s' not found", font_char));
@@ -100,5 +99,4 @@ ADD_INTERFACE (Custos,
                /* properties */
                "style "
                "neutral-position "
-               "neutral-direction "
-              );
+               "neutral-direction ");

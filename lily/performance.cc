@@ -37,16 +37,11 @@
 using std::string;
 
 Performance::Performance (bool ports)
-  : midi_ (0),
-    ports_ (ports),
-    header_ (SCM_EOL)
+    : midi_ (0), ports_ (ports), header_ (SCM_EOL)
 {
 }
 
-Performance::~Performance ()
-{
-  junk_pointers (audio_elements_);
-}
+Performance::~Performance () { junk_pointers (audio_elements_); }
 
 void
 Performance::derived_mark () const
@@ -76,26 +71,26 @@ Performance::output (Midi_stream &midi_stream,
   midi_stream.write (Midi_header (1, tracks_, 384));
   debug_output (_ ("Track...") + " ", false);
 
-  //Find the first Audio_item in the performance, so all staves start
-  //at the same tick.
+  // Find the first Audio_item in the performance, so all staves start
+  // at the same tick.
   Moment start_mom = 0;
   for (vsize i = 0; i < audio_elements_.size (); i++)
-    if (Audio_item *item = dynamic_cast<Audio_item *>(audio_elements_[i]))
+    if (Audio_item *item = dynamic_cast<Audio_item *> (audio_elements_[i]))
       start_mom = std::min (start_mom, item->audio_column_->when ());
 
   for (vsize i = 0; i < audio_staffs_.size (); i++)
     {
       Audio_staff *s = audio_staffs_[i];
-      if (Audio_control_track_staff *c =
-          dynamic_cast<Audio_control_track_staff *>(s))
+      if (Audio_control_track_staff *c
+          = dynamic_cast<Audio_control_track_staff *> (s))
         {
           // The control track, created by Control_track_performer, should
           // contain a placeholder for the name of the MIDI sequence as its
           // initial audio element.  Fill in the name of the sequence to
           // this element before outputting MIDI.
           assert (!c->audio_items_.empty ());
-          Audio_text *text =
-            dynamic_cast<Audio_text *>(c->audio_items_.front ());
+          Audio_text *text
+              = dynamic_cast<Audio_text *> (c->audio_items_.front ());
           assert (text != 0);
           assert (text->type_ == Audio_text::TRACK_NAME);
           assert (text->text_string_ == "control track");

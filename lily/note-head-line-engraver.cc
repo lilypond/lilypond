@@ -17,15 +17,15 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "context.hh"
 #include "engraver.hh"
+#include "item.hh"
 #include "pointer-group-interface.hh"
-#include "stem.hh"
 #include "rhythmic-head.hh"
 #include "side-position-interface.hh"
-#include "staff-symbol-referencer.hh"
-#include "context.hh"
 #include "spanner.hh"
-#include "item.hh"
+#include "staff-symbol-referencer.hh"
+#include "stem.hh"
 
 /**
    Create line-spanner grobs for lines that connect note heads.
@@ -51,8 +51,7 @@ private:
   Grob *last_head_;
 };
 
-Note_head_line_engraver::Note_head_line_engraver (Context *c)
-  : Engraver (c)
+Note_head_line_engraver::Note_head_line_engraver (Context *c) : Engraver (c)
 {
   line_ = 0;
   follow_ = false;
@@ -66,9 +65,7 @@ Note_head_line_engraver::acknowledge_rhythmic_head (Grob_info info)
 {
   head_ = info.grob ();
   Context *tr = find_context_above (context (), ly_symbol2scm ("Staff"));
-  if (tr
-      && tr != last_staff_
-      && to_boolean (get_property ("followVoice")))
+  if (tr && tr != last_staff_ && to_boolean (get_property ("followVoice")))
     {
       if (last_head_)
         follow_ = true;
@@ -125,5 +122,4 @@ ADD_TRANSLATOR (Note_head_line_engraver,
                 "followVoice ",
 
                 /* write */
-                ""
-               );
+                "");

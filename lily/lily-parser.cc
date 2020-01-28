@@ -31,11 +31,11 @@
 #include "output-def.hh"
 #include "paper-book.hh"
 #include "parser.hh"
+#include "program-option.hh"
 #include "score.hh"
 #include "source-file.hh"
 #include "sources.hh"
 #include "warn.hh"
-#include "program-option.hh"
 
 using std::string;
 
@@ -55,7 +55,7 @@ Lily_parser::Lily_parser (Sources *sources)
 }
 
 Lily_parser::Lily_parser (Lily_parser const &src, SCM closures, SCM location)
-  : Smob<Lily_parser> ()
+    : Smob<Lily_parser> ()
 {
   lexer_ = 0;
   sources_ = src.sources_;
@@ -73,9 +73,7 @@ Lily_parser::Lily_parser (Lily_parser const &src, SCM closures, SCM location)
     }
 }
 
-Lily_parser::~Lily_parser ()
-{
-}
+Lily_parser::~Lily_parser () {}
 
 SCM
 Lily_parser::mark_smob () const
@@ -98,7 +96,8 @@ Lily_parser::print_smob (SCM port, scm_print_state *) const
 
 /* Process one .ly file, or book.  */
 void
-Lily_parser::parse_file (const string &init, const string &name, const string &out_name)
+Lily_parser::parse_file (const string &init, const string &name,
+                         const string &out_name)
 {
   output_basename_ = out_name;
 
@@ -144,8 +143,8 @@ Lily_parser::parse_string (const string &ly_code)
 }
 
 SCM
-Lily_parser::parse_string_expression (const string &ly_code, const string &filename,
-                                      int line)
+Lily_parser::parse_string_expression (const string &ly_code,
+                                      const string &filename, int line)
 {
   lexer_->main_input_name_ = filename;
   lexer_->new_input (lexer_->main_input_name_, ly_code, sources_);
@@ -196,7 +195,7 @@ Lily_parser::parser_error (Input const &i, const string &s)
   error_level_ = 1;
 }
 
-const char * const Lily_parser::type_p_name_ = "ly:lily-parser?";
+const char *const Lily_parser::type_p_name_ = "ly:lily-parser?";
 
 /****************************************************************
   OUTPUT-DEF
@@ -230,7 +229,8 @@ get_paper (Lily_parser *parser)
 {
   SCM papers = parser->lexer_->lookup_identifier ("$papers");
   Output_def *layout = (SCM_UNBNDP (papers) || scm_is_null (papers))
-                       ? 0 : unsmob<Output_def> (scm_car (papers));
+                           ? 0
+                           : unsmob<Output_def> (scm_car (papers));
   SCM default_paper = parser->lexer_->lookup_identifier ("$defaultpaper");
   layout = layout ? layout : unsmob<Output_def> (default_paper);
   layout = layout ? layout->clone () : new Output_def;
@@ -249,9 +249,10 @@ init_papers (Lily_parser *parser)
 void
 push_paper (Lily_parser *parser, Output_def *paper)
 {
-  parser->lexer_->set_identifier (ly_symbol2scm ("$papers"),
-                                  scm_cons (paper->self_scm (),
-                                            parser->lexer_->lookup_identifier ("$papers")));
+  parser->lexer_->set_identifier (
+      ly_symbol2scm ("$papers"),
+      scm_cons (paper->self_scm (),
+                parser->lexer_->lookup_identifier ("$papers")));
 }
 
 /* Pop a paper from $papers stack */
@@ -259,15 +260,17 @@ void
 pop_paper (Lily_parser *parser)
 {
   if (scm_is_pair (parser->lexer_->lookup_identifier ("$papers")))
-    parser->lexer_->set_identifier (ly_symbol2scm ("$papers"),
-                                    scm_cdr (parser->lexer_->lookup_identifier ("$papers")));
+    parser->lexer_->set_identifier (
+        ly_symbol2scm ("$papers"),
+        scm_cdr (parser->lexer_->lookup_identifier ("$papers")));
 }
 
 /* Change the paper on top of $papers stack */
 void
 set_paper (Lily_parser *parser, Output_def *paper)
 {
-  scm_set_car_x (parser->lexer_->lookup_identifier ("$papers"), paper->self_scm ());
+  scm_set_car_x (parser->lexer_->lookup_identifier ("$papers"),
+                 paper->self_scm ());
 }
 
 SCM

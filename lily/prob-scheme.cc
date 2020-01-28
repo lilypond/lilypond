@@ -19,8 +19,8 @@
 
 #include "prob.hh"
 
-LY_DEFINE (ly_prob_set_property_x, "ly:prob-set-property!",
-           2, 1, 0, (SCM obj, SCM sym, SCM value),
+LY_DEFINE (ly_prob_set_property_x, "ly:prob-set-property!", 2, 1, 0,
+           (SCM obj, SCM sym, SCM value),
            "Set property @var{sym} of @var{obj} to @var{value}.")
 {
   LY_ASSERT_SMOB (Prob, obj, 1);
@@ -34,15 +34,14 @@ LY_DEFINE (ly_prob_set_property_x, "ly:prob-set-property!",
 /*
   Hmm, this is not orthogonal.
 */
-LY_DEFINE (ly_prob_property_p, "ly:prob-property?",
-           2, 1, 0, (SCM obj, SCM sym),
+LY_DEFINE (ly_prob_property_p, "ly:prob-property?", 2, 1, 0, (SCM obj, SCM sym),
            "Is boolean prop @var{sym} of @var{sym} set?")
 {
   return scm_equal_p (SCM_BOOL_T, ly_prob_property (obj, sym, SCM_BOOL_F));
 }
 
-LY_DEFINE (ly_prob_property, "ly:prob-property",
-           2, 1, 0, (SCM prob, SCM sym, SCM val),
+LY_DEFINE (ly_prob_property, "ly:prob-property", 2, 1, 0,
+           (SCM prob, SCM sym, SCM val),
            "Return the value for property @var{sym} of Prob object"
            " @var{prob}.  If no value is found, return @var{val} or"
            " @code{'()} if @var{val} is not specified.")
@@ -61,24 +60,20 @@ LY_DEFINE (ly_prob_property, "ly:prob-property",
     return retval;
 }
 
-LY_DEFINE (ly_prob_type_p, "ly:prob-type?",
-           2, 0, 0,
-           (SCM obj, SCM type),
+LY_DEFINE (ly_prob_type_p, "ly:prob-type?", 2, 0, 0, (SCM obj, SCM type),
            "Is @var{obj} the specified prob-type?")
 {
   Prob *prob = unsmob<Prob> (obj);
   return scm_from_bool (prob && scm_is_eq (prob->type (), type));
 }
 
-LY_DEFINE (ly_make_prob, "ly:make-prob",
-           2, 0, 1,
-           (SCM type, SCM init, SCM rest),
-           "Create a @code{Prob} object.")
+LY_DEFINE (ly_make_prob, "ly:make-prob", 2, 0, 1,
+           (SCM type, SCM init, SCM rest), "Create a @code{Prob} object.")
 {
   Prob *pr = new Prob (type, init);
 
-  for (SCM s = rest;
-       scm_is_pair (s) && scm_is_pair (scm_cdr (s)); s = scm_cddr (s))
+  for (SCM s = rest; scm_is_pair (s) && scm_is_pair (scm_cdr (s));
+       s = scm_cddr (s))
     {
       SCM sym = scm_car (s);
       SCM val = scm_cadr (s);
@@ -89,23 +84,18 @@ LY_DEFINE (ly_make_prob, "ly:make-prob",
   return pr->unprotect ();
 }
 
-LY_DEFINE (ly_prob_mutable_properties, "ly:prob-mutable-properties",
-           1, 0, 0,
-           (SCM prob),
-           "Retrieve an alist of mutable properties.")
+LY_DEFINE (ly_prob_mutable_properties, "ly:prob-mutable-properties", 1, 0, 0,
+           (SCM prob), "Retrieve an alist of mutable properties.")
 {
   LY_ASSERT_SMOB (Prob, prob, 1);
   Prob *ps = unsmob<Prob> (prob);
   return ps->get_property_alist (true);
 }
 
-LY_DEFINE (ly_prob_immutable_properties, "ly:prob-immutable-properties",
-           1, 0, 0,
-           (SCM prob),
-           "Retrieve an alist of immutable properties.")
+LY_DEFINE (ly_prob_immutable_properties, "ly:prob-immutable-properties", 1, 0,
+           0, (SCM prob), "Retrieve an alist of immutable properties.")
 {
   LY_ASSERT_SMOB (Prob, prob, 1);
   Prob *ps = unsmob<Prob> (prob);
   return ps->get_property_alist (false);
 }
-

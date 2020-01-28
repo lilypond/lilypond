@@ -17,17 +17,17 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <cstdio>
 #include "freetype.hh"
+#include <cstdio>
 
 #include FT_TRUETYPE_TABLES_H
 
 #include "international.hh"
-#include "memory-stream.hh"
-#include "warn.hh"
 #include "lily-guile.hh"
 #include "main.hh"
+#include "memory-stream.hh"
 #include "open-type-font.hh"
+#include "warn.hh"
 
 using std::string;
 using std::vector;
@@ -62,8 +62,7 @@ print_header (void *out, FT_Face face)
 {
   lily_cookie_fprintf (out, "%%!PS-TrueTypeFont\n");
 
-  TT_Postscript *pt
-    = (TT_Postscript *) FT_Get_Sfnt_Table (face, ft_sfnt_post);
+  TT_Postscript *pt = (TT_Postscript *)FT_Get_Sfnt_Table (face, ft_sfnt_post);
 
   if (pt->maxMemType42)
     lily_cookie_fprintf (out, "%%%%VMUsage: %d %d\n", 0, 0);
@@ -76,8 +75,7 @@ print_header (void *out, FT_Face face)
   lily_cookie_fprintf (out, "/PaintType 0 def\n");
   lily_cookie_fprintf (out, "/FontMatrix [1 0 0 1 0 0] def\n");
 
-  TT_Header *ht
-    = (TT_Header *)FT_Get_Sfnt_Table (face, ft_sfnt_head);
+  TT_Header *ht = (TT_Header *)FT_Get_Sfnt_Table (face, ft_sfnt_head);
 
   lily_cookie_fprintf (out, "/FontBBox [%lf %lf %lf %lf] def\n",
                        float (ht->xMin) / float (ht->Units_Per_EM),
@@ -117,10 +115,10 @@ print_header (void *out, FT_Face face)
                        pt->isFixedPitch ? "true" : "false");
   lily_cookie_fprintf (out, "/UnderlinePosition %lf def\n",
                        float (pt->underlinePosition)
-                       / float (ht->Units_Per_EM));
+                           / float (ht->Units_Per_EM));
   lily_cookie_fprintf (out, "/UnderlineThickness %lf def\n",
                        float (pt->underlineThickness)
-                       / float (ht->Units_Per_EM));
+                           / float (ht->Units_Per_EM));
   lily_cookie_fprintf (out, "end readonly def\n");
 }
 
@@ -130,10 +128,9 @@ const FT_ULong FT_ENC_TAG (glyf_tag, 'g', 'l', 'y', 'f');
 const FT_ULong FT_ENC_TAG (head_tag, 'h', 'e', 'a', 'd');
 const FT_ULong FT_ENC_TAG (loca_tag, 'l', 'o', 'c', 'a');
 
-static
-void t42_write_table (void *out, FT_Face face, unsigned char const *buffer,
-                      size_t s, bool is_glyf,
-                      FT_ULong head_length, FT_ULong loca_length)
+static void
+t42_write_table (void *out, FT_Face face, unsigned char const *buffer, size_t s,
+                 bool is_glyf, FT_ULong head_length, FT_ULong loca_length)
 {
   vector<FT_UShort> chunks;
 
@@ -146,7 +143,8 @@ void t42_write_table (void *out, FT_Face face, unsigned char const *buffer,
         programming_error ("FT_Load_Sfnt_Table (): error.");
 
       /* we access the lower byte of indexToLocFormat */
-      bool long_offsets = head_buf[4 * 4 + 2 * 2 + 2 * 8 + 4 * 2 + 3 * 2 + 1] == 1;
+      bool long_offsets
+          = head_buf[4 * 4 + 2 * 2 + 2 * 8 + 4 * 2 + 3 * 2 + 1] == 1;
 
       delete[] head_buf;
 
@@ -214,7 +212,7 @@ void t42_write_table (void *out, FT_Face face, unsigned char const *buffer,
     chunks.push_back (CHUNKSIZE);
 
   lily_cookie_fprintf (out, "\n"
-                       " <");
+                            " <");
 
   int l = 0;
   static char xdigits[] = "0123456789ABCDEF";
@@ -225,15 +223,15 @@ void t42_write_table (void *out, FT_Face face, unsigned char const *buffer,
       if (l >= chunks[cur_chunk_idx])
         {
           lily_cookie_fprintf (out, "\n"
-                               " 00>\n"
-                               " <");
+                                    " 00>\n"
+                                    " <");
           l = 0;
           cur_chunk_idx++;
         }
 
       if (l % 31 == 0)
         lily_cookie_fprintf (out, "\n"
-                             "  ");
+                                  "  ");
 
       /* lily_cookie_fprintf (out,"%02X",(int)buffer[j]) is too slow */
       lily_cookie_putc (xdigits[(buffer[j] & 0xF0) >> 4], out);
@@ -247,8 +245,8 @@ void t42_write_table (void *out, FT_Face face, unsigned char const *buffer,
     lily_cookie_fprintf (out, "00");
 
   lily_cookie_fprintf (out, "\n"
-                       "  00\n"
-                       " >");
+                            "  00\n"
+                            " >");
 }
 
 static void
@@ -264,8 +262,7 @@ print_body (void *out, FT_Face face)
     might be a TTC where tables are not contiguous, or the font
     contains tables which aren't indexed at all
    */
-  while (FT_Sfnt_Table_Info (face, idx, &tag, &length)
-         != FT_Err_Table_Missing)
+  while (FT_Sfnt_Table_Info (face, idx, &tag, &length) != FT_Err_Table_Missing)
     {
       lengths.push_back (length);
       tags.push_back (tag);
@@ -281,11 +278,11 @@ print_body (void *out, FT_Face face)
   unsigned char *hbuf = new unsigned char[hlength];
   unsigned char *p;
 
-  hbuf[0] = 0x00;                                       /* version */
+  hbuf[0] = 0x00; /* version */
   hbuf[1] = 0x01;
   hbuf[2] = 0x00;
   hbuf[3] = 0x00;
-  hbuf[4] = (unsigned char) ((idx & 0xFF00) >> 8);      /* numTables */
+  hbuf[4] = (unsigned char)((idx & 0xFF00) >> 8); /* numTables */
   hbuf[5] = idx & 0x00FF;
 
   FT_UInt searchRange, entrySelector, rangeShift;
@@ -296,18 +293,18 @@ print_body (void *out, FT_Face face)
   searchRange = 0x10 << entrySelector;
   rangeShift = (idx << 4) - searchRange;
 
-  hbuf[6] = (unsigned char) ((searchRange & 0xFF00) >> 8);
+  hbuf[6] = (unsigned char)((searchRange & 0xFF00) >> 8);
   hbuf[7] = searchRange & 0x00FF;
-  hbuf[8] = (unsigned char) ((entrySelector & 0xFF00) >> 8);
+  hbuf[8] = (unsigned char)((entrySelector & 0xFF00) >> 8);
   hbuf[9] = entrySelector & 0x00FF;
-  hbuf[10] = (unsigned char) ((rangeShift & 0xFF00) >> 8);
+  hbuf[10] = (unsigned char)((rangeShift & 0xFF00) >> 8);
   hbuf[11] = rangeShift & 0x00FF;
 
   p = &hbuf[12];
 
   FT_ULong checksum, font_checksum = 0;
 
-  FT_ULong offset = hlength;            /* first table offset */
+  FT_ULong offset = hlength; /* first table offset */
 
   for (FT_UInt i = 0; i < idx; i++)
     {
@@ -315,7 +312,7 @@ print_body (void *out, FT_Face face)
       FT_ULong len = (lengths[i] + 3) & ~3;
       unsigned char *buf = new unsigned char[len];
 
-      buf[len - 1] = 0x00;                /* assure padding with zeros */
+      buf[len - 1] = 0x00; /* assure padding with zeros */
       buf[len - 2] = 0x00;
       buf[len - 3] = 0x00;
 
@@ -343,24 +340,24 @@ print_body (void *out, FT_Face face)
 
       delete[] buf;
 
-      *(p++) = (unsigned char) ((tags[i] & 0xFF000000UL) >> 24);
-      *(p++) = (unsigned char) ((tags[i] & 0x00FF0000UL) >> 16);
-      *(p++) = (unsigned char) ((tags[i] & 0x0000FF00UL) >> 8);
+      *(p++) = (unsigned char)((tags[i] & 0xFF000000UL) >> 24);
+      *(p++) = (unsigned char)((tags[i] & 0x00FF0000UL) >> 16);
+      *(p++) = (unsigned char)((tags[i] & 0x0000FF00UL) >> 8);
       *(p++) = tags[i] & 0x000000FFUL;
 
-      *(p++) = (unsigned char) ((checksum & 0xFF000000UL) >> 24);
-      *(p++) = (unsigned char) ((checksum & 0x00FF0000UL) >> 16);
-      *(p++) = (unsigned char) ((checksum & 0x0000FF00UL) >> 8);
+      *(p++) = (unsigned char)((checksum & 0xFF000000UL) >> 24);
+      *(p++) = (unsigned char)((checksum & 0x00FF0000UL) >> 16);
+      *(p++) = (unsigned char)((checksum & 0x0000FF00UL) >> 8);
       *(p++) = checksum & 0x000000FFUL;
 
-      *(p++) = (unsigned char) ((offset & 0xFF000000UL) >> 24);
-      *(p++) = (unsigned char) ((offset & 0x00FF0000UL) >> 16);
-      *(p++) = (unsigned char) ((offset & 0x0000FF00UL) >> 8);
+      *(p++) = (unsigned char)((offset & 0xFF000000UL) >> 24);
+      *(p++) = (unsigned char)((offset & 0x00FF0000UL) >> 16);
+      *(p++) = (unsigned char)((offset & 0x0000FF00UL) >> 8);
       *(p++) = offset & 0x000000FFUL;
 
-      *(p++) = (unsigned char) ((lengths[i] & 0xFF000000UL) >> 24);
-      *(p++) = (unsigned char) ((lengths[i] & 0x00FF0000UL) >> 16);
-      *(p++) = (unsigned char) ((lengths[i] & 0x0000FF00UL) >> 8);
+      *(p++) = (unsigned char)((lengths[i] & 0xFF000000UL) >> 24);
+      *(p++) = (unsigned char)((lengths[i] & 0x00FF0000UL) >> 16);
+      *(p++) = (unsigned char)((lengths[i] & 0x0000FF00UL) >> 8);
       *(p++) = lengths[i] & 0x000000FFUL;
 
       /* offset must be a multiple of 4 */
@@ -379,14 +376,12 @@ print_body (void *out, FT_Face face)
     the /sfnts array must be constructed
    */
   lily_cookie_fprintf (out, "/sfnts [");
-  t42_write_table (out, face, hbuf, hlength, false,
-                   head_length, loca_length);
+  t42_write_table (out, face, hbuf, hlength, false, head_length, loca_length);
   delete[] hbuf;
 
   idx = 0;
 
-  while (FT_Sfnt_Table_Info (face, idx, &tag, &length)
-         != FT_Err_Table_Missing)
+  while (FT_Sfnt_Table_Info (face, idx, &tag, &length) != FT_Err_Table_Missing)
     {
       unsigned char *buf = new unsigned char[length];
       FT_Error error = FT_Load_Sfnt_Table (face, tag, 0, buf, NULL);
@@ -396,15 +391,15 @@ print_body (void *out, FT_Face face)
       if (tag == head_tag)
         {
           /* in the second pass simply store the computed font checksum */
-          buf[8] = (unsigned char) ((font_checksum & 0xFF000000UL) >> 24);
-          buf[9] = (unsigned char) ((font_checksum & 0x00FF0000UL) >> 16);
-          buf[10] = (unsigned char) ((font_checksum & 0x0000FF00UL) >> 8);
+          buf[8] = (unsigned char)((font_checksum & 0xFF000000UL) >> 24);
+          buf[9] = (unsigned char)((font_checksum & 0x00FF0000UL) >> 16);
+          buf[10] = (unsigned char)((font_checksum & 0x0000FF00UL) >> 8);
           buf[11] = font_checksum & 0x000000FFUL;
         }
 
       bool is_glyf_table = tag == glyf_tag && length > CHUNKSIZE;
-      t42_write_table (out, face, buf, length, is_glyf_table,
-                       head_length, loca_length);
+      t42_write_table (out, face, buf, length, is_glyf_table, head_length,
+                       loca_length);
 
       delete[] buf;
       idx++;
@@ -413,14 +408,12 @@ print_body (void *out, FT_Face face)
 }
 
 static void
-print_trailer (void *out,
-               FT_Face face)
+print_trailer (void *out, FT_Face face)
 {
   const int GLYPH_NAME_LEN = 256;
   char glyph_name[GLYPH_NAME_LEN];
 
-  TT_MaxProfile *mp
-    = (TT_MaxProfile *)FT_Get_Sfnt_Table (face, ft_sfnt_maxp);
+  TT_MaxProfile *mp = (TT_MaxProfile *)FT_Get_Sfnt_Table (face, ft_sfnt_maxp);
 
   lily_cookie_fprintf (out, "/CharStrings %d dict dup begin\n", mp->numGlyphs);
 
@@ -432,8 +425,8 @@ print_trailer (void *out,
       glyph_name[0] = 0;
       if (face->face_flags & FT_FACE_FLAG_GLYPH_NAMES)
         {
-          FT_Error error = FT_Get_Glyph_Name (face, i, glyph_name,
-                                              GLYPH_NAME_LEN);
+          FT_Error error
+              = FT_Get_Glyph_Name (face, i, glyph_name, GLYPH_NAME_LEN);
           if (error)
             {
               programming_error ("FT_Get_Glyph_Name (): error.");
@@ -463,7 +456,7 @@ print_trailer (void *out,
       else
         programming_error (to_string ("no name for glyph %d", i));
 
-      if (! (output_count % 5))
+      if (!(output_count % 5))
         lily_cookie_fprintf (out, "\n");
     }
 
@@ -498,8 +491,8 @@ create_type42_font (void *out, const string &name, int idx)
   FT_Done_Face (face);
 }
 
-LY_DEFINE (ly_ttf_ps_name, "ly:ttf-ps-name",
-           1, 1, 0, (SCM ttf_file_name, SCM idx),
+LY_DEFINE (ly_ttf_ps_name, "ly:ttf-ps-name", 1, 1, 0,
+           (SCM ttf_file_name, SCM idx),
            "Extract the PostScript name from a TrueType font.  The optional"
            " @var{idx} argument is useful for TrueType collections (TTC)"
            " only; it specifies the font index within the TTC.  The default"
@@ -546,8 +539,7 @@ LY_DEFINE (ly_ttf_ps_name, "ly:ttf-ps-name",
   return ps_name;
 }
 
-LY_DEFINE (ly_ttf_2_pfa, "ly:ttf->pfa",
-           1, 1, 0, (SCM ttf_file_name, SCM idx),
+LY_DEFINE (ly_ttf_2_pfa, "ly:ttf->pfa", 1, 1, 0, (SCM ttf_file_name, SCM idx),
            "Convert the contents of a TrueType font file to PostScript"
            " Type@tie{}42 font, returning it as a string.  The optional"
            " @var{idx} argument is useful for TrueType collections (TTC)"
@@ -574,8 +566,8 @@ LY_DEFINE (ly_ttf_2_pfa, "ly:ttf->pfa",
   Memory_out_stream stream;
 
   create_type42_font (&stream, file_name, i);
-  SCM asscm = scm_from_latin1_stringn (stream.get_string (),
-                                       stream.get_length ());
+  SCM asscm
+      = scm_from_latin1_stringn (stream.get_string (), stream.get_length ());
 
   debug_output ("]", false);
 

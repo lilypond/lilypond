@@ -19,12 +19,12 @@
 
 #include "music-sequence.hh"
 
-#include "warn.hh"
-#include "program-option.hh"
 #include "duration.hh"
+#include "input.hh"
 #include "moment.hh"
 #include "music.hh"
-#include "input.hh"
+#include "program-option.hh"
+#include "warn.hh"
 
 void
 transpose_music_list (SCM lst, Pitch rq)
@@ -178,8 +178,8 @@ Music_sequence::simultaneous_relative_callback (SCM music, SCM pitch)
 {
   Music *me = unsmob<Music> (music);
   Pitch p = *unsmob<Pitch> (pitch);
-  return music_list_to_relative (me->get_property ("elements"),
-                                 p, false).smobbed_copy ();
+  return music_list_to_relative (me->get_property ("elements"), p, false)
+      .smobbed_copy ();
 }
 
 MAKE_SCHEME_CALLBACK (Music_sequence, event_chord_relative_callback, 2);
@@ -188,6 +188,6 @@ Music_sequence::event_chord_relative_callback (SCM music, SCM pitch)
 {
   Music *me = unsmob<Music> (music);
   Pitch p = *unsmob<Pitch> (pitch);
-  return music_list_to_relative (me->get_property ("elements"),
-                                 p, true).smobbed_copy ();
+  return music_list_to_relative (me->get_property ("elements"), p, true)
+      .smobbed_copy ();
 }

@@ -20,8 +20,8 @@
 #ifndef SYSTEM_START_DELIMITER_HH
 #define SYSTEM_START_DELIMITER_HH
 
-#include "lily-proto.hh"
 #include "grob-interface.hh"
+#include "lily-proto.hh"
 
 /*
   Braces/brackets across staves.
@@ -37,8 +37,6 @@ public:
   static Stencil staff_brace (Grob *, Real);
   static Stencil simple_bar (Grob *, Real);
   static Stencil line_bracket (Grob *, Real);
-
 };
 
 #endif /* SYSTEM_START_DELIMITER_HH */
-

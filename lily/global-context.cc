@@ -31,13 +31,9 @@
 
 using std::string;
 
-Preinit_Global_context::Preinit_Global_context ()
-{
-  output_def_ = 0;
-}
+Preinit_Global_context::Preinit_Global_context () { output_def_ = 0; }
 
-Global_context::Global_context (Output_def *o)
-  : Context ()
+Global_context::Global_context (Output_def *o) : Context ()
 {
   output_def_ = o;
   definition_ = find_context_def (o, ly_symbol2scm ("Global"));
@@ -46,8 +42,9 @@ Global_context::Global_context (Output_def *o)
   prev_mom_.set_infinite (-1);
 
   /* We only need the most basic stuff to bootstrap the context tree */
-  event_source ()->add_listener (GET_LISTENER (Context, create_context_from_event),
-                                 ly_symbol2scm ("CreateContext"));
+  event_source ()->add_listener (
+      GET_LISTENER (Context, create_context_from_event),
+      ly_symbol2scm ("CreateContext"));
   event_source ()->add_listener (GET_LISTENER (Global_context, prepare),
                                  ly_symbol2scm ("Prepare"));
   events_below ()->register_as_listener (event_source_);
@@ -125,8 +122,8 @@ Context *
 Global_context::get_score_context () const
 {
   return (scm_is_pair (context_list_))
-         ? unsmob<Context> (scm_car (context_list_))
-         : 0;
+             ? unsmob<Context> (scm_car (context_list_))
+             : 0;
 }
 
 SCM
@@ -174,8 +171,8 @@ Global_context::run_iterator_on_me (Music_iterator *iter)
           set_property ("measurePosition", w.smobbed_copy ());
         }
 
-      send_stream_event (this, "Prepare", 0,
-                         ly_symbol2scm ("moment"), w.smobbed_copy ());
+      send_stream_event (this, "Prepare", 0, ly_symbol2scm ("moment"),
+                         w.smobbed_copy ());
 
       if (iter->ok ())
         iter->process (w);

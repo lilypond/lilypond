@@ -28,9 +28,9 @@ class String_convert;
 
 #include "real.hh"
 
-template<class T> struct Interval_t;
-template<class T> class PQueue;
-template<class T, class A> class Matrix;
+template <class T> struct Interval_t;
+template <class T> class PQueue;
+template <class T, class A> class Matrix;
 
 typedef Interval_t<Real> Interval;
 

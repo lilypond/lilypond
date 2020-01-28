@@ -67,7 +67,8 @@ Polynomial::minmax (Real l, Real r, bool ret_max) const
   vector<Real> sols;
   if (l > r)
     {
-      programming_error ("left bound greater than right bound for polynomial minmax.  flipping bounds.");
+      programming_error ("left bound greater than right bound for polynomial "
+                         "minmax.  flipping bounds.");
       l = l + r;
       r = l - r;
       l = l - r;
@@ -136,7 +137,7 @@ Polynomial::clean ()
 }
 
 void
-Polynomial::operator += (Polynomial const &p)
+Polynomial::operator+= (Polynomial const &p)
 {
   while (degree () < p.degree ())
     coefs_.push_back (0.0);
@@ -146,7 +147,7 @@ Polynomial::operator += (Polynomial const &p)
 }
 
 void
-Polynomial::operator -= (Polynomial const &p)
+Polynomial::operator-= (Polynomial const &p)
 {
   while (degree () < p.degree ())
     coefs_.push_back (0.0);
@@ -196,7 +197,8 @@ Polynomial::Polynomial (Real a, Real b)
 }
 
 /* cubic root. */
-inline Real cubic_root (Real x)
+inline Real
+cubic_root (Real x)
 {
   if (x > 0.0)
     return pow (x, 1.0 / 3.0);
@@ -212,7 +214,7 @@ iszero (Real r)
 }
 
 vector<Real>
-Polynomial::solve_cubic ()const
+Polynomial::solve_cubic () const
 {
   vector<Real> sol;
 
@@ -236,13 +238,13 @@ Polynomial::solve_cubic ()const
 
   if (iszero (D))
     {
-      if (iszero (q))   /* one triple solution */
+      if (iszero (q)) /* one triple solution */
         {
           sol.push_back (0);
           sol.push_back (0);
           sol.push_back (0);
         }
-      else              /* one single and one double solution */
+      else /* one single and one double solution */
         {
           Real u = cubic_root (-q);
 
@@ -298,7 +300,7 @@ Polynomial::lc ()
 }
 
 ssize_t
-Polynomial::degree ()const
+Polynomial::degree () const
 {
   return coefs_.size () - 1;
 }
@@ -306,7 +308,7 @@ Polynomial::degree ()const
   all roots of quadratic eqn.
 */
 vector<Real>
-Polynomial::solve_quadric ()const
+Polynomial::solve_quadric () const
 {
   vector<Real> sol;
   /* normal form: x^2 + px + q = 0 */
@@ -327,7 +329,7 @@ Polynomial::solve_quadric ()const
 
 /* solve linear equation */
 vector<Real>
-Polynomial::solve_linear ()const
+Polynomial::solve_linear () const
 {
   vector<Real> s;
   if (coefs_[1])
@@ -338,7 +340,7 @@ Polynomial::solve_linear ()const
 vector<Real>
 Polynomial::solve () const
 {
-  Polynomial *me = (Polynomial *) this;
+  Polynomial *me = (Polynomial *)this;
   me->clean ();
 
   switch (degree ())
@@ -355,8 +357,7 @@ Polynomial::solve () const
 }
 
 void
-Polynomial::operator *= (Polynomial const &p2)
+Polynomial::operator*= (Polynomial const &p2)
 {
   *this = multiply (*this, p2);
 }
-

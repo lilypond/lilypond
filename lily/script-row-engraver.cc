@@ -40,6 +40,7 @@ class Script_row_engraver : public Engraver
 
 public:
   TRANSLATOR_DECLARATIONS (Script_row_engraver);
+
 protected:
   void acknowledge_accidental_placement (Grob_info);
   void acknowledge_side_position (Grob_info);
@@ -47,8 +48,7 @@ protected:
   void stop_translation_timestep ();
 };
 
-Script_row_engraver::Script_row_engraver (Context *c)
-  : Engraver (c)
+Script_row_engraver::Script_row_engraver (Context *c) : Engraver (c)
 {
   script_row_ = 0;
 }
@@ -110,5 +110,4 @@ ADD_TRANSLATOR (Script_row_engraver,
                 "",
 
                 /* write */
-                ""
-               );
+                "");

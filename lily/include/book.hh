@@ -21,16 +21,16 @@
 #define BOOK_HH
 
 #include "lily-proto.hh"
-#include "std-vector.hh"
-#include "std-string.hh"
-#include "virtual-methods.hh"
 #include "smobs.hh"
+#include "std-string.hh"
+#include "std-vector.hh"
+#include "virtual-methods.hh"
 
 class Book : public Smob<Book>
 {
 public:
   SCM mark_smob () const;
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
   virtual ~Book ();
   SCM header_;
   Output_def *paper_;
@@ -45,10 +45,8 @@ public:
   Book ();
   void add_score (SCM);
   void add_bookpart (SCM);
-  Paper_book *process (Output_def *def_paper,
-                       Output_def *def_layout);
-  Paper_book *process (Output_def *default_paper,
-                       Output_def *default_layout,
+  Paper_book *process (Output_def *def_paper, Output_def *def_layout);
+  Paper_book *process (Output_def *default_paper, Output_def *default_layout,
                        Paper_book *parent_part);
   void set_keys ();
 
@@ -56,13 +54,10 @@ protected:
   void set_parent (Book *parent);
   void add_scores_to_bookpart ();
   bool error_found ();
-  void process_score (SCM score,
-                      Paper_book *output_paper_book,
+  void process_score (SCM score, Paper_book *output_paper_book,
                       Output_def *layout);
-  void process_bookparts (Paper_book *output_paper_book,
-                          Output_def *paper,
+  void process_bookparts (Paper_book *output_paper_book, Output_def *paper,
                           Output_def *layout);
 };
-
 
 #endif /* BOOK_HH */

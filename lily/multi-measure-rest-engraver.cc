@@ -18,15 +18,15 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "engraver-group.hh"
+#include "moment.hh"
 #include "multi-measure-rest.hh"
 #include "paper-column.hh"
-#include "engraver-group.hh"
 #include "script-interface.hh"
 #include "side-position-interface.hh"
+#include "spanner.hh"
 #include "staff-symbol-referencer.hh"
 #include "stream-event.hh"
-#include "moment.hh"
-#include "spanner.hh"
 
 #include "translator.icc"
 
@@ -73,12 +73,8 @@ private:
 };
 
 Multi_measure_rest_engraver::Multi_measure_rest_engraver (Context *c)
-  : Engraver (c),
-    rest_ev_ (0),
-    mmrest_ (0),
-    start_measure_ (0),
-    last_command_item_ (0),
-    first_time_ (true)
+    : Engraver (c), rest_ev_ (0), mmrest_ (0), start_measure_ (0),
+      last_command_item_ (0), first_time_ (true)
 {
 }
 
@@ -105,7 +101,8 @@ Multi_measure_rest_engraver::listen_multi_measure_text (Stream_event *ev)
 }
 
 void
-Multi_measure_rest_engraver::listen_multi_measure_articulation (Stream_event *ev)
+Multi_measure_rest_engraver::listen_multi_measure_articulation (
+    Stream_event *ev)
 {
   articulation_events_.push_back (ev);
 }
@@ -133,8 +130,8 @@ void
 Multi_measure_rest_engraver::initialize_grobs ()
 {
   mmrest_ = make_spanner ("MultiMeasureRest", rest_ev_->self_scm ());
-  text_.push_back (make_spanner ("MultiMeasureRestNumber",
-                                 mmrest_->self_scm ()));
+  text_.push_back (
+      make_spanner ("MultiMeasureRestNumber", mmrest_->self_scm ()));
 
   if (articulation_events_.size ())
     {
@@ -143,15 +140,13 @@ Multi_measure_rest_engraver::initialize_grobs ()
           Stream_event *e = articulation_events_[i];
           Spanner *sp = make_spanner ("MultiMeasureRestScript", e->self_scm ());
           make_script_from_event (sp, context (),
-                                  e->get_property ("articulation-type"),
-                                  i);
+                                  e->get_property ("articulation-type"), i);
           SCM dir = e->get_property ("direction");
           if (is_direction (dir))
             sp->set_property ("direction", dir);
 
           text_.push_back (sp);
         }
-
     }
 
   if (text_events_.size ())
@@ -168,7 +163,6 @@ Multi_measure_rest_engraver::initialize_grobs ()
 
           text_.push_back (sp);
         }
-
     }
 
   /*
@@ -229,9 +223,10 @@ void
 Multi_measure_rest_engraver::process_music ()
 {
   const bool measure_end
-  = scm_is_string (get_property ("whichBar"))
-    && (robust_scm2moment (get_property ("measurePosition"),
-                           Moment (0)).main_part_ == Rational (0));
+      = scm_is_string (get_property ("whichBar"))
+        && (robust_scm2moment (get_property ("measurePosition"), Moment (0))
+                .main_part_
+            == Rational (0));
 
   if (measure_end || first_time_)
     {
@@ -262,7 +257,8 @@ Multi_measure_rest_engraver::process_music ()
         }
 
       start_measure_ = scm_to_int (get_property ("internalBarNumber"));
-      number_threshold_ = robust_scm2int (get_property ("restNumberThreshold"), 1);
+      number_threshold_
+          = robust_scm2int (get_property ("restNumberThreshold"), 1);
     }
 
   first_time_ = false;
@@ -303,5 +299,4 @@ ADD_TRANSLATOR (Multi_measure_rest_engraver,
                 "whichBar ",
 
                 /* write */
-                ""
-               );
+                "");

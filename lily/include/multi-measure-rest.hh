@@ -41,4 +41,3 @@ public:
 };
 
 #endif /* MULTI_MEASURE_REST_HH */
-

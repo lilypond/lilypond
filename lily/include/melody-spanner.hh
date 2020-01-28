@@ -20,8 +20,8 @@
 #ifndef MELODY_SPANNER_HH
 #define MELODY_SPANNER_HH
 
-#include "lily-proto.hh"
 #include "grob-interface.hh"
+#include "lily-proto.hh"
 
 class Melody_spanner
 {
@@ -31,4 +31,3 @@ public:
 };
 
 #endif /* MELODY_SPANNER_HH */
-

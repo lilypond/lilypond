@@ -86,8 +86,8 @@ void
 Bracket_nesting_group::create_grobs (Engraver *engraver, SCM default_type)
 {
   SCM type = scm_is_symbol (symbol_) ? symbol_ : default_type;
-  delimiter_ = engraver->make_spanner (ly_symbol2string (type).c_str (),
-                                       SCM_EOL);
+  delimiter_
+      = engraver->make_spanner (ly_symbol2string (type).c_str (), SCM_EOL);
 
   for (vsize i = 0; i < children_.size (); i++)
     children_[i]->create_grobs (engraver, default_type);
@@ -101,10 +101,7 @@ Bracket_nesting_group::add_support (Grob *g)
     children_[i]->add_support (g);
 }
 
-Bracket_nesting_group::~Bracket_nesting_group ()
-{
-  junk_pointers (children_);
-}
+Bracket_nesting_group::~Bracket_nesting_group () { junk_pointers (children_); }
 
 void
 Bracket_nesting_group::set_bound (Direction d, Grob *g)
@@ -179,7 +176,7 @@ protected:
 };
 
 System_start_delimiter_engraver::System_start_delimiter_engraver (Context *c)
-  : Engraver (c)
+    : Engraver (c)
 {
   nesting_ = 0;
 }
@@ -195,8 +192,8 @@ System_start_delimiter_engraver::process_music ()
 
       nesting_->from_list (hierarchy);
       nesting_->create_grobs (this, delimiter_name);
-      nesting_->set_bound (LEFT,
-                           unsmob<Grob> (get_property ("currentCommandColumn")));
+      nesting_->set_bound (
+          LEFT, unsmob<Grob> (get_property ("currentCommandColumn")));
     }
 }
 
@@ -205,8 +202,8 @@ System_start_delimiter_engraver::finalize ()
 {
   if (nesting_)
     {
-      nesting_->set_bound (RIGHT,
-                           unsmob<Grob> (get_property ("currentCommandColumn")));
+      nesting_->set_bound (
+          RIGHT, unsmob<Grob> (get_property ("currentCommandColumn")));
       nesting_->set_nesting_support (0);
 
       delete nesting_;
@@ -227,11 +224,11 @@ System_start_delimiter_engraver::acknowledge_staff_symbol (Grob_info inf)
 }
 
 void
-System_start_delimiter_engraver::acknowledge_system_start_delimiter (Grob_info inf)
+System_start_delimiter_engraver::acknowledge_system_start_delimiter (
+    Grob_info inf)
 {
   nesting_->add_support (inf.grob ());
 }
-
 
 void
 System_start_delimiter_engraver::boot ()
@@ -259,5 +256,4 @@ ADD_TRANSLATOR (System_start_delimiter_engraver,
                 "currentCommandColumn ",
 
                 /* write */
-                ""
-               );
+                "");

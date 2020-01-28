@@ -25,14 +25,15 @@
 class Skyline_pair : public Simple_smob<Skyline_pair>
 {
 public:
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
+
 private:
   Drul_array<Skyline> skylines_;
 
 public:
   Skyline_pair ();
   Skyline_pair (std::vector<Box> const &boxes, Axis a);
-  Skyline_pair (std::vector<Drul_array<Offset> > const &buildings, Axis a);
+  Skyline_pair (std::vector<Drul_array<Offset>> const &buildings, Axis a);
   Skyline_pair (std::vector<Skyline_pair> const &skypairs);
   Skyline_pair (Box const &, Axis a);
 
@@ -42,8 +43,8 @@ public:
   void shift (Real);
   void insert (Box const &, Axis);
   void merge (Skyline_pair const &other);
-  Skyline &operator [] (Direction d);
-  Skyline const &operator [] (Direction d) const;
+  Skyline &operator[] (Direction d);
+  Skyline const &operator[] (Direction d) const;
   bool is_empty () const;
   void print () const;
   void print_points () const;

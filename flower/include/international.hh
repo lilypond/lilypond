@@ -38,16 +38,16 @@
 std::string _ (char const *ch);
 
 /**
-   Internationalisation: _f ("Usage: %s [FILE]", "lilypond") gets "translated" by
-   GNU gettext
+   Internationalisation: _f ("Usage: %s [FILE]", "lilypond") gets "translated"
+   by GNU gettext
 */
 std::string _f (char const *format, ...)
-__attribute__ ((format (printf, 1, 2)));
-std::string _f (char const *format, const std::string &s, const std::string &s2 = "", const std::string &s3 = "");
+    __attribute__ ((format (printf, 1, 2)));
+std::string _f (char const *format, const std::string &s,
+                const std::string &s2 = "", const std::string &s3 = "");
 /**
    va_list version of _f
  */
 std::string v_f (char const *format, va_list args);
 
 #endif // INTERNATIONAL_HH
-

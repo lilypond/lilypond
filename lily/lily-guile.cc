@@ -20,26 +20,25 @@
 
 #include "lily-guile.hh"
 
+#include <cctype>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring> /* strdup, strchr */
-#include <cctype>
-
 
 #include "dimensions.hh"
 #include "direction.hh"
 #include "file-path.hh"
 #include "international.hh"
 #include "libc-extension.hh"
+#include "lily-imports.hh"
 #include "main.hh"
 #include "misc.hh"
 #include "offset.hh"
 #include "pitch.hh"
-#include "string-convert.hh"
 #include "source-file.hh"
+#include "string-convert.hh"
 #include "version.hh"
 #include "warn.hh"
-#include "lily-imports.hh"
 
 using std::string;
 using std::vector;
@@ -50,11 +49,10 @@ using std::vector;
 string
 ly_scm_write_string (SCM s)
 {
-  SCM port = scm_mkstrport (SCM_INUM0,
-                            scm_make_string (SCM_INUM0, SCM_UNDEFINED),
-                            SCM_OPN | SCM_WRTNG,
-                            "ly_write2string");
-  scm_write(s, port);
+  SCM port
+      = scm_mkstrport (SCM_INUM0, scm_make_string (SCM_INUM0, SCM_UNDEFINED),
+                       SCM_OPN | SCM_WRTNG, "ly_write2string");
+  scm_write (s, port);
   return ly_scm2string (scm_strport_to_string (port));
 }
 
@@ -106,10 +104,10 @@ gulp_file_to_string (const string &fn, bool must_exist, int size)
   return result;
 }
 
-extern "C" {
+extern "C"
+{
   // maybe gdb 5.0 becomes quicker if it doesn't do fancy C++ typing?
-  void
-  ly_display_scm (SCM s)
+  void ly_display_scm (SCM s)
   {
     scm_display (s, scm_current_output_port ());
     scm_newline (scm_current_output_port ());
@@ -136,8 +134,7 @@ ly_scm2string (SCM str)
 SCM
 ly_string2scm (string const &str)
 {
-  return scm_from_locale_stringn (str.c_str (),
-                                  str.length ());
+  return scm_from_locale_stringn (str.c_str (), str.length ());
 }
 
 char *
@@ -169,8 +166,8 @@ index_set_cell (SCM s, Direction d, SCM v)
 bool
 is_number_pair (SCM p)
 {
-  return scm_is_pair (p)
-         && scm_is_number (scm_car (p)) && scm_is_number (scm_cdr (p));
+  return scm_is_pair (p) && scm_is_number (scm_car (p))
+         && scm_is_number (scm_cdr (p));
 }
 
 unsigned int
@@ -202,7 +199,7 @@ to_boolean (SCM s)
 Direction
 to_dir (SCM s)
 {
-  return scm_is_integer (s) ? (Direction) scm_to_int (s) : CENTER;
+  return scm_is_integer (s) ? (Direction)scm_to_int (s) : CENTER;
 }
 
 Direction
@@ -230,8 +227,7 @@ is_direction (SCM s)
 Interval
 ly_scm2interval (SCM p)
 {
-  return Interval (scm_to_double (scm_car (p)),
-                   scm_to_double (scm_cdr (p)));
+  return Interval (scm_to_double (scm_car (p)), scm_to_double (scm_cdr (p)));
 }
 
 Drul_array<Real>
@@ -289,8 +285,7 @@ ly_offset2scm (Offset o)
 Offset
 ly_scm2offset (SCM s)
 {
-  return Offset (scm_to_double (scm_car (s)),
-                 scm_to_double (scm_cdr (s)));
+  return Offset (scm_to_double (scm_car (s)), scm_to_double (scm_cdr (s)));
 }
 
 Offset
@@ -388,8 +383,7 @@ print_scm_val (SCM val)
 {
   string realval = ly_scm_write_string (val);
   if (realval.length () > 200)
-    realval = realval.substr (0, 100)
-              + "\n :\n :\n"
+    realval = realval.substr (0, 100) + "\n :\n :\n"
               + realval.substr (realval.length () - 100);
   return realval;
 }
@@ -414,8 +408,8 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
 
       /* Be strict when being anal :) */
       if (do_internal_type_checking_global)
-        scm_throw (ly_symbol2scm ("ly-file-failed"), scm_list_3 (ly_symbol2scm ("typecheck"),
-                                                                 sym, val));
+        scm_throw (ly_symbol2scm ("ly-file-failed"),
+                   scm_list_3 (ly_symbol2scm ("typecheck"), sym, val));
 
       warning (_ ("skipping assignment"));
       return false;
@@ -430,16 +424,15 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
   if (scm_is_null (val) || scm_is_false (val))
     return true;
 
-  if (!scm_is_null (val)
-      && ly_is_procedure (type)
+  if (!scm_is_null (val) && ly_is_procedure (type)
       && scm_is_false (scm_call_1 (type, val)))
     {
       SCM type_name = Lily::type_name (type);
 
-      warning (_f ("type check for `%s' failed; value `%s' must be of type `%s'",
-                   ly_symbol2string (sym).c_str (),
-                   print_scm_val (val),
-                   ly_scm2string (type_name).c_str ()));
+      warning (
+          _f ("type check for `%s' failed; value `%s' must be of type `%s'",
+              ly_symbol2string (sym).c_str (), print_scm_val (val),
+              ly_scm2string (type_name).c_str ()));
       progress_indication ("\n");
       return false;
     }
@@ -449,7 +442,7 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
 void
 ly_wrong_smob_arg (bool pred (SCM), SCM var, int number, const char *fun)
 {
-  string type = predicate_to_typename ((void *) pred);
+  string type = predicate_to_typename ((void *)pred);
   if (pred (var))
     {
       // Uh oh.  unsmob<T> delivered 0, yet
@@ -458,10 +451,9 @@ ly_wrong_smob_arg (bool pred (SCM), SCM var, int number, const char *fun)
       // incompatible derived type.
       type = string (_ ("Wrong kind of ")).append (type);
     }
-  scm_wrong_type_arg_msg (mangle_cxx_identifier (fun).c_str (),
-                          number, var, type.c_str ());
+  scm_wrong_type_arg_msg (mangle_cxx_identifier (fun).c_str (), number, var,
+                          type.c_str ());
 }
-
 
 /* some SCM abbrevs
 
@@ -602,7 +594,7 @@ robust_scm2vsize (SCM k, vsize o)
     {
       int i = scm_to_int (k);
       if (i >= 0)
-        return (vsize) i;
+        return (vsize)i;
     }
   return o;
 }
@@ -658,8 +650,7 @@ bool
 ly_is_rational (SCM n)
 {
   return (scm_is_real (n)
-          && (scm_is_true (scm_exact_p (n))
-              || scm_is_true (scm_inf_p (n))));
+          && (scm_is_true (scm_exact_p (n)) || scm_is_true (scm_inf_p (n))));
 }
 
 SCM
@@ -743,8 +734,8 @@ struct ly_t_double_cell
 };
 
 /* inserts at front, removing duplicates */
-SCM ly_assoc_prepend_x (SCM alist, SCM key, SCM val)
+SCM
+ly_assoc_prepend_x (SCM alist, SCM key, SCM val)
 {
   return scm_acons (key, val, scm_assoc_remove_x (alist, key));
 }
-

@@ -17,8 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "engraver.hh"
 #include "context.hh"
+#include "engraver.hh"
 #include "grob.hh"
 #include "warn.hh"
 
@@ -40,7 +40,6 @@ public:
 void
 Default_bar_line_engraver::boot ()
 {
-
 }
 
 ADD_TRANSLATOR (Default_bar_line_engraver,
@@ -62,11 +61,9 @@ ADD_TRANSLATOR (Default_bar_line_engraver,
                 "timing ",
 
                 /* write */
-                ""
-               );
+                "");
 
-Default_bar_line_engraver::Default_bar_line_engraver (Context *c)
-  : Engraver (c)
+Default_bar_line_engraver::Default_bar_line_engraver (Context *c) : Engraver (c)
 {
   last_moment_.main_part_ = Rational (-1);
 }
@@ -83,9 +80,9 @@ Default_bar_line_engraver::start_translation_timestep ()
     which = SCM_EOL;
 
   Moment mp = measure_position (context ());
-  bool start_of_measure = (last_moment_.main_part_ != now.main_part_
-                           && !mp.main_part_
-                           && to_boolean (get_property ("timing")));
+  bool start_of_measure
+      = (last_moment_.main_part_ != now.main_part_ && !mp.main_part_
+         && to_boolean (get_property ("timing")));
 
   if (!scm_is_string (which) && to_boolean (automatic_bars))
     {

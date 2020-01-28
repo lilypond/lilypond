@@ -20,12 +20,11 @@
 #ifndef DIRECTIONAL_ELEMENT_HH
 #define DIRECTIONAL_ELEMENT_HH
 
-#include "lily-proto.hh"
 #include "direction.hh"
+#include "lily-proto.hh"
 
 // what is the advantage not having these two as STATICs of GROB -- jcn
 void set_grob_direction (Grob *, Direction);
 Direction get_grob_direction (Grob *);
 
 #endif /* DIRECTIONAL_ELEMENT_HH */
-

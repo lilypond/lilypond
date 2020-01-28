@@ -20,11 +20,11 @@
 #include <glib.h>
 
 #include "international.hh"
-#include "warn.hh"
 #include "lily-guile.hh"
+#include "warn.hh"
 
-LY_DEFINE (ly_encode_string_for_pdf, "ly:encode-string-for-pdf",
-           1, 0, 0, (SCM str),
+LY_DEFINE (ly_encode_string_for_pdf, "ly:encode-string-for-pdf", 1, 0, 0,
+           (SCM str),
            "Encode the given string to either Latin1 (which is a subset of"
            " the PDFDocEncoding) or if that's not possible to full UTF-16BE"
            " with Byte-Order-Mark (BOM).")
@@ -58,10 +58,12 @@ LY_DEFINE (ly_encode_string_for_pdf, "ly:encode-string-for-pdf",
   if (!g)
     {
       GError *e = NULL;
-      char *g_without_BOM = g_convert (p, -1, "UTF-16BE", charset, 0, &bytes_written, &e);
+      char *g_without_BOM
+          = g_convert (p, -1, "UTF-16BE", charset, 0, &bytes_written, &e);
       if (e != NULL)
         {
-          warning (_f ("Conversion of string `%s' to UTF-16be failed: %s", p, e->message));
+          warning (_f ("Conversion of string `%s' to UTF-16be failed: %s", p,
+                       e->message));
           g_error_free (e);
         }
       /* UTF-16BE allows/recommends a byte-order-mark (BOM) of two bytes
@@ -70,9 +72,10 @@ LY_DEFINE (ly_encode_string_for_pdf, "ly:encode-string-for-pdf",
        * UTF-16BE. As g_convert does not automatically prepend this BOM
        * for UTF-16BE (only for UTF-16, which uses lower endian by default,
        * though), we have to prepend it manually. */
-      if (g_without_BOM) // conversion to UTF-16be might have failed (shouldn't!)
+      if (g_without_BOM) // conversion to UTF-16be might have failed
+                         // (shouldn't!)
         {
-          g = (char *)malloc ( sizeof (char) * (bytes_written + 3));
+          g = (char *)malloc (sizeof (char) * (bytes_written + 3));
           char const *BOM = "\xFE\xFF";
           strcpy (g, BOM);
           memcpy (&g[2], g_without_BOM, bytes_written + 1); // Copy string + \0
@@ -90,7 +93,7 @@ LY_DEFINE (ly_encode_string_for_pdf, "ly:encode-string-for-pdf",
        * in a locale independent way.
        */
       SCM string = scm_from_latin1_stringn (g, bytes_written);
-      free(g);
+      free (g);
       return string;
     }
   else

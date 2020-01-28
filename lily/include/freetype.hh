@@ -24,8 +24,8 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
-#include "std-string.hh"
 #include "box.hh"
+#include "std-string.hh"
 
 void init_freetype ();
 extern FT_Library freetype2_library;
@@ -33,7 +33,8 @@ extern FT_Library freetype2_library;
 std::string freetype_error_string (FT_Error code);
 
 SCM box_to_scheme_lines (Box b);
-Box ly_FT_get_unscaled_indexed_char_dimensions (FT_Face const &face, size_t signed_idx);
+Box ly_FT_get_unscaled_indexed_char_dimensions (FT_Face const &face,
+                                                size_t signed_idx);
 Box ly_FT_get_glyph_outline_bbox (FT_Face const &face, size_t signed_idx);
 SCM ly_FT_get_glyph_outline (FT_Face const &face, size_t signed_idx);
 

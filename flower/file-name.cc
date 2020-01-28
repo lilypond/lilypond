@@ -20,11 +20,10 @@
 
 #include "file-name.hh"
 
-#include <cstdio>
 #include <cerrno>
-#include <unistd.h>
+#include <cstdio>
 #include <limits.h>
-
+#include <unistd.h>
 
 #include "config.hh"
 
@@ -132,8 +131,7 @@ File_name::to_string () const
   string d = dir_part ();
   string f = file_part ();
 
-  if (!f.empty ()
-      && !dir_.empty ())
+  if (!f.empty () && !dir_.empty ())
     d += DIRSEP;
 
   return d + f;

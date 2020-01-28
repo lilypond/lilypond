@@ -17,11 +17,10 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <cstdio>
 #include <cmath>
+#include <cstdio>
 #include <map>
 #include <set>
-
 
 #include "axis-group-interface.hh"
 #include "directional-element-interface.hh"
@@ -52,12 +51,11 @@ Dot_column::calc_positioning_done (SCM smob)
     dots when merging.
   */
   if (Grob *collision = unsmob<Grob> (me->get_object ("note-collision")))
-    (void) collision->get_property ("positioning-done");
+    (void)collision->get_property ("positioning-done");
 
   me->set_property ("positioning-done", SCM_BOOL_T);
 
-  vector<Grob *> dots
-    = extract_grob_array (me, "dots");
+  vector<Grob *> dots = extract_grob_array (me, "dots");
 
   vector<Grob *> parent_stems;
   Real ss = 0;
@@ -129,8 +127,7 @@ Dot_column::calc_positioning_done (SCM smob)
         stems.insert (stem);
     }
 
-  for (set<Grob *>::const_iterator i (stems.begin ());
-       i != stems.end (); i++)
+  for (set<Grob *>::const_iterator i (stems.begin ()); i != stems.end (); i++)
     {
       Grob *stem = (*i);
       Grob *flag = Stem::flag (stem);
@@ -157,10 +154,10 @@ Dot_column::calc_positioning_done (SCM smob)
   if (scm_is_number (chord_dots_limit))
     {
       // Sort dots by stem, then check for dots above the limit for each stem
-      vector <vector <Grob *> > dots_each_stem (parent_stems.size ());
+      vector<vector<Grob *>> dots_each_stem (parent_stems.size ());
       for (vsize i = 0; i < dots.size (); i++)
-        if (Grob *stem = unsmob<Grob> (dots[i]->get_parent (Y_AXIS)
-                                      -> get_object ("stem")))
+        if (Grob *stem
+            = unsmob<Grob> (dots[i]->get_parent (Y_AXIS)->get_object ("stem")))
           for (vsize j = 0; j < parent_stems.size (); j++)
             if (stem == parent_stems[j])
               {
@@ -170,8 +167,8 @@ Dot_column::calc_positioning_done (SCM smob)
       for (vsize j = 0; j < parent_stems.size (); j++)
         {
           Interval chord = Stem::head_positions (parent_stems[j]);
-          int total_room = ((int) chord.length () + 2
-                            + scm_to_int (chord_dots_limit)) / 2;
+          int total_room
+              = ((int)chord.length () + 2 + scm_to_int (chord_dots_limit)) / 2;
           int total_dots = dots_each_stem[j].size ();
           // remove excessive dots from the ends of the stem
           for (int first_dot = 0; total_dots > total_room; total_dots--)
@@ -188,7 +185,8 @@ Dot_column::calc_positioning_done (SCM smob)
         dots.erase (dots.begin () + i);
       else
         // Undo any fake translations that were done in add_head.
-        dots[i]->translate_axis (-dots[i]->relative_coordinate (me, X_AXIS), X_AXIS);
+        dots[i]->translate_axis (-dots[i]->relative_coordinate (me, X_AXIS),
+                                 X_AXIS);
     }
 
   Dot_formatting_problem problem (boxes, base_x);
@@ -212,7 +210,8 @@ Dot_column::calc_positioning_done (SCM smob)
 
       /* icky, since this should go via a Staff_symbol_referencer
          offset callback but adding a dot overwrites Y-offset. */
-      p += (int) robust_scm2double (dp.dot_->get_property ("staff-position"), 0.0);
+      p += (int)robust_scm2double (dp.dot_->get_property ("staff-position"),
+                                   0.0);
       dp.pos_ = p;
 
       cfg.remove_collision (p);
@@ -223,8 +222,7 @@ Dot_column::calc_positioning_done (SCM smob)
         cfg.remove_collision (p);
     }
 
-  for (Dot_configuration::const_iterator i (cfg.begin ());
-       i != cfg.end (); i++)
+  for (Dot_configuration::const_iterator i (cfg.begin ()); i != cfg.end (); i++)
     {
       /*
         Junkme?
@@ -232,8 +230,8 @@ Dot_column::calc_positioning_done (SCM smob)
       Staff_symbol_referencer::pure_set_position (i->second.dot_, i->first);
     }
 
-  me->translate_axis (cfg.x_offset () - me->relative_coordinate (commonx, X_AXIS),
-                      X_AXIS);
+  me->translate_axis (
+      cfg.x_offset () - me->relative_coordinate (commonx, X_AXIS), X_AXIS);
   return SCM_BOOL_T;
 }
 
@@ -269,6 +267,4 @@ ADD_INTERFACE (Dot_column,
                "dots "
                "positioning-done "
                "direction "
-               "note-collision "
-              );
-
+               "note-collision ");

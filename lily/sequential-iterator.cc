@@ -18,10 +18,10 @@
 */
 
 #include "sequential-iterator.hh"
-#include "music.hh"
-#include "translator-group.hh"
 #include "context.hh"
 #include "grace-fixup.hh"
+#include "music.hh"
+#include "translator-group.hh"
 
 /*
   TODO: handling of grace notes is exquisite pain.  This handling
@@ -162,8 +162,7 @@ Sequential_iterator::next_element (bool)
   Moment len = iter_->music_get_length () - iter_->music_start_mom ();
   assert (!grace_fixups_ || grace_fixups_->start_ >= here_mom_);
 
-  if (len.main_part_
-      && get_grace_fixup ())
+  if (len.main_part_ && get_grace_fixup ())
     {
       Grace_fixup *gf = get_grace_fixup ();
 
@@ -195,7 +194,8 @@ Sequential_iterator::next_element (bool)
 
   iter_->quit ();
   if (scm_is_pair (cursor_))
-    iter_ = unsmob<Music_iterator> (get_iterator (unsmob<Music> (scm_car (cursor_))));
+    iter_ = unsmob<Music_iterator> (
+        get_iterator (unsmob<Music> (scm_car (cursor_))));
   else
     iter_ = 0;
 }
@@ -207,8 +207,8 @@ Sequential_iterator::process (Moment until)
     {
       Grace_fixup *gf = get_grace_fixup ();
       if (gf
-          && gf->start_ + gf->length_
-          + Moment (Rational (0), gf->grace_start_) == until)
+          && gf->start_ + gf->length_ + Moment (Rational (0), gf->grace_start_)
+                 == until)
         {
           /*
             do the stuff/note/rest preceding a grace.
@@ -244,8 +244,7 @@ Sequential_iterator::pending_moment () const
     Fix-up a grace note halfway in the music.
   */
   Grace_fixup *gf = get_grace_fixup ();
-  if (gf
-      && gf->length_ + iter_->music_start_mom () == cp)
+  if (gf && gf->length_ + iter_->music_start_mom () == cp)
     return here_mom_ + gf->length_ + Moment (0, gf->grace_start_);
 
   /*
