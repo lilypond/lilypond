@@ -734,24 +734,23 @@ setup_guile_v2_env ()
  * Scheme files for Guile V2.
  */
 {
-     sane_putenv("GUILE_AUTO_COMPILE", "0", true);  // disable auto-compile
-     sane_putenv("GUILE_WARN_DEPRECATED",
-                  "detailed", "true");   // set Guile to info re deprecation
-     /*
+  sane_putenv ("GUILE_AUTO_COMPILE", "0", false); // disable auto-compile
+  sane_putenv ("GUILE_WARN_DEPRECATED", "detailed",
+               "true"); // set Guile to info re deprecation
+  /*
         Set root for Guile %compile-fallback to
         Lilypond root for its data.
       */
-     sane_putenv("XDG_CACHE_HOME",
-                  lilypond_datadir, true);
+  sane_putenv ("XDG_CACHE_HOME", lilypond_datadir, true);
 
-     // This reduces the GC overhead during parsing and
-     // initialization. To see if this is a good value, run #(display
-     // (gc-stats)) just before \maininput in init.ly, and check that
-     // it's roughly this value.
-     sane_putenv("GC_INITIAL_HEAP_SIZE", "40M", false);
+  // This reduces the GC overhead during parsing and
+  // initialization. To see if this is a good value, run #(display
+  // (gc-stats)) just before \maininput in init.ly, and check that
+  // it's roughly this value.
+  sane_putenv ("GC_INITIAL_HEAP_SIZE", "40M", false);
 
-     // Use less CPU for GC, at the expense of memory.
-     GC_free_space_divisor = 1;
+  // Use less CPU for GC, at the expense of memory.
+  GC_free_space_divisor = 1;
 }
 #endif
 
