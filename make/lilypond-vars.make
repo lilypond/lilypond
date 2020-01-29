@@ -56,7 +56,11 @@ endif
 ifdef SILENT
   LILYPOND_BOOK_WARN = --loglevel=WARN
 else
+ ifdef VERBOSE
+  LILYPOND_BOOK_WARN = --loglevel=PROGRESS
+ else
   LILYPOND_BOOK_WARN = --loglevel=BASIC
+ endif
 endif
 
 LILYPOND_BOOK_INFO_IMAGES_DIR = $(if $(INFO_IMAGES_DIR),--info-images-dir=$(INFO_IMAGES_DIR),)
