@@ -734,7 +734,7 @@ setup_guile_v2_env ()
  * Scheme files for Guile V2.
  */
 {
-     sane_putenv("GUILE_AUTO_COMPILE", "0", true);  // disable auto-compile
+     sane_putenv("GUILE_AUTO_COMPILE", "1", false);  // disable auto-compile
      sane_putenv("GUILE_WARN_DEPRECATED",
                   "detailed", "true");   // set Guile to info re deprecation
      /*
