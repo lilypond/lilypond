@@ -1078,11 +1078,11 @@ Otherwise, return #f."
                                quoted-context-id "cue"
                                quoted-context-type 'CueVoice
                                element ?music))
-                        (format #f "\\cueDuring #~s #~a ~a"
+                        (format #f "\\cueDuring ~s #~a ~a"
                                 ?quoted-music-name
                                 ?quoted-voice-direction
                                 (music->lily-string ?music)))
-      (format #f "\\quoteDuring #~s ~a"
+      (format #f "\\quoteDuring ~s ~a"
               (ly:music-property expr 'quoted-music-name)
               (music->lily-string (ly:music-property expr 'element)))))
 
