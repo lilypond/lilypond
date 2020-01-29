@@ -446,7 +446,9 @@ main_with_guile (void *, int, char **)
    prepend_scheme_list (lilypond_datadir, scm_pct_load_path );
    prepend_scheme_list (lilypond_datadir + "/scm", scm_pct_load_path);
 
-#if (GUILE2)
+#if 0
+   /* this code is dead, but keeping this around until we sort the
+      guile2/3 situation. */
    /*
      Just as ughy - prepend "/scm/out" onto GUILE V2+ %load-compiled-path
      and set %compile-fallback-path to our scm/out directory
