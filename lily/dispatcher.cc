@@ -35,8 +35,6 @@ Dispatcher::Dispatcher ()
   dispatchers_ = SCM_EOL;
   listen_classes_ = SCM_EOL;
   smobify_self ();
-// TODO: use resizable hash (guile 1.8)
-//  listeners_ = scm_c_make_hash_table (0);
   listeners_ = scm_c_make_hash_table (17);
   priority_count_ = 0;
 }
