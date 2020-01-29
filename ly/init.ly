@@ -4,6 +4,12 @@
 #(if (and #t (defined? 'set-debug-cell-accesses!))
   (set-debug-cell-accesses! 5000))
 
+#(if (ly:get-option 'verbose)
+  (begin
+   (display "gc time taken: ")
+   (display (* 1.0 (/ (cdr (assoc 'gc-time-taken (gc-stats))) internal-time-units-per-second)))
+   (display "\n")))
+
 \version "2.19.22"
 
 #(if (guile-v2)
