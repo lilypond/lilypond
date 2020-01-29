@@ -28,10 +28,7 @@ Grob_array::Grob_array ()
 SCM
 Grob_array::mark_smob () const
 {
-#if 0  /* see System::derived_mark () const */
-  for (vsize i = 0; i < grobs_.size (); i++)
-    scm_gc_mark (grobs_[i]->self_scm ());
-#endif
+  /* no marking; see System::derived_mark () const */
   return SCM_UNDEFINED;
 }
 

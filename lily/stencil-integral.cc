@@ -926,9 +926,6 @@ stencil_dispatcher (vector<Box> &boxes,
     make_glyph_string_boxes (boxes, buildings, trans, scm_cdr (expr));
   else
     {
-#if 0
-      warning ("Stencil expression not supported by the veritcal skylines.");
-#endif
       /*
         We don't issue a warning here, as we assume that stencil-expression.cc
         is doing stencil-checking correctly.

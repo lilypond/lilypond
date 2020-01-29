@@ -295,8 +295,8 @@ public:
   }
 };
 
-void protect_smob (SCM smob, SCM *prot_cons);
-void unprotect_smob (SCM smob, SCM *prot_cons);
+void protect_smob (SCM smob);
+void unprotect_smob (SCM smob);
 
 // The Smob_core class is not templated and contains material not
 // depending on the Super class.
@@ -313,11 +313,10 @@ public:
 template <class Super>
 class Smob : public Smob_core, public Smob_base<Super> {
 private:
-  SCM protection_cons_;
   Smob (const Smob<Super> &) = delete;
   Smob& operator= (const Smob<Super> &) = delete;
 protected:
-  Smob () : protection_cons_ (SCM_EOL) { };
+  Smob () = default;
 public:
   static size_t free_smob (SCM obj)
   {
@@ -332,15 +331,15 @@ public:
   }
   void protect ()
   {
-    protect_smob (self_scm_, &protection_cons_);
+    protect_smob (self_scm_);
   }
   void smobify_self () {
-    protect_smob (unprotected_smobify_self (), &protection_cons_);
+    protect_smob (unprotected_smobify_self ());
   }
   SCM unprotect ()
   {
     SCM s = self_scm_;
-    unprotect_smob (s, &protection_cons_);
+    unprotect_smob (s);
     return s;
   }
 };

@@ -83,9 +83,6 @@ Dispatcher::dispatch (SCM sev)
       return;
     }
 
-#if 0
-  bool sent = false;
-#endif
   long num_classes = scm_ilength (class_list);
 
   /*
@@ -144,9 +141,6 @@ Dispatcher::dispatch (SCM sev)
 
           SCM l = scm_cdar (lists[0].list);
           scm_call_1 (l, ev->self_scm ());
-#if 0
-          sent = true;
-#endif
         }
       // go to the next listener; bubble-sort the class list.
       SCM next = scm_cdr (lists[0].list);
@@ -158,12 +152,6 @@ Dispatcher::dispatch (SCM sev)
       lists[i].prio = prio;
       lists[i].list = next;
     }
-
-#if 0
-  /* TODO: Uncomment. */
-  if (!sent)
-    warning (_f ("Junking event: %s", ly_symbol2string (class_symbol).c_str ()));
-#endif
 }
 
 bool

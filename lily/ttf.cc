@@ -92,26 +92,6 @@ print_header (void *out, FT_Face face)
   int32_t font_revision = static_cast<int32_t> (ht->Font_Revision);
   lily_cookie_fprintf (out, "/version (%.3f) def\n", font_revision / 65536.0);
 
-#if 0
-  if (strings[0])
-    {
-      lily_cookie_fprintf (out, "/Notice (");
-      fputpss (strings[0], out);
-      lily_cookie_fprintf (out, ") def\n");
-    }
-  if (strings[4])
-    {
-      lily_cookie_fprintf (out, "/FullName (");
-      fputpss (strings[4], out);
-      lily_cookie_fprintf (out, ") def\n");
-    }
-  if (strings[1])
-    {
-      lily_cookie_fprintf (out, "/FamilyName (");
-      fputpss (strings[1], out);
-      lily_cookie_fprintf (out, ") def\n");
-    }
-#endif
 
   lily_cookie_fprintf (out, "/isFixedPitch %s def\n",
                        pt->isFixedPitch ? "true" : "false");
