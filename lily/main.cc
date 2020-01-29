@@ -741,6 +741,12 @@ setup_guile_v2_env ()
       */
      sane_putenv("XDG_CACHE_HOME",
                   lilypond_datadir, true);
+
+     // This reduces the GC overhead during parsing and
+     // initialization. To see if this is a good value, run #(display
+     // (gc-stats)) just before \maininput in init.ly, and check that
+     // it's roughly this value.
+     sane_putenv("GC_INITIAL_HEAP_SIZE", "40M", false);
 }
 #endif
 
