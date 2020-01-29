@@ -49,7 +49,6 @@ protected:
   void derived_mark () const override;
   void acknowledge_audio_elements () override;
 private:
-  void header (Midi_stream &);
 
   Audio_column *audio_column_;
   bool skipping_;
