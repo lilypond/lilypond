@@ -47,6 +47,7 @@ TODO:
 
 import codecs
 import glob
+import hashlib
 import os
 import re
 import stat
@@ -401,42 +402,48 @@ def system_in_directory (cmd, directory, logfile):
     os.chdir (current)
 
 
-def process_snippets (cmd, snippets,
+def process_snippets (input_name, cmd, basenames,
                       formatter, lily_output_dir):
     """Run cmd on all of the .ly files from snippets."""
 
-    if not snippets:
-        return
+    # No need for a secure hash function, just need a digest.
+    checksum = hashlib.md5 ()
+    for name in basenames:
+        checksum.update (name.encode ('ascii'))
+    checksum = checksum.hexdigest ()
 
-    cmd = formatter.adjust_snippet_command (cmd)
+    lily_output_dir = global_options.lily_output_dir
+    snippet_map_file = 'snippet-map-%s.ly' % checksum
+    snippet_map_path = os.path.join (lily_output_dir, snippet_map_file)
 
-    checksum = snippet_list_checksum (snippets)
-    contents = '\n'.join (['snippet-map-%d.ly' % checksum]
-                          + list (set ([snip.basename() + '.ly' for snip in snippets])))
-    name = os.path.join (lily_output_dir,
-                         'snippet-names-%d.ly' % checksum)
-    logfile = name.replace('.ly', '')
-    open (name, 'wb').write (contents.encode ('utf-8'))
-
-    system_in_directory (' '.join ([cmd, ly.mkarg (name.replace (os.path.sep, '/'))]),
-                         lily_output_dir,
-                         logfile)
-
-def snippet_list_checksum (snippets):
-    return hash (' '.join([l.basename() for l in snippets]))
-
-def write_file_map (lys, name):
-    snippet_map = open (os.path.join (
-        global_options.lily_output_dir,
-        'snippet-map-%d.ly' % snippet_list_checksum (lys)), 'w')
-
-    snippet_map.write ("""
+    # Write snippet map.
+    with open (snippet_map_path, 'w') as snippet_map:
+        snippet_map.write ("""
 #(define version-seen #t)
 #(define output-empty-score-list #f)
-#(ly:add-file-name-alist '(%s
-    ))\n
-""" % '\n'.join(['("%s.ly" . "%s")\n' % (ly.basename ().replace('\\','/'), name)
-                 for ly in lys]))
+""")
+
+        snippet_map.write ("#(ly:add-file-name-alist '(\n")
+        for name in basenames:
+            snippet_map.write ('("%s.ly" . "%s")\n' % (
+                name.replace('\\','/'), input_name))
+        snippet_map.write ('))\n')
+
+    # Write list of snippet names.
+    snippet_names_file = 'snippet-names-%s.ly' % checksum
+    snippet_names_path = os.path.join (lily_output_dir, snippet_names_file)
+    with open (snippet_names_path, 'w') as snippet_names:
+        snippet_names.write ('\n'.join (
+            [snippet_map_file] + [name + '.ly' for name in basenames]))
+
+    # Run command.
+    cmd = formatter.adjust_snippet_command (cmd)
+    # Remove .ly ending.
+    logfile = os.path.splitext (snippet_names_path)[0]
+    snippet_names_arg = snippet_names_path.replace (os.path.sep, '/')
+    system_in_directory (' '.join ([cmd, snippet_names_arg]),
+                         lily_output_dir,
+                         logfile)
 
 def split_output_files(directory):
     """Returns directory entries in DIRECTORY/XX/ , where XX are hex digits.
@@ -460,14 +467,22 @@ def do_process_cmd (chunks, input_name, options):
     output_files = split_output_files (options.lily_output_dir)
     outdated = [c for c in snippets if c.is_outdated (options.lily_output_dir, output_files)]
 
-    write_file_map (outdated, input_name)
-    progress (_ ("Writing snippets..."))
-    for snippet in outdated:
-        snippet.write_ly()
-
     if outdated:
+        # First unique the list based on the basename, by using them as keys
+        # in a dict.
+        outdated_dict = dict()
+        for snippet in outdated:
+            outdated_dict[snippet.basename ()] = snippet
+
+        # Next call write_ly() for each snippet once.
+        progress (_ ("Writing snippets..."))
+        for snippet in outdated_dict.values ():
+            snippet.write_ly()
+
+        # Sort the keys / basenames to get a stable order.
+        basenames = sorted (outdated_dict.keys ())
         progress (_ ("Processing..."))
-        process_snippets (options.process_cmd, outdated,
+        process_snippets (input_name, options.process_cmd, basenames,
                           options.formatter, options.lily_output_dir)
 
     else:
