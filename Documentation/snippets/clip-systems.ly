@@ -34,13 +34,13 @@ are generated.
   doctitle = "Clip systems"
 } % begin verbatim
 
+
 #(ly:set-option 'clip-systems)
 #(define output-suffix "1")
 
 origScore = \score {
   \relative c' {
-    \new Staff \with { instrumentName = "Instrument" } % begin verbatim
-
+    \new Staff \with { instrumentName = "Instrument" }
     c1
     d1
     \grace c16 e1

@@ -17,14 +17,14 @@ Here is a simple piano staff with some notes.
   doctitle = "Piano template (simple)"
 } % begin verbatim
 
+
 upper = \relative c'' {
   \clef treble
   \key c \major
   \time 4/4
 
   a4 b c d
-} % begin verbatim
-
+}
 
 lower = \relative c {
   \clef bass

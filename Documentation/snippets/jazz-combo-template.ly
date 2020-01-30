@@ -20,6 +20,7 @@ music is within a @code{\\transpose} section.
   doctitle = "Jazz combo template"
 } % begin verbatim
 
+
 \header {
   title = "Song"
   subtitle = "(tune)"
@@ -30,8 +31,7 @@ music is within a @code{\\transpose} section.
     \column {
       "LilyPond example file by Amelie Zapf,"
       "Berlin 07/07/2003"
-    } % begin verbatim
-
+    }
   }
 }
 % To make the example display in the documentation

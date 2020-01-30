@@ -31,6 +31,7 @@ staff: standard polyphony, @code{\\partcombine} without texts, and
   doctitle = "Combining two parts on the same staff"
 } % begin verbatim
 
+
 %% Combining pedal notes with clef changes
 
 musicUp = \relative c'' {
@@ -38,8 +39,7 @@ musicUp = \relative c'' {
   a4 c4.( g8) a4 |
   g4 e' g,( a8 b) |
   c b a2.
-} % begin verbatim
-
+}
 
 musicDown = \relative c'' {
   g4 e4.( d8) c4 |

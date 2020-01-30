@@ -19,6 +19,7 @@ is the template of a real Balkan song!).
   doctitle = "Heavily customized polymetric time signatures"
 } % begin verbatim
 
+
 melody = \relative c'' {
   \key g \major
   \compoundMeter #'((3 8) (2 8) (2 8) (3 8) (2 8) (2 8)
@@ -28,8 +29,7 @@ melody = \relative c'' {
   c4. d4 c4 d4. c4 d c2 d4. e4-^ d4 \break
   c4. d4 c4 d4. c4 d c2 d4. e4-^ d4
   c4. d4 c4 d4. c4 d c2 d4. e4-^ d4 \break
-} % begin verbatim
-
+}
 
 drum = \new DrumStaff \drummode {
   \bar ".|:" bd4.^\markup { Drums } sn4 bd \bar ";" sn4.

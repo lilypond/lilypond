@@ -17,6 +17,7 @@ Figured bass headword
   doctitle = "Figured bass headword"
 } % begin verbatim
 
+
 % NR 2.7.3 Figured bass
 
 % Arcangelo Corelli, 12 Sonate da Camera, Op. 2
@@ -30,8 +31,7 @@ extendOff = \bassFigureExtendersOff
 \score {
   \new StaffGroup <<
     \new GrandStaff <<
-      \new Staff = "violinoI" \with { instrumentName = "Violino I." } % begin verbatim
-
+      \new Staff = "violinoI" \with { instrumentName = "Violino I." }
 
     {
       \time 4/4

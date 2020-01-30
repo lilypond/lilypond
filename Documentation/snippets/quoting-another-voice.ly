@@ -26,10 +26,10 @@ the Internals Reference.
   doctitle = "Quoting another voice"
 } % begin verbatim
 
+
 quoteMe = \relative c' {
   fis4 r16 a8.-> b4\ff c
-} % begin verbatim
-
+}
 \addQuote quoteMe \quoteMe
 
 original = \relative c'' {

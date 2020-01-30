@@ -55,11 +55,11 @@ not at the center of pp.
   doctitle = "Horizontally aligning custom dynamics (e.g. \"sempre pp\" \"piu f\" \"subito p\")"
 } % begin verbatim
 
+
 \paper {
   ragged-right = ##f
   indent = 2.5\cm
-} % begin verbatim
-
+}
 
 % Solution 1: Using a simple markup with a particular halign value
 % Drawback: It's a markup, not a dynamic command, so \dynamicDown
