@@ -180,14 +180,6 @@ Context::set_property_from_event (SCM sev)
   if (scm_is_symbol (sym))
     {
       SCM val = ev->get_property ("value");
-
-      if (SCM_UNBNDP (val)) {
-        // TODO: It looks like this ignores \once.
-        // Should this be unset_property_from event (sev)?
-        unset_property (sym);
-        return;
-      }
-
       bool ok = true;
       ok = type_check_assignment (sym, val, ly_symbol2scm ("translation-type?"));
 
