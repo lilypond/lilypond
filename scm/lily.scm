@@ -94,6 +94,8 @@
       (ly:error (_ "call-after-session used after session start")))
   (add-hook! after-session-hook thunk #t))
 
+(define-public _ gettext)
+
 (define (make-session-variable name value)
   (if (ly:undead? lilypond-declarations)
       (ly:error (_ "define-session used after session start")))
@@ -103,8 +105,8 @@
     (variable-set! var value)
     var))
 
-(defmacro define-session (name value)
-  "This defines a variable @var{name} with the starting value
+
+"This defines a variable @var{name} with the starting value
 @var{value} that is reinitialized at the start of each session.
 A@tie{}session basically corresponds to one LilyPond file on the
 command line.  The value is recorded at the start of the first session
@@ -116,24 +118,26 @@ this manner should be changed within a session only be adding material
 to their front or replacing them altogether, not by modifying parts of
 them.  It is an error to call @code{define-session} after the first
 session has started."
-  (define (add-session-variable name value)
-    (set! lilypond-declarations
-          (cons (make-session-variable name value) lilypond-declarations)))
-  `(,add-session-variable ',name ,value))
+(define-syntax define-session
+  (syntax-rules ()
+    ((_ name value)
+     (set! lilypond-declarations
+           (cons (make-session-variable (quote name) value) lilypond-declarations)))))
 
-(defmacro define-session-public (name value)
-  "Like @code{define-session}, but also exports @var{name} into parser modules."
-  (define (add-session-variable name value)
-    (set! lilypond-exports
-          (acons name (make-session-variable name value) lilypond-exports)))
-  `(begin
-     ;; this is a bit icky: we place the variable right into every
-     ;; parser module so that both set! and define will affect the
-     ;; original variable in the (lily) module.  However, we _also_
-     ;; export it normally from (lily) for the sake of other modules
-     ;; not sharing the name space of the parser.
-     (,add-session-variable ',name ,value)
-     (export ,name)))
+"Like @code{define-session}, but also exports @var{name} into parser modules."
+(define-syntax define-session-public
+  (syntax-rules ()
+    ((_ name value)
+     (begin
+       (set! lilypond-exports
+             (acons (quote name) (make-session-variable (quote name) value) lilypond-exports))
+       ;; this is a bit icky: we place the variable right into every
+       ;; parser module so that both set! and define will affect the
+       ;; original variable in the (lily) module.  However, we _also_
+       ;; export it normally from (lily) for the sake of other modules
+       ;; not sharing the name space of the parser.
+       (export name)))))
+
 
 (define (session-terminate)
   (if (ly:undead? lilypond-declarations)
@@ -434,7 +438,6 @@ messages into errors.")
              (scm clip-region)
              (scm safe-utility-defs))
 
-(define-public _ gettext)
 ;;; There are new modules defined in Guile V2.0 which we need to use.
 ;;
 ;;  Modules and scheme files loaded by lily.scm use currying
@@ -645,7 +648,9 @@ messages into errors.")
           init-scheme-files-body
           init-scheme-files-tail))
 
-(for-each ly:load init-scheme-files)
+(for-each
+ (lambda (fn) (display fn) (newline) (ly:load fn))
+ init-scheme-files)
 
 (define-public r5rs-primary-predicates
   `((,boolean? . "boolean")
