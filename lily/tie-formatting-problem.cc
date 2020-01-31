@@ -51,9 +51,9 @@ Tie_formatting_problem::print_ties_configuration (Ties_configuration const *ties
     {
       char const *man_pos = (specifications_[i].has_manual_position_) ? "(M)" : "";
       char const *man_dir = (specifications_[i].has_manual_dir_) ? "(M)" : "";
-      char const *dir = (ties->at (i).dir_ == UP) ? "up" : "dn";
+      char const *dir = ((*ties)[i].dir_ == UP) ? "up" : "dn";
 
-      printf ("(P%d%s, %s%s) ", ties->at (i).position_, man_pos, dir, man_dir);
+      printf ("(P%d%s, %s%s) ", (*ties)[i].position_, man_pos, dir, man_dir);
     }
   printf ("\n");
 }
@@ -791,8 +791,7 @@ Tie_formatting_problem::score_ties_aptitude (Ties_configuration *ties) const
     }
 
   for (vsize i = 0; i < ties->size (); i++)
-    score_aptitude (&ties->at (i), specifications_[i],
-                    ties, i);
+    score_aptitude (&(*ties)[i], specifications_[i], ties, i);
 }
 
 void
@@ -811,15 +810,15 @@ Tie_formatting_problem::score_ties_configuration (Ties_configuration *ties) cons
 {
   for (vsize i = 0; i < ties->size (); i++)
     {
-      score_configuration (&ties->at (i));
-      ties->add_tie_score (ties->at (i).score (), i, "conf");
+      score_configuration (&(*ties)[i]);
+      ties->add_tie_score ((*ties)[i].score (), i, "conf");
     }
 
   Real last_edge = 0.0;
   Real last_center = 0.0;
   for (vsize i = 0; i < ties->size (); i++)
     {
-      Bezier b (ties->at (i).get_transformed_bezier (details_));
+      Bezier b ((*ties)[i].get_transformed_bezier (details_));
 
       Real center = b.curve_point (0.5)[Y_AXIS];
       Real edge = b.curve_point (0.0)[Y_AXIS];
@@ -1001,30 +1000,29 @@ Tie_formatting_problem::set_ties_config_standard_directions (Ties_configuration 
    */
   for (vsize i = 1; i < tie_configs->size (); i++)
     {
-      Real diff = (tie_configs->at (i).position_
-                   - tie_configs->at (i - 1).position_);
+      Real diff = ((*tie_configs)[i].position_
+                   - (*tie_configs)[i - 1].position_);
 
       Real span_diff
         = specifications_[i].column_span () - specifications_[i - 1].column_span ();
       if (span_diff && fabs (diff) <= 2)
         {
           if (span_diff > 0)
-            tie_configs->at (i).dir_ = UP;
+            (*tie_configs)[i].dir_ = UP;
           else if (span_diff < 0)
-            tie_configs->at (i - 1).dir_ = DOWN;
+            (*tie_configs)[i - 1].dir_ = DOWN;
         }
       else if (fabs (diff) <= 1)
         {
-          if (!tie_configs->at (i - 1).dir_)
-            tie_configs->at (i - 1).dir_ = DOWN;
-          if (!tie_configs->at (i).dir_)
-            tie_configs->at (i).dir_ = UP;
+          if (!(*tie_configs)[i - 1].dir_)
+            (*tie_configs)[i - 1].dir_ = DOWN;
+          if (!(*tie_configs)[i].dir_)
+            (*tie_configs)[i].dir_ = UP;
         }
     }
 
-  for (vsize i = 1; i + 1 < tie_configs->size (); i++)
+  for (auto &conf : *tie_configs)
     {
-      Tie_configuration &conf = tie_configs->at (i);
       if (conf.dir_)
         continue;
 
