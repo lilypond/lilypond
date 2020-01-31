@@ -39,6 +39,9 @@ Score_engraver::Score_engraver ()
 {
   system_ = 0;
   pscore_ = 0;
+#if GUILEV2
+  last_ = -1;
+#endif
 }
 
 void
@@ -167,6 +170,10 @@ Score_engraver::announce_grob (Grob_info info, Direction start_end, Context *rer
     }
 }
 
+#if GUILEV2
+#include <gc.h>
+#endif
+
 void
 Score_engraver::typeset_all ()
 {
@@ -178,6 +185,25 @@ Score_engraver::typeset_all ()
         Axis_group_interface::add_element (system_, elem);
     }
   elems_.clear ();
+
+#if GUILEV2
+  /* During the interpretation stage, we build up a lot a large set of
+     Grobs. Without tuning, GC is ineffective, because the Grobs are
+     live data and can't be collected. If we see an unsuccessful GC
+     step here we increase the heap size more aggressively.
+   */
+  struct GC_prof_stats_s stats = {};
+  GC_get_prof_stats(&stats, sizeof(stats));
+  if (last_ != stats.gc_no) {
+    double reclaimed = double(stats.bytes_reclaimed_since_gc)/ double(stats.heapsize_full);
+    if (reclaimed < 0.2) {
+      // This double the heap. TODO: don't do this if we get close to
+      // the system memory size.
+      GC_expand_hp(stats.heapsize_full);
+    }
+    last_ = stats.gc_no;
+  }
+#endif
 }
 
 ADD_TRANSLATOR_GROUP (Score_engraver,

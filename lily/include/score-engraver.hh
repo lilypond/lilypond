@@ -20,12 +20,19 @@
 #ifndef SCORE_ENGRAVER_HH
 #define SCORE_ENGRAVER_HH
 
+
 #include "engraver-group.hh"
+
+#if GUILEV2
+#include <gc.h>
+#endif
 
 class Score_engraver : public Engraver_group
 {
   System *system_;
-
+#if GUILEV2
+  GC_word last_;
+#endif
   std::vector<Grob *> elems_;
   Paper_score *pscore_;
 
