@@ -416,6 +416,7 @@ against signature, reporting MAKE-NAME as the user-invoked function.
         (else (values (car expr) (cdr expr)))))
 
 (define (lookup-markup-command-aux symbol)
+ "Look up procedure in the current module, or return #f"
   (let ((proc (catch 'misc-error
                      (lambda ()
                        (module-ref (current-module) symbol))
@@ -423,6 +424,7 @@ against signature, reporting MAKE-NAME as the user-invoked function.
     (and (procedure? proc) proc)))
 
 (define-public (lookup-markup-command code)
+  "Return (FUNCTION . SIGNATURE) for a markup command, or return #f"
   (let ((proc (lookup-markup-command-aux
                (string->symbol (format #f "~a-markup" code)))))
     (and proc (markup-function? proc)
