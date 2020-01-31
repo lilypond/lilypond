@@ -849,13 +849,14 @@ Tie_formatting_problem::score_ties_configuration (Ties_configuration *ties) cons
   if (ties->size () > 1)
     {
       ties->add_score (details_.outer_tie_length_symmetry_penalty_factor_
-                       * fabs (ties->at (0).attachment_x_.length () - ties->back ().attachment_x_.length ()),
+                       * fabs (ties->front ().attachment_x_.length ()
+                               - ties->back ().attachment_x_.length ()),
                        "length symm");
 
       ties->add_score (details_.outer_tie_vertical_distance_symmetry_penalty_factor_
                        * fabs (fabs (specifications_[0].position_ * 0.5 * details_.staff_space_
-                                     - (ties->at (0).position_ * 0.5 * details_.staff_space_
-                                        + ties->at (0).delta_y_))
+                                     - (ties->front ().position_ * 0.5 * details_.staff_space_
+                                        + ties->front ().delta_y_))
                                -
                                fabs (specifications_.back ().position_ * 0.5 * details_.staff_space_
                                      - (ties->back ().position_ * 0.5 * details_.staff_space_
@@ -980,13 +981,15 @@ Tie_formatting_problem::set_ties_config_standard_directions (Ties_configuration 
   if (tie_configs->empty ())
     return;
 
-  if (!tie_configs->at (0).dir_)
+  if (!tie_configs->front ().dir_)
     {
-      if (tie_configs->size () == 1)
-        tie_configs->at (0).dir_ = Direction (sign (tie_configs->at (0).position_));
+      auto &front = tie_configs->front ();
 
-      if (!tie_configs->at (0).dir_)
-        tie_configs->at (0).dir_
+      if (tie_configs->size () == 1)
+        front.dir_ = Direction (sign (front.position_));
+
+      if (!front.dir_)
+        front.dir_
           = (tie_configs->size () > 1) ? DOWN : details_.neutral_direction_;
     }
 
