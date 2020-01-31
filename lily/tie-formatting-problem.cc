@@ -39,6 +39,7 @@
 #include "pointer-group-interface.hh"
 #include "output-def.hh"
 
+using std::array;
 using std::set;
 using std::string;
 using std::vector;
@@ -64,8 +65,7 @@ Tie_formatting_problem::get_attachment (Real y, Drul_array<int> columns) const
 
   for (LEFT_and_RIGHT (d))
     {
-      Tuple2<int> key (columns[d], int (d));
-      Chord_outline_map::const_iterator i (chord_outlines_.find (key));
+      auto i = chord_outlines_.find ({columns[d], d});
       if (i == chord_outlines_.end ())
         programming_error ("Cannot find chord outline");
       else
@@ -136,7 +136,7 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item *> bounds,
         }
     }
 
-  Tuple2<int> key (column_rank, int (dir));
+  const array<int, 2> key {column_rank, dir};
 
   if (stem)
     {
@@ -423,8 +423,8 @@ Tie_formatting_problem::from_semi_ties (vector<Grob *> const &semi_ties, Directi
 
   set_chord_outline (heads, head_dir);
 
-  Tuple2<int> head_key (column_rank, head_dir);
-  Tuple2<int> open_key (column_rank, -head_dir);
+  const array<int, 2> head_key {column_rank, head_dir};
+  const array<int, 2> open_key {column_rank, -head_dir};
   Real extremal = chord_outlines_[head_key].max_height ();
 
   chord_outlines_[open_key] = Skyline (head_dir);
@@ -444,12 +444,10 @@ Tie_configuration *
 Tie_formatting_problem::get_configuration (int pos, Direction dir, Drul_array<int> columns,
                                            bool tune_dy) const
 {
-  int key_components[]
-  =
+  const array<int, 4> key
   {
     pos, dir, columns[LEFT], columns[RIGHT]
   };
-  Tuple<int, 4> key (key_components);
 
   Tie_configuration_map::const_iterator f = possibilities_.find (key);
   if (f != possibilities_.end ())
@@ -587,7 +585,7 @@ Tie_formatting_problem::generate_configuration (int pos, Direction dir,
 Interval
 Tie_formatting_problem::get_head_extent (int col, Direction d, Axis a) const
 {
-  Column_extent_map::const_iterator i = head_extents_.find (Tuple2<int> (col, int (d)));
+  auto i = head_extents_.find ({col, d});
   if (i != head_extents_.end ())
     return (*i).second[a];
   else
@@ -597,7 +595,7 @@ Tie_formatting_problem::get_head_extent (int col, Direction d, Axis a) const
 Interval
 Tie_formatting_problem::get_stem_extent (int col, Direction d, Axis a) const
 {
-  Column_extent_map::const_iterator i = stem_extents_.find (Tuple2<int> (col, int (d)));
+  auto i = stem_extents_.find ({col, d});
   if (i != stem_extents_.end ())
     return (*i).second[a];
   else

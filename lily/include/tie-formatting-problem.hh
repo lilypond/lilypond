@@ -25,14 +25,12 @@
 #include "tie-configuration.hh"
 #include "tie-details.hh"
 #include "tie-specification.hh"
-#include "tuple.hh"
 
+#include <array>
 #include <map>
 #include <set>
 
-// TODO: At a glance, it looks like flower's Tuple should be replaced by
-// std::array.
-typedef std::map<Tuple<int, 4>, Tie_configuration *> Tie_configuration_map;
+typedef std::map<std::array<int, 4>, Tie_configuration *> Tie_configuration_map;
 
 struct Tie_configuration_variation
 {
@@ -43,8 +41,8 @@ struct Tie_configuration_variation
   }
 };
 
-typedef std::map<Tuple<int, 2>, Skyline> Chord_outline_map;
-typedef std::map<Tuple<int, 2>, Box> Column_extent_map;
+typedef std::map<std::array<int, 2>, Skyline> Chord_outline_map;
+typedef std::map<std::array<int, 2>, Box> Column_extent_map;
 typedef std::map<int, Slice> Position_extent_map;
 
 class Tie_formatting_problem
