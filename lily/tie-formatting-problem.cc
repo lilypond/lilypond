@@ -723,7 +723,7 @@ Tie_formatting_problem::head_positions_slice (int rank) const
 void
 Tie_formatting_problem::score_configuration (Tie_configuration *conf) const
 {
-  if (conf->scored_)
+  if (conf->is_scored ())
     {
       return;
     }
@@ -793,7 +793,7 @@ Tie_formatting_problem::score_configuration (Tie_configuration *conf) const
         }
     }
 
-  conf->scored_ = true;
+  conf->set_scored ();
 }
 
 void
@@ -812,12 +812,12 @@ Tie_formatting_problem::score_ties_aptitude (Ties_configuration *ties) const
 void
 Tie_formatting_problem::score_ties (Ties_configuration *ties) const
 {
-  if (ties->scored_)
+  if (ties->is_scored ())
     return;
 
   score_ties_configuration (ties);
   score_ties_aptitude (ties);
-  ties->scored_ = true;
+  ties->set_scored ();
 }
 
 void

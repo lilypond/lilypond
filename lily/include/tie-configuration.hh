@@ -31,7 +31,6 @@ class Tie_configuration
   std::string score_card_;
   Real score_;
   bool scored_;
-  friend class Tie_formatting_problem;
 
 public:
   Real score () const { return score_; }
@@ -46,6 +45,8 @@ public:
   Interval attachment_x_;
 
   void add_score (Real, const std::string &);
+  bool is_scored () const { return scored_; }
+  void set_scored () { scored_ = true; }
   Tie_configuration ();
   void center_tie_vertically (Tie_details const &);
   Bezier get_transformed_bezier (Tie_details const &) const;
@@ -66,11 +67,12 @@ class Ties_configuration : public std::vector<Tie_configuration>
   bool scored_;
   std::vector<std::string> tie_score_cards_;
 
-  friend class Tie_formatting_problem;
 public:
   Ties_configuration ();
   void add_score (Real amount, const std::string &description);
   void add_tie_score (Real amount, vsize i, const std::string &description);
+  bool is_scored () const { return scored_; }
+  void set_scored () { scored_ = true; }
   Real score () const;
   void reset_score ();
   std::string card () const;
