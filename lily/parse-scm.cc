@@ -29,24 +29,61 @@
 #include "source-file.hh"
 #include "lily-imports.hh"
 
+// Catch stack traces on error.
+bool parse_protect_global = true;
+
+
+// Input to parsing and evaluation Scheme. We have to group these so
+// we can pass them as a void* through GUILE.
+struct Parse_start
+{
+  // Holds the SCM expression to be evaluated; unused for parsing.
+  SCM form_;
+
+  // Start of the to-be-parsed form.
+  Input start_;
+
+  // Output: full extent of the parsed form.
+  Input parsed_;
+  bool safe_;
+  Lily_parser *parser_;
+
+  Parse_start (SCM form, const Input &start, bool safe, Lily_parser *parser) :
+    form_ (form), start_ (start), safe_ (safe), parser_ (parser)
+  {
+  }
+
+  static SCM handle_error(void *data, SCM /*tag*/, SCM args)
+  {
+    Parse_start *ps = (Parse_start *) data;
+
+    ps->start_.non_fatal_error
+      (_ ("GUILE signaled an error for the expression beginning here"));
+
+    if (scm_ilength (args) > 2)
+      scm_display_error_message (scm_cadr (args), scm_caddr (args), scm_current_error_port ());
+
+    return SCM_UNDEFINED;
+  }
+};
+
 /* Pass string to scm parser, read one expression.
    Return result value and #chars read.
 
    Thanks to Gary Houston <ghouston@freewire.co.uk>  */
 SCM
-internal_ly_parse_scm (Parse_start *ps)
+internal_parse_embedded_scheme (Parse_start *ps)
 {
-  Input &hi = ps->location_;
-  Source_file *sf = hi.get_source_file ();
+  Source_file *sf = ps->start_.get_source_file ();
   SCM port = sf->get_port ();
 
-  long off = hi.start () - sf->c_str ();
+  long off = ps->start_.start () - sf->c_str ();
 
   scm_seek (port, scm_from_long (off), scm_from_long (SEEK_SET));
   SCM from = scm_ftell (port);
 
-  scm_set_port_line_x (port, scm_from_ssize_t (hi.line_number () - 1));
-  scm_set_port_column_x (port, scm_from_ssize_t (hi.column_number () - 1));
+  scm_set_port_line_x (port, scm_from_ssize_t (ps->start_.line_number () - 1));
+  scm_set_port_column_x (port, scm_from_ssize_t (ps->start_.column_number () - 1));
 
   bool multiple = ly_is_equal (scm_peek_char (port), SCM_MAKE_CHAR ('@'));
 
@@ -63,9 +100,9 @@ internal_ly_parse_scm (Parse_start *ps)
 #endif
   SCM to = scm_ftell (port);
 
-  hi.set (hi.get_source_file (),
-          hi.start (),
-          hi.start () + scm_to_int (scm_difference (to, from)));
+  ps->parsed_.set (ps->start_.get_source_file (),
+                   ps->start_.start (),
+                   ps->start_.start () + scm_to_int (scm_difference (to, from)));
 
   if (!SCM_EOF_OBJECT_P (form))
     {
@@ -84,17 +121,45 @@ internal_ly_parse_scm (Parse_start *ps)
       return form;
     }
 
-  /* Don't close the port here; if we re-enter this function via a
-     continuation, then the next time we enter it, we'll get an error.
-     It's a string port anyway, so there's no advantage to closing it
-     early. */
-  // scm_close_port (port);
-
   return SCM_UNDEFINED;
 }
 
 SCM
-internal_ly_eval_scm (Parse_start *ps)
+parse_embedded_scheme_void (void *p)
+{
+  return internal_parse_embedded_scheme (static_cast<Parse_start *> (p));
+}
+
+SCM
+protected_parse_embedded_scheme (Parse_start *ps)
+{
+  // Catch #t : catch all Scheme level errors.
+  return scm_internal_catch (SCM_BOOL_T,
+                             parse_embedded_scheme_void,
+                             (void *) ps,
+                             &Parse_start::handle_error, (void *) ps);
+}
+
+// Try parsing.  Upon failure return SCM_UNDEFINED. Upon success, set
+// parsed_output to the cover the entire form. parsed_output may not
+// be null.
+SCM
+parse_embedded_scheme (const Input &start, bool safe, Lily_parser *parser, Input *parsed_output)
+{
+  Parse_start ps (SCM_UNDEFINED, start, safe, parser);
+
+  SCM result = parse_protect_global
+      ? protected_parse_embedded_scheme (&ps)
+      : internal_parse_embedded_scheme (&ps);
+
+  *parsed_output = ps.parsed_;
+  return result;
+}
+
+// EVALUATION
+
+SCM
+evaluate_scheme_form (Parse_start *ps)
 {
   if (ps->safe_)
     {
@@ -109,82 +174,35 @@ internal_ly_eval_scm (Parse_start *ps)
   return scm_primitive_eval (ps->form_);
 }
 
+
 SCM
-catch_protected_parse_body (void *p)
+evaluate_scheme_form_void (void *p)
 {
-  return internal_ly_parse_scm (static_cast<Parse_start *> (p));
+  return evaluate_scheme_form (static_cast<Parse_start *> (p));
 }
 
 SCM
-catch_protected_eval_body (void *p)
-{
-  return internal_ly_eval_scm (static_cast<Parse_start *> (p));
-}
-
-SCM
-parse_handler (void *data, SCM /*tag*/, SCM args)
-{
-  Parse_start *ps = (Parse_start *) data;
-
-  ps->location_.non_fatal_error
-    (_ ("GUILE signaled an error for the expression beginning here"));
-
-  if (scm_ilength (args) > 2)
-    scm_display_error_message (scm_cadr (args), scm_caddr (args), scm_current_error_port ());
-
-  return SCM_UNDEFINED;
-}
-
-SCM
-protected_ly_parse_scm (Parse_start *ps)
+protected_evaluate_scheme_form (void *ps)
 {
   /*
     Catch #t : catch all Scheme level errors.
    */
   return scm_internal_catch (SCM_BOOL_T,
-                             catch_protected_parse_body,
-                             (void *) ps,
-                             &parse_handler, (void *) ps);
-}
-
-SCM
-protected_ly_eval_scm (void *ps)
-{
-  /*
-    Catch #t : catch all Scheme level errors.
-   */
-  return scm_internal_catch (SCM_BOOL_T,
-                             catch_protected_eval_body,
+                             evaluate_scheme_form_void,
                              ps,
-                             &parse_handler, ps);
-}
-
-bool parse_protect_global = true;
-bool parsed_objects_should_be_dead = false;
-
-/* Try parsing.  Upon failure return SCM_UNDEFINED. */
-
-SCM
-ly_parse_scm (Input &i, bool safe, Lily_parser *parser)
-{
-  Parse_start ps (SCM_UNDEFINED, i, safe, parser);
-
-  SCM ans = parse_protect_global ? protected_ly_parse_scm (&ps)
-            : internal_ly_parse_scm (&ps);
-
-  return ans;
+                             &Parse_start::handle_error, ps);
 }
 
 SCM
-ly_eval_scm (SCM form, Input i, bool safe, Lily_parser *parser)
+evaluate_embedded_scheme (SCM form, Input const &start, bool safe, Lily_parser *parser)
 {
-  Parse_start ps (form, i, safe, parser);
+  Parse_start ps (form, start, safe, parser);
 
   SCM ans = scm_c_with_fluid
     (Lily::f_location,
-     i.smobbed_copy (),
-     parse_protect_global ? protected_ly_eval_scm
-     : catch_protected_eval_body, (void *) &ps);
+     ps.parsed_.smobbed_copy (),
+     parse_protect_global ? protected_evaluate_scheme_form
+     : evaluate_scheme_form_void, (void *) &ps);
 
   scm_remember_upto_here_1 (form);
   return ans;

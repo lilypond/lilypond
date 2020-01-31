@@ -338,11 +338,13 @@ BOM_UTF8	\357\273\277
 	  }
 }
 <incl>(\$|#) { // scm for the filename
-	Input hi = here_input();
-	hi.step_forward ();
-	SCM sval = ly_parse_scm (hi, be_safe_global && is_main_input_, parser_);
-	sval = eval_scm (sval, hi);
-	skip_chars (hi.size ());
+	Input start = here_input();
+	start.step_forward ();
+
+	Input parsed;
+	SCM sval = parse_embedded_scheme (start, be_safe_global && is_main_input_, parser_, &parsed);
+	sval = eval_scm (sval, start);
+	skip_chars (parsed.size ());
 
 	if (scm_is_string (sval)) {
 		new_input (ly_scm2string (sval), sources_);
@@ -388,12 +390,13 @@ BOM_UTF8	\357\273\277
 <INITIAL,chords,figures,lyrics,markup,notes>#	{ //embedded scm
 	Input hi = here_input();
 	hi.step_forward ();
-	SCM sval = ly_parse_scm (hi, be_safe_global && is_main_input_, parser_);
+	Input parsed;
+	SCM sval = parse_embedded_scheme (hi, be_safe_global && is_main_input_, parser_, &parsed);
 
 	if (SCM_UNBNDP (sval))
 		error_level_ = 1;
 
-	skip_chars (hi.size ());
+	skip_chars (parsed.size ());
 
 	yylval = sval;
 	return SCM_TOKEN;
@@ -402,8 +405,10 @@ BOM_UTF8	\357\273\277
 <INITIAL,chords,figures,lyrics,markup,notes>\$	{ //immediate scm
 	Input hi = here_input();
 	hi.step_forward ();
-	SCM sval = ly_parse_scm (hi, be_safe_global && is_main_input_, parser_);
-	skip_chars (hi.size ());
+
+	Input parsed;
+	SCM sval = parse_embedded_scheme (hi, be_safe_global && is_main_input_, parser_, &parsed);
+	skip_chars (parsed.size ());
 	sval = eval_scm (sval, hi, '$');
 
 	if (YYSTATE == markup && ly_is_procedure (sval))
@@ -1088,14 +1093,14 @@ Lily_lexer::is_figure_state () const
 // this function is private.
 
 SCM
-Lily_lexer::eval_scm (SCM readerdata, Input hi, char extra_token)
+Lily_lexer::eval_scm (SCM readerdata, Input location, char extra_token)
 {
 	SCM sval = SCM_UNDEFINED;
 
 	if (!SCM_UNBNDP (readerdata))
 	{
-		sval = ly_eval_scm (readerdata,
-				    hi,
+		sval = evaluate_embedded_scheme (readerdata,
+				    location,
 				    be_safe_global && is_main_input_,
 				    parser_);
 	}

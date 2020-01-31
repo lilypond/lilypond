@@ -21,6 +21,8 @@
 
 using std::vector;
 
+bool parsed_objects_should_be_dead = false;
+
 class Undead : public Simple_smob<Undead>
 {
 public:
