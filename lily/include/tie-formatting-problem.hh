@@ -30,12 +30,14 @@
 #include <map>
 #include <set>
 
+// TODO: At a glance, it looks like flower's Tuple should be replaced by
+// std::array.
 typedef std::map<Tuple<int, 4>, Tie_configuration *> Tie_configuration_map;
 
 struct Tie_configuration_variation
 {
-  std::vector<std::pair<int, Tie_configuration *> > index_suggestion_pairs_;
-  void add_suggestion (int index, Tie_configuration *suggestion)
+  std::vector<std::pair<vsize, Tie_configuration *> > index_suggestion_pairs_;
+  void add_suggestion (vsize index, Tie_configuration *suggestion)
   {
     index_suggestion_pairs_.push_back (std::make_pair (index, suggestion));
   }
@@ -71,7 +73,7 @@ class Tie_formatting_problem
 
   void score_configuration (Tie_configuration *) const;
   Real score_aptitude (Tie_configuration *, Tie_specification const &,
-                       Ties_configuration *, int) const;
+                       Ties_configuration *, vsize) const;
   void score_ties_aptitude (Ties_configuration *ties) const;
   void score_ties_configuration (Ties_configuration *ties) const;
   void set_ties_config_standard_directions (Ties_configuration *tie_configs_ptr);

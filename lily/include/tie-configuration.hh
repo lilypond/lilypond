@@ -62,6 +62,8 @@ public:
 
 INSTANTIATE_COMPARE (Tie_configuration, Tie_configuration::compare);
 
+// TODO: Avoid public inheritance from STL containers because they don't have
+// virtual destructors, which can lead to bugs if they are not used carefully.
 class Ties_configuration : public std::vector<Tie_configuration>
 {
   Real score_;
@@ -73,11 +75,11 @@ class Ties_configuration : public std::vector<Tie_configuration>
 public:
   Ties_configuration ();
   void add_score (Real amount, const std::string &description);
-  void add_tie_score (Real amount, int i, const std::string &description);
+  void add_tie_score (Real amount, vsize i, const std::string &description);
   Real score () const;
   void reset_score ();
   std::string card () const;
-  std::string tie_card (int i) const { return tie_score_cards_[i]; }
+  std::string tie_card (vsize i) const { return tie_score_cards_[i]; }
   std::string complete_tie_card (vsize i) const;
   std::string complete_score_card () const;
 };

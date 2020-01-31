@@ -138,7 +138,7 @@ Ties_configuration::reset_score ()
 }
 
 void
-Ties_configuration::add_tie_score (Real s, int i, const string &desc)
+Ties_configuration::add_tie_score (Real s, vsize i, const string &desc)
 {
   assert (!scored_);
   score_ += s;

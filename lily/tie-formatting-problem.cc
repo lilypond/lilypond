@@ -610,7 +610,8 @@ Tie_formatting_problem::get_stem_extent (int col, Direction d, Axis a) const
 Real
 Tie_formatting_problem::score_aptitude (Tie_configuration *conf,
                                         Tie_specification const &spec,
-                                        Ties_configuration *ties_conf, int tie_idx) const
+                                        Ties_configuration *ties_conf,
+                                        vsize tie_idx) const
 {
   Real penalty = 0.0;
   Real curve_y = conf->position_ * details_.staff_space_ * 0.5 + conf->delta_y_;
