@@ -63,6 +63,10 @@ endif
 LANG=
 export LANG
 
+# disable Python's hash randomization until 'make check' is fixed
+PYTHONHASHSEED=0
+export PYTHONHASHSEED
+
 
 INFO_DIRECTORIES = Documentation
 
