@@ -19,7 +19,6 @@ from functools import reduce
 """
 
 import lilylib as ly
-_ = ly._
 
 import utilities
 import musicxml2ly_conversion

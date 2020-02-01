@@ -63,7 +63,6 @@ if version == '@' + 'TOPLEVEL_VERSION' + '@':
 ################################################################
 
 import lilylib as ly
-_ = ly._
  
 finale_clefs= ['treble', 'alto', 'tenor', 'bass', 'percussion', 'treble_8', 'bass_8', 'baritone']
 

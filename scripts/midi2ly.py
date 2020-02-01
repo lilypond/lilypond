@@ -35,7 +35,6 @@ import sys
 """
 
 import lilylib as ly
-global _;_=ly._
 
 ################################################################
 ## CONSTANTS

@@ -64,7 +64,6 @@ from functools import reduce
 import lilylib as ly
 import fontextract
 import langdefs
-global _;_=ly._
 
 import book_base as BookBase
 import book_snippets as BookSnippet

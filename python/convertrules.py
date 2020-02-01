@@ -7,8 +7,6 @@ import re
 import sys
 import lilylib
 
-_ = lilylib._
-
 
 NOT_SMART = "\n" + _ ("Not smart enough to convert %s.") + "\n"
 UPDATE_MANUALLY = _ ("Please refer to the manual for details, and update manually.") + "\n"

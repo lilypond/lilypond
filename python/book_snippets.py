@@ -2,7 +2,6 @@
 
 import book_base as BookBase
 import lilylib as ly
-global _;_=ly._
 import codecs
 import re
 import os

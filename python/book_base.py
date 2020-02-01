@@ -4,7 +4,6 @@ import lilylib as ly
 import book_snippets as BookSnippet
 from book_snippets import *
 import re
-global _;_=ly._
 
 progress = ly.progress
 warning = ly.warning

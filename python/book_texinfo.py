@@ -8,7 +8,6 @@ import sys
 import book_base as BookBase
 from book_snippets import *
 import lilylib as ly
-global _;_=ly._
 
 
 # Recognize special sequences in the input.

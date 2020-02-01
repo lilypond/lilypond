@@ -8,7 +8,6 @@ import subprocess
 import book_base as BookBase
 from book_snippets import *
 import lilylib as ly
-global _;_=ly._
 
 progress = ly.progress
 warning = ly.warning

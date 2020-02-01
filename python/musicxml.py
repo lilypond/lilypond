@@ -6,8 +6,6 @@ import copy
 import lilylib as ly
 import warnings
 
-_ = ly._
-
 import musicexp
 import musicxml2ly_conversion
 import utilities

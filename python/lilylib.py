@@ -17,6 +17,7 @@
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 import __main__
+import gettext
 import glob
 import os
 import re
@@ -25,30 +26,9 @@ import sys
 import optparse
 import time
 
-################################################################
-# Users of python modules should include this snippet
-# and customize variables below.
-
-
-# Python 2.5 only accepts strings with proper Python internal encoding
-# (i.e. ASCII or Unicode) when writing to stdout/stderr, so we must
-# use ugettext iso gettext, and encode the string when writing to
-# stdout/stderr
-
+# Load translation and install _() into Python's builtins namespace.
 localedir = '@localedir@'
-try:
-    import gettext
-    t = gettext.translation ('lilypond', localedir)
-    _ = t.ugettext
-    ungettext = t.ungettext
-except:
-    def _ (s):
-        return s
-    def ungettext (s, p, n):
-        if n == 1:
-            return s
-        return p
-underscore = _
+gettext.install ('lilypond', localedir)
 
 import codecs
 sys.stdin = codecs.getreader ('utf8') (sys.stdin.detach ())

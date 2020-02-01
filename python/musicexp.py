@@ -10,8 +10,6 @@ import lilylib as ly
 import warnings
 import utilities
 
-_ = ly._
-
 from rational import Rational
 
 # Store previously converted pitch for \relative conversion as a global state variable

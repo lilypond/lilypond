@@ -102,7 +102,6 @@ program_name = sys.argv[0]
 """
 
 import lilylib as ly
-global _;_=ly._
 
 version = '@TOPLEVEL_VERSION@'
 if version == '@' + 'TOPLEVEL_VERSION' + '@':

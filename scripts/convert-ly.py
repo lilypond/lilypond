@@ -21,6 +21,7 @@
 # You should have received a copy of the GNU General Public License
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
+import gettext
 import os
 import sys
 import re
@@ -31,7 +32,6 @@ import shutil
 """
 
 import lilylib as ly
-global _;_=ly._
 
 ly.require_python_version ()
 
@@ -380,7 +380,7 @@ def main ():
             errors += 1
 
     if errors:
-        ly.warning (ly.ungettext ("There was %d error.",
+        ly.warning (gettext.ngettext ("There was %d error.",
             "There were %d errors.", errors) % errors)
         sys.exit (1)
 
