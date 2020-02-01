@@ -68,19 +68,11 @@ enum Pedal_type
 struct Pedal_type_info
 {
   string base_name_;
-  SCM event_class_sym_;
-  SCM style_sym_;
-  SCM strings_sym_;
+  SCM event_class_sym_ = SCM_EOL;
+  SCM style_sym_ = SCM_EOL;
+  SCM strings_sym_ = SCM_EOL;
+  const char *pedal_c_str_ = nullptr;
 
-  const char *pedal_c_str_;
-
-  Pedal_type_info ()
-  {
-    event_class_sym_ = SCM_EOL;
-    style_sym_ = SCM_EOL;
-    strings_sym_ = SCM_EOL;
-    pedal_c_str_ = 0;
-  }
   void protect ()
   {
     scm_gc_protect_object (event_class_sym_);
