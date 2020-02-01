@@ -39,8 +39,6 @@
 
 #include "translator.icc"
 
-#include <string.h>
-
 using std::string;
 
 /*
@@ -71,7 +69,7 @@ struct Pedal_type_info
   SCM event_class_sym_ = SCM_EOL;
   SCM style_sym_ = SCM_EOL;
   SCM strings_sym_ = SCM_EOL;
-  const char *pedal_c_str_ = nullptr;
+  string pedal_str_;
 
   void protect ()
   {
@@ -165,7 +163,7 @@ init_pedal_types ()
       info.strings_sym_ = scm_from_ascii_symbol (("pedal" + base_name + "Strings").c_str ());
 
       info.base_name_ = name;
-      info.pedal_c_str_ = strdup ((base_name + "Pedal").c_str ());
+      info.pedal_str_ = base_name + "Pedal";
 
       info.protect ();
 
@@ -308,11 +306,10 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
 
   if (scm_is_string (s))
     {
-      const char *propname = p->type_->pedal_c_str_;
-
-      p->item_ = make_item (propname, (p->event_drul_[START]
-                                       ? p->event_drul_[START]
-                                       : p->event_drul_[STOP])->self_scm ());
+      p->item_ = make_item (p->type_->pedal_str_.c_str (),
+                            (p->event_drul_[START]
+                             ? p->event_drul_[START]
+                             : p->event_drul_[STOP])->self_scm ());
 
       p->item_->set_property ("text", s);
     }
