@@ -29,7 +29,8 @@ WINDRES_FLAGS += -DLilyPond=0 -DLY=1
 O_FILES += $(outdir)/lilypond.rc.o
 $(outdir)/lilypond: $(outdir)/lilypond.rc.o
 
-$(outdir)/lilypond.rc.o: $(outdir)/lilypond.ico $(outdir)/ly.ico
+$(outdir)/lilypond.rc.o: $(outdir)/lilypond.ico $(outdir)/ly.ico \
+	$(src-dir)/lilypond.manifest
 $(top-build-dir)/Documentation/logo/$(outbase)/lilypond.ico:
 	$(MAKE) -C $(top-build-dir)/Documentation/logo
 

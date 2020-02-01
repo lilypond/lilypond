@@ -31,3 +31,9 @@ VS_VERSION_INFO VERSIONINFO
       VALUE "Translation", 0x409, 1200
     END
   END
+
+#ifndef __CYGWIN__
+
+CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST "@src-dir@/lilypond.manifest"
+
+#endif
