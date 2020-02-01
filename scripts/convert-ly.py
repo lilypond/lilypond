@@ -33,8 +33,6 @@ import shutil
 
 import lilylib as ly
 
-ly.require_python_version ()
-
 import convertrules
 
 lilypond_version_re_str = '\\\\version *\"([0-9.]+)"'

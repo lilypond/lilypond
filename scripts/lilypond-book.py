@@ -72,8 +72,6 @@ import book_docbook
 import book_texinfo
 import book_latex
 
-ly.require_python_version ()
-
 original_dir = os.getcwd ()
 backend = 'ps'
 
