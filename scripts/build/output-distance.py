@@ -831,10 +831,7 @@ class SignatureFileLink (FileLink):
         systems = list(self.system_links.items ())
         systems.sort ()
 
-        # Count the number of separators and construct a relative path
-        # to the current directory.  With Python 2.6, we could use
-        # os.path.relpath() instead.
-        rel_top = '../' * os.path.dirname (dest_file).count (os.path.sep) + '..'
+        rel_top = os.path.relpath (os.path.curdir, os.path.dirname (dest_file))
         style_href = os.path.join (rel_top, 'style.css')
 
         html = ""

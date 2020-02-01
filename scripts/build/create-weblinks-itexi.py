@@ -13,14 +13,7 @@ import glob
 ### https://sourceforge.net/p/testlilyissues/issues/1050/
 
 import langdefs
-# GUB only has python 2.4 !!!
-# langs = [i.code if i.code != 'en' else '' for i in langdefs.WEB_LANGUAGES]
-langs = []
-for lang in langdefs.WEB_LANGUAGES:
-    if lang.code == 'en':
-        langs.append('')
-    else:
-        langs.append(lang.code)
+langs = [i.code if i.code != 'en' else '' for i in langdefs.WEB_LANGUAGES]
 
 
 # these links are relative from /website/ on lilypond.org

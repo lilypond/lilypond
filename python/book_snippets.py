@@ -3,6 +3,7 @@
 import book_base as BookBase
 import lilylib as ly
 import codecs
+import hashlib
 import re
 import os
 import copy
@@ -568,16 +569,10 @@ class LilypondSnippet (Snippet):
 
     def get_checksum (self):
         if not self.checksum:
-            # Work-around for md5 module deprecation warning in python 2.5+:
-            try:
-                from hashlib import md5
-            except ImportError:
-                from md5 import md5
-
             # We only want to calculate the hash based on the snippet
             # code plus fragment options relevant to processing by
             # lilypond, not the snippet + preamble
-            hash = md5 (self.relevant_contents (self.ly ()).encode ('utf-8'))
+            hash = hashlib.md5 (self.relevant_contents (self.ly ()).encode ('utf-8'))
             for option in self.get_outputrelevant_option_strings ():
                 hash.update (option.encode ('utf-8'))
 

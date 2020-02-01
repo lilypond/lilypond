@@ -368,10 +368,7 @@ def main ():
         except UnknownVersion:
             ly.error (_ ("%s: Unable to determine version.  Skipping") % f)
             errors += 1
-        except InvalidVersion:
-            # Compat code for 2.x and 3.0 syntax ("except .. as v" doesn't 
-            # work in python 2.4!):
-            t, v, b = sys.exc_info ()
+        except InvalidVersion as v:
             ly.error (_ ("%s: Invalid version string `%s' \n"
                          "Valid version strings consist of three numbers, "
                          "separated by dots, e.g. `2.8.12'") % (f, v.version) )
