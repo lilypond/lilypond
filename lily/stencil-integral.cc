@@ -189,8 +189,10 @@ make_draw_line_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings
 
           for (vsize i = 0; i < 1 + passes; i++)
             {
-              Offset pt (linear_map (x0, x1, 0, passes, i),
-                         linear_map (y0, y1, 0, passes, i));
+              Offset pt (linear_map (x0, x1, 0, static_cast<Real> (passes),
+                                     static_cast<Real> (i)),
+                         linear_map (y0, y1, 0, static_cast<Real> (passes),
+                                     static_cast<Real> (i)));
               Offset inter = scm_transform (trans, pt + outward);
               points.push_back (inter);
             }
@@ -259,7 +261,8 @@ make_partial_ellipse_boxes (vector<Box> &boxes,
     {
       for (vsize i = 0; i <= (vsize) quantization; i++)
         {
-          Real ang = linear_map (start, end, 0, quantization, i);
+          Real ang
+              = linear_map (start, end, 0, quantization, static_cast<Real> (i));
           Offset pt (offset_directed (ang).scale (rad));
           Offset inter = t (pt + d * get_normal ((th/2) * pt.direction ()));
           points[d].push_back (inter);
@@ -394,7 +397,8 @@ make_round_filled_box_boxes (vector<Box> &boxes,
             for (DOWN_and_UP(v))
               for (LEFT_and_RIGHT(h))
                 {
-                  Real ang = linear_map (0., 90., 0, quantization, i);
+                  Real ang = linear_map (0., 90., 0, quantization,
+                                         static_cast<Real> (i));
                   Offset pt (offset_directed (ang).scale (rad));
                   Offset inter (cx[h] + h * pt[X_AXIS],
                                 cy[v] + v * pt[Y_AXIS]);
@@ -478,7 +482,7 @@ make_draw_bezier_boxes (vector<Box> &boxes,
       points[d].push_back (scm_transform (trans, first));
       for (vsize i = 1; i < (vsize) quantization; i++)
         {
-          Real pt = (i * 1.0) / quantization;
+          Real pt = static_cast<Real> (i) / quantization;
           Offset inter = curve.curve_point (pt)
             + d * get_normal ((th / 2) *curve.dir_at_point (pt));
           points[d].push_back (scm_transform (trans, inter));

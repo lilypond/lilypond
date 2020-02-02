@@ -319,7 +319,7 @@ Slur_configuration::score_encompass (Slur_score_state const &state)
         TODO: maybe it's better to use (avgdist - mindist)*factor
         as penalty.
       */
-      avg_distance /= n;
+      avg_distance /= static_cast<Real> (n);
       Real variance_penalty = state.parameters_.head_slur_distance_max_ratio_;
       if (min_dist > 0.0)
         variance_penalty

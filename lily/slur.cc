@@ -387,8 +387,10 @@ Slur::vertical_skylines (SCM smob)
   for (vsize i = 0; i < box_count; i++)
     {
       Box b;
-      b.add_point (curve.curve_point (i * 1.0 / box_count));
-      b.add_point (curve.curve_point ((i + 1) * 1.0 / box_count));
+      b.add_point (curve.curve_point (static_cast<Real> (i)
+                                      / static_cast<Real> (box_count)));
+      b.add_point (curve.curve_point (static_cast<Real> (i + 1)
+                                      / static_cast<Real> (box_count)));
       boxes.push_back (b);
     }
 
@@ -583,4 +585,3 @@ ADD_INTERFACE (Slur,
                "ratio "
                "thickness "
               );
-

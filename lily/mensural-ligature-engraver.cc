@@ -460,7 +460,7 @@ Mensural_ligature_engraver::fold_up_primitives (vector<Grob_info> const &primiti
                 vert_shift -= delta * staff_space;
             }
           else
-            min_length += head_width * dot_count;
+            min_length += head_width * static_cast<Real> (dot_count);
 
           dot_gr->translate_axis (vert_shift, Y_AXIS);
 

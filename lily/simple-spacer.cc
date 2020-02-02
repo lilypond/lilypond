@@ -122,7 +122,7 @@ Simple_spacer::add_rod (vsize l, vsize r, Real dist)
             if (spring_dist)
               springs_[i].set_distance (springs_[i].distance () * dist / spring_dist);
             else
-              springs_[i].set_distance (dist / (r - l));
+              springs_[i].set_distance (dist / static_cast<Real> (r - l));
           }
 
       return;

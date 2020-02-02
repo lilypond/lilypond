@@ -735,9 +735,10 @@ Page_layout_problem::solve_rod_spring_problem (bool ragged, Real fixed_force)
                        overflow));
           force_ = -infinity_f;
           vsize space_count = solution_.size ();
-          Real spacing_increment = overflow / (space_count - 2);
+          Real spacing_increment
+              = overflow / static_cast<Real> (space_count - 2);
           for (vsize i = 2; i < space_count; i++)
-            solution_[i] -= (i - 1) * spacing_increment;
+            solution_[i] -= static_cast<Real> (i - 1) * spacing_increment;
         }
     }
 }

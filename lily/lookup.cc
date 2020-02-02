@@ -294,7 +294,7 @@ Lookup::round_filled_polygon (vector<Offset> const &points,
       Offset center;
       for (vsize i = 0; i < points.size (); i++)
         center += points[i];
-      center /= points.size ();
+      center /= static_cast<Real> (points.size ());
 
       Real area = 0.0;
       Offset last = points.back () - center;
