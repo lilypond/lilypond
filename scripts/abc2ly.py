@@ -596,7 +596,7 @@ def stuff_append_back(stuff, idx, a):
         stuff.append (a)
     else:
         point = len(stuff[idx])-1
-        while stuff[idx][point] is ' ':
+        while stuff[idx][point] == ' ':
             point = point - 1
         point = point +1
         stuff[idx] = stuff[idx][:point] + a + stuff[idx][point:]
