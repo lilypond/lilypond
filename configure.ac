@@ -303,23 +303,6 @@ AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <cxxabi.h>],
 LIBS="$save_LIBS"
 AC_SUBST(CXXABI_LIBS)
 
-## check rational bugfix.
-save_CPPFLAGS="$CPPFLAGS"
-CPPFLAGS="$GUILE_CFLAGS $CPPFLAGS"
-AC_MSG_CHECKING(GUILE rational bugfix)
-AC_PREPROC_IFELSE([AC_LANG_SOURCE([[#if HAVE_LIBGUILE18_H
-# include <libguile18.h>
-#else
-# include <libguile.h>
-#endif
-#ifdef SCM_FRACTION_REDUCED_BIT
-#error
-#endif
-]])],[AC_MSG_RESULT(ok)],[REQUIRED="$REQUIRED GUILE-with-rational-bugfix"
-AC_MSG_RESULT(Must have patched GUILE rational support. See INSTALL.txt)])
-CPPFLAGS="$save_CPPFLAGS"
-
-
 STEPMAKE_PATH_PROG(FONTFORGE, fontforge, REQUIRED, 20110222)
 
 STEPMAKE_PATH_PROG(T1ASM, t1asm, REQUIRED)
