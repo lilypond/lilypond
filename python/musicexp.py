@@ -1712,7 +1712,6 @@ class NoteEvent(RhythmicEvent):
     def  __init__ (self):
         RhythmicEvent.__init__ (self)
         #self.pitch = None
-        self.drum_type = None
         self.cautionary = False
         self.forced_accidental = False
 
@@ -1721,8 +1720,6 @@ class NoteEvent(RhythmicEvent):
 
         if self.pitch:
             str += self.pitch.lisp_expression ()
-        elif self.drum_type:
-            str += "'drum-type '%s" % self.drum_type
 
         return str
 
@@ -1742,9 +1739,6 @@ class NoteEvent(RhythmicEvent):
             return res + '%s%s%s' % (self.pitch.ly_expression (),
                                self.pitch_mods(),
                                self.duration.ly_expression ())
-        elif self.drum_type:
-            return res + '%s%s' (self.drum_type,
-                           self.duration.ly_expression ())
 
     def chord_element_ly (self):
         # obtain all stuff that needs to be printed before the note:
@@ -1752,8 +1746,6 @@ class NoteEvent(RhythmicEvent):
         if self.pitch:
             return res + '%s%s' % (self.pitch.ly_expression (),
                                self.pitch_mods())
-        elif self.drum_type:
-            return res + '%s%s' (self.drum_type)
 
 
     def print_ly (self, printer):
@@ -1767,8 +1759,6 @@ class NoteEvent(RhythmicEvent):
         if self.pitch:
             self.pitch.print_ly (printer)
             printer (self.pitch_mods ())
-        else:
-            printer (self.drum_type)
 
         self.duration.print_ly (printer)
 

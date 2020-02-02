@@ -1854,15 +1854,6 @@ def musicxml_figured_bass_to_lily(n):
         res.set_parentheses(True)
     return res
 
-instrument_drumtype_dict = {
-    'Acoustic Snare Drum': 'acousticsnare',
-    'Side Stick': 'sidestick',
-    'Open Triangle': 'opentriangle',
-    'Mute Triangle': 'mutetriangle',
-    'Tambourine': 'tambourine',
-    'Bass Drum': 'bassdrum',
-}
-
 
 
 def musicxml_lyrics_to_text(lyrics, ignoremelismata):
@@ -2189,7 +2180,6 @@ def extract_lyrics(voice, lyric_key, lyrics_dict):
 
 def musicxml_voice_to_lily_voice(voice):
     tuplet_events = []
-    modes_found = {}
     lyrics = {}
     return_value = VoiceData()
     return_value.voicedata = voice
@@ -2378,9 +2368,6 @@ def musicxml_voice_to_lily_voice(voice):
             first_pitch = main_event.pitch
         # ignore lyrics for notes inside a slur, tie, chord or beam
         ignore_lyrics = is_tied or is_chord #or is_beamed or inside_slur
-
-        if main_event and hasattr(main_event, 'drum_type') and main_event.drum_type:
-            modes_found['drummode'] = True
 
         ev_chord = voice_builder.last_event_chord(n._when)
         if not ev_chord:
@@ -2622,19 +2609,11 @@ def musicxml_voice_to_lily_voice(voice):
 
     seq_music = musicexp.SequentialMusic()
 
-    if 'drummode' in list(modes_found.keys()):
-        ## \key <pitch> barfs in drummode.
-        ly_voice = [e for e in ly_voice
-                    if not isinstance(e, musicexp.KeySignatureChange)]
-
     seq_music.elements = ly_voice
     for k in list(lyrics.keys()):
         return_value.lyrics_dict[k] = musicexp.Lyrics()
         return_value.lyrics_dict[k].lyrics_syllables = lyrics[k]
 
-
-    if len(modes_found) > 1:
-       ly.warning(_('cannot simultaneously have more than one mode: %s') % list(modes_found.keys()))
 
     if hasattr(options, 'shift_meter') and options.shift_meter:
         sd[-1].element = seq_music
@@ -2648,11 +2627,6 @@ def musicxml_voice_to_lily_voice(voice):
         seq_music = v
 
     return_value.ly_voice = seq_music
-    for mode in list(modes_found.keys()):
-        v = musicexp.ModeChangingMusicWrapper()
-        v.element = seq_music
-        v.mode = mode
-        return_value.ly_voice = v
 
     # create \figuremode { figured bass elements }
     if figured_bass_builder.has_relevant_elements:

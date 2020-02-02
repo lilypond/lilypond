@@ -727,15 +727,6 @@ class Notehead(Music_xml_node):
 
 class Note(Measure_element):
 
-    drumtype_dict = {
-        'Acoustic Snare Drum': 'acousticsnare',
-        'Side Stick': 'sidestick',
-        'Open Triangle': 'opentriangle',
-        'Mute Triangle': 'mutetriangle',
-        'Tambourine': 'tambourine',
-        'Bass Drum': 'bassdrum',
-    }
-
     def __init__(self):
         Measure_element.__init__(self)
         self.instrument_name = ''
@@ -853,18 +844,6 @@ class Note(Measure_element):
             event.pitch = pitch
         return event
 
-    def initialize_drum_event(self):
-        event = musicexp.NoteEvent()
-        drum_type = self.drumtype_dict.get(self.instrument_name)
-        if drum_type:
-            event.drum_type = drum_type
-        else:
-            self.message(
-                _("drum %s type unknown, please add to instrument_drumtype_dict")
-                % n.instrument_name)
-            event.drum_type = 'acousticsnare'
-        return event
-
     def to_lily_object(self,
                        convert_stem_directions=True,
                        convert_rest_positions=True):
@@ -878,8 +857,6 @@ class Note(Measure_element):
             event = self.initialize_unpitched_event()
         elif self.get_maybe_exist_typed_child(Rest):
             event = self.initialize_rest_event(convert_rest_positions)
-        elif self.instrument_name:
-            event = self.initialize_drum_event()
         else:
             self.message(_("cannot find suitable event"))
 
