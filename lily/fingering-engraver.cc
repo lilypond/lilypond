@@ -46,7 +46,7 @@ protected:
   void acknowledge_note_column (Grob_info);
 
 private:
-  void make_script (Direction, Stream_event *, int);
+  void make_script (Direction, Stream_event *, size_t);
 };
 
 void
@@ -100,7 +100,7 @@ Fingering_engraver::process_music ()
 }
 
 void
-Fingering_engraver::make_script (Direction d, Stream_event *r, int i)
+Fingering_engraver::make_script (Direction d, Stream_event *r, size_t i)
 {
   Item *fingering = make_item ("Fingering", r->self_scm ());
 
@@ -111,16 +111,12 @@ Fingering_engraver::make_script (Direction d, Stream_event *r, int i)
   Side_position_interface::set_axis (fingering, Y_AXIS);
   Self_alignment_interface::set_aligned_on_parent (fingering, X_AXIS);
 
-  // Hmm
-  int priority = 200;
-  SCM s = fingering->get_property ("script-priority");
-  if (scm_is_number (s))
-    priority = scm_to_int (s);
-
   /* See script-engraver.cc */
-  priority += i;
-
-  fingering->set_property ("script-priority", scm_from_int (priority));
+  SCM priority = fingering->get_property ("script-priority");
+  if (!scm_is_number (priority))
+    priority = scm_from_int (200); // TODO: Explain magic.
+  priority = scm_sum (priority, scm_from_size_t (i));
+  fingering->set_property ("script-priority", priority);
 
   if (d)
     fingering->set_property ("direction", scm_from_int (d));

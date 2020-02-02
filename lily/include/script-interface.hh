@@ -41,7 +41,7 @@ public:
 };
 
 void make_script_from_event (Grob *p, Context *tg,
-                             SCM type, int index);
+                             SCM type, size_t index);
 
 #endif /* SCRIPT_INTERFACE_HH */
 

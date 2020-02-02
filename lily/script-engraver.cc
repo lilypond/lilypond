@@ -105,8 +105,7 @@ copy_property (Grob *g, SCM sym, SCM alist)
    ScriptStaccato , ScriptMarcato, etc. ).
 */
 void
-make_script_from_event (Grob *p, Context *tg,
-                        SCM art_type, int index)
+make_script_from_event (Grob *p, Context *tg, SCM art_type, size_t index)
 {
   SCM alist = tg->get_property ("scriptDefinitions");
   SCM art = scm_assoc (art_type, alist);
@@ -140,9 +139,7 @@ make_script_from_event (Grob *p, Context *tg,
           /* Make sure they're in order of user input by adding index i.
              Don't use the direction in this priority. Smaller means closer
              to the head.  */
-          int prio = scm_to_int (val) + index;
-
-          val = scm_from_int (prio);
+          val = scm_sum (val, scm_from_size_t (index));
         }
 
       SCM preset = p->get_property_data (sym);
@@ -153,8 +150,7 @@ make_script_from_event (Grob *p, Context *tg,
 
   if (!priority_found)
     {
-      p->set_property ("script-priority",
-                       scm_from_int (index));
+      p->set_property ("script-priority", scm_from_size_t (index));
     }
 }
 
