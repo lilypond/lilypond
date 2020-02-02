@@ -88,7 +88,7 @@ Volta_bracket_interface::print (SCM smob)
   Drul_array<Real> shorten = robust_scm2interval (me->get_property ("shorten-pair"),
                                                   Interval (0, 0));
 
-  scale_drul (&edge_height, - Real (get_grob_direction (me)));
+  scale_drul (&edge_height, -static_cast<Real> (get_grob_direction (me)));
 
   Interval empty;
   Offset start;
@@ -173,4 +173,3 @@ ADD_INTERFACE (Volta_bracket_interface,
                "shorten-pair "
                "thickness "
               );
-

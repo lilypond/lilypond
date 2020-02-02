@@ -87,8 +87,9 @@ Midi_walker::do_start_note (Midi_note *note)
   Audio_item *ptr = items_[index_];
   assert (note->audio_ == ptr);
   int now_ticks = ptr->audio_column_->ticks ();
-  int stop_ticks = int (moment_to_real (note->audio_->length_mom_) *
-                        Real (384 * 4)) + now_ticks;
+  int stop_ticks = int (moment_to_real (note->audio_->length_mom_)
+                        * static_cast<Real> (384 * 4))
+                   + now_ticks;
   for (vsize i = 0; i < stop_note_queue.size (); i++)
     {
       /* if this pitch already in queue, and is not already ignored */

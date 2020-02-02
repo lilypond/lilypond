@@ -71,7 +71,8 @@ Pango_font::Pango_font (PangoFT2FontMap *fontmap,
   //  --hwn
   output_scale_ = output_scale;
   scale_ = INCH_TO_BP
-           / (Real (PANGO_SCALE) * Real (PANGO_RESOLUTION) * output_scale);
+           / (static_cast<Real> (PANGO_SCALE)
+              * static_cast<Real> (PANGO_RESOLUTION) * output_scale);
 
   // ugh. Should make this configurable.
   pango_context_set_language (context_, pango_language_from_string ("en_US"));
@@ -333,7 +334,7 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item) const
   pgs = 0;
   PangoFontDescription *descr = pango_font_describe (pa->font);
   Real size = pango_font_description_get_size (descr)
-              / (Real (PANGO_SCALE));
+              / (static_cast<Real> (PANGO_SCALE));
 
   if (ps_name_str0.empty ())
     warning (_f ("no PostScript font name for font `%s'", file_name));

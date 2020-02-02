@@ -44,8 +44,9 @@ ly_FT_get_unscaled_indexed_char_dimensions (FT_Face const &face, size_t signed_i
   FT_Pos vb = m.horiBearingY;
 
   // is this viable for all grobs?
-  return Box (Interval (Real (hb), Real (hb + m.width)),
-              Interval (Real (vb - m.height), Real (vb)));
+  return Box (
+      Interval (static_cast<Real> (hb), static_cast<Real> (hb + m.width)),
+      Interval (static_cast<Real> (vb - m.height), static_cast<Real> (vb)));
 }
 
 SCM

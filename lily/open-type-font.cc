@@ -352,7 +352,7 @@ Open_type_font::get_indexed_char_dimensions (size_t signed_idx) const
 
   Box b = get_unscaled_indexed_char_dimensions (signed_idx);
 
-  b.scale (design_size () / Real (face_->units_per_EM));
+  b.scale (design_size () / static_cast<Real> (face_->units_per_EM));
   return b;
 }
 
@@ -422,7 +422,7 @@ Open_type_font::design_size () const
                                quickly. --hwn.
                              */
                              scm_from_unsigned_integer (1));
-  return scm_to_double (entry) * Real (point_constant);
+  return scm_to_double (entry) * static_cast<Real> (point_constant);
 }
 
 SCM

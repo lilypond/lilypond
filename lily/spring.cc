@@ -116,9 +116,9 @@ merge_springs (vector<Spring> const &springs)
       min_distance = std::max (springs[i].min_distance (), min_distance);
     }
 
-  avg_stretch /= Real (springs.size ());
-  avg_compress /= Real (springs.size ());
-  avg_distance /= Real (springs.size ());
+  avg_stretch /= static_cast<Real> (springs.size ());
+  avg_compress /= static_cast<Real> (springs.size ());
+  avg_distance /= static_cast<Real> (springs.size ());
   avg_distance = std::max (min_distance + 0.3, avg_distance);
 
   Spring ret = Spring (avg_distance, min_distance);
@@ -231,4 +231,3 @@ Spring::length (Real f) const
   // and we need to make sure that we return min_distance_.
   return std::max (min_distance_, distance_ + force * inv_k);
 }
-

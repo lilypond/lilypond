@@ -45,5 +45,6 @@ Real
 Cpu_timer::read ()
 {
   clock_t stop = clock ();
-  return Real (stop - start_clock_) / Real (CLOCKS_PER_SEC);
+  return static_cast<Real> (stop - start_clock_)
+         / static_cast<Real> (CLOCKS_PER_SEC);
 }

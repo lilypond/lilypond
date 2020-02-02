@@ -556,7 +556,8 @@ Stem::calc_positioning_done (SCM smob)
         heads[i]->translate_axis (amount, X_AXIS);
     }
   bool parity = true;
-  Real lastpos = Real (Staff_symbol_referencer::get_position (heads[0]));
+  Real lastpos
+      = static_cast<Real> (Staff_symbol_referencer::get_position (heads[0]));
   int threshold = robust_scm2int (me->get_property ("note-collision-threshold"), 1);
   for (vsize i = 1; i < heads.size (); i++)
     {

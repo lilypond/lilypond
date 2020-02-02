@@ -73,8 +73,8 @@ scale_drul (Drul_array<T> *dr, T x)
 inline Real
 linear_combination (Drul_array<Real> const &d, Real x)
 {
-  return ((1.0 - x) * Real (d.at (LEFT))
-          + (x + 1.0) * Real (d.at (RIGHT))) * 0.5;
+  return ((1.0 - x) * static_cast<Real> (d.at (LEFT))
+          + (x + 1.0) * static_cast<Real> (d.at (RIGHT))) * 0.5;
 }
 
 #endif /* DRUL_ARRAY_HH */
