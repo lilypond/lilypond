@@ -204,31 +204,6 @@ static Long_option_init options_static[]
 
 char const *LILYPOND_DATADIR = PACKAGE_DATADIR "/" TOPLEVEL_VERSION;
 
-/* x86 defaults to using 80-bit extended precision arithmetic. This can cause
-   problems because the truncation from 80 bits to 64 bits can occur in
-   unpredictable places. To get around this, we tell the x87 FPU to use only
-   double precision. Note that this is not needed for x86_64 because that uses
-   the SSE unit by default instead of the x87 FPU. */
-#if ((defined (__x86__) || defined (__i386__)) \
-  && defined (HAVE_FPU_CONTROL_H) && (HAVE_FPU_CONTROL_H == 1))
-
-#include <fpu_control.h>
-static void
-configure_fpu ()
-{
-  fpu_control_t fpu_control = 0x027f;
-  _FPU_SETCW (fpu_control);
-}
-
-#else
-
-static void
-configure_fpu ()
-{
-}
-
-#endif /* defined(__x86__) || defined(__i386__) */
-
 static void
 env_var_info (FILE *out, char const *key)
 /*
@@ -823,7 +798,6 @@ main (int argc, char **argv, char **envp)
  * envp:   Point to vector of OS environment variables
  */
 {
-  configure_fpu ();
   /*
     Process environment variables
   */

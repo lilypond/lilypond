@@ -11,6 +11,11 @@ AC_CONFIG_AUX_DIR([config])
 
 STEPMAKE_INIT
 
+# For avoiding x86 FPU precision issues
+AS_CASE([$host_cpu],
+  [i?86], [CXXFLAGS="$CXXFLAGS -msse2 -mfpmath=sse"]
+)
+
 # List a file that identifies your package.
 AC_CONFIG_SRCDIR([lily/main.cc])
 
@@ -303,7 +308,7 @@ STEPMAKE_PATH_PROG(FONTFORGE, fontforge, REQUIRED, 20110222)
 
 STEPMAKE_PATH_PROG(T1ASM, t1asm, REQUIRED)
 
-AC_CHECK_HEADERS([assert.h grp.h libio.h pwd.h sys/stat.h wchar.h fpu_control.h])
+AC_CHECK_HEADERS([assert.h grp.h libio.h pwd.h sys/stat.h wchar.h])
 AC_CHECK_HEADERS([sstream])
 AC_HEADER_STAT
 AC_FUNC_MEMCMP
