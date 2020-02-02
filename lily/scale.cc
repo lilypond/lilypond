@@ -22,6 +22,8 @@
 #include "scale.hh"
 #include "protected-scm.hh"
 
+#include <limits>
+
 using std::vector;
 
 /*
@@ -94,7 +96,7 @@ LY_DEFINE (ly_set_default_scale, "ly:set-default-scale",
 int
 Scale::step_count () const
 {
-  return step_tones_.size ();
+  return static_cast<int> (step_tones_.size ());
 }
 
 Rational
@@ -136,6 +138,7 @@ Scale::normalize_step (int step) const
 
 Scale::Scale (vector<Rational> const &tones)
 {
+  assert (tones.size () <= std::numeric_limits<int>::max ());
   step_tones_ = tones;
 
   smobify_self ();
