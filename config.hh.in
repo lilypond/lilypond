@@ -85,5 +85,25 @@
 #define HAVE_LIBGUILE18_H 0
 
 /* define if cxxabi.h has workable demangler */
-
 #define HAVE_CXA_DEMANGLE 0
+
+/* define if enable extensions on GNU/Linux */
+#undef _GNU_SOURCE
+
+/* define if enable general extensions on Solaris */
+#undef __EXTENSIONS__
+
+/* define if enable threading extensions on Solaris */
+#undef _POSIX_PTHREAD_SEMANTICS
+
+/* define if enable extensions for the HP NonStop platform */
+#undef _TANDEM_SOURCE
+
+/* define if enable extensions for AIX 3, and for Interix */
+#undef _ALL_SOURCE
+
+/* define if enable Posix functions for Minix */
+#undef _POSIX_SOURCE
+
+/* define if enable additional Posix functions for Minix */
+#undef _POSIX_1_SOURCE

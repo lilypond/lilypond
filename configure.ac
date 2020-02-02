@@ -80,6 +80,8 @@ fi
 AC_MSG_RESULT($LN_SRC_TO_BUILD)
 AC_SUBST(LN_SRC_TO_BUILD)
 
+AC_USE_SYSTEM_EXTENSIONS
+
 # must come before any header checks
 STEPMAKE_COMPILE
 
