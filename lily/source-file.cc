@@ -97,7 +97,6 @@ Source_file::init ()
 {
   istream_ = 0;
   line_offset_ = 0;
-  str_port_ = SCM_EOL;
   smobify_self ();
 }
 
@@ -111,8 +110,6 @@ Source_file::Source_file (const string &filename, const string &data)
   copy (data.begin (), data.end (), characters_.begin ());
 
   characters_.push_back (0);
-
-  init_port ();
 
   for (vsize i = 0; i < characters_.size (); i++)
     if (characters_[i] == '\n')
@@ -134,22 +131,9 @@ Source_file::Source_file (const string &filename_string)
 
   characters_.push_back (0);
 
-  init_port ();
-
   for (vsize i = 0; i < characters_.size (); i++)
     if (characters_[i] == '\n')
       newline_locations_.push_back (&characters_[0] + i);
-}
-
-void
-Source_file::init_port ()
-{
-  // This is somewhat icky: the string will in general be in utf8, but
-  // we do our own utf8 encoding and verification in the parser, so we
-  // use the no-conversion equivalent of latin1
-  SCM str = scm_from_latin1_string (c_str ());
-  str_port_ = scm_mkstrport (SCM_INUM0, str, SCM_OPN | SCM_RDNG, __FUNCTION__);
-  scm_set_port_filename_x (str_port_, ly_string2scm (name_));
 }
 
 istream *
@@ -351,22 +335,10 @@ Source_file::c_str () const
   return &characters_[0];
 }
 
-SCM
-Source_file::get_port () const
-{
-  return str_port_;
-}
-
 /****************************************************************/
 
 
 const char * const Source_file::type_p_name_ = "ly:source-file?";
-
-SCM
-Source_file::mark_smob () const
-{
-  return str_port_;
-}
 
 int
 Source_file::print_smob (SCM port, scm_print_state *) const

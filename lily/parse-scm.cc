@@ -21,13 +21,14 @@
 
 #include <cstdio>
 
-#include "lily-parser.hh"
-#include "lily-lexer.hh"
 #include "international.hh"
+#include "lily-imports.hh"
+#include "lily-lexer.hh"
+#include "lily-parser.hh"
 #include "main.hh"
+#include "overlay-string-port.hh"
 #include "paper-book.hh"
 #include "source-file.hh"
-#include "lily-imports.hh"
 
 // Catch stack traces on error.
 bool parse_protect_global = true;
@@ -62,61 +63,48 @@ struct Parse_start
   }
 };
 
-/* Pass string to scm parser, read one expression.
-   Return result value and #chars read.
-
-   Thanks to Gary Houston <ghouston@freewire.co.uk>  */
+// Pass string to scm parser, reading one expression.  Return result
+// value. Parse_start::location_ is adjusted to cover the entire
+// expression.
 SCM
 internal_parse_embedded_scheme (Parse_start *ps)
 {
-  Input *hi = ps->location_;
-  Source_file *sf = hi->get_source_file ();
-  SCM port = sf->get_port ();
+  Input *loc = ps->location_;
+  ssize_t line_number, line_char, column, byte_offset;
+  loc->get_source_file ()->get_counts (loc->start (), &line_number, &line_char,
+                                       &column, &byte_offset);
 
-  long off = hi->start () - sf->c_str ();
+  Overlay_string_port overlay (loc->start (), loc->get_source_file ()->length ()
+                                                  - byte_offset);
 
-  scm_seek (port, scm_from_long (off), scm_from_long (SEEK_SET));
-  SCM from = scm_ftell (port);
+  SCM port = overlay.as_port ();
+  scm_set_port_line_x (port, scm_from_ssize_t (line_number - 1));
+  scm_set_port_column_x (port, scm_from_ssize_t (column - 1));
 
-  scm_set_port_line_x (port, scm_from_ssize_t (hi->line_number () - 1));
-  scm_set_port_column_x (port, scm_from_ssize_t (hi->column_number () - 1));
-
-  bool multiple = ly_is_equal (scm_peek_char (port), SCM_MAKE_CHAR ('@'));
-
+  bool multiple = '@' == *ps->location_->start ();
   if (multiple)
     (void) scm_read_char (port);
 
   SCM form = scm_read (port);
-  SCM to = scm_ftell (port);
+  ssize_t consumed = scm_to_ssize_t (scm_ftell (port));
+  scm_close_port (port);
+  loc->set (loc->get_source_file (), loc->start (), loc->start () + consumed);
 
-  hi->set (hi->get_source_file (),
-           hi->start (),
-           hi->start () + scm_to_int (scm_difference (to, from)));
+  if (SCM_EOF_OBJECT_P (form))
+    return SCM_UNDEFINED;
 
-  if (!SCM_EOF_OBJECT_P (form))
+  if (ps->parser_->lexer_->top_input ())
     {
-      if (ps->parser_->lexer_->top_input ())
-        {
-          // Find any precompiled form.
-          SCM c = scm_assv_ref (ps->parser_->closures_, from);
-          if (scm_is_true (c))
-            // Replace form with a call to previously compiled closure
-            form = scm_list_1 (c);
-        }
-      if (multiple)
-        form = scm_list_3 (ly_symbol2scm ("apply"),
-                           ly_symbol2scm ("values"),
-                           form);
-      return form;
+      // Find any precompiled form.
+      SCM c = scm_assv_ref (ps->parser_->closures_,
+                            scm_from_ssize_t (byte_offset));
+      if (scm_is_true (c))
+        // Replace form with a call to previously compiled closure
+        form = scm_list_1 (c);
     }
-
-  /* Don't close the port here; if we re-enter this function via a
-     continuation, then the next time we enter it, we'll get an error.
-     It's a string port anyway, so there's no advantage to closing it
-     early. */
-  // scm_close_port (port);
-
-  return SCM_UNDEFINED;
+  if (multiple)
+    form = scm_list_3 (ly_symbol2scm ("apply"), ly_symbol2scm ("values"), form);
+  return form;
 }
 
 SCM

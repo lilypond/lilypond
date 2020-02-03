@@ -26,25 +26,20 @@
 
 #include <iostream>
 
-/**
-   class for reading and mapping a file.
-*/
-
+// Keeps an input file in memory. All locations (for error reporting)
+// directly point into the data kept here.
 class Source_file : public Smob<Source_file>
 {
 public:
   int print_smob (SCM, scm_print_state *) const;
-  SCM mark_smob () const;
   static const char * const type_p_name_;
   virtual ~Source_file ();
 private:
   std::vector<char const *> newline_locations_;
   std::istream *istream_;
   std::vector<char> characters_;
-  SCM str_port_;
 
   void load_stdin ();
-  void init_port ();
   void init ();
 
 public:
@@ -66,7 +61,6 @@ public:
   void get_counts (char const *pos_str0,
                    ssize_t *, ssize_t *, ssize_t *, ssize_t *) const;
 
-  SCM get_port () const;
   std::string name_;
 
 protected:
