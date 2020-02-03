@@ -25,22 +25,9 @@
 /*
   hash table.
 
-  1. ALWAYS USE THIS AS VIA A POINTER, i.e.
+  Used for looking up keys by SCM value (keys compared with eq?).
+  This is not much more than a C++ wrapper around a standard Guile hashtable.
 
-  class Foo {
-  Scheme_hash_table * tab;
-  };
-
-  and NOT
-
-  class Foo {
-  Scheme_hash_table tab;
-  }
-
-
-  2. UPON DESTRUCTION, DO
-
-  scm_gc_unprotect_object (tab->self_scm_);
 */
 
 class Scheme_hash_table : public Smob1<Scheme_hash_table>
