@@ -17,6 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <memory>
+
 #include "engraver.hh"
 #include "output-def.hh"
 #include "paper-column.hh"
@@ -28,6 +30,7 @@
 
 #include "translator.icc"
 
+using std::unique_ptr;
 using std::vector;
 
 struct Bracket_nesting_node
@@ -44,7 +47,7 @@ public:
 struct Bracket_nesting_group : public Bracket_nesting_node
 {
   Spanner *delimiter_;
-  vector<Bracket_nesting_node *> children_;
+  vector<unique_ptr<Bracket_nesting_node>> children_;
   SCM symbol_;
 
   void from_list (SCM);
@@ -103,7 +106,6 @@ Bracket_nesting_group::add_support (Grob *g)
 
 Bracket_nesting_group::~Bracket_nesting_group ()
 {
-  junk_pointers (children_);
 }
 
 void
@@ -132,9 +134,9 @@ Bracket_nesting_group::from_list (SCM x)
       SCM entry = scm_car (s);
       if (scm_is_pair (entry))
         {
-          Bracket_nesting_group *node = new Bracket_nesting_group;
+          unique_ptr<Bracket_nesting_group> node (new Bracket_nesting_group);
           node->from_list (entry);
-          children_.push_back (node);
+          children_.push_back (std::move (node));
         }
       else if (scm_is_eq (entry, ly_symbol2scm ("SystemStartBrace"))
                || scm_is_eq (entry, ly_symbol2scm ("SystemStartBracket"))
@@ -142,7 +144,10 @@ Bracket_nesting_group::from_list (SCM x)
                || scm_is_eq (entry, ly_symbol2scm ("SystemStartSquare")))
         symbol_ = entry;
       else
-        children_.push_back (new Bracket_nesting_staff (0));
+        {
+          children_.push_back (unique_ptr<Bracket_nesting_staff>
+                               (new Bracket_nesting_staff (0)));
+        }
     }
 }
 
@@ -221,7 +226,8 @@ System_start_delimiter_engraver::acknowledge_staff_symbol (Grob_info inf)
 
   if (!succ)
     {
-      nesting_->children_.push_back (new Bracket_nesting_staff (0));
+      nesting_->children_.push_back (unique_ptr<Bracket_nesting_staff>
+                                     (new Bracket_nesting_staff (0)));
       nesting_->add_staff (staff);
     }
 }
