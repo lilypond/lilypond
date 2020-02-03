@@ -21,6 +21,7 @@
 #include "beam-scoring-problem.hh"
 
 #include <algorithm>
+#include <memory>
 #include <queue>
 #include <set>
 
@@ -48,6 +49,7 @@
 
 using std::set;
 using std::string;
+using std::unique_ptr;
 using std::vector;
 
 Real
@@ -128,10 +130,11 @@ void Beam_configuration::add (Real demerit, const string &reason)
 #endif
 }
 
-Beam_configuration *Beam_configuration::new_config (Interval start,
-                                                    Interval offset)
+unique_ptr<Beam_configuration>
+Beam_configuration::new_config (Interval start,
+                                Interval offset)
 {
-  Beam_configuration *qs = new Beam_configuration;
+  unique_ptr<Beam_configuration> qs (new Beam_configuration);
   qs->y = Interval (int (start[LEFT]) + offset[LEFT],
                     int (start[RIGHT]) + offset[RIGHT]);
 
@@ -856,7 +859,7 @@ Beam_scoring_problem::shift_region_to_valid ()
 }
 
 void
-Beam_scoring_problem::generate_quants (vector<Beam_configuration *> *scores) const
+Beam_scoring_problem::generate_quants (vector<unique_ptr<Beam_configuration>> *scores) const
 {
   int region_size = (int) parameters_.REGION_SIZE;
 
@@ -886,7 +889,7 @@ Beam_scoring_problem::generate_quants (vector<Beam_configuration *> *scores) con
   for (vsize i = 0; i < unshifted_quants.size (); i++)
     for (vsize j = 0; j < unshifted_quants.size (); j++)
       {
-        Beam_configuration *c
+        auto c
           = Beam_configuration::new_config (unquanted_y_,
                                             Interval (unshifted_quants[i],
                                                       unshifted_quants[j]));
@@ -895,13 +898,12 @@ Beam_scoring_problem::generate_quants (vector<Beam_configuration *> *scores) con
           {
             if (!quant_range_[d].contains (c->y[d]))
               {
-                delete c;
-                c = NULL;
+                c.reset ();
                 break;
               }
           }
         if (c)
-          scores->push_back (c);
+          scores->push_back (std::move (c));
       }
 
 }
@@ -942,7 +944,8 @@ void Beam_scoring_problem::one_scorer (Beam_configuration *config) const
 }
 
 Beam_configuration *
-Beam_scoring_problem::force_score (SCM inspect_quants, const vector<Beam_configuration *> &configs) const
+Beam_scoring_problem::force_score (SCM inspect_quants,
+                                   const vector<unique_ptr<Beam_configuration>> &configs) const
 {
   Drul_array<Real> ins = ly_scm2interval (inspect_quants);
   Real mindist = 1e6;
@@ -952,7 +955,7 @@ Beam_scoring_problem::force_score (SCM inspect_quants, const vector<Beam_configu
       Real d = fabs (configs[i]->y[LEFT] - ins[LEFT]) + fabs (configs[i]->y[RIGHT] - ins[RIGHT]);
       if (d < mindist)
         {
-          best = configs[i];
+          best = configs[i].get ();
           mindist = d;
         }
     }
@@ -968,7 +971,7 @@ Beam_scoring_problem::force_score (SCM inspect_quants, const vector<Beam_configu
 Drul_array<Real>
 Beam_scoring_problem::solve () const
 {
-  vector<Beam_configuration *> configs;
+  vector<unique_ptr<Beam_configuration>> configs;
   generate_quants (&configs);
 
   if (configs.empty ())
@@ -995,7 +998,7 @@ Beam_scoring_problem::solve () const
       std::priority_queue < Beam_configuration *, std::vector<Beam_configuration *>,
           Beam_configuration_less > queue;
       for (vsize i = 0; i < configs.size (); i++)
-        queue.push (configs[i]);
+        queue.push (configs[i].get ());
 
       /*
         TODO
@@ -1043,7 +1046,7 @@ Beam_scoring_problem::solve () const
     }
 #endif
 
-  junk_pointers (configs);
+  configs.clear ();
   if (align_broken_intos_)
     {
       Interval normalized_endpoints = robust_scm2interval (beam_->get_property ("normalized-endpoints"), Interval (0, 1));

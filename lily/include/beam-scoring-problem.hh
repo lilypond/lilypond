@@ -21,6 +21,8 @@
 #ifndef BEAM_SCORING_PROBLEM_HH
 #define BEAM_SCORING_PROBLEM_HH
 
+#include <memory>
+
 #include "beam.hh"
 #include "interval.hh"
 #include "lily-guile.hh"
@@ -57,8 +59,8 @@ public:
   Beam_configuration ();
   bool done () const;
   void add (Real demerit, const std::string &reason);
-  static Beam_configuration *new_config (Interval start,
-                                         Interval offset);
+  static std::unique_ptr<Beam_configuration> new_config (Interval start,
+                                                         Interval offset);
 };
 
 // Comparator for a queue of Beam_configuration*.
@@ -181,8 +183,10 @@ private:
   void shift_region_to_valid ();
 
   void one_scorer (Beam_configuration *config) const;
-  Beam_configuration *force_score (SCM inspect_quants,
-                                   const std::vector<Beam_configuration *> &configs) const;
+  Beam_configuration *
+  force_score (SCM inspect_quants,
+               const std::vector<std::unique_ptr<Beam_configuration>> &configs)
+    const;
   Real y_at (Real x, Beam_configuration const *c) const;
 
   // Scoring functions:
@@ -192,7 +196,9 @@ private:
   void score_slope_direction (Beam_configuration *config) const;
   void score_slope_musical (Beam_configuration *config) const;
   void score_stem_lengths (Beam_configuration *config) const;
-  void generate_quants (std::vector<Beam_configuration *> *scores) const;
+  void
+  generate_quants (std::vector<std::unique_ptr<Beam_configuration>> *scores)
+    const;
   void score_collisions (Beam_configuration *config) const;
 };
 
