@@ -170,11 +170,12 @@ Dot_column::calc_positioning_done (SCM smob)
       for (vsize j = 0; j < parent_stems.size (); j++)
         {
           Interval chord = Stem::head_positions (parent_stems[j]);
-          int total_room = ((int) chord.length () + 2
-                            + scm_to_int (chord_dots_limit)) / 2;
-          int total_dots = dots_each_stem[j].size ();
+          vsize total_room = (static_cast<size_t> (chord.length ()) + 2
+                              + scm_to_size_t (chord_dots_limit))
+                             / 2;
+          vsize total_dots = dots_each_stem[j].size ();
           // remove excessive dots from the ends of the stem
-          for (int first_dot = 0; total_dots > total_room; total_dots--)
+          for (vsize first_dot = 0; total_dots > total_room; total_dots--)
             if (0 == (total_dots - total_room) % 2)
               dots_each_stem[j][first_dot++]->suicide ();
             else
