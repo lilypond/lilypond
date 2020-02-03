@@ -20,6 +20,8 @@
 #ifndef SLUR_CONFIGURATION_HH
 #define SLUR_CONFIGURATION_HH
 
+#include <memory>
+
 #include "bezier.hh"
 #include "lily-proto.hh"
 #include "std-vector.hh"
@@ -60,7 +62,7 @@ public:
                        std::vector<Offset> const &);
   void run_next_scorer (Slur_score_state const &);
   bool done () const;
-  static Slur_configuration *new_config (Drul_array<Offset> const &offs, int idx);
+  static std::unique_ptr<Slur_configuration> new_config (Drul_array<Offset> const &offs, int idx);
 
 protected:
   void score_extra_encompass (Slur_score_state const &);

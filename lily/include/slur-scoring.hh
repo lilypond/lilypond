@@ -20,6 +20,8 @@
 #ifndef SLUR_SCORING_HH
 #define SLUR_SCORING_HH
 
+#include <memory>
+
 #include "box.hh"
 #include "std-vector.hh"
 #include "lily-guile.hh"
@@ -112,7 +114,7 @@ public:
   Slur_score_parameters parameters_;
   Drul_array<Bound_info> extremes_;
   Drul_array<Offset> base_attachments_;
-  std::vector<Slur_configuration *> configurations_;
+  std::vector<std::unique_ptr<Slur_configuration>> configurations_;
   Real staff_space_;
   Real line_thickness_;
   Real thickness_;
@@ -128,7 +130,8 @@ public:
   std::vector<Offset> generate_avoid_offsets () const;
   Drul_array<Bound_info> get_bound_info () const;
   void generate_curves () const;
-  std::vector<Slur_configuration *> enumerate_attachments (Drul_array<Real> end_ys) const;
+  std::vector<std::unique_ptr<Slur_configuration>>
+  enumerate_attachments (Drul_array<Real> end_ys) const;
   Drul_array<Offset> get_base_attachments () const;
   Drul_array<Real> get_y_attachment_range () const;
   Encompass_info get_encompass_info (Grob *col) const;

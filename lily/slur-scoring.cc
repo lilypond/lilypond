@@ -46,6 +46,7 @@
 #include "warn.hh"
 
 using std::string;
+using std::unique_ptr;
 using std::vector;
 
 /*
@@ -83,7 +84,6 @@ Slur_score_state::Slur_score_state ()
 
 Slur_score_state::~Slur_score_state ()
 {
-  junk_pointers (configurations_);
 }
 
 /*
@@ -409,7 +409,7 @@ Slur_score_state::get_forced_configuration (Interval ys) const
                + fabs (configurations_[i]->attachment_[RIGHT][Y_AXIS] - ys[RIGHT]);
       if (d < mindist)
         {
-          best = configurations_[i];
+          best = configurations_[i].get ();
           mindist = d;
         }
     }
@@ -429,7 +429,7 @@ Slur_score_state::get_best_curve () const
   std::priority_queue < Slur_configuration *, std::vector<Slur_configuration *>,
       Slur_configuration_less > queue;
   for (vsize i = 0; i < configurations_.size (); i++)
-    queue.push (configurations_[i]);
+    queue.push (configurations_[i].get ());
 
   Slur_configuration *best = NULL;
   while (true)
@@ -705,10 +705,10 @@ Slur_score_state::generate_curves () const
     configurations_[i]->generate_curve (*this, r_0, h_inf, avoid);
 }
 
-vector<Slur_configuration *>
+vector<unique_ptr<Slur_configuration>>
 Slur_score_state::enumerate_attachments (Drul_array<Real> end_ys) const
 {
-  vector<Slur_configuration *> scores;
+  vector<unique_ptr<Slur_configuration>> scores;
 
   Drul_array<Offset> os;
   os[LEFT] = base_attachments_[LEFT];

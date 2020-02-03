@@ -32,6 +32,7 @@
 #include "warn.hh"
 
 using std::string;
+using std::unique_ptr;
 using std::vector;
 
 Bezier
@@ -550,10 +551,10 @@ Slur_configuration::done () const
   return next_scorer_todo >= NUM_SCORERS;
 }
 
-Slur_configuration *
+unique_ptr<Slur_configuration>
 Slur_configuration::new_config (Drul_array<Offset> const &offs, int idx)
 {
-  Slur_configuration *conf = new Slur_configuration;
+  unique_ptr<Slur_configuration> conf (new Slur_configuration);
   conf->attachment_ = offs;
   conf->index_ = idx;
   conf->next_scorer_todo = INITIAL_SCORE + 1;
