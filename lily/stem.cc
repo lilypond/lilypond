@@ -92,9 +92,12 @@ Stem::get_beaming (Grob *me, Direction d)
     return 0;
 
   SCM lst = index_get_cell (pair, d);
+  if (scm_is_false (lst))
+    return 0;
 
-  int len = scm_ilength (lst); // -1 for dotted lists!
-  return std::max (len, 0);
+  // This list represents the vertical positions at which beams start/end at
+  // this stem, so the O(n) cost of scm_length is fine.
+  return scm_to_int (scm_length (lst));
 }
 
 Interval
