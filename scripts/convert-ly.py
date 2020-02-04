@@ -356,7 +356,6 @@ def main ():
 
     errors = 0
     for f in files:
-        f = f.decode (sys.stdin.encoding or "utf-8")
         if f == '-':
             f = ''
         elif not os.path.isfile (f):
