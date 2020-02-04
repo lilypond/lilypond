@@ -55,6 +55,8 @@
 (defmacro-public with-location (loc . body)
   `(with-fluids ((,%location ,loc)) ,@body))
 
+(define-public _ gettext)
+
 ;; It would be nice to convert occurences of parser/location to
 ;; (*parser*)/(*location*) using the syncase module but it is utterly
 ;; broken in GUILE 1 and would require changing a lot of unrelated
@@ -103,6 +105,12 @@
     (variable-set! var value)
     var))
 
+(define (define-session-internal name value)
+  ;; work function for define-session
+  (set! lilypond-declarations
+        (cons (make-session-variable name value) lilypond-declarations)))
+
+
 (defmacro define-session (name value)
   "This defines a variable @var{name} with the starting value
 @var{value} that is reinitialized at the start of each session.
@@ -116,23 +124,22 @@ this manner should be changed within a session only be adding material
 to their front or replacing them altogether, not by modifying parts of
 them.  It is an error to call @code{define-session} after the first
 session has started."
-  (define (add-session-variable name value)
-    (set! lilypond-declarations
-          (cons (make-session-variable name value) lilypond-declarations)))
-  `(,add-session-variable ',name ,value))
+  `(define-session-internal ',name ,value))
+
+(define (define-session-public-internal name value)
+  ;; work function for define-session-public
+  (set! lilypond-exports
+        (acons name (make-session-variable name value) lilypond-exports)))
 
 (defmacro define-session-public (name value)
   "Like @code{define-session}, but also exports @var{name} into parser modules."
-  (define (add-session-variable name value)
-    (set! lilypond-exports
-          (acons name (make-session-variable name value) lilypond-exports)))
   `(begin
      ;; this is a bit icky: we place the variable right into every
      ;; parser module so that both set! and define will affect the
      ;; original variable in the (lily) module.  However, we _also_
      ;; export it normally from (lily) for the sake of other modules
      ;; not sharing the name space of the parser.
-     (,add-session-variable ',name ,value)
+     (define-session-public-internal ',name ,value)
      (export ,name)))
 
 (define (session-terminate)
@@ -434,7 +441,6 @@ messages into errors.")
              (scm clip-region)
              (scm safe-utility-defs))
 
-(define-public _ gettext)
 ;;; There are new modules defined in Guile V2.0 which we need to use.
 ;;
 ;;  Modules and scheme files loaded by lily.scm use currying
