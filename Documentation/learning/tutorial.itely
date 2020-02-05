@@ -213,8 +213,13 @@ Music Glossary: @rglos{pitch}, @rglos{interval},
 @rglos{scale}, @rglos{middle C}, @rglos{octave},
 @rglos{accidental}.
 
-LilyPond uses lower-case letters for pitches.  The letters
-@code{c} through@tie{}@code{b} denote pitches in the
+LilyPond uses lower-case letters for pitches.
+Note names in all examples in this section use the Dutch
+naming system (white piano keys are c-b).  However, LilyPond
+does support many different naming schemes like English or
+@q{Fixed-Do} (do-re-mi-...).
+See @ruser{Note names in other languages}.
+The letters @code{c} through@tie{}@code{b} denote pitches in the
 @q{small octave} below @notation{middle C}.  Added @code{'}
 or@tie{}@code{,} suffixes indicate higher or lower octaves.
 Here is a scale starting on @notation{middle C}, and an arpeggio:

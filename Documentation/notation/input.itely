@@ -454,9 +454,20 @@ A variable, such as
 foo = @{ c4 d e d @}
 @end example
 
-This can be used later on in the file by entering @code{\foo}.  The
-name of a variable should have alphabetic characters only; no
-numbers, underscores or dashes.
+This can be used later on in the file by entering @code{\foo}.
+The name of a variable should not contain (ASCII) numbers,
+multiple underscores, multiple dashes or space characters.
+All other characters Unicode provides are allowed, for example
+Latin, Greek, Chinese or Cyrillic.  Non-adjacent single
+underscores and dashes are allowed, too.
+In other words, variable names like @code{HornIII} or
+@code{αβγXII} work.
+
+Any combination of characters is allowed if the variable name
+is enclosed in double quotation marks.  In this case backslashes
+and double quotation marks need to be escaped with
+backslashes (not that you actually should use them).
+Examples: @code{"foo bar"}, @code{"a-b-c"}, @code{"Horn 3"}.
 
 @end itemize
 
@@ -862,6 +873,11 @@ Installed Files:
 
 @node Default layout of headers and footers
 @unnumberedsubsubsec Default layout of headers and footers
+
+@cindex page header
+@cindex page footer
+@cindex header, page
+@cindex footer, page
 
 @emph{Headers} and @emph{footers} are lines of text appearing at
 the top and bottom of pages, separate from the main text of a book.
@@ -2243,7 +2259,9 @@ numbers, underscores, or dashes) which cannot be confused with notes,
 the @code{#'} may be omitted and, as a shorthand, a list of symbols
 can use the dot separator: i.e., @code{\tag #'(violinI violinII)} can
 be written @code{\tag violinI.violinII}.  The same applies to
-@code{\keepWithTag} and @code{\removeWithTag}.
+@code{\keepWithTag} and @code{\removeWithTag}.  Tagging commands
+are music functions, thus they cannot be used to filter items that
+are not music expressions, such as @code{\book} or @code{\score} blocks.
 
 In the following example, we see two versions of a piece of music,
 one showing trills with the usual notation, and one with trills

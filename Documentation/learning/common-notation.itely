@@ -152,13 +152,18 @@ Music Glossary: @rglos{sharp}, @rglos{flat}, @rglos{double sharp},
 Note-names in LilyPond identify pitches.  For example, @code{c}
 always means C-natural, regardless of the key signature.
 
-A @notation{sharp} pitch is made by adding @code{is} to the name,
-and a @notation{flat} pitch by adding @code{es}.  As you might
-expect, a @notation{double sharp} or @notation{double flat} is
-made by adding @code{isis} or @code{eses}.  This syntax is derived
+In many languages, a note name consists of a base name
+refering to the diatonic steps of the C major / a minor
+scale, e.g. @code{d}, and a suffix, which indicates
+@notation{alteration} of this base pitch.
+The default input language for note names is
+nederlands (Dutch). A @notation{sharp} pitch is made by adding
+@code{is} to the name, and a @notation{flat} pitch by adding @code{es}.
+As you might expect, a @notation{double sharp} or @notation{double flat}
+is made by adding @code{isis} or @code{eses}.  This syntax is derived
 from note naming conventions in Nordic and Germanic languages,
-like German and Dutch.  To use other names for
-@notation{alterations}, see @ruser{Note names in other languages}.
+like German and Dutch.  To use other naming schemes for
+@notation{note names}, see @ruser{Note names in other languages}.
 
 @lilypond[verbatim,quote]
 \relative { cis''4 ees fisis, aeses }
@@ -1331,6 +1336,7 @@ cello = \new Staff {
 
 @noindent
 By convention, variable names consist of alphabetic characters only.
+For detailed information, see @ruser{File structure}.
 
 Variables must be defined @emph{before} the main music
 expression, but may be used as many times as required anywhere after
