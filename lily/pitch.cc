@@ -158,9 +158,16 @@ Pitch::to_string () const
   int n = (notename_ + 2) % scale_->step_count ();
   string s (1, static_cast<char> (n + 'a'));
   Rational qtones = alteration_ * Rational (4, 1);
-  int qt = int (rint (static_cast<Real> (qtones)));
+  size_t qt = size_t (rint (static_cast<Real> (qtones) + 4.0));
+  if (qt < sizeof (accname) / sizeof (accname[0]))
+    {
+      s += string (accname[qt]);
+    }
+  else
+    {
+      s += "??";
+    }
 
-  s += string (accname[qt + 4]);
   if (octave_ >= 0)
     {
       int o = octave_ + 1;
