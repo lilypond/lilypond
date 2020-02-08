@@ -29,7 +29,7 @@ names and figured bass notation can also be displayed.
 @node Chord mode
 @subsection Chord mode
 
-@cindex chord chords
+@cindex chord
 
 Chord mode is used to enter chords using an indicator of the chord
 structure, rather than the chord pitches.
@@ -43,7 +43,7 @@ structure, rather than the chord pitches.
 @node Chord mode overview
 @unnumberedsubsubsec Chord mode overview
 
-@cindex chord names
+@cindex chord name
 @cindex chord mode
 
 Chords can be entered as simultaneous music, as discussed in
@@ -96,10 +96,10 @@ on notes in chord mode, see @ref{Articulations and ornamentations}.
 @node Common chords
 @unnumberedsubsubsec Common chords
 
-@cindex triads
-@cindex seventh chords
+@cindex triad
+@cindex seventh chord
 @cindex root of chord
-@cindex modifiers, in chords.
+@cindex modifier, in chord
 @cindex chord quality
 
 Major triads are entered by including the root and an
@@ -123,7 +123,7 @@ Seventh chords can be created:
 @end lilypond
 
 @funindex aug
-@funindex dim
+@funindex @sortas{dimA} dim
 @funindex maj
 @funindex m
 
@@ -230,8 +230,8 @@ in @ref{Extended and altered chords}.
 @node Extended and altered chords
 @unnumberedsubsubsec Extended and altered chords
 
-@cindex extended chords
-@cindex altered chords
+@cindex extended chord
+@cindex altered chord
 
 Chord structures of arbitrary complexity can be created in chord
 mode.  The modifier string can be used to extend a chord, add or
@@ -271,7 +271,7 @@ is added explicitly).
 }
 @end lilypond
 
-@cindex additions, in chords
+@cindex addition, in chords
 
 Individual steps can be added to a chord.  Additions follow the
 extent and are prefixed by a dot (@code{.}).  The basic seventh
@@ -292,7 +292,7 @@ Added steps can be as high as desired.
 }
 @end lilypond
 
-@cindex chord steps, altering
+@cindex chord step, altering
 
 Added chord steps can be altered by suffixing a @code{-} or @code{+}
 sign to the number.  To alter a step that is automatically included
@@ -304,7 +304,7 @@ as part of the basic chord structure, add it as an altered step.
 }
 @end lilypond
 
-@cindex removals, in chords
+@cindex removal, in chord
 
 @funindex ^
 
@@ -395,9 +395,9 @@ as notes on a staff.
 @node Printing chord names
 @unnumberedsubsubsec Printing chord names
 
-@cindex printing chord names
-@cindex chord names
-@cindex chords
+@cindex printing chord name
+@cindex chord name
+@cindex chord
 
 Chord names are printed in the @code{ChordNames} context:
 
@@ -431,9 +431,9 @@ chordmusic = \relative {
 >>
 @end lilypond
 
-@cindex no chord symbol
+@cindex no-chord symbol
 @cindex N.C. symbol
-@cindex indicating No Chord in ChordNames
+@cindex indicating No Chord in @code{ChordNames}
 
 Rests passed to a @code{ChordNames} context will cause the
 @code{noChordSymbol} markup to be displayed.
@@ -455,7 +455,7 @@ Rests passed to a @code{ChordNames} context will cause the
 >>
 @end lilypond
 
-@funindex{\chords}
+@funindex \chords
 
 @code{\chords @{ @dots{} @}} is a shortcut notation for
 @code{\new ChordNames \chordmode @{ @dots{} @}}.
@@ -474,18 +474,20 @@ Rests passed to a @code{ChordNames} context will cause the
 }
 @end lilypond
 
+
 @snippets
 
-@c Keep index entries with following snippet
-@cindex chords, suppressing repeated
+@cindex chord, suppressing repeated
+@cindex repeated chords, suppressing
+@cindex suppressing repeated chords
 @funindex chordChanges
-
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {showing-chords-at-changes.ly}
 
 @c @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 @c {adding-bar-lines-to-chordnames-context.ly}
 
+@cindex lead sheet
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {simple-lead-sheet.ly}
 
@@ -514,15 +516,17 @@ properly if entered using simultaneous music.
 @node Customizing chord names
 @unnumberedsubsubsec Customizing chord names
 
-@cindex customizing chord names
+@cindex customizing chord name
 
 There is no unique system for naming chords.  Different musical
 traditions use different names for the same set of chords.  There
 are also different symbols displayed for a given chord name.  The
 names and symbols displayed for chord names are customizable.
 
-@cindex jazz chords
-@cindex chords, jazz
+@cindex jazz chord
+@cindex chord, jazz
+@cindex chord, alternative name
+@cindex alternative chord name
 
 The basic chord name layout is a system for Jazz music, proposed
 by Klaus Ignatzek (see @ressay{Literature list}).  The chord naming
@@ -696,8 +700,8 @@ used when the root is altered.
 
 
 @predefined
-@cindex major seven symbols
-@cindex symbols, major seven
+@cindex major seven symbol
+@cindex symbol, major seven
 @code{\whiteTriangleMarkup},
 @code{\blackTriangleMarkup},
 @code{\germanChords},
@@ -709,20 +713,33 @@ used when the root is altered.
 
 @snippets
 
-@cindex exceptions, chord names.
+@cindex exception, chord names
+@cindex chord names, exceptions
+@funindex chordNameExceptions
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {chord-name-exceptions.ly}
 
 @c TODO - tweak snippet to use \blackTriangleMarkup as well
+@cindex major 7 chord, layout
+@cindex layout, major 7 chord
+@cindex chord, major 7, layout
+@funindex majorSevenSymbol
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {chord-name-major7.ly}
 
+@cindex @code{ChordNames}, with bar lines
+@cindex bar line, in @code{ChordNames}
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adding-bar-lines-to-chordnames-context.ly}
 
+@cindex volta repeat, below chords
+@cindex chords, volta repeat, below
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {volta-below-chords.ly}
 
+@cindex chord separator, changing
+@cindex changing chord separator
+@funindex chordNameSeparator
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-chord-separator.ly}
 
@@ -778,11 +795,11 @@ Figured bass notation can be displayed.
 @node Introduction to figured bass
 @unnumberedsubsubsec Introduction to figured bass
 
-@cindex Basso continuo
-@cindex Thorough bass
-@cindex Figured bass
-@cindex Bass, thorough
-@cindex Bass, figured
+@cindex basso continuo
+@cindex thorough bass
+@cindex figured bass
+@cindex bass, thorough
+@cindex bass, figured
 
 @c TODO: musicological blurb about FB
 
@@ -1010,13 +1027,19 @@ End of continuation line
 
 
 @predefined
-@cindex figured bass extender lines
+@cindex figured bass, extender lines
 @code{\bassFigureExtendersOn},
 @code{\bassFigureExtendersOff}.
 @endpredefined
 
 
 @snippets
+
+@cindex figured bass, alteration, position
+@cindex position, figured bass alteration
+@cindex alteration, figured bass, position
+@funindex figuredBassAlterationDirection
+@funindex figuredBassPlusDirection
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-positions-of-figured-bass-alterations.ly}
 
@@ -1107,7 +1130,7 @@ or below the staff.
 @end lilypond
 
 @predefined
-@cindex figured bass alignment
+@cindex figured bass, alignment
 @code{\bassFigureStaffAlignmentDown},
 @code{\bassFigureStaffAlignmentUp},
 @code{\bassFigureStaffAlignmentNeutral}.

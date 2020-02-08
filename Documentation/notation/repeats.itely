@@ -68,8 +68,8 @@ Repeat signs can also be controlled manually.
 @cindex volta, seconda
 @cindex repeat, normal
 @cindex normal repeat
-@cindex repeat with alternate endings
-@cindex alternate endings
+@cindex repeat, with alternate endings
+@cindex alternate ending
 @funindex \repeat
 @funindex \alternative
 @funindex \partial
@@ -174,15 +174,15 @@ expected number of endings.}
 @code{Voice} context, extra (unwanted) staves will appear.  See
 @rprogram{An extra staff appears}.}
 
-@cindex repeat with upbeat
-@cindex upbeat in a repeat
-@cindex anacrusis in a repeat
-@cindex repeat with anacrusis
-@cindex repeat with pickup
-@cindex pickup in a repeat
+@cindex repeat, with upbeat
+@cindex upbeat, in a repeat
+@cindex anacrusis, in a repeat
+@cindex repeat, with anacrusis
+@cindex repeat, with pickup
+@cindex pickup, in a repeat
 @funindex \partial
-@cindex bar checks with repeats
-@cindex repeats with bar checks
+@cindex bar check, with repeats
+@cindex repeat, with bar checks
 
 If a repeat that has no alternate endings starts in the middle of a
 measure, it will usually end at a corresponding place in the middle of a
@@ -218,10 +218,10 @@ required at the start of the measure:
   g1 |
 @end lilypond
 
-@cindex repeats, with ties
-@cindex alternative endings, with ties
-@cindex ties, in repeats
-@cindex ties, alternative endings
+@cindex repeat, with ties
+@cindex alternative ending, with ties
+@cindex tie, in repeats
+@cindex tie, alternative endings
 @funindex \repeatTie
 
 Ties may be added to a second ending:
@@ -238,7 +238,7 @@ Ties may be added to a second ending:
 @end lilypond
 
 @funindex \inStaffSegno
-@cindex repeats, with segno
+@cindex repeat, with segno
 @cindex segno, with repeats
 
 The @code{\inStaffSegno} command can be used to generate a composite
@@ -324,21 +324,32 @@ with the @code{\defineBarLine} command (see @ref{Bar lines}).
 }
 @end lilypond
 
+
 @snippets
+
+@cindex volta bracket, shortened
+@cindex shortened volta brackets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {shortening-volta-brackets.ly}
 
+@cindex volta bracket, in additional staves
+@funindex Volta_engraver
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adding-volta-brackets-to-additional-staves.ly}
 
+@cindex repeat, double, style for volta
+@cindex volta, double repeat style
+@cindex style, double repeat for volta
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {setting-the-double-repeat-default-for-volte.ly}
 
-@cindex repeats, bar numbers letters
-@cindex repeats, alternative bar numbers
-
+@cindex repeat, bar numbers with letters
+@cindex bar number, with letter, in repeat
+@cindex repeat, alternative bar numbers
+@cindex bar number, alternative, in repeat
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {alternative-bar-numbering.ly}
+
 
 @seealso
 Music Glossary:
@@ -367,14 +378,14 @@ Internals Reference:
 @cindex repeat, ambiguous
 @cindex nested repeat
 @cindex repeat, nested
-@cindex repeat timing information
-@cindex repeat and measure number
+@cindex repeat, timing information
+@cindex repeat, and measure number
 @cindex timing information and repeats
-@cindex measure number and repeats
-@cindex repeats and slur
-@cindex slur and repeats
-@cindex glissandi and repeats
-@cindex repeats and glissandi
+@cindex measure number, and repeats
+@cindex repeat, and slur
+@cindex slur, and repeats
+@cindex glissando, and repeats
+@cindex repeat, and glissandi
 
 Slurs that span from a @code{\repeat} block into an
 @code{\alternative} block will only work for the first alternative
@@ -500,8 +511,8 @@ Multiple repeat commands may occur at the same point:
 }
 @end lilypond
 
-@cindex volta bracket with text
-@cindex text in volta bracket
+@cindex volta bracket, with text
+@cindex text, in volta bracket
 
 Text can be included with the volta bracket.  The text can be a
 number or numbers or markup text, see @ref{Formatting text}.  The
@@ -538,14 +549,14 @@ Internals Reference:
 @node Written-out repeats
 @unnumberedsubsubsec Written-out repeats
 
-@cindex written-out repeats
-@cindex repeats, written-out
-@cindex repeats, unfold
-@cindex repeats, alternative
+@cindex written-out repeat
+@cindex repeat, written-out
+@cindex repeat, unfold
+@cindex repeat, alternative
 @cindex unfold repeat
 @cindex unfold repeat, alternate endings
-@cindex alternate repeats
-@cindex alternate endings, repeats
+@cindex alternate repeat
+@cindex alternate ending, repeats
 @funindex unfold
 
 By using the @code{unfold} command, repeats can be used to simplify the
@@ -676,8 +687,8 @@ single note, a single measure or two measures, and tremolos otherwise.
 @node Percent repeats
 @unnumberedsubsubsec Percent repeats
 
-@cindex percent repeats
-@cindex measure repeats
+@cindex percent repeat
+@cindex measure repeat
 @cindex repeat, percent
 @cindex repeat, measure
 @cindex repeat, short
@@ -736,16 +747,29 @@ use a double-percent symbol.
 }
 @end lilypond
 
+
 @snippets
 
+@cindex percent repeat counter
+@cindex counter, percent repeat
+@cindex repeat, percent counter
+@funindex countPercentRepeats
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {percent-repeat-counter.ly}
 
+@cindex percent repeat, count visibility
+@cindex count visibility of percent repeats
+@cindex repeat, percent, count visibility
+@funindex repeatCountVisibility
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {percent-repeat-count-visibility.ly}
 
+@cindex percent repeat, isolated
+@cindex isolated percent repeat
+@cindex repeat, percent, isolated
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {isolated-percent-repeats.ly}
+
 
 @seealso
 Music Glossary:
@@ -793,7 +817,7 @@ timing track.
 @node Tremolo repeats
 @unnumberedsubsubsec Tremolo repeats
 
-@cindex tremolo beams
+@cindex tremolo beam
 @cindex tremolo
 @cindex repeat, tremolo
 @funindex \repeat tremolo
@@ -836,7 +860,7 @@ the note should not be surrounded by braces:
 \repeat tremolo 4 c'16
 @end lilypond
 
-@cindex tremolo marks
+@cindex tremolo mark
 @funindex :
 
 The same output can be obtained by adding @code{:@var{N}} after
@@ -852,14 +876,15 @@ the last value is used:
 }
 @end lilypond
 
+
 @snippets
 
+@cindex tremolo, cross-staff
+@cindex cross-staff tremolo
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {cross-staff-tremolos.ly}
+
 
 @seealso
 Snippets:
 @rlsr{Repeats}.
-
-@cindex tremolo, cross-staff
-@cindex cross-staff tremolo

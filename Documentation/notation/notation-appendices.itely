@@ -843,8 +843,8 @@ cello                     lead 6 (voice)
 
 Usage syntax is detailed in @ref{Coloring objects}.
 
-@cindex List of colors
-@cindex Colors, list of
+@cindex list of colors
+@cindex color, list of
 
 @verbatim
 black       white          red         green
@@ -942,11 +942,11 @@ Where N is in the range 0-100.
 
 
 @cindex Emmentaler font
-@cindex Font, Emmentaler
+@cindex font, Emmentaler
 @cindex Feta font
-@cindex Font, Feta
+@cindex font, Feta
 @cindex Parmesan font
-@cindex Font, Parmesan
+@cindex font, Parmesan
 
 The Emmentaler font consists of two @emph{sub-sets} of glyphs.
 @qq{Feta}, used for classical notation and @qq{Parmesan}, used for
@@ -1251,7 +1251,7 @@ For more information see @ref{Formatting text}.
 @node Note head styles
 @appendixsec Note head styles
 
-@cindex note head styles
+@cindex note head style
 The following styles may be used for note heads.
 
 @lilypondfile[noindent]{note-head-style.ly}
@@ -1263,59 +1263,59 @@ The following styles may be used for note heads.
 The following table shows all the clef styles possible (including where
 @emph{middle C} sits relative to the clef).
 
-@cindex Treble clef
-@cindex Clef, treble
-@cindex Violin clef
-@cindex Clef, violin
-@cindex Clef, G
-@cindex Clef, G2
-@cindex Clef, GG
-@cindex Clef, tenor G
-@cindex Tenor G clef
-@cindex Clef, french
+@cindex treble clef
+@cindex clef, treble
+@cindex violin clef
+@cindex clef, violin
+@cindex clef, G
+@cindex clef, G2
+@cindex clef, GG
+@cindex clef, tenor G
+@cindex tenor G clef
+@cindex clef, french
 @cindex French clef
-@cindex Clef, soprano
-@cindex Soprano clef
-@cindex Clef, mezzosoprano
-@cindex Mezzosoprano clef
-@cindex Clef, alto
-@cindex Alto clef
-@cindex Clef, C
+@cindex clef, soprano
+@cindex soprano clef
+@cindex clef, mezzosoprano
+@cindex mezzosoprano clef
+@cindex clef, alto
+@cindex alto clef
+@cindex clef, C
 @cindex C clef
-@cindex Clef, varC
-@cindex VarC clef
-@cindex Clef, alto varC
-@cindex Alto varC clef
-@cindex Clef, tenor
+@cindex clef, varC
+@cindex varC clef
+@cindex clef, alto varC
+@cindex alto varC clef
+@cindex clef, tenor
 @cindex tenor clef
-@cindex Clef, tenor varC
-@cindex Tenor varC clef
-@cindex Clef, baritone varC
-@cindex Baritone varC clef
-@cindex Clef, varbaritone
-@cindex Varbaritone clef
-@cindex Clef, baritone varF
-@cindex Baritone varF clef
-@cindex Clef, bass
-@cindex Bass clef
-@cindex Clef, F
+@cindex clef, tenor varC
+@cindex tenor varC clef
+@cindex clef, baritone varC
+@cindex baritone varC clef
+@cindex clef, varbaritone
+@cindex baritone clef
+@cindex clef, baritone varF
+@cindex baritone varF clef
+@cindex clef, bass
+@cindex bass clef
+@cindex clef, F
 @cindex F clef
-@cindex Clef, subbass
-@cindex Subbass clef
-@cindex Clef, percussion
-@cindex Percussion clef
-@cindex Clef, tab
-@cindex Tab clef
-@cindex Clef styles
-@cindex Ancient music clefs
-@cindex Clef, ancient music
-@cindex Clef, petrucci
-@cindex Clef, mensural
-@cindex Clef, blackmensural
-@cindex Clef, kievan
+@cindex clef, subbass
+@cindex subbass clef
+@cindex clef, percussion
+@cindex percussion clef
+@cindex clef, tab
+@cindex tab clef
+@cindex clef style
+@cindex ancient music clef
+@cindex clef, ancient music
+@cindex clef, Petrucci
+@cindex clef, mensural
+@cindex clef, blackmensural
+@cindex clef, Kievan
 @cindex Petrucci clef
-@cindex Mensural clef
-@cindex Blackmensural clef
+@cindex mensural clef
+@cindex blackmensural clef
 @cindex Kievan clef
 
 @menu
@@ -2171,13 +2171,19 @@ second column examples was always larger than between the remaining
 columns - JL
 @end ignore
 
-@cindex accent
-@cindex espressivo
-@cindex marcato
-@cindex portato
-@cindex staccatissimo
-@cindex staccato
-@cindex tenuto
+@funindex \accent
+@funindex ->
+@funindex \espressivo
+@funindex \marcato
+@funindex -^
+@funindex \portato
+@funindex -_
+@funindex \staccatissimo
+@funindex -!
+@funindex \staccato
+@funindex -.
+@funindex \tenuto
+@funindex --
 @cindex thumb
 
 @node Articulation scripts
@@ -2224,20 +2230,20 @@ f^\tenuto e,_\tenuto b'\tenuto
 
 @end multitable
 
-@cindex prall
-@cindex prallup
-@cindex pralldown
-@cindex upprall
-@cindex downprall
-@cindex prallprall
-@cindex lineprall
-@cindex prallmordent
-@cindex mordent
-@cindex upmordent
-@cindex downmordent
-@cindex trill
-@cindex turn
-@cindex reverseturn
+@funindex \prall
+@funindex \prallup
+@funindex \pralldown
+@funindex \upprall
+@funindex \downprall
+@funindex \prallprall
+@funindex \lineprall
+@funindex \prallmordent
+@funindex \mordent
+@funindex \upmordent
+@funindex \downmordent
+@funindex \trill
+@funindex \turn
+@funindex \reverseturn
 
 @node Ornament scripts
 @unnumberedsubsec Ornament scripts
@@ -2320,10 +2326,10 @@ f^\reverseturn e,_\reverseturn b'\reverseturn
 
 @end multitable
 
-@cindex fermata
-@cindex shortfermata
-@cindex longfermata
-@cindex verylongfermata
+@funindex \fermata
+@funindex \shortfermata
+@funindex \longfermata
+@funindex \verylongfermata
 
 @node Fermata scripts
 @unnumberedsubsec Fermata scripts
@@ -2353,17 +2359,18 @@ f^\verylongfermata e,_\verylongfermata b'\verylongfermata
 
 @end multitable
 
-@cindex upbow
-@cindex downbow
-@cindex flageolet
-@cindex open
-@cindex halfopen
-@cindex lheel
-@cindex rheel
-@cindex ltoe
-@cindex rtoe
-@cindex snappizzicato
-@cindex stopped
+@funindex \upbow
+@funindex \downbow
+@funindex \flageolet
+@funindex \open
+@funindex \halfopen
+@funindex \lheel
+@funindex \rheel
+@funindex \ltoe
+@funindex \rtoe
+@funindex \snappizzicato
+@funindex \stopped
+@funindex -+
 
 @node Instrument-specific scripts
 @unnumberedsubsec Instrument-specific scripts
@@ -2430,9 +2437,9 @@ f^\stopped e,_\stopped b'\stopped
 
 @end multitable
 
-@cindex segno
-@cindex coda
-@cindex varcoda
+@funindex \segno
+@funindex \coda
+@funindex \varcoda
 
 @node Repeat sign scripts
 @unnumberedsubsec Repeat sign scripts
@@ -2457,11 +2464,11 @@ f^\varcoda e,_\varcoda b'\varcoda
 
 @end multitable
 
-@cindex accentus
-@cindex circulus
-@cindex ictus
-@cindex semicirculus
-@cindex signumcongruentiae
+@funindex \accentus
+@funindex \circulus
+@funindex \ictus
+@funindex \semicirculus
+@funindex \signumcongruentiae
 
 @node Ancient scripts
 @unnumberedsubsec Ancient scripts
@@ -2508,7 +2515,7 @@ f^\varcoda e,_\varcoda b'\varcoda
 
 @end multitable
 
-@cindex drums, various
+@cindex drum, various
 @cindex acoustic bass
 @cindex bass
 @cindex snare
@@ -3053,8 +3060,8 @@ Notation Reference:
 @unnumberedsubsec grob
 
 @cindex grob
-@cindex layout objects
-@cindex graphical objects
+@cindex layout object
+@cindex graphical object
 
 LilyPond objects which represent items of notation in the printed
 output such as note heads, stems, slurs, ties, fingering, clefs,
@@ -3076,9 +3083,9 @@ Internals Reference:
 @node immutable
 @unnumberedsubsec immutable
 
-@cindex immutable objects
-@cindex immutable properties
-@cindex shared properties
+@cindex immutable object
+@cindex immutable property
+@cindex shared property
 
 An @strong{immutable} object is one whose state cannot be modified
 after creation, in contrast to a mutable object, which can be
@@ -3098,8 +3105,8 @@ Notation Reference:
 @unnumberedsubsec interface
 
 @cindex interface
-@cindex grob-interface
-@cindex graphical object interfaces
+@funindex grob-interface
+@cindex graphical object interface
 
 Actions and properties which are common to a number of grobs are
 grouped together in an object called a @code{grob-interface}, or
@@ -3138,8 +3145,8 @@ binary installation.
 @node mutable
 @unnumberedsubsec mutable
 
-@cindex mutable objects
-@cindex mutable properties
+@cindex mutable object
+@cindex mutable property
 
 A @strong{mutable} object is one whose state can be modified after
 creation, in contrast to an immutable object, whose state is fixed
@@ -3157,7 +3164,7 @@ Notation Reference:
 @node output-def
 @unnumberedsubsec output-def
 
-@cindex output-def
+@funindex output-def
 
 An instance of the @code{Output-def} class contains the methods and
 data structures associated with an output block.  Instances are
@@ -3170,7 +3177,7 @@ created for midi, layout and paper blocks.
 @cindex parser
 @cindex Bison
 @cindex LilyPond grammar
-@cindex grammar for LilyPond
+@cindex grammar, for LilyPond
 @cindex BNF
 
 A @strong{parser} analyzes the sequence of tokens produced by a
@@ -3194,17 +3201,17 @@ installation.
 @cindex parser variable
 @cindex Scheme variable
 @cindex global variable
-@cindex afterGraceFraction
-@cindex musicQuotes
-@cindex mode
-@cindex output-count
-@cindex output-suffix
-@cindex partCombineListener
-@cindex pitchnames
-@cindex toplevel-bookparts
-@cindex toplevel-scores
-@cindex showLastLength
-@cindex showFirstLength
+@funindex afterGraceFraction
+@funindex musicQuotes
+@funindex mode
+@funindex output-count
+@funindex output-suffix
+@funindex partCombineListener
+@funindex pitchnames
+@funindex toplevel-bookparts
+@funindex toplevel-scores
+@funindex showLastLength
+@funindex showFirstLength
 
 These are variables defined directly in Scheme.  Their direct
 use by users is strongly discouraged, because their scoping

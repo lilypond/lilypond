@@ -45,12 +45,12 @@ keyboard instruments.
 @node References for keyboards
 @unnumberedsubsubsec References for keyboards
 
-@cindex piano staves
-@cindex staves, piano
-@cindex staves, keyboard instruments
-@cindex staves, keyed instruments
-@cindex keyboard instrument staves
-@cindex keyed instrument staves
+@cindex piano staff
+@cindex staff, piano
+@cindex staff, keyboard instruments
+@cindex staff, keyed instruments
+@cindex keyboard instrument staff
+@cindex keyed instrument staff
 @cindex keyboard music, centering dynamics
 @cindex dynamics, centered in keyboard music
 @cindex piano music, centering dynamics
@@ -109,10 +109,12 @@ as shown in @rlearning{Other uses for tweaks}.
 
 @end itemize
 
+
 @c @snippets
 @c @lilypondfile[verbatim,quote,texidoc,doctitle]
 @c {forcing-visibility-of-systems-with-multi-bar-rests-when-using-\RemoveEmptyStaffContext.ly}
 @c http://lsr.di.unimi.it/LSR/Item?u=1&id=312
+
 
 @seealso
 Learning Manual:
@@ -142,12 +144,12 @@ Snippets:
 @unnumberedsubsubsec Changing staff manually
 
 @cindex changing staff manually
-@cindex manual staff changes
-@cindex staff changes, manual
-@cindex cross-staff notes
-@cindex notes, cross-staff
-@cindex cross-staff beams
-@cindex beams, cross-staff
+@cindex manual staff change
+@cindex staff change, manual
+@cindex cross-staff note
+@cindex note, cross-staff
+@cindex cross-staff beam
+@cindex beam, cross-staff
 
 @funindex \change
 
@@ -217,8 +219,8 @@ center of the staff that is closest to the beam.  For a simple
 example of beam tweaking, see @rlearning{Fixing overlapping
 notation}.
 
-@cindex cross-staff collisions
-@cindex collisions, cross-staff voices
+@cindex cross-staff collision
+@cindex collision, cross-staff voices
 
 Overlapping notation can result when voices cross staves:
 
@@ -279,8 +281,8 @@ right before a change in staff.  In this case use manual beams.
 @unnumberedsubsubsec Changing staff automatically
 
 @cindex changing staff automatically
-@cindex automatic staff changes
-@cindex staff changes, automatic
+@cindex automatic staff change
+@cindex staff change, automatic
 
 @funindex \autochange
 @funindex PianoStaff
@@ -324,8 +326,8 @@ music = {
 \autochange d' \with { \clef alto } \with { \clef tenor } \music
 @end lilypond
 
-@cindex relative music and autochange
-@cindex autochange and relative music
+@cindex relative music, and @code{\autochange}
+@cindex @code{\autochange}, and relative music
 
 @funindex \relative
 
@@ -374,7 +376,7 @@ Internals Reference:
 
 
 @knownissues
-@cindex chords, splitting across staves with \autochange
+@cindex chord, splitting across staves with @code{\autochange}
 
 The staff switches may not end up in optimal places.  For high
 quality output, staff switches should be specified manually.
@@ -387,16 +389,13 @@ staff based on the first note named in the chord construct.
 @unnumberedsubsubsec Staff-change lines
 
 @cindex staff-change line
-@cindex staff change line
 @cindex cross-staff line
-@cindex cross staff line
 @cindex line, staff-change follower
 @cindex line, cross-staff
 @cindex line, staff-change
 @cindex follow voice
 @cindex voice, following
 @cindex staff switching
-@cindex cross-staff
 
 @funindex followVoice
 @funindex \showStaffSwitch
@@ -462,17 +461,14 @@ Internals Reference:
 @node Cross-staff stems
 @unnumberedsubsubsec Cross-staff stems
 
-@cindex cross-staff notes
-@cindex cross staff notes
-@cindex notes, cross-staff
-@cindex cross-staff stems
-@cindex cross staff stems
-@cindex stems, cross-staff
-@cindex chords, cross-staff
-@cindex cross-staff chords
-@cindex cross staff chords
+@snippets
 
-@funindex Stem
+@cindex cross-staff note
+@cindex note, cross-staff
+@cindex cross-staff stem
+@cindex stem, cross-staff
+@cindex chord, cross-staff
+@cindex cross-staff chord
 @funindex \crossStaff
 @funindex \autoBeamOff
 @funindex Span_stem_engraver
@@ -489,9 +485,12 @@ For the time being, this engraver can not be specified by its name in
 double quotes, but rather prefixing its name with a hash symbol
 @code{#}, due to the way it is implemented.
 
-@snippets
+@cindex cross-staff arpeggio bracket
+@cindex arpeggio bracket, cross-staff
+@cindex bracket, cross-staff
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {indicating-cross-staff-chords-with-arpeggio-bracket.ly}
+
 
 @seealso
 Snippets:
@@ -514,8 +513,8 @@ piano.
 @node Piano pedals
 @unnumberedsubsubsec Piano pedals
 
-@cindex piano pedals
-@cindex pedals, piano
+@cindex piano pedal
+@cindex pedal, piano
 @cindex sustain pedal
 @cindex pedal, sustain
 @cindex sostenuto pedal
@@ -548,7 +547,7 @@ Sustain pedals are also found on vibraphones and celestas.
 }
 @end lilypond
 
-@cindex pedal indication styles
+@cindex pedal indication style
 @cindex pedal indication, text
 @cindex pedal indication, bracket
 @cindex pedal indication, mixed
@@ -557,7 +556,7 @@ Sustain pedals are also found on vibraphones and celestas.
 
 @funindex pedalSustainStyle
 @funindex mixed
-@funindex bracket
+@funindex @sortas{bracketA} bracket
 @funindex text
 
 There are three styles of pedal indications: text, bracket, and mixed.
@@ -619,10 +618,12 @@ This section discusses notation that is unique to the accordion.
 @node Discant symbols
 @unnumberedsubsubsec Discant symbols
 
-@cindex accordion discant symbols
-@cindex discant symbols, accordion
-@cindex accordion shifts
-@cindex accordion shift symbols
+@cindex accordion discant symbol
+@cindex discant symbol, accordion
+@cindex accordion shift symbol
+@cindex shift symbol, accordion
+@cindex accordion register symbol
+@cindex register symbol, accordion
 
 Accordions are often built with more than one set of reeds that may be
 in unison with, an octave above, or an octave below the written pitch.
@@ -635,6 +636,7 @@ come into use to simplify the performance instructions.
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {accordion-register-symbols.ly}
+
 
 @seealso
 Snippets:
@@ -653,8 +655,8 @@ This section discusses notation issues that are unique to the harp.
 
 @node References for harps
 @unnumberedsubsubsec References for harps
-@cindex harps
-@cindex bisbiglando
+@cindex harp
+@cindex bisbigliando
 
 Some common characteristics of harp music are covered elsewhere:
 
@@ -683,10 +685,10 @@ Notation Reference:
 @node Harp pedals
 @unnumberedsubsubsec Harp pedals
 
-@cindex harp pedals
-@cindex harp pedal diagrams
-@cindex pedals, harp
-@cindex pedal diagrams, harp
+@cindex harp pedal
+@cindex harp pedal diagram
+@cindex pedal, harp
+@cindex pedal diagram, harp
 
 Harps have seven strings per octave that may be sounded at the natural,
 flattened, or sharpened pitch.  In lever harps, each string is adjusted

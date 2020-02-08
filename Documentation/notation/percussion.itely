@@ -62,7 +62,7 @@ Snippets:
 @unnumberedsubsubsec Basic percussion notation
 
 @cindex percussion
-@cindex drums
+@cindex drum
 
 @funindex \drummode
 @funindex \drums
@@ -185,7 +185,7 @@ Snippets:
 @unnumberedsubsubsec Percussion staves
 
 @cindex percussion
-@cindex drums
+@cindex drum
 
 A percussion part for more than one instrument typically uses a
 multiline staff where each position in the staff refers to one
@@ -415,8 +415,7 @@ Snippets:
 @node Custom percussion staves
 @unnumberedsubsubsec Custom percussion staves
 
-@cindex Percussion, custom
-@cindex drumStyleTable
+@cindex percussion, custom
 @funindex drumStyleTable
 
 Custom percussion styles may be defined, to which the
@@ -448,7 +447,6 @@ down = \drummode { bd4 sn bd toml8 toml }
 >>
 @end lilypond
 
-@cindex drumPitchNames
 @funindex drumPitchNames
 
 New names may also be added to these custom notations through
@@ -474,8 +472,6 @@ drumPitchNames.rs = #'ridecymbal
 }
 @end lilypond
 
-@cindex midiDrumPitches
-@cindex drumPitchTable
 @funindex midiDrumPitches
 @funindex drumPitchTable
 
@@ -551,16 +547,16 @@ Internals Reference:
 @node Ghost notes
 @unnumberedsubsubsec Ghost notes
 
-@cindex Ghost note, percussion
-@cindex Dead note, percussion
-@cindex Muted note, percussion
-@cindex Silenced note, percussion
-@cindex False note, percussion
-@cindex Percussion, ghost note
-@cindex Percussion, dead note
-@cindex Percussion, muted note
-@cindex Percussion, silenced note
-@cindex Percussion, false note
+@cindex ghost note, percussion
+@cindex dead note, percussion
+@cindex muted note, percussion
+@cindex silenced note, percussion
+@cindex false note, percussion
+@cindex percussion, ghost note
+@cindex percussion, dead note
+@cindex percussion, muted note
+@cindex percussion, silenced note
+@cindex percussion, false note
 
 Also known as dead, muted, silenced or false notes; ghost notes can be
 created using the @code{\parenthesize} command, see @ref{Parentheses}.
