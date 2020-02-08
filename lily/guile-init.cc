@@ -18,11 +18,13 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "cpu-timer.hh"
+#include "international.hh"
 #include "lily-guile.hh"
-#include "main.hh"
-#include "warn.hh"
-#include "smobs.hh"
 #include "lily-imports.hh"
+#include "main.hh"
+#include "smobs.hh"
+#include "warn.hh"
 
 using std::vector;
 
@@ -66,6 +68,7 @@ ly_init_ly_module ()
   (void) scm_c_resolve_module ("ice-9 binary-ports");
 #endif
 
+  Cpu_timer timer;
   if (is_loglevel (LOG_DEBUG))
     {
       debug_output ("[", true);
@@ -75,6 +78,7 @@ ly_init_ly_module ()
     }
 
   scm_primitive_load_path (scm_from_ascii_string ("lily.scm"));
+  debug_output (_f ("Load lily.scm: %.2f seconds", timer.read ()));
 }
 
 void
