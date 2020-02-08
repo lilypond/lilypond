@@ -2977,6 +2977,11 @@ Internals Reference:
 @node Changing horizontal spacing
 @subsection Changing horizontal spacing
 
+@menu
+* Uniform stretching of tuplets::
+* Strict note spacing::
+@end menu
+
 Horizontal spacing may be altered with the
 @code{base-shortest-duration} property.  Here
 we compare the same music; once without altering
@@ -3015,7 +3020,8 @@ than @code{1 16}.
 @end lilypond
 
 
-@snippets
+@node Uniform stretching of tuplets
+@unnumberedsubsubsec Uniform stretching of tuplets
 
 By default, spacing in tuplets depends on various non-duration
 factors (such as accidentals, clef changes, etc).  To disregard
@@ -3026,10 +3032,10 @@ property can only be changed at the beginning of a score,
 @lilypond[quote,ragged-right,verbatim]
 \score {
   <<
-    \new Staff {
+    \new Staff \relative c' {
       \tuplet 5/4 { c8 c c c c } c8 c c c
     }
-    \new Staff {
+    \new Staff \relative c' {
       c8 c c c \tuplet 5/4 { c8 c c c c }
     }
   >>
@@ -3041,6 +3047,10 @@ property can only be changed at the beginning of a score,
   }
 }
 @end lilypond
+
+
+@node Strict note spacing
+@unnumberedsubsubsec Strict note spacing
 
 When @code{strict-note-spacing} is set, notes are spaced without
 regard for clefs, bar lines, and grace notes,

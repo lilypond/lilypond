@@ -39,7 +39,6 @@ keyboard instruments.
 * Changing staff manually::
 * Changing staff automatically::
 * Staff-change lines::
-* Cross-staff stems::
 @end menu
 
 @node References for keyboards
@@ -458,11 +457,9 @@ Internals Reference:
 @rinternals{VoiceFollower}.
 
 
-@node Cross-staff stems
-@unnumberedsubsubsec Cross-staff stems
-
 @snippets
 
+@anchor{Cross-staff stems}
 @cindex cross-staff note
 @cindex note, cross-staff
 @cindex cross-staff stem
@@ -472,18 +469,12 @@ Internals Reference:
 @funindex \crossStaff
 @funindex \autoBeamOff
 @funindex Span_stem_engraver
-
-Chords that cross staves may be produced using the
-@code{Span_stem_engraver}. Care must be taken to ensure that
-automatic beams do not beam the notes on one staff when it’s not
-required on the other.
-
-@lilypondfile[verbatim,quote]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {cross-staff-stems.ly}
 
 For the time being, this engraver can not be specified by its name in
-double quotes, but rather prefixing its name with a hash symbol
-@code{#}, due to the way it is implemented.
+double quotes.  Instead its name must be prefixed with a hash symbol
+(@code{#}) due to the way it is implemented.
 
 @cindex cross-staff arpeggio bracket
 @cindex arpeggio bracket, cross-staff
@@ -631,6 +622,10 @@ Each accordion maker has different names for the @notation{shifts} that
 select the various reed combinations, such as @notation{oboe},
 @notation{musette}, or @notation{bandonium}, so a system of symbols has
 come into use to simplify the performance instructions.
+
+A complete list of all available accordion registers can be found in
+@ref{Accordion Registers}.
+
 
 @snippets
 
