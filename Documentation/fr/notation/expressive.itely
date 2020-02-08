@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: a0f1e4d8aa9632b4324f140a56354597edd7ad87
+   Translation of GIT committish: dc65755d47f9fad3edeb6b7aaa43b6121e17de78
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1396,10 +1396,24 @@ tête de note noire entre parenthèses.
 @cindex trilles avec hauteur explicite et altération
 @cindex altération, trilles avec hauteur explicite
 
-Dans l'exemple suivant, le second trille de la deuxième mesure est
-ambigu -- le fa qui est forcé n'est pas diésé.  Pour lever toute
-ambiguïté, il suffit de forcer l'impression de l'altération en
-ajoutant un @code{!} à la note considérée.
+L'altération de cette hauteur explicite sera indiquée automatique pour
+le premier trille d'une mesure, même s'il s'agit d'un bécarre.
+
+@lilypond[verbatim,quote,relative]
+{
+  \key d \major
+  \pitchedTrill
+  d'2\startTrillSpan cis d\stopTrillSpan
+  \pitchedTrill
+  d2\startTrillSpan c d\stopTrillSpan
+  \pitchedTrill
+  d2\startTrillSpan e d\stopTrillSpan
+}
+@end lilypond
+
+@noindent
+L'impression de l'altération (sur la même note dans la même mesure)
+devra être forcée en ajoutant un @code{!} à la note considérée.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -1417,6 +1431,7 @@ ajoutant un @code{!} à la note considérée.
   eis4\stopTrillSpan
 }
 @end lilypond
+
 
 @predefined
 @code{\startTrillSpan},

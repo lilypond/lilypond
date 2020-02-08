@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: a0f1e4d8aa9632b4324f140a56354597edd7ad87
+   Translation of GIT committish: dc65755d47f9fad3edeb6b7aaa43b6121e17de78
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1295,7 +1295,7 @@ bloc @code{\header} donnera aussi ce titre au document PDF et à la
 séquence MIDI.
 
 @example
-\header@{
+\header @{
   title = "Symphony I"
 @}
 @end example
@@ -1304,7 +1304,7 @@ Lorsque le titre imprimé diffère de celui affiché en tant que propriété
 du PDF, devra être renseignée la propriété @code{pdftitle}.
 
 @example
-\header@{
+\header @{
   title = "Symphony I"
   pdftitle = "Symphony I by Beethoven"
 @}

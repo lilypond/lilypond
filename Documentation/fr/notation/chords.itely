@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: a0f1e4d8aa9632b4324f140a56354597edd7ad87
+   Translation of GIT committish: dc65755d47f9fad3edeb6b7aaa43b6121e17de78
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -836,7 +836,7 @@ sous forme chiffrée.  Le contexte @code{FiguredBass} s'occupera ensuite
 de gérer les objets @code{BassFigure}.  La basse chiffrée pourra être
 attachée à un contexte @code{Staff}.
 
-L'expression @code{\figures@{ @dots{} @}} constitue une raccourci à
+L'expression @code{\figures @{ @dots{} @}} constitue une raccourci à
 @code{\new FiguredBass \figuremode @{ @dots{} @}}.
 
 Bien que la gestion de la basse chiffrée ressemble beaucoup à celle

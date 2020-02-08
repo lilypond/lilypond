@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: a0f1e4d8aa9632b4324f140a56354597edd7ad87
+   Translation of GIT committish: dc65755d47f9fad3edeb6b7aaa43b6121e17de78
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -262,8 +262,10 @@ Manuel de notation :
 @knownissues
 La gestion de l'espacement spécifique aux ligatures n'est à ce jour
 pas implémentée.  En conséquence, les ligatures sont trop espacées les
-unes des autres et les sauts de ligne mal ajustés. De plus, les
-paroles ne s'alignent pas de manière satisfaisante en présence de ligatures.
+unes des autres et les sauts de ligne mal ajustés.
+
+Les paroles ne s'alignent pas de manière satisfaisante en présence de
+ligatures.
 
 Les altérations ne pouvant être imprimées à l'intérieur d'une
 ligature, il faut les rassembler et les imprimer juste avant.
@@ -323,9 +325,9 @@ L'impression de guidons s'obtient en affectant, dans un bloc
 
 Le glyphe du guidon est déterminé par la propriété @code{style}.  Les
 styles disponibles sont @code{vaticana}, @code{medicaea},
-@code{hufnagel} et @code{mensural}.  En voici un aperçu :
+@code{hufnagel} et @code{mensural}.
 
-@lilypond[quote,ragged-right,fragment]
+@lilypond[quote,ragged-right,fragment,verbatim]
 \new Lyrics \lyricmode {
   \markup { \column {
     \typewriter "vaticana "

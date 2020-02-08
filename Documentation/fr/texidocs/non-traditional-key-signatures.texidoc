@@ -1,11 +1,10 @@
-%% Translation of GIT committish: 93c02a2ddbaf07d79a57748d6ec6b7177ceed756
+%% Translation of GIT committish: dc65755d47f9fad3edeb6b7aaa43b6121e17de78
   texidocfr = "
 La commande @code{\\key} détermine la propriété @code{keyAlterations} d'un
-contexte @code{Staff}.
+contexte @code{Staff}. Des armures inhabituelles peuvent être spécifiées
+en modifiant directement cette propriété.
 
-Des armures inhabituelles peuvent être spécifiées en modifiant
-directement cette propriété. Il s'agit en l'occurrence de définir une
-liste :
+Il s'agit en l'occurrence de définir une liste :
 
 @code{\\set Staff.keyAlterations = #`(((octave . pas) . altération) ((octave . pas) . altération) @dots{})}
 
@@ -17,9 +16,9 @@ la virgule en préfixe).
 
 Une formulation abrégée -- @code{(pas . altération)} -- signifie que
 l'altération de l'élément en question sera valide quelle que soit
-l'octave.
-
-Voici, par exemple, comment générer une gamme par ton :
+l'octave. En ce qui concerne les gammes microtonales dans lesquelles un
+« dièse » n'est pas d'un centième, @code{altération} se réfère à un
+deux-centième de ton entier.
 
 "
   doctitlefr = "Armures inhabituelles"

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: a0f1e4d8aa9632b4324f140a56354597edd7ad87
+   Translation of GIT committish: dc65755d47f9fad3edeb6b7aaa43b6121e17de78
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -983,8 +983,8 @@ entre @code{ly:minimal-breaking}, @code{ly:page-turn-breaking},
 
 Cette variable permet de « tromper » l'algorithme de gestion des sauts
 de page quant à la valeur de @code{system-system-spacing}.  Ainsi,
-lorsque @code{page-breaking-system-system-spacing #'padding} a une
-valeur nettement supérieure à @code{system-system-spacing #'padding},
+lorsque @code{page-breaking-system-system-spacing.padding} a une
+valeur nettement supérieure à @code{system-system-spacing.padding},
 l'algorithme en question aura tendance à disposer moins de systèmes sur
 une même page.  Cette variable est par défaut non définie.
 

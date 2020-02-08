@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 4944e92191308c589f9ed1d3796c6403a2280d18
+   Translation of GIT committish: dc65755d47f9fad3edeb6b7aaa43b6121e17de78
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1277,9 +1277,7 @@ La documentation sur ces diagrammes se trouve à l'annexe
 @cindex partition incluse dans un markup
 @cindex markup, inclusion de partition
 
-Rien ne s'oppose à ce qu'une étiquette ne comporte une partition.  Il
-suffit que l'expression en question contienne un bloc @code{\score}
-incluant un bloc @code{\layout}.
+Rien ne s'oppose à ce qu'une étiquette ne comporte une partition.
 
 @lilypond[quote,verbatim]
 \relative {
