@@ -398,7 +398,7 @@ Die Farben wurden zur Verdeutlichung hinzugefügt.
 Ein kurzer Auszug aus Stockhausen's Klavierstück II zeigt die
 Fähigkeiten von LilyPond eine individuelle Ausgabe zu erzeugen.
 
-@exampleImage{Stockhausen_Klavierstueck2}
+@exampleImage{stockhausen-klavierstueckII}
 @divEnd
 
 @divClass{column-center-middle-color2}

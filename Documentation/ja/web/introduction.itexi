@@ -488,7 +488,7 @@ LilyPond はオペラや交響楽団のような大きなプロジェクトに�
 LilyPond のカスタマイズ能力を示すため、
 Stockhausen の Klavierstück II からの短い抜粋です。
 
-@exampleImage{Stockhausen_Klavierstueck2}
+@exampleImage{stockhausen-klavierstueckII}
 @divEnd
 
 @divClass{column-center-middle-color2}
