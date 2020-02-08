@@ -16,6 +16,13 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
+(define (read-lily-expression-internal lily-string filename line closures)
+  (let* ((clone (ly:parser-clone closures (*location*)))
+         (result (ly:parse-string-expression clone lily-string filename line)))
+    (if (ly:parser-has-error? clone)
+        (ly:parser-error (_ "error in #{ ... #}") (*location*)))
+    result))
+
 (define-public (read-lily-expression chr port)
   "Read a lilypond music expression enclosed within @code{#@{} and @code{#@}}
 from @var{port} and return the corresponding Scheme music expression.
@@ -97,16 +104,9 @@ from @var{port} and return the corresponding Scheme music expression.
                                   (else
                                    (do ((c (copy-char) (copy-char)))
                                        ((char=? c #\nl)))))))))))))
-
-    (define (embedded-lilypond lily-string filename line closures)
-      (let* ((clone (ly:parser-clone closures (*location*)))
-             (result (ly:parse-string-expression clone lily-string
-                                                 filename line)))
-        (if (ly:parser-has-error? clone)
-            (ly:parser-error (_ "error in #{ ... #}") (*location*)))
-        result))
-    (list embedded-lilypond
-          lily-string filename line
-          (cons 'list (reverse! closures)))))
+    (list (if (guile-v2)
+              '(@@ (lily) read-lily-expression-internal)
+              read-lily-expression-internal)
+          lily-string filename line (cons 'list (reverse! closures)))))
 
 (read-hash-extend #\{ read-lily-expression)
