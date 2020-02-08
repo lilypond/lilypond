@@ -20,10 +20,59 @@
 #include "smobs.hh"
 #include "listener.hh"
 
+#if (GUILEV2)
+#include <gc/gc.h>
+#endif
+
 Listener
 Smob_core::get_listener (SCM callback)
 {
   return Listener (callback, self_scm ());
+}
+
+size_t Smob_core::count = 0;
+
+void
+Smob_core::maybe_grow_heap ()
+{
+#if (GUILEV2)
+  /*
+    BDWGC has a special case for objects with finalizers
+
+  https://github.com/ivmai/bdwgc/blob/v8.0.4/alloc.c#L1435
+
+  where it decides to not expand the heap if there are more than 500
+  objects with finalizers outstanding.
+
+  Since smobs with free functions are implemented with finalizer, we
+  always fall into this case.
+
+  The symptom of this problem is that running with GC_PRINT_STATS=1
+  will print
+
+    In-use heap: 85% (370824 KiB pointers + 60065 KiB other)
+    In-use heap: 85% (370725 KiB pointers + 59737 KiB other)
+    ..
+
+  We can reconsider this hack if we have dropped all smob free functions from
+  our code base.
+  */
+  static GC_word last_gc_no;
+  GC_word no = GC_get_gc_no ();
+  if (no == last_gc_no)
+    {
+      return;
+    }
+  last_gc_no = no;
+
+  GC_word size = GC_get_heap_size ();
+  GC_word bytes_per_obj = 2000;
+  GC_word want_heap = count * bytes_per_obj;
+  if (size < want_heap)
+    {
+      GC_expand_hp (want_heap - size);
+    }
+#endif
 }
 
 /*

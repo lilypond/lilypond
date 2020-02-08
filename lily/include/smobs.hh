@@ -304,7 +304,13 @@ void unprotect_smob (SCM smob);
 class Smob_core {
 protected:
   SCM self_scm_;
-  Smob_core () : self_scm_ (SCM_UNDEFINED) { };
+  Smob_core () : self_scm_ (SCM_UNDEFINED) {
+    count++;
+    maybe_grow_heap();
+  };
+  ~Smob_core() { count--; }
+  static size_t count;
+  void maybe_grow_heap();
 public:
   SCM self_scm () const { return self_scm_; }
   Listener get_listener (SCM callback);

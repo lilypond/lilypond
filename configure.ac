@@ -273,6 +273,12 @@ if test "$GUILEv2" != "yes"; then
                        CXXFLAGS="$save_CXXFLAGS"])
 fi
 
+if test "$GUILEv2" = "yes"; then
+    PKG_CHECK_MODULES(BDWGC, bdw-gc, true,
+    STEPMAKE_ADD_ENTRY(REQUIRED, libgc-devel))
+    GUILE_CFLAGS="${GUILE_CFLAGS} ${BDWGC_CFLAGS}"
+fi
+
 # GCC versions 5 and up support requiring the use of the C++11 keyword
 # "override" when a derived class overrides a virtual method.  This
 # keyword makes the code easier to understand.
