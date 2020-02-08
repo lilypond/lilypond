@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: fc65f44f5cc87fe169a26e2cbcb9b664c2496b77
+   Translation of GIT committish: dc65755d47f9fad3edeb6b7aaa43b6121e17de78
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -652,9 +652,10 @@ lecture des @ref{Manuels, manuels pour la version stable}.}
 
 Il existe deux jeux de version pour LilyPond : des versions stables
 et des versions instables de développement.  Les versions stables
-comportent, en versionnage « mineur », un numéro pair (par ex. 2.8,
-2.10 ou 2.12).  Les versions de développement, quant à elles,
-comportent un versionnage « mineur » impair (par ex. 2.7, 2.9 ou 2.11).
+comportent, en versionnage « mineur », un numéro pair (par ex. 2.14,
+2.16 ou 2.18).  Les versions de développement, quant à elles,
+comportent un versionnage « mineur » impair (par ex. 2.15, 2.17
+ou 2.19).
 
 @divEnd
 
