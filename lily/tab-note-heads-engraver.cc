@@ -113,7 +113,7 @@ Tab_note_heads_engraver::process_music ()
   if (!scm_is_null (string_fret_finger))
     for (vsize i = 0; i < fret_count; i++)
       {
-        note_entry = scm_list_ref (string_fret_finger, scm_from_int (i));
+        note_entry = scm_list_ref (string_fret_finger, scm_from_size_t (i));
         string_number = scm_car (note_entry);
         if (scm_is_true (string_number))
           {
