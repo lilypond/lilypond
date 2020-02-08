@@ -1,13 +1,13 @@
 \input texinfo-ja @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: fdb5a275551d4e87df940924aed74a0ec273f70e
+    Translation of GIT committish: c662a2cb50dcc4b98101bdd8228986646c4d1382
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c Translators: Tomohiro Tatejima
+@c Translators: Masamichi Hosoda, Tomohiro Tatejima
 
 @setfilename lilypond-changes.info
 @settitle LilyPond 更新履歴
@@ -468,7 +468,6 @@ note within a chord.
 これは、同時に複数のスラーが現れる場合、スラーが他のスラーと重なる場合、@c
 長いスラーの中に短いスラーが現れる場合などに有用です。
 
-
 @lilypond[quote,verbatim,relative=2]
 <a c e\=7\(>1 | <g b d\=£(> |
 <f\=A( a c\="foo"(> | <c'\="foo")\=A) e\=£) g\=7\)> |
@@ -609,7 +608,6 @@ LilyPond のデフォルトである Emmentaler 以外の@q{音楽}フォント�
 
 @code{serif}, @code{sans-serif}, @code{monospace} は、SVG や CSS の@c
 仕様における @code{generic-family} です。
-
 
 他のバックエンドでは:
 @multitable @columnfractions .15 .30 .55
@@ -1208,6 +1206,7 @@ LilyPond のデフォルトである Emmentaler 以外の@q{音楽}フォント�
 ようにします。@code{ly:one-line-auto-height-breaking} は、@c
 @code{ly:one-line-breaking} と同様に音楽を 1 行に配置してページの幅を@c
 調節しますが、音楽に合わせて高さも自動的に調節するところが異なります。
+
 @end itemize
 
 
@@ -1248,6 +1247,29 @@ Grob の配置方法がより柔軟になりました。例えば、Grob の@q{�
 @subheading デフォルトの変更に関する新機能
 
 @itemize
+
+@code{\afterGrace} コマンドのオプションの引数が追加されました。
+
+@noindent
+@code{\afterGrace} には音符間の位置を分数で指定する@c
+オプションの引数が追加されました。
+@lilypond[quote,verbatim]
+<<
+\new Staff \relative {
+  % The default, hard-coded value (3/4)
+  c''1 \afterGrace d1 { c16[ d] } c1
+}
+\new Staff \relative {
+  % Changing the hard-coded value manually (15/16)
+  #(define afterGraceFraction (cons 15 16))
+  c''1 \afterGrace d1 { c16[ d] } c1
+}
+\new Staff \relative {
+  % Using the new argument (5/6)
+  c''1 \afterGrace 5/6 d1 { c16[ d] } c1
+}
+>>
+@end lilypond
 
 @item
 @code{\override}, @code{\revert}, @code{\set}, @code{\unset} の全てに対して、@c

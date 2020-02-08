@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: 9bb7fa99aa8bc7c14a45a42224545c726bb6c592
+    Translation of GIT committish: c662a2cb50dcc4b98101bdd8228986646c4d1382
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -10,9 +10,8 @@
 
 @c \version "2.19.22"
 
-@c Translators: Tomohiro Tatejima, Yoshiki Sawada
+@c Translators: Masamichi Hosoda, Tomohiro Tatejima, Yoshiki Sawada
 @c Translation status: post-GDP
-
 
 @node 出力を調整する
 @chapter 出力を調整する
@@ -67,7 +66,6 @@ LilyPond の用語です。@c
 再読することを望むかもしれません。@c
 なぜなら、コンテキスト、エングラーバとそれらの中に含まれるプロパティは@c
 調整について理解し、調整を構成するための基礎だからです。
-
 
 @node オブジェクトとインタフェイス
 @subsection オブジェクトとインタフェイス
@@ -144,7 +142,6 @@ LilyPond が @code{\new Staff} のようなコマンドに遭遇した場合、@
 我々は後でなぜこれがユーザにとって利益となり、役に立つのかを見ていきます。
 
 これらは、我々がこの章で使用するオブジェクトと関係する主要な用語です。
-
 
 @node オブジェクトとプロパティの命名規則
 @subsection オブジェクトとプロパティの命名規則
@@ -259,13 +256,11 @@ LilyPond が @code{\new Staff} のようなコマンドに遭遇した場合、@
 しかしながら、このセクションではそれらのフォーマットとコマンドの使い方を示す@c
 ために、容易に理解できる簡単なプロパティと値をいくつか使用してみるだけです。
 
-LilyPond の基本的な表記は音符、演奏時間、それにマークアップなどの音楽要素@c
-です。@c
-数字、文字列、それにリストなどのもっと基本的な表記は @q{Scheme モード}
+LilyPond の基本的な表記は文字列やマークアップだけでなく、@c
+音符や演奏時間のような音楽要素です。@c
+数字、シンボル、リストなどのより具体的な表記は @q{Scheme モード}
 で処理されます -- 表記の先頭に @samp{#} を記述することでこのモードが@c
 呼び出されます。@c
-これらの表記は LilyPond の音楽モードでも有効な表現である場合もありますが、@c
-このマニュアルでは一貫性を保つために常に @samp{#} を付けて記述します。@c
 Scheme モードについての更なる情報は @rextend{LilyPond Scheme syntax}
 を参照してください。
 
@@ -301,7 +296,6 @@ Scheme モードについての更なる情報は @rextend{LilyPond Scheme synta
 プロパティの値をオリジナルのデフォルト値に戻します。@c
 何度か @code{\override} コマンドが発行されている場合は、@c
 前の値に戻すわけではないということに注意してください。
-
 
 @example
 \revert @var{Context}.@var{LayoutObject}.@var{layout-property}
@@ -760,7 +754,6 @@ thickness (number)
 @cindex Slur example of overriding (Slur をオーバライドする例)
 @cindex thickness property, example (thickness プロパティの例)
 
-@c KEEP LY
 @lilypond[quote,verbatim]
 {
   \key es \major
@@ -835,7 +828,6 @@ thickness (number)
 @cindex Slur, example of overriding (Slur をオーバライドする例)
 @cindex thickness property, example (thickness プロパティの例)
 
-@c KEEP LY
 @lilypond[quote,verbatim]
 {
   \key es \major
@@ -873,7 +865,6 @@ thickness (number)
 @cindex Slur, example of overriding (Slur をオーバライドする例)
 @cindex thickness property, example (thickness プロパティの例)
 
-@c KEEP LY
 @lilypond[quote,verbatim]
 {
   \key es \major
@@ -902,7 +893,6 @@ thickness (number)
 @cindex Slur, example of overriding (Slur をオーバライドする例)
 @cindex thickness property, example (thickness プロパティの例)
 
-@c KEEP LY
 @lilypond[quote,verbatim]
 {
   \key es \major
@@ -1651,7 +1641,6 @@ RGB 値を内部カラーに変換する @code{rgb-color} 関数です。@c
 @cindex Clef, example of overriding (Clef をオーバライドする例)
 @cindex TimeSignature, example of overriding (TimeSignature をオーバライドする例)
 
-@c KEEP LY
 @lilypond[quote,ragged-right,verbatim]
 \new Staff ="main" {
   \relative {
@@ -1677,7 +1666,6 @@ RGB 値を内部カラーに変換する @code{rgb-color} 関数です。@c
 短縮形 @code{\hide} と @code{\omit} を使うことができ、結果として@c
 以下のようになります:
 
-@c KEEP LY
 @lilypond[quote,ragged-right,verbatim]
 \new Staff ="main" {
   \relative {
@@ -1747,7 +1735,6 @@ RGB 値を内部カラーに変換する @code{rgb-color} 関数です。@c
 @cindex TimeSignature, example of overriding (TimeSignature をオーバライドする例)
 @cindex fontSize property, example (fontSize プロパティの例)
 
-@c KEEP LY
 @lilypond[quote,ragged-right,verbatim]
 \new Staff ="main" {
   \relative {
@@ -1774,7 +1761,6 @@ RGB 値を内部カラーに変換する @code{rgb-color} 関数です。@c
 譜線は離れすぎています。@c
 これらをフォント サイズの減少に比例してスケール ダウンさせる必要があります。@c
 次のサブ セクションでそれを行う方法について議論します。
-
 
 @node オブジェクトの長さと太さ
 @subsection オブジェクトの長さと太さ
@@ -1816,7 +1802,6 @@ LilyPond では距離と長さは一般に譜スペース -- 譜の中の隣り�
 @cindex staff-space property, example (staff-space プロパティの例)
 @cindex stencil property, example (stencil プロパティの例)
 
-@c KEEP LY
 @lilypond[quote,ragged-right,verbatim]
 \new Staff ="main" {
   \relative {
@@ -2336,7 +2321,6 @@ LilyPond はこれらの制約を受け取り、
 @cindex TextSpanner, example of overriding (TextSpanner をオーバライドする例)
 @cindex bound-details property, example (bound-details プロパティの例)
 
-@c KEEP LY
 @lilypond[quote,fragment,ragged-right,verbatim]
 % 以降のテキスト スパナの詳細を設定します
 \override TextSpanner.bound-details.left.text
@@ -2387,7 +2371,6 @@ c'4 c' c' c' |
 @cindex TextSpanner, example of overriding (TextSpanner をオーバライドする例)
 @cindex bound-details property, example (bound-details プロパティの例)
 
-@c KEEP LY
 @lilypond[quote,fragment,ragged-right,verbatim]
 % 以降のテキスト スパナの詳細を設定します
 \override TextSpanner.bound-details.left.text
@@ -2494,7 +2477,6 @@ c''2^"Text4" |
 @code{\textLengthOn} コマンドはこの動作を逆にして、@c
 テキストの配置に便宜をはかる必要がある限り、音符の間隔を広げます:
 
-@c KEEP LY
 @lilypond[quote,fragment,ragged-right,verbatim]
 \textLengthOn  % 音符の間隔を広げてテキストに揃えます
 c''2^"Text1"
@@ -2520,7 +2502,6 @@ c''2^"Text4" |
 @cindex TextScript, example of overriding (TextScript をオーバライドする例)
 @cindex outside-staff-priority property, example (outside-staff-priority プロパティの例)
 
-@c KEEP LY
 @lilypond[quote,ragged-right,verbatim]
 \relative {
   % このマークアップは短いため衝突は起きません
@@ -3176,7 +3157,6 @@ b2\fermata
 @cindex MetronomeMark, example of overriding (MetronomeMark をオーバライドする例)
 @cindex padding property, example (padding プロパティの例)
 
-@c KEEP LY
 @lilypond[quote,fragment,verbatim]
 % これは機能しません。この下を見てください
 \override MetronomeMark.padding = #3
@@ -3220,7 +3200,6 @@ d'1 |
 @cindex AccidentalPlacement, example of overriding (AccidentalPlacement をオーバライドする例)
 @cindex right-padding property, example (right-padding プロパティの例)
 
-@c KEEP LY
 @lilypond[quote,ragged-right,verbatim]
 sesquisharp = \markup { \sesquisharp }
 \relative {
@@ -3557,7 +3536,6 @@ a'8 \( ( a''16 ) a'' \)
 @c The following should appear as music without code
 @c This example should not be indexed
 @c line-width ensures no break
-@c KEEP LY
 @lilypond[quote,ragged-right,line-width=6\in]
 rhMusic = \relative {
   \new Voice {
@@ -3642,7 +3620,6 @@ LilyPond はうまく衝突を回避できるからです。
 それで LilyPond がデフォルトでどのような出力を作り出すのか見てみましょう:
 
 @c line-width ensures no break
-@c KEEP LY
 @lilypond[quote,verbatim,ragged-right,line-width=6\in]
 rhMusic = \relative {
   \new Voice {
@@ -3703,7 +3680,6 @@ lhMusic = \relative {
 これらの修正を加えると、以下のようになります:
 
 @c line-width ensures no break
-@c KEEP LY
 @lilypond[quote,verbatim,ragged-right,line-width=6\in]
 rhMusic = \relative {
   \new Voice {
@@ -3779,7 +3755,6 @@ lhMusic = \relative {
 これで第 2 小節の修正も完了で、以下のようになります:
 
 @c line-width ensures no break
-@c KEEP LY
 @lilypond[quote,verbatim,ragged-right,line-width=6\in]
 rhMusic = \relative {
   \new Voice {
@@ -3861,7 +3836,6 @@ lhMusic = \relative {
 をセクションの終了点に置きます。これで、例は以下のようになります:
 
 @c line-width ensures no break
-@c KEEP LY
 @lilypond[quote,ragged-right,line-width=6\in]
 rhMusic = \relative {
   \new Voice {
@@ -3940,7 +3914,6 @@ C はシフト off のボイス 2 の中にあり、2 つの D はボイス 1 �
 @cindex staff-position property, example (staff-position プロパティの例)
 
 @c line-width ensures no break
-@c KEEP LY
 @lilypond[quote,verbatim,ragged-right,line-width=6\in]
 rhMusic = \relative {
   \new Voice {
@@ -4013,7 +3986,6 @@ lhMusic = \relative {
 @cindex transparent property, example (transparent プロパティの例)
 
 @c line-width ensures no break
-@c KEEP LY
 @lilypond[quote,verbatim,ragged-right,line-width=6\in]
 rhMusic = \relative {
   \new Voice {
@@ -4103,7 +4075,6 @@ lhMusic = \relative {
 
 @cindex removing objects (オブジェクトを削除する)
 @cindex objects, removing (オブジェクトを削除する)
-
 
 @node 異なるボイスの中にある音符をタイで結ぶ
 @unnumberedsubsubsec 異なるボイスの中にある音符をタイで結ぶ
@@ -4788,7 +4759,6 @@ Scheme プロシージャをセットすることができます。@c
 @cindex NoteHead, example of overriding (NoteHead をオーバライドする例)
 @cindex color property, setting to Scheme procedure (Scheme プロシージャに color プロパティをセットする)
 
-@c KEEP LY
 @lilypond[quote,verbatim,ragged-right]
 #(define (color-notehead grob)
    "Color the notehead according to its position on the staff."

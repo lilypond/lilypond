@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: c286e07798cd57a4785c3701b2bbcf94721b0f11
+    Translation of GIT committish: c662a2cb50dcc4b98101bdd8228986646c4d1382
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -607,9 +607,9 @@ LilyPond の使い方やインストールの仕方に少しでも疑問を持�
 LilyPond には 2 セットのリリースがあります:
 安定版リリースと不安定な開発リリースです。@c
 安定バージョンは偶数の @q{マイナー} バージョン番号
-(例えば 2.8, 2.10, 2.12) を持ち、@c
+(例えば 2.14, 2.16, 2.18) を持ち、@c
 開発バージョンは奇数の  @q{マイナー} バージョン番号
-(例えば 2.7, 2.9, 2.11) を持ちます。
+(例えば 2.15, 2.17, 2.19) を持ちます。
 
 @divEnd
 

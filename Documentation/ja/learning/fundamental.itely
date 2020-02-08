@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: c286e07798cd57a4785c3701b2bbcf94721b0f11
+    Translation of GIT committish: c662a2cb50dcc4b98101bdd8228986646c4d1382
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -10,7 +10,7 @@
 
 @c \version "2.19.22"
 
-@c Translators: Tomohiro Tatejima, Yoshiki Sawada
+@c Translators: Masamichi Hosoda, Tomohiro Tatejima, Yoshiki Sawada
 @c Translation status: post-GDP
 
 @node 基礎となるコンセプト
@@ -310,41 +310,6 @@ LilyPond 入力ファイルの一般的な構造について見てきました�
 ここで名前を付ける必要は必ずしもありませんが、@c
 一見して各譜が何なのか見て取れるので名前を付けておくべきです。
 
-@ignore
-@example
-\score @{
-  @{ % this brace begins the overall compound music expression
-    % この波括弧は複合音楽表記全体の開始点です
-    \new StaffGroup <<
-      @var{...insert the whole score of a Wagner opera in here...}
-      @var{...ワーグナーのオペラの楽譜全体がここに入ります...}
-    >>
-  @} % this brace ends the overall compound music expression
-    % この波括弧は複合音楽表記全体の終了点です
-  \layout @{ @}
-@}
-@end example
-
-ワーグナーのオペラの長さはこのマニュアルの軽く 2 倍はあります。@c
-そのため、歌手とピアノだけを加えることにします。@c
-このアンサンブルでは複数の譜をまとめて左端に波括弧を付ける
-@code{StaffGroup} は必要ありません。@c
-そのため、それを削除します。@c
-しかしながら、歌手とピアノが@emph{必要}です。
-
-@example
-\score @{
-  <<
-    \new Staff = "singer" <<
-    >>
-    \new PianoStaff = "piano" <<
-    >>
-  >>
-  \layout @{ @}
-@}
-@end example
-@end ignore
-
 歌手とピアノが同時進行であることを示すために @code{@{ @dots{} @}} の代わりに
 @code{<< @dots{} >>} を使用するということを思い出してください。@c
 こうすることで、ボーカル パートはピアノ パートの上に表示されます。@c
@@ -508,7 +473,6 @@ lower  = \relative { b,2 e }
 通常は小さなフォントで描かれます。@c
 これらはまだ紹介されていない追加のコマンドを必要とします。@c
 @ref{オブジェクトのサイズ} と @ruser{オッシア譜} を参照してください。
-
 
 @node 入力音符の構造
 @subsection 入力音符の構造
@@ -910,7 +874,6 @@ LilyPond の楽譜の中で最も低レベルで、最も基礎的であり、�
 音楽とボイスだけに注目してください -- 込み入った内容は後ほど説明します。
 
 @c The following should appear as music without code
-@c KEEP LY
 @lilypond[quote,ragged-right]
 \new Staff \relative {
   \key aes \major
@@ -957,7 +920,6 @@ A フラットは付点 4 分音符であり、F は 4 分音符、D フラッ�
 
 @c The following should appear as music without code
 @c The three voice styles should be defined in -init
-@c KEEP LY
 @lilypond[quote,ragged-right]
 \new Staff \relative {
   \key aes \major
@@ -991,14 +953,13 @@ A フラットは付点 4 分音符であり、F は 4 分音符、D フラッ�
 すでに学んだように、最初の小節の音楽を 3 つのボイスに分けて記述するために
 @code{<< \\  >>} 構造を使用します:
 
-@c ignore
-@lilypond[quote,verbatim,fragment,ragged-right]
+@lilypond[quote,verbatim,ragged-right]
 \new Staff \relative {
   \key aes \major
   <<
     { c''2 aes4. bes8 } \\ { <ees, c>2 des } \\ { aes'2 f4 fes }
-  >>
-  <c ees aes c>1
+  >> |
+  <c ees aes c>1 |
 }
 @end lilypond
 
@@ -1014,15 +975,15 @@ A フラットは付点 4 分音符であり、F は 4 分音符、D フラッ�
 ボイス 3 を省略して音楽をボイス 4 に記述することによって修正できます。@c
 ボイス 3 を省略するには、@code{\\} を 2 つ記述します:
 
-@lilypond[quote,verbatim,fragment,ragged-right]
+@lilypond[quote,verbatim,ragged-right]
 \new Staff \relative {
   \key aes \major
-  << % Voice one
+  \voices 1,2,4   % ボイス 3 を省略
+  <<  % ボイス 1
     { c''2 aes4. bes8 }
-  \\ % Voice two
+  \\  % ボイス 2
     { <ees, c>2 des }
-  \\ % Omit Voice three
-  \\ % Voice four
+  \\  % ボイス 4
     { aes'2 f4 fes }
   >> |
   <c ees aes c>1 |
@@ -1181,7 +1142,6 @@ LilyPond は音符の水平方向の位置を調節するための手段をい�
 @code{\voices} コマンドはメインのボイスを同時進行表記へと@c
 続けるためにも使えます。
 
-@c KEEP LY
 @lilypond[quote,ragged-right,verbatim]
 \new Staff \relative {
   \new Voice = "main" {
@@ -1193,8 +1153,8 @@ LilyPond は音符の水平方向の位置を調節するための手段をい�
     <<
       % メインのボイスの続き
       { g4 f e | d2 e) | }
-    \\
       % ボイス 2 の開始
+    \\
       % 符幹などの向きが下になります
       { r8 e4 d c8~ | 8 b16 a b8 g~ 2 | }
     \\
@@ -1211,6 +1171,9 @@ LilyPond は音符の水平方向の位置を調節するための手段をい�
 @cindex nesting voices (ボイスをネストさせる)
 @cindex voices, temporary (一時的なボイス)
 @cindex voices, nesting (ボイスをネストさせる)
+
+より深くネストしたポリフォニー構造が可能であり、@c
+ボイスが短時間しか現れない場合、これは音楽を組版するより自然な方法です:
 
 @lilypond[quote,ragged-right,verbatim]
 \new Staff \relative {
@@ -1449,8 +1412,8 @@ keyTime = { \key c \major \time 4/4 \partial 4 }
 
 SopMusic   = \relative { c'4 | e4. e8 g4  g    | a4   a   g  }
 AltoMusic  = \relative { c'4 | c4. c8 e4  e    | f4   f   e  }
-TenorMusic = \relative  { e4 | g4. g8 c4.   b8 | a8 b c d e4 }
-BassMusic  = \relative  { c4 | c4. c8 c4  c    | f8 g a b c4 }
+TenorMusic = \relative {  e4 | g4. g8 c4.   b8 | a8 b c d e4 }
+BassMusic  = \relative {  c4 | c4. c8 c4  c    | f8 g a b c4 }
 
 VerseOne =
   \lyricmode { E -- | ter -- nal fa -- ther, | strong to save, }
@@ -1626,7 +1589,6 @@ score ブロックは単一の音楽表記を保持しますが、それに関�
 実際的な例を見てきましたが、これらのコマンドが実際にどのように使用されるのかを@c
 覚えてもらうために、実際の音楽に注釈を付けた例を挙げます:
 
-@c KEEP LY
 @lilypond[quote,verbatim,ragged-right]
 \score {  % 複合音楽表記の開始点
   <<  % 同時進行する譜の開始点
@@ -1677,8 +1639,8 @@ score ブロックは単一の音楽表記を保持しますが、それに関�
 左手の譜は 2 つのボイスを必要とするために
 2 重山括弧を使って作成されていることにも注意してください。)
 
-@cindex contexts, naming (コンテキストを名前を付ける)
-@cindex naming contexts (コンテキストを名前を付ける)
+@cindex contexts, naming (コンテキストに名前を付ける)
+@cindex naming contexts (コンテキストに名前を付ける)
 
 また、@code{\new} コマンドはコンテキストに識別名を与えて、そのコンテキストを@c
 同じタイプの他のコンテキストと区別することを可能にするかもしれません:
@@ -1970,7 +1932,6 @@ LilyPond 入力ファイルに対する特別なサポートを持つ@c
 それにより (他のものに加えて) 符頭のサイズが何段階か変更されます。@c
 変更は直前にセットされた値から行われるのではなく、デフォルト値から行われます。
 
-@c KEEP LY
 @lilypond[quote,verbatim,ragged-right]
 \relative {
   c'4 d
@@ -2155,7 +2116,6 @@ like this:
 譜表線は @code{Staff_symbol_engraver} によって作り出されるということを@c
 思い出してください。
 
-@c KEEP LY
 @lilypond[quote,verbatim,ragged-right]
 \new Staff \with {
   \remove "Staff_symbol_engraver"
@@ -2769,7 +2729,7 @@ lower = \relative {
     @}
   >>  % end ChoirStaff
 
-  \new PianoStaff \with @{ instrumentName = #"Piano  " @}
+  \new PianoStaff \with @{ instrumentName = "Piano" @}
   <<
     \new Staff = "upper" \upper
     \new Staff = "lower" \lower
@@ -2779,7 +2739,6 @@ lower = \relative {
 
 これらすべてを組み合わせて、上の例の 3 小節分の音楽を付け加えます:
 
-@c KEEP LY
 @lilypond[quote,verbatim,ragged-right,addversion]
 global = { \key d \major \time 4/4 }
 sopranoMusic = \relative {
@@ -3112,7 +3071,6 @@ Voice はこれとは対照的に、あなたの音楽を連続して演奏す�
 ボイスの数はさまざまになるかもしれません。@c
 この後に行うべきことは、音楽を付け加え、各パートを一緒にすることです。
 
-@c KEEP LY
 @lilypond[quote,verbatim,ragged-right,addversion]
 \header {
   title = "Jesu, meine Freude"
@@ -3175,7 +3133,6 @@ PedalOrganMusic = \relative {
 @seealso
 音楽用語集:
 @rglos{system}
-
 
 @node 変数と関数を用いて入力の手間を省く
 @subsection 変数と関数を用いて入力の手間を省く
@@ -3385,6 +3342,7 @@ R2*3
 }
 @end lilypond
 
+
 楽譜はすべての音楽を一緒にすることによって作り出されます。@c
 他のボイスはファイル @file{bassoon-music.ly} の中の @code{bassoonNotes} の@c
 中にあると仮定すると、楽譜は以下のような記述で作られます:
@@ -3428,3 +3386,4 @@ R2*3
 @ruser{Writing parts},
 @ruser{Full measure rests},
 @ruser{Including LilyPond files}.
+
