@@ -725,7 +725,6 @@ setup_guile_gc_env ()
 }
 
 #if (GUILEV2)
-extern unsigned long GC_free_space_divisor;
 
 void
 setup_guile_v2_env ()
@@ -749,8 +748,22 @@ setup_guile_v2_env ()
   // it's roughly this value.
   sane_putenv ("GC_INITIAL_HEAP_SIZE", "40M", false);
 
+  /*
+    Empirically, multithreaded GC doesn't change wall time. It just
+    adds another thread that burns 30% of the time.
+
+    David K mentions: "I think that this may be due to both/either our
+    use of mark hooks and of finalisers for calling destructors.
+    Either may cause serialisation.  Another serialisation is because
+    Guile itself switches BGC to Java mode where finalised objects can
+    no longer be marked (or something like that: the exact semantics I
+    do not remember).  And of course the C++ free store still has to
+    do its full job.
+  */
+  sane_putenv ("GC_NPROCS", "1", false);
+
   // Use less CPU for GC, at the expense of memory.
-  GC_free_space_divisor = 1;
+  sane_putenv ("GC_FREE_SPACE_DIVISOR", "1", false);
 }
 #endif
 
