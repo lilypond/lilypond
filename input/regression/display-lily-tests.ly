@@ -227,10 +227,10 @@ stderr of this run."
 \test ##[ \revert StaffGrouper.staff-staff-spacing.basic-distance #]    % nested properties
 
 %% \applyOutput
-\test ##[ \applyOutput Foo #(lambda (arg) (list)) #]
-\test ##[ \applyOutput Foo.NoteHead #(lambda (arg) (list)) #]
+\test ##[ \applyOutput Foo #identity #]
+\test ##[ \applyOutput Foo.NoteHead #identity #]
 %% \applyContext
-\test ##[ \applyContext #(lambda (arg) (list)) #]
+\test ##[ \applyContext #identity #]
 
 %% \partial
 \test ##[ \partial 2 #]
