@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: c286e07798cd57a4785c3701b2bbcf94721b0f11
+    Translation of GIT committish: c662a2cb50dcc4b98101bdd8228986646c4d1382
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -141,7 +141,7 @@ LilyPond は @strong{テキスト ベース} の楽譜作成プログラムで�
 ユーザが作成した例、ヒント、それに TIPS。
 
 @item
-@uref{https://benl.xyz/lilypond/operation-lilypond,ビデオチュートリアル}:
+@uref{https://bit.ly/LearnLilyPond,ビデオチュートリアル}:
 LilyPond ユーザの Ben Lemon は、自分のブログで新規ユーザのための@c
 ビデオチュートリアルを作成しています。
 
@@ -195,7 +195,7 @@ PDF はダウンロードしてオフラインで利用することができま�
 @divEnd
 
 
-@c TRANSLATORS: most of the text in this file came from
+@c TRANSLATORS, most of the text in this file came from
 @c LM 1.1 About the documentation  (before this section was
 @c removed in July 2009).
 

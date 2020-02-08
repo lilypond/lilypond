@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: fdb5a275551d4e87df940924aed74a0ec273f70e
+    Translation of GIT committish: c662a2cb50dcc4b98101bdd8228986646c4d1382
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c Translators: Tomohiro Tatejima, Masamichi Hosoda, Yoshiki Sawada, Yoshinobu Ishizaki
+@c Translators: Masamichi Hosoda, Tomohiro Tatejima, Yoshiki Sawada, Yoshinobu Ishizaki
 
 @node 導入部
 @unnumbered 導入部
@@ -671,7 +671,9 @@ LilyPond を試してみる決心がついたのなら、@c
 @c Productions using LilyPond
 
 ここでは、演奏や出版用楽譜といった成果物のため、@c
-実際に LilyPond を使う人々について読むことができます。
+実際に LilyPond を使う人々について読むことができます。@c
+このリストはパブリックドメインまたはオープンコンテンツライセンスの@c
+作品に限定しています。
 
 @divEnd
 
@@ -685,100 +687,113 @@ LilyPond で生成された楽譜は、世界中の演奏で使用されてい�
 @itemize
 
 @item
+Marc Hohl は子供と若者のための楽譜を書きました。@c
+LilyPond （と LaTeX）を使用して譜刻されたフリーでドイツ語の
+@uref{http://www.singspielschmiede.de/}
+から入手できるすべての音楽は、 Marc が働く学校のステージで演奏されました。
+
+
+@item
 @uref{http://www.aurelienbello.com/,Aurélien Bello} は Richard Strauss の
 @emph{Der Rosenkavalier} を4人の歌手と13人の室内オーケストラ用に編曲しました。@c
-これは Berlin Philharmonic Orchestra によって委嘱され、@c
-@uref{http://www.festspielhaus.de/veranstaltung/der-kleine-rosenkavalier-02-04-2015-1100/,
-4月2日と6日}にバーデンバーデンの祝祭劇場で、@c
-@uref{http://www.berliner-philharmoniker.de/konzerte/kalender/details/21070/,
-4月26日に}ベルリンの @emph{Philharmonie (großer Saal)} で演奏されました。@c
+これは Berlin Philharmonic Orchestra によって委嘱され、 2015 年に@c
+@uref{https://www.festspielhaus.de/,バーデンバーデンの祝祭劇場}と@c
+@uref{https://www.berliner-philharmoniker.de/konzerte/kalender/details/21070/,ベルリンの Philharmonie (großer Saal)}で演奏されました。@c
 このような名高い音楽家が LilyPond の楽譜で演奏し、そして曰くそれらに@c
 非常に満足しているということで我々は嬉しく思います。
 
 Aurélien も Richard Wagner の @emph{Der Ring des Nibelungen} を@c
-@uref{http://www.rsb-online.de/content/concerts/new-season-1516/family-concerts-age-7-and-above/index_eng.html,
-子どものための100分間の版}に編曲しました。@c
+ファミリーコンサート（7歳以上向け）に編曲しました。@c
 通常の交響楽団のために編曲されましたが、歌手の数を減らして、@c
 2014年4月にベルリンの Atze Musiktheater で
-@uref{http://www.rsb-online.de/,@emph{Radio-Sinfonieorchester Berlin}}
+@uref{https://www.rsb-online.de/,@emph{Radio-Sinfonieorchester Berlin}}
 によって演奏されました。指揮者は Heiko Matthias Förster でした。
+
+その他の Aurélien の再オーケストレーションに Mussorgsky の
+@emph{Pictures at an exhibition} があり、彼は 2011 年に
+@uref{https://junge-philharmonie-brandenburg.de/,Junge Philharmonie Brandenburg}
+を指揮し、2012 年にも再演されました。
 
 @item
 Joe Smeets は子どものための本 @emph{Zing Mee}
-（@emph{一緒に歌おう}）の楽譜を作成しました。出版社
+（@emph{一緒に歌おう}）の楽譜を作成しました。出版社 @emph{Querido} --
 @uref{http://www.queridokinderenjeugdboeken.nl/, Querido}
--- ISBN 9789045106205 。@c
-また Benjamin Britten の @emph{Saint Nicolas} オランダ語版、@c
-合唱のリハーサル譜を作成し、2011年 @emph{Muziektheater Hollands Diep} で@c
-演奏されました:
-@uref{http://www.muziektheaterhollandsdiep.nl/nl/voorstellingen/sint_nicolaas_leeft,
-www.muziektheaterhollandsdiep.nl} 。彼はさらに Mussorgsky の
+ISBN 9789045106205 。@c
+彼はさらに Mussorgsky の
 @emph{Boris Godunov} を管楽四重奏・ピアノ・打楽器の編成に編曲し、@c
-2014年にまた @emph{Muziektheater Hollands Diep} で演奏されました。
+2014年に @emph{Muziektheater Hollands Diep} で演奏されました。
+
+Joe はまた 2011 年に @emph{Muziektheater Hollands Diep} によって行われた
+Benjamin Britten の @emph{Saint Nicolas}
+のオランダ語翻訳の合唱リハーサル楽譜を作成しました。
+@uref{https://muziektheaterhollandsdiep.nl/?s=sint+nicolaas+leeft,www.muziektheaterhollandsdiep.nl}
+をご覧ください。
+
 
 @item
 Vittorio Amedeo Cigna-Santi によって歌詞が付けられた Tommaso Traetta のオペラ
 @emph{Enea nel Lazio (1760)} の校訂版が、
-@uref{http://unito.academia.edu/LucaRossettoCasel, Luca Rossetto Casel}
+@uref{https://unito.academia.edu/LucaRossettoCasel,Luca Rossetto Casel}
 の博士論文として作られました。
-@uref{http://www.academia.edu/1987651/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_1_4_, パート 1}
-@uref{http://www.academia.edu/1994533/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_2_4_, パート 2}
-@uref{http://www.academia.edu/1994558/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_3_4_, パート 3}
-@uref{http://www.academia.edu/1996242/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_4_4_, パート 4}
+@uref{https://www.academia.edu/1987651/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_1_4_, パート 1}
+@uref{https://www.academia.edu/1994533/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_2_4_, パート 2}
+@uref{https://www.academia.edu/1994558/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_3_4_, パート 3}
+@uref{https://www.academia.edu/1996242/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_4_4_, パート 4}
 
-@item
-Mussorgsky の @emph{Pictures at an exhibition} が
-@uref{http://www.aurelienbello.com/,Aurélien Bello} によってオーケストラ用に@c
-再編曲され、また彼は指揮者として
-@uref{https://junge-philharmonie-brandenburg.de/,
-Junge Philharmonie Brandenburg} で2011年10月と2012年4月に演奏しました。
 
 @item
 作曲家・音楽監督の @uref{http://kierenmacmillan.info/, Kieren MacMillan} 。@c
 彼の多くの作品から一部を紹介します：
-@emph{Go Thy Way} は2012年3月に @uref{http://www.saltlakechoralartists.org/,
+@emph{Go Thy Way} は2012年に @uref{https://www.saltlakechoralartists.org/,
 Salt Lake Choral Artists} で演奏されました。
 @emph{Just Out of Reach Suite} は
-@uref{http://www.herald-dispatch.com/news/marshall/x1883873762/Music-duo-Chrysalis-to-perform-at-Marshall-University-on-Jan-19,
+@uref{https://www.herald-dispatch.com/news/marshall/x1883873762/Music-duo-Chrysalis-to-perform-at-Marshall-University-on-Jan-19,
 Chrysalis Duo} によって演奏されました。
-@emph{thrafsmata} は2011年7月に @uref{http://www.pnme.org/, Pittsburgh
+@emph{thrafsmata} は2011年に @uref{https://www.pnme.org/, Pittsburgh
 New Music Ensemble} によって演奏されました。
 
+
 @item
-@uref{http://www.mikesolomon.org, Mike Solomon} は、
+@uref{http://www.mikesolomon.org,Mike Solomon} は、
 @emph{Anonymous Student Compliment or Complaint} という題の作品を作曲し、
-@uref{http://www.leftcoastensemble.org, 2011 Left Coast Composition Contest}
-で22カ国172の作品から最優秀作品に選ばれました。@c
-彼の他の作品の一つ、クラリネットソロのための Norman (age 1) は、2010年10月、@c
-@uref{http://arts.ufl.edu/academics/music/, フロリダ大学}の
+@uref{https://www.leftcoastensemble.org, 2011 Left Coast Composition Contest}
+で22カ国172の作品から最優秀作品に選ばれました。
+
+彼の他の作品の一つ、クラリネットソロのための @emph{Norman (age 1)}
+は、2010年10月、@c
+@uref{https://arts.ufl.edu/academics/music/, フロリダ大学}の
 Electroacoustic Music Festival (FEMF) で演奏されました。
+
 
 @item
 Alessandro Scarlatti の @emph{Serenata Erminia} の現代版が Thomas Griffin
-（音楽学者、イタリア・ローマ）によって編集されました。2010年10月22日、@c
-イタリア・ナポリの Galleria of the Palazzo Zevallos Stigliano で演奏され、
-@uref{http://www.ascarlatti2010.net, Alessandro Scarlatti 2010} として@c
-作曲家の生誕350年が祝われました。
+（音楽学者、イタリア・ローマ）によって編集されました。2010年、@c
+イタリア・ナポリの Galleria of the Palazzo Zevallos Stigliano で@c
+作曲家の生誕350年記念として演奏されました。
+@uref{http://www.ascarlatti2010.net}
+をご覧ください。
+
 
 @item
-@uref{http://www.mercuryhouston.org/, Mercury Baroque} による
-Lully の @emph{Armide} の演奏が、2009年5月15日-16日にテキサス、ヒューストンで@c
-行われました。（譜刻は
-@uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux} によってされました。）
+@uref{http://nicolas.sceaux.free.fr/,Nicolas Sceaux} が譜刻した
+@uref{https://www.mercuryhouston.org/, Mercury Baroque} による
+Lully の @emph{Armide} の演奏が、2009年に行われました。
+
+Nicolas はまた、 2009 年に
+Rameau の @emph{Hippolyte et Aricie} の器楽演奏がニューヨークの
+St. James's Church で、 Frederick Renz と彼の楽団による演奏の譜刻をしました。
+@uref{http://www.earlymusicny.org/, Early Music New York}
+をご覧ください。
+
 
 @item
-2009年5月8日、 Rameau の @emph{Hippolyte et Aricie} の器楽演奏がマンハッタンの
-St. James's Church で、 Frederick Renz と彼の楽団
-@uref{http://www.earlymusicny.org/, Early Music New York} によって@c
-行われました。（譜刻は
-@uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}によってされました。）
-
-@item
+@uref{http://valentin.villenave.net/,Valentin Villenave} は
 @uref{https://en.wikipedia.org/wiki/Lewis_Trondheim, Lewis Trondheim}
-によるフランス語歌詞で @uref{http://valentin.villenave.net/,Valentin Villenave}
-のオペラ @emph{Affaire étrangère} が、2009年2月1日にフランスの
+によるオペラ @emph{Affaire étrangère} の台本を譜刻をし、
+2009年にフランスの
 @uref{http://www.orchestre-montpellier.com/, L'Opéra National de Montpellier}
 で初演されました。
+
 
 @end itemize
 @divEnd
@@ -790,33 +805,62 @@ St. James's Church で、 Frederick Renz と彼の楽団
 @subheading 公開されている楽譜
 @c Published sheet music
 
+@subsubheading 楽譜ライブラリ
+@c Sheet libraries
+
 @divClass{keep-bullets}
 @itemize
 
 @item
 @uref{http://www.mutopiaproject.org/index.html, Mutopia Project},
-1500 曲を越えるクラシック音楽の楽譜を自由にダウンロードできます。@c
-LilyPond で生成された楽譜の主要なショーケースです。
-
-@c don't make this "Mutopia" a link, since that looks silly.
-@item
-@uref{http://etudeapp.com, Etude}, @qq{sheet music on steroids} は
-Mutopia の作品を含む、 LilyPond で譜刻されたピアノ曲を表示する iPhone
-アプリです。画面上に鍵盤が表示され、初心者の読譜を手助けします。
+2000 曲を越えるクラシック音楽の楽譜を自由にダウンロードできます。@c
+LilyPond で生成された楽譜の主要なショーケースです。@c
+すべての作品には LilyPond ソースファイルがあるため、@c
+他の組版者から学ぶことやあなた独自の版を作成することができます。
 
 @item
-@uref{https://twitter.com/adoromusic, Adoro Music Publishing}
-では高品質な聖楽の楽譜をその場でダウンロード、@c
-あるいは伝統的な紙の形式で入手できます。
+2005 年に始まった
+@uref{https://www.baroquemusic.it/, baroquemusic.it}
+は 800 以上のバロック音楽の楽譜を集めています。@c
+アーカイブには総譜、パート譜、MIDIファイルが含まれ、@c
+クリエイティブ・コモンズ・ライセンスで配布され、@c
+サブスクライバーのみが利用できます。
 
 @item
-@uref{http://matthieujacquot.com/, The Shady Lane Publishing}
-@qq{micro musical publishing house} は、音楽家や音楽愛好家にとってより身近な@c
-音楽の使用形態を推進することを目指しています。
+@uref{http://partitura.org/, Partitura Organum} は@c
+パブリックドメインのオルガン作品の成長しているコレクションで、
+LilyPond によって組版され、@c
+クリエイティブ・コモンズ・ライセンスで配布されています。
 
+@item
+@uref{https://clairnote.org/, Clairnote}
+は Clairnote 表記の無料の楽譜を提供します。
+Clairnote は、音楽を読みやすく理解しやすくすることを目的とした@c
+代替表記システムです。
+Webサイトのスコアは Mutopia や他のオンラインリソースから@c
+Clairnote の表記に変換されたものです。
 
 @end itemize
+@divEnd
 
+@subsubheading 楽譜ソースリポジトリ
+@c Sheet source repositories
+@divClass{keep-bullets}
+@itemize
+
+@item
+@uref{https://github.com/MutopiaProject/MutopiaProject/, Mutopia Project repository}:
+Mutopia ライブラリ全作品のソースファイル。
+
+@item
+@uref{http://git.savannah.gnu.org/cgit/lilypond.git/tree/Documentation/ly-examples, LilyPond Web サイトの例}:
+@ref{例}で示した楽譜ギャラリーのソースファイル。
+
+@item
+@uref{https://github.com/nsceaux/nenuvar, Nicolas Sceaux}:
+LilyPond 開発者の一人が組版したバロック音楽の楽譜。
+
+@end itemize
 @divEnd
 
 @divEnd
@@ -1351,11 +1395,41 @@ LilyPond テキストの中でカーソルを動かすと、@c
 @c Browser-based editors
 
 @subsubheading LilyBin
-@uref{http://lilybin.com}
+@uref{http://lilybin.com/}
 
 LilyPond をインストールすることなく、@c
 直接オンラインで楽譜を組版することができる、@c
-Web ベースの LilyPond エディタです。
+Web ベースの LilyPond エディタです。@c
+コードスニペットは、いわゆる @q{pastebin} Web サイトのように、
+一意の URL が有効になります。@c
+そのコードは
+@uref{https://github.com/LilyBin/LilyBin,development page}
+から MIT ライセンスで自由に利用できます。@c
+
+@subsubheading Hacklily
+@uref{https://www.hacklily.org/}
+
+オートコンプリートやコンテキストヘルプなどの追加機能を持った、
+LilyPond によるオンラインの楽譜エディタおよび出版ツール。@c
+基礎となる Web ホスティングのコードは AGPL ライセンスで
+@uref{https://github.com/hacklily/hacklily,development page}
+から入手できます。
+
+@subsubheading www.omet.ca
+@uref{http://www.omet.ca/}
+
+2010 年より、 Online Music Editing Tools (OMET) は、@c
+特別仕立ての Web インタフェースを備えた、@c
+すぐに使用できる LilyPond サービスを提供します。@c
+登録が必要ですが、料金は無料です。
+
+@subsubheading WebLily.net
+@uref{https://www.weblily.net/}
+
+2009 開始の WebLily.net は
+LilyPond に基づく最初の Web サービスの一つであり、@c
+以来定期的に更新されています。利用は無料（登録は必要）で、@c
+クリック可能なバージョンの LilyPond ドキュメントが含まれています。
 
 @divEnd
 
