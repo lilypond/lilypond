@@ -739,10 +739,10 @@ The modern tab clef supports tablatures from 4 to 7 strings.
 @cindex tab microtones
 @cindex tab quarter-tones
 
-@code{TabStaff} may support micro-tones like quarter-tones, which
+@code{TabStaff} may support microtones like quarter-tones, which
 can be played using bendings.
 @code{supportNonIntegerFret = ##t} needs to be set in
-Score-context.  However, micro-tones are not supported in @code{FretBoards}.
+Score-context.  However, microtones are not supported in @code{FretBoards}.
 
 @lilypond[quote,ragged-right,verbatim]
 \layout {
@@ -806,7 +806,7 @@ monotonically with string number, such as ukuleles.
 
 Fret diagrams can be added to music as a markup to the desired
 note.  The markup contains information about the desired fret
-diagram.  There are three different fret-diagram markup
+diagram.  There are three different fret diagram markup
 interfaces: standard, terse, and verbose.  The three interfaces
 produce equivalent markups, but have varying amounts of
 information in the markup string.  Details about the
@@ -839,7 +839,7 @@ In addition, open and unplayed (muted) strings can be indicated.
 @cindex barre indication
 
 Barre indications can be added to the diagram from
-the fret-diagram markup string.
+the fret diagram markup string.
 
 @lilypond[quote, verbatim]
 <<
@@ -866,7 +866,7 @@ the fret-diagram markup string.
 @funindex \fret-diagram
 
 The size of the fret diagram, and the number of frets in the diagram
-can be changed in the fret-diagram markup string.
+can be changed in the fret diagram markup string.
 
 @lilypond[quote, verbatim]
 <<
@@ -888,7 +888,7 @@ can be changed in the fret-diagram markup string.
 @end lilypond
 
 The number of strings in a fret diagram can be changed to accommodate
-different instruments such as banjos and ukuleles with the fret-diagram
+different instruments such as banjos and ukuleles with the fret diagram
 markup string.
 
 @lilypond[quote, verbatim]
@@ -908,7 +908,7 @@ markup string.
 @end lilypond
 
 Fingering indications can be added, and the location of fingering labels
-can be controlled by the fret-diagram markup string.
+can be controlled by the fret diagram markup string.
 
 @lilypond[quote, verbatim]
 <<
@@ -929,7 +929,7 @@ can be controlled by the fret-diagram markup string.
 >>
 @end lilypond
 
-Dot radius and dot position can be controlled with the fret-diagram
+Dot radius and dot position can be controlled with the fret diagram
 markup string.
 
 @lilypond[quote, verbatim]
@@ -1028,7 +1028,7 @@ Other fret diagram properties must be adjusted using
 @code{\override} when using the fret-diagram-terse markup.
 
 Only one indication per string can be included in a fret-diagram-terse
-markup.  To have multiple indications per string use a fret-diagram
+markup.  To have multiple indications per string use a fret diagram
 or fret-diagram-verbose markup.
 
 @cindex fret-diagram-verbose markup
@@ -1094,7 +1094,8 @@ Markups can be placed into the dots as well.
     }
   \new Staff {
     \clef "treble_8"
-    \override Voice.TextScript.fret-diagram-details.finger-code = #'below-string
+    \override Voice.TextScript
+      .fret-diagram-details.finger-code = #'below-string
     <f, c f a c' f'>1^\markup {
       \fret-diagram-verbose #'(
         (place-fret 6 1)
@@ -1162,7 +1163,7 @@ All other fret diagram properties must be adjusted using
 @code{\override} when using the fret-diagram-verbose markup.
 
 @ignore
-The following example shows the three fret-diagram markup
+The following example shows the three fret diagram markup
 interfaces, along with examples of common tweaks.  For example,
 the size of the verbose fret diagram is reduced to 0.75, and the
 finger indications are specified to appear below the diagram.  The
@@ -1384,7 +1385,7 @@ suspended fourth).
 A complete list of the predefined fret diagrams is
 shown in @ref{Predefined fretboard diagrams}.  If there is no entry in
 the table for a chord, the FretBoards engraver will calculate a
-fret-diagram using the automatic fret diagram functionality described in
+fret diagram using the automatic fret diagram functionality described in
 @ref{Automatic fret diagrams}.
 
 @lilypond[verbatim, ragged-right, quote]
@@ -1699,7 +1700,7 @@ information on the @code{stringTunings} property.
 
 The graphical layout of a fret diagram can be customized according to
 user preference through the properties of the
-@code{fret-diagram-interface}. Details are found at
+@code{fret-diagram-interface}.  Details are found at
 @rinternals{fret-diagram-interface}.  For a @code{FretBoards} fret
 diagram, the interface properties belong to
 @code{FretBoards.FretBoard}.

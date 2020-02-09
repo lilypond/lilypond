@@ -1325,7 +1325,7 @@ More verses may be added in a similar way:
 
 @funindex alignBelowContext
 
-However, if this construct is embedded within a multi-staved
+However, if this construct is embedded within a multi-staff
 context such as a @code{ChoirStaff} the lyrics of the second and
 third verses will appear beneath the bottom staff.
 
@@ -3186,6 +3186,7 @@ of the following snippets.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {chant-or-psalms-notation.ly}
 
+@c XXX move this text into following snippet
 Canticles and other liturgical texts may be set more freely, and
 may use notational elements from ancient music.  Often the words
 are shown underneath and aligned with the notes.  If so, the notes

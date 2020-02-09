@@ -1460,7 +1460,7 @@ existing contexts.  To reposition it above the context called
 @end example
 
 A similar situation arises when positioning a temporary lyrics
-context within a multi-staved layout such as a @code{ChoirStaff},
+context within a multi-staff layout such as a @code{ChoirStaff},
 for example, when adding a second verse to a repeated section.
 By default the temporary lyrics context will be placed beneath the
 lower staves.  By defining the temporary lyrics context with
@@ -2974,7 +2974,7 @@ This is activated with the @code{\chordmode} command, and causes
 input to be interpreted with the syntax of chord notation, see
 @ref{Chord notation}.  Music in chord mode is rendered as chords on a staff
 when entered into a @code{Staff} context, as chord names when entered
-into a @code{ChordNames} context or as fret boards when entered into
+into a @code{ChordNames} context or as fretboards when entered into
 a @code{FretBoards} context.
 
 Chord mode is also activated with the @code{\chords} command.  This
@@ -4124,7 +4124,7 @@ they may be:
 
 @lilypond[quote,fragment,verbatim]
 g4\< e' d'' f''\!
-\override Hairpin.rotation = #'(20 -1 0)
+\override Hairpin.rotation = #'(15 -1 0)
 g4\< e' d'' f''\!
 @end lilypond
 

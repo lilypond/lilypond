@@ -164,7 +164,7 @@ Internals Reference:
 @cindex system
 
 Various contexts exist to group single staves together in order to
-form multi-stave systems.  Each grouping context sets the style of
+form multi-staff systems.  Each grouping context sets the style of
 the system start delimiter and the behavior of bar lines.
 
 If no context is specified, the default properties will be used:

@@ -120,7 +120,6 @@ Methods to create new dynamic markings are also discussed.
 @funindex \coda
 @funindex \varcoda
 
-
 @funindex -
 
 A variety of symbols that denote articulations, ornamentations,
@@ -194,6 +193,7 @@ are attached to the notes, see @rlearning{Placement of objects}.
 @snippets
 
 @cindex articulation, default values, modifying
+@funindex \dashBang
 @funindex \dashDash
 @funindex \dashDot
 @funindex \dashHat
