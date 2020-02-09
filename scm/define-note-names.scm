@@ -299,7 +299,7 @@
                 (heses . ,(ly:make-pitch -1 6 DOUBLE-FLAT))
                 (heseh . ,(ly:make-pitch -1 6 THREE-Q-FLAT))
                 (b . ,(ly:make-pitch -1 6 FLAT))
-                (beh . ,(ly:make-pitch -1 6 SEMI-FLAT))
+                (heh . ,(ly:make-pitch -1 6 SEMI-FLAT))
                 (h . ,(ly:make-pitch -1 6 NATURAL))
                 (hih . ,(ly:make-pitch -1 6 SEMI-SHARP))
                 (his . ,(ly:make-pitch -1 6 SHARP))
