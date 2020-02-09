@@ -321,11 +321,13 @@ def pitch_nederlands (pitch):
 
 def pitch_english (pitch):
     str = pitch_generic (pitch, ['c', 'd', 'e', 'f', 'g', 'a', 'b'], ['f', 'qf', 'qs', 's'])
-    return str.replace ('aes', 'as').replace ('ees', 'es')
+    return str
 
 def pitch_deutsch (pitch):
     str = pitch_generic (pitch, ['c', 'd', 'e', 'f', 'g', 'a', 'h'], ['es', 'eh', 'ih', 'is'])
-    return str.replace ('hes', 'b').replace ('aes', 'as').replace ('ees', 'es')
+    if str == 'hes':
+        return 'b'
+    return str.replace ('aes', 'as').replace ('ase', 'asa').replace ('ees', 'es')
 
 def pitch_norsk (pitch):
     return pitch_deutsch (pitch)
