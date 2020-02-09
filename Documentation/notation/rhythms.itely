@@ -2494,7 +2494,7 @@ The default beaming rules can be found in
 @cindex measure sub-grouping
 @cindex conducting signs
 @cindex sign, conducting
-@funindex Measure_grouing_engraver
+@funindex Measure_grouping_engraver
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {conducting-signs,-measure-grouping-signs.ly}
 

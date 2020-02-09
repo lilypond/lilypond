@@ -197,7 +197,7 @@ are attached to the notes, see @rlearning{Placement of objects}.
 @snippets
 
 @cindex articulation, default values, modifying
-@funindex \dashBar
+@funindex \dashBang
 @funindex \dashDash
 @funindex \dashDot
 @funindex \dashHat
