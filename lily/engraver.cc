@@ -118,23 +118,26 @@ Engraver::internal_make_grob (SCM symbol,
 #endif
 
   SCM props = Grob_property_info (context (), symbol).updated ();
-  if (!scm_is_pair (props)) {
-    programming_error (to_string ("No grob definition found for `%s’.",
-      ly_symbol2string (symbol).c_str ()));
-  };
-
   Grob *grob = 0;
+  if (!scm_is_pair (props))
+    {
+      programming_error (to_string ("No grob definition found for `%s’.",
+                                    ly_symbol2string (symbol).c_str ()));
+      grob = new Item (SCM_EOL);
+    }
+  else
+    {
+      SCM handle = scm_sloppy_assq (ly_symbol2scm ("meta"), props);
+      SCM klass = scm_cdr (
+          scm_sloppy_assq (ly_symbol2scm ("class"), scm_cdr (handle)));
 
-  SCM handle = scm_sloppy_assq (ly_symbol2scm ("meta"), props);
-  SCM klass = scm_cdr (scm_sloppy_assq (ly_symbol2scm ("class"), scm_cdr (handle)));
-
-  if (scm_is_eq (klass, ly_symbol2scm ("Item")))
-    grob = new Item (props);
-  else if (scm_is_eq (klass, ly_symbol2scm ("Spanner")))
-    grob = new Spanner (props);
-  else if (scm_is_eq (klass, ly_symbol2scm ("Paper_column")))
-    grob = new Paper_column (props);
-
+      if (scm_is_eq (klass, ly_symbol2scm ("Item")))
+        grob = new Item (props);
+      else if (scm_is_eq (klass, ly_symbol2scm ("Spanner")))
+        grob = new Spanner (props);
+      else if (scm_is_eq (klass, ly_symbol2scm ("Paper_column")))
+        grob = new Paper_column (props);
+    }
   assert (grob);
   announce_grob (grob, cause);
 
