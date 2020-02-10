@@ -36,7 +36,7 @@ This section discusses notation common to most wind instruments.
 @node References for wind instruments
 @unnumberedsubsubsec References for wind instruments
 
-@cindex wind instruments
+@cindex wind instrument
 
 Many notation issues for wind instruments pertain to breathing and
 tonguing:
@@ -78,10 +78,15 @@ See @ref{Articulations and ornamentations} and
 See @ref{Articulations and ornamentations}.
 @end itemize
 
+
 @snippets
 
+@cindex flageolet, changing size
+@cindex changing flageolet size
+@funindex \flageolet
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing--flageolet-mark-size.ly}
+
 
 @seealso
 Notation Reference:
@@ -110,13 +115,19 @@ the snippets below.
 Woodwind diagrams can be produced and are described in
 @ref{Woodwind diagrams}.
 
+
 @snippets
 
+@cindex fingering, symbols for wind instruments
+@cindex wind instruments, fingering symbols
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {fingering-symbols-for-wind-instruments.ly}
 
+@cindex fingering chart
+@cindex chart, fingering
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {recorder-fingering-chart.ly}
+
 
 @seealso
 Notation Reference:
@@ -141,7 +152,7 @@ This section discusses notation common bagpipes.
 
 @cindex bagpipe
 @cindex Scottish highland bagpipe
-@cindex grace notes
+@cindex grace note
 @funindex \taor
 @funindex \hideKeySignature
 @funindex \showKeySignature
@@ -403,18 +414,26 @@ patterns for the diagrams are in
 @predefined
 @endpredefined
 
+
 @snippets
+
+@cindex woodwind diagram, list
+@cindex list of woodwind diagrams
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {woodwind-diagrams-listing.ly}
 
+@cindex woodwind diagrams, modifying
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {graphical-and-text-woodwind-diagrams.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-size-of-woodwind-diagrams.ly}
 
+@cindex woodwind diagram, key lists
+@cindex list of keys in woodwind diagrams
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {woodwind-diagrams-key-lists.ly}
+
 
 @seealso
 Installed Files:

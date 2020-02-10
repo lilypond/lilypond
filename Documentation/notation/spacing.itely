@@ -985,7 +985,7 @@ Default values not listed here are defined in
 
 @table @code
 
-@cindex page numbers, auto-numbering
+@cindex page number, auto-numbering
 @item auto-first-page-number
 @funindex auto-first-page-number
 
@@ -995,7 +995,7 @@ will decide whether to start with an odd or even number.  This
 will result in the first page number remaining as is or being
 increased by one.  Default: @code{#f}.
 
-@cindex page numbers, specify the first
+@cindex page number, specify first
 @item first-page-number
 @funindex first-page-number
 
@@ -1006,13 +1006,13 @@ The value of the page number on the first page.
 
 If set to true, a page number is printed on the first page.
 
-@cindex page numbers, suppress
+@cindex page number, suppress
 @item print-page-number
 @funindex print-page-number
 
 If set to false, page numbers are not printed.
 
-@cindex page numbers in roman numerals
+@cindex page number, in roman numerals
 @item page-number-type
 @funindex page-number-type
 
@@ -1275,7 +1275,7 @@ Snippets:
 
 @cindex font size, setting
 @cindex staff size, setting
-@funindex layout file
+@cindex layout, file
 @funindex magnification->font-size
 @funindex magstep
 @funindex set-global-staff-size
@@ -1401,7 +1401,7 @@ Snippets:
 @funindex \autoBreaksOn
 @funindex \autoLineBreaksOff
 @funindex \autoLineBreaksOn
-@cindex manual line breaks
+@cindex manual line break
 @cindex breaking lines
 
 Line breaks are normally determined automatically.  They are
@@ -1503,8 +1503,8 @@ but affects only the last line of the piece.
 @}
 @end example
 
-@cindex regular line breaks
-@cindex four bar music.
+@cindex regular line break
+@cindex four-bar music
 
 For line breaks at regular intervals use @code{\break} separated
 by skips and repeated with @code{\repeat}.  For example, this
@@ -1531,10 +1531,16 @@ broken every 4 measures, and only there:
 @code{\autoLineBreaksOn}.
 @endpredefined
 
+
 @snippets
 
+@cindex voice, extra, for handling breaks
+@cindex extra voice for handling breaks
+@cindex page break, managing with extra voice
+@cindex line break, managing with extra voice
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {using-an-extra-voice-for-breaks.ly}
+
 
 @seealso
 Notation Reference:
@@ -1888,10 +1894,10 @@ inside a system.
 @node Flexible vertical spacing within systems
 @subsection Flexible vertical spacing within systems
 
-@cindex distance between staves
+@cindex distance, between staves
 @cindex staff distance
-@cindex space between staves
-@cindex space inside systems
+@cindex space, between staves
+@cindex space, inside systems
 
 Three separate mechanisms control the flexible vertical spacing
 within systems, one for each of the following categories:
@@ -2916,7 +2922,7 @@ No work-around exists for decreasing the amount of space.
 @funindex \newSpacingSection
 @cindex new spacing section
 @cindex spacing section, new
-@cindex notes, spacing horizontally
+@cindex note, spacing horizontally
 
 New sections with different spacing parameters can be started with the
 @code{newSpacingSection} command.  This is useful for sections with
@@ -2971,6 +2977,11 @@ Internals Reference:
 @node Changing horizontal spacing
 @subsection Changing horizontal spacing
 
+@menu
+* Uniform stretching of tuplets::
+* Strict note spacing::
+@end menu
+
 Horizontal spacing may be altered with the
 @code{base-shortest-duration} property.  Here
 we compare the same music; once without altering
@@ -3009,7 +3020,8 @@ than @code{1 16}.
 @end lilypond
 
 
-@snippets
+@node Uniform stretching of tuplets
+@unnumberedsubsubsec Uniform stretching of tuplets
 
 By default, spacing in tuplets depends on various non-duration
 factors (such as accidentals, clef changes, etc).  To disregard
@@ -3020,10 +3032,10 @@ property can only be changed at the beginning of a score,
 @lilypond[quote,ragged-right,verbatim]
 \score {
   <<
-    \new Staff {
+    \new Staff \relative c' {
       \tuplet 5/4 { c8 c c c c } c8 c c c
     }
-    \new Staff {
+    \new Staff \relative c' {
       c8 c c c \tuplet 5/4 { c8 c c c c }
     }
   >>
@@ -3035,6 +3047,10 @@ property can only be changed at the beginning of a score,
   }
 }
 @end lilypond
+
+
+@node Strict note spacing
+@unnumberedsubsubsec Strict note spacing
 
 When @code{strict-note-spacing} is set, notes are spaced without
 regard for clefs, bar lines, and grace notes,
@@ -3053,7 +3069,7 @@ Snippets:
 @node Line width
 @subsection Line width
 
-@cindex page breaks
+@cindex page break
 @cindex breaking pages
 
 @funindex indent

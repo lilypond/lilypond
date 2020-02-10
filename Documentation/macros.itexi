@@ -11,18 +11,13 @@
 @include version.itexi
 @include common-macros.itexi
 
+
 @ignore
-****************************
-MACRO DEFINITIONS GUIDELINES
-****************************
-
-This file should contain macro definitions which are common to all
-languages, i.e. all macro definitions which do not contain text that
-should be translated (namely text visible in the output).
-
-Macro definitions which contain text that should be translated in
-translations should be in macros.itexi.
+******************************************************
+See MACRO DEFINITION GUIDELINES in common-macros.itexi
+******************************************************
 @end ignore
+
 
 @c   ***** Displaying text *****
 
@@ -612,7 +607,7 @@ For LilyPond version @version{}
 @c delimits arguments in the standard way (i.e., with braces).
 
 @tex
-\gdef\lilyvindex#1{\doind{vr}{\code{#1}}\ignorespaces}
+\gdef\lilyvindex#1{\doind{vr}{\slanted{#1}}\ignorespaces}
 @end tex
 
 @macro rglos{TEXT}

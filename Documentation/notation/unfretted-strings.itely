@@ -87,12 +87,12 @@ Snippets:
 @funindex \open
 @funindex \romanStringNumbers
 
-@cindex bowing indications
-@cindex up bow indication
-@cindex down bow indication
+@cindex bowing indication
+@cindex up-bow indication
+@cindex down-bow indication
 @cindex open string indication
 @cindex string, indicating open
-@cindex string numbers
+@cindex string number
 
 Bowing indications are created as articulations, which are
 described in @ref{Articulations and ornamentations}.
@@ -143,8 +143,8 @@ Notation Reference:
 
 @strong{@i{Natural harmonics}}
 
-@cindex note heads, diamond-shaped
-@cindex diamond-shaped note heads
+@cindex note head, diamond-shaped
+@cindex diamond-shaped note head
 @cindex natural harmonics
 @cindex harmonics, natural
 @funindex \harmonicsOn

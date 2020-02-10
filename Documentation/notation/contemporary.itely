@@ -134,7 +134,7 @@ addressed in @ref{Grouping staves}.
     notations such as Orff-esque 4/note, placing a
     single time signature across multiple staves, or
     placing time signatures at the top of StaffGroups
-    or systems rather than in the stave.
+    or systems rather than in the staff.
 @end ignore
 
 
@@ -160,7 +160,7 @@ addressed in @ref{Grouping staves}.
 @unnumberedsubsubsec Bar lines in contemporary music
 
 @ignore
-    Mensurstriche barlines, tick barlines, etc.
+    Mensurstriche bar lines, tick bar lines, etc.
 @end ignore
 
 

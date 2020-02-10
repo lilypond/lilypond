@@ -117,9 +117,8 @@ music.
 @unnumberedsubsubsec References for Arabic music
 
 @cindex Arabic music
-@cindex medium intervals
+@cindex medium interval
 @cindex maqam
-@cindex maqams
 
 Arabic music so far has been mainly an oral tradition.  When music
 is transcribed, it is usually in a sketch format, on which
@@ -197,7 +196,7 @@ notated:
 
 
 @cindex Arabic semi-flat symbol
-@cindex Semi-flat symbol appearance
+@cindex semi-flat symbol, appearance
 
 @funindex \dwn
 
@@ -207,7 +206,6 @@ in Arabic notation.  The @code{\dwn} symbol defined in
 around if it is important to use the specific Arabic semi-flat
 symbol.  The appearance of the semi-flat symbol in the key
 signature cannot be altered by using this method.
-
 
 @lilypond[quote,verbatim]
 \include "arabic.ly"
@@ -325,8 +323,10 @@ key signatures:
   @tab huzam
 @end multitable
 
+
 @snippets
 
+@c XXX also included in `pitches.itely'
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {non-traditional-key-signatures.ly}
 
@@ -358,7 +358,7 @@ Snippets:
 @unnumberedsubsubsec Arabic time signatures
 
 @cindex Arabic time signatures
-@cindex Semai form
+@cindex semai form
 @cindex taqasim
 
 Some Arabic and Turkish music classical forms such as
@@ -371,8 +371,11 @@ beaming and beam the notes manually.  Even if a match to existing
 typeset music is not required, it may still be desirable to adjust
 the automatic beaming behaviour and/or use compound time signatures.
 
+
 @snippets
 
+@cindex Arabic improvisation
+@cindex improvisation, Arabic
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {arabic-improvisation.ly}
 
@@ -399,7 +402,7 @@ Snippets:
 
 @cindex Arabic music example
 @cindex Arabic music template
-@cindex Template Arabic music
+@cindex template, Arabic music
 
 Here is a template that also uses the start of a Turkish @notation{Semai}
 that is familiar in Arabic music education in order to illustrate
@@ -488,13 +491,12 @@ classical music.
 * Turkish note names::
 @end menu
 
-
 @node References for Turkish classical music
 @unnumberedsubsubsec References for Turkish classical music
 
 @cindex Turkish music
 @cindex Ottoman music
-@cindex comma intervals
+@cindex comma interval
 @cindex makam
 @cindex makamlar
 
@@ -520,7 +522,7 @@ elsewhere:
 @node Turkish note names
 @unnumberedsubsubsec Turkish note names
 
-@cindex Turkish note names
+@cindex Turkish note name
 @cindex makam
 @cindex makamlar
 

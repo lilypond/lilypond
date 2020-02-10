@@ -1,9 +1,18 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 
+@ignore
+****************************
+MACRO DEFINITIONS GUIDELINES
+****************************
 
-@c ***********************************************
-@c SEE MACRO DEFINITION GUIDELINES IN macros.itexi
-@c ***********************************************
+This file contains macro definitions that are common to all languages,
+i.e., all macro definitions that do not contain translatable text
+(namely text visible in the output).
+
+Macro definitions that contain translatable text belong to file
+`macros.itexi'.
+@end ignore
+
 
 @c Don't replace quotes with directed quotes.
 
@@ -11,7 +20,9 @@
 @set txicodequotebacktick
 @set txiindexbackslashignore
 
+
 @include cyrillic.itexi
+
 
 @c   ***** Displaying text *****
 
@@ -88,11 +99,82 @@
 @c Don't remove the `@c' within the macro definition!  See section 19.3,
 @c `Macro Details and Caveats', in the texinfo info file for explanation.
 
+@iftex
+
+@c In TeX output mode we unify `@findex', `@cindex', and `@vindex'
+@c entries in the concept index; this is done with the `@syncodeindex'
+@c lines in macro `@lilyTitlePage'.  We also set
+@c `txiindexbackslashignore' so that `\foo' gets sorted as `foo'.
+@c However, the latter directive has the side effect that `\foo' and
+@c `foo' are treated as equal by the index sorting program.  We don't
+@c want that: It is important for us that entries for both `\foo' and
+@c `foo' appear in the unified index.
+@c
+@c For this reason, we make macro `@funindex' use `@sortas' to set a
+@c special sorting key, and we redefine texinfo's internal macro
+@c `\indexwritesortas' to swallow backslashes.  We also modify
+@c `@cindex' to insert another sorting key to ensure that `\foo'
+@c  immediately comes after `foo', followed by entries like `foo bar'.
+@c
+@c `@cpindex' is the internal version of `@cindex'.
+
+@tex
+{
+\catcode`\-=13
+\gdef\indexwritesortas{%
+  \begingroup
+  \indexnonalnumreappear
+  \backslashdisappear
+  \indexwritesortasxxx}
+}
+
+% `@macro' doesn't allow redefinition of existing commands.
+\global\let\cindex\relax
+
+% For index sorting we need two characters with charcode values less
+% than that of the space character.  Note that this only works if TeX
+% is called with option `-8bit' so that real 8-bit characters are
+% emitted to the auxiliary index files.
+{
+\catcode`\^^A=11 % 0x01
+\catcode`\^^B=11 % 0x02
+\xdef\indexA{^^A}
+\xdef\indexB{^^B}
+}
+@end tex
+
+@macro cindex {TEXT}
+@cpindex @sortas{\TEXT\@indexA{}} \TEXT\
+@c
+@end macro
+
+@macro funindex {TEXT}
+@findex @sortas{\TEXT\@indexB{}} \TEXT\
+@kindex \TEXT\
+@c
+@end macro
+
+@end iftex
+
+@ifnottex
+
 @macro funindex {TEXT}
 @findex \TEXT\
 @kindex \TEXT\
 @c
 @end macro
+
+@end ifnottex
+
+@c XXX Currently we are forced to use ancient version 1.82 of texi2html
+@c     (from 2005); we thus have to provide a macro for `@sortas',
+@c     which was introduced in texinfo version 6.1 (in 2016).
+
+@ifhtml
+@macro sortas {TEXT}
+@end macro
+@end ifhtml
+
 
 
 @c   ***** Macros specific to translated docs *****
