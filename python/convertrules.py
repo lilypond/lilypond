@@ -3558,7 +3558,7 @@ def conv(str):
         # selection, we can't be sure.
         # Also if there is any selection of a non-do language.
         if (re.search ("^[^%\n]*\\{", m.string[:m.start()], re.M)
-            or re.search ('\\language\s(?!\s*#?"(?:catalan|espanol|español|italiano|français|portugues|vlaams))"', str)):
+            or re.search (r'\\language\s(?!\s*#?"(?:catalan|espanol|español|italiano|français|portugues|vlaams))"', str)):
             do = "$(ly:make-pitch 0 0)"
         else:
             do = "do'"
