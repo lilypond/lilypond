@@ -3918,6 +3918,13 @@ def conv (str):
     str = re.sub (automatic, r"\1output-attributes.id", str)
     return str
 
+@rule ((2, 20, 0), r'''\language "deutsch": beh -> heh''')
+def conv (str):
+    changes = re.findall (r'\\language\s*#?"([a-zçñ]+)"', str)
+    if changes and (changes.count ('deutsch') == len (changes)):
+        str = re.sub (r'\bbeh\b', 'heh', str)
+    return str
+
 matchscmarg = (r'(?:[a-zA-Z_][-a-zA-Z_0-9]*|"(?:[^\\"]|\\.)*"|[-+]?[0-9.]+|\('
                + paren_matcher (10) + r"\))")
 
