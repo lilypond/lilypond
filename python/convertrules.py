@@ -3930,6 +3930,13 @@ def conv (str):
                   r'\1\2', str)
     return str
 
+@rule ((2, 20, 0), r'''\language "deutsch": beh -> heh''')
+def conv (str):
+    changes = re.findall (r'\\language\s*#?"([a-zçñ]+)"', str)
+    if changes and (changes.count ('deutsch') == len (changes)):
+        str = re.sub (r'\bbeh\b', 'heh', str)
+    return str
+
 
 # Guidelines to write rules (please keep this at the end of this file)
 #
