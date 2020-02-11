@@ -321,7 +321,7 @@ def pitch_nederlands (pitch):
 
 def pitch_english (pitch):
     str = pitch_generic (pitch, ['c', 'd', 'e', 'f', 'g', 'a', 'b'], ['f', 'qf', 'qs', 's'])
-    return str
+    return str[0] + str[1:].replace ('fqf', 'tqf').replace ('sqs', 'tqs')
 
 def pitch_deutsch (pitch):
     str = pitch_generic (pitch, ['c', 'd', 'e', 'f', 'g', 'a', 'h'], ['es', 'eh', 'ih', 'is'])
