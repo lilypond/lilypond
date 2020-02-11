@@ -79,7 +79,7 @@ or
 %left ADDLYRICS
 
 %right ':' UNSIGNED REAL E_UNSIGNED EVENT_IDENTIFIER EVENT_FUNCTION '^' '_'
-       HYPHEN EXTENDER DURATION_IDENTIFIER '!'
+	HYPHEN EXTENDER DURATION_IDENTIFIER '!' '\'' ','
 
  /* The above are needed for collecting tremoli and other items (that
     could otherwise be interpreted as belonging to the next function
@@ -3318,10 +3318,18 @@ quotes:
 	/* empty */
 	{
                 $$ = SCM_INUM0;
-        }
-	| sub_quotes
-        | sup_quotes
+	} %prec ':'
+	| sub_quotes %prec ':'
+	| sup_quotes %prec ':'
         ;
+
+// no quotes, no error: pass *undefined* in that case.
+erroneous_quotes:
+	quotes {
+		if (scm_is_eq (SCM_INUM0, $1))
+			$$ = SCM_UNDEFINED;
+	}
+	;
 
 sup_quotes:
 	'\'' {
@@ -3636,18 +3644,42 @@ optional_rest:
 	;
 
 pitch_or_music:
-	pitch exclamations questions octave_check maybe_notemode_duration optional_rest post_events {
+// The erroneous_quotes element is for input such as a1'' which is a
+// typical note entry error that we don't want the parser to get
+// confused about.  The resulting grammar, however, is inconsistent
+// enough that accepting it is not doing anybody a favor.
+	pitch exclamations questions octave_check maybe_notemode_duration erroneous_quotes optional_rest post_events {
 		if (!parser->lexer_->is_note_state ())
 			parser->parser_error (@1, _ ("have to be in Note mode for notes"));
+		if (!SCM_UNBNDP ($6))
+		{
+			// It's possible to get here without a
+			// duration, like when there is no
+			// octave_check but a question mark.  But we
+			// point out the most frequent error of an
+			// interspersed duration specifically
+			if (!SCM_UNBNDP ($5))
+				parser->parser_error (@6, _ ("octave marks must precede duration"));
+			else
+				parser->parser_error (@6, _ ("badly placed octave marks"));
+			// Try sorting the quotes to where they likely belong
+			if (scm_is_number ($4)) {
+				$4 = scm_sum ($4, $6);
+			} else {
+				$1 = unsmob<Pitch> ($1)->transposed
+					(Pitch (scm_to_int ($6), 0)).smobbed_copy ();
+			}
+		}
+
 		if (!SCM_UNBNDP ($2)
                     || !SCM_UNBNDP ($3)
                     || scm_is_number ($4)
                     || !SCM_UNBNDP ($5)
-                    || scm_is_true ($6)
-		    || scm_is_pair ($7))
+		    || scm_is_true ($7)
+		    || scm_is_pair ($8))
 		{
 			Music *n = 0;
-			if (scm_is_true ($6))
+			if (scm_is_true ($7))
 				n = MY_MAKE_MUSIC ("RestEvent", @$);
 			else
 				n = MY_MAKE_MUSIC ("NoteEvent", @$);
@@ -3669,9 +3701,9 @@ pitch_or_music:
 				n->set_property ("cautionary", SCM_BOOL_T);
 			if (to_boolean ($2) || to_boolean ($3))
 				n->set_property ("force-accidental", SCM_BOOL_T);
-			if (scm_is_pair ($7))
+			if (scm_is_pair ($8))
 				n->set_property ("articulations",
-						 scm_reverse_x ($7, SCM_EOL));
+						 scm_reverse_x ($8, SCM_EOL));
 			$$ = n->unprotect ();
 		}
 	} %prec ':'
