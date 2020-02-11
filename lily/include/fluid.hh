@@ -1,6 +1,3 @@
-#ifndef FLUID_HH
-#define FLUID_HH
-
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
@@ -19,6 +16,9 @@
   You should have received a copy of the GNU General Public License
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+#ifndef FLUID_HH
+#define FLUID_HH
 
 #include "lily-guile.hh"
 
