@@ -348,8 +348,12 @@ def pitch_francais (pitch):
     return str
 
 def pitch_espanol (pitch):
-    str = pitch_generic (pitch, ['do', 're', 'mi', 'fa', 'sol', 'la', 'si'], ['b', None, None, 's'])
-    return str
+    str = pitch_generic (pitch, ['do', 're', 'mi', 'fa', 'sol', 'la', 'si'], ['b', 'cb', 'cs', 's'])
+    return str.replace ('bc', 'tc').replace ('sc', 'tc')
+
+def pitch_portugues (pitch):
+    str = pitch_generic (pitch, ['do', 're', 'mi', 'fa', 'sol', 'la', 'si'], ['b', 'bqt', 'sqt', 's'])
+    return str.replace ('bbqt', 'btqt').replace ('ssqt', 'stqt')
 
 def pitch_vlaams (pitch):
     str = pitch_generic (pitch, ['do', 're', 'mi', 'fa', 'sol', 'la', 'si'], ['b', None, None, 'k'])
@@ -368,6 +372,9 @@ def set_pitch_language (language):
         "catalan": pitch_catalan,
         "espanol": pitch_espanol,
         "español": pitch_espanol,
+# No sense in providing "português" as long as it does not exist as
+# actual note language
+        "portugues": pitch_portugues,
         "vlaams": pitch_vlaams}
     pitch_generating_function = function_dict.get (language, pitch_general)
 
