@@ -174,12 +174,6 @@ is_number_pair (SCM p)
          && scm_is_number (scm_car (p)) && scm_is_number (scm_cdr (p));
 }
 
-unsigned int
-ly_scm_hash (SCM s)
-{
-  return scm_ihashv (s, ~1u);
-}
-
 bool
 is_axis (SCM s)
 {

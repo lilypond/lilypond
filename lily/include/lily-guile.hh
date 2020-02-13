@@ -160,7 +160,6 @@ Direction to_dir (SCM s);
 bool to_boolean (SCM s);
 
 void init_ly_protection ();
-unsigned int ly_scm_hash (SCM s);
 
 SCM index_get_cell (SCM cell, Direction d);
 SCM index_set_cell (SCM cell, Direction d, SCM val);
