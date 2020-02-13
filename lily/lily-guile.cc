@@ -98,8 +98,7 @@ gulp_file_to_string (const string &fn, bool must_exist, int size)
 
   debug_output ("[" + s, true);
 
-  vector<char> chars = gulp_file (s, size);
-  string result (&chars[0], chars.size ());
+  string result = gulp_file (s, size);
 
   debug_output ("]\n", false);
 
@@ -742,4 +741,3 @@ SCM ly_assoc_prepend_x (SCM alist, SCM key, SCM val)
 {
   return scm_acons (key, val, scm_assoc_remove_x (alist, key));
 }
-

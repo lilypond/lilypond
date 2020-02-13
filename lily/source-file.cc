@@ -45,16 +45,16 @@ using std::vector;
 void
 Source_file::load_stdin ()
 {
-  characters_.clear ();
+  data_.clear ();
   int c;
   while ((c = fgetc (stdin)) != EOF)
-    characters_.push_back ((char)c);
+    data_.push_back ((char)c);
 }
 
 /*
-  return contents of FILENAME. *Not 0-terminated!*
+  return contents of FILENAME.
  */
-vector<char>
+string
 gulp_file (const string &filename, size_t desired_size)
 {
   /* "b" must ensure to open literally, avoiding text (CR/LF)
@@ -81,16 +81,16 @@ gulp_file (const string &filename, size_t desired_size)
 
   rewind (f);
 
-  vector<char> cxx_arr (read_count);
-  size_t bytes_read = fread (cxx_arr.data (), sizeof (char), read_count, f);
+  string dest (read_count, 0);
+  size_t bytes_read = fread (&dest[0], sizeof (char), read_count, f);
   if (bytes_read < read_count)
     {
       warning (_f ("expected to read %zu characters, got %zu", read_count,
                    bytes_read));
-      cxx_arr.resize (bytes_read);
+      dest.resize (bytes_read);
     }
   fclose (f);
-  return cxx_arr;
+  return dest;
 }
 
 void
@@ -108,16 +108,17 @@ Source_file::Source_file (const string &filename, const string &data)
 
   name_ = filename;
 
-  characters_.resize (data.length ());
-  copy (data.begin (), data.end (), characters_.begin ());
-
-  characters_.push_back (0);
+  data_ = data;
 
   init_port ();
+}
 
-  for (vsize i = 0; i < characters_.size (); i++)
-    if (characters_[i] == '\n')
-      newline_locations_.push_back (&characters_[0] + i);
+void
+Source_file::init_newlines ()
+{
+  for (vsize i = 0; i < data_.size (); i++)
+    if (data_[i] == '\n')
+      newline_locations_.push_back (&data_[0] + i);
 }
 
 Source_file::Source_file (const string &filename_string)
@@ -129,17 +130,10 @@ Source_file::Source_file (const string &filename_string)
   if (filename_string == "-")
     load_stdin ();
   else
-    {
-      characters_ = gulp_file (filename_string, -1);
-    }
-
-  characters_.push_back (0);
+    data_ = gulp_file (filename_string, -1);
 
   init_port ();
-
-  for (vsize i = 0; i < characters_.size (); i++)
-    if (characters_[i] == '\n')
-      newline_locations_.push_back (&characters_[0] + i);
+  init_newlines ();
 }
 
 void
@@ -357,13 +351,13 @@ Source_file::set_line (char const *pos_str0, ssize_t line)
 size_t
 Source_file::length () const
 {
-  return characters_.size ();
+  return data_.size ();
 }
 
 char const *
 Source_file::c_str () const
 {
-  return &characters_[0];
+  return data_.c_str ();
 }
 
 SCM

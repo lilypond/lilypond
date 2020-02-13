@@ -35,12 +35,12 @@ using std::string;
 using std::stringstream;
 using std::vector;
 
-vector<char>
-pfb2pfa (const vector<char> &pfb)
+string
+pfb2pfa (const string &pfb)
 {
-  vector<char> out;
+  string out;
 
-  vector<char>::const_iterator p = pfb.begin ();
+  string::const_iterator p = pfb.begin ();
   while (p < pfb.end ())
     {
       if (static_cast<Byte>(*p++) != 128)

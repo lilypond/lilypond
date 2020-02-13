@@ -40,12 +40,14 @@ public:
 private:
   std::vector<char const *> newline_locations_;
   std::istream *istream_;
-  std::vector<char> characters_;
+
+  std::string data_;
   SCM str_port_;
 
   void load_stdin ();
   void init_port ();
   void init ();
+  void init_newlines();
 
 public:
   Source_file (const std::string &fn);
@@ -73,6 +75,6 @@ protected:
   ssize_t line_offset_;
 };
 
-std::vector<char> gulp_file (const std::string &fn, size_t desired_size);
+std::string gulp_file (const std::string &fn, size_t desired_size);
 
 #endif /* SOURCE_FILE_HH */

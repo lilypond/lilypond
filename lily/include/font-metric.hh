@@ -76,6 +76,6 @@ protected:
 };
 
 
-std::vector<char> pfb2pfa (const std::vector<char> &pfb);
+std::string pfb2pfa (const std::string &pfb);
 
 #endif /* FONT_METRIC_HH */

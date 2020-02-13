@@ -22,13 +22,13 @@ LY_DEFINE (ly_type1_2_pfa, "ly:type1->pfa",
 
   debug_output ("[" + file_name); // start message on a new line
 
-  vector<char> type1_string = gulp_file (file_name, 0);
+  string type1_string = gulp_file (file_name, 0);
   SCM pfa_scm;
 
   if ((Byte) type1_string[0] == 0x80)
     {
       /* The file is in PFB format. Convert it to PFA format. */
-      vector<char> pfa = pfb2pfa (type1_string);
+      string pfa = pfb2pfa (type1_string);
       pfa_scm = scm_from_latin1_stringn (&pfa[0], pfa.size ());
     }
   else
