@@ -95,54 +95,44 @@ use Encode qw(decode);
 my $LY_LANGUAGES = {};
 $LY_LANGUAGES->{'ca'} = {
     'Back to Documentation Index' => 'Torna a l\'índex de la documentació',
-    '<p>Thanks to ${webdev_link} for hosting ${lily_site}.' => '<p>Agraïm a ${webdev_link} l\'allotjament de ${lily_site}.',
 };
 
 $LY_LANGUAGES->{'cs'} = {
     'Back to Documentation Index' => '',
-    '<p>Thanks to ${webdev_link} for hosting ${lily_site}.' => '',
 };
 
 $LY_LANGUAGES->{'de'} = {
     'Back to Documentation Index' => 'Zur Dokumentationsübersicht',
-    '<p>Thanks to ${webdev_link} for hosting ${lily_site}.' => '',
 };
 
 $LY_LANGUAGES->{'es'} = {
     'Back to Documentation Index' => 'Volver al índice de la documentación',
-    '<p>Thanks to ${webdev_link} for hosting ${lily_site}.' => '<p>Agradecemos a ${webdev_link} el alojamiento de ${lily_site}.',
 };
 
 $LY_LANGUAGES->{'fr'} = {
     'Back to Documentation Index' => 'Retour à l\'accueil de la documentation',
-    '<p>Thanks to ${webdev_link} for hosting ${lily_site}.' => '<p>Remerciements à ${webdev_link} pour l\'hébergement de ${lily_site}.',
 };
 
 
 $LY_LANGUAGES->{'hu'} = {
     'Back to Documentation Index' => 'Vissza a dokumentációk jegyzékéhez',
-    '<p>Thanks to ${webdev_link} for hosting ${lily_site}.' => '<p>Köszönet a ${webdev_link} részére a ${lily_site} tárhelyért.',
 };
 
 $LY_LANGUAGES->{'it'} = {
     'Back to Documentation Index' => 'Torna all\'indice della documentazione',
-    '<p>Thanks to ${webdev_link} for hosting ${lily_site}.' => 'Grazie a ${webdev_link} per l\'hosting di ${lily_site}.',
 };
 
 $LY_LANGUAGES->{'ja'} = {
     'Back to Documentation Index' => 'ドキュメント インデックスに戻る',
-    '<p>Thanks to ${webdev_link} for hosting ${lily_site}.' => '<p>${lily_site} をホスティングしてくれている ${webdev_link} に感謝します。',
 };
 
 
 $LY_LANGUAGES->{'nl'} = {
     'Back to Documentation Index' => 'Terug naar de Documentatieindex',
-    '<p>Thanks to ${webdev_link} for hosting ${lily_site}.' => '<p>Met dank aan ${webdev_link} voor het hosten van ${lily_site}.',
 };
 
 $LY_LANGUAGES->{'zh'} = {
     'Back to Documentation Index' => '回到文档索引',
-    '<p>Thanks to ${webdev_link} for hosting ${lily_site}.' => '<p>非常感谢 ${webdev_link} 提供 ${lily_site} 的主机空间。',
 };
 
 # FIXME: request the translations below then send them to texi2html/texinfo devs
@@ -2025,14 +2015,10 @@ sub print_lilypond_page_foot($)
     print $fh "<div id=\"verifier_texinfo\">\n";
     print $fh "<h3>Validation</h3>\n";
     # FIXME: inlined text substitution, move to ly_get_string as soon as another case is needed
-    my $webdev_link = "<a href=\"http://www.webdev.nl/\">webdev.nl</a>";
-    my $lily_site = "<code>lilypond.org</code>";
-    my $hosting_thanks = &ly_get_string ('<p>Thanks to ${webdev_link} for hosting ${lily_site}.');
     # this does the variable substitution ("quoting" in Perlish) after the localization
     $hosting_thanks =~ s/(\$\{\w+\})/$1/eeg;
-    print $fh $hosting_thanks . "\n";
-    print $fh "<a href=\"http://validator.w3.org/check?uri=referer\">\n";
-    print $fh "<img src=\"http://www.w3.org/Icons/valid-html401\"\n";
+    print $fh "<a href=\"https://validator.w3.org/check?uri=referer\">\n";
+    print $fh "<img src=\"https://www.w3.org/Icons/valid-html401\"\n";
     print $fh "     alt=\"Valid HTML 4.01 Transitional\"\n";
     print $fh "     height=\"31\" width=\"88\"></a></p>\n";
     print $fh "</div>";

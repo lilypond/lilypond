@@ -288,8 +288,8 @@ An argument, @code{-dcrop}, has been added, formatting @code{SVG} and
 
 @ifhtml
 For older news, go to
-@uref{http://lilypond.org/doc/v2.20/Documentation/changes/},
-@uref{http://lilypond.org/doc/v2.18/Documentation/changes/},
+@uref{https://lilypond.org/doc/v2.20/Documentation/changes/},
+@uref{https://lilypond.org/doc/v2.18/Documentation/changes/},
 or @uref{../,go back} to the Documentation index.
 
 
