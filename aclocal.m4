@@ -850,7 +850,7 @@ AC_DEFUN(STEPMAKE_INIT, [
         program_suffix=
     fi
 
-    # From configure: "When building in place, set srcdir=." 
+    # From configure: "When building in place, set srcdir=."
     if test "$srcdir" = "."; then
         srcdir_build=yes
     else
@@ -1272,37 +1272,9 @@ AC_DEFUN(STEPMAKE_FREETYPE2, [
     fi
 ])
 
-
-AC_DEFUN(STEPMAKE_PANGO, [
-    PKG_CHECK_MODULES(PANGO, $1 >= $3, have_pango16=yes, true)
-    if test "$have_pango16" = yes ; then
-        AC_DEFINE(HAVE_PANGO16)
-        # Do not pollute user-CPPFLAGS with configure-CPPFLAGS
-        save_CPPFLAGS="$CPPFLAGS"
-        save_LIBS="$LIBS"
-        CPPFLAGS="$PANGO_CFLAGS $CPPFLAGS"
-        LIBS="$PANGO_LIBS $LIBS"
-        AC_CHECK_HEADERS([pango/pangofc-fontmap.h])
-        AC_CHECK_FUNCS([pango_fc_font_map_add_decoder_find_func])
-        AC_SUBST(PANGO_CFLAGS)
-        AC_SUBST(PANGO_LIBS)
-        CPPFLAGS="$save_CPPFLAGS"
-        LIBS="$save_LIBS"
-    else
-        # UGR
-        #r="lib$1-dev or $1-devel"
-        r="libpango1.0-dev or pango1.0-devel"
-        ver="`pkg-config --modversion $1`"
-        STEPMAKE_ADD_ENTRY($2, ["$r >= $3 (installed: $ver)"])
-    fi
-])
-
-
 AC_DEFUN(STEPMAKE_PANGO_FT2, [
     PKG_CHECK_MODULES(PANGO_FT2, $1 >= $3, have_pangoft2=yes, true)
     if test "$have_pangoft2" = yes ; then
-        AC_DEFINE(HAVE_PANGO16)
-        AC_DEFINE(HAVE_PANGO_FT2)
         # Do not pollute user-CPPFLAGS with configure-CPPFLAGS
         save_CPPFLAGS="$CPPFLAGS"
         save_LIBS="$LIBS"
@@ -1328,8 +1300,6 @@ AC_DEFUN(STEPMAKE_PANGO_FT2_WITH_OTF_FEATURE, [
     PKG_CHECK_MODULES(PANGO_FT2, $1 >= $3,
         have_pangoft2_with_otf_feature=yes, true)
     if test "$have_pangoft2_with_otf_feature" = yes; then
-        AC_DEFINE(HAVE_PANGO16)
-        AC_DEFINE(HAVE_PANGO_FT2)
         AC_DEFINE(HAVE_PANGO_FT2_WITH_OTF_FEATURE)
         # Do not pollute user-CPPFLAGS with configure-CPPFLAGS
         save_CPPFLAGS="$CPPFLAGS"

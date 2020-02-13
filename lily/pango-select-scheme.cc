@@ -19,7 +19,6 @@
 
 #include "config.hh"
 
-#if HAVE_PANGO_FT2
 #include "pango-font.hh"
 
 LY_DEFINE (ly_make_pango_description_string, "ly:make-pango-description-string",
@@ -36,5 +35,3 @@ LY_DEFINE (ly_make_pango_description_string, "ly:make-pango-description-string",
   pango_font_description_free (pfd);
   return scm_str;
 }
-
-#endif

@@ -24,10 +24,8 @@
 #include "font-metric.hh"
 #include "config.hh"
 
-#if HAVE_PANGO_FT2
 #include <pango/pango.h>
 #include <pango/pangoft2.h>
-#endif
 
 /*
    Interface to all fonts (both system fonts and fonts loaded
@@ -38,11 +36,9 @@ class All_font_metrics : public Smob<All_font_metrics>
   Scheme_hash_table *otf_dict_;
   File_path search_path_;
 
-#if HAVE_PANGO_FT2
   PangoFT2FontMap *pango_ft2_fontmap_;
   Scheme_hash_table *pango_dict_;
   int pango_dpi_;
-#endif
 
   std::map<std::string, Index_to_charcode_map > filename_charcode_maps_map_;
 

@@ -46,7 +46,6 @@ get_font_by_design_size (Output_def *layout, Real requested,
           Font_metric *fm = unsmob<Font_metric> (scm_force (entry));
           size = fm->design_size ();
         }
-#if HAVE_PANGO_FT2
       else if (scm_is_pair (entry)
                && scm_is_number (scm_car (entry))
                && scm_is_string (scm_cdr (entry)))
@@ -55,8 +54,6 @@ get_font_by_design_size (Output_def *layout, Real requested,
           pango_description_string
             = scm_cdr (entry);
         }
-#endif
-
       if (size > requested)
         break;
       last_size = size;
@@ -78,13 +75,9 @@ get_font_by_design_size (Output_def *layout, Real requested,
   Font_metric *fm = 0;
   if (scm_is_string (pango_description_string))
     {
-#if HAVE_PANGO_FT2
       return find_pango_font (layout,
                               pango_description_string,
                               requested / size);
-#else
-      error ("Trying to retrieve pango font without HAVE_PANGO_FT2.");
-#endif
     }
   else
     fm = unsmob<Font_metric> (scm_force (scm_c_vector_ref (font_vector, i)));
@@ -118,11 +111,9 @@ select_encoded_font (Output_def *layout, SCM chain)
       name = properties_to_font_size_family (fonts, chain);
     }
 
-#if HAVE_PANGO_FT2
   if (scm_is_string (name))
     return select_pango_font (layout, chain);
   else
-#endif
     if (scm_is_true (scm_instance_p (name)))
       {
         SCM base_size = scm_slot_ref (name, ly_symbol2scm ("default-size"));

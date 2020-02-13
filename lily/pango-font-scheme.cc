@@ -17,8 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#define PANGO_ENABLE_BACKEND // ugh, why necessary?
-
 #include <pango/pangoft2.h>
 
 #include "main.hh"
@@ -27,7 +25,6 @@
 #include "pango-font.hh"
 #include "warn.hh"
 
-#if HAVE_PANGO_FT2
 #include "stencil.hh"
 
 LY_DEFINE (ly_pango_font_p, "ly:pango-font?",
@@ -52,4 +49,3 @@ LY_DEFINE (ly_pango_font_physical_fonts, "ly:pango-font-physical-fonts",
 
   return alist;
 }
-#endif
