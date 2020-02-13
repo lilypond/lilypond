@@ -60,7 +60,7 @@ endif
 
 
 # no locale settings in the build process.
-LANG=
+LANG=C
 export LANG
 
 
