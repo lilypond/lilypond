@@ -34,6 +34,11 @@ struct Interval_t : public Drul_array<T>
 {
   using Drul_array<T>::at;
 
+  template <typename T2>
+  Interval_t (Interval_t<T2> const &src) : Interval_t (src[LEFT], src[RIGHT])
+  {
+  }
+
   static T infinity ();
   T center () const;
   void translate (T t)
@@ -231,4 +236,3 @@ typedef Interval_t<int> Slice;  // weird name
 
 
 #endif // INTERVAL_HH
-
