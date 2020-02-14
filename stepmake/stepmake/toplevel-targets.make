@@ -2,7 +2,7 @@
 install-doc:
 uninstall-doc:
 
-distclean: clean doc-clean test-clean log-clean
+distclean: clean doc-clean test-clean
 	$(MAKE) local-distclean
 
 local-distclean:
@@ -32,7 +32,7 @@ endif
 local-help:
 	@echo "  config          rerun configure"
 	@echo "  dist            roll tarball: $(depth)/$(outdir)/$(distname).tar.gz"
-	@echo "  distclean       make clean, doc-clean, test-clean, log-clean and"
+	@echo "  distclean       make clean, doc-clean, test-clean and"
 	@echo "                   also remove configure output"
 	@echo "  po              make new translation Portable Object database"
 	@echo "  po-replace      do po-update and replace catalogs with msgmerged versions"
@@ -53,4 +53,3 @@ local-help:
 	@echo "  For more information on these targets, see"
 	@echo "    \`Verify regression tests' in the Contributor's Guide."
 	@echo
-

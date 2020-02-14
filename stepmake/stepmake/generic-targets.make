@@ -1,6 +1,6 @@
 .PHONY : all clean bin-clean default dist exe help html lib man TAGS\
 	 po doc doc-stage-1 WWW-1 WWW-2 WWW-post local-WWW-1 local-WWW-2\
-	 local-all local-clean local-bin-clean local-doc log-clean
+	 local-all local-clean local-bin-clean local-doc
 
 all: default
 	$(LOOP)
@@ -13,9 +13,6 @@ man:
 clean: local-clean
 	-rm -rf $(outdir)
 	$(LOOP)
-
-log-clean:
-	find . -name "*.log" -delete
 
 ifeq (,$(findstring metafont,$(STEPMAKE_TEMPLATES)))
 bin-clean: local-bin-clean
@@ -59,7 +56,6 @@ help: generic-help local-help
 	@echo "  exe          update all executables"
 	@echo "  help         this help"
 	@echo "  lib          update all libraries"
-	@echo "  log-clean    remove .log files"
 	@echo "  TAGS         generate tagfiles"
 	@echo
 	@echo "\`make' may be invoked from any subdirectory that contains a GNUmakefile."
