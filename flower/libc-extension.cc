@@ -49,15 +49,6 @@ strnupr (char *start, size_t n)
   return start;
 }
 
-template<class T>
-inline void
-my_swap (T &t1, T &t2, T &tmp)
-{
-  tmp = t1;
-  t1 = t2;
-  t2 = tmp;
-}
-
 /*
   There are some strange problems with round() on early glibcs.
 */
