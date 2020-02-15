@@ -22,17 +22,13 @@ public:
   static std::string pad_to (const std::string &s, size_t length);
   static std::string bin2hex (Byte bin_char);
   static std::string bin2hex (const std::string &bin_string);
-  static int bin2int (const std::string &bin_string);
-  static unsigned bin2unsigned (const std::string &bin_string);
   static int dec2int (const std::string &dec_string);
-  static double dec2double (const std::string &dec_string);
   static std::string form_string (char const *format, ...) __attribute__ ((format (printf, 1, 2)));
   static std::string vform_string (char const *format, va_list args);
   static std::string hex2bin (const std::string &str);
   static std::string int_string (int i, char const *fmt = 0);
   static std::string int2hex (int i, size_t length_i, char ch);
   static std::string unsigned2hex (unsigned u, size_t length, char ch);
-  static std::string int2dec (int i, size_t length_i, char ch);
   static std::string to_lower (std::string s);
   static std::string to_upper (std::string s);
 };

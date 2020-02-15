@@ -50,26 +50,6 @@ String_convert::bin2hex (const string &bin_string)
 }
 
 int
-String_convert::bin2int (const string &bin_string)
-{
-  return bin2unsigned (bin_string);
-}
-
-unsigned
-String_convert::bin2unsigned (const string &bin_string)
-{
-  assert (bin_string.length () <= (int)sizeof (unsigned));
-
-  unsigned result_u = 0;
-  for (ssize i = 0; i < bin_string.length (); i++)
-    {
-      result_u <<= 8;
-      result_u += (Byte)bin_string[ i ];
-    }
-  return result_u;
-}
-
-int
 String_convert::dec2int (const string &dec_string)
 {
   if (!dec_string.length ())
@@ -80,20 +60,6 @@ String_convert::dec2int (const string &dec_string)
     assert (false);
 
   return (int)l;
-}
-
-// breendet imp from string
-double
-String_convert::dec2double (const string &dec_string)
-{
-  if (!dec_string.length ())
-    return 0;
-
-  double d = 0.0;
-  if (!sscanf (dec_string.c_str (), "%lf", &d))
-    assert (false);
-
-  return d;
 }
 
 int
@@ -138,23 +104,6 @@ String_convert::hex2nibble (Byte byte)
   if (byte >= 'a' && byte <= 'f')
     return byte - 'a' + 10;
   return -1;
-}
-
-// stupido.  Should use int_string ()
-string
-String_convert::int2dec (int i, size_t length_i, char ch)
-{
-  char fill_char = ch;
-  if (fill_char)
-    fill_char = '0';
-
-  // ugh
-  string dec_string = std::to_string (i);
-
-  // ugh
-  if (dec_string.length () < length_i)
-    dec_string = string (length_i - dec_string.length (), fill_char) + dec_string;
-  return dec_string;
 }
 
 // stupido.  Should use int_string ()
