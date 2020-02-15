@@ -27,7 +27,7 @@
 struct Pointer_group_interface
 {
 public:
-  static int count (Grob *, SCM);
+  static vsize count (Grob *, SCM);
   static void add_grob (Grob *, SCM nm, Grob *e);
   static void add_grob (Grob *, SCM nm, SCM x);
   static void add_unordered_grob (Grob *, SCM nm, Grob *);

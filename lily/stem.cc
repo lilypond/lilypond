@@ -182,7 +182,7 @@ Stem::support_head (Grob *me)
   return first_head (me);
 }
 
-int
+vsize
 Stem::head_count (Grob *me)
 {
   return Pointer_group_interface::count (me, ly_symbol2scm ("note-heads"));

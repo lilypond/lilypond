@@ -46,7 +46,7 @@ public:
   static Direction get_default_dir (Grob *);
   static Real thickness (Grob *);
   static Real beam_end_corrective (Grob *);
-  static int head_count (Grob *);
+  static vsize head_count (Grob *);
   static bool is_invisible (Grob *);
   static bool is_normal_stem (Grob *);
   static bool is_cross_staff (Grob *);

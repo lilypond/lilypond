@@ -25,7 +25,7 @@
 
 using std::vector;
 
-int
+vsize
 Pointer_group_interface::count (Grob *me, SCM sym)
 {
   Grob_array *arr = unsmob<Grob_array> (me->internal_get_object (sym));
