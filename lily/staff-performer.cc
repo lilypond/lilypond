@@ -267,19 +267,30 @@ Staff_performer::get_channel (const string &instrument)
   if (i != channel_map.end ())
     return i->second;
 
-  int channel = (scm_is_eq (channel_mapping, ly_symbol2scm ("staff")))
-                ? channel_count_++
-                : channel_map.size ();
+  auto channel = (scm_is_eq (channel_mapping, ly_symbol2scm ("staff")))
+                 ? channel_count_++
+                 : static_cast<int> (channel_map.size ());
 
   /* MIDI players tend to ignore instrument settings on channel
      10, the percussion channel.  */
   if (channel % 16 == 9)
     {
+      // TODO: Shouldn't this assign 9 rather than channel++?
+      //
+      // TODO: A hard-coded percussion entry ought to be created at the
+      // beginning, otherwise an early lookup of the key might cause it to be
+      // allocated an unexpected value.  Fixing this requires decoupling the
+      // next channel number from the map size.
+      //
+      // TODO: Should this entry really be created for any case of channel
+      // mapping, or perhaps only for the per-instrument case?
       channel_map["percussion"] = channel++;
+      // TODO: Above, channel_count_ is incremented in the per-staff case only;
+      // should that be considered here as well?
       channel_count_++;
     }
 
-  if (channel > 15)
+  if (channel > 15) // TODO: warn the first time only, maybe
     {
       warning (_ ("MIDI channel wrapped around"));
       warning (_ ("remapping modulo 16"));
