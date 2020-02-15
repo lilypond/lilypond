@@ -28,11 +28,6 @@
 char *strnlwr (char *start, size_t n);
 char *strnupr (char *start, size_t n);
 
-#if ! HAVE_MEMMEM               /* GNU extension. */
-void *memmem (void const *haystack, int haystack_len,
-              void const *needle, int needle_len);
-#endif /* HAVE_MEMMEM */
-
 double my_round (double);
 
 /* namespace std { */

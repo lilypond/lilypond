@@ -20,9 +20,6 @@
 /* define if you have lrint */
 #define HAVE_LRINT 0
 
-/* define if you have memmem */
-#define HAVE_MEMMEM 0
-
 /* define if you have snprintf */
 #define HAVE_SNPRINTF 0
 

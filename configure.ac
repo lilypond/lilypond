@@ -317,7 +317,7 @@ AC_CHECK_HEADERS([assert.h grp.h libio.h pwd.h sys/stat.h wchar.h])
 AC_HEADER_STAT
 AC_FUNC_MEMCMP
 AC_FUNC_VPRINTF
-AC_CHECK_FUNCS([chroot fopencookie gettext memmem snprintf vsnprintf])
+AC_CHECK_FUNCS([chroot fopencookie gettext snprintf vsnprintf])
 
 STEPMAKE_PROGS(PKG_CONFIG, pkg-config, REQUIRED, 0.9.0)
 
