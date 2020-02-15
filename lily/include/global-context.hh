@@ -39,7 +39,7 @@ class Global_context : Preinit_Global_context, public Context
   friend class Output_def;
 public:
   Global_context (Output_def *);
-  int get_moments_left () const;
+  vsize get_moments_left () const;
   Moment sneaky_insert_extra_moment (Moment);
   void add_moment_to_process (Moment);
   void run_iterator_on_me (Music_iterator *);

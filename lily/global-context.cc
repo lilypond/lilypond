@@ -94,7 +94,7 @@ Global_context::sneaky_insert_extra_moment (Moment w)
   return w;
 }
 
-int
+vsize
 Global_context::get_moments_left () const
 {
   return extra_mom_pq_.size ();
