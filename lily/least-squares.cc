@@ -42,7 +42,7 @@ minimise_least_squares (Real *coef, Real *offset,
       sxy += x * y;
     }
 
-  int count = input.size ();
+  const auto count = static_cast<Real> (input.size ());
 
   *coef = 0.0;
   *offset = 0.;
