@@ -704,7 +704,7 @@ assignment:
 			parser->parser_error (@3, _ ("Not a markup function"));
 		} else {
 			Lily::define_markup_command_internal
-				(scm_string_to_symbol ($1), $3);
+ 				(scm_string_to_symbol ($1), $3, SCM_BOOL_F);
 		}
 		$$ = SCM_UNSPECIFIED;
 	}

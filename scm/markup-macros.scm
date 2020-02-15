@@ -102,21 +102,9 @@ command.  There is no protection against circular definitions.
          (args (and (pair? command-and-args) (cdr command-and-args))))
     (if args
         `(,define-markup-command-internal
-           ',command (markup-lambda ,args ,@definition))
+           ',command (markup-lambda ,args ,@definition) #f)
         `(,define-markup-command-internal
-           ',command ,@definition))))
-
-(define (define-markup-command-internal command definition)
-  (let* ((command-name (string->symbol (format #f "~a-markup" command)))
-         (make-markup-name (string->symbol (format #f "make-~a-markup" command))))
-    (if (not (procedure-name definition))
-        (set-procedure-property! definition 'name command-name))
-    (module-define! (current-module) command-name definition)
-    (module-define! (current-module) make-markup-name
-                    (lambda args
-                      (make-markup definition make-markup-name args)))
-    (module-export! (current-module)
-                    (list command-name make-markup-name))))
+           ',command ,@definition #f))))
 
 (defmacro*-public markup-lambda
   (args signature
@@ -174,20 +162,23 @@ interpreted, returns a list of stencils instead of a single one"
                       command-and-args))
          (args (and (pair? command-and-args) (cdr command-and-args))))
     (if args
-        `(,define-markup-list-command-internal
-           ',command (markup-list-lambda ,args ,@definition))
-        `(,define-markup-list-command-internal
-           ',command ,@definition))))
+        `(,define-markup-command-internal
+           ',command (markup-list-lambda ,args ,@definition) #t)
+        `(,define-markup-command-internal
+           ',command ,@definition #t))))
 
-(define (define-markup-list-command-internal command definition)
-  (let* ((command-name (string->symbol (format #f "~a-markup-list" command)))
-         (make-markup-name (string->symbol (format #f "make-~a-markup-list" command))))
+(define (define-markup-command-internal command definition is-list)
+  (let* ((suffix (if is-list "-list" ""))
+         (command-name (string->symbol (format #f "~a-markup~a" command suffix)))
+         (make-markup-name (string->symbol (format #f "make-~a-markup~a" command suffix))))
     (if (not (procedure-name definition))
         (set-procedure-property! definition 'name command-name))
     (module-define! (current-module) command-name definition)
     (module-define! (current-module) make-markup-name
                     (lambda args
-                      (list (make-markup definition make-markup-name args))))
+                      (if is-list
+                          (list (make-markup definition make-markup-name args))
+                          (make-markup definition make-markup-name args))))
     (module-export! (current-module)
                     (list command-name make-markup-name))))
 
