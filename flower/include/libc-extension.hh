@@ -30,17 +30,4 @@ char *strnupr (char *start, size_t n);
 
 double my_round (double);
 
-/* namespace std { */
-
-#if ! HAVE_SNPRINTF             /* GNU extension. */
-int snprintf (char *str, size_t n, char const *format, ...);
-__attribute__ ((format (printf, 3, 4)));
-#endif
-
-#if ! HAVE_VSNPRINTF            /* GNU extension. */
-int vsnprintf (char *str, size_t, char const *format, va_list args);
-#endif
-
-/* }; */
-
 #endif /* LIBC_EXTENSION_HH */

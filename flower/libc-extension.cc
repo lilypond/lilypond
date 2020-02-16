@@ -57,32 +57,3 @@ my_round (double x)
 {
   return floor (x - 0.5) + 1.0;
 }
-
-/* namespace std { */
-
-#if ! HAVE_SNPRINTF
-int
-snprintf (char *str, size_t n, char const *format, ...)
-{
-  va_list ap;
-  va_start (ap, format);
-  int i = vsprintf (str, format, ap);
-  if (i > 0 && (unsigned) i > n)
-    assert (false);
-  va_end (ap);
-  return i;
-}
-#endif
-
-#if ! HAVE_VSNPRINTF
-int
-vsnprintf (char *str, size_t n, char const *format, va_list args)
-{
-  int i = vsprintf (str, format, args);
-  if (i > 0 && (unsigned) i > n)
-    assert (false);
-  return i;
-}
-#endif
-
-/* } namespace std */
