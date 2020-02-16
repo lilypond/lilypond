@@ -30,7 +30,6 @@
 #endif
 #endif
 
-#include "config.hh"   /* needed at least for HAVE_STL_DATA_METHOD */
 #include <algorithm>   /* find, reverse, sort */
 #include <functional>  /* unary_function */
 #include <cassert>

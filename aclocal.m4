@@ -994,27 +994,6 @@ AC_DEFUN(STEPMAKE_PYTHON, [
 ])
 
 
-AC_DEFUN(STEPMAKE_STL_DATA_METHOD, [
-    AC_CACHE_CHECK([for stl.data () method],
-        [stepmake_cv_stl_data_method],
-        AC_COMPILE_IFELSE([
-            AC_LANG_PROGRAM([[
-
-#include <vector>
-using namespace std;
-vector <int> v;
-void *p = v.data ();
-
-            ]])],
-            [stepmake_cv_stl_data_method=yes],
-            [stepmake_cv_stl_data_method=no]))
-    if test $stepmake_cv_stl_data_method = yes; then
-        AC_DEFINE(HAVE_STL_DATA_METHOD, 1,
-            [define if stl classes have data () method])
-    fi
-])
-
-
 AC_DEFUN(STEPMAKE_TEXMF_DIRS, [
     STEPMAKE_PROGS(KPSEWHICH, kpsewhich, $1)
 
