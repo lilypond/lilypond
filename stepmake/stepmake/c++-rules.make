@@ -8,14 +8,6 @@ $(outdir)/%.o: $(outdir)/%.cc
 	$(call ly_progress,Making,$@,< cc)
 	$(DO_O_DEP) $(CXX) -c $(ALL_CXXFLAGS) -o $@ $<
 
-$(outdir)/%.lo: %.cc
-	$(call ly_progress,Making,$@,< cc)
-	$(DO_LO_DEP) $(CXX) -c $(ALL_CXXFLAGS) $(PIC_FLAGS) -o $@ $<
-
-$(outdir)/%.lo: $(outdir)/%.cc
-	$(call ly_progress,Making,$@,< cc)
-	$(DO_LO_DEP) $(CXX) -c $(ALL_CXXFLAGS) $(PIC_FLAGS) -o $@ $<
-
 $(outdir)/%.cc $(outdir)/%.hh: %.yy
 	$(call ly_progress,Making,$@,< yy)
 	$(BISON) -d -o $(outdir)/$*.cc $<
