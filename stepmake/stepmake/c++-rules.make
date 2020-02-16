@@ -2,11 +2,11 @@
 
 $(outdir)/%.o: %.cc
 	$(call ly_progress,Making,$@,< cc)
-	$(DO_O_DEP) $(CXX) -c $(ALL_CXXFLAGS) -o $@ $<
+	$(CXX) -c $(ALL_CXXFLAGS) -o $@ $<
 
 $(outdir)/%.o: $(outdir)/%.cc
 	$(call ly_progress,Making,$@,< cc)
-	$(DO_O_DEP) $(CXX) -c $(ALL_CXXFLAGS) -o $@ $<
+	$(CXX) -c $(ALL_CXXFLAGS) -o $@ $<
 
 $(outdir)/%.cc $(outdir)/%.hh: %.yy
 	$(call ly_progress,Making,$@,< yy)

@@ -8,13 +8,10 @@ PIC_FLAGS = -fpic -fPIC
 endif
 endif
 
-o-dep-out = $(outdir)/$(subst .o,.dep,$(notdir $@))#
-DO_O_DEP = rm -f $(o-dep-out); DEPENDENCIES_OUTPUT="$(o-dep-out) $(outdir)/$(notdir $@)"
-
 EXTRA_CXXFLAGS = -std=c++11 -fno-exceptions -W -Wall -Wconversion -Woverloaded-virtual
-#ifeq ($(MY_PATCH_LEVEL),)
-#EXTRA_CXXFLAGS += -Werror
-#endif
+
+o-dep-out = $(outdir)/$(subst .o,.dep,$(notdir $@))#
+EXTRA_CXXFLAGS += -MMD -MP -MF $(o-dep-out) -MT $(outdir)/$(notdir $@)
 
 ALL_CXXPPFLAGS = $(CPPFLAGS) $(CONFIG_CPPFLAGS) $(DEFINES) $(INCLUDES:%=-I%)
 # note: CXXFLAGS last allows user override of prior flags
