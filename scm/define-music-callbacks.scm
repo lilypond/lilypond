@@ -94,35 +94,33 @@ to be used by the sequential-iterator"
          (den (ly:music-property music 'denominator))
          (structure (ly:music-property music 'beat-structure))
          (fraction (cons num den)))
-    (list (descend-to-context
-           (context-spec-music
-            (make-apply-context
-             (lambda (context)
-               (let* ((time-signature-settings
-                       (ly:context-property context 'timeSignatureSettings))
-                      (my-base-length
-                       (base-length fraction time-signature-settings))
-                      (my-beat-structure
-                       (if (null? structure)
-                           (beat-structure my-base-length
-                                           fraction
-                                           time-signature-settings)
-                           structure))
-                      (beaming-exception
-                       (beam-exceptions fraction time-signature-settings))
-                      (new-measure-length (ly:make-moment num den)))
-                 (ly:context-set-property!
-                  context 'timeSignatureFraction fraction)
-                 (ly:context-set-property!
-                  context 'baseMoment (ly:make-moment my-base-length))
-                 (ly:context-set-property!
-                  context 'beatStructure my-beat-structure)
-                 (ly:context-set-property!
-                  context 'beamExceptions beaming-exception)
-                 (ly:context-set-property!
-                  context 'measureLength new-measure-length))))
-            'Timing)
-           'Score)
+    (list (context-spec-music
+           (make-apply-context
+            (lambda (context)
+              (let* ((time-signature-settings
+                      (ly:context-property context 'timeSignatureSettings))
+                     (my-base-length
+                      (base-length fraction time-signature-settings))
+                     (my-beat-structure
+                      (if (null? structure)
+                          (beat-structure my-base-length
+                                          fraction
+                                          time-signature-settings)
+                          structure))
+                     (beaming-exception
+                      (beam-exceptions fraction time-signature-settings))
+                     (new-measure-length (ly:make-moment num den)))
+                (ly:context-set-property!
+                 context 'timeSignatureFraction fraction)
+                (ly:context-set-property!
+                 context 'baseMoment (ly:make-moment my-base-length))
+                (ly:context-set-property!
+                 context 'beatStructure my-beat-structure)
+                (ly:context-set-property!
+                 context 'beamExceptions beaming-exception)
+                (ly:context-set-property!
+                 context 'measureLength new-measure-length))))
+           'Timing)
           ;; (make-music 'TimeSignatureEvent music) would always
           ;; create a Bottom context.  So instead, we just send the
           ;; event to whatever context may be currently active.  If
