@@ -24,6 +24,8 @@ multiMeasureReminderEngraver =
 
 % Set the type of MultiMeasureRestReminder so we can assign to it.
 #(set-object-property!  'MultiMeasureRestReminder 'translation-type? ly:grob-properties?)
+% Confirm MultiMeasureRestReminder is a grob syntactically.
+#(set-object-property! 'MultiMeasureRestReminder 'is-grob? #t)
 
 \layout {
   \context {
