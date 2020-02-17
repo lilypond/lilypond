@@ -1315,15 +1315,10 @@ that they share a staff with stems directed downward.")
 partial =
 #(define-music-function (dur) (ly:duration?)
   (_i "Make a partial measure.")
-
-  ;; We use `descend-to-context' here instead of `context-spec-music' to
-  ;; ensure \partial still works if the Timing_translator is moved
-    (descend-to-context
-     (context-spec-music (make-music 'PartialSet
-                                     'origin (*location*)
-                                     'duration dur)
-                         'Timing)
-     'Score))
+  (context-spec-music (make-music 'PartialSet
+                                  'origin (*location*)
+                                  'duration dur)
+                      'Timing))
 
 pitchedTrill =
 #(define-music-function
