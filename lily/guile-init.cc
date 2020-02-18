@@ -60,14 +60,6 @@ ly_init_ly_module ()
   for (vsize i = scm_init_funcs_->size (); i--;)
     (scm_init_funcs_->at (i)) ();
 
-#if GUILEV2
-  // We need binary ports for any of our standard input operations,
-  // and the precompiled API calls for those crash inexplicably if we
-  // have not explicitly loaded the module anyway.
-  // Cf <URL:http://debbugs.gnu.org/cgi/bugreport.cgi?bug=20209>.
-  (void) scm_c_resolve_module ("ice-9 binary-ports");
-#endif
-
   Cpu_timer timer;
   if (is_loglevel (LOG_DEBUG))
     {

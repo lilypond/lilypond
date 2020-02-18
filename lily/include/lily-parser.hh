@@ -43,6 +43,8 @@ public:
   Duration default_duration_;
   int default_tremolo_type_;
   std::string output_basename_;
+  
+  // See ly:parser-clone. TODO: are the offsets in chars or in bytes?
   SCM closures_;
 
   int fatal_error_;

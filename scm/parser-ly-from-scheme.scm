@@ -17,6 +17,9 @@
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 (define (read-lily-expression-internal lily-string filename line closures)
+  "Direct the lilypond parser to parse LILY-STRING, using FILENAME,
+LINE for diagnostics. CLOSURES holds an alist of (BYTE-OFFSET . DATA),
+representing embedded Scheme in LILY-STRING"
   (let* ((clone (ly:parser-clone closures (*location*)))
          (result (ly:parse-string-expression clone lily-string filename line)))
     (if (ly:parser-has-error? clone)
@@ -30,6 +33,10 @@ from @var{port} and return the corresponding Scheme music expression.
   (let* ((closures '())
          (filename (port-filename port))
          (line (port-line port))
+
+         ;; TODO: this creates ports (make-soft-port, call-with-output-string).
+         ;; we should clarify what input-encoding these ports use. It's also likely
+         ;; that embedded Scheme in #{ #} is broken when mixed with UTF-8.
          (lily-string (call-with-output-string
                        (lambda (out)
                          (define (copy-char)

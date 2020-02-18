@@ -21,13 +21,14 @@
 
 #include <cstdio>
 
-#include "lily-parser.hh"
-#include "lily-lexer.hh"
 #include "international.hh"
+#include "lily-imports.hh"
+#include "lily-lexer.hh"
+#include "lily-parser.hh"
 #include "main.hh"
+#include "overlay-string-port.hh"
 #include "paper-book.hh"
 #include "source-file.hh"
-#include "lily-imports.hh"
 
 // Catch stack traces on error.
 bool parse_protect_global = true;
@@ -67,61 +68,57 @@ struct Parse_start
   }
 };
 
-/* Pass string to scm parser, read one expression.
-   Return result value and #chars read.
-
-   Thanks to Gary Houston <ghouston@freewire.co.uk>  */
+// Pass string to scm parser, reading one expression.  Return result
+// value. Parse_start::location_ is adjusted to cover the entire
+// expression.
 SCM
 internal_parse_embedded_scheme (Parse_start *ps)
 {
-  Source_file *sf = ps->start_.get_source_file ();
-  SCM port = sf->get_port ();
+  // start_ is the first byte of the Scheme expression, ie. in
+  // "... #(bla)", it is the offset of the '('
+  const Input &start = ps->start_;
+  ssize_t line_number, line_char, column, line_byte_offset;
+  start.get_counts (&line_number, &line_char, &column, &line_byte_offset);
 
-  long off = ps->start_.start () - sf->c_str ();
+  ssize_t byte_offset = start.start () - start.get_source_file ()->c_str ();
+  Overlay_string_port overlay (
+      start.start (), start.get_source_file ()->length () - byte_offset);
 
-  scm_seek (port, scm_from_long (off), scm_from_long (SEEK_SET));
-  SCM from = scm_ftell (port);
+  SCM port = overlay.as_port ();
+  scm_set_port_line_x (port, scm_from_ssize_t (line_number - 1));
+  scm_set_port_filename_x (
+      port, ly_string2scm (start.get_source_file ()->name_string ().c_str ()));
+  // TODO: Do GUILE ports count in characters or bytes? Do they do tab
+  // expansion for column counts?
+  scm_set_port_column_x (port, scm_from_ssize_t (column - 1));
 
-  scm_set_port_line_x (port, scm_from_ssize_t (ps->start_.line_number () - 1));
-  scm_set_port_column_x (port, scm_from_ssize_t (ps->start_.column_number () - 1));
-
-  bool multiple = ly_is_equal (scm_peek_char (port), SCM_MAKE_CHAR ('@'));
-
+  bool multiple = '@' == *ps->start_.start ();
   if (multiple)
     (void) scm_read_char (port);
 
-#if GUILEV2
-  SCM current_encoding = scm_port_encoding (port);
-  scm_set_port_encoding_x (port, ly_string2scm("UTF-8"));
   SCM form = scm_read (port);
-  scm_set_port_encoding_x (port, current_encoding);
-#else
-  SCM form = scm_read (port);
-#endif
-  SCM to = scm_ftell (port);
+  ssize_t consumed = scm_to_ssize_t (scm_ftell (port));
+  scm_close_port (port);
 
-  ps->parsed_.set (ps->start_.get_source_file (),
-                   ps->start_.start (),
-                   ps->start_.start () + scm_to_int (scm_difference (to, from)));
+  ps->parsed_.set (start.get_source_file (), start.start (),
+                   start.start () + consumed);
 
-  if (!SCM_EOF_OBJECT_P (form))
+  if (SCM_EOF_OBJECT_P (form))
+    return SCM_UNDEFINED;
+
+  if (ps->parser_->lexer_->top_input ())
     {
-      if (ps->parser_->lexer_->top_input ())
-        {
-          // Find any precompiled form.
-          SCM c = scm_assv_ref (ps->parser_->closures_, from);
-          if (scm_is_true (c))
-            // Replace form with a call to previously compiled closure
-            form = scm_list_1 (c);
-        }
-      if (multiple)
-        form = scm_list_3 (ly_symbol2scm ("apply"),
-                           ly_symbol2scm ("values"),
-                           form);
-      return form;
+      // Find any precompiled form.
+      SCM c = scm_assv_ref (ps->parser_->closures_,
+                            scm_from_ssize_t (byte_offset));
+      if (scm_is_true (c))
+        // Replace form with a call to previously compiled closure
+        form = scm_list_1 (c);
     }
 
-  return SCM_UNDEFINED;
+  if (multiple)
+    form = scm_list_3 (ly_symbol2scm ("apply"), ly_symbol2scm ("values"), form);
+  return form;
 }
 
 SCM
