@@ -326,25 +326,6 @@ Tuplet_number::calc_x_offset (SCM smob)
   return scm_from_double (x_offset);
 }
 
-/*
-  When a number is placed against the beam (independently of a bracket), the
-  Y-extent of a reference stem is used to determine the vertical placement of
-  the number.  When French beams are used the stem may not reach all beams.
-*/
-int
-count_beams_not_touching_stem (SCM beaming)
-{
-  int count = 0;
-
-  for (SCM s = scm_car (beaming); scm_is_pair (s); s = scm_cdr (s))
-    {
-      if (scm_is_true (ly_memv (scm_car (s), scm_cdr (beaming))))
-        ++count;
-    }
-
-  return std::max (0, count - 1);
-}
-
 MAKE_SCHEME_CALLBACK (Tuplet_number, calc_y_offset, 1);
 SCM
 Tuplet_number::calc_y_offset (SCM smob)
@@ -380,20 +361,6 @@ Tuplet_number::calc_y_offset (SCM smob)
   Direction ref_stem_dir = get_grob_direction (ref_stem);
 
   Real y_offset = ref_stem_ext[ref_stem_dir] - tuplet_y;
-
-  /*
-    Additional displacement for French beaming.
-  */
-  if (to_boolean (ref_stem->get_property ("french-beaming")))
-    {
-      Grob *beam = Stem::get_beam (ref_stem);
-      Real beam_translation = Beam::get_beam_translation (beam);
-      SCM beaming = ref_stem->get_property ("beaming");
-      y_offset += ref_stem_dir
-                  * count_beams_not_touching_stem (beaming)
-                  * beam_translation;
-    }
-
   Real padding = robust_scm2double (me->get_property ("padding"), 0.5);
   Real num_height = me->extent (commony, Y_AXIS).length ();
 

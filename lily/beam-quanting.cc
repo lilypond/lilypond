@@ -288,11 +288,12 @@ void Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> y
           chord_start_y_.push_back (Stem::chord_start_y (s));
           dirs_found[si.dir_] = true;
 
-          bool f = to_boolean (s->get_property ("french-beaming"))
-                   && s != edge_stems[LEFT] && s != edge_stems[RIGHT];
-
-          Real y = Beam::calc_stem_y (beams[i], s, common, x_pos[LEFT], x_pos[RIGHT], CENTER,
-                                      Interval (0, 0), f);
+          Beam_stem_end stem_end
+            = Beam::calc_stem_y (beams[i], s, common,
+                                 x_pos[LEFT], x_pos[RIGHT], CENTER,
+                                 Interval (0, 0), 0);
+          Real y = stem_end.stem_y_;
+          /* Remark:  French Beaming is irrelevant for beam quanting */
           base_lengths_.push_back (y / staff_space_);
           stem_xpositions_.push_back (s->relative_coordinate (common[X_AXIS], X_AXIS) - x_pos[LEFT] + x_span_);
           stem_ypositions_.push_back (s->relative_coordinate (common[Y_AXIS], Y_AXIS) - my_y);
