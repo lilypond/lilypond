@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.22"
+@c \version "2.21.0"
 
 @c Translators: Till Paala
 
@@ -491,31 +491,33 @@ In der Tabelle sind die existierenden Sprachdefinitionen
 mit den dazugehörigen Notenbezeichnungen dargestellt.
 
 @quotation
-@multitable {@code{nederlands}} {do re mi fa sol la sib si}
+@multitable {@w{@code{português} oder}} {@code{do} @code{re}/@code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}}
 @headitem Sprache
   @tab Notenbezeichnungen
 @item @code{nederlands}
-  @tab c d e f g a bes b
-@item @code{catalan}
-  @tab do re mi fa sol la sib si
+  @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{bes} @code{b}
+@item @code{català} oder@*@ @code{catalan}
+  @tab @code{do} @code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
 @item @code{deutsch}
-  @tab c d e f g a b h
+  @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{b} @code{h}
 @item @code{english}
-  @tab c d e f g a bf b
-@item @code{espanol}
-  @tab do re mi fa sol la sib si
+  @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{bf}/@code{b-flat} @code{b}
+@item @code{español} oder@*@ @code{espanol}
+  @tab @code{do} @code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
+@item @code{français}
+  @tab @code{do} @code{ré}/@code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
 @item @code{italiano}
-  @tab do re mi fa sol la sib si
+  @tab @code{do} @code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
 @item @code{norsk}
-  @tab c d e f g a b h
-@item @code{portugues}
-  @tab do re mi fa sol la sib si
+  @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{b} @code{h}
+@item @code{português} oder@*@ @code{portugues}
+  @tab @code{do} @code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
 @item @code{suomi}
-  @tab c d e f g a b h
+  @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{b} @code{h}
 @item @code{svenska}
-  @tab c d e f g a b h
+  @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{b} @code{h}
 @item @code{vlaams}
-  @tab do re mi fa sol la sib si
+  @tab @code{do} @code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
 @end multitable
 @end quotation
 
@@ -523,33 +525,37 @@ mit den dazugehörigen Notenbezeichnungen dargestellt.
 und die dazugehörigen Versetzungszeichen-Endungen:
 
 @quotation
-@multitable {@code{nederlands}} {-s/-sharp} {-ess/-es} {-ss/-x/-sharpsharp} {-essess/-eses}
+@multitable {@w{@code{português} oder}} {@code{s}/@code{-sharp}} {@code{f}/@code{-flat}} {@code{ss}/@code{x}/@code{-sharpsharp}} {@code{ff}/@code{-flatflat}}
 @headitem Sprache
   @tab Kreuz @tab B @tab Doppelkreuz @tab Doppel-B
 @item @code{nederlands}
-  @tab -is @tab -es @tab -isis @tab -eses
-@item @code{catalan}
-  @tab -d/-s @tab -b @tab -dd/-ss @tab -bb
+  @tab @code{is} @tab @code{es} @tab @code{isis} @tab @code{eses}
+@item @code{català} oder@*@ @code{catalan}
+  @tab @code{d}/@code{s} @tab @code{b} @tab @code{dd}/@code{ss}
+    @tab @code{bb}
 @item @code{deutsch}
-  @tab -is @tab -es @tab -isis @tab -eses
+  @tab @code{is} @tab @code{es} @tab @code{isis} @tab @code{eses}
 @item @code{english}
-  @tab -s/-sharp @tab -f/-flat @tab -ss/-x/-sharpsharp
-    @tab -ff/-flatflat
-@item @code{espanol}
-  @tab -s @tab -b @tab -ss/-x @tab -bb
+  @tab @code{s}/@code{-sharp} @tab @code{f}/@code{-flat}
+    @tab @code{ss}/@code{x}/@code{-sharpsharp}
+    @tab @code{ff}/@code{-flatflat}
+@item @code{español} oder@*@ @code{espanol}
+  @tab @code{s} @tab @code{b} @tab @code{ss}/@code{x} @tab @code{bb}
+@item @code{français}
+  @tab @code{d} @tab @code{b} @tab @code{dd}/@code{x} @tab @code{bb}
 @item @code{italiano}
-  @tab -d @tab -b @tab -dd @tab -bb
+  @tab @code{d} @tab @code{b} @tab @code{dd} @tab @code{bb}
 @item @code{norsk}
-  @tab -iss/-is @tab -ess/-es @tab -ississ/-isis
-    @tab -essess/-eses
-@item @code{portugues}
-  @tab -s @tab -b @tab -ss @tab -bb
+  @tab @code{iss}/@code{is} @tab @code{ess}/@code{es}
+    @tab @code{ississ}/@code{isis} @tab @code{essess}/@code{eses}
+@item @code{português} oder@*@ @code{portugues}
+  @tab @code{s} @tab @code{b} @tab @code{ss} @tab @code{bb}
 @item @code{suomi}
-  @tab -is @tab -es @tab -isis @tab -eses
+  @tab @code{is} @tab @code{es} @tab @code{isis} @tab @code{eses}
 @item @code{svenska}
-  @tab -iss @tab -ess @tab -ississ @tab -essess
+  @tab @code{iss} @tab @code{ess} @tab @code{ississ} @tab @code{essess}
 @item @code{vlaams}
-  @tab -k @tab -b @tab -kk @tab -bb
+  @tab @code{k} @tab @code{b} @tab @code{kk} @tab @code{bb}
 @end multitable
 @end quotation
 
@@ -576,26 +582,38 @@ Bestimmte Musik verwendet Alterationen, die Bruchteile von den
 @qq{normalen} Kreuzen oder Bs sind. Die Notenbezeichnungen für
 Vierteltöne für die verschiedenen Sprachen sind in der folgenden
 Tabelle aufgeführt. Die Präfixe @notation{semi-} und @notation{sesqui-} bedeuten
-@qq{halb} bzw. @qq{eineinhalb}. Für Sprachen, die nicht in der Tabelle
-auftauchen, sind noch keine eigenen Namen definiert.
+@qq{halb} bzw. @qq{eineinhalb}.
 
 @quotation
-@multitable {@code{nederlands}} {@b{semi-sharp}} {@b{semi-flat}} {@b{sesqui-sharp}} {@b{sesqui-flat}}
+@multitable {@w{@code{português} oder}} {@b{Vierteltonkreuz}} {@b{Viertelton-B}} {@b{3/4-Tonkreuz}} {@b{3/4-Ton-B}}
 @headitem Sprache
   @tab Vierteltonkreuz @tab Viertelton-B @tab 3/4-Tonkreuz @tab 3/4-Ton-B
-
 @item @code{nederlands}
-  @tab -ih @tab -eh @tab -isih @tab -eseh
+  @tab @code{ih} @tab @code{eh} @tab @code{isih} @tab @code{eseh}
+@item @code{català} oder@*@ @code{catalan}
+  @tab @code{qd}/@code{qs} @tab @code{qb} @tab @code{tqd}/@code{tqs}
+   @tab @code{tqb}
 @item @code{deutsch}
-  @tab -ih @tab -eh @tab -isih @tab -eseh
+  @tab @code{ih} @tab @code{eh} @tab @code{isih} @tab @code{eseh}
 @item @code{english}
-  @tab -qs @tab -qf @tab -tqs @tab -tqf
-@item @code{espanol}
-  @tab -cs @tab -cb @tab -tcs @tab -tcb
+  @tab @code{qs} @tab @code{qf} @tab @code{tqs} @tab @code{tqf}
+@item @code{español} oder@*@ @code{espanol}
+  @tab @code{cs} @tab @code{cb} @tab @code{tcs} @tab @code{tcb}
+@item @code{français}
+  @tab @code{sd} @tab @code{sb} @tab @code{dsd} @tab @code{bsb}
 @item @code{italiano}
-  @tab -sd @tab -sb @tab -dsd @tab -bsb
-@item @code{portugues}
-  @tab -sqt @tab -bqt @tab -stqt @tab -btqt
+  @tab @code{sd} @tab @code{sb} @tab @code{dsd} @tab @code{bsb}
+@item @code{norsk}
+  @tab @code{ih} @tab @code{eh} @tab @code{issih}/@code{isih}
+   @tab @code{esseh}/@code{eseh}
+@item @code{português} oder@*@ @code{portugues}
+  @tab @code{sqt} @tab @code{bqt} @tab @code{stqt} @tab @code{btqt}
+@item @code{suomi}
+  @tab @code{ih} @tab @code{eh} @tab @code{isih} @tab @code{eseh}
+@item @code{svenska}
+  @tab @code{ih} @tab @code{eh} @tab @code{issih} @tab @code{esseh}
+@item @code{vlaams}
+  @tab @code{hk} @tab @code{hb} @tab @code{khk} @tab @code{bhb}
 @end multitable
 @end quotation
 

@@ -314,67 +314,79 @@ def pitch_generic (pitch, notenames, accidentals):
 
 def pitch_general (pitch):
     str = pitch_generic (pitch, ['c', 'd', 'e', 'f', 'g', 'a', 'b'], ['es', 'eh', 'ih', 'is'])
+    if "h" in str:    # no short forms for quarter tones
+        return str
     return str.replace ('aes', 'as').replace ('ees', 'es')
 
 def pitch_nederlands (pitch):
     return pitch_general (pitch)
 
-def pitch_english (pitch):
-    str = pitch_generic (pitch, ['c', 'd', 'e', 'f', 'g', 'a', 'b'], ['f', 'qf', 'qs', 's'])
-    return str[0] + str[1:].replace ('fqf', 'tqf').replace ('sqs', 'tqs')
+def pitch_catalan (pitch):
+    str = pitch_generic (pitch, ['do', 're', 'mi', 'fa', 'sol', 'la', 'si'], ['b', 'qb', 'qd', 'd'])
+    return str.replace('bq', 'tq').replace('dq', 'tq').replace('bt', 'c').replace('dt', 'c')
 
 def pitch_deutsch (pitch):
     str = pitch_generic (pitch, ['c', 'd', 'e', 'f', 'g', 'a', 'h'], ['es', 'eh', 'ih', 'is'])
     if str == 'hes':
         return 'b'
-    return str.replace ('aes', 'as').replace ('ase', 'asa').replace ('ees', 'es')
+    if str[0] == "a":
+	    return str.replace ('e', 'a').replace ('aa', 'a')
+    return str.replace ('ee', 'e')
 
-def pitch_norsk (pitch):
-    return pitch_deutsch (pitch)
+def pitch_english (pitch):
+    str = pitch_generic (pitch, ['c', 'd', 'e', 'f', 'g', 'a', 'b'], ['f', 'qf', 'qs', 's'])
+    return str[0] + str[1:].replace ('fq', 'tq').replace ('sq', 'tq')
 
-def pitch_svenska (pitch):
-    str = pitch_generic (pitch, ['c', 'd', 'e', 'f', 'g', 'a', 'h'], ['ess', None, None, 'iss'])
-    return str.replace ('hess', 'b').replace ('aes', 'as').replace ('ees', 'es')
-
-def pitch_italiano (pitch):
-    str = pitch_generic (pitch, ['do', 're', 'mi', 'fa', 'sol', 'la', 'si'], ['b', 'sb', 'sd', 'd'])
-    return str
-
-def pitch_catalan (pitch):
-    return pitch_italiano (pitch)
+def pitch_espanol (pitch):
+    str = pitch_generic (pitch, ['do', 're', 'mi', 'fa', 'sol', 'la', 'si'], ['b', 'cb', 'cs', 's'])
+    return str.replace ('bc', 'tc').replace('sc', 'tc')
 
 def pitch_francais (pitch):
     str = pitch_generic (pitch, ['do', 'ré', 'mi', 'fa', 'sol', 'la', 'si'], ['b', 'sb', 'sd', 'd'])
     return str
 
-def pitch_espanol (pitch):
-    str = pitch_generic (pitch, ['do', 're', 'mi', 'fa', 'sol', 'la', 'si'], ['b', 'cb', 'cs', 's'])
-    return str.replace ('bc', 'tc').replace ('sc', 'tc')
+def pitch_italiano (pitch):
+    str = pitch_generic (pitch, ['do', 're', 'mi', 'fa', 'sol', 'la', 'si'], ['b', 'sb', 'sd', 'd'])
+    return str
+
+def pitch_norsk (pitch):
+    str = pitch_generic (pitch, ['c', 'd', 'e', 'f', 'g', 'a', 'h'], ['ess', 'eh', 'ih', 'iss'])
+    return str.replace('hess', 'b')
 
 def pitch_portugues (pitch):
     str = pitch_generic (pitch, ['do', 're', 'mi', 'fa', 'sol', 'la', 'si'], ['b', 'bqt', 'sqt', 's'])
-    return str.replace ('bbqt', 'btqt').replace ('ssqt', 'stqt')
+    return str.replace ('bbq', 'btq').replace ('ssq', 'stq')
+
+def pitch_suomi (pitch):
+    str = pitch_generic (pitch, ['c', 'd', 'e', 'f', 'g', 'a', 'h'], ['es', 'eh', 'ih', 'is'])
+    if str == 'hes':
+	    return 'b'
+    return str.replace ('aes', 'as').replace ('ees', 'es')
+
+def pitch_svenska (pitch):
+    str = pitch_generic (pitch, ['c', 'd', 'e', 'f', 'g', 'a', 'h'], ['ess', 'eh', 'ih', 'iss'])
+    if str == 'hess':
+	    return 'b'
+    return str.replace ('aes', 'as').replace ('ees', 'es')
 
 def pitch_vlaams (pitch):
-    str = pitch_generic (pitch, ['do', 're', 'mi', 'fa', 'sol', 'la', 'si'], ['b', None, None, 'k'])
+    str = pitch_generic (pitch, ['do', 're', 'mi', 'fa', 'sol', 'la', 'si'], ['b', 'hb', 'hk', 'k'])
     return str
 
 def set_pitch_language (language):
     global pitch_generating_function
     function_dict = {
         "nederlands": pitch_nederlands,
-        "english": pitch_english,
+        "català": pitch_catalan,
         "deutsch": pitch_deutsch,
-        "norsk": pitch_norsk,
-        "svenska": pitch_svenska,
-        "italiano": pitch_italiano,
-        "français": pitch_francais,
-        "catalan": pitch_catalan,
-        "espanol": pitch_espanol,
+        "english": pitch_english,
         "español": pitch_espanol,
-# No sense in providing "português" as long as it does not exist as
-# actual note language
-        "portugues": pitch_portugues,
+        "français": pitch_francais,
+        "italiano": pitch_italiano,
+        "norsk": pitch_norsk,
+        "português": pitch_portugues,
+        "suomi": pitch_suomi,
+        "svenska": pitch_svenska,
         "vlaams": pitch_vlaams}
     pitch_generating_function = function_dict.get (language, pitch_general)
 

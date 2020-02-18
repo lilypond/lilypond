@@ -63,6 +63,21 @@ which scares away people.
 
 
 @item
+Quarter-tone note names are now available in all the input languages.
+@lilypond[verbatim,quote]
+\language "català"
+\relative { do'4 sol' miqb re do1 }
+@end lilypond
+
+
+@item
+All input languages (@code{\language} statement) can be entered using
+their propoer UTF-8 spelling (i.e. including special characters.  The
+missing names @code{català} and @code{português} are available now in
+addition to the original names @code{catalan} and @code{portugues}.
+
+
+@item
 Setting @code{suggestAccidentals} to @code{'cautionary} turns only
 cautionary accidentals into @code{AccidentalSuggestion}s. This can be
 used to distinguish between facsimile and editorial accidentals.

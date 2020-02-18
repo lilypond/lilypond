@@ -3192,6 +3192,17 @@ def main():
 
     global options
     (options, args) = opt_parser.parse_args()
+
+#   in case of shell entry w/o special characters
+    if options.language == 'catalan' or options.language == 'catala':
+        options.language = 'català'
+    if options.language == 'espanol':
+        options.language = 'español'
+    if options.language == 'francais':
+        options.language = 'français'
+    if options.language == 'portugues':
+        options.language = 'português'
+
     if not args:
         opt_parser.print_usage()
         sys.exit(2)

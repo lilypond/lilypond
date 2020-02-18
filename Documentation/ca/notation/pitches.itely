@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.22"
+@c \version "2.21.0"
 
 @c Translators: Walter Garcia-Fontes
 @c Translation checkers:
@@ -502,33 +502,33 @@ Les llengües disponibles i els noms de les notes que defineixen
 són els següents:
 
 @quotation
-@multitable {@code{nederlands}} {do re/re mi fa sol la sib si}
+@multitable {@w{@code{português} o}} {@code{do} @code{re}/@code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}}
 @headitem Llengua
   @tab Nom de les notes
 @item @code{nederlands}
-  @tab c d e f g a bes b
-@item @code{catalan}
-  @tab do re mi fa sol la sib si
+  @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{bes} @code{b}
+@item @code{català} o@*@ @code{catalan}
+  @tab @code{do} @code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
 @item @code{deutsch}
-  @tab c d e f g a b h
+  @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{b} @code{h}
 @item @code{english}
-  @tab c d e f g a bf b
-@item @code{espanol} o @code{español}
-  @tab do re mi fa sol la sib si
+  @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{bf}/@code{b-flat} @code{b}
+@item @code{español} o@*@ @code{espanol}
+  @tab @code{do} @code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
 @item @code{français}
-  @tab do ré/re mi fa sol la sib si
+  @tab @code{do} @code{ré}/@code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
 @item @code{italiano}
-  @tab do re mi fa sol la sib si
+  @tab @code{do} @code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
 @item @code{norsk}
-  @tab c d e f g a b h
-@item @code{portugues}
-  @tab do re mi fa sol la sib si
+  @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{b} @code{h}
+@item @code{português} o@*@ @code{portugues}
+  @tab @code{do} @code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
 @item @code{suomi}
-  @tab c d e f g a b h
+  @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{b} @code{h}
 @item @code{svenska}
-  @tab c d e f g a b h
+  @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{b} @code{h}
 @item @code{vlaams}
-  @tab do re mi fa sol la sib si
+  @tab @code{do} @code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
 @end multitable
 @end quotation
 
@@ -536,35 +536,37 @@ A més dels noms de les notes, els sufixos de les alteracions
 poden també variar depenent de la llengua:
 
 @quotation
-@multitable {@code{nederlands}} {-@code{s}/-@code{-sharp}} {-@code{ess}/-@code{es}} {-@code{ss}/-@code{x}/-@code{-sharpsharp}} {-@code{essess}/-@code{eses}}
+@multitable {@w{@code{português} o}} {@code{s}/@code{-sharp}} {@code{f}/@code{-flat}} {@code{ss}/@code{x}/@code{-sharpsharp}} {@code{ff}/@code{-flatflat}}
 @headitem Llengua
   @tab sostingut @tab bemoll @tab doble sostingut @tab doble bemoll
 @item @code{nederlands}
-  @tab -@code{is} @tab -@code{es} @tab -@code{isis} @tab -@code{eses}
-@item @code{catalan}
-  @tab -@code{d}/-@code{s} @tab -@code{b} @tab -@code{dd}/-@code{ss} @tab -@code{bb}
+  @tab @code{is} @tab @code{es} @tab @code{isis} @tab @code{eses}
+@item @code{català} o@*@ @code{catalan}
+  @tab @code{d}/@code{s} @tab @code{b} @tab @code{dd}/@code{ss}
+    @tab @code{bb}
 @item @code{deutsch}
-  @tab -@code{is} @tab -@code{es} @tab -@code{isis} @tab -@code{eses}
+  @tab @code{is} @tab @code{es} @tab @code{isis} @tab @code{eses}
 @item @code{english}
-  @tab -@code{s}/-@code{-sharp} @tab -@code{f}/-@code{-flat} @tab -@code{ss}/-@code{x}/-@code{-sharpsharp}
-    @tab -@code{ff}/-@code{-flatflat}
-@item @code{espanol} or @code{español}
-  @tab -@code{s} @tab -@code{b} @tab -@code{ss}/-@code{x} @tab -@code{bb}
+  @tab @code{s}/@code{-sharp} @tab @code{f}/@code{-flat}
+    @tab @code{ss}/@code{x}/@code{-sharpsharp}
+    @tab @code{ff}/@code{-flatflat}
+@item @code{español} o@*@ @code{espanol}
+  @tab @code{s} @tab @code{b} @tab @code{ss}/@code{x} @tab @code{bb}
 @item @code{français}
-  @tab -@code{d} @tab -@code{b} @tab -@code{dd}/-@code{x} @tab -@code{bb}
+  @tab @code{d} @tab @code{b} @tab @code{dd}/@code{x} @tab @code{bb}
 @item @code{italiano}
-  @tab -@code{d} @tab -@code{b} @tab -@code{dd} @tab -@code{bb}
+  @tab @code{d} @tab @code{b} @tab @code{dd} @tab @code{bb}
 @item @code{norsk}
-  @tab -@code{iss}/-@code{is} @tab -@code{ess}/-@code{es} @tab -@code{ississ}/-@code{isis}
-    @tab -@code{essess}/-@code{eses}
-@item @code{portugues}
-  @tab -@code{s} @tab -@code{b} @tab -@code{ss} @tab -@code{bb}
+  @tab @code{iss}/@code{is} @tab @code{ess}/@code{es}
+    @tab @code{ississ}/@code{isis} @tab @code{essess}/@code{eses}
+@item @code{português} o@*@ @code{portugues}
+  @tab @code{s} @tab @code{b} @tab @code{ss} @tab @code{bb}
 @item @code{suomi}
-  @tab -@code{is} @tab -@code{es} @tab -@code{isis} @tab -@code{eses}
+  @tab @code{is} @tab @code{es} @tab @code{isis} @tab @code{eses}
 @item @code{svenska}
-  @tab -@code{iss} @tab -@code{ess} @tab -@code{ississ} @tab -@code{essess}
+  @tab @code{iss} @tab @code{ess} @tab @code{ississ} @tab @code{essess}
 @item @code{vlaams}
-  @tab -@code{k} @tab -@code{b} @tab -@code{kk} @tab -@code{bb}
+  @tab @code{k} @tab @code{b} @tab @code{kk} @tab @code{bb}
 @end multitable
 @end quotation
 
@@ -590,28 +592,38 @@ són fraccions d'un sostingut o bemoll @q{normals}.  La taula
 següent relaciona els noms de les notes per a les alteracions d'un
 quart de to en diferents llengües; aquí, els prefixos
 @notation{semi-} i @notation{sesqui-} respectivament signifiquen
-@q{mig} i @q{u i mig}.  Les llengües que no apareixen a aquesta
-taula no aporten encaran noms especials per a les notes.
+@q{mig} i @q{u i mig}.
 
 @quotation
-@multitable {@code{nederlands}} {@b{semi-sostingut}} {@b{semi-bemoll}} {@b{sesqui-sostingut}} {@b{sesqui-bemoll}}
+@multitable {@w{@code{português} o}} {@b{semi-sostingut}} {@b{semi-bemoll}} {@b{sesqui-sostingut}} {@b{sesqui-bemoll}}
 @headitem Llengua
   @tab semi-sostingut @tab semi-bemoll @tab sesqui-sostingut @tab sesqui-bemoll
-
 @item @code{nederlands}
-  @tab -ih @tab -eh @tab -isih @tab -eseh
+  @tab @code{ih} @tab @code{eh} @tab @code{isih} @tab @code{eseh}
+@item @code{català} o@*@ @code{catalan}
+  @tab @code{qd}/@code{qs} @tab @code{qb} @tab @code{tqd}/@code{tqs}
+   @tab @code{tqb}
 @item @code{deutsch}
-  @tab -ih @tab -eh @tab -isih @tab -eseh
+  @tab @code{ih} @tab @code{eh} @tab @code{isih} @tab @code{eseh}
 @item @code{english}
-  @tab -qs @tab -qf @tab -tqs @tab -tqf
-@item @code{espanol} o @code{español}
-  @tab -cs @tab -cb @tab -tcs @tab -tcb
+  @tab @code{qs} @tab @code{qf} @tab @code{tqs} @tab @code{tqf}
+@item @code{español} o@*@ @code{espanol}
+  @tab @code{cs} @tab @code{cb} @tab @code{tcs} @tab @code{tcb}
 @item @code{français}
-  @tab -sd @tab -sb @tab -dsd @tab -bsb
+  @tab @code{sd} @tab @code{sb} @tab @code{dsd} @tab @code{bsb}
 @item @code{italiano}
-  @tab -sd @tab -sb @tab -dsd @tab -bsb
-@item @code{portugues}
-  @tab -sqt @tab -bqt @tab -stqt @tab -btqt
+  @tab @code{sd} @tab @code{sb} @tab @code{dsd} @tab @code{bsb}
+@item @code{norsk}
+  @tab @code{ih} @tab @code{eh} @tab @code{issih}/@code{isih}
+   @tab @code{esseh}/@code{eseh}
+@item @code{português} o@*@ @code{portugues}
+  @tab @code{sqt} @tab @code{bqt} @tab @code{stqt} @tab @code{btqt}
+@item @code{suomi}
+  @tab @code{ih} @tab @code{eh} @tab @code{isih} @tab @code{eseh}
+@item @code{svenska}
+  @tab @code{ih} @tab @code{eh} @tab @code{issih} @tab @code{esseh}
+@item @code{vlaams}
+  @tab @code{hk} @tab @code{hb} @tab @code{khk} @tab @code{bhb}
 @end multitable
 @end quotation
 

@@ -138,78 +138,127 @@
                    ))
 
 
-    ;; Language: Catalan -----------------------------------------------;
+    ;; Language: Català ------------------------------------------------;
     ;; Jaume Obrador <jobrador@ipc4.uib.es>
+    ;; Torsten Hämmerle <torsten.haemmerle@web.de>  quarter-tones added
     ;;
-    ;;  b  = flat (bemoll)
-    ;;  bb = double-flat
+    ;;  b   = flat (bemoll)
+    ;;  bb  = double-flat
+    ;;  qb  = quarter-tone flat (quart de to...)
+    ;;  tqb = three quarter-tones flat (tres quarts de to...)
     ;;
-    ;;  d  = sharp (diesi)
-    ;;  dd = double-sharp
+    ;;  d   = sharp (diesi)
+    ;;  dd  = double-sharp
+    ;;  qd  = quarter-tone sharp (quart de to...)
+    ;;  tqd = three-quarter-tones sharp (tres quarts de to...)
     ;;
-    ;;  s  = sharp (sostingut)
-    ;;  ss = double-sharp
+    ;;  s   = sharp (sostingut)
+    ;;  ss  = double-sharp
+    ;;  qs  = quarter-tone sharp (quart de to...)
+    ;;  tqs = three-quarter-tones sharp (tres quarts de to...)
     ;;
     ;;  English: c   d   e   f   g   a   b
     ;;  Catalan: do  re  mi  fa  sol la  si
 
-    (catalan . (
+    (català . (
                 (dobb . ,(ly:make-pitch -1 0 DOUBLE-FLAT))
+                (dotqb . ,(ly:make-pitch -1 0 THREE-Q-FLAT))
                 (dob . ,(ly:make-pitch -1 0 FLAT))
+                (doqb . ,(ly:make-pitch -1 0 SEMI-FLAT))
                 (do . ,(ly:make-pitch -1 0 NATURAL))
+                (doqd . ,(ly:make-pitch -1 0 SEMI-SHARP))
                 (dod . ,(ly:make-pitch -1 0 SHARP))
+                (dotqd . ,(ly:make-pitch -1 0 THREE-Q-SHARP))
                 (dodd . ,(ly:make-pitch -1 0 DOUBLE-SHARP))
 
                 (rebb . ,(ly:make-pitch -1 1 DOUBLE-FLAT))
+                (retqb . ,(ly:make-pitch -1 1 THREE-Q-FLAT))
                 (reb . ,(ly:make-pitch -1 1 FLAT))
+                (reqb . ,(ly:make-pitch -1 1 SEMI-FLAT))
                 (re . ,(ly:make-pitch -1 1 NATURAL))
+                (reqd . ,(ly:make-pitch -1 1 SEMI-SHARP))
                 (red . ,(ly:make-pitch -1 1 SHARP))
+                (retqd . ,(ly:make-pitch -1 1 THREE-Q-SHARP))
                 (redd . ,(ly:make-pitch -1 1 DOUBLE-SHARP))
 
                 (mibb . ,(ly:make-pitch -1 2 DOUBLE-FLAT))
+                (mitqb . ,(ly:make-pitch -1 2 THREE-Q-FLAT))
                 (mib . ,(ly:make-pitch -1 2 FLAT))
+                (miqb . ,(ly:make-pitch -1 2 SEMI-FLAT))
                 (mi . ,(ly:make-pitch -1 2 NATURAL))
+                (miqd . ,(ly:make-pitch -1 2 SEMI-SHARP))
                 (mid . ,(ly:make-pitch -1 2 SHARP))
+                (mitqd . ,(ly:make-pitch -1 2 THREE-Q-SHARP))
                 (midd . ,(ly:make-pitch -1 2 DOUBLE-SHARP))
 
                 (fabb . ,(ly:make-pitch -1 3 DOUBLE-FLAT))
+                (fatqb . ,(ly:make-pitch -1 3 THREE-Q-FLAT))
                 (fab . ,(ly:make-pitch -1 3 FLAT))
+                (faqb . ,(ly:make-pitch -1 3 SEMI-FLAT))
                 (fa . ,(ly:make-pitch -1 3 NATURAL))
+                (faqd . ,(ly:make-pitch -1 3 SEMI-SHARP))
                 (fad . ,(ly:make-pitch -1 3 SHARP))
+                (fatqd . ,(ly:make-pitch -1 3 THREE-Q-SHARP))
                 (fadd . ,(ly:make-pitch -1 3 DOUBLE-SHARP))
 
                 (solbb . ,(ly:make-pitch -1 4 DOUBLE-FLAT))
+                (soltqb . ,(ly:make-pitch -1 4 THREE-Q-FLAT))
                 (solb . ,(ly:make-pitch -1 4 FLAT))
+                (solqb . ,(ly:make-pitch -1 4 SEMI-FLAT))
                 (sol . ,(ly:make-pitch -1 4 NATURAL))
+                (solqd . ,(ly:make-pitch -1 4 SEMI-SHARP))
                 (sold . ,(ly:make-pitch -1 4 SHARP))
+                (soltqd . ,(ly:make-pitch -1 4 THREE-Q-SHARP))
                 (soldd . ,(ly:make-pitch -1 4 DOUBLE-SHARP))
 
                 (labb . ,(ly:make-pitch -1 5 DOUBLE-FLAT))
+                (latqb . ,(ly:make-pitch -1 5 THREE-Q-FLAT))
                 (lab . ,(ly:make-pitch -1 5 FLAT))
+                (laqb . ,(ly:make-pitch -1 5 SEMI-FLAT))
                 (la . ,(ly:make-pitch -1 5 NATURAL))
+                (laqd . ,(ly:make-pitch -1 5 SEMI-SHARP))
                 (lad . ,(ly:make-pitch -1 5 SHARP))
+                (latqd . ,(ly:make-pitch -1 5 THREE-Q-SHARP))
                 (ladd . ,(ly:make-pitch -1 5 DOUBLE-SHARP))
 
                 (sibb . ,(ly:make-pitch -1 6 DOUBLE-FLAT))
+                (sitqb . ,(ly:make-pitch -1 6 THREE-Q-FLAT))
                 (sib . ,(ly:make-pitch -1 6 FLAT))
+                (siqb . ,(ly:make-pitch -1 6 SEMI-FLAT))
                 (si . ,(ly:make-pitch -1 6 NATURAL))
+                (siqd . ,(ly:make-pitch -1 6 SEMI-SHARP))
                 (sid . ,(ly:make-pitch -1 6 SHARP))
+                (sitqd . ,(ly:make-pitch -1 6 THREE-Q-SHARP))
                 (sidd . ,(ly:make-pitch -1 6 DOUBLE-SHARP))
 
                 ;; Now that we have espanol.ly, should these be junked? --jcn
+                (doqs . ,(ly:make-pitch -1 0 SEMI-SHARP))
                 (dos . ,(ly:make-pitch -1 0 SHARP))
+                (dotqs . ,(ly:make-pitch -1 0 THREE-Q-SHARP))
                 (doss . ,(ly:make-pitch -1 0 DOUBLE-SHARP))
+                (reqs . ,(ly:make-pitch -1 1 SEMI-SHARP))
                 (res . ,(ly:make-pitch -1 1 SHARP))
+                (retqs . ,(ly:make-pitch -1 1 THREE-Q-SHARP))
                 (ress . ,(ly:make-pitch -1 1 DOUBLE-SHARP))
+                (miqs . ,(ly:make-pitch -1 2 SEMI-SHARP))
                 (mis . ,(ly:make-pitch -1 2 SHARP))
+                (mitqs . ,(ly:make-pitch -1 2 THREE-Q-SHARP))
                 (miss . ,(ly:make-pitch -1 2 DOUBLE-SHARP))
+                (faqs . ,(ly:make-pitch -1 3 SEMI-SHARP))
                 (fas . ,(ly:make-pitch -1 3 SHARP))
+                (fatqs . ,(ly:make-pitch -1 3 THREE-Q-SHARP))
                 (fass . ,(ly:make-pitch -1 3 DOUBLE-SHARP))
+                (solqs . ,(ly:make-pitch -1 4 SEMI-SHARP))
                 (sols . ,(ly:make-pitch -1 4 SHARP))
+                (soltqs . ,(ly:make-pitch -1 4 THREE-Q-SHARP))
                 (solss . ,(ly:make-pitch -1 4 DOUBLE-SHARP))
+                (laqs . ,(ly:make-pitch -1 5 SEMI-SHARP))
                 (las . ,(ly:make-pitch -1 5 SHARP))
+                (latqs . ,(ly:make-pitch -1 5 THREE-Q-SHARP))
                 (lass . ,(ly:make-pitch -1 5 DOUBLE-SHARP))
+                (siqs . ,(ly:make-pitch -1 6 SEMI-SHARP))
                 (sis . ,(ly:make-pitch -1 6 SHARP))
+                (sitqs . ,(ly:make-pitch -1 6 THREE-Q-SHARP))
                 (siss . ,(ly:make-pitch -1 6 DOUBLE-SHARP))
                 ))
 
@@ -444,7 +493,7 @@
                 ))
 
 
-    ;; Language: Espanol -----------------------------------------------;
+    ;; Language: Español -----------------------------------------------;
     ;; Carlos García Suárez <cgscqmp@terra.es>,
     ;; Maximiliano G. G. <mxgdvg@yahoo.it>
     ;;
@@ -462,7 +511,7 @@
     ;;  English: c   d   e   f   g   a   b
     ;;  Spanish: do  re  mi  fa  sol la  si
 
-    (espanol . (
+    (español . (
                 (dobb . ,(ly:make-pitch -1 0 DOUBLE-FLAT))
                 (dotcb . ,(ly:make-pitch -1 0 THREE-Q-FLAT))
                 (dob . ,(ly:make-pitch -1 0 FLAT))
@@ -742,103 +791,149 @@
 
     ;; Language: Norsk -------------------------------------------------;
     ;; Arvid Grøtting <arvidg@ifi.uio.no>
+    ;; Torsten Hämmerle <torsten.haemmerle@web.de>  quarter-tones added
     ;;
     ;;  es     = flat
     ;;  ess    = flat
     ;;  eses   = double-flat
     ;;  essess = double-flat
+    ;;  eh     = quarter-tone flat
+    ;;  eseh   = three quarter-tones flat
+    ;;  esseh  = three quarter-tones flat
     ;;
     ;;  is     = sharp
     ;;  iss    = sharp
     ;;  isis   = double-sharp
     ;;  ississ = double-sharp
+    ;;  ih     = quarter-tone sharp
+    ;;  isih   = three quarter-tones sharp
+    ;;  issih  = three quarter-tones sharp
     ;;
     ;;    English: c  d  e  f  g  a  bf b
     ;;  Norwegian: c  d  e  f  g  a  b  h
 
     (norsk . (
-              (ceses . ,(ly:make-pitch -1 0 DOUBLE-FLAT))
               (cessess . ,(ly:make-pitch -1 0 DOUBLE-FLAT))
-              (ces . ,(ly:make-pitch -1 0 FLAT))
+              (ceses . ,(ly:make-pitch -1 0 DOUBLE-FLAT))
+              (cesseh . ,(ly:make-pitch -1 0 THREE-Q-FLAT))
+              (ceseh . ,(ly:make-pitch -1 0 THREE-Q-FLAT))
               (cess . ,(ly:make-pitch -1 0 FLAT))
+              (ces . ,(ly:make-pitch -1 0 FLAT))
+              (ceh . ,(ly:make-pitch -1 0 SEMI-FLAT))
               (c . ,(ly:make-pitch -1 0 NATURAL))
-              (cis . ,(ly:make-pitch -1 0 SHARP))
+              (cih . ,(ly:make-pitch -1 0 SEMI-SHARP))
               (ciss . ,(ly:make-pitch -1 0 SHARP))
-              (cisis . ,(ly:make-pitch -1 0 DOUBLE-SHARP))
+              (cis . ,(ly:make-pitch -1 0 SHARP))
+              (cissih . ,(ly:make-pitch -1 0 THREE-Q-SHARP))
+              (cisih . ,(ly:make-pitch -1 0 THREE-Q-SHARP))
               (cississ . ,(ly:make-pitch -1 0 DOUBLE-SHARP))
+              (cisis . ,(ly:make-pitch -1 0 DOUBLE-SHARP))
 
-              (deses . ,(ly:make-pitch -1 1 DOUBLE-FLAT))
               (dessess . ,(ly:make-pitch -1 1 DOUBLE-FLAT))
-              (des . ,(ly:make-pitch -1 1 FLAT))
+              (deses . ,(ly:make-pitch -1 1 DOUBLE-FLAT))
+              (desseh . ,(ly:make-pitch -1 1 THREE-Q-FLAT))
+              (deseh . ,(ly:make-pitch -1 1 THREE-Q-FLAT))
               (dess . ,(ly:make-pitch -1 1 FLAT))
+              (des . ,(ly:make-pitch -1 1 FLAT))
+              (deh . ,(ly:make-pitch -1 1 SEMI-FLAT))
               (d . ,(ly:make-pitch -1 1 NATURAL))
-              (dis . ,(ly:make-pitch -1 1 SHARP))
+              (dih . ,(ly:make-pitch -1 1 SEMI-SHARP))
               (diss . ,(ly:make-pitch -1 1 SHARP))
-              (disis . ,(ly:make-pitch -1 1 DOUBLE-SHARP))
+              (dis . ,(ly:make-pitch -1 1 SHARP))
+              (dissih . ,(ly:make-pitch -1 1 THREE-Q-SHARP))
+              (disih . ,(ly:make-pitch -1 1 THREE-Q-SHARP))
               (dississ . ,(ly:make-pitch -1 1 DOUBLE-SHARP))
+              (disis . ,(ly:make-pitch -1 1 DOUBLE-SHARP))
 
-              (eeses . ,(ly:make-pitch -1 2 DOUBLE-FLAT))
               (eessess . ,(ly:make-pitch -1 2 DOUBLE-FLAT))
-              (eses . ,(ly:make-pitch -1 2 DOUBLE-FLAT))
+              (eeses . ,(ly:make-pitch -1 2 DOUBLE-FLAT))
               (essess . ,(ly:make-pitch -1 2 DOUBLE-FLAT))
-              (ees . ,(ly:make-pitch -1 2 FLAT))
+              (eses . ,(ly:make-pitch -1 2 DOUBLE-FLAT))
+              (eesseh . ,(ly:make-pitch -1 2 THREE-Q-FLAT))
+              (eeseh . ,(ly:make-pitch -1 2 THREE-Q-FLAT))
               (eess . ,(ly:make-pitch -1 2 FLAT))
-              (es . ,(ly:make-pitch -1 2 FLAT))
+              (ees . ,(ly:make-pitch -1 2 FLAT))
               (ess . ,(ly:make-pitch -1 2 FLAT))
+              (es . ,(ly:make-pitch -1 2 FLAT))
+              (eeh . ,(ly:make-pitch -1 2 SEMI-FLAT))
               (e . ,(ly:make-pitch -1 2 NATURAL))
-              (eis . ,(ly:make-pitch -1 2 SHARP))
+              (eih . ,(ly:make-pitch -1 2 SEMI-SHARP))
               (eiss . ,(ly:make-pitch -1 2 SHARP))
-              (eisis . ,(ly:make-pitch -1 2 DOUBLE-SHARP))
+              (eis . ,(ly:make-pitch -1 2 SHARP))
+              (eissih . ,(ly:make-pitch -1 2 THREE-Q-SHARP))
+              (eisih . ,(ly:make-pitch -1 2 THREE-Q-SHARP))
               (eississ . ,(ly:make-pitch -1 2 DOUBLE-SHARP))
+              (eisis . ,(ly:make-pitch -1 2 DOUBLE-SHARP))
 
-              (feses . ,(ly:make-pitch -1 3 DOUBLE-FLAT))
               (fessess . ,(ly:make-pitch -1 3 DOUBLE-FLAT))
-              (fes . ,(ly:make-pitch -1 3 FLAT))
+              (feses . ,(ly:make-pitch -1 3 DOUBLE-FLAT))
+              (fesseh . ,(ly:make-pitch -1 3 THREE-Q-FLAT))
+              (feseh . ,(ly:make-pitch -1 3 THREE-Q-FLAT))
               (fess . ,(ly:make-pitch -1 3 FLAT))
+              (fes . ,(ly:make-pitch -1 3 FLAT))
+              (feh . ,(ly:make-pitch -1 3 SEMI-FLAT))
               (f . ,(ly:make-pitch -1 3 NATURAL))
-              (fis . ,(ly:make-pitch -1 3 SHARP))
+              (fih . ,(ly:make-pitch -1 3 SEMI-SHARP))
               (fiss . ,(ly:make-pitch -1 3 SHARP))
-              (fisis . ,(ly:make-pitch -1 3 DOUBLE-SHARP))
+              (fis . ,(ly:make-pitch -1 3 SHARP))
+              (fissih . ,(ly:make-pitch -1 3 THREE-Q-SHARP))
+              (fisih . ,(ly:make-pitch -1 3 THREE-Q-SHARP))
               (fississ . ,(ly:make-pitch -1 3 DOUBLE-SHARP))
+              (fisis . ,(ly:make-pitch -1 3 DOUBLE-SHARP))
 
-              (geses . ,(ly:make-pitch -1 4 DOUBLE-FLAT))
               (gessess . ,(ly:make-pitch -1 4 DOUBLE-FLAT))
-              (ges . ,(ly:make-pitch -1 4 FLAT))
+              (geses . ,(ly:make-pitch -1 4 DOUBLE-FLAT))
+              (geseh . ,(ly:make-pitch -1 4 THREE-Q-FLAT))
+              (gesseh . ,(ly:make-pitch -1 4 THREE-Q-FLAT))
               (gess . ,(ly:make-pitch -1 4 FLAT))
+              (ges . ,(ly:make-pitch -1 4 FLAT))
+              (geh . ,(ly:make-pitch -1 4 SEMI-FLAT))
               (g . ,(ly:make-pitch -1 4 NATURAL))
-              (g . ,(ly:make-pitch -1 4 NATURAL))
-              (gis . ,(ly:make-pitch -1 4 SHARP))
+              (gih . ,(ly:make-pitch -1 4 SEMI-SHARP))
               (giss . ,(ly:make-pitch -1 4 SHARP))
-              (gisis . ,(ly:make-pitch -1 4 DOUBLE-SHARP))
+              (gis . ,(ly:make-pitch -1 4 SHARP))
+              (gissih . ,(ly:make-pitch -1 4 THREE-Q-SHARP))
+              (gisih . ,(ly:make-pitch -1 4 THREE-Q-SHARP))
               (gississ . ,(ly:make-pitch -1 4 DOUBLE-SHARP))
+              (gisis . ,(ly:make-pitch -1 4 DOUBLE-SHARP))
 
-              (aeses . ,(ly:make-pitch -1 5 DOUBLE-FLAT))
-              (aessess . ,(ly:make-pitch -1 5 DOUBLE-FLAT))
-              (ases . ,(ly:make-pitch -1 5 DOUBLE-FLAT))
               (assess . ,(ly:make-pitch -1 5 DOUBLE-FLAT))
-              (aes . ,(ly:make-pitch -1 5 FLAT))
-              (aess . ,(ly:make-pitch -1 5 FLAT))
-              (as . ,(ly:make-pitch -1 5 FLAT))
+              (ases . ,(ly:make-pitch -1 5 DOUBLE-FLAT))
+              (aessess . ,(ly:make-pitch -1 5 DOUBLE-FLAT))
+              (aeses . ,(ly:make-pitch -1 5 DOUBLE-FLAT))
+              (aesseh . ,(ly:make-pitch -1 5 THREE-Q-FLAT))
+              (aeseh . ,(ly:make-pitch -1 5 THREE-Q-FLAT))
               (ass . ,(ly:make-pitch -1 5 FLAT))
+              (as . ,(ly:make-pitch -1 5 FLAT))
+              (aess . ,(ly:make-pitch -1 5 FLAT))
+              (aes . ,(ly:make-pitch -1 5 FLAT))
+              (aeh . ,(ly:make-pitch -1 5 SEMI-FLAT))
               (a . ,(ly:make-pitch -1 5 NATURAL))
-              (ais . ,(ly:make-pitch -1 5 SHARP))
+              (aih . ,(ly:make-pitch -1 5 SEMI-SHARP))
               (aiss . ,(ly:make-pitch -1 5 SHARP))
-              (aisis . ,(ly:make-pitch -1 5 DOUBLE-SHARP))
+              (ais . ,(ly:make-pitch -1 5 SHARP))
+              (aissih . ,(ly:make-pitch -1 5 THREE-Q-SHARP))
+              (aisih . ,(ly:make-pitch -1 5 THREE-Q-SHARP))
               (aississ . ,(ly:make-pitch -1 5 DOUBLE-SHARP))
+              (aisis . ,(ly:make-pitch -1 5 DOUBLE-SHARP))
 
-              (bes . ,(ly:make-pitch -1 6 DOUBLE-FLAT))
               (bess . ,(ly:make-pitch -1 6 DOUBLE-FLAT))
+              (bes . ,(ly:make-pitch -1 6 DOUBLE-FLAT))
+              (beh . ,(ly:make-pitch -1 6 THREE-Q-FLAT))
               (b . ,(ly:make-pitch -1 6 FLAT))
-              (b . ,(ly:make-pitch -1 6 FLAT))
+              (heh . ,(ly:make-pitch -1 6 SEMI-FLAT))
               (h . ,(ly:make-pitch -1 6 NATURAL))
-              (his . ,(ly:make-pitch -1 6 SHARP))
+              (hih . ,(ly:make-pitch -1 6 SEMI-SHARP))
               (hiss . ,(ly:make-pitch -1 6 SHARP))
-              (hisis . ,(ly:make-pitch -1 6 DOUBLE-SHARP))
+              (his . ,(ly:make-pitch -1 6 SHARP))
+              (hissih . ,(ly:make-pitch -1 6 THREE-Q-SHARP))
+              (hisih . ,(ly:make-pitch -1 6 THREE-Q-SHARP))
               (hississ . ,(ly:make-pitch -1 6 DOUBLE-SHARP))
+              (hisis . ,(ly:make-pitch -1 6 DOUBLE-SHARP))
               ))
 
 
-    ;; Language: Portugues ---------------------------------------------;
+    ;; Language: Português ---------------------------------------------;
     ;; Pedro Kröger <kroeger@pedrokroeger.net>
     ;;
     ;;  b    = flat (bemol)
@@ -854,7 +949,7 @@
     ;;     English: c   d   e   f   g   a   b
     ;;  Portuguese: do  re  mi  fa  sol la  si
 
-    (portugues . (
+    (português . (
                   (dobb . ,(ly:make-pitch -1 0 DOUBLE-FLAT))
                   (dobtqt . ,(ly:make-pitch -1 0 THREE-Q-FLAT))
                   (dob . ,(ly:make-pitch -1 0 FLAT))
@@ -929,179 +1024,279 @@
 
     ;; Language: Suomi -------------------------------------------------;
     ;; Heikki Junes <heikki.junes@hut.fi>
+    ;; Torsten Hämmerle <torsten.haemmerle@web.de>  quarter-tones added
     ;;
     ;;  es   = flat
     ;;  eses = double-flat
+    ;;  eh   = quarter-tone flat
+    ;;  eseh = three quarter-tones flat
     ;;
     ;;  is   = sharp
     ;;  isis = double-sharp
+    ;;  ih   = quarter-tone sharp
+    ;;  isih = three quarter-tones sharp
     ;;
     ;;  English: c  d  e  f  g  a  bf b
     ;;  Finnish: c  d  e  f  g  a  b  h
 
     (suomi . (
               (ceses . ,(ly:make-pitch -1 0 DOUBLE-FLAT))
+              (ceseh . ,(ly:make-pitch -1 0 THREE-Q-FLAT))
               (ces . ,(ly:make-pitch -1 0 FLAT))
+              (ceh . ,(ly:make-pitch -1 0 SEMI-FLAT))
               (c . ,(ly:make-pitch -1 0 NATURAL))
+              (cih . ,(ly:make-pitch -1 0 SEMI-SHARP))
               (cis . ,(ly:make-pitch -1 0 SHARP))
+              (cisih . ,(ly:make-pitch -1 0 THREE-Q-SHARP))
               (cisis . ,(ly:make-pitch -1 0 DOUBLE-SHARP))
 
               (deses . ,(ly:make-pitch -1 1 DOUBLE-FLAT))
+              (deseh . ,(ly:make-pitch -1 1 THREE-Q-FLAT))
               (des . ,(ly:make-pitch -1 1 FLAT))
+              (deh . ,(ly:make-pitch -1 1 SEMI-FLAT))
               (d . ,(ly:make-pitch -1 1 NATURAL))
+              (dih . ,(ly:make-pitch -1 1 SEMI-SHARP))
               (dis . ,(ly:make-pitch -1 1 SHARP))
+              (disih . ,(ly:make-pitch -1 1 THREE-Q-SHARP))
               (disis . ,(ly:make-pitch -1 1 DOUBLE-SHARP))
 
               (eses . ,(ly:make-pitch -1 2 DOUBLE-FLAT))
+              (eseh . ,(ly:make-pitch -1 2 THREE-Q-FLAT))
               (es . ,(ly:make-pitch -1 2 FLAT))
+              (eeh . ,(ly:make-pitch -1 2 SEMI-FLAT))
               (e . ,(ly:make-pitch -1 2 NATURAL))
+              (eih . ,(ly:make-pitch -1 2 SEMI-SHARP))
               (eis . ,(ly:make-pitch -1 2 SHARP))
+              (eisih . ,(ly:make-pitch -1 2 THREE-Q-SHARP))
               (eisis . ,(ly:make-pitch -1 2 DOUBLE-SHARP))
 
               (feses . ,(ly:make-pitch -1 3 DOUBLE-FLAT))
+              (feseh . ,(ly:make-pitch -1 3 THREE-Q-FLAT))
               (fes . ,(ly:make-pitch -1 3 FLAT))
+              (feh . ,(ly:make-pitch -1 3 SEMI-FLAT))
               (f . ,(ly:make-pitch -1 3 NATURAL))
+              (fih . ,(ly:make-pitch -1 3 SEMI-SHARP))
               (fis . ,(ly:make-pitch -1 3 SHARP))
+              (fisih . ,(ly:make-pitch -1 3 THREE-Q-SHARP))
               (fisis . ,(ly:make-pitch -1 3 DOUBLE-SHARP))
 
               (geses . ,(ly:make-pitch -1 4 DOUBLE-FLAT))
+              (geseh . ,(ly:make-pitch -1 4 THREE-Q-FLAT))
               (ges . ,(ly:make-pitch -1 4 FLAT))
+              (geh . ,(ly:make-pitch -1 4 SEMI-FLAT))
               (g . ,(ly:make-pitch -1 4 NATURAL))
+              (gih . ,(ly:make-pitch -1 4 SEMI-SHARP))
               (gis . ,(ly:make-pitch -1 4 SHARP))
+              (gisih . ,(ly:make-pitch -1 4 THREE-Q-SHARP))
               (gisis . ,(ly:make-pitch -1 4 DOUBLE-SHARP))
 
               (asas . ,(ly:make-pitch -1 5 DOUBLE-FLAT))
               (ases . ,(ly:make-pitch -1 5 DOUBLE-FLAT))   ;; non-standard name for asas
+              (asah . ,(ly:make-pitch -1 5 THREE-Q-FLAT))
+              (aseh . ,(ly:make-pitch -1 5 THREE-Q-FLAT))
               (as . ,(ly:make-pitch -1 5 FLAT))
+              (aeh . ,(ly:make-pitch -1 5 SEMI-FLAT))
               (a . ,(ly:make-pitch -1 5 NATURAL))
+              (aih . ,(ly:make-pitch -1 5 SEMI-SHARP))
               (ais . ,(ly:make-pitch -1 5 SHARP))
+              (aisih . ,(ly:make-pitch -1 5 THREE-Q-SHARP))
               (aisis . ,(ly:make-pitch -1 5 DOUBLE-SHARP))
 
+              (heses . ,(ly:make-pitch -1 6 DOUBLE-FLAT))  ;; non-standard name for bb
               (bb . ,(ly:make-pitch -1 6 DOUBLE-FLAT)) ;; should be bes; kept for backward compatibility
               (bes . ,(ly:make-pitch -1 6 DOUBLE-FLAT))
-              (heses . ,(ly:make-pitch -1 6 DOUBLE-FLAT))  ;; non-standard name for bb
+              (heseh . ,(ly:make-pitch -1 6 THREE-Q-FLAT))
               (b . ,(ly:make-pitch -1 6 FLAT))
+              (heh . ,(ly:make-pitch -1 6 SEMI-FLAT))
               (h . ,(ly:make-pitch -1 6 NATURAL))
+              (hih . ,(ly:make-pitch -1 6 SEMI-SHARP))
               (his . ,(ly:make-pitch -1 6 SHARP))
+              (hisih . ,(ly:make-pitch -1 6 THREE-Q-SHARP))
               (hisis . ,(ly:make-pitch -1 6 DOUBLE-SHARP))
               ))
 
 
     ;; Language: Svenska -----------------------------------------------;
     ;; Mats Bengtsson <mabe@violin.s3.kth.se>
+    ;; Torsten Hämmerle <torsten.haemmerle@web.de>  quarter-tones added
     ;;
     ;;  ess    = flat
     ;;  essess = double-flat
+    ;;  eh        = quarter-tone flat
+    ;;  esseh     = three quarter-tones flat
     ;;
     ;;  iss    = sharp
     ;;  ississ = double-sharp
+    ;;  ih        = quarter-tone sharp
+    ;;  issih     = three quarter-tones sharp
     ;;
     ;;  English: c  d  e  f  g  a  bf b
     ;;  Swedish: c  d  e  f  g  a  b  h
 
     (svenska . (
                 (cessess . ,(ly:make-pitch -1 0 DOUBLE-FLAT))
+                (cesseh . ,(ly:make-pitch -1 0 THREE-Q-FLAT))
                 (cess . ,(ly:make-pitch -1 0 FLAT))
+                (ceh . ,(ly:make-pitch -1 0 SEMI-FLAT))
                 (c . ,(ly:make-pitch -1 0 NATURAL))
+                (cih . ,(ly:make-pitch -1 0 SEMI-SHARP))
                 (ciss . ,(ly:make-pitch -1 0 SHARP))
+                (cissih . ,(ly:make-pitch -1 0 THREE-Q-SHARP))
                 (cississ . ,(ly:make-pitch -1 0 DOUBLE-SHARP))
 
                 (dessess . ,(ly:make-pitch -1 1 DOUBLE-FLAT))
+                (desseh . ,(ly:make-pitch -1 1 THREE-Q-FLAT))
                 (dess . ,(ly:make-pitch -1 1 FLAT))
+                (deh . ,(ly:make-pitch -1 1 SEMI-FLAT))
                 (d . ,(ly:make-pitch -1 1 NATURAL))
+                (dih . ,(ly:make-pitch -1 1 SEMI-SHARP))
                 (diss . ,(ly:make-pitch -1 1 SHARP))
+                (dissih . ,(ly:make-pitch -1 1 THREE-Q-SHARP))
                 (dississ . ,(ly:make-pitch -1 1 DOUBLE-SHARP))
 
                 (essess . ,(ly:make-pitch -1 2 DOUBLE-FLAT))
+                (esseh . ,(ly:make-pitch -1 2 THREE-Q-FLAT))
                 (ess . ,(ly:make-pitch -1 2 FLAT))
+                (eeh . ,(ly:make-pitch -1 2 SEMI-FLAT))
                 (e . ,(ly:make-pitch -1 2 NATURAL))
+                (eih . ,(ly:make-pitch -1 2 SEMI-SHARP))
                 (eiss . ,(ly:make-pitch -1 2 SHARP))
+                (eissih . ,(ly:make-pitch -1 2 THREE-Q-SHARP))
                 (eississ . ,(ly:make-pitch -1 2 DOUBLE-SHARP))
 
                 (fessess . ,(ly:make-pitch -1 3 DOUBLE-FLAT))
+                (fesseh . ,(ly:make-pitch -1 3 THREE-Q-FLAT))
                 (fess . ,(ly:make-pitch -1 3 FLAT))
+                (feh . ,(ly:make-pitch -1 3 SEMI-FLAT))
                 (f . ,(ly:make-pitch -1 3 NATURAL))
+                (fih . ,(ly:make-pitch -1 3 SEMI-SHARP))
                 (fiss . ,(ly:make-pitch -1 3 SHARP))
+                (fissih . ,(ly:make-pitch -1 3 THREE-Q-SHARP))
                 (fississ . ,(ly:make-pitch -1 3 DOUBLE-SHARP))
 
                 (gessess . ,(ly:make-pitch -1 4 DOUBLE-FLAT))
+                (gesseh . ,(ly:make-pitch -1 4 THREE-Q-FLAT))
                 (gess . ,(ly:make-pitch -1 4 FLAT))
+                (geh . ,(ly:make-pitch -1 4 SEMI-FLAT))
                 (g . ,(ly:make-pitch -1 4 NATURAL))
+                (gih . ,(ly:make-pitch -1 4 SEMI-SHARP))
                 (giss . ,(ly:make-pitch -1 4 SHARP))
+                (gissih . ,(ly:make-pitch -1 4 THREE-Q-SHARP))
                 (gississ . ,(ly:make-pitch -1 4 DOUBLE-SHARP))
 
                 (assess . ,(ly:make-pitch -1 5 DOUBLE-FLAT))
+                (asseh . ,(ly:make-pitch -1 5 THREE-Q-FLAT))
                 (ass . ,(ly:make-pitch -1 5 FLAT))
+                (aeh . ,(ly:make-pitch -1 5 SEMI-FLAT))
                 (a . ,(ly:make-pitch -1 5 NATURAL))
+                (aih . ,(ly:make-pitch -1 5 SEMI-SHARP))
                 (aiss . ,(ly:make-pitch -1 5 SHARP))
+                (aissih . ,(ly:make-pitch -1 5 THREE-Q-SHARP))
                 (aississ . ,(ly:make-pitch -1 5 DOUBLE-SHARP))
 
                 (hessess . ,(ly:make-pitch -1 6 DOUBLE-FLAT))
+                (hesseh . ,(ly:make-pitch -1 6 THREE-Q-FLAT))
                 (b . ,(ly:make-pitch -1 6 FLAT))
+                (heh . ,(ly:make-pitch -1 6 SEMI-FLAT))
                 (h . ,(ly:make-pitch -1 6 NATURAL))
+                (hih . ,(ly:make-pitch -1 6 SEMI-SHARP))
                 (hiss . ,(ly:make-pitch -1 6 SHARP))
+                (hissih . ,(ly:make-pitch -1 6 THREE-Q-SHARP))
                 (hississ . ,(ly:make-pitch -1 6 DOUBLE-SHARP))
                 ))
 
 
     ;; Language: Vlaams ------------------------------------------------;
     ;; Hendrik Maryns <hendrik.maryns@ugent.be>
+    ;; Torsten Hämmerle <torsten.haemmerle@web.de>  quarter-tones added
     ;;
-    ;;  b  = flat (bemol)
-    ;;  bb = double-flat
+    ;;  b   = flat (bemol)
+    ;;  bb  = double-flat
+    ;;  hb  = quarter-tone flat (halve bemol)
+    ;;  bhb = three quarter-tones flat
     ;;
-    ;;  k  = sharp (kruis)
-    ;;  kk = double-sharp
+    ;;  k   = sharp (kruis)
+    ;;  kk  = double-sharp
+    ;;  hk  = quarter-tone sharp (halve kruis)
+    ;;  khk = three quarter-tones sharp
     ;;
     ;;  English: c   d   e   f   g   a   b
     ;;  Flemish: do  re  mi  fa  sol la  si
 
     (vlaams . (
                (dobb . ,(ly:make-pitch -1 0 DOUBLE-FLAT))
+               (dobhb . ,(ly:make-pitch -1 0 THREE-Q-FLAT))
                (dob . ,(ly:make-pitch -1 0 FLAT))
+               (dohb . ,(ly:make-pitch -1 0 SEMI-FLAT))
                (do . ,(ly:make-pitch -1 0 NATURAL))
+               (dohk . ,(ly:make-pitch -1 0 SEMI-SHARP))
                (dok . ,(ly:make-pitch -1 0 SHARP))
+               (dokhk . ,(ly:make-pitch -1 0 THREE-Q-SHARP))
                (dokk . ,(ly:make-pitch -1 0 DOUBLE-SHARP))
 
                (rebb . ,(ly:make-pitch -1 1 DOUBLE-FLAT))
+               (rebhb . ,(ly:make-pitch -1 1 THREE-Q-FLAT))
                (reb . ,(ly:make-pitch -1 1 FLAT))
+               (rehb . ,(ly:make-pitch -1 1 SEMI-FLAT))
                (re . ,(ly:make-pitch -1 1 NATURAL))
+               (rehk . ,(ly:make-pitch -1 1 SEMI-SHARP))
                (rek . ,(ly:make-pitch -1 1 SHARP))
+               (rekhk . ,(ly:make-pitch -1 1 THREE-Q-SHARP))
                (rekk . ,(ly:make-pitch -1 1 DOUBLE-SHARP))
 
                (mibb . ,(ly:make-pitch -1 2 DOUBLE-FLAT))
+               (mibhb . ,(ly:make-pitch -1 2 THREE-Q-FLAT))
                (mib . ,(ly:make-pitch -1 2 FLAT))
+               (mihb . ,(ly:make-pitch -1 2 SEMI-FLAT))
                (mi . ,(ly:make-pitch -1 2 NATURAL))
+               (mihk . ,(ly:make-pitch -1 2 SEMI-SHARP))
                (mik . ,(ly:make-pitch -1 2 SHARP))
+               (mikhk . ,(ly:make-pitch -1 2 THREE-Q-SHARP))
                (mikk . ,(ly:make-pitch -1 2 DOUBLE-SHARP))
 
                (fabb . ,(ly:make-pitch -1 3 DOUBLE-FLAT))
+               (fabhb . ,(ly:make-pitch -1 3 THREE-Q-FLAT))
                (fab . ,(ly:make-pitch -1 3 FLAT))
+               (fahb . ,(ly:make-pitch -1 3 SEMI-FLAT))
                (fa . ,(ly:make-pitch -1 3 NATURAL))
+               (fahk . ,(ly:make-pitch -1 3 SEMI-SHARP))
                (fak . ,(ly:make-pitch -1 3 SHARP))
+               (fakhk . ,(ly:make-pitch -1 3 THREE-Q-SHARP))
                (fakk . ,(ly:make-pitch -1 3 DOUBLE-SHARP))
 
                (solbb . ,(ly:make-pitch -1 4 DOUBLE-FLAT))
+               (solbhb . ,(ly:make-pitch -1 4 THREE-Q-FLAT))
                (solb . ,(ly:make-pitch -1 4 FLAT))
+               (solhb . ,(ly:make-pitch -1 4 SEMI-FLAT))
                (sol . ,(ly:make-pitch -1 4 NATURAL))
+               (solhk . ,(ly:make-pitch -1 4 SEMI-SHARP))
                (solk . ,(ly:make-pitch -1 4 SHARP))
+               (solkhk . ,(ly:make-pitch -1 4 THREE-Q-SHARP))
                (solkk . ,(ly:make-pitch -1 4 DOUBLE-SHARP))
 
                (labb . ,(ly:make-pitch -1 5 DOUBLE-FLAT))
+               (labhb . ,(ly:make-pitch -1 5 THREE-Q-FLAT))
                (lab . ,(ly:make-pitch -1 5 FLAT))
+               (lahb . ,(ly:make-pitch -1 5 SEMI-FLAT))
                (la . ,(ly:make-pitch -1 5 NATURAL))
+               (lahk . ,(ly:make-pitch -1 5 SEMI-SHARP))
                (lak . ,(ly:make-pitch -1 5 SHARP))
+               (lakhk . ,(ly:make-pitch -1 5 THREE-Q-SHARP))
                (lakk . ,(ly:make-pitch -1 5 DOUBLE-SHARP))
 
                (sibb . ,(ly:make-pitch -1 6 DOUBLE-FLAT))
+               (sibhb . ,(ly:make-pitch -1 6 THREE-Q-FLAT))
                (sib . ,(ly:make-pitch -1 6 FLAT))
+               (sihb . ,(ly:make-pitch -1 6 SEMI-FLAT))
                (si . ,(ly:make-pitch -1 6 NATURAL))
+               (sihk . ,(ly:make-pitch -1 6 SEMI-SHARP))
                (sik . ,(ly:make-pitch -1 6 SHARP))
+               (sikhk . ,(ly:make-pitch -1 6 THREE-Q-SHARP))
                (sikk . ,(ly:make-pitch -1 6 DOUBLE-SHARP))
                ))
 
 
-    ;; Language: arabic ------------------------------------------------;
+    ;; Language: Arabic ------------------------------------------------;
     ;; Hassan El fatihi <hassan.elfatihi@free.fr>,
     ;;
     ;;  bb   = flat (bemol)
@@ -1211,14 +1406,14 @@
     ))
 
 
-;; add two native utf-8 aliases. Pairs obey cp-like order: '(old new)
+;; add native utf-8 aliases. Pairs obey cp-like order: '(old new)
 (for-each
  (lambda (pair)
    (set! language-pitch-names
          (append language-pitch-names
                  (list (cons (cadr pair)
                              (cdr (assoc (car pair) language-pitch-names)))))))
- '((espanol español)))
+  '((català catalan) (español espanol) (português portugues)))
 
 (define-public (note-names-language str)
   (_ "Select note names language.")

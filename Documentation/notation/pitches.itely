@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.53"
+@c \version "2.21.0"
 
 
 @node Pitches
@@ -506,18 +506,18 @@ using Italian note names:
 The available languages and the note names they define are:
 
 @quotation
-@multitable {@code{espanol} or @code{español}} {@code{do} @code{re}/@code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}}
+@multitable {@w{@code{português} or}} {@code{do} @code{re}/@code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}}
 @headitem Language
   @tab Note Names
 @item @code{nederlands}
   @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{bes} @code{b}
-@item @code{catalan}
+@item @code{català} or@*@ @code{catalan}
   @tab @code{do} @code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
 @item @code{deutsch}
   @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{b} @code{h}
 @item @code{english}
   @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{bf}/@code{b-flat} @code{b}
-@item @code{espanol} or @code{español}
+@item @code{español} or@*@ @code{espanol}
   @tab @code{do} @code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
 @item @code{français}
   @tab @code{do} @code{ré}/@code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
@@ -525,7 +525,7 @@ The available languages and the note names they define are:
   @tab @code{do} @code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
 @item @code{norsk}
   @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{b} @code{h}
-@item @code{portugues}
+@item @code{português} or@*@ @code{portugues}
   @tab @code{do} @code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
 @item @code{suomi}
   @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{b} @code{h}
@@ -540,28 +540,30 @@ In addition to note names, accidental suffixes may
 also vary depending on the language:
 
 @quotation
-@multitable {@code{nederlands}} {@code{s}/@code{-sharp}} {@code{f}/@code{-flat}} {@code{ss}/@code{x}/@code{-sharpsharp}} {@code{ff}/@code{-flatflat}}
+@multitable {@w{@code{português} or}} {@code{s}/@code{-sharp}} {@code{f}/@code{-flat}} {@code{ss}/@code{x}/@code{-sharpsharp}} {@code{ff}/@code{-flatflat}}
 @headitem Language
   @tab sharp @tab flat @tab double sharp @tab double flat
 @item @code{nederlands}
   @tab @code{is} @tab @code{es} @tab @code{isis} @tab @code{eses}
-@item @code{catalan}
-  @tab @code{d}/@code{s} @tab @code{b} @tab @code{dd}/@code{ss} @tab @code{bb}
+@item @code{català} or@*@ @code{catalan}
+  @tab @code{d}/@code{s} @tab @code{b} @tab @code{dd}/@code{ss}
+    @tab @code{bb}
 @item @code{deutsch}
   @tab @code{is} @tab @code{es} @tab @code{isis} @tab @code{eses}
 @item @code{english}
-  @tab @code{s}/@code{-sharp} @tab @code{f}/@code{-flat} @tab @code{ss}/@code{x}/@code{-sharpsharp}
+  @tab @code{s}/@code{-sharp} @tab @code{f}/@code{-flat}
+    @tab @code{ss}/@code{x}/@code{-sharpsharp}
     @tab @code{ff}/@code{-flatflat}
-@item @code{espanol} or@*@ @code{español}
+@item @code{español} or@*@ @code{espanol}
   @tab @code{s} @tab @code{b} @tab @code{ss}/@code{x} @tab @code{bb}
 @item @code{français}
   @tab @code{d} @tab @code{b} @tab @code{dd}/@code{x} @tab @code{bb}
 @item @code{italiano}
   @tab @code{d} @tab @code{b} @tab @code{dd} @tab @code{bb}
 @item @code{norsk}
-  @tab @code{iss}/@code{is} @tab @code{ess}/@code{es} @tab @code{ississ}/@code{isis}
-    @tab @code{essess}/@code{eses}
-@item @code{portugues}
+  @tab @code{iss}/@code{is} @tab @code{ess}/@code{es}
+    @tab @code{ississ}/@code{isis} @tab @code{essess}/@code{eses}
+@item @code{português} or@*@ @code{portugues}
   @tab @code{s} @tab @code{b} @tab @code{ss} @tab @code{bb}
 @item @code{suomi}
   @tab @code{is} @tab @code{es} @tab @code{isis} @tab @code{eses}
@@ -593,29 +595,39 @@ form @code{asas} for @code{ases}.
 
 Some music uses microtones whose alterations are fractions of a
 @q{normal} sharp or flat.  The following table lists note name suffixes
-for quarter-tone accidentals in various languages; here the prefixes
-@notation{semi-} and @notation{sesqui-} respectively
-mean @q{half} and @q{one and a half}.  Languages that do not
-appear in this table do not provide special note names yet.
+for quarter-tone accidentals; here the prefixes @notation{semi-} and
+@notation{sesqui-} respectively mean @q{half} and @q{one and a half}.
 
 @quotation
-@multitable {@code{espanol} or @code{español}} {@b{semi-sharp}} {@b{semi-flat}} {@b{sesqui-sharp}} {@b{sesqui-flat}}
+@multitable {@w{@code{português} or}} {@b{semi-sharp}} {@b{semi-flat}} {@b{sesqui-sharp}} {@b{sesqui-flat}}
 @headitem Language
   @tab semi-sharp @tab semi-flat @tab sesqui-sharp @tab sesqui-flat
 @item @code{nederlands}
   @tab @code{ih} @tab @code{eh} @tab @code{isih} @tab @code{eseh}
+@item @code{català} or@*@ @code{catalan}
+  @tab @code{qd}/@code{qs} @tab @code{qb} @tab @code{tqd}/@code{tqs}
+   @tab @code{tqb}
 @item @code{deutsch}
   @tab @code{ih} @tab @code{eh} @tab @code{isih} @tab @code{eseh}
 @item @code{english}
   @tab @code{qs} @tab @code{qf} @tab @code{tqs} @tab @code{tqf}
-@item @code{espanol} or @code{español}
+@item @code{español} or@*@ @code{espanol}
   @tab @code{cs} @tab @code{cb} @tab @code{tcs} @tab @code{tcb}
 @item @code{français}
   @tab @code{sd} @tab @code{sb} @tab @code{dsd} @tab @code{bsb}
 @item @code{italiano}
   @tab @code{sd} @tab @code{sb} @tab @code{dsd} @tab @code{bsb}
-@item @code{portugues}
+@item @code{norsk}
+  @tab @code{ih} @tab @code{eh} @tab @code{issih}/@code{isih}
+   @tab @code{esseh}/@code{eseh}
+@item @code{português} or@*@ @code{portugues}
   @tab @code{sqt} @tab @code{bqt} @tab @code{stqt} @tab @code{btqt}
+@item @code{suomi}
+  @tab @code{ih} @tab @code{eh} @tab @code{isih} @tab @code{eseh}
+@item @code{svenska}
+  @tab @code{ih} @tab @code{eh} @tab @code{issih} @tab @code{esseh}
+@item @code{vlaams}
+  @tab @code{hk} @tab @code{hb} @tab @code{khk} @tab @code{bhb}
 @end multitable
 @end quotation
 

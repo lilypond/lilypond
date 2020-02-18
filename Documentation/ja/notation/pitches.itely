@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.19.22"
+@c \version "2.21.0"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -472,64 +472,70 @@ LilyPond の記号はいかなる標準にも準拠しません。
 利用可能な言語ファイルとそれらが定義している音符名を挙げます:
 
 @quotation
-@multitable {@code{nederlands}} {do re mi fa sol la sib si}
+@multitable {@w{@code{português} または}} {@code{do} @code{re}/@code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}}
 @headitem 言語
   @tab 音符名
 @item @code{nederlands}
-  @tab c d e f g a bes b
-@item @code{catalan}
-  @tab do re mi fa sol la sib si
+  @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{bes} @code{b}
+@item @code{català} または@*@ @code{catalan}
+  @tab @code{do} @code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
 @item @code{deutsch}
-  @tab c d e f g a b h
+  @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{b} @code{h}
 @item @code{english}
-  @tab c d e f g a bf b
-@item @code{espanol} または @code{español}
-  @tab do re mi fa sol la sib si
-@item @code{italiano} または @code{français}
-  @tab do re mi fa sol la sib si
+  @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{bf}/@code{b-flat} @code{b}
+@item @code{español} または@*@ @code{espanol}
+  @tab @code{do} @code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
+@item @code{français}
+  @tab @code{do} @code{ré}/@code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
+@item @code{italiano}
+  @tab @code{do} @code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
 @item @code{norsk}
-  @tab c d e f g a b h
-@item @code{portugues}
-  @tab do re mi fa sol la sib si
+  @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{b} @code{h}
+@item @code{português} または@*@ @code{portugues}
+  @tab @code{do} @code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
 @item @code{suomi}
-  @tab c d e f g a b h
+  @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{b} @code{h}
 @item @code{svenska}
-  @tab c d e f g a b h
+  @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{b} @code{h}
 @item @code{vlaams}
-  @tab do re mi fa sol la sib si
+  @tab @code{do} @code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
 @end multitable
 @end quotation
 
 音符名に加えて、臨時記号の接尾辞も言語によって異なる場合があります:
 
 @quotation
-@multitable {@code{nederlands}} {-s/-sharp} {-ess/-es} {-ss/-x/-sharpsharp} {-essess/-eses}
+@multitable {@w{@code{português} または}} {@code{s}/@code{-sharp}} {@code{f}/@code{-flat}} {@code{ss}/@code{x}/@code{-sharpsharp}} {@code{ff}/@code{-flatflat}}
 @headitem 言語
   @tab シャープ @tab フラット @tab ダブル シャープ @tab ダブル フラット
 @item @code{nederlands}
-  @tab -is @tab -es @tab -isis @tab -eses
-@item @code{catalan}
-  @tab -d/-s @tab -b @tab -dd/-ss @tab -bb
+  @tab @code{is} @tab @code{es} @tab @code{isis} @tab @code{eses}
+@item @code{català} または@*@ @code{catalan}
+  @tab @code{d}/@code{s} @tab @code{b} @tab @code{dd}/@code{ss}
+    @tab @code{bb}
 @item @code{deutsch}
-  @tab -is @tab -es @tab -isis @tab -eses
+  @tab @code{is} @tab @code{es} @tab @code{isis} @tab @code{eses}
 @item @code{english}
-  @tab -s/-sharp @tab -f/-flat @tab -ss/-x/-sharpsharp
-    @tab -ff/-flatflat
-@item @code{espanol} または @code{español}
-  @tab -s @tab -b @tab -ss/-x @tab -bb
-@item @code{italiano} または @code{français}
-  @tab -d @tab -b @tab -dd @tab -bb
+  @tab @code{s}/@code{-sharp} @tab @code{f}/@code{-flat}
+    @tab @code{ss}/@code{x}/@code{-sharpsharp}
+    @tab @code{ff}/@code{-flatflat}
+@item @code{español} または@*@ @code{espanol}
+  @tab @code{s} @tab @code{b} @tab @code{ss}/@code{x} @tab @code{bb}
+@item @code{français}
+  @tab @code{d} @tab @code{b} @tab @code{dd}/@code{x} @tab @code{bb}
+@item @code{italiano}
+  @tab @code{d} @tab @code{b} @tab @code{dd} @tab @code{bb}
 @item @code{norsk}
-  @tab -iss/-is @tab -ess/-es @tab -ississ/-isis
-    @tab -essess/-eses
-@item @code{portugues}
-  @tab -s @tab -b @tab -ss @tab -bb
+  @tab @code{iss}/@code{is} @tab @code{ess}/@code{es}
+    @tab @code{ississ}/@code{isis} @tab @code{essess}/@code{eses}
+@item @code{português} または@*@ @code{portugues}
+  @tab @code{s} @tab @code{b} @tab @code{ss} @tab @code{bb}
 @item @code{suomi}
-  @tab -is @tab -es @tab -isis @tab -eses
+  @tab @code{is} @tab @code{es} @tab @code{isis} @tab @code{eses}
 @item @code{svenska}
-  @tab -iss @tab -ess @tab -ississ @tab -essess
+  @tab @code{iss} @tab @code{ess} @tab @code{ississ} @tab @code{essess}
 @item @code{vlaams}
-  @tab -k @tab -b @tab -kk @tab -bb
+  @tab @code{k} @tab @code{b} @tab @code{kk} @tab @code{bb}
 @end multitable
 @end quotation
 
@@ -557,14 +563,12 @@ LilyPond ではどちらの形式も認められます。@c
 (訳者: シャープやフラットの半分の音の変化。4 分音符ではありません)
 の音符名を以下の表で挙げます。@c
 接頭辞 @notation{半-} と @notation{1.5-} はそれぞれ
-@q{半分} と @q{1 つ半} を意味します。@c
-表に無い言語では、まだ微分音の名前は定義されていません。
+@q{半分} と @q{1 つ半} を意味します。
 
 @quotation
 @multitable {@code{nederlands}} {@b{半-シャープ}} {@b{半-フラット}} {@b{1.5-シャープ}} {@b{1.5-フラット}}
 @headitem 元号
   @tab 半-シャープ @tab 半-フラット @tab 1.5-シャープ @tab 1.5-フラット
-
 @item @code{nederlands}
   @tab -ih @tab -eh @tab -isih @tab -eseh
 @item @code{deutsch}
@@ -577,6 +581,39 @@ LilyPond ではどちらの形式も認められます。@c
   @tab -sd @tab -sb @tab -dsd @tab -bsb
 @item @code{portugues}
   @tab -sqt @tab -bqt @tab -stqt @tab -btqt
+@end multitable
+@end quotation
+
+@quotation
+@multitable {@w{@code{português} または}} {@b{semi-diesis}} {@b{semi-bemolle}} {@b{sesqui-diesis}} {@b{sesqui-bemolle}}
+@headitem 元号
+  @tab 半-シャープ @tab 半-フラット @tab 1.5-シャープ @tab 1.5-フラット
+@item @code{nederlands}
+  @tab @code{ih} @tab @code{eh} @tab @code{isih} @tab @code{eseh}
+@item @code{català} または@*@ @code{catalan}
+  @tab @code{qd}/@code{qs} @tab @code{qb} @tab @code{tqd}/@code{tqs}
+   @tab @code{tqb}
+@item @code{deutsch}
+  @tab @code{ih} @tab @code{eh} @tab @code{isih} @tab @code{eseh}
+@item @code{english}
+  @tab @code{qs} @tab @code{qf} @tab @code{tqs} @tab @code{tqf}
+@item @code{español} または@*@ @code{espanol}
+  @tab @code{cs} @tab @code{cb} @tab @code{tcs} @tab @code{tcb}
+@item @code{français}
+  @tab @code{sd} @tab @code{sb} @tab @code{dsd} @tab @code{bsb}
+@item @code{italiano}
+  @tab @code{sd} @tab @code{sb} @tab @code{dsd} @tab @code{bsb}
+@item @code{norsk}
+  @tab @code{ih} @tab @code{eh} @tab @code{issih}/@code{isih}
+   @tab @code{esseh}/@code{eseh}
+@item @code{português} または@*@ @code{portugues}
+  @tab @code{sqt} @tab @code{bqt} @tab @code{stqt} @tab @code{btqt}
+@item @code{suomi}
+  @tab @code{ih} @tab @code{eh} @tab @code{isih} @tab @code{eseh}
+@item @code{svenska}
+  @tab @code{ih} @tab @code{eh} @tab @code{issih} @tab @code{esseh}
+@item @code{vlaams}
+  @tab @code{hk} @tab @code{hb} @tab @code{khk} @tab @code{bhb}
 @end multitable
 @end quotation
 
