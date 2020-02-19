@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: a0f1e4d8aa9632b4324f140a56354597edd7ad87
+   Translation of GIT committish: 032de07c17caacd038f113ebcb54e9c473d64e0f
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -52,11 +52,11 @@ fichier source au clavier de l'ordinateur.
 @unnumberedsubsubsec Hauteurs avec octave absolue
 @translationof Absolute octave entry
 
-@cindex noms de note
-@cindex hauteurs
-@cindex absolues, hauteurs
-@cindex absolues, octaves
-@cindex octaves absolues
+@cindex nom de note
+@cindex hauteur
+@cindex absolue, hauteur
+@cindex absolue, octave
+@cindex octave absolue
 
 La hauteur s'écrit -- à moins de préciser une autre langue -- avec la
 notation batave, en utilisant les lettres de @code{a} à @code{g}.
@@ -274,8 +274,8 @@ bloc @code{\transpose}.
 }
 @end lilypond
 
-@cindex accords et octave relative
-@cindex octave relative et accords
+@cindex accord et octave relative
+@cindex octave relative et accord
 
 Si l'expression précédente est un accord, c'est la première note de
 l'accord qui détermine l'emplacement de la première note du prochain
@@ -360,8 +360,8 @@ bonnement « do naturel » quelles que soient l'armure et la clef en
 vigueur. Pour plus d'information, reportez-vous au chapitre
 @rlearning{Hauteurs et armure}.}
 
-@cindex noms de note, hollandais
-@cindex noms de note, par défaut
+@cindex nom de note, hollandais
+@cindex nom de note, par défaut
 @cindex hauteur, nom par défaut
 @cindex dièse
 @cindex bémol
@@ -390,9 +390,9 @@ déroger à l'armure.
 \relative c'' { a4 aes a2 }
 @end lilypond
 
-@cindex quarts de ton
-@cindex demi-bémols
-@cindex demi-dièses
+@cindex quart de ton
+@cindex demi-bémol
+@cindex demi-dièse
 
 Les demi-bémols et demi-dièses s'écrivent en ajoutant respectivement
 @code{eh} et @code{ih}. Voici une série de dos altérés en hauteurs
@@ -410,7 +410,7 @@ Les micro-intervalles sont aussi exportés dans le fichier MIDI.
 @cindex parenthèses, altération entre
 
 @funindex ?
-@funindex !
+@funindex @sortas{!A} !
 
 Normalement, les altérations sont imprimées automatiquement, mais il se
 peut que vous vouliez les imprimer manuellement.  On peut forcer
@@ -438,9 +438,13 @@ sera réimprimée que s'il y a un saut de ligne.
 @end lilypond
 
 @snippets
+
+@cindex note tenue au début du système suivant, masquage de l'altération
+@cindex altération masquée sur note tenue au début du système suivant
 @lilypondfile[verbatim,quote,texidoc,doctitle,ragged-right]
 {hiding-accidentals-on-tied-notes-at-the-start-of-a-new-system.ly}
 
+@cindex bécarre, supression du signe supplémentaire
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {preventing-extra-naturals-from-being-automatically-added.ly}
 
@@ -483,9 +487,9 @@ LilyPond n'est donc conforme à aucun standard.
 @unnumberedsubsubsec Nom des notes dans d'autres langues
 @translationof Note names in other languages
 
-@cindex notes, noms selon la langue
-@cindex noms de note, langues
-@cindex langues, noms de note
+@cindex note, nom selon la langue
+@cindex nom de note, langue
+@cindex langue, nom de note
 
 Vous disposez de jeux prédéfinis de noms de note et altérations pour
 plusieurs autres langues.  Pour les utiliser, il suffit de déclarer, en
@@ -585,7 +589,7 @@ utilisée de @code{asas} pour @code{ases}.
 \relative c'' { a2 as e es a ases e eses }
 @end lilypond
 
-@cindex microtonalités
+@cindex microtonalité
 @cindex demi-dièse
 @cindex demi-bémol
 @cindex sesqui-dièse
@@ -674,7 +678,7 @@ Cette partie traite de la manière de modifier les hauteurs de note.
 @cindex octave, vérification
 @cindex contrôle des hauteurs
 
-@funindex =
+@funindex @sortas{=A} =
 @funindex \octaveCheck
 @funindex controlpitch
 
@@ -782,7 +786,7 @@ majeur.  Vous noterez que l'armure est automatiquement modifiée.
 @end lilypond
 
 @cindex transpositeur, instrument
-@cindex instruments transpositeurs
+@cindex instrument transpositeur
 
 Regardons maintenant une partie écrite pour violon -- un instrument en
 ut.  Si cette partie doit être jouée par une clarinette en la (écrite à
@@ -957,7 +961,7 @@ Manuel de notation :
 @unnumberedsubsubsec Transformations modales
 @translationof Modal transformations
 
-@cindex modales, transformations
+@cindex modale, transformation
 
 Dans une composition basée sur une gamme, un même motif est transformé à
 plusieurs reprises et selon des schémas différents.  Il peut être
@@ -1114,14 +1118,14 @@ hauteurs.
 @unnumberedsubsubsec Clefs
 @translationof Clef
 
-@cindex clé de sol
+@cindex clef de sol
 @cindex sol, clef de
-@cindex clé de fa
+@cindex clef de fa
 @cindex fa, clef de
-@cindex clé d'ut
+@cindex clef d'ut
 @cindex ut, clef d'
-@cindex clés anciennes
-@cindex anciennes, clefs
+@cindex clef ancienne
+@cindex ancienne, clef
 
 @funindex \clef
 
@@ -1156,8 +1160,8 @@ sont abordées dans @ref{Clefs anciennes} et @ref{Clefs grégoriennes}.
 La musique requérant des clefs de tablature est traitée dans
 @ref{Tablatures par défaut} et @ref{Tablatures personnalisées}.
 
-@cindex Clef de citation
-@cindex Citation et clefs
+@cindex clef de citation
+@cindex citation et clef
 
 Les citations peuvent demander une modification de clef à l'aide des
 commandes @code{\cueClef} et @code{\cueDuringWithClef} -- voir
@@ -1268,6 +1272,8 @@ clef initiale.  La taille peut toutefois être ajustée.
 @end lilypond
 
 @snippets
+
+@cindex clef, personnalisation des propriétés
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {tweaking-clef-properties.ly}
 
@@ -1346,8 +1352,8 @@ On définit ou modifie l'armure avec la commande @code{\key} :
 @funindex \phrygian
 @funindex \dorian
 
-@cindex modes anciens
-@cindex modes
+@cindex mode ancien
+@cindex mode
 @cindex majeur
 @cindex mineur
 @cindex ionien
@@ -1407,9 +1413,13 @@ finissant à cette position sur la portée.
 @end lilypond
 
 @snippets
+
+@cindex bécarre, supression du signe supplémentaire
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}
 
+@cindex armure non traditionnelle
+@cindex non traditionnelle, armure
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {non-traditional-key-signatures.ly}
 
@@ -1440,8 +1450,9 @@ Référence des propriétés internes :
 
 @cindex ottava
 @cindex 15ma
+@cindex 15mb
 @cindex 8va
-@cindex 8ve
+@cindex 8vb
 @cindex octaviation
 
 @funindex set-octavation
@@ -1468,12 +1479,19 @@ la fonction @code{ottava} qui s'en charge.
 @end lilypond
 
 @snippets
+
+@cindex octaviation, texte
+@cindex texte, octaviation
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {ottava-text.ly}
 
+@cindex octaviation, une seule voix
+@cindex voix, octaviation d'une seule
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adding-an-ottava-marking-to-a-single-voice.ly}
 
+@cindex octaviation, allure du prolongateur
+@cindex prolongateur, octaviation
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {modifying-the-ottava-spanner-slope.ly}
 
@@ -1601,14 +1619,14 @@ Morceaux choisis :
 
 @cindex altération, style
 @cindex altération, style par défaut
-@cindex accidentelles, altérations
-@cindex accidentelles automatiques
-@cindex automatiques, altérations accidentelles
+@cindex accidentelle, altération
+@cindex accidentelle automatique
+@cindex automatique, altération accidentelle
 @cindex style d'accidentelle
 
 @funindex \accidentalStyle
 @funindex voice
-@funindex default
+@funindex @sortas{defaultA} default
 
 LilyPond dispose d'une fonction chargée de regrouper les règles suivant
 lesquelles s'impriment les altérations.  Elle s'invoque de la manière
@@ -1710,7 +1728,7 @@ dernières lignes de cet exemple nous intéressent.
 @cindex @emph{default}, style d'altérations
 @cindex altérations, style @emph{default}
 
-@funindex default
+@funindex @sortas{defaultA} default
 
 C'est la règle d'impression par défaut, qui se rapporte à l'usage
 en vigueur au XVIIIe siècle : les altérations accidentelles sont
@@ -2936,10 +2954,10 @@ Référence des propriétés internes :
 @rinternals{accidental-suggestion-interface}.
 
 
-@cindex altérations et notes simultanées
-@cindex notes simultanées et altérations
-@cindex altérations et accords
-@cindex accords et altérations
+@cindex altération et notes simultanées
+@cindex notes simultanées et altération
+@cindex altération et accord
+@cindex accord et altération
 
 @knownissues
 Les notes simultanées sont considérées comme des évènements séquentiels.
@@ -3028,12 +3046,18 @@ de note représentant la hauteur la plus basse et la plus haute.  Les
 @end lilypond
 
 @snippets
+
+@cindex voix et ambitus
+@cindex ambitus, un par voix
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adding-ambitus-per-voice.ly}
 
+@cindex ambitus, voix multiples
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {ambitus-with-multiple-voices.ly}
 
+@cindex ambitus avec ligne
+@funindex AmbitusLine
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-ambitus-gap.ly}
 
@@ -3078,13 +3102,13 @@ note.
 @unnumberedsubsubsec Têtes de note spécifiques
 @translationof Special note heads
 
-@cindex têtes de note, spéciales
+@cindex tête de note, spéciale
 @cindex croix, tête de note
 @cindex losange, tête de note
 @cindex parlato, tête de note
 @cindex harmonique, tête de note
 @cindex guitare, tête de note
-@cindex styles, tête de note
+@cindex style, tête de note
 
 @funindex cross
 
@@ -3188,7 +3212,7 @@ Référence des propriétés internes :
 @cindex tête de note, apprentissage
 @cindex notation facile
 @cindex Hal Leonard
-@cindex @emph{easy play}, têtes de note
+@cindex @emph{easy play}, tête de note
 
 @funindex \easyHeadsOn
 @funindex \easyHeadsOff
@@ -3215,6 +3239,10 @@ Voir à ce propos @ref{Définition de la taille de portée}.
 @endpredefined
 
 @snippets
+
+@cindex @emph{easy play}, notation, numéro
+@cindex numéro, notation @emph{easy play}
+@funindex Ez_numbers_engraver
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {numbers-as-easy-note-heads.ly}
 
@@ -3239,7 +3267,7 @@ Référence des propriétés internes :
 @cindex tête de note, allure
 @cindex tête de note, Aiken
 @cindex tête de note, harpe sacrée
-@cindex notes profilées
+@cindex note profilée
 @cindex Aiken, tête de note
 @cindex harpe sacrée, tête de note
 @cindex Funk, tête de note
@@ -3342,7 +3370,7 @@ Référence des propriétés internes :
 @translationof Improvisation
 
 @cindex improvisation
-@cindex notes penchées
+@cindex note penchée
 @cindex tête de note et improvisation
 @cindex tête de note allongée
 

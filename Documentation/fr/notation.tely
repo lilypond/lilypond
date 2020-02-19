@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 0a5306c21d7d64d1ffdadb899c0af79ced2df336
+    Translation of GIT committish: 032de07c17caacd038f113ebcb54e9c473d64e0f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -102,9 +102,11 @@ Annexes
 
 Cet index recense toutes les commandes et mots réservés de LilyPond,
 sous forme de lien vers les endroits du manuel où ils sont abordés.
+@ifhtml
 Chaque lien est constitué de deux parties : la première pointe
 directement là où la commande ou le terme apparaît, la seconde au début
 de la section où la commande ou le terme est abordé.
+@end ifhtml
 
 @printindex ky
 
@@ -113,10 +115,20 @@ de la section où la commande ou le terme est abordé.
 @translationof LilyPond index
 
 En plus des commandes et mots réservés de LilyPond, cet index recense
-les termes musicaux qui s'y rapportent.  Tout comme dans l'index des
-commandes, chaque lien est constitué de deux parties : la première
-pointe directement là où la commande ou le terme apparaît, la seconde au
-début de la section où la commande ou le terme est abordé.
+les termes musicaux qui s'y rapportent.
+@ifhtml
+Tout comme dans l'index des commandes, chaque lien est constitué de deux
+parties : la première pointe directement là où la commande ou le terme
+apparaît, la seconde au début de la section où la commande ou le terme
+est abordé.
+@end ifhtml
+
+@iftex
+Les entrées d'index en italique renvoient à des endroits (principalement
+des sections « Voir aussi ») qui contiennent des liens externes vers
+d'autres ouvrages de documentation de LilyPond comme la Référence des
+propriétés internes ou le Glossaire musicologique.
+@end iftex
 
 @printindex cp
 

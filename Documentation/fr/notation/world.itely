@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: a0f1e4d8aa9632b4324f140a56354597edd7ad87
+    Translation of GIT committish: 032de07c17caacd038f113ebcb54e9c473d64e0f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -124,8 +124,8 @@ arabe.
 @unnumberedsubsubsec Références pour la musique arabe
 @translationof References for Arabic music
 
-@cindex Musique arabe
-@cindex intervalles medium
+@cindex musique arabe
+@cindex intervalle medium
 @cindex maqam
 @cindex maqams
 
@@ -182,8 +182,8 @@ Morceaux choisis :
 @unnumberedsubsubsec Noms des notes en arabe
 @translationof Arabic note names
 
-@cindex noms des notes en arabe
-@cindex arabe, noms des notes en
+@cindex nom de note en arabe
+@cindex arabe, nom de note
 
 Les noms de note les plus traditionnels en arabe peuvent être très
 longs et ne conviennent pas à l'écriture de la musique, aussi ne
@@ -206,7 +206,6 @@ Par exemple, voici comment on peut écrire la gamme arabe
 @cindex symbole arabe d'un demi-bémol
 @cindex aspect d'un symbole de demi-bémol
 @cindex demi-bémol
-
 @funindex \dwn
 
 Le symbole indiquant un demi-bémol ne correspond pas au symbole
@@ -238,7 +237,7 @@ Morceaux choisis :
 @unnumberedsubsubsec Armures arabes
 @translationof Arabic key signatures
 
-@cindex armures arabes
+@cindex armure arabe
 
 @c Les balises @notation sont des commandes LilyPond prédéfinies,
 @c elles ne doivent donc pas être traduites. -vv
@@ -340,6 +339,7 @@ courants à leur armure :
 
 @snippets
 
+@c XXX also included in `pitches.itely'
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {non-traditional-key-signatures.ly}
 
@@ -371,8 +371,8 @@ Morceaux choisis :
 @unnumberedsubsubsec Métriques arabes
 @translationof Arabic time signatures
 
-@cindex métriques arabes
-@cindex Forme Semai
+@cindex métrique arabe
+@cindex forme semai
 @cindex taqasim
 
 Quelques formes de musique classique arabes et turques telles que
@@ -388,6 +388,8 @@ chiffres de mesure composés.
 
 @snippets
 
+@cindex arabe, improvisation
+@cindex improvisation arabe
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {arabic-improvisation.ly}
 
@@ -514,7 +516,7 @@ musique classique turque.
 @cindex musique turque
 @cindex turque, musique
 @cindex musique ottomane
-@cindex intervalles de comma
+@cindex intervalle de comma
 @cindex comma
 @cindex maqam
 @cindex makamlar
@@ -543,7 +545,7 @@ traitées dans d'autres chapitres :
 @unnumberedsubsubsec Noms de note en turc
 @translationof Turkish note names
 
-@cindex turc, noms des notes
+@cindex turc, nom de note
 @cindex makam
 @cindex makamlar
 
