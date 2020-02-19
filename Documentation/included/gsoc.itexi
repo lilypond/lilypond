@@ -154,6 +154,36 @@ of timing issues
 @emph{Mentors:} Urs Liska, Carl Sorensen
 
 
+@subsubheading Frescobaldi Extensions
+
+Starting with the current release 3.1
+@uref{http://frescobaldi.org, Frescobaldi} has an extension API that
+allows the easy integration of arbitrary functionality in the editing
+environment.  These could range from, say, document statistics and
+accounting functionality to fancy features like a built-in video chat
+client or a stock market ticker.
+
+We would welcome project suggestions about arbitrary Frescobaldi
+extensions of appropriate complexity that add substantial functionality
+for working with LilyPond scores which might not be suitable to be
+included into Frescobaldi itself.
+
+As @emph{suggestions} and examples may serve: a project management
+extension that can manage repetoire of arbitrary complexity, handle
+the generation of template files and the compilation process. Or an
+extension to manage the @uref{https://openlilylib.org, openLilyLib}
+infrastructure.
+
+@emph{Difficulty:} easy/medium
+
+@emph{Requirements:} Python, (PyQt)
+
+@emph{Optional:} GUILE Scheme (if functionality involves LilyPond
+internals)
+
+@emph{Mentor:} @emph{Urs Liska}
+
+
 @subsubheading Support for Style Sheets
 
 LilyPond's engraving output can be tweaked to the least detail, and one
