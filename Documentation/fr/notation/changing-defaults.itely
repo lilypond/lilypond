@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: a0f1e4d8aa9632b4324f140a56354597edd7ad87
+   Translation of GIT committish: 032de07c17caacd038f113ebcb54e9c473d64e0f
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -36,7 +36,7 @@ document séparé, @rinternalsnamed{Top,la référence des propriétés
 internes}.  Ce guide répertorie toutes les variables, fonctions et
 autres options que LilyPond met à votre disposition.  Il est consultable
 @c leave the @uref as one long line.
-@uref{http://@/lilypond@/.org/@/doc/@/stable/@/Documentation/@/internals/,en ligne},
+@uref{https://@/lilypond@/.org/@/doc/@/stable/@/Documentation/@/internals/,en ligne},
 au format HTML ; il est également inclus dans la documentation
 fournie avec le logiciel.
 
@@ -137,7 +137,7 @@ seront présentés plus avant -- voir
 @ref{Modification de tous les contextes d'un même type}.
 
 @cindex définition de sortie
-@cindex sortie, définitions
+@cindex sortie, définition
 @funindex \layout
 
 Alors que la musique écrite dans un fichier fait référence à des types
@@ -562,8 +562,8 @@ Manuel de notation :
 @subsection Conservation d'un contexte
 @translationof Keeping contexts alive
 
-@cindex contextes, maintien actif
-@cindex contextes, durée de vie
+@cindex contexte, maintien actif
+@cindex contexte, durée de vie
 
 En règle générale, un contexte disparaît dès qu'il n'y a plus rien à
 faire.  Autrement dit, un contexte @code{Voice} disparaît dès après le
@@ -868,7 +868,7 @@ Fichiers d'initialisation :
 @subsection Modification des réglages par défaut d'un contexte
 @translationof Changing context default settings
 
-@cindex réglages par défaut, modification
+@cindex réglage par défaut, modification
 @cindex contexte, modification des propriétés par défaut
 
 Les propriétés des contextes et objets graphiques se modifient à l'aide
@@ -895,7 +895,7 @@ particulière d'un contexte.
 @unnumberedsubsubsec Modification de tous les contextes d'un même type
 @translationof Changing all contexts of the same type
 
-@cindex \context dans un bloc \layout
+@cindex @code{\context} dans un bloc @code{\layout}
 
 @funindex \context
 @funindex \layout
@@ -1051,7 +1051,6 @@ musical.
 @unnumberedsubsubsec Modification d'un contexte particulier
 @translationof Changing just one specific context
 
-@cindex \with
 @funindex \with
 
 Dans le cas d'un contexte pris individuellement, ses propriétés se
@@ -1408,9 +1407,9 @@ relations.
 @seealso
 Référence des propriétés internes :
 @rinternals{Note_heads_engraver},
-@rinternals{Text_engraver},
+@rinternals{Pitch_squash_engraver},
 @rinternals{Rhythmic_column_engraver},
-@rinternals{Pitch_squash_engraver}.
+@rinternals{Text_engraver}.
 
 
 @node Ordonnancement des contextes
@@ -1478,8 +1477,8 @@ C'est par exemple le cas du contexte @code{VaticanaStaff}, réplique du
 contexte @code{Staff}, au sein duquel le contexte @code{VaticanaVoice} se
 substitue au contexte @code{Voice} dans la « liste d'agrément ».
 
-@cindex contextes implicites
-@cindex implicites, contextes
+@cindex contexte implicite
+@cindex implicite, contexte
 @funindex \defaultchild
 
 Gardez à l'esprit que, face à une instruction qui ne s'appliquerait à
@@ -1498,8 +1497,6 @@ manière intempestive une nouvelle portée ou une autre partition.
 L'utilisation d'une instruction @code{\new} pour créer explicitement des
 contextes permet d'éviter ces problèmes.
 
-@cindex alignAboveContext
-@cindex alignBelowContext
 @funindex alignAboveContext
 @funindex alignBelowContext
 
@@ -2078,11 +2075,11 @@ Ainsi, par exemple :
 
 @seealso
 Référence des propriétés internes :
-@rinternals{Backend},
 @rinternals{All layout objects},
+@rinternals{Backend},
 @rinternals{OverrideProperty},
-@rinternals{RevertProperty},
-@rinternals{PropertySet}.
+@rinternals{PropertySet},
+@rinternals{RevertProperty}.
 
 @knownissues
 La sous-couche Scheme ne vérifie pas la saisie des propriétés de façon
@@ -2208,7 +2205,7 @@ lignes suivantes
 @noindent
 sont équivalentes si elles apparaissent dans un contexte @code{Voice}.
 
-@cindex \once
+@funindex \once
 
 Pour modifier une propriété de façon à ce que l'accommodement ne
 s'applique qu'une seule fois, il convient d'adjoindre l'instruction
@@ -2304,8 +2301,8 @@ ou, pour modifier les extrémités d'un objet à extension :
 \override TextSpanner.bound-details.right.text = #"texte de droite"
 @end example
 
-@cindex annulation d'un override
-@cindex override, annulation des effets
+@cindex annulation d'un @emph{override}
+@cindex @emph{override}, annulation des effets
 @funindex \revert
 
 Les effets d'un @code{\override} prennent fin à l'aide de l'instruction
@@ -2348,7 +2345,7 @@ mentionné :
 >>
 @end lilypond
 
-@cindex override ponctuel
+@cindex @emph{override} ponctuel
 @funindex \once
 
 Les instructions @code{\override} et @code{\revert} doivent être
@@ -2412,10 +2409,10 @@ Référence des propriétés internes :
 @subsection La commande d'affinage @code{@bs{}tweak}
 @translationof The tweak command
 
-@cindex retouche (tweak)
-@cindex affinage (tweak)
-@cindex ajustement (tweak)
-@cindex tweak (retouche, affinage)
+@cindex retouche (@emph{tweak})
+@cindex affinage (@emph{tweak})
+@cindex ajustement (@emph{tweak})
+@cindex @emph{tweak} (retouche, affinage)
 @funindex \tweak
 
 L'utilisation d'un @code{\override} pour modifier les propriétés d'un
@@ -2597,8 +2594,8 @@ Manuel d'extension :
 
 @knownissues
 
-@cindex tweak et points de contrôle
-@cindex points de contrôle et tweak
+@cindex tweak et point de contrôle
+@cindex point de contrôle et tweak
 
 Lorsqu'il y a plusieurs liaisons de prolongation dans un accord, la
 commande @code{\tweak} ne permet de modifier les points de contrôle que
@@ -2661,7 +2658,7 @@ capitale (comme @samp{NoteHead}) alors que les propriétés de contexte
 ordinaires -- elles commencent par une minuscule -- se manipulent avec
 @code{\set} et @code{\unset}.
 
-@cindex tweak, relation avec @code{\override}
+@cindex @emph{tweak}, relation avec @code{\override}
 @funindex \tweak
 @funindex \overrideProperty
 
@@ -2839,7 +2836,7 @@ arpeggioMusic = {
 }
 @end lilypond
 
-funindex \once
+@funindex \once
 @funindex \temporary
 
 Dans cette utilisation d'@emph{override}, @code{\offset} peut se
@@ -3018,6 +3015,8 @@ exemple produit un résultat identique à ce qui est illustré dans
 @subsection Modification de listes associatives
 @translationof Modifying alists
 
+@cindex liste associative, modification
+
 Certaines propriétés configurables par l'utilisateur se présentent en
 interne comme étant des listes associatives -- les puristes diront des
 @emph{alists}.  Une @emph{alist} est en fait constituée de plusieurs
@@ -3194,7 +3193,7 @@ contexte @code{ChordNames} -- voir @ref{Impression des noms d'accord}.
 @subsubsubheading Mode percussions
 @c VO Drum mode
 
-funindex \drummode
+@funindex \drummode
 @funindex \drums
 
 Ce mode, activé par la commande @code{\drummode}, permet d'interpréter
@@ -3497,8 +3496,9 @@ Manuel de notation :
 @subsection Dimensions
 @translationof Dimensions
 
-@cindex dimensions
-@cindex bounding box
+@cindex dimension
+@cindex @emph{bounding box} (boîte englobante)
+@cindex boîte englobante @emph{(bounding box)}
 
 Les dimensions d'un objet graphique spécifient la position des bords
 droit et gauche ainsi que des bords supérieur et inférieur de la boîte
@@ -3889,8 +3889,8 @@ Référence des propriétés internes :
 @subsection Visibilité des objets
 @translationof Visibility of objects
 
-@cindex objets, visibilité
-@cindex grobs, visibilité
+@cindex objet, visibilité
+@cindex grob, visibilité
 @cindex visibilité d'objets
 
 La visibilité des objets de rendu se contrôle de quatre façons
@@ -3981,13 +3981,13 @@ a' a'
 @unnumberedsubsubsec Blanchiment des objets
 @translationof Painting objects white
 
-@cindex objets, couleur
+@cindex objet, couleur
 @cindex couleur d'objet
-@cindex layers
-@cindex calques
+@cindex @emph{layer} (calque)
+@cindex calque @emph{(layer)}
 @cindex impression, ordre
-@cindex surimpression d'objets
-@cindex objets, surimpression
+@cindex surimpression d'objet
+@cindex objet, surimpression
 @cindex grobs, superposition
 
 Tout objet de rendu dispose d'une propriété couleur, par défaut définie
@@ -4032,7 +4032,7 @@ a'1
 
 @c TODO Add making other objects breakable
 
-@cindex break-visibility
+@funindex break-visibility
 
 La plupart des objets de rendu ne sont imprimés qu'une seule fois ;
 certains cependant, tels les barres de mesure, clefs, métriques ou
@@ -4154,9 +4154,9 @@ voir et @code{all-invisible} pour les masquer.
 @subsubsubheading Visibilité après changement explicite
 
 @cindex armure, visibilité après changement explicite
-@cindex explicitKeySignatureVisibility
+@funindex explicitKeySignatureVisibility
 @cindex clef, visibilité après changement explicite
-@cindex explicitClefVisibility
+@funindex explicitClefVisibility
 
 La propriété @code{break-visibility} contrôle la visibilité des armures
 ou changements de clef en début de ligne uniquement, donc après un saut.
@@ -4270,7 +4270,7 @@ visibilité de l'objet @code{KeyCancellation} :
 
 @subsubsubheading Barres de mesure automatiques
 
-@cindex automaticBars
+@funindex automaticBars
 @cindex barres de mesure, suppression
 
 La désactivation de la propriété @code{automaticBars}, qui réside dans
@@ -4387,6 +4387,8 @@ que vous désirez manipuler.
 @unnumberedsubsubsec Rotation des objets de mise en forme
 @translationof Rotating layout objects
 
+@cindex objet, rotation
+
 Tout objet de rendu disposant de la @code{grob-interface} est
 susceptible de pivoter, grâce à la propriété @code{rotation}.  Celle-ci
 prend en argument une liste de trois éléments : l'angle de rotation
@@ -4404,7 +4406,7 @@ forme soit réellement opportun ; en voici une :
 
 @lilypond[quote,fragment,verbatim]
 g4\< e' d'' f''\!
-\override Hairpin.rotation = #'(20 -1 0)
+\override Hairpin.rotation = #'(15 -1 0)
 g4\< e' d'' f''\!
 @end lilypond
 
@@ -4413,7 +4415,7 @@ g4\< e' d'' f''\!
 @unnumberedsubsubsec Rotation des étiquettes
 @translationof Rotating markup
 
-@cindex markup, rotation
+@cindex @emph{markup}, rotation
 
 Tout texte faisant l'objet d'un @emph{markup} peut pivoter selon
 n'importe quel angle, à l'aide de la commande @code{\rotate}.  Celle-ci
@@ -4717,7 +4719,7 @@ example shows the difference:
 @translationof Using the break-alignable-interface
 
 @cindex alignement sur un objet
-@cindex break-align-symbols
+@funindex break-align-symbols
 
 Indications de repère et numéros de mesure peuvent s'aligner sur des
 objets de notation autres qu'une barre de mesure.  Parmi ces objets,
@@ -5275,10 +5277,10 @@ Manuel d'extension :
 @subsection Conteneurs requalifiants
 @translationof Unpure-pure containers
 
-@cindex Scheme, pure containers
-@cindex Scheme, unpure containers
-@cindex pure containers, Scheme
-@cindex unpure containers, Scheme
+@cindex Scheme, @emph{pure container}
+@cindex Scheme, @emph{unpure container}
+@cindex @emph{pure containers}, Scheme
+@cindex @emph{unpure containers}, Scheme
 @cindex espacement horizontal, affinage
 
 Les conteneurs requalifiants permettent de faciliter le calcul des
@@ -5485,6 +5487,8 @@ Fichiers d'initialisation :
 @node Exemples de fonction de substitution
 @subsection Exemples de fonction de substitution
 @translationof Substitution function examples
+
+@cindex substitution, fonction
 
 La présente rubrique regroupe quelques exemples de fonction
 substitutive.  Le propos est ici d'illustrer les possibilités qu'offrent

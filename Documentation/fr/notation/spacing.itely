@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: dc65755d47f9fad3edeb6b7aaa43b6121e17de78
+   Translation of GIT committish: 032de07c17caacd038f113ebcb54e9c473d64e0f
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -68,8 +68,8 @@ regroupements de portées, etc.
 * Réduction du nombre de pages de la partition::
 @end menu
 
-@cindex ragged, aligné
-@cindex aligné, ragged
+@cindex @emph{ragged}, aligné
+@cindex aligné, @emph{ragged}
 
 @warning{Vous verrez au fil de ce chapitre apparaître certains termes
 dont la traduction vous semblera assurément erronée.  Il n'en est
@@ -215,7 +215,6 @@ Fichiers d'initialisation :
 
 @cindex papier, taille
 @cindex page, format
-
 @funindex \paper
 
 @menu
@@ -294,7 +293,7 @@ Les unités peuvent s'exprimer aussi bien en @code{in} (pouces), qu'en
 @code{cm} (centimètres) ou @code{mm} (millimètres).
 
 @cindex papier, orientation
-@cindex landscape, papier
+@cindex @code{landscape}, papier
 @cindex paysage, papier
 @cindex à l'italienne, papier
 
@@ -860,6 +859,8 @@ Fichiers d'initialisation :
 @unnumberedsubsubsec Variables d'indentation et de décalage
 @translationof paper variables for shifts and indents
 
+@cindex indantation
+
 Les valeurs par défaut (avant étalonnage) sont définies dans le fichier
 @file{ly/paper-defaults-init.ly}.
 
@@ -1075,7 +1076,7 @@ fichier @file{ly/paper-defaults-init.ly}.
 
 @table @code
 
-@cindex pages, numérotation automatique
+@cindex page, numérotation automatique
 @item auto-first-page-number
 @funindex auto-first-page-number
 
@@ -1086,7 +1087,9 @@ lui-même si le premier numéro sera pair ou impair, ce qui se traduira
 par un éventuel incrément de un.  La valeur par défaut
 est @code{#f}.
 
-@cindex pages, numéro de la première
+@cindex page, numéro de la première
+@cindex page, première
+@cindex première page
 @item first-page-number
 @funindex first-page-number
 
@@ -1100,6 +1103,8 @@ Cette variable permet d'imprimer le numéro de page y compris sur la
 première.  La valeur par défaut est @code{#f}.
 
 @item print-page-number
+@cindex page, numérotation
+@cindex numérotation des pages
 @funindex print-page-number
 
 La désactivation de cette variable permet d'obtenir des pages non
@@ -1140,6 +1145,7 @@ privilégiera l'espacement au niveau de la page.  La valeur par défaut
 est de @code{10}.
 
 @item print-all-headers
+@cindex entête, impression
 @funindex print-all-headers
 
 Lorsque cette variable est activée, l'intégralité des champs d'entête
@@ -1206,6 +1212,7 @@ partition.
 @subsection Le bloc @code{@bs{}layout}
 @translationof The layout block
 
+@cindex mise en forme
 @funindex \layout
 
 Alors que le bloc @code{\paper} définit le formatage des pages pour
@@ -1390,7 +1397,7 @@ Morceaux choisis :
 
 @cindex fonte, définition de la taille
 @cindex portée, définition de la taille
-@funindex layout file
+@cindex mise en forme
 @funindex magnification->font-size
 @funindex magstep
 @funindex set-global-staff-size
@@ -1474,6 +1481,8 @@ traditionnelle.
 
 @subheading Relation automatique entre fonte et taille
 @c VO Automatic font weight at different sizes
+
+@cindex taille et fonte
 
 La fonte Ementaler fournit le jeu de symboles musicaux @emph{Feta} dans
 huit tailles différentes.  Chaque fonte correspond à une hauteur
@@ -1638,7 +1647,7 @@ Le commutateur @code{ragged-last} est équivalent à @code{ragged-right},
 @}
 @end example
 
-@cindex sauts de ligne réguliers
+@cindex saut de ligne régulier
 @cindex portée à quatre mesures
 
 L'utilisation conjointe de @code{\break} et de blancs dans une section
@@ -1668,6 +1677,8 @@ ailleurs :
 
 @snippets
 
+@cindex saut, gestion sur voix dédiée
+@cindex voix dédiée aux sauts
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {using-an-extra-voice-for-breaks.ly}
 
@@ -2042,6 +2053,7 @@ système.
 @cindex portées, espacement
 @cindex espacement entre les portées
 @cindex espacement au sein d'un système
+@cindex système, espacement des portées
 
 LilyPond dispose de trois différents mécanismes permettant de contrôler
 l'espacement au sein d'un système selon trois catégories :
@@ -2877,6 +2889,7 @@ Morceaux choisis :
 @subsection Résolution des collisions verticales
 @translationof Vertical collision avoidance
 
+@cindex collision verticale
 @funindex outside-staff-priority
 @funindex outside-staff-padding
 @funindex outside-staff-horizontal-padding
@@ -3161,6 +3174,13 @@ Référence des propriétés internes :
 @subsection Modification de l'espacement horizontal
 @translationof Changing horizontal spacing
 
+@cindex espacement horizontal, modification
+
+@menu
+* Étirement uniforme des n-olets::
+* Espacement strict des notes::
+@end menu
+
 Vous pouvez influencer l'espacement horizontal à l'aide de la propriété
 @code{base-shortest-duration}.  Comparons les deux partitions qui
 suivent, toutes deux montrant la même musique.  La première partition
@@ -3198,7 +3218,10 @@ resserrée.  En effet, @code{ly:make-moment} construit une durée :
 }
 @end lilypond
 
-@snippets
+@node Étirement uniforme des n-olets
+@unnumberedsubsubsec Étirement uniforme des n-olets
+@translationof Uniform stretching of tuplets
+
 L'espacement au sein d'un n-olet dépend par défaut d'un certain nombre de
 facteurs qui ne sont pas liés à la durée (altération, changement de
 clef, etc.).  @code{Score.SpacingSpanner.uniform-stretching}
@@ -3210,11 +3233,11 @@ s'appliquera à toute la partition, puisque mentionnée au sein d'un bloc
 @lilypond[quote,ragged-right,verbatim]
 \score {
   <<
-    \new Staff {
-      \tuplet 5/4 { c8 c8 c8 c8 c8 } c8 c8 c8 c8
+    \new Staff \relative c' {
+      \tuplet 5/4 { c8 c c c c } c8 c c c
     }
-    \new Staff {
-      c8 c8 c8 c8 \tuplet 5/4 { c8 c8 c8 c8 c8 }
+    \new Staff \relative c' {
+      c8 c c c \tuplet 5/4 { c8 c c c c }
     }
   >>
   \layout {
@@ -3225,6 +3248,11 @@ s'appliquera à toute la partition, puisque mentionnée au sein d'un bloc
   }
 }
 @end lilypond
+
+
+@node Espacement strict des notes
+@unnumberedsubsubsec Espacement strict des notes
+@translationof Strict note spacing
 
 L'activation du commutateur @code{strict-note-spacing} permet d'espacer
 les notes sans tenir compte des clefs, barres de mesure ou notes
@@ -3246,9 +3274,8 @@ Morceaux choisis :
 @translationof Line width
 
 @cindex saut de page
-@cindex pages, saut
+@cindex page, saut
 @cindex ligne, longueur
-
 @funindex indent
 @funindex line-width
 @funindex ragged-right
@@ -3302,6 +3329,8 @@ Morceaux choisis :
 @node Notation proportionnelle
 @subsection Notation proportionnelle
 @translationof Proportional notation
+
+@cindex proportionnel, espacement
 
 LilyPond prend en charge la notation proportionnelle.  Il s'agit dans
 ce cas de représenter la notation selon un espacement strictement

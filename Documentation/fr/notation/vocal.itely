@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: dc65755d47f9fad3edeb6b7aaa43b6121e17de78
+   Translation of GIT committish: 032de07c17caacd038f113ebcb54e9c473d64e0f
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -109,11 +109,10 @@ Morceaux choisis :
 
 @cindex paroles
 @cindex ponctuation
-@cindex espaces, dans les paroles
+@cindex espace, dans les paroles
 @cindex guillemets, dans les paroles
 @cindex paroles, mise en forme
 @cindex ponctuation et paroles
-
 @funindex \lyricmode
 
 @c TODO should we explain hyphens here
@@ -196,6 +195,9 @@ mode @code{\markup}, utilisable y compris au sein du mode
 chapitre @ref{Mise en forme du texte}.
 
 @snippets
+
+@cindex paroles et @emph{markup}
+@cindex @emph{markup} et paroles
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {formatting-lyrics-syllables.ly}
 
@@ -220,7 +222,7 @@ Référence des propriétés internes :
 @translationof Aligning lyrics to a melody
 
 @cindex paroles, alignement sur la mélodie
-@cindex @code{associatedVoice}
+@funindex associatedVoice
 @funindex \lyricmode
 @funindex \addlyrics
 @funindex \lyricsto
@@ -345,10 +347,9 @@ Référence des propriétés internes :
 @unnumberedsubsubsec Durée automatique des syllabes
 @translationof Automatic syllable durations
 
-@cindex syllabes, durée automatique
+@cindex syllabe, durée automatique
 @cindex paroles et mélodies
-@cindex associatedVoice
-
+@funindex associatedVoice
 @funindex \addlyrics
 @funindex \lyricsto
 
@@ -386,7 +387,6 @@ comment maintenir un contexte actif.
 @subheading Utilisation de @code{\lyricsto}
 @c VO: Using @code{\lyricsto}
 
-@cindex \lyricsto
 @funindex \lyricsto
 
 Vous pouvez aligner automatiquement des paroles sous une mélodie en
@@ -418,7 +418,6 @@ voir @ref{Positionnement vertical des paroles}.
 @subheading Utilisation de @code{\addlyrics}
 @c VO: Using @code{\addlyrics}
 
-@cindex \addlyrics
 @funindex \addlyrics
 
 La commande @code{\addlyrics} n'est en fait qu'une manière plus aisée
@@ -593,10 +592,9 @@ Référence des propriétés internes :
 @unnumberedsubsubsec Plusieurs syllabes sur une note
 @translationof Multiple syllables to one note
 
-@cindex liaisons, dans les paroles
-@cindex espaces dans les paroles
+@cindex liaison, dans les paroles
+@cindex espace dans les paroles
 @cindex guillemets dans les paroles
-
 @funindex _
 
 Pour attribuer plus d'une syllabe à une même note, vous pouvez soit les
@@ -632,7 +630,6 @@ Référence des propriétés internes :
 @cindex mélisme
 @cindex vocalise
 @cindex phrasé, pour des paroles
-
 @funindex \melisma
 @funindex \melismaEnd
 
@@ -895,7 +892,7 @@ Référence des propriétés internes :
 @translationof Working with lyrics and variables
 
 @cindex paroles, variables
-@cindex paroles, identificateurs
+@cindex paroles, identificateur
 
 Vous pouvez créer des variables pour contenir les paroles, dès lors que
 vous faites appel au mode approprié :
@@ -1098,6 +1095,8 @@ de ces exemples, ou en examinant ce qui figure à la rubrique
 @rlearning{Modèles pour ensemble vocal} du manuel d'initiation.
 
 @snippets
+
+@cindex paroles, espacement version 2.12
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
 
@@ -1156,11 +1155,16 @@ dans le bloc @code{\layout}.
 @end lilypond
 
 @snippets
+
+@cindex paroles, alignement horizontal
+@cindex alignement horizontal, paroles
+@cindex horizontal, alignement des paroles
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {lyrics-alignment.ly}
 
-@c TODO: move to LSR -vv
+@knownissues
 
+@cindex paroles, garder dans les marges
 L'assurance que tous les scripts textuels et les paroles resteront bien
 à l'intérieur des marges requiert des ressources non négligeables.
 Afin de réduire le temps de traitement, vous pouvez désactiver cette
@@ -1170,6 +1174,8 @@ fonctionnalité en ajoutant
 \override Score.PaperColumn.keep-inside-line = ##f
 @end example
 
+@cindex paroles et barre de mesure
+@cindex barre de mesure et paroles
 Pour s'assurer que les paroles ne seront pas traversées par des barres
 de mesure, il faut ajouter
 
@@ -1338,7 +1344,6 @@ Et ce quel que soit le nombre de « couplets » :
 }
 @end lilypond
 
-@cindex alignBelowContext
 @funindex alignBelowContext
 
 Cependant, lorsque la partition comporte plusieurs portées, cas typique
@@ -1678,11 +1683,11 @@ vaut mieux construire ce passage comme une polyphonie temporaire -- voir
 @unnumberedsubsubsec Polyphonie et paroles communes
 @translationof Polyphony with shared lyrics
 
-@cindex NullVoice
 @cindex polyphonie, mêmes paroles
 @cindex paroles communes à plusieurs voix
-@cindex \partcombine et paroles
+@cindex @code{\partcombine} et paroles
 @funindex \partcombine
+@funindex NullVoice
 
 Lorsque deux voix au rythme différent partagent les mêmes paroles,
 l'alignement des syllabes sur l'une des voix peut gêner la lecture de
@@ -1950,8 +1955,8 @@ respectivement d'un @code{\set} et d'un @code{\unset}.
 @subsubheading Syllabe sur note de passage
 @c VO: Adding syllables to grace notes
 
-@cindex ornements et paroles
-@cindex paroles et ornements
+@cindex ornement et paroles
+@cindex paroles et ornement
 
 L'utilisation de la commande @code{\lyricsto} ne permet pas, par
 défaut, d'assigner une syllabe à des notes d'ornement -- introduites par
@@ -2005,7 +2010,7 @@ clause @code{\with} ou @code{\context} :
 @subsubheading Basculer vers une mélodie alternative
 @c VO: Switching to an alternative melody
 
-@cindex associatedVoice
+@funindex associatedVoice
 @cindex alternative, bascule sur une mélodie
 @cindex mélodie alternative
 
@@ -2318,7 +2323,6 @@ partie de chœur.
 @menu
 * Références en matière de chorale::
 * Mise en forme d'une partition chorale::
-* Division de voix::
 @end menu
 
 
@@ -2502,12 +2506,9 @@ Référence des propriétés internes :
 @rinternals{StaffGrouper}.
 
 
-@node Division de voix
-@unnumberedsubsubsec Division de voix
-@translationof Divided voices
-
+@snippets
 @cindex voix, division
-
+@cindex division de voix
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {using-arpeggiobracket-to-make-divisi-more-visible.ly}
 
@@ -2831,6 +2832,9 @@ musicale dans le but de vous épargner de la saisie tout en améliorant
 la lisibilité des notes du piano.
 
 @snippets
+
+@cindex citation, partition chorale
+@cindex chorale, citation instrumentale
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {adding-orchestral-cues-to-a-vocal-score.ly}
 
@@ -3276,15 +3280,22 @@ D'autres approches d'une telle mise en forme font l'objet du premier des
 exemples qui suivent.
 
 @snippets
+
+@cindex cantique
+@cindex psaume
+@cindex hymne
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {chant-or-psalms-notation.ly}
 
+@c XXX move this text into following snippet
 Cantiques et autres textes liturgiques peuvent être mis en forme avec
 une grande liberté et parfois emprunter des éléments de notation
 ancienne.  Le texte apparaît souvent sous la mélodie, les mots alors
 alignés sur les notes.  En pareil cas, les notes sont espacées selon les
 syllabes et non leur durée.
 
+@cindex grégorien, transcription moderne
+@cindex transcription, grégorien
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
@@ -3477,6 +3488,8 @@ l'utilisation de la commande @code{\partial} en début de partition et
 d'une commande @code{\bar "|"} ou @code{\bar "||"} à la fin de
 chaque ligne.
 
+@cindex cantique, mesure incomplète
+@cindex anacrouse, cantique
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {hymn-template.ly}
 

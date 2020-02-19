@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: a0f1e4d8aa9632b4324f140a56354597edd7ad87
+   Translation of GIT committish: 032de07c17caacd038f113ebcb54e9c473d64e0f
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -50,11 +50,11 @@ même voix.
 @unnumberedsubsubsec Notes en accords
 @translationof Chorded notes
 
-@cindex accords
+@cindex accord
 @cindex chevrons
 
-@funindex <
-@funindex >
+@funindex @sortas{<A} <
+@funindex @sortas{>A} >
 @funindex <...>
 
 Un accord est formé en mettant une série de hauteurs entre @code{<}
@@ -336,7 +336,7 @@ plusieurs portées :
 En pareil cas, des rythmes différents ne sont source d'aucun problème
 puisqu'ils sont interprétés dans des voix différentes.
 
-@cindex collisions, ignorer
+@cindex collision, ignorer
 
 @knownissues
 Des notes, bien qu'appartenant à des voix différentes, mais dont les
@@ -348,8 +348,7 @@ appliquer.  Ceci ne manque pas de faire apparaître un message
 warning: This voice needs a \voiceXx or \shiftXx setting
 
 @emph{en français :}
-Avertissement : Cette voix requiert un voiceXx ou un réglage
-\shiftXx
+Avertissement : Cette voix requiert un voiceXx ou un réglage \shiftXx
 @end example
 
 lors de la compilation.  Le déclenchement de cet avertissement peut être
@@ -439,7 +438,6 @@ portées.
 @cindex portée simple et polyphonie
 @cindex voix
 @cindex paroles assignées à une voix
-
 @funindex \voiceOne
 @funindex \voiceTwo
 @funindex \voiceThree
@@ -522,8 +520,8 @@ permettent d'obtenir des réglages différents pour chacune des voix.
 
 @subsubsubheading La construction avec un double antislash
 
-@cindex couches
-@cindex calques
+@cindex couche
+@cindex calque
 
 @funindex \\
 
@@ -677,11 +675,10 @@ Morceaux choisis :
 @unnumberedsubsubsec Styles de voix
 @translationof Voice styles
 
-@cindex voix, styles
+@cindex voix, style
 @cindex style de voix
 @cindex colorier des voix
-@cindex têtes de note, styles
-
+@cindex tête de note, style
 @funindex \voiceOneStyle
 @funindex \voiceTwoStyle
 @funindex \voiceThreeStyle
@@ -729,7 +726,7 @@ Morceaux choisis :
 
 @cindex fusion de notes
 @cindex collision de notes
-@cindex collisions
+@cindex collision
 @cindex décalage de note
 @cindex note, décalage
 @cindex multiples voix
@@ -737,8 +734,7 @@ Morceaux choisis :
 @cindex polyphonie
 @cindex décalage de voix
 @cindex voix, décalage
-@cindex silences, décalage automatique
-
+@cindex silence, décalage automatique
 @funindex \shiftOn
 @funindex \shiftOnn
 @funindex \shiftOnnn
@@ -915,9 +911,19 @@ bien explicitement.
 @endpredefined
 
 @snippets
+
+@cindex polyphonie, voix additionnelle
+@cindex voix, polyphonie, additionnelle
+@funindex context-spec-music
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {additional-voices-to-avoid-collisions.ly}
 
+@cindex note pointée, déplacement horizontal
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{moving-dotted-notes-in-polyphony.ly}
+
+@cindex décallage, note
+@cindex note, décallage
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {forcing-horizontal-shift-of-notes.ly}
 
@@ -938,7 +944,7 @@ Référence des propriétés internes :
 @rinternals{NoteCollision},
 @rinternals{RestCollision}.
 
-@cindex collisions, ignorer
+@cindex collision, ignorer
 
 @knownissues
 Une clause @code{\override NoteColumn.ignore-collision = ##t} aura
@@ -1181,8 +1187,8 @@ instrumentTwo = \relative {
 
 @subsubsubheading Utilisation de @code{\partcombine} et paroles
 
-@cindex \partcombine et paroles
-@cindex paroles et \partcombine
+@cindex @code{\partcombine} et paroles
+@cindex paroles et @code{\partcombine}
 
 La commande @code{\partcombine} n'est pas conçue pour traiter des
 paroles ; si l'une des voix est explicitement nommée, afin de lui
@@ -1195,6 +1201,8 @@ les effets escomptés -- voir @ref{Polyphonie et paroles communes}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {combining-two-parts-on-the-same-staff.ly}
 
+@cindex parties combinées, texte
+@cindex @code{\partocombine}, texte
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-partcombine-texts.ly}
 

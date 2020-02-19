@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: dc65755d47f9fad3edeb6b7aaa43b6121e17de78
+   Translation of GIT committish: 032de07c17caacd038f113ebcb54e9c473d64e0f
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -50,27 +50,21 @@ l'intérieur même de la portée.
 @translationof Selecting notation font size
 
 @cindex sélection de la taille (notation)
-@cindex notes, taille
+@cindex notation, taille
 @cindex taille des notes
-@cindex têtes de note
+@cindex tête de note
 
 @funindex fontSize
 @funindex font-size
 @funindex magnification->font-size
 @funindex magstep
-@funindex magnifyMusic
+@funindex \magnifyMusic
 @funindex \teeny
 @funindex \tiny
 @funindex \small
 @funindex \normalsize
 @funindex \large
 @funindex \huge
-@funindex teeny
-@funindex tiny
-@funindex small
-@funindex normalsize
-@funindex large
-@funindex huge
 
 @warning{@*
 Pour les tailles de police textuelle, voir
@@ -279,8 +273,8 @@ LilyPond dispose d'un certain nombre de raccourcis :
 }
 @end lilypond
 
-@cindex standard, taille des notes
-@cindex notes, taille standard
+@cindex standard, taille de note
+@cindex note, taille standard
 
 @funindex font-interface
 @funindex font-size
@@ -379,11 +373,11 @@ pouce (@emph{thumb} en anglais).
 \relative { <a'_\thumb a'-3>2 <b_\thumb b'-3> }
 @end lilypond
 
-@cindex doigtés des accords
-@cindex accords, doigtés
+@cindex doigté d'accord
+@cindex accord, doigté
 
-Les doigtés des accords peuvent être saisis note par note,
-en les indiquant après chaque hauteur de note.
+Les doigtés des accords peuvent être saisis note par note, en les
+indiquant après chaque hauteur de note.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -396,12 +390,21 @@ la portée -- voir @ref{Direction et positionnement} à ce sujet.
 
 @snippets
 
+@cindex doigté, positionnement
+@cindex positionnement, doigté
+@funindex fingeringOrientations
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {controlling-the-placement-of-chord-fingerings.ly}
 
+@cindex doigté, dans la portée
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
+@cindex collision, doigté d'accord
+@cindex doigté, accord, collision
+@funindex fingeringOrientations
+@funindex stringNumberOrientations
+@funindex strokeFingerOrientations
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {avoiding-collisions-with-chord-fingerings.ly}
 
@@ -413,20 +416,20 @@ Morceaux choisis :
 @rlsrnamed{Editorial annotations, Annotations éditoriales}.
 
 Référence des propriétés internes :
-@rinternals{FingeringEvent},
-@rinternals{fingering-event},
+@rinternals{Fingering},
 @rinternals{Fingering_engraver},
-@rinternals{New_fingering_engraver},
-@rinternals{Fingering}.
+@rinternals{fingering-event},
+@rinternals{FingeringEvent},
+@rinternals{New_fingering_engraver}.
 
 
 @node Dictée à trous
 @unnumberedsubsubsec Dictée à trous
 @translationof Hidden notes
 
-@cindex masquées, notes
-@cindex invisibles, notes
-@cindex transparentes, notes
+@cindex masquée, note
+@cindex invisible, note
+@cindex transparente, note
 @cindex note invisible
 @cindex note masquée
 
@@ -489,15 +492,15 @@ Référence des propriétés internes :
 @unnumberedsubsubsec Coloration d'objets
 @translationof Coloring objects
 
-@cindex objets en couleur
-@cindex couleurs
-@cindex colorisation d'objets
-@cindex coloration d'objets
-@cindex coloration de notes
-@cindex colorisation de notes
-@cindex notes en couleur
-@cindex x11, couleurs
-@cindex couleurs x11
+@cindex objet en couleur
+@cindex couleur
+@cindex colorisation d'objet
+@cindex coloration d'objet
+@cindex coloration de note
+@cindex colorisation de note
+@cindex note en couleur
+@cindex x11, couleur
+@cindex couleur x11
 
 @funindex color
 @funindex \with-color
@@ -550,7 +553,6 @@ façon évidente au vu de la partition finale.
 }
 @end lilypond
 
-@cindex rgb-color
 @cindex couleur rgb
 @cindex couleur rvb
 @cindex rgb, couleur
@@ -588,9 +590,9 @@ Morceaux choisis :
 @rlsrnamed{Editorial annotations,Annotations éditoriales}.
 
 @cindex x11, couleur
-@cindex couleur, notes d'un accord
-@cindex notes colorisées dans un accord
-@cindex accords et couleur
+@cindex couleur, note d'un accord
+@cindex note colorisée dans un accord
+@cindex accord et couleur
 
 @funindex x11-color
 
@@ -613,10 +615,10 @@ Pour plus de détails, consultez @ref{La commande d'affinage (tweak)}.
 @unnumberedsubsubsec Parenthèses
 @translationof Parentheses
 
-@cindex fantômes, notes
-@cindex notes fantômes
-@cindex parenthèses, notes entre
-@cindex crochets, notes entre
+@cindex fantôme, note
+@cindex note fantôme
+@cindex parenthèses, note entre
+@cindex crochets, note entre
 
 @funindex \parenthesize
 
@@ -664,10 +666,10 @@ attendrait une seule paire de parenthèses encadrant tout l'accord.
 @unnumberedsubsubsec Hampes
 @translationof Stems
 
-@cindex hampes
-@cindex hampes invisibles
+@cindex hampe
+@cindex hampe invisible
 @cindex visibilité des hampes
-@cindex masquage des hampes
+@cindex masquage de hampe
 @cindex hampe, orientation
 @cindex hampe montante
 @cindex hampe descendante
@@ -692,6 +694,8 @@ L'orientation des hampes peut être définie manuellement -- voir
 
 @snippets
 
+@cindex hampe,ligne médiane, direction
+@cindex ligne médiane, hampe, direction
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {default-direction-of-stems-on-the-center-line-of-the-staff.ly}
 
@@ -736,8 +740,6 @@ la portée par des éléments qui lui seront externes.
 @funindex \balloonGrobText
 @funindex \balloonText
 @funindex Balloon_engraver
-@funindex balloonGrobText
-@funindex balloonText
 @funindex \balloonLengthOn
 @funindex \balloonLengthOff
 
@@ -852,6 +854,7 @@ entre chaque ligne.
 
 @snippets
 
+@cindex quadrillage temporel, apparence
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {grid-lines--changing-their-appearance.ly}
 
@@ -872,11 +875,11 @@ Référence des propriétés internes :
 @unnumberedsubsubsec Crochets d'analyse
 @translationof Analysis brackets
 
-@cindex crochets
-@cindex crochets de phrasé
+@cindex crochet
+@cindex crochet de phrasé
 @cindex analyse musicologique
 @cindex crochet de regroupement de notes
-@cindex musicologie, crochets d'analyse
+@cindex musicologie, crochet d'analyse
 
 @funindex Horizontal_bracket_engraver
 @funindex \startGroup
@@ -920,6 +923,9 @@ Les crochets d'analyses sont susceptibles d'être imbriqués :
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {analysis-brackets-above-the-staff.ly}
 
+@cindex étiquette, crochet d'analyse
+@cindex analyse, crochet, étiquette
+@funindex HorizontalBracketText
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {analysis-brackets-with-labels.ly}
 

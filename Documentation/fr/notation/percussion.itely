@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: dc65755d47f9fad3edeb6b7aaa43b6121e17de78
+    Translation of GIT committish: 032de07c17caacd038f113ebcb54e9c473d64e0f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -445,8 +445,7 @@ Morceaux choisis :
 @unnumberedsubsubsec Personnalisation de portées de percussion
 @translationof Custom percussion staves
 
-@cindex Percussions, personnalisation
-@cindex drumStyleTable
+@cindex percussions, personnalisation
 @funindex drumStyleTable
 
 LilyPond offre la possibilité de construire son propre style de
@@ -478,7 +477,6 @@ down = \drummode { bd4 sn bd toml8 toml }
 >>
 @end lilypond
 
-@cindex drumPitchNames
 @funindex drumPitchNames
 
 De nouveaux noms peuvent venir s'ajouter à ces notations personnalisées
@@ -504,8 +502,6 @@ drumPitchNames.rs = #'ridecymbal
 }
 @end lilypond
 
-@cindex midiDrumPitches
-@cindex drumPitchTable
 @funindex midiDrumPitches
 @funindex drumPitchTable
 
@@ -582,12 +578,12 @@ Référence des propriétés internes :
 @unnumberedsubsubsec Notes fantômes
 @translationof Ghost notes
 
-@cindex Fantôme, note, percussion
-@cindex Silencieuse, note, percussion
-@cindex Fausse note, percussion
-@cindex Percussion, note fantôme
-@cindex Percussion, note silencieuse
-@cindex Percussion, fausse note
+@cindex fantôme, note, percussion
+@cindex silencieuse, note, percussion
+@cindex fausse note, percussion
+@cindex percussion, note fantôme
+@cindex percussion, note silencieuse
+@cindex percussion, fausse note
 
 Des notes fantômes, qu'on appelle aussi en anglais @emph{dead, muted,
 silenced ou false} notes, peuvent être créées pour les parties de

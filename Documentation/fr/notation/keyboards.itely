@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: a0f1e4d8aa9632b4324f140a56354597edd7ad87
+   Translation of GIT committish: 032de07c17caacd038f113ebcb54e9c473d64e0f
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -47,7 +47,6 @@ de notation pour la plupart des instrument à cordes multiples.
 * Changement de portée manuel::
 * Changement de portée automatique::
 * Lignes de changement de portée::
-* Hampes et changements de portée::
 @end menu
 
 
@@ -56,7 +55,7 @@ de notation pour la plupart des instrument à cordes multiples.
 @translationof References for keyboards
 
 @cindex piano, système pour
-@cindex portées pour piano
+@cindex portée de piano
 @cindex portées pour instrument à clavier
 @cindex portées pour instrument à clés
 @cindex clavier, portées pour instrument à
@@ -169,11 +168,11 @@ Référence des propriétés internes :
 @unnumberedsubsubsec Changement de portée manuel
 @translationof Changing staff manually
 
-@cindex changements de portée manuels
+@cindex changement de portée manuel
 @cindex changement de portée forcé
 @cindex inter-portée, notes
 @cindex notes inter-portée
-@cindex inter-portée, ligatures
+@cindex inter-portée, ligature
 @cindex ligature inter-portée
 
 @funindex \change
@@ -310,8 +309,9 @@ de portée, utilisez alors une ligature manuelle.
 @unnumberedsubsubsec Changement de portée automatique
 @translationof Changing staff automatically
 
-@cindex Changement de portée automatique
-@cindex Automatique, changement de portée
+@cindex changement de portée automatique
+@cindex automatique, changement de portée
+@cindex portée, changement automatique
 
 @funindex \autochange
 @funindex PianoStaff
@@ -356,8 +356,8 @@ music = {
 \autochange d' \with { \clef alto } \with { \clef tenor } \music
 @end lilypond
 
-@cindex mode relatif et autochange
-@cindex autochange et mode relatif
+@cindex mode relatif et @code{\autochange}
+@cindex @code{autochange} et mode relatif
 
 @funindex \relative
 
@@ -408,7 +408,7 @@ Référence des propriétés internes :
 
 @knownissues
 
-@cindex accords, répartition sur plusieurs portées avec \autochange
+@cindex accord, répartition sur plusieurs portées avec @code{\autochange}
 
 Les changements de portée automatiques n'interviennent pas toujours à
 l'endroit le plus opportun.  Pour un résultat de meilleure qualité, il
@@ -427,7 +427,7 @@ construction de cet accord.
 @translationof Staff-change lines
 
 @cindex voix entre deux portées
-@cindex changements de portée
+@cindex changement de portée
 @cindex mélodie d'une portée à une autre
 
 @funindex followVoice
@@ -492,27 +492,18 @@ Référence des propriétés internes :
 @rinternals{Note_head_line_engraver},
 @rinternals{VoiceFollower}.
 
+@snippets
 
-@node Hampes et changements de portée
-@unnumberedsubsubsec Hampes et changements de portée
-@translationof Cross-staff stems
-
+@anchor{Hampes et changements de portée}
+@c VO Cross-staff stems
 @cindex hampe, enjambement de portées
+@cindex interportée, hampe
 @cindex distance entre deux portées de piano
-
 @funindex Stem
 @funindex \crossStaff
 @funindex \autoBeamOff
 @funindex Span_stem_engraver
-
-Pour écrire des accords qui enjambent deux portées, on allonge, à l'aide
-du @code{Span_stem_engraver}, la hampe de l'accord de l'une des deux
-portées de façon à ce qu'elle rejoigne celle de l'autre portée.  La
-gestion des ligatures automatiques requiert alors une attention
-particulière ; en effet, une seule portée devrait alors comporter des
-ligatures.
-
-@lilypondfile[verbatim,quote]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {cross-staff-stems.ly}
 
 Il n'est pas possible, à l'heure actuelle et en raison de la manière
@@ -520,7 +511,9 @@ dont il a été implémenté, de spécifier ce graveur en le mettant entre
 guillements ; il faut le mentionner en faisant précéder son nom d'un
 symbole @emph{hash} (un @code{#}).
 
-@snippets
+@cindex crochet d'arpeggio interportée
+@cindex arpeggio, crochet interportée
+@cindex crochet interportée
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {indicating-cross-staff-chords-with-arpeggio-bracket.ly}
 
@@ -547,8 +540,8 @@ Ce chapitre traite des aspects de la notation directement liés au piano.
 @unnumberedsubsubsec Pédales de piano
 @translationof Piano pedals
 
-@cindex piano et pédales
-@cindex pédales de piano
+@cindex piano et pédale
+@cindex pédale de piano
 @cindex sustain, pédale
 @cindex pédale sustain
 @cindex sostenuto, pédale
@@ -582,7 +575,7 @@ pédale @notation{tonale} (@emph{sostenuto} ou @emph{sos.}).  La pédale
 }
 @end lilypond
 
-@cindex pédale, styles d'indications de
+@cindex pédale, style d'indications de
 @cindex pédale, indication textuelle de
 @cindex pédale, indication graphique de
 @cindex pédale, indication combinée de
@@ -591,7 +584,7 @@ pédale @notation{tonale} (@emph{sostenuto} ou @emph{sos.}).  La pédale
 
 @funindex pedalSustainStyle
 @funindex mixed
-@funindex bracket
+@funindex @sortas{bracketA} bracket
 @funindex text
 
 Trois styles sont à votre disposition pour imprimer les indications de
@@ -656,8 +649,8 @@ Référence des propriétés internes :
 @unnumberedsubsubsec Symboles de jeux
 @translationof Discant symbols
 
-@cindex accordéon, symboles de registre
-@cindex registres, symboles pour accordéon
+@cindex accordéon, symbole de registre
+@cindex registre, symbole pour accordéon
 @cindex accordéon, tirettes
 @cindex tirettes d'accordéon, symboles
 
@@ -669,6 +662,9 @@ sélectionner les différents jeux d'anches tels que @notation{hautbois},
 @notation{musette} ou @notation{bandonéon}, de telle sorte qu'un système
 de symbole a fini par voir le jour afin de faciliter les instructions
 pour exécuter un morceau.
+
+Une liste des différents symboles est disponible à l'annexe
+@rusernamed{Accordion Registers, Registre pour arccordéon}.
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -696,7 +692,7 @@ la harpe.
 @unnumberedsubsubsec Généralités sur la harpe
 @translationof References for harps
 
-@cindex harpes
+@cindex harpe
 @cindex bisbigliando
 
 Certaines caractéristiques de la musique pour harpes sont abordées dans
@@ -728,10 +724,10 @@ Manuel de notation :
 @unnumberedsubsubsec Pédales de harpe
 @translationof Harp pedals
 
-@cindex harpe, pédales
-@cindex harpe, diagrammes de pédales
-@cindex pédales de harpe
-@cindex pédales, diagrammes pour harpe
+@cindex harpe, pédale
+@cindex harpe, diagramme de pédales
+@cindex pédale de harpe
+@cindex pédale, diagramme pour harpe
 
 Les harpes comportent sept cordes par octave qui peuvent sonner
 naturel, dièse ou bémol.  Si chacune des cordes de la harpe celtique
