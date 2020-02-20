@@ -17,9 +17,6 @@
 /* define if you have gettext */
 #define HAVE_GETTEXT 0
 
-/* define if you have yyFlexLexer.yy_current_buffer */
-#undef HAVE_FLEXLEXER_YY_CURRENT_BUFFER
-
 /* define if you have grp header */
 #define HAVE_GRP_H 0
 

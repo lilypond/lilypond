@@ -43,20 +43,7 @@ using std::string;
 #define YYSTATE YY_START
 #endif
 
-/* Flex >= 2.5.29 has include stack; but we don't use that yet.  */
-#if !HAVE_FLEXLEXER_YY_CURRENT_BUFFER
-#define yy_current_buffer                                               \
-  (yy_buffer_stack != 0 ? yy_buffer_stack[yy_buffer_stack_top] : 0)
-#endif
-
 extern bool relative_includes;
-
-Includable_lexer::Includable_lexer ()
-{
-#if HAVE_FLEXLEXER_YY_CURRENT_BUFFER
-  yy_current_buffer = 0;
-#endif
-}
 
 /** Set the new input file to NAME, remember old file.  */
 void
@@ -93,39 +80,21 @@ Includable_lexer::new_input (const string &name, Source_file *file)
   file_name_strings_.push_back (name);
 
   char_count_stack_.push_back (0);
-  if (yy_current_buffer)
-    state_stack_.push_back (yy_current_buffer);
-
-  debug_output (string (state_stack_.size (), ' ') // indentation!
-                + string ("[") + name);
   include_stack_.push_back (file);
 
-  yy_switch_to_buffer (yy_create_buffer (file->get_istream (), YY_BUF_SIZE));
+  yypush_buffer_state (yy_create_buffer (file->get_istream (), YY_BUF_SIZE));
 }
 
 /** pop the inputstack.  conceptually this is a destructor, but it
     does not destruct the Source_file that Includable_lexer::new_input
     creates.  */
-bool
+void
 Includable_lexer::close_input ()
 {
   include_stack_.pop_back ();
   char_count_stack_.pop_back ();
   debug_output ("]", false);
-  yy_delete_buffer (yy_current_buffer);
-#if HAVE_FLEXLEXER_YY_CURRENT_BUFFER
-  yy_current_buffer = 0;
-#endif
-  if (state_stack_.empty ())
-    {
-#if HAVE_FLEXLEXER_YY_CURRENT_BUFFER
-      yy_current_buffer = 0;
-#endif
-      return false;
-    }
-  yy_switch_to_buffer (state_stack_.back ());
-  state_stack_.pop_back ();
-  return true;
+  yypop_buffer_state ();
 }
 
 char const *

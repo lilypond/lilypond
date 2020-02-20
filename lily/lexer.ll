@@ -736,19 +736,27 @@ BOM_UTF8	\357\273\277
 			extra_tokens_ = SCM_EOL;
 			yy_pop_state ();
 		}
-		if (!close_input () || !is_main_input_)
+		close_input ();
+		if (!YY_CURRENT_BUFFER || !is_main_input_)
  	        /* Returns YY_NULL */
 			yyterminate ();
 	}
-	else if (!close_input ())
- 	        /* Returns YY_NULL */
- 	  	yyterminate ();
+	else
+	{
+		close_input ();
+		if (!YY_CURRENT_BUFFER)
+			/* Returns YY_NULL */
+			yyterminate ();
+	}
 }
 
 <maininput>{ANY_CHAR} {
-	while (include_stack_.size () > main_input_level_
-	       && close_input ())
-		;
+	while (include_stack_.size () > main_input_level_)
+	{
+		close_input ();
+		if (!YY_CURRENT_BUFFER)
+			break;
+	}
 	yyterminate ();
 }
 

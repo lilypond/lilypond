@@ -530,31 +530,28 @@ AC_DEFUN(STEPMAKE_FLEXLEXER, [
         warn='FlexLexer.h (flex package)'
         STEPMAKE_ADD_ENTRY($1, $warn)
     fi
-    # check for yyFlexLexer.yy_current_buffer,
-    # in 2.5.4 <= flex < 2.5.29
-    AC_CACHE_CHECK([for yyFlexLexer.yy_current_buffer],
-        [stepmake_cv_flexlexer_yy_current_buffer],
+    # check for yyFlexLexer.yypop_buffer_state () since flex 2.5.29
+    AC_CACHE_CHECK([for yyFlexLexer.yypop_buffer_state ()],
+        [stepmake_cv_flexlexer_yypop_buffer_state],
         AC_COMPILE_IFELSE([
             AC_LANG_PROGRAM([[
-
-using namespace std;
 #include <FlexLexer.h>
 class yy_flex_lexer: public yyFlexLexer
 {
   public:
     yy_flex_lexer ()
     {
-      yy_current_buffer = 0;
+      yypop_buffer_state ();
     }
 };
 
             ]])],
-            [stepmake_cv_flexlexer_yy_current_buffer=yes],
-            [stepmake_cv_flexlexer_yy_current_buffer=no]))
+            [stepmake_cv_flexlexer_yypop_buffer_state=yes],
+            [stepmake_cv_flexlexer_yypop_buffer_state=no]))
 
-    if test $stepmake_cv_flexlexer_yy_current_buffer = yes; then
-        AC_DEFINE(HAVE_FLEXLEXER_YY_CURRENT_BUFFER, 1,
-                  [Define to 1 if yyFlexLexer has yy_current_buffer.])
+    if test $stepmake_cv_flexlexer_yypop_buffer_state = no; then
+        warn='FlexLexer.h with yypop_buffer_state (flex >= 2.5.29)'
+        STEPMAKE_ADD_ENTRY($1, $warn)
     fi
     CPPFLAGS=$save_CPPFLAGS
 ])

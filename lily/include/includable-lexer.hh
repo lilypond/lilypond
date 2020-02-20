@@ -28,23 +28,18 @@
 #include "std-vector.hh"
 #include "lily-proto.hh"
 
-// GIGA urg!
-typedef struct yy_buffer_state *YY_BUFFER_STATE;
-
 /**
    an yyFlexLexer child with provisions for inclusion.
 */
 class Includable_lexer : public yyFlexLexer
 {
-  std::vector<YY_BUFFER_STATE> state_stack_;
-
 protected:
-  bool close_input ();
+  void close_input ();
   std::vector<Source_file *> include_stack_;
   std::vector<size_t> char_count_stack_;
 
 public:
-  Includable_lexer ();
+  Includable_lexer () = default;
   ~Includable_lexer ();
   std::string main_input_name_;
 
