@@ -745,14 +745,7 @@ Grob::ultimate_event_cause () const
 void
 Grob::programming_error (const string &s) const
 {
-  SCM cause = self_scm ();
-  while (Grob *g = unsmob<Grob> (cause))
-    cause = g->get_property ("cause");
-
-  /* ES TODO: cause can't be Music*/
-  if (Music *m = unsmob<Music> (cause))
-    m->origin ()->programming_error (s);
-  else if (Stream_event *ev = unsmob<Stream_event> (cause))
+  if (Stream_event *ev = ultimate_event_cause ())
     ev->origin ()->programming_error (s);
   else
     ::programming_error (s);
@@ -761,14 +754,7 @@ Grob::programming_error (const string &s) const
 void
 Grob::warning (const string &s) const
 {
-  SCM cause = self_scm ();
-  while (Grob *g = unsmob<Grob> (cause))
-    cause = g->get_property ("cause");
-
-  /* ES TODO: cause can't be Music*/
-  if (Music *m = unsmob<Music> (cause))
-    m->origin ()->warning (s);
-  else if (Stream_event *ev = unsmob<Stream_event> (cause))
+  if (Stream_event *ev = ultimate_event_cause ())
     ev->origin ()->warning (s);
   else
     ::warning (s);

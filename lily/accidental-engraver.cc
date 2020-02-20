@@ -374,8 +374,8 @@ Accidental_engraver::stop_translation_timestep ()
         {
           // Don't mark accidentals as "tied" when the pitch is not
           // actually the same.  This is relevant for enharmonic ties.
-          Stream_event *le = unsmob<Stream_event> (l->get_property ("cause"));
-          Stream_event *re = unsmob<Stream_event> (r->get_property ("cause"));
+          Stream_event *le = l->event_cause ();
+          Stream_event *re = r->event_cause ();
           if (le && re
               && !ly_is_equal (le->get_property ("pitch"), re->get_property ("pitch")))
             continue;

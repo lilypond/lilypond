@@ -151,8 +151,7 @@ Slur_engraver::acknowledge_note_column (Grob_info info)
   extract_grob_set (e, "note-heads", heads);
   for (vsize i = heads.size (); i--;)
     {
-      if (Stream_event *ev =
-          unsmob<Stream_event> (heads[i]->get_property ("cause")))
+      if (Stream_event *ev = heads[i]->event_cause ())
         for (LEFT_and_RIGHT (d))
           {
             std::pair<Note_slurs::const_iterator, Note_slurs::const_iterator> its
@@ -249,7 +248,7 @@ Slur_engraver::can_create_slur (SCM id, vsize old_slurs, vsize *event_idx, Strea
           if (!updown)
             return false;
 
-          Stream_event *c = unsmob<Stream_event> (slur->get_property ("cause"));
+          Stream_event *c = slur->event_cause ();
 
           if (!c)
             {

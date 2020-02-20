@@ -39,9 +39,8 @@ using std::vector;
 static Pitch *
 accidental_pitch (Grob *acc)
 {
-  SCM cause = acc->get_parent (Y_AXIS)->get_property ("cause");
+  Stream_event *mcause = acc->get_parent (Y_AXIS)->event_cause ();
 
-  Stream_event *mcause = unsmob<Stream_event> (cause);
   if (!mcause)
     {
       programming_error ("note head has no event cause");
