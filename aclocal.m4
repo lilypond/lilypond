@@ -306,28 +306,6 @@ AC_DEFUN(STEPMAKE_CXX, [
 ])
 
 
-AC_DEFUN(STEPMAKE_CXXTEMPLATE, [
-    AC_CACHE_CHECK([whether explicit instantiation is needed],
-        stepmake_cv_need_explicit_instantiation,
-        AC_LINK_IFELSE([
-            AC_LANG_PROGRAM([[
-
-template <class T> struct foo { static int baz; };
-template <class T> int foo<T>::baz = 1;
-
-                ]], [[
-
-return foo<int>::baz;
-
-                ]])],
-            [stepmake_cv_need_explicit_instantiation=no],
-            [stepmake_cv_need_explicit_instantiation=yes]))
-    if test x"$stepmake_cv_need_explicit_instantiation"x = x"yes"x; then
-        AC_DEFINE(NEED_EXPLICIT_INSTANTIATION)
-    fi
-])
-
-
 AC_DEFUN(STEPMAKE_GXXCODEGENBUG, [
     AC_MSG_CHECKING([options for known g++ bugs])
     case "$GXX:$CXX_VERSION" in
