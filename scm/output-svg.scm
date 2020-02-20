@@ -194,7 +194,7 @@
 
 ;; Matches the optional path data from <glyph>
 (define glyph-path-regexp
-  (make-regexp "d=\"([-MmZzLlHhVvCcSsQqTt0-9.\n ]*)\""))
+  (make-regexp "d=\"([-MmZzLlHhVvCcSsQqTtEe0-9.\n ]*)\""))
 
 ;; Matches a complete <glyph> element with the glyph-name
 ;; attribute value of NAME.  For example:
