@@ -11,9 +11,6 @@
 /* define if you have chroot */
 #define HAVE_CHROOT 0
 
-/* define if you have fopencookie */
-#define HAVE_FOPENCOOKIE 0
-
 /* define if you have gettext */
 #define HAVE_GETTEXT 0
 

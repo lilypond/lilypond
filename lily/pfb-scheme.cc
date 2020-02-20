@@ -2,7 +2,6 @@
 #include "international.hh"
 #include "program-option.hh"
 #include "source-file.hh"
-#include "memory-stream.hh"
 #include "open-type-font.hh"
 #include "main.hh"
 #include "warn.hh"
