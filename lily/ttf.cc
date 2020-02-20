@@ -18,12 +18,13 @@
 */
 
 #include <cstdio>
+#include <sstream>
+
 #include "freetype.hh"
 
 #include FT_TRUETYPE_TABLES_H
 
 #include "international.hh"
-#include "memory-stream.hh"
 #include "warn.hh"
 #include "lily-guile.hh"
 #include "main.hh"
@@ -58,50 +59,49 @@ make_index_to_charcode_map (FT_Face face)
   Based on ttfps by Juliusz Chroboczek
 */
 static void
-print_header (void *out, FT_Face face)
+print_header (std::ostream &stream, FT_Face face)
 {
-  lily_cookie_fprintf (out, "%%!PS-TrueTypeFont\n");
+  stream << "%!PS-TrueTypeFont" << std::endl;
 
   TT_Postscript *pt
     = (TT_Postscript *) FT_Get_Sfnt_Table (face, ft_sfnt_post);
 
   if (pt->maxMemType42)
-    lily_cookie_fprintf (out, "%%%%VMUsage: %d %d\n", 0, 0);
+    stream << "%%VMUsage: 0 0" << std::endl;
 
-  lily_cookie_fprintf (out, "%d dict begin\n", 11);
-  lily_cookie_fprintf (out, "/FontName /%s def\n",
-                       get_postscript_name (face).c_str ());
+  stream << "11 dict begin" << std::endl
+         << "/FontName /" << get_postscript_name (face) << " def" << std::endl;
 
-  lily_cookie_fprintf (out, "/Encoding StandardEncoding def\n");
-  lily_cookie_fprintf (out, "/PaintType 0 def\n");
-  lily_cookie_fprintf (out, "/FontMatrix [1 0 0 1 0 0] def\n");
+  stream << "/Encoding StandardEncoding def" << std::endl
+         << "/PaintType 0 def" << std::endl
+         << "/FontMatrix [1 0 0 1 0 0] def" << std::endl;
 
   TT_Header *ht
     = (TT_Header *)FT_Get_Sfnt_Table (face, ft_sfnt_head);
 
-  lily_cookie_fprintf (out, "/FontBBox [%lf %lf %lf %lf] def\n",
-                       float (ht->xMin) / float (ht->Units_Per_EM),
-                       float (ht->yMin) / float (ht->Units_Per_EM),
-                       float (ht->xMax) / float (ht->Units_Per_EM),
-                       float (ht->yMax) / float (ht->Units_Per_EM));
+  stream << "/FontBBox ["
+         << float (ht->xMin) / float (ht->Units_Per_EM) << " "
+         << float (ht->yMin) / float (ht->Units_Per_EM) << " "
+         << float (ht->xMax) / float (ht->Units_Per_EM) << " "
+         << float (ht->yMax) / float (ht->Units_Per_EM)
+         << "] def" << std::endl;
 
-  lily_cookie_fprintf (out, "/FontType 42 def\n");
-  lily_cookie_fprintf (out, "/FontInfo 8 dict dup begin\n");
+  stream << "/FontType 42 def" << std::endl
+         << "/FontInfo 8 dict dup begin" << std::endl;
   // This explicit cast avoids a long-to-double conversion warning on
   // architectures with longer longs.
   int32_t font_revision = static_cast<int32_t> (ht->Font_Revision);
-  lily_cookie_fprintf (out, "/version (%.3f) def\n", font_revision / 65536.0);
+  stream << "/version (" << (font_revision / 65536.0) << ") def" << std::endl;
 
-
-  lily_cookie_fprintf (out, "/isFixedPitch %s def\n",
-                       pt->isFixedPitch ? "true" : "false");
-  lily_cookie_fprintf (out, "/UnderlinePosition %lf def\n",
-                       float (pt->underlinePosition)
-                       / float (ht->Units_Per_EM));
-  lily_cookie_fprintf (out, "/UnderlineThickness %lf def\n",
-                       float (pt->underlineThickness)
-                       / float (ht->Units_Per_EM));
-  lily_cookie_fprintf (out, "end readonly def\n");
+  stream << "/isFixedPitch "
+         << (pt->isFixedPitch ? "true" : "false") << " def" << std::endl
+         << "/UnderlinePosition "
+         << float (pt->underlinePosition) / float (ht->Units_Per_EM)
+         << " def" << std::endl
+         << "/UnderlineThickness "
+         << float (pt->underlineThickness) / float (ht->Units_Per_EM)
+         << " def" << std::endl
+         << "end readonly def" << std::endl;
 }
 
 #define CHUNKSIZE 65534
@@ -111,8 +111,8 @@ const FT_ULong FT_ENC_TAG (head_tag, 'h', 'e', 'a', 'd');
 const FT_ULong FT_ENC_TAG (loca_tag, 'l', 'o', 'c', 'a');
 
 static
-void t42_write_table (void *out, FT_Face face, unsigned char const *buffer,
-                      size_t s, bool is_glyf,
+void t42_write_table (std::ostream &stream, FT_Face face,
+                      unsigned char const *buffer, size_t s, bool is_glyf,
                       FT_ULong head_length, FT_ULong loca_length)
 {
   vector<FT_UShort> chunks;
@@ -193,8 +193,7 @@ void t42_write_table (void *out, FT_Face face, unsigned char const *buffer,
   else
     chunks.push_back (CHUNKSIZE);
 
-  lily_cookie_fprintf (out, "\n"
-                       " <");
+  stream << std::endl << " <";
 
   int l = 0;
   static char xdigits[] = "0123456789ABCDEF";
@@ -204,35 +203,34 @@ void t42_write_table (void *out, FT_Face face, unsigned char const *buffer,
     {
       if (l >= chunks[cur_chunk_idx])
         {
-          lily_cookie_fprintf (out, "\n"
-                               " 00>\n"
-                               " <");
+          stream << std::endl
+                 << " 00>" << std::endl
+                 << " <";
           l = 0;
           cur_chunk_idx++;
         }
 
       if (l % 31 == 0)
-        lily_cookie_fprintf (out, "\n"
-                             "  ");
+        stream << std::endl
+               << "  ";
 
-      /* lily_cookie_fprintf (out,"%02X",(int)buffer[j]) is too slow */
-      lily_cookie_putc (xdigits[(buffer[j] & 0xF0) >> 4], out);
-      lily_cookie_putc (xdigits[buffer[j] & 0x0F], out);
+      stream << xdigits[(buffer[j] & 0xF0) >> 4]
+             << xdigits[buffer[j] & 0x0F];
 
       l++;
     }
 
   /* pad to four-byte boundary */
   while ((s++) % 4 != 0)
-    lily_cookie_fprintf (out, "00");
+    stream << "00";
 
-  lily_cookie_fprintf (out, "\n"
-                       "  00\n"
-                       " >");
+  stream << std::endl
+         << "  00" << std::endl
+         << " >";
 }
 
 static void
-print_body (void *out, FT_Face face)
+print_body (std::ostream &stream, FT_Face face)
 {
   FT_UInt idx = 0;
   FT_ULong head_length = 0, loca_length = 0;
@@ -358,8 +356,8 @@ print_body (void *out, FT_Face face)
     see Adobe technical note 5012.Type42_Spec.pdf for details how
     the /sfnts array must be constructed
    */
-  lily_cookie_fprintf (out, "/sfnts [");
-  t42_write_table (out, face, hbuf, hlength, false,
+  stream << "/sfnts [";
+  t42_write_table (stream, face, hbuf, hlength, false,
                    head_length, loca_length);
   delete[] hbuf;
 
@@ -383,18 +381,17 @@ print_body (void *out, FT_Face face)
         }
 
       bool is_glyf_table = tag == glyf_tag && length > CHUNKSIZE;
-      t42_write_table (out, face, buf, length, is_glyf_table,
+      t42_write_table (stream, face, buf, length, is_glyf_table,
                        head_length, loca_length);
 
       delete[] buf;
       idx++;
     }
-  lily_cookie_fprintf (out, "\n] def\n");
+  stream << "\n] def" << std::endl;
 }
 
 static void
-print_trailer (void *out,
-               FT_Face face)
+print_trailer (std::ostream &stream, FT_Face face)
 {
   const int GLYPH_NAME_LEN = 256;
   char glyph_name[GLYPH_NAME_LEN];
@@ -402,7 +399,7 @@ print_trailer (void *out,
   TT_MaxProfile *mp
     = (TT_MaxProfile *)FT_Get_Sfnt_Table (face, ft_sfnt_maxp);
 
-  lily_cookie_fprintf (out, "/CharStrings %d dict dup begin\n", mp->numGlyphs);
+  stream << "/CharStrings " << mp->numGlyphs << " dict dup begin" << std::endl;
 
   Index_to_charcode_map ic_map (make_index_to_charcode_map (face));
 
@@ -437,22 +434,22 @@ print_trailer (void *out,
 
       if (glyph_name[0])
         {
-          lily_cookie_fprintf (out, "(%s) cvn %d def ", glyph_name, i);
+          stream << "(" << glyph_name << ") cvn " << i << " def ";
           output_count++;
         }
       else
         programming_error (to_string ("no name for glyph %d", i));
 
       if (! (output_count % 5))
-        lily_cookie_fprintf (out, "\n");
+        stream << std::endl;
     }
 
-  lily_cookie_fprintf (out, "end readonly def\n");
-  lily_cookie_fprintf (out, "FontName currentdict end definefont pop\n");
+  stream << "end readonly def" << std::endl;
+  stream << "FontName currentdict end definefont pop" << std::endl;
 }
 
 static void
-create_type42_font (void *out, const string &name, int idx)
+create_type42_font (std::ostream &stream, const string &name, int idx)
 {
   FT_Face face;
 
@@ -471,9 +468,9 @@ create_type42_font (void *out, const string &name, int idx)
 
   face = open_ft_face (name, idx);
 
-  print_header (out, face);
-  print_body (out, face);
-  print_trailer (out, face);
+  print_header (stream, face);
+  print_body (stream, face);
+  print_trailer (stream, face);
 
   FT_Done_Face (face);
 }
@@ -551,11 +548,11 @@ LY_DEFINE (ly_ttf_2_pfa, "ly:ttf->pfa",
   string file_name = ly_scm2string (ttf_file_name);
   debug_output ("[" + file_name); // Debug message should start on a new line
 
-  Memory_out_stream stream;
+  std::ostringstream stream;
+  create_type42_font (stream, file_name, i);
 
-  create_type42_font (&stream, file_name, i);
-  SCM asscm = scm_from_latin1_stringn (stream.get_string (),
-                                       stream.get_length ());
+  std::string font = stream.str ();
+  SCM asscm = scm_from_latin1_stringn (font.c_str (), font.length ());
 
   debug_output ("]", false);
 
