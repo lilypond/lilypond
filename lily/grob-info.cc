@@ -46,8 +46,7 @@ Grob_info::Grob_info ()
 Stream_event *
 Grob_info::event_cause () const
 {
-  SCM cause = grob_->get_property ("cause");
-  return unsmob<Stream_event> (cause);
+  return grob_->event_cause ();
 }
 
 Context *
@@ -59,12 +58,7 @@ Grob_info::context () const
 Stream_event *
 Grob_info::ultimate_event_cause () const
 {
-  SCM cause = grob_->self_scm ();
-  while (unsmob<Grob> (cause))
-    {
-      cause = unsmob<Grob> (cause)->get_property ("cause");
-    }
-  return unsmob<Stream_event> (cause);
+  return grob_->ultimate_event_cause ();
 }
 
 bool

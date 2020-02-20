@@ -717,6 +717,29 @@ Grob::internal_vertical_less (Grob *g1, Grob *g2, bool pure)
 }
 
 /****************************************************************
+  CAUSES
+****************************************************************/
+Stream_event *
+Grob::event_cause () const
+{
+  SCM cause = get_property ("cause");
+  return unsmob<Stream_event> (cause);
+}
+
+Stream_event *
+Grob::ultimate_event_cause () const
+{
+  SCM cause = get_property ("cause");
+  while (Grob *g = unsmob<Grob> (cause))
+    {
+      cause = g->get_property ("cause");
+    }
+  return unsmob<Stream_event> (cause);
+}
+
+
+
+/****************************************************************
   MESSAGES
 ****************************************************************/
 void

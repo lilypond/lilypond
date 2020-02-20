@@ -24,6 +24,7 @@
 #include "virtual-methods.hh"
 #include "dimension-cache.hh"
 #include "grob-interface.hh"
+#include "lily-proto.hh"
 
 #include <set>
 
@@ -116,6 +117,10 @@ public:
   void internal_del_property (SCM symbol);
   void instrumented_set_property (SCM, SCM, char const *, int, char const *);
   void internal_set_property (SCM sym, SCM val);
+
+  /* causes */
+  Stream_event *event_cause () const;
+  Stream_event *ultimate_event_cause () const;
 
   /* messages */
   void warning (const std::string&) const;
