@@ -239,12 +239,6 @@ Lily_lexer::start_main_input ()
 }
 
 void
-Lily_lexer::new_input (const string &str, string d, Sources *ss)
-{
-  Includable_lexer::new_input (str, d, ss);
-}
-
-void
 Lily_lexer::new_input (const string &str, Sources *ss)
 {
   if (is_main_input_ && be_safe_global)

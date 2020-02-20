@@ -96,7 +96,7 @@ public:
   void start_main_input ();
 
   void new_input (const std::string &s, Sources *) override;
-  virtual void new_input (const std::string &s, std::string d, Sources *);
+  using Includable_lexer::new_input;
 
   bool top_input () { return include_stack_.size () < 2; }
   SCM keyword_list () const;
