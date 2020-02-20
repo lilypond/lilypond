@@ -44,7 +44,6 @@ protected:
   std::vector<size_t> char_count_stack_;
 
 public:
-
   Includable_lexer ();
   ~Includable_lexer ();
   std::string main_input_name_;
@@ -57,6 +56,10 @@ public:
 
   void new_input (const std::string &name, std::string data, Sources *);
 
+protected:
+  void new_input (const std::string &name, Source_file *);
+
+public:
   char const *here_str0 () const;
 
   void skip_chars (size_t count);

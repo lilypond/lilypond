@@ -76,22 +76,7 @@ Includable_lexer::new_input (const string &name, Sources *sources)
       LexerError (msg.c_str ());
       return;
     }
-  file_name_strings_.push_back (file->name_string ());
-
-  char_count_stack_.push_back (0);
-  if (yy_current_buffer)
-    state_stack_.push_back (yy_current_buffer);
-
-  debug_output (string (state_stack_.size (), ' ') // indentation!
-                + string ("[") + file->name_string ());
-
-  include_stack_.push_back (file);
-
-  /* Ugh. We'd want to create a buffer from the bytes directly.
-
-  Whoops.  The size argument to yy_create_buffer is not the
-  filelength but a BUFFERSIZE.  Maybe this is why reading stdin fucks up.  */
-  yy_switch_to_buffer (yy_create_buffer (file->get_istream (), YY_BUF_SIZE));
+  new_input (file->name_string (), file);
 }
 
 void
@@ -99,6 +84,12 @@ Includable_lexer::new_input (const string &name, string data, Sources *sources)
 {
   Source_file *file = new Source_file (name, data);
   sources->add (file);
+  new_input (name, file);
+}
+
+void
+Includable_lexer::new_input (const string &name, Source_file *file)
+{
   file_name_strings_.push_back (name);
 
   char_count_stack_.push_back (0);
