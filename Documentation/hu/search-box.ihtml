@@ -1,4 +1,4 @@
-<form action="http://google.com/search"
+<form action="https://google.com/search"
       method="get"
       name="search"
       onSubmit="search.q.value='site:lilypond.org/doc/v2.19 '
