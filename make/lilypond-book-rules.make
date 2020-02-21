@@ -19,7 +19,7 @@ $(outdir)/%.html:  %.xml
 
 $(outdir)/%.tex:  %.lytex
 	$(call ly_progress,Making,$@,< lytex)
-	$(buildscript-dir)/run-and-check "$(LILYPOND_BOOK_COMMAND) --pdf -o $(outdir) $<"  "$*.lytex.log"
+	$(buildscript-dir)/run-and-check "$(LILYPOND_BOOK_COMMAND) --pdf -o $(outdir) $<"  $(outdir)/"$*.lytex.log"
 
 $(outdir)/%.tex:  %.tex
 	$(call ly_progress,Making,$@,< tex)
