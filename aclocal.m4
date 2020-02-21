@@ -98,7 +98,6 @@ AC_DEFUN(STEPMAKE_CHECK_SEARCH_RESULT, [
     fi
 ])
 
-
 # Check version of program ($1)
 # If version is smaller than requested ($3) or larger than requested
 # ($4, optional), add entry to missing-list ($2, one of 'OPTIONAL',
@@ -690,118 +689,29 @@ AC_DEFUN(STEPMAKE_GUILE, [
     STEPMAKE_PATH_PROG(GUILE, $GUILE)
 ])
 
-
-# STEPMAKE_GUILE_FLAGS --- set flags for compiling and linking with Guile
-#
-# This macro runs the guile-config script, installed with Guile,
-# to find out where Guile's header files and libraries are
-# installed.  It sets two variables, marked for substitution, as
-# by AC_SUBST.
-#
-#     GUILE_CFLAGS --- flags to pass to a C or C++ compiler to build
-#             code that uses Guile header files.  This is almost
-#             always just a -I flag.
-#
-#     GUILE_LDFLAGS --- flags to pass to the linker to link a
-#             program against Guile.  This includes -lguile for
-#             the Guile library itself, any libraries that Guile
-#             itself requires (like -lqthreads), and so on.  It may
-#             also include a -L flag to tell the compiler where to
-#             find the libraries.
-
-AC_DEFUN([STEPMAKE_GUILE_FLAGS], [
-    exe=`STEPMAKE_GET_EXECUTABLE($guile_config)`
-    if test -x $exe; then
-        AC_MSG_CHECKING([guile compile flags])
-        GUILE_CFLAGS="`$guile_config compile`"
-        AC_MSG_RESULT($GUILE_CFLAGS)
-        AC_MSG_CHECKING([guile link flags])
-        GUILE_LDFLAGS="`$guile_config link`"
-        AC_MSG_RESULT($GUILE_LDFLAGS)
-    fi
-    AC_SUBST(GUILE_CFLAGS)
-    AC_SUBST(GUILE_LDFLAGS)
-])
-
-
-# Check for guile-config, between minimum ($2) and maximum version ($3).
-# If missing, add entry to missing-list ($1, one of 'OPTIONAL', 'REQUIRED')
 AC_DEFUN(STEPMAKE_GUILE_DEVEL, [
-    ## First, let's just see if we can find Guile at all.
-    test -n "$target_alias" && target_guile_config=$target_alias-guile-config
-    test -n "$host_alias" && host_guile_config=$host_alias-guile-config
-    AC_MSG_CHECKING([for guile-config])
-    guile_config="guile-config"
-    found="no"
-    for r in $GUILE_CONFIG \
-             $target_guile_config $host_guile_config $build_guile_config \
-             guile-config \
-             guile2-config   guile-2-config   guile-config-2   guile-config2 \
-             guile2.2-config guile-2.2-config guile-config-2.2 guile-config2.2 \
-             guile2.0-config guile-2.0-config guile-config-2.0 guile-config2.0 \
-             guile1-config   guile-1-config   guile-config-1   guile-config1 \
-             guile1.9-config guile-1.9-config guile-config-1.9 guile-config1.9 \
-             guile1.8-config guile-1.8-config guile-config-1.8 guile-config1.8 \
-             guile18-config; do
-        exe=`STEPMAKE_GET_EXECUTABLE($r)`
-        if ! $exe --version > /dev/null 2>&1 ; then
-            continue
-        fi
-        ver=`STEPMAKE_GET_VERSION($exe)`
-        num=`STEPMAKE_NUMERIC_VERSION($ver)`
-        req=`STEPMAKE_NUMERIC_VERSION($2)`
-        sup=`STEPMAKE_NUMERIC_VERSION($3)`
-        if test -n "$2" -a "$num" -lt "$req"; then
-            guile_config=["$r >= $2 (installed: $ver)"]
-            continue
-        else
-            if test -n "$3" -a "$num" -ge "$sup"; then
-                guile_config=["$r < $3 (installed: $ver)"]
-                continue
-            else
-                guile_config=$r
-                found=$r
-                break
-            fi
-        fi
-    done
-    AC_MSG_RESULT([$found])
-    if test "$found" != "no"; then
-        AC_MSG_CHECKING([$guile_config version])
-        AC_MSG_RESULT([$ver])
-        GUILE_CONFIG=$found
+    if test -n "$GUILE_FLAVOR"; then
+	PKG_CHECK_MODULES([GUILE], [$GUILE_FLAVOR], true, [GUILE_FLAVOR=""])
     else
-        STEPMAKE_ADD_ENTRY($1,
-            "$guile_config (guile-devel, guile-dev or libguile-dev package)")
+	PKG_CHECK_MODULES([GUILE], [guile-1.8 >= 1.8.2], [GUILE_FLAVOR="guile-1.8"], [
+	    PKG_CHECK_MODULES(
+		[GUILE], [guile-2.2 >= 2.2.0], [GUILE_FLAVOR="guile-2.2"], [
+		    PKG_CHECK_MODULES([GUILE], [guile-2.0 >= 2.0.7], [GUILE_FLAVOR="guile-2.0"])
+		])
+	])
     fi
 
-    AC_SUBST(GUILE_CONFIG)
-
-    guile_version="$ver"
-    changequote(<<, >>)#dnl
-    GUILE_MAJOR_VERSION=`expr $guile_version : '\([0-9]*\)'`
-    GUILE_MINOR_VERSION=`expr $guile_version : '[0-9]*\.\([0-9]*\)'`
-    GUILE_PATCH_LEVEL=`expr $guile_version : '[0-9]*\.[0-9]*\.\([0-9]*\)'`
-    changequote([, ])#dnl
-    STEPMAKE_GUILE_FLAGS
-    save_CPPFLAGS="$CPPFLAGS"
-    save_LIBS="$LIBS"
-    CPPFLAGS="$GUILE_CFLAGS $CPPFLAGS"
-    LIBS="$GUILE_LDFLAGS $LIBS"
-    AC_CHECK_HEADERS([libguile.h libguile18.h])
-    AC_CHECK_LIB(guile, scm_boot_guile)
-    AC_CHECK_FUNCS(scm_boot_guile,,libguile_b=no)
-    if test "$libguile_b" = "no"; then
-        warn='libguile (libguile-dev, guile-devel or guile-dev package).'
-        STEPMAKE_ADD_ENTRY(REQUIRED, $warn)
-    fi
-    CPPFLAGS="$save_CPPFLAGS"
-    LIBS="$save_LIBS"
-    AC_DEFINE_UNQUOTED(GUILE_MAJOR_VERSION, $GUILE_MAJOR_VERSION)
-    AC_DEFINE_UNQUOTED(GUILE_MINOR_VERSION, $GUILE_MINOR_VERSION)
-    AC_DEFINE_UNQUOTED(GUILE_PATCH_LEVEL, $GUILE_PATCH_LEVEL)
+    case "$GUILE_FLAVOR" in
+	guile-2.0|guile-2.2|guile-3.0)
+	    GUILEv2=yes
+	    ;;
+	guile-1.8)
+	    ;;
+	*)
+	    STEPMAKE_ADD_ENTRY(REQUIRED, [guile-devel >= 1.8])
+	    ;;
+    esac
 ])
-
 
 AC_DEFUN(STEPMAKE_DLOPEN, [
     AC_CHECK_LIB(dl, dlopen)

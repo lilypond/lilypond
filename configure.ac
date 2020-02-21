@@ -39,12 +39,6 @@ AC_ARG_WITH(flexlexer-dir,
     [FLEXLEXER_DIR=$withval],
     [FLEXLEXER_DIR=""])
 
-GUILEv2=no
-AC_ARG_ENABLE(guile2,
-    [AS_HELP_STRING([--enable-guile2],
-		    [highly experimental GUILE 2 support.  Default: off])],
-    [GUILEv2=$enableval])
-
 AC_ARG_WITH(texgyre-dir,
     [AS_HELP_STRING([--with-texgyre-dir=DIR],
 		    [location of TeX Gyre fonts.])],
@@ -204,12 +198,8 @@ STEPMAKE_GETTEXT
 STEPMAKE_MSGFMT(REQUIRED)
 STEPMAKE_TEXMF(REQUIRED)
 STEPMAKE_TEXMF_DIRS(REQUIRED)
-if test "$GUILEv2" = "yes"
-then
-    STEPMAKE_GUILE_DEVEL(REQUIRED, 2.0.7, 2.3.0)
-else
-    STEPMAKE_GUILE_DEVEL(REQUIRED, 1.8.2, 1.9.0)
-fi
+
+STEPMAKE_GUILE_DEVEL(REQUIRED)
 
 # check for 3 typedefs added in Guile 1.9
 save_CXXFLAGS="$CXXFLAGS"
@@ -343,13 +333,10 @@ STEPMAKE_GOBJECT(gobject-2.0, REQUIRED, 2.38)
 
 STEPMAKE_WINDOWS
 
-# guile executable for some scripts
-if test "$GUILEv2" = "yes"
-then
-    STEPMAKE_GUILE(OPTIONAL, 2.0.7, 2.3.0)
-else
-    STEPMAKE_GUILE(OPTIONAL, 1.8.2, 1.9.0)
-fi
+# guile executable for lilypond-invoke-editor. We don't care about the
+# version, and it doesn't have to be sync'd with the main lilypond
+# GUILE version
+STEPMAKE_GUILE(REQUIRED, 1.8.2)
 
 # perl for help2man and for mf2pt1.pl
 STEPMAKE_PERL(REQUIRED)
