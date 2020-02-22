@@ -41,7 +41,6 @@ class Rational
   int sign_;
   U64 num_, den_;
   void normalize ();
-  void copy (Rational const &);
 
 public:
   void set_infinite (int sign);
@@ -74,12 +73,8 @@ public:
   Rational (U64);
   explicit Rational (I64, I64);
   explicit Rational (double);
-  Rational (Rational const &r) { copy (r);}
-  Rational &operator = (Rational const &r)
-  {
-    copy (r);
-    return *this;
-  }
+  Rational (Rational const &r) = default;
+  Rational &operator = (Rational const &r) = default;
 
   Rational &operator *= (Rational);
   Rational &operator /= (Rational);
@@ -103,14 +98,6 @@ INSTANTIATE_COMPARE (Rational const &, Rational::compare);
 
 int compare (Rational const &, Rational const &);
 int sign (Rational r);
-
-inline void
-Rational::copy (Rational const &r)
-{
-  sign_ = r.sign_;
-  num_ = r.num_;
-  den_ = r.den_;
-}
 
 #if 0
 ostream &
