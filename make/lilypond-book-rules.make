@@ -36,7 +36,7 @@ $(outdir)/%.pdf:  $(outdir)/%.tex
 	rm -fr $(outdir)/$*.build/
 	mkdir $(outdir)/$*.build
 	cd $(outdir) && $(buildscript-dir)/run-and-check \
-		"$(PDFLATEX) -halt-on-error \
+		"$(PDFLATEX) -interaction=nonstopmode -halt-on-error \
 			-output-directory=$*.build \
 			$(notdir $<)" \
 		"$*.pdflatex.log"

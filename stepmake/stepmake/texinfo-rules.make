@@ -85,7 +85,7 @@ $(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/%.pdf.omf $(
 	TEX=$(PDFTEX) PDFTEX=$(PDFTEX) PDFLATEX=$(PDFLATEX) \
 		$(buildscript-dir)/run-and-check \
 			"cd $(outdir); \
-				texi2pdf $(TEXI2PDF_FLAGS) \
+				texi2pdf --batch $(TEXI2PDF_FLAGS) \
 					$(TEXI2PDF_QUIET) \
 					$(TEXI2PDF_WEB_VERSION_FLAGS) \
 					-I $(abs-src-dir) \
