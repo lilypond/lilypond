@@ -137,7 +137,7 @@ calc_measure_duration_log (Grob *me)
             ->get_property ("measure-length");
   Rational ml = (unsmob<Moment> (sml)) ? unsmob<Moment> (sml)->main_part_
                 : Rational (1);
-  double duration = ml.Rational::to_double ();
+  auto duration = static_cast<double> (ml);
   bool round_up = to_boolean (scm_list_p (scm_member (scm_cons (scm_from_int64 (ml.numerator ()),
                                                                 scm_from_int64 (ml.denominator ())),
                                                       me->get_property ("round-up-exceptions"))))

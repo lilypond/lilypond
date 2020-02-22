@@ -28,8 +28,7 @@
 
 using std::string;
 
-double
-Rational::to_double () const
+Rational::operator double () const
 {
   if (sign_ == -1 || sign_ == 1 || sign_ == 0)
 // FIXME: workaround: In GUB, g++ 4.9.4 for darwin-x86,

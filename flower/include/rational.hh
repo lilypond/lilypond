@@ -58,9 +58,8 @@ public:
   void negate ();
   int to_int () const;
 
-  operator double () const { return to_double (); }
-  double to_double () const;
   explicit operator bool () const { return sign_ != 0; }
+  operator double () const;
 
   Rational operator - () const;
   /**

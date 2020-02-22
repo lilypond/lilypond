@@ -125,7 +125,7 @@ remap_grace_duration (Moment m)
 Real
 moment_to_real (Moment m)
 {
-  return remap_grace_duration (m).main_part_.to_double ();
+  return static_cast<Real> (remap_grace_duration (m).main_part_);
 }
 
 int
