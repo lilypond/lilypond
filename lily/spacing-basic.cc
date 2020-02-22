@@ -153,7 +153,8 @@ Spacing_spanner::note_spacing (Grob * /* me */,
       Real min = options->increment_;  // canonical notehead width
 
       // The portion of that spring proportional to the time between lc and rc
-      Real fraction = (delta_t.main_part_ / shortest_playing_len.main_part_);
+      auto fraction = static_cast<Real> (delta_t.main_part_
+                                         / shortest_playing_len.main_part_);
       ret = Spring (fraction * len, fraction * min);
 
       // Stretch proportional to the space between canonical bare noteheads

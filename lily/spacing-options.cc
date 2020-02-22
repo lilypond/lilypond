@@ -66,7 +66,7 @@ Spacing_options::Spacing_options ()
 Real
 Spacing_options::get_duration_space (Rational d) const
 {
-  Real ratio = d / global_shortest_;
+  auto ratio = static_cast<Real> (d / global_shortest_);
 
   if (ratio < 1.0)
     {

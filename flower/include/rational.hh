@@ -59,7 +59,7 @@ public:
   int to_int () const;
 
   explicit operator bool () const { return sign_ != 0; }
-  operator double () const;
+  explicit operator double () const;
 
   Rational operator - () const;
   /**
