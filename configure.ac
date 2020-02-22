@@ -177,7 +177,6 @@ STEPMAKE_PYTHON(REQUIRED, 3.5, 3.99)
 
 STEPMAKE_CXX(REQUIRED)
 STEPMAKE_LIB(REQUIRED)
-STEPMAKE_DLOPEN
 # Do not use bison 1.50 and 1.75.
 # 1.29 is required fr %locations, but I'm not sure it's enough --ns
 STEPMAKE_BISON(REQUIRED, 1.29)
