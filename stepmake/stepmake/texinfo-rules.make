@@ -38,31 +38,31 @@ $(outdir)/%.itexi: %.itexi
 $(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi $(outdir)/weblinks.itexi | $(OUT_TEXINFO_MANUALS)
 	$(call ly_progress,Making,$@,< texi)
 ifeq ($(WEB_VERSION),yes)
-	$(buildscript-dir)/run-and-check "$(MAKEINFO) -I$(src-dir) -I$(outdir) -D web_version --output=$@ $<" "$*.makeinfoweb.log"
+	$(buildscript-dir)/run-and-check "$(MAKEINFO) -I$(src-dir) -I$(outdir) -D web_version --output=$@ $<" "$(outdir)/$*.makeinfoweb.log"
 else
-	$(buildscript-dir)/run-and-check "$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<" "$*.makeinfo.log"
+	$(buildscript-dir)/run-and-check "$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<" "$(outdir)/$*.makeinfo.log"
 endif
 
 $(outdir)/%-big-page.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi $(outdir)/weblinks.itexi | $(OUT_TEXINFO_MANUALS)
 	$(call ly_progress,Making,$@,< texi)
 ifeq ($(WEB_VERSION),yes)
-	$(buildscript-dir)/run-and-check "DEPTH=$(depth) AJAX_SEARCH=$(AJAX_SEARCH) $(TEXI2HTML) $(TEXI2HTML_FLAGS) -D bigpage -D web_version --output=$@ $<"  "$*.bigtexi.log"
+	$(buildscript-dir)/run-and-check "DEPTH=$(depth) AJAX_SEARCH=$(AJAX_SEARCH) $(TEXI2HTML) $(TEXI2HTML_FLAGS) -D bigpage -D web_version --output=$@ $<"  "$(outdir)/$*.bigtexi.log"
 else
-	$(buildscript-dir)/run-and-check "DEPTH=$(depth) AJAX_SEARCH=$(AJAX_SEARCH) $(TEXI2HTML) $(TEXI2HTML_FLAGS) -D bigpage --output=$@ $<"  "$*.bigtexi.log"
+	$(buildscript-dir)/run-and-check "DEPTH=$(depth) AJAX_SEARCH=$(AJAX_SEARCH) $(TEXI2HTML) $(TEXI2HTML_FLAGS) -D bigpage --output=$@ $<"  "$(outdir)/$*.bigtexi.log"
 endif
 
 $(outdir)/%.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi $(outdir)/weblinks.itexi | $(OUT_TEXINFO_MANUALS)
 	$(call ly_progress,Making,$@,< texi)
-	$(buildscript-dir)/run-and-check "DEPTH=$(depth) AJAX_SEARCH=$(AJAX_SEARCH) $(TEXI2HTML) $(TEXI2HTML_FLAGS) --output=$@ $<"  "$*.texilog.log"
+	$(buildscript-dir)/run-and-check "DEPTH=$(depth) AJAX_SEARCH=$(AJAX_SEARCH) $(TEXI2HTML) $(TEXI2HTML_FLAGS) --output=$@ $<"  "$(outdir)/$*.texilog.log"
 
 
 $(outdir)/%/index.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi $(outdir)/weblinks.itexi | $(OUT_TEXINFO_MANUALS)
 	$(call ly_progress,Making,$@,< texi)
 	mkdir -p $(dir $@)
 ifeq ($(WEB_VERSION),yes)
-	$(buildscript-dir)/run-and-check "DEPTH=$(depth)/../ AJAX_SEARCH=$(AJAX_SEARCH) $(TEXI2HTML) $(TEXI2HTML_SPLIT) $(TEXI2HTML_FLAGS) -D web_version --output=$(dir $@) $<"  "$*.splittexi.log"
+	$(buildscript-dir)/run-and-check "DEPTH=$(depth)/../ AJAX_SEARCH=$(AJAX_SEARCH) $(TEXI2HTML) $(TEXI2HTML_SPLIT) $(TEXI2HTML_FLAGS) -D web_version --output=$(dir $@) $<"  "$(outdir)/$*.splittexi.log"
 else
-	$(buildscript-dir)/run-and-check "DEPTH=$(depth)/../ AJAX_SEARCH=$(AJAX_SEARCH) $(TEXI2HTML) $(TEXI2HTML_SPLIT) $(TEXI2HTML_FLAGS) --output=$(dir $@) $<"  "$*.splittexi.log"
+	$(buildscript-dir)/run-and-check "DEPTH=$(depth)/../ AJAX_SEARCH=$(AJAX_SEARCH) $(TEXI2HTML) $(TEXI2HTML_SPLIT) $(TEXI2HTML_FLAGS) --output=$(dir $@) $<"  "$(outdir)/$*.splittexi.log"
 endif
 
 ifneq ($(ISOLANG),)
@@ -115,7 +115,7 @@ endif
 
 $(outdir)/%.txt: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/weblinks.itexi | $(OUT_TEXINFO_MANUALS)
 	$(call ly_progress,Making,$@,< texi)
-	$(buildscript-dir)/run-and-check "$(MAKEINFO) -I$(src-dir) -I$(outdir) --no-split --no-headers --output $@ $<"  "$*.makeinfotxt.log"
+	$(buildscript-dir)/run-and-check "$(MAKEINFO) -I$(src-dir) -I$(outdir) --no-split --no-headers --output $@ $<"  "$(outdir)/$*.makeinfotxt.log"
 
 $(outdir)/version.itexi: $(top-src-dir)/VERSION
 	$(call ly_progress,Making,$@,)
