@@ -306,25 +306,6 @@ AC_DEFUN(STEPMAKE_CXX, [
 ])
 
 
-AC_DEFUN(STEPMAKE_GXXCODEGENBUG, [
-    AC_MSG_CHECKING([options for known g++ bugs])
-    case "$GXX:$CXX_VERSION" in
-    yes:400600[[0-2]])
-        AC_MSG_RESULT([-fno-optimize-sibling-calls (tail call bug)])
-        CXXFLAGS="$CXXFLAGS -fno-optimize-sibling-calls"
-        ;;
-    yes:400700?)
-        AC_MSG_RESULT([-fno-tree-vrp (comparison bug)])
-        CXXFLAGS="$CXXFLAGS -fno-tree-vrp"
-        ;;
-    *)
-        AC_MSG_RESULT([none])
-        ;;
-    esac
-    AC_SUBST(CXXFLAGS)
-])
-
-
 AC_DEFUN(STEPMAKE_DATADIR, [
     presome=${prefix}
     if test "$prefix" = "NONE"; then
@@ -593,20 +574,6 @@ EOF
 ])
 
 
-AC_DEFUN(STEPMAKE_GCC_OR_CLANG, [
-    STEPMAKE_HAS_CLANG()
-    if test "$HAS_CLANG" = "no"; then
-        if test "$GCC" = "yes"; then
-            STEPMAKE_CHECK_VERSION(CC, $1, $2)
-        else
-            warn="$CC (Please install *GNU* cc)"
-            STEPMAKE_ADD_ENTRY($1, $warn)
-        fi
-    fi
-    # no else, we're fine with any clang
-])
-
-
 AC_DEFUN(STEPMAKE_GETTEXT, [
     presome=${prefix}
     if test "$prefix" = "NONE"; then
@@ -691,29 +658,6 @@ AC_DEFUN(STEPMAKE_GUILE_DEVEL, [
 AC_DEFUN(STEPMAKE_DLOPEN, [
     AC_CHECK_LIB(dl, dlopen)
     AC_CHECK_FUNCS(dlopen)
-])
-
-
-AC_DEFUN(STEPMAKE_HAS_CLANG, [
-    AC_EGREP_CPP(yes,
-      [#ifdef __clang__
-       yes
-       #endif
-      ], HAS_CLANG=yes, HAS_CLANG=no)
-])
-
-
-AC_DEFUN(STEPMAKE_GXX_OR_CLANG, [
-    STEPMAKE_HAS_CLANG()
-    if test "$HAS_CLANG" = "no"; then
-        if test "$GXX" = "yes"; then
-            STEPMAKE_CHECK_VERSION(CXX, $1, $2)
-        else
-            warn="$CXX (Please install *GNU* c++)"
-            STEPMAKE_ADD_ENTRY($1, $warn)
-        fi
-    fi
-    # no else, we're fine with any clang
 ])
 
 

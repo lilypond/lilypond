@@ -174,15 +174,8 @@ fi
 AC_LANG([C++])
 
 STEPMAKE_PYTHON(REQUIRED, 3.5, 3.99)
-# this checks if we have GNU C by compiling a program with
-# __GNUC__, but that macro now unofficially means "the compiler
-# supports the GNU C extensions" -- the intel C compiler and clang
-# both support __GNUC__!
-STEPMAKE_GCC_OR_CLANG(REQUIRED, 3.4)
 
 STEPMAKE_CXX(REQUIRED)
-STEPMAKE_GXX_OR_CLANG(REQUIRED, 3.4)
-STEPMAKE_GXXCODEGENBUG
 STEPMAKE_LIB(REQUIRED)
 STEPMAKE_DLOPEN
 # Do not use bison 1.50 and 1.75.
