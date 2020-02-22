@@ -117,8 +117,6 @@ ostream &
 operator << (ostream &, Rational);
 #endif
 
-const Rational infinity_rat (U64_MAX);
-
 inline std::string
 to_string (Rational const &r)
 {
