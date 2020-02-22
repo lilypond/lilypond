@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: a0f1e4d8aa9632b4324f140a56354597edd7ad87
+   Translation of GIT committish: 032de07c17caacd038f113ebcb54e9c473d64e0f
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -37,7 +37,7 @@ forme nominale, ou bien en basse figurée.
 @translationof Chord mode
 
 @cindex chordmode
-@cindex accords, mode
+@cindex accord, mode
 
 Le mode accords permet de saisir des accords en indiquant leur structure
 plutôt que les notes qui les composent.
@@ -53,8 +53,8 @@ plutôt que les notes qui les composent.
 @unnumberedsubsubsec Généralités sur le mode accords
 @translationof Chord mode overview
 
-@cindex accords, noms
-@cindex accords, chiffrage
+@cindex accord, nom
+@cindex accord, chiffrage
 
 Un accord peut se saisir en tant que musique simultanée, comme nous
 l'avons vu à la rubrique @ref{Notes en accords}.
@@ -110,10 +110,10 @@ en mode accord -- voir @ref{Articulations et ornements}.
 @unnumberedsubsubsec Accords courants
 @translationof Common chords
 
-@cindex triades
+@cindex triade
 @cindex septième
 @cindex fondamentale
-@cindex accords, modificateur
+@cindex accord, modificateur
 @cindex qualité d'accord
 
 Dans le mode accords, introduit par la commande @code{\chordmode}, les
@@ -138,7 +138,7 @@ Les accords de septième sont aisément stipulables :
 @end lilypond
 
 @funindex aug
-@funindex dim
+@funindex @sortas{dimA} dim
 @funindex maj
 @funindex m
 
@@ -410,7 +410,8 @@ comme un empilement de notes sur une portée.
 @unnumberedsubsubsec Impression des noms d'accord
 @translationof Printing chord names
 
-@cindex chiffrages d'accords
+@cindex chiffrage d'accord
+@cindex accord, chiffrage
 @cindex accords
 
 Les chiffrages d'accords sont liés au contexte @code{ChordNames} :
@@ -446,9 +447,9 @@ chordmusic = \relative {
 >>
 @end lilypond
 
-@cindex no chord, symbole
+@cindex no-chord, symbole
 @cindex N.C., symbole
-@cindex accords, No Chord
+@cindex accord, No Chord
 
 L'apparition de silences dans un contexte @code{ChordNames} déclenchera
 l'impression d'un @emph{markup} @code{noChordSymbol}.
@@ -492,7 +493,7 @@ l'impression d'un @emph{markup} @code{noChordSymbol}.
 @snippets
 
 @c Keep index entries with following snippet
-@cindex accords, suppression des répétitions
+@cindex accord, suppression des répétitions
 @funindex chordChanges
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
@@ -501,6 +502,8 @@ l'impression d'un @emph{markup} @code{noChordSymbol}.
 @c @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 @c {adding-bar-lines-to-chordnames-context.ly}
 
+@cindex @emph{lead sheet}
+@cindex feuille de chant
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {simple-lead-sheet.ly}
 
@@ -531,7 +534,7 @@ pas chiffré correctement s'il est saisi en tant que musique simultanée.
 @translationof Customizing chord names
 
 @cindex accord, personnalisation du chiffrage
-@cindex chiffrage d'accords, personnalisation
+@cindex chiffrage d'accord, personnalisation
 
 Il existe plus d'un système de chiffrage d'accords.  Le nom des accords
 varie selon les traditions musicales, et plusieurs symboles représentent
@@ -539,20 +542,20 @@ un même accord.  LilyPond vous permet de créer votre propre nomenclature
 d'accords, tant au niveau des noms que des symboles qui les
 représenteront.
 
-@cindex jazz, accords
-@cindex accords jazz
+@cindex jazz, accord
+@cindex accord jazz
+@cindex accord, nom alternatif
 
 Le modèle par défaut des chiffrages d'accord est celui de Klaus Ignatzek
 pour le jazz (cf. @ressay{Références bibliographiques}). Il est possible
-de créer votre propre modèle de chiffrages à l'aide des différentes
+de créer son propre modèle de chiffrages à l'aide des différentes
 propriétés mentionnées ci-dessous.  LilyPond dispose d'un système
 alternatif de chiffrage jazz qui a été élaboré grâce à ces même
 propriétés.  Les deux notations, Ignatzek et alternative, sont illustrés
 à l'annexe @ref{Table des noms d'accord}.
 
-@c TODO --  Change this so we don't have a non-verbatim example.
-@c  Make short example in docs, then move longer example to
-@c  appendix, where the length of the snippet won't matter.
+@c FIXME: move the chord-names-alternative snippet to a new section. -vv
+@c bizarre, mais c'est paas dans snippets. JCM
 
 @funindex \germanChords
 @funindex \semiGermanChords
@@ -580,9 +583,8 @@ fonctionnalité est gérée par la propriété
 }
 @end lilypond
 
-Lorsqu'aucun des systèmes prédéfinis ne vous permet de représenter
-l'accord voulu, les propriétés suivantes vous permettront de le
-construire.
+La représentation d'un accord peut s'adapter à l'aide des propriétés
+suivantes :
 
 @table @code
 
@@ -705,8 +707,8 @@ réduit à néant si la fondamentale est altérée.
 @end table
 
 @predefined
-@cindex symboles de septième majeure
-@cindex septième majeure, symboles
+@cindex symbole de septième majeure
+@cindex septième majeure, symbole
 @code{\whiteTriangleMarkup},
 @code{\blackTriangleMarkup},
 @code{\germanChords},
@@ -718,9 +720,9 @@ réduit à néant si la fondamentale est altérée.
 
 @snippets
 
-@cindex exceptions, chiffrage d'accords
-@cindex chiffrage d'accords, exceptions
-@cindex accords chiffrés, exceptions
+@cindex exception, chiffrage d'accord
+@cindex chiffrage d'accord, exception
+@cindex accord chiffré, exception
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {chord-name-exceptions.ly}
 
@@ -728,12 +730,19 @@ réduit à néant si la fondamentale est altérée.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {chord-name-major7.ly}
 
+@cindex @code{ChordNames} et barre de mesure
+@cindex barre de mesure et @code{ChordNames}
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adding-bar-lines-to-chordnames-context.ly}
 
+@cindex accord et reprise
+@cindex reprise et accord
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {volta-below-chords.ly}
 
+@cindex accord, séparateur
+@cindex séparatuer d'accord
+@funindex chordNameSeparator
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-chord-separator.ly}
 
@@ -836,7 +845,7 @@ sous forme chiffrée.  Le contexte @code{FiguredBass} s'occupera ensuite
 de gérer les objets @code{BassFigure}.  La basse chiffrée pourra être
 attachée à un contexte @code{Staff}.
 
-L'expression @code{\figures@{ @dots{} @}} constitue une raccourci à
+L'expression @code{\figures @{ @dots{} @}} constitue une raccourci à
 @code{\new FiguredBass \figuremode @{ @dots{} @}}.
 
 Bien que la gestion de la basse chiffrée ressemble beaucoup à celle
@@ -1043,6 +1052,11 @@ Terminaison d'une prolongation
 @endpredefined
 
 @snippets
+
+@cindex basse chiffrée, altération, position
+@cindex altération, basse chiffrée, position
+@funindex figuredBassAlterationDirection
+@funindex figuredBassPlusDirection
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-positions-of-figured-bass-alterations.ly}
 
@@ -1053,9 +1067,9 @@ Morceaux choisis :
 Référence des propriétés internes :
 @rinternals{BassFigure},
 @rinternals{BassFigureAlignment},
-@rinternals{BassFigureLine},
 @rinternals{BassFigureBracket},
 @rinternals{BassFigureContinuation},
+@rinternals{BassFigureLine},
 @rinternals{FiguredBass}.
 
 
@@ -1146,9 +1160,9 @@ Morceaux choisis :
 Référence des propriétés internes :
 @rinternals{BassFigure},
 @rinternals{BassFigureAlignment},
-@rinternals{BassFigureLine},
 @rinternals{BassFigureBracket},
 @rinternals{BassFigureContinuation},
+@rinternals{BassFigureLine},
 @rinternals{FiguredBass}.
 
 @knownissues

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: a0f1e4d8aa9632b4324f140a56354597edd7ad87
+   Translation of GIT committish: 032de07c17caacd038f113ebcb54e9c473d64e0f
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -103,6 +103,11 @@ Voici quelques exemples d'expression musicale :
 @}
 @end example
 
+@funindex %
+@funindex %@{ @dots{} %@}
+@cindex commentaire
+@cindex ligne de commentaire
+@cindex bloc de commentaire
 Les commentaires constituent l'une des rares exceptions à cette règle
 immuable -- voir @ref{Structure de fichier} pour les autres.  Qu'il
 s'agisse d'une seule ligne ou de tout un bloc -- délimité par
@@ -158,8 +163,6 @@ et le texte est contenu dans un bloc @code{\markup},
   @var{@dots{}texte@dots{}}
 @}
 @end example
-
-@funindex \book
 
 Les différents mouvements et textes qui apparaissent dans un même
 fichier @file{.ly} ne composeront en principe qu'un seul fichier
@@ -503,6 +506,11 @@ suivantes :
 @funindex \include
 @funindex \sourcefilename
 @funindex \sourcefileline
+@funindex %
+@funindex %@{ @dots{} %@}
+@cindex commentaire
+@cindex ligne de commentaire
+@cindex bloc de commentaire
 
 @itemize
 @item @code{\version}
@@ -853,7 +861,7 @@ Par défaut, @code{scoreTitleMarkup} place les champs @code{piece} et
 Les possibilités de modifier la mise en forme par défaut sont abordées à
 la rubrique @ref{Mise en forme personnalisée des titrages}.
 
-@cindex breakbefore
+@funindex breakbefore
 
 Un bloc @code{\book} qui commencerait directement par un bloc
 @code{\bookpart} ne verra pas ses titrages apparaître puisqu'il n'y a
@@ -996,8 +1004,6 @@ Manuel de notation :
 @unnumberedsubsubsec Mise en forme personnalisée des titrages
 @translationof Custom layout for titles
 
-@cindex bookTitleMarkup
-@cindex scoreTitleMarkup
 @funindex bookTitleMarkup
 @funindex scoreTitleMarkup
 
@@ -1201,7 +1207,7 @@ condition est remplie.
 LilyPond dispose d'ores et déjà d'un certain nombre de procédures :
 
 @quotation
-@multitable {print-page-number-check-first-----} {ce n'est la première page du book--}
+@multitable {print-page-number-check-first-----} {ce n'est pas la première page du book--}
 
 @headitem  Nom de la procédure      @tab  Condition testée
 
@@ -1295,7 +1301,7 @@ bloc @code{\header} donnera aussi ce titre au document PDF et à la
 séquence MIDI.
 
 @example
-\header@{
+\header @{
   title = "Symphony I"
 @}
 @end example
@@ -1304,7 +1310,7 @@ Lorsque le titre imprimé diffère de celui affiché en tant que propriété
 du PDF, devra être renseignée la propriété @code{pdftitle}.
 
 @example
-\header@{
+\header @{
   title = "Symphony I"
   pdftitle = "Symphony I by Beethoven"
 @}
@@ -1332,8 +1338,8 @@ séquence MIDI un nom différent de celui attribué au fichier imprimable.
 @subsection Notes de bas de page
 @translationof Creating footnotes
 
-@cindex bas de page, notes
-@cindex footnotes
+@cindex bas de page, note de
+@cindex @emph{footnote}, note de bas de page
 
 Les notes de bas de page sont utiles dans bien des situations.  Dans
 tous les cas, un « appel de note » vient se placer en référence dans le
@@ -1408,6 +1414,7 @@ la note ou au silence qui précède.
 
 @item marque
 @funindex \default
+@funindex @sortas{defaultB} \default
 Un @emph{markup} ou une chaîne de caractères identifiant l'annotation
 tant au niveau de l'appel que de la note qui apparaîtra au bas de la
 page.  L'absence de cet élément -- ou une valeur de @code{\default} --
@@ -2079,7 +2086,7 @@ Fichiers d'initialisation :
 @translationof Including LilyPond files
 
 @funindex \include
-@cindex inclusion de fichiers
+@cindex inclusion de fichier
 
 Lorsqu'un projet prend de l'importance en volume, il est judicieux de le
 scinder en plusieurs fichiers, auxquels vous ferez référence avec un
@@ -2592,7 +2599,7 @@ elle viendra « recaler » ces hauteurs récupérées.
 @unnumberedsubsubsec Globalisation des réglages
 @translationof Using global settings
 
-@cindex include-settings
+@cindex réglages, globalisation
 
 Vous pouvez regrouper dans un fichier indépendant vos réglages
 personnels que vous inclurez au besoin :
@@ -2755,7 +2762,7 @@ dans des paroles et dans du texte indépendant.
   }
   \addlyrics { O \markup { \concat { Ph \char ##x0153 be! } } }
 }
-\markup { "Copyright 2008--2015" \char ##x00A9 }
+\markup { "Copyright 2008--2020" \char ##x00A9 }
 @end lilypond
 
 @cindex copyright
@@ -2841,8 +2848,8 @@ Fichiers d'initialisation :
 @subsection Extraction de fragments musicaux
 @translationof Extracting fragments of music
 
-@cindex fragments, extraction
-
+@cindex fragment, extraction
+@cindex extraction, fragment
 @funindex clip-regions
 
 LilyPond permet d'extraire des fragments d'une partition, une fois
@@ -3003,6 +3010,8 @@ métadonnée personnalisée non-standard.
 @node Changement des fontes musicales
 @subsection Changement des fontes musicales
 @translationof Replacing the notation font
+
+@cindex fontes musicales, modification
 
 Gonville est une alternative au jeu de glyphes @emph{Feta} inclus dans
 la fonte Emmentaler que LilyPond utilise par défaut.  Vous pouvez la
@@ -3224,7 +3233,7 @@ Voir @ref{Amélioration du rendu MIDI}.
 @subsection Notation non prise en compte dans le MIDI
 @translationof Unsupported notation for MIDI
 
-@cindex MIDI, éléments non pris en comte
+@cindex MIDI, éléments non pris en compte
 
 Certains éléments de notation ne peuvent être retranscrits dans un
 fichier MIDI :
@@ -3355,6 +3364,9 @@ correspondances entre nuance et fraction de volume sont répertoriées
 dans le fichier @file{scm/midi.scm}.
 
 @snippets
+
+@cindex MIDI, nuance personnalisée
+@cindex nuance, MIDI, personnalisation
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {creating-custom-dynamics-in-midi-output.ly}
 
@@ -3461,6 +3473,10 @@ appliquera cependant un léger degré d'égalisation pour certains
 instruments -- voir @file{scm/midi.scm}.
 
 @snippets
+
+@cindex MIDI, égalisation par défaut, adaptation
+@cindex égalisation en MIDI, adaptation
+@cindex instrument MIDI, égalisation
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {replacing-default-midi-instrument-equalization.ly}
 
@@ -3562,7 +3578,7 @@ début de portée peuvent se retrouver dédoublées dans la sortie MIDI.
 @translationof Using MIDI Instruments
 
 @cindex instrument, nom d'
-@cindex MIDI, instruments
+@cindex MIDI, instrument
 @funindex Staff.midiInstrument
 
 L'instrument MIDI est déterminé par la propriété @code{midiInstrument},
@@ -3625,8 +3641,8 @@ disponible dans le fichier @file{scm/midi.scm} -- voir
 @subsection Gestion des répétitions en MIDI
 @translationof Using repeats with MIDI
 
-@cindex reprises développées
-@cindex MIDI et reprises
+@cindex reprise développée
+@cindex MIDI et reprise
 @funindex \unfoldRepeats
 
 Les reprises de toutes sortes peuvent être rendues dans le fichier MIDI.
@@ -3772,6 +3788,8 @@ peut être réglée sur @code{'instrument} comme ceci :
 @end example
 
 @snippets
+
+@cindex MIDI, un canal par voix
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-midi-output-to-one-channel-per-voice.ly}
 
@@ -3906,14 +3924,15 @@ des propriétés au sein du bloc @code{\midi} ou en utilisant le script
 
 
 @node Le script articulate
-@unnumberedsubsubsec Le script @file{articulate}
+@unnumberedsubsubsec Le script @code{articulate}
 @translationof The articulate script
 
-@cindex MIDI, instruments
+@cindex MIDI, instrument
 @cindex articulate, script
+@cindex articulate.ly
 @funindex Staff.midiInstrument
 
-L'utilisation du script @file{articulate} se fait après avoir ajouté en
+L'utilisation du script @code{articulate} se fait après avoir ajouté en
 tête de fichier la commande @code{\include} appropriée :
 
 @example
@@ -3934,7 +3953,8 @@ littéralement la sortie MIDI.
 @}
 @end example
 
-Le script @file{articulate} tient compte des abréviations telles que les
+@funindex \articulate
+Le script @code{\articulate} tient compte des abréviations telles que les
 trilles ou groupettos.  L'intégralité des éléments traités est
 répertoriée dans le script lui-même -- voir @file{ly/articulate.ly}.
 

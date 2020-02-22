@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: fdb5a275551d4e87df940924aed74a0ec273f70e
+    Translation of GIT committish: c662a2cb50dcc4b98101bdd8228986646c4d1382
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -10,7 +10,7 @@
 
 @c \version "2.19.21"
 
-@c Translators: Tomohiro Tatejima, Yoshiki Sawada
+@c Translators: Masamichi Hosoda, Tomohiro Tatejima, Yoshiki Sawada
 @c Translation status: post-GDP
 
 
@@ -98,7 +98,6 @@ export LYEDITOR="code --goto %(file)s:%(line)s:%(column)s"
 @file{~/.emacs} ファイルに @code{(server-start)} という行を追加する必要が@c
 あります。そうしなければ、PDF 内のオブジェクトをクリックする度に@c
 新しい Emacs ウィンドウが開いてしまいます。}
-
 
 @menu
 * ポイント＆クリックに Xpdf を使用する::
@@ -226,7 +225,6 @@ sudo apparmor_parser -r -T -W /etc/apparmor.d/usr.bin.evince
 @noindent
 を実行することで、Evince がポイント＆クリックのリンクを開くことができるように@c
 なるはずです。他のビューアでも同じような設定が有効であるかもしれません。
-
 
 @node ポイント＆クリックを有効にする
 @unnumberedsubsec ポイント＆クリックを有効にする
@@ -358,6 +356,7 @@ lilypond \
 * Vim モード::
 * その他のエディタ::
 @end menu
+
 
 @node Emacs モード
 @unnumberedsubsec Emacs モード
@@ -555,13 +554,14 @@ Verbose モード (ログ等が詳細) で実行します。
 @uref{http://@/www.@/musicxml@/.org/,MusicXML} は音楽記譜を表すための
 XML の派生語です。
 
-@command{musicxml2ly} は Part-wise (時間軸優先ではなくパート優先の) MusicXML
-から、音符、アーティキュレーション、楽譜構造、歌詞等を抽出し、@c
+@command{musicxml2ly} は @q{part-wise}
+(時間軸優先ではなくパート優先の) MusicXML
+から、音符、アーティキュレーション、楽譜構造、歌詞を抽出し、@c
 それらを @file{.ly} ファイルに記述します。@c
 このプログラムはコマンド ラインから以下のように呼び出します:
 
 @example
-musicxml2ly [@var{option}]@dots{} @var{xml-file}
+musicxml2ly [@var{option}]@dots{} @var{file.xml}
 @end example
 
 @q{コマンド ライン} とは、OS のコマンド ラインを意味しているということに@c
@@ -569,8 +569,8 @@ musicxml2ly [@var{option}]@dots{} @var{xml-file}
 このことについての更なる情報は @ref{他のフォーマットから変換する}
 を参照してください。
 
-ファイル名に @file{-} を指定すると、@c
-@command{musicxml2ly} はコマンド ラインから入力を受け付けます。
+ファイル名に @var{file.xml} ではなく @file{-} を指定すると、@c
+@command{musicxml2ly} はすべての入力をコマンド ラインから受け付けます。
 
 @command{musicxml2ly} には以下のオプションがあります。
 
@@ -578,15 +578,19 @@ musicxml2ly [@var{option}]@dots{} @var{xml-file}
 @item -a, --absolute
 絶対ピッチで出力します。
 
+@item --fb --fretboards
+@code{<frame>} イベントをマークアップではなく、@c
+分離された FretBoard ボイスに変換します。
+
 @item -h, --help
-使用方法の要約を表示します。
+使用方法と使用可能なすべてのコマンドラインオプションの概要を表示します。
 
 @item -l, --language=LANG
-ピッチ名に LANG を使用します。@c
+ピッチ名に @var{LANG} を使用します。@c
 例えば、ピッチ名にドイツ語を使用するには 'deutsch' を指定します。
 
-@item --loglevel=@var{loglevel}
-出力の饒舌さを @var{loglevel} にセットします。@c
+@item --loglevel=@var{LOGLEVEL}
+出力の饒舌さを @var{LOGLEVEL} にセットします。@c
 取り得る値は @code{NONE}, @code{ERROR}, @code{WARNING},
 @code{PROGRESS} (デフォルト), それに @code{DEBUG} です。
 
@@ -595,28 +599,64 @@ XML 解析に lxml.etree Python パッケージを使用します。@c
 これはより少ないメモリと CPU 時間で実行されます。
 
 @item -m, --midi
-MIDI ブロックを有効にします。
+@var{.ly} ファイル中の MIDI ブロックを有効にします。
 
-@item -nd, --no-articulation-directions
+@item --nb, --no-beaming
+連桁情報を変換せず、LilyPond の自動連桁機能を使用します。
+
+@item --nd, --no-articulation-directions
 アーティキュレーションや強弱等の指示 (@code{^}, @code{_} あるいは @code{-})
 を変換しません。
 
-@item --no-beaming
-連桁情報を変換せず、LilyPond の自動連桁機能を使用します。
+@item --nrp, --no-rest-positions
+休符の垂直位置を変換しません。
 
-@item -o, --output=@var{file}
-出力ファイル名を @var{file} とします。@c
-@var{file} に @file{-} を指定すると、出力は stdout に表示されます。@c
-指定が無い場合、出力は @var{xml-file}@file{.ly} となります。
+@item --nsb, --no-system-breaks
+システムの改行を無視します。
+
+@item --npl, --no-page-layout
+ページレイアウトと改行・改ページを変換しません@c
+（@code{--nsb} @code{--npb} @code{--npm} オプションのショートカットです）。
+
+@item --npb, --no-page-breaks
+改ページを無視します。
+
+@item --npm, --no-page-margins
+ページの余白を無視します。
+
+@item --nsd, --no-stem-directions
+MusicXML の符幹の向きを無視し、@c
+代わりに lilypond の自動にします。
+
+@item -o, --output=@var{FILE}
+出力ファイル名を @var{FILE} とします。@c
+@var{file} に @file{-} を指定すると、出力は標準出力に表示されます。@c
+指定が無い場合、出力は @var{xmlfile}@file{.ly} となります。
 
 @item -r, --relative
 ピッチを相対モードに変換します。(デフォルト)
+
+@item --transpose=TOPITCH
+ピッチ @code{c} と @var{TOPITCH} 間の度数で移調します。
+
+@item --sm, --shift-meter=BEATS/BEATTYPE
+与えられた拍子として音符の長さを変更して、速くしたり遅くしたりします@c
+（例: @code{4/4} または @code{2/2}）。
+
+@item --tc, --tab-clef=TABCLEFNAME
+タブ音部記号の 2 つのバージョン（@code{tab} と
+@code{moderntab}）を切り替えます。
+
+@item --sn --string-numbers=t[rue]/f[alse]
+@code{--string-numbers} @code{false}
+で文字列番号ステンシルを無効にします。@c
+デフォルトは @code{true} です。
 
 @item -v, --verbose
 Verbose モード (ログ等が詳細) で実行します。
 
 @item --version
-バージョン情報を表示します。
+バージョン情報を表示して終了します。
 
 @item -z, --compressed
 入力ファイルが ZIP で圧縮された MusicXML ファイルであることを示します。

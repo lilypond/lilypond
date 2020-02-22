@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 9ec5b7d295d8287f52da71d997a8277726cf8c00
+   Translation of GIT committish: 98c40be14709b8ca367f7940cd6d2f760f86a275
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -84,12 +84,12 @@ s'agit de @file{.ly}.  Pour interpréter directement l'entrée standard
 (@emph{stdin}), fournissez un tiret (@code{-}) en lieu et place de
 @var{fichier}.
 
-Le traitement de @file{monfichier.ly} produira @file{monfichier.ps} et
-@file{monfichier.pdf}.  Vous pouvez spécifier plusieurs fichiers à la
-fois ; ils seront traités indépendamment les uns des
-autres.@footnote{Le statut de GUILE n'étant pas réinitialisé après
-traitement d'un fichier @file{.ly}, veillez à ne pas modifier les
-réglages par défaut du système à partir d'assertions en Scheme.}
+Le traitement de @file{monfichier.ly} produira @file{monfichier.pdf} par
+défaut.  Vous pouvez spécifier plusieurs fichiers à la fois ; ils seront
+traités indépendamment les uns des autres.@footnote{Le statut de GUILE
+n'étant pas réinitialisé après traitement d'un fichier @file{.ly},
+veillez à ne pas modifier les réglages par défaut du système à partir
+d'assertions en Scheme.}
 
 Lorsque @file{monfichier.ly} contient plus d'une section @code{\book},
 les fichiers produits -- à partir du deuxième -- seront numérotés.  Par
@@ -105,8 +105,8 @@ contiendrait
 @end example
 
 @noindent
-fournira grâce à LilyPond @file{@var{racine}-violon.pdf} et
-@file{@var{racine}-cello-1.pdf}.
+fournira grâce à LilyPond @file{racine-violon.pdf} et
+@file{racine-cello-1.pdf}.
 
 
 @unnumberedsubsubsec Utilisation de LilyPond avec les fonctionnalités standard de l'interpréteur
@@ -123,7 +123,7 @@ lilypond *.ly
 @end example
 
 @noindent
-traitera tous les fichiers LilyPond présents dans le répertoire en
+traite tous les fichiers LilyPond présents dans le répertoire en
 cours.
 
 Rediriger, par exemple dans un fichier, ce qui est émis à l'écran peut
@@ -131,15 +131,13 @@ s'avérer utile.
 
 @example
 lilypond fichier.ly 1> stdout.log
-
 lilypond fichier.ly 2> stderr.log
-
 lilypond fichier.ly &> tous.log
 @end example
 
 @noindent
-redirigeront respectivement le « verbiage normal », les erreurs ou tout,
-dans un fichier texte.
+Les commandes ci-dessus redirigeront respectivement le « verbiage
+normal », les erreurs ou tout, dans un fichier texte.
 
 Consultez avant tout la documentation de votre interpréteur habituel
 -- terminal, console, etc. -- pour vérifier qu'il prend en charge les
@@ -147,7 +145,7 @@ options dans cette syntaxe.
 
 Voici comment traiter un jeu de fichiers répartis dans un répertoire
 donné ainsi que tous ses différents sous-répertoires.  Les fichiers
-résultants seront regroupés dans le répertoire à partir duquel la
+résultants sont regroupés dans le répertoire à partir duquel la
 commande a été exécutée, non selon l'emplacement des fichiers sources.
 
 @example
@@ -197,21 +195,22 @@ forfiles /s /p "C:\Documents\Mes Partitions" /M *.ly /c "cmd /c lilypond @@file"
 
 Différentes options sont disponibles en ligne de commande :
 
-@table @code
+@table @asis
 
-@item -d, --define-default=@var{variable}=@var{valeur}
+@item @code{-d}, @code{--define-default=}@var{var}[@code{=}@var{val}]
 Voir @ref{Options avancées de lilypond}.
 
 @cindex Scheme, évaluation d'expression
 @cindex expression Scheme, évaluation
-@item -e, --evaluate=@var{expr}
+
+@item @code{-e}, @code{--evaluate=}@var{expr}
 Évalue l'expression Scheme @var{expr} avant d'analyser tout fichier
 @file{.ly}.  Lorsque vous spécifiez l'option @option{-e} à plusieurs
-reprises, l'évaluation sera faite en séquence.
+reprises, l'évaluation est faite en séquence.
 
 Dans la mesure où l'expression est évaluée par le module
-@code{guile-user}, vous devrez, dès lors que @var{expr} utilise des
-définitions, spécifier
+@code{guile-user}, vous devez, dès lors que @var{expr} utilise des
+définitions telles que @code{(define-public a 42)}, spécifier
 
 @example
 lilypond -e '(define-public a 42)'
@@ -231,50 +230,74 @@ en tête de votre fichier @file{.ly}.
 doubles @code{"} en lieu et place des guillemets simples @code{'}.}
 @c Match " in context-sensitive editors
 
-@item -E, --eps
+@item @code{-E}, @code{--eps}
 Génère des fichiers EPS.
+
+Cette option revient à fournir à la ligne de cxommande de LilyPond les
+options @code{--ps}, @code{-dbackend=eps} et @code{-daux-files='#f'}.
 
 @cindex sortie, format
 @cindex format de sortie
-@item -f, --format=@var{format}
+@item @code{-f}, @code{--format=}@var{format}
 Détermine le format à produire.  Il peut s'agir de @code{ps}, @code{pdf}
 ou @code{png}.
 
-Exemple : @code{lilypond -fpng @var{monfichier}.ly}
+Exemple : @code{lilypond -fpng monfichier.ly}
 
-@noindent
 Les formats @code{svg} et @code{eps} s'obtiennent à l'aide de
 l'option @code{-dbackend} -- voir @ref{Options avancées de lilypond}.
 
-@item -h, --help
+@item @code{-h}, @code{--help}
 Affiche un résumé des commandes.
 
-@item -H, --header=@var{CHAMP}
+@item @code{-H}, @code{--header=}@var{CHAMP}
 Recopie le champ d'entête dans le fichier @file{RACINE.@var{CHAMP}}.
 
-@item -i, --init=@var{fichier}
+Par exemple, si un fichier @file{toto.ly} contient
+
+@example
+\header @{ title = "tutu" @}
+\score @{ c1 @}
+@end example
+
+@noindent
+La commande
+
+@example
+lilypond -H title toto.ly
+@end example
+
+@noindent
+produit un fichier texte plat @file{toto.title} contenant la chaîne
+@code{tutu}.
+
+@item @code{-i}, @code{--init=}@var{fichier}
 Définit @var{fichier} (par défaut @file{init.ly}) en tant que fichier
 d'initialisation.
 
 @cindex recherche de fichier
 @cindex chemin de recherche
 @cindex inclusion, chemin
-@item -I, --include=@var{répertoire}
-Ajoute @var{répertoire} au chemin de recherche pour les inclusions.
+@item @code{-I}, @code{--include=}@var{répertoire}
+Ajoute @var{répertoire}, de façon relative,  au chemin de recherche pour
+les inclusions. Par défaut, seul le répertoire courant est consulté.
 
 Vous pouvez mentionner plusieurs fois l'option @option{-I}, auquel cas
 la recherche commencera dans le premier répertoire inclus et, si le
 fichier en question ne s'y trouve pas, les répertoires suivants seront
 examinés l'un après l'autre.
 
-@warning{L'utilisation du tilde (@code{~}) avec l'option @code{-I}
+@warning{L'utilisation du tilde (@code{~}) avec l'option @option{-I}
 peut produire des résultats inattendus selon le @emph{shell}.
 
-Les utilisateurs de Windows devront ajouter une oblique (@code{/}
+Les utilisateurs de Windows doivent ajouter une oblique (@code{/}
 finale au chemin d'accès.}
 
 @cindex chroot jail, fonctionnement
-@item -j, --jail=@var{user},@var{group},@var{jail},@var{dir}
+@item @code{-j}, @code{--jail=}@var{user}@code{,}@var{group}@code{,}@var{jail}@code{,}@var{dir}
+[Cette option n'est disponible que dès lors que l'environnement dispose
+de la fontionnalité @code{chroot}. Windows, plus particulièrement, ne le
+prend pas en charge.]
 Lance @command{lilypond} dans un environnement protégé.
 
 L'option @option{--jail} est une alternative qui offre plus de
@@ -325,14 +348,14 @@ le système d'origine.  Ainsi l'intégralité de l'installation de LilyPond
 (en principe @file{/usr/share/lilypond}) doit y être dupliquée.
 
 En cas de problème, lancer LilyPond en utilisant @command{strace}
-devrait vous permettre de déterminer quels fichiers manquent à l'appel.
+vous permettra de déterminer quels fichiers manquent à l'appel.
 
 @item Lancement de LilyPond
 Dans un environnement protégé monté avec l'option @code{noexec}, il
 est impossible de lancer un quelconque programme extérieur.  LilyPond ne
 saurait donc avoir recours à un moteur de traitement qui le mettrait
 dans cette situation.  Comme nous l'avons vu plus haut, LilyPond sera
-lancé avec les privilèges de l'administrateur -- privilèges qu'il perdra
+lancé avec les privilèges de l'administrateur -- privilèges qu'il perd
 aussitôt --, ce qui peut nécessiter le recours à la commande
 @code{sudo}.  Il est par ailleurs judicieux de limiter le temps
 processeur alloué à LilyPond -- grâce à @command{ulimit -t} par
@@ -342,8 +365,8 @@ mémoire.  Voir aussi @ref{Exécution de LilyPond en mode protégé}.
 
 @cindex loglevel
 @cindex verbosité, définir le degré de
-@item -l, --loglevel=@var{DEGRÉ}
-Règle le niveau de verbosité des messages console à @var{DEGRÉ}.  Les
+@item @code{-l}, @code{--loglevel=}@var{degré}
+Règle le niveau de verbosité des messages console à @var{degré}.  Les
 différentes valeurs sont :
 
 @table @code
@@ -365,9 +388,10 @@ erreurs.
 @item PROGRESS
 Toutes les informations de progression, avertissements et erreurs.
 
-@item INFO (par défaut)
+@item INFO
 Informations de progression, avertissements et erreurs, ainsi que
-d'autres informations relatives à l'exécution.
+d'autres informations relatives à l'exécution. Ceci est la valeur par
+défaut.
 
 @item DEBUG
 Tout ce qui peut être affiché, y compris le verbiage utile au débogage.
@@ -377,54 +401,83 @@ Tout ce qui peut être affiché, y compris le verbiage utile au débogage.
 @cindex redirection
 @cindex répertoire de destination
 @cindex fichier de destination
-@item -o, --output=@var{FICHIER} ou @var{RÉPERTOIRE}
+@item @code{-o}, @code{--output=}@var{FICHIER}
+@itemx @code{-o}, @code{--output=}@var{RÉPERTOIRE}
 Détermine le nom par défaut du fichier résultant à @var{FICHIER} ;
 lorsque l'argument @var{RÉPERTOIRE} correspond à un répertoire déjà
 existant, c'est là que les fichiers résultants seront déposés.  Le
-suffixe adéquat sera ajouté (par ex. @code{.pdf} pour du PDF) dans tous
+suffixe adéquat sera ajouté (par ex. @file{.pdf} pour du PDF) dans tous
 les cas.
 
 @cindex pspdfopt
-@item -O, --pspdfopt
-En l'absence de @code{pspdfopt} ou avec le paramètre @code{size},
-lilypond tentera de générer un document PS, EPS ou PDF le plus léger
-possible.
+@item @code{-O}, @code{--pspdfopt=}@var{clé}
+Détermine l'optimisation des PS/PDF résultants à @var{clé}. Les valeurs
+possibles sont :
 
-Avec le paramètre @code{TeX}, lilypond produira des fichiers optimisés
-pour un inclusion dans des documents PdfTeX, LuaTeX ou XeTeX.
+@table @code
 
+@item size
+Génère un un document PS, EPS ou PDF le plus léger possible. Il s'agit
+de la valeur par défaut.
+
+L'utilisation de cette valeur revient à lancer les commandes Scheme de
+LilyPond @code{-dmusic-@/font-@/encodings=@/'#f'} et
+@code{-dgs-@/never-@/embed-@/fonts=@/'#f'}.
+
+@item TeX
+Produit des fichiers optimisés pour leur inclusion dans des documents
+pdfTeX, luatex ou XeTeX.
+
+L'utilisation de cette valeur revient à lancer les commandes Scheme de
+LilyPond @code{-dmusic-@/font-@/encodings=@/'#t'} et
+@code{-dgs-@/never-@/embed-@/fonts=@/'#f'}.
+
+@item TeX-GS
 L'inclusion de plusieurs PDF générés par LilyPond dans un document
-@TeX{} nécessite l'utilisation de @w{@code{TeX-GS}} et un retraitement
+@TeX{} nécessite l'utilisation de cette option et un retraitement
 du PDF généré par @TeX{} à l'aide de Ghostscript.
+
+L'utilisation de cette valeur revient à lancer les commandes Scheme de
+LilyPond @code{-dmusic-@/font-@/encodings=@/'#t'} et
+@code{-dgs-@/never-@/embed-@/fonts=@/'#t'}.
+
+@end table
 
 @cindex PostScript, output
 @cindex PS (PostScript), output
-@item --ps
-Génère du PostScript.
+@item @code{--ps}
+Génère du PostScript. Cette option est équivalente à @code{-fps}.
 
 @cindex Portable Network Graphics (PNG), output
 @cindex PNG (Portable Network Graphics), output
-@item --png
-Génère une image par page, au format PNG ; ceci sous-entend
-l'utilisation de @option{--ps}.  La résolution de l'image, en DPI, peut
-se régler en ajoutant par exemple
+@item @code{--png}
+Génère une image par page, au format PNG. Cette option est équivalente à
+@code{-fpng}.
+
+La résolution de l'image peut se régler à @var{N}@tie{}DPI en ajoutant
 @example
--dresolution=110
+-dresolution=@var{N}
 @end example
 
 @cindex Portable Document Format (PDF), output
 @cindex PDF (Portable Document Format), output
-@item --pdf
-Génère du PDF.  Ceci sous-entend l'utilisation de @option{--ps}.
+@item @code{--pdf}
+Génère du PDF.  Ceci est la valeur par défaut, et est équivalant à
+@code{-fpdf}.
 
-@item -v, --version
+@item @code{-s}, @code{--silent}
+N'affiche rien de plus que les messages d'erreur. Ceci est équivalent à
+@code{-lERROR}.
+
+@item @code{-v}, @code{--version}
 Affiche le numéro de version.
 
-@item -V, --verbose
+@item @code{-V}, @code{--verbose}
 Active le mode verbeux : affichage de l'intégralité du chemin
-d'accès de chaque fichier, et information des temps de traitement.
+d'accès de chaque fichier, et information des temps de traitement. Ceci
+est équivalent à @code{-lDEBUG}.
 
-@item -w, --warranty
+@item @code{-w}, @code{--warranty}
 Affiche les informations de garantie applicables à GNU LilyPond -- il
 est livré @strong{SANS GARANTIE} !
 
@@ -435,20 +488,37 @@ est livré @strong{SANS GARANTIE} !
 @unnumberedsubsec Options avancées de @command{lilypond}
 @translationof Advanced command line options for LilyPond
 
-@table @code
+L'option @option{-d} est l'interface de la ligne de commande à la
+fonction Scheme de LilyPond @code{ly:set-option}. Par voie de
+conséquence, toutes les options listées ci-après peuvent aussi se
+définir au sein même des fichiers @file{.ly}.
 
-@item -d@var{[nom-option]}=@var{[valeur]},
---define-default=@var{[nom-option]}=@var{[valeur]}
+@table @asis
+
+@item @code{-d}, @code{--define-default=}@var{nom-option}[@code{=}@var{valeur}]
+@itemx @code{-d}, @code{--define-default=no-}@var{nom-option}
 Affecte la valeur Scheme @var{valeur} à l'option interne
-@var{nom-option} du programme, comme par exemple
+@var{nom-option} du programme. Par exemple, l'option en ligne de commande
 
 @example
 -dbackend=svg
 @end example
 
-En l'absence de @var{valeur}, le programme utilisera @var{#t}.
-Préfixer @var{nom-option} d'un @code{no-} vous permet de
-désactiver une option.  Ainsi,
+@noindent
+équivaut à
+
+@example
+#(ly:set-option 'backend 'svg)
+@end example
+
+@noindent
+dans un fichier source LilyPond.
+
+En l'absence de @var{valeur}, le programme utilisera @var{#t}, ce qui
+peut conduire à des résultats inescomptés dès lors que le type escompté
+de @var{valeur} n'est pas boléen. Préfixer @var{nom-option} d'un
+@code{no-} permet de désactiver une option, autrement dit affecte
+@code{#f} à @var{valeur}.  Ainsi,
 
 @cindex point and click, ligne de commande
 @cindex pointer-cliquer, ligne de commande
@@ -460,58 +530,62 @@ désactiver une option.  Ainsi,
 @noindent
 revient au même que
 @example
--dpoint-and-click=#f
+-dpoint-and-click='#f'
 @end example
 @end table
 
-@noindent Voici les différentes options disponibles, ainsi que leur
-valeur par défaut.
+[Note : le caractère @samp{#} introduit un commentaire dans de nombreux
+@emph{shells} ; c'est pourquoi nous recommandons de toujours borner par
+des @code{'} les expressions qui le contiennent.]
 
-@multitable @columnfractions .33 .16 .51
-@item @strong{Symbole}
-@tab @strong{Valeur}
-@tab @strong{Observations}
+Voici les différentes options disponibles, ainsi que leur valeur par
+défaut. Au sein de code Scheme, la valeur des options est interprétée
+par la fonction @code{ly:get-option}.
 
+@table @asis
 
-@item @code{anti-alias-factor}
-@tab @code{1}
-@tab Adopte une résolution supérieure (selon le facteur donné),puis
+@item @code{anti-alias-factor} @var{num}
+Adopte une résolution supérieure (selon le facteur @var{num} donné),puis
 réduit au niveau du résultat afin d'éviter les « distorsions » des
-images @code{PNG}.
+images @code{PNG}. La valeur par défauat est de @code{1.0}.
 
-@item @code{aux-files}
-@tab @code{#t}
-@tab Génère les fichiers @code{.tex}, @code{.texi} et @code{.count}
-pour le moteur de rendu @code{eps}.
+@item @code{aux-files} @var{bool}
+Si @var{bool} est fixé à @code{#t}, génère les fichiers @code{.tex},
+@code{.texi} et @code{.count} pour le moteur de rendu @code{eps}. La
+valeur par défaut est @code{#t}.
 
-@item @code{backend}
-@tab @code{ps}
-@tab Détermine le format de sortie à utiliser par le moteur de
-traitement.  Les fichiers PostScript (format par défaut) incluent les
-fontes @code{TTF}, @code{Type1} et @code{OTF}, et aucune substitution ne
-sera opérée pour ces fontes.  Si vous utilisez des jeux de caractères
-orientaux, le fichier aura vite fait d'atteindre une taille conséquente.
+@item @code{backend} @var{symbole}
+Détermine @var{symbole} comme moteur de traitement de LilyPond. Les
+valeurs possibles sont :
 
-@item
-@tab @code{eps}
-@tab Génère du PostScript encapsulé.  Chaque page (système) fera l'objet
-d'un fichier @file{EPS} particulier, sans fontes, auquel sera associé un
-fichier @file{EPS} qui, lui, contiendra toutes les pages (systèmes) et
-les fontes.  Notez qu'il s'agit du mode que @command{lilypond-book}
-utilise par défaut.
+@table @code
 
-@item
-@tab @code{null}
-@tab Ne génère aucun fichier imprimable.  Cette option est équivalente à
+@item ps
+Il s'agit du réglage par défaut. Les fichiers PostScript incluent les
+fontes @code{TTF}, @code{Type1} et @code{OTF}, et ce en intégralité.  Si
+vous utilisez des jeux de caractères orientaux, le fichier aura vite
+fait d'atteindre une taille conséquente.
+
+Pour l'obtention d'un fichier PDF, c'est aussi le moteur @code{ps} qui
+est utilisé. Les données PS sont ensuite retraitées par @code{ps2pdf},
+script de Ghostscript, qui par défaut extrait des sous-ensembles des
+fontes.
+
+@item eps
+Il s'agit du mode que @command{lilypond-book} utilise par défaut. Chaque
+page (système) fera l'objet d'un fichier @file{EPS} particulier, sans
+fontes, auquel sera associé un fichier @file{EPS} qui, lui, contiendra
+toutes les pages (systèmes) et les fontes.
+
+@item null
+Ne génère aucun fichier imprimable.  Cette option est équivalente à
 @code{-dno-print-pages}.
 
-@item
-@tab @code{scm}
-@tab Recopie littéralement les commandes Scheme internes de formatage.
+@item scm
+Recopie littéralement les commandes Scheme internes de formatage.
 
-@item
-@tab @code{svg}
-@tab Génère du @emph{Scalable Vector Graphics}.  Cette option permet de
+@item svg
+Génère du @emph{Scalable Vector Graphics}.  Cette option permet de
 créer un fichier SVG par page.  Les glyphes musicaux sont codés en tant
 que graphiques vectoriels mais les fontes textuelles @b{ne sont pas}
 incorporées aux fichiers @file{SVG} résultants.  Quel que soit le
@@ -523,192 +597,193 @@ traîter correctement.  L'option supplémentaire @w{@code{--svg-woff}} --
 voir ci-après -- permet d'utiliser les fontes WOFF (@emph{Web Open Font
 Format}) avec le moteur @code{svg}.
 
-@item @code{check-internal-types}
-@tab @code{#f}
-@tab Vérifie qu'à chaque propriété est bien affecté un type.
+@end table
 
-@item @code{clip-systems}
-@tab @code{#f}
-@tab Extrait des fragments musicaux d'une partition.  Ceci requiert que
-la fonction @code{clip-regions} a été définie au sein du bloc
-@code{\layout} -- voir @ruser{Extraction de fragments musicaux}.  Bien
-entendu, aucun fragment ne sera extrait si l'on utilise l'option
-@option{-dno-print-pages}
+@item @code{check-internal-types} @var{bool}
+Si @var{bool} est déterminé à @code{#t}, vérifie qu'à chaque propriété
+est bien affecté un type. La valeur par défaut est @code{#f}.
 
-@item @code{crop}
-@tab @code{#f}
-@tab Fait correspondre le fichier résultant à la taille de l'image
-générée.
+@item @code{clip-systems} @var{bool}
+Si @var{bool} est déterminé à @code{#t}, extrait des fragments musicaux
+d'une partition.  Ceci requiert que la fonction @code{clip-regions} a
+été définie au sein du bloc @code{\layout} -- voir @ruser{Extraction de
+fragments musicaux}.  Bien entendu, aucun fragment ne sera extrait si
+l'on utilise l'option @option{-dno-print-pages}. La valeur par défaut
+est  @code{#f}.
+
+@item @code{crop} @var{bool}
+Si @var{bool} est déterminé à @code{#t}, fait correspondre le fichier
+résultant (musique et entêtes) à la taille de l'image générée. La valeur
+par défaut est @code{#f}.
 
 @item @code{datadir}
-@tab
-@tab Détermine le préfixe des fichiers de données (lecture seule).
+Détermine le préfixe des fichiers de données (lecture seule).
 
-@item @code{debug-gc}
-@tab @code{#f}
-@tab Génère une copie brute de la mémoire, aux fins de débogage.
+@item @code{debug-gc} @var{bool}
+Si @var{bool} est déterminé à @code{#t}, génère une copie brute de la
+mémoire, aux fins de débogage. La valeur par défaut est @code{#f}.
 
-@item @code{debug-gc-assert-parsed-dead}
-@tab @code{#f}
-@tab Pour débogage de la mémoire : s'assure que toute référence à
-des objets analysés est effacée.  Il s'agit d'une option interne qui
-est automatiquement activée par l'option @code{`-ddebug-gc'}.
+@item @code{debug-gc-assert-parsed-dead} @var{bool}
+Pour débogage de la mémoire : si @var{bool} est déterminé à @code{#t},
+s'assure que toute référence à des objets analysés est effacée. Il
+s'agit d'une option interne qui est automatiquement activée par l'option
+@code{-ddebug-gc}. La valeur par défaut est @code{#f}.
 
-@item @code{debug-lexer}
-@tab @code{#f}
-@tab Débogage de l'analyseur lexical @emph{flex}.
+@item @code{debug-lexer} @var{bool}
+Si @var{bool} est déterminé à @code{#t}, permet le débogage de
+l'analyseur lexical @emph{flex}. La valeur par défaut est @code{#f}.
 
-@item @code{debug-page-breaking-scoring}
-@tab @code{#f}
-@tab Purge les calculs des configurations de saut de page.
+@item @code{debug-page-breaking-scoring} @var{bool}
+Si @var{bool} est déterminé à @code{#t}, purge les calculs des
+configurations de saut de page. La valeur par défaut est @code{#f}.
 
-@item @code{debug-parser}
-@tab @code{#f}
-@tab Débogage de l'analyseur @emph{bison}.
+@item @code{debug-parser} @var{bool}
+Si @var{bool} est déterminé à @code{#t}, permet le débogage de
+l'analyseur @emph{bison}. La valeur par défaut est @code{#f}.
 
-@item @code{debug-property-callbacks}
-@tab @code{#f}
-@tab Débogage des chaînes de @emph{callback} cycliques.
+@item @code{debug-property-callbacks} @var{bool}
+Si @var{bool} est déterminé à @code{#t}, permet le débogage des chaînes
+de @emph{callback} cycliques. La valeur par défaut est @code{#f}.
 
-@item @code{debug-skylines}
-@tab @code{#f}
-@tab Débogage des lignes d'horizon.
+@item @code{debug-skylines} @var{bool}
+Si @var{bool} est déterminé à @code{#t}, permet le débogage des lignes
+d'horizon. La valeur par défaut est @code{#f}.
 
-@item @code{delete-intermediate-files}
-@tab @code{#t}
-@tab Supprime les fichiers @code{.ps} inutiles créés lors de la
-compilation.
+@item @code{delete-intermediate-files} @var{bool}
+Si @var{bool} est déterminé à @code{#t}, supprime les fichiers
+@file{.ps} inutiles créés lors de la compilation. La valeur par défaut
+est @code{#t}.
 
-@item @code{dump-cpu-profile}
-@tab @code{#f}
-@tab Génère une copie brute des informations de @emph{timing} (dépend du
-système).
+@item @code{dump-cpu-profile} @var{bool}
+Si @var{bool} est déterminé à @code{#t}, génère une copie brute des
+informations de @emph{timing} (dépend du système). La valeur par défaut
+est @code{#f}.
 
-@item @code{dump-profile}
-@tab @code{#f}
-@tab Génère une copie brute de la mémoire et des temps de traitement
-pour chaque fichier.
+@item @code{dump-profile} @var{bool}
+Si @var{bool} est déterminé à @code{#t}, génère une copie brute de la
+mémoire et des temps de traitement pour chaque fichier. La valeur par
+défaut est @code{#f}.
 
-@item @code{dump-signatures}
-@tab @code{#f}
-@tab Génère une copie des signatures de chaque système.  Cette option
-est utilisée pour les tests de régression.
+@item @code{dump-signatures} @var{bool}
+Si @var{bool} est déterminé à @code{#t}, génère une copie des signatures
+de chaque système.  Cette option est utilisée pour les tests de
+régression. La valeur par défaut est @code{#f}.
 
-@item @code{embed-source-code}
-@tab @code{#f}
-@tab Intègre les fichiers source LilyPond au document PDF généré.
+@item @code{embed-source-code} @var{bool}
+Si @var{bool} est déterminé à @code{#t}, intègre les fichiers source
+LilyPond au document PDF généré. La valeur par défaut est @code{#f}.
 
-@item @code{eps-box-padding}
-@tab @code{#f}
-@tab Décale le bord gauche du typon EPS d'une valeur donnée en
-millimètres.
+@item @code{eps-box-padding} @var{num}
+Décale le bord gauche du typon EPS d'une valeur @var{num} donnée en
+millimètres. La valeur par défaut est @code{#f}, autrement dit sans décalage.
 
-@item @code{font-export-dir}
-@tab @code{#f [répertoire]}
-@tab Répertoire dans lequel exporter les fontes en tant que fichiers
-PostScript.
+@item @code{font-export-dir} @var{chaîne}
+Détermine à @var{chaîne} le répertoire dans lequel exporter les fontes
+en tant que fichiers PostScript. La valeur par défaut est @code{#f},
+autrement dit le répertoire courant.
 
-@item @code{gs-load-fonts}
-@tab @code{#f}
-@tab Charge les fontes grâce à Ghostscript.
+@item @code{gs-load-fonts} @var{bool}
+Si @var{bool} est déterminé à @code{#t}, charge les fontes grâce à
+Ghostscript. Cette option a pour conséquence que les fichiers générés
+par LilyPond ne contiendront que les références des fontes, qui seront
+ensuite résolues en fontes réelles lors de l'étape de retraitement par
+Ghostscript. La valeur par défaut est @code{#f}.
 
-@item @code{gs-load-lily-fonts}
-@tab @code{#f}
-@tab Limite les fontes chargées par Ghostscript aux seules fontes
-LilyPond.
+@item @code{gs-load-lily-fonts} @var{bool}
+Si @var{bool} est déterminé à @code{#t}, limite les fontes chargées par
+Ghostscript aux seules fontes LilyPond. Cette option a pour conséquence
+que les fichiers générés par LilyPond ne contiendront les références que
+des fontes musicales de LilyPond, qui seront ensuite résolues en fontes
+réelles lors de l'étape de retraitement par Ghostscript. Les autres
+fontes sont générées normalement. La valeur par défaut est @code{#f}.
 
-@item @code{gs-never-embed-fonts}
-@tab @code{#f}
-@tab Intime à Ghostscript d'embarquer les fontes uniquement au format
-TrueType, sans exception.
+@item @code{gs-never-embed-fonts} @var{bool}
+Si @var{bool} est déterminé à @code{#t}, intime à Ghostscript
+d'embarquer les fontes uniquement au format TrueType, sans exception. La
+valeur par défaut est @code{#f}.
 
-@item @code{gui}
-@tab @code{#f}
-@tab Travaille silencieusement, et redirige tout le verbiage dans un
-fichier journal.
-@end multitable
+@item @code{gui} @var{bool}
+Si @var{bool} est déterminé à @code{#t}, travaille silencieusement, et
+redirige tout le verbiage dans un fichier journal. La valeur par défaut
+est @code{#f}.
 
-@noindent
 @strong{Note à l'attention des utilisateurs de Windows :} toutes
 les informations concernant le traitement apparaissent au fur et à
 mesure dans l'interpréteur de commandes lorsque vous lancez le programme
-@code{lilypond.exe}, à l'inverse de @w{@code{lilypond-windows.exe}} qui
+@file{lilypond.exe}, à l'inverse de @w{@file{lilypond-windows.exe}} qui
 vous renvoie simplement la main.  L'option @option{-dgui} vous permettra
 alors de rediriger ces informations dans un fichier journal.
 
-@multitable @columnfractions .33 .16 .51
-@item @code{help}
-@tab @code{#f}
-@tab Affiche cette aide.
+@item @code{help} @var{bool}
+Si @var{bool} est déterminé à @code{#t}, affiche cette aide. La valeur
+par défaut est @code{#f}.
 
-@item @code{include-book-title-preview}
-@tab @code{#t}
-@tab Inclut les titres de l'ouvrage dans les images de prévisualisation.
+@item @code{include-book-title-preview} @var{bool}
+Si @var{bool} est déterminé à @code{#t}, inclut les titres de l'ouvrage
+dans les images de prévisualisation. La valeur par défaut est @code{#t}.
 
-@item @code{include-eps-fonts}
-@tab @code{#t}
-@tab Inclut les fontes dans chaque fichier EPS contenant un système.
+@item @code{include-eps-fonts} @var{bool}
+Si @var{bool} est déterminé à @code{#t}, inclut les fontes dans chaque
+fichier EPS contenant un système. La valeur par défaut est @code{#t}.
 
-@item @code{include-settings}
-@tab @code{#f}
-@tab Inclut un fichier contenant les réglages globaux.  Ce fichier sera
-inclus avant traitement de la partition.
+@item @code{include-settings} @var{chaîne}
+Inclut le fichier @var{chaîne} contenant les réglages globaux, qui sera
+inclus avant traitement de la partition. La valeur par défaut est
+@code{#f}, autrement dit absence de fichier de réglages.
 
-@item @code{job-count}
-@tab @code{#f}
-@tab Traite plusieurs fichiers en parallèle, selon le nombre de
-@emph{jobs}.
+@item @code{job-count} @var{num}
+Traite plusieurs fichiers en parallèle, selon le nombre @var{num} de
+@emph{jobs}. La valeur par défaut est @code{#f}, autrement dit sans
+traitement parallèle.
 
-@item @code{log-file}
-@tab @code{#f [fichier]}
-@tab Fournir @code{TOTO} en second argument redirigera la sortie dans le
-fichier journal @code{TOTO.log}.
+@item @code{log-file} @var{chaîne}
+Redirige la sortie dans le fichier journal @file{@var{chaîne}.log}. La
+valeur par défaut est @code{#f}, autrement dit absence de fichier de
+journalisation.
 
-@item @code{max-markup-depth}
-@tab @code{1024}
-@tab Profondeur maximale de l'arborescence de @emph{markups}.  Si un
-@emph{markup} était plus profond, part du principe qu'on aboutira pas,
-émet un avertissement et renvoie alors un @emph{markup} vide.
+@item @code{max-markup-depth} @var{num}
+Détermine à @var{num} la profondeur maximale de l'arborescence de
+@emph{markups}. Si un @emph{markup} était plus profond, part du principe
+qu'on aboutira pas, émet un avertissement et renvoie alors un
+@emph{markup} vide. La valeur par défaut est @code{1024}.
 
-@item @code{midi-extension}
-@tab @code{"midi"}
-@tab Détermine l'extension par défaut des fichiers MIDI, selon la chaîne
-donnée en argument.
+@item @code{midi-extension} @var{chaîne}
+Détermine à @var{chaîne} l'extension par défaut des fichiers MIDI.La
+valeur par défaut est @code{"midi"}.
 
-@item @code{music-strings-to-paths}
-@tab @code{#f}
-@tab Convertit les chaînes textuelles en chemins lorsque les glyphes
-font partie d'une fonte musicale.
+@item @code{music-strings-to-paths} @var{bool}
+Si @var{bool} est déterminé à @code{#t}, convertit les chaînes
+textuelles en chemins lorsque les glyphes font partie d'une fonte
+musicale. La valeur par défaut est @code{#f}.
 
 @cindex paper-size, ligne de commande
-@item @code{paper-size}
-@tab @code{\"a4\"}
-@tab Détermine la taille par défaut du papier.  Veillez à ne pas oublier
-d'encadrer la valeur par des guillemets échappés (@code{\"}).
+@item @code{paper-size} @var{chaîne-entre-guillemets}
+Détermine la taille par défaut du papier à
+@var{chaîne-entre-guillemets}. Veillez à ne pas oublier d'encadrer la
+valeur par des guillemets échappés (@code{\"}).La valeur par défaut est
+@code{"\"a4\""}.
 @c Match " in context-sensitive editors
 
-@item @code{pixmap-format}
-@tab @code{png16m}
-@tab Détermine le format de sortie en images pixélisées pour
-Ghostscript.
+@item @code{pixmap-format} @var{symbole}
+Détermine le format de sortie en images pixélisées pour Ghostscript à
+@var{symbole}. La valeur par défaut est @code{png16m}.
 
-@item @code{point-and-click}
-@tab @code{#t}
-@tab Ajoute les liens « point & click » à la sortie PDF ou SVG.  Voir
-@ref{Pointer-cliquer}.
+@item @code{point-and-click} @var{bool}
+Si @var{bool} est déterminé à @code{#t}, ajoute les liens « point &
+click » à la sortie PDF ou SVG -- voir @ref{Pointer-cliquer}. La valeur
+par défaut est @code{#t}.
 
 @cindex format de sortie, définition
 @cindex preview, ligne de commande
-@item @code{preview}
-@tab @code{#f}
-@tab Génère une prévisualisation en plus de la sortie normale.
-@end multitable
+@item @code{preview} @var{bool}
+Si @var{bool} est déterminé à @code{#t}, génère une prévisualisation en
+plus de la sortie normale. La valeur par défaut est @code{#f}.
 
-@noindent
 Cette option, disponible dans tous les formats de sortie imprimables --
-@code{pdf}, @code{png}, @code{ps}, @code{eps} et @code{svg} -- génère
-un fichier de la forme @code{monFichier.preview.extension} comprenant le
-titrage et le premier système.  S'il existe plusieurs sections
+rendus @code{pdf}, @code{png}, @code{ps}, @code{eps} et @code{svg} --
+génère un fichier de la forme
+@file{@var{fichierSource}@code{.preview.}@var{rendu}} comprenant le
+titrage et le premier système. S'il existe plusieurs sections
 @code{\book} ou @code{\bookpart}, ce fichier contiendra les titrage et
 premier système de chacun des @code{\book}, @code{\bookpart} et
 @code{\score}, dès lors que la variable @code{print-all-headers} du bloc
@@ -717,60 +792,56 @@ premier système de chacun des @code{\book}, @code{\bookpart} et
 Pour l'éviter, utilisez conjointement l'une des options
 @option{-dprint-pages} ou @option{-dno-print-pages} selon vos besoins.
 
-@multitable @columnfractions .33 .16 .51
-@item @code{print-pages}
-@tab @code{#t}
-@tab Génère l'intégralité des pages de la partition.  L'option
-@option{-dno-print-pages} est particulièrement utile lorsqu'utilisée
-conjointement avec les options @option{-dpreview} et @option{-dcrop}.
+@item @code{print-pages} @var{bool}
+Si @var{bool} est déterminé à @code{#t}, génère l'intégralité des pages
+de la partition. La valeur par défaut est @code{#t}.
 
-@item @code{profile-property-accesses}
-@tab @code{#f}
-@tab Enregistre des statistiques des appels à la fonction
-@code{get_property()}.
+L'option @option{-dno-print-pages} est particulièrement
+utile lorsqu'utilisée conjointement avec les options @option{-dpreview}
+et @option{-dcrop}.
 
-@item @code{protected-scheme-parsing}
-@tab @code{#t}
-@tab Continue en dépit des erreurs que l'analyseur syntaxique
-détecterait dans du code Scheme inclus.  Lorsque basculé sur @code{#f},
-stoppe le traitement s'il y a erreur et affiche une trace de la pile.
+@item @code{profile-property-accesses} @var{bool}
+Si @var{bool} est déterminé à @code{#t}, enregistre des statistiques des
+appels à la fonction @code{get_property()}. La valeur par défaut est
+@code{#f}.
 
-@item @code{read-file-list}
-@tab @code{#f [fichier]}
-@tab Spécifie un fichier listant les différents fichiers sources à
-traiter.
+@item @code{protected-scheme-parsing} @var{bool}
+Si @var{bool} est déterminé à @code{#t}, continue en dépit des erreurs
+que l'analyseur syntaxique détecterait dans du code Scheme inclus.
+Lorsque basculé sur @code{#f}, stoppe le traitement s'il y a erreur et
+affiche une trace de la pile. La valeur par défaut est @code{#t}.
 
-@item @code{relative-includes}
-@tab @code{#f}
-@tab Face à une instruction @code{\include}, recherche les fichiers à
-inclure relativement à l'endroit où se trouve le fichier en cours de
-traitement plutôt que par rapport au fichier maître.
+@item @code{read-file-list} @var{chaîne}
+Spécifie un fichier @file{@var{chaîne}} listant les différents fichiers
+sources à traiter. La valeur par défaut est @code{#f}, autrement dit
+absence de fichier de liste.
 
-@item @code{resolution}
-@tab @code{101}
-@tab Détermine, en @code{dpi}, la résolution des pixmaps @code{PNG} à
-générer selon la valeur donnée.
+@item @code{relative-includes} @var{bool}
+Face à une instruction @code{\include}, recherche les fichiers à inclure
+relativement à l'endroit où se trouve le fichier en cours de traitement
+si @var{bool} est déterminé à @code{#t}, plutôt que par rapport au
+fichier maître. La valeur par défaut est @code{#f}.
 
-@item @code{safe}
-@tab @code{#f}
-@tab Ne pas avoir une confiance aveugle dans le code @file{.ly}.
-@end multitable
+@item @code{resolution} @var{num}
+Détermine la résolution des pixmaps @code{PNG}  à générer à @var{num}
+@code{dpi}. La valeur par défaut est @code{101}.
 
-@noindent
+@item @code{safe} @var{#f}
+Si @var{bool} est déterminé à @code{#t}, ne pas avoir une confiance
+aveugle dans le code @file{.ly}. La valeur par défaut est @code{#f}.
+
 Lorsque LilyPond est accessible au travers d'un serveur web, il est
 @strong{impératif} d'utiliser les options @option{--safe} ou
 @option{--jail}.  L'option @option{--safe} aura pour effet d'empêcher
 tout code Scheme inclus de mettre en péril votre installation grâce à
 quelque chose du style
 
-@quotation
-@verbatim
-#(s ystem "rm -rf /") % trop dangereux à écrire sans faute
-{
-  c4^$(ly:gulp-file "/etc/passwd") % malveillant mais pas destructeur
-}
-@end verbatim
-@end quotation
+@example
+% trop dangereux à écrire sans faute
+#(s ystem "rm -rf /")
+% malveillant mais pas destructeur
+@{ c4^$(ly:gulp-file "/etc/passwd") @}
+@end example
 
 L'option @code{-dsafe} forcera l'évaluation, au fil de l'eau et par un
 module sécurisé, des expressions Scheme contenues dans le fichier
@@ -797,41 +868,41 @@ L'option @code{--jail} est dans ce cas une excellente alternative en
 terme de sécurité, même si elle requiert plus de temps à mettre en place
 -- voir @ref{Options basiques de lilypond}.
 
-@multitable @columnfractions .33 .16 .51
-@item @code{separate-log-files}
-@tab @code{#f}
-@tab Pour les fichiers @code{FICHIER1.ly}, @code{FICHIER2.ly}, etc.
-enregistre le déroulement dans les journaux @code{FICHIER1.log},
-@code{FICHIER2.log}@dots{}
+@item @code{separate-log-files} @var{bool}
+Pour les fichiers @file{fichier1.ly}, @file{fichier2.ly}, etc.
+enregistre le déroulement dans les journaux @file{fichier1.log},
+@file{fichier2.log}@dots{} si @var{bool} est déterminé à @code{#t}. La
+valeur par défaut est @code{#f}.
 
-@item @code{show-available-fonts}
-@tab @code{#f}
-@tab Liste le nom des fontes disponibles.
+@item @code{show-available-fonts} @var{bool}
+Si @var{bool} est déterminé à @code{#t}, liste le nom des fontes
+disponibles tel que le ressort la bibliothèque fontconfig. LilyPond
+ajoute à cette liste les réglages et la configuration de fontconfig. La
+valeur par défaut est @code{#t}.
 
-@item @code{strict-infinity-checking}
-@tab @code{#f}
-@tab Force le crash en présence des points d'exception de virgule
-flottante @code{Inf} ou @code{NaN} -- infini ou non-nombre.
+@item @code{strict-infinity-checking} @var{bool}
+Si @var{bool} est déterminé à @code{#t}, force le crash en présence des
+points d'exception de virgule flottante @code{Inf} ou @code{NaN} --
+infini ou non-nombre. La valeur par défaut est @code{#f}.
 
-@item @code{strip-output-dir}
-@tab @code{#t}
-@tab Supprime, lors du nommage des fichiers résultant, la partie
-correspondant au répertoire des fichiers sources.
+@item @code{strip-output-dir} @var{bool}
+Si @var{bool} est déterminé à @code{#t}, supprime, lors du nommage des
+fichiers résultant, la partie correspondant au répertoire des fichiers
+sources. La valeur par défaut est @code{#t}.
 
-@item @code{strokeadjust}
-@tab @code{#f}
-@tab Force l'ajustement des traits PostScript.  Cette option trouve
-toute son utilité pour générer du PDF à partir de PostScript --
-l'ajustement des traits est en principe automatiquement activé pour les
-périphériques bitmap à faible résolution.  Sans cette option, les
-visionneurs de PDF ont tendance à ne pas rendre de manière constante
-l'épaisseur des hampes dans les résolutions habituelles des écrans.
-Bien que n'affectant pas notoirement la qualité d'impression, cette
-option accroit notablement la taille des fichiers PDF.
+@item @code{strokeadjust} @var{bool}
+Si @var{bool} est déterminé à @code{#t}, force l'ajustement des traits
+PostScript. Cette option trouve toute son utilité pour générer du PDF à
+partir de PostScript -- l'ajustement des traits est en principe
+automatiquement activé pour les périphériques bitmap à faible
+résolution. Sans cette option, les visionneurs de PDF ont tendance à ne
+pas rendre de manière constante l'épaisseur des hampes dans les
+résolutions habituelles des écrans. Bien que n'affectant pas notoirement
+la qualité d'impression, cette option accroit notablement la taille des
+fichiers PDF. La valeur par défaut est @code{#f}.
 
-@item @code{svg-woff}
-@tab @code{#f}
-@tab Cette option est obligatoire dès lors que sont utilisées, avec le
+@item @code{svg-woff} @var{bool}
+Cette option est obligatoire dès lors que sont utilisées, avec le
 moteur @code{svg}, les fontes @emph{Web Open Font Format} (WOFF). Un
 fichier SVG sera généré pour chacune des pages produites. En dehors des
 glyphes musicaux propres à LilyPond, aucune autre information ne sera
@@ -839,7 +910,7 @@ incluse. Quelque soit le visionneur de SVG utilisé, il devra avoir à
 disposition les fontes requises pour pouvoir afficher les éléments
 textuels et les paroles. Dans la mesure où le visionneur pourrait ne pas
 savoir le gérer, mieux vaut s'abstenir de recourir aux alias ou listes
-de fontes.
+de fontes. La valeur par défaut est @code{#f}.
 
 Lorsque celles-ci sont utilisées correctement, nul n'est besoin
 d'installer les fontes que les fichiers SVG utiliseront dans
@@ -847,26 +918,27 @@ l'environnement du visionneur.  Néanmoins, LilyPond ne dispose pas de
 fichier de fonte @code{woff} textuelle.  La présence du fichier de fonte
 @code{woff} est un prérequis.
 
-@item @code{trace-memory-frequency}
-@tab @code{#f}
-@tab Enregistre l'utilisation de la cellule Scheme plusieurs fois par
-seconde, dans les fichiers @code{FICHIER.stacks} et
-@code{FICHIER.graph}.
+@item @code{trace-memory-frequency} @var{bool}
+Si @var{bool} est déterminé à @code{#t}, enregistre l'utilisation de la
+cellule Scheme pour @file{fichier.ly} plusieurs fois par
+seconde, dans les fichiers @file{fichier.stacks} et
+@file{fichier.graph}. La valeur par défaut est @code{#f}.
 
-@item @code{trace-scheme-coverage}
-@tab @code{#f}
-@tab Enregistre la couverture des fichiers Scheme dans @code{FILE.cov}.
+@item @code{trace-scheme-coverage} @var{bool}
+Si @var{bool} est déterminé à @code{#t}, enregistre la couverture des
+fichiers Scheme dans @file{fichier.cov} lors du traitement de
+@file{fichier.ly}. La valeur par défaut est @code{#f}.
 
 @item @code{verbose}
-@tab @code{#f}
-@tab Passe en mode verbeux, ce qui correspond à un niveau de
-journalisation @code{DEBUG} (lecture seule).
+Passe en mode verbeux, ce qui correspond à un niveau de journalisation
+@code{DEBUG} (lecture seule).
 
-@item @code{warning-as-error}
-@tab @code{#f}
-@tab Considère tous les messages d'avertissement et « erreur de
-programmation » comme étant de véritables erreurs.
-@end multitable
+@item @code{warning-as-error} @var{bool}
+Si @var{bool} est déterminé à @code{#t}, considère tous les messages
+d'avertissement et « erreur de programmation » comme étant de véritables
+erreurs. La valeur par défaut est @code{#f}.
+
+@end table
 
 
 @node Variables d'environnement

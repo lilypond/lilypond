@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 1e25c9708270bc41e99739da59500286ad11114c
+   Translation of GIT committish: 032de07c17caacd038f113ebcb54e9c473d64e0f
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -102,7 +102,7 @@ Morceaux choisis :
 @funindex \open
 @funindex \romanStringNumbers
 
-@cindex indications d'archet
+@cindex indication d'archet
 @cindex poussé, indication d'archet
 @cindex tiré, indication d'archet
 @cindex indication de corde à vide
@@ -156,11 +156,10 @@ Manuel de notation :
 
 @strong{@i{Harmoniques naturels}}
 
-@cindex harmoniques naturels
-@cindex naturels, harmoniques
+@cindex harmonique naturel
+@cindex naturel, harmonique
 @cindex tête de note en losange
 @cindex losange, tête de note
-
 @funindex \harmonicsOn
 @funindex \harmonicsOff
 
@@ -225,9 +224,9 @@ Manuel de notation :
 @translationof Snap (Bartók) pizzicato
 
 @cindex pizzicato, Bartók
-@cindex pizzicato, snap
+@cindex pizzicato, @emph{snap}
 @cindex Bartók pizzicato
-@cindex snap pizzicato
+@cindex @emph{snap} pizzicato
 
 Un @notation{snap pizzicato}, aussi appelé « Bartok pizz » est un type
 de pizzicato pour lequel la corde est tirée vers le haut (plutôt que sur

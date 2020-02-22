@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: a0f1e4d8aa9632b4324f140a56354597edd7ad87
+   Translation of GIT committish: 032de07c17caacd038f113ebcb54e9c473d64e0f
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -49,9 +49,9 @@ et aborderons la manière de générer vos propres signes.
 @unnumberedsubsubsec Articulations et ornements
 @translationof Articulations and ornamentations
 
-@cindex articulations
-@cindex symboles d'ornementation
-@cindex ornementation, symboles
+@cindex articulation
+@cindex symbole d'ornementation
+@cindex ornementation, symbole
 @cindex accent
 @cindex marcato
 @cindex staccatissimo
@@ -192,21 +192,35 @@ Pour plus d'information sur la manière d'ordonner @code{Scripts} et
 
 @snippets
 
+@cindex articulation, valeur par défaut, modification
+@funindex \dashBang
+@funindex \dashDash
+@funindex \dashDot
+@funindex \dashHat
+@funindex \dashLarger
+@funindex \dashPlus
+@funindex \dashUnderscore
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {modifying-default-values-for-articulation-shorthand-notation.ly}
 
+@cindex scripts, ordre vertical
+@cindex vertical, ordre des scripts
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {controlling-the-vertical-ordering-of-scripts.ly}
 
+@cindex grupetto décalé
+@cindex dacalé, grupetto
+@funindex suggestAccidentals
+@funindex AccidentalSuggestion
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {creating-a-delayed-turn.ly}
 
 @seealso
 Glossaire musicologique :
-@rglos{tenuto},
 @rglos{accent},
+@rglos{portato},
 @rglos{staccato},
-@rglos{portato}.
+@rglos{tenuto}.
 
 Manuel d'initiation :
 @rlearning{Positionnement des objets}.
@@ -276,9 +290,9 @@ d'information, consultez @ref{Direction et positionnement}.
 @cindex decrescendo
 @cindex diminuendo
 
-@funindex \<
-@funindex \>
-@funindex \!
+@funindex @sortas{<B} \<
+@funindex @sortas{>B} \>
+@funindex @sortas{!B} \!
 @funindex \cr
 @funindex \decr
 @funindex \endcr
@@ -359,7 +373,7 @@ qu'il s'agit d'une articulation, et en aucun cas d'une nuance.
 
 @funindex \cresc
 @funindex \decresc
-@funindex \dim
+@funindex @sortas{dimB} \dim
 
 La commande @code{\cresc} permet d'indiquer textuellement le début d'un
 crescendo.  @code{\decresc} ou @code{\dim} marquent le début d'un
@@ -455,38 +469,58 @@ avec ou sans extenseur, ainsi que les indications de pédale.
 @snippets
 
 @cindex soufflet et barre de mesure
-
+@cindex barre de mesure et soufflet
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {setting-hairpin-behavior-at-bar-lines.ly}
 
+@cindex soufflet, longueur minimale
+@cindex longueur minimale, soufflet
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {setting-the-minimum-length-of-hairpins.ly}
 
+@cindex soufflet, déplacement de l'extrémité
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {moving-the-ends-of-hairpins.ly}
 
-@cindex al niente
-@cindex niente, al
-
+@cindex al niente, soufflet
+@cindex niente, al, soufflet
+@cindex soufflet, al niente
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {printing-hairpins-using-al-niente-notation.ly}
 
-@cindex Ferneyhough, soufflets
-@cindex soufflets Ferneyhough
+@cindex Ferneyhough, soufflet
+@cindex soufflet Ferneyhough
 @cindex ouvert, soufflet
 @cindex soufflet ouvert
 @cindex plat, soufflet
 @cindex soufflet plat
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {printing-hairpins-in-various-styles.ly}
 
+@cindex vertical, alignement de nuance
+@cindex alignement vertical, nuance
+@cindex nuance, alignement vertical
+@cindex vertical, alignement de script textuel
+@cindex script textuel, alignement vertical
+@cindex alignment vertical, script textuel
+@funindex DynamicLineSpanner
+@funindex \textLengthOn
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {vertically-aligned-dynamics-and-textscripts.ly}
 
+@cindex nuance, ligne de prolongation, masquage
+@cindex masquage, nuance, ligne de prolongation
+@cindex ligne de prolongation, nuance, masquage
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {hiding-the-extender-line-for-text-dynamics.ly}
 
+@cindex nuance textuelle, style
+@cindex texte, nuance, style
+@cindex style, nuance textuelle
+@funindex crescendoText
+@funindex crescendoSpanner
+@funindex decrescendoText
+@funindex decrescendoSpanner
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-text-and-spanner-styles-for-text-dynamics.ly}
 
@@ -521,7 +555,7 @@ Référence des propriétés internes :
 @translationof New dynamic marks
 
 @cindex indication de nuance, personnalisation
-@cindex nuances personnalisées
+@cindex nuance personnalisée
 
 La manière la plus simple de personnaliser une indication de nuance
 consiste à utiliser un objet @code{\markup}.
@@ -673,6 +707,8 @@ et sauts.
 
 @cindex legato
 @cindex liaison d'articulation
+@funindex @sortas{(A} (
+@funindex @sortas{)A} )
 
 Une liaison d'articulation indique que les notes doivent être jouées
 liées, ou @emph{legato}.  Ces liaisons s'indiquent au moyen de
@@ -705,6 +741,10 @@ portée, comme indiqué au chapitre @ref{Direction et positionnement}.
 @cindex liaisons d'articulation simultanées
 @cindex multiples, liaisons d'articulation
 @cindex simultanées, liaisons d'articulation
+
+@c exception: don't use `@sortas' here since some entries for `\=' are
+@c autogenerated (thus missing `@sortas')
+@funindex \=
 
 Plusieurs liaisons peuvent intervenir simultanément ou concurremment, ce
 qui requiert une attention spéciale.  Dans la majorité des cas, la
@@ -804,12 +844,21 @@ liaison :
 
 @snippets
 
+@cindex liaison doublée, pour legato d'accords
+@cindex doublée, legato d'accords
+@findex doubleSlurs
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {using-double-slurs-for-legato-chords.ly}
 
+@cindex liaison et texte
+@cindex texte et liaison
+@cindex texte, inclusion dans une liaison
+@cindex liaison, inclusion de texte
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {positioning-text-markups-inside-slurs.ly}
 
+@cindex slur, defining dash patterns
+@cindex dash patterns, slur
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {making-slurs-with-complex-dash-structure.ly}
 
@@ -835,11 +884,11 @@ Référence des propriétés internes :
 @unnumberedsubsubsec Liaisons de phrasé
 @translationof Phrasing slurs
 
-@cindex liaisons de phrasé
-@cindex phrasé, liaisons de
+@cindex liaison de phrasé
+@cindex phrasé, liaison de
 
-@funindex \(
-@funindex \)
+@funindex @sortas{(B} \(
+@funindex @sortas{(B} \)
 
 Une liaison de phrasé relie plusieurs notes en délimitant une phrase
 musicale.  On indique les points de départ et d'arrivée avec @code{\(}
@@ -865,8 +914,8 @@ liaisons de phrasé par rapport à la portée, comme indiqué au chapitre
 
 @cindex liaisons de phrasé multiples
 @cindex liaisons de phrasé simultanées
-@cindex multiples, liaisons de phrasé
-@cindex simultanées, liaisons de phrasé
+@cindex multiple, liaison de phrasé
+@cindex simultanée, liaison de phrasé
 
 Plusieurs liaisons de phrasé peuvent intervenir en même temps, dès lors
 qu'elles sont labellisées, comme des liaisons normales -- voir
@@ -1008,16 +1057,18 @@ voir @ref{Divisions}.
 
 @snippets
 
+@cindex respiration, modification du symbole
+@cindex signe de respiration, modification
+@cindex modification, respiration, signe
+@funindex BreathingSign
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-breath-mark-symbol.ly}
 
 @cindex coche
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {using-a-tick-as-the-breath-mark-symbol.ly}
 
 @cindex césure
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {inserting-a-caesura.ly}
 
@@ -1041,9 +1092,8 @@ Référence des propriétés internes :
 @unnumberedsubsubsec Chutes et sauts
 @translationof Falls and doits
 
-@cindex chutes
-@cindex sauts
-
+@cindex chute
+@cindex saut
 @funindex \bendAfter
 
 Des indications de désinence peuvent être obtenues au moyen de la
@@ -1097,7 +1147,6 @@ d'aspect linéaire, tels les glissandos, arpèges et trilles.
 @translationof Glissando
 
 @cindex glissando
-
 @funindex \glissando
 
 Un glissando relie une hauteur à une autre en passant par chaque hauteur
@@ -1161,15 +1210,23 @@ vaguelettes -- voir @ref{Styles de ligne}.
 
 @snippets
 
+@cindex contemporain, glissando
+@cindex glissando contemporain
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {contemporary-glissando.ly}
 
+@cindex glissando, marque temporelle
+@cindex marque temporelle, glissando
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adding-timing-marks-to-long-glissandi.ly}
 
+@cindex glissando tronqué
+@cindex tronqué, glissando
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {making-glissandi-breakable.ly}
 
+@cindex glissando et reprise
+@cindex reprise et glissando
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {extending-glissandi-across-repeats.ly}
 
@@ -1228,7 +1285,8 @@ LilyPond dispose de différents graphismes pour indiquer un arpège ;
 }
 @end lilypond
 
-@cindex arpège, symboles spéciaux
+@cindex arpège, symbole spécial
+@cindex symbole, arpège
 
 @funindex \arpeggioBracket
 @funindex \arpeggioParenthesis
@@ -1275,12 +1333,17 @@ liaisons de tenue.  Pour plus d'information, voir
 
 @snippets
 
+@cindex arpège, portée, enjambement
+@cindex portée, arpège, enjambement
+@cindex enjambement de portée, arpège
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {creating-cross-staff-arpeggios-in-a-piano-staff.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {creating-cross-staff-arpeggios-in-other-contexts.ly}
 
+@cindex arpège, voix, enjambement
+@cindex voix, arpège, enjambement
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {creating-arpeggios-across-notes-in-different-voices.ly}
 
@@ -1316,7 +1379,7 @@ n'est pas opérationnelle pour des arpèges inter-portées ; voir
 @unnumberedsubsubsec Trilles
 @translationof Trills
 
-@cindex trilles
+@cindex trille
 
 @funindex \trill
 @funindex \startTrillSpan
@@ -1377,7 +1440,7 @@ les notes d'ornement avec précision est expliquée au chapitre
 @end lilypond
 
 @cindex trilles avec hauteur explicite
-
+@cindex hauteur explicite, trille
 @funindex \pitchedTrill
 
 Les trilles qui font intervenir une hauteur précise peuvent être
@@ -1396,10 +1459,24 @@ tête de note noire entre parenthèses.
 @cindex trilles avec hauteur explicite et altération
 @cindex altération, trilles avec hauteur explicite
 
-Dans l'exemple suivant, le second trille de la deuxième mesure est
-ambigu -- le fa qui est forcé n'est pas diésé.  Pour lever toute
-ambiguïté, il suffit de forcer l'impression de l'altération en
-ajoutant un @code{!} à la note considérée.
+L'altération de cette hauteur explicite sera indiquée automatique pour
+le premier trille d'une mesure, même s'il s'agit d'un bécarre.
+
+@lilypond[verbatim,quote,relative]
+{
+  \key d \major
+  \pitchedTrill
+  d'2\startTrillSpan cis d\stopTrillSpan
+  \pitchedTrill
+  d2\startTrillSpan c d\stopTrillSpan
+  \pitchedTrill
+  d2\startTrillSpan e d\stopTrillSpan
+}
+@end lilypond
+
+@noindent
+L'impression de l'altération (sur la même note dans la même mesure)
+devra être forcée en ajoutant un @code{!} à la note considérée.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -1417,6 +1494,7 @@ ajoutant un @code{!} à la note considérée.
   eis4\stopTrillSpan
 }
 @end lilypond
+
 
 @predefined
 @code{\startTrillSpan},

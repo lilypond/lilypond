@@ -305,12 +305,12 @@ Für LilyPond Version @version{}
 
 @macro rchanges{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,changes-big-page,Changes}
+@ref{\TEXT\,,,changes-big-page,Änderungen}
 @end macro
 
 @macro rchangesnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,changes-big-page,Changes}
+@ref{\TEXT\,,\DISPLAY\,changes-big-page,Änderungen}
 @end macro
 
 @macro rcontrib{TEXT}
@@ -412,12 +412,12 @@ Für LilyPond Version @version{}
 
 @macro rchanges{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-changes,Changes}
+@ref{\TEXT\,,,changes,Änderungen}
 @end macro
 
 @macro rchangesnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,lilypond-changes,Changes}
+@ref{\TEXT\,,\DISPLAY\,changes,Änderungen}
 @end macro
 
 @macro rextend{TEXT}
@@ -524,12 +524,12 @@ Für LilyPond Version @version{}
 
 @macro rchanges{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-changes,Changes}
+@ref{\TEXT\,,,lilypond-changes,Änderungen}
 @end macro
 
 @macro rchangesnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,lilypond-changes,Changes}
+@ref{\TEXT\,,\DISPLAY\,lilypond-changes,Änderungen}
 @end macro
 
 @macro rextend{TEXT}
@@ -653,12 +653,12 @@ Für LilyPond Version @version{}
 
 @macro rchanges{TEXT}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,,changes,Changes}
+@ref{\TEXT\,,,changes,Änderungen}
 @end macro
 
 @macro rchangesnamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,changes,Changes}
+@ref{\TEXT\,,\DISPLAY\,changes,Änderungen}
 @end macro
 
 @macro rextend{TEXT}

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: a0f1e4d8aa9632b4324f140a56354597edd7ad87
+    Translation of GIT committish: 032de07c17caacd038f113ebcb54e9c473d64e0f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -253,9 +253,7 @@ On peut choisir d'autres mises en forme si l'on définit la propriété
 @code{drumStyleTable} dans le contexte @code{DrumVoice}.
 Quelques variables prédéfinies sont disponibles :
 
-@c TODO: decide what to do about this table.  (ie verbatim or not)
 @table @code
-
 @item drums-style
 La notation par défaut : une batterie standard, sur une portée de cinq
 lignes.
@@ -426,14 +424,39 @@ mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
 @end lilypond
 @end table
 
+Il est par ailleurs possible de définir son propre style, comme indiqué
+dans @ref{Personnalisation de portées de percussion}.
+
+@seealso
+Manuel d'initiation :
+@rlearning{J'entends des Voix}.
+
+Manuel de notation :
+@ref{Personnalisation de portées de percussion}.
+
+Fichiers d'initialisation :
+@file{ly/drumpitch-init.ly}.
+
+Morceaux choisis :
+@rlsr{Percussion}.
+
 
 @node Personnalisation de portées de percussion
 @unnumberedsubsubsec Personnalisation de portées de percussion
 @translationof Custom percussion staves
 
-LilyPond offre la possibilité de construire son propre style de percussion
-en tête de fichier et de définir le @code{drumStyleTable} utilisé dans
-le @code{DrumStaff}.
+@cindex percussions, personnalisation
+@funindex drumStyleTable
+
+LilyPond offre la possibilité de construire son propre style de
+percussion grâce à une définition de la propriété @code{drumStyleTable}.
+Les notations existantes peut se redéfinir au travers d'une liste
+associative dans laquelle chaque entrée doit comporter quatre éléments :
+un nom, le style de tête de note (ou @code{default}), un éventuel signe
+d'articulation (ou @code{#f} dans le cas contraire) et, enfin, le
+positionnement de la tête de note sur la portée. Cette liste devra alors
+être convertie en table de hachage à l'aide de la fonction
+@code{alist->hash-table}.
 
 @lilypond[quote,verbatim]
 #(define mydrums '(
@@ -454,17 +477,113 @@ down = \drummode { bd4 sn bd toml8 toml }
 >>
 @end lilypond
 
+@funindex drumPitchNames
+
+De nouveaux noms peuvent venir s'ajouter à ces notations personnalisées
+grâce à la variable @code{drumPitchNames} qui peut être redéfinie en
+tant que liste associative (ou augmentée par ajout d'une nouvelle
+liste aux valeurs existantes comme indiqué ci-dessous). Ceci permet par
+ailleurs de définir des alias : raccourcis pour la saisie de certaines
+notations.
+
+@lilypond[quote,verbatim]
+drumPitchNames =
+  #(append
+    '((leftsnap . sidestick)
+      (rightsnap . ridecymbal))
+    drumPitchNames)
+
+drumPitchNames.ls = #'sidestick
+drumPitchNames.rs = #'ridecymbal
+
+\drums {
+  leftsnap4. rightsnap8 leftsnap4 rightsnap
+  ls8 rs ls rs ls4 rs
+}
+@end lilypond
+
+@funindex midiDrumPitches
+@funindex drumPitchTable
+
+De la même manière, la propriété @code{drumPitchTable} associe une
+hauteur spécifique (autrement dit un son instrumental différent tel que
+fourni par les fontes sonores MIDI disponibles) à chaque notation. Cette
+propriété requiert d'être définie sous forme de table de hachage,
+convertie elle aussi à partir d'une liste associative (enregistrée par
+défaut en tant que variable @code{midiDrumPitches}). La redéfinition de
+ces associations s'effectue comme indiqué ci-dessus, soit en créant
+l'intégralité d'une liste associative, soit certains de ses membres.
+L'exemple ci-dessous démontre la manière de créer un jeu entier de
+notation, avec sa propre syntaxe de saisie, sa notation personnalisée et
+les instruments MIDI correspondants.
+
+@lilypond[quote,verbatim]
+drumPitchNames.dbass      = #'dbass
+drumPitchNames.dba        = #'dbass  % 'db is in use already
+drumPitchNames.dbassmute  = #'dbassmute
+drumPitchNames.dbm        = #'dbassmute
+drumPitchNames.do         = #'dopen
+drumPitchNames.dopenmute  = #'dopenmute
+drumPitchNames.dom        = #'dopenmute
+drumPitchNames.dslap      = #'dslap
+drumPitchNames.ds         = #'dslap
+drumPitchNames.dslapmute  = #'dslapmute
+drumPitchNames.dsm        = #'dslapmute
+
+#(define djembe-style
+  '((dbass      default  #f         -2)
+    (dbassmute  default  "stopped"  -2)
+    (dopen      default  #f          0)
+    (dopenmute  default  "stopped"   0)
+    (dslap      default  #f          2)
+    (dslapmute  default  "stopped"   2)))
+
+midiDrumPitches.dbass     = g
+midiDrumPitches.dbassmute = fis
+midiDrumPitches.dopen     = a
+midiDrumPitches.dopenmute = gis
+midiDrumPitches.dslap     = b
+midiDrumPitches.dslapmute = ais
+
+test = \drummode { dba4 do ds dbm dom dsm }
+
+\score {
+  \new DrumStaff \with {
+    \override StaffSymbol.line-count = #3
+    instrumentName = "Djembé "
+    drumStyleTable = #(alist->hash-table djembe-style)
+    drumPitchTable = #(alist->hash-table midiDrumPitches)
+  } {
+    \time 3/4
+    \test
+  }
+  \layout {}
+  \midi {}
+}
+@end lilypond
+
+@seealso
+Fichiers d'initialisation :
+@file{ly/drumpitch-init.ly}.
+
+Morceaux choisis :
+@rlsr{Percussion}.
+
+Référence des propriétés internes :
+@rinternals{DrumStaff},
+@rinternals{DrumVoice}.
+
 
 @node Notes fantômes
 @unnumberedsubsubsec Notes fantômes
 @translationof Ghost notes
 
-@cindex Fantôme, note, percussion
-@cindex Silencieuse, note, percussion
-@cindex Fausse note, percussion
-@cindex Percussion, note fantôme
-@cindex Percussion, note silencieuse
-@cindex Percussion, fausse note
+@cindex fantôme, note, percussion
+@cindex silencieuse, note, percussion
+@cindex fausse note, percussion
+@cindex percussion, note fantôme
+@cindex percussion, note silencieuse
+@cindex percussion, fausse note
 
 Des notes fantômes, qu'on appelle aussi en anglais @emph{dead, muted,
 silenced ou false} notes, peuvent être créées pour les parties de

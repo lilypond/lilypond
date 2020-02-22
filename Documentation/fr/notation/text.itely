@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 4944e92191308c589f9ed1d3796c6403a2280d18
+   Translation of GIT committish: 032de07c17caacd038f113ebcb54e9c473d64e0f
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -42,7 +42,7 @@ chapitres qui leur sont dédiés.  C'est le cas de la
 Cette partie constitue une introduction aux différentes manières
 d'ajouter du texte à une partition.
 
-@cindex Texte, autres langues
+@cindex texte, autres langues
 @warning{Pour écrire des accents et autres caractères spéciaux, il
 suffit de les insérer directement dans votre fichier LilyPond.  Ce
 fichier devra être sauvegardé avec l'encodage UTF-8.  Pour plus
@@ -129,7 +129,7 @@ Référence des propriétés internes :
 @rinternals{TextScript}.
 
 @cindex texte hors marges
-@cindex marges, texte qui dépasse
+@cindex marge, texte qui dépasse
 @cindex texte, maintien dans les marges
 
 @knownissues
@@ -199,6 +199,9 @@ Les détails concernant la syntaxe à utiliser sont expliqués au chapitre
 @endpredefined
 
 @snippets
+
+@cindex nuance, extension, personnalisation
+@cindex extenseur, nuance, personnalisation
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {dynamics-text-spanner-postfix.ly}
 
@@ -230,7 +233,7 @@ LilyPond ne peut traiter qu'un seul extenseur à la fois par voix.
 @cindex coda sur une barre de mesure
 @cindex segno sur une barre de mesure
 @cindex point d'orgue sur une barre de mesure
-@cindex barres de mesure, symboles au dessus de
+@cindex barre de mesure, symbole au dessus
 
 @funindex \mark
 @funindex \markup
@@ -309,9 +312,15 @@ de la ligne suivante.
 @endpredefined
 
 @snippets
+
+@cindex fin de ligne, repère, positionnement
+@cindex repère, positionnement en fin de ligne
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-marks-at-the-end-of-a-line.ly}
 
+@cindex, repère, sur toutes les portées
+@funindex Mark_engraver
+@funindex Staff_collecting_engraver
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-marks-on-every-staff.ly}
 
@@ -386,6 +395,9 @@ détail au chapitre @ref{Texte avec sauts de page}.
 @endpredefined
 
 @snippets
+
+@cindex texte en colonnes
+@cindex colonnes, texte
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {stand-alone-two-column-markup.ly}
 
@@ -435,10 +447,10 @@ forme du texte à l'aide de la syntaxe propre au mode @code{\markup}.
 La commande @code{\markup} permet d'ajouter du texte et dispose de sa
 propre syntaxe que nous appellerons le « mode @emph{markup} ».
 
-@cindex markup, expressions
-@cindex expressions markup
-@cindex markup, syntaxe
-@cindex syntaxe du mode markup
+@cindex @emph{markup}, expression
+@cindex expression @emph{markup}
+@cindex @emph{markup}, syntaxe
+@cindex syntaxe du mode @emph{markup}
 
 La syntaxe du mode @emph{markup} n'est pas différente de celle des
 autres modes de LilyPond : une expression @code{\markup} est bornée
@@ -466,11 +478,11 @@ expression qui les suit.
 
 @cindex caractères spéciaux en mode markup
 @cindex mode markup et caractères spéciaux
-@cindex caractères réservés, impression
-@cindex impression de caractères réservés
+@cindex caractère réservé, impression
+@cindex impression de caractère réservé
 @cindex impression de caractères spéciaux
-@cindex guillemets en mode markup
-@cindex mode markup et guillemets
+@cindex guillemets en mode @emph{markup}
+@cindex mode @emph{markup} et guillemets
 
 Un bloc @code{\markup} peut contenir du texte entre guillemets.  De
 telles chaînes seront considérées comme des expressions textuelles
@@ -569,7 +581,7 @@ fonte :
 }
 @end lilypond
 
-@cindex caractères, taille
+@cindex caractère, taille
 @cindex texte, taille
 
 @funindex \abs-fontsize
@@ -653,7 +665,7 @@ affectiez un taille normale :
 }
 @end lilypond
 
-@cindex fontes, familles
+@cindex fonte, famille
 
 Le mode @emph{markup} vous permet de sélectionner d'autres familles de
 fontes.  Par défaut, LilyPond utilise une police avec empattement, du
@@ -756,8 +768,8 @@ espacements nettement moins réguliers que si vous utilisez
 
 @cindex texte, alignement
 @cindex alignement du texte
-@cindex alignement des markups
-@cindex markups, alignement
+@cindex alignement des @emph{markups}
+@cindex @emph{markups}, alignement
 
 Cette partie traite de la manière de positionner du texte en mode
 @emph{markup}.  On déplace l'intégralité d'un objet @emph{markup} en
@@ -882,8 +894,8 @@ d'ancrage.
 }
 @end lilypond
 
-@cindex multiligne, markup
-@cindex markup multiligne
+@cindex multiligne, @emph{markup}
+@cindex @emph{markup} multiligne
 @cindex multiligne, texte
 @cindex texte multiligne
 @cindex texte en colonnes
@@ -914,7 +926,7 @@ sa propre ligne, tantôt alignée à gauche, tantôt centrée.
 
 @cindex centrage du texte sur la page
 @cindex texte, centrage sur la page
-@cindex markup, centrage sur la page
+@cindex @emph{markup}, centrage sur la page
 
 @funindex \fill-line
 
@@ -944,8 +956,8 @@ texte multiligne ou une autre expression @emph{markup}.
 @cindex justifié, texte
 @cindex texte justifié
 @cindex texte sur plusieurs lignes
-@cindex markup, texte au kilomètre
-@cindex markup, texte justifié
+@cindex @emph{markup}, texte au kilomètre
+@cindex @emph{markup}, texte justifié
 
 @funindex \wordwrap
 @funindex \justify
@@ -982,7 +994,7 @@ le montre l'exemple suivant :
 @end lilypond
 
 @cindex commandes d'alignement du texte
-@cindex markup, commandes d'alignement du texte
+@cindex @emph{markup}, commandes d'alignement du texte
 @cindex alignement du texte, commandes
 
 Une liste des différentes commandes permettant d'aligner du texte en
@@ -1011,10 +1023,10 @@ Référence des propriétés internes :
 @translationof Graphic notation inside markup
 
 @cindex graphisme, tracé
-@cindex tracé d'objets graphiques
-@cindex graphiques, tracé d'objets
+@cindex tracé d'objet graphique
+@cindex graphique, tracé d'objet
 @cindex intégration d'objet graphique
-@cindex objets graphiques, tracé
+@cindex objet graphique, tracé
 
 Vous pouvez, grâce au mode @emph{markup}, ajouter divers objets
 graphiques à votre partition.
@@ -1023,13 +1035,13 @@ graphiques à votre partition.
 @cindex encadrement du texte
 @cindex texte, encadrement
 @cindex texte, décoration
-@cindex markup, ornementation du texte
-@cindex markup, encadrement du texte
+@cindex @emph{markup}, ornementation du texte
+@cindex @emph{markup}, encadrement du texte
 
 @funindex \box
 @funindex \circle
 @funindex \rounded-box
-@funindex \bracket
+@funindex @sortas{bracketB} \bracket
 @funindex \hbracket
 
 Certaines commandes de @emph{markup} permettent d'ornementer des
@@ -1055,7 +1067,7 @@ suivant :
 
 @cindex espacement autour du texte
 @cindex texte et rembourrage
-@cindex markup, rembourrage du texte
+@cindex @emph{markup}, rembourrage du texte
 
 @funindex \pad-markup
 @funindex \pad-x
@@ -1089,8 +1101,8 @@ Flute quartet keeps very uneven time."
 @end lilypond
 
 @cindex graphisme dans la notation
-@cindex symboles non musicaux
-@cindex non musicaux, symboles
+@cindex symbole non musical
+@cindex non musical, symbole
 @cindex notation et graphisme
 
 @funindex \combine
@@ -1120,9 +1132,9 @@ n'importe quelle expression @emph{markup}.
 }
 @end lilypond
 
-@cindex intégration de graphiques
-@cindex images, intégration
-@cindex graphiques, intégration
+@cindex intégration de graphique
+@cindex image, intégration
+@cindex graphique, intégration
 @cindex postscript
 
 @funindex \epsfile
@@ -1180,9 +1192,9 @@ Référence des propriétés internes :
 @unnumberedsubsubsec Notation musicale dans du texte formaté
 @translationof Music notation inside markup
 
-@cindex notation dans un markup
-@cindex musique dans un markup
-@cindex markup, inclusion de musique
+@cindex notation dans un @emph{markup}
+@cindex musique dans un @emph{markup}
+@cindex @emph{markup}, inclusion de musique
 
 Divers éléments de notation peuvent orner une partition, au moyen d'un
 objet @emph{markup}.
@@ -1274,12 +1286,10 @@ certains instruments :
 La documentation sur ces diagrammes se trouve à l'annexe
 @ref{Instrument Specific Markup}.
 
-@cindex partition incluse dans un markup
-@cindex markup, inclusion de partition
+@cindex partition incluse dans un @emph{markup}
+@cindex @emph{markup}, inclusion de partition
 
-Rien ne s'oppose à ce qu'une étiquette ne comporte une partition.  Il
-suffit que l'expression en question contienne un bloc @code{\score}
-incluant un bloc @code{\layout}.
+Rien ne s'oppose à ce qu'une étiquette ne comporte une partition.
 
 @lilypond[quote,verbatim]
 \relative {
@@ -1324,9 +1334,9 @@ réglage au sein d'un bloc @code{\paper} est ignoré.
 @unnumberedsubsubsec Texte avec sauts de page
 @translationof Page wrapping text
 
-@cindex multi-page, markup
-@cindex markup  multi-page
-@cindex markup, texte multi-page
+@cindex multipage, @emph{markup}
+@cindex @emph{markup}  multipage
+@cindex @emph{markup}, texte multipage
 @cindex plusieurs pages de texte
 
 @funindex \markuplist
@@ -1409,10 +1419,10 @@ partition.
 @translationof Fonts explained
 
 @cindex Pango
-@cindex fontes, généralités
-@cindex accolades, taille
-@cindex fontes et markup
-@cindex markup et fontes
+@cindex fonte, généralités
+@cindex accolade, taille
+@cindex fonte et @emph{markup}
+@cindex @emph{markup} et fonte
 
 @funindex font-interface
 

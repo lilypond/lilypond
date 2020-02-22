@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: a0f1e4d8aa9632b4324f140a56354597edd7ad87
+   Translation of GIT committish: 032de07c17caacd038f113ebcb54e9c473d64e0f
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -48,8 +48,8 @@ ligature et de mesure.
 @unnumberedsubsubsec Durées
 @translationof Durations
 
-@cindex durées
-@cindex notes, longueur
+@cindex durée
+@cindex note, longueur
 @cindex longueur de note
 
 @funindex \longa
@@ -124,7 +124,7 @@ est la noire (@code{4}).
 \relative { a' a a2 a a4 a a1 a }
 @end lilypond
 
-@cindex notes pointées
+@cindex note pointée
 @cindex pointée, note
 @cindex doublement pointée, note
 @cindex point
@@ -169,9 +169,13 @@ cette forme de notation, reportez vous à @ref{Notation proportionnelle}.
 @endpredefined
 
 @snippets
+
+@cindex brève, style alternatif
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {alternative-breve-notes.ly}
 
+@cindex point d'augmentation, modification du nombre
+@cindex note pointée, nombre de points
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-the-number-of-augmentation-dots-per-note.ly}
 
@@ -213,8 +217,8 @@ soupir à la maxime (valant huit pauses).
 @unnumberedsubsubsec N-olets
 @translationof Tuplets
 
-@cindex n-olets
-@cindex triolets
+@cindex n-olet
+@cindex triolet
 
 @funindex \tuplet
 
@@ -238,6 +242,7 @@ triolet, dans lequel trois notes occupent la durée de deux.
 @end lilypond
 
 @cindex regroupement de n-olets
+@cindex n-olet, regroupment
 @noindent
 Dans le cas d'une succession de n-olets, saisir la commande
 @code{\tuplet} pour chacun des n-olets devient vite fastidieux.
@@ -291,28 +296,34 @@ comme indiqué au chapitre @ref{Changement d'échelle des durées}.
 
 @snippets
 
-@cindex n-olets, formatage
-@cindex triolets, formatage
-
+@cindex n-olet, formatage
+@cindex triolet, formatage
+@cindex n-olets successifs
 @funindex tupletNumberFormatFunction
 @funindex tupletSpannerDuration
-
+@funindex \tupletSpan
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {entering-several-tuplets-using-only-one--tuplet-command.ly}
 
 @cindex n-olet, modification du chiffre
-
+@cindex chiffre de n-olet, modification
 @funindex TupletNumber
-
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-the-tuplet-number.ly}
 
+@cindex n-olet, chiffrage inhabituel
+@cindex chiffre de n-olet inhabituel
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {non-default-tuplet-numbers.ly}
 
+@cindex n-olet, visibilité du crochet
+@cindex visibilité, crochet de n-olet
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {controlling-tuplet-bracket-visibility.ly}
 
+@cindex n-olet, ligature, saut de ligne
+@cindex ligature, n-olet, saut de ligne
+@funindex Forbid_line_break_engraver
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {permitting-line-breaks-within-beamed-tuplets.ly}
 
@@ -438,7 +449,7 @@ intermédiaire d'une valeur supérieure à 2^30, LilyPond s'arrêtera
 
 @cindex liaison de prolongation
 @cindex liaison de tenue
-@cindex yenue, liaison
+@cindex tenue, liaison
 
 @funindex ~
 
@@ -486,8 +497,8 @@ devient plus facile d'avoir recours à la division automatique des notes
 automatiquement les notes trop longues, et les lie par-delà les barres
 de mesure.
 
-@cindex liaison de tenue et accords
-@cindex accords et liaisons de tenue
+@cindex liaison de tenue et accord
+@cindex accord et liaisons de tenue
 
 Quand une liaison de tenue se trouve entre deux accords, toutes les
 notes de même hauteur entre ces deux accords sont reliées.  S'il n'y en
@@ -505,7 +516,7 @@ accords.
 
 @cindex liaison de tenue et répétition
 @cindex répétition et liaison de tenue
-@cindex reprises avec alternatives et liaisons de prolongation
+@cindex reprise avec alternative et liaison de prolongation
 @cindex liaison de prolongation et reprise avec alternative
 
 @funindex \repeatTie
@@ -539,7 +550,7 @@ lieu de l'étouffer.  Elles s'indiquent de la manière suivante :
  <c' f' g'>1\laissezVibrer
 @end lilypond
 
-@cindex liaisons de prolongation, positionnement
+@cindex liaison de prolongation, positionnement
 
 @funindex \tieUp
 @funindex \tieDown
@@ -627,9 +638,16 @@ permet d'obtenir une meilleure lisibilité.
 @endpredefined
 
 @snippets
+
+@cindex tenue et arpeggio
+@cindex arpeggio et tenue
+@funindex tieWaitForNote
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {using-ties-with-arpeggios.ly}
 
+@cindex tenue, gravure manuelle
+@cindex gravure manuelle, liaison de tenue
+@funindex TieColumn
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {engraving-ties-manually.ly}
 
@@ -679,7 +697,7 @@ notes.
 @unnumberedsubsubsec Silences
 @translationof Rests
 
-@cindex silences
+@cindex silence
 @cindex durée d'un silence
 @cindex double pause
 
@@ -763,9 +781,9 @@ soupir à la maxime (équivalant à huit pauses).
 @unnumberedsubsubsec Silences invisibles
 @translationof Invisible rests
 
-@cindex sauts de durée
-@cindex silences invisibles
-@cindex silences d'espacement
+@cindex saut de durée
+@cindex silence invisible
+@cindex silence d'espacement
 
 @funindex s
 @funindex \skip
@@ -782,7 +800,7 @@ peut être entré comme une note avec le nom de note @code{s} ou avec
 @end lilypond
 
 @cindex paroles, blanc
-@cindex paroles, saut de notes
+@cindex paroles, saut de note
 
 La syntaxe @code{s} est seulement disponible pour les modes d'entrée
 de notes et d'accords.  Dans les autres situations, pour l'entrée de
@@ -856,10 +874,10 @@ Référence des propriétés internes :
 @unnumberedsubsubsec Silences valant une mesure
 @translationof Full measure rests
 
-@cindex mesures à compter
+@cindex mesure à compter
 @cindex mesure entière de silence
-@cindex silences multimesures
-@cindex silences, mesure entière
+@cindex silence multimesure
+@cindex silence, mesure entière
 @cindex une pause par mesure
 
 @funindex \compressMMRests
@@ -991,19 +1009,23 @@ numéros de mesure.
 
 @cindex silence d'église
 @cindex kirchenpausen
-
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {multi-measure-rest-length-control.ly}
 
+@cindex silence multimesure, numérotation
+@funindex restNumberThreshold
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-form-of-multi-measure-rests.ly}
 
 @cindex silence multimesure, positionnement
 @cindex positionnement des silences multimesure
-
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {positioning-multi-measure-rests.ly}
 
+@cindex silence multimesure et @emph{markup}
+@cindex @emph{markup} et silence multimesure
+@funindex \textLengthOn
+@funindex \textLengthOff
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {multi-measure-rest-markup.ly}
 
@@ -1025,8 +1047,8 @@ Référence des propriétés internes :
 @rinternals{MultiMeasureRestNumber},
 @rinternals{MultiMeasureRestText}.
 
-@cindex doigtés et silences multimesure
-@cindex silences multimesure et doigtés
+@cindex doigté et silence multimesure
+@cindex silence multimesure et doigté
 
 @knownissues
 Vous ne pouvez pas utiliser de doigtés (par ex. @code{R1*10-4}) pour
@@ -1036,10 +1058,10 @@ de doigt (4) risquant de chevaucher le nombre de mesures à compter (10).
 @cindex condenser les silences
 @cindex silences, condenser les
 
-Condenser plusieurs silences en un unique silence multimesures ne peut
+Condenser plusieurs silences en un unique silence multimesure ne peut
 être automatisé.
 
-@cindex silences, collisions entre
+@cindex silences, collision entre
 
 Les silences multimesures peuvent générer des collisions avec d'autres
 silences.
@@ -1102,9 +1124,8 @@ indiqué au chapitre @ref{Visibilité des objets}.
 }
 @end lilypond
 
-@cindex métrique, styles
-@cindex styles de métrique
-
+@cindex métrique, style
+@cindex style de métrique
 @funindex \numericTimeSignature
 @funindex \defaultTimeSignature
 
@@ -1133,7 +1154,6 @@ Les métriques anciennes font l'objet d'un
 @cindex métrique par défaut
 @cindex ligature et métrique
 @cindex métrique et ligature
-
 @funindex \overrideTimeSignatureSettings
 
 En plus de déterminer la métrique qui sera imprimée, la commande
@@ -1211,7 +1231,7 @@ Vous pouvez revenir à tout moment aux réglages prédéterminés d'une
 métrique :
 
 @lilypond[quote,verbatim]
-\score{
+\score {
   \relative {
     \repeat unfold 8 { c'8 } |
     \overrideTimeSignatureSettings
@@ -1280,6 +1300,8 @@ rubrique @ref{Définition des règles de ligature automatique}.
 @endpredefined
 
 @snippets
+
+@cindex métrique, numérateur seulement
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly}
 
@@ -1400,14 +1422,20 @@ calculs d'espacement horizontal.
 @end lilypond
 
 @snippets
+
+@cindex tempo sous la portée
+@cindex repère, sous la portée
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {printing-metronome-and-rehearsal-marks-below-the-staff.ly}
 
 @c perhaps also an example of how to move it horizontally?
 
+@cindex tempo, changement masqué
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-tempo-without-a-metronome-mark.ly}
 
+@cindex tempo en @emph{markup}
+@cindex @emph{markup}, tempo
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {creating-metronome-marks-in-markup-mode.ly}
 
@@ -1522,15 +1550,15 @@ Références des propriétés internes :
 @unnumberedsubsubsec Musique sans métrique
 @translationof Unmetered music
 
-@cindex barres de mesure, suppression
+@cindex barre de mesure, suppression
 @cindex numérotation des mesures, suppression
 @cindex cadence et ligatures
 @cindex ligature et cadence
-@cindex cadence et altérations
-@cindex altérations et cadence
+@cindex cadence et altération
+@cindex altération et cadence
 @cindex cadence et barres de mesure
-@cindex barres de mesure et cadence
-@cindex cadence et numéros de mesure
+@cindex barre de mesure et cadence
+@cindex cadence et numéro de mesure
 @cindex numéro de mesure et cadence
 @cindex musique non mesurée
 
@@ -1637,10 +1665,10 @@ Morceaux choisis :
 @cindex cadence et saut de page
 @cindex musique non mesurée et saut de ligne
 @cindex musique non mesurée et saut de page
-@cindex sauts de ligne et cadences
-@cindex sauts de page et cadences
-@cindex sauts de ligne et musique non mesurée
-@cindex sauts de page et musique non mesurée
+@cindex saut de ligne et cadences
+@cindex saut de page et cadences
+@cindex saut de ligne et musique non mesurée
+@cindex saut de page et musique non mesurée
 
 @knownissues
 Sauts de ligne ou de page ne peuvent intervenir qu'au niveau d'une barre
@@ -1860,10 +1888,10 @@ contexte @code{Score} au contexte @code{Staff}.
 @unnumberedsubsubsec Découpage automatique des notes
 @translationof Automatic note splitting
 
-@cindex notes, division
-@cindex division de notes
-@cindex silences, division
-@cindex division de silences
+@cindex note, division
+@cindex division de note
+@cindex silence, division
+@cindex division de silence
 
 @funindex Note_heads_engraver
 @funindex Completion_heads_engraver
@@ -1985,8 +2013,8 @@ sont ramenées à la même hauteur, sur une portée d'une seule ligne.
 @end lilypond
 
 @cindex guitare, grille d'accords
-@cindex coups de gratte, indication
-@cindex guitare, coups de gratte
+@cindex coup de gratte, indication
+@cindex guitare, coup de gratte
 
 @funindex Pitch_squash_engraver
 @funindex \improvisationOn
@@ -2074,9 +2102,9 @@ Référence des propriétés internes :
 LilyPond décide automatiquement de la manière de grouper les notes et
 d'imprimer les ligatures.
 
-@cindex ligatures manuelles
-@cindex ligatures, définition de règles
-@cindex ligatures, personnalisation
+@cindex ligature manuelle
+@cindex ligature, définition de règles
+@cindex ligature, personnalisation
 
 @funindex \autoBeamOn
 @funindex \autoBeamOff
@@ -2137,12 +2165,12 @@ possibles ; voir @ref{Définition des règles de ligature automatique}.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {beams-across-line-breaks.ly}
 
+@cindex ligature coudée, personnalisation
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-beam-knee-gap.ly}
 
-@cindex ligature, \partcombine et \autoBeamOff
-@cindex voix, \autoBeamOff et \partcombine
-
+@cindex ligature, @code{\partcombine} et @code{\autoBeamOff}
+@cindex voix, @code{\autoBeamOff} et @code{\partcombine}
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {partcombine-and-autobeamoff.ly}
 
@@ -2177,8 +2205,8 @@ terminaison ne sera prise en compte qu'à l'occasion de la
 @unnumberedsubsubsec Définition des règles de ligature automatique
 @translationof Setting automatic beam behavior
 
-@cindex ligatures et paroles
-@cindex paroles et ligatures
+@cindex ligature et paroles
+@cindex paroles et ligature
 
 @funindex autoBeaming
 @funindex baseMoment
@@ -2478,14 +2506,18 @@ Les règles de ligature par défaut sont répertoriées dans le fichier
 
 @snippets
 
-@cindex ligatures, subdivision
+@cindex ligature, subdivision
 @cindex subdivision de ligature
-
+@cindex subdividing beams
+@funindex subdivideBeams
+@funindex baseMoment
+@funindex beatStructure
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {subdividing-beams.ly}
 
 @cindex sous-ligature, orientation
-
+@funindex strictBeatBeaming
+@cindex ligature, indication des subdivisions
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {strict-beat-beaming.ly}
 
@@ -2493,13 +2525,12 @@ Les règles de ligature par défaut sont répertoriées dans le fichier
 @cindex groupement de pulsations
 @cindex pulsation, regroupement
 @cindex mesure, subdivision
-
+@funindex Measure_grouping_engraver
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {conducting-signs,-measure-grouping-signs.ly}
 
 @cindex ligature en fin de partition
 @cindex ligature en fin de voix polyphonique
-
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {beam-endings-in-score-context.ly}
 
@@ -2578,11 +2609,11 @@ ligature automatiques est abordée au chapitre @ref{Métrique}.
 @unnumberedsubsubsec Barres de ligature manuelles
 @translationof Manual beams
 
-@cindex groupements de note manuels
-@cindex ligatures manuelles
+@cindex groupement de note manuel
+@cindex ligature manuelle
 
-@funindex ]
-@funindex [
+@funindex @sortas{]A} ]
+@funindex @sortas{[A} [
 
 Dans certaines situations, il peut s'avérer nécessaire de supplanter
 l'algorithme de regroupement automatique des notes, par exemple pour
@@ -2596,9 +2627,10 @@ r4 r8[ g' a r] r8 g[ | a] r
 @end lilypond
 
 @cindex ligature manuelle, orientation
-@cindex ligature manuelle et notes d'ornement
+@cindex ligature manuelle et note d'ornement
+@cindex ornement et ligature
 
-Le positionnement des ligature manuelles se détermine comme pour toute
+Le positionnement des ligatures manuelles se détermine comme pour toute
 indication attachée à une note :
 
 @lilypond[quote,verbatim]
@@ -2661,6 +2693,9 @@ supplémentaire que sur sa gauche ; autrement dit, c'est la ligature
 @endpredefined
 
 @snippets
+
+@cindex crochet rectiligne
+@cindex rectiligne, crochet
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {flat-flags-and-beam-nibs.ly}
 
@@ -2762,10 +2797,10 @@ courts extraits, avec une faible amplitude.
 @unnumberedsubsubsec Barres de mesure
 @translationof Bar lines
 
-@cindex barres de mesure
+@cindex barre de mesure
 @cindex barre finale
 @cindex double barre
-@cindex barres de reprise
+@cindex barre de reprise
 
 @funindex \bar
 
@@ -2792,7 +2827,7 @@ toutes les notes sont terminées avant la fin de la mesure.
 @warning{Une durée erronée peut empêcher les sauts de ligne, ce qui
 conduit à une musique compressée, voire à un débordement de la page.}
 
-@cindex sauts de ligne
+@cindex saut de ligne
 @cindex barre de mesure invisible
 @cindex invisible, barre de mesure
 
@@ -2913,8 +2948,8 @@ l'aide de trois types de barre de mesure, comme indiqué ci-dessous :
 }
 @end lilypond
 
-@cindex répétitions
-@cindex reprises
+@cindex répétition
+@cindex reprise
 
 Bien que l'on puisse insérer des barres de reprise manuellement,
 LilyPond n'en déduira pas pour autant qu'il s'agit d'un passage à
@@ -2974,9 +3009,8 @@ Par ailleurs, la commande @code{\inStaffSegno} crée une barre de mesure
 surmontée d'un @emph{segno}, et sait coopérer avec l'instruction
 @code{\repeat volta} -- voir @ref{Répétitions courantes}.
 
-@cindex bar de mesure, personnalisation
+@cindex barre de mesure, personnalisation
 @cindex définition d'une barre de mesure
-
 @funindex \defineBarLine
 
 L'instruction @code{\defineBarLine} permet de définir ses propres
@@ -3133,7 +3167,7 @@ Référence des propriétés internes :
 @translationof Bar numbers
 
 @cindex mesure, numérotation
-@cindex numéros de mesure
+@cindex numéro de mesure
 
 @funindex currentBarNumber
 
@@ -3181,9 +3215,12 @@ numéros de mesure :
 @end lilypond
 
 @snippets
+
+@cindex barre de mesure, impression du premier numéro
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-the-bar-number-for-the-first-measure.ly}
 
+@cindex barre de mesure, impression à intervalle régulier
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-bar-numbers-at-regular-intervals.ly}
 
@@ -3192,23 +3229,19 @@ numéros de mesure :
 
 @cindex numéro de mesure, formatage
 @cindex formatage du numéro de mesure
-
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-bar-numbers-inside-boxes-or-circles.ly}
 
-@cindex reprises et numéros de mesure
-@cindex numéro de mesure et reprise
-@cindex mesure, numérotation et reprises
-
+@c XXX also included in `repeats.itely'
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {alternative-bar-numbering.ly}
 
 @cindex alignement du numéro de mesure
 @cindex numéro de mesure, alignement
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {aligning-bar-numbers.ly}
 
+@cindex numéro de mesure, supression
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {removing-bar-numbers-from-a-score.ly}
 
@@ -3234,7 +3267,7 @@ positionnement.
 @translationof Bar and bar number checks
 
 @cindex vérification des limites de mesure
-@cindex mesures, vérification des limites
+@cindex mesure, vérification des limites
 @cindex test de mesure
 
 @funindex barCheckSynchronize
@@ -3335,7 +3368,7 @@ Indiquer un repère s'obtient grâce à la commande @code{\mark}.
 }
 @end lilypond
 
-@funindex \default
+@funindex @sortas{defaultB} \default
 
 @noindent
 Lorsque vous utilisez @code{\mark \default}, le repère s'incrémente
@@ -3426,14 +3459,14 @@ On peut aussi spécifier manuellement une marque de repère :
 définis.  Un @code{\markup} peut néanmoins s'utiliser en argument.
 
 @example
-\mark \markup@{ \box A1 @}
+\mark \markup @{ \box A1 @}
 @end example
 
 @cindex segno
 @cindex coda
 @cindex D.S al Fine
 @cindex point d'orgue
-@cindex glyphes musicales
+@cindex glyphe musical
 
 @funindex \musicglyph
 
@@ -3496,9 +3529,9 @@ Référence des propriétés internes :
 @unnumberedsubsubsec Notes d'ornement
 @translationof Grace notes
 
-@cindex ornements
-@cindex broderies
-@cindex notes d'ornement
+@cindex ornement
+@cindex broderie
+@cindex note d'ornement
 @cindex appoggiature
 @cindex acciaccature
 @cindex petite note
@@ -3549,7 +3582,7 @@ pour chaque petite croche.
 >>
 @end lilypond
 
-@cindex notes d'ornement en fin de note
+@cindex note d'ornement en fin de note
 
 @funindex \afterGrace
 
@@ -3606,9 +3639,9 @@ notes à sept huitièmes de la durée de la note de base :
 }
 @end lilypond
 
-@cindex retouche des notes d'ornement
-@cindex notes d'ornement et retouches
-@cindex notes d'ornement, mise en forme
+@cindex retouche de note d'ornement
+@cindex note d'ornement et retouche
+@cindex note d'ornement, mise en forme
 
 Les expressions @code{\grace} obéissent à des règles typographiques
 particulières, notamment en matière d'orientation et de taille des
@@ -3628,18 +3661,30 @@ désactivés dans cette même expression.
 }
 @end lilypond
 
-@cindex hampe barrée
-
 @snippets
+
+@cindex hampe barrée
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {using-grace-note-slashes-with-normal-heads.ly}
 
+@funindex add-grace-property
+@funindex remove-grace-property
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {tweaking-grace-layout-within-music.ly}
 
+@cindex accord vide
+@cindex vide, accord
+@funindex startGraceMusic
+@funindex stopGraceMusic
+@funindex startAcciaccaturaMusic
+@funindex stopAcciaccaturaMusic
+@funindex startAppoggiaturaMusic
+@funindex stopAppoggiaturaMusic
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {redefining-grace-note-global-defaults.ly}
 
+@cindex orenement, espacement
+@cindex espacement, ornement
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {positioning-grace-notes-with-floating-space.ly}
 
