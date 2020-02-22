@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: a089ca62fd9b3770a932061207262fe81063dc56
+    Translation of GIT committish: 6ca1d8c80817f9baaa7b66b2fde9a7b98b0ffc0a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -94,31 +94,6 @@ Guida al funzionamento interno:
 @subsection Tutto sui contesti
 @translationof Contexts explained
 
-@ignore
-@c TODO Rethink and rewrite
-
->> > > - list of contexts: my *danger unmaintainable*
->> > > alarm just went off.  I'm
-
-I knew it would... And leaving out some of them is perfectly fine
-with me.
-I do think that a list like this, with the main contexts and a
-brief
-description of  what they do (perhaps also with a note about what
-default
-behavior is associated with each of them, but this may be
-unmanageable),
-should be there, and then we could simply list the remaining ones
-without
-further explanation and with links to the IR.
-@end ignore
-
-@c TODO Improve layout, order and consistency of wording -td
-
-@c TODO Add introduction which explains contexts in generality  -td
-
-@c TODO Describe propagation of property values -td
-
 I contesti sono organizzati in modo gerarchico:
 
 @menu
@@ -138,8 +113,8 @@ Questa sezione spiega la rilevanza delle definizioni di output quando
 si lavora coi contesti.  Esempi di vere definizioni di output sono
 illustrati dopo (vedi @ref{Modifica di tutti i contesti dello stesso tipo}).
 
-@cindex output, definizioni
-@cindex definizioni di output
+@cindex output, definizione
+@cindex definizione di output
 @funindex \layout
 Sebbene la musica scritta in un file possa riferirsi a un certo tipo o
 nome di un contesto, i contesti vengono creati soltanto quando la musica
@@ -311,9 +286,9 @@ Crea e dispone i nomi degli accordi.
 
 @funindex \new
 @funindex \context
-@cindex nuovi contesti
+@cindex nuovo contesto
 @cindex citazione di un contesto
-@cindex Contesti, creazione e citazione
+@cindex contesto, creazione e citazione
 
 LilyPond crea i contesti del livello inferiore automaticamente se incontra
 un'espressione musicale prima di un contesto adatto, ma questo approccio
@@ -462,6 +437,7 @@ Altrimenti si possono usare le variabili per ottenere un risultato simile.  Vedi
 @rlearning{Organizzare i brani con le variabili}.
 
 @item
+@funindex \applyContext
 @code{\context} senza nome corrisponderà al primo di qualsiasi contesto
 precedentemente creato dello stesso tipo nella stessa gerarchia di contesto,
 anche uno a cui è stato assegnato un nome, e la sua espressione musicale sarà
@@ -516,8 +492,8 @@ Guida alla notazione:
 @subsection Conservazione di un contesto
 @translationof Keeping contexts alive
 
-@cindex contexts, keeping alive
-@cindex contexts, lifetime
+@cindex contesto, conservazione
+@cindex contesto, ciclo di vita
 
 I contesti vengono solitamente terminati nel primo momento musicale in
 cui non hanno niente da fare.  Quindi i contesti @code{Voice} muoiono
@@ -697,6 +673,8 @@ Può essere utile sperimentare questi componenti aggiuntivi.  Per farlo si
 avvia un nuovo contesto con @code{\new} o @code{\context} e si modifica:
 
 @funindex \with
+@funindex \consists
+@funindex \remove
 
 @example
 \new @var{contesto} \with @{
@@ -747,7 +725,7 @@ questi incisori dal contesto @code{Score} al contesto @code{Staff}, possiamo
 ottenere una partitura in cui ogni rigo ha la sua indicazione di tempo.
 
 @cindex polimetria
-@cindex partiture polimetriche
+@cindex partitura polimetrica
 @cindex indicazione di tempo, multipla
 
 @lilypond[quote,verbatim]
@@ -814,8 +792,8 @@ File installati:
 @subsection Modifica delle impostazioni predefinite di un contesto
 @translationof Changing context default settings
 
-@cindex default context properties, changing
-@cindex context properties, changing defaults
+@cindex proprietà di contesto predefinita, modifica
+@cindex contesto, modifica proprietà di
 
 Le proprietà dei contesti e dei grob possono essere modificate con i comandi
 @code{\set} e @code{\override}, come è spiegato in
@@ -839,7 +817,7 @@ valori predefiniti soltanto in una certa istanza di un contesto.
 @unnumberedsubsubsec Modifica di tutti i contesti dello stesso tipo
 @translationof Changing all contexts of the same type
 
-@cindex \context nel blocco \layout
+@cindex @code{\context} nel blocco @code{\layout}
 @funindex \context
 @funindex \layout
 
@@ -987,7 +965,6 @@ identico a quello che si userebbe in mezzo alle note.
 @unnumberedsubsubsec Modifica di un solo contesto specifico
 @translationof Changing just one specific context
 
-@cindex \with
 @funindex \with
 
 Le proprietà di contesto di una sola istanza di un contesto specifico possono
@@ -1145,8 +1122,8 @@ Guida alla notazione:
 @subsection Definizione di nuovi contesti
 @translationof Defining new contexts
 
-@cindex contesti, definire nuovi
-@cindex incisori, includere nei contesti
+@cindex contesto, definire nuovo
+@cindex incisore, includere nel contesto
 
 @funindex \alias
 @funindex \name
@@ -1364,7 +1341,7 @@ Guida al funzionamento interno:
 @subsection Ordine di disposizione dei contesti
 @translationof Context layout order
 
-@cindex contesti, ordine di disposizione
+@cindex contesto, ordine di disposizione
 @funindex \accepts
 @funindex \denies
 
@@ -1424,7 +1401,7 @@ un altro, ma l'annidamento richiesto differisce.  Per esempio, il contesto
 @code{VaticanaVoice} che sostituisce il contesto @code{Voice} nell'elenco
 @qq{accepts}.
 
-@cindex contesti impliciti
+@cindex contesto implicito
 @funindex \defaultchild
 
 Nota bene: un contesto verrà creato implicitamente e senza avviso se
@@ -1441,8 +1418,6 @@ La creazione implicita di contesti può talvolta causare nuovi righi o nuove
 partiture non attesi.  Per evitare questi problemi è consigliabile usare
 @code{\new} per creare i contesti esplicitamente.
 
-@cindex alignAboveContext
-@cindex alignBelowContext
 @funindex alignAboveContext
 @funindex alignBelowContext
 
@@ -1833,7 +1808,7 @@ causare attese o crash, o entrambi.
 
 @cindex proprietà
 @funindex \set
-@cindex modifica delle proprietà
+@cindex modifica di una proprietà
 
 Ogni contesto ha un insieme di @emph{proprietà}, variabili contenute in
 quel contesto.  Le proprietà di contesto si cambiano col comando @code{\set},
@@ -1940,8 +1915,8 @@ per un contesto di fondo, quindi le due dichiarazioni
 sono equivalenti se l'attuale contesto di fondo è @code{Voice}.
 
 
-@cindex \once
-Anteponendo @code{\once} ai comandi @code{\set} o @code{\unset} l'impostazione
+@funindex \once
+Anteponendo @code{\once} ai comandi @code{\set} o @code{\unset}, l'impostazione
 verrà applicata soltanto a un singolo momento temporale:
 
 @lilypond[quote,fragment,verbatim]
@@ -2029,8 +2004,8 @@ alle seguenti
 @end example
 
 @funindex \revert
-@cindex ripristinare le modifiche
-@cindex modifiche, ripristinare
+@cindex ripristinare una modifica
+@cindex modifica, ripristinare
 
 Gli effetti di @code{\override} possono essere annullati con @code{\revert}.
 
@@ -2100,7 +2075,7 @@ Guida al funzionamento interno:
 @translationof The tweak command
 
 @funindex \tweak
-@cindex tweak
+@cindex ritocco
 
 Modificare le proprietà dei grob con @code{\override} fa sì che i
 cambiamenti siano applicati a tutti i grob in questione in quel
@@ -2153,7 +2128,6 @@ un'altra nota sono modificati all'interno di un accordo:
 @lilypond[verbatim,quote]
 \relative { c'-\tweak thickness #5 ( d e f) }
 @end lilypond
-
 
 Perché il comando @code{\tweak} funzioni, deve trovarsi proprio accanto
 all'oggetto al quale deve essere applicato dopo che il file di input è
@@ -2217,8 +2191,8 @@ Estendere LilyPond:
 
 @knownissues
 
-@cindex \tweak e punti di controllo
-@cindex punti di controllo e \tweak
+@cindex @code{\tweak}, modificare i punti di controllo
+@cindex punti di controllo, modifica con @code{\tweak}
 
 Il comando @code{\tweak} non può essere usato per modificare i punti di
 controllo di una sola legatura di valore tra tante in un accordo, se non
@@ -2273,9 +2247,10 @@ Le definizioni di grob sono manipolate con @code{\override} e
 manipolate con @code{\set} e @code{\unset} e il loro nome inizia con
 una lettera minuscola.
 
-@cindex tweak, relazione con @code{\override}
+@cindex @code{tweak}, relazione con @code{\override}
 @funindex \tweak
 @funindex \overrideProperty
+
 I comandi @code{\tweak} e @code{\overrideProperty} modificano le proprietà
 dei grob bypassando completamente tutte le proprietà di contesto.
 Catturano i grob mentre vengono creati, impostando le loro proprietà per un
@@ -2440,10 +2415,14 @@ arpeggioMusic = {
 }
 @end lilypond
 
+@funindex \once
+@funindex \temporary
+
 Nel suo uso come @q{override}, @code{\offset} può essere preceduto da
 @code{\once} o @code{\temporary} e annullato con @code{\revert} e la
-@var{proprietà}.  Ciò deriva dal fatto che @code{\offset} in realtà crea
-un @code{\override} della @var{proprietà}.
+@var{proprietà} (vedi @rextend{Intermediate substitution functions}).
+Ciò deriva dal fatto che @code{\offset} in realtà crea un
+@code{\override} della @var{proprietà}.
 
 @lilypond[quote,verbatim]
 music = { c'8\< d' e' f'\! }
@@ -2469,6 +2448,9 @@ music = { c'8\< d' e' f'\! }
   \bar "||"
 }
 @end lilypond
+
+@funindex \single
+@funindex \undo
 
 Proprio come @code{\override}, la forma @q{override} di @code{\offset} può
 essere usata con @code{\undo} e @code{\single}.
@@ -2748,6 +2730,9 @@ creare esplicitamente il contesto.
 
 @subsubsubheading Modalità accordo
 
+@funindex \chordmode
+@funindex \chords
+
 Viene attivata col comando @code{\chordmode} e fa sì che l'input
 sia interpretato con la sintassi della notazione degli accordi, vedi
 @ref{Notazione per accordi}.  La musica in modalità accordo viene elaborata
@@ -2763,6 +2748,9 @@ accordo, vedi @ref{Stampa dei nomi degli accordi}.
 
 @subsubsubheading Modalità percussioni
 
+@funindex \drummode
+@funindex \drums
+
 Viene attivata col comando @code{\drummode} e fa sì che l'input
 sia interpretato con la sintassi della notazione delle percussioni,
 vedi @ref{Notazione di base per percussioni}.  La musica in modalità percussioni
@@ -2775,6 +2763,9 @@ nuovo contesto @code{DrumStaff} e elabora l'input come note percussive,
 vedi @ref{Notazione di base per percussioni}.
 
 @subsubsubheading Modalità basso continuo
+
+@funindex \figuremode
+@funindex \figures
 
 Viene attivata col comando @code{\figuremode} e fa sì che
 l'input che segue sia interpretato con la sintassi del basso
@@ -2805,6 +2796,9 @@ possono essere inseriti come testo (markup) sopra le note usando il comando
 
 @subsubsubheading Modalità testo vocale
 
+@funindex \lyricmode
+@funindex \lyrics
+
 Viene attivata col comando @code{\lyricmode} e fa sì che l'input
 sia interpretato come sillabe del testo vocale con durate opzionali
 e modificatori del testo associato, vedi @ref{Musica vocale}.  L'input in
@@ -2823,11 +2817,15 @@ segue con la musica che lo precede, vedi @ref{Durate automatiche delle sillabe}.
 
 @subsubsubheading Modalità testo (markup)
 
+@funindex \markup
+
 Viene attivata col comando @code{\markup}  e fa sì che l'input
 sia interpretato con la sintassi di markup, vedi
 @ref{Comandi per markup}.
 
 @subsubsubheading Modalità nota
+
+@funindex \notemode
 
 Questa è la modalità predefinita e può essere attivata esplicitamente
 col comando @code{\notemode}.  L'input viene interpretato come altezze,
@@ -2910,11 +2908,11 @@ Altrimenti, in molti casi esistono comandi predefiniti per specificare la
 direzione.  Questo hanno la forma
 
 @example
-\xxxUp, \xxxDown o \xxxNeutral
+\@var{xxx}Up, \@var{xxx}Down o \@var{xxx}Neutral
 @end example
 
 @noindent
-dove @code{\xxxNeutral} significa @qq{usa la direzione predefinita}.
+dove @code{\@var{xxx}Neutral} significa @qq{usa la direzione predefinita}.
 Vedi @rlearning{Oggetti interni al rigo}.
 
 In pochi casi, per esempio l'arpeggio, il valore della proprietà @code{direction}
@@ -2961,8 +2959,8 @@ Guida alla notazione:
 @subsection Distanze e misurazioni
 @translationof Distances and measurements
 
-@cindex distances, absolute
-@cindex distances, scaled
+@cindex distanza assoluta
+@cindex distanza proporzionale
 
 @funindex \mm
 @funindex \cm
@@ -2970,6 +2968,8 @@ Guida alla notazione:
 @funindex \pt
 
 Le distanze in LilyPond sono di due tipi: assolute e proporzionali.
+
+@funindex \staff-space
 
 Le distanze assolute si usano per specificare i margini, le indentazioni e
 altri dettagli della formattazione di pagina; per impostazione predefinita
@@ -3020,7 +3020,7 @@ Guida alla notazione:
 @subsection Dimensioni
 @translationof Dimensions
 
-@cindex dimensioni
+@cindex dimensione
 @cindex riquadro intorno all'oggetto
 
 Le dimensioni di un oggetto grafico specificano le posizioni delle estremità
@@ -3053,11 +3053,6 @@ Guida alla notazione:
 @cindex cambiare il simbolo del rigo
 @cindex disegnare il simbolo del rigo
 @cindex simbolo del rigo, impostazione del
-
-@c TODO Extend or remove this section.  See also NR 1.6.2 Staff symbol
-@c      Need to think of uses for these properties.  Eg 'line-positions
-@c      is used in a snippet to thicken centre line.
-@c      If retained, add @ref to here in 1.6.2  -td
 
 La posizione verticale e il numero delle linee del rigo possono essere
 definiti contemporaneamente.  Come mostra l'esempio seguente, le posizioni
@@ -3348,6 +3343,8 @@ testa di ogni nota.
 
 @end table
 
+@funindex \endSpanners
+
 La funzione musicale @code{\endSpanners} termina prematuramente l'estensore
 che inizia nella nota immediatamente seguente.  Viene terminato esattamente
 dopo una nota o alla stanghetta seguente se @code{to-barline} è impostato
@@ -3379,9 +3376,9 @@ Guida al funzionamento interno:
 @subsection Visibilità degli oggetti
 @translationof Visibility of objects
 
-@cindex objects, visibility of
-@cindex grobs, visibility of
-@cindex visibility of objects
+@cindex oggetto, visibilità del
+@cindex grob, visibilità del
+@cindex visibilità dell'oggetto
 
 Esistono quattro modi principali per regolare la visibilità degli oggetti della
 formattazione: si può togliere il loro stampo, possono essere resi trasparenti,
@@ -3408,7 +3405,7 @@ formattazione.  Queste sono trattate in @ref{Considerazioni speciali}.
 @unnumberedsubsubsec Soppressione dello stampo
 @translationof Removing the stencil
 
-@cindex stencil, soppressione
+@cindex @code{stencil}, soppressione
 @cindex stampo, soppressione
 @funindex \omit
 
@@ -3442,7 +3439,7 @@ a a a
 @unnumberedsubsubsec Rendere gli oggetti trasparenti
 @translationof Making objects transparent
 
-@cindex transparenti, rendere gli oggetti
+@cindex trasparenti, rendere gli oggetti
 @funindex \hide
 
 Tutti gli oggetti della formattazione hanno una proprietà @code{transparent}
@@ -3468,12 +3465,12 @@ a' a'
 @unnumberedsubsubsec Dipingere gli oggetti di bianco
 @translationof Painting objects white
 
-@cindex oggetti, colorare
-@cindex colorare gli oggetti
-@cindex strati
+@cindex oggetto, colorare
+@cindex colorare un oggetto
+@cindex strato
 @cindex ordine di stampa
-@cindex sovrascrivere gli oggetti
-@cindex oggetti, sovrascrivere
+@cindex sovrascrivere un oggetto
+@cindex oggetto, sovrascrivere
 @cindex grob, sovrascrivere
 
 Tutti gli oggetti della formattazione hanno una proprietà del colore il cui
@@ -3517,9 +3514,7 @@ a'1
 @unnumberedsubsubsec Uso di break-visibility
 @translationof Using break-visibility
 
-@c TODO Add making other objects breakable
-
-@cindex break-visibility
+@funindex break-visibility
 
 La maggior parte degli oggetti della formattazione sono stampati una
 volta sola, ma alcuni come le stanghette, le chiavi, le indicazioni
@@ -3641,9 +3636,9 @@ sopprimere.
 @subsubsubheading Visibilità dopo un cambio esplicito
 
 @cindex armatura di chiave, visibilità dopo un cambio esplicito
-@cindex explicitKeySignatureVisibility
+@funindex explicitKeySignatureVisibility
 @cindex chiave, visibilità dopo un cambio esplicito
-@cindex explicitClefVisibility
+@funindex explicitClefVisibility
 
 La proprietà @code{break-visibility} controlla la visibilità delle
 armature di chiave e dei cambi di chiave solo all'inizio delle linee,
@@ -3756,8 +3751,8 @@ visibilità del grob @code{KeyCancellation}:
 
 @subsubsubheading Battute automatiche
 
-@cindex automaticBars
-@cindex stanghette, soppressione
+@funindex automaticBars
+@cindex stanghetta, soppressione
 
 In un caso particolare, la stampa delle stanghette può essere disattivata
 impostando la proprietà @code{automaticBars} nel contesto Score.  Se impostata
@@ -3768,13 +3763,11 @@ La generazione delle battute riprenderà in base a quel conteggio se questa
 proprietà viene poi impostata su @code{#t}.  Se impostata su @code{#f}, le
 interruzioni di linea possono trovarsi solo su comandi @code{\bar} espliciti.
 
-@c TODO Add example
-
 @subsubsubheading Chiavi trasposte
 
-@cindex chiavi trasposte, visibilità delle
-@cindex visibilità delle chiavi trasposte
-@cindex chiavi, visibilità della trasposizione
+@cindex chiave trasposta, visibilità della
+@cindex visibilità della chiave trasposta
+@cindex chiave, visibilità della trasposizione
 
 Il piccolo simbolo di trasposizione sulle chiavi trasposte è prodotto
 dall'oggetto di formattazione @code{ClefModifier}.  La sua visibilità
@@ -3863,8 +3856,8 @@ metodo per farlo cambia.
 @unnumberedsubsubsec Rotazione degli oggetti della formattazione
 @translationof Rotating layout objects
 
-@cindex rotazione degli oggetti
-@cindex oggetti, rotazione
+@cindex rotazione di un oggetto
+@cindex oggetto, rotazione
 
 Tutti gli oggetti della formattazione che supportano l'interfaccia
 @code{grob-interface} possono essere ruotati impostando la loro
@@ -3877,14 +3870,14 @@ intorno al quale si deve eseguire la rotazione.  L'angolo di rotazione
 L'angolo di rotazione e le coordinate del punto di rotazione devono essere
 determinate per prova e errore.
 
-@cindex forcelle angolate
+@cindex forcella angolata
 
 Esistono solo poche situazioni in cui la rotazione degli oggetti della
 formattazione è utile; l'esempio seguente ne mostra uno:
 
 @lilypond[quote,fragment,verbatim]
 g4\< e' d'' f''\!
-\override Hairpin.rotation = #'(20 -1 0)
+\override Hairpin.rotation = #'(15 -1 0)
 g4\< e' d'' f''\!
 @end lilypond
 
@@ -4142,41 +4135,13 @@ a'
 -3  % terzo dito
 @end lilypond
 
-@ignore
-@unnumberedsubsubsec Using the @code{aligned-on-parent} procedures
-
-@c Cannot document as they do not seem to operate consistently on all objects -td
-@c TODO investigate further
-
-The @code{aligned-on-parent} procedures are used in the same way
-as the @code{aligned-on-self} procedures, they difference being
-that they permit an object to be aligned with the @emph{edges} of
-the parent rather than the parent's reference point.  The following
-example shows the difference:
-
-@c TODO Add example
-
-@lilypond[verbatim,quote]
-@end lilypond
-
-@end ignore
-
-@ignore
-@unnumberedsubsubsec Using the @code{centered-on-parent} procedures
-
-@c Cannot document as they do not seem to operate consistently on all objects -td
-@c TODO investigate further
-
-@end ignore
-
-@c TODO The align-interface, BassFigureAlignment and VerticalAlignment
 
 @node Uso di break-alignable-interface
 @unnumberedsubsubsec Uso di @code{break-alignable-interface}
 @translationof Using the break-alignable-interface
 
-@cindex allineamento sugli oggetti
-@cindex break-align-symbols
+@cindex allineamento su un oggetto
+@funindex break-align-symbols
 
 I segni di chiamata e i numeri di battuta possono essere allineati con oggetti
 della notazione diversi dalle stanghette.  Questi oggetti comprendono
@@ -4373,11 +4338,11 @@ Guida alla notazione:
 @unnumberedsubsubsec Modifica di legature di valore e di portamento
 @translationof Modifying ties and slurs
 
-@cindex legature di portamento, modificare
-@cindex legature di valore, modificare
-@cindex curve Bézier, punti di controllo
-@cindex punti di controllo, curve Bézier
-@cindex Bézier, curve, punti di controllo
+@cindex legatura di portamento, modificare
+@cindex legatura di valore, modificare
+@cindex curva Bézier, punti di controllo
+@cindex punto di controllo, curva Bézier
+@cindex Bézier, curva, punti di controllo
 
 Le legature, siano esse di valore (@code{Tie}), di portamento (@code{Slur}),
 di frase (@code{PhrasingSlur}), di laisser-vibrer (@code{LaissezVibrerTie})
@@ -4610,8 +4575,8 @@ Guida al funzionamento interno:
 @unnumberedsubsubsec Uso di @code{\alterBroken}
 @translationof Using alterBroken
 
-@cindex estensori, modificare gli
-@cindex estensori spezzati, modificare gli
+@cindex estensore, modifica
+@cindex estensore spezzato, modifica
 @funindex \alterBroken
 
 Quando un estensore va a capo o si spezza, ciascun pezzo eredita gli
@@ -4652,9 +4617,13 @@ musicale modificata da un comando @code{\tweak}.
 Il trattino iniziale è richiesto nella forma @code{\tweak}.  Non aggiungerlo
 se @code{\alterBroken} viene usato come un @code{\override}.
 
+@funindex \once
+@funindex \temporary
+
 Nel suo uso come @code{\override}, @code{\alterBroken} può essere
 preceduto da @code{\once} o @code{\temporary} e ripristinato con
-@code{\revert} seguito da @var{proprietà}.
+@code{\revert} seguito da @var{proprietà}
+(vedi @rextend{Intermediate substitution functions}).
 
 Il codice seguente applica un @code{\override} indipendente a ciascun
 segmento della legatura di portamento dell'esempio precedente:
@@ -4713,10 +4682,10 @@ Estendere LilyPond:
 @subsection Contenitori unpure-pure
 @translationof Unpure-pure containers
 
-@cindex Scheme, contenitori puri
-@cindex Scheme, contenitori impuri
-@cindex pure-container, Scheme
-@cindex unpure-container, Scheme
+@cindex Scheme, contenitore puro
+@cindex Scheme, contenitore impuro
+@cindex contenitore puro, Scheme
+@cindex contenitore impuro, Scheme
 @cindex spaziatura orizzontale, sovrascrivere la
 
 I contenitori unpure-pure (impuri-puri) sono utili per sovrascrivere i calcoli

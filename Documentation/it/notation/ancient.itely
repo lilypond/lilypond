@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @c vim: foldmethod=marker
 @ignore
-    Translation of GIT committish: a089ca62fd9b3770a932061207262fe81063dc56
+    Translation of GIT committish: 0d4df37f3e3b4dc9bceb5c78ae94449bd0269c67
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -205,13 +205,16 @@ Guida alla notazione:
 @unnumberedsubsubsec Legature
 @translationof Ligatures
 
-@cindex legature
+@cindex legatura
 
 Una legatura è un simbolo grafico che rappresenta almeno due diverse
 note.  Le legature sono apparse in origine nei manoscritti dei canti
 gregoriani per riferirsi alle sequenze ascendenti e discendenti di
 note sulla stessa sillaba.  Sono utilizzate anche nella notazione
 mensurale.
+
+@funindex @sortas{[B} \[
+@funindex @sortas{]B} \]
 
 Le legature si inseriscono @emph{racchiudendole} tra @code{\[} e
 @code{\]}.  Alcuni stili di legatura possono richiedere ulteriore
@@ -244,10 +247,12 @@ Guida alla notazione:
 @ref{Legature di neumi quadrati gregoriani}.
 
 @knownissues
-Le legature necessitano di una speciale spaziatura che non è ancora stata
-implementata.  Infatti nella maggior parte dei casi c'è troppo spazio tra
-le legature e l'interruzione di linea è spesso insoddisfacente.  Inoltre
-il testo vocale non si allinea correttamente con le legature.
+La spaziatura richiesta per le legature non è ancora implementata e di
+conseguenza potrebbe risultare troppo spazio tra di esse.  Anche
+l'interruzione di linea potrebbe essere insoddisfacente.
+
+Il testo vocale potrebbe non allinearsi come desiderato quando si usano
+le legature.
 
 Le alterazioni non devono apparire all'interno di una legatura, ma devono
 invece essere raccolte e visualizzate davanti ad essa.
@@ -256,16 +261,12 @@ La sintassi utilizza ancora lo stile deprecato @qq{infix}
 @code{\[ espressione musicale \]}.  Per ragioni di coerenza, dovrà
 essere cambiato in stile @qq{postfix} @code{nota\[ @dots{} nota\]}.
 
-@c Alternatively, the file
-@c @file{gregorian-init.ly} can be included; it provides a scheme
-@c function
-@c @example
-@c \ligature @var{music expr}
-@c @end example
-@c with the same effect and is believed to be stable.
-
-@c TODO: this does not seem to work at the moment.
-@c -- eo
+Altrimenti, si può includere il file @file{gregorian.ly}, che fornisce
+una funzione Scheme
+@example
+\ligature @var{espressione musicale}
+@end example
+che produce lo stesso risultato (e si ritiene sia stabile).
 
 
 @node Custodes
@@ -290,7 +291,7 @@ Per inserire i custodes, porre l'incisore @code{Custos_engraver} nel contesto
 @code{Staff} del blocco @code{\layout} e modificare lo stile del custos con
 un @code{\override}, se necessario, come è illustrato nell'esempio seguente:
 
-@lilypond[quote,ragged-right]
+@lilypond[quote,ragged-right,verbatim]
 \score {
   \relative {
     a'1
@@ -309,9 +310,9 @@ un @code{\override}, se necessario, come è illustrato nell'esempio seguente:
 
 Il glifo del custos viene selezionato tramite la proprietà @code{style}.  Gli
 stili supportati sono @code{vaticana}, @code{medicaea}, @code{hufnagel} e
-@code{mensural}.  Sono illustrati nell'esempio seguente.
+@code{mensural}.
 
-@lilypond[quote,ragged-right,fragment]
+@lilypond[quote,ragged-right,fragment,verbatim]
 \new Lyrics \lyricmode {
   \markup { \column {
     \typewriter "vaticana "
@@ -363,8 +364,8 @@ Guida al funzionamento interno:
 @unnumberedsubsubsec Contesti mensurali
 @translationof Mensural contexts
 
-@cindex MensuralVoice
-@cindex MensuralStaff
+@funindex MensuralVoice
+@funindex MensuralStaff
 
 I contesti predefiniti @code{MensuralVoice} e @code{MensuralStaff}
 permettono di comporre un brano in stile mensurale.  Questi contesti
@@ -401,10 +402,10 @@ Glossario musicale:
 @unnumberedsubsubsec Chiavi mensurali
 @translationof Mensural clefs
 
-@cindex stili di chiave
-@cindex chiave, stili di
-@cindex chiavi per musica antica
-@cindex musica antica, chiavi per
+@cindex stile di chiave
+@cindex chiave, stile di
+@cindex chiave per musica antica
+@cindex musica antica, chiave per
 @cindex chiave Petrucci
 @cindex chiave mensurale
 @cindex chiave mensurale nera
@@ -596,7 +597,7 @@ per 6/8) non sono gestibili con @code{\time}.  Usare invece
 @unnumberedsubsubsec Teste di nota mensurali
 @translationof Mensural note heads
 
-@cindex teste di nota antiche
+@cindex testa di nota antica
 
 Per la notazione antica, è possibile assegnare alle teste di nota uno stile
 diverso dal predefinito @code{default}.  Per farlo si imposta la proprietà
@@ -665,7 +666,9 @@ Guida alla notazione:
 @unnumberedsubsubsec Code mensurali
 @translationof Mensural flags
 
-@cindex code (uncinate)
+@cindex coda (uncinata)
+@cindex coda mensurale
+@cindex mensurale, coda
 
 Usare la proprietà @code{flag-style} del grob @code{Stem} per selezionare
 code antiche.  Oltre allo stile predefinito @code{default}, per le code
@@ -705,7 +708,7 @@ pertinenti per la notazione mensurale).
 @unnumberedsubsubsec Pause mensurali
 @translationof Mensural rests
 
-@cindex pause antiche
+@cindex pausa antica
 
 Usare la proprietà @code{style} del grob @code{Rest} per selezionare pause
 antiche.  Gli stili antichi supportati sono @code{neomensural} e
@@ -746,8 +749,8 @@ bisogna farlo manualmente usando le pause con altezza.
 @unnumberedsubsubsec Alterazioni e armature di chiave mensurali
 @translationof Mensural accidentals and key signatures
 
-@cindex alterazioni mensurali
-@cindex armature di chiave mensurali
+@cindex alterazione mensurale
+@cindex armatura di chiave mensurale
 
 Lo stile @code{mensural} fornisce uno stile dei segni diesis e bemolle diverso
 da quello predefinito.  La notazione mensurale usava raramente il segno di
@@ -783,10 +786,10 @@ Glossario musicale:
 @rglosnamed{key signature,armatura di chiave}.
 
 Guida alla notazione:
-@ref{Pitches},
-@ref{Accidentals},
-@ref{Automatic accidentals},
-@ref{Key signature}.
+@ref{Altezze},
+@ref{Alterazioni},
+@ref{Alterazioni automatiche},
+@ref{Armatura di chiave}.
 
 Guida al funzionamento interno:
 @rinternals{KeySignature}.
@@ -844,6 +847,7 @@ Guida al funzionamento interno:
 @translationof White mensural ligatures
 
 @cindex legature mensurali bianche
+@cindex mensurali, legature bianche
 
 Il supporto per le legature mensurali bianche è presente ma limitato.
 
@@ -974,8 +978,8 @@ Guida alla notazione:
 @unnumberedsubsubsec Contesti del canto gregoriano
 @translationof Gregorian chant contexts
 
-@cindex VaticanaVoice
-@cindex VaticanaStaff
+@funindex VaticanaVoice
+@funindex VaticanaStaff
 
 Si possono usare i contesti predefiniti @code{VaticanaVoice} e
 @code{VaticanaStaff} per scrivere un brano di canto gregoriano nello stile
@@ -1012,7 +1016,7 @@ far altro che inserire il canto, come dimostra il passo seguente:
 @unnumberedsubsubsec Chiavi gregoriane
 @translationof Gregorian clefs
 
-@cindex chiavi gregoriane
+@cindex chiave gregoriana
 
 La tabella seguente mostra tutte le chiavi gregoriane supportate dal comando
 @code{\clef}.  Alcune chiavi usano lo stesso glifo, ma si differenziano
@@ -1151,8 +1155,10 @@ Guida alla notazione:
 @unnumberedsubsubsec Alterazioni e armature di chiave gregoriane
 @translationof Gregorian accidentals and key signatures
 
-@cindex alterazioni gregoriane
-@cindex armature di chiave gregoriane
+@cindex alterazione gregoriana
+@cindex armatura di chiave gregoriana
+@cindex gregoriana, alterazione
+@cindex gregoriana, armatura di chiave
 
 Sono disponibili alterazioni per i tre diversi stili gregoriani:
 
@@ -1196,10 +1202,10 @@ Glossario musicale:
 @rglosnamed{key signature,armatura di chiave}.
 
 Guida alla notazione:
-@ref{Pitches},
-@ref{Accidentals},
-@ref{Automatic accidentals},
-@ref{Key signature}.
+@ref{Altezze},
+@ref{Alterazioni},
+@ref{Alterazioni automatiche},
+@ref{Armatura di chiave}.
 
 Guida al funzionamento interno:
 @rinternals{KeySignature}.
@@ -1296,12 +1302,20 @@ File installati:
 @unnumberedsubsubsec Segni di articolazione gregoriani
 @translationof Gregorian articulation signs
 
-@cindex articolazioni gregoriane
+@cindex articolazione gregoriana
+@cindex gregoriana, articolazione
 
 Oltre ai segni di articolazione standard descritti nella sezione
-@ref{Articulations and ornamentations}, sono disponiibili dei segni
+@ref{Articolazioni e abbellimenti}, sono disponibili dei segni
 di articolazione progettati specificamente per la notazione in stile
 @emph{Editio Vaticana}.
+
+@funindex \accentus
+@funindex \circulus
+@funindex \episemInitium
+@funindex \episemFinis
+@funindex \ictus
+@funindex \semicirculus
 
 @lilypond[quote,ragged-right,verbatim]
 \include "gregorian.ly"
@@ -1321,7 +1335,7 @@ di articolazione progettati specificamente per la notazione in stile
 
 @seealso
 Guida alla notazione:
-@ref{Articulations and ornamentations}.
+@ref{Articolazioni e abbellimenti}.
 
 Frammenti:
 @rlsr{Ancient notation}.
@@ -1377,8 +1391,9 @@ Frammenti:
 @unnumberedsubsubsec Legature di neumi quadrati gregoriani
 @translationof Gregorian square neume ligatures
 
-@cindex legature di neumi quadrati
-@cindex gregoriano, legature di neumi quadrati
+@cindex legatura di neumi quadrati
+@cindex gregoriano, legatura di neumi quadrati
+@cindex neumi quadrati, legatura gregoriana
 
 LilyPond fornisce un supporto limitato alla notazione quadrata del canto
 gregoriano (secondo lo stile Editio Vaticana).  Possono essere già scritte
@@ -1506,6 +1521,13 @@ L'uso di questi segni nella musica stessa segue alcune regole, che non controlla
 sono da LilyPond.  Per esempio, il @emph{quilisma} è sempre la nota
 centrale di una legatura ascendente, ma è assolutamente possibile, anche se
 sbagliato, produrre un quelisma di una nota singola.
+
+@funindex \ij
+@funindex \iij
+@funindex \IJ
+@funindex \IIJ
+@funindex \responsum
+@funindex \versus
 
 Oltre ai segni delle note, @file{gregorian.ly} definisce anche i comandi
 @code{\versus}, @code{\responsum}, @code{\ij}, @code{\iij}, @code{\IJ} e
@@ -2332,8 +2354,8 @@ prefissi in ordine arbitrario.
 @unnumberedsubsubsec Contesti della notazione di Kiev
 @translationof Kievan contexts
 
-@cindex KievanVoice
-@cindex KievanStaff
+@funindex KievanVoice
+@funindex KievanStaff
 
 Come per la notazione mensurale e gregoriana, si possono usare i contesti
 predefiniti @code{KievanVoice} e @code{KievanStaff} per scrivere un brano
@@ -2380,8 +2402,8 @@ utilizzate in Galizia per scrivere il canto liturgico ruteno.
 @unnumberedsubsubsec Chiavi della notazione di Kiev
 @translationof Kievan clefs
 
-@cindex chiavi della notazione di Kiev
-@cindex Kiev, notazione, chiavi
+@cindex chiave della notazione di Kiev
+@cindex Kiev, notazione, chiave
 
 La notazione di Kievan utilizza una sola chiave, la chiave Tse-fa-ut, usata
 per indicare la posizione del Do (@code{c}):
@@ -2405,6 +2427,9 @@ Guida alla notazione:
 @translationof Kievan notes
 
 @cindex teste di nota antiche
+
+@funindex \kievanOn
+@funindex \kievanOff
 
 Nella notazione quadrata di Kiev, occorre scegliere lo stile appropriato per
 le teste di nota e disabilitare i gambi e le code.  Ciò si ottiene chiamando
@@ -2447,7 +2472,8 @@ singolo melisma.  Ciò si può fare manualmente impostando la proprietà
 @unnumberedsubsubsec Alterazioni della notazione di Kiev
 @translationof Kievan accidentals
 
-@cindex alterazioni nella notazione di Kiev
+@cindex alterazione nella notazione di Kiev
+@cindex Kiev, notazione di, alterazione
 
 Lo stile @code{kievan} per le alterazioni si seleziona tramite la proprietà
 @code{glyph-name-alist} del grob @code{Accidental}.
@@ -2470,8 +2496,8 @@ Glossario musicale:
 @rglosnamed{accidental,alterazione}.
 
 Guida alla notazione:
-@ref{Accidentals},
-@ref{Automatic accidentals},
+@ref{Alterazioni},
+@ref{Alterazioni automatiche},
 @ref{The Emmentaler font}
 
 @node Stanghetta della notazione di Kiev
@@ -2498,7 +2524,8 @@ Guida alla notazione:
 @unnumberedsubsubsec Melismi della notazione di Kiev
 @translationof Kievan melismata
 
-@cindex legature
+@cindex legatura di Kiev
+@cindex Kiev, notazione di, legatura
 
 Le note all'interno di un melisma di Kiev vengono solitamente posizionate
 una vicina all'altra mentre il melisma è separato da uno spazio bianco.
@@ -2629,13 +2656,12 @@ Attenzione: @code{instrumentName} deve essere impostato perché l'incipit venga
 prodotto.  Se non è richiesto il nome di uno strumento, usare
 @code{\set Staff.instrumentName = ""}.
 
-@c @seealso
-@c ... and reference to other sections ...
-
 
 @node Formattazione mensurstriche
 @unnumberedsubsubsec Formattazione mensurstriche
 @translationof Mensurstriche layout
+
+@cindex Mensurstriche
 
 @emph{Mensurstriche} (@q{linee di misurazione}) è il termine accettato per
 le stanghette che collegano i righi di un sistema senza attraversare i righi
@@ -2820,6 +2846,7 @@ spirLyr = \lyricmode {
 @unnumberedsubsubsec Antico e moderno da un unico sorgente
 @translationof Ancient and modern from one source
 
+@cindex trascrizione, da mensurale a moderno
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {using-tags-to-produce-mensural-and-modern-music-from-the-same-source.ly}
 
