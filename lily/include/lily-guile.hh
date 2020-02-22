@@ -176,22 +176,6 @@ SCM ly_output_formats ();
 */
 void add_scm_init_func (void ( *) ());
 
-extern "C" {
-  typedef SCM (*Scheme_function_unknown) (GUILE_ELLIPSIS);
-}
-
-#if __GNUC__ > 2 || __GNUC_MINOR__ >= 96
-typedef SCM (*Scheme_function_0) ();
-typedef SCM (*Scheme_function_1) (SCM);
-typedef SCM (*Scheme_function_2) (SCM, SCM);
-typedef SCM (*Scheme_function_3) (SCM, SCM, SCM);
-#else
-typedef SCM (*Scheme_function_0) (GUILE_ELLIPSIS);
-typedef SCM (*Scheme_function_1) (GUILE_ELLIPSIS);
-typedef SCM (*Scheme_function_2) (GUILE_ELLIPSIS);
-typedef SCM (*Scheme_function_3) (GUILE_ELLIPSIS);
-#endif
-
 /*
   Inline these for performance reasons.
  */
@@ -223,7 +207,6 @@ std::vector<Offset> ly_scm2offsets (SCM s);
 /* For backward compatability with Guile 1.8 */
 #if !HAVE_GUILE_HASH_FUNC
 typedef SCM (*scm_t_hash_fold_fn) (GUILE_ELLIPSIS);
-typedef SCM (*scm_t_hash_handle_fn) (GUILE_ELLIPSIS);
 #endif
 
 #endif /* LILY_GUILE_HH */

@@ -45,7 +45,7 @@
 /* define if you have pango FT2 binding with OpenType font feature */
 #define HAVE_PANGO_FT2_WITH_OTF_FEATURE 0
 
-/* define if Guile has types scm_t_hash_fold_fn and scm_t_hash_handle_fn */
+/* define if Guile has type scm_t_hash_fold_fn */
 #define HAVE_GUILE_HASH_FUNC 0
 
 /* define if Guile has type scm_t_subr */

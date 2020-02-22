@@ -202,7 +202,7 @@ STEPMAKE_GUILE_DEVEL(REQUIRED)
 # check for 3 typedefs added in Guile 1.9
 save_CXXFLAGS="$CXXFLAGS"
 CXXFLAGS="$GUILE_CFLAGS $CXXFLAGS"
-AC_CHECK_TYPES([scm_t_hash_fold_fn, scm_t_hash_handle_fn],
+AC_CHECK_TYPES([scm_t_hash_fold_fn],
                [AC_DEFINE(HAVE_GUILE_HASH_FUNC)], [],
                [[#if HAVE_LIBGUILE18_H
 # include <libguile18.h>
