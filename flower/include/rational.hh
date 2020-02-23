@@ -68,9 +68,17 @@ public:
      Initialize to 0.
   */
   Rational ();
-  Rational (int);
-  Rational (I64);
-  Rational (U64);
+
+  // Allow implicit conversion from integer.  All of these must be defined or
+  // deleted to avoid ambiguity.  "long long" is specified by the C++ standard
+  // to be at least 64 bits wide, which is what we are storing.
+  Rational (int n) : Rational (static_cast<long long> (n)) {}
+  Rational (long n) : Rational (static_cast<long long> (n)) {}
+  Rational (long long n);
+  Rational (unsigned n) : Rational (static_cast<unsigned long long> (n)) {}
+  Rational (unsigned long n) : Rational (static_cast<unsigned long long> (n)) {}
+  Rational (unsigned long long);
+
   explicit Rational (I64, I64);
   explicit Rational (double);
   Rational (Rational const &r) = default;

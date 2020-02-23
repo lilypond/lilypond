@@ -73,45 +73,35 @@ protected:
   }
 };
 
-#if 0 // TODO: fix initialization from lowest ()
 TEST (Rational_int_test<int>, init_int)
 {
   test_init ();
 }
-#endif
 
-#if 0 // TODO: fix ambiguous overloading
 TEST (Rational_int_test<long>, init_long)
 {
   test_init ();
 }
-#endif
 
 TEST (Rational_int_test<long long>, init_ll)
 {
   test_init ();
 }
 
-#if 0 // TODO: fix ambiguous overloading
 TEST (Rational_int_test<unsigned>, init_unsigned)
 {
   test_init ();
 }
-#endif
 
-#if 0 // TODO: fix ambiguous overloading
 TEST (Rational_int_test<unsigned long>, init_ul)
 {
   test_init ();
 }
-#endif
 
-#if 0 // TODO: debug constructor: it gets the sign wrong
 TEST (Rational_int_test<unsigned long long>, init_ull)
 {
   test_init ();
 }
-#endif
 
 // C++ can interpret bare 0 as a pointer, so test it separately.
 TEST (Rational_test, assign_literal_zero)

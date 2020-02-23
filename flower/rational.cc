@@ -95,24 +95,17 @@ Rational::Rational (I64 n, I64 d)
   normalize ();
 }
 
-Rational::Rational (I64 n)
+Rational::Rational (long long n)
 {
   sign_ = ::sign (n);
   num_ = ::abs (n);
   den_ = 1;
 }
 
-Rational::Rational (U64 n)
+Rational::Rational (unsigned long long n)
 {
-  sign_ = 1;
+  sign_ = ::sign (n);
   num_ = n;
-  den_ = 1;
-}
-
-Rational::Rational (int n)
-{
-  sign_ = ::sign (n);
-  num_ = ::abs (n);
   den_ = 1;
 }
 
