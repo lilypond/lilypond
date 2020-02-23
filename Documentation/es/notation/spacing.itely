@@ -1294,7 +1294,7 @@ en el bloque; el resultado se guarda como la nueva configuración
 actual.  Desde el punto de vista del usuario, los bloques
 @code{\layout} se combinan, pero en situaciones de conflicto
 (cuando se cambia la misma propiedad en diferentes bloques) las
-definiciones más tarías toman precedencia.
+definiciones más tardías toman precedencia.
 
 Por ejemplo: si este bloque:
 
@@ -1386,7 +1386,7 @@ solamente
 
 Si se planifica cuidadosamente, las variables de @code{\layout}
 pueden ser una herramienta valiosa para estructurar el diseño de
-la disposición de las fuentes, y tambiién para reiniciar la
+la disposición de las fuentes, y también para reiniciar la
 configuración de @code{\layout} a un estado conocido.
 
 @seealso

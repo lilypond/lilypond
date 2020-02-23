@@ -1096,7 +1096,7 @@ letra grande y en negrita.
 @end lilypond
 
 Los campos de texto que normalmente no son efectivos dentro de
-los bloques @code{\header} de una partitura se pueden imprimir el
+los bloques @code{\header} de una partitura se pueden imprimir en
 la zona del Título de la partitura si se coloca
 @code{print-all-headers} dentro del bloque @code{\paper}.  Una
 desventaja de la utilización de este método es que los campos de

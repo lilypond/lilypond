@@ -583,7 +583,7 @@ diferentes.
 
 @item @code{delete-intermediate-files}
 @tab @code{#t}
-@tab Eliminar los archivos intermedios @code{.ps} inútiles ques e crean
+@tab Eliminar los archivos intermedios @code{.ps} inútiles que se crean
 durante la compilación.
 
 @item @code{dump-cpu-profile}
@@ -738,12 +738,12 @@ errores e imprimir un registro de traza de pila.
 
 @item @code{read-file-list}
 @tab @code{#f [archivo]}
-@tab Especificar el nobmre de un archivo que contiene una lista de archivos
+@tab Especificar el nombre de un archivo que contiene una lista de archivos
 de entrada para procesar.
 
 @item @code{relative-includes}
 @tab @code{#f}
-@tab Cuando se procesa una instrucción @code{\include} command, buscar el
+@tab Cuando se procesa una instrucción @code{\include}, buscar el
 archivo incluido de forma relativa al archivo actual (en lugar del
 archivo principal).
 
