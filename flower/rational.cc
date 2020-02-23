@@ -72,6 +72,13 @@ Rational::abs () const
   return Rational (num_, den_);
 }
 
+I64
+Rational::trunc_int () const
+{
+  I64 i = num_ / den_;
+  return i * sign_;
+}
+
 Rational
 Rational::trunc_rat () const
 {
@@ -364,12 +371,6 @@ Rational::to_string () const
   if (den () != 1 && num ())
     s += "/" + std::to_string (den ());
   return s;
-}
-
-int
-Rational::to_int () const
-{
-  return (int) (num () / den ());
 }
 
 int

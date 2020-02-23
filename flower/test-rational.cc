@@ -168,30 +168,30 @@ TEST (Rational_test, init_float_neg_inf)
 }
 #endif
 
-TEST (Rational_test, to_int)
+TEST (Rational_test, trunc_int)
 {
   for (int i = -6; i <= 6; ++i)
     {
-      EQUAL (i / 2, Rational (i, 2).to_int ());
-      EQUAL (i / 3, Rational (i, 3).to_int ());
+      EQUAL (i / 2, Rational (i, 2).trunc_int ());
+      EQUAL (i / 3, Rational (i, 3).trunc_int ());
     }
 
-  if (false) // TODO: debug
-    {
-      // TODO: Program takes a lot of time without the +1.  Investigate.
-      const auto L = std::numeric_limits<int64_t>::lowest () + 1;
-      for (int i = 1; i <= 3; ++i)
-        {
-          EQUAL (L / i, Rational (L, i).to_int ());
-        }
-    }
+  // truncate a very low value
+  {
+    // TODO: Program takes a lot of time without the +1.  Investigate.
+    const auto L = std::numeric_limits<int64_t>::lowest () + 1;
+    for (int i = 1; i <= 3; ++i)
+      {
+        EQUAL (L / i, Rational (L, i).trunc_int ());
+      }
+  }
 
-  if (false) // TODO: debug
-    {
-      const auto H = std::numeric_limits<int64_t>::max ();
-      for (int i = 1; i <= 3; ++i)
-        {
-          EQUAL (H / i, Rational (H, i).to_int ());
-        }
-    }
+  // truncate a very high value
+  {
+    const auto H = std::numeric_limits<int64_t>::max ();
+    for (int i = 1; i <= 3; ++i)
+      {
+        EQUAL (H / i, Rational (H, i).trunc_int ());
+      }
+  }
 }

@@ -51,12 +51,13 @@ public:
   I64 num () const { return numerator (); }
   I64 den () const { return denominator (); }
 
+  // n.b. not valid for infinities
+  I64 trunc_int () const;
   Rational trunc_rat () const;
   Rational div_rat (Rational) const;
   Rational mod_rat (Rational) const;
   Rational abs () const;
   void negate ();
-  int to_int () const;
 
   explicit operator bool () const { return sign_ != 0; }
   explicit operator double () const;

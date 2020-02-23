@@ -68,7 +68,7 @@ Tempo_performer::process_music ()
       Rational r = unsmob<Moment> (w)->main_part_;
       r *= Rational (4, 1);
 
-      audio_ = new Audio_tempo (r.to_int ());
+      audio_ = new Audio_tempo (static_cast<int> (r.trunc_int ()));
 
       Audio_element_info info (audio_, 0);
       announce_element (info);
