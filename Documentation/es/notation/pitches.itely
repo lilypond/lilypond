@@ -77,8 +77,8 @@ central.
 @funindex '
 @funindex ,
 
-Se pueden especificar otras octavas mediante una comilla simple
-quote@tie{}(@code{'}) o una coma@tie{}(@code{,}) .
+Se pueden especificar otras octavas mediante una comilla
+simplee@tie{}(@code{'}) o una coma@tie{}(@code{,}) .
 Cada@tie{}@code{'} eleva la altura en una octava;
 cada@tie{}@code{,} baja la altura una octava.
 
