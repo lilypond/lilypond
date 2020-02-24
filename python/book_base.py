@@ -2,8 +2,9 @@
 
 import lilylib as ly
 import book_snippets as BookSnippet
-from book_snippets import *
+import book_snippets
 import re
+import os
 
 progress = ly.progress
 warning = ly.warning
@@ -76,8 +77,6 @@ snippet_type_order = [
     'lilypondversion',
 ]
 
-
-
 ########################################################################
 # Base class for all output formats
 ########################################################################
@@ -86,6 +85,14 @@ class BookOutputFormat:
     def __init__ (self):
         self.format = None
         self.default_extension = None
+
+        # snippet_type string => regex string
+
+        # Possible keys are:
+        #     'multiline_comment', 'verbatim', 'lilypond_block', 'singleline_comment',
+        #     'lilypond_file', 'include', 'lilypond', 'lilypondversion'
+        #     'musicxml_file',
+
         self.snippet_res = {}
         self.output = {}
         self.handled_extensions = []
@@ -96,6 +103,7 @@ class BookOutputFormat:
         self.snippet_option_separator = "\s*,\s*"
 
     def supported_snippet_types (self):
+        """List of snippet types (strings)"""
         # Sort according to snippet_type_order, unknown keys come last
         keys = list(self.snippet_res.keys ())
         # First the entries in snippet_type_order in that order (if present)
@@ -104,6 +112,7 @@ class BookOutputFormat:
         return res
 
     def snippet_regexp (self, snippettype):
+        """return regex string for snippettype"""
         return self.snippet_res.get (snippettype, None)
 
     def can_handle_format (self, format):
@@ -116,7 +125,6 @@ class BookOutputFormat:
 
     def process_options (self, global_options):
         pass
-
 
     def process_options_pdfnotdefault (self, global_options):
         ## prevent PDF from being switched on by default.
@@ -172,11 +180,11 @@ class BookOutputFormat:
     def output_print_filename (self, basename, snippet):
         str = ''
         rep = snippet.get_replacements ()
-        if PRINTFILENAME in snippet.option_dict:
+        if book_snippets.PRINTFILENAME in snippet.option_dict:
             rep['base'] = basename
             rep['filename'] = os.path.basename (snippet.filename)
             rep['ext'] = snippet.ext
-            str = self.output[PRINTFILENAME] % rep
+            str = self.output[book_snippets.PRINTFILENAME] % rep
 
         return str
 
@@ -194,3 +202,95 @@ class BookOutputFormat:
                 for page in range (1, page_count + 1):
                     res.append (base + '-page%d.png' % page)
         return res
+
+
+def find_linestarts (s):
+    """Return a list of indices indicating the first char of a line."""
+    nls = [0]
+    start = 0
+    end = len (s)
+    while 1:
+        i = s.find ('\n', start)
+        if i < 0:
+            break
+
+        i = i + 1
+        nls.append (i)
+        start = i
+
+    nls.append (len (s))
+    return nls
+
+
+def find_toplevel_snippets (input_string, formatter, global_options):
+    res = {}
+    types = formatter.supported_snippet_types ()
+    for t in types:
+        res[t] = re.compile (formatter.snippet_regexp (t))
+
+    snippets = []
+    index = 0
+    found = dict ([(t, None) for t in types])
+
+    line_starts = find_linestarts (input_string)
+    line_start_idx = 0
+    # We want to search for multiple regexes, without searching
+    # the string multiple times for one regex.
+    # Hence, we use earlier results to limit the string portion
+    # where we search.
+    # Since every part of the string is traversed at most once for
+    # every type of snippet, this is linear.
+    while 1:
+        first = None
+        endex = 1 << 30
+        for type in types:
+            if not found[type] or found[type][0] < index:
+                found[type] = None
+
+                m = res[type].search (input_string, index, endex)
+                if not m:
+                    continue
+
+                klass = formatter.snippet_class (type)
+
+                start = m.start ('match')
+                line_number = line_start_idx
+                while (line_starts[line_number] < start):
+                    line_number += 1
+
+                line_number += 1
+                snip = klass (type, m, formatter, line_number, global_options)
+
+                found[type] = (start, snip)
+
+            if (found[type]
+                and (not first
+                     or found[type][0] < found[first][0])):
+                first = type
+
+                # FIXME.
+
+                # Limiting the search space is a cute
+                # idea, but this *requires* to search
+                # for possible containing blocks
+                # first, at least as long as we do not
+                # search for the start of blocks, but
+                # always/directly for the entire
+                # @block ... @end block.
+
+                endex = found[first][0]
+
+        if not first:
+            snippets.append (BookSnippet.Substring (input_string, index, len (input_string), line_start_idx))
+            break
+
+        while (start > line_starts[line_start_idx+1]):
+            line_start_idx += 1
+
+        (start, snip) = found[first]
+        snippets.append (BookSnippet.Substring (input_string, index, start, line_start_idx + 1))
+        snippets.append (snip)
+        found[first] = None
+        index = start + len (snip.match.group ('match'))
+
+    return snippets

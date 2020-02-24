@@ -5,8 +5,8 @@ import tempfile
 import os
 import sys
 import subprocess
-import book_base as BookBase
-from book_snippets import *
+import book_base
+import book_snippets
 import lilylib as ly
 
 progress = ly.progress
@@ -24,9 +24,7 @@ debug = ly.debug_output
 #   (?m) -- Multiline regex: Make ^ and $ match at each line.
 #   (?s) -- Make the dot match all characters including newline.
 #   (?x) -- Ignore whitespace in patterns.
-# Possible keys are:
-#     'multiline_comment', 'verbatim', 'lilypond_block', 'singleline_comment',
-#     'lilypond_file', 'include', 'lilypond', 'lilypondversion'
+# See book_base.BookOutputFormat for  possible keys
 Latex_snippet_res = {
     'include':
          r'''(?smx)
@@ -113,11 +111,11 @@ Latex_snippet_res = {
 }
 
 Latex_output = {
-    FILTER: r'''\begin{lilypond}[%(options)s]
+    book_snippets.FILTER: r'''\begin{lilypond}[%(options)s]
 %(code)s
 \end{lilypond}''',
 
-    OUTPUT: r'''{%%
+    book_snippets.OUTPUT: r'''{%%
 \parindent 0pt
 \noindent
 \ifx\preLilyPondExample \undefined
@@ -132,19 +130,19 @@ Latex_output = {
 \fi
 }''',
 
-    PRINTFILENAME: r'''\texttt{%(filename)s}
+    book_snippets.PRINTFILENAME: r'''\texttt{%(filename)s}
 \linebreak
 ''',
 
-    QUOTE: r'''\begin{quote}
+    book_snippets.QUOTE: r'''\begin{quote}
 %(str)s
 \end{quote}''',
 
-    VERBATIM: r'''\noindent
+    book_snippets.VERBATIM: r'''\noindent
 \begin{verbatim}%(verb)s\end{verbatim}
 ''',
 
-    VERSION: r'''%(program_version)s''',
+    book_snippets.VERSION: r'''%(program_version)s''',
 }
 
 
@@ -277,13 +275,9 @@ def modify_preamble (chunk):
         chunk.override_text = str
 
 
-
-
-
-
-class BookLatexOutputFormat (BookBase.BookOutputFormat):
+class BookLatexOutputFormat (book_base.BookOutputFormat):
     def __init__ (self):
-        BookBase.BookOutputFormat.__init__ (self)
+        book_base.BookOutputFormat.__init__ (self)
         self.format = "latex"
         self.default_extension = ".tex"
         self.snippet_res = Latex_snippet_res
@@ -305,7 +299,7 @@ class BookLatexOutputFormat (BookBase.BookOutputFormat):
             trial = os.popen ('kpsewhich ' + input_filename).read()[:-1]
             if trial:
                 return trial
-        return BookBase.BookOutputFormat.input_fullname (self, input_filename)
+        return book_base.BookOutputFormat.input_fullname (self, input_filename)
 
     def process_chunks (self, chunks):
         for c in chunks:
@@ -321,24 +315,23 @@ class BookLatexOutputFormat (BookBase.BookOutputFormat):
         rep['base'] = basename.replace ('\\', '/')
         rep['filename'] = os.path.basename (snippet.filename).replace ('\\', '/')
         rep['ext'] = snippet.ext
-        if PRINTFILENAME in snippet.option_dict:
-            str += self.output[PRINTFILENAME] % rep
-        if VERBATIM in snippet.option_dict:
+        if book_snippets.PRINTFILENAME in snippet.option_dict:
+            str += self.output[book_snippets.PRINTFILENAME] % rep
+        if book_snippets.VERBATIM in snippet.option_dict:
             rep['verb'] = snippet.verb_ly ()
-            str += self.output[VERBATIM] % rep
+            str += self.output[book_snippets.VERBATIM] % rep
 
-        str += self.output[OUTPUT] % rep
+        str += self.output[book_snippets.OUTPUT] % rep
 
         ## todo: maintain breaks
         if 0:
             breaks = snippet.ly ().count ("\n")
             str += "".ljust (breaks, "\n").replace ("\n","%\n")
 
-        if QUOTE in snippet.option_dict:
-            str = self.output[QUOTE] % {'str': str}
+        if book_snippets.QUOTE in snippet.option_dict:
+            str = self.output[book_snippets.QUOTE] % {'str': str}
+
         return str
 
 
-
-
-BookBase.register_format (BookLatexOutputFormat ());
+book_base.register_format (BookLatexOutputFormat ());

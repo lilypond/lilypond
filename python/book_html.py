@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 
-import book_base as BookBase
 import copy
-from book_snippets import *
+import os
+import re
+
+import book_base
+import book_snippets
 
 # Recognize special sequences in the input.
 #
@@ -14,9 +17,7 @@ from book_snippets import *
 #   (?m) -- Multiline regex: Make ^ and $ match at each line.
 #   (?s) -- Make the dot match all characters including newline.
 #   (?x) -- Ignore whitespace in patterns.
-# Possible keys are:
-#     'multiline_comment', 'verbatim', 'lilypond_block', 'singleline_comment',
-#     'lilypond_file', 'include', 'lilypond', 'lilypondversion'
+# See book_base.BookOutputFormat for  possible keys
 HTML_snippet_res = {
     'lilypond':
          r'''(?mx)
@@ -59,46 +60,41 @@ HTML_snippet_res = {
 
 
 HTML_output = {
-    FILTER: r'''<lilypond %(options)s>
+    book_snippets.FILTER: r'''<lilypond %(options)s>
 %(code)s
 </lilypond>
 ''',
 
-    AFTER: r'''
+    book_snippets.AFTER: r'''
  </a>
 </p>''',
 
-    BEFORE: r'''<p>
+    book_snippets.BEFORE: r'''<p>
  <a href="%(base)s%(ext)s">''',
 
-    OUTPUT: r'''
+    book_snippets.OUTPUT: r'''
   <img align="middle"
        border="0"
        src="%(image)s"
        alt="%(alt)s">''',
 
-    PRINTFILENAME: '<p><tt><a href="%(base)s%(ext)s">%(filename)s</a></tt></p>',
+    book_snippets.PRINTFILENAME: '<p><tt><a href="%(base)s%(ext)s">%(filename)s</a></tt></p>',
 
-    QUOTE: r'''<blockquote>
+    book_snippets.QUOTE: r'''<blockquote>
 %(str)s
 </blockquote>
 ''',
 
-    VERBATIM: r'''<pre>
+    book_snippets.VERBATIM: r'''<pre>
 %(verb)s</pre>''',
 
-    VERSION: r'''%(program_version)s''',
+    book_snippets.VERSION: r'''%(program_version)s''',
 }
 
 
-
-
-
-
-
-class BookHTMLOutputFormat (BookBase.BookOutputFormat):
+class BookHTMLOutputFormat (book_base.BookOutputFormat):
     def __init__ (self):
-        BookBase.BookOutputFormat.__init__ (self)
+        book_base.BookOutputFormat.__init__ (self)
         self.format = "html"
         self.default_extension = ".html"
         self.snippet_res = HTML_snippet_res
@@ -128,25 +124,25 @@ class BookHTMLOutputFormat (BookBase.BookOutputFormat):
         rep['filename'] = os.path.basename (snippet.filename)
         rep['ext'] = snippet.ext
         str += self.output_print_filename (basename, snippet)
-        if VERBATIM in snippet.option_dict:
-            rep['verb'] = BookBase.verbatim_html (snippet.verb_ly ())
-            str += self.output[VERBATIM] % rep
-        if QUOTE in snippet.option_dict:
-            str = self.output[QUOTE] % {'str': str}
+        if book_snippets.VERBATIM in snippet.option_dict:
+            rep['verb'] = book_base.verbatim_html (snippet.verb_ly ())
+            str += self.output[book_snippets.VERBATIM] % rep
+        if book_snippets.QUOTE in snippet.option_dict:
+            str = self.output[book_snippets.QUOTE] % {'str': str}
 
-        str += self.output[BEFORE] % rep
+        str += self.output[book_snippets.BEFORE] % rep
         for image in snippet.get_images ():
             rep1 = copy.copy (rep)
             rep1['image'] = image
             (rep1['base'], rep1['ext']) = os.path.splitext (image)
-            rep1['alt'] = snippet.option_dict[ALT]
-            str += self.output[OUTPUT] % rep1
+            rep1['alt'] = snippet.option_dict[book_snippets.ALT]
+            str += self.output[book_snippets.OUTPUT] % rep1
 
-        str += self.output[AFTER] % rep
+        str += self.output[book_snippets.AFTER] % rep
         return str
 
     def required_files (self, snippet, base, full, required_files):
         return self.required_files_png (snippet, base, full, required_files)
 
 
-BookBase.register_format (BookHTMLOutputFormat ());
+book_base.register_format (BookHTMLOutputFormat ());

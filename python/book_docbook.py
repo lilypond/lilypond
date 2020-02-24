@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 
-import book_base as BookBase
-from book_snippets import *
+import os
+
+import book_base
+import book_snippets
+
 
 # Recognize special sequences in the input.
 #
@@ -13,9 +16,7 @@ from book_snippets import *
 #   (?m) -- Multiline regex: Make ^ and $ match at each line.
 #   (?s) -- Make the dot match all characters including newline.
 #   (?x) -- Ignore whitespace in patterns.
-# Possible keys are:
-#     'multiline_comment', 'verbatim', 'lilypond_block', 'singleline_comment',
-#     'lilypond_file', 'include', 'lilypond', 'lilypondversion'
+# See book_base.BookOutputFormat for  possible keys
 Docbook_snippet_res = {
     'lilypond':
          r'''(?smx)
@@ -61,7 +62,7 @@ Docbook_snippet_res = {
 
 
 Docbook_output = {
-    FILTER: r'''<mediaobject>
+    book_snippets.FILTER: r'''<mediaobject>
   <textobject>
     <programlisting language="lilypond"
                     role="%(options)s">
@@ -70,14 +71,14 @@ Docbook_output = {
   </textobject>
 </mediaobject>''',
 
-    OUTPUT: r'''<imageobject role="latex">
+    book_snippets.OUTPUT: r'''<imageobject role="latex">
   <imagedata fileref="%(base)s.pdf" format="PDF"/>
 </imageobject>
 <imageobject role="html">
   <imagedata fileref="%(base)s.png" format="PNG"/>
 </imageobject>''',
 
-    PRINTFILENAME: r'''<textobject>
+    book_snippets.PRINTFILENAME: r'''<textobject>
   <simpara>
     <ulink url="%(base)s%(ext)s">
       <filename>
@@ -87,18 +88,18 @@ Docbook_output = {
   </simpara>
 </textobject>''',
 
-    VERBATIM: r'''<programlisting>
+    book_snippets.VERBATIM: r'''<programlisting>
 %(verb)s</programlisting>''',
 
-    VERSION: r'''%(program_version)s''',
+    book_snippets.VERSION: r'''%(program_version)s''',
 }
 
 
 
 
-class BookDocbookOutputFormat (BookBase.BookOutputFormat):
+class BookDocbookOutputFormat (book_base.BookOutputFormat):
     def __init__ (self):
-        BookBase.BookOutputFormat.__init__ (self)
+        book_base.BookOutputFormat.__init__ (self)
         self.format = "docbook"
         self.default_extension = ".xml"
         self.snippet_res = Docbook_snippet_res
@@ -118,16 +119,16 @@ class BookDocbookOutputFormat (BookBase.BookOutputFormat):
         for image in snippet.get_images ():
             rep['image'] = image
             (rep['base'], rep['ext']) = os.path.splitext (image)
-            str += self.output[OUTPUT] % rep
+            str += self.output[book_snippets.OUTPUT] % rep
             str += self.output_print_filename (basename, snippet)
             if (snippet.substring('inline') == 'inline'):
                 str = '<inlinemediaobject>' + str + '</inlinemediaobject>'
             else:
                 str = '<mediaobject>' + str + '</mediaobject>'
-        if VERBATIM in snippet.option_dict:
-                rep['verb'] = BookBase.verbatim_html (snippet.verb_ly ())
-                str = self.output[VERBATIM]  % rep + str
+        if book_snippets.VERBATIM in snippet.option_dict:
+                rep['verb'] = book_base.verbatim_html (snippet.verb_ly ())
+                str = self.output[book_snippets.VERBATIM]  % rep + str
         return str
 
 
-BookBase.register_format (BookDocbookOutputFormat ());
+book_base.register_format (BookDocbookOutputFormat ());

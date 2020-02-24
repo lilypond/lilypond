@@ -65,8 +65,8 @@ import lilylib as ly
 import fontextract
 import langdefs
 
-import book_base as BookBase
-import book_snippets as BookSnippet
+import book_base
+import book_snippets
 import book_html
 import book_docbook
 import book_texinfo
@@ -253,7 +253,7 @@ case --pdf option is set instead of pdflatex"),
         % 'bug-lilypond@gnu.org') + '\n')
 
 
-    for formatter in BookBase.all_formats:
+    for formatter in book_base.all_formats:
       formatter.add_options (p)
 
     return p
@@ -279,95 +279,6 @@ global_options = None
 
 
 
-
-def find_linestarts (s):
-    nls = [0]
-    start = 0
-    end = len (s)
-    while 1:
-        i = s.find ('\n', start)
-        if i < 0:
-            break
-
-        i = i + 1
-        nls.append (i)
-        start = i
-
-    nls.append (len (s))
-    return nls
-
-def find_toplevel_snippets (input_string, formatter):
-    res = {}
-    types = formatter.supported_snippet_types ()
-    for t in types:
-        res[t] = re.compile (formatter.snippet_regexp (t))
-
-    snippets = []
-    index = 0
-    found = dict ([(t, None) for t in types])
-
-    line_starts = find_linestarts (input_string)
-    line_start_idx = 0
-    # We want to search for multiple regexes, without searching
-    # the string multiple times for one regex.
-    # Hence, we use earlier results to limit the string portion
-    # where we search.
-    # Since every part of the string is traversed at most once for
-    # every type of snippet, this is linear.
-    while 1:
-        first = None
-        endex = 1 << 30
-        for type in types:
-            if not found[type] or found[type][0] < index:
-                found[type] = None
-
-                m = res[type].search (input_string[index:endex])
-                if not m:
-                    continue
-
-                klass = global_options.formatter.snippet_class (type)
-
-                start = index + m.start ('match')
-                line_number = line_start_idx
-                while (line_starts[line_number] < start):
-                    line_number += 1
-
-                line_number += 1
-                snip = klass (type, m, formatter, line_number, global_options)
-
-                found[type] = (start, snip)
-
-            if (found[type]
-                and (not first
-                     or found[type][0] < found[first][0])):
-                first = type
-
-                # FIXME.
-
-                # Limiting the search space is a cute
-                # idea, but this *requires* to search
-                # for possible containing blocks
-                # first, at least as long as we do not
-                # search for the start of blocks, but
-                # always/directly for the entire
-                # @block ... @end block.
-
-                endex = found[first][0]
-
-        if not first:
-            snippets.append (BookSnippet.Substring (input_string, index, len (input_string), line_start_idx))
-            break
-
-        while (start > line_starts[line_start_idx+1]):
-            line_start_idx += 1
-
-        (start, snip) = found[first]
-        snippets.append (BookSnippet.Substring (input_string, index, start, line_start_idx + 1))
-        snippets.append (snip)
-        found[first] = None
-        index = start + len (snip.match.group ('match'))
-
-    return snippets
 
 def system_in_directory (cmd, directory, logfile):
     """Execute a command in a different directory.
@@ -453,7 +364,7 @@ def split_output_files(directory):
     return set (files)
 
 def do_process_cmd (chunks, input_name, options):
-    snippets = [c for c in chunks if isinstance (c, BookSnippet.LilypondSnippet)]
+    snippets = [c for c in chunks if isinstance (c, book_snippets.LilypondSnippet)]
 
     output_files = split_output_files (options.lily_output_dir)
     outdated = [c for c in snippets if c.is_outdated (options.lily_output_dir, output_files)]
@@ -496,7 +407,7 @@ def do_process_cmd (chunks, input_name, options):
 def guess_format (input_filename):
     format = None
     e = os.path.splitext (input_filename)[1]
-    for formatter in BookBase.all_formats:
+    for formatter in book_base.all_formats:
       if formatter.can_handle_extension (e):
         return formatter
     error (_ ("cannot determine format for: %s" % input_filename))
@@ -596,7 +507,7 @@ def do_file (input_filename, included=False):
 
 
         progress (_ ("Dissecting..."))
-        chunks = find_toplevel_snippets (source, global_options.formatter)
+        chunks = book_base.find_toplevel_snippets (source, global_options.formatter, global_options)
 
         # Let the formatter modify the chunks before further processing
         chunks = global_options.formatter.process_chunks (chunks)
@@ -618,14 +529,14 @@ def do_file (input_filename, included=False):
             return do_file (name, included=True)
 
         include_chunks = list(map (process_include,
-                              [x for x in chunks if isinstance (x, BookSnippet.IncludeSnippet)]))
+                              [x for x in chunks if isinstance (x, book_snippets.IncludeSnippet)]))
 
         return chunks + reduce (lambda x, y: x + y, include_chunks, [])
 
-    except BookSnippet.CompileError:
+    except book_snippets.CompileError:
         os.chdir (original_dir)
         progress (_ ("Removing `%s'") % output_filename)
-        raise BookSnippet.CompileError
+        raise book_snippets.CompileError
 
 def adjust_include_path (path, outpath):
     """Rewrite an include path relative to the dir where lilypond is launched.
@@ -699,7 +610,7 @@ def main ():
 
     if global_options.format:
       # Retrieve the formatter for the given format
-      for formatter in BookBase.all_formats:
+      for formatter in book_base.all_formats:
         if formatter.can_handle_format (global_options.format):
           global_options.formatter = formatter
     else:
@@ -749,7 +660,7 @@ def main ():
     identify ()
     try:
         chunks = do_file (files[0])
-    except BookSnippet.CompileError:
+    except book_snippets.CompileError:
         exit (1)
 
     inputs = note_input_file ('')

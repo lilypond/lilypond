@@ -15,3 +15,6 @@ INSTALLATION_OUT_FILES=$(OUT_PY_MODULES)
 default: $(outdir)/relocate-preamble.py
 
 $(outdir)/relocate-preamble.py: $(depth)/VERSION
+
+local-test:
+	$(PYTHON) book_base_test.py
