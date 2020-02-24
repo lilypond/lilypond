@@ -22,7 +22,6 @@
 
 fet_begingroup ("rests")
 
-
 %%%%%%%%
 %
 %
@@ -122,6 +121,7 @@ fet_beginchar ("Neo-mensural 4th rest", "2neomensural");
 
         fill z1l
              -- z2l
+             -- .5[z3,z3l]   % to avoid FontForge problems
              -- z2r
              -- z1r
              .. z11

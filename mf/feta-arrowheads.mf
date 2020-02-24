@@ -23,90 +23,85 @@ fet_begingroup ("arrowheads");
 %
 
 %
-% Set up paths for upper half of arrow head pointing right.
-% CLOSE_PATH is for a closed arrow, OPEN_PATH is for the open arrow.
-% OPEN_TENSION sets the tension for the part which forms the path in
-% OPEN_PATH.
+% Set up paths for arrow head pointing right.
+% CLOSED (boolean): true -> closed arrowhead, false -> open arrowhead
+% TENS_O sets the tension for the Outer part of the path
+% *_I; inner contour, *_O: outer contour
 %
 
-def set_arrow_paths (expr width, height, open_tension, arrowlinethickness) =
-        save pat, finalpath;
-        save tip_angle_o, tip_angle_c, tip_dir_c, tip_dir_o;
+
+def set_arrow_path (expr width, height, closed, tens_o, arrowlinethickness) =
+        save pat, arrow_path;
+        save tip_dir_i, tip_dir_o, wing_dir, ta;
         save indent;
-        path pat, open_path, close_path;
-        pair tip_dir_o, tip_dir_c;
+        path pat, arrow_path;
+        pair tip_dir_i, tip_dir_o, wing_dir;
+        numeric ta;
 
         pickup pencircle scaled arrowlinethickness;
 
         indent = linethickness / 2;
 
-        lft x1 = -width;
-        x2 = 0;
-        top y1 = height;
-        y2 = 0;
+        x1 = 0;
+        y1 = 0;
+        lft x2 = -width;
+        top y2 = height;
+        penpos1 (arrowlinethickness, 90);
 
-        z4 = z3;
-        y5 = 0;
-        x5 = x4 + indent;
+        pat := z2
+                ..tension tens_o.. z1{right};
+        tip_dir_o := direction 0 of pat;
+        z4 = z3 = z2;
+        penpos2 (arrowlinethickness, angle tip_dir_o + 90);
+        penpos3 (arrowlinethickness, angle tip_dir_o + 180);
+        if closed:
+                y5 = 0;
+                x5 = x2 + indent;
+                pat := z4
+                       .. z5{down};
+                tip_dir_i := direction 0 of pat;
+                wing_dir := down;
+                penpos5 (arrowlinethickness, angle wing_dir + 90);
+        else:
+                pat := z2l{tip_dir_o}
+                       .. z1l{right};
+                ta = xpart (pat intersectiontimes pat yscaled -1);
+                z5 = point ta of pat;
 
-        pat := z1
-               ..tension open_tension.. z2{right};
-        penpos2 (arrowlinethickness, 90);
-        tip_dir_o := direction 0.0 of pat;
-        tip_angle_o := angle (tip_dir_o);
-        penpos1 (arrowlinethickness, 90 + tip_angle_o);
-        z3 = z1;
-        penpos3 (arrowlinethickness, tip_angle_o);
+                tip_dir_i := tip_dir_o;
+                wing_dir := direction ta of pat;
+                penpos5 (0, 0);
+        fi;
+        penpos4 (arrowlinethickness, angle tip_dir_i + 90);
 
-        open_path := z1r{tip_dir_o}
-                     .. z2r{right}
-                     .. z2l{left}
-                     .. z1l{-tip_dir_o}
-                     .. z3l
-                     .. cycle;
-
-        pat := z4
-               .. z5{down};
-        tip_dir_c := direction 0.0 of pat;
-        tip_angle_c := angle (tip_dir_c);
-        penpos4 (arrowlinethickness, 90+ tip_angle_c);
-        penpos5 (arrowlinethickness, 0);
-        z6 = z5;
-        penpos6 (arrowlinethickness, 90);
-
-        close_path := z4l{tip_dir_c}
-                      .. z5l{down}
-                      .. z6l{right}
-                      .. z2l{right}
-                      .. z2r{left}
-                      ..tension open_tension.. z1r{-tip_dir_o}
-                      .. z3l
+        pat := z1r{left}
+               ..tension tens_o.. z2r{-tip_dir_o}
+               .. z3r
+               .. z4l{tip_dir_i}
+               .. z5l{wing_dir};
+        arrow_path := pat
+                      .. reverse pat yscaled -1
                       .. cycle;
+
 enddef;
 
 
 fet_beginchar ("open", "open.01");
         set_char_box (staff_space#, 1.6 linethickness# / 2,
                       0.5 staff_space#, 0.5 staff_space#);
-        set_arrow_paths (staff_space, 0.5 staff_space,
-                         1.0, 1.6 linethickness);
-        fill open_path;
-        open_path := open_path yscaled -1;
-        fill open_path;
-
-        penlabels (1, 2, 3);
-        penlabels (4, 5, 6);
+        set_arrow_path (staff_space, 0.5 staff_space,
+                        false, 1.0, 1.6 linethickness);
+        fill arrow_path;
+        penlabels (1, 2, 3, 4, 5);
 fet_endchar;
 
 
 fet_beginchar ("open", "open.0M1");
         set_char_box (1.6 linethickness# / 2, staff_space#,
                       0.5 staff_space#, 0.5 staff_space#);
-        set_arrow_paths (staff_space, 0.5 staff_space,
-                         1.0, 1.6 linethickness);
-        fill open_path;
-        open_path := open_path yscaled -1;
-        fill open_path;
+        set_arrow_path (staff_space, 0.5 staff_space,
+                        false, 1.0, 1.6 linethickness);
+        fill arrow_path;
         currentpicture := currentpicture xscaled -1;
 fet_endchar;
 
@@ -114,11 +109,9 @@ fet_endchar;
 fet_beginchar ("open", "open.11");
         set_char_box (.5 staff_space#, .5 staff_space#,
                       1.0 staff_space#, 1.6 linethickness# / 2);
-        set_arrow_paths (staff_space, 0.5 staff_space,
-                         1.0, 1.6 linethickness);
-        fill open_path;
-        open_path := open_path yscaled -1;
-        fill open_path;
+        set_arrow_path (staff_space, 0.5 staff_space,
+                        false, 1.0, 1.6 linethickness);
+        fill arrow_path;
         currentpicture := currentpicture rotated 90;
 fet_endchar;
 
@@ -126,11 +119,9 @@ fet_endchar;
 fet_beginchar ("open", "open.1M1");
         set_char_box (.5 staff_space#, .5 staff_space#,
                       1.6 linethickness# / 2, 1.0 staff_space#);
-        set_arrow_paths (staff_space, 0.5 staff_space,
-                         1.0, 1.6 linethickness);
-        fill open_path;
-        open_path := open_path yscaled -1;
-        fill open_path;
+        set_arrow_path (staff_space, 0.5 staff_space,
+                        false, 1.0, 1.6 linethickness);
+        fill arrow_path;
         currentpicture := currentpicture rotated 90;
         currentpicture := currentpicture yscaled -1;
 fet_endchar;
@@ -138,19 +129,18 @@ fet_endchar;
 
 fet_beginchar ("close", "close.01");
         set_char_box (staff_space#, 0, 0.5 staff_space#, 0.5 staff_space#);
-        set_arrow_paths (staff_space, 0.5 staff_space, 1.5, blot_diameter);
-        fill close_path;
-        close_path := close_path yscaled -1;
-        fill close_path;
+        set_arrow_path (staff_space, 0.5 staff_space,
+                        true, 1.5, blot_diameter);
+        fill arrow_path;
+        penlabels (1, 2, 3, 4, 5);
 fet_endchar;
 
 
 fet_beginchar ("close", "close.0M1");
         set_char_box (0, staff_space#,  0.5 staff_space#, 0.5 staff_space#);
-        set_arrow_paths (staff_space, 0.5 staff_space, 1.5, blot_diameter);
-        fill close_path;
-        close_path := close_path yscaled -1;
-        fill close_path;
+        set_arrow_path (staff_space, 0.5 staff_space,
+                        true, 1.5, blot_diameter);
+        fill arrow_path;
         currentpicture := currentpicture xscaled -1;
 fet_endchar;
 
@@ -158,10 +148,9 @@ fet_endchar;
 fet_beginchar ("close", "close.11");
         set_char_box (.5 staff_space#, .5 staff_space#,
                       1.0 staff_space#, 0.0 staff_space#);
-        set_arrow_paths (staff_space, 0.5 staff_space, 1.5, blot_diameter);
-        fill close_path;
-        close_path := close_path yscaled -1;
-        fill close_path;
+        set_arrow_path (staff_space, 0.5 staff_space,
+                        true, 1.5, blot_diameter);
+        fill arrow_path;
         currentpicture := currentpicture rotated 90;
 fet_endchar;
 
@@ -169,10 +158,9 @@ fet_endchar;
 fet_beginchar ("close", "close.1M1");
         set_char_box (.5 staff_space#, .5 staff_space#,
                       0.0 staff_space#, 1.0 staff_space#);
-        set_arrow_paths (staff_space, 0.5 staff_space, 1.5, blot_diameter);
-        fill close_path;
-        close_path := close_path yscaled -1;
-        fill close_path;
+        set_arrow_path (staff_space, 0.5 staff_space,
+                        true, 1.5, blot_diameter);
+        fill arrow_path;
         currentpicture := currentpicture rotated -90;
 fet_endchar;
 
