@@ -29,7 +29,7 @@ AC_CONFIG_HEADERS([config.hh:config.hh.in])
 DOCUMENTATION=yes
 AC_ARG_ENABLE(documentation,
     [AS_HELP_STRING([--enable-documentation],
-		    [build Documentation.  Default: on])],
+                    [build Documentation.  Default: on])],
     [DOCUMENTATION=$enableval])
 AC_SUBST(DOCUMENTATION)
 
@@ -41,26 +41,26 @@ AC_ARG_WITH(flexlexer-dir,
 
 AC_ARG_WITH(texgyre-dir,
     [AS_HELP_STRING([--with-texgyre-dir=DIR],
-		    [location of TeX Gyre fonts.])],
+                    [location of TeX Gyre fonts.])],
     [TEXGYRE_DIR=$withval],
     [TEXGYRE_DIR=""])
 
 AC_ARG_WITH(urwotf-dir,
     [AS_HELP_STRING([--with-urwotf-dir=DIR],
-		    [location of URW++ OTF fonts.])],
+                    [location of URW++ OTF fonts.])],
     [URWOTF_DIR=$withval],
     [URWOTF_DIR=""])
 
 rpath_b=no
 AC_ARG_ENABLE(rpath,
     [AS_HELP_STRING([--enable-rpath],
-		    [hardcode runtime library path.  Default: off])],
+                    [hardcode runtime library path.  Default: off])],
     [rpath_b=$enableval])
 
 LINK_GXX_STATICALLY=no
 AC_ARG_ENABLE(static-gxx,
     [AS_HELP_STRING([--enable-static-gxx],
-		    [link libstdc++.a statically.  Default: off])],
+                    [link libstdc++.a statically.  Default: off])],
     [LINK_GXX_STATICALLY=$enableval])
 AC_SUBST(LINK_GXX_STATICALLY)
 
@@ -203,15 +203,15 @@ STEPMAKE_GUILE_DEVEL(REQUIRED)
 save_CXXFLAGS="$CXXFLAGS"
 CXXFLAGS="$GUILE_CFLAGS $CXXFLAGS"
 AC_CHECK_TYPES([scm_t_hash_fold_fn, scm_t_hash_handle_fn],
-	       [AC_DEFINE(HAVE_GUILE_HASH_FUNC)], [],
-	       [[#if HAVE_LIBGUILE18_H
+               [AC_DEFINE(HAVE_GUILE_HASH_FUNC)], [],
+               [[#if HAVE_LIBGUILE18_H
 # include <libguile18.h>
 #else
 # include <libguile.h>
 #endif]])
 AC_CHECK_TYPES([scm_t_subr],
-	       [AC_DEFINE(HAVE_GUILE_SUBR_TYPE)], [],
-	       [[#if HAVE_LIBGUILE18_H
+               [AC_DEFINE(HAVE_GUILE_SUBR_TYPE)], [],
+               [[#if HAVE_LIBGUILE18_H
 # include <libguile18.h>
 #else
 # include <libguile.h>
@@ -284,16 +284,16 @@ save_LIBS="$LIBS"
 LIBS="$LIBS $CXXABI_LIBS"
 AC_MSG_CHECKING(for usable C++ demangler)
 AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <cxxabi.h>],
-	    [abi::__cxa_demangle ("", 0, 0, 0)])],
+            [abi::__cxa_demangle ("", 0, 0, 0)])],
     [AC_DEFINE(HAVE_CXA_DEMANGLE)
-	AC_MSG_RESULT(yes)],[
-	LIBS="$LIBS -lsupc++"
-	AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <cxxabi.h>],
-		    [abi::__cxa_demangle ("", 0, 0, 0)])],
-	    [AC_DEFINE(HAVE_CXA_DEMANGLE)
-		AC_MSG_RESULT([yes, using -lsupc++])
-		CXXABI_LIBS="$CXXABI_LIBS -lsupc++"],
-	    [AC_MSG_RESULT([no, use c++filt -t for manual demangling])])])
+        AC_MSG_RESULT(yes)],[
+        LIBS="$LIBS -lsupc++"
+        AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <cxxabi.h>],
+                    [abi::__cxa_demangle ("", 0, 0, 0)])],
+            [AC_DEFINE(HAVE_CXA_DEMANGLE)
+                AC_MSG_RESULT([yes, using -lsupc++])
+                CXXABI_LIBS="$CXXABI_LIBS -lsupc++"],
+            [AC_MSG_RESULT([no, use c++filt -t for manual demangling])])])
 LIBS="$save_LIBS"
 AC_SUBST(CXXABI_LIBS)
 

@@ -669,25 +669,25 @@ AC_DEFUN(STEPMAKE_GUILE, [
 
 AC_DEFUN(STEPMAKE_GUILE_DEVEL, [
     if test -n "$GUILE_FLAVOR"; then
-	PKG_CHECK_MODULES([GUILE], [$GUILE_FLAVOR], true, [GUILE_FLAVOR=""])
+        PKG_CHECK_MODULES([GUILE], [$GUILE_FLAVOR], true, [GUILE_FLAVOR=""])
     else
-	PKG_CHECK_MODULES([GUILE], [guile-1.8 >= 1.8.2], [GUILE_FLAVOR="guile-1.8"], [
-	    PKG_CHECK_MODULES(
-		[GUILE], [guile-2.2 >= 2.2.0], [GUILE_FLAVOR="guile-2.2"], [
-		    PKG_CHECK_MODULES([GUILE], [guile-2.0 >= 2.0.7], [GUILE_FLAVOR="guile-2.0"])
-		])
-	])
+        PKG_CHECK_MODULES([GUILE], [guile-1.8 >= 1.8.2], [GUILE_FLAVOR="guile-1.8"], [
+            PKG_CHECK_MODULES(
+                [GUILE], [guile-2.2 >= 2.2.0], [GUILE_FLAVOR="guile-2.2"], [
+                    PKG_CHECK_MODULES([GUILE], [guile-2.0 >= 2.0.7], [GUILE_FLAVOR="guile-2.0"])
+                ])
+        ])
     fi
 
     case "$GUILE_FLAVOR" in
-	guile-2.0|guile-2.2|guile-3.0)
-	    GUILEv2=yes
-	    ;;
-	guile-1.8)
-	    ;;
-	*)
-	    STEPMAKE_ADD_ENTRY(REQUIRED, [guile-devel >= 1.8])
-	    ;;
+        guile-2.0|guile-2.2|guile-3.0)
+            GUILEv2=yes
+            ;;
+        guile-1.8)
+            ;;
+        *)
+            STEPMAKE_ADD_ENTRY(REQUIRED, [guile-devel >= 1.8])
+            ;;
     esac
 ])
 
@@ -1082,38 +1082,38 @@ AC_DEFUN(PKG_CHECK_MODULES, [
 AC_DEFUN(STEPMAKE_GLIB, [
     PKG_CHECK_MODULES(GLIB, $1 >= $3, have_glib=yes, true)
     if test "$have_glib" = yes; then
-	AC_DEFINE(HAVE_GLIB)
+        AC_DEFINE(HAVE_GLIB)
         save_CPPFLAGS="$CPPFLAGS"
         save_LIBS="$LIBS"
-	CPPFLAGS="$GLIB_CFLAGS $CPPFLAGS"
-	LIBS="$GLIB_LIBS $LIBS"
-	AC_SUBST(GLIB_CFLAGS)
-	AC_SUBST(GLIB_LIBS)
-	CPPFLAGS="$save_CPPFLAGS"
-	LIBS="$save_LIBS"
+        CPPFLAGS="$GLIB_CFLAGS $CPPFLAGS"
+        LIBS="$GLIB_LIBS $LIBS"
+        AC_SUBST(GLIB_CFLAGS)
+        AC_SUBST(GLIB_LIBS)
+        CPPFLAGS="$save_CPPFLAGS"
+        LIBS="$save_LIBS"
     else
-      r="libglib-dev or glib?-devel"
-      ver="`pkg-config --modversion $1`"
-      STEPMAKE_ADD_ENTRY($2, ["$r >= $3 (installed: $ver)"])
+        r="libglib-dev or glib?-devel"
+        ver="`pkg-config --modversion $1`"
+        STEPMAKE_ADD_ENTRY($2, ["$r >= $3 (installed: $ver)"])
     fi
 ])
 
 AC_DEFUN(STEPMAKE_GOBJECT, [
     PKG_CHECK_MODULES(GOBJECT, $1 >= $3, have_gobject=yes, true)
     if test "$have_gobject" = yes; then
-	AC_DEFINE(HAVE_GOBJECT)
+        AC_DEFINE(HAVE_GOBJECT)
         save_CPPFLAGS="$CPPFLAGS"
         save_LIBS="$LIBS"
-	CPPFLAGS="$GOBJECT_CFLAGS $CPPFLAGS"
-	LIBS="$GOBJECT_LIBS $LIBS"
-	AC_SUBST(GOBJECT_CFLAGS)
-	AC_SUBST(GOBJECT_LIBS)
-	CPPFLAGS="$save_CPPFLAGS"
-	LIBS="$save_LIBS"
+        CPPFLAGS="$GOBJECT_CFLAGS $CPPFLAGS"
+        LIBS="$GOBJECT_LIBS $LIBS"
+        AC_SUBST(GOBJECT_CFLAGS)
+        AC_SUBST(GOBJECT_LIBS)
+        CPPFLAGS="$save_CPPFLAGS"
+        LIBS="$save_LIBS"
     else
-      r="libgobject-dev or gobject?-devel"
-      ver="`pkg-config --modversion $1`"
-      STEPMAKE_ADD_ENTRY($2, ["$r >= $3 (installed: $ver)"])
+        r="libgobject-dev or gobject?-devel"
+        ver="`pkg-config --modversion $1`"
+        STEPMAKE_ADD_ENTRY($2, ["$r >= $3 (installed: $ver)"])
     fi
 ])
 
@@ -1131,7 +1131,7 @@ AC_DEFUN(STEPMAKE_FREETYPE2, [
         CPPFLAGS="$save_CPPFLAGS"
         LIBS="$save_LIBS"
     else
-        # UGR
+        # URG
         #r="lib$1-dev or $1-devel"
         r="libfreetype6-dev or freetype?-devel"
         ver="`pkg-config --modversion $1`"
@@ -1154,7 +1154,7 @@ AC_DEFUN(STEPMAKE_PANGO_FT2, [
         CPPFLAGS="$save_CPPFLAGS"
         LIBS="$save_LIBS"
     else
-        # UGR
+        # URG
         #r="lib$1-dev or $1-devel"e
         r="libpango1.0-dev or pango?-devel"
         ver="`pkg-config --modversion $1`"
@@ -1180,7 +1180,7 @@ AC_DEFUN(STEPMAKE_PANGO_FT2_WITH_OTF_FEATURE, [
         CPPFLAGS="$save_CPPFLAGS"
         LIBS="$save_LIBS"
     else
-        # UGR
+        # URG
         #r="lib$1-dev or $1-devel"e
         r="libpango1.0-dev or pango?-devel"
         ver="`pkg-config --modversion $1`"
