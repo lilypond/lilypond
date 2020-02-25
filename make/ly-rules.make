@@ -20,7 +20,7 @@ $(outdir)/%.latex: %.doc $(INIT_LY_SOURCES) $(SCHEME_SOURCES)
 # as to not create superficial dependencies between unrelated manuals.
 define CHAIN_RULE
 | $(i)
-$(i): 
+$(i):
 endef
 
 $(eval $(firstword $(TEXI_FILES_FROM_TELY)):\
@@ -50,22 +50,6 @@ $(outdir)/%.texi: $(outdir)/%.tely $(outdir)/version.itexi $(DOCUMENTATION_LOCAL
 		--output=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) \
 		$(LILYPOND_BOOK_FLAGS) --redirect-lilypond-output $<
 
-
-$(outdir)/%.html.omf: %.tely
-	$(call ly_progress,Making,$@,< tely)
-	$(call GENERATE_OMF,html)
-
-$(outdir)/%.pdf.omf: %.tely
-	$(call ly_progress,Making,$@,< tely)
-	$(call GENERATE_OMF,pdf)
-
-$(outdir)/%.html.omf: $(outdir)/%.texi | $(OUT_TEXINFO_MANUALS)
-	$(call ly_progress,Making,$@,< texi)
-	$(call GENERATE_OMF,html)
-
-$(outdir)/%.pdf.omf: $(outdir)/%.texi | $(OUT_TEXINFO_MANUALS)
-	$(call ly_progress,Making,$@,< texi)
-	$(call GENERATE_OMF,pdf)
 
 $(outdir)/others-did.itexi $(outdir)/we-wrote.itexi: $(outdir)/%.itexi: $(top-src-dir)/Documentation/web/%.bib $(top-src-dir)/Documentation/lily-bib.bst
 	$(call ly_progress,Making,$@,)

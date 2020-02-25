@@ -67,7 +67,6 @@ infodir = @infodir@
 libdir = @libdir@
 localedir = @localedir@
 mandir = @mandir@
-omfdir = $(datadir)/omf
 program_prefix = @program_prefix@
 program_suffix = @program_suffix@
 sharedstatedir = @sharedstatedir@
@@ -77,22 +76,18 @@ package_datadir = $(datadir)/$(package)
 package_infodir = $(infodir)/$(package)
 package_libdir = $(libdir)/$(package)
 package_docdir = $(docdir)/$(package)
-package_omfdir = $(omfdir)/$(package)
 
 local_package_datadir = $(package_datadir)/$(TOPLEVEL_VERSION)
 local_package_docdir = $(package_docdir)/$(TOPLEVEL_VERSION)
 local_package_libdir = $(package_libdir)/$(TOPLEVEL_VERSION)
-local_package_omfdir = $(package_omfdir)/$(TOPLEVEL_VERSION)
 
 local_lilypond_datadir = $(local_package_datadir)
 local_lilypond_docdir = $(local_package_docdir)
 local_lilypond_libdir = $(local_package_libdir)
-local_lilypond_omfdir = $(local_package_omfdir)
 
 lilypond_datadir = $(local_package_datadir)
 lilypond_libdir = $(local_package_libdir)
 lilypond_docdir = $(package_docdir)
-lilypond_omfdir = $(local_package_omfdir)
 
 webdir = $(lilypond_docdir)/html
 vimdir = $(lilypond_datadir)/vim

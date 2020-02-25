@@ -108,15 +108,6 @@
 
 @include macros.itexi
 
-@ignore
-@omftitle LilyPond internals
-@omfcreator Han-Wen Nienhuys and Jan Nieuwenhuizen
-@omfdescription Programmer's reference of the LilyPond music engraving system
-@omftype user's guide
-@omflanguage English
-@omfcategory Applications|Publishing
-@end ignore
-
 @iftex
 @afourpaper
 @end iftex

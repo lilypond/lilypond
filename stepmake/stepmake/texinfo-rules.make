@@ -56,7 +56,7 @@ $(outdir)/%.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version
 	$(buildscript-dir)/run-and-check "DEPTH=$(depth) AJAX_SEARCH=$(AJAX_SEARCH) $(TEXI2HTML) $(TEXI2HTML_FLAGS) --output=$@ $<"  "$*.texilog.log"
 
 
-$(outdir)/%/index.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi $(outdir)/weblinks.itexi $(outdir)/%.html.omf | $(OUT_TEXINFO_MANUALS)
+$(outdir)/%/index.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi $(outdir)/weblinks.itexi | $(OUT_TEXINFO_MANUALS)
 	$(call ly_progress,Making,$@,< texi)
 	mkdir -p $(dir $@)
 ifeq ($(WEB_VERSION),yes)
@@ -80,7 +80,7 @@ ifeq ($(WEB_VERSION),yes)
 TEXI2PDF_WEB_VERSION_FLAGS += -D web_version
 endif
 
-$(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/%.pdf.omf $(outdir)/weblinks.itexi | $(OUT_TEXINFO_MANUALS)
+$(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/weblinks.itexi | $(OUT_TEXINFO_MANUALS)
 	$(call ly_progress,Making,$@,< texi)
 	TEX=$(PDFTEX) PDFTEX=$(PDFTEX) PDFLATEX=$(PDFLATEX) \
 		$(buildscript-dir)/run-and-check \
@@ -116,14 +116,6 @@ endif
 $(outdir)/%.txt: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/weblinks.itexi | $(OUT_TEXINFO_MANUALS)
 	$(call ly_progress,Making,$@,< texi)
 	$(buildscript-dir)/run-and-check "$(MAKEINFO) -I$(src-dir) -I$(outdir) --no-split --no-headers --output $@ $<"  "$*.makeinfotxt.log"
-
-$(outdir)/%.html.omf: %.texi
-	$(call ly_progress,Making,$@,< texi)
-	$(call GENERATE_OMF,html)
-
-$(outdir)/%.pdf.omf: %.texi
-	$(call ly_progress,Making,$@,< texi)
-	$(call GENERATE_OMF,pdf)
 
 $(outdir)/version.itexi: $(top-src-dir)/VERSION
 	$(call ly_progress,Making,$@,)

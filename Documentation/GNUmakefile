@@ -11,7 +11,7 @@ NAME = documentation
 LANGS = $(shell $(PYTHON) $(top-src-dir)/python/langdefs.py)
 SUBDIRS = logo pictures misc po css topdocs \
   ly-examples $(LANGS)
-STEPMAKE_TEMPLATES = documentation texinfo tex omf
+STEPMAKE_TEMPLATES = documentation texinfo tex
 LOCALSTEPMAKE_TEMPLATES = lilypond ly
 
 ### Extra flags
@@ -37,7 +37,6 @@ OUT_SNIPPET_LY_FILES = $(SNIPPET_LY_FILES:%.ly=out/%.ly)
 GENERATED_ITELY_FILES = $(IN_ITELY_FILES:snippets/%-intro.itely=$(outdir)/%.itely)
 
 XREF_MAPS_FILES += $(XREF_MAPS_DIR)/internals.xref-map
-OMF_FILES += $(outdir)/internals.html.omf $(outdir)/internals.pdf.omf
 
 # Main manuals
 TEXINFO_MANUALS = internals\
@@ -192,9 +191,9 @@ ifeq ($(out),www)
 local-WWW-1: $(OUT_TEXINFO_MANUALS) $(PDF_FILES) info
 
 ifeq ($(AJAX_SEARCH),1)
-local-WWW-2: txt-to-html $(OUT_HTML_FILES) $(DEEP_HTML_FILES) $(OUT_JS_FILES) $(OUT_PHP_FILES) $(source-links) $(OMF_FILES)
+local-WWW-2: txt-to-html $(OUT_HTML_FILES) $(DEEP_HTML_FILES) $(OUT_JS_FILES) $(OUT_PHP_FILES) $(source-links)
 else
-local-WWW-2: txt-to-html $(OUT_HTML_FILES) $(DEEP_HTML_FILES) $(source-links) $(OMF_FILES)
+local-WWW-2: txt-to-html $(OUT_HTML_FILES) $(DEEP_HTML_FILES) $(source-links)
 endif
 
 endif

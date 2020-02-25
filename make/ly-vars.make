@@ -3,8 +3,6 @@
 TELY_FILES := $(call src-wildcard,*.tely)
 TEXI_FILES_FROM_TELY := $(TELY_FILES:%.tely=$(outdir)/%.texi) $(TEXI_FILES_FROM_TELY)
 
-OMF_FILES += $(foreach format, html pdf, $(foreach f, $(TELY_FILES), $(outdir)/$(f:.tely=.$(format)).omf))
-
 ITELY_FILES := $(call src-wildcard,*.itely)
 ITEXI_FILES := $(call src-wildcard,*.itexi)
 LY_FILES := $(call src-wildcard,*.ly)
