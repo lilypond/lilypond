@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of extending.tely
 @ignore
-    Translation of GIT committish: a4d99bea6bfcbe19edba760b655939e4fb83cebf
+    Translation of GIT committish: 36f7b38c3c093f59c5574c4271cfc46ea1a89932
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1653,7 +1653,7 @@ traslada hacia arriba.
 
      (if (and (>= (length siblings) 2)
               (eq? (car (last-pair siblings)) grob))
-         (ly:grob-set-property! grob 'extra-offset '(-2 . 5)))))
+         (ly:grob-set-property! grob 'extra-offset '(1 . -4)))))
 
 \relative {
   \override Tie.after-line-breaking =
