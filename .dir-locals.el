@@ -3,9 +3,9 @@
 
 ((c++-mode
   (c-file-style . "gnu")
-  (indent-tabs-mode))
+  (indent-tabs-mode . nil))
  (scheme-mode
-  (indent-tabs-mode))
+  (indent-tabs-mode . nil))
  (texinfo-mode
   (fill-column . 66)
-  (indent-tabs-mode)))
+  (indent-tabs-mode . nil)))
