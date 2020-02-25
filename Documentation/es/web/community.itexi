@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 2182939b44cc4091c56b75babc52e17d316a7a32
+    Translation of GIT committish: b12cb5c388f3ab75d4833d6702ac9f37604255dd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -623,9 +623,8 @@ LilyPond, le conminamos a que utilice la
 
 Existen dos conjuntos de lanzamientos para LilyPond: lanzamientos
 estables, y lanzamientos inestables de desarrollo.  Las versiones
-estables tienen un número de versión @q{menor} par (p.ej., 2.8,
-2.10, 2.12).  Las versiones de desarrollo tienen un número
-@q{menor} de versión impar (p.ej., 2.7, 2.9, 2.11).
+estables tienen un número de versión @q{menor} par (p.ej., 2.14, 2.16, 2.18).  Las versiones de desarrollo tienen un número
+@q{menor} de versión impar (p.ej., 2.15, 2.17, 2.19).
 
 @divEnd
 
