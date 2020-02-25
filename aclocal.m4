@@ -633,13 +633,20 @@ AC_DEFUN(STEPMAKE_GUILE, [
 
 AC_DEFUN(STEPMAKE_GUILE_DEVEL, [
     if test -n "$GUILE_FLAVOR"; then
-        PKG_CHECK_MODULES([GUILE], [$GUILE_FLAVOR], true, [GUILE_FLAVOR=""])
+        PKG_CHECK_MODULES([GUILE], [$GUILE_FLAVOR],
+                            [true], [GUILE_FLAVOR="missing"])
     else
-        PKG_CHECK_MODULES([GUILE], [guile-1.8 >= 1.8.2], [GUILE_FLAVOR="guile-1.8"], [
-            PKG_CHECK_MODULES(
-                [GUILE], [guile-2.2 >= 2.2.0], [GUILE_FLAVOR="guile-2.2"], [
-                    PKG_CHECK_MODULES([GUILE], [guile-2.0 >= 2.0.7], [GUILE_FLAVOR="guile-2.0"])
-                ])
+        PKG_CHECK_MODULES([GUILE], [guile-1.8 >= 1.8.2],
+                            [GUILE_FLAVOR="guile-1.8"], [
+            AC_MSG_RESULT([no])
+            PKG_CHECK_MODULES([GUILE], [guile-2.2 >= 2.2.0],
+                                [GUILE_FLAVOR="guile-2.2"], [
+                AC_MSG_RESULT([no])
+                PKG_CHECK_MODULES([GUILE], [guile-2.0 >= 2.0.7],
+                                    [GUILE_FLAVOR="guile-2.0"], [
+                    AC_MSG_RESULT([no])
+                    GUILE_FLAVOR="missing"])
+            ])
         ])
     fi
 
@@ -650,7 +657,7 @@ AC_DEFUN(STEPMAKE_GUILE_DEVEL, [
         guile-1.8)
             ;;
         *)
-            STEPMAKE_ADD_ENTRY(REQUIRED, [guile-devel >= 1.8])
+            STEPMAKE_ADD_ENTRY(REQUIRED, ["guile-devel >= 1.8"])
             ;;
     esac
 ])
@@ -1017,7 +1024,7 @@ AC_DEFUN(STEPMAKE_GLIB, [
         LIBS="$save_LIBS"
     else
         r="libglib-dev or glib?-devel"
-        ver="`pkg-config --modversion $1`"
+        ver="`$PKG_CONFIG --modversion $1`"
         STEPMAKE_ADD_ENTRY($2, ["$r >= $3 (installed: $ver)"])
     fi
 ])
@@ -1036,7 +1043,7 @@ AC_DEFUN(STEPMAKE_GOBJECT, [
         LIBS="$save_LIBS"
     else
         r="libgobject-dev or gobject?-devel"
-        ver="`pkg-config --modversion $1`"
+        ver="`$PKG_CONFIG --modversion $1`"
         STEPMAKE_ADD_ENTRY($2, ["$r >= $3 (installed: $ver)"])
     fi
 ])
@@ -1058,7 +1065,7 @@ AC_DEFUN(STEPMAKE_FREETYPE2, [
         # URG
         #r="lib$1-dev or $1-devel"
         r="libfreetype6-dev or freetype?-devel"
-        ver="`pkg-config --modversion $1`"
+        ver="`$PKG_CONFIG --modversion $1`"
         STEPMAKE_ADD_ENTRY($2, ["$r >= $3 (installed: $ver)"])
     fi
 ])
@@ -1081,7 +1088,7 @@ AC_DEFUN(STEPMAKE_PANGO_FT2, [
         # URG
         #r="lib$1-dev or $1-devel"e
         r="libpango1.0-dev or pango?-devel"
-        ver="`pkg-config --modversion $1`"
+        ver="`$PKG_CONFIG --modversion $1`"
         STEPMAKE_ADD_ENTRY($2, ["$r >= $3 (installed: $ver)"])
     fi
 ])
@@ -1107,7 +1114,7 @@ AC_DEFUN(STEPMAKE_PANGO_FT2_WITH_OTF_FEATURE, [
         # URG
         #r="lib$1-dev or $1-devel"e
         r="libpango1.0-dev or pango?-devel"
-        ver="`pkg-config --modversion $1`"
+        ver="`$PKG_CONFIG --modversion $1`"
         STEPMAKE_ADD_ENTRY($2, ["$r >= $3 (It is required if you'd like "])
         STEPMAKE_ADD_ENTRY($2, ["to use OpenType font feature. "])
         STEPMAKE_ADD_ENTRY($2, ["installed: $ver)"])
@@ -1130,7 +1137,7 @@ AC_DEFUN(STEPMAKE_FONTCONFIG, [
         LIBS="$save_LIBS"
     else
         r="lib$1-dev or $1-devel"
-        ver="`pkg-config --modversion $1`"
+        ver="`$PKG_CONFIG --modversion $1`"
         STEPMAKE_ADD_ENTRY($2, ["$r >= $3 (installed: $ver)"])
     fi
 ])
