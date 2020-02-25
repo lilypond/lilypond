@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 9d33e9d40c88b6c58eeacf6698a1d97ddce7a987
+    Translation of GIT committish: 6ca1d8c80817f9baaa7b66b2fde9a7b98b0ffc0a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -101,6 +101,13 @@ musicales:
 @}
 @end example
 
+@funindex %
+@funindex %@{ @dots{} %@}
+@cindex comentario
+@cindex línea, comentario de
+@cindex comentario de una línea
+@cindex comentario de bloque
+@cindex comentario de varias líneas
 Los comentarios son una excepción a esta regla general (para ver
 otras excepciones, consulte @ref{Estructura del archivo}).  Tanto
 los comentarios de una línea como los que están delimitados por
@@ -510,6 +517,18 @@ en el nivel superior:
 En cualquier punto del archivo se pueden introducir cualquiera de
 las instrucciones léxicas siguientes:
 
+@funindex \version
+@funindex \include
+@funindex \sourcefilename
+@funindex \sourcefileline
+
+@funindex %
+@funindex %@{ @dots{} %@}
+@cindex comentario
+@cindex comentario de una línea
+@cindex comentario de bloque
+@cindex comentario de varias líneas
+
 @itemize
 @item @code{\version}
 @item @code{\include}
@@ -565,9 +584,9 @@ Referencia de la notación:
 @section Títulos y encabezamientos
 @translationof Titles and headers
 
-@cindex títulos
-@cindex encabezamientos
-@cindex pies de página
+@cindex título
+@cindex encabezamiento
+@cindex pie de página
 
 Casi toda la música impresa tiene un título y el nombre del
 compositor; ciertas piezas tienen mucha más información.
@@ -635,7 +654,7 @@ Dentro de un bloque @code{\bookpart} pero fuera de cualquier bloque
 @code{\score} dentro de dicha parte de libro.
 
 @item
-Después de la expresión musical de un bloque @code{\score}.
+Dentro de un bloque @code{\score}.
 
 @end itemize
 
@@ -677,10 +696,6 @@ partitura a no ser que la variable de @code{\paper},
 @code{print-all-headers}, tenga el valor @code{#t}.
 
 @end itemize
-
-@warning{Recuerde que al poner un bloque @bs{}@code{header}
-dentro de un bloque @bs{}@code{score}, la expresión musical debe
-aparecer antes del bloque @bs{}@code{header}.}
 
 No es necesario aportar bloques @code{\header} en los cuatro
 lugares: cualquiera de ellos o incluso todos pueden omitirse.  De
@@ -871,7 +886,7 @@ opuestos de la misma línea.
 Para cambiar la disposición predeterminada, véase
 @ref{Personalización de los títulos}.
 
-@cindex breakbefore
+@funindex breakbefore
 
 Si un bloque @code{\book} comienza inmediatamente con un bloque
 @code{\bookpart}, no se imprime ningún título de libro, pues no
@@ -1020,8 +1035,6 @@ Referencia de la notación:
 @unnumberedsubsubsec Personalización de los títulos
 @translationof Custom layout for titles
 
-@cindex bookTitleMarkup
-@cindex scoreTitleMarkup
 @funindex bookTitleMarkup
 @funindex scoreTitleMarkup
 
@@ -1203,7 +1216,6 @@ de @code{\paper}:
 @end itemize
 
 @cindex marcado condicional
-@cindex on-the-fly
 @funindex \on-the-fly
 
 La instrucción de marcado @code{\on-the-fly} se puede utilizar
@@ -1302,7 +1314,7 @@ Archivos instalados:
 @translationof Creating output file metadata
 
 @cindex metadatos de PDF
-@cindex metadatos de MIDI
+@cindex MIDI, metadatos de
 
 Además de mostrarse en la salida impresa, las variables de
 encabezamiento de @code{\header} se usan para establecer los
@@ -1324,7 +1336,7 @@ establece la propiedad @code{title} del bloque @code{header} como
 título, y lo usará como el nombre de la secuencia del archivo MIDI.
 
 @example
-\header@{
+\header @{
   title = "Sinfonía núm. 1"
 @}
 @end example
@@ -1335,7 +1347,7 @@ diferente, puede usar @code{pdftitle} como se muestra a
 continuación.
 
 @example
-\header@{
+\header @{
   title = "Sinfonía núm. 1"
   pdftitle = "Sinfonía núm. 1 de Beethoven"
 @}
@@ -1365,7 +1377,7 @@ independientemente del valor usado para la salida impresa.
 @subsection Crear notas al pie
 @translationof Creating footnotes
 
-@cindex notas al pie
+@cindex nota al pie
 
 Se pueden crear dos tipos de notas al pie: automáticas y manuales.
 
@@ -1378,7 +1390,7 @@ Se pueden crear dos tipos de notas al pie: automáticas y manuales.
 @unnumberedsubsubsec Notas al pie dentro de expresiones musicales
 @translationof Footnotes in music expressions
 
-@cindex notas al pie dentro de expresiones musicales
+@cindex nota al pie dentro de expresiones musicales
 @funindex \footnote
 
 @subsubsubheading Panorámica de las notas al pie
@@ -1431,6 +1443,7 @@ dirección (@code{-, _, ^}) con el objeto de adjuntar la
 precedente.
 
 @item marca
+@funindex @sortas{defaultB} \default
 es un elemento de marcado o cadena de caracteres que especifica
 la marca de nota al pie que se usa para marcar tanto el punto de
 referencia como la propia nota al pie en la parte inferior de la
@@ -1472,7 +1485,7 @@ está anotando.
 
 @subsubsubheading Notas al pie basadas en eventos
 
-@cindex Notas al pie, basadas en eventos
+@cindex Nota al pie, basada en eventos
 
 Una nota al pie se adjunta a un objeto de presentación causado
 directamente por el evento que corresponde a @var{música}, con la
@@ -1541,7 +1554,7 @@ con una marca de nota al pie adjunta.  La sintaxis es:
 
 @subsubsubheading notas al pie basadas en tiempo
 
-@cindex notas al pie, basadas en tiempo
+@cindex Nota al pie, basada en tiempo
 
 Si el objeto de presentación que recibe la nota al pie está
 causado @emph{indirectamente} por un evento (como un objeto
@@ -1581,6 +1594,8 @@ dentro del instante de tiempo actual:
   }
 }
 @end lilypond
+
+@funindex \single
 
 Una nota dentro de un acorde puede recibir una nota al pie
 individual, basada en evento.  El único grob causado directamente
@@ -1683,7 +1698,7 @@ Se muestran más ejemplos de marcas personalizadas en
 @unnumberedsubsubsec Notas al pie en texto independiente
 @translationof Footnotes in stand-alone text
 
-@cindex notas al pie en texto independiente
+@cindex nota al pie en texto independiente
 
 Se utilizan dentro de un elemento de marcado fuera de cualquier
 expresión musical.  No se traza una línea hasta el punto de
@@ -1986,6 +2001,8 @@ tocItemMarkup = \markup \large \fill-line {
 Observe la forma en que nos referimos al texto y al número de
 página del elemento de índice, dentro de la definición
 @code{tocItemMarkup}.
+
+@funindex \tocItemWithDotsMarkup
 
 La instrucción @code{\tocItemWithDotsMarkup} se puede incluir
 dentro de @code{tocItemMarkup} para llenar la línea con puntos
@@ -2627,7 +2644,7 @@ introducen.
 @unnumberedsubsubsec Uso de ajustes globales
 @translationof Using global settings
 
-@cindex include-settings
+@cindex include settings
 
 Se pueden incluir ajustes globales a partir de un archivo
 distinto:
@@ -2800,7 +2817,7 @@ partitura:
   }
   \addlyrics { O \markup { \concat { Ph \char ##x0153 be! } } }
 }
-\markup { "Copyright 2008--2015" \char ##x00A9 }
+\markup { "Copyright 2008--2020" \char ##x00A9 }
 @end lilypond
 
 @cindex copyright, símbolo de
@@ -2880,8 +2897,8 @@ Archivos instalados:
 @end menu
 
 @funindex clip-regions
-@cindex fragmentos de música
-@cindex música, fragmentos
+@cindex fragmento de música
+@cindex música, fragmento
 
 @node Extracción de fragmentos de música
 @subsection Extracción de fragmentos de música
@@ -3290,7 +3307,7 @@ salir por el MIDI:
 @subsection El bloque MIDI
 @translationof The MIDI block
 
-@cindex bloque MIDI
+@cindex MIDI, bloque
 
 Para crear un archivo de salida MIDI a partir de un archivo de
 entrada de LilyPond, introduzca un bloque @code{\midi}, que puede
@@ -3343,6 +3360,24 @@ puede ser problemático si los pentagramas que comparten canal
 tienen establecidas propiedades MIDI, basadas en canal, en mutuo
 conflicto (como distintos instrumentos MIDI).
 
+Using a @code{midi} block with polymetric notation may cause unexpected
+barcheck warnings.  In this case move the @code{Timing_translator} from
+the @code{Score} context to the @code{Staff} context within the
+@code{midi}block.
+
+@lilypond[verbatim]
+\midi {
+  \context {
+    \Score
+    \remove "Timing_translator"
+  }
+  \context {
+     \Staff
+     \consists "Timing_translator"
+  }
+}
+@end lilypond
+
 
 @node Control de las dinámicas del MIDI
 @subsection Control de las dinámicas del MIDI
@@ -3387,6 +3422,9 @@ matiz dinámico pueden verse en el archivo @file{scm/midi.scm}.
 
 
 @snippets
+
+@cindex dinámica personalizada en MIDI
+@cindex MIDI, dinámicas personalizadas
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {creating-custom-dynamics-in-midi-output.ly}
 
@@ -3500,6 +3538,10 @@ Referencia de funcionamiento interno:
 @rinternals{Dynamic_performer}.
 
 @snippets
+
+@cindex MIDI, sustituir la ecualización de instrumento predeterminada
+@cindex instrumento MIDI, sustituir la ecualización predeterminada
+@cindex ecualización predeterminada, instrumento MIDI, sustitución de la
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {replacing-default-midi-instrument-equalization.ly}
 
@@ -3804,6 +3846,8 @@ muestra a continuación:
 @end example
 
 @snippets
+
+@cindex MIDI, un canal por cada voz
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-midi-output-to-one-channel-per-voice.ly}
 
@@ -3812,13 +3856,20 @@ muestra a continuación:
 @subsection Propiedades de contexto para efectos MIDI
 @translationof Context properties for MIDI effects
 
-@cindex Efectos en MIDI
-@cindex Panorama en MIDI
-@cindex Balance en MIDI
-@cindex Estéreo, balance en MIDI
-@cindex Expresión en  MIDI
-@cindex Reverberación en  MIDI
-@cindex Chorus en MIDI
+@cindex efectos en MIDI
+@cindex panorama en MIDI
+@cindex balance en MIDI
+@cindex estéreo, balance en MIDI
+@cindex expresión en MIDI
+@cindex reverberación en MIDI
+@cindex chorus en MIDI
+@cindex MIDI, efectos
+@cindex MIDI, panorama
+@cindex MIDI, balance
+@cindex MIDI, balance estéreo
+@cindex MIDI, expresión
+@cindex MIDI, reverberación
+@cindex MIDI, chorus
 @funindex midiPanPosition
 @funindex midiBalance
 @funindex midiExpression
@@ -3945,8 +3996,8 @@ mejorar mediante la selección de los instrumentos MIDI las
 propiedades del bloque @code{\midi} y/o usando el script
 @file{articulate}.
 
-@cindex instrumentos, nombres
-@cindex MIDI, instrumentos
+@cindex instrumentos, nombre
+@cindex MIDI, instrumento
 @cindex articulate, script
 @cindex articulate.ly
 @funindex Staff.midiInstrument
@@ -3955,6 +4006,9 @@ propiedades del bloque @code{\midi} y/o usando el script
 @node El script Articulate
 @subsection El script Articulate
 @translationof The Articulate script
+
+@cindex articulate script
+@cindex articulate.ly
 
 Para utilizar el script Articulate, tenemos que incluirlo al
 principio de nuestro archivo de entrada:
@@ -3977,6 +4031,8 @@ literalmente el contenido de la salida MIDI.
   \midi @{ @}
 @}
 @end example
+
+@funindex \articulate
 
 La instrucción @code{\articulate} habilita el procesado de las
 abreviaturas como trinos y mordentes de varias notas.  En el
