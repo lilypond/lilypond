@@ -850,12 +850,12 @@ Usage syntax is detailed in @ref{Coloring objects}.
 @cindex list of colors
 @cindex color, list of
 
-@verbatim
-black       white          red         green
-blue        cyan           magenta     yellow
-grey        darkred        darkgreen   darkblue
+@example
+black       white          red           green
+blue        cyan           magenta       yellow
+grey        darkred        darkgreen     darkblue
 darkcyan    darkmagenta    darkyellow
-@end verbatim
+@end example
 
 
 @subsubheading X color names
@@ -873,60 +873,69 @@ Some names can take a numerical suffix (e.g., @q{LightSalmon4}).
 
 @subsubheading Color Names without a numerical suffix:
 
-@verbatim
-snow		GhostWhite	WhiteSmoke	gainsboro	FloralWhite
-OldLace		linen		AntiqueWhite	PapayaWhip	BlanchedAlmond
-bisque		PeachPuff	NavajoWhite	moccasin	cornsilk
-ivory		LemonChiffon	seashell	honeydew	MintCream
-azure		AliceBlue	lavender	LavenderBlush	MistyRose
-white		black		DarkSlateGrey	DimGrey		SlateGrey
-LightSlateGrey	grey		LightGrey	MidnightBlue	navy
-NavyBlue	CornflowerBlue	DarkSlateBlue	SlateBlue	MediumSlateBlue
-LightSlateBlue	MediumBlue	RoyalBlue	blue		DodgerBlue
-DeepSkyBlue	SkyBlue		LightSkyBlue	SteelBlue	LightSteelBlue
-LightBlue	PowderBlue	PaleTurquoise	DarkTurquoise	MediumTurquoise
-turquoise	cyan		LightCyan	CadetBlue	MediumAquamarine
-aquamarine	DarkGreen	DarkOliveGreen	DarkSeaGreen	SeaGreen
-MediumSeaGreen	LightSeaGreen	PaleGreen	SpringGreen	LawnGreen
-green		chartreuse	MediumSpringGreen	GreenYellow	LimeGreen
-YellowGreen	ForestGreen	OliveDrab	DarkKhaki	khaki
-PaleGoldenrod	LightGoldenrodYellow	LightYellow	yellow	gold
-LightGoldenrod	goldenrod	DarkGoldenrod	RosyBrown	IndianRed
-SaddleBrown	sienna		peru		burlywood	beige
-wheat		SandyBrown	tan		chocolate	firebrick
-brown		DarkSalmon	salmon		LightSalmon	orange
-DarkOrange	coral		LightCoral	tomato		OrangeRed
-red		HotPink		DeepPink	pink		LightPink
-PaleVioletRed	maroon		MediumVioletRed	VioletRed	magenta
-violet		plum		orchid		MediumOrchid	DarkOrchid
-DarkViolet	BlueViolet	purple		MediumPurple	thistle
-DarkGrey	DarkBlue	DarkCyan	DarkMagenta	DarkRed
-LightGreen
-@end verbatim
+@example
+AliceBlue       LawnGreen             OrangeRed      firebrick
+AntiqueWhite    LemonChiffon          PaleGoldenrod  gainsboro
+BlanchedAlmond  LightBlue             PaleGreen      gold
+BlueViolet      LightCoral            PaleTurquoise  goldenrod
+CadetBlue       LightCyan             PaleVioletRed  green
+CornflowerBlue  LightGoldenrod        PapayaWhip     grey
+DarkBlue        LightGoldenrodYellow  PeachPuff      honeydew
+DarkCyan        LightGreen            PowderBlue     ivory
+DarkGoldenrod   LightGrey             RosyBrown      khaki
+DarkGreen       LightPink             RoyalBlue      lavender
+DarkGrey        LightSalmon           SaddleBrown    linen
+DarkKhaki       LightSeaGreen         SandyBrown     magenta
+DarkMagenta     LightSkyBlue          SeaGreen       maroon
+DarkOliveGreen  LightSlateBlue        SkyBlue        moccasin
+DarkOrange      LightSlateGrey        SlateBlue      navy
+DarkOrchid      LightSteelBlue        SlateGrey      orange
+DarkRed         LightYellow           SpringGreen    orchid
+DarkSalmon      LimeGreen             SteelBlue      peru
+DarkSeaGreen    MediumAquamarine      VioletRed      pink
+DarkSlateBlue   MediumBlue            WhiteSmoke     plum
+DarkSlateGrey   MediumOrchid          YellowGreen    purple
+DarkTurquoise   MediumPurple          aquamarine     red
+DarkViolet      MediumSeaGreen        azure          salmon
+DeepPink        MediumSlateBlue       beige          seashell
+DeepSkyBlue     MediumSpringGreen     bisque         sienna
+DimGrey         MediumTurquoise       black          snow
+DodgerBlue      MediumVioletRed       blue           tan
+FloralWhite     MidnightBlue          brown          thistle
+ForestGreen     MintCream             burlywood      tomato
+GhostWhite      MistyRose             chartreuse     turquoise
+GreenYellow     NavajoWhite           chocolate      violet
+HotPink         NavyBlue              coral          wheat
+IndianRed       OldLace               cornsilk       white
+LavenderBlush   OliveDrab             cyan           yellow
+@end example
 
 
 @subsubheading Color names with a numerical suffix
 
 In the following names the suffix N can be a number in the range 1-4:
 
-@verbatim
-snowN		seashellN	AntiqueWhiteN	bisqueN		PeachPuffN
-NavajoWhiteN	LemonChiffonN	cornsilkN	ivoryN		honeydewN
-LavenderBlushN	MistyRoseN	azureN		SlateBlueN	RoyalBlueN
-blueN		DodgerBlueN	SteelBlueN	DeepSkyBlueN	SkyBlueN
-LightSkyBlueN	LightSteelBlueN	LightBlueN	LightCyanN	PaleTurquoiseN
-CadetBlueN	turquoiseN	cyanN		aquamarineN	DarkSeaGreenN
-SeaGreenN	PaleGreenN	SpringGreenN	greenN		chartreuseN
-OliveDrabN	DarkOliveGreenN	khakiN		LightGoldenrodN	LightYellowN
-yellowN		goldN		goldenrodN	DarkGoldenrodN	RosyBrownN
-IndianRedN	siennaN		burlywoodN	wheatN		tanN
-chocolateN	firebrickN	brownN		salmonN		LightSalmonN
-orangeN		DarkOrangeN	coralN		tomatoN		OrangeRedN
-redN		DeepPinkN	HotPinkN	pinkN		LightPinkN
-PaleVioletRedN	maroonN		VioletRedN	magentaN	orchidN
-plumN		MediumOrchidN	DarkOrchidN	purpleN		MediumPurpleN
-thistleN
-@end verbatim
+@example
+AntiqueWhiteN    LightSkyBlueN    SteelBlueN   khakiN
+CadetBlueN       LightSteelBlueN  VioletRedN   magentaN
+DarkGoldenrodN   LightYellowN     aquamarineN  maroonN
+DarkOliveGreenN  MediumOrchidN    azureN       orangeN
+DarkOrangeN      MediumPurpleN    bisqueN      orchidN
+DarkOrchidN      MistyRoseN       blueN        pinkN
+DarkSeaGreenN    NavajoWhiteN     brownN       plumN
+DeepPinkN        OliveDrabN       burlywoodN   purpleN
+DeepSkyBlueN     OrangeRedN       chartreuseN  redN
+DodgerBlueN      PaleGreenN       chocolateN   salmonN
+HotPinkN         PaleTurquoiseN   coralN       seashellN
+IndianRedN       PaleVioletRedN   cornsilkN    siennaN
+LavenderBlushN   PeachPuffN       cyanN        snowN
+LemonChiffonN    RosyBrownN       firebrickN   tanN
+LightBlueN       RoyalBlueN       goldN        thistleN
+LightCyanN       SeaGreenN        goldenrodN   tomatoN
+LightGoldenrodN  SkyBlueN         greenN       turquoiseN
+LightPinkN       SlateBlueN       honeydewN    wheatN
+LightSalmonN     SpringGreenN     ivoryN       yellowN
+@end example
 
 
 @subsubheading Grey Scale
