@@ -171,10 +171,12 @@ $(outdir)/offline-root/index.html: $(WEB_TRACKED_FILES)
 	$(call ly_progress,Making,$@,)
 	$(buildscript-dir)/www_post $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(outdir) offline
 	find $(outdir)/offline-root -type l | xargs rm -f
+	cd $(outdir)/offline-root && find -name \*.html -execdir $(buildscript-dir)/fix-docsize {} +
 
 $(outdir)/online-root/index.html: $(WEB_TRACKED_FILES)
 	$(call ly_progress,Making,$@,)
 	$(buildscript-dir)/www_post $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(outdir) online
+	cd $(outdir)/online-root && find -name \*.html -execdir $(buildscript-dir)/fix-docsize {} +
 endif # ifeq ($(out),www)
 
 # For those who cannot for the life in them remember to type
