@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: c7a55021f3575fb6f217fa7a1ec2555afc5eb54f
+    Translation of GIT committish: 9fd9c4afa39adeacf1626a8811a533c7daadc3cf
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -46,11 +46,11 @@ Esta sección trata de la notas simultáneas dentro de la misma voz.
 @unnumberedsubsubsec Notas en acorde
 @translationof Chorded notes
 
-@cindex acordes
+@cindex acorde
 @cindex paréntesis en ángulo
 
-@funindex <
-@funindex >
+@funindex @sortas{<A} <
+@funindex @sortas{>A} >
 @funindex <...>
 
 Un acorde se forma encerrando un conjunto de notas entre @code{<}
@@ -97,8 +97,10 @@ de hacerlo a redondas o notas sueltas.
 }
 @end lilypond
 
-@cindex acordes vacíos
-@cindex eventos contenedores
+@cindex acorde, vacío
+@cindex evento, contenedor
+
+@funindex <>
 
 Un acorde funciona como un mero contenedor para las notas que lo
 componen y sus articulaciones y otros elementos adjuntos.  Como
@@ -118,7 +120,7 @@ más complejas de combinaciones de estos elementos, consulte
 @end lilypond
 
 @cindex relativo, acordes en altura
-@cindex acordes y altura relativa
+@cindex acorde, y altura relativa
 
 Se puede usar el modo relativo para la altura de las notas de los
 acordes.  La primera nota del acorde siempre es relativa a la
@@ -336,7 +338,7 @@ pueden generar varios pentagramas de forma implícita:
 Aquí no hay problema en tener distintas duraciones porque se
 interpretan en voces distintas.
 
-@cindex colisiones, ignorar
+@cindex colisión, ignorar
 
 @knownissues
 Si hay notas que proceden de dos o más voces, sin especificar
@@ -428,12 +430,14 @@ pentagramas.
 @translationof Single-staff polyphony
 
 @cindex pentagrama único, polifonía de
-@cindex polifonía en un solo pentagrama
+@cindex polifonía, en un solo pentagrama
 @cindex voz
-@cindex letra asignada a una voz
+@cindex letra, asignada a una voz
 
 @funindex \voiceOne
-@funindex \voiceOne ... \voiceFour
+@funindex \voiceTwo
+@funindex \voiceThree
+@funindex \voiceFour
 @funindex Voice
 @funindex \oneVoice
 
@@ -665,9 +669,9 @@ Fragmentos de código:
 @unnumberedsubsubsec Estilos de voz
 @translationof Voice styles
 
-@cindex voice styles
-@cindex styles, voice
-@cindex coloring voices
+@cindex voz, estilo
+@cindex estilo, voz
+@cindex color, voz
 @funindex \voiceOneStyle
 @funindex \voiceTwoStyle
 @funindex \voiceThreeStyle
@@ -714,15 +718,15 @@ Fragmentos de código:
 @translationof Collision resolution
 
 @cindex mezclar notas
-@cindex notas, colisiones de
-@cindex colisiones
+@cindex nota, colisiones de
+@cindex colisión
 @cindex desplazar nota
 @cindex varias voces
-@cindex voces, varias
+@cindex voz, varias
 @cindex polifónica, música
-@cindex desplazamiento de voces
+@cindex desplazamiento, de voces
 @cindex desplazamiento, silencio automático de
-@cindex desplazamiento de silencios, automático
+@cindex desplazamiento, de silencios, automático
 @funindex \shiftOn
 @funindex \shiftOnn
 @funindex \shiftOnnn
@@ -910,12 +914,26 @@ explícitamente en direcciones opuestas).
 @code{\shiftOff}.
 @endpredefined
 
+
 @snippets
+
+@cindex voz, adicional, en música polifónica
+@cindex adicional, voz, en música polifóncia
+@cindex polifonía, voces adicionales
+@funindex context-spec-music
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {additional-voices-to-avoid-collisions.ly}
 
+@cindex puntillo, mover horizontalmente
+@cindex nota, con puntillo, mover horizontalmente
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{moving-dotted-notes-in-polyphony.ly}
+
+@cindex nota, desplazamiento horizontal
+@cindex horizontal, desplazamiento de notas
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {forcing-horizontal-shift-of-notes.ly}
+
 
 @seealso
 Glosario musical:
@@ -934,7 +952,7 @@ Referencia de funcionamiento interno:
 @rinternals{NoteCollision},
 @rinternals{RestCollision}.
 
-@cindex colisiones, ignorar
+@cindex colisión, ignorar
 
 @knownissues
 El uso de @code{\override NoteColumn.ignore-collision = ##t} hace
@@ -1185,7 +1203,7 @@ instrumentTwo = \relative {
 
 @subsubsubheading Uso de \partcombine con letra
 
-@cindex \partcombine y letra
+@cindex @code{\partcombine} y letra
 
 La instrucción @code{\partcombine} no está diseñada para funcionar
 con la letra de las canciones; si una de las voces recibe un
@@ -1200,8 +1218,11 @@ letras compartidas}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {combining-two-parts-on-the-same-staff.ly}
 
+@cindex partes, combinador, cambiar textos
+@cindex combinar, partes, cambiar el texto
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-partcombine-texts.ly}
+
 
 @seealso
 Glosario musical:
