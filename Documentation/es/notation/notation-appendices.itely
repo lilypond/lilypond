@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 545ab5e4270f387e125ef710d0e84f211c628a56
+    Translation of GIT committish: 21a1f431176e969d45a9cc973c99dce34e9e8733
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1294,7 +1294,7 @@ Para ver más información, consulte @ref{Formatear el texto}.
 @appendixsec Estilos de cabezas de nota
 @translationof Note head styles
 
-@cindex nota, estilos de cabeza
+@cindex nota, estilo de cabeza
 Se pueden usar los siguientes estilos para las cabezas de las
 notas.
 
@@ -1308,60 +1308,60 @@ notas.
 La tabla siguiente presenta todos los estilos de clave
 posibles y el lugar del @emph{Do central} en cada una.
 
-@cindex Treble, clave
-@cindex Clave, treble
-@cindex Violin, clave
-@cindex Clave, violín
-@cindex Clave, G
-@cindex Clave, G2
-@cindex Clave, GG
-@cindex Clave, tenor G
-@cindex Tenor G, clave
-@cindex Clave, francesa
-@cindex French, clave
-@cindex Clave, soprano
-@cindex Soprano, clave
-@cindex Clave, mezzosoprano
-@cindex Mezzosoprano, clave
-@cindex Clave, alto
-@cindex Alto, clave
-@cindex Clave, C
-@cindex C, clave
-@cindex Clave, varC
-@cindex VarC, clave
-@cindex Clave, alto varC
-@cindex Alto varC, clave
-@cindex Clave, tenor
+@cindex treble, clave
+@cindex clave, treble
+@cindex violín, clave
+@cindex clave, violín
+@cindex clave, Sol
+@cindex clave, G2
+@cindex clave, GG
+@cindex clave, tenor Sol
+@cindex tenor Sol, clave
+@cindex clave, francesa
+@cindex francesa, clave
+@cindex clave, soprano
+@cindex soprano, clave
+@cindex clave, mezzosoprano
+@cindex mezzosoprano, clave
+@cindex clave, alto
+@cindex alto, clave
+@cindex clave, Do
+@cindex Do, clave
+@cindex clave, varC
+@cindex varC, clave
+@cindex clave, alto varC
+@cindex alto varC, clave
+@cindex clave, tenor
 @cindex tenor, clave
-@cindex Clave, tenor varC
-@cindex Tenor varC, clave
-@cindex Clave, baritone varC
-@cindex Baritone varC, clave
-@cindex Clave, varbaritone
-@cindex Varbaritone, clave
-@cindex Clave, baritone varF
-@cindex Baritone varF, clave
-@cindex Clave, bass
-@cindex Bass, clave
-@cindex Clave, F
-@cindex F, clave
-@cindex Clave, subbass
-@cindex Subbass clave
-@cindex Clave, percussion
-@cindex Percusión, clave
-@cindex Clave, tablatura
-@cindex Tablatura, clave
-@cindex Clave, estilos
-@cindex Claves, música antigua
-@cindex Música antigua, claves
-@cindex Clave, petrucci
-@cindex Clave, mensural
-@cindex Clave, blackmensural
-@cindex Clave, kievan
+@cindex clave, tenor varC
+@cindex tenor varC, clave
+@cindex clave, barítono varC
+@cindex barítono varC, clave
+@cindex clave, varbaritone
+@cindex varbaritone, clave
+@cindex clave, baritone varF
+@cindex barítono varF, clave
+@cindex clave, bajo
+@cindex bajo, clave
+@cindex clave, Fa
+@cindex Fa, clave
+@cindex clave, subbajo
+@cindex subbajo, clave
+@cindex clave, percusión
+@cindex percusión, clave
+@cindex clave, tablatura
+@cindex tablatura, clave
+@cindex clave, estilo
+@cindex clave, música antigua
+@cindex música antigua, claves
+@cindex clave, Petrucci
+@cindex clave, mensural
+@cindex clave, blackmensural
+@cindex clave, kievana
 @cindex Petrucci, clave
-@cindex Mensural, clave
-@cindex Blackmensural, clave
-@cindex Kievan, clave
+@cindex mensural, clave
+@cindex blackmensural, clave
+@cindex kievana, clave
 
 @menu
 * Claves estándar::
@@ -2227,13 +2227,19 @@ second column examples was always larger than between the remaining
 columns - JL
 @end ignore
 
-@cindex accent
-@cindex espressivo
-@cindex marcato
-@cindex portato
-@cindex staccatissimo
-@cindex staccato
-@cindex tenuto
+@funindex \accent
+@funindex ->
+@funindex \espressivo
+@funindex \marcato
+@funindex -^
+@funindex \portato
+@funindex -_
+@funindex \staccatissimo
+@funindex -!
+@funindex \staccato
+@funindex -.
+@funindex \tenuto
+@funindex --
 @cindex thumb
 
 @node Indicaciones de articulación
@@ -2281,20 +2287,20 @@ f^\tenuto e,_\tenuto b'\tenuto
 
 @end multitable
 
-@cindex prall
-@cindex prallup
-@cindex pralldown
-@cindex upprall
-@cindex downprall
-@cindex prallprall
-@cindex lineprall
-@cindex prallmordent
-@cindex mordent
-@cindex upmordent
-@cindex downmordent
-@cindex trill
-@cindex turn
-@cindex reverseturn
+@funindex \prall
+@funindex \prallup
+@funindex \pralldown
+@funindex \upprall
+@funindex \downprall
+@funindex \prallprall
+@funindex \lineprall
+@funindex \prallmordent
+@funindex \mordent
+@funindex \upmordent
+@funindex \downmordent
+@funindex \trill
+@funindex \turn
+@funindex \reverseturn
 
 @node Indicaciones de adornos
 @unnumberedsubsec Indicaciones de adornos
@@ -2378,10 +2384,10 @@ f^\reverseturn e,_\reverseturn b'\reverseturn
 
 @end multitable
 
-@cindex fermata
-@cindex shortfermata
-@cindex longfermata
-@cindex verylongfermata
+@funindex \fermata
+@funindex \shortfermata
+@funindex \longfermata
+@funindex \verylongfermata
 
 @node Indicaciones de calderón
 @unnumberedsubsec Indicaciones de calderón
@@ -2412,17 +2418,18 @@ f^\verylongfermata e,_\verylongfermata b'\verylongfermata
 
 @end multitable
 
-@cindex upbow
-@cindex downbow
-@cindex flageolet
-@cindex open
-@cindex halfopen
-@cindex lheel
-@cindex rheel
-@cindex ltoe
-@cindex rtoe
-@cindex snappizzicato
-@cindex stopped
+@funindex \upbow
+@funindex \downbow
+@funindex \flageolet
+@funindex \open
+@funindex \halfopen
+@funindex \lheel
+@funindex \rheel
+@funindex \ltoe
+@funindex \rtoe
+@funindex \snappizzicato
+@funindex \stopped
+@funindex -+
 
 @node Indicaciones específicas de ciertos instrumentos
 @unnumberedsubsec Indicaciones específicas de ciertos instrumentos
@@ -2490,9 +2497,9 @@ f^\stopped e,_\stopped b'\stopped
 
 @end multitable
 
-@cindex segno
-@cindex coda
-@cindex varcoda
+@funindex \segno
+@funindex \coda
+@funindex \varcoda
 
 @node Indicaciones de repetición
 @unnumberedsubsec Indicaciones de repetición
@@ -2518,11 +2525,11 @@ f^\varcoda e,_\varcoda b'\varcoda
 
 @end multitable
 
-@cindex accentus
-@cindex circulus
-@cindex ictus
-@cindex semicirculus
-@cindex signumcongruentiae
+@funindex \accentus
+@funindex \circulus
+@funindex \ictus
+@funindex \semicirculus
+@funindex \signumcongruentiae
 
 @node Indicaciones antiguas
 @unnumberedsubsec Indicaciones antiguas
@@ -2570,7 +2577,7 @@ f^\varcoda e,_\varcoda b'\varcoda
 
 @end multitable
 
-@cindex drums, various
+@cindex percusión
 @cindex acoustic bass
 @cindex bass
 @cindex snare
@@ -3131,8 +3138,8 @@ Referencia de la notación:
 @translationof grob
 
 @cindex grob
-@cindex objetos de presentación
-@cindex objetos gráficos
+@cindex objeto de presentación
+@cindex objeto gráfico
 
 Los objetos de LilyPond que representan elementos de la notación
 en la salida impresa tales como la cabeza y la plica de las notas,
@@ -3156,9 +3163,9 @@ Referencia de funcionamiento interno:
 @unnumberedsubsec inmutable
 @translationof immutable
 
-@cindex objetos inmutables
-@cindex propiedades inmutables
-@cindex propiedades compartidas
+@cindex objeto inmutable
+@cindex propiedad, inmutable
+@cindex propiedad, compartida
 
 Un objeto @strong{inmutable} es aquel cuyo estado no se puede
 modificar después de su creación, en contraste con los objetos
@@ -3180,8 +3187,8 @@ Referencia de la notación:
 @translationof interface
 
 @cindex interfaz
-@cindex interfaz de grob
-@cindex interfaces de objetos gráficos
+@cindex interfaz, de grob
+@cindex interfaz, de objeto gráfico
 
 Las acciones y propiedades comunes a un conjunto de grobs se
 agrupan en un objeto denominado @code{interfaz de grob
@@ -3247,8 +3254,7 @@ Referencia de la notación:
 @unnumberedsubsec output-def (definición de salida)
 @translationof output-def
 
-@cindex output-def
-@cindex definición de salida
+@funindex output-def
 
 Una instancia de la clase @code{Output-def} contiene los métodos y
 estructuras de datos asociados con un bloque de salida.  Se crean
@@ -3262,7 +3268,7 @@ instancias parra los bloques midi, layout y paper.
 @cindex parser
 @cindex analizador sintáctico
 @cindex Bison
-@cindex gramática de LilyPond
+@cindex gramática, de LilyPond
 @cindex BNF
 
 Un @strong{parser} o analizador sintáctico analiza la secuencia de
@@ -3291,17 +3297,17 @@ LilyPond.
 @cindex variable del analizador sintáctico
 @cindex variable de Scheme
 @cindex variable global
-@cindex afterGraceFraction
-@cindex musicQuotes
-@cindex modo
-@cindex output-count
-@cindex output-suffix
-@cindex partCombineListener
-@cindex pitchnames
-@cindex toplevel-bookparts
-@cindex toplevel-scores
-@cindex showLastLength
-@cindex showFirstLength
+@funindex afterGraceFraction
+@funindex musicQuotes
+@funindex mode
+@funindex output-count
+@funindex output-suffix
+@funindex partCombineListener
+@funindex pitchnames
+@funindex toplevel-bookparts
+@funindex toplevel-scores
+@funindex showLastLength
+@funindex showFirstLength
 
 Son variables definidas directamente dentro de Scheme.  Su uso
 directo por parte de los usuarios está fuertemente desaconsejado,
