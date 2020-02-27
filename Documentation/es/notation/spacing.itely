@@ -3237,8 +3237,8 @@ Referencia de funcionamiento interno:
 @translationof Changing horizontal spacing
 
 @menu
-* Uniform stretching of tuplets::
-* Strict note spacing::
+* Estiramiento uniforme de los grupos especiales::
+* Espaciado estricto de las notas::
 @end menu
 
 Se puede alterar el espaciado horizontal con la propiedad
