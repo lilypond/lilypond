@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: a94d26b6693cad58b946a01b7efaaed29480f063
+    Translation of GIT committish: 21a1f431176e969d45a9cc973c99dce34e9e8733
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -121,10 +121,8 @@ Esta sección destaca asuntos relativos a la música árabe.
 @translationof References for Arabic music
 
 @cindex árabe, música
-@cindex medios, intervalos
+@cindex medio, intervalo
 @cindex maqam
-@cindex maqams
-@cindex makamlar
 
 La música árabe ha sido principalmente una tradición oral hasta el
 momento.  Cuando se transcribe la música, se suele hacer en la forma
@@ -207,8 +205,10 @@ Por ejemplo, así es como puede ser la notación de la escala árabe
 @end lilypond
 
 
-@cindex Arabic semi-flat symbol
-@cindex Semi-flat symbol appearance
+@cindex árabe, semi-bemol
+@cindex semi-bemol, apariencia
+
+@funindex \dwn
 
 El símbolo del semi-bemol no coincide con el símbolo que se utiliza en
 la notación árabe.  Se puede usar el símbolo @code{\dwn} definido en
@@ -336,8 +336,10 @@ los maqams más comunes a armaduras de tonalidad:
   @tab huzam
 @end multitable
 
+
 @snippets
 
+@c XXX also included in `pitches.itely'
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {non-traditional-key-signatures.ly}
 
@@ -386,6 +388,8 @@ barrado automático y/o utilizar indicaciones de compás compuestas.
 
 @snippets
 
+@cindex improvisación, árabe
+@cindex árabe, improvisación
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {arabic-improvisation.ly}
 
@@ -413,7 +417,7 @@ Fragmentos de código:
 
 @cindex árabe, ejemplo de música
 @cindex árabe, plantilla de música
-@cindex plantilla música árabe
+@cindex plantilla, música árabe
 
 A continuación aparece una plantilla que emplea también el comienzo de
 un @notation{Semai} turco muy común en la educación musical árabe con
@@ -512,7 +516,7 @@ la música clásica de Turquía.
 @translationof References for Turkish classical music
 
 @cindex Turquía, música de
-@cindex Otomana, música
+@cindex otomana, música
 @cindex coma, intervalos de
 @cindex makam
 @cindex makamlar
