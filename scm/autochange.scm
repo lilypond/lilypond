@@ -19,7 +19,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; autochange.scm - fairly related to part combining.
 
-(define-public (make-autochange-music ref-pitch music)
+(define-public (make-autochange-music music . ref-pitch)
+  (define ref-pitch-steps
+    (if (and (pair? ref-pitch) (car ref-pitch))
+        (ly:pitch-steps (car ref-pitch))
+        0))
   (define (generate-split-list change-moment prev-dir event-list acc)
     (if (null? event-list)
         acc
@@ -34,7 +38,7 @@
                           #f))
                (dir (if pitch
                         (sign
-                          (- (ly:pitch-steps pitch) (ly:pitch-steps ref-pitch)))
+                          (- (ly:pitch-steps pitch) ref-pitch-steps))
                         0)))
           ;; tail recursive.
           (if (and (not (= dir 0))
