@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 041cb33a404a829a8cdeeaebce17e45f613f10d8
+    Translation of GIT committish: 6ca1d8c80817f9baaa7b66b2fde9a7b98b0ffc0a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -52,10 +52,10 @@ pentagramas y grupos de ellos.
 @cindex pentagrama, iniciar
 @cindex pentagrama, instanciar
 @cindex pentagrama, nuevo
-@cindex pentagrama de percusión
-@cindex pentagrama único
+@cindex pentagrama, de percusión
+@cindex pentagrama, único
 @cindex percusión, pauta de
-@cindex pauta de percusión
+@cindex pauta, de percusión
 @cindex gregoriano, canto, pauta de transcripción de
 @cindex rítmica, pauta
 @cindex tablatura, pauta de
@@ -161,9 +161,9 @@ Referencia de funcionamiento interno:
 @cindex pentagramas, varios
 @cindex corchete vertical
 @cindex llave vertical
-@cindex pentagramas de piano
-@cindex pentagramas, grupo de
-@cindex pauta de coro
+@cindex pentagrama, de piano
+@cindex pentagrama, grupo de
+@cindex pauta, de coro
 @cindex sistema, delimitador de comienzo
 @cindex coro, sistema de
 @cindex piano, sistema de
@@ -245,9 +245,16 @@ Se pueden definir contextos nuevos de grupo de pentagramas.  Para
 ver más detalles, consulte @ref{Definir contextos nuevos}.
 
 @snippets
+
+@cindex corchete, cuadrado, al inicio de un grupo
+@cindex cuadrado, corchete, al inicio de un grupo
+@cindex grupo de pentagramas, corchete cuadrado al inicio
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {use-square-bracket-at-the-start-of-a-staff-group.ly}
 
+@cindex corchete, al comienzo de un pentagrama único
+@cindex llave, al comienzo de un pentagrama único
+@cindex pentagrama, único, con cochete o llave
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {display-bracket-with-only-one-staff-in-a-system.ly}
 
@@ -256,9 +263,10 @@ ver más detalles, consulte @ref{Definir contextos nuevos}.
 @cindex renacimiento, música del
 @cindex transcripción de música mensural
 @cindex mensural, música, transcripción de
-
+@cindex línea, de compás, entre pautas
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {mensurstriche-layout-bar-lines-between-the-staves.ly}
+
 
 @seealso
 Glosario musical:
@@ -289,11 +297,11 @@ Referencia de funcionamiento interno:
 @unnumberedsubsubsec Grupos de pentagramas anidados
 @translationof Nested staff groups
 
-@cindex pentagramas anidados
-@cindex anidamiento de pentagramas
+@cindex pentagramas, anidados
+@cindex anidamiento, de pentagramas
 @cindex sistema, delimitadores de inicio anidados
 @cindex anidados, corchetes de pentagrama
-@cindex corchetes anidados
+@cindex corchetes, anidados
 @cindex llaves, anidado de
 
 Los contextos de grupos de pentagramas se pueden anidar hasta una
@@ -414,13 +422,13 @@ terminar los pentagramas, y establecer secciones de ossia.
 @translationof Staff symbol
 
 @cindex pentagrama, símbolo del
-@cindex pentagrama, detener e inicial líneas del
+@cindex pentagrama, detener e iniciar líneas del
 @cindex pentagrama, mofidicar las líneas del
-@cindex adicionales, líneas
-@cindex adicionales internas, líneas
-@cindex adicionales, modificar líneas
-@cindex líneas del pentagrama
-@cindex líneas adicionales
+@cindex adicional, línea
+@cindex adicional, interna, línea
+@cindex adicional, modificar línea
+@cindex línea, del pentagrama
+@cindex línea, adicional
 
 @funindex \startStaff
 @funindex \stopStaff
@@ -601,9 +609,9 @@ Referencia de funcionamiento interno:
 
 @cindex pentagrama a la francesa
 @cindex ossia
-@cindex francesa, pentagramas a la
+@cindex francesa, pentagrama a la
 @cindex pauta, escalado de
-@cindex escalado de pentagramas
+@cindex escalado, del pentagrama
 
 @funindex \startStaff
 @funindex \stopStaff
@@ -724,6 +732,12 @@ información sobre @code{\RemoveAllEmptyStaves}, consulte
 
 @snippets
 
+@cindex ossia, posicionamiento
+@cindex lyrics, posicionamiento
+@cindex posicionamiento, de letra
+@cindex posicionamiento, de ossia
+@funindex alignBelowContext
+@funindex alignAboveContext
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {vertically-aligning-ossias-and-lyrics.ly}
 
@@ -753,17 +767,17 @@ Referencia de funcionamiento interno:
 @translationof Hiding staves
 
 @cindex francesa, partituras a la
-@cindex ocultación de pentagramas
 @cindex francesa, pentagrama a la
 @cindex pentagrama, ocultación de
-@cindex pentagrama vacío
-@cindex ocultar pentagramas
+@cindex pentagrama, vacío
+@cindex ocultar, pentagrama
 @cindex vacío, pentagrama
 
 @funindex \RemoveEmptyStaves
 @funindex \RemoveAllEmptyStaves
 @funindex Staff_symbol_engraver
 @funindex \stopStaff
+
 
 Se pueden ocultar las líneas del pentagrama quitando el grabador
 @code{Staff_symbol_engraver} del contexto de @code{Staff}.  Como
@@ -908,7 +922,7 @@ usa para todos los pentagramas siguientes.
 }
 @end lilypond
 
-@cindex instrumentos, nombres complejos de
+@cindex instrumento, nombre, complejo
 
 También podemos usar @code{\markup} para construir nombres de
 instrumento más complicados:
@@ -925,7 +939,7 @@ instrumento más complicados:
 }
 @end lilypond
 
-@cindex instrument names, centering
+@cindex instrumento, nombre, centrar
 
 Cuando se agrupan dos o más contextos de pentagrama, los nombres
 de instrumento y los nombres cortos aparecen centrados de forma
@@ -983,7 +997,7 @@ ajustes, consulte
 }
 @end lilypond
 
-@cindex nombres de instrumento, añadir a otros contextos
+@cindex nombre, de instrumento, añadir a otros contextos
 
 Para añadir nombres de instrumento a otros contextos (como
 @code{ChordNames} o @code{FiguredBass}), debemos añadir el
@@ -991,7 +1005,8 @@ grabador @code{Instrument_name_engraver} a dicho contexto. Para
 ver más detalles, consulte @ref{Modificar los complementos
 (plug-ins) de contexto}.
 
-@cindex nombres de instrumento, cambiar
+@cindex nombre, de instrumento, cambiar
+@cindex cambiar, nombre de instrumento
 
 El nombre de instrumento corto @code{shortInstrumentName} se puede
 cambiar en mitad de una pieza, igual que otros ajustes que pueden
@@ -1054,8 +1069,8 @@ Referencia de funcionamiento interno:
 
 @cindex guía, voces
 @cindex citar otras voces
-@cindex fragmentos, citar
-@cindex notas guía
+@cindex fragmento, citar
+@cindex nota, guía
 
 @funindex \addQuote
 @funindex \quoteDuring
@@ -1181,12 +1196,12 @@ oboeNotes = \relative {
 }
 @end lilypond
 
-@cindex note-event
-@cindex articulation-event
-@cindex dynamic-event
-@cindex rest-event
-@cindex slur-event
-@cindex crescendo-event
+@funindex note-event
+@funindex articulation-event
+@funindex dynamic-event
+@funindex rest-event
+@funindex slur-event
+@funindex crescendo-event
 
 @funindex quotedEventTypes
 @funindex quotedCueEventTypes
@@ -1254,21 +1269,22 @@ otros puede dar como resultado una notación de pobre calidad.
 @translationof Formatting cue notes
 
 @cindex guía, formateo de las notas
-@cindex notas guía
-@cindex guía, notas
-@cindex guía, notas, formato de
-@cindex fragmentos
+@cindex nota, guía
+@cindex guía, nota
+@cindex guía, nota, formato de
+@cindex fragmento
 @cindex citar otras voces
-@cindex voces, citar
+@cindex voz, citar
 
 
 @funindex \cueDuring
 @funindex \cueClef
+@funindex \cueClefUnset
 @funindex \cueDuringWithClef
 @funindex \quoteDuring
 
-@cindex notas pequeñas
-@cindex pequeñas, notas
+@cindex nota, pequeña
+@cindex pequeña, nota
 @cindex CueVoice
 
 La manera más sencilla de dar formato a las notas guía es crear
@@ -1332,13 +1348,13 @@ anterior.
 La sintaxis es:
 
 @example
-\cueDuring #@var{nombre_de_la_cita} #@var{dirección} #@var{música}
+\cueDuring @var{nombre_de_la_cita} #@var{dirección} @var{música}
 @end example
 
 y
 
 @example
-\cueDuringWithClef #@var{nombre_de_la_cita} #@var{dirección} #@var{clave} #@var{música}
+\cueDuringWithClef @var{nombre_de_la_cita} #@var{dirección} #@var{clave} @var{música}
 @end example
 
 La música procedente de los compases correspondientes del elemento
@@ -1496,8 +1512,8 @@ bassClarinetNotes = \relative c' {
 >>
 @end lilypond
 
-@cindex removing cue notes
-@cindex cue notes, removing
+@cindex eliminar, notas guía
+@cindex guía, nota, eliminar
 
 @funindex \killCues
 
@@ -1543,12 +1559,6 @@ bassoonNotes = \relative c {
   }
 >>
 @end lilypond
-
-Como alternativa, los cambios de clave y los letreros de
-instrumento se pueden recolectar dentro de una definición de
-instrumento para su uso repetido, utilizando
-@code{\addInstrumentDefinition} que se descibe en @ref{Nombres de
-instrumentos}.
 
 @seealso
 Referencia de la notación:
