@@ -594,7 +594,7 @@ AC_DEFUN(STEPMAKE_GUILE, [
     AC_MSG_CHECKING([for guile])
     guile="guile"
     found="no"
-    for r in $GUILE guile guile2 guile2.0 guile-2.0 \
+    for r in $GUILE guile guile2 guile2.2 guile2.0 guile-2.0 \
              guile1 guile19 guile18 \
              guile1.9 guile1.8 \
              guile-1 guile-1.9 guile-1.8; do
