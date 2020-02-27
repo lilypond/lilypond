@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 24dd6365d3d05f13b9259f547be9b2517851a5d1
+    Translation of GIT committish: 0d4df37f3e3b4dc9bceb5c78ae94449bd0269c67
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -996,9 +996,9 @@ Algoritmo de saltos de página que utilizar.  Se puede elegir entre
 Engaña a la parte del programa encargada de los saltos de página
 para que piense que @code{system-system-spacing} está establecido
 a un valor distinto al que tiene realmente.  Por ejemplo, si
-@code{page-breaking-system-system-spacing #'padding} está
+@code{page-breaking-system-system-spacing.padding} está
 establecido a algo que es mucho mayor que
-@code{system-system-spacing #'padding}, entonces el divisor de
+@code{system-system-spacing.padding}, entonces el divisor de
 páginas pone menos sistemas en cada página.  Valor predeterminado:
 sin ajustar.
 
@@ -1091,7 +1091,7 @@ definidos en el archivo @file{ly/paper-defaults-init.ly}
 
 @table @code
 
-@cindex números de página, automáticos
+@cindex número, de página, automático
 @item auto-first-page-number
 @funindex auto-first-page-number
 
@@ -1102,7 +1102,7 @@ páginas decide si comenzar con un número par o impar.  Esto hace
 que el número de la primera página se quede como está, o que se
 aumente en una unidad.  Predeterminado: @code{#f}.
 
-@cindex números de página, especificar el primero
+@cindex número, de página, especificar el primero
 @item first-page-number
 @funindex first-page-number
 
@@ -1114,7 +1114,7 @@ Valor del número de página en la primera página.
 Si está fijado a verdadero, se imprime un número de página en la
 primera página.
 
-@cindex números de página, suprimir
+@cindex número, de página, suprimir
 @item print-page-number
 @funindex print-page-number
 
@@ -1166,6 +1166,8 @@ Normalmente sólo se imprimen las variables de encabezamiento
 
 @item system-separator-markup
 @funindex system-separator-markup
+
+@funindex \slashSeparator
 
 Objeto de marcado que se inserta entre los sistemas.  Se suele
 usar para partituras orquestales.  Predeterminado: sin establecer.
@@ -1403,7 +1405,7 @@ Fragmentos de código:
 
 @cindex tipografía, fijar el tamaño de
 @cindex pentagrama, fijar el tamaño de
-@funindex disposición, archivo de
+@cindex disposición, archivo de
 @funindex magnification->font-size
 @funindex magstep
 @funindex set-global-staff-size
@@ -1446,6 +1448,7 @@ de un libro, use @code{layout-set-staff-size} dentro del bloque
 @end example
 
 @item
+@funindex \magnifyStaff
 Para fijar el tamaño del pentagrama para una sola pauta dentro de
 un sistema, use la instrucción @code{\magnifyStaff}.  Por ejemplo,
 las partituras de música de cámara editadas de la forma
@@ -1541,8 +1544,8 @@ líneas del pentagrama.
 @funindex \autoBreaksOn
 @funindex \autoLineBreaksOff
 @funindex \autoLineBreaksOn
-@cindex saltos de línea
-@cindex línea, saltos de
+@cindex salto, de línea
+@cindex línea, salto de
 
 Normalmente los saltos de línea se determinan automáticamente. Se
 eligen de forma que las líneas no aparezcan demasiado apretadas ni
@@ -1652,7 +1655,7 @@ pero afecta sólo a la última línea de la pieza.
 @}
 @end example
 
-@cindex saltos de línea normales
+@cindex salto, de línea, a intervalos
 @cindex música de cuatro compases por línea
 
 Para saltos de línea a intervalos regulares utilice @code{\break}
@@ -1681,10 +1684,16 @@ compases, y sólo en dichos lugares:
 @code{\autoLineBreaksOn}.
 @endpredefined
 
+
 @snippets
 
+@cindex voz, adicional, para la gestión de los saltos
+@cindex adicional, voz, para gestionar saltos
+@cindex salto, de página, gestión con una voz adicional
+@cindex línea, salto, gestión con una voz adicional
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {using-an-extra-voice-for-breaks.ly}
+
 
 @seealso
 Referencia de la notación:
@@ -2077,10 +2086,10 @@ entre los pentagramas dentro de un sistema.
 @subsection Espaciado vertical flexible dentro de los sistemas
 @translationof Flexible vertical spacing within systems
 
-@cindex distancia entre pentagramas
+@cindex distancia, entre pentagramas
 @cindex pentagrama, distancia entre los
-@cindex espacio entre pentagramas
-@cindex espacio dentro de los sistemas
+@cindex espacio, entre pentagramas
+@cindex espacio, dentro de los sistemas
 
 Tres mecanismos distintos controlan el espaciado vertical flexible
 dentro de los sistemas, uno por cada una de las categorías
@@ -3174,7 +3183,7 @@ separación.
 @funindex \newSpacingSection
 @cindex sección de espaciado nueva
 @cindex espaciado, nueva seccción de
-@cindex notas, espaciar horizontalmente
+@cindex nota, espaciar horizontalmente
 
 Se pueden iniciar secciones nuevas con diferentes parámetros de
 espaciado, con la instrucción @code{newSpacingSection}.  Esto es
@@ -3231,6 +3240,11 @@ Referencia de funcionamiento interno:
 @subsection Cambiar el espaciado horizontal
 @translationof Changing horizontal spacing
 
+@menu
+* Uniform stretching of tuplets::
+* Strict note spacing::
+@end menu
+
 Se puede alterar el espaciado horizontal con la propiedad
 @code{base-shortest-duration}.  Aquí compararemos la misma música,
 una vez sin alterar la propiedad, y luego alterándola.  Los
@@ -3268,7 +3282,10 @@ duración, por lo que @code{1 4} es una duración mayor que @code{1
 @end lilypond
 
 
-@snippets
+@node Estiramiento uniforme de los grupos especiales
+@unnumberedsubsubsec Estiramiento uniforme de los grupos especiales
+@translationof Uniform stretching of tuplets
+
 De forma predeterminada, el espaciado en los grupos de valoración
 especial depende de varios factores ajenos a la duración (como
 alteraciones, cambios de clave, etc.).  Para pasar por alto estos
@@ -3279,10 +3296,10 @@ sólo puede cambiarse al principio de la partitura:
 @lilypond[quote,ragged-right,verbatim]
 \score {
   <<
-    \new Staff {
+    \new Staff \relative c' {
       \tuplet 5/4 { c8 c c c c } c8 c c c
     }
-    \new Staff {
+    \new Staff \relative c' {
       c8 c c c \tuplet 5/4 { c8 c c c c }
     }
   >>
@@ -3294,6 +3311,11 @@ sólo puede cambiarse al principio de la partitura:
   }
 }
 @end lilypond
+
+
+@node Espaciado estricto de las notas
+@unnumberedsubsubsec Espaciado estricto de las notas
+@translationof Strict note spacing
 
 Cuando se establece @code{strict-note-spacing}, las notas se
 separan sin tener en cuenta las claves, líneas divisorias ni notas
@@ -3314,7 +3336,7 @@ Fragmentos de código:
 @subsection Longitud de la línea
 @translationof Line width
 
-@cindex saltos de página
+@cindex salto, de página
 @cindex página, saltos de
 
 @funindex indent
