@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: c4a960d0461ee5ecd87cd46692ec11682b8969b0
+    Translation of GIT committish: 21a1f431176e969d45a9cc973c99dce34e9e8733
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -68,8 +68,8 @@ repetición.
 * Repeticiones explícitas::
 @end menu
 
-@cindex repeticiones normales
-@cindex repetición con finales alternativos
+@cindex repetición, normal
+@cindex repetición, con finales alternativos
 @cindex finales alternativos
 @cindex volta
 @cindex prima volta
@@ -184,11 +184,11 @@ obtendremos el número de finales esperado.}
 explícitamente, aparecerán pentagramas adicionales no deseados.
 Véase @rprogram{Aparece un pentagrama de más}.}
 
-@cindex repetición con anacrusa
-@cindex anacrusa en repeticiones
+@cindex repetición, con anacrusa
+@cindex anacrusa, en repeticiones
 @funindex \partial
 @cindex comprobación de compás con repeticiones
-@cindex repetición con comprobaciones de compás
+@cindex repetición, con comprobaciones de compás
 
 Si una repetición sin casillas de primera y segunda vez comienza
 en medio de un compás, normalmente termina en el lugar
@@ -227,10 +227,10 @@ al comienzo del compás:
   g1 |
 @end lilypond
 
-@cindex repeticiones, con ligaduras
+@cindex repetición, con ligaduras
 @cindex primera y segunda vez, con ligaduras
-@cindex ligaduras, en repeticiones
-@cindex ligaduras, en primera y segunda vez
+@cindex ligadura, en repeticiones
+@cindex ligadura, en primera y segunda vez
 @funindex \repeatTie
 
 Se pueden añadir ligaduras de unión al segundo final:
@@ -247,7 +247,7 @@ Se pueden añadir ligaduras de unión al segundo final:
 @end lilypond
 
 @funindex \inStaffSegno
-@cindex repeticiones, con segno
+@cindex repetición, con segno
 @cindex segno, con repeticiones
 
 La instrucción @code{\inStaffSegno} se puede utilizar para generar
@@ -337,18 +337,27 @@ definidos anteriormente con la instrucción @code{\defineBarLine}
 @end lilypond
 
 @snippets
+
+@cindex primera y segunda vez, acortar corchete
+@cindex acortar, corchete de primera y segunda vez
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {shortening-volta-brackets.ly}
 
+@cindex primera y segunda vez, corchete en pautas adicionales
+@funindex Volta_engraver
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adding-volta-brackets-to-additional-staves.ly}
 
+@cindex repetición, doble, estilo para primera y seguinda vez
+@cindex primera y seguinda vez, estilo de repetición doble
+@cindex estilo, repetición doble para primera y segunda vez
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {setting-the-double-repeat-default-for-volte.ly}
 
-@cindex repeticiones, letras y números de compás
-@cindex repeticiones, números de compás de primera y segunda vez
-
+@cindex repetición, letras y números de compás
+@cindex repetición, números de compás de primera y segunda vez
+@cindex repetición, números de compás alternativos
+@cindex número de compás, alternativo, en repetición
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {alternative-bar-numbering.ly}
 
@@ -376,18 +385,18 @@ Referencia de funcionamiento interno:
 @rinternals{UnfoldedRepeatedMusic}.
 
 @knownissues
-@cindex repetición ambigua
+@cindex repetición, ambigua
 @cindex anidada, repetición
-@cindex repetición anidada
+@cindex repetición, anidada
 @cindex repetición, contador de tiempo de la
-@cindex repetición y números de compás
-@cindex números de compás y repeticiones
+@cindex repetición, y números de compás
+@cindex número de compás y repeticiones
 @cindex tiempo, repeticiones y contador de
 @cindex compás, repeticiones y números de
-@cindex repeticiones y ligadura de expresión
-@cindex ligaduras de expresión y repeticiones
-@cindex glissandi y repeticiones
-@cindex repeticiones y glissandi
+@cindex repetición, y ligadura de expresión
+@cindex ligadura de expresión y repeticiones
+@cindex glissando, y repeticiones
+@cindex repetición, y glissando
 
 Las ligaduras de expresión que abarcan desde un bloque
 @code{\repeat} hasta un bloque @code{\alternative} sólo funcionan
@@ -526,8 +535,8 @@ punto:
 }
 @end lilypond
 
-@cindex corchete de casilla de repetición con texto
-@cindex texto en casilla de repetición
+@cindex corchete, de casilla de repetición, con texto
+@cindex texto, en casilla de repetición
 
 Se puede incluir texto dentro de la casilla de primera y segunda
 vez.  El texto puede ser un número o números, o un elemento de
@@ -567,16 +576,15 @@ Referencia de funcionamiento interno:
 @unnumberedsubsubsec Repeticiones explícitas
 @translationof Written-out repeats
 
-@cindex explícitas, repeticiones
-@cindex repeticiones explícitas
-@cindex repeticiones desplegadas
-@cindex repeticiones alternativas
-@cindex primera y segunda vez, repeticiones
-@cindex repeticiones con primera y segunda vez
-@cindex desplegar repetición
-@cindex repeticiones desplegadas con finales alternativos
-@cindex música desplegada con finales alternativos
-@cindex alternativos, finales, en repeticiones explícitas
+@cindex explícita, repetición
+@cindex repetición, explícita
+@cindex repetición, desplegada
+@cindex repetición, alternativas
+@cindex primera y segunda vez, repetición
+@cindex repetición, con primera y segunda vez
+@cindex desplegar, repetición
+@cindex repetición, desplegada con finales alternativos
+@cindex alternativo, finales, en repeticiones explícitas
 @funindex unfold
 
 Mediante la utilización de la instrucción @code{unfold} se pueden
@@ -717,9 +725,9 @@ sola nota, un compás o dos compases, y trémolos en caso contrario.
 
 @cindex porcentaje, repetición de
 @cindex compás, repetición de
-@cindex repetición de porcentaje
-@cindex repetición de compás
-@cindex repetición corta
+@cindex repetición, de porcentaje
+@cindex repetición, de compás
+@cindex repetición, corta
 @funindex \repeat percent
 @funindex percent
 
@@ -779,14 +787,25 @@ duraciones mezcladas utilizan un símbolo de porcentaje doble.
 
 @snippets
 
+@cindex porcentaje, contador de repetición
+@cindex contador, repetición de porcentaje
+@cindex repetición, contador, porcentaje
+@funindex countPercentRepeats
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {percent-repeat-counter.ly}
 
+@cindex porcentaje, repetición, visibilidad del contador
+@cindex contador, visibilidad de repetición de porcentaje
+@cindex repetición, porcentaje, visibilidad del contador
+@funindex repeatCountVisibility
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {percent-repeat-count-visibility.ly}
 
+@cindex porcentaje, repetición, aislada
+@cindex repetición, porcentaje, aislada
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {isolated-percent-repeats.ly}
+
 
 @seealso
 Glosario musical:
@@ -838,8 +857,8 @@ compás.
 @translationof Tremolo repeats
 
 @cindex trémolo
-@cindex barras de trémolo
-@cindex repetición de trémolo
+@cindex barra, de trémolo
+@cindex repetición, de trémolo
 @funindex \repeat tremolo
 @funindex tremolo
 
@@ -883,7 +902,7 @@ tremolo}, en cuyo caso la nota no debe ir encerrada entre llaves:
 \repeat tremolo 4 c'16
 @end lilypond
 
-@cindex trémolo, indicaciones de
+@cindex trémolo, indicación de
 @funindex :
 
 El mismo resultado se puede obtener escribiendo @code{:@var{N}}
@@ -899,14 +918,15 @@ añade una barra de corchea a la plica de la nota.  Si
 }
 @end lilypond
 
+
 @snippets
 
+@cindex trémolo, pentagrama cruzado
+@cindex pentagrama, cruzado, trémolo de
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {cross-staff-tremolos.ly}
+
 
 @seealso
 Fragmentos de código:
 @rlsr{Repeats}.
-
-@cindex trémolos de pentagrama cruzado
-@cindex pentagrama cruzado, trémolo de
