@@ -106,13 +106,13 @@ Fragmentos de código:
 
 @cindex letra
 @cindex letra, introducir
-@cindex introducir la letra
-@cindex formateo de la letra
+@cindex introducir, la letra
+@cindex formato, de la letra
 @cindex letra, formateado
-@cindex puntuación en la letra
+@cindex puntuación, en la letra
 @cindex letra, puntuación en la
-@cindex espacios en la letra
-@cindex comillas en la letra
+@cindex espacio, en la letra
+@cindex comillas, en la letra
 @cindex puntuación
 @funindex \lyricmode
 
@@ -207,8 +207,12 @@ Para ver una explicación de muchas de las opciones, consulte
 @ref{Formatear el texto}.
 
 @snippets
+
+@cindex letra, y marcado
+@cindex marcado, en letra
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {formatting-lyrics-syllables.ly}
+
 
 @seealso
 Manual de aprendizaje:
@@ -228,12 +232,13 @@ Referencia de funcionamiento interno:
 Fragmentos de código:
 @rlsr{Text}.
 
+
 @node Alineación de la letra a una melodía
 @unnumberedsubsubsec Alineación de la letra a una melodía
 @translationof Aligning lyrics to a melody
 
 @cindex letra, alineación a una melodía
-@cindex @code{associatedVoice}
+@funindex associatedVoice
 @funindex \lyricmode
 @funindex \addlyrics
 @funindex \lyricsto
@@ -363,13 +368,14 @@ Referencia de la notación:
 Referencia de funcionamiento interno:
 @rinternals{Lyrics}.
 
+
 @node Duración automática de las sílabas
 @unnumberedsubsubsec Duración automática de las sílabas
 @translationof Automatic syllable durations
 
-@cindex sílabas, duración automática de las
-@cindex letra y melodías
-@cindex associatedVoice
+@cindex sílaba, duración automática de
+@cindex letra, y melodías
+@funindex associatedVoice
 @funindex \addlyrics
 @funindex \lyricsto
 
@@ -409,7 +415,6 @@ métodos para mantener vivos los contextos, consulte
 
 @subheading Uso de @code{\lyricsto}
 
-@cindex \lyricsto
 @funindex \lyricsto
 
 Las sílabas de la letra se pueden alinear automáticamente bajo las
@@ -437,10 +442,8 @@ automáticamente el modo de letra.  De forma predeterminada, la
 letra se coloca por debajo de las notas.  Para otras colocaciones,
 consulte @ref{Posicionamiento vertical de la letra}.
 
-
 @subheading Uso de @code{\addlyrics}
 
-@cindex \addlyrics
 @funindex \addlyrics
 
 La instrucción @code{\addlyrics} es realmente tan sólo una forma
@@ -621,9 +624,9 @@ Referencia de funcionamiento interno:
 @translationof Multiple syllables to one note
 
 @funindex _
-@cindex ligaduras en la letra
-@cindex espacios en la letra
-@cindex comillas en la letra
+@cindex ligadura, en la letra
+@cindex espacio, en la letra
+@cindex comillas, en la letra
 
 Para asignar más de una sílaba a una única nota con espacios entre
 las sílabas, podemos encerrar la frase entre comillas o utilizar
@@ -887,7 +890,7 @@ individuales, que se escriben como caracteres de guión bajo
 sueltos; de forma predeterminada éstos no producen la impresión de
 una línea de extensión.}
 
-@cindex guiones
+@cindex guion
 
 @c leave this as samp. -gp
 Los guiones centrados se escriben como @samp{ -- } entre sílabas
@@ -1012,7 +1015,7 @@ Referencia de funcionamiento interno:
 @unnumberedsubsubsec Posicionamiento vertical de la letra
 @translationof Placing lyrics vertically
 
-@cindex posicionamiento de la letra
+@cindex posicionamiento, de la letra
 @cindex letra, posicionamiento
 
 Dependiendo del tipo de música, la letra puede colocarse sobre el
@@ -1130,8 +1133,11 @@ plantillas del Manual de Aprendizaje, véase
 @rlearning{Plantillas de conjuntos vocales}.
 
 @snippets
+
+@cindex letra, espaciado versión 2.12
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
+
 
 @seealso
 Manual de aprendizaje:
@@ -1146,7 +1152,7 @@ Referencia de la notación:
 @unnumberedsubsubsec Colocación horizontal de las sílabas
 @translationof Placing syllables horizontally
 
-@cindex espaciado de la letra
+@cindex espaciado, de la letra
 @cindex letra, aumentar la separación
 
 Para aumentar la separación entre las líneas de texto, establezca
@@ -1188,11 +1194,17 @@ ajuste la propiedad dentro del bloque @code{\layout}.
 @end lilypond
 
 @snippets
+
+@cindex letra, alineación horizontal
+@cindex alineación, horizontal, letra
+@cindex horizontal, alineación, letra
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {lyrics-alignment.ly}
 
-@c TODO: move to LSR -vv
 
+@knownissues
+
+@cindex letra, mantener dentro del margen
 La comprobación necesaria para asegurar que las inscripciones de
 texto están dentro de los márgenes, requiere cálculos adicionales.
 Para acelerar ligeramente el procesado, se puede desactivar esta
@@ -1201,6 +1213,9 @@ funcionalidad:
 @example
 \override Score.PaperColumn.keep-inside-line = ##f
 @end example
+
+@cindex letra, evitar líneas divisorias
+@cindex línea, divisoria, evitada por la letra lyrics
 
 Para hacer que el texto evite también las líneas divisorias, use
 
@@ -1219,8 +1234,8 @@ Para hacer que el texto evite también las líneas divisorias, use
 @unnumberedsubsubsec Letra y repeticiones
 @translationof Lyrics and repeats
 
-@cindex repeticiones y letra
-@cindex letra, repeticiones
+@cindex repetición, y letra
+@cindex letra, repetición
 
 @subheading Repeticiones sencillas
 
@@ -1368,7 +1383,6 @@ Se pueden añadir más estrofas de una manera similar:
 }
 @end lilypond
 
-@cindex alignBelowContext
 @funindex alignBelowContext
 
 Sin embargo, si esta construcción se inserta dentro de un contexto
@@ -1422,12 +1436,12 @@ Para posicionarlos correctamente utilice @code{alignBelowContext}:
 
 @subheading Repeticiones con finales alternativos (primera y segunda vez)
 
-@cindex letra, repeticiones con finales alternativos
-@cindex letra, repeticiones con primera y segunda vez
-@cindex repetición de la letra con finales alternativos
-@cindex repetición de la letra con primera y segunda vez
+@cindex letra, repetición con finales alternativos
+@cindex letra, repetición con primera y segunda vez
+@cindex repetición, de la letra con finales alternativos
+@cindex repetición, de la letra con primera y segunda vez
 @cindex finales alternativos y letra
-@cindex primera y segunda vez y letra
+@cindex primera y segunda vez, y letra
 
 Si el texto de la sección repetida es el mismo, y ninguno de los
 bloques @code{\alternative} comienza con un silencio, se puede
@@ -1512,7 +1526,7 @@ número que se escribe a continuación.}
 }
 @end lilypond
 
-@cindex letra y notas ligadas
+@cindex letra, y notas ligadas
 @funindex \repeatTie
 
 Cuando una nota está ligada sobre dos o más finales alternativos
@@ -1730,10 +1744,10 @@ debemos usar es el pasaje polifónico temporal, véase la sección
 @unnumberedsubsubsec Polifonía con letras compartidas
 @translationof Polyphony with shared lyrics
 
-@cindex NullVoice
+@funindex NullVoice
 @cindex polifonía, letra compartida
 @cindex letra, compartida entre voces
-@cindex \partcombine y letra
+@cindex @code{\partcombine} and lyrics
 @funindex \partcombine
 
 Cuando dos voces cuyas notas tienen distintas duraciones comparten
@@ -1854,39 +1868,40 @@ Los números de los versos se pueden añadir estableciendo
 
 @noindent
 Estos números aparecerán inmediatamente antes de la primera
-sílaba.
+sílaba.  También pueden agruparse dos líneas de estrofa,
+por ejemplo en el caso de una repetición con letras
+diferentes:
 
-@c TODO Create and add snippet to show how two lines of a
-@c stanza can be grouped together, along these lines:
-@c (might need improving a bit) -td
-
-@ignore
-leftbrace = \markup { \override #'(font-encoding . fetaBraces) \lookup
-"brace105" }
-
-stanzaOneOne = {
-  \set stanza = \markup { "1. " \leftbrace }
-  \lyricmode { Child, you're mine and I love you.
-    Lend thine ear to what I say.
-
-  }
+@lilypond[quote,ragged-right,verbatim]
+leftbrace = \markup {
+  \override #'(font-encoding . fetaBraces)
+  \lookup "brace80"
 }
 
-stanzaOneThree =  {
-%  \set stanza = \markup { "   "}
-  \lyricmode { Child, I have no great -- er joy
-    Than to have you walk in truth.
-
+stanzaOneOne = \lyricmode {
+  \set stanza = \markup {
+    \column { \vspace #.33 "1. "}
+    \leftbrace
   }
+  Child, you’re mine and I love you.
+  Lend thine ear to what I say.
+}
+
+stanzaOneThree = \lyricmode {
+  Child, I have no great -- er joy
+  Than to have you walk in truth.
 }
 
 \new Voice {
-  \repeat volta 2 { c'8 c' c' c' c' c' c'4
-                    c'8 c' c' c' c' c' c'4   }
-}  \addlyrics { \stanzaOneOne }
-   \addlyrics { \stanzaOneThree }
+  \repeat volta 2 {
+    c'8 c' c' c' c' c' c'4
+    c'8 c' c' c' c' c' c'4
+  }
+}
+\addlyrics { \stanzaOneOne }
+\addlyrics { \stanzaOneThree }
 
-@end ignore
+@end lilypond
 
 @node Añadir expresiones dinámicas a los versos
 @unnumberedsubsubsec Añadir expresiones dinámicas a los versos
@@ -1987,7 +2002,7 @@ para delimitar la letra en que se quieren ignorar los melismas.
 @subsubheading Aplicar sílabas a notas de adorno
 
 @cindex adorno, letra y notas de
-@cindex letra sobre notas de adorno
+@cindex letra, sobre notas de adorno
 
 
 De forma predeterminada, las notas de adorno (p.ej. insertadas por
@@ -2040,7 +2055,7 @@ usar un bloque @code{\with} o @code{\context}:
 
 @subsubheading Cambio a una melodía alternativa
 
-@cindex associatedVoice
+@funindex associatedVoice
 @cindex melodía alternativa, cambio a una
 
 Son posibles variaciones más complejas en la coordinación de la
@@ -2137,19 +2152,21 @@ text = \lyricmode {
 its fleece was white as snow.
 }
 
-\score{ <<
-  \new Voice = "one" { \melody }
-  \new Lyrics \lyricsto "one" \text
->>
+\score {
+  <<
+    \new Voice = "one" { \melody }
+    \new Lyrics \lyricsto "one" \text
+  >>
   \layout { }
 }
-\markup { \column{
-  \line{ Verse 2. }
-  \line{ All the children laughed and played }
-  \line{ To see a lamb at school. }
+\markup {
+  \column {
+    \line { Verse 2. }
+    \line { All the children laughed and played }
+    \line { To see a lamb at school. }
   }
 }
-\markup{
+\markup {
   \wordwrap-string "
   Verse 3.
 
@@ -2321,8 +2338,10 @@ y el @q{modo de acordes}; esta sintaxis se explica en
 @ref{Notación de acordes}.
 
 @snippets
+
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {simple-lead-sheet.ly}
+
 
 @seealso
 Referencia de la notación:
@@ -2333,9 +2352,9 @@ Referencia de la notación:
 @subsection Música coral
 @translationof Choral
 
-@cindex anthems
-@cindex partes cantadas
-@cindex oratorios
+@cindex anthem
+@cindex canción, a varias voces
+@cindex oratorio
 @cindex SATB
 
 Esta sección trata los asuntos de notación más directamente
@@ -2345,7 +2364,6 @@ canciones por partes, los oratorios, etc.
 @menu
 * Referencias para música coral::
 * Disposiciones de la partitura para música coral::
-* Voces divididas::
 @end menu
 
 @node Referencias para música coral
@@ -2532,14 +2550,15 @@ Referencia de funcionamiento interno:
 @rinternals{StaffGrouper}.
 
 
-@node Voces divididas
-@unnumberedsubsubsec Voces divididas
-@translationof Divided voices
+@snippets
 
-@cindex voces divididas
-
+@cindex voz, dividida
+@cindex dividida, voz
+@cindex arpegio, corchete, señalar voces divididas
+@cindex corchete, vertical, señalar voces divididas
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {using-arpeggiobracket-to-make-divisi-more-visible.ly}
+
 
 @seealso
 Referencia de la notación:
@@ -2669,8 +2688,8 @@ Snippets:
 @unnumberedsubsubsec Nombres de los personajes
 @translationof Character names
 
-@cindex personajes, nombres
-@cindex nombres de personajes
+@cindex personaje, nombre
+@cindex nombres, de personaje
 
 Se suelen mostrar los nombres de los personajes a la izquierda del
 pentagrama cuando éste está dedicado a dicho personaje solamente:
@@ -2763,8 +2782,8 @@ Referencia de la notación:
 @unnumberedsubsubsec Guías musicales
 @translationof Musical cues
 
-@cindex guías musicales
-@cindex musicales, guías
+@cindex guía, musicales
+@cindex musical, guía
 
 Se pueden insertar guías musicales en las partituras vocales, en
 los libros vocales y en las partes orquestales para indicar qué
@@ -2861,8 +2880,13 @@ texto que se teclea y para hacer que las notas del piano estén más
 claras.
 
 @snippets
+
+@cindex vocal, partitura, añadir guías
+@cindex partitura, vocal, añadir guías
+@cindex guía, en partitura vocal
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {adding-orchestral-cues-to-a-vocal-score.ly}
+
 
 @seealso
 Glosario musical:
@@ -2998,9 +3022,9 @@ Referencia de funcionamiento interno:
 @subsection Cánticos salmos e himnos
 @translationof Chants psalms and hymns
 
-@cindex cánticos
-@cindex salmos
-@cindex himnos
+@cindex cántico
+@cindex salmo
+@cindex himno
 @cindex música religiosa
 
 La música y la letra de los cánticos, salmos e himnos suelen
@@ -3310,9 +3334,13 @@ el primero de los siguientes fragmentos de código.
 
 @snippets
 
+@cindex cántico
+@cindex salmo
+@cindex himno
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {chant-or-psalms-notation.ly}
 
+@c XXX move this text into following snippet
 Los cánticos y otros textos litúrgicos pueden disponerse de una
 forma más libre, y posiblemente usen elementos notacionales
 tomados de la música antigua.  Con frecuencia la letra se imprime
@@ -3320,8 +3348,12 @@ por debajo y alineada con las notas.  En este caso, las notas se
 disponen espaciadas de acuerdo con las sílabas en vez de hacerlo
 con las duraciones de las notas.
 
+@cindex gregoriano, transcripción moderna
+@cindex transcripción, moderna del canto gregoriano
+@cindex moderna, transcripción del canto gregoriano
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {ancient-notation-template----modern-transcription-of-gregorian-music.ly}
+
 
 @seealso
 Manual de aprendizaje:
@@ -3513,6 +3545,9 @@ requiere una instrucción @code{\partial} al principio de la música
 e instrucciones @code{\bar "|"} ó @code{\bar "||"} al final de
 cada línea.
 
+@cindex himno, y compás parcial
+@cindex parcial, compás, en himnos
+@cindex compás, parcial, en himnos
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {hymn-template.ly}
 
