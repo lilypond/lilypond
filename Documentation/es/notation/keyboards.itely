@@ -677,7 +677,9 @@ que seleccionan las distintas combinaciones de lengüetas, como
 manera que ha entrado en uso un sistema de signos para simplificar
 las instrucciones de ejecución.
 
-Puede verse una lista completa de todos los registros de acordeón disponibles en @ref{Registros de acordeón}.
+Puede verse una lista completa de todos los registros de acordeón
+disponibles en
+@rusernamed{Accordion Registers, Registros de acordeón}
 
 
 @snippets
