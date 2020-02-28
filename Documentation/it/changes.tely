@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: UTF-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: f56d39e1d744df24c05773898a4de47851172f87
+    Translation of GIT committish: 36aecbfce5f3d3cb6b1cc23198f0d5164f19fbf4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1296,6 +1296,29 @@ con @code{DynamicText} o @code{LyricText}.
 @subheading Novità a proposito di cambiamenti delle impostazioni predefinite
 
 @itemize
+
+È stato aggiunto un argomento opzionale per il comando @code{\afterGrace}.
+
+@noindent
+Ora @code{\afterGrace} ha un argomento opzionale per specificare tramite
+una frazione la posizione di spaziatura delle sue note.
+@lilypond[quote,verbatim]
+<<
+\new Staff \relative {
+  % Il valore predefinito codificato nei sorgenti (3/4)
+  c''1 \afterGrace d1 { c16[ d] } c1
+}
+\new Staff \relative {
+  % Modifica manuale del valore predefinito codificato nei sorgenti (15/16)
+  #(define afterGraceFraction (cons 15 16))
+  c''1 \afterGrace d1 { c16[ d] } c1
+}
+\new Staff \relative {
+  % Uso del nuovo argomento (5/6)
+  c''1 \afterGrace 5/6 d1 { c16[ d] } c1
+}
+>>
+@end lilypond
 
 @item
 Tutti i comandi @code{\override}, @code{\revert}, @code{\set} e

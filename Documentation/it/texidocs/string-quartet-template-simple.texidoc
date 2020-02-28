@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 8ef5f99e63cc9e52c7c0071cde4d99e057d10329
+%% Translation of GIT committish: 17ffa111f7411b2feb67fa2883ea622c07e613a6
   texidocit = "
 Questo modello presenta un semplice quartetto d'archi. Impiega anche una
 sezione @code{\\global} per definire il tempo e l'armatura di chiave.

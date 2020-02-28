@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 3025442087de8dd3f88736290887ced86e360c25
+    Translation of GIT committish: 654cdecf1023c8343301323af8055c45a7263959
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1513,29 +1513,16 @@ doubleSlur = #(define-music-function (note) (ly:music?)
 @subsection Añadir articulaciones a las notas (ejemplo)
 @translationof Adding articulation to notes (example)
 
-La manera fácil de añadir articulación a las notas es mezclar dos
-expresiones musicales en un solo contexto.  Sin embargo,
+La manera fácil de añadir articulación a las notas es juxtaponer dos
+expresiones musicales.  Sin embargo,
 supongamos que queremos escribir una función musical que lo haga.
-Esto tiene la ventaja adicional de que podemos usar esa función
-musical para añadir una articulación (como una instrucción de
-digitación) a una nota única dentro de un acorde, lo cual no es
-posible si nos limitamos a mezclar fragmentos de música
-independientes.
 
 Una @code{$variable} dentro de la notación @code{#@{@dots{}#@}} es
 como una @code{\variable} normal en la notación clásica de
-LilyPond.  Sabemos que
+LilyPond.  Podríamos escribir
 
 @example
 @{ \music -. -> @}
-@end example
-
-@noindent
-no funciona en LilyPond.  Podríamos evitar este problema
-adjuntando la articulación a un acorde vacío,
-
-@example
-@{ << \music <> -. -> >> @}
 @end example
 
 @noindent

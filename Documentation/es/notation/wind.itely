@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 09ef86c87175cc6c1071eedb022ed1d01a93bcaf
+    Translation of GIT committish: 21a1f431176e969d45a9cc973c99dce34e9e8733
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -41,7 +41,7 @@ instrumentos de viento.
 @unnumberedsubsubsec Referencias para instrumentos de viento
 @translationof References for wind instruments
 
-@cindex viento, instrumentos
+@cindex viento, instrumento de
 
 Muchas cuestiones de la notación para instrumentos de viento
 tienen que ver con las respiraciones y los golpes de lengua:
@@ -103,10 +103,15 @@ Las trompas tapadas se indican por medio de la articulación
 @code{stopped}.  Véase @ref{Articulaciones y ornamentos}.
 @end itemize
 
+
 @snippets
 
+@cindex flageolet, cambiar tamaño
+@cindex modificar, flageolet, tamaño
+@funindex \flageolet
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing--flageolet-mark-size.ly}
+
 
 @seealso
 Referencia de la notación:
@@ -140,11 +145,16 @@ viento madera,como se describe en
 
 @snippets
 
+@cindex digitación, símbolos para instrumentos de viento
+@cindex viento, instrumentos, símbolos de digitación
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {fingering-symbols-for-wind-instruments.ly}
 
+@cindex fingering chart
+@cindex chart, fingering
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {recorder-fingering-chart.ly}
+
 
 @seealso
 Referencia de la notación:
@@ -170,10 +180,9 @@ Esta sección trata de la notación común para gaita.
 @translationof Bagpipe definitions
 
 @cindex gaita
-@cindex gaita escocesa de las tierras altas
+@cindex gaita escocesa de highland
 @cindex mordentes
-@cindex notas de adorno
-
+@cindex nota de adorno
 @funindex \taor
 @funindex \hideKeySignature
 @funindex \showKeySignature
@@ -444,18 +453,26 @@ patrones de los diagramas están en
 @predefined
 @endpredefined
 
+
 @snippets
+
+@cindex viento, instrumento, diagrama, lista
+@cindex list of woodwind diagrams
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {woodwind-diagrams-listing.ly}
 
+@cindex viento, instrumento, diagrama, modificar
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {graphical-and-text-woodwind-diagrams.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-size-of-woodwind-diagrams.ly}
 
+@cindex viento, instrumento, diagrama, lista de claves
+@cindex list of keys in woodwind diagrams
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {woodwind-diagrams-key-lists.ly}
+
 
 @seealso
 Archivos de inicio:
