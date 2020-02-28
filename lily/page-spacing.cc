@@ -54,7 +54,6 @@ Page_spacing::append_system (const Line_details &line)
     {
       rod_height_ += line.tallness_;
       spring_len_ += last_line_.spring_length (line);
-
     }
   else
     {
@@ -396,4 +395,3 @@ Page_spacer::calc_subproblem (vsize page, vsize line)
     }
   return !std::isinf (cur.demerits_);
 }
-

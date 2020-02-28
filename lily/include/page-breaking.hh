@@ -39,6 +39,7 @@ struct System_spec
     pscore_ = NULL;
   }
 
+  /* only used as a dummy value in case the book is empty. */
   System_spec ()
   {
     pscore_ = NULL;
@@ -49,6 +50,10 @@ struct System_spec
   Prob *prob_;
 };
 
+/*
+  indicates a break point in a page spacing problem. If there are N
+  lines/systems, there are N+1 Break_positions around those lines.
+*/
 struct Break_position
 {
   /*
@@ -96,6 +101,11 @@ struct Break_position
   }
 };
 
+/*
+  A page breaking problem. Subclasses represent different strategies.
+
+  Read the large comment at the top of page-breaking.cc for context.
+*/
 class Page_breaking
 {
 public:
@@ -104,10 +114,11 @@ public:
   typedef std::vector<vsize> Line_division;
 
   /*
-    TODO: naming.
-
-    determine the page breaking, and break scores into lines
+    Determine the page breaking, and break scores into lines
     appropriately.
+
+    This is the only external entry point. Other public methods are
+    for page breaking util classes to query the problem.
    */
   virtual SCM solve () = 0;
 

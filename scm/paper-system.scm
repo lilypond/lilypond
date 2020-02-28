@@ -35,6 +35,7 @@
         main-stencil)))
 
 (define-public (paper-system-stencil system)
+  "Add stencils for notes to the main stencil, returning the result."
   (let ((main-stencil (ly:prob-property system 'stencil))
         (system-grob (ly:prob-property system 'system-grob)))
     (if (ly:grob? system-grob)
@@ -82,10 +83,10 @@
     ))
 
 
-;; Y-ext and next-Y-ext are either skyline-pairs or extents
 (define*-public (annotate-padding system-Y system-X Y-ext X-ext
                                   next-system-Y next-system-X next-Y-ext next-X-ext
                                   layout horizon-padding padding #:key (base-color blue))
+  "Y-ext and next-Y-ext are either skyline-pairs or extents."
   (let* ((eps 0.001)
          (skyline (and (ly:skyline-pair? Y-ext)
                        (ly:skyline-pair::skyline Y-ext DOWN)))

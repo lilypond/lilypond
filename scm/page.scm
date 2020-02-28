@@ -46,6 +46,9 @@
 (define page-module (current-module))
 
 (define (make-page paper-book  . args)
+  "A page is a prob (Property object). This is because the non-music
+layout elements (title, header, footer) are markups and must be interpreted in context
+of layout settings just like markups inside the music"
   (let*
       ((p (apply ly:make-prob (append
                                (list 'page (layout->page-init (ly:paper-book-paper paper-book))
@@ -90,6 +93,7 @@
    (page-property page 'configuration)))
 
 (define (annotate-top-space first-system layout header-stencil stencil)
+  "Add an annotation at the top to STENCIL and return new stencil."
   (let* ((top-margin (ly:output-def-lookup layout 'top-margin))
          (sym (if (paper-system-title? first-system)
                   'top-markup-spacing
@@ -112,6 +116,7 @@
 
 
 (define (annotate-page layout stencil)
+  "add annotations to a stencil, and return result"
   (let ((top-margin (ly:output-def-lookup layout 'top-margin))
         (paper-height (ly:output-def-lookup layout 'paper-height))
         (bottom-margin (ly:output-def-lookup layout 'bottom-margin))
@@ -161,6 +166,7 @@
 
 
 (define (page-header-or-footer page dir)
+  "Call make-{header,footer} depending on DIR for PAGE."
   (let*
       ((paper-book (page-property page 'paper-book))
        (layout (ly:paper-book-paper paper-book))
@@ -206,7 +212,6 @@
 
 (define (make-page-stencil page)
   "Construct a stencil representing the page from PAGE."
-
 
   (page-translate-systems page)
   (let*

@@ -19,29 +19,6 @@
 
 (use-modules (lily))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; The procedures shown in this list have been moved to
-;; scm/output-lib.scm
-;;
-;;
-;;      (define-public (make-rhythmic-location bar-num num den)
-;;      (define-public (rhythmic-location? a)
-;;      (define-public (make-graceless-rhythmic-location loc)
-;;      (define-public rhythmic-location-measure-position cdr)
-;;      (define-public rhythmic-location-bar-number car)
-;;      (define-public (rhythmic-location<? a b)
-;;      (define-public (rhythmic-location<=? a b)
-;;      (define-public (rhythmic-location>=? a b)
-;;      (define-public (rhythmic-location>? a b)
-;;      (define-public (rhythmic-location=? a b)
-;;      (define-public (rhythmic-location->file-string a)
-;;      (define-public (rhythmic-location->string a)
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;  Actual clipping logic.
-
 ;;
 ;; the total of this will be
 ;; O(#systems * #regions)
@@ -51,7 +28,8 @@
 ;;
 (define-public (system-clipped-x-extent system-grob clip-region)
   "Return the X-extent of @var{system-grob} when clipped with
-@var{clip-region}.  Return @code{#f} if not appropriate."
+@var{clip-region}, a pair @var{start}, @var{end}, both rhythmic
+locations.  Return @code{#f} if not appropriate."
 
   (let*
       ((region-start (car clip-region))
@@ -74,7 +52,6 @@
                            (eq? #t (ly:grob-property column 'non-musical))
 
                            )))
-
              ))
 
          (iota (ly:grob-array-length columns))))
