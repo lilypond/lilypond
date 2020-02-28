@@ -863,10 +863,8 @@ ruta relativa al archivo raíz.  Predeterminado: @code{#f}.
 Fijar la resolución para generar imágenes de matriz de puntos
 @code{PNG} a @var{número} ppp.  Predeterminado: @code{101}.
 
-@item @code{safe}
-@tab @code{#f}
-@tab No confiar en la entrada @code{.ly}.
-@end multitable
+@item @code{safe} @var{#f}
+No confiar en la entrada @code{.ly}.
 
 Cuando el servicio de tipografía está disponible a través de un
 servidor web, @b{SE DEBEN} pasar las opciones @code{-dsafe} o
