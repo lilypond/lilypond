@@ -42,14 +42,14 @@ fixed_line_thickness + variable_line_factor * 5 pt# = 0.50 pt#;
 fixed_line_thickness + variable_line_factor * 4.125 pt# = 0.47 pt#;
 
 stafflinethickness# := fixed_line_thickness
-		       + variable_line_factor * staff_space#;
+                       + variable_line_factor * staff_space#;
 stafflinethickness_rounded# := stafflinethickness#;
 
 %
 % The following tunes the general blackness of the glyphs.
 %
 
-linethickness# := stafflinethickness#;		%% 0.5 pt#;
+linethickness# := stafflinethickness#;                %% 0.5 pt#;
 linethickness_rounded# := linethickness#;
 
 %
@@ -68,15 +68,15 @@ ledgerlinethickness# := 2 stafflinethickness#;
 ledgerlinethickness_rounded# := ledgerlinethickness#;
 
 define_pixels (staff_space, stemthickness, stafflinethickness,
-	       ledgerlinethickness, linethickness);
+               ledgerlinethickness, linethickness);
 define_whole_pixels (staff_space_rounded);
 define_whole_blacker_pixels (stemthickness_rounded);
 define_whole_vertical_blacker_pixels (stafflinethickness_rounded,
-				      ledgerlinethickness_rounded,
-				      linethickness_rounded);
+                                      ledgerlinethickness_rounded,
+                                      linethickness_rounded);
 
 if ledgerlinethickness_rounded > 2 stafflinethickness_rounded:
-	ledgerlinethickness_rounded := 2 stafflinethickness_rounded;
+        ledgerlinethickness_rounded := 2 stafflinethickness_rounded;
 fi;
 
 %
@@ -92,10 +92,10 @@ fi;
 
 blot_diameter# = .40 pt#;
 if (blot_diameter# * hppp) < 1:
-	blot_diameter# := 1 / hppp;
+        blot_diameter# := 1 / hppp;
 fi
 if (blot_diameter# * vppp) < 1:
-	blot_diameter# := 1 / vppp;
+        blot_diameter# := 1 / vppp;
 fi
 
 define_pixels (blot_diameter);
@@ -204,21 +204,21 @@ pair feta_offset;
 feta_offset := (0, 0);
 
 if known miterlimit:
-	pickup nullpen;
+        pickup nullpen;
 else:
-	feta_eps := eps;
+        feta_eps := eps;
 
-	if odd stafflinethickness_rounded:
-		feta_shift := 1;
-	fi;
+        if odd stafflinethickness_rounded:
+                feta_shift := 1;
+        fi;
 
-	if odd (staff_space_rounded - stafflinethickness_rounded):
-		feta_space_shift := 1;
-	fi;
+        if odd (staff_space_rounded - stafflinethickness_rounded):
+                feta_space_shift := 1;
+        fi;
 
-	feta_offset := (0.5, 0.5);
+        feta_offset := (0.5, 0.5);
 
-	pickup pencircle scaled 1;
+        pickup pencircle scaled 1;
 fi;
 
 feta_fillpen := savepen;

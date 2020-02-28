@@ -15,21 +15,21 @@
 % the used `mag' value)
 
 if known miterlimit:
-	bpppix_ := 0.2;		% ten times larger than original
+        bpppix_ := 0.2;                % ten times larger than original
 
-	numeric mm, pt, dd, bp, cm, pc, cc, in;
+        numeric mm, pt, dd, bp, cm, pc, cc, in;
 
-	mm * bpppix_ = 2.83464;
-	pt * bpppix_ = 0.99626;
-	dd * bpppix_ = 1.06601;
-	bp * bpppix_ = 1;
-	cm * bpppix_ = 28.34645;
-	pc * bpppix_ = 11.95517;
-	cc * bpppix_ = 12.79213;
-	in * bpppix_ = 72;
+        mm * bpppix_ = 2.83464;
+        pt * bpppix_ = 0.99626;
+        dd * bpppix_ = 1.06601;
+        bp * bpppix_ = 1;
+        cm * bpppix_ = 28.34645;
+        pc * bpppix_ = 11.95517;
+        cc * bpppix_ = 12.79213;
+        in * bpppix_ = 72;
 
-	hppp := pt;
-	vppp := pt;
+        hppp := pt;
+        vppp := pt;
 fi;
 
 design_size := 20;   %% arbitrary
@@ -42,6 +42,6 @@ input common-modules-and-initialization;
 %
 
 fet_beginfont ("feta-braces-" & char (97 + font_count),
-	       (font_count + 1) * 20, "fetaBraces");
-	input feta-braces;
+               (font_count + 1) * 20, "fetaBraces");
+        input feta-braces;
 fet_endfont ("feta-braces");

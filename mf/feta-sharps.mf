@@ -56,7 +56,7 @@ def draw_sharp_beam (expr length, y_offset) =
              ... lft z4{up}
              -- cycle;
 
-	labels (1, 2, 3, 4);
+        labels (1, 2, 3, 4);
 enddef;
 
 
@@ -119,22 +119,22 @@ enddef;
 
 
 fet_beginchar ("Sharp", "sharp");
-	draw_sharp (false, false);
+        draw_sharp (false, false);
 fet_endchar;
 
 
 fet_beginchar ("Arrowed Sharp (arrow up)", "sharp.arrowup");
-	draw_sharp (true, false);
+        draw_sharp (true, false);
 fet_endchar;
 
 
 fet_beginchar ("Arrowed Sharp (arrow down)", "sharp.arrowdown");
-	draw_sharp (false, true);
+        draw_sharp (false, true);
 fet_endchar;
 
 
 fet_beginchar ("Arrowed Sharp (arrows up and down)", "sharp.arrowboth");
-	draw_sharp (true, true);
+        draw_sharp (true, true);
 fet_endchar;
 
 
@@ -331,8 +331,8 @@ fet_beginchar ("Double Sharp", "doublesharp");
              -- reverse pat yscaled -1 shifted (0, -feta_eps)
              -- cycle;
 
-	% ugh
-	currentpicture := currentpicture shifted (hround (w / 2), 0);
+        % ugh
+        currentpicture := currentpicture shifted (hround (w / 2), 0);
 
         labels (1, 2, 3, 4, 5);
         draw_staff_if_debugging (-2, 2);

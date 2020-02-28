@@ -144,20 +144,20 @@ enddef;
 
 
 fet_beginchar ("Natural", "natural");
-	draw_natural (false, false);
+        draw_natural (false, false);
 fet_endchar;
 
 
 fet_beginchar ("Arrowed Natural (arrow up)", "natural.arrowup");
-	draw_natural (true, false);
+        draw_natural (true, false);
 fet_endchar;
 
 
 fet_beginchar ("Arrowed Natural (arrow down)", "natural.arrowdown");
-	draw_natural (false, true);
+        draw_natural (false, true);
 fet_endchar;
 
 
 fet_beginchar ("Arrowed Natural (arrows up and down)", "natural.arrowboth");
-	draw_natural (true, true);
+        draw_natural (true, true);
 fet_endchar;
