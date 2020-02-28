@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 0bc29b2f588c81289ad772db9e774360acc86de9
+    Translation of GIT committish: 6ca1d8c80817f9baaa7b66b2fde9a7b98b0ffc0a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -43,19 +43,18 @@ parte degli strumenti a tastiera.
 * Modifica manuale del rigo::
 * Modifica automatica del rigo::
 * Linee del cambio rigo::
-* Gambi trasversali ai righi::
 @end menu
 
 @node Riferimenti per tastiere
 @unnumberedsubsubsec Riferimenti per tastiere
 @translationof References for keyboards
 
-@cindex righi del pianoforte
-@cindex pianoforte, righi
-@cindex righi, strumenti a tastiera
-@cindex righi, strumenti dotati di tasti
-@cindex strumenti a tastiera, righi
-@cindex strumenti dotati di tasti, righi
+@cindex rigo del pianoforte
+@cindex pianoforte, rigo
+@cindex rigo, strumenti a tastiera
+@cindex rigo, strumenti dotati di tasti
+@cindex strumenti a tastiera, rigo
+@cindex strumenti dotati di tasti, rigo
 @cindex pianoforte, musica, centrare le dinamiche
 @cindex dinamiche, centrarle nella musica per pianoforte
 @cindex musica per pianoforte, centrare le dinamiche
@@ -148,11 +147,11 @@ Frammenti:
 
 @cindex cambiare manualmente il rigo
 @cindex modifica manuale del rigo
-@cindex rigo, cambi manuali
-@cindex note trasversali al rigo
-@cindex trasversali, note
-@cindex travature trasversali al rigo
-@cindex trasversali, travature
+@cindex rigo, cambio manuale
+@cindex nota trasversale al rigo
+@cindex trasversale, nota
+@cindex travatura trasversala al rigo
+@cindex trasversale, travatura
 
 @funindex \change
 
@@ -168,9 +167,31 @@ dal suo rigo corrente al rigo chiamato @var{nomerigo}.  Valori tipici di
 @var{nomerigo} sono @code{"su"} e @code{"giù"} o @code{"MD"} (mano destra)
 e @code{"MS"} (mano sinistra).
 
+@cindex accordo vuoto
+@cindex vuoto, accordo
+@funindex <>
+
 Il rigo a cui viene passata la voce deve esistere nel momento dello
 scambio.  Se necessario, i righi devono essere @qq{conservati},
-vedi @ref{Conservazione di un contesto}.
+vedi @ref{Conservazione di un contesto}, o istanziati esplicitamente,
+per esempio usando l'accordo vuoto, @code{<>}, vedi
+@ref{Note in un accordo}.
+
+@lilypond[verbatim, quote]
+\new PianoStaff <<
+  \new Staff = "up" {
+    % forza la creazione di tutti i contesti in questo momento
+    <>
+    \change Staff = "down" c2
+    \change Staff = "up" c'2
+  }
+  \new Staff = "down" {
+    \clef bass
+    % conserva il rigo
+    s1
+  }
+>>
+@end lilypond
 
 Le note trasversali al rigo hanno la travatura automatica:
 
@@ -200,8 +221,8 @@ dal centro del rigo che è più vicino alla travatura.  Un semplice esempio
 di modifica manuale della travatura è descritto in
 @rlearning{Correggere elementi della notazione sovrapposti}.
 
-@cindex collisioni trasversali ai righi
-@cindex collisioni, voci trasversali ai righi
+@cindex collisione trasversale ai righi
+@cindex collisione, voci trasversali ai righi
 
 Alcuni elementi della notazione potranno sovrapporsi quando le voci sono
 trasversali ai righi:
@@ -265,8 +286,8 @@ caso occorre usare le travature manuali.
 @translationof Changing staff automatically
 
 @cindex modifica automatica del rigo
-@cindex cambi automatici di rigo
-@cindex rigo, cambi automatici
+@cindex cambio automatico di rigo
+@cindex rigo, cambio automatico
 
 @funindex \autochange
 @funindex PianoStaff
@@ -310,8 +331,8 @@ music = {
 \autochange d' \with { \clef alto } \with { \clef tenor } \music
 @end lilypond
 
-@cindex musica relativa e autochange
-@cindex autochange e musica relativa
+@cindex musica relativa, e @code{autochange}
+@cindex @code{autochange}, e musica relativa
 
 @funindex \relative
 
@@ -359,7 +380,7 @@ Guida al funzionamento interno:
 
 
 @knownissues
-@cindex accordi, suddivisione sui righi con \autochange
+@cindex accordo, suddivisione sui righi con @code{\autochange}
 
 Gli scambi di rigo potrebbero finire in posizioni non ottimali.
 Per ottenere un risultato di alta qualità, i cambi di rigo devono
@@ -375,12 +396,12 @@ rigo in base alla prima nota nominata nel costrutto dell'accordo.
 
 @cindex linea del cambio rigo
 @cindex linea trasversale ai righi
-@cindex linea, staff-change follower
+@cindex linea, cambio di rigo
 @cindex trasversale ai righi, linea
 @cindex rigo, cambio del, linea
 @cindex segui voce
 @cindex voce, seguire
-@cindex cambio di rigo
+@cindex scambio di rigo
 
 @funindex followVoice
 @funindex \showStaffSwitch
@@ -443,39 +464,33 @@ Guida al funzionamento interno:
 @rinternals{VoiceFollower}.
 
 
-@node Gambi trasversali ai righi
-@unnumberedsubsubsec Gambi trasversali ai righi
-@translationof Cross-staff stems
+@snippets
 
-@cindex note trasversali ai righi
-@cindex note che attraversano i righi
-@cindex gambi trasversali ai righi
-@cindex gambi che attraversano i righi
-@cindex trasversali ai righi, gambi
-@cindex trasversali ai righi, note
-@cindex accordi trasversali ai righi
-@cindex trasversali ai righi, accordi
-@cindex accordi che attraversano i righi
+@anchor{Gambi trasversali ai righi}
 
-@funindex Stem
+@cindex nota trasversale ai righi
+@cindex nota che attraversa i righi
+@cindex gambo trasversale ai righi
+@cindex gambo che attraversa i righi
+@cindex trasversale ai righi, gambo
+@cindex trasversale ai righi, nota
+@cindex accordo trasversale ai righi
+@cindex trasversale ai righi, accordo
+@cindex accordo che attraversa i righi
 @funindex \crossStaff
 @funindex \autoBeamOff
 @funindex Span_stem_engraver
 
-È possibile produrre accordi trasversali ai righi usando
-l'incisore @code{Span_stem_engraver}. Occorre fare attenzione
-e assicurarsi che le travature automatiche non raggruppino
-le note su un rigo quando ciò non è richiesto nell'altro.
-
-@lilypondfile[verbatim,quote]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {cross-staff-stems.ly}
 
-Per il momento, questo incisore, a causa del modo in cui è
-implementato, non può essere specifato scrivendo il suo nome
-tra virgolette doppie, bensì inserendo il simbolo di cancelletto
-@code{#} prima del suo nome.
+Per il momento, questo incisore non può essere specificato scrivendo il
+suo nome tra virgolette doppie.  A causa del modo in cui è implementato,
+il suo nome deve essere preceduto dal simbolo di cancelletto @code{#}.
 
-@snippets
+@cindex parentesi dell'arpeggio trasversale ai righi
+@cindex trasversale ai righi, parentesi dell'arpeggio
+@cindex arpeggio, parentesi, trasversale ai righi
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {indicating-cross-staff-chords-with-arpeggio-bracket.ly}
 
@@ -502,8 +517,8 @@ più direttamente col pianoforte.
 @unnumberedsubsubsec Pedali del pianoforte
 @translationof Piano pedals
 
-@cindex pedali del pianoforte
-@cindex pianoforte, pedali
+@cindex pedale del pianoforte
+@cindex pianoforte, pedale
 @cindex pedale di risonanza
 @cindex risonanza, pedale di
 @cindex pedale sostenuto
@@ -538,16 +553,16 @@ I pedali di risonanza si trovano anche nei vibrafoni e nelle celeste.
 }
 @end lilypond
 
-@cindex stili di indicazione del pedale
-@cindex pedale, indicazioni, testo
-@cindex pedale, indicazioni, parentesi
-@cindex pedale, indicazioni, misto
+@cindex stile di indicazione del pedale
+@cindex pedale, indicazione, testo
+@cindex pedale, indicazione, parentesi
+@cindex pedale, indicazione, misto
 @cindex stile del pedale di risonanza
 @cindex pedale di risonanza, stile del
 
 @funindex pedalSustainStyle
 @funindex mixed
-@funindex bracket
+@funindex @sortas{bracketA} bracket
 @funindex text
 
 Ci sono tre stili per indicare i pedali: @code{text} (testo),
@@ -613,10 +628,10 @@ Questa sezione tratta la notazione specifica della fisarmonica.
 @unnumberedsubsubsec Simboli di discanto
 @translationof Discant symbols
 
-@cindex fisarmonica, simboli di discanto
-@cindex discanto, simboli, fisarmonica
-@cindex registri della fisarmonica
-@cindex fisarmonica, simboli di registro
+@cindex fisarmonica, simbolo di discanto
+@cindex discanto, simbolo, fisarmonica
+@cindex registro della fisarmonica
+@cindex fisarmonica, simbolo di registro
 
 Le fisarmoniche sono spesso costruite con più di un insieme di ance
 che possono essere all'unisono, un'ottava sopra o un'ottava sotto
@@ -625,6 +640,9 @@ nomi diversi per i @notation{registri} che selezionano le varie
 combinazioni di ance, come @notation{oboe}, @notation{musette} o
 @notation{bandoneon}.  È stato quindi ideato un sistema di simboli
 per semplificare le istruzioni di esecuzione.
+
+Un elenco completo di tutti i registri per fisarmonica disponibili si
+trova in @ref{Accordion Registers}.
 
 @snippets
 
@@ -651,7 +669,7 @@ Questa sezione tratta le questioni di notazione specifiche dell'arpa.
 @unnumberedsubsubsec Riferimenti per arpe
 @translationof References for harps
 
-@cindex arpe
+@cindex arpa
 @cindex bisbiglando
 
 Alcune caratteristiche comuni della musica per arpa sono
@@ -683,10 +701,10 @@ Guida alla notazione:
 @unnumberedsubsubsec Pedali dell'arpa
 @translationof Harp pedals
 
-@cindex pedali dell'arpa
-@cindex diagrammi dei pedali dell'arpa
-@cindex arpa, pedali
-@cindex arpa, diagrammi dei pedali
+@cindex pedale dell'arpa
+@cindex diagramma del pedale dell'arpa
+@cindex arpa, pedale
+@cindex arpa, diagramma del pedale
 
 Le arpe hanno sette corde per ottava che possono risuonare all'altezza
 naturale, bemolle o diesis.  Nelle arpe con leva, ogni corda viene

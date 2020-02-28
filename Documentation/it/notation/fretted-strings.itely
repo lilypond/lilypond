@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 6317c26b6950ef6499281164e23f9ae57b4da3df
+    Translation of GIT committish: 6ca1d8c80817f9baaa7b66b2fde9a7b98b0ffc0a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -106,9 +106,9 @@ Guida alla notazione:
 @unnumberedsubsubsec Indicazioni di numero di corda
 @translationof String number indications
 
-@cindex numeri di corda
-@cindex corda, numeri di
-@cindex numeri di corda vs. numeri di diteggiatura
+@cindex numero di corda
+@cindex corda, numero di
+@cindex numero di corda vs. numero di diteggiatura
 
 La corda sulla quale suonare una nota può essere indicata aggiungendo
 @code{\@var{numero}} a una nota.
@@ -133,6 +133,9 @@ g-0\3
 <g\3-0>
 <g-0\3>
 @end lilypond
+
+@funindex \arabicStringNumbers
+@funindex \romanStringNumbers
 
 I numeri di corda possono anche essere rappresentati da numeri
 romani, come è abituale con gli strumenti a corde senza tasti,
@@ -179,8 +182,10 @@ Guida al funzionamento interno:
 @unnumberedsubsubsec Intavolature predefinite
 @translationof Default tablatures
 
-@cindex tablatures, basic
-@cindex tablatures, default
+@cindex tablatura, base
+@cindex tablatura, predefinita
+@cindex intavolatura, base
+@cindex intavolatura, predefinita
 
 @funindex TabStaff
 @funindex TabVoice
@@ -407,7 +412,7 @@ ties = \relative {
 }
 @end lilypond
 
-@cindex indicazioni di armonici nell'intavolatura
+@cindex indicazione di armonici, nell'intavolatura
 @cindex armonici, intavolatura
 @cindex intavolatura e armonici
 @cindex tablatura e armonici
@@ -483,28 +488,43 @@ ratioHarmonics = {
 @end lilypond
 
 @snippets
+
+@cindex gambo, in intavolatura
+@cindex intavolatura, e gambi
+@cindex tablatura, e gambi
+@cindex travatura, in intavolatura
+@cindex intavolatura, e travature
+@cindex tablatura, e travature
+@cindex gambo orizzontale
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {stem-and-beam-behavior-in-tablature.ly}
 
+@cindex polifonia, in intavolatura
+@cindex intavolatura, e polifonia
+@cindex tablatura, e polifonia
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {polyphony-in-tablature.ly}
 
+@cindex intavolatura, e armonici
+@cindex tablatura, e armonici
+@cindex armonici, in intavolatura
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {open-string-harmonics-in-tablature.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {fretted-string-harmonics-in-tablature.ly}
 
-@cindex slide in intavolatura
-@cindex glissato in intavolatura
-@cindex intavolatura e slide
-@cindex tablatura e slide
-
+@cindex slide, in intavolatura
+@cindex glissato, in intavolatura
+@cindex intavolatura, e slide
+@cindex tablatura, e slide
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {slides-in-tablature.ly}
 
-@cindex glissando per accordi
-
+@cindex accordo, glissando, in intavolatura
+@cindex glissando, accordi in intavolatura
+@cindex intavolatura, glissando di accordi
+@cindex tablatura, glissando di accordi
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {chord-glissando-in-tablature.ly}
 
@@ -513,7 +533,10 @@ ratioHarmonics = {
 @cindex pull off
 @cindex legato discendente
 @cindex strappato
-
+@cindex intavolatura, martellato
+@cindex tablatura, martellato
+@cindex intavolatura, strappato
+@cindex tablatura, strappato
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {hammer-on-and-pull-off.ly}
 
@@ -583,8 +606,8 @@ slide (glissati).
 @cindex intavolatura, ukulele
 @cindex tablatura, accordature predefinite
 @cindex intavolatura, accordature predefinite
-@cindex strumenti con tasti, accordature predefinite
-@cindex accordature predefinite per strumenti con tasti
+@cindex strumento con tasti, accordature predefinite
+@cindex accordatura predefinita, per strumenti con tasti
 @cindex tablatura, violino
 @cindex intavolatura, violino
 @cindex tablatura, viola
@@ -638,7 +661,7 @@ si trovano in @file{ly/string-tunings-init.ly}.
 @funindex \stringTuning
 @cindex tablatura, accordature personalizzate
 @cindex intavolatura, accordature personalizzate
-@cindex accordature personalizzate
+@cindex accordatura personalizzata
 
 Si può definire qualsiasi accordatura tramite la funzione
 @code{\stringTuning}, che imposta la proprietà
@@ -753,16 +776,16 @@ Si può usare anche una chiave moderna per l'intavolatura.
 La chiave moderna per l'intavolatura supporta tablature da 4 a
 7 corde.
 
-@cindex microtoni, intavolatura
-@cindex tablatura, microtoni
-@cindex intavolatura, microtoni
+@cindex microtono, intavolatura
+@cindex tablatura, microtono
+@cindex intavolatura, microtono
 @cindex quarto di tono, intavolatura
 @cindex intavolatura, quarto di tono
 @cindex tablatura, quarto di tono
 
 @code{TabStaff} supporta i microtoni come i quarti di tono, che possono
 essere suonati piegando le corde (bending).  Occorre impostare
-@code{supportNonIntegerFret = ##t} nel contesto Score.  I microtoni
+@code{supportNonIntegerFret = ##t} nel contesto @code{Score}.  I microtoni
 tuttavia non sono supportati nel contesto @code{FretBoards}.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -819,12 +842,12 @@ le altezze delle corde non variano in modo uniforme col numero di corda.
 @unnumberedsubsubsec Diagrammi dei tasti
 @translationof Fret diagram markups
 
-@cindex diagrammi dei tasti
-@cindex diagrammi degli accordi
-@cindex tastiera, diagrammi
+@cindex diagramma dei tasti
+@cindex diagramma degli accordi
+@cindex tastiera, diagramma
 @cindex accordo, diagramma per strumenti a tasto
 @cindex diagrammi dei tasti personalizzati
-@cindex tastiera, diagrammi personalizzati
+@cindex tastiera, diagramma personalizzato
 
 I diagrammi dei tasti possono essere collegati alla musica come testo
 (markup) attaccato alla nota desiderata.  Il testo contiene l'informazione
@@ -865,8 +888,8 @@ rispettivamente @code{-o} e @code{-x} al numero di corda.
 >>
 @end lilypond
 
-@cindex indicazioni di barré
-@cindex barré, indicazioni
+@cindex indicazione di barré
+@cindex barré, indicazione
 
 Con fret-diagram si possono aggiungere indicazioni di barré al diagramma
 inserendo all'inizio della stringa, per esempio, @code{c:4-1-3}, che
@@ -1067,6 +1090,10 @@ si troveranno in seconda posizione, dopo il numero del tasto.
 Quando si usa @code{\fret-diagram-terse}, altre proprietà del diagramma dei tasti
 possono essere regolate usando @code{\override}.
 
+Solo un'indicazione per corda può essere inclusa in un markup fret-diagram-terse.
+Per avere indicazioni multiple per corda, usare una diagramma dei tasti o
+un markup fret-diagram-verbose.
+
 @cindex fret-diagram-verbose, diagramma dei tasti ridondante
 @cindex capotasto
 
@@ -1209,9 +1236,12 @@ tipo markup, le proprietà dell'interfaccia appartengono a @code{Voice.TextScrip
 
 @snippets
 
+@cindex diagramma dei tasti, cambiare orientamento
+@cindex orientamento dei diagrammi dei tasti, modifica
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-fret-orientations.ly}
 
+@cindex diagramma dei tasti, personalizzato
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {customizing-markup-fret-diagrams.ly}
 
@@ -1230,10 +1260,10 @@ Guida al funzionamento interno:
 @unnumberedsubsubsec Diagrammi dei tasti predefiniti
 @translationof Predefined fret diagrams
 
-@cindex diagrammi dei tasti
-@cindex diagrammi dei tasti, ukulele
-@cindex diagrammi dei tasti, mandolino
-@cindex diagrammi degli accordi
+@cindex diagramma dei tasti
+@cindex diagramma dei tasti, ukulele
+@cindex diagramma dei tasti, mandolino
+@cindex diagramma degli accordi
 
 @funindex FretBoards
 @funindex stringTunings
@@ -1306,8 +1336,8 @@ sia usando la modalità per accordi (vedi @ref{Panoramica sulla modalità accord
 }
 @end lilypond
 
-@cindex nomi degli accordi insieme ai diagrammi dei tasti
-@cindex diagrammi dei tasti insieme ai nomi degli accordi
+@cindex nome accordo, insieme ai diagrammi dei tasti
+@cindex diagramma dei tasti, insieme ai nomi degli accordi
 
 @funindex ChordNames
 @funindex \chordmode
@@ -1318,7 +1348,7 @@ contesto @code{FretBoards} assegnando a entrambi la stessa musica.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
-mychords = \chordmode{
+mychords = \chordmode {
   c1 f g
 }
 
@@ -1332,16 +1362,16 @@ mychords = \chordmode{
 >>
 @end lilypond
 
-@cindex trasposizione dei diagrammi dei tasti
-@cindex diagrammi dei tasti, trasposizione
-@cindex tasti, diagrammi, trasposizione
+@cindex trasposizione del diagramma dei tasti
+@cindex diagramma dei tasti, trasposizione
+@cindex tasti, diagramma, trasposizione
 
 I diagrammi dei tasti predefiniti possono essere trasposti, purché un
 diagramma per l'accordo trasposto sia salvato nella tabella del diagramma.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
-mychords = \chordmode{
+mychords = \chordmode {
   c1 f g
 }
 
@@ -1386,9 +1416,9 @@ mychords = \chordmode{
 >>
 @end lilypond
 
-@cindex diagrammi dei tasti personalizzati, aggiungere
-@cindex tasti, diagrammi personalizzati, aggiungere
-@cindex aggiungere diagrammi dei tasti personalizzati
+@cindex diagramma dei tasti, aggiungere personalizzato
+@cindex tasti, diagramma personalizzato, aggiungere
+@cindex aggiungere diagramma dei tasti personalizzato
 
 Si possono aggiungere diagrammi dei tasti alla tabella.  Basta specificare
 la tabella del diagramma, l'accordo, l'accordatura e una definizione del
@@ -1445,8 +1475,8 @@ mychords = \chordmode {
 >>
 @end lilypond
 
-@cindex strumenti con tasti, forme degli accordi
-@cindex forme degli accordi per strumenti con tasti
+@cindex strumento con tasti, forma di un accordo
+@cindex forma di un accordo, per strumenti con tasti
 
 @funindex \addChordShape
 @funindex \storePredefinedDiagram
@@ -1478,7 +1508,7 @@ come stringhe di fret-diagram-terse o come elenchi di fret-diagram-verbose.
                         #guitar-tuning
                         #(offset-fret 2 (chord-shape 'powerf guitar-tuning))
 
-mychords = \chordmode{
+mychords = \chordmode {
   f1 f'' g g''
 }
 
@@ -1500,15 +1530,26 @@ le proprietà dell'interfaccia appartengono a @code{FretBoards.FretBoard}.
 
 @snippets
 
+@cindex tastiera del diagramma dei tasti, personalizzata
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {customizing-fretboard-fret-diagrams.ly}
 
+@cindex tastiera, definire predefinita
+@cindex definire tastiera predefinita
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {defining-predefined-fretboards-for-other-instruments.ly}
 
+@cindex accordo, sopprimere ripetizioni
+@cindex accordi ripetuti, soppressione
+@cindex sopprimere accordi ripetuti
+@funindex chordChanges
 @lilypondfile[verbatim,quote,texidoc,doctitle,ragged-right]
 {chordchanges-for-fretboards.ly}
 
+@cindex tastiera, tabella alternativa
+@cindex tabella alternativa, tastiera
+@funindex predefinedDiagramTable
+@funindex \storePredefinedDiagram
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {fretboards-alternate-tables.ly}
 
@@ -1536,8 +1577,8 @@ Guida al funzionamento interno:
 @unnumberedsubsubsec Diagrammi dei tasti automatici
 @translationof Automatic fret diagrams
 
-@cindex diagrammi dei tasti automatici
-@cindex diagrammi degli accordi automatici
+@cindex diagramma dei tasti, automatico
+@cindex diagramma degli accordi, automatico
 @cindex tasti, diagrammi automatici
 @cindex accordi, diagrammi automatici
 
@@ -1610,8 +1651,8 @@ una nota a una corda.  In molti casi, solo una nota deve essere posta
 esplicitamente su una corda; tutte le altre note verranno posizionate
 correttamente dal contesto @code{FretBoards}.
 
-@cindex diagrammi dei tasti, aggiungere diteggiature
-@cindex diteggiature, aggiungere ai diagrammi dei tasti
+@cindex diagramma dei tasti, aggiungere diteggiatura
+@cindex diteggiatura, aggiungere al diagramma dei tasti
 
 Si possono aggiungere le diteggiture ai diagrammi dei tasti
 dell'oggetto FretBoard.
@@ -1697,9 +1738,9 @@ con accordature non monotoniche.
 @unnumberedsubsubsec Diteggiature della mano destra
 @translationof Right-hand fingerings
 
-@cindex strumenti a tasti, diteggiature della mano destra
-@cindex diteggiature della mano destra per strumenti a tasti
-@cindex tasti, strumenti a, diteggiature della mano destra
+@cindex strumento a tasti, diteggiatura della mano destra
+@cindex diteggiatura, mano destra, per strumento a tasti
+@cindex tasti, strumento a, diteggiatura della mano destra
 
 @funindex \rightHandFinger
 
@@ -1729,6 +1770,10 @@ RH=#rightHandFinger
 
 @snippets
 
+@cindex posizionamento, diteggiatura mano destra
+@cindex diteggiatura, mano destra, posizionamento
+@cindex destra, mano, posizionamento diteggiatura
+@funindex strokeFingerOrientations
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {placement-of-right-hand-fingerings.ly}
 
@@ -1767,8 +1812,8 @@ utenti esperti, un compositore tipografico come GuitarTeX.
 @unnumberedsubsubsec Indicazione di posizione e barré
 @translationof Indicating position and barring
 
-@cindex indicare la posizione e il barré per gli strumenti con tasti
-@cindex strumenti con tasti, indicare la posizione e il barré
+@cindex indicare la posizione e il barré per uno strumento con tasti
+@cindex strumento con tasti, indicare la posizione e il barré
 
 Questo esempio illustra come mostrare la posizione sulla chitarra e le
 indicazioni di barré.
@@ -1798,12 +1843,12 @@ Frammenti:
 @unnumberedsubsubsec Indicazione di armonici e note smorzate
 @translationof Indicating harmonics and dampened notes
 
-@cindex tasti, strumenti con, note smorzate
-@cindex tasti, strumenti con, armonici
-@cindex strumenti con tasti, note smorzate
-@cindex strumenti con tasti, armonici
-@cindex note smorzate su strumenti con tasti
-@cindex armonici su strumenti con tasti
+@cindex tasto, strumento con, nota smorzata
+@cindex tasto, strumento con, armonici
+@cindex strumento con tasti, nota smorzata
+@cindex strumento con tasti, armonici
+@cindex nota smorzata su strumento con tasti
+@cindex armonici su strumento con tasti
 
 Si possono usare teste di nota speciali per indicare note smorzate o
 armonici.  Gli armonici sono solitamente accompagnati da testo
@@ -1880,7 +1925,7 @@ Guida alla notazione:
 @funindex \powerChords
 
 @cindex power chord
-@cindex accordi, power chord
+@cindex accordo, power chord
 
 I power chord e i loro simboli possono essere inseriti in modalità accordo o
 come costrutti di accordo:
@@ -1965,9 +2010,9 @@ Frammenti:
 @unnumberedsubsubsec Intavolature per banjo
 @translationof Banjo tablatures
 
-@cindex tablature per banjo
-@cindex intavolature per banjo
-@cindex banjo, intavolature
+@cindex tablatura per banjo
+@cindex intavolatura per banjo
+@cindex banjo, intavolatura
 
 LilyPond ha un supporto basilare per il banjo a cinque corde.  Quando si
 scrivono intavolature per banjo a cinque corde, usare la funzione di
@@ -1992,8 +2037,8 @@ music = {
 >>
 @end lilypond
 
-@cindex banjo, accordature
-@cindex accordature per banjo
+@cindex banjo, accordatura
+@cindex accordatura per banjo
 
 @funindex banjo-c-tuning
 @funindex banjo-modal-tuning
@@ -2033,9 +2078,9 @@ Frammenti:
 @unnumberedsubsubsec Intavolature per liuto
 @translationof Lute tablatures
 
-@cindex intavolature per liuto
-@cindex tablature per liuto
-@cindex liuto, intavolature
+@cindex intavolatura per liuto
+@cindex tablatura per liuto
+@cindex liuto, intavolatura
 
 LilyPond supporta l'intavolatura per liuto.
 
@@ -2069,8 +2114,8 @@ m = { f'4 d' a f d a, g, fis, e, d, c,  \bar "|." }
 }
 @end lilypond
 
-@cindex accordature per liuto
-@cindex liuto, accordature
+@cindex accordatura per liuto
+@cindex liuto, accordatura
 
 @knownissues
 L'uso di @code{FretBoards} insieme a @code{additionalBassStrings} non è

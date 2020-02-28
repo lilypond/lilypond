@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 24dd6365d3d05f13b9259f547be9b2517851a5d1
+    Translation of GIT committish: 0d4df37f3e3b4dc9bceb5c78ae94449bd0269c67
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -936,8 +936,8 @@ L'algoritmo di interruzione di pagina da usare.  Le opzioni sono
 Induce il sistema di interruzione di pagina a credere che
 @code{system-system-spacing} sia impostato in modo diverso dal
 modo in cui è impostato realmente.  Per esempio, se
-@code{page-breaking-system-system-spacing #'padding} è impostato su un
-valore molto più grande di @code{system-system-spacing #'padding}, il
+@code{page-breaking-system-system-spacing.padding} è impostato su un
+valore molto più grande di @code{system-system-spacing.padding}, il
 sistema di interruzione di pagina disporrà meno sistemi su ciascuna
 pagina.  Valore predefinito: non impostato.
 
@@ -1025,7 +1025,7 @@ I valori predefiniti non elencati qui sono visibili in
 
 @table @code
 
-@cindex numeri di pagina, numerazione automatica
+@cindex numero di pagina, numerazione automatica
 @item auto-first-page-number
 @funindex auto-first-page-number
 
@@ -1036,7 +1036,7 @@ deciderà se iniziare con un numero dispari o un numero pari.  Quindi il
 numero della prima pagina resterà lo stesso o aumenterà di uno.
 Valore predefinito: @code{#f} (falso).
 
-@cindex numeri di pagina, indicare il primo
+@cindex numero di pagina, indicare il primo
 @item first-page-number
 @funindex first-page-number
 
@@ -1047,13 +1047,13 @@ Il valore del numero di pagina della prima pagina.
 
 Se impostato su vero, appare il numero di pagina sulla prima pagina.
 
-@cindex numeri di pagina, sopprimere
+@cindex numero di pagina, sopprimere
 @item print-page-number
 @funindex print-page-number
 
 Se impostato su falso, non apparirano i numeri di pagina.
 
-@cindex numeri di pagina in numeri romani
+@cindex numero di pagina, in numeri romani
 @item page-number-type
 @funindex page-number-type
 
@@ -1095,6 +1095,8 @@ ciascun blocco @code{\score}.  Di norma appaiono soltanto le variabili
 
 @item system-separator-markup
 @funindex system-separator-markup
+
+@funindex \slashSeparator
 
 Un oggetto markup inserito tra i sistemi, spesso usato per le
 partiture orchestrali.  Valore predefinito: non impostato.  È
@@ -1179,15 +1181,15 @@ con valori predefiniti presi dal blocco @code{\paper}, sono:
 
 @item
 @code{line-width}, @code{ragged-right} e @code{ragged-last}
-(vedi @ref{paper variables for widths and margins,,variabili @code{@bs{}paper} per larghezze e margini})
+(vedi @ref{Variabili paper per larghezze e margini,,variabili @code{@bs{}paper} per larghezze e margini})
 
 @item
 @code{indent} e @code{short-indent}
-(vedi @ref{paper variables for shifts and indents,,variabili @code{@bs{}paper} per spostamenti e indentazioni})
+(vedi @ref{Variabili paper per spostamenti e indentazioni,,Variabili @code{@bs{}paper} per spostamenti e indentazioni})
 
 @item
 @code{system-count}
-(vedi @ref{paper variables for line breaking,,variabili @code{@bs{}paper} per l'interruzione di linea})
+(vedi @ref{Variabili di paper per l'interruzione di linea,,variabili di @code{@bs{}paper} per l'interruzione di linea})
 
 @end itemize
 
@@ -1318,8 +1320,9 @@ Frammenti:
 @translationof Setting the staff size
 
 @cindex tipo di carattere, impostare la dimensione
+@cindex font, impostare la dimensione
 @cindex rigo, impostare la dimensione
-@funindex layout file
+@cindex layout, file
 @funindex magnification->font-size
 @funindex magstep
 @funindex set-global-staff-size
@@ -1359,6 +1362,7 @@ Per impostare la dimensione del rigo di una singola partitura in un libro, usare
 @end example
 
 @item
+@funindex \magnifyStaff
 Per impostare la dimensione del rigo di un singolo rigo di un sistema, usare
 il comando @code{\magnifyStaff}.  Per esempio, le partiture di musica da camera
 incise in modo tradizionale spesso usavano righi per pianoforte di 7mm mentre
@@ -1445,8 +1449,8 @@ Frammenti:
 @funindex \autoBreaksOn
 @funindex \autoLineBreaksOff
 @funindex \autoLineBreaksOn
-@cindex manual line breaks
-@cindex breaking lines
+@cindex interruzione di linea manuale
+@cindex a capo
 
 Le interruzioni di linea di solito sono determinate automaticamente.  Sono
 decise in modo che le linee non sembrino né fitte né troppo spaziate, e che
@@ -1548,7 +1552,7 @@ soltanto sull'ultima linea del brano.
 @}
 @end example
 
-@cindex interruzioni di linea regolari
+@cindex interruzione di linea regolare
 @cindex musica a quattro battute
 
 Per inserire interruzioni di linea a intervalli regolari usare @code{\break}
@@ -1578,6 +1582,11 @@ ogni 4 misure, usare:
 
 @snippets
 
+@cindex voce apposita per gestire le interruzioni
+@cindex pagina, interruzione, gestione con una voce apposita
+@cindex linea, interruzione, gestione con una voce apposita
+@cindex interruzione, di pagina o linea, gestione con una voce apposita
+@cindex a capo, gestione con una voce apposita
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {using-an-extra-voice-for-breaks.ly}
 
@@ -1929,8 +1938,8 @@ Frammenti:
 @section Spaziatura verticale
 @translationof Vertical spacing
 
-@cindex vertical spacing
-@cindex spacing, vertical
+@cindex spaziatura verticale
+@cindex verticale, spaziatura
 
 La spaziatura verticale è regolata da tre elementi: la quantità di
 spazio disponibile (ovvero il formato e i margini), la quantità di
@@ -1948,10 +1957,10 @@ sistema.
 @subsection Spaziatura verticale flessibile all'interno dei sistemi
 @translationof Flexible vertical spacing within systems
 
-@cindex distanza tra i righi
-@cindex righi, distanza
-@cindex spazio tra i righi
-@cindex spazio dentro i sistemi
+@cindex distanza, tra i righi
+@cindex rigo, distanza
+@cindex spazio, tra i righi
+@cindex spazio, dentro i sistemi
 
 Tre meccanismi distinti regolano la spaziatura verticale flessibile
 all'interno dei sistemi, uno per ognuna delle seguenti categorie:
@@ -2990,7 +2999,7 @@ Non esiste alcun trucco per diminuire la quantità di spazio.
 @funindex \newSpacingSection
 @cindex nuova spaziatura nel corso di un brano
 @cindex spaziatura nuova nel corso di un brano
-@cindex note, spaziatura orizzontale
+@cindex nota, spaziatura orizzontale
 
 Nuove sezioni con parametri di spaziatura diversi possono essere iniziati
 col comando @code{\newSpacingSection}.  Ciò può essere utile per sezioni
@@ -3046,6 +3055,11 @@ Guida al funzionamento interno:
 @subsection Modifica della spaziatura orizzontale
 @translationof Changing horizontal spacing
 
+@menu
+* Allungamento uniforme dei gruppi irregolari::
+* Spaziatura rigorosa della nota::
+@end menu
+
 La spaziatura orizzontale può essere modificata tramite la proprietà
 @code{base-shortest-duration}.  Nel prossimo esempio confrontiamo
 la stessa musica, prima senza cambiare la proprietà e poi cambiandola.
@@ -3082,7 +3096,9 @@ Nota che @code{ly:make-moment} constituisce una durata, dunque
 @end lilypond
 
 
-@snippets
+@node Allungamento uniforme dei gruppi irregolari
+@unnumberedsubsubsec Allungamento uniforme dei gruppi irregolari
+@translationof Uniform stretching of tuplets
 
 L'impostazione predefinita prevede che la spaziatura nei gruppi irregolari
 dipenda da vari fattori diversi dalla durata (come alterazioni, cambi di
@@ -3093,10 +3109,10 @@ proprietà può essere modificata soltanto all'inizio di una partitura:
 @lilypond[quote,ragged-right,verbatim]
 \score {
   <<
-    \new Staff {
+    \new Staff \relative c' {
       \tuplet 5/4 { c8 c c c c } c8 c c c
     }
-    \new Staff {
+    \new Staff \relative c' {
       c8 c c c \tuplet 5/4 { c8 c c c c }
     }
   >>
@@ -3108,6 +3124,11 @@ proprietà può essere modificata soltanto all'inizio di una partitura:
   }
 }
 @end lilypond
+
+
+@node Spaziatura rigorosa della nota
+@unnumberedsubsubsec Spaziatura rigorosa della nota
+@translationof Strict note spacing
 
 Se si imposta @code{strict-note-spacing}, la spaziatura tra le note non tiene
 conto di chiavi, stanghette e abbellimenti:
@@ -3127,8 +3148,8 @@ Frammenti:
 @subsection Larghezza della linea
 @translationof Line width
 
-@cindex interruzioni di pagina
-@cindex pagina, interruzioni
+@cindex interruzione di pagina
+@cindex pagina, interruzione
 
 @funindex indent
 @funindex line-width

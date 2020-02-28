@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-   Translation of GIT committish: 2fc469f13046808836b1ed61ade7b362a71e2bd5
+   Translation of GIT committish: 21a1f431176e969d45a9cc973c99dce34e9e8733
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -49,8 +49,8 @@ modo relativo.  Nella maggioranza dei casi il modo relativo è più funzionale.
 @unnumberedsubsubsec Ottava assoluta
 @translationof Absolute octave entry
 
-@cindex nomi delle altezze
-@cindex altezze
+@cindex nome di un'altezza
+@cindex altezza
 @cindex assoluto
 @cindex ottava assoluta
 @cindex assoluta, ottava
@@ -268,8 +268,8 @@ blocco @code{\relative}.
 @end lilypond
 
 
-@cindex accordi e ottava relativa
-@cindex ottava relativa e accordi
+@cindex accordo, e ottava relativa
+@cindex ottava relativa, e accordi
 
 Se l'elemento precedente è un accordo, il posizionamento dell'ottava della
 nota o dell'accordo che segue è riferito alla prima nota dell'accordo
@@ -336,8 +336,8 @@ Frammenti di codice:
 Guida al funzionamento interno:
 @rinternals{RelativeOctaveMusic}.
 
-@cindex ottava relativa e trasposizione
-@cindex trasposizione e ottava relativa
+@cindex ottava relativa, e trasposizione
+@cindex trasposizione, e ottava relativa
 
 @funindex \transpose
 @funindex \chordmode
@@ -362,9 +362,9 @@ Una nota non alterata come@tie{}@code{c} significa @q{Do naturale},
 indipendentemente dall'armatura o dalla chiave.  Per maggiori informazioni
 si veda @rlearning{Altezze e armature di chiave}.}
 
-@cindex nomi delle note, olandese
-@cindex nomi delle note, predefinito
-@cindex nomi delle note predefiniti
+@cindex nome nota, olandese
+@cindex nome nota, predefinito
+@cindex nota, nome predefinito
 @cindex diesis
 @cindex bemolle
 @cindex doppio diesis
@@ -414,7 +414,7 @@ con altezza crescente:
 @cindex alterazione tra parentesi
 
 @funindex ?
-@funindex !
+@funindex @sortas{!A} !
 
 
 Di norma le alterazioni vengono mostrate automaticamente, ma è
@@ -428,8 +428,8 @@ l'altezza.
 \relative c'' { cis cis cis! cis? c c c! c? }
 @end lilypond
 
-@cindex alterazione e legatura di valore
-@cindex legatura di valore e alterazione
+@cindex alterazione, e legatura di valore
+@cindex legatura di valore, e alterazione
 
 Se una nota è prolungata attraverso una legatura di valore, l'alterazione
 viene ripetuta solo all'inizio di un nuovo sistema:
@@ -445,9 +445,13 @@ viene ripetuta solo all'inizio di un nuovo sistema:
 
 @snippets
 
+@cindex nascondere alterazioni, su note legate all'inizio del sistema
+@cindex alterazioni, nascondere, su note legate all'inizio del sistema
 @lilypondfile[verbatim,quote,texidoc,doctitle,ragged-right]
 {hiding-accidentals-on-tied-notes-at-the-start-of-a-new-system.ly}
 
+@cindex segno di bequadro, supplementare, impedire
+@cindex bequadro, supplementare, impedire
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {preventing-extra-naturals-from-being-automatically-added.ly}
 
@@ -490,8 +494,8 @@ non si riferiscono ad alcuno standard.
 @unnumberedsubsubsec Nomi delle note in altre lingue
 @translationof Note names in other languages
 
-@cindex nomi delle note, altre lingue
-@cindex nomi delle altezze, altre lingue
+@cindex nome nota, altre lingue
+@cindex nome altezza, altre lingue
 @cindex lingua, nomi delle note in un'altra
 @cindex lingua, nomi delle altezze in un'altra
 
@@ -510,33 +514,33 @@ file; l'esempio seguente è scritto in notazione italiana:
 Le lingue disponibili e i tipi di notazione che definiscono sono:
 
 @quotation
-@multitable {@code{nederlands}} {do re/re mi fa sol la sib si}
+@multitable {@code{espanol} o @code{español}} {@code{do} @code{re}/@code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}}
 @headitem Lingua
   @tab Nomi delle note
 @item @code{nederlands}
-  @tab c d e f g a bes b
+  @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{bes} @code{b}
 @item @code{catalan}
-  @tab do re mi fa sol la sib si
+  @tab @code{do} @code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
 @item @code{deutsch}
-  @tab c d e f g a b h
+  @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{b} @code{h}
 @item @code{english}
-  @tab c d e f g a bf b
+  @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{bf}/@code{b-flat} @code{b}
 @item @code{espanol} o @code{español}
-  @tab do re mi fa sol la sib si
+  @tab @code{do} @code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
 @item @code{français}
-  @tab do ré/re mi fa sol la sib si
+  @tab @code{do} @code{ré}/@code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
 @item @code{italiano}
-  @tab do re mi fa sol la sib si
+  @tab @code{do} @code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
 @item @code{norsk}
-  @tab c d e f g a b h
+  @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{b} @code{h}
 @item @code{portugues}
-  @tab do re mi fa sol la sib si
+  @tab @code{do} @code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
 @item @code{suomi}
-  @tab c d e f g a b h
+  @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{b} @code{h}
 @item @code{svenska}
-  @tab c d e f g a b h
+  @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{b} @code{h}
 @item @code{vlaams}
-  @tab do re mi fa sol la sib si
+  @tab @code{do} @code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
 @end multitable
 @end quotation
 
@@ -544,35 +548,35 @@ Oltre ai nomi delle note, anche i suffissi per le alterazioni
 possono variare a seconda della lingua adottata:
 
 @quotation
-@multitable {@code{nederlands}} {-@code{s}/-@code{-sharp}} {-@code{f}/-@code{-flat}} {-@code{ss}/-@code{x}/-@code{-sharpsharp}} {-@code{ff}/-@code{-flatflat}}
+@multitable {@code{nederlands}} {@code{s}/@code{-sharp}} {@code{f}/@code{-flat}} {@code{ss}/@code{x}/@code{-sharpsharp}} {@code{ff}/@code{-flatflat}}
 @headitem Lingua
   @tab diesis @tab bemolle @tab doppio diesis @tab doppio bemolle
 @item @code{nederlands}
-  @tab -@code{is} @tab -@code{es} @tab -@code{isis} @tab -@code{eses}
+  @tab @code{is} @tab @code{es} @tab @code{isis} @tab @code{eses}
 @item @code{catalan}
-  @tab -@code{d}/-@code{s} @tab -@code{b} @tab -@code{dd}/-@code{ss} @tab -@code{bb}
+  @tab @code{d}/@code{s} @tab @code{b} @tab @code{dd}/@code{ss} @tab @code{bb}
 @item @code{deutsch}
-  @tab -@code{is} @tab -@code{es} @tab -@code{isis} @tab -@code{eses}
+  @tab @code{is} @tab @code{es} @tab @code{isis} @tab @code{eses}
 @item @code{english}
-  @tab -@code{s}/-@code{sharp} @tab -@code{f}/-@code{flat} @tab -@code{ss}/-@code{x}/-@code{sharpsharp}
-    @tab -@code{ff}/-@code{flatflat}
-@item @code{espanol} o @code{español}
-  @tab -@code{s} @tab -@code{b} @tab -@code{ss}/-@code{x} @tab -@code{bb}
+  @tab @code{s}/@code{-sharp} @tab @code{f}/@code{-flat} @tab @code{ss}/@code{x}/@code{-sharpsharp}
+    @tab @code{ff}/@code{-flatflat}
+@item @code{espanol} o@*@ @code{español}
+  @tab @code{s} @tab @code{b} @tab @code{ss}/@code{x} @tab @code{bb}
 @item @code{français}
-  @tab -@code{d} @tab -@code{b} @tab -@code{dd}/-@code{x} @tab -@code{bb}
+  @tab @code{d} @tab @code{b} @tab @code{dd}/@code{x} @tab @code{bb}
 @item @code{italiano}
-  @tab -@code{d} @tab -@code{b} @tab -@code{dd} @tab -@code{bb}
+  @tab @code{d} @tab @code{b} @tab @code{dd} @tab @code{bb}
 @item @code{norsk}
-  @tab -@code{iss}/-@code{is} @tab -@code{ess}/-@code{es} @tab -@code{ississ}/-@code{isis}
-    @tab -@code{essess}/-@code{eses}
+  @tab @code{iss}/@code{is} @tab @code{ess}/@code{es} @tab @code{ississ}/@code{isis}
+    @tab @code{essess}/@code{eses}
 @item @code{portugues}
-  @tab -@code{s} @tab -@code{b} @tab -@code{ss} @tab -@code{bb}
+  @tab @code{s} @tab @code{b} @tab @code{ss} @tab @code{bb}
 @item @code{suomi}
-  @tab -@code{is} @tab -@code{es} @tab -@code{isis} @tab -@code{eses}
+  @tab @code{is} @tab @code{es} @tab @code{isis} @tab @code{eses}
 @item @code{svenska}
-  @tab -@code{iss} @tab -@code{ess} @tab -@code{ississ} @tab -@code{essess}
+  @tab @code{iss} @tab @code{ess} @tab @code{ississ} @tab @code{essess}
 @item @code{vlaams}
-  @tab -@code{k} @tab -@code{b} @tab -@code{kk} @tab -@code{bb}
+  @tab @code{k} @tab @code{b} @tab @code{kk} @tab @code{bb}
 @end multitable
 @end quotation
 
@@ -589,7 +593,7 @@ In tedesco e finlandese, LilyPond fornisce anche la forma più frequente
 @end lilypond
 
 
-@cindex microtoni
+@cindex microtono
 @cindex semi-diesis
 @cindex semi-bemolle
 @cindex sesqui-diesis
@@ -597,32 +601,40 @@ In tedesco e finlandese, LilyPond fornisce anche la forma più frequente
 
 In alcune forme musicali vengono usati i microtoni, le cui alterazioni sono
 frazioni di un @q{normale} diesis o bemolle.  La seguente tabella elenca i
-nomi delle note per le alterazioni di un quarto di tono in varie lingue; i
-prefissi @notation{semi-} e @notation{sesqui-} significano rispettivamente
-@q{metà} e @q{uno e mezzo}.  Le lingue che non compaiono in questa tabella
-non hanno ancora dei nomi per le note speciali.
+suffissi dei nomi delle note per le alterazioni di un quarto di tono in
+varie lingue; i prefissi @notation{semi-} e @notation{sesqui-} significano
+rispettivamente @q{metà} e @q{uno e mezzo}.  Le lingue che non compaiono in
+questa tabella non hanno ancora dei nomi per le note speciali.
 
 @quotation
-@multitable {@code{nederlands}} {@b{semi-sharp}} {@b{semi-flat}} {@b{sesqui-sharp}} {@b{sesqui-flat}}
+@multitable {@code{espanol} o @code{español}} {@b{semi-sharp}} {@b{semi-flat}} {@b{sesqui-sharp}} {@b{sesqui-flat}}
 @headitem Lingua
   @tab semi-diesis @tab semi-bemolle @tab sesqui-diesis @tab sesqui-bemolle
-
 @item @code{nederlands}
-  @tab -ih @tab -eh @tab -isih @tab -eseh
+  @tab @code{ih} @tab @code{eh} @tab @code{isih} @tab @code{eseh}
 @item @code{deutsch}
-  @tab -ih @tab -eh @tab -isih @tab -eseh
+  @tab @code{ih} @tab @code{eh} @tab @code{isih} @tab @code{eseh}
 @item @code{english}
-  @tab -qs @tab -qf @tab -tqs @tab -tqf
+  @tab @code{qs} @tab @code{qf} @tab @code{tqs} @tab @code{tqf}
 @item @code{espanol} o @code{español}
-  @tab -cs @tab -cb @tab -tcs @tab -tcb
+  @tab @code{cs} @tab @code{cb} @tab @code{tcs} @tab @code{tcb}
 @item @code{français}
-  @tab -sd @tab -sb @tab -dsd @tab -bsb
+  @tab @code{sd} @tab @code{sb} @tab @code{dsd} @tab @code{bsb}
 @item @code{italiano}
-  @tab -sd @tab -sb @tab -dsd @tab -bsb
+  @tab @code{sd} @tab @code{sb} @tab @code{dsd} @tab @code{bsb}
 @item @code{portugues}
-  @tab -sqt @tab -bqt @tab -stqt @tab -btqt
+  @tab @code{sqt} @tab @code{bqt} @tab @code{stqt} @tab @code{btqt}
 @end multitable
 @end quotation
+
+In tedesco, esistono simili contrazioni dei nomi per i microtoni così come
+nelle normali altezze descritte sopra.
+
+@lilypond[verbatim,quote,fragment]
+\language "deutsch"
+
+\relative c'' { asah2 eh aih eisih }
+@end lilypond
 
 Gran parte delle lingue presentate qui sono comunemente associate
 alla musica classica occidentale, nota anche come
@@ -668,7 +680,7 @@ Questa sezione tratta il modo di modificare le altezze delle note.
 @cindex ottava, controllo
 @cindex controllo delle altezze
 
-@funindex =
+@funindex @sortas{=A} =
 @funindex \octaveCheck
 @funindex controlpitch
 
@@ -737,10 +749,10 @@ Guida al funzionamento interno:
 
 @cindex trasporre
 @cindex trasposizione
-@cindex trasposizione delle altezze
-@cindex trasposizione delle note
-@cindex altezze, trasposizione delle
-@cindex note, trasposizione delle
+@cindex trasposizione, delle altezze
+@cindex trasposizione, delle note
+@cindex altezza, trasposizione di
+@cindex nota, trasposizione di
 
 @funindex \transpose
 
@@ -776,8 +788,8 @@ venga trasposta automaticamente.
 }
 @end lilypond
 
-@cindex strumenti traspositori
-@cindex traspositori, strumenti
+@cindex strumento traspositore
+@cindex traspositore, strumento
 
 Se una parte scritta in Do (l'@notation{intonazione reale} abituale) deve
 essere suonata su un clarinetto in La (per il quale un La viene rappresentato
@@ -843,6 +855,8 @@ si veda @ref{Trasporto strumentale}.
 
 @snippets
 
+@cindex trasposizione, altezze, @qq{intelligente}
+@cindex altezze, trasposizione @qq{intelligente}
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
 
@@ -958,9 +972,9 @@ Guida alla notazione:
 @unnumberedsubsubsec Trasposizioni modali
 @translationof Modal transformations
 
-@cindex trasposizioni modali
-@cindex modali, trasposizioni
-@cindex operazioni, modali
+@cindex trasposizione modale
+@cindex modale, trasposizione
+@cindex operazione, modale
 
 In una composizione musicale basata su una scala, un motivo viene
 frequentemente trasportato in differenti modi.  Può essere
@@ -1175,12 +1189,13 @@ in @ref{Chiavi mensurali} e @ref{Chiavi gregoriane}.  La musica che utilizza le
 chiavi dell'intavolatura è discussa in @ref{Intavolature predefinite} e
 @ref{Intavolature personalizzate}.
 
-@cindex notine, chiavi
-@cindex citazioni in corpo piccolo, chiavi
-@cindex chiavi con notine (citazioni in corpo piccolo)
+@cindex notina, chiave
+@cindex citazione in corpo piccolo, chiave
+@cindex chiave con notina (citazione in corpo piccolo)
 
-Per mischiare le chiavi quando si usano le notine, leggere come si usano i comandi
-@code{\cueClef} e @code{\cueDuringWithClef} descritti in @ref{Formattazione delle notine}.
+Per mischiare le chiavi quando si usano le notine, leggere come si usano i
+comandi @code{\cueClef} e @code{\cueDuringWithClef} descritti in
+@ref{Formattazione delle notine}.
 
 @cindex chiave traspositrice
 @cindex trasposizione, chiave
@@ -1284,6 +1299,7 @@ più piccolo del normale.  Tale comportamento può essere modificato.
 
 @snippets
 
+@cindex chiave, modifica delle proprietà
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {tweaking-clef-properties.ly}
 
@@ -1356,8 +1372,8 @@ di chiave può essere modificata:
 @funindex \phrygian
 @funindex \dorian
 
-@cindex modi ecclesiastici
-@cindex modi
+@cindex modo ecclesiastico
+@cindex modo
 @cindex maggiore
 @cindex minore
 @cindex ionio
@@ -1421,9 +1437,12 @@ posizione del rigo.
 
 @snippets
 
+@cindex armatura di chiave, impedire i segni di bequadro
+@cindex bequadro, impedirne l'inserimento nelle armature di chiave
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}
 
+@cindex armatura di chiave, non tradizionale
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {non-traditional-key-signatures.ly}
 
@@ -1453,8 +1472,9 @@ Guida al funzionamento interno:
 
 @cindex ottava
 @cindex 15ma
+@cindex 15mb
 @cindex 8va
-@cindex 8ve
+@cindex 8vb
 @cindex ottavazione
 
 @funindex set-octavation
@@ -1481,12 +1501,18 @@ ottava nel rigo:
 
 @snippets
 
+@cindex testo dell'ottava
+@cindex ottava, testo
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {ottava-text.ly}
 
+@cindex ottava, per una sola voce
+@cindex voce, con ottavazione
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adding-an-ottava-marking-to-a-single-voice.ly}
 
+@cindex inclinazione, estensore dell'ottava, modifica
+@cindex ottava, estensore, modifica dell'inclinazione
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {modifying-the-ottava-spanner-slope.ly}
 
@@ -1511,7 +1537,7 @@ Guida al funzionamento interno:
 @cindex trasposizione, strumento
 @cindex strumento traspositore
 @cindex MIDI
-@cindex trasposizione MIDI
+@cindex MIDI, trasposizione
 
 @funindex \transposition
 
@@ -1613,12 +1639,12 @@ Frammenti di codice:
 
 @cindex stile di alterazione
 @cindex stile di alterazione predefinito
-@cindex alterazioni
-@cindex alterazioni automatiche
+@cindex alterazione
+@cindex alterazione automatica
 
 @funindex \accidentalStyle
 @funindex voice
-@funindex default
+@funindex @sortas{defaultA} default
 
 Esistono diverse convenzioni sul modo di scrivere le
 alterazioni.  LilyPond ha una funzione per specificare
@@ -1718,7 +1744,7 @@ seguente frammento, se si vuole usare lo stesso stile in entrambi i righi.
 
 @cindex stile delle alterazioni @emph{default}
 
-@funindex default
+@funindex @sortas{defaultA} default
 
 Questo è il comportamento predefinito del compositore tipografico.  Corrisponde
 alla pratica comunemente impiegata dal diciottesimo secolo: le alterazioni
@@ -1848,8 +1874,8 @@ musicB = {
 
 @item modern
 
-@cindex alterazioni, stile moderno delle
-@cindex stile moderno delle alterazioni
+@cindex alterazione, stile moderno
+@cindex stile moderno dell'alterazione
 
 @funindex modern
 
@@ -1913,10 +1939,8 @@ musicB = {
 
 @item modern-cautionary
 
-@cindex alterazioni, stile @emph{modern-cautionary}
+@cindex alterazione, stile @emph{modern-cautionary}
 @cindex @emph{modern-cautionary}, stile delle alterazioni
-@cindex alterazioni in stile moderno
-@cindex alterazioni di precauzione in stile moderno
 
 @funindex modern-cautionary
 
@@ -1976,8 +2000,8 @@ musicB = {
 
 @cindex @emph{modern}, stile delle alterazioni
 @cindex stile delle alterazioni @emph{modern}
-@cindex alterazioni su più voci
-@cindex alterazioni moderne
+@cindex alterazione su più voci
+@cindex alterazione moderna
 
 @funindex modern-voice
 
@@ -2037,8 +2061,7 @@ musicB = {
 }
 @end lilypond
 
-@cindex stile delle alterazioni di precauzione @emph{modern voice}
-@cindex stile delle alterazioni @emph{modern-voice-cautionary}
+@cindex stile delle alterazioni, @emph{modern-voice-cautionary}
 @cindex @emph{modern-voice-cautionary}, stile delle alterazioni
 
 @funindex modern-voice-cautionary
@@ -2100,9 +2123,8 @@ musicB = {
 
 @item piano
 
-@cindex stile delle alterazioni @emph{piano}
+@cindex stile delle alterazioni, @emph{piano}
 @cindex @emph{piano}, stile delle alterazioni
-@cindex piano e alterazioni
 
 @funindex piano
 
@@ -2163,8 +2185,7 @@ musicB = {
 @item piano-cautionary
 
 @cindex @emph{piano-cautionary}, stile delle alterazioni
-@cindex stile delle alterazioni @emph{piano-cautionary}
-@cindex piano e alterazioni
+@cindex stile delle alterazioni, @emph{piano-cautionary}
 
 @funindex piano-cautionary
 
@@ -2220,10 +2241,8 @@ musicB = {
 
 @item choral
 
-@cindex stile delle alterazioni choral
-@cindex alterazioni, choral
+@cindex stile delle alterazioni, choral
 @cindex choral, stile delle alterazioni
-@cindex choral, alterazioni
 
 @funindex choral
 
@@ -2284,11 +2303,8 @@ musicB = {
 
 @item choral-cautionary
 
-@cindex alterazioni, choral cautionary
-@cindex alterazioni di cortesia, choral
-@cindex choral cautionary, alterazioni
-@cindex stile delle alterazioni, choral cautionary
-@cindex cortesia, stile delle alterazioni di, choral
+@cindex choral-cautionary, stile delle alterazioni
+@cindex stile delle alterazioni, choral-cautionary
 
 @funindex choral-cautionary
 
@@ -2523,7 +2539,7 @@ musicB = {
 
 @item neo-modern-voice-cautionary
 
-@cindex stile  delle alterazioni @emph{neo-modern-voice-cautionary}
+@cindex stile  delle alterazioni, @emph{neo-modern-voice-cautionary}
 @cindex @emph{neo-modern-voice-cautionary}, stile delle alterazioni
 
 @funindex neo-modern-voice-cautionary
@@ -2580,8 +2596,8 @@ musicB = {
 
 @item dodecaphonic
 
-@cindex stile delle alterazioni @emph{dodecafonico}
-@cindex @emph{dodecafonico}, stile delle alterazioni
+@cindex stile delle alterazioni, @emph{dodecaphonic}
+@cindex @emph{dodecaphonic}, stile delle alterazioni
 
 @funindex dodecaphonic
 
@@ -2640,8 +2656,8 @@ musicB = {
 
 @item dodecaphonic-no-repeat
 
-@cindex stile delle alterazioni dodecafonico
-@cindex stile dodecafonico neomoderno
+@cindex stile delle alterazioni, dodecaphonic-no-repeat
+@cindex dodecaphonic-no-repeat, stile delle alterazioni
 
 @funindex dodecaphonic-no-repeat
 
@@ -2699,10 +2715,8 @@ musicB = {
 
 @item dodecaphonic-first
 
-@cindex stile delle alterazioni dodecafonico
-@cindex stile dodecafonico neomoderno
-@cindex dodecafonico, stile delle alterazioni
-@cindex dodecafonico, stile neomoderno
+@cindex stile delle alterazioni, dodecaphonic-first
+@cindex dodecaphonic-first, stile delle alterazioni
 
 @funindex dodecaphonic-first
 
@@ -2825,8 +2839,8 @@ musicB = {
 
 @item no-reset
 
-@cindex stile delle alterazioni @emph{no-reset}
-@cindex @emph{no-reset}, stile delle alterazioni
+@cindex stile delle alterazioni, @code{no-reset}
+@cindex @code{no-reset}, stile delle alterazioni
 
 @funindex no-reset
 
@@ -2882,8 +2896,8 @@ musicB = {
 
 @item forget
 
-@cindex stile delle alterazioni @emph{forget}
-@cindex @emph{forget}, stile delle alterazioni
+@cindex stile delle alterazioni, @code{forget}
+@cindex @code{forget}, stile delle alterazioni
 
 @funindex forget
 
@@ -2954,10 +2968,10 @@ Guida al funzionamento interno:
 @rinternals{AccidentalPlacement},
 @rinternals{accidental-suggestion-interface}.
 
-@cindex alterazioni e note simultanee
+@cindex alterazione, e note simultanee
 @cindex note simultanee e alterazioni
-@cindex alterazioni negli accordi
-@cindex accordi, alterazioni in
+@cindex alterazione, negli accordi
+@cindex accordo, alterazioni in
 
 @knownissues
 Le note simultanee non vengono considerate nell'individuazione
@@ -3048,12 +3062,17 @@ di chiave.
 
 @snippets
 
+@cindex ambitus, per voce
+@cindex voce, ambitus
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adding-ambitus-per-voice.ly}
 
+@cindex ambitus, su più voci
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {ambitus-with-multiple-voices.ly}
 
+@cindex ambitus, distanza rispetto alla linea
+@funindex AmbitusLine
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-ambitus-gap.ly}
 
@@ -3096,19 +3115,19 @@ Questa sezione suggerisce i modi in cui modificare la testa di una nota.
 @unnumberedsubsubsec Teste di nota speciali
 @translationof Special note heads
 
-@cindex teste di nota speciali
-@cindex teste di nota barrate
-@cindex teste di nota romboidali
-@cindex teste di nota, parlato
-@cindex teste di nota, armonico
-@cindex teste di nota, chitarra
+@cindex testa di nota, speciale
+@cindex testa di nota, barrata
+@cindex testa di nota, romboidale
+@cindex testa di nota, parlato
+@cindex testa di nota, armonico
+@cindex testa di nota, chitarra
 @cindex barrata, testa di nota
 @cindex diamante, testa di nota
 @cindex parlato, testa di nota
 @cindex armonico, testa di nota
-@cindex chitarra, teste di nota
-@cindex teste di nota, stili
-@cindex stili delle teste di nota
+@cindex chitarra, testa di nota
+@cindex testa di nota, stili
+@cindex stile, teste di nota
 
 @funindex cross
 
@@ -3129,6 +3148,10 @@ L'aspetto delle teste delle note può essere modificato:
 @end lilypond
 
 L'elenco di tutti gli stili per le teste di nota è in @ref{Stili delle teste di nota}.
+
+@funindex \xNote
+@funindex \xNotesOn
+@funindex \xNotesOff
 
 Lo stile barrato (@code{cross}) viene usato per rappresentare varie
 intenzioni musicali.  I seguenti comandi generici predefiniti modificano
@@ -3157,10 +3180,16 @@ quello dell'intavolatura:
 }
 @end lilypond
 
+@funindex \deadNote
+@funindex \deadNotesOn
+@funindex \deadNotesOff
+
 Potete utilizzare, al posto di @code{\xNote}, @code{\xNotesOn} e
 @code{\xNotesOff}, i comandi @code{\deadNote}, @code{\deadNotesOn} e
 @code{\deadNotesOff}.  Il termine @notation{dead note} è di uso comune
 tra i chitarristi.
+
+@funindex \harmonic
 
 Esiste anche una scorciatoia simile per le forme a diamante:
 
@@ -3200,12 +3229,12 @@ Guida al funzionamento interno:
 @unnumberedsubsubsec Testa di nota con nome della nota
 @translationof Easy notation note heads
 
-@cindex teste di nota, esercizio
-@cindex teste di nota, notazione semplificata
+@cindex testa di nota, esercizio
+@cindex testa di nota, notazione semplificata
 @cindex notazione semplificata
 @cindex musica per principianti
 @cindex principianti, musica
-@cindex teste di nota facili da suonare
+@cindex testa di nota, facile da suonare
 
 @funindex \easyHeadsOn
 @funindex \easyHeadsOff
@@ -3235,6 +3264,9 @@ proposito si veda @ref{Impostare la dimensione del rigo}.
 
 @snippets
 
+@cindex notazione semplificata, usando numeri
+@cindex numero, in notazione semplificata
+@funindex Ez_numbers_engraver
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {numbers-as-easy-note-heads.ly}
 
@@ -3371,7 +3403,7 @@ Guida al funzionamento interno:
 @translationof Improvisation
 
 @cindex improvvisazione
-@cindex testa di nota tagliata
+@cindex testa di nota, tagliata
 @cindex testa di nota, improvvisazione
 @cindex tagliata, testa di nota
 

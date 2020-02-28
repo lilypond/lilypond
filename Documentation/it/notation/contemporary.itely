@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 8a1b303e7930b596753b075e4341a297211d6a0a
+    Translation of GIT committish: 6ca1d8c80817f9baaa7b66b2fde9a7b98b0ffc0a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -70,20 +70,12 @@ discusse in @ref{Alterazioni automatiche}.
 @unnumberedsubsubsec Notazione microtonale
 @translationof Microtonal notation
 
-@ignore
-    Discussion of microtones other than quarter-tones,
-    alternative notations (arrows, slash-flats), etc.
-@end ignore
 
 
 @node Armature di chiave e armonia contemporanee
 @unnumberedsubsubsec Armature di chiave e armonia contemporanee
 @translationof Contemporary key signatures and harmony
 
-@ignore
-    Discussion of contemporary key signatures:
-    non-standard, polytonality, etc.
-@end ignore
 
 
 @node Approcci contemporanei al ritmo
@@ -125,57 +117,30 @@ sono trattate in @ref{Raggruppare i righi}.
 @unnumberedsubsubsec Gruppi irregolari nella musica contemporanea
 @translationof Tuplets in contemporary music
 
-@ignore
-    Extended discussion of modern tuplets, including
-    non-standard ratios, nested tuplets and customising
-    the appearance of tuplets (ratios, note values etc.)
-    Also how to provide an ossia RhythmicStaff to help
-    players break down a complicated tuplet.
-@end ignore
 
 
 @node Indicazioni di tempo contemporanee
 @unnumberedsubsubsec Indicazioni di tempo contemporanee
 @translationof Contemporary time signatures
 
-@ignore
-    Extended discussion of compound time signatures
-    including Graham P.'s work; non-standard time
-    signatures such as 7/10, 5/6; alternative
-    notations such as Orff-esque 4/note, placing a
-    single time signature across multiple staves, or
-    placing time signatures at the top of StaffGroups
-    or systems rather than in the stave.
-@end ignore
 
 
 @node Notazione polimetrica estesa
 @unnumberedsubsubsec Notazione polimetrica estesa
 @translationof Extended polymetric notation
 
-@ignore
-    Extended examples e.g., different instruments
-    or ensembles with independent tempi
-@end ignore
 
 
 @node Travature nella musica contemporanea
 @unnumberedsubsubsec Travature nella musica contemporanea
 @translationof Beams in contemporary music
 
-@ignore
-    Beaming practises, stemlets, Boulez-esque displaying
-    of beamed notes with flags
-@end ignore
 
 
 @node Stanghette nella musica contemporanea
 @unnumberedsubsubsec Stanghette nella musica contemporanea
 @translationof Bar lines in contemporary music
 
-@ignore
-    Mensurstriche barlines, tick barlines, etc.
-@end ignore
 
 
 @node Notazione grafica
@@ -230,16 +195,3 @@ di Kurt Stone [W. W. Norton, 1980]
 @unnumberedsubsubsec Partiture e esempi musicali
 @translationof Scores and musical examples
 
-@ignore
-    Rough list of composers whose work could be included
-    (in alphabetical order, perhaps with suggested work):
-
-        Pierre Boulez (Le Marteau Sans Maître?)
-        John Cage (Freeman Etudes?)
-        George Crumb (Black Angels?)
-        Brian Ferneyhough (Transit?  Time & Motion Studies?)
-        Ben Johnston (extended just intonation example)
-        György Ligeti (several, including Hamburg Concerto)
-        Krzysztof Penderecki (Threnody to the Victims of Hiroshima?)
-        Karlheinz Stockhausen (Gruppen?)
-@end ignore
