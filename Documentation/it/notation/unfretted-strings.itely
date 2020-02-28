@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 47b45b556c729d13e71782e52d378e1c2a0f2b4d
+    Translation of GIT committish: 21a1f431176e969d45a9cc973c99dce34e9e8733
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -94,13 +94,13 @@ Frammenti:
 @funindex \open
 @funindex \romanStringNumbers
 
-@cindex indicazioni di arcata
-@cindex arcata, indicazioni di
+@cindex indicazione di arcata
+@cindex arcata, indicazione di
 @cindex arcata in su
 @cindex arcata in giù
 @cindex indicazione di corda vuota
 @cindex corda vuota, indicazione di
-@cindex numeri di corda
+@cindex numero di corda
 
 Le indicazioni di arcata vengono create come articolazioni, descritte
 in @ref{Articolazioni e abbellimenti}.
@@ -151,8 +151,8 @@ Guida alla notazione:
 
 @strong{@i{Armonici naturali}}
 
-@cindex teste di nota romboidali
-@cindex romboidali, teste di nota
+@cindex testa di nota romboidale
+@cindex romboidale, testa di nota
 @cindex armonici naturali
 @cindex naturali, armonici
 @funindex \harmonicsOn

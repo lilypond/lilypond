@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 09ef86c87175cc6c1071eedb022ed1d01a93bcaf
+    Translation of GIT committish: 21a1f431176e969d45a9cc973c99dce34e9e8733
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -43,8 +43,9 @@ aerofoni.
 @unnumberedsubsubsec Riferimenti per strumenti aerofoni
 @translationof References for wind instruments
 
-@cindex strumenti aerofoni
-@cindex strumenti a fiato
+@cindex strumento aerofono
+@cindex aerofono, strumento
+@cindex strumento a fiato
 @cindex fiati
 
 Molte delle questioni di notazione degli strumenti aerofoni (o strumenti a
@@ -89,6 +90,9 @@ Vedi @ref{Articolazioni e abbellimenti}.
 
 @snippets
 
+@cindex flageolet, modifica dimensione
+@cindex modifica della dimensione del segno di flageolet
+@funindex \flageolet
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing--flageolet-mark-size.ly}
 
@@ -121,9 +125,13 @@ Si possono creare diagrammi per i legni, descritti in @ref{Diagrammi per legni}.
 
 @snippets
 
+@cindex diteggiatura, simboli per legni
+@cindex legni, simboli di diteggiatura
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {fingering-symbols-for-wind-instruments.ly}
 
+@cindex grafico della diteggiatura
+@cindex diteggiatura, grafico
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {recorder-fingering-chart.ly}
 
@@ -152,7 +160,7 @@ Questa sezione tratta la notazione comune per la cornamusa.
 
 @cindex cornamusa
 @cindex cornamusa scozzese
-@cindex abbellimenti
+@cindex abbellimento
 @funindex \taor
 @funindex \hideKeySignature
 @funindex \showKeySignature
@@ -418,15 +426,21 @@ dei diagrammi si trovano in @file{scm/define-woodwind-diagrams.scm} e
 @endpredefined
 
 @snippets
+
+@cindex diagramma per legni, elenco
+@cindex elenco dei diagrammi per legni
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {woodwind-diagrams-listing.ly}
 
+@cindex diagrammi per legni, modifica
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {graphical-and-text-woodwind-diagrams.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-size-of-woodwind-diagrams.ly}
 
+@cindex diagramma per legni, elenchi delle chiavi
+@cindex elenco delle chiavi nei diagrammi per legni
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {woodwind-diagrams-key-lists.ly}
 

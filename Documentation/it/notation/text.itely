@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 953f751f6ca789bdeee5f9144be59e571c00ae9d
+    Translation of GIT committish: 21a1f431176e969d45a9cc973c99dce34e9e8733
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -56,7 +56,7 @@ in @ref{Codifica del testo}.}
 @translationof Text scripts
 
 @cindex scritta
-@cindex elementi testuali non vuoti
+@cindex testo, elemento non vuoto
 @cindex testo tra virgolette
 
 Si possono aggiungere a una partitura delle semplici indicazioni con
@@ -120,7 +120,7 @@ Frammenti:
 Guida al funzionamento interno:
 @rinternals{TextScript}.
 
-@cindex testo fuori dal margine
+@cindex testo, fuori dal margine
 @cindex margine, testo che va oltre
 @cindex testo, tenerlo dentro il margine
 @cindex testo vocale, tenerlo dentro il margine
@@ -139,7 +139,7 @@ leggermente più veloce, usare
 @unnumberedsubsubsec Estensori del testo
 @translationof Text spanners
 
-@cindex estensori del testo
+@cindex estensore del testo
 
 Alcune indicazioni esecutive, per esempio @notation{rallentando} o
 @notation{accelerando}, appaiono in forma testuale e vengono estese
@@ -155,8 +155,8 @@ con la seguente sintassi:
 }
 @end lilypond
 
-@cindex estensori del testo, formattazione
-@cindex formattare gli estensori del testo
+@cindex estensore del testo, formattazione
+@cindex formattare un estensore del testo
 
 @noindent
 La stringa testuale da stampare viene impostata attraverso le proprietà
@@ -192,6 +192,8 @@ LilyPond è capace di gestire un solo estensore del testo per ogni voce.
 
 @snippets
 
+@cindex dinamiche, estensore del testo, personalizzazione
+@cindex estensore del testo, dinamiche, personalizzazione
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {dynamics-text-spanner-postfix.ly}
 
@@ -217,13 +219,13 @@ Guida al funzionamento interno:
 @translationof Text marks
 
 
-@cindex indicazioni testuali
-@cindex testo, indicazioni
-@cindex testo sulla stanghetta
-@cindex coda sulla stanghetta
-@cindex segno sulla stanghetta
-@cindex corona sulla stanghetta
-@cindex stanghette, simboli sulle
+@cindex indicazione testuale
+@cindex testo, indicazione
+@cindex testo, sulla stanghetta
+@cindex coda, segno, sulla stanghetta
+@cindex segno, sulla stanghetta
+@cindex corona, sulla stanghetta
+@cindex stanghetta, simboli sulla
 
 @funindex \mark
 @funindex \markup
@@ -297,9 +299,15 @@ successiva.
 
 @snippets
 
+@cindex fine linea, posizionamento segni
+@cindex linea, fine, posizionamento segni
+@cindex segno, a fine linea
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-marks-at-the-end-of-a-line.ly}
 
+@cindex segno, su ogni rigo
+@funindex Mark_engraver
+@funindex Staff_collecting_engraver
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-marks-on-every-staff.ly}
 
@@ -372,6 +380,10 @@ in @ref{Testo formattato su più pagine}.
 
 @snippets
 
+@cindex testo, in colonne
+@cindex colonna, testo
+@cindex testo a due colonne
+@cindex markup, due colonne
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {stand-alone-two-column-markup.ly}
 
@@ -418,8 +430,8 @@ usando la sintassi specifica della modalità @code{\markup}.
 Un blocco @code{\markup} permette di comporre del testo con un'ampia
 sintassi chiamata @qq{modalità markup}.
 
-@cindex markup, espressioni
-@cindex espressioni di markup
+@cindex markup, espressione
+@cindex espressione, markup
 @cindex sintassi di markup
 @cindex markup, sintassi
 
@@ -445,12 +457,12 @@ effetto solo sulla prima espressione che segue.
 }
 @end lilypond
 
-@cindex caratteri speciali in modalità markup
+@cindex carattere speciale, in modalità markup
 @cindex modalità markup, caratteri speciali
-@cindex caratteri riservati, stampare
-@cindex stampare i caratteri riservati
-@cindex stampare i caratteri speciali
-@cindex testo tra virgolette in modalità markup
+@cindex carattere riservato, stampare
+@cindex stampare carattere riservato
+@cindex stampare carattere speciale
+@cindex testo tra virgolette, in modalità markup
 @cindex modalità markup, testo tra virgolette
 
 Un blocco @code{\markup} può contenere anche stringhe di testo tra
@@ -519,7 +531,7 @@ essere poco chiari.
 @unnumberedsubsubsec Scelta del tipo di carattere e della dimensione
 @translationof Selecting font and font size
 
-@cindex tipi di carattere, cambiare
+@cindex tipo di carattere, cambiare
 @cindex cambiare i tipi di carattere
 @cindex font, cambiare
 
@@ -543,6 +555,7 @@ La modalità markup permette di cambiare il tipo di carattere:
 
 @cindex dimensione del tipo di carattere
 @cindex tipo di carattere, dimensione
+@cindex font, dimensione
 @cindex dimensione del testo
 @cindex testo, dimensione
 
@@ -627,8 +640,10 @@ anche un corpo normale:
 }
 @end lilypond
 
-@cindex famiglie di tipi di carattere
-@cindex tipi di carattere, famiglie
+@cindex famiglia di tipi di carattere
+@cindex tipi di carattere, famiglia
+@cindex famiglia di font
+@cindex font, famiglia
 
 La modalità di markup fornisce un modo semplice per scegliere famiglie
 di caratteri diverse.  Se non specificato altrimenti, viene scelto
@@ -854,8 +869,8 @@ da questi comandi deve essere preceduto da un punto di riferimento:
 @cindex multilinea, markup
 @cindex testo multilinea
 @cindex multilinea, testo
-@cindex testo in colonne
-@cindex colonne, testo
+@cindex testo, in colonne
+@cindex colonna, testo
 
 @funindex \column
 @funindex \center-column
@@ -949,8 +964,8 @@ sinistra o giustificate, come mostra l'esempio seguente.
 }
 @end lilypond
 
-@cindex testo, comandi di allineamento del
-@cindex markup, comandi di allineamento del testo
+@cindex testo, comando di allineamento
+@cindex markup, testo, comando di allineamento
 @cindex allineamento, testo, comandi
 
 Una lista completa dei comandi di allineamento del testo si trova in
@@ -979,10 +994,10 @@ Guida al funzionamento interno:
 @translationof Graphic notation inside markup
 
 @cindex grafica, inclusione
-@cindex disegnare oggetti grafici
-@cindex oggetti grafici, disegnare
-@cindex oggetti grafici incorporati
-@cindex oggetti grafici, includere
+@cindex disegnare un oggetto grafico
+@cindex oggetto grafico, disegnare
+@cindex oggetto grafico incorporato
+@cindex oggetto grafico, includere
 
 Si possono aggiungere vari oggetti grafici a una partitura attraverso
 i comandi di markup.
@@ -997,7 +1012,7 @@ i comandi di markup.
 @funindex \box
 @funindex \circle
 @funindex \rounded-box
-@funindex \bracket
+@funindex @sortas{bracketB} \bracket
 @funindex \hbracket
 
 Alcuni comandi di markup consentono di decorare gli elementi testuali con
@@ -1022,7 +1037,7 @@ degli elementi grafici, come è illustrato nell'esempio seguente.
 
 @cindex padding intorno al testo
 @cindex testo, padding
-@cindex markup, padding
+@cindex markup, testo, padding
 
 @funindex \pad-markup
 @funindex \pad-x
@@ -1056,7 +1071,7 @@ Flute quartet keeps very uneven time."
 @end lilypond
 
 @cindex notazione grafica
-@cindex simboli non musicali
+@cindex simbolo non musicale
 
 @funindex \combine
 @funindex \draw-circle
@@ -1086,7 +1101,7 @@ possono essere combinati.
 @end lilypond
 
 @cindex grafica inclusa
-@cindex immagini incluse
+@cindex immagine, inclusione
 @cindex postscript
 
 @funindex \epsfile
@@ -1143,8 +1158,8 @@ Guida al funzionamento interno:
 @unnumberedsubsubsec Notazione musicale nel blocco markup
 @translationof Music notation inside markup
 
-@cindex notazione dentro il blocco markup
-@cindex musica dentro il blocco markup
+@cindex notazione, dentro il blocco markup
+@cindex musica, dentro il blocco markup
 @cindex markup, notazione musicale dentro
 
 Si possono aggiungere vari elementi della notazione musicale dentro un
@@ -1235,19 +1250,16 @@ La modalità markup supporta anche i diagrammi per strumenti specifici:
 @noindent
 Questi diagrammi sono documentati in @ref{Instrument Specific Markup}.
 
-@cindex partitura dentro il blocco markup
+@cindex partitura, dentro il blocco markup
 @cindex markup, partitura dentro
 
-È possibile annidare perfino un'intera partitura in un oggetto markup.  In tal
-caso, il blocco @code{\score} annidato deve contenere un blocco @code{\layout},
-come è illustrato qui:
+È possibile annidare perfino un'intera partitura in un oggetto markup:
 
 @lilypond[quote,verbatim]
 \relative {
   c'4 d^\markup {
     \score {
       \relative { c'4 d e f }
-      \layout { }
     }
   }
   e f |
@@ -1288,7 +1300,7 @@ ignorate.
 @cindex testo formattato su più pagine
 @cindex markup, multipagina
 @cindex multipagina, testo
-@cindex testo esteso su più pagine
+@cindex testo, esteso su più pagine
 
 @funindex \markuplist
 @funindex \justified-lines
@@ -1366,10 +1378,10 @@ possono essere modificati nelle partiture.
 @translationof Fonts explained
 
 @cindex Pango
-@cindex tipi di carattere
+@cindex tipo di carattere
 @cindex font
-@cindex graffe, varie dimensioni
-@cindex font non testuali nel markup
+@cindex graffa, varie dimensioni
+@cindex font non testuali, nel markup
 
 @funindex font-interface
 
@@ -1570,7 +1582,7 @@ a'1_\markup {
 }
 @end lilypond
 
-@cindex tipi di carattere, trovare quelli disponibili
+@cindex tipo di carattere, trovare disponibilità
 @cindex trovare i tipi di carattere disponibili
 @cindex elencare i tipi di carattere disponibili
 @cindex tipi di carattere disponibili, elenco
@@ -1614,8 +1626,10 @@ analogo a @ref{Tipi di carattere per singolo oggetto}, si può indicare con una 
 virgole di @q{font}. Gli @q{stili} dei font, invece, non possono essere
 definiti.  I tipi di carattere  sono spiegati in @ref{Tipi di carattere in dettaglio}.
 
-@cindex famiglie di tipi di carattere, impostare
-@cindex tipi di carattere, modificarli per l'intero documento
+@cindex famiglia di tipi di carattere, impostare
+@cindex font, impostare
+@cindex tipo di carattere, modificarli per l'intero documento
+@cindex font, modificarli per l'intero documento
 
 @funindex make-pango-font-tree
 

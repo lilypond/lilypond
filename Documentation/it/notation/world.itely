@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: a94d26b6693cad58b946a01b7efaaed29480f063
+    Translation of GIT committish: 21a1f431176e969d45a9cc973c99dce34e9e8733
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -123,7 +123,7 @@ musica araba.
 
 @cindex musica araba
 @cindex araba, musica
-@cindex intervalli intermedi
+@cindex intervallo intermedio
 @cindex maqam
 
 Finora la musica araba è stata soprattutto una tradizione orale.  La musica,
@@ -176,9 +176,8 @@ Frammenti:
 @unnumberedsubsubsec Nomi delle note in arabo
 @translationof Arabic note names
 
-
 @cindex nomi delle note in arabo
-@cindex arabo, Nomi delle note in
+@cindex arabo, nomi delle note in
 
 I nomi più tradizionali delle note in arabo possono essere piuttosto
 lunghi e non sono adatti alla scrittura musicale, quindi non vengono
@@ -202,7 +201,9 @@ Ecco un esempio di come può essere scritta la scala araba @notation{rast}:
 
 
 @cindex simbolo arabo per semibemolle
-@cindex semibemolle, simbolo arabo
+@cindex semibemolle, simbolo, aspetto
+
+@funindex \dwn
 
 Il simbolo di semibemolle non corrisponde al simbolo usato nella notazione
 araba.  Per ottenere il simbolo arabo di semibemolle, si può usare il
@@ -359,7 +360,7 @@ Frammenti:
 @translationof Arabic time signatures
 
 @cindex indicazioni di tempo arabe
-@cindex Semai, forma
+@cindex semai, forma
 @cindex taqasim
 
 Alcune forme di musica classica araba e turca, come @notation{Semai},
@@ -375,6 +376,8 @@ automatica delle travature e/o usare indicazioni di tempo composto.
 
 @snippets
 
+@cindex improvvisazione araba
+@cindex araba, improvvisazione
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {arabic-improvisation.ly}
 
@@ -499,9 +502,12 @@ classica turca.
 @unnumberedsubsubsec Riferimenti per la musica classica turca
 @translationof References for Turkish classical music
 
-@cindex Turkish music
-@cindex Ottoman music
-@cindex comma intervals
+@cindex musica turca
+@cindex turca, musica
+@cindex musica ottomana
+@cindex ottomana, musica
+@cindex comma, intervallo
+@cindex intervallo, comma
 @cindex makam
 @cindex makamlar
 
@@ -528,8 +534,8 @@ altre sezioni della documentazione:
 @unnumberedsubsubsec Nomi delle note in turco
 @translationof Turkish note names
 
-@cindex nomi delle note in turco
-@cindex turco, nomi delle note in
+@cindex nome delle note in turco
+@cindex turco, nome delle note in
 @cindex makam
 @cindex makamlar
 

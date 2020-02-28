@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: b942b1a18810fce7f61d3033507cc31c90e437f9
+    Translation of GIT committish: 6ca1d8c80817f9baaa7b66b2fde9a7b98b0ffc0a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -46,36 +46,36 @@ Sono trattati anche i metodi per creare nuove indicazioni dinamiche.
 @unnumberedsubsubsec Articolazioni e abbellimenti
 @translationof Articulations and ornamentations
 
-@cindex articolazioni
-@cindex abbellimenti
+@cindex articolazione
+@cindex abbellimento
 @cindex script
 @cindex espressivo
 @cindex corona
 @cindex arcata in su
 @cindex arcata in giù
-@cindex segni del pedale
-@cindex segni del pedale dell'organo
-@cindex organo, segni del pedale
-@cindex pedale, segni
-@cindex gruppetto (\turn)
-@cindex aperto (\open)
-@cindex chiuso (\stopped)
-@cindex armonico (\flageolet)
-@cindex gruppetto rovesciato (\reverseturn)
-@cindex trillo (\trill)
-@cindex mordente superiore (\prall)
-@cindex mordente inferiore (\mordent)
-@cindex doppio mordente (\prallprall)
-@cindex doppio mordente (\prallmordent)
-@cindex mordente superiore, su
-@cindex mordente superiore, giù
-@cindex mordente inferiore, su
-@cindex mordente inferiore, giù
-@cindex segno del pollice (\thumb)
-@cindex pollice, segno del (\thumb)
+@cindex segno del pedale
+@cindex segno del pedale dell'organo
+@cindex organo, segno del pedale
+@cindex pedale, segno
+@cindex gruppetto
+@cindex aperto
+@cindex chiuso
+@cindex armonico
+@cindex gruppetto rovesciato
+@cindex trillo
+@cindex mordente inverso
+@cindex mordente inverso lungo
+@cindex mordente
+@cindex mordente inverso, sù
+@cindex mordente inverso, giù
+@cindex mordente superiore
+@cindex mordente inferiore
+@cindex segno del pollice
+@cindex pollice, segno del
 @cindex segno
 @cindex coda
-@cindex varcoda
+@cindex segno di coda, variante
+@cindex variante del segno di coda
 
 @funindex \accent
 @funindex \marcato
@@ -192,12 +192,26 @@ collegati alle note si trovano in @rlearning{Posizionamento degli oggetti}.
 
 @snippets
 
+@cindex articolazione, valori predefiniti, modifica
+@funindex \dashBang
+@funindex \dashDash
+@funindex \dashDot
+@funindex \dashHat
+@funindex \dashLarger
+@funindex \dashPlus
+@funindex \dashUnderscore
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {modifying-default-values-for-articulation-shorthand-notation.ly}
 
+@cindex ordine verticale degli script
+@cindex script, ordine verticale
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {controlling-the-vertical-ordering-of-scripts.ly}
 
+@cindex ornamento, gruppo ritardato
+@cindex gruppo ritardato, ornamento
+@funindex suggestAccidentals
+@funindex AccidentalSuggestion
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {creating-a-delayed-turn.ly}
 
@@ -277,11 +291,13 @@ rigo, come è spiegato in dettaglio in @ref{Direzione e posizionamento}.
 @cindex decrescendo
 @cindex diminuendo
 
-@funindex \<
-@funindex \>
-@funindex \!
+@funindex @sortas{<B} \<
+@funindex @sortas{>B} \>
+@funindex @sortas{!B} \!
 @funindex \cr
 @funindex \decr
+@funindex \endcr
+@funindex \enddecr
 
 Un'indicazione di @notation{crescendo} inizia con @code{\<} e termina
 con @code{\!}, un'indicazione dinamica assoluta o un'ulteriore indicazione
@@ -289,7 +305,9 @@ di crescendo o decrescendo.  Un'indicazione di @notation{decrescendo} inizia
 con @code{\>} e termina nello stesso modo, ovvero con @code{\!}, un'indicazione
 dinamica assoluta oppure un altro segno di crescendo o decrescendo.
 Si possono usare @code{\cr} e @code{\decr} al posto di @code{\<} e
-@code{\>}.  Le @notation{forcelle} vengono create con questa notazione.
+@code{\>}; si possono usare @code{\endcr} e @code{\enddecr} al posto di
+@code{\!} per terminare unindicazione di crescendo o decrescendo,
+rispettivamente.  Le @notation{forcelle} vengono create con questa notazione.
 
 @lilypond[verbatim,quote]
 \relative c'' {
@@ -330,8 +348,8 @@ forcella precedente.
 }
 @end lilypond
 
-@cindex indicazioni dinamiche multiple su una nota
-@cindex indicazioni dinamiche, più di un segno su una nota
+@cindex indicazioni dinamiche multiple, su una nota
+@cindex indicazione dinamica, più di un segno su una nota
 
 Occorre usare le pause spaziatrici per attaccare più di un'indicazione a
 una nota.  Questo è utile soprattutto quando si aggiunge un
@@ -362,7 +380,7 @@ viene implementato come articolazione, non come dinamica.
 
 @funindex \cresc
 @funindex \decresc
-@funindex \dim
+@funindex @sortas{dimB} \dim
 
 Le indicazioni di crescendo testuali iniziano con @code{\cresc}, quelle di
 decrescendo con @code{\decresc} o @code{\dim}.
@@ -456,39 +474,55 @@ indicazioni testuali, estensori del testo e indicazioni di pedalizzazione del pi
 
 @snippets
 
-@cindex forcelle sulle stanghette
-
+@cindex forcella, terminata sulle stanghette
+@cindex stanghetta, forcella, terminare a
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {setting-hairpin-behavior-at-bar-lines.ly}
 
+@cindex forcella, lunghezza minima
+@cindex lunghezza minima, forcella
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {setting-the-minimum-length-of-hairpins.ly}
 
+@cindex forcella, spostarre le estremità della
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {moving-the-ends-of-hairpins.ly}
 
-@cindex al niente
-@cindex niente, al
-
+@cindex al niente, forcella
+@cindex niente, al, forcella
+@cindex forcella, al niente
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {printing-hairpins-using-al-niente-notation.ly}
 
-@cindex forcelle Ferneyhough
-@cindex Ferneyhough, forcelle
-@cindex forcelle allargate (flared-hairpins)
-@cindex flared-hairpin
-@cindex forcelle continue (constante-hairpins)
-@cindex constante-hairpins
-
+@cindex forcella Ferneyhough
+@cindex Ferneyhough, forcella
+@cindex forcella allargata (flared-hairpins)
+@cindex forcella continua (constante-hairpins)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {printing-hairpins-in-various-styles.ly}
 
+@cindex allineamento verticale, dinamiche
+@cindex dinamiche, allineamento verticale
+@cindex allineamento verticale, segno testuale
+@cindex segno testuale, allineamento verticale
+@funindex DynamicLineSpanner
+@funindex \textLengthOn
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {vertically-aligned-dynamics-and-textscripts.ly}
 
+@cindex dinamiche, linea di estensione, nascondere
+@cindex nascondere la linea di estensione delle dinamiche
+@cindex linea di estensione, dinamiche, nascondere
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {hiding-the-extender-line-for-text-dynamics.ly}
 
+@cindex dinamiche, testo, stile
+@cindex dinamiche del testo, stile
+@cindex stile delle dinamiche del testo
+@funindex crescendoText
+@funindex crescendoSpanner
+@funindex decrescendoText
+@funindex decrescendoSpanner
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-text-and-spanner-styles-for-text-dynamics.ly}
 
@@ -521,8 +555,8 @@ Guida al funzionamento interno:
 @unnumberedsubsubsec Nuove indicazioni dinamiche
 @translationof New dynamic marks
 
-@cindex indicazioni dinamiche nuove
-@cindex dinamica, nuovi segni di
+@cindex indicazione dinamica nuova
+@cindex dinamica, indicazione, nuova
 
 Il modo più semplice per creare indicazioni dinamiche è usare
 gli oggetti @code{\markup}.
@@ -557,7 +591,6 @@ boxF = \markup { \bracket { \dynamic f } }
 }
 @end lilypond
 
-@cindex make-dynamic-script
 @funindex make-dynamic-script
 
 È possibile creare semplicemente indicazioni dinamiche centrate verticalmente con la
@@ -663,8 +696,10 @@ indeterminati discendenti (cadute) o ascendenti.
 @unnumberedsubsubsec Legature di portamento
 @translationof Slurs
 
-@cindex legature di portamento
+@cindex legatura di portamento
 
+@funindex @sortas{(A} (
+@funindex @sortas{)A} )
 Le @notation{legature di portamento} si inseriscono con delle parentesi:
 
 @warning{Nella musica polifonica, una legatura di portamento deve
@@ -678,9 +713,9 @@ terminare nella stessa voce in cui è iniziata.}
 }
 @end lilypond
 
-@cindex legature di portamento, posizionamento manuale
-@cindex legature di portamento, sotto le note
-@cindex legature di portamento, sopra le note
+@cindex legatura di portamento, posizionamento manuale
+@cindex legatura di portamento, sotto le note
+@cindex legatura di portamento, sopra le note
 @funindex \slurDown
 @funindex \slurNeutral
 
@@ -688,8 +723,10 @@ Le legature di portamento possono essere posizionate manualmente sopra o
 sotto il rigo, come è spiegato in @ref{Direzione e posizionamento}.
 
 @cindex legatura di frase
-@cindex legature di portamento multiple
-@cindex legature di portamento simultanee
+@cindex legatura di portamento multipla
+@cindex legatura di portamento simultanea
+@cindex multipla, legatura di portamento
+@cindex simultanea, legatura di portamento
 
 Tracciare due legature di portamento simultanee o sovrapposte richiede una
 particolare attenzione.  Di solito le legature di portamento più esterne
@@ -752,6 +789,7 @@ ovvero con la prima metà tratteggiata e la seconda continua; oppure semicontinu
 
 @funindex \slurDashPattern
 @cindex legatura di portamento, definizione del modello di tratteggio
+@cindex tratteggio, modelli, legatura di portamento
 
 Si possono definire modelli di tratteggio personalizzati per le legature di
 portamento:
@@ -788,12 +826,20 @@ portamento:
 
 @snippets
 
+@cindex legature di portamento doppie per accordi legati
+@cindex doppie, legature di portamento, per accordi legati
+@findex doubleSlurs
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {using-double-slurs-for-legato-chords.ly}
 
+@cindex testo, dentro le legature di portamento
+@cindex markup, testo, dentro le legature di portamento
+@cindex legatura di portamento, testo all'interno
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {positioning-text-markups-inside-slurs.ly}
 
+@cindex legatura di portamento, definizione dei modelli di tratteggio
+@cindex tratteggio, modelli, legatura di portamento
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {making-slurs-with-complex-dash-structure.ly}
 
@@ -819,10 +865,10 @@ Guida al funzionamento interno:
 @unnumberedsubsubsec Legature di frase
 @translationof Phrasing slurs
 
-@cindex legature di frase
-@cindex frase, legature di
-@funindex \(
-@funindex \)
+@cindex legatura di frase
+@cindex frase, legatura di
+@funindex @sortas{(B} \(
+@funindex @sortas{)B} \)
 
 Le @notation{legature di frase}, che indicano una frase musicale, si
 scrivono con i comandi @code{\(} e @code{\)}:
@@ -951,8 +997,8 @@ Guida al funzionamento interno:
 @unnumberedsubsubsec Respiri
 @translationof Breath marks
 
-@cindex respiri
-@cindex segno di pausa
+@cindex respiro, segno
+@cindex pausa, segno
 @funindex \breathe
 
 I respiri si inseriscono col comando @code{\breathe}:
@@ -980,6 +1026,10 @@ antica.  Maggiori dettagli in @ref{Divisiones}.
 
 @snippets
 
+@cindex simbolo di respiro, modifica
+@cindex respiro, simbolo, modifica
+@cindex cambiare il simbolo di respiro
+@funindex BreathingSign
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-breath-mark-symbol.ly}
 
@@ -1096,6 +1146,8 @@ Un glissando può collegare note appartenenti a righi diversi:
 >>
 @end lilypond
 
+@funindex \glissandoMap
+
 Un glissando può collegare le note negli accordi.  Se è necessario qualcosa
 di diverso dal normale abbinamento uno a uno delle note, si possono definire
 le connessioni tra le note attraverso @code{\glissandoMap}, dove le note
@@ -1124,15 +1176,24 @@ Si possono adottare diversi stili di glissando.  Maggiori dettagli in @ref{Stili
 
 
 @snippets
+
+@cindex glissando contemporaneo
+@cindex contemporaneo, glissando
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {contemporary-glissando.ly}
 
+@cindex segni di tempo, per glissando
+@cindex glissando, segni di tempo
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adding-timing-marks-to-long-glissandi.ly}
 
+@cindex glissando che vanno a capo
+@cindex a capo, glissando
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {making-glissandi-breakable.ly}
 
+@cindex glissando, attraverso le ripetizioni
+@cindex ripetizione e glissando
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {extending-glissandi-across-repeats.ly}
 
@@ -1190,8 +1251,8 @@ Si possono scrivere vari tipi di arpeggio.
 }
 @end lilypond
 
-@cindex arpeggio, simboli speciali
-@cindex simboli speciali di arpeggio
+@cindex arpeggio, simbolo speciale
+@cindex simbolo speciale di arpeggio
 
 @funindex \arpeggioBracket
 @funindex \arpeggioParenthesis
@@ -1237,12 +1298,14 @@ valore.  Per maggiori dettagli si veda @ref{Legature di valore}.
 
 @snippets
 
+@cindex arpeggio, attraverso i righi
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {creating-cross-staff-arpeggios-in-a-piano-staff.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {creating-cross-staff-arpeggios-in-other-contexts.ly}
 
+@cindex arpeggio, attraverso le voci
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {creating-arpeggios-across-notes-in-different-voices.ly}
 
@@ -1278,7 +1341,7 @@ descritti in @ref{Gambi trasversali ai righi}.
 @unnumberedsubsubsec Trilli
 @translationof Trills
 
-@cindex trilli
+@cindex trillo
 
 @funindex \trill
 @funindex \startTrillSpan
@@ -1338,8 +1401,8 @@ sono descritti in @ref{Abbellimenti}.
 }
 @end lilypond
 
-@cindex trilli con altezza
-@cindex trilli con notina
+@cindex trillo con altezza
+@cindex trillo con notina
 @funindex \pitchedTrill
 
 I trilli che richiedono una nota ausiliaria dall'altezza esplicita si
@@ -1357,12 +1420,27 @@ di nota senza gambo e racchiusa tra parentesi.
 }
 @end lilypond
 
-@cindex trilli con notina e alterazione
-@cindex trilli con alterazione
+@cindex trillo con notina e alterazione
+@cindex trillo con alterazione
 
-Alterazioni successive della stessa nota nella stessa misura devono essere
-aggiunte manualmente.  Apparirà solo l'alterazione del primo trillo con
-notina in una misura.
+L'alterazione del primo trillo con notina in una misura viene sempre
+visualizzata, anche per i bequadri.
+
+@lilypond[verbatim,quote,relative]
+{
+  \key d \major
+  \pitchedTrill
+  d'2\startTrillSpan cis d\stopTrillSpan 
+  \pitchedTrill
+  d2\startTrillSpan c d\stopTrillSpan
+  \pitchedTrill
+  d2\startTrillSpan e d\stopTrillSpan
+}
+@end lilypond
+
+@noindent
+Alterazioni successive (della stessa nota nella stessa misura) devono essere
+aggiunte manualmente.
 
 @lilypond[verbatim,quote]
 \relative {

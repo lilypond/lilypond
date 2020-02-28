@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: bd33a8aea7c07181b9b346ac88d4fbf91ed99c78
+    Translation of GIT committish: 6ca1d8c80817f9baaa7b66b2fde9a7b98b0ffc0a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -49,10 +49,10 @@ struttura dell'accordo invece delle altezze dell'accordo.
 @unnumberedsubsubsec Panoramica sulla modalità accordo
 @translationof Chord mode overview
 
-@cindex nomi degli accordi
-@cindex accordi, nomi
+@cindex nome di un accordo
+@cindex accordo, nome
 @cindex modalità accordo
-@cindex accordi, modalità per
+@cindex accordo, modalità per
 
 Gli accordi possono essere inseriti come musica simultanea, come è
 spiegato in @ref{Note in un accordo}.
@@ -106,11 +106,11 @@ essere usate sulle note in modalità accordo, vedi @ref{Articolazioni e abbellim
 @unnumberedsubsubsec Accordi comuni
 @translationof Common chords
 
-@cindex triadi
-@cindex accordi di settima
+@cindex triade
+@cindex accordo di settima
 @cindex fondamentale dell'accordo
 @cindex accordo, fondamentale
-@cindex modificatori, negli accordi.
+@cindex modificatore, nell'accordio
 @cindex accordo, qualità
 
 Le triadi maggiori si inseriscono scrivendo la nota fondamentale seguita
@@ -134,7 +134,7 @@ Si possono creare accordi di settima:
 @end lilypond
 
 @funindex aug
-@funindex dim
+@funindex @sortas{dimA} dim
 @funindex maj
 @funindex m
 
@@ -242,8 +242,8 @@ come è spiegato in @ref{Accordi estesi e alterati}.
 @unnumberedsubsubsec Accordi estesi e alterati
 @translationof Extended and altered chords
 
-@cindex accordi estesi
-@cindex accordi alterati
+@cindex accordo esteso
+@cindex accordo alterato
 
 In modalità accordo è possibile creare strutture di accordi di arbitraria
 complessità.  Il modificatore permette di estendere un accordo, aggiungere
@@ -281,7 +281,7 @@ meno che non venga aggiunto esplicitamente.
 }
 @end lilypond
 
-@cindex aggiunte, negli accordi
+@cindex aggiunta, negli accordi
 
 Si possono aggiungere gradi individuali a un accordo.  Le aggiunte seguono
 l'estensione e sono precedute da un punto (@code{.}).  Il settimo grado
@@ -301,7 +301,7 @@ I gradi aggiunti possono essere alti quanto si vuole.
 }
 @end lilypond
 
-@cindex gradi dell'accordo, alterazione
+@cindex grado dell'accordo, alterazione
 
 I gradi aggiunti dell'accordo possono essere alterati aggiungendo un suffisso
 @code{-} o @code{+} al numero.  Per alterare un grado aggiunto automaticamente
@@ -314,7 +314,7 @@ alterato.
 }
 @end lilypond
 
-@cindex rimozioni, negli accordi
+@cindex rimozione, negli accordi
 
 @funindex ^
 
@@ -405,9 +405,9 @@ standard come note di un rigo.
 @unnumberedsubsubsec Stampa dei nomi degli accordi
 @translationof Printing chord names
 
-@cindex stampa dei nomi degli accordi
-@cindex nomi degli accordi
-@cindex accordi, nomi
+@cindex stampa del nome di un accordo
+@cindex nome di un accordo
+@cindex accordo, nome
 
 Per visualizzare i nomi degli accordi si usa il contesto @code{ChordNames}:
 
@@ -444,7 +444,7 @@ chordmusic = \relative {
 
 @cindex nessun accordo, simbolo
 @cindex N.C. (No Chord), simbolo
-@cindex indicazione di No Chord in ChordNames
+@cindex indicazione di No Chord in @code{ChordNames}
 
 Le pause usate nel contesto @code{ChordNames} faranno apparire il testo del
 simbolo @code{noChordSymbol} (nessun accordo).
@@ -466,7 +466,7 @@ simbolo @code{noChordSymbol} (nessun accordo).
 >>
 @end lilypond
 
-@funindex{\chords}
+@funindex \chords
 
 @code{\chords @{ @dots{} @}} è una scorciatoia per
 @code{\new ChordNames \chordmode @{ @dots{} @}}.
@@ -487,8 +487,9 @@ simbolo @code{noChordSymbol} (nessun accordo).
 
 @snippets
 
-@c Keep index entries with following snippet
-@cindex accordi, soppressione delle ripetizioni
+@cindex accordo, soppressione delle ripetizioni
+@cindex ripetuti, accordi, soppressione
+@cindex soppressione degli accordi ripetuti
 @funindex chordChanges
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
@@ -497,12 +498,14 @@ simbolo @code{noChordSymbol} (nessun accordo).
 @c @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 @c {adding-bar-lines-to-chordnames-context.ly}
 
+@cindex canzioniere
+@cindex lead sheet
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {simple-lead-sheet.ly}
 
 @seealso
 Glossario musicale:
-@rglos{chord}.
+@rglosnamed{chord,accordo}.
 
 Guida alla notazione:
 @ref{Scrivere la musica in parallelo}.
@@ -526,33 +529,36 @@ un nome corretto se inseriti usando la musica simultanea.
 @unnumberedsubsubsec Personalizzazione dei nomi degli accordi
 @translationof Customizing chord names
 
-@cindex personalizzazione dei nomi degli accordi
-@cindex accordi, nomi, personalizzazione
+@cindex personalizzazione del nome di un accordo
+@cindex accordo, nome, personalizzazione
 
 Non esiste un unico sistema per il nome degli accordi.  Tradizioni musicali
 diverse usano nomi diversi per lo stesso gruppo di accordi.  Esistono anche
 simboli diversi per un certo nome di accordo.  I nomi e i simboli degli
 accordi sono personalizzabili.
 
-@cindex accordi jazz
-@cindex jazz, accordi
+@cindex accordo jazz
+@cindex jazz, accordo
+@cindex accordo, nome alternativo
+@cindex nome alternativo di un accordo
 
 Il formato fondamentale dei nomi degli accordi è un sistema per la musica
-Jazz, proposto da Klaus Ignatzek (vedi @ressay{Bibliografia}).  Il sistema
-per i nomi degli accordi può essere modificato come descritto in seguito.
-Un sistema alternativo di accordi jazz è stato sviluppato usando queste
-modifiche.  La notazione Ignatzek e quella alternativa Jazz sono illustrate
-nel @ref{Grafico dei nomi degli accordi}.
+Jazz, proposto da Klaus Ignatzek (vedi @ressay{Bibliografia}).  (Si possono
+implementare altri sistemi per i nomi degli accordi attraverso funzioni
+Scheme, come illustrato nel frammento @qq{Chord names alternative} in
+@rlsr{Chords}.)
+Un elenco dei comuni accordi jazz si trova nel @ref{Grafico dei nomi degli accordi}.
 
-@c TODO --  Change this so we don't have a non-verbatim example.
-@c  Make short example in docs, then move longer example to
-@c  appendix, where the length of the snippet won't matter.
+@funindex \germanChords
+@funindex \semiGermanChords
+@funindex \italianChords
+@funindex \frenchChords
 
-Oltre ai diversi sistemi di nomi, si usano nomi di note diversi per la
-fondamentale a seconda della lingua.  I comandi predefiniti
-@code{\germanChords}, @code{\semiGermanChords},
-@code{\italianChords} e @code{\frenchChords} impostano queste variabili.
-L'effetto è illustrato qui:
+Il sistema predefinito per i nomi degli accordi può essere modificato
+facilmente in vari modi.  Per iniziare, dei comandi predefiniti consentono
+di usare lingue diverse per l'altezza fondamentale.  I comandi predefiniti
+sono @code{\germanChords}, @code{\semiGermanChords}, @code{\italianChords}
+e @code{\frenchChords}:
 
 @lilypondfile[ragged-right]{chord-names-languages.ly}
 
@@ -570,8 +576,8 @@ la proprietà @code{chordNameLowercaseMinor}:
 }
 @end lilypond
 
-Se nessuna delle impostazioni esistenti dà il risultato desiderato, il nome
-accordo da visualizzare può essere aggiustato tramite le seguenti proprietà.
+Il nome dell'accordo da visualizzare può essere aggiustato anche tramite le
+seguenti proprietà.
 
 @table @code
 
@@ -588,6 +594,9 @@ salvando una nuova funzione in questa proprietà.
 @funindex majorSevenSymbol
 
 @item majorSevenSymbol
+
+@funindex \blackTriangleMarkup
+@funindex \whiteTriangleMarkup
 
 Questa proprietà contiene l'oggetto markup usato per seguire l'output di
 @code{chordRootNamer} e identificare un accordo di settima maggiore.  Le
@@ -702,37 +711,45 @@ porre uno spazio tra la fondamentale e il modificatore impostando
 
 
 @predefined
-@funindex simboli di settima maggiore
+@cindex simboli di settima maggiore
 @code{\whiteTriangleMarkup},
 @code{\blackTriangleMarkup},
-@funindex \germanChords
 @code{\germanChords},
-@funindex \semiGermanChords
 @code{\semiGermanChords},
-@funindex \italianChords
 @code{\italianChords},
-@funindex \frenchChords
 @code{\frenchChords}.
 @endpredefined
 
 
 @snippets
 
-@cindex eccezioni, nomi dell'accordo
+@cindex eccezione, nomi dell'accordo
 @cindex accordo, nomi, eccezioni
+@funindex chordNameExceptions
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {chord-name-exceptions.ly}
 
 @c TODO - tweak snippet to use \blackTriangleMarkup as well
+@cindex accordo di settima maggiore, formattazione
+@cindex formattazione dell'accordo di settima maggiore
+@cindex settima maggiore, accordo, formattazione
+@funindex majorSevenSymbol
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {chord-name-major7.ly}
 
+@cindex @code{ChordNames}, con stanghette
+@cindex stanghetta, in @code{ChordNames}
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adding-bar-lines-to-chordnames-context.ly}
 
+@cindex ripetizione con volte, sotto gli accordi
+@cindex accordi, ripetizioni con volte, sotto
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {volta-below-chords.ly}
 
+@cindex separatore dell'accordo, modifica
+@cindex cambiare il separatore dell'accordo
+@funindex chordNameSeparator
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-chord-separator.ly}
 
@@ -809,13 +826,16 @@ LilyPond supporta il basso continuo, detto anche basso numerato o cifrato:
 >>
 @end lilypond
 
+@funindex \figuremode
+@funindex \figures
+
 Il supporto per il basso continuo consiste in due parti: c'è una modalità di
 input, introdotta dal comando @code{\figuremode}, che accetta l'inserimento
 dei numeri di basso; e c'è un contesto chiamato @code{FiguredBass} che si
 occupa di mostrare gli oggetti @code{BassFigure}.  Il basso continuo può
 essere mostrato anche in contesti @code{Staff}.
 
-@code{\figures@{ @dots{} @}} è una scorciatoia per
+@code{\figures @{ @dots{} @}} è una scorciatoia per
 @code{\new FiguredBass \figuremode @{ @dots{} @}}.
 
 
@@ -908,6 +928,9 @@ Si può inserire come numero qualsiasi testo di tipo markup:
 @c NOTE: We need to include notes any time we use extenders to
 @c avoid extraneous staff creation due to Staff.use... in
 @c \bassFigureExtendersOn
+
+@funindex \bassFigureExtendersOn
+@funindex \bassFigureExtendersOff
 
 Si possono usare linee di continuazione per indicare numeri ripetuti:
 
@@ -1011,11 +1034,17 @@ Fine della linea di continuazione
 
 @predefined
 @cindex linee di estensione del basso continuo
+@cindex basso continuo, linee di estensione
 @code{\bassFigureExtendersOn},
 @code{\bassFigureExtendersOff}.
 @endpredefined
 
 
+@cindex basso continuo, alterazione, posizione
+@cindex posizione, alterazione del basso continuo
+@cindex alterazione, basso continuo, posizione
+@funindex figuredBassAlterationDirection
+@funindex figuredBassPlusDirection
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-positions-of-figured-bass-alterations.ly}
@@ -1081,6 +1110,10 @@ regolata automaticamente.
 >>
 @end lilypond
 
+
+@funindex \bassFigureStaffAlignmentDown
+@funindex \bassFigureStaffAlignmentUp
+@funindex \bassFigureStaffAlignmentNeutral
 
 Se aggiunto in un contesto @code{Staff}, il basso continuo può essere
 visualizzato sopra o sotto il rigo.

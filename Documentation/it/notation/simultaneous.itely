@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: c7a55021f3575fb6f217fa7a1ec2555afc5eb54f
+    Translation of GIT committish: 9fd9c4afa39adeacf1626a8811a533c7daadc3cf
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -47,11 +47,11 @@ un'unica voce.
 @unnumberedsubsubsec Note in un accordo
 @translationof Chorded notes
 
-@cindex accordi
-@cindex parentesi uncinate (o angolari)
+@cindex accordo
+@cindex parentesi uncinata (o angolare)
 
-@funindex <
-@funindex >
+@funindex @sortas{<A} <
+@funindex @sortas{>A} >
 @funindex <...>
 
 Un accordo si forma racchiudendo una serie di altezze tra @code{<}
@@ -97,8 +97,10 @@ note.
 }
 @end lilypond
 
-@cindex accordi vuoti
-@cindex eventi segnaposto
+@cindex accordo vuoto
+@cindex evento segnaposto
+
+@funindex <>
 
 Un accordo si comporta semplicemente come un contenitore di note, articolazioni
 e altri elementi.  Di conseguenza, un accordo privo di note non ha una
@@ -116,7 +118,7 @@ questi (possibilità più complesse di combinazione sono spiegate in
 @end lilypond
 
 @cindex altezza relativa, accordi
-@cindex accordi, altezza relativa
+@cindex accordo, altezza relativa
 
 Si può usare la modalità relativa per indicare l'altezza degli accordi.  La
 prima nota di ogni accordo è sempre relativa alla prima nota dell'accordo
@@ -324,7 +326,7 @@ generare implicitamente righi multipli:
 In questo caso le durate diverse non causano problemi perché sono
 interpretate in voci diverse.
 
-@cindex collisioni, ignorare
+@cindex collisione, ignorare
 
 @knownissues
 Se le note appartenenti a due o più voci, senza che sia stato specificato
@@ -412,10 +414,12 @@ Questa sezione presenta le note simultanee in più voci o più righi.
 
 @cindex polifonia su un rigo singolo
 @cindex voce
-@cindex testo assegnato a una voce
+@cindex testo, assegnato a una voce
 
 @funindex \voiceOne
-@funindex \voiceOne ... \voiceFour
+@funindex \voiceTwo
+@funindex \voiceThree
+@funindex \voiceFour
 @funindex Voice
 @funindex \oneVoice
 
@@ -640,9 +644,9 @@ Frammenti:
 @unnumberedsubsubsec Stili di voce
 @translationof Voice styles
 
-@cindex stili di voce
-@cindex voci, stili
-@cindex colorare le voci
+@cindex stile di voce
+@cindex voce, stile di
+@cindex colorare una voce
 @funindex \voiceOneStyle
 @funindex \voiceTwoStyle
 @funindex \voiceThreeStyle
@@ -690,15 +694,16 @@ Frammenti:
 @translationof Collision resolution
 
 @cindex unire le note
-@cindex collisioni di note
-@cindex collisioni
+@cindex collisione di note
+@cindex collisione
 @cindex spostare una nota
 @cindex nota, spostamento
 @cindex tante voci
-@cindex voci multiple
+@cindex voci, multiple
 @cindex musica polifonica
-@cindex spostare le voci
-@cindex spostamento automatico della pausa
+@cindex spostare una voce
+@cindex voce, spostamento
+@cindex spostamento automatico di una pausa
 @cindex pausa, spostamento automatico
 @funindex \shiftOn
 @funindex \shiftOnn
@@ -880,9 +885,20 @@ impostati esplicitamente in direzioni opposte).
 @endpredefined
 
 @snippets
+
+@cindex voce, ulteriore, nella musica polifonica
+@cindex polifonia, voci ulteriori
+@funindex context-spec-music
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {additional-voices-to-avoid-collisions.ly}
 
+@cindex nota puntata, spostamento orizzontale
+@cindex puntata, nota, spostamento orizzontale
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{moving-dotted-notes-in-polyphony.ly}
+
+@cindex nota, spostamento orizzontale
+@cindex spostamento orizzontale di una nota
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {forcing-horizontal-shift-of-notes.ly}
 
@@ -903,7 +919,7 @@ Guida al funzionamento interno:
 @rinternals{NoteCollision},
 @rinternals{RestCollision}.
 
-@cindex collisioni,ignorare
+@cindex collisione,ignorare
 
 @knownissues
 Se si usa @code{\override NoteColumn.ignore-collision = ##t},
@@ -1142,7 +1158,7 @@ instrumentTwo = \relative {
 
 @subsubsubheading Uso di \partcombine col testo vocale
 
-@cindex \partcombine e testo vocale
+@cindex @code{\partcombine} e testo vocale
 
 Il comando @code{\partcombine} non è progettato per funzionare col
 testo vocale; al punto che se una delle voci è nominata in modo
@@ -1156,6 +1172,8 @@ usando un contesto @code{NullVoice}.  Vedi @ref{Polifonia con testo in comune}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {combining-two-parts-on-the-same-staff.ly}
 
+@cindex combinatore delle parti, modifica del testo
+@cindex combinare le parti, modifica del testo
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-partcombine-texts.ly}
 
