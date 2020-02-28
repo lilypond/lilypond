@@ -54,6 +54,11 @@ Sources::get_file (string file_string, string const &current_dir)
       file_string = find_full_path(file_string, current_dir);
     }
 
+  if (file_string.empty ())
+    {
+      return nullptr;
+    }
+
   Source_file *f = new Source_file (file_string);
   add (f);
   return f;
@@ -73,11 +78,7 @@ Sources::find_full_path(string file_string, string const &current_dir) const
   // Otherwise, check the rest of the path.
   else if (path_)
     {
-      string file_string_o = path_->find (file_string);
-      if ((file_string_o == "") && (file_string != ""))
-        return 0;
-
-      file_string = file_string_o;
+      return path_->find (file_string);
     }
   return file_string;
 }
