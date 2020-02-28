@@ -86,14 +86,14 @@ struct Break_position
   /*
     lexicographic in (system_spec_index_, score_break_)
    */
-  bool operator < (const Break_position &other)
+  bool operator < (const Break_position &other) const
   {
     return (system_spec_index_ == VPOS && other.system_spec_index_ != VPOS)
            || (system_spec_index_ < other.system_spec_index_)
            || (system_spec_index_ == other.system_spec_index_ && score_break_ < other.score_break_);
   }
 
-  bool operator <= (const Break_position &other)
+  bool operator <= (const Break_position &other) const
   {
     return (system_spec_index_ == VPOS)
            || (system_spec_index_ < other.system_spec_index_ && other.system_spec_index_ != VPOS)
@@ -224,7 +224,7 @@ private:
   mutable std::vector<Real> page_height_cache_;
   mutable std::vector<Real> last_page_height_cache_;
 
-  std::vector<Break_position> chunk_list (vsize start, vsize end);
+  std::vector<Break_position> chunk_list (vsize start, vsize end) const;
   Line_division system_count_bounds (std::vector<Break_position> const &chunks, bool min);
   void line_breaker_args (vsize i,
                           Break_position const &start,

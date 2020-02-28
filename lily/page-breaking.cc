@@ -823,7 +823,7 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break, Prob_break_pred
 }
 
 vector<Break_position>
-Page_breaking::chunk_list (vsize start_index, vsize end_index)
+Page_breaking::chunk_list (vsize start_index, vsize end_index) const
 {
   Break_position start = breaks_[start_index];
   Break_position end = breaks_[end_index];

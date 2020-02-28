@@ -328,7 +328,7 @@ Constrained_breaking::min_system_count (vsize start, vsize end)
 }
 
 vsize
-Constrained_breaking::max_system_count (vsize start, vsize end)
+Constrained_breaking::max_system_count (vsize start, vsize end) const
 {
   vsize brk = (end >= start_.size ()) ? breaks_.size () - 1 : starting_breakpoints_[end];
   return brk - starting_breakpoints_[start];
