@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 545ab5e4270f387e125ef710d0e84f211c628a56
+    Translation of GIT committish: 21a1f431176e969d45a9cc973c99dce34e9e8733
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -960,7 +960,7 @@ dove N è un numero compreso tra 0 e 100.
 @cindex font Feta
 @cindex Parmesan, font
 @cindex font Parmesan
-@cindex tipi di carattere
+@cindex tipo di carattere
 
 Il font Emmentaler è composto da due @emph{sottoinsiemi} di glifi.
 @qq{Feta}, usato nella notazione classica e @qq{Parmesan}, usato
@@ -1291,8 +1291,8 @@ Maggiori informazioni in @ref{Formattazione del testo}.
 @appendixsec Stili delle teste di nota
 @translationof Note head styles
 
-@cindex stili delle teste di nota
-@cindex teste di nota, stili
+@cindex stile delle teste di nota
+@cindex testa di nota, stile
 
 Si possono usare i seguenti stili per le teste di nota.
 
@@ -1307,41 +1307,41 @@ La seguente tabella mostra tutti gli stili di chiave possibili
 (inclusi quelli in cui la posizione del @emph{Do centrale}) cambia a
 seconda della chiave).
 
-@cindex Chiave di violino
-@cindex Violino, chiave di
-@cindex Chiave di Sol
+@cindex chiave di violino
+@cindex violino, chiave di
+@cindex chiave di Sol
 @cindex Sol, chiave di
 @cindex G, chiave di
 @cindex G2, chiave di
 @cindex GG, chiave di
-@cindex Chiave di Sol tenore
+@cindex chiave di Sol tenore
 @cindex Sol tenore, chiave di
-@cindex Chiave di soprano
-@cindex Soprano, chiave di
-@cindex Chiave di mezzosoprano
-@cindex Mezzosoprano, chiave di
-@cindex Chiave di alto
-@cindex Alto, chiave di
-@cindex Chiave di tenore
-@cindex Tenore, chiave di
-@cindex Chiave di baritono
-@cindex Baritono, chiave di
-@cindex Chiave di basso
-@cindex Basso, chiave di
+@cindex chiave di soprano
+@cindex soprano, chiave di
+@cindex chiave di mezzosoprano
+@cindex mezzosoprano, chiave di
+@cindex chiave di alto
+@cindex alto, chiave di
+@cindex chiave di tenore
+@cindex tenore, chiave di
+@cindex chiave di baritono
+@cindex baritono, chiave di
+@cindex chiave di basso
+@cindex basso, chiave di
 @cindex Chiave di Fa
 @cindex Fa, chiave di
-@cindex Chiavi dell'intavolatura
-@cindex Intavolatura, chiavi di
-@cindex Tablatura, chiavi di
-@cindex Chiavi delle percussioni
-@cindex Percussioni, chiavi di
-@cindex Chiave, stili di
-@cindex Chiavi della musica antica
-@cindex Musica antica, chiavi di
-@cindex Chiave di petrucci
+@cindex chiavi dell'intavolatura
+@cindex intavolatura, chiavi di
+@cindex tablatura, chiavi di
+@cindex chiavi delle percussioni
+@cindex percussioni, chiavi di
+@cindex chiave, stili di
+@cindex chiavi della musica antica
+@cindex musica antica, chiavi di
+@cindex chiave di Petrucci
 @cindex Petrucci, chiave
-@cindex Chiave mensurale
-@cindex Mensurale, chiave
+@cindex chiave mensurale
+@cindex mensurale, chiave
 
 @menu
 * Chiavi standard::
@@ -2209,15 +2209,21 @@ second column examples was always larger than between the remaining
 columns - JL
 @end ignore
 
-@cindex accento
-@cindex espressivo
-@cindex marcato
-@cindex portato
-@cindex staccatissimo
-@cindex staccato
-@cindex tenuto
+@funindex \accent
+@funindex ->
+@funindex \espressivo
+@funindex \marcato
+@funindex -^
+@funindex \portato
+@funindex -_
+@funindex \staccatissimo
+@funindex -!
+@funindex \staccato
+@funindex -.
+@funindex \tenuto
+@funindex --
 @cindex pollice
-@cindex \thumb
+
 
 @node Articolazioni
 @unnumberedsubsec Articolazioni
@@ -2264,20 +2270,21 @@ f^\tenuto e,_\tenuto b'\tenuto
 
 @end multitable
 
-@cindex prall
-@cindex prallup
-@cindex pralldown
-@cindex upprall
-@cindex downprall
-@cindex prallprall
-@cindex lineprall
-@cindex prallmordent
-@cindex mordent
-@cindex upmordent
-@cindex downmordent
-@cindex trill
-@cindex turn
-@cindex reverseturn
+@funindex \prall
+@funindex \prallup
+@funindex \pralldown
+@funindex \upprall
+@funindex \downprall
+@funindex \prallprall
+@funindex \lineprall
+@funindex \prallmordent
+@funindex \mordent
+@funindex \upmordent
+@funindex \downmordent
+@funindex \trill
+@funindex \turn
+@funindex \reverseturn
+
 
 @node Ornamenti
 @unnumberedsubsec Ornamenti
@@ -2361,12 +2368,11 @@ f^\reverseturn e,_\reverseturn b'\reverseturn
 
 @end multitable
 
-@cindex fermata
-@cindex shortfermata
-@cindex longfermata
-@cindex verylongfermata
-@cindex punti coronati
-@cindex corona
+@funindex \fermata
+@funindex \shortfermata
+@funindex \longfermata
+@funindex \verylongfermata
+
 
 @node Punti coronati
 @unnumberedsubsec Punti coronati
@@ -2397,22 +2403,19 @@ f^\verylongfermata e,_\verylongfermata b'\verylongfermata
 
 @end multitable
 
-@cindex upbow
-@cindex downbow
-@cindex flageolet
-@cindex open
-@cindex halfopen
-@cindex lheel
-@cindex rheel
-@cindex ltoe
-@cindex rtoe
-@cindex snappizzicato
-@cindex stopped
-@cindex arcate, in su e in giù
-@cindex stoppata, nota
-@cindex aperto
-@cindex semiaperto
-@cindex pizzicato
+@funindex \upbow
+@funindex \downbow
+@funindex \flageolet
+@funindex \open
+@funindex \halfopen
+@funindex \lheel
+@funindex \rheel
+@funindex \ltoe
+@funindex \rtoe
+@funindex \snappizzicato
+@funindex \stopped
+@funindex -+
+
 
 @node Segni specifici per strumento
 @unnumberedsubsec Segni specifici per strumento
@@ -2480,9 +2483,10 @@ f^\stopped e,_\stopped b'\stopped
 
 @end multitable
 
-@cindex segno
-@cindex coda
-@cindex varcoda
+@funindex \segno
+@funindex \coda
+@funindex \varcoda
+
 
 @node Segni di ripetizione
 @unnumberedsubsec Segni di ripetizione
@@ -2508,11 +2512,11 @@ f^\varcoda e,_\varcoda b'\varcoda
 
 @end multitable
 
-@cindex accentus
-@cindex circulus
-@cindex ictus
-@cindex semicirculus
-@cindex signumcongruentiae
+@funindex \accentus
+@funindex \circulus
+@funindex \ictus
+@funindex \semicirculus
+@funindex \signumcongruentiae
 
 @node Segni antichi
 @unnumberedsubsec Segni antichi
@@ -3114,8 +3118,8 @@ Guida alla notazione:
 @unnumberedsubsec grob
 
 @cindex grob
-@cindex formattazione, oggetti
-@cindex oggetti grafici
+@cindex formattazione, oggetto
+@cindex oggetto grafico
 
 Gli oggetti di LilyPond che rappresentano elementi della notazione
 nell'output -- come teste di nota, gambi, legature di portamento e
@@ -3139,10 +3143,10 @@ Guida al funzionamento interno:
 @unnumberedsubsec immutable
 
 @cindex immutable
-@cindex oggetti immutabili
-@cindex proprietà immutabili
-@cindex proprietà condivise
-@cindex immutabili, oggetti
+@cindex oggetto immutabile
+@cindex proprietà immutabile
+@cindex proprietà condivisa
+@cindex immutabile, oggetto
 
 Un oggetto si dice @strong{immutabile} -- in inglese @emph{immutable} --
 se il suo stato non può essere modificato dopo la sua creazione,
@@ -3163,8 +3167,8 @@ Guida alla notazione:
 @unnumberedsubsec interface
 
 @cindex interfaccia
-@cindex grob-interface
-@cindex interfacce dei grob
+@funindex grob-interface
+@cindex interfaccia dell'oggetto grafico
 
 Le azioni e le proprietà comuni a un insieme di grob sono raggruppate
 in un oggetto chiamato @code{grob-interface} o semplicemente
@@ -3225,7 +3229,7 @@ Guida alla notazione:
 @node output-def
 @unnumberedsubsec output-def
 
-@cindex output-def
+@funindex output-def
 
 Un'istanza della classe @code{Output-def} contiene i metodi e le
 strutture dei dati associate con un blocco di output. Tali istanze
@@ -3262,18 +3266,18 @@ del codice sorgente e non è incluso nell'installazione binaria di LilyPond.
 @cindex parser variable
 @cindex variabile dell'analizzatore sintattico
 @cindex variabile Scheme
-@cindex variabile globale
-@cindex afterGraceFraction
-@cindex musicQuotes
-@cindex mode
-@cindex output-count
-@cindex output-suffix
-@cindex partCombineListener
-@cindex pitchnames
-@cindex toplevel-bookparts
-@cindex toplevel-scores
-@cindex showLastLength
-@cindex showFirstLength
+@funindex variabile globale
+@funindex afterGraceFraction
+@funindex musicQuotes
+@funindex mode
+@funindex output-count
+@funindex output-suffix
+@funindex partCombineListener
+@funindex pitchnames
+@funindex toplevel-bookparts
+@funindex toplevel-scores
+@funindex showLastLength
+@funindex showFirstLength
 
 Si tratta di variabili definite direttamente in Scheme.  Il loro uso da
 parte degli utente è fortemente scoraggiato, perché la semantica del
