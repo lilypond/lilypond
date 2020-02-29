@@ -756,23 +756,6 @@ AC_DEFUN(STEPMAKE_LIB, [
 ])
 
 
-AC_DEFUN(STEPMAKE_LIBTOOL, [
-    # libtool.info ...
-    # **Never** try to set library version numbers so that they correspond
-    # to the release number of your package.  This is an abuse that only
-    # fosters misunderstanding of the purpose of library versions.
-
-    REVISION=$PATCH_LEVEL
-    # CURRENT=$MINOR_VERSION
-    CURRENT=`expr $MINOR_VERSION + 1`
-    # AGE=`expr $MAJOR_VERSION + 1`
-    AGE=$MAJOR_VERSION
-    AC_SUBST(CURRENT)
-    AC_SUBST(REVISION)
-    AC_SUBST(AGE)
-])
-
-
 AC_DEFUN(STEPMAKE_LOCALE, [
     lang=English
     ALL_LINGUAS="en nl"
