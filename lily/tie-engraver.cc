@@ -171,8 +171,8 @@ Tie_engraver::tie_notehead (Grob *h, bool enharmonic)
       SCM p1 = left_ev->get_property ("pitch");
       SCM p2 = right_ev->get_property ("pitch");
       if ((enharmonic
-           ? (unsmob<Pitch> (p1) && unsmob<Pitch> (p2) &&
-              unsmob<Pitch> (p1)->tone_pitch () == unsmob<Pitch> (p2)->tone_pitch ())
+           ? (unsmob<Pitch> (p1) && unsmob<Pitch> (p2)
+              && unsmob<Pitch> (p1)->tone_pitch () == unsmob<Pitch> (p2)->tone_pitch ())
            : ly_is_equal (p1, p2))
           && (!Tie_engraver::has_autosplit_end (left_ev)))
         {
@@ -180,8 +180,8 @@ Tie_engraver::tie_notehead (Grob *h, bool enharmonic)
           Moment end = heads_to_tie_[i].end_moment_;
 
           Stream_event *cause = heads_to_tie_[i].tie_event_
-                                    ? heads_to_tie_[i].tie_event_
-                                    : heads_to_tie_[i].tie_stream_event_;
+                                ? heads_to_tie_[i].tie_event_
+                                : heads_to_tie_[i].tie_stream_event_;
 
           announce_end_grob (p, cause->self_scm ());
 
@@ -276,7 +276,6 @@ Tie_engraver::process_acknowledged ()
 
   vector<Head_event_tuple> new_heads_to_tie;
 
-
   for (vsize i = 0; i < now_heads_.size (); i++)
     {
       Grob *head = now_heads_[i];
@@ -320,8 +319,8 @@ Tie_engraver::process_acknowledged ()
           event_tup.tie_event_ = tie_event;
           event_tup.tie_stream_event_ = tie_stream_event;
           event_tup.tie_ = make_spanner ("Tie", tie_event
-                                    ? tie_event->self_scm ()
-                                    : tie_stream_event->self_scm ());
+                                         ? tie_event->self_scm ()
+                                         : tie_stream_event->self_scm ());
 
           Moment end = now_mom ();
           if (end.grace_part_)

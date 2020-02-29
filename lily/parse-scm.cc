@@ -121,7 +121,7 @@ parse_handler (void *data, SCM /*tag*/, SCM args)
   Parse_start *ps = (Parse_start *) data;
 
   ps->location_.non_fatal_error
-    (_ ("GUILE signaled an error for the expression beginning here"));
+  (_ ("GUILE signaled an error for the expression beginning here"));
 
   if (scm_ilength (args) > 2)
     scm_display_error_message (scm_cadr (args), scm_caddr (args), scm_current_error_port ());
@@ -175,10 +175,10 @@ ly_eval_scm (SCM form, Input i, bool safe, Lily_parser *parser)
   Parse_start ps (form, i, safe, parser);
 
   SCM ans = scm_c_with_fluid
-    (Lily::f_location,
-     i.smobbed_copy (),
-     parse_protect_global ? protected_ly_eval_scm
-     : catch_protected_eval_body, (void *) &ps);
+            (Lily::f_location,
+             i.smobbed_copy (),
+             parse_protect_global ? protected_ly_eval_scm
+             : catch_protected_eval_body, (void *) &ps);
 
   scm_remember_upto_here_1 (form);
   return ans;

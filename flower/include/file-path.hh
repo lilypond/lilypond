@@ -42,9 +42,9 @@ public:
   string find (const string &name, char const *extensions[]);
   string to_string () const;
   bool try_append (string str);
-  void append (const string&);
-  void parse_path (const string&);
-  void prepend (const string&);
+  void append (const string &);
+  void parse_path (const string &);
+  void prepend (const string &);
 };
 
 bool is_file (const string &file_name);

@@ -109,7 +109,6 @@ Bar_engraver::acknowledge_end_spanner (Grob_info gi)
     spanners_.push_back (dynamic_cast<Spanner *> (g));
 }
 
-
 void
 Bar_engraver::boot ()
 {

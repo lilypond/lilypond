@@ -28,7 +28,6 @@
 #include "scm-hash.hh"
 #include "warn.hh"
 
-
 #include "program-option.hh"
 
 #include "string-convert.hh"
@@ -60,7 +59,6 @@ Output_def::~Output_def ()
 {
 }
 
-
 SCM
 Output_def::mark_smob () const
 {
@@ -73,7 +71,7 @@ Output_def::mark_smob () const
 }
 
 void
-assign_context_def (Output_def * m, SCM transdef)
+assign_context_def (Output_def *m, SCM transdef)
 {
   Context_def *tp = unsmob<Context_def> (transdef);
   assert (tp);
@@ -213,8 +211,8 @@ Output_def::normalize ()
         {
           left_margin = scm_to_double (scm_left_margin);
           right_margin = (SCM_UNBNDP (scm_right_margin)
-                           ? (paper_width - line_width - left_margin)
-                           : scm_to_double (scm_right_margin)) + binding_offset;
+                          ? (paper_width - line_width - left_margin)
+                          : scm_to_double (scm_right_margin)) + binding_offset;
         }
     }
 
@@ -249,7 +247,7 @@ line_dimensions_int (Output_def *def, int n)
 {
   Real lw = def->get_dimension (ly_symbol2scm ("line-width"));
   Real ind = n
-    ? def->get_dimension (ly_symbol2scm ("short-indent"))
-    : def->get_dimension (ly_symbol2scm ("indent"));
+             ? def->get_dimension (ly_symbol2scm ("short-indent"))
+             : def->get_dimension (ly_symbol2scm ("indent"));
   return Interval (ind, lw);
 }

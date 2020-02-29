@@ -54,7 +54,6 @@ public:
   TRANSLATOR_DECLARATIONS (Axis_group_engraver);
 };
 
-
 Axis_group_engraver::Axis_group_engraver (Context *c)
   : Engraver (c)
 {
@@ -76,7 +75,6 @@ Axis_group_engraver::derived_mark () const
 {
   scm_gc_mark (interesting_);
 }
-
 
 bool
 Axis_group_engraver::must_be_last () const
@@ -171,7 +169,6 @@ Axis_group_engraver::add_element (Grob *e)
   Axis_group_interface::add_element (staffline_, e);
 }
 
-
 void
 Axis_group_engraver::boot ()
 {
@@ -190,7 +187,7 @@ ADD_TRANSLATOR (Axis_group_engraver,
                 "currentCommandColumn "
                 "keepAliveInterfaces "
                 "hasAxisGroup ",
-                
+
                 /* write */
                 "hasAxisGroup "
                );

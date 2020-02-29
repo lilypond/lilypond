@@ -24,7 +24,7 @@
 #include "fluid.hh"
 #include "lily-imports.hh"
 
-const char * const Music_function::type_p_name_ = "ly:music-function?";
+const char *const Music_function::type_p_name_ = "ly:music-function?";
 
 /* Print a textual represenation of the smob to a given port.  */
 int
@@ -122,13 +122,15 @@ Music_function::call (SCM rest)
             rest = scm_cdr (rest);
           // Replace this and all following optional arguments with
           // their defaults:
-          do {
-            args = scm_cons (with_loc (scm_cdr (pred), location), args);
-            signature = scm_cdr (signature);
-            if (!scm_is_pair (signature))
-              break;
-            pred = scm_car (signature);
-          } while (scm_is_pair (pred));
+          do
+            {
+              args = scm_cons (with_loc (scm_cdr (pred), location), args);
+              signature = scm_cdr (signature);
+              if (!scm_is_pair (signature))
+                break;
+              pred = scm_car (signature);
+            }
+          while (scm_is_pair (pred));
           continue;
         }
       // Normal processing of accepted argument

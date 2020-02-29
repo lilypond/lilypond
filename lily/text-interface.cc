@@ -209,9 +209,9 @@ bool
 Text_interface::is_markup (SCM x)
 {
   return scm_is_string (x)
-    || (scm_is_pair (x)
-        && scm_is_true (Lily::markup_command_signature (scm_car (x)))
-        && scm_is_false (Lily::markup_list_function_p (scm_car (x))));
+         || (scm_is_pair (x)
+             && scm_is_true (Lily::markup_command_signature (scm_car (x)))
+             && scm_is_false (Lily::markup_list_function_p (scm_car (x))));
 }
 bool
 Text_interface::is_markup_list (SCM x)

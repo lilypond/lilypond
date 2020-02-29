@@ -35,7 +35,7 @@ public:
                            SCM to_type, const string &to_id);
 
 private:
-  void error (const string&);
+  void error (const string &);
 };
 
 #endif

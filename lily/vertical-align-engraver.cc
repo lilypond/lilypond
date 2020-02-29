@@ -102,7 +102,7 @@ Vertical_align_engraver::process_music ()
           id_to_group_hashtab_ = SCM_EOL;
           return;
         }
-      
+
       top_level_ = to_boolean (get_property ("topLevelAlignment"));
 
       valign_ = make_spanner (top_level_ ? "VerticalAlignment" : "StaffGrouper", SCM_EOL);

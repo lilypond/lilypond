@@ -104,10 +104,10 @@ LY_DEFINE (ly_source_files, "ly:source-files", 0, 1, 0,
 
   SCM lst = SCM_EOL;
   for (vector<string>::const_iterator
-       i = lex->file_name_strings_.begin();
-       i != lex->file_name_strings_.end(); ++i)
-       {
-         lst = scm_cons (ly_string2scm (*i), lst);
-       }
+       i = lex->file_name_strings_.begin ();
+       i != lex->file_name_strings_.end (); ++i)
+    {
+      lst = scm_cons (ly_string2scm (*i), lst);
+    }
   return scm_reverse_x (lst, SCM_EOL);
 }

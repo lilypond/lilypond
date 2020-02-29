@@ -54,8 +54,8 @@ Partial_iterator::process (Moment m)
       // measurePosition when initializing.
 
       Context *timing = unsmob<Context>
-        (Lily::ly_context_find (get_outlet ()->self_scm (),
-                                ly_symbol2scm ("Timing")));
+                        (Lily::ly_context_find (get_outlet ()->self_scm (),
+                                                ly_symbol2scm ("Timing")));
 
       if (!timing)
         programming_error ("missing Timing in \\partial");
@@ -92,11 +92,12 @@ Partial_iterator::finalization (SCM ctx, SCM length)
   LY_ASSERT_SMOB (Context, ctx, 1);
   LY_ASSERT_SMOB (Moment, length, 2);
   Context *timing = unsmob<Context>
-    (Lily::ly_context_find (ctx, ly_symbol2scm ("Timing")));
-  if (!timing) {
-    programming_error ("missing Timing in \\partial");
-    return SCM_UNSPECIFIED;
-  }
+                    (Lily::ly_context_find (ctx, ly_symbol2scm ("Timing")));
+  if (!timing)
+    {
+      programming_error ("missing Timing in \\partial");
+      return SCM_UNSPECIFIED;
+    }
   Moment mp = robust_scm2moment (timing->get_property ("measurePosition"),
                                  Rational (0));
   mp.main_part_ = measure_length (timing);

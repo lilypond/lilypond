@@ -132,7 +132,6 @@ Fingering_engraver::Fingering_engraver (Context *c)
 {
 }
 
-
 void
 Fingering_engraver::boot ()
 {

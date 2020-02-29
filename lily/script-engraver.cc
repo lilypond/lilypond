@@ -275,7 +275,6 @@ Script_engraver::stop_translation_timestep ()
   scripts_.clear ();
 }
 
-
 void
 Script_engraver::boot ()
 {

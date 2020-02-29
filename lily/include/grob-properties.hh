@@ -34,8 +34,9 @@
 // reflective data structure containing all necessary information for
 // the algorithms processing Grob_properties.
 
-class Grob_property_info {
-  Context * const context_;
+class Grob_property_info
+{
+  Context *const context_;
   SCM const symbol_;
   Grob_properties *props_;
 public:

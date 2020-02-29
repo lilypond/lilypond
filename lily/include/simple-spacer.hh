@@ -43,7 +43,6 @@ public:
   Real force_penalty (bool ragged) const;
   bool fits () const;
 
-
 private:
   Real expand_line ();
   Real compress_line ();

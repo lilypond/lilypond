@@ -27,7 +27,8 @@
 class Slur_engraver : public Engraver
 {
 protected:
-  struct Event_info {
+  struct Event_info
+  {
     Stream_event *slur_, *note_;
     Event_info (Stream_event *slur, Stream_event *note)
       : slur_ (slur), note_ (note)
@@ -46,7 +47,7 @@ protected:
   virtual SCM event_symbol () const;
   virtual bool double_property () const;
   virtual SCM grob_symbol () const;
-  virtual const char* object_name () const;
+  virtual const char *object_name () const;
 
   void acknowledge_note_column (Grob_info);
   void acknowledge_script (Grob_info);

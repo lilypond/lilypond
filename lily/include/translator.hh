@@ -44,12 +44,12 @@
 class Translator_creator : public Smob<Translator_creator>
 {
   Translator_creator (Translator_creator const &); // don't define
-  Translator * (*allocate_)(Context *);
+  Translator *(*allocate_) (Context *);
   template <class T>
   static Translator *allocate (Context *ctx);
 
-  Translator_creator (Translator * (*allocate)(Context *))
-    : allocate_(allocate)
+  Translator_creator (Translator * (*allocate) (Context *))
+    : allocate_ (allocate)
   {
     smobify_self ();
   }
@@ -57,9 +57,9 @@ public:
   // This is stupid, but constructors cannot have explicit template
   // argument lists.
   template <class T>
-  static Translator_creator *alloc()
+  static Translator_creator *alloc ()
   {
-    return new Translator_creator(&allocate<T>);
+    return new Translator_creator (&allocate<T>);
   }
   SCM call (SCM ctx);
   LY_DECLARE_SMOB_PROC (&Translator_creator::call, 1, 0, 0);
@@ -68,7 +68,7 @@ public:
 template <class T> Translator *
 Translator_creator::allocate (Context *ctx)
 {
-  return new T(ctx);
+  return new T (ctx);
 }
 
 #define TRANSLATOR_FAMILY_DECLARATIONS(NAME)                            \
@@ -149,7 +149,7 @@ class Translator : public Smob<Translator>
 public:
   int print_smob (SCM, scm_print_state *) const;
   SCM mark_smob () const;
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
   virtual ~Translator ();
 
   Context *context () const { return daddy_context_; }
@@ -191,7 +191,7 @@ protected:                      // should be private.
   Context *daddy_context_;
   void protect_event (SCM ev);
 
-  template <class T, void (T::*callback)(Stream_event *)>
+  template <class T, void (T::*callback) (Stream_event *)>
   static SCM trampoline (SCM target, SCM event)
   {
     T *t = unsmob<T> (target);

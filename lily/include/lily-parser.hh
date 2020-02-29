@@ -36,7 +36,7 @@ class Lily_parser : public Smob<Lily_parser>
 public:
   int print_smob (SCM, scm_print_state *) const;
   SCM mark_smob () const;
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
   virtual ~Lily_parser ();
   Lily_lexer *lexer_;
   Sources *sources_;
@@ -61,15 +61,14 @@ public:
   void parse_file (const string &init, const string &name, const string &out_name);
   void parse_string (const string &ly_code);
   SCM parse_string_expression (const string &ly_code, const string &filename, int line);
-  void parser_error (const string&);
-  void parser_error (Input const &, const string&);
+  void parser_error (const string &);
+  void parser_error (Input const &, const string &);
   // The following is called as yyerror
   static void parser_error (Input const *i, Lily_parser *parser, SCM *, const string &s);
   void set_yydebug (bool);
 
   SCM make_scope () const;
 };
-
 
 Output_def *get_layout (Lily_parser *parser);
 Output_def *get_midi (Lily_parser *parser);

@@ -284,7 +284,7 @@ make_partial_ellipse_boxes (vector<Box> &boxes,
         {
           Real ang = linear_map (start, end, 0, quantization, i);
           Offset pt (offset_directed (ang).scale (rad));
-          Offset inter = pt + d * get_normal ((th/2) * pt.direction ());
+          Offset inter = pt + d * get_normal ((th / 2) * pt.direction ());
           pango_matrix_transform_point (&trans, &inter[X_AXIS], &inter[Y_AXIS]);
           points[d].push_back (inter);
         }
@@ -369,8 +369,8 @@ create_path_cap (vector<Box> &boxes,
   make_partial_ellipse_boxes (boxes, buildings, new_trans,
                               scm_list_n (scm_from_double (rad),
                                           scm_from_double (rad),
-                                          scm_from_double (angle-90.01),
-                                          scm_from_double (angle+90.01),
+                                          scm_from_double (angle - 90.01),
+                                          scm_from_double (angle + 90.01),
                                           scm_from_double (0.0),
                                           SCM_BOOL_F,
                                           SCM_BOOL_F,
@@ -422,19 +422,19 @@ make_draw_bezier_boxes (vector<Box> &boxes,
   for (DOWN_and_UP (d))
     {
       Offset first = curve.control_[0]
-        + d * get_normal ((th / 2) * curve.dir_at_point (0.0));
+                     + d * get_normal ((th / 2) * curve.dir_at_point (0.0));
       pango_matrix_transform_point (&trans, &first[X_AXIS], &first[Y_AXIS]);
       points[d].push_back (first);
       for (vsize i = 1; i < (vsize) quantization; i++)
         {
           Real pt = (i * 1.0) / quantization;
           Offset inter = curve.curve_point (pt)
-            + d * get_normal ((th / 2) *curve.dir_at_point (pt));
+                         + d * get_normal ((th / 2) * curve.dir_at_point (pt));
           pango_matrix_transform_point (&trans, &inter[X_AXIS], &inter[Y_AXIS]);
           points[d].push_back (inter);
         }
       Offset last = curve.control_[3]
-        + d * get_normal ((th / 2) * curve.dir_at_point (1.0));
+                    + d * get_normal ((th / 2) * curve.dir_at_point (1.0));
       pango_matrix_transform_point (&trans, &last[X_AXIS], &last[Y_AXIS]);
       points[d].push_back (last);
     }
@@ -902,8 +902,8 @@ stencil_traverser (PangoMatrix trans, SCM expr)
       vector<Transform_matrix_and_expression> out;
       for (SCM s = scm_cdr (expr); scm_is_pair (s); s = scm_cdr (s))
         {
-          vector<Transform_matrix_and_expression> res =
-            stencil_traverser (trans, scm_car (s));
+          vector<Transform_matrix_and_expression> res
+            = stencil_traverser (trans, scm_car (s));
           out.insert (out.end (), res.begin (), res.end ());
         }
       return out;

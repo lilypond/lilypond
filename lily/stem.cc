@@ -112,7 +112,7 @@ Stem::chord_start_y (Grob *me)
 {
   if (head_count (me))
     return Staff_symbol_referencer::get_position (last_head (me))
-      * Staff_symbol_referencer::staff_space (me) * 0.5;
+           * Staff_symbol_referencer::staff_space (me) * 0.5;
 
   return 0;
 }
@@ -823,7 +823,6 @@ Stem::internal_calc_stem_begin_position (Grob *me, bool calc_beam)
   return pos;
 }
 
-
 MAKE_SCHEME_CALLBACK (Stem, pure_calc_length, 3);
 SCM
 Stem::pure_calc_length (SCM smob, SCM /*start*/, SCM /*end*/)
@@ -931,7 +930,7 @@ Stem::offset_callback (SCM smob)
 
       Direction d = get_grob_direction (me);
       Real real_attach = head_wid.linear_combination (d * attach);
-      Real r = isnan(real_attach)? 0.0: real_attach;
+      Real r = isnan (real_attach) ? 0.0 : real_attach;
 
       /* If not centered: correct for stem thickness.  */
       string style = robust_symbol2string (f->get_property ("style"), "default");

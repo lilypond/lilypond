@@ -31,7 +31,7 @@ Clef_modifier::calc_parent_alignment (SCM smob)
   Grob *me = unsmob<Grob> (smob);
   Grob *clef = me->get_parent (X_AXIS);
   string full_clef_name = ly_scm2string (clef->get_property ("glyph"));
-  string clef_name = replace_all(&full_clef_name, "clefs.", "");
+  string clef_name = replace_all (&full_clef_name, "clefs.", "");
 
   // find entry with keyname clef_type in clef-alignments
   SCM alist_entry = scm_assq (ly_symbol2scm (clef_name.c_str ()),

@@ -232,7 +232,6 @@ Stem_engraver::listen_tremolo (Stream_event *ev)
   ASSIGN_EVENT_ONCE (tremolo_ev_, ev);
 }
 
-
 void
 Stem_engraver::boot ()
 {

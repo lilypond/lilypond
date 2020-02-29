@@ -35,7 +35,6 @@ struct Scale : public Smob<Scale>
   int step_count () const;
   int normalize_step (int step) const;
 
-
 private:
   vector<Rational> step_tones_;
 };

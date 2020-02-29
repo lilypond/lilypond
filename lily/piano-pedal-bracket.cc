@@ -89,9 +89,8 @@ Piano_pedal_bracket::print (SCM smob)
   if (!span_points.is_empty ()
       && span_points.length () > 0.001)
     {
-      m = Bracket::make_bracket (
-        me, Y_AXIS, Offset (span_points.length (), 0), height,
-        Interval (), flare, shorten);
+      m = Bracket::make_bracket (me, Y_AXIS, Offset (span_points.length (), 0), height,
+                                 Interval (), flare, shorten);
     }
   m.translate_axis (span_points[LEFT]
                     - me->relative_coordinate (common, X_AXIS), X_AXIS);

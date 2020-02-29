@@ -319,8 +319,8 @@ Lookup::round_filled_polygon (vector<Offset> const &points,
           Offset p2 = points[i2];
           Offset p01 = p1 - p0;
           Offset p12 = p2 - p1;
-          Offset inward0 = Offset(-p01[Y_AXIS], p01[X_AXIS]).direction ();
-          Offset inward2 = Offset(-p12[Y_AXIS], p12[X_AXIS]).direction ();
+          Offset inward0 = Offset (-p01[Y_AXIS], p01[X_AXIS]).direction ();
+          Offset inward2 = Offset (-p12[Y_AXIS], p12[X_AXIS]).direction ();
 
           if (!ccw)
             {
@@ -328,7 +328,7 @@ Lookup::round_filled_polygon (vector<Offset> const &points,
               inward2 = -inward2;
             }
 
-          Offset middle = 0.5*(inward0 + inward2);
+          Offset middle = 0.5 * (inward0 + inward2);
 
           // "middle" now is a vector in the right direction for the
           // shrinkage.  Its size needs to be large enough that the
@@ -354,7 +354,7 @@ Lookup::round_filled_polygon (vector<Offset> const &points,
             proj = proj < 0 ? -0.03 : 0.03;
 
           shrunk_points[i1] = p1 - (0.5 * blotdiameter / proj) * middle
-                          * extroversion;
+                              * extroversion;
         }
     }
 
@@ -370,7 +370,7 @@ Lookup::round_filled_polygon (vector<Offset> const &points,
       box.add_point (points[i]);
       shrunk_box.add_point (shrunk_points[i]);
     }
-  shrunk_box.widen (0.5*blotdiameter, 0.5*blotdiameter);
+  shrunk_box.widen (0.5 * blotdiameter, 0.5 * blotdiameter);
   box.unite (shrunk_box);
   SCM polygon_scm = scm_list_4 (ly_symbol2scm ("polygon"),
                                 ly_quote_scm (shrunk_points_scm),
@@ -547,7 +547,7 @@ Stencil
 Lookup::repeat_slash (Real w, Real s, Real t)
 {
 
-  Real x_width = hypot (t, t/s);
+  Real x_width = hypot (t, t / s);
   Real height = w * s;
 
   SCM controls = scm_list_n (ly_symbol2scm ("moveto"),

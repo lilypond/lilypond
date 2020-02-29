@@ -156,7 +156,6 @@ Text_spanner_engraver::acknowledge_note_column (Grob_info info)
     }
 }
 
-
 void
 Text_spanner_engraver::boot ()
 {

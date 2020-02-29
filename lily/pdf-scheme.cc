@@ -91,7 +91,7 @@ LY_DEFINE (ly_encode_string_for_pdf, "ly:encode-string-for-pdf",
        * in a locale independent way.
        */
       SCM string = scm_from_latin1_stringn (g, bytes_written);
-      free(g);
+      free (g);
       return string;
     }
   else

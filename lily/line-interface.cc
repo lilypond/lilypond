@@ -231,8 +231,8 @@ Line_interface::line (Grob *me, Offset from, Offset to)
         there will be one more dash than complete dash + whitespace
         units (full periods).
       */
-      int full_period_count =
-        (int) rint ((len - period * fraction) / period);
+      int full_period_count
+        = (int) rint ((len - period * fraction) / period);
       full_period_count = max (0, full_period_count);
       if (full_period_count > 0)
         {

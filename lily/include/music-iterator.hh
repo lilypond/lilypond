@@ -63,7 +63,7 @@ class Music_iterator : public Smob<Music_iterator>
 public:
   int print_smob (SCM, scm_print_state *) const;
   SCM mark_smob () const;
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
   virtual ~Music_iterator ();
 protected:
   Moment music_length_;
@@ -122,6 +122,5 @@ bool is_child_context (Context *me, Context *child);
     Class *c = (new Class);                                             \
     return c->unprotect ();                                             \
   }
-
 
 #endif // MUSIC_ITERATOR_HH

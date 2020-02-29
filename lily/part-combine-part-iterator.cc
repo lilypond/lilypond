@@ -28,7 +28,7 @@ public:
 
 private:
   virtual void change_to (const string &id);
-  Context *find_voice(const string &id);
+  Context *find_voice (const string &id);
 };
 
 void
@@ -52,7 +52,7 @@ Part_combine_part_iterator::find_voice (const string &id)
   // also find a sibling's descendant, but that should not be a problem.)
   Context *c = get_outlet ()->get_parent_context ();
   if (c)
-    return find_context_below (c, ly_symbol2scm("Voice"), id);
+    return find_context_below (c, ly_symbol2scm ("Voice"), id);
   programming_error ("no parent context");
   return 0;
 }

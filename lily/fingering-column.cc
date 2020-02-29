@@ -34,8 +34,8 @@ struct Fingering_and_offset
   Fingering_and_offset (Grob *fingering, Real offset);
 };
 
-Fingering_and_offset::Fingering_and_offset (Grob *fingering, Real offset) :
-  fingering_ (fingering), offset_ (offset)
+Fingering_and_offset::Fingering_and_offset (Grob *fingering, Real offset)
+  : fingering_ (fingering), offset_ (offset)
 {
 }
 
@@ -76,45 +76,45 @@ Fingering_column::do_y_positioning (Grob *me)
   for (vsize i = 0; i < const_fingerings.size (); i++)
     fingerings.push_back (const_fingerings[i]);
 
-
   Grob *common[2] = {common_refpoint_of_array (fingerings, me, X_AXIS),
-                     common_refpoint_of_array (fingerings, me, Y_AXIS)};
+                     common_refpoint_of_array (fingerings, me, Y_AXIS)
+                    };
 
   Real padding = robust_scm2double (me->get_property ("padding"), 0.2);
 
   // order the fingerings from bottom to top
   vector_sort (fingerings, pure_position_less);
 
- vector<Real> shift(fingerings.size());
+  vector<Real> shift (fingerings.size ());
 
   // Try stacking the fingerings top-to-bottom, and then bottom-to-top.
   // Use the average of the resulting stacked locations as the final positions
   for (UP_and_DOWN (d))
-     {
+    {
       Real stack_end = -d * infinity_f;
       Interval prev_x_ext;
-      for (vsize i = (d == UP)? 0 : fingerings.size() - 1;
+      for (vsize i = (d == UP) ? 0 : fingerings.size () - 1;
            i < fingerings.size ();
            i += d)
         {
-          Interval x_ext = fingerings[i]->extent(common[X_AXIS], X_AXIS);
-          Interval y_ext = fingerings[i]->extent(fingerings[i], Y_AXIS);
+          Interval x_ext = fingerings[i]->extent (common[X_AXIS], X_AXIS);
+          Interval y_ext = fingerings[i]->extent (fingerings[i], Y_AXIS);
           Real parent_y = fingerings[i]->parent_relative (common[Y_AXIS], Y_AXIS);
 
           // Checking only between sequential neighbors, seems good enough
-          if (!intersection(x_ext, prev_x_ext).is_empty())
-            stack_end += d * (y_ext.length() + padding);
+          if (!intersection (x_ext, prev_x_ext).is_empty ())
+            stack_end += d * (y_ext.length () + padding);
           // minmax() returns whichever is further along in direction d
-          stack_end = minmax(d, stack_end, parent_y);
+          stack_end = minmax (d, stack_end, parent_y);
 
           shift[i] += 0.5 * (stack_end - y_ext[d] - parent_y);
 
           prev_x_ext = x_ext;
         }
-     }
+    }
 
   for (vsize i = 0; i < fingerings.size (); i++)
-    fingerings[i]->translate_axis(shift[i], Y_AXIS);
+    fingerings[i]->translate_axis (shift[i], Y_AXIS);
 }
 
 void
@@ -141,7 +141,7 @@ Fingering_column::do_x_positioning (Grob *me)
   for (vsize i = 0; i < fos.size (); i++)
     {
       if ((fabs (fos[i].offset_ - prev) < snap)
-                && (fabs (fos[i].offset_ - prev) > EPS))
+          && (fabs (fos[i].offset_ - prev) > EPS))
         fos[i].offset_ = prev;
 
       prev = fos[i].offset_;

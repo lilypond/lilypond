@@ -64,7 +64,7 @@ Box::is_empty (Axis a) const
   Interval empty;
   empty.set_empty ();
   return interval_a_[a][LEFT] == empty[LEFT]
-    && interval_a_[a][RIGHT] == empty[RIGHT];
+         && interval_a_[a][RIGHT] == empty[RIGHT];
 }
 
 Box::Box (Interval ix, Interval iy)
@@ -132,5 +132,4 @@ Box::print ()
 
 /****************************************************************/
 
-
-const char * const Box::type_p_name_ = "ly:box?";
+const char *const Box::type_p_name_ = "ly:box?";

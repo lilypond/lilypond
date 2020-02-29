@@ -130,7 +130,7 @@ Part_combine_iterator::kill_mmrest (Context *c)
   if (!mmrest_event_)
     {
       mmrest_event_ = new Stream_event
-        (Lily::ly_make_event_class (ly_symbol2scm ("multi-measure-rest-event")));
+      (Lily::ly_make_event_class (ly_symbol2scm ("multi-measure-rest-event")));
       mmrest_event_->set_property ("duration", SCM_EOL);
       mmrest_event_->unprotect ();
     }
@@ -159,7 +159,7 @@ Part_combine_iterator::process (Moment m)
         iterators_[i]->process (m);
 
       if (prev_active_outlets[i] != iterators_[i]->get_outlet ())
-          any_outlet_changed = true;
+        any_outlet_changed = true;
     }
 
   if (any_outlet_changed)
@@ -170,7 +170,7 @@ Part_combine_iterator::process (Moment m)
         {
           Context *c = prev_active_outlets[i];
           if (c && !is_active_outlet (c))
-              kill_mmrest (c);
+            kill_mmrest (c);
         }
     }
 }

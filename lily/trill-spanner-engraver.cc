@@ -152,7 +152,6 @@ Trill_spanner_engraver::finalize ()
     }
 }
 
-
 void
 Trill_spanner_engraver::boot ()
 {

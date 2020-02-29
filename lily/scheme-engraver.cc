@@ -99,12 +99,12 @@ Scheme_engraver::Scheme_engraver (SCM definition, Context *c)
       listeners = scm_acons (event_class, proc, listeners);
     }
 
-  SCM hash1 =
-    init_acknowledgers (ly_assoc_get (ly_symbol2scm ("acknowledgers"),
-                                      definition, SCM_EOL));
-  SCM hash2 =
-    init_acknowledgers (ly_assoc_get (ly_symbol2scm ("end-acknowledgers"),
-                                      definition, SCM_EOL));
+  SCM hash1
+    = init_acknowledgers (ly_assoc_get (ly_symbol2scm ("acknowledgers"),
+                                        definition, SCM_EOL));
+  SCM hash2
+    = init_acknowledgers (ly_assoc_get (ly_symbol2scm ("end-acknowledgers"),
+                                        definition, SCM_EOL));
 
   per_instance_listeners_ = listeners;
   interface_acknowledger_hash_.set (hash1, hash2);

@@ -40,7 +40,7 @@ class Source_file : public Smob<Source_file>
 public:
   int print_smob (SCM, scm_print_state *) const;
   SCM mark_smob () const;
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
   virtual ~Source_file ();
 private:
   vector<char const *> newline_locations_;
@@ -54,7 +54,7 @@ private:
 
 public:
   Source_file (const string &fn);
-  Source_file (const string&, const string&);
+  Source_file (const string &, const string &);
 
   char const *c_str () const;
   virtual string quote_input (char const *pos_str0) const;

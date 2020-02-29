@@ -370,7 +370,6 @@ New_fingering_engraver::New_fingering_engraver (Context *c)
   stem_ = 0;
 }
 
-
 void
 New_fingering_engraver::boot ()
 {

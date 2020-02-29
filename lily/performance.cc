@@ -85,16 +85,16 @@ Performance::output (Midi_stream &midi_stream,
   for (vsize i = 0; i < audio_staffs_.size (); i++)
     {
       Audio_staff *s = audio_staffs_[i];
-      if (Audio_control_track_staff *c =
-          dynamic_cast<Audio_control_track_staff *>(s))
+      if (Audio_control_track_staff * c
+          = dynamic_cast<Audio_control_track_staff *>(s))
         {
           // The control track, created by Control_track_performer, should
           // contain a placeholder for the name of the MIDI sequence as its
           // initial audio element.  Fill in the name of the sequence to
           // this element before outputting MIDI.
           assert (!c->audio_items_.empty ());
-          Audio_text *text =
-            dynamic_cast<Audio_text *>(c->audio_items_.front ());
+          Audio_text *text
+            = dynamic_cast<Audio_text *>(c->audio_items_.front ());
           assert (text != 0);
           assert (text->type_ == Audio_text::TRACK_NAME);
           assert (text->text_string_ == "control track");

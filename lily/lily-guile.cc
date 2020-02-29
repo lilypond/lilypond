@@ -52,7 +52,7 @@ ly_scm_write_string (SCM s)
                             scm_make_string (SCM_INUM0, SCM_UNDEFINED),
                             SCM_OPN | SCM_WRTNG,
                             "ly_write2string");
-  scm_write(s, port);
+  scm_write (s, port);
   return ly_scm2string (scm_strport_to_string (port));
 }
 
@@ -460,7 +460,6 @@ ly_wrong_smob_arg (bool pred (SCM), SCM var, int number, const char *fun)
   scm_wrong_type_arg_msg (mangle_cxx_identifier (fun).c_str (),
                           number, var, type.c_str ());
 }
-
 
 /* some SCM abbrevs
 

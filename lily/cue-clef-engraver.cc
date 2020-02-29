@@ -139,8 +139,8 @@ Cue_clef_engraver::create_clef ()
         clef_->set_property ("staff-position", cpos);
 
       create_clef_modifier (get_property ("cueClefTransposition"),
-            get_property ("cueClefTranspositionStyle"),
-            get_property ("cueClefTranspositionFormatter"));
+                            get_property ("cueClefTranspositionStyle"),
+                            get_property ("cueClefTranspositionFormatter"));
     }
 }
 
@@ -155,8 +155,8 @@ Cue_clef_engraver::create_end_clef ()
         clef_->set_property ("staff-position", cpos);
 
       create_clef_modifier (get_property ("clefTransposition"),
-            get_property ("clefTranspositionStyle"),
-            get_property ("clefTranspositionFormatter"));
+                            get_property ("clefTranspositionStyle"),
+                            get_property ("clefTranspositionFormatter"));
     }
 }
 

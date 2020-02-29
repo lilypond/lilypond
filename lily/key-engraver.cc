@@ -214,7 +214,6 @@ Key_engraver::initialize ()
   context ()->set_property ("tonic", p.smobbed_copy ());
 }
 
-
 void
 Key_engraver::boot ()
 {

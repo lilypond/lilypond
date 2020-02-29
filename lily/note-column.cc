@@ -167,23 +167,23 @@ Note_column::first_head (Grob *me)
 Interval
 Note_column::calc_main_extent (Grob *me)
 {
-    Grob *main_head = 0;
-    if (get_stem (me))
-        main_head = first_head (me);
-    else
-      {
-        // no stems => no suspended noteheads.
-        extract_grob_set (me, "note-heads", heads);
-        if (heads.size())
+  Grob *main_head = 0;
+  if (get_stem (me))
+    main_head = first_head (me);
+  else
+    {
+      // no stems => no suspended noteheads.
+      extract_grob_set (me, "note-heads", heads);
+      if (heads.size ())
         main_head = heads[0];
-      }
-    Grob *main_item = main_head
-            ? main_head
-            : unsmob<Grob> (me->get_object ("rest"));
+    }
+  Grob *main_item = main_head
+                    ? main_head
+                    : unsmob<Grob> (me->get_object ("rest"));
 
-    return main_item
-            ? main_item->extent (me, X_AXIS)
-            : Interval (0, 0);
+  return main_item
+         ? main_item->extent (me, X_AXIS)
+         : Interval (0, 0);
 }
 
 /*

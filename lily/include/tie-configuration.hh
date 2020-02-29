@@ -46,7 +46,7 @@ public:
   /* computed. */
   Interval attachment_x_;
 
-  void add_score (Real, const string&);
+  void add_score (Real, const string &);
   Tie_configuration ();
   void center_tie_vertically (Tie_details const &);
   Bezier get_transformed_bezier (Tie_details const &) const;

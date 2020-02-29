@@ -537,8 +537,8 @@ Axis_group_interface::calc_pure_y_common (SCM smob)
   Grob *common = common_refpoint_of_array (elts, me, Y_AXIS);
   if (common != me && has_interface<Align_interface> (common))
     {
-      me->programming_error("My pure_y_common is a VerticalAlignment,"
-                            " which might contain several staves.");
+      me->programming_error ("My pure_y_common is a VerticalAlignment,"
+                             " which might contain several staves.");
       common = me;
     }
   if (!common)
@@ -898,8 +898,8 @@ Axis_group_interface::skyline_spacing (Grob *me)
 
   if (y_common != me)
     {
-      me->programming_error("Some of my vertical-skyline-elements"
-                            " are outside my VerticalAxisGroup.");
+      me->programming_error ("Some of my vertical-skyline-elements"
+                             " are outside my VerticalAxisGroup.");
       y_common = me;
     }
 

@@ -155,7 +155,6 @@ Hyphen_engraver::stop_translation_timestep ()
   ev_ = 0;
 }
 
-
 void
 Hyphen_engraver::boot ()
 {

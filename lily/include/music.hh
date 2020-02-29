@@ -27,7 +27,8 @@
 
 #define is_mus_type(x) internal_is_music_type (ly_symbol2scm (x))
 
-struct Preinit_Music {
+struct Preinit_Music
+{
   SCM length_callback_;
   SCM start_callback_;
   Preinit_Music ();

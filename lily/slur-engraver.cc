@@ -120,8 +120,8 @@ Slur_engraver::listen_note_slur (Stream_event *ev, Stream_event *note)
   else if (d == STOP)
     stop_events_.push_back (Event_info (ev, note));
   else ev->origin ()->warning (_f ("direction of %s invalid: %d",
-                                   ev->name ().c_str (),
-                                   int (d)));
+                                     ev->name ().c_str (),
+                                     int (d)));
 }
 
 void
@@ -151,8 +151,8 @@ Slur_engraver::acknowledge_note_column (Grob_info info)
   extract_grob_set (e, "note-heads", heads);
   for (vsize i = heads.size (); i--;)
     {
-      if (Stream_event *ev =
-          unsmob<Stream_event> (heads[i]->get_property ("cause")))
+      if (Stream_event * ev
+          = unsmob<Stream_event> (heads[i]->get_property ("cause")))
         for (LEFT_and_RIGHT (d))
           {
             std::pair<Note_slurs::const_iterator, Note_slurs::const_iterator> its
@@ -193,8 +193,8 @@ void
 Slur_engraver::create_slur (SCM spanner_id, Event_info evi, Grob *g_cause, Direction dir, bool left_broken)
 {
   Grob *ccc = left_broken
-    ? unsmob<Grob> (get_property ("currentCommandColumn"))
-    : 0; // efficiency
+              ? unsmob<Grob> (get_property ("currentCommandColumn"))
+              : 0; // efficiency
   SCM cause = evi.slur_ ? evi.slur_->self_scm () : g_cause->self_scm ();
   Spanner *slur = make_spanner (grob_symbol (), cause);
   slur->set_property ("spanner-id", spanner_id);
@@ -207,17 +207,17 @@ Slur_engraver::create_slur (SCM spanner_id, Event_info evi, Grob *g_cause, Direc
     note_slurs_[START].insert (Note_slurs::value_type (evi.note_, slur));
 
   if (double_property ())
-  {
-    set_grob_direction (slur, DOWN);
-    slur = make_spanner (grob_symbol (), cause);
-    slur->set_property ("spanner-id", spanner_id);
-    set_grob_direction (slur, UP);
-    if (left_broken)
-      slur->set_bound (LEFT, ccc);
-    slurs_.push_back (slur);
-    if (evi.note_)
-      note_slurs_[START].insert(Note_slurs::value_type (evi.note_, slur));
-  }
+    {
+      set_grob_direction (slur, DOWN);
+      slur = make_spanner (grob_symbol (), cause);
+      slur->set_property ("spanner-id", spanner_id);
+      set_grob_direction (slur, UP);
+      if (left_broken)
+        slur->set_bound (LEFT, ccc);
+      slurs_.push_back (slur);
+      if (evi.note_)
+        note_slurs_[START].insert (Note_slurs::value_type (evi.note_, slur));
+    }
 
 }
 
@@ -293,8 +293,8 @@ Slur_engraver::try_to_end (Event_info evi)
           end_slurs_.push_back (slurs_[j]);
           if (evi.note_)
             note_slurs_[STOP].insert
-              (Note_slurs::value_type
-               (evi.note_, dynamic_cast <Spanner *> (slurs_[j])));
+            (Note_slurs::value_type
+             (evi.note_, dynamic_cast <Spanner *> (slurs_[j])));
           slurs_.erase (slurs_.begin () + j);
         }
     }

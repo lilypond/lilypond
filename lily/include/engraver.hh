@@ -49,7 +49,7 @@ protected:
 
 public:
   using Translator::trampoline;
-  template <class T, void (T::*callback)(Grob_info)>
+  template <class T, void (T::*callback) (Grob_info)>
   static SCM trampoline (SCM target, SCM grob, SCM source_engraver)
   {
     T *t = LY_ASSERT_SMOB (T, target, 1);

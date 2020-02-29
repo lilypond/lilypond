@@ -139,8 +139,6 @@ Figured_bass_position_engraver::acknowledge_bass_figure_alignment (Grob_info inf
   start_spanner ();
 }
 
-
-
 void
 Figured_bass_position_engraver::boot ()
 {

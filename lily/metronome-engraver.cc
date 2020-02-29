@@ -168,7 +168,6 @@ Metronome_mark_engraver::process_music ()
     }
 }
 
-
 void
 Metronome_mark_engraver::boot ()
 {

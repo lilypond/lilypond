@@ -130,7 +130,7 @@ LY_DEFINE (ly_music_deep_copy, "ly:music-deep-copy",
     return m;
 
   if (Music *mus = unsmob<Music> (origin))
-      origin = mus->get_property ("origin");
+    origin = mus->get_property ("origin");
 
   if (scm_is_false (origin) || scm_is_null (origin))
     return m;

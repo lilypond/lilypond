@@ -203,14 +203,14 @@ Beam::calc_direction (SCM smob)
           extract_grob_set (stem, "note-heads", heads);
           /* default position of Kievan heads with beams is down
              placing this here avoids warnings downstream */
-          if (heads.size())
+          if (heads.size ())
             {
-               if (scm_is_eq (heads[0]->get_property ("style"),
-                              ly_symbol2scm ("kievan")))
-                 {
-                    if (dir == CENTER)
-                      dir = DOWN;
-                 }
+              if (scm_is_eq (heads[0]->get_property ("style"),
+                             ly_symbol2scm ("kievan")))
+                {
+                  if (dir == CENTER)
+                    dir = DOWN;
+                }
             }
         }
     }
@@ -473,7 +473,7 @@ Beam::calc_beam_segments (SCM smob)
                            || abs (seg.rank_ - segs[j + event_dir].rank_) > 1
                            || (abs (vertical_count) >= seg.max_connect_
                                || abs (vertical_count)
-                                    >= segs[j + event_dir].max_connect_);
+                               >= segs[j + event_dir].max_connect_);
 
               if (!event)
                 // Then this edge of the current segment is irrelevant because it will
@@ -560,10 +560,10 @@ Beam::calc_beam_segments (SCM smob)
   for (vsize i = segments.size (); i--;)
     {
       segments_scm = scm_cons (scm_list_2 (scm_cons (ly_symbol2scm ("vertical-count"),
-						     scm_from_int (segments[i].vertical_count_)),
-					   scm_cons (ly_symbol2scm ("horizontal"),
-						     ly_interval2scm (segments[i].horizontal_))),
-			       segments_scm);
+                                                     scm_from_int (segments[i].vertical_count_)),
+                                           scm_cons (ly_symbol2scm ("horizontal"),
+                                                     ly_interval2scm (segments[i].horizontal_))),
+                               segments_scm);
     }
 
   return segments_scm;
@@ -743,7 +743,7 @@ Beam::print (SCM grob)
       Direction stem_dir = stems.size () ? to_dir (stems[0]->get_property ("direction")) : UP;
 
       Stencil score = *unsmob<Stencil> (Text_interface::interpret_markup
-                                       (me->layout ()->self_scm (), properties, annotation));
+                                        (me->layout ()->self_scm (), properties, annotation));
 
       if (!score.is_empty ())
         {

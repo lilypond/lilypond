@@ -33,7 +33,6 @@
 #include "ly-module.hh"
 #include "lily-imports.hh"
 
-
 Paper_book::Paper_book ()
 {
   header_ = SCM_EOL;
@@ -53,7 +52,7 @@ Paper_book::~Paper_book ()
 {
 }
 
-const char * const Paper_book::type_p_name_ = "ly:paper-book?";
+const char *const Paper_book::type_p_name_ = "ly:paper-book?";
 
 SCM
 Paper_book::mark_smob () const

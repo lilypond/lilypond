@@ -57,7 +57,6 @@ Dots_engraver::acknowledge_rhythmic_head (Grob_info gi)
     }
 }
 
-
 void
 Dots_engraver::boot ()
 {

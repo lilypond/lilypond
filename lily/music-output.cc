@@ -19,7 +19,6 @@
 
 #include "music-output.hh"
 
-
 Music_output::Music_output ()
 {
   smobify_self ();
@@ -39,7 +38,7 @@ Music_output::derived_mark () const
 {
 }
 
-const char * const Music_output::type_p_name_ = "ly:music-output?";
+const char *const Music_output::type_p_name_ = "ly:music-output?";
 
 SCM
 Music_output::mark_smob () const

@@ -79,7 +79,7 @@ Ottava_bracket::print (SCM smob)
   Stencil text;
   if (Text_interface::is_markup (markup))
     text = *unsmob<Stencil> (Text_interface::interpret_markup (layout->self_scm (),
-                                                              properties, markup));
+                                                               properties, markup));
 
   Drul_array<Real> shorten = robust_scm2interval (me->get_property ("shorten-pair"),
                                                   Interval (0, 0));
@@ -153,9 +153,8 @@ Ottava_bracket::print (SCM smob)
   Interval empty;
 
   if (!bracket_span_points.is_empty () && bracket_span_points.length () > 0.001)
-    b = Bracket::make_bracket (
-      me, Y_AXIS, Offset (bracket_span_points.length (), 0),
-      edge_height, empty, flare, Drul_array<Real> (0, 0));
+    b = Bracket::make_bracket (me, Y_AXIS, Offset (bracket_span_points.length (), 0),
+                               edge_height, empty, flare, Drul_array<Real> (0, 0));
 
   /*
    * The vertical lines should not take space, for the following scenario:

@@ -114,7 +114,7 @@ template <class Super>
 string Smob_base<Super>::smob_name_;
 
 template <class Super>
-const char * const Smob_base<Super>::type_p_name_ = 0;
+const char *const Smob_base<Super>::type_p_name_ = 0;
 
 template <class Super>
 void Smob_base<Super>::init ()
@@ -125,7 +125,7 @@ void Smob_base<Super>::init ()
   // unsuitable for Texinfo documentation.  If that proves to be an
   // issue, we need some smarter strategy.
   smob_name_ = smob_name_.substr (smob_name_.find_first_not_of ("0123456789"));
-  assert(!smob_tag_);
+  assert (!smob_tag_);
   smob_tag_ = scm_make_smob_type (smob_name_.c_str (), 0);
   // The following have trivial private default definitions not
   // referring to any aspect of the Super class apart from its name.
@@ -145,8 +145,8 @@ void Smob_base<Super>::init ()
     {
       SCM subr = scm_c_define_gsubr (Super::type_p_name_, 1, 0, 0,
                                      (scm_t_subr) smob_p);
-      string fundoc = string("Is @var{x} a @code{") + smob_name_
-        + "} object?";
+      string fundoc = string ("Is @var{x} a @code{") + smob_name_
+                      + "} object?";
       ly_add_function_documentation (subr, Super::type_p_name_, "(SCM x)",
                                      fundoc);
       scm_c_export (Super::type_p_name_, NULL);

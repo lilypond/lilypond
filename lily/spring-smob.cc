@@ -20,9 +20,6 @@
 #include "spring.hh"
 #include "warn.hh"
 
-
-
-
 SCM
 Spring::equal_p (SCM a, SCM b)
 {
@@ -67,4 +64,4 @@ LY_DEFINE (ly_spring_set_inverse_stretch_strength_x, "ly:spring-set-inverse-stre
   return s->smobbed_copy ();
 }
 
-const char * const Spring::type_p_name_ = "ly:spring?";
+const char *const Spring::type_p_name_ = "ly:spring?";

@@ -85,7 +85,6 @@ Balloon_engraver::acknowledge_grob (Grob_info info)
     }
 }
 
-
 void
 Balloon_engraver::boot ()
 {

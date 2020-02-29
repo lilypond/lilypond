@@ -24,7 +24,8 @@
 
 #include "engraver.hh"
 
-struct Preinit_Scheme_engraver {
+struct Preinit_Scheme_engraver
+{
   SCM initialize_function_;
   SCM finalize_function_;
   SCM precomputable_methods_ [TRANSLATOR_METHOD_PRECOMPUTE_COUNT];
@@ -56,7 +57,7 @@ private:
   virtual SCM get_acknowledger (SCM sym, Direction start_end)
   {
     return generic_get_acknowledger
-      (sym, interface_acknowledger_hash_[start_end]);
+           (sym, interface_acknowledger_hash_[start_end]);
   }
 
   SCM init_acknowledgers (SCM alist);

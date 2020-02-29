@@ -29,7 +29,6 @@ using namespace std;
 #include "stencil.hh"
 #include "warn.hh"
 
-
 Real
 Font_metric::design_size () const
 {
@@ -112,7 +111,7 @@ Font_metric::print_smob (SCM port, scm_print_state *) const
   return 1;
 }
 
-const char * const Font_metric::type_p_name_ = "ly:font-metric?";
+const char *const Font_metric::type_p_name_ = "ly:font-metric?";
 
 SCM
 Font_metric::font_file_name () const
@@ -134,7 +133,7 @@ Font_metric::index_to_charcode (size_t i) const
 }
 
 Offset
-Font_metric::attachment_point (const string&) const
+Font_metric::attachment_point (const string &) const
 {
   return Offset (0, 0);
 }
@@ -147,9 +146,9 @@ Font_metric::sub_fonts () const
 
 Stencil
 Font_metric::text_stencil (Output_def *state,
-                           const string&,
+                           const string &,
                            bool,
-                           const string&) const
+                           const string &) const
 {
   (void) state;
 

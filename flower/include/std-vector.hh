@@ -171,8 +171,8 @@ vector_sort (vector<T> &v,
 template<typename T, typename Compare>
 void
 vector_stable_sort (vector<T> &v,
-             Compare less,
-             vsize b = 0, vsize e = VPOS)
+                    Compare less,
+                    vsize b = 0, vsize e = VPOS)
 {
   if (e == VPOS)
     e = v.size ();

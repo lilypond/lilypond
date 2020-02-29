@@ -51,8 +51,6 @@ LY_DEFINE (ly_module_copy, "ly:module-copy",
   return SCM_UNSPECIFIED;
 }
 
-
-
 /* Lookup SYM, but don't give error when it is not defined.
    N.B. this is only needed when running with Guile versions
    prior to V2.0.3, when calls to ly_module_lookup can be replaced
@@ -64,13 +62,13 @@ ly_module_lookup (SCM module, SCM sym)
 {
 #define FUNC_NAME __FUNCTION__
   SCM_VALIDATE_MODULE (1, module);
-/*
-  Issue 2758:
-    Guile V2 onward has a scm_module_variable API module.
-    Guile V1.8.7 only has a (module-variable) REPL function and we
-    can't import this via Scm_variable since that needs
-    ly_module_lookup itself.
- */
+  /*
+    Issue 2758:
+      Guile V2 onward has a scm_module_variable API module.
+      Guile V1.8.7 only has a (module-variable) REPL function and we
+      can't import this via Scm_variable since that needs
+      ly_module_lookup itself.
+   */
 #if GUILEV1
   return scm_sym2var (sym, scm_module_lookup_closure (module), SCM_BOOL_F);
 #else

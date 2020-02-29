@@ -32,7 +32,7 @@ class Grob : public Smob<Grob>
 public:
   int print_smob (SCM, scm_print_state *) const;
   SCM mark_smob () const;
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
   virtual ~Grob ();
 private:
   DECLARE_CLASSNAME (Grob);
@@ -118,8 +118,8 @@ public:
   void internal_set_property (SCM sym, SCM val);
 
   /* messages */
-  void warning (const string&) const;
-  void programming_error (const string&) const;
+  void warning (const string &) const;
+  void programming_error (const string &) const;
 
   /* class hierarchy */
   virtual System *get_system () const;
@@ -176,7 +176,7 @@ public:
 };
 
 template <class T>
-inline bool has_interface(Grob *g)
+inline bool has_interface (Grob *g)
 {
   return g && g->internal_has_interface (Grob_interface<T>::interface_symbol_);
 }

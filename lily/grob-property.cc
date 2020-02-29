@@ -195,13 +195,14 @@ Grob::internal_get_pure_property (SCM sym, int start, int end) const
   if (ly_is_procedure (val))
     return call_pure_function (val, scm_list_1 (self_scm ()), start, end);
 
-  if (Unpure_pure_container *upc = unsmob<Unpure_pure_container> (val)) {
-    // Do cache, if the function ignores 'start' and 'end'
-    if (upc->is_unchanging ())
-      return internal_get_property (sym);
-    else
-      return call_pure_function (val, scm_list_1 (self_scm ()), start, end);
-  }
+  if (Unpure_pure_container *upc = unsmob<Unpure_pure_container> (val))
+    {
+      // Do cache, if the function ignores 'start' and 'end'
+      if (upc->is_unchanging ())
+        return internal_get_property (sym);
+      else
+        return call_pure_function (val, scm_list_1 (self_scm ()), start, end);
+    }
 
   return val;
 }

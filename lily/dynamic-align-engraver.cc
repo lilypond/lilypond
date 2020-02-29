@@ -65,7 +65,6 @@ Dynamic_align_engraver::Dynamic_align_engraver (Context *c)
   current_dynamic_spanner_ = 0;
 }
 
-
 void
 Dynamic_align_engraver::create_line_spanner (Grob *cause)
 {

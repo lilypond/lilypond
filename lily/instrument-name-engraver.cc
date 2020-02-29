@@ -174,7 +174,6 @@ Instrument_name_engraver::stop_spanner ()
   text_spanner_ = 0;
 }
 
-
 void
 Instrument_name_engraver::boot ()
 {

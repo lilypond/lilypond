@@ -201,9 +201,9 @@ void
 Multi_measure_rest_engraver::process_music ()
 {
   const bool measure_end
-  = scm_is_string (get_property ("whichBar"))
-    && (robust_scm2moment (get_property ("measurePosition"),
-                           Moment (0)).main_part_ == Rational (0));
+    = scm_is_string (get_property ("whichBar"))
+      && (robust_scm2moment (get_property ("measurePosition"),
+                             Moment (0)).main_part_ == Rational (0));
 
   if (measure_end || first_time_)
     {

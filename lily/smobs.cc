@@ -54,13 +54,13 @@ protect_smob (SCM smob, SCM *prot_cons)
 #if 0
   SCM s = scm_cdr (smob_protection_list);
   while (scm_is_pair (s) && scm_is_false (scm_car (s))
-    {
-      s = scm_cdr (s);
+  {
+    s = scm_cdr (s);
     }
   SCM prot = scm_cons (smob, s);
-  scm_set_cdr_x (smob_protection_list,
-                 prot);
-  *prot_cons = prot;
+             scm_set_cdr_x (smob_protection_list,
+                            prot);
+             *prot_cons = prot;
 #else
   (void) prot_cons;
   scm_gc_protect_object (smob);
@@ -78,21 +78,20 @@ unprotect_smob (SCM smob, SCM *prot_cons)
 
   if (scm_is_null (next)))
     scm_set_car_x (*prot_cons, SCM_BOOL_F);
-  else
-    {
-      scm_set_car_x (*prot_cons, SCM_BOOL_F);
-      while (scm_is_pair (next)
-             && scm_is_false (scm_car (next)))
+    else
+      {
+        scm_set_car_x (*prot_cons, SCM_BOOL_F);
+        while (scm_is_pair (next)
+               && scm_is_false (scm_car (next)))
 
-        next = scm_cdr (next);
+          next = scm_cdr (next);
 
-      scm_set_cdr_x (*prot_cons, next);
-    }
+        scm_set_cdr_x (*prot_cons, next);
+      }
 
   *prot_cons = SCM_EOL;
 #endif
 }
-
 
 Scm_init const *Scm_init::list_ = 0;
 

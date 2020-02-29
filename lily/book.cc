@@ -105,7 +105,6 @@ Book::~Book ()
 {
 }
 
-
 SCM
 Book::mark_smob () const
 {

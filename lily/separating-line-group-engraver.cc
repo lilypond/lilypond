@@ -154,7 +154,6 @@ Separating_line_group_engraver::stop_translation_timestep ()
   break_aligned_.clear ();
 }
 
-
 void
 Separating_line_group_engraver::boot ()
 {

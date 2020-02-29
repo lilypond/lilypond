@@ -110,7 +110,6 @@ Text_engraver::Text_engraver (Context *c)
 {
 }
 
-
 void
 Text_engraver::boot ()
 {

@@ -163,7 +163,6 @@ Staff_symbol_engraver::acknowledge_grob (Grob_info s)
     }
 }
 
-
 void
 Staff_symbol_engraver::boot ()
 {

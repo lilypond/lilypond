@@ -123,7 +123,7 @@ Completion_rest_engraver::next_moment (Rational const &note_len)
             within a unit - go to the end of that
           */
           result = unit->main_part_
-            * (Rational (1) - (now_unit - now_unit.trunc_rat ()));
+                   * (Rational (1) - (now_unit - now_unit.trunc_rat ()));
         }
       else
         {
@@ -194,7 +194,7 @@ Completion_rest_engraver::process_music ()
         factor = scm_call_2 (factor,
                              context ()->self_scm (),
                              rest_dur.smobbed_copy ());
-      factor_ = robust_scm2rational (factor, rest_dur.factor());
+      factor_ = robust_scm2rational (factor, rest_dur.factor ());
       left_to_do_ = orig->get_length ();
     }
   Moment nb = next_moment (rest_dur.get_length ());

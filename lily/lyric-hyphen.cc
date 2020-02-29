@@ -104,17 +104,17 @@ Lyric_hyphen::print (SCM smob)
   for (int i = 0; i < n; i++)
     {
       Stencil m (dash_mol);
-      m.translate_axis (span_points[LEFT] + i * dash_period +
-                        space_left / 2, X_AXIS);
+      m.translate_axis (span_points[LEFT] + i * dash_period
+                        + space_left / 2, X_AXIS);
       total.add_stencil (m);
-      if (whiteout > 0.0 )
+      if (whiteout > 0.0)
         {
           Box c (Interval (0, dash_length + 2 * whiteout * lt),
                  Interval (h - whiteout * lt, h + th + whiteout * lt));
           Stencil w (Lookup::round_filled_box (c, 0.8 * lt));
           w = w.in_color (1.0, 1.0, 1.0);
-          w.translate_axis (span_points[LEFT] + i * dash_period +
-                            space_left / 2 - whiteout * lt, X_AXIS);
+          w.translate_axis (span_points[LEFT] + i * dash_period
+                            + space_left / 2 - whiteout * lt, X_AXIS);
           total.add_stencil (w);
         }
     }

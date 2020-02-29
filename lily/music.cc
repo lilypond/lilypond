@@ -173,7 +173,7 @@ Music::to_relative_octave (Pitch last)
   if (ly_is_procedure (callback))
     {
       Pitch *p = unsmob<Pitch> (scm_call_2 (callback, self_scm (),
-                                           last.smobbed_copy ()));
+                                            last.smobbed_copy ()));
       return *p;
     }
 
@@ -265,8 +265,8 @@ Music::to_event () const
     programming_error ("Not a music type");
 
   Stream_event *e = new Stream_event
-    (Lily::ly_make_event_class (class_name),
-     mutable_property_alist_);
+  (Lily::ly_make_event_class (class_name),
+   mutable_property_alist_);
   Moment length = get_length ();
   if (length.to_bool ())
     e->set_property ("length", length.smobbed_copy ());
@@ -329,7 +329,7 @@ SCM
 music_deep_copy (SCM m)
 {
   if (Music *mus = unsmob<Music> (m))
-      return mus->clone ()->unprotect ();
+    return mus->clone ()->unprotect ();
   if (scm_is_pair (m))
     {
       SCM copy = SCM_EOL;

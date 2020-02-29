@@ -82,7 +82,7 @@ Context_def::~Context_def ()
 {
 }
 
-const char * const Context_def::type_p_name_ = "ly:context-def?";
+const char *const Context_def::type_p_name_ = "ly:context-def?";
 
 int
 Context_def::print_smob (SCM port, scm_print_state *) const
@@ -236,7 +236,7 @@ Context_def::internal_path_to_acceptable_context (SCM type_sym,
   vector<Context_def *> accepteds;
   for (SCM s = accepted; scm_is_pair (s); s = scm_cdr (s))
     if (Context_def *t = unsmob<Context_def> (find_context_def (odef,
-                                                               scm_car (s))))
+                                                                scm_car (s))))
       accepteds.push_back (t);
 
   vector<Context_def *> best_result;

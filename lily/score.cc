@@ -36,7 +36,6 @@ using namespace std;
 #include "paper-score.hh"
 #include "warn.hh"
 
-
 Input *
 Score::origin () const
 {
@@ -59,7 +58,7 @@ Score::~Score ()
 {
 }
 
-const char * const Score::type_p_name_ = "ly:score?";
+const char *const Score::type_p_name_ = "ly:score?";
 
 SCM
 Score::mark_smob () const
@@ -158,15 +157,15 @@ Score::set_music (SCM music)
   if (unsmob<Music> (music_))
     {
       unsmob<Music> (music)->origin ()->non_fatal_error
-        (_ ("already have music in score"));
+      (_ ("already have music in score"));
       unsmob<Music> (music_)->origin ()->non_fatal_error
-        (_ ("this is the previous music"));
+      (_ ("this is the previous music"));
     }
   Music *m = unsmob<Music> (music);
   if (m && to_boolean (m->get_property ("error-found")))
     {
       m->origin ()->non_fatal_error
-        (_ ("errors found, ignoring music expression"));
+      (_ ("errors found, ignoring music expression"));
 
       error_found_ = true;
     }

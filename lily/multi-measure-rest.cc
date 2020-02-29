@@ -139,7 +139,7 @@ calc_measure_duration_log (Grob *me)
                 : Rational (1);
   double duration = ml.Rational::to_double ();
   bool round_up = to_boolean (scm_list_p (scm_member (scm_cons (scm_from_int64 (ml.numerator ()),
-                                                                scm_from_int64 (ml.denominator ())),
+                                                      scm_from_int64 (ml.denominator ())),
                                                       me->get_property ("round-up-exceptions"))))
                   || to_boolean (me->get_property ("round-up-to-longer-rest"));
   int closest_usable_duration_log;

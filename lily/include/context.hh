@@ -33,7 +33,7 @@ class Context : public Smob<Context>
 public:
   SCM mark_smob () const;
   int print_smob (SCM, scm_print_state *) const;
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
   virtual ~Context ();
 private:
   Scheme_hash_table *properties_dict () const;
@@ -118,7 +118,7 @@ public:
   void instrumented_set_property (SCM, SCM, const char *, int, const char *);
   void internal_set_property (SCM var_sym, SCM value);
 
-  Context *create_context (Context_def *, const string&, SCM);
+  Context *create_context (Context_def *, const string &, SCM);
   void create_context_from_event (SCM);
   void acknowledge_infant (SCM);
   void remove_context (SCM);

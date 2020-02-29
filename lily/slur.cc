@@ -180,8 +180,8 @@ Slur::print (SCM smob)
                                properties);
 
       Stencil tm = *unsmob<Stencil> (Text_interface::interpret_markup
-                                    (me->layout ()->self_scm (), properties,
-                                     annotation));
+                                     (me->layout ()->self_scm (), properties,
+                                      annotation));
       a.add_at_edge (Y_AXIS, get_grob_direction (me), tm, 1.0);
     }
 #endif

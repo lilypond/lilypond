@@ -195,7 +195,6 @@ Beam_collision_engraver::acknowledge_beam (Grob_info i)
 
 #include "translator.icc"
 
-
 void
 Beam_collision_engraver::boot ()
 {

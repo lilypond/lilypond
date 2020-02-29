@@ -346,7 +346,7 @@ Spanner::derived_mark () const
 
   // If break_index_ is -1, broken_intos_ might not yet have run its
   // constructor and any access might break things.
-  if (break_index_ != (vsize)-1)
+  if (break_index_ != (vsize) - 1)
     for (vsize i = broken_intos_.size (); i--;)
       scm_gc_mark (broken_intos_[i]->self_scm ());
 }
@@ -374,7 +374,7 @@ Spanner::set_spacing_rods (SCM smob)
   SCM num_length = me->get_property ("minimum-length");
   SCM broken_length = me->get_property ("minimum-length-after-break");
   if (scm_is_number (num_length)
-     || scm_is_number (broken_length))
+      || scm_is_number (broken_length))
     {
       Spanner *sp = dynamic_cast<Spanner *> (me);
       System *root = get_root_system (me);
@@ -404,8 +404,8 @@ Spanner::set_spacing_rods (SCM smob)
               changed value), we cannot directly reset r.distance_ to
               broken_length.
             */
-            r.distance_ += robust_scm2double (broken_length, 0) -
-              robust_scm2double (num_length, 0);
+            r.distance_ += robust_scm2double (broken_length, 0)
+                           - robust_scm2double (num_length, 0);
           r.add_to_cols ();
         }
 

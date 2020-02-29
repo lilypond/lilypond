@@ -160,8 +160,8 @@ get_postscript_name (FT_Face face)
 
   FT_Open_Args args;
   args.flags = FT_OPEN_MEMORY;
-  args.memory_base = static_cast<const FT_Byte*>
-    (static_cast<const void*>(cff_table.data ()));
+  args.memory_base = static_cast<const FT_Byte *>
+                     (static_cast<const void *>(cff_table.data ()));
   args.memory_size = cff_table.size ();
 
   FT_Face cff_face;
@@ -194,7 +194,7 @@ get_postscript_name (FT_Face face)
                         face_ps_name.c_str ()));
 
       // See Adobe technote '5176.CFF.pdf', sections 2 and 5-7.
-      size_t hdrsize = static_cast<unsigned char>(cff_table.at(2));
+      size_t hdrsize = static_cast<unsigned char>(cff_table.at (2));
       string::iterator it = cff_table.begin () + hdrsize;
 
       unsigned int name_index_count;
@@ -210,20 +210,20 @@ get_postscript_name (FT_Face face)
           // has only one name.
           size_t off1 = 0, off2 = 0;
           for (size_t t = 0; t < offsize; t++)
-            off1 = ( off1 << 8 ) | static_cast<unsigned char>(*it++);
+            off1 = ( off1 << 8) | static_cast<unsigned char>(*it++);
           if (off1)
             {
               for (size_t t = 0; t < offsize; t++)
-                off2 = ( off2 << 8 ) | static_cast<unsigned char>(*it++);
+                off2 = ( off2 << 8) | static_cast<unsigned char>(*it++);
             }
           if (off1 && off1 < off2)
             {
-              ret.assign (&cff_table.at(hdrsize + 3
-                                        + offsize * (name_index_count + 1)
-                                        + off1 - 1),
-                          &cff_table.at(hdrsize + 3
-                                        + offsize * (name_index_count + 1)
-                                        + off2 - 1));
+              ret.assign (&cff_table.at (hdrsize + 3
+                                         + offsize * (name_index_count + 1)
+                                         + off1 - 1),
+                          &cff_table.at (hdrsize + 3
+                                         + offsize * (name_index_count + 1)
+                                         + off2 - 1));
             }
         }
 

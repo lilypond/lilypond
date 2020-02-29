@@ -39,7 +39,6 @@ using namespace std;
 #include "warn.hh"
 #include "lily-imports.hh"
 
-
 Paper_outputter::Paper_outputter (SCM port, const string &format)
 {
   file_ = port;
@@ -59,7 +58,6 @@ Paper_outputter::Paper_outputter (SCM port, const string &format)
 Paper_outputter::~Paper_outputter ()
 {
 }
-
 
 SCM
 Paper_outputter::mark_smob () const

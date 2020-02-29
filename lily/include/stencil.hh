@@ -59,7 +59,7 @@ class Stencil : public Simple_smob<Stencil>
 {
 public:
   SCM mark_smob () const;
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
 private:
   Box dim_;
   SCM expr_;
@@ -93,7 +93,6 @@ public:
   Stencil with_outline (Stencil const &ol) const;
   static SCM skylines_from_stencil (SCM, Real, Axis);
 };
-
 
 void interpret_stencil_expression (SCM expr,
                                    SCM (*func) (void *, SCM),

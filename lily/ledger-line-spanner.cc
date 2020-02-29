@@ -100,7 +100,7 @@ Ledger_line_spanner::set_spacing_rods (SCM smob)
       Item *h = heads[i];
 
       int pos = Staff_symbol_referencer::get_rounded_position (h);
-      if  (Staff_symbol::ledger_positions (staff, pos).empty ())
+      if (Staff_symbol::ledger_positions (staff, pos).empty ())
         continue;
 
       /* Ambitus heads can appear out-of-order in heads[],
@@ -215,8 +215,8 @@ Ledger_line_spanner::print (SCM smob)
     {
       Item *h = dynamic_cast<Item *> (heads[i]);
       int pos = Staff_symbol_referencer::get_rounded_position (h);
-      vector<Real> ledger_positions =
-        Staff_symbol::ledger_positions (staff, pos, h);
+      vector<Real> ledger_positions
+        = Staff_symbol::ledger_positions (staff, pos, h);
 
       // We work with all notes that produce ledgers and any notes that
       // fall outside the staff that do not produce ledgers, such as
@@ -242,7 +242,7 @@ Ledger_line_spanner::print (SCM smob)
           hd.head_extent_ = head_extent;
           if (Grob *g = unsmob<Grob> (h->get_object ("accidental-grob")))
             hd.accidental_extent_ = g->extent (common_x, X_AXIS);
-          reqs[rank][vdir].heads_.push_back(hd);
+          reqs[rank][vdir].heads_.push_back (hd);
         }
     }
 

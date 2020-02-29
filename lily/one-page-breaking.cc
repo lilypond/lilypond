@@ -104,17 +104,17 @@ One_page_breaking::solve ()
     {
       if (Paper_score *ps = system_specs_[i].pscore_)
         {
-		  // musical systems
-		  vsize broken_intos_size = ps->root_system ()->broken_intos_.size ();
-	      for (vsize s = 0; s < broken_intos_size; s++)
-	        {
-	          Grob *system = ps->root_system ()->broken_intos_[s];
-	          line_heights.push_back (system->extent (system, Y_AXIS).length ());
-	        }
+          // musical systems
+          vsize broken_intos_size = ps->root_system ()->broken_intos_.size ();
+          for (vsize s = 0; s < broken_intos_size; s++)
+            {
+              Grob *system = ps->root_system ()->broken_intos_[s];
+              line_heights.push_back (system->extent (system, Y_AXIS).length ());
+            }
         }
       else if (Prob *pb = system_specs_[i].prob_)
         {
-	      // top-level markups
+          // top-level markups
           Stencil *stil = unsmob<Stencil> (pb->internal_get_property (ly_symbol2scm ("stencil")));
           line_heights.push_back (stil->extent (Y_AXIS).length ());
         }
@@ -125,17 +125,17 @@ One_page_breaking::solve ()
     {
       Real low_bound = line_heights[i] + line_posns[i];
       if (low_bound > lowest_bound)
-	    lowest_bound = low_bound;
-	}
+        lowest_bound = low_bound;
+    }
 
   // HANDLE LAST-BOTTOM-SPACING
   SCM last_bottom = book_->paper_->c_variable ("last-bottom-spacing");
 
-  SCM padding = read_spacing_alist (last_bottom, ly_symbol2scm("padding"));
+  SCM padding = read_spacing_alist (last_bottom, ly_symbol2scm ("padding"));
   lowest_bound += scm_to_double (padding);
 
-  SCM basic_dist = read_spacing_alist (last_bottom, ly_symbol2scm("basic-distance"));
-  SCM minimum_dist = read_spacing_alist (last_bottom, ly_symbol2scm("minimum-distance"));
+  SCM basic_dist = read_spacing_alist (last_bottom, ly_symbol2scm ("basic-distance"));
+  SCM minimum_dist = read_spacing_alist (last_bottom, ly_symbol2scm ("minimum-distance"));
   SCM max_dist = scm_max (basic_dist, minimum_dist);
 
   // If the last line is a musical system get the distance between its

@@ -162,7 +162,7 @@ bool
 Lyric_combine_music_iterator::ok () const
 {
   return lyric_iter_ && lyric_iter_->ok ()
-    && !(music_context_ && music_context_->is_removable ());
+         && !(music_context_ && music_context_->is_removable ());
 }
 
 void
@@ -257,10 +257,11 @@ Lyric_combine_music_iterator::find_voice ()
                 ? lyrics_context_->get_property ("associatedVoice")
                 : SCM_EOL;
   SCM voice_type = lyricsto_voice_type_;
-  if (scm_is_string (running)) {
-    voice_name = running;
-    voice_type = lyrics_context_->get_property ("associatedVoiceType");
-  }
+  if (scm_is_string (running))
+    {
+      voice_name = running;
+      voice_type = lyrics_context_->get_property ("associatedVoiceType");
+    }
 
   if (scm_is_string (voice_name)
       && (!music_context_ || ly_scm2string (voice_name) != music_context_->id_string ())

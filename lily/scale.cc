@@ -22,7 +22,6 @@
 #include "scale.hh"
 #include "protected-scm.hh"
 
-
 /*
   todo: put string <-> pitch here too.
 */
@@ -130,8 +129,6 @@ Scale::normalize_step (int step) const
 
   return ret;
 }
-
-
 
 Scale::Scale (vector<Rational> const &tones)
 {

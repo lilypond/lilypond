@@ -30,16 +30,16 @@ struct Preinit_Modified_font_metric
 
 /* Perhaps junk this, and move this to layout_def as interface? */
 class Modified_font_metric : Preinit_Modified_font_metric,
-                              public Font_metric
+  public Font_metric
 {
 public:
-  Stencil text_stencil (Output_def *output_state, const string&, bool, const string&) const;
+  Stencil text_stencil (Output_def *output_state, const string &, bool, const string &) const;
   Real get_magnification () const;
 
   static SCM make_scaled_font_metric (Font_metric *fm, Real magnification);
   size_t count () const;
   Offset get_indexed_wxwy (size_t) const;
-  Offset attachment_point (const string&) const;
+  Offset attachment_point (const string &) const;
   size_t name_to_index (string) const;
   size_t index_to_charcode (size_t) const;
   Font_metric *original_font () const;

@@ -34,14 +34,17 @@ LY_DEFINE (ly_angle, "ly:angle",
            " arguments, @var{x} and @var{y} specify the respective coordinates.")
 {
   Offset off;
-  if (SCM_UNBNDP (y)) {
-    LY_ASSERT_TYPE (is_number_pair, x, 1);
-    off = ly_scm2offset (x);
-  } else {
-    LY_ASSERT_TYPE (scm_is_number, x, 1);
-    LY_ASSERT_TYPE (scm_is_number, y, 2);
-    off = Offset (scm_to_double (x), scm_to_double (y));
-  }
+  if (SCM_UNBNDP (y))
+    {
+      LY_ASSERT_TYPE (is_number_pair, x, 1);
+      off = ly_scm2offset (x);
+    }
+  else
+    {
+      LY_ASSERT_TYPE (scm_is_number, x, 1);
+      LY_ASSERT_TYPE (scm_is_number, y, 2);
+      off = Offset (scm_to_double (x), scm_to_double (y));
+    }
   return scm_from_double (off.angle_degrees ());
 }
 
@@ -52,14 +55,17 @@ LY_DEFINE (ly_length, "ly:length",
            " arguments, @var{x} and @var{y} specify the respective coordinates.")
 {
   Offset off;
-  if (SCM_UNBNDP (y)) {
-    LY_ASSERT_TYPE (is_number_pair, x, 1);
-    off = ly_scm2offset (x);
-  } else {
-    LY_ASSERT_TYPE (scm_is_number, x, 1);
-    LY_ASSERT_TYPE (scm_is_number, y, 2);
-    off = Offset (scm_to_double (x), scm_to_double (y));
-  }
+  if (SCM_UNBNDP (y))
+    {
+      LY_ASSERT_TYPE (is_number_pair, x, 1);
+      off = ly_scm2offset (x);
+    }
+  else
+    {
+      LY_ASSERT_TYPE (scm_is_number, x, 1);
+      LY_ASSERT_TYPE (scm_is_number, y, 2);
+      off = Offset (scm_to_double (x), scm_to_double (y));
+    }
   return scm_from_double (off.length ());
 }
 
@@ -92,7 +98,6 @@ LY_DEFINE (ly_directed, "ly:directed",
   LY_ASSERT_TYPE (scm_is_number, magnitude, 2);
   return ly_offset2scm (scm_to_double (magnitude) * res);
 }
-
 
 /*
   TODO: naming add/combine.
@@ -516,7 +521,7 @@ LY_DEFINE (ly_round_filled_polygon, "ly:round-filled-polygon",
         }
     }
   return Lookup::round_filled_polygon (pts, scm_to_double (blot), ext)
-    .smobbed_copy ();
+         .smobbed_copy ();
 }
 
 LY_DEFINE (ly_register_stencil_expression, "ly:register-stencil-expression",

@@ -375,15 +375,14 @@ Tuplet_bracket::print (SCM smob)
             }
         }
 
-      Stencil brack =
-        Bracket::make_bracket (
-          me, Y_AXIS, points[RIGHT] - points[LEFT], height,
-          /*
-            0.1 = more space at right due to italics
-            TODO: use italic correction of font.
-          */
-          Interval (-0.5, 0.5) * gap + 0.1,
-          flare, shorten);
+      Stencil brack
+        = Bracket::make_bracket (me, Y_AXIS, points[RIGHT] - points[LEFT], height,
+                                 /*
+                                   0.1 = more space at right due to italics
+                                   TODO: use italic correction of font.
+                                 */
+                                 Interval (-0.5, 0.5) * gap + 0.1,
+                                 flare, shorten);
 
       for (LEFT_and_RIGHT (d))
         {

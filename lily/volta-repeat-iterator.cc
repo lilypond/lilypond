@@ -120,8 +120,8 @@ Volta_repeat_iterator::next_element (bool side_effect)
                       if (t)
                         {
                           alt_restores_ = scm_cons
-                            (scm_list_3 (t->self_scm (), scm_car (lst), res),
-                             alt_restores_);
+                                          (scm_list_3 (t->self_scm (), scm_car (lst), res),
+                                           alt_restores_);
                         }
                     }
                 }

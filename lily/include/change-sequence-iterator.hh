@@ -43,5 +43,4 @@ private:
   SCM change_list_;
 };
 
-
 #endif /* CHANGE_SEQUENCE_ITERATOR_HH */

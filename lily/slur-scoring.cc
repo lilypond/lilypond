@@ -550,15 +550,15 @@ Slur_score_state::get_base_attachments () const
               .linear_combination (CENTER);
           if (!isfinite (x))
             x = extremes_[d].note_column_->extent (common_[X_AXIS], X_AXIS)
-              .linear_combination (CENTER);
+                .linear_combination (CENTER);
           if (!isfinite (y))
             y = extremes_[d].note_column_->extent (common_[Y_AXIS], Y_AXIS)
-              .linear_combination (CENTER);
+                .linear_combination (CENTER);
         }
       else if (head)
         {
           y = head->extent (common_[Y_AXIS], Y_AXIS)
-            .linear_combination (0.5*dir_);
+              .linear_combination (0.5 * dir_);
 
           // Don't "move_away_from_staffline" because that makes it
           // harder to recognize the specific attachment point
@@ -770,7 +770,7 @@ Slur_score_state::enumerate_attachments (Drul_array<Real> end_ys) const
                      TODO: parameter */
                   os[d][X_AXIS]
                   -= dir_ * extremes_[d].slur_head_x_extent_.length ()
-                    * dz[Y_AXIS] / 3;
+                     * dz[Y_AXIS] / 3;
                 }
             }
 

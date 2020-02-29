@@ -35,7 +35,7 @@ class Font_metric : public Smob<Font_metric>
 public:
   int print_smob (SCM, scm_print_state *) const;
   SCM mark_smob () const;
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
   virtual ~Font_metric ();
 private:
   DECLARE_CLASSNAME (Font_metric);
@@ -53,10 +53,10 @@ public:
 
   virtual string font_name () const;
   virtual size_t count () const;
-  virtual Offset attachment_point (const string&) const;
+  virtual Offset attachment_point (const string &) const;
   virtual Offset get_indexed_wxwy (size_t) const;
   virtual Box get_indexed_char_dimensions (size_t index) const;
-  virtual size_t name_to_index (string) const=0;
+  virtual size_t name_to_index (string) const = 0;
   virtual size_t index_to_charcode (size_t) const;
   virtual Real design_size () const;
   virtual Stencil find_by_name (string) const;
@@ -72,7 +72,6 @@ protected:
 
   Font_metric ();
 };
-
 
 vector<char> pfb2pfa (const vector<char> &pfb);
 

@@ -94,7 +94,6 @@ Melody_engraver::acknowledge_stem (Grob_info info)
 
 #include "translator.icc"
 
-
 void
 Melody_engraver::boot ()
 {

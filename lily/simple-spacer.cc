@@ -251,7 +251,7 @@ Simple_spacer::compress_line ()
           */
           if (fabs (configuration_length (cur_force) - cur_len) > 1e-6 * cur_len)
             programming_error (to_string ("mis-predicted force, %.6f ~= %.6f",
-                                          cur_len, configuration_length(cur_force)));
+                                          cur_len, configuration_length (cur_force)));
           return cur_force;
         }
 
@@ -390,9 +390,9 @@ get_column_description (vector<Grob *> const &cols, vsize col_index, bool line_s
           if (cols[j] == other)
             description.rods_.push_back (Rod_description (j, scm_to_double (scm_cdar (s))));
           else /* it must end at the LEFT prebroken_piece */
-               /* see Spanner::set_spacing_rods for more comments on how
-                  to deal with situations where  we don't know if we're
-                  ending yet on the left prebroken piece */
+            /* see Spanner::set_spacing_rods for more comments on how
+               to deal with situations where  we don't know if we're
+               ending yet on the left prebroken piece */
             description.end_rods_.push_back (Rod_description (j, scm_to_double (scm_cdar (s))));
         }
     }

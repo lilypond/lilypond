@@ -26,7 +26,7 @@ class Phrasing_slur_engraver : public Slur_engraver
   virtual SCM event_symbol () const;
   virtual bool double_property () const;
   virtual SCM grob_symbol () const;
-  virtual const char* object_name () const;
+  virtual const char *object_name () const;
   virtual void set_melisma (bool);
 
 public:

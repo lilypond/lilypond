@@ -57,7 +57,7 @@ Accidental_placement::add_accidental (Grob *me, Grob *a, bool stagger, long cont
   long n = p->get_notename ();
 
   SCM accs = me->get_object ("accidental-grobs");
-  SCM key = scm_cons (scm_from_int (n), scm_from_long  (stagger ? context_hash : 1));
+  SCM key = scm_cons (scm_from_int (n), scm_from_long (stagger ? context_hash : 1));
   // assoc because we're dealing with pairs
   SCM entry = scm_assoc (key, accs);
   if (scm_is_false (entry))

@@ -254,7 +254,7 @@ Hairpin::print (SCM smob)
             }
         }
 
-        x_points[d] -= shorten[d] * d;
+      x_points[d] -= shorten[d] * d;
     }
 
   Real width = x_points[RIGHT] - x_points[LEFT];

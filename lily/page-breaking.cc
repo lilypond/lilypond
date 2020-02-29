@@ -1500,7 +1500,7 @@ Page_breaking::space_systems_on_2_pages (vsize configuration, vsize first_page_n
   cache_line_details (configuration);
   for (vsize i = 0; i + 1 < cached_line_details_.size (); i++)
     if (scm_is_eq (cached_line_details_[i].page_permission_,
-        ly_symbol2scm ("force")))
+                   ly_symbol2scm ("force")))
       {
         vector<Line_details> lines1 (cached_line_details_.begin (), cached_line_details_.begin () + i + 1);
         vector<Line_details> lines2 (cached_line_details_.begin () + i + 1, cached_line_details_.end ());

@@ -361,8 +361,7 @@ Source_file::get_port () const
 
 /****************************************************************/
 
-
-const char * const Source_file::type_p_name_ = "ly:source-file?";
+const char *const Source_file::type_p_name_ = "ly:source-file?";
 
 SCM
 Source_file::mark_smob () const

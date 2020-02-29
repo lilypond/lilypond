@@ -202,10 +202,11 @@ Constrained_breaking::solve (vsize start, vsize end, vsize sys_count)
         }
     }
   /* if we get to here, just put everything on one line */
-  if (sys_count > 0) {
-    warning (_ ("cannot find line breaking that satisfies constraints"));
-    ret.push_back (space_line (0, end_brk));
-  }
+  if (sys_count > 0)
+    {
+      warning (_ ("cannot find line breaking that satisfies constraints"));
+      ret.push_back (space_line (0, end_brk));
+    }
   return ret;
 }
 
@@ -293,11 +294,12 @@ Constrained_breaking::line_details (vsize start, vsize end, vsize sys_count)
     }
 
   /* if we get to here, just put everything on one line */
-  if (sys_count > 0) {
-    Line_details details;
-    fill_line_details (&details, 0, end_brk);
-    ret.push_back (details);
-  }
+  if (sys_count > 0)
+    {
+      Line_details details;
+      fill_line_details (&details, 0, end_brk);
+      ret.push_back (details);
+    }
   return ret;
 }
 
@@ -577,7 +579,7 @@ Line_details::Line_details (Prob *pb, Output_def *paper)
   force_ = 0;
   Stencil *st = unsmob<Stencil> (pb->get_property ("stencil"));
   Interval stencil_extent = st->is_empty (Y_AXIS) ? Interval (0, 0)
-    : st->extent (Y_AXIS);
+                            : st->extent (Y_AXIS);
   shape_ = Line_shape (stencil_extent, stencil_extent); // pretend it goes all the way across
   tallness_ = 0;
   bottom_padding_ = 0;

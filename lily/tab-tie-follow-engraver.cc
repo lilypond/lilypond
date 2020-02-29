@@ -111,7 +111,6 @@ Tab_tie_follow_engraver::stop_translation_timestep ()
   note_heads_.clear ();
 }
 
-
 void
 Tab_tie_follow_engraver::boot ()
 {

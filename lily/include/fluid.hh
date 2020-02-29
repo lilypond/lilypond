@@ -49,7 +49,7 @@ class Fluid
   // function parameters, namely only modify them synchronized to
   // function calls, like when using scm_with_fluid.  So no assignment
   // operator or any other interface to scm_fluid_set_x.
-  Fluid & operator= (const Fluid &);
+  Fluid &operator = (const Fluid &);
 public:
   Fluid (SCM fluid) : fluid_ (fluid), value_ (SCM_UNDEFINED)
   {

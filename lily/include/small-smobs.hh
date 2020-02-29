@@ -28,12 +28,14 @@ class Smob1 : public Smob_base<Super>
   Smob1 (const Smob1 &); // Do not define!  Not copyable!
 public:
   SCM self_scm () const { return SCM_PACK (this); }
-  SCM & scm1 () const { return *SCM_SMOB_OBJECT_LOC (self_scm ()); }
-  static SCM make_smob (SCM arg1 = SCM_UNDEFINED) {
+  SCM &scm1 () const { return *SCM_SMOB_OBJECT_LOC (self_scm ()); }
+  static SCM make_smob (SCM arg1 = SCM_UNDEFINED)
+  {
     SCM_RETURN_NEWSMOB (Smob_base<Super>::smob_tag (), SCM_UNPACK (arg1));
   }
   SCM mark_smob () const { return scm1 (); };
-  static Super *unchecked_unsmob (SCM s) {
+  static Super *unchecked_unsmob (SCM s)
+  {
     return reinterpret_cast<Super *> (SCM_UNPACK (s));
   }
 };
@@ -45,9 +47,10 @@ class Smob2 : public Smob_base<Super>
   Smob2 (const Smob2 &); // Do not define!  Not copyable!
 public:
   SCM self_scm () const { return SCM_PACK (this); }
-  SCM & scm1 () const { return *SCM_SMOB_OBJECT_LOC (self_scm ()); }
-  SCM & scm2 () const { return *SCM_SMOB_OBJECT_2_LOC (self_scm ()); }
-  static SCM make_smob (SCM arg1 = SCM_UNDEFINED, SCM arg2 = SCM_UNDEFINED) {
+  SCM &scm1 () const { return *SCM_SMOB_OBJECT_LOC (self_scm ()); }
+  SCM &scm2 () const { return *SCM_SMOB_OBJECT_2_LOC (self_scm ()); }
+  static SCM make_smob (SCM arg1 = SCM_UNDEFINED, SCM arg2 = SCM_UNDEFINED)
+  {
     SCM_RETURN_NEWSMOB2 (Smob_base<Super>::smob_tag (),
                          SCM_UNPACK (arg1),
                          SCM_UNPACK (arg2));
@@ -57,7 +60,8 @@ public:
     scm_gc_mark (scm2 ());
     return scm1 ();
   }
-  static Super *unchecked_unsmob (SCM s) {
+  static Super *unchecked_unsmob (SCM s)
+  {
     return reinterpret_cast<Super *> (SCM_UNPACK (s));
   }
 };
@@ -69,12 +73,13 @@ class Smob3 : public Smob_base<Super>
   Smob3 (const Smob3 &); // Do not define!  Not copyable!
 public:
   SCM self_scm () const { return SCM_PACK (this); }
-  SCM & scm1 () const { return *SCM_SMOB_OBJECT_LOC (self_scm ()); }
-  SCM & scm2 () const { return *SCM_SMOB_OBJECT_2_LOC (self_scm ()); }
-  SCM & scm3 () const { return *SCM_SMOB_OBJECT_3_LOC (self_scm ()); }
+  SCM &scm1 () const { return *SCM_SMOB_OBJECT_LOC (self_scm ()); }
+  SCM &scm2 () const { return *SCM_SMOB_OBJECT_2_LOC (self_scm ()); }
+  SCM &scm3 () const { return *SCM_SMOB_OBJECT_3_LOC (self_scm ()); }
   static SCM make_smob (SCM arg1 = SCM_UNDEFINED,
                         SCM arg2 = SCM_UNDEFINED,
-                        SCM arg3 = SCM_UNDEFINED) {
+                        SCM arg3 = SCM_UNDEFINED)
+  {
     SCM_RETURN_NEWSMOB3 (Smob_base<Super>::smob_tag (),
                          SCM_UNPACK (arg1),
                          SCM_UNPACK (arg2),
@@ -86,7 +91,8 @@ public:
     scm_gc_mark (scm2 ());
     return scm1 ();
   }
-  static Super *unchecked_unsmob (SCM s) {
+  static Super *unchecked_unsmob (SCM s)
+  {
     return reinterpret_cast<Super *> (SCM_UNPACK (s));
   }
 };

@@ -66,8 +66,8 @@ Percent_repeat_iterator::construct_children ()
 
   descend_to_bottom_context ();
   if (!measure_position (get_outlet ()).main_part_)
-    starting_bar_ =
-      robust_scm2int (get_outlet ()->get_property ("internalBarNumber"), 0);
+    starting_bar_
+      = robust_scm2int (get_outlet ()->get_property ("internalBarNumber"), 0);
 }
 
 SCM
@@ -97,8 +97,8 @@ Percent_repeat_iterator::next_element (bool side_effect)
 
   int current_bar = -1;
   if (!measure_position (get_outlet ()).main_part_)
-    current_bar =
-      robust_scm2int (get_outlet ()->get_property ("internalBarNumber"), 0);
+    current_bar
+      = robust_scm2int (get_outlet ()->get_property ("internalBarNumber"), 0);
 
   SCM child_list = SCM_EOL;
 
@@ -107,7 +107,7 @@ Percent_repeat_iterator::next_element (bool side_effect)
 
   if (starting_bar_ >= 0 && current_bar == starting_bar_ + 1)
     event_type = "PercentEvent";
-  else if (starting_bar_ >=0 && current_bar == starting_bar_ + 2)
+  else if (starting_bar_ >= 0 && current_bar == starting_bar_ + 2)
     event_type = "DoublePercentEvent";
   else
     {

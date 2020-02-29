@@ -43,9 +43,7 @@ Moment::Moment (Rational m)
   grace_part_ = Rational (0);
 }
 
-
-const char * const Moment::type_p_name_ = "ly:moment?";
-
+const char *const Moment::type_p_name_ = "ly:moment?";
 
 int
 Moment::print_smob (SCM port, scm_print_state *) const

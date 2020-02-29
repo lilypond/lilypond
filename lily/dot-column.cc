@@ -158,7 +158,7 @@ Dot_column::calc_positioning_done (SCM smob)
       vector <vector <Grob *> > dots_each_stem (parent_stems.size ());
       for (vsize i = 0; i < dots.size (); i++)
         if (Grob *stem = unsmob<Grob> (dots[i]->get_parent (Y_AXIS)
-                                      -> get_object ("stem")))
+                                       -> get_object ("stem")))
           for (vsize j = 0; j < parent_stems.size (); j++)
             if (stem == parent_stems[j])
               {

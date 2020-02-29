@@ -70,7 +70,6 @@ Stanza_number_align_engraver::stop_translation_timestep ()
   lyrics_.clear ();
 }
 
-
 void
 Stanza_number_align_engraver::boot ()
 {

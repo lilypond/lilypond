@@ -32,7 +32,7 @@ struct Midi_stream
   Midi_stream (const string &file_name_string);
   ~Midi_stream ();
 
-  void write (const string&);
+  void write (const string &);
   void write (Midi_chunk const &);
   void open ();
 

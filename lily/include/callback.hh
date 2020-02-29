@@ -60,8 +60,8 @@ public:
   template <SCM (*trampoline) (SCM, SCM)>
   static SCM make_smob ()
   {
-    static SCM res =
-      scm_permanent_object (Callback_wrapper (trampoline).smobbed_copy ());
+    static SCM res
+      = scm_permanent_object (Callback_wrapper (trampoline).smobbed_copy ());
     return res;
   }
 };
@@ -85,8 +85,8 @@ public:
   template <SCM (*trampoline) (SCM, SCM, SCM)>
   static SCM make_smob ()
   {
-    static SCM res =
-      scm_permanent_object (Callback2_wrapper (trampoline).smobbed_copy ());
+    static SCM res
+      = scm_permanent_object (Callback2_wrapper (trampoline).smobbed_copy ());
     return res;
   }
 };
@@ -109,20 +109,20 @@ public:
   template <SCM (*trampoline) (SCM)>
   static SCM make_smob ()
   {
-    static SCM res =
-      scm_permanent_object (Callback0_wrapper (trampoline).smobbed_copy ());
+    static SCM res
+      = scm_permanent_object (Callback0_wrapper (trampoline).smobbed_copy ());
     return res;
   }
   // Since there are no arguments at all, we might as well provide
   // default trampolines
-  template <class T, SCM (T::*p)()>
+  template <class T, SCM (T::*p) ()>
   static SCM trampoline (SCM target)
   {
     T *t = LY_ASSERT_SMOB (T, target, 1);
     return (t->*p) ();
   }
 
-  template <class T, void (T::*p)()>
+  template <class T, void (T::*p) ()>
   static SCM trampoline (SCM target)
   {
     T *t = LY_ASSERT_SMOB (T, target, 1);
@@ -130,13 +130,13 @@ public:
     return SCM_UNSPECIFIED;
   }
 
-  template <class T, SCM (T::*p)()>
+  template <class T, SCM (T::*p) ()>
   static SCM make_smob ()
   {
     return make_smob<trampoline<T, p> > ();
   }
 
-  template <class T, void (T::*p)()>
+  template <class T, void (T::*p) ()>
   static SCM make_smob ()
   {
     return make_smob<trampoline<T, p> > ();

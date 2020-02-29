@@ -32,7 +32,7 @@ class Input : public Simple_smob<Input>
   char const *end_;
   Source_file *source_file_;
 public:
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
   int print_smob (SCM, scm_print_state *) const;
   static SCM equal_p (SCM, SCM);
   SCM mark_smob () const;
@@ -41,12 +41,12 @@ public:
   char const *end () const;
 
   void set (Source_file *, char const *, char const *);
-  void error (const string&) const;
-  void programming_error (const string&) const;
-  void non_fatal_error (const string&) const;
-  void warning (const string&) const;
-  void message (const string&) const;
-  void debug_output (const string&) const;
+  void error (const string &) const;
+  void programming_error (const string &) const;
+  void non_fatal_error (const string &) const;
+  void warning (const string &) const;
+  void message (const string &) const;
+  void debug_output (const string &) const;
   void set_spot (Input const &);
   void step_forward ();
   void set_location (Input const &, Input const &);

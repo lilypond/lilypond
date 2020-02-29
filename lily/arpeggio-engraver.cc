@@ -109,7 +109,6 @@ Arpeggio_engraver::stop_translation_timestep ()
   arpeggio_event_ = 0;
 }
 
-
 void
 Arpeggio_engraver::boot ()
 {

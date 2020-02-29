@@ -50,12 +50,12 @@ Context::check_removal ()
       if (ctx->is_removable ())
         {
           recurse_over_translators
-            (ctx,
-             Callback0_wrapper::make_smob
-             <Translator, &Translator::finalize> (),
-             Callback0_wrapper::make_smob
-             <Translator_group, &Translator_group::finalize> (),
-             UP);
+          (ctx,
+           Callback0_wrapper::make_smob
+           <Translator, &Translator::finalize> (),
+           Callback0_wrapper::make_smob
+           <Translator_group, &Translator_group::finalize> (),
+           UP);
           send_stream_event (ctx, "RemoveContext", 0);
         }
     }
@@ -181,7 +181,6 @@ Context::find_create_context (SCM n, const string &id, SCM operations)
         }
     }
 
-
   if (Context *existing = find_context_below (this, n, id))
     return existing;
 
@@ -246,10 +245,11 @@ Context::set_property_from_event (SCM sev)
     {
       SCM val = ev->get_property ("value");
 
-      if (SCM_UNBNDP (val)) {
-        unset_property (sym);
-        return;
-      }
+      if (SCM_UNBNDP (val))
+        {
+          unset_property (sym);
+          return;
+        }
 
       bool ok = true;
       ok = type_check_assignment (sym, val, ly_symbol2scm ("translation-type?"));
@@ -709,7 +709,7 @@ Context *
 find_context_near (Context *where,
                    SCM type, const string &id)
 {
-  for ( ; where; where = where->get_parent_context ())
+  for (; where; where = where->get_parent_context ())
     {
       Context *found = find_context_below (where, type, id);
       if (found)
@@ -723,7 +723,7 @@ Context *
 find_top_context (Context *where)
 {
   Context *top = where;
-  for ( ; where; where = where->get_parent_context())
+  for (; where; where = where->get_parent_context ())
     top = where;
   return top;
 }
@@ -831,7 +831,7 @@ Context::mark_smob () const
   return properties_scm_;
 }
 
-const char * const Context::type_p_name_ = "ly:context?";
+const char *const Context::type_p_name_ = "ly:context?";
 
 Global_context *
 Context::get_global_context () const
@@ -937,11 +937,13 @@ melisma_busy (Context *tr)
       // all contexts need to have a busy melisma for this to evaluate
       // to true.
 
-      do {
-        if (!melisma_busy (unsmob<Context> (scm_car (ch))))
-          return false;
-        ch = scm_cdr (ch);
-      } while (scm_is_pair (ch));
+      do
+        {
+          if (!melisma_busy (unsmob<Context> (scm_car (ch))))
+            return false;
+          ch = scm_cdr (ch);
+        }
+      while (scm_is_pair (ch));
       return true;
     }
 

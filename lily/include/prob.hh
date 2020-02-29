@@ -38,7 +38,7 @@ public:
   int print_smob (SCM, scm_print_state *) const;
   SCM mark_smob () const;
   static SCM equal_p (SCM, SCM);
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
   virtual ~Prob ();
 private:
   DECLARE_CLASSNAME (Prob);
@@ -69,7 +69,6 @@ public:
   /// Transpose, with the interval central C to #p#
   void transpose (Pitch p);
 };
-
 
 SCM ly_prob_set_property_x (SCM system, SCM sym, SCM value);
 SCM ly_prob_property (SCM prob, SCM sym, SCM val);

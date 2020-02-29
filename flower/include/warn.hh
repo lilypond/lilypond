@@ -46,7 +46,7 @@ extern bool warning_as_error;
 /* output messages, in decreasing order of importance */
 void error (string s, const string &location = ""); // Fatal error, exits lilypond!
 void programming_error (const string &s, const string &location = "");
-void non_fatal_error (const string&, const string &location = "");
+void non_fatal_error (const string &, const string &location = "");
 void warning (const string &s, const string &location = "");
 void basic_progress (const string &s, const string &location = "");
 /* progress_indication does by default *NOT* start on a new line */

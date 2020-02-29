@@ -42,7 +42,7 @@ Rational::to_double () const
       I64 inum = num_;
       I64 iden = den_;
       return static_cast<double> (sign_) *
-        static_cast<double> (inum) / static_cast<double> (iden);
+             static_cast<double> (inum) / static_cast<double> (iden);
     }
 #else
     return (double)sign_ * (double)num_ / (double)den_;

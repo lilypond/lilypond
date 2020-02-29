@@ -23,8 +23,7 @@
 #include "input.hh"
 #include "profile.hh"
 
-
-const char * const Prob::type_p_name_ = "ly:prob?";
+const char *const Prob::type_p_name_ = "ly:prob?";
 
 SCM
 Prob::equal_p (SCM sa, SCM sb)
