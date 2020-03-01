@@ -19,7 +19,7 @@ OUT_TELY_FILES += ${TELY_FILES:%.tely=$(outdir)/%.pdf}
 XML_FILES = $(filter-out include%,$(call src-wildcard,*.xml))
 
 local-test:
-	make LYS_OUTPUT_DIR=$(top-build-dir)/out/lybook-testdb $(OUT_FILES)
+	$(MAKE) LYS_OUTPUT_DIR=$(top-build-dir)/out/lybook-testdb $(OUT_FILES)
 
 $(outdir)/suffix-texi.texi: suffix-texi.texi $(outdir)/version.itexi $(DOCUMENTATION_LOCALE_TARGET) $(INIT_LY_SOURCES) $(SCHEME_SOURCES)
 	$(call ly_progress,Making,$@,)
@@ -36,7 +36,4 @@ $(outdir)/suffix-texi.texi: suffix-texi.texi $(outdir)/version.itexi $(DOCUMENTA
 # following rule is to circumvent this for the purpose of the build. For
 # the regression tests the .xref-map files are empty and not used anyway.
 $(XREF_MAPS_DIR)/texinfo-include-language-detection.xref-map $(XREF_MAPS_DIR)/texinfo-language-detection.xref-map: %:
-	touch $@
-
-# Prevent parallel lilypond-book instances for this subdir
-.NOTPARALLEL:
+	mkdir -p $(dir $@) ; touch $@
