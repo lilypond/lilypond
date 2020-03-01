@@ -9,6 +9,19 @@
 @c used for news about the upcoming release; see CG on Release Work
 
 @newsItem
+@subheading LilyPond 2.20.0 released!  @emph{March 1, 2020}
+
+We are proud to announce the release of GNU LilyPond 2.20.0.
+LilyPond is a music engraving program devoted to producing the
+highest-quality sheet music possible.  It brings the aesthetics of
+traditionally engraved music to computer printouts.
+
+This version provides a number of updates, including
+updated manuals.  We recommend all users to upgrade to this version.
+
+@newsEnd
+
+@newsItem
 @subheading LilyPond 2.19.84 released  @emph{February 4, 2020}
 
 We are happy to announce the release of LilyPond
@@ -19,121 +32,4 @@ version.
 
 @newsEnd
 
-@newsItem
-@subheading LilyPond 2.18.2 released!  @emph{March 23, 2014}
 
-We are proud to announce the release of GNU LilyPond 2.18.2.
-LilyPond is a music engraving program devoted to producing the
-highest-quality sheet music possible.  It brings the aesthetics of
-traditionally engraved music to computer printouts.
-
-This version provides a number of updates to 2.18.0, including
-updated manuals.  We recommend all users to upgrade to this version.
-
-@newsEnd
-
-
-@newsItem
-@subheading Two LilyPond projects in Google Summer of Code 2016  @emph{April 23, 2016}
-
-We are happy to see two students, Nathan Chou and Jeffery Shivers, working on
-LilyPond as participants in the Google Summer of Code this year.  We hope they
-produce great results and stay in the developer community afterwards.
-
-Nathan will tackle an annoying limitation, namely the unability of spanners
-to cross voices.  His work will make a class of ugly workarounds obsolete.
-Jeffery will bring the ScholarLY package[1] to production quality and add a
-LaTeX package to it, making it possible to create beautiful critical reports
-from data encoded directly in the LilyPond score.
-
-[1] @uref{https://github.com/openlilylib/scholarly}@*
-
-@newsEnd
-
-
-@newsItem
-@subheading LilyPond 2.18.0 released!  @emph{December 29, 2013}
-
-We are proud to announce the release of GNU LilyPond 2.18.0.
-LilyPond is a music engraving program devoted to producing the
-highest-quality sheet music possible.  It brings the aesthetics of
-traditionally engraved music to computer printouts.
-
-Among the numerous improvements and changes, the following might
-be most visible:
-
-@itemize @bullet
-@item
-Many items are now positioned using their actual outline rather
-than a@tie{}rectangular bounding box.  This greatly reduces
-the occurrence of unsightly large gaps.
-
-@item
-Sets and overrides can now use the syntax
-@example
-\override Voice.TextSpanner.bound-details.left.text = "rit."
-@end example
-instead of the previous
-@example
-\override Voice.TextSpanner #'(bound-details left text) = "rit."
-@end example
-
-@item
-Triplets with a given group length can now be written as
-@example
-\tuplet 3/2 4 @{ c8 c c  c c c @}
-@end example
-instead of
-@example
-\times 2/3 @{ c8 c c @}  \times 2/3 @{ c8 c c @}
-@end example
-@end itemize
-
-A full list of noteworthy new features is given in:
-
-@example
-@uref{http://lilypond.org/doc/v2.18/Documentation/changes/index.html}
-@end example
-
-Great thanks go to the large number of LilyPond enthusiasts whose
-financial backing enabled one core developer, David Kastrup, to
-focus exclusively on LilyPond during the entire development cycle.
-
-LilyPond 2.18 has been brought to you by
-
-@table @asis
-@item Main Developers:
-Bertrand Bordage, Trevor Daniels, Colin Hall, Phil Holmes, Ian
-Hulin, Reinhold Kainhofer, David Kastrup, Jonathan Kulp, Werner
-Lemberg, John Mandereau, Patrick McCarty, Joe Neeman, Han-Wen
-Nienhuys, Jan Nieuwenhuizen, Graham Percival, Mark Polesky, Neil
-Puttock, Mike Solomon, Carl Sorensen, Francisco Vila, Valentin
-Villenave, Janek Warchoł
-
-@item Core Contributors:
-Aleksandr Andreev, Frédéric Bron, Torsten Hämmerle, Marc Hohl,
-James Lowe, Andrew Main, Thomas Morley, David Nalesnik, Keith
-OHara, Benkő Pál, Anders Pilegaard, Julien Rioux, Johannes Rohrer,
-Adam Spiers, Heikki Tauriainen
-
-@item Documentation Writers:
-Frédéric Bron, Federico Bruni, Colin Campbell, Urs Liska, James
-Lowe, Thomas Morley, Jean-Charles Malahieude, Guy Stalnaker,
-Martin Tarenskeen, Arnold Theresius, Rodolfo Zitellini
-
-@item Bug Squad:
-Colin Campbell, Eluze, Marc Hohl, Phil Holmes, Marek Klein, Ralph
-Palmer
-
-@item Support Team:
-Colin Campbell, Eluze, Marc Hohl, Marek Klein, Kieren MacMillan,
-Urs Liska, Ralph Palmer
-
-@item Translators:
-Federico Bruni, Luca Rossetto Casel, Felipe Castro, Pavel Fric,
-Jean-Charles Malahieude, Till Paala, Yoshiki Sawada
-
-@end table
-and numerous other contributors.
-
-@newsEnd
