@@ -17,8 +17,13 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+// Needed because of extension definitions for POSIX functions.
+#include "config.hh"
+
 #include "misc.hh"
 #include "bezier.hh"
+
+#include <cmath>
 
 static Real
 F0_1 (Real x)
