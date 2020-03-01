@@ -1,7 +1,7 @@
 top-build-dir := $(realpath $(depth) )
 build-dir := $(realpath  . )
 
-tree-dir = $(subst $(top-build-dir),,$(build-dir))
+tree-dir = $(build-dir:$(top-build-dir)%=%)
 
 ifneq ($(configure-srcdir),.)
 srcdir-build = 1
