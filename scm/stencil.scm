@@ -782,13 +782,13 @@ of the white stencil we make between 0 and 2*pi."
             stil)))))
 
 (define*-public (stencil-whiteout-box stil
-                 #:optional (thickness 0) (blot 0) (color white))
-  "@var{thickness} is how far, as a multiple of line-thickness,
-the white outline extends past the extents of stencil @var{stil}."
+                 #:optional (thickness '(0 . 0)) (blot 0) (color white))
+  "@var{thickness} is a pair giving how far, as a multiple of line-thickness,
+the white outline extends past the extents of stencil @var{stil}
+horizontally/vertically."
   (let*
-   ((x-ext (interval-widen (ly:stencil-extent stil X) thickness))
-    (y-ext (interval-widen (ly:stencil-extent stil Y) thickness)))
-
+   ((x-ext (interval-widen (ly:stencil-extent stil X) (car thickness)))
+    (y-ext (interval-widen (ly:stencil-extent stil Y) (cdr thickness))))
    (ly:stencil-add
     (stencil-with-color (ly:round-filled-box x-ext y-ext blot) color)
     stil)))
@@ -806,18 +806,24 @@ specified it determines how far, as a multiple of @var{line-thickness},
 the white background extends past the extents of stencil @var{stil}.  If
 @var{thickness} has not been specified, an appropriate default is chosen
 based on @var{style}."
-  (let ((thick (* line-thickness
-                 (if (number? thickness)
-                     thickness
+  (let* ((finalize-thickness (lambda (x)
+             (* line-thickness
+                 (if (number? x)
+                     x
                      (cond
                       ((eq? style 'outline) 3)
                       ((eq? style 'rounded-box) 3)
                       (else 0))))))
+         (X-thick (finalize-thickness (if (pair? thickness) (car thickness) thickness)))
+         (Y-thick (finalize-thickness (if (pair? thickness) (cdr thickness) thickness))))
+
     (cond
      ((eq? style 'special) stil)
-     ((eq? style 'outline) (stencil-whiteout-outline stil thick))
-     ((eq? style 'rounded-box) (stencil-whiteout-box stil thick (* 2 thick)))
-     (else (stencil-whiteout-box stil thick)))))
+     ; giving thickness as a number-pair makes no sense for style 'outline, so only X dimension is used
+     ((eq? style 'outline) (stencil-whiteout-outline stil X-thick))
+     ; the blot value for rounded quadratic boxes used to be 2*thick, so now we use X-thick + Y-thick
+     ((eq? style 'rounded-box) (stencil-whiteout-box stil (cons X-thick Y-thick) (+ X-thick Y-thick)))
+     (else (stencil-whiteout-box stil (cons X-thick Y-thick))))))
 
 (define-public (arrow-stencil-maker start? end?)
   "Return a function drawing a line from current point to @code{destination},
