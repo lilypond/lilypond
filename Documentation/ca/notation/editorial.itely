@@ -1,0 +1,934 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+@c This file is included from notation.itely
+@ignore
+    Translation of GIT committish: dbc2dd143e50e000a39883fc8217b4ec60e08657
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.19.80"
+
+@c Translators: Walter Garcia-Fontes
+@c Translation checkers:
+
+@node Anotacions editorials
+@section Anotacions editorials
+@translationof Editorial annotations
+
+@lilypondfile[quote]{editorial-headword.ly}
+
+Aquesta secció tracta de les diverses maneres de modificar
+l'aspecte de les notes i d'aplicar èmfasi analític o educatiu.
+
+@menu
+* Dins del pentagrama::
+* Fora del pentagrama::
+@end menu
+
+
+@node Dins del pentagrama
+@subsection Dins del pentagrama
+@translationof Inside the staff
+
+Aquesta secció tracta sobre com aplicar èmfasi als elements
+situats dins del pentagrama.
+
+@menu
+* Selecció del la mida del tipus de lletra per a la notació::
+* Indicacions de digitació::
+* Notes ocultes::
+* Acoloriment d'objectes::
+* Parèntesis::
+* Pliques::
+@end menu
+
+@node Selecció del la mida del tipus de lletra per a la notació
+@unnumberedsubsubsec Selecció del la mida del tipus de lletra per a la notació
+@translationof Selecting notation font size
+
+@cindex tipus de lletra (de notació), mida
+@cindex selecció de la mida del tipus de lletra (de notació)
+@cindex notació, mida del tipus de lletra
+@cindex notes, caps de
+
+@funindex fontSize
+@funindex font-size
+@funindex magnification->font-size
+@funindex magstep
+@funindex magnifyMusic
+@funindex teeny
+@funindex tiny
+@funindex small
+@funindex normalsize
+@funindex large
+@funindex huge
+@funindex \magnifyMusic
+@funindex \teeny
+@funindex \tiny
+@funindex \normalsize
+@funindex \small
+@funindex \large
+@funindex \huge
+
+@warning{@*
+Per a la mida del tipus de lletra del text consulteu
+@ref{Selecció del tipus de lletra i la seva mida}.@*
+Per a la mida del pentagrama, consulteu
+@ref{Establiment de la mida del pentagrama}.@*
+Per a les notes guia, consulteu @ref{Format de les notes guia}.@*
+Per als pentagrames d'Ossia, consulteu @ref{Pentagrames d'Ossia}.}
+
+Per modificar la mida de la notació sense canviar la mida del
+pentagrama, especifiqueu un factor d'ampliació amb l'ordre
+@code{\magnifyMusic}:
+
+@c Grieg Piano Concerto (mvt.1 cadenza)
+@lilypond[verbatim,quote]
+\new Staff <<
+  \new Voice \relative {
+    \voiceOne
+    <e' e'>4 <f f'>8. <g g'>16 <f f'>8 <e e'>4 r8
+  }
+  \new Voice \relative {
+    \voiceTwo
+    \magnifyMusic 0.63 {
+      \override Score.SpacingSpanner.spacing-increment = #(* 1.2 0.63)
+      r32 c'' a c a c a c r c a c a c a c
+      r c a c a c a c a c a c a c a c
+    }
+  }
+>>
+@end lilypond
+
+L'@code{\override} de l'exemple anterior és una solució
+provisional per solucionar un error del programa. Consulteu
+l'apartat de @qq{Problemes i advertiments coneguts} al final
+d'aquesta secció.
+
+Si una figura amb una mida normal de cap es barreja amb una altra
+més petita, la mida de la menor podria de necessitar de canviar-se
+(amb @w{@samp{\once@tie{}\normalsize}}) perquè les pliques i les
+alteracions accidentals mantinguin una bona alineació:
+
+@c Chopin Prelude op.28 no.8
+@lilypond[verbatim,quote]
+\new Staff <<
+  \key fis \minor
+  \mergeDifferentlyDottedOn
+  \new Voice \relative {
+    \voiceOne
+    \magnifyMusic 0.63 {
+      \override Score.SpacingSpanner.spacing-increment = #(* 1.2 0.63)
+      \once \normalsize cis'32( cis' gis b a fis \once \normalsize d d'
+      \once \normalsize cis, cis' gis b a gis \once \normalsize fis fis'
+      \once \normalsize fis, fis' ais, cis b gis \once \normalsize eis eis'
+      \once \normalsize a, a' bis, d cis b \once \normalsize gis gis')
+    }
+  }
+  \new Voice \relative {
+    \voiceTwo
+    cis'8. d16 cis8. fis16 fis8. eis16 a8. gis16
+  }
+>>
+@end lilypond
+
+L'ordre @code{\magnifyMusic} no està pensada per a les notes guia,
+d'adorn, o per als pentagrames d'Ossia; hi ha mètodes més
+apropiats per a la introducció de cada un d'aquests elements. En
+comptes d'això, és útil quan la mida de la notació canvia dins
+d'una sola part instrumental sobre un pentagrama, i quan les notes
+d'adorn no són adequades, com a passatges de cadència o en casos
+com els dels exemples anteriors. Establir el valor de
+@code{\magnifyMusic} a 0.63 duplica les dimensions del context
+@code{CueVoice}.
+
+@warning{L'ordre @code{@bs{}magnifyMusic} @i{no} ha d'utilitzar-se
+si s'està canviant la mida del pentagrama al mateix temps.  Consulteu
+@ref{Establiment de la mida del pentagrama}.}
+
+
+@subsubsubheading Canviar la mida dels objectes individuals
+
+Es pot canviar de mida un objecte de presentació individual usant
+les ordres @code{\tweak} o @code{\override} per ajustar la seva
+propietat @code{font-size}:
+
+@lilypond[quote,verbatim]
+\relative {
+  % resize a note head
+  <f' \tweak font-size -4 b e>-5
+  % resize a fingering
+  bes-\tweak font-size 0 -3
+  % resize an accidental
+  \once \override Accidental.font-size = -4 bes!-^
+  % resize an articulation
+  \once \override Script.font-size = 4 bes!-^
+}
+@end lilypond
+
+El valor predeterminat de @code{font-size} per a cada objecte de
+presentació està explicat al Manual de Referència de Funcionament
+Intern.  La propietat @code{font-size} sols es pot fixar per als
+objectes de presentació que respecten la interfície de presentació
+@code{font-interface}.  Si no està especificada @code{font-size} a
+la llista de @q{Ajustos@tie{}estàndard} de l'objecte, el seu valor
+és 0.  Vegeu
+@rinternals{All layout objects}.
+
+
+@subsubsubheading Comprensió de la propietat @code{fontSize}
+
+La propietat de context @code{fontSize} ajusta la mida relativa de
+tots els elements de notació basats en glifs dins d'un context:
+
+@lilypond[verbatim,quote]
+\relative {
+  \time 3/4
+  d''4---5 c8( b a g) |
+  \set fontSize = -6
+  e'4-- c!8-4( b a g) |
+  \set fontSize = 0
+  fis4---3 e8( d) fis4 |
+  g2.
+}
+@end lilypond
+
+El valor @code{fontSize} és un número que indica la mida relativa
+a la mida estàndard per a l'alçada actual del pentagrama.  El
+valor predeterminat de @code{fontSize} es 0; la addició de 6 a
+qualsevol valor de @code{fontSize} duplica la mida impresa dels
+glifs, i la substracció de 6 redueix la mida a la meitat.  Cada
+pas augmenta la mida en un 12% aproximadament.
+
+La funció del Scheme @code{magnification->font-size} es proveeix
+per conveniència, atès que les unitats logarítmiques de la propietat
+@code{font-size} no són totalment intuïtives.  Per exemple, per
+ajustar la notació musical al 75% de la mida predeterminada, usem:
+
+
+@example
+\set fontSize = #(magnification->font-size 0.75)
+@end example
+
+La funció de l'Scheme @code{magstep} té l'efecte oposat:
+converteix un valor de @code{font-size} a un factor d'ampliació.
+
+La propietat @code{fontSize} no afecta sols als elements
+de notació que es dibuixen amb glifs, com el cap de les figures,
+les alteracions accidentals, les inscripcions textuals, etc. No
+afecta la mida de la pròpia pauta, ni canvia l'escala de les
+pliques, barres, o espaiat horitzontal.  Per canviar l'escala de
+les pliques, barres i l'espaiat horitzontal junt amb la mida de la
+notació (sense canviar la mida de la pauta), useu l'ordre
+@code{\magnifyMusic} que s'ha explicat anteriorment.  Per canviar
+l'escala de la mida de tot, fins i tot la pauta, vegeu
+@ref{Establiment de la mida del pentagrama}.
+
+Sempre que s'estableix el valor de la @i{propietat de context}
+@code{fontSize}, el seu valor s'afegeix al valor de la
+@i{propietat d'objecte gràfic} @code{font-size} per als objectes
+de presentació individuals, abans que s'imprimeixi qualsevol dels
+glifs.  Això pot confondre quan s'estableix el valor de les propietats
+@code{font-size} individuals mentre @code{fontSize} ja està establert:
+
+@lilypond[verbatim,quote,fragment]
+% the default font-size for NoteHead is 0
+% the default font-size for Fingering is -5
+c''4-3
+
+\set fontSize = -3
+% the effective font size for NoteHead is now -3
+% the effective font size for Fingering is now -8
+c''4-3
+
+\override Fingering.font-size = 0
+% the effective font size for Fingering is now -3
+c''4-3
+@end lilypond
+
+També hi ha les següents ordres de drecera:
+
+@multitable @columnfractions .2 .4 .4
+@item @b{Ordre} @tab @b{Equivalent a} @tab @b{Mida relativa}
+@item @code{\teeny}      @tab @code{\set fontSize = -3} @tab 71%
+@item @code{\tiny}       @tab @code{\set fontSize = -2} @tab 79%
+@item @code{\small}      @tab @code{\set fontSize = -1} @tab 89%
+@item @code{\normalsize} @tab @code{\set fontSize = 0} @tab 100%
+@item @code{\large}      @tab @code{\set fontSize = 1} @tab 112%
+@item @code{\huge}       @tab @code{\set fontSize = 2} @tab 126%
+@end multitable
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  \teeny
+  c4.-> d8---3
+  \tiny
+  c4.-> d8---3
+  \small
+  c4.-> d8---3
+  \normalsize
+  c4.-> d8---3
+  \large
+  c4.-> d8---3
+  \huge
+  c4.-> d8---3
+}
+@end lilypond
+
+
+@cindex estàndard, mida del tipus de lletra (de notació)
+@cindex tipus de lletra (de notació), mida estàndard de
+
+@funindex font-interface
+@funindex font-size
+
+Els canvis a la mida del tipus de lletra s'obtenen per mitjà de
+l'escalat de la mida del disseny que es troba més a prop de la
+mida desitjada.  La mida estàndard per al tipus de lletra (per a
+@w{@code{font-size = 0}}) depèn de l'alçada estàndard del
+pentagrama.  Per a un pentagrama de 20 punts, se selecciona un
+tipus de lletra de 11 punts.
+
+@predefined
+@code{\magnifyMusic},
+@code{\teeny} (ínfim),
+@code{\tiny} (molt petit),
+@code{\small} (petit),
+@code{\normalsize} (normal),
+@code{\large} (gran),
+@code{\huge} (enorme).
+@endpredefined
+
+@seealso
+Referència de la notació:
+@ref{Selecció del tipus de lletra i la seva mida}
+@ref{Establiment de la mida del pentagrama}.
+@ref{Format de les notes guia},
+@ref{Pentagrames d'Ossia}.
+
+Fitxers instal·lats:
+@file{ly/music-functions-init.ly},
+@file{ly/property-init.ly}.
+
+Fragments de codi:
+@rlsr{Editorial annotations}.
+
+Referència de funcionament intern:
+@rinternals{font-interface}.
+
+@c The two issues mentioned below:
+@c http://code.google.com/p/lilypond/issues/detail?id=3987
+@c http://code.google.com/p/lilypond/issues/detail?id=3990
+@knownissues
+Actualment hi ha dos errors del programa que impedeixen un espaiat
+horitzontal correcte en usar @code{\magnifyMusic}.  Solament hi ha
+una forma rodejar l'error, i el seu funcionament correcte no està
+garantit en tots els casos.  A l'exemple que apareix a
+continuació, substituïu la variable @var{mag} amb el vostre valor
+preferit.  També podeu intentar treure una o ambdues ordres
+@code{\newSpacingSection}, i/o les ordres
+@code{\override} i @code{\revert}:
+
+@example
+\magnifyMusic @var{mag} @{
+  \newSpacingSection
+  \override Score.SpacingSpanner.spacing-increment = #(* 1.2 @var{mag})
+  [@var{music}]
+  \newSpacingSection
+  \revert Score.SpacingSpanner.spacing-increment
+@}
+@end example
+
+
+@node Indicacions de digitació
+@unnumberedsubsubsec Indicacions de digitació
+@translationof Fingering instructions
+
+@cindex digitació
+@cindex canvi de dit
+
+@funindex \finger
+
+Les instruccions de digitació es poden introduir usant
+@samp{@var{nota}-@var{dígito}}:
+
+@lilypond[verbatim,quote]
+\relative { c''4-1 d-2 f-4 e-3 }
+@end lilypond
+
+Per als canvis de dit es poden usar elements de marcatge de text
+o de cadenes de caràcters.
+
+@lilypond[verbatim,quote]
+\relative {
+  c''4-1 d-2 f\finger \markup \tied-lyric "4~3" c\finger "2 - 3"
+}
+@end lilypond
+
+@cindex thumb-script
+
+@funindex \thumb
+
+Podeu usar l'articulació de polze per indicar que una nota s'ha de
+tocar amb el polze (per exemple a música de violoncel).
+
+@lilypond[verbatim,quote]
+\relative { <a'_\thumb a'-3>2 <b_\thumb b'-3> }
+@end lilypond
+
+@cindex digitació de acords
+@cindex digitació, instruccions de, per a acords
+@cindex acords, digitació de
+
+Les digitacions per als acords també es poden afegir a les notes
+individuals escrivint-les després de les altures.
+
+@lilypond[verbatim,quote]
+\relative {
+  <c''-1 e-2 g-3 b-5>2 <d-1 f-2 a-3 c-5>
+}
+@end lilypond
+
+Les indicacions de digitació es poden situar manualment a sobre o
+a sota del pentagrama, vegeu
+@ref{Direcció i posició}.
+
+@snippets
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{controlling-the-placement-of-chord-fingerings.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{allowing-fingerings-to-be-printed-inside-the-staff.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{avoiding-collisions-with-chord-fingerings.ly}
+
+@seealso
+Referència de la notació:
+@ref{Direcció i posició}.
+
+Fragments de codi:
+@rlsr{Editorial annotations}.
+
+Referència de funcionament intern:
+@rinternals{FingeringEvent},
+@rinternals{fingering-event},
+@rinternals{Fingering_engraver},
+@rinternals{New_fingering_engraver},
+@rinternals{Fingering}.
+
+
+@node Notes ocultes
+@unnumberedsubsubsec Notes ocultes
+@translationof Hidden notes
+
+@cindex ocultes, notes
+@cindex invisibles, notes
+@cindex transparents, notes
+@cindex notes ocultes
+@cindex notes invisibles
+@cindex notes transparents
+
+@funindex \hideNotes
+@funindex \unHideNotes
+
+Las notes ocultes (o invisibles, o transparents) poden ser
+d'utilitat en la preparació d'exercicis de teoria o de composició.
+
+@lilypond[verbatim,quote]
+\relative {
+  c''4 d
+  \hideNotes
+  e4 f
+  \unHideNotes
+  g a
+  \hideNotes
+  b
+  \unHideNotes
+  c
+}
+@end lilypond
+
+El cap, la plica i la barra de les figures, així com els silencis,
+són invisibles.  Les barres són invisibles si comencen en una nota
+oculta.  Els objectes de notació que estan ancorats a notes
+invisibles, són, malgrat això, visibles.
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  e8(\p f g a)--
+  \hideNotes
+  e8(\p f g a)--
+}
+@end lilypond
+
+
+@predefined
+@code{\hideNotes},
+@code{\unHideNotes}.
+@endpredefined
+
+@seealso
+Manual d'aprenentatge:
+@rlearning{Visibilitat i color dels objectes}
+
+Referència de la notació:
+@ref{Silencis invisibles},
+@ref{Visibilitat dels objectes},
+@ref{Ocultament de pentagrames}.
+
+Fragments de codi:
+@rlsr{Editorial annotations}.
+
+Referència de funcionament intern:
+@rinternals{Note_spacing_engraver},
+@rinternals{NoteSpacing}.
+
+
+@node Acoloriment d'objectes
+@unnumberedsubsubsec Acoloriment d'objectes
+@translationof Coloring objects
+
+@cindex acolorits, objectes
+@cindex colors
+@cindex acolorir objectes
+@cindex objectes, acolorir
+@cindex acolorides, notes
+@cindex acolorir notes
+@cindex notes acolorides
+@cindex x11, color de
+@cindex x11-color
+@cindex colors d'x11
+@cindex with-color
+
+@funindex color
+@funindex \with-color
+@funindex x11-color
+
+Es poden assignar colors als objectes individuals.  Els noms de
+color vàlids es relacionen a la
+@ref{Llista de colors}.
+
+@lilypond[verbatim,quote,fragment]
+\override NoteHead.color = #red
+c''4 c''
+\override NoteHead.color = #(x11-color 'LimeGreen)
+d''
+\override Stem.color = #blue
+e''
+@end lilypond
+
+Es pot accedir a l'espectre complet de colors definit per a X11
+usant la funció de l'Scheme x11-color.  Aquesta funció accepta un
+únic argument; pot ser un símbol de la forma
+@code{@var{'PauPereBerenguera}} o una cadena de la forma
+@code{"@var{PauPereBerenguera}"}.  La primera forma és més ràpida
+d'escriure i també més eficient.  Tanmateix, en usar la segona
+forma és possible accedir als colors d'X11 per mitjà de la forma
+del nom que té diverses paraules.
+
+Si @code{x11-color} no entén el paràmetre, el color predeterminat
+que retorna és el negre.
+
+@lilypond[verbatim,quote]
+\new Staff \with {
+  instrumentName = \markup {
+    \with-color #(x11-color 'red) "Clarinet"
+    }
+  }
+  \relative c'' {
+  \override Staff.StaffSymbol.color = #(x11-color 'SlateBlue2)
+  gis8 a
+  \override Beam.color = #(x11-color "medium turquoise")
+  gis a
+  \override Accidental.color = #(x11-color 'DarkRed)
+  gis a
+  \override NoteHead.color = #(x11-color "LimeGreen")
+  gis a
+  % això és un absurd deliberadament; noteu que les barres romanen negres
+  \override Stem.color = #(x11-color 'Boggle)
+  b2 cis
+}
+@end lilypond
+
+@cindex rgb-color
+@cindex color rgb
+@cindex rgb, color
+
+@funindex rgb-color
+
+Es poden especificar colors RGB exactes utilitzant la funció de
+l'Scheme @code{rgb-color}.
+
+@lilypond[verbatim,quote]
+\new Staff \with {
+  instrumentName = \markup {
+    \with-color #(x11-color 'red) "Clarinet"
+    }
+  }
+\relative c'' {
+  \override Staff.StaffSymbol.color = #(x11-color 'SlateBlue2)
+  \override Stem.color = #(rgb-color 0 0 0)
+  gis8 a
+  \override Stem.color = #(rgb-color 1 1 1)
+  gis8 a
+  \override Stem.color = #(rgb-color 0 0 0.5)
+  gis4 a
+}
+@end lilypond
+
+@seealso
+Referència de la notació:
+@ref{Llista de colors},
+@ref{L'ordre tweak}.
+
+Fragments de codi:
+@rlsr{Editorial annotations}.
+
+@cindex x11,  color de
+@cindex acolorides, notes d'acord
+@cindex notes acolorides en acords
+@cindex color en acords
+
+@funindex x11-color
+
+@knownissues
+Un color d'X11 no és necessàriament de la mateixa tonalitat exacta
+que un color normal de nom semblant.
+
+No tots els colors d'X11 es distingeixen entre ells a un navegador
+web, és a dir, un navegador web podria no mostrar cap diferència
+entre @code{LimeGreen} (verd llima) i @code{ForestGreen} (verd
+bosc). Per a la web es recomanen els colors normals (o sigui:
+@code{blue}, blau, @code{green}, verd, i @code{red}, vermell).
+
+Les notes d'un acord no es poden acolorir individualment amb
+@code{\override}; en el seu lloc useu @code{\tweak} o el seu
+equivalent @code{\single\override} abans de la nota respectiva.
+Consulteu @ref{L'ordre tweak} per veure
+més detalls.
+
+@node Parèntesis
+@unnumberedsubsubsec Parèntesis
+@translationof Parentheses
+
+@cindex fantasma, notes
+@cindex notes fantasma
+@cindex notes entre parèntesis
+@cindex parèntesis
+@cindex claus
+
+@funindex \parenthesize
+
+Es poden tancar els objectes entre parèntesis anteposant
+@code{\parenthesize} a l'esdeveniment musical.  Si s'aplica a un
+acord, envolta cada nota dins d'un parell de parèntesis.  També es
+poden posar entre parèntesis les notes individuals d'un acord.
+
+@lilypond[verbatim,quote]
+\relative {
+  c''2 \parenthesize d
+  c2 \parenthesize <c e g>
+  c2 <c \parenthesize e g>
+}
+@end lilypond
+
+Els objectes que no són notes també es poden posar entre
+parèntesis.  Per a les articulacions cal un guió abans de l'ordre
+@code{\parenthesize}.
+
+@lilypond[verbatim,quote]
+\relative {
+  c''2-\parenthesize -. d
+  c2 \parenthesize r
+}
+@end lilypond
+
+@seealso
+Fragments de codi:
+@rlsr{Editorial annotations}.
+
+Referència de funcionament intern:
+@rinternals{Parenthesis_engraver},
+@rinternals{ParenthesesItem},
+@rinternals{parentheses-interface}.
+
+@knownissues
+En posar un acord entre parèntesis, s'envolta cada una de les
+notes individuals entre parèntesis, en comptes d'un sols
+parèntesis gran envoltant l'acord complet.
+
+@node Pliques
+@unnumberedsubsubsec Pliques
+@translationof Stems
+
+@cindex plica
+@cindex plica invisible
+@cindex invisible, plica
+@cindex plica, direcció
+@cindex plica amunt
+@cindex plica avall
+@cindex plica neutral
+
+@funindex \stemUp
+@funindex \stemDown
+@funindex \stemNeutral
+
+Quan es troba amb una nota, es crea automàticament un objecte
+@code{Stem} (plica).  Per a les rodones i els silencis, també es
+creen però es fan invisibles.
+
+Es pot fer manualment que les pliques apuntin cap amunt o cap
+avall; vegeu @ref{Direcció i posició}.
+
+@predefined
+@code{\stemUp},
+@code{\stemDown},
+@code{\stemNeutral}.
+@endpredefined
+
+
+@snippets
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{default-direction-of-stems-on-the-center-line-of-the-staff.ly}
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{automatically-changing-the-stem-direction-of-the-middle-note-based-on-the-melody.ly}
+
+@seealso
+Referència de la notació:
+@ref{Direcció i posició}.
+
+Fragments de codi:
+@rlsr{Editorial annotations}.
+
+Referència de funcionament intern:
+@rinternals{Stem_engraver},
+@rinternals{Stem},
+@rinternals{stem-interface}.
+
+
+@node Fora del pentagrama
+@subsection Fora del pentagrama
+@translationof Outside the staff
+
+Aquest secció tracta sobre com emfatitzar element que estan dins
+del pentagrama, des de fora del pentagrama.
+
+@menu
+* Globus d'ajuda::
+* Línies de reixeta::
+* Claus d'anàlisi::
+@end menu
+
+@node Globus d'ajuda
+@unnumberedsubsubsec Globus d'ajuda
+@translationof Balloon help
+
+@cindex globus
+@cindex notació, explicació de
+@cindex globus de ajuda
+@cindex ajuda, globus de
+
+@funindex \balloonGrobText
+@funindex \balloonText
+@funindex Balloon_engraver
+@funindex balloonGrobText
+@funindex balloonText
+@funindex \balloonLengthOn
+@funindex \balloonLengthOff
+
+Els elements de notació es poden marcar i anomenar amb l'ajuda
+d'un cartell o globus d'ajuda rectangular.  El propòsit principal
+d'aquesta funcionalitat és l'explicació de la notació.
+
+@c KEEP LY
+@lilypond[verbatim,quote]
+\new Voice \with { \consists "Balloon_engraver" }
+\relative c'' {
+  \balloonGrobText #'Stem #'(3 . 4) \markup { "Sóc una plica" }
+  a8
+  \balloonGrobText #'Rest #'(-4 . -4) \markup { "Sóc un silenci" }
+  r
+  <c, g'-\balloonText #'(-2 . -2) \markup { "Sóc un cap" } c>2.
+}
+@end lilypond
+
+Hi ha dues funcions musicals, @code{balloonGrobText} i
+@code{balloonText}; el primer s'usa com @code{\once\override} per
+adjuntar un text a qualsevol objecte gràfic, i l'últim s'usa com
+@code{\tweak}, normalment dins d'acords, per adjuntar un text a
+una nota individual.
+
+Els textos de globus no influeixen a l'espaiat de les notes, però
+això es pot canviar:
+
+@c KEEP LY
+@lilypond[verbatim,quote]
+\new Voice \with { \consists "Balloon_engraver" }
+\relative c'' {
+  \balloonGrobText #'Stem #'(3 . 4) \markup { "Sóc una plica" }
+  a8
+  \balloonGrobText #'Rest #'(-4 . -4) \markup { "Sóc un silenci" }
+  r
+  \balloonLengthOn
+  <c, g'-\balloonText #'(-2 . -2) \markup { "Sóc un cap" } c>2.
+}
+@end lilypond
+
+@predefined
+@code{\balloonLengthOn},
+@code{\balloonLengthOff}.
+@endpredefined
+
+@seealso
+Fragments de codi:
+@rlsr{Editorial annotations}.
+
+Referència de funcionament intern:
+@rinternals{Balloon_engraver},
+@rinternals{BalloonTextItem},
+@rinternals{balloon-interface}.
+
+
+@node Línies de reixeta
+@unnumberedsubsubsec Línies de reixeta
+@translationof Grid lines
+
+@cindex reixeta, línies de
+@cindex línies de reixeta
+@cindex vertical, línia, entre pentagrames
+@cindex línia vertical entre pentagrames
+
+@funindex Grid_point_engraver
+@funindex Grid_line_span_engraver
+@funindex gridInterval
+
+Es poden dibuixar línies verticals entre els pentagrames
+sincronitzades amb les notes.
+
+S'ha d'usar el gravador @code{Grid_point_engraver} per crear els
+punts extrems de les línies, mentre que el gravador
+@code{Grid_line_span_engraver} es pot utilitzar per traçar
+efectivament les línies.  De forma predeterminada, això centra les
+línies de reixeta horitzontalment a sota i al costat esquerre del
+cap de les notes.  Les línies de reixeta s'estenen a partir de la
+línia mitjana dels pentagrames.  L'interval @code{gridInterval} ha
+d'especificar la duració entre les línies de reixeta.
+
+@lilypond[verbatim,quote]
+\layout {
+  \context {
+    \Staff
+    \consists "Grid_point_engraver"
+    gridInterval = #(ly:make-moment 1/4)
+  }
+  \context {
+    \Score
+    \consists "Grid_line_span_engraver"
+  }
+}
+
+\score {
+  \new ChoirStaff <<
+    \new Staff \relative {
+      \stemUp
+      c''4. d8 e8 f g4
+    }
+    \new Staff \relative {
+      \clef bass
+      \stemDown
+      c4 g' f e
+    }
+  >>
+}
+@end lilypond
+
+@snippets
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{grid-lines--changing-their-appearance.ly}
+
+@seealso
+Fragment de codi:
+@rlsr{Editorial annotations}.
+
+Referència de funcionament interno:
+@rinternals{Grid_line_span_engraver},
+@rinternals{Grid_point_engraver},
+@rinternals{GridLine},
+@rinternals{GridPoint},
+@rinternals{grid-line-interface},
+@rinternals{grid-point-interface}.
+
+
+@node Claus d'anàlisi
+@unnumberedsubsubsec Claus d'anàlisi
+@translationof Analysis brackets
+
+@cindex claus
+@cindex fraseig, claus de
+@cindex claus de fraseig
+@cindex musicològic, anàlisi
+@cindex anàlisi musicològic
+@cindex notes, claus d'agrupació de
+@cindex horitzontal, clau
+@cindex clau horitzontal
+
+@funindex Horizontal_bracket_engraver
+@funindex \startGroup
+@funindex \stopGroup
+
+Les claus s'usen en anàlisi musical per indicar l'estructura de
+les peces musicals.  Es permeten les claus horitzontals simples.
+
+@lilypond[verbatim,quote]
+\layout {
+  \context {
+    \Voice
+    \consists "Horizontal_bracket_engraver"
+  }
+}
+\relative {
+  c''2\startGroup
+  d\stopGroup
+}
+@end lilypond
+
+Les claus d'anàlisi es poden niuar.
+
+@lilypond[verbatim,quote]
+\layout {
+  \context {
+    \Voice
+    \consists "Horizontal_bracket_engraver"
+  }
+}
+\relative {
+  c''4\startGroup\startGroup
+  d4\stopGroup
+  e4\startGroup
+  d4\stopGroup\stopGroup
+}
+@end lilypond
+
+@snippets
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{analysis-brackets-above-the-staff.ly}
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{analysis-brackets-with-labels.ly}
+
+@seealso
+Referència de funcionament intern:
+@rinternals{Horizontal_bracket_engraver},
+@rinternals{HorizontalBracket},
+@rinternals{horizontal-bracket-interface},
+@rinternals{HorizontalBracketText},
+@rinternals{horizontal-bracket-text-interface},
+@rinternals{Staff}.

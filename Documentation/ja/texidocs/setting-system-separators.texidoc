@@ -1,0 +1,7 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+システムとシステムの間にシステム セパレータを挿入することができます。@c
+任意のマークアップが使用できますが、デフォルト値は @code{\\slashSeparator}
+となっています。
+"
+  doctitleja = "システム セパレータを設定する"

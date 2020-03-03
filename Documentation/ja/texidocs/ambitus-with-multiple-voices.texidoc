@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+@code{Staff} コンテキストに @code{Ambitus_engraver} を追加すると、譜にボイスが@c
+複数ある場合でも、譜ごとに音域を表示します。
+"
+  doctitleja = "複数のボイスを持つ譜での音域"

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: afa67f5aac628a66db3de8f47244bde02581ed55
+    Translation of GIT committish: 7d4316025c10a8ac153c765b0238523950d3ffbe
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -53,39 +53,42 @@ in modo che segua i collegamenti ipertestuali usando lo script @file{lilypond-in
 fornito insieme a LilyPond.
 
 @file{lilypond-invoke-editor} è un piccolo programma di supporto.  Lancia un
-editor per gli URI @code{textedit} e un browser web per altri URI.  Valuta
-la variabile d'ambiente @code{EDITOR} in base a questi schemi,
+editor per gli URI @code{textedit} e un browser web per altri URI.  Controlla
+le variabili d'ambiente @code{EDITOR} e @code{LYEDITOR}  per scoprire e
+lanciare l'editor preferito da usare. La variabile @code{LYEDITOR} ha priorità
+sulla variabile @code{EDITOR} ed è quindi consigliato l'uso della prima se si
+desidera usare un editor per il terminale e un editor diverso per il punta e
+clicca di LilyPond.
 
-@table @code
-@item emacs
-  verrà quindi lanciato il comando
-@example
-emacsclient --no-wait +@var{line}:@var{column} @var{file}
-@end example
-@item gvim
-  verrà quindi lanciato il comando
-@example
-gvim --remote +:@var{line}:norm@var{column} @var{file}
-@end example
-
-@item nedit
-  verrà quindi lanciato il comando
-@example
-  nc -noask +@var{line} @var{file}'
-@end example
-@end table
-
-La variabile d'ambiente @code{LYEDITOR} ha la precedenza sulla variabile
-@code{EDITOR}.  Contiene il comando per lanciare l'editor, dove @code{%(file)s},
-@code{%(column)s}, @code{%(line)s} vengono sostituiti rispettivamente dal file,
-dalla colonna e dalla riga.  L'impostazione
+Ogni editor ha una diversa sintassi per aprire un file a una specifica riga
+e colonna.  Per comodità dell'utente, LilyPond ha comandi pronti per vari
+editor, elencati in @file{scm/editor.scm}.  Ciò significa che basta scrivere
+il nome del file eseguibile dell'editor, per esempio:
 
 @example
-emacsclient --no-wait +%(line)s:%(column)s %(file)s
+export LYEDITOR=atom
 @end example
 
 @noindent
-per @code{LYEDITOR} è equivalente alla chiamata standard emacsclient.
+e verrà lanciato
+@example
+atom %(file)s:%(line)s:%(column)s
+@end example
+
+dove @code{%(file)s}, @code{%(line)s} e @code{%(column)s} vengono sostituiti
+rispettivamente dal file, dalla riga e dalla colonna.
+
+Per poter usare un editor non elencato in @file{scm/editor.scm}, occorre
+scoprire la sua specifica sintassi e assegnare il comando completo alla
+variabile @code{LYEDITOR}.  Ecco un esempio per l'editor Visual Studio Code:
+
+@example
+export LYEDITOR="code --goto %(file)s:%(line)s:%(column)s"
+@end example
+
+@warning{Se si sceglie Emacs, è necessaria un'ulteriore configurazione. Bisogna
+aggiungere la riga @code{(server-start)} al proprio file @file{~/.emacs},
+altrimenti ogni clic su un oggetto del PDF aprirà una nuova finestra di Emacs.}
 
 @menu
 * Usare Xpdf per il punta e clicca::
@@ -528,21 +531,20 @@ durata e introduci le opportune indicazioni di fraseggio o di pedalizzazione.
 @uref{http://@/www.@/musicxml@/.org/,MusicXML} è un dialetto di XML
 che viene usato per rappresentare la notazione musicale.
 
-@command{musicxml2ly} estrae le note, le articolazioni, la struttura della
-partitura, il testi, etc. da file MusicXML organizzati in parti; quindi li
-scrive in un file @file{.ly}.  Si lancia dalla linea di comando nel modo
-seguente:
+@command{musicxml2ly} estrae note, articolazioni, struttura della partitura e
+testi da file MusicXML organizzati in parti e poi li scrive in un file
+@file{.ly}.  Si lancia dalla linea di comando nel modo seguente:
 
 @example
-musicxml2ly [@var{opzione}]@dots{} @var{file-xml}
+musicxml2ly [@var{opzione}]@dots{} @var{file.xml}
 @end example
 
 Attenzione: per @q{linea di comando} si intende la linea di comando
 del sistema operativo.  Si veda @ref{Conversione da altri formati} per
 maggiori informazioni su questo argomento.
 
-Se il nome del file è @file{-}, @command{musicxml2ly} legge l'input
-dalla linea di comando.
+Se si usa @file{-} al posto di @var{file.xml}, @command{musicxml2ly} legge
+tutto l'input direttamente dalla linea di comando.
 
 @command{musicxml2ly} accetta le seguenti opzioni:
 
@@ -550,44 +552,87 @@ dalla linea di comando.
 @item -a, --absolute
 converte le altezze relative in assolute.
 
+@item --fb --fretboards
+converte eventi @code{<frame>} in una voce FretBoard separata invece di
+usare markup.
+
 @item -h, --help
-mostra una sintesi dell'utilizzo e delle opzioni.
+mostra l'uso e una sintesi di tutte le opzioni a linea di comando disponibili.
 
-@item -l, --language=LANG
-usa LANG per i nomi delle altezze, ad esempio 'deutsch' per i nomi delle note
-in tedesco.
+@item -l, --language=LINGUA
+usa @var{LINGUA} per i nomi delle altezze, ad esempio @code{deutsch} per i nomi
+delle note in tedesco.
 
-@item --loglevel=@var{loglevel}
-Imposta la verbosità dell'output su @var{loglevel}. I valori possibili sono @code{NONE},
-@code{ERROR}, @code{WARNING}, @code{PROGRESS} (predefinito) e @code{DEBUG}.
+@item --loglevel=@var{LIVELLOLOG}
+Imposta la verbosità dell'output su @var{LIVELLOLOG}. I valori possibili sono
+@code{NONE}, @code{ERROR}, @code{WARNING}, @code{PROGRESS} (predefinito) e
+@code{DEBUG}.
 
 @item --lxml
 usa il pacchetto Python lxml.etree per l'analisi della sintassi XML; usa meno
 memoria e tempo del processore.
 
 @item -m, --midi
-attiva il blocco midi.
+attiva il blocco midi nel file @var{.ly}.
 
-@item -nd, --no-articulation-directions
-non converte le direzioni (@code{^}, @code{_} o @code{-}) per
-articolazioni, dinamiche, etc.
-
-@item --no-beaming
+@item --nb, --no-beaming
 ignora le informazioni relative alle travature, impiegando la disposizione
 automatica delle travature fornita da LilyPond.
 
-@item -o, --output=@var{file}
-imposta il nome del file di output su @var{file}.  Se @var{file} è @file{-}, l'output
-sarà salvato su stdout.  Se non specificato, verrà usato @var{file-xml}@file{.ly}.
+@item --nd, --no-articulation-directions
+non converte le direzioni (@code{^}, @code{_} o @code{-}) per
+articolazioni, dinamiche, etc.
+
+@item --nrp, --no-rest-positions
+non converte l'esatta posizione verticale delle pause.
+
+@item --nsb, --no-system-breaks
+ignora le interruzioni di sistema.
+
+@item --npl, --no-page-layout
+non converte l'esatta formattazione di pagina né le interruzioni (scorciatoia
+per le opzioni @code{--nsb} @code{--npb} @code{--npm}).
+
+@item --npb, --no-page-breaks
+ignora le interruzioni di pagina.
+
+@item --npm, --no-page-margins
+ignora i margini della pagina.
+
+@item --nsd, --no-stem-directions
+ignora le direzioni dei gambi definite in MusicXML, usa invece la disposizione
+automatica dei gambi di LilyPond.
+
+@item -o, --output=@var{FILE}
+imposta il nome del file di output su @var{FILE}.  Se @var{FILE} è @file{-},
+l'output sarà salvato su stdout.  Se non specificato, verrà usato
+@var{file-xml.ly}.
 
 @item -r, --relative
 converte le altezze in modalità relativa (predefinito).
 
+@item --transpose=ALTEZZA
+l'intervallo tra l'altezza @code{c} e @var{ALTEZZA} da usare per la
+trasposizione.
+
+@item --sm, --shift-meter=BATTITI/TIPOBATTITO
+cambia la lunghezza|durata delle note come funzione di una certa indicazione
+di tempo, per far apparire la partitura più veloce o più lenta, (per esempio,
+@code{4/4} o @code{2/2}).
+
+@item --tc, --tab-clef=NOMECHIAVETAB
+permette di scegliere una delle due versioni delle chiavi per intavolatura
+(@code{tab} e @code{moderntab}).
+
+@item --sn --string-numbers=t[rue]/f[alse]
+disattiva lo stampo del numero di corda con @code{--string-numbers}
+@code{false}.  Il valore predefinito è @code{true}.
+
 @item -v, --verbose
-Mostra un output dettagliato.
+mostra un output dettagliato.
 
 @item --version
-Mostra informazioni sulla versione.
+mostra il numero di versione ed esce.
 
 @item -z, --compressed
 il file di input è un file MusicXML compresso in un archivio ZIP.

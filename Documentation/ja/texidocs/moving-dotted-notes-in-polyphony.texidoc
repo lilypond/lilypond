@@ -1,0 +1,7 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+上のボイスにある付点付きの音符が、下の音符との衝突を避けるために移動する場合、@c
+デフォルトでは右側に移動します。この挙動は、@code{NoteCollision} の
+@code{prefer-dotted-right} プロパティをオーバライドすることで変更できます。
+"
+  doctitleja = "多声の音楽で付点付きの音符を移動する"

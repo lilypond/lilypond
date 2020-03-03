@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: 76ee88f5adfc7bcd8eff487543e3605e43a93d80
+    Translation of GIT committish: c286e07798cd57a4785c3701b2bbcf94721b0f11
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -25,7 +25,7 @@ Tutorial guidelines:  (different from policy.txt!)
 @end ignore
 
 
-@c Translators: Masamichi Hosoda, Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Masamichi Hosoda, Yoshiki Sawada
 @c Translation status: post-GDP
 
 
@@ -331,8 +331,9 @@ A フラット メジャーの調では、@code{b} には臨時記号が付き�
 
 音楽用語集: @rglos{slur}
 
-@notation{スラー}は多くの音符に亘って描かれる曲線です。@c
-スラーの開始音符と終了音符にはそれぞれ @code{(} と @code{)} を付加します。
+@notation{スラー}は多くの音符にわたって描かれる曲線です。@c
+スラーの開始音符と終了音符にはそれぞれ @code{(} と @code{)} を付加します。@c
+@code{(} は開始音符の後に記入することに注意してください。
 
 @lilypond[verbatim,quote]
 \relative { d''4( c16) cis( d e c cis d) e( d4) }
@@ -385,7 +386,10 @@ A フラット メジャーの調では、@code{b} には臨時記号が付き�
 
 @node アーティキュレーションと強弱記号
 @subsection アーティキュレーションと強弱記号
-@translationof Articulation and dynamics
+@translationof Articulations and dynamics
+
+アーティキュレーションと強弱記号は、音符の後に@c
+特別なコードを追加することで付加することができます。
 
 @menu
 * アーティキュレーション::
@@ -554,7 +558,8 @@ a'2_\markup {
 
 あなたが自動連桁を好まない場合、手動で上書きすることもできます。@c
 ある箇所の連桁を修正するには、連桁を付ける最初の音符に @code{[} を、@c
-最後の音符に @code{]} を付け加えます。
+最後の音符に @code{]} を付け加えます。@c
+@code{[} は連桁の最初の音符の後に記入することに注意してください。
 
 @lilypond[verbatim,quote]
 \relative { a'8[ ais] d[ ees r d] c16 b a8 }
@@ -1379,8 +1384,7 @@ cello = \new Staff {
 @end lilypond
 
 @noindent
-変数の名前に使えるのはアルファベットだけであり、数字、アンダスコア、ダッシュを@c
-使うことはできません。
+慣習的に、変数の名前にはアルファベットのみを用います。
 
 変数はメインの音楽表記の @emph{前} に定義されていなければなりません。@c
 しかしながら定義後は必要とされる場所で何度でも使用できます。@c
@@ -1398,10 +1402,11 @@ barA = { \tripletA \tripletA \tripletA \tripletA }
 使用できます。
 例えば以下のようにです:
 
+@c KEEP LY
 @example
-width = 4.5\cm
-name = "Wendy"
-aFivePaper = \paper @{ paperheight = 21.0 \cm @}
+myWidth = 60      % \paper 変数に渡す数字 (単位は mm)
+myName = "Wendy"  % マークアップに渡す文字列
+aFivePaper = \paper @{ #(set-paper-size "a5") @}
 @end example
 
 変数の内容次第では、変数は他の場所で使用することができます。@c
@@ -1410,11 +1415,11 @@ aFivePaper = \paper @{ paperheight = 21.0 \cm @}
 @example
 \paper @{
   \aFivePaper
-  line-width = \width
+  line-width = \myWidth
 @}
 
 @{
-  c4^\name
+  c4^\myName
 @}
 @end example
 

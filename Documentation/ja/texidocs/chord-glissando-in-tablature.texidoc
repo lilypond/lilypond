@@ -1,0 +1,7 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+和音のスライドはデフォルトで @code{Staff} と @code{TabStaff} の両方に@c
+表示されます。@code{TabStaff} では、弦番号の自動計算の方法が和音と単一音で@c
+異なるため、弦番号が必要です。
+"
+  doctitleja = "タブ譜での和音のグリッサンド"

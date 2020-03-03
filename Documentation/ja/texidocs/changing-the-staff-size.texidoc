@@ -1,0 +1,8 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+譜のサイズを変更する一番シンプルな方法は
+@code{#(set-global-staff-size xx)} を使用することですが、@c
+譜ごとにサイズを変更するには @code{staff-space} や @code{fontSize}
+プロパティを使用します。
+"
+  doctitleja = "譜のサイズを変更する"

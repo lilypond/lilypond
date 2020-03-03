@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+符頭の色を、ピッチや名前に応じて変更することができます:
+この例で使われている関数では、異名同音を区別しています。
+"
+  doctitleja = "ピッチに応じて符頭の色を変更する"

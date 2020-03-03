@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 041cb33a404a829a8cdeeaebce17e45f613f10d8
+    Translation of GIT committish: 21a1f431176e969d45a9cc973c99dce34e9e8733
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -54,7 +54,7 @@ de ritmo; esto se estudia en
 
 @item
 La salida MIDI se trata en una sección aparte; véase
-@ref{Instrumentos MIDI}.
+@ref{Creación de salida MIDI}.
 
 @end itemize
 
@@ -62,7 +62,7 @@ La salida MIDI se trata en una sección aparte; véase
 Referencia de la notación:
 @ref{Mostrar los ritmos de la melodía},
 @ref{Crear instancias de pentagramas nuevos}.
-@ref{Instrumentos MIDI}.
+@ref{Creación de salida MIDI}.
 
 Fragmentos de código:
 @rlsr{Percussion}.
@@ -74,6 +74,9 @@ Fragmentos de código:
 
 @cindex percusión
 @cindex batería
+
+@funindex \drummode
+@funindex \drums
 
 Las notas de percusión se pueden escribir en el modo
 @code{\drummode}, que es similar al modo estándar para introducir
@@ -121,11 +124,11 @@ pueden establecer explícitamente o utilizar otras claves.
 
 Hay ciertos detalles respecto a cómo está contemplado el MIDI para
 los instrumentos de percusión; para ver los detalles consulte
-@ref{Instrumentos MIDI}.
+@ref{Creación de salida MIDI}.
 
 @seealso
 Referencia de la notación:
-@ref{Instrumentos MIDI},
+@ref{Creación de salida MIDI},
 @ref{Notas de percusión}.
 
 Archivos de inicio:
@@ -247,7 +250,6 @@ disposición.  Para usarlas, establezca la propiedad
 han predefinido las siguientes variables:
 
 @table @code
-
 @item drums-style
 Es la opción por defecto.  Se usa para tipografiar una batería
 típica sobre pentagrama:
@@ -418,13 +420,40 @@ mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
 @end lilypond
 @end table
 
+También se pueden definir estilos de percusión
+personalizados como se explica en
+@ref{Pautas de percusión personalizadas}.
+
+@seealso
+Manual de aprendizaje:
+@rlearning{Oigo voces}.
+
+Referencia de la notación:
+@ref{Pautas de percusión personalizadas}.
+
+Archivos instalados:
+@file{ly/drumpitch-init.ly}.
+
+Fragmentos de código:
+@rlsr{Percussion}.
+
 
 @node Pautas de percusión personalizadas
 @unnumberedsubsubsec Pautas de percusión personalizadas
 @translationof Custom percussion staves
 
-Si no le gusta ninguna de las listas predefinidas, puede definir
-su propia lista al principio de su archivo
+@cindex percusión, personalizada
+@funindex drumStyleTable
+
+Se pueden definir estilos de percusión personalizados, a los que
+después puede establecerse la propiedad @code{drumStyleTable}.
+Las notaciones existentes se pueden redefinir como una lista de
+asociación en la que cada entrada debe estar compuesta de cuatro
+elementos: un nombre, el estilo de cabezas de nota (o
+@code{default}), un símbolo de articulación si es necesario (o
+@code{#f} en caso contrario), y la posición de la cabeza sobre la
+pauta.  Dicha lista se debe entonces convertir a una tabla de hash
+de Scheme usando la función @code{alist->hash-table}.
 
 @lilypond[quote,verbatim]
 #(define mydrums '(
@@ -434,6 +463,7 @@ su propia lista al principio de su archivo
          (halfopenhihat   cross     "halfopen"   1)
          (pedalhihat      xcircle   "stopped"    2)
          (lowtom          diamond   #f           3)))
+
 up = \drummode { hh8 hh hhho hhho hhp4 hhp }
 down = \drummode { bd4 sn bd toml8 toml }
 
@@ -444,169 +474,90 @@ down = \drummode { bd4 sn bd toml8 toml }
 >>
 @end lilypond
 
+@funindex drumPitchNames
 
-@snippets
-
-@c FIXME: MOVE ALL THESE TO LSR!  -gp
-
-He aquí algunos ejemplos adicionales:
-
-Dos bloques de madera, escritos con wbh (@emph{woodblock-high},
-bloque alto) y wbl (@emph{woodblock-low} bloque bajo)
+También se pueden añadir nombres nuevos a dichas notaciones
+personalizadas mediante la variable @code{drumPitchNames}, que se
+puede redefinir como una lista de asociación (o aumentada
+añadiendo al final una lista nueva a su valor existente, como se
+muestra más abajo), pero también a través de sus entradas
+individuales.  Esto también hace posible definir nombres
+alternativos o alias.
 
 @lilypond[quote,verbatim]
-% These lines define the position of the woodblocks in the stave;
-% if you like, you can change it or you can use special note heads
-% for the woodblocks.
-#(define mydrums '((hiwoodblock default #t  3)
-                   (lowoodblock default #t -2)))
+drumPitchNames =
+  #(append
+    '((leftsnap . sidestick)
+      (rightsnap . ridecymbal))
+    drumPitchNames)
 
-woodstaff = {
-  % This defines a staff with only two lines.
-  % It also defines the positions of the two lines.
-  \override Staff.StaffSymbol.line-positions = #'(-2 3)
+drumPitchNames.ls = #'sidestick
+drumPitchNames.rs = #'ridecymbal
 
-  % This is necessary; if not entered, the barline would be too short!
-  \override Staff.BarLine.bar-extent = #'(-1.5 . 1.5)
-}
-
-\new DrumStaff {
-  \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
-
-  % with this you load your new drum style table
-  \woodstaff
-
-  \drummode {
-    \time 2/4
-    wbl8 16 16 8-> 8 |
-    wbl8 16 16-> ~ 16 16 r8 |
-  }
+\drums {
+  leftsnap4. rightsnap8 leftsnap4 rightsnap
+  ls8 rs ls rs ls4 rs
 }
 @end lilypond
 
-Observe que en este caso especial se debe alterar la longitud de
-la línea divisoria con @code{\override Staff.BarLine.bar-extent
-#'(de . a)}.  En caso contrario resulta demasiado corta.  También
-debe definir las posiciones de las dos líneas del pentagrama.
-Para más información sobre estos delicados asuntos, consulte
-@ref{El símbolo del pentagrama}.
+@funindex midiDrumPitches
+@funindex drumPitchTable
 
-Una pandereta, escrita mediante @q{tamb} (@emph{tambourine}):
-
-@lilypond[verbatim,quote]
-#(define mydrums '((tambourine default #t 0)))
-
-\new DrumStaff \with { instrumentName = "Tambourine" }
-
-\drummode {
-  \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
-  \override Staff.StaffSymbol.line-positions = #'( 0 )
-  \override Staff.BarLine.bar-extent = #'(-1.5 . 1.5)
-
-  \time 6/8
-  tamb8. 16 8 8 8 8 |
-  tamb4. 8 8 8 |
-  % the trick with the scaled duration and the shorter rest
-  % is neccessary for the correct ending of the trill-span!
-  tamb2.*5/6 \startTrillSpan s8 \stopTrillSpan |
-}
-@end lilypond
-
-Música para gong, introducida con @q{tt} (tam-tam):
+De manera similar, la propiedad @code{drumPitchTable} asocia una
+altura específica (con el significado de un sonido instrumental
+distinto, tal y como lo proveen las fuentes de sonido MIDI) a cada
+notación.  Dicha propiedad necesita definirse como una tabla de
+hash, que es de nuevo convertida a partir de una lista de
+asociación (almacenada de forma predeterminada como la variable
+@code{midiDrumPitches}).  La redefinición de estas asociaciones se
+consigue como se ha explicado más arriba, ya sea definiendo una
+lista de asociación completa o mediante las entradas
+individuales. El siguiente ejemplo muestra cómo crear un conjunto
+completo de notaciones con su propia sintaxis de entrada, su
+propia notación personalizada y la salida MIDI correspondiente.
 
 @lilypond[quote,verbatim]
-#(define mydrums '((tamtam default #t 0)))
+drumPitchNames.dbass      = #'dbass
+drumPitchNames.dba        = #'dbass  % 'db is in use already
+drumPitchNames.dbassmute  = #'dbassmute
+drumPitchNames.dbm        = #'dbassmute
+drumPitchNames.do         = #'dopen
+drumPitchNames.dopenmute  = #'dopenmute
+drumPitchNames.dom        = #'dopenmute
+drumPitchNames.dslap      = #'dslap
+drumPitchNames.ds         = #'dslap
+drumPitchNames.dslapmute  = #'dslapmute
+drumPitchNames.dsm        = #'dslapmute
 
-\new DrumStaff \with { instrumentName = "Tamtam" }
+#(define djembe-style
+  '((dbass      default  #f         -2)
+    (dbassmute  default  "stopped"  -2)
+    (dopen      default  #f          0)
+    (dopenmute  default  "stopped"   0)
+    (dslap      default  #f          2)
+    (dslapmute  default  "stopped"   2)))
 
-\drummode {
-\set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
-\override Staff.StaffSymbol.line-positions = #'( 0 )
-\override Staff.BarLine.bar-extent = #'(-1.5 . 1.5)
+midiDrumPitches.dbass     = g
+midiDrumPitches.dbassmute = fis
+midiDrumPitches.dopen     = a
+midiDrumPitches.dopenmute = gis
+midiDrumPitches.dslap     = b
+midiDrumPitches.dslapmute = ais
 
-  tt 1 \pp \laissezVibrer
-}
-@end lilypond
-
-Dos campanas, introducidas con @q{cb} (@emph{cowbell}, cencerro) y
-@q{rb} (@emph{ridebell}, campana normal)
-
-@lilypond[quote,verbatim]
-#(define mydrums '((ridebell default #t  3)
-                   (cowbell  default #t -2)))
-
-\new DrumStaff \with { instrumentName = "Different Bells" }
-
-\drummode {
-  \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
-  \override DrumStaff.StaffSymbol.line-positions = #'(-2 3)
-  \override Staff.BarLine.bar-extent = #'(-1.5 . 1.5)
-
-  \time 2/4
-  rb8 8 cb8 16 rb16-> ~ |
-  16 8 16 cb8 8 |
-}
-@end lilypond
-
-Aquí un breve ejemplo procedente de la @q{Historia del soldado} de
-Stravinsky:
-
-@lilypond[quote,verbatim]
-#(define mydrums '((bassdrum   default #t  4)
-                   (snare      default #t -4)
-                   (tambourine default #t  0)))
-
-global = {
-  \time 3/8 s4.
-  \time 2/4 s2*2
-  \time 3/8 s4.
-  \time 2/4 s2
-}
-
-drumsA = {
-  \context DrumVoice <<
-    { \global }
-    { \drummode {
-        \autoBeamOff
-        \stemDown sn8 \stemUp tamb s8 |
-        sn4 \stemDown sn4 |
-        \stemUp tamb8 \stemDown sn8 \stemUp sn16 \stemDown sn \stemUp sn8 |
-        \stemDown sn8 \stemUp tamb s8 |
-        \stemUp sn4 s8 \stemUp tamb
-      }
-    }
-  >>
-}
-
-drumsB = {
-  \drummode {
-    s4 bd8 s2*2 s4 bd8 s4 bd8 s8
-  }
-}
-
-\layout {
-  indent = #40
-}
+test = \drummode { dba4 do ds dbm dom dsm }
 
 \score {
-  \new StaffGroup <<
-    \new DrumStaff \with {
-      instrumentName = \markup {
-        \column {
-          "Tambourine"
-          "et"
-          "caisse claire s. timbre"
-        }
-      }
-    drumStyleTable = #(alist->hash-table mydrums)
-  }
-  \drumsA
   \new DrumStaff \with {
-    instrumentName = "Grosse Caisse"
-    drumStyleTable = #(alist->hash-table mydrums)
+    \override StaffSymbol.line-count = #3
+    instrumentName = "Djembé "
+    drumStyleTable = #(alist->hash-table djembe-style)
+    drumPitchTable = #(alist->hash-table midiDrumPitches)
+  } {
+    \time 3/4
+    \test
   }
-  \drumsB
-  >>
+  \layout {}
+  \midi {}
 }
 @end lilypond
 
@@ -619,14 +570,25 @@ Referencia de funcionamiento interno:
 @rinternals{DrumVoice}.
 
 
-@c FIXME: check name -gp
 @node Notas fantasma
 @unnumberedsubsubsec Notas fantasma
 @translationof Ghost notes
 
-Las notas fantasma para la batería e instrumentos de percusión se
-pueden crear utilizando la instrucción @code{\parenthesize}
-detallada en @ref{Paréntesis}.
+@cindex percusión, nota fantasma
+@cindex percusión, nota muerta
+@cindex percusión, nota tapada
+@cindex percusión, nota silenciada
+@cindex percusión, nota falsa
+@cindex fantasma, percusión , nota
+@cindex muerta, percusión, nota
+@cindex tapada, percusión, nota
+@cindex silenciada, percusión, nota
+@cindex falsa, percusión, nota
+
+Las notas fantasma para la batería e instrumentos de percusión,
+también conocidas como notas muertas, tapadas, silenciadas o
+falsas, se pueden crear utilizando la instrucción
+@code{\parenthesize}, véase @ref{Paréntesis}.
 
 @lilypond[quote,ragged-right,verbatim]
 \new DrumStaff
@@ -649,5 +611,8 @@ detallada en @ref{Paréntesis}.
 @end lilypond
 
 @seealso
+Referencia de la notación:
+@ref{Paréntesis}.
+
 Fragmentos de código:
 @rlsr{Percussion}.

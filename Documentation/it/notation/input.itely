@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 1e5c6b0f54079eb3285dcc4c7e53f17d8bb03933
+    Translation of GIT committish: 6ca1d8c80817f9baaa7b66b2fde9a7b98b0ffc0a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.22"
+@c \version "2.21.0"
 @c Translators: Federico Bruni
 @c Translation checkers:
 
@@ -101,9 +101,16 @@ gli esempi seguenti sono espressioni musicali:
 @}
 @end example
 
+@funindex %
+@funindex %@{ @dots{} %@}
+@cindex commento
+@cindex linea di commento
+@cindex linea di commento, singola
+@cindex blocco di commento
+@cindex commento multirigo
 I commenti sono un'eccezione a questa regola generale (altre eccezioni
-sono spiegate in @ref{File structure}).  Sia i commenti su una singola
-riga che quelli multiriga delimitati da @code{%@{ @dots{} %@}} possono
+sono spiegate in @ref{Struttura del file}).  Sia i commenti su una singola
+riga che quelli multirigo delimitati da @code{%@{ @dots{} %@}} possono
 essere inseriti ovunque nel file di input: dentro o fuori un blocco
 @code{\score} e dentro o fuori la singola espressione musicale di
 un blocco @code{\score}.
@@ -116,8 +123,8 @@ del file di input, quindi @file{fandangoperelefanti.ly} genererà
 @file{fandangoperelefanti.pdf}.
 
 Maggiori dettagli sui blocchi @code{\book} si trovano in
-@ref{Multiple scores in a book},
-@ref{Multiple output files from one input file} e @ref{File structure}.
+@ref{Molteplici partiture in un libro},
+@ref{Molteplici file di output da un unico file di input} e @ref{Struttura del file}.
 
 @seealso
 Manuale di apprendimento:
@@ -235,7 +242,7 @@ basta aggiungere molteplici blocchi @code{\book}, ognuno dei
 quali produrrà un file di output separato.
 Se non è specificato alcun blocco @code{\book} nel file di
 input, LilyPond tratterà implicitamente l'intero file come un
-singolo blocco @code{\book}, come è spiegato in @ref{File structure}.
+singolo blocco @code{\book}, come è spiegato in @ref{Struttura del file}.
 
 Nel generare molteplici file da un singolo file sorgente, LilyPond
 controlla che nessuno dei file di output di alcun blocco
@@ -371,7 +378,7 @@ queste definizioni viene inserita nel livello superiore, le definizioni
 vengono combinate, ma in caso di conflitto hanno precedenza le definizioni
 più recenti. Per sapere con precisione come ciò influisca sul blocco
 @code{\layout}, leggere
-@ref{The layout block,,Il blocco @code{@bs{}layout}}.
+@ref{Il blocco layout}.
 
 @item
 Un'espressione scheme diretta, come
@@ -382,7 +389,7 @@ Un'espressione scheme diretta, come
 Un blocco @code{\header}.  Se all'inizio del file, imposta il blocco
 dell'intestazione globale.  Questo è il blocco che contiene
 le impostazioni predefinite dei campi dei titoli come compositore,
-titolo, etc. per tutti i libri del file (vedi @ref{Titles explained}).
+titolo, etc. per tutti i libri del file (vedi @ref{Come funzionano i titoli}).
 
 @item
 Un blocco @code{\score}.  Questa partitura e altre eventuali partiture
@@ -490,6 +497,18 @@ nel livello superiore
 
 Ciascuna delle seguenti istruzioni lessicali può essere inserita
 in qualsiasi punto di un file:
+@funindex \version
+@funindex \include
+@funindex \sourcefilename
+@funindex \sourcefileline
+
+@funindex %
+@funindex %@{ @dots{} %@}
+@cindex commento
+@cindex linea di commento
+@cindex linea di commento, singola
+@cindex blocco di commento
+@cindex commento multirigo
 
 @itemize
 @item @code{\version}
@@ -500,7 +519,7 @@ in qualsiasi punto di un file:
 Un commento su riga singola, introdotto da un segno @code{%}.
 
 @item
-Un commento multiriga delimitato da @code{%@{ @dots{} %@}}.
+Un commento multirigo delimitato da @code{%@{ @dots{} %@}}.
 
 @end itemize
 
@@ -534,16 +553,16 @@ Manuale di apprendimento:
 @rlearning{Come funzionano i file di input di LilyPond}.
 
 Guida alla notazione:
-@ref{Titles explained},
-@ref{The layout block,,Il blocco @code{@bs{}layout}}.
+@ref{Come funzionano i titoli},
+@ref{Il blocco layout}.
 
 
 @node Titoli e intestazioni
 @section Titoli e intestazioni
 @translationof Titles and headers
 
-@cindex titoli
-@cindex intestazioni
+@cindex titolo
+@cindex intestazione
 @cindex piè di pagina
 
 Quasi tutte le partiture musicali hanno il titolo e il nome del compositore e
@@ -575,7 +594,7 @@ alcuni brani comprendono molte altre informazioni.
 @translationof Titles explained
 
 Ogni blocco @code{\book} in un singolo file di input produce un diverso
-file di output, vedi @ref{File structure}.  In ciascun file di output
+file di output, vedi @ref{Struttura del file}.  In ciascun file di output
 sono disponibili tre tipi di titolazioni: @emph{titoli del libro} all'inizio
 di ogni libro (@emph{book}), @emph{titoli della parte} all'inizio di ciascuna
 parte (@emph{bookpart}) e @emph{titoli del brano} all'inizio di ciascun
@@ -607,7 +626,7 @@ All'interno di un blocco @code{\bookpart} ma fuori da tutti i blocchi
 @code{\score} compresi in quella parte.
 
 @item
-Dopo l'espressione musicale in un blocco @code{\score}.
+In un blocco @code{\score}.
 
 @end itemize
 
@@ -641,10 +660,6 @@ e @code{opus} a meno che la variabile @code{print-all-headers} di
 @code{\paper} non sia impostata su @code{#t}.
 
 @end itemize
-
-@warning{Ricordarsi che quando si mette un blocco @bs{}@code{header} in
-un blocco @bs{}@code{score}, l'espressione musicale deve precedere il
-blocco @bs{}@code{header}.}
 
 Non è necessario inserire blocchi @code{\header} in tutti e quattro
 i luoghi: alcuni o perfino tutti possono essere omessi. Analogalmente,
@@ -743,7 +758,7 @@ di tutti i brani, magari sovrascrivendo alcuni campi e sopprimendone altri:
 
 @seealso
 Guida alla notazione:
-@ref{File structure},
+@ref{Struttura del file},
 @ref{Formattazione predefinita dei titoli delle parti e dei brani},
 @ref{Formattazione personalizzata dei titoli}.
 
@@ -826,7 +841,7 @@ Le impostazioni predefinite per @code{scoreTitleMarkup} posizionano i campi
 
 Per cambiare la formattazione predefinita leggere @ref{Formattazione personalizzata dei titoli}.
 
-@cindex breakbefore
+@funindex breakbefore
 
 Se un blocco @code{\book} inizia subito con un blocco @code{\bookpart},
 non verrà stampato alcun titolo per il libro, dato che non esiste una
@@ -864,7 +879,7 @@ Manuale di apprendimento:
 
 Guida alla notazione:
 @ref{Formattazione personalizzata dei titoli},
-@ref{File structure}.
+@ref{Struttura del file}.
 
 File installati:
 @file{ly/titling-init.ly}.
@@ -968,8 +983,6 @@ Guida alla notazione:
 @unnumberedsubsubsec Formattazione personalizzata dei titoli
 @translationof Custom layout for titles
 
-@cindex bookTitleMarkup
-@cindex scoreTitleMarkup
 @funindex bookTitleMarkup
 @funindex scoreTitleMarkup
 
@@ -1046,7 +1059,7 @@ compresi in un blocco @code{\score} possono essere stampati nello spazio
 dedicato al titolo del brano aggiungendo @code{print-all-headers} nel
 blocco @code{\paper}.  Lo svantaggio di questo metodo è che i campi testuali
 intesi esclusivamente per lo spazio del titolo della parte devono essere
-manualmente soppressi in ogni blocco @code{\score}.  Vedi @ref{Titles explained}.
+manualmente soppressi in ogni blocco @code{\score}.  Vedi @ref{Come funzionano i titoli}.
 
 Per evitare ciò, è meglio mettere il campo testuale desiderato nella
 definizione di @code{scoreTitleMarkup}. Nell'esempio seguente il campo
@@ -1119,7 +1132,7 @@ ad esso nella definizione di markup.
 
 @seealso
 Guida alla notazione:
-@ref{Titles explained}.
+@ref{Come funzionano i titoli}.
 
 
 @node Formattazione personalizzata di intestazioni e piè di pagina
@@ -1141,7 +1154,6 @@ variabili @code{\paper}:
 
 @cindex markup condizionale
 @cindex testo condizionale
-@cindex on-the-fly
 @funindex \on-the-fly
 
 Il comando @code{\on-the-fly} -- usato all'interno di un blocco @code{\markup} --
@@ -1226,7 +1238,7 @@ verificano se l'output è una pagina singola.
 
 @seealso
 Guida alla notazione:
-@ref{Titles explained},
+@ref{Come funzionano i titoli},
 @ref{Formattazione predefinita dei titoli delle parti e dei brani}.
 
 File installati:
@@ -1258,7 +1270,7 @@ su @q{Sinfonia I}, questo nome verrà usato come titolo del documento PDF e
 come nome della sequenza del file MIDI.
 
 @example
-  \header@{
+  \header @{
     title = "Sinfonia I"
   @}
 @end example
@@ -1268,7 +1280,7 @@ titolo del PDF su un valore diverso, si può usare @code{pdftitle}, nel
 modo seguente:
 
 @example
-  \header@{
+  \header @{
     title = "Sinfonia I"
     pdftitle = "Sinfonia I di Beethoven"
   @}
@@ -1296,7 +1308,7 @@ sequenza in modo indipendente dal valore usato per l'output.
 @subsection Creazione di note a piè di pagina
 @translationof Creating footnotes
 
-@cindex note a piè di pagina
+@cindex nota a piè di pagina
 
 Le note a piè di pagina possono essere usate in situazioni diverse.  In tutti
 i casi, un @q{segno della nota a piè di pagina} viene inserito come riferimento
@@ -1316,7 +1328,7 @@ musicali.
 @unnumberedsubsubsec Note a piè di pagina nelle espressioni musicali
 @translationof Footnotes in music expressions
 
-@cindex note a piè di pagina nelle espressioni musicali
+@cindex nota a piè di pagina, nelle espressioni musicali
 @funindex \footnote
 
 @subsubsubheading Panoramica sulle note a piè di pagina attaccate alla musica
@@ -1368,6 +1380,7 @@ articolazione, deve essere preceduto da un indicatore di direzione
 nota a piè di pagina) alla nota o pausa precedenti.
 
 @item segno
+@funindex @sortas{defaultB} \default
 è del testo -- racchiuso tra virgolette o in un blocco @code{\markup} -- che
 specifica il segno della nota usata per contrassegnare sia il punto di
 riferimento che la nota stessa in fondo alla pagina. Può essere omesso
@@ -1406,7 +1419,7 @@ la nota.
 
 @subsubsubheading Note a piè di pagina basate su un evento
 
-@cindex note a piè di pagina basate su un evento
+@cindex nota a piè di pagina basata su un evento
 
 Una nota a piè di pagina può essere collegata a un oggetto della formattazione
 direttamente causato dall'evento corrispondente a @var{musica} con la sintassi:
@@ -1470,7 +1483,7 @@ esso.  La sintassi è:
 
 @subsubsubheading Note a piè di pagina basate sul tempo
 
-@cindex note a piè di pagina basate sul tempo
+@cindex nota a piè di pagina basate sul tempo
 
 Se l'oggetto della formattazione a cui attaccare la nota è @emph{indirettamente}
 causato da un evento -- come un @code{Accidental} (alterazione) o @code{Stem}
@@ -1508,6 +1521,7 @@ quel momento musicale:
 }
 @end lilypond
 
+@funindex \single
 È possibile assegnare a una nota di un accordo una singola nota a
 piè di pagina (basata su un evento). @samp{NoteHead} è l'unico grob
 causato direttamente dalla nota di un accordo, dunque una nota a piè
@@ -1591,14 +1605,14 @@ si può sopprimere la linea che collega l'oggetto commentato al segno:
 @end lilypond
 
 Altri esempi di segni personalizzati si trovano in
-@ref{Footnotes in stand-alone text}.
+@ref{Note a piè di pagina nel testo separato}.
 
 
 @node Note a piè di pagina nel testo separato
 @unnumberedsubsubsec Note a piè di pagina nel testo separato
 @translationof Footnotes in stand-alone text
 
-@cindex note a piè di pagina nel testo separato
+@cindex nota a piè di pagina nel testo separato
 
 Vengono usate all'interno di blocchi @code{\markup} che si trovano
 fuori dalle espressioni musicali.  Non hanno una linea che le unisce al
@@ -1675,7 +1689,7 @@ piè di pagina, preceduto dal @var{segno}.
 @end table
 
 Qualsiasi carattere facile da scrivere, come * o +, può essere usato come+
-segno, come è spiegato in @ref{Footnotes in music expressions}.  Altrimenti,
+segno, come è spiegato in @ref{Note a piè di pagina nelle espressioni musicali}.  Altrimenti,
 si possono usare gli alias ASCII (vedi @ref{Alias ASCII}):
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
@@ -1727,9 +1741,9 @@ Manuale di apprendimento:
 Guida alla notazione:
 @ref{Alias ASCII},
 @ref{Nuvoletta di aiuto},
-@ref{List of special characters},
-@ref{Text marks},
-@ref{Text scripts},
+@ref{Elenco dei caratteri speciali},
+@ref{Indicazioni testuali},
+@ref{Scritte},
 @ref{Unicode}.
 
 Guida al funzionamento interno:
@@ -1892,6 +1906,8 @@ Ecco un esempio che mostra come cambiare il corpo dei caratteri nell'indice:
 
 Nota il modo in cui sono citati il testo e il numero di pagina dell'elemento
 dell'indice nella definizione di @code{tocItemMarkup}.
+
+@funindex \tocItemWithDotsMarkup
 
 Includendo il comando @code{\tocItemWithDotsMarkup} dentro @code{tocItemMarkup}
 lo spazio tra un elemento dell'indice e la sua pagina corrispondente sarà
@@ -2237,7 +2253,7 @@ intatta.
 
 Nel caso di partiture lunghe, conviene mettere le definizioni delle
 variabili in file separati da includere, vedi
-@ref{Including LilyPond files}.
+@ref{Inclusione di file LilyPond}.
 
 @node Uso delle etichette
 @unnumberedsubsubsec Uso delle etichette
@@ -2483,7 +2499,7 @@ Manuale di apprendimento:
 
 Guida alla notazione:
 @ref{Combinazione automatica delle parti},
-@ref{Including LilyPond files}.
+@ref{Inclusione di file LilyPond}.
 
 @knownissues
 Se si usa @code{\relative} prima di un'espressione musicale ottenuta
@@ -2499,7 +2515,7 @@ le altezze prima del filtro.
 @unnumberedsubsubsec Impostazioni globali
 @translationof Using global settings
 
-@cindex include-settings
+@cindex includere le impostazioni
 
 È possibile includere impostazioni globali da un altro file:
 
@@ -2522,15 +2538,15 @@ Manuale di apprendimento:
 @rlearning{Fogli di stile}.
 
 Guida alla notazione:
-@ref{Including LilyPond files}.
+@ref{Inclusione di file LilyPond}.
 
 
 @node Caratteri speciali
 @subsection Caratteri speciali
 @translationof Special characters
 
-@cindex caratteri speciali
-@cindex caratteri non-ASCII
+@cindex carattere speciale
+@cindex carattere non-ASCII
 
 @menu
 * Codifica del testo::
@@ -2721,7 +2737,7 @@ che localmente:
 
 @seealso
 Guida alla notazione:
-@ref{List of special characters}.
+@ref{Elenco dei caratteri speciali}.
 
 File installati:
 @file{ly/text-replacements.ly}.
@@ -2739,7 +2755,7 @@ File installati:
 @end menu
 
 @funindex clip-regions
-@cindex frammenti musicali
+@cindex frammento musicale
 
 @node Estrarre frammenti musicali
 @subsection Estrarre frammenti musicali
@@ -2779,7 +2795,7 @@ separato per ciascuna linea.
 
 @seealso
 Guida alla notazione:
-@ref{The layout block}.
+@ref{Il blocco layout}.
 
 Utilizzo:
 @rprogram{Uso da linea di comando}.
@@ -2847,10 +2863,52 @@ voci e su tutti i righi, facendo risparmiare tempo ulteriormente.
 @cindex EPS, output
 
 I formati di output predefiniti per la partitura stampata sono Portable
-Document Format (PDF) e PostScript (PS).  È disponibile anche l'output
-nei formati Portable Network Graphics (PNG), Scalable Vector Graphics (SVG)
-e Encapsulated PostScript (EPS) attraverso l'opzione da linea di comando,
+Document Format (PDF) e PostScript (PS).  Sono disponibili anche i formati
+di output Portable Network Graphics (PNG), Scalable Vector Graphics (SVG)
+e Encapsulated PostScript (EPS) attraverso le opzioni da linea di comando,
 vedi @rprogram{Opzioni di base della linea di comando per LilyPond}.
+
+@menu
+* Output SVG::
+@end menu
+
+@node Output SVG
+@unnumberedsubsubsec Output SVG
+@translationof SVG Output
+
+L'output SVG può contenere opzionalmente dei metadati per gli oggetti
+grafici (grob) come teste di nota, pause, etc.  Questi metadati possono
+essere attributi SVG standard come @code{id} e @code{class} oppure attributi
+personalizzati e non standard.  Gli attributi e i loro valori si specificano
+sovrascrivendo la proprietà @code{output-attributes} di un grob con una
+lista associativa Scheme (alist).  I valori possono essere numeri, stringhe
+o simboli.  Per esempio:
+
+@example
+@{
+  \once \override NoteHead.output-attributes =
+  #'((id . 123)
+     (class . "questo quello")
+     (data-testo . qualcosa))
+  c
+@}
+@end example
+
+@noindent
+L'input precedente produrrà il seguente elemento @code{<g>} (gruppo) nel
+file SVG:
+
+@example
+<g id="123" class="questo quello" data-testo="qualcosa">
+  ...Elementi SVG del grob NoteHead...
+</g>
+@end example
+
+@noindent
+L'elemento @code{<g>} contiene tutti gli elementi SVG di un certo grob (alcuni
+grob generano molteplici elementi SVG).  Nella sintassi SVG il prefisso
+@code{data-} è utilizzato per gli attributi di metadati personalizzati
+non standard.
 
 
 @node Cambiare il tipo di carattere della notazione
@@ -2871,20 +2929,62 @@ E alcune battute di musica che usa i glifi Feta di LilyPond:
 
 @sourceimage{Gonville_before,15cm,,}
 
-@subsubheading Instruzioni di installazione per MacOS
+@subsubheading Instruzioni di installazione
 
-Scaricare e estrarre il file zip.  Copiare la directory @code{lilyfonts}
-in @file{@var{SHARE_DIR}/lilypond/current}; maggiori informazioni si
-trovano in @rlearning{Altre fonti di informazione}.  Rinominare la
-directory esistente @code{fonts} come @code{fonts_orig} e la directory
-@code{lilyfonts} come @code{fonts}.  Per tornare a Feta, fare il contrario.
+Scaricare e estrarre i file dei font.
+Copiare i file
+@file{gonville-11.otf},
+@file{gonville-13.otf},
+@file{gonville-14.otf},
+@file{gonville-16.otf},
+@file{gonville-18.otf},
+@file{gonville-20.otf},
+@file{gonville-23.otf},
+@file{gonville-26.otf} e @file{gonville-brace.otf}
+in @file{@dots{}/share/lilypond/current/fonts/otf} o
+@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/otf}.
+Se sono presenti file @file{gonville-*.svg} e @file{gonville-*.woff},
+copiarli in @file{@dots{}/share/lilypond/current/fonts/svg} o
+@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/svg}.
+Maggiori informazioni in @rlearning{Altre fonti di informazione}.
+
+Nota: i file @file{gonville-*.otf} sono utilizzati dal backend
+@code{ps} e @code{eps} (per la creazione di file PDF e PostScript).
+I file @file{gonville-*.svg} sono utilizzati dal backend
+@code{svg} quando non è attiva l'opzione @code{svg-woff}.
+I file @file{gonville-*.woff} sono utilizzati dal backend
+@code{svg} quando è attiva l'opzione @code{svg-woff}.
+Maggiori informazioni in @rprogram{Opzioni avanzate della linea di comando per LilyPond}.
+
+La sintassi seguente imposta il font Gonville come font della notazione
+(generale e delle parentesi).
+
+@example
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     #:music "gonville"
+     #:brace "gonville"
+   ))
+@}
+@end example
+
+Nota: ogni chiamata della funzione @code{set-global-fonts} reimposta completamente
+i font sia della notazione principale che del testo. Se una categoria non è
+specificata, allora verrà usato il font predefinito per quella categoria.
+Ogni chiamata di @code{set-global-fonts} cambia i font di ciascun blocco
+@code{\book} che la segue, sia esso creato esplicitamente o implicitamente.
+Ciò significa che ogni blocco @code{\book} può avere il suo insieme di font
+principali usando @code{set-global-fonts} prima di esso.
+Maggiori informazioni in @ref{Tipi di carattere per l'intero documento}.
 
 @seealso
 Manuale di apprendimento:
 @rlearning{Altre fonti di informazione}.
 
 Guida alla notazione:
-@ref{Il font Emmentaler}.
+@ref{Il font Emmentaler},
+@ref{Tipi di carattere per l'intero documento}.
 
 @knownissues
 Gonville non può essere usato per scrivere notazione in @q{musica antica}
@@ -2892,6 +2992,46 @@ ed è probabile che i nuovi glifi introdotti in rilasci successivi di
 LilyPond non esistano in Gonville.  Fare riferimento al sito web dell'autore
 per maggiori informazioni su queste e altre problematiche, inclusa la
 licenza di Gonville.
+
+
+@subsubheading Altri font della notazione
+
+Se si hanno altri font della notazione come @file{@var{nomefont}-*.otf},
+@file{@var{nomefont}-*.svg} e @file{@var{nomefont}-*.woff},
+si possono usare nello stesso modo che abbiamo visto con Gonville.
+
+Ovvero si copiano i file
+@file{@var{nomefont}-*.otf}
+in @file{@dots{}/share/lilypond/current/fonts/otf} o
+@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/otf}.
+E i file @file{@var{nomefont}-*.svg} e @file{@var{nomefont}-*.woff}, se
+presenti, in @file{@dots{}/share/lilypond/current/fonts/svg} o
+@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/svg}.
+
+Nota: per il momento, LilyPond richiede che i nomi dei file dei font abbiano
+i seguenti suffissi, che devono essere tutti presenti nelle cartelle di
+installazione menzionate sopra perché possa funzionare correttamente:
+@file{-11}, @file{-13}, @file{-14}, @file{-16},
+@file{-18}, @file{-20}, @file{-23}, @file{-26}, @file{-brace}.
+Per esempio, @file{emmentaler-11.otf}, @file{emmentaler-20.svg}
+e @file{emmentaler-brace.woff}, etc.
+
+La sintassi seguente imposta il font @var{nomefont} come font della notazione
+(generale e delle parentesi).
+
+@example
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     #:music "@var{fontname}" ; nome del file del font senza suffisso né estensione
+     #:brace "@var{fontname}" ; nome del file del font senza suffisso né estensione
+   ))
+@}
+@end example
+
+Nota: per le categorie @code{music} e @code{brace}, specificare il nome del
+file del font senza suffisso né estensione.
+
 
 
 @node Creazione dell'output MIDI
@@ -3007,7 +3147,8 @@ e portato
 @subsection Il blocco MIDI
 @translationof The MIDI block
 
-@cindex MIDI block
+@cindex MIDI, blocco
+@cindex blocco MIDI
 
 Per creare un file MIDI da un file di input LilyPond, inserire un blocco
 @code{\midi}, che può essere vuoto, all'interno di un blocco @code{\score};
@@ -3035,7 +3176,7 @@ lilypond -dmidi-extension=mid MyFile.ly
 
 Altrimenti, aggiungere la seguente espressione Scheme prima dell'inizio
 dei blocchi @code{\book}, @code{\bookpart} o @code{\score}.  Vedi
-@ref{File structure}.
+@ref{Struttura del file}.
 
 @example
 #(ly:set-option 'midi-extension "mid")
@@ -3043,7 +3184,7 @@ dei blocchi @code{\book}, @code{\bookpart} o @code{\score}.  Vedi
 
 @seealso
 Guida alla notazione:
-@ref{File structure},
+@ref{Struttura del file},
 @ref{Creazione di metadati per i file di output}.
 
 File installati:
@@ -3056,6 +3197,24 @@ partitura di più di quindici righi, i righi extra condivideranno
 (senza sovrascriverlo) lo stesso canale MIDI. Ciò potrebbe essere un
 problema se i righi in questione sono impostati con proprietà MIDI in
 conflitto e basate sul canale, come ad esempio diversi strumenti MIDI.
+
+L'uso di un blocco @code{midi} con notazione polimetrica potrebbe produrre
+avvisi imprevisti di controllo della battuta.  In questo caso occorre
+spostare @code{Timing_translator} dal contesto @code{Score} al contesto
+@code{Staff} all'interno del blocco @code{midi}.
+
+@lilypond[verbatim]
+\midi {
+  \context {
+    \Score
+    \remove "Timing_translator"
+  }
+  \context {
+     \Staff
+     \consists "Timing_translator"
+  }
+}
+@end lilypond
 
 
 @node Gestione delle dinamiche nel MIDI
@@ -3096,7 +3255,8 @@ dinamica. Le frazioni predefinite vanno da 0.25 per @notation{ppppp} a
 0.95 per @notation{fffff}. L'insieme completo di dinamiche e delle loro
 frazioni associate si trova in @file{scm/midi.scm}.
 
-
+@cindex dinamiche personalizzate nel MIDI
+@cindex MIDI, dinamiche personalizzate
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {creating-custom-dynamics-in-midi-output.ly}
@@ -3201,11 +3361,14 @@ File installati:
 
 @seealso
 Guida alla notazione:
-@ref{Score layout}.
+@ref{Formattazione della partitura}.
 
 Guida al funzionamento interno:
 @rinternals{Dynamic_performer}.
 
+@cindex MIDI, modificare l'equalizzazione predefinita di uno strumento
+@cindex stumento, equalizzazione nel MIDI, cambiare predefinita
+@cindex equalizzazione, strumento, cambiare predefinita nel MIDI
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {replacing-default-midi-instrument-equalization.ly}
@@ -3268,7 +3431,7 @@ Manuale di apprendimento:
 
 Guida alla notazione:
 @ref{Segni di espressione},
-@ref{Score layout}.
+@ref{Formattazione della partitura}.
 
 File installati:
 @file{ly/performer-init.ly}.
@@ -3284,7 +3447,6 @@ Alcuni lettori MIDI non sempre gestiscono correttamente i cambi di tempo.
 
 I cambi di @code{midiInstrument}, e di altre opzioni MIDI, all'@emph{inizio}
 di un rigo potrebbero apparire due volte nell'output MIDI.
-
 
 
 @node Uso degli strumenti MIDI
@@ -3317,15 +3479,15 @@ o
 
 Se il nome dello strumento non corrisponde a nessuno degli strumenti elencati
 nella sezione @q{Strumenti MIDI}, verrà usato lo strumento @code{acoustic grand}.
-Vedi @ref{MIDI instruments}.
+Vedi @ref{Strumenti MIDI}.
 
 @seealso
 Manuale di apprendimento:
 @rlearning{Altre fonti di informazione}.
 
 Guida alla notazione:
-@ref{MIDI instruments},
-@ref{Score layout}.
+@ref{Strumenti MIDI},
+@ref{Formattazione della partitura}.
 
 File installati:
 @file{scm/midi.scm}.
@@ -3345,8 +3507,8 @@ trova in @file{scm/midi.scm}.  Vedi @rlearning{Altre fonti di informazione}.
 @subsection Uso delle ripetizioni nel MIDI
 @translationof Using repeats with MIDI
 
-@cindex repeats in MIDI
-@cindex MIDI using repeats
+@cindex ripetizioni nel MIDI
+@cindex MIDI, uso delle ripetizioni
 @funindex \unfoldRepeats
 
 Le ripetizioni possono essere applicate all'output MIDI tramite il
@@ -3391,7 +3553,7 @@ ricopiate per generare un output MIDI corretto.
 
 @seealso
 Guida alla notazione:
-@ref{Repeats}.
+@ref{Ripetizioni}.
 
 
 @node Mappatura dei canali MIDI
@@ -3491,6 +3653,7 @@ essere modificata per usare l'impostazione @code{'instrument}:
 @}
 @end example
 
+@cindex MIDI, un canale per voce
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-midi-output-to-one-channel-per-voice.ly}
@@ -3501,12 +3664,17 @@ essere modificata per usare l'impostazione @code{'instrument}:
 @translationof Context properties for MIDI effects
 
 @cindex effetti nel MIDI
-@cindex panning nel MIDI
+@cindex MIDI, effetti
+@cindex panning, posizione nel MIDI
+@cindex MIDI, panning, posizione
 @cindex stereo, bilanciamento nel MIDI
-@cindex bilanciamento nel MIDI
+@cindex MIDI, bilanciamento stereo
 @cindex espressione nel MIDI
+@cindex MIDI, espressione
 @cindex riverbero nel MIDI
+@cindex MIDI, riverbero
 @cindex livello del chorus nel MIDI
+@cindex MIDI, livello del chorus
 @funindex midiPanPosition
 @funindex midiBalance
 @funindex midiExpression
@@ -3517,7 +3685,7 @@ Le seguenti proprietà di contesto possono essere usate per applicare
 vari effetti MIDI alle note suonate sul canale MIDI associato col
 rigo, strumento MIDI o voce correnti (a seconda del valore della
 proprietà di contesto @code{Score.midiChannelMapping} e del contesto
-in cui si trova @code{Staff_performer}; vedi @ref{MIDI channel mapping}).
+in cui si trova @code{Staff_performer}; vedi @ref{Mappatura dei canali MIDI}).
 
 La modifica di queste proprietà di contesto avrà effetto su tutte le
 note suonate sul canale dopo il cambio, tuttavia alcuni effetti potrebbero
@@ -3616,10 +3784,10 @@ L'output MIDI predefinito fornisce le fuzionalità basilari, ma può essere
 migliorato impostando gli strumenti MIDI, le proprietà del blocco
 @code{\midi} e/o usando lo script @file{articulate}.
 
-@cindex nomi degli strumenti
-@cindex strumenti, nomi
-@cindex MIDI, strumenti
-@cindex articulate script
+@cindex nome strumento
+@cindex strumento, nome
+@cindex MIDI, strumento
+@cindex articulate, script
 @cindex articulate.ly
 @funindex Staff.midiInstrument
 
@@ -3627,6 +3795,9 @@ migliorato impostando gli strumenti MIDI, le proprietà del blocco
 @node Lo script articulate
 @unnumberedsubsubsec Lo script @file{articulate}
 @translationof The articulate script
+
+@cindex articulate, script
+@cindex articulate.ly
 
 Per usare lo script @file{articulate} aggiungere il relativo comando
 @code{\include} all'inizio del file di input:
@@ -3649,6 +3820,8 @@ corrispondere esattamente all'output MIDI.
 @}
 @end example
 
+@funindex \articulate
+
 Il comando @code{\articulate} permette di elaborare le abbreviazioni (come
 i trilli e i gruppetti). L'elenco completo degli elementi supportati si
 trova nello script stesso.  Vedi @file{ly/articulate.ly}.
@@ -3658,7 +3831,7 @@ Manuale di apprendimento:
 @rlearning{Altre fonti di informazione}.
 
 Guida alla notazione:
-@ref{Score layout}.
+@ref{Formattazione della partitura}.
 
 File installati:
 @file{ly/articulate.ly}.

@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+@code{Flag} Grob の @code{stencil} プロパティをカスタム Scheme 関数に@c
+セットし、符尾のグリフを生成することができます。
+"
+  doctitleja = "符尾をカスタマイズする"

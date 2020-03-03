@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8c1840ca28a05b3dad8d595e04d03779ba0a286a
+   Translation of GIT committish: 032de07c17caacd038f113ebcb54e9c473d64e0f
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -12,6 +12,7 @@
 
 @c Translators: Matthieu Jacquot
 @c Translation checkers: Jean-Charles Malahieude
+
 
 @node Instruments à cordes frettées
 @section Instruments à cordes frettées
@@ -88,7 +89,7 @@ chapitre @ref{Résolution des collisions}.
 @end itemize
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Arpèges},
 @ref{Clefs},
 @ref{Doigtés},
@@ -103,14 +104,14 @@ Manuel de notation :
 @unnumberedsubsubsec Indications du numéro de corde
 @translationof String number indications
 
-@cindex cordes numérotées
+@cindex corde numérotée
 @cindex numéro de corde
-@cindex numéros de corde et doigtés
-@cindex doigtés et numéros de corde
+@cindex numéro de corde ou doigté
+@cindex doigté ou numéro de corde
 
 Une corde sur laquelle une note doit être jouée peut être indiquée
 en attachant @code{\@var{numéro}} à cette note prise dans une
-construction de type accord @code{<>}.
+construction de type accord @code{<>}.
 
 @warning{Les numéros de corde @strong{doivent} être définis dans une
 construction de type accord même s'il n'y a qu'une seule note.}
@@ -136,6 +137,9 @@ g-0\3
 <g-0\3>
 @end lilypond
 
+@funindex \arabicStringNumbers
+@funindex \romanStringNumbers
+
 Les numéros de corde peuvent aussi, comme traditionnellement pour les
 cordes non frettées, s'imprimer en chiffres romains placés sous la
 portée plutôt qu'en surplomb.
@@ -154,9 +158,11 @@ g1\4
 
 @snippets
 
+@c XXX also included in `editorial.itely'
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {controlling-the-placement-of-chord-fingerings.ly}
 
+@c XXX also included in `editorial.itely'
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
@@ -166,13 +172,13 @@ g1\4
 @endpredefined
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Doigtés}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Fretted strings,Cordes frettées}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{StringNumber},
 @rinternals{Fingering}.
 
@@ -181,14 +187,14 @@ Référence des propriétés internes :
 @unnumberedsubsubsec Tablatures par défaut
 @translationof Default tablatures
 
-@cindex tablatures, bases
-@cindex tablatures par défaut
+@cindex tablature, base
+@cindex tablature par défaut
 
 @funindex TabStaff
 @funindex TabVoice
 
 La notation en tablature est utilisée pour certains instruments à cordes
-pincées.  Les hauteurs n'y sont pas indiquées par des têtes de note,
+pincées.  Les hauteurs n'y sont pas indiquées par des têtes de note
 mais par des chiffres ou autres symboles qui indiquent sur quelle
 corde et à quelle case chaque note doit être jouée.  Des notes devant
 être jouées simultanément seront alors alignées verticalement.
@@ -254,8 +260,8 @@ symbols = {
 }
 @end lilypond
 
-@cindex cases
-@cindex frets
+@cindex case
+@cindex fret
 
 @funindex minimumFret
 @funindex restrainOpenStrings
@@ -300,7 +306,7 @@ l'activation de @code{restrainOpenStrings}.
 @cindex répétition, utilisation de @code{q}
 @cindex @code{q}, répétition d'accord
 
-La répétition d'une construction en accord s'indique par un @code{q} --
+La répétition d'une construction en accord s'indique par un @code{q} --
 voir @ref{Répétition d'accords}.  Cette fonctionnalité, bien
 qu'opérationnelle en mode tablature, supprime entre autres les numéros
 de corde et doigtés.  Il vous faudra donc préalablement recourir
@@ -406,8 +412,8 @@ ties = \relative {
 }
 @end lilypond
 
-@cindex harmoniques, indication en tablature
-@cindex tablature et indication d'harmoniques
+@cindex harmonique, indication en tablature
+@cindex tablature et indication d'harmonique
 
 @funindex \harmonic
 @funindex \harmonicByFret
@@ -437,7 +443,7 @@ firstHarmonic = {
 Vous noterez que la commande @code{\harmonic} s'attache toujours à une
 note unique (parfois contenue dans un accord) et non à l'ensemble d'un
 accord.  Ceci ne fonctionne donc que pour une harmonique au douzième
-fret d'une corde à vide.  Toute autre harmonique devrait être définie
+fret d'une corde à vide.  Toute autre harmonique devrait être défini
 directement par LilyPond.  Vous pouvez l'y aider en indiquant la case où
 le doigt viendrait se placer sur le manche.
 
@@ -459,8 +465,8 @@ fretHarmonics = {
 }
 @end lilypond
 
-Une harmonique peut accessoirement se calculer à partir de la longueur
-de corde par rapport au doigté de cette harmonique.
+Un harmonique peut accessoirement se calculer à partir de la longueur
+de corde par rapport au doigté de cet harmonique.
 
 @lilypond[verbatim,quote]
 ratioHarmonics = {
@@ -480,12 +486,21 @@ ratioHarmonics = {
 @end lilypond
 
 @snippets
+
+@cindex hampe et  tablature
+@cindex tablature et hampe
+@cindex hampe horizontale
+@cindex horizontale, hampe
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {stem-and-beam-behavior-in-tablature.ly}
 
+@cindex polyphone et tablature
+@cindex tablature et polyphonie
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {polyphony-in-tablature.ly}
 
+@cindex tablature et harmonique
+@cindex harmonique et tablature
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {open-string-harmonics-in-tablature.ly}
 
@@ -495,17 +510,20 @@ ratioHarmonics = {
 @cindex glissando, indication en tablature
 @cindex tablature et glissando
 
+@cindex glissando d'accords et tablature
+@cindex tablature et glissando
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {slides-in-tablature.ly}
 
-@cindex accord et glissando
-
+@cindex tablature et glissando
+@cindex glissando et tablature
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {chord-glissando-in-tablature.ly}
 
 @cindex hammer on
 @cindex pull off
-
+@cindex tablature, hammer on
+@cindex tablature, pull off
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {hammer-on-and-pull-off.ly}
 
@@ -516,21 +534,21 @@ ratioHarmonics = {
 {hammer-on-and-pull-off-using-chords.ly}
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Glissando},
 @ref{Hampes},
 @ref{Harmoniques},
 @ref{Répétition d'accords},
 @ref{Répétitions explicites}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Fretted strings,Cordes frettées}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
+@rinternals{Beam},
 @rinternals{TabNoteHead},
 @rinternals{TabStaff},
-@rinternals{TabVoice},
-@rinternals{Beam}.
+@rinternals{TabVoice}.
 
 @knownissues
 Les accords ne subissent aucun traitement particulier ; de ce fait,
@@ -561,13 +579,13 @@ harmoniques et aux glissandos.
 @unnumberedsubsubsec Tablatures personnalisées
 @translationof Custom tablatures
 
-@cindex personnalisation de tablatures
+@cindex personnalisation de tablature
 @cindex banjo, tablature
 @cindex mandoline, tablature
 @cindex guitare basse, tablature
 @cindex ukulele, tablature
 @cindex tablature, accordages prédéfinis
-@cindex cordes frettés et accordages prédéfinis
+@cindex cordes frettées et accordages prédéfinis
 @cindex accordages prédéfinis et cordes frettées
 
 @funindex stringTunings
@@ -723,10 +741,10 @@ LilyPond dispose d'une clef de tablature moderne.
 
 Cette clef moderne prend en charge les tablatures de quatre à sept cordes.
 
-@cindex micro-intervalles, tablatures
-@cindex quarts de ton, tablatures
-@cindex tablature et micro-intervalles
-@cindex tablature et quarts de ton
+@cindex micro-intervalle, tablature
+@cindex quart de ton, tablature
+@cindex tablature et micro-intervalle
+@cindex tablature et quart de ton
 
 Un @code{TabStaff} peut contenir des micro-intervalles tels les quarts
 de ton, qui interveiennent dans les chutes ou sauts.  L'assertion
@@ -763,7 +781,7 @@ mus = \relative {
 @end lilypond
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Fonctions Scheme},
 @ref{Hauteurs avec octave absolue},
 @ref{Tablatures prédéfinies}.
@@ -772,10 +790,10 @@ Fichiers d'initialisation :
 @file{ly/string-tunings-init.ly},
 @file{scm/tablature.scm}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Fretted strings, Cordes frettées}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{Tab_note_heads_engraver}.
 
 @knownissues
@@ -788,17 +806,17 @@ hauteurs, comme le ukulele.
 @unnumberedsubsubsec Tablatures sous forme d'étiquette
 @translationof Fret diagram markups
 
-@cindex fret, diagrammes
-@cindex accord, diagrammes
-@cindex diagrammes de fret
-@cindex diagrammes d'accord pour instrument fretté
-@cindex fret, diagrammes personnalisés
-@cindex diagrammes personnalisés de fret
+@cindex fret, diagramme
+@cindex accord, diagramme
+@cindex diagramme de fret
+@cindex diagramme d'accord pour instrument fretté
+@cindex fret, diagramme personnalisé
+@cindex diagramme personnalisé de fret
 
 On peut ajouter des diagrammes d'accord au-dessus de n'importe quelle
 note, en tant qu'objets @code{\markup}.  Ces objets contiennent toutes
 les informations du diagramme d'accord.  Il y a pour les définir trois
-interfaces @qq{diagramme d'accord} (@emph{fret-diagram} en anglais) :
+interfaces « diagramme d'accord » (@emph{fret-diagram} en anglais) :
 @var{standard}, @var{terse} et @var{verbose}.  Ces trois interfaces
 produiront des diagrammes similaires mais permettent des niveaux de
 personnalisation différents.  Des détails à propos des interfaces de
@@ -853,8 +871,8 @@ d'accord dans l'interface standard :
 >>
 @end lilypond
 
-@cindex fret-diagram et markup
-@cindex markup et fret-diagram
+@cindex fret-diagram et @emph{markup}
+@cindex @emph{markup} et fret-diagram
 @cindex ukulele
 
 @funindex \fret-diagram
@@ -997,7 +1015,7 @@ Les indications de barré peuvent être incluses dans l'interface
 >>
 @end lilypond
 
-Les indications de doigtés peuvent être inclus dans l'interface
+Les indications de doigtés peuvent être incluses dans l'interface
 @code{fret-diagram-terse}.
 
 @c Need to use override to enable fingerings to show this -- can we do so?
@@ -1009,7 +1027,8 @@ Les indications de doigtés peuvent être inclus dans l'interface
     }
   }
   \new Staff {
-    \override Voice.TextScript.fret-diagram-details.finger-code = #'below-string
+    \override Voice.TextScript
+      .fret-diagram-details.finger-code = #'below-string
     \clef "treble_8"
     <c e g c' e'>1^\markup {
       \fret-diagram-terse "x;3-3;2-2;o;1-1;o;"
@@ -1024,6 +1043,11 @@ Les indications de doigtés peuvent être inclus dans l'interface
 Les autres propriétés des diagrammes d'accord doivent être ajustées en
 utilisant la commande @code{\override} dans l'interface
 @code{fret-diagram-terse}.
+
+Il n'est possible d'inclure qu'une seule indication par corde dans un
+@emph{markup} @code{fret-diagram-terse}. Il faudra, pour en inclure
+plusieurs, utiliser un @emph{markup} @code{fret-diagram} ou
+@code{fret-diagram-verbose}.
 
 @cindex fret-diagram-verbose markup
 @cindex capo
@@ -1191,9 +1215,9 @@ and color of dots.
 @end lilypond
 @end ignore
 
-@cindex diagrammes de fret personnalisés
-@cindex fret, diagrammes personnalisés
-@cindex diagrammes personnalisés de fret
+@cindex diagramme de fret personnalisé
+@cindex fret, diagramme personnalisé
+@cindex diagramme personnalisé de fret
 
 @funindex fret-diagram-interface
 
@@ -1204,6 +1228,10 @@ l'interface @code{fret-diagram-interface}.  Des détails se trouvent dans
 propriétés de l'interface dépendent de @code{Voice.TextScript}.
 
 @snippets
+
+@cindex positionnemenet, diagramme de fret
+@cindex diagramme de fret, positionnement
+@cindex fret, positionnement de giagramme
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-fret-orientations.ly}
 
@@ -1211,14 +1239,14 @@ propriétés de l'interface dépendent de @code{Voice.TextScript}.
 {customizing-markup-fret-diagrams.ly}
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @rusernamed{Instrument Specific Markup,
 Markups spécifiques aux instruments (en anglais)}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Fretted strings, Cordes frettées}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{fret-diagram-interface}.
 
 
@@ -1226,9 +1254,10 @@ Référence des propriétés internes :
 @unnumberedsubsubsec Tablatures prédéfinies
 @translationof Predefined fret diagrams
 
-@cindex fret, diagrammes
-@cindex accord, diagrammes
-
+@cindex fret, diagramme
+@cindex accord, diagramme
+@cindex fret, mandoline
+@cindex fret, ukulele
 @funindex FretBoards
 @funindex stringTunings
 
@@ -1303,8 +1332,8 @@ simultanée qu'en utilisant le mode accord (voir
 }
 @end lilypond
 
-@cindex accord nommés et diagrammes de fret
-@cindex fret, diagrammes avec noms d'accord
+@cindex accord nommé et diagramme de fret
+@cindex fret, diagramme avec nom d'accord
 
 @funindex ChordNames
 @funindex \chordmode
@@ -1316,7 +1345,7 @@ parallèle un contexte @code{ChordNames} et un contexte
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
-mychords = \chordmode{
+mychords = \chordmode {
   c1 f g
 }
 
@@ -1332,7 +1361,7 @@ mychords = \chordmode{
 
 @cindex transposition et diagramme de fret
 @cindex fret et transposition
-@cindex diagrammes de fret et transposition
+@cindex diagramme de fret et transposition
 
 Les diagrammes d'accord prédéfinis sont transposables tant qu'il y a
 un diagramme correspondant à l'accord transposé dans la base des
@@ -1340,7 +1369,7 @@ diagrammes d'accord.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
-mychords = \chordmode{
+mychords = \chordmode {
   c1 f g
 }
 
@@ -1369,7 +1398,7 @@ dans @ref{Tablatures automatiques}.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
-mychords = \chordmode{
+mychords = \chordmode {
   c1 c:maj9
 }
 
@@ -1383,8 +1412,8 @@ mychords = \chordmode{
 >>
 @end lilypond
 
-@cindex fret, ajout de diagrammes personnalisés
-@cindex diagrammes de fret personnalisés, ajout
+@cindex fret, ajout de diagramme personnalisé
+@cindex diagramme de fret personnalisé, ajout
 
 Des diagrammes d'accord peuvent être ajoutés à la table des diagrammes
 d'accord.  Pour ajouter un diagramme d'accord, il faut spécifier
@@ -1440,8 +1469,8 @@ mychords = \chordmode {
 >>
 @end lilypond
 
-@cindex cordes frettées, carrures d'accord
-@cindex accord, carrures pour cordes frettées
+@cindex cordes frettées, carrure d'accord
+@cindex accord, carrure pour cordes frettées
 
 @funindex \addChordShape
 @funindex \storePredefinedDiagram
@@ -1497,35 +1526,49 @@ d'accord donné, les propriétés de l'interface dépendent de
 @code{FretBoards.FretBoard}.
 
 @snippets
+
+
+@cindex diagramme de fret, personnalisation
+@cindex personnalisation, diagramme de fret
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {customizing-fretboard-fret-diagrams.ly}
 
+@cindex diagramme de fret prédéfini, définition
+@cindex prédéfini, diagramme de fret, définition
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {defining-predefined-fretboards-for-other-instruments.ly}
 
+@cindex accord, suppressiion des répétitions
+@cindex accord répété, suppression
+@cindex suppression, accords répétés
+@funindex chordChanges
 @lilypondfile[verbatim,quote,texidoc,doctitle,ragged-right]
 {chordchanges-for-fretboards.ly}
 
+@cindex diagramme d'accord, table alternative
+@cindex alternatative, table de diagrammes d'accord
+@funindex predefinedDiagramTable
+@funindex \storePredefinedDiagram
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {fretboards-alternate-tables.ly}
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Généralités sur le mode accords},
 @ref{Tablatures automatiques},
 @ref{Tablatures personnalisées},
 @ref{Tablatures prédéfinies}.
 
-Fichiers d'initialisation :
+Fichiers d'initialisation :
 @file{ly/predefined-guitar-fretboards.ly}, @*
 @file{ly/predefined-guitar-ninth-fretboards.ly}, @*
 @file{ly/predefined-ukulele-fretboards.ly},@*
 @file{ly/predefined-mandolin-fretboards.ly}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Fretted strings, Cordes frettées}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{fret-diagram-interface}.
 
 
@@ -1533,8 +1576,8 @@ Référence des propriétés internes :
 @unnumberedsubsubsec Tablatures automatiques
 @translationof Automatic fret diagrams
 
-@cindex fret, diagrammes automatiques
-@cindex accord, diagrammes automatiques
+@cindex fret, diagramme automatique
+@cindex accord, diagramme automatique
 @cindex automatique, diagramme de fret
 @cindex automatique, diagramme d'accord
 
@@ -1606,8 +1649,8 @@ aux cordes.  Dans bien des cas, il suffit de placer manuellement une
 seule note pour que les autres soient alors placées de manière
 appropriée par le contexte @code{FretBoards}.
 
-@cindex fret, ajout de doigtés aux diagrammes
-@cindex doigtés, ajout à des diagrammes de fret
+@cindex fret, ajout de doigté au diagramme
+@cindex doigté, ajout au diagramme de fret
 
 Il est possible d'ajouter des indications de doigté aux diagrammes de
 fret.
@@ -1673,13 +1716,13 @@ dépendent de @code{FretBoards.FretBoard}.
 @endpredefined
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Tablatures personnalisées}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Fretted strings, Cordes frettées}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{fret-diagram-interface}.
 
 @knownissues
@@ -1724,6 +1767,11 @@ MD = #rightHandFinger
 @end example
 
 @snippets
+
+@cindex positionnement, doigté main droite
+@cindex doigté main droite, positionnement
+@cindex main droite, doigté, positionnement
+@funindex strokeFingerOrientations
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {placement-of-right-hand-fingerings.ly}
 
@@ -1731,10 +1779,10 @@ MD = #rightHandFinger
 {fingerings,-string-indications,-and-right-hand-fingerings.ly}
 
 @seealso
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Fretted strings, Cordes frettées}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{StrokeFinger}.
 
 
@@ -1783,10 +1831,10 @@ Cet exemple montre comment indiquer les positions et les barrés :
 @end lilypond
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Indication textuelle avec extension}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Fretted strings, Cordes frettées},
 @rlsrnamed{Expressive marks, Signes d'interprétation}.
 
@@ -1795,10 +1843,10 @@ Morceaux choisis :
 @unnumberedsubsubsec Indication des harmoniques et notes étouffées
 @translationof Indicating harmonics and dampened notes
 
-@cindex cordes frettées, notes étouffées
-@cindex cordes frettées, harmoniques
-@cindex notes étouffées et cordes frettées
-@cindex harmoniques et cordes frettées
+@cindex cordes frettées, note étouffée
+@cindex cordes frettées, harmonique
+@cindex note étouffée et cordes frettées
+@cindex harmonique et cordes frettées
 
 Des têtes de note spéciales peuvent servir à indiquer les notes
 étouffées et les sons harmoniques.  Les sons harmoniques sont souvent
@@ -1807,8 +1855,8 @@ détaillés grâce à des indications textuelles.
 @lilypond[quote,ragged-right,verbatim]
 \relative {
   \clef "treble_8"
-  \override Staff.NoteHead.style = #'harmonic-mixed
-  d'^\markup { \italic { \fontsize #-2 { "harm. 12" }}} <g b>1
+  \override NoteHead.style = #'harmonic-mixed
+  d'8^\markup { \italic \fontsize #-2 "harm. 12" } <g b>4
 }
 @end lilypond
 
@@ -1862,11 +1910,11 @@ ce style de jeu en affectant un profil spécifique aux têtes de note.
 @end lilypond
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Têtes de note spécifiques},
 @ref{Têtes de note}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Fretted strings, Cordes frettées}.
 
 
@@ -1915,14 +1963,14 @@ ChordsAndSymbols = {
 @end lilypond
 
 @seealso
-Glossaire musicologique :
+Glossaire musicologique :
 @rglos{power chord}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Extension et altération d'accords},
 @ref{Impression des noms d'accord}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Fretted strings, Cordes frettées}.
 
 
@@ -1939,8 +1987,8 @@ Morceaux choisis :
 @unnumberedsubsubsec Tablatures pour banjo
 @translationof Banjo tablatures
 
-@cindex banjo, tablatures
-@cindex tablatures pour banjo
+@cindex banjo, tablature
+@cindex tablature pour banjo
 
 LilyPond permet d'écrire des tablatures de base pour le banjo à cinq
 cordes.  Pour ce faire, pensez à utiliser le format de tablature pour
@@ -1966,8 +2014,8 @@ music = {
 >>
 @end lilypond
 
-@cindex banjo, accordages
-@cindex accordages de banjo
+@cindex banjo, accordage
+@cindex accordage de banjo
 
 @funindex banjo-c-tuning
 @funindex banjo-modal-tuning
@@ -1989,10 +2037,10 @@ moyen de la fonction @code{four-string-banjo} :
 @end example
 
 @seealso
-Fichiers d'initialisation :
+Fichiers d'initialisation :
 @file{ly/string-tunings-init.ly}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Fretted strings, Cordes frettées}.
 
 
@@ -2008,7 +2056,7 @@ Morceaux choisis :
 @unnumberedsubsubsec Tablatures pour luth
 @translationof Lute tablatures
 
-@cindex luth, tablatures
+@cindex luth, tablature
 @cindex tablature, luth
 
 LilyPond prend en charge les tablatures pour le luth.
@@ -2046,7 +2094,7 @@ m = { f'4 d' a f d a, g, fis, e, d, c,  \bar "|." }
 @end lilypond
 
 @cindex luth, personnalisation
-@cindex réglége fin d'un luth
+@cindex réglage fin d'un luth
 
 @knownissues
 L'utilisation de @code{FretBoards} avec des @code{additionalBassStrings}

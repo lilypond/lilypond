@@ -1,0 +1,254 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+
+@ignore
+    Translation of GIT committish: 47b45b556c729d13e71782e52d378e1c2a0f2b4d
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.18.0"
+
+@c Translators: Walter Garcia-Fontes
+@c Translation checkers:
+
+@node Instruments de corda sense trasts
+@section Instruments de corda sense trasts
+@translationof Unfretted string instruments
+
+@lilypondfile[quote]
+{unfretted-headword.ly}
+
+@cindex orquestrals, cordes
+@cindex cordes orquestrals
+@cindex cordes, escriptura de música per a
+
+Aquesta secció aporta informació i referències que resulten útils
+si s'escriu música per a instruments de cords sense trasts,
+principalment instruments de corda orquestrals.
+
+@menu
+* Notació comuna per a cordes sense trasts::
+@end menu
+
+@node Notació comuna per a cordes sense trasts
+@subsection Notació comuna per a cordes sense trasts
+@translationof Common notation for unfretted strings
+
+Hi ha poca notació especialitzada per als instruments de cordes
+sense trasts.  La notació de la música es realitza en un sol
+pentagrama, i se sol usar una sola veu.  Poden caldre dues veus
+per a alguns passatges a dobles cordes o en divisi.
+
+@menu
+* Referències per a cordes sense trasts::
+* Indicacions d'arc::
+* Harmònics::
+* Pizzicato de Bartok (Snap)::
+@end menu
+
+@node Referències per a cordes sense trasts
+@unnumberedsubsubsec Referències per a cordes sense trasts
+@translationof References for unfretted strings
+
+La major part de la notació que resulta d'utilitat per a les
+cordes orquestrals i altres instruments d'arc s'estudia en altres
+parts del manual:
+
+@itemize
+
+@item
+Les indicacions textuals com @qq{pizz.} i @qq{arco} s'afegeixen
+com text simple: vegeu @ref{Scripts de text}.
+
+@item
+Las digitacions, entre elles la indicació de polze, es descriuen a
+@ref{Indicacions de digitació}.
+
+@item
+Les dobles cordes s'indiquen normalment escrivint un acord, vegeu
+@ref{Notes a un acord}.  Hi ha altres indicacions que es poden
+afegir per a la interpretació d'acords.  Vegeu @ref{Arpegi}.
+
+@item
+Hi ha plantilles per a quartet de corda a
+@rlearning{Plantilles de quartet de corda}.
+D'altres plantilles es mostres a la secció de fragments de codi.
+
+@end itemize
+
+@seealso
+Manual d'aprenentatge:
+@rlearning{Plantilles de quartet de corda}.
+
+Referència de la notació:
+@ref{Scripts de text},
+@ref{Indicacions de digitació},
+@ref{Notes a un acord},
+@ref{Arpegi}.
+
+Fragments de codi:
+@rlsr{Unfretted strings}.
+
+
+@node Indicacions d'arc
+@unnumberedsubsubsec Indicacions d'arc
+@translationof Bowing indications
+
+@funindex \upbow
+@funindex \downbow
+@funindex \open
+@funindex \romanStringNumbers
+
+@cindex arc, indicacions de
+@cindex arc amunt, indicació
+@cindex arc avall, indicació
+@cindex amunt, arc
+@cindex avall, arc
+@cindex a l'aire, indicació de corda
+@cindex corda a l'aire, indicació de
+@cindex corda, números de
+
+Les indicacions d'arc es creen com articulacions, que es descriuen
+a @ref{Articulacions i ornaments}.
+
+Les ordres d'arc @code{\upbow} (arc amunt i @code{\downbow} (arc
+avall) s'usen com a lligadures d'expressió de la manera següent:
+
+@lilypond[verbatim,quote]
+\relative { c''4(\downbow d) e(\upbow f) }
+@end lilypond
+
+@noindent
+
+Es poden afegir números romans com a números de corda (en
+substitució de l'opció predeterminada, que son xifres aràbigues
+rodejades per un cercle), tal i com s'explica a
+@ref{Indicació dels números de corda}.
+
+Com a alternativa, es poden imprimir les indicacions de corda
+mitjançant ordres de marcatge; els símbols d'articulació també
+poden indicar cordes a l'aire.
+
+@lilypond[verbatim,quote,fragment]
+a'4 \open
+\romanStringNumbers
+a'\2
+a'2^\markup { \small "sul A" }
+@end lilypond
+
+
+@predefined
+@code{\downbow},
+@code{\upbow},
+@code{\open},
+@code{\romanStringNumbers}.
+@endpredefined
+
+@seealso
+Referència de la notació:
+@ref{Articulacions i ornaments},
+@ref{Indicació dels números de corda},
+@ref{Lligadures d'expressió}.
+
+
+@node Harmònics
+@unnumberedsubsubsec Harmònics
+@translationof Harmonics
+
+@funindex \harmonic
+
+@strong{@i{Harmònics naturals}}
+
+@cindex notes, cap de, forma de rombe
+@cindex rombe, caps en forma de
+@cindex naturals, harmònics
+@cindex harmònics naturals
+
+@funindex \harmonicsOn
+@funindex \harmonicsOff
+
+La notació dels harmònics naturals es pot realitzar de diverses
+formes.  Generalment, una nota amb el cap en forma de rombe
+significa tocar (sense prémer) la corda en el lloc on es
+trepitjaria la nota si no fos un rombe.
+
+@lilypond[verbatim,quote]
+\relative d'' {
+  d4 e4.
+  \harmonicsOn
+  d8 e e
+  d4 e4.
+  \harmonicsOff
+  d8 e e
+}
+@end lilypond
+
+Com a possibilitat alternativa està la de mostrar un cap normal de
+nota a l'alçada de la nota que ha de sonar, amb un petit cercle
+que indica que s'ha de tocar com a harmònic:
+
+@lilypond[verbatim,quote,fragment]
+d''2^\flageolet d''_\flageolet
+@end lilypond
+
+Es pot fer un cercle de mida més petita, vegeu la llista de
+fragments de codi a
+@ref{Referències per a cordes sense trasts}.
+
+@strong{@i{Harmònics artificials}}
+
+@cindex artificials, harmònics
+@cindex harmònics artificials
+
+La notació dels harmònics artificials es realitza amb dues notes,
+una amb un cap normal que indica la posició on es trepitja, i
+l'altra amb un cap en forma de rombe buit per indicar la posició
+on es frega la corda (sense trepitjar) per produir l'harmònic.
+
+
+@c TODO If the default for harmonicDots is changed, change this
+Els harmònics artificials indicats amb @code{\harmonic} no
+presenten els puntets.  S'ha d'activar la propietat de context
+@code{harmonicDots} si calen els puntets.
+
+@lilypond[verbatim,quote]
+\relative e' {
+  <e a\harmonic>2.  <c g'\harmonic>4
+  \set harmonicDots = ##t
+  <e a\harmonic>2.  <c g'\harmonic>4
+}
+@end lilypond
+
+@seealso
+Glossari musical:
+@rglos{harmonics}.
+
+Referencia de la notació:
+@ref{Caps de nota especials},
+@ref{Referències per a cordes sense trasts}.
+
+
+@node Pizzicato de Bartok (Snap)
+@unnumberedsubsubsec Pizzicato de Bartok (Snap)
+@translationof Snap (Bartok) pizzicato
+
+@cindex pizzicato, Bartók
+@cindex pizzicato, snap
+@cindex Bartók pizzicato
+@cindex snap pizzicato
+
+El @notation{pizzicato snap} (també conegut com a @qq{pizzicato
+de Bartók}) és un tipus de pizzicato en el qual la corda es polsa
+cap amunt (i no lateralment) de forma deliberada, perquè colpegi
+la fusta del diapasó.
+
+@lilypond[verbatim,quote]
+\relative {
+  c'4\snappizzicato
+  <c' e g>4\snappizzicato
+  <c' e g>4^\snappizzicato
+  <c, e g>4_\snappizzicato
+}
+@end lilypond

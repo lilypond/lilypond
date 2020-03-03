@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+連桁が小節線を跨ぐ場合、改行は通常禁止されます。この挙動は以下のように@c
+して変更することができます。
+"
+  doctitleja = "改行に跨る連桁"

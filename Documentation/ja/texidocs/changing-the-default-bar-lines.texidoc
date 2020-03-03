@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+デフォルトの小節線は、Score コンテキストで再定義することで変更することが@c
+できます。
+"
+  doctitleja = "デフォルトの小節線を変更する"

@@ -1,0 +1,7 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+デフォルトでは、メトロノーム記号やリハーサル記号は譜の上に表示されます。@c
+これらを譜の下に表示するには、@code{MetronomeMark} や @code{RehearsalMark}
+の @code{direction} プロパティを正しくセットします。
+"
+  doctitleja = "メトロノーム記号やリハーサル記号を譜の下に表示する"

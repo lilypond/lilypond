@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+タブ譜での符幹の向きは、伝統的な記譜法と同じように調整することができます。@c
+以下の例のように、連桁を水平にすることもできます。
+"
+  doctitleja = "タブ譜での符幹と連桁の挙動"

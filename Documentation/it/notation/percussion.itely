@@ -1,0 +1,599 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
+@ignore
+    Translation of GIT committish: 21a1f431176e969d45a9cc973c99dce34e9e8733
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.17.30"
+
+@c Translators: Federico Bruni
+@c Translation checkers:
+
+@node Percussioni
+@section Percussioni
+@translationof Percussion
+
+@menu
+* Notazione comune per le percussioni::
+@end menu
+
+@node Notazione comune per le percussioni
+@subsection Notazione comune per le percussioni
+@translationof Common notation for percussion
+
+La musica ritmica viene usata principalmente per la notazione di strumenti
+percussivi, ma può essere usata anche per mostrare i ritmi delle melodie.
+
+@menu
+* Riferimenti per percussioni::
+* Notazione di base per percussioni::
+* Rulli di tamburo::
+* Percussioni a suono determinato::
+* Righi delle percussioni::
+* Righi delle percussioni personalizzati::
+* Ghost note::
+@end menu
+
+@node Riferimenti per percussioni
+@unnumberedsubsubsec Riferimenti per percussioni
+@translationof References for percussion
+
+@c TODO add more references.
+
+@itemize
+
+@item Alcune percussioni possono essere scritte su un rigo ritmico; questo
+argomento è trattato in @ref{Mostrare i ritmi della melodia} e
+@ref{Istanziare nuovi righi}.
+
+@item l'output MIDI è trattato in un'altra sezione, vedi
+@ref{Creazione dell'output MIDI}.
+
+@end itemize
+
+@seealso
+Guida alla notazione:
+@ref{Mostrare i ritmi della melodia},
+@ref{Istanziare nuovi righi}.
+@ref{Creazione dell'output MIDI}.
+
+Frammenti:
+@rlsr{Percussion}.
+
+
+@node Notazione di base per percussioni
+@unnumberedsubsubsec Notazione di base per percussioni
+@translationof Basic percussion notation
+
+@cindex percussioni
+@cindex batteria
+
+@funindex \drummode
+@funindex \drums
+
+Le note percussive possono essere inserite in modalità @code{\drummode}, che è
+simile alla modalità standard di inserimento delle note.  Il modo più semplice
+per inserire note percussive è il comando @code{\drums}, che crea il contesto e
+la modalità di inserimento corretti per le percussioni:
+
+@lilypond[quote,verbatim]
+\drums {
+  hihat4 hh bassdrum bd
+}
+@end lilypond
+
+Si tratta di una scorciatoia per:
+
+@lilypond[quote,verbatim]
+\new DrumStaff \drummode {
+  hihat4 hh bassdrum bd
+}
+@end lilypond
+
+Ogni elemento di uno strumento a percussione ha un nome completo e un nome
+abbreviato, entrambi utilizzabili nei file di input.  L'elenco completo dei nomi
+delle note percussive si trova in @ref{Note percussive}.
+
+@cindex chiave delle percussioni
+@cindex percussioni, chiave
+
+Si noti che l'uso della normale notazione delle altezze (come @code{cis4}) in un
+contesto @code{DrumStaff} produrrà un messaggio di errore. Le chiavi delle
+percussioni sono aggiunte automaticamente a un contesto @code{DrumStaff} ma
+possono anche essere impostate esplicitamente. È possibile usare anche altre
+chiavi.
+
+@lilypond[quote,ragged-right,verbatim]
+\drums {
+  \clef percussion
+  bd4 4 4 4
+  \clef treble
+  hh4 4 4 4
+}
+@end lilypond
+
+
+Ci sono alcuni problemi relativi al supporto del MIDI per gli strumenti
+percussivi; maggiori dettagli in @ref{Creazione dell'output MIDI}.
+
+@seealso
+Guida alla notazione:
+@ref{Creazione dell'output MIDI},
+@ref{Note percussive}.
+
+File installati:
+@file{ly/drumpitch-init.ly}.
+
+Frammenti:
+@rlsr{Percussion}.
+
+
+@node Rulli di tamburo
+@unnumberedsubsubsec Rulli di tamburo
+@translationof Drum rolls
+
+I rulli di tamburo si indicano con tre slash sul gambo.  Le note di un quarto o
+più lunghe vengono mostrate con tre slash, quelle da un ottavo con due slash (la
+travatura rappresenta la terza), mentre le note più brevi di un'ottavo hanno uno
+slash sul gambo per integrare le travature.  Ciò si ottiene con la notazione per
+tremolo, come è descritto in @ref{Ripetizioni con tremolo}.
+
+@lilypond[quote,verbatim]
+\drums {
+  \time 2/4
+  sn16 8 16 8 8:32 ~
+  8 8 4:32 ~
+  4 8 16 16
+  4 r4
+}
+@end lilypond
+
+La scelta di quale bacchetta usare può essere indicata tramite il testo
+@code{"R"} (right, destra) o @code{"L"} (left, sinistra) da porre sopra o sotto
+le note, come spiegato in @ref{Direzione e posizionamento}.  Conviene modificare la
+proprietà @code{staff-padding} per ottenere un allineamento soddisfacente.
+
+@lilypond[quote,verbatim]
+\drums {
+  \repeat unfold 2 {
+    sn16^"L" 16^"R" 16^"L" 16^"L" 16^"R" 16^"L" 16^"R" 16^"R"
+    \stemUp
+    sn16_"L" 16_"R" 16_"L" 16_"L" 16_"R" 16_"L" 16_"R" 16_"R"
+  }
+}
+@end lilypond
+
+@seealso
+Guida alla notazione:
+@ref{Ripetizioni con tremolo}.
+
+Frammenti:
+@rlsr{Percussion}.
+
+
+@node Percussioni a suono determinato
+@unnumberedsubsubsec Percussioni a suono determinato
+@translationof Pitched percussion
+
+Alcuni strumenti percussivi a suono determinato (per esempio xilofono, vibrafono
+e timpani) si scrivono usando i righi normali, come è spiegato in altre sezioni
+del manuale.
+
+@seealso
+Guida alla notazione:
+@ref{Creazione dell'output MIDI}.
+
+Frammenti:
+@rlsr{Percussion}.
+
+
+@node Righi delle percussioni
+@unnumberedsubsubsec Righi delle percussioni
+@translationof Percussion staves
+
+@cindex percussioni
+@cindex batteria
+
+Una parte percussiva per più di uno strumento di norma usa un pentagramma
+multilinea dove ogni posizione sul rigo si riferisce a una parte delle
+percussioni.  Per scrivere questo tipo di musica, le note devono essere
+interpretate nei contesti @code{DrumStaff} e @code{DrumVoice}.
+
+@lilypond[quote,verbatim]
+up = \drummode {
+  crashcymbal4 hihat8 halfopenhihat hh hh hh openhihat
+}
+down = \drummode {
+  bassdrum4 snare8 bd r bd sn4
+}
+\new DrumStaff <<
+  \new DrumVoice { \voiceOne \up }
+  \new DrumVoice { \voiceTwo \down }
+>>
+@end lilypond
+
+L'esempio precedente mostra la notazione polifonica in forma estesa.  Ma si può
+usare anche quella in forma breve, descritta in @rlearning{Sento le Voci}.
+Per esempio,
+
+@lilypond[quote,verbatim]
+\new DrumStaff <<
+  \drummode {
+    bd4 sn4 bd4 sn4
+    << {
+      \repeat unfold 16 hh16
+    } \\ {
+      bd4 sn4 bd4 sn4
+    } >>
+  }
+>>
+@end lilypond
+
+Esistono anche altre opzioni di formattazione, che si possono impostare tramite
+la proprietà @code{drumStyleTable} del contesto @code{DrumVoice}.  Sono state
+definite le seguenti variabili:
+
+@table @code
+
+@item drums-style
+Questo è lo stile predefinito.  Crea uno spartito per una tipica batteria su
+un rigo di cinque linee:
+
+@lilypond[quote,line-width=10.0\cm]
+nam = \lyricmode {
+  cymc cyms cymr hh hhc hho hhho hhp
+  cb hc bd sn ss tomh tommh tomml toml tomfh tomfl }
+mus = \drummode {
+  cymc cyms cymr hh hhc hho hhho hhp \break
+  cb hc bd sn ss tomh tommh tomml toml tomfh tomfl s16 }
+\score {
+  << \new DrumStaff \with {
+       \remove "Bar_engraver"
+       \remove "Time_signature_engraver"
+       \hide Stem
+       \override Stem.Y-extent = ##f
+     } \mus
+     \new Lyrics \nam
+  >>
+  \layout {
+    \context {
+      \Score
+      \override LyricText.font-family = #'typewriter
+      \override BarNumber.transparent =##T
+    }
+  }
+}
+@end lilypond
+
+Lo schema percussivo supporta sei diversi tom.  Quando si usa un numero
+inferiore di tom, selezionare i tom che producono il risultato desiderato.  Per
+esempio, per avere i tom sulle tre linee centrali si usa @code{tommh},
+@code{tomml} e @code{tomfh}.
+
+@item agostini-drums-style
+Inventata dal percussionista francese Dante Agostini nel 1965, questa notazione
+è comunemente utilizzata in Francia ma anche altrove.
+
+@lilypond[quote,line-width=10.0\cm]
+nam = \lyricmode {
+  cymc cyms cymr hh hhc hho hhho hhp
+  cb hc bd sn ss tomh tommh tomml toml tomfh tomfl }
+mus = \drummode {
+  cymc cyms cymr hh hhc hho hhho hhp \break
+  cb hc bd sn ss tomh tommh tomml toml tomfh tomfl s16 }
+\score {
+  << \new DrumStaff \with {
+       \remove "Bar_engraver"
+       \remove "Time_signature_engraver"
+       \hide Stem
+       \override Stem.Y-extent = ##f
+       drumStyleTable = #agostini-drums-style
+     } \mus
+     \new Lyrics \nam
+  >>
+  \layout {
+    \context {
+      \Score
+      \override LyricText.font-family = #'typewriter
+      \override BarNumber.transparent =##T
+    }
+  }
+}
+@end lilypond
+
+@item timbales-style
+Questo stile rappresenta i timbales su un rigo di due linee:
+
+@lilypond[quote,ragged-right]
+nam = \lyricmode { timh ssh timl ssl cb }
+mus = \drummode { timh ssh timl ssl cb s16 }
+
+<<
+  \new DrumStaff \with {
+    \remove "Bar_engraver"
+    \remove "Time_signature_engraver"
+    \hide Stem
+    \override Stem.Y-extent = ##f
+    \override StaffSymbol.line-count = #2
+    \override StaffSymbol.staff-space = #2
+    \override VerticalAxisGroup.minimum-Y-extent = #'(-3.0 . 4.0)
+    drumStyleTable = #timbales-style
+  } \mus
+  \new Lyrics {
+    \override LyricText.font-family = #'typewriter
+    \nam
+  }
+>>
+@end lilypond
+
+@item congas-style
+Questo stile rappresenta le conga su un rigo di due linee:
+
+@lilypond[quote,ragged-right]
+nam = \lyricmode { cgh cgho cghm ssh cgl cglo cglm ssl }
+mus = \drummode { cgh cgho cghm ssh cgl cglo cglm ssl s16 }
+
+<<
+  \new DrumStaff \with {
+    \remove "Bar_engraver"
+    \remove "Time_signature_engraver"
+    drumStyleTable = #congas-style
+    \override StaffSymbol.line-count = #2
+
+    %% this sucks; it will lengthen stems.
+    \override StaffSymbol.staff-space = #2
+    \hide Stem
+    \override Stem.Y-extent = ##f
+  } \mus
+  \new Lyrics {
+    \override LyricText.font-family = #'typewriter
+    \nam
+  }
+>>
+@end lilypond
+
+@item bongos-style
+Questo stile rappresenta i bongo su un rigo di due linee:
+
+@lilypond[quote,ragged-right]
+nam = \lyricmode { boh boho bohm ssh bol bolo bolm ssl }
+mus = \drummode { boh boho bohm ssh bol bolo bolm ssl s16 }
+
+<<
+  \new DrumStaff \with {
+    \remove "Bar_engraver"
+    \remove "Time_signature_engraver"
+    \override StaffSymbol.line-count = #2
+    drumStyleTable = #bongos-style
+
+    %% this sucks; it will lengthen stems.
+    \override StaffSymbol.staff-space = #2
+    \hide Stem
+    \override Stem.Y-extent = ##f
+  } \mus
+  \new Lyrics {
+    \override LyricText.font-family = #'typewriter
+    \nam
+  }
+>>
+@end lilypond
+
+@item percussion-style
+Per rappresentare qualsiasi tipo di percussione semplice su righi di una linea:
+
+@lilypond[quote,ragged-right]
+nam = \lyricmode { tri trio trim gui guis guil cb cl tamb cab mar hc }
+mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
+
+<<
+  \new DrumStaff \with{
+    \remove "Bar_engraver"
+    drumStyleTable = #percussion-style
+    \override StaffSymbol.line-count = #1
+    \remove "Time_signature_engraver"
+    \hide Stem
+    \override Stem.Y-extent = ##f
+  } \mus
+  \new Lyrics {
+    \override LyricText.font-family = #'typewriter
+    \nam
+  }
+>>
+@end lilypond
+@end table
+
+Si possono anche definite stili percussivi personalizzati, come è
+spiegato in @ref{Righi delle percussioni personalizzati}.
+
+@seealso
+Manuale di apprendimento:
+@rlearning{Sento le Voci}.
+
+Guida alla notazione:
+@ref{Righi delle percussioni personalizzati}.
+
+File installati:
+@file{ly/drumpitch-init.ly}.
+
+Frammenti:
+@rlsr{Percussion}.
+
+
+@node Righi delle percussioni personalizzati
+@unnumberedsubsubsec Righi delle percussioni personalizzati
+@translationof Custom percussion staves
+
+@cindex percussioni personalizzate
+@funindex drumStyleTable
+
+È possibile definire stili percussivi personalizzati, su cui poi impostare
+la proprietà @code{drumStyleTable}.  Le notazioni esistenti possono essere
+ridefinite come una lista associativa in cui ogni voce deve essere
+costituita da quattro elementi:
+un nome, lo stile della testa di nota (o @code{default}), un segno di
+articolazione se necessario (o @code{#f} se non lo è), e la posizione
+della testa di nota sul rigo.  Questa lista deve poi essere convertita
+in una tabella hash Scheme, usando la funzione @code{alist->hash-table}.
+
+@lilypond[quote,verbatim]
+#(define mydrums '(
+         (bassdrum        default   #f           -1)
+         (snare           default   #f           0)
+         (hihat           cross     #f           1)
+         (halfopenhihat   cross     "halfopen"   1)
+         (pedalhihat      xcircle   "stopped"    2)
+         (lowtom          diamond   #f           3)))
+up = \drummode { hh8 hh hhho hhho hhp4 hhp }
+down = \drummode { bd4 sn bd toml8 toml }
+
+\new DrumStaff <<
+  \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
+  \new DrumVoice { \voiceOne \up }
+  \new DrumVoice { \voiceTwo \down }
+>>
+@end lilypond
+
+@funindex drumPitchNames
+
+Si possono aggiungere anche nuovi nomi a queste notazioni personalizzate
+attraverso la variabile @code{drumPitchNames}, che può essere ridefinita
+come  una lista associativa (o aumentata @code{append}endo una nuova lista
+al suo valore esistente, come illustrato sotto), ma anche attraverso le
+sue voci individuali.  Ciò permette anche di definire alias: scorciatoie
+di input alternativo per alcune notazioni.
+
+@lilypond[quote,verbatim]
+drumPitchNames =
+  #(append
+    '((leftsnap . sidestick)
+      (rightsnap . ridecymbal))
+    drumPitchNames)
+
+drumPitchNames.ls = #'sidestick
+drumPitchNames.rs = #'ridecymbal
+
+\drums {
+  leftsnap4. rightsnap8 leftsnap4 rightsnap
+  ls8 rs ls rs ls4 rs
+}
+@end lilypond
+
+@funindex midiDrumPitches
+@funindex drumPitchTable
+
+In modo analogo, la proprietà @code{drumPitchTable} associa una certa
+altezza (ovvero un diverso suono di strumento, così come è fornito
+dai soundfont MIDI disponibili) a ciascuna notazione.  Questa proprietà
+deve essere definita come una tabella di hash, che di nuovo viene convertita
+da una lista associativa (salvata per impostazione predefinita come
+variabile @code{midiDrumPitches}).  La ridefinizione di queste associazioni
+si ottiene, come spiegato sopra, o definendo un'intera lista associativa
+oppure attraverso voci individuali.  L'esempio seguente mostra come creare
+un insieme di notazione completo con la propria sintassi di input, notazioni
+personalizzate e output MIDI corrispondente.
+
+@lilypond[quote,verbatim]
+drumPitchNames.dbass      = #'dbass
+drumPitchNames.dba        = #'dbass  % 'db è già in uso
+drumPitchNames.dbassmute  = #'dbassmute
+drumPitchNames.dbm        = #'dbassmute
+drumPitchNames.do         = #'dopen
+drumPitchNames.dopenmute  = #'dopenmute
+drumPitchNames.dom        = #'dopenmute
+drumPitchNames.dslap      = #'dslap
+drumPitchNames.ds         = #'dslap
+drumPitchNames.dslapmute  = #'dslapmute
+drumPitchNames.dsm        = #'dslapmute
+
+#(define djembe-style
+  '((dbass      default  #f         -2)
+    (dbassmute  default  "stopped"  -2)
+    (dopen      default  #f          0)
+    (dopenmute  default  "stopped"   0)
+    (dslap      default  #f          2)
+    (dslapmute  default  "stopped"   2)))
+
+midiDrumPitches.dbass     = g
+midiDrumPitches.dbassmute = fis
+midiDrumPitches.dopen     = a
+midiDrumPitches.dopenmute = gis
+midiDrumPitches.dslap     = b
+midiDrumPitches.dslapmute = ais
+
+test = \drummode { dba4 do ds dbm dom dsm }
+
+\score {
+  \new DrumStaff \with {
+    \override StaffSymbol.line-count = #3
+    instrumentName = "Djembé "
+    drumStyleTable = #(alist->hash-table djembe-style)
+    drumPitchTable = #(alist->hash-table midiDrumPitches)
+  } {
+    \time 3/4
+    \test
+  }
+  \layout {}
+  \midi {}
+}
+@end lilypond
+
+
+@seealso
+File installati:
+@file{ly/drumpitch-init.ly}.
+
+Frammenti:
+@rlsr{Percussion}.
+
+Guida al funzionamento interno:
+@rinternals{DrumStaff},
+@rinternals{DrumVoice}.
+
+
+@node Ghost note
+@unnumberedsubsubsec Ghost note
+@translationof Ghost notes
+
+@cindex ghost note, percussioni
+@cindex dead note, percussioni
+@cindex nota fantasma, percussioni
+@cindex nota muta, percussioni
+@cindex percussioni, ghost note
+@cindex percussioni, nota fantasma
+@cindex percussioni, dead note
+@cindex percussioni, nota muta
+@cindex percussioni, nota morta
+@cindex percussioni, nota non suonata
+
+Le ghost note (note fantasma), note anche come note morte, mute o non suonate,
+possono essere create col comando @code{\parenthesize}, spiegato in @ref{Parentesi}.
+
+@lilypond[quote,ragged-right,verbatim]
+\new DrumStaff
+<<
+  \context DrumVoice  = "1" { s1 }
+  \context DrumVoice  = "2" { s1 }
+  \drummode {
+    <<
+      {
+        hh8[ 8] <hh sn> hh16
+        \parenthesize sn  hh
+        \parenthesize sn  hh8 <hh sn> hh
+      } \\
+      {
+        bd4 r4 bd8 8 r8 bd
+      }
+    >>
+  }
+>>
+@end lilypond
+
+@seealso
+Guida alla Notazione:
+@ref{Parentesi}.
+
+Frammenti:
+@rlsr{Percussion}.

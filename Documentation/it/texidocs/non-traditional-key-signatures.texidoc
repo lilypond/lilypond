@@ -1,24 +1,25 @@
-%% Translation of GIT committish: e0808cc5f4890c5f8f03ed1be48fc911627afea4
+%% Translation of GIT committish: 17ffa111f7411b2feb67fa2883ea622c07e613a6
   texidocit = "
 Il comando @code{\\key} comunemente usato imposta la proprietà
-@code{keyAlterations}, che fa parte del contesto @code{Staff}.
-
+@code{keyAlterations} del contesto @code{Staff}.
 Per creare armature di chiave non standard, tale proprietà va
-impostata esplicitamente.  Il formato di questo comando è
-una lista:
+impostata esplicitamente.
+
+Il formato di questo comando è una lista:
 
 @code{\\set Staff.keyAlterations = #`(((ottava . grado) . alterazione) ((ottava
-. grado) . alterazione) ...)} dove, per ogni elemento della lista,
-@code{ottava} indica l'ottava (0@tie{}è l'ottava dal Do@tie{}centrale
-al Si precedente), @code{grado} indica la nota all'interno
-dell'ottava (0@tie{}significa@tie{}Do e 6@tie{}significa@tie{}Si) e @code{alterazione}
-può essere @code{,SHARP ,FLAT ,DOUBLE-SHARP} etc.  (Si noti la virgola iniziale.)
+. grado) . alterazione) ...)}
 
-Altrimenti, usando, per ogni elemento della lista, il formato breve
+dove, per ogni elemento della lista, @code{ottava} indica l'ottava (0 è
+l'ottava dal Do centrale al Si precedente), @code{grado} indica la nota
+all'interno dell'ottava (0 significa Do e 6 significa Si) e @code{alterazione}
+può essere @code{,SHARP ,FLAT ,DOUBLE-SHARP} etc.
+
+Altrimenti, usando il formato breve per ogni elemento della lista,
 @code{(grado . alterazione)}, ciò indica che la stessa alterazione deve
-essere presente in tutte le ottave.
+essere presente in tutte le ottave. Per le scale microtonalidove un
+@qq{diesis} non è 100 centesimi, @code{alterazione} si riferisce alla
+proporzione di un duecentesimo di tono intero.
 
-Ecco un esempio di una possibile armatura per generare una scala
-a tono intero:
 "
   doctitleit = "Armature di chiave non tradizionali"

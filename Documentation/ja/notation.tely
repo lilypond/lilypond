@@ -1,6 +1,7 @@
 \input texinfo-ja @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: fabcd22c8f88ea9a87241597f1e48c0a9adbfc6e
+    Translation of GIT committish: 270ef754ee7c30523ce40a37dc1bd3035a51737b
+
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -19,7 +20,12 @@
 扱っている題材に慣れ親しんでいることを前提としています。
 @end macro
 
-@c `Notation Reference' was born 1999-10-11 with git commit 940dda0...
+@c `Notation Reference' was born 1998-08-14 with this commit:
+@c release: 1.0.2
+@c author: Han-Wen Nienhuys
+@c commit: a3a44f9f3c581b6824b3a65f9039656693e09bbf
+@c   file: Documentation/tex/refman.yo
+
 @macro copyrightDeclare
 Copyright @copyright{} 1999--2020 by 著作者一同
 @end macro
@@ -37,7 +43,7 @@ Copyright @copyright{} 1999--2020 by 著作者一同
 @omflanguage English
 @end ignore
 
-@c Translators: Yoshiki Sawada
+@c Translators: Yoshiki Sawada, Tomohiro Tatejima
 @c Translation status: post-GDP
 
 @lilyTitlePage{記譜法リファレンス}
@@ -54,7 +60,7 @@ Copyright @copyright{} 1999--2020 by 著作者一同
 
 付録
 
-* Notation manual tables::      表と図
+* 付表::      表と図
 * カンニング ペーパー::     LilyPond 構文についての要約
 * GNU Free Documentation License:: このドキュメントの使用許諾書
 * LilyPond コマンド インデックス::

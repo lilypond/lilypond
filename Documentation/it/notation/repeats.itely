@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: c4a960d0461ee5ecd87cd46692ec11682b8969b0
+    Translation of GIT committish: 21a1f431176e969d45a9cc973c99dce34e9e8733
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -73,8 +73,8 @@ manualmente i segni di ripetizione.
 @cindex volta, prima
 @cindex volta, seconda
 @cindex ripetizione normale
-@cindex ripetizione con finali alternativi
-@cindex finali alternativi
+@cindex ripetizione, con finali alternativi
+@cindex finale alternativo
 @funindex \repeat
 @funindex \alternative
 @funindex \partial
@@ -180,11 +180,11 @@ altrimenti non si otterrà il numero atteso di finali.}
 contesto @code{Voice}, appare un rigo in più (non desiderato).  Vedi
 @rprogram{Appare un rigo in più}.}
 
-@cindex ripetizione con anacrusi
-@cindex anacrusi in una ripetizione
+@cindex ripetizione, con anacrusi
+@cindex anacrusi, in una ripetizione
 @funindex \partial
-@cindex controlli di battuta con ripetizioni
-@cindex ripetizioni con controlli di battuta
+@cindex controllo di battuta, con ripetizioni
+@cindex ripetizione, con controlli di battuta
 
 Se una ripetizione che non ha finali alternativi inizia in mezzo a una
 misura, solitamente termina in un punto corrispondente nel mezzo di una
@@ -224,10 +224,10 @@ g1 |
 @end lilypond
 
 
-@cindex ripetizioni con legature di valore
-@cindex finali alternativi con legature di valore
-@cindex legature di valore, nelle ripetizioni
-@cindex legature di valore, finali alternativi
+@cindex ripetizione, con legature di valore
+@cindex finale alternativo, con legature di valore
+@cindex legatura di valore, nelle ripetizioni
+@cindex legatura di valore, finali alternativi
 @funindex \repeatTie
 
 Si possono aggiungere delle legature di valore a un secondo finale:
@@ -244,7 +244,7 @@ Si possono aggiungere delle legature di valore a un secondo finale:
 @end lilypond
 
 @funindex \inStaffSegno
-@cindex ripetizioni, con segno
+@cindex ripetizione, con segno
 @cindex segno, con ripetizioni
 
 Il comando @code{\inStaffSegno} può essere usato per generare una stanghetta
@@ -332,18 +332,27 @@ comando @code{\defineBarLine} (vedi @ref{Stanghette}).
 @end lilypond
 
 @snippets
+
+@cindex parentesi della volta, accorciare
+@cindex volta, parentesi accorciate
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {shortening-volta-brackets.ly}
 
+@cindex parentesi della volta, in altri righi
+@funindex Volta_engraver
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adding-volta-brackets-to-additional-staves.ly}
 
+@cindex ripetizione, doppia, stile per la volta
+@cindex volta, stile della doppia ripetizione
+@cindex stile, doppia ripetizione per la volta
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {setting-the-double-repeat-default-for-volte.ly}
 
-@cindex ripetizioni, numeri di battuta con lettere
-@cindex ripetizioni, numeri di battuta alternativi
-
+@cindex ripetizione, numeri di battuta con lettere
+@cindex numeri di battuta, con lettere, nelle ripetizioni
+@cindex ripetizione, numeri di battuta alternativi
+@cindex numeri di battuta, alternativi, nelle ripetizioni
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {alternative-bar-numbering.ly}
 
@@ -354,9 +363,9 @@ Glossario Musicale:
 
 Guida alla notazione:
 @ref{Stanghette},
-@ref{Modifying context plug-ins},
-@ref{Modifying ties and slurs},
-@ref{Time administration}.
+@ref{Modifica dei componenti aggiuntivi di un contesto},
+@ref{Modifica di legature di valore e di portamento},
+@ref{Gestione del tempo}.
 
 File installati:
 @file{ly/engraver-init.ly}.
@@ -371,17 +380,17 @@ Guida al funzionamento interno:
 @rinternals{UnfoldedRepeatedMusic}.
 
 @knownissues
-@cindex ripetizioni, ambiguità
-@cindex ripetizioni annidate
-@cindex annidamento, ripetizioni
-@cindex ripetizioni e informazioni sul tempo
-@cindex ripetizione e numero della misura
+@cindex ripetizione, ambigua
+@cindex ripetizione annidata
+@cindex annidamento, ripetizione
+@cindex ripetizione, informazioni sul tempo
+@cindex ripetizione, e numero della misura
 @cindex informazioni sul tempo e ripetizioni
-@cindex numero della misura e ripetizioni
-@cindex ripetizioni e legatura di portamento
-@cindex legatura di portamento e ripetizioni
-@cindex glissandi e ripetizioni
-@cindex ripetizioni e glissandi
+@cindex numero della misura, e ripetizioni
+@cindex ripetizione, e legatura di portamento
+@cindex legatura di portamento, e ripetizioni
+@cindex glissando, e ripetizioni
+@cindex ripetizione, e glissandi
 
 Le legature di portamento che si estendono da un blocco @code{\repeat} verso
 un blocco @code{\alternative} funzioneranno solo nel primo finale
@@ -392,7 +401,7 @@ del blocco dell'alternativa, sebbene questo metodo non funzioni
 in @code{TabStaff}.  Altri metodi che si possono adattare per indicare
 legature di portamento che continuano su varie note dei blocchi di
 alternativa, e che funzionano anche nei contesti @code{TabStaff},
-sono presentati in @ref{Modifying ties and slurs}.
+sono presentati in @ref{Modifica di legature di valore e di portamento}.
 
 Inoltre le legature di portamento non possono ricollegarsi dalla fine di
 un'alternativa all'inizio della ripetizione.
@@ -511,8 +520,8 @@ Comandi di ripetizione multipli possono trovarsi nello stesso punto:
 }
 @end lilypond
 
-@cindex parentesi della volta con testo
-@cindex testo nella parentesi della volta
+@cindex parentesi della volta, con testo
+@cindex testo, nella parentesi della volta
 
 Si può includere del testo nella parentesi della volta.  Il testo può consistere di
 un numero, di più numeri o di un'indicazione testuale, si veda @ref{Formattazione del testo}.  Il
@@ -551,14 +560,14 @@ Guida al funzionamento interno:
 @unnumberedsubsubsec Ripetizioni ricopiate
 @translationof Written-out repeats
 
-@cindex ripetizioni ricopiate
+@cindex ripetizione ricopiata
 @cindex ricopiate, ripetizioni
-@cindex ripetizioni, unfold
-@cindex ripetizioni, alternativa
+@cindex ripetizione, unfold
+@cindex ripetizione, alternativa
 @cindex unfold, ripetizione
 @cindex unfold, finali alternativi
-@cindex ripetizioni alternate
-@cindex finali alternati, ripetizioni
+@cindex ripetizione alternata
+@cindex finale alternato, ripetizioni
 @funindex unfold
 
 Col comando @code{unfold}, le ripetizioni possono servire a semplificare
@@ -692,10 +701,10 @@ negli altri casi.
 @unnumberedsubsubsec Ripetizioni con percentuale
 @translationof Percent repeats
 
-@cindex ripetizioni con percentuale
-@cindex percentuale, ripetizioni
-@cindex ripetizioni della misura
-@cindex misura, ripetizioni
+@cindex ripetizione con percentuale
+@cindex percentuale, ripetizione
+@cindex ripetizione della misura
+@cindex misura, ripetizione
 @cindex ripetizione, breve
 @funindex \repeat percent
 @funindex percent
@@ -754,12 +763,20 @@ simbolo di doppia percentuale.
 
 @snippets
 
+@cindex contatore della ripetizione con segno percentuale
+@cindex ripetizione, contatore con segno percentuale
+@funindex countPercentRepeats
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {percent-repeat-counter.ly}
 
+@cindex conto della ripetizione con segno percentuale, visibilità
+@cindex ripetizione, percentuale, visibilità del conto
+@funindex repeatCountVisibility
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {percent-repeat-count-visibility.ly}
 
+@cindex ripetizioni con segni percentuali isolati
+@cindex isolati, segni percentuali, nelle ripetizioni
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {isolated-percent-repeats.ly}
 
@@ -810,7 +827,7 @@ per esempio su una traccia di tempo separata.
 @unnumberedsubsubsec Ripetizioni con tremolo
 @translationof Tremolo repeats
 
-@cindex travature del tremolo
+@cindex travatura del tremolo
 @cindex tremolo
 @cindex ripetizione, tremolo
 @funindex \repeat tremolo
@@ -853,8 +870,8 @@ essere racchiusa tra parentesi:
 \repeat tremolo 4 c'16
 @end lilypond
 
-@cindex segni di tremolo
-@cindex tremolo, segni
+@cindex segno di tremolo
+@cindex tremolo, segno
 @funindex :
 
 Si può ottenere lo stesso output aggiungendo @code{:@var{N}} dopo
@@ -872,6 +889,7 @@ usato l'ultimo valore:
 
 @snippets
 
+@cindex tremolo tra due righi
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {cross-staff-tremolos.ly}
 
@@ -879,6 +897,3 @@ usato l'ultimo valore:
 Frammenti:
 @rlsr{Repeats}.
 
-@cindex tremolo tra due righi
-
-@c  LocalWords:  voltaAdLib

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 18d03fa6a724b0102ccc47d194209802cea02f2e
+    Translation of GIT committish: 21a1f431176e969d45a9cc973c99dce34e9e8733
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -127,7 +127,7 @@ Referencia de funcionamiento interno:
 @rinternals{TextScript}.
 
 
-@cindex texto fuera del margen
+@cindex texto, fuera del margen
 @cindex margen, texto fuera del
 @cindex texto, mantener dentro del margen
 @cindex letra, mantener dentro del margen
@@ -147,7 +147,7 @@ proceso ligeramente más rápido, puede utilizar
 @unnumberedsubsubsec Extensiones de texto
 @translationof Text spanners
 
-@cindex texto, elementos de extensión
+@cindex texto, elemento de extensión de
 
 Ciertas indicaciones de ejecución, p.ej., @i{rallentando} o
 @i{accelerando}, se escriben como texto y se extienden sobre
@@ -165,7 +165,7 @@ sintaxis:
 @end lilypond
 
 @cindex texto, formateado de los elementos de extensión
-@cindex formato de los elementos de extensión de texto
+@cindex formato, de los elementos de extensión de texto
 
 @noindent
 La cadena de texto que imprimir se establece a través de
@@ -203,11 +203,15 @@ LilyPond sólo puede manejar un objeto de extensión de texto por
 cada voz.
 
 @snippets
+
+@cindex matiz, extensión de texto, personalizar
+@cindex texto, extensión de, matiz, personalizar
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {dynamics-text-spanner-postfix.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {dynamics-custom-text-spanner-postfix.ly}
+
 
 @seealso
 Referencia de la notación:
@@ -228,12 +232,12 @@ Referencia de funcionamiento interno:
 @translationof Text marks
 
 @cindex texto, indicaciones de
-@cindex indicaciones de texto
-@cindex texto sobre la barra de compás
-@cindex coda sobre la línea divisoria
-@cindex segno sobre la línea divisoria
-@cindex calderón sobre la línea divisoria
-@cindex líneas divisorias, símbolos sobre las
+@cindex indicación, de texto
+@cindex texto, sobre la barra de compás
+@cindex coda, sobre la línea divisoria
+@cindex segno, sobre la línea divisoria
+@cindex calderón, sobre la línea divisoria
+@cindex línea, divisoria, símbolos sobre las
 
 @funindex \mark
 @funindex \markup
@@ -308,13 +312,20 @@ siguiente.
 @code{\markLengthOff}.
 @endpredefined
 
+
 @snippets
 
+@cindex línea, final, posicionar marcas
+@cindex marca, al final de la línea
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-marks-at-the-end-of-a-line.ly}
 
+@cindex marca, en todos los pentagramas
+@funindex Mark_engraver
+@funindex Staff_collecting_engraver
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-marks-on-every-staff.ly}
+
 
 @seealso
 Referencia de la notación:
@@ -391,8 +402,13 @@ requiere se describen en
 
 
 @snippets
+
+@cindex texto, en columnas
+@cindex columna, texto en
+@cindex marcado, dos columnas
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {stand-alone-two-column-markup.ly}
+
 
 @seealso
 Referencia de la notación:
@@ -438,8 +454,8 @@ usando la sintaxis específica del modo de @code{\markup}.
 Se usa un bloque @code{\markup} para tipografiar texto con una
 sintaxis ampliable que se denomina @qq{modo de marcado}.
 
-@cindex marcado, expresiones de
-@cindex expresiones de marcado
+@cindex marcado, expresión de
+@cindex expresión, de marcado
 @cindex marcado, sintaxis
 @cindex sintaxis del marcado
 
@@ -467,11 +483,11 @@ afectan a la expresión que sigue inmediatamente.
 }
 @end lilypond
 
-@cindex caracteres especiales en modo de marcado
+@cindex carácter, especial, en modo de marcado
 @cindex marcado, caracteres especiales en modo de
 @cindex reservados, impresión de caracteres
-@cindex impresión de caracteres especiales
-@cindex texto entrecomillado en modo de marcado
+@cindex impresión, de caracteres especiales
+@cindex texto, entrecomillado en modo de marcado
 
 Un bloque @code{\markup} puede contener también cadenas de texto
 entre comillas.  Dichas cadenas se tratan como expresiones de
@@ -752,9 +768,9 @@ inconsistente comparado con el uso de @code{\fontsize}.
 @translationof Text alignment
 
 @cindex texto, alineación de
-@cindex alinear texto
-@cindex alinear texto de marcado
-@cindex alinear elementos de marcado
+@cindex alinear, texto
+@cindex alinear, texto de marcado
+@cindex alinear, elementos de marcado
 @cindex marcado, elementos, alinear
 @cindex marcado, texto, alinear
 
@@ -815,6 +831,7 @@ todo, como se muestra por ejemplo en @ref{Indicaciones de texto}.
 
 @cindex texto, alineación vertical
 @cindex vertical, alineación de texto
+@cindex alineación, vertical, de texto
 
 @funindex \raise
 @funindex \lower
@@ -877,11 +894,11 @@ deben preceder de un punto de anclaje:
 }
 @end lilypond
 
-@cindex varias líneas, marcado
-@cindex marcado de varias líneas
-@cindex varias líneas, texto
-@cindex texto de varias líneas
-@cindex texto en columnas
+@cindex varias, líneas, marcado
+@cindex marcado, de varias líneas
+@cindex varias, líneas, texto
+@cindex texto, de varias líneas
+@cindex texto, en columnas
 @cindex columnas, texto
 
 @funindex \column
@@ -1008,11 +1025,11 @@ Referencia de funcionamiento interno:
 @unnumberedsubsubsec Notación gráfica dentro de elementos de marcado
 @translationof Graphic notation inside markup
 
-@cindex gráficos, insertar
-@cindex dibujar objetos gráficos
-@cindex gráficos, dibujar objetos
-@cindex insertar objetos gráficos
-@cindex gráficos, insertar objetos
+@cindex gráfico, insertar
+@cindex dibujar, objeto gráfico
+@cindex gráfico, dibujar objeto
+@cindex insertar, objeto gráfico
+@cindex gráfico, insertar objeto
 
 Se puede añadir diversos objetos gráficos a una partitura,
 utilizando instrucciones de marcado.
@@ -1027,7 +1044,7 @@ utilizando instrucciones de marcado.
 @funindex \box
 @funindex \circle
 @funindex \rounded-box
-@funindex \bracket
+@funindex @sortas{bracketB} \bracket
 @funindex \hbracket
 
 Ciertas instrucciones de marcado permiten la decoración de
@@ -1051,7 +1068,7 @@ siguiente.
 }
 @end lilypond
 
-@cindex relleno alrededor de texto
+@cindex relleno, alrededor de texto
 @cindex texto, relleno de
 @cindex marcado, relleno de textos de
 
@@ -1118,9 +1135,9 @@ expresiones de marcado, dichos objetos se pueden combinar:
 }
 @end lilypond
 
-@cindex insertar gráficos
-@cindex imágenes, insertar
-@cindex gráficos, insertar
+@cindex insertar, gráfico
+@cindex imagen, insertar
+@cindex gráfico, insertar
 @cindex PostScript
 
 @funindex \epsfile
@@ -1179,8 +1196,8 @@ Referencia de funcionamiento interno:
 @unnumberedsubsubsec Notación musical dentro de elementos de marcado
 @translationof Music notation inside markup
 
-@cindex notación dentro de marcado
-@cindex música dentro de marcado
+@cindex notación, dentro de marcado
+@cindex música, dentro de marcado
 @cindex marcado, notación musical dentro de
 
 Se pueden añadir a la partitura diversos elementos de notación
@@ -1274,19 +1291,17 @@ específicos:
 Dichos diagramas se encuentran documentados en @ref{Instrument
 Specific Markup}.
 
-@cindex partitura dentro marcado
+@cindex partitura, dentro de un marcado
 @cindex marcado, partitura dentro de
 
 Incluso una partitura completa se puede incluir dentro de un
-objeto de marcado.  En tal caso, el bloque anidado @code{\score}
-debe contener un bloque @code{\layout}, como se muestra aquí:
+objeto de marcado:
 
 @lilypond[quote,verbatim]
 \relative {
   c'4 d^\markup {
     \score {
       \relative { c'4 d e f }
-      \layout { }
     }
   }
   e f |
@@ -1314,15 +1329,20 @@ Fragmentos de código:
 Referencia de funcionamiento interno:
 @rinternals{TextScript}.
 
+@knownissues
+El espaciado vertical de un @code{\score} dentro de un objeto de
+marcado está controlado por @code{baseline-skip}.  Todo ajuste del
+bloque @code{\paper} se ignora.
+
 
 @node Elementos de marcado de varias páginas
 @unnumberedsubsubsec Elementos de marcado de varias páginas
 @translationof Multi-page markup
 
-@cindex páginas, marcado de varias
-@cindex marcado de varias páginas
+@cindex página, marcado de varias
+@cindex marcado, de varias páginas
 @cindex marcado, texto de, varias páginas
-@cindex texto que ocupa varias páginas
+@cindex texto, que ocupa varias páginas
 
 @funindex \markuplist
 @funindex \justified-lines
@@ -1402,12 +1422,11 @@ tipográficas, y cómo se pueden cambiar en las partituras.
 @translationof Fonts explained
 
 @cindex Pango
-@cindex fuentes tipográficas, explicación
-@cindex llaves de distintos tamaños
-@cindex fuentes tipográficas, explicación
-@cindex llaves de varios tamaños
-@cindex fuentes tipográficas de símbolos en marcado
-@cindex símbolos, fuentes tipográficas en el marcado
+@cindex fuente tipográfica, explicación
+@cindex llave, de distintos tamaños
+@cindex fuente tipográfica, explicación
+@cindex fuente tipográfica, de símbolos en marcado
+@cindex símbolo, fuentes tipográficas en el marcado
 
 @funindex font-interface
 
@@ -1452,19 +1471,56 @@ estos glifos son llaves izquierdas; las llaves derechas se pueden
 obtener mediante rotación, véase @ref{Rotación de objetos}.
 
 Están disponibles tres familias de fuentes tipográficas para el
-texto:
-@itemize
-@item
-La fuente @emph{roman} (serif), que de forma predeterminada es
-LilyPond Serif (un alias de TeX Gyre Schola).
-@item
-La fuente @emph{sans}, que de forma predeterminada es LilyPond
-Sans Serif (un alias de TeX Gyre Heros).
-@item
-La fuente @emph{typewriter} mecanográfica (monoespaciada), que de
-forma predeterminada es LilyPond Monospace (un alias de TeX Gyre
-Cursor).
-@end itemize
+texto: la fuente @emph{roman} (romana, serif o con remates), la
+fuente @emph{sans} (sin remates), y la fuente @emph{typewriter} o
+monoespaciada.
+
+Para el @emph{backend} @code{svg}:
+@multitable @columnfractions .15 .30
+@headitem Familia @tab Fuente predeterminada
+@item @emph{roman} @tab @code{serif}
+@item @emph{sans} @tab @code{sans-serif}
+@item @emph{typewriter} @tab @code{monospace}
+@end multitable
+
+@code{serif}, @code{sans-serif} y @code{monospace} son
+@code{generic-family} (las familias estándar) en las
+especificaciones de SVG y CSS.
+
+Para otros @emph{backends}:
+@multitable @columnfractions .15 .30 .55
+@headitem Familia @tab Fuente predeterminada (alias) @tab Listas de definición del alias
+@item @emph{roman}
+@tab @code{LilyPond Serif}
+@tab
+TeX Gyre Schola,
+C059, Century SchoolBook URW, Century Schoolbook L,
+DejaVu Serif,
+..., serif
+@item @emph{sans}
+@tab @code{LilyPond Sans Serif}
+@tab
+TeX Gyre Heros,
+Nimbus Sans, Nimbus Sans L, DejaVu Sans,
+..., sans-serif
+@item @emph{typewriter}
+@tab @code{LilyPond Monospace}
+@tab
+TeX Gyre Cursor,
+Nimbus Mono PS, Nimbus Mono, Nimbus Mono L,
+DejaVu Sans Mono,
+..., monospace
+@end multitable
+
+@code{LilyPond Serif}, @code{LilyPond Sans Serif} y @code{LilyPond
+Monospace} son alias de las fuentes tipográficas que están
+definidos en el archivo dedicado de configuración de LilyPond
+@code{00-lilypond-fonts.conf}.  Allí donde un carácter no exista
+en la primera fuente de la lista, será sustituido por el carácter
+correspondiente extraído de la siguiente fuente de la lista.  Para
+ver más detalles acerca de las definiciones de los alias, consulte
+@code{00-lilypond-fonts.conf} dentro de la carpeta de instalación
+del programa.
 
 Cada familia puede incluir distintas formas y series.  El ejemplo
 siguiente muestra la posibilidad de seleccionar familias, formas,
@@ -1508,6 +1564,43 @@ explica en @ref{Seleccionar la tipografía y su tamaño}:
 }
 @end lilypond
 
+@noindent
+Al usar fuentes tipográficas de OpenType, pueden usarse las
+funcionalidades de fuente o @emph{font features}.  No se pueden
+especificar los idiomas ni los @emph{scripts} de OpenType.  Nota:
+no todas las fuentes de OpenType tienen todas las funciones.  Si
+se requiere una funcionalidad que no existe en la fuente
+seleccionada, la funcionalidad sencillamente se ignora.
+
+@lilypond[quote,verbatim]
+% Versalitas auténticas
+\markup { Estilo normal: Hola HOLA }
+\markup { \caps { Falsa versalita: Hola } }
+\markup { \override #'(font-features . ("smcp"))
+          { Versalitas auténticas: Hola } }
+
+% Estilos de números
+\markup { Cifras de estilo normal: 0123456789 }
+\markup { \override #'(font-features . ("onum"))
+          { Cifras de estilo antiguo: 0123456789 } }
+
+% Alternativas de estilo
+\markup { \override #'(font-features . ("salt 0"))
+          { Alternativa de estilo 0: εφπρθ } }
+\markup { \override #'(font-features . ("salt 1"))
+          { Alternativa de estilo 1: εφπρθ } }
+
+% Acumulación de funcionalidades
+\markup { \override #'(font-features . ("onum" "smcp" "salt 1"))
+          { Acumulación de funcionalidades: Hola 0123456789 εφπρθ } }
+@end lilypond
+
+@noindent Para ver la lista completa de funcionalidades de fuente de OpenType font, consulte:
+@uref{https://www.microsoft.com/typography/otspec/featurelist.htm}
+
+@noindent Para la identificación de las funcionalidades de fuente de OpenType, consulte:
+@uref{http://lists.gnu.org/archive/html/lilypond-devel/2017-08/msg00004.html}
+
 Aunque es fácil cambiar entre las fuentes tipográficas
 preconfiguradas, también es posible usar otras fuentes, como se
 explica en las siguientes secciones:
@@ -1542,9 +1635,9 @@ a'1_\markup {
 }
 @end lilypond
 
-@cindex fuentes tipográficas, buscar, disponibles
-@cindex buscar fuentes tipográficas disponibles
-@cindex listar fuentes tipográficas disponibles
+@cindex fuente tipográfica, buscar, disponibles
+@cindex buscar, fuentes tipográficas disponibles
+@cindex listar, fuentes tipográficas disponibles
 @cindex disponibles, listar las fuentes tipográficas
 
 @var{font-name} puede describirse usando una lista de @q{fuentes
@@ -1594,7 +1687,7 @@ leer más explicaciones sobre las fuentes tipográficas, consulte
 @ref{Explicación de las fuentes tipográficas}.
 
 @cindex fuente, establecer la familia de
-@cindex fuentes tipográficas, cambiar para todo el documento
+@cindex fuente tipográfica, cambiar para todo el documento
 
 @funindex make-pango-font-tree
 
@@ -1615,13 +1708,94 @@ leer más explicaciones sobre las fuentes tipográficas, consulte
 }
 @end lilypond
 
+Nota: @code{make-pango-font-tree} reinicia las fuentes
+tipográficas al tipo predeterminado Emmentaler.
+
 @c we don't do Helvetica / Courier, since GS incorrectly loads
 @c Apple TTF fonts
+
+La sintaxis siguiente nos permite cambiar las tipografías
+específicas, dejando el resto en sus valores predeterminados.  El
+siguiente ejemplo tiene el mismo efecto que el ejemplo anterior de
+utilización de @code{make-pango-font-tree}.  De igual manera que
+con @code{make-pango-font-tree}, podemos especificar una lista de
+valores separados por comas de @q{fonts} para las categorías
+Romana, Sans serif y Monoespaciada (@code{roman}, @code{sans} y
+@code{typewriter}).  Si no queremos cambiar el tamaño del
+pentagrama a otro distinto del predeterminado de 20 pt, no es
+necesaria la parte @code{#:factor (/ staff-height pt 20)}.
+
+@funindex set-global-fonts
+
+@example
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     #:roman "Times New Roman"
+     #:sans "Nimbus Sans,Nimbus Sans L"
+     #:typewriter "Luxi Mono"
+     #:factor (/ staff-height pt 20) ; innecesario si el tamaño del pentagrama es el predeterminado
+    ))
+@}
+@end example
+
+También se pueden especificar las fuentes de la notación.  El
+ejemplo siguiente también tiene el mismo efecto que en los casos
+anteriores, porque establece las fuentes para la notación como las
+predeterminadas.  Para más información, véase
+@ref{Sustituir la tipografía de la notación}.
+
+@example
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     #:music "emmentaler"            ; predeterminado
+     #:brace "emmentaler"            ; predeterminado
+     #:roman "Times New Roman"
+     #:sans "Nimbus Sans,Nimbus Sans L"
+     #:typewriter "Luxi Mono"
+     #:factor (/ staff-height pt 20) ; innecesario si el tamaño del pentagrama es el predeterminado
+    ))
+@}
+@end example
+
+Nota: cada llamada a @code{set-global-fonts} reinicia
+completamente tanto la fuente tipográfica de la notación como las
+de texto. Si se deja sin especificar una cualquiera de las
+categorías, entonces se utiliza la fuente predeterminada para
+dicha categoría.  Cada llamada a @code{set-global-fonts} afecta a
+cada uno de los bloques @code{\book} que le siguen.  Si existen
+varios bloques @code{\book} y queremos usar distintas fuentes
+tipográficas para cada uno de ellos, sencillamente llamamos de
+nuevo a @code{set-global-fonts}, así:
+
+@example
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     @dots{}
+    ))
+@}
+\book @{
+  @dots{}
+@}
+
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     @dots{}
+    ))
+@}
+\book @{
+  @dots{}
+@}
+@end example
 
 @seealso
 Referencia de la notación:
 @ref{Explicación de las fuentes tipográficas},
 @ref{Fuentes de un solo elemento},
 @ref{Seleccionar la tipografía y su tamaño},
-@ref{Font}.
+@ref{Font},
+@ref{Sustituir la tipografía de la notación}.
 

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: a94d26b6693cad58b946a01b7efaaed29480f063
+    Translation of GIT committish: 21a1f431176e969d45a9cc973c99dce34e9e8733
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -46,9 +46,9 @@ non appartengono alla tradizione classica occidentale, chiamata anche
 La notazione classica standard (nota anche come notazione del
 @notation{Periodo di pratica comune}) viene usata in tutti i
 generi musicali, non solo nella musica @q{classica} occidentale.
-Questa notazione è trattata in @ref{Writing pitches}, mentre i
+Questa notazione è trattata in @ref{Inserimento delle altezze}, mentre i
 vari nomi di nota che possono essere usati sono spiegati in
-@ref{Note names in other languages}.
+@ref{Nomi delle note in altre lingue}.
 
 Tuttavia, molti generi musicali non occidentali (e alcuni tipi di
 musica folk occidentale e tradizionale) utilizzano sistemi di
@@ -74,7 +74,7 @@ i cui intervalli sono basati su divisioni di 1/9 del tono intero.
 Usa comunque le note sul rigo standard occidentale, ma con alterazioni
 speciali presenti esclusivamente nella musica turca, definite nel file
 @file{makam.ly}.  Maggiori informazioni sulla musica classica turca e
-sui makamlar in @ref{Turkish classical music}.
+sui makamlar in @ref{Musica classica turca}.
 
 Per trovare i file di inizializzazione come @file{arabic.ly} o
 @file{makam.ly} nel proprio sistema, leggere
@@ -94,10 +94,10 @@ Manuale di apprendimento:
 @rlearning{Altre fonti di informazione}.
 
 Guida alla notazione:
-@ref{Writing pitches},
-@ref{Note names in other languages},
+@ref{Inserimento delle altezze},
+@ref{Nomi delle note in altre lingue},
 @ref{Musica araba},
-@ref{Turkish classical music}.
+@ref{Musica classica turca}.
 
 
 @node Musica araba
@@ -123,7 +123,7 @@ musica araba.
 
 @cindex musica araba
 @cindex araba, musica
-@cindex intervalli intermedi
+@cindex intervallo intermedio
 @cindex maqam
 
 Finora la musica araba è stata soprattutto una tradizione orale.  La musica,
@@ -148,25 +148,25 @@ della documentazione:
 
 @itemize
 @item I nomi delle note e le alterazioni (inclusi i quarti di tono) possono
-essere modificati come è spiegato in @ref{Common notation for non-Western music}.
+essere modificati come è spiegato in @ref{Notazione comune per la musica non occidentale}.
 
 @item Ulteriori armature di chiave possono essere adattate come descritto
-in @ref{Key signature}.
+in @ref{Armatura di chiave}.
 
 @item Indicazioni di tempo complesse potrebbero obbligare a raggruppare le note
-manualmente, come descritto in @ref{Manual beams}.
+manualmente, come descritto in @ref{Travature manuali}.
 
 @item I @notation{takasim}, improvvisazioni in tempo libero, possono essere
-scritti omettendo le stanghette, come è spiegato in @ref{Unmetered music}.
+scritti omettendo le stanghette, come è spiegato in @ref{Musica in tempo libero}.
 
 @end itemize
 
 
 @seealso
 Guida alla notazione:
-@ref{Common notation for non-Western music},
-@ref{Key signature},
-@ref{Manual beams}.
+@ref{Notazione comune per la musica non occidentale},
+@ref{Armatura di chiave},
+@ref{Travature manuali}.
 
 Frammenti:
 @rlsr{World music}.
@@ -176,9 +176,8 @@ Frammenti:
 @unnumberedsubsubsec Nomi delle note in arabo
 @translationof Arabic note names
 
-
 @cindex nomi delle note in arabo
-@cindex arabo, Nomi delle note in
+@cindex arabo, nomi delle note in
 
 I nomi più tradizionali delle note in arabo possono essere piuttosto
 lunghi e non sono adatti alla scrittura musicale, quindi non vengono
@@ -187,9 +186,9 @@ musicale araba, quindi al loro posto sono usati i nomi delle note in
 italiano, ovvero i nomi usati nel solfeggio (@code{do, re, mi, fa,
 sol, la, si}); si possono usare anche le alterazioni.  I nomi delle note
 in italiano e le alterazioni sono spiegati in
-@ref{Note names in other languages}; l'uso della notazione occidentale
+@ref{Nomi delle note in altre lingue}; l'uso della notazione occidentale
 standard per scrivere musica non occidentale è trattato in
-@ref{Common notation for non-Western music}.
+@ref{Notazione comune per la musica non occidentale}.
 
 Ecco un esempio di come può essere scritta la scala araba @notation{rast}:
 
@@ -202,7 +201,9 @@ Ecco un esempio di come può essere scritta la scala araba @notation{rast}:
 
 
 @cindex simbolo arabo per semibemolle
-@cindex semibemolle, simbolo arabo
+@cindex semibemolle, simbolo, aspetto
+
+@funindex \dwn
 
 Il simbolo di semibemolle non corrisponde al simbolo usato nella notazione
 araba.  Per ottenere il simbolo arabo di semibemolle, si può usare il
@@ -221,8 +222,8 @@ può essere modificato con questo metodo.
 
 @seealso
 Guida alla notazione:
-@ref{Note names in other languages},
-@ref{Common notation for non-Western music}.
+@ref{Nomi delle note in altre lingue},
+@ref{Notazione comune per la musica non occidentale}.
 
 Frammenti:
 @rlsr{World music}.
@@ -341,7 +342,7 @@ Glossario musicale:
 @rglos{kurd}.
 
 Guida alla notazione:
-@ref{Key signature}.
+@ref{Armatura di chiave}.
 
 Manuale di apprendimento:
 @rlearning{Altezze e armature di chiave}.
@@ -359,7 +360,7 @@ Frammenti:
 @translationof Arabic time signatures
 
 @cindex indicazioni di tempo arabe
-@cindex Semai, forma
+@cindex semai, forma
 @cindex taqasim
 
 Alcune forme di musica classica araba e turca, come @notation{Semai},
@@ -375,6 +376,8 @@ automatica delle travature e/o usare indicazioni di tempo composto.
 
 @snippets
 
+@cindex improvvisazione araba
+@cindex araba, improvvisazione
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {arabic-improvisation.ly}
 
@@ -385,12 +388,12 @@ Glossario musicale:
 @rglos{taqasim}.
 
 Guida alla notazione:
-@ref{Manual beams},
+@ref{Travature manuali},
 @ref{Travature automatiche},
-@ref{Unmetered music},
+@ref{Musica in tempo libero},
 @ref{Alterazioni automatiche},
-@ref{Setting automatic beam behavior},
-@ref{Time signature}.
+@ref{Impostare il comportamento delle travature automatiche},
+@ref{Indicazione di tempo}.
 
 Frammenti:
 @rlsr{World music}.
@@ -499,9 +502,12 @@ classica turca.
 @unnumberedsubsubsec Riferimenti per la musica classica turca
 @translationof References for Turkish classical music
 
-@cindex Turkish music
-@cindex Ottoman music
-@cindex comma intervals
+@cindex musica turca
+@cindex turca, musica
+@cindex musica ottomana
+@cindex ottomana, musica
+@cindex comma, intervallo
+@cindex intervallo, comma
 @cindex makam
 @cindex makamlar
 
@@ -519,7 +525,7 @@ altre sezioni della documentazione:
 
 @itemize
 @item I nomi per le note speciali e le alterazioni sono spiegati in
-@ref{Common notation for non-Western music}.
+@ref{Notazione comune per la musica non occidentale}.
 
 @end itemize
 
@@ -528,8 +534,8 @@ altre sezioni della documentazione:
 @unnumberedsubsubsec Nomi delle note in turco
 @translationof Turkish note names
 
-@cindex nomi delle note in turco
-@cindex turco, nomi delle note in
+@cindex nome delle note in turco
+@cindex turco, nome delle note in
 @cindex makam
 @cindex makamlar
 
@@ -583,7 +589,7 @@ e l'alterazione di altezza rappresentata come una frazione dell'intero tono.
 @end quotation
 
 Per una spiegazione più generale della notazione musicale non occidentale, leggere
-@ref{Common notation for non-Western music}.
+@ref{Notazione comune per la musica non occidentale}.
 
 @seealso
 Glossario musicale:
@@ -591,5 +597,5 @@ Glossario musicale:
 @rglos{makamlar}.
 
 Guida alla notazione:
-@ref{Common notation for non-Western music}.
+@ref{Notazione comune per la musica non occidentale}.
 

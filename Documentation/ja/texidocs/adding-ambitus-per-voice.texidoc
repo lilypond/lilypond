@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+音域をボイスごとに追加することができます。この場合、衝突を避けるために
+@code{Ambitus} を手動で移動する必要があります。
+"
+  doctitleja = "音域をボイスごとに追加する"

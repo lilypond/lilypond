@@ -1,0 +1,7 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+デフォルトでは、繰り返し括弧は入れ替え部分全体に表示されますが、@c
+@code{voltaSpannerDuration} をセットすることで短くすることができます。@c
+次の例では、括弧は 1 小節、つまり 3/4 分だけ表示されます。
+"
+  doctitleja = "繰り返し括弧を短くする"

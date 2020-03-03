@@ -1,0 +1,13 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+@code{tupletSpannerDuration} プロパティは、一つの @code{\\tuplet} コマンド@c
+内にある音符が、どれぐらいの長さで連符一つ分を作るかを指定します。@c
+これにより、一つの @code{\\tuplet} コマンドで多くの連続した連符を作成する@c
+ことができ、入力が簡潔になります。
+
+@code{tupletSpannerDuration} を設定する方法はいくつかあります。@c
+@code{\\tupletSpan} コマンドは、プロパティを与えられた長さにセットし、@c
+長さではなく @code{\\default} が与えられた場合はリセットします。@c
+もう一つの方法は、@code{\\tuplet} のオプション引数を用いることです。
+"
+  doctitleja = "一つの \\tuplet コマンドで複数の連符を入力する"

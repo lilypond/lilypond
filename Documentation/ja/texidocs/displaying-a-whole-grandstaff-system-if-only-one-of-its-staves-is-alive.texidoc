@@ -1,0 +1,17 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+オーケストラ譜では、いくつかの楽器 (あるいはグループ) が全く演奏されない@c
+時間があり、その時の譜は (@code{\\removeEmptyStaves} で)
+削除することができます。
+
+楽器が後で再度演奏される場合には、グループで譜を残しておきたい場合があります。@c
+これはグループ化しているコンテキスト (GrandStaff や StaffGroup) に
+@code{Keep_alive_together_engraver} を追加することで実現できます。
+
+例では、セカンド バイオリンは 2 番目と 3 番目のシステムで演奏されていません。@c
+ファースト バイオリンは 2 番目のシステムでは演奏されず、@c
+3 番目のシステムでは最後の小節に演奏部分があります。@c
+@code{Keep_alive_together_engraver}
+により、3 番目のシステムではセカンド バイオリンも表示されています。
+"
+  doctitleja = "グループ内に演奏する譜がある場合に GrandStaff 全体を表示したままにする"

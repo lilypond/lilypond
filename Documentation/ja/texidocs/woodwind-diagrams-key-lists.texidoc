@@ -1,0 +1,10 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+以下のスニペットは、@code{scm/define-woodwind-diagrams.scm} に定義された、@c
+木管楽器のダイアグラムにおける可能な調と、それに対応する移調設定のリストを@c
+出力します。@c
+リストはログファイルに出力され、音楽には影響しません。@c
+コンソールに出力したい場合は、コマンドから
+@code{(current-error-port)} を削除してください。
+"
+  doctitleja = "木管楽器のダイアグラムの調リスト"

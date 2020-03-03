@@ -1120,7 +1120,7 @@ Aquest missatge d'error apareix a la sortida de la consola o al
 fitxer log de registre si un fitxer d'entrada conté un caràcter que
 no és ASCII i no s'ha desat en la codificació de caràcters
 UTF-8.  Per veure més detalls, consulteu
-@rusernamed{Text encoding,Codificació del text}.
+@ruser{Codificació del text}.
 
 @node Advertiment sobre que les afinitats del pentagrama sols han de decrèixer
 @unnumberedsubsec Advertiment sobre que les afinitats del pentagrama sols han de decrèixer
@@ -1139,7 +1139,7 @@ dels contextos es comporti com un pentagrama, inserint
 @noindent
 al començament.  Per veure més detalls, consulteu @qq{Espaiat de
 les línies que no són pautes} a
-@rusernamed{Flexible vertical spacing within systems,Espaiat vertical flexible dins dels sistemes}.
+@ruser{Espaiat vertical flexible dins dels sistemes}.
 
 @node Missatge d'error Unexpected new
 @unnumberedsubsec Missatge d'error Unexpected new @code{@bs{}new}

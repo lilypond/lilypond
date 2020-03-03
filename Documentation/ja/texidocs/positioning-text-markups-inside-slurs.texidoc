@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+テキスト マークアップをスラーの内側に配置するには、@code{outside-staff-priority}
+プロパティを @code{#f} に設定する必要があります。
+"
+  doctitleja = "テキスト マークアップをスラーの内側に配置する"

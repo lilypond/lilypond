@@ -1,0 +1,5 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+@code{NoteColumn} Grob をグリッサンドが飛び越すように設定することができます。
+"
+  doctitleja = "Grob をスキップするグリッサンド"

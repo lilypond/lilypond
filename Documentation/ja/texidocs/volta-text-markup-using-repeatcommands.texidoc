@@ -1,0 +1,13 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+入れ替え部分のある繰り返しは @code{\\repeat volta} を用いて指定するのが@c
+最善ですが、入れ替え部分のテキストを @code{\\markup} によって@c
+フォーマットする必要がある場合は、@code{repeatCommands} コンテキスト
+プロパティを用いる必要があります。
+
+@code{repeatCommands} はリストを取るため、マークアップを含める簡単な方法は、@c
+マークアップを変数として定義し、Scheme 構文を用いてリストに埋め込むことです
+(@code{#(list (list 'volta textIdentifier))}, @code{textIdentifier}
+は変数名)。繰り返し小節線の指定を、リストの別の要素から行うことができます。
+"
+  doctitleja = "repeatCommands を用いて入れ替え部分のテキストにマークアップを使用する"

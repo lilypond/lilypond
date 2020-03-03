@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+特殊なコードに対して専用の表記をするためのリストを保持するのが
+@code{chordNameExceptions} プロパティです。
+"
+  doctitleja = "コード ネームの例外"

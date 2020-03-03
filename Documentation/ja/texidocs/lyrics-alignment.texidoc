@@ -1,0 +1,8 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+歌詞の水平方向の揃え位置は、@code{LyricText} オブジェクトの
+@code{self-alignment-X} プロパティをオーバライドすることで設定できます。@c
+@code{-1} が左、@code{0} が中央、@code{1} が右になります。@c
+@code{#LEFT}, @code{#CENTER}, @code{#RIGHT} を用いることもできます。
+"
+  doctitleja = "歌詞の揃え位置"

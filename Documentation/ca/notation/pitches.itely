@@ -455,7 +455,7 @@ Manual d'aprenentatge:
 
 Referència de la notació:
 @ref{Alteracions accidentals automàtiques},
-@rusernamed{Annotational accidentals (musica ficta), Alteracions de anotació (musica ficta)},
+@ref{Alteracions d'anotació (musica ficta)},
 @ref{Noms de les notes en altres llengües}.
 
 Fragments de codi:
@@ -476,7 +476,7 @@ de tres quarts, de manera que els símbols del LilyPond no
 s'ajusten a cap estàndard.
 
 @node Noms de les notes en altres llengües
-@unnumberedsubsubsec Noms de les notes en altes llengües
+@unnumberedsubsubsec Noms de les notes en altres llengües
 @translationof Note names in other languages
 
 @cindex notes, noms de, en altres llengües
@@ -592,7 +592,8 @@ són fraccions d'un sostingut o bemoll @q{normals}.  La taula
 següent relaciona els noms de les notes per a les alteracions d'un
 quart de to en diferents llengües; aquí, els prefixos
 @notation{semi-} i @notation{sesqui-} respectivament signifiquen
-@q{mig} i @q{u i mig}.
+@q{mig} i @q{u i mig}.  Les llengües que no apareixen a aquesta
+taula no aporten encara noms especials per a les notes.
 
 @quotation
 @multitable {@w{@code{português} o}} {@b{semi-sostingut}} {@b{semi-bemoll}} {@b{sesqui-sostingut}} {@b{sesqui-bemoll}}
@@ -632,7 +633,7 @@ comunament amb la música clàssica occidental, també coneguda com
 @notation{Període de la pràctica comuna}.  Malgrat això, també
 estan contemplades les altures i els sistemes d'afinació
 alternatius: vegeu
-@rusernamed{Common notation for non-Western music,Notació comuna per a músiques no occidentals}.
+@ref{Notació comuna per a músiques no occidentals}.
 
 @seealso
 Glossari musical:
@@ -640,7 +641,7 @@ Glossari musical:
 @rglos{Common Practice Period}.
 
 Referència de la notació:
-@rusernamed{Common notation for non-Western music,Notació comuna per a músiques no occidentals}.
+@ref{Notació comuna per a músiques no occidentals}.
 
 Fitxers instal·lats:
 @file{scm/define-note-names.scm}.
@@ -801,7 +802,7 @@ s'imprimeix l'armadura.
 
 @code{\transpose} distingeix entre notes enarmòniques: tant
 @code{\transpose c cis} com @code{\transpose c des} transporten
-un semitó cap amunt.  La primera versió imprimeix sostinguts i les
+un semitò cap amunt.  La primera versió imprimeix sostinguts i les
 notes no es mouen del seu lloc a l'escala, en canvi la segona
 imprimeix bemolls de la nota següent.
 
@@ -1173,15 +1174,15 @@ c'2 c'
 @end lilypond
 
 Per veure el repertori complet dels possibles noms per a les
-claus, consulteu @rusernamed{Clef styles,Estils de clau}.
+claus, consulteu @ref{Estils de clau}.
 
 Les claus especials, com les utilitzades a la música
 @emph{antiga}, es descriuen a
-@rusernamed{Mensural clefs,Claus de la música mensural} i a
-@rusernamed{Gregorian clefs,Claus del cant gregorià}. La música
+@ref{Claus de la música mensural} i a
+@ref{Claus de cant gregorià}. La música
 que requereix claus de tabulatura s'estudia a
-@rusernamed{Default tablatures,Tabulatures predeterminades} i a
-@rusernamed{Custom tablatures,Tabulatures personalizadas}.
+@ref{Tabulatures predeterminades} i a
+@ref{Tabulatures personalitzades}.
 
 @cindex Claus de guia
 @cindex Claus amb notes guia
@@ -1202,7 +1203,7 @@ En afegir @code{_8} o @code{^8} al nom de la clau, la clau es
 transposa una octava cap avall o cap amunt, respectivament, i
 @code{_15} i @code{^15} la transposa dos octaves.  Si cal
 es poden usar altres nombres enters.  L'argument
-@var{nome_de_clau} s'ha de envoltar entre cometes si conté
+@var{nom_de_clau} s'ha de envoltar entre cometes si conté
 caràcters no alfabètics:
 
 @lilypond[verbatim,quote,fragment]
@@ -1294,10 +1295,10 @@ Quan hi ha un canvi de clau manual, el glif de la clau modificada
 
 @seealso
 Referencia de la notación:
-@rusernamed{Mensural clefs,Claus de la música mensural},
-@rusernamed{Gregorian clefs,Claus del cant gregorià},
-@rusernamed{Default tablatures,Tabulatures predeterminades}
-@rusernamed{Custom tablatures,Tabulatures personalizadas}.
+@ref{Claus de la música mensural},
+@ref{Claus de cant gregorià},
+@ref{Tabulatures predeterminades}
+@ref{Tabulatures personalitzades}.
 @ref{Format de les notes guia}.
 
 Fitxers instal·lats:
@@ -1365,7 +1366,7 @@ l'armadura es fa amb l'ordre @code{\key}:
 @funindex \phrygian
 @funindex \dorian
 
-@cindex modes eclesiásticos
+@cindex modes eclesiàstics
 @cindex modes
 @cindex major, mode
 @cindex menor, mode
@@ -1730,7 +1731,7 @@ estil als dos pentagrames.
 
 @c don't use verbatim in this table.
 @table @code
-@item default (predeterminado)
+@item default (predeterminat)
 
 @cindex alteracions, estil predeterminat
 
@@ -2127,7 +2128,7 @@ musicB = {
 @funindex piano
 
 Aquesta regla reflexa la pràctica del segle XX per a la notació de
-piano.  El seu comportament és molt semblan a l'estil
+piano.  El seu comportament és molt semblant a l'estil
 @code{modern}, però aquí les alteracions també es cancel·len entre
 diferents pentagrames del mateix grup @code{GrandStaff} o @code{PianoStaff},
 d'aquí totes les cancel·lacions de les últimes notes.
@@ -2181,7 +2182,7 @@ musicB = {
 }
 @end lilypond
 
-@item piano-cautionary (piano, de precaución)
+@item piano-cautionary (piano, de precaució)
 
 @cindex alteracions, piano de precaució, estilo de
 @cindex alteracions, piano de precaució
@@ -2304,7 +2305,7 @@ musicB = {
 @item neo-modern-cautionary
 
 @cindex neo-modern de precaució, estilo de alteracions
-@cindex alteracions, estilo, neo-moderno de precaució
+@cindex alteracions, estil, neo-modern de precaució
 
 @funindex neo-modern-cautionary
 
@@ -2489,7 +2490,7 @@ musicB = {
 
 Aquesta regla reflexa una pràctica introduïda pels compositors de
 principis del segle XX, en un intent d'abolir la jerarquia
-entre notes naturals i alterades.  Amb aquest estil, @emph{todas}
+entre notes naturals i alterades.  Amb aquest estil, @emph{totes}
 les notes porten alteració, fins i tot becaires.
 
 @lilypond[quote]
@@ -2660,7 +2661,7 @@ musicB = {
 
 @item teaching (ensenyament)
 
-@cindex teaching (enseñanza), estilo de alteraciones
+@cindex teaching (ensenyament), estil de alteracions
 @cindex alteracions, estil teaching (ensenyament)
 
 @funindex teaching
@@ -2843,7 +2844,7 @@ musicB = {
 Fragments de codi:
 @rlsr{Pitches}.
 
-Referècia de funcionament interno:
+Referència de funcionament intern:
 @rinternals{Accidental},
 @rinternals{Accidental_engraver},
 @rinternals{GrandStaff},
@@ -3028,7 +3029,7 @@ Es pot modificar l'aparença del cap de les notes:
 @end lilypond
 
 Per veure totes els estils de caps de les notes, consulteu
-@rusernamed{Note head styles,Estils de caps de nota}.
+@ref{Estils de caps de nota}.
 
 L'estil @code{cross} (aspes) es fa servir per representar una
 àmplia varietat d'intencions musicals.  Les següent ordres
@@ -3084,9 +3085,9 @@ Fragments de codi:
 @rlsr{Pitches}.
 
 Referència de la notació:
-@rusernamed{Note head styles,Estils de caps de nota},
-@rusernamed{Chorded notes,Notes en acord},
-@rusernamed{Indicating harmonics and dampened notes,Indicació d'harmònics y notes tapades}.
+@ref{Estils de caps de nota},
+@ref{Notes a un acord},
+@ref{Indicació d'harmònics i notes tapades}.
 
 Referència de funcionament interno:
 @rinternals{note-event},
@@ -3119,7 +3120,7 @@ nota (en angles) dins del cap.  S'usen a la música per a
 principiants.  Perquè que les lletres siguin llegibles, s'han
 d'imprimir en una mida gran de tipus de lletra.  Per imprimir amb
 un tipus de lletra més gran, vegeu
-@rusernamed{Setting the staff size,Establiment de la mida del pentagrama}.
+@ref{Establiment de la mida del pentagrama}.
 
 @lilypond[verbatim,quote]
 #(set-global-staff-size 26)
@@ -3143,7 +3144,7 @@ un tipus de lletra més gran, vegeu
 
 @seealso
 Referència de la notació:
-@rusernamed{Setting the staff size,Establiment de la mida del pentagrama}.
+@ref{Establiment de la mida del pentagrama}.
 
 Fragments de codi:
 @rlsr{Pitches}.
@@ -3254,14 +3255,15 @@ relatiu major:
 {applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
 
 Per veure tots els estils de formes de cap de nota, consulteu
-@rusernamed{Note head styles,Estils de caps de nota},
+@ref{Estils de caps de nota}.
 
 @seealso
 Fragments de codi:
 @rlsr{Pitches}.
 
 Referència de la notació:
-@rusernamed{Note head styles,Estils de caps de nota},
+@ref{Estils de caps de nota}.
+
 
 Referencia de funcionament interno:
 @rinternals{note-event},

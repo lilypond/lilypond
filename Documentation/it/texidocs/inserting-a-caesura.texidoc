@@ -1,4 +1,4 @@
-%% Translation of GIT committish: e0808cc5f4890c5f8f03ed1be48fc911627afea4
+%% Translation of GIT committish: deb35a2aef8348478d89a6440ace17fd53b3434f
   texidocit = "
 I segni di cesura possono essere creati sovrascrivendo la proprietà @code{'text}
 dell'oggetto @code{BreathingSign}. È disponibile anche un segno di cesura

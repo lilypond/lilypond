@@ -1,0 +1,11 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+クレッシェンドやデクレッシェンドに使われるテキストは @code{crescendoText},
+@code{decrescendoText} コンテキスト プロパティをセットすることで@c
+変更できます。
+
+スパナの線は、@code{DynamicTextSpanner} の @code{style} プロパティを@c
+セットすることでスタイルを変更できます。デフォルトの値は @code{'dashed-line}
+であり、他に @code{'line}, @code{'dotted-line}, @code{'none} が設定できます。
+"
+  doctitleja = "テキストによる強弱記号のテキストとスパナのスタイルを変更する"

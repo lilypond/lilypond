@@ -1,16 +1,17 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 1e5c6b0f54079eb3285dcc4c7e53f17d8bb03933
+   Translation of GIT committish: 032de07c17caacd038f113ebcb54e9c473d64e0f
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
    Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.22"
+@c \version "2.21.0"
 
 @c Translators: Jean-Charles Malahieude, Valentin Villenave
+
 
 @node Généralités en matière d'entrée et sortie
 @chapter Généralités en matière d'entrée et sortie
@@ -102,6 +103,11 @@ Voici quelques exemples d'expression musicale :
 @}
 @end example
 
+@funindex %
+@funindex %@{ @dots{} %@}
+@cindex commentaire
+@cindex ligne de commentaire
+@cindex bloc de commentaire
 Les commentaires constituent l'une des rares exceptions à cette règle
 immuable -- voir @ref{Structure de fichier} pour les autres.  Qu'il
 s'agisse d'une seule ligne ou de tout un bloc -- délimité par
@@ -123,7 +129,7 @@ Pour de plus amples informations à propos du bloc @code{\book}, lisez
 @ref{Structure de fichier}.
 
 @seealso
-Manuel d'initiation :
+Manuel d'initiation :
 @rlearning{La partition est une (unique) expression musicale composée},
 @rlearning{Les expressions musicales en clair},
 @rlearning{Travail sur les fichiers d'entrée}.
@@ -149,6 +155,7 @@ différents mouvements.  Chaque mouvement fait l'objet d'un bloc
 @}
 @end example
 
+@noindent
 et le texte est contenu dans un bloc @code{\markup},
 
 @example
@@ -156,8 +163,6 @@ et le texte est contenu dans un bloc @code{\markup},
   @var{@dots{}texte@dots{}}
 @}
 @end example
-
-@funindex \book
 
 Les différents mouvements et textes qui apparaissent dans un même
 fichier @file{.ly} ne composeront en principe qu'un seul fichier
@@ -268,6 +273,7 @@ Ainsi, le fichier @file{huitminiatures.ly} qui contiendrait
 @}
 @end example
 
+@noindent
 générera
 
 @itemize
@@ -473,7 +479,7 @@ toto = @{ c4 d e d @}
 
 Vous pourrez la réutiliser plus loin dans votre fichier en saisissant
 simplement @code{\toto}.  Le nom des identificateurs ne doit être
-formés que de caractères alphabétiques -- sans chiffre ni caractère
+formé que de caractères alphabétiques -- sans chiffre ni caractère
 souligné ou tiret.
 
 @end itemize
@@ -495,6 +501,16 @@ Voici trois éléments que vous pouvez placer à un niveau supérieur :
 
 Vous pouvez placer, n'importe où dans votre fichier, les instructions
 suivantes :
+
+@funindex \version
+@funindex \include
+@funindex \sourcefilename
+@funindex \sourcefileline
+@funindex %
+@funindex %@{ @dots{} %@}
+@cindex commentaire
+@cindex ligne de commentaire
+@cindex bloc de commentaire
 
 @itemize
 @item @code{\version}
@@ -539,7 +555,7 @@ En mode parole -- @code{lyricmode} -- avant et après les commandes
 @end itemize
 
 @seealso
-Manuel d'initiation :
+Manuel d'initiation :
 @rlearning{Organisation des fichiers LilyPond}.
 
 Manuel de notation :
@@ -619,7 +635,7 @@ Au sein d'un bloc @code{\bookpart} et en dehors de tout bloc
 @code{\score} qu'il contient ;
 
 @item
-Après l'expression musicale incluse dans un bloc @code{\score}.
+Au sein d'un bloc @code{\score}.
 
 @end itemize
 
@@ -757,7 +773,7 @@ supprimés manuellement :
 @end lilypond
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Mise en forme par défaut des titrages subalternes},
 @ref{Mise en forme personnalisée des titrages},
 @ref{Structure de fichier}.
@@ -845,7 +861,7 @@ Par défaut, @code{scoreTitleMarkup} place les champs @code{piece} et
 Les possibilités de modifier la mise en forme par défaut sont abordées à
 la rubrique @ref{Mise en forme personnalisée des titrages}.
 
-@cindex breakbefore
+@funindex breakbefore
 
 Un bloc @code{\book} qui commencerait directement par un bloc
 @code{\bookpart} ne verra pas ses titrages apparaître puisqu'il n'y a
@@ -876,14 +892,14 @@ principal de la musique.
 @end lilypond
 
 @seealso
-Manuel d'initiation :
+Manuel d'initiation :
 @rlearning{Organisation des fichiers LilyPond}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Mise en forme personnalisée des titrages},
 @ref{Structure de fichier}.
 
-Fichiers d'initialisation :
+Fichiers d'initialisation :
 @file{ly/titling-init.ly}.
 
 
@@ -906,7 +922,7 @@ variables suivantes, attachées au bloc @code{\paper} :
 Ces variables @emph{markup} n'accèdent qu'au contenu des champs du bloc
 @code{\header} principal, celui qui s'appliquera à tous les blocs
 @code{\score} du document.  Ces variables sont définies dans le fichier
-@file{ly/titling-init.ly}, et sont par défaut :
+@file{ly/titling-init.ly}, et de manière suivante par défaut :
 
 @itemize
 
@@ -944,7 +960,7 @@ champ @code{tagline} au niveau du bloc @code{\header} principal.
 @end lilypond
 
 Pour supprimer le @code{tagline} par défaut, il suffit de lui assigner
-la valeur @code{##f}.
+la valeur @code{##f}.
 
 
 @node Titrages personnalisés
@@ -980,7 +996,7 @@ contenus dans un bloc @code{\header}.
 @end lilypond
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Mise en forme du texte}.
 
 
@@ -988,8 +1004,6 @@ Manuel de notation :
 @unnumberedsubsubsec Mise en forme personnalisée des titrages
 @translationof Custom layout for titles
 
-@cindex bookTitleMarkup
-@cindex scoreTitleMarkup
 @funindex bookTitleMarkup
 @funindex scoreTitleMarkup
 
@@ -1140,7 +1154,7 @@ faire référence dans la définition du @emph{markup}.
 @end lilypond
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Généralités en matière de titrages}.
 
 
@@ -1192,7 +1206,7 @@ condition est remplie.
 LilyPond dispose d'ores et déjà d'un certain nombre de procédures :
 
 @quotation
-@multitable {print-page-number-check-first-----} {ce n'est la première page du book--}
+@multitable {print-page-number-check-first-----} {ce n'est pas la première page du book--}
 
 @headitem  Nom de la procédure      @tab  Condition testée
 
@@ -1203,7 +1217,6 @@ LilyPond dispose d'ores et déjà d'un certain nombre de procédures :
 @item not-first-page                @tab  ce n'est pas la première page du @emph{book}.
 @item (on-page nombre)              @tab  numéro de page = nombre
 @item last-page                     @tab  c'est la dernière page du @emph{book}.
-@item not-first-page                @tab  ce n'est la première page du @emph{book}.
 @item part-first-page               @tab  c'est la première page de la partie.
 @item not-part-first-page           @tab  ce n'est pas la première page de la partie.
 @item part-last-page                @tab  c'est la dernière page de la partie.
@@ -1249,14 +1262,15 @@ l'autre se cumulent.  Ainsi, par exemple,
   @code{@{ \markup @dots{} \fromproperty #'header: @dots{} @}}
 @end example
 
+@noindent
 teste si la sortie tient sur une page unique.
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Généralités en matière de titrages},
 @ref{Mise en forme par défaut des titrages subalternes}.
 
-fichiers d'initialisation :
+fichiers d'initialisation :
 @file{../ly/titling-init.ly}.
 
 
@@ -1286,7 +1300,7 @@ bloc @code{\header} donnera aussi ce titre au document PDF et à la
 séquence MIDI.
 
 @example
-\header@{
+\header @{
   title = "Symphony I"
 @}
 @end example
@@ -1295,7 +1309,7 @@ Lorsque le titre imprimé diffère de celui affiché en tant que propriété
 du PDF, devra être renseignée la propriété @code{pdftitle}.
 
 @example
-\header@{
+\header @{
   title = "Symphony I"
   pdftitle = "Symphony I by Beethoven"
 @}
@@ -1308,7 +1322,7 @@ PDF, qu'il suffit de préfixer d'un « pdf » pour affecter aux propriétés
 PDF une valeur divergente de la sortie imprimable.
 
 La propriété PDF @code{Creator} prend automatiquement la valeur
-« LilyPond » additionnée deu numéro de version ; les valeurs de
+« LilyPond » additionnée du numéro de version ; les valeurs de
 @code{CreationDate} et @code{ModDate} sont définies à la date et l'heure
 courantes -- @code{ModDate} peut être écrasé par la variable de
 @code{\header} @code{moddate} (ou @code{pdfmoddate}) pour un horodatage
@@ -1323,16 +1337,16 @@ séquence MIDI un nom différent de celui attribué au fichier imprimable.
 @subsection Notes de bas de page
 @translationof Creating footnotes
 
-@cindex bas de page, notes
-@cindex footnotes
+@cindex bas de page, note de
+@cindex @emph{footnote}, note de bas de page
 
 Les notes de bas de page sont utiles dans bien des situations.  Dans
-tous les cas, un « appel de note » vient se placer en référence dans te
-texte ou la musique, et le « texte de la note » est reporté en bas de la
+tous les cas, un « appel de note » vient se placer en référence dans le
+texte ou la musique, et le « texte de la note » est reporté au bas de la
 page.
 
 Selon qu'elle est référencée dans une expression musicale ou dans du
-texte indépendant, une note de bas  de page sera créée suivant une
+texte indépendant, une note de bas de page sera créée suivant une
 procédure différente.
 
 @menu
@@ -1377,9 +1391,8 @@ plus particulièrement à l'origine de la hampe ou du crochet.  Il
 est donc plus aisé, pour de tels éléments, d'utiliser des
 annotations temporelles.
 
-Une annotation temporelle permet d'annoter des objets de rendus
-sans se référer à un événement.  Elle se libelle généralement sous
-la forme :
+Une annotation temporelle permet d'annoter des objets de rendu sans se
+référer à un événement. Elle se libelle généralement sous la forme :
 
 @example
 \footnote [@var{marque}] @var{décalage} @var{annotation} [@var{Contexte}.]@var{nom-grob}
@@ -1399,6 +1412,8 @@ ou @code{^}) de façon à rattacher @var{musique} (avec sa marque) à
 la note ou au silence qui précède.
 
 @item marque
+@funindex \default
+@funindex @sortas{defaultB} \default
 Un @emph{markup} ou une chaîne de caractères identifiant l'annotation
 tant au niveau de l'appel que de la note qui apparaîtra au bas de la
 page.  L'absence de cet élément -- ou une valeur de @code{\default} --
@@ -1406,7 +1421,7 @@ incrémentera automatiquement le compteur.  Ce compteur est réinitialisé
 à chaque page comportant une annotation.
 
 @item décalage
-Une paire de nombres -- @samp{#(2 . 1)} par exemple -- spécifiant le
+Une paire de nombres -- @samp{#(2 . 1)} par exemple -- spécifiant le
 décalage de la marque, en abscisse et en ordonnée, par rapport au point
 de référence.  Des valeurs positives décalent vers la droite ou le
 haut, des valeurs négatives vers la gauche ou le bas ; des valeurs à
@@ -1447,7 +1462,7 @@ généré directement par l'événement correspondant à @var{musique}.
 Il répond à la syntaxe :
 
 @example
-\footnote [@var{décalage}] @var{décalage} @var{annotation} @var{musique}
+\footnote [@var{marque}] @var{décalage} @var{annotation} @var{musique}
 @end example
 
 @c KEEP LY
@@ -1507,9 +1522,6 @@ attache une annotation.  La syntaxe consacrée est :
 }
 @end lilypond
 
-Les appels de note peuvent être personnalisés, et le trait reliant
-l'objet à l'appel supprimé :
-
 
 @subsubsubheading Notes de bas de page temporelles
 @c VO Time-based footnotes
@@ -1553,6 +1565,8 @@ annotation :
   }
 }
 @end lilypond
+
+@funindex \single
 
 Une note incluse dans un accord peut individuellement se voir attribuer
 une annotation événementielle.  Une tête de note (@code{NoteHead}) est
@@ -1686,7 +1700,7 @@ l'annotation qui sera reportée en bas de page.
 
 @end table
 
-Par exemple :
+Par exemple :
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
@@ -1780,10 +1794,10 @@ unicode -- voir la rubrique @ref{Unicode} :
 @end lilypond
 
 @seealso
-Manuel d'initiation :
+Manuel d'initiation :
 @rlearning{Objets et interfaces}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Commentaires textuels},
 @ref{Équivalents ASCII},
 @ref{Indications textuelles},
@@ -1791,7 +1805,7 @@ Manuel de notation :
 @ref{Liste des caractères spéciaux},
 @ref{Unicode}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{FootnoteEvent},
 @rinternals{FootnoteItem},
 @rinternals{FootnoteSpanner},
@@ -1855,7 +1869,7 @@ La présence de l'emporte-pièce est rendue nécessaire par le fait que les
 positionnés.  Bien que le numéro de page en question ne soit pas encore
 déterminé, LilyPond doit connaître les dimensions de ce @emph{markup}.
 Vous pouvez, lorsque l'ouvrage contiendra plus de dix pages, stipuler un
-emporte-pièce sur deux caractères -- soit @code{"00"}.
+emporte-pièce sur deux caractères -- soit @code{"00"}.
 
 @predefined
 @funindex \label
@@ -1954,8 +1968,10 @@ tocItemMarkup = \markup \large \fill-line {
 Notez bien la manière de référencer le libellé et le numéro de page dans
 la définition de @code{tocItemMarkup}.
 
-L'élément et son numéro de page peuvent se rejoindre par une ligne
-pointillée :
+@funindex \tocItemWithDotsMarkup
+
+Grâce à la commande @code{\tocItemWithDotsMarkup}, l'élément et son
+numéro de page peuvent se rejoindre par une ligne pointillée :
 
 @lilypond[verbatim,line-width=10.0\cm]
 \header { tagline = ##f }
@@ -2049,7 +2065,7 @@ cadre d'une table des matières :
 @endpredefined
 
 @seealso
-Fichiers d'initialisation :
+Fichiers d'initialisation :
 @file{../ly/toc-init.ly}.
 
 
@@ -2069,7 +2085,7 @@ Fichiers d'initialisation :
 @translationof Including LilyPond files
 
 @funindex \include
-@cindex inclusion de fichiers
+@cindex inclusion de fichier
 
 Lorsqu'un projet prend de l'importance en volume, il est judicieux de le
 scinder en plusieurs fichiers, auxquels vous ferez référence avec un
@@ -2083,7 +2099,7 @@ Une ligne @code{\include "autrefichier.ly"} dans un fichier revient à
 recopier intégralement le contenu de @file{autrefichier.ly} à l'endroit
 même ou est placée l'instruction @code{\include}.  Vous pouvez par
 exemple écrire un fichier individuel par instrument, puis les regrouper
-pour former le fichier @qq{conducteur}.  Les différentes variables
+pour former le fichier « conducteur ».  Les différentes variables
 définies dans les fichiers séparés seront normalement reprises et
 utilisables dans le fichier formant le conducteur.  Les sections
 balisées dans les fichiers individuels peuvent être réutilisées en
@@ -2182,6 +2198,7 @@ placez vous dans le répertoire contenant @file{principal.ly}, puis tapez
 lilypond --include=parties principal.ly
 @end example
 
+@noindent
 tout en ayant bien dans @file{principal.ly}
 
 @example
@@ -2212,7 +2229,7 @@ Vous trouverez quelques exemples simples d'utilisation de la commande
 @code{\include} au chapitre @rlearning{Conducteurs et parties}.
 
 @seealso
-Manuel d'initiation :
+Manuel d'initiation :
 @rlearning{Autres sources de documentation},
 @rlearning{Conducteurs et parties}.
 
@@ -2229,7 +2246,7 @@ LilyPond aura préséance.
 Plusieurs méthodes permettent de générer différentes versions d'une
 partition à partir d'une même source.  Les variables -- ou
 identificateurs -- sont sûrement le moyen le plus simple de combiner de
-différente manière des passages relativement longs, alors que les
+différentes manières des passages relativement longs, alors que les
 balises permettront de sélectionner de courts fragments selon leur
 utilisation.
 
@@ -2339,7 +2356,7 @@ Musique balisée précédée de @code{\removeWithTag #'@var{nom}} ou
        @code{\removeWithTag #'(@var{nom1} @var{nom2}@dots{})}
 @tab Musique non balisée et fragments appelés autrement que par
        l'un des noms fournis seront inclus ; la musique balisée
-       par autre chose que les noms mentionnés est exclue.
+       par l'un des noms mentionnés est exclue.
 
 @item
 Musique balisée non précédée de @code{\keepWithTag} ou
@@ -2559,10 +2576,10 @@ Ces deux instructions sont affectées d'une balise, le matériau à
 raccorder à chaque instance de la balise, et l'expression balisée.
 
 @seealso
-Manuel d'initiation :
+Manuel d'initiation :
 @rlearning{Organisation du code source avec des variables}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Insertion de fichiers LilyPond},
 @ref{Regroupement automatique de parties}.
 
@@ -2581,7 +2598,7 @@ elle viendra « recaler » ces hauteurs récupérées.
 @unnumberedsubsubsec Globalisation des réglages
 @translationof Using global settings
 
-@cindex include-settings
+@cindex réglages, globalisation
 
 Vous pouvez regrouper dans un fichier indépendant vos réglages
 personnels que vous inclurez au besoin :
@@ -2600,11 +2617,11 @@ Cette technique peut s'utiliser en combinaison avec des feuilles de
 styles, comme indiqué au chapitre @rlearning{Feuilles de style}.
 
 @seealso
-Manuel d'initiation :
+Manuel d'initiation :
 @rlearning{Feuilles de style},
 @rlearning{Organisation du code source avec des variables}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Insertion de fichiers LilyPond}.
 
 
@@ -2724,8 +2741,8 @@ que leur code hexadécimal est disponible sur le site du consortium
 Unicode, @uref{http://www.unicode.org/}.
 
 Par exemple, @code{\char ##x03BE} et @code{\char #958} correspondent
-tous deux au caractère unicode U+03BE, dénommé @qq{Greek Small Letter
-Xi}.
+tous deux au caractère unicode U+03BE, dénommé « Greek Small Letter
+Xi ».
 
 Quel que soit le point de code spécifié de cette manière, il ne vous
 sera alors pas nécessaire d'enregistrer votre fichier en UTF-8.  Vous
@@ -2798,6 +2815,7 @@ L'extension de cette liste est possible aussi bien de manière globale :
 \markup "A 100 dpi."
 @end lilypond
 
+@noindent
 qu'en un point particulier de votre source :
 
 @lilypond[quote,verbatim]
@@ -2806,10 +2824,10 @@ qu'en un point particulier de votre source :
 @end lilypond
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Liste des caractères spéciaux}.
 
-Fichiers d'initialisation :
+Fichiers d'initialisation :
 @file{ly/text-replacements.ly}.
 
 
@@ -2829,8 +2847,8 @@ Fichiers d'initialisation :
 @subsection Extraction de fragments musicaux
 @translationof Extracting fragments of music
 
-@cindex fragments, extraction
-
+@cindex fragment, extraction
+@cindex extraction, fragment
 @funindex clip-regions
 
 LilyPond permet d'extraire des fragments d'une partition, une fois
@@ -2885,7 +2903,7 @@ Manuel d'utilisation :
 Dans un travail de transcription ou de recopie de la musique, ce qui
 vous intéresse plus particulièrement se situe à la fin, là même où vous
 en êtes dans la notation.  Dans le but de gagner du temps dans le
-processus de correction, vous pouvez @qq{escamoter} le reste et ne
+processus de correction, vous pouvez « escamoter » le reste et ne
 générer que les dernières mesures en insérant
 
 @example
@@ -2943,10 +2961,56 @@ Graphics (PNG) dès lors que vous aurez lancé LilyPond en ligne de
 commande avec l'option @i{ad hoc} -- voir
 @rprogram{Utilisation en ligne de commande} à ce sujet.
 
+@menu
+* Sortie SVG::
+@end menu
+
+
+@node Sortie SVG
+@unnumberedsubsubsec Sortie SVG
+@translationof SVG Output
+
+La sortie SVG peut accessoirement contenir des métadonnées pour les
+@emph{grobs} (objets graphiques) tels que têtes de notes, silences, etc.
+Ces métadonnées peuvent correspondre aux attributs standards du format
+SVG comme @code{id} et @code{class}, ou bien à des attributs
+personnalisés. Les attributs et leur valeur se spécifient à l'aide d'une
+dérogation à la propriété @code{output-attributes} d'un @emph{grob} par
+une liste associative (alist) en Scheme. Les valeurs peuvent être des
+nombres, chaînes ou symboles comme, par exemple :
+
+@example
+@{
+  \once \override NoteHead.output-attributes =
+  #'((id . 123)
+     (class . "ceci cela")
+     (data-quelconque . quelquechose))
+  c
+@}
+@end example
+
+@noindent
+Le code ci-dessus produira la balise @code{<g>} (group) suivante dans le
+fichier SVG :
+
+@example
+<g id="123" class="ceci cela" data-quelconque="quelquechose">
+  ...NoteHead grob SVG elements...
+</g>
+@end example
+
+@noindent
+La balise @code{<g>} contient tous les éléments SVG d'un @emph{grob}
+donné ; certains @emph{grobs} génèrent de multiples éléments SVG. Dans
+la syntaxe SVG, le préfixe @code{data-} s'utilise pour les attributs de
+métadonnée personnalisée non-standard.
+
 
 @node Changement des fontes musicales
 @subsection Changement des fontes musicales
 @translationof Replacing the notation font
+
+@cindex fontes musicales, modification
 
 Gonville est une alternative au jeu de glyphes @emph{Feta} inclus dans
 la fonte Emmentaler que LilyPond utilise par défaut.  Vous pouvez la
@@ -2966,29 +3030,113 @@ Et ces même mesures avec les glyphes @emph{Feta} de LilyPond :
 @sourceimage{Gonville_before,15cm,,}
 
 
-@subsubheading Instructions d'installation pour MacOS
-@translationof Installation Instructions for MacOS
+@subsubheading Instructions d'installation
+@translationof Installation Instructions
 
-Téléchargez puis décompressez l'archive zip.  Recopiez le répertoire
-@code{lilyfonts} dans  @file{@var{SHARE_DIR}/lilypond/current} -- voir
-@rlearning{Autres sources de documentation} à ce sujet.  Renommez le
-répertoire @code{fonts} qui s'y trouve en @code{fonts_orig}, puis le
-répertoire @code{lilyfonts} en @code{fonts}.  Il vous suffira, pour
-retrouver la fonte Emmentaler, de renommer @code{fonts_orig} en
-@code{fonts}.
-
-@seealso
-Manuel d'initiation :
+Téléchargez puis extrayez les fichiers de fonte.
+Copiez les fichiers
+@file{gonville-11.otf},
+@file{gonville-13.otf},
+@file{gonville-14.otf},
+@file{gonville-16.otf},
+@file{gonville-18.otf},
+@file{gonville-20.otf},
+@file{gonville-23.otf},
+@file{gonville-26.otf} et @file{gonville-brace.otf} dans
+@file{@dots{}/share/lilypond/current/fonts/otf} ou
+@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/otf}.
+Si vous disposez des fichiers @file{gonville-*.svg} et
+@file{gonville-*.woff}, copiez les dans
+@file{@dots{}/share/lilypond/current/fonts/svg} ou
+@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/svg}.
+Pour de plus amples informations, reportez-vous à
 @rlearning{Autres sources de documentation}.
 
-Manuel de notation :
+Il est à noter que les fichiers @file{gonville-*.otf} sont destinés aux
+moteurs @code{ps} et @code{eps} (pour obtenir des fichiers PDF ou
+PostScript) ; les fichiers @file{gonville-*.svg} sont destinés au moteur
+@code{svg} sans l'option @code{svg-woff} ; les fichiers
+@file{gonville-*.woff} sont destinés au moteur @code{svg} avec l'option
+@code{svg-woff}. Pour de plus amles informations, consultez
+@rprogram{Options avancées de lilypond}.
+
+La syntaxe suivante substitue aux fontes musicales (générale et
+accolades) les fontes Gonville.
+
+@example
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     #:music "gonville"
+     #:brace "gonville"
+   ))
+@}
+@end example
+
+En tout état de cause, tout appel à @code{set-global-fonts} réinitialise
+aussi bien les fontes musicales que les fontes textuelles. Dès lors que
+l'une de ces catégories n'est pas mentionnée sera utilisée la fonte par
+défaut y afférente.@*
+Par ailleurs, chaque appel à @code{set-global-fonts} modifie les fontes
+du @code{\book} qui le suit, qu'il ait été créé explicitement ou non.
+Par voie de conséquence, chaque @code{\book} peut disposer de son propre
+jeu de fontes principales s'il est précédé d'un appel à
+@code{set-global-fonts}. Pour plus d'informations, voir
+@ref{Choix des fontes par défaut}.
+
+@seealso
+Manuel d'initiation :
+@rlearning{Autres sources de documentation}.
+
+Manuel de notation :
+@ref{Choix des fontes par défaut},
 @ref{La fonte Emmentaler}.
 
 @knownissues
 Gonville ne permet pas de générer de la notation ancienne, et certains
-glyphes ajoutés depuis lors aux jeux de caractères en soient absent.
+glyphes ajoutés depuis lors aux jeux de caractères en sont absent.
 Consultez le site de l'auteur pour de plus amples informations ainsi
 qu'à propos des conditions d'utilisation.
+
+
+@subsubheading Autres fontes musicales
+@translationof Other notation fonts
+
+Si vous disposez d'autres fontes musicales telles que
+@file{@var{nomfonte}-*.otf}, @file{@var{nomfonte}-*.svg} et
+@file{@var{nomfonte}-*.woff}, vous pouvez les utiliser de façon
+comparable à Gonville.
+
+Autrement dit, copiez les fichiers @file{@var{nomfonte}-*.otf} dans
+@file{@dots{}/share/lilypond/current/fonts/otf} ou
+@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/otf}.
+Si vous disposez de fichiers @file{@var{nomfonte}-*.svg} et
+@file{@var{nomfonte}-*.woff}, copiez les dans
+@file{@dots{}/share/lilypond/current/fonts/svg} ou
+@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/svg}.
+
+Note : à ce jour, et pour fonctionner correctement, LilyPond requiert la
+présence des suffixes suivants dans les dossiers d'instalation :
+@file{-11}, @file{-13}, @file{-14}, @file{-16}, @file{-18}, @file{-20},
+@file{-23}, @file{-26} et @file{-brace}. Par exemple,
+@file{emmentaler-11.otf}, @file{emmentaler-20.svg},
+@file{emmentaler-brace.woff}, etc.
+
+La syntaxe suivante substitue aux fontes musicales (générale et
+accolades) les fontes @var{nomfonte}.
+
+@example
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     #:music "@var{nomfonte}" ; fichier de fonte sans suffixe ni extension
+     #:brace "@var{nomfonte}" ; fichier de fonte sans suffixe ni extension
+   ))
+@}
+@end example
+
+Note : pour les catégories @code{music} et @code{brace}, le nom du
+fichier de fonte se spécifie sans suffixe ni extension.
 
 
 @node Génération de fichiers MIDI
@@ -3021,6 +3169,7 @@ supplémentaire pour les écouter.
 * Amélioration du rendu MIDI::
 @end menu
 
+
 @node Notation prise en compte dans le MIDI
 @subsection Notation prise en compte dans le MIDI
 @translationof Supported notation for MIDI
@@ -3028,7 +3177,7 @@ supplémentaire pour les écouter.
 @cindex MIDI, éléments pris en compte
 
 LilyPond retranscrit par défaut dans un fichier MIDI les éléments de
-notation suivant :
+notation suivants :
 
 @itemize
 @item les marques de respiration,
@@ -3037,7 +3186,7 @@ notation suivant :
 le volume s'ajuste linéairement entre les deux extrêmes,
 @item les indications de nuance, de @code{ppppp} à @code{fffff}, y compris
 @code{mp}, @code{mf} et @code{sf},
-@item les microtonalités mais @emph{pas} sous forme d'accord ; leur
+@item les microtonalités, mais @emph{pas} sous forme d'accord ; leur
 rendu nécessite cependant un lecteur qui prenne en charge la
 modulation,
 @item les paroles,
@@ -3083,7 +3232,7 @@ Voir @ref{Amélioration du rendu MIDI}.
 @subsection Notation non prise en compte dans le MIDI
 @translationof Unsupported notation for MIDI
 
-@cindex MIDI, éléments non pris en comte
+@cindex MIDI, éléments non pris en compte
 
 Certains éléments de notation ne peuvent être retranscrits dans un
 fichier MIDI :
@@ -3157,6 +3306,26 @@ au-delà de la quinzième partageront un même canal MIDI, sans toutefois
 l'écraser.  Ceci peut entraîner des conflits au niveau des canaux en
 raison des propriétés MIDI, notamment l'instrument utilisé.
 
+L'utilisation d'un bloc @code{midi} dans le cadre d'une musique
+polymétrique peut engendrer des avertissements inopinés quant au
+contrôle des barres de mesure. En pareil cas, il suffit de déplacer, au
+sein du bloc @code{midi}, le @code{Timing_translator} du contexte
+@code{Score} au contexte @code{Staff}.
+
+@lilypond[verbatim]
+\midi {
+  \context {
+    \Score
+    \remove "Timing_translator"
+  }
+  \context {
+     \Staff
+     \consists "Timing_translator"
+  }
+}
+@end lilypond
+
+
 @node Gestion des nuances en MIDI
 @subsection Gestion des nuances en MIDI
 @translationof Controlling MIDI dynamics
@@ -3194,18 +3363,21 @@ correspondances entre nuance et fraction de volume sont répertoriées
 dans le fichier @file{scm/midi.scm}.
 
 @snippets
+
+@cindex MIDI, nuance personnalisée
+@cindex nuance, MIDI, personnalisation
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {creating-custom-dynamics-in-midi-output.ly}
 
 @seealso
-Fichiers d'initialisation :
+Fichiers d'initialisation :
 @file{ly/script-init.ly},
 @file{scm/midi.scm}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsr{MIDI}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{Dynamic_performer}.
 
 @node Réglage du volume en MIDI
@@ -3300,17 +3472,21 @@ appliquera cependant un léger degré d'égalisation pour certains
 instruments -- voir @file{scm/midi.scm}.
 
 @snippets
+
+@cindex MIDI, égalisation par défaut, adaptation
+@cindex égalisation en MIDI, adaptation
+@cindex instrument MIDI, égalisation
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {replacing-default-midi-instrument-equalization.ly}
 
 @seealso
-Fichiers d'initialisation :
+Fichiers d'initialisation :
 @file{scm/midi.scm}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Mise en forme de la partition}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{Dynamic_performer}.
 
 @knownissues
@@ -3372,20 +3548,20 @@ de LilyPond en matière de son s'appelent @emph{performers} -- des
 « interprètes ».
 
 @seealso
-Manuel d'initiation :
+Manuel d'initiation :
 @rlearning{Autres sources de documentation}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Mise en forme de la partition},
 @ref{Signes d'interprétation}.
 
-Fichiers d'initialisation :
+Fichiers d'initialisation :
 @file{ly/performer-init.ly}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsr{MIDI}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{Dynamic_performer}.
 
 @knownissues
@@ -3395,12 +3571,13 @@ tempo.
 Les modifications de @code{midiInstrument} ou autres options MIDI en
 début de portée peuvent se retrouver dédoublées dans la sortie MIDI.
 
+
 @node Gestion des instruments MIDI
 @subsection Gestion des instruments MIDI
 @translationof Using MIDI Instruments
 
 @cindex instrument, nom d'
-@cindex MIDI, instruments
+@cindex MIDI, instrument
 @funindex Staff.midiInstrument
 
 L'instrument MIDI est déterminé par la propriété @code{midiInstrument},
@@ -3416,6 +3593,7 @@ au sein d'un contexte @code{Staff}.
 @}
 @end example
 
+@noindent
 ou
 
 @example
@@ -3432,17 +3610,17 @@ dénominations consacrées, LilyPond le remplacera par un piano de concert
 (@code{"acoustic grand"}) -- voir @ref{Instruments MIDI}.
 
 @seealso
-Manuel d'initiation :
+Manuel d'initiation :
 @rlearning{Autres sources de documentation}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Instruments MIDI},
 @ref{Mise en forme de la partition}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{Dynamic_performer}.
 
-Fichiers d'initialisation :
+Fichiers d'initialisation :
 @file{scm/midi.scm}.
 
 @knownissues
@@ -3462,8 +3640,8 @@ disponible dans le fichier @file{scm/midi.scm} -- voir
 @subsection Gestion des répétitions en MIDI
 @translationof Using repeats with MIDI
 
-@cindex reprises développées
-@cindex MIDI et reprises
+@cindex reprise développée
+@cindex MIDI et reprise
 @funindex \unfoldRepeats
 
 Les reprises de toutes sortes peuvent être rendues dans le fichier MIDI.
@@ -3507,9 +3685,8 @@ reprises ne sera effectif en MIDI qu'à la condition que ces reprises
 soient mentionnée correctement dans @strong{toutes} les voix.
 
 @seealso
-Manuel de notation :
+Manuel de notation  :
 @ref{Répétitions et reprises}.
-
 
 
 @node Affectation des canaux MIDI
@@ -3525,7 +3702,7 @@ note contenue dans cette partition sera automatiquement assignée à un
 canal MIDI, celui sur lequel elle devrait être jouée quand elle est
 transmise à un périphérique MIDI.  Chaque canal MIDI dispose d'un
 certain nombre de contrôles pour, par exemple, sélectionner l'instrument
-+qui jouera les notes de ce canal ou bien demander au périphérique MIDI
+qui jouera les notes de ce canal ou bien demander au périphérique MIDI
 d'appliquer différents effets au son produit sur ce canal.  En tout état
 de cause, chaque contrôle d'un canal MIDI ne peut se voir affecté que
 d'une seule valeur à la fois -- celle-ci peut toutefois être modifiée
@@ -3577,7 +3754,7 @@ MIDI lorsque le nombre de portées et de contextes de paroles dépasse 16.
 Allocation d'un canal MIDI particulier à chaque voix de la partition
 portant un nom unique parmi les voix de la portée considérée.  Des voix
 appartenant à des portées différentes seront toujours affectées à des
-canaux MIDI différents, mais deux voix partageant la même portée
+canaux MIDI différents, mais deux voix partageant une même portée
 partageront le même canal MIDI dès lors qu'elles porteront le même nom.
 Dans la mesure où @code{midiInstrument} et les différents contrôles
 d'effets MIDI sont des propriétés affectant le contexte de portée, ils
@@ -3610,6 +3787,8 @@ peut être réglée sur @code{'instrument} comme ceci :
 @end example
 
 @snippets
+
+@cindex MIDI, un canal par voix
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-midi-output-to-one-channel-per-voice.ly}
 
@@ -3632,12 +3811,12 @@ peut être réglée sur @code{'instrument} comme ceci :
 @funindex midiReverbLevel
 @funindex midiChorusLevel
 
-Les différentes propriétés de contexte qui suivent permettnt d'appliquer
-différents effets MIDI aux notes contenues dans le canal MIDI associé à
-la portée courante, à l'instrument ou à la voix, selon la valeur
-affectée à la propriété de contexte @code{Score.midiChannelMapping} et
-le contexte dans lequel le @code{Staff_performer} réside -- voir
-@ref{Affectation des canaux MIDI}.
+Les différentes propriétés de contexte qui suivent permettent
+d'appliquer différents effets MIDI aux notes contenues dans le canal
+MIDI associé à la portée courante, à l'instrument ou à la voix, selon la
+valeur affectée à la propriété de contexte
+@code{Score.midiChannelMapping} et le contexte dans lequel le
+@code{Staff_performer} réside -- voir @ref{Affectation des canaux MIDI}.
 
 Une adaptation de ces propriétés de contexte affectera toutes les notes
 jouées sur ce canal dès leur modification.  Certains effets pourront
@@ -3652,13 +3831,13 @@ LilyPond dispose des propriétés de contexte suivantes :
 
 La spatialisation (@emph{pan position}) contrôle le positionnement d'un
 canal MIDI entre les sorties stéréo droite et gauche.  Cette propriété
-de contexte prend en argument une valeur entre -1.0 (@code{#LEFT})
-et 1.0 (@code{#RIGHT}). Une valeur de -1.0 enverra toute la puissance
+de contexte prend en argument une valeur entre -1.0 (@code{#LEFT})
+et 1.0 (@code{#RIGHT}). Une valeur de -1.0 enverra toute la puissance
 sonore sur le haut-parleur gauche (le droit sera silencieux), une
-vaaleur de 0.0 (@code{#CENTER}) distribuera équitablement le son entre
-les jaut-parleurs de gauche et de droite, et une valeur de 1.0 enverra
-tout le son sur le haut-parleur de droite.  Des valeurs entre -1.0 et
-1.0 permettent d'obtenir une répartition du son entre les sorties
+valeur de 0.0 (@code{#CENTER}) distribuera équitablement le son entre
+les haut-parleurs de gauche et de droite, et une valeur de 1.0 enverra
+tout le son sur le haut-parleur de droite.  Des valeurs entre -1.0
+et 1.0 permettent d'obtenir une répartition du son entre les sorties
 gauche et droite d'un équipement stéréophonique.
 
 
@@ -3744,14 +3923,15 @@ des propriétés au sein du bloc @code{\midi} ou en utilisant le script
 
 
 @node Le script articulate
-@unnumberedsubsubsec Le script @file{articulate}
+@unnumberedsubsubsec Le script @code{articulate}
 @translationof The articulate script
 
-@cindex MIDI, instruments
+@cindex MIDI, instrument
 @cindex articulate, script
+@cindex articulate.ly
 @funindex Staff.midiInstrument
 
-L'utilisation du script @file{articulate} se fait après avoir ajouté en
+L'utilisation du script @code{articulate} se fait après avoir ajouté en
 tête de fichier la commande @code{\include} appropriée :
 
 @example
@@ -3772,18 +3952,19 @@ littéralement la sortie MIDI.
 @}
 @end example
 
-Le script @file{articulate} tient compte des abréviations telles que les
+@funindex \articulate
+Le script @code{\articulate} tient compte des abréviations telles que les
 trilles ou groupettos.  L'intégralité des éléments traités est
 répertoriée dans le script lui-même -- voir @file{ly/articulate.ly}.
 
 @seealso
-Manuel d'initiation :
+Manuel d'initiation :
 @rlearning{Autres sources de documentation}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Mise en forme de la partition}.
 
-Fichiers d'initialisation :
+Fichiers d'initialisation :
 @file{ly/articulate.ly}.
 
 @warning{Dans la mesure où le script @file{articulate} tend à raccourcir
@@ -3912,7 +4093,7 @@ musicologique ou des expériences à partir du rendu de LilyPond.
 @knownissues
 Tous les événements ne sont pas pris en charge par
 @file{event-listener.ly}.  Il s'agit en premier lieu d'une
-démonstration, un @qq{proof of concept} du potentiel de LilyPond.  Si
+démonstration, un « proof of concept » du potentiel de LilyPond.  Si
 certains des éléments que vous cherchez à obtenir n'apparaissent pas,
 recopiez le fichier @file{event-listener.ly} dans votre répertoire et
 modifiez-le de telle sorte qu'il travaille selon vos attentes.

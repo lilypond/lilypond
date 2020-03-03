@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+デフォルトでは、StaffGroup, PianoStaff, GrandStaff 内の譜の小節線は@c
+繋がります。この挙動は譜ごとにオーバライドできます。
+"
+  doctitleja = "StaffGroup, PianoStaff, GrandStaff の譜を繋ぐ小節線を削除する"

@@ -1,0 +1,608 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+
+@ignore
+    Translation of GIT committish: a94d26b6693cad58b946a01b7efaaed29480f063
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.19.21"
+
+@c Translators: Walter Garcia-Fontes
+@c Translation checkers:
+
+@node Músiques del món
+@section Músiques del món
+@translationof World music
+
+El propòsit d'aquesta secció és remarcar els problemes de notació
+que són de rellevància a les tradicions musicals diferents a l'occidental.
+
+@menu
+* Notació comuna per a músiques no occidentals::
+* Música àrab::
+* Música clàssica de Turquia::
+@end menu
+
+
+@node Notació comuna per a músiques no occidentals
+@subsection Notació comuna per a músiques no occidentals
+@translationof Common notation for non-Western music
+
+Aquesta secció estudia la forma d'introduir i imprimir partitures
+musicals que no pertanyen a la tradició clàssica occidental, també
+coneguda com a @notation{Període de la pràctica comuna}.
+
+@menu
+* Extensió de la notació i dels sistemes d'afinació::
+@end menu
+
+
+@node Extensió de la notació i dels sistemes d'afinació
+@unnumberedsubsubsec Extensió de la notació i dels sistemes d'afinació
+@translationof Extending notation and tuning systems
+
+La notació clàssica estàndard (també coneguda com la notació del
+@notation{Període de la pràctica comuna}) s'usa normalment en tot
+tipus de música, sense limitació a la música occidental @q{clàssica}.
+Aquesta notació s'estudia a @ref{Escriptura de notes}, i els
+diferents noms de les notes que es poden utilitzar estan explicats a
+@ref{Noms de les notes en altres llengües}.
+
+No obstant, molts tipus de música no occidental (i algunes classes
+de música folk occidental i tradicional) fa servir sistemes
+d'afinació alternatius o estesos que no encaixen immediatament
+dins de la notació clàssica estàndard.
+
+En alguns cassos encara s'usa la notació estàndard, fent
+implícites les diferències d'altura.  Per exemple, la notació de
+la @notation{música àrab} es realitza amb alteracions accidentals
+de semitò i de quart de to, on el context determina les
+alteracions exactes d'altura.  S'usen en general els noms de les
+notes italians, mentre que el fitxer d'inici @file{arabic.ly}
+proporciona un conjunt adequat de macros i definicions que estenen
+la notació estàndard.  Per veure més detalls, consulteu
+@ref{Música àrab}.
+
+@cindex afinació no occidental
+
+D'altres tipus de música requereixen notacions esteses o
+singulars. La @notation{música clàssica turca} o música otomana,
+per exemple, fa servir formes melòdiques conegudes com
+@notation{makamlar}, els intervals de les quals estan basats en
+divisions de 1/9 de to. Se segueixen usant les notes del
+pentagrama occidental, però amb alteracions accidentals exclusives
+de la música turca, que estan definides al fitxer @file{makam.ly}.
+Per veure més informació sobre la música clàssica turca i els
+makamlar, consulteu @ref{Música clàssica de Turquia}.
+
+Per localitzar els fitxers d'inici com @file{arabic.ly} o
+@file{makam.ly} al vostre sistema, consulteu
+@rlearning{Altres fonts d'informació}.
+
+@snippets
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{makam-example.ly}
+
+@seealso
+Glossari musical:
+@rglos{Common Practice Period},
+@rglos{makamlar}.
+
+Manual d'aprenentatge
+@rlearning{Altres fonts d'informació}.
+
+Referència de la notació:
+@ref{Escriptura de notes},
+@ref{Noms de les notes en altres llengües},
+@ref{Música àrab},
+@ref{Música clàssica de Turquia}.
+
+
+@node Música àrab
+@subsection Música àrab
+@translationof Arabic music
+
+Aquesta secció destaca temes relatius a la música àrab.
+
+@menu
+* Referències per a música àrab::
+* Noms de nota àrabs::
+* Armadures de tonalitat àrabs::
+* Indicacions de compàs àrabs::
+* Exemple de música àrab::
+* Lectures addicionals sobre música àrab::
+@end menu
+
+
+@node Referències per a música àrab
+@unnumberedsubsubsec Referències per a música àrab
+@translationof References for Arabic music
+
+@cindex àrab, música
+@cindex mitjos, intervals
+@cindex maqam
+@cindex maqams
+@cindex makamlar
+
+La música àrab ha estat principalment una tradició oral fins el
+moment.  Quan es transcriu la música, se sol fer en la forma d'un
+esbós sobre el qual els intèrprets han d'improvisar àmpliament.
+De forma creixent, s'està adoptant la notació occidental amb
+certes variants per preservar i transmetre la música àrab.
+
+Alguns elements de la notació musical occidental com la
+transcripció d'acords o la particel·les independents, no calen per
+gravar les peces àrabs, més tradicionals.  Tot i així, hi ha
+certes qüestions, com ara la necessitat d'indicar intervals que
+tenen una mesura intermèdia entre el semitò i el to, a més dels
+intervals majors i menors de la música occidental.  També cal
+agrupar i indicar els nombrosos maqams (modes) que forme part de
+la música àrab.
+
+En general la notació musical àrab no intenta indicat amb precisió
+els elements microtonals que es troben presents a la pràctica musical.
+
+Són rellevants per a la música àrab certs assumptes que es tracten
+a d'altres parts del manual:
+
+@itemize
+@item Els noms de les notes i les seves alteracions (entre ells,
+quarts de to) es realitzar com s'estudia a
+@ref{Notació comuna per a músiques no occidentals}.
+
+@item Las armadures addicionals es poden realitzar també com es
+descriu a @ref{Armadura de la tonalitat}.
+
+@item Els compassos complexos poden requerir agrupacions manuals
+de les notes tal i com es descriu a @ref{Barres manuals}.
+
+@item Els @notation{takasim} o improvisacions lliures des del punt
+de vista rítmic es poden escriure ometent les barres de compàs com
+apareix a @ref{Música sense compassos}.
+@end itemize
+
+
+@seealso
+Referència de la notació:
+@ref{Notació comuna per a músiques no occidentals},
+@ref{Armadura de la tonalitat},
+@ref{Barres manuals}.
+
+Fragments de codi:
+@rlsr{World music}.
+
+
+@node Noms de nota àrabs
+@unnumberedsubsubsec Noms de nota àrabs
+@translationof Arabic note names
+
+@cindex Noms de nota àrabs
+
+Els noms de nota àrabs tradicionals de les notes poden arribar a
+ser força llargs i no són adequats per a l'escriptura musical, i
+per això no es fan servir.  Els noms anglesos de les notes no són
+familiars dins de l'educació musical àrab, per la qual cosa en el
+seu lloc es fan servir els noms italo-franco-espanyols o del
+solfeig (@code{do, re, mi, fa, sol, la, si}); també es poden fer
+servir modificadors (alteracions).  Els noms italians de les notes
+i les alteracions accidentals estan explicats a
+@ref{Noms de les notes en altres llengües}; l'ús de la notació
+occidental estàndard per realitzar la notació de música no
+occidental es discuteix a
+@ref{Notació comuna per a músiques no occidentals}.
+
+Per exemple, així és com pot ser la notació de l'escala àrab
+@notation{rast}:
+
+@lilypond[quote,verbatim]
+\include "arabic.ly"
+\relative {
+  do' re misb fa sol la sisb do sisb la sol fa misb re do
+}
+@end lilypond
+
+
+@cindex símbol semibemoll àrab
+@cindex Aparença del símbol semibemoll
+
+El símbol del semibemoll no coincideix amb el símbol que s'utilitza
+a la notació àrab.  Es pot usar el símbol @code{\dwn} definit a
+@file{arabic.ly} precedint a un bemoll com via alternativa si és
+important usar el símbol àrab específic del semi-bemoll.
+L'aspecte del símbol del semibemoll dins de l'armadura no es pot
+alterar mitjançant aquest mètode.
+
+@lilypond[quote,verbatim]
+\include "arabic.ly"
+\relative {
+  \set Staff.extraNatural = ##f
+  dod' dob dosd \dwn dob dobsb dodsd do do
+}
+@end lilypond
+
+
+@seealso
+Referència de la notació:
+@ref{Noms de les notes en altres llengües},
+@ref{Notació comuna per a músiques no occidentals}.
+
+Fragments de codi:
+@rlsr{World music}.
+
+
+@node Armadures de tonalitat àrabs
+@unnumberedsubsubsec Armadures de tonalitat àrabs
+@translationof Arabic key signatures
+
+@cindex armadures de tonalitat àrabs
+
+A més de les armadures de tonalitats majors i menors, a
+@file{arabic.ly} hi ha definides les tonalitats següents:
+@notation{bayati}, @notation{rast}, @notation{sikah}, @notation{iraq}
+i @notation{kurd}.  Aquestes armadures de tonalitat defineixen una
+petita quantitat de grups de maqam, en contrast amb els nombrosos
+maqams que són d'ús comú.
+
+En general, un maqam usa l'armadura del seu grup o la d'un grup
+veí, i les alteracions que difereixen es van marcant al llarg de
+la música.
+
+Per exemple, per indicar l'armadura d'una peça en el maqam muhayer:
+
+@example
+\key re \bayati
+@end example
+
+@noindent
+Aquí, @var{re} és l'altura predeterminada del maqam muhayer, i
+@var{bayati} és el nom del maqam bàsic dins del grup.
+
+Al temps que l'armadura indica el grup, el títol sol indicar el
+maqam específic, i així en aquest exemple el nom del maqam muhayer
+ha d'aparèixer al títol.
+
+Es poden indicar de la mateixa forma altres maqams dins del mateix
+grup bayati, com apareix a la taula a continuació: bayati,
+hussaini, saba y ushaq.  Tots ells són variants del maqam bàsic i
+més comú dins del grup, que és bayati.  Normalment es diferencien
+del maqam bàsic en el seu tetracord superior, o en certs detalls
+de discurs que no canvien la seva naturalesa fonamental com a
+parents.
+
+L'altre maqam del grup (Nawa) es relaciona amb el bayati a través
+d'una modulació que s'indica a la taula entre parèntesis per a
+aquells maqams que són modulacions del seu maqam bàsic.  Els
+maqams àrabs admeten sols modulacions limitades, a causa de la
+naturalesa dels instruments musicals àrabs.  El Nawa es pot
+indicar de la forma següent:
+
+@example
+\key sol \bayati
+@end example
+
+A la música àrab, el mateix termini que s'utilitza per indicar un
+grup de maqam, com bayati, és també un maqam que normalment és el
+més important del grup, i podem veure'l com el maqam bàsic.
+
+A continuació presentem una possibilitat d'agrupació que assigna
+els maqams més comuns a armadures de tonalitat:
+
+@multitable @columnfractions 0.15 0.1 0.1 0.6
+@headitem grup de maqam
+  @tab to
+  @tab final
+  @tab altres maqams del grup (final)
+@item ajam
+  @tab major
+  @tab sib
+  @tab jaharka (fa)
+@item bayati
+  @tab bayati
+  @tab re
+  @tab hussaini, muhayer, saba, ushaq, nawa (sol)
+@item hijaz
+  @tab kurd
+  @tab re
+  @tab shahnaz, shad arban (sol), hijazkar (do)
+@item iraq
+  @tab iraq
+  @tab sisb
+  @tab -
+@item kurd
+  @tab kurd
+  @tab re
+  @tab hijazkar kurd (do)
+@item nahawand
+  @tab menor
+  @tab do
+  @tab busalik (re), farah faza (sol)
+@item nakriz
+  @tab menor
+  @tab do
+  @tab nawa athar, hisar (re)
+@item rast
+  @tab rast
+  @tab do
+  @tab mahur, yakah (sol)
+@item sikah
+  @tab sikah
+  @tab misb
+  @tab huzam
+@end multitable
+
+@snippets
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{non-traditional-key-signatures.ly}
+
+
+@seealso
+Glossari musical:
+@rglos{maqam},
+@rglos{bayati},
+@rglos{rast},
+@rglos{sikah},
+@rglos{iraq},
+@rglos{kurd}.
+
+Referència de la notació:
+@ref{Armadura de la tonalitat}.
+
+Manual de aprenentatge:
+@rlearning{Alteracions accidentals i armadures}
+
+Referència de funcionament intern:
+@rinternals{KeySignature}.
+
+Fragments de codi:
+@rlsr{World music},
+@rlsr{Pitches}.
+
+
+@node Indicacions de compàs àrabs
+@unnumberedsubsubsec Indicacions de compàs àrabs
+@translationof Arabic time signatures
+
+@cindex àrabs, armadures
+@cindex Semai, forma
+@cindex taqasim
+
+Certes formes clàssiques de música àrab i turca com el
+@notation{Semai} utilitzen compassos poc comuns com el 10/8.  Això
+pot derivar en una agrupació automàtica de les notes molt diferent
+a la de les partitures impreses existents, on les notes poden no
+estar agrupades sobre el polze, sinó d'una forma difícil d'emular
+ajustant el barrat automàtic. L'alternativa seria desactivar el
+barrat automàtic i realitzar un barrat manual de les notes.  Fins
+i tot si no cal una correspondència amb música escrita ja
+existent, pot seguir sent desitjable ajustar el comportament del
+barrat automàtic i/o utilitzar indicacions compostes de compàs.
+
+@snippets
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{arabic-improvisation.ly}
+
+
+@seealso
+Glossari musical:
+@rglos{semai},
+@rglos{taqasim}.
+
+Referència de la notació:
+@ref{Barres manuals},
+@ref{Barres automàtiques},
+@ref{Música sense compassos},
+@ref{Alteracions accidentals automàtiques},
+@ref{Establir el comportament de les barres automàtiques},
+@ref{Indicació de compàs}.
+
+Fragments de codi:
+@rlsr{World music}.
+
+
+@node Exemple de música àrab
+@unnumberedsubsubsec Exemple de música àrab
+@translationof Arabic music example
+
+@cindex àrab, exemple de música
+@cindex àrab, plantilla de música
+@cindex plantilla música àrab
+
+A continuació es pot trobar una plantilla que fa servir també el
+començament d'un @notation{Semai} turc molt comú a l'educació
+musical àrab amb l'objecte d'il·lustrar algunes de les
+peculiaritats de la notació àrab, com els intervals intermedis i
+els modes poc usuals que tractem a aquesta secció.
+
+@lilypond[quote,verbatim]
+\include "arabic.ly"
+\score {
+  \relative {
+    \set Staff.extraNatural = ##f
+    \set Staff.autoBeaming = ##f
+    \key re \bayati
+    \time 10/8
+
+    re'4 re'8 re16 [misb re do] sisb [la sisb do] re4 r8
+    re16 [misb do re] sisb [do] la [sisb sol8] la [sisb] do [re] misb
+    fa4 fa16 [misb] misb8. [re16] re8 [misb] re  [do] sisb
+    do4 sisb8 misb16 [re do sisb] la [do sisb la] la4 r8
+  }
+  \header {
+    title = "Semai Muhayer"
+    composer = "Jamil Bek"
+  }
+}
+@end lilypond
+
+
+@seealso
+Fragments de codi:
+@rlsr{World music}.
+
+
+@node Lectures addicionals sobre música àrab
+@unnumberedsubsubsec Lectures addicionals sobre música àrab
+@translationof Further reading for Arabic music
+
+@enumerate
+
+@item
+@emph{The music of the Arabs}, de Habib Hassan Touma [Amadeus Press,
+1996], conté un tractat dels maqams i les seves formes d'agrupació.
+
+També hi ha diversos llocs web que expliquen els maqams, i algunes
+d'els ofereixen exemple d'àudio, com ara:
+
+@itemize @bullet
+@item
+@uref{http://www.maqamworld.com/}
+@item
+@uref{http://www.turath.org/}
+@end itemize
+
+Hi ha certes variants en els detalls sobre la forma en la qual
+s'agrupen els maqams, malgrat l'acord relatiu existent a sobre
+dels criteris d'agrupació de maqams en funció dels tetracordos
+inferiors comuns, o per mitjà de la modulació.
+
+@item
+No és completament consistent, fins i tot a vegades dins del
+mateix text, la forma en la qual s'han d'especificar les armadures
+per als maqams concrets.  Malgrat això, és usual utilitzar una
+armadura per grup, més que una armadura diferent per a cada maqam
+concret.
+
+Diversos mètodes dels següents autors per a l'@dfn{Ud}, el llaüt
+àrab, contenen exemples de composicions turques i àrabs,
+principalment.
+
+@itemize @bullet
+@item
+Charbel Rouhana
+@item
+George Farah
+@item
+Ibrahim Ali Darwish Al-masri
+@end itemize
+@end enumerate
+
+
+@node Música clàssica de Turquia
+@subsection Música clàssica de Turquia
+@translationof Turkish classical music
+
+Aquesta secció destaca els problemes de rellevància per a la
+notació de la música clàssica de Turquia.
+
+@menu
+* Referències per a música clàssica de Turquia::
+* Noms de les notes en turc::
+@end menu
+
+
+@node Referències per a música clàssica de Turquia
+@unnumberedsubsubsec Referències per a música clàssica de Turquia
+@translationof References for Turkish classical music
+
+@cindex Turquia, música de
+@cindex Otomana, música
+@cindex coma, intervals de
+@cindex makam
+@cindex makamlar
+
+La música clàssica de Turquia es va desenvolupar a l'Imperi Otomà
+durant un període aproximadament contemporani amb la música
+clàssica d'Europa, i s'ha perllongat fins els segles XX i XXI com
+un tradició viva i característica amb les seves pròpies formes
+composicionals, teories i estils d'interpretació. Entre les seves
+característiques més sobresortints està l'ús d'intervals
+microtonals basats en @q{comes} de 1/9 de to, a partir dels quals
+es construeixen les formes melòdiques conegudes com
+@notation{makam} (en plural @notation{makamlar}).
+
+Certs assumptes de rellevància respecte a la música clàssica de
+Turquia es tracten a altres parts:
+
+@itemize
+@item Els noms especials de les notes i les alteracions es
+presenten a
+@ref{Notació comuna per a músiques no occidentals}.
+@end itemize
+
+
+@node Noms de les notes en turc
+@unnumberedsubsubsec Noms de les notes en turc
+@translationof Turkish note names
+
+@cindex Turquia, nom de les notes a
+@cindex makam
+@cindex makamlar
+
+Les notes a la música clàssica de Turquia tenen tradicionalment
+noms únics, i la base de les altures sobre divisions de 1/9 de to
+signifiquen que els makamlar utilitzen un conjunt d'intervals
+completament diferent de les escales i modes occidentals:
+@notation{koma} (1/9 de to), @notation{eksik bakiye} (3/9),
+@notation{bakiye} (4/9), @notation{kücük mücenneb} (5/9),
+@notation{büyük mücenneb} (8/9), @notation{tanîni} (un to) i
+@notation{artık ikili} (12/9 o 13/9 de to).
+
+Des del punt de vista de la notació moderna, és convenient
+utilitzar les notes occidentals (do, re, mi, @dots{} o c, d, e,
+@dots{}) amb alteracions especials que pugen o baixen les notes en
+intervals de 1/9, 4/9, 5/9 i 8/9 de to.  Aquestes alteracions
+estan definides al fitxer @file{makam.ly}.
+
+La taula següent relaciona:
+@itemize
+@item
+el nom d'aquestes alteracions accidentals especials,
+@item
+el sufix de l'alteració que s'ha d'escriure a darrere de les
+notes, i
+@item
+la seva alteració en altura expressada com una fracció d'un to.
+@end itemize
+
+@quotation
+@multitable {@b{büyük mücenneb (sostingut)}} {@b{suffix}}{@b{alteració de to}}
+@headitem Nom de l'alteració
+  @tab sufix @tab alteració d'altura
+
+@item büyük mücenneb (sostingut)
+  @tab -bm @tab +8/9
+@item kücük mücenneb (sostingut)
+  @tab -k @tab +5/9
+@item bakiye (sostingut)
+  @tab -b @tab +4/9
+@item koma (sostingut)
+  @tab -c @tab +1/9
+
+@item koma (bemoll)
+  @tab -fc @tab -1/9
+@item bakiye (bemoll)
+  @tab -fb @tab -4/9
+@item kücük mücenneb (bemoll)
+  @tab -fk @tab -5/9
+@item büyük mücenneb (bemoll)
+  @tab -fbm @tab -8/9
+@end multitable
+@end quotation
+
+Per veure una explicació més general sobre la notació musical no
+occidental, consulteu
+@ref{Notació comuna per a músiques no occidentals}.
+
+@seealso
+Glossari musical:
+@rglos{makam},
+@rglos{makamlar}.
+
+Referència de la notació:
+@ref{Notació comuna per a músiques no occidentals}.

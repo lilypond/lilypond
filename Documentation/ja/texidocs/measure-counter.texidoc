@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+このスニペットは、@c
+透明なパーセント繰り返しを用いて、小節カウンタを表示する方法を示しています。
+"
+  doctitleja = "小節カウンタ"

@@ -92,7 +92,7 @@ desactivat.
 Es pot escriure una nota amb la duració d'una quàdruple breu
 mitjançant @code{\maxima}, però això es permet sols dins de la
 notació musical antiga.  Per veure més detalls, consulteu
-@rusernamed{Ancient notation, Notació antiga}.
+@ref{Notació antiga}.
 
 @cindex duració predeterminada
 @cindex predeterminada, duració de la nota
@@ -139,13 +139,12 @@ d'unió}.
 
 Per veure de quina manera es poden especificar les duracions de
 les síl·labes de la lletra i com alinear la lletra a les notes,
-consulteu @rusernamed{Vocal music,Música vocal}.
+consulteu @ref{Música vocal}.
 
 De forma opcional es poden espaiar les notes de forma estrictament
 proporcional a les seves duracions.  Per veure més detalls sobre
 aquest ajust i altres ajustos que controlen la notació
-proporciona, consulteu @rusernamed{Proportional notation,Notació
-proporcional}.
+proporciona, consulteu @ref{Notació proporcional}.
 
 @funindex \dotsUp
 @funindex \dotsDown
@@ -154,8 +153,7 @@ proporcional}.
 Normalment els puntets es desplacen cap amunt per evitar les
 línies del pentagrama, excepte en situacions de polifonia.  Es
 poden situar els puntets manualment a sobre o a sota de les línies
-de la pauta; vegeu @rusernamed{Direction and placement,Direcció i
-col·locació}.
+de la pauta; vegeu @ref{Direcció i posició}.
 
 @predefined
 @code{\autoBeamOn},
@@ -185,12 +183,12 @@ Glossari musical:
 Referència de la notació:
 @ref{Barres automàtiques},
 @ref{Lligadures d'unió},
-@rusernamed{Stems,Pliques},
+@ref{Pliques},
 @ref{Escriptura de les duracions (valors rítmics)},
 @ref{Escriptura dels silencis},
-@rusernamed{Vocal music,Música vocal},
-@rusernamed{Ancient notation,Notació antiga},
-@rusernamed{Proportional notation,Notació proporcional}.
+@ref{Música vocal},
+@ref{Notació antiga},
+@ref{Notació proporcional}.
 
 Fragments de codi:
 @rlsr{Rhythms}.
@@ -325,10 +323,10 @@ Manual de aprenentatge:
 @rlearning{Mètodes d'ajustament}.
 
 Referència de la notació:
-@rusernamed{Direction and placement,Direcció i posició},
+@ref{Direcció i posició},
 @ref{Gestió del temps},
 @ref{Escalat de les duracions},
-@rusernamed{The tweak command,L'ordre tweak},
+@ref{L'ordre tweak},
 @ref{Notació polimètrica}.
 
 Fragments de codi:
@@ -838,8 +836,8 @@ Manual de aprenentatge:
 @rlearning{Visibilitat i color dels objectes}.
 
 Referència de la notació:
-@rusernamed{Hidden notes,Notes ocultes},
-@rusernamed{Visibility of objects,Visibilitat dels objectes}.
+@ref{Notes ocultes},
+@ref{Visibilitat dels objectes}.
 
 Fragments de codi:
 @rlsr{Rhythms}.
@@ -1014,9 +1012,9 @@ Glossari musical:
 
 Referència de la notació:
 @ref{Duracions},
-@rusernamed{Text,Text},
-@rusernamed{Formatting text,Donar format al text},
-@rusernamed{Text scripts,Scripts de text}.
+@ref{Text},
+@ref{Donar format al text},
+@ref{Scripts de text}.
 
 Fragments de codi:
 @rlsr{Rhythms}.
@@ -1085,7 +1083,7 @@ La indicació de compàs s'imprimeix al començament d'una peça i
 sempre que hi hagi un canvi de compàs.  Si es produeix un canvi al
 final d'una línia, s'imprimeix una indicació d'advertiment a
 aquest lloc.  Es pot modificar aquest comportament predeterminat, vegeu
-@rusernamed{Visibility of objects,Visibilitat dels objectes}
+@ref{Visibilitat dels objectes}.
 
 @lilypond[quote,verbatim]
 \relative c'' {
@@ -1125,7 +1123,7 @@ numèric:
 @end lilypond
 
 Les indicacions de compàs de la música mensural s'estudien a
-@ref{Mensural time signatures,Indicacions de compàs de la música mensural}.
+@ref{Indicacions de compàs de la música mensural}.
 
 @cindex compàs, indicació de, ajustos predeterminats
 @cindex autobarrat, propietats per a indicacions de compàs
@@ -1293,7 +1291,7 @@ Glossari musical:
 @rglos{time signature}
 
 Referència de la notació:
-@rusernamed{Mensural time signatures,Indicacions de compàs de la música mensural},
+@ref{Indicacions de compàs de la música mensural},
 @ref{Establir el comportament de les barres automàtiques},
 @ref{Gestió del temps}.
 
@@ -1416,7 +1414,7 @@ d'ignorar les indicacions de tempo per a l'espaiat horitzontal.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {creating-metronome-marks-in-markup-mode.ly}
 
-Para veure més detalls, consulteu @rusernamed{Formatting text,Donar format al text}.
+Para veure més detalls, consulteu @ref{Donar format al text}.
 
 @seealso
 Glossari musical:
@@ -1426,8 +1424,8 @@ Glossari musical:
 @rglos{metronome mark}.
 
 Referència de la notació:
-@rusernamed{Formatting text,Donar format al text},
-@rusernamed{Creating MIDI output,Creació de sortida MIDI}.
+@ref{Donar format al text},
+@ref{Creació de sortida MIDI}.
 
 Fragments de codi:
 @rlsr{Staff notation}.
@@ -1635,7 +1633,7 @@ Glossari musical:
 @rglos{cadenza}.
 
 Referència de la notació:
-@rusernamed{Visibility of objects,Visibilitat dels objectes},
+@ref{Visibilitat dels objectes},
 @ref{Notació polimètrica},
 @ref{Barres manuals},
 @ref{Alteracions accidentals}.
@@ -2642,7 +2640,7 @@ grup com un tot.
 
 @seealso
 Referència de la notació:
-@rusernamed{Direction and placement,Direcció i posició},
+@ref{Direcció i posició},
 @ref{Notes d'adorn}.
 
 Fragments de codi:
@@ -2791,7 +2789,7 @@ Utilitzeu el següent:
 D'aquesta manera s'inserira una barra invisible de compàs i es
 farà possible el salt de línia a aquest punt, sense forçar-lo. No
 s'incrementa el comptador dels números de compàs.  Per forçar un
-salt de línia, consulteu @rusernamed{Line breaking,Salts de línia}.
+salt de línia, consulteu @ref{Salts de línia}.
 
 @cindex manuals, línies divisòries
 @cindex manuals, barres de compàs
@@ -2867,7 +2865,7 @@ f'1 \bar "'" g'1
 Malgrat això, donat que les mencionades marques s'utilitzen
 usualment al cant gregorià, és preferible en aquest cas utilitzar
 @code{\divisioMinima}, que es descriu en la secció
-@rusernamed{Divisiones,Divisiones} dins de cant gregorià:
+@ref{Divisiones} dins de cant gregorià:
 
 El LilyPond contempla la notació del cant kievà i ofereix una
 línia divisòria especial kievana:
@@ -2877,7 +2875,7 @@ f'1 \bar "k"
 @end lilypond
 
 Poden veure's detalls d'aquest notació explicats a
-@rusernamed{Typesetting Kievan square notation,Gravat del cant kievà en notació quadrada}.
+@ref{Gravat del cant kievà en notació quadrada}.
 
 @cindex segno
 
@@ -3101,7 +3099,7 @@ en qualsevol moment amb @samp{\set Timing.defaultBarType
 
 @seealso
 Referència de la notació:
-@rusernamed{Line breaking,Salts de línia},
+@ref{Salts de línia},
 @ref{Repeticions},
 @ref{Agrupament de pentagrames}.
 
@@ -3459,15 +3457,15 @@ element @code{\mark}
 @end lilypond
 
 @noindent
-Consulteu @rusernamed{The Emmentaler font,El tipus de lletra Emmentaler}
+Consulteu @ref{El tipus de lletra Emmentaler}
 per veure una llista dels símbols que es poden imprimir amb
 @code{\musicglyph}.
 
 Per veure formes comuns d'ajustar la col·locació de les lletres
-d'assaig, consulteu @rusernamed{Formatting text,Donar format al
-text}.  Per a un control més precís, consulteu
+d'assaig, consulteu @ref{Donar format al text}.
+Per a un control més precís, consulteu
 @code{break-alignable-interface} a la secció
-@rusernamed{Aligning objects,Alineació d'objectes}.
+@ref{Alineació d'objectes}.
 
 El fitxer @file{scm/translation-functions.scm} conté les
 definicions de @code{format-mark-numbers} i de
@@ -3476,9 +3474,9 @@ per escriure altres funcions per donar format.
 
 @seealso
 Referència de la notació:
-@rusernamed{The Emmentaler font,El tipus de lletra Emmentaler},
-@rusernamed{Formatting text,Donar format al text},
-@rusernamed{Aligning objects,Alineació d'objectes}.
+@ref{El tipus de lletra Emmentaler},
+@ref{Donar format al text},
+@ref{Alineació d'objectes}.
 
 Fitxers d'inici:
 @file{scm/translation-functions.scm}.

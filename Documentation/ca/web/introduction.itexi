@@ -546,8 +546,7 @@ forma legal per a la seva còpia, modificacions i distribució.
 @c @divClass{column-right-top}
 @divClass{color3}
 @divClass{keep-bullets}
-@subheading Perquè @@{regalen} els desenvolupadors del LilyPond la
-seva feina sense demanar res a canvi?
+@subheading Perquè @qq{regalen} els desenvolupadors del LilyPond la seva feina sense demanar res a canvi?
 
 Gairebé tots nosaltres veiem el desenvolupament del LilyPond com un
 hobby o un treball voluntari. Això doncs, la pregunta és realment
@@ -1351,8 +1350,8 @@ del programa.
 @subsubheading LilyBin
 @uref{http://lilybin.com}
 
-Un editor de LilyPond basado en web, donde uno puede crear sus
-partituras directamente online sin necesidad de instalar LilyPond.
+Un editor del LilyPond basat en web, on podeu crear les vostres partitures directament
+online sense necessitat d'instal·lar el Lilypond.
 
 @subsubheading Tunefl
 @uref{http://www.tunefl.com}

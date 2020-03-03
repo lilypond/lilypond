@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 3ff93fbd01133506d14c929740bd26b34f59c5b4
+   Translation of GIT committish: a0f1e4d8aa9632b4324f140a56354597edd7ad87
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -11,6 +11,7 @@
 @c \version "2.19.21"
 
 @c Translators: Jean-Charles Malahieude
+
 
 @node Programmes externes
 @chapter Programmes externes
@@ -40,7 +41,6 @@ directement dans le fichier source, à la note que l'on pointe dans le
 visionneur de PDF.  Ceci facilite grandement le repérage des erreurs à
 partir du fichier imprimable.
 
-
 @menu
 * Configuration du système pour le pointer-cliquer::
 * Activation du pointer-cliquer::
@@ -65,41 +65,45 @@ LilyPond.
 @file{lilypond-invoke-editor} est un petit programme assistant.  Il
 se charge d'appeler un éditeur pour les identifiants de ressource
 (@emph{URI}) de type @code{textedit}, et un navigateur pour les autres.
-Il teste en outre la variable d'environnement @code{EDITOR} pour les cas
-suivant :
+Il teste en outre les variables d'environnement @code{EDITOR} et
+@code{LYEDITOR} pour trouver et lancer l'éditeur favori. Dans la mesure
+où @code{LYEDITOR} aura préséance sur @code{EDITOR}, nous vous
+conseillons de l'utiliser si vous désirez utiliser un éditeur pour le
+terminal et un autre pour la fonctionnalité pointer-cliquer de LilyPond.
 
-@table @code
-@item emacs
-  sera alors lancée la commande
-@example
-emacsclient --no-wait +@var{line}:@var{column} @var{file}
-@end example
-
-@item gvim
-  sera alors lancée la commande
-@example
-gvim --remote +:@var{line}:norm@var{column} @var{file}
-@end example
-
-@item nedit
-  sera alors lancée la commande
-@example
-  nc -noask +@var{line} @var{file}'
-@end example
-@end table
-
-La variable d'environnement @code{LYEDITOR} permet d'anticiper cette
-affectation, puisqu'elle contient la commande qui permet de lancer
-l'éditeur en tenant compte des valeurs respectives de @code{%(file)s},
-@code{%(column)s} et@code{%(line)s}.  Par exemple,
+Les éditeurs peuvent recourir à des syntaxes différentes pour ouvrir un
+fichier à une ligne et une colonne spécifiques. LilyPond dispose déjà
+d'un certain nombre de commandes selon les éditeurs, définies dans le
+fichier @file{scm/editor.scm}. Il suffit donc de libeller, par exemple :
 
 @example
-emacsclient --no-wait +%(line)s:%(column)s %(file)s
+export LYEDITOR=atom
 @end example
 
 @noindent
-en variable d'environnement @code{LYEDITOR} revient au lancement d'un
-client emacs standard.
+  pour lancer la commande
+@example
+atom %(file)s:%(line)s:%(column)s
+@end example
+
+@noindent
+où @code{%(file)s}, @code{%(line)s} et @code{%(column)s} seront
+respectivement remplacés par le fichier, la ligne et la colonne
+considérés.
+
+L'utilisation d'un éditeur non répertorié dans le fichier
+@file{scm/editor.scm} recquiert d'en connaître la syntaxe spécifique et
+d'assigner la commande complète à la variable @code{LYEDITOR}. Voici par
+exemple ce qui convient à l'éditeur Visual Studio Code :
+
+@example
+export LYEDITOR="code --goto %(file)s:%(line)s:%(column)s"
+@end example
+
+@warning{L'utilisation d'Emacs recquiert une configuration
+supplémentaire. Il faudra ajouter la ligne @code{(server-start)} à votre
+fichier @file{~/.emacs} afin d'éviter qu'une instance supplémentaire
+d'Emacs ne s'ouvre à chaque clic sur un objet du PDF.}
 
 @menu
 * Utilisation du pointer-cliquer avec Xpdf::
@@ -210,7 +214,7 @@ devrait appeler @file{lilypond-invoke-editor} pour ouvrir les fichiers.
 
 Il se peut que, bien que @code{gnome-open} soit fonctionnel, Evince
 refuse d'ouvir les liens pointer-cliquer pour des raisons
-d'autorisation.  S'impose alors une modification du profil
+d'autorisation. S'impose alors une modification du profil
 @code{Apparmor} d'Evince ; c'est lui qui contrôle le type d'action
 qu'Evince est autorisé à réaliser.
 
@@ -291,7 +295,7 @@ Les événements générateurs de lien peuvent se gérer :
 
 @itemize
 @item
-En dur dans votre fichier @file{.ly} :
+En dur dans votre fichier @file{.ly} :
 
 @example
 \pointAndClickTypes #'note-event
@@ -300,6 +304,7 @@ En dur dans votre fichier @file{.ly} :
 @}
 @end example
 
+@noindent
 ou
 
 @example
@@ -310,7 +315,7 @@ ou
 @end example
 
 @item
-En ligne de commande :
+En ligne de commande :
 
 @example
 lilypond -dpoint-and-click=note-event exemple.ly
@@ -322,7 +327,7 @@ Plusieurs types d'événement peuvent être mentionnés :
 
 @itemize
 @item
-En dur dans votre fichier @file{.ly} :
+En dur dans votre fichier @file{.ly} :
 
 @example
 \pointAndClickTypes #'(note-event dynamic-event)
@@ -331,6 +336,7 @@ En dur dans votre fichier @file{.ly} :
 @}
 @end example
 
+@noindent
 ou
 
 @example
@@ -341,7 +347,7 @@ ou
 @end example
 
 @item
-En ligne de commande :
+En ligne de commande :
 
 @smallexample
 lilypond \
@@ -565,8 +571,8 @@ ajoutez une indication de phrasé ou de pédale.
 
 @cindex MusicXML
 
-@uref{http://@/www.@/musicxml@/.org/,MusicXML} est un
-dialecte XML pour représenter la notation musicale.
+@uref{http://@/www.@/musicxml@/.org/,MusicXML} est un dialecte XML pour
+représenter la notation musicale.
 
 @command{musicxml2ly} extrait, à partir d'un fichier MusicXML, les
 notes, articulations, structure de la partition, paroles, etc. et les
@@ -581,8 +587,8 @@ Notez bien que, par « ligne de commande », nous parlons de la ligne de
 commande du système.  Pour plus de précisions, reportez-vous à
 @ref{Conversion à partir d'autres formats}.
 
-Si le nom du fichier est @file{-}, @command{musicxml2ly} lira
-directement à partir de la ligne de commande.
+Si @var{fichier.xml} est remlacé par @file{-}, @command{musicxml2ly}
+lira directement à partir de la ligne de commande.
 
 @command{musicxml2ly} accepte les options suivantes :
 
@@ -590,15 +596,19 @@ directement à partir de la ligne de commande.
 @item -a, --absolute
 Rendu en hauteurs absolues.
 
+@item --fb --fretboards
+Convertir les événements @code{<frame>} dans une voix séparée FretBoard
+pluto qu'en @emph{markups}.
+
 @item -h, --help
-Afficher un résumé des utilisations.
+Afficher un résumé de toutes les options utilisables.
 
 @item -l, --language=LANG
-Utiliser une autre définition linguistique (LANG), comme par exemple
+Utiliser une autre définition linguistique (@var{LANG}), comme par exemple
 @var{deutsch} pour des noms de notes en allemand.
 
-@item --loglevel=@var{loglevel}
-Détermine le degré de verbosité à @var{loglevel}.  Les valeurs
+@item --loglevel=@var{LOGLEVEL}
+Détermine le degré de verbosité à @var{LOGLEVEL}.  Les valeurs
 autorisées sont @code{NONE}, @code{ERROR}, @code{WARNING},
 @code{PROGRESS} (par défaut) et @code{DEBUG}.
 
@@ -607,29 +617,65 @@ Utiliser le paquetage Python @code{lxml.etree}, moins gourmand en
 mémoire et temps de calcul, pour effectuer l'analyse XML.
 
 @item -m, --midi
-Ajouter un bloc @code{\midi}.
+Ajouter un bloc @code{\midi} au fichier @var{.ly}.
+
+@item nb, --no-beaming
+Ne pas convertir les informations de ligature ; laisser LilyPond
+gérer les ligatures automatiquement.
 
 @item --nd, --no-articulation-directions
 Ne pas convertir la direction (@code{^}, @code{_} ou @code{-}) des
 articulations, nuances, etc.
 
-@item --no-beaming
-Ne pas convertir les informations de ligature ; laisser LilyPond
-gérer les ligatures automatiquement.
+@item --nrp, --no-rest-positions
+Ne pas convertir les silences à position forcée.
 
-@item -o, --output=@var{file}
+@item --nsb, --no-system-breaks
+Ignorer les sauts de ligne.
+
+@item --npl, --no-page-layout
+Ne pas convertir l'exacte mise en page et les sauts (raccourci des
+options @code{--nsb} @code{--npb} @code{--npm}).
+
+@item --npb, --no-page-breaks
+Ignorer les sauts de page.
+
+@item --npm, --no-page-margins
+Ignorer les marges de la page.
+
+@item --nsd, --no-stem-directions
+Ignorer l'orientation des hampes de directions from MusicXML, et laisser
+LilyPond s'en occuper.
+
+@item -o, --output=@var{fichier}
 Générer le résultat dans le fichier @var{fichier}.  S'il n'est pas
-déterminé, ce sera @var{fichier-xml}@file{.ly} ; @file{-}
+déterminé, ce sera @var{fichierxml}@file{.ly} ; @file{-}
 produira le résultat sur la sortie standard (@var{stdout}).
 
 @item -r, --relative
 Rendu en hauteurs relatives (mode par défaut).
 
+@item --transpose=TOPITCH
+L'intervale entre le @code{do} et @var{TOPITCH} pour transposer.
+
+@item --sm, --shift-meter=BEATS/BEATTYPE
+Modifier la longueur|durée des notes en fonction d'une métrique donnée
+pour rendre la partition plus rapide ou plus lente (par ex. @code{4/4}
+ou @code{2/2}).
+
+@item --tc, --tab-clef=TABCLEFNAME
+Basculer entre deux types de clef de tablature (@code{tab} et
+@code{moderntab}).
+
+@item --sn --string-numbers=t[rue]/f[alse]
+Désactiver les stancil de numéro de corde avec @code{--string-numbers}
+@code{false} ;  @code{true} par défaut.
+
 @item -v, --verbose
 Mode verbeux.
 
 @item --version
-Afficher le numéro de version.
+Afficher le numéro de version et quitter.
 
 @item -z, --compressed
 Le fichier d'entrée est un fichier MusicXML zippé.
@@ -683,6 +729,7 @@ source ABC.  Ainsi, l'assertion
 %%LY voices \set autoBeaming = ##f
 @end example
 
+@noindent
 aura pour conséquence d'insérer le texte qui suit le mot-clé « voices »
 dans la voix correspondante du fichier LilyPond.
 
@@ -692,6 +739,7 @@ De la même manière,
 %%LY slyrics more words
 @end example
 
+@noindent
 placera le texte suivant le mot-clé « slyrics » dans une ligne de
 paroles.
 

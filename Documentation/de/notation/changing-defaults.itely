@@ -2083,7 +2083,7 @@ Referenz der Interna:
 
 
 @node Der tweak-Befehl
-@subsection Der @code{\\tweak}-Befehl
+@subsection Der @code{\tweak}-Befehl
 @translationof The tweak command
 
 @funindex \tweak

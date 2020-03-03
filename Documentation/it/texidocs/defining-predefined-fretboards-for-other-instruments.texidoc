@@ -1,0 +1,15 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocit = "
+Si possono aggiungere diagrammi dei tasti predefiniti per nuovi strumenti
+oltre a quelli standard per chitarra.  Questo frammento mostra come farlo
+definendo una nuova accordatura e alcuni diagrammi predefiniti per il
+quatro venezuelano.
+
+Mostra anche come includere le diteggiature negli accordi usati come punti
+di riferimento per la consultazione degli accordi e come mostrarle nel
+diagramma dei tasti e in @code{TabStaff}, ma non nella musica.
+
+Questi diagrammi non sono trasponibili perché contengono informazioni
+sulle corde.  È prevista una correzione in futuro.
+"
+  doctitleit = "Definire diagrammi dei tasti predefiniti per altri strumenti"

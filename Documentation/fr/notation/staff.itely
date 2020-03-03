@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 64c8064154e24ff2a07e553ecdbda409f1726487
+   Translation of GIT committish: 032de07c17caacd038f113ebcb54e9c473d64e0f
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -12,6 +12,7 @@
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: John Mandereau
+
 
 @node Notation sur la portée
 @section Notation sur la portée
@@ -63,7 +64,6 @@ Nous allons voir ici comment créer des portées et comment les regrouper.
 @cindex percussion, portée
 @cindex portée, transcription de grégorien
 @cindex portée rythmique
-@cindex portée de tablature
 @cindex tablature
 
 @funindex \drummode
@@ -136,7 +136,7 @@ Glossaire musicologique :
 @rglos{staff},
 @rglosnamed{staves,portées}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Contextes de musique mensurale},
 @ref{Contextes du chant grégorien},
 @ref{Contextes prédéfinis},
@@ -150,7 +150,7 @@ Manuel de notation :
 Morceaux choisis :
 @rlsrnamed{Staff notation, Notation sur la portée}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{Staff},
 @rinternals{DrumStaff},
 @rinternals{GregorianTranscriptionStaff},
@@ -249,9 +249,15 @@ Vous pouvez aussi créer vos propres contextes de regroupement, comme
 l'explique @ref{Définition de nouveaux contextes}.
 
 @snippets
+
+@cindex rectangle en front de regroupement
+@cindex système, rectangle en front
+@cindex regroupement, rectangle en front
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {use-square-bracket-at-the-start-of-a-staff-group.ly}
 
+@cindex crochet de regroupement, portée unique
+@cindex portée unique avec crochet de regroupement
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {display-bracket-with-only-one-staff-in-a-system.ly}
 
@@ -259,7 +265,7 @@ l'explique @ref{Définition de nouveaux contextes}.
 @cindex renaissance, musique
 @cindex transcription de musique ancienne
 @cindex musique ancienne, transcription
-
+@cindex barre de mesure, entre portées
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {mensurstriche-layout-bar-lines-between-the-staves.ly}
 
@@ -269,14 +275,14 @@ Glossaire musicologique :
 @rglosnamed{bracket,crochet},
 @rglosnamed{grand staff,système}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Définition de nouveaux contextes},
 @ref{Noms d'instrument}.
 
 Morceaux choisis :
 @rlsrnamed{Staff notation, Notation sur la portée}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{Staff},
 @rinternals{StaffGroup},
 @rinternals{ChoirStaff},
@@ -296,6 +302,7 @@ Référence des propriétés internes :
 @cindex systèmes imbriqués
 @cindex imbrication de systèmes
 @cindex délimitation, systèmes imbriqués
+@cindex crochet de regroupement, imbrication
 
 Les accolades et crochets qui délimitent les systèmes peuvent être
 imbriqués en profondeur.  Chaque niveau inférieur aura son propre
@@ -325,7 +332,7 @@ l'explique @ref{Définition de nouveaux contextes}.
 {nesting-staves.ly}
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Définition de nouveaux contextes},
 @ref{Noms d'instrument},
 @ref{Regroupement de portées}.
@@ -333,7 +340,7 @@ Manuel de notation :
 Morceaux choisis :
 @rlsrnamed{Staff notation,Notation sur la portée}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{StaffGroup},
 @rinternals{ChoirStaff},
 @rinternals{SystemStartBar},
@@ -416,7 +423,7 @@ d'@emph{ossia}.
 
 @cindex symbole de portée
 @cindex portée, lignes de
-@cindex lignes de portée, nombre de
+@cindex lignes de portée, nombre
 @cindex suspension de portée
 @cindex portée, suspension
 @cindex reprise de portée
@@ -718,6 +725,13 @@ chapitre @ref{Masquage de portées}.
 @end lilypond
 
 @snippets
+
+@cindex ossia, positionnement
+@cindex positionnement, ossia
+@cindex paroles, positionnement
+@cindex positionnement, paroles
+@funindex alignBelowContext
+@funindex alignAboveContext
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {vertically-aligning-ossias-and-lyrics.ly}
 
@@ -727,7 +741,7 @@ Glossaire musicologique :
 @rglosnamed{staff,portée},
 @rglos{Frenched staff}.
 
-Manuel d'initiation :
+Manuel d'initiation :
 @rlearning{Expressions musicales imbriquées},
 @rlearning{Longueur et épaisseur des objets},
 @rlearning{Taille des objets}.
@@ -749,7 +763,7 @@ Référence des propriétés internes :
 @cindex Frenched scores
 @cindex masquage de portée
 @cindex musique ancienne, masquage de portée
-@cindex portées rythmiques, masquage
+@cindex portéesrythmique, masquage
 @cindex portée vide
 
 @funindex \RemoveEmptyStaves
@@ -826,7 +840,7 @@ Glossaire musicologique :
 Manuel d'initiation:
 @rlearning{Visibilité et couleur des objets}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Dictée à trous},
 @ref{Modification des réglages par défaut d'un contexte},
 @ref{Portées d'ossia},
@@ -837,7 +851,7 @@ Manuel de notation :
 Morceaux choisis :
 @rlsrnamed{Staff notation,Notation sur la portée}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{ChordNames},
 @rinternals{FiguredBass},
 @rinternals{Lyrics},
@@ -881,9 +895,9 @@ forme.
 @unnumberedsubsubsec Noms d'instrument
 @translationof Instrument names
 
-@cindex instrument, noms
+@cindex instrument, nom
 @cindex nom d'instrument
-@cindex instrument, noms abrégés
+@cindex instrument, nom abrégé
 
 Dans un conducteur, les noms d'instrument sont portés en regard de
 chacune des portées, qu'il s'agisse d'un contexte @code{Staff},
@@ -901,6 +915,8 @@ chacune des portées, qu'il s'agisse d'un contexte @code{Staff},
 }
 @end lilypond
 
+@cindex instrument, nom complexe
+@cindex nom d'instrument, complexe
 Le recours à la commande @code{\markup} permet de construire des noms
 d'instrument particuliers, tels que
 
@@ -918,6 +934,8 @@ d'instrument particuliers, tels que
 
 @cindex noms d'instrument, centrés
 
+@cindex instrument, centrage du nom
+@cindex nom d'instrument, centrage
 Lorsque plusieurs contextes de portée sont regroupés, les noms
 d'instrument, que ce soit sous leur forme développée ou abrégée, sont
 par défaut centrés.  Si l'un d'entre eux est libellé sur plusieurs
@@ -973,8 +991,8 @@ reportez-vous au chapitre @ref{Variables d'indentation et de décalage}.
 }
 @end lilypond
 
-@cindex noms d'instrument, autres contextes
-
+@cindex nom d'instrument, autres contextes
+@cindex instrument, nom, autres contextes
 Des noms d'instrument peuvent s'utiliser dans d'autres contextes, tels
 que @code{ChordNames} ou @code{FiguredBass}, dès lors qu'on leur adjoint
 le graveur @code{Instrument_name_engraver}.  Pour de plus amples
@@ -1024,7 +1042,7 @@ setFlute = {
 @end lilypond
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Modification des greffons de contexte},
 @ref{Variables d'indentation et de décalage}.
 
@@ -1041,7 +1059,7 @@ Référence des propriétés internes :
 @unnumberedsubsubsec Citation d'autres voix
 @translationof Quoting other voices
 
-@cindex répliques
+@cindex réplique
 @cindex citation
 @cindex petites notes
 
@@ -1166,13 +1184,12 @@ oboeNotes = \relative {
 }
 @end lilypond
 
-@cindex note-event
-@cindex articulation-event
-@cindex dynamic-event
-@cindex rest-event
-@cindex slur-event
-@cindex crescendo-event
-
+@funindex note-event
+@funindex articulation-event
+@funindex dynamic-event
+@funindex rest-event
+@funindex slur-event
+@funindex crescendo-event
 @funindex quotedEventTypes
 @funindex quotedCueEventTypes
 
@@ -1244,13 +1261,13 @@ qualité.
 @translationof Formatting cue notes
 
 @cindex petites notes, formater des
-@cindex répliques, formatage
+@cindex réplique, formatage
 @cindex voix, citation
 @cindex voix, réplication
-@cindex CueVoice
-
+@funindex CueVoice
 @funindex \cueDuring
 @funindex \cueClef
+@funindex \cueClefUnset
 @funindex \cueDuringWithClef
 @funindex \quoteDuring
 
@@ -1313,13 +1330,13 @@ la commande @code{\quoteDuring} -- voir la rubrique précédente
 Leur syntaxe est :
 
 @example
-\cueDuring #@var{origine} #@var{position} #@var{musique}
+\cueDuring @var{origine} #@var{position} @var{musique}
 @end example
 
 et
 
 @example
-\cueDuringWithClef #@var{origine} #@var{position} #@var{clef} #@var{musique}
+\cueDuringWithClef @var{origine} #@var{position} #@var{clef} @var{musique}
 @end example
 
 Des mesures issues de la partie d'@code{@var{origine}} seront recopiées
@@ -1471,7 +1488,6 @@ bassClarinetNotes = \relative c' {
 @cindex fin de citation
 @cindex réplique, fin
 @cindex fin de réplique
-
 @funindex \killCues
 
 La commande @code{killCues} permet de supprimer les notes d'une
@@ -1515,13 +1531,8 @@ bassoonNotes = \relative c {
 >>
 @end lilypond
 
-Lorsque la citation comporte une étiquette indiquant l'instrument qui
-joue et un changement de clef, ces éléments peuvent se regrouper à
-l'aide de la commande @code{\addInstrumentDefinition}.  Pour plus
-d'information, reportez-vous au chapitre @ref{Noms d'instrument}.
-
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Citation d'autres voix},
 @ref{Citation-repère},
 @ref{Clefs},

@@ -1,0 +1,733 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+
+@ignore
+    Translation of GIT committish: 09ef86c87175cc6c1071eedb022ed1d01a93bcaf
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.21.0"
+
+@c Translators: Walter Garcia-Fontes
+@c Translation checkers:
+
+@node Teclats i altres instruments de pentagrames múltiples
+@section Teclats i altres instruments de pentagrames múltiples
+@translationof Keyboard and other multi-staff instruments
+
+@lilypondfile[quote]{keyboard-headword.ly}
+
+Aquesta secció s'ocupa de diversos aspectes de la notació musical
+que són exclusius dels instruments de teclat i d'altres
+instruments la notació dels quals es realitza sobre diversos
+pentagrames, como l'arpa o el vibràfon.  A efectes de
+nomenclatura, en aquesta secció s'anomenen abreujadament
+@qq{teclats} a tot aquest grup d'instruments de diversos
+pentagrames, tot i que alguns no tenen teclat.
+
+@menu
+* Notació comuna per a instruments de teclat::
+* Piano::
+* Acordió::
+* Arpa::
+@end menu
+
+
+@node Notació comuna per a instruments de teclat
+@subsection Notació comuna per a instruments de teclat
+@translationof Common notation for keyboards
+
+Aquesta secció tracta aspectes de notació que poden aparèixer a
+gairebé tots els instruments de teclat.
+
+@menu
+* Referències per a teclats::
+* Canvi manual de pentagrama::
+* Canvi automàtic de pentagrama::
+* Línies de canvi de pentagrama::
+* Pliques de pentagrama creuat::
+@end menu
+
+
+@node Referències per a teclats
+@unnumberedsubsubsec Referències per a teclats
+@translationof References for keyboards
+
+@cindex piano, pentagrames de
+@cindex pentagrames de piano
+@cindex pentagrames d'instruments de teclat
+@cindex teclat, pentagrames per a instruments de
+@cindex tecla, pentagrames per a instruments de
+@cindex teclats, matisos centrats
+@cindex dinàmiques, indicacions centrades en música de tecla
+@cindex piano, música de, matisos centrats
+@cindex centrats, matisos, a la música de piano
+
+@funindex PianoStaff
+
+La notació dels instruments de teclat se sol realitzar amb
+sistemes de piano.  Aquesta notació consisteix de dos pentagrames
+normals agrupats mitjançant una clau.  També s'utilitza aquesta
+notació per a d'altres instruments de teclat.  La música d'orgue
+s'escriu normalment amb dos pentagrames dins d'un grup
+@code{PianoStaff} i un tercer pentagrama normal per als pedals.
+
+Els pentagrames són fins a un cert punt independents, però a
+vegades les veus poden creuar-se entres els dos pentagrames.
+Aquesta secció tracta sobre tècniques de notació que són
+particulars de la música de teclat.
+
+A d'altres llocs es tracten diversos problemes comuns de la música
+de teclat:
+
+@itemize
+
+@item La música per a teclat sol contenir diverses veus i el
+nombre d'aquestes veus pot variar àmpliament; això es descriu a
+@ref{Resolució de les col·lisions}.
+
+@item La música per a teclat es pot escriure en paral·lel, com es
+descriu a @ref{Escriptura de música en paral·lel}.
+
+@item Els matisos dinàmics es poden col·locar en un context
+@code{Dynamics}, entre els dos contextos @code{Staff} per alinear
+les indicacions de matís sobre una línia horitzontal equidistant
+dels dos pentagrames; vegeu @ref{Matisos dinàmics}.
+
+@item Les digitacions s'indiquen com pot veure's a
+@ref{Indicacions de digitació}.
+
+@item Les indicacions de pedal d'orgue s'insereixen com
+articulacions, vegeu
+@ref{Llista d'articulacions}.
+
+@item Les línies verticals de reixeta es poden mostrar com es
+descriu a @ref{Línies de reixeta}.
+
+@item La música per a teclat inclou sovint lligadures
+@notation{Laissez vibrer}, aixi com lligadures sobre arpegis i
+trèmols, descrits a @ref{Lligadures d'unió}.
+
+@item La col·locació d'arpegis a través de diverses veus i
+pentagrames es presenta a @ref{Arpegi}.
+
+@item Les indicacions de trèmol es descriuen a
+@ref{Repeticions de trèmol}.
+
+@item Es mostren diversos ajustament que poden caldre a la música
+per a teclat a @rlearning{Exemple real de música}.
+
+@item Es poden usar les notes ocultes per produir lligadures
+d'unió que es creuen entre veus, com s'explica a
+@rlearning{Altres aplicacions dels ajustaments}.
+
+@end itemize
+
+@c @snippets
+@c @lilypondfile[verbatim,quote,texidoc,doctitle]
+@c {forcing-visibility-of-systems-with-multi-bar-rests-when-using-\RemoveEmptyStaffContext.ly}
+@c http://lsr.di.unimi.it/LSR/Item?u=1&id=312
+
+@seealso
+Manual d'aprenentatge:
+@rlearning{Exemple real de música},
+@rlearning{Altres aplicacions dels ajustaments}.
+
+Referència de la notació:
+@c @ref{Agrupar pentagramas},
+@ref{Noms d'instruments},
+@ref{Resolució de les col·lisions},
+@ref{Escriptura de música en paral·lel},
+@ref{Indicacions de digitació},
+@ref{Llista d'articulacions},
+@ref{Línies de reixeta},
+@ref{Lligadures d'unió},
+@ref{Arpegi},
+@ref{Repeticions de trèmol}.
+
+Referència de funcionament intern:
+@rinternals{PianoStaff}.
+
+Fragments de codi:
+@rlsr{Keyboards}.
+
+
+@node Canvi manual de pentagrama
+@unnumberedsubsubsec Canvi manual de pentagrama
+@translationof Changing staff manually
+
+@cindex manual, canvi de pentagrama
+@cindex pentagrama, canvis manuals de
+@cindex canvi manual de pentagrama
+@cindex creuat, pentagrama, notes de
+@cindex notes de pentagrama creuat
+@cindex barres de pentagrama creuat
+@cindex creuat, pentagrama, barres de
+
+@funindex \change
+
+Les veus es poden canviar de pentagrama manualment usant l'ordre
+
+@example
+\change Staff = @var{nom_del_pentagrama}
+@end example
+
+@noindent
+La cadena @var{nom_del_pentagrama} és el nom del pentagrama.
+Canvia la veu actual del seu pentagrama en curs al pentagrama de
+nom @var{nom_del_pentagrama}.  Els valors més corrents per a
+@var{nom_del_pentagrama} són @code{"dalt"} i
+@code{"sota"}, o bé @code{"MD"} i @code{"MI"}.
+
+El pentagrama al qual salta la veu ha d'existir en el moment del
+salt.  Si cal, els pentagrames s'han de
+@qq{mantenir amb vida}, vegeu
+@ref{Manteniment amb vida dels contextos}.
+
+Les notes de pentagrama creuat reben la barra automàticament:
+
+@lilypond[verbatim,quote]
+\new PianoStaff <<
+  \new Staff = "dalt" {
+    <e' c'>8
+    \change Staff = "down"
+    g8 fis g
+    \change Staff = "dalt"
+    <g'' c''>8
+    \change Staff = "sota"
+    e8 dis e
+    \change Staff = "dalt"
+  }
+  \new Staff = "sota" {
+    \clef bass
+    % manté viu el pentagrama
+    s1
+  }
+>>
+@end lilypond
+
+Si li cal algun ajustament al barrat, feu en primer lloc els
+canvis en les adreces de les pliques.  Les posicions de les barres
+es mesuren posteriorment a partir del centre del pentagrama que
+està més a prop de la barra.  Per veure un exemple senzill
+d'ajustament de les barres, consulteu
+@rlearning{Ajustament de la notació amb superposicions}.
+
+@cindex col·lisions de pentagrama creuat
+@cindex col·lisions, veus de pentagrama creuat
+
+Es pot produir una superposició de la notació quan les veus es
+creuen d'un pentagrama a un altre:
+
+@lilypond[verbatim,quote]
+\new PianoStaff <<
+  \new Staff = "up" {
+    \voiceOne
+    % Fes espai per a la digitació a la veu de pentagrama creuat
+    \once\override DynamicLineSpanner.staff-padding = #4
+    e''2\p\< d''\>
+    c''1\!
+  }
+  \new Staff = "down" <<
+    {
+      \clef bass
+      s4. e,8\rest g,2\rest
+      c1
+    } \\ {
+      c8\( g c'
+      \change Staff = "up"
+      e' g' b'-3 a' g'\)
+      f'1
+    }
+  >>
+>>
+@end lilypond
+
+La plica i la lligadura se superposen a la línia del símbol de
+dinàmica perquè la resolució automàtica de col·lisions se suspèn
+per a les barres, lligadures i altres objectes d'extensió que
+connecten notes ubicades en diferents pentagrames, així com per a
+les pliques i articulacions si la seva col·locació està afectada
+per un objecte d'extensió de pentagrama creuat.  Les col·lisions
+resultants es poden resoldre manualment on calgui, utilitzant els
+mètodes descrits a la secció
+@rlearning{Ajustament de la notació amb superposicions}.
+
+@seealso
+Manual de aprenentatge:
+@rlearning{Ajustament de la notació amb superposicions}.
+
+Referència de la notació:
+@ref{Pliques},
+@ref{Barres automàtiques},
+@ref{Manteniment amb vida dels contextos}.
+
+Fragments de codi:
+@rlsr{Keyboards}.
+
+Referència de funcionament intern:
+@rinternals{Beam},
+@rinternals{ContextChange}.
+
+@knownissues
+El mecanismes per evitar les col·lisions de barres de corxera no
+funciona per a les barres automàtiques que finalitzen just abans
+d'un canvi de pauta.  En aquest cas, feu servir barres manuals.
+
+
+@node Canvi automàtic de pentagrama
+@unnumberedsubsubsec Canvi automàtic de pentagrama
+@translationof Changing staff automatically
+
+@cindex canvi automàtic de pentagrama
+@cindex automàtic, canvi de pentagrama
+@cindex pentagrama, canvi automàtic de
+
+@funindex \autoChange
+@funindex PianoStaff
+
+Es pot fer que les veus canviïn automàticament entre els
+pentagrames inferior i superior.  La sintaxi per aconseguir això és
+
+@example
+\autoChange @dots{}@var{música}@dots{}
+@end example
+
+@noindent
+Això crearà dos pentagrames del grup actual de pentagrames
+(normalment un @code{PianoStaff}), anomenats @code{"up"} (a dalt)
+i @code{"down"} (a sota).  El pentagrama inferior estarà en clau
+de Fa de forma predeterminada.  El canviador automàtic fa el canvi
+basant-se en l'alçada (el Do@tie{}central és el punt d'inflexió),
+i s'avança saltant sobre els silencis per fer canvis per avançat.
+
+@lilypond[quote,verbatim]
+\new PianoStaff {
+  \autoChange {
+    g4 a b c'
+    d'4 r a g
+  }
+}
+@end lilypond
+
+@noindent
+Es pot especificar altres notes per al punt de tall.  Si els
+pentagrames no han estat instanciats de forma explícita, es poden
+usar altre claus.
+
+@lilypond[quote,verbatim]
+music = {
+  g8 b a c' b8 d' c'8 e'
+  d'8 r f' g' a'2
+}
+
+\autoChange d' \music
+\autoChange b \with { \clef soprano } \music
+\autoChange d' \with { \clef alto } \with { \clef tenor } \music
+@end lilypond
+
+@cindex relatiu, mode, autocanviador i
+@cindex autocanviador i el mode relatiu
+
+@funindex \relative
+
+Una secció marcada @code{\relative} que es troba fora de
+@code{\autoChange} no té efecte sobre les notes de la música:
+per tant, en cas necessari escriviu @code{\relative} dins de
+@code{\autoChange}.
+
+Si cal més control sobre els pentagrames individuals, es poden
+crear manualment amb els noms @code{"up"} i @code{"down"}.
+Aleshores, l'ordre @code{\autoChange} alternarà la veu entre els
+pentagrames existents.
+
+@warning{Si es creen els pentagrames manualment, @emph{s'han}
+d'anomenar @code{"up"} i @code{"down"} (en anglès).}
+
+Per exemple, el que segueix cal per col·locar una armadura de
+tonalitat al pentagrama inferior:
+
+@c Keep Ly needed, otherwise 'up' and 'down' get incorrectly translated in verbatim output
+@c KEEP LY
+@lilypond[quote,verbatim,nogettext]
+\new PianoStaff <<
+  \new Staff = "up" {
+    \new Voice = "melodiaU" {
+      \key g \major
+      \autoChange \relative {
+        g8 b a c b d c e
+        d8 r fis, g a2
+      }
+    }
+  }
+  \new Staff = "down" {
+    \key g \major
+    \clef bass
+  }
+>>
+@end lilypond
+
+@seealso
+Referència de la notació:
+@ref{Canvi manual de pentagrama}.
+
+Fragments de codi:
+@rlsr{Keyboards}.
+
+Referència de funcionament intern:
+@rinternals{AutoChangeMusic}.
+
+@knownissues
+@cindex acords, divisió entre pentagrames amb \autoChange
+
+Els canvis de pentagrama poden no acabar en llocs òptims. Per
+aconseguir una sortida d'alta qualitat és millor especificar
+manualment els canvis de pentagrama.
+
+Els acords no es divideixen entre els pentagrames; s'assignen a un
+pentagrama en funció de la primera nota anomenada dins de la
+construcció de l'acord.
+
+@node Línies de canvi de pentagrama
+@unnumberedsubsubsec Línies de canvi de pentagrama
+@translationof Staff-change lines
+
+@cindex seguiment de veu
+@cindex pentagrama, canvi
+@cindex creuament de pentagrames
+@cindex pentagrama, línia de canvi de
+@cindex creuat, línia de pentagrama
+@cindex línia de seguiment de pentagrama
+@cindex línia de canvi de pentagrama
+@cindex seguiment de veu
+@cindex veu, seguiment de
+@cindex pentagrama, canvi de
+@cindex creuat, pentagrama
+
+@funindex followVoice
+@funindex \showStaffSwitch
+@funindex \hideStaffSwitch
+
+Quan una veu canvia a un altre pentagrama, es pot imprimir
+automàticament una línia que connecti les notes:
+
+@lilypond[quote,verbatim]
+\new PianoStaff <<
+  \new Staff = "one" {
+    \showStaffSwitch
+    c'1
+    \change Staff = "two"
+    b2 a
+  }
+  \new Staff = "two" {
+    \clef bass
+    s1*2
+  }
+>>
+@end lilypond
+
+
+@predefined
+@code{\showStaffSwitch},
+@code{\hideStaffSwitch}.
+@endpredefined
+
+@seealso
+Fragments de codi:
+@rlsr{Keyboards}.
+
+Referència de funcionament intern:
+@rinternals{Note_head_line_engraver},
+@rinternals{VoiceFollower}.
+
+
+@node Pliques de pentagrama creuat
+@unnumberedsubsubsec Pliques de pentagrama creuat
+@translationof Cross-staff stems
+
+@cindex plica de pentagrama creuat
+@cindex pentagrama creuat, plica de
+@cindex distància entre pentagrames a la  música de piano
+
+@cindex creuat, notes de pentagrama
+@cindex creuat, pliques de pentagrama
+@cindex creuat, acords de pentagrama
+@cindex notes de pentagrama creuat
+@cindex pliques de pentagrama creuat
+@cindex acords de pentagrama creuat
+
+@funindex Stem
+@funindex \crossStaff
+@funindex \autoBeamOff
+@funindex Span_stem_engraver
+
+Es poden fer acords que creuen els pentagrames usant el gravador
+@code{Span_stem_engraver}.  S'ha d'anar en compte de tenir
+seguretat que les barres automàtiques no uneixen les notes d'una
+pauta quan no cal que estiguin unides a l'altra pauta.
+
+@lilypondfile[verbatim,quote]
+{cross-staff-stems.ly}
+
+De moment no es pot especificar aquest gravador pel seu nom entre
+cometes, sinó prefixant el nom amb un símbol de coixinet @code{#},
+a causa de com està implementat.
+
+@snippets
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{indicating-cross-staff-chords-with-arpeggio-bracket.ly}
+
+@seealso
+Fragments de codi:
+@rlsr{Keyboards}.
+
+Referencia de funcionament intern:
+@rinternals{Stem}.
+
+
+@node Piano
+@subsection Piano
+@translationof Piano
+
+Aquesta secció tracta d'aspectes de la notació directament
+relacionats amb el piano.
+
+@menu
+* Pedals de piano::
+@end menu
+
+
+@node Pedals de piano
+@unnumberedsubsubsec Pedals de piano
+@translationof Piano pedals
+
+@cindex piano, pedals de
+@cindex pedals de piano
+@cindex pedal forte
+@cindex pedal dret
+@cindex pedal sostenuto
+@cindex dret, pedal
+@cindex forte, pedal
+@cindex sostenuto, pedal
+@cindex una corda
+@cindex tre corde
+@cindex sos.
+@cindex U.C.
+
+@funindex \sustainOn
+@funindex \sustainOff
+@funindex \sostenutoOn
+@funindex \sostenutoOff
+@funindex \unaCorda
+@funindex \treCorde
+
+En general, els pianos tenen tres pedals que alteren la forma de
+produir el so: el pedal de manteniment (pedal @notation{dret} o
+pedal @notation{forte}), el pedal @notation{sostenuto}
+(@notation{sos.}, pedal central) i el pedal @notation{una corda}
+(@notation{U.C.}, pedal esquerre).  Els pedals de manteniment com
+el pedal dret del piano es troben també al vibràfon i a la celesta.
+
+@lilypond[quote,verbatim]
+\relative {
+  c''4\sustainOn d e g
+  <c, f a>1\sustainOff
+  c4\sostenutoOn e g c,
+  <bes d f>1\sostenutoOff
+  c4\unaCorda d e g
+  <d fis a>1\treCorde
+}
+@end lilypond
+
+@cindex pedal, estils d'indicació
+@cindex pedal, indicació textual
+@cindex pedal, indicació por clau
+@cindex pedal, indicació mixta
+@cindex pedal de manteniment, estil de
+@cindex manteniment, pedal, estils de
+
+@funindex pedalSustainStyle
+@funindex mixed
+@funindex bracket
+@funindex text
+
+Hi ha tres estils d'indicacions de pedal: textual, clau i mixta.
+El pedal dret i el pedal d'una corda utilitzen l'estil textual de
+forma predeterminada, mentre que el pedal sostenuto utilitza el
+mètode mixt de forma predeterminada.
+
+@lilypond[quote,verbatim]
+\relative {
+  c''4\sustainOn g c2\sustainOff
+  \set Staff.pedalSustainStyle = #'mixed
+  c4\sustainOn g c d
+  d\sustainOff\sustainOn g, c2\sustainOff
+  \set Staff.pedalSustainStyle = #'bracket
+  c4\sustainOn g c d
+  d\sustainOff\sustainOn g, c2
+  \bar "|."
+}
+@end lilypond
+
+La col·locació de les ordres de pedal es corresponen amb el
+moviment físic del pedal dret al transcurs de l'execució.  L'ús
+del pedal fins la barra final de compàs s'indica mitjançant
+l'omissió de l'ordre final d'aixecar el pedal.
+
+Les indicacions de pedal es poden posar dins d'un context
+@code{Dynamics}, que els alinea sobr una línia horitzontal.
+
+@seealso
+Referència de la notació:
+@ref{Lligadures d'unió}.
+
+Fragments de codi:
+@rlsr{Keyboards}.
+
+Referència de funcionament intern:
+@rinternals{SustainPedal},
+@rinternals{SustainPedalLineSpanner},
+@rinternals{SustainEvent},
+@rinternals{SostenutoPedal},
+@rinternals{SostenutoPedalLineSpanner},
+@rinternals{SostenutoEvent},
+@rinternals{UnaCordaPedal},
+@rinternals{UnaCordaPedalLineSpanner},
+@rinternals{UnaCordaEvent},
+@rinternals{PianoPedalBracket},
+@rinternals{Piano_pedal_engraver}.
+
+
+@node Acordió
+@subsection Acordió
+@translationof Accordion
+
+@cindex acordió
+
+Aquesta secció s'ocupa de la notació que és exclusiva de l'acordió.
+
+@menu
+* Símbols de Discant::
+@end menu
+
+
+@node Símbols de Discant
+@unnumberedsubsubsec Símbols de Discant
+@translationof Discant symbols
+
+@cindex acordió, signes de discant
+@cindex discant, signes de, del acordió
+@cindex acordió, canvis al
+@cindex acordió, signes de canvi al
+
+Els acordions se solen construir amb  més d'un conjunt de
+llengüetes que poden estar a l'uníson, una octava per sobre o una
+octava per sota de l'alçada escrita.  Cada fabricant d'acordions
+utilitza diferents nom per als @notation{canvis} que seleccionen
+les diferents combinacions de llengüetes, com @notation{oboè},
+@notation{musette} o  @notation{bandoneó}, de manera que s'ha
+començat a usar un sistema de signes per simplificar les ordres
+d'execució.
+
+@snippets
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{accordion-register-symbols.ly}
+
+@seealso
+Fragments de codi:
+@rlsr{Keyboards}.
+
+
+@node Arpa
+@subsection Arpa
+@translationof Harp
+
+Aquesta secció tracta sobre temes de notació específics de l'arpa.
+
+@menu
+* Referències per a notació d'arpa::
+* Pedals d'arpa::
+@end menu
+
+
+@node Referències per a notació d'arpa
+@unnumberedsubsubsec Referències per a notació d'arpa
+@translationof References for harps
+@cindex harps
+@cindex bisbiglando
+
+Certes característiques comunes de la música d'arpa s'estudien a
+altres parts de la documentació:
+
+@itemize
+
+@item El glissando és la tècnica més característica de l'arpa.
+@ref{Glissando}.
+
+@item El @notation{bisbiglando} s'escriu com un trèmol,
+@ref{Repeticions de trèmol}.
+
+@item Els harmònics naturals s'estudien sota l'epígraf
+@ref{Harmònics}.
+
+@item Per als arpegis dirigits i els no arpegis, vegeu
+@ref{Arpegi}.
+
+@end itemize
+
+@seealso
+Referència de la notació:
+@ref{Repeticions de trèmol},
+@ref{Glissando},
+@ref{Arpegi},
+@ref{Harmònics}.
+
+
+@node Pedals d'arpa
+@unnumberedsubsubsec Pedals d'arpa
+@translationof Harp pedals
+
+@cindex arpa, pedals
+@cindex arpa, diagrames de pedal
+@cindex pedals de l'arpa
+@cindex pedals de l'arpa, diagrames
+
+Les arpes tenen set cordes per octava que poden sonar a l'alçada
+natural, bemoll o sostingut.  A l'arpa de palanques o arpa celta,
+cada corda s'ajusta individualment, però a les arpes de pedals
+totes les cordes amb igual nom de nota es controlen amb un únic
+pedal.  Vist d'esquerra a dreta des de la posició de l'executant,
+els pedals son Re, Do, Si a l'esquerra i Mi, Fa, Sol i La a la
+dreta.  La posició dels pedals es pot indicar amb indicacions
+textuals:
+
+@lilypond[quote,verbatim,fragment]
+\textLengthOn
+cis''1_\markup \concat \vcenter {
+  [D \flat C \sharp B|E \sharp F \sharp G A \flat] }
+c''!1_\markup \concat \vcenter {
+  [ C \natural ] }
+@end lilypond
+
+o mitjançant diagrames de pedal:
+
+@lilypond[quote,verbatim,fragment]
+\textLengthOn
+cis''1_\markup { \harp-pedal "^v-|vv-^" }
+c''!1_\markup { \harp-pedal "^o--|vv-^" }
+@end lilypond
+
+L'ordre @code{\harp-pedal} accepta una cadena de caràcters en la
+qual @code{^} és la posició alta del pedal (alçada bemoll),
+@code{-} és la posició intermèdia (alçada natural), @code{v} és la
+posició bixa (alçada sostingut), i @code{|} és la línia vertical
+separadora.  Si s'anteposa @code{o}, el següent símbol de pedal es
+rodeja per una el·lipsi.
+
+@seealso
+Referència de la notació:
+@ref{Scripts de text},
+@ref{Instrument Specific Markup}.

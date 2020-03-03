@@ -73,7 +73,7 @@ pentagrames i grups de pentagrames.
 Les @notation{pautes} i els @notation{pentagrames} o pautes de
 cinc línies es creen amb les ordres @code{\new} o
 @code{\context}.  Per veure més detalls, consulteu
-@rusernamed{Creating and referencing contexts,Creació i referència de contextos}.
+@ref{Creació i referenciació dels contextos}.
 
 El context bàsic de pentagrama és @code{Staff}:
 
@@ -86,7 +86,7 @@ preparada per a un conjunt de bateria típic.  Cada instrument es
 presenta amb un símbol diferent.  Els instruments s'escriuen en el
 mode de percussió que segueix a una ordre @code{\drummode}, amb
 cada instrument identificat per un nom.  Per veure més detalls,
-consulteu @rusernamed{Percussion staves,Pautes de percussió}.
+consulteu @ref{Pautes de percussió}.
 
 @lilypond[verbatim,quote]
 \new DrumStaff {
@@ -105,7 +105,7 @@ reals.  Per veure més detalls, consulteu
 
 @code{TabStaff} crea una tabulatura amb sis cordes en l'afinació
 estàndard de la guitarra.  Per veure més detalls, consulteu
-@rusernamed{Default tablatures,Tabulatures predeterminades}.
+@ref{Tabulatures predeterminades}.
 
 @lilypond[verbatim,quote]
 \new TabStaff \relative { c''4 d e f }
@@ -113,7 +113,7 @@ estàndard de la guitarra.  Per veure més detalls, consulteu
 
 Hi ha dos contextos de pauta específics per a la notació de música
 antiga: @code{MensuralStaff} i @code{VaticanaStaff}.  es descriuen
-a @rusernamed{Pre-defined contexts,Contextos predefinits}.
+a @ref{Contextos predefinits}.
 
 @code{GregorianTranscriptionStaff} crea una pauta per a la notació
 moderna de cant gregorià.  No mostra línies divisòries.
@@ -122,7 +122,7 @@ moderna de cant gregorià.  No mostra línies divisòries.
 @end lilypond
 
 Es poden definir contextos nous de pentagrama únic.  Per veure més
-detalls, consulteu @rusernamed{Defining new contexts,Definició de nous contextos}.
+detalls, consulteu @ref{Definició de contextos nous}.
 
 @seealso
 Glossari musical:
@@ -130,15 +130,15 @@ Glossari musical:
 @rglos{staves}.
 
 Referència de la notació:
-@rusernamed{Creating and referencing contexts,Creació i referència de contextos},
-@rusernamed{Percussion staves,Pautes de percussió},
+@ref{Creació i referenciació dels contextos},
+@ref{Pautes de percussió},
 @ref{Mostrar els ritmes de la melodia},
-@rusernamed{Default tablatures,Tabulatures predeterminades},
-@rusernamed{Pre-defined contexts,Contextos predefinits},
+@ref{Tabulatures predeterminades},
+@ref{Contextos predefinits},
 @ref{El símbol del pentagrama},
-@rusernamed{Gregorian chant contexts,Contextos del cant gregorià},
-@rusernamed{Mensural contexts,Contextos de la música mensural},
-@rusernamed{Defining new contexts,Definició de nous contextos}.
+@ref{Contextos del cant gregorià},
+@ref{Contextos de la música mensural},
+@ref{Definició de contextos nous}.
 
 Fragments de codi:
 @rlsr{Staff notation}.
@@ -241,8 +241,7 @@ següents: @code{SystemStartBar} (línia),
 d'especificar explícitament.
 
 Es poden definir contextos nous de grup de pentagrames.  Per veure
-més detalls, consulteu
-@rusernamed{Defining new contexts,Definició de nous contextos}.
+més detalls, consulteu @ref{Definició de contextos nous}.
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -268,7 +267,7 @@ Glossari musical:
 
 Referència de la notació:
 @ref{Noms d'instruments},
-@rusernamed{Defining new contexts,Definició de nous contextos}.
+@ref{Definició de contextos nous}.
 
 Fragments de codi:
 @rlsr{Staff notation}.
@@ -318,7 +317,7 @@ crea una clau nova adjacent a la clau del seu grup pare.
 
 Es poden definir nous contextos de grups de pentagrames niuats.
 Per veure més detalls, consulteu
-@rusernamed{Defining new contexts,Definició de nous contextos}.
+@ref{Definició de contextos nous}.
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -328,7 +327,7 @@ Per veure més detalls, consulteu
 Referència de la notació:
 @ref{Agrupament de pentagrames},
 @ref{Noms d'instruments},
-@rusernamed{Defining new contexts,Definició de nous contextos}.
+@ref{Definició de contextos nous}.
 
 Fragmentos de código:
 @rlsr{Staff notation}.
@@ -388,7 +387,7 @@ sistemes està inhabilitat, però es pot activar amb una opció de
 
 @seealso
 Referència de la notació:
-@rusernamed{Page layout,Disposició de la pàgina}.
+@ref{Disposició de la pàgina}.
 
 Fragments de codi:
 @rlsr{Staff notation}.
@@ -833,12 +832,12 @@ Manual d'aprenentatge:
 @rlearning{Visibilitat i color dels objectes}.
 
 Referència de la notació:
-@rusernamed{Changing context default settings,Canvi dels valores per defecte dels contextos},
+@ref{Canvi dels paràmetres predeterminats dels contextos},
 @ref{El símbol del pentagrama},
 @ref{Pentagrames d'Ossia},
-@rusernamed{Hidden notes,Notes ocultes},
+@ref{Notes ocultes},
 @ref{Silencis invisibles},
-@rusernamed{Visibility of objects,Visibilitat dels objectes}.
+@ref{Visibilitat dels objectes}.
 
 Fragments de codi:
 @rlsr{Staff notation}.
@@ -865,7 +864,7 @@ de treure el gravador:
 
 Per veure els errors i problemes coneguts, així com els
 advertiments associats amb @code{\RemoveEmptyStaves}, consulteu
-@rusernamed{Changing context default settings,Canvi dels valores per defecte dels contextos}.
+@ref{Canvi dels paràmetres predeterminats dels contextos}.
 
 @node Escriptura de les particel·les
 @subsection Escriptura de les particel·les
@@ -954,8 +953,7 @@ centren per a un grup de pentagrames a no ser que s'augmentin els
 valors del sagnat, @code{indent}, i del sagnat curt,
 @code{short-indent}.  Per veure més detalls sobre aquests
 ajustaments, consulteu
-@rusernamed{paper variables for shifts and indents,Variables de
-paper per a desplaçaments i sagnats}.
+@ref{Variables de paper per a desplaçaments i sagnats}.
 @c Quan es tradueixi fer servir
 @c @ref{Variables de paper per a desplaçaments i sagnats,,Variables de @code{@bs{}paper} per a desplaçaments i sagnats}.
 
@@ -989,7 +987,7 @@ Per afegir noms d'instrument a d'altres contextos (com ara
 @code{ChordNames} o @code{FiguredBass}), hem d'afegir el gravador
 @code{Instrument_name_engraver} a aquest context.  Per veure més
 detalls, consulteu
-@rusernamed{Modifying context plugins,Modificació dels connectors de context}.
+@ref{Modificació dels connectors (plug-ins) de context}.
 
 
 @cindex noms d'instrument, canviar
@@ -1039,9 +1037,8 @@ setFlute = {
 
 @seealso
 Referència de la notació:
-@rusernamed{paper variables for shifts and indents,Variables de
-paper per a desplaçaments i sagnats},
-@rusernamed{Modifying context plugins,Modificació dels connectors de context}.
+@ref{Variables de paper per a desplaçaments i sagnats},
+@ref{Modificació dels connectors (plug-ins) de context}.
 @c Quan es tradueixi fer servir
 @c @ref{Variables de paper per a desplaçaments i sagnats,,Variables de @code{@bs{}paper} per a desplaçaments i sagnats}.
 
@@ -1228,12 +1225,12 @@ oboeNotes = \relative {
 @end lilypond
 
 Las cites també es poden etiquetar, vegeu
-@rusernamed{Using tags,Us de etiquetes}.
+@ref{Ús d'etiquetes}.
 
 @seealso
 Referència de la notació:
 @ref{Transposició dels instruments},
-@rusernamed{Using tags,Ús de etiquetes}.
+@ref{Ús d'etiquetes}.
 
 Fitxers d'inici:
 @file{scm/define-event-classes.scm}.
@@ -1511,7 +1508,7 @@ solament les notes i esdeveniments que s'han citat mitjançant
 guies, com els canvis de clau o una etiqueta identificativa de
 l'instrument font, poden marcar-se per a la seva inclusió
 selectiva dins de la partitura, vegeu
-@rusernamed{Using tags,Ús de etiquetes}.
+@ref{Ús d'etiquetes}.
 
 @lilypond[verbatim,quote]
 fluteNotes = \relative {
@@ -1558,8 +1555,8 @@ Referència de la notació:
 @ref{Transposició dels instruments},
 @ref{Noms d'instruments},
 @ref{Clau},
-@ref{Musical cues,Pistes musicals},
-@rusernamed{Using tags,Ús de etiquetes}.
+@ref{Guies musicals},
+@ref{Ús d'etiquetes}.
 
 
 Fragments de codi:

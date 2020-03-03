@@ -1,0 +1,8 @@
+%% Translation of GIT committish: deb35a2aef8348478d89a6440ace17fd53b3434f
+  texidocit = "
+Le pause multiple hanno una lunghezza che dipende dalla loro durata totale
+e tale lunghezza è regolata da @code{MultiMeasureRest.space-increment}.  Nota
+che il valore predefinito è @code{2.0}.
+
+"
+  doctitleit = "Regolazione della lunghezza delle pause multiple"

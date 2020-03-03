@@ -1,0 +1,8 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+教育上の目的で、譜線を太くすることができます (目的の例としては、中央の線の@c
+強調や、ト音記号の線を強調することなど)。これは強調したい線のすぐ近くに@c
+新たな譜線を追加することで実現できます。譜線の追加には @code{StaffSymbol}
+オブジェクトの @code{line-positions} プロパティを使用します。
+"
+  doctitleja = "いくつかの譜線を他より太くする"

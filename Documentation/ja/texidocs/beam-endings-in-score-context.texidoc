@@ -1,0 +1,7 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+@code{Score} コンテキストに設定された自動連桁の設定は@c
+全ての譜に適用されますが、@c
+@code{Staff} や @code{Voce} レベルで設定することもできます。
+"
+  doctitleja = "Score コンテキストでの自動連桁"

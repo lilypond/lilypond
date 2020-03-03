@@ -1,0 +1,8 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+@code{add-grace-property}, @code{remove-grace-property} を用いて、@c
+装飾音符のスタイルを楽譜全体にわたって変更することができます。次の例は
+常に上向きとなっている @code{Stem} の向きの設定を無効にして、また@c
+デフォルトの符頭をクロスに変更しています。
+"
+  doctitleja = "装飾音符のスタイルを調整する"

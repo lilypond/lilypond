@@ -1,0 +1,8 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+このスニペットは @code{\\splitStaffBarLine}, @code{\\convUpStaffBarLine},
+@code{\\convDownStaffBarLine} コマンドを追加します。@c
+これらは小節線に矢印を追加し、譜を共有するボイスが次のシステムで@c
+譜を分ける場合、あるいは再度合流する場合の指示を表示します。
+"
+  doctitleja = "改行後に分かれる譜について、指示を表示する"

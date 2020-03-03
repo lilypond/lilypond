@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 4244c3a9fbf1f3ff2e20e665f92516d35b61de53
+    Translation of GIT committish: 41a35ee2dda003efc36f281de7160660fafd410b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -45,6 +45,7 @@ formato de entrada, consulte @ruser{Estructura del archivo}.
 * Introducción a la estructura de los archivos de LilyPond::
 * La partitura es una (única) expresión musical compuesta::
 * Anidado de expresiones musicales::
+* Estructura de un elemento de nota::
 * Acerca de la no anidabilidad de llaves y ligaduras::
 @end menu
 
@@ -89,7 +90,7 @@ LilyPond trata una entrada como esta:
 
 @example
 \relative @{
-  c''4 a d c
+  c''4 a b c
 @}
 @end example
 
@@ -499,6 +500,50 @@ indicación de compás, y generalmente en un tipo más pequeño.
 Esto necesitaría más instrucciones que aún no se han visto.
 Véase @ref{Tamaño de los objetos} y @ruser{Pentagramas de Ossia}.
 
+@node Estructura de un elemento de nota
+@subsection Estructura de un elemento de nota
+@translationof Structure of a note entry
+
+Un elemento de nota en LilyPond consiste en una altura seguida de
+una duración, y opcionalmente seguida de uno o más
+@q{post-eventos}.  Los post-eventos de LilyPond añaden cosas como
+articulaciones, digitaciones, números de cuerda, ligaduras de
+unión y de expresión y textos explicativos.
+
+La altura se puede definir explícitamente usando el lenguaje de
+entrada de LilyPond en su forma actual, como se describe en la
+sección @ruser{Nombres de las notas en otros idiomas}.  La altura
+se puede omitir.  En el caso de que la altura se omita, la altura
+de la nota será la misma que la de la nota anterior dentro del
+código de entrada, véase @ruser{Duraciones}.  Observe que ni
+@code{r} ni @code{s} son alturas.
+
+La duración consiste en un número y, opcionalmente, uno o más
+puntos ortográficos en el caso de las duraciones con puntillo. Si
+una duración no está definida explícitamente, la duración de la
+nota es la misma que la de la nota, acorde, silencio o silencio de
+separación anteriores, véase @ruser{Duraciones}.
+
+Los post-eventos siguen a la nota a la que están adjuntos.
+Supongamos que queremos una nota Do corchea con una digitación de
+un 1, además de una articulación de tenuto, una ligadura de
+expresión que comienza en dicha nota, y una anotación textual.
+Esto puede obtenerse tal y como se muestra a continuación.
+
+@lilypond[verbatim,quote]
+{ c'8-1--(~^\markup{"anotación textual"} c' d') }
+@end lilypond
+
+@seealso
+Manual de aprendizaje:
+@ref{Ligaduras de unión y de expresión},
+@ref{Articulaciones y matices dinámicos},
+@ref{Añadir texto}.
+
+Referencia de la notación:
+@ruser{Alturas},
+@ruser{Duraciones},
+@ruser{Expresiones}.
 
 @node Acerca de la no anidabilidad de llaves y ligaduras
 @subsection Acerca de la no anidabilidad de llaves y ligaduras
@@ -3463,4 +3508,3 @@ Referencia de la notación:
 @ruser{Escritura de las particellas},
 @ruser{Silencios de compás completo},
 @ruser{Inclusión de archivos de LilyPond}.
-

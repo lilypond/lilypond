@@ -1,0 +1,7 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+@code{s} によるスキップは音符モードや和音モードのみで有効です。@c
+歌詞モードなどの他の場合では、@code{\\skip} コマンドを使用することが@c
+推奨されます。
+"
+  doctitleja = "歌詞モードでのスキップ"

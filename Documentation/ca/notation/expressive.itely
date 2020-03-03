@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.21.0"
 
 @c Translators: Walter Garcia-Fontes
 @c Translation checkers:
@@ -133,7 +133,7 @@ utilitzant la sintaxi següent:
 @end example
 
 La llista de possibles valors de @code{@var{nom}} està a
-@rusernamed{List of articulations,Llista d'articulacions}.  Per exemple
+@ref{Llista d'articulacions}.  Per exemple
 
 @lilypond[verbatim,quote]
 \relative {
@@ -171,7 +171,7 @@ Les regles per a la col·locació predeterminada de les
 articulacions es troben definides al fitxer @file{scm/script.scm}.
 Les articulacions i ornaments es poden col·locar manualment per
 sobre o per sota del pentagrama; vegeu
-@rusernamed{Direction and placement,Direcció i posició}.
+@ref{Direcció i posició}.
 
 Les articulacions són objectes @code{Script}.  Les seves
 propietats es descriuen de forma més completa a @rinternals{Script}.
@@ -183,7 +183,7 @@ propietats es descriuen de forma més completa a @rinternals{Script}.
 
 Les articulacions es poden adjuntar als silencis així com a les
 notes, pero no es poden ajuntar a silencis multicompàs. Hi ha
-disponible una ordre predefinida especial, @code{\fermataMarkup},
+disponible una ordre predefinida especial, @code{\fermata},
 per annexar un calderó a un silenci multicompàs (i sols a un
 silenci multicompàs).  L'ordre crea un objecte @code{MultiMeasureRestText}.
 
@@ -196,7 +196,7 @@ R1\fermata
 @end ignore
 
 A més d'articulacions, es poden adjuntar textos i elements de
-marcatge de les notes. Vegeu @rusernamed{Text scripts,Scripts de text}.
+marcatge de les notes. Vegeu @ref{Scripts de text}.
 
 Per veure més informació quant a l'ordenació dels elements Script
 i TextScript que s'annexen a les notes, consulteu
@@ -224,9 +224,9 @@ Manual d'aprenentatge:
 @rlearning{Col·locació dels objectes}.
 
 Referència de la notació:
-@rusernamed{Text scripts,Scripts de text},
-@rusernamed{Direction and placement,Direcció i posició},
-@rusernamed{List of articulations,Llista d'articulacions},
+@ref{Scripts de text},
+@ref{Direcció i posició},
+@ref{Llista d'articulacions},
 @ref{Refilets}.
 
 Fitxers instal·lats:
@@ -276,7 +276,7 @@ disponibles són @code{\ppppp}, @code{\pppp},
 @code{\sfz} i @code{\rfz}.  Les indicaciones dinàmiques es poden
 col·locar manulament per sobre o per sota del pentagrama; per veure
 més detalls, consulteu
-@rusernamed{Direction and placement,Direcció i posició}.
+@ref{Direcció i posició}.
 
 @lilypond[verbatim,quote]
 \relative c'' {
@@ -520,10 +520,10 @@ Manual d'aprenentatge:
 @rlearning{Articulacions i matisos dinàmics}.
 
 Referència de la notació:
-@rusernamed{Direction and placement,Direcció i posició},
+@ref{Direcció i posició},
 @ref{Indicacions dinàmiques contemporànies},
-@rusernamed{Enhancing MIDI output,Enriquiment de la sortida MIDI},
-@rusernamed{Controlling MIDI dynamics,Control de las dinàmiques del MIDI}.
+@ref{Enriquiment de la sortida MIDI},
+@ref{Control de les dinàmiques del MIDI}.
 
 Fragments de codi:
 @rlsr{Expressive marks}.
@@ -563,7 +563,7 @@ moltoF = \markup { molto \dynamic f }
 En el mode de marcatge es poden crear indicacions dinàmiques
 editorials (entre parèntesis o claus).  La sintaxi del mode
 de marcatge es descriu a
-@rusernamed{Formatting text,Format del text}.
+@ref{Donar format al text}.
 
 @lilypond[verbatim,quote]
 roundF = \markup {
@@ -654,14 +654,14 @@ moltoF = \tweak DynamicText.self-alignment-X #LEFT
 
 Els ajustos per als tipus de lletra en mode de marcatge es
 descriuen a
-@rusernamed{Selecting font and font size,Selecció del tipus de lletra i la seva mida}.
+@ref{Selecció del tipus de lletra i la seva mida}.
 
 @seealso
 Referència de la notació:
-@rusernamed{Formatting text,Format del text},
-@rusernamed{Selecting font and font size,Selecció del tipus de lletra i la seva mida},
-@rusernamed{Enhancing MIDI output,Enriquiment de la sortida MIDI},
-@rusernamed{Controlling MIDI dynamics,Control de las dinàmiques del MIDI}.
+@ref{Donar format al text},
+@ref{Selecció del tipus de lletra i la seva mida},
+@ref{Enriquiment de la sortida MIDI},
+@ref{Control de les dinàmiques del MIDI}.
 
 Extensió del LilyPond:
 @rextendnamed{Markup construction in Scheme,Construcció de marcatge en Scheme}.
@@ -714,7 +714,7 @@ d'acabar a la mateixa veu en la qual comencen.}
 
 Les lligadures d'expressió es poden col·locar manualment per sobre
 o per sota de les notes; vegeu
-@rusernamed{Direction and placement,Direcció i posició}.
+@ref{Direcció i posició}.
 
 @cindex fraseig, lligadura de
 @cindex diverses lligadures d'expressió
@@ -844,7 +844,7 @@ Manual d'aprenentatge:
 @rlearning{Quant a la impossibilitat de niuar claus i lligadures}
 
 Referència de la notació:
-@rusernamed{Direction and placement,Direcció i posició},
+@ref{Direcció i posició},
 @ref{Lligadures de fraseig}.
 
 Fragments de codi:
@@ -885,7 +885,7 @@ exactament igual que una lligadura d'expressió normal.  Tanmateix,
 es tracten com a objectes diferents.  Una @code{\slurUp} no tindrà
 cap efecte sobre una lligadura de fraseig.  El fraseig es pot
 col·locar manualment per sobre o per sota de les notes; vegeu
-@rusernamed{Direction and placement,Direcció i posició}.
+@ref{Direcció i posició}.
 
 @cindex simultànies, lligadures de fraseig
 @cindex diverses lligadures de fraseig
@@ -991,7 +991,7 @@ Manual de aprenentatge:
 @rlearning{Quant a la impossibilitat de niuar claus i lligadures}
 
 Referència de la notació:
-@rusernamed{Direction and placement,Direcció i posició},
+@ref{Direcció i posició},
 @ref{Lligadures d'expressió}.
 
 Fragments de codi:
@@ -1033,7 +1033,7 @@ automàtiques; per anul·lar aquest comportament, consulteu
 
 A la notació antiga, es contemplen els indicadors musicals per a
 les marques  de respiració, o divisiones. Per veure més detalls,
-consulteu @rusernamed{Divisiones,Divisiones}.
+consulteu @ref{Divisiones}.
 
 @snippets
 
@@ -1056,7 +1056,7 @@ Glossari musical:
 @rglos{caesura}.
 
 Referència de la notació:
-@rusernamed{Divisiones,Divisiones}.
+@ref{Divisiones}.
 
 Fragments de codi:
 @rlsr{Expressive marks}.
@@ -1185,7 +1185,7 @@ el codi d'entrada del fitxer @file{.ly}.
 @end lilypond
 
 Es poden crear diversos tipus de glissando.  Per veure més
-detalls, consulteu @rusernamed{Line styles,Estils de línia}.
+detalls, consulteu @ref{Estils de línia}.
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -1205,7 +1205,7 @@ Glossari musical:
 @rglos{glissando}.
 
 Referència de la notació:
-@rusernamed{Line styles,Estils de línia}.
+@ref{Estils de línia}.
 
 Fragments de codi:
 @rlsr{Expressive marks}.
@@ -1395,7 +1395,7 @@ convertirà automàticament a la vora dreta del refilet anterior.
 
 També es poden combinar els refilets amb notes d'adorn. La sintaxi
 d'aquesta construcció i el mètode per col·locar les notes d'adorn
-amb precisió es descriuien a
+amb precisió es descriuen a
 @ref{Notes d'adorn}.
 
 @lilypond[verbatim,quote]
@@ -1460,7 +1460,7 @@ primer refilet amb nota, dins d'un compàs.
 Glossari musical:
 @rglos{trill}.
 
-Referècia de la notació:
+Referència de la notació:
 @ref{Articulacions i ornaments},
 @ref{Notes d'adorn}.
 

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 18d03fa6a724b0102ccc47d194209802cea02f2e
+    Translation of GIT committish: 21a1f431176e969d45a9cc973c99dce34e9e8733
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -23,7 +23,7 @@ formattazione) nelle partiture musicali.
 
 @noindent
 Alcuni elementi testuali che non sono trattati qui sono discussi in altre
-sezioni specifiche: @ref{Vocal music}, @ref{Titles and headers}.
+sezioni specifiche: @ref{Musica vocale}, @ref{Titles and headers}.
 
 @menu
 * Inserimento del testo::
@@ -41,7 +41,7 @@ Questa sezione presenta vari modi di aggiungere del testo a una partitura.
 @warning{Per scrivere caratteri accentati e speciali (come quelli di
 altre lingue), basta inserire semplicemente i caratteri nel file
 LilyPond, purché il file sia salvato in formato UTF-8.  Ulteriori informazioni
-in @ref{Text encoding}.}
+in @ref{Codifica del testo}.}
 
 @menu
 * Scritte::
@@ -56,7 +56,7 @@ in @ref{Text encoding}.}
 @translationof Text scripts
 
 @cindex scritta
-@cindex elementi testuali non vuoti
+@cindex testo, elemento non vuoto
 @cindex testo tra virgolette
 
 Si possono aggiungere a una partitura delle semplici indicazioni con
@@ -120,7 +120,7 @@ Frammenti:
 Guida al funzionamento interno:
 @rinternals{TextScript}.
 
-@cindex testo fuori dal margine
+@cindex testo, fuori dal margine
 @cindex margine, testo che va oltre
 @cindex testo, tenerlo dentro il margine
 @cindex testo vocale, tenerlo dentro il margine
@@ -139,7 +139,7 @@ leggermente più veloce, usare
 @unnumberedsubsubsec Estensori del testo
 @translationof Text spanners
 
-@cindex estensori del testo
+@cindex estensore del testo
 
 Alcune indicazioni esecutive, per esempio @notation{rallentando} o
 @notation{accelerando}, appaiono in forma testuale e vengono estese
@@ -155,8 +155,8 @@ con la seguente sintassi:
 }
 @end lilypond
 
-@cindex estensori del testo, formattazione
-@cindex formattare gli estensori del testo
+@cindex estensore del testo, formattazione
+@cindex formattare un estensore del testo
 
 @noindent
 La stringa testuale da stampare viene impostata attraverso le proprietà
@@ -174,7 +174,7 @@ può ottenere una formattazione diversa tramite i blocchi @code{\markup}, come
 @end lilypond
 
 Lo stile della linea, così come la stringa testuale, può essere definito come
-una proprietà dell'oggetto.  Questa sintassi è descritta in @ref{Line styles}.
+una proprietà dell'oggetto.  Questa sintassi è descritta in @ref{Stili della linea}.
 
 @funindex \textSpannerUp
 @funindex \textSpannerDown
@@ -192,6 +192,8 @@ LilyPond è capace di gestire un solo estensore del testo per ogni voce.
 
 @snippets
 
+@cindex dinamiche, estensore del testo, personalizzazione
+@cindex estensore del testo, dinamiche, personalizzazione
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {dynamics-text-spanner-postfix.ly}
 
@@ -200,7 +202,7 @@ LilyPond è capace di gestire un solo estensore del testo per ogni voce.
 
 @seealso
 Guida alla notazione:
-@ref{Line styles},
+@ref{Stili della linea},
 @ref{Dinamiche},
 @ref{Formattazione del testo}.
 
@@ -217,19 +219,19 @@ Guida al funzionamento interno:
 @translationof Text marks
 
 
-@cindex indicazioni testuali
-@cindex testo, indicazioni
-@cindex testo sulla stanghetta
-@cindex coda sulla stanghetta
-@cindex segno sulla stanghetta
-@cindex corona sulla stanghetta
-@cindex stanghette, simboli sulle
+@cindex indicazione testuale
+@cindex testo, indicazione
+@cindex testo, sulla stanghetta
+@cindex coda, segno, sulla stanghetta
+@cindex segno, sulla stanghetta
+@cindex corona, sulla stanghetta
+@cindex stanghetta, simboli sulla
 
 @funindex \mark
 @funindex \markup
 
 Si possono aggiungere vari elementi testuali a una partitura tramite la
-sintassi descritta in @ref{Rehearsal marks}:
+sintassi descritta in @ref{Segni di chiamata}:
 
 @c \mark needs to be placed on a separate line (it's not
 @c attached to an object like \markup is). -vv
@@ -261,7 +263,7 @@ blocco @code{\markup}, come è spiegato in @ref{Formattazione del testo}:
 @noindent
 Questa sintassi permette anche di stampare segni speciali, come coda, segno
 o corona, se si specifica il nome appropriato del simbolo, come è spiegato
-in @ref{Music notation inside markup}:
+in @ref{Notazione musicale nel blocco markup}:
 
 @lilypond[quote,verbatim]
 \relative {
@@ -297,17 +299,23 @@ successiva.
 
 @snippets
 
+@cindex fine linea, posizionamento segni
+@cindex linea, fine, posizionamento segni
+@cindex segno, a fine linea
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-marks-at-the-end-of-a-line.ly}
 
+@cindex segno, su ogni rigo
+@funindex Mark_engraver
+@funindex Staff_collecting_engraver
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-marks-on-every-staff.ly}
 
 @seealso
 Guida alla notazione:
-@ref{Rehearsal marks},
+@ref{Segni di chiamata},
 @ref{Formattazione del testo},
-@ref{Music notation inside markup},
+@ref{Notazione musicale nel blocco markup},
 @ref{Il font Emmentaler}.
 
 Frammenti:
@@ -331,7 +339,7 @@ Guida al funzionamento interno:
 
 Un blocco @code{\markup} può esistere di per sé, fuori da qualsiasi
 blocco @code{\score}, come un'@tie{@qq{espressione di livello superiore}}.  Questa
-sintassi è descritta in @ref{File structure}.
+sintassi è descritta in @ref{Struttura del file}.
 
 @lilypond[verbatim,quote]
 \markup {
@@ -342,7 +350,7 @@ sintassi è descritta in @ref{File structure}.
 @noindent
 Ciò permette di stampare il testo in modo autonomo dalla musica, ed è
 utile soprattutto quando il file di input contiene vari brani musicali,
-come è spiegato in @ref{Multiple scores in a book}.
+come è spiegato in @ref{Molteplici partiture in un libro}.
 
 @lilypond[quote,verbatim]
 \score {
@@ -359,7 +367,7 @@ come è spiegato in @ref{Multiple scores in a book}.
 Blocchi di testo separati possono essere estesi per molte pagine, rendendo
 possibile la realizzazione di documenti o libri interamente con LilyPond.
 Questa funzionalità, e la sintassi specifica che richiede, è descritta
-in @ref{Multi-page markup}.
+in @ref{Testo formattato su più pagine}.
 
 @funindex \markup
 @funindex \markuplist
@@ -372,15 +380,19 @@ in @ref{Multi-page markup}.
 
 @snippets
 
+@cindex testo, in colonne
+@cindex colonna, testo
+@cindex testo a due colonne
+@cindex markup, due colonne
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {stand-alone-two-column-markup.ly}
 
 @seealso
 Guida alla notazione:
 @ref{Formattazione del testo},
-@ref{File structure},
-@ref{Multiple scores in a book},
-@ref{Multi-page markup}.
+@ref{Struttura del file},
+@ref{Molteplici partiture in un libro},
+@ref{Testo formattato su più pagine}.
 
 Frammenti:
 @rlsr{Text}.
@@ -418,8 +430,8 @@ usando la sintassi specifica della modalità @code{\markup}.
 Un blocco @code{\markup} permette di comporre del testo con un'ampia
 sintassi chiamata @qq{modalità markup}.
 
-@cindex markup, espressioni
-@cindex espressioni di markup
+@cindex markup, espressione
+@cindex espressione, markup
 @cindex sintassi di markup
 @cindex markup, sintassi
 
@@ -445,12 +457,12 @@ effetto solo sulla prima espressione che segue.
 }
 @end lilypond
 
-@cindex caratteri speciali in modalità markup
+@cindex carattere speciale, in modalità markup
 @cindex modalità markup, caratteri speciali
-@cindex caratteri riservati, stampare
-@cindex stampare i caratteri riservati
-@cindex stampare i caratteri speciali
-@cindex testo tra virgolette in modalità markup
+@cindex carattere riservato, stampare
+@cindex stampare carattere riservato
+@cindex stampare carattere speciale
+@cindex testo tra virgolette, in modalità markup
 @cindex modalità markup, testo tra virgolette
 
 Un blocco @code{\markup} può contenere anche stringhe di testo tra
@@ -498,11 +510,11 @@ allegro = \markup { \bold \large Allegro }
 
 @noindent
 Una lista completa dei comandi specifici di @code{\markup} si trova in
-@ref{Text markup commands}.
+@ref{Comandi per markup}.
 
 @seealso
 Guida alla notazione:
-@ref{Text markup commands}.
+@ref{Comandi per markup}.
 
 Frammenti:
 @rlsr{Text}.
@@ -519,7 +531,7 @@ essere poco chiari.
 @unnumberedsubsubsec Scelta del tipo di carattere e della dimensione
 @translationof Selecting font and font size
 
-@cindex tipi di carattere, cambiare
+@cindex tipo di carattere, cambiare
 @cindex cambiare i tipi di carattere
 @cindex font, cambiare
 
@@ -543,6 +555,7 @@ La modalità markup permette di cambiare il tipo di carattere:
 
 @cindex dimensione del tipo di carattere
 @cindex tipo di carattere, dimensione
+@cindex font, dimensione
 @cindex dimensione del testo
 @cindex testo, dimensione
 
@@ -627,8 +640,10 @@ anche un corpo normale:
 }
 @end lilypond
 
-@cindex famiglie di tipi di carattere
-@cindex tipi di carattere, famiglie
+@cindex famiglia di tipi di carattere
+@cindex tipi di carattere, famiglia
+@cindex famiglia di font
+@cindex font, famiglia
 
 La modalità di markup fornisce un modo semplice per scegliere famiglie
 di caratteri diverse.  Se non specificato altrimenti, viene scelto
@@ -650,7 +665,7 @@ prima e la seconda parola.
 @noindent
 Alcune di queste famiglie di caratteri, usate per elementi specifici come i
 numeri o le dinamiche, non forniscono tutti i caratteri, come accennato in
-@ref{New dynamic marks} e @ref{Manual repeat marks}.
+@ref{Nuove indicazioni dinamiche} e @ref{Indicazioni di ripetizione manuali}.
 
 @c \concat is actually documented in Align (it is not
 @c a font-switching command).  But we need it here. -vv
@@ -679,7 +694,7 @@ Una lista completa dei comandi per cambiare il tipo di carattere o per usare
 tipi di carattere personalizzati si trova in @ref{Font}.
 
 È possibile anche definire i propri gruppi di tipi di carattere, come
-è spiegato in @ref{Fonts}.
+è spiegato in @ref{Tipi di carattere}.
 
 @funindex \teeny
 @funindex \tiny
@@ -705,9 +720,9 @@ tipi di carattere personalizzati si trova in @ref{Font}.
 @seealso
 Guida alla notazione:
 @ref{Font},
-@ref{New dynamic marks},
-@ref{Manual repeat marks},
-@ref{Fonts}.
+@ref{Nuove indicazioni dinamiche},
+@ref{Indicazioni di ripetizione manuali},
+@ref{Tipi di carattere}.
 
 File installati:
 @file{scm/define-markup-commands.scm}.
@@ -784,7 +799,7 @@ L'allineamento orizzontale può essere ritoccato usando un valore numerico:
 Alcuni oggetti possono avere proprie procedure di allineamento, e dunque
 non sono influenzate da questi comandi.   È possibile spostare tali
 oggetti di markup tutti insieme, come mostrato ad esempio in
-@ref{Text marks}.
+@ref{Indicazioni testuali}.
 
 @cindex testo, allineamento verticale
 @cindex allineamento verticale del testo
@@ -854,8 +869,8 @@ da questi comandi deve essere preceduto da un punto di riferimento:
 @cindex multilinea, markup
 @cindex testo multilinea
 @cindex multilinea, testo
-@cindex testo in colonne
-@cindex colonne, testo
+@cindex testo, in colonne
+@cindex colonna, testo
 
 @funindex \column
 @funindex \center-column
@@ -949,8 +964,8 @@ sinistra o giustificate, come mostra l'esempio seguente.
 }
 @end lilypond
 
-@cindex testo, comandi di allineamento del
-@cindex markup, comandi di allineamento del testo
+@cindex testo, comando di allineamento
+@cindex markup, testo, comando di allineamento
 @cindex allineamento, testo, comandi
 
 Una lista completa dei comandi di allineamento del testo si trova in
@@ -962,7 +977,7 @@ Manuale d'apprendimento:
 
 Guida alla notazione:
 @ref{Align},
-@ref{Text marks}.
+@ref{Indicazioni testuali}.
 
 File installati:
 @file{scm/define-markup-commands.scm}.
@@ -979,10 +994,10 @@ Guida al funzionamento interno:
 @translationof Graphic notation inside markup
 
 @cindex grafica, inclusione
-@cindex disegnare oggetti grafici
-@cindex oggetti grafici, disegnare
-@cindex oggetti grafici incorporati
-@cindex oggetti grafici, includere
+@cindex disegnare un oggetto grafico
+@cindex oggetto grafico, disegnare
+@cindex oggetto grafico incorporato
+@cindex oggetto grafico, includere
 
 Si possono aggiungere vari oggetti grafici a una partitura attraverso
 i comandi di markup.
@@ -997,7 +1012,7 @@ i comandi di markup.
 @funindex \box
 @funindex \circle
 @funindex \rounded-box
-@funindex \bracket
+@funindex @sortas{bracketB} \bracket
 @funindex \hbracket
 
 Alcuni comandi di markup consentono di decorare gli elementi testuali con
@@ -1022,7 +1037,7 @@ degli elementi grafici, come è illustrato nell'esempio seguente.
 
 @cindex padding intorno al testo
 @cindex testo, padding
-@cindex markup, padding
+@cindex markup, testo, padding
 
 @funindex \pad-markup
 @funindex \pad-x
@@ -1056,7 +1071,7 @@ Flute quartet keeps very uneven time."
 @end lilypond
 
 @cindex notazione grafica
-@cindex simboli non musicali
+@cindex simbolo non musicale
 
 @funindex \combine
 @funindex \draw-circle
@@ -1086,7 +1101,7 @@ possono essere combinati.
 @end lilypond
 
 @cindex grafica inclusa
-@cindex immagini incluse
+@cindex immagine, inclusione
 @cindex postscript
 
 @funindex \epsfile
@@ -1143,8 +1158,8 @@ Guida al funzionamento interno:
 @unnumberedsubsubsec Notazione musicale nel blocco markup
 @translationof Music notation inside markup
 
-@cindex notazione dentro il blocco markup
-@cindex musica dentro il blocco markup
+@cindex notazione, dentro il blocco markup
+@cindex musica, dentro il blocco markup
 @cindex markup, notazione musicale dentro
 
 Si possono aggiungere vari elementi della notazione musicale dentro un
@@ -1206,7 +1221,7 @@ completa di questi simboli e dei loro nomi si trova in
 @end lilypond
 
 Un altro modo per stampare glifi non testuali è descritto in
-@ref{Fonts explained}.  È utile per stampare parentesi di varie
+@ref{Tipi di carattere in dettaglio}.  È utile per stampare parentesi di varie
 dimensioni.
 
 La modalità markup supporta anche i diagrammi per strumenti specifici:
@@ -1235,19 +1250,16 @@ La modalità markup supporta anche i diagrammi per strumenti specifici:
 @noindent
 Questi diagrammi sono documentati in @ref{Instrument Specific Markup}.
 
-@cindex partitura dentro il blocco markup
+@cindex partitura, dentro il blocco markup
 @cindex markup, partitura dentro
 
-È possibile annidare perfino un'intera partitura in un oggetto markup.  In tal
-caso, il blocco @code{\score} annidato deve contenere un blocco @code{\layout},
-come è illustrato qui:
+È possibile annidare perfino un'intera partitura in un oggetto markup:
 
 @lilypond[quote,verbatim]
 \relative {
   c'4 d^\markup {
     \score {
       \relative { c'4 d e f }
-      \layout { }
     }
   }
   e f |
@@ -1262,7 +1274,7 @@ in @ref{Music}.
 Guida alla notazione:
 @ref{Music},
 @ref{Il font Emmentaler},
-@ref{Fonts explained}.
+@ref{Tipi di carattere in dettaglio}.
 
 File installati:
 @file{scm/define-markup-commands.scm},
@@ -1275,6 +1287,11 @@ Frammenti:
 Guida al funzionamento interno:
 @rinternals{TextScript}.
 
+@knownissues
+La spaziatura verticale di un blocco @code{\score} interno a un oggetto markup
+è regolata da @code{baseline-skip}.  Le impostazioni in @code{\paper} vengono
+ignorate.
+
 
 @node Testo formattato su più pagine
 @unnumberedsubsubsec Testo formattato su più pagine
@@ -1283,7 +1300,7 @@ Guida al funzionamento interno:
 @cindex testo formattato su più pagine
 @cindex markup, multipagina
 @cindex multipagina, testo
-@cindex testo esteso su più pagine
+@cindex testo, esteso su più pagine
 
 @funindex \markuplist
 @funindex \justified-lines
@@ -1318,11 +1335,11 @@ una lista di \markuplists.
 @end itemize
 
 Una lista completa dei comandi che si possono usare con \markuplist si
-trova in @ref{Text markup list commands}.
+trova in @ref{Comandi per una lista di markup}.
 
 @seealso
 Guida alla notazione:
-@ref{Text markup list commands}.
+@ref{Comandi per una lista di markup}.
 
 Estendere LilyPond:
 @rextend{New markup list command definition}.
@@ -1361,10 +1378,10 @@ possono essere modificati nelle partiture.
 @translationof Fonts explained
 
 @cindex Pango
-@cindex tipi di carattere
+@cindex tipo di carattere
 @cindex font
-@cindex graffe, varie dimensioni
-@cindex font non testuali nel markup
+@cindex graffa, varie dimensioni
+@cindex font non testuali, nel markup
 
 @funindex font-interface
 
@@ -1393,7 +1410,7 @@ a'1^\markup {
 @noindent
 Tuttavia, tutti questi glifi, ad eccezione delle graffe di varie
 dimensioni contenute in @code{fetaBraces}, sono già utilizzabili
-con la sintassi ben più semplice descritta in @ref{Music notation inside markup}.
+con la sintassi ben più semplice descritta in @ref{Notazione musicale nel blocco markup}.
 
 Quando si usano i glifi contenuti in @code{fetaBraces}, la dimensione
 della graffa viene specificata dalla parte numerica del nome del glifo,
@@ -1401,20 +1418,57 @@ in unità arbitrarie.  Può essere specificato qualsiasi numero intero da
 @code{0} a @code{575} compresi, dove @code{0} corrisponde alla graffa
 più piccola.  Il valore ottimale deve essere determinato per tentativi.
 Questi glifi sono tutte graffe sinistre; le graffe destre si possono
-ottenere con la rotazione, vedi @ref{Rotating objects}.
+ottenere con la rotazione, vedi @ref{Rotazione degli oggetti}.
 
-Sono disponibili tre famiglie di tipi di carattere:
-@itemize
-@item
-Il tipo @emph{roman} (con grazie), il cui valore predefinito è LilyPond Serif
-(un alias di TeX Gyre Schola).
-@item
-Il tipo @emph{sans} (senza grazie), il cui valore predefinito è LilyPond Sans
-Serif (un alias di TeX Gyre Heros).
-@item
-Il tipo monospaziato @emph{typewriter}, il cui valore predefinito è LilyPond
-Monospace (un alias di TeX Gyre Cursor).
-@end itemize
+Sono disponibili tre famiglie di font: il font @emph{roman} (con grazie), il
+font @emph{sans} (senza grazie) e il font monospaziato @emph{typewriter}.
+
+Per il backend @code{svg}:
+@multitable @columnfractions .15 .30
+@headitem Famiglia @tab Font predefinito
+@item @emph{roman} @tab @code{serif}
+@item @emph{sans} @tab @code{sans-serif}
+@item @emph{typewriter} @tab @code{monospace}
+@end multitable
+
+@code{serif}, @code{sans-serif}, e @code{monospace} sono
+@code{generic-family} (famiglie generiche) nelle specifiche
+SVG e CSS.
+
+Per gli altri backend:
+@multitable @columnfractions .15 .30 .55
+@headitem Famiglia @tab Font predefinito (alias) @tab Elenchi di definizione di alias
+@item @emph{roman}
+@tab @code{LilyPond Serif}
+@tab
+TeX Gyre Schola,
+C059, Century SchoolBook URW, Century Schoolbook L,
+DejaVu Serif,
+..., serif
+@item @emph{sans}
+@tab @code{LilyPond Sans Serif}
+@tab
+TeX Gyre Heros,
+Nimbus Sans, Nimbus Sans L, DejaVu Sans,
+..., sans-serif
+@item @emph{typewriter}
+@tab @code{LilyPond Monospace}
+@tab
+TeX Gyre Cursor,
+Nimbus Mono PS, Nimbus Mono, Nimbus Mono L,
+DejaVu Sans Mono,
+..., monospace
+@end multitable
+
+@code{LilyPond Serif}, @code{LilyPond Sans Serif},
+e @code{LilyPond Monospace} sono font alias definiti
+nel file di configurazione FontConfig specifico per LilyPond
+@code{00-lilypond-fonts.conf}.
+Se un carattere non esiste nel primo font elencato, il font successivo
+dell'elenco verrà  usato al suo posto per quel carattere.
+I dettagli delle definizioni degli alias si trovano nel file
+@code{00-lilypond-fonts.conf} all'interno della directory
+di installazione.
 
 Ogni famiglia può avere forme e serie differenti.  L'esempio seguente
 illustra la possibilità di scegliere  famiglie, forme, serie e
@@ -1434,7 +1488,7 @@ c''4^smaller
 @noindent
 Una sintassi simile si usa nella modalità markup; tuttavia in questo
 caso è preferibile usare la sintassi più semplice spiegata in
-@ref{Selecting font and font size}:
+@ref{Scelta del tipo di carattere e della dimensione}:
 
 @lilypond[quote,verbatim]
 \markup {
@@ -1457,16 +1511,54 @@ caso è preferibile usare la sintassi più semplice spiegata in
 }
 @end lilypond
 
+@noindent
+Quando si usano i font OpenType, sono disponibili le funzionalità
+dei font.
+Nota bene: non tutti i font OpenType hanno a disposizione tutte le funzioni.
+Se si richiede una funzionalità che non esiste nel font scelto, tale
+funzionalità viene semplicemente ignorata.
+
+@lilypond[quote,verbatim]
+% Maiuscoletto vero
+\markup { Stile normale: Hello HELLO }
+\markup { \caps { Maiuscoletto: Hello } }
+\markup { \override #'(font-features . ("smcp"))
+          { Maiuscoletto vero: Hello } }
+
+% Stili numerici
+\markup { Stile numerico normale: 0123456789 }
+\markup { \override #'(font-features . ("onum"))
+          { Stile numerico vecchio: 0123456789 } }
+
+% Alternative stilistiche
+\markup { \override #'(font-features . ("salt 0"))
+          { Alternative stilistiche 0: εφπρθ } }
+\markup { \override #'(font-features . ("salt 1"))
+          { Alternative stilistiche 1: εφπρθ } }
+
+% Funzionalità multiple
+\markup { \override #'(font-features . ("onum" "smcp" "salt 1"))
+          { Funzionalità multiple: Hello 0123456789 εφπρθ } }
+@end lilypond
+
+@noindent L'elenco completo delle funzionalità del font OpenType è
+consultabile qui:
+@uref{https://www.microsoft.com/typography/otspec/featurelist.htm}
+
+@noindent Per identificare le funzionalità dei font OpenType leggere qui:
+@uref{http://lists.gnu.org/archive/html/lilypond-devel/2017-08/msg00004.html}
+
 Sebbene sia semplice passare a un tipo di carattere preconfigurato, è anche
 possibile usare altri tipi, come viene spiegato nelle sezioni successive:
-@ref{Single entry fonts} e @ref{Tipi di carattere per l'intero documento}.
+@ref{Tipi di carattere per singolo oggetto} e
+@ref{Tipi di carattere per l'intero documento}.
 
 @seealso
 Guida alla notazione:
 @ref{Il font Emmentaler},
-@ref{Music notation inside markup},
-@ref{Rotating objects},
-@ref{Selecting font and font size},
+@ref{Notazione musicale nel blocco markup},
+@ref{Rotazione degli oggetti},
+@ref{Scelta del tipo di carattere e della dimensione},
 @ref{Font}.
 
 
@@ -1489,7 +1581,7 @@ a'1_\markup {
 }
 @end lilypond
 
-@cindex tipi di carattere, trovare quelli disponibili
+@cindex tipo di carattere, trovare disponibilità
 @cindex trovare i tipi di carattere disponibili
 @cindex elencare i tipi di carattere disponibili
 @cindex tipi di carattere disponibili, elenco
@@ -1510,7 +1602,7 @@ lilypond -dshow-available-fonts x
 
 @seealso
 Guida alla notazione:
-@ref{Fonts explained},
+@ref{Tipi di carattere in dettaglio},
 @ref{Tipi di carattere per l'intero documento}.
 
 Frammenti:
@@ -1529,12 +1621,14 @@ Frammenti:
 famiglie @emph{roman}, @emph{sans} e @emph{typewriter} specificandoli, in questo
 ordine, come è mostrato nell'esempio seguente, che ridimensiona automaticamente
 i caratteri col valore impostato per la dimensione globale del rigo.  In modo
-analogo a @ref{Single entry fonts}, si può indicare con una lista separata da
+analogo a @ref{Tipi di carattere per singolo oggetto}, si può indicare con una lista separata da
 virgole di @q{font}. Gli @q{stili} dei font, invece, non possono essere
-definiti.  I tipi di carattere  sono spiegati in @ref{Fonts explained}.
+definiti.  I tipi di carattere  sono spiegati in @ref{Tipi di carattere in dettaglio}.
 
-@cindex famiglie di tipi di carattere, impostare
-@cindex tipi di carattere, modificarli per l'intero documento
+@cindex famiglia di tipi di carattere, impostare
+@cindex font, impostare
+@cindex tipo di carattere, modificarli per l'intero documento
+@cindex font, modificarli per l'intero documento
 
 @funindex make-pango-font-tree
 
@@ -1555,12 +1649,89 @@ definiti.  I tipi di carattere  sono spiegati in @ref{Fonts explained}.
 }
 @end lilypond
 
+Nota: @code{make-pango-font-tree} reimposta i font della notazione sui
+predefiniti Emmentaler.
+
 @c we don't do Helvetica / Courier, since GS incorrectly loads
 @c Apple TTF fonts
 
+La sintassi seguente permette di cambiare font specifici, lasciando gli
+altri ai valori predefiniti.  L'esempio seguente produce lo stesso risultato
+dell'esempio precedente di @code{make-pango-font-tree}.
+Come con  @code{make-pango-font-tree}, è possibile specificare un elenco
+separato da virgola di @qq{font} per le categorie @code{roman}, @code{sans}
+e @code{typewriter}.
+Se non si cambia la dimensione del rigo dal valore predefinito di 20 pt,
+@code{#:factor (/ staff-height pt 20)} non è necessario.
+
+@funindex set-global-fonts
+
+@example
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     #:roman "Times New Roman"
+     #:sans "Nimbus Sans,Nimbus Sans L"
+     #:typewriter "Luxi Mono"
+     #:factor (/ staff-height pt 20) ; non necessario se la dimensione del rigo è predefinita
+    ))
+@}
+@end example
+
+È possibile specificare anche i font della notazione.
+Il prossimo esempio ha anch'esso lo stesso risultato degli esempi precedenti,
+perché imposta i font della notazione predefiniti.
+Maggiori informazioni in @ref{Cambiare il tipo di carattere della notazione}.
+
+@example
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     #:music "emmentaler"            ; predefinito
+     #:brace "emmentaler"            ; predefinito
+     #:roman "Times New Roman"
+     #:sans "Nimbus Sans,Nimbus Sans L"
+     #:typewriter "Luxi Mono"
+     #:factor (/ staff-height pt 20) ; non necessario se la dimensione del rigo è predefinita
+    ))
+@}
+@end example
+
+Nota: ogni chiamata della funzione @code{set-global-fonts} reimposta completamente
+i font sia della notazione principale che del testo. Se una categoria non è
+specificata, allora verrà usato il font predefinito per quella categoria.
+Ogni chiamata di @code{set-global-fonts} cambia i font di ciascun blocco
+@code{\book} che la segue.
+Se ci sono molteplici blocchi @code{\book} e si vogliono usare font diversi
+per ciascuno, basta ripetere @code{set-global-fonts}, in questo modo:
+
+@example
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     @dots{}
+    ))
+@}
+\book @{
+  @dots{}
+@}
+
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     @dots{}
+    ))
+@}
+\book @{
+  @dots{}
+@}
+@end example
+
+
 @seealso
 Guida alla notazione:
-@ref{Fonts explained},
-@ref{Single entry fonts},
-@ref{Selecting font and font size},
-@ref{Font}.
+@ref{Tipi di carattere in dettaglio},
+@ref{Tipi di carattere per singolo oggetto},
+@ref{Scelta del tipo di carattere e della dimensione},
+@ref{Font},
+@ref{Cambiare il tipo di carattere della notazione}.

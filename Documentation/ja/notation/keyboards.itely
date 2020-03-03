@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: fabcd22c8f88ea9a87241597f1e48c0a9adbfc6e
+    Translation of GIT committish: c286e07798cd57a4785c3701b2bbcf94721b0f11
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -9,7 +9,7 @@
 
 @c \version "2.21.0"
 
-@c Translators: Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Yoshiki Sawada
 @c Translation status: post-GDP
 
 
@@ -210,7 +210,7 @@
   \new Staff = "up" {
     \voiceOne
     % 譜を跨ぐボイスの中にある運指記号のためのスペースを作ります
-    \once\override DynamicLineSpanner.staff-padding = #3.4
+    \once\override DynamicLineSpanner.staff-padding = #4
     e''2\p\< d''\>
     c''1\!
   }
@@ -295,8 +295,23 @@
 }
 @end lilypond
 
-@cindex relative music and autoChange (相対モードと自動変更)
-@cindex autoChange and relative music (自動変更と相対モード)
+@noindent
+切り替えポイントを他のピッチにすることができます。@c
+譜を明示的に生成しない場合も、他の音部記号を用いることができます。
+
+@lilypond[quote,verbatim]
+music = {
+  g8 b a c' b8 d' c'8 e'
+  d'8 r f' g' a'2
+}
+
+\autoChange d' \music
+\autoChange b \with { \clef soprano } \music
+\autoChange d' \with { \clef alto } \with { \clef tenor } \music
+@end lilypond
+
+@cindex relative music and autochange (相対モードと自動変更)
+@cindex autochange and relative music (自動変更と相対モード)
 
 @funindex \relative
 
@@ -346,7 +361,7 @@
 
 
 @knownissues
-@cindex chords, splitting across staves with \autoChange
+@cindex chords, splitting across staves with \autoChange (\autoChange で譜を跨ぐ和音)
 
 譜の切り換えが最適な場所で行われない場合もあります。@c
 高品位の出力を得るには、譜の切り換えを手動で指定する必要があります。
@@ -392,6 +407,30 @@
 >>
 @end lilypond
 
+譜の切り替え線が和音を繋ぐ場合、ソース ファイルにある和音の@qq{最後の音符}に@c
+始端や終端が向けられます。これを利用して、線の縦方向の始端位置や終端位置を@c
+すばやく調整することができます:
+
+@lilypond[quote,verbatim]
+\new PianoStaff <<
+  \new Staff = "one" {
+    <c' e' g'>1
+    \showStaffSwitch
+    \change Staff = "two"
+    <a c' f>1
+    \hideStaffSwitch
+    \change Staff = "one"
+    <e' g' c'>1
+    \showStaffSwitch
+    \change Staff = "two"
+    <f a c'>1
+  }
+  \new Staff = "two" {
+    \clef bass
+    s1*4
+  }
+>>
+@end lilypond
 
 @predefined
 @code{\showStaffSwitch},
@@ -421,6 +460,7 @@
 @cindex cross-staff chords (譜を跨ぐ和音)
 @cindex cross staff chords (譜を跨ぐ和音)
 
+@funindex Stem
 @funindex \crossStaff
 @funindex \autoBeamOff
 @funindex Span_stem_engraver
@@ -587,7 +627,7 @@
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{accordion-discant-symbols.ly}
+{accordion-register-symbols.ly}
 
 @seealso
 コード断片集:

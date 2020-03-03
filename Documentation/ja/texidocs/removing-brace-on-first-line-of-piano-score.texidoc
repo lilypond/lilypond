@@ -1,0 +1,9 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+このスニペットは、@code{PianoStaff} や @code{GrandStaff} から@c
+先頭にあるブレース (波括弧) を削除しています。これは譜刻された既存の音楽の@c
+一部を切り取って見せる場合に有用です。
+
+これは @code{\\alterBroken} を使用しています。
+"
+  doctitleja = "ピアノ曲の先頭にあるブレースを削除する"

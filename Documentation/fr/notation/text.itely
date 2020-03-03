@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 1e5c6b0f54079eb3285dcc4c7e53f17d8bb03933
+   Translation of GIT committish: 032de07c17caacd038f113ebcb54e9c473d64e0f
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -12,6 +12,7 @@
 
 @c Translators: Jean-Charles Malahieude
 @c Translation checkers: Valentin Villenave, John Mandereau
+
 
 @node Texte
 @section Texte
@@ -41,7 +42,7 @@ chapitres qui leur sont dédiés.  C'est le cas de la
 Cette partie constitue une introduction aux différentes manières
 d'ajouter du texte à une partition.
 
-@cindex Texte, autres langues
+@cindex texte, autres langues
 @warning{Pour écrire des accents et autres caractères spéciaux, il
 suffit de les insérer directement dans votre fichier LilyPond.  Ce
 fichier devra être sauvegardé avec l'encodage UTF-8.  Pour plus
@@ -116,7 +117,7 @@ textuelles et articulations, reportez-vous au chapitre
 Manuel d'initiation :
 @rlearning{Positionnement des objets}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Articulations et ornements},
 @ref{Direction et positionnement},
 @ref{Mise en forme du texte}.
@@ -128,8 +129,7 @@ Référence des propriétés internes :
 @rinternals{TextScript}.
 
 @cindex texte hors marges
-@cindex marges, texte qui dépasse
-@cindex texte, maintien dans les marges
+@cindex marge, texte qui dépasse
 @cindex texte, maintien dans les marges
 
 @knownissues
@@ -153,7 +153,7 @@ vous pouvez toutefois vous en affranchir en ajoutant
 Certaines indications d'interprétation comme @emph{rallentando},
 @emph{accelerando} ou @emph{trilles}, s'inscrivent textuellement et se
 prolongent sur plusieurs notes à l'aide d'une ligne pleine, pointillée
-ou ondulée.  Ces objets, que l'on appelle @qq{extenseurs}, se dessinent
+ou ondulée.  Ces objets, que l'on appelle « extenseurs », se dessinent
 entre deux notes à l'aide de la syntaxe suivante :
 
 @lilypond[verbatim,quote]
@@ -199,6 +199,9 @@ Les détails concernant la syntaxe à utiliser sont expliqués au chapitre
 @endpredefined
 
 @snippets
+
+@cindex nuance, extension, personnalisation
+@cindex extenseur, nuance, personnalisation
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {dynamics-text-spanner-postfix.ly}
 
@@ -206,7 +209,7 @@ Les détails concernant la syntaxe à utiliser sont expliqués au chapitre
 {dynamics-custom-text-spanner-postfix.ly}
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Mise en forme du texte},
 @ref{Nuances},
 @ref{Styles de ligne}.
@@ -230,7 +233,7 @@ LilyPond ne peut traiter qu'un seul extenseur à la fois par voix.
 @cindex coda sur une barre de mesure
 @cindex segno sur une barre de mesure
 @cindex point d'orgue sur une barre de mesure
-@cindex barres de mesure, symboles au dessus de
+@cindex barre de mesure, symbole au dessus
 
 @funindex \mark
 @funindex \markup
@@ -309,14 +312,20 @@ de la ligne suivante.
 @endpredefined
 
 @snippets
+
+@cindex fin de ligne, repère, positionnement
+@cindex repère, positionnement en fin de ligne
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-marks-at-the-end-of-a-line.ly}
 
+@cindex, repère, sur toutes les portées
+@funindex Mark_engraver
+@funindex Staff_collecting_engraver
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-marks-on-every-staff.ly}
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Indications de repère},
 @ref{La fonte Emmentaler},
 @ref{Mise en forme du texte},
@@ -386,11 +395,14 @@ détail au chapitre @ref{Texte avec sauts de page}.
 @endpredefined
 
 @snippets
+
+@cindex texte en colonnes
+@cindex colonnes, texte
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {stand-alone-two-column-markup.ly}
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Mise en forme du texte},
 @ref{Plusieurs partitions dans un même ouvrage},
 @ref{Structure de fichier},
@@ -433,12 +445,12 @@ forme du texte à l'aide de la syntaxe propre au mode @code{\markup}.
 @funindex \markup
 
 La commande @code{\markup} permet d'ajouter du texte et dispose de sa
-propre syntaxe que nous appellerons le @qq{mode @emph{markup}}.
+propre syntaxe que nous appellerons le « mode @emph{markup} ».
 
-@cindex markup, expressions
-@cindex expressions markup
-@cindex markup, syntaxe
-@cindex syntaxe du mode markup
+@cindex @emph{markup}, expression
+@cindex expression @emph{markup}
+@cindex @emph{markup}, syntaxe
+@cindex syntaxe du mode @emph{markup}
 
 La syntaxe du mode @emph{markup} n'est pas différente de celle des
 autres modes de LilyPond : une expression @code{\markup} est bornée
@@ -466,11 +478,11 @@ expression qui les suit.
 
 @cindex caractères spéciaux en mode markup
 @cindex mode markup et caractères spéciaux
-@cindex caractères réservés, impression
-@cindex impression de caractères réservés
+@cindex caractère réservé, impression
+@cindex impression de caractère réservé
 @cindex impression de caractères spéciaux
-@cindex guillemets en mode markup
-@cindex mode markup et guillemets
+@cindex guillemets en mode @emph{markup}
+@cindex mode @emph{markup} et guillemets
 
 Un bloc @code{\markup} peut contenir du texte entre guillemets.  De
 telles chaînes seront considérées comme des expressions textuelles
@@ -522,12 +534,12 @@ allegro = \markup { \bold \large Allegro }
 
 @noindent
 Pour une liste des différentes commandes spécifiques au mode
-@code{\markup}, consultez l'annexe @ref{Commandes  pour markup} (en
+@code{\markup}, consultez l'annexe @ref{Commandes pour markup} (en
 anglais).
 
 @seealso
 Manuel de notation :
-@ref{Commandes  pour markup}.
+@ref{Commandes pour markup}.
 
 Fichiers d'initialisation :
 @file{scm/markup.scm}.
@@ -569,7 +581,7 @@ fonte :
 }
 @end lilypond
 
-@cindex caractères, taille
+@cindex caractère, taille
 @cindex texte, taille
 
 @funindex \abs-fontsize
@@ -653,7 +665,7 @@ affectiez un taille normale :
 }
 @end lilypond
 
-@cindex fontes, familles
+@cindex fonte, famille
 
 Le mode @emph{markup} vous permet de sélectionner d'autres familles de
 fontes.  Par défaut, LilyPond utilise une police avec empattement, du
@@ -728,7 +740,7 @@ Pour savoir comment personnaliser des fontes, reportez-vous au chapitre
 @endpredefined
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @rusernamed{Font,Fonte},
 @ref{Fontes},
 @ref{Indications de reprise manuelles},
@@ -744,7 +756,7 @@ Référence des propriétés internes :
 @rinternals{TextScript}.
 
 @knownissues
-Le recours aux commandes @code{\teeny}, @code{\tiny},@code{\small},
+Le recours aux commandes @code{\teeny}, @code{\tiny}, @code{\small},
 @code{\normalsize}, @code{\large} et @code{\huge} produiront des
 espacements nettement moins réguliers que si vous utilisez
 @code{\fontsize}.
@@ -756,8 +768,8 @@ espacements nettement moins réguliers que si vous utilisez
 
 @cindex texte, alignement
 @cindex alignement du texte
-@cindex alignement des markups
-@cindex markups, alignement
+@cindex alignement des @emph{markups}
+@cindex @emph{markups}, alignement
 
 Cette partie traite de la manière de positionner du texte en mode
 @emph{markup}.  On déplace l'intégralité d'un objet @emph{markup} en
@@ -828,7 +840,7 @@ L'alignement vertical est quant à lui un peu plus compliqué.  Comme nous
 l'avons vu ci-avant, les objets @emph{markup} peuvent être déplacés dans
 leur intégralité.  Il est néanmoins possible de déplacer certains
 éléments spécifiques au sein d'un bloc @emph{markup}.  En pareil cas,
-l'élément à déplacer doit être précédé d'un @qq{point d'ancrage} -- un
+l'élément à déplacer doit être précédé d'un « point d'ancrage » -- un
 autre élément du @emph{markup} ou un objet invisible.  L'exemple qui
 suit illustre ces deux possibilités.  Vous noterez par ailleurs que le
 dernier @emph{markup}, dépourvu de point d'ancrage, n'est de ce fait pas
@@ -882,8 +894,8 @@ d'ancrage.
 }
 @end lilypond
 
-@cindex multiligne, markup
-@cindex markup multiligne
+@cindex multiligne, @emph{markup}
+@cindex @emph{markup} multiligne
 @cindex multiligne, texte
 @cindex texte multiligne
 @cindex texte en colonnes
@@ -914,7 +926,7 @@ sa propre ligne, tantôt alignée à gauche, tantôt centrée.
 
 @cindex centrage du texte sur la page
 @cindex texte, centrage sur la page
-@cindex markup, centrage sur la page
+@cindex @emph{markup}, centrage sur la page
 
 @funindex \fill-line
 
@@ -944,8 +956,8 @@ texte multiligne ou une autre expression @emph{markup}.
 @cindex justifié, texte
 @cindex texte justifié
 @cindex texte sur plusieurs lignes
-@cindex markup, texte au kilomètre
-@cindex markup, texte justifié
+@cindex @emph{markup}, texte au kilomètre
+@cindex @emph{markup}, texte justifié
 
 @funindex \wordwrap
 @funindex \justify
@@ -982,7 +994,7 @@ le montre l'exemple suivant :
 @end lilypond
 
 @cindex commandes d'alignement du texte
-@cindex markup, commandes d'alignement du texte
+@cindex @emph{markup}, commandes d'alignement du texte
 @cindex alignement du texte, commandes
 
 Une liste des différentes commandes permettant d'aligner du texte en
@@ -1011,25 +1023,25 @@ Référence des propriétés internes :
 @translationof Graphic notation inside markup
 
 @cindex graphisme, tracé
-@cindex tracé d'objets graphiques
-@cindex graphiques, tracé d'objets
+@cindex tracé d'objet graphique
+@cindex graphique, tracé d'objet
 @cindex intégration d'objet graphique
-@cindex objets graphiques, tracé
+@cindex objet graphique, tracé
 
-Vous pouvez, grâce aux mode @emph{markup}, ajouter divers objets
+Vous pouvez, grâce au mode @emph{markup}, ajouter divers objets
 graphiques à votre partition.
 
 @cindex décoration du texte
 @cindex encadrement du texte
 @cindex texte, encadrement
 @cindex texte, décoration
-@cindex markup, ornementation du texte
-@cindex markup, encadrement du texte
+@cindex @emph{markup}, ornementation du texte
+@cindex @emph{markup}, encadrement du texte
 
 @funindex \box
 @funindex \circle
 @funindex \rounded-box
-@funindex \bracket
+@funindex @sortas{bracketB} \bracket
 @funindex \hbracket
 
 Certaines commandes de @emph{markup} permettent d'ornementer des
@@ -1055,7 +1067,7 @@ suivant :
 
 @cindex espacement autour du texte
 @cindex texte et rembourrage
-@cindex markup, rembourrage du texte
+@cindex @emph{markup}, rembourrage du texte
 
 @funindex \pad-markup
 @funindex \pad-x
@@ -1089,8 +1101,8 @@ Flute quartet keeps very uneven time."
 @end lilypond
 
 @cindex graphisme dans la notation
-@cindex symboles non musicaux
-@cindex non musicaux, symboles
+@cindex symbole non musical
+@cindex non musical, symbole
 @cindex notation et graphisme
 
 @funindex \combine
@@ -1120,9 +1132,9 @@ n'importe quelle expression @emph{markup}.
 }
 @end lilypond
 
-@cindex intégration de graphiques
-@cindex images, intégration
-@cindex graphiques, intégration
+@cindex intégration de graphique
+@cindex image, intégration
+@cindex graphique, intégration
 @cindex postscript
 
 @funindex \epsfile
@@ -1159,7 +1171,7 @@ L'annexe @ref{Graphic} répertorie les différentes commandes en matière
 de graphisme.
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @rusernamed{Align,Alignement},
 @ref{Annotations éditoriales},
 @ref{Dimensions},
@@ -1180,9 +1192,9 @@ Référence des propriétés internes :
 @unnumberedsubsubsec Notation musicale dans du texte formaté
 @translationof Music notation inside markup
 
-@cindex notation dans un markup
-@cindex musique dans un markup
-@cindex markup, inclusion de musique
+@cindex notation dans un @emph{markup}
+@cindex musique dans un @emph{markup}
+@cindex @emph{markup}, inclusion de musique
 
 Divers éléments de notation peuvent orner une partition, au moyen d'un
 objet @emph{markup}.
@@ -1271,15 +1283,13 @@ certains instruments :
 @c The accordion diagram is actually taken from a snippet.
 
 @noindent
-La documentation sur ces diagrammes se trouvent à l'annexe
+La documentation sur ces diagrammes se trouve à l'annexe
 @ref{Instrument Specific Markup}.
 
-@cindex partition incluse dans un markup
-@cindex markup, inclusion de partition
+@cindex partition incluse dans un @emph{markup}
+@cindex @emph{markup}, inclusion de partition
 
-Rien ne s'oppose à ce qu'une étiquette ne comporte une partition.  Il
-suffit que l'expression en question contienne un bloc @code{\score}
-incluant un bloc @code{\layout}.
+Rien ne s'oppose à ce qu'une étiquette ne comporte une partition.
 
 @lilypond[quote,verbatim]
 \relative {
@@ -1314,14 +1324,19 @@ Morceaux choisis :
 Référence des propriétés internes :
 @rinternals{TextScript}.
 
+@knownissues
+L'espacement vertical d'un @code{\score} contenu dans un objet
+@emph{markup} se contrôle par la propriété @code{baseline-skip}. Tout
+réglage au sein d'un bloc @code{\paper} est ignoré.
+
 
 @node Texte avec sauts de page
 @unnumberedsubsubsec Texte avec sauts de page
 @translationof Page wrapping text
 
-@cindex multi-page, markup
-@cindex markup  multi-page
-@cindex markup, texte multi-page
+@cindex multipage, @emph{markup}
+@cindex @emph{markup}  multipage
+@cindex @emph{markup}, texte multipage
 @cindex plusieurs pages de texte
 
 @funindex \markuplist
@@ -1371,7 +1386,7 @@ anglais).
 Manuel de notation :
 @ref{Commandes pour liste de markups}.
 
-Manuel d'extension :
+Manuel d'extension :
 @rextend{Définition d'une nouvelle commande de liste de markups}.
 
 Fichiers d'initialisation :
@@ -1404,10 +1419,10 @@ partition.
 @translationof Fonts explained
 
 @cindex Pango
-@cindex fontes, généralités
-@cindex accolades, taille
-@cindex fontes et markup
-@cindex markup et fontes
+@cindex fonte, généralités
+@cindex accolade, taille
+@cindex fonte et @emph{markup}
+@cindex @emph{markup} et fonte
 
 @funindex font-interface
 
@@ -1442,7 +1457,7 @@ Tous ces glyphes, à l'exception des accolades qui sont regroupées dans
 Une remarque s'impose au sujet des glyphes contenus dans
 @code{fetaBraces} : chacun d'eux est formé du mot @emph{brace} auquel
 est accolé un numéro d'ordre.  Lorsque vous désirez imprimer une
-accolade, vous devez la @qq{chercher} par son numéro d'ordre -- d'où la
+accolade, vous devez la « chercher » par son numéro d'ordre -- d'où la
 fonction @code{\lookup} de l'exemple ci-dessus --, tout en sachant qu'il
 est compris entre @code{0} (la plus petite) et @code{575} (la plus
 grande).  Vous serez souvent amené à procéder par tâtonnement pour
@@ -1451,18 +1466,54 @@ que des accolades ouvrantes.  Pour obtenir une accolade fermante, il
 suffit d'appliquer une rotation au glyphe sélectionné, comme indiqué à
 la rubrique @ref{Rotation des objets}.
 
-Vous disposez de trois familles de fontes textuelles :
-@itemize
-@item
-@emph{roman} pour la police sérif ou avec empattement -- fixée par
-défaut à LilyPond Serif (alias de TeX Gyre Schola),
-@item
-une police sans empattement (@emph{sans} sérif) -- fixée par défaut à
-LilyPond Sans Serif (alias de TeX Gyre Heros) et
-@item
-une police à chasse fixe (monospace ou @emph{typewriter}) -- fixée par
-défaut à LilyPond Monospace (alias de TeX Gyre Cursor).
-@end itemize
+Vous disposez de trois familles de fontes textuelles : @emph{roman} pour
+la police sérif ou avec empattement, une police sans empattement
+(@emph{sans} sérif) et une police à chasse fixe (monospace ou
+@emph{typewriter}).
+
+Pour le moteur @code{svg} :
+@multitable @columnfractions .15 .30
+@headitem Famille @tab Fonte par défaut
+@item @emph{roman} @tab @code{serif}
+@item @emph{sans} @tab @code{sans-serif}
+@item @emph{typewriter} @tab @code{monospace}
+@end multitable
+
+@code{serif}, @code{sans-serif} et @code{monospace} sont des
+@code{generic-family} au titre des spécifications SVG et CSS.
+
+Pour les autres moteurs :
+@multitable @columnfractions .15 .30 .55
+@headitem Famille @tab Fonte par défaut (alias) @tab Listes de définition des alias
+@item @emph{roman}
+@tab @code{LilyPond Serif}
+@tab
+TeX Gyre Schola,
+C059, Century SchoolBook URW, Century Schoolbook L,
+DejaVu Serif,
+..., serif
+@item @emph{sans}
+@tab @code{LilyPond Sans Serif}
+@tab
+TeX Gyre Heros,
+Nimbus Sans, Nimbus Sans L, DejaVu Sans,
+..., sans-serif
+@item @emph{typewriter}
+@tab @code{LilyPond Monospace}
+@tab
+TeX Gyre Cursor,
+Nimbus Mono PS, Nimbus Mono, Nimbus Mono L,
+DejaVu Sans Mono,
+..., monospace
+@end multitable
+
+@code{LilyPond Serif}, @code{LilyPond Sans Serif} et @code{LilyPond
+Monospace} sont des alias de fonte définis dans le fichier de
+configuration de FontConfig spécifique à LilyPond
+@code{00-lilypond-fonts.conf}.  Lorsqu'un caractère est absent de la
+première fonte listée, il sera remplacé par celui de la fonte suivante.
+Pour plus de détails sur les définitions des alias, consultez le fichier
+@code{00-lilypond-fonts.conf} dans le répertoire d'installation.
 
 Chaque famille dispose en principe de différents styles et niveaux de
 gras.  L'exemple qui suit illustre la manière de changer la famille, le
@@ -1506,6 +1557,46 @@ dispose d'une syntaxe allégée comme nous l'avons vu dans
 }
 @end lilypond
 
+@noindent
+Le recours aux fontes OpenType permet d'utiliser certaines
+fonctionnalités de ces fontes.  Toutefois, les fontes OpenType ne
+disposent pas toutes de l'intégralité de ces fonctions.  Dans le cas où
+la fonctionnalité demandée n'est pas disponible dans la fonte choisie,
+cette fonctionnalité est tout bonnement ignorée.
+
+@lilypond[quote,verbatim]
+% Vraies petites capitales
+\markup { Style normal : Hello HELLO }
+\markup { \caps { Petites capitales : Hello } }
+\markup { \override #'(font-features . ("smcp"))
+          { Vraies petites capitales : Hello } }
+
+% Styles numériques
+\markup { Style numérique normal : 0123456789 }
+\markup { \override #'(font-features . ("onum"))
+          { Style numérique ancien : 0123456789 } }
+
+% Alternatives stylistiques
+\markup { \override #'(font-features . ("salt 0"))
+          { Alternative stylistique 0 : εφπρθ } }
+\markup { \override #'(font-features . ("salt 1"))
+          { Alternative stylistique 1 : εφπρθ } }
+
+% Fonctionnalités multiples
+\markup { \override #'(font-features . ("onum" "smcp" "salt 1"))
+          { Fonctionnalités multiples : Hello 0123456789 εφπρθ } }
+@end lilypond
+
+@noindent
+Une liste exhaustive des fonctionnalités des fontes OpenType est
+disponible à l'adresse
+@uref{https://www.microsoft.com/typography/otspec/featurelist.htm}
+
+@noindent
+Les différents types de fonctionnalité des fontes OpenType
+sont recensées dans le message
+@uref{http://lists.gnu.org/archive/html/lilypond-devel/2017-08/msg00004.html}
+
 En plus de pouvoir jongler entre les différentes fontes prédéfinies,
 LilyPond vous permet d'en utiliser d'autres, ce qui fait l'objet des
 deux prochaines parties :
@@ -1513,7 +1604,7 @@ deux prochaines parties :
 et @ref{Choix des fontes par défaut}.
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{La fonte Emmentaler},
 @ref{Notation musicale dans du texte formaté},
 @ref{Rotation des objets},
@@ -1609,12 +1700,91 @@ d'explications sur les fontes, relisez @ref{Tout savoir sur les fontes}.
 }
 @end lilypond
 
+Note : @code{make-pango-font-tree} réinitialise les fontes musicales à
+leur valeur par défaut, à savoir Emmentaler.
+
 @c we don't do Helvetica / Courier, since GS incorrectly loads
 @c Apple TTF fonts
 
+La syntaxe suivante permet de substituer une fonte particulière tout en
+laissant les autres à leur valeur par défaut. L'exemple ci-dessous
+produit les mêmes effets que celui utilisant
+@code{make-pango-font-tree}. De même qu'avec
+@code{make-pango-font-tree}, il est possible de fournir une liste de
+fontes séparées par une virgule pour les catégories @code{roman},
+@code{sans} et @code{typewriter}. Dès lors que la taille de portée reste
+à sa valeur par défaut de 20 pt, l'instruction
+@code{#:factor (/ staff-height pt 20)} n'est pas nécessaire.
+
+@funindex set-global-fonts
+
+@example
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     #:roman "Times New Roman"
+     #:sans "Nimbus Sans,Nimbus Sans L"
+     #:typewriter "Luxi Mono"
+     #:factor (/ staff-height pt 20) ; inutile si taille de portée par défaut
+    ))
+@}
+@end example
+
+Il est aussi posible de substituer les fontes musicales. L'exemple
+ci-dessous produit les mêmes effets que ceux qui précèdent dans la
+mesure où les fontes musicales sont fixées à leur valeur par défaut.
+Pour de plus amples informations, voir
+@ref{Changement des fontes musicales}.
+
+@example
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     #:music "emmentaler"            ; défaut
+     #:brace "emmentaler"            ; défaut
+     #:roman "Times New Roman"
+     #:sans "Nimbus Sans,Nimbus Sans L"
+     #:typewriter "Luxi Mono"
+     #:factor (/ staff-height pt 20) ; inutile si taille de portée par défaut
+    ))
+@}
+@end example
+
+En tout état de cause, tout appel à @code{set-global-fonts} réinitialise
+aussi bien les fontes musicales que les fontes textuelles. Dès lors que
+l'une de ces catégories n'est pas mentionnée sera utilisée la fonte par
+défaut y afférente.@*
+Par ailleurs, chaque appel à @code{set-global-fonts} affecte les fontes
+du bloc @code{\book} qui le suit ; chaque bloc @code{\book} consécutif
+peut donc disposer de son propre jeu de fontes grâce à un simple appel à
+@code{set-global-fonts}, comme ici :
+
+@example
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     @dots{}
+    ))
+@}
+\book @{
+  @dots{}
+@}
+
+\paper @{
+  #(define fonts
+    (set-global-fonts
+     @dots{}
+    ))
+@}
+\book @{
+  @dots{}
+@}
+@end example
+
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Attribution d'une fonte en particulier},
 @rusernamed{Font,Fonte},
+@ref{Changement des fontes musicales},
 @ref{Sélection de la fonte et de la taille},
 @ref{Tout savoir sur les fontes}.

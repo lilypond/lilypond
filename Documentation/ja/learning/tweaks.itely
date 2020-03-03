@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: c1b0482f63f881bd3f67845e5f76a3e04675ef2a
+    Translation of GIT committish: c662a2cb50dcc4b98101bdd8228986646c4d1382
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -10,9 +10,8 @@
 
 @c \version "2.19.22"
 
-@c Translators: Yoshiki Sawada
+@c Translators: Masamichi Hosoda, Tomohiro Tatejima, Yoshiki Sawada
 @c Translation status: post-GDP
-
 
 @node 出力を調整する
 @chapter 出力を調整する
@@ -27,6 +26,7 @@ LilyPond は本当にさまざまな設定が可能です。@c
 * 内部リファレンス マニュアル::
 * オブジェクトの見た目::
 * オブジェクトの配置::
+* 垂直方向のスペース::
 * オブジェクトの衝突::
 * 更なる調整::
 @end menu
@@ -66,7 +66,6 @@ LilyPond の用語です。@c
 再読することを望むかもしれません。@c
 なぜなら、コンテキスト、エングラーバとそれらの中に含まれるプロパティは@c
 調整について理解し、調整を構成するための基礎だからです。
-
 
 @node オブジェクトとインタフェイス
 @subsection オブジェクトとインタフェイス
@@ -115,6 +114,19 @@ LilyPond が @code{\new Staff} のようなコマンドに遭遇した場合、@
 これらのオブジェクトのように形が伸長されるオブジェクトは
 @q{スパナ (Spanners)} と呼ばれます。
 
+スパナは生成された後に調整を行うことができません。楽譜全体にわたって続く
+@code{StaffSymbol} や @code{LedgerLineSpanner} も同様です。ただし、
+@code{\stopStaff} コマンドによって終了し、@code{\startStaff} コマンドで新たに@c
+生成された場合を除きます。
+
+また、@q{抽象 (abstract)} グラフィカル オブジェクトというものも存在します。@c
+これはオブジェクト自身は出力に何も書き出しませんが、他のグラフィカル
+オブジェクトを収集し、配置や管理をする役割を担います。
+@code{DynamicLineSpanner}, @code{BreakAlignment},
+@code{NoteColumn}, @code{VerticalAxisGroup},
+@code{NonMusicalPaperColumn} などが例です。後で、これらがどのように@c
+使われるかを見ていきましょう。
+
 @q{インタフェイス} とは何なのかという説明が残っています。@c
 多くのオブジェクト -- たとえそれらが非常に異なっていたとしても --
 は同じ方法で処理される必要がある共通特徴を共有します。@c
@@ -130,7 +142,6 @@ LilyPond が @code{\new Staff} のようなコマンドに遭遇した場合、@
 我々は後でなぜこれがユーザにとって利益となり、役に立つのかを見ていきます。
 
 これらは、我々がこの章で使用するオブジェクトと関係する主要な用語です。
-
 
 @node オブジェクトとプロパティの命名規則
 @subsection オブジェクトとプロパティの命名規則
@@ -178,24 +189,29 @@ LilyPond が @code{\new Staff} のようなコマンドに遭遇した場合、@
 そのため、名前からオブジェクトやプロパティのタイプを識別できるように@c
 なると役に立ちます。
 
+@seealso
+記譜法リファレンス:
+@ruser{プロパティを変更する}
+
 
 @node 調整手段
 @subsection 調整手段
 @translationof Tweaking methods
 
-@cindex tweaking methods (調性手段)
+@cindex tweaking methods (調整手段)
 
 @menu
-* \override コマンド::
-* \revert コマンド::
-* \once 接頭辞::
-* \overrideProperty コマンド::
-* \tweak コマンド::
+* override コマンド::
+* revert コマンド::
+* once 接頭辞::
+* overrideProperty コマンド::
+* tweak コマンド::
+* single 接頭辞::
 @end menu
 
-@node \override コマンド
-@unnumberedsubsubsec @code{\override} コマンド
-@translationof The \override command
+@node override コマンド
+@unnumberedsubsubsec @code{@bs{}override} コマンド
+@translationof The override command
 
 @cindex override command (override コマンド)
 @cindex override syntax (override 構文)
@@ -240,13 +256,11 @@ LilyPond が @code{\new Staff} のようなコマンドに遭遇した場合、@
 しかしながら、このセクションではそれらのフォーマットとコマンドの使い方を示す@c
 ために、容易に理解できる簡単なプロパティと値をいくつか使用してみるだけです。
 
-LilyPond の基本的な表記は音符、演奏時間、それにマークアップなどの音楽要素@c
-です。@c
-数字、文字列、それにリストなどのもっと基本的な表記は @q{Scheme モード}
+LilyPond の基本的な表記は文字列やマークアップだけでなく、@c
+音符や演奏時間のような音楽要素です。@c
+数字、シンボル、リストなどのより具体的な表記は @q{Scheme モード}
 で処理されます -- 表記の先頭に @samp{#} を記述することでこのモードが@c
 呼び出されます。@c
-これらの表記は LilyPond の音楽モードでも有効な表現である場合もありますが、@c
-このマニュアルでは一貫性を保つために常に @samp{#} を付けて記述します。@c
 Scheme モードについての更なる情報は @rextend{LilyPond Scheme syntax}
 を参照してください。
 
@@ -268,9 +282,9 @@ Scheme モードについての更なる情報は @rextend{LilyPond Scheme synta
 @end lilypond
 
 
-@node \revert コマンド
-@unnumberedsubsubsec @code{\revert} コマンド
-@translationof The \revert command
+@node revert コマンド
+@unnumberedsubsubsec @code{@bs{}revert} コマンド
+@translationof The revert command
 
 @cindex revert command (revert コマンド)
 
@@ -282,7 +296,6 @@ Scheme モードについての更なる情報は @rextend{LilyPond Scheme synta
 プロパティの値をオリジナルのデフォルト値に戻します。@c
 何度か @code{\override} コマンドが発行されている場合は、@c
 前の値に戻すわけではないということに注意してください。
-
 
 @example
 \revert @var{Context}.@var{LayoutObject}.@var{layout-property}
@@ -309,15 +322,15 @@ Scheme モードについての更なる情報は @rextend{LilyPond Scheme synta
 @end lilypond
 
 
-@node \once 接頭辞
-@unnumberedsubsubsec The @code{\once} prefix
-@translationof The \once prefix
+@node once 接頭辞
+@unnumberedsubsubsec @code{@bs{}once} 接頭辞
+@translationof The once prefix
 
 @funindex \once
 
-@code{\override} コマンドと @code{\set} コマンドには両方とも@c
+@code{\override}, @code{\revert}, @code{\set}, @code{\unset} コマンドには@c
 接頭辞 @code{\once} が付く可能性があります。@c
-これはその後に続く @code{\override} や @code{\set} コマンドを@c
+これはこのようなコマンドを@c
 その場一回限り有効にし、その後にそのプロパティの値をデフォルト値に戻します。@c
 上と同じ例を使って、以下のように 1 つだけの音符の色を変更することができます:
 
@@ -331,32 +344,30 @@ Scheme モードについての更なる情報は @rextend{LilyPond Scheme synta
   e4 f |
   \once \override NoteHead.color = #green
   g4 a
-  \revert NoteHead.color
+  \once \revert NoteHead.color
   b c |
+  \revert NoteHead.color
+  f2 c |
 }
 @end lilypond
 
 @code{\once} 接頭辞をさまざまな定義済みコマンドの前に置くことで、@c
 コマンドの効果を次の音楽タイミングに限定することもできます:
 
-@lilypond[quote,verbatim,relative=1]
-c4 d
-\once \stemDown
-e4 f |
-g4 a
-\once \hideNotes
-b c |
+@lilypond[quote,verbatim]
+\relative {
+  c'4( d)
+  \once \slurDashed
+  e4( f) |
+  g4( a)
+  \once \hideNotes
+  b( c) |
+}
 @end lilypond
 
-しかしながら、@code{\...Neutral}, @code{\...Off}, それに @code{\un...}
-の形式の定義済みコマンドの前に @code{\once} を置いても効果はありません。@c
-なぜなら、それらのコマンドは内部的に @code{\override} ではなく、@code{\revert}
-を用いるためです。
-
-
-@node \overrideProperty コマンド
-@unnumberedsubsubsec @code{\overrideProperty} コマンド
-@translationof The \overrideProperty command
+@node overrideProperty コマンド
+@unnumberedsubsubsec @code{@bs{}overrideProperty} コマンド
+@translationof The overrideProperty command
 
 @cindex overrideProperty command (overrideProperty コマンド)
 
@@ -368,9 +379,9 @@ b c |
 詳細は @rextend{Difficult tweaks} を参照してください。
 @c Maybe explain in a later iteration  -td
 
-@node \tweak コマンド
-@unnumberedsubsubsec @code{\tweak} コマンド
-@translationof The \tweak command
+@node tweak コマンド
+@unnumberedsubsubsec @code{@bs{}tweak} コマンド
+@translationof The tweak command
 
 @cindex tweak command (tweak コマンド)
 
@@ -477,7 +488,7 @@ a'4^"Black"
 この長い形式の @code{\tweak} コマンドは以下のように記述することができます:
 
 @example
-\tweak @var{layout-object}.@var{layout-property} @var{value}
+\tweak @var{LayoutObject}.@var{layout-property} #@var{value}
 @end example
 
 @cindex tuplets, nested (ネストされた連符)
@@ -543,6 +554,58 @@ a'4^"Black"
 @seealso
 記譜法リファレンス:
 @ruser{The tweak command}
+
+@node single 接頭辞
+@unnumberedsubsubsec @code{@bs{}single} 接頭辞
+@translationof The single prefix
+
+@funindex \single
+@cindex tweak, generated from override (override から生成される tweak)
+
+特定の符頭を赤色にしてサイズを大きくすることによって、強調を行いたいと@c
+しましょう。また、それを簡単にするためにこのような関数を定義したとしましょう:
+
+@lilypond[quote,verbatim]
+emphNoteHead = {
+  \override NoteHead.color = #red
+  \override NoteHead.font-size = 2
+}
+\relative {
+  c''4 a \once \emphNoteHead f d |
+}
+@end lilypond
+
+@code{\once} 接頭辞は単音や和音全体には動作しますが、和音@emph{内}の@c
+一つの音符に対しては使うことができません。さっき、@code{\tweak} は@c
+このような場面で使うということを学びました。
+@ref{tweak コマンド,,@code{@bs{}tweak} コマンド} を参照してください。@c
+しかし、@code{\tweak} は関数と一緒に使うことができません。そこで
+@code{\single} の登場です:
+
+@lilypond[quote,verbatim]
+emphNoteHead = {
+  \override NoteHead.color = #red
+  \override NoteHead.font-size = 2
+}
+\relative {
+   <c'' a \single \emphNoteHead f d>4
+}
+@end lilypond
+
+要約すると、@code{\single} は @code{\override} を @code{\tweak} に変換します。@c
+よって、(和音内の音符のように) 同じタイミングにいくつかのオブジェクトが@c
+存在する場合、@code{\once} はその全てに影響を与えるのに対し、
+@code{\single} はその内の 1 つに -- すぐ後に続く音楽表記のみに -- 作用します。
+
+@code{\single} をこのように使用することで、@code{\override} のみから成る@c
+簡略化のために定義された関数を、和音内の各音符に対して適用することができます。@c
+しかし、@code{\single} は @code{\revert}, @code{\set}, @code{\unset} を
+@code{\tweak} に変換することはできません。
+
+@seealso
+学習マニュアル:
+@ref{tweak コマンド,,@code{@bs{}tweak} コマンド},
+@ref{レイアウトの調整のために変数を使用する}
 
 
 @node 内部リファレンス マニュアル
@@ -696,7 +759,7 @@ thickness (number)
   \key es \major
   \time 6/8
   \relative {
-    % Increase thickness of all following slurs from 1.2 to 5.0
+    % これ以降にある全てのスラーの太さを 1.2 から 5.0 にします
     \override Slur.thickness = #5.0
     r4 bes'8 bes[( g]) g |
     g8[( es]) es d[( f]) as |
@@ -765,7 +828,6 @@ thickness (number)
 @cindex Slur, example of overriding (Slur をオーバライドする例)
 @cindex thickness property, example (thickness プロパティの例)
 
-@c KEEP LY
 @lilypond[quote,verbatim]
 {
   \key es \major
@@ -803,7 +865,6 @@ thickness (number)
 @cindex Slur, example of overriding (Slur をオーバライドする例)
 @cindex thickness property, example (thickness プロパティの例)
 
-@c KEEP LY
 @lilypond[quote,verbatim]
 {
   \key es \major
@@ -832,7 +893,6 @@ thickness (number)
 @cindex Slur, example of overriding (Slur をオーバライドする例)
 @cindex thickness property, example (thickness プロパティの例)
 
-@c KEEP LY
 @lilypond[quote,verbatim]
 {
   \key es \major
@@ -1581,8 +1641,7 @@ RGB 値を内部カラーに変換する @code{rgb-color} 関数です。@c
 @cindex Clef, example of overriding (Clef をオーバライドする例)
 @cindex TimeSignature, example of overriding (TimeSignature をオーバライドする例)
 
-@c KEEP LY
-@lilypond[quote,fragment,ragged-right,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 \new Staff ="main" {
   \relative {
     r4 g'8 g c4 c8 d |
@@ -1676,7 +1735,6 @@ RGB 値を内部カラーに変換する @code{rgb-color} 関数です。@c
 @cindex TimeSignature, example of overriding (TimeSignature をオーバライドする例)
 @cindex fontSize property, example (fontSize プロパティの例)
 
-@c KEEP LY
 @lilypond[quote,ragged-right,verbatim]
 \new Staff ="main" {
   \relative {
@@ -1703,7 +1761,6 @@ RGB 値を内部カラーに変換する @code{rgb-color} 関数です。@c
 譜線は離れすぎています。@c
 これらをフォント サイズの減少に比例してスケール ダウンさせる必要があります。@c
 次のサブ セクションでそれを行う方法について議論します。
-
 
 @node オブジェクトの長さと太さ
 @subsection オブジェクトの長さと太さ
@@ -1915,29 +1972,31 @@ c''2^"Text4" |
 @cindex center (中央)
 @cindex neutral (ニュートラル)
 
-以下の例は、小節 1 で符幹のデフォルトの振る舞いを示しています。@c
-高い位置にある音符の符幹は下向きで、低い位置にある音符の符幹は上向きです。@c
-続いて 4 つの音符の符幹をすべて強制的に下向きにし、4 つの音符の符幹を@c
-すべて強制的に上向きにし、最後に 4 つの音符の符幹をデフォルトに戻します。
+以下の例は、最初の小節でスラーのデフォルトの振る舞いを示しています。@c
+高い位置にある音符のスラーは音符の上にあり、@c
+低い位置にある音符のスターは音符の下にあります。@c
+次の小節では両方のスラーをすべて強制的に下向きにし、
+さらに次の小節では両方のスラーをすべて強制的に上向きにし、
+最後の小節ではスラーの向きをデフォルトに戻します。
 
-@cindex Stem, example of overriding (Stem をオーバライドする例)
+@cindex Slur, example of overriding (Slur をオーバライドする例)
 @cindex direction property, example (direction プロパティの例)
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-a4 g c a |
-\override Stem.direction = #DOWN
-a4 g c a |
-\override Stem.direction = #UP
-a4 g c a |
-\revert Stem.direction
-a4 g c a |
+@lilypond[quote,fragment,verbatim]
+a'4( g') c''( a') |
+\override Slur.direction = #DOWN
+a'4( g') c''( a') |
+\override Slur.direction = #UP
+a'4( g') c''( a') |
+\revert Slur.direction
+a'4( g') c''( a') |
 @end lilypond
 
 ここで定数 @code{DOWN} と @code{UP} を使っています。@c
 これらはそれぞれ値 @w{@code{-1}} と @code{+1} を持ち、定数の代わりに@c
 それらの数値を使うこともできまはす。@c
 さらに値 @code{0} を使う場合もあります。@c
-この値は符幹では @code{UP} を意味するものとして扱われますが、@c
+この値はスラーでは @code{UP} を意味するものとして扱われますが、@c
 いくつかのオブジェクトでは @q{center} という意味になります。@c
 値 @code{0} を持つ定数に @code{CENTER} があります。
 
@@ -1990,11 +2049,19 @@ a4 g c a |
 @end multitable
 
 これらのコマンドで中立/通常の位置に戻すコマンドは @code{\revert} を@c
-用いることで実装されていて、前に @code{\once} が付いて @strong{いない}
+用いることで実装されていて、これらは前に @code{\once} が付いて @strong{いない}
 かもしれません。@c
 @code{\override} を用いて実装されているコマンドの効果を単一のタイミング@c
 に限定したいのであれば、明示的なオーバライドの場合と同様に、@c
 コマンドの前に @code{\once} を配置します。
+
+あるいは、単に 1 つのレイアウト オブジェクトを上向きか下向きにしたいなら、@c
+方向指示子の @code{^} か @code{_} を使うことができます:
+
+@lilypond[quote,fragment,verbatim]
+a'4( g') c''( a') |
+a'4^( g') c''_( a') |
+@end lilypond
 
 @node 運指
 @unnumberedsubsubsec 運指
@@ -2164,7 +2231,7 @@ LilyPond はこれらの制約を受け取り、
 
 @menu
 * outside-staff-priority プロパティ::
-* \textLengthOn コマンド::
+* textLengthOn コマンド::
 * 強弱記号の配置::
 * グラフィカル オブジェクトのサイズ::
 @end menu
@@ -2186,7 +2253,7 @@ LilyPond はこれらの制約を受け取り、
 以下の表はいくつかの一般的な譜外部オブジェクトのデフォルトの
 @code{outside-staff-priority} 値を示しています。
 
-@multitable @columnfractions .3 .3 .3
+@multitable @columnfractions .3 .15 .45
 @headitem レイアウト オブジェクト
   @tab 優先度
   @tab 以下のオブジェクトの配置を制御する:
@@ -2196,15 +2263,33 @@ LilyPond はこれらの制約を受け取り、
 @item @code{MetronomeMark}
   @tab @code{1000}
   @tab メトロノーム記号
+@item @code{SostenutoPedalLineSpanner}
+  @tab @code{1000}
+  @tab ペダル記号
+@item @code{SustainPedalLineSpanner}
+  @tab @code{1000}
+  @tab
+@item @code{UnaCordaPedalLineSpanner}
+  @tab @code{1000}
+  @tab
+@item @code{MeasureCounter}
+  @tab @code{750}
+  @tab 小節番号
 @item @code{VoltaBracketSpanner}
   @tab @code{600}
   @tab Volta (番号付きのリピート) の囲み
+@item @code{InstrumentSwitch}
+  @tab @code{500}
+  @tab 楽器を変更するテキスト
 @item @code{TextScript}
   @tab @code{450}
   @tab マークアップ テキスト
 @item @code{MultiMeasureRestText}
   @tab @code{450}
-  @tab 全休符上のテキスト
+  @tab 複数小節にわたる休符上のテキスト
+@item @code{CombineTextScript}
+  @tab @code{450}
+  @tab パート結合のテキスト
 @item @code{OttavaBracket}
   @tab @code{400}
   @tab オッターバ (オクターブを上下させる記号) の囲み
@@ -2220,6 +2305,9 @@ LilyPond はこれらの制約を受け取り、
 @item @code{TrillSpanner}
   @tab @code{50}
   @tab トリル記号
+@item @code{AccidentalSuggestion}
+  @tab @code{0}
+  @tab 注釈的な臨時記号 (音符の上に付く臨時記号、ムジカ・フィクタ)
 @end multitable
 
 これらのうちのいくつかのデフォルトでの配置を示している例を挙げます。
@@ -2233,7 +2321,6 @@ LilyPond はこれらの制約を受け取り、
 @cindex TextSpanner, example of overriding (TextSpanner をオーバライドする例)
 @cindex bound-details property, example (bound-details プロパティの例)
 
-@c KEEP LY
 @lilypond[quote,fragment,ragged-right,verbatim]
 % 以降のテキスト スパナの詳細を設定します
 \override TextSpanner.bound-details.left.text
@@ -2284,7 +2371,6 @@ c'4 c' c' c' |
 @cindex TextSpanner, example of overriding (TextSpanner をオーバライドする例)
 @cindex bound-details property, example (bound-details プロパティの例)
 
-@c KEEP LY
 @lilypond[quote,fragment,ragged-right,verbatim]
 % 以降のテキスト スパナの詳細を設定します
 \override TextSpanner.bound-details.left.text
@@ -2377,9 +2463,9 @@ c''2^"Text4" |
 音符を水平方向に広げる必要があります。@c
 これは @code{\textLengthOn} コマンドを用いることで達成できます。
 
-@node \textLengthOn コマンド
-@unnumberedsubsubsec @code{\textLengthOn} コマンド
-@translationof The \textLengthOn command
+@node textLengthOn コマンド
+@unnumberedsubsubsec @code{@bs{}textLengthOn} コマンド
+@translationof The textLengthOn command
 
 @cindex notes, spreading out with text (テキストに合わせて音符の間隔を広げる)
 
@@ -2391,7 +2477,6 @@ c''2^"Text4" |
 @code{\textLengthOn} コマンドはこの動作を逆にして、@c
 テキストの配置に便宜をはかる必要がある限り、音符の間隔を広げます:
 
-@c KEEP LY
 @lilypond[quote,fragment,ragged-right,verbatim]
 \textLengthOn  % 音符の間隔を広げてテキストに揃えます
 c''2^"Text1"
@@ -2402,7 +2487,9 @@ c''2^"Text4" |
 
 デフォルトの動作に戻すためのコマンドは @code{\textLengthOff} です。@c
 効果を与えるのが単一の音楽タイミングであれば、@code{\textLengthOn}
-に @code{\once} を付ける方法もあります。
+に @code{\once} を付ける方法もあります。@c
+リハーサルマークやテンポ記号の水平方向のスペースを調整するには、
+@code{\markLengthOn} と @code{\markLengthOff} を使います。
 
 @cindex markup text, allowing collisions (マークアップ テキストの衝突を許可する)
 
@@ -2415,7 +2502,6 @@ c''2^"Text4" |
 @cindex TextScript, example of overriding (TextScript をオーバライドする例)
 @cindex outside-staff-priority property, example (outside-staff-priority プロパティの例)
 
-@c KEEP LY
 @lilypond[quote,ragged-right,verbatim]
 \relative {
   % このマークアップは短いため衝突は起きません
@@ -2472,9 +2558,9 @@ c''2^"Text4" |
 しかし、以下のかなり不自然な例が示すように、@c
 それは最適な配置ではないかもしれません:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim,fragment]
 \dynamicUp
-a4\f b\mf c\mp b\p
+\relative { a'4\f b\mf a\mp b\p }
 @end lilypond
 
 @noindent
@@ -2512,16 +2598,15 @@ a4\f b\mf c\mp b\p
 デフォルトでは、譜外部オブジェクトには 0 の幅が与えられているため、@c
 水平方向で重なる可能性があります。@c
 これは @code{extra-spacing-width} に @code{'(+inf.0 . -inf.0)} を@c
-セットすることによって、左端の広がりにプラス無限大、右端の広がりに@c
-マイナス無限大を付け加えるというトリックによって達成されています。@c
-そのため、譜外部オブジェクトが水平方向で重ならないことを保証するには、@c
-@code{extra-spacing-width} の値を @code{'(0 . 0)} に@c
-オーバライドする必要があります。@c
-これにより、本当の幅が明らかになります。@c
-以下は強弱記号テキストに対してこれを行うコマンドです:
+セットすることによって、左端の広がりをプラス無限大に、右端の広がりを@c
+マイナス無限大にするというトリックによって達成されています。@c
+譜外部オブジェクトが水平方向で重ならないことを保証するには、@c
+@code{extra-spacing-width} の値をオーバライドし、余分なスペースを少しだけ@c
+作る必要があります。単位は 2 つの譜線の間隔なので、左端を 0.5 単位左に、@c
+右端を 0.5 単位右に動かすことで実現できます:
 
 @example
-\override DynamicText.extra-spacing-width = #'(0 . 0)
+\override DynamicText.extra-spacing-width = #'(-0.5 . 0.5)
 @end example
 
 @noindent
@@ -2530,31 +2615,11 @@ a4\f b\mf c\mp b\p
 @cindex DynamicText, example of overriding (DynamicText をオーバライドする例)
 @cindex extra-spacing-width property, example (extra-spacing-width プロパティの例)
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-\dynamicUp
-\override DynamicText.extra-spacing-width = #'(0 . 0)
-a4\f b\mf c\mp b\p |
-@end lilypond
-
-@noindent
-確かに強弱記号の再配置をストップさせています。@c
-しかし、2 つの問題が残っています。@c
-強弱記号を互いにもう少し離すべきであり、それらは譜から@c
-同じ距離にあるほうが望ましいです。@c
-最初の問題は簡単に解決できます。@c
-@code{extra-spacing-width} を 0 にする代わりに、@c
-もう少し大きな値を与えるのです。@c
-単位は 2 本の譜線の間隔なので、左端を 1 単位の半分だけ左に移動させ、@c
-右端を 1 単位の半分だけ右に移動させると解決になります:
-
-@cindex DynamicText, example of overriding (DynamicText をオーバライドする例)
-@cindex extra-spacing-width property, example (extra-spacing-width プロパティの例)
-
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim,fragment]
 \dynamicUp
 % Extend width by 1 staff space
 \override DynamicText.extra-spacing-width = #'(-0.5 . 0.5)
-a4\f b\mf c\mp b\p
+\relative { a'4\f b\mf a\mp b\p }
 @end lilypond
 
 @noindent
@@ -2562,8 +2627,201 @@ a4\f b\mf c\mp b\p
 しかし、強弱記号が音符に合わせて上下するよりも、@c
 同じベースラインで揃っている方が望ましいでしょう。@c
 それを行うためのプロパティは @code{staff-padding} であり、@c
-後に続くセクションでカバーされています。
+衝突に関するセクションでカバーされています
+(@ref{オブジェクトの衝突} を参照してください)。
 
+
+@node 垂直方向のスペース
+@section 垂直方向のスペース
+@translationof Vertical spacing
+
+基本的に、LilyPond のオブジェクトにおける垂直方向のスペーシングは非常に@c
+良いです。2 声とピアノ伴奏からなる単純な曲でどのようになるかを見てみましょう:
+
+@lilypond[quote,fragment,ragged-right]
+<<
+  \new ChoirStaff
+  <<
+    \new Staff {
+      \new Voice = "music" {
+        b'2 c' c' c'
+      }
+    }
+    \new Lyrics
+    \lyricsto "music" {
+      Here are some lyrics
+    }
+    \new Staff {
+      \clef bass e'2 f e c
+    }
+  >>
+  \new PianoStaff
+  <<
+    \new Staff {
+      g''2 c'' c'' a''
+    }
+    \new Staff {
+      \clef bass e2 f c e
+    }
+  >>
+>>
+@end lilypond
+
+垂直方向のスペースについて、何もおかしな所はありません。しかし、あなたが@c
+出版社と共に作業していて、譜と歌詞の垂直方向のスペースについてある要求が@c
+ある場合を想像してください: 歌詞が音符から離れて配置されるように、@c
+ピアノ伴奏が歌のパートから離れて配置されるように、ピアノ伴奏の 2 つの譜が@c
+近づけて配置されるように要求されたとします。まず歌詞から取り組み始めましょう。
+
+歌詞はシステム (訳注: 1 行分の譜のまとまり) 内に配置されています。@c
+そのため、歌詞のスペースを調整するコマンドは@c
+@ruser{システム内部の可変な垂直方向のスペース} にあります。@c
+これによると、歌詞は @code{non-staff lines} (譜ではない行) であるため、@c
+このスペースを変更するコマンドは @code{nonstaff} プロパティと関連する@c
+ということが分かります。歌詞と関連している (上の段の) 譜とのスペースを@c
+広げるには @code{relatedstaff} プロパティ、下の段とのスペースを広げるには
+@code{unrelatedstaff} プロパティを使います。@c
+歌のパートは @code{VerticalAxisGroup} の一部であるため、そのプロパティを@c
+調整する必要があります。試してみて、効果があるか見てみましょう:
+
+@lilypond[quote,fragment,ragged-right,verbatim]
+<<
+  \new ChoirStaff
+  <<
+    \new Staff {
+      \new Voice = "music" {
+        b'2 c' c' c'
+      }
+    }
+    \new Lyrics \with {
+      \override VerticalAxisGroup.
+        nonstaff-relatedstaff-spacing.padding = #5
+      \override VerticalAxisGroup.
+        nonstaff-unrelatedstaff-spacing.padding = #5
+    }
+    \lyricsto "music" {
+      Here are some lyrics
+    }
+    \new Staff {
+      \clef bass e'2 f e c
+    }
+  >>
+  \new PianoStaff
+  <<
+    \new Staff {
+      g''2 c'' c'' a''
+    }
+    \new Staff {
+      \clef bass e2 f c e
+    }
+  >>
+>>
+@end lilypond
+
+確かに反映されました。しかしやり過ぎかもしれません。@code{padding}
+プロパティを 5 に設定すると、LilyPond は 5 譜スペースをオブジェクト間の@c
+距離に追加します。これは今回は大きすぎるので、2 を使用しましょう。
+
+次に、ピアノ伴奏を歌のパートから離しましょう。歌は @code{ChoirStaff}
+であるため、この譜のグループと下にあるピアノ譜とのスペースを増やす必要が@c
+あります。@code{StaffGrouper} の @code{staffgroup-staff-spacing} にある
+@code{basic-distance} を変更することで行います。
+
+@lilypond[quote,fragment,ragged-right,verbatim]
+<<
+  \new ChoirStaff \with {
+    \override StaffGrouper.
+      staffgroup-staff-spacing.basic-distance = #15
+  }
+  <<
+    \new Staff {
+      \new Voice = "music" {
+        b'2 c' c' c'
+      }
+    }
+    \new Lyrics \with {
+      \override VerticalAxisGroup.
+        nonstaff-relatedstaff-spacing.padding = #2
+      \override VerticalAxisGroup.
+        nonstaff-unrelatedstaff-spacing.padding = #2
+    }
+    \lyricsto "music" {
+      Here are some lyrics
+    }
+    \new Staff {
+      \clef bass e'2 f e c
+    }
+  >>
+  \new PianoStaff
+  <<
+    \new Staff {
+      g''2 c'' c'' a''
+    }
+    \new Staff {
+      \clef bass e2 f c e
+    }
+  >>
+>>
+@end lilypond
+
+完璧です。さて、ピアノ譜をお互いに近づける最後の要求に応えましょう。@c
+そのためには、また @code{StaffGrouper} のプロパティを変更しますが、今回は@c
+@code{basic-distance} と @code{padding} の両方の値を減らします。@c
+このようにして行います。
+
+@lilypond[quote,fragment,ragged-right,verbatim]
+<<
+  \new ChoirStaff \with {
+    \override StaffGrouper.
+      staffgroup-staff-spacing.basic-distance = #15
+  }
+  <<
+    \new Staff {
+      \new Voice = "music" {
+        b'2 c' c' c'
+      }
+    }
+    \new Lyrics \with {
+      \override VerticalAxisGroup.
+        nonstaff-relatedstaff-spacing.padding = #2
+      \override VerticalAxisGroup.
+        nonstaff-unrelatedstaff-spacing.padding = #2
+    }
+    \lyricsto "music" {
+      Here are some lyrics
+    }
+    \new Staff {
+      \clef bass e'2 f e c
+    }
+  >>
+  \new PianoStaff \with {
+    \override StaffGrouper.staff-staff-spacing = #'(
+                            (basic-distance . 0)
+                            (padding . 0))
+  }
+  <<
+    \new Staff {
+      g''2 c'' c'' a''
+    }
+    \new Staff {
+      \clef bass e2 f c e
+    }
+  >>
+>>
+@end lilypond
+
+非常に近くなりました。しかしこれが出版社の望むものでした。@c
+必要であれば、@code{padding} と @code{basic-distance} を変更することで@c
+間隔を広げることができます。
+
+垂直方向のスペースを変更する方法はたくさんあります。覚えておくべき@c
+キーポイントはこれです: @code{StaffGroup} にあるオブジェクト
+(例えば @code{GrandStaff} や @code{PianoStaff} のグループ) のスペースは、
+@code{StaffGrouper} の変数によって操作されること、@c
+グループ化されていない譜 (例えば @code{Lyrics} や @code{Staff})
+のスペースは、@code{VerticalAxisGroup} の変数によって操作されることです。@c
+詳しくは、@ruser{Flexible vertical spacing paper variables} と
+@ruser{Flexible vertical spacing within systems} を参照してください。
 
 @node オブジェクトの衝突
 @section オブジェクトの衝突
@@ -2735,25 +2993,49 @@ LilyPond がレイアウト オブジェクトを配置するときに使用す�
 レイアウト オブジェクトの衝突を解決する場合に有用です。
 
 @item
+@code{horizontal-shift}
+
+@cindex horizontal-shift property (horizontal-shift プロパティ)
+@cindex note column (音符列)
+@cindex note collisions (音符の衝突)
+@cindex collisions, notes (音符の衝突)
+@cindex shift commands (シフト コマンド)
+@funindex \shiftOff
+@funindex \shiftOn
+@funindex \shiftOnn
+@funindex \shiftOnnn
+
+ボイスの中で、同じタイミングにある全ての音符は 1 つの音符列にグループ化され、@c
+@code{NoteColumn} オブジェクトがその音符のグループの水平位置をコントロールする@c
+ために作成されます (@ref{Explicitly instantiating voices} の
+@qq{Note columns} を参照してください)。
+もし 1 つの Staff コンテキストにある 2 つ以上の音符列が、同じタイミングで@c
+出現し同じ向きの符幹を持つ場合@emph{に限り}、それらの @code{horizontal-shift}
+プロパティの値が順位を付けるために使用され、高い順位にあるものが優先的に@c
+符頭の衝突を避けるために移動します。このプロパティは @code{\voiceXXX}
+コマンドによってセットされ、@code{\override} コマンドで直接上書きすることが@c
+できますが、通常は @code{\shiftOn} コマンドによって上書きします。@c
+注意しなければならないことは、このプロパティは移動の @emph{順位} を@c
+決定するだけだけであり、移動の大きさを決定するものではないということです。
+移動の大きさは、順位ごとに符頭の幅を基にして 1 つずつ大きくなっていきます。@c
+1 つ分の幅は通常符頭の幅の半分ですが、それで近い場合には符頭 1 つ分の幅に@c
+なります。
+
+@item
 @code{force-hshift}
 
 @cindex force-hshift property (force-hshift プロパティ)
 
-和音の中で近接して配置された音符や異なるボイスの中にあって同時に起こる音符は、@c
-符頭の衝突を避けるために、2 つ (場合によってはそれ以上) の列に@c
-配置されます。@c
-この列は音符列と呼ばれ、その列に音符をレイアウトするために @code{NoteColumn}
-と呼ばれるオブジェクトが作成されます。
-
 @code{force-hshift} プロパティは @code{NoteColumn} のプロパティです
 (実際には @code{note-column-interface} のプロパティです)。@c
-このプロパティを変更することで音符列を、音符列特有の単位 --
-すなわち、最初のボイスの中にある音符の符頭の幅 -- に従って、@c
-移動させることができます。@c
+このプロパティを変更することで、音符列が重なってしまう場合において@c
+音符列を移動させることができます。重ならない音符列には効果が無いということに@c
+注意してください。移動の量は音符列特有の単位、すなわち最初のボイスの@c
+中にある音符の符頭の幅で指定されます。
 このプロパティは、通常の
 @code{\shiftOn} コマンド
 (@ref{ボイスを明示的にインスタンス化する} を参照してください)
-が音符の衝突を解決できないような複雑な状況で使用されるべきです。@c
+が音符の衝突を十分に解決できないような複雑な状況で使用されるべきです。@c
 この目的のためには、@code{extra-offset} プロパティを用いるよりも
 @code{force-hshift} プロパティを用いる方が好ましいです。@c
 なぜなら、譜スペースを単位とした距離を算出する必要が無く、@c
@@ -2875,7 +3157,6 @@ b2\fermata
 @cindex MetronomeMark, example of overriding (MetronomeMark をオーバライドする例)
 @cindex padding property, example (padding プロパティの例)
 
-@c KEEP LY
 @lilypond[quote,fragment,verbatim]
 % これは機能しません。この下を見てください
 \override MetronomeMark.padding = #3
@@ -2919,7 +3200,6 @@ d'1 |
 @cindex AccidentalPlacement, example of overriding (AccidentalPlacement をオーバライドする例)
 @cindex right-padding property, example (right-padding プロパティの例)
 
-@c KEEP LY
 @lilypond[quote,ragged-right,verbatim]
 sesquisharp = \markup { \sesquisharp }
 \relative {
@@ -2957,8 +3237,8 @@ sesquisharp = \markup { \sesquisharp }
 @cindex objects, aligning on a baseline (オブジェクトをベースラインに揃える)
 
 @code{staff-padding} を使うことで、強弱記号などのオブジェクトを、@c
-それらが取り付けられる音符の位置に依存した高さではなく、@c
-譜上のある固定した高さのベースラインに揃えることができます。@c
+他のオブジェクトが譜から離すよう強制しない限り、@c
+譜から一定の距離にあるベースラインに揃えることができます。@c
 このプロパティは @code{DynamicText} のプロパティではなく、@c
 @code{DynamicSpanner} のプロパティです。@c
 この理由は、このベースラインは延長スパナを含む @strong{すべて} の強弱記号に@c
@@ -2971,14 +3251,9 @@ sesquisharp = \markup { \sesquisharp }
 @cindex DynamicLineSpanner, example of overriding (DynamicLineSpanner をオーバライドする例)
 @cindex staff-padding property, example (staff-padding プロパティの例)
 
-@c KEEP LY
 @lilypond[quote,fragment,ragged-right,verbatim]
-\dynamicUp
-% 幅を 1 単位広げます
-\override DynamicText.extra-spacing-width = #'(-0.5 . 0.5)
-% 強弱記号を譜から 2 単位上のベース ラインに揃えます
-\override DynamicLineSpanner.staff-padding = #2
-\relative { a'4\f b\mf c\mp b\p }
+\override DynamicLineSpanner.staff-padding = #3
+\relative { a'4\f b\mf a\p b\mp }
 @end lilypond
 
 
@@ -2988,8 +3263,8 @@ sesquisharp = \markup { \sesquisharp }
 
 以下の例はこのプロパティが、運指法記号オブジェクトの右端を親の音符の@c
 参照ポイントに揃えることによって、@c
-弦楽器の運指法記号オブジェクトと音符の符幹とのこのプロパティが衝突を@c
-解決している様子を示しています:
+弦楽器の運指法記号オブジェクトと音符の符幹との相対位置を調整している@c
+様子を示しています:
 
 @cindex StringNumber, example of overriding (StringNumber をオーバライドする例)
 @cindex self-alignment-X property, example (self-alignment-X プロパティの例)
@@ -3022,7 +3297,7 @@ LilyPond がそれと衝突するかもしれない音符を突き止めるの�
 
 ここでの最良の解決策は、複数小節に亘る休符を下へ移動させることです。@c
 なぜなら、その休符はボイス 2 の中にあるからです。@c
-@code{\voiceTwo} (すなわち、@code{<<@{...@} \\ @{...@}>>} 構造の
+@code{\voiceTwo} (すなわち、@code{<<@{@dots{}@} \\ @{@dots{}@}>>} 構造の
 2 番目のボイス) のデフォルト状態では、@c
 @code{MultiMeasureRest} の @code{staff-position} は @code{-4} に@c
 セットされています。@c
@@ -3063,11 +3338,10 @@ LilyPond がそれと衝突するかもしれない音符を突き止めるの�
 @cindex Fingering, example of overriding (Fingering をオーバライドする例)
 @cindex extra-offset property, example (extra-offset プロパティの例)
 
-@lilypond[quote,fragment,relative=1,verbatim]
-\stemUp
-f4-5
+@lilypond[quote,fragment,verbatim]
+f'4-5
 \once \override Fingering.extra-offset = #'(-0.3 . -1.8)
-f4-5
+f'4-5
 @end lilypond
 
 
@@ -3117,19 +3391,27 @@ a'8 \( ( a''16 ) a'' \)
 もう 1 つ例を示します。@c
 連桁がタイと衝突しています:
 
-@lilypond[quote,verbatim,fragment,ragged-right]
+@lilypond[quote,verbatim,ragged-right]
 {
   \time 4/2
   <<
-    { c'1 ~ 2. e'8 f' }
+    \relative { c'1~ 2. e8 f }
     \\
-    { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
+    \relative {
+      e''8 e e e
+      e e e e
+      f2 g
+    }
   >>
   <<
-    { c'1 ~ 2. e'8 f' }
+    \relative { c'1~ 2. e8 f }
     \\
-    { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
- >>
+    \relative {
+      e''8 e e e
+      e e e e
+      f2 g
+    }
+  >>
 }
 @end lilypond
 
@@ -3140,29 +3422,39 @@ a'8 \( ( a''16 ) a'' \)
 @cindex Beam, example of overriding (Beam をオーバライドする例)
 @cindex positions property, example (positions プロパティの例)
 
-@lilypond[quote,verbatim,fragment,ragged-right]
+@lilypond[quote,verbatim,ragged-right]
 {
   \time 4/2
   <<
-    { c'1 ~ 2. e'8 f' }
+    \relative { c'1~ 2. e8 f }
     \\
-    {
+    \relative {
       \override Beam.positions = #'(-1 . -1)
-      e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g''
+      e''8 e e e
+      e e e e
+      f2 g
     }
   >>
   <<
-    { c'1 ~ 2. e'8 f' }
+    \relative { c'1~ 2. e8 f }
     \\
-    { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
+    \relative {
+      e''8 e e e
+      e e e e
+      f2 g
+      \revert Beam.positions
+    }
   >>
 }
 @end lilypond
 
 @noindent
-オーバライドの効果は継続して第 2 小節のボイス 1 の 8 分音符にも@c
+オーバライドの効果は継続して第 2 小節のボイス 2 の 8 分音符にも@c
 適用されていますが、@c
-ボイス 2 の連桁にはまったく適用されていないということに注意してください。
+ボイス 1 の連桁には、その後の第 2 小節においても@c
+まったく適用されていないということに注意してください。@c
+例に示したように、オーバライドがもう適用されるべきでないところでは@c
+オーバライドをリバートするべきです。
 
 @node force-hshift プロパティ
 @unnumberedsubsubsec @code{force-hshift} プロパティ
@@ -3189,17 +3481,18 @@ a'8 \( ( a''16 ) a'' \)
 
 @noindent
 最初の和音の内声の音 (つまり、4 番目のボイスにある A-フラット) を上の音符の@c
-音符列からずらす必要はありません。@c
-これを修正するには、下の音符の @code{force-hshift} --
-これは @code{NoteColumn} のプロパティです -- を 0 にセットします。@c
+音符列からずらす必要はありません。そのために @code{\shiftOff} を用います。@c
 
 2 番目の和音では、F を A-フラットに揃えて、符幹の衝突を避けるために@c
 最下段の音符を少し右に移動させるべきでしょう。@c
 そうするには、D-フラットの @code{NoteColumn} の @code{force-hshift}
-を設定して譜スペースの半分だけ右にずらします。
-2 番目の和音の下の方の音符は、上の方の音符のすぐ右に置くのが最良です。@c
-そうするには、この音符の @code{force-hshift} を 0.5 にセットします --
-つまり、上の方の音符の音符列から符頭の幅の半分だけ右にずらします。
+を設定して譜スペースの半分だけ右にずらし、F の @code{force-hshift}
+をゼロにします。@c
+注意すべきことは、すぐ後のタイミングを越えて設定が伝播してしまわないように、
+@code{\once} を使っているということです。
+この小さい例においては、ボイス 4 の @code{\once} と 2 個目の
+@code{\override} (訳注: @code{\shiftOff} のこと) は省略できますが、@c
+それは良い方法ではありません。
 
 ここで、最終結果を挙げます:
 
@@ -3212,17 +3505,10 @@ a'8 \( ( a''16 ) a'' \)
   <<
     { c''2 aes4. bes8 }
     \\
-    {
-      <ees, c>2
-      \once \override NoteColumn.force-hshift = #0.5
-      des2
-    }
+    { <ees, c>2 \once \override NoteColumn.force-hshift = 0.5 des }
     \\
     \\
-    {
-      \override NoteColumn.force-hshift = #0
-      aes'2 f4 fes
-    }
+    { \once \shiftOff aes'2 \once \shiftOff f4 fes }
   >> |
   <c ees aes c>1 |
 }
@@ -3250,7 +3536,6 @@ a'8 \( ( a''16 ) a'' \)
 @c The following should appear as music without code
 @c This example should not be indexed
 @c line-width ensures no break
-@c KEEP LY
 @lilypond[quote,ragged-right,line-width=6\in]
 rhMusic = \relative {
   \new Voice {
@@ -3261,7 +3546,7 @@ rhMusic = \relative {
     \time 6/4
     \mergeDifferentlyHeadedOn
     \mergeDifferentlyDottedOn
-    bes2.^\markup { \bold "Moderato" } r8
+    bes2.\tempo "Moderato" r8
     <<
       { c,8 d fis bes a }
       \new Voice {
@@ -3335,7 +3620,6 @@ LilyPond はうまく衝突を回避できるからです。
 それで LilyPond がデフォルトでどのような出力を作り出すのか見てみましょう:
 
 @c line-width ensures no break
-@c KEEP LY
 @lilypond[quote,verbatim,ragged-right,line-width=6\in]
 rhMusic = \relative {
   \new Voice {
@@ -3396,7 +3680,6 @@ lhMusic = \relative {
 これらの修正を加えると、以下のようになります:
 
 @c line-width ensures no break
-@c KEEP LY
 @lilypond[quote,verbatim,ragged-right,line-width=6\in]
 rhMusic = \relative {
   \new Voice {
@@ -3472,7 +3755,6 @@ lhMusic = \relative {
 これで第 2 小節の修正も完了で、以下のようになります:
 
 @c line-width ensures no break
-@c KEEP LY
 @lilypond[quote,verbatim,ragged-right,line-width=6\in]
 rhMusic = \relative {
   \new Voice {
@@ -3525,8 +3807,8 @@ lhMusic = \relative {
 @end lilypond
 
 第 3 小節 -- Moderato セクションの開始部分 -- に取り掛かります。@c
-チュートリアルで @code{\markup} コマンドを使ってボールド体のテキストを@c
-付け加える方法を示しましたので、@q{Moderato} をボールド体で付け加えることは@c
+チュートリアルで @code{\tempo} コマンドを使ってテンポ表示を@c
+付け加える方法を示しましたので、@q{Moderato} を付け加えることは@c
 容易です。@c
 しかし、異なるボイスの中にある音符をマージするにはどうするのでしょうか？@c
 ここで、助けを求めて記譜法リファレンスに移行する必要があります。@c
@@ -3554,7 +3836,6 @@ lhMusic = \relative {
 をセクションの終了点に置きます。これで、例は以下のようになります:
 
 @c line-width ensures no break
-@c KEEP LY
 @lilypond[quote,ragged-right,line-width=6\in]
 rhMusic = \relative {
   \new Voice {
@@ -3563,7 +3844,7 @@ rhMusic = \relative {
     bes1~ |
     \bar "||"
     \time 6/4
-    bes2.^\markup { \bold "Moderato" } r8
+    bes2.\tempo "Moderato" r8
     \mergeDifferentlyHeadedOn
     \mergeDifferentlyDottedOn
     % 4 つのボイスの多声セクションの開始
@@ -3633,7 +3914,6 @@ C はシフト off のボイス 2 の中にあり、2 つの D はボイス 1 �
 @cindex staff-position property, example (staff-position プロパティの例)
 
 @c line-width ensures no break
-@c KEEP LY
 @lilypond[quote,verbatim,ragged-right,line-width=6\in]
 rhMusic = \relative {
   \new Voice {
@@ -3642,7 +3922,7 @@ rhMusic = \relative {
     bes1~ |
     \bar "||"
     \time 6/4
-    bes2.^\markup { \bold "Moderato" } r8
+    bes2.\tempo "Moderato" r8
     \mergeDifferentlyHeadedOn
     \mergeDifferentlyDottedOn
     % 4 つのボイスの多声セクションの開始
@@ -3706,7 +3986,6 @@ lhMusic = \relative {
 @cindex transparent property, example (transparent プロパティの例)
 
 @c line-width ensures no break
-@c KEEP LY
 @lilypond[quote,verbatim,ragged-right,line-width=6\in]
 rhMusic = \relative {
   \new Voice {
@@ -3715,7 +3994,7 @@ rhMusic = \relative {
     bes1~ |
     \bar "||"
     \time 6/4
-    bes2.^\markup { \bold "Moderato" } r8
+    bes2.\tempo "Moderato" r8
     \mergeDifferentlyHeadedOn
     \mergeDifferentlyDottedOn
     % 4 つのボイスの多声セクションの開始
@@ -3779,7 +4058,7 @@ lhMusic = \relative {
 
 @menu
 * 調整のその他の使用方法::
-* 調整のために変数を使用する::
+* レイアウトの調整のために変数を使用する::
 * スタイル シート::
 * その他の情報源::
 * Scheme を用いた高度な調整::
@@ -3794,15 +4073,8 @@ lhMusic = \relative {
 * MIDI でフェルマータをシミュレートする::
 @end menu
 
-@cindex transparent property, use of (transparent プロパティの使用方法)
-@cindex objects, making invisible (オブジェクトを不可視にする)
 @cindex removing objects (オブジェクトを削除する)
 @cindex objects, removing (オブジェクトを削除する)
-@cindex hiding objects (オブジェクトを隠す)
-@cindex objects, hiding (オブジェクトを隠す)
-@cindex invisible objects (不可視のオブジェクト)
-@cindex objects, invisible (不可視のオブジェクト)
-
 
 @node 異なるボイスの中にある音符をタイで結ぶ
 @unnumberedsubsubsec 異なるボイスの中にある音符をタイで結ぶ
@@ -3811,7 +4083,7 @@ lhMusic = \relative {
 @cindex tying notes across voices (異なるボイスの中にある音符をタイで結ぶ)
 
 以下の例は異なるボイスの中にある音符をタイで結ぶ方法を示しています。@c
-通常、タイで結べるのは同じボイスの中にある 2 つ音符だけです。@c
+通常、タイで結べるのは同じボイスの中にある音符だけです。@c
 2 つのボイスを使い、そのうちの 1 つにタイで結んだ音符を置きます:
 
 @lilypond[quote]
@@ -3819,67 +4091,31 @@ lhMusic = \relative {
 @end lilypond
 
 @noindent
-そして、そのボイスの最初の上向き符幹を消します。@c
+そして、そのボイスの最初の上向き符幹と符尾を消します。@c
 これで、タイはボイスをまたがっているように見えます:
 
+@funindex \omit
 @cindex Stem, example of overriding (Stem をオーバライドする例)
-@cindex transparent property, example (transparent プロパティの例)
+@cindex Flag, example of overriding (Flag をオーバライドする例)
+@cindex @code{\omit}, example (@code{\omit} の例)
+@cindex example of @code{\omit} (@code{\omit} の例)
 
-@lilypond[quote,fragment,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
   {
-    \tweak Stem.transparent ##t
-    b8~ 8\noBeam
+    \once \omit Stem
+    \once \omit Flag
+    b'8~ 8\noBeam
   }
 \\
-  { b8[ g] }
+  { b'8[ g'] }
 >>
 @end lilypond
 
-符幹は表示されなくなっただけなので、タイの長さが十分ではありません。@c
-符幹の @code{length} を @code{8} にセットすることで符幹を伸ばすことができます:
-
-@lilypond[quote,fragment,relative=2,verbatim]
-<<
-  {
-    \tweak Stem.transparent ##t
-    \tweak Stem.length #8
-    b8~ 8\noBeam
-  }
-\\
-  { b8[ g] }
->>
-@end lilypond
-
-@funindex \single
-@cindex tweak, generated from override
-今度は、グラフィカル オブジェクトの透明性を @emph{オーバライド} する@c
-ことで実現します。@c
-これまでに説明した短縮形 @code{\hide} を使います。@c
-調整と異なり、オーバライドは単一の音楽表記から生成されたプロパティにだけ@c
-効果を持ちます。@c
-@code{\single} を用いてオーバライドを調整に変換することができので、@c
-上記の例を以下のように書き換えることができます:
-
-@lilypond[quote,fragment,relative=2,verbatim]
-<<
-  {
-    \single \hide Stem
-    \single \hide Flag
-    \tweak Stem.length #8
-    b8~ 8\noBeam
-  }
-\\
-  { b8[ g] }
->>
-@end lilypond
-
-今回のケースでは、@code{\once \hide} との違いははっきりしません。@c
-同じ音楽タイミングに複数のオブジェクトが存在する場合
-(和音の中にある符頭のように)、この違いは重要になります。@c
-そのような場合、@code{\once} はすべてのオブジェクトに影響を与える@c
-のに対して、@code{\single} は直後にある音楽表記によって生成された@c
-ただ 1 つのオブジェクトだけに影響を与えます。
+@seealso
+Learning Manual:
+@ref{once 接頭辞,,@code{@bs{}once} 接頭辞},
+@ref{stencil プロパティ}.
 
 
 @node MIDI でフェルマータをシミュレートする
@@ -3964,13 +4200,14 @@ lhMusic = \relative {
 @rglos{system}
 
 
-@node 調整のために変数を使用する
-@subsection 調整のために変数を使用する
-@translationof Using variables for tweaks
+@node レイアウトの調整のために変数を使用する
+@subsection レイアウトの調整のために変数を使用する
+@translationof Using variables for layout adjustments
 
-@cindex variables, using for tweaks (調整のために変数を使用する)
-@cindex using variables for tweaks (調整のために変数を使用する)
-@cindex tweaks, using variables for (調整のために変数を使用する)
+@cindex variables, using for overrides (オーバライドのために変数を使用する)
+@cindex overrides, using variables for (オーバライドのために変数を使用する)
+@cindex adjustments, using variables for (調整のために変数を使用する)
+@cindex layout adjustments, using variables for (レイアウトの調整のために変数を使用する)
 
 オーバライド コマンドはしばしば長く、入力するのが大変なものになります。@c
 そして、それらは完全に正しく記述されなければなりません。@c
@@ -4082,12 +4319,9 @@ LilyPond が作り出す出力にはさまざまな変更を加えることが�
 
 @lilypond[quote,verbatim,ragged-right]
 mpdolce =
-#(make-dynamic-script
-  #{ \markup { \hspace #0
-               \translate #'(5 . 0)
-               \line { \dynamic "mp"
-                       \text \italic "dolce" } }
-  #})
+  \tweak self-alignment-X #-0.6
+  #(make-dynamic-script
+    #{ \markup { \dynamic mp \normal-text \italic \bold dolce } #})
 
 inst =
 #(define-music-function
@@ -4116,12 +4350,9 @@ inst =
 @example
 %%% これを "definitions.ily" というファイル名で保存してください
 mpdolce =
-#(make-dynamic-script
-  #@{ \markup @{ \hspace #0
-               \translate #'(5 . 0)
-               \line @{ \dynamic "mp"
-                       \text \italic "dolce" @} @}
-  #@})
+  \tweak self-alignment-X #-0.6
+  #(make-dynamic-script
+    #@{ \markup @{ \dynamic mp \normal-text \italic \bold dolce @} #@})
 
 inst =
 #(define-music-function
@@ -4155,12 +4386,9 @@ inst =
 
 @lilypond[quote,ragged-right]
 mpdolce =
-#(make-dynamic-script
-  #{ \markup { \hspace #0
-               \translate #'(5 . 0)
-               \line { \dynamic "mp"
-                       \text \italic "dolce" } }
-  #})
+  \tweak self-alignment-X #-0.6
+  #(make-dynamic-script
+    #{ \markup { \dynamic mp \normal-text \italic \bold dolce } #})
 
 inst =
 #(define-music-function
@@ -4192,12 +4420,9 @@ inst =
 @example
 %%%  definitions.ily
 mpdolce =
-#(make-dynamic-script
-  #@{ \markup @{ \hspace #0
-               \translate #'(5 . 0)
-               \line @{ \dynamic "mp"
-                       \text \italic "dolce" @} @}
-  #@})
+  \tweak self-alignment-X #-0.6
+  #(make-dynamic-script
+    #@{ \markup @{ \dynamic mp \normal-text \italic \bold dolce @} #@})
 
 inst =
 #(define-music-function
@@ -4225,12 +4450,9 @@ inst =
 
 @lilypond[quote,ragged-right]
 mpdolce =
-#(make-dynamic-script
-  #{ \markup { \hspace #0
-               \translate #'(5 . 0)
-               \line { \dynamic "mp"
-                       \text \italic "dolce" } }
-  #})
+  \tweak self-alignment-X #-0.6
+  #(make-dynamic-script
+    #{ \markup { \dynamic mp \normal-text \italic \bold dolce } #})
 
 inst =
 #(define-music-function
@@ -4277,12 +4499,9 @@ inst =
 @example
 %%%  web-publish.ily
 mpdolce =
-#(make-dynamic-script
-  #@{ \markup @{ \hspace #0
-               \translate #'(5 . 0)
-               \line @{ \dynamic "mp"
-                       \text \italic "dolce" @} @}
-  #@})
+  \tweak self-alignment-X #-0.6
+  #(make-dynamic-script
+    #@{ \markup @{ \dynamic mp \normal-text \italic \bold dolce @} #@})
 
 inst =
 #(define-music-function
@@ -4311,12 +4530,9 @@ inst =
 
 @lilypond[quote,ragged-right]
 mpdolce =
-#(make-dynamic-script
-  #{ \markup { \hspace #0
-               \translate #'(5 . 0)
-               \line { \dynamic "mp"
-                       \text \italic "dolce" } }
-  #})
+  \tweak self-alignment-X #-0.6
+  #(make-dynamic-script
+    #{ \markup { \dynamic mp \normal-text \italic \bold dolce } #})
 
 inst =
 #(define-music-function
@@ -4451,7 +4667,7 @@ LilyPond アプリケーション上でコントロール クリックして
 エディタはあなたが普段 @code{.ly} ファイルを編集するために使っているもので@c
 結構です。@c
 このファイルは標準の LilyPond 定義済みコマンド
--- @code{\stemUp} や @code{\slurDotted} など
+-- @code{\tieUp} や @code{\slurDotted} など
 -- のすべての定義を保持しています。@c
 1 つまたは複数の @code{\override} コマンドを保持している@c
 変数の定義以外のものはないということがわかるでしょう。@c
@@ -4543,7 +4759,6 @@ Scheme プロシージャをセットすることができます。@c
 @cindex NoteHead, example of overriding (NoteHead をオーバライドする例)
 @cindex color property, setting to Scheme procedure (Scheme プロシージャに color プロパティをセットする)
 
-@c KEEP LY
 @lilypond[quote,verbatim,ragged-right]
 #(define (color-notehead grob)
    "Color the notehead according to its position on the staff."
@@ -4569,5 +4784,3 @@ Scheme プロシージャをセットすることができます。@c
 
 @rextend{Callback functions} に、これらのプログラム可能なインタフェイスの@c
 使い方を示している例がもっとあります。
-
-

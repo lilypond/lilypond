@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: 93be41a1622bc33a01719d1d75af3dca40d75354
+   Translation of GIT committish: dc65755d47f9fad3edeb6b7aaa43b6121e17de78
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -431,7 +431,7 @@ Si votre saisie entraîne un crash ou une sortie erronée, c'est un bogue.
 @subheading Étape 1 : Le bogue est-il déjà recensé ?
 
 Un recensement des bogues non encore résolus est disponible sur notre
-@emph{google bug tracker} ; suivez le lien
+@emph{bug tracker} ; suivez le lien
 
 @example
 @uref{http://sourceforge.net/p/testlilyissues/issues/}
@@ -481,16 +481,12 @@ Voici ce à quoi devrait ressembler tout signalement de bogue :
 Après avoir vérifié que votre problème n'est pas déjà répertorié et
 rédigé votre rapport de bogue, n'hésitez pas à nous le transmettre.
 
-@divClass{keep-bullets}
-@itemize
-
-@item
-Si vous êtes déjà inscrit à la liste de diffusion
-@uref{mailto:bug-lilypond@@gnu.org,bug-lilypond@@gnu.org}, envoyez un
-courriel comme à l'accoutumée.
-
-@end itemize
-@divEnd
+Il n'existe malheureusement plus d'interface permettant de poster
+sur la liste de diffusion de bogues sans y être abonné.  Consultez
+@example
+@uref{https://lists.gnu.org/mailman/listinfo/bug-lilypond}
+@end example
+pour plus d'information.
 
 @divEnd
 
@@ -656,9 +652,10 @@ lecture des @ref{Manuels, manuels pour la version stable}.}
 
 Il existe deux jeux de version pour LilyPond : des versions stables
 et des versions instables de développement.  Les versions stables
-comportent, en versionnage « mineur », un numéro pair (par ex. 2.8,
-2.10 ou 2.12).  Les versions de développement, quant à elles,
-comportent un versionnage « mineur » impair (par ex. 2.7, 2.9 ou 2.11).
+comportent, en versionnage « mineur », un numéro pair (par ex. 2.14,
+2.16 ou 2.18).  Les versions de développement, quant à elles,
+comportent un versionnage « mineur » impair (par ex. 2.15, 2.17
+ou 2.19).
 
 @divEnd
 

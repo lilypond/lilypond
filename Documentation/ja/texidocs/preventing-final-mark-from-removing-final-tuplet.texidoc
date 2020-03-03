@@ -1,0 +1,7 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+楽譜の最後に @code{\\mark} を追加すると、最後にある連符が@c
+表示されません。これは @code{TupletBracket.full-length-to-extent} を @code{#f}
+にすることで対処できます。
+"
+  doctitleja = "最後にリハーサル記号を配置した際に連符が削除されないようにする"

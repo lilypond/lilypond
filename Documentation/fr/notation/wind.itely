@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: a1267e20afa61258ce3031f07d916e0e66ac6582
+   Translation of GIT committish: 032de07c17caacd038f113ebcb54e9c473d64e0f
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -12,6 +12,7 @@
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
+
 
 @node Instruments à vent
 @section Instruments à vent
@@ -46,7 +47,7 @@ instruments à vent.
 @unnumberedsubsubsec Références en matière d'instruments à vent
 @translationof References for wind instruments
 
-@cindex instruments à vent
+@cindex instrument à vent
 @cindex vents
 
 Ce qui caractérise les partitions pour instruments à vent a trait
@@ -65,8 +66,8 @@ agrémentés de liaisons.  Voir à ce sujet
 @ref{Articulations et ornements} et
 @ref{Liste des signes d'articulation}.
 
-@item Un @emph{Flatterzunge} (trémolo dental ou trémolo en roulant les
-r) s'indique par une marque de trémolo et une étiquette textuelle
+@item Un @emph{Flatterzunge} (trémolo dental ou trémolo en roulant
+les r) s'indique par une marque de trémolo et une étiquette textuelle
 attachée à la note concernée.  Voir à ce sujet
 @ref{Répétitions en trémolo}.
 @end itemize
@@ -88,7 +89,7 @@ sont traditionnellement indiqués par des @ref{Notes d'ornement}.
 @item Les inflexions en fin de note sont abordées au chapitre
 @ref{Chutes et sauts}.
 
-@item Les @qq{bruitages} de clé ou de piston s'indiquent souvent par le
+@item Les « bruitage » de clé ou de piston s'indiquent souvent par le
 style @code{cross} ou des @ref{Têtes de note spécifiques}.
 
 @item Les bois peuvent émettre des harmoniques dans le bas de leur
@@ -107,11 +108,15 @@ Voir le chapitre @ref{Articulations et ornements}.
 @end itemize
 
 @snippets
+
+@cindex flageolet, taille
+@cindex taille, flageolet
+@funindex \flageolet
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing--flageolet-mark-size.ly}
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Articulations et ornements},
 @ref{Chutes et sauts},
 @ref{Glissando},
@@ -123,7 +128,7 @@ Manuel de notation :
 @ref{Signes de respiration},
 @ref{Têtes de note spécifiques}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Winds,Vents}.
 
 
@@ -139,17 +144,22 @@ La gestion des diagrammes de doigté spécifiques aux bois est abordée
 plus en profondeur au chapitre @ref{Diagrammes pour bois}.
 
 @snippets
+
+@cindex vents, doigtés
+@cindex doigtés, symboles pour vents
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {fingering-symbols-for-wind-instruments.ly}
 
+@cindex doigtés, table
+@cindex table de doigtés
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {recorder-fingering-chart.ly}
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Diagrammes pour bois}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Winds,Vents}.
 
 
@@ -216,10 +226,10 @@ une note en forme de croix.
 
 Lorsqu'on joue des œuvres moins cérémonieuses que pour une parade
 ou un défilé, peut survenir un sol aigu, au doux nom de
-@qq{piobaireachd}, et que l'on indiquera par @code{g-flat}.
+« piobaireachd », et que l'on indiquera par @code{g-flat}.
 
 @seealso
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Winds,Vents}.
 
 
@@ -271,7 +281,7 @@ Et voici en guise d'exemple, à quoi ressemble le chant populaire
 @end lilypond
 
 @seealso
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Winds,Vents}
 
 
@@ -444,26 +454,32 @@ utilisateurs.  Des gabarits sont contenus dans les fichiers
 @file{scm/display-woodwind-diagrams.scm}.
 
 @snippets
+
+@cindex vents, doigtés, diagramme
+@cindex doigtés,diagrammes pour bois
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {woodwind-diagrams-listing.ly}
 
+@cindex bois, diagramme, modification
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {graphical-and-text-woodwind-diagrams.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-size-of-woodwind-diagrams.ly}
 
+@cindex bois, clés, liste
+@cindex clés, bois, liste
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {woodwind-diagrams-key-lists.ly}
 
 @seealso
-Fichiers d'initialisation :
+Fichiers d'initialisation :
 @file{scm/define-woodwind-diagrams.scm}, @*
 @file{scm/display-woodwind-diagrams.scm}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Winds,Vents}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{TextScript},
 @rinternals{instrument-specific-markup-interface}.

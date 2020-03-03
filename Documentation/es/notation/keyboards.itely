@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 09ef86c87175cc6c1071eedb022ed1d01a93bcaf
+    Translation of GIT committish: 6ca1d8c80817f9baaa7b66b2fde9a7b98b0ffc0a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -44,7 +44,6 @@ casi todos los instrumentos de teclado.
 * Cambiar de pentagrama manualmente::
 * Cambiar de pentagrama automáticamente::
 * Líneas de cambio de pentagrama::
-* Plicas de pentagrama cruzado::
 @end menu
 
 
@@ -53,14 +52,14 @@ casi todos los instrumentos de teclado.
 @translationof References for keyboards
 
 @cindex piano, pentagramas de
-@cindex pentagramas de piano
-@cindex pentagramas de instrumentos de teclado
+@cindex pentagrama, de piano
+@cindex pentagrama, de instrumentos de teclado
 @cindex teclado, pentagramas para instrumentos de
 @cindex tecla, pentagramas para instrumentos de
-@cindex teclados, matices centrados
-@cindex dinámicas, indicaciones centradas en música de tecla
+@cindex teclado, matices centrados
+@cindex dinámica, indicaciones centradas en música de tecla
 @cindex piano, música de, matices centrados
-@cindex centrados, matices, en música de piano
+@cindex centrado, matices, en música de piano
 
 @funindex PianoStaff
 
@@ -121,10 +120,12 @@ que se cruzan entre voces, como se explica en
 
 @end itemize
 
+
 @c @snippets
 @c @lilypondfile[verbatim,quote,texidoc,doctitle]
 @c {forcing-visibility-of-systems-with-multi-bar-rests-when-using-\RemoveEmptyStaffContext.ly}
 @c http://lsr.di.unimi.it/LSR/Item?u=1&id=312
+
 
 @seealso
 Manual de aprendizaje:
@@ -156,10 +157,10 @@ Fragmentos de código:
 
 @cindex manual, cambio de pentagrama
 @cindex pentagrama, cambios manuales de
-@cindex cambio manual de pentagrama
+@cindex cambio, de pentagrama, manual
 @cindex cruzado, pentagrama, notas de
-@cindex notes de pentagrama cruzado
-@cindex barras de pentagrama cruzado
+@cindex nota, de pentagrama cruzado
+@cindex barra, de pentagrama cruzado
 @cindex cruzado, pentagrama, barras de
 
 @funindex \change
@@ -178,9 +179,31 @@ nombre @var{nombre_del_pentagrama}.  Los valores más corrientes
 para @var{nombre_del_pentagrama} son @code{"arriba"} y
 @code{"abajo"}, o bien @code{"MD"} y @code{"MI"}.
 
+@cindex vacío, acorde
+@cindex acorde, vacío
+@funindex <>
+
 El pentagrama al que salta la voz debe existir en el momento del
 salto.  Si es necesario, los pentagramas se tienen que
-@qq{mantener con vida}, véase @ref{Mantener vivos los contextos}.
+@qq{mantener con vida}, véase @ref{Mantener vivos los contextos},
+o instanciados explícitamente, por ejemplo mediante la utilización
+del acorde vacío, @code{<>}, véase @ref{Notas en acorde}.
+
+@lilypond[verbatim, quote]
+\new PianoStaff <<
+  \new Staff = "up" {
+    % enforce creation of all contexts at this point of time
+    <>
+    \change Staff = "down" c2
+    \change Staff = "up" c'2
+  }
+  \new Staff = "down" {
+    \clef bass
+    % keep staff alive
+    s1
+  }
+>>
+@end lilypond
 
 Las notas de pentagrama cruzado reciben la barra automáticamente:
 
@@ -211,8 +234,8 @@ que está más cerca de la barra.  Para ver un ejemplo sencillo de
 trucaje de las barras, consulte
 @rlearning{Arreglar notación con superposiciones}.
 
-@cindex colisiones de pentagrama cruzado
-@cindex colisiones, voces de pentagrama cruzado
+@cindex cruzado, pentagrama, colisión de voces
+@cindex colisión, voces de pentagrama cruzado
 
 Se puede producir una superposición en la notación cuando las
 voces se cruzan de un pentagrama a otro:
@@ -326,8 +349,8 @@ music = {
 \autoChange d' \with { \clef alto } \with { \clef tenor } \music
 @end lilypond
 
-@cindex relativo, modo, autocambiador y
-@cindex autocambiador y el modo relativo
+@cindex relativo, modo, @code{\autoChange} y
+@cindex @code{\autoChange} y el modo relativo
 
 @funindex \relative
 
@@ -378,7 +401,7 @@ Referencia de funcionamiento interno:
 @rinternals{AutoChangeMusic}.
 
 @knownissues
-@cindex acordes, división entre pentagramas con \autoChange
+@cindex acorde, división entre pentagramas con @code{\autoChange}
 
 Los cambios de pentagrama pueden no acabar en lugares óptimos.
 Para conseguir una salida de alta calidad es mejor especificar
@@ -427,6 +450,31 @@ automáticamente una línea que conecte las notas:
 >>
 @end lilypond
 
+Una línea de cambio de pauta entre acordes conecta las @qq{últimas
+notas} de cada uno de ellos según se han escrito en el archivo de
+entrada; Esto se puede usar para ajustar rápidamente las
+posiciones verticales del comienzo y el final de la línea.
+
+@lilypond[quote,verbatim]
+\new PianoStaff <<
+  \new Staff = "one" {
+    <c' e' g'>1
+    \showStaffSwitch
+    \change Staff = "two"
+    <a c' f>1
+    \hideStaffSwitch
+    \change Staff = "one"
+    <e' g' c'>1
+    \showStaffSwitch
+    \change Staff = "two"
+    <f a c'>1
+  }
+  \new Staff = "two" {
+    \clef bass
+    s1*4
+  }
+>>
+@end lilypond
 
 @predefined
 @code{\showStaffSwitch},
@@ -442,43 +490,35 @@ Referencia de funcionamiento interno:
 @rinternals{VoiceFollower}.
 
 
-@node Plicas de pentagrama cruzado
-@unnumberedsubsubsec Plicas de pentagrama cruzado
-@translationof Cross-staff stems
+@snippets
 
+@anchor{Plicas de pentagrama cruzado}
 @cindex plica de pentagrama cruzado
 @cindex pentagrama cruzado, plica de
-@cindex distancia entre pentagramas en música de piano
-
+@cindex distancia, entre pentagramas en música de piano
 @cindex cruzado, notas de pentagrama
 @cindex cruzado, plicas de pentagrama
 @cindex cruzado, acordes de pentagrama
-@cindex notas de pentagrama cruzado
-@cindex plicas de pentagrama cruzado
-@cindex acordes de pentagrama cruzado
-
-@funindex Stem
+@cindex nota, de pentagrama cruzado
+@cindex plica, de pentagrama cruzado
+@cindex acorde, de pentagrama cruzado
 @funindex \crossStaff
 @funindex \autoBeamOff
 @funindex Span_stem_engraver
-
-Se pueden hacer acordes que cruzan los pentagramas usando el
-grabador @code{Span_stem_engraver}.  Debe tenerse cuidado para
-estar seguro de que las barras automáticas no unen las notas de
-una pauta cuando no es necesario que estén unidas en la otra
-pauta.
-
-@lilypondfile[verbatim,quote]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {cross-staff-stems.ly}
 
 Por el momento no se puede especificar este grabador por su nombre
 entre comillas, sino prefijando el nombre con un símbolo de
-almohadilla @code{#}, a causa de la manera en que está
+almohadilla (@code{#}), a causa de la manera en que está
 implementado.
 
-@snippets
+@cindex cruzado, pentagrama, corchete de arpegio
+@cindex arpegio, corchete de pentagrama cruzado
+@cindex corchete, de pentagrama cruzado
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {indicating-cross-staff-chords-with-arpeggio-bracket.ly}
+
 
 @seealso
 Fragmentos de código:
@@ -505,10 +545,10 @@ relacionados con el piano.
 @translationof Piano pedals
 
 @cindex piano, pedales de
-@cindex pedales de piano
-@cindex pedal forte
-@cindex pedal derecho
-@cindex pedal sostenuto
+@cindex pedal, de piano
+@cindex pedal, forte
+@cindex pedal, derecho
+@cindex pedal, sostenuto
 @cindex derecho, pedal
 @cindex forte, pedal
 @cindex sostenuto, pedal
@@ -548,11 +588,11 @@ encuentran también en el vibráfono y en la celesta.
 @cindex pedal, indicación por corchete
 @cindex pedal, indicación mixta
 @cindex pedal de mantenimiento, estilo de
-@cindex mantenimiento, pedal, estilos de
+@cindex mantenimiento, pedal, estilo de
 
 @funindex pedalSustainStyle
 @funindex mixed
-@funindex bracket
+@funindex @sortas{bracketA} bracket
 @funindex text
 
 Existen tres estilos de indicaciones de pedal: textual, corchete y
@@ -621,10 +661,12 @@ acordeón.
 @unnumberedsubsubsec Símbolos de Discanto
 @translationof Discant symbols
 
-@cindex acordeón, signos de discanto
-@cindex discanto, signos de, del acordeón
+@cindex acordeón, signo de discanto
+@cindex discanto, signo de, del acordeón
 @cindex acordeón, cambios en el
-@cindex acordeón, signos de cambio en el
+@cindex acordeón, signo de cambio en el
+@cindex acordeón, símbolo de registro
+@cindex registro, símbolo, acordeón
 
 Los acordeones se suelen construir con más de un conjunto de
 lengüetas que pueden estar al unísono, una octava por encima, o
@@ -635,10 +677,16 @@ que seleccionan las distintas combinaciones de lengüetas, como
 manera que ha entrado en uso un sistema de signos para simplificar
 las instrucciones de ejecución.
 
+Puede verse una lista completa de todos los registros de acordeón
+disponibles en
+@rusernamed{Accordion Registers, Registros de acordeón}
+
+
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {accordion-register-symbols.ly}
+
 
 @seealso
 Fragmentos de código:
@@ -656,11 +704,10 @@ Esta sección trata sobre asuntos de notación específicos del arpa.
 * Pedales de arpa::
 @end menu
 
-
 @node Referencias para notación de arpa
 @unnumberedsubsubsec Referencias para notación de arpa
 @translationof References for harps
-@cindex harps
+@cindex arpa
 @cindex bisbiglando
 
 Ciertas características comunes de la música de arpa se estudian
@@ -694,10 +741,10 @@ Referencia de la notación:
 @unnumberedsubsubsec Pedales de arpa
 @translationof Harp pedals
 
-@cindex arpa, pedales
-@cindex arpa, diagramas de pedal
-@cindex pedales del arpa
-@cindex pedales del arpa, diagramas
+@cindex arpa, pedal
+@cindex arpa, diagrama de pedal
+@cindex pedal, del arpa
+@cindex pedal, del arpa, diagrama
 
 Las arpas tienen siete cuerdas por octava que pueden sonar a la
 altura natural, bemol o sostenido. En el arpa de palancas o arpa

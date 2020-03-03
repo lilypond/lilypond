@@ -1,0 +1,7 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+新たな拍子記号のスタイルを定義することができます。2 小節目の拍子記号は@c
+どちらの譜でも上下が逆になっています。
+"
+
+  doctitleja = "ユーザ定義の拍子記号"

@@ -1,0 +1,9 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+連符の括弧の可視性についての挙動は、デフォルトでは同じ長さの連桁がある場合に@c
+表示されないようになっています。これをコントロールするには、@c
+@code{bracket-bisibility} プロパティを @code{#t} (常に表示),
+@code{#f} (常に非表示), @code{#'if-no-beam} (連桁が無い場合にのみ表示)
+のいずれかにセットします。
+"
+  doctitleja = "連符の括弧の可視性をコントロールする"

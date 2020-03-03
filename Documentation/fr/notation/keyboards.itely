@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: a1267e20afa61258ce3031f07d916e0e66ac6582
+   Translation of GIT committish: 032de07c17caacd038f113ebcb54e9c473d64e0f
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -12,6 +12,7 @@
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
+
 
 @node Instruments utilisant des portées multiples
 @section Instruments utilisant des portées multiples
@@ -46,7 +47,6 @@ de notation pour la plupart des instrument à cordes multiples.
 * Changement de portée manuel::
 * Changement de portée automatique::
 * Lignes de changement de portée::
-* Hampes et changements de portée::
 @end menu
 
 
@@ -55,7 +55,7 @@ de notation pour la plupart des instrument à cordes multiples.
 @translationof References for keyboards
 
 @cindex piano, système pour
-@cindex portées pour piano
+@cindex portée de piano
 @cindex portées pour instrument à clavier
 @cindex portées pour instrument à clés
 @cindex clavier, portées pour instrument à
@@ -141,11 +141,11 @@ qui passent d'une voix à l'autre, comme le montre
 
 
 @seealso
-Manuel d'initiation :
+Manuel d'initiation :
 @rlearning{Autres utilisations des retouches},
 @rlearning{Exemple concret}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Arpèges},
 @ref{Doigtés},
 @ref{Liaisons de prolongation},
@@ -157,10 +157,10 @@ Manuel de notation :
 @ref{Résolution des collisions},
 @ref{Saisie de musique en parallèle}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Keyboards, Claviers}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{PianoStaff}.
 
 
@@ -168,11 +168,11 @@ Référence des propriétés internes :
 @unnumberedsubsubsec Changement de portée manuel
 @translationof Changing staff manually
 
-@cindex changements de portée manuels
+@cindex changement de portée manuel
 @cindex changement de portée forcé
 @cindex inter-portée, notes
 @cindex notes inter-portée
-@cindex inter-portée, ligatures
+@cindex inter-portée, ligature
 @cindex ligature inter-portée
 
 @funindex \change
@@ -191,9 +191,31 @@ portée supérieure @code{"haut"} et la portée inférieure @code{"bas"},
 donc @var{nomDeLaPortee} désigne habituellement @code{"haut"},
 @code{"bas"}, @code{"MD"} ou @code{"MG"}.
 
+@cindex accord vide
+@cindex vide, accord
+@funindex <>
+
 Dans tous les cas, le contexte de portée ainsi utilisé doit exister au
-préalable.  Le cas échéant, vous devrez @qq{garder actives} certaines
-portées -- voir @ref{Conservation d'un contexte} à ce propos.
+préalable.  Le cas échéant, vous devrez « garder actives » certaines
+portées -- voir @ref{Conservation d'un contexte} à ce propos, ou bien
+explicitement instanciées -- en recourant par exemple à un accord vide
+@code{<>} (voir @ref{Notes en accords}).
+
+@lilypond[verbatim, quote]
+\new PianoStaff <<
+  \new Staff = "up" {
+    % enforce creation of all contexts at this point of time
+    <>
+    \change Staff = "down" c2
+    \change Staff = "up" c'2
+  }
+  \new Staff = "down" {
+    \clef bass
+    % keep staff alive
+    s1
+  }
+>>
+@end lilypond
 
 Pour ligaturer automatiquement des notes entre deux portées, procédez
 ainsi :
@@ -262,18 +284,18 @@ faudra les résoudre, en suivant les directives du chapitre
 @rlearning{Correction des collisions d'objets}.
 
 @seealso
-Manuel d'initiation :
+Manuel d'initiation :
 @rlearning{Correction des collisions d'objets}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Barres de ligature automatiques},
 @ref{Conservation d'un contexte},
 @ref{Hampes}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Keyboards,Claviers}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{Beam},
 @rinternals{ContextChange}.
 
@@ -287,8 +309,9 @@ de portée, utilisez alors une ligature manuelle.
 @unnumberedsubsubsec Changement de portée automatique
 @translationof Changing staff automatically
 
-@cindex Changement de portée automatique
-@cindex Automatique, changement de portée
+@cindex changement de portée automatique
+@cindex automatique, changement de portée
+@cindex portée, changement automatique
 
 @funindex \autoChange
 @funindex PianoStaff
@@ -333,8 +356,8 @@ music = {
 \autoChange d' \with { \clef alto } \with { \clef tenor } \music
 @end lilypond
 
-@cindex mode relatif et autoChange
-@cindex autoChange et mode relatif
+@cindex mode relatif et @code{\autoChange}
+@cindex @code{autochange} et mode relatif
 
 @funindex \relative
 
@@ -373,19 +396,19 @@ portée inférieure :
 @end lilypond
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Changement de portée manuel}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Keyboards, Claviers}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{AutoChangeMusic}.
 
 
 @knownissues
 
-@cindex accords, répartition sur plusieurs portées avec \autoChange
+@cindex accord, répartition sur plusieurs portées avec @code{\autoChange}
 
 Les changements de portée automatiques n'interviennent pas toujours à
 l'endroit le plus opportun.  Pour un résultat de meilleure qualité, il
@@ -404,7 +427,7 @@ construction de cet accord.
 @translationof Staff-change lines
 
 @cindex voix entre deux portées
-@cindex changements de portée
+@cindex changement de portée
 @cindex mélodie d'une portée à une autre
 
 @funindex followVoice
@@ -430,56 +453,75 @@ commande @code{\showStaffSwitch} :
 >>
 @end lilypond
 
+Dans le cas d'accords, cette ligne connectera la @b{dernière} hauteur de
+chacun d'entre eux selon leur ordre d'apparition dans le fichier
+source ; ceci permet d'ajuster rapidement les positions de départ et
+d'arrivée de cette ligne.
+
+@lilypond[quote,verbatim]
+\new PianoStaff <<
+  \new Staff = "one" {
+    <c' e' g'>1
+    \showStaffSwitch
+    \change Staff = "two"
+    <a c' f>1
+    \hideStaffSwitch
+    \change Staff = "one"
+    <e' g' c'>1
+    \showStaffSwitch
+    \change Staff = "two"
+    <f a c'>1
+  }
+  \new Staff = "two" {
+    \clef bass
+    s1*4
+  }
+>>
+@end lilypond
+
 @predefined
 @code{\showStaffSwitch},
 @code{\hideStaffSwitch}.
 @endpredefined
 
 @seealso
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Keyboards, Claviers}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{Note_head_line_engraver},
 @rinternals{VoiceFollower}.
 
+@snippets
 
-@node Hampes et changements de portée
-@unnumberedsubsubsec Hampes et changements de portée
-@translationof Cross-staff stems
-
-@cindex hampe, enjambement portées
+@anchor{Hampes et changements de portée}
+@c VO Cross-staff stems
+@cindex hampe, enjambement de portées
+@cindex interportée, hampe
 @cindex distance entre deux portées de piano
-
 @funindex Stem
 @funindex \crossStaff
 @funindex \autoBeamOff
 @funindex Span_stem_engraver
-
-Pour écrire des accords qui enjambent deux portées, on allonge, à l'aide
-du @code{Span_stem_engraver}, la hampe de l'accord de l'une des deux
-portées de façon à ce qu'elle rejoigne celle de l'autre portée.  La
-gestion des ligatures automatiques requiert alors une attention
-particulière ; en effet, une seule portée devrait alors comporter des
-ligatures.
-
-@lilypondfile[verbatim,quote]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {cross-staff-stems.ly}
 
-Il n'est pas possible à l'heure actuelle, en raison de la manière
+Il n'est pas possible, à l'heure actuelle et en raison de la manière
 dont il a été implémenté, de spécifier ce graveur en le mettant entre
 guillements ; il faut le mentionner en faisant précéder son nom d'un
-symbole @emph{hash} (un @code{#}).
+symbole @emph{hash} (un @code{#}).
 
-@snippets
+@cindex crochet d'arpeggio interportée
+@cindex arpeggio, crochet interportée
+@cindex crochet interportée
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {indicating-cross-staff-chords-with-arpeggio-bracket.ly}
 
 @seealso
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Keyboards, Claviers}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{Stem}.
 
 
@@ -498,8 +540,8 @@ Ce chapitre traite des aspects de la notation directement liés au piano.
 @unnumberedsubsubsec Pédales de piano
 @translationof Piano pedals
 
-@cindex piano et pédales
-@cindex pédales de piano
+@cindex piano et pédale
+@cindex pédale de piano
 @cindex sustain, pédale
 @cindex pédale sustain
 @cindex sostenuto, pédale
@@ -533,7 +575,7 @@ pédale @notation{tonale} (@emph{sostenuto} ou @emph{sos.}).  La pédale
 }
 @end lilypond
 
-@cindex pédale, styles d'indications de
+@cindex pédale, style d'indications de
 @cindex pédale, indication textuelle de
 @cindex pédale, indication graphique de
 @cindex pédale, indication combinée de
@@ -542,13 +584,13 @@ pédale @notation{tonale} (@emph{sostenuto} ou @emph{sos.}).  La pédale
 
 @funindex pedalSustainStyle
 @funindex mixed
-@funindex bracket
+@funindex @sortas{bracketA} bracket
 @funindex text
 
 Trois styles sont à votre disposition pour imprimer les indications de
 pédale : sous forme de texte, de crochet, ou une combinaison des
 deux.  @code{text} est le style de notation par défaut pour les pédales
-de tenue ou de sourdine --- le traditionnel « *Ped. ».  La pédale
+de tenue ou de sourdine -- le traditionnel « *Ped. ».  La pédale
 tonale, en revanche, utilise @code{mixed} par défaut.
 
 @lilypond[quote,verbatim]
@@ -569,29 +611,29 @@ pédale de tenue pendant le jeu.  Garder une pédale enclenchée jusqu'à la
 barre finale s'obtient tout simplement en omettant la commande de
 relâcher.
 
-Les indication de pédale peuvent s'inscrire dans un contexte
+Les indications de pédale peuvent s'inscrire dans un contexte
 @code{Dynamics}, ce qui aura pour effet de leur attribuer une ligne en
 propre.
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Liaisons de prolongation}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Keyboards, Claviers}.
 
-Référence des propriétés internes :
-@rinternals{SustainPedal},
-@rinternals{SustainPedalLineSpanner},
+Référence des propriétés internes :
+@rinternals{Piano_pedal_engraver},
+@rinternals{PianoPedalBracket},
 @rinternals{SustainEvent},
 @rinternals{SostenutoPedal},
-@rinternals{SostenutoPedalLineSpanner},
+@rinternals{SustainPedal},
+@rinternals{SustainPedalLineSpanner},
 @rinternals{SostenutoEvent},
+@rinternals{SostenutoPedalLineSpanner},
 @rinternals{UnaCordaPedal},
-@rinternals{UnaCordaPedalLineSpanner},
 @rinternals{UnaCordaEvent},
-@rinternals{PianoPedalBracket},
-@rinternals{Piano_pedal_engraver}.
+@rinternals{UnaCordaPedalLineSpanner}.
 
 
 @node Accordéon
@@ -607,8 +649,8 @@ Référence des propriétés internes :
 @unnumberedsubsubsec Symboles de jeux
 @translationof Discant symbols
 
-@cindex accordéon, symboles de registre
-@cindex registres, symboles pour accordéon
+@cindex accordéon, symbole de registre
+@cindex registre, symbole pour accordéon
 @cindex accordéon, tirettes
 @cindex tirettes d'accordéon, symboles
 
@@ -621,12 +663,15 @@ sélectionner les différents jeux d'anches tels que @notation{hautbois},
 de symbole a fini par voir le jour afin de faciliter les instructions
 pour exécuter un morceau.
 
+Une liste des différents symboles est disponible à l'annexe
+@rusernamed{Accordion Registers, Registre pour arccordéon}.
+
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {accordion-register-symbols.ly}
 
 @seealso
-Morceaux choisis :
+Morceaux choisis :
 @rlsr{Keyboards, Claviers}.
 
 
@@ -646,7 +691,8 @@ la harpe.
 @node Généralités sur la harpe
 @unnumberedsubsubsec Généralités sur la harpe
 @translationof References for harps
-@cindex harpes
+
+@cindex harpe
 @cindex bisbigliando
 
 Certaines caractéristiques de la musique pour harpes sont abordées dans
@@ -667,7 +713,7 @@ d'autres chapitres, tels que :
 @end itemize
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Arpèges},
 @ref{Glissando},
 @ref{Harmoniques},
@@ -678,10 +724,10 @@ Manuel de notation :
 @unnumberedsubsubsec Pédales de harpe
 @translationof Harp pedals
 
-@cindex harpe, pédales
-@cindex harpe, diagrammes de pédales
-@cindex pédales de harpe
-@cindex pédales, diagrammes pour harpe
+@cindex harpe, pédale
+@cindex harpe, diagramme de pédales
+@cindex pédale de harpe
+@cindex pédale, diagramme pour harpe
 
 Les harpes comportent sept cordes par octave qui peuvent sonner
 naturel, dièse ou bémol.  Si chacune des cordes de la harpe celtique
@@ -711,14 +757,14 @@ c''!1_\markup { \harp-pedal "^o--|vv-^" }
 Bémol si la pédale est relâchée (ou en haut), bécarre si elle est
 bloquée sur le cran du milieu, et dièse si elle est tout à fait
 enfoncée.  La commande @code{\harp-pedal} prend en argument une chaîne
-de caractères, où @code{^} indique que la pédale est relâchée ou en haut
-(bémol), @code{-} qu'elle est bloquée sur le cran du milieu (bécarre),
-@code{v} qu'elle est tout à fait enfoncée (dièse) et @code{|} représente
+de caractères, où @code{^} indique que la pédale est relâchée ou en haut
+(bémol), @code{-} qu'elle est bloquée sur le cran du milieu (bécarre),
+@code{v} qu'elle est tout à fait enfoncée (dièse) et @code{|} représente
 le séparateur (entre gauche et droite de l'instrumentiste). Faire
-précéder un symbole par un @code{o} permet de l'inscrire dans un cercle.
+précéder un symbole par un @code{o} permet de l'inscrire dans un cercle.
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Commentaires textuels},
 @rusernamed{Instrument Specific Markup,
 Markups spécifiques aux instruments (en anglais)}.

@@ -1,0 +1,8 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+同じ音符列が異なる音高で複数出現する音楽では、次の音楽関数が@c
+便利です。これは音符を引数として取り、その音高のみが使用されます。@c
+この例では Holst の The Planets の一曲、Mars に使用されるリズムを作り出して@c
+います。
+"
+  doctitleja = "異なるピッチの音符列を作成する"

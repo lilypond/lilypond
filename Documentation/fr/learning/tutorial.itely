@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8c1840ca28a05b3dad8d595e04d03779ba0a286a
+   Translation of GIT committish: 0a5306c21d7d64d1ffdadb899c0af79ced2df336
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -185,8 +185,8 @@ en principe plus rapidement lors des exécutions suivantes.}
 @section Composition d'un fichier source
 @translationof How to write input files
 
-This section introduces some basic LilyPond syntax to help get you
-started writing input files.
+Cette partie présente les bases de la syntaxe de LilyPond, dans le
+but de vous auder à rédiger vos premiers fichiers sources.
 
 @menu
 * Notation simple::
@@ -251,7 +251,7 @@ Glossaire musicologique :
 @rglos{octave},
 @rglosnamed{accidental,altération}.
 
-LilyPond utilise des lettres minusculmes pour indiquer les hauteurs.
+LilyPond utilise des lettres minuscules pour indiquer les hauteurs.
 Les lettres @code{c} à @code{b} indiquent des hauteurs dans l'octave
 basse -- celle sous le @notation{do medium}.  Leur adjoindre un @code{'}
 ou un @code{,} indique une octave supérieure ou inférieure.  Voici une
@@ -295,7 +295,7 @@ des mélodies avec de plus grands intervalles, toujours avec le mode
 La première note de cet exemple -- le @code{d'} avec une seule
 apostrophe -- est le ré de l'octave commençant par le do central.
 
-L'ajout (ou la suppression) d'postrophes ou de virgules à la première
+L'ajout (ou la suppression) d'apostrophes ou de virgules à la première
 note permet de modifier l'octave de départ :
 
 @lilypond[verbatim,quote]
@@ -373,8 +373,8 @@ Glossaire musicologique :
 La @notation{durée} d'une note est indiquée par un nombre qui suit sa
 hauteur : @code{1} pour une @notation{ronde}, @code{2} pour une
 @notation{blanche}, @code{4} pour une @notation{noire} et ainsi de
-suite.  Les @notation{crochets} et @notation{liens} sont ajoutés
-automatiquement.
+suite.  Les @notation{crochets} et @notation{liens} (ou liggaturess)
+sont ajoutés automatiquement.
 
 Si aucune durée n'est indiquée pour une note, la dernière durée entrée
 est utilisée.  En l'absence d'indication de durée, la première note
@@ -515,8 +515,8 @@ La @notation{clef} peut être définie à l'aide de la commande
 @unnumberedsubsubsec Tout ensemble
 @translationof All together
 
-Voici un bref exemple qui rassemble tous les éléments que nous déjà
-vus :
+Voici un bref exemple qui rassemble tous les éléments que nous avons
+déjà vus :
 
 @lilypond[verbatim,quote]
 \relative {
@@ -574,7 +574,7 @@ Expliquons tous ces termes :
 @itemize
 
 @item
-@strong{La version} :
+@strong{La version} :
 Tout fichier LilyPond devrait porter mention de la version.  Cette
 mention prend la forme d'une ligne décrivant le numéro de la version
 utilisée lors de la confection du fichier en question, comme ici :
@@ -596,7 +596,7 @@ Si vous ne le mentionnez pas, LilyPond vous rappellera à l'ordre durant
 la compilation.
 
 @item
-@strong{La casse} :
+@strong{La casse} :
 LilyPond est sensible à la casse, c'est à dire qu'une lettre capitale
 n'a pas la même valeur qu'une lettre minuscule.  Les notes, par
 exemple, doivent être entrées en minuscule : @w{@code{@{ c d e @}}} est
@@ -604,7 +604,7 @@ un code valide, alors que @w{@code{@{ C D E @}}} produira un message
 d'erreur.
 
 @item
-@strong{Les espaces multiples} :
+@strong{Les espaces multiples} :
 LilyPond ne tient pas compte du nombre d'espaces, de tabulations ou de
 retours à la ligne.  @w{@code{@{ c d e @}}} a le même sens que
 @w{@code{@{ c     d   e @}}} ou que
@@ -633,7 +633,7 @@ invitons à toujours insérer une espace avant et après chaque élément
 syntaxique, comme avant et après une accolade.
 
 @item
-@strong{Expressions musicales} :
+@strong{Expressions musicales} :
 Tout morceau saisi dans LilyPond doit être placé entre
 @strong{@{ accolades @}}.  Ces caractères indiquent à LilyPond
 que ce bloc de texte représente une et une seule expression musicale,
@@ -645,7 +645,7 @@ Un appel de fonction -- @w{@code{@bs{}relative @{ @dots{} @}}} par
 exemple -- compte également comme une seule expression musicale.
 
 @item
-@strong{Les commentaires} :
+@strong{Les commentaires} :
 Un commentaire est une indication pour tout lecteur humain d'un
 fichier source de musique ; il est ignoré lors de la compilation et
 n'a donc aucun effet sur la partition imprimée.  On distingue deux types

@@ -1,0 +1,10 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+拍子記号の分数全体を表示せず、分子のみ (今回は 7) を表示したい場合があります。@c
+これは @code{\\override Staff.TimeSignature.style = #'single-digit} を用いて@c
+スタイルを永続的に変更することで簡単に実現できます。@c
+@code{\\revert Staff.TimeSignature.style} を使用することで、この設定を@c
+元に戻すことが出来ます。1 つの拍子記号に対してのみ単一の数字で表示したい@c
+場合は、@code{\\override} の前に @code{\\once} を記述します。
+"
+  doctitleja = "拍子記号の (分数ではなく) 分子のみを数字で表示する"

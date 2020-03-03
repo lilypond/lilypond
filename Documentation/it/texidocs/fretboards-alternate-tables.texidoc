@@ -1,0 +1,15 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocit = "
+Si possono creare tabelle alternative per i diagrammi dei tasti.  Queste possono
+essere usate per avere diagrammi alternativi per uno stesso accordo.
+
+Per poter usare una tabella alternativa, deve prima essere creata.  Quindi si
+aggiungono i diagrammi alla tabella.
+
+La tabella può essere vuota oppure ricopiata da una tabella esistente.
+
+La tabella da usare nel mostrare i diagrammi predefiniti viene selezionata
+dalla proprietà @code{\\predefinedDiagramTable}.
+
+"
+  doctitleit = "Tabelle alternative per i diagrammi dei tasti"
