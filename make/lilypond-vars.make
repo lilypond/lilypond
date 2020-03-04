@@ -3,7 +3,7 @@
 ifeq ($(LILYPOND_EXTERNAL_BINARY),)
 
 # environment settings.
-export PATH:=$(top-build-dir)/lily/$(outconfbase):$(buildscript-dir):$(top-build-dir)/scripts/$(outconfbase):$(PATH):
+export PATH:=$(top-build-dir)/lily/$(outconfbase):$(buildscript-dir):$(top-build-dir)/scripts/$(outconfbase):$(PATH)
 export LILYPOND_BINARY=$(top-build-dir)/$(outconfbase)/bin/lilypond
 else
 
