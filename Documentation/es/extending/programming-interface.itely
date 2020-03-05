@@ -71,7 +71,7 @@ El lector extrae el bloque de código de LilyPond y genera una
 llamada en tiempo de ejecución al analizador sintáctico para que
 interprete el código de LilyPond.  Las expresiones de Scheme
 incrustadas en el código de LilyPond se evalúan dentro del
-entorno lóexico del bloque de código de LilyPond, de manera que
+entorno léxico del bloque de código de LilyPond, de manera que
 puede accederse a todas las variables locales y los parámetros de
 función que están disponibles en el punto en que se escribe el
 bloque de código de LilyPond.  Las variables definidas en otros
