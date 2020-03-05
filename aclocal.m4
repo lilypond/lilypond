@@ -231,8 +231,6 @@ AC_DEFUN(STEPMAKE_COMPILE, [
     AC_REQUIRE([AC_PROG_CC])
 
     STEPMAKE_OPTIONAL_REQUIRED(CC, cc, $1)
-    LD='$(CC)'
-    AC_SUBST(LD)
 
     # If -pipe requested, test if it works and add to CFLAGS.
     if test "$pipe_b" = yes; then

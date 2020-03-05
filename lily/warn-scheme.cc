@@ -22,7 +22,6 @@
 
 #include "lily-guile.hh"
 #include "program-option.hh"
-#include "version.hh"
 #include "international.hh"
 #include "warn.hh"
 

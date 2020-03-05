@@ -37,7 +37,6 @@
 #include "pitch.hh"
 #include "string-convert.hh"
 #include "source-file.hh"
-#include "version.hh"
 #include "warn.hh"
 #include "lily-imports.hh"
 

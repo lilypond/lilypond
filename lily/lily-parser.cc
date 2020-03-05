@@ -25,7 +25,6 @@
 #include "file-path.hh"
 #include "international.hh"
 #include "lily-lexer.hh"
-#include "lily-version.hh"
 #include "ly-module.hh"
 #include "main.hh"
 #include "output-def.hh"
