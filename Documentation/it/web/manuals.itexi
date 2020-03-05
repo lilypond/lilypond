@@ -211,8 +211,8 @@ e seguire questi riferimenti incrociati per maggiori informazioni.
 @docLinks{Apprendimento, learning,
   @rlearningnamed{Top,Apprendimento},
   @manualStableLearningSplit-it,
-  @manualStableLearningBig-it, 3 MB,
-  @manualStableLearningPdf-it, 5 MB}
+  @manualStableLearningBig-it,
+  @manualStableLearningPdf-it}
 
 @divEnd
 
@@ -236,8 +236,8 @@ si raccomanda vivamente di consultare il glossario.
 @docLinks{Glossario musicale, music-glossary,
   @rglosnamed{Top,Glossario musicale},
   @manualStableGlossarySplit,
-  @manualStableGlossaryBig, 1 MB,
-  @manualStableGlossaryPdf, 1.5 MB}
+  @manualStableGlossaryBig,
+  @manualStableGlossaryPdf}
 
 @divEnd
 
@@ -263,8 +263,8 @@ nella versione PDF a causa della sua maggiore risoluzione.}
 @docLinks{Saggio, essay,
   @ressaynamed{Top,Saggio},
   @manualStableEssaySplit,
-  @manualStableEssayBig, 1 MB,
-  @manualStableEssayPdf, 2 MB}
+  @manualStableEssayBig,
+  @manualStableEssayPdf}
 
 @divEnd
 
@@ -290,8 +290,8 @@ musicali inglesi presentati nel Glossario.}
 @docLinks{Notazione, notation,
   @rusernamed{Top,Notazione},
   @manualStableNotationSplit-it,
-  @manualStableNotationBig-it, 9 MB,
-  @manualStableNotationPdf-it, 35 MB}
+  @manualStableNotationBig-it,
+  @manualStableNotationPdf-it}
 
 @divEnd
 
@@ -315,8 +315,8 @@ intraprendere un progetto impegnativo.
 @docLinks{Uso, usage,
   @rprogramnamed{Top,Uso},
   @manualStableUsageSplit-it,
-  @manualStableUsageBig-it, 400 KB,
-  @manualStableUsagePdf-it, 650 KB}
+  @manualStableUsageBig-it,
+  @manualStableUsagePdf-it}
 
 @divEnd
 
@@ -347,8 +347,8 @@ ha un collegamento alla lista dei relativi frammenti di codice.
 @docLinks{Frammenti, snippets,
   @rlsrnamed{Top,Frammenti},
   @manualStableSnippetsSplit,
-  @manualStableSnippetsBig, 1.5 MB,
-  @manualStableSnippetsPdf, 12.5 MB}
+  @manualStableSnippetsBig,
+  @manualStableSnippetsPdf}
 
 @divEnd
 
@@ -424,8 +424,8 @@ di bug e lo sviluppo.
 @docLinksBare{Web, web,
   @ref{Top,Web},
   @manualDevelWebSplit-it,
-  @manualDevelWebBig-it, 2.5 MB,
-  @manualDevelWebPdf-it, 3.5 MB}
+  @manualDevelWebBig-it,
+  @manualDevelWebPdf-it}
 
 @divEnd
 
@@ -447,8 +447,8 @@ funzionalità di LilyPond rispetto alla versione stabile precedente.
 @docLinks{Cambiamenti, changes,
   @rchangesnamed{Top,Cambiamenti},
   @manualStableChangesSplit-it,
-  @manualStableChangesBig-it, 90 KB,
-  @manualStableChangesPdf-it, 80 KB}
+  @manualStableChangesBig-it,
+  @manualStableChangesPdf-it}
 
 @divEnd
 
@@ -470,8 +470,8 @@ funzionalità di LilyPond.
 @docLinks{Estendere, extending,
   @rextendnamed{Top,Estendere},
   @manualStableExtendingSplit,
-  @manualStableExtendingBig, 300 KB,
-  @manualStableExtendingPdf, 500 KB}
+  @manualStableExtendingBig,
+  @manualStableExtendingPdf}
 
 @divEnd
 
@@ -503,8 +503,8 @@ che si riferisce alla documentazione generata.
 @docLinks{Funzionamento interno, internals,
   @rinternalsnamed{Top,Funzionamento interno},
   @manualStableInternalsSplit,
-  @manualStableInternalsBig, 3 MB,
-  @manualStableInternalsPdf, 4 MB}
+  @manualStableInternalsBig,
+  @manualStableInternalsPdf}
 
 @divEnd
 

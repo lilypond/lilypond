@@ -677,8 +677,8 @@ col·laboradors.
 @docLinksBare{Guia del col·laborador, contribuïdor,
   @rcontribnamed{Top,Guía del col·laborador},
   @manualDevelContributorSplit,
-  @manualDevelContributorBig, 500 kB,
-  @manualDevelContributorPdf, 2.8 MB}
+  @manualDevelContributorBig,
+  @manualDevelContributorPdf}
 
 @divEnd
 

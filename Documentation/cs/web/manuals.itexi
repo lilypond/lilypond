@@ -199,8 +199,8 @@ další informace.
 @docLinks{Učení, learning,
   @rlearningnamed{Top,Učení},
   @manualStableLearningSplit-cs,
-  @manualStableLearningBig-cs, 1.5 MB,
-  @manualStableLearningPdf, 3 MB}
+  @manualStableLearningBig-cs,
+  @manualStableLearningPdf}
 
 @divEnd
 
@@ -224,8 +224,8 @@ vzít si na pomoc tento slovníček.
 @docLinks{Slovníček, music-glossary,
   @rglosnamed{Top,Slovníček},
   @manualStableGlossarySplit,
-  @manualStableGlossaryBig, 1 MB,
-  @manualStableGlossaryPdf, 1.5 MB}
+  @manualStableGlossaryBig,
+  @manualStableGlossaryPdf}
 
 @divEnd
 
@@ -253,8 +253,8 @@ rozlišení.}
 @docLinks{Článek, essay,
   @ressaynamed{Top,Článek},
   @manualStableEssaySplit,
-  @manualStableEssayBig, 2 MB,
-  @manualStableEssayPdf, 2.5 MB}
+  @manualStableEssayBig,
+  @manualStableEssayPdf}
 
 @divEnd
 
@@ -280,8 +280,8 @@ pojmosloví (podívejte se do slovníčku).}
 @docLinks{Notový zápis, notation,
   @rusernamed{Top,Notový zápis},
   @manualStableNotationSplit,
-  @manualStableNotationBig, 7 MB,
-  @manualStableNotationPdf, 18 MB}
+  @manualStableNotationBig,
+  @manualStableNotationPdf}
 
 @divEnd
 
@@ -305,8 +305,8 @@ tento dokument přečíst, dříve než si člověk začne myslet na větší pr
 @docLinks{Používání, usage,
   @rprogramnamed{Top,Používání},
   @manualStableUsageSplit,
-  @manualStableUsageBig, 300 KB,
-  @manualStableUsagePdf, 400 KB}
+  @manualStableUsageBig,
+  @manualStableUsagePdf}
 
 @divEnd
 
@@ -339,8 +339,8 @@ jsou také odkázány z odstavce @strong{Podívejte se také na}.
 @docLinks{Úryvky, snippets,
   @rlsrnamed{Top,Úryvky},
   @manualStableSnippetsSplit,
-  @manualStableSnippetsBig, 2.5 MB,
-  @manualStableSnippetsPdf, 8 MB}
+  @manualStableSnippetsBig,
+  @manualStableSnippetsPdf}
 
 @divEnd
 
@@ -419,8 +419,8 @@ spolupráci na programu.
 @docLinksBare{Web, web,
   @ref{Top,Web},
   @manualDevelWebSplit-cs,
-  @manualDevelWebBig-cs, 1 MB,
-  @manualDevelWebPdf, 2 MB}
+  @manualDevelWebBig-cs,
+  @manualDevelWebPdf}
 
 @divEnd
 
@@ -443,8 +443,8 @@ vlastností v LilyPondu od předchozí stálé verze.
 @docLinks{Změny, changes,
   @rchangesnamed{Top,Změny},
   @manualStableChangesSplit,
-  @manualStableChangesBig, 6 KB,
-  @manualStableChangesPdf, 200 KB}
+  @manualStableChangesBig,
+  @manualStableChangesPdf}
 
 @divEnd
 
@@ -465,8 +465,8 @@ V této knize se vysvětluje, jak se pro LilyPond píší rozšíření.
 @docLinks{Rozšíření, extending,
   @rextendnamed{Top,Rozšíření},
   @manualStableExtendingSplit,
-  @manualStableExtendingBig, 200 KB,
-  @manualStableExtendingPdf, 400 KB}
+  @manualStableExtendingBig,
+  @manualStableExtendingPdf}
 
 @divEnd
 
@@ -499,8 +499,8 @@ dokumentu.  Každá část doporučení k notovému zápisu má také část
 @docLinks{Vnitřnosti, internals,
   @rinternalsnamed{Top,Vnitřnosti},
   @manualStableInternalsSplit,
-  @manualStableInternalsBig, 2.5 MB,
-  @manualStableInternalsPdf, 2.8 MB}
+  @manualStableInternalsBig,
+  @manualStableInternalsPdf}
 
 @divEnd
 

@@ -243,10 +243,10 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @c FIXME: this still doesn't solve the broken links in pdf and big
 @c        html; we'll need a bunch of @iftext and stuff in here. -gp
 @c ****************** SPECIAL MACROS FOR WEB MANUAL ************
-@macro docLinks{name,base,refLink,split,big,bigsize,pdf,pdfsize}
+@macro docLinks{name,base,refLink,split,big,pdf}
 @subheading 开始阅读
 
-@docLinksBare{\name\,\base\,\refLink\,\split\,\big\,\bigsize\,\pdf\,\pdfsize\}
+@docLinksBare{\name\,\base\,\refLink\,\split\,\big\,\pdf\}
 
 @end macro
 
@@ -264,7 +264,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @end macro
 
 
-@macro docLinksBare{name,base,refLink,split,big,bigsize,pdf,pdfsize}
+@macro docLinksBare{name,base,refLink,split,big,pdf}
 
 @divClass{keep-bullets}
 @itemize
@@ -275,11 +275,11 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
 @item @docLinkBig{\name\,\base\,\big\} @minus{}
   以单一大 HTML 页面的方式阅读本手册。
-  @*@ @ @emph{(大的单一下载, \bigsize\)}
+  @*@ @ @emph{@docSize{(大的单一下载, \base\-big-page.html, )}}
 
 @item @docLinkPdf{\name\,\base\,\pdf\} @minus{}
   以 PDF 文件的方式下载。
-  @*@ @ @emph{(大的单一下载, \pdfsize\)}
+  @*@ @ @emph{@docSize{(大的单一下载, \base\.pdf, )}}
 
 @end itemize
 

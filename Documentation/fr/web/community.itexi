@@ -715,8 +715,8 @@ traduit@dots{}}
 @docLinksBare{Guide du contributeur, contributor,
   @rcontribnamed{Top,Guide du contributeur},
   @manualDevelContributorSplit,
-  @manualDevelContributorBig, 500 kB,
-  @manualDevelContributorPdf, 2.8 MB}
+  @manualDevelContributorBig,
+  @manualDevelContributorPdf}
 
 @divEnd
 

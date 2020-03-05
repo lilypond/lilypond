@@ -293,10 +293,10 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @c FIXME: this still doesn't solve the broken links in pdf and big
 @c        html; we'll need a bunch of @iftext and stuff in here. -gp
 @c ****************** SPECIAL MACROS FOR WEB MANUAL ************
-@macro docLinks{name,base,refLink,split,big,bigsize,pdf,pdfsize}
+@macro docLinks{name,base,refLink,split,big,pdf}
 @subheading Lisez-le
 
-@docLinksBare{\name\,\base\,\refLink\,\split\,\big\,\bigsize\,\pdf\,\pdfsize\}
+@docLinksBare{\name\,\base\,\refLink\,\split\,\big\,\pdf\}
 
 @end macro
 
@@ -325,11 +325,11 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
 @item @docLinkBig{\name\,\base\,\big\} :
   manuel sous forme d'une seule grande page
-  @*@ @ @emph{-- un seul gros téléchargement, \bigsize\.}
+  @*@ @ @emph{@docSize{– un seul gros téléchargement, \base\-big-page.html, .}}
 
 @item @docLinkPdf{\name\,\base\,\pdf\} :
   manuel au format PDF
-  @*@ @ @emph{-- un seul gros téléchargement, \pdfsize\.}
+  @*@ @ @emph{@docSize{– un seul gros téléchargement, \base\.pdf, .}}
 
 @end itemize
 

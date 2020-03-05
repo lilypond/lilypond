@@ -677,8 +677,8 @@ desenvolvimento.
 @docLinksBare{Guia do contribuidor, contributor,
   @rcontribnamed{Top,Guia do contribuidor},
   @manualDevelContributorSplit,
-  @manualDevelContributorBig, 500 kB,
-  @manualDevelContributorPdf, 2.8 MB}
+  @manualDevelContributorBig,
+  @manualDevelContributorPdf}
 
 @divEnd
 

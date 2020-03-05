@@ -252,6 +252,28 @@ UNTRANSLATED NODE: IGNORE ME
 @end html
 @end macro
 
+@ifhtml
+  @ifclear bigpage
+@macro docSize{before,target,after}
+@html
+\before\<!-- file-size:, href="../\target\"-->\after\
+@end html
+@end macro
+  @end ifclear
+  @ifset bigpage
+@macro docSize{before,target,after}
+@html
+\before\<!-- file-size:, href="\target\"-->\after\
+@end html
+@end macro
+  @end ifset
+@end ifhtml
+@ifnothtml
+@macro docSize{before,target,after}
+\before\\after\
+@end macro
+@end ifnothtml
+
 @ifclear web_version
   @ifclear bigpage
     @macro docLink{name,target,webLink}

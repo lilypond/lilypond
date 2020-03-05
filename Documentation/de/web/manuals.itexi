@@ -219,8 +219,8 @@ weitere Informationen zu erhalten.
 @docLinks{Einführung, learning,
   @rlearningnamed{Top,Einführung},
   @manualStableLearningSplit-de,
-  @manualStableLearningBig-de, 3 MB,
-  @manualStableLearningPdf-de, 5 MB}
+  @manualStableLearningBig-de,
+  @manualStableLearningPdf-de}
 
 @divEnd
 
@@ -245,8 +245,8 @@ es sich sehr, dieses Glossar zu Hilfe zu ziehen.
 @docLinks{Glossar, music-glossary,
   @rglosnamed{Top,Glossar},
   @manualStableGlossarySplit,
-  @manualStableGlossaryBig, 1 MB,
-  @manualStableGlossaryPdf, 1.5 MB}
+  @manualStableGlossaryBig,
+  @manualStableGlossaryPdf}
 
 @divEnd
 
@@ -274,8 +274,8 @@ Auflösung hat.}
 @docLinks{Aufsatz, essay,
   @ressaynamed{Top,Aufsatz},
   @manualStableEssaySplit-de,
-  @manualStableEssayBig-de, 1 MB,
-  @manualStableEssayPdf-de, 2 MB}
+  @manualStableEssayBig-de,
+  @manualStableEssayPdf-de}
 
 @divEnd
 
@@ -301,8 +301,8 @@ englische Musikterminologie (siehe Glossar) bekannt sein.}
 @docLinks{Notation, notation,
   @rusernamed{Top,Notation},
   @manualStableNotationSplit-de,
-  @manualStableNotationBig-de, 9 MB,
-  @manualStableNotationPdf-de, 35 MB}
+  @manualStableNotationBig-de,
+  @manualStableNotationPdf-de}
 
 @divEnd
 
@@ -327,8 +327,8 @@ in Angriff nimmt.
 @docLinks{Benutzung, usage,
   @rprogramnamed{Top,Benutzung},
   @manualStableUsageSplit-de,
-  @manualStableUsageBig-de, 400 KB,
-  @manualStableUsagePdf-de, 650 KB}
+  @manualStableUsageBig-de,
+  @manualStableUsagePdf-de}
 
 @divEnd
 
@@ -361,8 +361,8 @@ sind auch verlinkt vom @strong{Siehe auch} Absatz.
 @docLinks{Schnipsel, snippets,
   @rlsrnamed{Top,Schnipsel},
   @manualStableSnippetsSplit,
-  @manualStableSnippetsBig, 1.5 MB,
-  @manualStableSnippetsPdf, 12.5 MB}
+  @manualStableSnippetsBig,
+  @manualStableSnippetsPdf}
 
 @divEnd
 
@@ -442,8 +442,8 @@ Programm.
 @docLinksBare{Web, web,
   @ref{Top,Web},
   @manualDevelWebSplit-de,
-  @manualDevelWebBig-de, 2.5 MB,
-  @manualDevelWebPdf, 3.5 MB}
+  @manualDevelWebBig-de,
+  @manualDevelWebPdf}
 
 @divEnd
 
@@ -465,8 +465,8 @@ Eigenschaften in LilyPond seit der vorigen stabilen Version.
 @docLinks{Änderungen, changes,
   @rchangesnamed{Top,Änderungen},
   @manualStableChangesSplit,
-  @manualStableChangesBig, 90 KB,
-  @manualStableChangesPdf, 80 KB}
+  @manualStableChangesBig,
+  @manualStableChangesPdf}
 
 @divEnd
 
@@ -487,8 +487,8 @@ Dieses Handbuch erklärt, wie man Erweiterungen für LilyPond schreibt.
 @docLinks{Erweitert, extending,
   @rextendnamed{Top,Erweitert},
   @manualStableExtendingSplit-de,
-  @manualStableExtendingBig-de, 300 KB,
-  @manualStableExtendingPdf-de, 500 KB}
+  @manualStableExtendingBig-de,
+  @manualStableExtendingPdf-de}
 
 @divEnd
 
@@ -521,8 +521,8 @@ erklärt.  Jeder Abschnitt der Notationsreferenz hat einen
 @docLinks{Interna, internals,
   @rinternalsnamed{Top,Interna},
   @manualStableInternalsSplit,
-  @manualStableInternalsBig, 3 MB,
-  @manualStableInternalsPdf, 4 MB}
+  @manualStableInternalsBig,
+  @manualStableInternalsPdf}
 
 @divEnd
 

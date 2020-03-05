@@ -661,8 +661,8 @@ stable, we have written a manual for development tasks.
 @docLinksBare{Contributor's Guide, contributor,
   @rcontribnamed{Top,Contributor's Guide},
   @manualDevelContributorSplit,
-  @manualDevelContributorBig, 500 kB,
-  @manualDevelContributorPdf, 2.8 MB}
+  @manualDevelContributorBig,
+  @manualDevelContributorPdf}
 
 @divEnd
 

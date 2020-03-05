@@ -237,10 +237,10 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @c FIXME: this still doesn't solve the broken links in pdf and big
 @c        html; we'll need a bunch of @iftext and stuff in here. -gp
 @c ****************** SPECIAL MACROS FOR WEB MANUAL ************
-@macro docLinks{name,base,refLink,split,big,bigsize,pdf,pdfsize}
+@macro docLinks{name,base,refLink,split,big,pdf}
 @subheading Olvasd el
 
-@docLinksBare{\name\,\base\,\refLink\,\split\,\big\,\bigsize\,\pdf\,\pdfsize\}
+@docLinksBare{\name\,\base\,\refLink\,\split\,\big\,\pdf\}
 
 @end macro
 
@@ -258,7 +258,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @end macro
 
 
-@macro docLinksBare{name,base,refLink,split,big,bigsize,pdf,pdfsize}
+@macro docLinksBare{name,base,refLink,split,big,pdf}
 
 @divClass{keep-bullets}
 @itemize
@@ -267,13 +267,25 @@ Distributions will want to install lilypond.info in postinstall, doing:
   megtekintés sok HTML oldalra elosztva.
   @*@ @ @emph{(oldalanként egy-egy kis letöltés)}
 
+@c That comma is a nightmare
+@ifnothtml
 @item @docLinkBig{\name\,\base\,\big\} @minus{}
   megtekintés egy nagy HTML oldalként.
-  @*@ @ @emph{(egyszeri, nagy letöltés, \bigsize\)}
+  @*@ @ @emph{(egyszeri, nagy letöltés)}
 
 @item @docLinkPdf{\name\,\base\,\pdf\} @minus{}
   letöltés PDF formátumban.
-  @*@ @ @emph{(egyszeri, nagy letöltés, \pdfsize\)}
+  @*@ @ @emph{(egyszeri, nagy letöltés)}
+@end ifnothtml
+@ifhtml
+@item @docLinkBig{\name\,\base\,\big\} @minus{}
+  megtekintés egy nagy HTML oldalként.
+  @*@ @ @emph{@docSize{(egyszeri&#44; nagy letöltés, \base\-big-page.html, )}}
+
+@item @docLinkPdf{\name\,\base\,\pdf\} @minus{}
+  letöltés PDF formátumban.
+  @*@ @ @emph{@docSize{(egyszeri&#44; nagy letöltés, \base\.pdf, )}}
+@end ifhtml
 
 @end itemize
 

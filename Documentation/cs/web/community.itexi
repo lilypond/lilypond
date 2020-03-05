@@ -514,8 +514,8 @@ stálý, napsali jsme příručku pro vývojářské práce
 @docLinksBare{Příručka pro vývojářské práce, přispěvatel,
   @rcontribnamed{Top,Příručka pro vývojářské práce},
   @manualDevelContributorSplit,
-  @manualDevelContributorBig, 500 kB,
-  @manualDevelContributorPdf, 2.8 MB}
+  @manualDevelContributorBig,
+  @manualDevelContributorPdf}
 
 @divEnd
 

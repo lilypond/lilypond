@@ -224,8 +224,8 @@ creuades per obtenir més informació.
 @docLinks{Aprenentatge, learning,
   @rlearningnamed{Top,Aprenentatge},
   @manualStableLearningSplit-ca,
-  @manualStableLearningBig-ca, 3 MB,
-  @manualStableLearningPdf-ca, 5 MB}
+  @manualStableLearningBig-ca,
+  @manualStableLearningPdf-ca}
 
 @divEnd
 
@@ -249,8 +249,8 @@ l'anglès), es recomana ferventment que consulteu el glossari.
 @docLinks{Glossari musical, music-glossary,
   @rglosnamed{Top,Glossari musical},
   @manualStableGlossarySplit,
-  @manualStableGlossaryBig, 1 MB,
-  @manualStableGlossaryPdf, 1.5 MB}
+  @manualStableGlossaryBig,
+  @manualStableGlossaryPdf}
 
 @divEnd
 
@@ -277,8 +277,8 @@ la versió en format PDF a causa de la seva major resolució.}
 @docLinks{Essay, essay,
   @ressaynamed{Top,Essay},
   @manualStableEssaySplit-ca,
-  @manualStableEssayBig-ca, 1 MB,
-  @manualStableEssayPdf-ca, 2 MB}
+  @manualStableEssayBig-ca,
+  @manualStableEssayPdf-ca}
 
 @divEnd
 
@@ -305,8 +305,8 @@ Glossari Musical.}
 @docLinks{Notació, notation,
   @rusernamed{Top,Notació},
   @manualStableNotationSplit-ca,
-  @manualStableNotationBig-ca, 9 MB,
-  @manualStableNotationPdf-ca, 35 MB}
+  @manualStableNotationBig-ca,
+  @manualStableNotationPdf-ca}
 
 @divEnd
 
@@ -330,8 +330,8 @@ seva lectura abans d'afrontar projectes grans.
 @docLinks{Utilització, usage,
   @rprogramnamed{Top,Utilització},
   @manualStableUsageSplit-ca,
-  @manualStableUsageBig-ca, 400 KB,
-  @manualStableUsagePdf-ca, 650 KB}
+  @manualStableUsageBig-ca,
+  @manualStableUsagePdf-ca}
 
 @divEnd
 
@@ -367,8 +367,8 @@ també}.
 @docLinks{Fragments, snippets,
   @rlsrnamed{Top,Fragments},
   @manualStableSnippetsSplit,
-  @manualStableSnippetsBig, 1.5 MB,
-  @manualStableSnippetsPdf, 12.5 MB}
+  @manualStableSnippetsBig,
+  @manualStableSnippetsPdf}
 
 @divEnd
 
@@ -443,8 +443,8 @@ maneres d'informar de les fallades, i desenvolupament.
 @docLinksBare{Web, web,
   @ref{Amunt,Web},
   @manualDevelWebSplit-ca,
-  @manualDevelWebBig-ca, 2.5 MB,
-  @manualDevelWebPdf, 3.5 MB}
+  @manualDevelWebBig-ca,
+  @manualDevelWebPdf}
 
 @divEnd
 
@@ -466,8 +466,8 @@ produïdes al LilyPond a partir de la versió estable anterior.
 @docLinks{Canvis, changes,
   @rchangesnamed{Top,Canvis},
   @manualStableChangesSplit-ca,
-  @manualStableChangesBig-ca, 90 KB,
-  @manualStableChangesPdf-ca, 80 KB}
+  @manualStableChangesBig-ca,
+  @manualStableChangesPdf-ca}
 
 @divEnd
 
@@ -488,8 +488,8 @@ Aquest manual explica com escriure extensions del LilyPond.
 @docLinks{Extensió, extending,
   @rextendnamed{Top,Extensió},
   @manualStableExtendingSplit-ca,
-  @manualStableExtendingBig-ca, 300 KB,
-  @manualStableExtendingPdf-ca, 500 KB}
+  @manualStableExtendingBig-ca,
+  @manualStableExtendingPdf-ca}
 
 @divEnd
 
@@ -521,8 +521,8 @@ documentació generada.
 @docLinks{Funcionament intern, internals,
   @rinternalsnamed{Top,Funcionament intern},
   @manualStableInternalsSplit,
-  @manualStableInternalsBig, 3 MB,
-  @manualStableInternalsPdf, 4 MB}
+  @manualStableInternalsBig,
+  @manualStableInternalsPdf}
 
 @divEnd
 

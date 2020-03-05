@@ -220,8 +220,8 @@ información.
 @docLinks{Aprendizaje, learning,
   @rlearningnamed{Top,Aprendizaje},
   @manualStableLearningSplit-es,
-  @manualStableLearningBig-es, 3 MB,
-  @manualStableLearningPdf-es, 5 MB}
+  @manualStableLearningBig-es,
+  @manualStableLearningPdf-es}
 
 @divEnd
 
@@ -245,8 +245,8 @@ recomienda fervientemente que consulte el glosario.
 @docLinks{Glosario musical, music-glossary,
   @rglosnamed{Top,Glosario musical},
   @manualStableGlossarySplit,
-  @manualStableGlossaryBig, 1 MB,
-  @manualStableGlossaryPdf, 1.5 MB}
+  @manualStableGlossaryBig,
+  @manualStableGlossaryPdf}
 
 @divEnd
 
@@ -272,8 +272,8 @@ versión en formato PDF a causa de su mayor resolución.}
 @docLinks{Ensayo, essay,
   @ressaynamed{Top,Ensayo},
   @manualStableEssaySplit-es,
-  @manualStableEssayBig-es, 1 MB,
-  @manualStableEssayPdf-es, 2 MB}
+  @manualStableEssayBig-es,
+  @manualStableEssayPdf-es}
 
 @divEnd
 
@@ -300,8 +300,8 @@ presentan en el Glosario Musical.}
 @docLinks{Notación, notation,
   @rusernamed{Top,Notación},
   @manualStableNotationSplit-es,
-  @manualStableNotationBig-es, 9 MB,
-  @manualStableNotationPdf-es, 35 MB}
+  @manualStableNotationBig-es,
+  @manualStableNotationPdf-es}
 
 @divEnd
 
@@ -325,8 +325,8 @@ su lectura antes de afrontar proyectos grandes.
 @docLinks{Utilización, usage,
   @rprogramnamed{Top,Utilización},
   @manualStableUsageSplit-es,
-  @manualStableUsageBig-es, 400 KB,
-  @manualStableUsagePdf-es, 650 KB}
+  @manualStableUsageBig-es,
+  @manualStableUsagePdf-es}
 
 @divEnd
 
@@ -361,8 +361,8 @@ también}.
 @docLinks{Fragmentos, snippets,
   @rlsrnamed{Top,Fragmentos},
   @manualStableSnippetsSplit,
-  @manualStableSnippetsBig, 1.5 MB,
-  @manualStableSnippetsPdf, 12.5 MB}
+  @manualStableSnippetsBig,
+  @manualStableSnippetsPdf}
 
 @divEnd
 
@@ -438,8 +438,8 @@ informar de los fallos, y desarrollo.
 @docLinksBare{Web, web,
   @ref{Arriba,Web},
   @manualDevelWebSplit-es,
-  @manualDevelWebBig-es, 2.5 MB,
-  @manualDevelWebPdf-es, 3.5 MB}
+  @manualDevelWebBig-es,
+  @manualDevelWebPdf-es}
 
 @divEnd
 
@@ -461,8 +461,8 @@ producidas en LilyPond a partir de la version estable anterior.
 @docLinks{Cambios, changes,
   @rchangesnamed{Top,Cambios},
   @manualStableChangesSplit-es,
-  @manualStableChangesBig-es, 90 KB,
-  @manualStableChangesPdf-es, 80 KB}
+  @manualStableChangesBig-es,
+  @manualStableChangesPdf-es}
 
 @divEnd
 
@@ -483,8 +483,8 @@ Este manual explica cómo escribir extensiones de LilyPond.
 @docLinks{Extender, extending,
   @rextendnamed{Top,Extender},
   @manualStableExtendingSplit-es,
-  @manualStableExtendingBig-es, 300 KB,
-  @manualStableExtendingPdf-es, 500 KB}
+  @manualStableExtendingBig-es,
+  @manualStableExtendingPdf-es}
 
 @divEnd
 
@@ -516,8 +516,8 @@ se refiere a la documentación generada.
 @docLinks{Funcionamiento interno, internals,
   @rinternalsnamed{Top,Funcionamiento interno},
   @manualStableInternalsSplit,
-  @manualStableInternalsBig, 3 MB,
-  @manualStableInternalsPdf, 4 MB}
+  @manualStableInternalsBig,
+  @manualStableInternalsPdf}
 
 @divEnd
 
