@@ -1,7 +1,7 @@
 %% Translation of GIT committish: a089ca62fd9b3770a932061207262fe81063dc56
   texidoces = "
 Este fragmento de código ha quedado obsoleto por las instrucciones de
-marcado predefinidas, véase @q{Registros de acordeón} en la Referencia
+marcado predefinidas, véase @q{Símbolos de discanto} en la Referencia
 de la notación.  Sin embargo aún es útil como demostración sencilla de
 la forma de combinar símbolos: la colocación de los símbolos añadidos
 con @code{\\markup} se puede trucar modificando los argumentos de

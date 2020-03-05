@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c vim: foldmethod=marker
 @ignore
-    Translation of GIT committish: 0d4df37f3e3b4dc9bceb5c78ae94449bd0269c67
+    Translation of GIT committish: 7930d8777ef2142c5189a5b9d8c8a163dff24529
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -267,25 +267,33 @@ Referencia de la notación:
 @ref{Ligaduras de neumas cuadrados gregorianos}.
 
 @knownissues
-Spacing required for ligatures is not currently implemented and, as
-a result, there may end up being too much space between them.  Line
-breaking may also be unsatisfactory.
+El espacio que las ligaduras necesitan no está implementado
+actualmente, y como resultado, puede producirse una separación
+excesiva entre ellas.  Los saltos de línea podrían también ser
+poco satisfactorios.
 
-Lyrics might not align as expected when using ligatures.
+La estra podría no alinearse con la música de la forma esperada
+cuando se utilizan ligaduras.
 
-Accidentals must not be printed within a ligature, but instead be
-collected and printed in front of it.
+No se deben imprimir alteraciones accidentales dentro de una
+ligadura, sino acumularse e imprimirse delante de ella.
 
-The syntax still uses the deprecated @qq{infix} style
-@code{\[ music expr \]}.  For consistency reasons, it will eventually
-be changed to @qq{postfix} style @code{note\[ @dots{} note\]}.
+La sintaxis aún utiliza el estilo obsoleto @qq{infijo} @code{\[
+expresión musical \]}.  Por motivos de consistencia, se cambiará
+tarde o temprano al estilo @qq{postfijo} @code{nota\[ @dots{}
+nota\]}.
 
-Alternatively, the file @file{gregorian.ly} can be included; it
-provides a scheme function
-@example
-\ligature @var{music expr}
-@end example
-with the same effect and is believed to be stable.
+@c Alternatively, the file
+@c @file{gregorian-init.ly} can be included; it provides a scheme
+@c function
+@c @example
+@c \ligature @var{music expr}
+@c @end example
+@c with the same effect and is believed to be stable.
+
+@c TODO: this does not seem to work at the moment.
+@c -- eo
+
 
 @node Custos
 @unnumberedsubsubsec Custos
