@@ -1,4 +1,4 @@
-%% Translation of GIT committish: a089ca62fd9b3770a932061207262fe81063dc56
+%% Translation of GIT committish: 06e7d00a2bd52124489bdd8e106199da225bebb6
   texidoces = "
 Las marcas de cesura se pueden crear sobreescribiendo la propiedad
 @code{'text} del objeto @code{BreathingSign}.  También está disponible

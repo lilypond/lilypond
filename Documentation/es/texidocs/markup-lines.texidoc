@@ -1,7 +1,0 @@
-%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
-  texidoces = "
-El texto que ocupa más de una página se puede introducir con la
-instrucción @code{\\markuplines}.
-
-"
-  doctitlees = "Conjuntos de líneas de elementos de marcado"
