@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 0d4df37f3e3b4dc9bceb5c78ae94449bd0269c67
+    Translation of GIT committish: 7930d8777ef2142c5189a5b9d8c8a163dff24529
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1191,11 +1191,19 @@ predeterminado adecuado, por ejemplo:
 }
 @end lilypond
 
+@item footnote-separator-markup
+@funindex footnote-separator-markup
+
+A markup object that is inserted above the footnote texts at the
+bottom of the page.  Default: a centered horizontal line, defined in
+@file{ly/paper-defaults-init.ly}.
+
 @end table
 
 @seealso
 Archivos de inicio:
-@file{ly/titling-init.ly}.
+@file{ly/titling-init.ly},
+@file{ly/paper-defaults-init.ly}.
 
 Fragmentos de código:
 @rlsr{Spacing}.
