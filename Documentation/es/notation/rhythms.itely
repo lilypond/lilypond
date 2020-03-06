@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 21a1f431176e969d45a9cc973c99dce34e9e8733
+    Translation of GIT committish: 520c0c31d468f9112aa305b93c8f038bf5d7e996
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -60,9 +60,9 @@ una negra se escribe usando un @code{4} (puesto que es 1/4 de
 redonda), mientras que una blanca se escribe con un @code{2} (por
 ser 1/2 de redonda), una corchea se escribe como @code{8} y así
 sucesivamente.  Se pueden especificar duraciones tan cortas como
-la garrapatea (con el número 128).  Son posibles valores más
-cortos, pero sólo como notas unidas por una barra.  Véase también
-@ref{Barras}.
+1/1024 de redonda (sin nombre en español) pero cualquier valor más
+corto, aunque sea posible, solo se puede introducir como grupos de
+notas unidas por una barra.  Véase también @ref{Barras}.
 
 Para notas mayores de la redonda se deben usar las instrucciones
 @code{\longa} (que es una breve doble) y @code{\breve}. Se puede
@@ -216,7 +216,8 @@ Referencia de funcionamiento interno:
 Aunque no existe un límite fundamental para las duraciones de los
 silencios (tanto para el más largo como para el más corto), pero
 el número de glifos es limitado: sólo se pueden imprimir desde el
-silencio de garrapatea (@code{128}) hasta el de @code{\maxima} (8 redondas).
+silencio de 1/1024 de redonda (sin nombre en español) hasta el de
+@code{\maxima} (8 redondas).
 
 
 @node Grupos especiales
@@ -371,15 +372,21 @@ Referencia de funcionamiento interno:
 
 La duración de las figuras, silencios o acordes se puede
 multiplicar por un factor @code{N/M} añadiendo @code{*N/M} (o
-@code{*N} si @code{M} es 1) a la duración.  Esto no afectará a la
-apariencia de las notas o silencios que se producen, pero la
-duración alterada se usará para calcular la posición dentro del
-compás y para establecer la duración en la salida MIDI.  Los
-factores de multiplicación se pueden combinar en la forma
-@code{*L*M/N}.  Los factores son parte de la duración: si no
-especificamos una duración para las notas siguientes, la duración
-por omisión que se toma de la nota anterior incluirá cualquier
-factor de escala que se haya aplicado.
+@code{*N} si @code{M} es 1) a la duración. También se pueden
+añadir factores usando expresiones de Scheme que se evalúan a un
+número o a una duración musical como @code{*#(ly:music-length
+@var{music})}.  Esto es muy útil para escalar una duración de
+@samp{1} y que una nota o silencio multicompás se estire hasta una
+longitur derivada de una variable musical.
+
+La adición de un factor no afectará a la apariencia de las notas o
+silencios que se producen, pero la duración alterada se usará para
+calcular la posición dentro del compás y para establecer la
+duración en la salida MIDI.  Los factores de multiplicación se
+pueden combinar en la forma @code{*L*M/N}.  Los factores son parte
+de la duración: si no especificamos una duración para las notas
+siguientes, la duración por omisión que se toma de la nota
+anterior incluirá cualquier factor de escala que se haya aplicado.
 
 En el siguiente ejemplo las tres primeras notas duran exactamente
 dos partes, pero no se imprime ningún corchete de tresillo.
@@ -411,9 +418,9 @@ De la misma forma, se pueden comprimir por una fracción trozos de
 música más largos, como si cada nota, acorde o silencio tuviera la
 fracción como multiplicador.  Esto dejará intacta la apariencia de
 la @emph{música}, pero la duración interna de las notas se
-multiplicará por la fracción @emph{numerador}/@emph{denominador}.
-He aquí un ejemplo que muestra cómo se puede comprimir y expandir
-la música:
+multiplicará por el factor de escala dado, habitualmente
+@emph{numerador}/@emph{denominador}.  He aquí un ejemplo que
+muestra cómo se puede comprimir y expandir la música:
 
 @lilypond[quote,verbatim]
 \relative {
@@ -425,7 +432,7 @@ la música:
     <c a f>4. c8 a f
   }
   % Scale music by *2
-  \scaleDurations 2/1 {
+  \scaleDurations 2 {
     <c' a>4 c8 b
   }
 }
@@ -792,8 +799,8 @@ Referencia de funcionamiento interno:
 @c Deliberately duplicated in Durations and Rests.  -gp
 No existe un límite fundamental respecto de las duraciones de los
 silencios (tanto para el más corto como para el más largo), pero
-el número de glifos es limitado: hay silencios desde la garrapatea
-(128) hasta la máxima (8 redondas).
+el número de glifos es limitado: hay silencios desde 1/1024 de
+redonda (sin nombre en español) hasta la máxima (8 redondas).
 
 
 @node Silencios invisibles
@@ -983,8 +990,8 @@ R2.*2 |
 @cindex marcado, sobre silencios multicompás
 @cindex multicompás, silencio, con marcados
 
-@funindex MultiMeasureRestScript
 @funindex MultiMeasureRestText
+@funindex MultiMeasureRestScript
 
 Se pueden añadir elementos de marcado a los silencios multicompás.
 
@@ -995,16 +1002,12 @@ Se pueden añadir elementos de marcado a los silencios multicompás.
 }
 @end lilypond
 
-@ignore
-@c TODO: the next section is out of date; \fermataMarkup has been
-@c deprecated, see section `Full measure rests'
-@c in the English documentation.
-
-@warning{Los elementos de marcado que se añaden a un silencio
-multicompás son objetos del tipo @code{MultiMeasureRestText}, no
-@code{TextScript}.  Las sobreescrituras de propiedades deben ir
-dirigidas hacia el objeto correcto, o se ignorarán.  Véase el
-ejemplo siguiente:}
+@warning{Los elementos de marcado y articulaciones que se añaden a
+un silencio multicompás son objetos del tipo
+@code{MultiMeasureRestText} y @code{MultiMeasureRestScript}, no
+@code{TextScript} y @code{Script}.  Las sobreescrituras de
+propiedades deben ir dirigidas hacia el objeto correcto, o se
+ignorarán.  Véase el ejemplo siguiente:}
 
 @lilypond[quote,verbatim,fragment]
 % This fails, as the wrong object name is specified
@@ -1018,7 +1021,6 @@ R1\fermata
 R1^"right"
 R1\fermata
 @end lilypond
-@end ignore
 
 Cuando un silencio multicompás sigue inmediatamente al
 establecimiento de un compás parcial con @code{\partial}, es
@@ -1037,15 +1039,22 @@ comprobación de compás.
 
 
 @snippets
-@cindex eclesiásticos, silencios
-@cindex silencios eclesiásticos
-@cindex kirchenpausen
 
+@cindex multicompás, silencio, longitud
+@cindex longitud, de un silencio multicompás
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {multi-measure-rest-length-control.ly}
 
 @cindex silencio, multicompás, numeración
 @funindex restNumberThreshold
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{numbering-single-measure-rests.ly}
+
+@cindex eclesiásticos, silencios
+@cindex silencio, eclesiástico
+@cindex kirchenpause
+@cindex multicompás, silencio, estilo
+@cindex estilo, silencio multicompás
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-form-of-multi-measure-rests.ly}
 
