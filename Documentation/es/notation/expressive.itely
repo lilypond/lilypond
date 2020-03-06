@@ -36,7 +36,7 @@ se tratan los métodos para crear las nuevas marcas dinámicas.
 @menu
 * Articulaciones y ornamentos::
 * Matices dinámicos::
-* Indicaciones dinámicas contemporáneas::
+* Indicaciones dinámicas nuevas::
 @end menu
 
 
@@ -446,7 +446,7 @@ por cambios de dinámica textuales:
 
 Para crear nuevas indicaciones de matiz absoluto o de texto que
 deba alinearse con los matices; véase
-@ref{Indicaciones dinámicas contemporáneas}.
+@ref{Indicaciones dinámicas nuevas}.
 
 @cindex matices, posición vertical
 @cindex dinámica, posición vertical
@@ -570,7 +570,7 @@ Manual de aprendizaje:
 
 Referencia de la notación:
 @ref{Dirección y posición},
-@ref{Indicaciones dinámicas contemporáneas},
+@ref{Indicaciones dinámicas nuevas},
 @ref{Enriquecimiento de la salida MIDI},
 @ref{Control de las dinámicas del MIDI}.
 
@@ -584,8 +584,8 @@ Referencia de funcionamiento interno:
 @rinternals{Dynamics}.
 
 
-@node Indicaciones dinámicas contemporáneas
-@unnumberedsubsubsec Indicaciones dinámicas contemporáneas
+@node Indicaciones dinámicas nuevas
+@unnumberedsubsubsec Indicaciones dinámicas nuevas
 @translationof New dynamic marks
 
 @cindex indicaciones dinámicas nuevas
