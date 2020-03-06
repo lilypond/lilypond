@@ -25,7 +25,6 @@
 #include "input.hh"
 #include "duration.hh"
 #include "pitch.hh"
-#include "parser.hh"
 
 bool busy_parsing ();
 void kill_lexer ();
