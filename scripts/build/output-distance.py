@@ -512,9 +512,12 @@ class GitFileCompareLink (FileCompareLink):
 class TextFileCompareLink (FileCompareLink):
     snippet_fn_re = re.compile (r"`\./([0-9a-f]{2}/lily-[0-9a-f]{8}).eps'");
     def calc_distance (self):
-        if not self.contents[0] and self.contents[1]:
-            # All content is new.  Don't show a diff.  If the user
-            # wants to see the content, he can click through the link.
+        if self.contents[0] == self.contents[1]:
+            return 0
+
+        if (self.contents[0] is None) != (self.contents[1] is None):
+            # Just one side available.  Don't show a diff.  If the user
+            # wants to see the content, they can click through the link.
             self.diff_lines = []
             return 100
 
@@ -944,13 +947,13 @@ class ComparisonData:
                     'log',
                     'profile',
                     'gittxt']:
-            (paired, m1, m2) = paired_files (dir1, dir2, '*.' + ext)
+            (paired, missing1, missing2) = paired_files (dir1, dir2, '*.' + ext)
 
-            self.missing += [(dir2, m) for m in m2]
-            self.added += [(dir2, m) for m in m1]
+            self.missing += [(dir2, m) for m in missing2]
+            self.added += [(dir2, m) for m in missing1]
 
             # we sort the file names for easier debugging
-            to_compare = sorted(paired + m1)
+            to_compare = sorted(paired + missing1 + missing2)
             if to_compare:
                 total_compared += len(to_compare)
                 log_terse ('%6d %s' % (len(to_compare), ext))
@@ -1084,6 +1087,7 @@ class ComparisonData:
 
         summary = '<table id="summary">'
         summary += make_nz_row ('in baseline only', len (self.missing))
+        summary += make_nz_row ('newly added', len (self.added))
         summary += make_nz_row ('below threshold', len (below))
         summary += make_row ('unchanged', len (unchanged))
         summary += '</table>'
@@ -1339,11 +1343,15 @@ def test_compare_tree_pairs ():
     system ('cp 19-1.eps dir2/20grob-1.eps')
     system ('cp 19-1.eps dir2/20grob-2.eps')
     system ('cp 19.eps dir2/20grob.eps')
+    system ('cp 19.log dir2/20grob.log')
     system ('cp 20{.ly,.profile,.log} dir2/')
     system ('cp 19multipage.midi dir1/midi-differ.midi')
     system ('cp 20multipage.midi dir2/midi-differ.midi')
     system ('cp 19multipage.log dir1/log-differ.log')
     system ('cp 19multipage.log dir2/log-differ.log &&  echo different >> dir2/log-differ.log &&  echo different >> dir2/log-differ.log')
+
+    system ('echo "removed" > dir1/removed.log')
+    system ('echo "added" > dir2/added.log')
 
     compare_tree_pairs ([('dir1', 'dir2')], 'compare-dir1dir2', options.threshold)
 
@@ -1358,7 +1366,9 @@ def test_compare_tree_pairs ():
             ]:
         fn = os.path.join("compare-dir1dir2", f)
         assert os.path.exists(fn), fn
-
+    html = open("compare-dir1dir2/index.html").read()
+    assert "removed.log" in html
+    assert "added.log" in html
 
 def test_basic_compare ():
     ly_template = r"""
