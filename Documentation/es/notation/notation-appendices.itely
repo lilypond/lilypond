@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 21a1f431176e969d45a9cc973c99dce34e9e8733
+    Translation of GIT committish: 5f0cb967f1e52a15b32d5dc0a2cba98eb77bc2a3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -45,8 +45,13 @@
 @appendixsec Cuadro de nombres de acordes
 @translationof Chord name chart
 
-La siguiente tabla muestra dos sistemas estándar para imprimir los
-nombres de los acordes, junto a las notas que representan.
+La siguiente tabla muestra el sistema estándar para imprimir los
+nombres de los acordes, junto a las notas que representa. Se
+muestran también otros sistemas de nomenclatura (no soportados) en
+el fragmento de código @qq{Chord names alternative} de la sección
+@rlsr{Chords}, incluida la notación inspirada por Harald Banter
+(1982) que se utilizaba de forma predeterminada en algunas de las
+primeras versiones de LilyPond (hasta la 1.7).
 
 @c The line width is a hack to allow space for instrument names
 @lilypondfile[quote,line-width=15\cm]{chord-names-jazz.ly}
@@ -482,7 +487,7 @@ Quinta justa
 @code{c1:5}
 @tab
 @lilypond[line-width=2.1\cm,noragged-right,notime]
-\chordmode { c1:5 }
+\chordmode {c1:5 }
 @end lilypond
 
 @item
@@ -492,10 +497,10 @@ Quinta justa, @*octava
 @tab
 @code{1.5.8}
 @tab
-@code{ c1:5.8}
+@code{c1:5.8}
 @tab
 @lilypond[line-width=2.1\cm,noragged-right,notime]
-  \chordmode { c1:5.8 }
+  \chordmode {c1:5.8 }
 @end lilypond
 
 @end multitable
@@ -858,12 +863,12 @@ La sintaxis para el uso de colores se encuentra detallada en
 @cindex lista de colores
 @cindex colores, lista de
 
-@verbatim
-black       white          red         green
-blue        cyan           magenta     yellow
-grey        darkred        darkgreen   darkblue
+@example
+black       white          red           green
+blue        cyan           magenta       yellow
+grey        darkred        darkgreen     darkblue
 darkcyan    darkmagenta    darkyellow
-@end verbatim
+@end example
 
 
 @subsubheading Nombres de los colores de X
@@ -884,60 +889,69 @@ Algunos nombres admiten un sufijo numérico
 
 @subsubheading Nombres de los colores sin sufijo numérico:
 
-@verbatim
-snow		GhostWhite	WhiteSmoke	gainsboro	FloralWhite
-OldLace		linen		AntiqueWhite	PapayaWhip	BlanchedAlmond
-bisque		PeachPuff	NavajoWhite	moccasin	cornsilk
-ivory		LemonChiffon	seashell	honeydew	MintCream
-azure		AliceBlue	lavender	LavenderBlush	MistyRose
-white		black		DarkSlateGrey	DimGrey		SlateGrey
-LightSlateGrey	grey		LightGrey	MidnightBlue	navy
-NavyBlue	CornflowerBlue	DarkSlateBlue	SlateBlue	MediumSlateBlue
-LightSlateBlue	MediumBlue	RoyalBlue	blue		DodgerBlue
-DeepSkyBlue	SkyBlue		LightSkyBlue	SteelBlue	LightSteelBlue
-LightBlue	PowderBlue	PaleTurquoise	DarkTurquoise	MediumTurquoise
-turquoise	cyan		LightCyan	CadetBlue	MediumAquamarine
-aquamarine	DarkGreen	DarkOliveGreen	DarkSeaGreen	SeaGreen
-MediumSeaGreen	LightSeaGreen	PaleGreen	SpringGreen	LawnGreen
-green		chartreuse	MediumSpringGreen	GreenYellow	LimeGreen
-YellowGreen	ForestGreen	OliveDrab	DarkKhaki	khaki
-PaleGoldenrod	LightGoldenrodYellow	LightYellow	yellow	gold
-LightGoldenrod	goldenrod	DarkGoldenrod	RosyBrown	IndianRed
-SaddleBrown	sienna		peru		burlywood	beige
-wheat		SandyBrown	tan		chocolate	firebrick
-brown		DarkSalmon	salmon		LightSalmon	orange
-DarkOrange	coral		LightCoral	tomato		OrangeRed
-red		HotPink		DeepPink	pink		LightPink
-PaleVioletRed	maroon		MediumVioletRed	VioletRed	magenta
-violet		plum		orchid		MediumOrchid	DarkOrchid
-DarkViolet	BlueViolet	purple		MediumPurple	thistle
-DarkGrey	DarkBlue	DarkCyan	DarkMagenta	DarkRed
-LightGreen
-@end verbatim
+@example
+AliceBlue       LawnGreen             OrangeRed      firebrick
+AntiqueWhite    LemonChiffon          PaleGoldenrod  gainsboro
+BlanchedAlmond  LightBlue             PaleGreen      gold
+BlueViolet      LightCoral            PaleTurquoise  goldenrod
+CadetBlue       LightCyan             PaleVioletRed  green
+CornflowerBlue  LightGoldenrod        PapayaWhip     grey
+DarkBlue        LightGoldenrodYellow  PeachPuff      honeydew
+DarkCyan        LightGreen            PowderBlue     ivory
+DarkGoldenrod   LightGrey             RosyBrown      khaki
+DarkGreen       LightPink             RoyalBlue      lavender
+DarkGrey        LightSalmon           SaddleBrown    linen
+DarkKhaki       LightSeaGreen         SandyBrown     magenta
+DarkMagenta     LightSkyBlue          SeaGreen       maroon
+DarkOliveGreen  LightSlateBlue        SkyBlue        moccasin
+DarkOrange      LightSlateGrey        SlateBlue      navy
+DarkOrchid      LightSteelBlue        SlateGrey      orange
+DarkRed         LightYellow           SpringGreen    orchid
+DarkSalmon      LimeGreen             SteelBlue      peru
+DarkSeaGreen    MediumAquamarine      VioletRed      pink
+DarkSlateBlue   MediumBlue            WhiteSmoke     plum
+DarkSlateGrey   MediumOrchid          YellowGreen    purple
+DarkTurquoise   MediumPurple          aquamarine     red
+DarkViolet      MediumSeaGreen        azure          salmon
+DeepPink        MediumSlateBlue       beige          seashell
+DeepSkyBlue     MediumSpringGreen     bisque         sienna
+DimGrey         MediumTurquoise       black          snow
+DodgerBlue      MediumVioletRed       blue           tan
+FloralWhite     MidnightBlue          brown          thistle
+ForestGreen     MintCream             burlywood      tomato
+GhostWhite      MistyRose             chartreuse     turquoise
+GreenYellow     NavajoWhite           chocolate      violet
+HotPink         NavyBlue              coral          wheat
+IndianRed       OldLace               cornsilk       white
+LavenderBlush   OliveDrab             cyan           yellow
+@end example
 
 
 @subsubheading Nombres de los colores con sufijo numérico
 
 En los nombres siguientes, el sufijo N puede ser un número del 1 al 4:
 
-@verbatim
-snowN		seashellN	AntiqueWhiteN	bisqueN		PeachPuffN
-NavajoWhiteN	LemonChiffonN	cornsilkN	ivoryN		honeydewN
-LavenderBlushN	MistyRoseN	azureN		SlateBlueN	RoyalBlueN
-blueN		DodgerBlueN	SteelBlueN	DeepSkyBlueN	SkyBlueN
-LightSkyBlueN	LightSteelBlueN	LightBlueN	LightCyanN	PaleTurquoiseN
-CadetBlueN	turquoiseN	cyanN		aquamarineN	DarkSeaGreenN
-SeaGreenN	PaleGreenN	SpringGreenN	greenN		chartreuseN
-OliveDrabN	DarkOliveGreenN	khakiN		LightGoldenrodN	LightYellowN
-yellowN		goldN		goldenrodN	DarkGoldenrodN	RosyBrownN
-IndianRedN	siennaN		burlywoodN	wheatN		tanN
-chocolateN	firebrickN	brownN		salmonN		LightSalmonN
-orangeN		DarkOrangeN	coralN		tomatoN		OrangeRedN
-redN		DeepPinkN	HotPinkN	pinkN		LightPinkN
-PaleVioletRedN	maroonN		VioletRedN	magentaN	orchidN
-plumN		MediumOrchidN	DarkOrchidN	purpleN		MediumPurpleN
-thistleN
-@end verbatim
+@example
+AntiqueWhiteN    LightSkyBlueN    SteelBlueN   khakiN
+CadetBlueN       LightSteelBlueN  VioletRedN   magentaN
+DarkGoldenrodN   LightYellowN     aquamarineN  maroonN
+DarkOliveGreenN  MediumOrchidN    azureN       orangeN
+DarkOrangeN      MediumPurpleN    bisqueN      orchidN
+DarkOrchidN      MistyRoseN       blueN        pinkN
+DarkSeaGreenN    NavajoWhiteN     brownN       plumN
+DeepPinkN        OliveDrabN       burlywoodN   purpleN
+DeepSkyBlueN     OrangeRedN       chartreuseN  redN
+DodgerBlueN      PaleGreenN       chocolateN   salmonN
+HotPinkN         PaleTurquoiseN   coralN       seashellN
+IndianRedN       PaleVioletRedN   cornsilkN    siennaN
+LavenderBlushN   PeachPuffN       cyanN        snowN
+LemonChiffonN    RosyBrownN       firebrickN   tanN
+LightBlueN       RoyalBlueN       goldN        thistleN
+LightCyanN       SeaGreenN        goldenrodN   tomatoN
+LightGoldenrodN  SkyBlueN         greenN       turquoiseN
+LightPinkN       SlateBlueN       honeydewN    wheatN
+LightSalmonN     SpringGreenN     ivoryN       yellowN
+@end example
 
 
 @subsubheading Escala de grises
@@ -2301,6 +2315,8 @@ f^\tenuto e,_\tenuto b'\tenuto
 @funindex \trill
 @funindex \turn
 @funindex \reverseturn
+@funindex \slashturn
+@funindex \haydnturn
 
 @node Indicaciones de adornos
 @unnumberedsubsec Indicaciones de adornos
@@ -2381,13 +2397,26 @@ f^\turn e,_\turn b'\reverseturn
 @lilypond[notime,relative=2]
 f^\reverseturn e,_\reverseturn b'\reverseturn
 @end lilypond
+@tab
+@code{\slashturn}
+@lilypond[notime,relative=2]
+f^\slashturn e,_\slashturn b'\slashturn
+@end lilypond
+@tab
+@code{\haydnturn}
+@lilypond[notime,relative=2]
+f^\haydnturn e,_\haydnturn b'\haydnturn
+@end lilypond
 
 @end multitable
 
 @funindex \fermata
 @funindex \shortfermata
 @funindex \longfermata
+@funindex \veryshortfermata
 @funindex \verylongfermata
+@funindex \henzeshortfermata
+@funindex \henzelongfermata
 
 @node Indicaciones de calderón
 @unnumberedsubsec Indicaciones de calderón
@@ -2396,6 +2425,11 @@ f^\reverseturn e,_\reverseturn b'\reverseturn
 @multitable @columnfractions .22 .25 .25 .25
 
 @item
+@code{\veryshortfermata}
+@lilypond[notime,relative=2]
+f^\veryshortfermata e,_\veryshortfermata b'\veryshortfermata
+@end lilypond
+@tab
 @code{\shortfermata}
 @lilypond[notime,relative=2]
 f^\shortfermata e,_\shortfermata b'\shortfermata
@@ -2410,10 +2444,21 @@ f^\fermata e,_\fermata b'\fermata
 @lilypond[notime,relative=2]
 f^\longfermata e,_\longfermata b'\longfermata
 @end lilypond
-@tab
+
+@item
 @code{\verylongfermata}
 @lilypond[notime,relative=2]
 f^\verylongfermata e,_\verylongfermata b'\verylongfermata
+@end lilypond
+@tab
+@code{\henzeshortfermata}
+@lilypond[notime,relative=2]
+f^\henzeshortfermata e,_\henzeshortfermata b'\henzeshortfermata
+@end lilypond
+@tab
+@code{\henzelongfermata}
+@lilypond[notime,relative=2]
+f^\henzelongfermata e,_\henzelongfermata b'\henzelongfermata
 @end lilypond
 
 @end multitable
