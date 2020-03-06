@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 6ca1d8c80817f9baaa7b66b2fde9a7b98b0ffc0a
+    Translation of GIT committish: 520c0c31d468f9112aa305b93c8f038bf5d7e996
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -56,11 +56,13 @@ se tratan los métodos para crear las nuevas marcas dinámicas.
 @cindex indicación de pedalero de órgano
 @cindex pedal de órgano
 @cindex grupeto
-@cindex mordente circular
+@cindex mordente, circular
 @cindex nota abierta
 @cindex nota tapada
 @cindex flageolet
-@cindex mordente circular, inverso
+@cindex mordente, circular, inverso
+@cindex mordente, circular, cruzado
+@cindex mordente, circular, de Haydn
 @cindex trino
 @cindex semitrino
 @cindex mordente
@@ -68,8 +70,8 @@ se tratan los métodos para crear las nuevas marcas dinámicas.
 @cindex prallmordent
 @cindex semitrino ascendente
 @cindex semitrino descendente
-@cindex mordente ascendente
-@cindex mordente descendente
+@cindex mordente, ascendente
+@cindex mordente, descendente
 @cindex indicación de pulgar
 @cindex segno
 @cindex coda
@@ -101,6 +103,8 @@ se tratan los métodos para crear las nuevas marcas dinámicas.
 @funindex \snappizzicato
 @funindex \turn
 @funindex \reverseturn
+@funindex \slashturn
+@funindex \haydnturn
 @funindex \trill
 @funindex \prall
 @funindex \mordent
@@ -114,14 +118,16 @@ se tratan los métodos para crear las nuevas marcas dinámicas.
 @funindex \prallup
 @funindex \lineprall
 @funindex \signumcongruentiae
+@funindex \veryshortfermata
 @funindex \shortfermata
 @funindex \fermata
 @funindex \longfermata
 @funindex \verylongfermata
+@funindex \henzeshortfermata
+@funindex \henzelongfermata
 @funindex \segno
 @funindex \coda
 @funindex \varcoda
-
 
 @funindex -
 
@@ -177,17 +183,10 @@ por debajo del pentagrama; véase @ref{Dirección y posición}.
 Las articulaciones son objetos @code{Script}.  Sus propiedades se
 describen de forma más completa en @rinternals{Script}.
 
-@ignore
-@c TODO: the next section is out of date; \fermataMarkup has been
-@c deprecated, see section `Articulations and ornamentations'
-@c in the English documentation.
-
-Las articulaciones se pueden adjuntar a los silencios así como a
-las notas, pero no se pueden adjuntar a silencions multicompás.
-Está disponible una instrucción predefinida especial,
-@code{\fermata}, para adosar un calderón a un silencio
-multicompás (y sólo a un silencio multicompás).  La instrucción
-crea un objeto @code{MultiMeasureRestText}.
+Se pueden aplicar articulaciones a los silencios normales y
+multi-compás, además de a las notas.  La aplicación de una
+articulación a un silencio multi-compás crea un objeto
+@code{MultiMeasureRestScript}.
 
 @lilypond[verbatim,quote,fragment]
 \override Script.color = #red
@@ -195,7 +194,6 @@ crea un objeto @code{MultiMeasureRestText}.
 a'2\fermata r\fermata
 R1\fermata
 @end lilypond
-@end ignore
 
 Además de articulaciones, se pueden adjuntar textos y elementos de
 marcado a las notas.  Véase @ref{Guiones de texto}.
@@ -284,6 +282,7 @@ Referencia de funcionamiento interno:
 @funindex \spp
 @funindex \sfz
 @funindex \rfz
+@funindex \n
 
 Las marcas dinámicas de matiz absoluto se especifican usando una
 instrucción después de una nota: @code{c4\ff}.  Las marcas
@@ -291,9 +290,10 @@ dinámicas disponibles son @code{\ppppp}, @code{\pppp},
 @code{\ppp}, @code{\pp}, @code{\p}, @code{\mp}, @code{\mf},
 @code{\f}, @code{\ff}, @code{\fff}, @code{\ffff}, @code{\fffff},
 @code{\fp}, @code{\sf}, @code{\sff}, @code{\sp}, @code{\spp},
-@code{\sfz} y @code{\rfz}.  Las indicaciones dinámicas se pueden
-colocar manualmente por encima o por debajo del pentagrama; para
-ver más detalles, consulte @ref{Dirección y posición}.
+@code{\sfz}, @code{\rfz} y @code{\n}.  Las indicaciones dinámicas
+se pueden colocar manualmente por encima o por debajo del
+pentagrama; para ver más detalles, consulte @ref{Dirección y
+posición}.
 
 @lilypond[verbatim,quote]
 \relative c'' {
