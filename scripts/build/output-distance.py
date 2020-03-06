@@ -406,7 +406,7 @@ class FileLink:
         return os.path.join (self.prefix (), base)
 
     def prefix (self):
-        return os.path.dirname (os.path.commonprefix (self.file_names))
+        return os.path.dirname (os.path.commonpath (self.file_names))
 
     def extension (self):
         return os.path.splitext (self.file_names[1])[1]
@@ -701,7 +701,7 @@ class SignatureFileLink (FileLink):
             # are valid.
             (dir, base) = os.path.split (pat)
 
-            out_dir = dest_dir + '/' + dir
+            out_dir = os.path.abspath(dest_dir + '/' + dir)
             mkdir (out_dir)
 
             abs_dir = os.path.abspath (dir)
@@ -744,26 +744,10 @@ class SignatureFileLink (FileLink):
 
     def link_files_for_html (self, dest_dir):
         FileLink.link_files_for_html (self, dest_dir)
-        to_compare = [[], []]
+        to_compare = self.create_images (dest_dir)
 
-        exts = []
-        if options.create_images:
-            to_compare = self.create_images (dest_dir)
-        else:
-            exts += ['.png', '-page*png']
-
-        for ext in exts:
-            for oldnew in (0,1):
-                for f in glob.glob (self.base_names[oldnew] + ext):
-                    dst = dest_dir + '/' + f
-                    link_file (f, dst)
-
-                    if f.endswith ('.png'):
-                        to_compare[oldnew].append (f)
-
-        if options.compare_images:
-            for (old, new) in zip (to_compare[0], to_compare[1]):
-                compare_png_images (old, new, dest_dir)
+        for (old, new) in zip (to_compare[0], to_compare[1]):
+            compare_png_images (old, new, dest_dir)
 
 
     def get_cell (self, oldnew):
@@ -789,7 +773,7 @@ class SignatureFileLink (FileLink):
         # be created.
         num_systems = (sum(1 for x in list(self.system_links.values ()) if x.system1),
                        sum(1 for x in list(self.system_links.values ()) if x.system2))
-        expect_compare = options.compare_images and num_systems[0] and oldnew
+        expect_compare = num_systems[0] and oldnew
 
         base = os.path.splitext (self.file_names[oldnew])[0]
 
@@ -1078,23 +1062,15 @@ class ComparisonData:
     def create_html_result_page (self, dest_dir, threshold):
         (changed, below, unchanged) = self.thresholded_results (threshold)
 
-        header_row = '''
+        table_rows = '''
 <tr>
 <th>distance</th>
-<th>%(short_dir1)s</th>
-<th>%(short_dir2)s</th>
+<th>before</th>
+<th>after</th>
 </tr>
 '''
 
-        table_rows = ''
-        old_prefix = None
         for link in changed:
-            this_prefix = link.prefix ()
-            if (old_prefix != this_prefix):
-                old_prefix = this_prefix
-                short_dir1 = shorten_string (link.directories ()[0], 30)
-                short_dir2 = shorten_string (link.directories ()[1], 30)
-                table_rows += header_row % locals()
             table_rows += link.html_record_string (dest_dir)
 
         def make_row (label, value):
@@ -1274,9 +1250,11 @@ td:empty {
 
 
 def compare_tree_pairs (tree_pairs, dest_dir, threshold):
+    """Compare a list of directories."""
     data = ComparisonData ()
     for dir1, dir2 in tree_pairs:
         data.compare_trees (dir1, dir2)
+
     data.read_sources ()
 
     data.print_results (threshold)
@@ -1335,46 +1313,51 @@ def test_paired_files ():
 def test_compare_tree_pairs ():
     system ('rm -rf dir1 dir2')
     system ('mkdir dir1 dir2')
-    system ('cp 20{-*.signature,.ly,.png,-1.eps,.log,.profile} dir1')
-    system ('cp 20{-*.signature,.ly,.png,-1.eps,.log,.profile} dir2')
-    system ('cp 19{-*.signature,.ly,.png,-1.eps,.log,.profile} dir2/')
-    system ('cp 19{-*.signature,.ly,.png,-1.eps,.log,.profile} dir1/')
     system ('cp 19-1.signature 19.sub-1.signature')
     system ('cp 19.ly 19.sub.ly')
     system ('cp 19.profile 19.sub.profile')
     system ('cp 19.log 19.sub.log')
-    system ('cp 19.png 19.sub.png')
     system ('cp 19-1.eps 19.sub-1.eps')
 
     system ('cp 20multipage* dir1')
     system ('cp 20multipage* dir2')
 
     system ('mkdir -p dir1/subdir/ dir2/subdir/')
-    system ('cp 19.sub{-*.signature,.ly,.png,-1.eps,.log,.profile} dir1/subdir/')
-    system ('cp 19.sub{-*.signature,.ly,.png,-1.eps,.log,.profile} dir2/subdir/')
-    system ('cp 20grob{-*.signature,.ly,.png,-1.eps,.log,.profile} dir2/')
-    system ('cp 20grob{-*.signature,.ly,.png,-1.eps,.log,.profile} dir1/')
+    system ('cp 19.sub{-*.signature,.ly,-1.eps,.log,.profile} dir1/subdir/')
+    system ('cp 19.sub{-*.signature,.ly,-1.eps,.log,.profile} dir2/subdir/')
     system ('echo HEAD is 1 > dir1/tree.gittxt')
     system ('echo HEAD is 2 > dir2/tree.gittxt')
 
     ## introduce differences
-    system ('cp 19-1.signature dir2/20-1.signature')
-    system ('cp 19.profile dir2/20.profile')
-    system ('cp 19.png dir2/20.png')
-    system ('cp 19multipage-page1.png dir2/20multipage-page1.png')
     system ('cp 20-1.signature dir2/subdir/19.sub-1.signature')
-    system ('cp 20.png dir2/subdir/19.sub.png')
     system ("sed 's/: /: 1/g'  20.profile > dir2/subdir/19.sub.profile")
 
     ## radical diffs.
+    system ('cp 20grob{-*.signature,.ly,.eps,-?.eps,.log,.profile} dir1/')
     system ('cp 19-1.signature dir2/20grob-1.signature')
     system ('cp 19-1.signature dir2/20grob-2.signature')
+    system ('cp 19-1.eps dir2/20grob-1.eps')
+    system ('cp 19-1.eps dir2/20grob-2.eps')
+    system ('cp 19.eps dir2/20grob.eps')
+    system ('cp 20{.ly,.profile,.log} dir2/')
     system ('cp 19multipage.midi dir1/midi-differ.midi')
     system ('cp 20multipage.midi dir2/midi-differ.midi')
     system ('cp 19multipage.log dir1/log-differ.log')
     system ('cp 19multipage.log dir2/log-differ.log &&  echo different >> dir2/log-differ.log &&  echo different >> dir2/log-differ.log')
 
     compare_tree_pairs ([('dir1', 'dir2')], 'compare-dir1dir2', options.threshold)
+
+    for f in [
+            "index.html",
+            "index.txt",
+            "changed.txt",
+            "dir2/20grob.compare.jpeg",
+            "dir2/20grob.png",
+            "dir1/20grob.png",
+            "style.css",
+            ]:
+        fn = os.path.join("compare-dir1dir2", f)
+        assert os.path.exists(fn), fn
 
 
 def test_basic_compare ():
@@ -1392,10 +1375,10 @@ def test_basic_compare ():
 \header { tagline = ##f }
 \score {
 <<
-\new Staff \relative c {
+\new Staff \relative c' {
   c4^"%(userstring)s" %(extragrob)s
   }
-\new Staff \relative c {
+\new Staff \relative c' {
   c4^"%(userstring)s" %(extragrob)s
   }
 >>
@@ -1407,11 +1390,11 @@ def test_basic_compare ():
     dicts = [{ 'papermod' : '',
                'name' : '20',
                'extragrob': '',
-               'userstring': 'test' },
+               'userstring': '20' },
              { 'papermod' : '#(set-global-staff-size 19.5)',
                'name' : '19',
                'extragrob': '',
-               'userstring': 'test' },
+               'userstring': '191919' },
              { 'papermod' : '',
                'name' : '20grob',
                'extragrob': 'r2. \\break c1',
@@ -1439,7 +1422,7 @@ def test_basic_compare ():
     open ('19multipage.ly', 'w').write ('#(set-global-staff-size 19.5)\n' + multipage_str)
 
     names = simple_names + [ "20multipage", "19multipage" ]
-    system ('lilypond -ddump-profile -dseparate-log-files -ddump-signatures --png ' + ' '.join (names))
+    system ('lilypond -dbackend=eps --formats=ps -dseparate-log-files -dinclude-eps-fonts -dgs-load-fonts --header=texidoc -I /home/hanwen/vc/lilypond/Documentation/included/ -ddump-profile -dcheck-internal-types -ddump-signatures -danti-alias-factor=1 ' + ' '.join (names))
     test_compare_signatures (simple_names)
 
 
@@ -1494,14 +1477,13 @@ def run_tests ():
     do_clean = not os.path.exists (dir)
 
     print('test results in ', dir)
-    if do_clean:
-        system ('rm -rf ' + dir)
-        system ('mkdir ' + dir)
+
+    system ('rm -rf ' + dir)
+    system ('mkdir ' + dir)
 
     os.chdir (dir)
-    if do_clean:
-        test_basic_compare ()
 
+    test_basic_compare ()
     test_compare_tree_pairs ()
 
 ################################################################
@@ -1530,18 +1512,6 @@ def main ():
                   action="store",
                   type="float",
                   help='threshold for geometric distance')
-
-    p.add_option ('--no-compare-images',
-                  dest="compare_images",
-                  default=True,
-                  action="store_false",
-                  help="Don't run graphical comparisons")
-
-    p.add_option ('--create-images',
-                  dest="create_images",
-                  default=False,
-                  action="store_true",
-                  help="Create PNGs from EPSes")
 
     p.add_option ('--local-datadir',
                   dest="local_data_dir",

@@ -375,7 +375,7 @@ local-check: local-check-pre
 	rm -rf $(RESULT_DIR)
 	mkdir -p $(RESULT_DIR)
 	$(buildscript-dir)/output-distance $(if $(VERBOSE),-v) \
-		--local-datadir --create-images --output-dir $(RESULT_DIR) \
+		--local-datadir --output-dir $(RESULT_DIR) \
 		input/regression/out-test-baseline input/regression/out-test \
 		input/regression/midi/out-test-baseline input/regression/midi/out-test
 ifneq ($(TIDY),false)
