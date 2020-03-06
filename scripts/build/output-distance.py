@@ -24,7 +24,6 @@ X_AXIS = 0
 Y_AXIS = 1
 INFTY = 1e6
 
-OUTPUT_EXPRESSION_PENALTY = 1
 ORPHAN_GROB_PENALTY = 1
 options = None
 
@@ -156,10 +155,9 @@ def difference_area (a, b):
     return bbox_area (a) - bbox_area (bbox_intersection (a,b))
 
 class GrobSignature:
-    """A (grob-name, output-expression, bbox) tuple"""
+    """A (grob-name, bbox) tuple"""
     def __init__ (self, exp_list):
-        (self.name, _, bbox_x,
-         bbox_y, self.output_expression) = tuple (exp_list)
+        (self.name, bbox_x, bbox_y) = tuple (exp_list)
 
         self.bbox = (bbox_x, bbox_y)
         self.centroid = ((bbox_x[0] + bbox_x[1])/2.0,
@@ -183,12 +181,6 @@ class GrobSignature:
                     difference_area (other.bbox, self.bbox)) / divisor
         else:
             return 0.0
-
-    def expression_distance (self, other):
-        if self.output_expression == other.output_expression:
-            return 0
-        else:
-            return 1
 
 
 class SystemSignature:
@@ -296,21 +288,6 @@ class SystemLink:
 
         self._orphan_count = count
 
-    def calc_output_exp_distance (self):
-        if self.system1 and self.system2:
-            d = 0
-        else:
-            d = 100 * (self.system1 != self.system2)
-
-        for (g1, g2) in list(self.back_link_dict.items ()):
-            if g2:
-                d += g1.expression_distance (g2)
-
-        self._expression_change_count = d
-
-    def output_expression_details_string (self):
-        return ', '.join ([g1.name for g1 in self.expression_changed])
-
     def geo_details_string (self):
         results = [(d, g1,g2) for ((g1, g2), d) in list(self.geo_distances.items())]
         # Only compare distances.
@@ -332,14 +309,8 @@ class SystemLink:
 
         return self._orphan_count
 
-    def output_expression_change_count (self):
-        if self._expression_change_count == None:
-            self.calc_output_exp_distance ()
-        return self._expression_change_count
-
     def distance_tuple (self):
-        return (self.output_expression_change_count (),
-                self.orphan_count (),
+        return (self.orphan_count (),
                 self.geometric_distance ())
 
 
@@ -367,8 +338,14 @@ def read_signature_file (name):
 
     def string_to_entry (s):
         fields = s.split('@')
-        fields[2] = string_to_tup (fields[2])
-        fields[3] = string_to_tup (fields[3])
+
+        # Backward compatibility; remove this once we stop comparing
+        # againsts older versions
+        if len(fields) == 5:
+            fields = (fields[0], string_to_tup(fields[2]), string_to_tup(fields[3]))
+        else:
+            fields[1] = string_to_tup (fields[1])
+            fields[2] = string_to_tup (fields[2])
 
         return tuple (fields)
 
@@ -853,8 +830,7 @@ class SignatureFileLink (FileLink):
             html += e
 
             e = '<td>%d</td>' % c
-            for s in (link.output_expression_details_string (),
-                      link.orphan_details_string (),
+            for s in (link.orphan_details_string (),
                       link.geo_details_string ()):
                 e += "<td>%s</td>" % s
 
@@ -874,7 +850,6 @@ class SignatureFileLink (FileLink):
 <table>
 <tr>
 <th>system</th>
-<th>output</th>
 <th>orphan</th>
 <th>geo</th>
 </tr>
@@ -1344,7 +1319,7 @@ def open_write_file (x):
 def system (x):
     log_verbose ('invoking %s' % x)
     stat = os.system (x)
-    assert stat == 0
+    assert stat == 0, (stat, x)
 
 def system_allow_exit1 (x):
     log_verbose ('invoking %s' % x)
@@ -1360,27 +1335,25 @@ def test_paired_files ():
 def test_compare_tree_pairs ():
     system ('rm -rf dir1 dir2')
     system ('mkdir dir1 dir2')
-    system ('cp 20{-*.signature,.ly,.png,.eps,.log,.profile} dir1')
-    system ('cp 20{-*.signature,.ly,.png,.eps,.log,.profile} dir2')
-    system ('cp 20expr{-*.signature,.ly,.png,.eps,.log,.profile} dir1')
-    system ('cp 19{-*.signature,.ly,.png,.eps,.log,.profile} dir2/')
-    system ('cp 19{-*.signature,.ly,.png,.eps,.log,.profile} dir1/')
+    system ('cp 20{-*.signature,.ly,.png,-1.eps,.log,.profile} dir1')
+    system ('cp 20{-*.signature,.ly,.png,-1.eps,.log,.profile} dir2')
+    system ('cp 19{-*.signature,.ly,.png,-1.eps,.log,.profile} dir2/')
+    system ('cp 19{-*.signature,.ly,.png,-1.eps,.log,.profile} dir1/')
     system ('cp 19-1.signature 19.sub-1.signature')
     system ('cp 19.ly 19.sub.ly')
     system ('cp 19.profile 19.sub.profile')
     system ('cp 19.log 19.sub.log')
     system ('cp 19.png 19.sub.png')
-    system ('cp 19.eps 19.sub.eps')
+    system ('cp 19-1.eps 19.sub-1.eps')
 
     system ('cp 20multipage* dir1')
     system ('cp 20multipage* dir2')
-    system ('cp 19multipage-1.signature dir2/20multipage-1.signature')
 
     system ('mkdir -p dir1/subdir/ dir2/subdir/')
-    system ('cp 19.sub{-*.signature,.ly,.png,.eps,.log,.profile} dir1/subdir/')
-    system ('cp 19.sub{-*.signature,.ly,.png,.eps,.log,.profile} dir2/subdir/')
-    system ('cp 20grob{-*.signature,.ly,.png,.eps,.log,.profile} dir2/')
-    system ('cp 20grob{-*.signature,.ly,.png,.eps,.log,.profile} dir1/')
+    system ('cp 19.sub{-*.signature,.ly,.png,-1.eps,.log,.profile} dir1/subdir/')
+    system ('cp 19.sub{-*.signature,.ly,.png,-1.eps,.log,.profile} dir2/subdir/')
+    system ('cp 20grob{-*.signature,.ly,.png,-1.eps,.log,.profile} dir2/')
+    system ('cp 20grob{-*.signature,.ly,.png,-1.eps,.log,.profile} dir1/')
     system ('echo HEAD is 1 > dir1/tree.gittxt')
     system ('echo HEAD is 2 > dir2/tree.gittxt')
 
@@ -1440,10 +1413,6 @@ def test_basic_compare ():
                'extragrob': '',
                'userstring': 'test' },
              { 'papermod' : '',
-               'name' : '20expr',
-               'extragrob': '',
-               'userstring': 'blabla' },
-             { 'papermod' : '',
                'name' : '20grob',
                'extragrob': 'r2. \\break c1',
                'userstring': 'test' },
@@ -1452,25 +1421,26 @@ def test_basic_compare ():
     for d in dicts:
         open (d['name'] + '.ly','w').write (ly_template % d)
 
-    names = [d['name'] for d in dicts]
-
-    system ('lilypond -ddump-profile -dseparate-log-files -ddump-signatures --png -dbackend=eps ' + ' '.join (names))
-
+    simple_names = [d['name'] for d in dicts]
 
     multipage_str = r'''
     #(set-default-paper-size "a6")
+    \book {
     \score {
       \relative c' { c1 \pageBreak c1 }
       \layout {}
       \midi {}
     }
+    \paper {}
+    }
     '''
 
     open ('20multipage.ly', 'w').write (multipage_str.replace ('c1', 'd1'))
     open ('19multipage.ly', 'w').write ('#(set-global-staff-size 19.5)\n' + multipage_str)
-    system ('lilypond -dseparate-log-files -ddump-signatures --png 19multipage 20multipage ')
 
-    test_compare_signatures (names)
+    names = simple_names + [ "20multipage", "19multipage" ]
+    system ('lilypond -ddump-profile -dseparate-log-files -ddump-signatures --png ' + ' '.join (names))
+    test_compare_signatures (simple_names)
 
 
 def test_compare_signatures (names, timing=False):
@@ -1492,9 +1462,13 @@ def test_compare_signatures (names, timing=False):
     t0 = time.time ()
     count = 0
     combinations = {}
+    links = {}
     for (n1, s1) in list(sigs.items()):
         for (n2, s2) in list(sigs.items()):
-            combinations['%s-%s' % (n1, n2)] = SystemLink (s1,s2).distance_tuple ()
+            key ='%s-%s' % (n1, n2)
+            link = SystemLink (s1,s2)
+            links[key] = link
+            combinations[key] = link.distance_tuple ()
             count += 1
 
     if timing:
@@ -1507,10 +1481,11 @@ def test_compare_signatures (names, timing=False):
         for k,v in results:
             print('%-20s' % k, v)
 
-    assert combinations['20-20'] == (0.0,0.0,0.0)
-    assert combinations['20-20expr'][0] > 0.0
-    assert combinations['20-19'][2] < 10.0
-    assert combinations['20-19'][2] > 0.0
+    assert links["20grob-20"].orphan_count() > 0
+    assert combinations['20-20'] == (0.0, 0.0)
+    assert combinations['20-19'][1] < 10.0
+    assert combinations['20-19'][1] > 0.0
+    assert combinations['20grob-20'][0] > 0
 
 
 def run_tests ():
