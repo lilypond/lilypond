@@ -56,13 +56,18 @@ replace_special_characters (string &str, SCM props)
       /* Don't match in mid-UTF-8 */
       if ((str[i] & 0xc0) == 0x80)
         continue;
-      for (vsize j = max_length + 1; j--;)
+      for (vsize j = max_length; j > 0; j--)
         {
           if (j > str.size () - i)
             continue;
-          string dummy = str.substr (i, j);
-          SCM ligature = ly_assoc_get (ly_string2scm (dummy),
-                                       replacement_alist, SCM_BOOL_F);
+          // TODO: It could make sense to skip if not at the end of a UTF-8
+          // glyph. However that requires finding the start of the last glyph
+          // (not necessarily at str[i] - the longest replacement could match
+          // multiple glyphs) to get the glyph's length which is not trivial.
+          // So for now just continue checking all substrings that could be
+          // valid UTF-8 (see check for str[i] not in mid-UTF-8 above).
+          SCM substr = scm_from_latin1_stringn (str.c_str() + i, j);
+          SCM ligature = ly_assoc_get (substr, replacement_alist, SCM_BOOL_F);
           if (scm_is_true (ligature))
             str.replace (i, j, robust_scm2string (ligature, ""));
         }
