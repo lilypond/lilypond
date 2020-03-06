@@ -322,6 +322,7 @@ test-pre: $(tree-share-prefix)/lilypond-force
 	$(call make_subdirs,python scripts flower lily mf,all)
 
 test: test-pre
+	$(MAKE) -C python local-test
 	@echo 'To begin investigating regression-test crashes, use'
 	@echo
 	@echo '    grep sourcefilename `grep -L systems.texi out/lybook-testdb/*/*log|sed s/log/ly/g`'
