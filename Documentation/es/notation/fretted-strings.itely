@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 6ca1d8c80817f9baaa7b66b2fde9a7b98b0ffc0a
+    Translation of GIT committish: 3064ac9d3d8bbc0cc7c2bcd8e4f72b232b5a8af7
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -991,6 +991,22 @@ cadena de marcado @code{fret-diagram}.
 >>
 @end lilypond
 
+@cindex zurdo, diagrama de trastes
+@cindex trastes, diagrama, zurdo
+
+Se pueden imprimir diagramas de trastes de acordes invertidos para
+personas zurdas.
+
+@lilypond[verbatim,quote]
+\markup
+  \center-column {
+    "C"
+    "(left-handed)"
+     \override #`(fret-diagram-details . ((handedness . ,LEFT)))
+     \fret-diagram "6-x;5-3-3;4-2-2;3-o;2-1;1-o;"
+  }
+@end lilypond
+
 @cindex fret-diagram-terse, marcado con
 
 @funindex \fret-diagram-terse
@@ -1187,7 +1203,7 @@ puntos.
       )
     }
     \override Voice.TextScript.size = 1.5
-    <b, fis b dis' fis'>1^\markup {
+    <b, fis b dis' fis'>1^\markup
       \override #'(fret-diagram-details . ((finger-code . in-dot)))
       \fret-diagram-verbose #`(
         (place-fret 5 2 1)
@@ -1203,7 +1219,6 @@ puntos.
           red)
         (place-fret 1 2 1)
       )
-    }
   }
 >>
 @end lilypond
@@ -1984,7 +1999,10 @@ Referencia de la notación:
 
 Los acordes de quinta vacía o acordes de potencia (@emph{power
 chords}) y sus símbolos se pueden tipografiar en el modo de
-acordes o como construcciones de acorde normales:
+acordes o como construcciones de acorde normales.  Como excepción,
+se especifica la quinta en estos nombres de acorde, meintras que
+habitualmente se omite en otros acordes (p. ej. en las tríadas
+mayores o menores).
 
 @lilypond[quote,ragged-right,verbatim]
 ChordsAndSymbols = {
