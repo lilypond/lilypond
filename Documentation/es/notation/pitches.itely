@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 21a1f431176e969d45a9cc973c99dce34e9e8733
+    Translation of GIT committish: 7b52921bb762657e1f2317c9ad2f834529f0ff99
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -616,8 +616,8 @@ correspondientes.
 
 Algunas músicas utilizan microtonos cuyas alteraciones son
 fracciones de un sostenido o bemol @q{normales}.  La tabla
-siguiente relaciona los sufijos de los nombres de las notas para las alteraciones
-de un cuarto de tono en distintos idiomas; aquí, los prefijos
+siguiente relaciona los sufijos de los nombres de las notas para
+las alteraciones de un cuarto de tono; aquí, los prefijos
 @notation{semi-} y @notation{sesqui-} respectivamente significan
 @q{medio} y @q{uno y medio}.
 
@@ -3403,6 +3403,7 @@ Referencia de funcionamiento interno:
 @cindex nota, cabezas de, Walker
 
 @funindex \aikenHeads
+@funindex \aikenThinHeads
 @funindex \sacredHarpHeads
 @funindex \southernHarmonyHeads
 @funindex \funkHeads
@@ -3420,6 +3421,8 @@ Harmony)}:
 \relative c'' {
   \aikenHeads
   c, d e f g2 a b1 c \break
+  \aikenThinHeads
+  c,4 d e f g2 a b1 c \break
   \sacredHarpHeads
   c,4 d e f g2 a b1 c \break
   \southernHarmonyHeads
@@ -3433,6 +3436,7 @@ Harmony)}:
 
 @funindex \key
 @funindex \aikenHeadsMinor
+@funindex \aikenThinHeadsMinor
 @funindex \sacredHarpHeadsMinor
 @funindex \southernHarmonyHeadsMinor
 @funindex \funkHeadsMinor
@@ -3450,6 +3454,8 @@ determinar a partir del relativo mayor:
   a b c d e2 f g1 a \break
   \aikenHeadsMinor
   a,4 b c d e2 f g1 a \break
+  \aikenThinHeadsMinor
+  a,4 b c d e2 f g1 a \break
   \sacredHarpHeadsMinor
   a,2 b c d \break
   \southernHarmonyHeadsMinor
@@ -3461,9 +3467,12 @@ determinar a partir del relativo mayor:
 }
 @end lilypond
 
+
 @predefined
 @code{\aikenHeads},
 @code{\aikenHeadsMinor},
+@code{\aikenThinHeads},
+@code{\aikenThinHeadsMinor},
 @code{\funkHeads},
 @code{\funkHeadsMinor},
 @code{\sacredHarpHeads},
@@ -3474,7 +3483,14 @@ determinar a partir del relativo mayor:
 @code{\walkerHeadsMinor}.
 @endpredefined
 
+
 @snippets
+
+@cindex nota, cabeza, Aiken, variante fina
+@cindex Aiken, cabezas de nota, variante fina
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{aiken-head-thin-variant-noteheads.ly}
+
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
 
