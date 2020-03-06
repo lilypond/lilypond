@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 21a1f431176e969d45a9cc973c99dce34e9e8733
+    Translation of GIT committish: 3064ac9d3d8bbc0cc7c2bcd8e4f72b232b5a8af7
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -49,41 +49,48 @@ Esta notación se estudia en @ref{Escritura de notas}, y los distintos
 nombres de las notas que se pueden utilizar están explicados en
 @ref{Nombres de las notas en otros idiomas}.
 
-Sin embargo, muchos tipos de música no occidental (y algunas clases de
-música folk occidental y tradicional) emplea sistemas de afiniación
-altenativos o extendidos que no encajan inmediatamente dentro de la
-notación clásica estándar.
+Ciertos tipos de música no occidental, folk y tradicional con
+frecuencia emplean sistemas de afiniación altenativos o extendidos
+que no encajan fácilmente dentro de la notación clásica estándar.
 
-En algunos casos aún se usa la notación estándar, estando implícitas
-las diferencias de altura.  Por ejemplo, la notación de la
-@notation{música árabe} se realiza con alteraciones accidentales de
-semitono y de cuarto de tonoc, estando determinadas por el contexto
-las exactas alteraciones de altura.  Se usan por lo general los
-nombres de nota italianos, mientras que el archivo de inicio
+Muchas veces se usa la notación estándar, pero con algunas
+diferencias de afinación implícitas.  Por ejemplo, la notación de
+la @notation{música árabe} se realiza con alteraciones
+accidentales de semitono y de cuarto de tono, estando determinadas
+por el contexto las exactas variaciones en la entonación. En el
+caso de la @notation{música árabe}, el archivo de inicio
 @file{arabic.ly} proporciona un conjunto adecuado de macros y
-definiciones que extienden la notación estándar.  Para ver más
-detalles, consulte @ref{Música árabe}.
+definiciones que extienden la notación estándar que emplea los
+nombres de nota italianos.  Para ver más detalles, consulte
+@ref{Música árabe}.
 
-@cindex afinación no occidental
+@cindex afinación, no occidental
+@cindex makam
+@cindex makamlar
+@cindex maqam
+@cindex Turquía, música clásica
+@cindex Otomana, música clásica
+@cindex árabe, maqam
+@cindex persa, makam
+@cindex turco, makam
 
-Otros tipos de música requieren notaciones extendidas o singulares.
-La @notation{música clásica turca} o música otomana, por ejemplo,
-emplea formas melódicas conocidas como @notation{makamlar}, cuyos
-intervalos están basados en divisiones de 1/9 de tono.  Se siguen
-usando las notas del pentagrama occidental, pero con alteraciones
-accidentales exclusivas de la música turca, que están definidas en el
-archivo @file{makam.ly}.  Para ver más información sobre la música
-clásica turca y los makamlar, consulte @ref{Música clásica de
-Turquía}.
+Otros tipos de música requieren notaciones extendidas o
+singulares; por ejemplo, la @notation{música clásica turca} o
+música clásica otomana, por ejemplo, emplea formas melódicas
+conocidas como @notation{makamlar} cuyos intervalos están basados
+en divisiones de 1/9 de tono.  Se siguen usando las notas del
+pentagrama occidental, pero con alteraciones accidentales que
+están definidas de forma inequívoca en el archivo
+@file{turkish-makam.ly}.  Para ver más información sobre la música
+clásica turca y los makamlar, consulte
+@ref{Música clásica de Turquía}.
 
-PAra localizar los archivos de inicio como @file{arabic.ly} o
-@file{makam.ly} en su sistema, consulte @rlearning{Otras fuentes de
-información}.
+También están disponibles otros archivos de inicio relacionados,
+@file{hel-arabic.ly} and @file{makam.ly}.
 
-@snippets
+Para localizar estos archivos de inicio en su sistema, consulte
+@rlearning{Otras fuentes de información}.
 
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{makam-example.ly}
 
 @seealso
 Glosario musical:
@@ -179,31 +186,48 @@ Fragmentos de código:
 @unnumberedsubsubsec Nombres de nota árabes
 @translationof Arabic note names
 
+@cindex árabe, notas, nombres
+@cindex nota, nombres, Hel-arabic
+@cindex nota, nombres, árabes
 
-@cindex Arabic note names
+Los nombres tradicionales de las notas en árabe pueden ser
+bastante largos y por ello no siempre son adecuados para el
+propósito de escribir música.
 
-Los nombres árabes tradicionales de las notas pueden llegar a ser
-bastante largos y no son adecuados para la escritura musical, y por
-ello no se utilizan.  Los nombres ingleses de las notas no son muy
-familiares dentro de la educación musical árabe, por lo que en su
-lugar se utilizan los nombres italo-franco-españoles o del solfeo
-(@code{do, re, mi, fa, sol, la, si}); también se pueden utilizar
-modificadores (alteraciones).  Los nombres italianos de las notas y
-las alteraciones accidentales están explicados en @ref{Nombres de las
-notas en otros idiomas}; el usao de la notación occidental estándar
-para realizar la notación de música no occidental se discute en
-@ref{Notación común para músicas no occidentales}.
+El archivo @file{hel-arabic.ly} permite usar los nombres de nota
+ingleses.  He aquí una escala @code{rast} que usa
+@file{hel-arabic.ly};
 
-Por ejemplo, así es como puede ser la notación de la escala árabe
-@notation{rast}:
+@lilypond[quote,verbatim]
+\include "hel-arabic.ly"
+\relative {
+\key c \rast
+  c' d edb f | g a bdb c | c bb a g | f d c
+}
+@end lilypond
+
+En lugar de ello se pueden usar los nombres de las notas en
+italiano (o Solfege) gracias al archivo @file{arabic.ly}.  He aquí
+una escala @code{rast} que usa @file{arabic.ly};
 
 @lilypond[quote,verbatim]
 \include "arabic.ly"
 \relative {
-  do' re misb fa sol la sisb do sisb la sol fa misb re do
+  do' re misb fa | sol la sisb do | sisb la sol fa | misb re do
 }
 @end lilypond
 
+@noindent
+@qq{Rast} es una escala heptatónica que usa intervalos en cuartos
+de tono y se considera la escala central y más importante del
+@qq{Maqamat árabe}.  Para ver la lista completa de las escalas
+árabes contempladas, consulte los archivos @file{hel-arabic.ly} o
+@file{arabic.ly} que están incluidos en la distribución de
+LilyPond.
+
+El uso de notación occidental estándar para música no occidental
+se discute en @ref{Notación común para músicas no occidentales}.
+Véase también @ref{Nombres de las notas en otros idiomas}.
 
 @cindex árabe, semi-bemol
 @cindex semi-bemol, apariencia
@@ -226,11 +250,15 @@ alterar mediante este método.
 }
 @end lilypond
 
-
 @seealso
 Referencia de la notación:
 @ref{Nombres de las notas en otros idiomas},
-@ref{Notación común para músicas no occidentales}.
+@ref{Notación común para músicas no occidentales},
+@ref{Inclusión de archivos de LilyPond}.
+
+Archivos instalados:
+@file{ly/arabic.ly}
+@file{ly/hel-arabic.ly}
 
 Fragmentos de código:
 @rlsr{World music}.
@@ -242,19 +270,19 @@ Fragmentos de código:
 
 @cindex Arabic key signatures
 
-Además de las armaduras de tonalidad mayores y menores, están
-definidas en @file{arabic.ly} las siguientes tonalidades:
-@notation{bayati}, @notation{rast}, @notation{sikah}, @notation{iraq}
-y @notation{kurd}.  Estas armaduras de tonalidad definen una pequeña
-cantidad de grupos de maqam, en contraste con los numerosos maqams que
-son de uso común.
+Además de las armaduras de tonalidad mayores y menores, las
+armaduras de tonalidad de la música árabe vienen definidas en los
+archivos @file{hel-arabic.ly} o @file{arabic.ly} y definen muchos
+grupos de maqam distintos.
 
 En general, un maqam usa la armadura de su grupo o la de un grupo
-vecino, y las alteraciones que difieren se van marcando a lo largo de
-la música.
+vecino, y las alteraciones que difieren se van marcando a lo largo
+de la música. Los maqams árabes admiten sólo modulaciones
+limitadas, a causa de la naturaleza de los instrumentos musicales
+árabes.
 
-Por ejemplo, para indicar la armadura de una pieza en el maqam
-muhayer:
+He aquí un ejemplo de armadura de tonalidad para una pieza del
+tipo @qq{maqam muhayer}:
 
 @example
 \key re \bayati
@@ -262,36 +290,38 @@ muhayer:
 
 @noindent
 Aquí, @var{re} es la altura predeterminada del maqam muhayer, y
-@var{bayati} es el nombre del maqam básico dentro del grupo.
+@notation{bayati} es el nombre del maqam básico dentro del grupo.
 
-Al tiempo que la armadura indica el grupo, el título suele indicar el
-maqam específico, y así en este ejemplo el nombra del maqam muhayer
-debe aparecer en el título.
+Al tiempo que la armadura indica el grupo, el título suele indicar
+el maqam específico, y así en este ejemplo el nombre del @qq{maqam
+muhayer} debe aparecer también en el título.
 
 Se pueden indicar de la misma forma otros maqams dentro del mismo
-grupo bayati, como aparece en la tabla a continuación: bayati,
-hussaini, saba y ushaq.  Todos ellos son variantes del maqam básico y
-más común dentro del grupo, que es bayati.  Normalmente se diferencian
-del maqam básico en su tetracordo superior, o en ciertos detalles de
-discurso que no cambian su naturaleza fundamental como parientes.
+grupo @notation{bayati}, como aparece en la tabla a continuación,
+(p. ej. @notation{bayati}, @notation{hussaini}, @notation{saba} y
+@notation{ushaq}).  Todos ellos son variantes del maqam básico y
+más común dentro del grupo, que es @notation{bayati}.  Normalmente
+se diferencian del maqam básico en su tetracordo superior, o en
+ciertos detalles de discurso que no cambian su naturaleza
+fundamental como parientes.
 
-El otro maqam del grupo (Nawa) se relaciona con el bayati a través de
-una modulación que se indica en la tabla entre paréntesis para
-aquellos maqams que son modulaciones de su maqam básico.  Los maqams
-árabes admiten sólo modulaciones limitadas, a causa de la naturaleza
-de los instrumentos musicales árabes.  El Nawa se puede indicar de la
-siguiente forma:
+El otro maqam del grupo (@notation{nawa}) se relaciona con el
+@notation{bayati} a través de una modulación y se indica en la
+tabla entre paréntesis para aquellos que son modulaciones de su
+maqam básico.  El @notation{Nawa}, por ejemplo, se puede indicar
+de la siguiente forma:
 
 @example
 \key sol \bayati
 @end example
 
-En la música árabe, el mismo término que se utiliza para indicar un
-grupo de maqam, como bayati, es también un maqam que normalmente es el
-más importante del grupo, y podemos verlo como el maqam básico.
+En la música árabe, el mismo término (p.ej. @notation{bayati}) que
+se utiliza para indicar un grupo de maqam, es también un maqam que
+normalmente es el más importante del grupo, y podemos verlo como
+el @emph{maqam básico}.
 
-A continuación presentamos una posibilidad de agrupación que asigna
-los maqams más comunes a armaduras de tonalidad:
+A continuación presentamos una posibilidad de agrupación que
+asigna los maqams más comunes a armaduras de tonalidad:
 
 @multitable @columnfractions 0.15 0.1 0.1 0.6
 @headitem grupo de maqam
@@ -353,18 +383,22 @@ Glosario musical:
 @rglos{iraq},
 @rglos{kurd}.
 
-Referencia de la notación:
-@ref{Armadura de la tonalidad}.
-
 Manual de aprendizaje:
 @rlearning{Alturas y armaduras}.
 
-Referencia de funcionamiento interno:
-@rinternals{KeySignature}.
+Referencia de la notación:
+@ref{Armadura de la tonalidad}.
+
+Archivos instalados:
+@file{ly/arabic.ly}
+@file{ly/hel-arabic.ly}
 
 Fragmentos de código:
 @rlsr{World music},
 @rlsr{Pitches}.
+
+Referencia de funcionamiento interno:
+@rinternals{KeySignature}.
 
 
 @node Indicaciones de compás árabes
@@ -407,6 +441,10 @@ Referencia de la notación:
 @ref{Establecer el comportamiento de las barras automáticas},
 @ref{Indicación de compás}.
 
+Archivos instalados:
+@file{ly/arabic.ly}
+@file{ly/hel-arabic.ly}
+
 Fragmentos de código:
 @rlsr{World music}.
 
@@ -446,6 +484,10 @@ tratamos en esta sección.
 }
 @end lilypond
 
+@seealso
+Archivos instalados:
+@file{ly/arabic.ly}
+@file{ly/hel-arabic.ly}
 
 @seealso
 Fragmentos de código:
@@ -456,46 +498,53 @@ Fragmentos de código:
 @unnumberedsubsubsec Lecturas adicionales sobre música árabe
 @translationof Further reading for Arabic music
 
-@enumerate
-
-@item
-@emph{The music of the Arabs}, de Habib Hassan Touma [Amadeus Press,
-1996], contiene un tratado de los maqams y sus formas de agrupación.
-
-También existen varios sitios web que explican los maqams, y algunos
-de ellos ofrecen ejemplos de audio, como:
-
-@itemize @bullet
-@item
-@uref{http://www.maqamworld.com/}
-@item
-@uref{http://www.turath.org/}
-@end itemize
 
 Existen ciertas variantes en los detalles sobre la forma en que se
-agrupan los maqams, a pesar del relativo acuerdo existente acerca de
-los criterios de agrupación de maqams en función de los tetracordos
-inferiores comunes, o por medio de la modulación.
-
-@item
-No es completamente consistente, incluso a veces dentro del mismo
+agrupan los maqams, a pesar del relativo acuerdo existente acerca
+de los criterios de agrupación de maqams en función de los
+tetracordos inferiores comunes, o por medio de la modulación.  No
+es completamente consistente, incluso a veces dentro del mismo
 texto, la forma en que se deben especificar las armaduras para los
 maqams concretos.  Sin embargo, es usual utilizar una armadura por
-grupo, más que una armadura distinta para cada maqam concreto.
+@q{grupo} de maqams, más que una armadura distinta para cada maqam
+concreto.
 
+
+@itemize
+
+@item
+@emph{The music of the Arabs}, de Habib Hassan Touma [Amadeus
+Press, 1996], contiene un tratado de los maqams y sus formas de
+agrupación.
+
+También existen algunos sitios web que explican los maqams e
+incluso ofrecen ejemplos de audio:
+
+@itemize
+@item
+@uref{https://www.maqamworld.com/}
+
+@item
+@uref{https://www.turath.org/}
+@end itemize
+
+@item
 Varios métodos de los siguientes autores para el @dfn{Ud}, el laúd
 árabe, contienen ejemplos de composiciones turcas y árabes,
 principalmente.
 
-@itemize @bullet
+@itemize
 @item
 Charbel Rouhana
+
 @item
 George Farah
+
 @item
 Ibrahim Ali Darwish Al-masri
 @end itemize
-@end enumerate
+
+@end itemize
 
 
 @node Música clásica de Turquía
@@ -508,8 +557,9 @@ la música clásica de Turquía.
 @menu
 * Referencias para música clásica de Turquía::
 * Nombres de las notas en turco::
+* Armaduras de tonalidad de la música turca::
+* Lecturas adicionales sobre música turca::
 @end menu
-
 
 @node Referencias para música clásica de Turquía
 @unnumberedsubsubsec Referencias para música clásica de Turquía
@@ -521,24 +571,20 @@ la música clásica de Turquía.
 @cindex makam
 @cindex makamlar
 
-La música clásica de Turquía se desarrollo en el imperio Otomano
-durante un período aproximadamente contemporáneo con la música clásica
-de Europa, y se ha prolongado hasta los ss.XX y XXI como una viva y
-característica tradición con sus propias formas composicionales,
-teorías y estilos de interpretación.  Entre sus características más
-sobresalientes está el uso de intervalos microtonales basados en
-@q{comas} de 1/9 de tono, a partir de los que se construyen las formas
-melódicas conocidas como @notation{makam} (en plural
-@notation{makamlar}).
+La música clásica de Turquía se desarrolló en el imperio Otomano
+durante un período aproximadamente contemporáneo con la música
+clásica de Europa, y se ha prolongado hasta los ss.XX y XXI como
+una viva y característica tradición con sus propias formas
+composicionales, teorías y estilos de interpretación.  Entre sus
+características más sobresalientes está el uso de intervalos
+microtonales basados en @q{comas} de 1/9 de tono, a partir de los
+que se construyen las formas melódicas conocidas como
+@notation{makam} (en plural @notation{makamlar}).
 
-Ciertos asuntos de relevancia respecto a la música clásica de Turquía
-se tratan en otras partes:
-
-@itemize
-@item Los nombres especiales de las notas y las alteraciones se dan en
+Ciertos asuntos de relevancia respecto a la música clásica de
+Turquía se tratan en otras partes. Los nombres especiales de las
+notas y las alteraciones se dan en
 @ref{Notación común para músicas no occidentales}.
-
-@end itemize
 
 
 @node Nombres de las notas en turco
@@ -550,59 +596,22 @@ se tratan en otras partes:
 @cindex makamlar
 
 Las notas en la música clásica de Turquía tienen tradicionalmente
-nombres únicos, y la base de las alturas sobre divisiones de 1/9 de
-tono significan que los makamlar utilizan un conjunto de intervalos
-completamente diferente de las escalas y modos occidentales:
-@notation{koma} (1/9 de tono), @notation{eksik bakiye} (3/9),
-@notation{bakiye} (4/9), @notation{kücük mücenneb} (5/9),
-@notation{büyük mücenneb} (8/9), @notation{tanîni} (un tono) y
-@notation{artık ikili} (12/9 ó 13/9 de tono).
+nombres únicos, y la base de las alturas sobre divisiones de 1/9
+de tono significan que los makamlar utilizan un conjunto de
+intervalos completamente diferente de las escalas y modos
+occidentales.
 
 Desde el punto de vista de la notación moderna, es conveniente
 utilizar las notas occidentales (do, re, mi, @dots{} ó c, d, e,
-@dots{}) con alteraciones especiales que elevan o bajan las notas en
-intervalos de 1/9, 4/9, 5/9 y 8/9 de tono.  Estas alteraciones están
-definidas en el archivo @file{makam.ly}.
+@dots{}) con alteraciones especiales que elevan o bajan las notas
+en intervalos de 1/9, 4/9, 5/9 y 8/9 de tono.
 
-
-La tabla siguiente relaciona:
-@itemize
-@item
-el nombre de estas alteraciones accidentales especiales,
-@item
-el sufijo de la alteración que se debe escribir detrás de las notas, y
-@item
-su alteración en altura expresada como una fracción de un tono.
-@end itemize
-
-@quotation
-@multitable {@b{büyük mücenneb (sharp)}} {@b{suffix}} {@b{pitch alteration}}
-@headitem Nombre de la alteración
-  @tab sufijo @tab alteración de altura
-
-@item büyük mücenneb (sostenido)
-  @tab -bm @tab +8/9
-@item kücük mücenneb (sostenido)
-  @tab -k @tab +5/9
-@item bakiye (sostenido)
-  @tab -b @tab +4/9
-@item koma (sostenido)
-  @tab -c @tab +1/9
-
-@item koma (bemol)
-  @tab -fc @tab -1/9
-@item bakiye (bemol)
-  @tab -fb @tab -4/9
-@item kücük mücenneb (bemol)
-  @tab -fk @tab -5/9
-@item büyük mücenneb (bemol)
-  @tab -fbm @tab -8/9
-@end multitable
-@end quotation
+Estas alteraciones personalizadas están definidas en el archivo
+@file{makam.ly}.
 
 Para ver una explicación más general sobre la notación musical no
-occidental, consulte @ref{Notación común para músicas no
-occidentales}.
+occidental, consulte
+@ref{Notación común para músicas no occidentales}.
 
 @seealso
 Glosario musical:
@@ -611,3 +620,65 @@ Glosario musical:
 
 Referencia de la notación:
 @ref{Notación común para músicas no occidentales}.
+
+
+@node Armaduras de tonalidad de la música turca
+@unnumberedsubsubsec Armaduras de tonalidad de la música turca
+@translationof Turkish key signatures
+
+Lilypond da soporte a más de 200 definiciones de armaduras de
+makam (mucho más de las que se utilizan en la música clásica
+turca), teniendo cada makam su propia tónica o finalis (conocida
+en turco como @q{karar}).
+
+Es importante tener en cuenta la nota finalis de cada maqam.  He
+aquí un ejemplo en el que @var{g} es la tónica predeterminada y
+@var{rast} es el nombre del maqam.
+
+@example
+\key g \rast
+@end example
+
+@noindent
+Las alteraciones correctas, bemol de coma (@var{b1}) y sostenido
+de coma (@code{f4}), (ambos en relación a la tónica @var{g}), se
+imprimen automáticamente.
+
+
+@snippets
+
+@cindex makam, ejemplo
+@cindex makam, turco, ejemplo
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{turkish-makam-example.ly}
+
+
+@node Lecturas adicionales sobre música turca
+@unnumberedsubsubsec Lecturas adicionales sobre música turca
+@translationof Further reading for Turkish music
+
+@itemize
+
+@item
+@emph{Turk Musikisi Nazariyati ve Usulleri: Kudum Velveleleri} de Ismail
+Hakki Ozkan [(Kultur serisi, 41) (Turkish) Paperback – 1986]
+
+@noindent
+contiene información acerca de la teoría de los maqams y los usul.
+
+@item
+@emph{Music of the Ottoman Court} de Walter Feldman
+[VWB Hardback – 1996]
+
+@noindent
+contiene información sobre la historia de la música cortesana
+otomana.
+
+@item
+@emph{Turkish Music Makam Guide} de Murat Aydemir [Pan Paperback – 2010]
+
+@noindent
+contiene información en inglés concerniente al maqam turco,
+incluyendo dos CDs.
+
+@end itemize
