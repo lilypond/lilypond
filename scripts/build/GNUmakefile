@@ -2,6 +2,9 @@ depth = ../..
 
 STEPMAKE_TEMPLATES=script install po
 
+# need env settings to run output-distance --test
+LOCALSTEPMAKE_TEMPLATES=lilypond
+
 include $(depth)/make/stepmake.make
 
 # Should we install these? This should be handled by sysadmin or
@@ -12,3 +15,5 @@ include $(depth)/make/stepmake.make
 
 all: $(INSTALLATION_FILES)
 
+local-check:
+	$(PYTHON) output-distance.py --test

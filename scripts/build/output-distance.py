@@ -1432,7 +1432,8 @@ def test_basic_compare ():
     open ('19multipage.ly', 'w').write ('#(set-global-staff-size 19.5)\n' + multipage_str)
 
     names = simple_names + [ "20multipage", "19multipage" ]
-    system ('lilypond -dbackend=eps --formats=ps -dseparate-log-files -dinclude-eps-fonts -dgs-load-fonts --header=texidoc -I /home/hanwen/vc/lilypond/Documentation/included/ -ddump-profile -dcheck-internal-types -ddump-signatures -danti-alias-factor=1 ' + ' '.join (names))
+    binary = os.environ.get ("LILYPOND_BINARY", "lilypond")
+    system ('%s -dbackend=eps --formats=ps -dseparate-log-files -dinclude-eps-fonts -dgs-load-fonts --header=texidoc -I /home/hanwen/vc/lilypond/Documentation/included/ -ddump-profile -dcheck-internal-types -ddump-signatures -danti-alias-factor=1 %s' % (binary, ' '.join (names)))
     test_compare_signatures (simple_names)
 
 
