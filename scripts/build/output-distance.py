@@ -1,20 +1,24 @@
 #!@PYTHON@
+
 import codecs
+import difflib
 import errno
-import sys
+import functools
+import glob
+import html
+import math
 import optparse
 import os
-import math
 import re
-
-import html
-from functools import reduce
+import sys
+import tempfile
+import time
 
 ## so we can call directly as scripts/build/output-distance.py
 me_path = os.path.abspath (os.path.split (sys.argv[0])[0])
-sys.path.insert (0, me_path + '/../python/')
-sys.path.insert (0, me_path + '/../python/out/')
-
+sys.path.insert (0, me_path + '/../../python/')
+sys.path.insert (0, me_path + '/../../python/out/')
+import midi
 
 X_AXIS = 0
 Y_AXIS = 1
@@ -37,7 +41,6 @@ def log_verbose (s):
 temp_dir = None
 class TempDirectory:
     def __init__ (self):
-        import tempfile
         self.dir = tempfile.mkdtemp ()
         log_verbose ('dir is %s' % self.dir)
     def __del__ (self):
@@ -102,7 +105,7 @@ def compare_png_images (old, new, dest_dir):
     system ('convert -strip -depth 8 -crop %dx%d+0+0 %s %s/crop1.png' % (dims + (old, dir)))
     system ('convert -strip -depth 8 -crop %dx%d+0+0 %s %s/crop2.png' % (dims + (new, dir)))
 
-    system1 ('compare -depth 8 -dissimilarity-threshold 1 %(dir)s/crop1.png %(dir)s/crop2.png %(dir)s/diff.png' % locals ())
+    system_allow_exit1 ('compare -depth 8 -dissimilarity-threshold 1 %(dir)s/crop1.png %(dir)s/crop2.png %(dir)s/diff.png' % locals ())
 
     system ("convert  -depth 8 %(dir)s/diff.png -blur 0x3 -negate -channel alpha,blue -type TrueColorMatte -fx 'intensity'    %(dir)s/matte.png" % locals ())
 
@@ -153,12 +156,14 @@ def difference_area (a, b):
     return bbox_area (a) - bbox_area (bbox_intersection (a,b))
 
 class GrobSignature:
+    """A (grob-name, output-expression, bbox) tuple"""
     def __init__ (self, exp_list):
-        (self.name, self.origin, bbox_x,
+        (self.name, _, bbox_x,
          bbox_y, self.output_expression) = tuple (exp_list)
 
         self.bbox = (bbox_x, bbox_y)
-        self.centroid = (bbox_x[0] + bbox_x[1], bbox_y[0] + bbox_y[1])
+        self.centroid = ((bbox_x[0] + bbox_x[1])/2.0,
+                         (bbox_y[0] + bbox_y[1])/2.0)
 
     def __repr__ (self):
         return '%s: (%.2f,%.2f), (%.2f,%.2f)\n' % (self.name,
@@ -166,9 +171,6 @@ class GrobSignature:
                                                    self.bbox[0][1],
                                                    self.bbox[1][0],
                                                    self.bbox[1][1])
-
-    def axis_centroid (self, axis):
-        return sum(*self.bbox[axis])  / 2
 
     def centroid_distance (self, other, scale):
         return max_distance (self.centroid, other.centroid) / scale
@@ -188,10 +190,13 @@ class GrobSignature:
         else:
             return 1
 
-################################################################
-# single System.
 
 class SystemSignature:
+    """Signature for a single System.
+
+    Abstracts away from the precise appearance to a list of grob-type => list<GrobSignature>.
+    """
+
     def __init__ (self, grob_sigs):
         d = {}
         for g in grob_sigs:
@@ -199,11 +204,8 @@ class SystemSignature:
             val += [g]
 
         self.grob_dict = d
-        self.set_all_bbox (grob_sigs)
-
-    def set_all_bbox (self, grobs):
         self.bbox = empty_bbox
-        for g in grobs:
+        for g in grob_sigs:
             self.bbox = bbox_union (g.bbox, self.bbox)
 
     def closest (self, grob_name, centroid):
@@ -218,25 +220,24 @@ class SystemSignature:
                     min_d = d
                     min_g = g
 
-
             return min_g
-
         except KeyError:
             return None
-    def grobs (self):
-        return reduce (lambda x,y: x+y, list(self.grob_dict.values()), [])
 
-################################################################
-## comparison of systems.
+    def grobs (self):
+        return functools.reduce (lambda x,y: x+y, list(self.grob_dict.values()), [])
+
 
 class SystemLink:
+    """Compares two Systems through their SystemSignatures."""
+
     def __init__ (self, system1, system2):
+        """Init from two SystemSignature instances"""
+
         self.system1 = system1
         self.system2 = system2
 
         self.link_list_dict = {}
-        self.back_link_dict = {}
-
 
         ## pairs
         self.orphans = []
@@ -251,7 +252,12 @@ class SystemLink:
         self._expression_change_count = None
         self._orphan_count = None
 
+        # maps GrobSignature in system1 to its hopefully existing twin in system2.
+        self.back_link_dict = {}
         if self.system1 and self.system2:
+            # This is quadratic, because closest() has no geometric
+            # structure to speed up searching. For small snippets,
+            # this is acceptable.
             for g in system1.grobs ():
 
                 ## skip empty bboxes.
@@ -270,7 +276,7 @@ class SystemLink:
         else:
             total = 100.0 * (self.system1 != self.system2)
 
-        for (g1,g2) in list(self.back_link_dict.items ()):
+        for (g1, g2) in list(self.back_link_dict.items ()):
             if g2:
                 d = g1.bbox_distance (g2)
                 if d:
@@ -296,7 +302,7 @@ class SystemLink:
         else:
             d = 100 * (self.system1 != self.system2)
 
-        for (g1,g2) in list(self.back_link_dict.items ()):
+        for (g1, g2) in list(self.back_link_dict.items ()):
             if g2:
                 d += g1.expression_distance (g2)
 
@@ -308,13 +314,12 @@ class SystemLink:
     def geo_details_string (self):
         results = [(d, g1,g2) for ((g1, g2), d) in list(self.geo_distances.items())]
         # Only compare distances.
-        results.sort (key=lambda x: x[0])
-        results.reverse ()
+        results.sort (key=lambda x: -x[0])
 
         return ', '.join (['%s: %f' % (g1.name, d) for (d, g1, g2) in results])
 
     def orphan_details_string (self):
-        return ', '.join (['%s-None' % g1.name for (g1,g2) in self.orphans if g2==None])
+        return ', '.join (['%s' % g1.name for (g1, g2) in self.orphans if g2==None])
 
     def geometric_distance (self):
         if self._geometric_distance == None:
@@ -332,17 +337,20 @@ class SystemLink:
             self.calc_output_exp_distance ()
         return self._expression_change_count
 
-    def distance (self):
+    def distance_tuple (self):
         return (self.output_expression_change_count (),
                 self.orphan_count (),
                 self.geometric_distance ())
+
 
 def scheme_float (s) :
     if 'nan' not in s :
         return float(s)
     return float(s.split('.')[0])
 
+
 def read_signature_file (name):
+    """Returns SystemSignature or None if file doesn't exist."""
     log_verbose ('reading %s' % name)
 
     try:
@@ -378,6 +386,7 @@ def read_signature_file (name):
 hash_to_original_name = {}
 
 class FileLink:
+    """Base class of files that should be compared."""
     def __init__ (self, f1, f2):
         self._distance = None
         self.file_names = (f1, f2)
@@ -398,6 +407,7 @@ class FileLink:
         return self._distance
 
     def source_file (self):
+        """Returns the corresponding .ly file."""
         for ext in ('.ly', '.ly.txt'):
             base = os.path.splitext (self.file_names[1])[0]
             f = base + ext
@@ -407,9 +417,11 @@ class FileLink:
         return ''
 
     def directories (self):
+        """Directories of the two files"""
         return list(map (os.path.dirname, self.file_names))
 
     def name (self):
+        """Returns the \\sourcefilename for this test file"""
         base = os.path.basename (self.file_names[1])
         base = os.path.splitext (base)[0]
         base = hash_to_original_name.get (base, base)
@@ -480,7 +492,6 @@ class FileCompareLink (FileLink):
         self.contents = (self.get_content (self.file_names[0]),
                          self.get_content (self.file_names[1]))
 
-
     def calc_distance (self):
         ## todo: could use import MIDI to pinpoint
         ## what & where changed.
@@ -521,23 +532,22 @@ class GitFileCompareLink (FileCompareLink):
         return d
 
 
-snippet_fn_re = re.compile (r"`\./([0-9a-f]{2}/lily-[0-9a-f]{8}).eps'");
 class TextFileCompareLink (FileCompareLink):
+    snippet_fn_re = re.compile (r"`\./([0-9a-f]{2}/lily-[0-9a-f]{8}).eps'");
     def calc_distance (self):
         if not self.contents[0] and self.contents[1]:
             # All content is new.  Don't show a diff.  If the user
             # wants to see the content, he can click through the link.
             self.diff_lines = []
             return 100
-        
-        import difflib
+
         # Extract the old and the new hashed snippet names from the log file
         # and replace the old by the new, so file name changes don't show
         # up as log differences...
         cont0 = self.contents[0].strip();
         cont1 = self.contents[1].strip();
-        m0 = re.search (snippet_fn_re, cont0);
-        m1 = re.search (snippet_fn_re, cont1);
+        m0 = re.search (TextFileCompareLink.snippet_fn_re, cont0);
+        m1 = re.search (TextFileCompareLink.snippet_fn_re, cont1);
         if (m0 and m1 and (m0.group(1) != m1.group(1))):
             cont0 = cont0.replace (m0.group(1), m1.group(1));
 
@@ -560,6 +570,7 @@ class TextFileCompareLink (FileCompareLink):
             str = '<pre>%s</pre>' % html.escape (str)
         return '', str
 
+
 class LogFileCompareLink (TextFileCompareLink):
   def get_content (self, name):
       c = TextFileCompareLink.get_content (self, name)
@@ -567,9 +578,10 @@ class LogFileCompareLink (TextFileCompareLink):
           c = re.sub ("\nProcessing `[^\n]+'\n", '', c)
       return c
 
+
 class ProfileFileLink (FileCompareLink):
     HEADINGS = ('time', 'cells')
-    
+
     def __init__ (self, f1, f2):
         FileCompareLink.__init__ (self, f1, f2)
         self.results = [{}, {}]
@@ -626,8 +638,6 @@ class ProfileFileLink (FileCompareLink):
 
 class MidiFileLink (TextFileCompareLink):
     def get_content (self, name):
-        import midi
-
         try:
             f = open (name, 'rb')
         except IOError as e:
@@ -637,8 +647,8 @@ class MidiFileLink (TextFileCompareLink):
                 raise
 
         data = f.read ()
-        midi = midi.parse (data)
-        tracks = midi[1]
+        midi_data = midi.parse (data)
+        tracks = midi_data[1]
 
         str = ''
         j = 0
@@ -696,6 +706,8 @@ class SignatureFileLink (FileLink):
 
 
     def create_images (self, dest_dir):
+        """Returns a (OLD-FILES, NEW-FILES) tuple."""
+
         files_created = [[], []]
         for oldnew in (0, 1):
             pat = self.base_names[oldnew] + '.eps'
@@ -745,7 +757,7 @@ class SignatureFileLink (FileLink):
                        ' -c quit') % locals ()
 
                 files_created[oldnew].append (outfile)
-                log_terse ('writing %s' % outfile)
+                log_terse ('creating %s' % outfile)
                 system (cmd)
 
             log_verbose ('leaving directory %s' % abs_dir)
@@ -794,18 +806,14 @@ class SignatureFileLink (FileLink):
         def multi_img_cell (imgs):
             imgs_str = '\n'.join (['''<a href="%s"><img src="%s" alt=""/></a>''' % (img, img)
                                   for img in imgs])
-
-
-            return '', ('''
-%(imgs_str)s
-''' % locals ())
+            return '', imgs_str
 
         # If we have systems, we expect that images have been or will
         # be created.
         num_systems = (sum(1 for x in list(self.system_links.values ()) if x.system1),
                        sum(1 for x in list(self.system_links.values ()) if x.system2))
         expect_compare = options.compare_images and num_systems[0] and oldnew
-        
+
         base = os.path.splitext (self.file_names[oldnew])[0]
 
         if expect_compare:
@@ -813,6 +821,7 @@ class SignatureFileLink (FileLink):
         else:
             ext = '.png'
 
+        # TODO: this is broken; no regtest outputs a page[0-9].{eps,png} file
         pages = glob.glob (base + '-page*' + ext)
         if pages:
             return multi_img_cell (sorted (pages))
@@ -826,7 +835,6 @@ class SignatureFileLink (FileLink):
         else:
             return empty_cell ()
 
-
     def get_distance_details (self, dest_file):
         systems = list(self.system_links.items ())
         systems.sort ()
@@ -837,7 +845,7 @@ class SignatureFileLink (FileLink):
         html = ""
         for (c, link) in systems:
             e = '<td>%d</td>' % c
-            for d in link.distance ():
+            for d in link.distance_tuple ():
                 e += '<td>%f</td>' % d
 
             e = '<tr>%s</tr>' % e
@@ -883,20 +891,18 @@ class SignatureFileLink (FileLink):
 ################################################################
 # Files/directories
 
-import glob
-
 def compare_signature_files (f1, f2):
     s1 = read_signature_file (f1)
     s2 = read_signature_file (f2)
 
-    return SystemLink (s1, s2).distance ()
+    return SystemLink (s1, s2).distance_tuple ()
+
 
 def paired_files (dir1, dir2, pattern):
     """
     Search DIR1 and DIR2 for PATTERN.
 
     Return (PAIRED, MISSING-FROM-DIR1, MISSING-FROM-DIR2)
-
     """
 
     files = []
@@ -916,7 +922,10 @@ def paired_files (dir1, dir2, pattern):
 
     return (pairs, list(files[1].keys ()), missing)
 
+
 class ComparisonData:
+    """All the comparison data; may span several directories"""
+
     def __init__ (self):
         self.result_dict = {}
         self.missing = []
@@ -1054,8 +1063,7 @@ class ComparisonData:
         results = [(link.distance(), link)
                    for link in list(self.file_links.values ())]
         # Only compare distances.
-        results.sort (key=lambda x: x[0])
-        results.reverse ()
+        results.sort (key=lambda x: -x[0])
 
         unchanged = [r for (d,r) in results if d == 0.0]
         below = [r for (d,r) in results if threshold >= d > 0.0]
@@ -1071,7 +1079,6 @@ class ComparisonData:
             out = sys.stdout
             verbose = options.verbose
         else:
-            print('writing %s' % filename)
             out = open_write_file (filename)
 
         (changed, below, unchanged) = self.thresholded_results (threshold)
@@ -1287,9 +1294,9 @@ td:empty {
         for link in changed:
             link.link_files_for_html (dest_dir)
 
-
     def print_results (self, threshold):
         self.write_text_result_page ('', threshold)
+
 
 def compare_tree_pairs (tree_pairs, dest_dir, threshold):
     data = ComparisonData ()
@@ -1305,6 +1312,7 @@ def compare_tree_pairs (tree_pairs, dest_dir, threshold):
     data.write_changed (dest_dir, threshold)
     data.create_html_result_page (dest_dir, threshold)
     data.create_text_result_page (dest_dir, threshold)
+
 
 ################################################################
 # TESTING
@@ -1327,6 +1335,7 @@ def link_file (x, y):
             raise
 
 def open_write_file (x):
+    log_verbose('writing %s' % x)
     d = os.path.split (x)[0]
     mkdir (d)
     return open (x, 'w')
@@ -1337,8 +1346,7 @@ def system (x):
     stat = os.system (x)
     assert stat == 0
 
-def system1 (x):
-# Allow exit status 0 and 1
+def system_allow_exit1 (x):
     log_verbose ('invoking %s' % x)
     stat = os.system (x)
     assert (stat == 0) or (stat == 256) # This return value convention is sick.
@@ -1368,7 +1376,6 @@ def test_compare_tree_pairs ():
     system ('cp 20multipage* dir2')
     system ('cp 19multipage-1.signature dir2/20multipage-1.signature')
 
-
     system ('mkdir -p dir1/subdir/ dir2/subdir/')
     system ('cp 19.sub{-*.signature,.ly,.png,.eps,.log,.profile} dir1/subdir/')
     system ('cp 19.sub{-*.signature,.ly,.png,.eps,.log,.profile} dir2/subdir/')
@@ -1394,7 +1401,7 @@ def test_compare_tree_pairs ():
     system ('cp 19multipage.log dir1/log-differ.log')
     system ('cp 19multipage.log dir2/log-differ.log &&  echo different >> dir2/log-differ.log &&  echo different >> dir2/log-differ.log')
 
-    compare_tree_pairs (['dir1', 'dir2'], 'compare-dir1dir2', options.threshold)
+    compare_tree_pairs ([('dir1', 'dir2')], 'compare-dir1dir2', options.threshold)
 
 
 def test_basic_compare ():
@@ -1465,14 +1472,13 @@ def test_basic_compare ():
 
     test_compare_signatures (names)
 
-def test_compare_signatures (names, timing=False):
-    import time
 
+def test_compare_signatures (names, timing=False):
     times = 1
     if timing:
         times = 100
 
-    t0 = time.clock ()
+    t0 = time.time ()
 
     count = 0
     for t in range (0, times):
@@ -1483,12 +1489,12 @@ def test_compare_signatures (names, timing=False):
         print('elapsed', (time.clock() - t0)/count)
 
 
-    t0 = time.clock ()
+    t0 = time.time ()
     count = 0
     combinations = {}
     for (n1, s1) in list(sigs.items()):
         for (n2, s2) in list(sigs.items()):
-            combinations['%s-%s' % (n1, n2)] = SystemLink (s1,s2).distance ()
+            combinations['%s-%s' % (n1, n2)] = SystemLink (s1,s2).distance_tuple ()
             count += 1
 
     if timing:
@@ -1496,8 +1502,10 @@ def test_compare_signatures (names, timing=False):
 
     results = list(combinations.items ())
     results.sort ()
-    for k,v in results:
-        print('%-20s' % k, v)
+
+    if options.verbose:
+        for k,v in results:
+            print('%-20s' % k, v)
 
     assert combinations['20-20'] == (0.0,0.0,0.0)
     assert combinations['20-20expr'][0] > 0.0
@@ -1560,7 +1568,6 @@ def main ():
                   action="store_true",
                   help="Create PNGs from EPSes")
 
-
     p.add_option ('--local-datadir',
                   dest="local_data_dir",
                   default=False,
@@ -1600,4 +1607,3 @@ def main ():
 
 if __name__ == '__main__':
     main ()
-
