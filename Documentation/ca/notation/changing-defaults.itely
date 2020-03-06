@@ -1,0 +1,5411 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+
+@ignore
+Translation of GIT committish: a089ca62fd9b3770a932061207262fe81063dc56
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.19.80"
+
+@c Translators: Walter Garcia-Fontes
+@c Translation checkers:
+
+@node Canvi dels valors predeterminats
+@chapter Canvi dels valors predeterminats
+@translationof Changing defaults
+
+L'objectiu del disseny del LilyPond és proporcionar la més alta
+qualitat dels resultats, de forma predeterminada.  Malgrat això,
+potser heu de canviar aquest resultat predeterminat.  La
+disposició sobre el paper es controla a través d'un ampli nombre
+de @q{botons i interruptors} anomenats en el seu conjunt
+@q{propietats}.  Al Manual d'aprenentatge podem trobar una
+introducció en forma de tutorial a l'accés i a la modificació
+d'aquestes propietats, vegeu @rlearning{Ajustament de la
+sortida}.  S'hauria de llegir aquest tutorial en primer lloc.
+Aquest capítol cobreix un terreny semblant, però amb un estil més
+adequat per a un manual de referència.
+
+@cindex Referència de funcionament intern
+
+La descripció definitiva dels controls que estan disponibles per
+al seu ajustament fi es poden trobar a un document a part: la
+@rinternalsnamed{Top,Referència de funcionament intern}.  Aquest
+manual fa una relació de totes les variables, funcions i opcions
+que es poden trobar al LilyPond.  Està escrit com un document
+HTML, que es pot trobar en
+@c leave the @uref as one long line.
+@uref{http://@/lilypond@/.org/@/doc/@/stable/@/Documentation/@/internals/,en@tie{}línia},
+però que també va inclòs al paquet de documentació del LilyPond.
+
+Internament, el LilyPond utilitza el llenguatge Scheme (un
+dialecte de LISP) per aportar la infraestructura.  La
+sobreescriptura de les decisions de disposició dóna accés efectiu a
+les interioritats del programa, cosa que requereix codi de
+l'Scheme com a entrada.  Els elements de l'Scheme s'especifiquen
+dins d'un fitxer @file{.ly} amb el símbol de
+coixinet@tie{}@code{#}.@footnote{@rextendnamed{Scheme tutorial,Tutorial de l'Scheme}
+conté un breu tutorial sobre la introducció de nombres, llistes,
+cadenes i símbols en Scheme.}
+
+@menu
+* Contextos d'interpretació::
+* Explicació del Manual de referència de funcionament intern::
+* Modificació de les propietats::
+* Conceptes i propietats útils::
+* Ajustaments avançats::
+* Ús de les funcions musicals::
+@end menu
+
+
+@node Contextos d'interpretació
+@section Contextos d'interpretació
+@translationof Interpretation contexts
+
+Aquesta secció explica que són els contextos i com modificar-los.
+
+@menu
+* Explicació dels contextos::
+* Creació i referenciació dels contextos::
+* Manteniment amb vida dels contextos::
+* Modificació dels connectors (plug-ins) de context::
+* Canvi dels paràmetres predeterminats dels contextos::
+* Definició de contextos nous::
+* Ordre de disposició dels contextos::
+@end menu
+
+@seealso
+Manual d'aprenentatge:
+@rlearning{Contextos i gravadors}.
+
+Fitxers d'inici:
+@file{ly/engraver-init.ly},
+@file{ly/performer-init.ly}.
+
+Fragments de codi
+@rlsr{Contexts and engravers}.
+
+Referència de funcionament intern:
+@rinternals{Contexts},
+@rinternals{Engravers and Performers}.
+
+
+@node Explicació dels contextos
+@subsection Explicació dels contextos
+@translationof Contexts explained
+
+Els contextos es disposen de forma jeràrquica:
+
+@menu
+* Definicions de sortida - estructura dels contextos::
+* Score - el context mestre::
+* Contextos del nivell superior - contenidors de pentagrames::
+* Contextos de nivell intermedi - pentagrames::
+* Contextos del nivell més baix - veus::
+@end menu
+
+@node Definicions de sortida - estructura dels contextos
+@unnumberedsubsubsec Definicions de sortida - estructura dels contextos
+@translationof Output definitions - blueprints for contexts
+
+Aquesta secció explica la rellevància de les definicions de
+sortida quan es treball amb els contextos.  Més endavant oferim
+exemples de definicions de sortida reals (vegeu
+@ref{Canvi de tots els contextos del mateix tipus}).
+
+@cindex sortida, definicions de
+@funindex \layout
+Tot i que la música escrita a un fitxer faci referència a tipus i
+noms de context, els contextos es creen sols quan la música s'està
+realment interpretant.  El LilyPond interpreta la música sota el
+controla d'una @q{definició de sortida} i pot fer-lo així per
+diverses definicions de sortida diferents, donant com a resultat
+també diferents sortides.  La definició de sortida que correspon a
+la impressió de la música s'especifica mitjançant @code{\layout}.
+
+@funindex \midi
+Una definició de sortida molt més senzilla que s'usa per a la
+producció de MIDI s'especifica mitjanant @code{\midi}.
+Internament, el LilyPond utilitza diverses altres definicions de
+sortida, com quan s'usa el combinador de particel·les
+(@ref{Combinació automàtica de les parts}) o es creen fragments de
+notes guia citades (@ref{Cites a altres veus}).
+
+Les definicions de sortida estableixen la relació entre els
+contextos així com els seus respectius valors predeterminats.  Tot
+i que la major part dels canvis se solen fer dins d'un bloc
+@code{\layout}, els ajustaments de valors relacionats amb el MIDI
+sols tenen efecte quan es fan dins d'un bloc @code{\midi} block.
+
+@funindex autoBeaming
+Alguns ajustaments afecten a diverses sortides: per exemple, si es
+desactiva el barrat automàtic, @code{autoBeaming}, dins d'algun
+context, les barres compten com melismes pel que respecta a la
+correspondència entre la música i la lletra, com es descriu a
+@ref{Duració automàtica de les síl·labes}.  Aquesta
+correspondència es fa tant per a la sortida impresa com per al
+MIDI.  Si els canvis fets sobre l'@code{autoBeaming} dins de la
+definició de context d'un bloc @code{\layout} no es repeteixen
+dins del corresponent bloc @code{\midi}, la lletra i la música
+deixaran d'estar sincronitzades dins del MIDI.
+
+@seealso
+Fitxers instal·lats:
+@file{ly/engraver-init.ly}.
+@file{ly/performer-init.ly}.
+
+@node Score - el context mestre
+@unnumberedsubsubsec Score - el context mestre
+@translationof Score - the master of all contexts
+
+Aquest és el context de notació més alt.  Cap altre context pot
+contenir un context Score.  De forma predeterminada, el context
+Score gestiona l'administració de les indicacions de compàs i
+s'assegura que certs elements com claus, compassos i armadures
+estan sempre alineats entre els diferents pentagrames.
+
+Es crea implícitament una instància del context Score quan es
+processa un bloc @code{\score @{@dots{}@}}.
+
+@node Contextos del nivell superior - contenidors de pentagrames
+@unnumberedsubsubsec Contextos del nivell superior - contenidors de pentagrames
+@translationof Top-level contexts - staff containers
+
+@strong{@emph{StaffGroup}}
+
+Agrupa pentagrames i afegeix una clau a la part esquerra, formant
+un grup.  Les línies divisòries dels pentagrames continguts es
+connecten verticalment.  @code{StaffGroup} sols consisteix en una
+col·lecció de pentagrames, amb una clau endavant i línies
+divisòries de dalt a baix.
+
+@strong{@emph{ChoirStaff}}
+
+Idèntic a @code{StaffGroup} excepte que les barres de compàs dels
+pentagrames continguts no es connecten verticalmente.
+
+@strong{@emph{GrandStaff}}
+
+Un grup de pentagrames, amb una clau en la part esquerra que
+abasta el grup.  Les barres de compàs dels pentagrames continguts
+es connecten verticalment.
+
+@strong{@emph{PianoStaff}}
+
+Igual que @code{GrandStaff}, però dóna suport a la possibilitat
+deposar el nom de l'instrument a l'esquerra del sistema.
+
+@node Contextos de nivell intermedi - pentagrames
+@unnumberedsubsubsec Contextos de nivell intermedi - pentagrames
+@translationof Intermediate-level contexts - staves
+
+@strong{@emph{Staff}}
+
+Gestiona claus, barres de compàs, tonalitats i alteracions
+accidentals.  Pot contenir contextos de @code{Voice}.
+
+@strong{@emph{RhythmicStaff}}
+
+Com @code{Staff}, però per imprimir ritmes.  En imprimir s'ignoren
+les altures de les notes; les notes s'imprimeixen sobre una
+línia.  La sortida de MIDI conserva les altures sense modificació.
+
+@strong{@emph{TabStaff}}
+
+Context per generar tabulatures.  De forma predeterminada disposa
+l'expressió musical com una tabulatura de guitarra, impresa sobre
+sis línies.
+
+@strong{@emph{DrumStaff}}
+
+Gestiona el gravat per a instruments de percussió.  Pot contenir
+contextos @code{DrumVoice}.
+
+@strong{@emph{VaticanaStaff}}
+
+Igual que @code{Staff}, excepte que està pensat per gravar peces
+en estil gregorià.
+
+@strong{@emph{MensuralStaff}}
+
+Igual que @code{Staff}, excepte que est+a dissenyat per gravar
+peces en estil mensural.
+
+@node Contextos del nivell més baix - veus
+@unnumberedsubsubsec Contextos del nivell més baix - veus
+@translationof Bottom-level contexts - voices
+
+Els contextos del mateix nivell que Voice donen un valor inicial a
+certes propietats i inicien els gravadors corresponents.  Un
+context del nivell més baix és aquell que no té un context
+descendent predeterminat @code{defaultchild}.  Tot i que és
+possible fer que pugui acceptar o contenir subcontextos, sols es
+poden crear i introduir de forma explícita.
+
+@strong{@emph{Voice}}
+
+Correspon a una veu sobre un pentagrama, aquest context gestiona
+la conversió de les indicacions dinàmiques, pliques, barres,
+subíndexs i superíndexs, lligadures d'expressió i d'unió, i
+silencis.  Hem de crear instàncies explícites d'aquest context si
+ens cal diverses vegades al mateix pentagrama.
+
+@strong{@emph{VaticanaVoice}}
+
+El mateix que @code{Voice}, excepte que està dissenyat per a
+gravar peces en estil gregorià.
+
+@strong{@emph{MensuralVoice}}
+
+El mateix que @code{Voice}, amb modificacions per al gravat de
+peces en estil mensural.
+
+@strong{@emph{Lyrics}}
+
+Correspon a una veu amb lletra.  Gestiona la impressió d'una sola
+línia de lletra.
+
+@strong{@emph{DrumVoice}}
+
+El context de veu utilitzat a una pauta de percussió.
+
+@strong{@emph{FiguredBass}}
+
+El context en el qual els objectes @code{BassFigure} es creen a
+partir de l'entrada escrita en el mode @code{\figuremode}.
+
+@strong{@emph{TabVoice}}
+
+El context de veu utilitzat dins d'un context @code{TabStaff}.  Se
+sol deixar que es creï implícitament.
+
+@strong{@emph{CueVoice}}
+
+El context de veu que s'utilitza per dibuixar notes de mida
+reduïda, amb l'objectiu principal d'afegir notes guia d'un
+pentagrama a un altre, vegeu @ref{Format de les notes guia}.
+Normalment es deixa que creï implícitament.
+
+@strong{@emph{ChordNames}}
+
+Gravat de noms d'acords.
+
+@node Creació i referenciació dels contextos
+@subsection Creació i referenciació dels contextos
+@translationof Creating and referencing contexts
+
+@funindex \new
+@funindex \context
+@cindex contextos nous
+@cindex contextos, creació i referenciació de
+@cindex referenciació de contextos
+
+El LilyPond crea automàticament contextos de nivell inferior si es
+troba una expressió musical abans que existeixi un context
+adequat, però normalment això sols funciona bé per a partitures
+senzilles o fragments musicals com els que apareixen a la
+documentació.  Per a partitures més complexes, es recomana
+especificar explícitament tots els contextos amb les ordres
+@code{\new} o @code{\context}.  La sintaxi d'aquestes dues ordres
+es molt semblant:
+@example
+[\new | \context] @var{Context} [ = @var{nom}] [@var{expressió_musical}]
+@end example
+
+@noindent
+on es pot especificar @code{\new} o @code{\context}.
+@var{Context} és el tipus de context que es desitja crear,
+@var{nom} és un nom opcional que es dóna al context concret que
+s'està creant, i @var{expressió_musical} és una sola expressió
+musical que serà interpretada pels complements gravadors i
+reproductors dins d'aquest context.
+
+El prefix @code{\new} sense cap nom s'usa freqüentment per crear
+partitures de molts pentagrames:
+
+@lilypond[quote,verbatim]
+<<
+  \new Staff \relative {
+    % deixeu que el context Voice es creï implícitament
+    c''4 c
+  }
+  \new Staff \relative {
+    d''4 d
+  }
+>>
+@end lilypond
+
+@noindent
+i per introduir diverses veus dins d'un sol pentagrama:
+
+@lilypond[quote,verbatim]
+\new Staff <<
+  \new Voice \relative {
+    \voiceOne
+    c''8 c c4 c c
+  }
+  \new Voice \relative {
+    \voiceTwo
+    g'4 g g g
+  }
+>>
+@end lilypond
+
+@noindent
+@code{\new} s'hauria d'usar sempre per especificar contextos sense nom.
+
+La diferència entre @code{\new} i @code{\context} es troba a
+l'acció que es realitza:
+
+@itemize
+@item
+@code{\new} amb un nom o sense nom, sempre crea un context nou i
+diferent, fins i tot si ja existeix un context amb el mateix nom:
+
+@lilypond[quote,verbatim]
+\new Staff <<
+  \new Voice = "A" \relative {
+    \voiceOne
+    c''8 c c4 c c
+  }
+  \new Voice = "A" \relative {
+    \voiceTwo
+    g'4 g g g
+  }
+>>
+@end lilypond
+
+@item
+@code{\context} amb un nom especificat, crea un context nou sols
+si no existeix ja un context del mateix tipus i amb el mateix nom,
+dins de la mateixa jerarquia de contextos.  En cas contrari,
+s'agafa com a referència a aquest context creat prèviament, i la
+seva expressió musical es passa a aquest context per a la seva
+interpretació.
+
+Una aplicació dels contextos amb nom és la separació entre la
+disposició de la partitura i el contingut musical.  Són valides
+qualssevol de les dues formes següents:
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    % score layout
+    \new Staff <<
+      \new Voice = "one" {
+        \voiceOne
+      }
+      \new Voice = "two" {
+        \voiceTwo
+      }
+    >>
+
+    % musical content
+    \context Voice = "one" {
+      \relative {
+        c''4 c c c
+      }
+    }
+    \context Voice = "two" {
+      \relative {
+        g'8 g g4 g g
+      }
+    }
+  >>
+}
+@end lilypond
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    % score layout
+    \new Staff <<
+      \context Voice = "one" {
+        \voiceOne
+      }
+      \context Voice = "two" {
+        \voiceTwo
+      }
+    >>
+
+    % musical content
+    \context Voice = "one" {
+      \relative {
+        c''4 c c c
+      }
+    }
+    \context Voice = "two" {
+      \relative {
+        g'8 g g4 g g
+      }
+    }
+  >>
+}
+@end lilypond
+
+@noindent
+De manera alternativa, es poden utilitzar variables amb un efecte
+semblant.  Vegeu @rlearning{Organitzar les peces mitjançant variables}.
+
+@item
+@code{\context} sense cap nom correspondrà amb el primer context
+que es trobi entre els creats prèviament que siguin del mateix
+tipus dins de la mateixa jerarquia de contextos, fins i tot si té
+nom, i la seva expressió musical es passarà a aquest context per a
+la seva interpretació.  Aquesta forma molt rarament és útil.
+Malgrat això, @code{\context} sense nom i sense expressió musical
+s'usa per establir el context en qual s'executa un procediment de
+l'Scheme especificat amb @code{\applyContext}:
+
+@example
+\new Staff \relative @{
+  c'1
+  \context Timing
+  \applyContext #(lambda (ctx)
+                   (newline)
+                   (display (ly:context-current-moment ctx)))
+  c1
+@}
+@end example
+
+@end itemize
+
+Un context ha de tenir un nom si es farà referència a ell més
+tard, per exemple quan s'associa la lletra amb la música:
+
+@example
+\new Voice = "tenor" @var{música}
+@dots{}
+\new Lyrics \lyricsto "tenor" @var{letra}
+@end example
+
+@noindent
+Per veure més detalls sobre l'associació de lletra i música, consulteu
+@ref{Duració automàtica de les síl·labes}.
+
+Les propietats de tots els contextos d'un tipus particular es
+poden modificar dins d'un bloc @code{\layout} (amb una sintaxi
+diferent), vegeu
+@ref{Canvi de tots els contextos del mateix tipus}.
+
+Aquesta construcció també ofereix una forma de mantenir les ordres
+de disposició separades del contingut musical.  Si es modificarà
+un sols context, s'ha d'usar un bloc
+@code{\with}, vefeu
+@ref{Canvi de sols un context determinat}.
+
+@seealso
+Manual d'aprenentatge
+@rlearning{Organitzar les peces mitjançant variables}.
+
+Referència de la notació:
+@ref{Canvi de sols un context determinat},
+@ref{Duració automàtica de les síl·labes}.
+
+
+@node Manteniment amb vida dels contextos
+@subsection Manteniment amb vida dels contextos
+@translationof Keeping contexts alive
+
+@cindex contextos, mantenir amb vida
+@cindex contextos, temps de vida
+
+Normalment els contextos finalitzen en el primer moment musical en
+el qual no tenen res a fer.  Així, els contextos de @code{Voice}
+moren tan aviat com ja no contenen cap esdeveniment, els contextos
+@code{Staff} moren tan aviat com tots els contextos de
+@code{Voice} que contenien ja no continguin cap esdeveniment,
+etc.  Això pot ocasionar dificultats si s'ha de fer referència a
+contextos anteriors que ja han mort, per exemple, en canviar de
+pentagrames amb ordres @code{\change}, associar lletra amb una veu
+mitjançant ordres @code{\lyricsto}, o quan s'afegeixen
+esdeveniments musicals addicionals a un context anterior.
+
+Hi ha una excepció a aquesta regla general: dins d'una construcció
+@code{@{@dots{}@}} (música seqüencial), la noció que la
+construcció té del @qq{contexto actual} descendirà un nivell cada
+cop que un element de la seqüència finalitza en un subcontext del
+context anterior.  Això evita la creació espúria de contextos
+implícits en certes situacions, però significa que el primer
+context dins del que es descendeix, es mantindrà viu fins al final
+de l'expressió.
+
+Com a contrast, els contextos d'una expressió feta amb la
+construcció @code{<<@dots{}>>} (música simultània) no es
+perllonguen, per la qual cosa si una ordre que crea un context
+s'envolta en una altre parell de @code{<<@dots{}>>}, s'impedirà
+que el context persisteixi durant tota la duració de la seqüència
+@code{@{@dots{}@}} que el conté.
+
+Qualsevol context es pot mantenir viu si ens assegurem que té
+quelcom a fer en qualsevol moment musical donat.  Els contextos de
+@code{Staff} es mantenen amb vida si en assegurem que una de les
+seves veus es manté viva.  Una manera de fer-lo és afegir silencis
+de separació a una veu en paral·lel amb la música real.  Aquests
+silencis s'han d'afegir a tots i cada un dels contextos de
+@code{Voice} que usaran esporàdicament diverses veus, és més segur
+mantenir-les totes vies enlloc d'intentar confiar en les
+excepcions que hem mencionat a dalt.
+
+A l'exemple següent, tant la veu A com la veu B es mantenen vives
+d'aquesta manera durant la duració de la peça:
+
+@lilypond[quote,verbatim]
+musicA = \relative { d''4 d d d }
+musicB = \relative { g'4 g g g }
+keepVoicesAlive = {
+  <<
+    \new Voice = "A" { s1*5 }  % Manté la veu «A» viva per 5 compassos
+    \new Voice = "B" { s1*5 }  % Manté la veu «B» viva per 5 compassos
+  >>
+}
+
+music = {
+  \context Voice = "A" {
+    \voiceOneStyle
+    \musicA
+  }
+  \context Voice = "B" {
+    \voiceTwoStyle
+    \musicB
+  }
+  \context Voice = "A" { \musicA }
+  \context Voice = "B" { \musicB }
+  \context Voice = "A" { \musicA }
+}
+
+\score {
+  \new Staff <<
+    \keepVoicesAlive
+    \music
+  >>
+}
+@end lilypond
+
+@cindex lletra, alineació amb melodia esporàdica
+
+L'exemple següent mostra com es pot escriure una línia melòdica
+esporàdica amb lletra utilitzant aquest enfocament.  Per suposat,
+en una situació real la melodia i l'acompanyament consistirien en
+diverses seccions diferents.
+
+
+@lilypond[quote,verbatim]
+melody = \relative { a'4 a a a }
+accompaniment = \relative { d'4 d d d }
+words = \lyricmode { These words fol -- low the mel -- o -- dy }
+\score {
+  <<
+    \new Staff = "music" {
+      <<
+        \new Voice = "melody" {
+          \voiceOne
+          s1*4  % Manté la veu «melody» viva per 4 compassos
+        }
+        {
+          \new Voice = "accompaniment" {
+            \voiceTwo
+            \accompaniment
+          }
+          <<
+            \context Voice = "melody" { \melody }
+            \context Voice = "accompaniment" { \accompaniment }
+          >>
+          \context Voice = "accompaniment" { \accompaniment }
+          <<
+            \context Voice = "melody" { \melody }
+            \context Voice = "accompaniment" { \accompaniment }
+          >>
+        }
+      >>
+    }
+    \new Lyrics \with { alignAboveContext = "music" }
+    \lyricsto "melody" { \words }
+  >>
+}
+@end lilypond
+
+Una forma alternativa, que podria resultar millor en moltes
+situacions, es mantenir amb vida la línia melòdica simplement
+incloent notes espaiadores per alinear-la correctament amb
+l'acompanyament:
+
+@lilypond[quote,verbatim]
+melody = \relative {
+  s1  % skip a bar
+  a'4 a a a
+  s1  % skip a bar
+  a4 a a a
+}
+accompaniment = \relative {
+  d'4 d d d
+  d4 d d d
+  d4 d d d
+  d4 d d d
+}
+words = \lyricmode { These words fol -- low the mel -- o -- dy }
+
+\score {
+  <<
+    \new Staff = "music" {
+      <<
+        \new Voice = "melody" {
+          \voiceOne
+          \melody
+        }
+        \new Voice = "accompaniment" {
+          \voiceTwo
+          \accompaniment
+        }
+      >>
+    }
+    \new Lyrics \with { alignAboveContext = "music" }
+    \lyricsto "melody" { \words }
+  >>
+}
+@end lilypond
+
+@node Modificació dels connectors (plug-ins) de context
+@subsection Modificació dels connectors (plug-ins) de context
+@translationof Modifying context plug-ins
+
+@c TODO Should this be Modifying engravers or Modifying contexts?
+
+Els contextos de notació (como @code{Score} i @code{Staff}) no
+sols emmagatzemen propietats, també contenen «plug-ins» o
+connectors anomenats @q{gravadors} que creen elements de notació.
+Per exemple, el context @code{Voice} conté un gravador
+@code{Note_heads_engraver} que crea els caps de nota i el context
+@code{Staff} conté un gravador @code{Key_engraver} que crea la
+armadura.
+
+Per veure una descripció completa de tots i cadascú dels
+connectors, consulteu
+@ifhtml
+@rinternals{Engravers and Performers}.
+@end ifhtml
+@ifnothtml
+Referència de funcionamento intern @expansion{} Traducció @expansion{} Gravadors.
+@end ifnothtml
+Cada context que es descriu a
+@ifhtml
+@rinternals{Contexts}
+@end ifhtml
+@ifnothtml
+Referència de funcionament intern @expansion{} Traducció @expansion{} Context.
+@end ifnothtml
+fa una relació dels gravadors que s'usen per a aquest context.
+
+Pot ser d'utilitat jugar una mica amb aquests connectors.  Es fa
+iniciant un context nou amb @code{\new} o @code{\context} i modificant-lo:
+
+@funindex \with
+
+@example
+\new @var{contexto} \with @{
+  \consists @dots{}
+  \consists @dots{}
+  \remove @dots{}
+  \remove @dots{}
+  @emph{etc.}
+@}
+@{
+  @emph{@dots{}música@dots{}}
+@}
+@end example
+
+@noindent
+on els @dots{} han de ser el nom d'un gravador.  Aquí tenim un
+exemple senzill que suprimeix els gravadors
+@code{Time_signature_engraver} i @code{Clef_engraver} d'un
+context @code{Staff}:
+
+@lilypond[quote,verbatim]
+<<
+  \new Staff \relative {
+    f'2 g
+  }
+  \new Staff \with {
+     \remove "Time_signature_engraver"
+     \remove "Clef_engraver"
+  } \relative {
+    f'2 g2
+  }
+>>
+@end lilypond
+
+En el segon pentagrama no hi ha indicació de compàs ni clau.
+Aquest és un mètode força rudimentari de fer que desapareguin els
+objectes perquè afecta a tot el pentagrama.  Aquest mètode també
+afecta l'espaiat, cosa que pot ser desitjable o no ser-ho.  Es
+mostren mètodes més sofisticats per treure objectes a
+@rlearning{Visibilitat i color dels objectes}.
+
+L'exemple següent mostra una aplicació pràctica.  Normalment les
+línies divisòries i les indicacions de compàs estan sincronitzades
+al llarg de tota la partitura.  Ho fan els gravadors
+@code{Timing_translator} i @code{Default_bar_line_engraver}.
+Aquests complements mantenen al dia l'administració de les
+indicacions de compàs, posició dins del compàs, etc.  Movent
+aquests gravadors des del context de @code{Score} al de
+@code{Staff}, podem aconseguir una partitura en la qual cada
+pentagrama té el seu propi compàs independent.
+
+@cindex polimètriques, partitures
+@cindex compassos diferents al mateix temps
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff \with {
+      \consists "Timing_translator"
+      \consists "Default_bar_line_engraver"
+    }
+    \relative {
+        \time 3/4
+        c''4 c c c c c
+    }
+  \new Staff \with {
+    \consists "Timing_translator"
+    \consists "Default_bar_line_engraver"
+  }
+  \relative {
+      \time 2/4
+      c''4 c c c c c
+  }
+>>
+\layout {
+  \context {
+    \Score
+    \remove "Timing_translator"
+    \remove "Default_bar_line_engraver"
+    }
+  }
+}
+@end lilypond
+
+@knownissues
+
+L'ordre en el qual els gravadors s'especifiquen és l'ordre en el
+qual es criden per realitzar la seva tasca de processament.
+Normalment, l'ordre en el qual s'especifiquen els gravadors no té
+importància, però en alguns casos especials sí la té, per exemple
+on un gravador escriu una propietat i un altre la llegeix, o on un
+gravador crea un grob i un altre l'ha de processar.
+
+Les ordenacions següents són importants:
+
+@itemize
+@item
+el gravador de compassos @code{Bar_engraver} ha d'anar normalment
+en primer lloc,
+
+@item
+el gravador de digitacions @code{New_fingering_engraver} ha d'anar
+abans del gravador @code{Script_column_engraver} de columnes d'inscripcions.
+
+@item
+el @code{Timing_translator} ha d'anar abans del gravador de
+números de compàs @code{Bar_number_engraver}.
+
+@end itemize
+
+@seealso
+Fitxers instal·lats:
+@file{ly/engraver-init.ly}.
+
+
+@node Canvi dels paràmetres predeterminats dels contextos
+@subsection Canvi dels paràmetres predeterminats dels contextos
+@translationof Changing context default settings
+
+@cindex predeterminats, canvi de propietats de context
+@cindex context, canvi de propietats predeterminades de
+
+Es poden canviar les propietats de context i de grob amb les
+ordres @code{\set} i @code{\override}, tal i com es descriu a
+@ref{Modificació de les propietats}.  Aquestes ordres creen
+esdeveniments musicals, fent que els canvis tinguin efecte en el
+punt temporal en el qual la música s'està processant.
+
+Per contra, aquesta secció explica la forma canviar els valors
+@emph{predeterminats} de les propietats de context i de grob en el
+moment en el qual es crea el context.  Hi ha dues formes de
+fer-ho.  Una modifica els valors predeterminats a tos els
+contextos d'un tipus donat, i l'altre modifica els valors
+predeterminats sols a una instància concreta d'un context.
+
+@menu
+* Canvi de tots els contextos del mateix tipus::
+* Canvi de sols un context determinat::
+* Ordre de precedència::
+@end menu
+
+@node Canvi de tots els contextos del mateix tipus
+@unnumberedsubsubsec Canvi de tots els contextos del mateix tipus
+@translationof Changing all contexts of the same type
+
+@cindex \context dins d'un bloc \layout
+@funindex \context
+@funindex \layout
+
+Els ajustaments de context predeterminat que s'han d'usar per al
+gravat dins de @code{Score}, @code{Staff}, @code{Voice} i d'altres
+contextos, es poden especificar en un bloc @code{\context} dins de
+qualsevol bloc @code{\layout}.
+
+Els ajustaments per a la sortida MIDI, al contrari que per al
+gravat, es tindran que especificar a part a blocs @code{\midi} (vegeu
+@ref{Definicions de sortida - estructura dels contextos}).
+
+El bloc @code{\layout} s'ha de col·locar dins del bloc
+@code{\score} al que s'aplica, després de la música.
+
+@example
+\layout @{
+  \context @{
+    \Voice
+    [ajustaments de context per a tots els contextos Voice]
+  @}
+  \context @{
+    \Staff
+    [ajustaments de context per a tots els contextos Staff]
+  @}
+@}
+@end example
+
+Es poden especificar els següents tipus d'ajustaments:
+
+@itemize
+@item
+Una ordre @code{\override}, però ometent el nom del context
+
+@lilypond[quote,verbatim]
+\score {
+  \relative {
+    a'4^"Plica més gruixuda" a a a
+    a4 a a\ff a
+  }
+  \layout {
+    \context {
+      \Staff
+      \override Stem.thickness = #4.0
+    }
+  }
+}
+@end lilypond
+
+@item
+Establint una propietat de context directament
+
+@lilypond[quote,verbatim]
+\score {
+  \relative {
+    a'4^"Tipus de lletra més petita" a a a
+    a4 a a\ff a
+  }
+  \layout {
+    \context {
+      \Staff
+      fontSize = #-4
+    }
+  }
+}
+@end lilypond
+
+@item
+Una ordre predefinida tal com @code{\dynamicUp} o una expressió
+musical com @code{\accidentalStyle dodecaphonic}
+
+@lilypond[quote,verbatim]
+\score {
+  \relative {
+    a'4^"La dinàmica a dalt" a a a
+    a4 a a\ff a
+  }
+  \layout {
+    \context {
+      \Voice
+      \dynamicUp
+    }
+    \context {
+      \Staff
+      \accidentalStyle dodecaphonic
+    }
+  }
+}
+@end lilypond
+
+@item
+Una variable definida per l'usuari que contingui un bloc
+@code{\with}; per veure detalls sobre el bloc @code{\with},
+consulteu @ref{Canvi de sols un context determinat}.
+
+@lilypond[quote,verbatim]
+StaffDefaults = \with {
+  fontSize = #-4
+}
+
+\score {
+  \new Staff {
+    \relative {
+      a'4^"Tipus de lletra més petita" a a a
+      a4 a a a
+    }
+  }
+  \layout {
+    \context {
+      \Staff
+      \StaffDefaults
+    }
+  }
+}
+@end lilypond
+
+@end itemize
+
+Les ordres d'ajustament de propietats es poden disposar dins d'un
+bloc @code{\layout} sin que estiguin envoltats en un bloc
+@code{\context}.  Aquests ajustament són equivalents a incloure
+les mateixes instruccions d'ajustament de propietats al
+començament de cadascú dels contextos del tipus especificat.  Si
+no s'especifica cap context, @emph{tots i cadascú} dels contextos
+del nivell inferior queden afectats, vegeu
+@ref{Contextos del nivell més baix - veus}.  La sintaxi d'una
+ordre d'ajustament de propietats dins d'un bloc @code{\layout} és
+la mateixa que si la mateixa ordre estigués escrita al propi flux musical.
+
+@lilypond[quote,verbatim]
+\score {
+  \new Staff {
+    \relative {
+      a'4^"Tipus de lletra més petita" a a a
+      a4 a a a
+    }
+  }
+  \layout {
+    \accidentalStyle dodecaphonic
+    \set fontSize = #-4
+    \override Voice.Stem.thickness = #4.0
+  }
+}
+@end lilypond
+
+
+@node Canvi de sols un context determinat
+@unnumberedsubsubsec Canvi de sols un context determinat
+@translationof Changing just one specific context
+
+@cindex \with
+@funindex \with
+
+Les propietats de context d'una única instància de context poden
+canviar-se dins d'un bloc @code{\with}.  Totes les altres
+instàncies de context del mateix tipus retenen els ajustaments
+predeterminats que el LilyPond té programats i que es modifiquen
+per part de qualsevol bloc @code{\layout} que es troben dins de
+l'àmbit.  El bloc @code{\with} s'ha de situar immediatament
+després de les ordres @code{\new} @var{context-type}:
+
+@example
+\new Staff \with @{ [ajustaments de context per a sols aquesta instància de context] @}
+@{
+  @dots{}
+@}
+@end example
+
+De forma alternativa, si la música s'escriu usant la forma curta
+de les ordres d'especificació de mode, com per exemple
+@code{\chords} en lloc de @code{\chordmode}, l'ordre @code{\with}
+s'ha de col·locar immediatament després de l'ordre que especifica
+el mode:
+
+@example
+\chords \with @{ [ajustaments de context per a aquesta instància de context (implícita) sols] @}
+@{
+  @dots{}
+@}
+@end example
+
+@noindent
+atès que és el context implícit creat per aquestes formes breus
+el que es vol modificar.  S'aplica la mateixa consideració a les
+altres formes curtes d'especificar el mode d'entrada
+(@code{\drums}, @code{\figures}), vegeu @ref{Modes d'entrada}.
+
+Considerant que les modificacions de context especificades en blocs
+@code{\with} estan dins de la música, afectaran a @emph{totes}
+les sortides (gravat @emph{i també} el MIDI), a diferència dels
+canvis que es fan dins d'una definició de sortida.
+
+Es poden especificar els següents tipus d'ajustaments:
+
+@itemize
+@item
+Una ordre @code{\override}, però ometent el nom del context
+
+
+@lilypond[quote,verbatim]
+\score {
+  \new Staff {
+    \new Voice \with { \override Stem.thickness = #4.0 }
+    {
+      \relative {
+        a'4^"Pliques gruixudes" a a a
+        a4 a a a
+      }
+    }
+  }
+}
+@end lilypond
+
+@item
+Establint una propietat de context directament
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff {
+      \relative {
+        a'4^"Tipus de lletra predeterminat" a a a
+        a4 a a a
+      }
+    }
+    \new Staff \with { fontSize = #-4 }
+    {
+      \relative {
+        a'4^"Tipus de lletra més petit" a a a
+        a4 a a a
+      }
+    }
+  >>
+}
+@end lilypond
+
+@item
+Una ordre predefinida tal com @code{\dynamicUp}
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff {
+      \new Voice {
+        \relative {
+          a'4^"Dynamics below" a a a
+          a4 a a\ff a
+        }
+      }
+    }
+    \new Staff \with { \accidentalStyle dodecaphonic }
+    {
+      \new Voice \with { \dynamicUp }
+      {
+        \relative {
+          a'4^"Dinàmica a dalt" a a a
+          a4 a a\ff a
+        }
+      }
+    }
+  >>
+}
+@end lilypond
+
+@end itemize
+
+@seealso
+Referència de la notació:
+@ref{Modes d'entrada}
+
+@node Ordre de precedència
+@unnumberedsubsubsec Ordre de precedència
+@translationof Order of precedence
+
+El valor d'una propietat que s'aplica en un moment determinat
+d'una propietat que s'aplica en un moment determinat es determina
+de la forma següent:
+
+@itemize
+@item
+si està en efecte una ordre @code{\override} o @code{\set}
+dins del flux musical, s'usa aquest valor.
+
+@item
+en cas contrari, s'usa el valor predeterminat agafat d'un enunciat
+@code{\with} a les ordres d'inici del context.
+
+@item
+en cas contrari, s'usa el valor agafat del bloc @code{\context}
+més recent que correspongui dins dels blocs @code{\layout} o
+@code{\midi},
+
+@item
+en cas contrari s'usa el valor predeterminat que el LilyPond porti
+preprogramat.
+@end itemize
+
+@seealso
+Manual d'aprenentatge:
+@rlearning{Modificar les propietats dels contextos}.
+
+Referència de la notació:
+@ref{Explicació dels contextos},
+@ref{Contextos del nivell més baix - veus},
+@ref{L'ordre set},
+@ref{L'ordre override},
+@ref{El bloc layout}.
+
+@node Definició de contextos nous
+@subsection Definició de contextos nous
+@translationof Defining new contexts
+
+@cindex contextos, definició de nous
+@cindex gravadors, incloure en contextos
+
+@funindex \alias
+@funindex \name
+@funindex \type
+@funindex \consists
+@funindex \accepts
+@funindex \denies
+
+Els contextos específics, com @code{Staff} i @code{Voice}, estan
+construïts a partir de blocs senzills.  És possible crear nous
+tipus de contextos amb combinacions diferents de gravadors afegits.
+
+El següent exemple mostra com construir un tipus diferent de
+context de @code{Voice} partint de zero.  Serà semblant a
+@code{Voice}, però imprimeix sols caps centrats en forma de barra
+inclinada.  Es pot usar per indicar improvisació en peces de jazz.
+
+@lilypond[quote,ragged-right]
+\layout { \context {
+  \name ImproVoice
+  \type "Engraver_group"
+  \consists "Note_heads_engraver"
+  \consists "Rhythmic_column_engraver"
+  \consists "Text_engraver"
+  \consists "Pitch_squash_engraver"
+  squashedPosition = #0
+  \override NoteHead.style = #'slash
+  \hide Stem
+  \alias Voice
+}
+\context { \Staff
+  \accepts "ImproVoice"
+}}
+
+\relative {
+  a'4 d8 bes8 \new ImproVoice { c4^"ad lib" c
+   c4 c^"despulleu-vos" c_"mentre toqueu :)" c }
+  a1
+}
+@end lilypond
+
+
+Aquests ajustament es defineixen dins d'un bloc @code{\context}
+que al seu cop està dins d'un bloc @code{\layout},
+
+@example
+\layout @{
+  \context @{
+    @dots{}
+  @}
+@}
+@end example
+
+A l'anàlisi següent, l'entrada d'exemple que es mostra ha d'anar
+en el lloc dels punts suspensius @dots{} del fragment anterior.
+
+En primer lloc cal definir un nom per al nou context:
+
+@example
+\name ImproVoice
+@end example
+
+Atès que és semblant al context @code{Voice}, volem ordres que
+funcionin dins dels contextos @code{Voice} (existents) perquè
+segueixi funcionant.  Això s'aconsegueix donant al nou context un
+àlies de @code{Voice},
+
+@example
+\alias Voice
+@end example
+
+El context imprimirà notes i textos explicatius, per això hem
+d'afegir els gravadors que aporten aquesta funcionalitat, i a més
+el gravador que agrupa les notes, pliques i silencis que estan en
+el mateix moment musical en forma de columnes.
+
+@example
+\consists "Note_heads_engraver"
+\consists "Text_engraver"
+\consists "Rhythmic_column_engraver"
+@end example
+
+Els caps de totes les notes s'han de situar sobre la línia central.
+
+@example
+\consists "Pitch_squash_engraver"
+squashedPosition = #0
+@end example
+
+El gravador @code{Pitch_squash_engraver} modifica els caps de nota
+(creats pel gravador @code{Note_heads_engraver}) i estableix les
+seves posicions verticals al valor @code{squashedPosition}, en
+aquest cas@tie{}@code{0}, la línia central.
+
+Las notes semblen inclinades i no tenen plica:
+
+@example
+\override NoteHead.style = #'slash
+\hide Stem
+@end example
+
+Tots aquests complements o plug-ins s'han de comunicar sota el
+control del context.  Els mecanismes amb els quals es comuniquen
+els contextos s'estableixen mitjançant la declaració del
+@code{\type} (tipus) del context.  Dins d'un bloc @code{\layout},
+gairebé tots els contextos seran del tipus @code{Engraver_group}.
+Alguns contextos especials i els contextos dels blocs @code{\midi}
+usen altres tipus.  La còpia i la modificació d'una definició de
+context existent també complimenten el tipus.  Com que aquest
+exemple crea una definició partint de zero, ha de ser especificada
+explícitament.
+
+@example
+\type "Engraver_group"
+@end example
+
+En ajuntar-ho tot, obtenim
+
+@example
+\context @{
+  \name ImproVoice
+  \type "Engraver_group"
+  \consists "Note_heads_engraver"
+  \consists "Text_engraver"
+  \consists "Rhythmic_column_engraver"
+  \consists "Pitch_squash_engraver"
+  squashedPosition = #0
+  \override NoteHead.style = #'slash
+  \hide Stem
+  \alias Voice
+@}
+@end example
+
+@funindex \accepts
+Els contextos donen lloc a jerarquies.  Volem posar el context
+@code{ImproVoice} dins del context @code{Staff}, igual que els
+contextos de veu normals.  Per tant, modifiquem la definició de
+@code{Staff} amb l'ordre @code{\accepts} (accepta),
+
+@example
+\context @{
+  \Staff
+  \accepts ImproVoice
+@}
+@end example
+
+@funindex \inherit-acceptability
+Amb freqüència, en reutilitzar una definició de context exitent,
+el context resultant es pot usar en qualsevol lloc on el context
+original hagués pogut fer-ho.
+
+@example
+\layout @{
+  @dots{}
+  \inherit-acceptability @var{to} @var{from}
+@}
+@end example
+
+@noindent
+aconsegueix que tinguem contextos del tipus @var{to} acceptats per
+tots els contextos que també accepten @var{from}.  Por exemple, si usem
+
+@example
+\layout @{
+  @dots{}
+  \inherit-acceptability "ImproVoice" "Voice"
+@}
+@end example
+
+@noindent
+afegeix un @code{\accepts} per a  @code{ImproVoice} tant a la
+definició de @code{Staff} com a la de @code{RhythmicStaff}.
+
+@funindex \denies
+L'oposat a @code{\accepts} (acepta) és @code{\denies} (denega),
+el que a vegades cal quan s'esta reutilitzant definicions de
+context existents.
+
+Si organitzem les peces requerides dins d'un bloc @code{\layout}
+ens deixa amb
+
+@example
+\layout @{
+  \context @{
+    \name ImproVoice
+    @dots{}
+  @}
+  \inherit-acceptability "ImproVoice" "Voice"
+@}
+@end example
+
+Així doncs, la sortida que apareix al començament d'aquesta
+subsecció es pot escriure com
+
+@example
+\relative @{
+  a'4 d8 bes8
+  \new ImproVoice @{
+    c4^"ad lib" c
+    c4 c^"despulleu-vos"
+    c c_"mentre toqueu :)"
+  @}
+  a1
+@}
+@end example
+
+Per completar l'exemple, els canvis que afecten a la jerarquia de
+contextos s'han de repetir dins d'un bloc @code{\midi} de manera
+que la sortida MIDI depengui de les mateixes relacions de context.
+
+@seealso
+
+Referència de funcionament intern:
+@rinternals{Note_heads_engraver},
+@rinternals{Text_engraver},
+@rinternals{Rhythmic_column_engraver},
+@rinternals{Pitch_squash_engraver}.
+
+@node Ordre de disposició dels contextos
+@subsection Ordre de disposició dels contextos
+@translationof Context layout order
+
+@cindex contextos, ordre de disposició
+@funindex \accepts
+@funindex \denies
+
+Els contextos es disposen en un sistema normalment des de dalt cap
+a baix a l'ordre en el qual es troben al fitxer d'entrada.  Quan
+els contextos es nien uns a dins dels altres, el context exterior
+inclou els contextos niuats tal i com s'especifica al fitxer
+d'entrada, sempre i quan els contextos interiors estiguin inclosos
+a la llista @qq{accepts} del context extern.  Els contextos niuats
+que no estiguin inclosos a la llista @qq{accepts} del context
+extern es recol·loquen a sota del context extern en lloc de
+niuar-se dins d'ell.
+
+La llista @qq{accepts} d'un context es pot canviar amb les ordres
+@code{\accepts} (accepta) o @code{\denies} (denega).
+@code{\accepts} afegeix un context a la llista @qq{accepts} i
+@code{\denies} elimina un context de la llista.
+
+Per exemple, un grup de pentagrames amb un claudàtor no es troba
+normalment a l'interior d'un pentagrama amb clau que tingui
+connectats les línies divisòries, i un @code{GrandStaff} per a
+piano no accepta un @code{StaffGroup} dins d'ell, de forma predeterminada.
+
+@lilypond[verbatim,quote]
+\score {
+  \new GrandStaff <<
+    \new StaffGroup <<
+      \new Staff { c'1 }
+      \new Staff { d'1 }
+    >>
+    \new Staff { \set Staff.instrumentName = bottom f'1 }
+  >>
+}
+@end lilypond
+
+Malgrat això, usant l'ordre @code{\accepts}, es pot afegir un
+@code{StaffGroup} al context @code{GrandStaff}:
+
+@lilypond[verbatim,quote]
+\score {
+  \new GrandStaff <<
+    \new StaffGroup <<
+      \new Staff { c'1 }
+      \new Staff { d'1 }
+    >>
+    \new Staff { \set Staff.instrumentName = bottom f'1 }
+  >>
+  \layout {
+    \context {
+      \GrandStaff
+      \accepts "StaffGroup"
+    }
+  }
+}
+@end lilypond
+
+@code{\denies} s'usa principalment quan un context nou s'està
+basant en un altre, però els niuats requerits difereixen.  Per
+exemple, el context @code{VaticanaStaff} està basat en el context
+@code{Staff}, però amb el context @code{VaticanaVoice} substituït
+pel context @code{Voice} a la llista @qq{accepts}.
+
+@cindex contextos implícits
+@cindex implícits, contextos
+@funindex \defaultchild
+
+Observeu que discretament es crea un context de forma implícita si
+es troba una ordre on no hi ha un context apropiat per contenir-lo.
+
+Dins d'una definició de context, el tipus d'un subcontext que es
+va crear implícitament s'especifica usant @code{\defaultchild}
+(fill predeterminat).  Alguns esdeveniments musicals requereixen
+un context @samp{Bottom} (inferior): qua es troba aquest
+esdeveniment, es creen subcontextos de forma recursiva fins que
+s'assoleix un context que no té establert el @samp{defaultchild}.
+
+La creació implícita de contextos pot donar lloc a inesperats
+pentagrames nous o inesperades partitures noves.  La utilització
+de @code{\new} per crear contextos explícitament evita aquests problemes.
+
+@cindex alignAboveContext
+@cindex alignBelowContext
+@funindex alignAboveContext
+@funindex alignBelowContext
+
+En ocasions cal que un context existeixi dins un breu interval de
+temps, sent un bon exemple el context de pentagrama d'un ossia.
+Això s'aconsegueix normalment mitjançant la introducció de la
+definició del context en el lloc apropiat en paral·lel amb la
+secció corresponent de la música principal.  De forma
+predeterminada, el context temporal es col·loca a sota de tots els
+contextos existents.  Per tornar-lo a posicionar per sobre del
+context que tingui el nom @qq{principal}, s'hauria de definir
+d'aquesta forma:
+
+@example
+\new Staff \with @{ alignAboveContext = "principal" @}
+@end example
+
+Es presenta una situació semblant quan es posiciona un context
+temporal de lletra d'una cançó dins d'una disposició de diversos
+pentagrames tal com @code{ChoirStaff}, per exemple, quan s'afegeix
+una segona estrofa a una secció que es repeteix.  De forma
+predeterminada, el context temporal de lletra es col·loca a sota
+dels pentagrames inferiors.  Mitjançant la definició del context
+temporal de lletra amb @code{alignBelowContext} es pot posicionar
+correctament a sota del context de lletra amb nom que conté el
+text de la primera estrofa.
+
+En diversos llocs poden veure's exemples que mostren aquesta
+recol·locació de contextos temporals: vegeu
+@rlearning{Niuat d'expressions musicals},
+@ref{Modificació de pentagrames separats} i
+@ref{Tècniques específiques per a les lletres}.
+
+@seealso
+Manual d'aprenentatge:
+@rlearning{Niuat d'expressions musicals}.
+
+Referència de la notació:
+@ref{Modificació de pentagrames separats},
+@ref{Tècniques específiques per a les lletres}.
+
+Manual d'utilització del programa:
+@rprogram{Apareix un pentagrama de més}.
+
+Fitxers instal·lats:
+@file{ly/engraver-init.ly}.
+
+
+@node Explicació del Manual de referència de funcionament intern
+@section Explicació del Manual de referència de funcionament intern
+@translationof Explaining the Internals Reference
+
+@menu
+* Navegació per la referència del programa::
+* Interfícies de la presentació::
+* Determinació de la propietat del grob::
+* Convencions de noms::
+@end menu
+
+
+@node Navegació per la referència del programa
+@subsection Navegació per la referència del programa
+@translationof Navigating the program reference
+
+Suposem que volem moure la indicació de digitació del fragment següent:
+
+@lilypond[quote,fragment,verbatim]
+c''-2
+@end lilypond
+
+Si visiteu la documentació a la cerca d'ordres de digitació (a
+@ref{Indicacions de digitació}), trobareu:
+
+@quotation
+@strong{Vegeu també}
+
+Referència de funcionament intern: @rinternals{Fingering}.
+
+@end quotation
+
+@ifnothtml
+La referència del programador es troba disponible en forma de
+document HTML.  Es recomana molt que ho llegiu en la forma HTML, o
+bé en línia o bé descarregant els fitxers de la documentació
+HTML.  Aquesta secció seria molt difícil d'entendre si esteu
+utilitzant el manual en format PDF.
+@end ifnothtml
+
+Seguiu l'enllaç que porta a @rinternals{Fingering}.  Al principi
+de la pàgina, podeu veure
+
+@quotation
+Els objectes de digitació es creen per part de:
+@rinternals{Fingering_engraver} y @rinternals{New_fingering_engraver}.
+@end quotation
+
+Seguint els enllaços relacionats dins de la referència del
+programa, podem seguir el flux d'informació dins del programa:
+
+@itemize
+
+@item @rinternals{Fingering}:
+els objectes @rinternals{Fingering} es creen per part de:
+@rinternals{Fingering_engraver}
+
+@item @rinternals{Fingering_engraver}:
+Tipus de música acceptats: @rinternals{fingering-event}
+
+@item @rinternals{fingering-event}:
+El tipus d'esdeveniment musical @code{fingering-event} es descriu a
+Expressions musicals amb el om de @rinternals{FingeringEvent}
+@end itemize
+
+Es recorre aquest camí en direcció contrària al corrent
+d'informació del programa: comença amb la sortida i acaba amb
+l'esdeveniment d'entrada.  També podríem haver començat per un
+esdeveniment de l'entrada, i llegit seguint el flux d'informació
+acabant en el seu cas a l'objecte (o objectes) de la sortida.
+
+La referència del programa també es pot examinar com un document
+normal.  Conté capítols que tracten de
+@ifhtml
+@rinternals{Music definitions},
+@end ifhtml
+@ifnothtml
+@code{Music definitions}
+@end ifnothtml
+de la @rinternals{Translation}, i del @rinternals{Backend}.  Cada
+u dels capítols relaciona totes les definicions utilitzades i
+totes les propietats que es poden ajustar.
+
+@node Interfícies de la presentació
+@subsection Interfícies de la presentació
+@translationof Layout interfaces
+
+@cindex interfície de la presentació
+@cindex presentació, interfície de la
+@cindex grob
+
+La pàgina HTML que vam poder veure a la secció anterior descriu
+l'objecte de presentació anomenat @rinternals{Fingering}.  Aquest
+objecte és un símbol dins de la partitura.  Té propietats que
+emmagatzemen números (com gruixos i direccions), però també
+punters a objectes relacionats.  Un objecte de presentació també
+s'anomena un @emph{Grob}, que és una abreviatura de
+Graphical Object (objecte gràfic).  Per veure més detalls sobre
+els objectes gràfics o Grobs, consulteu
+@rinternals{grob-interface}.
+
+La pàgina dedicada a @code{Fingering} relaciona les definicions de
+l'objecte @code{Fingering}.  Per exemple, la pàgina diu
+
+@quotation
+@code{padding} (dimensió, en espais de pentagrama):
+
+@code{0.5}
+@end quotation
+
+@noindent
+cosa que significa que el nombre es mantindrà a una distància de
+almenys 0.5 del cap de la nota.
+
+Cada objecte de presentació pot tenir diverses funcions com
+element de notació o de gravat.  Per exemple, l'objecte de
+digitació Fingering té els aspectes següents:
+
+@itemize
+@item
+La seva mida és independent de l'espaiat horitzontal, al contrari
+de les lligadures o les barres de les figures.
+
+@item
+És un element de text.  Gairebé segur que és un text molt curt.
+
+@item
+aquest element de text es grava amb un tipus de lletra, no com
+lligadures o les barres de les figures.
+
+@item
+Horitzontalment, el centre del símbol s'ha d'alinear amb el centre
+del cap de la nota.
+
+@item
+Verticalment, el símbol es col·loca a prop de la nota i del pentagrama.
+
+@item
+La posició vertical també està coordinada amb altres símbols de
+superíndex i de subíndex.
+@end itemize
+
+Cadascú d'aquests aspectes es capta en el que s'anomenen
+@emph{interface}s, dels quals es fa una llista al final de la
+pàgina dedicada a @rinternals{Fingering}
+
+@quotation
+Aquest objecte dóna suport a les interfícies següents:
+@rinternals{item-interface},
+@rinternals{self-alignment-interface},
+@rinternals{side-position-interface}, @rinternals{text-interface},
+@rinternals{text-script-interface}, @rinternals{font-interface},
+@rinternals{finger-interface} y @rinternals{grob-interface}.
+@end quotation
+
+En polsar sobre qualssevol dels enllaços ens desplaçarem a la
+pàgina de la interfície respectiva de l'objecte.  Cada interfíci
+té un cert nombre de propietats.  Algunes d'elles no són perquè
+l'usuari las pugui ajustar (@q{Propietats internes}), però altres
+si es poden modificar.
+
+Hem estat parlant de l'objecte @code{Fingering}, però realment no
+significa molt.  El fitxer d'inicialització
+(vegeu @rlearning{Altres fonts d'informació})
+@file{scm/define-grobs.scm} mostra l'ànima de l'@q{objecte},
+
+@example
+(Fingering
+  . ((padding . 0.5)
+     (avoid-slur . around)
+     (slur-padding . 0.2)
+     (staff-padding . 0.5)
+     (self-alignment-X . 0)
+     (self-alignment-Y . 0)
+     (script-priority . 100)
+     (stencil . ,ly:text-interface::print)
+     (direction . ,ly:script-interface::calc-direction)
+     (font-encoding . fetaText)
+     (font-size . -5) 		; don't overlap when next to heads.
+     (meta . ((class . Item)
+     (interfaces . (finger-interface
+                    font-interface
+                    text-script-interface
+                    text-interface
+                    side-position-interface
+                    self-alignment-interface
+                    item-interface))))))
+@end example
+
+@noindent
+Com podem veure, l'objecte @code{Fingering} no és més que un munt
+de valors de variables, i la pàgina web de la Referència de
+funcionament intern es genera directament a partir d'aquesta definició.
+
+@node Determinació de la propietat del grob
+@subsection Determinació de la propietat del grob
+@translationof Determining the grob property
+
+Recordem que volíem canviar la posició del @b{2} a
+
+@lilypond[quote,fragment,verbatim]
+c''-2
+@end lilypond
+
+Atès que el @b{2} es troba col·locat verticalment sobre la seva
+nota, hem de negociar amb la interfície associada amb aquesta
+col·locació.  Això es fa usant @code{side-position-interface}.  La
+pàgina que descriu aquesta interfície diu:
+
+@quotation
+@code{side-position-interface}
+
+Col·locació d'un objecte víctima (aquest mateix) junt a altres
+objectes (el suport).  La propietat @code{direction} significa on
+posar l'objecte víctima en relació al suport (a l'esquerra o a la
+dreta, a sobre o a sota?)
+@end quotation
+
+@cindex farcit
+@cindex padding (farcit)
+@noindent
+Sota aquesta descripció, la variable @code{padding} (farcit)
+es descriu com
+
+@quotation
+@table @code
+@item padding
+(dimensió, en espais de pentagrama)
+
+Afegir aquesta quantitat d'espai addicional entre objectes que
+estan uns junts als altres.
+@end table
+@end quotation
+
+Augmentant el valor de @code{padding}, podem allunyar el número de
+digitació del cap de la nota.  L'ordre següent insereix un espai
+en blanc de tres @qq{espais de pentagrama} entre la nota i la digitació:
+
+@example
+\once \override Voice.Fingering.padding = #3
+@end example
+
+En inserir aquest farcit abans que s'hagi creat l'objecte de
+digitació, arribem al resultat següent:
+
+@lilypond[quote,fragment,verbatim]
+\once \override Voice.Fingering.padding = #3
+c''-2
+@end lilypond
+
+En aquest cas, el context d'aquest ajustament és @code{Voice}.
+Vegeu l'apartat dedicat a @rinternals{Fingering_engraver}, que diu:
+
+@quotation
+El gravador Fingering_engraver format part dels contextos:
+@dots{}  @rinternals{Voice}
+@end quotation
+
+
+@node Convencions de noms
+@subsection Convencions de noms
+@translationof Naming conventions
+
+Cal presentar una panoràmica de les diverses convencions de nomenclatura:
+
+@itemize
+@item funcions del Scheme: minúscules-amb-guions (cosa que inclou
+als noms d'una sola paraula)
+
+@item funcions de l'Scheme específiques del LilyPond: ly:més-estil-de-scheme
+
+@item esdeveniments, classes i propietats musicals: com-les-funcions-de-scheme
+
+@item interfícies de Grobs: estil-scheme
+
+@item propietats de backend: estil-scheme (¡però X i Y en majúscules!)
+
+@item contextos (i ExpressionsMusicals i grobs): Majúscules o MajúsculesDeCamell
+
+@item propietats de context: minúsculesSeguitDeMajúsculesDeCamell
+
+@item gravadors: Majúscules_seguit_de_minúscules_i_amb_barres_baixes
+@end itemize
+
+@ignore
+Preguntes encara sense resposta
+@itemize
+@item Quines d'aquelles són convencions i quines són regles?
+
+@item Quines són regles del llenguatge subjacent, i quines són específiques del Lilypond?
+@end itemize
+@end ignore
+
+
+@node Modificació de les propietats
+@section Modificació de les propietats
+@translationof Modifying properties
+
+@menu
+* Panoràmica de la modificació de les propietats::
+* L'ordre set::
+* L'ordre override::
+* L'ordre tweak::
+* set comparat a override::
+* L'ordre offset::
+* Modificació de les llistes-A::
+@end menu
+
+
+@node Panoràmica de la modificació de les propietats
+@subsection Panoràmica de la modificació de les propietats
+@translationof Overview of modifying properties
+
+Cada context és responsable de la creació de certs tipus
+d'objectes gràfics.  Els ajustaments que s'usen per imprimir
+aquests objectes també s'emmagatzemen per context.  Mitjançant la
+modificació d'aquests ajustaments, es pot alterar l'aparença dels
+objectes.
+
+Hi ha dos tipus diferents de propietats emmagatzemades als
+contextos: les propietats de context i les propietats de grob.
+Les propietats de context són propietats que s'apliquen al context
+com un tot i controlen la forma en la qual el propi context
+s'imprimeix.  Per contra, les propietats de grob s'apliquen als
+tipus de grob específics que s'imprimiran dins del context.
+
+Les ordres @code{\set} i @code{\unset} s'usen per canviar els
+valors de les propietats de context.  Les ordres @code{\override}
+i @code{\revert} s'usen per canviar els valors de les propietats
+de grob.
+
+@ignore
+La sintaxi d'això és
+
+@example
+\override @var{context}.@var{nom} #'@var{propietat} = #@var{valor}
+@end example
+
+Aquí @var{nombre} és el nom d'un objecte gràfic, com @code{Stem} o
+@code{NoteHead}, i @var{propiedad} és una variable interna del
+sistema de formateig (@q{propietat del grob} o @q{propietat de
+disposició}). Aquest últim és un símbol, i per això ha d'anar
+precedit d'un apòstrof.  La subsecció @ref{Modificació de les
+propietats} explica com s'han de complimentar els conceptes
+@var{nom}, @var{propietat} i @var{valor}.  Aquí sols ens ocuparem
+de la funcionalitat d'aquesta ordre.
+
+L'ordre
+
+@verbatim
+\override Staff.Stem.thickness = #4.0
+@end verbatim
+
+@noindent
+fa més gruixudes les pliques (el valor predeterminat es 1.3, amb
+el gruix d'una línia del pentagrama com unitat).  Atès que l'ordre
+especifica com context a @code{Staff}, sols s'aplica al pentagrama
+actual.  Altres pentagrames mantenen el seu aspecte normal.  Aquí
+veiem l'ordre en ple funcionament:
+
+@lilypond[quote,fragment,verbatim]
+c''4
+\override Staff.Stem.thickness = #4.0
+c''4
+c''4
+c''4
+@end lilypond
+
+L'ordre @code{\override} modifica la definició de la plica
+@code{Stem} dins del pentagrama en curs @code{Staff}.  Després de
+que l'ordre s'ha interpretat, totes les pliques es fan més gruixudes.
+
+De manera anàloga a @code{\set}, l'argumento @var{context} es pot
+ometre, ocasionant que s'utilitzi el context predeterminat
+@code{Voice}.  En afegir @code{\once} s'aplica el canvi durant un
+sols pas del temps.
+
+@lilypond[quote,fragment,verbatim]
+c''4
+\once \override Stem.thickness = #4.0
+c''4
+c''4
+@end lilypond
+
+L'@code{\override} s'ha de fer abans que l'objecte s'inicia.  Per
+tant, en alterar objectes @emph{Spanner} «d'extensió» com ara
+lligadures o barres, l'ordre @code{\override} s'ha d'executar en
+el moment que es crea l'objecte.  En aquest exemple:
+
+@lilypond[quote,fragment,verbatim]
+\override Slur.thickness = #3.0
+c''8[( c''
+\override Beam.beam-thickness = #0.6
+c''8 c''])
+@end lilypond
+
+@noindent
+la lligadura és més gruixuda però la barra no ho és.  Això és així
+perquè l'ordre per a @code{Beam}, la barra, va després que la
+barra s'ha iniciat, i per això no té cap efecte.
+
+De forma anàloga a @code{\unset}, l'ordre @code{\revert} per a un
+context desfà una ordre @code{\override}; com amb @code{\unset},
+sols afecta als ajustaments que es van fer dins del mateix
+context.  En altres paraules, el @code{\revert} de l'exemple
+següent no fa res.
+
+@example
+\override Voice.Stem.thickness = #4.0
+\revert Staff.Stem.thickness
+@end example
+
+Algunes opcions «ajustables» s'anomenen @q{subpropietats} i
+resideixen dins de les propietats normals.  Per ajustar-les,
+utilitzeu ordres de la forma
+
+@c leave this as a long long
+@example
+\override @var{context}.@var{nom} #'@var{propietat} #'@var{subpropietat} = #@var{valor}
+@end example
+
+@noindent
+tals com
+
+@example
+\override Stem.details.beamed-lengths = #'(4 4 3)
+@end example
+
+@end ignore
+
+@seealso
+Referència de funcionament intern:
+@rinternals{Backend},
+@rinternals{All layout objects},
+@rinternals{OverrideProperty},
+@rinternals{RevertProperty},
+@rinternals{PropertySet}.
+
+@knownissues
+El «back-end» o motor de sortida no és massa estricte en la
+comprovació de tipus de les propietats d'objectes.  Les
+referències cícliques en valors Scheme de propietats poden produir
+aturades o sortides abruptes, o les dues coses.
+
+@node L'ordre set
+@subsection L'ordre @code{@bs{}set}
+@translationof The set command
+
+@cindex propietats
+@funindex \set
+@cindex canviar propietats
+
+Cada context pot tenir diferents @emph{propietats}, variables
+contingudes dins d'aquest context.  Es poden canviar mentre dura
+el pas d'interpretació.  S'aconsegueix inserint l'ordre
+@code{\set} dins de la música:
+
+@example
+\set @var{context}.@var{propietat} = #@var{valor}
+@end example
+
+@var{valor} és un objecte de l'Scheme, raó per la qual va precedit
+del caràcter coixinet,@tie{}@code{#}.
+
+El nom de les propietats de context sol anar en minúscules amb
+majúscula al mig.  Controlen sobre tot la traducció de la música a
+la notació, per exemple @code{localAlterations} (per determinar si
+s'ha d'imprimir alteracions o no), o @code{measurePosition} (per
+determinar quan s'ha d'imprimir una línia divisòria).  El valor de
+les propietats de context pot modificar-se amb el temps durant la
+interpretació de la musica; un exemple obvi és
+@code{measurePosition}.  Les propietats de context es modifiquen
+mitjançant l'ordre @code{\set}.
+
+Per exemple, els silencis multicompàs es combinen en un sol compàs
+si el valor de la propietat de context @code{skipBars} s'estableix
+a @code{#t} (vertader):
+
+@lilypond[quote,fragment,verbatim]
+R1*2
+\set Score.skipBars = ##t
+R1*2
+@end lilypond
+
+Si s'omet l'argument @var{context}, llavors s'utilitza el context
+actual de nivell més baix (normalment @code{ChordNames},
+@code{Voice} o @code{Lyrics}). En aquest exemple:
+
+@lilypond[quote,fragment,verbatim]
+\set Score.autoBeaming = ##f
+\relative {
+  e''8 e e e
+  \set autoBeaming = ##t
+  e8 e e e
+} \\
+\relative {
+  c''8 c c c c8 c c c
+}
+@end lilypond
+
+El canvi s'aplica @q{al vol}, mentre dura la música, de forma que
+l'ajustament sols afecta al segon grup de corxeres.
+
+Observeu que el context del nivell més baix no sempre conté la
+propietat que voldríem modificar: per exemple, intentar ajustar el
+valor de la propietat @code{skipBars} del context predeterminat
+del nivell més baix, que en aquest cas és @code{Voice}, no tindrà
+cap efecte, perquè skipBars és una propietat del context @code{Score}.
+
+@lilypond[quote,fragment,verbatim]
+R1*2
+\set skipBars = ##t
+R1*2
+@end lilypond
+
+Els contextos són jeràrquics, i si s'ha especificat un context
+major, per exemple @code{Staff}, aleshores el canvi s'aplicaria
+també a tots els contextos @code{Voice} dins del pentagrama actual.
+
+@funindex \unset
+
+També hi ha una ordre @code{\unset}:
+
+@example
+\unset @var{context}.@var{propietat}
+@end example
+
+@noindent
+que elimina la definició de @var{propietat}.  Aquesta ordre
+elimina la definició sols si s'està establint dins de
+@var{context}.  Les propietats que s'han establert a contextos que
+envolten no s'alteraran per un @code{\unset} en un context envoltat:
+
+@lilypond[quote,fragment,verbatim]
+\set Score.autoBeaming = ##t
+\relative {
+  \unset autoBeaming
+  e''8 e e e
+  \unset Score.autoBeaming
+  e8 e e e
+} \\
+\relative {
+  c''8 c c c c8 c c c
+}
+@end lilypond
+
+Com @code{\set}, l'argument @var{context} no s'ha d'especificar
+per a un context del nivell més baix, per la qual cosa els dos enunciats
+
+@example
+\set Voice.autoBeaming = ##t
+\set autoBeaming = ##t
+@end example
+
+@noindent
+són equivalents si el context inferior en curs és @code{Voice}.
+
+@cindex \once
+Els ajustaments amb @code{\set} o @code{\unset} que s'apliquen
+sols a un únic pas de temps es poden escriure amb
+@code{\once}, per exemple a
+
+@lilypond[quote,fragment,verbatim]
+c''4
+\once \set fontSize = #4.7
+c''4
+c''4
+@end lilypond
+
+En el manual de Referència de funcionament intern hi ha una
+descripció completa de totes les propietats de context
+disponibles, consulteu
+@ifhtml
+@rinternals{Tunable context properties}.
+@end ifhtml
+@ifnothtml
+Traducció @expansion{} Propietats de context modificables per l'usuari.
+@end ifnothtml
+
+@seealso
+Referència de funcionament intern:
+@rinternals{Tunable context properties}.
+
+@node L'ordre override
+@subsection L'ordre @code{\override}
+@translationof The override command
+
+@cindex grob, propietats de
+@cindex propietats de grob
+@funindex \override
+
+Hi ha un tipus especial de propietat de context: la descripció
+dels grobs.  Les descripcions dels grobs reben un nom a
+@code{MajúsculesDeCamell} (començant amb majúscula). Contenen els
+@q{ajustos predeterminatats} per a un tipus particular de grob, en
+forma de llista associativa.  Consulteu
+@file{scm/define-grobs.scm} per veure els ajustos de cada
+descripció de grob.  Les descripcions de grob es modifiquen amb
+@code{\override}.
+
+La sintaxi de l'ordre @code{\override} és
+
+@example
+\override [@var{context}.]@var{NomDelGrob}.@var{propietat} = #@var{valor}
+@end example
+
+Per exemple, podem augmentar el gruix de la plica d'una figura
+sobreescrivint la propietat @code{thickness} (gruix) de l'objecte
+@code{Stem} (plica):
+
+@lilypond[quote,fragment,verbatim]
+c''4 c''
+\override Voice.Stem.thickness = #3.0
+c''4 c''
+@end lilypond
+
+Si no s'ha especificat cap context a l'ordre @code{\override},
+s'utilitza el context del nivell inferior:
+
+@lilypond[quote,fragment,verbatim]
+\override Staff.Stem.thickness = #3.0
+<<
+  \relative {
+    e''4 e
+    \override Stem.thickness = #0.5
+    e4 e
+  } \\
+  \relative {
+    c''4 c c c
+  }
+>>
+@end lilypond
+
+Algunes opcions susceptibles d'ajustament s'anomenen
+@q{subpropietats} i resideixen dins de les propietats.  Per
+efectuar ajustaments sobre ells, utilitzeu ordres de la forma
+
+@example
+\override Stem.details.beamed-lengths = #'(4 4 3)
+@end example
+
+o per modificar els extrems dels objectes extensos, utilitzeu una
+forma com ara les següents:
+
+@example
+\override TextSpanner.bound-details.left.text = "left text"
+\override TextSpanner.bound-details.right.text = "right text"
+@end example
+
+@funindex \revert
+@cindex reversió de sobreescriptures
+@cindex sobreescriptures, reversió de
+
+L'efecte d'una ordre de sobreescriptura @code{\override} es pot
+desfer amb @code{\revert}.
+
+La sintaxi de l' ordre @code{\revert} és
+
+@example
+\revert [@var{Context}.]@var{NomDelGrob}.@var{propietat}
+@end example
+
+Por exemple,
+
+@lilypond[quote,verbatim]
+\relative {
+  c''4
+  \override Voice.Stem.thickness = #3.0
+  c4 c
+  \revert Voice.Stem.thickness
+  c4
+}
+@end lilypond
+
+Els efectes de @code{\override} i @code{\revert} s'apliquen a tots
+els grobs del context afectat partint del moment actual i fins endavant:
+
+@lilypond[quote,verbatim]
+<<
+  \relative {
+    e''4
+    \override Staff.Stem.thickness = #3.0
+    e4 e e
+  } \\
+  \relative {
+    c''4 c c
+    \revert Staff.Stem.thickness
+    c4
+  }
+>>
+@end lilypond
+
+@funindex \once
+@cindex sobreescriptura per a un sol moment
+
+Es pot usar @code{\once} amb @code{\override} o @code{\revert} per
+afectar sols l'instant de temps actual:
+
+@lilypond[quote,verbatim]
+<<
+  \relative c {
+    \override Stem.thickness = #3.0
+    e''4 e e e
+  } \\
+  \relative {
+    c''4
+    \once \override Stem.thickness = #3.0
+    c4 c c
+  }
+>>
+@end lilypond
+
+
+@ignore
+Les ordres que modifiquen la sortida tenen en general un aspecte com
+
+@example
+\override Voice.Stem.thickness = #3.0
+@end example
+
+@noindent
+Per construir aquest ajustament hem de determinar les dades següents:
+
+@itemize
+@item el context: aquí @code{Voice}.
+@item l'objecte de presentació: aquí @code{Stem}.
+@item la propietat de presentació: aquí @code{thickness}.
+@item un valor adequat: aquí @code{3.0}.
+@end itemize
+
+@cindex documentació interna
+@cindex buscar objectes gràfics
+@cindex gràfics, descripció dels objectes
+@cindex ajustaments
+@funindex \override
+@cindex interna, documentació
+
+Per a moltes propietats, independentment del tipus de dades de la
+propietat, si s'estableix el valor de la propietat a fals
+(@code{#f}) es produirà la seva desactivació, ocasionant que el
+LilyPond ignori per complet aquesta propietat.  Això és
+especialment útil per a «apagar» propietats de grobs (objectes
+gràfics) que d'una altra manera causarien problemes.
+
+Mostrarem a continuació com localitzar aquesta informació al
+manual de notació i a la referència de funcionament intern.
+@end ignore
+
+@seealso
+Referència de funcionament intern:
+@rinternals{Backend}
+
+
+@node L'ordre tweak
+@subsection L'ordre @code{\tweak}
+@translationof The tweak command
+
+@funindex \tweak
+@cindex ajustar
+
+El canvi de les propietats de grob mitjançant @code{\override}
+produeix l'aplicació del canvi a tots els grobs donats al context
+en el moment en el qual s'aplica aquest canvi.  Tanmateix, en
+certes ocasions podem desitjar que els canvis s'apliquin a un sol
+grob en lloc de a tots els grobs del context afectat.  Això
+s'aconsegueix amb l'ordre @code{\tweak}, que té la sintaxi següent:
+
+@example
+\tweak [@var{objecte-de-presentació}.]@var{propietat-del-grob} @var{valor}
+@end example
+
+És opcional especificar el @var{objecte-de-presentació}.  L'ordre
+@code{\tweak} s'aplica a l'objecte musical que ve immediatament
+després de @var{valor} dins del flux musical.
+
+@ignore
+En ocasions és possible agafar una drecera per realitzar
+l'ajustament fi dels objectes gràfics.  Per objectes que resulten
+directament d'un element de codi de l'entrada, podeu usar la
+funció @code{\tweak}, per exemple
+
+
+@lilypond[verbatim,quote]
+\relative {
+  < c''
+    \tweak color #red
+    d
+    g
+    \tweak duration-log #1
+    a
+  > 4
+  -\tweak padding #8
+  -^
+}
+@end lilypond
+
+L'ús principal de l'ordre @code{\tweak} és modificar sols un de
+diversos elements de notació que comencen al mateix moment
+musical, com les notes d'un acord, o claus de treset que comencen
+al mateix moment.
+
+L'ordre @code{\tweak} fixa una propietat a l'objecte que ve a
+continuació de forma directa, sense necessitat d'especificar el
+nom del grob o el context.  Perquè això funcioni, cal que l'ordre
+@code{\tweak} romangui immediatament adjacent a l'objecte al que
+s'aplica, després que el fitxer d'entrada s'ha convertit en un
+flux musical.  Freqüentment no és el cas, ja que molts elements
+addicionals s'insereixen a la corrent musical de forma implícita.
+Per exemple, quan es processa una nota que no forma part d'un
+acord, el LilyPond insereix implícitament un esdeveniment
+@code{ChordEvent} abans de la nota, separant així l'ajustament de
+la nota.  No obstant, si els símbols d'acord se situen a prop de
+l'ajustament i la nota, l'ordre @code{\tweak} ve després del
+@code{ChordEvent} al flux musical, romanent així adjacent a la
+nota, i amb la possibilitat de modificar-la.
+
+Per aquesta raó el següent codi funciona:
+
+@lilypond[verbatim,fragment,quote]
+<\tweak color #red c''>4
+@end lilypond
+
+@noindent
+però aquest altre codi no funciona:
+
+@lilypond[verbatim,fragment,quote]
+\tweak color #red c''4
+@end lilypond
+
+@end ignore
+
+Per veure una introducció a la sintaxi i els usos de l'ordre
+tweak, consulteu @rlearning{Mètodes d'ajustament}.
+
+Si es col·loquen diversos elements semblants al mateix moment
+musical, l'ordre @code{\override} no es pot fer servir per
+modificar un sol d'ells: aquí és on s'ha d'usar l'ordre
+@code{\tweak}.  Entre els elements que poden aparèixer més d'un
+cop al mateix moment musical estan els següents:
+
+@c TODO expand to include any further uses of \tweak
+@itemize
+@item els caps de les notes d'un acord
+@item signes d'articulació sobre la mateixa nota
+@item lligadures d'unió entre notes d'un acord
+@item claus de grups especials que comencen al mateix moment
+@end itemize
+
+@c TODO add examples of these
+
+@cindex acord, modificació d'una nota
+
+En aquest exemples es modifiquen el color d'un cap i el tipus d'un
+altre, dins del mateix acord:
+
+@lilypond[verbatim,fragment,quote]
+< c''
+  \tweak color #red
+  d''
+  g''
+  \tweak duration-log #1
+  a''
+> 4
+@end lilypond
+
+@code{\tweak} es pot usar per modificar lligadures d'expressió:
+
+@lilypond[verbatim,quote]
+\relative { c'-\tweak thickness #5 ( d e f) }
+@end lilypond
+
+Perquè funcioni l'ordre @code{\tweak}, ha de romandre adjacent a
+l'objecte al qual s'ha d'aplicar després que el codi d'entrada
+s'hagi convertit en un flux musical.  L'ajustament d'un acord
+complet no fa res perquè el seu esdeveniment musical actua sols
+com un contenidor, i tots el objectes de presentació es creen a
+partir d'esdeveniments dins del @code{EventChord}:
+
+@lilypond[verbatim,fragment,quote]
+\tweak color #red c''4
+\tweak color #red <c'' e''>4
+<\tweak color #red c'' e''>4
+@end lilypond
+
+L'ordre @code{\tweak} senzilla no es pot fer servir per modificar
+cap objecte que no s'hagi creat directament a partir de
+l'entrada.  Concretament, no afecta a les pliques, barres
+automàtiques ni alteraciones, perquè aquests objectes es generen
+posteriorment per part d'objectes de presentació
+@code{NoteHead} més que per elements musicals del flux d'entrada.
+
+Aquests objectes de presentació creats indirectament es poden
+ajustar usant la forma de l'ordre @code{\tweak} en la qual el nom
+del grob s'especifica de forma explícita:
+
+@lilypond[fragment,verbatim,quote]
+\tweak Stem.color #red
+\tweak Beam.color #green c''8 e''
+<c'' e'' \tweak Accidental.font-size #-3 ges''>4
+@end lilypond
+
+No es pot usar @code{\tweak} per modificar les claus o les
+indicacions de compàs, perquè aquests objectes se separen de
+qualsevol ordre @code{\tweak} precedent dins del flux d'entrada
+gràcies a la inserció automàtica d'elements addicionals que es
+requereixen per completar el context.
+
+Es poden col·locar diverses ordres @code{\tweak} abans d'un
+element de notació; totes l'afecten:
+
+@lilypond[verbatim,fragment,quote]
+c'
+  -\tweak style #'dashed-line
+  -\tweak dash-fraction #0.2
+  -\tweak thickness #3
+  -\tweak color #red
+  \glissando
+f''
+@end lilypond
+
+El flux musical que es genera a partir d'una secció d'un fitxer
+d'entrada (incloent qualsevol element inserit automàticament) pot
+examinar-se, vegeu
+
+El flujo musical que se genera a partir de una sección de un
+archivo de entrada (incluido cualquier elemento insertado
+automáticamente) puede examinarse, véase
+@rextendnamed{Displaying music expressions,Presentació de les
+expressions musicals}.  Això pot ser d'utilitat en la determinació
+del que es pot modificar per mitjà d'una ordre @code{\tweak}.
+
+@seealso
+Manual d'aprenentatge:
+@rlearning{Mètodes d'ajustament}.
+
+Manual de extensió:
+@rextendnamed{Displaying music expressions,Presentació de les expressions musicals}.
+
+@knownissues
+
+@cindex ajustar punts de control
+@cindex control, ajustar punts de
+
+No es pot usar l'ordre @code{\tweak} per modificar els punts de
+control d'una sola de diverses lligadures d'unió dins d'un acord,
+a part de la primera que es trobi en el codi d'entrada.
+
+@node set comparat a override
+@subsection @code{\set} comparat a @code{\override}
+@translationof set versus override
+
+@c TODO Should't a bunch of that be explained earlier?
+
+@funindex \set
+@funindex \override
+
+Tant l'ordre @code{\set} com @code{\override} manipulen propietats
+associades a contextos.  En ambdós casos les propietats segueixen
+una @emph{jerarquia de contextos}: les propietats que no
+s'estableixen dins del context encara presenten els valors del
+context del seu pare respectiu.
+
+El valor i la duració en el temps d'una propietat de context són
+dinàmics i estan disponibles sols quan la música s'està
+interpretant o @q{iterant}.  Al moment de la creació del context,
+s'inicialitzen les propietats a partir de les modificacions
+d'aquest context.  Qualsevol canvi posterior s'obté a través
+d'ordres d'establiment de propietats dins de la mateixa música.
+
+Les definicions de grob (objectes gràfics) són una classe
+@emph{especial} de propietats de context, ja que la seva
+estructura i ús són diferents de les propietats de context
+ordinàries.  A diferència de les propietats dels contextos
+normals, les definicions de grob se subdivideixen en
+@emph{propietats de grob}.
+
+A més, en contrast amb les propietats de context normals, les
+definicions de grob tenen el seu propi conjunt d'@q{utilitats de
+manteniment} de les propietats individuals i, en el seu cas,
+sub-propietats.  Això suposa que és possible definir les diferents
+parts dins de diferents contextos i encara tenir la definició
+completa del grob en el moment de la seva creació, muntada a
+partir de totes les peces proporcionades pel context actual i el
+seu ancestre o ancestres, conjuntament.
+
+Un grob o objecte gràfic es crea normalment per part d'un gravador
+en el moment de la interpretació d'una expressió musical i rep les
+seves propietats inicials de la definició de grob en curs del
+context del gravador.  El gravador (o altres parts del @q{backend}
+del LilyPond) poden després modificar (o afegir-se a) les
+propietats inicials del grob; malgrat això, això no afecta a la
+definició de grob del context.
+
+El que el Lilypond coneix com @q{propietats de grob} en el context
+de l'ajustament a nivell d'usuari són en realitat les propietats
+de la definició de grob d'un context.
+
+s'accedeix a les definicions de grob amb un conjunt d'ordres
+diferents.  Es manipulen usant @code{\override} i
+@code{\revert} i tenen un nom que comença amb una lletra majúscula
+(com @samp{NoteHead}) mentre que les propietats de context
+ordinàries es manipulen utilitzant @code{\set} i
+@code{\unset} i s'anomenen començant amb lletra minúscula
+
+@cindex tweak, relació amb @code{\override}
+@funindex \tweak
+@funindex \overrideProperty
+
+Les ordres @code{\tweak} i @code{\overrideProperty} canvien les
+propietats de grob passant per sobre de les propietats de context
+completament.  En el seu lloc, atrapen els grobs tan aviat es
+creen, i estableixen propietats sobre ells directament amb
+@code{\tweak} quan s'originen a partir d'un esdeveniment musical
+o, en el cas de @code{\overrideProperty}, per a una
+sobreescriptura específica.
+
+@node L'ordre offset
+@subsection L'ordre  @code{\offset}
+@translationof The offset command
+
+@funindex \offset
+@cindex desplaçament
+@cindex valors predeterminats, desplaçar
+
+Tot i que és possible fixar propietats de grob a valors nous amb
+les ordres @code{\override}, @code{\tweak} i
+@code{\overrideProperty}, moltes vegades convé més modificar
+aquestes propietats en una quantitat relativa al valor
+predeterminat.  L'ordre @code{\offset} es troba disponible per fer això.
+
+La sintaxi de @code{\offset} és
+
+@example
+[-]\offset @var{propietat} @var{increments} @var{element}
+@end example
+
+L'ordre funciona afegint el contingut de @var{increments} a
+l'ajustament predeterminat de la @var{propietat} del grob indicat
+per @var{element}.
+
+Depenent de la formulació de l'ordre, @code{\offset} pot actuar
+com un @code{\tweak} (ajustament) o com un @code{\override}
+(sobreescriptura).  Les variaciones en el seu ús s'explicaran
+després d'haver exaaminat les propietats de grob que es poden usar
+amb @code{\offset}.
+
+@subsubsubheading{Propietats que admeten el desplaçament}
+
+Moltes, però no totes, les propietats del grob admeten l'aplicació
+d'un desplaçament.  Si @var{propietat} no es pot desplaçar,
+l'objecte romandrà sense canvis i s'omet l'advertiment.  En
+aquests casos s'han d'usar en el seu lloc @code{\override} o
+@code{\tweak} per modificar l'objecte.
+
+Es pot treballar per prova i error i deixar que els advertiments
+ens serveixen de guia per saber el que pot i no pot ser
+desplaçat. És possible, no obstant, un enfocament més sistemàtic.
+
+Els criteris següents determinen si una propietat es pot modificar
+amb @code{\offset}:
+
+@itemize
+
+@item
+La propietat té un @q{ajustament predeterminat} en la descripció
+del grob.  Aquestes propietats apareixen llistades per a cada grob
+a @rinternals{All layout objects} (i també estan a
+@file{scm/define-grobs.scm}).
+
+@item
+La propietat admet un valor numèric.  Entre els valors numèrics es
+troben @code{number}, una llista de @code{number}s,
+@code{number-pair}, i @code{number-pair-list}. Les pàgines de
+@rinternals{All layout objects} contenen una llista dels tipus de
+dades característiques de cada propietat.  No importa si
+l'ajustament predeterminat és una funció.
+
+@item
+La propietat no pot ser una @q{subpropietat} (una propietat que
+resideix dins duna altra propietat).
+
+@item
+Les propietats establertes a valors infinits no es poden
+desplaçar.  No hi ha cap forma sensata d'incrementar els valors
+infinits positius o negatius.
+@end itemize
+
+Els exemples següents presenten diverses propietats de grob en
+front als criteris que s'han exposat.
+
+@itemize
+
+@item Propietats que es poden desplaçar
+
+@table @asis
+
+@item @code{Hairpin.height}
+
+Aquesta propietat no és una subpropietat, i està a la llista que
+apareix a @rinternals{Hairpin}.  En quan al seu valor, admet
+@q{dimension, in staff space} (dimensió, en espais de pentagrama)
+que està establert a @code{0.6666} (que clarament és un
+@code{nombre} no infinit).
+
+@item @code{Arpeggio.positions}
+
+A la llista de la pagina que descriu @rinternals{Arpeggio} apareix
+una propietat @code{positions} que admet una @q{parella de
+nombres}.  El seu valor predeterminat és
+@code{ly:arpeggio::positions}, que é un @q{callback} que s'avalua
+durant la fase de gravat per donar com a resultat una parella de
+nombres per qualsevol objecte @code{Arpeggio} donat.
+
+@end table
+
+@item Propietats que no admeten desplaçament
+
+@table @asis
+
+@item @code{Hairpin.color}
+
+No hi ha un llistat per @code{color} a @rinternals{Hairpin}.
+
+@item @code{Hairpin.circled-tip}
+
+La llista de @code{Hairpin.circled-tip} a la pàgina de
+@rinternals{Hairpin} mostra que admet un valor @code{boolean}. Els
+valors booleans no són numèrics.
+
+@item @code{Stem.details.lengths}
+
+Tot i que està llistat a @rinternals{Stem} i el seu valor
+predeterminat és una llista de @code{number}s, és una
+@q{subpropietat}.  De moment les @q{propietats niuades} no tenen
+suport.
+
+@end table
+
+@end itemize
+
+@subsubsubheading{@bs{}offset como sobreescriptura}
+
+Si @var{element} és un nom de grob com @code{Arpeggio} o
+@code{Staff.OttavaBracket}, el resultat es un @code{\override} o
+sobreescriptura del tipus de grob especificat.
+
+@example
+\offset @var{propietat} @var{increment} [@var{context}.]@var{NomDeGrob}
+@end example
+
+Observeu que el guió precedent @emph{mai} no s'utilitza amb la
+forma @q{override}, d'igual manera que mai no s'usa amb la pròpia
+ordre @code{\override}.
+
+L'exemple següent usa la forma @q{override}, de sobreescriptura,
+per allargar els arpegis predeterminats que apareixen al primer
+compàs perquè cobreixin tota la mida dels acords.  Els arpegis
+s'amplien en mig espai de pentagrama cap amunt i cap avall.  També
+es mostra la mateixa operació efectuada sobre el primer acord amb
+una sobreescriptura normal de la propietat @code{positions}.
+Aquest mètode és en absolut expressiu de l'acció de @q{ampliar en
+mig espai de pentagrama} perquè els extrems s'han d'especificar
+mitjançant coordenades absolutes, no relatives.  A més, caldrien
+sobreescriptures individuals per als altres acords, atès que
+varien en mida i posició.
+
+@lilypond[quote,verbatim]
+arpeggioMusic = {
+  <c' e' g'>\arpeggio <a' c'' e''>\arpeggio
+  <d' f' a' c''>\arpeggio <c' e' g' b' d'' f'' a''>\arpeggio
+}
+
+{
+  \arpeggioMusic
+  \bar "||"
+  \offset positions #'(-0.5 . 0.5) Arpeggio
+  \arpeggioMusic
+  \bar "||"
+  \once \override Arpeggio.positions = #'(-3.5 . -0.5)
+  <c' e' g'>1\arpeggio
+  \bar "||"
+}
+@end lilypond
+
+En el seu ús com @q{override}, @code{\offset} es pot fer precedir
+per @code{\once} o per @code{\temporary} i revertir-se mitjançant
+@code{\revert} amb la @var{propietat}.  Això és perquè
+@code{\offset} en realitat crea un @code{\override} per la @var{propietat}.
+
+@lilypond[quote,verbatim]
+music = { c'8\< d' e' f'\! }
+
+{
+  \music
+  \offset height 1 Hairpin
+  \music
+  \music
+  \revert Hairpin.height
+  \music
+  \bar "||"
+  \once \offset height 1 Hairpin
+  \music \music
+  \bar "||"
+  \override Hairpin.height = 0.2
+  \music
+  \temporary \offset height 2 Hairpin
+  \music
+  \music
+  \revert Hairpin.height
+  \music
+  \bar "||"
+}
+@end lilypond
+
+Així com @code{\override}, la forma @q{override} de @code{\offset}
+es pot usar amb @code{\undo} i amb @code{\single}.
+
+@lilypond[quote,verbatim]
+longStem = \offset length 6 Stem
+
+{
+ \longStem c'4 c''' c' c''
+ \bar "||"
+ \undo \longStem c'4 c''' c' c''
+ \bar "||"
+ \single \longStem c'4 c''' c' c''
+ \bar "||"
+}
+@end lilypond
+
+@subsubsubheading{@bs{}offset com ajustament}
+
+Si @var{element} és una expressió musical com @code{\arpeggio}, el
+resultat és la mateixa expressió musical amb l'ajustament aplicat.
+
+@example
+[-]\offset [@var{NomDeGrob}.]@var{propietat} @var{increments} @var{expressió-musical}
+@end example
+
+La sintaxi de @code{\offset} en forma de @q{tweak} és anàloga a la
+pròpia ordre @code{\tweak}, tant en ordre com en quant a la
+presència o absència del guió inicial.
+
+L'exemple següent usa la forma @q{tweak} per ajustar la posició
+vertical de l'objecte @code{BreathingSign}.  Compareu-lo amb
+l'ordre @code{\tweak} normal que també apareix.  La sintaxi és
+equivalent; malgrat això, la sortida de @code{\tweak} és menys
+intuïtiva, ja que @code{BreathingSign.Y-offset} es calcula a
+partir de la tercera línia del pentagrama.  No cal saber com es
+calcula @code{Y-offset}, en usar @code{\offset}.
+
+@lilypond[quote,verbatim]
+{
+  c''4
+  \breathe
+  c''4
+  \offset Y-offset 2 \breathe
+  c''2
+  \tweak Y-offset 3 \breathe
+}
+@end lilypond
+
+A l'exemple anterior, els objectes ajustats s'han creat
+directament a partir de l'entrada de l'usuari: l'ordre
+@code{\breathe} era una ordre explícita per retornar un objecte
+@code{BreathingSign}.  Atès que l'objecte de l'ordre no és ambigu,
+no hi havia necessitat d'especificar el nom de l'objecte.  Malgrat
+això, quan un objecte es crea @emph{indirectament}, cal incloure
+el nom del grob.  És el mateix que per a l'ordre @code{\tweak}.
+
+A l'exemple següent, l'objecte @code{Beam} es baixa en dos espais
+de pentagrama aplicant @code{\offset} a la propietat @code{positions}.
+
+La primera aplicació de @code{\offset} exigeix que s'inclogui el
+nom del grob, perquè no hi ha res al codi d'entrada que creï
+explícitament la barra.  A la segona aplicació, la barra es crea
+manualment amb l'expressió musical @code{[}; per tant, el nom del
+grob no cal (també apareix a la il·lustració una abreviatura: un
+sol nombre s'aplica als dos membres d'una parella).
+
+@lilypond[quote,verbatim]
+{
+  c''8 g'' e'' d''
+  \offset Beam.positions #'(-2 . -2)
+  c''8 g'' e'' d''
+  c''8 g'' e'' d''
+  c''8-\offset positions #-2 [ g'' e'' d'']
+}
+@end lilypond
+
+@subsubsubheading{@bs{}offset amb objectes extensos dividits}
+
+També es poden modificar segments d'un objecte que s'estén sobre
+un salt o salts de línia.  En aquest cas, @var{offsets} admet una
+llista de valors del tipus de dades requerit per la propietat.
+
+L'ordre @code{\offset} usada d'aquesta forma és semblant a l'ordre
+@code{\alterBroken} (vegeu @ref{Modificació d'objectes d'extensió
+dividits}).  No obstant això, a diferència de @code{\alterBroken},
+els valors que se li donen a @code{\offset} són relatius, no
+absoluts.
+
+A l'exemple següent desplaça l'objecte @q{dividit}
+@code{OttavaBracket} a través de la seva propietat
+@code{staff-padding}.  Atès que la propietat agafa un
+@code{number}, se li proporciona a @var{increments} una llista de
+nombres per aplicar-los als dos segments creats pel salt de
+línia.  La part de clau de la primera línia queda, en realitat,
+inalterada, ja que s'afageix @code{0} al seu valor per defecte de
+@code{staff-padding}.  El segment que està a la segona línia
+s'eleva tres espais de pentagrama a partir de la seva alçada per
+defecte.  L'alçada predeterminada resulta ser @code{2}, tot i que
+no cal saber-lo per aconseguir la posició desitjada.
+
+@lilypond[quote,verbatim]
+{
+  \offset staff-padding #'(0 3) Staff.OttavaBracket
+  \ottava #1
+  c'''2 c'''
+  \break
+  c'''2 c'''
+}
+@end lilypond
+
+L'exemple següent copia l'efecte de l'ordre @code{\shape}
+mitjançant l'increment de la propietat @code{control-points} de
+l'objecte @code{Slur}.  Aquí, @var{increments} és una llista de
+parelles de nombres, una per cada segment de la lligadura.  Aquest
+exemple produeix un resultat idèntic a la il·lustració
+corresponent que apareix a @ref{Modificació de les formes}.
+
+@lilypond[quote,verbatim]
+{
+  c'4-\offset control-points #'(
+               ((0 . 0) (0 . 0) (0 . 0) (0 . 1))
+               ((0.5 . 1.5) (1 . 0) (0 . 0) (0 . -1.5))
+              ) ( f'4 g' c''
+  \break
+  d'4 c'' f' c')
+}
+@end lilypond
+
+
+@node Modificació de les llistes-A
+@subsection Modificació de les llistes-A
+@translationof Modifying alists
+
+Certes propietats configurables per part de l'usuari es
+representen internament com @emph{llistes-A} (llistes
+associatives), que emmagatzemen duples de @emph{claves} i
+@emph{valors}.  L'estructura d'una llista-A és la següent:
+
+@example
+'((@var{clave1} . @var{valor1})
+  (@var{clave2} . @var{valor2})
+  (@var{clave3} . @var{valor3})
+  @dots{})
+@end example
+
+Si una llista-A és una propietat d'un grob o una variable de
+@code{\paper}, les seves claus es poden modificar individualment
+sense que afecti a les altres claus.
+
+Per exemple, per reduir l'espai entre pentagrames adjacents dins
+d'un grup, useu la propietat @code{staff-staff-spacing} del grob
+@code{StaffGrouper}.  La propietat és una llista-A amb quatre
+claus: @code{basic-distance} (distància bàsica),
+@code{minimum-distance} (distància mínima), @code{padding}
+(farcit) i @code{stretchability} (ampliabilitat).  Els ajustaments
+estàndard per a aquesta propietat es relacionen a la secció
+@qq{Backend} de la Referència de Funcionament Intern (vegeu
+@rinternals{StaffGrouper}):
+
+@example
+'((basic-distance . 9)
+  (minimum-distance . 7)
+  (padding . 1)
+  (stretchability . 5))
+@end example
+
+Una forma d'apropar els pentagrames entre sí és reduir el valor de
+la clau @code{basic-distance} (@code{9}) perquè es correspongui
+amb el valor de @code{minimum-distance} (@code{7}).  Per modificar
+una única clau de forma individual, utilitzeu una
+@emph{declaració niuada}:
+
+@lilypond[quote,verbatim]
+% espai predeterminat entre pentagrames
+\new PianoStaff <<
+  \new Staff { \clef treble c''1 }
+  \new Staff { \clef bass   c1   }
+>>
+
+% espai reduït entre pentagrames
+\new PianoStaff \with {
+  % aquesta és la declaració niuada
+  \override StaffGrouper.staff-staff-spacing.basic-distance = #7
+} <<
+  \new Staff { \clef treble c''1 }
+  \new Staff { \clef bass   c1   }
+>>
+@end lilypond
+
+La utilització d'una declaració niuada actualitza la clau
+especificada (com @code{basic-distance} a l'exemple anterior)
+sense alterar cap de les altres claus que ja s'havien establert
+per a la mateixa propietat.
+
+Ara suposem que desitgem que els pentagrames estiguin tan propers
+com sigui possible sense que es superposin.  La manera més
+senzilla de fer-lo és establir les quatre claus de la llista-A a
+zero.  Malgrat això, no cal escriure quatre declaracions niuades,
+una per cada clau.  En lloc d'això, es pot redefinir completament
+la propietat amb una sola declaració, com una llista-A:
+
+@lilypond[quote,verbatim]
+\new PianoStaff \with {
+  \override StaffGrouper.staff-staff-spacing =
+    #'((basic-distance . 0)
+       (minimum-distance . 0)
+       (padding . 0)
+       (stretchability . 0))
+} <<
+  \new Staff { \clef treble c''1 }
+  \new Staff { \clef bass   c1   }
+>>
+@end lilypond
+
+Observeu que qualsevol clau que no hagi estat relacionada
+explícitament a la definició de la llista-A, serà reiniciada als
+seus valors @emph{predeterminats si no s'han fixat}.  En el cas de
+@code{staff-staff-spacing}, el valor de qualsevol clau no fixada
+es reiniciaria a zero (excepte @code{stretchability}, que agafa el
+valor de @code{basic-distance} si no es fixa).  Aixi, les dues
+declaracions següents són equivalents:
+
+@example
+\override StaffGrouper.staff-staff-spacing =
+  #'((basic-distance . 7))
+
+\override StaffGrouper.staff-staff-spacing =
+  #'((basic-distance . 7)
+     (minimum-distance . 0)
+     (padding . 0)
+     (stretchability . 7))
+@end example
+
+Una conseqüència d'això (possiblement no intencionada) és
+l'eliminació de qualsevol valor estàndard que s'estableixi en un
+fitxer d'inici i que es carrega cada cop que es compila un fitxer
+d'entrada.  A l'exemple anterior, els ajustaments estàndard per a
+@code{padding} i @code{minimum-distance} (definits a
+@file{scm/define-grobs.scm}) es reinicien al seus valors
+predeterminats si no s'han fixat (zero per a les dues claus).  La
+definició d'una propietat o variable com una llista-A (de
+qualsevol mida) sempre reinicia tots els valors de clau no
+establertes als seus valors predeterminats si no s'han fixat.  A
+no ser que aquest sigui el resultat desitjat, és més segur
+actualitzar els valors de clau individualment amb una declaració
+niuada.
+
+@warning{Les declaracions niuades no funcionen per a les llists-A
+de propietats de context (com @code{beamExceptions},
+@code{keyAlterations}, @code{timeSignatureSettings}, etc.).
+Aquestes propietats sols es poden modificar redefinint-les
+completament com a llistes-A.}
+
+@node Conceptes i propietats útils
+@section Conceptes i propietats útils
+@translationof Useful concepts and properties
+
+
+@menu
+* Modes d'entrada::
+* Direcció i posició::
+* Distàncies i mesures::
+* Dimensions::
+* Propietats del símbol del pentagrama::
+* Objectes d'extensió::
+* Visibilitat dels objectes::
+* Estils de línia::
+* Rotació d'objectes::
+@end menu
+
+@node Modes d'entrada
+@subsection Modes d'entrada
+@translationof Input modes
+
+La forma en la qual s'interpreta la notació continguda dins d'un
+fitxer d'entrada està determinada pel mode d'entrada en curs.  En
+general, hi ha dues formes d'especificar el mode: una forma
+llarga, per exemple @code{\chordmode}, i una forma curta, per
+exemple @code{\chords}.  La forma llarga s'usa habitualment quan
+se subministra l'entrada a una variable o quan s'està escrivint
+l'entrada directament a un context creat explícitament.  La forma
+curta crea implícitament un context del tipus correcte per a
+l'entrada i li passa directament l'entrada.  És útil en situacions
+senzilles quan no hi ha cap requeriment de crear explícitament el
+context receptor.
+
+@subsubsubheading Mode d'acords
+
+S'activa amb l'ordre @code{\chordmode} i produeix que l'entrada
+s'interpreti amb la sintaxi de la notació d'acords, vegeu
+@ref{Notació d'acords}.  La música al mode d'acords es produeix
+com acords sobre un pentagrama quan s'entra a un context
+@code{Staff}, com noms d'acords quan s'entra a un context
+@code{ChordNames} o com diagrames de trastos quan s'entra a un
+context @code{FretBoards}.
+
+El mode d'acords s'activa també amb l'ordre @code{\chords}.  Això
+també produeix que el codi que segueix s'interpreti amb la sintaxi
+de la notació d'acords però addicionalment crea implícitament un
+nou context @code{ChordNames} i produeix noms d'acords a partir de
+l'entrada a ell, vegeu @ref{Impressió dels noms d'acord}.
+
+@subsubsubheading Mode de percussió
+
+S'activa amb l'ordre @code{\drummode} i produeix que el codi
+d'entrada s'interpreti amb la sintaxi de la notació de percussió,
+vegeu @ref{Notació bàsica de percussió}. La música en mode de
+percussió es produeix com a notes de percussió quan s'entra a un
+context @code{DrumStaff}.
+
+El mode de producció també s'activa amb l'ordre
+@code{\drums}.  També fa que el codi que segueix s'interpreti amb
+la sintaxi de la notació de percussió però addicionalment crea
+implícitament un nou context @code{DrumStaff} i produeix les notes
+com notes de percussió, vegeu @ref{Notació bàsica de percussió}.
+
+@subsubsubheading Mode xifrat
+
+S'activa amb l'ordre @code{\figuremode} i fa que el codi d'entrada
+s'interpreti amb sintaxi de baix xifrat, vegeu @ref{Introduir el
+baix xifrat}.  La música en mode de xifres es produeix com baix
+xifrat quan s'entra a un context @code{FiguredBass} o a un context
+@code{Staff}.
+
+El mode xifrat també s'activa amb l'ordre @code{\figures}.  També
+fa que el codi que ve a continuació s'interpreti amb la sintaxi
+del baix xifrat però addicionalment crea implícitament un nou
+context @code{FiguredBass} i produeix baix xifrat a partir de
+l'entrada, vegeu @ref{Introducció al baix xifrat}.
+
+@subsubsubheading Modes de trast i tabulatura
+
+No hi ha modes d'entrada especials per introduir símbols de
+trastos i de tabulatura.
+
+Per crear diagrames de trastos, escriviu les notes o acords en el
+mode de notes i imprimiu-los dins d'un context @code{TabStaff},
+vegeu @ref{Tabulatures predeterminades}.
+
+Per crear diagrames de trastos a sobre d'un pentagrama, entreu
+notes o acords o bé en mode de notes o bé en mode d'acords i
+produïu-les en un context @code{FretBoards} context, vegeu
+@ref{Diagrames de trast automàtics}. Alternativament, els
+diagrames de trastos es poden introduir com elements de marcatge a
+sobre de les notes utilitzant l'ordre @code{\fret-diagram}, vegeu
+@ref{Marcatges de diagrames de trasts}.
+
+@subsubsubheading Mode de lletra
+
+S'activa amb l'ordre @code{\lyricmode}, i fa que l'entrada
+s'interpreti com a síl·labes de la lletra de la cançó amb
+duracions opcionals i modificadors de lletra associats, vegeu
+@ref{Música vocal}.  Input in
+lyric mode is rendered as lyric syllables when entered into a
+@code{Lyrics} context.
+
+El mode de lletra també s'habilita amb l'ordre
+@code{\addlyrics}.  Això també causa que l'entrada següent
+s'interpreti com a síl·labes de lletra però addicionalment crea
+implícitament un nou context @code{Lyrics} i produeix síl·labes de
+lletra a partir de l'entrada.
+
+El mode de lletra també s'activa amb l'ordre
+@code{\addlyrics}. Aixo també crea un context @code{Lyrics} nou i
+a més afegeix una ordre @code{\lyricsto} implícita que associa la
+lletra que ve a continuació amb la música precedent, vegeu
+@ref{Duració automàtica de les síl·labes}.
+
+@subsubsubheading Modo de marcatge
+
+S'activa amb l'ordre @code{\markup}, i fa que l'entrada
+s'interpreti amb la sintaxi del marcatge, vegeu
+@ref{Ordres de marcatge de text}.
+
+@subsubsubheading Mode de notes
+
+És el mode predeterminat o es pot activar amb l'ordre
+@code{\notemode}.  L'entrada s'interpreta com altures, duracions,
+marcatge, etc., i es grava com notació musical sobre un pentagrama.
+
+Normalment no cal especificar el mode de notes de forma explícita,
+però pot ser útil fer-lo en certes situacions, per exemple si
+estem al mode de lletra, el mode d'acords o en un altre mode i
+volem inserir quelcom que sols es pot fer amb la sintaxi del mode
+de notes.
+
+@node Direcció i posició
+@subsection Direcció i posició
+@translationof Direction and placement
+
+En gravar música, la direcció i col·locació de molts elements és
+qüestió d'elecció.  Per exemple, les pliques de les notes es poden
+dirigir cap a munt o cap avall; la lletra, les indicacions
+dinàmiques i altres marques expressives es poden col·locar a sobre
+o a sota del pentagrama; el text es pot alinear a l'esquerra, a la
+dreta o centrada; etc.  La majoria d'aquestes eleccions poden
+deixar-se que el Lilypond les determini automàticament, però en
+certs casos pot ser desitjable forçar una direcció o col·locació
+concreta.
+
+@menu
+* Indicadors de direcció de les articulacions::
+* La propietat de direcció::
+@end menu
+
+
+@node Indicadors de direcció de les articulacions
+@unnumberedsubsubsec Indicadors de direcció de les articulacions
+@translationof Articulation direction indicators
+
+De forma predeterminada algunes direccions sempre són cap amunt o
+sempre cap avall (per exemple els matisos o el calderó), mentre
+que d'altres coses poden alternar entre amunt i avall en funció de
+la direcció de les pliques (com les lligadures o els accents).
+
+@c TODO Add table showing these
+
+Es pot sobreescriure l'acció predeterminada mitjançant el prefixat
+de l'articulació per un @emph{indicador de direcció}.  Hi ha
+disponibles tres indicadors de direcció: @code{^} (que significa
+@qq{a dalt}, @code{_} (que significa @qq{a sota}) o
+@code{-} (que significa @qq{usar la direcció predeterminada}).
+L'indicador de direcció es pot normalment ometre, cosa que suposa
+l'indicador predeterminat @code{-}, però cal un indicador de
+direcció @strong{sempre} abans de:
+
+@itemize
+@item les ordres @code{\tweak}
+@item les ordres @code{\markup}
+@item les ordres @code{\tag}
+@item els marcatges de cadena, per exemple -"cadena"
+@item les ordres de digitació, per exemple @w{@code{-1}}
+@item les abreviatures d'articulació, per exemple @w{@code{-.}}, @w{@code{->}}, @w{@code{--}}
+@end itemize
+
+Aquestes ordres afecten sols a la nota següent.
+
+@lilypond[verbatim,quote]
+\relative {
+  c''2( c)
+  c2_( c)
+  c2( c)
+  c2^( c)
+}
+@end lilypond
+
+
+@node La propietat de direcció
+@unnumberedsubsubsec La propietat de direcció
+@translationof The direction property
+
+La posició o direcció de molts objectes de presentació està
+controlada per la propietat @code{direction}.
+
+El valor de la propietat @code{direction} es pot establir al valor
+@code{1}, amb el significat de @qq{cap amunt} o @qq{a sobre}, o a
+@w{@code{-1}}, amb el significat @qq{cap avall} o @qq{a sota}.  Es
+poden usar els símbols @code{UP} i
+
+Se pueden usar los símbolos @code{UP} i
+@code{DOWN} en substitució de @code{1} i @w{@code{-1}}
+respectivament.  La direcció predeterminada es pot especificar
+establint @code{direction} a @code{0} o a @code{CENTER}.  De forma
+alternativa, en molts casos hi ha ordres predefinides per
+especificar la direcció.  Totes elles són de la forma:
+
+@example
+\xxxUp, \xxxDown or \xxxNeutral
+@end example
+
+@noindent
+on @code{\xxxNeutral} significa @qq{utilitzar la direcció
+predeterminada}. Vegeu
+@rlearning{Objectes interiors al pentagrama}.
+
+En algunes ocasions com a l'arpegi, el valor de la propietat
+@code{direction} pot especificar si l'objecte s'ha de col·locar a
+l'esquerra o a la dreta de l'objecte pare.  En aquest cas
+@w{@code{-1}} o @code{LEFT} signifiquen @qq{a l'esquerra} i
+@code{1} o @code{RIGHT} signifiquen @qq{a la dreta}.  @code{0} o
+@code{CENTER} signifiquen @qq{utilitzar la direcció
+predeterminada}.
+
+Aquestes indicacions afecten a totes les notes fina que són cancel·lades.
+
+@lilypond[verbatim,quote]
+\relative {
+  c''2( c)
+  \slurDown
+  c2( c)
+  c2( c)
+  \slurNeutral
+  c2( c)
+}
+@end lilypond
+
+A la música polifònica, en general és millor especificar una veu
+explícita que canviar la direcció d'un objecte.  Per veure més
+informació, vegeu @ref{Veus múltiples}.
+
+@seealso
+Manual de aprenentatge
+@rlearning{Objectes interiors al pentagrama}.
+
+Referència de la notació:
+@ref{Veus múltiples}.
+
+
+@node Distàncies i mesures
+@subsection Distàncies i mesures
+@translationof Distances and measurements
+
+@cindex distancies absolutes
+@cindex distancies escalades
+
+@funindex \mm
+@funindex \cm
+@funindex \in
+@funindex \pt
+
+Les distàncies al LilyPond són de dos tipus: absolutes i
+escalades.
+
+Les distàncies absolutes s'usen per especificar marges, sagnats i
+altres detalls de disseny de la pàgina, i de forma predeterminada
+s'especifiquen en mil·límetres.  Les distàncies es poden
+especificar en altres unitats escrivint després de la xifra
+indicativa de la quantitat, @code{\mm}, @code{\cm},
+@code{\in}@tie{}(polzades), o @code{\pt}@tie{}(punts, 1/72.27
+polzades).  Les distàncies de disseny de pàgina es poden
+especificar també en unitats escalables (vegeu el paràgraf
+següent) adjuntant @code{\staff-space} a la quantitat.  La
+disposició de pàgina es descriu en detall a
+@ref{Disposició de la pàgina}.
+
+Les distàncies escalades sempre s'especifiquen en unitats d'un
+espai del pentagrama o, més rarament, mig espai del pentagrama.
+L'espai de pentagrama és la distància entre dos línies del
+pentagrama adjacents.  El valor predeterminat es pot canviar
+globalment fixant la mida global del pentagrama, o es pot
+sobreescriure localment canviant la propietat @code{staff-space}
+de l'objecte @code{StaffSymbol}.  Les distàncies escalades
+s'escalen automàticament amb qualsevol canvi a la mida global del
+pentagrama o a la propietat @code{staff-space} de l'objecte
+@code{StaffSymbol}, però els tipus de lletra s'escalen sols amb
+els canvis efectuats a la mida global del pentagrama.  Així, la
+mida global del pentagrama possibilita la variació fàcil de la
+mida general d'una partitura gravada.  Per veure els mètodes
+d'establiment de la mida global del pentagrama, vegeu
+@ref{Establiment de la mida del pentagrama}.
+
+@funindex magstep
+
+Si cal dibuixar sols una secció d'una partitura a una escala
+diferent, per exemple una secció ossia o una nota al peu, no es
+pot simplement canviar la mida global del pentagrama, perquè això
+afectaria a tota la partitura.  En aquests casos, el canvi de mida
+es fa sobreescrivint tant la propietat @code{staff-space} de
+@code{StaffSymbol} com la mida dels tipus de lletra.  Hi ha
+disponible una funció de l'Scheme, @code{magstep}, per convertir
+des d'un canvi de la mida de la lletra fins un canvi equivalent a
+@code{staff-space}.  Per veure una explicació i un exemple
+d'utilització, consulteu
+@rlearning{Longitud i gruix dels objectes}.
+
+@seealso
+Manual d'aprenentatge;
+@rlearning{Longitud i gruix dels objectes}.
+
+Referència de la notació:
+@ref{Disposició de la pàgina},
+@ref{Establiment de la mida del pentagrama}.
+
+@node Dimensions
+@subsection Dimensions
+@translationof Dimensions
+
+@cindex dimensions
+@cindex caixa circumdant
+
+Les dimensions d'un objecte gràfic especifiquen les posicions dels
+límits esquerre i dret, aixi com els límits inferiors i superior
+de les caixes limítrofs dels objectes amb distàncies a partir del
+punt de referència de l'objecte en unitats d'espais de
+pentagrama.  Aquestes posicions es codifiquen freqüentment com
+dues parelles de valors de l'Scheme.  Per exemple, l'ordre de
+marcatge de text @code{\with-dimensions} agafa tres arguments,
+dels quals els dos primers son una parella de l'Scheme que dóna
+les posicions dels cantons esquerre i dret i una altra parella de
+l'Scheme que dona posicions dels límits inferior i superior:
+
+@example
+\with-dimensions #'(-5 . 10) #'(-3 . 15) @var{arg}
+@end example
+
+Això especifica una caixa circumdant per a @var{arg} amb el seu
+límit a -5, el seu límit a 10, l'inferior a -3 i el superior a
+15, tots ells mesurats a partir del punt de referència de
+l'objecte en unitats d'espais de pentagrama.
+
+@seealso
+Referència de la notació:
+@ref{Distàncies i mesures}.
+
+
+@node Propietats del símbol del pentagrama
+@subsection Propietats del símbol del pentagrama
+@translationof Staff symbol properties
+
+@cindex ajust del símbol del pentagrama
+@cindex dibuixar el símbol del pentagrama
+@cindex pentagrama, establir el símbol del
+
+@c TODO Extend or remove this section.  See also NR 1.6.2 Staff symbol
+@c      Need to think of uses for these properties.  Eg 'line-positions
+@c      is used in a snippet to thicken centre line.
+@c      If retained, add @ref to here in 1.6.2  -td
+
+Es pot definir al mateix temps la posició vertical de les línies
+de la pauta i el nombre de línies d'ella.  Com mostra l'exemple
+següent, les posicions de les notes no estan influïdes per les
+posicions de les línies de pauta.
+
+@warning{La propietat @code{'line-positions} sobreescriu a la
+propietat @code{'line-count}.  El nombre de línies de la pauta
+està definida implícitament pel nombre d'elements de la llista de
+valors de @code{'line-positions}.}
+
+@lilypond[verbatim,quote]
+\new Staff \with {
+  \override StaffSymbol.line-positions = #'(7 3 0 -4 -6 -7)
+}
+\relative { a4 e' f b | d1 }
+@end lilypond
+
+Es pot modificar l'amplada de la pauta.  Les unitats són espais de
+pentagrama.  L'espaiat dels objectes dins del pentagrama no
+resulta afectat per aquest ajustament.
+
+@lilypond[verbatim,quote]
+\new Staff \with {
+  \override StaffSymbol.width = #23
+}
+\relative { a4 e' f b | d1 }
+@end lilypond
+
+
+@node Objectes d'extensió
+@subsection Objectes d'extensió
+@translationof Spanners
+
+Molts objectes de notació musical abasten diverses notes o fins i
+tot diversos compassos.  Són exemples els crescendi, trins,
+claus de grups especials i claus de primera i segona veu.  Aquests
+objectes s'anomenen @qq{spanners} o «objectes d'extensió», i tenen
+propietats especials per controlar la seva aparença i
+comportament.  Algunes d'aquestes propietats són comunes a tots
+els objectes d'extensió; d'altres es limiten a un subconjunt dels
+extensors.
+
+Tots els objectes d'extensió donen suport a la interfície
+@code{spanner-interface}.  Alguns, bàsicament aquells que tracen
+una línia recta entre els dos objectes, donen suport també  la
+interfície @code{line-spanner-interface}.
+
+@menu
+* Ús de la spanner-interface::
+* Ús de la line-spanner-interface::
+@end menu
+
+@node Ús de la spanner-interface
+@unnumberedsubsubsec Ús de la @code{spanner-interface}
+@translationof Using the spanner-interface
+
+Aquesta interfície proporciona dues propietats que s'apliquen a
+diversos extensors.
+
+@subsubsubheading La propietat @code{minimum-length} (longitud mínima)
+
+La longitud mínima de l'objecte d'extensió s'especifica a través
+de la propietat @code{minimum-length}.  El seu augment sol produir
+l'efecte necessari d'augmentar l'espaiat de les notes entre els
+dos punts extrems.  Malgrat això, aquesta sobreescriptura no té
+cap efecte sobre molts extensors, atès que la seva longitud està
+determinada per altres consideracions.  Més a sota es mostren
+exemples de a on és efectiva.
+
+@ignore
+Works for:
+  Tie
+  MultiMeasureRest
+  Hairpin
+  Slur
+  PhrasingSlur
+
+Works as long as callback is made:
+  Glissando
+  Beam
+
+Works not at all for:
+  LyricSpace
+  LyricHyphen
+  LyricExtender
+  TextSpanner
+  System
+
+@end ignore
+
+@lilypond[verbatim,quote,fragment]
+a'~ a'
+a'
+% incrementa la longitud de la lligadura d'unió
+-\tweak minimum-length #5
+~ a'
+@end lilypond
+
+@lilypond[verbatim,quote]
+\relative \compressMMRests {
+  a'1
+  R1*23
+  % incrementa la longitud del compàs d'espera
+  \once \override MultiMeasureRest.minimum-length = #20
+  R1*23
+  a1
+}
+@end lilypond
+
+@lilypond[verbatim,quote]
+\relative {
+  a' \< a a a \!
+  % incrementa la longitud de les marques expressives
+  \override Hairpin.minimum-length = #20
+  a \< a a a \!
+}
+@end lilypond
+
+Aquesta sobreescriptura es pot usar també per augmentar la
+longitud de les lligadures d'expressió i de fraseig:
+
+@lilypond[verbatim,quote]
+\relative {
+  a'( g)
+  a
+  -\tweak minimum-length #5
+  ( g)
+
+  a\( g\)
+  a
+  -\tweak minimum-length #5
+  \( g\)
+}
+@end lilypond
+
+Per alguns objectes de presentació, la propietat
+@code{minimum-length} és efectiva sols si es crida explícitament
+al procediment @code{set-spacing-rods}.  Para fer-lo, s'ha de
+fixar la propietat @code{springs-and-rods} al valor
+@code{ly:spanner::set-spacing-rods}. Per exemple, la longitud
+mínima d'un glissando no té efecte a no ser que s'estableixi la
+propietat @code{springs-and-rods}:
+
+@lilypond[verbatim,fragment,quote]
+% default
+e' \glissando c''
+
+% no és efectiu per si sol
+\once \override Glissando.minimum-length = #20
+e' \glissando c''
+
+% sols efectiu si estan presents els dos overrida
+\once \override Glissando.minimum-length = #20
+\once \override Glissando.springs-and-rods = #ly:spanner::set-spacing-rods
+e' \glissando c''
+@end lilypond
+
+El mateix es pot dir de l'objecte @code{Beam}:
+
+@lilypond[verbatim,fragment,quote]
+% no és efectiu per si sol
+\once \override Beam.minimum-length = #20
+e'8 e' e' e'
+
+% sols efectiu si estan presents els dos overrida
+\once \override Beam.minimum-length = #20
+\once \override Beam.springs-and-rods = #ly:spanner::set-spacing-rods
+e'8 e' e' e'
+@end lilypond
+
+@subsubsubheading La propietat @code{to-barline}
+
+La segona propietat útil del @code{spanner-interface} és
+@code{to-barline}.  De forma predeterminada té el valor CERT, fent
+que els reguladors i altres objectes d'extensió que acaben sobre
+la primera nota d'un compàs, en comptes d'això acabin a la línia
+divisòria immediatament precedent.  Si s'estableix al valor FALS,
+l'extensor arribarà més enllà de la barra de compàs i acabarà
+exactament sobre la nota:
+
+@lilypond[verbatim,quote]
+\relative {
+  a' \< a a a a \! a a a \break
+  \override Hairpin.to-barline = ##f
+  a \< a a a a \! a a a
+}
+@end lilypond
+
+Aquesta propietat no és efectiva per tots els extensors.  Per
+exemple, el seu establiment a @code{#t} no té cap efecte sobre les
+lligadures d'expressió o de fraseig, o sobre altres extensors per
+als que terminar a la barra de compàs no tindria cap significat.
+
+@node Ús de la line-spanner-interface
+@unnumberedsubsubsec Ús de la @code{line-spanner-interface}
+@translationof Using the line-spanner-interface
+
+Entre els objectes que donen suport a l'interfície
+@code{line-spanner-interface} es troben:
+
+@itemize
+@item @code{DynamicTextSpanner}
+@item @code{Glissando}
+@item @code{TextSpanner}
+@item @code{TrillSpanner}
+@item @code{VoiceFollower}
+@end itemize
+
+La rutina responsable de dibuixar els segells d'aquests extensors és
+@code{ly:line-spanner::print}.  Aquesta rutina determina la
+localització exacta de les dues punts extrems i traça una línia
+entre ells, a l'estil sol·licitat.  Les posicions dels dos punts
+extrems de l'extensor es calculen al vol, però és possible
+sobreescriure les seves coordenades Y.  Les propietats que s'ha
+d'especificar estan niuades a deus nivells de profunditat a la
+jerarquia de propietats, però la sintaxi de profunditat a la
+jerarquia de propietats, però la sintaxi de l'ordre
+@code{\override} és força senzilla:
+
+@lilypond[quote,fragment,verbatim]
+e''2 \glissando b'
+\once \override Glissando.bound-details.left.Y = #3
+\once \override Glissando.bound-details.right.Y = #-2
+e''2 \glissando b'
+@end lilypond
+
+Les unitats per a la propietat @code{Y} són els espais
+@code{staff-space}, sent el punt del zero la linia central del
+pentagrama.  Per al glissando, això és el valor de @code{Y} a la
+coordenada X que correspon al punt central de cada cap de nota si
+ens imaginem que la línia s'estén fins aquí.
+
+SI no està fixat @code{Y}, els seu valor es calcula a partir de la
+posició vertical del punt ancoratge corresponen ¡t de l'extensor.
+
+En cas de salt de línia, els valors per als punts extrems
+s'especifiquen per les sub-llistes @code{left-broken} i
+@code{right-broken} de @code{bound-details}.  Per exemple:
+
+@lilypond[ragged-right,fragment,verbatim,quote]
+\override Glissando.breakable = ##t
+\override Glissando.bound-details.right-broken.Y = #-3
+c''1 \glissando \break
+f''1
+@end lilypond
+
+Un nombre de propietats addicionals de les sub-llistes @code{left}
+i @code{right} de la propietat @code{bound-details} es poden
+especificar de la mateixa forma que @code{Y}:
+
+@table @code
+@item Y
+Estableix la coordenada Y del punt extrem, en desplaçaments de
+espais @code{staff-space} des de la línia central del pentagrama.
+De forma predeterminada és el centre de l'objecte àncora, i així
+un glissando apunta al centre vertical del cap de la nota.
+
+Per extensors horitzontals com els extensors de text i els trins,
+està fixat a 0 sense possibilitat de canviar-lo.
+
+@item attach-dir (direcció d'ancoratge)
+Determina on comença i acaba la línia de la direcció X, amb
+relació a l'objecte àncora.  Sí, un valor de @w{@code{-1}} (o
+@code{LEFT}, esquerra) Fa que la línia comenci a acabi en cantó
+esquerre del cap de la nota a la que està ancorada.
+
+@item X
+És la coordenada X absoluta del punt extrem.  Se sol calcular al
+vol, i la seva sobreescriptura no té un efecte útil.
+
+@item stencil (segell)
+Els extensors de línia poden tenir símbols al començament o al
+final, i això està contingut a aquesta sub-propietat.  Això és per
+a ús intern; es recomana enlloc d'això l'ús de @code{text}.
+
+@item text (texto)
+És un element de marcatge que s'avalua per donar al lloc al
+segell.  S'usa per escriure @i{cresc.}, @i{tr} i altres textos
+sobre els objectes d'extensió horitzontals.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\override TextSpanner.bound-details.left.text
+   = \markup { \small \bold Slower }
+\relative { c''2\startTextSpan b c a\stopTextSpan }
+@end lilypond
+
+@item stencil-align-dir-y (alineació del segell en y)
+@item stencil-offset (desplaçament del segell)
+Si no es modifiquen l'un o l'altre, el segell es col·loca
+senzillament al punt extrem, centrat sobre la línia, com ve
+definit per les sub-propietats @code{X} i @code{Y}.  Si
+s'estableixen @code{stencil-align-dir-y} o @code{stencil-offset}
+es mourà el símbol de la vora verticalment amb relació a l'extrem
+de la línia:
+
+@lilypond[quote,fragment,verbatim]
+\override TextSpanner.bound-details.left.stencil-align-dir-y = #-2
+\override TextSpanner.bound-details.right.stencil-align-dir-y = #UP
+
+\override TextSpanner.bound-details.left.text = "ggg"
+\override TextSpanner.bound-details.right.text = "hhh"
+
+\relative { c'4^\startTextSpan c c c \stopTextSpan }
+@end lilypond
+
+Observeu que els valors negatius mouen el text @emph{cap amunt},
+al contrari del podria esperar-se, atès que el valor de
+@w{@code{-1}} o @code{DOWN} (avall) significa alinear la vora
+@emph{inferior} del text amb la línia d'extensió.  Un valor de
+@code{1} o @code{UP} (amunt) alinea la vora superior del text amb
+la línia extensora.
+
+@item arrow (fletxa)
+En establir aquesta sub-propietat a @code{#t} es produeix una
+punta de fletxa a l'extrem de la línia.
+
+@item padding (farcit)
+Aquesta sub-propietat controla l'espai entre el punt extrem
+especificat de la línia i l'extrem real.  Sense farcit, un
+glissando començaria i acabaria al centre del cap de les notes.
+
+@end table
+
+La funció musical @code{\endSpanners} finalitza de forma prematura
+l'extensor que comença sobre la nota que segueix immediatament a
+continuació.  S'acaba després d'una nota exactament, o en la
+següent barra de compàs si @code{to-barline} és vertader i es
+produeix una divisòria abans de la nota següent.
+
+@lilypond[verbatim,quote,ragged-right]
+\relative c'' {
+  \endSpanners
+  c2 \startTextSpan c2 c2
+  \endSpanners
+  c2 \< c2 c2
+}
+@end lilypond
+
+Si s'usa @code{\endSpanners} no cal tancar \startTextSpan amb
+\stopTextSpan, ni tancar els reguladors amb @code{\!}.
+
+@seealso
+Referència de funcionament intern:
+@rinternals{TextSpanner},
+@rinternals{Glissando},
+@rinternals{VoiceFollower},
+@rinternals{TrillSpanner},
+@rinternals{line-spanner-interface}.
+
+
+@node Visibilitat dels objectes
+@subsection Visibilitat dels objectes
+@translationof Visibility of objects
+
+@cindex objectes, visibilitat de
+@cindex grobs, visibilitat de
+@cindex visibilitat dels objectes
+
+Hi ha quatre formes principals en les quals es pot controlar la
+visibilitat dels objectes de presentació: es pot eliminar el seu
+segell, es poden tornar transparents, es poden pintar de blanc, o
+es pot sobreescriure la seva propietat @code{break-visibility}.
+Les tres primeres s'apliquen a totes els objectes de presentació;
+l'última sols a uns pocs: els objectes @emph{divisibles}.  El
+Manual d'aprenentatge introdueix aquestes quatre tècniques, vegeu
+@rlearning{Visibilitat i color dels objectes}.
+
+Hi ha també algunes altres tècniques que són específiques de certs
+objectes de presentació.  S'estudien sota Consideracions especials.
+
+@menu
+* Eliminació del segell::
+* Fer transparents els objectes::
+* Pintar els objectes de blanc::
+* Ús de break-visibility (visibilitat al salt)::
+* Consideracions especials::
+@end menu
+
+
+@node Eliminació del segell
+@unnumberedsubsubsec Eliminació del segell
+@translationof Removing the stencil
+
+@cindex segell, eliminar
+@funindex \omit
+
+Tots els objectes de presentació tenen una propietat stencil
+(segell).  De forma predeterminada està establerta a la funció
+específica que dibuixa aquest objecte.  Si se sobreescriu aquesta
+propietat a @code{#f} no es crida cap funció i l'objecte no es
+dibuixa.  L'acció predeterminada es pot recuperar amb @code{\revert}.
+
+@lilypond[quote,fragment,verbatim]
+a1 a
+\override Score.BarLine.stencil = ##f
+a a
+\revert Score.BarLine.stencil
+a a a
+@end lilypond
+
+Aquesta operació, força comú, té la forma abreujada
+@code{\omit} com a drecera:
+
+@lilypond[quote,fragment,verbatim]
+a1 a
+\omit Score.BarLine
+a a
+\undo \omit Score.BarLine
+a a a
+@end lilypond
+
+
+@node Fer transparents els objectes
+@unnumberedsubsubsec Fer transparents els objectes
+@translationof Making objects transparent
+
+@cindex transparents, fer els objectes
+@funindex \hide
+
+Tots els objectes de presentació tenen una propietat transparent
+que de forma predeterminada està establerta a @code{#f}.  Si es
+fixa a @code{#t} l'objecte encara ocupa espai però és invisible.
+
+@lilypond[quote,fragment,verbatim]
+a'4 a'
+\once \override NoteHead.transparent = ##t
+a' a'
+@end lilypond
+
+Aquesta operació, força comuna, té la forma abreujada @code{\hide}
+com a sota:
+
+@lilypond[quote,fragment,verbatim]
+a'4 a'
+\once \hide NoteHead
+a' a'
+@end lilypond
+
+
+@node Pintar els objectes de blanc
+@unnumberedsubsubsec Pintar els objectes de blanc
+@translationof Painting objects white
+
+@cindex objectes, acolorit de
+@cindex acolorit d'objectes
+@cindex capes
+@cindex impressió, ordre de
+@cindex sobreescriptura d'objectes
+@cindex objectes, sobreescriptura de
+@cindex grobs, sobreescriptura de
+
+Tots els objectes de presentació tenen una propietat de color que
+de forma predeterminada està establerta a @code{black} (negre).
+Si se sobreescriu a @code{white} (blanc) l'objecte serà
+indistinguible del fons blanc.  Malgrat això, si l'objecte creua a
+altres objectes, el color dels punts de creuament queda determinat
+per l'ordre en el qual es dibuixen aquests objectes, cosa que pot
+deixar una imatge fantasma de l'objecte blanc, com pot veure's aquí:
+
+@lilypond[quote,fragment,verbatim]
+\override Staff.Clef.color = #white
+a'1
+@end lilypond
+
+Es pot evitar això canviant l'ordre d'impressió dels objectes.
+Tots els objectes de presentació tenen una propietat
+@code{layer} (capa) que s'ha d'establir a un valor enter.  Els
+objectes amb el valor de @code{layer} més baix es dibuixen primer,
+després es dibuixen els objectes amb valors més alts es dibuixen a
+sobre dels que tenen valors més baixos.  De forma predeterminada,
+gairebé tots els objectes tenen assignada un valor @code{layer} de
+@code{1}, tot i que alguns objectes, entre ells el pentagrama i
+les línies divisòries, @code{StaffSymbol} i @code{BarLine}, tenen
+assignat un calor de @code{0}.  L'ordre d'impressió dels objectes
+amb el mateix valor de @code{layer} és indeterminat.
+
+A l'exemple de dalt, la clau blanca, amb un valor
+@code{layer} predeterminat de @code{1}, es dibuixa després de les
+línies del pentagrama (valor @code{layer} predeterminat de
+@code{0}), sobreimpressionant-les.  Per canviar-lo, s'ha de donar
+a l'objecte @code{Clef} un valor de @code{layer} més baix, diguem-ne
+@w{@code{-1}}, perquè es dibuixi abans:
+
+@lilypond[quote,fragment,verbatim]
+\override Staff.Clef.color = #white
+\override Staff.Clef.layer = #-1
+a'1
+@end lilypond
+
+
+@node Ús de break-visibility (visibilitat al salt)
+@unnumberedsubsubsec Ús de break-visibility (visibilitat al salt)
+@translationof Using break-visibility
+
+@c TODO Add making other objects breakable
+
+@cindex break-visibility
+
+Gairebé tots els objecte de presentació s'imprimeixen un sol cop,
+però alguns com les línies divisòries, les claus, les indicacions
+de compàs i armadures de tonalitat, es poden haver d'imprimir dos
+cops quan es produeix un salt de línia: un cop al final de la
+línia i un altre al començament de la següent.  Aquests objectes
+reben el nom de @emph{divisibles}, y tenen una propietat,
+@code{break-visibility} (visibilitat al salto), per controlar
+la seva visibilitat a les tres posicions en les quals pot
+aparèixer: al començament d'una línia, dins de la línia si es
+produeix un canvi, i al final de la línia si el canvi es produeix
+en aquest lloc.
+
+Per exemple, la indicació de compàs s'imprimeix de forma
+predeterminada al començament de la primera línia i en cap altre
+lloc a no ser que es canviï, i en aquest cas s'imprimeix al punt
+en el qual es produeix el canvi.  Si aquest canvi es produeix al
+final d'una línia, la nova indicació de compàs s'imprimeix al
+principi de la línia següent i també al final de la línia anterior
+com indicació de precaució.
+
+Aquest comportament es controla per mitjà de la propietat
+@code{break-visibility}, que s'explica a
+@c Leave this ref on a newline - formats incorrectly otherwise -td
+@rlearning{Visibilitat i color dels objectes}.  Aquesta propietat
+agafa un vector de tres valors booleans que, per ordre, determinen
+si l'objecte s'imprimeix al final, a dins, o al principi de la
+línia.  O, per ser més exactes: abans del salt de línia, si no hi
+ha salta, o després del salt.
+
+Com alternativa es pot especificar qualssevol de les vuit
+combinacions mitjançant funcions predefinides la definició de les
+qual està a @file{scm/output-lib.scm}, on les tres últimes
+columnes indiquen si els objectes de presentació seran visibles a
+les posicions que es mostren a l'encapçalament de cada columna:
+
+@multitable {@code{begin-of-line-invisible}} {@code{#(#t #t #t)}} {Abans del} {Si no hi ha} {Després del}
+@headitem Forma                   @tab Forma                  @tab Abans del @tab Si no hi ha    @tab Després del
+@headitem de funció              @tab de vector              @tab salt     @tab salt        @tab salt
+
+@item @code{all-visible}             @tab @code{#(#t #t #t)}     @tab sí     @tab sí       @tab sí
+@item @code{begin-of-line-visible}   @tab @code{#(#f #f #t)}     @tab no     @tab no       @tab sí
+@item @code{center-visible}          @tab @code{#(#f #t #f)}     @tab no     @tab sí       @tab no
+@item @code{end-of-line-visible}     @tab @code{#(#t #f #f)}     @tab sí     @tab no       @tab no
+@item @code{begin-of-line-invisible} @tab @code{#(#t #t #f)}     @tab sí     @tab sí       @tab no
+@item @code{center-invisible}        @tab @code{#(#t #f #t)}     @tab sí     @tab no       @tab sí
+@item @code{end-of-line-invisible}   @tab @code{#(#f #t #t)}     @tab no     @tab sí       @tab sí
+@item @code{all-invisible}           @tab @code{#(#f #f #f)}     @tab no     @tab no       @tab no
+@end multitable
+
+Els ajustaments predeterminats de @code{break-visibility} depenen
+de l'objecte de presentació.  La taula següent mostra tots els
+objectes de presentació d'interès que resulten afectats per
+@code{break-visibility} i l'ajustament predeterminat d'aquesta propietat:
+
+@multitable @columnfractions .3 .3 .4
+
+@headitem Objecte   @tab Context usual  @tab Valor predet.
+
+@c omit Ambitus as it appears not to be affected by break-visibility -td
+@c @item @code{Ambitus}          @tab as specified   @tab @code{begin-of-line-visible}
+@item @code{BarLine}             @tab @code{Score}          @tab calculat
+@item @code{BarNumber}           @tab @code{Score}          @tab @code{begin-of-line-visible}
+@c omit the following item until it can be explained -td
+@c @item @code{BreakAlignGroup}  @tab @code{Score}          @tab calculat
+@item @code{BreathingSign}       @tab @code{Voice}          @tab @code{begin-of-line-invisible}
+@item @code{Clef}                @tab @code{Staff}          @tab @code{begin-of-line-visible}
+@item @code{Custos}              @tab @code{Staff}          @tab @code{end-of-line-visible}
+@item @code{DoublePercentRepeat} @tab @code{Voice}          @tab @code{begin-of-line-invisible}
+@item @code{KeyCancellation}     @tab @code{Staff}          @tab @code{begin-of-line-invisible}
+@item @code{KeySignature}        @tab @code{Staff}          @tab @code{begin-of-line-visible}
+@c omit LeftEdge until it can be explained -td
+@c @item @code{LeftEdge}         @tab @code{Score}          @tab @code{center-invisible}
+@item @code{ClefModifier}       @tab @code{Staff}          @tab @code{begin-of-line-visible}
+@item @code{RehearsalMark}       @tab @code{Score}          @tab @code{end-of-line-invisible}
+@item @code{TimeSignature}       @tab @code{Staff}          @tab @code{all-visible}
+
+@end multitable
+
+L'exemple de sota mostra l'ús de la forma de vector per controlar
+la visibilitat de les línies divisòries:
+
+@lilypond[quote,verbatim,ragged-right]
+\relative {
+  f'4 g a b
+  f4 g a b
+  % Elimina la línia de compàs al final de la línia actual
+  \once \override Score.BarLine.break-visibility = ##(#f #t #t)
+  \break
+  f4 g a b
+  f4 g a b
+}
+@end lilypond
+
+Tot i que els tres components del vector utilitzar per
+sobreescriure @code{break-visibility} han d'estar presents, no
+tots són efectius per tots els objectes de presentació, i algunes
+combinacions poden fins i tot donar errors.  S'apliquen les
+limitacions següents:
+
+@itemize @bullet
+@item
+Les línies divisòries no es poden imprimir al principi de la línia.
+
+@item
+No es pot imprimir el número de compàs al principi de la
+@emph{primera} línia a no ser que el seu valor establert sigui
+diferent a @code{1}.
+
+@item Clau: vegeu la secció següent.
+
+@item
+Les repeticions dobles de tipus percentatge s'imprimeixen totes
+sempre o bé no s'imprimeixen mai.  Utilitzeu @code{begin-of
+line-invisible} per imprimir-les i @code{all-invisible} per
+suprimir-les.
+
+@item Armadura: vegeu la secció següent.
+
+@item ClefModifier: vegeu la secció següent.
+@end itemize
+
+
+@node Consideracions especials
+@unnumberedsubsubsec Consideracions especials
+@translationof Special considerations
+
+@subsubsubheading Visibilitat després d'un canvi explicit
+
+@cindex armadura, visibilitat després d'un canvi explicit
+@cindex explicitKeySignatureVisibility
+@cindex clau, visibilitat després d'un canvi explicit
+@cindex explicitClefVisibility
+
+La propietat @code{break-visibility} controla la visibilitat de
+les armadures i canvis de clau sols al principi de les línies, és
+a dir, després d'un salt.  No té cap efecte sobre la visibilitat
+de l'armadura o la clau després d'un canvi explícit de tonalitat o
+de clau dins o al final d'una línia.  A l'exemple següent
+l'armadura que segueix al canvi explícit de tonalitat a Sí bemoll
+major és visible fins i tot amb @code{all-invisible} establert.
+
+@lilypond[quote,verbatim,ragged-right]
+\relative {
+  \key g \major
+  f'4 g a b
+  % Intenta eliminar totes armadures
+  \override Staff.KeySignature.break-visibility = #all-invisible
+  \key bes \major
+  f4 g a b
+  \break
+  f4 g a b
+  f4 g a b
+}
+@end lilypond
+
+La visibilitat d'aquests canvis explícits de tonalitat i de clau
+es controla per mitjà de les propietats
+@code{explicitKeySignatureVisibility} i
+@code{explicitClefVisibility}.  Són les equivalents a la propietat
+@code{break-visibility} i les dues agafen un vector de tres valors
+booleans o les funcions predefinides relacionades anteriorment,
+exactament igual que @code{break-visibility}.  Les dues són
+propietats del context Staff, no dels propis objectes de
+presentació, i per tant s'estableixen utilitzant l'ordre
+@code{\set}.  Les dues estan establertes de forma predeterminada
+al valor @code{all-visible}.  Aquestes propietats controlen la
+visibilitat sols la visibilitat de les armadures i les claus que
+resulten dels canvis explícits i no afecten a les armadures i
+tonalitats que estan al principi de les línies; per treure-les,
+encara s'ha de sobreescriure la propietat @code{break-visibility}
+a l'objecte corresponent.
+
+@lilypond[quote,verbatim,ragged-right]
+\relative {
+  \key g \major
+  f'4 g a b
+  \set Staff.explicitKeySignatureVisibility = #all-invisible
+  \override Staff.KeySignature.break-visibility = #all-invisible
+  \key bes \major
+  f4 g a b \break
+  f4 g a b
+  f4 g a b
+}
+@end lilypond
+
+@subsubsubheading Visibilitat de les alteracions de precaució
+
+Per eliminar les alteracions de cancel·lació que s'imprimeixen a
+un canvi de tonalitat explicit, establiu la propietat
+@code{printKeyCancellation} del context Staff a @code{#f}:
+
+@lilypond[quote,verbatim,ragged-right]
+\relative {
+  \key g \major
+  f'4 g a b
+  \set Staff.explicitKeySignatureVisibility = #all-invisible
+  \set Staff.printKeyCancellation = ##f
+  \override Staff.KeySignature.break-visibility = #all-invisible
+  \key bes \major
+  f4 g a b \break
+  f4 g a b
+  f4 g a b
+}
+@end lilypond
+
+Amb aquestes sobreescriptures sols queden les alteracions
+accidentals davant de les notes per indicar el canvi de
+tonalitat.
+
+Observeu que en modificar la tonalitat a Do@tie{}major o
+La@tie{}menor, les alteracions de cancel·lació serien
+@emph{l'única} indicació del canvi d'armadura.  En aquest cas,
+l'establiment de @code{printKeyCancellation} al valor @code{#f} no
+té cap efecte:
+
+@lilypond[quote,verbatim,ragged-right]
+\relative {
+  \key g \major
+  f'4 g a b
+  \set Staff.explicitKeySignatureVisibility = #all-invisible
+  \set Staff.printKeyCancellation = ##f
+  \key c \major
+  f4 g a b \break
+  f4 g a b
+  f4 g a b
+}
+@end lilypond
+
+Enlloc d'això, per suprimir les alteracions de cancel·lació encara
+quan l'armadura canvia a Do@tie{}major o a La@tie{}menor,
+sobreescriviu la visibilitat del grob @code{KeyCancellation}:
+
+@lilypond[quote,verbatim,ragged-right]
+\relative {
+  \key g \major
+  f'4 g a b
+  \set Staff.explicitKeySignatureVisibility = #all-invisible
+  \override Staff.KeyCancellation.break-visibility = #all-invisible
+  \key c \major
+  f4 g a b \break
+  f4 g a b
+  f4 g a b
+}
+@end lilypond
+
+@c TODO Add visibility of cautionary accidentals before notes
+
+@subsubsubheading Línies divisòries automàtiques
+
+@cindex automaticBars
+@cindex línies divisòries, eliminació
+
+Com a cas especial, la impressió de les línies divisòries també es
+poden inhabilitar establint la propietat @code{automaticBars} en
+el context Score.  Si es fixa a @code{#f}, les barres de compàs no
+s'imprimeixen automàticament: s'han de crear explícitament amb una
+ordre @code{\bar}.  A diferència de l'ordre predefinida
+@code{\cadenzaOn}, els compassos se segueixen comptant.  La
+generació de compassos continua d'acord a aquest recompte si
+aquesta propietat s'estableix posteriorment a @code{#t}.  Si es
+fixa al valor @code{#f}, sols poden produir-se salts de línia a
+ordres @code{\bar} explícites.
+
+@c TODO Add example
+
+@subsubsubheading Claus transportades
+
+@cindex transportades, visibilitat de les claus
+@cindex visibilitat de les claus transportades
+@cindex claus, visibilitat de la transposició
+
+El petit símbol de transposició sobre una clau es produeix per de
+l'objecte @code{ClefModifier}.  La seva visibilitat s'hereva
+automàticament de la de l'objecte @code{Clef}, així que no cal
+aplicar les sobreescriptures corresponents @code{break-visibility}
+als objectes @code{ClefModifier} per a suprimir els símbols de
+transposició o octavació per a les claus invisibles.
+
+Per als canvis de clau explícits, la propietat
+@code{explicitClefVisibility} controla tant el símbol de clau
+com el símbol de transposició o d'octava associat.
+
+@seealso
+Manual d'aprenentatge:
+@rlearning{Visibilitat i color dels objectes}.
+
+
+@node Estils de línia
+@subsection Estils de línia
+@translationof Line styles
+
+Certes indicacions d'execució, per exemple @i{rallentando},
+@i{accelerando} i els @i{trins} s'escriuen com a text i s'estenen
+sobre molts compassos mitjançant línies, a vegades puntejades o
+ondulades.
+
+Tots elles usen les mateixes rutines que el glissando per dibuixar
+els textos i les línies, i per això l'ajustament fi del seu
+comportament es fa de la mateixa manera.  Es fa amb un spanner (un
+objecte d'extensió), i la rutina responsable de dibuixar els
+objectes d'extensió és @code{ly:line-spanner::print}. Aquesta
+rutina determina la col·locació exacta dels dos @i{extrems de
+l'objecte d'extensió} i dibuixa una línia entre ells, en l'estil
+
+A continuació es presenta un exemple dels diferents estils de
+línia disponibles, i com aplicar-los ajustaments fins.
+
+@lilypond[ragged-right,verbatim,quote]
+\relative {
+  d''2 \glissando d'2
+  \once \override Glissando.style = #'dashed-line
+  d,2 \glissando d'2
+  \override Glissando.style = #'dotted-line
+  d,2 \glissando d'2
+  \override Glissando.style = #'zigzag
+  d,2 \glissando d'2
+  \override Glissando.style = #'trill
+  d,2 \glissando d'2
+}
+@end lilypond
+
+Les posicions dels punts extrems de l'objecte d'extensió es
+computen al vol per a cada un dels objectes gràfics, però és
+possible sobreescriure'ls:
+
+@c TODO Complete
+@lilypond[ragged-right,verbatim,quote]
+\relative {
+  e''2 \glissando f
+  \once \override Glissando.bound-details.right.Y = #-2
+  e2 \glissando f
+}
+@end lilypond
+
+El valor de @code{Y} està establert a @w{@code{-2}} per a l'extrem
+dret.  El cantó esquerre es pot ajustar de forma semblant especificant
+@code{left} en comptes de @code{right}.
+
+Si no està establert @code{Y}, el valor es computa a partir de la
+posició vertical dels punts d'ancoratge esquerre i dret de l'extensor.
+
+Altres ajustament dels extensors són possibles, per veure més
+detalls consulteu @ref{Objectes d'extensió}.
+
+@node Rotació d'objectes
+@subsection Rotació d'objectes
+@translationof Rotating objects
+
+Tant els objectes de presentació com els elements de text de
+marcatge es poden girar qualsevol angle respecte a qualsevol punt,
+però hi ha diferents mètodes per fer-lo.
+
+@menu
+* Rotació d'objectes de presentació::
+* Rotació d'elements de marcatge::
+@end menu
+
+@node Rotació d'objectes de presentació
+@unnumberedsubsubsec Rotació d'objectes de presentació
+@translationof Rotating layout objects
+
+@cindex rotació d'objectes
+@cindex objectes, rotació
+
+Tots els objectes de presentació que donen suport a la interfície
+@code{grob-interface} es poden rotar establint la seva propietat
+@code{rotation}.  Accepta una llista de tres elements: l'angle de
+la rotació en sentit antihorari, i les coordenades x i y del punt
+amb relació al punt de referència de l'objecte, al voltant del
+qual es realitzarà la rotació.  L'angle de rotació s'especifica en
+graus i les coordenades en espais de pentagrama.
+
+L'angle de rotació i les coordenades del punt de rotació s'han de
+determinar per prova i error.
+
+@cindex reguladors en angle
+@cindex angle, reguladors en
+
+Sols en certes ocasions és útil la rotació d'objectes de
+presentació; l'exemple següent mostra una situació en la qual pot
+ser-ho:
+
+@lilypond[quote,fragment,verbatim]
+g4\< e' d'' f''\!
+\override Hairpin.rotation = #'(20 -1 0)
+g4\< e' d'' f''\!
+@end lilypond
+
+
+@node Rotació d'elements de marcatge
+@unnumberedsubsubsec Rotació d'elements de marcatge
+@translationof Rotating markup
+
+Tots els textos de marcatge es poden rotar perquè es disposin en
+qualsevol angle, precedint-los de l'ordre @code{\rotate}.  L'ordre
+accepta dos arguments: l'angle de rotació en graus en sentit
+antihorari, i el text que rotar.  Els límits que ocupa el text no
+es roten: agafen el seu valor a partir dels extrems de les
+coordenades x i y del text rotat.  A l'exemple següent la propietat
+@code{outside-staff-priority} del text s'estableix a @code{#f} per
+desactivar la resolució automàtica de col·lisions, cosa que empeny
+el text a una posició molt alta.
+
+@lilypond[quote,fragment,verbatim]
+\override TextScript.outside-staff-priority = ##f
+g4^\markup { \rotate #30 "a G" }
+b^\markup { \rotate #30 "a B" }
+des'^\markup { \rotate #30 "a D-Flat" }
+fis'^\markup { \rotate #30 "an F-Sharp" }
+@end lilypond
+
+
+@node Ajustaments avançats
+@section Ajustaments avançats
+@translationof Advanced tweaks
+
+Aquesta secció tracta sobre diferents enfocaments per a la
+realització d'ajustaments fins a l'aparença de la partitura
+impresa.
+
+@menu
+* Alineació d'objectes::
+* Agrupació vertical d'objectes gràfics::
+* Modificació dels segells::
+* Modificació de les formes::
+* Modificació d'objectes d'extensió dividits::
+* Contenidors unpure-pure::
+@end menu
+
+@seealso
+Manual d'aprenentatge:
+@rlearning{Ajustament de la sortida},
+@rlearning{Altres fonts d'informació}.
+
+Referència de la notació:
+@ref{Explicació del Manual de referència de funcionament intern},
+@ref{Modificació de les propietats}.
+
+Manual de extensió:
+@rextendnamed{Interfaces for programmers,Interfícies per a programadors}.
+
+Fitxers d'inici:
+@file{scm/define-grobs.scm}.
+
+Fragments de codi:
+@rlsr{Tweaks and overrides}.
+
+Referència de funcionament intern:
+@rinternals{All layout objects}.
+
+
+@node Alineació d'objectes
+@subsection Alineació d'objectes
+@translationof Aligning objects
+
+Els objectes gràfics que donen suport a la interfície
+@code{self-alignment-interface} i/o la interfície
+@code{side-position-interface} es poden alinear contra un objecte
+col·locat prèviament, de diverses maneres.  Per veure una llista
+d'aquests objectes, consulteu @rinternals{self-alignment-interface} i
+@rinternals{side-position-interface}.
+
+Tots els objectes gràfics tenen un punt de referència, una
+extensió horitzontal i una extensió vertical.  L'extensió
+horitzontal és una parella de nombres que són els desplaçament a
+partir del punt de referència de les vores esquerra i dreta, sent
+negatius els desplaçament cap a l'esquerra.  L'extensió vertical
+és una parella de nombre que donen el desplaçament a partir del
+punt de refereǹcia fins les vores inferior i superior, sent
+negatius els desplaçaments cap avall.
+
+La posició d'un objecte sobre el pentagrama ve donada pels valors
+de les propietats @code{X-offset} i @code{Y-offset}.  El valor de
+ @code{X-offset} dóna el desplaçament des de la coordenada X del
+ punt de referència de l'objecte pare, i el valor de
+ @code{Y-offset} dóna el desplaçament a partir de la línia central
+ del pentagrama.  Els valors de @code{X-offset} i @code{Y-offset}
+ es poden establir directament o es pot deixar que es calculin per
+ part de procediments per aconseguir una alineació amb l'objecte pare.
+
+@warning{Molts objectes tenen consideracions de posicionament
+especials que fan que s'ignori o es modifiqui qualsevol ajustament
+realitzat a @code{X-offset} o a @code{Y-offset}, malgrat que
+l'objecte contempli la interfície @code{self-alignment-interface}.
+La sobreescriptura de les propietats @code{X-offset} ó
+@code{Y-offset} a un valor fix fa que es descarti la respectiva
+propietat @code{self-alignment}.}
+
+Per exemple, una alteració accidental es pot tornar a posicionar
+verticalment establint @code{Y-offset} però els canvis a
+@code{X-offset} no tenen cap efecte.
+
+Les lletres d'assaig es poden alinear amb objectes divisibles com
+línies divisòries, claus, armadures i indicacions de compàs. Hi ha
+propietats especials, que es troben a
+@code{break-aligned-interface} per al posicionament de les lletres
+d'assaig sobre aquests objectes.
+
+@seealso
+Referència de la notació:
+@ref{Ús de la break-alignable-interface}.
+
+Manual d'extensió:
+@rextendnamed{Callback functions,Funcions de callback}.
+
+@menu
+* Establiment directe de X-offset i Y-offset::
+* Ús de la side-position-interface::
+* Ús de la self-alignment-interface::
+* Ús de la break-alignable-interface::
+@end menu
+
+
+@node Establiment directe de X-offset i Y-offset
+@unnumberedsubsubsec Establiment directede  @code{X-offset} i @code{Y-offset}
+@translationof Setting X-offset and Y-offset directly
+
+Es poden donar valors numèrics a les propietats @code{X-offset} i
+@code{Y-offset} de molts objectes.  L'exemple següent mostra tres
+notes amb una digitació en la seva posició predeterminada i amb
+els valors @code{X-offset} i @code{Y-offset} modificats.
+
+@lilypond[verbatim,fragment,quote]
+a'-3
+a'
+-\tweak X-offset #0
+-\tweak Y-offset #0
+-3
+a'
+-\tweak X-offset #-1
+-\tweak Y-offset #1
+-3
+@end lilypond
+
+@c TODO write more
+
+
+@node Ús de la side-position-interface
+@unnumberedsubsubsec Ús de la @code{side-position-interface}
+@translationof Using the side-position-interface
+
+Un objecte que doni suport a la @code{side-position-interface} es
+pot col·locar junt a un objecte pare de forma que els bords
+especificats dels dos objects es toquin.  L'objecte es pot situar
+a sobre, a sota, a la dreta o a l'esquerra de l'objecte pare.  EL
+pare no es pot especificar; ve determinat per l'ordre dels
+elements al flux d'entrada.  Gairebé tots els objectes tenen el
+cap de la nota associada com a pare.
+
+Els valors de les propietats @code{side-axis} i @code{direction}
+determinen on col·locar l'objecte, com segueix:
+
+@c TODO add an example of each to the table
+
+@multitable @columnfractions .3 .3 .3
+@headitem @code{side-axis}  @tab @code{direction}  @tab
+@headitem propiedad         @tab propiedad         @tab col·locació
+
+@item     @code{0}          @tab @w{@code{-1}}         @tab esquerra
+@item     @code{0}          @tab @code{1}          @tab dreta
+@item     @code{1}          @tab @w{@code{-1}}         @tab a sota
+@item     @code{1}          @tab @code{1}          @tab a sobre
+
+@end multitable
+
+Si @code{side-axis} és @code{0}, @code{X-offset} s'ha d'establir
+al procediment @code{ly:side-position-interface::x-aligned-side}.
+Aquest procediment retorna el calor correcte de @code{X-offset}
+per situar l'objecte al costat esquerre o dret del pare d'acord
+amb el valor de @code{direction}.
+
+Si @code{side-axis} és @code{1}, @code{Y-offset} s'ha d'establir
+al procediment @code{ly:side-position-interface::y-aligned-side}.
+Aquest procediment retorna el valor correcte de @code{Y-offset}
+per situar l'objecte a sobre o a sota del pare d'acord amb el
+valor de @code{direction}.
+
+@c TODO Add examples
+
+
+@node Ús de la self-alignment-interface
+@unnumberedsubsubsec Ús de la @code{self-alignment-interface}
+@translationof Using the self-alignment-interface
+
+@subsubsubheading Auto-alineació horitzontal dels objectes
+
+L'alineació horitzontal d'un objecte que dona suport a la interfície
+@code{self-alignment-interface} està controlada pel valor de la
+propietat @code{self-alignment-X}, sempre i quan la propietat
+@code{X-offset} d'aquest objecte està establerta a
+@code{ly:self-alignment-interface::x-aligned-on-self}.  Se li pot
+donar a @code{self-alignment-X} qualsevol valor real, en unitats
+de la meitat de l'extensió X tal de l'objecte.  Els valors
+negatius mouen l'objecte a la dreta, els positius cap a
+l'esquerra.  Un valor de @code{0} centra l'objecte sobre el punt
+de referència del seu pare, un valor de @w{@code{-1}} alinear la
+vora esquerra de l'objecte sobre el punt de referència del seu
+pare, i un valor de @code{1} alinea la vora dreta de l'objecte
+sobre el punt de referència del seu pare.  Es poden usar els
+símbols @code{LEFT}, @code{CENTER} i @code{RIGHT} en substitució
+dels valors @w{@code{-1}}, @code{0} i @code{1}, respectivament.
+
+Normalment s'usaria l'ordre @code{\override} per modificar el
+valor de @code{self-alignment-X}, però es pot usar l'ordre
+@code{\tweak} per alinear diverses anotacions per separat sobre
+una sola nota:
+
+@lilypond[quote,verbatim,fragment]
+a'
+-\tweak self-alignment-X #-1
+^"left-aligned"
+-\tweak self-alignment-X #0
+^"center-aligned"
+-\tweak self-alignment-X #RIGHT
+^"right-aligned"
+-\tweak self-alignment-X #-2.5
+^"aligned further to the right"
+@end lilypond
+
+@subsubsubheading Auto-alineació vertical dels objectes
+
+Els objectes es poden alinear verticalment en una forma anàloga a
+la alineació horitzontal si la propietat @code{Y-offset} està
+establerta a
+@code{ly:self-alignment-interface::y-aligned-on-self}.  Malgra
+això, sovint es troben implicats altres mecanismes en l'alineació
+vertical: el valor de @code{Y-offset} és tan sols una variable que
+es té compte.  Això pot fer que ajustar el valor de certes
+objectes sigui un tasca dificultosa.  Les unitats son sols la
+meitat de les dimensions verticals de l'objecte, que sols ser
+força petit, per la qual cosa poden requerir-se nombres força
+grans.  Un valor de @w{@code{-1}} alinea la vora inferior de
+l'objecte amb el punt de referència de l'objecte pare, un valor de
+@code{0} alinea el centre de l'objecte amb el punt de referència
+del pare, i un valor de @code{1} alinear la vora superior de
+l'objecte amb el punt de referència del pare. Es poden usar els
+símbols @code{DOWN}, @code{CENTER}, @code{UP} en substitució de
+@w{@code{-1}}, @code{0} i @code{1}, respectivament.
+
+@emph{Auto-alineació d'objectes en las dues direccions}
+
+Establint tant @code{X-offset} com @code{Y-offset}, es pot alinear
+un objecte en les dues direccions simultàniament.
+
+L'exemple següent mostra com ajustar una digitació de forme que
+s'apropi al cap de la nota:
+
+@lilypond[quote,verbatim,fragment]
+a'
+-\tweak self-alignment-X #0.5  % mou horitzontalment cap a l'esquerra
+-\tweak Y-offset #ly:self-alignment-interface::y-aligned-on-self
+-\tweak self-alignment-Y #-1  % mou amunt verticalment
+-3  % tercer dit
+@end lilypond
+
+@ignore
+@unnumberedsubsubsec Ús dels procediments @code{aligned-on-parent}
+
+@c Cannot document as they do not seem to operate consistently on all objects -td
+@c TODO investigate further
+
+The @code{aligned-on-parent} procedures are used in the same way
+as the @code{aligned-on-self} procedures, they difference being
+that they permit an object to be aligned with the @emph{edges} of
+the parent rather than the parent's reference point.  The following
+example shows the difference:
+
+@c TODO Add example
+
+@lilypond[verbatim,quote]
+@end lilypond
+
+@end ignore
+
+@ignore
+@unnumberedsubsubsec Uso de los procedimientos @code{centered-on-parent}
+
+@c Cannot document as they do not seem to operate consistently on all objects -td
+@c TODO investigate further
+
+@end ignore
+
+@c TODO The align-interface, BassFigureAlignment and VerticalAlignment
+
+
+@node Ús de la break-alignable-interface
+@unnumberedsubsubsec Ús de la @code{break-alignable-interface}
+@translationof Using the break-alignable-interface
+
+@cindex alineació a objectes
+@cindex break-align-symbols
+
+Les lletres d'assaig es poden alinear amb objectes de notació
+diferents a les barres de compàs.  Aquests objectes són
+@code{ambitus}, @code{breathing-sign}, @code{clef}, @code{custos},
+@code{staff-bar}, @code{left-edge}, @code{key-cancellation},
+@code{key-signature} i @code{time-signature}.
+
+Cada tipus d'objecte té el seu propi punt de referència
+predeterminat, amb el que s'alineen les marques d'assaig:
+
+@lilypond[verbatim,quote,fragment]
+% La marca d'assaig s'alinearà amb la vora dreta de la clau
+\override Score.RehearsalMark.break-align-symbols = #'(clef)
+\key a \major
+\clef treble
+\mark "↓"
+e'1
+% La marca d'assaig s'alinearà amb la vora esquerra de la indicació de temps
+\override Score.RehearsalMark.break-align-symbols = #'(time-signature)
+\key a \major
+\clef treble
+\time 3/4
+\mark "↓"
+e'2.
+% La marca d'assaig se centrarà sobre la marca de respiració
+\override Score.RehearsalMark.break-align-symbols = #'(breathing-sign)
+\key a \major
+\clef treble
+\time 4/4
+e'1
+\breathe
+\mark "↓"
+@end lilypond
+
+Es pot identificar una llista de possibles objectes per a
+l'alineació.  Si alguns dels objectes són invisibles en aquest
+punt a causa del valor de @code{break-visibility} o de valors de
+visibilitat explícits per a les armadures i les claus, la lletra
+d'assaig o número de compàs s'alineen amb el primer objecte de la
+llista que sigui visible.  Si cap objecte de la llista és visible,
+l'objecte s'alinea amb la línia divisòria.  Si la línia divisòria
+és invisible, l'objecte s'alinea amb el punt en el qual es
+trobaria la línia divisòria.
+
+@lilypond[verbatim,quote,fragment]
+% La marca d'assaig s'alinearà amb la vora dreta de l'armadura
+\override Score.RehearsalMark.break-align-symbols = #'(key-signature clef)
+\key a \major
+\clef treble
+\mark "↓"
+e'1
+% La marca d'assaig s'alinearà amb la vora dreta de la clau
+\set Staff.explicitKeySignatureVisibility = #all-invisible
+\override Score.RehearsalMark.break-align-symbols = #'(key-signature clef)
+\key a \major
+\clef bass
+\mark "↓"
+gis,1
+% La marca d'assaig se centrarà sobre la línia de compàs
+\set Staff.explicitKeySignatureVisibility = #all-invisible
+\set Staff.explicitClefVisibility = #all-invisible
+\override Score.RehearsalMark.break-align-symbols = #'(key-signature clef)
+\key a \major
+\clef treble
+\mark "↓"
+e'1
+@end lilypond
+
+L'alineació de la lletra d'assaig amb relació a l'objecte de
+notació es pot canviar, som es veu a l'exemple següent.  En
+aquesta partitura amb diversos pentagrames, aquest ajustament s'ha
+de fer per a tots els pentagrames.
+
+@lilypond[verbatim,quote,fragment]
+% La marca d'assaig s'alinearà amb la vora dreta de l'armadura
+\override Score.RehearsalMark.break-align-symbols = #'(key-signature)
+\key a \major
+\clef treble
+\time 4/4
+\mark "↓"
+e'1
+% La marca d'assaig se centrarà sobre l'armadura
+\once \override Score.KeySignature.break-align-anchor-alignment = #CENTER
+\mark "↓"
+\key a \major
+e'1
+% La marca d'assaig s'alinearà amb la vora esquerra de l'armadura
+\once \override Score.KeySignature.break-align-anchor-alignment = #LEFT
+\key a \major
+\mark "↓"
+e'1
+@end lilypond
+
+La lletra d'assaig també es pot desplaçar a la vora dreta o
+esquerra en una mesura arbitrària.  Les unitats són espais de pentagrama:
+
+@lilypond[verbatim,quote,fragment]
+% La marca d'assaig s'alinearà amb la vora esquerra de l'armadura
+% i després es desplaçarà 3.5 espais de pentagrama a la dreta
+% and then shifted right by 3.5 staff-spaces
+\override Score.RehearsalMark.break-align-symbols = #'(key-signature)
+\once \override Score.KeySignature.break-align-anchor = #3.5
+\key a \major
+\mark "↓"
+e'1
+% La marca d'assaig s'alinearà amb la vora esquerra de l'armadura
+% i després es desplaçarà 2 espais de pentagrama a l'esquerra
+\once \override Score.KeySignature.break-align-anchor = #-2
+\key a \major
+\mark "↓"
+e'1
+@end lilypond
+
+@node Agrupació vertical d'objectes gràfics
+@subsection Agrupació vertical d'objectes gràfics
+@translationof Vertical grouping of grobs
+
+@c TODO Expand this section
+
+Els grobs (objectes gràfics) @code{VerticalAlignment} i
+@code{VerticalAxisGroup} treballen de manera coordinada.
+@code{VerticalAxisGroup} agrupa diversos grobs com @code{Staff},
+@code{Lyrics}, etc.  Després, @code{VerticalAlignment} alinea els
+diferents grobs agrupats prèviament per
+@code{VerticalAxisGroup}.  Normalment sols existeix un
+@code{VerticalAlignment} per cada partitura, però cada
+@code{Staff}, @code{Lyrics}, etc. té el seu propi
+@code{VerticalAxisGroup}.
+
+
+@node Modificació dels segells
+@subsection Modificació dels segells
+@translationof Modifying stencils
+
+Tots els objectes de presentació tenen una propietat
+@code{stencil} que és part del @code{grob-interface}.  De forma
+predeterminada, aquesta propietat sol estar establerta a una
+funció específica de l'objecte que està feta a mida per disposar
+del símbol que el representa a la sortida.  Per exemple,
+l'ajustament estàndard per a la propietat @code{stencil} de l'objecte
+@code{MultiMeasureRest} és @code{ly:multi-measure-rest::print}.
+
+El símbol estàndard de qualsevol objecte es pot substituir
+modificant la propietat @code{stencil} perquè faci referència a un
+procediment diferent escrit especialment.  Això requereix un alt
+nivell de coneixement del funcionament intern del LilyPond, però
+hi ha una forma més fàcil que sovint pot donar resultats adequats.
+
+El procediment consisteix a establir la propietat @code{stencil}
+al procediment que imprimeix text
+(@code{ly:text-interface::print}) i afegir una propietat
+@code{text} a l'objecte ajustada perquè contingui el text de
+marcatge que produeix el símbol requerit.  A causa de la
+flexibilitat del marcatge, es poden aconseguir moltes coses: en
+particular, consulteu
+@ref{Notació gràfica dins d'elements de marcatge}.
+
+L'exemple següent mostra això canviant el símbol del cap de la
+nota a unes aspes dins d'una circumferència:
+
+@lilypond[verbatim,quote]
+XinO = {
+  \once \override NoteHead.stencil = #ly:text-interface::print
+  \once \override NoteHead.text = \markup {
+    \combine
+      \halign #-0.7 \draw-circle #0.85 #0.2 ##f
+      \musicglyph "noteheads.s2cross"
+  }
+}
+\relative {
+  a' a \XinO a a
+}
+@end lilypond
+
+Qualssevol dels glifs de @emph{Feta} usats al tipus de lletra
+@ref{El tipus de lletra Emmentaler}.
+
+Es poden inserir en línia tant imatges en forma @file{EPS} com
+ordres de Postscrip usant les ordres de marcatge @code{\epsfile} i
+@code{\postscript} respectivament; vegeu @rusernamed{Graphic,Grafisme}.
+
+@seealso
+Referencia de la notación:
+@ref{Notació gràfica dins d'elements de marcatge},
+@ref{Donar format al text},
+@ref{Ordres de marcatge de text},
+@ref{El tipus de lletra Emmentaler},
+@rusernamed{Graphic,Grafisme}.
+
+
+@node Modificació de les formes
+@subsection Modificació de les formes
+@translationof Modifying shapes
+
+@menu
+* Modificació de lligadures d'unió i d'expressió::
+@end menu
+
+
+@node Modificació de lligadures d'unió i d'expressió
+@unnumberedsubsubsec Modificació de lligadures d'unió i d'expressió
+@translationof Modifying ties and slurs
+
+@cindex lligadures d'expressió, modificar
+@cindex lligadures d'unió, modificar
+@cindex Bézier, corbes de, punts de control
+@cindex punts de control en corbes de Bézier
+
+Les lligadures d'unió (@code{Tie}s), d'expressió (@code{Slur}s),
+de fraseig (@code{PhrasingSlur}s), de deixar vibrar
+(@code{LaissezVibrerTie}s) i de repetició (@code{RepeatTie}s) es
+tracen com corbes de Bézier de tercer ordre.  Si la forma de la
+ligadur calculada automàticament no resulta òptima, es pot
+modificar la seva forma manualment de dues formes:
+
+@enumerate a
+@item
+mitjançant l'especificació dels desplaçament que es volen
+realitzar sobre els punts de control de la corba de Bézier
+calculada automàticament, o bé
+
+@item
+mitjançant l'especificació explícita de les posiciones dels quatre
+punts de control que calen per definir la corba desitjada.
+@end enumerate
+
+A continuació s'expliquen ambdós mètodes.  El primer mètode és més
+adequat quan sols calen lleugers ajustaments de la corba; el segon
+pot ser millor per crear corbes que tenen relació amb una única
+nota.
+
+@subsubsubheading Corbes de Bézier cúbiques
+
+Les corbes Bézier de tercer ordre o cúbiques estan definides per
+quatre punts de control.  El primer i quart punts de control són
+exactament els punts extrems de començament i de final de la
+corba.  Els dos punts de control intermedis defineixen la forma.
+Es poden trobar a la web animacions que mostren com es traça la
+corba, però la descripció següent pot ser d'ajuda.  La corba
+comença a partir del primer punt de control dirigint-se
+directament cap al segon, corbant-se progressivament per
+dirigir-se cap al tercer i continuant la corba cap al quart,
+arribant a aquest punt en viatge directe des del tercer punt de
+control.  La corba està continguda enterament dins del quadrilàter
+definit pels quatre punts de control.  Totes les translacions,
+rotacions i escalats dels punts de control produeixen exactament
+les mateixes operacions sobre la corba.
+
+@subsubsubheading Especificació de desplaçament a partir dels punts de control actuals
+
+@cindex conformar lligadures
+@funindex \shape
+
+En aquest exemple, la col·locació automàtica de la lligadura no
+resulta òptima, i @code{\tieDown} no és la solució.
+
+@lilypond[verbatim,quote]
+<<
+  { e'1~ 1 }
+\\
+  \relative { r4 <g' c,> <g c,> <g c,> }
+>>
+@end lilypond
+
+Els ajustaments dels punts de control de la lligadura mitjançant
+l'ordre @code{\shape} permet evitar les col·lisions.
+
+La sintaxi de @code{\shape} és:
+
+@example
+[-]\shape @var{desplaçament} @var{element}
+@end example
+
+Aquesta ordre recol·loca els punts de control d'@var{element} en
+les quantitats donades per @var{desplaçaments}.  L'argument
+@var{desplazamientos} és una llista de parelles de nombres o una
+llista d'aquestes llistes.  Cada element d'una parella representa
+el desplaçament d'una de les coordenades d'un punt de control.
+Si l'@var{element} és una cadena de caràcter. el resultat és
+@code{\once\override} per al tipus de grob especificat.  Si
+@var{elemento} és una expressió musical, el resultat és la mateixa
+expressió musical amb la consegüent modificació aplicada.
+
+En altres paraules, la funció @code{\shape} pot actuar com una
+ordre @code{\once\override} o com una ordre @code{\tweak} depenent
+de si l'argument @var{element} és el nom d'un grob, com @qq{Slur},
+o una expressió musical, com @qq{(}.  L'argument
+@var{desplaçaments} especifica els desplaçaments dels quatre punts
+de control com una llista de quatre parelles de valors (dx . dy)
+en unitats d'espais de pentagrama (o una llista d'aquestes llistes
+si la corba té més d'un segment).
+
+El guió precedent s'exigeix si, i sols si, s'usa la forma
+@code{\tweak}.
+
+Així, usant el mateix exemple anterior i la forma
+@code{\once\override} de l'ordre @code{\shape}, el següent té
+l'efecte d'elevar la lligadura d'unió en la meitat d'un espai de
+pentagrama:
+
+@lilypond[verbatim,quote]
+<<
+  {
+    \shape #'((0 . 0.5) (0 . 0.5) (0 . 0.5) (0 . 0.5)) Tie
+    e'1~ 1
+  }
+\\
+  \relative { r4 <g' c,> <g c,> <g c,> }
+>>
+@end lilypond
+
+Aquest posicionament de la lligadura d'unió és millor, però potser
+hauria d'elevar-se més a la part central.  L'exemple següent fa
+això, aquest cop usant la forma alternativa @code{\tweak}:
+
+@lilypond[verbatim,quote]
+<<
+  {
+    e'1-\shape #'((0 . 0.5) (0 . 1) (0 . 1) (0 . 0.5)) ~ e'
+  }
+\\
+  \relative { r4 <g' c,> <g c,> <g c,> }
+>>
+@end lilypond
+
+Els canvis en les posicions horitzontals dels punts de control es
+poden fer de la mateixa forma, i dues corbes diferents que
+comencen al mateix moment musical també es poden conformar:
+
+@lilypond[verbatim,quote,ragged-right]
+\relative {
+  c''8(\( a) a'4 e c\)
+  \shape #'((0.7 . -0.4) (0.5 . -0.4) (0.3 . -0.3) (0 . -0.2)) Slur
+  \shape #'((0 . 0) (0 . 0.5) (0 . 0.5) (0 . 0)) PhrasingSlur
+  c8(\( a) a'4 e c\)
+}
+@end lilypond
+
+La funció @code{\shape} també pot desplaçar els punts de control
+de les corbes que s'estenen travessant salts de línia.  Cada peça
+de la corba dividida pot rebre la seva pròpia llista de
+desplaçaments.  Si no cal fer canvis a un dels segments en
+particular, es pot usar una llista buida contenidor.  En aquest
+exemple, el salt de línia fa que l'única lligadura d'expressió
+aparegui com si fossin dos:
+
+@lilypond[verbatim,quote,ragged-right]
+\relative {
+  c'4( f g c
+  \break
+  d,4 c' f, c)
+}
+@end lilypond
+
+Els canvis en la forma de les dues meitats de la lligadura
+d'expressió deixa més clar que la lligadura continua més enllà del
+salt de línia:
+
+@lilypond[verbatim,quote,ragged-right]
+% () es pot usar com a abreviatura per a ((0 . 0) (0 . 0) (0 . 0) (0 . 0))
+% si no cal canviar algun dels segments
+\relative c' {
+  \shape #'(
+             (( 0 . 0) (0 . 0) (0 . 0) (0 . 1))
+             ((0.5 . 1.5) (1 . 0) (0 . 0) (0 . -1.5))
+           ) Slur
+  c4( f g c
+  \break
+  d,4 c' f, c)
+}
+@end lilypond
+
+En una corba en forma d'«S» sempre cal ajustar manualment els
+punts de control: el Lilypond mai no escull aquestes formes
+automàticament.
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  c8( e b-> f d' a e-> g)
+  \shape #'((0 . -1) (5.5 . -0.5) (-5.5 . -10.5) (0 . -5.5)) PhrasingSlur
+  c8\( e b-> f d' a e-> g\)
+}
+@end lilypond
+
+@subsubsubheading Especificació específica dels punts de control
+
+Les coordenades dels punts de control de Bézier s'especifiquen en
+unitats d'espais de pentagrama.  La coordenada@tie{}X és relativa
+al punt de referència al qual s'adjunta la lligadura, i la
+coordenada@tie{}Y és relativa a la línia central del pentagrama.
+Les coordenades s'especifiquen com una llista de quatre parelles
+de nombres decimals (reals).  Un enfocament consisteix a estimar
+les coordenades dels dos extrems, i després endevinar els dos
+punts intermedis.  Els valores òptims es troben després per prova
+i error.  Tingueu en compte que aquests valors podrien requerir un
+ajustament manual si es fa posteriorment qualsevol canvi manual a
+la música o a la disposició.
+
+Una situació en la qual és preferible especificar els punts de
+control explícitament a especificar els desplaçaments és quan cal
+especificar-los de forma relativa a una nota única. A continuació
+presentem un exemple d'això.  Mostra una forma d'indicar una
+lligadura que s'estén cap a l'interior de les caselles de primera
+i segona veu d'una repetició.
+
+@lilypond[verbatim,quote]
+\relative {
+  c''1
+  \repeat volta 3 { c4 d( e f }
+  \alternative {
+    { g2) d }
+    {
+      g2
+      % crea una lligadura d'expressió i mou-la a una nova posició
+      % <> és simplement un acord buit per portar el final de la lligadura d'unió
+      -\tweak control-points #'((-2 . 3.8) (-1 . 3.9) (0 . 4) (1 . 3.4)) ( <> )
+      f,
+    }
+    {
+      e'2
+      % create a slur and move it to a new position
+      -\tweak control-points #'((-2 . 3) (-1 . 3.1) (0 . 3.2) (1 . 2.4)) ( <> )
+      f,
+    }
+  }
+}
+@end lilypond
+
+@knownissues
+No és possible modificar la forma de les lligadures d'unió o
+d'expressió canviant la propietat @code{control-points} si hi ha
+més d'una en el mateix moment musical, ni tan sols usant l'ordre
+@code{\tweak}.  Malgrat això, es pot sobreescriure la propietat
+@code{tie-configuration} de @code{TieColumn} per fixar la línia
+d'inici i la direcció segons es requereixi.
+
+@seealso
+Referència de funcionament intern:
+@rinternals{TieColumn}.
+
+
+@node Modificació d'objectes d'extensió dividits
+@subsection Modificació d'objectes d'extensió dividits
+@translationof Modifying broken spanners
+
+@menu
+* Ús d'alterBroken::
+@end menu
+
+@node Ús d'alterBroken
+@unnumberedsubsubsec Ús d'@code{\alterBroken}
+@translationof Using alterBroken
+
+@cindex extensió, modificació d'objectes de
+@cindex dividits, modificació d'objectes d'extensió
+@funindex \alterBroken
+
+Quan un @qq{spanner} o objecte extens travessa un o diversos salts
+de línia, cada fragment hereva els atributs de l'objecte
+d'extensió original.  Així, l'ajustament ordinari d'un objecte
+dividit aplica les mateixes modificacions a tots i cada un dels
+seus segments.  A l'exemple que apareix a continuació, la
+sobreescriptura de @code{thickness} (gruix) afecta a la lligadura
+a ambdós costats del salt de línia.
+
+@lilypond[verbatim,quote,ragged-right]
+\relative c'' {
+  r2
+  \once\override Slur.thickness = 10
+  c8( d e f
+  \break
+  g8 f e d) r2
+}
+@end lilypond
+
+És possible modificar de forma independent l'aspecte dels
+fragments individuals d'un objecte d'extensió dividit, amb l'ordre
+@code{\alterBroken}.  Aquesta ordre pot produir un
+@code{\override} o bé un @code{\tweak} d'una propietat de
+l'objecte d'extensió.
+
+La sintaxi d'@code{\alterBroken} és
+
+@example
+[-]\alterBroken @var{propietat} @var{valors} @var{element}
+@end example
+
+L'argument @var{valors} és una llista de valors, un per a cada
+fragment.  Si @var{element} és el nom d'un grob com ara
+@code{Slur} o @code{Staff.PianoPedalBracket}, el resultat és una
+ordre de sobreescriptura @code{\override} del tipus de grob
+especificat.  Si @var{element} és una expressio musical com
+@qq{(} o @qq{[} el resultat és la mateixa expressió musical amb el
+corresponent ajustament aplicat.
+
+El guió inicial s'ha d'utilitzar amb la forma d'ajustament,
+@code{\tweak}.  No ho escriviu quan utilitzeu @code{\alterBroken}
+com una operació de sobreescriptura, @code{\override}.
+
+En el seu ús com @code{\override}, @code{\alterBroken} pot anar
+precedit de @code{\once} o @code{\temporary} i ser revertit amb
+@code{\revert} amb l'argument @var{propietat}.
+
+El codi següent aplica un @code{\override} independent a cada un
+dels fragments de la lligadura de l'exemple anterior:
+
+@lilypond[verbatim,quote,ragged-right]
+\relative c'' {
+  r2
+  \alterBroken thickness #'(10 1) Slur
+  c8( d e f
+  \break
+  g8 f e d) r2
+}
+@end lilypond
+
+L'ordre @code{\alterBroken} es pot usar amb qualsevol objecte
+d'extensió, inclosos @code{Tie}, @code{PhrasingSlur},
+@code{Beam} i @code{TextSpanner}.  Per exemple, un editor que està
+preparant una edició acadèmica podria desitjar indicar l'absència
+de part d'una lligadura de fraseig a un codi font fent discontinu
+sols el segment que s'ha afegit.  El següent exemple il·lustra de
+quina manera es pot fer això, en aquest cas usant la forma
+@code{\tweak} de l'ordre:
+
+@lilypond[verbatim,quote,ragged-right]
+% La llista buida s'usa convenientment a sota, atès que és la
+% configuració predeterminada de línia, una línia sòlida
+\relative {
+  c''2-\alterBroken dash-definition #'(() ((0 1.0 0.4 0.75))) \(e
+  \break
+  g2 e\)
+}
+@end lilypond
+
+És important comprendre que @code{\alterBroken} estableix cada
+peça de l'objecte fragmentat al valor corresponent dins de
+l'argument @var{valors}.  Quan hi ha menys valors que peces,
+qualsevol fragment addicional rep l'assignació de la llista
+buida.  Això pot portar a resultats no desitjats si la propietat
+de disposició no està establerta a la llista buida de forma
+predeterminada.  En aquests casos, s'ha d'assignar a cada segment
+un valor adequat.
+
+@knownissues
+Els salts de línia poden ocórrer en diferents llocs segons canvia
+la disposició de la música.  Els ajustaments escollits per a
+@code{\alterBroken} podrien no ser adequats per a un objecte
+d'extensió que no està dividit o que es fragmenta en més peces que
+abans.  L'ús explícit (manual) de salts de línia mitjançant
+@code{\break} pot prevenir aquest tipus de situacions.
+
+L'ordre @code{\alterBroken} no és efectiva per a propietats dels
+objectes extensos accedides abans del salt de línia, com
+@code{direction}.
+
+@seealso
+Extender LilyPond:
+@rextendnamed{Difficult tweaks,Ajustaments difícils}.
+
+@node Contenidors unpure-pure
+@subsection Contenidors unpure-pure
+@translationof Unpure-pure containers
+
+@cindex Scheme, contenidors purs
+@cindex Scheme, contenidors no-purs
+@cindex purs, contenidors de l'Scheme
+@cindex no-purs: contenidors de l'Scheme
+@cindex horitzontal, sobreescriure l'espaiat
+
+Els contenidors @q{unpure-pure} (purs i no purs) són útils per a
+la sobreescriptura dels càlculs de l'espaiat a l'@emph{eix Y}
+(concretament @code{Y-offset} i @code{Y-extent}) amb una funció de
+l'Scheme en comptes d'un literal, és a dir, un nombre o una
+parella de nombres.
+
+Per certs objectes gràfics, les dimensions @code{Y-extent} estan
+basades en la propietat @code{stencil}, la sobreescriptura de la
+propietat de segell d'aquests objectes gràfics requereix una
+sobreescriptura addicional de @code{Y-extent} amb un contenidor
+unpure-pure. Quan una funció sobreescriu una dimensió
+@code{Y-offset} i/o @code{Y-extent} se suposa que això dispara els
+càlculs dels salts de línia prematurament durant la compilació.
+Així doncs, la funció no s'avalua en absolut (retornant en general
+un valor de @samp{0} o @samp{'(0 . 0)}) cosa que pot ocasionar
+col·lisions.  Una funció @q{pura} no afecta a les propietats,
+objectes o suicidis de grobs, i per això els seus valors
+relacionats amb l'eix Y sempre s'avaluen correctament.
+
+Actualment hi ha unes treinta funcions que ja es consideren
+@q{puras} i els contenidors Unpure-pure són una manera d'establir
+funcions que no estan a la llista com @q{pures}.  La funció
+@q{pura} s'avalua @emph{abans} de qualsevol salt de línia i així
+l'espaiat horitzontal es pot ajustar @q{a temps}.  La funció
+@q{impura} s'avalua aleshores @emph{després} del salt de línia.
+
+@warning{Donat que és difícil saber sempre quines funcions estan
+en aquesta llista, recomanem que qualsevol funció @q{pura} que
+estem creant no utilitzeu els grobs @code{Beam} o
+@code{VerticalAlignment}.}
+
+Un contenidor @q{unpure-pure} es construeix de la manera següent:
+
+@code{(ly:make-unpure-pure-container f0 f1)}
+
+on @code{f0} és una funció que agafa @var{n} arguments (@var{n >=
+1}) i el primer argument sempre ha de ser el grob.  Aquesta és
+la funció que dóna el resultat real.  @var{f1} és la funció que
+s'etiqueta com a @q{pura} que agafa @var{n + 2} arguments.  Un
+altre cop, el primer argument ha de ser sempre el grob però els
+arguments segon i tercer són arguments d'@q{inici} i de @q{final}.
+
+@var{inici} i @var{final} són, a tots els efectes, valors muts que
+sols tenen importància per als @code{objectes d'extensió} (o
+sigui: @code{Hairpin}, regulador, o @code{Beam}, barra), que poden
+retornar diferents estimacions d'altura basades en una columna
+d'inici i una de final.
+
+La resta són els altres arguments per a la primera funció (que pot
+no ser cap si @var{n = 1}).
+
+El resultat de la segona funció s'usa com una aproximació del
+valor necessari, que s'usa aleshores per la primera funció per
+obtenir el valor real que s'usa a continuació per a l'ajustament
+de precisió molt més tardà durant el procés d'espaiat.
+
+@c TODO: The following example supposedly showing a collision no longer
+@c 'works' since 2.18.x. Another example of a collision is needed.
+@c Issue #3512
+
+@lilypond[verbatim,quote,ragged-right]
+#(define (square-line-circle-space grob)
+(let* ((pitch (ly:event-property (ly:grob-property grob 'cause) 'pitch))
+      (notename (ly:pitch-notename pitch)))
+ (if (= 0 (modulo notename 2))
+     (make-circle-stencil 0.5 0.0 #t)
+     (make-filled-box-stencil '(0 . 1.0)
+                              '(-0.5 . 0.5)))))
+
+squareLineCircleSpace = {
+  \override NoteHead.stencil = #square-line-circle-space
+}
+
+smartSquareLineCircleSpace = {
+  \squareLineCircleSpace
+  \override NoteHead.Y-extent =
+   #(ly:make-unpure-pure-container
+      ly:grob::stencil-height
+      (lambda (grob start end) (ly:grob::stencil-height grob)))
+}
+
+\new Voice \with { \remove "Stem_engraver" }
+\relative c'' {
+  \squareLineCircleSpace
+  cis4 ces disis d
+  \smartSquareLineCircleSpace
+  cis4 ces disis d
+}
+@end lilypond
+
+En el primer compàs, sense el contenidor @emph{unpure-pure}, el
+motor d'espaiat no coneix l'amplada del cap de la nota i permet
+que col·lisioni amb les alteracions accidentals.  En el segon
+compàs, el motor d'espaiat coneix l'amplada dels caps de les notes
+i evita la col·lisió mitjançant l'allargament de la línia en la
+mesura adequada.
+
+Normalment, per als càlculs simples es poden usar funcions gairebé
+idèntiques tant per a les parts @q{no pura} i @q{pura}, simplement
+canviant el nombre d'arguments que es passen a, i l'àmbit de la
+funció.  Aquest cas d'utilització és prou suficient com perquè
+@code{ly:make-unpure-pure-container} construeixi aquesta segona
+funció de forma predeterminada quan es crida amb sols un argument
+de funció.
+
+@warning{Si una funció està caracteritzada com a @q{pura} i
+resulta que no ho és, el resultat pot ser inesperat.}
+
+@node Ús de les funcions musicals
+@section Ús de les funcions musicals
+@translationof Using music functions
+
+@c TODO -- add @seealso, etc. to these subsections
+
+Sempre que calgui reutilitzar ajustaments amb diferents
+expressions musicals, freqüentment convé fer que l'ajustament
+formi part d'una @emph{funció musical}.  En aquesta secció
+estudiarem sols les funcions de @emph{substitució}, en les quals
+l'objecte es substitueix una variable dins d'un fragment de codi
+d'entrada del LilyPond.  Es descriuen altres funcions més
+complexes a @rextendnamed{Music functions,Funcions musicals}.
+
+@menu
+* Sintaxi de les funcions de substitució::
+* Exemples de funcions de substitució::
+@end menu
+
+
+@node Sintaxi de les funcions de substitució
+@subsection Sintaxi de les funcions de substitució
+@translationof Substitution function syntax
+
+És fàcil fer una funció que substitueixi una variable dins de codi
+del LilyPond.  La forma general d'aquestes funcions és
+
+@example
+funcion =
+#(define-music-function
+     (@var{arg1} @var{arg2} @dots{})
+     (@var{type1?} @var{type2?} @dots{})
+   #@{
+     @var{@dots{}música@dots{}}
+   #@})
+@end example
+
+@noindent
+donde
+
+@multitable @columnfractions .33 .66
+@item @code{@var{argN}}
+@tab @var{n}-èssim argument
+
+@item @code{@var{typeN?}}
+@tab @emph{predicat de tipus} de l'Scheme per al qual @code{@var{argN}}
+ha de retornar @code{#t}.
+
+@item @code{@var{@dots{}música@dots{}}}
+@tab codi d'entrada normal del LilyPond, que utilitza @code{$} (en
+els llocs en els quals sols es permeten construccions del
+LilyPond) o @code{#} (per usar-ho com un valor de l'Scheme o un
+argument de funció musical o música dins de llistes de música) per
+referenciar arguments (per exemple @samp{#arg1}).
+@end multitable
+
+Cal la llista de predicats de tipus.  Alguns dels predicats de
+tipus més comuns que es fan servir en les funcions musicals són:
+
+@example
+boolean?
+cheap-list?  @emph{(utilitzar en lloc de }@q{list?}@emph{ per processar-ho més ràpid)}
+ly:duration?
+ly:music?
+ly:pitch?
+markup?
+number?
+pair?
+string?
+symbol?
+@end example
+
+@noindent
+Per veure una llista dels predicats de tipus disponibles consulteu
+@ref{Predefined type predicates,Predicats de tipus predefinits}.
+També es permeten els predicats de tipus definits per l'usuari.
+
+@seealso
+Referència de la notació:
+@ref{Predefined type predicates,Predicats de tipus predefinits}.
+
+Expansió del LilyPond:
+@rextendnamed{Music functions,Funcions musicals}.
+
+Fitxers instal·lats:
+@file{lily/music-scheme.cc},
+@file{scm/c++.scm},
+@file{scm/lily.scm}.
+
+
+@node Exemples de funcions de substitució
+@subsection Exemples de funcions de substitució
+@translationof Substitution function examples
+
+Aquesta secció presenta alguns exemples de funcions de
+substitució.  No pretenen ésser exhaustives, sinó demostrar
+algunes de les possibilitats de les funcions de substitució
+senzilles.
+
+En el primer exemple es defineix una funció que simplifica
+l'ajustament del farcit d'un element d'inscripció de text
+TextScript:
+
+@lilypond[quote,verbatim,ragged-right]
+padText =
+#(define-music-function
+     (padding)
+     (number?)
+   #{
+     \once \override TextScript.padding = #padding
+   #})
+
+\relative {
+  c''4^"piu mosso" b a b
+  \padText #1.8
+  c4^"piu mosso" b a b
+  \padText #2.6
+  c4^"piu mosso" b a b
+}
+@end lilypond
+
+A més de nombre, podem usar expressions musicals, com notes, per
+als arguments de les funcions musicals:
+
+@lilypond[quote,verbatim,ragged-right]
+custosNote =
+#(define-music-function
+     (note)
+     (ly:music?)
+   #{
+     \tweak NoteHead.stencil #ly:text-interface::print
+     \tweak NoteHead.text
+        \markup \musicglyph "custodes.mensural.u0"
+     \tweak Stem.stencil ##f
+     #note
+   #})
+
+\relative { c'4 d e f \custosNote g }
+@end lilypond
+
+@funindex \etc
+Ambdues funcions són expressions úniques senzilles en les quals
+sols falta l'últim element d'una crida de funció o
+sobreescriptura.  Per a aquestes definicions de funció en
+particular, hi ha una sintaxi alternativa més simple que
+consisteix simplement a escriure la part constant de l'expressió i
+substituir l'element final que falta per @code{\etc}:
+
+@lilypond[quote,verbatim,ragged-right]
+padText =
+  \once \override TextScript.padding = \etc
+
+\relative {
+  c''4^"piu mosso" b a b
+  \padText #1.8
+  c4^"piu mosso" b a b
+  \padText #2.6
+  c4^"piu mosso" b a b
+}
+@end lilypond
+
+@lilypond[quote,verbatim,ragged-right]
+custosNote =
+  \tweak NoteHead.stencil #ly:text-interface::print
+  \tweak NoteHead.text
+     \markup \musicglyph "custodes.mensural.u0"
+  \tweak Stem.stencil ##f
+  \etc
+
+\relative { c'4 d e f \custosNote g }
+@end lilypond
+
+
+Es poden definir funcions de substitució amb més d'un argument:
+
+@lilypond[quote,verbatim,ragged-right]
+tempoPadded =
+#(define-music-function
+     (padding tempotext)
+     (number? markup?)
+   #{
+     \once \override Score.MetronomeMark.padding = #padding
+     \tempo \markup { \bold #tempotext }
+   #})
+
+\relative {
+  \tempo \markup { "Low tempo" }
+  c''4 d e f g1
+  \tempoPadded #4.0 "High tempo"
+  g4 f e d c1
+}
+@end lilypond
+
+@c TODO: add appropriate @@ref's here.

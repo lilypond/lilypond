@@ -1,0 +1,8 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+パーカッションの楽器に対する画像は LilyPond に含まれていません。@c
+しかしながら、そのような画像を外部の EPS ファイルから取り込んで表示したり、@c
+この例のようにマークアップの内部に PostScript コードを埋め込むことで@c
+表示することができます。
+"
+  doctitleja = "パーカッションのマレットを表示する"

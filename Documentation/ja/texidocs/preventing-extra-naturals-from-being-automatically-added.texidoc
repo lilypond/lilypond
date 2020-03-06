@@ -1,0 +1,8 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+伝統的な譜刻のスタイルに合わせて、前に出現したダブルシャープやダブルフラットが@c
+シャープやフラットでキャンセルされた場合には、ナチュラル記号が表示されます。@c
+これを現代の慣習に合わせて変更するには、@code{Staff} コンテキストの
+@code{extraNatural} プロパティを @code{f} に設定します。
+"
+  doctitleja = "Preventing extra naturals from being automatically added"

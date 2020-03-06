@@ -67,14 +67,15 @@ hu = LanguageDef ('hu', 'magyar')
 it = LanguageDef ('it', 'italiano')
 ja = LanguageDef ('ja', '日本語', enable_ly_identifier_l10n=False)
 nl = LanguageDef ('nl', 'nederlands')
+pt = LanguageDef ('pt', 'Português')
 zh = LanguageDef ('zh', '中文', enable_ly_identifier_l10n=False)
 
 # Outdated or broken translations may be disabled
 # (please run 'make doc-clean' before doing that):
 #fr.enabled = False
 
-LANGUAGES = (site, ca, cs, de, es, fr, hu, it, ja, nl, zh)
-WEB_LANGUAGES = (site, ca, cs, de, es, fr, hu, it, ja, nl, zh)
+LANGUAGES = (site, ca, cs, de, es, fr, hu, it, ja, nl, pt, zh)
+WEB_LANGUAGES = (site, ca, cs, de, es, fr, hu, it, ja, nl, pt, zh)
 
 if os.getenv("MAKEWEB") == '1':
     LANGUAGES=WEB_LANGUAGES

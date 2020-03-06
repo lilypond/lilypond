@@ -1,0 +1,8 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+譜をまたがるアルペジオは @code{Span_arpeggio_engraver} が @code{Score}
+コンテキストに追加されていれば、@c
+@code{GrandStaff}, @code{PianoStaff}, @code{StaffGroup}
+以外にも作成することができます。
+"
+  doctitleja = "他のコンテキストで譜をまたがるアルペジオを作成する"

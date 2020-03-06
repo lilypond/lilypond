@@ -1,0 +1,13 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+定義されたフレット図のリストに、標準的なギターのフレット図以外のものを@c
+追加することができます。このファイルは、ベネズエラのクアトロのために@c
+調弦といくつかのフレット図を追加する例を示しています。
+
+このファイルは和音に運指を追加し、フレット図や @code{TabStaff} に表示する@c
+方法も示しています。五線譜には運指は表示されません。
+
+これらのフレット図は弦の情報を含んでいるため、移調することができません。@c
+これは将来修正される予定があります。
+"
+  doctitleja = "Defining predefined fretboards for other instruments"

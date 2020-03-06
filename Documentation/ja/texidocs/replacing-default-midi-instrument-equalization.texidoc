@@ -1,0 +1,12 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+デフォルトの MIDI 楽器の音量は @code{Score} コンテキストの
+@code{instrumentEqualizer} プロパティをセットすることで置き換えることが@c
+できます。セットするのは Scheme 関数で、音色名を引数で与えられた際に@c
+その音色に対応する最小音量と最大音量 (音量は割合で指定) のペアを返すものです。
+
+次の例は、それぞれフルートとクラリネットに対して最小音量を最大音量を@c
+セットしています。
+"
+
+  doctitleja = "デフォルトの MIDI 楽器の音量を置き換える"

@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7f48cb638958a728209577caa41bbaca8a2e4ef2
+%% Translation of GIT committish: 00f0ca84dbb015617f8ce36dd13db59bbfef8f11
   texidoces = "
 Internamente, una partitura de lilypond no es más que una expresión de
 Scheme, generada por el analizador sintáctico de lilypond.  Usando

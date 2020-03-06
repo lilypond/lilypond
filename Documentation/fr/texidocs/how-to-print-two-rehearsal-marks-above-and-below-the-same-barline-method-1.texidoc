@@ -1,4 +1,4 @@
-%% Translation of GIT committish: c5f6541667b71037c4965b482a8161628c7cc485
+%% Translation of GIT committish: 93c02a2ddbaf07d79a57748d6ec6b7177ceed756
   texidocfr = "
 Cette méthode permet d'imprimer deux marques-repères l'une au-dessus de
 l'autre.  Le repère inférieur est décalé sous la portée, puis s'insère
@@ -10,7 +10,7 @@ permet d'accroître ou réduire globalement l'espace entre le repère et la
 portée.
 
 La capacité de pratiquement tout type de glyphe ou chaîne de caractères
-à faire l'objet d'un repère les rend capable de venir se centrer
+à faire l'objet d'un repère les rend capables de venir se centrer
 au-dessus ou en dessous d'une barre de mesure.
 
 L'adjonction de la propriété @code{break-visibility}, comme dans le

@@ -1,0 +1,28 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+LilyPond の楽譜は、内部的には単なる Scheme 式であり、LilyPond のパーサを通して@c
+生成されます。Scheme を用いて、入力ファイルなしに楽譜を自動的に生成することが@c
+できます。Scheme での音楽表記が用意されていれば、楽譜は
+(scorify-music music) を呼び出すことで生成できます。
+これは Score オブジェクトを作り出し、@c
+それに対してカスタム layout ブロックを使用するには@c
+以下の構文を使用します:
+(let* ((layout
+(ly:output-def-clone $defaultlayout)))
+   ; modify the layout here, then assign it:
+   (ly:score-add-output-def! score layout)
+  )
+
+最後に行うことは、これを LilyPond に渡して組版させることです。このスニペットは@c
+@code{(add-score score)}, @code{(add-text text)}, @code{(add-music music)}
+関数を定義しており、これを用いて楽譜全体、マークアップ、音楽を@c
+生成することができます。
+
+このスニペットはトップ レベルに加えて、@code{\\book @{...@}} ブロックの内部に@c
+対しても動作します。そのために、それぞれの Score を
+toplevel-scores リストに追加するようにし、@c
+toplevel-book-handler (@code{\\book @{...@}} ブロックが閉じられた際に@c
+一度だけ呼ばれる Scheme 関数) を変更して、これまでにリストに追加された Score
+をブックに挿入するようにしています。
+"
+  doctitleja = "楽譜全体 (やブック パート) をパーサを使用せずに Scheme で生成する"

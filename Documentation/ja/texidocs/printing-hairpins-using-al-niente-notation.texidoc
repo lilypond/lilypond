@@ -1,0 +1,7 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+ヘアピン強弱記号は、@code{Hairpin} オブジェクトの @code{circled-tip}
+プロパティを @code{#t} にセットすることで、@c
+端に丸を付けて (@qq{al niente} 記譜法) 表示することができます。
+"
+  doctitleja = "ヘアピンの表示に al niente 記譜法を用いる"

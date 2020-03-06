@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+text-spanner, line-spanner (例えば Glissando) に対して矢印を用いることが@c
+できます。
+"
+  doctitleja = "矢印"

@@ -1,0 +1,46 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+Grob のコールバックを使用する際、Grob の親子関係を理解すると役立つ場合が@c
+あります。多くの Grob は親を持ち、Grob が表示される位置の基準点となります。@c
+X 軸方向の親 (X-parent) と Y 軸方向の親 (Y-parent) はそれぞれ@c
+横方向と縦方向の位置の基準となります。@c
+同様に、親の Grob にもそれぞれの親が存在します。
+
+
+残念ながら、Grob の親子関係を分かりにくくしていることがいくつかあります:
+
+* Grob が持つ親の種類はコンテキストに依存する場合があります。
+
+* いくつかの Grob では、X 軸方向の親と Y 軸方向の親が同じです。
+
+* Grob の親が位置の基準以外の役割を果たす場合があります。
+
+* \"世代\" として考えるのは誤解を生みます。
+
+例えば、@code{System} Grob は @code{VerticalAlignment} の
+(Y 軸方向の) 親にも、(X 軸方向の両方の) 祖父母にもなっています。
+
+
+このマクロは、Grob の親子関係を (コンソールに) 分かりやすく表示します。
+
+このように呼び出します:
+
+@code{@{ \\once \\override NoteHead.before-line-breaking =
+#display-ancestry c @}}
+
+以下のような出力を得ます:
+
+
+@code{NoteHead X,Y: NoteColumn
+     X: PaperColumn
+        X,Y: System
+     Y: VerticalAxisGroup
+        X: NonMusicalPaperColumn
+           X,Y: System
+        Y: VerticalAlignment
+           X: NonMusicalPaperColumn
+              X,Y: System
+           Y: System}
+
+"
+  doctitleja = "Grob の親子関係を表示する"

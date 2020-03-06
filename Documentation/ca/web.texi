@@ -181,7 +181,7 @@ l'edició de tota classe de partitures, ja siguin
 @uref{examples.html#Aplicacions-per-a-leducacio, materials didàctics},
 @uref{examples.html#Projectes-grans, grans projectes orquestrals},
 @uref{examples.html#Sortida-personalitzada, sortida personalitzada},
-e incluso
+i fins i tot
 @uref{examples.html#Schenker-Graphs, gràfics de Schenker}.
 
 @end ifset

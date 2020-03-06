@@ -1,0 +1,9 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+休符が複数小節に渡り、それが 10 小節以下の場合には、四全休符や@c
+二全休符が並んだものとして表記されます (ドイツ語で @code{Kirchenpausen} --
+教会休符と呼ばれます)。10 小節より長い場合は、単純な線として表示されます。@c
+このデフォルトの 10 を変更するには、@code{expand-limit} プロパティを@c
+オーバライドします。
+"
+  doctitleja = "複数小節にまたがる休符の形を変更する"

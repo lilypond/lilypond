@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is included from notation.itely
 @ignore
-    Translation of GIT committish: dbc2dd143e50e000a39883fc8217b4ec60e08657
+    Translation of GIT committish: 3064ac9d3d8bbc0cc7c2bcd8e4f72b232b5a8af7
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -48,19 +48,12 @@ situados dentro del pentagrama.
 @cindex fuente tipográfica (de notación), tamaño
 @cindex selección del tamaño de la fuente tipográfica (de notación)
 @cindex notación, tamaño de la fuente
-@cindex notas, cabezas de
+@cindex notas, cabeza de
 
 @funindex fontSize
 @funindex font-size
 @funindex magnification->font-size
 @funindex magstep
-@funindex magnifyMusic
-@funindex teeny
-@funindex tiny
-@funindex small
-@funindex normalsize
-@funindex large
-@funindex huge
 @funindex \magnifyMusic
 @funindex \teeny
 @funindex \tiny
@@ -321,11 +314,11 @@ Referencia de funcionamiento interno:
 @c https://sourceforge.net/p/testlilyissues/issues/3987/
 @c https://sourceforge.net/p/testlilyissues/issues/3990/
 @knownissues
-Actualmente hay dos falos del programa que impiden un correcto
+Actualmente hay dos fallos del programa que impiden un correcto
 espaciado horizontal al usar @code{\magnifyMusic}.  Solamente
-existe una forma de circunventarlo, y su funcionamiento correcto
-no está garantizado en todos los casos.  En el ejemplo que aparece
-a continuación, sustituya la variable @var{mag} con su valor
+existe una forma de esquivarlo, y su funcionamiento correcto no
+está garantizado en todos los casos.  En el ejemplo que aparece a
+continuación, sustituya la variable @var{mag} con su valor
 preferido.  También puede tratar de quitar una o ambas
 instrucciones @code{\newSpacingSection}, y/o las instrucciones
 @code{\override} y @code{\revert}:
@@ -366,7 +359,7 @@ texto o de cadenas de caracteres.
 }
 @end lilypond
 
-@cindex thumb-script
+@cindex articulación de pulgar
 
 @funindex \thumb
 
@@ -379,7 +372,7 @@ debe tocar con el pulgar (p.ej. en música de violoncello).
 
 @cindex digitación de acordes
 @cindex digitación, instrucciones de, para acordes
-@cindex acordes, digitación de
+@cindex acorde, digitación de
 
 Las digitaciones para los acordes también se pueden añadir a las
 notas individuales escribiéndolas después de las alturas.
@@ -395,12 +388,21 @@ o debajo del pentagrama, véase @ref{Dirección y posición}.
 
 @snippets
 
+@cindex digitación, orientación
+@cindex orientación de las digitaciones
+@funindex fingeringOrientations
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {controlling-the-placement-of-chord-fingerings.ly}
 
+@cindex digitación, dentro del pentagrama
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
+@cindex colisión, digitaciones de acorde
+@cindex acorde, digitación, colisión
+@funindex fingeringOrientations
+@funindex stringNumberOrientations
+@funindex strokeFingerOrientations
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {avoiding-collisions-with-chord-fingerings.ly}
 
@@ -423,12 +425,12 @@ Referencia de funcionamiento interno:
 @unnumberedsubsubsec Notas ocultas
 @translationof Hidden notes
 
-@cindex ocultas, notas
-@cindex invisibles, notas
-@cindex transparentes, notas
-@cindex notas ocultas
-@cindex notas invisibles
-@cindex notas transparentes
+@cindex oculta, nota
+@cindex invisible, nota
+@cindex transparente, nota
+@cindex nota oculta
+@cindex nota invisible
+@cindex nota transparente
 
 @funindex \hideNotes
 @funindex \unHideNotes
@@ -491,13 +493,13 @@ Referencia de funcionamiento interno:
 @unnumberedsubsubsec Colorear objetos
 @translationof Coloring objects
 
-@cindex coloreados, objetos
-@cindex colores
+@cindex coloreado, objeto
+@cindex color
 @cindex colorear objetos
-@cindex objetos, colorear
-@cindex coloreadas, notas
+@cindex objeto, colorear
+@cindex coloreada, nota
 @cindex colorear notas
-@cindex notas coloreadas
+@cindex nota coloreada
 @cindex x11, color de
 @cindex x11-color
 @cindex colores de x11
@@ -553,7 +555,6 @@ predeterminado que se devuelve es el negro.
 }
 @end lilypond
 
-@cindex rgb-color
 @cindex color rgb
 @cindex rgb, color
 
@@ -588,8 +589,8 @@ Fragmentos de código:
 @rlsr{Editorial annotations}.
 
 @cindex x11,  color de
-@cindex coloreadas, notas de acorde
-@cindex notas coloreadas en acordes
+@cindex coloreada, nota de acorde
+@cindex nota coloreada en acordes
 @cindex color en acordes
 
 @funindex x11-color
@@ -615,11 +616,11 @@ Consulte @ref{La instrucción tweak} para ver más detalles.
 @unnumberedsubsubsec Paréntesis
 @translationof Parentheses
 
-@cindex fantasma, notas
-@cindex notas fantasma
-@cindex notas entre paréntesis
+@cindex fantasma, nota
+@cindex nota fantasma
+@cindex nota entre paréntesis
 @cindex paréntesis
-@cindex corchetes
+@cindex corchete
 
 @funindex \parenthesize
 
@@ -694,9 +695,13 @@ hacia abajo; véase @ref{Dirección y posición}.
 
 @snippets
 
+@cindex plica, dirección predeterminada sobre la línea media
+@cindex dirección predeterminada de la plica sobre la línea media
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {default-direction-of-stems-on-the-center-line-of-the-staff.ly}
 
+@cindex plica, dirección automática sobre la línea media
+@cindex dirección automática de la plica sobre la línea media
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {automatically-changing-the-stem-direction-of-the-middle-note-based-on-the-melody.ly}
 
@@ -721,10 +726,118 @@ Esta sección trata sobre cómo enfatizar elementos que están dentro
 del pentagrama, desde fuera del pentagrama.
 
 @menu
+* Nombre de las notas::
 * Globos de ayuda::
 * Líneas de rejilla::
 * Corchetes de análisis::
 @end menu
+
+@node Nombre de las notas
+@unnumberedsubsubsec Nombre de las notas
+@translationof Note names
+
+@cindex notas, nombre, imprimir
+
+@funindex NoteNames
+@funindex Note_name_engraver
+@funindex noteNameFunction
+@funindex printNotesLanguage
+@funindex printOctaveNames
+@funindex noteNameSeparator
+@funindex printAccidentalNames
+
+Se pueden imprimir los nombres de las notas como texto, usando el
+contexto @code{NoteNames}.  Si se usa simultáneamente con una
+pauta ordinaria, es posible sincronizar cada nota con su nombre
+impreso por encima o por debajo de la pauta.
+
+@lilypond[verbatim,quote]
+\language "italiano"
+melody = \relative do'' {
+  fad2 si,8 dod re mi fad4. re8 fad2
+}
+
+<<
+  \new NoteNames { \melody }
+  \new Staff { \key si \minor \melody }
+  \new NoteNames {
+    \set printNotesLanguage = "deutsch"
+    \set printAccidentalNames = ##f
+    \melody
+  }
+>>
+@end lilypond
+
+De manera predeterminada, los nombres de nota se imprimen en el
+mismo idioma que se ha usado para la entrada de la música; sin
+embargo, la propiedad @code{printNotesLanguage} permite
+seleccionar cualquier otro idioma disponible (véase @ref{Nombres
+de las notas en otros idiomas}).  A través de la propiedad
+@code{printAccidentalNames} se determina si las alteraciones se
+imprimen o no.
+
+Estableciendo tanto la mencionada propiedad a un símbolo, como la
+propiedad @code{printOctaveNames} al valor @code{##t} (verdadero),
+se pueden obtener nombres de notas de una manera muy similar a la
+sintaxis de entrada de LilyPond.  Para un resultado más general,
+es posible conseguir nombres de nota @q{científicos}.
+
+@lilypond[verbatim,quote]
+melody = \relative c'' {
+  fis2 b,8 cis d e fis4. d8 fis2
+}
+
+<<
+  \new NoteNames {
+    \set printOctaveNames = ##t
+    \set printAccidentalNames = #'lily
+    \melody
+  }
+  \new Staff { \key b \minor \melody }
+  \new NoteNames {
+    \set printOctaveNames = #'scientific
+    \melody
+  }
+>>
+@end lilypond
+
+La propiedad @code{noteNameSeparator} define cómo se imprimen los
+acordes.  Se pueden definir otras funciones de formateado como
+@code{noteNameFunction}; tales funciones deben admitir los
+argumentos @code{altura} y @code{contexto}, incluso si alguno de
+ellos puede ignorarse.
+
+@lilypond[verbatim,quote]
+somechords = \relative c' {
+  <b d fis>2 <b cis e g> <b d fis> q
+}
+
+<<
+  \new NoteNames {
+    \set noteNameSeparator = "+"
+    \somechords
+  }
+  \new Staff { \key b \minor \somechords }
+  \new NoteNames {
+    \set noteNameFunction =
+      #(lambda (pitch ctx)
+         (alteration->text-accidental-markup
+          (ly:pitch-alteration pitch)))
+    \somechords
+  }
+>>
+@end lilypond
+
+@seealso
+
+Referencia de la notación:
+@ref{Nombres de las notas en otros idiomas}.
+
+Referencia de funcionamiento interno:
+@rinternals{NoteName},
+@rinternals{NoteNames},
+@rinternals{Note_name_engraver}.
+
 
 @node Globos de ayuda
 @unnumberedsubsubsec Globos de ayuda
@@ -738,8 +851,6 @@ del pentagrama, desde fuera del pentagrama.
 @funindex \balloonGrobText
 @funindex \balloonText
 @funindex Balloon_engraver
-@funindex balloonGrobText
-@funindex balloonText
 @funindex \balloonLengthOn
 @funindex \balloonLengthOff
 
@@ -801,7 +912,7 @@ Referencia de funcionamiento interno:
 @translationof Grid lines
 
 @cindex rejilla, líneas de
-@cindex líneas de rejilla
+@cindex línea de rejilla
 @cindex vertical, línea, entre pentagramas
 @cindex línea vertical entre pentagramas
 
@@ -852,6 +963,7 @@ de rejilla.
 
 @snippets
 
+@cindex rejilla, líneas de, modificación
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {grid-lines--changing-their-appearance.ly}
 
@@ -872,12 +984,12 @@ Referencia de funcionamiento interno:
 @unnumberedsubsubsec Corchetes de análisis
 @translationof Analysis brackets
 
-@cindex corchetes
+@cindex corchete
 @cindex fraseo, corchetes de
-@cindex corchetes de fraseo
+@cindex corchete de fraseo
 @cindex musicológico, análisis
 @cindex análisis musicológico
-@cindex notas, corchetes de agrupación de
+@cindex nota, corchetes de agrupación de
 @cindex horizontal, corchete
 @cindex corchete horizontal
 
@@ -924,6 +1036,9 @@ Los corchetes de análisis se pueden anidar.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {analysis-brackets-above-the-staff.ly}
 
+@cindex análisis, corchete de, con etiqueta
+@cindex corchete de fraseo con etiqueta
+@funindex HorizontalBracketText
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {analysis-brackets-with-labels.ly}
 

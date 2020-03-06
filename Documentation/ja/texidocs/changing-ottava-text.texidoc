@@ -1,0 +1,11 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+内部的には、@code{\\ottava} は @code{ottavation} プロパティを
+(例えば、@code{8va} や @code{8vb} に) セットし、@c
+@code{middleCPosition} プロパティを変更します。@c
+オッターバ囲みのテキストを変更するには、@code{\\ottava} の後に
+@code{ottavation} をセットするようにしてください。
+
+オッターバ囲みが短い場合には、テキストを短くすると良いでしょう。
+"
+  doctitleja = "オッターバ囲みのテキストを変更する"

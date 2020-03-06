@@ -1,0 +1,8 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+次の例は、デフォルトのリストには含まれていない強弱記号を作成し、@c
+MIDI 出力に反映されるように音量値を割り当てる方法を示しています。
+
+強弱記号 @code{\\rfz} は @code{0.9} の値が割り当てられています。
+"
+  doctitleja = "MIDI 出力でカスタム強弱記号を作成する"

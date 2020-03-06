@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Ultimo aggiornamento Sat Jun 24 12:50:41 UTC 2017
+@emph{Ultimo aggiornamento Sat Dec 14 18:15:11 UTC 2019
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -30,7 +30,7 @@ Cambiamenti in LilyPond
 @item
 Section titles
 @*
-2784
+3377
 @tab Federico Bruni
 @tab 
 @tab 
@@ -297,7 +297,7 @@ sì
 @item
 2 Notazione comunemente utilizzata
 @*
-4421
+4458
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -324,7 +324,7 @@ sì
 @item
 3 Concetti fondamentali
 @*
-11240
+11458
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -351,7 +351,7 @@ sì
 @item
 4 Modifica dell'output
 @*
-16592
+16570
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -498,7 +498,7 @@ sì
 @item
 1.1 Altezze
 @*
-5413
+5425
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -525,7 +525,7 @@ sì
 @item
 1.2 Ritmi
 @*
-6853
+6854
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -623,11 +623,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">parzialmente</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+sì
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -650,11 +650,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #2cff20">parzialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+parzialmente
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -687,7 +687,7 @@ sì
 @item
 1.8 Testo
 @*
-2754
+3256
 @tab Federico Bruni
 @tab 
 @tab 
@@ -766,7 +766,223 @@ sì
 @end ifnothtml
 @tab pre-GDP
 @item
-2.2 World music
+2.2 Tastiera e altri strumenti multirigo
+@*
+934
+@tab Federico Bruni
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">sì</span>
+@end html
+@end ifhtml
+@ifnothtml
+sì
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">sì</span>
+@end html
+@end ifhtml
+@ifnothtml
+sì
+@end ifnothtml
+@tab pre-GDP
+@item
+2.3 Strumenti a corde senza tasti
+@*
+279
+@tab Federico Bruni
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">sì</span>
+@end html
+@end ifhtml
+@ifnothtml
+sì
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">sì</span>
+@end html
+@end ifhtml
+@ifnothtml
+sì
+@end ifnothtml
+@tab pre-GDP
+@item
+2.4 Strumenti a corde con tasti
+@*
+2821
+@tab Federico Bruni
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">sì</span>
+@end html
+@end ifhtml
+@ifnothtml
+sì
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">sì</span>
+@end html
+@end ifhtml
+@ifnothtml
+sì
+@end ifnothtml
+@tab pre-GDP
+@item
+2.5 Percussioni
+@*
+753
+@tab Federico Bruni
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">sì</span>
+@end html
+@end ifhtml
+@ifnothtml
+sì
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">sì</span>
+@end html
+@end ifhtml
+@ifnothtml
+sì
+@end ifnothtml
+@tab pre-GDP
+@item
+2.6 Strumenti aerofoni
+@*
+324
+@tab Federico Bruni
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">sì</span>
+@end html
+@end ifhtml
+@ifnothtml
+sì
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">sì</span>
+@end html
+@end ifhtml
+@ifnothtml
+sì
+@end ifnothtml
+@tab pre-GDP
+@item
+2.7 Notazione per accordi
+@*
+1975
+@tab Federico Bruni
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">sì</span>
+@end html
+@end ifhtml
+@ifnothtml
+sì
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">sì</span>
+@end html
+@end ifhtml
+@ifnothtml
+sì
+@end ifnothtml
+@tab pre-GDP
+@item
+2.8 Musica contemporanea
+@*
+475
+@tab Federico Bruni
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">sì</span>
+@end html
+@end ifhtml
+@ifnothtml
+sì
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">sì</span>
+@end html
+@end ifhtml
+@ifnothtml
+sì
+@end ifnothtml
+@tab pre-GDP
+@item
+2.9 Notazione antica
+@*
+5437
+@tab Federico Bruni
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">sì</span>
+@end html
+@end ifhtml
+@ifnothtml
+sì
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">sì</span>
+@end html
+@end ifhtml
+@ifnothtml
+sì
+@end ifnothtml
+@tab pre-GDP
+@item
+2.10 World music
 @*
 1446
 @tab Federico Bruni
@@ -795,7 +1011,7 @@ sì
 @item
 3 Input e output
 @*
-12853
+13276
 @tab Federico Bruni
 @tab 
 @tab 
@@ -876,7 +1092,7 @@ sì
 @item
 A Tabelle del manuale della notazione
 @*
-3079
+3382
 @tab Federico Bruni
 @tab 
 @tab 
@@ -996,7 +1212,7 @@ sì
 @item
 1 Eseguire @command{lilypond}
 @*
-5469
+5433
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -1077,7 +1293,7 @@ sì
 @item
 4 Programmi esterni
 @*
-2786
+2880
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -1143,7 +1359,7 @@ LilyPond -- Notazione musicale per tutti
 @item
 Section titles
 @*
-760
+750
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -1197,7 +1413,7 @@ sì
 @item
 Introduzione
 @*
-5793
+5937
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -1214,11 +1430,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #25fe1f">parzialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+parzialmente
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1278,7 +1494,7 @@ sì
 @item
 Comunità
 @*
-2449
+2364
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 

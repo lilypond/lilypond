@@ -1,0 +1,8 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+@code{\\repeat tremolo} は、和音のトレモロに対してはちょうど 2 つの引数を@c
+取らなければならないため、譜をまたがる和音のトレモロは
+同じ括弧内に音を配置し、@code{\\change Staff} コマンドで譜を変更する@c
+必要があります。
+"
+  doctitleja = "譜をまたがるトレモロ"

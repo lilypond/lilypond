@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 3f5d679ade0f797d5f907569656223d09b09d5db
+    Translation of GIT committish: b12cb5c388f3ab75d4833d6702ac9f37604255dd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -441,15 +441,14 @@ Ecco un esempio di una valida segnalazione bug:
 Dopo aver verificato che il problema non sia già noto e aver
 creato una segnalazione bug, inviacela!
 
-@divClass{keep-bullets}
-@itemize
+Purtroppo non esiste più un'interfaccia per pubblicare messaggi sulla lista
+bug-lilypond senza essere iscritti; vedi
 
-@item
-Sei iscritto alla mailing list @uref{mailto:bug-lilypond@@gnu.org,
-bug-lilypond@@gnu.org}, puoi inviare una normale email.
+@example
+@uref{https://lists.gnu.org/mailman/listinfo/bug-lilypond}
+@end example
 
-@end itemize
-@divEnd
+per maggiori informazioni.
 @divEnd
 
 @divClass{column-center-bottom}
@@ -607,8 +606,8 @@ di usare il @ref{Download, download per la versione stabile}, e leggere i
 
 LilyPond viene distribuito in due versioni: la versione stabile e quella
 di sviluppo o instabile.  Le versioni stabili hanno un numero di versione
-@q{minore} pari (per esempio 2.8, 2.10, 2.12).  Le versioni di sviluppo
-hanno un numero di versione @q{minore} dispari (per esempio 2.7, 2.9, 2.11).
+@q{minore} pari (per esempio 2.14, 2.16, 2.18).  Le versioni di sviluppo
+hanno un numero di versione @q{minore} dispari (per esempio 2.15, 2.17, 2.19).
 
 @divEnd
 

@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 094be7d770e887169f70249804e1e96e04a44ca5
+    Translation of GIT committish: 72067b395d947f1349ab8010f0592d45e52b8141
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.21.0"
 
 
 @node Actualizar ficheros con convert-ly

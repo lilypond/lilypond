@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+@code{after-line-breaking} と共に @code{breakable} プロパティを @code{#t}
+にすることで、グリッサンドの途中で改行することができます。
+"
+  doctitleja = "グリッサンドを改行できるようにする"

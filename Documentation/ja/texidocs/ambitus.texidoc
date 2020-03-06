@@ -1,0 +1,8 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+音域を表示します。
+
+最高音や最低音が調号に含まれない場合には臨時記号が表示されます。@c
+Grob @code{AmbitusNoteHead} には加線を含みます。
+"
+  doctitleja = "音域"

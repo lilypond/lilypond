@@ -1,0 +1,6 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocit = "
+Si può impostare il contesto FretBoards in modo che mostri il diagramma solo
+quando l'accordo cambia o all'inizio di una nuova linea.
+"
+  doctitleit = "Cambi di accordo nei diagrammi dei tasti"

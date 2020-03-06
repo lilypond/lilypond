@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 3f5d679ade0f797d5f907569656223d09b09d5db
+    Translation of GIT committish: b12cb5c388f3ab75d4833d6702ac9f37604255dd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -454,16 +454,12 @@ He aquí un ejemplo de un buen informe de fallo:
 Una vez que ha verificado que el problema no es conocido ya, y ha
 creado el informe, ¡puede enviárnoslo!
 
-@divClass{keep-bullets}
-@itemize
-
-@item
-Si está suscrito a la lista de correo
-@uref{mailto:bug-lilypond@@gnu.org,bug-lilypond@@gnu.org}, envíe
-un mensaje de la forma habitual.
-
-@end itemize
-@divEnd
+Lamentablemente, ya no existe ninguna interfaz para realizar
+envíos a la lista bug-lilypond sin estar suscrito; véase
+@example
+@uref{https://lists.gnu.org/mailman/listinfo/bug-lilypond}
+@end example
+para más información.
 @divEnd
 
 @divClass{column-center-bottom}
@@ -627,9 +623,8 @@ LilyPond, le conminamos a que utilice la
 
 Existen dos conjuntos de lanzamientos para LilyPond: lanzamientos
 estables, y lanzamientos inestables de desarrollo.  Las versiones
-estables tienen un número de versión @q{menor} par (p.ej., 2.8,
-2.10, 2.12).  Las versiones de desarrollo tienen un número
-@q{menor} de versión impar (p.ej., 2.7, 2.9, 2.11).
+estables tienen un número de versión @q{menor} par (p.ej., 2.14, 2.16, 2.18).  Las versiones de desarrollo tienen un número
+@q{menor} de versión impar (p.ej., 2.15, 2.17, 2.19).
 
 @divEnd
 

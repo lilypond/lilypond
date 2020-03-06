@@ -55,16 +55,16 @@ Copyright @copyright{} 1999--2020 pels autors.
 @ifnottex
 
 @menu
-* Notació musical::                 Notació que es fa servir a gairebé tots els projectes.
-* Specialist notation::          Notació que sols s'usa per a fins específics.
-* General input and output::      Informació general sobre l'entrada i la sortida del LilyPond.
-* Spacing issues::             Presentació del resultat en paper.
-* Changing defaults::   Ajust fi del resultat
+* Notació musical::            Notació que es fa servir a gairebé tots els projectes.
+* Notació especialitzada::     Notació que sols s'usa per a fins específics.
+* Entrada i sortida generals:: Informació general sobre l'entrada i la sortida del LilyPond.
+* Gestió de l'espai::             Presentació del resultat en paper.
+* Canvi dels valors predeterminats::   Ajust fi del resultat
 
 Annexos
 
-* Notation manual tables:: Taules i quadres
-* Cheat sheet::       Resum de la sintaxi del LilyPond
+* Taules del manual sobre notació:: Taules i quadres
+* Full de referència ràpida::       Resum de la sintaxi del LilyPond
 * GNU Free Documentation License::  Llicència d'aquest document
 * Índex d'ordres del LilyPond::
 * Índex del LilyPond::

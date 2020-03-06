@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 47b45b556c729d13e71782e52d378e1c2a0f2b4d
+    Translation of GIT committish: 21a1f431176e969d45a9cc973c99dce34e9e8733
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -77,7 +77,7 @@ Otras se muestran en la sección de fragmentos de código.
 
 @seealso
 Manual de aprendizaje:
-@rlearning{Platillas de cuarteto de cuerda}.
+@rlearning{Plantillas de cuarteto de cuerda}.
 
 Referencia de la notación:
 @ref{Guiones de texto},
@@ -98,14 +98,14 @@ Fragmentos de código:
 @funindex \open
 @funindex \romanStringNumbers
 
-@cindex arco, indicaciones de
-@cindex arco arriba, indicación
-@cindex arco abajo, indicación
+@cindex arco, indicación
+@cindex arco, arriba, indicación
+@cindex arco, abajo, indicación
 @cindex arriba, arco
 @cindex abajo, arco
 @cindex al aire, indicación de cuerda
 @cindex cuerda al aire, indicación de
-@cindex cuerda, números de
+@cindex cuerda, número
 
 Las indicaciones de arco se crean como articulaciones, que se
 describen en @ref{Articulaciones y ornamentos}.
@@ -159,11 +159,10 @@ Referencia de la notación:
 
 @strong{@i{Armónicos naturales}}
 
-@cindex notas, cabeza de, forma de rombo
+@cindex nota, cabeza de, forma de rombo
 @cindex rombo, cabezas en forma de
-@cindex naturales, armónicos
-@cindex armónicos naturales
-
+@cindex natural, armónico
+@cindex armónico, natural
 @funindex \harmonicsOn
 @funindex \harmonicsOff
 

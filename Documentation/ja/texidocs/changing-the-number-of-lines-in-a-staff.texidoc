@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+譜線の数は @code{StaffSymbol} の @code{line-count} プロパティをオーバライド@c
+することで変更できます。
+"
+  doctitleja = "譜線の数を変更する"

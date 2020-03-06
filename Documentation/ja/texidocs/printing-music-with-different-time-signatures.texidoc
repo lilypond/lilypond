@@ -1,0 +1,13 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+次のスニペットでは、2 つのパートが完全に異なる拍子記号を持っていますが、@c
+タイミングは揃っています。小節線はパート毎に独立して表示するため
+@code{Score} のレベルでは表示されず、@code{Timing_translator} が
+@code{Score} コンテキストから @code{Staff} コンテキストに移動しています。@c
+
+小節番号が必要な場合、@code{Bar_number_engraver} も移動する必要があります。@c
+このエングラーバは @code{Timing_translator} によってセットされるプロパティに@c
+依存するためです。小節番号を表示したい譜に @code{\\with}
+を用いることができます。
+"
+  doctitleja = "音楽を異なる拍子記号で表示する"

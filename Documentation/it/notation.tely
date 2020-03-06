@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 47db9a3883d726ca53e2133a3b2298f78dd6a32e
+    Translation of GIT committish: 1733322f83f2a9c74668d7d071bfe1c3f6f475e4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -92,10 +92,14 @@ Appendici
 
 Questo indice elenca tutti i comandi e le parole chiave di LilyPond
 con dei collegamenti alle sezioni del manuale che descrivono il
-loro uso.  Ogni collegamento è composto da due parti.  La prima parte
-porta al punto esatto del manuale in cui compaiono il comando o la
-parola chiave; la seconda parte porta all'inizio della sezione del
+loro uso.
+
+@ifhtml
+Ogni collegamento è composto da due parti.  La prima parte porta
+al punto esatto del manuale in cui compaiono il comando o la parola
+chiave; la seconda parte porta all'inizio della sezione del
 manuale in cui compaiono il comando o la parola.
+@end ifhtml
 
 @printindex ky
 
@@ -105,10 +109,20 @@ manuale in cui compaiono il comando o la parola.
 
 Oltre a tutti i comandi e le parole chiave di LilyPond, questo indice
 elenca i termini musicali e le espressioni che si riferiscono a ognuno di
-essi, corredati di collegamenti alle relative sezioni del manuale.  Ogni
-collegamento è composto da due parti.  La prima parte porta al punto esatto
+essi, corredati di collegamenti alle relative sezioni del manuale.
+
+@ifhtml
+Ogni collegamento è composto da due parti.  La prima parte porta al punto esatto
 del manuale in cui compare l'argomento; la seconda parte porta all'inizio
 della sezione del manuale in cui l'argomento è trattato.
+@end ifhtml
+
+@iftex
+Gli elementi inclinati dell'indice puntano a posizioni (soprattutto le sezioni
+@q{Vedi anche}) che contengono collegamenti esterni ad altri file della
+documentazione di LilyPond, come la Guida al funzionamento interno o
+il Glossario.
+@end iftex
 
 @printindex cp
 

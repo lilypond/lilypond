@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+@code{Volta_engraver} を譜に追加することで、繰り返し括弧を@c
+楽譜の最上段の譜以外にも表示することができます。
+"
+  doctitleja = "複数譜に繰り返し括弧を表示する"

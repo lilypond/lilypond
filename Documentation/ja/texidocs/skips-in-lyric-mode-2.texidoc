@@ -1,0 +1,7 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+@code{s} は @code{\\lyricmode} では使用できません
+(@qq{s} という歌詞が入力されるだけです) が、ダブルクォート (@code{\"\"})
+やアンダースコア (@code{_}) を使用することができます。例:
+"
+  doctitleja = "歌詞モードでのスキップ (2)"

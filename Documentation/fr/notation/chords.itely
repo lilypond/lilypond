@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 553410afdd9496f7d9f1498e755ea18de8e70596
+   Translation of GIT committish: 032de07c17caacd038f113ebcb54e9c473d64e0f
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -13,6 +13,7 @@
 @c Translators: Valentin Villenave,Jean-Charles Malahieude
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
 
+
 @node Notation des accords
 @section Notation des accords
 @translationof Chord notation
@@ -20,9 +21,9 @@
 @lilypondfile[quote]{chords-headword.ly}
 
 Les accords se saisissent soit comme des notes normales, soit à l'aide
-d'un mode dédié, et seront rendus selon l'une des diverses nomenclatures
-occidentales.  Les accords peuvent aussi se présenter sous forme
-nominale, ou bien en basse figurée.
+d'un mode dédié ; ils seront rendus selon l'une des diverses
+nomenclatures occidentales. Les accords peuvent aussi se présenter sous
+forme nominale, ou bien en basse figurée.
 
 @menu
 * Mode accords::
@@ -36,7 +37,7 @@ nominale, ou bien en basse figurée.
 @translationof Chord mode
 
 @cindex chordmode
-@cindex accords, mode
+@cindex accord, mode
 
 Le mode accords permet de saisir des accords en indiquant leur structure
 plutôt que les notes qui les composent.
@@ -52,13 +53,13 @@ plutôt que les notes qui les composent.
 @unnumberedsubsubsec Généralités sur le mode accords
 @translationof Chord mode overview
 
-@cindex accords, noms
-@cindex accords, chiffrage
+@cindex accord, nom
+@cindex accord, chiffrage
 
 Un accord peut se saisir en tant que musique simultanée, comme nous
 l'avons vu à la rubrique @ref{Notes en accords}.
 
-LilyPond dispose aussi d'un @qq{mode accords} au sein duquel sera
+LilyPond dispose aussi d'un « mode accords » au sein duquel sera
 considérée la structure des accords, tels qu'ils se présentent dans les
 traditions occidentales, plutôt que les différentes hauteurs qui les
 composent.  Ce mode est tout à fait adapté pour ceux qui sont plus
@@ -90,14 +91,14 @@ séquence musicale :
 @end lilypond
 
 @seealso
-Glossaire musicologique :
+Glossaire musicologique :
 @rglosnamed{chord,Accord}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Modes de saisie},
 @ref{Notes en accords}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Chords,Accords}.
 
 @knownissues
@@ -109,10 +110,10 @@ en mode accord -- voir @ref{Articulations et ornements}.
 @unnumberedsubsubsec Accords courants
 @translationof Common chords
 
-@cindex triades
+@cindex triade
 @cindex septième
 @cindex fondamentale
-@cindex accords, modificateur
+@cindex accord, modificateur
 @cindex qualité d'accord
 
 Dans le mode accords, introduit par la commande @code{\chordmode}, les
@@ -137,7 +138,7 @@ Les accords de septième sont aisément stipulables :
 @end lilypond
 
 @funindex aug
-@funindex dim
+@funindex @sortas{dimA} dim
 @funindex maj
 @funindex m
 
@@ -212,7 +213,7 @@ Accord augmenté.  Ce modificateur augmente la quinte.
 maj, maj7
 @tab
 Accord de septième majeure. Ce modificateur majorise la septième.  Le
-@code{7} à la suite du est @code{maj} facultatif.  Ce modificateur ne
+@code{7} à la suite du @code{maj} est facultatif.  Ce modificateur ne
 sert pas à créer une triade majeure.
 @tab
 @lilypond[line-width=4\cm, noragged-right]
@@ -225,11 +226,11 @@ sert pas à créer une triade majeure.
 @end multitable
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Extension et altération d'accords},
 @ref{Modificateurs d'accord usuels}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Chords,Accords}.
 
 @knownissues
@@ -308,7 +309,7 @@ Les notes ajoutées peuvent monter aussi haut que de besoin.
 @cindex accord, altération d'un degré
 
 On peut augmenter ou diminuer certains intervalles au moyen des
-signes @code{-} ou @code{+} au degré considéré.  L'altération de l'un
+signes @code{-} ou @code{+} au degré considéré.  L'altération de l'un
 des degrés automatiquement inclus dans la structure de base d'un accord
 s'effectue de la même manière.
 
@@ -323,7 +324,7 @@ s'effectue de la même manière.
 @funindex ^
 
 Après avoir ajouté des notes à un accord, on peut aussi en enlever
-certaines, en les spécifiant derrière un signe @code{^} -- les séparer
+certaines, en les spécifiant derrière un signe @code{^} -- les séparer
 par un point lorsqu'il y en a plus d'une.
 
 @lilypond[quote,verbatim]
@@ -335,10 +336,10 @@ par un point lorsqu'il y en a plus d'une.
 @funindex sus
 
 L'ajout du modificateur @code{sus} permet de créer un accord de
-suspension.  Ceci aura pour effet de supprimer la tierce et y ajouter,
-suivant que vous spécifiez @code{2} ou @code{4}, la seconde ou la
-quarte ; @code{sus} est alors équivalent à @code{^3}. @code{sus4} est
-équivalent à @code{5.4}.
+suspension.  Ceci aura pour effet de supprimer la tierce et d'y ajouter,
+suivant que vous spécifiez @code{2} ou @code{4}, la seconde ou la
+quarte ; @code{sus} est alors équivalent à @code{^3}. @code{sus4} est
+équivalent à @code{5.4}.
 
 @lilypond[quote,ragged-right,verbatim]
 \chordmode {
@@ -376,10 +377,10 @@ Une table étendue des modificateurs et de leur utilisation est à
 l'annexe @ref{Modificateurs d'accord usuels}.
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Modificateurs d'accord usuels}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Chords,Accords}.
 
 @knownissues
@@ -409,7 +410,8 @@ comme un empilement de notes sur une portée.
 @unnumberedsubsubsec Impression des noms d'accord
 @translationof Printing chord names
 
-@cindex chiffrages d'accords
+@cindex chiffrage d'accord
+@cindex accord, chiffrage
 @cindex accords
 
 Les chiffrages d'accords sont liés au contexte @code{ChordNames} :
@@ -445,9 +447,9 @@ chordmusic = \relative {
 >>
 @end lilypond
 
-@cindex no chord, symbole
+@cindex no-chord, symbole
 @cindex N.C., symbole
-@cindex accords, No Chord
+@cindex accord, No Chord
 
 L'apparition de silences dans un contexte @code{ChordNames} déclenchera
 l'impression d'un @emph{markup} @code{noChordSymbol}.
@@ -491,7 +493,7 @@ l'impression d'un @emph{markup} @code{noChordSymbol}.
 @snippets
 
 @c Keep index entries with following snippet
-@cindex accords, suppression des répétitions
+@cindex accord, suppression des répétitions
 @funindex chordChanges
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
@@ -500,25 +502,27 @@ l'impression d'un @emph{markup} @code{noChordSymbol}.
 @c @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 @c {adding-bar-lines-to-chordnames-context.ly}
 
+@cindex @emph{lead sheet}
+@cindex feuille de chant
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {simple-lead-sheet.ly}
 
 @seealso
-Glossaire musicologique :
+Glossaire musicologique :
 @rglosnamed{chord,Accord}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Saisie de musique en parallèle}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Chords,Accords}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
+@rinternals{Bar_engraver},
+@rinternals{Chord_name_engraver},
 @rinternals{ChordNames},
 @rinternals{ChordName},
-@rinternals{Chord_name_engraver},
-@rinternals{Volta_engraver},
-@rinternals{Bar_engraver}.
+@rinternals{Volta_engraver}.
 
 @knownissues
 Un accord contenant un renversement ou dont la basse est changée ne sera
@@ -530,7 +534,7 @@ pas chiffré correctement s'il est saisi en tant que musique simultanée.
 @translationof Customizing chord names
 
 @cindex accord, personnalisation du chiffrage
-@cindex chiffrage d'accords, personnalisation
+@cindex chiffrage d'accord, personnalisation
 
 Il existe plus d'un système de chiffrage d'accords.  Le nom des accords
 varie selon les traditions musicales, et plusieurs symboles représentent
@@ -538,20 +542,25 @@ un même accord.  LilyPond vous permet de créer votre propre nomenclature
 d'accords, tant au niveau des noms que des symboles qui les
 représenteront.
 
-@cindex jazz, accords
-@cindex accords jazz
+@cindex jazz, accord
+@cindex accord jazz
+@cindex accord, nom alternatif
 
 Le modèle par défaut des chiffrages d'accord est celui de Klaus Ignatzek
-pour le jazz (cf. @ressay{Références bibliographiques}).Il est possible
-de créer votre propre modèle de chiffrages à l'aide des différentes
+pour le jazz (cf. @ressay{Références bibliographiques}). Il est possible
+de créer son propre modèle de chiffrages à l'aide des différentes
 propriétés mentionnées ci-dessous.  LilyPond dispose d'un système
 alternatif de chiffrage jazz qui a été élaboré grâce à ces même
 propriétés.  Les deux notations, Ignatzek et alternative, sont illustrés
 à l'annexe @ref{Table des noms d'accord}.
 
-@c TODO --  Change this so we don't have a non-verbatim example.
-@c  Make short example in docs, then move longer example to
-@c  appendix, where the length of the snippet won't matter.
+@c FIXME: move the chord-names-alternative snippet to a new section. -vv
+@c bizarre, mais c'est paas dans snippets. JCM
+
+@funindex \germanChords
+@funindex \semiGermanChords
+@funindex \italianChords
+@funindex \frenchChords
 
 En plus des différents systèmes de nommage, le nom de la fondamentale
 varie selon la langue utilisée.  Les instructions @code{\germanChords},
@@ -574,9 +583,8 @@ fonctionnalité est gérée par la propriété
 }
 @end lilypond
 
-Lorsqu'aucun des systèmes prédéfinis ne vous permet de représenter
-l'accord voulu, les propriétés suivantes vous permettront de le
-construire.
+La représentation d'un accord peut s'adapter à l'aide des propriétés
+suivantes :
 
 @table @code
 
@@ -592,6 +600,8 @@ fonction à cette propriété que l'on peut produire des noms de note
 spéciaux adaptés par exemple aux systèmes de notation d'autres pays.
 
 @funindex majorSevenSymbol
+@funindex \blackTriangleMarkup
+@funindex \whiteTriangleMarkup
 
 @item majorSevenSymbol
 Cette propriété définit l'objet ajouté au @code{chordRootNamer} pour
@@ -646,7 +656,7 @@ la propriété @code{slashChordSeparator}.
 
 @item slashChordSeparator
 La note basse d'un accord n'est pas forcément la fondamentale.  L'accord
-est alors @qq{renversé} -- certains diront @qq{barré} parce que son
+est alors « renversé » -- certains diront « barré » parce que son
 chiffrage est habituellement flanqué d'une barre oblique entre l'accord
 de base et sa basse.  La propriété @code{slashChordSeparator} permet de
 modifier ce séparateur -- par défaut la barre de fraction.
@@ -689,33 +699,30 @@ autre suffixe, comme le signe moins.
 
 @item chordPrefixSpacer
 Le modificateur pour accord mineur, géré par la propriété
-@code{minorChordModifier}, est en principe accolé la fondamentale.  Vous
-pouvez cependant l'espacer de la fondamentale à l'aide de la propriété
-@code{chordPrefixSpacer}.  Notez bien que cet espacement sera réduit à
-néant si la fondamentale est altérée.
+@code{minorChordModifier}, est en principe accolé à la fondamentale.
+Vous pouvez cependant l'espacer de la fondamentale à l'aide de la
+propriété @code{chordPrefixSpacer}. Notez bien que cet espacement sera
+réduit à néant si la fondamentale est altérée.
 
 @end table
 
 @predefined
-@funindex symboles de septième majeure
+@cindex symbole de septième majeure
+@cindex septième majeure, symbole
 @code{\whiteTriangleMarkup},
 @code{\blackTriangleMarkup},
-@funindex \germanChords
 @code{\germanChords},
-@funindex \semiGermanChords
 @code{\semiGermanChords},
-@funindex \italianChords
 @code{\italianChords},
-@funindex \frenchChords
 @code{\frenchChords}.
 @endpredefined
 
 
 @snippets
 
-@cindex exceptions, chiffrage d'accords
-@cindex chiffrage d'accords, exceptions
-@cindex accords chiffrés, exceptions
+@cindex exception, chiffrage d'accord
+@cindex chiffrage d'accord, exception
+@cindex accord chiffré, exception
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {chord-name-exceptions.ly}
 
@@ -723,29 +730,36 @@ néant si la fondamentale est altérée.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {chord-name-major7.ly}
 
+@cindex @code{ChordNames} et barre de mesure
+@cindex barre de mesure et @code{ChordNames}
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adding-bar-lines-to-chordnames-context.ly}
 
+@cindex accord et reprise
+@cindex reprise et accord
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {volta-below-chords.ly}
 
+@cindex accord, séparateur
+@cindex séparatuer d'accord
+@funindex chordNameSeparator
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-chord-separator.ly}
 
 @seealso
-Manuel de notation :
+Manuel de notation :
 @ref{Modificateurs d'accord usuels},
 @ref{Table des noms d'accord}.
 
-Essai sur la gravure musicale automatisée :
+Essai sur la gravure musicale automatisée :
 @ressay{Références bibliographiques}.
 
-Fichiers d'initialisation :
+Fichiers d'initialisation :
 @file{scm/chords-ignatzek-names.scm},
 @file{scm/chord-entry.scm},
 @file{ly/chord-modifiers-init.ly}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Chords,Accords}.
 
 @knownissues
@@ -822,13 +836,16 @@ LilyPond gère la basse chiffrée.
 >>
 @end lilypond
 
+@funindex \figuremode
+@funindex \figures
+
 La gestion de la basse chiffrée se décompose en deux parties.  Dans un
 premier temps, le mode @code{\figuremode} permet de saisir les accords
 sous forme chiffrée.  Le contexte @code{FiguredBass} s'occupera ensuite
 de gérer les objets @code{BassFigure}.  La basse chiffrée pourra être
 attachée à un contexte @code{Staff}.
 
-L'expression @code{\figures@{ @dots{} @}} constitue une raccourci à
+L'expression @code{\figures @{ @dots{} @}} constitue une raccourci à
 @code{\new FiguredBass \figuremode @{ @dots{} @}}.
 
 Bien que la gestion de la basse chiffrée ressemble beaucoup à celle
@@ -846,10 +863,10 @@ déterminé par la propriété @code{baseline-skip}.
 @end ignore
 
 @seealso
-Glossaire musicologique :
+Glossaire musicologique :
 @rglosnamed{figured bass, basse chifrée}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Chords,Accords}.
 
 
@@ -861,8 +878,8 @@ Morceaux choisis :
 le mode de chiffrage.  De plus amples informations quant aux différents
 modes sont regroupées à la rubrique @ref{Modes de saisie}.
 
-En mode de saisie, un chiffrage est délimité par @code{<} et @code{>}.
-La durée est indiquée après le @code{>} :
+En mode de saisie, un chiffrage est délimité par @code{<} et @code{>}.
+La durée est indiquée après le @code{>} :
 
 @lilypond[verbatim,quote,ragged-right]
 \new FiguredBass {
@@ -873,11 +890,11 @@ La durée est indiquée après le @code{>} :
 @end lilypond
 
 Une altération -- y compris un bécarre -- permet de modifier l'un des
-degrés, en adjoignant un @code{+} (dièse), un @code{-} (bémol) ou un
-@code{!} (bécarre) au chiffre considéré.  Une altération double
-s'obtient en doublant le modificateur.  Le chiffre est souvent omis
-lorsque la tierce est modifiée, ce qui s'obtient en utilisant un
-@code{_} en lieu et place du chiffre.
+degrés, en adjoignant un @code{+} (dièse), un @code{-} (bémol) ou
+un @code{!} (bécarre) au chiffre considéré. Une altération double
+s'obtient en doublant le modificateur. Le chiffre est souvent omis
+lorsque la tierce est modifiée, ce qui s'obtient en utilisant
+un @code{_} en lieu et place du chiffre.
 
 @lilypond[verbatim,quote,ragged-right]
 \figures {
@@ -894,7 +911,7 @@ Vous pouvez stipuler un intervalle augmenté ou diminué :
 @end lilypond
 
 Vous pouvez barrer un chiffre d'une oblique inversée, typiquement pour
-une @qq{petite sixte} :
+une « petite sixte » :
 
 @lilypond[verbatim,quote,ragged-right]
 \figures {
@@ -922,6 +939,9 @@ cf. @ref{Commandes pour markup}.
 @c NOTE: We need to include notes any time we use extenders to
 @c avoid extraneous staff creation due to Staff.use... in
 @c \bassFigureExtendersOn
+
+@funindex \bassFigureExtendersOn
+@funindex \bassFigureExtendersOff
 
 Lorsque des chiffrages se répètent, vous pouvez utiliser des lignes de
 prolongation.
@@ -1032,19 +1052,24 @@ Terminaison d'une prolongation
 @endpredefined
 
 @snippets
+
+@cindex basse chiffrée, altération, position
+@cindex altération, basse chiffrée, position
+@funindex figuredBassAlterationDirection
+@funindex figuredBassPlusDirection
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-positions-of-figured-bass-alterations.ly}
 
 @seealso
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Chords,Accords}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{BassFigure},
 @rinternals{BassFigureAlignment},
-@rinternals{BassFigureLine},
 @rinternals{BassFigureBracket},
 @rinternals{BassFigureContinuation},
+@rinternals{BassFigureLine},
 @rinternals{FiguredBass}.
 
 
@@ -1097,6 +1122,10 @@ On peut ajouter une basse chiffrée directement à un contexte
 >>
 @end lilypond
 
+@funindex \bassFigureStaffAlignmentDown
+@funindex \bassFigureStaffAlignmentUp
+@funindex \bassFigureStaffAlignmentNeutral
+
 La basse chiffrée attachée à un contexte @code{Staff} peut se
 positionner au-dessus ou en dessous de la portée.
 
@@ -1125,15 +1154,15 @@ positionner au-dessus ou en dessous de la portée.
 @endpredefined
 
 @seealso
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Chords,Accords}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{BassFigure},
 @rinternals{BassFigureAlignment},
-@rinternals{BassFigureLine},
 @rinternals{BassFigureBracket},
 @rinternals{BassFigureContinuation},
+@rinternals{BassFigureLine},
 @rinternals{FiguredBass}.
 
 @knownissues

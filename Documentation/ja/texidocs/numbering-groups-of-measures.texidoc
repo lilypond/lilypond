@@ -1,0 +1,19 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+このスニペットは @code{Measure_counter_engraver} で、@c
+連続した小節をいくつかにグループ分けし、それぞれに番号を表示する@c
+方法を示しています。@c
+どのような範囲を取っても良く、繰り返しが含まれていてもかまいません。
+
+エングラーバは適切なコンテキストに追加する必要があります。今回は
+@code{Staff} コンテキストを使用しています。他の選択肢としては
+@code{Dynamics} コンテキストがあります。
+
+カウンタは @code{\\startMeasureCount} で始まり、@code{\\stopMeasureCount}
+で終わります。番号はデフォルトで @code{1} から開始しますが、@code{count-from}
+プロパティをオーバライドすることで変更することができます。
+
+小節の途中で改行される場合、小節番号は 2 回表示されます。@c
+改行後の数字は括弧付きで表示されます。
+"
+  doctitleja = "小節のグループに番号付けする"

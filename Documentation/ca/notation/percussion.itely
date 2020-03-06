@@ -1,0 +1,655 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+
+@ignore
+    Translation of GIT committish: 041cb33a404a829a8cdeeaebce17e45f613f10d8
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.19.2"
+
+@c Translators: Walter Garcia-Fontes
+@c Translation checkers:
+
+@node Percussió
+@section Percussió
+@translationof Percussion
+
+@menu
+* Notació comuna per a percussió::
+@end menu
+
+
+@node Notació comuna per a percussió
+@subsection Notació comuna per a percussió
+@translationof Common notation for percussion
+
+La notació rítmica es fa servir principalment per a la percussió i
+la bateria, però també es pot utilitzar per mostrar els valors
+rítmics d'una melodia.
+
+@menu
+* Referències per a percussió::
+* Notació bàsica de percussió::
+* Redoblaments::
+* Percussió afinada::
+* Pautes de percussió::
+* Pautes de percussió personalitzades::
+* Notes fantasma::
+@end menu
+
+
+@node Referències per a percussió
+@unnumberedsubsubsec Referències per a percussió
+@translationof References for percussion
+
+@c TODO add more references.
+
+@itemize
+
+@item
+La notació d'algunes percussions es pot fer sobre una pauta de
+ritme; això s'estudia a
+@ref{Mostrar els ritmes de la melodia} i
+@ref{Creació d'instàncies de pentagrames nous}.
+
+@item
+La sortida MIDI es tracta a una secció a part; vegeu
+@ref{Instruments MIDI}.
+
+@end itemize
+
+@seealso
+Referència de la notació:
+@ref{Mostrar els ritmes de la melodia},
+@ref{Creació d'instàncies de pentagrames nous},
+@ref{Instruments MIDI}.
+
+Fragments de codi:
+@rlsr{Percussion}.
+
+
+@node Notació bàsica de percussió
+@unnumberedsubsubsec Notació bàsica de percussió
+@translationof Basic percussion notation
+
+@cindex percussió
+@cindex bateria
+
+Les notes de percussió es poden escriure al mode
+@code{\drummode}, que és semblant al mode estàndard per introduir
+notes.  La manera més fàcil d'escriure notes de percussió és
+utilitzar l'ordre @code{\drums}, que crea el context i el mode
+d'entrada apropiats per a percussió:
+
+@lilypond[quote,verbatim]
+\drums {
+  hihat4 hh bassdrum bd
+}
+@end lilypond
+
+Això és una abreviatura de
+
+@lilypond[quote,verbatim]
+\new DrumStaff \drummode {
+  hihat4 hh bassdrum bd
+}
+@end lilypond
+
+Cada element d'un conjunt de percussió porta un nom complet i un
+nom abreujat, i les dues es poden usar a l'entrada.  La llista
+completa de noms d'instruments de percussió es troben a
+@ref{Notes de percussió}.
+
+@cindex clau de percussió
+@cindex percussió, clau
+
+Observeu que la notació normal de les notes amb alçada determinada
+(com @code{cis4}) en un context @code{DrumStaff} produeixen un
+missatge d'error.  Les claus de percussió s'afegeixen
+automàticament al context @code{DrumStaff} però també es poden
+establir explícitament o utilitzar altres claus.
+
+@lilypond[quote,ragged-right,verbatim]
+\drums {
+  \clef percussion
+  bd4 4 4 4
+  \clef treble
+  hh4 4 4 4
+}
+@end lilypond
+
+Hi ha certs detalls respecte a com s'incorpora el MIDI per als
+instruments de percussió; per veure els detalls, consulteu
+@ref{Instruments MIDI}.
+
+@seealso
+Referència de la notació:
+@ref{Instruments MIDI},
+@ref{Notes de percussió}.
+
+Fitxers d'inici:
+@file{ly/drumpitch-init.ly}.
+
+Fragments de codi:
+@rlsr{Percussion}.
+
+
+@node Redoblaments
+@unnumberedsubsubsec Redoblaments
+@translationof Drum rolls
+
+Els redoblaments s'indiquen mitjançant tres barres creuades a la
+plica.  Per a les negres o notes més llargues, les tres barres es
+mostren explícitament, les corxeres es presenten amb dues barres
+creuades (sent la barra de corxera la tercera), i els redoblament
+més breus que les corxeres tenen una barra creuada per
+complementar les barres normals.  Això s'aconsegueix mitjançant la
+notació de trèmol, vegeu @ref{Repeticions de trèmol}.
+
+@lilypond[quote,verbatim]
+\drums {
+  \time 2/4
+  sn16 8 16 8 8:32 ~
+  8 8 4:32 ~
+  4 8 16 16
+  4 r4
+}
+@end lilypond
+
+Els cops de baqueta es poden indicar mitjançant la col·locació
+dels elements de marcatge @code{"R"} o @code{"L"} a sobre o a sota
+de les notes, com s'estudia a
+@ref{Direcció i posició}.  La
+propietat @code{staff-padding} es pot sobreescriure, per
+aconseguir una línia de base satisfactòria.
+
+@lilypond[quote,verbatim]
+\drums {
+  \repeat unfold 2 {
+    sn16^"L" 16^"R" 16^"L" 16^"L" 16^"R" 16^"L" 16^"R" 16^"R"
+    \stemUp
+    sn16_"L" 16_"R" 16_"L" 16_"L" 16_"R" 16_"L" 16_"R" 16_"R"
+  }
+}
+@end lilypond
+
+@seealso
+Referència de la notació:
+@ref{Repeticions de trèmol}.
+
+Fragments de codi:
+@rlsr{Percussion}.
+
+
+@node Percussió afinada
+@unnumberedsubsubsec Percussió afinada
+@translationof Pitched percussion
+
+Certs instruments de percussió d'alçada determinada (per exemple:
+el xilòfon, el vibràfon i els timbals) s'escriuen usant
+pentagrames normals.  Això s'estudia a d'altres seccions del
+manual.
+
+@seealso
+Referència de la notació:
+@ref{Instruments MIDI}.
+
+Fragments de codi:
+@rlsr{Percussion}.
+
+
+@node Pautes de percussió
+@unnumberedsubsubsec Pautes de percussió
+@translationof Percussion staves
+
+@cindex percussió
+@cindex bateria
+
+Una part de percussió per mes d'un instrument, normalment utilitza
+una pauta de diverses línies on cada posició dins de la pauta es
+refereix a un element de percussió.  Per a gravar la música, s'han
+d'interpretar les notes dels contextos @rinternals{DrumStaff} i
+@rinternals{DrumVoice}.
+
+@lilypond[quote,verbatim]
+up = \drummode {
+  crashcymbal4 hihat8 halfopenhihat hh hh hh openhihat
+}
+down = \drummode {
+  bassdrum4 snare8 bd r bd sn4
+}
+\new DrumStaff <<
+  \new DrumVoice { \voiceOne \up }
+  \new DrumVoice { \voiceTwo \down }
+>>
+@end lilypond
+
+L'exemple anterior mostra una notació polifònica completa.  La
+notació polifònica abreujada, descrita a @rlearning{Sento veus},
+també es pot fer servir.  Per exemple,
+
+@lilypond[quote,verbatim]
+\new DrumStaff <<
+  \drummode {
+    bd4 sn4 bd4 sn4
+    << {
+      \repeat unfold 16 hh16
+    } \\ {
+      bd4 sn4 bd4 sn4
+    } >>
+  }
+>>
+@end lilypond
+
+També hi ha altres possibilitats pel que fa a la disposició.  Per
+usar-les, establiu la propietat @code{drumStyleTable} all context
+@rinternals{DrumVoice}.  S'han predefinit les variables següents:
+
+@table @code
+
+@item drums-style
+És l'opció per defecte.  S'usa per gravar una bateria típica sobre
+pentagrama:
+
+@lilypond[quote,line-width=10.0\cm]
+nam = \lyricmode {
+  cymc cyms cymr hh hhc hho hhho hhp
+  cb hc bd sn ss tomh tommh tomml toml tomfh tomfl }
+mus = \drummode {
+  cymc cyms cymr hh hhc hho hhho hhp \break
+  cb hc bd sn ss tomh tommh tomml toml tomfh tomfl s16 }
+\score {
+  << \new DrumStaff \with {
+       \remove "Bar_engraver"
+       \remove "Time_signature_engraver"
+       \hide Stem
+       \override Stem.Y-extent = ##f
+     } \mus
+     \new Lyrics \nam
+  >>
+  \layout {
+    \context {
+      \Score
+      \override LyricText.font-family = #'typewriter
+      \override BarNumber.transparent =##T
+    }
+  }
+}
+@end lilypond
+
+L'esquema de percussió permet sis tambors greus (toms) diferents.
+Quan calguin menys toms, senzillament seleccioneu els que
+produeixen el resultat desitjat, és a dir, per tenir toms a les
+tres línies centrals s'utilitzarà @code{tommh}, @code{tomml} i
+@code{tomfh}.
+
+@item agostini-drums-style
+Inventat pel percussionista francès Dante Agostini el 1965,
+aquesta notació es fa servir a França però també a molts altres
+llocs.
+
+@lilypond[quote,line-width=10.0\cm]
+nam = \lyricmode {
+  cymc cyms cymr hh hhc hho hhho hhp
+  cb hc bd sn ss tomh tommh tomml toml tomfh tomfl }
+mus = \drummode {
+  cymc cyms cymr hh hhc hho hhho hhp \break
+  cb hc bd sn ss tomh tommh tomml toml tomfh tomfl s16 }
+\score {
+  << \new DrumStaff \with {
+       \remove "Bar_engraver"
+       \remove "Time_signature_engraver"
+       \hide Stem
+       \override Stem.Y-extent = ##f
+       drumStyleTable = #agostini-drums-style
+     } \mus
+     \new Lyrics \nam
+  >>
+  \layout {
+    \context {
+      \Score
+      \override LyricText.font-family = #'typewriter
+      \override BarNumber.transparent =##T
+    }
+  }
+}
+@end lilypond
+
+@item timbales-style
+S'usa per gravar timbals en una pauta de dues línies:
+
+@lilypond[quote,ragged-right]
+nam = \lyricmode { timh ssh timl ssl cb }
+mus = \drummode { timh ssh timl ssl cb s16 }
+
+<<
+  \new DrumStaff \with {
+    \remove "Bar_engraver"
+    \remove "Time_signature_engraver"
+    \hide Stem
+    \override Stem.Y-extent = ##f
+    \override StaffSymbol.line-count = #2
+    \override StaffSymbol.staff-space = #2
+    \override VerticalAxisGroup.minimum-Y-extent = #'(-3.0 . 4.0)
+    drumStyleTable = #timbales-style
+  } \mus
+  \new Lyrics {
+    \override LyricText.font-family = #'typewriter
+    \nam
+  }
+>>
+@end lilypond
+
+@item congas-style
+S'usa per gravar congues en una pauta de dues línies:
+
+@lilypond[quote,ragged-right]
+nam = \lyricmode { cgh cgho cghm ssh cgl cglo cglm ssl }
+mus = \drummode { cgh cgho cghm ssh cgl cglo cglm ssl s16 }
+
+<<
+  \new DrumStaff \with {
+    \remove "Bar_engraver"
+    \remove "Time_signature_engraver"
+    drumStyleTable = #congas-style
+    \override StaffSymbol.line-count = #2
+
+    %% això és molt lleig; farà més llargues les pliques.
+    \override StaffSymbol.staff-space = #2
+    \hide Stem
+    \override Stem.Y-extent = ##f
+  } \mus
+  \new Lyrics {
+    \override LyricText.font-family = #'typewriter
+    \nam
+  }
+>>
+@end lilypond
+
+@item bongos-style
+S'usa per a bongos sobre una pauta de dues línies:
+
+@lilypond[quote,ragged-right]
+nam = \lyricmode { boh boho bohm ssh bol bolo bolm ssl }
+mus = \drummode { boh boho bohm ssh bol bolo bolm ssl s16 }
+
+<<
+  \new DrumStaff \with {
+    \remove "Bar_engraver"
+    \remove "Time_signature_engraver"
+    \override StaffSymbol.line-count = #2
+    drumStyleTable = #bongos-style
+
+    %% this sucks; it will lengthen stems.
+    \override StaffSymbol.staff-space = #2
+    \hide Stem
+    \override Stem.Y-extent = ##f
+  } \mus
+  \new Lyrics {
+    \override LyricText.font-family = #'typewriter
+    \nam
+  }
+>>
+@end lilypond
+
+@item percussion-style
+Per gravar molts tipus de percussions simples sobre pautes d'una
+línia:
+
+@lilypond[quote,ragged-right]
+nam = \lyricmode { tri trio trim gui guis guil cb cl tamb cab mar hc }
+mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
+
+<<
+  \new DrumStaff \with{
+    \remove "Bar_engraver"
+    drumStyleTable = #percussion-style
+    \override StaffSymbol.line-count = #1
+    \remove "Time_signature_engraver"
+    \hide Stem
+    \override Stem.Y-extent = ##f
+  } \mus
+  \new Lyrics {
+    \override LyricText.font-family = #'typewriter
+    \nam
+  }
+>>
+@end lilypond
+@end table
+
+
+@node Pautes de percussió personalitzades
+@unnumberedsubsubsec Pautes de percussió personalitzades
+@translationof Custom percussion staves
+
+Si no us agrada cap de les llistes predefinides, podeu definir la
+vostra pròpia llista al principi del vostre fitxer.
+
+@lilypond[quote,verbatim]
+#(define mydrums '(
+         (bassdrum        default   #f           -1)
+         (snare           default   #f           0)
+         (hihat           cross     #f           1)
+         (halfopenhihat   cross     "halfopen"   1)
+         (pedalhihat      xcircle   "stopped"    2)
+         (lowtom          diamond   #f           3)))
+up = \drummode { hh8 hh hhho hhho hhp4 hhp }
+down = \drummode { bd4 sn bd toml8 toml }
+
+\new DrumStaff <<
+  \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
+  \new DrumVoice { \voiceOne \up }
+  \new DrumVoice { \voiceTwo \down }
+>>
+@end lilypond
+
+
+@snippets
+
+@c FIXME: MOVE ALL THESE TO LSR!  -gp
+
+Vegeu aquí alguns exemples addicionals:
+
+Dos blocs de fusta, escrits amb wbh (@emph{woodblock-high},
+bloc alt) i wbl (@emph{woodblock-low} bloc baix.)
+
+@lilypond[quote,verbatim]
+% Aquestes línies defineixen la posició dels blocs de fusta al pentagrama;
+% si ho voleu, podeu canviar-lo o podeu usar caps de nota especials
+% per als blocs de fusta.
+#(define mydrums '((hiwoodblock default #t  3)
+                   (lowoodblock default #t -2)))
+
+woodstaff = {
+  % Això defineix un pentagrama amb sols dues línies.
+  % També defineix les posicions de les dues línies.
+  \override Staff.StaffSymbol.line-positions = #'(-2 3)
+
+  % Això és necessari; si no s'entra, la barra de compàs seria massa curta!
+  \override Staff.BarLine.bar-extent = #'(-1.5 . 1.5)
+}
+
+\new DrumStaff {
+  \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
+
+  % Amb això carregueu la vostra nova taula d'estil de percussió
+  \woodstaff
+
+  \drummode {
+    \time 2/4
+    wbl8 16 16 8-> 8 |
+    wbl8 16 16-> ~ 16 16 r8 |
+  }
+}
+@end lilypond
+
+Observeu que en aquest cas especial es pot alterar la longitud de
+la línia divisòria amb @code{\override Staff.BarLine.bar-extent
+#'(de . a)}.  En cas contrari resulta massa curta.  També heu de
+definir les posicions de les dues línies del pentagrama.  Per a
+més informació sobre aquests temes delicats, consulteu
+@ref{El símbol del pentagrama}.
+
+Una pandereta, escrita mitjaç+ant @q{tamb} (@emph{tambourine}):
+
+@lilypond[verbatim,quote]
+#(define mydrums '((tambourine default #t 0)))
+
+\new DrumStaff \with { instrumentName = "Tambourine" }
+
+\drummode {
+  \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
+  \override Staff.StaffSymbol.line-positions = #'( 0 )
+  \override Staff.BarLine.bar-extent = #'(-1.5 . 1.5)
+
+  \time 6/8
+  tamb8. 16 8 8 8 8 |
+  tamb4. 8 8 8 |
+  % Cal l'ajustament per a la duració escalada i el silenci més curt
+  % per a la finalització correcta de l'extensor de tri.
+  tamb2.*5/6 \startTrillSpan s8 \stopTrillSpan |
+}
+@end lilypond
+
+Música per a gong, introduïda amb @q{tt} (tam-tam):
+
+@lilypond[quote,verbatim]
+#(define mydrums '((tamtam default #t 0)))
+
+\new DrumStaff \with { instrumentName = "Tamtam" }
+
+\drummode {
+\set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
+\override Staff.StaffSymbol.line-positions = #'( 0 )
+\override Staff.BarLine.bar-extent = #'(-1.5 . 1.5)
+
+  tt 1 \pp \laissezVibrer
+}
+@end lilypond
+
+Dues campanes, introduïdes amb @q{cb} (@emph{cowbell}, esquella) i
+@q{rb} (@emph{ridebell}, campana normal)
+
+@lilypond[quote,verbatim]
+#(define mydrums '((ridebell default #t  3)
+                   (cowbell  default #t -2)))
+
+\new DrumStaff \with { instrumentName = "Different Bells" }
+
+\drummode {
+  \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
+  \override DrumStaff.StaffSymbol.line-positions = #'(-2 3)
+  \override Staff.BarLine.bar-extent = #'(-1.5 . 1.5)
+
+  \time 2/4
+  rb8 8 cb8 16 rb16-> ~ |
+  16 8 16 cb8 8 |
+}
+@end lilypond
+
+Aquí hi ha un exemple breu procedent de la @q{Història del soldat} de
+Stravinsky:
+
+@lilypond[quote,verbatim]
+#(define mydrums '((bassdrum   default #t  4)
+                   (snare      default #t -4)
+                   (tambourine default #t  0)))
+
+global = {
+  \time 3/8 s4.
+  \time 2/4 s2*2
+  \time 3/8 s4.
+  \time 2/4 s2
+}
+
+drumsA = {
+  \context DrumVoice <<
+    { \global }
+    { \drummode {
+        \autoBeamOff
+        \stemDown sn8 \stemUp tamb s8 |
+        sn4 \stemDown sn4 |
+        \stemUp tamb8 \stemDown sn8 \stemUp sn16 \stemDown sn \stemUp sn8 |
+        \stemDown sn8 \stemUp tamb s8 |
+        \stemUp sn4 s8 \stemUp tamb
+      }
+    }
+  >>
+}
+
+drumsB = {
+  \drummode {
+    s4 bd8 s2*2 s4 bd8 s4 bd8 s8
+  }
+}
+
+\layout {
+  indent = #40
+}
+
+\score {
+  \new StaffGroup <<
+    \new DrumStaff \with {
+      instrumentName = \markup {
+        \column {
+          "Tambourine"
+          "et"
+          "caisse claire s. timbre"
+        }
+      }
+    drumStyleTable = #(alist->hash-table mydrums)
+  }
+  \drumsA
+  \new DrumStaff \with {
+    instrumentName = "Grosse Caisse"
+    drumStyleTable = #(alist->hash-table mydrums)
+  }
+  \drumsB
+  >>
+}
+@end lilypond
+
+@seealso
+Fragments de codi:
+@rlsr{Percussion}.
+
+Referència de funcionament intern:
+@rinternals{DrumStaff},
+@rinternals{DrumVoice}.
+
+
+@c FIXME: check name -gp
+@node Notes fantasma
+@unnumberedsubsubsec Notes fantasma
+@translationof Ghost notes
+
+Les notes fantasma per a la bateria i instruments de percussió es
+poden crear utilitzant l'ordre @code{\parenthesize} detallada a
+@ref{Parèntesis}.
+
+@lilypond[quote,ragged-right,verbatim]
+\new DrumStaff
+<<
+  \context DrumVoice  = "1" { s1 }
+  \context DrumVoice  = "2" { s1 }
+  \drummode {
+    <<
+      {
+        hh8[ 8] <hh sn> hh16
+        \parenthesize sn  hh
+        \parenthesize sn  hh8 <hh sn> hh
+      } \\
+      {
+        bd4 r4 bd8 8 r8 bd
+      }
+    >>
+  }
+>>
+@end lilypond
+
+@seealso
+Fragments de codi:
+@rlsr{Percussion}.

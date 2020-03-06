@@ -2,7 +2,7 @@
 @c This file is part of community.itexi
 
 @ignore
-    Translation of GIT committish: 5d83b53ee321d8890d792191032b1fe352577517
+    Translation of GIT committish: 1edb8b3c857fa9c993164123e6f707cad5afb07b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -22,16 +22,6 @@
 GNU, GNU Savannah
 @uref{http://savannah.gnu.org/}
 Código fuente y listas de distribución de correo
-
-@item
-Webdev.nl
-@uref{http://www.webdev.nl/}
-alojamiento de lilypond.org
-
-@item
-Linuxaudio/VirgniaTech
-@uref{http://linuxaudio.org/}
-Descargas de los lanzamientos
 
 @item
 SourceForge

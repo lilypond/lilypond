@@ -1,0 +1,8 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+Mensurstriche (計量音楽風の) レイアウトでは、小節線を譜の中には表示せず、@c
+譜と譜の間に表示します。これは、@code{ChoirStaff} の代わりに @code{StaffGroup}
+を用いることで実現できます。譜の中にある小節線は @code{\\hide} で@c
+非表示にします。
+"
+  doctitleja = "Mensurstriche レイアウト (譜の間に小節線を表示する)"

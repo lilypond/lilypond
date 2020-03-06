@@ -1,0 +1,11 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+例えば演者が頻繁に入れ替わるような歌曲の場合などに、@c
+異なる演者の歌詞を 1 行で表示したい場合があります。@c
+このスニペットは
+@code{\\override
+VerticalAxisGroup.nonstaff-nonstaff-spacing.minimum-distance = ##f}
+を用いて、それを実現する方法を示しています。
+
+"
+  doctitleja = "異なる歌詞を同じ行に表示する"

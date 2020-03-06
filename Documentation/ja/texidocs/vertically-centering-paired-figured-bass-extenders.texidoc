@@ -1,0 +1,8 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+通奏低音の延長線は @code{useBassFigureExtenders} が @code{#t} にセット@c
+されている場合に使用されます。@code{figuredBassCenterContinuations} が
+@code{#t} にセットされている場合、同一な延長線がまとめられ、縦方向に@c
+中央揃えされます。
+"
+  doctitleja = "共通な通奏低音の延長線を縦方向に中央揃えする"

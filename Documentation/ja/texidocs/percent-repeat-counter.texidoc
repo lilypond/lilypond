@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+パーセント記号による小節の繰り返しが 2 回以上続く場合には、@c
+この例のようにプロパティをセットすることで、カウンタを表示することができます。
+"
+  doctitleja = "パーセント繰り返しのカウンタ"

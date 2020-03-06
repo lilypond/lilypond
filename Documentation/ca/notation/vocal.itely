@@ -1,0 +1,3515 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: eca -*-
+
+@ignore
+    Translation of GIT committish: b680788cd1c671d52819d69e9e130ff45361a590
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.21.0"
+
+@c Translators: Walter Garcia-Fontes
+@c Translation checkers:
+
+@node Música vocal
+@section Música vocal
+@translationof Vocal music
+
+@lilypondfile[quote]{vocal-headword.ly}
+
+Aquesta secció explica com gravar música vocal, i com assegurar-se
+que la lletra s'alinea amb les notes de la seva melodia
+corresponent.
+
+@menu
+* Notació comuna per a música vocal::
+* Tècniques específiques per a les lletres::
+* Versos::
+* Cançons::
+* Música coral::
+* Òpera i musicals::
+* Càntics salms i himnes::
+* Música vocal antiga::
+@end menu
+
+
+@node Notació comuna per a música vocal
+@subsection Notació comuna per a música vocal
+@translationof Common notation for vocal music
+
+Aquesta secció s'ocupa de les qüestions comunes a la major part
+dels tipus de música vocal.
+
+@menu
+* Referències per a música vocal::
+* Introducció de la lletra::
+* Alineació de la lletra a una melodia::
+* Duració automàtica de les síl·labes::
+* Duració manual de les síl·labes::
+* Diverses síl·labes sobre una nota::
+* Diverses notes sobre una síl·laba::
+* Línies d'extensió i guions::
+@end menu
+
+
+@node Referències per a música vocal
+@unnumberedsubsubsec Referències per a música vocal
+@translationof References for vocal music
+
+Aquesta secció indica on trobar els detalls de les qüestions de
+notació que poden sorgir a qualsevol tipus de música vocal.
+
+@itemize
+
+@item
+Gairebé tots els estils de música vocal utilitzen text escrit com
+a lletra.  Hi ha una introducció a aquesta notació a
+@rlearning{Elaborar cançons senzilles}.
+
+@item
+La música vocal probablement requereix l'ús del mode de marcatge o
+@code{markup}, ja sigui per a la lletra o per a d'altres elements
+de text (noms dels personatges, etc.).  Aquesta sintaxi es descriu
+a @ref{Introducció al marcatge de text}.
+
+@item
+Els @notation{ambitus}, o indicacions de tessitura vocal, es poden
+afegir al principi dels pentagrames vocals, com s'explica a
+@ref{Tessitura}.
+
+@item
+De forma predeterminada, les indicacions dinàmiques se situen a
+sota del pentagrama, però a la música coral se solen disposar per
+sobre del pentagrama per evitar la lletra, com s'explica a
+@ref{Disposicions de la partitura per a música coral}.
+
+@end itemize
+
+@seealso
+Glossari musical:
+@rglos{ambitus}.
+
+Manual d'aprenentatge:
+@rlearning{Elaborar cançons senzilles}.
+
+Referència de la notació:
+@ref{Introducció al marcatge de text},
+@ref{Tessitura},
+@ref{Disposicions de la partitura per a música coral}.
+
+Fragments de codi:
+@rlsr{Vocal music}.
+
+@node Introducció de la lletra
+@unnumberedsubsubsec Introducció de la lletra
+@translationof Entering lyrics
+
+@cindex lletra
+@cindex lletra, introduir
+@cindex introduir la lletra
+@cindex format de la lletra
+@cindex lletra, donar format
+@cindex puntuació en la lletra
+@cindex lletra, puntuació en la
+@cindex espais a la lletra
+@cindex cometes a la lletra
+@cindex puntuació
+@funindex \lyricmode
+
+@c TODO should we explain hyphens here
+
+La lletra de les cançons s'introdueix en un mode d'entrada
+especial que s'inicia mitjançant la paraula clau
+@code{\lyricmode}, o bé mitjançant @code{\addlyrics}
+@code{\lyricsto}.  En aquest mode especial d'entrada, el caràcter
+@code{d} no s'analitza com una nota, sinó més bé com una síl·laba
+d'una sola lletra.  Dit d'una altra forma, les síl·labes
+s'introdueixen com les notes, però l'altura de les notes se
+substitueix per text.
+
+Per exemple:
+
+@c TODO translate -FV
+@example
+\lyricmode @{ Three4 blind mice,2 three4 blind mice2 @}
+@end example
+
+Hi ha dos mètodes principals per especificar la col·locació
+horitzontal de les síl·labes: mitjançant la indicació de la
+duració de cada síl·laba explícitament, com a l'exemple anterior,
+o deixant que la lletra s'alinee automàticament amb una melodia o
+una altra veu de música, utilitzant @code{\addlyrics} o
+@code{\lyricsto}.  El primer mètode es descriu a continuació sota
+l'epígraf @ref{Duració manual de les síl·labes}.  El segon mètode
+es descriu a @ref{Duració automàtica de les síl·labes}.
+
+Una paraula o síl·laba de la lletra comença amb un caràcter
+alfabètic (i alguns altres caràcters, vegeu a sota) i acaba amb un
+espai o dígit.  La resta dels caràcters dins de la síl·laba poden
+ser qualssevol caràcters que no siguin dígit o espais.
+
+A causa que qualsevol caràcter que no és un dígit o un espai es
+considera part de la síl·laba, una paraula és vàlida fins i tot si
+acaba amb @code{@}}, cosa que sovint porta a l'error següent:
+
+@example
+\lyricmode @{ la la la@}
+@end example
+
+A aquest exemple, el símbol @code{@}} està inclòs dins de la
+síl·laba final, per tant la clau d'obertura no es compensa amb la
+corresponent clau de tancament i el fitxer d'entrada probablement
+no es podrà processar.  En comptes d'allò, les claus sempre han
+d'anar rodejades per espais:
+
+@example
+\lyricmode @{ la la la @}
+@end example
+
+Els signes de puntuació, les lletres amb caràcters accentuats o de
+qualsevol llengua diferent de l'anglès, o els caràcters especials
+(com el símbol de cor o les cometes inclinades), es poden inserir
+directament al fitxer d'entrada, sempre que es desi amb la
+codificació UTF-8.  Per a més informació, consulteu
+@ref{Caràcters especials}.
+
+Els signes de puntuació, les lletres amb caràcters accentuats o de
+qualsevol llengua diferent de l'anglès, o els caràcters especials
+(com el símbol de cor, o les cometes inclinades), es poden inserir
+directament al fitxer d'entrada, sempre que es gravi amb la
+codificació UTF-8. Per a més informació, consulteu
+@ref{Caràcters especials}.
+
+@lilypond[quote,verbatim]
+\relative { d''8 c16 a bes8 f ees' d c4 }
+\addlyrics { „Schad’ um das schö -- ne grü -- ne Band, }
+@end lilypond
+
+Es poden usar les cometes normals dins de la lletra, però han
+d'anar precedides pel caràcter de barra invertida i la síl·laba en
+el seu conjunt s'ha d'envoltar en un altre parell de cometes. Per
+exemple,
+
+@lilypond[quote,verbatim]
+\relative { \time 3/4 e'4 e4. e8 d4 e d c2. }
+\addlyrics { "\"I" am so lone -- "ly,\"" said she }
+@end lilypond
+
+La definició completa del començament d'una paraula al mode lyrics
+(lletra) és quelcom més complexa.  Una paraula al mode lyrics
+comença per: un caràcter alfabètic, @code{_}, @code{?},
+@code{!}, @code{:}, @code{'}, els caràcters de control des de
+@code{^A} fins a @code{^F}, des de @code{^Q} fins a @code{^W},
+@code{^Y}, @code{^^}, qualsevol caràcter de 8 bits amb codi
+consistent amb la combinació d'una barra invertida seguida per
+@code{`}, @code{'}, @code{"} o @code{^}.
+
+@c " to balance double quotes for not-so-bright context-sensitive editors
+
+L'ús d'elements de marcatge @code{\markup} dins de la pròpia
+lletra dóna un enorme control sobre l'aparença de la lletra. Per
+veure una explicació de moltes de les opcions, vegeu
+@ref{Donar format al text}.
+
+@snippets
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{formatting-lyrics-syllables.ly}
+
+@seealso
+Manual d'aprenentatge;
+@rlearning{Cançons}.
+
+Referència de la notació:
+@ref{Duració automàtica de les síl·labes},
+@ref{Tipus de lletra},
+@ref{Donar format al text},
+@ref{Modes d'entrada},
+@ref{Duració manual de les síl·labes},
+@ref{Caràcters especials}.
+
+Referència de funcionament intern:
+@rinternals{LyricText}.
+
+Fragments de codi:
+@rlsr{Text}.
+
+@node Alineació de la lletra a una melodia
+@unnumberedsubsubsec Alineació de la lletra a una melodia
+@translationof Aligning lyrics to a melody
+
+@cindex lletra, alineació a una melodia
+@cindex @code{associatedVoice}
+@funindex \lyricmode
+@funindex \addlyrics
+@funindex \lyricsto
+
+La lletra s'interpreta al mode @code{\lyricmode} y s'imprimeix
+dins del context anomenat @code{Lyrics},
+
+@example
+\new Lyrics \lyricmode @{ @dots{} @}
+@end example
+
+Dues variants de @code{\lyricmode} a més disposen d'un context
+associat que s'usa per sincronitzar les síl·labes de la lletra amb
+la música.  @code{\addlyrics}, que és més convenient, segueix
+immediatament al contingut musical del context de Voice amb el que
+s'ha de sincronitzar, creant implícitament un context Lyrics
+complet, @code{\lyricsto} és més versàtil i requereix tant que
+s'especifiqui el context Voice associat pel seu nom, com que es
+creï explícitament un context contenidor Lyrics.  Per veure més
+detalls, consulteu @ref{Duració automàtica de les síl·labes}.
+
+La lletra es pot alinear amb la melodia de dues maneres
+principals:
+
+@itemize
+
+@item
+Es pot alinear la lletra automàticament, agafant-se les duracions
+de les síl·labes d'una altra veu de musica, o (en circumstàncies
+especials) una melodia associada, usant
+@code{\addlyrics}, @code{\lyricsto}, o establint el valor de la
+propietat @code{associatedVoice}.  Per veure més detalls,
+consulteu @ref{Duració automàtica de les síl·labes}.
+
+@lilypond[quote,ragged-right,verbatim]
+<<
+  \new Staff <<
+    \time 2/4
+    \new Voice = "una" \relative {
+      \voiceOne
+      c''4 b8. a16 g4. r8 a4 ( b ) c2
+    }
+    \new Voice = "dos" \relative {
+      \voiceTwo
+       s2 s4. f'8 e4 d c2
+    }
+  >>
+
+% agafa les duracions i l'alineació de les notes a «una»
+
+  \new Lyrics \lyricsto "una" {
+    Life is __ _ love, live __ life.
+  }
+
+% agafa les duracions i l'alineació de les notes a «una» inicialment
+% després canvia a «dos»
+  \new Lyrics \lyricsto "una" {
+    No more let
+    \set associatedVoice = "dos" % s'ha d'establir una síl·laba més aviat
+    sins and sor -- rows grow.
+  }
+>>
+@end lilypond
+
+La primera línia de lletra mostra la forma normal d'introduir la lletra.
+
+La segona línia de text mostra com es pot canviar la veu del la
+que s'agafen les duracions per a les síl·labes.  Això és útil si
+el text de les diferents estrofes correspon amb les mateixes notes
+de formes diferents, i totes les duracions estan disponibles dins
+de contextos de veu.  Per veure més detalls, consulteu @ref{Versos}.
+
+@item
+El text es pot alinear independentment de la duració de qualsevol
+nota si les duracions de les síl·labes s'especifiquen
+explícitament, i s'escriuen amb @code{\lyricmode}.
+
+@lilypond[quote,ragged-right,verbatim]
+<<
+  \new Voice = "one" \relative {
+    \time 2/4
+    c''4 b8. a16 g4. f8 e4 d c2
+  }
+
+% usa la duració explícita prèvia de 2:
+  \new Lyrics \lyricmode {
+    Joy to the earth!
+  }
+
+% duració explícita, establerta a un ritme diferent
+  \new Lyrics \lyricmode {
+    Life4 is love,2. live4 life.2
+  }
+>>
+@end lilypond
+
+El primer vers no està alineat amb les notes perquè no es van
+especificar les duracions, i s'utilitza el valor previ de 2
+(blanca) per a totes les síl·labes.
+
+El segon vers mostra com les paraules es poden alinear de forma
+independent de les notes.  Això és útil si el text dels diversos
+versos es correspon amb les notes de maneres diferents, però les
+duracions requerides no estan disponibles a un context de música.
+Per veure més detalls, consulteu
+@ref{Duració manual de les síl·labes}.  Aquesta tècnica també és
+útil quan es vol preparar un diàleg a sobre de la música;
+per veure exemple que mostren això, consulteu
+@ref{Diàlegs a sobre de la música}.
+
+@end itemize
+
+@seealso
+Manual de aprenentatge:
+@rlearning{Alineació de la lletra a una melodia}.
+
+Referència de la notació:
+@ref{Explicació dels contextos},
+@ref{Duració automàtica de les síl·labes}.
+@ref{Versos},
+@ref{Duració manual de les síl·labes},
+@ref{Diàlegs a sobre de la música}.
+@ref{Duració manual de les síl·labes}.
+
+Referència de funcionament interno:
+@rinternals{Lyrics}.
+
+@node Duració automàtica de les síl·labes
+@unnumberedsubsubsec Duració automàtica de les síl·labes
+@translationof Automatic syllable durations
+
+@cindex síl·labes, duració automàtica de les
+@cindex lletra i melodies
+@cindex associatedVoice
+@funindex \addlyrics
+@funindex \lyricsto
+
+Les síl·labes de la lletra es poden alinear automàticament amb les
+notes d'una melodia de tres formes:
+
+@itemize
+
+@item
+especificant pel seu nom el context Voice que conté la melodia,
+amb @code{\lyrics},
+
+@item
+introduint la lletra amb @code{\addlyrics} i col·locant-la
+immediatament després del context de veu que conté la melodia.
+
+@item
+establint un valor per a la propietat @code{associatedVoice},
+l'alineació de la lletra es por moure a un context de veu
+diferent, especificat pel seu nom, en qualsevol moment musical.
+
+@end itemize
+
+Als tres mètodes es poden traçar guions de separació entre les
+síl·labes d'una paraula i línies extensores després del final
+d'una paraula.  Per veure més detalls, vegeu
+@ref{Línies d'extensió i guions}.
+
+El context @code{Voice} que conté la melodia amb la qual s'està
+alineant la lletra, no ha d'haver @qq{mort}, o es perdrà la lletra
+a partir d'aquest punt.  Això pot passar si hi ha períodes en els
+quals aquesta veu no té res a fer.  Per veure mètodes per mantenir
+vius els contextos, consulteu
+@ref{Manteniment amb vida dels contextos}.
+
+@subheading Ús de @code{\lyricsto}
+
+@cindex \lyricsto
+@funindex \lyricsto
+
+Les síl·labes de la lletra es poden alinear automàticament sota
+les notes d'una melodia especificant pel seu nom el context de veu
+que conté la melodia, amb @code{\lyricsto}:
+
+@lilypond[quote,verbatim]
+<<
+  \new Voice = "melodia" \relative {
+    a'1 a4. a8 a2
+  }
+  \new Lyrics \lyricsto "melodia" {
+    These are the words
+  }
+>>
+@end lilypond
+
+@noindent
+Això alinea les síl·labes amb les notes del context @code{Voice}
+anomenat, que ha d'existir prèviament.  Per tant, normalment
+s'especifica primer el context @code{Voice} seguit del context
+@code{Lyrics}.  La lletra en sí segueix a l'ordre
+@code{\lyricsto}.  L'ordre @code{\lyricsto} invoca automàticament
+el mode de lletra. De forma predeterminada, la lletra es col·loca
+per sota de les notes.  Per a d'altres col·locacions, consulteu
+@ref{Posicionament vertical de la lletra}.
+
+
+@subheading Ús de @code{\addlyrics}
+
+@cindex \addlyrics
+@funindex \addlyrics
+
+L'ordre @code{\addlyrics} és realment tans sols una forma còmoda
+d'escriure una estructura del LilyPond més complicada si cal per
+la lletra.
+
+@example
+@{ MÚSICA @}
+\addlyrics @{ LLETRA @}
+@end example
+
+@noindent
+és el mateix que
+
+@example
+\new Voice = "blabla" @{ MÚSICA @}
+\new Lyrics \lyricsto "blabla" @{ LLETRA @}
+@end example
+
+Heus ací un exemple:
+
+@lilypond[verbatim,quote]
+{
+  \time 3/4
+  \relative { c'2 e4 g2. }
+  \addlyrics { play the game }
+}
+@end lilypond
+
+Es poden afegir més versos posant més seccions
+@code{\addlyrics}:
+
+@lilypond[ragged-right,verbatim,quote]
+{
+  \time 3/4
+  \relative { c'2 e4 g2. }
+  \addlyrics { play the game }
+  \addlyrics { speel het spel }
+  \addlyrics { joue le jeu }
+}
+@end lilypond
+
+L'ordre @code{\addlyrics} no pot manegar situacions de polifonia.
+A més a més, no pot usar-se per associar lletra a un context de
+tabulatura @code{TabVoice}.  Per a aquests casos s'hauria d'usar
+@code{\lyricsto}.
+
+@subheading Ús de @code{associatedVoice}
+
+Es pot canviar la melodia a la qual s'alinea la lletra mitjançant
+l'establiment de la propietat @code{associatedVoice},
+
+@example
+\set associatedVoice = "lala"
+@end example
+
+@noindent
+
+El valor de la propietat (aquí: @code{"lala"}) ha de ser el nom
+d'un context @code{Voice}.  Per raons tècniques, l'ordre
+@code{\set} s'ha d'escriure una síl·laba abans de la qual es vol
+aplicar el canvi de veu.
+
+Heus ací un exemple que mostra el seu ús:
+
+@lilypond[quote,ragged-right,verbatim]
+<<
+  \new Staff <<
+    \time 2/4
+    \new Voice = "una" \relative {
+      \voiceOne
+      c''4 b8. a16 g4. r8 a4 ( b ) c2
+    }
+    \new Voice = "dos" \relative {
+      \voiceTwo
+       s2 s4. f'8 e8 d4. c2
+    }
+  >>
+% agafa les duracions i l'alineació de les notes de «una» inicialment
+% després canvia a «dos»
+  \new Lyrics \lyricsto "una" {
+    No more let
+    \set associatedVoice = "dos"  % s'ha d'establir una síl·laba prèviament
+    sins and sor -- rows grow.
+  }
+>>
+@end lilypond
+
+@seealso
+Referència de la notació:
+@ref{Línies d'extensió i guions},
+@ref{Manteniment amb vida dels contextos},
+@ref{Posicionament vertical de la lletra}.
+
+
+@node Duració manual de les síl·labes
+@unnumberedsubsubsec Duració manual de les síl·labes
+@translationof Manual syllable durations
+
+A certes músiques vocals complexes pot ser desitjable col·locar la
+lletra de forma completament independent de les notes.  En aquest
+cas, no heu d'usar @code{\lyricsto} ni @code{\addlyrics} i no heu
+d'establir un valor per a @code{associatedVoice}.  Les síl·labes
+s'escriuen com a notes -- però substituint els noms de les notes
+per text -- i la duració de cada síl·laba s'escriu explícitament
+després de la síl·laba.
+
+Es poden traçar línies separadores entre les síl·labes, com és
+usual, però no es poden traçar línies extensores quan no hi ha una
+veu associada.
+
+Heus ací dos exemples:
+
+@lilypond[verbatim,quote]
+<<
+  \new Voice = "melodia" \relative {
+    c''2 a f f e e
+  }
+  \new Lyrics \lyricmode {
+    c4. -- a -- f -- f -- e2. -- e
+  }
+>>
+@end lilypond
+
+
+@lilypond[quote,verbatim,ragged-right]
+<<
+  \new Staff {
+    \relative {
+      c''2 c2
+      d1
+    }
+  }
+  \new Lyrics {
+    \lyricmode {
+      I2 like4. my8 cat!1
+    }
+  }
+  \new Staff {
+    \relative {
+      c'8 c c c c c c c
+      c8 c c c c c c c
+    }
+  }
+>>
+@end lilypond
+
+Aquesta tècnica és molt útil quan s'escriuen diàlegs a sobre a la
+música, vegeu @ref{Diàlegs a sobre de la música}.
+
+Per canviar l'alineació de les síl·labes, simplement sobreescriviu
+la propietat @code{self-alignment-X}:
+
+@lilypond[verbatim,quote]
+<<
+  \new Voice = "melodia" \relative {
+    \time 3/4
+    c'2 e4 g2 f
+  }
+  \new Lyrics \lyricmode {
+    \override LyricText.self-alignment-X = #LEFT
+    play1 a4 game4
+  }
+>>
+@end lilypond
+
+@seealso
+Referència de la notació:
+@ref{Manteniment amb vida dels contextos}.
+
+Referència de funcionament intern:
+@rinternals{Lyrics},
+@rinternals{Voice}.
+
+
+@node Diverses síl·labes sobre una nota
+@unnumberedsubsubsec Diverses síl·labes sobre una nota
+@translationof Multiple syllables to one note
+
+@funindex _
+@cindex lligadures en la lletra
+@cindex espais en la lletra
+@cindex cometes en la lletra
+
+Per assignar més d'una síl·laba a una única nota amb espais entre
+les síl·labes, podem envoltar la frase entre cometes o utilitzar
+un caràcter de guió sota @code{_}.  De forma alternativa, podem
+usar el símbol de titlla corba (@code{~}) per obtenir una
+lligadura de text.
+
+@lilypond[quote,ragged-right,verbatim]
+{
+  \relative {
+    \autoBeamOff
+    r8 b' c fis, fis c' b e,
+  }
+  \addlyrics
+  {
+    \override LyricHyphen.minimum-distance = #1.0 % Assegura que els guionets són visibles
+    Che_in ques -- ta_e_in quel -- l'al -- tr'on -- da
+  }
+  \addlyrics { "Che in" ques -- "ta e in" quel -- l'al -- tr'on -- da }
+  \addlyrics { Che~in ques -- ta~e~in quel -- l'al -- tr'on -- da }
+}
+@end lilypond
+
+@seealso
+Referència de funcionament intern:
+@rinternals{LyricCombineMusic}.
+
+
+@node Diverses notes sobre una síl·laba
+@unnumberedsubsubsec Diverses notes sobre una síl·laba
+@translationof Multiple notes to one syllable
+
+@cindex melisma
+@cindex melismata
+@cindex fraseig, a la lletra
+@funindex \melisma
+@funindex \melismaEnd
+
+A vegades, i sobretot a la música medieval i del barroc, diverses
+notes es canten sobre una síl·laba única; aquestes vocalitzacions
+reben el nom de melismes, o melismata (vegeu
+@rglos{melisma}).  La síl·laba d'un melisma se sol alinear per
+l'esquerra amb la primera nota del melisma.
+
+Quan es produeix un melisma sobre una síl·laba diferent de
+l'última d'una paraula, aquesta síl·laba se sol unir a la següent
+amb un guió separador.  Això s'indica al codi d'entrada escrivint
+un doble guió, @w{@code{--}}, immediatament després de la síl·laba.
+
+De forma alternativa, quan es produeix un melisma sobre l'última o
+sobre l'única síl·laba d'una paraula, se sol traçar una línia
+extensora des del final de la síl·laba fins l'última nota del
+melisma.  Aixo s'indica en el codi d'entrada escrivint una doble
+barra baixa o caràcter de subrallat, @code{__}, immediatament
+després de la paraula.
+
+Hi ha cinc formes d'indicar els melismes:
+
+@itemize
+
+@item
+Es creen melismes automàticament sobre les notes unides mitjançant
+lligadura d'unió:
+
+@lilypond[quote,verbatim]
+<<
+  \new Voice = "melodia" \relative {
+    \time 3/4
+    f''4 g2 ~ |
+    4 e2 ~ |
+    8
+  }
+  \new Lyrics \lyricsto "melodia" {
+    Ky -- ri -- e __
+  }
+>>
+@end lilypond
+
+@item
+Es poden crear melismes automàticament a partir de la música
+escrivint lligadures d'expressió sobre les notes de cada melisma.
+Aquesta és la forma usual d'escriure la lletra:
+
+@lilypond[quote,verbatim]
+<<
+  \new Voice = "melodia" \relative {
+    \time 3/4
+    f''4 g8 ( f e f )
+    e8 ( d e2 )
+  }
+  \new Lyrics \lyricsto "melodia" {
+    Ky -- ri -- e __
+  }
+>>
+@end lilypond
+
+Observeu que les lligadures de fraseig no afectes a la creació de
+melismes.
+
+@item
+Es considera que les notes formen un melisma quan s'uneixen
+manualment mitjançant barra, sempre i quan el barrat automàtic
+estigui desactivat.  Vegeu
+@ref{Establir el comportament de les barres automàtiques}.
+
+@lilypond[quote,verbatim]
+<<
+  \new Voice = "melodia" \relative {
+    \time 3/4
+    \autoBeamOff
+    f''4 g8[ f e f]
+    e2.
+  }
+  \new Lyrics \lyricsto "melodia" {
+    Ky -- ri -- e
+  }
+>>
+@end lilypond
+
+Clarament, això no és adequat per als melismes formats per notes
+de duració més llarga que la corxera.
+
+@item
+Un grup denotes sense lligadura d'expressió es tracta com un
+melisma si estan envoltades per @code{\melisma} i
+@code{\melismaEnd}.
+
+@lilypond[quote,verbatim]
+<<
+  \new Voice = "melodia" \relative {
+    \time 3/4
+    f''4 g8
+    \melisma
+    f e f
+    \melismaEnd
+    e2.
+  }
+  \new Lyrics \lyricsto "melodia" {
+    Ky -- ri -- e
+  }
+>>
+@end lilypond
+
+@item
+Es pot definir un melisma enterament dins de la lletra escrivint
+un caràcter de barra baixa aïllat, @code{_}, per cada nota
+addicional que es vol afegir el melisma.
+
+@lilypond[verbatim, quote]
+<<
+  \new Voice = "melodia" \relative {
+    \time 3/4
+    f''4 g8 f e f
+    e8 d e2
+  }
+  \new Lyrics \lyricsto "melodia" {
+    Ky -- ri -- _ _ _ e __ _ _
+  }
+>>
+@end lilypond
+
+@end itemize
+
+És possible tenir lligadures d'unió o d'expressió i barres manuals
+a la melodia sense que indiquin melisma.  Per fer-lo, ajusteu el
+valor de @code{melismaBusyProperties}:
+
+@lilypond[verbatim,quote]
+<<
+  \new Voice = "melodia" \relative {
+    \time 3/4
+    \set melismaBusyProperties = #'()
+    c'4 d ( e )
+    g8 [ f ] f4 ~ 4
+  }
+  \new Lyrics \lyricsto "melodia" {
+    Ky -- ri -- e e -- le -- i -- son
+  }
+>>
+@end lilypond
+
+Es poden usar d'altres valors per a @code{melismaBusyProperties}
+si volem incloure o excloure selectivament les lligadures d'unió,
+lligadures d'expressió o barres de la detecció automàtica dels
+melismes; vegeu @code{melismaBusyProperties} a l'apartat
+@rinternals{Tunable context properties}.
+
+Como a alternativa, si totes les indicacions de melisma
+s'ignoraran, es pot establir @code{ignoreMelismata} al valor
+vertader; vegeu @ref{Versos amb ritmes diferents}.
+
+Si es requereix un melisma al transcurs d'un passatge en el qual
+@code{melismaBusyProperties} està actiu, pot indicar-se col·locant
+una sola barra baixa a la lletra per cada nota que s'ha d'incloure
+dins del melisma:
+
+@lilypond[verbatim,quote]
+<<
+  \new Voice = "melodia" \relative {
+    \time 3/4
+    \set melismaBusyProperties = #'()
+    c'4 d ( e )
+    g8 [ f ] ~ 4 ~ f
+  }
+  \new Lyrics \lyricsto "melodia" {
+    Ky -- ri -- _ e __ _ _ _
+  }
+>>
+@end lilypond
+
+
+@predefined
+@code{\autoBeamOff},
+@code{\autoBeamOn},
+@code{\melisma},
+@code{\melismaEnd}.
+@endpredefined
+
+@seealso
+Glossari musical:
+@rglos{melisma}.
+
+Manual d'aprenentatge:
+@rlearning{Alineació de la lletra a una melodia}.
+
+Referència de la notació:
+@ref{Alineació de la lletra a una melodia},
+@ref{Duració automàtica de les síl·labes},
+@ref{Establir el comportament de les barres automàtiques},
+@ref{Versos amb ritmes diferents}.
+
+Referència de funcionament intern:
+@rinternals{Tunable context properties}.
+
+@knownissues
+No es creen automàticament línies extensores sota els melismes;
+s'han d'inserir manualment amb un doble guió baix.
+
+@node Línies d'extensió i guions
+@unnumberedsubsubsec Línies d'extensió i guions
+@translationof Extenders and hyphens
+
+@cindex melisma
+@cindex extensora, línia
+@cindex línia d'extensió
+
+@c TODO cf Multiple notes to one syllable; should this be merged in?
+
+@c leave this as samp. -gp
+Els melismes s'indiquen mitjançant una línia horitzontal centrada
+entre una síl·laba i la següent.  Aquesta línia rep el nom de
+línia d'extensió, i s'escriu com @samp{ __ } (fixeu-vos en els
+espais abans i després dels guions baixos).
+
+@warning{Els melismes s'indiquen a la partitura amb línies
+extensores, que s'escriuen amb un doble guió baix; però també es
+poden introduir melismes curts mitjançant salts de notes
+individuals, que s'escriuen com caràcters aïllats de guió baix; de
+forma predeterminada aquests caràcters no produeixen la impressió
+d'una línia d'extensió.}
+
+@cindex guiones
+
+@c leave this as samp. -gp
+Els guions centrats s'escriuen com @samp{ -- } entre síl·labes
+d'una mateixa paraula (fixeu-vos en els espais abans i després del
+dos guionets).  El guionet quedarà centrat entres les síl·labes, i
+la seva longitud s'ajustarà en funció de l'espai que existeix
+entre elles.
+
+En la música gravada de manera molt atapeïda, es poden treure els
+guionets.  Es pot controlar si passa això o no, mitjançant les
+propietats @code{minimum-distance} (distància mínima entre les
+dues síl·labes) i la @code{minimum-length} (umbral per sota del
+qual se suprimeixen els guionets) de @code{LyricHyphen}.
+
+@seealso
+Referència de funcionament intern:
+@rinternals{LyricExtender},
+@rinternals{LyricHyphen}.
+
+
+@node Tècniques específiques per a les lletres
+@subsection Tècniques específiques per a les lletres
+@translationof Techniques specific to lyrics
+
+@c TODO this whole section is to be reorganised
+
+@menu
+* Treball amb lletra i variables::
+* Posicionament vertical de la lletra::
+* Col·locació horitzontal de les síl·labes::
+* Lletra i repeticions::
+* Lletres en divisi::
+* Polifonia amb lletres compartides::
+@end menu
+
+
+
+@node Treball amb lletra i variables
+@unnumberedsubsubsec Treball amb lletra i variables
+@translationof Working with lyrics and variables
+
+@cindex lyrics, using variables
+
+Es poden crear variables que contenen lletra, però la lletra s'ha
+d'introduir en el mode lletra:
+
+@lilypond[quote,verbatim]
+musicOne = \relative {
+  c''4 b8. a16 g4. f8 e4 d c2
+}
+verseOne = \lyricmode {
+  Joy to the world, the Lord is come.
+}
+\score {
+  <<
+    \new Voice = "one" {
+      \time 2/4
+      \musicOne
+    }
+    \new Lyrics \lyricsto "one" {
+      \verseOne
+    }
+  >>
+}
+@end lilypond
+
+No cal escriure les duraciones si la variable s'invocarà amb
+@code{\addlyrics} o amb @code{\lyricsto}.
+
+Per a disposicions diferents o més complexes, la millor forma és
+definir en primer lloc les variables de la música i de la lletra,
+després preparar una jerarquia de pentagrames i lletres, ometent
+la lletra en sí, i després posar la lletra utilitzant
+@code{\context} per sota.  Això assegura que les veus
+referenciades per @code{\lyricsto} siempre han estat definides
+prèviament.  Per exemple:
+
+@lilypond[quote,verbatim]
+sopranoMusic = \relative { c''4 c c c }
+contraltoMusic = \relative { a'4 a a a }
+sopranoWords = \lyricmode { Sop -- ra -- no words }
+contraltoWords = \lyricmode { Con -- tral -- to words }
+
+\score {
+  \new ChoirStaff <<
+    \new Staff {
+      \new Voice = "sopranos" {
+        \sopranoMusic
+      }
+    }
+    \new Lyrics = "sopranos"
+    \new Lyrics = "contraltos"
+    \new Staff {
+      \new Voice = "contraltos" {
+        \contraltoMusic
+      }
+    }
+    \context Lyrics = "sopranos" {
+      \lyricsto "sopranos" {
+        \sopranoWords
+      }
+    }
+    \context Lyrics = "contraltos" {
+      \lyricsto "contraltos" {
+        \contraltoWords
+      }
+    }
+  >>
+}
+@end lilypond
+
+@seealso
+Referència de la notació:
+@ref{Posicionament vertical de la lletra}.
+
+Referència de funcionament intern:
+@rinternals{LyricCombineMusic},
+@rinternals{Lyrics}.
+
+
+@node Posicionament vertical de la lletra
+@unnumberedsubsubsec Posicionament vertical de la lletra
+@translationof Placing lyrics vertically
+
+@cindex posicionament de la lletra
+@cindex lletra, posicionament
+
+Depenent del tipus de música, la lletra pot col·locar-se sobre el
+pentagrama, a sota del pentagrama o entre dos pentagrames.  El més
+fàcil és situar la lletra a sota de la pauta associada, i es pot
+aconseguir simplement definint el context Lyrics per sota del
+context Staff:
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff {
+      \new Voice = "melodia" {
+        \relative { c''4 c c c }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melodia" {
+        Here are the words
+      }
+    }
+  >>
+}
+@end lilypond
+
+Es pot col·locar la lletra sobre el pentagrama usat un dels dos
+mètodes disponibles: el més senzill (i preferible) és usar la
+mateixa sintaxi que s'ha vist més a dalt i especificar
+explícitament la posició de la lletra:
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff = "staff" {
+      \new Voice = "melody" {
+        \relative { c''4 c c c }
+      }
+    }
+    \new Lyrics \with { alignAboveContext = "staff" } {
+      \lyricsto "melody" {
+        Here are the words
+      }
+    }
+  >>
+}
+@end lilypond
+
+Com a alternativa, es pot usar un procés en dos passos.  En primer
+lloc es declara el context Lyrics (sense cap contingut), abans
+dels contextos Staff i Voice, i després s'escriu l'ordre
+@code{\lyricsto} després de la declaració de Voice a què fa
+referència, usant @code{\context}, com es veu a continuació:
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Lyrics = "lyrics" \with {
+      % lyrics above a staff should have this override
+      \override VerticalAxisGroup.staff-affinity = #DOWN
+    }
+    \new Staff {
+      \new Voice = "melody" {
+        \relative { c''4 c c c }
+      }
+    }
+    \context Lyrics = "lyrics" {
+      \lyricsto "melody" {
+        Here are the words
+      }
+    }
+  >>
+}
+@end lilypond
+
+Quan hi ha dues veus sobre pentagrames separats, la lletra es pot
+col·locar sobre ells usant qualsevol d'aquests mètodes.  Heus ací
+un exemple del segon mètode:
+
+@lilypond[quote,verbatim]
+\score {
+  \new ChoirStaff <<
+    \new Staff {
+      \new Voice = "sopranos" {
+        \relative { c''4 c c c }
+      }
+    }
+    \new Lyrics = "sopranos"
+    \new Lyrics = "contraltos" \with {
+      % lyrics above a staff should have this override
+      \override VerticalAxisGroup.staff-affinity = #DOWN
+    }
+    \new Staff {
+      \new Voice = "contraltos" {
+        \relative { a'4 a a a }
+      }
+    }
+    \context Lyrics = "sopranos" {
+      \lyricsto "sopranos" {
+        Sop -- ra -- no words
+      }
+    }
+    \context Lyrics = "contraltos" {
+      \lyricsto "contraltos" {
+        Con -- tral -- to words
+      }
+    }
+  >>
+}
+@end lilypond
+
+És possible generar d'altres combinacions de lletra i pautes
+mitjançant l'elaboració dels exemples anteriors, o examinant les
+plantilles del Manual d'Aprenentatge, vegeu
+@rlearning{Plantilles de conjunts vocals}.
+
+@snippets
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
+
+@seealso
+Manual d' aprenentatge:
+@rlearning{Plantilles de conjunts vocals}.
+
+Referència de la notació:
+@ref{Ordre de disposició dels contextos},
+@ref{Creació i referenciació dels contextos}.
+
+
+@node Col·locació horitzontal de les síl·labes
+@unnumberedsubsubsec Col·locació horitzontal de les síl·labes
+@translationof Placing syllables horizontally
+
+@cindex espaiat de la lletra
+@cindex lletra, augmentar la separació
+
+Per augmentar la separació entre les línies de text, establiu la
+propietat @code{minimum-distance} de @code{LyricSpace}.
+
+@lilypond[verbatim,quote,ragged-right]
+\relative c' {
+  c c c c
+  \override Lyrics.LyricSpace.minimum-distance = #1.0
+  c c c c
+}
+\addlyrics {
+  longtext longtext longtext longtext
+  longtext longtext longtext longtext
+}
+@end lilypond
+
+@noindent
+Per aplicar aquest canvi a totes les lletres de la partitura,
+ajusteu la propietat dins del bloc @code{\layout}.
+
+@lilypond[verbatim,quote,ragged-right]
+\score {
+  \relative {
+  c' c c c
+  c c c c
+  }
+  \addlyrics {
+  longtext longtext longtext longtext
+  longtext longtext longtext longtext
+  }
+  \layout {
+    \context {
+      \Lyrics
+      \override LyricSpace.minimum-distance = #1.0
+    }
+  }
+}
+@end lilypond
+
+@snippets
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{lyrics-alignment.ly}
+
+@c TODO: move to LSR -vv
+
+La comprovació necessària per assegurar que les inscripcions de
+text estiguin dins dels marges, requereix càlculs addicionals.
+Per accelerar lleugerament el processat, es pot desactivar aquesta
+funcionalitat:
+
+@example
+\override Score.PaperColumn.keep-inside-line = ##f
+@end example
+
+Per fer que el text eviti també les línies divisòries, useu
+
+@example
+\layout @{
+  \context @{
+    \Lyrics
+      \consists "Bar_engraver"
+      \consists "Separating_line_group_engraver"
+      \hide BarLine
+  @}
+@}
+@end example
+
+@node Lletra i repeticions
+@unnumberedsubsubsec Lletra i repeticions
+@translationof Lyrics and repeats
+
+@cindex repeticions i lletra
+@cindex lletra, repeticions
+
+@subheading Repeticions senzilles
+
+Les repeticions @emph{en la música} es descriuen extensament a
+alguna altra part d'aquest maual; vegeu @ref{Repeticions}.
+Aquesta secció explica com afegir lletra a seccions de música que
+es repeteixen.
+
+La lletra que va amb una secció de música que es repeteix, hauria
+d'estar envoltada en la mateixa construcció de repeticions exacta
+que la música, si el text no canvia.
+
+@lilypond[verbatim,quote]
+\score {
+  <<
+    \new Staff {
+      \new Voice = "melody" {
+        \relative {
+          a'4 a a a
+          \repeat volta 2 { b4 b b b }
+        }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Not re -- peat -- ed.
+        \repeat volta 2 { Re -- peat -- ed twice. }
+      }
+    }
+  >>
+}
+@end lilypond
+
+El text s'expandirà correctament d'aquesta manera si es despleguen
+les repeticions.
+
+@lilypond[verbatim,quote]
+\score {
+  \unfoldRepeats {
+    <<
+      \new Staff {
+        \new Voice = "melody" {
+          \relative {
+            a'4 a a a
+            \repeat volta 2 { b4 b b b }
+          }
+        }
+      }
+      \new Lyrics {
+        \lyricsto "melody" {
+          Not re -- peat -- ed.
+          \repeat volta 2 { Re -- peat -- ed twice. }
+        }
+      }
+    >>
+  }
+}
+@end lilypond
+
+Si la secció repetida ha de desplegar-se i té una lletra diferent,
+escriviu simplement tot el text:
+
+@lilypond[verbatim,quote,ragged-right]
+\score {
+  <<
+    \new Staff {
+      \new Voice = "melody" {
+        \relative {
+          a'4 a a a
+          \repeat unfold 2 { b4 b b b }
+        }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Not re -- peat -- ed.
+        The first time words.
+        Sec -- ond time words.
+      }
+    }
+  >>
+}
+@end lilypond
+
+Quan el text de les seccions de primera o segona vegada es
+diferent, la lletra de cada repetició s'ha d'escriure dins de
+contextos @code{Lyrics} diferents, niuats correctament a seccions
+paral·leles:
+
+@lilypond[verbatim,quote]
+\score {
+  <<
+    \new Staff {
+      \new Voice = "melody" {
+        \relative {
+          a'4 a a a
+          \repeat volta 2 { b4 b b b }
+        }
+      }
+    }
+    \new Lyrics \lyricsto "melody" {
+      Not re -- peat -- ed.
+      <<
+	{ The first time words. }
+	\new Lyrics {
+	  \set associatedVoice = "melody"
+	  Sec -- ond time words.
+	}
+      >>
+    }
+  >>
+}
+@end lilypond
+
+Es poden afegir més estrofes d'una manera semblant:
+
+@lilypond[verbatim,quote]
+\score {
+  <<
+    \new Staff {
+      \new Voice = "singleVoice" {
+        \relative {
+	  a'4 a a a
+	  \repeat volta 3 { b4 b b b }
+          c4 c c c
+	}
+      }
+    }
+    \new Lyrics \lyricsto "singleVoice" {
+      Not re -- peat -- ed.
+      <<
+        { The first time words.	}
+	\new Lyrics {
+	  \set associatedVoice = "singleVoice"
+	  Sec -- ond time words.
+	}
+	\new Lyrics {
+	  \set associatedVoice = "singleVoice"
+	  The third time words.
+	}
+      >>
+      The end sec -- tion.
+    }
+  >>
+}
+@end lilypond
+
+@cindex alignBelowContext
+@funindex alignBelowContext
+
+Malgrat això, si aquesta construcció s'insereix dins d'un context
+de diversos pentagrames tal com un @code{ChoirStaff}, la lletra
+dels versos segon i tercer apareixerà a sota del pentagrama inferior.
+
+Per posicionar-los correctament utilitzeu @code{alignBelowContext}:
+
+@lilypond[verbatim,quote]
+\score {
+  <<
+    \new Staff {
+      \new Voice = "melody" {
+        \relative {
+	  a'4 a a a
+	  \repeat volta 3 { b4 b b b }
+          c4 c c c
+	}
+      }
+    }
+    \new Lyrics = "firstVerse" \lyricsto "melody" {
+      Not re -- peat -- ed.
+      <<
+        { The first time words.	}
+	\new Lyrics = "secondVerse"
+        \with { alignBelowContext = "firstVerse" } {
+	  \set associatedVoice = "melody"
+	  Sec -- ond time words.
+	}
+	\new Lyrics = "thirdVerse"
+        \with { alignBelowContext = "secondVerse" } {
+	  \set associatedVoice = "melody"
+	  The third time words.
+	}
+      >>
+      The end sec -- tion.
+    }
+    \new Voice = "harmony" {
+      \relative {
+        f'4 f f f \repeat volta 2 { g8 g g4 g2 } a4 a8. a16 a2
+      }
+    }
+  >>
+}
+@end lilypond
+
+
+
+@c TODO positioning a common line of lyrics
+
+@subheading Repeticions amb finals alternatius (primera i segona vegada)
+
+@cindex lletra, repeticions amb finals alternatius
+@cindex lletra, repeticions amb primera i segona vegada
+@cindex repetició de la lletra amb finals alternatius
+@cindex repetició de la lletra amb primera i segona vegada
+@cindex finals alternatius i lletra
+@cindex primera i segona vegada i lletra
+
+Si el text de la secció repetida és el mateix, i cap dels blocs
+@code{\alternative} comença amb un silenci, es pot usar exactament
+la mateixa estructura tant per a la lletra com per a la música.
+Això té l'avantatge que @code{\unfoldRepeats} expandeix
+correctament tant la música com la lletra.
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff {
+      \time 2/4
+      \new Voice = "melody" {
+        \relative {
+          a'4 a a a
+          \repeat volta 2 { b4 b }
+          \alternative { { b b } { b c } }
+        }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Not re -- peat -- ed.
+        \repeat volta 2 { Re -- peat -- }
+        \alternative { { ed twice. } { ed twice. } }
+      }
+    }
+  >>
+}
+@end lilypond
+
+@funindex \skip
+@cindex saltar notes a la lletra
+@cindex lletra, saltar notes
+
+Però quan la secció repetida té un text diferent, o quan un dels
+blocs @code{\alternative} comença amb un silenci, no es pot usar
+una construcció de repetició per al text i cal inserir manualment
+ordres @code{\skip} per saltar sobre les notes a les seccions
+alternatives que no correponguin.
+
+Nota: no utilitzeu un guió baix, @code{_}, per saltar notes: el
+guió baix indica un melisma, i fa que la síl·laba anterior quedi
+alineada per l'esquerra.
+
+@warning{L'ordre @code{@bs{}skip} ha d'anar seguida per un número,
+però aquest número s'ignora dins de la lletra, que deriva les
+duracions de les notes d'una melodia associada a través de
+@code{\addlyrics} o @code{\lyricsto}.  Cada @code{@bs{}skip} salta
+una sola nota de qualsevol valor, independentment del valor del
+nombre que s'escriu a continuació.}
+
+@lilypond[verbatim,quote,ragged-right]
+\score {
+  <<
+    \new Staff {
+      \time 2/4
+      \new Voice = "melody" {
+        \relative {
+          \repeat volta 2 { b'4 b }
+          \alternative { { b b } { b c } }
+          c4 c
+        }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        The first time words.
+        \repeat unfold 2 { \skip 1 }
+        End here.
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Sec -- ond
+        \repeat unfold 2 { \skip 1 }
+        time words.
+      }
+    }
+  >>
+}
+@end lilypond
+
+@cindex lletra i notes lligades
+@funindex \repeatTie
+
+Quan una nota està lligada sobre dos o més finals alternatius
+(sobre la primera nota d'una casella de primera i segona vegada),
+s'usa una lligadura d'unió per arrossegar la nota dins del primer
+final alternatiu i s'usa una ordre @code{\repeatTie} de lligadura
+de repetició a les caselles de repetició següents.  Aquesta
+estructura produeix problemes d'alineació difícils quan hi ha
+lletra pel mig; augmentar la longitud de les seccions alternatives
+de forma que les notes lligades quedin contingudes completament
+dins d'elles, pot oferir un resultat acceptable.
+
+La lligadura d'unió crea un melisma dins de la casella de primera
+vegada però no en la segona vegada i següent; per tant, per
+alinear la lletra correctament cal desactivar la creació
+automàtica de melismes sobre la secció de finals alternatius i
+inserir salts manuals.
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff {
+      \time 2/4
+      \new Voice = "melody" {
+        \relative {
+          \set melismaBusyProperties = #'()
+          \repeat volta 2 { b'4 b ~}
+          \alternative { { b b } { b \repeatTie c } }
+          \unset melismaBusyProperties
+          c4 c
+        }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        \repeat volta 2 { Here's a __ }
+        \alternative {
+          { \skip 1 verse }
+          { \skip 1 sec }
+        }
+        ond one.
+      }
+    }
+  >>
+}
+@end lilypond
+
+Observeu que si s'usa @code{\unfoldRepeats} sobre una secció que
+contingui alguna @code{\repeatTie}, la @code{\repeatTie} s'ha
+d'eliminar per evitar que s'imprimeixin al mateix temps els dos
+tipus de lligadures.
+
+Quan la secció repetida té textos diferent, no es pot usar
+@code{\repeat} per a la lletra i s'han d'inserir ordres
+@code{\skip}, com es va veure abans.
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff {
+      \time 2/4
+      \new Voice = "melody" {
+        \relative {
+          \repeat volta 2 { b'4 b ~}
+          \alternative { { b b } { b \repeatTie c } }
+          c4 c
+        }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Here's a __ verse.
+        \repeat unfold 2 { \skip 1 }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Here's one
+        \repeat unfold 2 { \skip 1 }
+        more to sing.
+      }
+    }
+  >>
+}
+@end lilypond
+
+Si volem imprimir línies extensores i guions que entren o surten
+de les caselles de primera i segona vegada, hem d'inserir-los
+manualment.
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff {
+      \time 2/4
+      \new Voice = "melody" {
+        \relative {
+          \repeat volta 2 { b'4 b ~}
+          \alternative { { b b } { b \repeatTie c } }
+          c4 c
+        }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Here's a __ verse.
+        \repeat unfold 2 { \skip 1 }
+      }
+    }
+    \new Lyrics {
+      \lyricsto "melody" {
+        Here's "a_"
+        \skip 1
+        "_" sec -- ond one.
+      }
+    }
+  >>
+}
+@end lilypond
+
+@seealso
+Referència de la notació:
+@ref{Manteniment amb vida dels contextos},
+@ref{Repeticions}.
+
+
+@node Lletres en divisi
+@unnumberedsubsubsec Lletres en divisi
+@translationof Divisi lyrics
+
+@cindex dividida, lletra
+@cindex lletra dividida
+
+Quan solament difereixen les paraules i les duracions de les dues
+parts mentre que l'alçada de les notes és la mateixa, el mètode
+adequat pot ser la desactivació temporal de la detecció automàtica
+dels melismes i indicar el melisma dins de la lletra:
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Voice = "melody" {
+      \relative c' {
+        \set melismaBusyProperties = #'()
+        \slurDown
+        \slurDashed
+        e4 e8 ( e ) c4 c |
+        \unset melismaBusyProperties
+        c
+      }
+    }
+    \new Lyrics \lyricsto "melody" {
+      They shall not o -- ver -- come
+    }
+    \new Lyrics \lyricsto "melody" {
+      We will _
+    }
+  >>
+}
+@end lilypond
+
+Quan difereixen tant la música com les paraules, pot ser millor
+imprimir la música i la lletra que difereixen mitjançant
+l'anomenat de contextos de veu i adjuntant la lletra a aquests
+contextos específics:
+
+@lilypond[verbatim,ragged-right,quote]
+\score {
+  <<
+    \new Voice = "melody" {
+      \relative {
+        <<
+          {
+            \voiceOne
+            e'4 e8 e
+          }
+          \new Voice = "splitpart" {
+            \voiceTwo
+            c4 c
+          }
+        >>
+        \oneVoice
+        c4 c |
+        c
+      }
+    }
+    \new Lyrics \lyricsto "melody" {
+      They shall not o -- ver -- come
+    }
+    \new Lyrics \lyricsto "splitpart" {
+      We will
+    }
+  >>
+}
+@end lilypond
+
+En la música coral és freqüent que una part vocal es divideixi en
+dues durant diversos compassos.  La construcció @code{<<
+@{@dots{}@} \\ @{@dots{}@} >>}, en la qual dues (o més)
+expressions musicals estan separades per dues barres invertides,
+pot en principi semblar la forma més adequada de realitzar les
+veus dividides.  Tanmateix, aquesta construcció assigna
+@strong{totes} les expressions que estan dins d'ella a
+@strong{contextos de veu NOUS}, cosa que fa que no s'assigni a
+elles @emph{cap lletra} perquè la lletra s'assigna al context de
+veu original, que no és el que pretenem, en general.  La
+construcció correcta que hem d'usar és el passatge polifònic
+temporal, vegeu la secció @emph{Passatges polifònics temporals} dins de
+@ref{Polifonia en un sol pentagrama}.
+
+@node Polifonia amb lletres compartides
+@unnumberedsubsubsec Polifonia amb lletres compartides
+@translationof Polyphony with shared lyrics
+
+@cindex NullVoice
+@cindex polifonia, lletra compartida
+@cindex lletra, compartida entre veus
+@cindex \partCombine y letra
+@funindex \partCombine
+
+Quan dues veus les notes de les quals tenen diferents duracions
+comparteixen la mateixa lletra, l'alineació de la lletra a una de
+les veus pot generar problemes a l'altra veu.  Per exemple, la
+segona línia extensora que es veu a sota és massa curta, perquè la
+lletra està alineada sols amb la veu superior:
+
+@lilypond[quote,verbatim]
+soprano = \relative { b'8( c d c) d2 }
+alto = \relative { g'2 b8( a g a) }
+words = \lyricmode { la __ la __ }
+
+\new Staff <<
+  \new Voice = "sopranoVoice" { \voiceOne \soprano }
+  \new Voice { \voiceTwo \alto }
+  \new Lyrics \lyricsto "sopranoVoice" \words
+>>
+@end lilypond
+
+Per obtenir el resultat desitjat, alineeu la lletra amb un context
+@code{NullVoice} (@q{Veu Nul·la}) nou que contingui una combinació
+adequada de les dues veus.  Les notes del context @code{NullVoice}
+no apareixen a la pàgina impresa, però poden utilitzar-se per
+alinear la lletra adequadament:
+
+@lilypond[quote,verbatim]
+soprano = \relative { b'8( c d c) d2 }
+alto = \relative { g'2 b8( a g a) }
+aligner = \relative { b'8( c d c) b( a g a) }
+words = \lyricmode { la __ la __ }
+
+\new Staff <<
+  \new Voice { \voiceOne \soprano }
+  \new Voice { \voiceTwo \alto }
+  \new NullVoice = "aligner" \aligner
+  \new Lyrics \lyricsto "aligner" \words
+>>
+@end lilypond
+
+Aquest mètode es pot usar també amb la funció
+@code{\partCombine}, que per sí mateixa no permet incloure lletra:
+
+@lilypond[quote,verbatim]
+soprano = \relative { b'8( c d c) d2 }
+alto = \relative { g'2 b8( a g a) }
+aligner = \relative { b'8( c d c) b( a g a) }
+words = \lyricmode { la __ la __ }
+
+\new Staff <<
+  \new Voice \partCombine \soprano \alto
+  \new NullVoice = "aligner" \aligner
+  \new Lyrics \lyricsto "aligner" \words
+>>
+@end lilypond
+
+@knownissues
+La funció @code{\addLyrics} sols funciona amb lletra de
+@code{Voice}, per la qual cosa no pot utilitzar-se amb
+@code{NullVoice}.
+
+@noindent
+La funció @code{\partCombine} es descriu a
+@ref{Combinació automàtica de les parts}.
+
+Por últim, aquest mètode es pot usar fins i tot si les veus estan
+a diferents pentagrames, i no es limita únicament a dues veus:
+
+@lilypond[quote,verbatim]
+soprano = \relative { b'8( c d c) d2 }
+altoOne = \relative { g'2 b8( a b4) }
+altoTwo = \relative { d'2 g4( fis8 g) }
+aligner = \relative { b'8( c d c) d( d d d) }
+words = \lyricmode { la __ la __ }
+
+\new ChoirStaff \with {\accepts NullVoice } <<
+  \new Staff \soprano
+  \new NullVoice = "aligner" \aligner
+  \new Lyrics \lyricsto "aligner" \words
+  \new Staff \partCombine \altoOne \altoTwo
+>>
+@end lilypond
+
+@node Versos
+@subsection Versos
+@translationof Stanzas
+
+@menu
+* Afegir números de vers::
+* Afegir expressions dinàmiques als versos::
+* Afegir el nom dels cantants als versos::
+* Versos amb ritmes diferents::
+* Impressió dels versos al final::
+* Impressió dels versos al final en diverses columnes::
+@end menu
+
+
+@node Afegir números de vers
+@unnumberedsubsubsec Afegir números de vers
+@translationof Adding stanza numbers
+
+@cindex vers, número de
+
+Els números de versos es poden afegir establint
+@code{stanza}, per exemple,
+
+@lilypond[quote,ragged-right,verbatim]
+\new Voice \relative {
+  \time 3/4 g'2 e4 a2 f4 g2.
+} \addlyrics {
+  \set stanza = "1. "
+  Hi, my name is Bert.
+} \addlyrics {
+  \set stanza = "2. "
+  Oh, ché -- ri, je t'aime
+}
+@end lilypond
+
+
+@noindent
+Aquests números apareixeran immediatament abans de la primera
+síl·laba.
+
+@c TODO Create and add snippet to show how two lines of a
+@c stanza can be grouped together, along these lines:
+@c (might need improving a bit) -td
+
+@ignore
+leftbrace = \markup { \override #'(font-encoding . fetaBraces) \lookup
+"brace105" }
+
+stanzaOneOne = {
+  \set stanza = \markup { "1. " \leftbrace }
+  \lyricmode { Child, you're mine and I love you.
+    Lend thine ear to what I say.
+
+  }
+}
+
+stanzaOneThree =  {
+%  \set stanza = \markup { "   "}
+  \lyricmode { Child, I have no great -- er joy
+    Than to have you walk in truth.
+
+  }
+}
+
+\new Voice {
+  \repeat volta 2 { c'8 c' c' c' c' c' c'4
+                    c'8 c' c' c' c' c' c'4   }
+}  \addlyrics { \stanzaOneOne }
+   \addlyrics { \stanzaOneThree }
+
+@end ignore
+
+@node Afegir expressions dinàmiques als versos
+@unnumberedsubsubsec Afegir expressions dinàmiques als versos
+@translationof Adding dynamics marks to stanzas
+
+Els versos que difereixen en la seva sonoritat es poden
+especificar escrivint una indicació dinàmica abans de cada vers.
+Al LilyPond, tot el que apareix endavant d'un vers està dins de
+l'objecte @code{StanzaNumber}; les indicacions dinàmiques no són
+diferents.  Per raons tècniques, haureu d'establir el valor de la
+secció stanza (vers) fora de de @code{\lyricmode}:
+
+@lilypond[quote,ragged-right,verbatim]
+text = {
+  \set stanza = \markup { \dynamic "ff" "1. " }
+  \lyricmode {
+    Big bang
+  }
+}
+
+<<
+  \new Voice = "tune" {
+    \time 3/4
+    g'4 c'2
+  }
+\new Lyrics \lyricsto "tune" \text
+>>
+@end lilypond
+
+@node Afegir el nom dels cantants als versos
+@unnumberedsubsubsec Afegir el nom dels cantants als versos
+@translationof Adding singers' names to stanzas
+
+@cindex cantant, nom del
+@cindex nom del cantant
+
+També es poden posar els noms dels cantants.  S'imprimeixen al
+començament de la línia, igual que els noms d'instrument.  Es
+creen establint un valor per a @code{vocalName}.  Es pot definir
+una versió abreujada com @code{shortVocalName}.
+
+@lilypond[ragged-right,quote,verbatim]
+\new Voice \relative {
+  \time 3/4 g'2 e4 a2 f4 g2.
+} \addlyrics {
+  \set vocalName = "Bert "
+  Hi, my name is Bert.
+} \addlyrics {
+  \set vocalName = "Ernie "
+  Oh, ché -- ri, je t'aime
+}
+@end lilypond
+
+
+@node Versos amb ritmes diferents
+@unnumberedsubsubsec Versos amb ritmes diferents
+@translationof Stanzas with different rhythms
+
+Amb freqüència els diferents versos d'una cançó encaixen de formes
+lleugerament diferents amb la mateixa melodia.  Aquestes
+variacions es poden capturar amb l'ús de @code{\lyricsto}.
+
+@subsubheading Ignorar els melismes
+
+Hi ha la possibilitat que el text tingui un melisma en un vers,
+però diverses síl·labes en un altre.  Una solució és fer que la
+veu més ràpida ignori el melisma.  Això s'aconsegueix establint
+@code{ignoreMelismata} al context Lyrics.
+
+@lilypond[verbatim,ragged-right,quote]
+<<
+  \relative \new Voice = "lahlah" {
+    \set Staff.autoBeaming = ##f
+    c'4
+    \slurDotted
+    f8.[( g16])
+    a4
+  }
+  \new Lyrics \lyricsto "lahlah" {
+    more slow -- ly
+  }
+  \new Lyrics \lyricsto "lahlah" {
+    go
+    \set ignoreMelismata = ##t
+    fas -- ter
+    \unset ignoreMelismata
+    still
+  }
+>>
+@end lilypond
+
+@knownissues
+A diferència de gairebé totes les ordres @code{\set},
+@code{\set ignoreMelismata} no funciona si va precedida de
+@code{\once}.  Cal utilitzar @code{\set} y @code{\unset} per
+delimitar la lletra a la qual es volen ignorar els melismes.
+
+@subsubheading Aplicació de síl·labes a notes d'adorn
+
+@cindex adorn, lletra i notes de
+@cindex lletra a sobre de notes d'adorn
+
+De forma predeterminada, a les notes d'adorn (per exemple inserides
+per mitjà de @code{\grace}) no se'ls pot assignar síl·labes si es
+fa servir @code{\lyricsto}, però aquest comportament pot canviar-se:
+
+@lilypond[verbatim,ragged-right,quote]
+<<
+  \new Voice = melody \relative {
+    f'4 \appoggiatura a32 b4
+    \grace { f16 a16 } b2
+    \afterGrace b2 { f16[ a16] }
+    \appoggiatura a32 b4
+    \acciaccatura a8 b4
+  }
+  \new Lyrics
+  \lyricsto melody {
+    normal
+    \set includeGraceNotes = ##t
+    case,
+    gra -- ce case,
+    after -- grace case,
+    \set ignoreMelismata = ##t
+    app. case,
+    acc. case.
+  }
+>>
+@end lilypond
+
+@knownissues
+Com succeeix amb @code{associatedVoice}, @code{includeGraceNotes}
+s'ha d'establir almenys una síl·laba abans de la qual s'anirà a
+col·locar sota una nota d'adorn.  Per al cas d'una nota d'adorn al
+començament mateix d'una peça, considereu la possibilitat d'usar
+un bloc @code{\with} o @code{\context}:
+
+@lilypond[verbatim,ragged-right,quote]
+<<
+  \new Voice = melody \relative c' {
+    \grace { c16( d e f }
+    g1) f
+  }
+  \new Lyrics \with { includeGraceNotes = ##t }
+  \lyricsto melody {
+    Ah __ fa
+  }
+>>
+@end lilypond
+
+@subsubheading Canvi a una melodia alternativa
+
+@cindex associatedVoice
+@cindex melodia alternativa, canvi a una
+
+Es poden fer variacions més complexes en la coordinació de la
+lletra i la música.  La melodia a la qual s'està alineant la
+lletra pot canviar-se des de dins de la lletra mitjançant
+l'establiment de la propietat @code{associatedVoice}:
+
+@lilypond[verbatim,quote]
+<<
+  \relative \new Voice = "lahlah" {
+    \set Staff.autoBeaming = ##f
+    c'4
+    <<
+      \new Voice = "alternative" {
+        \voiceOne
+        \tuplet 3/2 {
+          % mostra clarament les associacions
+          \override NoteColumn.force-hshift = #-3
+          f8 f g
+        }
+      }
+      {
+        \voiceTwo
+        f8.[ g16]
+        \oneVoice
+      } >>
+    a8( b) c
+  }
+  \new Lyrics \lyricsto "lahlah" {
+    Ju -- ras -- sic Park
+  }
+  \new Lyrics \lyricsto "lahlah" {
+    % Complicat: cal establir associatedVoice
+    % one syllable too soon!
+    \set associatedVoice = "alternative" % s'aplica a «ran»
+    Ty --
+    ran --
+    no --
+    \set associatedVoice = "lahlah" % s'aplica a «rus»
+    sau -- rus Rex
+  } >>
+@end lilypond
+
+@noindent
+El text del primer vers es fixa a la melodia nomenada @q{lahlah}
+de la manera usual, però el segon vers es fixa inicialment al context
+@code{lahlah} i després es canvia a la melodia @code{alternative}
+per a les síl·labes des de @q{ran} fins a @q{sau} mitjançant les línies:
+
+@example
+\set associatedVoice = "alternative" % s'aplica a "ran"
+Ty --
+ran --
+no --
+\set associatedVoice = "lahlah" % s'aplica a "rus"
+sau -- rus Rex
+@end example
+
+@noindent
+Aquí, @code{alternative} és el nom del context @code{Voice} que
+conté el treset.
+
+Observeu la posició de l'ordre @code{\set associatedVoice}:
+sembla estar situada una síl·laba abans del normal, però és
+correcte.
+
+@warning{L'ordre @code{\set associatedVoice} s'ha d'escriure una
+síl·laba @emph{abans} de la síl·laba en la qual volem que es
+produeixi el canvi a la veu nova.  Dit d'una altra forma, el canvi
+de la veu associada es produeix una síl·laba més tard de
+l'esperat.  Això es fa així per raons tècniques, i no és un error.}
+
+@node Impressió dels versos al final
+@unnumberedsubsubsec Impressió dels versos al final
+@translationof Printing stanzas at the end
+
+A vegades és convenient tenir un vers ajustat a la música, i la
+resta afegit en forma d'estrofa al final de la peça.  Això es pot
+aconseguir escrivint els versos addicionals dins d'una secció
+@code{\markup} fora del bloc Score principal de la partitura.  Heu
+de tenir en compte que hi ha dues formes diferents de forçar els
+salts de línia en utilitzar @code{\markup}.
+
+@lilypond[ragged-right,verbatim,quote]
+melody = \relative {
+e' d c d | e e e e |
+d d e d | c1 |
+}
+
+text = \lyricmode {
+\set stanza = "1." Ma- ry had a lit- tle lamb,
+its fleece was white as snow.
+}
+
+\score{ <<
+  \new Voice = "one" { \melody }
+  \new Lyrics \lyricsto "one" \text
+>>
+  \layout { }
+}
+\markup { \column{
+  \line{ Verse 2. }
+  \line{ All the children laughed and played }
+  \line{ To see a lamb at school. }
+  }
+}
+\markup{
+  \wordwrap-string "
+  Verse 3.
+
+  Mary took it home again,
+
+  It was against the rule."
+}
+@end lilypond
+
+
+@node Impressió dels versos al final en diverses columnes
+@unnumberedsubsubsec Impressió dels versos al final en diverses columnes
+@translationof Printing stanzas at the end in multiple columns
+
+Quan una peça té molts versos, sovint s'imprimeixen en diverses
+columnes al llarg de tota la pàgina.  Freqüentment, un número de
+ver fora del marge precedeix cada vers.  L'exemple següent mostra
+com produir aquesta sortida al LilyPond.
+
+@lilypond[ragged-right,quote,verbatim]
+melody = \relative {
+  c'4 c c c | d d d d
+}
+
+text = \lyricmode {
+  \set stanza = "1." Aquest és el vers u.
+  Té dues línies.
+}
+
+\score {
+  <<
+    \new Voice = "one" { \melody }
+    \new Lyrics \lyricsto "one" \text
+  >>
+  \layout { }
+}
+
+\markup {
+  \fill-line {
+    \hspace #0.1 % mou la columna a fora del marge esquerra;
+     % es pot eliminar si l'espai a la pàgina és escàs
+     \column {
+      \line { \bold "2."
+        \column {
+          "Aquest és el vers dos."
+          "Té dues línies."
+        }
+      }
+      \combine \null \vspace #0.1 % afegeix espai vertical entre els versos
+      \line { \bold "3."
+        \column {
+          "Aquest és el vers tres."
+          "Té dues línies."
+        }
+      }
+    }
+    \hspace #0.1 % afegeix espai horitzontal entre les columnes;
+    \column {
+      \line { \bold "4."
+        \column {
+          "Aquest és el vers quatre."
+          "Té dues línies."
+        }
+      }
+      \combine \null \vspace #0.1 % afegeix espai vertical entre els versos
+      \line { \bold "5."
+        \column {
+          "Aquest és el vers cinc."
+          "Té dues línies."
+        }
+      }
+    }
+  \hspace #0.1 % dóna algun espai extra al marge dret;
+  % es pot eliminar si l'espai de la pàgina és escàs
+  }
+}
+@end lilypond
+
+
+@seealso
+Referència de funcionament intern:
+@rinternals{LyricText},
+@rinternals{StanzaNumber}.
+
+
+@node Cançons
+@subsection Cançons
+@translationof Songs
+
+@menu
+* Referències per a cançons::
+* Fulls guia d'acords::
+@end menu
+
+@node Referències per a cançons
+@unnumberedsubsubsec Referències per a cançons
+@translationof References for songs
+
+En general les cançons s'escriuen sobre tres pentagrames amb la
+melodia del cantant al pentagrama superior i dos pentagrames
+d'acompanyament de piano a la part inferior.  La lletra del primer
+vers s'imprimeix immediatament a sota del pentagrama superior.  Si
+hi ha sols una petita quantitat de versos addicionals, poden
+imprimir-se immediatament a sota del primer, però si hi ha més
+versos del que caben còmodament en aquest lloc, el segon vers i
+següents s'imprimeixen després de la música, com a text
+independent.
+
+Tots els elements de notació necessaris per escriure cançons es
+descriuen completament a d'altres seccions de la documentació:
+
+@itemize
+
+@item
+Per muntar la disposició de les pautes, vegeu
+@ref{Visualització dels pentagrames}.
+
+@item
+Per escriure música per a piano, vegeu
+@ref{Teclats i altres instruments de pentagrames múltiples}.
+
+@item
+Per imprimir la lletra d'una línia melòdica, vegeu
+@ref{Notació comuna per a  música vocal}.
+
+@item
+Per col·locar la lletra, vegeu
+@ref{Posicionament vertical de la lletra}.
+
+@item
+Per escriure versos vegeu @ref{Versos}.
+
+@item
+Les cançons s'imprimeixen sovint amb els acords indicats
+mitjançant xifrat americà (els noms dels acords en lletres
+majúscules) sobre les pautes. Això es descriu a
+@ref{Impressió dels acords}.
+
+@item
+Per imprimir diagrames de posicions dels acords per a
+l'acompanyament de guitarra per a d'altres instruments de trastos
+al mànec, consulteu @qq{Marcatges de diagrames de posicions
+d'acord} dins de
+@ref{Notació comuna per a cordes amb trasts}.
+
+@end itemize
+
+@seealso
+Manual d'aprenentatge:
+@rlearning{Cançons}.
+
+Referència de la notació:
+@ref{Notació comuna per a música vocal},
+@ref{Impressió dels acords},
+@ref{Visualització dels pentagrames}.
+@ref{Teclats i altres instruments de pentagrames múltiples},
+@ref{Posicionament vertical de la lletra},
+@ref{Versos}.
+
+Fragments de codi:
+@rlsr{Vocal music}.
+
+@node Fulls guia d'acords
+@unnumberedsubsubsec Fulls guia d'acords
+@translationof Lead sheets
+
+Es poden imprimir fulls guia d'acords combinant parts vocals i el
+@q{mode d'acords}; aquesta sintaxi s'explica a
+@rusernamed{Chord notation,Notació d'acords}.
+
+@snippets
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{simple-lead-sheet.ly}
+
+@seealso
+Referència de la notació:
+@rusernamed{Chord notation,Notació d'acords}.
+
+
+@node Música coral
+@subsection Música coral
+@translationof Choral
+
+@cindex himnes
+@cindex parts cantades
+@cindex oratoris
+@cindex SATB
+
+Aquesta secció tracta els temes de notació més directament
+relacionats amb la música coral.  Això inclou els himnes, les
+cançons per parts, els oratoris, etc.
+
+@menu
+* Referències per a música coral::
+* Disposicions de la partitura per a música coral::
+* Veus dividides::
+@end menu
+
+@node Referències per a música coral
+@unnumberedsubsubsec Referències per a música coral
+@translationof References for choral
+
+La notació musical coral es realitza normalment sobre dos, tres o
+quatre pentagrames dins d'un grup de pautes @code{ChoirStaff}.  Si
+cal un acompanyament, se situa a sota dins d'un grup
+@code{PianoStaff}, que se sol reduir de mida, per assajar les
+obres corals @emph{a cappella}.  Les notes de cada part vocal se
+situen dins d'un context @code{Voice}, i cada pentagrama rep o una
+sola part vocal (és a dir, una @code{Voice}) o un par de parts
+vocals (és a dir, dos @code{Voice}s).
+
+Els textos es disposen en contextos @code{Lyrics}, o bé a sota de
+cada pauta de música corresponent, o bé una a sobre i una altra a
+sota de la pauta de música, si aquesta última pauta conté la
+música de les dues parts.
+
+A altres parts del manual es descriuen completament alguns altres
+temes de la música coral:
+
+@itemize
+
+@item
+Hi ha una introducció a la creació de partitures  vocals SATB al
+Manual d'Aprenentatge, vegeu
+@rlearning{Partitura vocal a quatre veus SATB}.  També hi ha una
+plantilla incorporada que simplifica la introducció de música
+vocal SATB, vegeu @rlearning{Plantilles incorporades}.
+
+@item
+Al Manual d'Aprenentatge hi ha també diverses plantilles adequades
+per a diversos estils de música coral, vegeu
+@rlearning{Plantilles de conjunts vocals}.
+
+@item
+Per veure més informació sobre @code{ChoirStaff} i
+@code{PianoStaff}, consulteu @ref{Agrupament de pentagrames}.
+
+@item
+Les figures amb caps de formes, com els que es fan servir a la
+notació de l'estil Arpa Sacra i altres semblants, es descriuen a
+@ref{Caps de notes amb formes diverses}.
+
+@item
+Quan dues parts vocals comparteixen un pentagrama, les pliques,
+lligadures, etc. de la part aguda s'orienten cap amunt, i les de
+la part greu cap avall.  Per fer-ho, utilitzeu @code{\voiceOne} i
+@code{\voiceTwo}.  Vegeu
+@ref{Polifonia en un sol pentagrama}.
+
+@item
+Quan una part vocal es divideix temporalment, hem d'usar
+@emph{passatges polifònics temporals} vegeu
+@ref{Polifonia en un sol pentagrama}.
+
+@end itemize
+
+@predefined
+@code{\oneVoice},
+@code{\voiceOne},
+@code{\voiceTwo}.
+@endpredefined
+
+@seealso
+Manual d'aprenentatge:
+@rlearning{Partitura vocal a quatre veus SATB},
+@rlearning{Plantilles de conjunts vocals}.
+
+Referència de la notació:
+@ref{Ordre de disposició dels contextos},
+@ref{Agrupament de pentagrames},
+@ref{Caps de notes amb formes diverses},
+@ref{Polifonia en un sol pentagrama}.
+
+Fragments de codi:
+@rlsr{Vocal music}.
+
+Referència de funcionament intern:
+@rinternals{ChoirStaff},
+@rinternals{Lyrics},
+@rinternals{PianoStaff}.
+
+@node Disposicions de la partitura per a música coral
+@unnumberedsubsubsec Disposicions de la partitura per a música coral
+@translationof Score layouts for choral
+
+La música coral que conté quatre pentagrames, amb o sense
+acompanyament de piano, es pot disposar amb dos sistemes per
+pàgina.  Depenent de la mida de la pàgina, aconseguir-lo pot
+requerir canvis a certs ajustaments predeterminats.  S'han de
+tenir compte els comptes següents:
+
+@itemize
+
+@item
+Es pot modificar la mida global de pentagrama per alterar la mida
+general dels elements de la partitura.  Vegeu
+@ref{Establiment de la mida del pentagrama}.
+
+@item
+Les diferents distàncies entre sistemes, pentagrames i línies de
+text es poden ajustar de manera independent.  Vegeu
+@ref{Espaiat vertical}.
+
+@item
+Es poden imprimir les dimensiones de les variables de disposició
+verticals com a ajuda per a l'ajust de l'espaiat vertical.
+Aquesta i d'altres possibilitats per fer encaixar la música a un
+nombre de pàgines menor, es descriuen a
+@ref{Encaix de la música en menys pàgines}.
+
+@item
+Si el nombre de sistemes per pàgina canvia d'u a dos, s'acostuma
+indicar-lo mitjançant una marca separadora de sistemes entre els
+dos sistemes.  Vegeu @ref{Separació de sistemes}.
+
+@item
+Per veure més detalls sobre altres propietats de format de les
+pàgines, consulteu @ref{Disposició de la pàgina}.
+
+@end itemize
+
+Les indicacions dinàmiques es col·loquen per omissió a sota del
+pentagrama, però a la música coral se solen situar a sobre del
+pentagrama per evitar les col·lisions amb el text.  L'ordre
+predefinida @code{\dynamicUp} fa aquesta tasca per a les
+indicacions dinàmiques en un únic context @code{Voice}.  Si hi ha
+molts contextos de veu, aquesta ordre predefinida hauria de
+col·locar-se en cada u d'ells.  Com a alternativa, es pot usar la
+seva forma expandida per posar les indicacions dinàmiques de tota
+la partitura a sobre de les seves pautes respectives, com es
+mostra aquí:
+
+@lilypond[verbatim,quote]
+\score {
+  \new ChoirStaff <<
+    \new Staff {
+      \new Voice {
+        \relative { g'4\f g g g }
+      }
+    }
+    \new Staff {
+      \new Voice {
+        \relative { d'4 d d\p d }
+      }
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      \override DynamicText.direction = #UP
+      \override DynamicLineSpanner.direction = #UP
+    }
+  }
+}
+@end lilypond
+
+@predefined
+@code{\dynamicUp},
+@code{\dynamicDown},
+@code{\dynamicNeutral}.
+@endpredefined
+
+@seealso
+Referència de la notació:
+@ref{Canvi de l'espaiat},
+@ref{Mostrar l'espaiat},
+@ref{Encaix de la música en menys pàgines},
+@ref{Disposició de la pàgina},
+@ref{Disposició de la partitura},
+@ref{Separació de sistemes},
+@ref{Establiment de la mida del pentagrama},
+@ref{Salts},
+@ref{Espaiat vertical}.
+
+Referència de funcionament interno:
+@rinternals{VerticalAxisGroup},
+@rinternals{StaffGrouper}.
+
+
+@node Veus dividides
+@unnumberedsubsubsec Veus dividides
+@translationof Divided voices
+
+@cindex veus dividides
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{using-arpeggiobracket-to-make-divisi-more-visible.ly}
+
+@seealso
+Referència de la notació:
+@ref{Marques expressives en forma de línies}.
+
+
+@node Òpera i musicals
+@subsection Òpera i musicals
+@translationof Opera and stage musicals
+
+La música, lletra i diàlegs de les òperes i musicals es disposen
+normalment d'una o més de les formes següents:
+
+@itemize
+
+@item
+Una @emph{Partitura del director} que contingui totes les parts
+orquestrals i vocals, junt a notes guia del llibret si hi ha
+passatges parlats.
+
+@item
+@emph{Particel·les orquestrals} que continguin la música dels
+instruments individuals de l'orquestra o banda.
+
+@item
+Una @emph{Partitura vocal} que contingui totes les parts vocals
+amb acompanyament de piano.  L'acompanyament és normalment una
+reducció d'orquestra, i en aquest cas és freqüent indicar el nom
+de l'instrument original de l'orquestra.  Les partitures vocals a
+vegades inclouen indicacions d'escena i notes guia del llibret.
+
+@item
+Un @emph{Llibre vocal} que contingui les partes vocals (sense
+acompanyament), a vegades en combinació amb el llibret.
+
+@item
+Un @emph{Llibret} que contingui els diàlegs complets que
+normalment hi ha als musicals, junt amb la lletra de les parts
+cantades.  Solen incloure's també les indicacions d'escena.  Es
+pot utilitzar el LilyPond per gravar llibrets, però tenint en
+compte que no contenen música, pot ser preferible algun mètode
+alternatiu.
+
+@end itemize
+
+En la secció de referències que apareix a continuació estan
+relacionades les seccions de la documentació del LilyPond que
+s'ocupen dels temes necessaris per crear partitures en els estils
+habituals de l'òpera i els musicals.  Després apareixen seccions
+que tracten de les tècniques peculiars de la gravació musical de
+les partitures d'òpera i de musicals.
+
+@menu
+* Referències per a òpera i musicals::
+* Noms dels personatges::
+* Guies musicals::
+* Música parlada::
+* Diàlegs a sobre de la música::
+@end menu
+
+@node Referències per a òpera i musicals
+@unnumberedsubsubsec Referències per a òpera i musicals
+@translationof References for opera and stage musicals
+@itemize
+
+@item
+Una partitura de director conté molts pentagrames i lletres
+agrupats.  A @ref{Agrupament de pentagrames} s'expliquen maneres
+d'agrupar pentagrames.  Per niuar uns grups dins d'uns altres,
+consulteu @ref{Grups de pentagrames niuats}.
+
+@item
+El gravat de pentagrames buits a les partitures del director i
+vocals se sol inhibir.  Per crear aquestes partitures, conegudes
+com a @qq{Partitures franceses}, consulteu
+@ref{Ocultament de pentagrames}.
+
+@item
+L'escriptura de partitures orquestrals s'estudia a
+@ref{Escriptura de les particel·les}.  Poden ser de rellevància
+altres seccions del capítol de notació especialitzada, depenent de
+l'orquestració utilitzada.  Molts instruments són transpositors,
+consulteu @ref{Transposició dels instruments}.
+
+@item
+Si el nombre de sistemes per pàgina varia d'una a una altra
+pàgina, s'acostuma a separar els sistemes amb una marca separadora
+de sistemes.  Vegeu @ref{Separació de sistemes}.
+
+@item
+Per veure detalls sobre altres propietats de format de les
+pàgines, consulteu
+@ref{Disposició de la pàgina}.
+
+@item
+Es poden inserir notes  guia de diàlegs, instruccions d'escena i
+notes al peu, vegeu
+@ref{Creació de notes al peu} i
+@ref{Text}.  També es poden afegir indicacions d'escena extenses
+amb una secció d'elements de marcatge independents entres dos blocs
+@code{\score}, vegeu @ref{Text separat}.
+
+@end itemize
+
+@seealso
+Glossari musical:
+@rglos{Frenched score},
+@rglos{Frenched staves},
+@rglos{transposing instrument}.
+
+Referència de la notació:
+@ref{Creació de notes al peu},
+@ref{Agrupament de pentagrames},
+@ref{Ocultament de pentagrames},
+@ref{Transposició dels instruments},
+@ref{Grups de pentagrames niuats},
+@ref{Disposició de la pàgina},
+@ref{Separació de sistemes},
+@ref{Transposició},
+@ref{Escriptura de les particel·les},
+@ref{Escriptura del text}.
+
+Fragments de codi:
+@rlsr{Vocal music}.
+
+
+@node Noms dels personatges
+@unnumberedsubsubsec Noms dels personatges
+@translationof Character names
+
+@cindex personatges, noms
+@cindex noms de personatges
+
+Se solen mostrar els noms dels personatges a l'esquerra del
+pentagrama quan aquest marge està dedicat únicament a aquest
+personatge solament:
+
+@lilypond[quote,verbatim,ragged-right]
+\score {
+  <<
+    \new Staff {
+      \set Staff.vocalName = \markup \smallCaps Kaspar
+      \set Staff.shortVocalName = \markup \smallCaps Kas.
+      \relative {
+        \clef "G_8"
+        c'4 c c c
+        \break
+        c4 c c c
+      }
+    }
+    \new Staff {
+      \set Staff.vocalName = \markup \smallCaps Melchior
+      \set Staff.shortVocalName = \markup \smallCaps Mel
+      \clef "bass"
+      \relative {
+        a4 a a a
+        a4 a a a
+      }
+    }
+  >>
+}
+@end lilypond
+
+Quan dos o més personatges comparteixen un pentagrama, el nom del
+personatge se sol imprimir a sobre del pentagrama al principi de
+cada secció corresponent a aquest personatge.  Això es pot fer amb
+element de marcatge.  Amb freqüència s'usa un tipus de lletra
+especial per a aquest propòsit.
+
+@lilypond[quote,verbatim]
+\relative c' {
+  \clef "G_8"
+  c4^\markup \fontsize #1 \smallCaps Kaspar
+  c c c
+  \clef "bass"
+  a4^\markup \fontsize #1 \smallCaps Melchior
+  a a a
+  \clef "G_8"
+  c4^\markup \fontsize #1 \smallCaps Kaspar
+  c c c
+}
+@end lilypond
+
+Com a alternativa, si hi ha molts canvis de personatges, pot ser
+més fàcil establir variables que continguin les definicions de
+cada personatge, per així poder indicar el canvi de personatge de
+manera fàcil i concisa.
+
+@lilypond[quote,verbatim]
+kaspar = {
+  \clef "G_8"
+  \set Staff.shortVocalName = "Kas."
+  \set Staff.midiInstrument = "voice oohs"
+  <>^\markup \smallCaps "Kaspar"
+}
+
+melchior = {
+  \clef "bass"
+  \set Staff.shortVocalName = "Mel."
+  \set Staff.midiInstrument = "choir aahs"
+  <>^\markup \smallCaps "Melchior"
+}
+
+\relative c' {
+  \kaspar
+  c4 c c c
+  \melchior
+  a4 a a a
+  \kaspar
+  c4 c c c
+}
+@end lilypond
+
+@seealso
+Manual d'aprenentatge:
+@rlearning{Organitzar les peces mitjançant variables}.
+
+Referència de la notació:
+@ref{Text},
+@ref{Ordres de marcatge de text}.
+
+@node Guies musicals
+@unnumberedsubsubsec Guies musicals
+@translationof Musical cues
+
+@cindex guies musicals
+@cindex musicals, guies
+
+Es poden inserir guies musicals a les partitures vocals, als
+llibres vocals i a las parts orquestrals per indicar quina música
+d'altra part precedeix immediatament a una entrada.  A més a més,
+les guies se solen inserir a la reducció de piano de les
+partitures vocals per indicar el que està tocant cada part
+orquestral.  Això serveix d'ajuda al director quan no està
+disponible una partitura del director.
+
+El mecanisme bàsic per inserir guies s'explica de forma exhaustiva
+al text principal, vegeu @ref{Cites a altres veus} i
+@ref{Format de les notes guia}.  Però quan s'han d'inserir moltes
+guies, per exemple, com ajuda per al director a una partitura
+vocal, el nom de l'instrument s'ha de col·locar amb cura just
+abans del començament de les notes guia, i a prop d'elles.  El
+següent exemple mostra com es fa això.
+
+@lilypond[quote,verbatim]
+flute = \relative {
+  s4 s4 e'' g
+}
+\addQuote "flute" { \flute }
+
+pianoRH = \relative {
+  c''4. g8
+  % poseu el nom de l'instrument que es vol guiar just abans
+  % de les notes guia i a sobre el pentagrama
+  <>^\markup { \right-align { \tiny "Flute" } }
+  \cueDuring "flute" #UP { g4 bes4 }
+}
+pianoLH = \relative { c4 <c' e> e, <g c> }
+
+\score {
+  \new PianoStaff <<
+    \new Staff {
+      \pianoRH
+    }
+    \new Staff {
+      \clef "bass"
+      \pianoLH
+    }
+  >>
+}
+@end lilypond
+
+Si s'està citant un instrument transpositor, la part instrumental
+ha d'especificar la tonalitat de manera que la conversió de les
+notes citades es faci automàticament.  L'exemple de sota mostra
+aquesta transposició per a un clarinet en Si bemoll.  Les notes
+d'aquest exemple són baixes al pentagrama, per la qual cosa
+s'especifica @code{DOWN} a @code{\cueDuring} (perquè les pliques
+s'orientin cap avall) i el nom de l'instrument es col·loca a sota
+del pentagrama.
+
+@lilypond[quote,verbatim]
+clarinet = \relative c' {
+  \transposition bes
+  fis4 d d c
+}
+\addQuote "clarinet" { \clarinet }
+
+pianoRH = \relative c'' {
+  \transposition c'
+  % posició del nom de l'instrument citat a sota del pentagrama
+  <>_\markup { \right-align { \tiny "Clar." } }
+  \cueDuring "clarinet" #DOWN { c4. g8 }
+  g4 bes4
+}
+pianoLH = \relative { c4 <c' e> e, <g c> }
+
+\score {
+  <<
+    \new PianoStaff <<
+      \new Staff {
+        \new Voice {
+          \pianoRH
+        }
+      }
+      \new Staff {
+        \clef "bass"
+        \pianoLH
+      }
+    >>
+  >>
+}
+@end lilypond
+
+A partir d'aquests dos exemple hauria de quedar clar que inserir
+moltes notes guia a una partitura vocal pot ser tediós, i la visió
+de les notes de la part de piano quedaria amagada.  Tanmateix, com
+mostra el següent fragment de codi, és possible definir una funció
+musical per reduir la quantitat de text que s'entra i per fer que
+les notes del piano estiguin més clares.
+
+@snippets
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{adding-orchestral-cues-to-a-vocal-score.ly}
+
+@seealso
+Glossari musical:
+@rglos{cue-notes}.
+
+Referència de la notació:
+@ref{Alineació d'objectes},
+@ref{Direcció i posició},
+@ref{Format de les notes guia},
+@ref{Cites a altres veus},
+@rextendnamed{Music function usage,Ús de les funcions musicals}.
+
+Fragments de codi:
+@rlsr{Vocal music}.
+
+Referència de funcionament intern:
+@rinternals{CueVoice}.
+
+@knownissues
+@code{\cueDuring} insereix automàticament un context
+@code{CueVoice} i totes les notes guia es col·loquen dins d'aquest
+context.  Això significa que no és possible tenir dues seqüències
+de notes guia superposades mitjançant aquesta tècnica.  Les
+seqüències superposades es podrien introduir declarant
+explícitament contextos @code{CueVoice} separats i usant
+@code{\quoteDuring} per extraure i inserir les notes citades.
+
+@node Música parlada
+@unnumberedsubsubsec Música parlada
+@translationof Spoken music
+
+@cindex parlato
+@cindex Sprechgesang
+
+Efectes com ara el @q{parlato} o el @q{Sprechgesang} requereixen
+que els intèrprets parlin sense una alçada definida però amb el
+ritme adequat; la notació d'aquests estils es realitza mitjançant
+figures amb el cap en forma de creu, com es mostra en
+@ref{Caps de nota especials}.
+
+@c TODO add "marking-notes-on-spoken-parts" snippet -vv
+@c add "showing the rhythm of a melody" snip
+@c add "one staff-line notation"
+@c add "improvisation" ref
+@c add "lyrics independents of notes" ref
+
+@node Diàlegs a sobre de la música
+@unnumberedsubsubsec Diàlegs a sobre de la música
+@translationof Dialogue over music
+
+Els diàlegs a sobre de la música es graven normalment per sobre
+dels pentagrames en un estil inclinat, amb el començament de cada
+frase lligat a un moment particular.
+
+Per a interjeccions curtes, hi ha prou amb un simple element de
+marcatge.
+
+@lilypond[quote,verbatim]
+\relative {
+  a'4^\markup { \smallCaps { Alex - } \italic { He's gone } } a a a
+  a4 a a^\markup { \smallCaps { Bethan - } \italic Where? } a
+  a4 a a a
+}
+@end lilypond
+
+Per a frases més llargues pot caldre expandir la música de forma
+que les paraules càpiguen folgadament.  No està previst al
+LilyPond fer això de manera completament automàtica, i pot caldre
+alguna intervenció manual sobre la disposició.
+
+Per a frases llargues o passatges amb un diàleg en disposició
+apretada, pot donar millors resultats la utilització d'un context
+de lletra.  El context Lyrics no s'ha d'associar amb una veu
+musical; en comptes d'això, cada secció del diàleg rep una duració
+explícita.  Si hi ha una pausa en mig del diàleg, s'ha de separar
+la paraula final de la resta i dividir-se la duració entre elles
+de forma que la música subjacent rebi un espaiat continu i adequat.
+
+Si el diàleg s'estén a més d'una línia, caldrà inserir
+@code{\break}s manualment i ajustar la col·locació del diàleg per
+evitar que s'estengui més enllà del marge dret.  L'última paraula
+de l'últim compàs d'una línia ha de separar-se també, com s'ha
+vist abans.
+
+Heus ací un exemple que il·lustra com es pot fer.
+
+@c This should be a snippet, but it can't be as it needs to be
+@c manually adjusted to suit the imposed line length.  -td
+
+@lilypond[quote,verbatim,ragged-right]
+music = \relative {
+  \repeat unfold 3 { a'4 a a a }
+}
+
+dialogue = \lyricmode {
+  \markup {
+    \fontsize #1 \upright \smallCaps Abe:
+    "Say this over measures one and"
+  }4*7
+  "two"4 |
+  \break
+  "and this over measure"4*3
+  "three"4 |
+}
+
+\score {
+  <<
+    \new Lyrics \with {
+      \override LyricText.font-shape = #'italic
+      \override LyricText.self-alignment-X = #LEFT
+    }
+    { \dialogue }
+    \new Staff {
+      \new Voice { \music }
+    }
+  >>
+}
+@end lilypond
+
+@c TODO show use of \column to produce dialogue on two lines
+
+@seealso
+Referència de la notació:
+@ref{Duració manual de les síl·labes},
+@ref{Text}.
+
+Referència de funcionament intern:
+@rinternals{LyricText}.
+
+
+@node Càntics salms i himnes
+@subsection Càntics salms i himnes
+@translationof Chants psalms and hymns
+
+@cindex càntics
+@cindex salms
+@cindex himnes
+@cindex música religiosa
+
+La música i la lletra dels càntics, salms i himnes solen seguir un
+format ben establert dins de qualsevol església en particular.
+Tot i que els formats poden diferir d'una església a una altra,
+els problemes de gravat que sorgeixen són força semblants, i
+s'estudien a aquesta secció.
+
+@menu
+* Referències per a càntics i salms::
+* Preparació d'un càntic::
+* Puntuació d'un salm::
+* Compassos parcials a melodies d'himne::
+@end menu
+
+@node Referències per a càntics i salms
+@unnumberedsubsubsec Referències per a càntics i salms
+@translationof References for chants and psalms
+
+El gravat del cant gregorià en diferents estils de notació es
+descriuen a @ref{Notació antiga}.
+
+@seealso
+Referència de la notació:
+@ref{Notació antiga}.
+
+Snippets:
+@rlsr{Vocal music}.
+
+
+@node Preparació d'un càntic
+@unnumberedsubsubsec Preparació d'un càntic
+@translationof Setting a chant
+
+La preparació moderna dels càntics utilitza notació moderna amb un
+nombre variable d'elements agafats de la notació antiga.  Algunes
+dels elements i mètodes a considerar es presenten aquí.
+
+Els càntics fan servir amb freqüència figures negres sense plica
+per indicar l'alçada, agafant les duracions del ritme parlar del
+text.
+
+@lilypond[verbatim,quote]
+stemOff = { \hide Staff.Stem }
+
+\relative c' {
+  \stemOff
+  a'4 b c2 |
+}
+
+@end lilypond
+
+Els càntics sovint ometen les línies divisòries o utilitzen barres
+de compàs retallades o discontínues per indica pauses a la
+música.  Per ometre totes les barres de compàs de tots els
+pentagrames, suprimiu completament el gravador de barres:
+
+@lilypond[verbatim,quote]
+\score {
+  \new StaffGroup <<
+    \new Staff {
+      \relative {
+        a'4 b c2 |
+        a4 b c2 |
+        a4 b c2 |
+      }
+    }
+    \new Staff {
+      \relative {
+        a'4 b c2 |
+        a4 b c2 |
+        a4 b c2 |
+      }
+    }
+  >>
+  \layout {
+    \context {
+      \Staff
+      \remove "Bar_engraver"
+    }
+  }
+}
+@end lilypond
+
+Les línies divisòries també es poden treure pentagrama a
+pentagrama:
+
+@lilypond[verbatim, quote]
+\score {
+  \new ChoirStaff <<
+    \new Staff
+    \with { \remove "Bar_engraver" } {
+      \relative {
+        a'4 b c2 |
+        a4 b c2 |
+        a4 b c2 |
+      }
+    }
+    \new Staff {
+      \relative {
+        a'4 b c2 |
+        a4 b c2 |
+        a4 b c2 |
+      }
+    }
+  >>
+}
+@end lilypond
+
+Per suprimir les línies divisòries sols d'una secció de música,
+tracteu-la com si fos una cadència.  Si la secció és llarga, us
+podria caldre inserir línies divisòries @qq{mudes} amb
+@code{\bar ""} per indicar on es pot produir el salt de línia.
+
+@lilypond[verbatim,quote]
+\relative a' {
+  a4 b c2 |
+  \cadenzaOn
+  a4 b c2
+  a4 b c2
+  \bar ""
+  a4 b c2
+  a4 b c2
+  \cadenzaOff
+  a4 b c2 |
+  a4 b c2 |
+}
+@end lilypond
+
+Els silencis o pauses als càntics poden indicar-se mitjançant
+barres de compàs modificades.
+
+@lilypond[verbatim, quote]
+\relative a' {
+  a4
+  \cadenzaOn
+  b c2
+  a4 b c2
+  \bar "'"
+  a4 b c2
+  a4 b c2
+  \bar ";"
+  a4 b c2
+  \bar "!"
+  a4 b c2
+  \bar "||"
+}
+@end lilypond
+
+Com a alternativa, s'usa a vegades la notació del cant gregorià
+per a les pauses o silencis, tot i que la resta de la notació
+sigui moderna.  Aquest exemple fa servir una marca @code{\breathe}
+modificada:
+
+@lilypond[verbatim,quote]
+divisioMinima = {
+  \once \override BreathingSign.stencil = #ly:breathing-sign::divisio-minima
+  \once \override BreathingSign.Y-offset = #0
+  \breathe
+}
+divisioMaior = {
+  \once \override BreathingSign.stencil = #ly:breathing-sign::divisio-maior
+  \once \override BreathingSign.Y-offset = #0
+  \breathe
+}
+divisioMaxima = {
+  \once \override BreathingSign.stencil = #ly:breathing-sign::divisio-maxima
+  \once \override BreathingSign.Y-offset = #0
+  \breathe
+}
+finalis = {
+  \once \override BreathingSign.stencil = #ly:breathing-sign::finalis
+  \once \override BreathingSign.Y-offset = #0
+  \breathe
+}
+
+\score {
+  \relative {
+    g'2 a4 g
+    \divisioMinima
+    g2 a4 g
+    \divisioMaior
+    g2 a4 g
+    \divisioMaxima
+    g2 a4 g
+    \finalis
+  }
+  \layout {
+    \context {
+      \Staff
+      \remove "Bar_engraver"
+    }
+  }
+}
+@end lilypond
+
+Els càntics solen ometre la indicació de compàs i sovint també
+ometen la clau.
+
+@lilypond[verbatim,quote]
+\score {
+  \new Staff {
+    \relative {
+      a'4 b c2 |
+      a4 b c2 |
+      a4 b c2 |
+    }
+  }
+  \layout {
+    \context {
+      \Staff
+      \remove "Bar_engraver"
+      \remove "Time_signature_engraver"
+      \remove "Clef_engraver"
+    }
+  }
+}
+@end lilypond
+
+Els càntics de salms en la tradició anglicana solen ser
+@emph{senzills}, amb set compassos de música, o @emph{dobles}, amb
+dos períodes de set compassos.  Cada grup de set compassos es
+divideix en dues meitats, que corresponen a les dues meitats de
+cada vers, normalment separats mitjançant una doble línia
+divisòria.  Sols s'utilitzen rodones i blanques.  El primer compàs
+de cada meitat sempre conté un únic acord en rodones.  Aquest és
+la @qq{nota de recitat}.  Els càntics se solen centrar sobre la pàgina.
+
+
+@lilypond[verbatim,quote]
+SopranoMusic = \relative {
+  g'1 | c2 b | a1 | \bar "||"
+  a1 | d2 c | c b | c1 | \bar "||"
+}
+
+AltoMusic = \relative {
+  e'1 | g2 g | f1 |
+  f1 | f2 e | d d | e1 |
+}
+
+TenorMusic = \relative {
+  c'1 | c2 c | c1 |
+  d1 | g,2 g | g g | g1 |
+}
+
+BassMusic =  \relative {
+  c1 | e2 e | f1 |
+  d1 | b2 c | g' g | c,1 |
+}
+
+global = {
+  \time 2/2
+}
+
+% Useu marcatge per centrar el cant sobre la pàgina
+\markup {
+  \fill-line {
+    \score {  % centrat
+      <<
+        \new ChoirStaff <<
+          \new Staff <<
+            \global
+            \clef "treble"
+            \new Voice = "Soprano" <<
+              \voiceOne
+              \SopranoMusic
+            >>
+            \new Voice = "Alto" <<
+              \voiceTwo
+              \AltoMusic
+            >>
+          >>
+          \new Staff <<
+            \clef "bass"
+            \global
+            \new Voice = "Tenor" <<
+              \voiceOne
+              \TenorMusic
+            >>
+            \new Voice = "Bass" <<
+              \voiceTwo
+              \BassMusic
+            >>
+          >>
+        >>
+      >>
+      \layout {
+        \context {
+          \Score
+          \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/2)
+        }
+        \context {
+          \Staff
+          \remove "Time_signature_engraver"
+        }
+      }
+    }  % Final de la partitura
+  }
+}  % Final del marcatge
+@end lilypond
+
+Altres enfocaments per a la preparació d'aquest càntic es mostren
+al primer dels següents fragments de codi.
+
+@snippets
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{chant-or-psalms-notation.ly}
+
+Els càntics i altres textos litúrgics poden disposar-se d'una
+forma més lliure, i possiblement usin elements de notació agafats
+de la música antiga.  Sovint la lletra s'imprimeix per sota i
+alineada amb les notes.  En aquest cas, les notes es disposen
+espaiades d'acord amb les síl·labes en comptes de fer-lo amb les
+duracions de les notes.
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{ancient-notation-template----modern-transcription-of-gregorian-music.ly}
+
+@seealso
+Manual d'aprenentatge:
+@rlearning{Visibilitat i color dels objectes},
+@rlearning{Plantilles de conjunts vocals}.
+
+Referència de la notació:
+@ref{Notació antiga},
+@ref{Barres de compàs},
+@ref{Modificació dels connectors (plug-ins) de context},
+@ref{Gravat del cant gregorià},
+@ref{Música sense compassos},
+@ref{Visibilitat dels objectes}.
+
+@node Puntuació d'un salm
+@unnumberedsubsubsec Puntuació d'un salm
+@translationof Pointing a psalm
+
+El text d'un salm anglicà se sol imprimir en versos separats a
+sota del cant.
+
+Els cants senzills (amb set compassos) es repeteixen per a cada
+vers.  Els cants dobles (amb 14 compassos) es repeteixen per a
+cada parell de versos.  S'insereixen marques dins del text per
+indicar la forma en la qual encaixen amb el cant.  Cada vers es
+divideix en dues meitats.  Se sol utilitzar un signe de dos punts
+per indicar aquesta divisió.  Això correspon a la doble línia
+divisòria de la música.  El text abans dels dos punts es canta amb
+els tres primers compassos de la música; el text després dels dos
+punts es canta amb els últims quatre compassos.
+
+S'insereixen línies de compàs simples (o en alguns casos una coma
+invertida o un altre símbol semblant) entre el text per indicar on
+cauen les línies divisòries de la música.  Al mode de marcatge, es
+pot introduir una línia de compàs simple amb el símbol de
+comprovació de compàs, la barra vertical, @code{|}.
+
+@lilypond[verbatim,quote]
+\markup {
+  \fill-line {
+    \column {
+      \left-align {
+        \line { O come let us sing | unto the | Lord : let }
+        \line { us heartily rejoice in the | strength of | our }
+        \line { sal- | -vation. }
+      }
+    }
+  }
+}
+@end lilypond
+
+Altres símbols poden requerir glifs dels tipus de lletra
+@code{fetaMusic}.  Per veure més detells, consulteu
+@ref{Tipus de lletra}.
+
+@lilypond[verbatim,quote]
+tick = \markup {
+  \raise #1 \fontsize #-5 \musicglyph "scripts.rvarcomma"
+}
+\markup {
+  \fill-line {
+    \column {
+      \left-align {
+        \line { O come let us sing \tick unto the \tick Lord : let }
+        \line {
+          us heartily rejoice in the \tick strength of \tick our
+        }
+        \line { sal \tick vation. }
+      }
+    }
+  }
+}
+@end lilypond
+
+On hi ha una rodona a un compàs, tot el text que correspon a
+aquest compàs es recita sobre aquesta nota al ritme de la
+paraula.  On hi ha dues notes en un compàs, sol haver-hi sols una
+o dues síl·labes corresponents.  Si hi ha més de dues síl·labes,
+se sol inserir un punt per indicar on es produeix el canvi de nota.
+
+@lilypond[verbatim,quote]
+dot = \markup {
+  \raise #0.7 \musicglyph "dots.dot"
+}
+tick = \markup {
+  \raise #1 \fontsize #-5 \musicglyph "scripts.rvarcomma"
+}
+\markup {
+  \fill-line {
+    \column {
+      \left-align {
+        \line {
+          O come let us sing \tick unto \dot the \tick Lord : let
+        }
+        \line {
+          us heartily rejoice in the \tick strength of \tick our
+        }
+        \line { sal \tick vation. }
+      }
+    }
+  }
+}
+@end lilypond
+
+A alguns salteris (llibres de salms) s'usa un asterisc per indicar
+un tall a una secció recitada en lloc d'una coma i les síl·labes
+accentuades o lleugerament allargades s'indiquen en estil negreta.
+
+@lilypond[verbatim,quote]
+dot = \markup {
+  \raise #0.7 \musicglyph "dots.dot"
+}
+tick = \markup {
+  \raise #1 \fontsize #-5 \musicglyph "scripts.rvarcomma"
+}
+\markup {
+  \fill-line {
+    \column {
+      \left-align {
+        \line { Today if ye will hear his voice * }
+        \line {
+          \concat { \bold hard en }
+          | not your | hearts : as in the pro-
+        }
+        \line { vocation * and as in the \bold day of tempt- | }
+        \line { -ation | in the | wilderness. }
+      }
+    }
+  }
+}
+@end lilypond
+
+A altres salteris es col·loca un accent sobre la síl·laba per
+indicar l'èmfasi.
+
+@lilypond[verbatim,quote]
+tick = \markup {
+  \raise #2 \fontsize #-5 \musicglyph "scripts.rvarcomma"
+}
+\markup {
+  \fill-line {
+    \column {
+      \left-align {
+        \line {
+          O come let us \concat {
+            si \combine \tick ng
+          }
+          | unto the | Lord : let
+        }
+        \line {
+          us heartily \concat {
+            rejo \combine \tick ice
+          }
+          in the | strength of | our
+        }
+        \line { sal- | -vation. }
+      }
+    }
+  }
+}
+@end lilypond
+
+L'us del marcatge per centrar text i per disposar les línies en
+columnes es descriu a @ref{Donar format al text}.
+
+@seealso
+Manual d'aprenentatge
+@rlearning{Salms},
+@rlearning{Plantilles de conjunts vocals}.
+
+Referència de la notació:
+@ref{Tipus de lletra},
+@ref{Donar format al text}.
+
+
+@node Compassos parcials a melodies d'himne
+@unnumberedsubsubsec Compassos parcials a melodies d'himne
+@translationof Partial measures in hymn tunes
+
+Freqüentment, les melodies d'himne comencen i acaben cada línia de
+música amb compassos parcials de forma que cada línia de música
+correspon exactament amb una línia de text.  Això requereix una
+ordre @code{\partial} al principi de la música i ordres
+@code{\bar "|"} o @code{\bar "||"} al final de cada línia.
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{hymn-template.ly}
+
+
+@node Música vocal antiga
+@subsection Música vocal antiga
+@translationof Ancient vocal music
+
+Es pot gravar la música vocal en estil de tipografia antiga, com
+s'explica a
+@ref{Notació antiga}.
+
+@c TODO
+
+@c Add "Printing both the ancient and the modern clef in vocal music" snippet,
+@c and "Transcription of Ancient music with incipit" snippet. -vv
+
+@seealso
+Referència de la notació:
+@ref{Notació antiga}.

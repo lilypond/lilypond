@@ -1,0 +1,44 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+@ignore
+    Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.16.0"
+
+@c Translators: Walter Garcia-Fontes
+@c Translation checkers:
+
+@node Notació especialitzada
+@chapter Notació especialitzada
+@translationof Specialist notation
+
+Aquest capítol explica com crear notació musical per a instruments
+d'un tipus específic o dins d'estils específics.
+
+@menu
+* Música vocal::
+* Teclats i altres instruments de pentagrames múltiples::
+* Instruments de corda sense trasts::
+* Instruments de corda amb trasts::
+* Percussió::
+* Instruments de vent::
+* Notació d'acords::
+* Música contemporània::
+* Notació antiga::
+* Músiques del món::
+@end menu
+
+@include notation/vocal.itely
+@include notation/keyboards.itely
+@include notation/unfretted-strings.itely
+@include notation/fretted-strings.itely
+@include notation/percussion.itely
+@include notation/wind.itely
+@include notation/chords.itely
+@include notation/contemporary.itely
+@include notation/ancient.itely
+@include notation/world.itely

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 18d03fa6a724b0102ccc47d194209802cea02f2e
+    Translation of GIT committish: 520c0c31d468f9112aa305b93c8f038bf5d7e996
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -43,24 +43,33 @@ las barras y los compases.
 @unnumberedsubsubsec Duración de las notas
 @translationof Durations
 
-@cindex duración de las notas
-@cindex notas, duración de
-@cindex longitud de las notas
-@cindex notas, longitud de
+@cindex duración, de las notas
+@cindex nota, duración de
+@cindex longitud, de las notas
+@cindex nota, longitud de
 
 @funindex \longa
 @funindex \breve
 @funindex \maxima
 
-Las duraciones se designan mediante números y puntos. Las
-duraciones se introducen como sus valores recíprocos respecto de
-la redonda.  Por ejemplo, una negra se escribe usando un @code{4}
-(puesto que es 1/4 de redonda), mientras que una blanca se escribe
-con un @code{2} (por ser 1/2 de redonda).  Para notas mayores de
-la redonda se deben usar las instrucciones @code{\longa} (que es
-una breve doble) y @code{\breve}. Se pueden especificar duraciones
-tan cortas como la garrapatea (con el número 128).  Son posibles
-valores más cortos, pero sólo como notas unidas por una barra.
+La duración de las notas se introduce mediante números y
+puntos. El número que se escribe está basado en el valor recíproco
+de la longitud de la nota. Respecto a la redonda, esto es el
+número de veces que dicha nota cabe en una redonda.  Por ejemplo,
+una negra se escribe usando un @code{4} (puesto que es 1/4 de
+redonda), mientras que una blanca se escribe con un @code{2} (por
+ser 1/2 de redonda), una corchea se escribe como @code{8} y así
+sucesivamente.  Se pueden especificar duraciones tan cortas como
+1/1024 de redonda (sin nombre en español) pero cualquier valor más
+corto, aunque sea posible, solo se puede introducir como grupos de
+notas unidas por una barra.  Véase también @ref{Barras}.
+
+Para notas mayores de la redonda se deben usar las instrucciones
+@code{\longa} (que es una breve doble) y @code{\breve}. Se puede
+escribir una nota con la duración de una cuádruple breve mediante
+@code{\maxima}, pero esto está contemplado solamente dentro de la
+notación musical antigua.  Para ver más detalles, consulte
+@ref{Notación antigua}.
 
 @c Two 64th notes are needed to obtain beams
 @lilypond[quote,verbatim]
@@ -85,25 +94,16 @@ desactivado.
 }
 @end lilypond
 
-Se puede escribir una nota con la duración de una cuádruple breve
-mediante @code{\maxima}, pero esto está contemplado solamente
-dentro de la notación musical antigua.  Para ver más detalles,
-consulte @ref{Notación antigua}.
-
+@cindex duración aislada
+@cindex aislada, duración
 @cindex duración predeterminada
 @cindex predeterminada, duración de la nota
 @cindex nota, duración predeterminada
 
-Si la duración se omite, su valor será el de la duración de la
-nota anterior.  Por omisión, el valor de la primera nota es el de
-una negra.
 
-@lilypond[quote,verbatim]
-\relative { a' a a2 a a4 a a1 a }
-@end lilypond
-
-Las duraciones aisladas en una secuencia musical toman la altura
-de la nota o acorde anterior.
+Las duraciones aisladas (aquellas que no especifican ninguna
+altura) en una secuencia musical toman la altura de la nota o
+acorde anterior.
 
 @lilypond[quote,verbatim]
 \relative {
@@ -113,10 +113,26 @@ de la nota o acorde anterior.
 }
 @end lilypond
 
-@cindex notas, con puntillo
-@cindex puntillo, notas con
-@cindex notas, con doble puntillo
-@cindex doble puntillo, notas con
+@cindex altura, predeterminada
+@cindex predeterminada, altura
+@cindex nota, altura predeterminada
+@cindex altura, aislada
+@cindex aislada, altura
+
+Las alturas aisladas (notas sin ninguna duración especificada) que
+aparecen dentro de una secuencia musical, obtienen su duración de
+la nota o acorde anterior.  Si no hay ninguna duración anterior,
+entonces el valor predeterminado que se utiliza para la nota
+siempre es @code{4}, una negra.
+
+@lilypond[quote,verbatim]
+\relative { a' a a2 a a4 a a1 a }
+@end lilypond
+
+@cindex nota, con puntillo
+@cindex puntillo, nota con
+@cindex nota, con doble puntillo
+@cindex doble puntillo, nota con
 
 @funindex .
 
@@ -128,28 +144,24 @@ especifican escribiendo dos puntos, y así sucesivamente.
 \relative { a'4 b c4. b8 a4. b4.. c8. }
 @end lilypond
 
-Ciertas duraciones no se pueden representar sólo con duraciones
-binarias y puntillos; la única forma de representarlas es ligando
-dos o más notas.  Para ver más detalles, consulte @ref{Ligaduras
-de unión}.
-
-Para ver de qué manera se pueden especificar las duraciones de las
-sílabas de la letra y cómo alinear la letra a las notas, consulte
-@ref{Música vocal}.
-
-Opcionalmente se pueden espaciar las notas de forma estrictamente
-proporcional a sus duraciones.  Para ver más detalles sobre este y
-otros ajustes que controlan la notación proporcional, consulte
-@ref{Notación proporcional}.
-
 @funindex \dotsUp
 @funindex \dotsDown
 @funindex \dotsNeutral
 
-Normalmente los puntillos se desplazan hacia arriba para evitar
-las líneas del pentagrama, excepto en situaciones de polifonía. Se
-pueden situar los puntillos manualmente encima o debajo de las
-líneas de la pauta; véase @ref{Dirección y posición}.
+Para evitar la superposición con las líneas del pentagrama, los
+puntillos se desplazan normalmente hacia arriba.  Sin embargo, en
+situaciones de polifonía, se pueden colocar manualmente por encima
+o por debajo según sea necesario.  Véase @ref{Dirección y posición}.
+
+Ciertas duraciones no se pueden representar solamente mediante
+números y puntillos; puede ser necesario emplear dos o más notas
+ligadas entre sí.  Véase @ref{Ligaduras de unión}.
+
+Para especificat duraciones que puedan alinear las notas con las
+sílabas de la letra, véase @ref{Música vocal}.
+
+Las notas también se pueden espaciar proporcionalmente a su
+duración, véase @ref{Notación proporcional}.
 
 @predefined
 @code{\autoBeamOn},
@@ -162,11 +174,17 @@ líneas de la pauta; véase @ref{Dirección y posición}.
 
 @snippets
 
+@cindex breve, nota, estilo alternativo
+@cindex alternativo, estilo de la breve
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {alternative-breve-notes.ly}
 
+@cindex puntillo, cambiar número de
+@cindex modificar, número de puntillos
+@cindex nota, con puntillo, cambiar número
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-the-number-of-augmentation-dots-per-note.ly}
+
 
 @seealso
 Glosario musical:
@@ -177,7 +195,7 @@ Glosario musical:
 @rglos{Duration names notes and rests}.
 
 Referencia de la notación:
-@ref{Barras automáticas},
+@ref{Barras},
 @ref{Ligaduras de unión},
 @ref{Plicas},
 @ref{Escritura de las duraciones (valores rítmicos)},
@@ -195,18 +213,19 @@ Referencia de funcionamiento interno:
 
 @knownissues
 @c Deliberately duplicated in Durations and Rests.  -gp
-No existe un límite fundamental para las duraciones de los
+Aunque no existe un límite fundamental para las duraciones de los
 silencios (tanto para el más largo como para el más corto), pero
-el numero de glifos es limitado: sólo se pueden imprimir desde el
-silencio de garrapatea (128) hasta el de máxima (8 redondas).
+el número de glifos es limitado: sólo se pueden imprimir desde el
+silencio de 1/1024 de redonda (sin nombre en español) hasta el de
+@code{\maxima} (8 redondas).
 
 
 @node Grupos especiales
 @unnumberedsubsubsec Grupos especiales
 @translationof Tuplets
 
-@cindex grupos especiales
-@cindex tresillos
+@cindex grupo especial
+@cindex tresillo
 
 @funindex \tuplet
 
@@ -245,7 +264,7 @@ música para que así se agrupen automáticamente:
 }
 @end lilypond
 
-@cindex grupos de valoración especial, colocación del corchete
+@cindex grupo de valoración especial, colocación del corchete
 
 @funindex \tupletUp
 @funindex \tupletDown
@@ -284,31 +303,40 @@ de grupo especial, véase @ref{Escalar las duraciones}.
 @code{\tupletNeutral}.
 @endpredefined
 
-@snippets
-@cindex grupos especiales, formato de
-@cindex tresillos, formato de
 
+@snippets
+
+@cindex grupo especial, formato de
+@cindex tresillo, formato de
+
+@cindex grupo especial, introducir muchos
 @funindex tupletNumberFormatFunction
 @funindex tupletSpannerDuration
-
+@funindex \tupletSpan
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {entering-several-tuplets-using-only-one--tuplet-command.ly}
 
-@cindex grupos de valoración especial, modificación del número
-
+@cindex grupo de valoración especial, modificación del número
+@cindex número, grupo de valoración especial, modificación
 @funindex TupletNumber
-
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-the-tuplet-number.ly}
 
+@cindex grupo de valoración especial, número, no predeterminado
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {non-default-tuplet-numbers.ly}
 
+@cindex grupo de valoración especial, corchete, visibilidad
+@cindex visibilidad, corchete de grupo especial
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {controlling-tuplet-bracket-visibility.ly}
 
+@cindex barra, grupo especial, cortar línea
+@cindex grupo de valoración especial, barra, cortar línea
+@funindex Forbid_line_break_engraver
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {permitting-line-breaks-within-beamed-tuplets.ly}
+
 
 @seealso
 Glosario musical:
@@ -339,20 +367,26 @@ Referencia de funcionamiento interno:
 @unnumberedsubsubsec Escalar las duraciones
 @translationof Scaling durations
 
-@cindex escalar las duraciones
-@cindex duraciones, escalado de
+@cindex escala, duración
+@cindex duración, escalado de
 
 La duración de las figuras, silencios o acordes se puede
 multiplicar por un factor @code{N/M} añadiendo @code{*N/M} (o
-@code{*N} si @code{M} es 1) a la duración.  Esto no afectará a la
-apariencia de las notas o silencios que se producen, pero la
-duración alterada se usará para calcular la posición dentro del
-compás y para establecer la duración en la salida MIDI.  Los
-factores de multiplicación se pueden combinar en la forma
-@code{*L*M/N}.  Los factores son parte de la duración: si no
-especificamos una duración para las notas siguientes, la duración
-por omisión que se toma de la nota anterior incluirá cualquier
-factor de escala que se haya aplicado.
+@code{*N} si @code{M} es 1) a la duración. También se pueden
+añadir factores usando expresiones de Scheme que se evalúan a un
+número o a una duración musical como @code{*#(ly:music-length
+@var{music})}.  Esto es muy útil para escalar una duración de
+@samp{1} y que una nota o silencio multicompás se estire hasta una
+longitur derivada de una variable musical.
+
+La adición de un factor no afectará a la apariencia de las notas o
+silencios que se producen, pero la duración alterada se usará para
+calcular la posición dentro del compás y para establecer la
+duración en la salida MIDI.  Los factores de multiplicación se
+pueden combinar en la forma @code{*L*M/N}.  Los factores son parte
+de la duración: si no especificamos una duración para las notas
+siguientes, la duración por omisión que se toma de la nota
+anterior incluirá cualquier factor de escala que se haya aplicado.
 
 En el siguiente ejemplo las tres primeras notas duran exactamente
 dos partes, pero no se imprime ningún corchete de tresillo.
@@ -384,9 +418,9 @@ De la misma forma, se pueden comprimir por una fracción trozos de
 música más largos, como si cada nota, acorde o silencio tuviera la
 fracción como multiplicador.  Esto dejará intacta la apariencia de
 la @emph{música}, pero la duración interna de las notas se
-multiplicará por la fracción @emph{numerador}/@emph{denominador}.
-He aquí un ejemplo que muestra cómo se puede comprimir y expandir
-la música:
+multiplicará por el factor de escala dado, habitualmente
+@emph{numerador}/@emph{denominador}.  He aquí un ejemplo que
+muestra cómo se puede comprimir y expandir la música:
 
 @lilypond[quote,verbatim]
 \relative {
@@ -398,7 +432,7 @@ la música:
     <c a f>4. c8 a f
   }
   % Scale music by *2
-  \scaleDurations 2/1 {
+  \scaleDurations 2 {
     <c' a>4 c8 b
   }
 }
@@ -478,8 +512,8 @@ automática de las notas, véase @ref{División automática de las
 notas}.  Este mecanismo divide automáticamente las notas largas y
 las liga a través de las barras de compás.
 
-@cindex ligaduras y acordes
-@cindex acordes y ligaduras
+@cindex ligadura, y acordes
+@cindex acorde, y ligadura
 
 Cuando se aplica una ligadura de unión a un acorde, se conectan
 todas las cabezas de las notas cuyas alturas coinciden.  Si no
@@ -496,9 +530,9 @@ dentro del acorde.
 @end lilypond
 
 @cindex repetición, ligaduras de unión en
-@cindex ligaduras de unión, repeticiones y
+@cindex ligadura de unión, repetición y
 @cindex primera y segunda vez, corchetes y ligaduras en
-@cindex ligaduras de unión y corchetes de primera y segunda vez
+@cindex ligadura de unión, corchetes de primera y segunda vez
 
 @funindex \repeatTie
 
@@ -518,7 +552,7 @@ es necesario especificar la ligadura repetida como sigue:
 @end lilypond
 
 @cindex laissez vibrer
-@cindex ligaduras laissez vibrer
+@cindex ligadura laissez vibrer
 
 @funindex \laissezVibrer
 
@@ -531,7 +565,7 @@ cuerda y percusión.  Se pueden introducir de la siguiente manera:
 <c' f' g'>1\laissezVibrer
 @end lilypond
 
-@cindex ligaduras, colocación
+@cindex ligadura, colocación
 
 @funindex \tieUp
 @funindex \tieDown
@@ -540,15 +574,19 @@ cuerda y percusión.  Se pueden introducir de la siguiente manera:
 Es posible hacer manualmente que las ligaduras de unión se curven
 hacia arriba o hacia abajo; véase @ref{Dirección y posición}.
 
-@cindex ligaduras, apariencia
-@cindex ligaduras de puntos
-@cindex ligaduras discontinuas
-@cindex discontinuas, ligaduras
-@cindex puntos, ligaduras de
+@cindex ligadura, apariencia
+@cindex ligadura, de puntos
+@cindex ligadura, discontinua
+@cindex discontinua, ligadura
+@cindex puntos, ligadura de
 
 @funindex \tieDotted
 @funindex \tieDashed
 @funindex \tieSolid
+
+@funindex \tieDashPattern
+@funindex \tieHalfDashed
+@funindex \tieHalfSolid
 
 Se puede hacer que las ligaduras de expresión sean discontinuas,
 punteadas o una combinación de continuas y discontinuas.
@@ -618,13 +656,21 @@ las ligaduras de unión.
 @code{\tieSolid}.
 @endpredefined
 
+
 @snippets
 
+@cindex ligadura, con arpegio
+@cindex arpegio, y ligadura
+@funindex tieWaitForNote
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {using-ties-with-arpeggios.ly}
 
+@cindex ligadura, edición manual
+@cindex manual, edición de ligadura
+@funindex TieColumn
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {engraving-ties-manually.ly}
+
 
 @seealso
 Glosario musical:
@@ -725,10 +771,14 @@ silencios no mueve estos silencios.
 \relative { a'4\rest d4\rest }
 @end lilypond
 
+
 @snippets
 
+@cindex estilo, de silencio
+@cindex silencio, estilo de
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {rest-styles.ly}
+
 
 @seealso
 Glosario musical:
@@ -749,8 +799,8 @@ Referencia de funcionamiento interno:
 @c Deliberately duplicated in Durations and Rests.  -gp
 No existe un límite fundamental respecto de las duraciones de los
 silencios (tanto para el más corto como para el más largo), pero
-el número de glifos es limitado: hay silencios desde la garrapatea
-(128) hasta la máxima (8 redondas).
+el número de glifos es limitado: hay silencios desde 1/1024 de
+redonda (sin nombre en español) hasta la máxima (8 redondas).
 
 
 @node Silencios invisibles
@@ -853,11 +903,11 @@ Referencia de funcionamiento interno:
 @translationof Full measure rests
 
 @cindex multicompás, silencios
-@cindex compás completo, silencios de
-@cindex silencios multicompás
-@cindex silencios de compás completo
+@cindex compás, completo, silencios de
+@cindex silencio, multicompás
+@cindex silencio, de compás completo
 @cindex redonda, silencios de, para un compás completo
-@cindex silencios de redonda para un compás completo
+@cindex silencio, de redonda para un compás completo
 
 @funindex \compressMMRests
 @funindex R
@@ -931,17 +981,17 @@ compás:
 R2.*2 |
 @end lilypond
 
-@cindex texto sobre un silencio multicompás
+@cindex texto, sobre un silencio multicompás
 @cindex multicompás, silencio, adjuntar texto
-@cindex inscripción sobre un silencio multicompás
+@cindex inscripción, sobre un silencio multicompás
 @cindex multicompás, silencios, inscripción en
-@cindex calderón sobre un silencio multicompás
+@cindex calderón, sobre un silencio multicompás
 @cindex multicompás, silencio, aplicar un calderón a
-@cindex marcado sobre silencios multicompás
+@cindex marcado, sobre silencios multicompás
 @cindex multicompás, silencio, con marcados
 
-@funindex MultiMeasureRestScript
 @funindex MultiMeasureRestText
+@funindex MultiMeasureRestScript
 
 Se pueden añadir elementos de marcado a los silencios multicompás.
 
@@ -952,16 +1002,12 @@ Se pueden añadir elementos de marcado a los silencios multicompás.
 }
 @end lilypond
 
-@ignore
-@c TODO: the next section is out of date; \fermataMarkup has been
-@c deprecated, see section `Full measure rests'
-@c in the English documentation.
-
-@warning{Los elementos de marcado que se añaden a un silencio
-multicompás son objetos del tipo @code{MultiMeasureRestText}, no
-@code{TextScript}.  Las sobreescrituras de propiedades deben ir
-dirigidas hacia el objeto correcto, o se ignorarán.  Véase el
-ejemplo siguiente:}
+@warning{Los elementos de marcado y articulaciones que se añaden a
+un silencio multicompás son objetos del tipo
+@code{MultiMeasureRestText} y @code{MultiMeasureRestScript}, no
+@code{TextScript} y @code{Script}.  Las sobreescrituras de
+propiedades deben ir dirigidas hacia el objeto correcto, o se
+ignorarán.  Véase el ejemplo siguiente:}
 
 @lilypond[quote,verbatim,fragment]
 % This fails, as the wrong object name is specified
@@ -975,7 +1021,6 @@ R1\fermata
 R1^"right"
 R1\fermata
 @end lilypond
-@end ignore
 
 Cuando un silencio multicompás sigue inmediatamente al
 establecimiento de un compás parcial con @code{\partial}, es
@@ -994,21 +1039,38 @@ comprobación de compás.
 
 
 @snippets
-@cindex eclesiásticos, silencios
-@cindex silencios eclesiásticos
-@cindex kirchenpausen
 
+@cindex multicompás, silencio, longitud
+@cindex longitud, de un silencio multicompás
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{multi-measure-rest-length-control.ly}
+
+@cindex silencio, multicompás, numeración
+@funindex restNumberThreshold
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{numbering-single-measure-rests.ly}
+
+@cindex eclesiásticos, silencios
+@cindex silencio, eclesiástico
+@cindex kirchenpause
+@cindex multicompás, silencio, estilo
+@cindex estilo, silencio multicompás
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-form-of-multi-measure-rests.ly}
 
 @cindex multicompás, posicionamiento de los silencios
-@cindex colocación de los silencios multicompás
-
+@cindex colocación, de los silencios multicompás
+@cindex silencio multicompás, colocación
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {positioning-multi-measure-rests.ly}
 
+@cindex silencio, multicompás, marcado
+@cindex marcado, silencio multicompás
+@funindex \textLengthOn
+@funindex \textLengthOff
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {multi-measure-rest-markup.ly}
+
 
 @seealso
 Glosario musical:
@@ -1029,7 +1091,7 @@ Referencia de funcionamiento interno:
 @rinternals{MultiMeasureRestScript},
 @rinternals{MultiMeasureRestText}.
 
-@cindex digitaciones y silencios multicompás
+@cindex digitación, y silencios multicompás
 @cindex multicompás, silencios, digitaciones y
 
 @knownissues
@@ -1127,6 +1189,7 @@ estilo numérico:
 }
 @end lilypond
 
+
 Las indicaciones de compás de la música mensural se tratan en
 @ref{Indicaciones de compás de la música mensural}.
 
@@ -1210,14 +1273,14 @@ comportamiento de las barras automáticas}.
 
 
 @cindex compás, propiedades, restaurar los valores predeterminados
-@cindex restaurar las propiedades predeterminadas del tipo de compás
+@cindex restaurar, las propiedades predeterminadas del tipo de compás
 @funindex \revertTimeSignatureSettings
 
 Los valores modificados de las propiedades predeterminadas del
 tipo de compás se pueden restaurar a los valores originales:
 
 @lilypond[quote,verbatim]
-\score{
+\score {
   \relative {
     \repeat unfold 8 { c'8 } |
     \overrideTimeSignatureSettings
@@ -1289,8 +1352,11 @@ comportamiento de las barras automáticas}.
 
 
 @snippets
+
+@cindex compás, indicación de, imprimir solo el numerador
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly}
+
 
 @seealso
 Glosario musical:
@@ -1319,7 +1385,6 @@ Referencia de funcionamiento interno:
 @cindex tempo
 @cindex pulsos por minuto
 @cindex metrónomo, indicación de
-@cindex metrónomo, indicación de, con texto
 
 @funindex \tempo
 
@@ -1412,14 +1477,22 @@ espaciado horizontal.
 
 @snippets
 
+@cindex metrónomo, indicación, debajo del pentagrama
+@cindex pentagrama, indicación metronómica debajo
+@cindex ensayo, marca de, debajo del pentagrama
+@cindex marca, de ensayo, debajo del pentagrama
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {printing-metronome-and-rehearsal-marks-below-the-staff.ly}
 
 @c perhaps also an example of how to move it horizontally?
 
+@cindex tempo, cambio, sin indicación metronómica
+@cindex cambio, de tempo, sin indicación metronómica
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-tempo-without-a-metronome-mark.ly}
 
+@cindex metronómica, marca de, personalizada
+@cindex personalizada, marca metronómica
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {creating-metronome-marks-in-markup-mode.ly}
 
@@ -1545,13 +1618,13 @@ Referencia de funcionamiento interno:
 @cindex música sin metro, alteraciones
 @cindex música sin metro, barras de compás
 @cindex música sin metro, números de compás
-@cindex alteraciones, cadencias
-@cindex alteraciones, música sin metro
-@cindex barras de compás, música sin metro
-@cindex números de compás, cadencias
-@cindex números de compás, música sin metro
-@cindex barras, cadencias
-@cindex barras, música sin metro
+@cindex alteración, cadencias
+@cindex alteración, música sin metro
+@cindex barra de compás, música sin metro
+@cindex número de compás, cadencias
+@cindex número de compás, música sin metro
+@cindex barra, cadencias
+@cindex barra, música sin metro
 
 @funindex \cadenzaOn
 @funindex \cadenzaOff
@@ -1650,15 +1723,15 @@ Referencia de la notación:
 Fragmentos de código:
 @rlsr{Rhythms}.
 
-@cindex cadencias, saltos de línea en
-@cindex cadencias, saltos de página en
+@cindex cadencia, saltos de línea en
+@cindex cadencia, saltos de página en
 @cindex sin medida, música, saltos de línea en
 @cindex sin medida, música, saltos de página en
-@cindex saltos, en música sin medida
-@cindex saltos de línea, cadencias
-@cindex saltos de página, cadencias
-@cindex saltos de línea, música sin medida
-@cindex saltos de página, música sin medida
+@cindex salto, en música sin medida
+@cindex salto, de línea, cadencias
+@cindex salto, de página, cadencias
+@cindex salto, de línea, música sin medida
+@cindex salto, de página, música sin medida
 
 @knownissues
 Sólo se insertan saltos de línea y de página automáticamente en
@@ -1679,8 +1752,8 @@ de música sin medir para permitir los saltos:
 @c This is acceptable  -td
 
 @cindex compás, doble
-@cindex compases polimétricos
-@cindex polimétricos, compases
+@cindex compás polimétrico
+@cindex polimétrico, compás
 @cindex metro polimétrico
 @cindex doble compás
 
@@ -1699,7 +1772,7 @@ fije @code{timeSignatureFraction} a la fracción deseada.  Luego
 use la función @code{\scaleDurations} para escalar las duraciones
 de las notas en cada pauta a la indicación de compás común.
 
-@cindex barras en música polimétrica
+@cindex barras, en música polimétrica
 @cindex polimétrico, metro, barras en 
 
 En el siguiente ejemplo, se usa en paralelo música con compases de
@@ -1780,8 +1853,8 @@ y @code{Default_bar_line_engraver} al contexto de @code{Staff}.
 @end lilypond
 
 @funindex \compoundMeter
-@cindex compuesto, indicaciones de compás
-@cindex compás compuesto, indicación de
+@cindex compuesto, indicación de compás
+@cindex compás, compuesto, indicación de
 
 @subsubsubheading Indicaciones de compás compuesto
 
@@ -1840,22 +1913,38 @@ Referencia de funcionamiento interno:
 @rinternals{Staff}.
 
 @knownissues
-Al usar distintos compases en paralelo, las notas que están en el
-mismo instante de tiempo se colocan en la misma posición
-horizontal.  Sin embargo, las barras de compás en los distintos
-pentagramas harán que el espaciado de notas sea menos regular en
-cada pentagrama individual de lo que sería normal sin las
-distintas indicaciones de compás.
+Aunque las notas que se producen en el mismo momento
+en distintos pentagramas se colocan en la misma posición
+horizontal, las barras de compás en cada pauta pueden hacer que el espaciado de notas sea menos regular
+según cada tipo de compás.
 
+La utilización de un bloque @code{midi} con notación polimétrica
+puede causar advertencias inesperadas de comprobación de compás.
+En este caso traslade el @code{Timing_translator} del
+contexto de @code{Score} al contexto de @code{Staff} dentro del
+bloque @code{midi}.
+
+@lilypond[verbatim]
+\midi {
+  \context {
+    \Score
+    \remove "Timing_translator"
+  }
+  \context {
+     \Staff
+     \consists "Timing_translator"
+  }
+}
+@end lilypond
 
 @node División automática de las notas
 @unnumberedsubsubsec División automática de las notas
 @translationof Automatic note splitting
 
-@cindex notas, división de
-@cindex división de notas
-@cindex silencios, división de
-@cindex división de silencios
+@cindex nota, división de
+@cindex división, de notas
+@cindex silencio, división de
+@cindex división, de silencios
 
 @funindex Note_heads_engraver
 @funindex Completion_heads_engraver
@@ -1953,8 +2042,8 @@ escala que las duraciones de las notas originales de la entrada.
 @unnumberedsubsubsec Mostrar los ritmos de la melodía
 @translationof Showing melody rhythms
 
-@cindex melodía, mostrar las duraciones
-@cindex duraciones de la melodía, mostrar
+@cindex melodía, mostrar el ritmo
+@cindex ritmo, de la melodía, mostrar
 
 A veces podemos querer mostrar solamente el ritmo de una melodía.
 Esto se puede hacer con un pentagrama de ritmo.  Todas las alturas
@@ -2011,6 +2100,8 @@ rasgueado.  Esto se puede hacer con el grabador
 >>
 @end lilypond
 
+@funindex \reduceChords
+
 También se puede usar música que contenga acordes como entrada
 para @code{RhythmicStaff} y para usarla con el grabador
 @code{Pitch_squash_engraver} si los acordes se reducen primero a
@@ -2031,14 +2122,18 @@ notas individuales con la función musical @code{\reduceChords}:
 
 @predefined
 @code{\improvisationOn},
-@code{\improvisationOff}.
+@code{\improvisationOff},
+@code{\reduceChords}.
 @endpredefined
 
 
 @snippets
 
+@cindex golpeado, ritmo, mostrar
+@cindex guitarra, ritmo golpeado, mostrar
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {guitar-strum-rhythms.ly}
+
 
 @seealso
 Fragmentos de código:
@@ -2067,9 +2162,9 @@ Referencia de funcionamiento interno:
 De manera predeterminada, las barras de corchea se insertan
 automáticamente:
 
-@cindex barras manuales
-@cindex manuales, barras
-@cindex barras, reglas personalizadas
+@cindex barra, manual
+@cindex manual, barra
+@cindex barra, reglas personalizadas
 
 @funindex \autoBeamOn
 @funindex \autoBeamOff
@@ -2099,8 +2194,8 @@ Si no se necesita el barrado automático, se puede desactivar con
 }
 @end lilypond
 
-@cindex melismas, barras en
-@cindex barras y melismas
+@cindex melisma, barras en
+@cindex barra, y melismas
 
 @warning{Si se usan barras para indicar los melismas de las
 canciones, entonces se debe desactivar el barrado automático con
@@ -2118,24 +2213,30 @@ automáticos predeterminados; véase
 @code{\autoBeamOn}.
 @endpredefined
 
-@cindex barras en saltos de línea
+@cindex barra, en saltos de línea
 @cindex línea, barras en saltos de
-@cindex barras en ángulo
-@cindex dobladas, barras
+@cindex barra, en ángulo
+@cindex doblada, barra
 @funindex breakable
 
+
 @snippets
+
+@cindex barra, salto de línea
+@cindex línea, salto, barra
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {beams-across-line-breaks.ly}
 
+@cindex barra, doblada, cambiar
+@cindex doblada, barra, cambiar
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-beam-knee-gap.ly}
 
-@cindex barras, \partCombine con \autoBeamOff
-@cindex voces, \partCombine con \autoBeamOff
-
+@cindex barra, @code{\partCombine} con @code{\autoBeamOff}
+@cindex voz, @code{\partCombine} con @code{\autoBeamOff}
 @lilypondfile [verbatim, quote, ragged-right, texidoc, doctitle]
 {partcombine-and-autobeamoff.ly}
+
 
 @seealso
 Referencia de la notación:
@@ -2169,8 +2270,8 @@ se ha completado no tendrá efecto hasta que inicie la
 @unnumberedsubsubsec Establecer el comportamiento de las barras automáticas
 @translationof Setting automatic beam behavior
 
-@cindex barras y letra
-@cindex letra y barras
+@cindex barra, y letra
+@cindex letra, y barras
 
 @funindex autoBeaming
 @funindex baseMoment
@@ -2479,22 +2580,31 @@ barra.
 Las reglas de barrado predefinidas están en el archivo
 @file{scm/time-signature-settings.scm}.
 
-@snippets
-@cindex barras, subdivisión
 
+@snippets
+
+@cindex barra, subdivisión
+@cindex subdivisión, de barra
+@funindex subdivideBeams
+@funindex baseMoment
+@funindex beatStructure
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {subdividing-beams.ly}
 
-@cindex barras, orientación de, secundarias
-
+@cindex barra, secundaria, orientación de
+@cindex barra, estricta
+@cindex estricta, barra
+@funindex strictBeatBeaming
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {strict-beat-beaming.ly}
 
 @cindex compás, agrupación
-@cindex pulsos, agrupación
-@cindex agrupar pulsos
-@cindex compases, sub-agrupar
-
+@cindex pulso, agrupación
+@cindex agrupar, pulsos
+@cindex compás, sub-agrupar
+@cindex dirección, símbolos
+@cindex símbolo, de dirección
+@funindex Measure_grouping_engraver
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {conducting-signs,-measure-grouping-signs.ly}
 
@@ -2503,6 +2613,7 @@ Las reglas de barrado predefinidas están en el archivo
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {beam-endings-in-score-context.ly}
+
 
 @seealso
 Referencia de la notación:
@@ -2582,11 +2693,11 @@ barrado automático para una indicación de compás se describe en
 @unnumberedsubsubsec Barras manuales
 @translationof Manual beams
 
-@cindex barras manuales
-@cindex manuales, barras
+@cindex barra, manual
+@cindex manual, barra
 
-@funindex ]
-@funindex [
+@funindex @sortas{]A} ]
+@funindex @sortas{[A} [
 
 En ciertos casos puede ser preciso sobreescribir el algoritmo de
 barrado automático.  Por ejemplo, el barrador automático no
@@ -2600,8 +2711,8 @@ puntos de comienzo y final con @code{[} y @code{]}
 \relative { r4 r8[ g' a r] r g[ | a] r }
 @end lilypond
 
-@cindex barras manuales, abreviatura de dirección
-@cindex barras manuales, notas de adorno
+@cindex barra, manual, abreviatura de dirección
+@cindex barra, manual, notas de adorno
 
 La dirección de las barras se puede establecer manualmente
 utilizando indicadores de dirección:
@@ -2661,14 +2772,21 @@ grupo como un todo.
 }
 @end lilypond
 
+
 @predefined
 @code{\noBeam}.
 @endpredefined
 
+
 @snippets
 
+@cindex recto, corchete
+@cindex corchete, recto
+@funindex stemLeftBeamCount
+@funindex stemRightBeamCount
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {flat-flags-and-beam-nibs.ly}
+
 
 @seealso
 Referencia de la notación:
@@ -2690,8 +2808,8 @@ Referencia de funcionamiento interno:
 @unnumberedsubsubsec Barras progresivas
 @translationof Feathered beams
 
-@cindex barras progresivas
-@cindex progresivas, barras
+@cindex barra, progresiva
+@cindex progresiva, barras
 
 @funindex \featherDurations
 @funindex grow-direction
@@ -2772,13 +2890,13 @@ fracción son pequeños.
 @unnumberedsubsubsec Barras de compás
 @translationof Bar lines
 
-@cindex barras de compás
-@cindex líneas divisorias
+@cindex barra, de compás
+@cindex línea, divisorias
 @cindex final, barra
-@cindex barra final
-@cindex doble barra
-@cindex barra doble
-@cindex repetición, barras de
+@cindex barra, final
+@cindex doble, barra
+@cindex barra, doble
+@cindex repetición, barra de
 
 @funindex \bar
 
@@ -2810,9 +2928,9 @@ evitar la producción de saltos de línea, dando como resultado una
 línea de música con una compresión exagerada o música que se sale
 de la página.}
 
-@cindex línea, saltos
-@cindex líneas divisorias invisibles
-@cindex compás, barras invisibles de
+@cindex línea, salto
+@cindex línea, divisoria, invisible
+@cindex compás, barras, invisibles
 
 También se permiten saltos de línea en las barras insertadas
 manualmente incluso dentro de compases incompletos.  Para permitir
@@ -2939,7 +3057,7 @@ línea:
 }
 @end lilypond
 
-@cindex repeticiones
+@cindex repetición
 
 Aunque se pueden insertar manualmente barras de compás con
 significado de repeticiones, no se reconocen como repeticiones por
@@ -3002,8 +3120,8 @@ una línea de repetición adecuada si se utiliza con una instrucción
 @code{\repeat volta}, véase @ref{Repeticiones normales}.
 
 @funindex \defineBarLine
-@cindex compás, definir líneas de
-@cindex definir líneas de compás
+@cindex compás, definir línea de
+@cindex definir línea de compás
 
 Se pueden definir tipos nuevos de líneas divisorias con
 @code{\defineBarLine}:
@@ -3012,7 +3130,7 @@ Se pueden definir tipos nuevos de líneas divisorias con
 \defineBarLine @var{tipo_de_barra} #'(@var{final} @var{comienzo} @var{extensión})
 @end example
 
-Las variables de @code{\defineBarline} pueden incluir la cadena de
+Las variables de @code{\defineBarLine} pueden incluir la cadena de
 caracteres @q{vacía} @code{""}, que equivale a imprimir una línea
 divisoria invisible.  También se puede establecer al valor falso
 @code{#f} que no imprime línea divisoria alguna.
@@ -3159,7 +3277,7 @@ Referencia de funcionamiento interno:
 @translationof Bar numbers
 
 @cindex compás, números de
-@cindex números de compás
+@cindex número, de compás
 
 @funindex currentBarNumber
 
@@ -3178,7 +3296,7 @@ establecer manualmente:
 }
 @end lilypond
 
-@cindex números de compás, espaciado regular
+@cindex número, de compás, espaciado regular
 
 @funindex barNumberVisibility
 @funindex BarNumber
@@ -3207,10 +3325,14 @@ números de compás en todos los sitios posibles:
 }
 @end lilypond
 
+
 @snippets
+
+@cindex compás, número, imprimir en el primer compás
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-the-bar-number-for-the-first-measure.ly}
 
+@cindex compás, número, imprimir a intervalos regulares
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-bar-numbers-at-regular-intervals.ly}
 
@@ -3218,24 +3340,25 @@ números de compás en todos los sitios posibles:
 {printing-bar-numbers-with-changing-regular-intervals.ly}
 
 @cindex compás, número de, formato
-@cindex número de compases, formato de
-
+@cindex número de compás, formato de
+@cindex estilo, número de compás
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-bar-numbers-inside-boxes-or-circles.ly}
 
-@cindex compás, número, con letras
-@cindex compás, número, con repeticiones
-
+@c XXX also included in `repeats.itely'
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {alternative-bar-numbering.ly}
 
 @cindex compás, número, alineación
-
+@cindex alineación, compás, número
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {aligning-bar-numbers.ly}
 
+@cindex compás, número, eliminar
+@cindex eliminar, número de compás
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {removing-bar-numbers-from-a-score.ly}
+
 
 @seealso
 Fragmentos de código:
@@ -3246,7 +3369,7 @@ Referencia de funcionamiento interno:
 @rinternals{Bar_number_engraver}.
 
 @cindex número de compás, colisión
-@cindex colisión del número de compás
+@cindex colisión, del número de compás
 
 @knownissues
 Los números de compás pueden colisionar con el corchete
@@ -3376,6 +3499,8 @@ Para imprimir una letra de ensayo, utilice la orden @code{\mark}.
 }
 @end lilypond
 
+@funindex @sortas{defaultB} \default
+
 @noindent
 La letra de ensayo se incrementa automáticamente si usa
 @code{\mark \default}, pero también puede utilizar un número
@@ -3419,14 +3544,14 @@ de un círculo).
 
 @cindex ensayo, letra de, formato
 @cindex ensayo, letra de, estilo
-@cindex estilo de la letra de ensayo
-@cindex formato de la letra de ensayo
+@cindex estilo, de la letra de ensayo
+@cindex formato, de la letra de ensayo
 @cindex letra de ensayo, estilo
 @cindex letra de ensayo, formato
 @cindex marca de ensayo, estilo
 @cindex marca de ensayo, formato
 @cindex ensayo, letra de, manual
-@cindex marca de ensayo manual
+@cindex marca de ensayo, manual
 @cindex personalizada, marca de ensayo
 @cindex manual, marca de ensayo
 
@@ -3477,15 +3602,15 @@ se especifican de esta forma.  Sin embargo, es posible aplicar un
 elemento @code{\markup} a la cadena.
 
 @example
-\mark \markup@{ \box A1 @}
+\mark \markup @{ \box A1 @}
 @end example
 
 @cindex segno
 @cindex coda
 @cindex D.S. al Fine
 @cindex calderón
-@cindex musicales, glifos
-@cindex glifos musicales
+@cindex musical, glifo
+@cindex glifo, musicales
 
 @funindex \musicglyph
 
@@ -3547,8 +3672,8 @@ Referencia de funcionamiento interno:
 @unnumberedsubsubsec Notas de adorno
 @translationof Grace notes
 
-@cindex ornamentos
-@cindex mordentes
+@cindex ornamento
+@cindex mordente
 @cindex appoggiatura
 @cindex acciaccatura
 
@@ -3600,7 +3725,7 @@ adorno por cada corchea de adorno:
 >>
 @end lilypond
 
-@cindex adorno, seguimiento de notas de
+@cindex adorno, nota de, seguimiento
 
 @funindex \afterGrace
 
@@ -3660,9 +3785,9 @@ principal.
 }
 @end lilypond
 
-@cindex trucaje de las notas de adorno
-@cindex notas de adorno, trucar
-@cindex notas de adorno, cambiar los ajustes de disposición
+@cindex trucaje, de las notas de adorno
+@cindex nota de adorno, trucar
+@cindex nota de adorno, cambiar los ajustes de disposición
 
 Una expresión musical @code{\grace} introduce ajustes de
 tipografía especiales, por ejemplo para producir un tipo más
@@ -3684,20 +3809,38 @@ luego se revierte.
 }
 @end lilypond
 
-@cindex plica cruzada
 
 @snippets
+
+@cindex plica, tachada
+@cindex tachada, plica
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {using-grace-note-slashes-with-normal-heads.ly}
 
+@cindex trucaje, nota de adorno
+@cindex adorno, nota, trucaje
+@cindex nota, de adorno, cambiar ajustes de presentación
+@funindex add-grace-property
+@funindex remove-grace-property
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {tweaking-grace-layout-within-music.ly}
 
+@cindex vacío, acorde
+@cindex acorde, vacío
+@funindex startGraceMusic
+@funindex stopGraceMusic
+@funindex startAcciaccaturaMusic
+@funindex stopAcciaccaturaMusic
+@funindex startAppoggiaturaMusic
+@funindex stopAppoggiaturaMusic
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {redefining-grace-note-global-defaults.ly}
 
+@cindex adorno, nota, y espaciado estricto
+@cindex estricto, espaciado, notas de adorno y
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {positioning-grace-notes-with-floating-space.ly}
+
 
 @seealso
 Glosario musical:
@@ -3724,7 +3867,7 @@ Referencia de funcionamiento interno:
 
 
 @knownissues
-@cindex acciaccatura de varias notas
+@cindex acciaccatura, de varias notas
 @cindex adorno, sincronización de notas de
 
 Una @i{acciaccatura} de varias notas con una barra se imprime sin

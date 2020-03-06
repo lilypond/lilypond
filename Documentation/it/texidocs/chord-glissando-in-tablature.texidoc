@@ -1,0 +1,8 @@
+%% Translation of GIT committish: ff9ca62acddb818b7788d7818a5c7eb0ddb6cdcb
+  texidocit = "
+I glissati (o slide) di accordi vengono indicati sia nel rigo (contesto
+@code{Staff}) sia nell'intavolatura (contesto @code{TabStaff}). I numeri
+di corda sono necessari per @code{TabStaff}, perché i calcoli automatici
+della corda sono diversi per gli accordi e per le note singole.
+"
+  doctitleit = "Glissando di accordi in intavolatura"

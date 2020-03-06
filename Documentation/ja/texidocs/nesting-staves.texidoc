@@ -1,0 +1,15 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+@code{systemStartDelimiterHierarchy} は、より複雑な譜のグループ化を行う@c
+ために用いることができます。@c
+@code{\\set StaffGroup.systemStartDelimiterHierarchy} コマンドの@c
+引数として基となるのは、譜の数だけあるアルファベットのリストです。@c
+それぞれの譜の前に @code{SystemStartDelimiter} を追加することで、@c
+グループ化の始まりを示します。その際、グループとなる譜の範囲を括弧で囲む@c
+必要があります。リスト中の要素は省略することができますが、最上位のグループは@c
+必ず全ての譜を含みます。@c
+@code{SystemStartDelimiter} は @code{SystemStartBar},
+@code{SystemStartBracket}, @code{SystemStartBrace},
+@code{SystemStartSquare} のいずれかです。
+"
+  doctitleja = "譜をネストする"

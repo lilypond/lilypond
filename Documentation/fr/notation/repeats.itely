@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 3c0f38115857598db730782b1d2ff0a19fd833af
+   Translation of GIT committish: 032de07c17caacd038f113ebcb54e9c473d64e0f
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -13,14 +13,15 @@
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
 
+
 @node Répétitions et reprises
 @section Répétitions et reprises
 @translationof Repeats
 
 @lilypondfile[quote]{repeats-headword.ly}
 
-@cindex reprises
-@cindex répétitions
+@cindex reprise
+@cindex répétition
 
 La répétition est une notion essentielle en musique, et il existe de
 nombreuses façons de mettre en œuvre et noter ce concept.  LilyPond
@@ -135,7 +136,7 @@ Si l'on donne trop peu d'alternatives en regard du nombre de fois où le
 passage doit être rejoué, la première alternative sera jouée plusieurs
 fois.
 
-Voici une simple reprise avec une fin alternative :
+Voici une simple reprise avec une fin alternative :
 
 @lilypond[verbatim,quote]
 \relative {
@@ -176,6 +177,8 @@ immanquablement des portées parasites.  Voir
 @cindex levée dans une reprise
 @cindex anacrouse et reprise
 @cindex reprise et anacrouse
+@cindex reprise et contrôle de barre de mesure
+@cindex contrôle de barre de mesure et reprise
 
 @funindex \partial
 
@@ -197,9 +200,6 @@ g4 |
 a2 a |
 g1 |
 @end lilypond
-
-@cindex reprise et contrôle de mesure
-@cindex contrôle de mesure et reprise
 
 Il est possible de créer des reprises en début de morceau avec une
 levée.  Le cas est similaire à ce que nous venons de voir.  Toutefois,
@@ -247,6 +247,7 @@ composite par l'adjonction d'un symbole de @emph{segno} à une barre de
 reprise créée par une commande @code{\repeat volta}.  Qu'il s'agisse
 d'un début, d'une fin ou d'une double reprise, le type de barre est
 automatiquement sélectionné.  L'indication « D.S. » devra cependant être
+ajouté manuellement.
 
 En dehors de toute reprise :
 
@@ -326,19 +327,25 @@ voir @ref{Barres de mesure}.
 @end lilypond
 
 @snippets
+
+@cindex reprise, crochet raccourci
+@cindex crochet de reprise raccourci
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {shortening-volta-brackets.ly}
 
+@cindex crochet de reprise, plusieurs portées
+@funindex Volta_engraver
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adding-volta-brackets-to-additional-staves.ly}
 
+@cindex reprises successives, barre de mesure
+@cindex barre de mesure, reprises successives
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {setting-the-double-repeat-default-for-volte.ly}
 
-@cindex reprises et numéros de mesure
+@cindex reprise et numéro de mesure
 @cindex numéro de mesure et reprise
-@cindex mesure, numérotation et reprises
-
+@cindex mesure, numérotation et reprise
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {alternative-bar-numbering.ly}
 
@@ -347,7 +354,7 @@ Glossaire musicologique :
 @rglosnamed{repeat,répétition},
 @rglos{volta}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Barres de mesure},
 @ref{Gestion du temps},
 @ref{Modification des greffons de contexte},
@@ -359,26 +366,26 @@ Fichiers d'initialisation :
 Morceaux choisis :
 @rlsrnamed{Repeats,Répétitions}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{VoltaBracket},
 @rinternals{RepeatedMusic},
 @rinternals{VoltaRepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}.
 
 @knownissues
-@cindex reprises ambigües
+@cindex reprise ambigüe
 @cindex reprises imbriquées
-@cindex imbrication de reprises
-@cindex numéro de mesure et reprises
-@cindex reprises et liaison
-@cindex liaison et reprises
-@cindex glissando et reprises
-@cindex reprises et glissando
+@cindex imbrication de reprise
+@cindex numéro de mesure et reprise
+@cindex reprise et liaison
+@cindex liaison et reprise
+@cindex glissando et reprise
+@cindex reprise et glissando
 
 L'extension d'une liaison à partir d'un bloc @code{\repeat} sur un bloc
 @code{\alternative} n'est possible que pour la première alternative.
 L'aspect visuel d'une liaison se continuant dans les autres
-alternatives, peut être simulée à l'aide de la commande
+alternatives, peut être simulé à l'aide de la commande
 @code{\repeatTie} lorsqu'elle s'arrête sur sa première note --
 méthode qui cependant ne fonctionne pas pour un @code{TabStaff}.
 D'autres moyens existent pour indiquer la prolongation d'une
@@ -740,12 +747,21 @@ différentes sont remplacées par un double symbole de pourcentage.
 @end lilypond
 
 @snippets
+
+@cindex pourcent, compteur de reprise
+@cindex compteur, reprise en pourcent
+@cindex reprise, pourcent, compteur
+@funindex countPercentRepeats
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {percent-repeat-counter.ly}
 
+@cindex visibilité, compteur, pourcent
+@cindex compteur, pourcent, visibilité
+@funindex repeatCountVisibility
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {percent-repeat-count-visibility.ly}
 
+@cindex pourcent, reprise isolée
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {isolated-percent-repeats.ly}
 
@@ -757,7 +773,7 @@ Glossaire musicologique :
 Morceaux choisis :
 @rlsrnamed{Repeats,Répétitions}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{RepeatSlash},
 @rinternals{RepeatSlashEvent},
 @rinternals{DoubleRepeatSlash},
@@ -801,7 +817,7 @@ devra impérativement se traîter sous forme de construction parallèle,
 @translationof Tremolo repeats
 
 @cindex trémolo
-@cindex trémolo, ligatures de
+@cindex trémolo, ligature de
 
 @funindex \repeat tremolo
 @funindex tremolo
@@ -844,6 +860,7 @@ faudra alors laisser sans accolades :
 @end lilypond
 
 @cindex trémolo, indication de
+@cindex indication, trémolo
 
 @funindex tremoloFlags
 @funindex :
@@ -863,6 +880,9 @@ utilisée.
 @end lilypond
 
 @snippets
+
+@cindex trémolo interportée
+@cindex interportée, trémolo
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {cross-staff-tremolos.ly}
 

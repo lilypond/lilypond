@@ -1,0 +1,15 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+@code{dash-definition} プロパティをセットすることで、スラーに複雑な@c
+破線パターンを追加することができます。@code{dash-definition} は
+@code{dash-element} のリストになっています。@code{dash-element}
+はスラーの各部分に対する破線パターンのパラメータ リストです。@c
+
+スラーはベジエ曲線の媒介変数 t (左端が 0, 右端が 1) の関数として定義されます。@c
+@code{dash-element} は、@code{(start-t stop-t dash-fraction dash-period)}
+のリストになっています。@code{start-t} から @code{stop-t} までの範囲が、@c
+@code{dash-period} の長さにつき @code{dash-fraction} が黒になるような@c
+破線となります。@code{dash-period} は譜スペースの単位です。@code{dash-fraction}
+を 1 にすると実線のスラーになります。
+"
+  doctitleja = "複雑な破線のスラーを作成する"

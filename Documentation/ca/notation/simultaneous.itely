@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.38"
+@c \version "2.21.0"
 
 @c Translators: Walter Garcia-Fontes
 @c Translation checkers:
@@ -622,9 +622,9 @@ Manual d'aprenentatge:
 @rlearning{Veus explícites}.
 
 Referència de la notació:
-@rusernamed{Percussion staves,Pautes de percussió},
+@ref{Pautes de percussió},
 @ref{Silencis invisibles},
-@rusernamed{Stems,Pliques}.
+@ref{Pliques}.
 
 Fragments de codi:
 @rlsr{Simultaneous notes}.
@@ -1120,7 +1120,7 @@ la lletra de les cançons; si una de les veus rep un nom explícit
 per poder adjuntar una lletra, el combinador de parts no
 funciona.  Tanmateix, es pot aconseguir aquest efecte usant un
 context @code{NullVoice}.  Vegeu
-@rusernamed{Polyphony with shared lyrics,Polifonia amb lletres compartides}.
+@ref{Polifonia amb lletres compartides}.
 
 @snippets
 
@@ -1180,7 +1180,7 @@ diferent, s'ignoraran els esdeveniments dins del context
 
 Consulteu també l'apartat
 @emph{Advertiments i problemes coneguts} a la sessió
-@rusernamed{Default tablatures,Tabulatures predeterminades}
+@ref{Tabulatures predeterminades}
 en utilitzar@code{\partCombine} amb tabulatures, i la @emph{Nota}
 de @ref{Barres automàtiques} en utilitzar el barrat automàtic.
 

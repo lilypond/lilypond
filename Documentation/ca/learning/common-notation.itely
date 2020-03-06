@@ -98,9 +98,26 @@ completen els compassos correctament.  Les comprovacions de compàs
 també fan que el codi d'entrada sigui més fàcil de llegir, perquè
 ajuden a organitzar el material.
 
-@lilypond[verbatim,quote,relative=2]
-g1 | e1 | c2. c'4 | g4 c g e | c4 r r2 |
+@c This example deliberately produces a warning
+@lilypond[verbatim,quote]
+\relative {
+  g'1 | e1 | c2. c' | g4 c g e | c4 r r2 |
+}
 @end lilypond
+
+Si compileu el codi anterior, veureu un advertiment a la sortida
+de la consola:
+
+@example
+advertiment: la comprovació de compàs ha fallat a: 1/2
+ g'1 | e1 | c2. c'
+                   | g4 c g e | c4 r r2 |
+@end example
+
+Tot i que la duració que falta està clara a la sortida musical
+d'aquest exemple senzill, l'advertiment de la sortida de consola
+es molt més efectiva en atraure l'atenció concretament al @code{4}
+que falta al compàs 3.
 
 @seealso
 Referència de la notació:
@@ -108,7 +125,7 @@ Referència de la notació:
 
 @node Alteracions accidentals i armadures
 @subsection Alteracions accidentals i armadures
-@translationof Accidentals and key signatures
+@translationof Pitches and key signatures
 
 @menu
 * Alteracions accidentals::
@@ -146,6 +163,10 @@ Glossari musical:
 @rglos{double sharp},
 @rglos{double flat},
 @rglos{accidental}.
+
+Al LilyPond, els noms de les notes identifiquen altures.  Per
+exemple, @code{c} sempre significa Do natural, qualsevol que sigui
+l'armadura.
 
 Una nota amb @notation{sostingut} es fa afegint @code{is} al nom,
 i una nota @notation{bemoll} afegint @code{es}.  Como heu pogut
@@ -210,24 +231,18 @@ Glossari musical:
 @rglos{transposition},
 @rglos{Pitch names}.
 
-Per determinar si s'ha d'imprimir una notació @notation{alteració
-accidental}, el LilyPond examina les notes i la @notation{armadura
-de la tonalitat}.  L'armadura solament afecta a les alteracions
-@emph{impreses}, no a les pròpies notes!  Aquesta funcionalitat
-sol confondre als que estan començant amb el programa, per això
-deixeu-nos explicar-la en detall.
+El LilyPond distingeix entre el contingut musical i la seva
+representació impresa.  Una entrada com @code{d4 e fis2} defineix
+les altures i les duracions de les notes, el que és el contingut
+musical.  La @notation{armadura} forma part de la representació
+impresa.  L'armadura també estableix regles per a les
+representacions impreses de les notes.  El LilyPond compara
+l'altura de cada nota de l'entrada amb l'armadura per determinar
+si imprimir, o no, una alteració @notation{accidental}.
 
-El LilyPond fa una clara distinció entre el contingut musical i la
-presentació.  L'alteració (@notation{bemol}, @notation{becaire} o
-@notation{sostingut}) d'una nota és part de l'altura, i per tant
-és contingut musical.  Si una alteració (un signe @emph{imprès} de
-bemoll, becaire o sostingut) s'imprimeix o no davant de la nota
-corresponent, és una qüestió de presentació.  La presentació és
-quelcom que segueix unes regles, de manera que les alteracions
-accidentals s'imprimeixen automàticament segons aquestes regles.
-Les altures de les notes de la seva música són obres d'art, per
-tant no s'afegiran automàticament, i haureu d'introduir allò que
-vulgueu escoltar.
+L'ordre @code{\key} fixa la @notation{armadura}, que afecta a la
+representació impresa, però @emph{no} modifica l'altura assignada
+a una nota qualsevol com @code{c} a partir de l'entrada.
 
 Al següent exemple:
 
@@ -255,18 +270,16 @@ major, @emph{porta} una alteració accidental:
 }
 @end lilypond
 
-Si l'anterior us causa confusió, penseu sobre el següent: si
-estiguéssiu tocant el piano, quina tecla polsaríeu?  Si es tractés
-d'una tecla negra, aleshores @emph{heu} d'afegir @w{@code{-is}} o
-@w{@code{-es}} al nom de la nota!
+Cada cop que escriviu una nota corresponent a una tecla negra del
+piano, @emph{heu} d'afegir @w{@code{-is}} o @w{@code{-es}} al nom
+de la nota.
 
-Posar totes les alteracions de forma explícita pot requerir una
-mica més de treball d'escriure, però l'avantatge és que la
+Posar totes les alteracions de forma explícita pot requerir
+quelcom més de feina en teclejar, però l'avantatge és que la
 @notation{transposició} és més fàcil, i les alteracions es poden
 imprimir seguint diverses convencions diferents.  Consulteu
-@ruser{Alteracions accidentals automàtiques} per veure exemples de
-com es poden imprimir alteracions d'acord amb regles diferents.
-
+@ruser{Alteracions accidentals automàtiques} per veure exemple de
+com es poden imprimir les alteracions d'acord amb regles diferents.
 
 @seealso
 Referència de la notació:
@@ -479,9 +492,9 @@ la instrucció @code{\!}:
 
 @seealso
 Referència de la notació:
-@rusernamed{Articulations and ornamentations,Articulacions i ornamentacions},
-@rusernamed{Fingering instructions,Instruccions de digitació},
-@rusernamed{Dynamics,Matisos dinàmics}.
+@ruser{Articulacions i ornaments},
+@ruser{Indicacions de digitació},
+@ruser{Matisos dinàmics}.
 
 @node Addició de text
 @subsection Addició de  text
@@ -512,7 +525,7 @@ a'2_\markup {
 
 @seealso
 Referència de la notació:
-@rusernamed{Writing text,Escriptura de text}.
+@ruser{Escriptura del text}.
 
 
 @node Barres automàtiques i manuals
@@ -949,7 +962,7 @@ també controla l'abast de les línies divisòries.
 
 @seealso
 Referència de la notació:
-@rusernamed{Keyboard and other multi-staff instruments,Teclat i altres instruments de pentagrama múltiple},
+@ruser{Teclats i altres instruments de pentagrames múltiples},
 @ruser{Visualització dels pentagrames}.
 
 @node Combinar notes per formar acords
@@ -995,7 +1008,7 @@ per fora dels angles.
 
 @seealso
 Referència de la notació:
-@rusernamed{Chorded notes,Notes en acord}.
+@ruser{Notes a un acord}.
 
 
 @node Polifonia a un sol pentagrama
@@ -1025,7 +1038,7 @@ Manual d'aprenentatge:
 @ref{Les veus contenen música}.
 
 Referència de la notació:
-@rusernamed{Simultaneous notes,Notes simultànies}.
+@ruser{Notes simultànies}.
 
 
 @node Cançons
@@ -1277,7 +1290,7 @@ del @notation{Barber de Sevilla} de Rossini, on la síl·laba
 
 @seealso
 Referència de la notació:
-@rusernamed{Vocal music,Música vocal}.
+@ruser{Música vocal}.
 
 
 @node Lletra en diversos pentagrames
@@ -1322,7 +1335,7 @@ variables}.
 
 @seealso
 Referència de la notació:
-@rusernamed{Vocal music,Música vocal}.
+@ruser{Música vocal}.
 
 
 @node Retocs finals
@@ -1471,7 +1484,8 @@ es troba fora de l'expressió musical principal: el bloc
 
 Quan es processa el fitxer, el títol i l'autor s'imprimeixen a
 sobre de la música.  Podeu obtenir més informació sobre els títols
-a @rusernamed{Creating titles headers and footers,Creació de capçaleres de títol i peus de pàgina}.
+a @ruser{Creació de títols encapçalaments i peus de pàgina}.
+
 
 @node Noms de nota absoluts
 @subsection Noms de nota absoluts

@@ -1,0 +1,2120 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
+@ignore
+    Translation of GIT committish: 6ca1d8c80817f9baaa7b66b2fde9a7b98b0ffc0a
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.21.0"
+
+@c Translators: Federico Bruni
+@c Translation checkers:
+
+@node Strumenti a corde con tasti
+@section Strumenti a corde con tasti
+@translationof Fretted string instruments
+
+@lilypondfile[quote]{fretted-headword.ly}
+
+Questa sezione tratta vari aspetti della notazione musicale che riguardano
+esclusivamente gli strumenti a corde con tasti.
+
+@cindex tablatura
+@cindex intavolatura
+@cindex tablatura per chitarra
+@cindex intavolatura per chitarra
+@cindex tablatura per banjo
+@cindex intavolatura per banjo
+@cindex chitarra, tablatura
+@cindex chitarra, intavolatura
+@cindex banjo, tablatura
+@cindex banjo, intavolatura
+
+@menu
+* Notazione comune per strumenti a corde con tasti::
+* Chitarra::
+* Banjo::
+* Liuto::
+@end menu
+
+@node Notazione comune per strumenti a corde con tasti
+@subsection Notazione comune per strumenti a corde con tasti
+@translationof Common notation for fretted strings
+
+Questa sezione presenta la notazione comune che riguarda esclusivamente gli
+strumenti a corde con tasti.
+
+@menu
+* Riferimenti per strumenti a corde con tasti::
+* Indicazioni di numero di corda::
+* Intavolature predefinite::
+* Intavolature personalizzate::
+* Diagrammi dei tasti::
+* Diagrammi dei tasti predefiniti::
+* Diagrammi dei tasti automatici::
+* Diteggiature della mano destra::
+@end menu
+
+@node Riferimenti per strumenti a corde con tasti
+@unnumberedsubsubsec Riferimenti per strumenti a corde con tasti
+@translationof References for fretted strings
+
+La musica per strumenti a corde con tasti viene normalmente scritta
+su un rigo singolo, o nella notazione musicale tradizionale o in
+intavolatura.  Talvolta i due tipi sono combinati; nella musica
+popolare è molto comune usare i diagrammi degli accordi sopra un
+rigo di notazione tradizionale.
+La chitarra e il banjo sono strumenti traspositori, che suonano
+un'ottava più bassa di quella in cui vengono scritti.  Le partiture
+per questi strumenti devono usare la chiave @code{"treble_8"}
+(per ottenere l'output MIDI corretto usare @code{\transposition c}).
+Altri elementi relativi agli strumenti a corde con tasti sono
+trattati altrove:
+
+@itemize
+@item Le diteggiature vengono indicate come spiegato in
+@ref{Indicazioni di diteggiatura}.
+
+@item Istruzioni per le legature di valore @notation{Laissez vibrer}
+così come per le legature di valore su arpeggi e tremoli si trovano
+in @ref{Legature di valore}.
+
+@item Istruzioni su come gestire voci multiple si trovano
+in @ref{Risoluzione delle collisioni}.
+
+@item Istruzioni per indicare gli armonici si trovano in
+@ref{Armonici}.
+
+@end itemize
+
+@seealso
+Guida alla notazione:
+@ref{Indicazioni di diteggiatura},
+@ref{Legature di valore},
+@ref{Risoluzione delle collisioni},
+@ref{Nomi degli strumenti},
+@ref{Scrivere la musica in parallelo},
+@ref{Arpeggio},
+@ref{Elenco delle articolazioni},
+@ref{Chiave},
+@ref{Trasporto strumentale}.
+
+
+@node Indicazioni di numero di corda
+@unnumberedsubsubsec Indicazioni di numero di corda
+@translationof String number indications
+
+@cindex numero di corda
+@cindex corda, numero di
+@cindex numero di corda vs. numero di diteggiatura
+
+La corda sulla quale suonare una nota può essere indicata aggiungendo
+@code{\@var{numero}} a una nota.
+
+@lilypond[verbatim,quote,fragment]
+\clef "treble_8"
+c4\5 e\4 g2\3
+<c\5 e\4 g\3>1
+@end lilypond
+
+Se si usano insieme diteggiature e indicazioni di corda, il loro
+posizionamento è regolato dall'ordine in cui i due elementi
+appaiono nel codice @emph{solo} se si trovano all'interno di un
+accordo esplicito: se applicate a un intero accordo o a singole
+note @emph{fuori} da un accordo, le diteggiature vengono
+posizionate con un meccanismo diverso.
+
+@lilypond[verbatim,quote,fragment]
+\clef "treble_8"
+g4\3-0
+g-0\3
+<g\3-0>
+<g-0\3>
+@end lilypond
+
+@funindex \arabicStringNumbers
+@funindex \romanStringNumbers
+
+I numeri di corda possono anche essere rappresentati da numeri
+romani, come è abituale con gli strumenti a corde senza tasti,
+e posizionati sotto il rigo invece che sopra.
+
+@lilypond[verbatim,quote,fragment]
+\clef "treble_8"
+c'2\2
+a\3
+\romanStringNumbers
+c'\2
+\set stringNumberOrientations = #'(down)
+a\3
+\arabicStringNumbers
+g1\4
+@end lilypond
+
+@snippets
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{controlling-the-placement-of-chord-fingerings.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{allowing-fingerings-to-be-printed-inside-the-staff.ly}
+
+@predefined
+@code{\arabicStringNumbers},
+@code{\romanStringNumbers}.
+@endpredefined
+
+@seealso
+Guida alla notazione:
+@ref{Indicazioni di diteggiatura}.
+
+Frammenti:
+@rlsr{Fretted strings}.
+
+Guida al funzionamento interno:
+@rinternals{StringNumber},
+@rinternals{Fingering}.
+
+
+@node Intavolature predefinite
+@unnumberedsubsubsec Intavolature predefinite
+@translationof Default tablatures
+
+@cindex tablatura, base
+@cindex tablatura, predefinita
+@cindex intavolatura, base
+@cindex intavolatura, predefinita
+
+@funindex TabStaff
+@funindex TabVoice
+
+La musica per gli strumenti a corde pizzicate si scrive con un
+sistema di notazione basato sulle dita/tocco ovvero l'intavolatura
+(o tablatura).  Diversamente dalla notazione tradizionale, le
+altezze non sono rappresentate da teste di nota, ma da numeri
+(o da simboli simili a lettere nell'intavolatura antica).
+Le linee del rigo nell'intavolatura indicano la corda su cui
+suonare la nota, mentre un numero posto su una linea del rigo
+indica il tasto su cui premere la corda corrispondente.
+Le note da suonare simultaneamente sono allineate verticalmente.
+Per impostazione predefinita, la corda 1 è la corda più alta e
+corrisponde alla linea più alta del rigo dell'intavolatura
+(@code{TabStaff}).  L'accordatura predefinita delle corde di
+@code{TabStaff} è l'accordatura standard per chitarra (a sei corde).
+Le note appaiono in intavolatura, usando i contesti @code{TabStaff}
+e @code{TabVoice}.  Viene aggiunta automaticamente una chiave
+calligrafica per l'intavolatura.
+
+@lilypond[quote,ragged-right,verbatim]
+\new TabStaff \relative {
+  a,8 a' <c e> a
+  d,8 a' <d f> a
+}
+@end lilypond
+
+L'aspetto predefinito per le intavolature non prevede alcun simbolo di
+durata né altri simboli musicali, come per esempio i segni di espressione.
+
+@lilypond[quote,ragged-right,verbatim]
+symbols = {
+  \time 3/4
+  c4-.^"Allegro" d( e)
+  f4-.\f g a^\fermata
+  \mark \default
+  c8_.\<\( c16 c~ 2\!
+  c'2.\prall\)
+}
+
+\score {
+  <<
+    \new Staff { \clef "G_8" \symbols }
+    \new TabStaff { \symbols }
+  >>
+}
+@end lilypond
+
+@funindex \tabFullNotation
+
+Se si desidera che tutti i simboli usati nella notazione tradizionale
+appaiano anche nell'intavolatura, occorre applicare il comando
+@code{\tabFullNotation} in un contesto @code{TabStaff}.
+Tenere presente che nell'intavolatura le note da due quarti hanno
+un doppio gambo per distinguerle dalle note di un quarto.
+
+@lilypond[quote,ragged-right,verbatim]
+symbols = {
+  \time 3/4
+  c4-.^"Allegro" d( e)
+  f4-.\f g a^\fermata
+  \mark \default
+  c8_.\<\( c16 c~ 2\!
+  c'2.\prall\)
+}
+
+\score {
+  \new TabStaff {
+    \tabFullNotation
+    \symbols
+  }
+}
+@end lilypond
+
+@cindex tasto
+
+@funindex minimumFret
+@funindex restrainOpenStrings
+
+Di norma le altezze vengono assegnate alla posizione più bassa della
+tastiera (prima posizione).  Viene data priorità alle corde a vuoto.
+Per far sì che una certa altezza venga suonata su una corda specifica,
+aggiungere un'indicazione di numero di corda al nome dell'altezza.
+Per nascondere le indicazioni di numero di corda nella notazione
+tradizionale, sovrascrivere lo stampo (stencil) corrispondente.
+
+Spesso è più comodo definire la posizione sulla tastiera modificando
+la proprietà @code{minimumFret}, il cui valore predefinito è 0.
+
+Anche quando @code{minimumFret} è impostato esplicitamente, vengono
+usate le corde a vuoto ogni volta che è possibile.  È possibile
+modificare questo comportamento impostando @code{restrainOpenStrings}
+su @code{#t}.
+
+@lilypond[quote,ragged-right,verbatim]
+\layout { \omit Voice.StringNumber }
+\new StaffGroup <<
+   \new Staff \relative {
+     \clef "treble_8"
+     \time 2/4
+     c16 d e f g4
+     c,16\5 d\5 e\4 f\4 g4\4
+     c,16 d e f g4
+   }
+   \new TabStaff \relative {
+     c16 d e f g4
+     c,16\5 d\5 e\4 f\4 g4\4
+     \set TabStaff.minimumFret = #5
+     \set TabStaff.restrainOpenStrings = ##t
+     c,16 d e f g4
+   }
+>>
+@end lilypond
+
+@funindex \tabChordRepeats
+@funindex \chordRepeats
+@cindex accordi, ripetizione
+@cindex ripetizione, usando @code{q}
+@cindex @code{q}, ripetizione accordo
+
+Gli accordi possono essere ripetuti col simbolo di ripetizione
+accordo @code{q}, che però rimuove i numeri di corda e le
+diteggiature.  Se usato nelle intavolature, può quindi creare
+problemi.  Converrà quindi eseguire il comando
+@example
+\chordRepeats #'(string-number-event fingering-event)
+@end example
+esplicitamente sulle espressioni musicali dell'intavolatura che usano
+la @ref{Ripetizione di un accordo}.  Questo comando è così comune che è
+disponibile come @code{\tabChordRepeats}.
+
+@lilypond[quote,verbatim]
+guitar = \relative {
+  r8 <gis-2 cis-3 b-0>~ q4 q8~ 8 q4
+}
+
+\new StaffGroup <<
+  \new Staff {
+    \clef "treble_8"
+    \guitar
+  }
+  \new TabStaff {
+    \tabChordRepeats \guitar
+  }
+>>
+@end lilypond
+
+Le legature di valore spezzate da un a capo appaiono tra parentesi.
+Lo stesso vale per la seconda alternativa di una ripetizione.
+
+@lilypond[quote,ragged-right,verbatim]
+ties = \relative {
+  \repeat volta 2 {
+    e'2. f4~
+    2 g2~
+  }
+  \alternative {
+     { g4 f2. }
+     { g4\repeatTie c,2. }
+  }
+  b1~
+  \break
+  b1
+  \bar "|."
+}
+
+\score {
+  <<
+    \new StaffGroup  <<
+      \new Staff {
+        \clef "treble_8"
+        \ties
+      }
+      \new TabStaff {
+        \ties
+      }
+    >>
+  >>
+  \layout {
+  indent = #0
+  ragged-right = ##t
+  }
+}
+@end lilypond
+
+@funindex \hideSplitTiedTabNotes
+
+Il comando @code{\hideSplitTiedTabNotes} annulla il comportamento di
+racchiudere i numeri di tasto tra parentesi:
+
+@lilypond[quote,ragged-right,verbatim]
+ties = \relative {
+  \repeat volta 2 {
+    e'2. f4~
+    2 g2~ }
+  \alternative {
+    { g4 f2. }
+    { g4\repeatTie c,2. }
+  }
+  b1~
+  \break
+  b1
+  \bar "|."
+}
+
+\score {
+  <<
+    \new StaffGroup  <<
+      \new Staff {
+        \clef "treble_8"
+        \ties
+      }
+      \new TabStaff {
+      \hideSplitTiedTabNotes
+        \ties
+      }
+    >>
+  >>
+  \layout {
+  indent = #0
+  ragged-right = ##t
+  }
+}
+@end lilypond
+
+@cindex indicazione di armonici, nell'intavolatura
+@cindex armonici, intavolatura
+@cindex intavolatura e armonici
+@cindex tablatura e armonici
+@funindex \harmonic
+@funindex \harmonicByFret
+@funindex \harmonicByRatio
+
+Gli armonici possono essere inseriti in un'intavolatura nelle altezze
+in cui suonano:
+
+@lilypond[verbatim,quote]
+\layout { \omit Voice.StringNumber }
+firstHarmonic = {
+  d'4\4\harmonic
+  g'4\3\harmonic
+  b'2\2\harmonic
+}
+\score {
+  <<
+    \new Staff {
+      \clef "treble_8"
+      \firstHarmonic
+    }
+    \new TabStaff { \firstHarmonic }
+  >>
+}
+@end lilypond
+
+Il comando @code{\harmonic} deve essere sempre attaccato a note singole
+(possibilmente dentro a un costrutto per accordo) invece che ad accordi
+interi.  Ha senso usarlo solo per gli armonici sul dodicesimo tasto.
+Tutti gli altri armonici devono essere calcolati da LilyPond.
+Ciò si ottiene indicando il tasto in cui il dito della mano che preme
+i tasti debba toccare una corda.
+
+@lilypond[verbatim,quote]
+fretHarmonics = {
+  \harmonicByFret #5 d16\4
+  \harmonicByFret #4 d16\4
+  \harmonicByFret #3 d8\4
+  \harmonicByFret #5 <g\3 b\2>2.
+}
+\score {
+  <<
+    \new Staff {
+      \clef "treble_8"
+      \fretHarmonics
+    }
+    \new TabStaff { \fretHarmonics }
+  >>
+}
+@end lilypond
+
+Gli armonici possono essere calcolati anche definendo il rapporto
+delle lunghezze della corda sopra e sotto la diteggiatura
+dell'armonico.
+
+@lilypond[verbatim,quote]
+ratioHarmonics = {
+  \harmonicByRatio #1/2 <g\3 b\2 e'\1>4
+  \harmonicByRatio #1/3 <g\3 b\2 e'\1>4
+  \harmonicByRatio #1/4 { g8\3 b8\2 e'4\1 }
+}
+\score {
+  <<
+    \new Staff {
+      \clef "treble_8"
+      \ratioHarmonics
+    }
+    \new TabStaff { \ratioHarmonics }
+  >>
+}
+@end lilypond
+
+@snippets
+
+@cindex gambo, in intavolatura
+@cindex intavolatura, e gambi
+@cindex tablatura, e gambi
+@cindex travatura, in intavolatura
+@cindex intavolatura, e travature
+@cindex tablatura, e travature
+@cindex gambo orizzontale
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{stem-and-beam-behavior-in-tablature.ly}
+
+@cindex polifonia, in intavolatura
+@cindex intavolatura, e polifonia
+@cindex tablatura, e polifonia
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{polyphony-in-tablature.ly}
+
+@cindex intavolatura, e armonici
+@cindex tablatura, e armonici
+@cindex armonici, in intavolatura
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{open-string-harmonics-in-tablature.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{fretted-string-harmonics-in-tablature.ly}
+
+@cindex slide, in intavolatura
+@cindex glissato, in intavolatura
+@cindex intavolatura, e slide
+@cindex tablatura, e slide
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{slides-in-tablature.ly}
+
+@cindex accordo, glissando, in intavolatura
+@cindex glissando, accordi in intavolatura
+@cindex intavolatura, glissando di accordi
+@cindex tablatura, glissando di accordi
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{chord-glissando-in-tablature.ly}
+
+@cindex hammer on
+@cindex martellato
+@cindex pull off
+@cindex legato discendente
+@cindex strappato
+@cindex intavolatura, martellato
+@cindex tablatura, martellato
+@cindex intavolatura, strappato
+@cindex tablatura, strappato
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{hammer-on-and-pull-off.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{hammer-on-and-pull-off-using-voices.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{hammer-on-and-pull-off-using-chords.ly}
+
+@seealso
+Guida alla notazione:
+@ref{Ripetizione di un accordo},
+@ref{Glissando},
+@ref{Armonici},
+@ref{Gambi},
+@ref{Ripetizioni ricopiate}.
+
+Frammenti:
+@rlsr{Fretted strings}.
+
+Guida al funzionamento interno:
+@rinternals{TabNoteHead},
+@rinternals{TabStaff},
+@rinternals{TabVoice},
+@rinternals{Beam}.
+
+@knownissues
+Gli accordi non sono gestiti in un modo specifico, dunque il selettore
+automatico delle corde potrebbe selezionare la stessa corda per due
+note di un accordo.
+
+Per poter gestire @code{\partCombine}, un rigo @code{TabStaff} deve usare
+voci create appositamente:
+
+@lilypond[quote,ragged-right,verbatim]
+melodia = \partCombine { e4 g g g } { e4 e e e }
+<<
+  \new TabStaff <<
+    \new TabVoice = "one" s1
+    \new TabVoice = "two" s1
+    \new TabVoice = "shared" s1
+    \new TabVoice = "solo" s1
+    { \melodia }
+  >>
+>>
+@end lilypond
+
+Gli effetti speciali per chitarra sono limitati ad armonici e
+slide (glissati).
+
+
+@node Intavolature personalizzate
+@unnumberedsubsubsec Intavolature personalizzate
+@translationof Custom tablatures
+
+@cindex intavolatura personalizzata
+@cindex tablatura personalizzata
+@cindex tablatura, banjo
+@cindex intavolatura, banjo
+@cindex tablatura, mandolino
+@cindex intavolatura, mandolino
+@cindex tablatura, chitarra
+@cindex intavolatura, chitarra
+@cindex tablatura, basso elettrico
+@cindex intavolatura, basso elettrico
+@cindex tablatura, ukulele
+@cindex intavolatura, ukulele
+@cindex tablatura, accordature predefinite
+@cindex intavolatura, accordature predefinite
+@cindex strumento con tasti, accordature predefinite
+@cindex accordatura predefinita, per strumenti con tasti
+@cindex tablatura, violino
+@cindex intavolatura, violino
+@cindex tablatura, viola
+@cindex intavolatura, viola
+@cindex tablatura, violoncello
+@cindex intavolatura, violoncello
+@cindex tablatura, basso
+@cindex intavolatura, basso
+@cindex tablatura, contrabbasso
+@cindex intavolatura, contrabbasso
+
+@funindex stringTunings
+
+L'intavolatura di LilyPond calcola automaticamente il tasto per
+una nota in base alla corda a cui è assegnata. Per far ciò, deve
+essere specificata l'accordatura usando la proprietà
+@code{stringTunings}.
+
+LilyPond ha accordature predefinite per banjo, mandolino, chitarra,
+basso, ukulele, violino, viola, violoncello e contrabbasso.
+LilyPond imposta automaticamente la corretta trasposizione per
+le accordature predefinite.  L'esempio seguente è per basso, che
+suona un'ottava più bassa di come è scritto.
+
+@lilypond[quote,ragged-right,verbatim]
+<<
+  \new Voice \with {
+    \omit StringNumber
+  } {
+    \clef "bass_8"
+    \relative {
+      c,4 d e f
+    }
+  }
+  \new TabStaff \with {
+    stringTunings = #bass-tuning
+  } {
+    \relative {
+      c,4 d e f
+    }
+  }
+>>
+@end lilypond
+
+L'accordatura predefinita è @code{guitar-tuning}, ovvero
+l'accordatura standard EADGBE.  Altre accordature predefinite
+sono @code{guitar-open-g-tuning}, @code{mandolin-tuning} e
+@code{banjo-open-g-tuning}.  Tutte le accordature predefinite
+si trovano in @file{ly/string-tunings-init.ly}.
+
+@funindex \stringTuning
+@cindex tablatura, accordature personalizzate
+@cindex intavolatura, accordature personalizzate
+@cindex accordatura personalizzata
+
+Si può definire qualsiasi accordatura tramite la funzione
+@code{\stringTuning}, che imposta la proprietà
+@code{stringTunings} per il contesto corrente.
+
+Prende come argomento un accordo che definisce le altezze
+di ciascuna corda dell'accordatura.  Le note dell'accordo
+sono in modalità di ottava assoluta, vedi
+@ref{Ottava assoluta}.  La corda col numero più
+alto (generalmente la corda più grave) deve apparire
+per prima nell'accordo.  Per esempio, possiamo definire
+un'accordatura per uno strumento a quattro corde con
+le altezze @code{a''},  @code{d''},  @code{g'} e @code{c'}:
+
+@lilypond[quote,verbatim]
+
+mynotes = {
+  c'4 e' g' c'' |
+  e''4 g'' b'' c'''
+}
+
+<<
+  \new Staff {
+    \clef treble
+    \mynotes
+  }
+  \new TabStaff {
+    \set Staff.stringTunings = \stringTuning <c' g' d'' a''>
+    \mynotes
+  }
+>>
+@end lilypond
+
+La proprietà @code{stringTunings} viene utilizzata anche da
+@code{FretBoards} per calcolare i diagrammi automatici dei tasti.
+
+Le accordature vengono usate per calcolare i diagrammi dei tasti
+predefiniti (vedi @ref{Diagrammi dei tasti predefiniti}).
+
+L'esempio precedente può essere scritto anche così:
+
+@lilypond[quote,verbatim]
+custom-tuning = \stringTuning <c' g' d'' a''>
+
+mynotes = {
+  c'4 e' g' c'' |
+  e''4 g'' b'' c'''
+}
+
+<<
+  \new Staff {
+    \clef treble
+    \mynotes
+  }
+  \new TabStaff {
+    \set TabStaff.stringTunings = #custom-tuning
+    \mynotes
+  }
+>>
+@end lilypond
+
+Internamente un'accordatura è una lista Scheme di altezze, una per
+ciascuna corda, ordinata da un numero di corda che va da 1 a N,
+dove la corda 1 è in cima al rigo dell'intavolatura e la corda N
+è in fondo.  Normalmente ciò significa che l'ordine va dall'altezza
+più alta a quella più bassa, con l'eccezione di alcuni strumenti
+(come l'ukulele) che non hanno corde ordinate per altezza.
+
+Un'altezza in una lista per accordatura, nella terminologia di
+LilyPond, è un oggetto altezza, creato dalla funzione Scheme
+@code{ly:make-pitch} (vedi @ref{Funzioni Scheme}).
+
+@code{\stringTuning} crea tale oggetto a partire da un accordo.
+
+LilyPond calcola automaticamente il numero di linee del rigo
+dell'intavolatura (@code{TabStaff}) e il numero di corde in una
+tastiera (@code{FretBoard}) calcolata automaticamente in base
+al numero di elementi in @code{stringTunings}.
+
+Per far sì che tutti i contesti TabStaff usino la stessa accordatura
+personalizzata, si può usare
+
+@example
+\layout @{
+  \context @{
+    \TabStaff
+    stringTunings = \stringTuning <c' g' d'' a''>
+  @}
+@}
+@end example
+
+
+@cindex moderntab, chiave
+@cindex chiave, moderntab
+@cindex chiave, tablatura
+@cindex chiave, intavolatura
+@cindex intavolatura, chiave
+@cindex tablatura, chiave
+
+Si può usare anche una chiave moderna per l'intavolatura.
+
+@lilypond[quote,ragged-right,verbatim]
+\new TabStaff {
+  \clef moderntab
+  <a, e a>1
+  \break
+  \clef tab
+  <a, e a>1
+}
+@end lilypond
+
+La chiave moderna per l'intavolatura supporta tablature da 4 a
+7 corde.
+
+@cindex microtono, intavolatura
+@cindex tablatura, microtono
+@cindex intavolatura, microtono
+@cindex quarto di tono, intavolatura
+@cindex intavolatura, quarto di tono
+@cindex tablatura, quarto di tono
+
+@code{TabStaff} supporta i microtoni come i quarti di tono, che possono
+essere suonati piegando le corde (bending).  Occorre impostare
+@code{supportNonIntegerFret = ##t} nel contesto @code{Score}.  I microtoni
+tuttavia non sono supportati nel contesto @code{FretBoards}.
+
+@lilypond[quote,ragged-right,verbatim]
+\layout {
+  \context {
+    \Score
+    supportNonIntegerFret = ##t
+  }
+}
+
+custom-tuning = \stringTuning <e, a, d ges beh eeh'>
+
+mus = \relative {
+  eeses'4
+  eeseh
+  ees
+  eeh
+  e
+  eih
+  eis
+  eisih
+  eisis
+}
+
+<<
+  \new Staff << \clef "G_8" \mus >>
+  \new TabStaff \with { stringTunings = \custom-tuning } \mus
+>>
+@end lilypond
+
+@seealso
+Guida alla notazione:
+@ref{Ottava assoluta},
+@ref{Diagrammi dei tasti predefiniti},
+@ref{Funzioni Scheme}.
+
+File installati:
+@file{ly/string-tunings-init.ly},
+@file{scm/tablature.scm}.
+
+Frammenti:
+@rlsr{Fretted strings}.
+
+Guida al funzionamento interno:
+@rinternals{Tab_note_heads_engraver}.
+
+@knownissues
+I calcoli automatici dell'intavolatura non funzionano correttamente
+nella maggior parte dei casi per strumenti (come l'ukulele) in cui
+le altezze delle corde non variano in modo uniforme col numero di corda.
+
+
+@node Diagrammi dei tasti
+@unnumberedsubsubsec Diagrammi dei tasti
+@translationof Fret diagram markups
+
+@cindex diagramma dei tasti
+@cindex diagramma degli accordi
+@cindex tastiera, diagramma
+@cindex accordo, diagramma per strumenti a tasto
+@cindex diagrammi dei tasti personalizzati
+@cindex tastiera, diagramma personalizzato
+
+I diagrammi dei tasti possono essere collegati alla musica come testo
+(markup) attaccato alla nota desiderata.  Il testo contiene l'informazione
+sul diagramma dei tasti desiderato.  Esistono tre diverse interfacce per
+inserire un diagramma dei tasti (fret-diagram): standard, conciso (terse) e
+ridondante (verbose).  Le tre interfacce producono testi graficamente
+equivalenti, ma hanno diverse quantità di informazioni nella stringa
+di testo.  I dettagli sulla sintassi delle diverse stringhe di markup
+usate per definire i diagrammi dei tasti si trovano in
+@ref{Instrument Specific Markup}.
+
+@cindex fret-diagram, diagramma dei tasti
+@funindex \fret-diagram
+
+@c Traduzione libera per spiegare meglio la sintassi.
+Il comando per il diagramma dei tasti standard, @code{\fret-diagram}, richiede
+il numero di corda e il numero di tasto per ogni punto da posizionare sulla
+corda.  Per esempio @code{5-3} indica che la quinta corda è premuta sul terzo
+tasto.  Si possono indicare anche corde a vuoto o non suonate (mute) attaccando
+rispettivamente @code{-o} e @code{-x} al numero di corda.
+
+@lilypond[quote, verbatim]
+<<
+  \new ChordNames {
+    \chordmode {
+      c1 d:m
+    }
+  }
+  \new Staff {
+    \clef "treble_8"
+    <c e g c' e'>1^\markup {
+      \fret-diagram "6-x;5-3;4-2;3-o;2-1;1-o;"
+    }
+    <d a d' f'>1^\markup {
+      \fret-diagram "6-x;5-x;4-o;3-2;2-3;1-1;"
+    }
+  }
+>>
+@end lilypond
+
+@cindex indicazione di barré
+@cindex barré, indicazione
+
+Con fret-diagram si possono aggiungere indicazioni di barré al diagramma
+inserendo all'inizio della stringa, per esempio, @code{c:4-1-3}, che
+indica che il barré va dalla quarta alla prima corda e si trova sul
+terzo tasto.
+
+@lilypond[quote, verbatim]
+<<
+  \new ChordNames {
+     \chordmode {
+       f1 g
+     }
+  }
+  \new Staff {
+    \clef "treble_8"
+    <f, c f a c' f'>1^\markup {
+      \fret-diagram "c:6-1-1;6-1;5-3;4-3;3-2;2-1;1-1;"
+    }
+    <g, d g b d' g'>1^\markup {
+      \fret-diagram "c:6-1-3;6-3;5-5;4-5;3-4;2-3;1-3;"
+    }
+  }
+>>
+@end lilypond
+
+La dimensione del diagramma dei tasti si può variare col
+modificatore @code{s:}. Un numero superiore a 1 aumenterà la
+dimensione predefinita, mentre uno inferiore a 1 la ridurrà.
+Il numero dei tasti del diagramma può essere cambiato col
+modificatore @code{h:} seguito dal numero di tasti desiderato.
+
+@lilypond[quote, verbatim]
+<<
+  \new ChordNames {
+     \chordmode {
+       f1 g
+     }
+  }
+  \new Staff {
+    \clef "treble_8"
+    <f, c f a c' f'>1^\markup {
+      \fret-diagram "s:1.5;c:6-1-1;6-1;5-3;4-3;3-2;2-1;1-1;"
+    }
+    <g, b, d g b g'>1^\markup {
+      \fret-diagram "h:6;6-3;5-2;4-o;3-o;2-o;1-3;"
+    }
+  }
+>>
+@end lilypond
+
+@cindex ukulele, diagramma dei tasti
+@cindex banjo, diagramma dei tasti
+
+Il numero di corde in un diagramma creato con @code{\fret-diagram} può
+essere cambiato per adattarsi a diversi strumenti come banjo e ukulele.
+Il modificatore è @code{w:} seguito dal numero di corde desiderato.
+
+@lilypond[quote, verbatim]
+<<
+  \new ChordNames {
+    \chordmode {
+      a1
+    }
+  }
+  \new Staff {
+    % An 'A' chord for ukulele
+    a'1^\markup {
+      \fret-diagram "w:4;4-2-2;3-1-1;2-o;1-o;"
+    }
+  }
+>>
+@end lilypond
+
+Si possono aggiungere indicazioni di diteggiatura appendendo un terzo
+numero, dopo quelli della corda e del tasto.  La posizione delle diteggiature
+è controllata dal modificatore @code{f:}, che può prendere due valori: 1, per
+mostrare i numeri di diteggiatura sul tasto; 2 per mostrarli alla base della
+rispettiva corda (posizione predefinita).
+
+@lilypond[quote, verbatim]
+<<
+  \new ChordNames {
+    \chordmode {
+      c1 d:m
+    }
+  }
+  \new Staff {
+    \clef "treble_8"
+    <c e g c' e'>1^\markup {
+      \fret-diagram "f:1;6-x;5-3-3;4-2-2;3-o;2-1-1;1-o;"
+    }
+    <d a d' f'>1^\markup {
+      \fret-diagram "f:2;6-x;5-x;4-o;3-2-2;2-3-3;1-1-1;"
+    }
+  }
+>>
+@end lilypond
+
+Il comando @code{fret-diagram} consente anche di modificare il raggio
+del punto (modificatore @code{d:}) e la sua posizione rispetto al
+tasto (modificatore @code{p:}).
+
+@lilypond[quote, verbatim]
+<<
+  \new ChordNames {
+    \chordmode {
+      c1 d:m
+    }
+  }
+  \new Staff {
+    \clef "treble_8"
+    <c e g c' e'>1^\markup {
+      \fret-diagram "d:0.35;6-x;5-3;4-2;3-o;2-1;1-o;"
+    }
+    <d a d' f'>1^\markup {
+      \fret-diagram "p:0.2;6-x;5-x;4-o;3-2;2-3;1-1;"
+    }
+  }
+>>
+@end lilypond
+
+@cindex fret-diagram-terse, diagramma dei tasti conciso
+
+@funindex \fret-diagram-terse
+
+Il comando markup @code{\fret-diagram-terse} ha un formato più conciso perché
+omette i numeri di corda, che sono calcolati implicitamente in base al punto
+e virgola che separa ciascuna corda. Il primo punto e virgola corrisponde
+al numero di corda più alto e l'ultimo punto e virgola corrisponde alla
+prima corda.  Si possono indicare anche corde a vuoto, mute e con tasto
+premuto, come visto prima.
+
+@lilypond[quote, verbatim]
+<<
+  \new ChordNames {
+    \chordmode {
+      c1 d:m
+    }
+  }
+  \new Staff {
+    \clef "treble_8"
+    <c e g c' e'>1^\markup {
+      \fret-diagram-terse "x;3;2;o;1;o;"
+    }
+    <d a d' f'>1^\markup {
+      \fret-diagram-terse "x;x;o;2;3;1;"
+    }
+  }
+>>
+@end lilypond
+
+Nella stringa di @code{\fret-diagram-terse} si possono inserire indicazioni di
+barré:
+
+@lilypond[quote, verbatim]
+<<
+  \new ChordNames {
+    \chordmode {
+      f1 g
+    }
+  }
+  \new Staff {
+    \clef "treble_8"
+    <f, c f a c' f'>1^\markup {
+      \fret-diagram-terse "1-(;3;3;2;1;1-);"
+    }
+    <g, d g b d' g'>1^\markup {
+      \fret-diagram-terse "3-(;5;5;4;3;3-);"
+    }
+  }
+>>
+@end lilypond
+
+@code{\fret-diagram-terse} accetta anche indicazioni di diteggiatura, che
+si troveranno in seconda posizione, dopo il numero del tasto.
+
+@c Need to use override to enable fingerings to show this -- can we do so?
+@lilypond[quote, verbatim]
+<<
+  \new ChordNames {
+    \chordmode {
+      c1 d:m
+    }
+  }
+  \new Staff {
+    \override Voice.TextScript.fret-diagram-details.finger-code = #'below-string
+    \clef "treble_8"
+    <c e g c' e'>1^\markup {
+      \fret-diagram-terse "x;3-3;2-2;o;1-1;o;"
+    }
+    <d a d' f'>1^\markup {
+      \fret-diagram-terse "x;x;o;2-2;3-3;1-1;"
+    }
+  }
+>>
+@end lilypond
+
+Quando si usa @code{\fret-diagram-terse}, altre proprietà del diagramma dei tasti
+possono essere regolate usando @code{\override}.
+
+Solo un'indicazione per corda può essere inclusa in un markup fret-diagram-terse.
+Per avere indicazioni multiple per corda, usare una diagramma dei tasti o
+un markup fret-diagram-verbose.
+
+@cindex fret-diagram-verbose, diagramma dei tasti ridondante
+@cindex capotasto
+
+@funindex \fret-diagram-verbose
+
+Il comando @code{\fret-diagram-verbose} prende come argomento una lista Scheme.
+Ciascun elemento della lista indica un elemento da posizionare sul diagramma.
+
+@lilypond[quote, verbatim]
+<<
+    \new ChordNames {
+      \chordmode {
+        c1 d:m
+      }
+    }
+  \new Staff {
+    \clef "treble_8"
+    <c e g c' e'>1^\markup {
+      \fret-diagram-verbose #'(
+        (mute 6)
+        (place-fret 5 3)
+        (place-fret 4 2)
+        (open 3)
+        (place-fret 2 1)
+        (open 1)
+      )
+    }
+    <d a d' f'>1^\markup {
+      \fret-diagram-verbose #'(
+        (mute 6)
+        (mute 5)
+        (open 4)
+        (place-fret 3 2)
+        (place-fret 2 3)
+        (place-fret 1 1)
+      )
+    }
+  }
+>>
+@end lilypond
+
+Nella lista di fret-diagram-verbose si possono inserire indicazioni di
+diteggiatura e barré.  Solo in questa interfaccia è possibile inserire
+un'indicazione di capotasto per il diagramma.  L'indicazione di capotasto
+è una barra spessa che copre tutte le corde.  Il tasto col capotasto
+sarà il tasto più basso del diagramma.
+
+I punti con le diteggiature possono essere colorati o racchiusi da parentesi;
+il colore delle parentesi può essere modificato in modo indipendente.
+
+Si può anche inserire del testo di tipo markup dentro i punti.
+
+@c \override is necessary to make fingering visible
+@lilypond[quote, verbatim]
+<<
+    \new ChordNames {
+      \chordmode {
+        f1 g c c b
+      }
+    }
+  \new Staff {
+    \clef "treble_8"
+    \override Voice.TextScript.fret-diagram-details.finger-code = #'below-string
+    <f, c f a c' f'>1^\markup {
+      \fret-diagram-verbose #'(
+        (place-fret 6 1)
+        (place-fret 5 3)
+        (place-fret 4 3)
+        (place-fret 3 2)
+        (place-fret 2 1)
+        (place-fret 1 1)
+        (barre 6 1 1)
+      )
+    }
+    <g, b, d g b g'>1^\markup {
+      \fret-diagram-verbose #'(
+        (place-fret 6 3 2)
+        (place-fret 5 2 1)
+        (open 4)
+        (open 3)
+        (open 2)
+        (place-fret 1 3 3)
+      )
+    }
+    <c g c' e' g'>1^\markup {
+      \fret-diagram-verbose #'(
+        (capo 3)
+        (mute 6)
+        (place-fret 4 5 1)
+        (place-fret 3 5 2)
+        (place-fret 2 5 3)
+      )
+    }
+    \override Voice.TextScript.size = 1.4
+    <c g c' e' g'>1^\markup {
+      \fret-diagram-verbose #'(
+        (place-fret 6 3 1 red parenthesized default-paren-color)
+        (place-fret 5 3 1 inverted)
+        (place-fret 4 5 2 blue parenthesized)
+        (place-fret 3 5 3 blue)
+        (place-fret 2 5 4 blue)
+        (place-fret 1 3 1 inverted)
+      )
+    }
+    \override Voice.TextScript.size = 1.5
+    <b, fis b dis' fis'>1^\markup {
+      \override #'(fret-diagram-details . ((finger-code . in-dot)))
+      \fret-diagram-verbose #`(
+        (place-fret 5 2 1)
+        (place-fret 4 4 "fis" red)
+        (place-fret 3 4 "b" red)
+        (place-fret
+          2 4
+          ,#{ \markup
+                \concat {
+                  \vcenter "d"
+                  \fontsize #-5
+                  \musicglyph "accidentals.sharp"} #}
+          red)
+        (place-fret 1 2 1)
+      )
+    }
+  }
+>>
+@end lilypond
+
+Anche in questa interfaccia è possibile modificare tutte le altre proprietà
+del diagramma dei tasti tramite @code{\override}.
+
+@cindex diagramma dei tasti personalizzato
+@cindex tasti, diagramma personalizzato
+
+@funindex fret-diagram-interface
+
+L'aspetto grafico di un diagramma dei tasti può essere personalizzato
+secondo le proprie preferenze attraverso le proprietà dell'interfaccia
+@code{fret-diagram-interface}. Tutti i dettagli si trovano in
+@rinternals{fret-diagram-interface}.  Per un diagramma dei tasti di
+tipo markup, le proprietà dell'interfaccia appartengono a @code{Voice.TextScript}.
+
+@snippets
+
+@cindex diagramma dei tasti, cambiare orientamento
+@cindex orientamento dei diagrammi dei tasti, modifica
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{changing-fret-orientations.ly}
+
+@cindex diagramma dei tasti, personalizzato
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{customizing-markup-fret-diagrams.ly}
+
+@seealso
+Guida alla notazione:
+@ref{Instrument Specific Markup}.
+
+Frammenti:
+@rlsr{Fretted strings}.
+
+Guida al funzionamento interno:
+@rinternals{fret-diagram-interface}.
+
+
+@node Diagrammi dei tasti predefiniti
+@unnumberedsubsubsec Diagrammi dei tasti predefiniti
+@translationof Predefined fret diagrams
+
+@cindex diagramma dei tasti
+@cindex diagramma dei tasti, ukulele
+@cindex diagramma dei tasti, mandolino
+@cindex diagramma degli accordi
+
+@funindex FretBoards
+@funindex stringTunings
+
+I diagrammi dei tasti possono essere visualizzati attraverso il contesto
+@code{FretBoards}.  Per impostazione predefinita, il contesto @code{FretBoards}
+mostrerà i diagrammi dei tasti salvati in una tabella dati:
+
+@lilypond[verbatim, ragged-right, quote]
+\include "predefined-guitar-fretboards.ly"
+\new FretBoards {
+  \chordmode {
+    c1 d
+  }
+}
+@end lilypond
+
+I diagrammi dei tasti predefiniti sono contenuti nel file
+@file{predefined-guitar-fretboards.ly}.  Si basano sulle altezze
+di un accordo e sul valore di @code{stringTunings} in uso.
+@file{predefined-guitar-fretboards.ly} contiene i diagrammi dei tasti
+predefiniti solo per l'accordatura standard per chitarra (@code{guitar-tuning}).
+Si possono aggiungere diagrammi predefiniti per altri strumenti o accordature
+seguendo l'esempio in @file{predefined-guitar-fretboards.ly}.
+
+I diagrammi dei tasti per ukulele sono contenuti nel file @*
+@file{predefined-ukulele-fretboards.ly}.
+
+@lilypond[verbatim, ragged-right, quote]
+\include "predefined-ukulele-fretboards.ly"
+
+myChords = \chordmode { a1 a:m a:aug }
+
+\new ChordNames {
+  \myChords
+}
+
+\new FretBoards {
+  \set Staff.stringTunings = #ukulele-tuning
+  \myChords
+}
+@end lilypond
+
+I diagrammi dei tasti per mandolino sono contenuti nel file @*
+@file{predefined-mandolin-fretboards.ly}.
+
+@lilypond[verbatim, ragged-right, quote]
+\include "predefined-mandolin-fretboards.ly"
+
+myChords = \chordmode { c1 c:m7.5- c:aug }
+
+\new ChordNames {
+  \myChords
+}
+
+\new FretBoards {
+  \set Staff.stringTunings = #mandolin-tuning
+  \myChords
+}
+@end lilypond
+
+Le altezze degli accordi possono essere inserite sia come musica simultanea
+sia usando la modalità per accordi (vedi @ref{Panoramica sulla modalità accordo}).
+
+@lilypond[verbatim, ragged-right,quote]
+\include "predefined-guitar-fretboards.ly"
+\new FretBoards {
+  \chordmode { c1 }
+  <c' e' g'>1
+}
+@end lilypond
+
+@cindex nome accordo, insieme ai diagrammi dei tasti
+@cindex diagramma dei tasti, insieme ai nomi degli accordi
+
+@funindex ChordNames
+@funindex \chordmode
+
+Di solito i nomi degli accordi e i diagrammi dei tasti appaiono insieme.
+Per farlo si pone un contesto @code{ChordNames} in parallelo con un
+contesto @code{FretBoards} assegnando a entrambi la stessa musica.
+
+@lilypond[verbatim, ragged-right, quote]
+\include "predefined-guitar-fretboards.ly"
+mychords = \chordmode {
+  c1 f g
+}
+
+<<
+  \new ChordNames {
+    \mychords
+  }
+  \new FretBoards {
+    \mychords
+  }
+>>
+@end lilypond
+
+@cindex trasposizione del diagramma dei tasti
+@cindex diagramma dei tasti, trasposizione
+@cindex tasti, diagramma, trasposizione
+
+I diagrammi dei tasti predefiniti possono essere trasposti, purché un
+diagramma per l'accordo trasposto sia salvato nella tabella del diagramma.
+
+@lilypond[verbatim, ragged-right, quote]
+\include "predefined-guitar-fretboards.ly"
+mychords = \chordmode {
+  c1 f g
+}
+
+mychordlist = {
+  \mychords
+  \transpose c e { \mychords }
+}
+<<
+  \new ChordNames {
+    \mychordlist
+  }
+  \new FretBoards {
+    \mychordlist
+  }
+>>
+@end lilypond
+
+La tabella dei diagrammi dei tasti predefiniti per chitarra contiene otto
+accordi (maggiore, minore, aumentato, diminuito, settima dominante, settima
+maggiore, settima minore, nona dominante) per ognuna delle 17 tonalità.
+
+La tabella dei diagrammi dei tasti per ukulele contiene questi accordi più
+ulteriori tre accordi (sesta maggiore, seconda sospesa e quarta sospesa).
+Un elenco completo dei diagrammi dei tasti predefiniti si trova in
+@ref{Diagrammi degli accordi predefiniti}.  Se nella tabella non esiste una voce
+per un accordo, l'incisore FretBoards calcolerà un diagramma usando la
+funzionalità automatica descritta in @ref{Diagrammi dei tasti automatici}.
+
+@lilypond[verbatim, ragged-right, quote]
+\include "predefined-guitar-fretboards.ly"
+mychords = \chordmode{
+  c1 c:maj9
+}
+
+<<
+  \new ChordNames {
+    \mychords
+  }
+  \new FretBoards {
+    \mychords
+  }
+>>
+@end lilypond
+
+@cindex diagramma dei tasti, aggiungere personalizzato
+@cindex tasti, diagramma personalizzato, aggiungere
+@cindex aggiungere diagramma dei tasti personalizzato
+
+Si possono aggiungere diagrammi dei tasti alla tabella.  Basta specificare
+la tabella del diagramma, l'accordo, l'accordatura e una definizione del
+diagramma.  Di solito la tabella di riferimento sarà @var{default-fret-table}.
+La definizione di diagramma può essere una stringa di fret-diagram-terse o
+un elenco di fret-diagram-verbose.
+
+@lilypond[verbatim, ragged-right, quote]
+\include "predefined-guitar-fretboards.ly"
+
+\storePredefinedDiagram #default-fret-table
+                        \chordmode { c:maj9 }
+                        #guitar-tuning
+                        "x;3-2;o;o;o;o;"
+
+mychords = \chordmode {
+  c1 c:maj9
+}
+
+<<
+  \new ChordNames {
+    \mychords
+  }
+  \new FretBoards {
+    \mychords
+  }
+>>
+@end lilypond
+
+Diagrammi diversi per accordi con lo stesso nome possono essere salvati
+usando un'altezza con unn'ottava diversa.  L'ottava diversa deve essere
+almeno due ottave sopra o sotto l'ottava predefinita, perché le ottave
+sopra e sotto sono usate per trasporre le tastiere.
+
+@lilypond[verbatim, ragged-right, quote]
+\include "predefined-guitar-fretboards.ly"
+
+\storePredefinedDiagram #default-fret-table
+                        \chordmode { c'' }
+                        #guitar-tuning
+                        #(offset-fret 2 (chord-shape 'bes guitar-tuning))
+
+mychords = \chordmode {
+  c1 c''
+}
+
+<<
+  \new ChordNames {
+    \mychords
+  }
+  \new FretBoards {
+    \mychords
+  }
+>>
+@end lilypond
+
+@cindex strumento con tasti, forma di un accordo
+@cindex forma di un accordo, per strumenti con tasti
+
+@funindex \addChordShape
+@funindex \storePredefinedDiagram
+
+Oltre ai diagrammi dei tasti, LilyPond contiene un elenco interno di forme
+di accordo.  Queste forme sono diagrammi dei tasti che possono essere spostati
+lungo il manico in diverse posizioni per fornire diversi accordi.  Si possono
+aggiungere nuove forme di accordo all'elenco interno e poi usarle per definire
+diagrammi dei tasti predefiniti.  Dato che possono essere spostate in varie
+posizioni sul manico, le forme di un accordo normalmente non contengono corde
+a vuoto.  Come per i diagrammi dei tasti, le forme possono essere inserite
+come stringhe di fret-diagram-terse o come elenchi di fret-diagram-verbose.
+
+@lilypond[verbatim, ragged-right, quote]
+\include "predefined-guitar-fretboards.ly"
+
+% Add a new chord shape
+
+\addChordShape #'powerf #guitar-tuning "1-1;3-3;3-4;x;x;x;"
+
+% add some new chords based on the power chord shape
+
+\storePredefinedDiagram #default-fret-table
+                        \chordmode { f'' }
+                        #guitar-tuning
+                        #(chord-shape 'powerf guitar-tuning)
+\storePredefinedDiagram #default-fret-table
+                        \chordmode { g'' }
+                        #guitar-tuning
+                        #(offset-fret 2 (chord-shape 'powerf guitar-tuning))
+
+mychords = \chordmode {
+  f1 f'' g g''
+}
+
+<<
+  \new ChordNames {
+    \mychords
+  }
+  \new FretBoards {
+    \mychords
+  }
+>>
+@end lilypond
+
+L'aspetto grafico di un diagramma dei tasti può essere personalizzato in
+base alle proprie preferenze attraverso le proprietà dell'interfaccia
+@code{fret-diagram-interface}. I dettagli si trovano in
+@rinternals{fret-diagram-interface}.  Per un diagramma dei tasti predefinito,
+le proprietà dell'interfaccia appartengono a @code{FretBoards.FretBoard}.
+
+@snippets
+
+@cindex tastiera del diagramma dei tasti, personalizzata
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{customizing-fretboard-fret-diagrams.ly}
+
+@cindex tastiera, definire predefinita
+@cindex definire tastiera predefinita
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{defining-predefined-fretboards-for-other-instruments.ly}
+
+@cindex accordo, sopprimere ripetizioni
+@cindex accordi ripetuti, soppressione
+@cindex sopprimere accordi ripetuti
+@funindex chordChanges
+@lilypondfile[verbatim,quote,texidoc,doctitle,ragged-right]
+{chordchanges-for-fretboards.ly}
+
+@cindex tastiera, tabella alternativa
+@cindex tabella alternativa, tastiera
+@funindex predefinedDiagramTable
+@funindex \storePredefinedDiagram
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{fretboards-alternate-tables.ly}
+
+@seealso
+Guida alla notazione:
+@ref{Intavolature personalizzate},
+@ref{Diagrammi dei tasti automatici},
+@ref{Panoramica sulla modalità accordo},
+@ref{Diagrammi degli accordi predefiniti}.
+
+File installati:
+@file{ly/predefined-guitar-fretboards.ly}, @*
+@file{ly/predefined-guitar-ninth-fretboards.ly}, @*
+@file{ly/predefined-ukulele-fretboards.ly}, @*
+@file{ly/predefined-mandolin-fretboards.ly}.
+
+Frammenti:
+@rlsr{Fretted strings}.
+
+Guida al funzionamento interno:
+@rinternals {fret-diagram-interface}.
+
+
+@node Diagrammi dei tasti automatici
+@unnumberedsubsubsec Diagrammi dei tasti automatici
+@translationof Automatic fret diagrams
+
+@cindex diagramma dei tasti, automatico
+@cindex diagramma degli accordi, automatico
+@cindex tasti, diagrammi automatici
+@cindex accordi, diagrammi automatici
+
+I diagrammi dei tasti possono essere creati automaticamente dalle note
+inserite usando il contesto @code{FretBoards}.  Se non è disponibile un
+diagramma predefinito per le note inserite nell'accordatura (@code{stringTunings})
+attiva, questo contesto calcola le corde e i tasti che possono essere usati
+per suonare le note.
+
+@lilypond[quote,ragged-right,verbatim]
+<<
+  \new ChordNames {
+    \chordmode {
+      f1 g
+    }
+  }
+  \new FretBoards {
+    <f, c f a c' f'>1
+    <g,\6 b, d g b g'>1
+  }
+  \new Staff {
+    \clef "treble_8"
+    <f, c f a c' f'>1
+    <g, b, d g b' g'>1
+  }
+>>
+@end lilypond
+
+@funindex \predefinedFretboardsOff
+@funindex \predefinedFretboardsOn
+
+Dato che nessun diagramma predefinito viene caricato senza impostarlo
+esplicitamente, il calcolo automatico dei diagrammi è il comportamento
+predefinito.  Quando i diagrammi predefiniti vengono caricati, il
+calcolo automatico può essere abilitato e disabilitato con dei
+comandi predefiniti:
+
+@lilypond[quote,ragged-right,verbatim]
+
+\storePredefinedDiagram #default-fret-table
+                        <c e g c' e'>
+                        #guitar-tuning
+                        "x;3-1-(;5-2;5-3;5-4;3-1-1-);"
+<<
+  \new ChordNames {
+    \chordmode {
+      c1 c c
+    }
+  }
+  \new FretBoards {
+    <c e g c' e'>1
+    \predefinedFretboardsOff
+    <c e g c' e'>1
+    \predefinedFretboardsOn
+    <c e g c' e'>1
+  }
+  \new Staff {
+    \clef "treble_8"
+    <c e g c' e'>1
+    <c e g c' e'>1
+    <c e g c' e'>1
+  }
+>>
+@end lilypond
+
+
+Talvolta il calcolatore dei diagrammi non sarà in grado di trovare un
+diagramma accettabile.  Di solito il rimedio consiste nell'assegnare manualmente
+una nota a una corda.  In molti casi, solo una nota deve essere posta
+esplicitamente su una corda; tutte le altre note verranno posizionate
+correttamente dal contesto @code{FretBoards}.
+
+@cindex diagramma dei tasti, aggiungere diteggiatura
+@cindex diteggiatura, aggiungere al diagramma dei tasti
+
+Si possono aggiungere le diteggiture ai diagrammi dei tasti
+dell'oggetto FretBoard.
+
+@lilypond[quote, verbatim]
+<<
+  \new ChordNames {
+    \chordmode {
+      c1 d:m
+    }
+  }
+  \new FretBoards {
+    <c-3 e-2 g c'-1 e'>1
+    <d a-2 d'-3 f'-1>1
+  }
+  \new Staff {
+    \clef "treble_8"
+    <c e g c' e'>1
+    <d a d' f'>1
+  }
+>>
+@end lilypond
+
+@funindex minimumFret
+
+Il tasto minimo da usare per calcolare le corde e i tasti per il contesto
+FretBoard si può impostare con la proprietà @code{minimumFret}.
+
+@lilypond[quote, verbatim]
+<<
+  \new ChordNames {
+    \chordmode {
+      d1:m d:m
+    }
+  }
+  \new FretBoards {
+    <d a d' f'>1
+    \set FretBoards.minimumFret = #5
+    <d a d' f'>1
+  }
+  \new Staff {
+    \clef "treble_8"
+    <d a d' f'>1
+    <d a d' f'>1
+  }
+>>
+@end lilypond
+
+Le corde e i tasti per il contesto @code{FretBoards} dipendono dalla proprietà
+@code{stringTunings}, che funziona proprio come nel contesto TabStaff.
+Si rimanda a @ref{Intavolature personalizzate} per informazioni sulla
+proprietà @code{stringTunings}.
+
+L'aspetto grafico di un diagramma dei tasti può essere personalizzato secondo
+le proprie preferenze tramite le proprietà dell'interfaccia
+@code{fret-diagram-interface}. I  dettagli si trovano in
+@rinternals{fret-diagram-interface}.  Per  un diagramma dei tasti del contesto
+@code{FretBoards}, le  proprietà dell'interfaccia appartengono a
+@code{FretBoards.FretBoard}.
+
+
+@predefined
+@code{\predefinedFretboardsOff},
+@code{\predefinedFretboardsOn}.
+@endpredefined
+
+@seealso
+Guida alla notazione:
+@ref{Intavolature personalizzate}.
+
+Frammenti:
+@rlsr{Fretted strings}.
+
+Guida al funzionamento interno:
+@rinternals {fret-diagram-interface}.
+
+@knownissues
+I calcoli automatici dei tasti non funzionano correttamente per gli strumenti
+con accordature non monotoniche.
+
+
+@node Diteggiature della mano destra
+@unnumberedsubsubsec Diteggiature della mano destra
+@translationof Right-hand fingerings
+
+@cindex strumento a tasti, diteggiatura della mano destra
+@cindex diteggiatura, mano destra, per strumento a tasti
+@cindex tasti, strumento a, diteggiatura della mano destra
+
+@funindex \rightHandFinger
+
+Le diteggiature della mano destra @var{p-i-m-a} si inseriscono col comando
+@code{\rightHandFinger} seguito da un numero.
+
+@warning{Se si inserisce il numero in notazione Scheme, ricordarsi di
+aggiungere uno spazio prima del @code{>} di chiusura o simili.}
+
+@lilypond[quote,verbatim,fragment]
+\clef "treble_8"
+c4\rightHandFinger #1
+e\rightHandFinger #2
+g\rightHandFinger #3
+c'\rightHandFinger #4
+<c\rightHandFinger #1 e\rightHandFinger #2
+ g\rightHandFinger #3 c'\rightHandFinger #4 >1
+@end lilypond
+
+Per comodità, si può abbreviare @code{\rightHandFinger} in un comando più
+breve, per esempio @code{RH},
+
+@example
+RH=#rightHandFinger
+@end example
+
+
+@snippets
+
+@cindex posizionamento, diteggiatura mano destra
+@cindex diteggiatura, mano destra, posizionamento
+@cindex destra, mano, posizionamento diteggiatura
+@funindex strokeFingerOrientations
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{placement-of-right-hand-fingerings.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{fingerings,-string-indications,-and-right-hand-fingerings.ly}
+
+@seealso
+Frammenti:
+@rlsr{Fretted strings}.
+
+Guida al funzionamento interno:
+@rinternals{StrokeFinger}.
+
+
+@node Chitarra
+@subsection Chitarra
+@translationof Guitar
+
+La maggior parte delle questioni relative alla musica per chitarra sono
+trattate nella sezione generale sugli strumenti a corde con tasti, ma
+ce ne sono altre che è meglio spiegare qui.  Talvolta gli utenti
+desiderano creare dei canzonieri, ovvero dei documenti che hanno solo
+il testo e le indicazioni di accordo sopra di esso.  Dal momento che
+LilyPond è un compositore tipografico musicale, non è consigliato per
+documenti che non contengono notazione musicale.  Migliori alternative
+sono un programma di videoscrittura, un editor di testo oppure, per
+utenti esperti, un compositore tipografico come GuitarTeX.
+
+@menu
+* Indicazione di posizione e barre::
+* Indicazione di armonici e note smorzate::
+* Indicazione di power chord::
+@end menu
+
+@node Indicazione di posizione e barre
+@unnumberedsubsubsec Indicazione di posizione e barré
+@translationof Indicating position and barring
+
+@cindex indicare la posizione e il barré per uno strumento con tasti
+@cindex strumento con tasti, indicare la posizione e il barré
+
+Questo esempio illustra come mostrare la posizione sulla chitarra e le
+indicazioni di barré.
+
+@lilypond[quote,ragged-right,verbatim,fragment]
+\relative {
+  \clef "treble_8"
+  b,16 d g b e
+  \textSpannerDown
+  \override TextSpanner.bound-details.left.text = "XII "
+  g16\startTextSpan
+  b16 e g e b g\stopTextSpan
+  e16 b g d
+}
+@end lilypond
+
+@seealso
+Guida alla notazione:
+@ref{Estensori del testo}.
+
+Frammenti:
+@rlsr{Fretted strings},
+@rlsr{Expressive marks}.
+
+
+@node Indicazione di armonici e note smorzate
+@unnumberedsubsubsec Indicazione di armonici e note smorzate
+@translationof Indicating harmonics and dampened notes
+
+@cindex tasto, strumento con, nota smorzata
+@cindex tasto, strumento con, armonici
+@cindex strumento con tasti, nota smorzata
+@cindex strumento con tasti, armonici
+@cindex nota smorzata su strumento con tasti
+@cindex armonici su strumento con tasti
+
+Si possono usare teste di nota speciali per indicare note smorzate o
+armonici.  Gli armonici sono solitamente accompagnati da testo
+esplicativo.
+
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  \clef "treble_8"
+  \override NoteHead.style = #'harmonic-mixed
+  d'8^\markup { \italic \fontsize #-2 "harm. 12" } <g b>4
+}
+@end lilypond
+
+Le note smorzate (chiamate anche @notation{dead note}) sono supportate sia
+sul rigo normale che sull'intavolatura:
+
+@lilypond[quote,ragged-right,verbatim]
+music = \relative {
+  < a\3 \deadNote c\2 a'\1 >4
+  < b\3 \deadNote d\2 b'\1 >
+  < c\3 \deadNote e\2 c'\1 >
+  \deadNotesOn
+  \tuplet 3/2 { g8 b e }
+  \deadNotesOff
+  < a,\3 c\2 e\1 >1
+}
+\new StaffGroup <<
+  \new Staff {
+    \clef "treble_8"
+    \music
+  }
+  \new TabStaff {
+    \music
+  }
+>>
+@end lilypond
+
+Un'altra tecnica esecutiva (usata specialmente nella chitarra elettrica) è
+il @notation{palm mute}, in cui la corda viene parzialmente silenziata dal
+palmo della mano che la colpisce (da qui il nome).  LilyPond supporta la
+notazione delle note in stile palm mute cambiando la testa della nota in
+una forma triangolare.
+
+@lilypond[quote,ragged-right,verbatim]
+\new Voice { % Attenzione: la creazione esplicita di una Voice è
+             %    necessaria per far sì che palmMuteOff funzioni correttamente
+             %    quando palmMuteOn si trova all'inizio del brano.
+  \relative c, {
+    \clef "G_8"
+    \palmMuteOn
+    e8^\markup { \musicglyph "noteheads.u2do"  = palm mute }
+    < e b' e > e
+    \palmMuteOff
+    e e  \palmMute e e e |
+    e8 \palmMute { e e e } e e e e |
+    < \palmMute e b' e >8 \palmMute { e e e } < \palmMute e b' e >2
+  }
+}
+@end lilypond
+
+@seealso
+Frammenti:
+@rlsr{Fretted strings}.
+
+Guida alla notazione:
+@ref{Teste di nota speciali},
+@ref{Stili delle teste di nota}.
+
+
+@node Indicazione di power chord
+@unnumberedsubsubsec Indicazione di power chord
+@translationof Indicating power chords
+
+@cindex power chord
+@cindex accordo, power chord
+
+I power chord e i loro simboli possono essere inseriti in modalità accordo o
+come costrutti di accordo:
+
+@lilypond[quote,ragged-right,verbatim]
+ChordsAndSymbols = {
+  \chordmode {
+    
+    e,,1:5
+    a,,1:5.8
+    \set minimumFret = #8
+    c,1:5
+    f,1:5.8
+  }
+  \set minimumFret = #5
+  <a, e>1
+  <g d' g'>1
+}
+\score {
+  <<
+    \new ChordNames {
+    \ChordsAndSymbols
+    }
+    \new Staff {
+      \clef "treble_8"
+      \ChordsAndSymbols
+    }
+    \new TabStaff {
+      \ChordsAndSymbols
+    }
+  >>
+}
+@end lilypond
+
+I simboli del power chord vengono automaticamente disabilitati appena si usa
+uno degli altri comuni modificatori degli accordi:
+
+@lilypond[quote,ragged-right,verbatim]
+mixedChords = \chordmode {
+  c,1
+  
+  b,,1:5
+  fis,,1:5.8
+  g,,1:m
+}
+\score {
+  <<
+    \new ChordNames {
+      \mixedChords
+    }
+    \new Staff {
+      \clef "treble_8"
+      \mixedChords
+    }
+    \new TabStaff {
+      \mixedChords
+    }
+  >>
+}
+@end lilypond
+
+@seealso
+Glossario musicale:
+@rglos{power chord}.
+
+Guida alla notazione:
+@ref{Accordi estesi e alterati},
+@ref{Stampa dei nomi degli accordi}.
+
+Frammenti:
+@rlsr{Fretted strings}.
+
+
+@node Banjo
+@subsection Banjo
+
+@menu
+* Intavolature per banjo::
+@end menu
+
+@node Intavolature per banjo
+@unnumberedsubsubsec Intavolature per banjo
+@translationof Banjo tablatures
+
+@cindex tablatura per banjo
+@cindex intavolatura per banjo
+@cindex banjo, intavolatura
+
+LilyPond ha un supporto basilare per il banjo a cinque corde.  Quando si
+scrivono intavolature per banjo a cinque corde, usare la funzione di
+formattazione dell'intavolatura per banjo per ottenere i numeri di tasto
+corretti per la quinta corda:
+
+@lilypond[quote,ragged-right,verbatim]
+music = {
+  g8 d' g'\5 a b g e d' |
+  g4 d''8\5 b' a'\2 g'\5 e'\2 d' |
+  g4
+}
+
+<<
+  \new Staff \with { \omit StringNumber }
+  { \clef "treble_8"  \music }
+  \new TabStaff \with {
+    tablatureFormat = #fret-number-tablature-format-banjo
+    stringTunings = #banjo-open-g-tuning
+  }
+  { \music }
+>>
+@end lilypond
+
+@cindex banjo, accordatura
+@cindex accordatura per banjo
+
+@funindex banjo-c-tuning
+@funindex banjo-modal-tuning
+@funindex banjo-open-d-tuning
+@funindex banjo-open-dm-tuning
+@funindex four-string-banjo
+
+Sono disponibili varie accordature comuni per banjo a cinque corde:
+@code{banjo-c-tuning} (gCGBD), @code{banjo-modal-tuning} (gDGCD),
+@code{banjo-open-d-tuning} (aDF#AD) e @code{banjo-open-dm-tuning}
+(aDFAD).
+
+Queste possono essere convertite in accordature a quattro corde usando
+la funzione @code{four-string-banjo}:
+
+@example
+\set TabStaff.stringTunings = #(four-string-banjo banjo-c-tuning)
+@end example
+
+@seealso
+File installati:
+@file{ly/string-tunings-init.ly}.
+
+Frammenti:
+@rlsr{Fretted strings}.
+
+
+@node Liuto
+@subsection Liuto
+@translationof Lute
+
+@menu
+* Intavolature per liuto::
+@end menu
+
+@node Intavolature per liuto
+@unnumberedsubsubsec Intavolature per liuto
+@translationof Lute tablatures
+
+@cindex intavolatura per liuto
+@cindex tablatura per liuto
+@cindex liuto, intavolatura
+
+LilyPond supporta l'intavolatura per liuto.
+
+Per aggiungere altre corde basse usare @code{additionalBassStrings}, dove si
+impostano le altezze di queste corde. Appariranno sotto la linea più bassa
+come: a, /a, //a, ///a, 4, 5, etc.
+
+Occorre assegnare @code{fret-letter-tablature-format} a @code{tablatureFormat}
+e probabilmente usare @code{fretLabels} per ulteriori personalizzazioni.
+
+@lilypond[quote,ragged-right,verbatim]
+m = { f'4 d' a f d a, g, fis, e, d, c,  \bar "|." }
+
+\score {
+  <<
+    \new Staff { \clef bass \cadenzaOn  \m }
+    \new TabStaff \m
+  >>
+  \layout {
+    \context {
+      \Score
+      tablatureFormat = #fret-letter-tablature-format
+    }
+    \context {
+      \TabStaff
+      stringTunings = \stringTuning <a, d f a d' f'>
+      additionalBassStrings = \stringTuning <c, d, e, fis, g,>
+      fretLabels = #'("a" "b" "r" "d" "e" "f" "g" "h" "i" "k")
+    }
+  }
+}
+@end lilypond
+
+@cindex accordatura per liuto
+@cindex liuto, accordatura
+
+@knownissues
+L'uso di @code{FretBoards} insieme a @code{additionalBassStrings} non è
+supportato e produrrà risultati insoddisfacenti.

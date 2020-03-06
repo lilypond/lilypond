@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocit = "
+I simboli di registro della fisarmonica sono disponibili sia come @code{\\markup}
+sia come eventi musicali autonomi (perché i cambi di registro capitano
+solitamente tra reali eventi musicali).  I registri bassi non sono troppo
+standardizzati.  I comandi disponibili si trovano nella sezione
+«Registri della fisarmonica» della Guida alla notazione.
+
+"
+  doctitleit = "Simboli di registro della fisarmonica"

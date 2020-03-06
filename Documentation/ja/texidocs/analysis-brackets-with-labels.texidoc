@@ -1,0 +1,8 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+Grob @code{HorizontalBracketText} の @code{text} プロパティを設定することで、@c
+分析用のブラケットにテキストを追加することができます。@c
+同時に開始するブラケットに異なるテキストを追加する場合には、@code{\\tweak}
+コマンドを使用してください。改行後のテキストは括弧付きで表示されます。
+"
+  doctitleja = "ラベル付きの分析用ブラケット"

@@ -676,7 +676,7 @@ dependencias en la manera en que lo hace un makefile, pero al
 menos reduce el proceso de construcción a una sola instrucción.
 Guarde el código siguiente como @command{montaje.bat} o
 @command{montaje.cmd}.  El archivo de lotes se puede ejecutar en
-la línea de comandos del DOS o simplemente haciendo doble click
+la línea de órdenes del DOS o simplemente haciendo doble click
 sobre su icono.
 
 @example
@@ -692,6 +692,5 @@ copy salida\miproyecto.pdf MiProyecto.pdf
 
 @seealso
 Manual de utilización del programa:
-@rprogram{Configuración para MacOS X},
 @rprogram{Utilización desde la línea de órdenes},
-@rprogram{LilyPond-book}
+@rprogram{lilypond-book}

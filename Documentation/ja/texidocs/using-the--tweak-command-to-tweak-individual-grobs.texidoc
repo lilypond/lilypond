@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+@code{\\tweak} コマンドを用いて、全ての Grob を直接調整できます。@c
+以下は使用可能な @code{\\tweak} の例を示しています。
+"
+  doctitleja = "個々の Grob を調整するために \\tweak コマンドを使用する"

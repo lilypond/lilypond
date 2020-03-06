@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-  Translation of GIT committish: 1e5c6b0f54079eb3285dcc4c7e53f17d8bb03933
+  Translation of GIT committish: 032de07c17caacd038f113ebcb54e9c473d64e0f
 
   When revising a translation, copy the HEAD committish of the
   version that you are working on.  For details, see the Contributors'
@@ -966,12 +966,12 @@ où @var{N} est compris entre 0 et 100.
 @appendixsec La fonte Emmentaler
 @translationof The Emmentaler font
 
-@cindex Emmentaler fonte
-@cindex Fonte, Emmentaler
+@cindex Emmentaler, fonte
+@cindex fonte Emmentaler
 @cindex Feta, glyphes
-@cindex Glyphes Feta
+@cindex glyphes Feta
 @cindex Parmesan, glyphes
-@cindex Glyphes Parmesan
+@cindex glyphes Parmesan
 
 La fonte Emmentaler est constituée de deux @emph{jeux} de glyphes :
 « Feta » est utilisé pour la notation classique, et « Parmesan » pour la
@@ -1304,6 +1304,8 @@ Pour de plus amples informations, reportez-vous au chapitre
 @appendixsec Styles de tête de note
 @translationof Note head styles
 
+@cindex tête de note, styl
+e
 Voici les différents styles de tête de note disponibles.
 
 @lilypondfile[noindent]{note-head-style.ly}
@@ -1316,6 +1318,73 @@ Voici les différents styles de tête de note disponibles.
 Le tableau suivant répertorie tous les styles de clef disponibles
 ainsi que la position du @emph{do médium} par rapport à la clef.
 
+@cindex treble, clef
+@cindex clef treble
+@cindex violin, clef
+@cindex clef, violin
+@cindex clef G
+@cindex clef G2
+@cindex clef GG
+@cindex clef tenor G
+@cindex tenor G, clef
+@cindex clef french
+@cindex French, clef
+@cindex clef soprano
+@cindex soprano, clef
+@cindex clef mezzosoprano
+@cindex mezzosoprano, clef
+@cindex clef alto
+@cindex alto, clef
+@cindex clef C
+@cindex C, clef
+@cindex clef varC
+@cindex varC, clef
+@cindex clef alto varC
+@cindex alto varC, clef
+@cindex clef tenor
+@cindex tenor, clef
+@cindex clef tenor varC
+@cindex tenor varC, clef
+@cindex clef baritone varC
+@cindex baritone varC, clef
+@cindex clef varbaritone
+@cindex varbaritone, clef
+@cindex clef baritone varF
+@cindex baritone varF, clef
+@cindex clef bass
+@cindex bass, clef
+@cindex clef F
+@cindex F, clef
+@cindex clef subbass
+@cindex subbass, clef
+@cindex clef percussion
+@cindex percussion, clef
+@cindex clef tab
+@cindex tab, clef
+@cindex clef, style
+@cindex anciennes, clefs
+@cindex clef, musique ancienne
+@cindex clef, petrucci
+@cindex clef, mensural
+@cindex clef, blackmensural
+@cindex clef, kievan
+@cindex Petrucci, clef
+@cindex mensural, clef
+@cindex blackmensural, clef
+@cindex kievan, clef
+
+@menu
+* Clefs standards::
+* Clefs pour portée de percussions::
+* Clefs pour tablatures::
+* Clefs de musique ancienne::
+@end menu
+
+
+@node Clefs standards
+@unnumberedsubsec Clefs standards
+@translationof Standard clefs
+
 @multitable @columnfractions .30 .2 .30 .2
 
 @headitem
@@ -1326,7 +1395,6 @@ Résultat
 Exemple
 @tab
 Résultat
-
 
 @item
 @code{\clef G}
@@ -1366,7 +1434,6 @@ c1
 \clef french
 c1
 @end lilypond
-
 @tab
 @code{\clef GG}
 @tab
@@ -1383,15 +1450,16 @@ c1
 c1
 @end lilypond
 
-@tab
+@*
+
+@item
 @code{\clef soprano}
 @tab
 @lilypond[line-width=3\cm,notime,ragged-right,relative=1]
 \clef soprano
 c1
 @end lilypond
-
-@item
+@tab
 @code{\clef mezzosoprano}
 @tab
 @lilypond[line-width=3\cm,notime,ragged-right,relative=1]
@@ -1399,15 +1467,14 @@ c1
 c1
 @end lilypond
 
-@tab
+@item
 @code{\clef C}
 @tab
 @lilypond[line-width=3\cm,notime,ragged-right,relative=1]
 \clef C
 c1
 @end lilypond
-
-@item
+@tab
 @code{\clef alto}
 @tab
 @lilypond[line-width=3\cm,notime,ragged-right,relative=1]
@@ -1415,15 +1482,14 @@ c1
 c1
 @end lilypond
 
-@tab
+@item
 @code{\clef tenor}
 @tab
 @lilypond[line-width=3\cm,notime,ragged-right,relative=1]
 \clef tenor
 c1
 @end lilypond
-
-@item
+@tab
 @code{\clef baritone}
 @tab
 @lilypond[line-width=3\cm,notime,ragged-right,relative=1]
@@ -1431,15 +1497,16 @@ c1
 c1
 @end lilypond
 
-@tab
+@*
+
+@item
 @code{\clef varC}
 @tab
 @lilypond[line-width=3\cm,notime,ragged-right,relative=1]
 \clef varC
 c1
 @end lilypond
-
-@item
+@tab
 @code{\clef altovarC}
 @tab
 @lilypond[line-width=3\cm,notime,ragged-right,relative=1]
@@ -1447,15 +1514,14 @@ c1
 c1
 @end lilypond
 
-@tab
+@item
 @code{\clef tenorvarC}
 @tab
 @lilypond[line-width=3\cm,notime,ragged-right,relative=1]
 \clef tenorvarC
 c1
 @end lilypond
-
-@item
+@tab
 @code{\clef baritonevarC}
 @tab
 @lilypond[line-width=3\cm,notime,ragged-right,relative=1]
@@ -1463,15 +1529,16 @@ c1
 c1
 @end lilypond
 
-@tab
+@*
+
+@item
 @code{\clef varbaritone}
 @tab
 @lilypond[line-width=3\cm,notime,ragged-right,relative=1]
 \clef varbaritone
 c1
 @end lilypond
-
-@item
+@tab
 @code{\clef baritonevarF}
 @tab
 @lilypond[line-width=3\cm,notime,ragged-right,relative=1]
@@ -1479,15 +1546,14 @@ c1
 c1
 @end lilypond
 
-@tab
+@item
 @code{\clef F}
 @tab
 @lilypond[line-width=3\cm,notime,ragged-right,relative=1]
 \clef F
 c1
 @end lilypond
-
-@item
+@tab
 @code{\clef bass}
 @tab
 @lilypond[line-width=3\cm,notime,ragged-right,relative=1]
@@ -1495,13 +1561,31 @@ c1
 c1
 @end lilypond
 
-@tab
+@item
 @code{\clef subbass}
 @tab
 @lilypond[line-width=3\cm,notime,ragged-right,relative=1]
 \clef subbass
 c1
 @end lilypond
+
+@end multitable
+
+
+@node Clefs pour portée de percussions
+@unnumberedsubsec Clefs pour portée de percussions
+@translationof Percussion staff clef
+
+@multitable @columnfractions .30 .2 .30 .2
+
+@headitem
+Exemple
+@tab
+Résultat
+@tab
+Exemple
+@tab
+Résultat
 
 @item
 @code{\clef percussion}
@@ -1510,8 +1594,33 @@ c1
 \clef percussion
 c1
 @end lilypond
-
 @tab
+@code{\clef varpercussion}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef varpercussion
+c1
+@end lilypond
+
+@end multitable
+
+
+@node Clefs pour tablatures
+@unnumberedsubsec Clefs pour tablatures
+@translationof Tab staff clefs
+
+@multitable @columnfractions .30 .2 .30 .2
+
+@headitem
+Exemple
+@tab
+Résultat
+@tab
+Exemple
+@tab
+Résultat
+
+@item
 @c @example does not work as expected within multitables
 @code{
 \new TabStaff @{ @*
@@ -1525,8 +1634,7 @@ c1
   c1
 }
 @end lilypond
-
-@item
+@tab
 @c @example does not work as expected within multitables
 @code{
 \new TabStaff @{ @*
@@ -1541,6 +1649,510 @@ c1
 }
 @end lilypond
 
+@end multitable
+
+
+@node Clefs de musique ancienne
+@unnumberedsubsec Clefs de musique ancienne
+@translationof Ancient music clefs
+
+@strong{Grégorien}
+
+@multitable @columnfractions .30 .20 .30 .20
+
+@headitem
+Exemple
+@tab
+Résultat
+@tab
+Exemple
+@tab
+Résultat
+
+@item
+@code{\clef "vaticana-do1"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \clef "vaticana-do1"
+  \override NoteHead.style = #'vaticana.punctum
+  c1
+@end lilypond
+@tab
+@code{\clef "vaticana-do2"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \clef "vaticana-do2"
+  \override NoteHead.style = #'vaticana.punctum
+  c1
+@end lilypond
+
+@item
+@code{\clef "vaticana-do3"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \clef "vaticana-do3"
+  \override NoteHead.style = #'vaticana.punctum
+  c1
+@end lilypond
+@tab
+@code{\clef "vaticana-fa1"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \clef "vaticana-fa1"
+  \override NoteHead.style = #'vaticana.punctum
+  c1
+@end lilypond
+
+@item
+@code{\clef "vaticana-fa2"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \clef "vaticana-fa2"
+  \override NoteHead.style = #'vaticana.punctum
+  c1
+@end lilypond
+
+@*
+
+@item
+@code{\clef "medicaea-do1"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \clef "medicaea-do1"
+  \override NoteHead.style = #'medicaea.punctum
+  c1
+@end lilypond
+@tab
+@code{\clef "medicaea-do2"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \clef "medicaea-do2"
+  \override NoteHead.style = #'medicaea.punctum
+  c1
+@end lilypond
+
+@item
+@code{\clef "medicaea-do3"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \clef "medicaea-do3"
+  \override NoteHead.style = #'medicaea.punctum
+  c1
+@end lilypond
+@tab
+@code{\clef "medicaea-fa1"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \clef "medicaea-fa1"
+  \override NoteHead.style = #'medicaea.punctum
+  c1
+@end lilypond
+
+@item
+@code{\clef "medicaea-fa2"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \clef "medicaea-fa2"
+  \override NoteHead.style = #'medicaea.punctum
+  c1
+@end lilypond
+
+@*
+
+@item
+@code{\clef "hufnagel-do1"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \clef "hufnagel-do1"
+  \override NoteHead.style = #'hufnagel.punctum
+  c1
+@end lilypond
+@tab
+@code{\clef "hufnagel-do2"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \clef "hufnagel-do2"
+  \override NoteHead.style = #'hufnagel.punctum
+  c1
+@end lilypond
+
+@item
+@code{\clef "hufnagel-do3"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \clef "hufnagel-do3"
+  \override NoteHead.style = #'hufnagel.punctum
+  c1
+@end lilypond
+@tab
+@code{\clef "hufnagel-fa1"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \clef "hufnagel-fa1"
+  \override NoteHead.style = #'hufnagel.punctum
+  c1
+@end lilypond
+
+@item
+@code{\clef "hufnagel-fa2"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \clef "hufnagel-fa2"
+  \override NoteHead.style = #'hufnagel.punctum
+  c1
+@end lilypond
+@tab
+@code{\clef @* "hufnagel-do-fa"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \override Staff.StaffSymbol.line-count = #5
+  \override Staff.StaffSymbol.color = #red
+  \clef "hufnagel-do-fa"
+  \override NoteHead.style = #'hufnagel.punctum
+  c1
+@end lilypond
+
+@end multitable
+
+
+@strong{Mensural}
+
+@multitable @columnfractions .30 .2 .30 .2
+
+@headitem
+Exemple
+@tab
+Résultat
+@tab
+Exemple
+@tab
+Résultat
+
+@item
+@code{\clef "mensural-c1"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "mensural-c1"
+  \override NoteHead.style = #'mensural
+  c1
+@end lilypond
+@tab
+@code{\clef "mensural-c2"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "mensural-c2"
+  \override NoteHead.style = #'mensural
+  c1
+@end lilypond
+
+@item
+@code{\clef "mensural-c3"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "mensural-c3"
+  \override NoteHead.style = #'mensural
+  c1
+@end lilypond
+@tab
+@code{\clef "mensural-c4"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "mensural-c4"
+  \override NoteHead.style = #'mensural
+  c1
+@end lilypond
+
+@item
+@code{\clef "mensural-c5"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "mensural-c5"
+  \override NoteHead.style = #'mensural
+  c1
+@end lilypond
+
+@*
+
+@item
+@code{\clef "mensural-f"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "mensural-f"
+  \override NoteHead.style = #'mensural
+  c1
+@end lilypond
+@tab
+@code{\clef "mensural-g"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "mensural-g"
+  \override NoteHead.style = #'mensural
+  c1
+@end lilypond
+
+@*
+
+@item
+@code{\clef "blackmensural-c1"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "blackmensural-c1"
+  \override NoteHead.style = #'blackmensural
+  c1
+@end lilypond
+@tab
+@code{\clef "blackmensural-c2"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "blackmensural-c2"
+  \override NoteHead.style = #'blackmensural
+  c1
+@end lilypond
+
+@item
+@code{\clef "blackmensural-c3"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "blackmensural-c3"
+  \override NoteHead.style = #'blackmensural
+  c1
+@end lilypond
+@tab
+@code{\clef "blackmensural-c4"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "blackmensural-c4"
+  \override NoteHead.style = #'blackmensural
+  c1
+@end lilypond
+
+@item
+@code{\clef "blackmensural-c5"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "blackmensural-c5"
+  \override NoteHead.style = #'blackmensural
+  c1
+@end lilypond
+
+@*
+
+@item
+@code{\clef "neomensural-c1"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "neomensural-c1"
+  \override NoteHead.style = #'neomensural
+  c1
+@end lilypond
+@tab
+@code{\clef "neomensural-c2"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "neomensural-c2"
+  \override NoteHead.style = #'neomensural
+  c1
+@end lilypond
+
+@item
+@code{\clef "neomensural-c3"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "neomensural-c3"
+  \override NoteHead.style = #'neomensural
+  c1
+@end lilypond
+@tab
+@code{\clef "neomensural-c4"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "neomensural-c4"
+  \override NoteHead.style = #'neomensural
+  c1
+@end lilypond
+
+@item
+@code{\clef "neomensural-c5"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "neomensural-c5"
+  \override NoteHead.style = #'neomensural
+  c1
+@end lilypond
+
+@*
+
+@item
+@code{\clef "petrucci-c1"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "petrucci-c1"
+  \override NoteHead.style = #'petrucci
+  c1
+@end lilypond
+@tab
+@code{\clef "petrucci-c2"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "petrucci-c2"
+  \override NoteHead.style = #'petrucci
+  c1
+@end lilypond
+
+@item
+@code{\clef "petrucci-c3"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "petrucci-c3"
+  \override NoteHead.style = #'petrucci
+  c1
+@end lilypond
+@tab
+@code{\clef "petrucci-c4"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "petrucci-c4"
+  \override NoteHead.style = #'petrucci
+  c1
+@end lilypond
+
+@item
+@code{\clef "petrucci-c5"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "petrucci-c5"
+  \override NoteHead.style = #'petrucci
+  c1
+@end lilypond
+
+@*
+
+@item
+@code{\clef "petrucci-f"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "petrucci-f"
+  \override NoteHead.style = #'petrucci
+  c1
+@end lilypond
+@tab
+@code{\clef "petrucci-f2"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "petrucci-f2"
+  \override NoteHead.style = #'petrucci
+  c1
+@end lilypond
+
+@item
+@code{\clef "petrucci-f3"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "petrucci-f3"
+  \override NoteHead.style = #'petrucci
+  c1
+@end lilypond
+@tab
+@code{\clef "petrucci-f4"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "petrucci-f4"
+  \override NoteHead.style = #'petrucci
+  c1
+@end lilypond
+
+@item
+@code{\clef "petrucci-f5"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "petrucci-f5"
+  \override NoteHead.style = #'petrucci
+  c1
+@end lilypond
+
+@*
+
+@item
+@code{\clef "petrucci-g1"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "petrucci-g1"
+  \override NoteHead.style = #'petrucci
+  c1
+@end lilypond
+@tab
+@code{\clef "petrucci-g2"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "petrucci-g2"
+  \override NoteHead.style = #'petrucci
+  c1
+@end lilypond
+
+@item
+@code{\clef "petrucci-g"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "petrucci-g"
+  \override NoteHead.style = #'petrucci
+  c1
+@end lilypond
+
+@end multitable
+
+
+@strong{Kiévien}
+
+@multitable @columnfractions .30 .2 .30 .2
+
+@headitem
+Exemple
+@tab
+Résultat
+@tab
+@c Exemple
+@tab
+@c Résultat
+
+
+@item
+@code{\clef "kievan-do"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "kievan-do"
+  \override NoteHead.style = #'kievan
+  c1
+@end lilypond
 
 @end multitable
 
@@ -1548,6 +2160,12 @@ c1
 @node Commandes pour markup
 @appendixsec Commandes pour @emph{markup}
 @translationof Text markup commands
+
+@ignore
+All the .tely files included in this appendix are automatically
+generated from source files during the build.
+For translators: you cannot translate the content of these files.
+@end ignore
 
 Les commandes suivantes peuvent être utilisées dans un bloc
 @code{\markup @{ @}}.
@@ -1626,13 +2244,19 @@ columns - JL
 @unnumberedsubsec Scripts d'articulation
 @translationof Articulation scripts
 
-@cindex accent
-@cindex espressivo
-@cindex marcato
-@cindex portato
-@cindex staccatissimo
-@cindex staccato
-@cindex tenuto
+@funindex \accent
+@funindex ->
+@funindex \espressivo
+@funindex \marcato
+@funindex -^
+@funindex \portato
+@funindex -_
+@funindex \staccatissimo
+@funindex -!
+@funindex \staccato
+@funindex -.
+@funindex \tenuto
+@funindex --
 @cindex pouce @emph{(thumb)}
 
 @multitable @columnfractions .22 .25 .25 .25
@@ -1681,9 +2305,21 @@ f^\tenuto e,_\tenuto b'\tenuto
 @unnumberedsubsec Scripts d'ornement
 @translationof Ornament scripts
 
-@cindex trille
-@cindex mordant
+@funindex \prall
+@funindex \prallup
+@funindex \pralldown
+@funindex \upprall
+@funindex \downprall
+@funindex \prallprall
+@funindex \lineprall
+@funindex \prallmordent
+@funindex \mordent
+@funindex \upmordent
+@funindex \downmordent
+@funindex \trill
+@funindex \turn
 @cindex grupetto
+@funindex \reverseturn
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -1770,6 +2406,10 @@ f^\reverseturn e,_\reverseturn b'\reverseturn
 
 @cindex point d'orgue
 @cindex point d'arrêt
+@funindex \fermata
+@funindex \shortfermata
+@funindex \longfermata
+@funindex \verylongfermata
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -1804,13 +2444,24 @@ f^\verylongfermata e,_\verylongfermata b'\verylongfermata
 @cindex flageolet
 @cindex tirer l'archet
 @cindex pousser l'archet
-@cindex snappizzicato
 @cindex bouché
 @cindex sourdine
 @cindex ouvert
 @cindex orgue, marque de pédale
 @cindex pointe
 @cindex talon
+@funindex \upbow
+@funindex \downbow
+@funindex \flageolet
+@funindex \open
+@funindex \halfopen
+@funindex \lheel
+@funindex \rheel
+@funindex \ltoe
+@funindex \rtoe
+@funindex \snappizzicato
+@funindex \stopped
+@funindex -+
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -1879,9 +2530,9 @@ f^\stopped e,_\stopped b'\stopped
 @unnumberedsubsec Scripts de reprise et de répétition
 @translationof Repeat sign scripts
 
-@cindex segno
-@cindex coda
-@cindex varcoda
+@funindex \segno
+@funindex \coda
+@funindex \varcoda
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -1908,11 +2559,11 @@ f^\varcoda e,_\varcoda b'\varcoda
 @unnumberedsubsec Scripts pour musique ancienne
 @translationof Ancient scripts
 
-@cindex accentus
-@cindex circulus
-@cindex ictus
-@cindex semicirculus
-@cindex signumcongruentiae
+@funindex \accentus
+@funindex \circulus
+@funindex \ictus
+@funindex \semicirculus
+@funindex \signumcongruentiae
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -1962,7 +2613,6 @@ f^\varcoda e,_\varcoda b'\varcoda
 @translationof Percussion notes
 
 @cindex percussions, nom des notes
-@cindex drums, various
 @cindex acoustic bass
 @cindex bass
 @cindex snare
@@ -2520,8 +3170,8 @@ Manuel de notation :
 
 @cindex grob
 @cindex graphique, objet
-@cindex rendu, objets de
-@cindex objets de rendu
+@cindex rendu, objet de
+@cindex objet de rendu
 
 Dans LilyPond, les objets représentants les différents éléments de
 notation, comme les têtes de note, hampes, liaisons, doigtés, clefs etc.
@@ -2544,9 +3194,10 @@ Référence des propriétés internes :
 @unnumberedsubsec inaltérable
 @translationof immutable
 
-@cindex inaltérables, objets
-@cindex inaltérables, propriétés
-@cindex propriétés communes
+@cindex inaltérable, objet
+@cindex inaltérable, propriété
+@cindex propriété commune
+@cindex propriété partagée
 
 Un objet est dit @strong{inaltérable} -- @emph{immutable} en anglais --
 dès lors que son état ne peut être modifié après sa création ; les
@@ -2569,7 +3220,7 @@ Manuel de notation :
 @translationof interface
 
 @cindex interface
-@cindex grob-interface
+@funindex grob-interface
 @cindex objet graphique, interface
 
 Les actions et propriétés communes à plusieurs objets graphiques sont
@@ -2613,9 +3264,9 @@ programmes binaires de LilyPond.
 @unnumberedsubsec altérable
 @translationof mutable
 
-@cindex altérables, objets et propriétés
-@cindex propriétés altérables
-@cindex objets altérables
+@cindex altérable, objet et propriété
+@cindex propriété altérable
+@cindex objet altérable
 
 Un objet est dit @strong{altérable} -- @emph{mutable} en anglais --
 lorsque son état est sujet à modification après sa création, à l'inverse
@@ -2635,7 +3286,7 @@ Manuel de notation :
 @unnumberedsubsec output-def (définition de sortie)
 @translationof output-def
 
-@cindex output-def
+@funindex output-def
 @cindex sortie, définition
 @cindex définition de sortie
 
@@ -2679,17 +3330,17 @@ n'est pas distribué avec les programmes binaires de LilyPond.
 @cindex parser, variable
 @cindex Scheme, variable
 @cindex globale, variable
-@cindex afterGraceFraction
-@cindex musicQuotes
-@cindex mode
-@cindex output-count
-@cindex output-suffix
-@cindex partCombineListener
-@cindex pitchnames
-@cindex toplevel-bookparts
-@cindex toplevel-scores
-@cindex showLastLength
-@cindex showFirstLength
+@funindex afterGraceFraction
+@funindex musicQuotes
+@funindex mode
+@funindex output-count
+@funindex output-suffix
+@funindex partCombineListener
+@funindex pitchnames
+@funindex toplevel-bookparts
+@funindex toplevel-scores
+@funindex showLastLength
+@funindex showFirstLength
 
 Il s'agit de variables définies directement en Scheme.  Dans la mesure
 où leur champ sémantique peut porter à confusion, il est fortement

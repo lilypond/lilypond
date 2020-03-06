@@ -1,0 +1,49 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: pt -*-
+@c This file is used in the web.texi file.
+
+@ignore
+    Translation of GIT committish: 270ef754ee7c30523ce40a37dc1bd3035a51737b
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c Translators: Rafael Fontenelle
+@c Translators checkers:
+
+@c when you add a new item, consider removing the lowest item(s)
+
+@c used for news about the upcoming release; see CG on Release Work
+
+@c We use @uref for the actual website to link to individual news items
+@c by their <a> tags.  We use @ref for other output formats.
+
+@ifclear web_version
+  @c no anchor links, just link to News page
+
+@ref{News, LilyPond 2.19.81 lançado - @emph{28 de janeiro de 2018}}
+
+@ref{News, Dois projetos do LilyPond no Google Summer of Code 2016 - @emph{23 de abril de 2016}}
+
+@ref{News, LilyPond 2.18.2 lançado! - @emph{23 de março de 2014}}
+
+@ref{News, LilyPond 2.18.0 lançado! - @emph{29 de dezembro de 2013}}
+
+@end ifclear
+@ifset web_version
+  @c anchor links, link to individual news items by their <a> tag
+
+@uref{news.html#LilyPond-2_002e19_002e81-released-January-28_002c-2018,
+  LilyPond 2.19.81 lançado - @emph{28 de janeiro de 2018}}
+
+@uref{news.html#Two-LilyPond-projects-in-Google-Summer-of-Code-2016-April-23_002c-2016,
+  Dois projetos do LilyPond no Google Summer of Code 2016 - @emph{23 de abril de 2016}}
+
+@uref{news.html#LilyPond-2_002e18_002e2-released_0021-March-23_002c-2014,
+  LilyPond 2.18.2 lançado! - @emph{23 de março de 2014}}
+
+@uref{news.html#LilyPond-2_002e18_002e0-released_0021-December-29_002c-2013,
+  LilyPond 2.18.0 lançado! - @emph{29 de dezembro de 2013}}
+
+@end ifset

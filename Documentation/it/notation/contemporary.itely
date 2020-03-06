@@ -1,0 +1,197 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
+@ignore
+    Translation of GIT committish: 6ca1d8c80817f9baaa7b66b2fde9a7b98b0ffc0a
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.16.0"
+
+@c Translators: Federico Bruni
+@c Translation checkers:
+
+
+@node Musica contemporanea
+@section Musica contemporanea
+@translationof Contemporary music
+
+A partire dall'inizio del Ventesimo secolo c'è stata un'enorme espansione di
+stili e tecniche compositive.  Nuovi sviluppi armonici e ritmici, l'estensione
+dello spettro di altezze e lo sviluppo di un'ampia gamma di nuove tecniche
+strumentali sono stati accompagnati da una parallela evoluzione e espansione
+della notazione musicale.  L'obiettivo di questa sezione è fornire dei
+riferimenti e delle informazioni per poter lavorare con queste nuove tecniche
+di notazione.
+
+@menu
+* Altezza e armonica nella musica contemporanea::
+* Approcci contemporanei al ritmo::
+* Notazione grafica::
+* Tecniche di arrangiamento contemporaneo::
+* Nuove tecniche strumentali::
+* Letture consigliate e partiture rilevanti::
+@end menu
+
+
+@node Altezza e armonica nella musica contemporanea
+@subsection Altezza e armonica nella musica contemporanea
+@translationof Pitch and harmony in contemporary music
+
+Questa sezione tratta le questioni relative alla notazione delle
+altezze e dell'armonia nella musica contemporanea.
+
+@menu
+* Riferimenti per altezza e armonia nella musica contemporanea::
+* Notazione microtonale::
+* Armature di chiave e armonia contemporanee::
+@end menu
+
+
+@node Riferimenti per altezza e armonia nella musica contemporanea
+@unnumberedsubsubsec Riferimenti per altezza e armonia nella musica contemporanea
+@translationof References for pitch and harmony in contemporary music
+
+@itemize
+@item La notazione standard per quarti di tono è trattata in
+@ref{Nomi delle note in altre lingue}.
+
+@item Armature di chiavi non standard sono affrontate in
+@ref{Armatura di chiave}.
+
+@item Le pratiche contemporanee nella visualizzazione delle alterazioni sono
+discusse in @ref{Alterazioni automatiche}.
+
+@end itemize
+
+
+@node Notazione microtonale
+@unnumberedsubsubsec Notazione microtonale
+@translationof Microtonal notation
+
+
+
+@node Armature di chiave e armonia contemporanee
+@unnumberedsubsubsec Armature di chiave e armonia contemporanee
+@translationof Contemporary key signatures and harmony
+
+
+
+@node Approcci contemporanei al ritmo
+@subsection Approcci contemporanei al ritmo
+@translationof Contemporary approaches to rhythm
+
+Questa sezione tratta le questioni relative alla notazione del ritmo
+nella musica contemporanea.
+
+@menu
+* Riferimenti per approcci contemporanei al ritmo::
+* Gruppi irregolari nella musica contemporanea::
+* Indicazioni di tempo contemporanee::
+* Notazione polimetrica estesa::
+* Travature nella musica contemporanea::
+* Stanghette nella musica contemporanea::
+@end menu
+
+
+@node Riferimenti per approcci contemporanei al ritmo
+@unnumberedsubsubsec Riferimenti per approcci contemporanei al ritmo
+@translationof References for contemporary approaches to rhythm
+
+@itemize
+@item Le indicazioni di tempo composto sono trattate in @ref{Indicazione di tempo}.
+
+@item La notazione polimetrica di base è trattata in
+@ref{Notazione polimetrica}.
+
+@item Le travature a raggiera sono discusse in @ref{Travature a raggiera}.
+
+@item Le stanghette dello stile @qq{Mensurstriche} (stanghette solo tra i righi)
+sono trattate in @ref{Raggruppare i righi}.
+
+@end itemize
+
+
+@node Gruppi irregolari nella musica contemporanea
+@unnumberedsubsubsec Gruppi irregolari nella musica contemporanea
+@translationof Tuplets in contemporary music
+
+
+
+@node Indicazioni di tempo contemporanee
+@unnumberedsubsubsec Indicazioni di tempo contemporanee
+@translationof Contemporary time signatures
+
+
+
+@node Notazione polimetrica estesa
+@unnumberedsubsubsec Notazione polimetrica estesa
+@translationof Extended polymetric notation
+
+
+
+@node Travature nella musica contemporanea
+@unnumberedsubsubsec Travature nella musica contemporanea
+@translationof Beams in contemporary music
+
+
+
+@node Stanghette nella musica contemporanea
+@unnumberedsubsubsec Stanghette nella musica contemporanea
+@translationof Bar lines in contemporary music
+
+
+
+@node Notazione grafica
+@subsection Notazione grafica
+@translationof Graphical notation
+
+
+@node Tecniche di arrangiamento contemporaneo
+@subsection Tecniche di arrangiamento contemporaneo
+@translationof Contemporary scoring techniques
+
+
+@node Nuove tecniche strumentali
+@subsection Nuove tecniche strumentali
+@translationof New instrumental techniques
+
+
+@node Letture consigliate e partiture rilevanti
+@subsection Letture consigliate e partiture rilevanti
+@translationof Further reading and scores of interest
+
+Questa sezione consiglia libri, esempi musicali e altre risorse utili
+nello studio della notazione musicale contemporanea.
+
+@menu
+* Libri e articoli sulla notazione musicale contemporanea::
+* Partiture e esempi musicali::
+@end menu
+
+
+@node Libri e articoli sulla notazione musicale contemporanea
+@unnumberedsubsubsec Libri e articoli sulla notazione musicale contemporanea
+@translationof Books and articles on contemporary musical notation
+
+@itemize
+@item
+@emph{Music Notation in the Twentieth Century: A Practical Guidebook}
+di Kurt Stone [W. W. Norton, 1980]
+
+@item
+@emph{Music Notation: A Manual of Modern Practice} di Gardner Read
+[Taplinger, 1979]
+
+@item
+@emph{Instrumentation and Orchestration} di Alfred Blatter [Schirmer,
+2nd ed. 1997]
+
+@end itemize
+
+
+@node Partiture e esempi musicali
+@unnumberedsubsubsec Partiture e esempi musicali
+@translationof Scores and musical examples
+

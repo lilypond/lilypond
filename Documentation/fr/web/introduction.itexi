@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: 721cbad0a8fa77d545bde7237dfc9aff3e5c6e2c
+   Translation of GIT committish: 98c40be14709b8ca367f7940cd6d2f760f86a275
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -612,7 +612,8 @@ fonctionnalités -- nous pouvons tendre bien plus vite vers ce but.
 
 @item
 « Culture du don » : le mouvement du logiciel libre a créé de nombreux
-grands projets logiciels tels que @uref{https://www.gnu.org/distros/, GNU/Linux},
+grands projets logiciels tels que
+@uref{https://www.gnu.org/distros/, GNU/Linux},
 @uref{http://www.getfirefox.com/, Mozilla Firefox} et
 @uref{http://www.wesnoth.org/, Battle for Wesnoth}.  Ayant bénéficié de
 ces projets en tant qu'utilisateurs, certains souhaitent « donner en
@@ -678,13 +679,16 @@ recommandons de lire d'abord @ref{Entrée sous forme de texte}.
 
 Vous trouverez ci-dessous des personnes qui utilisent LilyPond pour leur
 production, que ce soit dans le cadre de l'exécution de leur propre
-musique que pour la publication de partitions.
+musique que pour la publication de partitions. Nous nous limitons ici à
+des travaux placés dans le domaine public ou ayant été placés sous
+licence ouverte.
 
 @divEnd
 
 
 @divClass{column-left-top}
-@subheading Concerts
+@subheading Performances et concerts
+@c VO Performances and Concerts
 
 Des partitions réalisées avec LilyPond ont été utilisées pour des
 concerts et représentations un peu partout dans le monde, nous n'en
@@ -694,57 +698,60 @@ mentionnons que quelques-uns.
 @itemize
 
 @item
+Marc Hohl a écrit des partitions en allemand pour enfants et
+adolescents. Elles sont gravées avec LilyPond (et LaTeX) et disponibles
+gratuitement sur  @uref{http://www.singspielschmiede.de/} ; toute cette
+musique a été donnée lors d'auditions à m'école où Marc travaille.
+
+@item
 @uref{http://www.aurelienbello.com/,Aurélien Bello} a réalisé un
 arrangement du @emph{Chevalier à la rose} de Richard Strauss,
 pour quatre chanteurs et orchestre de chambre à treize interprètes.
-Après deux représentations au palais des festivals de Baden-Baden les
-@uref{http://www.festspielhaus.de/veranstaltung/der-kleine-rosenkavalier-02-04-2015-1100/,
-2 et 6 avril 2015} par l'orchestre philharmonique de Berlin, il a
-ensuite été donné dans la @emph{Großer Saal} de la philharmonie de
-Berlin le
-@uref{http://www.berliner-philharmoniker.de/konzerte/kalender/details/21070/,
-26 avril}.  Nous nous sentons très honorés que des musiciens d'une telle
-réputation aient joué avec des partitions rélisées avec LilyPond --
-qu'ils ont ,à notre connaissane, grandement apprécié.
+Après deux représentations en 2015 au @uref{https://www.festspielhaus.de/,
+palais des festivals de Baden-Baden} puis par l'orchestre philharmonique
+de Berlin dans la
+@uref{https://www.berliner-philharmoniker.de/konzerte/kalender/details/21070/,
+@emph{Großer Saal} de la philharmonie de Berlin}.  Nous nous sentons
+très honorés que des musiciens d'une telle réputation aient joué avec
+des partitions rélisées avec LilyPond -- qu'ils ont, à notre
+connaissane, grandement apprécié.
 
 Aurélien a aussi réorchestré @emph{Der Ring der Nibelungen} de Richard
-Wagner en une
-@uref{www.rsb-online.de/content/concerts/new-season-1516/family-concerts-age-7-and-above/index_eng.html,
-version en 100 minutes pour enfants}.
+Wagner en une version de concert en famille (à partir de 7 ans).
 Celle-ci, écrite pour un orchestre symphonique traditionnel et un nombre
 réduit de chanteurs, a été donnée en avril 2014 au Atze Musiktheater de
-Berlin par @uref{http://www.rsb-online.de/, l'orchestre
-radio-symphonique de Berlin} sous la direction de Heiko Matthias Förster.
+Berlin par @uref{https://www.rsb-online.de/, l'orchestre
+radio-symphonique de Berlin} sous la direction de Heiko Matthias
+Förster.
+
+Après les avoir réorchestrés, Aurélien a donné plusieurs
+représentations, entre octobre 2011 et avril 2012, des @emph{Tableaux
+d'une exposition} de Mussorgsky à la tête de
+@uref{https://junge-philharmonie-brandenburg.de/,
+l'orchestre philharmonique des jeunes de Brandenbourg}.
 
 @item
 Joe Smeets a réalisé les partitions du livre pour enfants @emph{Zing
-Mee} (@emph{Chanter}) d'Annie M.G. publié chez
-@uref{http://www.queridokinderenjeugdboeken.nl/, Querido} -- ISBN
-9789045106205 --, les partitions de chœur d'une traduction en hollandais
+Mee} (@emph{Chanter}) d'Annie M.G. publié chez Querido -- ISBN
+9789045106205. Il a aussi réalisé le conducteur et le matériel d'un
+arrangement pour quatuor à vent, piano et percussions, du @emph{Boris
+Godunov} de Modeste Mussorgsky, qui a été donné en 2014 par le
+@emph{Muziektheater Hollands Diep}.
+
+Joe a aussi réalisé les partitions de chœur d'une traduction en hollandais
 du @emph{Saint Nicolas} de Benjamin Britten donné en 2011 par le
-@emph{Muziektheater Hollands Diep} --
-@uref{http://www.muziektheaterhollandsdiep.nl/nl/voorstellingen/sint_nicolaas_leeft,
-www.muziektheaterhollandsdiep.nl}. Il a aussi réalisé le conducteur et
-le matériel d'un arrangement pour quatuor à vent, piano et percussions,
-du @emph{Boris Godunov} de Modeste Mussorgsky, qui a été donné en
-2014, toujours par le @emph{Muziektheater Hollands Diep}.
+@uref{https://muziektheaterhollandsdiep.nl/?s=sint+nicolaas+leeft,
+@emph{Muziektheater Hollands Diep}}
 
 @item
 Pour sa thèse de doctorat,
-@uref{http://unito.academia.edu/LucaRossettoCasel, Luca Rossetto Casel}
+@uref{https://unito.academia.edu/LucaRossettoCasel, Luca Rossetto Casel}
 a réalisé une édition critique du @emph{Enea nel Lazio (1760)} de
 Tommaso Traetta, opéra sur un libret de Vittorio Amedeo Cigna-Santi, en quatre parties :
-@uref{http://www.academia.edu/1987651/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_1_4_, première},
-@uref{http://www.academia.edu/1994533/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_2_4_, deuxième},
-@uref{http://www.academia.edu/1994558/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_3_4_, troisième},
-@uref{http://www.academia.edu/1996242/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_4_4_, quatrième partie}.
-
-@item
-Après les avoir réorchestrés, @uref{http://www.aurelienbello.com/,
-Aurélien Bello} a donné plusieurs représentations, entre octobre 2011 et
-avril 2012, des @emph{Tableaux d'une exposition} de Mussorgsky à la tête
-de @uref{https://junge-philharmonie-brandenburg.de/, l'orchestre
-philharmonique des jeunes de Brandenbourg}.
+@uref{https://www.academia.edu/1987651/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_1_4_, première},
+@uref{https://www.academia.edu/1994533/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_2_4_, deuxième},
+@uref{https://www.academia.edu/1994558/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_3_4_, troisième},
+@uref{https://www.academia.edu/1996242/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_4_4_, quatrième partie}.
 
 @item
 @uref{http://kierenmacmillan.info/, Kieren MacMillan}, compositeur
@@ -761,7 +768,9 @@ Duo Chrysalis} ainsi que @emph{thrafsmata} en juillet 2011 par le
 @uref{http://www.mikesolomon.org, Mike Solomon} de gagner le
 @uref{http://www.leftcoastensemble.org,
 Concours de composition de la côte Est 2011}, regroupant 172
-participants de 22 nationalités.  Parmi ses autres œuvres, nous citerons
+participants de 22 nationalités.
+
+Parmi ses autres œuvres, nous citerons
 @emph{Norman (un an)} pour clarinette solo, donnée en octobre 2010 à
 l'occasion du Festival de musique électro-acoustique (FEMF) de
 @uref{http://arts.ufl.edu/academics/music/, l'Université de Floride}.
@@ -780,12 +789,10 @@ Texas, par @uref{http://www.mercuryhouston.org/, Mercury Baroque},
 avec un matériel gravé par @uref{http://nicolas.sceaux.free.fr/, Nicolas
 Sceaux}.
 
-@item
-Des passages instrumentaux @emph{d'Hippolyte et Aricie} de Rameau ont
-été joués le 8 mai 2009 en l'église Saint-James de Manhattan, par
-Frederick Renz et son ensemble @uref{http://www.earlymusicny.org/, Early
-Music New York}, avec des partitions gravées par
-@uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}.
+Nicolas a aussi gravé des passages instrumentaux @emph{d'Hippolyte et
+Aricie} de Rameau qui ont été joués le 8 mai 2009 en l'église
+Saint-James de Manhattan, par Frederick Renz et son ensemble
+@uref{http://www.earlymusicny.org/, Early Music New York}.
 
 @item
 @emph{Affaire Étrangère}, un opéra de
@@ -804,33 +811,58 @@ Montpellier}.
 @divClass{column-right-top}
 @subheading Partitions publiées
 
+@subsubheading Bibliothèques de partitions
+
 @divClass{keep-bullets}
 @itemize
 
 @item
-Le @uref{http://www.mutopiaproject.org/index.html, projet Mutopia}
-propose en téléchargement libre des partitions de plus de 1 500
-pièces de musique classique ; c'est la plus grande vitrine de
-partitions LilyPond.
-
-@c don't make this "Mutopia" a link, since that looks silly.
-@item
-@uref{http://etudeapp.com, Etude}, « sheet music on steroids » est une
-application pour iPhone qui affiche des partitions pour piano générées
-par LilyPond, dont certaines proviennent de Mutopia.  Cette application
-comporte un clavier virtuel qui indique aux pianiste lecteur débutant
-quelle touche enfoncer.
+Le @uref{https://www.mutopiaproject.org, projet Mutopia} propose en
+téléchargement libre des partitions de plus de 2 000 pièces de musique
+classique ; c'est la plus grande vitrine de partitions LilyPond. Chaque
+partition disposant des sources LilyPond, il est possible d'apprendre du
+travail des autres et de réaliser ses propres éditions.
 
 @item
-@uref{https://twitter.com/adoromusic, Adoro Music Publishing} propose
-des partitions de musique sacrée de grande qualité, disponibles
-immédiatement en téléchargement ou sous forme de partition imprimable.
+@uref{https://www.baroquemusic.it/, baroquemusic.it}, initié en 2005,
+propose plus de 800 partitions de musique baroque. Ces archives incluent
+conducteurs, parties et fichiers MIDI, sont disponibles sous licence
+Creative Commons uniquement sur souscription.
 
 @item
-@uref{http://matthieujacquot.com/, The Shady Lane Publishing} est un
-« micro-éditeur de partitions musicales » qui a pour but de promouvoir
-une nouvelle forme de pratique économique, plus proche des musiciens et
-amoureux de la musique.
+@uref{http://partitura.org/, Partitura Organum} propose une collection
+grandissante de pièces pour orgue dans le domaine publi, réalisées avec
+LilyPond et sous licence Creative Commons.
+
+@item
+@uref{https://clairnote.org/, Clairnote} offre des partitions gratuites
+en notation Clairnote. Il s'agit d'un système alternatif de notation
+dont le but est de faciliter la lecture et la compréhension de la
+musique. Les partitions du site sont issues de Mutopia et d'autres
+ressources en ligne, converties dans le système de notation propre à
+Clairnote.
+
+@end itemize
+@divEnd
+
+@subsubheading Sheet source repositories
+@divClass{keep-bullets}
+@itemize
+
+@item
+@uref{https://github.com/MutopiaProject/MutopiaProject/,
+Déppôt du Projet Mutopia} :
+fichiers sources de toutes les pièces de la bibliothèque.
+
+@item
+@uref{http://git.savannah.gnu.org/cgit/lilypond.git/tree/Documentation/ly-examples,
+Exemples du site de LilyPond} :
+fichiers sources de la galerie en page @ref{Exemples}.
+
+@item
+@uref{https://github.com/nsceaux/nenuvar, Nicolas Sceaux} :
+partitions de musique baroque réalisées par l'un des développeurs de
+LilyPond.
 
 @end itemize
 @divEnd
@@ -1177,7 +1209,7 @@ Lisez @ref{Entrée sous forme de texte}.
 @translationof Text input
 
 @c TRANSLATORS, so far it's mostly from
-@c http://lilypond.org/web/switch/howto
+@c http://lilypond.org/productions
 
 
 @divClass{column-center-top}
@@ -1378,10 +1410,37 @@ la vue graphique et toute erreur de syntaxe dans votre code sera mise en
 @c VO Browser-based editors
 
 @subsubheading LilyBin
-@uref{http://lilybin.com}
+@uref{http://lilybin.com/}
 
 LilyBin vous permet de saisir en ligne vos partitions sans avoir
-préalablement installé LilyPond sur votre oridnateur.
+préalablement installé LilyPond sur votre oridnateur. Les lignes de code
+sont disponibles par une URL unique, à l'instar des sites « pastebin ».
+Son code est disponible sous licence MIT et se trouve sur la
+@uref{https://github.com/LilyBin/LilyBin, page de développement}.
+
+@subsubheading Hacklily
+@uref{https://www.hacklily.org/}
+
+Hacklily est un éditeur de partition en ligne et un outil de publication
+reposant sur LilyPond qui disposse de fonctionnalités supplémentaires
+telles que l'autocomplétion ou l'aide contextuelle. Le code sous-jascent
+permettant de gérer tout cela est disponible sous licence AGPL sur sa
+propre @uref{https://github.com/hacklily/hacklily,page de développement}.
+
+@subsubheading www.omet.ca
+@uref{http://www.omet.ca/}
+
+Online Music Editing Tools (OMET) offre, depuis 2010, un service
+LilyPond prêt à l'emploi grâce à une interface spécifique. Bien qu'il
+soit nécessaire de s'enregistrer, son utilisation est gratuite.
+
+@subsubheading WebLily.net
+@uref{https://www.weblily.net/}
+
+Initié en 2009, WebLily.net est l'un des premiers services internet basé
+sur LilyPond et a été régulièrement mis à jour depuis. Son utilisation
+est gratuite même si elle requiert de s'enregistrer. Une version
+cliquable de la documentation de LilyPond y est disponible.
 
 @divEnd
 

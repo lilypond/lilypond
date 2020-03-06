@@ -1,0 +1,13 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+通奏低音を記述する際、@code{BassFigureAlignmentPositioning.direction}
+プロパティを定義することで (@code{Staff} コンテキストである必要があります)、@c
+数字を音符の上または下に配置することができます。セットできる選択肢は
+@code{#UP} (または @code{#1}), @code{#CENTER} (または @code{#0}),
+@code{#DOWN} (または @code{#-1}) です。
+
+このプロパティはいつでも変更することができます。@c
+楽譜全体に変更を適用したくない場合は、@code{\\once \\override} を@c
+使用してください。
+"
+  doctitleja = "通奏低音を音符の上か下に追加する"

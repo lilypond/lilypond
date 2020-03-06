@@ -1,0 +1,7 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+連桁を太くしたり細くしたりするには、@code{Beam.beam-thickness} プロパティを@c
+変更します。連桁と連桁の距離を調節するには、@code{Beam.length-fraction}
+プロパティを変更します。
+"
+  doctitleja = "連桁の太さとスペーシングを変更する"

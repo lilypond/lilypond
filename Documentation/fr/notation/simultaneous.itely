@@ -1,16 +1,18 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+
 @ignore
-   Translation of GIT committish: be622e24546dff283da6810c798bb4155c95242a
+   Translation of GIT committish: 032de07c17caacd038f113ebcb54e9c473d64e0f
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
    Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.38"
+@c \version "2.21.0"
 
 @c Translators: Frédéric Chiasson, Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
+
 
 @node Notes simultanées
 @section Notes simultanées
@@ -48,11 +50,11 @@ même voix.
 @unnumberedsubsubsec Notes en accords
 @translationof Chorded notes
 
-@cindex accords
+@cindex accord
 @cindex chevrons
 
-@funindex <
-@funindex >
+@funindex @sortas{<A} <
+@funindex @sortas{>A} >
 @funindex <...>
 
 Un accord est formé en mettant une série de hauteurs entre @code{<}
@@ -101,6 +103,8 @@ individuelles.
 @cindex accord vide
 @cindex substituant pour événement
 
+@funindex <>
+
 Un accord peut se voir comme un conteneur de notes, articulations et
 autres éléments rattachés.  Par voie de conséquence, un accord dépourvu
 de note n'a pas de durée ; toute articulation qui lui serait attachée
@@ -142,7 +146,7 @@ Glossaire musicologique :
 Manuel d'initiation :
 @rlearning{Combinaison de notes en accords}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Articulations et ornements},
 @ref{Notation des accords}.
 @ref{Octaves relatives},
@@ -228,7 +232,7 @@ aient été attachées aux notes le composant ou à l'ensemble.
 Le seul moyen de les reproduire consiste à utiliser explicitement la
 fonction @code{\chordRepeats}, en lui adjoignant un argument
 supplémentaire qui recense les @var{types d'événement} à répéter et qui
-seraient absents de l'accord construit par un @code{q}.
+seraient absents de l'accord construit par un @code{q}.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -332,7 +336,7 @@ plusieurs portées :
 En pareil cas, des rythmes différents ne sont source d'aucun problème
 puisqu'ils sont interprétés dans des voix différentes.
 
-@cindex collisions, ignorer
+@cindex collision, ignorer
 
 @knownissues
 Des notes, bien qu'appartenant à des voix différentes, mais dont les
@@ -344,8 +348,7 @@ appliquer.  Ceci ne manque pas de faire apparaître un message
 warning: This voice needs a \voiceXx or \shiftXx setting
 
 @emph{en français :}
-Avertissement : Cette voix requiert un voiceXx ou un réglage
-\shiftXx
+Avertissement : Cette voix requiert un voiceXx ou un réglage \shiftXx
 @end example
 
 lors de la compilation.  Le déclenchement de cet avertissement peut être
@@ -390,7 +393,7 @@ Glossaire musicologique :
 Morceaux choisis :
 @rlsrnamed{Simultaneous notes, Notation simultanée}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{ClusterSpanner},
 @rinternals{ClusterSpannerBeacon},
 @rinternals{Cluster_spanner_engraver}.
@@ -435,9 +438,10 @@ portées.
 @cindex portée simple et polyphonie
 @cindex voix
 @cindex paroles assignées à une voix
-
 @funindex \voiceOne
-@funindex \voiceOne ... \voiceFour
+@funindex \voiceTwo
+@funindex \voiceThree
+@funindex \voiceFour
 @funindex Voice
 @funindex \oneVoice
 
@@ -516,8 +520,8 @@ permettent d'obtenir des réglages différents pour chacune des voix.
 
 @subsubsubheading La construction avec un double antislash
 
-@cindex couches
-@cindex calques
+@cindex couche
+@cindex calque
 
 @funindex \\
 
@@ -658,7 +662,7 @@ Manuel d'initiation :
 @rlearning{Instanciation explicite des voix},
 @rlearning{Les voix contiennent la musique}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Hampes},
 @ref{Portées de percussion},
 @ref{Silences invisibles}.
@@ -671,11 +675,10 @@ Morceaux choisis :
 @unnumberedsubsubsec Styles de voix
 @translationof Voice styles
 
-@cindex voix, styles
+@cindex voix, style
 @cindex style de voix
 @cindex colorier des voix
-@cindex têtes de note, styles
-
+@cindex tête de note, style
 @funindex \voiceOneStyle
 @funindex \voiceTwoStyle
 @funindex \voiceThreeStyle
@@ -723,7 +726,7 @@ Morceaux choisis :
 
 @cindex fusion de notes
 @cindex collision de notes
-@cindex collisions
+@cindex collision
 @cindex décalage de note
 @cindex note, décalage
 @cindex multiples voix
@@ -731,8 +734,7 @@ Morceaux choisis :
 @cindex polyphonie
 @cindex décalage de voix
 @cindex voix, décalage
-@cindex silences, décalage automatique
-
+@cindex silence, décalage automatique
 @funindex \shiftOn
 @funindex \shiftOnn
 @funindex \shiftOnnn
@@ -909,9 +911,19 @@ bien explicitement.
 @endpredefined
 
 @snippets
+
+@cindex polyphonie, voix additionnelle
+@cindex voix, polyphonie, additionnelle
+@funindex context-spec-music
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {additional-voices-to-avoid-collisions.ly}
 
+@cindex note pointée, déplacement horizontal
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{moving-dotted-notes-in-polyphony.ly}
+
+@cindex décallage, note
+@cindex note, décallage
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {forcing-horizontal-shift-of-notes.ly}
 
@@ -919,7 +931,7 @@ bien explicitement.
 Glossaire musicologique :
 @rglosnamed{polyphony,polyphonie}.
 
-Manuel d'initiation :
+Manuel d'initiation :
 @rlearning{Exemple concret},
 @rlearning{Les voix contiennent la musique},
 @rlearning{Notes simultanées}.
@@ -927,12 +939,12 @@ Manuel d'initiation :
 Morceaux choisis :
 @rlsrnamed{Simultaneous notes, Notation simultanée}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{NoteColumn},
 @rinternals{NoteCollision},
 @rinternals{RestCollision}.
 
-@cindex collisions, ignorer
+@cindex collision, ignorer
 
 @knownissues
 Une clause @code{\override NoteColumn.ignore-collision = ##t} aura
@@ -975,7 +987,7 @@ voiceB = \relative { fis'4 r g2 | R1 | }
     >>
     \new Staff \with {
       instrumentName = "merged"
-      \consists #Merge_rests_engraver
+      \consists "Merge_rests_engraver"
     }
     <<
       \new Voice { \voiceOne \voiceA }
@@ -986,7 +998,7 @@ voiceB = \relative { fis'4 r g2 | R1 | }
 @end lilypond
 
 La propriété de contexte @code{suspendRestMerging}, lorsque activée par
-un @code{##t}, permet de suspendre temporairement la fusion des
+un @code{##t}, permet de suspendre temporairement la fusion des
 silences.
 
 
@@ -1175,8 +1187,8 @@ instrumentTwo = \relative {
 
 @subsubsubheading Utilisation de @code{\partCombine} et paroles
 
-@cindex \partCombine et paroles
-@cindex parloes et \partCombine
+@cindex @code{\partCombine} et paroles
+@cindex paroles et @code{\partCombine}
 
 La commande @code{\partCombine} n'est pas conçue pour traiter des
 paroles ; si l'une des voix est explicitement nommée, afin de lui
@@ -1189,6 +1201,8 @@ les effets escomptés -- voir @ref{Polyphonie et paroles communes}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {combining-two-parts-on-the-same-staff.ly}
 
+@cindex parties combinées, texte
+@cindex @code{\partocombine}, texte
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-partcombine-texts.ly}
 

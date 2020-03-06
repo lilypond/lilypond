@@ -1,5 +1,5 @@
 <!--
-    Translation of GIT committish: 1df9fc42197a6b2931f448cfba717527aead5e5a
+    Translation of GIT committish: 1edb8b3c857fa9c993164123e6f707cad5afb07b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -11,7 +11,7 @@ search would get nothing.  It would be better to keep "v2.15" in the
 search for a while and have a redirection from "v2.15" to "v2.17".
 -->
 
-<form action="https://google.com/search"
+<form action="https://www.google.com/search"
       method="get"
       name="search"
       onSubmit="search.q.value='site:lilypond.org/doc/v2.19 '

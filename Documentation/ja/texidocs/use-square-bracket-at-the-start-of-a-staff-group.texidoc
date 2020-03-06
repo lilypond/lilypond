@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+システム開始の境界線 @code{SystemStartSquare} は @code{StaffGroup}
+または @code{ChoirStaff} で明示的にセットすることで使用することができます。
+"
+  doctitleja = "譜グループの先頭に角括弧を使用する"

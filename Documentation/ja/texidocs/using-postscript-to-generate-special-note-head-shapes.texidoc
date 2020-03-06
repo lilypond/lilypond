@@ -1,0 +1,7 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+特殊な符頭をグラフィック マークアップで作成するのが困難な場合、PostScript
+コードを用いて形をつくることが出来ます。この例は、平行四辺形の符頭を@c
+作成する方法を示しています。
+"
+  doctitleja = "特殊な符頭を作成するために PostScript を使用する"

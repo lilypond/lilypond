@@ -1,17 +1,18 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 3e251ec33b325f3af4adb31df9752422eb2b9f4c
+   Translation of GIT committish: 9ec5b7d295d8287f52da71d997a8277726cf8c00
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
    Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.21.0"
 
 @c Translators: Jean-Charles Malahieude
 @c Translation checkers:
+
 
 @node Mise à jour avec convert-ly
 @chapter Mise à jour avec @command{convert-ly}
@@ -122,7 +123,7 @@ convert-ly -e monfichier.ly
 
 @noindent
 dans le dossier où il se trouve.  @file{monfichier.ly} sera mis à jour,
-avec un nouveau buméro en argument à @code{\version}, et vous aurez une
+avec un nouveau numéro en argument à @code{\version}, et vous aurez une
 copie de l'original : @file{monfichier.ly~}.
 
 @warning{@command{convert-ly} effectuera les conversions jusqu'aux
@@ -161,9 +162,9 @@ find . -name '*.ly' -exec convert-ly -e '@{@}' \;
 
 Ceci aura pour effet de rechercher et convertir tous les fichiers
 sources dans le répertoire en cours et dans tous ses sous-répertoires.
-les fichiers convertis se trouveront à leur emplacement d'orignie, tout
+Les fichiers convertis se trouveront à leur emplacement d'origine, tout
 comme les fichiers originels après renommage.  Cette commande, bien
-qu'effective uniquement dans un terminal, devrait etre fonctnionnelle
+qu'effective uniquement dans un terminal, devrait être fonctionnelle
 aussi pour les utilisateurs de MacOS X.
 
 
@@ -212,9 +213,9 @@ fichier, la mention de version est porté à la valeur de la règle
 appliquée la plus récente.
 
 @item -e, --edit
-pour éditer directement le fichier d'origine.  Le fichier originel est
-renommé en que @file{monfichier.ly~}.  Ce fichier de sauvegarde, selon
-le système d'exploitation, peut être « caché ».
+pour éditer directement le fichier d'origine. Le fichier originel est
+renommé en @file{monfichier.ly~}. Ce fichier de sauvegarde, selon le
+système d'exploitation, peut être « caché ».
 
 Vous pouvez aussi affecter un autre nom au fichier mis à jour et
 conserver votre fichier original en l'état :
@@ -223,7 +224,8 @@ conserver votre fichier original en l'état :
 convert-ly monfichier.ly > monnouveaufichier.ly
 @end example
 
-@noindent et, pour les utilisateurs de windows :
+@noindent
+et, pour les utilisateurs de windows :
 
 @example
 convert-ly.py monfichier.ly > monnouveaufichier.ly
@@ -327,7 +329,7 @@ informatique sait interpréter aussi bien une version que l'autre, un
 autre programme informatique doit alors être capable de traduire un
 fichier donné@footnote{Ceci est réalisable tant que le fichier LilyPond
 ne contient pas de Scheme.  Dès lors qu'un fichier contient du Scheme,
-des bribes de langage évolué se retrouvent danas le fichier LilyPond, ce
+des bribes de langage évolué se retrouvent dans le fichier LilyPond, ce
 qui conduit immanquablement au « problème de l'arrêt » bien connu en
 informatique.}.
 

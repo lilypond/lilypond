@@ -1,0 +1,13 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+MIDI を出力する際、デフォルトの挙動では譜ごとに MIDI チャンネルが作られ、@c
+譜の中にある全てのボイスは統合されます。これは、トラックごとに 16 しか@c
+存在しない MIDI チャンネルが足りなくなる恐れを減らします。
+
+しかしながら、次の例のように
+@code{Staff_performer} を @code{Voice} コンテキストに移動する@c
+ことで、ボイスごとに独自の MIDI チャンネルを持つようになります:
+同じ譜にあるにもかかわらず、2 つの MIDI チャンネルが作られ、異なる
+@code{midiInstrument} が割り当てられます。
+"
+  doctitleja = "MIDI チャンネルをボイスごとに割り当てる"

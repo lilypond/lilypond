@@ -1,0 +1,473 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+
+@ignore
+    Translation of GIT committish: 09ef86c87175cc6c1071eedb022ed1d01a93bcaf
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.19.16"
+
+@c Translators: Walter Garcia-Fontes
+@c Translation checkers:
+
+@node Instruments de vent
+@section Instruments de vent
+@translationof Wind instruments
+
+@lilypondfile[quote]{wind-headword.ly}
+
+Aquesta secció inclou elements de notació musical que es plantegen
+en escriure per a instruments de vent.
+
+@menu
+* Notació comuna per a instruments de vent::
+* Gaita::
+* Instruments de vent fusta::
+@end menu
+
+@node Notació comuna per a instruments de vent
+@subsection Notació comuna per a instruments de vent
+@translationof Common notation for wind instruments
+
+Aquesta secció presenta la notació comuna per gairebé tots els
+instruments de vent.
+
+@menu
+* Referències per a instruments de vent::
+* Digitacions::
+@end menu
+
+@node Referències per a instruments de vent
+@unnumberedsubsubsec Referències per a instruments de vent
+@translationof References for wind instruments
+
+@cindex vent, instruments
+
+Molts aspectes de la notació per a instruments de vent tenen que
+veure amb les respiracions i els cops de llengua:
+
+@itemize
+@item
+Les respiracions es poden especificar mitjançant silencis o
+marques de respiració, vegeu @ref{Marques de respiració}.
+
+@item
+L'execució lligada s'indica mitjançant lligadures d'expressió,
+vegeu @ref{Lligadures d'expressió}.
+@item
+Els diferents cops de llengua, des del legato fins al staccato
+passant pel non legato, es presenten en general mitjançant
+articulacions, a vegades combinades amb lligadures d'expressió,
+vegeu @ref{Articulacions i ornaments} i
+@ref{Llista d'articulacions}.
+@item
+El frullato s'indica generalment mitjançant una indicació de
+trèmol i una marca textual sobre la nota.  Vegeu
+@ref{Repeticions de trèmol}.
+@end itemize
+
+També hi ha d'altres aspectes de la notació musical que són
+d'aplicació als instruments de vent:
+
+@itemize
+@item
+Molts instruments de vent són transpositors, vegeu
+@ref{Transposició dels instruments}.
+@item
+El portament és característic del trombó, però altres instruments
+de vent poden realitzar glissandos amb claus o vàlvules.  Vegeu
+@ref{Glissando}.
+@item
+Els glissandos de sèrie harmònica, que són possible a tots els
+metalls però força específics de les trompes, s'escriuen en
+general com notes d'adorn, vegeu @ref{Notes d'adorn}.
+
+@item
+Les inflexions de to al final d'una nota es presenten a
+@ref{Caigudes i elevacions}.
+@item
+Els cops de clau o de vàlvula se solen indicar amb l'estil
+@code{cross} (aspes) de caps de nota, vegeu
+@ref{Caps de nota especials}.
+@item
+Els instruments de vent-fusta poden sobreinflar les notes greus
+per produir harmònics.  Es mostren per mitjà de l'articulació
+@code{flageolet}.  Vegeu
+@ref{Llista d'articulacions}.
+@item
+L'ús de sordines per als metalls se sol sindicar mitjançant
+marques de text, però quan es produeixen molts canvis ràpids és
+millor utilitzar les articulacions @code{stopped} (tapat) i
+@code{open} (obert).  Vegeu @ref{Articulacions i ornaments} i
+@ref{Llista d'articulacions}.
+@item
+Las trompes tapades s'indiquen per mitjà de l'articulació
+@code{stopped}.  Vegeu @ref{Articulacions i ornaments}.
+@end itemize
+
+@snippets
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{changing--flageolet-mark-size.ly}
+
+@seealso
+Referència de la notació:
+@ref{Marques de respiració},
+@ref{Lligadures d'expressió},
+@ref{Articulacions i ornaments},
+@ref{Llista d'articulacions},
+@ref{Repeticions de trèmol},
+@ref{Transposició dels instruments},
+@ref{Glissando},
+@ref{Notes d'adorn},
+@ref{Caigudes i elevacions},
+@ref{Caps de nota especials}.
+
+Fragments de codi:
+@rlsr{Winds}.
+
+
+@node Digitacions
+@unnumberedsubsubsec Digitacions
+@translationof Fingerings
+
+Tots els instruments de vent a part del trombó requereixen l'ús de
+diferents dits per produir cada nota.  Als fragments de codi que
+apareixen a continuació poden veure's alguns exemples de digitació.
+
+Es poden produir diagrames de posicions per a instruments de vent
+fusta, com es descriu a
+@ref{Diagrames de posicions per a vent fusta}.
+
+@snippets
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{fingering-symbols-for-wind-instruments.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{recorder-fingering-chart.ly}
+
+@seealso
+Referència de la notació:
+@ref{Diagrames de posicions per a vent fusta}.
+
+Fragments de codi:
+@rlsr{Winds}.
+
+
+@node Gaita
+@subsection Gaita
+@translationof Bagpipes
+
+Aquesta secció tracta de la notació comuna per a gaita.
+
+@menu
+* Definicions per a la gaita::
+* Exemple de música de gaita::
+@end menu
+
+@node Definicions per a la gaita
+@unnumberedsubsubsec  Definicions per a la gaita
+@translationof Bagpipe definitions
+
+@cindex gaita
+@cindex gaita escocesa de las terres altes
+@cindex mordents
+@cindex notes d'adorn
+
+@funindex \taor
+@funindex \hideKeySignature
+@funindex \showKeySignature
+
+El Lilypond conté definicions especials per a la música de gaita
+escocesa de les terres altes; per usar-les, escriviu
+
+@example
+\include "bagpipe.ly"
+@end example
+
+@noindent
+al principi del fitxer d'entrada.  D'aquesta forma podrà escriure
+les notes d'adorn especials que són usuals a la música de gaita,
+mitjançant ordres breus.  Per exemple, podeu escriure @code{\taor}
+en lloc de
+
+@example
+\grace @{ \small G32[ d G e] @}
+@end example
+
+@file{bagpipe.ly} també conté definicions d'alçades per a les
+notes de la gaita en les octaves adequades, de forma que no us
+hàgiu de preocupar per @code{\relative} o per @code{\transpose}.
+
+@lilypond[ragged-right,verbatim,quote,notime]
+\include "bagpipe.ly"
+{ \grg G4 \grg a \grg b \grg c \grg d \grg e \grg f \grA g A }
+@end lilypond
+
+La musica de gaita utilitza sempre la tonalitat de Re major (tot i
+que això no és completament cert).  Tanmateix, atès que és l'única
+tonalita que es pot fer servir, normalment no s'escriu
+l'armadura.  Per configurar això de forma correcta, comenceu la
+música sempre amb @code{\hideKeySignature} (oculta l'armadura).
+Si per algun motiu voleu mostrar l'armadura, podeu usar
+@code{\showKeySignature} en el seu lloc.
+
+Alguna música moderna utilitza digitacions creuades sobre el Do i
+el Fa per fer que aquestes notes siguin bemolls.  Es pot indicar
+això mitjançant @code{c-flat} o @code{f-flat}. De forma semblant,
+el sol agut piobaireachd es pot escriure @code{g-flat} quan
+apareix a la música lleugera.
+
+@seealso
+Fragments de codi:
+@rlsr{Winds}.
+
+
+@node Exemple de música de gaita
+@unnumberedsubsubsec Exemple de música de gaita
+@translationof Bagpipe example
+
+@cindex gaita, exemple de
+@cindex Amazing Grace, exemple de gaita
+
+La coneguda melodia Amazing Grace té aquest aspecte en notació de
+gaita.
+
+@lilypond[verbatim,quote]
+\include "bagpipe.ly"
+\layout {
+  indent = 0.0\cm
+  \context { \Score \remove "Bar_number_engraver" }
+}
+
+\header {
+  title = "Amazing Grace"
+  meter = "Hymn"
+  arranger = "Trad. arr."
+}
+
+{
+  \hideKeySignature
+  \time 3/4
+  \grg \partial 4 a8. d16
+  \slurd d2 \grg f8[ e32 d16.]
+  \grg f2 \grg f8 e
+  \thrwd d2 \grg b4
+  \grG a2 \grg a8. d16
+  \slurd d2 \grg f8[ e32 d16.]
+  \grg f2 \grg e8. f16
+  \dblA A2 \grg A4
+  \grg A2 f8. A16
+  \grg A2 \hdblf f8[ e32 d16.]
+  \grg f2 \grg f8 e
+  \thrwd d2 \grg b4
+  \grG a2 \grg a8. d16
+  \slurd d2 \grg f8[ e32 d16.]
+  \grg f2 e4
+  \thrwd d2.
+  \slurd d2
+  \bar "|."
+}
+@end lilypond
+
+@seealso
+Fragments de codi:
+@rlsr{Winds}.
+
+@node Instruments de vent fusta
+@subsection Instruments de vent fusta
+@translationof Woodwinds
+
+Aquesta secció estudia la notació específica per a instruments de
+vent fusta.
+
+@menu
+* Diagrames de posicions per a vent fusta::
+@end menu
+
+@node Diagrames de posicions per a vent fusta
+@subsubsection Diagrames de posicions per a vent fusta
+@translationof Woodwind diagrams
+
+Es poden utilitzar diagrames de posicions per als instruments de
+vent fusta per indicar la digitació a usar en tocar certes notes,
+i es poden utilitzar per als instruments següents:
+
+@itemize
+@item flautí
+@item flauta
+@item oboè
+@item clarinet
+@item clarinet baix
+@item saxofon
+@item fagot
+@item contrafagot
+@end itemize
+
+@noindent
+Els diagrames es creen com elements de marcatge:
+
+
+@lilypond[verbatim,quote,fragment]
+c''1^\markup {
+  \woodwind-diagram #'piccolo #'((lh . (gis))
+                                 (cc . (one three))
+                                 (rh . (ees)))
+}
+@end lilypond
+
+Les claus poden estar obertes, parcialment cobertes, amb l'anell
+polsat o totalment premudes:
+
+@lilypond[verbatim,quote,fragment]
+\textLengthOn
+c''1^\markup {
+  \center-column {
+    "one quarter"
+    \woodwind-diagram #'flute #'((cc . (one1q))
+                                 (lh . ())
+                                 (rh . ()))
+  }
+}
+
+c''1^\markup {
+  \center-column {
+    "one half"
+    \woodwind-diagram #'flute #'((cc . (one1h))
+                                 (lh . ())
+                                 (rh . ()))
+  }
+}
+
+c''1^\markup {
+  \center-column {
+    "three quarter"
+    \woodwind-diagram #'flute #'((cc . (one3q))
+                                 (lh . ())
+                                 (rh . ()))
+  }
+}
+
+c''1^\markup {
+  \center-column {
+    "ring"
+    \woodwind-diagram #'flute #'((cc . (oneR))
+                                 (lh . ())
+                                 (rh . ()))
+  }
+}
+
+c''1^\markup {
+  \center-column {
+    "full"
+    \woodwind-diagram #'flute #'((cc . (oneF two))
+                                 (lh . ())
+                                 (rh . ()))
+  }
+}
+@end lilypond
+
+Els trins s'indiquen mitjanant claus ombrejades:
+
+@lilypond[verbatim,quote,fragment]
+c''1^\markup {
+  \woodwind-diagram #'bass-clarinet
+                    #'((cc . (threeT four))
+                       (lh . ())
+                       (rh . (b fis)))
+}
+@end lilypond
+
+És possible imprimir una àmplia varietat de trins:
+
+@lilypond[verbatim,quote,fragment]
+\textLengthOn
+c''1^\markup {
+  \center-column {
+    "one quarter to ring"
+    \woodwind-diagram #'flute #'((cc . (one1qTR))
+                                 (lh . ())
+                                 (rh . ()))
+  }
+}
+
+c''1^\markup {
+  \center-column {
+    "ring to shut"
+    \woodwind-diagram #'flute #'((cc . (oneTR))
+                                 (lh . ())
+                                 (rh . ()))
+  }
+}
+
+c''1^\markup {
+  \center-column {
+    "ring to open"
+    \woodwind-diagram #'flute #'((cc . (oneRT))
+                                 (lh . ())
+                                 (rh . ()))
+  }
+}
+
+c''1^\markup {
+  \center-column {
+    "open to shut"
+    \woodwind-diagram #'flute #'((cc . (oneT))
+                                 (lh . ())
+                                 (rh . ()))
+  }
+}
+
+c''1^\markup {
+  \center-column {
+    "one quarter to three quarters"
+    \woodwind-diagram #'flute #'((cc . (one1qT3q))
+                                 (lh . ())
+                                 (rh . ()))
+  }
+}
+@end lilypond
+
+La llista de totes les tonalitats i ajustos possibles per a un
+instrument donat es pot imprimir a la consola usant
+@code{#(print-keys-verbose 'flute)} o en el fitxer de registre
+usant @code{#(print-keys-verbose 'flute (current-error-port))},
+tot i que no es pot mostrar en la sortida de música impresa.
+
+És possible crear diagrames nous, tot i que requereix coneixements
+de l'Scheme i potser no està a l'abast de tots els usuaris.  Els
+patrons dels diagrames estan a
+@file{scm/define-woodwind-diagrams.scm} i a
+@file{scm/display-woodwind-diagrams.scm}.
+
+@predefined
+@endpredefined
+
+@snippets
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{woodwind-diagrams-listing.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{graphical-and-text-woodwind-diagrams.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{changing-the-size-of-woodwind-diagrams.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{woodwind-diagrams-key-lists.ly}
+
+@seealso
+Fitxers d'inici:
+@file{scm/define-woodwind-diagrams.scm}, @*
+@file{scm/display-woodwind-diagrams.scm}.
+
+Fragmentos de código:
+@rlsr{Winds}.
+
+Referència de funcionament interno
+@rinternals{TextScript},
+@rinternals{instrument-specific-markup-interface}.

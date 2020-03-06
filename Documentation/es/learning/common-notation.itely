@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 250f1bf95f84616b68932324d6b5026833080cc4
+    Translation of GIT committish: 557cc9934585a9083c9e4957068889b3f393873c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -165,14 +165,19 @@ En LilyPond, los nombres de las notas identifican alturas. Por
 ejemplo, @code{c} siempre significa Do natural, cualquiera que sea
 la armadura.
 
-Una nota con @notation{sostenido} se hace añadiendo @code{is} al
-nombre, y una nota @notation{bemol} añadiendo @code{es}.  Como ha
-podido adivinar, un @notation{doble sostenido} o @notation{doble
-bemol} se hace añadiendo @code{isis} o @code{eses}.  Esta sintaxis
-se deriva de las convenciones de nomenclatura de las notas en las
-lenguas nórdicas y germánicas como el alemán y el holandés.  Para
-utilizar otros nombres para las @notation{alteraciones
-accidentales}, véase @ruser{Nombres de las notas en otros
+En muchos idiomas, el nombre de una nota consiste en un nombre
+base que se refiere a los escalones diatónicos de la escala de Do
+mayor / la menor, p.ej.  @code{d}, y un sufijo, que indica la
+@notation{alteración} de esta altura básica.  El idioma
+predeterminado para los nombres de nota es el holandés
+(Dutch). Una nota con @notation{sostenido} se hace añadiendo
+@code{is} al nombre, y una nota @notation{bemol} añadiendo
+@code{es}.  Como ha podido adivinar, un @notation{doble sostenido}
+o @notation{doble bemol} se hace añadiendo @code{isis} o
+@code{eses}.  Esta sintaxis se deriva de las convenciones de
+nomenclatura de las notas en las lenguas nórdicas y germánicas
+como el alemán y el holandés.  Para utilizar otras nomenclaturas
+para las notas, véase @ruser{Nombres de las notas en otros
 idiomas}.
 
 @lilypond[verbatim,quote]
@@ -354,7 +359,9 @@ Glosario musical:
 
 Una @notation{ligadura de expresión} es una curva que se traza
 abarcando varias notas.  Las notas inicial y final se marcan
-mediante @code{(} y @code{)} respectivamente.
+mediante @code{(} y @code{)} respectivamente. Observe que el
+paréntesis de apertura @code{(} se escribe después de la primera
+nota de la ligadura.
 
 @lilypond[verbatim,quote]
 \relative { d''4( c16) cis( d e c cis d) e( d4) }
@@ -412,7 +419,11 @@ Referencia de la notación:
 
 @node Articulaciones y matices dinámicos
 @subsection Articulaciones y matices dinámicos
-@translationof Articulation and dynamics
+@translationof Articulations and dynamics
+
+Las articulaciones y los matices dinámicos se indican escribiendo
+ciertos símbolos después de las notas a las que aquellos se
+aplican.
 
 @menu
 * Articulaciones::
@@ -582,7 +593,9 @@ automáticamente:
 
 Si no le gustan las barras automáticas, pueden forzarse
 manualmente.  Marque la primera nota que comprende la barra con
-@code{[} y la última con @code{]}.
+@code{[} y la última con @code{]}.  Observe que el corchete de
+apertura @code{[} se escribe después de la primera nota que está
+unida por la barra.
 
 @lilypond[verbatim,quote]
 \relative { a'8[ ais] d[ ees r d] c16 b a8 }
@@ -1432,7 +1445,7 @@ cello = \new Staff {
 
 @noindent
 Por convención, los nombres de variable consisten enteramente en
-caracteres alfabéticos.
+caracteres alfabéticos.  Para ver información detallada, consulte @ruser{Estructura del archivo}.
 
 Las variables se deben definir @emph{antes} de la expresión
 musical principal, pero se pueden usar tantas veces como se

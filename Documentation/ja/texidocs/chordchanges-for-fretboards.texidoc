@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+フレット図をコードが変わるときにだけ表示したり、行頭だけに表示したり@c
+することができます。
+"
+  doctitleja = "フレット図の chordChange プロパティ"

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: db92af51a444062c8edaef3afa36f57375b8feeb
+    Translation of GIT committish: e00601609d424d0a2e33e178753ed10716127256
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -215,6 +215,7 @@ Referencia de la notación:
 * El prefijo once::
 * La instrucción overrideProperty::
 * La instrucción tweak::
+* El prefijo single::
 @end menu
 
 @node La instrucción override
@@ -269,13 +270,10 @@ que sean fáciles de entender, para ilustrar el formato y la
 utilización de estas instrucciones.
 
 Las expresiones principales de LilyPond son elementos musicales
-como notas, duraciones y elementos de marcado.  Las expresiones
-más básicas como números, cadenas de caracteres y listas se
+como notas y duraciones, así como cadenas y elementos de marcado.  Las expresiones
+más específicas como números, símbolos y listas se
 procesan en el @q{modo de Scheme}, que se invoca por medio del
-prefijo @samp{#} escrito antes del valor.  Aunque los valores
-pueden tener a veces una representación válida en el modo de
-música de LilyPond, este manual utiliza siempre @samp{#} para la
-escritura, por coherencia.  Para ver más información acerca del
+prefijo @samp{#} escrito antes del valor.  Para ver más información acerca del
 modo de Scheme, consulte @rextend{Sintaxis del Scheme de LilyPond}.
 
 @code{\override} es la instrucción de uso más común dentro del
@@ -4902,4 +4900,3 @@ posición dentro del pentagrama.
 Se pueden encontrar ejemplos adicionales que muestran la
 utilización de estos interfaces programables, en
 @rextendnamed{Callback functions,Funciones de callback}.
-

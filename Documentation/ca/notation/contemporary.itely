@@ -1,0 +1,250 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+@ignore
+    Translation of GIT committish: 8a1b303e7930b596753b075e4341a297211d6a0a
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.16.0"
+
+@c Translators: Walter Garcia-Fontes
+@c Translation checkers:
+
+@node Música contemporània
+@section Música contemporània
+@translationof Contemporary music
+
+A partir de començament del segle XX s'ha produït una expansió
+massiva dels estils i tècniques composicionals.  Els nous
+desenvolupaments harmònics i rítmics, una expansió de l'espectre
+d'alçades i el desenvolupament d'un ampli ventall de noves
+tècniques instrumentals han vingut acompanyades d'una evolució i
+expansió paral·leles de la notació musical.  L'objectiu d'aquesta
+secció es proporcionar referències i informació rellevant per al
+treball amb aquestes noves tècniques de notació.
+
+@menu
+* Tonalitat i harmonia en la música contemporània::
+* Enfocaments contemporanis del ritme::
+* Notació gràfica::
+* Tècniques de partitura contemporània::
+* Noves tècniques instrumentals::
+* Lectures addicionals i partitures d'interès::
+@end menu
+
+
+@node Tonalitat i harmonia en la música contemporània
+@subsection Alçada i harmonia en la música contemporània
+@translationof Pitch and harmony in contemporary music
+
+Aquesta secció destaca els problemes de la notació de les
+tonalitats i l'harmonia en la música contemporània.
+
+@menu
+* Referències per a tonalitats i harmonia en música contemporània::
+* Notació microtonal::
+* Harmonia i armadures de tonalitat contemporània::
+@end menu
+
+
+@node Referències per a tonalitats i harmonia en música contemporània
+@unnumberedsubsubsec Referències per a tonalitats i harmonia en música contemporània
+@translationof References for pitch and harmony in contemporary music
+
+@itemize
+@item La notació estàndard de quarts de to s'estudia a
+@ref{Noms de les notes en altres llengües}.
+
+@item Les armadures de tonalitat no estàndard s'estudien a
+@ref{Armadura de la tonalitat}.
+
+@item Les pràctiques contemporànies en la presentació de les alteracions
+accidentals s'estudien a @ref{Alteracions accidentals automàtiques}.
+
+@end itemize
+
+
+@node Notació microtonal
+@unnumberedsubsubsec Notació microtonal
+@translationof Microtonal notation
+
+@ignore
+    Discussion of microtones other than quarter-tones, alternative
+notations (arrows, slash-flats), etc.
+@end ignore
+
+
+@node Harmonia i armadures de tonalitat contemporània
+@unnumberedsubsubsec Harmonia i armadures de tonalitat contemporània
+@translationof Contemporary key signatures and harmony
+
+@ignore
+    Discussion of contemporary key signatures:
+    non-standard, polytonality, etc.
+@end ignore
+
+
+@node Enfocaments contemporanis del ritme
+@subsection Enfocaments contemporanis del ritme
+@translationof Contemporary approaches to rhythm
+
+Aquesta secció tracta dels problemes de la notació de les
+duracions a la música contemporània.
+
+@menu
+* Referències per a enfocaments contemporanis del ritme::
+* Grups de valoració especial a la música contemporània::
+* Compassos contemporanis::
+* Notació polimètrica estesa::
+* Barrat en música contemporània::
+* Línies divisòries a la música contemporània::
+@end menu
+
+
+@node Referències per a enfocaments contemporanis del ritme
+@unnumberedsubsubsec  Referències per a enfocaments contemporanis del ritme
+@translationof References for contemporary approaches to rhythm
+
+@itemize
+@item Els tipus de compàs d'amalgama s'estudien a
+@ref{Indicació de compàs}.
+
+@item La notació polimètrica bàsica s'estudia en
+@ref{Notació polimètrica}.
+
+@item Las barres en angles progressives s'estudien a
+@ref{Barres progressives}.
+
+@item Les línies divisòries d'estil Mensurstriche (línies que
+estan sols entre els pentagrames) s'estudien a
+@ref{Agrupament de pentagrames}.
+
+@end itemize
+
+
+@node Grups de valoració especial a la música contemporània
+@unnumberedsubsubsec Grups de valoració especial a la música contemporània
+@translationof Tuplets in contemporary music
+
+@ignore
+    Extended discussion of modern tuplets, including
+    non-standard ratios, nested tuplets and customising
+    the appearance of tuplets (ratios, note values etc.)
+    Also how to provide an ossia RhythmicStaff to help
+    players break down a complicated tuplet.
+@end ignore
+
+
+@node Compassos contemporanis
+@unnumberedsubsubsec Compassos contemporanis
+@translationof Contemporary time signatures
+
+@ignore
+    Extended discussion of compound time signatures
+    including Graham P.'s work; non-standard time
+    signatures such as 7/10, 5/6; alternative
+    notations such as Orff-esque 4/note, placing a
+    single time signature across multiple staves, or
+    placing time signatures at the top of StaffGroups
+    or systems rather than in the stave.
+@end ignore
+
+
+@node Notació polimètrica estesa
+@unnumberedsubsubsec Notació polimètrica estesa
+@translationof Extended polymetric notation
+
+@ignore
+    Extended examples e.g. different instruments
+    or ensembles with independent tempi
+@end ignore
+
+
+@node Barrat en música contemporània
+@unnumberedsubsubsec Barrat en música contemporània
+@translationof Beams in contemporary music
+
+@ignore
+    Beaming practises, stemlets, Boulez-esque displaying
+    of beamed notes with flags
+@end ignore
+
+
+@node Línies divisòries a la música contemporània
+@unnumberedsubsubsec Línies divisòries a la música contemporània
+@translationof Bar lines in contemporary music
+
+
+@ignore
+    Mensurstriche barlines, tick barlines, etc.
+@end ignore
+
+
+@node Notació gràfica
+@subsection Notació gràfica
+@translationof Graphical notation
+
+
+@node Tècniques de partitura contemporània
+@subsection Tècniques de partitura contemporània
+@translationof Contemporary scoring techniques
+
+
+@node Noves tècniques instrumentals
+@subsection Noves tècniques instrumentals
+@translationof New instrumental techniques
+
+
+@node Lectures addicionals i partitures d'interès
+@subsection Lectures addicionals i partitures d'interès
+@translationof Further reading and scores of interest
+
+Aquesta secció suggereix llibres, exemples musicals i altres
+recursos d'utilitat a l'estudi de la notació musical contemporània.
+
+@menu
+* Llibres i articles sobre notació musical contemporània::
+* Partitures i exemples musicals::
+@end menu
+
+
+@node Llibres i articles sobre notació musical contemporània
+@unnumberedsubsubsec Llibres i articles sobre notació musical contemporània
+@translationof Books and articles on contemporary musical notation
+
+@itemize
+@item
+@emph{Music Notation in the Twentieth Century: A Practical Guidebook}
+de Kurt Stone [W. W. Norton, 1980]
+
+@item
+@emph{Music Notation: A Manual of Modern Practice} de Gardner Read
+[Taplinger, 1979]
+
+@item
+@emph{Instrumentation and Orchestration} d'Alfred Blatter [Schirmer,
+2nd ed. 1997]
+
+@end itemize
+
+
+@node Partitures i exemples musicals
+@unnumberedsubsubsec Partitures i exemples musicals
+@translationof Scores and musical examples
+
+@ignore
+    Rough list of composers whose work could be included
+    (in alphabetical order, perhaps with suggested work):
+
+        Pierre Boulez (Le Marteau Sans Maître?)
+        John Cage (Freeman Etudes?)
+        George Crumb (Black Angels?)
+        Brian Ferneyhough (Transit?  Time & Motion Studies?)
+        Ben Johnston (extended just intonation example)
+        György Ligeti (several, including Hamburg Concerto)
+        Krzysztof Penderecki (Threnody to the Victims of Hiroshima?)
+        Karlheinz Stockhausen (Gruppen?)
+@end ignore
+

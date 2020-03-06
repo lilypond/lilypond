@@ -1,26 +1,25 @@
-%% Translation of GIT committish: 01cf27b0b2ef4625b7b7f023848df87bb1e4e382
+%% Translation of GIT committish: c511518a4e7669ac7263f8a28565debefe25a358
   doctitlees = "Armaduras de tonalidad no tradicionales"
   texidoces = "
 La muy utilizada instrucción @code{\\key} establece la propiedad
-@code{keyAlterations} property, dentro del contexto @code{Staff}.
+@code{keyAlterations} dentro del contexto @code{Staff}. Para crear
+armaduras de tonalidad no estándar, ajuste esta propiedad
+directamente.
 
-Para crear armaduras de tonalidad no estándar, ajuste esta
-propiedad directamente.  El formato de esta instrucción es una
-lista:
+El formato de esta instrucción es una lista:
 
 @code{\\set Staff.keyAlterations = #`(((octava . paso) . alteración)
-((octava . paso) . alteración) ...)} donde, para cada elemento
-dentro de la lista, @code{octava} especifica la octava
-(siendo@tie{}cero la octava desde el Do@tie{}central hasta el Si
-por encima), @code{paso} especifica la nota dentro de la octava
+((octava . paso) . alteración) ...)}
+
+donde, para cada elemento dentro de la lista, @code{octava} especifica
+la octava (siendo@tie{}cero la octava desde el Do@tie{}central hasta
+el Si por encima), @code{paso} especifica la nota dentro de la octava
 (cero@tie{}significa@tie{}Do y 6@tie{}significa@tie{}Si), y
-@code{alteración} es @code{,SHARP ,FLAT ,DOUBLE-SHARP}
-etc. (observe la coma precedente).
+@code{alteración} es @code{,SHARP ,FLAT ,DOUBLE-SHARP} etc.
 
-De forma alternativa, para cada elemento de la lista el uso del
-formato más conciso @code{(paso . alteración)} especifica que la
-misma alteración debe estar en todas las octavas.
-
-He aquí un ejemplo de una posible armadura para generar una escala
-exátona:
+De forma alternativa, el uso del formato más conciso @code{(paso
+. alteración)} para cada elemento de la lista especifica que la misma
+alteración debe estar en todas las octavas. Para escalas microtonales
+en las que un @qq{sostenido} no son 100 cents, @code{alteración} se
+refiere a la proporción de un tono entero de 200 cents.
 "

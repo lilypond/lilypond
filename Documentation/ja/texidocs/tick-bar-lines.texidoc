@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+'ティック' 小節線は、譜どうしの共通タイミングのみを示し、@c
+小節線にリズム的強勢を与えたくない場合によく使用されます。
+"
+  doctitleja = "ティック小節線"

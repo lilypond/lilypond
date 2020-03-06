@@ -1,0 +1,8 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+8 分音符やそれより短い音符の符尾は、@code{Flag} の @code{stencil}
+プロパティをオーバライドすることで変更できます。有効な値は
+@code{modern-straight-flag}, @code{old-straight-flag},
+@code{flat-flag} です。
+"
+  doctitleja = "符尾のスタイルを変更する"

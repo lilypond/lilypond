@@ -1,0 +1,8 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+内部的には、@code{\\ottava} は @code{ottavation} プロパティを
+(例えば、@code{8va} や @code{8vb} に) セットし、また @code{middleCPosition}
+プロパティをセットします。ブラケットのテキストを書き換えるには、@c
+@code{ottavation} を @code{\\ottava} の後に書き換えます。
+"
+  doctitleja = "オッターヴァのテキスト"

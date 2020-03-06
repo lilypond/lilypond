@@ -1,0 +1,7 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+タイは @code{TieColumn} オブジェクトの @code{tie-configuration} プロパティを@c
+変更することで手動で譜刻することができます。最初の数値が中央の譜線からの距離を@c
+譜スペースの半分の単位で表し、次の数値が向きを表します (1 = 上, -1 = 下)。
+"
+  doctitleja = "タイを手動で譜刻する"

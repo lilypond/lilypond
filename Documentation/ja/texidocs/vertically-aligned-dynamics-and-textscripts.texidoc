@@ -1,0 +1,11 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+全ての @code{DynamicLineSpanner} オブジェクト (ヘアピンや強弱記号テキスト)
+は、他のアイテムが邪魔しない限り、@c
+譜から少なくとも @code{staff-padding} だけ離れた基準線に配置されます。@c
+@code{staff-padding} を十分に大きくすると、強弱記号を揃えることができます。
+
+また、@code{\\textLengthOn} を用いて、テキスト スクリプトをベースラインに@c
+揃えることができます。
+"
+  doctitleja = "強弱記号やテキスト スクリプトを縦方向に揃える"

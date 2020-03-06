@@ -1,0 +1,7 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+ハイフンを挿入するスペースが無いと LilyPond が判断した場合には@c
+デフォルトで省略されますが、この挙動は @code{LyricHyphen} の
+@code{minimum-distance} プロパティでオーバライドすることができます。
+"
+  doctitleja = "ハイフンを強制的に表示する"

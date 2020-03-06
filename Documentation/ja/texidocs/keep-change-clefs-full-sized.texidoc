@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+音部記号が変更される際、その音部記号は行頭のものよりも小さく表示されます。@c
+これは @code{full-size-change} で変更することができます。
+"
+  doctitleja = "音部記号の変更を大きく表示する"

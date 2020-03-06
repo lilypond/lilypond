@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+二全音符の表示を、符頭の左右に線が 1 本あるバロック式の表示から、@c
+2 本あるものに変更することができます。
+"
+  doctitleja = "二全音符を変更する"

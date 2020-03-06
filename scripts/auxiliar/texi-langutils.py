@@ -179,6 +179,7 @@ if make_gettext:
         # Urgly: scan ly comments and variable names only in English doco
         is_english_doc = (
             True
+            and not 'Documentation/ca/' in texi_file
             and not 'Documentation/cs/' in texi_file
             and not 'Documentation/de/' in texi_file
             and not 'Documentation/es/' in texi_file
@@ -188,6 +189,7 @@ if make_gettext:
             and not 'Documentation/it/' in texi_file
             and not 'Documentation/nl/' in texi_file
             and not 'Documentation/po/' in texi_file
+            and not 'Documentation/pt/' in texi_file
             and not 'Documentation/zh/' in texi_file
             )
         process_texi (texi_file, intro_blurb, node_blurb, make_skeleton,

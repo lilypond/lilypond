@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+fall や doit の形を調整するために、
+@code{shortest-duration-space} プロパティを変更することができます。
+"
+  doctitleja = "fall や doit の形を調整する"

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: fabcd22c8f88ea9a87241597f1e48c0a9adbfc6e
+    Translation of GIT committish: 5fb3f8cf17ce7b57d22584429d736f188e4827d7
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -10,7 +10,7 @@
 
 @c \version "2.19.21"
 
-@c Translators: Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Yoshiki Sawada
 @c Translation status: post-GDP
 
 
@@ -62,57 +62,96 @@ LilyPond 入力ファイルはより容易に (あるいはより困難に)
 @section 一般的な提案
 @translationof General suggestions
 
-ここで、あなたが問題を回避したり修正する手助けになる@c
-可能性がある提案をいくつか挙げます:
+ここで、譜刻の際に起こる、最もよくある問題を回避 (あるいは修正) する@c
+手助けになりうる提案をいくつか挙げます:
 
 @itemize
-@item @strong{すべてのファイルに @code{@bs{}version} 番号を含めます}。@c
+@item
+どんなに小さいファイルでも、@strong{すべての入力ファイルに必ず
+@code{@bs{}version} 番号を含めるべきです}。@c
+これは、LilyPond のどのバージョンでファイルが作られたかを覚えておかなくて@c
+良くなりますし、@ref{convert-ly を使ってファイルを更新する} の際に特に@c
+関わってきます (convert-ly は @code{\version} が含まれている必要があります)。@c
+あるいは他のユーザに入力ファイルを送る際 (例えばメーリング リストで助けを@c
+得るとき) にも重要です。@c
 テンプレートはすべて @code{@bs{}version} 情報を保持しているということに@c
-注意してください。@c
-常に @code{@bs{}version} を含めること -- ファイルの大小にかかわらず --
-を強く推奨します。@c
-個人的な経験から言って、数年前に使っていた LilyPond のバージョンを@c
-思い出そうとすることは大変なことです。@c
-@command{convert-ly} は使用した LilyPond のバージョンを宣言することを@c
-必要とします。
+注意してください。
 
-@item @strong{チェックを含めます}:
-@ruser{小節と小節番号のチェック}, @ruser{オクターブ チェック}。@c
-時々チェックを入れておけば、ミスをしたときに素早くそれを@c
-見つけ出すことができます。@c
-@q{時々} とはどれくらいの頻度なのでしょうか？@c
-それはその音楽の複雑さ次第です。@c
-とても簡単な音楽であれば、たぶん 1 回か 2 回です。@c
-とても複雑な音楽であれば、おそらく各小節にチェックを入れます。
+@item
+@strong{入力ファイル 1 行につき、1 小節の音楽を書きます}。 これは@c
+入力ファイルに関するあらゆる問題のデバッグを簡単にします。
 
-@item @strong{テキスト 1 行につき 1 小節にします}。@c
-音楽自体や望みの出力が複雑である場合、1 行に 1 小節だけを記述すると@c
-良い場合が多いです。@c
-画面スペースを節約するために 1 行に 8 小節も詰め込むことは、@c
-入力ファイルを @q{デバッグ} しなければならない場合に、@c
-そうするだけの価値はありません。
+@item
+@strong{@ruser{小節と小節番号のチェック}と@ruser{オクターブ チェック}を含めます。}@c
+入力ファイルにこのような@q{チェック}を含めておくことで、@c
+ミスを特定するのが早くなります。@c
+チェックをどのぐらいの頻度で追加するかは、その音楽の複雑さ次第です。@c
+簡単な音楽であれば、戦略上重要なポイントにいくつか追加するだけで十分でしょう。@c
+しかし、多くの声部や譜を持つようなもっと複雑な音楽であれば、おそらく各小節に@c
+チェックを入れたほうが良いでしょう。
 
-@item @strong{入力ファイルにコメントをつけます}。@c
-コメントとして小節番号 (時々) や音楽テーマへの参照
-(@q{second theme in violins}, @q{fourth variation}
-(@q{ヴァイオリンの第 2 テーマ}, @q{第 4 ヴァイオリン})
-など) を使用します。@c
-初めて楽曲を書いているときはコメントをつける必要は無いかもしれません。@c
-しかしながら、数年後に何か変更を加えたいと思った場合や、@c
-ソースを友人に渡す場合、あなたがファイルにコメントをつけていなければ、@c
-あなたの意図やファイルがどのように構成されているのかを特定することは@c
-ずっと大変になります。
+@item
+@strong{入力ファイルにコメントをつけます}。@c
+コメントとして音楽テーマへの参照
+(@q{ヴァイオリンの第 2 テーマ}, @q{第 4 変奏})
+など) や、単純に小節番号を追加することは、@c
+入力ファイルの中の場所を特定するのを簡単にします。特に後で何かを変更しなければ@c
+ならない場合や、LilyPond 入力ファイルを他の人に渡す際には特に役立ちます。
 
-@item @strong{波括弧にインデントを入れる}。@c
-多くの問題は @code{@{} と @code{@}} の数が食い違うことによって生じます。
+@item
+@strong{セクションの開始時に明示的に演奏時間を付け加えます}。@c
+例えば、ただ @code{c d e f} と書く代わりに @code{c4 d e f} と書くことで、@c
+後で音楽を再配置するのが簡単になります。
 
-@item セクションや変数の開始時に@strong{明示的に演奏時間を付け加える}。@c
-フレーズの開始時に @code{c4 d e} (@code{c d e} ではなく) と記述しておけば、@c
-後になって音楽を再編成する場合に問題の発生を免れる可能性があります。
+@item
+@strong{波括弧と並列表記にインデントを施します}。問題はしばしば、@c
+どちらかの括弧が@q{足りない}ことが原因です。波括弧の@q{始まり}と@q{終わり}
+(あるいは @code{<<} と @code{>>}) に明確なインデントを追加することで、@c
+このような問題を避けやすくなります。例えば以下の入力:
 
-@item 音楽定義から@strong{調整を分離します}。@c
-@rlearning{変数と関数を用いて入力の手間を省く} と
-@rlearning{スタイル シート} を参照してください。
+@example
+\new Staff @{
+  \relative @{
+    r4 g'8 g c8 c4 d |
+    e4 r8 |
+    % Ossia section
+    <<
+      @{ f8 c c | @}
+      \new Staff @{
+        f8 f c |
+      @}
+    >>
+    r4 |
+  @}
+@}
+@end example
+
+@noindent
+は以下の入力より括弧の対応を追いかけやすいです:
+
+@example
+\new Staff @{ \relative @{ r4 g'8 g c4 c8 d | e4 r8
+% Ossia section
+<< @{ f8 c c @} \new Staff @{ f8 f c @} >> r4 | @} @}
+@end example
+
+@item
+@code{\layout} ブロックにオーバライドを追加することによって、@c
+@strong{音楽とスタイルを分割します}:
+
+@example
+\score @{
+  @var{@dots{}music@dots{}}
+  \layout @{
+   \override TabStaff.Stemstencil = ##f
+ @}
+@}
+@end example
+
+このオーバライドは新しいコンテキストを生成しませんが、@c
+コンテキストが生成された際に適用されます。@c
+@rlearning{変数と関数を用いて入力の手間を省く}や@c
+@rlearning{スタイル シート}も参照してください。
 
 @end itemize
 
@@ -148,7 +187,7 @@ LilyPond 入力ファイルはより容易に (あるいはより困難に)
 移調楽器の音符は以下で囲むことを推奨します:
 
 @example
-\transpose c natural-pitch @{...@}
+\transpose c natural-pitch @{@dots{}@}
 @end example
 
 @noindent
@@ -188,7 +227,7 @@ LilyPond 入力ファイルの構造をすっきりさせておくことが不�
 violin = \relative @{
 g'4 c'8. e16
 @}
-...
+@dots{}
 \score @{
   \new GrandStaff @{
     \new Staff @{
@@ -225,7 +264,7 @@ LilyPond が返すメッセージはエラーを見つけ出す@c
 問題の原因を探し出すために調査を行う必要があります。
 
 この目的のための最も強力なツールは 1 行コメント (@code{%} で記述します) と@c
-ブロック コメント (@code{%@{ ... %@}} で記述します) です。@c
+ブロック コメント (@code{%@{@dots{}%@}} で記述します) です。@c
 問題がどこにあるかわからない場合、@c
 入力ファイルの大きな一部分をコメント アウトすることから始めます。@c
 あるセクションをコメント アウトして、そのファイルを再びコンパイルしてみます。@c
@@ -275,6 +314,9 @@ bass = \relative @{
 @node Make と Makefile
 @section Make と Makefile
 @translationof Make and Makefiles
+
+@cindex makefiles
+@cindex make
 
 LilyPond を実行できるほとんどすべてのプラットフォームが
 @code{make} というソフトウェアをサポートします。@c

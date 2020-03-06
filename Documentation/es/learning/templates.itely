@@ -84,7 +84,7 @@ acompañamiento de piano:
 @end lilypond
 
 La misma entrada se puede utilizar para producir una partitura con
-dos voces po pentagrama, tan solo ajustando el valor de
+dos voces por pentagrama, tan solo ajustando el valor de
 @code{TwoVoicesPerStaff} a @code{##t}.  De nuevo, cada voz tiene
 su letra individual.
 

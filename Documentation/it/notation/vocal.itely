@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: b680788cd1c671d52819d69e9e130ff45361a590
+    Translation of GIT committish: 6ca1d8c80817f9baaa7b66b2fde9a7b98b0ffc0a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -71,7 +71,7 @@ di notazione è disponibile in @rlearning{Impostare canzoni semplici}.
 La musica vocale richiede solitamente l'uso della modalità
 @code{markup}, sia per il testo musicale che per altri elementi
 testuali (i nomi dei personaggi, etc.).  Questa sintassi è
-spiegata in @ref{Text markup introduction}.
+spiegata in @ref{Introduzione al testo a margine}.
 
 @item
 L'@notation{Ambitus} può essere aggiunto all'inizio dei righi per
@@ -80,7 +80,7 @@ la voce, come è spiegato in @ref{Ambitus}.
 @item
 Le indicazioni dinamiche sono di norma posizionate sotto il rigo,
 ma nella musica corale sono posizionate solitamente sopra il
-rigo per evitare il testo, come è spiegato in @ref{Score layouts for choral}.
+rigo per evitare il testo, come è spiegato in @ref{Struttura di una partitura corale}.
 
 @end itemize
 
@@ -92,9 +92,9 @@ Manuale di apprendimento:
 @rlearning{Impostare canzoni semplici}.
 
 Guida alla notazione:
-@ref{Text markup introduction},
+@ref{Introduzione al testo a margine},
 @ref{Ambitus},
-@ref{Score layouts for choral}.
+@ref{Struttura di una partitura corale}.
 
 Frammenti:
 @rlsr{Vocal music}.
@@ -106,14 +106,14 @@ Frammenti:
 
 @cindex testo, inserimento
 @cindex inserimento del testo
-@cindex formattazione nel testo vocale
+@cindex formattazione, nel testo vocale
 @cindex testo vocale, formattazione
-@cindex punteggiatura nel testo vocale
+@cindex punteggiatura, nel testo vocale
 @cindex testo vocale, punteggiatura
-@cindex spazi nel testo vocale
+@cindex spazio, nel testo vocale
 @cindex testo vocale, spazi
-@cindex citazioni nel testo vocale
-@cindex testo vocale, citazioni
+@cindex citazione, nel testo vocale
+@cindex testo vocale, citazione
 @funindex \lyricmode
 
 @c TODO should we explain hyphens here
@@ -137,7 +137,7 @@ sillaba esplicitamente, come nell'esempio precedente; oppure
 si può lasciare che il testo sia allineato automaticamente a
 una melodia o a un'altra voce del brano, usando @code{\addlyrics} o
 @code{\lyricsto}.  Il primo metodo è descritto sotto in
-@ref{Manual syllable durations}; il secondo in
+@ref{Durate manuali delle sillabe}; il secondo in
 @ref{Durate automatiche delle sillabe}.
 
 Una parola o sillaba del testo inizia con un carattere alfabetico
@@ -168,7 +168,7 @@ La punteggiatura, i caratteri accentati, quelli di lingue diverse
 dall'inglese e i caratteri speciali (come il simbolo del cuore o
 le virgolette oblique) possono essere inseriti direttamente
 nel file di input, purché sia salvato nella codifica UTF-8.
-Ulteriori informazioni in @ref{Special characters}.
+Ulteriori informazioni in @ref{Caratteri speciali}.
 
 @lilypond[quote,verbatim]
 \relative { d''8 c16 a bes8 f e' d c4 }
@@ -200,6 +200,8 @@ molte opzioni disponibili leggere @ref{Formattazione del testo}.
 
 @snippets
 
+@cindex testo vocale, e markup
+@cindex markup, nel testo
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {formatting-lyrics-syllables.ly}
 
@@ -210,11 +212,11 @@ Manuale di apprendimento:
 
 Guida alla notazione:
 @ref{Durate automatiche delle sillabe},
-@ref{Fonts},
+@ref{Tipi di carattere},
 @ref{Formattazione del testo},
-@ref{Input modes},
-@ref{Manual syllable durations},
-@ref{Special characters}.
+@ref{Modalità di inserimento},
+@ref{Durate manuali delle sillabe},
+@ref{Caratteri speciali}.
 
 Guida al funzionamento interno:
 @rinternals{LyricText}.
@@ -228,7 +230,7 @@ Frammenti:
 @translationof Aligning lyrics to a melody
 
 @cindex testo vocale, allineamento a una melodia
-@cindex @code{associatedVoice}
+@funindex associatedVoice
 @funindex \lyricmode
 @funindex \addlyrics
 @funindex \lyricsto
@@ -296,7 +298,7 @@ La seconda strofa mostra come cambiare la voce da cui prendere
 le durate per le sillabe del testo.  Ciò è utile se le parole
 di strofe diverse si distribuiscono lungo le note in modo differente e
 tutte le durate sono disponibili nei contesti della voce.  Ulteriori
-dettagli in @ref{Stanzas}.
+dettagli in @ref{Strofe}.
 
 @item
 Il testo può essere allineato indipendentemente dalla durata
@@ -330,7 +332,7 @@ La seconda strofa mostra come le parole possano essere allineate
 in modo del tutto indipendente dalle note.  Ciò è utile se le
 parole di strofe diverse si distribuiscono lungo le note in modo differente
 e le durate necessarie non sono disponibili in un contesto musicale.
-Ulteriori dettagli in @ref{Manual syllable durations}.  Questa tecnica
+Ulteriori dettagli in @ref{Durate manuali delle sillabe}.  Questa tecnica
 è utile anche quando si imposta un dialogo sopra una musica, come
 si può vedere negli esempi in @ref{Dialogo sopra la musica}.
 
@@ -343,10 +345,10 @@ Manuale di apprendimento:
 Guida alla notazione:
 @ref{Tutto sui contesti},
 @ref{Durate automatiche delle sillabe},
-@ref{Stanzas},
-@ref{Manual syllable durations},
+@ref{Strofe},
+@ref{Durate manuali delle sillabe},
 @ref{Dialogo sopra la musica},
-@ref{Manual syllable durations}.
+@ref{Durate manuali delle sillabe}.
 
 Guida al funzionamento interno:
 @rinternals{Lyrics}.
@@ -384,18 +386,17 @@ in qualsiasi momento musicale.
 
 In tutti questi tre metodi è possibile disegnare dei trattini tra
 le sillabe di una parola e delle linee di estensione oltre la
-fine di una parola.  Maggiori dettagli in @ref{Extenders and hyphens}.
+fine di una parola.  Maggiori dettagli in @ref{Estensori e trattini}.
 
 Il contesto @code{Voice} contenente la melodia al quale il testo si
 deve allineare non deve essere @qq{morto}, altrimenti
 il testo successivo a quel punto verrà perduto.  Questo può accadere
 se ci sono dei momenti in cui quella voce non ha nulla da fare.
 Metodi per mantenere attivi i contesti sono descritti in
-@ref{Keeping contexts alive}.
+@ref{Conservazione di un contesto}.
 
 @subheading Uso di @code{\lyricsto}
 
-@cindex \lyricsto
 @funindex \lyricsto
 
 Il testo vocale può essere allineato a una melodia automaticamente
@@ -419,11 +420,10 @@ con quel nome, che deve già esistere.  Ecco perché  di solito il contesto
 Il testo segue il comando @code{\lyricsto}.  Il  comando @code{\lyricsto}
 invoca la modalità testo automaticamente.  Per impostazione predefinita,
 il testo viene posizionato sotto le note.  Altri posizionamenti sono
-descritti in @ref{Placing lyrics vertically}.
+descritti in @ref{Posizionamento verticale del testo}.
 
 @subheading Uso di @code{\addlyrics}
 
-@cindex \addlyrics
 @funindex \addlyrics
 
 Il comando @code{\addlyrics} è solo una comoda scorciatoia da usare
@@ -514,9 +514,9 @@ Ecco un esempio che ne dimostra l'utilizzo:
 
 @seealso
 Guida alla notazione:
-@ref{Extenders and hyphens},
-@ref{Keeping contexts alive},
-@ref{Placing lyrics vertically}.
+@ref{Estensori e trattini},
+@ref{Conservazione di un contesto},
+@ref{Posizionamento verticale del testo}.
 
 
 @node Durate manuali delle sillabe
@@ -604,9 +604,9 @@ Guida al funzionamento interno:
 @translationof Multiple syllables to one note
 
 @funindex _
-@cindex spazi, nel testo vocale
+@cindex spazio, nel testo vocale
 @cindex virgolette, nel testo vocale
-@cindex legature, nel testo vocale
+@cindex legatura di valore, nel testo vocale
 
 Per assegnare più di una sillaba a una singola nota mantenendo uno
 spazio tra le sillabe, occorre mettere la frase tra virgolette o
@@ -702,7 +702,7 @@ Attenzione: le legature di frase non causano la creazione di melismi.
 @item
 Le note sono considerate un melisma se le loro travature sono
 disposte manualmente, purché la travatura automatica sia disabilitata.
-Vedi @ref{Setting automatic beam behavior}.
+Vedi @ref{Impostare il comportamento delle travature automatiche}.
 
 @lilypond[quote,verbatim]
 <<
@@ -784,7 +784,7 @@ e di portamento e travature dal rilevamento automatico del melisma;
 consultare @code{melismaBusyProperties} in @rinternals{Tunable context properties}.
 
 Altrimenti, se si vuole ignorare tutte le indicazioni di melisma, basta
-impostare @code{ignoreMelismata} su vero; vedi @ref{Stanzas with different rhythms}.
+impostare @code{ignoreMelismata} su vero; vedi @ref{Strofe con ritmi diversi}.
 
 Se un melisma è necessario in un passaggio in cui @code{melismaBusyProperties}
 è attivo, lo si può indicare inserendo un singolo trattino basso nel testo
@@ -822,8 +822,8 @@ Manuale di apprendimento:
 Guida alla notazione:
 @ref{Allineamento del testo alla melodia},
 @ref{Durate automatiche delle sillabe},
-@ref{Setting automatic beam behavior},
-@ref{Stanzas with different rhythms}.
+@ref{Impostare il comportamento delle travature automatiche},
+@ref{Strofe con ritmi diversi}.
 
 Guida al funzionamento interno:
 @rinternals{Tunable context properties}.
@@ -857,7 +857,7 @@ also be entered by skipping individual notes, which are entered as
 single underscore characters; these do not make an extender line to be
 typeset by default.}
 
-@cindex hyphens
+@cindex trattino
 
 @c leave this as samp. -gp
 Il trattino centrato si inserisce con @samp{ -- } tra le sillabe di
@@ -967,7 +967,7 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 
 @seealso
 Guida alla notazione:
-@ref{Placing lyrics vertically}.
+@ref{Posizionamento verticale del testo}.
 
 Guida al funzionamento interno:
 @rinternals{LyricCombineMusic},
@@ -978,7 +978,7 @@ Guida al funzionamento interno:
 @unnumberedsubsubsec Posizionamento verticale del testo
 @translationof Placing lyrics vertically
 
-@cindex posizionamento del testo
+@cindex posizionamento, testo vocale
 @cindex testo, posizionamento
 
 A seconda del tipo di musica, il testo può trovarsi sopra o sotto
@@ -1091,6 +1091,8 @@ da questi esempi oppure studiando i modelli nel
 Manuale di apprendimento, vedi @rlearning{Modelli per gruppi vocali}.
 
 @snippets
+
+@cindex testo vocale, spaziatura della versione 2.12
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
 
@@ -1107,7 +1109,7 @@ Guida alla notazione:
 @unnumberedsubsubsec Posizionamento orizzontale delle sillabe
 @translationof Placing syllables horizontally
 
-@cindex spaziatura del testo
+@cindex spaziatura del testo vocale
 @cindex testo vocale, aumentare lo spazio tra
 
 Per aumentare lo spazio tra le righe del testo, si imposta la proprietà
@@ -1149,11 +1151,16 @@ proprietà nel blocco @code{\layout}.
 @end lilypond
 
 @snippets
+
+@cindex testo vocale, allineamento orizzontale
+@cindex allineamento orizzontale, testo vocale
+@cindex orizzontale, allineamento, testo vocale
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {lyrics-alignment.ly}
 
-@c TODO: move to LSR -vv
+@knownissues
 
+@cindex testo vocale, mantenere dentro il margine
 Verificare che le annotazioni testuali e il testo vocale stiano dentro i
 margini richiede ulteriori calcoli.  Se si desidera velocizzare un po'
 l'elaborazione, tale funzionalità può essere disabilitata:
@@ -1161,6 +1168,9 @@ l'elaborazione, tale funzionalità può essere disabilitata:
 @example
 \override Score.PaperColumn.keep-inside-line = ##f
 @end example
+
+@cindex testo vocale, evitare le stanghette
+@cindex stanghetta, evitata dal testo vocale
 
 Per far sì che il testo eviti anche le stanghette, usare
 
@@ -1179,13 +1189,13 @@ Per far sì che il testo eviti anche le stanghette, usare
 @unnumberedsubsubsec Testo e ripetizioni
 @translationof Lyrics and repeats
 
-@cindex ripetizioni e testo vocale
+@cindex ripetizione, e testo vocale
 @cindex testo vocale, ripetizioni
 
 @subheading Ripetizioni semplici
 
 Le ripetizioni in @emph{musica} sono trattate in un'altra sezione:
-@ref{Repeats}.  Questa sezione spiega come aggiungere del testo
+@ref{Ripetizioni}.  Questa sezione spiega come aggiungere del testo
 vocale a delle parti musicali ripetute.
 
 Il testo che si riferisce a una sezione musicale ripetuta deve
@@ -1326,7 +1336,6 @@ Si possono aggiungere più strofe in modo analogo:
 }
 @end lilypond
 
-@cindex alignBelowContext
 @funindex alignBelowContext
 
 Tuttavia, se questo costrutto si trova all'interno di un contesto
@@ -1380,8 +1389,8 @@ Per posizionarli correttamente usare @code{alignBelowContext}:
 @subheading Ripetizioni con finali alternativi
 
 @cindex testo vocale, ripetizioni con finali alternativi
-@cindex ripetere il testo vocale con finali alternativi
-@cindex finali alternativi e testo vocale
+@cindex ripetere il testo vocale, con finali alternativi
+@cindex finali alternativi, e testo vocale
 
 Se le parole della sezione ripetuta sono le stesse, e nessuno dei finali
 alternativi inizia con una pausa, si può usare la stessa identica struttura sia
@@ -1463,7 +1472,7 @@ numero che segue.}
 }
 @end lilypond
 
-@cindex testo vocale e note legate
+@cindex testo vocale, e note legate
 @funindex \repeatTie
 
 Quando una nota è legata verso uno o più finali alternativi, si usa
@@ -1581,8 +1590,8 @@ un finale alternativo, questi vanno inseriti a mano.
 
 @seealso
 Guida alla notazione:
-@ref{Keeping contexts alive},
-@ref{Repeats}.
+@ref{Conservazione di un contesto},
+@ref{Ripetizioni}.
 
 @c non sono affatto sicuro di questa traduzione -- fb
 @node Testi alternati
@@ -1664,17 +1673,17 @@ sarà impostato per esse perché il testo si collegherà al contesto
 della voce originale.  Di norma, non è ciò che si desidera.
 Il costrutto adatto in questa situazione è il passaggio polifonico
 temporaneo, spiegato nella sezione @emph{Passaggi polifonici temporanei}
-in @ref{Single-staff polyphony}.
+in @ref{Polifonia su un solo rigo}.
 
 
 @node Polifonia con testo in comune
 @unnumberedsubsubsec Polifonia con testo in comune
 @translationof Polyphony with shared lyrics
 
-@cindex NullVoice
+@funindex NullVoice
 @cindex polifonia, testo cantato condiviso
 @cindex testo cantato, condiviso tra voci
-@cindex \partCombine e testo cantato
+@cindex @code{\partCombine} e testo cantato
 @funindex \partCombine
 
 Quando due voci contenenti durate diverse condividono lo stesso
@@ -1768,7 +1777,7 @@ words = \lyricmode { la __ la __ }
 * Aggiungere i numeri di strofa::
 * Aggiungere le dinamiche alle strofe::
 * Aggiungere i nomi dei cantanti alle strofe::
-* Strofe con durate diverse::
+* Strofe con ritmi diversi::
 * Stampare le strofe alla fine::
 * Stampare le strofe alla fine in molteplici colonne::
 @end menu
@@ -1798,38 +1807,40 @@ I numeri di strofa si aggiungono impostando @code{stanza}:
 
 @noindent
 Questi numeri appaiono prima dell'inizio della prima sillaba.
+Due linee di una strofa possono anche essere raggruppate insieme, per
+esempio in caso di una ripetizione con testo diverso:
 
-@c TODO Create and add snippet to show how two lines of a
-@c stanza can be grouped together, along these lines:
-@c (might need improving a bit) -td
-
-@ignore
-leftbrace = \markup { \override #'(font-encoding . fetaBraces) \lookup
-"brace105" }
-
-stanzaOneOne = {
-  \set stanza = \markup { "1. " \leftbrace }
-  \lyricmode { Child, you're mine and I love you.
-    Lend thine ear to what I say.
-
-  }
+@lilypond[quote,ragged-right,verbatim]
+leftbrace = \markup {
+  \override #'(font-encoding . fetaBraces)
+  \lookup "brace80"
 }
 
-stanzaOneThree = {
-% \set stanza = \markup { " "}
-  \lyricmode { Child, I have no great -- er joy
-    Than to have you walk in truth.
-
+stanzaOneOne = \lyricmode {
+  \set stanza = \markup {
+    \column { \vspace #.33 "1. "}
+    \leftbrace
   }
+  Child, you’re mine and I love you.
+  Lend thine ear to what I say.
+}
+
+stanzaOneThree = \lyricmode {
+  Child, I have no great -- er joy
+  Than to have you walk in truth.
 }
 
 \new Voice {
-  \repeat volta 2 { c'8 c' c' c' c' c' c'4
-        c'8 c' c' c' c' c' c'4 }
-} \addlyrics { \stanzaOneOne }
-   \addlyrics { \stanzaOneThree }
+  \repeat volta 2 {
+    c'8 c' c' c' c' c' c'4
+    c'8 c' c' c' c' c' c'4
+  }
+}
+\addlyrics { \stanzaOneOne }
+\addlyrics { \stanzaOneThree }
 
-@end ignore
+@end lilypond
+
 
 @node Aggiungere le dinamiche alle strofe
 @unnumberedsubsubsec Aggiungere le dinamiche alle strofe
@@ -1882,8 +1893,8 @@ si inserisce con @code{shortVocalName}.
 }
 @end lilypond
 
-@node Strofe con durate diverse
-@unnumberedsubsubsec Strofe con durate diverse
+@node Strofe con ritmi diversi
+@unnumberedsubsubsec Strofe con ritmi diversi
 @translationof Stanzas with different rhythms
 
 Spesso, strofe diverse di una canzone sono collegate a una melodia in
@@ -1927,8 +1938,8 @@ in cui il melisma deve essere ignorato.
 
 @subsubheading Aggiungere le sillabe agli abbellimenti
 
-@cindex abbellimenti e testo cantato
-@cindex testo cantato su abbellimenti
+@cindex abbellimento, e testo cantato
+@cindex testo cantato, su abbellimenti
 
 Per impostazione predefinita, gli abbellimenti (ovvero le note inserite
 con @code{\grace}) non sono assegnati alle sillabe quando si usa
@@ -1978,7 +1989,7 @@ di un brano, meglio usare un blocco @code{\with} o @code{\context}:
 
 @subsubheading Passare a una melodia alternativa
 
-@cindex associatedVoice
+@funindex associatedVoice
 @cindex melodia alternativa, passare a
 
 Sono possibili variazioni più complesse nell'impostare testo e musica.
@@ -2072,19 +2083,21 @@ text = \lyricmode {
 its fleece was white as snow.
 }
 
-\score{ <<
-  \new Voice = "one" { \melody }
-  \new Lyrics \lyricsto "one" \text
->>
+\score {
+  <<
+    \new Voice = "one" { \melody }
+    \new Lyrics \lyricsto "one" \text
+  >>
   \layout { }
 }
-\markup { \column{
-  \line{ Verse 2. }
-  \line{ All the children laughed and played }
-  \line{ To see a lamb at school. }
+\markup {
+  \column{
+    \line { Verse 2. }
+    \line { All the children laughed and played }
+    \line { To see a lamb at school. }
   }
 }
-\markup{
+\markup {
   \wordwrap-string "
   Verse 3.
 
@@ -2202,21 +2215,21 @@ Per costruire la struttura del rigo: @ref{Aspetto del rigo}.
 
 @item
 Per scrivere la musica per pianoforte:
-@ref{Keyboard and other multi-staff instruments}.
+@ref{Tastiera e altri strumenti multirigo}.
 
 @item
 Per scrivere il testo da associare a una linea melodica:
 @ref{Notazione comune per la musica vocale}.
 
 @item
-Per posizionare il testo: @ref{Placing lyrics vertically}.
+Per posizionare il testo: @ref{Posizionamento verticale del testo}.
 
 @item
-Per inserire le strofe: @ref{Stanzas}.
+Per inserire le strofe: @ref{Strofe}.
 
 @item
 Le canzoni hanno spesso i nomi degli accordi che appaiono sopra i
-righi.  Questo argomento è trattato in @ref{Displaying chords}.
+righi.  Questo argomento è trattato in @ref{Visualizzazione accordi}.
 
 @item
 Per stampare i diagrammi degli accordi per l'accompagnamento per chitarra o
@@ -2230,11 +2243,11 @@ Manuale di apprendimento:
 
 Guida alla notazione:
 @ref{Notazione comune per la musica vocale},
-@ref{Displaying chords},
+@ref{Visualizzazione accordi},
 @ref{Aspetto del rigo},
-@ref{Keyboard and other multi-staff instruments},
-@ref{Placing lyrics vertically},
-@ref{Stanzas}.
+@ref{Tastiera e altri strumenti multirigo},
+@ref{Posizionamento verticale del testo},
+@ref{Strofe}.
 
 Frammenti:
 @rlsr{Vocal music}.
@@ -2246,7 +2259,7 @@ Frammenti:
 
 I canzonieri (in inglese @emph{lead sheet}) si ottengono combinando le
 parti vocali con la @q{modalità per accordi}; la sintassi è
-spiegata in @ref{Chord notation}.
+spiegata in @ref{Notazione per accordi}.
 
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
@@ -2254,15 +2267,15 @@ spiegata in @ref{Chord notation}.
 
 @seealso
 Guida alla notazione:
-@ref{Chord notation}.
+@ref{Notazione per accordi}.
 
 
 @node Musica corale
 @subsection Musica corale
 @translationof Choral
 
-@cindex anthems
-@cindex part songs
+@cindex inno
+@cindex brano a più voci
 @cindex oratorio
 @cindex SATB
 
@@ -2272,7 +2285,6 @@ con la musica corale, compresi inni, cori polifonici, oratori, etc.
 @menu
 * Riferimenti per musica corale::
 * Struttura di una partitura corale::
-* Voci divise::
 @end menu
 
 @node Riferimenti per musica corale
@@ -2308,7 +2320,7 @@ nel manuale di apprendimento: @rlearning{Modelli per gruppi vocali}.
 
 @item
 Le informazioni relative a @code{ChoirStaff} e @code{PianoStaff} si trovano
-in @ref{Grouping staves}.
+in @ref{Raggruppare i righi}.
 
 @item
 Le teste di nota a forma variabile, come quelle usate nello stile Sacred Harp e
@@ -2318,12 +2330,12 @@ notazione simile, sono descritte in @ref{Shape note heads}.
 Quando due parti vocali si trovano su uno stesso rigo, i gambi, le
 legature, etc. della parte più alta sono dirette in su e quelle della
 parte più bassa sono rivolte in giù.  Per farlo si usa @code{\voiceOne} e
-@code{\voiceTwo}, come è spiegato in @ref{Single-staff polyphony}.
+@code{\voiceTwo}, come è spiegato in @ref{Polifonia su un solo rigo}.
 
 @item
 Quando una parte vocale si divide temporaneamente, si devono usare i
 @emph{passaggi polifonici temporanei}
-(vedi @ref{Single-staff polyphony}).
+(vedi @ref{Polifonia su un solo rigo}).
 
 @end itemize
 
@@ -2340,9 +2352,9 @@ Manuale di apprendimento:
 
 Guida alla notazione:
 @ref{Ordine di disposizione dei contesti},
-@ref{Grouping staves},
+@ref{Raggruppare i righi},
 @ref{Shape note heads},
-@ref{Single-staff polyphony}.
+@ref{Polifonia su un solo rigo}.
 
 Frammenti:
 @rlsr{Vocal music}.
@@ -2367,26 +2379,26 @@ seguenti impostazioni:
 
 @item
 La dimensione globale del rigo può essere modificata per cambiare la
-dimensione degli elementi della partitura.  Vedi @ref{Setting the staff size}.
+dimensione degli elementi della partitura.  Vedi @ref{Impostare la dimensione del rigo}.
 
 @item
 Le distanze tra i sistemi, i righi e il testo cantato possono essere
-tutte regolate in modo indipendente.  Vedi @ref{Vertical spacing}.
+tutte regolate in modo indipendente.  Vedi @ref{Spaziatura verticale}.
 
 @item
 Le dimensioni delle variabili di disposizione verticale possono essere
 mostrate per facilitare la regolazione della spaziatura verticale.  Questa
 e altre possibilità per far entrare la musica in meno pagine sono
-descritte in @ref{Fitting music onto fewer pages}.
+descritte in @ref{Riduzione del numero di pagine di una partitura}.
 
 @item
 Se il numero dei sistemi per pagina cambia da uno a due, è uso comune
 indicare ciò con un separatore di sistema tra i due sistemi.  Vedi
-@ref{Separating systems}.
+@ref{Separare i sistemi}.
 
 @item
 Per maggiori informazioni sulle proprietà di formattazione della pagina,
-leggere @ref{Page layout}.
+leggere @ref{Formattazione della pagina}.
 
 @end itemize
 
@@ -2432,25 +2444,25 @@ partitura sopra i loro rispettivi righi, come mostrato in questo esempio:
 Guida alla notazione:
 @ref{Modificare la spaziatura},
 @ref{Visualizzare la spaziatura},
-@ref{Fitting music onto fewer pages},
-@ref{Page layout},
-@ref{Score layout},
-@ref{Separating systems},
-@ref{Setting the staff size},
+@ref{Riduzione del numero di pagine di una partitura},
+@ref{Formattazione della pagina},
+@ref{Formattazione della partitura},
+@ref{Separare i sistemi},
+@ref{Impostare la dimensione del rigo},
 @ref{Interruzioni},
-@ref{Vertical spacing}.
+@ref{Spaziatura verticale}.
 
 Guida al funzionamento interno:
 @rinternals{VerticalAxisGroup},
 @rinternals{StaffGrouper}.
 
 
-@node Voci divise
-@unnumberedsubsubsec Voci divise
-@translationof Divided voices
+@snippets
 
-@cindex voci divise
-
+@cindex voce, divisa
+@cindex divisione, voce
+@cindex parentesi dell'arpeggio, contrassegnare voci divise
+@cindex parentesi, verticale, contrassegnare voci divise
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {using-arpeggiobracket-to-make-divisi-more-visible.ly}
 
@@ -2521,34 +2533,34 @@ che sono peculiari per le partiture di opera e musical.
 @item
 La partitura di un direttore d'orchestra contiene molti righi e
 testi vocali raggruppati.  I modi per raggruppare i righi sono
-mostrati in @ref{Grouping staves}.  Per annidare gruppi di
-righi leggere @ref{Nested staff groups}.
+mostrati in @ref{Raggruppare i righi}.  Per annidare gruppi di
+righi leggere @ref{Gruppi di righi annidati}.
 
 @item
 La stampa di righi vuoti nelle partiture musicali e vocali dei direttori
 è solitamente soppressa.  Per creare tale partitura leggere
-@ref{Hiding staves}.
+@ref{Nascondere i righi}.
 
 @item
-La scrittura di parti orchestrali è trattata in @ref{Writing parts}.
+La scrittura di parti orchestrali è trattata in @ref{Scrittura delle parti}.
 Altre sezioni del capitolo Notazione specialistica potrebbero essere
 rilevanti, a seconda dell'orchestrazione usata.  Molti strumenti
-sono strumenti traspositori, vedi @ref{Instrument transpositions}.
+sono strumenti traspositori, vedi @ref{Trasporto strumentale}.
 
 @item
 Se il numero di sistemi per pagina cambia da pagina a pagina, è di uso
 comune separare i sistemi con un segno separatore di sistemi.
-Vedi @ref{Separating systems}.
+Vedi @ref{Separare i sistemi}.
 
 @item
 Per maggiori informazioni sulle proprietà di formattazione della pagina
-leggere @ref{Page layout}.
+leggere @ref{Formattazione della pagina}.
 
 @item
 Si possono inserire suggerimenti di dialogo, didascalie e note a pié di
-pagina, vedi @ref{Creazione di note a piè di pagina} e @ref{Text}.  Didascalie estese
+pagina, vedi @ref{Creazione di note a piè di pagina} e @ref{Testo}.  Didascalie estese
 possono essere aggiunte anche con una sezione di markup indipendenti
-tra i due blocchi @code{\score}, vedi @ref{Separate text}.
+tra i due blocchi @code{\score}, vedi @ref{Testo separato}.
 
 @end itemize
 
@@ -2560,15 +2572,15 @@ Glossario musicale:
 
 Guida alla notazione:
 @ref{Creazione di note a piè di pagina},
-@ref{Grouping staves},
-@ref{Hiding staves},
-@ref{Instrument transpositions},
-@ref{Nested staff groups},
-@ref{Page layout},
-@ref{Separating systems},
-@ref{Transpose},
-@ref{Writing parts},
-@ref{Writing text}.
+@ref{Raggruppare i righi},
+@ref{Nascondere i righi},
+@ref{Trasporto strumentale},
+@ref{Gruppi di righi annidati},
+@ref{Formattazione della pagina},
+@ref{Separare i sistemi},
+@ref{Trasposizione},
+@ref{Scrittura delle parti},
+@ref{Inserimento del testo}.
 
 Frammenti:
 @rlsr{Vocal music}.
@@ -2578,8 +2590,8 @@ Frammenti:
 @unnumberedsubsubsec Nomi dei personaggi
 @translationof Character names
 
-@cindex nomi dei personaggi
-@cindex personaggi, nomi dei
+@cindex nome del personaggio
+@cindex personaggo, nome
 
 I nomi dei personaggi sono solitamente mostrati a sinistra del rigo quando
 il rigo è dedicato a quel personaggio soltanto:
@@ -2664,16 +2676,16 @@ Manuale di apprendimento:
 @rlearning{Organizzare i brani con le variabili}.
 
 Guida alla notazione:
-@ref{Text},
-@ref{Text markup commands}.
+@ref{Testo},
+@ref{Comandi per markup}.
 
 
 @node Suggerimenti musicali
 @unnumberedsubsubsec Suggerimenti musicali
 @translationof Musical cues
 
-@cindex suggerimenti musicali
-@cindex cues
+@cindex suggerimento musicale
+@cindex musicale, suggerimento
 
 I suggerimenti musicali possono essere inseriti nelle pariture vocali, nei
 libri vocali e nelle parti orchestrali per indicare quale musica in un'altra
@@ -2683,7 +2695,7 @@ cosa sta suonando ogni strumento dell'orchestra.  Ciò aiuta il direttore
 quando non è disponibile la partitura completa.
 
 Il meccanismo di base per inserire i suggerimenti è spiegato dettagliatamente
-in @ref{Quoting other voices} e @ref{Formatting cue notes}.  Ma quando si
+in @ref{Citare altre voci} e @ref{Formattazione delle notine}.  Ma quando si
 devono inserire molti suggerimenti, per esempio per aiutare il direttore
 in una partitura vocale, il nome dello strumento deve essere posizionato
 attentamente proprio prima dell'inizio delle citazioni in corpo più piccolo
@@ -2764,6 +2776,9 @@ per pianoforte sarebbero confuse. Tuttavia, come mostra il frammento
 seguente, è possibile definire una funzione musicale per ridurre l'input
 e rendere più chiare le note per pianoforte.
 
+@cindex partitura vocale, aggiungere suggerimenti
+@cindex vocale, partitura, aggiungere suggerimenti
+@cindex suggerimento, nella partitura vocale
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {adding-orchestral-cues-to-a-vocal-score.ly}
@@ -2775,9 +2790,9 @@ Glossario musicale:
 Guida alla notazione:
 @ref{Allineamento degli oggetti},
 @ref{Direzione e posizionamento},
-@ref{Formatting cue notes},
-@ref{Quoting other voices},
-@ref{Using music functions}.
+@ref{Formattazione delle notine},
+@ref{Citare altre voci},
+@ref{Uso delle funzioni musicali}.
 
 Frammenti:
 @rlsr{Vocal music}.
@@ -2802,7 +2817,7 @@ e inserire le notine.
 @cindex Sprechgesang
 Effetti come il @q{parlato} o @q{Sprechgesang} chiedono all'esecutore
 di parlare senza intonare note ma andando comunque a ritmo; tali effetti
-si indicano con teste di nota barrate, come è illustrato in @ref{Special note heads}.
+si indicano con teste di nota barrate, come è illustrato in @ref{Teste di nota speciali}.
 
 @c TODO add "marking-notes-on-spoken-parts" snippet -vv
 @c add "showing the rhythm of a melody" snip
@@ -2884,8 +2899,8 @@ dialogue = \lyricmode {
 
 @seealso
 Guida alla notazione:
-@ref{Manual syllable durations},
-@ref{Text}.
+@ref{Durate manuali delle sillabe},
+@ref{Testo}.
 
 Internal Reference:
 @rinternals{LyricText}.
@@ -2895,8 +2910,9 @@ Internal Reference:
 @subsection Canti salmi e inni
 @translationof Chants psalms and hymns
 
-@cindex canti
-@cindex inni
+@cindex canto
+@cindex inno
+@cindex cantico
 @cindex musica religiosa
 
 La musica e le parole per canti, sali e inni di solito segue un
@@ -2916,11 +2932,11 @@ incontrare sono generalmente simili e sono trattati in questa sezione.
 @translationof References for chants and psalms
 
 La composizione tipografica dei canti gregoriani in vari stili di
-notazione antica è descritta in @ref{Ancient notation}.
+notazione antica è descritta in @ref{Notazione antica}.
 
 @seealso
 Guida alla notazione:
-@ref{Ancient notation}.
+@ref{Notazione antica}.
 
 Frammenti:
 @rlsr{Vocal music}.
@@ -3198,15 +3214,22 @@ dei seguenti frammenti.
 
 @snippets
 
+@cindex canto
+@cindex inno
+@cindex cantico
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {chant-or-psalms-notation.ly}
 
+@c XXX move this text into following snippet
 I cantici e altri testi liturgici possono essere impostati in modo
 più libero e possono usare elementi della notazione della musica
 antica.  Le parole sono spesso mostrate sotto e allineate con le note.
 In questo caso le note sono spaziate in base alle sillabe invece che
 alle durate delle note.
 
+@cindex musica gregoriana, trascrizione moderna
+@cindex trascrizione moderna, della musica gregoriana
+@cindex gregoriana, musica, trascrizione moderna
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
@@ -3216,12 +3239,12 @@ Manuale di apprendimento:
 @rlearning{Modelli per gruppi vocali}.
 
 Guida alla notazione:
-@ref{Ancient notation},
+@ref{Notazione antica},
 @ref{Stanghette},
-@ref{Modifying context plug-ins},
-@ref{Typesetting Gregorian chant},
-@ref{Unmetered music},
-@ref{Visibility of objects}.
+@ref{Modifica dei componenti aggiuntivi di un contesto},
+@ref{Scrivere il canto gregoriano},
+@ref{Musica in tempo libero},
+@ref{Visibilità degli oggetti}.
 
 @c esiste già un nodo con lo stesso nome: @rlearning{Salmi}
 @node Salmi
@@ -3261,7 +3284,7 @@ singola può essere inserita usando il simbolo di controllo battuta
 @end lilypond
 
 Altri simboli potrebbero richiedere i glifi dei tipi di carattere @code{fetaMusic}.
-Maggiori informazioni in @ref{Fonts}.
+Maggiori informazioni in @ref{Tipi di carattere}.
 
 @lilypond[verbatim,quote]
 tick = \markup {
@@ -3382,7 +3405,7 @@ Manuale di apprendimento:
 @rlearning{Modelli per gruppi vocali}.
 
 Guida alla notazione:
-@ref{Fonts},
+@ref{Tipi di carattere},
 @ref{Formattazione del testo}.
 
 
@@ -3396,6 +3419,9 @@ esattamente a un rigo di testo.  Per fare ciò è necessario un comando
 @code{\partial} all'inizio della musica e dei comandi @code{\bar "|"} o
 @code{\bar "||"} alla fine di ogni linea.
 
+@cindex inno, e misure parziali
+@cindex misura parziale, negli inni
+@cindex parziale, misura, negli inni
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {hymn-template.ly}
 
@@ -3405,7 +3431,7 @@ esattamente a un rigo di testo.  Per fare ciò è necessario un comando
 @translationof Ancient vocal music
 
 È supportata la musica vocale antica, come spiegato in
-@ref{Ancient notation}.
+@ref{Notazione antica}.
 
 @c TODO
 
@@ -3414,4 +3440,4 @@ esattamente a un rigo di testo.  Per fare ciò è necessario un comando
 
 @seealso
 Guida alla notazione:
-@ref{Ancient notation}.
+@ref{Notazione antica}.

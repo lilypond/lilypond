@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 77fbc43a8e9b5e0a9b897c8278eaeac02d62d3dc
+%% Translation of GIT committish: 93c02a2ddbaf07d79a57748d6ec6b7177ceed756
   texidocfr = "
 En combinant @code{stemLeftBeamCount}, @code{stemRightBeamCount} et des
 paires de @code{[]}, vous pourrez obtenir des crochets rectilignes et
@@ -17,12 +17,12 @@ débordement à gauche, c'est sur @code{stemLeftBeamCount} qu'il faut
 jouer.  Tout ceci est illustré par l'exemple 3.
 
 Il est parfois judicieux, lorsqu'une note est encadrée de silences, de
-l'affubler de crochets rectilignes de part et d'autre. L'exemple@tie{}4
-montre qu'il suffit d'adjoindre à cette note un @code{[]}.
+l'affubler de crochets rectilignes de part et d'autre. L'exemple 4
+montre qu'il suffit d'adjoindre à cette note un @code{[]}.
 
 (Notez bien que @code{\\set stemLeftBeamCount} sera toujours
 synonyme de @code{\\once \\set}.  Autrement dit, la détermination
-des ligatures n'est pas @qq{permanente} ; c'est la raison pour
+des ligatures n'est pas « permanente » ; c'est la raison pour
 laquelle les crochets du @code{16[]} isolé du dernier exemple n'ont
 rien à voir avec le @code{\\set} indiqué deux notes auparavant.)
 

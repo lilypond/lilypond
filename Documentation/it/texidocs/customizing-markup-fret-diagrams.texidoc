@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 17ffa111f7411b2feb67fa2883ea622c07e613a6
+  texidocit = "
+Le proprietà del diagramma dei tasti si possono impostare tramite
+@code{'fret-diagram-details}.  Per diagrammi di tipo markup, gli
+override possono essere applicati all'oggetto @code{Voice.TextScript} o
+direttamente al markup.
+"
+  doctitleit = "Personalizzare il diagramma dei tasti di tipo markup"

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 09ef86c87175cc6c1071eedb022ed1d01a93bcaf
+    Translation of GIT committish: 557cc9934585a9083c9e4957068889b3f393873c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -233,13 +233,18 @@ Glosario musical:
 @rglos{octave},
 @rglos{accidental}.
 
-LilyPond emplea letras minúsculas para las alturas.  Las letras
-desde @code{c} hasta@tie{}@code{b} denotan las alturas de las
-notas de la @q{octava corta} por debajo del @notation{Do central}.
-Los sufijos @code{'} (apóstrofo) o@tie{}@code{,} (coma) se añaden
-para indicar octavas más agudas o más graves.  A continuación se
-muestra una escala que comienza en el @notation{Do central}, y un
-arpegio:
+LilyPond emplea letras minúsculas para las alturas.  Los nombres
+de nota en todos los ejemplos de esta sección usan la nomenclatura
+holandesa, en que las teclas blancas del piano van desde la c (Do)
+hasta la b (Si).  Sin embargo, LilyPond contempla muchos otros
+sistemas para los nombres de las notas, como el inglés o el @q{Do
+fijo} (do-re-mi-...).  Véase @ruser{Nombres de las notas en otros
+idiomas}.  Las letras desde @code{c} hasta@tie{}@code{b} denotan
+las alturas de las notas de la @q{octava corta} por debajo del
+@notation{Do central}.  Los sufijos @code{'} (apóstrofo)
+o@tie{}@code{,} (coma) se añaden para indicar octavas más agudas o
+más graves.  A continuación se muestra una escala que comienza en
+el @notation{Do central}, y un arpegio:
 
 @lilypond[verbatim,quote]
 { c' d' e' f' g' a' b' c'' g c' e' g' c'' e'' g'' c''' }

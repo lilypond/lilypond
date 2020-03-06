@@ -1,0 +1,9 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+@code{map-some-music} を用いることで、各音符に対して何かの要素を追加することが@c
+できます。この例では、音符に運指記号を追加しています。
+
+一般的には、作成したい音楽に対して @code{\\displayMusic} を適用して、@c
+それを生成するような関数を手動で定義します。
+"
+  doctitleja = "Scheme で運指記号を追加する"

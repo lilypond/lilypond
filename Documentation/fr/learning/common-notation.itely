@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8e2eaf4959bec63a1128a444591a540f4f1e2937
+   Translation of GIT committish: 0a5306c21d7d64d1ffdadb899c0af79ced2df336
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -95,10 +95,10 @@ Les contrôles de barre de mesure -- @emph{bar checks} en anglais -- ne
 sont à priori pas strictement nécessaires.  Ils permettent cependant
 d'indiquer directement dans le code saisi -- à l'aide d'une barre
 verticale @code{|} -- l'emplacement des barres de mesure.  Grâce à ces
-contrôleurs, LilyPond sera capable de déterminer si la durée que vous
-avez attribuée aux notes correspondent bien à longueur de la mesure qui
-les contient.  Les contrôles de mesure apportent aussi clarté et
-organisation à votre code.
+contrôleurs, LilyPond sera capable de déterminer si le cumul la durée
+que vous avez attribuée aux notes correspond bien à longueur de la
+mesure qui les contient.  Les contrôles de mesure apportent aussi clarté
+et organisation à votre code.
 
 @c This example deliberately produces a warning
 @lilypond[verbatim,quote]
@@ -388,13 +388,10 @@ phrasés.
 \relative { g'4\( g8( a) b( c) b4\) }
 @end lilypond
 
-@c @ smallspace
-
 
 @node Attention aux types de liaison
 @unnumberedsubsubsec Attention aux types de liaison
 @translationof Warnings slurs vs. ties
-
 
 @cindex liaisons d'articulation et de prolongation, différences
 
@@ -423,6 +420,9 @@ Manuel de notation :
 @node Articulations et nuances
 @subsection Articulations et nuances
 @translationof Articulation and dynamics
+
+Articulations et nuances s'indiquent par ajout de code spécifique à la
+suite de la note à laquelle elles s'appliquent.
 
 @menu
 * Articulation::
@@ -547,7 +547,7 @@ Manuel de notation :
 
 @funindex \markup
 
-On peut ajouter du texte à une partition :
+On peut ajouter du texte à une partition :
 
 @lilypond[verbatim,quote,fragment]
 c''2^"espr" a'_"legato"
@@ -596,7 +596,9 @@ Toutes les barres de ligature sont dessinées automatiquement :
 Lorsqu'on n'aime pas la manière dont les notes sont automatiquement
 groupées, il est possible de les ligaturer manuellement, en marquant la
 première note à attacher d'un crochet ouvrant @code{[} et la dernière
-d'un crochet fermant @code{]}.
+d'un crochet fermant @code{]}.  Notez bien que le @code{[} vient après
+la première note ligaturée.
+@c close it ]
 
 @lilypond[verbatim,quote]
 \relative { a'8[ ais] d[ ees r d] c16 b a8 }
@@ -1588,7 +1590,7 @@ où les intervalles sont étendus, et plus encore pour les fichiers
 LilyPond créés par des programmes.  Recopier des fragments en hauteurs
 absolues permet d'en préserver les octaves.
 
-La musiqeu peut être agencée de manière plutôt complexe.  Dans le cas
+La musique peut être agencée de manière plutôt complexe.  Dans le cas
 d'une imbrication de commandes @code{\relative}, chacune des sections
 est indépendante de l'autre :
 

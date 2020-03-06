@@ -1750,7 +1750,12 @@ make ISOLANG=@var{MY-LANGUAGE} new-lang
 where @var{MY-LANGUAGE} is the ISO 639 language code.
 
 Finally, add a language definition for your language in
-@file{python/langdefs.py}.
+@file{python/langdefs.py},
+@file{Documentation/lilypond-texi2html-lang.init} and
+@file{Documentation/web/server/lilypond.org.htaccess}.
+Add this language definition and the corresponding section in
+@file{Documentation/lilypond-texi2html.init} and
+@file{scripts/build/create-weblinks-itexi.py}.
 
 
 @node Documentation translation details
@@ -2096,7 +2101,9 @@ make po-update
 @warning{if you run po-update and somebody else does the same and
 pushes before you push or send a patch to be applied, there will be a
 conflict when you pull.  Therefore, it is better that only the
-Translation meister runs this command.}
+Translation meister runs this command. Furthermore, it has been borken
+since the GDP: variable names and comments do no longer appear as
+translated.}
 
 Updating music snippets can quickly become cumbersome, as most
 snippets should be identical in all languages.  Fortunately, there is

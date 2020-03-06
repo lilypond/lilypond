@@ -1,0 +1,8 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+この関数は @code{Tie.stencil} をデフォルトの引数に取り、このデフォルトの@c
+ステンシルの寸法を基にサイズが計算されます。更なる調整は
+@code{Tie.details.height-limit} や @code{\\shape} で行うことができます。@c
+また、カスタム定義をその場で変更することもできます。
+"
+  doctitleja = "平坦なタイ"

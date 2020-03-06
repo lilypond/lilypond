@@ -1,0 +1,12 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+@code{ChoirStaff} や @code{StaffGroup} に譜が 1 つだけ存在する場合、@c
+デフォルトでは括弧や行頭の小節線は表示されません。これは @code{collapse-height}
+をオーバライドし、値を譜線の数より小さくセットすることで変更することができます。
+
+括弧が波の形をしている
+@code{PianoStaff} や @code{GrandStaff} のようなコンテキストでは、@c
+別のプロパティをセットする必要があります。例の 2 つ目のシステムを@c
+参照してください。
+"
+  doctitleja = "システムに譜が 1 つしか存在しない場合にも括弧を表示する"

@@ -1,0 +1,6 @@
+%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+  texidocja = "
+@code{Volta_engraver} を対応する譜に付け加えることで、繰り返し括弧を@c
+コード ネームの下に表示できます。
+"
+  doctitleja = "繰り返し括弧をコード ネームの下に表示する"

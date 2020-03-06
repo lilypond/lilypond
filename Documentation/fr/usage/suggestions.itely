@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8c1840ca28a05b3dad8d595e04d03779ba0a286a
+   Translation of GIT committish: 9ec5b7d295d8287f52da71d997a8277726cf8c00
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -12,6 +12,7 @@
 
 @c Translators: Ludovic Sardain, Jean-Charles Malahieude
 @c Translation checkers: Jean-Yves Baudais, Valentin Villenave, John Mandereau
+
 
 @node Suggestions pour la saisie de fichiers LilyPond
 @chapter Suggestions pour la saisie de fichiers LilyPond
@@ -39,7 +40,7 @@ d'œil, d'autres vous feront vous arracher les cheveux pendant une heure.
 
 @item
 Et si vous souhaitez mettre à jour votre fichier pour l'utiliser avec
-une version plus récente de LilyPond ?  La syntaxe du  langage d'entrée
+une version plus récente de LilyPond ?  La syntaxe du langage d'entrée
 change parfois lorsque LilyPond s'améliore.  La plupart des changements
 peuvent être appliqués automatiquement avec @code{convert-ly}, mais
 quelques-uns peuvent requérir une intervention manuelle.  Vos fichiers
@@ -655,7 +656,7 @@ archive:
         ../MonProjet/*
 @end example
 
-AVENIR: faire que ça marche sous Windows
+AVENIR : faire que ça marche sous Windows
 
 Ce @emph{makefile} n'est malheureusement pas opérationnel sous Windows.
 La seule alternative qui s'offre aux utilisateurs de Windows consiste à
@@ -679,6 +680,6 @@ copy out\monprojet.pdf MonProjet.pdf
 @end example
 
 @seealso
-Manuel d'utilisation :
+Manuel d'utilisation :
 @ref{Utilisation en ligne de commande},
 @ref{lilypond-book}
