@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is included from notation.itely
 @ignore
-    Translation of GIT committish: 6ca1d8c80817f9baaa7b66b2fde9a7b98b0ffc0a
+    Translation of GIT committish: 3064ac9d3d8bbc0cc7c2bcd8e4f72b232b5a8af7
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -730,6 +730,113 @@ del pentagrama, desde fuera del pentagrama.
 * Líneas de rejilla::
 * Corchetes de análisis::
 @end menu
+
+@node Nombre de las notas
+@unnumberedsubsubsec Nombre de las notas
+@translationof Note names
+
+@cindex notas, nombre, imprimir
+
+@funindex NoteNames
+@funindex Note_name_engraver
+@funindex noteNameFunction
+@funindex printNotesLanguage
+@funindex printOctaveNames
+@funindex noteNameSeparator
+@funindex printAccidentalNames
+
+Se pueden imprimir los nombres de las notas como texto, usando el
+contexto @code{NoteNames}.  Si se usa simultáneamente con una
+pauta ordinaria, es posible sincronizar cada nota con su nombre
+impreso por encima o por debajo de la pauta.
+
+@lilypond[verbatim,quote]
+\language "italiano"
+melody = \relative do'' {
+  fad2 si,8 dod re mi fad4. re8 fad2
+}
+
+<<
+  \new NoteNames { \melody }
+  \new Staff { \key si \minor \melody }
+  \new NoteNames {
+    \set printNotesLanguage = "deutsch"
+    \set printAccidentalNames = ##f
+    \melody
+  }
+>>
+@end lilypond
+
+De manera predeterminada, los nombres de nota se imprimen en el
+mismo idioma que se ha usado para la entrada de la música; sin
+embargo, la propiedad @code{printNotesLanguage} permite
+seleccionar cualquier otro idioma disponible (véase @ref{Nombres
+de las notas en otros idiomas}).  A través de la propiedad
+@code{printAccidentalNames} se determina si las alteraciones se
+imprimen o no.
+
+Estableciendo tanto la mencionada propiedad a un símbolo, como la
+propiedad @code{printOctaveNames} al valor @code{##t} (verdadero),
+se pueden obtener nombres de notas de una manera muy similar a la
+sintaxis de entrada de LilyPond.  Para un resultado más general,
+es posible conseguir nombres de nota @q{científicos}.
+
+@lilypond[verbatim,quote]
+melody = \relative c'' {
+  fis2 b,8 cis d e fis4. d8 fis2
+}
+
+<<
+  \new NoteNames {
+    \set printOctaveNames = ##t
+    \set printAccidentalNames = #'lily
+    \melody
+  }
+  \new Staff { \key b \minor \melody }
+  \new NoteNames {
+    \set printOctaveNames = #'scientific
+    \melody
+  }
+>>
+@end lilypond
+
+La propiedad @code{noteNameSeparator} define cómo se imprimen los
+acordes.  Se pueden definir otras funciones de formateado como
+@code{noteNameFunction}; tales funciones deben admitir los
+argumentos @code{altura} y @code{contexto}, incluso si alguno de
+ellos puede ignorarse.
+
+@lilypond[verbatim,quote]
+somechords = \relative c' {
+  <b d fis>2 <b cis e g> <b d fis> q
+}
+
+<<
+  \new NoteNames {
+    \set noteNameSeparator = "+"
+    \somechords
+  }
+  \new Staff { \key b \minor \somechords }
+  \new NoteNames {
+    \set noteNameFunction =
+      #(lambda (pitch ctx)
+         (alteration->text-accidental-markup
+          (ly:pitch-alteration pitch)))
+    \somechords
+  }
+>>
+@end lilypond
+
+@seealso
+
+Referencia de la notación:
+@ref{Nombres de las notas en otros idiomas}.
+
+Referencia de funcionamiento interno:
+@rinternals{NoteName},
+@rinternals{NoteNames},
+@rinternals{Note_name_engraver}.
+
 
 @node Globos de ayuda
 @unnumberedsubsubsec Globos de ayuda
