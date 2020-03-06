@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 6ca1d8c80817f9baaa7b66b2fde9a7b98b0ffc0a
+    Translation of GIT committish: 3064ac9d3d8bbc0cc7c2bcd8e4f72b232b5a8af7
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -42,6 +42,7 @@ notas.
 * Panorámica del modo de acordes::
 * Acordes más usuales::
 * Acordes extendidos y alterados::
+* Inversiones de acorde y realizaciones especiales::
 @end menu
 
 
@@ -356,13 +357,12 @@ va seguido de una segunda o una cuarta, es equivalente a
 @end lilypond
 
 @funindex /
-@cindex acordes, inversiones
 @cindex bajo de los acordes
 @cindex acordes, bajo de
 
-Se pueden especificar las inversiones (colocar en el bajo una nota
-distinta de la fundamental del acorde) y notas de bajo añadidas
-mediante la adición de @code{/}@var{nota} al acorde.
+Se pueden especificar notas añadidas en el bajo (colocar en el
+bajo una nota distinta de la fundamental del acorde) mediante la
+adición de @code{/}@var{nota} al acorde.
 
 @lilypond[quote,ragged-right,verbatim]
 \chordmode {
@@ -372,9 +372,12 @@ mediante la adición de @code{/}@var{nota} al acorde.
 
 @funindex /+
 
-Se puede añadir una nota del bajo que forma parte del acorde, en
-lugar de ser movida por efecto de una inversión, mediante el uso
-de @code{/+}@var{nota}.
+Si la nota añadida ya forma parte del acorde, esto se puede
+aprovechar para imprimir inversiones de acorde, en cuyo caso la
+nota no se añade realmente sino que se desplaza a la base del
+acorde.  Sin embargo, se puede tratar como una nota añadida
+(imprimiéndose así dos veces), mediante la sintaxis
+@code{/+}@var{nota}.
 
 @lilypond[quote,ragged-right,verbatim]
 \chordmode {
@@ -382,12 +385,16 @@ de @code{/+}@var{nota}.
 }
 @end lilypond
 
+Las inversiones y realizaciones de acorde automáticas se explican
+en @ref{Inversiones de acorde y realizaciones especiales}.
+
 Los modificadores de acorde que se pueden utilizar para producir
 una amplia variedad de acordes estándar se muestran en
 @ref{Modificadores de acorde más usuales}.
 
 @seealso
 Referencia de la notación:
+@ref{Inversiones de acorde y realizaciones especiales},
 @ref{Modificadores de acorde más usuales}.
 
 Fragmentos de código:
@@ -403,6 +410,49 @@ que sigue produce simplemente el acorde aumentado, porque
 @end lilypond
 
 
+@node Inversiones de acorde y realizaciones especiales
+@unnumberedsubsubsec Inversiones de acorde y realizaciones especiales
+@translationof Chord inversions and specific voicings
+
+@cindex acorde, rotación
+@cindex acorde, inversión
+@cindex acorde, realización
+@funindex \invertChords
+@funindex \dropNote
+@funindex \raiseNote
+
+Además de los modificadores de acorde y las notas añadidas en el
+bajo, se pueden usar varias funciones para imprimir
+automáticamente acordes en una inversión o realización especial
+(por ejemplo la realización conocida como @q{drop@tie{}2} que se
+usa habitualmente en el jazz).
+
+@lilypond[quote,verbatim]
+\chordmode {
+  \dropNote 2 {
+    c2:maj7 d:m7
+  }
+  \invertChords 1 d1:maj7
+}
+@end lilypond
+
+A diferencia de las notas añadidas en el bajo que se ven en
+@ref{Acordes extendidos y alterados}, esto afecta solamente a la
+manera en que los acordes se imprimen en un pentagrama, y no a los
+nombres de acorde escritos con letras.  Es más, estas funciones se
+pueden usar no solo en el modo de acordes sino también con la
+construcción de acorde habitual @code{<...>} que se explica en
+@ref{Notas en acorde}.
+
+@seealso
+Referencia de la notación:
+@ref{Acordes extendidos y alterados},
+@ref{Notas en acorde}.
+
+Fragmentos de código:
+@rlsr{Chords}.
+
+
 @node Imprimir los acordes
 @subsection Imprimir los acordes
 @translationof Displaying chords
@@ -414,7 +464,6 @@ impresión estándar como notas sobre un pentagrama.
 * Impresión de los nombres de acorde::
 * Nombres de acorde personalizados::
 @end menu
-
 
 @node Impresión de los nombres de acorde
 @unnumberedsubsubsec Impresión de los nombres de acorde
@@ -562,14 +611,22 @@ para los nombres de acorde dados se pueden personalizar.
 
 El esquema de nomenclatura de acordes predeterminado es un sistema
 para música de Jazz, propuesto por Klaus Ignatzek (véase
-@ressay{Lista bibliográfica}. Se pueden implementar otros sistemas de nomenclatura de acordes mediante funciones de Scheme, como se muestra en el fragmento de código @qq{Chord names alternative} dentro de la sección @rlsr{Acordes}.)).  Hay una lista de notaciones comunes para acordes de jazz en la tabla de la sección @ref{Cuadro de nombres de acordes}.
+@ressay{Lista bibliográfica}. Se pueden implementar otros sistemas
+de nomenclatura de acordes mediante funciones de Scheme, como se
+muestra en el fragmento de código @qq{Chord names alternative}
+dentro de la sección @rlsr{Chords}.)).  Hay una lista de
+notaciones comunes para acordes de jazz en la tabla de la sección
+@ref{Cuadro de nombres de acordes}.
 
 @funindex \germanChords
 @funindex \semiGermanChords
 @funindex \italianChords
 @funindex \frenchChords
 
-Se puede trucar fácilmente el sistema de nomenclatura de acordes predeterminado.  Para empezar, ciertas órdenes predefinidas permiten la utilización de distintos idiomas para la nota fundamental. Entre ellos están @code{\germanChords},
+Se puede trucar fácilmente el sistema de nomenclatura de acordes
+predeterminado.  Para empezar, ciertas órdenes predefinidas
+permiten la utilización de distintos idiomas para la nota
+fundamental. Entre ellos están @code{\germanChords},
 @code{\semiGermanChords}, @code{\italianChords} y
 @code{\frenchChords}:
 
@@ -907,13 +964,14 @@ escribe después del @code{>}.
 @end lilypond
 
 
-Se pueden usar alteraciones accidentales (incluso becuadros)
-para modificar grados de la escala.  Se escriben añadiendo @code{+}
-(para los sostenidos), @code{-} (para los bemoles)
-o @code{!} (para los becuadros) después del número.  Para obtener
+Se pueden usar alteraciones accidentales (incluso becuadros) para
+modificar grados de la escala.  Se escriben añadiendo @code{+}
+(para los sostenidos), @code{-} (para los bemoles) o @code{!}
+(para los becuadros) después del número.  Para obtener
 alteraciones dobles, se aplica el modificador dos veces seguidas.
 Con frecuencia, para la modificación del tercer grado se omite el
-número, lo que puede obtenerse utilizando @code{_} en lugar de un número.
+número, lo que puede obtenerse utilizando @code{_} en lugar de un
+número.
 
 @lilypond[verbatim,quote,ragged-right]
 \figures {
