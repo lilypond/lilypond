@@ -123,7 +123,7 @@ ly_scm2string (SCM str)
   assert (scm_is_string (str));
   string result;
   size_t len;
-  char *c_string = scm_to_locale_stringn (str, &len);
+  char *c_string = scm_to_utf8_stringn (str, &len);
   if (len)
     {
       result.assign (c_string, len);
@@ -135,8 +135,7 @@ ly_scm2string (SCM str)
 SCM
 ly_string2scm (string const &str)
 {
-  return scm_from_locale_stringn (str.c_str (),
-                                  str.length ());
+  return scm_from_utf8_stringn (str.c_str (), str.length ());
 }
 
 char *

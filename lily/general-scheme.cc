@@ -597,7 +597,9 @@ LY_DEFINE (ly_format, "ly:format",
     }
   *ptr = '\0';
 
-  return scm_take_locale_stringn (result, len);
+  SCM ret = scm_from_utf8_stringn (result, len);
+  free(result);
+  return ret;
 }
 
 int
