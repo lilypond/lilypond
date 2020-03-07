@@ -1,7 +1,8 @@
+
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 422791b7c393a0168a99ff2cbfe70ba92fb55228
+    Translation of GIT committish: 5534def4466aca7d38868b9decf96c684ae939f4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -66,6 +67,7 @@ documentos sobre este tema si no le resulta familiar la línea de
 * Opciones básicas de la línea de órdenes para LilyPond::
 * Opciones avanzadas de línea de órdenes para LilyPond::
 * Variables de entorno::
+* Reubicación del programa::
 * LilyPond en una jaula de chroot::
 @end menu
 
@@ -951,17 +953,6 @@ texto como de la letra.  Asimismo se recomienda no usar alias de
 fuentes ni listas, por si el visor de SVG no es capaz de
 manejarlos.  Predeterminado: @code{#f}.
 
-@item @code{trace-memory-frequency} @var{bool}
-Si @var{bool} es @code{#t}, registrar el uso de células de Scheme
-esta cantidad de veces por segundo.  Para el archivo de entrada
-@file{nombre.ly}, volcar los resultados en @file{nombre.stacks} y
-@file{nombre.graph}.  Predeterminado: @code{#f}.
-
-@item @code{trace-scheme-coverage} @var{bool}
-Si @var{bool} es @code{#t}, registrar la cobertura de los archivos
-de Scheme.  Para el archivo de entrada @file{nombre.ly}, hacer
-esto en el archivo @file{nombre.cov}.  Predeterminado: @code{#f}.
-
 @item @code{verbose}
 Nivel de verbosidad.  Esta es una opción de solo lectura; su
 establecimiento no tiene ningún efecto.
@@ -979,17 +970,35 @@ Predeterminado: @code{#f}.
 
 @cindex LANG
 @cindex LILYPOND_DATADIR
+@cindex LILYPOND_LOCALEDIR
+@cindex LILYPOND_RELOCDIR
+@cindex LILYPOND_LOGLEVEL
 
 @command{lilypond} reconoce las siguientes variables de entorno:
 @table @code
+
 @item LILYPOND_DATADIR
 Especifica un directorio en el que los mensajes de localización y
-de datos se buscarán de forma predeterminada.  El directorio debe
-contener subdirectorios llamados @file{ly/}, @file{ps/},
-@file{tex/}, etc.
+de datos se buscan de forma predeterminada, sobreescribiendo las
+ubicaciones definidas en tiempo de compilación o computadas
+dinámicamente en tiempo de ejecución (véase
+@ref{Reubicación del programa}).  El directorio debe contener
+subdirectorios llamados @file{ly}, @file{ps}, @file{tex}, etc.
+
+@item LILYPOND_LOCALEDIR
+Espcificar el directorio en que están los archivos específicos de
+localización. Sobreescribe el valor derivado de
+@code{LILYPOND_DATADIR}.
+
+@item LILYPOND_RELOCDIR
+Especificar el directorio en que se ubican los archivos de
+relocalización. Sobreescribe el valor que se deriva de la
+ubicación del binario @command{lilypond}.
 
 @item LANG
-Selecciona el idioma de los mensajes de advertencia.
+Idioma de los datos de LilyPond enviados a @code{stdout} y a
+@code{stderr}, por ejemplo informes del avance, mensajes de
+advertencia o salida de depuración.  Ejemplo: @code{LANG=es}.
 
 @item LILYPOND_LOGLEVEL
 Nivel de registro predeterminado.  Si LilyPond se llama sin ningún
@@ -1003,6 +1012,164 @@ más memoria; con valores más bajos, usa más tiempo de CPU.  El
 valor predeterminado es @code{70}.
 
 @end table
+
+
+@node Reubicación del programa
+@unnumberedsubsec Reubicación del programa
+@translationof Relocation
+@cindex reubicación
+
+Casi todos los programas dentro del mundo Unix utilizan
+directorios predeterminados para sus datos, que vienen
+determinados en el momento de la configuración y antes de la
+compilación.  LilyPond no es una excepción; por ejemplo, una
+instalación típica coloca el binario @file{lilypond} en
+@file{/usr/@/bin} y todos los archivos específicos de LilyPond
+dentro de subdirectorios de
+@file{/usr/@/share/@/lilypond/@/2.21.0/} (suponiendo que la
+versión actual es 2.21.0).
+
+Aunque este enfoque funciona perfectamente para la compilación
+manual y para plataformas que vienen con gestores de paquetes
+estandarizados, puede producir algunos problemas allí donde los
+mencionados gestores no son tan comunes o no se utilizan por
+defecto.  Son ejemplos típicos de este tipo de plataformas Windows
+y MacOS, donde los usuarios dan por sentado que todo lo que viene
+con la aplicación se puede ubicar en cualquier lugar.
+
+La solución habitual a este problema es que el programa contemple
+la reubicación: en lugar de usar rutas fijas a los archivos de
+datos, las ubicaciones a los necesarios archivos de apoyo se
+calculan en tiempo de ejecución @emph{relativos al binario que se
+ejecuta}.
+
+
+@menu
+* Archivos de reubicación::
+* Algoritmo de la reubicación::
+@end menu
+
+
+@node Archivos de reubicación
+@unnumberedsubsubsec Archivos de reubicación
+@translationof Relocation files
+
+En realidad existe un segundo mecanismo para la configuración en
+tiempo de ejecución: LilyPond se apoya fuertemente en bibliotecas
+y programas externos, especialmente las bibliotecas @q{FontConfig}
+y @q{GUILE} para encontrar las fuentes tipográficas del sistema y
+manejar los archivos de Scheme, respectivamente, y el programa
+@command{gs} (Ghostscript) para convertir datos de PS a archivos
+PDF.  Todos ellos se deben configurar también para tener
+localizados sus respectivos archivos de datos.  Para ello, el
+programa @command{lilypond} analiza todos los archivos que están
+dentro de un directorio llamado @file{relocate} (si existe; véase
+más abajo dónde se busca este directorio) para manipular las
+variables de entorno, las que a su vez controlan estas bibliotecas
+y programas externos.  El formato de estos archivos de reubicación
+es sencillo; cada línea tiene la sintaxis siguiente:
+
+@example
+@var{instrucción} @var{clave}=@var{valor}
+@end example
+
+@noindent
+y las líneas vacías se ignoran.
+
+La directiva @var{instrucción} es una de las siguientes.
+
+@table @code
+
+@item set
+Fijar incondicionalmente la variable @var{clave} a @var{valor}.
+Esto sobreescribe cualquier valor establecido previamente.
+
+@item set?
+Fijar la variable de entorno @var{clave} a @var{valor} solamente
+si @var{clave} no está definida aún.  Dicho de otra forma, no
+sobreescribe ningún valor fijado previamente.
+
+@item setdir
+Si @var{valor} es un directorio, fijar incondicionalmente la
+variable de entorno @var{clave} a @var{valor}.  En caso contrario,
+emitir un mensaje de advertencia.
+
+@item setfile
+Si @var{valor} es un archivo, fijar incondicionalmente la variable
+de entorno @var{clave} a @var{valor}.  En caso contrario, emitir
+un mensaje de advertencia.
+
+@item prependdir
+Anadir el nombre del directorio @var{valor} al principio de la
+lista de directorios de la variable de entorno @var{clave}.  Si
+@var{clave} no existe, se crea.
+
+@end table
+
+Se permite usar variables de entorno (prefijadas por el símbolo
+del dólar) dentro de @var{valor} y se expanden antes de que la
+directiva se ejecute.
+
+He aquí dos ejemplos de entradas del archivo de reubicación,
+tomadas del (véase @rcontrib{Grand Unified Builder (GUB)}).
+
+@example
+set? FONTCONFIG_FILE=$INSTALLER_PREFIX/etc/fonts/fonts.conf
+prependdir GUILE_LOAD_PATH=$INSTALLER_PREFIX/share/guile/1.8
+@end example
+
+Se debe evitar que más de una línea establezca el valor de la
+misma variable de entorno dentro de los archivos de reubicación,
+ya que el orden de la exploración de los archivos en el directorio
+@file{relocate} es arbitrario.
+
+
+@node Algoritmo de la reubicación
+@unnumberedsubsubsec Algoritmo de la reubicación
+@translationof Relocation algorithm
+
+LilyPond usa el siguiente algoritmo para buscar los archivos de
+datos.
+
+@enumerate
+
+@item
+Calcular el directorio en que se encuentra el archivo binario
+@command{lilypond} que se está ejecutando actualmente.  Le
+llamaremos @code{bindir}.  Fijar la variable de entorno (itnerna)
+@code{INSTALLER_PREFIX} a @file{@var{bindir}/..} (esto es, el
+directorio padre de @code{bindir}).
+
+@item
+Comprobar la variable de entorno @code{LILYPOND_DATADIR}.  Si está
+establecida, usar su valor como el directorio de datos de
+LilyPond, @code{datadir}.  En caso contrario, usar o bien
+@file{$INSTALLER_PREFIX/@/share/@/lilypond/@/@var{versión}}
+(siendo @var{versión} la versión actual de LilyPond) o bien
+@file{$INSTALLER_PREFIX/@/share/@/lilypond/@/current}.
+
+@item
+Comprobar la variable de entorno @code{LILYPOND_LOCALEDIR}.  Si
+está establecida, usar su valor como la carpeta de datos de
+localización internacional de LilyPond, @code{localedir}.  En caso
+contrario, usar @file{$INSTALLER_PREFIX/@/share/@/locale}.
+
+@item
+Comprobar la variable de entorno @code{LILYPOND_RELOCDIR}.  Si
+está establecida, usar su valor como el directorio de los archivos
+de reubicación de LilyPond, @code{relocdir}.  En caso contrario,
+usar @file{$INSTALLER_PREFIX/@/etc/@/relocate}.
+
+@item
+Si @code{datadir} no existe, usar en su lugar un valor calculado
+en tiempo de compliación.  Lo mismo para @code{localedir} (pero no
+para @code{relocdir}, puesto que no tiene razón de ser).
+
+@item
+Si @code{relocdir} existe, procesar todos los archivos de este
+directorio como se describe en @ref{Archivos de reubicación}.
+
+@end enumerate
 
 
 @node LilyPond en una jaula de chroot
@@ -1444,10 +1611,7 @@ orden natural (cuando una voz con @code{\voiceThree} es más aguda
 que otra con @code{\voiceOne}, y casos semejantes).
 
 @seealso
-Manual de aprendizaje:
 @rlearning{Voces explícitas},
 @rlearning{Ejemplos reales de música}.
-
-Referencia de la notación:
 @ruser{Polifonía en un solo pentagrama},
 @ruser{Resolución de las colisiones}.
