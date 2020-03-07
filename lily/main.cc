@@ -39,6 +39,9 @@
 #if HAVE_GETTEXT
 #include <libintl.h>
 #endif
+#ifdef __MINGW32__
+#include <windows.h>
+#endif
 
 #include "all-font-metrics.hh"
 #include "file-name.hh"
@@ -511,7 +514,23 @@ setup_localisation ()
 {
 #if HAVE_GETTEXT
   /* Enable locales */
+#if !defined(__MINGW32__) || defined(_UCRT)
   setlocale (LC_ALL, "");
+#else
+  // Workaround for MinGW UTF-8 locale settings issue:
+  // `setlocale (LC_ALL, "")` in msvcrt.dll sets user-defined ANSI code page
+  // (i.e. 437 for English, 932 for Japanse, etc.)
+  // even if process code page is UTF-8 (i.e. 65001 for all languages).
+  // With this setting, outputting UTF-8 string becomes garbled.
+  // So we get the process code page with `GetACP ()` and,
+  // if it is UTF-8, explicitly set locale's code page to UTF-8 (i.e. 65001).
+  // If Universal CRT (UCRT, newer than msvcrt.dll) is used
+  // (i.e. `_UCRT' is defined), no such workaround is needed.
+  if (GetACP () == CP_UTF8)
+    setlocale (LC_ALL, ".65001");
+  else
+    setlocale (LC_ALL, "");
+#endif
 
   /* FIXME: check if this is still true.
      Disable localisation of float values. */
