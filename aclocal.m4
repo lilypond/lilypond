@@ -903,14 +903,8 @@ AC_DEFUN(STEPMAKE_GLIB, [
     PKG_CHECK_MODULES(GLIB, $1 >= $3, have_glib=yes, true)
     if test "$have_glib" = yes; then
         AC_DEFINE(HAVE_GLIB)
-        save_CPPFLAGS="$CPPFLAGS"
-        save_LIBS="$LIBS"
-        CPPFLAGS="$GLIB_CFLAGS $CPPFLAGS"
-        LIBS="$GLIB_LIBS $LIBS"
         AC_SUBST(GLIB_CFLAGS)
         AC_SUBST(GLIB_LIBS)
-        CPPFLAGS="$save_CPPFLAGS"
-        LIBS="$save_LIBS"
     else
         r="libglib-dev or glib?-devel"
         ver="`$PKG_CONFIG --modversion $1`"
@@ -922,14 +916,8 @@ AC_DEFUN(STEPMAKE_GOBJECT, [
     PKG_CHECK_MODULES(GOBJECT, $1 >= $3, have_gobject=yes, true)
     if test "$have_gobject" = yes; then
         AC_DEFINE(HAVE_GOBJECT)
-        save_CPPFLAGS="$CPPFLAGS"
-        save_LIBS="$LIBS"
-        CPPFLAGS="$GOBJECT_CFLAGS $CPPFLAGS"
-        LIBS="$GOBJECT_LIBS $LIBS"
         AC_SUBST(GOBJECT_CFLAGS)
         AC_SUBST(GOBJECT_LIBS)
-        CPPFLAGS="$save_CPPFLAGS"
-        LIBS="$save_LIBS"
     else
         r="libgobject-dev or gobject?-devel"
         ver="`$PKG_CONFIG --modversion $1`"
@@ -942,14 +930,8 @@ AC_DEFUN(STEPMAKE_FREETYPE2, [
     PKG_CHECK_MODULES(FREETYPE2, $1 >= $3, have_freetype2=yes, true)
     if test "$have_freetype2" = yes; then
         AC_DEFINE(HAVE_FREETYPE2)
-        save_CPPFLAGS="$CPPFLAGS"
-        save_LIBS="$LIBS"
-        CPPFLAGS="$FREETYPE2_CFLAGS $CPPFLAGS"
-        LIBS="$FREETYPE2_LIBS $LIBS"
         AC_SUBST(FREETYPE2_CFLAGS)
         AC_SUBST(FREETYPE2_LIBS)
-        CPPFLAGS="$save_CPPFLAGS"
-        LIBS="$save_LIBS"
     else
         # URG
         #r="lib$1-dev or $1-devel"
@@ -1015,15 +997,8 @@ AC_DEFUN(STEPMAKE_FONTCONFIG, [
     PKG_CHECK_MODULES(FONTCONFIG, $1 >= $3, have_fontconfig=yes, true)
     if test "$have_fontconfig" = yes; then
         AC_DEFINE(HAVE_FONTCONFIG)
-        # Do not pollute user-CPPFLAGS with configure-CPPFLAGS
-        save_CPPFLAGS="$CPPFLAGS"
-        save_LIBS="$LIBS"
-        CPPFLAGS="$FONTCONFIG_CFLAGS $CPPFLAGS"
-        LIBS="$FONTCONFIG_LIBS $LIBS"
         AC_SUBST(FONTCONFIG_CFLAGS)
         AC_SUBST(FONTCONFIG_LIBS)
-        CPPFLAGS="$save_CPPFLAGS"
-        LIBS="$save_LIBS"
     else
         r="lib$1-dev or $1-devel"
         ver="`$PKG_CONFIG --modversion $1`"
