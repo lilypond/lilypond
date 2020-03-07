@@ -289,8 +289,9 @@ Se han añadido dos símbolos de adorno nuevos.
 @item
 Se han añadido a las fuentes tipográficas los glifos de los
 corchetes y silencios de las figuras de semigarrapatea (1/256 de
-redonda, con 6 barras), así como de las de 1/512 y 1/1024, con 7 y
-8 barras respectivamente, que no tienen nombre en español.
+redonda, con 6 corchetes o barras), así como de las de 1/512 y
+1/1024, con 7 y 8 corchetes o barras respectivamente, que no
+tienen nombre en español.
 @lilypond[quote]
 {
   \omit Staff.TimeSignature
@@ -328,7 +329,7 @@ configurando la propiedad @code{handedness} al valor @code{LEFT}
 @item
 EL procedimiento @code{output-classic-framework} y la opción
 @code{-dclip-systems} están ahora disponibles con el backend
-@code{SVG} backend.
+@code{SVG}.
 
 @item
 Se ha añadido una opción, @code{-dcrop}, que formatea la salida de
