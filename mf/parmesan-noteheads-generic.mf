@@ -14,5 +14,5 @@ input parmesan-macros;
 font_x_height staff_space#;
 
 fet_beginfont ("parmesan", design_size, "parmesanMusic");
-        input parmesan-noteheads;
+  input parmesan-noteheads;
 fet_endfont;

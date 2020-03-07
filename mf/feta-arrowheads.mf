@@ -31,137 +31,137 @@ fet_begingroup ("arrowheads");
 
 
 def set_arrow_path (expr width, height, closed, tens_o, arrowlinethickness) =
-        save pat, arrow_path;
-        save tip_dir_i, tip_dir_o, wing_dir, ta;
-        save indent;
-        path pat, arrow_path;
-        pair tip_dir_i, tip_dir_o, wing_dir;
-        numeric ta;
+  save pat, arrow_path;
+  save tip_dir_i, tip_dir_o, wing_dir, ta;
+  save indent;
+  path pat, arrow_path;
+  pair tip_dir_i, tip_dir_o, wing_dir;
+  numeric ta;
 
-        pickup pencircle scaled arrowlinethickness;
+  pickup pencircle scaled arrowlinethickness;
 
-        indent = linethickness / 2;
+  indent = linethickness / 2;
 
-        x1 = 0;
-        y1 = 0;
-        lft x2 = -width;
-        top y2 = height;
-        penpos1 (arrowlinethickness, 90);
+  x1 = 0;
+  y1 = 0;
+  lft x2 = -width;
+  top y2 = height;
+  penpos1 (arrowlinethickness, 90);
 
-        pat := z2
-                ..tension tens_o.. z1{right};
-        tip_dir_o := direction 0 of pat;
-        z4 = z3 = z2;
-        penpos2 (arrowlinethickness, angle tip_dir_o + 90);
-        penpos3 (arrowlinethickness, angle tip_dir_o + 180);
-        if closed:
-                y5 = 0;
-                x5 = x2 + indent;
-                pat := z4
-                       .. z5{down};
-                tip_dir_i := direction 0 of pat;
-                wing_dir := down;
-                penpos5 (arrowlinethickness, angle wing_dir + 90);
-        else:
-                pat := z2l{tip_dir_o}
-                       .. z1l{right};
-                ta = xpart (pat intersectiontimes pat yscaled -1);
-                z5 = point ta of pat;
+  pat := z2
+         ..tension tens_o.. z1{right};
+  tip_dir_o := direction 0 of pat;
+  z4 = z3 = z2;
+  penpos2 (arrowlinethickness, angle tip_dir_o + 90);
+  penpos3 (arrowlinethickness, angle tip_dir_o + 180);
+  if closed:
+    y5 = 0;
+    x5 = x2 + indent;
+    pat := z4
+           .. z5{down};
+    tip_dir_i := direction 0 of pat;
+    wing_dir := down;
+    penpos5 (arrowlinethickness, angle wing_dir + 90);
+  else:
+    pat := z2l{tip_dir_o}
+           .. z1l{right};
+    ta = xpart (pat intersectiontimes pat yscaled -1);
+    z5 = point ta of pat;
 
-                tip_dir_i := tip_dir_o;
-                wing_dir := direction ta of pat;
+    tip_dir_i := tip_dir_o;
+    wing_dir := direction ta of pat;
                 penpos5 (0, 0);
-        fi;
-        penpos4 (arrowlinethickness, angle tip_dir_i + 90);
+  fi;
+  penpos4 (arrowlinethickness, angle tip_dir_i + 90);
 
-        pat := z1r{left}
-               ..tension tens_o.. z2r{-tip_dir_o}
-               .. z3r
-               .. z4l{tip_dir_i}
-               .. z5l{wing_dir};
-        arrow_path := pat
-                      .. reverse pat yscaled -1
-                      .. cycle;
+  pat := z1r{left}
+         ..tension tens_o.. z2r{-tip_dir_o}
+         .. z3r
+         .. z4l{tip_dir_i}
+         .. z5l{wing_dir};
+  arrow_path := pat
+                .. reverse pat yscaled -1
+                .. cycle;
 
 enddef;
 
 
 fet_beginchar ("open", "open.01");
-        set_char_box (staff_space#, 1.6 linethickness# / 2,
-                      0.5 staff_space#, 0.5 staff_space#);
-        set_arrow_path (staff_space, 0.5 staff_space,
-                        false, 1.0, 1.6 linethickness);
-        fill arrow_path;
-        penlabels (1, 2, 3, 4, 5);
+  set_char_box (staff_space#, 1.6 linethickness# / 2,
+                0.5 staff_space#, 0.5 staff_space#);
+  set_arrow_path (staff_space, 0.5 staff_space,
+                  false, 1.0, 1.6 linethickness);
+  fill arrow_path;
+  penlabels (1, 2, 3, 4, 5);
 fet_endchar;
 
 
 fet_beginchar ("open", "open.0M1");
-        set_char_box (1.6 linethickness# / 2, staff_space#,
-                      0.5 staff_space#, 0.5 staff_space#);
-        set_arrow_path (staff_space, 0.5 staff_space,
-                        false, 1.0, 1.6 linethickness);
-        fill arrow_path;
-        currentpicture := currentpicture xscaled -1;
+  set_char_box (1.6 linethickness# / 2, staff_space#,
+                0.5 staff_space#, 0.5 staff_space#);
+  set_arrow_path (staff_space, 0.5 staff_space,
+                  false, 1.0, 1.6 linethickness);
+  fill arrow_path;
+  currentpicture := currentpicture xscaled -1;
 fet_endchar;
 
 
 fet_beginchar ("open", "open.11");
-        set_char_box (.5 staff_space#, .5 staff_space#,
-                      1.0 staff_space#, 1.6 linethickness# / 2);
-        set_arrow_path (staff_space, 0.5 staff_space,
-                        false, 1.0, 1.6 linethickness);
-        fill arrow_path;
-        currentpicture := currentpicture rotated 90;
+  set_char_box (.5 staff_space#, .5 staff_space#,
+                1.0 staff_space#, 1.6 linethickness# / 2);
+  set_arrow_path (staff_space, 0.5 staff_space,
+                  false, 1.0, 1.6 linethickness);
+  fill arrow_path;
+  currentpicture := currentpicture rotated 90;
 fet_endchar;
 
 
 fet_beginchar ("open", "open.1M1");
-        set_char_box (.5 staff_space#, .5 staff_space#,
-                      1.6 linethickness# / 2, 1.0 staff_space#);
-        set_arrow_path (staff_space, 0.5 staff_space,
-                        false, 1.0, 1.6 linethickness);
-        fill arrow_path;
-        currentpicture := currentpicture rotated 90;
-        currentpicture := currentpicture yscaled -1;
+  set_char_box (.5 staff_space#, .5 staff_space#,
+                1.6 linethickness# / 2, 1.0 staff_space#);
+  set_arrow_path (staff_space, 0.5 staff_space,
+                  false, 1.0, 1.6 linethickness);
+  fill arrow_path;
+  currentpicture := currentpicture rotated 90;
+  currentpicture := currentpicture yscaled -1;
 fet_endchar;
 
 
 fet_beginchar ("close", "close.01");
-        set_char_box (staff_space#, 0, 0.5 staff_space#, 0.5 staff_space#);
-        set_arrow_path (staff_space, 0.5 staff_space,
-                        true, 1.5, blot_diameter);
-        fill arrow_path;
-        penlabels (1, 2, 3, 4, 5);
+  set_char_box (staff_space#, 0, 0.5 staff_space#, 0.5 staff_space#);
+  set_arrow_path (staff_space, 0.5 staff_space,
+                  true, 1.5, blot_diameter);
+  fill arrow_path;
+  penlabels (1, 2, 3, 4, 5);
 fet_endchar;
 
 
 fet_beginchar ("close", "close.0M1");
-        set_char_box (0, staff_space#,  0.5 staff_space#, 0.5 staff_space#);
-        set_arrow_path (staff_space, 0.5 staff_space,
-                        true, 1.5, blot_diameter);
-        fill arrow_path;
-        currentpicture := currentpicture xscaled -1;
+  set_char_box (0, staff_space#,  0.5 staff_space#, 0.5 staff_space#);
+  set_arrow_path (staff_space, 0.5 staff_space,
+                  true, 1.5, blot_diameter);
+  fill arrow_path;
+  currentpicture := currentpicture xscaled -1;
 fet_endchar;
 
 
 fet_beginchar ("close", "close.11");
-        set_char_box (.5 staff_space#, .5 staff_space#,
-                      1.0 staff_space#, 0.0 staff_space#);
-        set_arrow_path (staff_space, 0.5 staff_space,
-                        true, 1.5, blot_diameter);
-        fill arrow_path;
-        currentpicture := currentpicture rotated 90;
+  set_char_box (.5 staff_space#, .5 staff_space#,
+                1.0 staff_space#, 0.0 staff_space#);
+  set_arrow_path (staff_space, 0.5 staff_space,
+                  true, 1.5, blot_diameter);
+  fill arrow_path;
+  currentpicture := currentpicture rotated 90;
 fet_endchar;
 
 
 fet_beginchar ("close", "close.1M1");
-        set_char_box (.5 staff_space#, .5 staff_space#,
-                      0.0 staff_space#, 1.0 staff_space#);
-        set_arrow_path (staff_space, 0.5 staff_space,
-                        true, 1.5, blot_diameter);
-        fill arrow_path;
-        currentpicture := currentpicture rotated -90;
+  set_char_box (.5 staff_space#, .5 staff_space#,
+                0.0 staff_space#, 1.0 staff_space#);
+  set_arrow_path (staff_space, 0.5 staff_space,
+                  true, 1.5, blot_diameter);
+  fill arrow_path;
+  currentpicture := currentpicture rotated -90;
 fet_endchar;
 
 
