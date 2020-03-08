@@ -15,6 +15,7 @@ def read_pipe (command):
     code = str (child.wait ())
     if not child.stdout or child.stdout.close ():
         print("pipe failed: %(command)s" % locals ())
+    (output, error) = (output.decode ('utf-8'), error.decode ('utf-8'))
     if code != '0':
         error = code + ' ' + error
     return (output, error)
