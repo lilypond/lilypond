@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Naposledy obnoveno Sat Dec 14 18:15:11 UTC 2019
+@emph{Naposledy obnoveno Mon Mar  9 19:24:04 UTC 2020
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -74,7 +74,7 @@ ano
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">částečně</span>
+<span style="background-color: #39ff22">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -275,7 +275,7 @@ ano
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">částečně</span>
+<span style="background-color: #39ff22">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -285,7 +285,7 @@ ano
 @item
 Úvod
 @*
-5937
+6072
 @tab Pavel Fric
 @tab 
 @tab 
@@ -302,7 +302,7 @@ ano
 @ifhtml
 
 @html
-<span style="background-color: #fff23f">částečně</span>
+<span style="background-color: #ffea40">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -383,7 +383,7 @@ Společenství
 @ifhtml
 
 @html
-<span style="background-color: #efff3a">částečně</span>
+<span style="background-color: #f6fe3b">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
