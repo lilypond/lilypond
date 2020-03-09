@@ -414,6 +414,14 @@ get_column_description (vector<Paper_column *> const &cols, vsize col_index, boo
   return description;
 }
 
+/* returns a vector of dimensions breaks.size () * breaks.size ()
+
+   Compute the forces for all (start, end) combinations where
+   start/end are breakable columns. The force for (start, end) is in
+   (start_break_index * breaks.size + end_break_index)
+
+   If the combination doesn't fit, use infinity as force.
+ */
 vector<Real>
 get_line_forces (vector<Paper_column *> const &columns,
                  Real line_len, Real indent, bool ragged)

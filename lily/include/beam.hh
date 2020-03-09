@@ -33,6 +33,13 @@ struct Beam_segment
   Beam_segment ();
 };
 
+struct Beam_stem_end
+{
+  Real stem_y_;
+  Real french_beaming_stem_adjustment_;
+  Beam_stem_end ();
+};
+
 bool beam_segment_less (Beam_segment const &a, Beam_segment const &b);
 
 struct Beam_stem_segment
@@ -93,9 +100,9 @@ private:
   static void consider_auto_knees (Grob *);
   static void set_stem_shorten (Grob *);
   static vsize forced_stem_count (Grob *);
-  static Real calc_stem_y (Grob *, Grob *s, Grob **c,
-                           Real, Real, Direction,
-                           Drul_array<Real> pos, bool french);
+  static Beam_stem_end calc_stem_y (Grob *, Grob *s, Grob **c, Real, Real,
+                                    Direction, Drul_array<Real> pos,
+                                    int french_count);
 };
 
 #endif /* BEAM_HH */

@@ -27,10 +27,11 @@ code := 64;
 braces_per_font := 64;
 
 def draw_brace (expr height_sharp, width_sharp, slt_sharp, brace_number) =
-        save pendir, height, width, thin, thick, slt, pat;
+        save pendir, height, width, thin, thick, slt, pat, ta, paux;
         save penangle;
         pair pendir;
-        path pat;
+        path pat, paux;
+        numeric ta;
 
         height# := height_sharp;
         width# := width_sharp;
@@ -61,19 +62,20 @@ def draw_brace (expr height_sharp, width_sharp, slt_sharp, brace_number) =
                 penlabels (1, 2, 3);
                 labels (0);
 
-                pat := z2r
+                paux := z0
+                        -- z0 shifted (width, 0);
+                pat := z1r{pendir}
+                       .. z2r
                        .. simple_serif (z3r, z3l, 90)
                        .. z2l
-                       .. z1l{dir (angle (z1r - z1l) - 90)}
-                       .. z0{down}
-                       .. z1r{-dir (angle (z1l - z1r) + 90)}
-                       .. cycle;
-                pat := subpath (0, 5) of pat
-                       -- subpath (6, 7) of pat
-                       .. cycle;
+                       .. z1l{-pendir}
+                       .. z0{down};
+                ta = xpart (pat intersectiontimes paux);
+                pat := subpath (ta, length pat) of pat;
 
-                fill pat;
-                fill pat yscaled -1;
+                fill reverse pat yscaled -1
+                     .. pat
+                     -- cycle;
         fet_endchar;
 enddef;
 

@@ -531,7 +531,7 @@ def draw_gclef (expr reduction, double_shift, extra_width) =
                  .. z107l{up_}
                  ..tension 1.2.. z120r{curl 1}
                  .. {direction 0 of pat}z120l
-                 -- z108
+                 -- .5[z108,z109]   % to avoid fontForge problems
                  -- z109r                        % {dir (downstroke_angle + 0)}
                  ..tension 0.8.. z107r{down_}
                  .. z105r{down_}
@@ -884,7 +884,7 @@ begingroup;
         penpos5 (.8 penh, 90);
         z5 = (.5 [x10, x4], ypart (pos + .55 siz));
 
-        penpos6 (.8 penh, 270);
+        penpos6 (.8 penh, 269); % 1° deviation to avoid FontForge errors
         z6 = z5;
         penpos7 (penw, 180);
         z7l = (xpart (pos + siz), .5 [y6, y8]);

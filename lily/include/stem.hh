@@ -40,7 +40,7 @@ public:
   static void add_head (Grob *me, Grob *n);
   static Stem_info get_stem_info (Grob *);
   static Real chord_start_y (Grob *);
-  static void set_stem_positions (Grob *, Real);
+  static void set_stem_positions (Grob *, Real, Real);
   static void cache_pure_height (Grob *, Interval, Interval);
   static Slice beam_multiplicity (Grob *);
   static Direction get_default_dir (Grob *);

@@ -17,6 +17,9 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+// Needed because of extension definitions for POSIX functions.
+#include "config.hh"
+
 #include "polynomial.hh"
 
 #include "warn.hh"

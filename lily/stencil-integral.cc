@@ -33,6 +33,9 @@ when this transforms a point (x,y), the point is written as matrix:
 [ 1 ]
 */
 
+// Needed because of extension definitions for POSIX functions.
+#include "config.hh"
+
 #include "box.hh"
 #include "bezier.hh"
 #include "dimensions.hh"
@@ -56,6 +59,7 @@ when this transforms a point (x,y), the point is written as matrix:
 #include "spanner.hh"
 #include "transform.hh"
 
+#include <cmath>
 
 using std::string;
 using std::vector;

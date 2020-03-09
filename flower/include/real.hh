@@ -20,6 +20,9 @@
 #ifndef REAL_HH
 #define REAL_HH
 
+// Needed because of extension definitions for POSIX functions.
+#include "config.hh"
+
 #include <algorithm>
 #include <climits>
 #include <cmath>

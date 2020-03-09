@@ -29,7 +29,7 @@
 and interpret them as markup.  The @var{props} argument will include
 variables set in @var{scopes} and @code{page:is-bookpart-last-page},
 @code{page:is-last-bookpart}, @code{page:page-number-string}, and
-@code{page:page-number}."
+@code{page:page-number}. Returns a stencil."
 
   (define (get sym)
     (ly:output-def-lookup layout sym))
@@ -72,6 +72,7 @@ variables set in @var{scopes} and @code{page:is-bookpart-last-page},
             (markup? (get what-even)))
        (get what-even)
        (get what-odd))))
+
 (export marked-up-headfoot)
 
 (define ((marked-up-title what) layout scopes)

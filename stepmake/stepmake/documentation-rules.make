@@ -10,8 +10,3 @@ $(outdir)/%.gif: %.xpm
 $(outdir)/%.png: %.xpm
 	$(call ly_progress,Making,$@,< xpm)
 	xpmtoppm $< | pnmtopng > $@
-
-# use striproff?
-$(outdir)/%.txt: $(outdir)/%.1
-	$(call ly_progress,Making,$@,< 1)
-	troff -man -Tascii $< | grotty -b -u -o > $@

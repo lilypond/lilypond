@@ -1293,6 +1293,8 @@ in addition to notes and stems.")
 a whole system.")
      (footnotes-after-line-breaking ,ly:grob-array? "Footnote grobs of
 a broken system.")
+     (french-beaming-stem-adjustment ,ly:dimension? "Stem will be shortened
+by this amount of space in case of French beaming style.")
 
      (glissando-index ,integer? "The index of a glissando in its note
 column.")

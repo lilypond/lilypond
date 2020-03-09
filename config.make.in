@@ -1,148 +1,108 @@
 # -*-Makefile-*-
 
-MISSING_OPTIONAL = @OPTIONAL@
-MISSING_REQUIRED = @REQUIRED@
-
 # @configure_input@
-
-################################################################
-## FLAGS
-################################################################
-
-FREETYPE2_CFLAGS = @FREETYPE2_CFLAGS@
-GUILE_CFLAGS = @GUILE_CFLAGS@
-PANGO_FT2_CFLAGS = @PANGO_FT2_CFLAGS@
-GLIB_CLFAGS = @GLIB_CFLAGS@ @GOBJECT_CFLAGS@
-
-CONFIG_CPPFLAGS = @CPPFLAGS@
-CONFIG_DEFINES = @DEFINES@
-
-CONFIG_CFLAGS = @CFLAGS@ $(GLIB_CFLAGS) $(GUILE_CFLAGS) \
-                         $(FREETYPE2_CFLAGS) $(PANGO_FT2_CFLAGS)
-CONFIG_CXXFLAGS = @CXXFLAGS@ $(GUILE_CFLAGS) $(FREETYPE2_CFLAGS) \
-                             $(PANGO_FT2_CFLAGS)
-
-FONTCONFIG_LIBS = @FONTCONFIG_LIBS@
-
-# need -pthread from CFLAGS to avoid linking errors.
-GUILE_LIBS = @GUILE_LIBS@ $(GUILE_CFLAGS)
-
-FREETYPE2_LIBS = @FREETYPE2_LIBS@
-PANGO_FT2_LIBS = @PANGO_FT2_LIBS@
-CXXABI_LIBS = @CXXABI_LIBS@
-GLIB_LIBS = @GLIB_LIBS@ @GOBJECT_LIBS@
-
-CONFIG_LIBS = @LIBS@ @EXTRA_LIBS@ $(GLIB_LIBS) $(GUILE_LIBS) \
-                                  $(PANGO_FT2_LIBS) $(FONTCONFIG_LIBS) \
-                                  $(FREETYPE2_LIBS)
-CONFIG_LDFLAGS = @LDFLAGS@
-
-PACKAGE = LILYPOND
-package = lilypond
-PACKAGE_NAME = @PACKAGE_NAME@
-
-HOST_ARCH=@HOST_ARCH@
-
-USE_EXTRACTPDFMARK=@USE_EXTRACTPDFMARK@
-
-################################################################
-## FILESYSTEM
-################################################################
-
-prefix = @prefix@
-exec_prefix = @exec_prefix@
-
-configure-builddir = @abs_builddir@
-configure-srcdir = @abs_srcdir@
-
-bindir = @bindir@
-build_lilypond_datadir = @build_package_datadir@
-build_lilypond_libdir = @build_package_libdir@
-datarootdir = @datarootdir@
-datadir = @datadir@
-docdir = $(datadir)/doc
-elispdir = $(datadir)/emacs/site-lisp
-includedir = @includedir@
-infodir = @infodir@
-libdir = @libdir@
-localedir = @localedir@
-mandir = @mandir@
-program_prefix = @program_prefix@
-program_suffix = @program_suffix@
-sharedstatedir = @sharedstatedir@
-stepmake = @abs_srcdir@/stepmake
-
-package_datadir = $(datadir)/$(package)
-package_infodir = $(infodir)/$(package)
-package_libdir = $(libdir)/$(package)
-package_docdir = $(docdir)/$(package)
-
-local_package_datadir = $(package_datadir)/$(TOPLEVEL_VERSION)
-local_package_docdir = $(package_docdir)/$(TOPLEVEL_VERSION)
-local_package_libdir = $(package_libdir)/$(TOPLEVEL_VERSION)
-
-local_lilypond_datadir = $(local_package_datadir)
-local_lilypond_docdir = $(local_package_docdir)
-local_lilypond_libdir = $(local_package_libdir)
-
-lilypond_datadir = $(local_package_datadir)
-lilypond_libdir = $(local_package_libdir)
-lilypond_docdir = $(package_docdir)
-
-webdir = $(lilypond_docdir)/html
-vimdir = $(lilypond_datadir)/vim
-
-TEXGYRE_DIR = @TEXGYRE_DIR@
-TEXGYRE_FILES = @TEXGYRE_FILES@
-URWOTF_DIR = @URWOTF_DIR@
-URWOTF_FILES = @URWOTF_FILES@
-
-################################################################
-## PROGRAMS
-################################################################
 
 AR = @AR@
 BASH = @BASH@
 BISON = @BISON@
 CC = @CC@
+CONFIG_CPPFLAGS = @CPPFLAGS@
+CONFIG_CXXFLAGS = @CXXFLAGS@ @GUILE_CFLAGS@ @FREETYPE2_CFLAGS@ @PANGO_FT2_CFLAGS@
+CONFIG_DEFINES = @DEFINES@
+CONFIG_LDFLAGS = @LDFLAGS@
+CONFIG_LIBS = @LIBS@ @EXTRA_LIBS@ @GLIB_LIBS@ @GUILE_LIBS@ @PANGO_FT2_LIBS@ @FONTCONFIG_LIBS@ @FREETYPE2_LIBS@
 CROSS = @cross_compiling@
 CXX = @CXX@
+CXXABI_LIBS = @CXXABI_LIBS@
 DBLATEX = @DBLATEX@
 DEFINES = @DEFS@ @DEFINES@
 DEFS = @DEFS@
 DOCUMENTATION = @DOCUMENTATION@
 EXTRACTPDFMARK = @EXTRACTPDFMARK@
-FIND = @FIND@
 FCLIST = @FCLIST@
+FIND = @FIND@
 FLEX = @FLEX@
 FLEXLEXER_FILE = @FLEXLEXER_FILE@
+FONTCONFIG_LIBS = @FONTCONFIG_LIBS@
 FONTFORGE = @FONTFORGE@
-GROFF = @GROFF@
+FREETYPE2_CFLAGS = @FREETYPE2_CFLAGS@
+FREETYPE2_LIBS = @FREETYPE2_LIBS@
+GLIB_CLFAGS = @GLIB_CFLAGS@ @GOBJECT_CFLAGS@
+GLIB_LIBS = @GLIB_LIBS@ @GOBJECT_LIBS@
 GS920 = @GS920@
 GUILE = @GUILE@
-LD = @LD@
+GUILE_CFLAGS = @GUILE_CFLAGS@
+GUILE_LIBS = @GUILE_LIBS@ @GUILE_CFLAGS@
+HOST_ARCH=@HOST_ARCH@
 LINK_GXX_STATICALLY = @LINK_GXX_STATICALLY@
 LN = @LN@
 LN_S = @LN_S@
 LN_SRC_TO_BUILD = @LN_SRC_TO_BUILD@
 MAKEINFO_PROGRAM = @MAKEINFO@
-TEXI2HTML_PROGRAM = @TEXI2HTML@
 METAFONT = @METAFONT@ -progname=mf
 MFMODE = @MFMODE@
+MISSING_OPTIONAL = @OPTIONAL@
+MISSING_REQUIRED = @REQUIRED@
 MSGFMT = @MSGFMT@
+PACKAGE = LILYPOND
+PACKAGE_NAME = @PACKAGE_NAME@
+PANGO_FT2_CFLAGS = @PANGO_FT2_CFLAGS@
+PANGO_FT2_LIBS = @PANGO_FT2_LIBS@
 PAPERSIZE=a4
 PATHSEP = @PATHSEP@
-PDFTEX = @PDFTEX@
 PDFLATEX = @PDFLATEX@
+PDFTEX = @PDFTEX@
 PERL = @PERL@
 PLATFORM_WINDOWS = @PLATFORM_WINDOWS@
 PYTHON = @PYTHON@ -tt
-TARGET_PYTHON = @PYTHON@ -tt
-TIDY = @TIDY@
 RANLIB = @RANLIB@
 ROOTSEP = @ROOTSEP@
 SHELL = @SHELL@
 TAR = @TAR@
+TARGET_PYTHON = @PYTHON@ -tt
+TEXGYRE_DIR = @TEXGYRE_DIR@
+TEXGYRE_FILES = @TEXGYRE_FILES@
+TEXI2HTML_PROGRAM = @TEXI2HTML@
+TIDY = @TIDY@
+URWOTF_DIR = @URWOTF_DIR@
+URWOTF_FILES = @URWOTF_FILES@
+USE_EXTRACTPDFMARK=@USE_EXTRACTPDFMARK@
 WINDRES = @WINDRES@
 YACC = @YACC@
 ZIP = @ZIP@
+bindir = @bindir@
+build_lilypond_datadir = @build_package_datadir@
+build_lilypond_libdir = @build_package_libdir@
+configure-builddir = @abs_builddir@
+configure-srcdir = @abs_srcdir@
+datadir = @datadir@
+datarootdir = @datarootdir@
+docdir = $(datadir)/doc
+elispdir = $(datadir)/emacs/site-lisp
+exec_prefix = @exec_prefix@
+includedir = @includedir@
+infodir = @infodir@
+libdir = @libdir@
+lilypond_datadir = $(local_package_datadir)
+lilypond_docdir = $(package_docdir)
+lilypond_libdir = $(local_package_libdir)
+local_lilypond_datadir = $(local_package_datadir)
+local_lilypond_docdir = $(local_package_docdir)
+local_lilypond_libdir = $(local_package_libdir)
+local_package_datadir = $(package_datadir)/$(TOPLEVEL_VERSION)
+local_package_docdir = $(package_docdir)/$(TOPLEVEL_VERSION)
+local_package_libdir = $(package_libdir)/$(TOPLEVEL_VERSION)
+localedir = @localedir@
+mandir = @mandir@
+package = lilypond
+package_datadir = $(datadir)/$(package)
+package_docdir = $(docdir)/$(package)
+package_infodir = $(infodir)/$(package)
+package_libdir = $(libdir)/$(package)
+prefix = @prefix@
+program_prefix = @program_prefix@
+program_suffix = @program_suffix@
+sharedstatedir = @sharedstatedir@
+stepmake = @abs_srcdir@/stepmake
+vimdir = $(lilypond_datadir)/vim
+webdir = $(lilypond_docdir)/html

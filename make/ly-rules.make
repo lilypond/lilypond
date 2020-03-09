@@ -14,15 +14,6 @@ $(outdir)/%.latex: %.doc $(INIT_LY_SOURCES) $(SCHEME_SOURCES)
 		--output=$(outdir) $(LILYPOND_BOOK_FLAGS) \
 		--redirect-lilypond-output $<
 
-
-# This allows -j make option while making sure only one lilypond-book instance
-# is running at the same time, using GNU make's order-only prerequisites so
-# as to not create superficial dependencies between unrelated manuals.
-define CHAIN_RULE
-| $(i)
-$(i):
-endef
-
 $(eval $(firstword $(TEXI_FILES_FROM_TELY)):\
  $(foreach i, $(wordlist 2, $(words $(TEXI_FILES_FROM_TELY)),\
  $(TEXI_FILES_FROM_TELY)),$(CHAIN_RULE)))

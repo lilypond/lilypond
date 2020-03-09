@@ -61,6 +61,9 @@ Page_turn_page_breaking::~Page_turn_page_breaking ()
 {
 }
 
+/* Space the systems between start and end on a page, and calculate
+   aggregate demerits taking demerits of break at start with the
+   config of putting [start..end] on a page */
 Page_turn_page_breaking::Break_node
 Page_turn_page_breaking::put_systems_on_pages (vsize start,
                                                vsize end,
@@ -213,6 +216,7 @@ Page_turn_page_breaking::calc_subproblem (vsize ending_breakpoint)
           if (!found && this_start_best.too_many_lines_)
             break;
         }
+
       if (std::isinf (this_start_best.demerits_))
         {
           assert (!std::isinf (best.demerits_) && start < end - 1);

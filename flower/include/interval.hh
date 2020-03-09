@@ -20,11 +20,14 @@
 #ifndef INTERVAL_HH
 #define INTERVAL_HH
 
-#include <cmath>
+// Needed because of extension definitions for POSIX functions.
+#include "config.hh"
 
 #include "flower-proto.hh"
 #include "std-string.hh"
 #include "drul-array.hh"
+
+#include <cmath>
 
 /* A T interval.  This represents the closed interval [left,right].
    No invariants.  T must be a totally ordered ring (with division, anyway ..)

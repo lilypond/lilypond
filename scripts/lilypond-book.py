@@ -46,6 +46,7 @@ TODO:
 # TODO: Better solve the global_options copying to the snippets...
 
 import codecs
+import fcntl
 import glob
 import hashlib
 import os
@@ -363,9 +364,44 @@ def split_output_files(directory):
         files += sub_files
     return set (files)
 
+
+def lock_path (name):
+    if os.name != 'posix':
+        return None
+
+    fp = open (name, 'w')
+    fcntl.lockf (fp, fcntl.LOCK_EX)
+    return fp
+
+
+def unlock_path (lock):
+    if os.name != 'posix':
+        return None
+    fcntl.lockf (lock, fcntl.LOCK_UN)
+    lock.close ()
+
+
 def do_process_cmd (chunks, input_name, options):
+    """Wrap do_process_cmd_locked in a filesystem lock"""
     snippets = [c for c in chunks if isinstance (c, book_snippets.LilypondSnippet)]
 
+    # calculate checksums eagerly
+    for s in snippets:
+        s.get_checksum()
+
+    os.makedirs(options.lily_output_dir, exist_ok=True)
+    lock_file = os.path.join(options.lily_output_dir, "lock")
+    lock = None
+    try:
+        lock = lock_path (lock_file)
+        do_process_cmd_locked (snippets, input_name, options)
+    finally:
+        if lock:
+            unlock_path (lock)
+
+
+def do_process_cmd_locked (snippets, input_name, options):
+    """Look at all snippets, write the outdated ones, and compile them."""
     output_files = split_output_files (options.lily_output_dir)
     outdated = [c for c in snippets if c.is_outdated (options.lily_output_dir, output_files)]
 
@@ -650,8 +686,6 @@ def main ():
 
     if global_options.lily_output_dir:
         global_options.lily_output_dir = os.path.abspath(global_options.lily_output_dir)
-        if not os.path.isdir (global_options.lily_output_dir):
-            os.makedirs (global_options.lily_output_dir)
     else:
         global_options.lily_output_dir = os.path.abspath(global_options.output_dir)
 

@@ -94,6 +94,12 @@ private:
   bool calc_subproblem (vsize page, vsize lines);
 };
 
+/* Page_spacing calculates force for a rods/springs problem.
+
+   This is similar to the horizontal problem, but each line only has
+   rods to its predecessor and successor, so we can aggregate data as
+   we add lines.
+*/
 struct Page_spacing
 {
   Real force_;

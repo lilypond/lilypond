@@ -472,6 +472,7 @@ Page_breaking::systems ()
   return scm_append (scm_reverse_x (ret, SCM_EOL));
 }
 
+/* returns a Prob for the page */
 SCM
 Page_breaking::make_page (int page_num, bool last) const
 {
@@ -550,6 +551,7 @@ Page_breaking::get_page_configuration (SCM systems, int page_num, bool ragged, b
   return scm_is_pair (systems) ? layout.solution (ragged) : SCM_EOL;
 }
 
+/* Return a Prob as SCM value encompassing the given systems. */
 SCM
 Page_breaking::draw_page (SCM systems, SCM configuration, int page_num, bool last)
 {
@@ -826,6 +828,7 @@ Page_breaking::chunk_list (vsize start_index, vsize end_index)
   Break_position start = breaks_[start_index];
   Break_position end = breaks_[end_index];
 
+  // TODO: could use binary search.
   vsize i = 0;
   for (; i < chunks_.size () && chunks_[i] <= start; i++)
     ;

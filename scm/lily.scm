@@ -1039,7 +1039,7 @@ PIDs or the number of the process."
          (do-measurements (ly:get-option 'dump-profile))
          (handler (lambda (key failed-file)
                     (set! failed (append (list failed-file) failed)))))
-    (gc)
+    (if (not (guile-v2)) (gc))
     (for-each
      (lambda (x)
        (let* ((start-measurements (if do-measurements
@@ -1059,16 +1059,22 @@ PIDs or the number of the process."
          (for-each (lambda (s)
                      (ly:set-option (car s) (cdr s)))
                    all-settings)
-         (ly:set-option 'debug-gc-assert-parsed-dead #t)
-         (gc)
-         (ly:set-option 'debug-gc-assert-parsed-dead #f)
-         (for-each
-          (lambda (x)
-            (if (not (hashq-ref gc-zombies x))
-                (begin
-                  (ly:programming-error "Parsed object should be dead: ~a" x)
-                  (hashq-set! gc-zombies x #t))))
-          (ly:parsed-undead-list!))
+
+         ;; check that we're not holding on to objects. Doesn't work
+         ;; in GUILE 2.x
+         (if (not (guile-v2))
+             (begin
+               (ly:set-option 'debug-gc-assert-parsed-dead #t)
+               (gc)
+               (ly:set-option 'debug-gc-assert-parsed-dead #f))
+             (for-each
+              (lambda (x)
+                (if (not (hashq-ref gc-zombies x))
+                    (begin
+                      (ly:programming-error "Parsed object should be dead: ~a" x)
+                      (hashq-set! gc-zombies x #t))))
+              (ly:parsed-undead-list!)))
+
          (if (ly:get-option 'debug-gc)
              (dump-gc-protects)
              (ly:reset-all-fonts))

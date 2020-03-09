@@ -231,8 +231,6 @@ AC_DEFUN(STEPMAKE_COMPILE, [
     AC_REQUIRE([AC_PROG_CC])
 
     STEPMAKE_OPTIONAL_REQUIRED(CC, cc, $1)
-    LD='$(CC)'
-    AC_SUBST(LD)
 
     # If -pipe requested, test if it works and add to CFLAGS.
     if test "$pipe_b" = yes; then
@@ -273,19 +271,6 @@ AC_DEFUN(STEPMAKE_COMPILE, [
     CPPFLAGS=${CPPFLAGS-""}
     LDFLAGS="$LDFLAGS $SANITIZE"
 
-    AC_MSG_CHECKING([for IEEE-conformance compiler flags])
-    save_cflags="$CFLAGS"
-    case "$host" in
-    alpha*-*-*)
-        dnl should do compile test?
-        AC_MSG_RESULT(-mieee)
-        CFLAGS=" -mieee $CFLAGS"
-        ;;
-    *)
-        AC_MSG_RESULT([none])
-        ;;
-    esac
-
     AC_SUBST(cross_compiling)
     AC_SUBST(CFLAGS)
     AC_SUBST(CPPFLAGS)
@@ -321,7 +306,7 @@ AC_DEFUN(STEPMAKE_DATADIR, [
     AC_SUBST(datadir)
     AC_SUBST(datarootdir)
     AC_SUBST(build_package_datadir)
-    AC_DEFINE_UNQUOTED(DATADIR, ["${DATADIR}"])
+    AC_DEFINE_UNQUOTED(CONFIG_DATADIR, ["${DATADIR}"])
     AC_DEFINE_UNQUOTED(BUILD_PACKAGE_DATADIR, ["${BUILD_PACKAGE_DATADIR}"])
 ])
 
@@ -594,7 +579,7 @@ AC_DEFUN(STEPMAKE_GUILE, [
     AC_MSG_CHECKING([for guile])
     guile="guile"
     found="no"
-    for r in $GUILE guile guile2 guile2.0 guile-2.0 \
+    for r in $GUILE guile guile2 guile2.2 guile2.0 guile-2.0 \
              guile1 guile19 guile18 \
              guile1.9 guile1.8 \
              guile-1 guile-1.9 guile-1.8; do
@@ -660,11 +645,6 @@ AC_DEFUN(STEPMAKE_GUILE_DEVEL, [
             STEPMAKE_ADD_ENTRY(REQUIRED, ["guile-devel >= 1.8"])
             ;;
     esac
-])
-
-AC_DEFUN(STEPMAKE_DLOPEN, [
-    AC_CHECK_LIB(dl, dlopen)
-    AC_CHECK_FUNCS(dlopen)
 ])
 
 
@@ -764,9 +744,6 @@ AC_DEFUN(STEPMAKE_LIB, [
 
 
 AC_DEFUN(STEPMAKE_LOCALE, [
-    lang=English
-    ALL_LINGUAS="en nl"
-
     # with/enable ??
     AC_ARG_WITH(localedir,
         [AS_HELP_STRING(
@@ -774,45 +751,11 @@ AC_DEFUN(STEPMAKE_LOCALE, [
              [location of locales.  Default: PREFIX/share/locale])],
         localedir=$with_localedir,
         localedir='${prefix}/share/locale')
-
-    AC_ARG_WITH(lang,
-        [AS_HELP_STRING(
-             [--with-lang=LANG],
-             [use LANG as language to emit messages])],
-        language=$with_lang,
-        language=English)
-
-    AC_MSG_CHECKING(language)
-    case "$language" in
-    En* | en* | Am* | am* | US* | us*)
-        lang=English;;
-    NL | nl | Du* | du* | Ned* | ned*)
-        lang=Dutch;;
-    "")
-        lang=English;;
-    *)
-        lang=unknown;;
-    esac
-    AC_MSG_RESULT($lang)
-
-    if test "$lang" = "unknown" ; then
-        STEPMAKE_WARN($language not supported; available are: $ALL_LINGUAS)
-    fi
 ])
 
 
 AC_DEFUN(STEPMAKE_MAKEINFO, [
     STEPMAKE_PROGS(MAKEINFO, makeinfo, $1)
-])
-
-
-AC_DEFUN(STEPMAKE_MAN, [
-    STEPMAKE_PROGS(GROFF, groff ditroff, $1)
-    AC_SUBST(GROFF)
-    STEPMAKE_PROGS(TROFF, troff, $1)
-    AC_SUBST(TROFF)
-    STEPMAKE_PROGS(TBL, tbl, $1)
-    AC_SUBST(TBL)
 ])
 
 
@@ -1175,6 +1118,6 @@ AC_DEFUN(STEPMAKE_WINDOWS, [
     fi
     AC_MSG_RESULT([$PLATFORM_WINDOWS])
     AC_SUBST(PLATFORM_WINDOWS)
-    STEPMAKE_PROGS(WINDRES, $target-windres windres, x)
+    STEPMAKE_PROGS(WINDRES, $target-windres $host-windres windres, x)
     AC_SUBST(WINDRES)
 ])

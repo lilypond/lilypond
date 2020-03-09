@@ -23,7 +23,6 @@ space# := number_design_size / 2;
 font_x_height height#;
 font_normal_space space#;
 
-
 %
 % DOCME!
 %
@@ -428,8 +427,10 @@ fet_beginchar ("Numeral 2", "two");
         save tolerance;
         save alpha, beta, gamma, theta;
         save flare_start_distance;
-        save t, pat, bow;
-        path pat, bow;
+        save t, pata, ta, patb, tb, bow;
+
+        path pata, patb, bow;
+        numeric ta, tb;
 
         set_char_box (0, 22/30 height# * widen, 0, height#);
 
@@ -463,12 +464,11 @@ fet_beginchar ("Numeral 2", "two");
         % the return value of `solve' is stored in a dummy variable
         t = solve f (0.8, 1.2);
 
-        fill z1r{dir (beta)}
-             ..tension 0.9.. {dir (alpha + 10)}z2r
-             .. {dir (gamma)}z3r
-             .. bow
-             .. {dir (180 + beta)}z1l
-             .. cycle;
+        pata := subpath (0.1, 5) of z1r{dir (beta)}
+                ..tension 0.9.. {dir (alpha + 10)}z2r
+                .. {dir (gamma)}z3r
+                .. bow
+                .. {dir (180 + beta)}z1l;
 
         penpos4 (thick, 0);
         z4r = (w - thin / 2, .71 h);
@@ -481,18 +481,19 @@ fet_beginchar ("Numeral 2", "two");
 
         t := tense;
 
-        pat := z1l{dir (beta)}
-               ..tension t.. z4r{up}
-               .. number_flare_path (z5r, 180, 90, hair, 1.05 flare,
-                                     x5r - 1/2 hair, .21 h, 0.006, 0.4, 1)
-               .. z4l{down}
-               ..tension t.. {dir (180 + beta)}z1r
-               -- cycle;
+        patb := z1l{dir (beta)}
+                ..tension t.. z4r{up}
+                .. number_flare_path (z5r, 180, 90, hair, 1.05 flare,
+                                      x5r - 1/2 hair, .21 h, 0.006, 0.4, 1)
+                .. z4l{down}
+                ..tension t.. {dir (180 + beta)}z1r;
 
-%        pickup pencircle scaled 1;
-%        draw pat;
+        (ta, tb) = pata intersectiontimes patb;
 
-        fill pat;
+        fill subpath (ta, length pata) of pata
+             .. reverse subpath (tb, length patb) of patb
+             -- cycle;
+
 fet_endchar;
 
 
@@ -550,8 +551,8 @@ fet_beginchar ("Numeral 3", "three");
              .. z7l{dir (-alpha)}
              ..tension outer_t.. z5r{down}
              ..tension outer_t.. number_flare_path (z6r, 180, -90, hair,
-                                                    flare, x6l, .18 h, 0.06,
-                                                    1.5, 1)
+                                                    flare, x6l, .18 h,
+                                                    0.06, 1.5, 1)
              .. z5l{up}
              ..tension t.. z3l{left}
              .. z4l{left}
@@ -715,10 +716,11 @@ fet_endchar;
 fet_beginchar ("Numeral 7", "seven");
         save tolerance;
         save alpha, beta, gamma, delta;
-        save bow;
+        save pata, ta, patb, tb, bow;
         save x_overshoot;
 
-        path bow;
+        path pata, patb, bow;
+        numeric ta, tb;
 
         set_char_box (0, 11/15 height# * widen - thin#, 0, height#);
         overshoot_x = .75 thin;
@@ -744,14 +746,13 @@ fet_beginchar ("Numeral 7", "seven");
 
         pickup pencircle;
 
-        fill z3l{dir (alpha - gamma)}
-             .. z4
-             .. {dir (alpha + gamma)}z2r
-             .. z2l{dir (beta + delta)}
-             .. {dir (beta)}z5r
-             .. z5l{dir (180 + beta)}
-             .. {dir (delta - 90)}z3r
-             .. cycle;
+        pata := z5l{dir (180 + beta)}
+                .. {dir (delta - 90)}z3r
+                .. z3l{dir (alpha - gamma)}
+                .. z4
+                .. {dir (alpha + gamma)}z2r
+                .. z2l{dir (beta + delta)}
+                .. {dir (beta)}z5r;
 
         penlabels (1, 2, 3, 4, 5);
 
@@ -789,18 +790,24 @@ fet_beginchar ("Numeral 7", "seven");
         % the return value of `solve' is stored in a dummy variable
         t = solve f (0.8, 1.2);
 
-        fill bow
-             .. {dir (beta)}z13r
-             -- z13l{dir (180 + beta)}
-             .. {dir (180 + alpha)}z12l
-             .. {dir (180 + beta)}z11l
-             .. {down}z16l
-             -- z15r{down}
-             .. {up}z15l
-             -- z14l{up}
-             .. {down}z14r
-             -- z16r{down}
-             ..tension 1.5.. {dir (beta)}cycle;
+        patb := z13l{dir (180 + beta)}
+                .. {dir (180 + alpha)}z12l
+                .. {dir (180 + beta)}z11l
+                .. {down}z16l
+                -- z15r{down}
+                .. {up}z15l
+                -- z14l{up}
+                .. {down}z14r
+                -- z16r{down}
+                ..tension 1.5.. {dir (beta)}bow
+                .. {dir (beta)}z13r;
+
+        (ta - 1, tb) = subpath (1, length pata) of pata
+                intersectiontimes
+                subpath (0, length patb - 1) of patb;
+        fill subpath (0, ta) of pata
+                -- subpath (tb, length patb) of patb
+                .. cycle;
 
         penlabels (range 11 thru 16);
 fet_endchar;

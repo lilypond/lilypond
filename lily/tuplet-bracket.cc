@@ -40,6 +40,9 @@
   todo: handle breaking elegantly.
 */
 
+// Needed because of extension definitions for POSIX functions.
+#include "config.hh"
+
 #include "tuplet-bracket.hh"
 
 #include "bracket.hh"
@@ -61,6 +64,8 @@
 #include "paper-column.hh"
 #include "moment.hh"
 #include "bezier.hh"
+
+#include <cmath>
 
 using std::vector;
 

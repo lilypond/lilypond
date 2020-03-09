@@ -589,6 +589,9 @@ operator < (Layer_entry const &a,
   return a.layer_ < b.layer_;
 }
 
+/* Return the system as a Prob for page layout. The prob holds the
+   stencil, but also a reference to the system in 'system-grob
+ */
 SCM
 System::get_paper_system ()
 {

@@ -557,8 +557,8 @@ def draw_neomensural_c_clef (expr exact_center, reduction) =
         y15 = y12;
 
         pat := get_subpath (ellipse, down, up, z13)
-               -- z3l
-               -- z3r
+               -- z3l{up}           % avoid FontForge problems by specifying
+               .. z3r               % direction plus .. instead of --
                -- cycle;
 
         fill get_subpath (ellipse, down, up, z11)
@@ -657,26 +657,26 @@ def draw_petrucci_c_clef (expr exact_center, flare_align, reduction) =
 
         if top y11 > -y6 + 0.7 linethickness:
                 fill get_subpath (ellipse, up, down, z11)
-                     -- z12l
-                     -- z12r
+                     -- z12l{down}  % avoid FontForge problems by specifying
+                     .. z12r        % direction plus .. instead of --
                      -- cycle;
         fi;
         if bot y13 < y6 - 0.7 linethickness:
                 fill get_subpath (ellipse, down, up, z13)
-                     -- z14r
-                     -- z14l
+                     -- z14r{up}    % avoid FontForge problems by specifying
+                     .. z14l        % direction plus .. instead of --
                      -- cycle;
         fi;
         if top y15 > -y6 + 0.7 linethickness:
                 fill get_subpath (ellipse, up, down, z15)
-                     -- z16l
-                     -- z16r
+                     -- z16l{down}  % avoid FontForge problems by specifying
+                     .. z16r        % direction plus .. instead of --
                      -- cycle;
         fi;
         if bot y17 < y6 - 0.7 linethickness:
                 fill get_subpath (ellipse, down, up, z17)
-                     -- z18r
-                     -- z18l
+                     -- z18r{up}    % avoid FontForge problems by specifying
+                     .. z18l        % direction plus .. instead of --
                      -- cycle;
         fi;
 

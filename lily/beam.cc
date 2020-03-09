@@ -79,6 +79,12 @@ static T absdiff (T const &a, T const &b)
   return std::max (a, b) - std::min (a, b);
 }
 
+Beam_stem_end::Beam_stem_end ()
+{
+  stem_y_ = 0.0;
+  french_beaming_stem_adjustment_ = 0.0;
+}
+
 Beam_stem_segment::Beam_stem_segment ()
 {
   max_connect_ = 1000;          // infinity
@@ -1011,32 +1017,17 @@ Beam::quanting (SCM smob, SCM ys_scm, SCM align_broken_intos)
   return ly_interval2scm (ys);
 }
 
-/*
-  Report slice containing the numbers that are both in (car BEAMING)
-  and (cdr BEAMING)
-*/
-Slice
-where_are_the_whole_beams (SCM beaming)
-{
-  Slice l;
-
-  for (SCM s = scm_car (beaming); scm_is_pair (s); s = scm_cdr (s))
-    {
-      if (scm_is_true (ly_memv (scm_car (s), scm_cdr (beaming))))
-
-        l.add_point (scm_to_int (scm_car (s)));
-    }
-
-  return l;
-}
-
-/* Return the Y position of the stem-end, given the Y-left, Y-right
-   in POS for stem S.  This Y position is relative to S. */
-Real
+/* Return stem end (length) information (structure Beam_stem_end):
+   - Y position of the stem-end, given the Y-left, Y-right in POS for stem S.
+     This Y position is relative to S.
+   - In case of French beaming, individual stem length correction values will
+     be set for stem S. */
+Beam_stem_end
 Beam::calc_stem_y (Grob *me, Grob *stem, Grob **common,
                    Real xl, Real xr, Direction feather_dir,
-                   Drul_array<Real> pos, bool french)
+                   Drul_array<Real> pos, int french_count)
 {
+  Beam_stem_end stem_end;
   Real beam_translation = get_beam_translation (me);
   Direction stem_dir = get_grob_direction (stem);
 
@@ -1046,11 +1037,7 @@ Beam::calc_stem_y (Grob *me, Grob *stem, Grob **common,
 
   Real stem_y = linear_combination (pos, xdir);
 
-  SCM beaming = stem->get_property ("beaming");
-
-  Slice beam_slice (french
-                    ? where_are_the_whole_beams (beaming)
-                    : Stem::beam_multiplicity (stem));
+  Slice beam_slice = Stem::beam_multiplicity (stem);
   if (beam_slice.is_empty ())
     beam_slice = Slice (0, 0);
   Interval beam_multiplicity (beam_slice[LEFT],
@@ -1068,11 +1055,18 @@ Beam::calc_stem_y (Grob *me, Grob *stem, Grob **common,
     feather_factor = 1 - relx;
 
   stem_y += feather_factor * beam_translation
-            * beam_multiplicity[Direction (((french) ? DOWN : UP) * stem_dir)];
+            * beam_multiplicity[stem_dir];
   Real id = me->relative_coordinate (common[Y_AXIS], Y_AXIS)
             - stem->relative_coordinate (common[Y_AXIS], Y_AXIS);
+  stem_end.stem_y_ = stem_y + id;
 
-  return stem_y + id;
+  /*
+    Set French Beaming stem end shortening value for stems to be shortened
+  */
+  stem_end.french_beaming_stem_adjustment_ = french_count * beam_translation
+                                             * feather_factor;
+
+  return stem_end;
 }
 
 /*
@@ -1111,21 +1105,32 @@ Beam::set_stem_lengths (SCM smob)
       thick = get_beam_thickness (me);
     }
 
-  Grob *fvs = first_normal_stem (me);
-  Grob *lvs = last_normal_stem (me);
-
   Interval x_span = robust_scm2interval (me->get_property ("X-positions"), Interval (0, 0));
   Direction feather_dir = to_dir (me->get_property ("grow-direction"));
 
   for (vsize i = 0; i < stems.size (); i++)
     {
       Grob *s = stems[i];
-
       bool french = to_boolean (s->get_property ("french-beaming"));
-      Real stem_y = calc_stem_y (me, s, common,
-                                 x_span[LEFT], x_span[RIGHT], feather_dir,
-                                 pos, french && s != lvs && s != fvs);
-
+      int french_count = 0;
+      if (french)
+        {
+          /*
+            french_count is the number of beams a particular stem length
+            must be shortened in French Beaming.  Determined by intersecting
+            left/right beaming information Slices.
+          */
+          SCM beaming = s->get_property ("beaming");
+          Slice le = int_list_to_slice (scm_car (beaming));
+          Slice ri = int_list_to_slice (scm_cdr (beaming));
+          le.intersect (ri);
+          french_count = le.length ();
+        }
+      Beam_stem_end stem_end = calc_stem_y (me, s, common,
+                                            x_span[LEFT], x_span[RIGHT],
+                                            feather_dir, pos, french_count);
+      Real stem_y = stem_end.stem_y_;
+      Real fb_stem_adjustment = stem_end.french_beaming_stem_adjustment_;
       /*
         Make the stems go up to the end of the beam. This doesn't matter
         for normal beams, but for tremolo beams it looks silly otherwise.
@@ -1138,7 +1143,8 @@ Beam::set_stem_lengths (SCM smob)
         Do set_stem_positions for invisible stems too, so tuplet brackets
         have a reference point for sloping
        */
-      Stem::set_stem_positions (s, 2 * stem_y / staff_space);
+      Stem::set_stem_positions (s, 2 * stem_y / staff_space,
+                                   2 * fb_stem_adjustment / staff_space);
     }
 
   return posns;

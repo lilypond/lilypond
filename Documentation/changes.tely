@@ -63,6 +63,39 @@ which scares away people.
 
 
 @item
+French beaming (@code{\override Stem.french-beaming = ##t}) now
+@emph{exactly} behaves like standard (i.e., default) beaming in every respect
+(beam positioning and placement of any articulation, fingering, etc.).  The
+only remaining difference are inner stems not passing through beams.
+@lilypond[quote]
+testmusic = \relative {
+  \omit Staff.Clef
+  \omit Staff.TimeSignature
+  \cadenzaOn
+  c''8[ a16 a_^ e']
+  f32[_5 c_3 a64_> g]_>]
+  a,32[ b^( c a16]
+  e'32[ g) a16 r] |
+  \override Beam.auto-knee-gap = #1
+  a,64[ 64 f''64 64]
+  \tuplet 3/2 { c32[ 32 32] }
+  \override Beam.grow-direction = #RIGHT
+  \featherDurations #(ly:make-moment 2/3)
+  { d,32[^1 e^2 f^3 g^4 a^5] } s64
+}
+\score {
+  <<
+    \new Staff \with { \override Stem.french-beaming = ##t }
+         { <>^"French" \testmusic }
+    \new Staff
+         { <>^"Default" \testmusic }
+  >>
+  \layout { indent = 0 }
+}
+@end lilypond
+
+
+@item
 Quarter-tone note names are now available in all the input languages.
 @lilypond[verbatim,quote]
 \language "català"
@@ -72,7 +105,7 @@ Quarter-tone note names are now available in all the input languages.
 
 @item
 All input languages (@code{\language} statement) can be entered using
-their propoer UTF-8 spelling (i.e. including special characters.  The
+their proper UTF-8 spelling (i.e., including special characters.  The
 missing names @code{català} and @code{português} are available now in
 addition to the original names @code{catalan} and @code{portugues}.
 

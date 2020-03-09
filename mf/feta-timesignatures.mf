@@ -80,13 +80,13 @@ def draw_C =
              ..tension 0.8.. z3l{down}
              ..tension 0.8.. z4l{right}
              .. simple_serif (z5l, z5r, -90)
-             ..        z4r{left}
+             .. z4r{left}
              .. super_curvelet (z4r, z3r, s, -1)
              .. z3r{up}
              .. super_curvelet (z3r, z2r, s, 1)
              .. z2r{right}
              .. {dir (-80)}z1r
-             -- cycle;
+             .. cycle;   % .. instead of -- to avoid FontForge problems
 
         penlabels (1, 2, 3, 4, 5);
 

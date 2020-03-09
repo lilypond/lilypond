@@ -973,7 +973,7 @@ def draw_turn (expr height_factor, thicker_center) =
         darkness = 0.3 linethickness + 0.09 staff_space;
 
         set_char_box (wd# / 2, wd# / 2,
-                ht# / 2 * height_factor, ht# / 2 * height_factor);
+                      ht# / 2 * height_factor, ht# / 2 * height_factor);
 
         thick_nibangle = 60;
         thick = 3 darkness;
@@ -988,37 +988,36 @@ def draw_turn (expr height_factor, thicker_center) =
         x2l = w / 2;
         y2l = -d / height_factor;
         z1 = (0,0);
+        x5r = x4;
+        y5r = y4l - ball_diam / 2;
+        z6r = z5r;
 
         penpos1 (thicker_center * thick, thick_nibangle);
         penpos2 (thick, thick_nibangle);
         penpos3 (thin, 180);
         penpos4 (ball_nib_thick, -90);
-
-        path swoosh, ploop;
-        swoosh := z1l{curl 0}
-                  .. z2l
-                  .. z3l{up}
-                  .. {left}z4l
-                  -- z4r
-                  .. z3r{down}
-                  .. z2r{left};
-        fill swoosh
-             .. swoosh scaled -1 shifted (-feta_eps, -feta_eps)
-             .. cycle;
-
-        x5r = x4;
-        y5r = y4l - ball_diam / 2;
-        z6r = z5r;
-
         penpos5 (1.6 ball_diam / 2, 10);
         penpos6 (ball_diam / 2, 150);
 
-        ploop := z4l{left}
-                 .. z5l
-                 .. z6l
-                 -- cycle;
-        fill ploop;
-        fill ploop scaled -1 shifted (-feta_eps, -feta_eps);
+        save pata, patb, swoosh;
+        path pata, patb, swoosh;
+        numeric ta, tb;
+        pata := z1l{curl 0}
+                .. z2l
+                .. z3l{up}
+                .. {left}z4l
+                .. z5l
+                .. z6l;
+        patb := z4r
+                .. z3r{down}
+                .. z2r{left};
+        (ta, tb) = pata intersectiontimes patb;
+        swoosh := subpath (0, ta) of pata
+                  -- subpath (tb, 2) of patb;
+
+        fill swoosh
+             .. swoosh scaled -1 shifted (-feta_eps, -feta_eps)
+             .. cycle;
 enddef;
 
 
@@ -1430,39 +1429,35 @@ fet_beginchar ("Segno", "segno");
         y2l = .6 h;
         x2l = -b;
         z1 = (0, 0);
+        y5r = y4;
+        x5r = x4l - ball_diam / 2;
+        z6r = z5r;
 
         penpos1 (thick, 2 thick_nibangle);
         penpos2 (thick, thick_nibangle);
         penpos3 (thin, -90);
         penpos4 (ball_nib_thick, 180 - thick_nibangle);
-
-        save swoosh, ploop;
-        path swoosh, ploop;
-
-        swoosh := z1l{curl 0}
-                  .. z2l
-                  .. z3l{right}
-                  .. {down}z4l
-                  -- z4r
-                  .. z3r{left}
-                  .. z2r{down};
-        fill swoosh
-             .. (swoosh scaled -1)
-             .. cycle;
-
-        y5r = y4;
-        x5r = x4l - ball_diam / 2;
-        z6r = z5r;
-
         penpos5 (1.6 ball_diam / 2, 100);
         penpos6 (ball_diam / 2, 240);
 
-        ploop := z4l{down}
-                 .. z5l
-                 .. z6l
-                 -- cycle;
-        fill ploop;
-        fill ploop scaled -1;
+        save pata, ta, patb, tb, swoosh;
+        path pata, patb, swoosh;
+        numeric ta, tb;
+        pata := z1l{curl 0}
+                .. z2l
+                .. z3l{right}
+                .. {down}z4l
+                .. z5l
+                .. z6l;
+        patb := z4r
+                  .. z3r{left}
+                  .. z2r{down};
+        (ta, tb) = pata intersectiontimes patb;
+        swoosh := subpath (0, ta) of pata
+                  -- subpath (tb, 2) of patb;
+        draw swoosh
+             .. swoosh scaled -1 shifted (-feta_eps, -feta_eps)
+             .. cycle;
 
         penpos7 (2 thin, 0);
         z7l = (-b, -d);
@@ -1470,7 +1465,7 @@ fet_beginchar ("Segno", "segno");
         z8r = (w, h);
 
         penstroke z7e
-                  -- z8e;
+                -- z8e;
 
         pickup pencircle scaled 2 thin;
         drawdot (-x2r, pointheight);

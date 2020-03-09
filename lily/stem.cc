@@ -123,7 +123,7 @@ Stem::chord_start_y (Grob *me)
 }
 
 void
-Stem::set_stem_positions (Grob *me, Real se)
+Stem::set_stem_positions (Grob *me, Real se, Real fc)
 {
   // todo: margins
   Direction d = get_grob_direction (me);
@@ -168,6 +168,9 @@ Stem::set_stem_positions (Grob *me, Real se)
 
   me->set_property ("stem-begin-position", scm_from_double (height[-d] * 2 / staff_space));
   me->set_property ("length", scm_from_double (height.length () * 2 / staff_space));
+
+  if (fc)
+    me->set_property ("french-beaming-stem-adjustment", scm_from_double (fc));
 }
 
 /* Note head that determines hshift for upstems
@@ -888,9 +891,16 @@ Stem::print (SCM smob)
 
   Direction dir = get_grob_direction (me);
   Real y1 = robust_scm2double (me->get_property ("stem-begin-position"), 0.0);
-  Real y2 = dir * robust_scm2double (me->get_property ("length"), 0.0) + y1;
-
+  Real stem_length = robust_scm2double (me->get_property ("length"), 0.0);
+  Real fb_stem_adjustment
+    = robust_scm2double (me->get_property ("french-beaming-stem-adjustment"),
+                                           0.0);
   Real half_space = Staff_symbol_referencer::staff_space (me) * 0.5;
+
+  /* Shorten inner French Beams (for printing) */
+  stem_length -= fb_stem_adjustment;
+
+  Real y2 = dir * stem_length + y1;
 
   Interval stem_y = Interval (std::min (y1, y2), std::max (y2, y1)) * half_space;
 
@@ -1187,6 +1197,7 @@ ADD_INTERFACE (Stem,
                "duration-log "
                "flag "
                "french-beaming "
+               "french-beaming-stem-adjustment "
                "length "
                "length-fraction "
                "max-beam-connect "
