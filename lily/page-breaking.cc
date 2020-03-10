@@ -732,6 +732,8 @@ Page_breaking::create_system_list ()
    with page-break-permission = 'force.
 
    By using a grob predicate, we can accommodate both of these uses.
+
+   is_break indicates if the column is an allowed page turn.
 */
 void
 Page_breaking::find_chunks_and_breaks (Break_predicate is_break, Prob_break_predicate prob_is_break)
@@ -778,7 +780,7 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break, Prob_break_pred
                 }
 
               bool last = (j == cols.size () - 1);
-              bool break_point = is_break && is_break (cols[j]);
+              bool break_point = is_break && j > 0 && is_break (cols[j]);
               bool chunk_end = scm_is_eq (cols[j]->get_property ("page-break-permission"), force_sym);
               Break_position cur_pos = Break_position (i,
                                                        line_breaker_columns.size (),
@@ -823,7 +825,7 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break, Prob_break_pred
 }
 
 vector<Break_position>
-Page_breaking::chunk_list (vsize start_index, vsize end_index)
+Page_breaking::chunk_list (vsize start_index, vsize end_index) const
 {
   Break_position start = breaks_[start_index];
   Break_position end = breaks_[end_index];

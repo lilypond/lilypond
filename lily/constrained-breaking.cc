@@ -328,7 +328,7 @@ Constrained_breaking::min_system_count (vsize start, vsize end)
 }
 
 vsize
-Constrained_breaking::max_system_count (vsize start, vsize end)
+Constrained_breaking::max_system_count (vsize start, vsize end) const
 {
   vsize brk = (end >= start_.size ()) ? breaks_.size () - 1 : starting_breakpoints_[end];
   return brk - starting_breakpoints_[start];
@@ -352,14 +352,14 @@ Constrained_breaking::prepare_solution (vsize start, vsize end, vsize sys_count)
 
 Constrained_breaking::Constrained_breaking (Paper_score *ps)
 {
-  start_.push_back (0);
-  initialize (ps);
+  vector<vsize> start;
+  start.push_back (0);
+  initialize (ps, start);
 }
 
 Constrained_breaking::Constrained_breaking (Paper_score *ps, vector<vsize> const &start)
-  : start_ (start)
 {
-  initialize (ps);
+  initialize (ps, start);
 }
 
 static SCM
@@ -373,9 +373,11 @@ min_permission (SCM perm1, SCM perm2)
   return SCM_EOL;
 }
 
-/* find the forces for all possible lines and cache ragged_ and ragged_right_ */
+/* find the forces for all possible lines and cache ragged_ and ragged_right_
+ */
 void
-Constrained_breaking::initialize (Paper_score *ps)
+Constrained_breaking::initialize (Paper_score *ps,
+                                  vector<vsize> const &pagebreak_col_indices)
 {
   valid_systems_ = systems_ = 0;
   pscore_ = ps;
@@ -471,13 +473,20 @@ Constrained_breaking::initialize (Paper_score *ps)
     }
 
   /* work out all the starting indices */
-  for (vsize i = 0; i < start_.size (); i++)
+  start_.reserve (pagebreak_col_indices.size ());
+  for (vsize i = 0; i < pagebreak_col_indices.size (); i++)
     {
+      if (i)
+        {
+          assert (pagebreak_col_indices[i] > pagebreak_col_indices[i - 1]);
+        }
       vsize j;
-      for (j = 0; j + 1 < breaks_.size () && breaks_[j] < start_[i]; j++)
+      for (j = 0;
+           j + 1 < breaks_.size () && breaks_[j] < pagebreak_col_indices[i];
+           j++)
         ;
       starting_breakpoints_.push_back (j);
-      start_[i] = breaks_[j];
+      start_.push_back (breaks_[j]);
     }
   state_.resize (start_.size ());
 }

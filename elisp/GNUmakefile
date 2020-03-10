@@ -20,7 +20,7 @@ LILYPOND_WORDS_DEPENDS =\
   $(top-src-dir)/ly/engraver-init.ly
 
 $(buildscript-dir)/lilypond-words:
-	make -C $(depth)/scripts/build
+	$(MAKE) -C $(depth)/scripts/build
 
 $(LILYPOND_WORDS):
 	$(call ly_progress,Making,$@,)

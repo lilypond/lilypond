@@ -314,10 +314,10 @@ $(outdir)/internals.texi: $(LILYPOND_BINARY) $(INIT_LY_SOURCES) $(SCHEME_SOURCES
 #  Documentation and translations maintenance #
 ###############################################
 po-update:
-	make -C po po-update
+	$(MAKE) -C po po-update
 
 all-translations-update: po-update translation-status
-	$(foreach lang, $(LANGS), make ISOLANG=$(lang) skeleton-update snippet-update &&) true
+	$(foreach lang, $(LANGS), $(MAKE) ISOLANG=$(lang) skeleton-update snippet-update &&) true
 
 ifneq ($(NO_COLOR),)
 CHECK_TRANSLATION_FLAGS = --no-color

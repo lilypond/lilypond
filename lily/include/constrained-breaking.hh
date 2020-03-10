@@ -163,7 +163,7 @@ public:
   Constrained_breaking (Paper_score *ps);
   Constrained_breaking (Paper_score *ps, std::vector<vsize> const &start_col_posns);
 
-  vsize max_system_count (vsize start, vsize end);
+  vsize max_system_count (vsize start, vsize end) const;
   vsize min_system_count (vsize start, vsize end);
 
 private:
@@ -196,7 +196,7 @@ private:
   std::vector<Paper_column *> all_;
   std::vector<vsize> breaks_;
 
-  void initialize (Paper_score *);
+  void initialize (Paper_score *, std::vector<vsize> const &break_col_indices);
   void resize (vsize systems);
 
   Column_x_positions space_line (vsize start_col, vsize end_col);
