@@ -449,7 +449,10 @@ setting to %d %%" % (self.filename, self.uptodate_percentage, alternative))
             status = 'fully translated'
         else:
             status = 'partially translated'
-        return dict ([(f, translation (format_table[status][f]) % locals())
+        # Call locals() outside of the list comprehension to get the local
+        # values of the function!
+        context = locals()
+        return dict ([(f, translation (format_table[status][f]) % context)
                       for f in formats])
 
     def uptodateness (self, formats=['long'], translated=False):
