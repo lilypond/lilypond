@@ -32,6 +32,10 @@
 #include <sys/cygwin.h>
 #endif
 
+#ifdef __MINGW32__
+#include <windows.h>
+#endif
+
 #include "file-name.hh"
 #include "warn.hh"
 
@@ -56,12 +60,53 @@ File_path::parse_path (const string &p)
   concat (dirs_, string_split (p, PATHSEP));
 }
 
+#ifdef __MINGW32__
+#define STRUCT_STAT struct _stat
+#define FUNCTION_STAT _stat
+#else
+#define STRUCT_STAT struct stat
+#define FUNCTION_STAT stat
+#endif
+
+inline int
+workaround_wrapper_stat (const char *f, STRUCT_STAT *s)
+{
+#if !defined(__MINGW32__) || defined(_UCRT)
+  return FUNCTION_STAT (f, s);
+#else
+  // Workaround for MinGW UTF-8 stat issue:
+  // `stat ()` in msvcrt.dll returns `-1` (i.e. error) with some UTF-8
+  // filenames even if process code page is UTF-8 and the file exists.
+  // So we get the process code page with `GetACP ()` and, if it is UTF-8,
+  // convert the filename to wide strings and use `_wstat ()`.
+  // If Universal CRT (UCRT, newer than msvcrt.dll) is used
+  // (i.e. `_UCRT` is defined), no such workaround is needed.
+  if (GetACP () == CP_UTF8)
+    {
+      int len = MultiByteToWideChar (CP_UTF8, 0, f, -1, nullptr, 0);
+      if (len == 0)
+        return -1;
+
+      LPWSTR pw = new WCHAR[len];
+      MultiByteToWideChar (CP_UTF8, 0, f, -1, pw, len);
+
+      int retval = _wstat (pw, s);
+
+      delete [] pw;
+
+      return retval;
+    }
+
+  return FUNCTION_STAT (f, s);
+#endif
+}
+
 bool
 is_file (const string &file_name)
 {
 #if !STAT_MACROS_BROKEN
-  struct stat sbuf;
-  if (stat (file_name.c_str (), &sbuf) != 0)
+  STRUCT_STAT sbuf;
+  if (workaround_wrapper_stat (file_name.c_str (), &sbuf) != 0)
     return false;
 
   return !S_ISDIR (sbuf.st_mode);
@@ -85,8 +130,8 @@ is_dir (string file_name)
   file_name = File_name (file_name).to_string ();
 
 #if !STAT_MACROS_BROKEN
-  struct stat sbuf;
-  if (stat (file_name.c_str (), &sbuf) != 0)
+  STRUCT_STAT sbuf;
+  if (workaround_wrapper_stat (file_name.c_str (), &sbuf) != 0)
     return false;
 
   return S_ISDIR (sbuf.st_mode);
