@@ -496,7 +496,7 @@ setting to %d %%" % (self.filename, self.uptodate_percentage, alternative))
         if self.partially_translated:
             u = self.uptodateness (['vague', 'color'])
             s += markup.span ('%(vague)s' % u, [('style', 'background-color: #%(color)s' % u)])
-        return markup.cell (s, [('title', filename)])
+        return markup.cell (s, [('title', self.filename)])
 
     def text_status (self):
         s = self.completeness ('abbr')['abbr'] + ' '
@@ -515,7 +515,7 @@ setting to %d %%" % (self.filename, self.uptodate_percentage, alternative))
                     (markup.cell ((self.translation (section_titles_string)
                                    + markup.newline ()
                                    + '%d' % sum (self.masterdocument.word_count)),
-                                  [('title',filename)])
+                                  [('title', self.filename)])
                      + self.texi_body (markup, numbering)),
                     [('align','left')])
                 + self.texi_translations (markup, numbering))
@@ -562,7 +562,7 @@ class IncludedTranslatedTelyDocument (TranslatedTelyDocument):
                                 self.print_title (numbering)
                                 + markup.newline ()
                                 + '%d' % sum (self.masterdocument.word_count)),
-                                  [('title',filename)])
+                                  [('title', self.filename)])
                      + self.texi_body (markup, numbering)),
                     [('align','left')])
                     + self.texi_translations (markup, numbering))
@@ -622,7 +622,7 @@ class MasterTelyDocument (TelyDocument):
                     (markup.cell (('Section titles'
                                    + markup.newline ()
                                    + '(%d)' % sum (self.word_count)),
-                                  [('title',filename)])
+                                  [('title', self.filename)])
                      + self.texi_body (markup, numbering)),
                     [('align','left')])
              + self.texi_includes (markup, numbering)
@@ -666,7 +666,7 @@ class IncludedMasterTelyDocument (MasterTelyDocument):
                     (markup.cell ((self.print_title (numbering)
                                    + markup.newline ()
                                    + '(%d)' % sum (self.word_count)),
-                                  [('title',filename)])
+                                  [('title', self.filename)])
                      + self.texi_body (markup, numbering)),
                     [('align','left')])
                     + self.texi_includes (markup, numbering))
