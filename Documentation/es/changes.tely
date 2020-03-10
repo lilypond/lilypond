@@ -64,7 +64,7 @@ HINTS
 
 
 
-@subheading New for musical notation
+@subheading Novedades en la notación musical
 
 
 @strong{Mejoras en la representación de las alturas}
@@ -234,7 +234,7 @@ Resultado
 @end multitable
 
 @noindent
-Also see @ruser{Clef styles}.
+Véase también @ruser{Estilos de clave}.
 
 @item
 Ahora se puden definir específicamente los nombres de las notas en
@@ -301,7 +301,7 @@ el significado de notas sin altura.  Esto puede ser de utilidad
 para especificar duraciones de música o de funciones de Scheme.
 Cuando se encuentran en la partitura final, las alturas vienen
 provistas por la nota o acorde anterior.  He aquí dos ejemplos en
-los que se aprecia que produce una entrada más legible:
+los que se aprecia cómo produce una entrada más legible:
 
 @lilypond[verbatim,quote,fragment,relative=2]
 c64[ 64] 32 16 8^- <g b d>4~ 2 | 1
@@ -350,8 +350,8 @@ c16 c c |
 @noindent
 estando las distintas excepciones separadas mediante las barras
 verticales de comprobación de compás.  Observe que la escritura
-del patrón dela excepción sin notas es práctico, pero no
-obligatorio (Véase también la mejora en las duraciones
+del patrón de la excepción sin notas es práctica, pero no
+obligatoria (véase también la mejora en las duraciones
 anteriormente mostrada: @emph{Las duraciones aisladas en las
 secuencias musicales ahora tienen el significado de notas sin
 altura}.
@@ -516,7 +516,7 @@ inclinación) se controla ahora con más precisión.
 @end lilypond
 
 @item
-La función musical @code{\unfoldRepeats} ahora puede tomar unla
+La función musical @code{\unfoldRepeats} ahora puede tomar una
 lista de argumentos opcional que especifica qué tipo de música (o
 músicas) repetida(s) se debe(n) desplegar.  Los valores posibles
 son @code{percent} (para repeticiones de compás o parte de ellos),
@@ -572,7 +572,7 @@ pentagramas vacíos del primer sistema de una partitura.
 
 @item
 Se ha añadido una instrucción de marcado nueva,
-@code{\justify-line}.  Similar a la instrucción de marcado
+@code{\justify-line}.  Es similar a la instrucción de marcado
 @code{\fill-line} excepto que en lugar de disponer @emph{palabras}
 en columnas, la instrucción @code{\justify-line} equilibra la
 distancia entre ellas, haciendo que cuando hay tres o más palabras
@@ -746,7 +746,7 @@ de una línea del pentagrama.
 @item
 Una instrucción de marcado nueva, @code{\with-dimensions-from},
 hace que sea más fácil de usar @code{\with-dimensions} obteniendo
-las dimentiones nuevas a partir de un objeto de marcado, dado como
+las dimensiones nuevas a partir de un objeto de marcado, dado como
 primer argumento.
 @lilypond[quote,verbatim]
 \markup {
@@ -766,7 +766,7 @@ primer argumento.
 Está disponible la instrucción de marcado
 @code{\draw-squiggle-line}.  Es posible la personalización a
 través de la sobreescritura de @code{thickness},
-@code{angularity}, @code{height} and @code{orientation}.
+@code{angularity}, @code{height} y @code{orientation}.
 @lilypond[quote,verbatim]
 \markup
   \overlay {
@@ -809,10 +809,10 @@ m = {
 
 
 
-@subheading New for specialist notation
+@subheading Novedades en notación especializada
 
 
-@strong{Vocal music improvements}
+@strong{Mejoras en música vocal}
 
 @itemize
 
@@ -832,7 +832,7 @@ arbitrarios, entre ellos @code{Staff}.
 
 @item
 Se han @q{armonizado} las instrucciones @code{\lyricsto} y
-@code{\addLyrics}.  Ambas aceptan ahora el mismo tipo de lasta de
+@code{\addLyrics}.  Ambas aceptan ahora el mismo tipo de lista de
 argumentos delimitada que aceptan @code{\lyrics} y @code{\chords}.
 Se añade compatibilidad hacia atrás de manera que se permiten como
 argumentos identificadores musicales (p. ej. @code{\mus}).  Se ha
@@ -846,7 +846,7 @@ general se aplica al final (es decir, como lo haría
 @end itemize
 
 
-@strong{Unfretted and fretted string instrument improvements}
+@strong{Mejoras en los instrumentos de cuerda con y sin trastes}
 
 @itemize
 
@@ -954,7 +954,7 @@ y los paréntesis que lo rodean.
 @end lilypond
 
 @item
-Están contempladas cuerdas bajas adicionales (para la tablatura de
+Están contempladas cuerdas graves adicionales (para la tablatura de
 laúd).
 @lilypond[quote,verbatim]
 m = { f'4 d' a f d a, g, fis, e, d, c,  \bar "|." }
@@ -1079,7 +1079,7 @@ las instrucciones existentes @code{\keepWithTag} y
 @end example
 
 declara una lista de @q{tags} o etiquetas que pertenecen a un solo
-@q{tag group} o grupo de etiquetas.
+@q{tagGroup} o grupo de etiquetas.
 
 @example
 \keepWithTag #'violinI
@@ -1140,7 +1140,7 @@ más complejo diseñado para sacar provecho del ajuste del trazo.
 
 El ajuste del trazo se puede forzar especificando la opción de
 línea de órdenes @samp{-dstrokeadjust} al llamar a LilyPond.
-CUando se generan archivos @code{PDF}, ello dará lugar por lo
+Cuando se generan archivos @code{PDF}, ello dará lugar por lo
 general a vistas previas de @code{PDF} con un aspecto marcadamente
 mejorado pero un tamaño de archivo significativamente mayor.  La
 calidad de impresión en resoluciones altas no resulta afectada.
@@ -1184,7 +1184,7 @@ las notas unidas mediante una ligadura, las respiraciones toman la
 duración @emph{solo} de la última nota de la ligadura; p. ej.
 @code{@{ c4~ c8 \breathe @}} se ejecuta como @code{@{ c4~ c16 r
 @}} en lugar de @code{@{ c4 r8 @}}.  Esto es más consistente con
-las articulaciones y con la forma en que los humanos interpretan
+las articulaciones y con la forma en que las personas interpretamos
 las respiraciones después de las ligaduras de unión.  También hace
 que ahora sea más fácil alinear varias marcas de respiración
 simultáneas sobre más de una parte, aunque las notas tengan
@@ -1236,9 +1236,8 @@ código de elementos de marcado que no se convierta automáticamente
 a texto sencillo de manera satisfactoria).
 
 @item
-Se ha añadido la posibiliidad de hacer más fácil usar tipografías
-alternativas @q{de música} diferentes de la predeterminada
-Emmentaler de LilyPond.  Véase
+Ahora es mucho más fácil usar tipografías musicales alternativas
+distintas de la predeterminada Emmentaler de LilyPond.  Véase
 @uref{http://fonts.openlilylib.org/} para más información.
 
 @end itemize
@@ -1261,7 +1260,7 @@ aisladas en expresiones como
 
 
 
-@subheading New for spacing issues
+@subheading Novedades en problemas de espaciado
 
 
 @strong{Mejoras en los saltos de página}
@@ -1293,7 +1292,8 @@ usando la subpropiedad @code{extra-offset} de
 posibles tanto desplazamientos horizontales como verticales.  Esta
 funcionalidad es especialmente útil para hacer pequeños ajustes
 sobre la posición vertical predeterminada de los sistemas
-individuales. Véase @ruser{Explicit staff and system positioning}
+individuales. Véase
+@ruser{Posicionamiento explícito de los pentagramas y los sistemas}
 para más información.
 
 @item
@@ -1324,7 +1324,7 @@ Se ha mejorado la alineación horizontal cuando se usa
 
 
 
-@subheading New for changing defaults
+@subheading Novedades en la modificación de valores predeterminados
 
 @itemize
 
@@ -1375,7 +1375,7 @@ Todas las instrucciones @code{\override}, @code{\revert},
 
 
 
-@subheading New for Internal interfaces and functions
+@subheading Novedades en funciones e interfaces internos
 
 @itemize
 
