@@ -27,7 +27,6 @@ TODO:
 
 import sys
 import re
-import string
 import operator
 import os
 #
@@ -106,8 +105,8 @@ texi_level = {
     'appendixsec': ('l', 2),
 }
 
-appendix_number_trans = string.maketrans ('@ABCDEFGHIJKLMNOPQRSTUVWXY',
-                                          'ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+appendix_number_trans = str.maketrans ('@ABCDEFGHIJKLMNOPQRSTUVWXY',
+                                       'ABCDEFGHIJKLMNOPQRSTUVWXYZ')
 
 class SectionNumber (object):
     def __init__ (self):
