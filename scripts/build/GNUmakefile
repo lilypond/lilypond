@@ -14,3 +14,7 @@ include $(depth)/make/stepmake.make
 #INSTALLATION_OUT_FILES1=$(outdir)/lilypond-login $(outdir)/lilypond-profile
 
 all: $(INSTALLATION_FILES)
+
+# TODO: run this during "make check"
+local-test-TODO: output-distance.py
+	$(PYTHON) $< --test --output-dir=$(outdir)

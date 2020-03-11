@@ -1370,6 +1370,7 @@ def test_compare_tree_pairs ():
     assert "removed.log" in html
     assert "added.log" in html
 
+
 def test_basic_compare ():
     ly_template = r"""
 
@@ -1483,22 +1484,17 @@ def test_compare_signatures (names, timing=False):
 
 
 def run_tests ():
-    dir = 'test-output-distance'
+    testdir = os.path.join(options.output_dir, 'test-output-distance')
+    print('test results in ', testdir)
 
-    do_clean = not os.path.exists (dir)
-
-    print('test results in ', dir)
-
-    system ('rm -rf ' + dir)
-    system ('mkdir ' + dir)
-
-    os.chdir (dir)
+    system ('rm -rf ' + testdir)
+    system ('mkdir ' + testdir)
+    os.chdir (testdir)
 
     test_basic_compare ()
     test_compare_tree_pairs ()
+    system ('rm -rf ' + testdir)
 
-################################################################
-#
 
 def main ():
     p = optparse.OptionParser ("output-distance - compare LilyPond formatting runs")
