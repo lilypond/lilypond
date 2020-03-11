@@ -191,7 +191,7 @@ STEPMAKE_TEXMF_DIRS(REQUIRED)
 
 STEPMAKE_GUILE_DEVEL(REQUIRED)
 
-save_CPPFLAGS="$CXXFLAGS"
+save_CPPFLAGS="$CPPFLAGS"
 CPPFLAGS="$GUILE_CFLAGS $CPPFLAGS"
 # Some distributions like MacPorts allow guile 1.8 to co-exist with
 # guile >= 2; they rename 'libguile.h' to 'libguile18.h'.
