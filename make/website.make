@@ -73,6 +73,7 @@ CREATE_WEBLINKS=$(PYTHON) $(script-dir)/create-weblinks-itexi.py
 MASS_LINK=$(PYTHON) $(script-dir)/mass-link.py
 WEB_POST=$(PYTHON) $(script-dir)/website_post.py
 WEB_BIBS=$(PYTHON) $(script-dir)/bib2texi.py
+FIX_DOCSIZE=$(script-dir)/fix-docsize.sh
 
 EXAMPLES=$(LILYPOND_WEB_MEDIA_GIT)/ly-examples
 PICTURES=$(LILYPOND_WEB_MEDIA_GIT)/pictures
@@ -261,6 +262,7 @@ $(OUT)/website/index.html: $(wildcard $(OUT)/*.html)
 	$(foreach l,$(WEB_LANGS), \
 		ls $(OUT)/$(l)/*.html | xargs grep -L 'UNTRANSLATED NODE: IGNORE ME' | sed 's!$(OUT)/$(l)/!!g' | xargs $(MASS_LINK) --prepend-suffix=".$(l)" hard $(OUT)/$(l)/ $(OUT)/website/; )
 	$(WEB_POST) $(OUT)/website
+	cd $(OUT)/website && find -name \*.html -execdir $(FIX_DOCSIZE) {} +
 
 # Simple copy
 $(bib-itexi-files): $(OUT)/%: $(BIB_ITEXI)/%
