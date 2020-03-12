@@ -19,34 +19,8 @@
 */
 
 #include <cmath>
-#include <cstdio>
-#include <cstring>
-#include <cctype>
-#include <cassert>
 
 #include "libc-extension.hh"
-
-char *
-strnlwr (char *start, size_t n)
-{
-  char *p = start + n;
-  while (--p >= start)
-    {
-      *p = (char)tolower (*p);    /* a macro on some compilers */
-    }
-  return start;
-}
-
-char *
-strnupr (char *start, size_t n)
-{
-  char *p = start + n;
-  while (--p >= start)
-    {
-      *p = (char)toupper (*p);    /* a macro on some compilers */
-    }
-  return start;
-}
 
 /*
   There are some strange problems with round() on early glibcs.

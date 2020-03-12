@@ -20,14 +20,6 @@
 #ifndef LIBC_EXTENSION_HH
 #define LIBC_EXTENSION_HH
 
-#include <cstddef>
-#include <cstdarg>
-
-#include "config.hh"
-
-char *strnlwr (char *start, size_t n);
-char *strnupr (char *start, size_t n);
-
 double my_round (double);
 
 #endif /* LIBC_EXTENSION_HH */

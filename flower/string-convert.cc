@@ -1,16 +1,10 @@
-/*
-  PROJECT: FlowerSoft C++ library
-  FILE   : string-convert.cc
-
-  --*/
-
 #include "string-convert.hh"
 
-#include <cstring>
+#include <algorithm>
+#include <cassert>
 #include <cstdio>
-
-#include "libc-extension.hh"
-#include "std-vector.hh"
+#include <cstring>
+#include <string>
 
 using std::string;
 
@@ -185,11 +179,15 @@ String_convert::pad_to (const string &s, size_t n)
 string
 String_convert::to_upper (string s)
 {
-  return strnupr (const_cast<char *>(s.c_str ()), s.length ());
+  // Implicit copy of argument, no reference.
+  std::transform(s.begin (), s.end (), s.begin (), ::toupper);
+  return s;
 }
 
 string
 String_convert::to_lower (string s)
 {
-  return strnlwr (const_cast<char *>(s.c_str ()), s.length ());
+  // Implicit copy of argument, no reference.
+  std::transform(s.begin (), s.end (), s.begin (), ::tolower);
+  return s;
 }
