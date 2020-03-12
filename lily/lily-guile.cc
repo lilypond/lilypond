@@ -29,7 +29,6 @@
 #include "direction.hh"
 #include "file-path.hh"
 #include "international.hh"
-#include "libc-extension.hh"
 #include "main.hh"
 #include "misc.hh"
 #include "offset.hh"

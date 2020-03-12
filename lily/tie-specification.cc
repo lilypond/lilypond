@@ -4,7 +4,6 @@
 #include "semi-tie.hh"
 #include "spanner.hh"
 #include "tie.hh"
-#include "libc-extension.hh"
 #include "tie-specification.hh"
 
 Tie_specification::Tie_specification ()

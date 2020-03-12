@@ -19,7 +19,6 @@
 
 #include "bezier.hh"
 #include "warn.hh"
-#include "libc-extension.hh"
 
 using std::vector;
 
