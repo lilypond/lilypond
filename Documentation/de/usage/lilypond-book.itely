@@ -1357,7 +1357,7 @@ sich alle in der selben LilyPond-Datei befinden.
              (formatted-toc-items (map format-line (toc-items)))
              (whole-string (string-join formatted-toc-items ",\n"))
              (output-name (ly:parser-output-name))
-             (outfilename (format "~a.toc" output-name))
+             (outfilename (format #f "~a.toc" output-name))
              (outfile (open-output-file outfilename)))
         (if (output-port? outfile)
             (display whole-string outfile)
