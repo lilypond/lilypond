@@ -10,6 +10,7 @@ import math
 import optparse
 import os
 import re
+import subprocess
 import sys
 import tempfile
 import time
@@ -59,12 +60,18 @@ def read_pipe (c):
     log_verbose ('pipe %s' % c)
     return os.popen (c).read ()
 
+
 def system (c):
     log_verbose ('system %s' % c)
-    s = os.system (c)
-    if s :
-        raise Exception ("failed")
-    return
+    # explicitly use bash, so we don't get dash on Ubuntu.
+    subprocess.run(["/bin/bash", "-c", c])
+
+
+def system_allow_exit1 (x):
+    log_verbose ('invoking %s' % x)
+    stat = os.system (x)
+    assert (stat == 0) or (stat == 256) # This return value convention is sick.
+
 
 def shorten_string (s, threshold = 15):
     if len (s) > 2*threshold:
@@ -1296,17 +1303,6 @@ def open_write_file (x):
     d = os.path.split (x)[0]
     mkdir (d)
     return open (x, 'w')
-
-
-def system (x):
-    log_verbose ('invoking %s' % x)
-    stat = os.system (x)
-    assert stat == 0, (stat, x)
-
-def system_allow_exit1 (x):
-    log_verbose ('invoking %s' % x)
-    stat = os.system (x)
-    assert (stat == 0) or (stat == 256) # This return value convention is sick.
 
 
 def test_paired_files ():
