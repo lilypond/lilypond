@@ -3189,6 +3189,9 @@ to move it, say, four half-staff spaces down to @w{@code{-10}}.
 This is better than using, for example, @code{extra-offset},
 because the ledger line above the rest is inserted automatically.
 
+See @ruser{Engraving ties manually} for the difference between
+exact and inexact values.
+
 @node The extra-offset property
 @unnumberedsubsubsec The @code{extra-offset} property
 
