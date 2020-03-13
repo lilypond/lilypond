@@ -155,7 +155,7 @@ Libre de GNU.
 @divEnd
 
 @divClass{column-center-bottom}
-@subheading Manual formats
+@subheading Formatos de los manuales
 
 En general, los manuales de LilyPond manuals están en tres
 formatos: HTML seccionado, HTML monolítico y PDF.  El HTML
