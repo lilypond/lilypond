@@ -401,6 +401,8 @@ make a link from the old unstable to the next stable in
 lilypond.org's @file{/doc/} dir.  Keep all previous unstable->stable
 doc symlinks.
 
+@c FIXME -- is this still relevant? -vv
+
 Also, make the old docs self-contained -- if there's a redirect in
 @file{/doc/v2.@var{OLD-STABLE}/Documentation/index.html} , replace it with the
 @file{index.html.old-2.@var{OLD-STABLE}} files.
@@ -421,6 +423,11 @@ add these two lines to @file{Documentation/web/server/robots.txt}:
 Disallow: /doc/v2.@var{OLD-STABLE}/
 Disallow: /doc/v2.@var{NEW-DEVELOPMENT}/
 @end example
+
+@item
+if needed, update the htaccess redirections
+(@code{/latest/}, @code{/stable/} etc.) in
+@file{Documentation/web/server/lilypond.org.htaccess}.
 
 @end itemize
 

@@ -30,6 +30,12 @@ mailing list, and we'll help you to get started.
 @itemize
 @item
 Mailing list support: answer questions from fellow users.
+(This may entail helping them navigate the online documentation;
+in such cases it may sometimes be appropriate to point them
+to version-agnostic URL paths such as
+@uref{https://lilypond.org/doc/latest/Documentation/notation/, @code{/latest/}} or
+@uref{https://lilypond.org/doc/stable/Documentation/notation/, @code{/stable/}},
+which are automatically redirected.)
 
 @item
 Bug reporting: help users create proper @rweb{Bug reports}, and/or
