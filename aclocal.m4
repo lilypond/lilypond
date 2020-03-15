@@ -690,18 +690,6 @@ AC_DEFUN(STEPMAKE_INIT, [
 
     STEPMAKE_PROGS(TAR, tar, REQUIRED)
 
-    if test "$(echo 2)" != "2" \
-       || test "x`uname`" = "xHP-UX"; then
-        AC_PATH_PROG(KSH, ksh, /bin/ksh)
-        AC_PATH_PROG(BASH, bash, $KSH)
-        STEPMAKE_WARN(avoiding buggy /bin/sh)
-        AC_PATH_PROG(SHELL, bash, $KSH)
-    else
-        SHELL=/bin/sh
-        AC_PATH_PROG(BASH, bash, $SHELL)
-    fi
-    AC_SUBST(SHELL)
-
     STEPMAKE_PYTHON(REQUIRED, 3.5, 3.99)
 
     if expr "$MAKE" : '.*\(echo\)' >/dev/null; then

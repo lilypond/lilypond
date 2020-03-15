@@ -5,7 +5,6 @@ include $(stepdir)/substitute-vars.make
 include $(stepdir)/substitute-rules.make
 
 ATVARIABLES = \
-  BASH\
   BUILD_VERSION\
   DATE\
   FONTFORGE\

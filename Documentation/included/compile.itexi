@@ -1356,25 +1356,6 @@ automatic font detection, add
 @end example
 
 
-@unnumberedsubsec Solaris
-
-Solaris7, ./configure
-
-@file{./configure} needs a POSIX compliant shell.  On Solaris7,
-@file{/bin/sh} is not yet POSIX compliant, but @file{/bin/ksh} or bash
-is.  Run configure like
-
-@example
-CONFIG_SHELL=/bin/ksh ksh -c ./configure
-@end example
-
-@noindent
-or
-
-@example
-CONFIG_SHELL=/bin/bash bash -c ./configure
-@end example
-
 @unnumberedsubsec FreeBSD
 
 To use system fonts, dejaview must be installed.  With the default
