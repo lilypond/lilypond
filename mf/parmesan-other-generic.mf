@@ -17,7 +17,7 @@ font_x_height staff_space#;
 fet_beginfont ("parmesan", design_size, "parmesanMusic");
   input parmesan-rests;
   input parmesan-clefs;
-  input parmesan-custodes
+  input parmesan-custodes;
   input parmesan-accidentals;
   input parmesan-flags;
   input parmesan-timesignatures;
