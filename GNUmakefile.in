@@ -226,10 +226,7 @@ $(tree-share-prefix)/lilypond-force: GNUmakefile $(outdir)/VERSION
 	mkdir -p $(tree-share-prefix)/elisp
 	mkdir -p $(tree-share-prefix)/fonts
 	mkdir -p $(tree-share-prefix)/fonts/otf
-	mkdir -p $(tree-share-prefix)/fonts/tfm
-	mkdir -p $(tree-share-prefix)/fonts/type1
 	mkdir -p $(tree-share-prefix)/fonts/svg
-	mkdir -p $(tree-share-prefix)/fonts/map
 	mkdir -p $(tree-share-prefix)/fonts/enc
 	mkdir -p $(tree-share-prefix)/tex
 	cd $(tree-bin) && \
@@ -270,9 +267,7 @@ $(tree-share-prefix)/mf-link-tree: $(tree-share-prefix)/lilypond-force
 	rm -f $(tree-share-prefix)/fonts/fonts.conf &&  \
 	rm -f $(tree-share-prefix)/fonts/00-lilypond-fonts.conf &&  \
 	rm -f $(tree-share-prefix)/fonts/99-lilypond-fonts.conf &&  \
-	rm -f $(tree-share-prefix)/fonts/tfm/* &&  \
-	rm -f $(tree-share-prefix)/fonts/type1/* &&  \
-		cd $(tree-share-prefix)/fonts/otf && \
+	cd $(tree-share-prefix)/fonts/otf && \
 		ln -s ../../../../../../mf/$(outconfbase)/*.otf . && \
 		$(foreach i,$(addprefix $(TEXGYRE_DIR)/,$(TEXGYRE_FILES)), \
 			ln -s $i . && ) true && \
@@ -286,10 +281,6 @@ $(tree-share-prefix)/mf-link-tree: $(tree-share-prefix)/lilypond-force
 		ln -s ../../../../../../mf/$(outconfbase)/*.svg .
 	-cd $(tree-share-prefix)/fonts/svg && \
 		ln -s ../../../../../../mf/$(outconfbase)/*.woff .
-	-cd $(tree-share-prefix)/fonts/tfm && \
-		ln -s ../../../../../../mf/$(outconfbase)/*.tfm .
-	-cd $(tree-share-prefix)/fonts/type1 && \
-		ln -s ../../../../../../mf/$(outconfbase)/*.pf? .
 	touch $(tree-share-prefix)/mf-link-tree
 
 TAGS.make: dummy
