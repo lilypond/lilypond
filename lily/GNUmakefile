@@ -6,11 +6,39 @@ NAME = lilypond
 MODULE_LIBS=$(depth)/flower
 MODULE_INCLUDES= $(depth)/flower/include
 
-
 HELP2MAN_EXECS = lilypond
-STEPMAKE_TEMPLATES=c++ executable po help2man
+STEPMAKE_TEMPLATES=c++ po help2man
 
 include $(depth)/make/stepmake.make
+
+FLOWER_LIB = $(depth)/flower/$(outdir)/library.a
+LDLIBS = $(FLOWER_LIB) $(CONFIG_LIBS)
+
+EXECUTABLE = $(outdir)/$(NAME)
+
+default: $(EXECUTABLE)
+
+local-install: installexe
+
+local-uninstall: uninstallexe
+
+installexe: all
+	-$(INSTALLPY) -d $(DESTDIR)$(bindir)
+	$(INSTALLPY) -m 755 $(EXECUTABLE) $(DESTDIR)$(bindir)/$(program_prefix)$(notdir $(EXECUTABLE))$(program_suffix)
+
+uninstallexe:
+	rm -f $(DESTDIR)$(bindir)/$(program_prefix)$(notdir $(EXECUTABLE))$(program_suffix)
+
+$(O_FILES): $(outdir)/config.hh
+
+$(FLOWER_LIB):
+	$(MAKE) -C $(dirname $@)
+
+$(EXECUTABLE): $(O_FILES) $(outdir)/version.hh $(FLOWER_LIB)
+	$(call ly_progress,Making,$@,)
+	$(foreach a, $(MODULE_LIBS), $(MAKE) -C $(a) && ) true
+	$(CXX) $(ALL_CXXFLAGS) -o $@ $(O_FILES) $(LDLIBS) $(ALL_LDFLAGS)
+
 
 ifeq ($(LINK_GXX_STATICALLY),yes)
 MODULE_LDFLAGS += -L$(outdir) -static-libgcc
@@ -45,9 +73,6 @@ endif
 
 ETAGS_FLAGS += --regex='{c++}/^LY_DEFINE *(\([^,]+\)/\1/'
 ETAGS_FLAGS += --regex='{c++}/^LY_DEFINE *([^"]*"\([^"]+\)"/\1/'
-
-default:
-
 
 $(outdir)/libstdc++.a:
 	$(call ly_progress,Making,$@,(symlink))
