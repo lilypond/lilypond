@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 8932acc33c337fe31733b2902602b154b84de49c
+    Translation of GIT committish: aaa0cac8d16ecef7ff181761a5e84770e87547e6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -60,7 +60,7 @@ translations should be in macros.itexi.
 @html
 <div class="warning">
 @end html
-@strong{Note :} \TEXT\
+@strong{Note :} \TEXT\
 @c keep the space for proper nesting of </p>
 
 @html
@@ -76,7 +76,7 @@ translations should be in macros.itexi.
 @quotation
 @quotation
 @cartouche
-@b{Note :} \TEXT\
+@b{Note :} \TEXT\
 @end cartouche
 @end quotation
 @end quotation
@@ -120,7 +120,7 @@ Pour connaître la place qu'occupe ce manuel dans la
 documentation, consultez la page @rweb{Manuels}.
 
 Si vous ne disposez pas de certains manuels, la documentation complète
-se trouve sur @w{@uref{http://@/lilypond@/.org/}}.
+se trouve sur @w{@uref{https://@/lilypond@/.org/}}.
 @end cartouche
 @end macro
 
@@ -402,7 +402,7 @@ Pour LilyPond version @version{}
 
 @macro rinternalsnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,,internals-big-page,Référence des propriétés internes}
+@ref{\TEXT\,,\DISPLAY\,internals-big-page,Référence des propriétés internes}
 @end macro
 
 @end ifset
@@ -687,22 +687,22 @@ Pour LilyPond version @version{}
 
 @macro rchanges{TEXT}
 @vindex{\TEXT\}
-@ref{\TEXT\,,,changes,Nouveautés}
+@ref{\TEXT\,,,changes.fr,Nouveautés}
 @end macro
 
 @macro rchangesnamed{TEXT,DISPLAY}
 @vindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,changes,Nouveautés}
+@ref{\TEXT\,,\DISPLAY\,changes.fr,Nouveautés}
 @end macro
 
 @macro rextend{TEXT}
 @vindex{\TEXT\}
-@ref{\TEXT\,,,extending,Extension de LilyPond}
+@ref{\TEXT\,,,extending.fr,Extension de LilyPond}
 @end macro
 
 @macro rextendnamed{TEXT,DISPLAY}
 @vindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,extending,Extension de LilyPond}
+@ref{\TEXT\,,\DISPLAY\,extending.fr,Extension de LilyPond}
 @end macro
 
 @macro rcontrib{TEXT}
@@ -717,32 +717,32 @@ Pour LilyPond version @version{}
 
 @macro rweb{TEXT}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,,web,Informations générales}
+@ref{\TEXT\,,,web.fr,Informations générales}
 @end macro
 
 @macro rwebnamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,web,Informations générales}
+@ref{\TEXT\,,\DISPLAY\,web.fr,Informations générales}
 @end macro
 
 @macro ressay{TEXT}
 @vindex{\TEXT\}
-@ref{\TEXT\,,,essay,Essai}
+@ref{\TEXT\,,,essay.fr,Essai}
 @end macro
 
 @macro ressaynamed{TEXT,DISPLAY}
 @vindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,essay,Essai}
+@ref{\TEXT\,,\DISPLAY\,essay.fr,Essai}
 @end macro
 
 @macro rprogram{TEXT}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,,usage.fr,Utilisation des programmes}
+@xref{\TEXT\,,,usage.fr,Utilisation des programmes}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,usage.fr,Utilisation des programmes}
+@xref{\TEXT\,,\DISPLAY\,usage.fr,Utilisation des programmes}
 @end macro
 
 @macro rlsr{TEXT}
@@ -812,28 +812,28 @@ Tux le pingouin Linux a été créé par
 
 @macro logoLegalFreeBSD
 Le logo FreeBSD logo est une marque déposée par la
-@uref{http://www.freebsd.org/,Fondation FreeBSD}.
+@uref{https://www.freebsd.org/,Fondation FreeBSD}.
 
 @end macro
 
 @macro logoLegalMacOSX
 L'image @q{X} n'est pas déposée.  Elle a été créée par
-@uref{http://en.wikipedia.org/wiki/User:Nihonjoe, Nihonjoe} et
-@uref{http://en.wikipedia.org/wiki/User:CyberSkull, CyberSkull}, et
+@uref{https://en.wikipedia.org/wiki/User:Nihonjoe, Nihonjoe} et
+@uref{https://en.wikipedia.org/wiki/User:CyberSkull, CyberSkull}, et
 distribuée sous la licence GNU Free Documentation License version 1.2 ou
 ultérieure.
 Nous avons trouvé cette image sur
-@uref{http://commons.wikimedia.org/wiki/File:Mac_OS_X_Userbox_X.png,
+@uref{https://commons.wikimedia.org/wiki/File:Mac_OS_X_Userbox_X.png,
 cette page de Wikimedia Commons}.
 
 @end macro
 
 @macro logoLegalWindows
 Le @qq{rectangle aux quatre couleurs} n'est pas une marque déposée.
-Il a été créé par @uref{http://en.wikipedia.org/wiki/User:Rohitbd, Rohitbd} et
+Il a été créé par @uref{https://en.wikipedia.org/wiki/User:Rohitbd, Rohitbd} et
 distribué sous la licence GNU Free Documentation License version 1.2.  Nous
 avons trouvé cette image sur
-@uref{http://commons.wikimedia.org/wiki/Category:Microsoft_Windows_logos,
+@uref{https://commons.wikimedia.org/wiki/Category:Microsoft_Windows_logos,
 cette page de Wikimedia Commons}.
 
 @end macro
