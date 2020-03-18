@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 0a5306c21d7d64d1ffdadb899c0af79ced2df336
+   Translation of GIT committish: a6bd75b68e73cafe5f299b65dcf0c8b32ce59b87
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -137,7 +137,7 @@ Manuel de notation :
 @end menu
 
 @warning{Si, comme nombre de nouveaux utilisateurs, vous avez du mal à
-appréhender la notion de tonalité et d'armures dans LilyPond, consultez
+appréhender la notion de tonalité et d'armure dans LilyPond, consultez
 la note à la fin de cette page.}
 
 @node Altérations
@@ -159,7 +159,7 @@ la note à la fin de cette page.}
 @funindex eses
 @funindex isis
 
-Glossaire musicologique :
+Glossaire musicologique :
 @rglosnamed{sharp,dièse}, @rglosnamed{flat,bémol},
 @rglosnamed{double sharp,double dièse},
 @rglosnamed{double flat,double bémol}, @rglosnamed{accidental,altération}.
@@ -1432,7 +1432,8 @@ cello = \new Staff {
 
 @noindent
 Par convention, un nom de variable ne comporte que des caractères
-alphabétiques non accentués, aucun nombre ni tiret.
+alphabétiques non accentués, aucun nombre ni tiret. Pour de plus amples
+informations, voir @ruser{Structure de fichier}.
 
 On peut utiliser une variable déjà définie autant de fois que l'on
 veut, y compris dans la définition d'une nouvelle variable ; par

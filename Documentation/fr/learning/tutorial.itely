@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 0a5306c21d7d64d1ffdadb899c0af79ced2df336
+   Translation of GIT committish: a6bd75b68e73cafe5f299b65dcf0c8b32ce59b87
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -36,7 +36,7 @@ produire une partition.
 @section Compilation d'un fichier
 @translationof Compiling a file
 
-Nous allons ici parler de la @qq{compilation}, ou comment LilyPond
+Nous allons ici parler de la « compilation », ou comment LilyPond
 traite le fichier source que vous avez écrit, pour en faire quelque
 chose d'imprimable.
 
@@ -252,6 +252,9 @@ Glossaire musicologique :
 @rglosnamed{accidental,altération}.
 
 LilyPond utilise des lettres minuscules pour indiquer les hauteurs.
+Dans les exemples des manuels de LilyPond est utilisée la nomenclature
+batave. Néanmoins, LilyPond prend en charge d'autres dénomination des
+hauteurs -- voir @ruser{Nom des notes dans d'autres langues}.
 Les lettres @code{c} à @code{b} indiquent des hauteurs dans l'octave
 basse -- celle sous le @notation{do medium}.  Leur adjoindre un @code{'}
 ou un @code{,} indique une octave supérieure ou inférieure.  Voici une
