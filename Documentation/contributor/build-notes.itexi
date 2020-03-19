@@ -656,16 +656,7 @@ SCHEME_SOURCES = /home/phil/lilypond-git/ly/Welcome-to-LilyPond-MacOS.ly \
   /home/phil/lilypond-git/ly/Welcome_to_LilyPond.ly
 @end example
 
-ditto .ly files.  This does seem a teency bit wrong - it looks like
-the .ly and .scm files have been interchanged.  ly-vars.make has
-these 2 lines:
-
-@example
-INIT_LY_SOURCES = $(wildcard $(top-src-dir)/scm/*.scm)
-SCHEME_SOURCES = $(wildcard $(top-src-dir)/ly/*.ly)
-@end example
-
-Looks like a bug.....
+ditto .ly files.
 
 So it now works its way through all these files, checking if they
 need to be remade.  This is 100s of lines of the debug listing,
