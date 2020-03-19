@@ -7,7 +7,7 @@ completa.  El ejemplo muestra cómo trucar articulaciones con una lista
 de ajustes personalizados.  Un caso sería la creación de una hoja de
 estilos.
 
-Con 2.16.2 it es posible introducir la función propuesta,
+Con 2.16.2 es posible introducir la función propuesta,
 @code{\\customScripts}, en un bloque @code{\\layout}.
 
 "
