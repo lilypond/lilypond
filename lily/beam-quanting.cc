@@ -220,7 +220,9 @@ void Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> y
   staff_space_ = Staff_symbol_referencer::staff_space (beam_);
   beam_thickness_ = Beam::get_beam_thickness (beam_) / staff_space_;
   line_thickness_ = Staff_symbol_referencer::line_thickness (beam_) / staff_space_;
-
+  max_beam_count_ = Beam::get_beam_count (beam_);
+  length_fraction_
+    = robust_scm2double (beam_->get_property ("length-fraction"), 1.0);
   // This is the least-squares DY, corrected for concave beams.
   musical_dy_ = robust_scm2double (beam_->get_property ("least-squares-dy"), 0);
 
@@ -877,6 +879,15 @@ Beam_scoring_problem::generate_quants (vector<unique_ptr<Beam_configuration>> *s
   Real base_quants [] = {straddle, sit, inter, hang};
   int num_base_quants = int (sizeof (base_quants) / sizeof (Real));
 
+  /* for normal-sized beams, in case of more than 4 beams, the outer beam
+     used for generating quants will never interfere with staff lines, but
+     prevent the inside-staff beams from being neatly positioned.
+     A correctional grid_shift has to be applied to compensate. */
+  Real grid_shift = 0.0;
+  /* grid shift only makes sense for widened normal-sized beams: */
+  if (!is_knee_ && max_beam_count_ > 4 && length_fraction_ == 1.0)
+    grid_shift = (max_beam_count_ - 4) * (1.0 - beam_translation_);
+
   /*
     Asymetry ? should run to <= region_size ?
   */
@@ -890,10 +901,17 @@ Beam_scoring_problem::generate_quants (vector<unique_ptr<Beam_configuration>> *s
   for (vsize i = 0; i < unshifted_quants.size (); i++)
     for (vsize j = 0; j < unshifted_quants.size (); j++)
       {
-        auto c
-          = Beam_configuration::new_config (unquanted_y_,
-                                            Interval (unshifted_quants[i],
-                                                      unshifted_quants[j]));
+        Interval corr (0.0, 0.0);
+        if (grid_shift)
+          for (LEFT_and_RIGHT (d))
+            /* apply grid shift if quant outside 5-line staff: */
+            if ((unquanted_y_[d] + unshifted_quants[i]) * edge_dirs_[d] > 2.5)
+              corr[d] = grid_shift * edge_dirs_[d];
+        auto c = Beam_configuration::new_config (unquanted_y_,
+                                                 Interval (unshifted_quants[i]
+                                                           - corr[LEFT],
+                                                           unshifted_quants[j]
+                                                           - corr[RIGHT]));
 
         for (LEFT_and_RIGHT (d))
           {

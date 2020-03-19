@@ -167,6 +167,8 @@ private:
   // end.  This is used for quickly weeding out invalid
   // Beam_configurations.
   Drul_array<Interval> quant_range_;
+  int max_beam_count_;
+  Real length_fraction_;
   Real beam_translation_;
   std::vector<Beam_collision> collisions_;
   std::vector<Beam_segment> segments_;
