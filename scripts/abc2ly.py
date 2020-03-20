@@ -85,11 +85,9 @@
 # UNDEF -> None
 #
 
-
-
-
 import __main__
 import getopt
+import gettext
 import sys
 import re
 import os
@@ -101,6 +99,8 @@ program_name = sys.argv[0]
 @relocate-preamble@
 """
 
+# Load translation and install _() into Python's builtins namespace.
+gettext.install ('lilypond', '@localedir@')
 import lilylib as ly
 
 version = '@TOPLEVEL_VERSION@'

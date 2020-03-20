@@ -31,6 +31,8 @@ import shutil
 @relocate-preamble@
 """
 
+# Load translation and install _() into Python's builtins namespace.
+gettext.install ('lilypond', '@localedir@')
 import lilylib as ly
 
 import convertrules

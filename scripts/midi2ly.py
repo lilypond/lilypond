@@ -25,8 +25,7 @@
 TODO:
 '''
 
-
-
+import gettext
 import os
 import sys
 
@@ -34,6 +33,8 @@ import sys
 @relocate-preamble@
 """
 
+# Load translation and install _() into Python's builtins namespace.
+gettext.install ('lilypond', '@localedir@')
 import lilylib as ly
 
 ################################################################

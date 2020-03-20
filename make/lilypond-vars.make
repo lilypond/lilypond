@@ -17,7 +17,7 @@ endif
 
 LANGS=$(shell $(PYTHON) $(top-src-dir)/python/langdefs.py)
 
-export PYTHONPATH:=$(top-build-dir)/python/$(outconfbase):$(PYTHONPATH)
+export PYTHONPATH:=$(top-src-dir)/python:$(PYTHONPATH)
 
 the-script-dir=$(wildcard $(script-dir))
 
@@ -87,4 +87,3 @@ export LYDOC_LOCALEDIR:= $(top-build-dir)/Documentation/po/out-www
 LILYPOND_BOOK_FORMAT=$(if $(subst out-www,,$(notdir $(outdir))),texi,texi-html)
 LY2DVI = $(LILYPOND_BINARY)
 LYS_TO_TELY = $(buildscript-dir)/lys-to-tely
-

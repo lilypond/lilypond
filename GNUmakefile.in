@@ -92,8 +92,8 @@ refresh-release-files:
 	$(MAKE) $(RELEASE_OUT_FILES)
 
 python-modules:
-	$(MAKE) -C scripts/build
 	$(MAKE) -C python
+	$(MAKE) -C scripts/build
 
 top-doc: python-modules
 
@@ -208,6 +208,7 @@ default: $(config_h) build-dir-setup build-scripts
 build-dir-setup: $(tree-share-prefix)/lilypond-force
 
 build-scripts:
+	$(MAKE) -C python
 	$(MAKE) -C scripts/build
 
 PO_FILES = $(call src-wildcard,$(src-depth)/po/*.po)

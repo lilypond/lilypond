@@ -4,10 +4,14 @@ import book_base
 import book_snippets
 import book_texinfo
 
+class Dummy:
+    pass
+
 class TestFindSnippets(unittest.TestCase):
     def test_basic_texi(self):
         formatter = book_texinfo.BookTexinfoOutputFormat()
-
+        global_options = Dummy()
+        global_options.information = {"program_version": "1.2.3"}
         chunks = book_base.find_toplevel_snippets(r"""\input texinfo @c -*- coding: utf-8; mode: texinfo; -*- 1
 @setfilename texinfo-include-file.info 2
 @settitle Include lilypond files in texinfo 3
@@ -31,7 +35,7 @@ Within a lilypond block: 16
 @end lilypond
 
 Include a file that includes a file:
-""",  formatter, None)
+""",  formatter, global_options)
 
         # comment
         types  = [book_snippets.Substring,

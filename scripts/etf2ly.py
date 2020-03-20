@@ -43,6 +43,7 @@
 
 import __main__
 import getopt
+import gettext
 import sys
 import re
 import os
@@ -61,6 +62,8 @@ if version == '@' + 'TOPLEVEL_VERSION' + '@':
 """
 
 ################################################################
+# Load translation and install _() into Python's builtins namespace.
+gettext.install ('lilypond', '@localedir@')
 
 import lilylib as ly
 
@@ -1254,4 +1257,3 @@ for f in files:
     fo.write ('%% lily was here -- automatically converted by etf2ly from %s\n' % f)
     fo.write(ly)
     fo.close ()
-

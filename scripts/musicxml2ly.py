@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
-
+import gettext
 import optparse
 import sys
 import re
@@ -18,6 +18,8 @@ from functools import reduce
 @relocate-preamble@
 """
 
+# Load translation and install _() into Python's builtins namespace.
+gettext.install ('lilypond', '@localedir@')
 import lilylib as ly
 
 import utilities

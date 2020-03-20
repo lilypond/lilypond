@@ -25,32 +25,13 @@ import shutil
 import sys
 import optparse
 import time
-
-# Load translation and install _() into Python's builtins namespace.
-localedir = '@localedir@'
-gettext.install ('lilypond', localedir)
-
 import codecs
 sys.stdin = codecs.getreader ('utf8') (sys.stdin.detach ())
 sys.stdout = codecs.getwriter ('utf8') (sys.stdout.detach ())
 sys.stderr = codecs.getwriter ('utf8') (sys.stderr.detach ())
 
 # Lilylib globals.
-program_version = '@TOPLEVEL_VERSION@'
 program_name = os.path.basename (sys.argv[0])
-
-
-# Check if program_version contains @ characters. This will be the case if
-# the .py file is called directly while building the lilypond documentation.
-# If so, try to check for the env var LILYPOND_VERSION, which is set by our
-# makefiles and use its value.
-at_re = re.compile (r'@')
-if at_re.match (program_version):
-    if 'LILYPOND_VERSION' in os.environ:
-        program_version = os.environ['LILYPOND_VERSION']
-    else:
-        program_version = "unknown"
-
 
 # Logging framework: We have the following output functions:
 #    error
