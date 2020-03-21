@@ -1,13 +1,43 @@
 depth = ..
 
 NAME = flower
-MODULE_NAME = flower
 
-README_FILES = NEWS-1.0 NEWS-1.1.46 README TODO
-STEPMAKE_TEMPLATES=library c++ po test
+STEPMAKE_TEMPLATES= c++ po
 
 # test uses LILYPOND_DATADIR
 LOCALSTEPMAKE_TEMPLATES=lilypond
-TEST_MODULE_LIBS = ../flower
 export top-src-dir
+
 include $(depth)/make/stepmake.make
+
+TEST_O_FILES := $(filter $(outdir)/test%, $(O_FILES))
+O_FILES := $(filter-out $(outdir)/test%, $(O_FILES))
+
+TEST_EXECUTABLE = $(outdir)/test-$(NAME)
+TEST_LOADLIBES = $(LIBRARY) $(CXXABI_LIBS)
+
+# yaffut.hh catches all exceptions, so re-enable -fexceptions for the tests.
+$(TEST_O_FILES): EXTRA_CXXFLAGS += -fexceptions
+
+$(TEST_EXECUTABLE): $(TEST_O_FILES)
+	$(call ly_progress,Making,$@,)
+	$(CXX) -o $@ $(TEST_O_FILES) $(TEST_LOADLIBES) $(ALL_LDFLAGS)
+
+.PHONY: check test
+
+check: test
+
+test: $(TEST_EXECUTABLE)
+	$(TEST_EXECUTABLE)
+
+AR=ar
+LIBRARY = $(outdir)/library.a
+
+$(O_FILES): $(outdir)/config.hh
+
+$(LIBRARY): $(O_FILES)
+	$(call ly_progress,Making,$@,)
+	$(AR) $(ARFLAGS) $@ $(O_FILES)
+	$(RANLIB) $@ || $(AR) ts $@ || true
+
+default: $(LIBRARY)
