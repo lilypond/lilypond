@@ -8,9 +8,13 @@ INSTALLATION_FILES=$(EL_FILES)
 INSTALLATION_OUT_DIR=$(elispdir)
 INSTALLATION_OUT_FILES=$(outdir)/lilypond-words.el
 
-STEPMAKE_TEMPLATES=elisp install install-out
+
+STEPMAKE_TEMPLATES= install install-out
 
 include $(depth)/make/stepmake.make
+
+EL_FILES := $(call src-wildcard,*.el)
+SOURCE_FILES += $(EL_FILES)
 
 LILYPOND_WORDS = $(outdir)/lilypond-words.el
 LILYPOND_WORDS_DEPENDS =\
