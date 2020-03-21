@@ -47,17 +47,17 @@
 
 (define (svg-begin . rest)
   (string-append
-    (eo 'svg #t
-        '(xmlns . "http://www.w3.org/2000/svg")
-        '(xmlns:xlink . "http://www.w3.org/1999/xlink")
-        '(version . "1.2")
-        `(width . ,(ly:format "~2fmm" (first rest)))
-        `(height . ,(ly:format "~2fmm" (second rest)))
-        `(viewBox . ,(ly:format "~4f ~4f ~4f ~4f"
-                                (third rest) (fourth rest)
-                                (fifth rest) (sixth rest))))
-    (eo 'style #t '(text . "style/css"))
-     "<![CDATA[
+   (eo 'svg #t
+       '(xmlns . "http://www.w3.org/2000/svg")
+       '(xmlns:xlink . "http://www.w3.org/1999/xlink")
+       '(version . "1.2")
+       `(width . ,(ly:format "~2fmm" (first rest)))
+       `(height . ,(ly:format "~2fmm" (second rest)))
+       `(viewBox . ,(ly:format "~4f ~4f ~4f ~4f"
+                               (third rest) (fourth rest)
+                               (fifth rest) (sixth rest))))
+   (eo 'style #t '(text . "style/css"))
+   "<![CDATA[
 tspan { white-space: pre; }
 "))
 
@@ -196,7 +196,7 @@ src: url('~a');
          ;; BUG: Height calculation is off - optional & disabled
          ;; (svg-width (* output-scale device-width))
          ;; (svg-height (* output-scale device-height))
-        )
+         )
 
     (if (ly:get-option 'svg-woff)
         (module-define! (ly:outputter-module outputter) 'paper paper))
@@ -237,8 +237,8 @@ src: url('~a');
                             (string-append basename ".svg"))))
          (set! count (1+ count))
          (dump-preview-bbox paper
-                       (paper-system-stencil paper-system)
-                       filename bbox)))
+                            (paper-system-stencil paper-system)
+                            filename bbox)))
      extents-system-pairs)))
 
 (define (clip-system-SVG basename paper-book)

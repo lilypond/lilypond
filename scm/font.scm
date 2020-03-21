@@ -245,7 +245,7 @@ used.  This is used to select the proper design size for the text fonts.
 ;;       ))
 ;;   }
 ;;
-;; Leaving out "#:brace", "#:sans", and "#:typewriter" leave them at 
+;; Leaving out "#:brace", "#:sans", and "#:typewriter" leave them at
 ;; "emmentaler", "sans-serif", and "monospace", respectively. All fonts are
 ;; still accesible through the usual scheme symbols: 'feta, 'roman, 'sans, and
 ;; 'typewriter.
@@ -255,15 +255,15 @@ used.  This is used to select the proper design size for the text fonts.
 ;; or fonts/00-lilypond-fonts.conf (installed file).
 
 (define*-public (set-global-fonts #:key
-  (music "emmentaler")
-  (brace "emmentaler")
-  (roman (if (eq? (ly:get-option 'backend) 'svg)
-             "serif" "LilyPond Serif"))
-  (sans (if (eq? (ly:get-option 'backend) 'svg)
-            "sans-serif" "LilyPond Sans Serif"))
-  (typewriter (if (eq? (ly:get-option 'backend) 'svg)
-                  "monospace" "LilyPond Monospace"))
-  (factor 1))
+                                  (music "emmentaler")
+                                  (brace "emmentaler")
+                                  (roman (if (eq? (ly:get-option 'backend) 'svg)
+                                             "serif" "LilyPond Serif"))
+                                  (sans (if (eq? (ly:get-option 'backend) 'svg)
+                                            "sans-serif" "LilyPond Sans Serif"))
+                                  (typewriter (if (eq? (ly:get-option 'backend) 'svg)
+                                                  "monospace" "LilyPond Monospace"))
+                                  (factor 1))
   (let ((n (make-font-tree-node 'font-encoding 'fetaMusic)))
     (add-music-fonts n 'feta music brace feta-design-size-mapping factor)
     (add-pango-fonts n 'roman roman factor)

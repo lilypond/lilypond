@@ -87,11 +87,11 @@ All lengths are scaled according to the font size of the note."
            (spacing (* -1 flag-spacing factor dir ))
            (start (cons (- half-stem-thickness) (* half-stem-thickness dir)))
            (raw-points
-             (list
-               '(0 . 0)
-               flag-end
-               (offset-add flag-end thickness-offset)
-               thickness-offset))
+            (list
+             '(0 . 0)
+             flag-end
+             (offset-add flag-end thickness-offset)
+             thickness-offset))
            (points (map (lambda (coord) (offset-add coord start)) raw-points))
            (stencil (ly:round-filled-polygon points half-stem-thickness))
            ;; Log for 1/8 is 3, so we need to subtract 3
@@ -245,4 +245,3 @@ at will.  The correct way to do this is:
      ((equal? flag-style "mensural") (mensural-flag grob))
      ((equal? flag-style "no-flag") empty-stencil)
      (else ((glyph-flag flag-style) grob)))))
-

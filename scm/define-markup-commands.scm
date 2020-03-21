@@ -353,37 +353,37 @@ Its appearance may be customized by overrides for @code{thickness},
          (guessed-squiggle-line-length (* amount sq-length))
          (line-length-diff (- length-to-print guessed-squiggle-line-length))
          (line-length-diff-for-each-squiggle
-           (/ line-length-diff amount))
+          (/ line-length-diff amount))
          (first-bow-length (+ sq-length line-length-diff-for-each-squiggle))
          ;; Get first bows
          ;; TODO two bows are created via `make-bow-stencil'
          ;;      cheaper to use `ly:stencil-scale'?
          (first-bow-end-coord
-           (cons
-             (/ (* first-bow-length x) length-to-print)
-             (/ (* first-bow-length y) length-to-print)))
+          (cons
+           (/ (* first-bow-length x) length-to-print)
+           (/ (* first-bow-length y) length-to-print)))
          (init-bow
-           (lambda (o)
-             (make-bow-stencil
-               '(0 . 0)
-               first-bow-end-coord
-               thick angularity height o)))
+          (lambda (o)
+            (make-bow-stencil
+             '(0 . 0)
+             first-bow-end-coord
+             thick angularity height o)))
          (init-bow-up (init-bow orientation))
          (init-bow-down (init-bow (- orientation)))
          ;; Get a list of starting-points for the bows
          (list-of-starts
-           (map
-             (lambda (n)
-               (cons
-                 (* n (car first-bow-end-coord))
-                 (* n (cdr first-bow-end-coord))))
-             (iota amount))))
+          (map
+           (lambda (n)
+             (cons
+              (* n (car first-bow-end-coord))
+              (* n (cdr first-bow-end-coord))))
+           (iota amount))))
     ;; The final stencil: lined-up bows
     (apply ly:stencil-add
-      (map
-        ly:stencil-translate
-        (circular-list init-bow-up init-bow-down)
-        list-of-starts))))
+           (map
+            ly:stencil-translate
+            (circular-list init-bow-up init-bow-down)
+            list-of-starts))))
 
 (define-markup-command (draw-hline layout props)
   ()
@@ -618,23 +618,23 @@ only works in the PDF backend.
          (x-ext (ly:stencil-extent arg-stencil X))
          (y-ext (ly:stencil-extent arg-stencil Y)))
     (ly:stencil-add
-      (ly:make-stencil
-       `(delay-stencil-evaluation
-         ,(delay (let* ((table (ly:output-def-lookup layout 'label-page-table))
-                        (table-page-number
-                          (if (list? table)
-                              (assoc-get label table)
-                              #f))
-                        (first-page-number (book-first-page layout props))
-                        (current-page-number
-                          (if table-page-number
-                              (1+ (- table-page-number first-page-number))
-                              #f)))
-                 (list 'page-link current-page-number
-                       `(quote ,x-ext) `(quote ,y-ext)))))
-       x-ext
-       y-ext)
-      arg-stencil)))
+     (ly:make-stencil
+      `(delay-stencil-evaluation
+        ,(delay (let* ((table (ly:output-def-lookup layout 'label-page-table))
+                       (table-page-number
+                        (if (list? table)
+                            (assoc-get label table)
+                            #f))
+                       (first-page-number (book-first-page layout props))
+                       (current-page-number
+                        (if table-page-number
+                            (1+ (- table-page-number first-page-number))
+                            #f)))
+                  (list 'page-link current-page-number
+                        `(quote ,x-ext) `(quote ,y-ext)))))
+      x-ext
+      y-ext)
+     arg-stencil)))
 
 (define-markup-command (beam layout props width slope thickness)
   (number? number? number?)
@@ -696,40 +696,40 @@ makes little sense, it would end up adding the provided value to the one of
   (let* ((thick (ly:output-def-lookup layout 'line-thickness))
          (underline-thick (* thickness thick))
          (m (interpret-markup
-              layout
-              ;; For multiple calls of underline-markup, this will result in
-              ;; the innermost underline ending up lowest.
-              (prepend-alist-chain
-                'underline-shift
-                (+ underline-skip underline-shift)
-                props)
-              arg))
+             layout
+             ;; For multiple calls of underline-markup, this will result in
+             ;; the innermost underline ending up lowest.
+             (prepend-alist-chain
+              'underline-shift
+              (+ underline-skip underline-shift)
+              props)
+             arg))
          (arg-x-ext (ly:stencil-extent m X))
          (x1 (car arg-x-ext))
          (x2 (cdr arg-x-ext))
          (y (* thick (- (+ offset underline-shift))))
          (raw-line-stil (make-line-stencil underline-thick x1 y x2 y))
          (line
-           (ly:make-stencil
-             (ly:stencil-expr raw-line-stil)
-             ;; We use x-extent of the arg-stencil instead of the line-stencil
-             ;; to avoid increasing lines with multiple calls of underline.
-             ;; As a consequence the line sticks out a bit into the space
-             ;; between elements of continuing text, without affecting it.
-             ;; For huge values of thickness this may cause undesired output,
-             ;; we regard this a very rare case, though.
-             ;; Alternatively we could have shortened the underline by its
-             ;; thickness, i.e. raw-line-stil would have been:
-             ;;    (make-line-stencil
-             ;;      underline-thick
-             ;;      (+ x1 (/ underline-thick 2))
-             ;;      y
-             ;;      (- x2 (/ underline-thick 2))
-             ;;      y))
-             ;; without need to reset x-extent, this causes a different ugliness
-             ;; for huge thickness, though.
-             arg-x-ext
-             (ly:stencil-extent raw-line-stil Y))))
+          (ly:make-stencil
+           (ly:stencil-expr raw-line-stil)
+           ;; We use x-extent of the arg-stencil instead of the line-stencil
+           ;; to avoid increasing lines with multiple calls of underline.
+           ;; As a consequence the line sticks out a bit into the space
+           ;; between elements of continuing text, without affecting it.
+           ;; For huge values of thickness this may cause undesired output,
+           ;; we regard this a very rare case, though.
+           ;; Alternatively we could have shortened the underline by its
+           ;; thickness, i.e. raw-line-stil would have been:
+           ;;    (make-line-stencil
+           ;;      underline-thick
+           ;;      (+ x1 (/ underline-thick 2))
+           ;;      y
+           ;;      (- x2 (/ underline-thick 2))
+           ;;      y))
+           ;; without need to reset x-extent, this causes a different ugliness
+           ;; for huge thickness, though.
+           arg-x-ext
+           (ly:stencil-extent raw-line-stil Y))))
     (ly:stencil-add m line)))
 
 (define-markup-command (tie layout props arg)
@@ -771,16 +771,16 @@ of @var{arg}.  Looks at @code{thickness} to determine line thickness, and
                ;;       fix it here _and_ in `underline-markup'
                (if (negative? direction) 0 (cdr y-ext))))
          (tie
-           (make-tie-stencil
-             (cons (+ x1 (car shorten-pair) line-thickness) y)
-             (cons (- x2 (cdr shorten-pair) line-thickness) y)
-             thick
-             direction
-             ;; For usage in text we choose a little less `height-limit'
-             ;; than the default for `Tie', i.e 0.7 (see properties above)
-             ;; TODO add the other optional arguments of `make-tie-stencil'
-             ;; i.e. `ratio' and `angularity' ?
-             height-limit)))
+          (make-tie-stencil
+           (cons (+ x1 (car shorten-pair) line-thickness) y)
+           (cons (- x2 (cdr shorten-pair) line-thickness) y)
+           thick
+           direction
+           ;; For usage in text we choose a little less `height-limit'
+           ;; than the default for `Tie', i.e 0.7 (see properties above)
+           ;; TODO add the other optional arguments of `make-tie-stencil'
+           ;; i.e. `ratio' and `angularity' ?
+           height-limit)))
     (ly:stencil-add stil tie)))
 
 (define-markup-command (undertie layout props arg)
@@ -800,7 +800,7 @@ of @var{arg}.  Looks at @code{thickness} to determine line thickness, and
 }
 @end lilypond"
   (interpret-markup layout (prepend-alist-chain 'direction DOWN props)
-    (make-tie-markup arg)))
+                    (make-tie-markup arg)))
 
 (define-markup-command (overtie layout props arg)
   (markup?)
@@ -821,7 +821,7 @@ Overtie @var{arg}.
 }
 @end lilypond"
   (interpret-markup layout (prepend-alist-chain 'direction UP props)
-    (make-tie-markup arg)))
+                    (make-tie-markup arg)))
 
 (define-markup-command (box layout props arg)
   (markup?)
@@ -962,10 +962,10 @@ outline of the markup.
 }
 @end lilypond"
   (stencil-whiteout
-    (interpret-markup layout props arg)
-    style
-    thickness
-    (ly:output-def-lookup layout 'line-thickness)))
+   (interpret-markup layout props arg)
+   style
+   thickness
+   (ly:output-def-lookup layout 'line-thickness)))
 
 (define-markup-command (pad-markup layout props amount arg)
   (number? markup?)
@@ -1432,7 +1432,7 @@ and ignore the rest.
 
 ;; helper for justifying lines.
 (define (get-fill-space
-          word-count line-width word-space text-widths constant-space?)
+         word-count line-width word-space text-widths constant-space?)
   "Calculate the necessary paddings between adjacent texts in a
 single justified line.  The lengths of all texts are stored in
 @var{text-widths}.
@@ -1448,81 +1448,81 @@ All paddings are checked to be at least word-space, to ensure that
 no texts collide.
 Return a list of paddings."
   (cond
-    ((null? text-widths) '())
-    (constant-space?
-     (make-list
-       (1- word-count)
-       ;; Ensure that space between words cannot be
-       ;; less than word-space.
-       (max
-         word-space
-         (/ (- line-width (apply + text-widths))
-            (1- word-count)))))
+   ((null? text-widths) '())
+   (constant-space?
+    (make-list
+     (1- word-count)
+     ;; Ensure that space between words cannot be
+     ;; less than word-space.
+     (max
+      word-space
+      (/ (- line-width (apply + text-widths))
+         (1- word-count)))))
 
-    ;; special case first padding
-    ((= (length text-widths) word-count)
-     (cons
-       (- (- (/ line-width (1- word-count)) (car text-widths))
-          (/ (cadr text-widths) 2))
+   ;; special case first padding
+   ((= (length text-widths) word-count)
+    (cons
+     (- (- (/ line-width (1- word-count)) (car text-widths))
+        (/ (cadr text-widths) 2))
+     (get-fill-space
+      word-count line-width word-space (cdr text-widths)
+      constant-space?)))
+   ;; special case last padding
+   ((= (length text-widths) 2)
+    (list (- (/ line-width (1- word-count))
+             (+ (/ (car text-widths) 2) (cadr text-widths)))
+          0))
+   (else
+    (let ((default-padding
+            (- (/ line-width (1- word-count))
+               (/ (+ (car text-widths) (cadr text-widths)) 2))))
+      (cons
+       (if (> word-space default-padding)
+           word-space
+           default-padding)
        (get-fill-space
-         word-count line-width word-space (cdr text-widths)
-                                          constant-space?)))
-    ;; special case last padding
-    ((= (length text-widths) 2)
-     (list (- (/ line-width (1- word-count))
-              (+ (/ (car text-widths) 2) (cadr text-widths)))
-           0))
-    (else
-      (let ((default-padding
-              (- (/ line-width (1- word-count))
-                 (/ (+ (car text-widths) (cadr text-widths)) 2))))
-        (cons
-          (if (> word-space default-padding)
-              word-space
-              default-padding)
-          (get-fill-space
-            word-count line-width word-space (cdr text-widths)
-                                             constant-space?))))))
+        word-count line-width word-space (cdr text-widths)
+        constant-space?))))))
 
 (define (justify-line-helper
-          layout props args text-direction word-space line-width constant-space?)
+         layout props args text-direction word-space line-width constant-space?)
   "Return a stencil which spreads @var{args} along a line of width
 @var{line-width}.  If @var{constant-space?} is set to @code{#t}, the
 space between words is constant.  If @code{#f}, the distance between
 words varies according to their relative lengths."
   (let* ((orig-stencils (interpret-markup-list layout props args))
          (stencils
-           (map (lambda (stc)
-                  (if (ly:stencil-empty? stc X)
-                      (ly:make-stencil (ly:stencil-expr stc)
-                                       '(0 . 0) (ly:stencil-extent stc Y))
-                      stc))
-                orig-stencils))
+          (map (lambda (stc)
+                 (if (ly:stencil-empty? stc X)
+                     (ly:make-stencil (ly:stencil-expr stc)
+                                      '(0 . 0) (ly:stencil-extent stc Y))
+                     stc))
+               orig-stencils))
          (text-widths
-           (map (lambda (stc)
-                  (interval-length (ly:stencil-extent stc X)))
-                stencils))
+          (map (lambda (stc)
+                 (interval-length (ly:stencil-extent stc X)))
+               stencils))
          (text-width (apply + text-widths))
          (word-count (length stencils))
          (line-width (or line-width (ly:output-def-lookup layout 'line-width)))
          (fill-space
-           (cond
-             ((= word-count 1)
-              (list
-                (/ (- line-width text-width) 2)
-                (/ (- line-width text-width) 2)))
-             ((= word-count 2)
-              (list
-                (- line-width text-width)))
-             (else
-               (get-fill-space
-                 word-count line-width word-space text-widths
-                                                  constant-space?))))
+          (cond
+           ((= word-count 1)
+            (list
+             (/ (- line-width text-width) 2)
+             (/ (- line-width text-width) 2)))
+           ((= word-count 2)
+            (list
+             (- line-width text-width)))
+           (else
+            (get-fill-space
+             word-count line-width word-space text-widths
+             constant-space?))))
          (line-contents (if (= word-count 1)
                             (list
-                              point-stencil
-                              (car stencils)
-                              point-stencil)
+                             point-stencil
+                             (car stencils)
+                             point-stencil)
                             stencils)))
 
     (if (null? (remove ly:stencil-empty? orig-stencils))
@@ -1532,7 +1532,7 @@ words varies according to their relative lengths."
               (set! line-contents (reverse line-contents)))
           (set! line-contents
                 (stack-stencils-padding-list
-                  X RIGHT fill-space line-contents))
+                 X RIGHT fill-space line-contents))
           (if (> word-count 1)
               ;; shift s.t. stencils align on the left edge, even if
               ;; first stencil had negative X-extent (e.g. center-column)
@@ -1540,9 +1540,9 @@ words varies according to their relative lengths."
               ;; the definition of line-contents)
               (set! line-contents
                     (ly:stencil-translate-axis
-                      line-contents
-                      (- (car (ly:stencil-extent (car stencils) X)))
-                      X)))
+                     line-contents
+                     (- (car (ly:stencil-extent (car stencils) X)))
+                     X)))
           line-contents))))
 
 (define-markup-command (fill-line layout props args)
@@ -1578,7 +1578,7 @@ If there are no arguments, return an empty stencil.
 }
 @end lilypond"
   (justify-line-helper
-    layout props args text-direction word-space line-width #f))
+   layout props args text-direction word-space line-width #f))
 
 (define-markup-command (justify-line layout props args)
   (markup-list?)
@@ -1598,7 +1598,7 @@ space.  If there are no arguments, return an empty stencil.
 }
 @end lilypond"
   (justify-line-helper
-    layout props args text-direction word-space line-width #t))
+   layout props args text-direction word-space line-width #t))
 
 (define-markup-command (concat layout props args)
   (markup-list?)
@@ -2045,15 +2045,15 @@ setting of the @code{direction} layout property.
 (define (general-column align-dir baseline mols)
   "Stack @var{mols} vertically, aligned to  @var{align-dir} horizontally."
   (let* ((aligned-mols
-           (map (lambda (x) (ly:stencil-aligned-to x X align-dir)) mols))
+          (map (lambda (x) (ly:stencil-aligned-to x X align-dir)) mols))
          (stacked-stencil (stack-lines -1 0.0 baseline aligned-mols))
          (stacked-extent (ly:stencil-extent stacked-stencil X)))
     ;; empty stencils are not moved
     (if (interval-sane? stacked-extent)
         (ly:stencil-translate-axis
-          stacked-stencil
-          (- (car stacked-extent))
-          X)
+         stacked-stencil
+         (- (car stacked-extent))
+         X)
         stacked-stencil)))
 
 (define-markup-command (center-column layout props args)
@@ -3411,9 +3411,9 @@ format require the prefix @code{#x}.
   (ly:text-interface::interpret-markup layout props (ly:wide-char->utf-8 num)))
 
 (define mark-alphabets
-   `((alphabet        . ,(list->vector (string->list "ABCDEFGHIJKLMNOPQRSTUVWXYZ")))
-     (alphabet-omit-i . ,(list->vector (string->list "ABCDEFGHJKLMNOPQRSTUVWXYZ")))
-     (alphabet-omit-j . ,(list->vector (string->list "ABCDEFGHIKLMNOPQRSTUVWXYZ")))))
+  `((alphabet        . ,(list->vector (string->list "ABCDEFGHIJKLMNOPQRSTUVWXYZ")))
+    (alphabet-omit-i . ,(list->vector (string->list "ABCDEFGHJKLMNOPQRSTUVWXYZ")))
+    (alphabet-omit-j . ,(list->vector (string->list "ABCDEFGHIKLMNOPQRSTUVWXYZ")))))
 
 (define (markgeneric-string number alphabet double-letters)
   (let* ((the-alphabet (assq-ref mark-alphabets alphabet))
@@ -3426,8 +3426,8 @@ format require the prefix @code{#x}.
                    (if (< num the-alphabet-length)
                        (string (vector-ref the-alphabet num))
                        (string-append
-                         (loop (1- (quotient num the-alphabet-length)))
-                         (loop    (remainder num the-alphabet-length)))))))))
+                        (loop (1- (quotient num the-alphabet-length)))
+                        (loop    (remainder num the-alphabet-length)))))))))
 
 (define-markup-command (markletter layout props num)
   (integer?)
@@ -3743,11 +3743,11 @@ mensural-flags.  Both are supplied for convenience.
            (spacing (* -1 flag-spacing factor dir))
            (start (cons (- half-stem-thickness) (* half-stem-thickness dir)))
            (raw-points
-             (list
-               '(0 . 0)
-               flag-end
-               (offset-add flag-end thickness-offset)
-               thickness-offset))
+            (list
+             '(0 . 0)
+             flag-end
+             (offset-add flag-end thickness-offset)
+             thickness-offset))
            (points (map (lambda (coord) (offset-add coord start)) raw-points))
            (stencil (ly:round-filled-polygon points half-stem-thickness))
            ;; Log for 1/8 is 3, so we need to subtract 3
@@ -3764,11 +3764,11 @@ mensural-flags.  Both are supplied for convenience.
          ;; (/ layout-text-font-size paper-text-font-size) later.
          ;; Default for text-font-size is 11.
          (layout-text-font-size
-           (ly:output-def-lookup layout 'text-font-size 11))
+          (ly:output-def-lookup layout 'text-font-size 11))
          (paper-text-font-size
-           (ly:output-def-lookup
-             (ly:parser-lookup '$defaultpaper)
-             'text-font-size 11))
+          (ly:output-def-lookup
+           (ly:parser-lookup '$defaultpaper)
+           'text-font-size 11))
          (size-factor (magstep font-size))
          (blot (ly:output-def-lookup layout 'blot-diameter))
          (head-glyph-name
@@ -3787,18 +3787,18 @@ mensural-flags.  Both are supplied for convenience.
                 result)))
          (head-glyph (ly:font-get-glyph font head-glyph-name))
          (ancient-flags?
-           (member style
-                   '(mensural neomensural petrucci semipetrucci blackpetrucci)))
+          (member style
+                  '(mensural neomensural petrucci semipetrucci blackpetrucci)))
          (attach-indices (ly:note-head::stem-attachment font head-glyph-name))
          (stem-length
-           (* size-factor
-              (/ layout-text-font-size paper-text-font-size)
-              (max 3 (- log 1))))
+          (* size-factor
+             (/ layout-text-font-size paper-text-font-size)
+             (max 3 (- log 1))))
          ;; With ancient-flags we want a tighter stem
          (stem-thickness
-           (* size-factor
-              (/ layout-text-font-size paper-text-font-size)
-              (if ancient-flags? 0.1 0.13)))
+          (* size-factor
+             (/ layout-text-font-size paper-text-font-size)
+             (if ancient-flags? 0.1 0.13)))
          (stemy (* dir stem-length))
          (attach-off (cons (interval-index
                             (ly:stencil-extent head-glyph X)
@@ -3811,9 +3811,9 @@ mensural-flags.  Both are supplied for convenience.
          ;; For a tighter stem (with ancient-flags) the stem-width has to be
          ;; adjusted.
          (stem-X-corr
-           (if (or ancient-flags?
-                   (member flag-style '(mensural neomensural)))
-                   (* 0.5 dir stem-thickness) 0))
+          (if (or ancient-flags?
+                  (member flag-style '(mensural neomensural)))
+              (* 0.5 dir stem-thickness) 0))
          (stem-glyph (and (> log 0)
                           (ly:round-filled-box
                            (ordered-cons (+ stem-X-corr (car attach-off))
@@ -3851,15 +3851,15 @@ mensural-flags.  Both are supplied for convenience.
                               flat-flag)
                              (else
                               (ly:font-get-glyph font
-                                (format #f
-                                        (if (or (member flag-style
-                                                        '(mensural neomensural))
-                                                (and ancient-flags?
-                                                     (null? flag-style)))
-                                            "flags.mensural~a2~a"
-                                            "flags.~a~a")
-                                        (if (> dir 0) "u" "d")
-                                        log))))
+                                                 (format #f
+                                                         (if (or (member flag-style
+                                                                         '(mensural neomensural))
+                                                                 (and ancient-flags?
+                                                                      (null? flag-style)))
+                                                             "flags.mensural~a2~a"
+                                                             "flags.~a~a")
+                                                         (if (> dir 0) "u" "d")
+                                                         log))))
                        (cons (+ (car attach-off)
                                 ;; For tighter stems (with ancient-flags) the
                                 ;; flag has to be adjusted different.
@@ -4637,7 +4637,7 @@ Patterns are distributed on @var{axis}.
 @end lilypond"
   (let* ((pattern-stencil (interpret-markup layout props pattern))
          (pattern-width (interval-length
-                        (ly:stencil-extent pattern-stencil X)))
+                         (ly:stencil-extent pattern-stencil X)))
          (new-props (prepend-alist-chain 'word-space 0 (prepend-alist-chain 'baseline-skip 0 props))))
     (let loop ((i (1- count)) (patterns (markup)))
       (if (zero? i)
@@ -4695,7 +4695,7 @@ Patterns are aligned to the @var{dir} markup.
                               #:with-dimensions (cons 0 middle-width) '(0 . 0)
                               #:translate (cons x-offset 0)
                               #:pattern (1+ count) X space
-                                 #:stencil pattern-stencil
+                              #:stencil pattern-stencil
                               #:stencil right-stencil))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -4782,9 +4782,9 @@ where @var{X} is the number of staff spaces."
   (pair? markup-list?)
   "Like @code{\\override}, for markup lists."
   (interpret-markup-list layout
-                    (cons (if (pair? (car new-prop)) new-prop (list new-prop))
-                          props)
-                    args))
+                         (cons (if (pair? (car new-prop)) new-prop (list new-prop))
+                               props)
+                         args))
 
 (define-markup-list-command (table layout props column-align lst)
   (number-list? markup-list?)
@@ -4827,12 +4827,12 @@ Overriding @code{baseline-skip} to increase rows vertical distance.
             (length initial-lst) lngth)
            '())
           ((null? initial-lst)
-            (reverse result-lst))
+           (reverse result-lst))
           (else
-            (split-lst
-              (drop initial-lst lngth)
-              lngth
-              (cons (take initial-lst lngth) result-lst)))))
+           (split-lst
+            (drop initial-lst lngth)
+            lngth
+            (cons (take initial-lst lngth) result-lst)))))
 
   (define (dists-list init padding lst)
     ;; Returns a list, where each element of `lst' is
@@ -4846,12 +4846,12 @@ Overriding @code{baseline-skip} to increase rows vertical distance.
             (not (number-list? lst)))
         (begin
           (ly:warning
-            "not fitting argument for `dists-list', return empty lst ")
+           "not fitting argument for `dists-list', return empty lst ")
           '())
         (reverse
-          (fold (lambda (elem rl) (cons (+ elem padding (car rl)) rl))
-                (list init)
-                lst))))
+         (fold (lambda (elem rl) (cons (+ elem padding (car rl)) rl))
+               (list init)
+               lst))))
 
   (let* (;; get the number of columns
          (columns (length column-align))
@@ -4861,31 +4861,31 @@ Overriding @code{baseline-skip} to increase rows vertical distance.
          ;; to fill last row of the table.
          (rem (remainder (length init-stils) columns))
          (filled-stils
-           (if (zero? rem)
-               init-stils
-               (append init-stils (make-list (- columns rem) point-stencil))))
+          (if (zero? rem)
+              init-stils
+              (append init-stils (make-list (- columns rem) point-stencil))))
          ;; get the stencils in sublists of length `columns'
          (stils
-           (split-lst filled-stils columns '()))
+          (split-lst filled-stils columns '()))
          ;; procedure to return stencil-length
          ;; If it is nan, return 0
          (lengths-proc
-           (lambda (m)
-             (let ((lngth (interval-length (ly:stencil-extent m X))))
-               (if (nan? lngth) 0 lngth))))
+          (lambda (m)
+            (let ((lngth (interval-length (ly:stencil-extent m X))))
+              (if (nan? lngth) 0 lngth))))
          ;; get the max width of each column in a list
          (columns-max-x-lengths
-           (map
-             (lambda (x)
-               (apply max 0
-                      (map
-                        lengths-proc
-                        (map (lambda (l) (list-ref l x)) stils))))
-             (iota columns)))
+          (map
+           (lambda (x)
+             (apply max 0
+                    (map
+                     lengths-proc
+                     (map (lambda (l) (list-ref l x)) stils))))
+           (iota columns)))
          ;; create a list of (basic) distances, which each column should
          ;; moved, using `dists-list'. Some padding may be added.
          (dist-sequence
-           (dists-list 0 padding columns-max-x-lengths))
+          (dists-list 0 padding columns-max-x-lengths))
          ;; Get all stencils of a row, moved accurately to build columns.
          ;; If the items of a column are aligned other than left, we need to
          ;; move them to avoid collisions:
@@ -4899,38 +4899,38 @@ Overriding @code{baseline-skip} to increase rows vertical distance.
          ;;    x-align - a numerical value how current column should be
          ;;              aligned, where (-1, 0, 1) means (LEFT, CENTER, RIGHT)
          (stencils-for-row-proc
-           (lambda (stil dist column x-align)
-             (ly:stencil-translate-axis
-               (ly:stencil-aligned-to stil X x-align)
-               (cond ((member x-align '(0 1))
-                      (let* (;; get the stuff for relevant column
-                             (stuff-for-column
-                               (map
-                                 (lambda (s) (list-ref s column))
-                                 stils))
-                             ;; get length of every column-item
-                             (lengths-for-column
-                               (map lengths-proc stuff-for-column))
-                             (widest
-                               (apply max 0 lengths-for-column)))
-                        (+ dist (/ widest (if (= x-align 0) 2 1)))))
-                     (else dist))
-               X)))
+          (lambda (stil dist column x-align)
+            (ly:stencil-translate-axis
+             (ly:stencil-aligned-to stil X x-align)
+             (cond ((member x-align '(0 1))
+                    (let* (;; get the stuff for relevant column
+                           (stuff-for-column
+                            (map
+                             (lambda (s) (list-ref s column))
+                             stils))
+                           ;; get length of every column-item
+                           (lengths-for-column
+                            (map lengths-proc stuff-for-column))
+                           (widest
+                            (apply max 0 lengths-for-column)))
+                      (+ dist (/ widest (if (= x-align 0) 2 1)))))
+                   (else dist))
+             X)))
          ;; get a list of rows using `ly:stencil-add' on a list of stencils
          (rows
-           (map
-             (lambda (stil-list)
-               (apply ly:stencil-add
-                 (map
-                   ;; the procedure creating the stencils:
-                   stencils-for-row-proc
-                   ;; the procedure's args:
-                   stil-list
-                   dist-sequence
-                   (iota columns)
-                   column-align)))
-             stils)))
-   (space-lines baseline-skip rows)))
+          (map
+           (lambda (stil-list)
+             (apply ly:stencil-add
+                    (map
+                     ;; the procedure creating the stencils:
+                     stencils-for-row-proc
+                     ;; the procedure's args:
+                     stil-list
+                     dist-sequence
+                     (iota columns)
+                     column-align)))
+           stils)))
+    (space-lines baseline-skip rows)))
 
 (define-markup-list-command (map-markup-commands layout props compose args)
   (procedure? markup-list?)

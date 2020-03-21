@@ -312,10 +312,10 @@ a fresh copy of the list-head is made."
          (den (car revargs))
          (nums (reverse (cdr revargs))))
     (make-override-markup '(baseline-skip . 0)
-                           (make-left-column-markup
-                            (list (make-center-column-markup
-                                   (list (make-line-markup (insert-markups nums "+"))
-                                         den)))))))
+                          (make-left-column-markup
+                           (list (make-center-column-markup
+                                  (list (make-line-markup (insert-markups nums "+"))
+                                        den)))))))
 
 (define (format-time-numerator time-sig)
   (make-vcenter-markup (number->string (car time-sig))))
@@ -366,7 +366,7 @@ a fresh copy of the list-head is made."
 (add-simple-time-signature-style 'numbered make-compound-meter-markup)
 
 (add-simple-time-signature-style 'single-digit
-  (lambda (fraction) (make-compound-meter-markup (car fraction))))
+                                 (lambda (fraction) (make-compound-meter-markup (car fraction))))
 
 ;;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 ;;; Formatting of symbolic time signatures

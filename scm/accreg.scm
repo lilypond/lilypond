@@ -245,7 +245,7 @@ Available registrations are
 
 
 (define-register-set stdBassIV
-"@code{\\stdBassIV @var{name}} generates a standard bass accordion
+  "@code{\\stdBassIV @var{name}} generates a standard bass accordion
 register symbol.
 
 To make it available,
@@ -409,7 +409,7 @@ Available registrations are
 }
 @end lilypond
 "
-'((glyph . "accordion.stdbass")
+  '((glyph . "accordion.stdbass")
     (reedbank
      (Sopranos (dots (-0.5 . 3.5) (0.5 . 3.5)))
      (Soprano (dots (0 . 3.5)))

@@ -172,7 +172,7 @@
                                  (or (getenv "TMPDIR")
                                      "/tmp")
                                  "/")))
-                          "lilypond-XXXXXX"))
+                         "lilypond-XXXXXX"))
          (port-tmp (mkstemp! tmpl)))
     (if (eq? PLATFORM 'windows)
         ;; MINGW hack: MinGW Guile's mkstemp! is broken.

@@ -63,11 +63,11 @@
 (define (scm->texi val)
   (let* (; always start on a new line
          (open-texi (if (pretty-printable? val)
-                      "\n@verbatim\n"
-                      "\n@code{"))
+                        "\n@verbatim\n"
+                        "\n@code{"))
          (close-texi (if (pretty-printable? val)
-                       "@end verbatim"
-                       "}")))
+                         "@end verbatim"
+                         "}")))
     (string-append open-texi (scm->string val) close-texi)))
 
 (define (texi-section-command level)
@@ -212,6 +212,6 @@ with init values from ALIST (1st optional argument)
     (cons
      (string-append "@code{" name "} (" typename ")"
                     (if init-value
-                      (string-append ":" (scm->texi init-value) "\n")
-                      ""))
+                        (string-append ":" (scm->texi init-value) "\n")
+                        ""))
      desc)))

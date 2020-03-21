@@ -47,9 +47,9 @@ and the dimensions of the extent into account."
 @code{bar-line::calc-blot}, which needs @var{extent} and @var{grob}.
 @var{y-ext} is not necessarily of same value as @var{extent}."
   (ly:round-filled-box
-    x-ext
-    y-ext
-    (bar-line::calc-blot thickness extent grob)))
+   x-ext
+   y-ext
+   (bar-line::calc-blot thickness extent grob)))
 
 (define (get-span-glyph bar-glyph)
   "Get the corresponding span glyph from the @code{span-glyph-bar-alist}.
@@ -261,11 +261,11 @@ is not used within the routine."
                        line-thickness))
          (extent (bar-line::widen-bar-extent-on-span grob extent)))
     (bar-line::draw-filled-box
-      (cons 0 thickness)
-      extent
-      thickness
-      extent
-      grob)))
+     (cons 0 thickness)
+     extent
+     thickness
+     extent
+     grob)))
 
 (define (make-thick-bar-line grob extent)
   "Draw a thick bar line."
@@ -274,11 +274,11 @@ is not used within the routine."
                        line-thickness))
          (extent (bar-line::widen-bar-extent-on-span grob extent)))
     (bar-line::draw-filled-box
-      (cons 0 thickness)
-      extent
-      thickness
-      extent
-      grob)))
+     (cons 0 thickness)
+     extent
+     thickness
+     extent
+     grob)))
 
 (define (make-tick-bar-line grob extent)
   "Draw a tick bar line."
@@ -286,11 +286,11 @@ is not used within the routine."
          (staff-line-thickness (ly:staff-symbol-line-thickness grob))
          (height (interval-end extent)))
     (bar-line::draw-filled-box
-      (cons 0 staff-line-thickness)
-      (cons (- height half-staff) (+ height half-staff))
-      staff-line-thickness
-      extent
-      grob)))
+     (cons 0 staff-line-thickness)
+     (cons (- height half-staff) (+ height half-staff))
+     staff-line-thickness
+     extent
+     grob)))
 
 (define (make-colon-bar-line grob extent)
   "Draw repeat dots."

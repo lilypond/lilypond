@@ -39,13 +39,13 @@
 
 (define LILYPOND_DATADIR
   (let* ((prefix
-	  (or (getenv "LILYPOND_DATADIR")
-	      (dirname  (dirname (car (command-line)))))))
+          (or (getenv "LILYPOND_DATADIR")
+              (dirname  (dirname (car (command-line)))))))
 
 
     (if (eq? prefix (dirname DATADIR)) COMPILE-TIME-PREFIX
-	(format #f "~a/share/lilypond/~a"
-		prefix TOPLEVEL-VERSION))))
+        (format #f "~a/share/lilypond/~a"
+                prefix TOPLEVEL-VERSION))))
 
 (define-public _ gettext)
 
@@ -64,16 +64,16 @@ Options:
 
 (define (parse-options args)
   (let* ((options (getopt-long args
-			       '((help (single-char #\h))
-				 (version (single-char #\v)))))
-	 (files (cdr (assq '() options))))
+                               '((help (single-char #\h))
+                                 (version (single-char #\v)))))
+         (files (cdr (assq '() options))))
     (if (assq 'help options)
-	(begin
-	  (show-version (current-output-port))
-	  (show-help (current-output-port))
-	(exit 0)))
+        (begin
+          (show-version (current-output-port))
+          (show-help (current-output-port))
+          (exit 0)))
     (if (assq 'version options)
-	(begin (show-version (current-output-port)) (exit 0)))
+        (begin (show-version (current-output-port)) (exit 0)))
     (show-version (current-error-port))
     files))
 
@@ -84,9 +84,9 @@ Options:
 ;; scm library function for this.
 (define (unquote-uri uri)
   (re-sub "%([A-Fa-f0-9]{2})"
-	  (lambda (m)
-	    (string (integer->char (string->number (match:substring m 1) 16))))
-	  uri))
+          (lambda (m)
+            (string (integer->char (string->number (match:substring m 1) 16))))
+          uri))
 
 (define (is-textedit-uri? uri)
   (string-match "^textedit:" uri))
@@ -95,16 +95,16 @@ Options:
 (define (dissect-uri uri)
   (let* ((match (string-match "textedit://(.*):([0-9]+):([0-9]+):([0-9]*)$" uri)))
     (if match
-	(list (unquote-uri (match:substring match 1))
-	      (match:substring match 2)
-	      (match:substring match 3)
-	      (match:substring match 4))
-	(begin
-	  (format (current-error-port) (_ "invalid textedit URI: ~a") uri)
-	  (newline (current-error-port))
-	  (format (current-error-port) (_ "expect: textedit://FILE:LINE:CHAR:COLUMN"))
-	  (newline (current-error-port))
-	  (exit 1)))))
+        (list (unquote-uri (match:substring match 1))
+              (match:substring match 2)
+              (match:substring match 3)
+              (match:substring match 4))
+        (begin
+          (format (current-error-port) (_ "invalid textedit URI: ~a") uri)
+          (newline (current-error-port))
+          (format (current-error-port) (_ "expect: textedit://FILE:LINE:CHAR:COLUMN"))
+          (newline (current-error-port))
+          (exit 1)))))
 
 (define PLATFORM
   (string->symbol
@@ -121,10 +121,10 @@ Options:
       ((command (apply get-editor-command (dissect-uri uri)))
        (status (system command)))
     (if (not (= status 0))
-	(begin
-	  (format (current-error-port)
-		  (_ "failed to invoke editor: ~a") command)
-	  (exit 1)))))
+        (begin
+          (format (current-error-port)
+                  (_ "failed to invoke editor: ~a") command)
+          (exit 1)))))
 
 (define (run-browser uri)
   (if (getenv "BROWSER")
@@ -140,31 +140,31 @@ Options:
   (define pat "lilypond/usr")
   (if (getenv var)
       (let*
-	  ((val (getenv var))
-	   (paths (string-split val #\:))
-	   (without (remove (lambda (s) (string-contains s pat))
-			    paths)))
-	
-	(if (not (= (length without)
-		    (length paths)))
-	    (setenv var (string-join without ":"))))))
+          ((val (getenv var))
+           (paths (string-split val #\:))
+           (without (remove (lambda (s) (string-contains s pat))
+                            paths)))
+
+        (if (not (= (length without)
+                    (length paths)))
+            (setenv var (string-join without ":"))))))
 
 (define (main args)
   (let ((files (parse-options args)))
     (if (running-from-gui?)
-	(redirect-port (current-error-port)
-		       (open-file (string-append
+        (redirect-port (current-error-port)
+                       (open-file (string-append
                                    (if (string-match "^(Windows|CYGWIN)"
                                                      (utsname:sysname (uname)))
                                        (or (getenv "TMP")
                                            (getenv "TEMP"))
                                        (or (getenv "TMPDIR")
                                            "/tmp"))
-				   "/lilypond-invoke-editor.log") "a")))
+                                   "/lilypond-invoke-editor.log") "a")))
     (if (not (= (length files) 1))
-	(begin
-	  (show-help (current-error-port))
-	  (exit 2)))
+        (begin
+          (show-help (current-error-port))
+          (exit 2)))
     (set! %load-path (cons LILYPOND_DATADIR %load-path))
 
     (primitive-eval '(use-modules (scm editor)))
@@ -172,7 +172,7 @@ Options:
     (strip-framework-path "LD_LIBRARY_PATH")
     (let* ((uri (car files)))
       (if (is-textedit-uri? uri)
-	  (run-editor uri)
-	  (run-browser uri)))))
+          (run-editor uri)
+          (run-browser uri)))))
 
 (main (command-line))

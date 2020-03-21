@@ -207,23 +207,23 @@ non-inverted note."
            (define (make-inverted p . rest)
              (apply make-note-ev (invert p) 'octavation octavation rest))
            (receive (uninverted high)
-                    (span (lambda (p) (ly:pitch<? p original-inv-pitch))
-                          pitches)
-                    (receive (invertible rest)
-                             (if (null? uninverted)
-                                 ;; The following line caters for
-                                 ;; inversions "on the root", turning
-                                 ;; f/f into <f a' c''> rather than <f a c'>
-                                 ;; or <f' a' c''>
-                                 (values '() high)
-                                 (span (lambda (p)
-                                         (ly:pitch<? (invert p) (car uninverted)))
-                                       high))
-                             (cons (make-inverted original-inv-pitch 'inversion #t)
-                                   (append (if bass (list (make-note-ev bass 'bass #t)) '())
-                                           (map make-inverted invertible)
-                                           (map make-note-ev uninverted)
-                                           (map make-note-ev rest)))))))
+               (span (lambda (p) (ly:pitch<? p original-inv-pitch))
+                     pitches)
+             (receive (invertible rest)
+                 (if (null? uninverted)
+                     ;; The following line caters for
+                     ;; inversions "on the root", turning
+                     ;; f/f into <f a' c''> rather than <f a c'>
+                     ;; or <f' a' c''>
+                     (values '() high)
+                     (span (lambda (p)
+                             (ly:pitch<? (invert p) (car uninverted)))
+                           high))
+               (cons (make-inverted original-inv-pitch 'inversion #t)
+                     (append (if bass (list (make-note-ev bass 'bass #t)) '())
+                             (map make-inverted invertible)
+                             (map make-note-ev uninverted)
+                             (map make-note-ev rest)))))))
         (bass (cons (make-note-ev bass 'bass #t)
                     (map make-note-ev pitches)))
         (else (map make-note-ev pitches))))

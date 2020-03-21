@@ -38,7 +38,7 @@
                           #f))
                (dir (if pitch
                         (sign
-                          (- (ly:pitch-steps pitch) ref-pitch-steps))
+                         (- (ly:pitch-steps pitch) ref-pitch-steps))
                         0)))
           ;; tail recursive.
           (if (and (not (= dir 0))
@@ -59,8 +59,8 @@
   (let* ((m (make-music 'AutoChangeMusic))
          (m1 (context-spec-music (make-non-relative-music music) 'Voice ""))
          (context-list
-           (recording-group-emulate m1
-                                    (ly:parser-lookup 'partCombineListener)))
+          (recording-group-emulate m1
+                                   (ly:parser-lookup 'partCombineListener)))
          (rev (reverse! (cdar context-list)))
          (split (reverse! (generate-split-list
                            #f

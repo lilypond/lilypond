@@ -222,7 +222,7 @@ symbol go, measured in half staff spaces from the center of the
 staff.")
      (completionBusy ,boolean? "Whether a completion-note head is playing.")
      (completionFactor ,rational-or-procedure?
-"When @code{Completion_heads_engraver} and
+                       "When @code{Completion_heads_engraver} and
 @code{Completion_rest_engraver} need to split a note or rest with a
 scaled duration, such as @code{c2*3}, this specifies the scale factor
 to use for the newly-split notes and rests created by the engraver.

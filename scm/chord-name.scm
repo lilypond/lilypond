@@ -76,15 +76,15 @@ other @var{language} is specified."
   (let* ((pitch-alist
           (if (null? language) pitchnames
               (assoc-get (car language)
-                language-pitch-names '())))
+                         language-pitch-names '())))
          (result (rassoc pitch
-                   (filter  (lambda (p)
-                              ;; TODO: add exception for German B?
-                              (eq? (ly:pitch-alteration (cdr p)) 0))
-                            pitch-alist)
-                   (lambda (a b)
-                     (= (ly:pitch-notename a)
-                        (ly:pitch-notename b))))))
+                         (filter  (lambda (p)
+                                    ;; TODO: add exception for German B?
+                                    (eq? (ly:pitch-alteration (cdr p)) 0))
+                                  pitch-alist)
+                         (lambda (a b)
+                           (= (ly:pitch-notename a)
+                              (ly:pitch-notename b))))))
     (if result (symbol->string (car result)))))
 
 (define-public (note-name->markup pitch lowercase?)
@@ -143,7 +143,7 @@ If @var{re-with-eacute} is set to @code{#t}, french `ré' is returned for
 pitch@tie{}D instead of `re'."
 
   (let* ((name (note-name->string pitch
-                 (if french? 'français 'italiano)))
+                                  (if french? 'français 'italiano)))
          (alt (ly:pitch-alteration pitch)))
     (make-line-markup
      (list

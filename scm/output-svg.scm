@@ -52,8 +52,8 @@
 (define-public (eo entity tNewline . attributes-alist)
   "o = open"
   (format #f "<~S~a>~a" entity
-                      (attributes attributes-alist)
-                      (if tNewline "\n" "")))
+          (attributes attributes-alist)
+          (if tNewline "\n" "")))
 
 (define-public (eoc entity . attributes-alist)
   "oc = open/close"
@@ -68,7 +68,7 @@
     (string-concatenate
      (map (lambda (item)
             (ly:format " ~a=\"~a\"" (car item) (cdr item)))
-       attributes)))
+          attributes)))
   (string-append "<g" attributes-string ">\n"))
 
 (define (end-group-node)
@@ -623,7 +623,7 @@
 
 (define (setcolor r g b)
   (ly:format "<g color=\"rgb(~4f%, ~4f%, ~4f%)\">\n"
-          (* 100 r) (* 100 g) (* 100 b)))
+             (* 100 r) (* 100 g) (* 100 b)))
 
 ;; rotate around given point
 (define (setrotation ang x y)

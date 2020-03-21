@@ -24,7 +24,7 @@
 ;;;;;;;;;;;;;;;;;;
 
 (define ((marked-up-headfoot what-odd what-even)
-                layout scopes page-number is-last-bookpart is-bookpart-last-page)
+         layout scopes page-number is-last-bookpart is-bookpart-last-page)
   "Read variables @var{what-odd}, @var{what-even} from @var{layout},
 and interpret them as markup.  The @var{props} argument will include
 variables set in @var{scopes} and @code{page:is-bookpart-last-page},

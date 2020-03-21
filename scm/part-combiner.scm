@@ -86,7 +86,7 @@
     ;; reasons.  Regard the skips only if there are no rests.
     (if (and (not (pair? result)) (not (any-mmrest-events vs)))
         (set! result (filtered-events 'skip-event)))
-  result))
+    result))
 
 (define-method (any-mmrest-events (vs <Voice-state>))
   (define (f? x)
@@ -432,7 +432,7 @@ Only set if not set previously.
            ((or (not (pair? notes1)) (not (pair? notes2))) (put 'apart))
 
            ;; if either part has a chord
-           ((or (> (length notes1) 1) 
+           ((or (> (length notes1) 1)
                 (> (length notes2) 1))
             (if (and (<= chord-min-diff 0) ; user requests combined unisons
                      (equal? notes1 notes2)) ; both parts have the same chord
@@ -448,7 +448,7 @@ Only set if not set previously.
            (else
             ;; Is the interval outside of chord-range?
             (if (let ((diff (ly:pitch-steps
-                             (ly:pitch-diff 
+                             (ly:pitch-diff
                               (ly:event-property (car notes1) 'pitch)
                               (ly:event-property (car notes2) 'pitch)))))
                   (or (< diff chord-min-diff)
@@ -812,7 +812,7 @@ the mark when there are no spanners active.
                           (set! prev-voice voice)))
                     (if (not (equal? dur ZERO-MOMENT))
                         (set! segment (cons (make-music 'SkipEvent
-                                                          'duration (make-duration-of-length dur)) segment)))
+                                                        'duration (make-duration-of-length dur)) segment)))
                     (set! segment (cons (make-music part-combine-event) segment))
 
                     (set! prev-moment moment)))

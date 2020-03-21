@@ -311,7 +311,7 @@ Example: @code{\\mark \"A\"}")
     (MeasureSpannerEvent
      . ((description . "Used to signal the start and end of a measure
 spanner.")
-       (types . (measure-spanner-event span-event event))
+        (types . (measure-spanner-event span-event event))
         ))
 
     (MeasureCounterEvent

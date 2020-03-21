@@ -61,14 +61,14 @@ That includes all Windows systems except for 9X/Me."
   (and shell-name
        (member (string-downcase
                 (basename shell-name))
-	       w32-system-shells)))
+               w32-system-shells)))
 
 (define (w32-shell-dos-semantics)
   "Return non-nil if the interactive shell being used expects MS-DOS shell semantics."
   (or (w32-system-shell-p (w32-shell-name))
       (and (member (string-downcase (basename (w32-shell-name)))
-		   '("cmdproxy" "cmdproxy.exe"))
-	   (w32-system-shell-p (getenv "COMSPEC")))))
+                   '("cmdproxy" "cmdproxy.exe"))
+           (w32-system-shell-p (getenv "COMSPEC")))))
 
 (define-public (shell-quote-argument argument)
   "Quote ARGUMENT for passing as argument to an inferior shell.

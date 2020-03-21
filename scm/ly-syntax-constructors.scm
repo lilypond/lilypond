@@ -193,11 +193,11 @@
 into a @code{MultiMeasureTextEvent}."
 
   (cond
-    ((music-is-of-type? music 'text-script-event)
-     (make-music 'MultiMeasureTextEvent music))
-    ((music-is-of-type? music 'articulation-event)
-     (make-music 'MultiMeasureArticulationEvent music))
-    (else music)))
+   ((music-is-of-type? music 'text-script-event)
+    (make-music 'MultiMeasureTextEvent music))
+   ((music-is-of-type? music 'articulation-event)
+    (make-music 'MultiMeasureArticulationEvent music))
+   (else music)))
 
 (define-public (multi-measure-rest duration articulations)
   (ly:set-origin! (make-music 'MultiMeasureRestMusic

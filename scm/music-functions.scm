@@ -38,10 +38,10 @@
 (define-safe-public (music-type-predicate types)
   "Returns a predicate function that can be used for checking
 music to have one of the types listed in @var{types}."
-   (if (cheap-list? types)
-       (lambda (m)
-         (any (lambda (t) (music-is-of-type? m t)) types))
-       (lambda (m) (music-is-of-type? m types))))
+  (if (cheap-list? types)
+      (lambda (m)
+        (any (lambda (t) (music-is-of-type? m t)) types))
+      (lambda (m) (music-is-of-type? m types))))
 
 ;; TODO move this
 (define-public ly:grob-property
@@ -244,8 +244,8 @@ which often can be read back in order to generate an equivalent expression."
   (memoize-clef-names supported-clefs)
   (parameterize ((*indent* 0)
                  (*omit-duration* #f))
-                (display (music->lily-string expr) port)
-                (newline port)))
+    (display (music->lily-string expr) port)
+    (newline port)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -393,32 +393,32 @@ beats to be distinguished."
   "Replace repeats of the types given by @var{types} with unfolded repeats.
 If @var{types} is an empty list, @code{repeated-music} is taken, unfolding all."
   (let* ((types-list
-           (if (or (null? types) (not (list? types)))
-               (list types)
-               types))
+          (if (or (null? types) (not (list? types)))
+              (list types)
+              types))
          (repeat-types-alist
-           '((volta . volta-repeated-music)
-             (percent . percent-repeated-music)
-             (tremolo . tremolo-repeated-music)
-             (() . repeated-music)))
+          '((volta . volta-repeated-music)
+            (percent . percent-repeated-music)
+            (tremolo . tremolo-repeated-music)
+            (() . repeated-music)))
          (repeat-types-hash (alist->hash-table repeat-types-alist)))
-  (for-each
-    (lambda (type)
-      (let ((repeat-type (hashq-ref repeat-types-hash type)))
-        (if repeat-type
-            (let ((es (ly:music-property music 'elements))
-                  (e (ly:music-property music 'element)))
-              (if (music-is-of-type? music repeat-type)
-                  (set! music (make-music 'UnfoldedRepeatedMusic music)))
-              (if (pair? es)
-                  (set! (ly:music-property music 'elements)
-                        (map (lambda (x) (unfold-repeats types x)) es)))
-              (if (ly:music? e)
-                  (set! (ly:music-property music 'element)
-                        (unfold-repeats types e))))
-            (ly:warning "unknown repeat-type ~a, ignoring." type))))
-    types-list)
-  music))
+    (for-each
+     (lambda (type)
+       (let ((repeat-type (hashq-ref repeat-types-hash type)))
+         (if repeat-type
+             (let ((es (ly:music-property music 'elements))
+                   (e (ly:music-property music 'element)))
+               (if (music-is-of-type? music repeat-type)
+                   (set! music (make-music 'UnfoldedRepeatedMusic music)))
+               (if (pair? es)
+                   (set! (ly:music-property music 'elements)
+                         (map (lambda (x) (unfold-repeats types x)) es)))
+               (if (ly:music? e)
+                   (set! (ly:music-property music 'element)
+                         (unfold-repeats types e))))
+             (ly:warning "unknown repeat-type ~a, ignoring." type))))
+     types-list)
+    music))
 
 (define-public (unfold-repeats-fully music)
   "Unfolds repeats and expands the resulting @code{unfolded-repeated-music}."
@@ -629,9 +629,9 @@ making it possible to @code{\\revert} to any previous value afterwards."
 
 (define-public score-grace-settings
   (append
-    `((Voice Stem direction ,UP)
-      (Voice Slur direction ,DOWN))
-    general-grace-settings))
+   `((Voice Stem direction ,UP)
+     (Voice Slur direction ,DOWN))
+   general-grace-settings))
 
 ;; Getting a unique context id name
 
@@ -1759,19 +1759,19 @@ look at bar lines nor different accidentals at the same note name."
 note (just as in the dodecaphonic accidental style) @emph{except} if
 the note is immediately preceded by a note with the same pitch. This
 is a common accidental style in contemporary notation."
-   (let* ((keysig (ly:context-property context 'localAlterations))
-          (entry (find-pitch-entry keysig pitch #f #t)))
-     (if (not entry)
-         (cons #f #t)
-         (let ((entrymp (key-entry-measure-position entry))
-               (entrybn (key-entry-bar-number entry))
-               (entryalt (key-entry-alteration entry))
-               (alt (ly:pitch-alteration pitch)))
-           (cons #t
-                 (not (and (equal? entrybn barnum)
-                           (or (equal? measurepos entrymp)
-                               (ly:moment<? measurepos entrymp))
-                           (equal? entryalt alt))))))))
+  (let* ((keysig (ly:context-property context 'localAlterations))
+         (entry (find-pitch-entry keysig pitch #f #t)))
+    (if (not entry)
+        (cons #f #t)
+        (let ((entrymp (key-entry-measure-position entry))
+              (entrybn (key-entry-bar-number entry))
+              (entryalt (key-entry-alteration entry))
+              (alt (ly:pitch-alteration pitch)))
+          (cons #t
+                (not (and (equal? entrybn barnum)
+                          (or (equal? measurepos entrymp)
+                              (ly:moment<? measurepos entrymp))
+                          (equal? entryalt alt))))))))
 
 (define-public (teaching-accidental-rule context pitch barnum measurepos)
   "An accidental rule that typesets a cautionary accidental if it is
@@ -1796,171 +1796,171 @@ on the same staff line."
   ;; An optional fourth entry may specify a default context for the accidental
   ;; style, for use with the piano styles.
   `(
-     ;; accidentals as they were common in the 18th century.
-     (default #t
-              (Staff ,(make-accidental-rule 'same-octave 0))
-              ())
-     ;; accidentals from one voice do NOT get canceled in other voices
-     (voice #t
-            (Voice ,(make-accidental-rule 'same-octave 0))
-            ())
-     ;; accidentals as suggested by Kurt Stone in
-     ;; ‘Music Notation in the 20th century’.
-     ;; This includes all the default accidentals, but accidentals also need
-     ;; canceling in other octaves and in the next measure.
-     (modern #f
-             (Staff ,(make-accidental-rule 'same-octave 0)
-                    ,(make-accidental-rule 'any-octave 0)
-                    ,(make-accidental-rule 'same-octave 1))
-             ())
-     ;; the accidentals that Stone adds to the old standard as cautionaries
-     (modern-cautionary #f
-                        (Staff ,(make-accidental-rule 'same-octave 0))
-                        (Staff ,(make-accidental-rule 'any-octave 0)
-                               ,(make-accidental-rule 'same-octave 1)))
-     ;; same as modern, but accidentals different from the key signature are
-     ;; always typeset - unless they directly follow a note of the same pitch.
-     (neo-modern #f
-                 (Staff ,(make-accidental-rule 'same-octave 0)
-                        ,(make-accidental-rule 'any-octave 0)
-                        ,(make-accidental-rule 'same-octave 1)
-                        ,neo-modern-accidental-rule)
-                 ())
-     (neo-modern-cautionary #f
-                            (Staff ,(make-accidental-rule 'same-octave 0))
-                            (Staff ,(make-accidental-rule 'any-octave 0)
-                                   ,(make-accidental-rule 'same-octave 1)
-                                   ,neo-modern-accidental-rule))
-     (neo-modern-voice #f
-                       (Voice ,(make-accidental-rule 'same-octave 0)
-                              ,(make-accidental-rule 'any-octave 0)
-                              ,(make-accidental-rule 'same-octave 1)
-                              ,neo-modern-accidental-rule
-                              Staff
-                              ,(make-accidental-rule 'same-octave 0)
-                              ,(make-accidental-rule 'any-octave 0)
-                              ,(make-accidental-rule 'same-octave 1)
-                              ,neo-modern-accidental-rule)
-                       ())
-     (neo-modern-voice-cautionary #f
-                                  (Voice ,(make-accidental-rule 'same-octave 0))
-                                  (Voice ,(make-accidental-rule 'any-octave 0)
-                                         ,(make-accidental-rule 'same-octave 1)
-                                         ,neo-modern-accidental-rule
-                                         Staff
-                                         ,(make-accidental-rule 'same-octave 0)
-                                         ,(make-accidental-rule 'any-octave 0)
-                                         ,(make-accidental-rule 'same-octave 1)
-                                         ,neo-modern-accidental-rule))
-
-     ;; Accidentals as they were common in dodecaphonic music with no tonality.
-     ;; Each note gets one accidental.
-     (dodecaphonic #f
-                   (Staff ,(lambda (c p bn mp) '(#f . #t)))
-                   ())
-     ;; As in dodecaphonic style with the exception that immediately
-     ;; repeated notes (in the same voice) don't get an accidental
-     (dodecaphonic-no-repeat #f
-                             (Staff ,dodecaphonic-no-repeat-rule)
-                             ())
-     ;; Variety of the dodecaphonic style. Each note gets an accidental,
-     ;; except notes that were already handled in the same measure.
-     (dodecaphonic-first #f
-                         (Staff ,(make-accidental-dodecaphonic-rule 'same-octave 0))
-                         ())
-
-     ;; Multivoice accidentals to be read both by musicians playing one voice
-     ;; and musicians playing all voices. Accidentals are typeset for each
-     ;; voice, but they ARE canceled across voices.
-     (modern-voice #f
-                   (Voice ,(make-accidental-rule 'same-octave 0)
-                          ,(make-accidental-rule 'any-octave 0)
-                          ,(make-accidental-rule 'same-octave 1)
-                          Staff
-                          ,(make-accidental-rule 'same-octave 0)
-                          ,(make-accidental-rule 'any-octave 0)
-                          ,(make-accidental-rule 'same-octave 1))
-                   ())
-     ;; same as modernVoiceAccidental except that all special accidentals
-     ;; are typeset as cautionaries
-     (modern-voice-cautionary #f
-                              (Voice ,(make-accidental-rule 'same-octave 0))
-                              (Voice ,(make-accidental-rule 'any-octave 0)
-                                     ,(make-accidental-rule 'same-octave 1)
-                                     Staff
-                                     ,(make-accidental-rule 'same-octave 0)
-                                     ,(make-accidental-rule 'any-octave 0)
-                                     ,(make-accidental-rule 'same-octave 1)))
-
-     ;; Stone's suggestions for accidentals on grand staff.
-     ;; Accidentals are canceled across the staves
-     ;; in the same grand staff as well
-     (piano #f
+    ;; accidentals as they were common in the 18th century.
+    (default #t
+      (Staff ,(make-accidental-rule 'same-octave 0))
+      ())
+    ;; accidentals from one voice do NOT get canceled in other voices
+    (voice #t
+           (Voice ,(make-accidental-rule 'same-octave 0))
+           ())
+    ;; accidentals as suggested by Kurt Stone in
+    ;; ‘Music Notation in the 20th century’.
+    ;; This includes all the default accidentals, but accidentals also need
+    ;; canceling in other octaves and in the next measure.
+    (modern #f
             (Staff ,(make-accidental-rule 'same-octave 0)
                    ,(make-accidental-rule 'any-octave 0)
+                   ,(make-accidental-rule 'same-octave 1))
+            ())
+    ;; the accidentals that Stone adds to the old standard as cautionaries
+    (modern-cautionary #f
+                       (Staff ,(make-accidental-rule 'same-octave 0))
+                       (Staff ,(make-accidental-rule 'any-octave 0)
+                              ,(make-accidental-rule 'same-octave 1)))
+    ;; same as modern, but accidentals different from the key signature are
+    ;; always typeset - unless they directly follow a note of the same pitch.
+    (neo-modern #f
+                (Staff ,(make-accidental-rule 'same-octave 0)
+                       ,(make-accidental-rule 'any-octave 0)
+                       ,(make-accidental-rule 'same-octave 1)
+                       ,neo-modern-accidental-rule)
+                ())
+    (neo-modern-cautionary #f
+                           (Staff ,(make-accidental-rule 'same-octave 0))
+                           (Staff ,(make-accidental-rule 'any-octave 0)
+                                  ,(make-accidental-rule 'same-octave 1)
+                                  ,neo-modern-accidental-rule))
+    (neo-modern-voice #f
+                      (Voice ,(make-accidental-rule 'same-octave 0)
+                             ,(make-accidental-rule 'any-octave 0)
+                             ,(make-accidental-rule 'same-octave 1)
+                             ,neo-modern-accidental-rule
+                             Staff
+                             ,(make-accidental-rule 'same-octave 0)
+                             ,(make-accidental-rule 'any-octave 0)
+                             ,(make-accidental-rule 'same-octave 1)
+                             ,neo-modern-accidental-rule)
+                      ())
+    (neo-modern-voice-cautionary #f
+                                 (Voice ,(make-accidental-rule 'same-octave 0))
+                                 (Voice ,(make-accidental-rule 'any-octave 0)
+                                        ,(make-accidental-rule 'same-octave 1)
+                                        ,neo-modern-accidental-rule
+                                        Staff
+                                        ,(make-accidental-rule 'same-octave 0)
+                                        ,(make-accidental-rule 'any-octave 0)
+                                        ,(make-accidental-rule 'same-octave 1)
+                                        ,neo-modern-accidental-rule))
+
+    ;; Accidentals as they were common in dodecaphonic music with no tonality.
+    ;; Each note gets one accidental.
+    (dodecaphonic #f
+                  (Staff ,(lambda (c p bn mp) '(#f . #t)))
+                  ())
+    ;; As in dodecaphonic style with the exception that immediately
+    ;; repeated notes (in the same voice) don't get an accidental
+    (dodecaphonic-no-repeat #f
+                            (Staff ,dodecaphonic-no-repeat-rule)
+                            ())
+    ;; Variety of the dodecaphonic style. Each note gets an accidental,
+    ;; except notes that were already handled in the same measure.
+    (dodecaphonic-first #f
+                        (Staff ,(make-accidental-dodecaphonic-rule 'same-octave 0))
+                        ())
+
+    ;; Multivoice accidentals to be read both by musicians playing one voice
+    ;; and musicians playing all voices. Accidentals are typeset for each
+    ;; voice, but they ARE canceled across voices.
+    (modern-voice #f
+                  (Voice ,(make-accidental-rule 'same-octave 0)
+                         ,(make-accidental-rule 'any-octave 0)
+                         ,(make-accidental-rule 'same-octave 1)
+                         Staff
+                         ,(make-accidental-rule 'same-octave 0)
+                         ,(make-accidental-rule 'any-octave 0)
+                         ,(make-accidental-rule 'same-octave 1))
+                  ())
+    ;; same as modernVoiceAccidental except that all special accidentals
+    ;; are typeset as cautionaries
+    (modern-voice-cautionary #f
+                             (Voice ,(make-accidental-rule 'same-octave 0))
+                             (Voice ,(make-accidental-rule 'any-octave 0)
+                                    ,(make-accidental-rule 'same-octave 1)
+                                    Staff
+                                    ,(make-accidental-rule 'same-octave 0)
+                                    ,(make-accidental-rule 'any-octave 0)
+                                    ,(make-accidental-rule 'same-octave 1)))
+
+    ;; Stone's suggestions for accidentals on grand staff.
+    ;; Accidentals are canceled across the staves
+    ;; in the same grand staff as well
+    (piano #f
+           (Staff ,(make-accidental-rule 'same-octave 0)
+                  ,(make-accidental-rule 'any-octave 0)
+                  ,(make-accidental-rule 'same-octave 1)
+                  GrandStaff
+                  ,(make-accidental-rule 'any-octave 0)
+                  ,(make-accidental-rule 'same-octave 1))
+           ()
+           GrandStaff)
+    (piano-cautionary #f
+                      (Staff ,(make-accidental-rule 'same-octave 0))
+                      (Staff ,(make-accidental-rule 'any-octave 0)
+                             ,(make-accidental-rule 'same-octave 1)
+                             GrandStaff
+                             ,(make-accidental-rule 'any-octave 0)
+                             ,(make-accidental-rule 'same-octave 1))
+                      GrandStaff)
+
+    ;; Accidentals on a choir staff for simultaneous reading of the
+    ;; own voice and the surrounding choir. Similar to piano, except
+    ;; that the first alteration within a voice is always printed.
+    (choral #f
+            (Voice ,(make-accidental-rule 'same-octave 0)
+                   Staff
                    ,(make-accidental-rule 'same-octave 1)
-                   GrandStaff
+                   ,(make-accidental-rule 'any-octave 0)
+                   ,(make-accidental-rule 'same-octave 1)
+                   ChoirStaff
                    ,(make-accidental-rule 'any-octave 0)
                    ,(make-accidental-rule 'same-octave 1))
             ()
-            GrandStaff)
-     (piano-cautionary #f
-                       (Staff ,(make-accidental-rule 'same-octave 0))
+            ChoirStaff)
+    (choral-cautionary #f
+                       (Voice ,(make-accidental-rule 'same-octave 0)
+                              Staff
+                              ,(make-accidental-rule 'same-octave 0))
                        (Staff ,(make-accidental-rule 'any-octave 0)
                               ,(make-accidental-rule 'same-octave 1)
-                              GrandStaff
+                              ChoirStaff
                               ,(make-accidental-rule 'any-octave 0)
                               ,(make-accidental-rule 'same-octave 1))
-                       GrandStaff)
+                       ChoirStaff)
 
-     ;; Accidentals on a choir staff for simultaneous reading of the
-     ;; own voice and the surrounding choir. Similar to piano, except
-     ;; that the first alteration within a voice is always printed.
-     (choral #f
-             (Voice ,(make-accidental-rule 'same-octave 0)
-                    Staff
-                    ,(make-accidental-rule 'same-octave 1)
-                    ,(make-accidental-rule 'any-octave 0)
-                    ,(make-accidental-rule 'same-octave 1)
-                    ChoirStaff
-                    ,(make-accidental-rule 'any-octave 0)
-                    ,(make-accidental-rule 'same-octave 1))
-             ()
-             ChoirStaff)
-     (choral-cautionary #f
-                        (Voice ,(make-accidental-rule 'same-octave 0)
-                               Staff
-                               ,(make-accidental-rule 'same-octave 0))
-                        (Staff ,(make-accidental-rule 'any-octave 0)
-                               ,(make-accidental-rule 'same-octave 1)
-                               ChoirStaff
-                               ,(make-accidental-rule 'any-octave 0)
-                               ,(make-accidental-rule 'same-octave 1))
-                        ChoirStaff)
+    ;; same as modern, but cautionary accidentals are printed for all
+    ;; non-natural tones specified by the key signature.
+    (teaching #f
+              (Staff ,(make-accidental-rule 'same-octave 0))
+              (Staff ,(make-accidental-rule 'same-octave 1)
+                     ,teaching-accidental-rule))
 
-     ;; same as modern, but cautionary accidentals are printed for all
-     ;; non-natural tones specified by the key signature.
-     (teaching #f
-               (Staff ,(make-accidental-rule 'same-octave 0))
-               (Staff ,(make-accidental-rule 'same-octave 1)
-                      ,teaching-accidental-rule))
-
-     ;; do not set localAlterations when a note alterated differently from
-     ;; localAlterations is found.
-     ;; Causes accidentals to be printed at every note instead of
-     ;; remembered for the duration of a measure.
-     ;; accidentals not being remembered, causing accidentals always to
-     ;; be typeset relative to the time signature
-     (forget ()
-             (Staff ,(make-accidental-rule 'same-octave -1))
-             ())
-     ;; Do not reset the key at the start of a measure.  Accidentals will be
-     ;; printed only once and are in effect until overridden, possibly many
-     ;; measures later.
-     (no-reset ()
-               (Staff ,(make-accidental-rule 'same-octave #t))
-               ())
-     ))
+    ;; do not set localAlterations when a note alterated differently from
+    ;; localAlterations is found.
+    ;; Causes accidentals to be printed at every note instead of
+    ;; remembered for the duration of a measure.
+    ;; accidentals not being remembered, causing accidentals always to
+    ;; be typeset relative to the time signature
+    (forget ()
+            (Staff ,(make-accidental-rule 'same-octave -1))
+            ())
+    ;; Do not reset the key at the start of a measure.  Accidentals will be
+    ;; printed only once and are in effect until overridden, possibly many
+    ;; measures later.
+    (no-reset ()
+              (Staff ,(make-accidental-rule 'same-octave #t))
+              ())
+    ))
 
 (define-public (set-accidental-style style . rest)
   "Set accidental style to @var{style}.  Optionally take a context
@@ -1984,8 +1984,8 @@ as a context."
                           (make-property-set 'autoCautionaries auto-cauts))))
            context))
         (begin
-         (ly:warning (_ "unknown accidental style: ~S") style)
-         (make-sequential-music '())))))
+          (ly:warning (_ "unknown accidental style: ~S") style)
+          (make-sequential-music '())))))
 
 (define-public (invalidate-alterations context)
   "Invalidate alterations in @var{context}.
@@ -2422,15 +2422,15 @@ not found, return the first value of @var{prop}."
 number pair, or a list of number pairs.  If @var{offsets} is an empty
 list or if there is a type-mismatch, @var{arg} will be returned."
   (cond
-    ((and (number? arg) (number? offsets))
-     (+ arg offsets))
-    ((and (number-pair? arg)
-          (or (number? offsets)
-              (number-pair? offsets)))
-     (coord-translate arg offsets))
-    ((and (number-pair-list? arg) (number-pair-list? offsets))
-     (map coord-translate arg offsets))
-    (else arg)))
+   ((and (number? arg) (number? offsets))
+    (+ arg offsets))
+   ((and (number-pair? arg)
+         (or (number? offsets)
+             (number-pair? offsets)))
+    (coord-translate arg offsets))
+   ((and (number-pair-list? arg) (number-pair-list? offsets))
+    (map coord-translate arg offsets))
+   (else arg)))
 
 (define-public (grob-transformer property func)
   "Create an override value good for applying @var{func} to either
@@ -2477,22 +2477,22 @@ Offsets are restricted to immutable properties and values of type @code{number},
           ;; property, so issue a warning.
           (if (equal? empty-interval vals)
               (ly:warning "default '~a of ~a is ~a and can't be offset"
-                property grob vals)
+                          property grob vals)
               (let* ((orig (ly:grob-original grob))
                      (siblings
-                       (if (ly:spanner? grob)
-                           (ly:spanner-broken-into orig)
-                           '()))
+                      (if (ly:spanner? grob)
+                          (ly:spanner-broken-into orig)
+                          '()))
                      (total-found (length siblings))
                      ;; Since there is some flexibility in input
                      ;; syntax, structure of `offsets' is normalized.
                      (offsets
-                       (if (or (not (pair? offsets))
-                               (number-pair? offsets)
-                               (and (number-pair-list? offsets)
-                                    (number-pair-list? vals)))
-                           (list offsets)
-                           offsets)))
+                      (if (or (not (pair? offsets))
+                              (number-pair? offsets)
+                              (and (number-pair-list? offsets)
+                                   (number-pair-list? vals)))
+                          (list offsets)
+                          offsets)))
 
                 (define (helper sibs offs)
                   ;; apply offsets to the siblings of broken spanners
@@ -2533,19 +2533,19 @@ as a list in the following format:
              (interfaces (ly:assoc-get 'interfaces meta '())))
         (memq interface interfaces)))
     (let* ((grob-descriptions-with-this-interface
-             (filter has-this-interface? grob-descriptions))
+            (filter has-this-interface? grob-descriptions))
            (grob-names-with-this-interface
-             (map car grob-descriptions-with-this-interface)))
+            (map car grob-descriptions-with-this-interface)))
       grob-names-with-this-interface))
   (let* ((interface
-           (case prop-name
-             ((baseline-skip word-space) 'text-interface)
-             ((space-alist)              'break-aligned-interface)
-             (else (ly:programming-error
-                     "find-named-props: no interface associated with ~s"
-                     prop-name))))
+          (case prop-name
+            ((baseline-skip word-space) 'text-interface)
+            ((space-alist)              'break-aligned-interface)
+            (else (ly:programming-error
+                   "find-named-props: no interface associated with ~s"
+                   prop-name))))
          (grobs-with-this-prop
-           (find-grobs-with-interface interface grob-descriptions)))
+          (find-grobs-with-interface interface grob-descriptions)))
     (map (lambda (x) (list x prop-name))
          grobs-with-this-prop)))
 
@@ -2566,19 +2566,19 @@ current @code{fontSize} in the appropriate context and scale it by the
 magnification factor @var{mag}.  @var{func-name} is either
 @code{'magnifyMusic} or @code{'magnifyStaff}."
   (make-apply-context
-    (lambda (context)
-      (if (or (eq? func-name 'magnifyMusic)
-              ;; for \magnifyStaff, only scale the fontSize
-              ;; if staff magnification is changing
-              ;; and does not equal 1
-              (and (staff-magnification-is-changing? context mag)
-                   (not (= mag 1))))
-        (let* ((where (case func-name
-                        ((magnifyMusic) context)
-                        ((magnifyStaff) (ly:context-find context 'Staff))))
-               (fontSize (ly:context-property where 'fontSize 0))
-               (new-fontSize (+ fontSize (magnification->font-size mag))))
-          (ly:context-set-property! where 'fontSize new-fontSize))))))
+   (lambda (context)
+     (if (or (eq? func-name 'magnifyMusic)
+             ;; for \magnifyStaff, only scale the fontSize
+             ;; if staff magnification is changing
+             ;; and does not equal 1
+             (and (staff-magnification-is-changing? context mag)
+                  (not (= mag 1))))
+         (let* ((where (case func-name
+                         ((magnifyMusic) context)
+                         ((magnifyStaff) (ly:context-find context 'Staff))))
+                (fontSize (ly:context-property where 'fontSize 0))
+                (new-fontSize (+ fontSize (magnification->font-size mag))))
+           (ly:context-set-property! where 'fontSize new-fontSize))))))
 
 (define-public (revert-fontSize func-name mag)
   "Used by @code{\\magnifyMusic} and @code{\\magnifyStaff}.  Calculate
@@ -2593,28 +2593,28 @@ block it operates on.  @code{\\magnifyStaff} does not operate on a music
 block, so the scaling from a previous call (if there is one) is reverted
 before the new scaling takes effect."
   (make-apply-context
-    (lambda (context)
-      (if (or (eq? func-name 'magnifyMusic)
-              ;; for \magnifyStaff...
-              (and
-                ;; don't revert the user's fontSize choice
-                ;; the first time \magnifyStaff is called
-                (magnifyStaff-is-set? context mag)
-                ;; only revert the previous fontSize
-                ;; if staff magnification is changing
-                (staff-magnification-is-changing? context mag)))
-        (let* ((where
+   (lambda (context)
+     (if (or (eq? func-name 'magnifyMusic)
+             ;; for \magnifyStaff...
+             (and
+              ;; don't revert the user's fontSize choice
+              ;; the first time \magnifyStaff is called
+              (magnifyStaff-is-set? context mag)
+              ;; only revert the previous fontSize
+              ;; if staff magnification is changing
+              (staff-magnification-is-changing? context mag)))
+         (let* ((where
                  (case func-name
                    ((magnifyMusic) context)
                    ((magnifyStaff) (ly:context-find context 'Staff))))
-               (old-mag
+                (old-mag
                  (case func-name
                    ((magnifyMusic) mag)
                    ((magnifyStaff)
                     (ly:context-property where 'magnifyStaffValue 1))))
-               (fontSize (ly:context-property where 'fontSize 0))
-               (old-fontSize (- fontSize (magnification->font-size old-mag))))
-          (ly:context-set-property! where 'fontSize old-fontSize))))))
+                (fontSize (ly:context-property where 'fontSize 0))
+                (old-fontSize (- fontSize (magnification->font-size old-mag))))
+           (ly:context-set-property! where 'fontSize old-fontSize))))))
 
 (define-public (scale-props func-name mag allowed-to-shrink? props)
   "Used by @code{\\magnifyMusic} and @code{\\magnifyStaff}.  For each
@@ -2631,47 +2631,47 @@ formatted like:
   ...)
 @end example"
   (make-apply-context
-    (lambda (context)
-      (define (scale-prop grob-prop-list)
-        (let* ((grob (car grob-prop-list))
-               (prop (cadr grob-prop-list))
-               (where (if (eq? grob 'SpacingSpanner)
-                        (ly:context-find context 'Score)
-                        (case func-name
-                          ((magnifyMusic) context)
-                          ((magnifyStaff) (ly:context-find context 'Staff)))))
-               (grob-def (ly:context-grob-definition where grob)))
-          (if (eq? prop 'space-alist)
-            (let* ((space-alist (ly:assoc-get prop grob-def))
-                   (scale-spacing-tuple (lambda (x)
-                                          (cons (car x)
-                                                (cons (cadr x)
-                                                      (* mag (cddr x))))))
-                   (scaled-tuples (if space-alist
-                                      (map scale-spacing-tuple space-alist)
-                                      '()))
-                   (new-alist (append scaled-tuples space-alist)))
-              (ly:context-pushpop-property where grob prop new-alist))
-            (let* ((val (ly:assoc-get prop grob-def (case prop
-                                                      ((baseline-skip) 3)
-                                                      ((word-space)    0.6)
-                                                      (else            1))))
-                   (proc (lambda (x)
-                           (if allowed-to-shrink?
-                             (* x mag)
-                             (* x (max 1 mag)))))
-                   (new-val (if (number-pair? val)
-                              (cons (proc (car val))
-                                    (proc (cdr val)))
-                              (proc val))))
-              (ly:context-pushpop-property where grob prop new-val)))))
-      (if (or (eq? func-name 'magnifyMusic)
-              ;; for \magnifyStaff, only scale the properties
-              ;; if staff magnification is changing
-              ;; and does not equal 1
-              (and (staff-magnification-is-changing? context mag)
-                   (not (= mag 1))))
-        (for-each scale-prop props)))))
+   (lambda (context)
+     (define (scale-prop grob-prop-list)
+       (let* ((grob (car grob-prop-list))
+              (prop (cadr grob-prop-list))
+              (where (if (eq? grob 'SpacingSpanner)
+                         (ly:context-find context 'Score)
+                         (case func-name
+                           ((magnifyMusic) context)
+                           ((magnifyStaff) (ly:context-find context 'Staff)))))
+              (grob-def (ly:context-grob-definition where grob)))
+         (if (eq? prop 'space-alist)
+             (let* ((space-alist (ly:assoc-get prop grob-def))
+                    (scale-spacing-tuple (lambda (x)
+                                           (cons (car x)
+                                                 (cons (cadr x)
+                                                       (* mag (cddr x))))))
+                    (scaled-tuples (if space-alist
+                                       (map scale-spacing-tuple space-alist)
+                                       '()))
+                    (new-alist (append scaled-tuples space-alist)))
+               (ly:context-pushpop-property where grob prop new-alist))
+             (let* ((val (ly:assoc-get prop grob-def (case prop
+                                                       ((baseline-skip) 3)
+                                                       ((word-space)    0.6)
+                                                       (else            1))))
+                    (proc (lambda (x)
+                            (if allowed-to-shrink?
+                                (* x mag)
+                                (* x (max 1 mag)))))
+                    (new-val (if (number-pair? val)
+                                 (cons (proc (car val))
+                                       (proc (cdr val)))
+                                 (proc val))))
+               (ly:context-pushpop-property where grob prop new-val)))))
+     (if (or (eq? func-name 'magnifyMusic)
+             ;; for \magnifyStaff, only scale the properties
+             ;; if staff magnification is changing
+             ;; and does not equal 1
+             (and (staff-magnification-is-changing? context mag)
+                  (not (= mag 1))))
+         (for-each scale-prop props)))))
 
 (define-public (revert-props func-name mag props)
   "Used by @code{\\magnifyMusic} and @code{\\magnifyStaff}.  Revert each
@@ -2684,26 +2684,26 @@ list is formatted like:
   ...)
 @end example"
   (make-apply-context
-    (lambda (context)
-      (define (revert-prop grob-prop-list)
-        (let* ((grob (car grob-prop-list))
-               (prop (cadr grob-prop-list))
-               (where (if (eq? grob 'SpacingSpanner)
-                        (ly:context-find context 'Score)
-                        (case func-name
-                          ((magnifyMusic) context)
-                          ((magnifyStaff) (ly:context-find context 'Staff))))))
-          (ly:context-pushpop-property where grob prop)))
-      (if (or (eq? func-name 'magnifyMusic)
-              ;; for \magnifyStaff...
-              (and
-                ;; don't revert the user's property overrides
-                ;; the first time \magnifyStaff is called
-                (magnifyStaff-is-set? context mag)
-                ;; revert the overrides from the previous \magnifyStaff,
-                ;; but only if staff magnification is changing
-                (staff-magnification-is-changing? context mag)))
-        (for-each revert-prop props)))))
+   (lambda (context)
+     (define (revert-prop grob-prop-list)
+       (let* ((grob (car grob-prop-list))
+              (prop (cadr grob-prop-list))
+              (where (if (eq? grob 'SpacingSpanner)
+                         (ly:context-find context 'Score)
+                         (case func-name
+                           ((magnifyMusic) context)
+                           ((magnifyStaff) (ly:context-find context 'Staff))))))
+         (ly:context-pushpop-property where grob prop)))
+     (if (or (eq? func-name 'magnifyMusic)
+             ;; for \magnifyStaff...
+             (and
+              ;; don't revert the user's property overrides
+              ;; the first time \magnifyStaff is called
+              (magnifyStaff-is-set? context mag)
+              ;; revert the overrides from the previous \magnifyStaff,
+              ;; but only if staff magnification is changing
+              (staff-magnification-is-changing? context mag)))
+         (for-each revert-prop props)))))
 
 ;; \magnifyMusic only
 (define-public (scale-beam-thickness mag)
@@ -2713,15 +2713,15 @@ values for @code{beam-thickness} to determine an acceptable value when
 scaling, then does the equivalent of a
 @code{\\temporary@tie{}\\override} with the new value."
   (make-apply-context
-    (lambda (context)
-      (let* ((grob-def (ly:context-grob-definition context 'Beam))
-             (val (ly:assoc-get 'beam-thickness grob-def 0.48))
-             (ratio-to-default (/ val 0.48))
-             ;; gives beam-thickness=0.48 when mag=1 (like default),
-             ;; gives beam-thickness=0.35 when mag=0.63 (like CueVoice)
-             (scaled-default (+ 119/925 (* mag 13/37)))
-             (new-val (* scaled-default ratio-to-default)))
-        (ly:context-pushpop-property context 'Beam 'beam-thickness new-val)))))
+   (lambda (context)
+     (let* ((grob-def (ly:context-grob-definition context 'Beam))
+            (val (ly:assoc-get 'beam-thickness grob-def 0.48))
+            (ratio-to-default (/ val 0.48))
+            ;; gives beam-thickness=0.48 when mag=1 (like default),
+            ;; gives beam-thickness=0.35 when mag=0.63 (like CueVoice)
+            (scaled-default (+ 119/925 (* mag 13/37)))
+            (new-val (* scaled-default ratio-to-default)))
+       (ly:context-pushpop-property context 'Beam 'beam-thickness new-val)))))
 
 ;; tag management
 ;;

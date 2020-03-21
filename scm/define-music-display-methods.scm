@@ -381,18 +381,18 @@ expression."
             (if force-line-break 1 0)
             (if force-line-break (+ 2 (*indent*)) 1)
             (parameterize ((*indent* (+ 2 (*indent*))))
-                          (map-in-order (lambda (music)
-                                          (music->lily-string music))
-                                        elements))
+              (map-in-order (lambda (music)
+                              (music->lily-string music))
+                            elements))
             (if force-line-break 1 0)
             (if force-line-break (*indent*) 1))))
 
 (define-display-method SimultaneousMusic (sim)
   (parameterize ((*indent* (+ 3 (*indent*))))
-                (format #f "<< ~{~a ~}>>"
-                        (map-in-order (lambda (music)
-                                        (music->lily-string music))
-                                      (ly:music-property sim 'elements)))))
+    (format #f "<< ~{~a ~}>>"
+            (map-in-order (lambda (music)
+                            (music->lily-string music))
+                          (ly:music-property sim 'elements)))))
 
 ;;;
 ;;; Chords
@@ -424,10 +424,10 @@ expression."
                  ;; chord elements
                  (format #f "< ~{~a ~}>~a~:{~:[-~;~]~a~^ ~}"
                          (parameterize ((*omit-duration* #t))
-                                       (map-in-order
-                                        (lambda (music)
-                                          (music->lily-string music))
-                                        chord-elements))
+                           (map-in-order
+                            (lambda (music)
+                              (music->lily-string music))
+                            chord-elements))
                          duration
                          (map-in-order (lambda (music)
                                          (list
@@ -656,11 +656,11 @@ expression."
     (let ((result
            (parameterize ((*force-line-break* #f)
                           (*time-scale* (* time-scale scale)))
-                         (format #f "\\tuplet ~a/~a ~@[~a ~]~a"
-                                 den
-                                 num
-                                 formatted-span
-                                 (music->lily-string (ly:music-property times 'element))))))
+             (format #f "\\tuplet ~a/~a ~@[~a ~]~a"
+                     den
+                     num
+                     formatted-span
+                     (music->lily-string (ly:music-property times 'element))))))
       result)))
 
 (define-display-method RelativeOctaveMusic (m)
@@ -724,15 +724,15 @@ expression."
                 ""
                 (format #f " \\with {~{~a~}~%~v_}"
                         (parameterize ((*indent* (+ (*indent*) 2)))
-                                      (map (lambda (op)
-                                             (format #f "~%~v_\\~a ~s"
-                                                     (*indent*)
-                                                     (first op)
-                                                     (second op)))
-                                           operations))
+                          (map (lambda (op)
+                                 (format #f "~%~v_\\~a ~s"
+                                         (*indent*)
+                                         (first op)
+                                         (second op)))
+                               operations))
                         (*indent*)))
             (parameterize ((*current-context* ctype))
-                          (music->lily-string music)))))
+              (music->lily-string music)))))
 
 ;; \afterGrace
 (define-extra-display-method ContextSpeccedMusic (expr)
@@ -751,7 +751,7 @@ Otherwise, return #f."
                                                          element ?grace)))))))
    (format #f "\\afterGrace ~a ~a"
            (music->lily-string ?before-grace)
-            (music->lily-string ?grace))))
+           (music->lily-string ?grace))))
 
 
 ;; special cases: \figures \lyrics \drums
@@ -763,15 +763,15 @@ Otherwise, return #f."
                                  element ?sequence))
                     (if (null? ?op)
                         (parameterize ((*explicit-mode* #f))
-                                      (case ?context-type
-                                        ((FiguredBass)
-                                         (format #f "\\figures ~a" (music->lily-string ?sequence)))
-                                        ((Lyrics)
-                                         (format #f "\\lyrics ~a" (music->lily-string ?sequence)))
-                                        ((DrumStaff)
-                                         (format #f "\\drums ~a" (music->lily-string ?sequence)))
-                                        (else
-                                         #f)))
+                          (case ?context-type
+                            ((FiguredBass)
+                             (format #f "\\figures ~a" (music->lily-string ?sequence)))
+                            ((Lyrics)
+                             (format #f "\\lyrics ~a" (music->lily-string ?sequence)))
+                            ((DrumStaff)
+                             (format #f "\\drums ~a" (music->lily-string ?sequence)))
+                            (else
+                             #f)))
                         #f)))
 
 ;;; Context properties
@@ -788,7 +788,7 @@ Otherwise, return #f."
                  (and (sequence? element)
                       (every property-tuning? (ly:music-property element 'elements)))))
         (parameterize ((*current-context* (ly:music-property expr 'context-type)))
-                      (music->lily-string element))
+          (music->lily-string element))
         #f)))
 
 (define-public (value->lily-string arg)
@@ -1132,7 +1132,7 @@ Otherwise, return #f."
           (ly:music-property expr 'associated-context)
           (parameterize ((*explicit-mode* #f)
                          (*omit-duration* #t))
-                        (music->lily-string (ly:music-property expr 'element)))))
+            (music->lily-string (ly:music-property expr 'element)))))
 
 ;; \autoChange
 (define-extra-display-method SimultaneousMusic (expr)
@@ -1170,7 +1170,7 @@ Otherwise, return #f."
                                 (new-line->lily-string)
                                 (parameterize ((*explicit-mode* #f)
                                                (*omit-duration* #t))
-                                              (music->lily-string ?lyric-sequence)))
+                                  (music->lily-string ?lyric-sequence)))
                         #f)))
 
 ;; Silence internal event sent at end of each lyrics block
