@@ -58,8 +58,8 @@
     (ly:in-event-class? x 'note-event))
   (filter f? (events vs)))
 
-; Return a list of note events which is sorted and stripped of
-; properties that we do not want to prevent combining parts.
+;; Return a list of note events which is sorted and stripped of
+;; properties that we do not want to prevent combining parts.
 (define-method (comparable-note-events (vs <Voice-state>))
   (define (note<? note1 note2)
     (let ((p1 (ly:event-property note1 'pitch))

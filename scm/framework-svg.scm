@@ -193,9 +193,9 @@ src: url('~a');
          (top-y (list-ref bbox 1))
          (device-width (list-ref bbox 2))
          (device-height (list-ref bbox 3))
-         ;BUG: Height calculation is off - optional & disabled
-         ;(svg-width (* output-scale device-width))
-         ;(svg-height (* output-scale device-height))
+         ;; BUG: Height calculation is off - optional & disabled
+         ;; (svg-width (* output-scale device-width))
+         ;; (svg-height (* output-scale device-height))
         )
 
     (if (ly:get-option 'svg-woff)

@@ -261,7 +261,7 @@ The number of dots in the shifted music may not be less than zero."
                     (max 0 (+ dot (ly:duration-dot-count d)))
                     cp)))
           (set! (ly:music-property music 'duration) nd)))
-    ;clear cached length, since it's no longer valid
+    ;; clear cached length, since it's no longer valid
     (set! (ly:music-property music 'length) '())
     music))
 

@@ -232,27 +232,27 @@ used.  This is used to select the proper design size for the text fonts.
   (add-node 'italic 'normal)
   (add-node 'italic 'bold))
 
-; This function allows the user to change the specific fonts, leaving others
-; to the default values. This way, "make-pango-font-tree"'s syntax doesn't
-; have to change from the user's perspective.
-;
-; Usage:
-;   \paper {
-;     #(define fonts
-;       (set-global-fonts
-;        #:music "gonville"  ; (the main notation font)
-;        #:roman "FreeSerif" ; (the main/serif text font)
-;       ))
-;   }
-;
-; Leaving out "#:brace", "#:sans", and "#:typewriter" leave them at 
-; "emmentaler", "sans-serif", and "monospace", respectively. All fonts are
-; still accesible through the usual scheme symbols: 'feta, 'roman, 'sans, and
-; 'typewriter.
-;
-; Note that 'LilyPond Serif', 'LilyPond Sans Serif' and 'Lilypond Monospace'
-; are aliases that are defined in mf/00-lilypond-fonts.conf.in (source file)
-; or fonts/00-lilypond-fonts.conf (installed file).
+;; This function allows the user to change the specific fonts, leaving others
+;; to the default values. This way, "make-pango-font-tree"'s syntax doesn't
+;; have to change from the user's perspective.
+;;
+;; Usage:
+;;   \paper {
+;;     #(define fonts
+;;       (set-global-fonts
+;;        #:music "gonville"  ; (the main notation font)
+;;        #:roman "FreeSerif" ; (the main/serif text font)
+;;       ))
+;;   }
+;;
+;; Leaving out "#:brace", "#:sans", and "#:typewriter" leave them at 
+;; "emmentaler", "sans-serif", and "monospace", respectively. All fonts are
+;; still accesible through the usual scheme symbols: 'feta, 'roman, 'sans, and
+;; 'typewriter.
+;;
+;; Note that 'LilyPond Serif', 'LilyPond Sans Serif' and 'Lilypond Monospace'
+;; are aliases that are defined in mf/00-lilypond-fonts.conf.in (source file)
+;; or fonts/00-lilypond-fonts.conf (installed file).
 
 (define*-public (set-global-fonts #:key
   (music "emmentaler")

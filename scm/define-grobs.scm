@@ -917,11 +917,11 @@
                                 font-interface
                                 line-interface
                                 line-spanner-interface
-                                ;for now, LilyPond never will typeset
-                                ;these without a DynamicLineSpanner
-                                ;as their controlling element
-                                ;so, they do not need the
-                                ;outside-staff-interface
+                                ;; for now, LilyPond never will typeset
+                                ;; these without a DynamicLineSpanner
+                                ;; as their controlling element
+                                ;; so, they do not need the
+                                ;; outside-staff-interface
                                 spanner-interface
                                 text-interface))))))
 

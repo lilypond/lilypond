@@ -996,13 +996,13 @@ print a warning and set an optional @var{default}."
                                      (not (ly-type? val))))
                           'single
                           'none)))
-         ; don't confuse users with #<procedure ...> syntax
+         ;; don't confuse users with #<procedure ...> syntax
          (str (if (and (procedure? val)
                        (symbol? (procedure-name val)))
                 (symbol->string (procedure-name val))
                 (call-with-output-string
                   (if (pretty-printable? val)
-                    ; property values in PDF hit margin after 64 columns
+                    ;; property values in PDF hit margin after 64 columns
                     (lambda (port)
                       (pretty-print val port #:width (case quote-style
                                                        ((single) 63)
