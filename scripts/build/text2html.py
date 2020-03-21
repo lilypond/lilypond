@@ -23,7 +23,7 @@ for a in sys.argv[1:]:
     # -o is a bit overkill?
     # outfile = os.path.basename (os.path.splitext(a)[0]) + '.html'
     outfile = os.path.splitext(a)[0] + '.html'
-    
+
     try:
       os.unlink(outfile)
     except:

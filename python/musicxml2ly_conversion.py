@@ -42,7 +42,7 @@ class Marker(musicexp.Music):
         pass
     def ly_expression(self):
         return ""
-    
+
 class RepeatMarker(Marker):
     def __init__(self):
         Marker.__init__(self)

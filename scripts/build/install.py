@@ -8,7 +8,7 @@ transform_base = None
 group = None
 owner = None
 transform = None
-mode = None 
+mode = None
 copy = False
 create_dir = False
 
@@ -55,7 +55,7 @@ if not mode:
         mode = 0o755
     else:
         mode = 0o644
-        
+
 
 chown_me = []
 
@@ -67,7 +67,7 @@ for f in args:
     if create_dir:
         if os.path.isdir (f):
             continue
-        
+
         os.makedirs (f, mode=mode)
         chown_me.append (f)
     else:
@@ -87,8 +87,8 @@ for f in chown_me:
     os.chmod (f, mode)
     if group != None or owner != None:
         os.chown (f, group, owner)
-    
-    
 
-        
+
+
+
 

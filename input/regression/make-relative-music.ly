@@ -6,7 +6,7 @@ function calls behave as one would expect from looking at the
 function's arguments rather than at the actually resulting
 expressions.  This regtest defines an example function
 @code{\\withOctave} which works equally well inside and outside of
-@code{\\relative}." 
+@code{\\relative}."
 }
 
 withOctave =

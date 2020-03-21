@@ -29,7 +29,7 @@ LILYPOND_BOOK = $(script-dir)/lilypond-book.py
 
 LILYPOND_BOOK_INCLUDES = -I $(src-dir) $(DOCUMENTATION_INCLUDES)
 
-## override from cmd line to speed up. 
+## override from cmd line to speed up.
 ANTI_ALIAS_FACTOR=2
 LILYPOND_JOBS=$(if $(CPU_COUNT),-djob-count=$(CPU_COUNT),)
 LANG_TEXIDOC_FLAGS:=$(foreach lang,$(LANGS),--header=texidoc$(lang))

@@ -41,7 +41,7 @@
   (let* ((prefix
 	  (or (getenv "LILYPOND_DATADIR")
 	      (dirname  (dirname (car (command-line)))))))
-    
+
 
     (if (eq? prefix (dirname DATADIR)) COMPILE-TIME-PREFIX
 	(format #f "~a/share/lilypond/~a"
@@ -90,8 +90,8 @@ Options:
 
 (define (is-textedit-uri? uri)
   (string-match "^textedit:" uri))
-  
-  
+
+
 (define (dissect-uri uri)
   (let* ((match (string-match "textedit://(.*):([0-9]+):([0-9]+):([0-9]*)$" uri)))
     (if match

@@ -691,7 +691,7 @@ def update_category_word_counts_sub (m):
                          for c in counts_re.findall (m.group (2))])).ljust (6)
             + 'total')
 
-# urg 
+# urg
 # main () starts here-abouts
 
 progress ("Reading documents...")

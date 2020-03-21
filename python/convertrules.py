@@ -3751,7 +3751,7 @@ def conv(str):
     str = re.sub (r"\b\.whiteout(?![a-z_-])\b", r".whiteout-box", str)
     str = re.sub (r"#'whiteout(?![a-z_-])\b", r"#'whiteout-box", str)
     str = re.sub (r"\bstencil-whiteout\b", r"stencil-whiteout-box", str)
-    
+
     # (define-xxx-function (parser location ...) -> (define-xxx-function (...)
     def subst(m):
         def subsub(m):

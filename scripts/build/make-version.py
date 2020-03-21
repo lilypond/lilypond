@@ -21,14 +21,14 @@ sys.stdout.write (r'''
 ''' % vars ())
 
 for name, expansion in defs:
-    # GUILE leaks autoconf data into userspace. 
+    # GUILE leaks autoconf data into userspace.
     sys.stdout.write (r'''
 #ifdef %(name)s
 #undef %(name)s
 #endif /* %(name)s */
 #define %(name)s "%(expansion)s"
 ''' % vars ())
-    
+
 if ('MY_PATCH_LEVEL', '') in defs:
     sys.stdout.write (r'''
 #define NO_MY_PATCHLEVEL
@@ -42,4 +42,4 @@ else:
 sys.stdout.write(r'''
 #endif /* VERSION_HH */
 ''')
-    
+

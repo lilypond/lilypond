@@ -125,7 +125,7 @@ snippet_res = {
     (?P<match>
     (?P<code>
     [ \t]*/\*.*?\*/))''',
-    
+
     'singleline_comment':
     r'''(?mx)
     ^.*?    # leave leading spaces for the comment snippet
@@ -139,13 +139,13 @@ snippet_res = {
     (?P<match>
     (?P<code>
     ([^"\n]|\\")*"))''',
-    
+
     'char':
     r'''(?x)
     (?P<match>
     (?P<code>
     '([^']+|\')))''',
-     
+
     'include':
     r'''(?x)
     (?P<match>
@@ -184,7 +184,7 @@ class Substring (Chunk):
         if verbose_p:
             sys.stderr.write ('done\n')
         return s
-        
+
 
 class Snippet (Chunk):
     def __init__ (self, type, match, format):
@@ -327,7 +327,7 @@ def nitpick_file (outdir, file):
     if s != t:
         if not outdir:
             os.system ('mv %s %s~' % (file, file))
-        else: 
+        else:
             fixt = os.path.join (outdir,
                       os.path.basename (file))
         h = open (fixt, "w")
@@ -454,13 +454,13 @@ typedef struct _t_ligature
  char *succ, *lig;
  struct _t_ligature * next;
 }  AFM_Ligature;
- 
+
 typedef std::map < AFM_Ligature const *, int > Bar;
 
  /**
  Copyright (C) 1997--2020 Han-Wen Nienhuys <hanwen@cs.uu.nl>
  */
- 
+
 /*      ||
 *      vv
 * !OK  OK

@@ -72,7 +72,7 @@ for fifth in range(-max_range, max_range+1):
         print_measure (measure, fifth, "minor", "", "", final_barline)
     else:
         print_measure (measure, fifth, "minor")
-    
+
 
 print("""  </part>
 </score-partwise>""")
