@@ -23,7 +23,7 @@ TOPDOC_FILES = AUTHORS INSTALL README NEWS
 TOPDOC_TXT_FILES = $(addprefix $(top-build-dir)/Documentation/topdocs/$(outdir)/,$(addsuffix .txt,$(TOPDOC_FILES)))
 IN_FILES := $(call src-wildcard,*.in)
 
-RELEASE_FILES = ChangeLog RELEASE-COMMIT
+RELEASE_FILES = RELEASE-COMMIT
 RELEASE_OUT_FILES = $(RELEASE_FILES:%=$(outdir)/%)
 OUT_DIST_FILES += $(RELEASE_OUT_FILES)
 INSTALLATION_DIR=$(local_lilypond_datadir)
@@ -78,15 +78,10 @@ $(outdir)/VERSION: $(config_make) VERSION
 	-mkdir -p $(outdir)
 	echo $(TOPLEVEL_VERSION) > $@
 
-$(outdir)/ChangeLog: $(outdir)/VERSION
-	$(call ly_progress,Making,$@,)
-	@echo 'See http://git.savannah.gnu.org/gitweb/?p=lilypond.git;a=log;h=refs/tags/release/$(TOPLEVEL_VERSION)-1' > $@
-
-$(outdir)/RELEASE-COMMIT: # FIXME: any file in $(top-src-dir)/.git/ we can depend on and be sure RELEASE-COMMIT is up to date?
+$(outdir)/RELEASE-COMMIT:
 	$(call ly_progress,Making,$@,)
 	git --git-dir=$(top-src-dir)/.git show HEAD | head -100 > $@
 
-# junk me as soon as RELEASE-COMMIT FIXME: has been addressed
 refresh-release-files:
 	test -d $(top-src-dir)/.git && rm -f $(RELEASE_OUT_FILES)
 	$(MAKE) $(RELEASE_OUT_FILES)
@@ -97,10 +92,7 @@ python-modules:
 
 top-doc: python-modules
 
-local-clean: local-clean-ChangeLog local-clean-filelist
-
-local-clean-ChangeLog:
-	rm -f ChangeLog
+local-clean: local-clean-filelist
 
 info:
 	$(foreach d, $(INFO_DIRECTORIES),$(MAKE) -C $(d) out=www info && ) true
@@ -194,10 +186,6 @@ tree-share = $(tree-prefix)/share
 
 tree-share-prefix = $(tree-share)/lilypond/current
 tree-lib-prefix = $(tree-lib)/lilypond/current
-
-C_DIRS = flower lily
-c-clean:
-	$(foreach i, $(C_DIRS), $(MAKE) -C $(i) clean &&) true
 
 src-ext = c cc yy ll hh icc py scm tex ps texi itexi tely itely sh
 
