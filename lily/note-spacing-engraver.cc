@@ -138,7 +138,6 @@ Note_spacing_engraver::stop_translation_timestep ()
 
 }
 
-
 void
 Note_spacing_engraver::boot ()
 {

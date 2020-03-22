@@ -145,9 +145,9 @@ get_current_note_head (Context *voice)
 
       // It's a bit irritating that we just have the length and
       // duration of the Grob.
-      Moment end_from_now =
-        get_event_length (g->event_cause (), now)
-        + now;
+      Moment end_from_now
+        = get_event_length (g->event_cause (), now)
+          + now;
       // We cannot actually include more than a single grace note
       // using busyGrobs on ungraced lyrics since a grob ending on
       // grace time will just have disappeared from busyGrobs by the
@@ -182,7 +182,7 @@ Lyric_engraver::stop_translation_timestep ()
 
           if (head)
             {
-              text_->set_parent (head->get_parent(X_AXIS), X_AXIS);
+              text_->set_parent (head->get_parent (X_AXIS), X_AXIS);
               if (melisma_busy (voice)
                   && !to_boolean (get_property ("ignoreMelismata")))
                 text_->set_property ("self-alignment-X",

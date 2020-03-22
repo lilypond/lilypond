@@ -341,7 +341,7 @@ Input const &
 Lily_lexer::override_input (Input const &in) const
 {
   return override_input_.get_source_file ()
-    ? override_input_ : in;
+         ? override_input_ : in;
 }
 
 void
@@ -363,8 +363,7 @@ Lily_lexer::add_lexed_char (int count)
   char_count_stack_.back () += count;
 }
 
-
-const char * const Lily_lexer::type_p_name_ = "ly:lily-lexer?";
+const char *const Lily_lexer::type_p_name_ = "ly:lily-lexer?";
 
 SCM
 Lily_lexer::mark_smob () const

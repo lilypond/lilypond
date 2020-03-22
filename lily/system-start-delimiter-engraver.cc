@@ -238,7 +238,6 @@ System_start_delimiter_engraver::acknowledge_system_start_delimiter (Grob_info i
   nesting_->add_support (inf.grob ());
 }
 
-
 void
 System_start_delimiter_engraver::boot ()
 {

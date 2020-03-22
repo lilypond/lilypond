@@ -117,7 +117,7 @@ Stem::chord_start_y (Grob *me)
 {
   if (head_count (me))
     return Staff_symbol_referencer::get_position (last_head (me))
-      * Staff_symbol_referencer::staff_space (me) * 0.5;
+           * Staff_symbol_referencer::staff_space (me) * 0.5;
 
   return 0;
 }
@@ -563,7 +563,7 @@ Stem::calc_positioning_done (SCM smob)
     }
   bool parity = true;
   Real lastpos
-      = static_cast<Real> (Staff_symbol_referencer::get_position (heads[0]));
+    = static_cast<Real> (Staff_symbol_referencer::get_position (heads[0]));
   int threshold = robust_scm2int (me->get_property ("note-collision-threshold"), 1);
   for (vsize i = 1; i < heads.size (); i++)
     {
@@ -835,7 +835,6 @@ Stem::internal_calc_stem_begin_position (Grob *me, bool calc_beam)
   return pos;
 }
 
-
 MAKE_SCHEME_CALLBACK (Stem, pure_calc_length, 3);
 SCM
 Stem::pure_calc_length (SCM smob, SCM /*start*/, SCM /*end*/)
@@ -894,7 +893,7 @@ Stem::print (SCM smob)
   Real stem_length = robust_scm2double (me->get_property ("length"), 0.0);
   Real fb_stem_adjustment
     = robust_scm2double (me->get_property ("french-beaming-stem-adjustment"),
-                                           0.0);
+                         0.0);
   Real half_space = Staff_symbol_referencer::staff_space (me) * 0.5;
 
   /* Shorten inner French Beams (for printing) */
@@ -950,7 +949,7 @@ Stem::offset_callback (SCM smob)
 
       Direction d = get_grob_direction (me);
       Real real_attach = head_wid.linear_combination (d * attach);
-      Real r = std::isnan(real_attach)? 0.0: real_attach;
+      Real r = std::isnan (real_attach) ? 0.0 : real_attach;
 
       /* If not centered: correct for stem thickness.  */
       string style = robust_symbol2string (f->get_property ("style"), "default");
@@ -1099,7 +1098,7 @@ Stem::calc_stem_info (SCM smob)
       ideal_y = std::max (ideal_y, 0.0);
       /* Lowest beam of (UP) beam must never be lower than second staffline */
       ideal_y = std::max (ideal_y, (-staff_space
-                               - beam_thickness + height_of_my_beams));
+                                    - beam_thickness + height_of_my_beams));
     }
 
   ideal_y -= robust_scm2double (beam->get_property ("shorten"), 0);

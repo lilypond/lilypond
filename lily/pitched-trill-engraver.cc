@@ -172,7 +172,6 @@ Pitched_trill_engraver::stop_translation_timestep ()
   trill_accidental_ = 0;
 }
 
-
 void
 Pitched_trill_engraver::boot ()
 {

@@ -124,7 +124,6 @@ Keep_alive_together_engraver::finalize ()
     }
 }
 
-
 void
 Keep_alive_together_engraver::boot ()
 {

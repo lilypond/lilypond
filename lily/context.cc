@@ -53,12 +53,12 @@ Context::check_removal ()
       if (ctx->is_removable ())
         {
           recurse_over_translators
-            (ctx,
-             Callback0_wrapper::make_smob
-             <Translator, &Translator::finalize> (),
-             Callback0_wrapper::make_smob
-             <Translator_group, &Translator_group::finalize> (),
-             UP);
+          (ctx,
+           Callback0_wrapper::make_smob
+           <Translator, &Translator::finalize> (),
+           Callback0_wrapper::make_smob
+           <Translator_group, &Translator_group::finalize> (),
+           UP);
           send_stream_event (ctx, "RemoveContext", 0);
         }
     }
@@ -393,7 +393,7 @@ Context::path_to_acceptable_context (SCM name) const
     }
 
   return unsmob<Context_def> (definition_)->
-    path_to_acceptable_context (name, odef, acceptance_.get_list ());
+         path_to_acceptable_context (name, odef, acceptance_.get_list ());
 }
 
 Context *
@@ -470,7 +470,7 @@ Context::create_hierarchy (const std::vector<Context_def *> &path,
             }
         }
 
-      leaf = leaf->create_context (path.back(), leaf_id, leaf_operations);
+      leaf = leaf->create_context (path.back (), leaf_id, leaf_operations);
       if (!leaf)
         return 0; // expect that create_context logged failure
     }
@@ -486,8 +486,8 @@ Context::find_child_to_adopt_grandchild (SCM child_name, SCM grandchild_name)
   for (SCM s = context_list_; scm_is_pair (s); s = scm_cdr (s))
     {
       Context *c = unsmob<Context> (scm_car (s));
-      if (c->adopts_ &&
-          scm_is_eq (c->context_name_symbol (), child_name) &&
+      if (c->adopts_
+          && scm_is_eq (c->context_name_symbol (), child_name) &&
           // Is this way of checking acceptance too heavy?
           (c->path_to_acceptable_context (grandchild_name).size () == 1))
         {
@@ -733,7 +733,7 @@ Context *
 find_top_context (Context *where)
 {
   Context *top = where;
-  for ( ; where; where = where->get_parent_context())
+  for (; where; where = where->get_parent_context ())
     top = where;
   return top;
 }
@@ -758,7 +758,7 @@ Context::context_name () const
 }
 
 string
-Context::diagnostic_id (SCM name, const string& id)
+Context::diagnostic_id (SCM name, const string &id)
 {
   // For robustness when this static method is called directly (e.g. after a
   // failure to create a context), we do not assume that name is a symbol.
@@ -845,7 +845,7 @@ Context::mark_smob () const
   return properties_scm_;
 }
 
-const char * const Context::type_p_name_ = "ly:context?";
+const char *const Context::type_p_name_ = "ly:context?";
 
 Context *
 Context::get_parent_context () const
@@ -938,11 +938,13 @@ melisma_busy (Context *tr)
       // all contexts need to have a busy melisma for this to evaluate
       // to true.
 
-      do {
-        if (!melisma_busy (unsmob<Context> (scm_car (ch))))
-          return false;
-        ch = scm_cdr (ch);
-      } while (scm_is_pair (ch));
+      do
+        {
+          if (!melisma_busy (unsmob<Context> (scm_car (ch))))
+            return false;
+          ch = scm_cdr (ch);
+        }
+      while (scm_is_pair (ch));
       return true;
     }
 

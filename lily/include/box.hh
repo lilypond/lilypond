@@ -12,7 +12,7 @@
 class Box : public Simple_smob<Box>
 {
 public:
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
 private:
   Interval interval_a_[NO_AXES];
 public:
@@ -41,6 +41,5 @@ public:
   Box ();
   Box (Interval ix, Interval iy);
 };
-
 
 #endif

@@ -140,8 +140,8 @@ Tuplet_engraver::process_music ()
             {
               Item *col
                 = unsmob<Item> (stopped_tuplets_[i].full_length_note_
-                               ? get_property ("currentMusicalColumn")
-                               : get_property ("currentCommandColumn"));
+                                ? get_property ("currentMusicalColumn")
+                                : get_property ("currentCommandColumn"));
 
               bracket->set_bound (RIGHT, col);
               number->set_bound (RIGHT, col);

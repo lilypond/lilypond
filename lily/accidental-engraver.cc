@@ -340,9 +340,9 @@ Accidental_engraver::make_standard_accidental (Stream_event * /* note */,
   // but may break in subtle corner cases.
   intmax_t context_hash = reinterpret_cast<intmax_t>(trans);
   Accidental_placement::add_accidental
-    (accidental_placement_, a,
-     scm_is_eq (get_property ("accidentalGrouping"), ly_symbol2scm ("voice")),
-     static_cast<long>(context_hash));
+  (accidental_placement_, a,
+   scm_is_eq (get_property ("accidentalGrouping"), ly_symbol2scm ("voice")),
+   static_cast<long>(context_hash));
 
   note_head->set_object ("accidental-grob", a->self_scm ());
 
@@ -522,7 +522,6 @@ Accidental_engraver::process_music ()
   if (!scm_is_eq (last_keysig_, sig))
     update_local_key_signature (sig);
 }
-
 
 void
 Accidental_engraver::boot ()

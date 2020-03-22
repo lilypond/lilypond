@@ -134,8 +134,6 @@ Scale::normalize_step (int step) const
   return ret;
 }
 
-
-
 Scale::Scale (vector<Rational> const &tones)
 {
   assert (tones.size () <= std::numeric_limits<int>::max ());

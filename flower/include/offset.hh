@@ -174,6 +174,5 @@ cross_product (Offset o1, Offset o2)
   return o1[X_AXIS] * o2[Y_AXIS] - o1[Y_AXIS] * o2[X_AXIS];
 }
 
-
 #endif /* OFFSET_HH */
 

@@ -228,7 +228,7 @@ nalist_to_alist (SCM nalist, int nested)
   // unique, so we can push them to `copied' after resolving without
   // losing information.
 
-  for (;scm_is_pair (partials); partials = scm_cdr (partials))
+  for (; scm_is_pair (partials); partials = scm_cdr (partials))
     {
       SCM pair = scm_car (partials);
       SCM key = scm_car (pair);
@@ -270,7 +270,7 @@ nassq_ref (SCM key, SCM nalist, SCM fallback)
           for (; scm_is_pair (partials); partials = scm_cdr (partials))
             {
               value = nested_property_alist (value, scm_cdaar (partials),
-                                            scm_cdar (partials));
+                                             scm_cdar (partials));
             }
           return value;
         }
@@ -284,7 +284,7 @@ nassq_ref (SCM key, SCM nalist, SCM fallback)
       partials = scm_cdr (partials);
       for (; scm_is_pair (partials); partials = scm_cdr (partials))
         value = nested_property_alist (value, scm_cdaar (partials),
-                                      scm_cdar (partials));
+                                       scm_cdar (partials));
       return value;
     }
   return SCM_UNBNDP (fallback) ? SCM_EOL : fallback;

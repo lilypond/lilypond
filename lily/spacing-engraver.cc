@@ -263,7 +263,6 @@ Spacing_engraver::start_translation_timestep ()
     stopped_durations_.push_back (playing_durations_.get ());
 }
 
-
 void
 Spacing_engraver::boot ()
 {

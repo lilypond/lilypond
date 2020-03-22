@@ -345,7 +345,6 @@ Page_turn_engraver::finalize ()
     }
 }
 
-
 void
 Page_turn_engraver::boot ()
 {

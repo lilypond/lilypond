@@ -116,7 +116,6 @@ Ligature_bracket_engraver::stop_translation_timestep ()
   finished_ligature_ = 0;
 }
 
-
 void
 Ligature_bracket_engraver::boot ()
 {

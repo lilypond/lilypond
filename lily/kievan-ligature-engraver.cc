@@ -62,7 +62,7 @@ Kievan_ligature_engraver::create_ligature_spanner ()
 
 void
 Kievan_ligature_engraver::fold_up_primitives (vector<Grob_info> const &primitives,
-						Real padding, Real &min_length)
+                                              Real padding, Real &min_length)
 {
   Item *first = 0;
   Real accumul_acc_space = 0.0;
@@ -75,14 +75,14 @@ Kievan_ligature_engraver::fold_up_primitives (vector<Grob_info> const &primitive
       Interval my_ext = current->extent (current, X_AXIS);
       Real head_width = my_ext.length ();
       if (i == 0)
-         first = current;
+        first = current;
 
       // must keep track of accidentals in spacing problem
       Grob *acc_gr = unsmob<Grob> (current->get_object ("accidental-grob"));
       if (acc_gr && i > 0)
         {
-           Interval acc_ext = acc_gr->extent (acc_gr, X_AXIS);
-           accumul_acc_space += acc_ext.length();
+          Interval acc_ext = acc_gr->extent (acc_gr, X_AXIS);
+          accumul_acc_space += acc_ext.length ();
         }
 
       move_related_items_to_column (current, first->get_column (),
@@ -94,8 +94,8 @@ Kievan_ligature_engraver::fold_up_primitives (vector<Grob_info> const &primitive
           Grob *dot_gr = Rhythmic_head::get_dots (current);
 
           head_width += Font_interface::get_default_font (current)->
-              find_by_name ("dots.dotkievan").extent (X_AXIS).length() -
-              0.5 * (padding - accumul_acc_space);
+                        find_by_name ("dots.dotkievan").extent (X_AXIS).length ()
+                        - 0.5 * (padding - accumul_acc_space);
 
           dot_gr->translate_axis (0.5 * (padding - accumul_acc_space), X_AXIS);
         }
@@ -103,13 +103,13 @@ Kievan_ligature_engraver::fold_up_primitives (vector<Grob_info> const &primitive
       // add more padding if we have an accidental coming up
       if (i < primitives.size () - 1)
         {
-           Item *next = dynamic_cast<Item *> (primitives[i + 1].grob ());
-           Grob *acc_gr = unsmob<Grob> (next->get_object ("accidental-grob"));
-           if (acc_gr)
-             {
-                Interval acc_ext = acc_gr->extent (acc_gr, X_AXIS);
-                padding += acc_ext.length();
-             }
+          Item *next = dynamic_cast<Item *> (primitives[i + 1].grob ());
+          Grob *acc_gr = unsmob<Grob> (next->get_object ("accidental-grob"));
+          if (acc_gr)
+            {
+              Interval acc_ext = acc_gr->extent (acc_gr, X_AXIS);
+              padding += acc_ext.length ();
+            }
         }
 
       min_length += head_width + padding - accumul_acc_space;
@@ -120,7 +120,7 @@ Kievan_ligature_engraver::fold_up_primitives (vector<Grob_info> const &primitive
 
 void
 Kievan_ligature_engraver::build_ligature (Spanner *ligature,
-                                            vector<Grob_info> const &primitives)
+                                          vector<Grob_info> const &primitives)
 {
   Real min_length;
 
@@ -131,7 +131,6 @@ Kievan_ligature_engraver::build_ligature (Spanner *ligature,
     ligature->set_property ("minimum-length", scm_from_double (min_length));
 
 }
-
 
 void
 Kievan_ligature_engraver::boot ()

@@ -58,7 +58,7 @@ std::string gulp_file_to_string (const std::string &fn, bool must_exist, int siz
 SCM ly_string2scm (std::string const &s);
 std::string ly_scm2string (SCM s);
 std::string ly_symbol2string (SCM);
-std::string robust_symbol2string (SCM, const std::string&);
+std::string robust_symbol2string (SCM, const std::string &);
 Rational ly_scm2rational (SCM);
 SCM ly_rational2scm (Rational);
 SCM ly_offset2scm (Offset);
@@ -82,7 +82,7 @@ Drul_array<Real> robust_scm2drul (SCM, Drul_array<Real>);
 Drul_array<bool> robust_scm2booldrul (SCM, Drul_array<bool>);
 Interval robust_scm2interval (SCM, Drul_array<Real>);
 Offset robust_scm2offset (SCM, Offset);
-std::string robust_scm2string (SCM, const std::string&);
+std::string robust_scm2string (SCM, const std::string &);
 Rational robust_scm2rational (SCM, Rational);
 std::vector<Real> ly_scm2floatvector (SCM);
 SCM ly_floatvector2scm (std::vector<Real> v);

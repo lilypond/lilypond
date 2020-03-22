@@ -22,7 +22,6 @@
 
 #include "engraver.hh"
 
-
 #include "context.hh"
 #include "item.hh"
 #include "spanner.hh"
@@ -111,7 +110,6 @@ Tab_tie_follow_engraver::stop_translation_timestep ()
   glissandi_.clear ();
   note_heads_.clear ();
 }
-
 
 void
 Tab_tie_follow_engraver::boot ()

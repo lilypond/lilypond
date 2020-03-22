@@ -51,8 +51,8 @@ SCM
 Self_alignment_interface::aligned_on_self (Grob *me, Axis a, bool pure, int start, int end)
 {
   SCM align = (a == X_AXIS)
-          ? me->get_property ("self-alignment-X")
-          : me->get_property ("self-alignment-Y");
+              ? me->get_property ("self-alignment-X")
+              : me->get_property ("self-alignment-Y");
   if (scm_is_number (align))
     {
       Interval ext (me->maybe_pure_extent (me, a, pure, start, end));
@@ -110,32 +110,32 @@ Self_alignment_interface::aligned_on_parent (Grob *me, Axis a)
   Grob *him = me->get_parent (a);
   Interval he;
   if (has_interface<Paper_column> (him))
-      /*
-        PaperColumn extents aren't reliable (they depend on size and alignment
-        of PaperColumn's children), so we align on NoteColumn instead.
-        This happens e.g. for lyrics without associatedVoice.
-      */
+    /*
+      PaperColumn extents aren't reliable (they depend on size and alignment
+      of PaperColumn's children), so we align on NoteColumn instead.
+      This happens e.g. for lyrics without associatedVoice.
+    */
     he = Paper_column::get_interface_extent
-              (him, ly_symbol2scm ("note-column-interface"), a);
+         (him, ly_symbol2scm ("note-column-interface"), a);
   else
     {
       if (to_boolean (me->get_property ("X-align-on-main-noteheads"))
           && has_interface<Note_column> (him))
-        he = Note_column::calc_main_extent(him);
+        he = Note_column::calc_main_extent (him);
       else
         he = him->extent (him, a);
     }
 
   SCM self_align = (a == X_AXIS)
-          ? me->get_property ("self-alignment-X")
-          : me->get_property ("self-alignment-Y");
+                   ? me->get_property ("self-alignment-X")
+                   : me->get_property ("self-alignment-Y");
 
   SCM par_align = (a == X_AXIS)
-          ? me->get_property ("parent-alignment-X")
-          : me->get_property ("parent-alignment-Y");
+                  ? me->get_property ("parent-alignment-X")
+                  : me->get_property ("parent-alignment-Y");
 
   if (scm_is_null (par_align))
-      par_align = self_align;
+    par_align = self_align;
 
   Real x = 0.0;
   Interval ext (me->extent (me, a));

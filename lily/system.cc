@@ -333,8 +333,8 @@ System::internal_get_note_heights_in_range (vsize start, vsize end, bool foot)
       if (!Text_interface::is_markup (footnote_markup))
         continue;
 
-      SCM props =
-        Lily::layout_extract_page_properties (pscore_->layout ()->self_scm ());
+      SCM props
+        = Lily::layout_extract_page_properties (pscore_->layout ()->self_scm ());
 
       SCM footnote_stl = Text_interface::interpret_markup (pscore_->layout ()->self_scm (),
                                                            props, footnote_markup);
@@ -701,8 +701,8 @@ System::broken_col_range (Item const *left_item, Item const *right_item) const
 
   extract_grob_set (this, "columns", cols);
 
-  vsize end_rank = std::min(static_cast<vsize> (right_col->get_rank ()),
-                            cols.size ());
+  vsize end_rank = std::min (static_cast<vsize> (right_col->get_rank ()),
+                             cols.size ());
   for (vsize i = left_col->get_rank () + 1; i < end_rank; ++i)
     {
       if (Paper_column *c = dynamic_cast<Paper_column *> (cols[i]))
@@ -733,7 +733,7 @@ System::used_columns_in_range (vsize start, vsize end) const
         break;
     }
 
-  end = std::min(end, last_breakable + 1);
+  end = std::min (end, last_breakable + 1);
 
   vector<Paper_column *> columns;
   for (vsize i = start; i < end; ++i)

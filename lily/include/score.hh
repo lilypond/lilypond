@@ -31,7 +31,7 @@ class Score : public Smob<Score>
 {
 public:
   SCM mark_smob () const;
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
   virtual ~Score ();
 private:
   SCM music_;
@@ -56,7 +56,6 @@ public:
   SCM get_header () const;
   void set_header (SCM module);
 };
-
 
 SCM ly_run_translator (SCM, SCM);
 

@@ -92,7 +92,7 @@ Context_def::~Context_def ()
 {
 }
 
-const char * const Context_def::type_p_name_ = "ly:context-def?";
+const char *const Context_def::type_p_name_ = "ly:context-def?";
 
 int
 Context_def::print_smob (SCM port, scm_print_state *) const
@@ -333,7 +333,7 @@ Context_def::instantiate (SCM ops)
   // TODO: Set this with "\adopts ##t" in the ly code.
   context->adopts_ = scm_is_eq (context_name_, ly_symbol2scm ("Score"));
 
-  Acceptance_set& acc = context->acceptance_;
+  Acceptance_set &acc = context->acceptance_;
   for (SCM s = ops; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM tag = scm_caar (s);

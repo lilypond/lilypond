@@ -60,15 +60,15 @@ Accidental_interface::horizontal_skylines (SCM smob)
     return Skyline_pair ().smobbed_copy ();
 
   SCM rot = me->get_property ("rotation");
-  Skyline_pair *sky =
-    unsmob<Skyline_pair>
+  Skyline_pair *sky
+    = unsmob<Skyline_pair>
       (Stencil::skylines_from_stencil
-        (my_stencil->smobbed_copy (), 0.0, rot, Y_AXIS));
+       (my_stencil->smobbed_copy (), 0.0, rot, Y_AXIS));
 
   SCM alist = me->get_property ("glyph-name-alist");
   SCM alt = me->get_property ("alteration");
   string glyph_name = robust_scm2string (ly_assoc_get (alt, alist, SCM_BOOL_F),
-                                                       "");
+                                         "");
   if (glyph_name == "accidentals.flat"
       || glyph_name == "accidentals.flatflat")
     {
@@ -115,7 +115,7 @@ Accidental_interface::remove_tied (SCM smob)
   if (tie
       && !to_boolean (me->get_property ("forced"))
       && (to_boolean (me->get_property ("hide-tied-accidental-after-break"))
-          || !tie->original()))
+          || !tie->original ()))
     me->suicide ();
 
   return SCM_UNSPECIFIED;

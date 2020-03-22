@@ -23,7 +23,6 @@
 #include <cmath>
 #include <ctime>
 
-
 #include "dimensions.hh"
 #include "file-name.hh"
 #include "font-metric.hh"
@@ -59,7 +58,6 @@ Paper_outputter::Paper_outputter (SCM port, const string &format)
 Paper_outputter::~Paper_outputter ()
 {
 }
-
 
 SCM
 Paper_outputter::mark_smob () const

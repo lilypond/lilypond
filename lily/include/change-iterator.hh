@@ -32,10 +32,10 @@ public:
 
   // returns an error message (empty on success)
   static std::string change_to (Music_iterator &it,
-                           SCM to_type, const std::string &to_id);
+                                SCM to_type, const std::string &to_id);
 
 private:
-  void error (const std::string&);
+  void error (const std::string &);
 };
 
 #endif

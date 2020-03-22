@@ -139,7 +139,6 @@ Ottava_spanner_engraver::finalize ()
 
 #include "translator.icc"
 
-
 void
 Ottava_spanner_engraver::boot ()
 {

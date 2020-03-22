@@ -32,7 +32,7 @@ public:
   Midi_stream (const std::string &file_name_string);
   ~Midi_stream ();
 
-  void write (const std::string&);
+  void write (const std::string &);
   void write (Midi_chunk const &);
   void open ();
 

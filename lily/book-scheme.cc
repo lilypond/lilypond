@@ -177,5 +177,4 @@ LY_DEFINE (ly_book_scores, "ly:book-scores",
   return b->scores_;
 }
 
-
-const char * const Book::type_p_name_ = "ly:book?";
+const char *const Book::type_p_name_ = "ly:book?";

@@ -168,21 +168,21 @@ Beaming_pattern::beamify (Beaming_options const &options)
         Direction non_flag_dir = -flag_directions[i];
         if (non_flag_dir)
           {
-            int count =
-                (infos_[i + 1].rhythmic_importance_ < 0 &&
-                 options.subdivide_beams_)
-                        // we're left of a subdivision
-                ?  (i != infos_.size () - 2)
-                   // respect the beam count for shortened beams ...
-                   ? std::max (beam_count_for_rhythmic_position (i + 1),
-                          beam_count_for_length (remaining_length (i + 1)))
-                   // ... except if there's only one trailing stem
-                   : beam_count_for_rhythmic_position (i + 1)
+            int count
+              = (infos_[i + 1].rhythmic_importance_ < 0
+                 && options.subdivide_beams_)
+                // we're left of a subdivision
+                ? (i != infos_.size () - 2)
+                // respect the beam count for shortened beams ...
+                ? std::max (beam_count_for_rhythmic_position (i + 1),
+                            beam_count_for_length (remaining_length (i + 1)))
+                // ... except if there's only one trailing stem
+                : beam_count_for_rhythmic_position (i + 1)
 
                 // we're at any other stem
                 : std::min (std::min (infos_[i].count (non_flag_dir),
-                            infos_[i + non_flag_dir].count (-non_flag_dir)),
-                       infos_[i - non_flag_dir].count (non_flag_dir));
+                                      infos_[i + non_flag_dir].count (-non_flag_dir)),
+                            infos_[i - non_flag_dir].count (non_flag_dir));
 
             // Ensure at least one beam is left, even for groups longer than 1/8
             count = std::max (count, 1);
@@ -243,7 +243,7 @@ find_location (SCM grouping, Moment base_moment, Moment start_moment,
           if (test_count > group_count) group_count = test_count;
         }
       *group_pos = *next_group_pos;
-      *next_group_pos = *group_pos + Rational(group_count) * base_moment;
+      *next_group_pos = *group_pos + Rational (group_count) * base_moment;
     }
 }
 
@@ -368,7 +368,7 @@ Moment
 Beaming_pattern::end_moment (vsize i) const
 {
   Duration dur (2 + std::max (beamlet_count (i, LEFT),
-                         beamlet_count (i, RIGHT)),
+                              beamlet_count (i, RIGHT)),
                 0);
 
   return infos_.at (i).start_moment_
@@ -378,20 +378,20 @@ Beaming_pattern::end_moment (vsize i) const
 Moment
 Beaming_pattern::remaining_length (vsize i) const
 {
-    return end_moment (infos_.size () - 1) - infos_[i].start_moment_;
+  return end_moment (infos_.size () - 1) - infos_[i].start_moment_;
 }
 
 int
 Beaming_pattern::beam_count_for_rhythmic_position (vsize idx) const
 {
-    // Calculate number of beams representing the rhythmic position of given stem
-    return intlog2(infos_[idx].start_moment_.main_part_.den()) - 2;
+  // Calculate number of beams representing the rhythmic position of given stem
+  return intlog2 (infos_[idx].start_moment_.main_part_.den ()) - 2;
 }
 
 int
 Beaming_pattern::beam_count_for_length (Moment len) const
 {
-    return intlog2(len.main_part_.den()) - 2 - intlog2(len.main_part_.num());
+  return intlog2 (len.main_part_.den ()) - 2 - intlog2 (len.main_part_.num ());
 }
 
 bool

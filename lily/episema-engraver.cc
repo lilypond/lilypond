@@ -163,7 +163,6 @@ Episema_engraver::acknowledge_note_head (Grob_info info)
     }
 }
 
-
 void
 Episema_engraver::boot ()
 {

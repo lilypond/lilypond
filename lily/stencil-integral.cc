@@ -255,20 +255,20 @@ make_partial_ellipse_boxes (vector<Box> &boxes,
   Offset sp (offset_directed (start).scale (rad));
   Offset ep (offset_directed (end).scale (rad));
   Transform t = robust_scm2transform (trans);
-  Real x_scale = sqrt(sqr(t.get_xx ()) + sqr(t.get_yx ()));
-  Real y_scale = sqrt(sqr(t.get_xy ()) + sqr(t.get_yy ()));
+  Real x_scale = sqrt (sqr (t.get_xx ()) + sqr (t.get_yx ()));
+  Real y_scale = sqrt (sqr (t.get_xy ()) + sqr (t.get_yy ()));
   //////////////////////
   Drul_array<vector<Offset> > points;
   int quantization = std::max (1, (int) (((x_rad * x_scale) + (y_rad * y_scale))
-                                   * M_PI / QUANTIZATION_UNIT));
+                                         * M_PI / QUANTIZATION_UNIT));
   for (DOWN_and_UP (d))
     {
       for (vsize i = 0; i <= (vsize) quantization; i++)
         {
           Real ang
-              = linear_map (start, end, 0, quantization, static_cast<Real> (i));
+            = linear_map (start, end, 0, quantization, static_cast<Real> (i));
           Offset pt (offset_directed (ang).scale (rad));
-          Offset inter = t (pt + d * get_normal ((th/2) * pt.direction ()));
+          Offset inter = t (pt + d * get_normal ((th / 2) * pt.direction ()));
           points[d].push_back (inter);
         }
     }
@@ -333,13 +333,13 @@ make_round_filled_box_boxes (vector<Box> &boxes,
   Real diameter = robust_scm2double (scm_car (expr), 0.0);
   //////////////////////
   Transform t = robust_scm2transform (trans);
-  Real x_scale = sqrt(sqr(t.get_xx ()) + sqr(t.get_yx ()));
-  Real y_scale = sqrt(sqr(t.get_xy ()) + sqr(t.get_yy ()));
-  bool rounded = (diameter * std::max(x_scale, y_scale) > 0.5);
+  Real x_scale = sqrt (sqr (t.get_xx ()) + sqr (t.get_yx ()));
+  Real y_scale = sqrt (sqr (t.get_xy ()) + sqr (t.get_yy ()));
+  bool rounded = (diameter * std::max (x_scale, y_scale) > 0.5);
   bool rotated = (t.get_yx () || t.get_xy ());
   //////////////////////
 
-  if  (!rotated && !rounded)
+  if (!rotated && !rounded)
     {
       /* simple box */
       Box b;
@@ -352,7 +352,7 @@ make_round_filled_box_boxes (vector<Box> &boxes,
   else
     {
       int quantization = (int) (rounded * diameter * (x_scale + y_scale)
-                               * M_PI / QUANTIZATION_UNIT / 8);
+                                * M_PI / QUANTIZATION_UNIT / 8);
       /* if there is no quantization, there is no need to draw
          rounded corners. >>> Set the effective skyline radius to 0 */
       Real radius = (quantization ? diameter / 2 : 0.);
@@ -369,10 +369,10 @@ make_round_filled_box_boxes (vector<Box> &boxes,
       points.push_back (Offset (-left + radius, top));
       points.push_back (Offset (right - radius, top));
 
-      for (vsize i = 0; i < (vsize) points.size () - 1; i+=2)
+      for (vsize i = 0; i < (vsize) points.size () - 1; i += 2)
         {
           Offset p0 = t (points[i]);
-          Offset p1 = t (points[i+1]);
+          Offset p1 = t (points[i + 1]);
           if (p0[Y_AXIS] == p1[Y_AXIS])
             {
               Box b;
@@ -392,14 +392,14 @@ make_round_filled_box_boxes (vector<Box> &boxes,
           Drul_array<Real> cx;
           Drul_array<Real> cy;
 
-          cx[LEFT]  = -left + radius;
+          cx[LEFT] = -left + radius;
           cx[RIGHT] = right - radius;
-          cy[DOWN]  = -bottom + radius;
-          cy[UP]    = top - radius;
+          cy[DOWN] = -bottom + radius;
+          cy[UP] = top - radius;
 
           for (vsize i = 0; i <= (vsize) quantization; i++)
-            for (DOWN_and_UP(v))
-              for (LEFT_and_RIGHT(h))
+            for (DOWN_and_UP (v))
+              for (LEFT_and_RIGHT (h))
                 {
                   Real ang = linear_map (0., 90., 0, quantization,
                                          static_cast<Real> (i));
@@ -413,7 +413,7 @@ make_round_filled_box_boxes (vector<Box> &boxes,
             {
               Box b;
               b.add_point (points[i]);
-              b.add_point (points[i+4]);
+              b.add_point (points[i + 4]);
               boxes.push_back (b);
             }
         }
@@ -432,8 +432,8 @@ create_path_cap (vector<Box> &boxes,
   make_partial_ellipse_boxes (boxes, buildings, new_trans,
                               scm_list_n (scm_from_double (rad),
                                           scm_from_double (rad),
-                                          scm_from_double (angle-90.01),
-                                          scm_from_double (angle+90.01),
+                                          scm_from_double (angle - 90.01),
+                                          scm_from_double (angle + 90.01),
                                           scm_from_double (0.0),
                                           SCM_BOOL_F,
                                           SCM_BOOL_F,
@@ -482,17 +482,17 @@ make_draw_bezier_boxes (vector<Box> &boxes,
   for (DOWN_and_UP (d))
     {
       Offset first = curve.control_[0]
-        + d * get_normal ((th / 2) * curve.dir_at_point (0.0));
+                     + d * get_normal ((th / 2) * curve.dir_at_point (0.0));
       points[d].push_back (scm_transform (trans, first));
       for (vsize i = 1; i < (vsize) quantization; i++)
         {
           Real pt = static_cast<Real> (i) / quantization;
           Offset inter = curve.curve_point (pt)
-            + d * get_normal ((th / 2) *curve.dir_at_point (pt));
+                         + d * get_normal ((th / 2) * curve.dir_at_point (pt));
           points[d].push_back (scm_transform (trans, inter));
         }
       Offset last = curve.control_[3]
-        + d * get_normal ((th / 2) * curve.dir_at_point (1.0));
+                    + d * get_normal ((th / 2) * curve.dir_at_point (1.0));
       points[d].push_back (scm_transform (trans, last));
     }
 
@@ -834,14 +834,14 @@ make_glyph_string_boxes (vector<Box> &boxes,
           Real scale_factor = std::max (xlen, ylen);
           // the three operations below move the stencil from its original coordinates to current coordinates
           // FIXME: this looks extremely fishy.
-          transcopy =
-            robust_scm2transform (transcopy)
-            .translate (Offset (kerned_bbox[X_AXIS][LEFT],
-                                 kerned_bbox[Y_AXIS][DOWN] - real_bbox[Y_AXIS][DOWN]))
-            .translate (Offset (real_bbox[X_AXIS][LEFT], real_bbox[Y_AXIS][DOWN]))
-            .scale (scale_factor, scale_factor)
-            .translate (-Offset (bbox[X_AXIS][LEFT], bbox[Y_AXIS][DOWN]))
-            .smobbed_copy ();
+          transcopy
+            = robust_scm2transform (transcopy)
+              .translate (Offset (kerned_bbox[X_AXIS][LEFT],
+                                  kerned_bbox[Y_AXIS][DOWN] - real_bbox[Y_AXIS][DOWN]))
+              .translate (Offset (real_bbox[X_AXIS][LEFT], real_bbox[Y_AXIS][DOWN]))
+              .scale (scale_factor, scale_factor)
+              .translate (-Offset (bbox[X_AXIS][LEFT], bbox[Y_AXIS][DOWN]))
+              .smobbed_copy ();
         }
       //////////////////////
       for (SCM s = outline;
@@ -1084,7 +1084,7 @@ Stencil::skylines_from_stencil (SCM sten, Real pad, SCM rot, Axis a)
       // incorporate rotation into a stencil copy
       sten = s->smobbed_copy ();
       s = unsmob<Stencil> (sten);
-      s->rotate_degrees (angle, Offset (x,y));
+      s->rotate_degrees (angle, Offset (x, y));
     }
 
   SCM data = scm_reverse_x (stencil_traverser (SCM_EOL, s->expr (), SCM_EOL), SCM_EOL);

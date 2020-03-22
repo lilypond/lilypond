@@ -179,7 +179,6 @@ Bar_number_engraver::create_items ()
   text_ = make_item ("BarNumber", SCM_EOL);
 }
 
-
 void
 Bar_number_engraver::boot ()
 {

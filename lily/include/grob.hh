@@ -33,7 +33,7 @@ class Grob : public Smob<Grob>
 public:
   int print_smob (SCM, scm_print_state *) const;
   SCM mark_smob () const;
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
   virtual ~Grob ();
 private:
   VIRTUAL_CLASS_NAME (Grob);
@@ -123,8 +123,8 @@ public:
   Stream_event *ultimate_event_cause () const;
 
   /* messages */
-  void warning (const std::string&) const;
-  void programming_error (const std::string&) const;
+  void warning (const std::string &) const;
+  void programming_error (const std::string &) const;
 
   /* class hierarchy */
   virtual System *get_system () const;
@@ -186,7 +186,7 @@ public:
 };
 
 template <class T>
-inline bool has_interface(Grob const *g)
+inline bool has_interface (Grob const *g)
 {
   return g && g->internal_has_interface (Grob_interface<T>::interface_symbol_);
 }

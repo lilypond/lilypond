@@ -251,7 +251,7 @@ set_column_rods (vector<Paper_column *> const &cols, Real padding)
       /* min rather than max because stickout will be negative if the right-hand column
          sticks out a lot to the left */
       Real stickout = std::min (skys ? (*skys)[LEFT].max_height () : 0.0,
-                           Separation_item::conditional_skyline (r, cols[i - 1]).max_height ());
+                                Separation_item::conditional_skyline (r, cols[i - 1]).max_height ());
 
       Real prev_distances = 0.0;
 
@@ -277,8 +277,8 @@ set_column_rods (vector<Paper_column *> const &cols, Real padding)
               // nesting more closely;
               if (j == i - 1) // check this, the first time we see each lb.
                 overhangs[j] = std::max (overhangs[j],
-                                    lb->extent (lb, X_AXIS)[RIGHT]
-                                    + distances[i] - dist);
+                                         lb->extent (lb, X_AXIS)[RIGHT]
+                                         + distances[i] - dist);
             }
           if (rb)
             Separation_item::set_distance (l, rb, padding);
@@ -288,7 +288,7 @@ set_column_rods (vector<Paper_column *> const &cols, Real padding)
           prev_distances += distances[j];
         }
       overhangs[i] = std::max (overhangs[i],
-                          overhangs[i - 1] - distances[i]);
+                               overhangs[i - 1] - distances[i]);
     }
 }
 
@@ -425,7 +425,7 @@ Spacing_spanner::musical_column_spacing (Grob *me,
         spring.set_distance (spring.min_distance ());
       else
         spring.set_distance (std::max (left_col->extent (left_col, X_AXIS)[RIGHT],
-                                  spring.min_distance ()));
+                                       spring.min_distance ()));
 
       spring.set_inverse_stretch_strength (1.0);
     }

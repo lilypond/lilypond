@@ -32,7 +32,7 @@ class Scm_module
   Variable_record *variables_;
   static void boot_init (void *);
 public:
-  void boot (void (*init)() = 0);
+  void boot (void (*init) () = 0);
   void import ();
   void register_variable (const char *name, Scm_variable *var);
 
@@ -52,7 +52,7 @@ class Scm_variable
   void boot (const char *name);
   void import (SCM module, const char *name);
 public:
-  operator SCM & ()
+  operator SCM &()
   {
 #if 0
     // One could conceivably work with variables even before the

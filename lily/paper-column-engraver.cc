@@ -302,7 +302,6 @@ Paper_column_engraver::start_translation_timestep ()
     }
 }
 
-
 void
 Paper_column_engraver::boot ()
 {

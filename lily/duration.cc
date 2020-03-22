@@ -145,8 +145,7 @@ Duration::to_string () const
   return s;
 }
 
-const char * const Duration::type_p_name_ = "ly:duration?";
-
+const char *const Duration::type_p_name_ = "ly:duration?";
 
 int
 Duration::print_smob (SCM port, scm_print_state *) const

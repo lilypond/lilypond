@@ -15,7 +15,7 @@ class Control_track_performer : public Performer
 {
   Audio_staff *control_track_;
 
-  void add_text (Audio_text::Type, const string&);
+  void add_text (Audio_text::Type, const string &);
   TRANSLATOR_DECLARATIONS (Control_track_performer);
 protected:
 

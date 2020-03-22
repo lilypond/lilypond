@@ -24,7 +24,6 @@
 #include <cctype>
 #include <cassert>
 
-
 #include "libc-extension.hh"
 
 char *

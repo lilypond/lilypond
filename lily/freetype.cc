@@ -44,9 +44,8 @@ ly_FT_get_unscaled_indexed_char_dimensions (FT_Face const &face, size_t signed_i
   FT_Pos vb = m.horiBearingY;
 
   // is this viable for all grobs?
-  return Box (
-      Interval (static_cast<Real> (hb), static_cast<Real> (hb + m.width)),
-      Interval (static_cast<Real> (vb - m.height), static_cast<Real> (vb)));
+  return Box (Interval (static_cast<Real> (hb), static_cast<Real> (hb + m.width)),
+              Interval (static_cast<Real> (vb - m.height), static_cast<Real> (vb)));
 }
 
 SCM
@@ -164,10 +163,10 @@ ly_FT_get_glyph_outline (FT_Face const &face, size_t signed_idx)
 
           out = scm_cons (scm_list_n (scm_from_double (x0),
                                       scm_from_double (y0),
-                                      scm_from_double ((x0 + 2*x1)/3),
-                                      scm_from_double ((y0 + 2*y1)/3),
-                                      scm_from_double ((2*x1 + x2)/3),
-                                      scm_from_double ((2*y1 + y2)/3),
+                                      scm_from_double ((x0 + 2 * x1) / 3),
+                                      scm_from_double ((y0 + 2 * y1) / 3),
+                                      scm_from_double ((2 * x1 + x2) / 3),
+                                      scm_from_double ((2 * y1 + y2) / 3),
                                       scm_from_double (x2),
                                       scm_from_double (y2),
                                       SCM_UNDEFINED),

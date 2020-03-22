@@ -256,7 +256,7 @@ Rest_collision::calc_positioning_done (SCM smob)
             }
 
           Real y = dir * std::max (0.0,
-                              -dir * restdim[-dir] + dir * notedim[dir] + minimum_dist);
+                                   -dir * restdim[-dir] + dir * notedim[dir] + minimum_dist);
 
           // move discretely by half spaces.
           int discrete_y = dir * int (ceil (y / (0.5 * dir * staff_space)));

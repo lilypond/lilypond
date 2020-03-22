@@ -63,7 +63,7 @@ void
 Audio_note::tie_to (Audio_note *t, Moment skip)
 {
   tied_ = t;
-  Audio_note *first = tie_head();
+  Audio_note *first = tie_head ();
   // Add the skip to the tied note and the length of the appended note
   // to the full duration of the tie...
   first->length_mom_ += skip + length_mom_;
@@ -83,12 +83,12 @@ string
 Audio_note::to_string () const
 {
   string s = "#<Audio_note pitch ";
-  s += pitch_.to_string();
+  s += pitch_.to_string ();
   s += " len ";
-  s += length_mom_.to_string();
+  s += length_mom_.to_string ();
   if (tied_)
     {
-      s += " tied to " + tied_->to_string();
+      s += " tied to " + tied_->to_string ();
     }
   if (tie_event_)
     {

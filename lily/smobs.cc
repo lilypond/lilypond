@@ -109,7 +109,6 @@ unprotect_smob (SCM smob)
   scm_gc_unprotect_object (smob);
 }
 
-
 Scm_init const *Scm_init::list_ = 0;
 
 void

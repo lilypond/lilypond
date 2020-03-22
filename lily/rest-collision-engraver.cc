@@ -71,7 +71,7 @@ Rest_collision_engraver::process_acknowledged ()
         {
           Grob *column = g->get_parent (X_AXIS);
           if (!column)
-              continue;
+            continue;
 
           // Only include rests that start now. Include notes that started any time.
           Paper_column *paper_column = dynamic_cast<Item *> (column)->get_column ();

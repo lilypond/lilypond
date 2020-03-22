@@ -41,16 +41,15 @@ public:
   static void add_element (Grob *, Grob *);
   static int get_count (Grob *, Grob *);
 
-
   static Real get_pure_child_y_translation (Grob *, Grob *child,
                                             vsize start, vsize end);
 
 protected:
   static std::vector<Real> internal_get_minimum_translations (Grob *, std::vector<Grob *> const &,
-                                                         Axis a,
-                                                         bool include_fixed_spacing,
-                                                         bool pure,
-                                                         vsize start, vsize end);
+                                                              Axis a,
+                                                              bool include_fixed_spacing,
+                                                              bool pure,
+                                                              vsize start, vsize end);
 };
 
 #endif /* ALIGN_INTERFACE_HH */

@@ -253,7 +253,7 @@ Simple_spacer::compress_line ()
           */
           if (fabs (configuration_length (cur_force) - cur_len) > 1e-6 * cur_len)
             programming_error (to_string ("mis-predicted force, %.6f ~= %.6f",
-                                          cur_len, configuration_length(cur_force)));
+                                          cur_len, configuration_length (cur_force)));
           return cur_force;
         }
 

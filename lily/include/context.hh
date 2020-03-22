@@ -36,7 +36,7 @@ class Context : public Smob<Context>
 public:
   SCM mark_smob () const;
   int print_smob (SCM, scm_print_state *) const;
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
   virtual ~Context ();
 private:
   void add_global_finalization (SCM x);
@@ -65,7 +65,7 @@ private:
                            SCM context_name, const std::string &id, SCM ops);
 
   Context (Context const &src) = delete;
-  Context& operator= (Context const &) = delete;
+  Context &operator = (Context const &) = delete;
 
   VIRTUAL_CLASS_NAME (Context);
   void terminate ();
@@ -118,7 +118,7 @@ public:
   std::string id_string () const { return id_string_; }
 
   // formatted identification for log messages
-  static std::string diagnostic_id (SCM name, const std::string& id);
+  static std::string diagnostic_id (SCM name, const std::string &id);
 
   SCM children_contexts () const { return context_list_; }
 
@@ -152,7 +152,7 @@ public:
   void instrumented_set_property (SCM, SCM, const char *, int, const char *);
   void internal_set_property (SCM var_sym, SCM value);
 
-  Context *create_context (Context_def *, const std::string&, SCM);
+  Context *create_context (Context_def *, const std::string &, SCM);
   bool matches (SCM type, const std::string &id) const;
   virtual bool is_accessible_to_user () const { return true; }
 

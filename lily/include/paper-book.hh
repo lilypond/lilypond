@@ -31,7 +31,7 @@ class Paper_book : public Smob<Paper_book>
 {
 public:
   SCM mark_smob () const;
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
   virtual ~Paper_book ();
 private:
   SCM systems_;
@@ -76,6 +76,5 @@ protected:
                    long *first_page_number,
                    long *first_performance_number);
 };
-
 
 #endif /* PAPER_BOOK_HH */

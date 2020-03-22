@@ -51,7 +51,7 @@ struct Building
 class Skyline : public Simple_smob<Skyline>
 {
 public:
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
 private:
   std::list<Building> buildings_;
   Direction sky_;
@@ -62,7 +62,6 @@ private:
   Real internal_distance (Skyline const &, Real horizon_padding, Real *touch_point) const;
   Real internal_distance (Skyline const &, Real *touch_point) const;
   void normalize ();
-
 
 public:
   Skyline ();

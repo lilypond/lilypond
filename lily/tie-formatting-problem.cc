@@ -480,7 +480,7 @@ Tie_formatting_problem::generate_configuration (int pos, Direction dir,
 
   if (y_tune
       && std::max (fabs (get_head_extent (columns[LEFT], LEFT, Y_AXIS)[dir] - y),
-              fabs (get_head_extent (columns[RIGHT], RIGHT, Y_AXIS)[dir] - y)) < 0.25
+                   fabs (get_head_extent (columns[RIGHT], RIGHT, Y_AXIS)[dir] - y)) < 0.25
       && !Staff_symbol_referencer::on_line (details_.staff_symbol_referencer_, pos))
     {
       conf->delta_y_
@@ -576,7 +576,7 @@ Tie_formatting_problem::generate_configuration (int pos, Direction dir,
 
           conf->attachment_x_[d]
             = d * std::min (d * conf->attachment_x_[d],
-                       d * (get_stem_extent (conf->column_ranks_[d], d, X_AXIS)[-d] - d * details_.stem_gap_));
+                            d * (get_stem_extent (conf->column_ranks_[d], d, X_AXIS)[-d] - d * details_.stem_gap_));
         }
     }
   return conf;

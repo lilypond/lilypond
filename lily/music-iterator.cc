@@ -29,7 +29,6 @@
 #include "music-wrapper-iterator.hh"
 #include "simple-music-iterator.hh"
 
-
 Music_iterator::Music_iterator ()
 {
   music_ = 0;
@@ -189,7 +188,7 @@ Music_iterator::get_music () const
 
 /****************************************************************/
 
-const char * const Music_iterator::type_p_name_ = "ly:iterator?";
+const char *const Music_iterator::type_p_name_ = "ly:iterator?";
 
 SCM
 Music_iterator::mark_smob () const

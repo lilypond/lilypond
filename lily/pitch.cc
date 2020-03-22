@@ -227,7 +227,7 @@ Pitch::down_to (int notename)
   notename_ = notename;
 }
 
-const char * const Pitch::type_p_name_ = "ly:pitch?";
+const char *const Pitch::type_p_name_ = "ly:pitch?";
 
 SCM
 Pitch::mark_smob () const

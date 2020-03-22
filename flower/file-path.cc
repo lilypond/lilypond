@@ -71,7 +71,7 @@ File_path::parse_path (const string &p)
 inline int
 workaround_wrapper_stat (const char *f, STRUCT_STAT *s)
 {
-#if !defined(__MINGW32__) || defined(_UCRT)
+#if !defined (__MINGW32__) || defined (_UCRT)
   return FUNCTION_STAT (f, s);
 #else
   // Workaround for MinGW UTF-8 stat issue:

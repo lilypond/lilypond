@@ -193,7 +193,7 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
       else
         {
           Interval ii = me->get_bound (dir)->extent (common_y, Y_AXIS);
-          if (!ii.is_empty())
+          if (!ii.is_empty ())
             y = ii.center ();
           details = scm_acons (ly_symbol2scm ("common-Y"), common_y->self_scm (), details);
         }
@@ -301,9 +301,9 @@ Line_spanner::print (SCM smob)
       arrows[d] = to_boolean (ly_assoc_get (ly_symbol2scm ("arrow"),
                                             bounds[d], SCM_BOOL_F));
       stencils[d] = unsmob<Stencil> (ly_assoc_get (ly_symbol2scm ("stencil"),
-                                                  bounds[d], SCM_BOOL_F));
+                                                   bounds[d], SCM_BOOL_F));
       common_y[d] = unsmob<Grob> (ly_assoc_get (ly_symbol2scm ("common-Y"),
-                                               bounds[d], SCM_BOOL_F));
+                                                bounds[d], SCM_BOOL_F));
       if (!common_y[d])
         common_y[d] = me;
     }

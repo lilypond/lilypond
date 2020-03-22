@@ -206,10 +206,10 @@ Translator_group::create_child_translator (SCM sev)
   g->unprotect ();
 
   recurse_over_translators
-    (new_context,
-     Callback0_wrapper::make_smob<Translator, &Translator::initialize> (),
-     Callback0_wrapper::make_smob<Translator_group, &Translator_group::initialize> (),
-     DOWN);
+  (new_context,
+   Callback0_wrapper::make_smob<Translator, &Translator::initialize> (),
+   Callback0_wrapper::make_smob<Translator_group, &Translator_group::initialize> (),
+   DOWN);
 }
 
 SCM
@@ -302,15 +302,14 @@ Translator_group::precomputed_translator_foreach (Translator_precompute_index id
 {
   vector<Method_instance> &bindings (precomputed_method_bindings_[idx]);
   for (vsize i = 0; i < bindings.size (); i++)
-    bindings[i]();
+    bindings[i] ();
 }
 
 Translator_group::~Translator_group ()
 {
 }
 
-
-const char * const Translator_group::type_p_name_ = "ly:translator-group?";
+const char *const Translator_group::type_p_name_ = "ly:translator-group?";
 
 int
 Translator_group::print_smob (SCM port, scm_print_state *) const

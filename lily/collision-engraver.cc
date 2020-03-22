@@ -81,7 +81,6 @@ Collision_engraver::Collision_engraver (Context *c)
   col_ = 0;
 }
 
-
 void
 Collision_engraver::boot ()
 {

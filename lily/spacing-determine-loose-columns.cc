@@ -202,7 +202,7 @@ Spacing_spanner::prune_loose_columns (Grob *me,
   // when rp and wp are still in lockstep and thus the overwritten
   // value would be unchanged, but let's not get too icky but stick
   // with a pattern that works for more use cases.
-  Paper_column * lastcol = 0;
+  Paper_column *lastcol = 0;
   for (rp = wp = cols->begin (); rp != cols->end ();)
     {
       Paper_column *c = *rp++;

@@ -186,7 +186,7 @@ private:
   Beam_configuration *
   force_score (SCM inspect_quants,
                const std::vector<std::unique_ptr<Beam_configuration>> &configs)
-    const;
+  const;
   Real y_at (Real x, Beam_configuration const *c) const;
 
   // Scoring functions:
@@ -198,7 +198,7 @@ private:
   void score_stem_lengths (Beam_configuration *config) const;
   void
   generate_quants (std::vector<std::unique_ptr<Beam_configuration>> *scores)
-    const;
+  const;
   void score_collisions (Beam_configuration *config) const;
 };
 

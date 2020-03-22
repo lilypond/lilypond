@@ -45,7 +45,7 @@ Stencil::mark_smob () const
   return expr_;
 }
 
-const char * const Stencil::type_p_name_ = "ly:stencil?";
+const char *const Stencil::type_p_name_ = "ly:stencil?";
 
 Interval
 Stencil::extent (Axis a) const
@@ -202,7 +202,7 @@ Stencil::add_stencil (Stencil const &s)
   else if (scm_is_null (s.expr_))
     ;
   else if (scm_is_pair (expr_)
-      && scm_is_eq (cs, scm_car (expr_)))
+           && scm_is_eq (cs, scm_car (expr_)))
     {
       if (scm_is_pair (s.expr_)
           && scm_is_eq (cs, scm_car (s.expr_)))
@@ -372,7 +372,6 @@ Stencil::stack (Axis a, Direction d, Stencil const &s, Real padding, Real mindis
       return;
     }
 
-
   Real offset = first_extent[d];
 
   // If the added stencil has a backwardly protruding edge, we make
@@ -394,7 +393,6 @@ Stencil::stack (Axis a, Direction d, Stencil const &s, Real padding, Real mindis
   dim_[a][-d] = first_extent [-d];
   dim_[a][d] = next_extent [d] + offset;
 }
-
 
 Stencil
 Stencil::in_color (Real r, Real g, Real b) const

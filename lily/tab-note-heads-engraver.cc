@@ -22,7 +22,6 @@
 
 #include "engraver.hh"
 
-
 #include "articulations.hh"
 #include "duration.hh"
 #include "item.hh"

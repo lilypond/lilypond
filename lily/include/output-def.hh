@@ -44,24 +44,24 @@
   (eg. paper containing layout for a score, containing layout of a
   \score embedded in \markup) requires scaling the Stencils (eg. the
   one coming from score at markup level)
-  
+
  */
 class Output_def : public Smob<Output_def>
 {
 public:
   int print_smob (SCM, scm_print_state *) const;
   SCM mark_smob () const;
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
   virtual ~Output_def ();
   VIRTUAL_CLASS_NAME (Output_def);
   virtual Output_def *clone () const { return new Output_def (*this); }
 
   SCM scope_;
   Output_def *parent_;
-  
+
   Input input_origin_;
 
-  Output_def (Output_def const&);
+  Output_def (Output_def const &);
   Output_def ();
 
   /*
@@ -78,18 +78,15 @@ void assign_context_def (Output_def *m, SCM transdef);
 SCM find_context_def (Output_def const *m, SCM name);
 
 Interval line_dimensions_int (Output_def *def, int);
- 
 
 Font_metric *select_encoded_font (Output_def *layout, SCM chain);
 Font_metric *select_font (Output_def *layout, SCM chain);
 
-
-
-Font_metric* find_pango_font (Output_def *layout,  SCM descr, Real factor);
+Font_metric *find_pango_font (Output_def *layout, SCM descr, Real factor);
 Font_metric *find_scaled_font (Output_def *od, Font_metric *f,
-			       Real magnification);
+                               Real magnification);
 Output_def *scale_output_def (Output_def *def, Real scale);
 
-Real output_scale (Output_def*);
+Real output_scale (Output_def *);
 
 #endif /* OUTPUT_DEF_HH */

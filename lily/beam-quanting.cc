@@ -73,9 +73,9 @@ Beam_quant_parameters::fill (Grob *him)
 
   // forbidden quants
   SECONDARY_BEAM_DEMERIT = get_detail (details, ly_symbol2scm ("secondary-beam-demerit"), 10.0)
-    // For stems that are non-standard, the forbidden beam quanting
-    // doesn't really work, so decrease their importance.
-    * exp(- 8*fabs (1.0 - robust_scm2double(him->get_property ("length-fraction"), 1.0)));
+                           // For stems that are non-standard, the forbidden beam quanting
+                           // doesn't really work, so decrease their importance.
+                           * exp (- 8 * fabs (1.0 - robust_scm2double (him->get_property ("length-fraction"), 1.0)));
   STEM_LENGTH_DEMERIT_FACTOR = get_detail (details, ly_symbol2scm ("stem-length-demerit-factor"), 5);
   HORIZONTAL_INTER_QUANT_PENALTY = get_detail (details, ly_symbol2scm ("horizontal-inter-quant"), 500);
 
@@ -95,7 +95,7 @@ Beam_quant_parameters::fill (Grob *him)
      of the length fraction, yielding a 64% decrease.
    */
   COLLISION_PADDING = get_detail (details, ly_symbol2scm ("collision-padding"), 0.5)
-    * sqr (robust_scm2double(him->get_property ("length-fraction"), 1.0));
+                      * sqr (robust_scm2double (him->get_property ("length-fraction"), 1.0));
   STEM_COLLISION_FACTOR = get_detail (details, ly_symbol2scm ("stem-collision-factor"), 0.1);
 }
 
@@ -453,7 +453,7 @@ set_minimum_dy (Grob *me, Real *dy)
       Real hang = 1.0 - (beam_thickness - slt) / 2;
 
       *dy = sign (*dy) * std::max (fabs (*dy),
-                              std::min (std::min (sit, inter), hang));
+                                   std::min (std::min (sit, inter), hang));
     }
 }
 
@@ -1207,10 +1207,10 @@ Beam_scoring_problem::score_forbidden_quants (Beam_configuration *config) const
 {
   Real dy = config->y.delta ();
 
-  Real extra_demerit =
-    parameters_.SECONDARY_BEAM_DEMERIT
-    / std::max (edge_beam_counts_[LEFT], edge_beam_counts_[RIGHT]);
-  
+  Real extra_demerit
+    = parameters_.SECONDARY_BEAM_DEMERIT
+      / std::max (edge_beam_counts_[LEFT], edge_beam_counts_[RIGHT]);
+
   Real dem = 0.0;
   Real eps = parameters_.BEAM_EPS;
 
@@ -1317,20 +1317,20 @@ Beam_scoring_problem::score_collisions (Beam_configuration *config) const
       Real dist = infinity_f;
       if (!intersection (beam_y, collision_y).is_empty ())
         dist = 0.0;
-      else 
+      else
         dist = std::min (beam_y.distance (collision_y[DOWN]),
-                    beam_y.distance (collision_y[UP]));
+                         beam_y.distance (collision_y[UP]));
 
-      
       Real scale_free
         = std::max (parameters_.COLLISION_PADDING - dist, 0.0)
           / parameters_.COLLISION_PADDING;
       Real collision_demerit = collisions_[i].base_penalty_ *
-         pow (scale_free, 3) * parameters_.COLLISION_PENALTY;
+                               pow (scale_free, 3) * parameters_.COLLISION_PENALTY;
 
-      if (collision_demerit > 0) {
-        demerits += collision_demerit;
-      }
+      if (collision_demerit > 0)
+        {
+          demerits += collision_demerit;
+        }
     }
 
   config->add (demerits, "C");

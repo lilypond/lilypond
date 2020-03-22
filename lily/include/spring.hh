@@ -27,7 +27,7 @@ class Spring : public Simple_smob<Spring>
 {
 public:
   static SCM equal_p (SCM, SCM);
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
 private:
   Real distance_;
   Real min_distance_;

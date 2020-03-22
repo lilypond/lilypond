@@ -62,8 +62,8 @@ Bend_engraver::stop_fall ()
   bool bar = scm_is_string (get_property ("whichBar"));
 
   fall_->set_bound (RIGHT, unsmob<Grob> (bar
-                                        ? get_property ("currentCommandColumn")
-                                        : get_property ("currentMusicalColumn")));
+                                         ? get_property ("currentCommandColumn")
+                                         : get_property ("currentMusicalColumn")));
   last_fall_ = fall_;
   fall_ = 0;
   note_head_ = 0;
@@ -132,7 +132,6 @@ Bend_engraver::process_music ()
                            scm_from_double (robust_scm2double (fall_event_->get_property ("delta-step"), 0)));
     }
 }
-
 
 void
 Bend_engraver::boot ()

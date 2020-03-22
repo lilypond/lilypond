@@ -249,8 +249,8 @@ Beam_engraver::acknowledge_rest (Grob_info info)
       && !scm_is_number (info.grob ()->get_property_data ("staff-position")))
     chain_offset_callback (info.grob (),
                            Unpure_pure_container::make_smob
-                             (Beam::rest_collision_callback_proc,
-                              Beam::pure_rest_collision_callback_proc),
+                           (Beam::rest_collision_callback_proc,
+                            Beam::pure_rest_collision_callback_proc),
                            Y_AXIS);
 }
 
@@ -311,7 +311,6 @@ Beam_engraver::acknowledge_stem (Grob_info info)
                         (to_boolean (stem->get_property ("tuplet-start"))));
   Beam::add_stem (beam_, stem);
 }
-
 
 void
 Beam_engraver::boot ()

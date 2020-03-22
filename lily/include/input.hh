@@ -33,7 +33,7 @@ class Input : public Simple_smob<Input>
   Source_file *source_file_ = nullptr;
 
 public:
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
   int print_smob (SCM, scm_print_state *) const;
   static SCM equal_p (SCM, SCM);
   SCM mark_smob () const;
@@ -43,12 +43,12 @@ public:
   size_t size () const { return end_ - start_; }
 
   void set (Source_file *, char const *, char const *);
-  void error (const std::string&) const;
-  void programming_error (const std::string&) const;
-  void non_fatal_error (const std::string&) const;
-  void warning (const std::string&) const;
-  void message (const std::string&) const;
-  void debug_output (const std::string&) const;
+  void error (const std::string &) const;
+  void programming_error (const std::string &) const;
+  void non_fatal_error (const std::string &) const;
+  void warning (const std::string &) const;
+  void message (const std::string &) const;
+  void debug_output (const std::string &) const;
   void set_spot (Input const &);
   void step_forward ();
   void set_location (Input const &, Input const &);
@@ -66,7 +66,7 @@ public:
 
   void get_counts (ssize_t *, ssize_t *, ssize_t *, ssize_t *) const;
 
-  Input& operator= (Input const &) = default;
+  Input &operator = (Input const &) = default;
   Input (Input const &i) = default;
   Input () = default;
 

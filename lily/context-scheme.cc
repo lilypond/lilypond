@@ -104,7 +104,6 @@ LY_DEFINE (ly_context_matched_pop_property, "ly:context-matched-pop-property",
   return SCM_UNSPECIFIED;
 }
 
-
 LY_DEFINE (ly_context_property, "ly:context-property",
            2, 1, 0, (SCM context, SCM sym, SCM def),
            "Return the value for property @var{sym} in @var{context}."
