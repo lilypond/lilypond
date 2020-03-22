@@ -38,7 +38,7 @@ GLOBAL_CXX = 'GC++'
 CXX = 'C++'
 verbose_p = 0
 indent_p = 1
-PREFERRED_ASTYLE_VERSION = "Artistic Style Version 2.04"
+PREFERRED_ASTYLE_VERSION = "Artistic Style Version 3.1"
 
 
 rules = {
