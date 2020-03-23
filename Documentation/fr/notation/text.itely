@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 032de07c17caacd038f113ebcb54e9c473d64e0f
+   Translation of GIT committish: 9555963300c53fef253948cb41c43393bf1a0655
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -22,11 +22,6 @@
 
 Nous allons voir ici comment insérer du texte dans une partition, ainsi
 que différentes manières de le mettre en forme.
-
-@noindent
-Certains éléments de texte ne sont pas abordés ici mais dans des
-chapitres qui leur sont dédiés.  C'est le cas de la
-@ref{Musique vocale} et des @ref{Titres et entêtes}.
 
 @menu
 * Ajout de texte::
@@ -49,11 +44,169 @@ fichier devra être sauvegardé avec l'encodage UTF-8.  Pour plus
 d'informations, voir @ref{Codage du texte}.}
 
 @menu
+* Vue d'ensemble des objets textuels::
 * Commentaires textuels::
 * Indication textuelle avec extension::
 * Indications textuelles::
 * Texte indépendant::
 @end menu
+
+
+@node Vue d'ensemble des objets textuels
+@unnumberedsubsubsec Vue d'ensemble des objets textuels
+@translationof Text objects overview
+
+@funindex \markup
+@cindex objet texte
+@cindex texte, objet
+@cindex @emph{markup}, objet
+@cindex objet @emph{markup}
+
+Les objets textuels se saisissent soit comme de simples chaînes de
+caractères entre quillemets informatique, soit dans un bloc
+@code{\markup} qui acceptte une mise en forme fine du texte et des
+réhaussements graphiques comme indiqué dans
+@ref{Mise en forme du texte}.
+
+En tant que tels, les blocs @emph{markup} peuvent s'utiliser :
+@itemize
+@item
+dans tout objet @code{TextScript} attaché à des notes par
+@code{-}, @code{^} ou@tie{}@code{_} ; voir
+see @ref{Commentaires textuels} ;
+
+@item
+en tant que bandeau (@emph{spanner}) lorsqu'une indication se prolongge
+sur plusieurs temps ou mesures ; voir
+@ref{Indication textuelle avec extension} ;
+
+@item
+dans toute marque affichée au-dessus de la partition, tels les objets
+@code{RehearsalMark} ou @code{MetronomeMark} introduits respectivement
+par les mots-clé @code{\mark} ou @code{\tempo} ; voir
+@ref{Indications textuelles} ;
+
+@item
+en tant que bloc @emph{markup} indépendant, saisi en dehors de tout bloc
+@code{\score} -- dans ce cas précis la commande
+@code{\markup@tie{}@{...@}} est obligatoire et ne saurait être remplacée
+par du simple texte borné par des guillemets informatiques ; voir
+@ref{Texte indépendant} ;
+
+@item
+dans toute définition qu sein d'un bloc @code{\header} (par ex.
+@code{title}, @code{subtitle}, @code{composer}), ou dans des éléments
+spécifiques au bloc @code{\paper} tel que @code{evenHeaderMarkup} pour
+les numéros de page. Ceci est abordé dans
+@ref{Titres et entêtes}.
+@end itemize
+
+De nombreux autres objets basés sur du texte peuvent se saisir sous
+forme de bloc @emph{markup} même si ce n'esp pas leur usage premier.
+@itemize
+@item
+Les doigtés peuvent se remplacer par des blocs de @emph{markup} dès lors
+qu'ils sont introduits par la commande @code{\finger} ; voir
+@ref{Doigtés}.
+
+@item
+Les syllabes des paroles peuvent être formatées avec une commande
+@code{\markup} ; voir
+@ref{Vue d'ensemble de la musique vocale}.
+
+@item
+Les noms des accords sont en fait définis sous forme de blocs de
+@emph{markup} et peuvent donc être redéfinis de la même manière pour
+adapter les modificateurs d'accord ou les exceptions ; voir
+@ref{Gravure des accords}.
+
+@item
+Les nuances se saisissent de la manière la plus simple. Il est néanmoins
+possible de définir sa
+@rusernamed{Personnalisation des indications de nuance, propre
+indication} sous forme d'objet @emph{markup}. Certaines nuances, comme
+un crescendo, sont affichés sous forme de bandeau et peuvent être
+redéfinies au travers de certaines propriétés telle que
+@code{crescendoText} ; voir @ref{Nuances}.
+
+@item
+Des objets moins courants sont constitués de blocs @emph{markup}, tels
+les indications en @ref{Info-bulle}.
+@end itemize
+
+Il est en fait possible d'utiliser @code{\markup} pour personnaliser
+l'apparence de pratiquement n'importe quel objet graphique (@emph{grob})
+en appliquant une dérogation soit à sa propriété @code{text} s'il en
+dispose ou de sa propriété @code{stencil}. Une partie de la logique qui
+rend ceci possible est expliquée dans
+@ressay{Flexibilité architecturale}.
+
+L'exemple qui suit illustre l'ubiquité des blocs @emph{markup} non
+seulement comme les objets ci-dessus présentés, mais aussi en remplaçant
+des objets musicaux par des objets textuels de différentes manières.
+
+@lilypond[quote, verbatim,line-width=4\in]
+\header { title = \markup "Header" }
+
+dyn =
+#(make-dynamic-script #{ \markup \text "DynamicText" #})
+
+\markup \box "Top-level markup"
+
+\score {
+  <<
+    \new ChordNames
+    \with {
+      majorSevenSymbol = \markup "majorSevenSymbol"
+    }
+    \chordmode { c1:maj7 }
+    \new Staff {
+      \tempo \markup "MetronomeMark"
+      \mark \markup \smaller "RehearsalMark"
+      \once \override TupletNumber.text =
+        \markup "TupletNumber"
+      \tuplet 3/2 {
+        \once \override NoteHead.stencil =
+          #ly:text-interface::print
+        \once \override NoteHead.text =
+          \markup \lower #0.5 "NoteHead"
+        c''8^\markup \italic "TextScript"
+        a'\finger \markup \text "Fingering"
+        \once \override Rest.stencil =
+          #(lambda (grob)
+             (grob-interpret-markup grob #{
+               \markup  "Rest"
+               #}))
+        r
+      }
+    }
+    \new Lyrics \lyricmode {
+      \markup \smallCaps "LyricText" 1
+    }
+    \new Dynamics { s1\dyn }
+  >>
+}
+@end lilypond
+
+@seealso
+Manuel de notation :
+@ref{Commentaires textuels},
+@ref{Doigtés},
+@ref{Gravure des accords},
+@ref{Indication textuelle avec extension},
+@ref{Indications textuelles},
+@ref{Info-bulle},
+@ref{Mise en forme du texte},
+@ref{Nuances},
+@ref{Personnalisation des indications de nuance},
+@ref{Texte indépendant},
+@ref{Vue d'ensemble de la musique vocale}.
+
+Essai sur la gravure musicale automatisée :
+@ressay{Flexibilité architecturale}.
+
+Morceaux choisis :
+@rlsr{Text}.
 
 
 @node Commentaires textuels
@@ -318,7 +471,7 @@ de la ligne suivante.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-marks-at-the-end-of-a-line.ly}
 
-@cindex, repère, sur toutes les portées
+@cindex repère, sur toutes les portées
 @funindex Mark_engraver
 @funindex Staff_collecting_engraver
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
@@ -445,7 +598,9 @@ forme du texte à l'aide de la syntaxe propre au mode @code{\markup}.
 @funindex \markup
 
 La commande @code{\markup} permet d'ajouter du texte et dispose de sa
-propre syntaxe que nous appellerons le « mode @emph{markup} ».
+propre syntaxe que nous appellerons le « mode @emph{markup} ». De tels
+blocs peuvent s'utiliser partout, comme indiqué dans
+@ref{Vue d'ensemble des objets textuels}.
 
 @cindex @emph{markup}, expression
 @cindex expression @emph{markup}
@@ -535,11 +690,17 @@ allegro = \markup { \bold \large Allegro }
 @noindent
 Pour une liste des différentes commandes spécifiques au mode
 @code{\markup}, consultez l'annexe @ref{Commandes pour markup} (en
-anglais).
+anglais).@*
+Le fonctionnement interne de ces commandes et la façon d'en implémenter
+de nouveaux est abordée dans @rextend{Fonctions pour markups}.
 
 @seealso
 Manuel de notation :
-@ref{Commandes pour markup}.
+@ref{Commandes pour markup},
+@ref{Vue d'ensemble des objets textuels}.
+
+Manuel d'extension des fonctionnalités :
+@rextend{Fonctions pour markups}
 
 Fichiers d'initialisation :
 @file{scm/markup.scm}.
@@ -949,6 +1110,26 @@ texte multiligne ou une autre expression @emph{markup}.
 }
 \markup {
   \fill-line { 1885 }
+}
+@end lilypond
+
+@cindex text, line width
+@cindex markup text, line width
+
+@funindex line-width
+
+Les éléments peuvent se répartir sur une largeur spécifiée par une
+dérogation à la propriété @code{line-width}. Celle-ci est réglé par
+défaut à @code{#f}, autrement dit l'entièreté de la ligne :
+
+@lilypond[quote,verbatim]
+\markup {
+  \column {
+    \fill-line { left center right }
+    \null
+    \override #'(line-width . 30)
+    \fill-line { left center right }
+  }
 }
 @end lilypond
 

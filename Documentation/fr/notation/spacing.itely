@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 032de07c17caacd038f113ebcb54e9c473d64e0f
+   Translation of GIT committish: 9555963300c53fef253948cb41c43393bf1a0655
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1180,10 +1180,18 @@ courant :
 }
 @end lilypond
 
+@item footnote-separator-markup
+@funindex footnote-separator-markup
+
+Il s'agit d'un objet @emph{markup} qui vient s'insérer au-dessus du
+texte de la note de bas de page.  C'est, par défaut, une ligne
+horizontale centrée, définie dans @file{ly/paper-defaults-init.ly}.
+
 @end table
 
 @seealso
 Fichiers d'initialisation :
+@file{ly/paper-defaults-init.ly},
 @file{ly/titling-init.ly}.
 
 Morceaux choisis :

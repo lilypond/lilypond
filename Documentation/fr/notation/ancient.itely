@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 032de07c17caacd038f113ebcb54e9c473d64e0f
+   Translation of GIT committish: 9555963300c53fef253948cb41c43393bf1a0655
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -275,6 +275,7 @@ La syntaxe utilisée correspond à l'ancienne convention de préfixage
 nous opterons probablement pour le style en suffixe (postfix)
 @code{note\[ @dots{} note\]}.
 
+@ignore
 En attendant, vous pouvez inclure le fichier
 @file{gregorian.ly}, qui fournit une fonction Scheme
 @example
@@ -282,6 +283,9 @@ En attendant, vous pouvez inclure le fichier
 @end example
 qui produit le même résultat, et dont la pérennité est assurée.
 
+@c TODO: this does not seem to work at the moment.
+@c -- eo
+@end ignore
 
 @node Guidons
 @unnumberedsubsubsec Guidons

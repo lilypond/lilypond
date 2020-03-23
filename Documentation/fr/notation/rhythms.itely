@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 032de07c17caacd038f113ebcb54e9c473d64e0f
+   Translation of GIT committish: 9555963300c53fef253948cb41c43393bf1a0655
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -209,8 +209,16 @@ Référence des propriétés internes :
 @c Deliberately duplicated in Durations and Rests.  -gp
 Il n'existe pas à proprement parler de limite (inférieure ou supérieure)
 en terme de durée d'un silence.  Cependant, le nombre de glyphes
-disponibles ne couvre que les silences allant du trente-deuxième de
-soupir à la maxime (valant huit pauses).
+disponibles ne couvre que les silences allant de
+@ifnothtml
+1 024@sup{e} de pause (256@sup{e} de soupir)
+@end ifnothtml
+@ifhtml
+@html
+1 024<sup>e</sup> de pause (256<sup>e</sup> de soupir)
+@end html
+@end ifhtml
+ à la maxime (valant huit pauses).
 
 
 @node N-olets
@@ -361,13 +369,20 @@ Références des propriétés internes :
 
 La durée des notes, silences ou accords peut se modifier en lui
 adjoignant une fraction @var{N/D}, donnant « @code{*}@var{N/D} » -- ou
-« @code{*}@var{N} » si @var{D=1}.  Ceci ne modifiera en rien
-l'apparence des notes ou silences produits, mais affectera le
-positionnement de l'objet dans la mesure, ainsi que le rendu MIDI. Cette
-fraction peut elle-même être multipliée, ce qui donne quelque chose du
-style @code{*M*N/D}.  Ce facteur d'échelonnement est partie intégrante
-de la durée : en l'absence de durée explicite à la note suivante,
-cette durée échelonnée est considérée comme valeur par défaut.
+« @code{*}@var{N} » si @var{D=1}. Ce facteur peut aussi s'exprimer à
+l'aide d'une expression Scheme évaluant à un nombre ou un temps musical
+comme @code{*#(ly:music-length @var{musique})}. Cette solution est
+pratique pour échelonner à une durée de @samp{1} et laisser une note ou
+un silence multimesure s'étirer sur une longueur dérivée d'une variable
+musicale.
+
+L'ajout de ce facteur ne modifiera en rien l'apparence des notes ou
+silences produits, mais affectera le positionnement de l'objet dans la
+mesure, ainsi que le rendu MIDI. Cette fraction peut elle-même être
+multipliée, ce qui donne quelque chose du style @code{*M*N/D}. Ce
+facteur d'échelonnement est partie intégrante de la durée : en l'absence
+de durée explicite à la note suivante, cette durée échelonnée est
+considérée comme valeur par défaut.
 
 Dans l'exemple suivant, les trois premières notes prennent exactement
 deux temps, mais aucun triolet n'est imprimé.
@@ -400,21 +415,21 @@ Il est tout à fait possible d'échelonner des fragments musicaux plus ou
 moins longs à l'aide d'une simple fraction, comme si chaque note, accord
 ou silence était affecté de ce même quotient.  L'apparence de cette
 musique ne sera en rien modifiée ; seule la durée des notes est
-multipliée en interne par la fraction
+multipliée en interne par le facteur d'échelle donné -- généralement
 @emph{numérateur}/@emph{dénominateur}.  Voici un exemple illustrant la
 manière de comprimer ou étirer de la musique :
 
 @lilypond[quote,verbatim]
 \relative {
   \time 2/4
-  % Normal durations
+  % Durée normale
   <c'' a>4 c8 a
-  % Scale music by *2/3
+  % Musique échelonnée à 2/3
   \scaleDurations 2/3 {
     <c a f>4. c8 a f
   }
-  % Scale music by *2
-  \scaleDurations 2/1 {
+  % Musique échelonnée par 2
+  \scaleDurations 2 {
     <c' a>4 c8 b
   }
 }
@@ -773,8 +788,16 @@ Référence des propriétés internes :
 @c Deliberately duplicated in Durations and Rests.  -gp
 Il n'existe pas à proprement parler de limite (inférieure ou supérieure)
 en terme de durée d'un silence.  Cependant, le nombre de glyphes
-disponibles ne couvre que les silences allant du trente-deuxième de
-soupir à la maxime (équivalant à huit pauses).
+disponibles ne couvre que les silences allant du
+@ifnothtml
+1 024@sup{e} de pause (256@sup{e} de soupir)
+@end ifnothtml
+@ifhtml
+@html
+1 024<sup>e</sup> de pause (256<sup>e</sup> de soupir)
+@end html
+@end ifhtml
+ à la maxime (équivalant à huit pauses).
 
 
 @node Silences invisibles
@@ -971,15 +994,11 @@ utilisant la syntaxe @w{@var{note}-@code{markup}} (cf.
 }
 @end lilypond
 
-@ignore
-@c  TODO: the next section is out of date; \fermataMarkup has been
-@c  deprecated, see section `Full measure rests'
-@c  in the English documentation.
-
-@warning{C'est @code{MultiMeasureRestText} qui créera le texte,
-non @code{TextScript}.  Les commandes de dérogation ou de redéfinition
-doivent s'adresser à l'objet concerné, comme vous pouvez le constater
-dans l'exemple suivant.}
+@warning{C'est @code{MultiMeasureRestText} qui créera le texte, et
+@code{MultiMeasureRestScript} pour les articulations, non
+@code{TextScript} ou @code{Script}.  Les commandes de dérogation ou de
+redéfinition doivent s'adresser à l'objet concerné, comme vous pouvez le
+constater dans l'exemple suivant.}
 
 @c KEEP LY
 @lilypond[quote,verbatim,fragment]
@@ -994,7 +1013,6 @@ R1\fermata
 R1^"ça marche !"
 R1\fermata
 @end lilypond
-@end ignore
 
 Un silence multimesure placé directement après une commande
 @code{\partial} risque fort de perturber le vérificateur de limites et
@@ -1002,7 +1020,6 @@ numéros de mesure.
 
 @funindex \textLengthOn
 @funindex \textLengthOff
-@funindex textLenthOff
 @funindex \compressMMRests
 
 @predefined
@@ -1013,13 +1030,20 @@ numéros de mesure.
 
 @snippets
 
-@cindex silence d'église
-@cindex kirchenpausen
+@cindex silence multimesure, longueur
+@cindex longueur d'un silence multimesure
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {multi-measure-rest-length-control.ly}
 
 @cindex silence multimesure, numérotation
 @funindex restNumberThreshold
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{numbering-single-measure-rests.ly}
+
+@cindex silence d'église
+@cindex kirchenpause
+@cindex style de silence multimesure
+@cindex silence multimesure, style
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-form-of-multi-measure-rests.ly}
 
@@ -2178,7 +2202,6 @@ possibles ; voir @ref{Définition des règles de ligature automatique}.
 
 @cindex ligature, @code{\partCombine} et @code{\autoBeamOff}
 @cindex voix, @code{\autoBeamOff} et @code{\partCombine}
-
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {partcombine-and-autobeamoff.ly}
 
