@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 9bb7fa99aa8bc7c14a45a42224545c726bb6c592
+    Translation of GIT committish: fce9b78cb834ad4d5ef27f8ebe7ab2352823ff1d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -11,18 +11,13 @@
 @include version.itexi
 @include common-macros.itexi
 
+
 @ignore
-****************************
-MACRO DEFINITIONS GUIDELINES
-****************************
-
-This file should contain macro definitions which are common to all
-languages, i.e. all macro definitions which do not contain text that
-should be translated (namely text visible in the output).
-
-Macro definitions which contain text that should be translated in
-translations should be in macros.itexi.
+******************************************************
+See MACRO DEFINITION GUIDELINES in common-macros.itexi
+******************************************************
 @end ignore
+
 
 @c   ***** Displaying text *****
 
@@ -605,7 +600,7 @@ LilyPond バージョン @version{} 用
 @c delimits arguments in the standard way (i.e., with braces).
 
 @tex
-\gdef\lilyvindex#1{\doind{vr}{\code{#1}}\ignorespaces}
+\gdef\lilyvindex#1{\doind{vr}{\slanted{#1}}\ignorespaces}
 @end tex
 
 @macro rglos{TEXT}
