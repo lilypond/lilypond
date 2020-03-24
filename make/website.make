@@ -18,7 +18,7 @@ ifeq ($(WEBSITE_ONLY_BUILD),1)
   dir-htaccess=$(trusted-dir)/website-dir.htaccess
   # grab it from PATH
   TEXI2HTML_PROGRAM=texi2html
-  PYTHON=python
+  PYTHON=python3
   PYTHONPATH=$(TRUSTED_DIR)
 else
   ### for normal git
