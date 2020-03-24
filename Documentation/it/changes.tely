@@ -251,12 +251,12 @@ durata totale e può essere modificato attraverso la proprietà
 @code{MultiMeasureRest.space-increment}. Il valore predefinito è @code{2.0}.
 
 @lilypond[fragment,verbatim,quote]
-\compressFullBarRests
+\compressEmptyMeasures
 R1*2 R1*4 R1*64 R1*16
 @end lilypond
 
 @lilypond[fragment,verbatim,quote]
-\compressFullBarRests
+\compressEmptyMeasures
 \override Staff.MultiMeasureRest.space-increment = 2.5
 R1*2 R1*4 R1*64 R1*16
 @end lilypond

@@ -91,7 +91,7 @@ voiceC = \relative {
   \new Staff \with {
       \consists "Merge_rests_engraver"
   } <<
-    \compressFullBarRests
+    \compressEmptyMeasures
     \new Voice { \voiceOne \voiceA }
     \new Voice { \voiceTwo \voiceB }
     \new Voice { \voiceThree \voiceC }

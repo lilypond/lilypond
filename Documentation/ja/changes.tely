@@ -268,12 +268,12 @@ dob, rebb misb fabsb | sold ladd six dosd | rédsd1
 長さ分の幅を持つようになりました。デフォルト値は @code{2.0} です。
 
 @lilypond[fragment,verbatim,quote]
-\compressFullBarRests
+\compressEmptyMeasures
 R1*2 R1*4 R1*64 R1*16
 @end lilypond
 
 @lilypond[fragment,verbatim,quote]
-\compressFullBarRests
+\compressEmptyMeasures
 \override Staff.MultiMeasureRest.space-increment = 2.5
 R1*2 R1*4 R1*64 R1*16
 @end lilypond
@@ -794,7 +794,7 @@ m = {
 これらの関数は、@code{\lyrics} や @code{\chords} が受け入れるような@c
 区切られた引数リストを受け入れるようになりました。後方互換性を追加し、@c
 音楽識別子 (例えば @code{\mus}) を引数に取ることができるようになりました。@c
-@code{convert-ly} のルールが追加され、余分に使用されている @code{\lyricmode} 
+@code{convert-ly} のルールが追加され、余分に使用されている @code{\lyricmode}
 を削除し、コンテキストを開始するコマンドと各種歌詞コマンドが組み合わせて@c
 使用されている場合には、通常 @code{\lyricsto} が最後に配置されるように@c
 変換されます。

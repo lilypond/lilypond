@@ -845,7 +845,7 @@ Noten eingegeben, wobei die Bezeichnung ein Großbuchstabe
 
 @lilypond[quote,verbatim,relative=2]
 % Rest measures contracted to single measure
-\compressFullBarRests
+\compressEmptyMeasures
 R1*4
 R1*24
 R1*4
@@ -858,7 +858,7 @@ eine ganze Anzahl an Taktlängen sein, weshalb Punktierungen
 und Brüche recht häufig eingesetzt werden müssen.
 
 @lilypond[quote,relative=2,verbatim]
-\compressFullBarRests
+\compressEmptyMeasures
 \time 2/4
 R1 | R2 |
 \time 3/4
@@ -886,10 +886,8 @@ R1*2 |
 @cindex Pausen, mehrere Takte komprimieren
 @cindex Mehrtaktpausen, komprimieren
 
-@funindex \expandFullBarRests
-@funindex \compressFullBarRests
-@funindex expandFullBarRests
-@funindex compressFullBarRests
+@funindex \expandEmptyMeasures
+@funindex \compressEmptyMeasures
 
 In den Standardeinstellungen werden mehrtaktige Pausen
 ausgeschrieben gesetzt, sodass sie die entsprechende Anzahl von
@@ -904,10 +902,10 @@ der Pausendauer über dem Pausenzeichen ausgegeben wird:
 \time 2/4 R2 |
 \time 4/4
 % Rest measures contracted to single measure
-\compressFullBarRests
+\compressEmptyMeasures
 r1 | R1*17 | R1*4 |
 % Rest measures expanded
-\expandFullBarRests
+\expandEmptyMeasures
 \time 3/4
 R2.*2 |
 @end lilypond
@@ -927,7 +925,7 @@ Textbeschriftung kann Mehrtaktpausen mit @code{\markup}
 hinzugefügt werden.
 
 @lilypond[quote,verbatim,relative=2]
-\compressFullBarRests
+\compressEmptyMeasures
 \time 3/4
 R2.*10^\markup { \italic "ad lib." }
 @end lilypond
@@ -960,14 +958,14 @@ Taktprüfungswarnungen nicht angezeigt.
 
 @funindex \textLengthOn
 @funindex \textLengthOff
-@funindex \compressFullBarRests
-@funindex \expandFullBarRests
+@funindex \compressEmptyMeasures
+@funindex \expandEmptyMeasures
 
 @predefined
 @code{\textLengthOn},
 @code{\textLengthOff},
-@code{\compressFullBarRests},
-@code{\expandFullBarRests}.
+@code{\compressEmptyMeasures},
+@code{\expandEmptyMeasures}.
 @endpredefined
 
 @snippets
@@ -1749,7 +1747,7 @@ verschoben werden.
 
 @subsubheading Zusammengesetzte Taktarten
 
-Taktarten aus mehreren Teilen werden mit der Funktion 
+Taktarten aus mehreren Teilen werden mit der Funktion
 @code{\compoundMeter} erstellt.  Die Syntax ist folgende:
 
 @example
@@ -2435,7 +2433,7 @@ nicht beendet wurde und weiterhin Noten erwartet, wird dieser
 letzte Balken nicht ausgegeben.  Das Gleiche gilt auch für
 polyphone Stimmen, die mit der
 @code{<< @dots{} \\ @dots{} >>}-Konstruktion notiert wurden.  Wenn eine
-polyphone Stimme endet, während ein Balken noch weitere Noten
+polyphone Stimme endet, während ein Balken noch weitere Noten
 erwartet, wird der Balken nicht gesetzt.  Eine Notlösung für
 dieses Probelm ist, den letzten Balken in der Stimme oder
 Partitur manuell zu setzen.

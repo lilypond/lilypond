@@ -10,7 +10,7 @@ The rests should be numbered 2, (none), 1, 2, 1, (none), and 2.
 }
 
 {
-  \compressFullBarRests
+  \compressEmptyMeasures
   R1*2 R1
   \set restNumberThreshold = 0
   R1 R1*2 R1

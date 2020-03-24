@@ -1082,7 +1082,7 @@ wird dann benutzt, um den Wechsel vorzunehmen:
 }
 \relative c' {
   \clef tenor
-  \compressFullBarRests
+  \compressEmptyMeasures
   c2 g'
   R1*16
   \instrumentSwitch "contrabassoon"

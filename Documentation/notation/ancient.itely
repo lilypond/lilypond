@@ -639,7 +639,7 @@ The following example demonstrates the @code{petrucci} style:
 @c separate the notes for easier identification.
 
 @lilypond[quote,fragment,ragged-right,verbatim]
-\set Score.skipBars = ##t
+\compressEmptyMeasures
 \autoBeamOff
 \override NoteHead.style = #'petrucci
 a'\maxima a'\longa a'\breve a'1 a'2 a'4 a'8 a'16 a'
@@ -716,7 +716,7 @@ ancient rests.  Supported ancient styles are
 The following example demonstrates these styles:
 
 @lilypond[quote,fragment,ragged-right,verbatim]
-\set Score.skipBars = ##t
+\compressEmptyMeasures
 \override Rest.style = #'mensural
 r\longa^"mensural" r\breve r1 r2 r4 r8 r16 s \break
 \override Rest.style = #'neomensural

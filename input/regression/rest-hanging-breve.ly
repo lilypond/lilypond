@@ -7,7 +7,7 @@ staff lines in one line staves, different staff space and font size."
 
 music = {
   \omit Staff.TimeSignature
-  \compressFullBarRests
+  \compressEmptyMeasures
   \override MultiMeasureRest.usable-duration-logs = #'(3)
   \override MultiMeasureRest.expand-limit = 127
 

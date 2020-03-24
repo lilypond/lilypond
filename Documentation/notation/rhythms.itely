@@ -865,7 +865,10 @@ Internals Reference:
 @funindex R
 
 Rests for one or more full measures are entered like notes with
-the note name uppercase @code{R}:
+the note name uppercase @samp{R}.  Their duration is entered
+identically to the duration notation used for notes, including
+the ability to use duration multipliers, as explained in
+@ref{Scaling durations}:
 
 @lilypond[quote,verbatim]
 % Rest measures contracted to single measure
@@ -877,10 +880,13 @@ the note name uppercase @code{R}:
 }
 @end lilypond
 
-The duration of full-measure rests is identical to the duration
-notation used for notes.  The duration in a multi-measure rest must
-always be an integral number of measure-lengths, so augmentation dots
-or fractions must often be used:
+The example above also demonstrates how to compress
+multiple empty measures, as explained in
+@ref{Compressing empty measures}.
+
+The duration of a multi-measure rest must always be equal to the
+length of one or several measures.   Therefore, some time signatures
+require the use of augmentation dots or fractions:
 
 @lilypond[quote,verbatim]
 \compressMMRests {
@@ -906,29 +912,6 @@ R1*3/2 |
 \time 8/4
 R1*2 |
 @end lilypond
-
-@cindex multi-measure rest, expanding
-@cindex multi-measure rest, contracting
-
-By default a multi-measure rest is expanded in the printed score to
-show all the rest measures explicitly.  Alternatively, a multi-measure
-rest can be shown as a single measure containing a multi-measure rest
-symbol, with the number of measures of rest printed above the measure:
-
-@lilypond[quote,verbatim,fragment]
-% Default behavior
-\time 3/4 r2. | R2.*2 |
-\time 2/4 R2 |
-\time 4/4
-% Rest measures contracted to single measure
-\compressMMRests {
-  r1 | R1*17 | R1*4 |
-}
-% Rest measures expanded again
-\time 3/4
-R2.*2 |
-@end lilypond
-
 
 @cindex text, on multi-measure rest
 @cindex multi-measure rest, attaching text
@@ -993,19 +976,6 @@ setting, resulting bar-check warnings may not be displayed.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {multi-measure-rest-length-control.ly}
 
-@cindex multi-measure rest, numbering
-@funindex restNumberThreshold
-@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{numbering-single-measure-rests.ly}
-
-@cindex church rest
-@cindex rest, church
-@cindex kirchenpause
-@cindex multi-measure rest, style
-@cindex style, multi-measure rests
-@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{changing-form-of-multi-measure-rests.ly}
-
 @cindex multi-measure rest, positioning
 @cindex position, multi-measure rest
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
@@ -1025,6 +995,8 @@ Music Glossary:
 
 Notation Reference:
 @ref{Durations},
+@ref{Scaling durations},
+@ref{Compressing empty measures},
 @ref{Text},
 @ref{Formatting text},
 @ref{Text scripts}.
@@ -1386,7 +1358,8 @@ written by including an empty string in the input:
 @funindex \markLengthOn
 @funindex \markLengthOff
 
-In a part for an instrument with long periods of rests,
+In a part for an instrument with long periods of rests (see
+@ref{Full measure rests}),
 tempo indications sometimes follow each other closely.
 The command @code{\markLengthOn} provides extra horizontal space
 to prevent tempo indications from overlapping, and @code{\markLengthOff}
@@ -1440,7 +1413,8 @@ Music Glossary:
 
 Notation Reference:
 @ref{Formatting text},
-@ref{Creating MIDI output}.
+@ref{Creating MIDI output},
+@ref{Full measure rests}.
 
 Snippets:
 @rlsr{Staff notation}.

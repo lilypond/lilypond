@@ -63,6 +63,14 @@ which scares away people.
 
 
 @item
+@code{\compressFullBarRests} has been renamed to
+@code{\compressEmptyMeasures}, to avoid
+possible confusion with @code{\compressMMRests}.
+Likewise, @code{\expandFullBarRests} has now become
+@code{\expandEmptyMeasures}.
+
+
+@item
 LilyPond for Windows (MinGW) can handle Unicode filenames
 on Windows 10 1903 and above.
 

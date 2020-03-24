@@ -166,10 +166,10 @@ italianChords = {
   \set chordPrefixSpacer = #0.4
 }
 
-%% compressFullBarRests
+%% compressEmptyMeasures
 
-compressFullBarRests = \set Score.skipBars = ##t
-expandFullBarRests   = \set Score.skipBars = ##f
+compressEmptyMeasures = \set Score.skipBars = ##t
+expandEmptyMeasures   = \set Score.skipBars = ##f
 
 
 %% dots

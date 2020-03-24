@@ -357,7 +357,7 @@ Multi_measure_rest::calculate_spacing_rods (Grob *me, Real length)
   Spanner *sp = dynamic_cast<Spanner *> (me);
   if (! (sp->get_bound (LEFT) && sp->get_bound (RIGHT)))
     {
-      programming_error ("Multi_measure_rest::get_rods (): I am not spanned!");
+      programming_error ("Multi measure rest seems misplaced.");
       return;
     }
 
