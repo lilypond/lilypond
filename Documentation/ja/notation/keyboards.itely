@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: c286e07798cd57a4785c3701b2bbcf94721b0f11
+    Translation of GIT committish: fce9b78cb834ad4d5ef27f8ebe7ab2352823ff1d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -43,19 +43,18 @@
 * 譜を手動で変更する::
 * 譜を自動で変更する::
 * 譜変更線::
-* 譜を跨ぐ符幹::
 @end menu
 
 @node キーボードのためのリファレンス
 @unnumberedsubsubsec キーボードのためのリファレンス
 @translationof References for keyboards
 
-@cindex piano staves (ピアノ譜)
-@cindex staves, piano (ピアノ譜)
-@cindex staves, keyboard instruments (キーボード譜)
-@cindex staves, keyed instruments (キーを持つ楽器の譜)
-@cindex keyboard instrument staves (キーボード譜)
-@cindex keyed instrument staves (キーを持つ楽器の譜)
+@cindex piano staff (ピアノ譜)
+@cindex staff, piano (ピアノ譜)
+@cindex staff, keyboard instruments (キーボード譜)
+@cindex staff, keyed instruments (キーを持つ楽器の譜)
+@cindex keyboard instrument staff (キーボード譜)
+@cindex keyed instrument staff (キーを持つ楽器の譜)
 @cindex keyboard music, centering dynamics (キーボード譜で強弱記号を中央に配置する)
 @cindex dynamics, centered in keyboard music (キーボード譜で強弱記号を中央に配置する)
 @cindex piano music, centering dynamics (ピアノ譜で強弱記号を中央に配置する)
@@ -147,12 +146,12 @@
 @translationof Changing staff manually
 
 @cindex changing staff manually (譜を手動で変更する)
-@cindex manual staff changes (手動の譜の変更)
-@cindex staff changes, manual (手動の譜の変更)
-@cindex cross-staff notes (譜を跨ぐ音符)
-@cindex notes, cross-staff (譜を跨ぐ音符)
-@cindex cross-staff beams (譜を跨ぐ連桁)
-@cindex beams, cross-staff  (譜を跨ぐ連桁)
+@cindex manual staff change (手動の譜の変更)
+@cindex staff change, manual (手動の譜の変更)
+@cindex cross-staff note (譜を跨ぐ音符)
+@cindex note, cross-staff (譜を跨ぐ音符)
+@cindex cross-staff beam (譜を跨ぐ連桁)
+@cindex beam, cross-staff  (譜を跨ぐ連桁)
 
 @funindex \change
 
@@ -168,9 +167,31 @@
 @var{staffname} の一般的な値は @code{"up"} と @code{"down"}、@c
 あるいは @code{"RH"} と @code{"LH"} です。
 
+@cindex empty chord (空の和音)
+@cindex chord, empty (空の和音)
+@funindex <>
+
 ボイスの切り換え先となる譜は、切り換え時点で存在している必要があります。@c
 必要があれば、譜を @qq{残しておく} べきです。@c
-@ref{Keeping contexts alive} を参照してください。
+@ref{Keeping contexts alive} を参照してください。@c
+または、空の和音 @code{<>} を使用するなどして明示的にインスタンス化します。@c
+@ref{Chorded notes}を参照してください。
+
+@lilypond[verbatim, quote]
+\new PianoStaff <<
+  \new Staff = "up" {
+    % enforce creation of all contexts at this point of time
+    <>
+    \change Staff = "down" c2
+    \change Staff = "up" c'2
+  }
+  \new Staff = "down" {
+    \clef bass
+    % keep staff alive
+    s1
+  }
+>>
+@end lilypond
 
 譜を跨ぐ音符には自動的に連桁が付けられます:
 
@@ -199,8 +220,8 @@
 連桁の位置は最も近い譜の中央から算出します。@c
 連桁の調整の簡単な例が @rlearning{表記の重なりを修正する} にあります。
 
-@cindex cross-staff collisions (譜を跨ぐボイスによる衝突)
-@cindex collisions, cross-staff voices (譜を跨ぐボイスによる衝突)
+@cindex cross-staff collision (譜を跨ぐボイスによる衝突)
+@cindex collision, cross-staff voices (譜を跨ぐボイスによる衝突)
 
 ボイスが譜を跨ぐ時に、記譜要素の重なりが発生することがあります:
 
@@ -266,8 +287,8 @@
 @translationof Changing staff automatically
 
 @cindex changing staff automatically (譜を自動で変更する)
-@cindex automatic staff changes (譜の自動変更)
-@cindex staff changes, automatic (譜の自動変更)
+@cindex automatic staff change (譜の自動変更)
+@cindex staff change, automatic (譜の自動変更)
 
 @funindex \autoChange
 @funindex PianoStaff
@@ -310,8 +331,8 @@ music = {
 \autoChange d' \with { \clef alto } \with { \clef tenor } \music
 @end lilypond
 
-@cindex relative music and autochange (相対モードと自動変更)
-@cindex autochange and relative music (自動変更と相対モード)
+@cindex relative music, and @code{\autochange} (相対モードと @code{\autochange})
+@cindex @code{\autochange} and relative music (@code{\autochange} と相対モード)
 
 @funindex \relative
 
@@ -361,7 +382,7 @@ music = {
 
 
 @knownissues
-@cindex chords, splitting across staves with \autoChange (\autoChange で譜を跨ぐ和音)
+@cindex chord, splitting across staves with @code{\autoChange} (@code{\autoChange} で譜を跨ぐ和音)
 
 譜の切り換えが最適な場所で行われない場合もあります。@c
 高品位の出力を得るには、譜の切り換えを手動で指定する必要があります。
@@ -375,16 +396,13 @@ music = {
 @translationof Staff-change lines
 
 @cindex staff-change line (譜変更線)
-@cindex staff change line (譜変更線)
 @cindex cross-staff line (譜跨ぎ線)
-@cindex cross staff line (譜跨ぎ線)
 @cindex line, staff-change follower (譜変更フォロー線)
 @cindex line, cross-staff (譜跨ぎ線)
 @cindex line, staff-change (譜変更線)
 @cindex follow voice (フォロー ボイス)
 @cindex voice, following (フォロー ボイス)
 @cindex staff switching (譜の切り換え)
-@cindex cross-staff (譜跨ぎ)
 
 @funindex followVoice
 @funindex \showStaffSwitch
@@ -445,37 +463,28 @@ music = {
 @rinternals{Note_head_line_engraver},
 @rinternals{VoiceFollower}
 
+@snippets
 
-@node 譜を跨ぐ符幹
-@unnumberedsubsubsec 譜を跨ぐ符幹
-@translationof Cross-staff stems
-
-@cindex cross-staff notes (譜を跨ぐ音符)
-@cindex cross staff notes (譜を跨ぐ音符)
-@cindex notes, cross-staff (譜を跨ぐ音符)
-@cindex cross-staff stems (譜を跨ぐ符幹)
-@cindex cross staff stems (譜を跨ぐ符幹)
-@cindex stems, cross-staff (譜を跨ぐ符幹)
-@cindex chords, cross-staff (譜を跨ぐ和音)
-@cindex cross-staff chords (譜を跨ぐ和音)
-@cindex cross staff chords (譜を跨ぐ和音)
-
-@funindex Stem
+@anchor{譜を跨ぐ符幹}
+@cindex cross-staff note (譜を跨ぐ音符)
+@cindex note, cross-staff (譜を跨ぐ音符)
+@cindex cross-staff stem (譜を跨ぐ符幹)
+@cindex stem, cross-staff (譜を跨ぐ符幹)
+@cindex chord, cross-staff (譜を跨ぐ和音)
+@cindex cross-staff chord (譜を跨ぐ和音)
 @funindex \crossStaff
 @funindex \autoBeamOff
 @funindex Span_stem_engraver
 
-@code{Span_stem_engraver} を用いて譜を跨ぐ和音を作ることができます。@c
-片方の譜の音符に自動連桁機能が連桁を付けないことを間違いなく確認する@c
-よう注意してください。
-
-@lilypondfile[verbatim,quote]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {cross-staff-stems.ly}
 
-このエングラーバは、名前をダブル クォートで囲っても指定することが@c
-できませんが、名前の前にハッシュ記号 @code{#} を置くことで指定できます。
+現時点でこのエングラーバは、名前をダブル クォートで囲っても指定することができません。@c
+その代わり、名前の前にハッシュ記号 (@code{#}) を置くことで指定しなければなりません。
 
-@snippets
+@cindex cross-staff arpeggio bracket (譜を跨ぐアルペジオのブラケット)
+@cindex arpeggio bracket, cross-staff (譜を跨ぐアルペジオのブラケット)
+@cindex bracket, cross-staff (譜を跨ぐブラケット)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {indicating-cross-staff-chords-with-arpeggio-bracket.ly}
 
@@ -501,8 +510,8 @@ music = {
 @unnumberedsubsubsec ピアノ ペダル
 @translationof Piano pedals
 
-@cindex piano pedals (ピアノ ペダル)
-@cindex pedals, piano (ピアノ ペダル)
+@cindex piano pedal (ピアノ ペダル)
+@cindex pedal, piano (ピアノ ペダル)
 @cindex sustain pedal (サステイン ペダル)
 @cindex pedal, sustain (サステイン ペダル)
 @cindex sostenuto pedal (ソステヌート ペダル)
@@ -535,7 +544,7 @@ music = {
 }
 @end lilypond
 
-@cindex pedal indication styles (ペダル指示スタイル)
+@cindex pedal indication style (ペダル指示スタイル)
 @cindex pedal indication, text (ペダル指示テキスト)
 @cindex pedal indication, bracket (ペダル指示の囲み)
 @cindex pedal indication, mixed (混合ペダル指示)
@@ -544,7 +553,7 @@ music = {
 
 @funindex pedalSustainStyle
 @funindex mixed
-@funindex bracket
+@funindex @sortas{bracketA} bracket
 @funindex text
 
 ペダル指示には 3 つのスタイルがあります:
@@ -610,10 +619,12 @@ music = {
 @unnumberedsubsubsec ディスカント記号
 @translationof Discant symbols
 
-@cindex accordion discant symbols (アコーディオンのディスカント記号)
-@cindex discant symbols, accordion (アコーディオンのディスカント記号)
-@cindex accordion shifts (アコーディオン シフト)
-@cindex accordion shift symbols (アコーディオンのシフト記号)
+@cindex accordion discant symbol (アコーディオンのディスカント記号)
+@cindex discant symbol, accordion (アコーディオンのディスカント記号)
+@cindex accordion shift symbol (アコーディオン シフト記号)
+@cindex shift symbol, accordion (アコーディオンのシフト記号)
+@cindex accordion register symbol (アコーディオンのレジスター記号)
+@cindex register symbol, accordion (アコーディオンのレジスター記号)
 
 アコーディオン演奏はしばしば、@c
 指定されたピッチよりも 1 オクターブ上または下のピッチとユニゾンになる@c
@@ -623,6 +634,9 @@ music = {
 異なる名前を付けています:
 @notation{oboe}, @notation{musette}, あるいは @notation{bandonium} などです。@c
 そのため、演奏指示を単純にするための記号システムを用います。
+
+使用可能なアコーディオン レジスターの一覧は@c
+@ref{Accordion Registers}にあります。
 
 @snippets
 
@@ -649,8 +663,8 @@ music = {
 @unnumberedsubsubsec ハープのためのリファレンス
 @translationof References for harps
 
-@cindex harps (ハープ)
-@cindex bisbiglando (ビズビッリャンド)
+@cindex harp (ハープ)
+@cindex bisbigliando (ビズビッリャンド)
 
 ハープ音楽に共通する特性のいくつかが、他の場所でカバーされています:
 
@@ -682,10 +696,10 @@ music = {
 @unnumberedsubsubsec ハープ ペダル
 @translationof Harp pedals
 
-@cindex harp pedals (ハープ ペダル)
-@cindex harp pedal diagrams (ハープ ペダル ダイアグラム)
-@cindex pedals, harp (ハープ ペダル)
-@cindex pedal diagrams, harp (ハープ ペダル ダイアグラム)
+@cindex harp pedal (ハープ ペダル)
+@cindex harp pedal diagram (ハープ ペダル ダイアグラム)
+@cindex pedal, harp (ハープ ペダル)
+@cindex pedal diagram, harp (ハープ ペダル ダイアグラム)
 
 ハープはオクターブ毎に 7 本の弦を持ち、@c
 それらはナチュラル ピッチ、フラット ピッチ、あるいはシャープ ピッチの@c

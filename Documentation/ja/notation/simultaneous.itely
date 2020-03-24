@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: fdb5a275551d4e87df940924aed74a0ec273f70e
+    Translation of GIT committish: fce9b78cb834ad4d5ef27f8ebe7ab2352823ff1d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -46,11 +46,11 @@ LilyPond の中で多声部は同じ譜にある複数のボイスを参照し�
 @unnumberedsubsubsec 和音の音符
 @translationof Chorded notes
 
-@cindex chords (和音)
-@cindex brackets, angle (山括弧)
+@cindex chord (和音)
+@cindex bracket, angle (山括弧)
 
-@funindex <
-@funindex >
+@funindex @sortas{<A} <
+@funindex @sortas{>A} >
 @funindex <...>
 
 和音は @code{<} と @code{>} で 1 組のピッチを囲むことによって形成されます。@c
@@ -94,8 +94,10 @@ LilyPond の中で多声部は同じ譜にある複数のボイスを参照し�
 }
 @end lilypond
 
-@cindex chords, empty (空の和音)
-@cindex placeholder events (プレースホルダー イベント)
+@cindex chord, empty (空の和音)
+@cindex placeholder event (プレースホルダー イベント)
+
+@funindex <>
 
 和音は和音に含まれる音符、アーティキュレーション、それに他の付属要素の@c
 コンテナにすぎません。@c
@@ -113,7 +115,7 @@ LilyPond の中で多声部は同じ譜にある複数のボイスを参照し�
 @end lilypond
 
 @cindex relative pitch, chords (和音と相対ピッチ)
-@cindex chords, relative pitch (相対ピッチと和音)
+@cindex chord, relative pitch (相対ピッチと和音)
 
 和音の中のピッチに対して相対モードを使うことができます。@c
 各和音の最初の音符は常に、前の和音の最初の音符との相対関係で決まります。@c
@@ -321,7 +323,7 @@ LilyPond の中で多声部は同じ譜にある複数のボイスを参照し�
 ここでは、リズムが異なっていても問題ありません。@c
 異なるボイスだと解釈されるからです。
 
-@cindex collisions, ignoring (衝突を無視する)
+@cindex collision, ignoring (衝突を無視する)
 
 @knownissues
 譜の同じ場所で、同じ向きの符幹を持つ複数のボイスから音符がシフトされずに
@@ -417,10 +419,12 @@ warning: This voice needs a \voiceXx or \shiftXx setting
 @cindex single-staff polyphony (単一譜の多声)
 @cindex polyphony, single-staff (単一譜の多声)
 @cindex voice (ボイス)
-@cindex lyrics assigned to one voice (1 つのボイスに代入される歌詞)
+@cindex lyrics, assigned to one voice (1 つのボイスに代入される歌詞)
 
 @funindex \voiceOne
-@funindex \voiceOne ... \voiceFour
+@funindex \voiceTwo
+@funindex \voiceThree
+@funindex \voiceFour
 @funindex Voice
 @funindex \oneVoice
 
@@ -646,9 +650,9 @@ etc.
 @unnumberedsubsubsec ボイス スタイル
 @translationof Voice styles
 
-@cindex voice styles (ボイス スタイル)
-@cindex styles, voice (ボイス スタイル)
-@cindex coloring voices (ボイスに色を付ける)
+@cindex voice style (ボイス スタイル)
+@cindex style, voice (ボイス スタイル)
+@cindex coloring voice (ボイスに色を付ける)
 @funindex \voiceOneStyle
 @funindex \voiceTwoStyle
 @funindex \voiceThreeStyle
@@ -694,14 +698,14 @@ etc.
 @translationof Collision resolution
 
 @cindex merging notes (音符に余白を設ける)
-@cindex note collisions (音符の衝突)
-@cindex collisions (衝突)
+@cindex note collision (音符の衝突)
+@cindex collision (衝突)
 @cindex shift note (音符のシフト)
 @cindex multiple voices (複数のボイス)
-@cindex voices, multiple (複数のボイス)
+@cindex voice, multiple (複数のボイス)
 @cindex polyphonic music (多声の音楽)
-@cindex shifting voices (ボイスをずらす)
-@cindex voices, multiple (複数のボイス)
+@cindex shifting voice (ボイスをずらす)
+@cindex voice, shifting (ボイスをずらす)
 @cindex shift rest, automatic (自動的な休符のシフト)
 @funindex \shiftOn
 @funindex \shiftOnn
@@ -881,11 +885,24 @@ etc.
 @endpredefined
 
 @snippets
+
+@cindex voice, additional, in polyphonic music (多声での追加のボイス)
+@cindex additional voices in polyphonic music (多声での追加のボイス)
+@cindex polyphony, additional voices (多声での追加のボイス)
+@funindex context-spec-music
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {additional-voices-to-avoid-collisions.ly}
 
+@cindex dotted note, moving horizontally (付点付きの音符を水平方向に移動する)
+@cindex note, dotted, moving horizontally (付点付きの音符を水平方向に移動する)
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{moving-dotted-notes-in-polyphony.ly}
+
+@cindex note, horizontal shift (音符を水平方向に移動する)
+@cindex horizontal shift of notes (音符を水平方向に移動する)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {forcing-horizontal-shift-of-notes.ly}
+
 
 @seealso
 音楽用語集:
@@ -904,7 +921,7 @@ etc.
 @rinternals{NoteCollision},
 @rinternals{RestCollision}
 
-@cindex collisions, ignoring (衝突を無視する)
+@cindex collision, ignoring (衝突を無視する)
 
 @knownissues
 @code{\override NoteColumn.ignore-collision = ##t} を使うと@c
@@ -1143,7 +1160,7 @@ instrumentTwo = \relative {
 
 @subsubsubheading \partCombine を歌詞と同時に使う
 
-@cindex \partCombine and lyrics (\partCombine と歌詞)
+@cindex @code{\partCombine} and lyrics (@code{\partCombine} と歌詞)
 
 @code{\partCombine} は歌詞と同時に動作するように設計されていません。@c
 歌詞を付けるために、ボイスの片方に名前が明示されていた場合、パート結合は@c
@@ -1157,6 +1174,8 @@ instrumentTwo = \relative {
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {combining-two-parts-on-the-same-staff.ly}
 
+@cindex part combiner, changing text (パート結合のテキストを変更する)
+@cindex combining parts, changing text (パート結合のテキストを変更する)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-partcombine-texts.ly}
 

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: fdb5a275551d4e87df940924aed74a0ec273f70e
+    Translation of GIT committish: fce9b78cb834ad4d5ef27f8ebe7ab2352823ff1d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -40,7 +40,7 @@
 
 このセクションでは、楽譜にテキストを付け加えるいくつかの方法を紹介します。
 
-@cindex Text, other languages (他の言語のテキスト)
+@cindex text, other languages (他の言語のテキスト)
 @warning{アクセント付きのテキストや特殊なテキスト
 (他の言語の文字など) を記述するには、@c
 単純にその文字を直接 LilyPond ファイルに挿入します。@c
@@ -59,9 +59,9 @@
 @unnumberedsubsubsec テキスト スクリプト
 @translationof Text scripts
 
-@cindex Text scripts (テキスト スクリプト)
-@cindex text items, non-empty (空ではないテキスト アイテム)
-@cindex non-empty texts (空ではないテキスト)
+@cindex text script (テキスト スクリプト)
+@cindex text item, non-empty (空ではないテキスト アイテム)
+@cindex non-empty text (空ではないテキスト)
 @cindex quoted text (引用符で囲まれたテキスト)
 
 以下の例で示すように、@c
@@ -128,7 +128,7 @@
 内部リファレンス:
 @rinternals{TextScript}
 
-@cindex text outside margin (マージンからはみ出すテキスト)
+@cindex text, outside margin (マージンからはみ出すテキスト)
 @cindex margin, text running over (マージンからはみ出すテキスト)
 @cindex text, keeping inside margin (テキストをマージン内に収める)
 @cindex lyrics, keeping inside margin (歌詞をマージン内に収める)
@@ -147,7 +147,7 @@
 @unnumberedsubsubsec テキスト スパナ
 @translationof Text spanners
 
-@cindex Text spanners (テキスト スパナ)
+@cindex text spanner (テキスト スパナ)
 
 いくつかの演奏指示
 -- 例えば @notation{rallentando} や @notation{accelerando} -- は、@c
@@ -165,8 +165,8 @@
 }
 @end lilypond
 
-@cindex text spanners, formatting (テキスト スパナ フォーマット)
-@cindex formatting text spanners (テキスト スパナ フォーマット)
+@cindex text spanner, formatting (テキスト スパナ フォーマット)
+@cindex formatting, text spanner (テキスト スパナ フォーマット)
 
 @noindent
 譜刻される文字列はオブジェクト プロパティを通じてセットされます。@c
@@ -203,6 +203,8 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 
 @snippets
 
+@cindex dynamics, text spanner, customize (強弱記号のテキスト スパナをカスタマイズする)
+@cindex text spanner, dynamics, customize (強弱記号のテキスト スパナをカスタマイズする)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {dynamics-text-spanner-postfix.ly}
 
@@ -228,13 +230,13 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 @translationof Text marks
 
 
-@cindex text marks (テキスト マーク)
-@cindex marks, tex (テキスト マーク)
-@cindex text on bar line (小節線上のテキスト)
-@cindex coda on bar line (小節線上のコーダ)
-@cindex segno on bar line (小節線上のセーニョ)
-@cindex fermata on bar line (小節線上のフェルマータ)
-@cindex bar lines, symbols on (小節線上のシンボル)
+@cindex text mark (テキスト マーク)
+@cindex mark, text (テキスト マーク)
+@cindex text, on bar line (小節線上のテキスト)
+@cindex coda sign, on bar line (小節線上のコーダ記号)
+@cindex segno sign, on bar line (小節線上のセーニョ記号)
+@cindex fermata, on bar line (小節線上のフェルマータ)
+@cindex bar line, symbols on (小節線上のシンボル)
 
 @funindex \mark
 @funindex \markup
@@ -289,7 +291,7 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 楽譜の最上段の譜の上だけです。@c
 オブジェクトを小節の終わりで指定するか、途中で指定するか次第で、@c
 小節線の上に配置されたり、音符の間に配置されたりします。@c
-改行位置で指定した場合、そのマークは次の行の先頭に譜刻されます。
+改行位置で指定した場合、そのリハーサル記号は次の行の先頭に譜刻されます。
 
 @lilypond[quote,verbatim,ragged-right]
 \relative c'' {
@@ -310,9 +312,15 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 
 @snippets
 
+@cindex end of line, positioning marks (行末にリハーサル記号を配置する)
+@cindex line, end of, positioning marks (行末にリハーサル記号を配置する)
+@cindex mark, at end of line (行末のリハーサル記号)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-marks-at-the-end-of-a-line.ly}
 
+@cindex mark, on every staff (全ての譜にリハーサル記号を表示する)
+@funindex Mark_engraver
+@funindex Staff_collecting_engraver
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-marks-on-every-staff.ly}
 
@@ -391,6 +399,10 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 
 @snippets
 
+@cindex text, in columns (テキストの段組)
+@cindex column, text (テキストの段)
+@cindex two-column text (2 段のテキスト)
+@cindex markup, two-column (2 段のマークアップ)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {stand-alone-two-column-markup.ly}
 
@@ -438,8 +450,8 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 @code{\markup} ブロックは @qq{マークアップ モード} と呼ばれる@c
 拡張可能な構文でテキストを譜刻するために用いられます。
 
-@cindex markup expressions (マークアップ表記)
-@cindex expressions, markup (マークアップ表記)
+@cindex markup expression (マークアップ表記)
+@cindex expression, markup (マークアップ表記)
 @cindex markup syntax (マークアップ構文)
 @cindex syntax, markup (マークアップ構文)
 
@@ -465,13 +477,13 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 }
 @end lilypond
 
-@cindex special characters in markup mode (マークアップ モードでの特殊文字)
+@cindex special character, in markup mode (マークアップ モードでの特殊文字)
 @cindex markup mode, special characters (マークアップ モードでの特殊文字)
-@cindex printing reserved characters (予約文字を譜刻する)
-@cindex reserved characters, printing (予約文字を譜刻する)
-@cindex printing special characters (特殊文字を譜刻する)
+@cindex reserved character, printing (予約文字を譜刻する)
+@cindex printing reserved character (予約文字を譜刻する)
+@cindex printing special character (特殊文字を譜刻する)
 @cindex special characters, printing (特殊文字を譜刻する)
-@cindex quoted text in markup mode (マークアップ モードでの引用譜で囲まれたテキスト)
+@cindex quoted text, in markup mode (マークアップ モードでの引用譜で囲まれたテキスト)
 @cindex markup mode, quoted text (マークアップ モードでの引用譜で囲まれたテキスト)
 
 また、@code{\markup} ブロックは引用符で囲まれたテキスト文字列を@c
@@ -545,8 +557,8 @@ allegro = \markup { \bold \large Allegro }
 @translationof Selecting font and font size
 
 @cindex font switching (フォントの切り換え)
-@cindex changing fonts (フォントを変更する)
-@cindex switching fonts (フォントを切り換える)
+@cindex changing font (フォントを変更する)
+@cindex switching font (フォントを切り換える)
 
 @funindex \italic
 @funindex \bold
@@ -649,7 +661,7 @@ allegro = \markup { \bold \large Allegro }
 }
 @end lilypond
 
-@cindex font families (フォント ファミリ)
+@cindex font family (フォント ファミリ)
 
 マークアップ モードは代わりのフォント ファミリを選択するための@c
 簡単な方法を提供します。@c
@@ -751,9 +763,9 @@ allegro = \markup { \bold \large Allegro }
 @cindex text, aligning (テキストを揃える)
 @cindex aligning text (テキストを揃える)
 @cindex aligning markup text (マークアップ テキストを揃える)
+@cindex aligning markup (マークアップを揃える)
+@cindex markup, aligning (マークアップを揃える)
 @cindex markup text, aligning (マークアップ テキストを揃える)
-@cindex aligning markups (マークアップを揃える)
-@cindex markups, aligning (マークアップを揃える)
 
 このサブセクションでは、@c
 マークアップ モードのテキストを配置する方法について説明します。@c
@@ -810,7 +822,8 @@ allegro = \markup { \bold \large Allegro }
 そのようなマークアップ オブジェクト全体を移動させることが可能です。
 
 @cindex text, vertical alignment (テキストを垂直方向に揃える)
-@cindex vertical text alignment (テキストを垂直方向に揃える)
+@cindex vertical alignment, text (テキストを垂直方向に揃える)
+@cindex alignment, vertical, text (テキストを垂直方向に揃える)
 
 @funindex \raise
 @funindex \lower
@@ -880,8 +893,8 @@ allegro = \markup { \bold \large Allegro }
 @cindex markup, multi-line (複数行にわたるマークアップ)
 @cindex multi-line text (複数行にわたるテキスト)
 @cindex text, multi-line (複数行にわたるテキスト)
-@cindex text in columns (縦に積み重ねたテキスト)
-@cindex columns, text (縦に積み重ねたテキスト)
+@cindex text, in columns (段組のテキスト)
+@cindex column, text (テキストの段)
 
 @funindex \column
 @funindex \center-column
@@ -906,9 +919,9 @@ allegro = \markup { \bold \large Allegro }
 }
 @end lilypond
 
-@cindex centering text on the page (テキストをページの中央に揃える)
-@cindex text, centering on the page (テキストをページの中央に揃える)
-@cindex markup, centering on the page (マークアップをページの中央に揃える)
+@cindex centering text on page (テキストをページの中央に揃える)
+@cindex text, centering on page (テキストをページの中央に揃える)
+@cindex markup, centering on page (マークアップをページの中央に揃える)
 
 @funindex \fill-line
 
@@ -973,8 +986,8 @@ allegro = \markup { \bold \large Allegro }
 }
 @end lilypond
 
-@cindex text alignment commands (テキスト揃えのコマンド)
-@cindex markup text alignment commands (マークアップ テキスト揃えのコマンド)
+@cindex text alignment command (テキスト揃えのコマンド)
+@cindex markup text, alignment command (マークアップ テキスト揃えのコマンド)
 @cindex alignment, text, commands (テキスト揃えのコマンド)
 
 @ref{Align} にテキスト揃えコマンドの徹底したリストがあります。
@@ -1002,10 +1015,10 @@ allegro = \markup { \bold \large Allegro }
 @translationof Graphic notation inside markup
 
 @cindex graphics, embedding (グラフィックを埋め込む)
-@cindex drawing graphic objects (グラフィック オブジェクトを描く)
-@cindex graphic objects, drawing (グラフィック オブジェクトを描く)
-@cindex embedding graphic objects (グラフィック オブジェクトを埋め込む)
-@cindex graphic objects, embedding (グラフィック オブジェクトを埋め込む)
+@cindex drawing graphic object (グラフィック オブジェクトを描く)
+@cindex graphic object, drawing (グラフィック オブジェクトを描く)
+@cindex embedding graphic object (グラフィック オブジェクトを埋め込む)
+@cindex graphic object, embedding (グラフィック オブジェクトを埋め込む)
 
 マークアップ コマンドを用いて、@c
 さまざまなグラフィック オブジェクトを楽譜に付け加えることができます。
@@ -1020,7 +1033,7 @@ allegro = \markup { \bold \large Allegro }
 @funindex \box
 @funindex \circle
 @funindex \rounded-box
-@funindex \bracket
+@funindex @sortas{bracketB} \bracket
 @funindex \hbracket
 
 以下の例で示すように、@c
@@ -1045,8 +1058,8 @@ allegro = \markup { \bold \large Allegro }
 @end lilypond
 
 @cindex padding around text (テキストの周りのパディング)
-@cindex text padding (テキスト パディング)
-@cindex markup text padding (マークアップ テキスト パディング)
+@cindex text, padding (テキスト パディング)
+@cindex markup text, padding (マークアップ テキスト パディング)
 
 @funindex \pad-markup
 @funindex \pad-x
@@ -1081,8 +1094,8 @@ Flute quartet keeps very uneven time."
 @end lilypond
 
 @cindex graphic notation (グラフィック記譜法)
-@cindex symbols, non-musical (音楽要素ではないシンボル)
-@cindex non-musical symbols (音楽要素ではないシンボル)
+@cindex symbol, non-musical (音楽要素ではないシンボル)
+@cindex non-musical symbol (音楽要素ではないシンボル)
 @cindex notation, graphic (グラフィック記譜法)
 
 @funindex \combine
@@ -1113,7 +1126,7 @@ Flute quartet keeps very uneven time."
 @end lilypond
 
 @cindex embedded graphics (埋め込みグラフィック)
-@cindex images, embedding (画像を埋め込む)
+@cindex image, embedding (画像を埋め込む)
 @cindex graphics, embedding (グラフィックを埋め込む)
 @cindex postscript
 
@@ -1172,8 +1185,8 @@ c'
 @unnumberedsubsubsec マークアップ内部での音楽記譜法
 @translationof Music notation inside markup
 
-@cindex notation inside markup (マークアップ内部の記譜法)
-@cindex music inside markup (マークアップ内部の音楽)
+@cindex notation, inside markup (マークアップ内部の記譜法)
+@cindex music, inside markup (マークアップ内部の音楽)
 @cindex markup, music notation inside (マークアップ内部の音楽記譜法)
 
 マークアップ オブジェクトの内部で、さまざまな音楽記譜要素を楽譜に@c
@@ -1265,20 +1278,16 @@ a'1_\markup {
 そのようなダイアグラムは @ref{Instrument Specific Markup} で@c
 ドキュメント化されています。
 
-@cindex score inside markup (マークアップ内部の楽譜)
+@cindex score, inside markup (マークアップ内部の楽譜)
 @cindex markup, score inside (マークアップ内部の楽譜)
 
-楽譜全体でさえもマークアップ オブジェクト内部にネストさせることができます。@c
-そのような場合、以下で示すように、@c
-ネストされる @code{\score} ブロックには
-@code{\layout} ブロックを含める必要があります:
+楽譜全体でさえもマークアップ オブジェクト内部にネストさせることができます:
 
 @lilypond[quote,verbatim]
 \relative {
   c'4 d^\markup {
     \score {
       \relative { c'4 d e f }
-      \layout { }
     }
   }
   e f |
@@ -1318,7 +1327,7 @@ a'1_\markup {
 @cindex multi-page markup (複数ページにわたるマークアップ)
 @cindex markup, multi-page (複数ページにわたるマークアップ)
 @cindex markup text, multi-page (複数ページにわたるマークアップ テキスト)
-@cindex text spread over multiple pages (複数ページに広がるテキスト)
+@cindex text, spread over multiple pages (複数ページに広がるテキスト)
 
 @funindex \markuplist
 @funindex \justified-lines
@@ -1397,10 +1406,10 @@ a'1_\markup {
 @translationof Fonts explained
 
 @cindex Pango
-@cindex fonts, explained (フォントの説明)
-@cindex braces, various sizes (さまざまなサイズの波括弧)
-@cindex fonts, non-text in markup (マークアップ内の非テキスト フォント)
-@cindex non-text fonts in markup (マークアップ内の非テキスト フォント)
+@cindex font, explained (フォントの説明)
+@cindex brace, various sizes (さまざまなサイズの波括弧)
+@cindex font, non-text in markup (マークアップ内の非テキスト フォント)
+@cindex non-text font, in markup (マークアップ内の非テキスト フォント)
 
 @funindex font-interface
 
@@ -1617,7 +1626,7 @@ a'1_\markup {
 }
 @end lilypond
 
-@cindex fonts, finding available (利用可能なフォントを見つける)
+@cindex font, finding available (利用可能なフォントを見つける)
 @cindex finding available fonts (利用可能なフォントを見つける)
 @cindex listing available fonts (利用可能なフォントをリストアップする)
 @cindex available fonts, listing (利用可能なフォントをリストアップする)
@@ -1665,8 +1674,8 @@ lilypond -dshow-available-fonts x
 しかし、フォント @q{スタイル} は記述できません。@c
 フォントについての説明は、@ref{フォントの説明} を参照してください。
 
-@cindex font families, setting (フォント ファミリを設定する)
-@cindex fonts, changing for entire document (ドキュメント全体のフォントを変更する)
+@cindex font family, setting (フォント ファミリを設定する)
+@cindex font, changing for entire document (ドキュメント全体のフォントを変更する)
 
 @funindex make-pango-font-tree
 

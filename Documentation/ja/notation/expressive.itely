@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: c286e07798cd57a4785c3701b2bbcf94721b0f11
+    Translation of GIT committish: fce9b78cb834ad4d5ef27f8ebe7ab2352823ff1d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -50,36 +50,41 @@
 @unnumberedsubsubsec アーティキュレーションと装飾
 @translationof Articulations and ornamentations
 
-@cindex articulations (アーティキュレーション)
+@cindex articulation (アーティキュレーション)
 @cindex ornamentation (装飾)
-@cindex scripts (スクリプト)
-@cindex ornaments (装飾)
+@cindex script (スクリプト)
+@cindex ornament (装飾)
 @cindex espressivo (エスプレッシーヴォ)
 @cindex fermata (フェルマータ)
-@cindex upbow (アップボー、上弓)
-@cindex downbow (ダウンボー、下弓)
-@cindex foot marks (フット マーク、足記号)
-@cindex organ pedal marks (オルガン ペダル記号)
-@cindex pedal marks, organ (オルガン ペダル記号)
+@cindex up-bow (アップ ボー、上弓)
+@cindex down-bow (ダウン ボー、下弓)
+@cindex foot mark (フット マーク、足記号)
+@cindex organ pedal mark (オルガン ペダル記号)
+@cindex pedal mark, organ (オルガン ペダル記号)
 @cindex turn (ターン)
 @cindex open (オープン)
 @cindex stopped (ストップ、ミュート)
 @c フラジョレット: 六孔の縦笛
 @cindex flageolet (フラジョレット)
-@cindex reverseturn (逆ターン)
+@cindex reverse turn (逆ターン)
 @cindex trill (トリル)
-@cindex prall (プラル)
+@cindex pralltriller (プラルトリラー)
 @cindex mordent (モルデント)
-@cindex prallprall (プラルプラル)
-@cindex prallmordent (プラルモルデント)
-@cindex prall, up (アップ プラル)
-@cindex prall, down (ダウン プラル)
-@cindex mordent, up (アップ モルデント)
-@cindex mordent, down (ダウン モルデント)
+@cindex long pralltriller (ロング プラルトリラー)
+@cindex pralltriller, long (ロング プラルトリラー)
+@cindex mordent (モルデント)
+@cindex pralltriller, up (アップ プラルトリラー)
+@cindex pralltrlller, down (ダウン プラルトリラー)
+@cindex mordent, upper (アッパー モルデント)
+@cindex mordent, lower (ローワー モルデント)
 @cindex thumb marking (親指記号)
-@cindex segno (セーニョ)
-@cindex coda (コーダ)
-@cindex varcoda (変格コーダ)
+@cindex segno sign (セーニョ記号)
+@cindex coda sign (コーダ記号)
+@cindex coda sign, variant (変形コーダ記号)
+@cindex sign, segno (セーニョ記号)
+@cindex sign, coda (コーダ記号)
+@cindex sign, variant coda (変形コーダ記号)
+@cindex variant coda sign (変形コーダ記号)
 
 @funindex \accent
 @funindex \marcato
@@ -204,12 +209,28 @@ R1\fermata
 
 @snippets
 
+@cindex articulation, default values, modifying (アーティキュレーションのデフォルト値を変更する)
+@funindex \dashBang
+@funindex \dashDash
+@funindex \dashDot
+@funindex \dashHat
+@funindex \dashLarger
+@funindex \dashPlus
+@funindex \dashUnderscore
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {modifying-default-values-for-articulation-shorthand-notation.ly}
 
+@cindex vertical ordering, of scripts (スクリプトの縦方向の順序)
+@cindex ordering, vertical, of scripts (スクリプトの縦方向の順序)
+@cindex script, vertical ordering (スクリプトの縦方向の順序)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {controlling-the-vertical-ordering-of-scripts.ly}
 
+@cindex delayed turn ornamentation (遅れターン装飾記号)
+@cindex turn ornamentation, delayed (遅れターン装飾記号)
+@cindex ornamentation, turn, delayed (遅れターン装飾記号)
+@funindex suggestAccidentals
+@funindex AccidentalSuggestion
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {creating-a-delayed-turn.ly}
 
@@ -292,11 +313,13 @@ R1\fermata
 @cindex decrescendo (デクレッシェンド)
 @cindex diminuendo (ディミヌエンド)
 
-@funindex \<
-@funindex \>
-@funindex \!
+@funindex @sortas{<B} \<
+@funindex @sortas{>B} \>
+@funindex @sortas{!B} \!
 @funindex \cr
 @funindex \decr
+@funindex \endcr
+@funindex \enddecr
 
 @notation{クレッシェンド} 記号は @code{\<} で始まり、@code{\!}、@c
 絶対強弱記号あるいは追加のクレッシェンド記号またはデクレッシェンド記号で@c
@@ -305,7 +328,10 @@ R1\fermata
 絶対強弱記号あるいは次のクレッシェンド記号またはデクレッシェンド記号で@c
 終わります。@c
 @code{\cr} と @code{\decr} を @code{\<} と @code{\>} の代わりに@c
-用いる場合もあります。@c
+用いることができます。
+また、クレッシェンド記号やデクレッシェンド記号の終点に、それぞれ
+@code{\endcr} と @code{\enddecr} を @code{\!} の代わりに@c
+用いることもできます。@c
 この記譜法を用いるとデフォルトでは @notation{ヘアピン} が譜刻されます。
 
 @lilypond[verbatim,quote]
@@ -344,8 +370,8 @@ R1\fermata
 }
 @end lilypond
 
-@cindex multiple dynamic marks on one note (1 つの音符に複数の強弱記号をつける)
-@cindex dynamic marks, multiple on one note (1 つの音符に複数の強弱記号をつける)
+@cindex multiple dynamic mark on one note (1 つの音符に複数の強弱記号をつける)
+@cindex dynamic mark, multiple on one note (1 つの音符に複数の強弱記号をつける)
 1 つの音符に複数の記号を譜刻するには、空白休符を用いる必要があります。@c
 これは特に、同じ音符に @notation{クレッシェンド} と @notation{デクレッシェンド}
 を付ける場合に有用です。
@@ -376,7 +402,7 @@ R1\fermata
 
 @funindex \cresc
 @funindex \decresc
-@funindex \dim
+@funindex @sortas{dimB} \dim
 テキストのクレッシェンド記号は @code{\cresc} で開始します。@c
 テキストのデクレッシェンド記号は @code{\decresc} または
 @code{\dim} で開始します。@c
@@ -469,39 +495,59 @@ R1\fermata
 
 @snippets
 
-@cindex hairpins at bar lines (小節線で終わるヘアピン)
-
+@cindex hairpin, stopping at bar lines (小節線で終わるヘアピン)
+@cindex bar line, hairpin, stopping at (小節線で終わるヘアピン)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {setting-hairpin-behavior-at-bar-lines.ly}
 
+@cindex hairpin, minimum length (ヘアピンの最小の長さ)
+@cindex minimum length, hairpin (ヘアピンの最小の長さ)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {setting-the-minimum-length-of-hairpins.ly}
 
+@cindex hairpin, moving ends of (ヘアピンの終点を移動する)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {moving-the-ends-of-hairpins.ly}
 
-@cindex al niente (アル ニエンテ)
-@cindex niente, al (アル ニエンテ)
-
+@cindex al niente, hairpin (アル ニエンテのヘアピン)
+@cindex niente, al, hairpin (アル ニエンテのヘアピン)
+@cindex hairpin, al niente (アル ニエンテのヘアピン)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {printing-hairpins-using-al-niente-notation.ly}
 
-@cindex Ferneyhough hairpins (ファーニホウのヘアピン)
-@cindex hairpins, Ferneyhough (ファーニホウのヘアピン)
-@cindex flared hairpins (裾の広いヘアピン)
-@cindex hairpins, flared (裾の広いヘアピン)
-@cindex constante hairpins (広がらないヘアピン)
-@cindex hairpins, constante (広がらないヘアピン)
-
+@cindex Ferneyhough hairpin (ファーニホウのヘアピン)
+@cindex hairpin, Ferneyhough (ファーニホウのヘアピン)
+@cindex flared hairpin (裾の広いヘアピン)
+@cindex hairpin, flared (裾の広いヘアピン)
+@cindex constante hairpin (広がらないヘアピン)
+@cindex hairpin, constante (広がらないヘアピン)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {printing-hairpins-in-various-styles.ly}
 
+@cindex vertical alignment, dynamics (強弱記号の縦方向の位置)
+@cindex alignment, vertical, dynamics (強弱記号の縦方向の位置)
+@cindex dynamics, vertical alignment (強弱記号の縦方向の位置)
+@cindex vertical alignment, text scripts (テキスト スクリプトの縦方向の位置)
+@cindex text script, vertical alignment (テキスト スクリプトの縦方向の位置)
+@cindex alignment, vertical, text scripts (テキスト スクリプトの縦方向の位置)
+@funindex DynamicLineSpanner
+@funindex \textLengthOn
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {vertically-aligned-dynamics-and-textscripts.ly}
 
+@cindex dynamics, extender line, hiding (強弱記号の線を隠す)
+@cindex hiding dynamics extender line (強弱記号の線を隠す)
+@cindex extender line, dynamics, hiding (強弱記号の線を隠す)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {hiding-the-extender-line-for-text-dynamics.ly}
 
+@cindex dynamics, text, style (強弱記号のテキストのスタイル)
+@cindex text dynamics, style (強弱記号のテキストのスタイル)
+@cindex style, text dynamics (強弱記号のテキストのスタイル)
+@funindex crescendoText
+@funindex crescendoSpanner
+@funindex decrescendoText
+@funindex decrescendoSpanner
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-text-and-spanner-styles-for-text-dynamics.ly}
 
@@ -535,8 +581,8 @@ R1\fermata
 @unnumberedsubsubsec 新たな強弱記号
 @translationof New dynamic marks
 
-@cindex new dynamic marks (新たな強弱記号)
-@cindex dynamic marks, new (新たな強弱記号)
+@cindex new dynamic mark (新たな強弱記号)
+@cindex dynamic mark, new (新たな強弱記号)
 
 強弱記号を作成する最も容易な方法は、@c
 @code{\markup} オブジェクトを使用することです。
@@ -571,7 +617,6 @@ boxF = \markup { \bracket { \dynamic f } }
 }
 @end lilypond
 
-@cindex make-dynamic-script
 @funindex make-dynamic-script
 
 単純に中央揃えの強弱記号は @code{make-dynamic-script} 関数を用いて@c
@@ -679,8 +724,10 @@ moltoF = \tweak DynamicText.self-alignment-X #LEFT
 @unnumberedsubsubsec スラー
 @translationof Slurs
 
-@cindex slurs (スラー)
+@cindex slur (スラー)
 
+@funindex @sortas{(A} (
+@funindex @sortas{)A} )
 @notation{スラー} は括弧を用いて入力します:
 
 @warning{多声音楽では、@c
@@ -694,9 +741,9 @@ moltoF = \tweak DynamicText.self-alignment-X #LEFT
 }
 @end lilypond
 
-@cindex slurs, manual placement (手動でスラーを配置する)
-@cindex slurs, below notes (音符の下にスラーを配置する)
-@cindex slurs, above notes (音符の上にスラーを配置する)
+@cindex slur, manual placement (手動でスラーを配置する)
+@cindex slur, below notes (音符の下にスラーを配置する)
+@cindex slur, above notes (音符の上にスラーを配置する)
 @funindex \slurDown
 @funindex \slurNeutral
 
@@ -707,8 +754,10 @@ moltoF = \tweak DynamicText.self-alignment-X #LEFT
 @cindex multiple slurs (多重スラー)
 @cindex simultaneous slurs (同時進行のスラー)
 @cindex slur, phrasing (フレージング スラー)
-@cindex slurs, multiple (多重スラー)
-@cindex slurs, simultaneous (同時進行のスラー)
+@cindex slur, multiple (多重スラー)
+@cindex slur, simultaneous (同時進行のスラー)
+@c exception: don't use `@sortas' here since some entries for `\=' are
+@c autogenerated (thus missing `@sortas')
 @funindex \=
 
 同時進行する、あるいは重なるスラーは特別な注意を必要とします。@c
@@ -772,6 +821,7 @@ moltoF = \tweak DynamicText.self-alignment-X #LEFT
 
 @funindex \slurDashPattern
 @cindex slur, defining dash patterns (スラーの破線パターンを定義する)
+@cindex dash patterns, slur (スラーの破線パターン)
 
 スラーの破線パターンを定義することができます:
 
@@ -807,12 +857,20 @@ moltoF = \tweak DynamicText.self-alignment-X #LEFT
 
 @snippets
 
+@cindex slurs, double, for legato chords (和音のレガートに用いる 2 つのスラー)
+@cindex double slurs, for legato chords (和音のレガートに用いる 2 つのスラー)
+@findex doubleSlurs
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {using-double-slurs-for-legato-chords.ly}
 
+@cindex markup, text, inside slurs (スラー内部のマークアップ テキスト)
+@cindex text markup, inside slurs (スラー内部のマークアップ テキスト)
+@cindex slur, text markup inside (スラー内部のマークアップ テキスト)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {positioning-text-markups-inside-slurs.ly}
 
+@cindex slur, defining dash patterns (スラーの破線パターンを定義する)
+@cindex dash patterns, slur (スラーの破線パターン)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {making-slurs-with-complex-dash-structure.ly}
 
@@ -838,12 +896,12 @@ moltoF = \tweak DynamicText.self-alignment-X #LEFT
 @unnumberedsubsubsec フレージング スラー
 @translationof Phrasing slurs
 
-@cindex phrasing slurs (フレージング スラー)
-@cindex phrasing marks (フレーズ記号)
+@cindex phrasing slur (フレージング スラー)
+@cindex phrasing mark (フレーズ記号)
 @cindex slur, phrasing (フレージング スラー)
 @cindex mark, phrasing (フレーズ記号)
-@funindex \(
-@funindex \)
+@funindex @sortas{(B} \(
+@funindex @sortas{)B} \)
 
 音楽センテンスを示す @notation{フレージング スラー} (またはフレーズ記号) は@c
 コマンド @code{\(} と @code{\)} を用いて記述します:
@@ -882,7 +940,7 @@ moltoF = \tweak DynamicText.self-alignment-X #LEFT
 @cindex phrasing slur, dashed (破線のフレージング スラー)
 @cindex dashed phrasing slur (破線のフレージング スラー)
 @cindex phrasing slur, dotted (点線のフレージング スラー)
-@cindex dotted phrasing slurs (点線のフレージング スラー)
+@cindex dotted phrasing slur (点線のフレージング スラー)
 @cindex slur, dashed phrasing (破線のフレージング スラー)
 @cindex slur, dotted phrasing (点線のフレージング スラー)
 
@@ -976,7 +1034,7 @@ moltoF = \tweak DynamicText.self-alignment-X #LEFT
 @unnumberedsubsubsec ブレス記号
 @translationof Breath marks
 
-@cindex breath marks (ブレス記号)
+@cindex breath mark (ブレス記号)
 @cindex pause mark (休止記号)
 @funindex \breathe
 
@@ -1005,6 +1063,10 @@ divisio (ディビジオ: 区切り記号) がサポートされています。@
 
 @snippets
 
+@cindex breath mark symbol, changing (ブレス記号を変更する)
+@cindex changing breath mark symbol (ブレス記号を変更する)
+@cindex symbol, breath mark, changing (ブレス記号を変更する)
+@funindex BreathingSign
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-breath-mark-symbol.ly}
 
@@ -1039,8 +1101,8 @@ divisio (ディビジオ: 区切り記号) がサポートされています。@
 @unnumberedsubsubsec Fall と Doit
 @translationof Falls and doits
 
-@cindex falls (Fall)
-@cindex doits (Doit)
+@cindex fall
+@cindex doit
 @funindex \bendAfter
 
 @code{\bendAfter} コマンドを用いて、@c
@@ -1122,6 +1184,8 @@ Fall あるいは Doit の向きはプラスあるいはマイナス (上ある�
 >>
 @end lilypond
 
+@funindex \glissandoMap
+
 グリッサンドは和音の中にある音符を結ぶことができます。@c
 2 つの和音の音符を平行に 1 対 1 で結ぶのではない場合、
 @code{\glissandoMap} を設定することで、結び方を定義する必要があります。@c
@@ -1151,15 +1215,23 @@ Fall あるいは Doit の向きはプラスあるいはマイナス (上ある�
 
 
 @snippets
+@cindex contemporary glissando (現代のグリッサンド)
+@cindex glissando, contemporary (現代のグリッサンド)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {contemporary-glissando.ly}
 
+@cindex timing mark, for glissando (グリッサンドのタイミング マーク)
+@cindex glissando, timing marks (グリッサンドのタイミング マーク)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adding-timing-marks-to-long-glissandi.ly}
 
+@cindex breakable glissando (改行可能なグリッサンド)
+@cindex glissando, breakable (改行可能なグリッサンド)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {making-glissandi-breakable.ly}
 
+@cindex glissando, across repeats (繰り返しにまたがるグリッサンド)
+@cindex repeat, and glissandi (繰り返しとグリッサンド)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {extending-glissandi-across-repeats.ly}
 
@@ -1219,8 +1291,8 @@ Fall あるいは Doit の向きはプラスあるいはマイナス (上ある�
 }
 @end lilypond
 
-@cindex arpeggio symbols, special (特殊なアルペジオ シンボル)
-@cindex special arpeggio symbols (特殊なアルペジオ シンボル)
+@cindex arpeggio symbol, special (特殊なアルペジオ シンボル)
+@cindex special arpeggio symbol (特殊なアルペジオ シンボル)
 
 @funindex \arpeggioBracket
 @funindex \arpeggioParenthesis
@@ -1267,12 +1339,16 @@ Fall あるいは Doit の向きはプラスあるいはマイナス (上ある�
 
 @snippets
 
+@cindex arpeggio, cross-staff (譜をまたがるアルペジオ)
+@cindex cross-staff arpeggio (譜をまたがるアルペジオ)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {creating-cross-staff-arpeggios-in-a-piano-staff.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {creating-cross-staff-arpeggios-in-other-contexts.ly}
 
+@cindex arpeggio, cross-staff (譜をまたがるアルペジオ)
+@cindex cross-staff arpeggio (譜をまたがるアルペジオ)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {creating-arpeggios-across-notes-in-different-voices.ly}
 
@@ -1294,7 +1370,6 @@ Fall あるいは Doit の向きはプラスあるいはマイナス (上ある�
 
 @knownissues
 @cindex cross-staff parenthesis-style arpeggio (譜を跨ぐ括弧スタイルのアルペジオ)
-@cindex arpeggio, parenthesis-style, cross-staff (譜を跨ぐ括弧スタイルのアルペジオ)
 @cindex arpeggio, cross-staff parenthesis-style (譜を跨ぐ括弧スタイルのアルペジオ)
 
 ある @code{PianoStaff} の中の同時点で譜を跨ぐアルペジオと跨がないアルペジオを@c
@@ -1308,7 +1383,7 @@ Fall あるいは Doit の向きはプラスあるいはマイナス (上ある�
 @unnumberedsubsubsec トリル
 @translationof Trills
 
-@cindex trills (トリル)
+@cindex trill (トリル)
 
 @funindex \trill
 @funindex \startTrillSpan
@@ -1366,8 +1441,8 @@ Fall あるいは Doit の向きはプラスあるいはマイナス (上ある�
 }
 @end lilypond
 
-@cindex pitched trills (ピッチを持つトリル)
-@cindex trills, pitched (ピッチを持つトリル)
+@cindex pitched trill (ピッチを持つトリル)
+@cindex trill, pitched (ピッチを持つトリル)
 @funindex \pitchedTrill
 
 明示的なピッチを持つ予備の音符を必要とするトリルは
@@ -1385,13 +1460,26 @@ Fall あるいは Doit の向きはプラスあるいはマイナス (上ある�
 }
 @end lilypond
 
-@cindex pitched trill with forced accidental (ピッチを持つトリルに強制的に臨時記号を付ける)
-@cindex trill, pitched with forced accidental (ピッチを持つトリルに強制的に臨時記号を付ける)
-@cindex accidental, forced for pitched trill (ピッチを持つトリルに強制的に臨時記号を付ける)
+@cindex pitched trill, with accidental (ピッチを持つトリルと臨時記号)
+@cindex trill, with accidental (トリルと臨時記号)
 
-同じ小節内で、同一音符のためデフォルトでは譜刻されない臨時記号を譜刻するには@c
-手動で譜刻を指定する必要があります。@c
-最初の小節では、最初のピッチを持つトリルだけに臨時記号が譜刻されています。
+小節内で最初に出現するピッチを持つトリルでは、@c
+臨時記号がナチュラルも含めて表示されます。
+
+@lilypond[verbatim,quote,relative]
+{
+  \key d \major
+  \pitchedTrill
+  d'2\startTrillSpan cis d\stopTrillSpan 
+  \pitchedTrill
+  d2\startTrillSpan c d\stopTrillSpan
+  \pitchedTrill
+  d2\startTrillSpan e d\stopTrillSpan
+}
+@end lilypond
+
+@noindent
+続く (同じ小節内の同じ音程の) 臨時記号は、手動で追加する必要があります。
 
 @lilypond[verbatim,quote]
 \relative {

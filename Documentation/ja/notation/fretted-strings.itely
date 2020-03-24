@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: c286e07798cd57a4785c3701b2bbcf94721b0f11
+    Translation of GIT committish: fce9b78cb834ad4d5ef27f8ebe7ab2352823ff1d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -96,9 +96,9 @@
 @unnumberedsubsubsec 弦番号の指示
 @translationof String number indications
 
-@cindex string numbers (弦番号)
-@cindex string vs. fingering numbers (弦 vs. 指番号)
-@cindex fingering vs. string numbers (運指 vs. 弦番号)
+@cindex string number (弦番号)
+@cindex string vs. fingering number (弦 vs. 指番号)
+@cindex fingering vs. string number (運指 vs. 弦番号)
 
 音符の後に @code{\@var{number}} を付けることによって、演奏する音符の弦を@c
 指示することができます。
@@ -123,6 +123,9 @@ g-0\3
 <g-0\3>
 @end lilypond
 
+@funindex \arabicStringNumbers
+@funindex \romanStringNumbers
+
 弦番号も、フレットの無い弦楽器の慣習のように@c
 ロマン数字で表示したり、譜の上ではなく下に配置することができます。
 
@@ -140,9 +143,11 @@ g1\4
 
 @snippets
 
+@c XXX also included in `editorial.itely'
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {controlling-the-placement-of-chord-fingerings.ly}
 
+@c XXX also included in `editorial.itely'
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
@@ -167,8 +172,8 @@ g1\4
 @unnumberedsubsubsec デフォルトのタブ譜
 @translationof Default tablatures
 
-@cindex tablatures, basic (基本的なタブ譜)
-@cindex tablatures, default (デフォルトのタブ譜)
+@cindex tablature, basic (基本的なタブ譜)
+@cindex tablature, default (デフォルトのタブ譜)
 
 @funindex TabStaff
 @funindex TabVoice
@@ -393,8 +398,8 @@ ties = \relative {
 }
 @end lilypond
 
-@cindex harmonic indications in tablature notation (タブ譜の記譜法でのハーモニック指示)
-@cindex tablature and harmonic indications (タブ譜とハーモニック指示)
+@cindex harmonic indication in tablature notation (タブ譜の記譜法でのハーモニック指示)
+@cindex tablature, and harmonic indications (タブ譜とハーモニック指示)
 @funindex \harmonic
 @funindex \harmonicByFret
 @funindex \harmonicByRatio
@@ -468,32 +473,44 @@ ratioHarmonics = {
 
 @snippets
 
+@cindex stem, in tablature (タブ譜内の符幹)
+@cindex tablature, and stems (タブ譜と符幹)
+@cindex beam, in tablature (タブ譜内の連桁)
+@cindex tablature, and beams (タブ譜と連桁)
+@cindex beam, horizontal (水平な連桁)
+@cindex horizontal beams (水平な連桁)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {stem-and-beam-behavior-in-tablature.ly}
 
+@cindex polyphony, in tablatures (タブ譜内の多声)
+@cindex tablature, and polyphony (タブ譜と多声)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {polyphony-in-tablature.ly}
 
+@cindex tablature, and harmonics
+@cindex harmonic, in tablatures
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {open-string-harmonics-in-tablature.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {fretted-string-harmonics-in-tablature.ly}
 
-@cindex slides in tablature notation (タブ譜の記譜法でのスライド)
-@cindex tablature and slides (タブ譜とスライド)
+@cindex slide, in tablature notation (タブ譜の記譜法でのスライド)
+@cindex tablature, and slides (タブ譜とスライド)
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {slides-in-tablature.ly}
 
-@cindex chord glissandi (和音のグリッサンド)
-
+@cindex chord, glissando, in tablatures (タブ譜内の和音のグリッサンド)
+@cindex glissando, chords in tablatures (タブ譜内の和音のグリッサンド)
+@cindex tablature, chord glissando (タブ譜と和音のグリッサンド)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {chord-glissando-in-tablature.ly}
 
 @cindex hammer on (ハンマリング オン)
 @cindex pull off (プリング オフ)
-
+@cindex tablature, hammer on (タブ譜とハンマリング オン)
+@cindex tablature, pull off (タブ譜とプリング オフ)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {hammer-on-and-pull-off.ly}
 
@@ -548,15 +565,15 @@ melodia = \partCombine { e4 g g g } { e4 e e e }
 @unnumberedsubsubsec カスタム タブ譜
 @translationof Custom tablatures
 
-@cindex tablatures, custom (カスタム タブ譜)
+@cindex tablature, custom (カスタム タブ譜)
 @cindex tablature, banjo (バンジョー タブ譜)
 @cindex tablature, mandolin (マンドリン タブ譜)
 @cindex tablature, guitar (ギター タブ譜)
 @cindex tablature, bass guitar (バス ギター タブ譜)
 @cindex tablature, ukulele (ウクレレ タブ譜)
 @cindex tablature, predefined string tunings (あらかじめ定義された弦チューニングのタブ譜)
-@cindex fretted instruments, predefined string tunings (あらかじめ定義された弦チューニングのフレットのある楽器)
-@cindex predefined string tunings for fretted instruments (フレットのある楽器のためにあらかじめ定義された弦チューニング)
+@cindex fretted instrument, predefined string tunings (あらかじめ定義された弦チューニングのフレットのある楽器)
+@cindex predefined string tuning, for fretted instruments (フレットのある楽器のためにあらかじめ定義された弦チューニング)
 @cindex tablature, violin (バイオリン タブ譜)
 @cindex tablature, viola (ビオラ タブ譜)
 @cindex tablature, cello (チェロ タブ譜)
@@ -608,7 +625,7 @@ LilyPond は、あらかじめ定義されたチューニングに対して、@c
 
 @funindex \stringTuning
 @cindex tablature, custom string tunings (カスタム弦チューニングのタブ譜)
-@cindex custom string tunings (カスタム弦チューニング)
+@cindex custom string tuning (カスタム弦チューニング)
 
 望みに応じて任意の弦チューニングを作成することができます。@c
 @code{\stringTuning} 関数を用いて弦チューニングを定義し、@c
@@ -721,9 +738,9 @@ LilyPond は、@code{TabStaff} の行数と自動的に算出される @code{Fre
 
 現代タブ譜の音部記号は、4 から 7 弦までのタブ譜をサポートします。
 
-@cindex micro-tones, tab (タブ譜での微分音)
-@cindex quarter-tones, tab (タブ譜での 4 分音)
-@cindex tab micro-tones (タブ譜での微分音)
+@cindex microtone, tab (タブ譜での微分音)
+@cindex quarter-tone, tab (タブ譜での 4 分音)
+@cindex tab microtones (タブ譜での微分音)
 @cindex tab quarter-tones (タブ譜での 4 分音)
 
 @code{TabStaff} は 4 分音のような微分音に対応しています。このような音は@c
@@ -785,16 +802,16 @@ mus = \relative {
 @unnumberedsubsubsec フレット ダイアグラム マークアップ
 @translationof Fret diagram markups
 
-@cindex fret diagrams (フレット ダイアグラム)
-@cindex chord diagrams (コード ダイアグラム)
-@cindex diagrams, fret (フレット ダイアグラム)
-@cindex diagrams, chord for fretted instruments (フレットのある楽器のためのコード ダイアグラム)
-@cindex fret diagrams, custom (カスタム フレット ダイアグラム)
-@cindex custom fret diagrams (カスタム フレット ダイアグラム)
+@cindex fret diagram (フレット ダイアグラム)
+@cindex chord diagram (コード ダイアグラム)
+@cindex diagram, fret (フレット ダイアグラム)
+@cindex diagram, chord for fretted instruments (フレットのある楽器のためのコード ダイアグラム)
+@cindex fret diagram, custom (カスタム フレット ダイアグラム)
+@cindex custom fret diagram (カスタム フレット ダイアグラム)
 
 フレット ダイアグラムを注釈のマークアップとして楽譜に追加することができます。@c
 このマークアップは記譜するフレット ダイアグラムについての情報を保持します。@c
-fret-diagram マークアップ インターフェイスは 3 種類あります:
+フレット ダイアグラムのマークアップ インターフェイスは 3 種類あります:
 標準、簡易、それに冗長です。@c
 これら 3 種類のインターフェイスが作り出すマークアップは等価ですが、@c
 そのマークアップ文字列が持つ情報量は異なります。@c
@@ -824,9 +841,9 @@ fret-diagram マークアップ インターフェイスは 3 種類あります
 >>
 @end lilypond
 
-@cindex barre indications (バレー指示)
+@cindex barre indication (バレー指示)
 
-fret-diagram マークアップ文字列のダイアグラムに、@c
+フレット ダイアグラム マークアップ文字列のダイアグラムに、@c
 バレー指示を追加することができます。
 
 @lilypond[quote, verbatim]
@@ -848,13 +865,13 @@ fret-diagram マークアップ文字列のダイアグラムに、@c
 >>
 @end lilypond
 
-@cindex fret-diagram markup (フレット ダイアグラムのマークアップ)
+@cindex fret diagram, markup (フレット ダイアグラムのマークアップ)
 @cindex ukulele (ウクレレ)
 
 @funindex \fret-diagram
 
 フレット ダイアグラムのサイズ、それにダイアグラムの中のフレット数を@c
-fret-diagram マークアップ文字列の中で変更することができます。
+フレット ダイアグラム マークアップ文字列の中で変更することができます。
 
 @lilypond[quote, verbatim]
 <<
@@ -876,7 +893,7 @@ fret-diagram マークアップ文字列の中で変更することができま�
 @end lilypond
 
 バンジョーやウクレレなどの弦数に合わせて、@c
-fret-diagram マークアップ文字列で@c
+フレット ダイアグラム マークアップ文字列で@c
 フレット ダイアグラムの弦数を変更することができます。
 
 @c KEEP LY
@@ -896,7 +913,7 @@ fret-diagram マークアップ文字列で@c
 >>
 @end lilypond
 
-fret-diagram マークアップ文字列で運指の指示を追加して、@c
+フレット ダイアグラム マークアップ文字列で運指の指示を追加して、@c
 配置を制御することができます。
 
 @lilypond[quote, verbatim]
@@ -918,7 +935,7 @@ fret-diagram マークアップ文字列で運指の指示を追加して、@c
 >>
 @end lilypond
 
-fret-diagram マークアップ文字列でドットの大きさと位置を制御することができます。
+フレット ダイアグラム マークアップ文字列でドットの大きさと位置を制御することができます。
 
 @lilypond[quote, verbatim]
 <<
@@ -1017,6 +1034,11 @@ fret-diagram-terse マークアップを使っている時、@c
 他のフレット ダイアグラム プロパティの調節には
 @code{\override} を用いる必要があります。
 
+fret-diagram-terse マークアップでは、1 つの弦につき
+1 つの指示しか追加できません。1 つの弦につき@c
+複数の指示を追加したい場合には、標準のフレット ダイアグラムか、@c
+fret-diagram-verbose を使用してください。
+
 @cindex fret-diagram-verbose markup (fret-diagram-verbose マークアップ)
 @cindex capo (カポ)
 
@@ -1080,7 +1102,8 @@ fret-diagram-verbose インターフェイスに特有なこととして、
     }
   \new Staff {
     \clef "treble_8"
-    \override Voice.TextScript.fret-diagram-details.finger-code = #'below-string
+    \override Voice.TextScript
+      .fret-diagram-details.finger-code = #'below-string
     <f, c f a c' f'>1^\markup {
       \fret-diagram-verbose #'(
         (place-fret 6 1)
@@ -1150,7 +1173,7 @@ fret-diagram-verbose マークアップを使っている時、@c
 
 
 @ignore
-The following example shows the three fret-diagram markup
+The following example shows the three fret diagram markup
 interfaces, along with examples of common tweaks.  For example,
 the size of the verbose fret diagram is reduced to 0.75, and the
 finger indications are specified to appear below the diagram.  The
@@ -1197,9 +1220,13 @@ and color of dots.
 
 @snippets
 
+@cindex fret diagram, changing orientation (フレット ダイアグラムの向きを変更する)
+@cindex orientation of fret diagram, changing (フレット ダイアグラムの向きを変更する)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-fret-orientations.ly}
 
+@cindex fret diagram, customized (フレット ダイアグラムのカスタマイズ)
+@cindex custom fret diagram (カスタム フレット ダイアグラム)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {customizing-markup-fret-diagrams.ly}
 
@@ -1218,10 +1245,10 @@ and color of dots.
 @unnumberedsubsubsec あらかじめ定義されたフレット ダイアグラム
 @translationof Predefined fret diagrams
 
-@cindex fret diagrams (フレット ダイアグラム)
-@cindex fret diagrams, ukulele (ウクレレのフレット ダイアグラム)
-@cindex fret diagrams, mandolin (マンドリンのフレット ダイアグラム)
-@cindex chord diagrams (コード ダイアグラム)
+@cindex fret diagram (フレット ダイアグラム)
+@cindex fret diagram, ukulele (ウクレレのフレット ダイアグラム)
+@cindex fret diagram, mandolin (マンドリンのフレット ダイアグラム)
+@cindex chord diagram (コード ダイアグラム)
 
 @funindex FretBoards
 @funindex stringTunings
@@ -1299,8 +1326,8 @@ myChords = \chordmode { c1 c:m7.5- c:aug }
 }
 @end lilypond
 
-@cindex chord names with fret diagrams
-@cindex fret diagrams with chord names
+@cindex chord name, with fret diagrams
+@cindex fret diagram, with chord names
 
 @funindex ChordNames
 @funindex \chordmode
@@ -1314,7 +1341,7 @@ myChords = \chordmode { c1 c:m7.5- c:aug }
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
-mychords = \chordmode{
+mychords = \chordmode {
   c1 f g
 }
 
@@ -1328,9 +1355,9 @@ mychords = \chordmode{
 >>
 @end lilypond
 
-@cindex transposing fret diagrams (フレット ダイアグラムを移調させる)
-@cindex fret diagrams, transposing (フレット ダイアグラムを移調させる)
-@cindex diagrams, fret, transposing (フレット ダイアグラムを移調させる)
+@cindex transposing fret diagram (フレット ダイアグラムを移調させる)
+@cindex fret diagram, transposing (フレット ダイアグラムを移調させる)
+@cindex diagram, fret, transposing (フレット ダイアグラムを移調させる)
 
 あらかじめ定義されたフレット ダイアグラムは、c
 移調されたコードに対するダイアグラムがフレット ダイアグラム テーブルに@c
@@ -1338,7 +1365,7 @@ mychords = \chordmode{
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
-mychords = \chordmode{
+mychords = \chordmode {
   c1 f g
 }
 
@@ -1370,11 +1397,11 @@ minor seventh, dominant ninth)
 @ref{Predefined fretboard diagrams} で示されています。@c
 テーブルにエントリされていないコードがある場合、@c
 FretBoards エングラーバは @ref{Automatic fret diagrams} で説明する@c
-自動フレット ダイアグラム機能を用いて fret-diagram を算出します。
+自動フレット ダイアグラム機能を用いてフレット ダイアグラムを算出します。
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
-mychords = \chordmode{
+mychords = \chordmode {
   c1 c:maj9
 }
 
@@ -1388,9 +1415,9 @@ mychords = \chordmode{
 >>
 @end lilypond
 
-@cindex fret diagrams, adding custom (カスタム フレット ダイアグラムを追加する)
-@cindex custom fret diagrams, adding (カスタム フレット ダイアグラムを追加する)
-@cindex adding custom fret diagrams (カスタム フレット ダイアグラムを追加する)
+@cindex fret diagram, adding custom (カスタム フレット ダイアグラムを追加する)
+@cindex custom fret diagram, adding (カスタム フレット ダイアグラムを追加する)
+@cindex adding custom fret diagram (カスタム フレット ダイアグラムを追加する)
 
 フレット ダイアグラムをフレット ダイアグラム テーブルに@c
 追加することができます。@c
@@ -1453,8 +1480,8 @@ mychords = \chordmode {
 >>
 @end lilypond
 
-@cindex fretted instruments, chord shapes (フレットのある楽器のコード シェイプ)
-@cindex chord shapes for fretted instruments (フレットのある楽器のコード シェイプ)
+@cindex fretted instrument, chord shape (フレットのある楽器のコード シェイプ)
+@cindex chord shape, for fretted instrument (フレットのある楽器のコード シェイプ)
 
 @funindex \addChordShape
 @funindex \storePredefinedDiagram
@@ -1490,7 +1517,7 @@ LilyPond はフレット ダイアグラムに加えて、@c
                         #guitar-tuning
                         #(offset-fret 2 (chord-shape 'powerf guitar-tuning))
 
-mychords = \chordmode{
+mychords = \chordmode {
   f1 f'' g g''
 }
 
@@ -1513,15 +1540,27 @@ mychords = \chordmode{
 
 @snippets
 
+@cindex fretboard fret diagram, customized (フレットボードのフレット ダイアグラムをカスタマイズする)
+@cindex custom fretboard fret diagram (カスタム フレットボード フレット ダイアグラム)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {customizing-fretboard-fret-diagrams.ly}
 
+@cindex fretboard, define predefined (既定のフレットボードを定義する)
+@cindex define predefined fretboard (フレットボードを定義する)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {defining-predefined-fretboards-for-other-instruments.ly}
 
+@cindex chord, suppressing repeated (繰り返しの和音を抑制する)
+@cindex repeated chords, suppressing (繰り返しの和音を抑制する)
+@cindex suppressing repeated chords (繰り返しの和音を抑制する)
+@funindex chordChanges
 @lilypondfile[verbatim,quote,texidoc,doctitle,ragged-right]
 {chordchanges-for-fretboards.ly}
 
+@cindex fretboard, alternate table (他のフレットボード テーブル)
+@cindex alternate fretboard table (他のフレットボード テーブル)
+@funindex predefinedDiagramTable
+@funindex \storePredefinedDiagram
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {fretboards-alternate-tables.ly}
 
@@ -1549,10 +1588,10 @@ mychords = \chordmode{
 @unnumberedsubsubsec 自動フレット ダイアグラム
 @translationof Automatic fret diagrams
 
-@cindex fret diagrams, automatic (自動フレット ダイアグラム)
-@cindex chord diagrams, automatic (自動コード ダイアグラム)
-@cindex automatic fret diagrams (自動フレット ダイアグラム)
-@cindex automatic chord diagrams (自動コード ダイアグラム)
+@cindex fret diagram, automatic (自動フレット ダイアグラム)
+@cindex chord diagram, automatic (自動コード ダイアグラム)
+@cindex automatic fret diagram (自動フレット ダイアグラム)
+@cindex automatic chord diagram (自動コード ダイアグラム)
 
 @code{FretBoards} コンテキストを用いて、@c
 入力された音符からフレット ダイアグラムを自動的に作成することができます。@c
@@ -1622,8 +1661,8 @@ mychords = \chordmode{
 その音符を手動で割り当てると、@c
 他の音符は @code{FretBoards} コンテキストにより適切に配置されます。
 
-@cindex fret diagrams, adding fingerings (フレット ダイアグラムに運指を追加する)
-@cindex fingerings, adding to fret diagrams (フレット ダイアグラムに運指を追加する)
+@cindex fret diagram, adding fingering (フレット ダイアグラムに運指を追加する)
+@cindex fingering, adding to fret diagram (フレット ダイアグラムに運指を追加する)
 
 @code{FretBoard} フレット ダイアグラムに運指を追加することができます。
 
@@ -1709,9 +1748,9 @@ property.
 @unnumberedsubsubsec 右手の運指
 @translationof Right-hand fingerings
 
-@cindex fretted instruments, right hand fingerings (フレットのある楽器での右手の運指)
-@cindex fingerings, right hand for fretted instruments (フレットのある楽器での右手の運指)
-@cindex right hand fingerings for fretted instruments (フレットのある楽器での右手の運指)
+@cindex fretted instrument, right-hand fingering (フレットのある楽器での右手の運指)
+@cindex fingerings, right-hand, for fretted instrument (フレットのある楽器での右手の運指)
+@cindex right-hand fingering, for fretted instrument (フレットのある楽器での右手の運指)
 
 @funindex \rightHandFinger
 
@@ -1741,6 +1780,10 @@ RH=#rightHandFinger
 
 @snippets
 
+@cindex placement, right-hand fingering (右手の運指の配置)
+@cindex right-hand fingering, placement (右手の運指の配置)
+@cindex fingering, right-hand, placement (右手の運指の配置)
+@funindex strokeFingerOrientations
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {placement-of-right-hand-fingerings.ly}
 
@@ -1779,8 +1822,8 @@ LilyPond は楽譜譜刻プログラムなので、@c
 @unnumberedsubsubsec ポジションとバレーの指示
 @translationof Indicating position and barring
 
-@cindex indicating position and barring for fretted instruments (フレットのある楽器でのポジションとバレーの指示)
-@cindex fretted instruments, indicating position and barring (フレットのある楽器でのポジションとバレーの指示)
+@cindex indicating position and barring for fretted instrument (フレットのある楽器でのポジションとバレーの指示)
+@cindex fretted instrument, indicating position and barring (フレットのある楽器でのポジションとバレーの指示)
 
 以下の例は、楽譜にギターのポジションとバレーの指示を含める方法を示しています。
 
@@ -1809,10 +1852,10 @@ LilyPond は楽譜譜刻プログラムなので、@c
 @unnumberedsubsubsec ハーモニクスとデッド ノートの指示
 @translationof Indicating harmonics and dampened notes
 
-@cindex fretted instruments, dampened notes (フレットのある楽器のデッド ノート)
-@cindex fretted instruments, harmonics (フレットのある楽器のハーモニクス)
-@cindex dampened notes on fretted instruments (フレットのある楽器のデッド ノート)
-@cindex harmonics on fretted instruments (フレットのある楽器のハーモニクス)
+@cindex fretted instrument, dampened note (フレットのある楽器のデッド ノート)
+@cindex fretted instrument, harmonics (フレットのある楽器のハーモニクス)
+@cindex dampened note, on fretted instrument (フレットのある楽器のデッド ノート)
+@cindex harmonics, on fretted instrument (フレットのある楽器のハーモニクス)
 
 デッド ノートやハーモニクスを示すための特殊な符頭を使うことができます。@c
 通常、ハーモニクスにはテキスト マークアップによる説明も付け加えます。
@@ -1820,8 +1863,8 @@ LilyPond は楽譜譜刻プログラムなので、@c
 @lilypond[quote,ragged-right,verbatim]
 \relative {
   \clef "treble_8"
-  \override Staff.NoteHead.style = #'harmonic-mixed
-  d'^\markup { \italic { \fontsize #-2 { "harm. 12" }}} <g b>1
+  \override NoteHead.style = #'harmonic-mixed
+  d'8^\markup { \italic \fontsize #-2 "harm. 12" } <g b>4
 }
 @end lilypond
 
@@ -1886,8 +1929,8 @@ LilyPond は、符頭を三角形に変更することで、@c
 @unnumberedsubsubsec パワー コードの指示
 @translationof Indicating power chords
 
-@cindex power chords (パワー コード)
-@cindex chords, power (パワー コード)
+@cindex power chord (パワー コード)
+@cindex chord, power (パワー コード)
 
 パワー コードのそのシンボルをコード モードの中、あるいは和音構造として@c
 譜刻することができます:
@@ -1947,7 +1990,7 @@ ChordsAndSymbols = {
 @unnumberedsubsubsec バンジョーのタブ譜
 @translationof Banjo tablatures
 
-@cindex banjo tablatures (バンジョーのタブ譜)
+@cindex banjo tablature (バンジョーのタブ譜)
 @cindex tablature, banjo (バンジョーのタブ譜)
 
 LilyPond は 5 弦バンジョーの基本的なサポートを提供します。@c
@@ -1975,8 +2018,8 @@ music = {
 >>
 @end lilypond
 
-@cindex banjo tunings (バンジョーのチューニング)
-@cindex tunings, banjo (バンジョーのチューニング)
+@cindex banjo tuning (バンジョーのチューニング)
+@cindex tuning, banjo (バンジョーのチューニング)
 
 @funindex banjo-c-tuning
 @funindex banjo-modal-tuning
@@ -2016,7 +2059,7 @@ music = {
 @unnumberedsubsubsec リュートのタブ譜
 @translationof Lute tablatures
 
-@cindex lute tablatures (リュートのタブ譜)
+@cindex lute tablature (リュートのタブ譜)
 @cindex tablature, lute (リュートのタブ譜)
 
 LilyPond はリュートのタブ譜をサポートします。
@@ -2051,8 +2094,8 @@ m = { f'4 d' a f d a, g, fis, e, d, c,  \bar "|." }
 }
 @end lilypond
 
-@cindex lute tunings (リュートのチューニング)
-@cindex tunings, lute (リュートのチューニング)
+@cindex lute tuning (リュートのチューニング)
+@cindex tuning, lute (リュートのチューニング)
 
 @knownissues
 @code{FretBoards} を @code{additionalBassStrings} と同時に使うことは@c

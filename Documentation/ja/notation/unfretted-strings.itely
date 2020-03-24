@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: fdc83c8d7ca8322fc49cae1f3231d6de4874bb5d
+    Translation of GIT committish: fce9b78cb834ad4d5ef27f8ebe7ab2352823ff1d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -97,12 +97,12 @@
 @funindex \open
 @funindex \romanStringNumbers
 
-@cindex bowing indications (ボーイング指示)
-@cindex up bow indication (アップ ボー指示)
-@cindex down bow indication (ダウン ボー指示)
+@cindex bowing indication (ボーイング指示)
+@cindex up-bow indication (アップ ボー指示)
+@cindex down-bow indication (ダウン ボー指示)
 @cindex open string indication (開放弦の指示)
 @cindex string, indicating open (開放弦の指示)
-@cindex string numbers (弦番号)
+@cindex string number (弦番号)
 
 ボーイング指示はアーティキュレーションとして作成します。@c
 アーティキュレーションについては、@c
@@ -154,8 +154,8 @@ a'2^\markup { \small "sul A" }
 
 @strong{@i{ナチュラル ハーモニクス}}
 
-@cindex note heads, diamond-shaped (ダイアモンド形の符頭)
-@cindex diamond-shaped note heads (ダイアモンド形の符頭)
+@cindex note head, diamond-shaped (ダイアモンド形の符頭)
+@cindex diamond-shaped note head (ダイアモンド形の符頭)
 @cindex natural harmonics (ナチュラル ハーモニクス)
 @cindex harmonics, natural (ナチュラル ハーモニクス)
 @funindex \harmonicsOn

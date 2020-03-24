@@ -1,6 +1,6 @@
 \input texinfo-ja @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: 270ef754ee7c30523ce40a37dc1bd3035a51737b
+    Translation of GIT committish: fce9b78cb834ad4d5ef27f8ebe7ab2352823ff1d
 
 
     When revising a translation, copy the HEAD committish of the
@@ -106,11 +106,20 @@ Copyright @copyright{} 1999--2020 by 著作者一同
 
 このインデックスは、すべての LilyPond コマンドとキーワードをリストアップしていて、@c
 それらの使い方について説明しているマニュアルのセクションへのリンクがあります。@c
+@ifhtml
 各リンクは 2 つのパートに分かれています。@c
 最初のパートは、マニュアルの中でコマンドあるいはキーワードが出現する場所@c
 へのリンクです。@c
 2 番目のパートは、マニュアルの中でコマンドあるいはキーワードが出現するセクションの@c
 先頭へのリンクです。
+@end ifhtml
+
+@iftex
+斜体で表示されている項目は、@c
+内部リファレンスや音楽用語集などの、@c
+他の LilyPond ドキュメントファイルへの外部リンクを含んだ場所
+(多くは@q{参照}セクションにあります) を示しています。
+@end iftex
 
 @printindex ky
 
