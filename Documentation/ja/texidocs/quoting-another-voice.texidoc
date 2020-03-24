@@ -1,4 +1,4 @@
-%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+%% Translation of GIT committish: fce9b78cb834ad4d5ef27f8ebe7ab2352823ff1d
   texidocja = "
 @code{quotedEventTypes} プロパティは、引用される音楽イベントのタイプを@c
 指定します。デフォルト値は @code{(note-event rest-event tie-event beam-event

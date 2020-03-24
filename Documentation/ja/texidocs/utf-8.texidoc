@@ -1,4 +1,4 @@
-%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+%% Translation of GIT committish: fce9b78cb834ad4d5ef27f8ebe7ab2352823ff1d
   texidocja = "
 タイトルや歌詞における特殊文字は、UTF-8 エンコーディングで入力し、@c
 Pango ベースのバックエンドを用いることで使用できます。@c

@@ -5,4 +5,4 @@
 これを現代の慣習に合わせて変更するには、@code{Staff} コンテキストの
 @code{extraNatural} プロパティを @code{f} に設定します。
 "
-  doctitleja = "Preventing extra naturals from being automatically added"
+  doctitleja = "追加のナチュラル記号が自動で追加されないようにする"
