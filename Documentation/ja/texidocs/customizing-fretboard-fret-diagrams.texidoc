@@ -1,9 +1,9 @@
 %% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
   texidocja = "
 フレット図のプロパティは @code{fret-diagram-details} からセットできます。@c
-FretBoard のフレット図では、オーバライドは @code{FretBoards.FretBoard}
+FretBoardのフレット図では、オーバライドは @code{FretBoards.FretBoard}
 オブジェクトに適用されます。@code{FretBoards} は @code{Voice} のように@c
 最下位のコンテキストであるため、プロパティのオーバライドでは省略することが@c
 できます。
 "
-  doctitleja = "FretBoard のフレット図をカスタマイズする"
+  doctitleja = "フレットボードのフレット図をカスタマイズする"

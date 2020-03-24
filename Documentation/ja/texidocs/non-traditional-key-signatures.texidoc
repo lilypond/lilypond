@@ -1,24 +1,22 @@
-%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+%% Translation of GIT committish: fce9b78cb834ad4d5ef27f8ebe7ab2352823ff1d
   texidocja = "
 広く使われている @code{\\key} コマンドは、@code{Staff} コンテキストの
-@code{keyAlterations} をセットしています。
+@code{keyAlterations} をセットしています。@c
+非標準な調号を作成するには、このプロパティを直接セットします。
 
-非標準な調号を作成するには、このプロパティを直接セットします。@c
 コマンドの形式は以下のようなリストです:
 
 @code{ \\set Staff.keyAlterations = #`(((octave . step) . alter) ((octave
 . step) . alter) ...) } 
+
 が構文です。リストの各要素について、@code{octave} がオクターブを指定し
 (0 がミドル C からその上の B まで)、@code{step} はオクターブ内の@c
 音階 (0 が C, 6 が B)、@code{alter} が @code{,SHARP ,FLAT ,DOUBLE-SHARP}
-などです (先頭のコンマに注意してください。)。
+などです。
 
-または、各要素についてより簡潔な @code{(step . alter)} の形式を@c
-用いることができます。この場合、全てのオクターブに対して適用されます。
-
+または、各要素についてより簡潔な形式があり、@c
+@code{(step . alter)} は全てのオクターブに対して変化記号が適用されます。@c
 @qq{シャープ} が 100 セントではない微分音のスケールでは、@code{alter}
 を 200 セントの全音を 1 とした数値で指定できます。
-
-以下は、全音音階を調号によって示す一例です:
 "
   doctitleja = "非伝統的な調号"

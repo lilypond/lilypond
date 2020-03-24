@@ -10,4 +10,4 @@
 これらのフレット図は弦の情報を含んでいるため、移調することができません。@c
 これは将来修正される予定があります。
 "
-  doctitleja = "Defining predefined fretboards for other instruments"
+  doctitleja = "他の楽器のためのフレットボードを定義する"
