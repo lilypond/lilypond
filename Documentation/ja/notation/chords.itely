@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: c286e07798cd57a4785c3701b2bbcf94721b0f11
+    Translation of GIT committish: fce9b78cb834ad4d5ef27f8ebe7ab2352823ff1d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -33,7 +33,7 @@
 @subsection 和音モード
 @translationof Chord mode
 
-@cindex chord chords (和音)
+@cindex chord (和音)
 
 和音モードでは、和音のピッチではなく、@c
 和音構造の指示子を用いてコードを入力します。
@@ -48,7 +48,7 @@
 @unnumberedsubsubsec 和音モードの概要
 @translationof Chord mode overview
 
-@cindex chord names (コード ネーム)
+@cindex chord name (コード ネーム)
 @cindex chord mode (和音モード)
 
 和音を @ref{和音の音符} で説明しているように、@c
@@ -105,10 +105,10 @@
 @unnumberedsubsubsec 一般的な和音
 @translationof Common chords
 
-@cindex triads (三和音、トライアド)
-@cindex seventh chords (七の和音、セブンス コード)
+@cindex triad (三和音、トライアド)
+@cindex seventh chord (七の和音、セブンス コード)
 @cindex root of chord (和音の根音)
-@cindex modifiers, in chords (和音での修飾子)
+@cindex modifier, in chord (和音での修飾子)
 @cindex chord quality (コード クオリティー)
 
 長三和音 (メジャー トライアド) を入力するには、@c
@@ -134,7 +134,7 @@
 @end lilypond
 
 @funindex aug
-@funindex dim
+@funindex @sortas{dimA} dim
 @funindex maj
 @funindex m
 
@@ -244,8 +244,8 @@ maj, maj7
 @unnumberedsubsubsec 和音の拡張と変形
 @translationof Extended and altered chords
 
-@cindex extended chords (和音の拡張)
-@cindex altered chords (和音の変形)
+@cindex extended chord (和音の拡張)
+@cindex altered chord (和音の変形)
 
 和音モードで様々な複雑さの和音構造を作ることができます。@c
 修飾子文字列を使って和音を拡張したり、和音の音を追加 / 削除したり、@c
@@ -286,7 +286,7 @@ maj, maj7
 }
 @end lilypond
 
-@cindex additions, in chords (和音への音の追加)
+@cindex addition, in chords (和音への音の追加)
 
 個々の音を和音に付けくわえることができます。@c
 追加は拡張の後にドット (@code{.}) を前置して記述します。@c
@@ -307,7 +307,7 @@ maj, maj7
 }
 @end lilypond
 
-@cindex chord steps, altering (和音の音を変化させる)
+@cindex chord step, altering (和音の音を変化させる)
 
 和音の音は、数字の後ろに @code{+} または@code{-} を置くことで@c
 変化させることができます。@c
@@ -320,7 +320,7 @@ maj, maj7
 }
 @end lilypond
 
-@cindex removals, in chords (和音の音の削除)
+@cindex removal, in chord (和音の音の削除)
 
 @funindex ^
 
@@ -411,9 +411,9 @@ maj, maj7
 @unnumberedsubsubsec コード ネームを譜刻する
 @translationof Printing chord names
 
-@cindex printing chord names (コード ネームを譜刻する)
-@cindex chord names (コード ネーム)
-@cindex chords (コード、和音)
+@cindex printing chord name (コード ネームを譜刻する)
+@cindex chord name (コード ネーム)
+@cindex chord (コード, 和音)
 
 コード ネームは @code{ChordNames} コンテキストに譜刻されます:
 
@@ -448,9 +448,9 @@ chordmusic = \relative {
 >>
 @end lilypond
 
-@cindex no chord symbol (無和音記号)
+@cindex no-chord symbol (無和音記号)
 @cindex N.C. symbol (N.C. 記号)
-@cindex indicating No Chord in ChordNames (ChordNames で無和音を記述する)
+@cindex indicating No Chord in @code{ChordNames} (@code{ChordNames} で無和音を記述する)
 
 @code{ChordNames} コンテキストに休符が渡されると、@c
 @code{noChordSymbol} マークアップが表示されます。
@@ -472,7 +472,7 @@ chordmusic = \relative {
 >>
 @end lilypond
 
-@funindex{\chords}
+@funindex \chords
 
 @code{\chords @{ @dots{} @}} は @code{\new ChordNames \chordmode @{ @dots{} @}}
 の短縮形です。
@@ -493,8 +493,9 @@ chordmusic = \relative {
 
 @snippets
 
-@c Keep index entries with following snippet
-@cindex chords, suppressing repeated (和音の繰り返しを抑制する)
+@cindex chord, suppressing repeated (和音の繰り返しを抑制する)
+@cindex repeated chords, suppressing (和音の繰り返しを抑制する)
+@cindex suppressing repeated chords (和音の繰り返しを抑制する)
 @funindex chordChanges
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
@@ -503,6 +504,7 @@ chordmusic = \relative {
 @c @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 @c {adding-bar-lines-to-chordnames-context.ly}
 
+@cindex lead sheet (リード シート)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {simple-lead-sheet.ly}
 
@@ -530,7 +532,7 @@ chordmusic = \relative {
 
 @node コード ネームをカスタマイズする
 @unnumberedsubsubsec コード ネームをカスタマイズする
-@translationof Customizing chord names (コード ネームをカスタマイズする)
+@translationof Customizing chord name (コード ネームをカスタマイズする)
 
 @cindex customizing chord names (コード ネームをカスタマイズする)
 
@@ -539,27 +541,31 @@ chordmusic = \relative {
 コード ネームで表示される記号にも違いがあります。@c
 コード ネームで表示される名前と記号をカスタマイズすることができます。
 
-@cindex jazz chords (ジャズ コード)
-@cindex chords, jazz (ジャズ コード)
+@cindex jazz chord (ジャズ コード)
+@cindex chord, jazz (ジャズ コード)
+@cindex chord, alternative name (コードの別名)
+@cindex alternative code name (コードの別名)
 
 基本となるコード ネーム命名規則はジャズ音楽用のものです。@c
 これは Klaus Ignatzek によって提唱されたものです
 (@ressay{Literature list} を参照してください)。@c
-コード ネーム命名規則を変更することができます。@c
-以下で説明する変更方法を用いてジャズ コード命名規則を改造することができます。@c
-Ignatzek のジャズ コードと変形コードを @ref{Chord name chart} の表で@c
-示しています。
+(他のコード ネーム命名規則は Scheme 関数で実装することができます。
+コード断片集の @rlsr{Chords} にある
+@qq{Chord names alternative} に例があります。)
+一般的なジャズ音楽用のコード表記のリストは、@ref{Chord name chart} にあります。
+@c FIXME: move the chord-names-alternative snippet to a new section. -vv
 
-@c TODO --  Change this so we don't have a non-verbatim example.
-@c  Make short example in docs, then move longer example to
-@c  appendix, where the length of the snippet won't matter.
+@funindex \germanChords
+@funindex \semiGermanChords
+@funindex \italianChords
+@funindex \frenchChords
 
-命名規則の変更に加えて、@c
-根音の音符名の言語を変更することができます。@c
-あらかじめ定義されているコマンド @code{\germanChords},
-@code{\semiGermanChords}, @code{\italianChords}
-それに @code{\frenchChords} が言語を設定します。
-これらのコマンドの効果を以下に示します:
+デフォルトの命名規則は、いくつかの方法によって@c
+容易に変更することができます。まず、根音に対して異なる言語を@c
+使用するために、
+@code{\germanChords}, @code{\semiGermanChords},
+@code{\italianChords}, @code{\frenchChords}
+の定義済みコマンドを使用できます:
 
 @lilypondfile[ragged-right]{chord-names-languages.ly}
 
@@ -577,8 +583,7 @@ Ignatzek のジャズ コードと変形コードを @ref{Chord name chart} の�
 }
 @end lilypond
 
-既存の設定では望みの出力を得られない場合、@c
-コード ネームの表示を以下のプロパティを通じて調整することができます。
+コード ネームの表示を以下のプロパティを通じて調整することもできます。
 
 @table @code
 
@@ -594,6 +599,9 @@ Ignatzek のジャズ コードと変形コードを @ref{Chord name chart} の�
 @funindex majorSevenSymbol
 
 @item majorSevenSymbol
+
+@funindex \blackTriangleMarkup
+@funindex \whiteTriangleMarkup
 
 このプロパティは @code{chordRootNamer} の出力に続けて@c
 長七和音を示すために使用されるマークアップ オブジェクトを保持します。@c
@@ -708,36 +716,46 @@ Ignatzek のジャズ コードと変形コードを @ref{Chord name chart} の�
 
 
 @predefined
-@funindex major seven symbols
+@cindex major seven symbol (長七和音の記号)
+@cindex symbol, major seven (長七和音の記号)
 @code{\whiteTriangleMarkup},
 @code{\blackTriangleMarkup},
-@funindex \germanChords
 @code{\germanChords},
-@funindex \semiGermanChords
 @code{\semiGermanChords},
-@funindex \italianChords
 @code{\italianChords},
-@funindex \frenchChords
 @code{\frenchChords}
 @endpredefined
 
 
 @snippets
 
-@cindex exceptions, chord names.
+@cindex exception, chord names (コード ネームの例外)
+@cindex chord names, exceptions (コード ネームの例外)
+@funindex chordNameExceptions
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {chord-name-exceptions.ly}
 
 @c TODO - tweak snippet to use \blackTriangleMarkup as well
+@cindex major 7 chord, layout (長七和音のレイアウト)
+@cindex layout, major 7 chord (長七和音のレイアウト)
+@cindex chord, major 7, layout (長七和音のレイアウト)
+@funindex majorSevenSymbol
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {chord-name-major7.ly}
 
+@cindex @code{ChordNames}, with bar lines (@code{ChordNames} における小節線)
+@cindex bar line, in @code{ChordNames} (@code{ChordNames} における小節線)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adding-bar-lines-to-chordnames-context.ly}
 
+@cindex volta repeat, below chords (和音の下にある volta 繰り返し)
+@cindex chords, volta repeat, below (和音の下にある volta 繰り返し)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {volta-below-chords.ly}
 
+@cindex chord separator, changing (コード ネームの区切り記号を変更する)
+@cindex changing chord separator (コード ネームの区切り記号を変更する)
+@funindex chordNameSeparator
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-chord-separator.ly}
 
@@ -794,11 +812,11 @@ myChords = \relative c' {
 @unnumberedsubsubsec 通奏低音の導入部
 @translationof Introduction to figured bass
 
-@cindex Basso continuo (通奏低音)
-@cindex Thorough bass (通奏低音)
-@cindex Figured bass (通奏低音)
-@cindex Bass, thorough (通奏低音)
-@cindex Bass, figured (通奏低音)
+@cindex basso continuo (通奏低音)
+@cindex thorough bass (通奏低音)
+@cindex figured bass (通奏低音)
+@cindex bass, thorough (通奏低音)
+@cindex bass, figured (通奏低音)
 
 @c TODO: musicological blurb about FB
 
@@ -820,6 +838,9 @@ LilyPond は通奏低音
 >>
 @end lilypond
 
+@funindex \figuremode
+@funindex \figures
+
 通奏低音のサポートには 2 つのパートがあります:
 1 つは入力モード @code{\figuremode} で、@c
 通奏低音の入力を受け入れます。@c
@@ -827,8 +848,8 @@ LilyPond は通奏低音
 @code{BassFigure} オブジェクトの表示を扱います。@c
 @code{Staff} でも通奏低音を表示させることができます。
 
-@code{\figures@{ ... @}} は
-@code{\new FiguredBass @{ \figuremode @{ ... @} @}} の短縮記譜法です。
+@code{\figures @{ @dots{} @}} は
+@code{\new FiguredBass \figuremode @{ @dots{} @}} の短縮記譜法です。
 
 通奏低音のサポートの外見は和音サポートに似ていますが、@c
 もっとシンプルです。@c
@@ -920,6 +941,9 @@ example, the vertical spacing of the figures may be set with
 @c NOTE: We need to include notes any time we use extenders to
 @c avoid extraneous staff creation due to Staff.use... in
 @c \bassFigureExtendersOn
+
+@funindex \bassFigureExtendersOn
+@funindex \bassFigureExtendersOff
 
 継続線で通奏低音の繰り返しを示すことができます:
 
@@ -1022,13 +1046,18 @@ example, the vertical spacing of the figures may be set with
 
 
 @predefined
-@cindex figured bass extender lines (通奏低音の継続線)
+@cindex figured bass, extender lines (通奏低音の継続線)
 @code{\bassFigureExtendersOn},
 @code{\bassFigureExtendersOff}
 @endpredefined
 
 
 @snippets
+@cindex figured bass, alteration, position (通奏低音の変化記号の位置)
+@cindex position, figured bass alteration (通奏低音の変化記号の位置)
+@cindex alteration, figured bass, position (通奏低音の変化記号の位置)
+@funindex figuredBassAlterationDirection
+@funindex figuredBassPlusDirection
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-positions-of-figured-bass-alterations.ly}
 
@@ -1093,9 +1122,12 @@ example, the vertical spacing of the figures may be set with
 >>
 @end lilypond
 
+@funindex \bassFigureStaffAlignmentDown
+@funindex \bassFigureStaffAlignmentUp
+@funindex \bassFigureStaffAlignmentNeutral
 
 通奏低音を @code{Staff} コンテキストに追加した場合、@c
-譜の上にも下にも表示される可能性があります。
+譜の上や下に表示することができます。
 
 @lilypond[verbatim,ragged-right,quote]
 <<
@@ -1115,7 +1147,7 @@ example, the vertical spacing of the figures may be set with
 @end lilypond
 
 @predefined
-@cindex figured bass alignment (通奏低音の垂直揃えのベース)
+@cindex figured bass, alignment (通奏低音の揃え位置)
 @code{\bassFigureStaffAlignmentDown},
 @code{\bassFigureStaffAlignmentUp},
 @code{\bassFigureStaffAlignmentNeutral}

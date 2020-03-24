@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: eb38c33a95cbe6adf9f176dfbb794373ec062605
+    Translation of GIT committish: fce9b78cb834ad4d5ef27f8ebe7ab2352823ff1d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -61,7 +61,6 @@
 @cindex percussion staff (打楽器譜)
 @cindex Gregorian transcription staff (グレゴリオ聖歌の転写譜)
 @cindex rhythmic staff (リズム譜)
-@cindex tabstaff (タブ譜)
 @cindex tablature  (タブ譜)
 
 @funindex \drummode
@@ -161,8 +160,7 @@
 
 @cindex start of system (システムの開始)
 @cindex staff, multiple (複数の譜)
-@cindex staves, multiple (複数の譜)
-@cindex system start delimiters (システム開始の境界線)
+@cindex system start delimiter (システム開始の境界線)
 @cindex bracket, vertical (垂直の角括弧)
 @cindex brace, vertical (垂直の波括弧)
 @cindex choir staff (合唱譜)
@@ -242,17 +240,24 @@
 
 @snippets
 
+@cindex square bracket, at start of staff group (譜グループの先頭の角括弧)
+@cindex bracket, square, at start of staff group (譜グループの先頭の角括弧)
+@cindex staff group, with square bracket at start (譜グループの先頭の角括弧)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {use-square-bracket-at-the-start-of-a-staff-group.ly}
 
+@cindex bracket, at start of single staff (1 つの譜の先頭にある括弧)
+@cindex brace, at start of single staff (1 つの譜の先頭にある括弧)
+@cindex staff, single, with bracket or brace (括弧が付いている 1 つの譜)
+@cindex single staff with bracket or brace (括弧が付いている 1 つの譜)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {display-bracket-with-only-one-staff-in-a-system.ly}
 
 @cindex mensurstriche layout (計量音楽風のレイアウト)
 @cindex renaissance music (ルネサンス音楽)
-@cindex transcription of mensural music (計量音楽の編曲)
-@cindex mensural music, transcription of (計量音楽の編曲)
-
+@cindex transcription of mensural music (計量音楽の転写)
+@cindex mensural music, transcription of (計量音楽の転写)
+@cindex bar line, between staves (譜の間の小節線)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {mensurstriche-layout-bar-lines-between-the-staves.ly}
 
@@ -286,12 +291,11 @@
 @translationof Nested staff groups
 
 @cindex staff, nested (ネストされた譜)
-@cindex staves, nested (ネストされた譜)
 @cindex nesting of staves (譜をネストする)
-@cindex system start delimiters, nested (ネストされたシステムの開始境界線)
-@cindex nested staff brackets (ネストされた譜の角括弧)
-@cindex brackets, nesting of (角括弧をネストする)
-@cindex braces, nesting of (波括弧をネストする)
+@cindex system start delimiter, nested (ネストされたシステムの開始境界線)
+@cindex nested staff bracket (ネストされた譜の角括弧)
+@cindex bracket, nesting of (角括弧をネストする)
+@cindex brace, nesting of (波括弧をネストする)
 
 譜グループ化コンテキストは任意の深さにネストすることができます。@c
 そうした場合、それぞれの子コンテキストは、@c
@@ -412,11 +416,11 @@
 @translationof Staff symbol
 
 @cindex staff symbol (譜シンボル)
-@cindex staff lines, stopping and starting (譜線を停止、開始する)
-@cindex staff lines, modifying (譜線を変更する)
-@cindex ledger lines (加線)
-@cindex ledger lines, internal (内部の加線)
-@cindex ledger lines, modifying (加線を変更する)
+@cindex staff line, stopping and starting (譜線を停止、開始する)
+@cindex staff line, modifying (譜線を変更する)
+@cindex ledger line (加線)
+@cindex ledger line, internal (内部の加線)
+@cindex ledger line, modifying (加線を変更する)
 
 @funindex \startStaff
 @funindex \stopStaff
@@ -583,7 +587,7 @@
 
 @cindex staff, Frenched (隠された譜)
 @cindex ossia (オッシア)
-@cindex Frenched staves (隠された譜)
+@cindex Frenched staff (隠された譜)
 @cindex staff, resizing of (譜をリサイズする)
 @cindex resizing of staves (譜をリサイズする)
 
@@ -705,6 +709,12 @@
 
 @snippets
 
+@cindex ossia, positioning (オッシアの配置)
+@cindex lyrics, positioning (歌詞の配置)
+@cindex position, lyrics (歌詞の配置)
+@cindex position, ossia (オッシアの配置)
+@funindex alignBelowContext
+@funindex alignAboveContext
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {vertically-aligning-ossias-and-lyrics.ly}
 
@@ -741,7 +751,7 @@
 @cindex hiding ancient staves (古代譜を隠す)
 @cindex hiding rhythmic staves (リズム譜を隠す)
 @cindex hiding vaticana staves (バチカン版スタイルの譜を隠す)
-@cindex empty staves (空の譜)
+@cindex empty staff (空の譜)
 
 @funindex \RemoveEmptyStaves
 @funindex \RemoveAllEmptyStaves
@@ -869,8 +879,8 @@
 @unnumberedsubsubsec 楽器名
 @translationof Instrument names
 
-@cindex instrument names (楽器名)
-@cindex instrument names, short (短縮楽器名)
+@cindex instrument name (楽器名)
+@cindex instrument name, short (短縮楽器名)
 
 @code{Staff}, @code{PianoStaff}, @code{StaffGroup}, @code{GrandStaff}
 それに @code{ChoirStaff} コンテキストの中にある譜の左側に、@c
@@ -888,7 +898,7 @@
 }
 @end lilypond
 
-@cindex instrument names, complex (複雑な楽器名)
+@cindex instrument name, complex (複雑な楽器名)
 
 @code{\markup} を用いて、より複雑な楽器名を作成することができます:
 
@@ -904,7 +914,7 @@
 }
 @end lilypond
 
-@cindex instrument names, centering (楽器名を中央揃えする)
+@cindex instrument name, centering (楽器名を中央揃えする)
 
 2 つ以上の譜コンテキストがグループ化されている場合、@c
 デフォルトでは楽器名と短縮楽器名は中央揃えされます。@c
@@ -960,15 +970,15 @@
 }
 @end lilypond
 
-@cindex instrument names, adding to other contexts (楽器名を他のコンテキストに付け加える)
+@cindex instrument name, adding to other contexts (楽器名を他のコンテキストに付け加える)
 
 楽器名を他のコンテキスト (@code{ChordNames} や @code{FiguredBass} など)
 に付け加えるには、
 そのコンテキストに @code{Instrument_name_engraver} を追加する必要があります。@c
 詳細は @ref{Modifying context plug-ins} を参照してください。
 
-@cindex instrument names, changing (楽器名を変更する)
-@cindex changing instrument names (楽器名を変更する)
+@cindex instrument name, changing (楽器名を変更する)
+@cindex changing instrument name (楽器名を変更する)
 
 楽曲の途中で @code{shortInstrumentName} や、新しい楽器に必要なその他の設定を@c
 変更することもできます。@c
@@ -1029,9 +1039,9 @@ setFlute = {
 @translationof Quoting other voices
 
 @cindex quote, voices (ボイスの引用)
-@cindex voices, quoting (ボイスを引用する)
-@cindex fragments, quoting (楽曲の断片を引用する)
-@cindex cue notes (演奏指示音符)
+@cindex voice, quoting (ボイスを引用する)
+@cindex fragment, quoting (楽曲の断片を引用する)
+@cindex cue note (演奏指示音符)
 
 @funindex \addQuote
 @funindex \quoteDuring
@@ -1154,12 +1164,12 @@ oboeNotes = \relative {
 }
 @end lilypond
 
-@cindex note-event
-@cindex articulation-event
-@cindex dynamic-event
-@cindex rest-event
-@cindex slur-event
-@cindex crescendo-event
+@funindex note-event
+@funindex articulation-event
+@funindex dynamic-event
+@funindex rest-event
+@funindex slur-event
+@funindex crescendo-event
 
 @funindex quotedEventTypes
 @funindex quotedCueEventTypes
@@ -1225,20 +1235,21 @@ LilyPond がクラッシュする可能性さえあります。
 @unnumberedsubsubsec 合図音符をフォーマットする
 @translationof Formatting cue notes
 
-@cindex cue notes (合図音符)
-@cindex fragments (楽曲の断片)
-@cindex cue notes, formatting (合図音符をフォーマットする)
+@cindex cue note (合図音符)
+@cindex fragment (楽曲の断片)
+@cindex cue note, formatting (合図音符をフォーマットする)
 @cindex formatting, cue notes (合図音符をフォーマットする)
-@cindex voices, quoting(ボイスを引用する)
+@cindex voice, quoting(ボイスを引用する)
 
 @funindex \cueDuring
 @funindex \cueClef
+@funindex \cueClefUnset
 @funindex \cueDuringWithClef
 @funindex \quoteDuring
 
-@cindex notes, smaller (小さな音符)
-@cindex smaller notes (小さな音符)
-@cindex CueVoice
+@cindex note, smaller (小さな音符)
+@cindex smaller note (小さな音符)
+@funindex CueVoice
 
 合図音符をフォーマットする最も簡単な方法は、@c
 パートの中で明示的に @code{CueVoice} コンテキストを作成することです。
@@ -1302,13 +1313,13 @@ LilyPond がクラッシュする可能性さえあります。
 構文は以下の通りです:
 
 @example
-\cueDuring #@var{quotename} #@var{direction} #@var{music}
+\cueDuring @var{quotename} #@var{direction} @var{music}
 @end example
 
 と
 
 @example
-\cueDuringWithClef #@var{quotename} #@var{direction} #@var{clef} #@var{music}
+\cueDuringWithClef @var{quotename} #@var{direction} #@var{clef} @var{music}
 @end example
 
 @code{@var{quotename}} に対応する小節の音楽は
@@ -1455,7 +1466,7 @@ bassClarinetNotes = \relative c' {
 @end lilypond
 
 @cindex removing cue notes (合図音符を削除する)
-@cindex cue notes, removing (合図音符を削除する)
+@cindex cue note, removing (合図音符を削除する)
 
 @funindex \killCues
 
@@ -1501,11 +1512,6 @@ bassoonNotes = \relative c {
   }
 >>
 @end lilypond
-
-あるいはまた、音部変更や楽器ラベルを再利用するために、@c
-@code{\addInstrumentDefinition} を用いて楽器の定義に含めることができます。@c
-@code{\addInstrumentDefinition} についての説明は
-@ref{Instrument names} を参照してください。
 
 @seealso
 記譜法リファレンス:

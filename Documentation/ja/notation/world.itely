@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: fdc83c8d7ca8322fc49cae1f3231d6de4874bb5d
+    Translation of GIT committish: fce9b78cb834ad4d5ef27f8ebe7ab2352823ff1d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -121,10 +121,9 @@
 @unnumberedsubsubsec アラブ音楽のためのリファレンス
 @translationof References for Arabic music
 
-@cindex Arabic music
-@cindex medium intervals
-@cindex maqam
-@cindex maqams
+@cindex Arabic music (アラブ音楽)
+@cindex medium interval (中間音程)
+@cindex maqam (マカーム)
 
 アラブ音楽は主に口伝えで伝えられてきました。@c
 音楽を記述するときは、演奏者が多くを即興することを前提とした@c
@@ -198,7 +197,9 @@
 
 
 @cindex Arabic semi-flat symbol (アラブ音楽での半フラット記号)
-@cindex Semi-flat symbol appearance (半フラット記号の見た目)
+@cindex semi-flat symbol appearance (半フラット記号の見た目)
+
+@funindex \dwn
 
 半フラットの記号は、アラブ音楽の記譜法で用いられる記号と一致しません。@c
 特殊なアラブ音楽の半フラット記号を用いることが重要である場合は、@c
@@ -324,6 +325,7 @@ nawa は以下のように示すことができます:
 
 @snippets
 
+@c XXX also included in `pitches.itely'
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {non-traditional-key-signatures.ly}
 
@@ -356,7 +358,7 @@ nawa は以下のように示すことができます:
 @translationof Arabic time signatures
 
 @cindex Arabic time signatures (アラブ音楽での拍子記号)
-@cindex Semai form (セマーイー形式)
+@cindex semai form (セマーイー形式)
 @cindex taqasim (タクシーム)
 
 アラブ音楽とトルコ音楽の伝統的な形式
@@ -372,6 +374,8 @@ nawa は以下のように示すことができます:
 
 @snippets
 
+@cindex Arabic improvisation (アラブ音楽の即興)
+@cindex improvisation, Arabic (アラブ音楽の即興)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {arabic-improvisation.ly}
 
@@ -399,7 +403,7 @@ nawa は以下のように示すことができます:
 
 @cindex Arabic music example (アラブ音楽の例)
 @cindex Arabic music template (アラブ音楽のテンプレート)
-@cindex Template Arabic music (アラブ音楽のテンプレート)
+@cindex template Arabic music (アラブ音楽のテンプレート)
 
 
 ここで、トルコの @notation{セマーイー} (@notation{Semai}) の始めの部分を使った@c
@@ -500,7 +504,7 @@ Ibrahim Ali Darwish Al-masri
 
 @cindex Turkish music (トルコ音楽)
 @cindex Ottoman music (オスマン音楽)
-@cindex comma intervals (コンマ音程)
+@cindex comma interval (コンマ音程)
 @cindex makam (マカーム)
 @cindex makamlar (マカーム)
 
@@ -529,7 +533,7 @@ Ibrahim Ali Darwish Al-masri
 @unnumberedsubsubsec トルコ音楽の音符名
 @translationof Turkish note names
 
-@cindex Turkish note names (トルコ音楽の音符名)
+@cindex Turkish note name (トルコ音楽の音符名)
 @cindex makam (マカーム)
 @cindex makamlar (マカーム)
 

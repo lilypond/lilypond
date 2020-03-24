@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: eb38c33a95cbe6adf9f176dfbb794373ec062605
+    Translation of GIT committish: fce9b78cb834ad4d5ef27f8ebe7ab2352823ff1d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -186,15 +186,15 @@ LilyPond は以下の種類の繰り返しをサポートします:
 余計な譜が表示されます。@c
 @rprogram{余計な譜が表示される} を参照してください。}
 
-@cindex repeat with upbeat (上拍を持つ繰り返し)
-@cindex upbeat in a repeat (繰り返しの中にある上拍)
-@cindex anacrusis in a repeat (繰り返しの中にある弱拍)
-@cindex repeat with anacrusis (弱拍を持つ繰り返し)
-@cindex repeat with pickup (ピックアップを持つ繰り返し)
-@cindex pickup in a repeat (繰り返しの中にあるピックアップ)
+@cindex repeat, with upbeat (上拍を持つ繰り返し)
+@cindex upbeat, in a repeat (繰り返しの中にある上拍)
+@cindex anacrusis, in a repeat (繰り返しの中にある弱拍)
+@cindex repeat, with anacrusis (弱拍を持つ繰り返し)
+@cindex repeat, with pickup (ピックアップを持つ繰り返し)
+@cindex pickup, in a repeat (繰り返しの中にあるピックアップ)
 @funindex \partial
-@cindex bar checks with repeats (小節チェックと繰り返し)
-@cindex repeats with bar checks (繰り返しと小節チェック)
+@cindex bar check, with repeats (小節チェックと繰り返し)
+@cindex repeat, with bar checks (繰り返しと小節チェック)
 
 入れ替えの無い繰り返しが小節の途中で始まる場合、通常は後の小節の対応する@c
 中間部分で終了します (開始部分と終了部分で 1 つの完全な小節が作られます)。@c
@@ -229,10 +229,10 @@ c'4 e g
   g1 |
 @end lilypond
 
-@cindex repeats, with ties (タイを持つ繰り返し)
-@cindex alternative endings, with ties (タイを持つ繰り返しの入れ替え部分)
-@cindex ties, in repeats (繰り返しの中にあるタイ)
-@cindex ties, alternative endings (タイと繰り返しの入れ替え部分)
+@cindex repeat, with ties (タイを持つ繰り返し)
+@cindex alternative ending, with ties (タイを持つ繰り返しの入れ替え部分)
+@cindex tie, in repeats (繰り返しの中にあるタイ)
+@cindex tie, alternative endings (タイと繰り返しの入れ替え部分)
 @funindex \repeatTie
 
 タイを 2 つ目の終了部に追加することができます:
@@ -249,7 +249,7 @@ c'4 e g
 @end lilypond
 
 @funindex \inStaffSegno
-@cindex repeats, with segno (セーニョを持つ繰り返し)
+@cindex repeat, with segno (セーニョを持つ繰り返し)
 @cindex segno, with repeats (繰り返しを持つセーニョ)
 
 @code{\inStaffSegno} コマンドは、@code{\repeat volta} コマンドと一緒に@c
@@ -335,18 +335,26 @@ c'4 e g
 
 @snippets
 
+@cindex volta bracket, shortened (短縮された繰り返し括弧)
+@cindex shortened volta brackets (短縮された繰り返し括弧)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {shortening-volta-brackets.ly}
 
+@cindex volta bracket, in additional staves (他の譜における繰り返し括弧)
+@funindex Volta_engraver
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adding-volta-brackets-to-additional-staves.ly}
 
+@cindex repeat, double, style for volta (二重繰り返しのスタイル)
+@cindex volta, double repeat style (二重繰り返しのスタイル)
+@cindex style, double repeat for volta (二重繰り返しのスタイル)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {setting-the-double-repeat-default-for-volte.ly}
 
-@cindex repeats, bar numbers letters (繰り返しでの小節番号)
-@cindex repeats, alternative bar numbers (入れ替え部分での小節番号)
-
+@cindex repeat, bar numbers with letters (繰り返しでの小節番号)
+@cindex bar number, with letter, in repeat (繰り返しでの小節番号)
+@cindex repeat, alternative bar numbers (繰り返しでの異なる小節番号)
+@cindex bar number, alternative, in repeat (繰り返しでの異なる小節番号)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {alternative-bar-numbering.ly}
 
@@ -377,14 +385,14 @@ c'4 e g
 @cindex repeat, ambiguous (あいまいな繰り返し)
 @cindex nested repeat (ネストされた繰り返し)
 @cindex repeat, nested (ネストされた繰り返し)
-@cindex repeat timing information (繰り返しタイミング情報)
-@cindex repeat and measure number (繰り返しと小節番号)
+@cindex repeat, timing information (繰り返しタイミング情報)
+@cindex repeat, and measure number (繰り返しと小節番号)
 @cindex timing information and repeats (タイミング情報と繰り返し)
-@cindex measure number and repeats (小節番号と繰り返し)
-@cindex repeats and slur (繰り返しとスラー)
-@cindex slur and repeats (スラーと繰り返し)
-@cindex glissandi and repeats (グリッサンドと繰り返し)
-@cindex repeats and glissandi (繰り返しとグリッサンド)
+@cindex measure number, and repeats (小節番号と繰り返し)
+@cindex repeat, and slur (繰り返しとスラー)
+@cindex slur, and repeats (スラーと繰り返し)
+@cindex glissando, and repeats (グリッサンドと繰り返し)
+@cindex repeat, and glissandi (繰り返しとグリッサンド)
 
 @code{\repeat} ブロックから @code{\alternative} ブロックまで続くスラーは、@c
 最初の入れ替え部分に対してのみ機能します。@c
@@ -512,8 +520,8 @@ Volta 囲みは明示的に終了させる必要があります。@c
 }
 @end lilypond
 
-@cindex volta bracket with text (テキストを持つ volta 囲み)
-@cindex text in volta bracket (volta 囲みの中にあるテキスト)
+@cindex volta bracket, with text (テキストを持つ volta 囲み)
+@cindex text, in volta bracket (volta 囲みの中にあるテキスト)
 
 テキストを volta 囲みに含めることができます。@c
 テキストに使用できるのは数字やマークアップ テキストです。@c
@@ -553,14 +561,14 @@ voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 @unnumberedsubsubsec 繰り返しを描き出す
 @translationof Written-out repeats
 
-@cindex written-out repeats (繰り返しを描き出す)
-@cindex repeats, written-out (繰り返しを描き出す)
-@cindex repeats, unfold (繰り返しを展開する)
-@cindex repeats, alternative (繰り返しの入れ替え)
+@cindex written-out repeat (繰り返しを描き出す)
+@cindex repeat, written-out (繰り返しを描き出す)
+@cindex repeat, unfold (繰り返しを展開する)
+@cindex repeat, alternative (繰り返しの入れ替え)
 @cindex unfold repeat (繰り返しを展開する)
 @cindex unfold repeat, with alternate endings (入れ替え部分のある繰り返しを展開する)
-@cindex alternate repeats (入れ替えのある繰り返し)
-@cindex alternate endings, repeats (繰り返しを入れ替えて終わる)
+@cindex alternate repeat (入れ替えのある繰り返し)
+@cindex alternate ending, repeats (繰り返しを入れ替えて終わる)
 @funindex unfold
 
 @code{unfold} コマンドを用いることにより、@c
@@ -693,8 +701,8 @@ a'4 b c | a'4 b c
 @unnumberedsubsubsec パーセント繰り返し
 @translationof Percent repeats
 
-@cindex percent repeats (パーセント繰り返し)
-@cindex measure repeats (小節の繰り返し)
+@cindex percent repeat (パーセント繰り返し)
+@cindex measure repeat (小節の繰り返し)
 @cindex repeat, percent (パーセント繰り返し)
 @cindex repeat, measure (小節の繰り返し)
 @cindex repeat, short (短い繰り返し)
@@ -755,14 +763,26 @@ a'4 b c | a'4 b c
 
 @snippets
 
+@cindex percent repeat counter (パーセント繰り返しのカウンタ)
+@cindex counter, percent repeat (パーセント繰り返しのカウンタ)
+@cindex repeat, percent counter (パーセント繰り返しのカウンタ)
+@funindex countPercentRepeats
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {percent-repeat-counter.ly}
 
+@cindex percent repeat, count visibility (パーセント繰り返しのカウンタの可視性)
+@cindex count visibility of percent repeats (パーセント繰り返しのカウンタの可視性)
+@cindex repeat, percent, count visibility (パーセント繰り返しのカウンタの可視性)
+@funindex repeatCountVisibility
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {percent-repeat-count-visibility.ly}
 
+@cindex percent repeat, isolated (独立したパーセント繰り返し)
+@cindex isolated percent repeat (独立したパーセント繰り返し)
+@cindex repeat, percent, isolated (独立したパーセント繰り返し)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {isolated-percent-repeats.ly}
+
 
 @seealso
 音楽用語集:
@@ -811,7 +831,7 @@ a'4 b c | a'4 b c
 @unnumberedsubsubsec トレモロの繰り返し
 @translationof Tremolo repeats
 
-@cindex tremolo beams (トレモロの連桁)
+@cindex tremolo beam (トレモロの連桁)
 @cindex tremolo (トレモロ)
 @cindex repeat, tremolo (トレモロの繰り返し)
 @funindex \repeat tremolo
@@ -856,7 +876,7 @@ a'4 b c | a'4 b c
 \repeat tremolo 4 c'16
 @end lilypond
 
-@cindex tremolo marks (トレモロ記号)
+@cindex tremolo mark (トレモロ記号)
 @funindex :
 
 音符の後に @code{:@var{N}} を付け加えることによって@c
@@ -875,12 +895,11 @@ a'4 b c | a'4 b c
 
 @snippets
 
+@cindex tremolo, cross-staff (譜を跨ぐトレモロ)
+@cindex cross-staff tremolo (譜を跨ぐトレモロ)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {cross-staff-tremolos.ly}
 
 @seealso
 コード断片集:
 @rlsr{Repeats}
-
-@cindex tremolo, cross-staff (譜を跨ぐトレモロ)
-@cindex cross-staff tremolo (譜を跨ぐトレモロ)
