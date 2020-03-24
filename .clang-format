@@ -7,6 +7,9 @@ Language:        Cpp
 AlwaysBreakAfterReturnType: TopLevelDefinitions
 BreakBeforeBinaryOperators: All
 BreakBeforeBraces: GNU
+ConstructorInitializerIndentWidth: 2
+ContinuationIndentWidth: 2
+SpaceAfterCStyleCast: true
 SpaceBeforeParens: Always
 ReflowComments: false
 ...
