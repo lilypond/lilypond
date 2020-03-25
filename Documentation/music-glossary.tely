@@ -428,6 +428,7 @@ Languages in this order.
 * upbeat::
 * voice::
 * volta::
+* vowel transition::
 * weak beat::
 * whole note::
 * whole rest::
@@ -8327,6 +8328,25 @@ FI: yksi kertauksen maaleista.
 [Italian: @q{time} (instance, not duration)]  An ending, such as a first
 or second ending.  LilyPond extends this idea to any number, and allows any text
 (not just a number) -- to serve as the @notation{volta} text.
+
+@seealso
+No cross-references.
+
+
+@node vowel transition
+@section vowel transition
+
+ES: ?,
+I: ?,
+F: ?,
+D: Vokalwechsel,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+A gradual change of vowel or sustained consonant, usually
+indicated by an arrow between syllables (see Gould, pp. 452--453).
 
 @seealso
 No cross-references.

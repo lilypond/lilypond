@@ -69,6 +69,15 @@ possible confusion with @code{\compressMMRests}.
 Likewise, @code{\expandFullBarRests} has now become
 @code{\expandEmptyMeasures}.
 
+@item
+A gradual change of vowel (or sustained consonant) may
+be indicated by adding a vowel transition between lyric
+syllables with the command @code{\vowelTransition}.
+@lilypond[verbatim,quote]
+{ g'2 g' }
+\addlyrics { Ah \vowelTransition oh. }
+@end lilypond
+
 
 @item
 LilyPond for Windows (MinGW) can handle Unicode filenames

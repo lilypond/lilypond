@@ -205,6 +205,7 @@
    ly:vaticana-ligature::brew-ligature-primitive
    ly:vaticana-ligature::print
    ly:volta-bracket-interface::print
+   ly:vowel-transition::set-spacing-rods
    ))
 
 (define-public (make-safe-lilypond-module)

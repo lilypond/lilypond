@@ -755,6 +755,12 @@ allowVoltaHook =
   (_i "Allow the volta bracket hook being drawn over bar line @var{bar}.")
                        (allow-volta-hook bar))
 
+
+%% vowel transitions
+
+vowelTransition = #(make-music 'VowelTransitionEvent)
+
+
 %% x notes
 
 #(define (cross-style grob)

@@ -681,6 +681,11 @@ Syntax: @code{\\times @var{fraction} @var{music}}, e.g.,
         (types . (event time-signature-event))
         ))
 
+    (VowelTransitionEvent
+     . ((description . "A vowel transition between lyric syllables.")
+        (types . (post-event vowel-transition-event event))
+        ))
+
     (TransposedMusic
      . ((description . "Music that has been transposed.")
         (iterator-ctor . ,ly:music-wrapper-iterator::constructor)

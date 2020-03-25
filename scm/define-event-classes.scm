@@ -40,7 +40,8 @@
                     note-grouping-event pes-or-flexa-event repeat-tie-event
                     spacing-section-event layout-instruction-event
                     time-signature-event
-                    completize-extender-event break-span-event alternative-event))
+                    completize-extender-event break-span-event alternative-event
+                    vowel-transition-event))
 
     (layout-instruction-event . (apply-output-event))
     (script-event . (articulation-event text-script-event))
