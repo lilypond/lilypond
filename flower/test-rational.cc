@@ -124,23 +124,27 @@ TEST (Rational_test, init_zero_over_zero)
     }
 }
 
-#if 0 // TODO: Rational (positive, 0) -> +infinity
 TEST (Rational_test, init_pos_over_zero)
 {
   const Rational r (123, 0);
   EQUAL (1, r.sign ());
   CHECK (r.is_infinity ());
-}
-#endif
 
-#if 0 // TODO: Rational (negative, 0) -> -infinity
+  const auto d = static_cast<double> (r);
+  CHECK (std::isinf (d));
+  CHECK (!std::signbit (d));
+}
+
 TEST (Rational_test, init_neg_over_zero)
 {
   const Rational r (-123, 0);
   EQUAL (-1, r.sign ());
   CHECK (r.is_infinity ());
+
+  const auto d = static_cast<double> (r);
+  CHECK (std::isinf (d));
+  CHECK (std::signbit (d));
 }
-#endif
 
 TEST (Rational_test, init_float_zero)
 {
