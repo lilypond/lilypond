@@ -278,6 +278,12 @@ Rational::Rational (double x)
 {
   if (x != 0.0)
     {
+      if (std::isinf (x))
+        {
+          set_infinite (::sign (x));
+          return;
+        }
+
       sign_ = ::sign (x);
       x *= sign_;
 
